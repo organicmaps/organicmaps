@@ -1041,6 +1041,14 @@
 	<string name="type.entrance.main">Главный вход</string>
 	<string name="type.healthcare.laboratory">Медицинская лаборатория</string>
 	<string name="type.healthcare.physiotherapist">Физиотерапевт</string>
+	<string name="type.healthcare.alternative">Альтернативная медицина</string>
+	<string name="type.healthcare.audiologist">Аудиология</string>
+	<string name="type.healthcare.blood_donation">Центр донорства крови</string>
+	<string name="type.healthcare.optometrist">Оптометрия</string>
+	<string name="type.healthcare.podiatrist">Подиатрия</string>
+	<string name="type.healthcare.psychotherapist">Психотерапия</string>
+	<string name="type.healthcare.sample_collection">Сбор анализов</string>
+	<string name="type.healthcare.speech_therapist">Логопедия</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Дорога</string>

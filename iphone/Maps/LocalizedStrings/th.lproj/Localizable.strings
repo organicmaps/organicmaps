@@ -1859,6 +1859,22 @@
 
 "type.healthcare.physiotherapist" = "นักกายภาพบำบัด";
 
+"type.healthcare.alternative" = "การแพทย์ทางเลือก";
+
+"type.healthcare.audiologist" = "โสตวิทยา";
+
+"type.healthcare.blood_donation" = "ศูนย์รับบริจาคโลหิต";
+
+"type.healthcare.optometrist" = "ทัศนมาตรศาสตร์";
+
+"type.healthcare.podiatrist" = "แก้โรคเท้า";
+
+"type.healthcare.psychotherapist" = "จิตบำบัด";
+
+"type.healthcare.sample_collection" = "การสุ่มตัวอย่าง";
+
+"type.healthcare.speech_therapist" = "การบำบัดด้วยการพูด";
+
 
 /********** Types: Roads **********/
 

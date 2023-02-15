@@ -833,6 +833,14 @@
 	<string name="type.entrance.main">ﯽﻠﺻﺍ ﯼﺩﻭﺭﻭ</string>
 	<string name="type.healthcare.laboratory">ﯽﮑﺷﺰﭘ ﻩﺎﮕﺸﯾﺎﻣﺯﺁ</string>
 	<string name="type.healthcare.physiotherapist">فیزیوتراپیست</string>
+	<string name="type.healthcare.alternative">طب جایگزین</string>
+	<string name="type.healthcare.audiologist">شنوایی شناسی</string>
+	<string name="type.healthcare.blood_donation">مرکز اهدای خون</string>
+	<string name="type.healthcare.optometrist">بینایی سنجی</string>
+	<string name="type.healthcare.podiatrist">پزشکی پا</string>
+	<string name="type.healthcare.psychotherapist">روان درمانی</string>
+	<string name="type.healthcare.sample_collection">نمونه برداری</string>
+	<string name="type.healthcare.speech_therapist">گفتار درمانی</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

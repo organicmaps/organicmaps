@@ -930,6 +930,14 @@
 	<string name="type.entrance.main">Hlavní vchod</string>
 	<string name="type.healthcare.laboratory">Lékařská laboratoř</string>
 	<string name="type.healthcare.physiotherapist">Fyzioterapeut</string>
+	<string name="type.healthcare.alternative">Alternativní medicína</string>
+	<string name="type.healthcare.audiologist">Audiologie</string>
+	<string name="type.healthcare.blood_donation">Centrum dárcovství krve</string>
+	<string name="type.healthcare.optometrist">Optometrie</string>
+	<string name="type.healthcare.podiatrist">Podiatrie</string>
+	<string name="type.healthcare.psychotherapist">Psychoterapie</string>
+	<string name="type.healthcare.sample_collection">Odběr vzorků</string>
+	<string name="type.healthcare.speech_therapist">Logopedie</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

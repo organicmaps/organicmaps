@@ -1859,6 +1859,22 @@
 
 "type.healthcare.physiotherapist" = "Mtaalamu wa Physiotherapist";
 
+"type.healthcare.alternative" = "Dawa mbadala";
+
+"type.healthcare.audiologist" = "Mtaalamu wa kusikia";
+
+"type.healthcare.blood_donation" = "Kituo cha Uchangiaji Damu";
+
+"type.healthcare.optometrist" = "Optometry";
+
+"type.healthcare.podiatrist" = "Matibabu ya miguu";
+
+"type.healthcare.psychotherapist" = "Tiba ya kisaikolojia";
+
+"type.healthcare.sample_collection" = "Sampuli";
+
+"type.healthcare.speech_therapist" = "Tiba ya hotuba";
+
 
 /********** Types: Roads **********/
 

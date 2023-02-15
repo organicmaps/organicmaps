@@ -1859,6 +1859,22 @@
 
 "type.healthcare.physiotherapist" = "Fizioterapeut";
 
+"type.healthcare.alternative" = "Medicină alternativă";
+
+"type.healthcare.audiologist" = "Audiologie";
+
+"type.healthcare.blood_donation" = "Centrul de donare de sânge";
+
+"type.healthcare.optometrist" = "Optometrie";
+
+"type.healthcare.podiatrist" = "Podiatrie";
+
+"type.healthcare.psychotherapist" = "Psihoterapie";
+
+"type.healthcare.sample_collection" = "Eșantionare";
+
+"type.healthcare.speech_therapist" = "Logopedie";
+
 
 /********** Types: Roads **********/
 

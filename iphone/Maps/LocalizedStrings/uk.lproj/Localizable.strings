@@ -1859,6 +1859,22 @@
 
 "type.healthcare.physiotherapist" = "Фізіотерапевт";
 
+"type.healthcare.alternative" = "Альтернативна медицина";
+
+"type.healthcare.audiologist" = "Аудіологія";
+
+"type.healthcare.blood_donation" = "Центр донорства крові";
+
+"type.healthcare.optometrist" = "Оптометрія";
+
+"type.healthcare.podiatrist" = "Подологія";
+
+"type.healthcare.psychotherapist" = "Психотерапія";
+
+"type.healthcare.sample_collection" = "Збір аналізів";
+
+"type.healthcare.speech_therapist" = "Логопедія";
+
 
 /********** Types: Roads **********/
 

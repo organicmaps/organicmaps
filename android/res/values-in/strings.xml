@@ -912,6 +912,14 @@
 	<string name="type.entrance.main">Pintu masuk utama</string>
 	<string name="type.healthcare.laboratory">Laboratorium medis</string>
 	<string name="type.healthcare.physiotherapist">Fisioterapis</string>
+	<string name="type.healthcare.alternative">Pengobatan alternatif</string>
+	<string name="type.healthcare.audiologist">Audiologi</string>
+	<string name="type.healthcare.blood_donation">Pusat Donor Darah</string>
+	<string name="type.healthcare.optometrist">Optometri</string>
+	<string name="type.healthcare.podiatrist">Podiatri</string>
+	<string name="type.healthcare.psychotherapist">Psikoterapi</string>
+	<string name="type.healthcare.sample_collection">Pengambilan sampel</string>
+	<string name="type.healthcare.speech_therapist">Logopedik</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

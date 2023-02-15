@@ -978,6 +978,14 @@
 	<string name="type.entrance.main">Sarrera Nagusia</string>
 	<string name="type.healthcare.laboratory">Medikuntza laborategia</string>
 	<string name="type.healthcare.physiotherapist">Fisioterapeuta</string>
+	<string name="type.healthcare.alternative">Medikuntza alternatiboa</string>
+	<string name="type.healthcare.audiologist">Audiologia</string>
+	<string name="type.healthcare.blood_donation">Odol Emate Zentroa</string>
+	<string name="type.healthcare.optometrist">Optometria</string>
+	<string name="type.healthcare.podiatrist">Podologia</string>
+	<string name="type.healthcare.psychotherapist">Psikoterapia</string>
+	<string name="type.healthcare.sample_collection">Laginketa</string>
+	<string name="type.healthcare.speech_therapist">Logopedia</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

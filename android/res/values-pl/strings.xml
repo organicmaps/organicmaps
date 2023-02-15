@@ -1008,6 +1008,14 @@
 	<string name="type.entrance.main">Główne wejście</string>
 	<string name="type.healthcare.laboratory">Laboratorium Medyczne</string>
 	<string name="type.healthcare.physiotherapist">Fizjoterapeuta</string>
+	<string name="type.healthcare.alternative">Medycyna alternatywna</string>
+	<string name="type.healthcare.audiologist">Audiologia</string>
+	<string name="type.healthcare.blood_donation">Centrum krwiodawstwa</string>
+	<string name="type.healthcare.optometrist">Optometria</string>
+	<string name="type.healthcare.podiatrist">Podiatria</string>
+	<string name="type.healthcare.psychotherapist">Psychoterapia</string>
+	<string name="type.healthcare.sample_collection">Próbkowanie</string>
+	<string name="type.healthcare.speech_therapist">Logopeda</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Droga</string>

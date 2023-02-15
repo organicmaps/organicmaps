@@ -1859,6 +1859,22 @@
 
 "type.healthcare.physiotherapist" = "물리치료사";
 
+"type.healthcare.alternative" = "대체 약품";
+
+"type.healthcare.audiologist" = "청력학";
+
+"type.healthcare.blood_donation" = "헌혈센터";
+
+"type.healthcare.optometrist" = "검안";
+
+"type.healthcare.podiatrist" = "발병학";
+
+"type.healthcare.psychotherapist" = "심리치료";
+
+"type.healthcare.sample_collection" = "견본 추출";
+
+"type.healthcare.speech_therapist" = "대화 요법";
+
 
 /********** Types: Roads **********/
 

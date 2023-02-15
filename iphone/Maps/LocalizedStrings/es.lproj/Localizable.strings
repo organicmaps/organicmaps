@@ -1859,6 +1859,22 @@
 
 "type.healthcare.physiotherapist" = "Fisioterapeuta";
 
+"type.healthcare.alternative" = "Medicina alternativa";
+
+"type.healthcare.audiologist" = "Audiología";
+
+"type.healthcare.blood_donation" = "Centro de donación de sangre";
+
+"type.healthcare.optometrist" = "Optometría";
+
+"type.healthcare.podiatrist" = "Podología";
+
+"type.healthcare.psychotherapist" = "Psicoterapia";
+
+"type.healthcare.sample_collection" = "Muestreo";
+
+"type.healthcare.speech_therapist" = "Logopedia";
+
 
 /********** Types: Roads **********/
 

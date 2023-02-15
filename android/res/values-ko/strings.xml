@@ -917,6 +917,14 @@
 	<string name="type.entrance.main">정문</string>
 	<string name="type.healthcare.laboratory">의료 연구실</string>
 	<string name="type.healthcare.physiotherapist">물리치료사</string>
+	<string name="type.healthcare.alternative">대체 약품</string>
+	<string name="type.healthcare.audiologist">청력학</string>
+	<string name="type.healthcare.blood_donation">헌혈센터</string>
+	<string name="type.healthcare.optometrist">검안</string>
+	<string name="type.healthcare.podiatrist">발병학</string>
+	<string name="type.healthcare.psychotherapist">심리치료</string>
+	<string name="type.healthcare.sample_collection">견본 추출</string>
+	<string name="type.healthcare.speech_therapist">대화 요법</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

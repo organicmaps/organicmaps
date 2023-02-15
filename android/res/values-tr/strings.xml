@@ -1026,6 +1026,14 @@
 	<string name="type.entrance.main">Ana giriş</string>
 	<string name="type.healthcare.laboratory">Tıbbi Laboratuvar</string>
 	<string name="type.healthcare.physiotherapist">Fizyoterapist</string>
+	<string name="type.healthcare.alternative">Alternatif tıp</string>
+	<string name="type.healthcare.audiologist">Odyoloji</string>
+	<string name="type.healthcare.blood_donation">Kan Bağışı Merkezi</string>
+	<string name="type.healthcare.optometrist">Optometri</string>
+	<string name="type.healthcare.podiatrist">Podiatri</string>
+	<string name="type.healthcare.psychotherapist">Psikoterapi</string>
+	<string name="type.healthcare.sample_collection">Örnekleme</string>
+	<string name="type.healthcare.speech_therapist">Logopedi</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Otoyol</string>

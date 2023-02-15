@@ -920,6 +920,14 @@
 	<string name="type.entrance.main">ทางเข้าหลัก</string>
 	<string name="type.healthcare.laboratory">ห้องปฏิบัติการทางการแพทย์</string>
 	<string name="type.healthcare.physiotherapist">นักกายภาพบำบัด</string>
+	<string name="type.healthcare.alternative">การแพทย์ทางเลือก</string>
+	<string name="type.healthcare.audiologist">โสตวิทยา</string>
+	<string name="type.healthcare.blood_donation">ศูนย์รับบริจาคโลหิต</string>
+	<string name="type.healthcare.optometrist">ทัศนมาตรศาสตร์</string>
+	<string name="type.healthcare.podiatrist">แก้โรคเท้า</string>
+	<string name="type.healthcare.psychotherapist">จิตบำบัด</string>
+	<string name="type.healthcare.sample_collection">การสุ่มตัวอย่าง</string>
+	<string name="type.healthcare.speech_therapist">การบำบัดด้วยการพูด</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

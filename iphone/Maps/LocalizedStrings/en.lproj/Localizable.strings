@@ -1859,6 +1859,22 @@
 
 "type.healthcare.physiotherapist" = "Physiotherapist";
 
+"type.healthcare.alternative" = "Alternative medicine";
+
+"type.healthcare.audiologist" = "Audiology";
+
+"type.healthcare.blood_donation" = "Blood donation center";
+
+"type.healthcare.optometrist" = "Optometry";
+
+"type.healthcare.podiatrist" = "Podiatry";
+
+"type.healthcare.psychotherapist" = "Psychotherapy";
+
+"type.healthcare.sample_collection" = "Sample collection";
+
+"type.healthcare.speech_therapist" = "Logopedics";
+
 
 /********** Types: Roads **********/
 
@@ -2277,7 +2293,7 @@
 "type.landuse.cemetery" = "Cemetery";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
-"type.landuse.cemetery.christian" = "Christian Graveyard";
+"type.landuse.cemetery.christian" = "Christian Cemetery";
 
 "type.landuse.churchyard" = "Churchyard";
 

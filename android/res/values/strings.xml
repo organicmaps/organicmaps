@@ -1061,6 +1061,14 @@
 	<string name="type.entrance.main">Main Entrance</string>
 	<string name="type.healthcare.laboratory">Medical Laboratory</string>
 	<string name="type.healthcare.physiotherapist">Physiotherapist</string>
+	<string name="type.healthcare.alternative">Alternative medicine</string>
+	<string name="type.healthcare.audiologist">Audiology</string>
+	<string name="type.healthcare.blood_donation">Blood donation center</string>
+	<string name="type.healthcare.optometrist">Optometry</string>
+	<string name="type.healthcare.podiatrist">Podiatry</string>
+	<string name="type.healthcare.psychotherapist">Psychotherapy</string>
+	<string name="type.healthcare.sample_collection">Sample collection</string>
+	<string name="type.healthcare.speech_therapist">Logopedics</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Highway</string>
@@ -1294,7 +1302,7 @@
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Cemetery</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
-	<string name="type.landuse.cemetery.christian">Christian Graveyard</string>
+	<string name="type.landuse.cemetery.christian">Christian Cemetery</string>
 	<string name="type.landuse.churchyard">Churchyard</string>
 	<string name="type.landuse.commercial">Commercial Area</string>
 	<string name="type.landuse.construction">Construction</string>

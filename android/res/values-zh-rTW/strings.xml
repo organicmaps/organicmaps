@@ -952,6 +952,14 @@
 	<string name="type.entrance.main">主要入口</string>
 	<string name="type.healthcare.laboratory">醫學實驗室</string>
 	<string name="type.healthcare.physiotherapist">物理治療師</string>
+	<string name="type.healthcare.alternative">替代藥物</string>
+	<string name="type.healthcare.audiologist">聽力學</string>
+	<string name="type.healthcare.blood_donation">捐血中心</string>
+	<string name="type.healthcare.optometrist">驗光</string>
+	<string name="type.healthcare.podiatrist">足病學</string>
+	<string name="type.healthcare.psychotherapist">心理治療</string>
+	<string name="type.healthcare.sample_collection">採樣</string>
+	<string name="type.healthcare.speech_therapist">言語治療</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

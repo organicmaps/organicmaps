@@ -1859,6 +1859,22 @@
 
 "type.healthcare.physiotherapist" = "פיזיותרפיסט";
 
+"type.healthcare.alternative" = "רפואה אלטרנטיבית";
+
+"type.healthcare.audiologist" = "אודיולוגיה";
+
+"type.healthcare.blood_donation" = "מרכז תרומת דם";
+
+"type.healthcare.optometrist" = "אופטומטריה";
+
+"type.healthcare.podiatrist" = "פודיאטריה";
+
+"type.healthcare.psychotherapist" = "פסיכותרפיה";
+
+"type.healthcare.sample_collection" = "דְגִימָה";
+
+"type.healthcare.speech_therapist" = "ריפוי בדיבור";
+
 
 /********** Types: Roads **********/
 

@@ -922,6 +922,14 @@
 	<string name="type.entrance.main">Hovedinngang</string>
 	<string name="type.healthcare.laboratory">Medisinsk laboratorium</string>
 	<string name="type.healthcare.physiotherapist">Fysioterapeut</string>
+	<string name="type.healthcare.alternative">Alternativ medisin</string>
+	<string name="type.healthcare.audiologist">Audiologi</string>
+	<string name="type.healthcare.blood_donation">Bloddonasjonssenter</string>
+	<string name="type.healthcare.optometrist">Optometri</string>
+	<string name="type.healthcare.podiatrist">Fotterapi</string>
+	<string name="type.healthcare.psychotherapist">Psykoterapi</string>
+	<string name="type.healthcare.sample_collection">Prøvetaking</string>
+	<string name="type.healthcare.speech_therapist">Snakketerapi</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bridleway">Ridevei</string>

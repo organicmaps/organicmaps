@@ -1859,6 +1859,22 @@
 
 "type.healthcare.physiotherapist" = "物理治療師";
 
+"type.healthcare.alternative" = "替代藥物";
+
+"type.healthcare.audiologist" = "聽力學";
+
+"type.healthcare.blood_donation" = "捐血中心";
+
+"type.healthcare.optometrist" = "驗光";
+
+"type.healthcare.podiatrist" = "足病學";
+
+"type.healthcare.psychotherapist" = "心理治療";
+
+"type.healthcare.sample_collection" = "採樣";
+
+"type.healthcare.speech_therapist" = "言語治療";
+
 
 /********** Types: Roads **********/
 
