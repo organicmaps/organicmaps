@@ -1859,6 +1859,22 @@
 
 "type.healthcare.physiotherapist" = "Φυσικοθεραπευτής";
 
+"type.healthcare.alternative" = "Εναλλακτική ιατρική";
+
+"type.healthcare.audiologist" = "Ακοολογία";
+
+"type.healthcare.blood_donation" = "Κέντρο αιμοδοσίας";
+
+"type.healthcare.optometrist" = "Οπτομετρία";
+
+"type.healthcare.podiatrist" = "Ποδιατρική";
+
+"type.healthcare.psychotherapist" = "Ψυχοθεραπεία";
+
+"type.healthcare.sample_collection" = "Δειγματοληψία";
+
+"type.healthcare.speech_therapist" = "Λογοθεραπεία";
+
 
 /********** Types: Roads **********/
 

@@ -937,6 +937,14 @@
 	<string name="type.entrance.main">Intrarea principala</string>
 	<string name="type.healthcare.laboratory">Laborator medical</string>
 	<string name="type.healthcare.physiotherapist">Fizioterapeut</string>
+	<string name="type.healthcare.alternative">Medicină alternativă</string>
+	<string name="type.healthcare.audiologist">Audiologie</string>
+	<string name="type.healthcare.blood_donation">Centrul de donare de sânge</string>
+	<string name="type.healthcare.optometrist">Optometrie</string>
+	<string name="type.healthcare.podiatrist">Podiatrie</string>
+	<string name="type.healthcare.psychotherapist">Psihoterapie</string>
+	<string name="type.healthcare.sample_collection">Eșantionare</string>
+	<string name="type.healthcare.speech_therapist">Logopedie</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

@@ -284,6 +284,14 @@
 	<string name="type.entrance.main">Mlango Mkuu</string>
 	<string name="type.healthcare.laboratory">Maabara ya Matibabu</string>
 	<string name="type.healthcare.physiotherapist">Mtaalamu wa Physiotherapist</string>
+	<string name="type.healthcare.alternative">Dawa mbadala</string>
+	<string name="type.healthcare.audiologist">Mtaalamu wa kusikia</string>
+	<string name="type.healthcare.blood_donation">Kituo cha Uchangiaji Damu</string>
+	<string name="type.healthcare.optometrist">Optometry</string>
+	<string name="type.healthcare.podiatrist">Matibabu ya miguu</string>
+	<string name="type.healthcare.psychotherapist">Tiba ya kisaikolojia</string>
+	<string name="type.healthcare.sample_collection">Sampuli</string>
+	<string name="type.healthcare.speech_therapist">Tiba ya hotuba</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

@@ -1859,6 +1859,22 @@
 
 "type.healthcare.physiotherapist" = "Nhà vật lý trị liệu";
 
+"type.healthcare.alternative" = "Liều thuốc thay thế";
+
+"type.healthcare.audiologist" = "Thính học";
+
+"type.healthcare.blood_donation" = "Trung tâm hiến máu";
+
+"type.healthcare.optometrist" = "Khúc xạ nhãn khoa";
+
+"type.healthcare.podiatrist" = "khoa bàn chân";
+
+"type.healthcare.psychotherapist" = "Tâm lý trị liệu";
+
+"type.healthcare.sample_collection" = "lấy mẫu";
+
+"type.healthcare.speech_therapist" = "Ngôn ngữ trị liệu";
+
 
 /********** Types: Roads **********/
 

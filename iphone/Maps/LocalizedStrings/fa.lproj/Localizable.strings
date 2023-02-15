@@ -1859,6 +1859,22 @@
 
 "type.healthcare.physiotherapist" = "فیزیوتراپیست";
 
+"type.healthcare.alternative" = "طب جایگزین";
+
+"type.healthcare.audiologist" = "شنوایی شناسی";
+
+"type.healthcare.blood_donation" = "مرکز اهدای خون";
+
+"type.healthcare.optometrist" = "بینایی سنجی";
+
+"type.healthcare.podiatrist" = "پزشکی پا";
+
+"type.healthcare.psychotherapist" = "روان درمانی";
+
+"type.healthcare.sample_collection" = "نمونه برداری";
+
+"type.healthcare.speech_therapist" = "گفتار درمانی";
+
 
 /********** Types: Roads **********/
 

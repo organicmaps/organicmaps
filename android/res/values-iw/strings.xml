@@ -362,6 +362,14 @@
 	<string name="type.entrance.main">תישארה הסינכ</string>
 	<string name="type.healthcare.laboratory">תיאופר הדבעמ</string>
 	<string name="type.healthcare.physiotherapist">פיזיותרפיסט</string>
+	<string name="type.healthcare.alternative">רפואה אלטרנטיבית</string>
+	<string name="type.healthcare.audiologist">אודיולוגיה</string>
+	<string name="type.healthcare.blood_donation">מרכז תרומת דם</string>
+	<string name="type.healthcare.optometrist">אופטומטריה</string>
+	<string name="type.healthcare.podiatrist">פודיאטריה</string>
+	<string name="type.healthcare.psychotherapist">פסיכותרפיה</string>
+	<string name="type.healthcare.sample_collection">דְגִימָה</string>
+	<string name="type.healthcare.speech_therapist">ריפוי בדיבור</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

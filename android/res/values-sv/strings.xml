@@ -911,6 +911,14 @@
 	<string name="type.entrance.main">Huvudentré</string>
 	<string name="type.healthcare.laboratory">Medicinskt laboratorium</string>
 	<string name="type.healthcare.physiotherapist">Fysioterapeut</string>
+	<string name="type.healthcare.alternative">Alternativ medicin</string>
+	<string name="type.healthcare.audiologist">Audiologi</string>
+	<string name="type.healthcare.blood_donation">Centrum för blodgivning</string>
+	<string name="type.healthcare.optometrist">Optometri</string>
+	<string name="type.healthcare.podiatrist">Fotvård</string>
+	<string name="type.healthcare.psychotherapist">Psykoterapi</string>
+	<string name="type.healthcare.sample_collection">Provtagning</string>
+	<string name="type.healthcare.speech_therapist">Logopedics</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

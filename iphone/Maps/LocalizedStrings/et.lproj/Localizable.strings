@@ -1859,6 +1859,22 @@
 
 "type.healthcare.physiotherapist" = "Füsioterapeut";
 
+"type.healthcare.alternative" = "Alternatiivne meditsiin";
+
+"type.healthcare.audiologist" = "Audioloogia";
+
+"type.healthcare.blood_donation" = "Vereloovutuskeskus";
+
+"type.healthcare.optometrist" = "Optomeetria";
+
+"type.healthcare.podiatrist" = "Jalaravi";
+
+"type.healthcare.psychotherapist" = "Psühhoteraapia";
+
+"type.healthcare.sample_collection" = "Proovivõtmine";
+
+"type.healthcare.speech_therapist" = "Logopeedia";
+
 
 /********** Types: Roads **********/
 

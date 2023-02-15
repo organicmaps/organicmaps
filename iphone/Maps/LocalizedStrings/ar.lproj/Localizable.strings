@@ -1859,6 +1859,22 @@
 
 "type.healthcare.physiotherapist" = "اخصائي علاج طبيعي";
 
+"type.healthcare.alternative" = "الطب البديل";
+
+"type.healthcare.audiologist" = "السمع";
+
+"type.healthcare.blood_donation" = "مركز التبرع بالدم";
+
+"type.healthcare.optometrist" = "قياس البصر";
+
+"type.healthcare.podiatrist" = "علاج الأرجل";
+
+"type.healthcare.psychotherapist" = "العلاج النفسي";
+
+"type.healthcare.sample_collection" = "أخذ العينات";
+
+"type.healthcare.speech_therapist" = "علاج النطق";
+
 
 /********** Types: Roads **********/
 

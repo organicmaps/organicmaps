@@ -1859,6 +1859,22 @@
 
 "type.healthcare.physiotherapist" = "Fyzioterapeut";
 
+"type.healthcare.alternative" = "Alternatívna medicína";
+
+"type.healthcare.audiologist" = "Audiológia";
+
+"type.healthcare.blood_donation" = "Centrum darcovstva krvi";
+
+"type.healthcare.optometrist" = "Optometria";
+
+"type.healthcare.podiatrist" = "Podiatria";
+
+"type.healthcare.psychotherapist" = "Psychoterapia";
+
+"type.healthcare.sample_collection" = "Vzorkovanie|Zber vzoriek";
+
+"type.healthcare.speech_therapist" = "Logopédia";
+
 
 /********** Types: Roads **********/
 

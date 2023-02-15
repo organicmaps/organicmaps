@@ -802,6 +802,14 @@
 	<string name="type.entrance.main">Галоўны ўваход</string>
 	<string name="type.healthcare.laboratory">Медыцынская лабараторыя</string>
 	<string name="type.healthcare.physiotherapist">Фізіятэрапеўт</string>
+	<string name="type.healthcare.alternative">Альтэрнатыўная медыцына</string>
+	<string name="type.healthcare.audiologist">Аўдыялогія</string>
+	<string name="type.healthcare.blood_donation">Цэнтр донарства крыві</string>
+	<string name="type.healthcare.optometrist">Оптаметрыя</string>
+	<string name="type.healthcare.podiatrist">Подологія</string>
+	<string name="type.healthcare.psychotherapist">Псіхатэрапія</string>
+	<string name="type.healthcare.sample_collection">Збор аналізаў</string>
+	<string name="type.healthcare.speech_therapist">лагапедыя</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

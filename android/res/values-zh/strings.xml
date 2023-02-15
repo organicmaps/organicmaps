@@ -970,6 +970,14 @@
 	<string name="type.entrance.main">主要入口</string>
 	<string name="type.healthcare.laboratory">医学实验室</string>
 	<string name="type.healthcare.physiotherapist">物理治疗师</string>
+	<string name="type.healthcare.alternative">替代医学</string>
+	<string name="type.healthcare.audiologist">听力学家</string>
+	<string name="type.healthcare.blood_donation">献血中心</string>
+	<string name="type.healthcare.optometrist">验光师</string>
+	<string name="type.healthcare.podiatrist">足疗师</string>
+	<string name="type.healthcare.psychotherapist">心理治疗师</string>
+	<string name="type.healthcare.sample_collection">样本采集设施</string>
+	<string name="type.healthcare.speech_therapist">语言治疗师</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">公路要素</string>

@@ -1859,6 +1859,22 @@
 
 "type.healthcare.physiotherapist" = "Fysioterapeutti";
 
+"type.healthcare.alternative" = "Vaihtoehtoinen lääketiede";
+
+"type.healthcare.audiologist" = "Audiologia";
+
+"type.healthcare.blood_donation" = "Verenluovutuskeskus";
+
+"type.healthcare.optometrist" = "Optometria";
+
+"type.healthcare.podiatrist" = "Jalkaterapia";
+
+"type.healthcare.psychotherapist" = "Psykoterapia";
+
+"type.healthcare.sample_collection" = "Näytteenotto";
+
+"type.healthcare.speech_therapist" = "Logopedia";
+
 
 /********** Types: Roads **********/
 

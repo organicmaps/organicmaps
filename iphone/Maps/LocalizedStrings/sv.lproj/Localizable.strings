@@ -1859,6 +1859,22 @@
 
 "type.healthcare.physiotherapist" = "Fysioterapeut";
 
+"type.healthcare.alternative" = "Alternativ medicin";
+
+"type.healthcare.audiologist" = "Audiologi";
+
+"type.healthcare.blood_donation" = "Centrum för blodgivning";
+
+"type.healthcare.optometrist" = "Optometri";
+
+"type.healthcare.podiatrist" = "Fotvård";
+
+"type.healthcare.psychotherapist" = "Psykoterapi";
+
+"type.healthcare.sample_collection" = "Provtagning";
+
+"type.healthcare.speech_therapist" = "Logopedics";
+
 
 /********** Types: Roads **********/
 

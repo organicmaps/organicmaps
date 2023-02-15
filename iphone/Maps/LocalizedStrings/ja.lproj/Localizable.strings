@@ -1859,6 +1859,22 @@
 
 "type.healthcare.physiotherapist" = "理学療法士";
 
+"type.healthcare.alternative" = "代替医療";
+
+"type.healthcare.audiologist" = "オーディオロジー";
+
+"type.healthcare.blood_donation" = "献血センター";
+
+"type.healthcare.optometrist" = "オプトメトリー";
+
+"type.healthcare.podiatrist" = "足病学";
+
+"type.healthcare.psychotherapist" = "心理療法";
+
+"type.healthcare.sample_collection" = "サンプリング";
+
+"type.healthcare.speech_therapist" = "ロゴペディックス";
+
 
 /********** Types: Roads **********/
 

@@ -1859,6 +1859,22 @@
 
 "type.healthcare.physiotherapist" = "Fisioterapeuta";
 
+"type.healthcare.alternative" = "Medikuntza alternatiboa";
+
+"type.healthcare.audiologist" = "Audiologia";
+
+"type.healthcare.blood_donation" = "Odol Emate Zentroa";
+
+"type.healthcare.optometrist" = "Optometria";
+
+"type.healthcare.podiatrist" = "Podologia";
+
+"type.healthcare.psychotherapist" = "Psikoterapia";
+
+"type.healthcare.sample_collection" = "Laginketa";
+
+"type.healthcare.speech_therapist" = "Logopedia";
+
 
 /********** Types: Roads **********/
 

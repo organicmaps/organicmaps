@@ -1859,6 +1859,22 @@
 
 "type.healthcare.physiotherapist" = "物理治疗师";
 
+"type.healthcare.alternative" = "替代医学";
+
+"type.healthcare.audiologist" = "听力学家";
+
+"type.healthcare.blood_donation" = "献血中心";
+
+"type.healthcare.optometrist" = "验光师";
+
+"type.healthcare.podiatrist" = "足疗师";
+
+"type.healthcare.psychotherapist" = "心理治疗师";
+
+"type.healthcare.sample_collection" = "样本采集设施";
+
+"type.healthcare.speech_therapist" = "语言治疗师";
+
 
 /********** Types: Roads **********/
 

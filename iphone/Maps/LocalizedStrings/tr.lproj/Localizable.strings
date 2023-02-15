@@ -1859,6 +1859,22 @@
 
 "type.healthcare.physiotherapist" = "Fizyoterapist";
 
+"type.healthcare.alternative" = "Alternatif tıp";
+
+"type.healthcare.audiologist" = "Odyoloji";
+
+"type.healthcare.blood_donation" = "Kan Bağışı Merkezi";
+
+"type.healthcare.optometrist" = "Optometri";
+
+"type.healthcare.podiatrist" = "Podiatri";
+
+"type.healthcare.psychotherapist" = "Psikoterapi";
+
+"type.healthcare.sample_collection" = "Örnekleme";
+
+"type.healthcare.speech_therapist" = "Logopedi";
+
 
 /********** Types: Roads **********/
 

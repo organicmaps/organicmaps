@@ -921,6 +921,14 @@
 	<string name="type.entrance.main">Főbejárat</string>
 	<string name="type.healthcare.laboratory">Orvosi laboratórium</string>
 	<string name="type.healthcare.physiotherapist">Fizioterapeuta</string>
+	<string name="type.healthcare.alternative">Alternatív gyógyászat</string>
+	<string name="type.healthcare.audiologist">Audiológia</string>
+	<string name="type.healthcare.blood_donation">Véradó központ</string>
+	<string name="type.healthcare.optometrist">Optometria</string>
+	<string name="type.healthcare.podiatrist">Podiatria</string>
+	<string name="type.healthcare.psychotherapist">Pszichoterápia</string>
+	<string name="type.healthcare.sample_collection">Mintavétel</string>
+	<string name="type.healthcare.speech_therapist">Logopédia</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

@@ -1859,6 +1859,22 @@
 
 "type.healthcare.physiotherapist" = "Fisioterapis";
 
+"type.healthcare.alternative" = "Pengobatan alternatif";
+
+"type.healthcare.audiologist" = "Audiologi";
+
+"type.healthcare.blood_donation" = "Pusat Donor Darah";
+
+"type.healthcare.optometrist" = "Optometri";
+
+"type.healthcare.podiatrist" = "Podiatri";
+
+"type.healthcare.psychotherapist" = "Psikoterapi";
+
+"type.healthcare.sample_collection" = "Pengambilan sampel";
+
+"type.healthcare.speech_therapist" = "Logopedik";
+
 
 /********** Types: Roads **********/
 

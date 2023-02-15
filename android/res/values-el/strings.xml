@@ -917,6 +917,14 @@
 	<string name="type.entrance.main">Κύρια είσοδος</string>
 	<string name="type.healthcare.laboratory">Ιατρικό Εργαστήριο</string>
 	<string name="type.healthcare.physiotherapist">Φυσικοθεραπευτής</string>
+	<string name="type.healthcare.alternative">Εναλλακτική ιατρική</string>
+	<string name="type.healthcare.audiologist">Ακοολογία</string>
+	<string name="type.healthcare.blood_donation">Κέντρο αιμοδοσίας</string>
+	<string name="type.healthcare.optometrist">Οπτομετρία</string>
+	<string name="type.healthcare.podiatrist">Ποδιατρική</string>
+	<string name="type.healthcare.psychotherapist">Ψυχοθεραπεία</string>
+	<string name="type.healthcare.sample_collection">Δειγματοληψία</string>
+	<string name="type.healthcare.speech_therapist">Λογοθεραπεία</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

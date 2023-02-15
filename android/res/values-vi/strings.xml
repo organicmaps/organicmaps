@@ -917,6 +917,14 @@
 	<string name="type.entrance.main">Lối vào chính</string>
 	<string name="type.healthcare.laboratory">Phòng thí nghiệm y tế</string>
 	<string name="type.healthcare.physiotherapist">Nhà vật lý trị liệu</string>
+	<string name="type.healthcare.alternative">Liều thuốc thay thế</string>
+	<string name="type.healthcare.audiologist">Thính học</string>
+	<string name="type.healthcare.blood_donation">Trung tâm hiến máu</string>
+	<string name="type.healthcare.optometrist">Khúc xạ nhãn khoa</string>
+	<string name="type.healthcare.podiatrist">khoa bàn chân</string>
+	<string name="type.healthcare.psychotherapist">Tâm lý trị liệu</string>
+	<string name="type.healthcare.sample_collection">lấy mẫu</string>
+	<string name="type.healthcare.speech_therapist">Ngôn ngữ trị liệu</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

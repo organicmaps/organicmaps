@@ -1859,6 +1859,22 @@
 
 "type.healthcare.physiotherapist" = "Fizioterapeuta";
 
+"type.healthcare.alternative" = "Alternatív gyógyászat";
+
+"type.healthcare.audiologist" = "Audiológia";
+
+"type.healthcare.blood_donation" = "Véradó központ";
+
+"type.healthcare.optometrist" = "Optometria";
+
+"type.healthcare.podiatrist" = "Podiatria";
+
+"type.healthcare.psychotherapist" = "Pszichoterápia";
+
+"type.healthcare.sample_collection" = "Mintavétel";
+
+"type.healthcare.speech_therapist" = "Logopédia";
+
 
 /********** Types: Roads **********/
 
