@@ -147,7 +147,7 @@ android {
   compileSdkVersion propCompileSdkVersion.toInteger()
   buildToolsVersion propBuildToolsVersion
 
-  ndkVersion '25.1.8937393'
+  ndkVersion '25.2.9519653'
 
   defaultConfig {
     // Default package name is taken from the manifest and should be app.organicmaps
