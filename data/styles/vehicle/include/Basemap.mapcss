@@ -183,7 +183,6 @@ line[barrier=fence],
 line[barrier=hedge],
 line[barrier=city_wall],
 line[historic=citywalls],
-area[amenity=parking],
 area[amenity=parking_space],
 {z-index: 950;}
 
