@@ -1032,30 +1032,25 @@ area|z16-[amenity=water_point],
 
 /* 7.1 Parking */
 
-node|z15-16[amenity=parking],
-area|z15-16[amenity=parking]
-{icon-image: parking-m.svg;icon-min-distance: 3;z-index: 20000;}
-node|z15-16[amenity=parking][access=permissive],
-node|z15-16[amenity=parking][access=private]
-{icon-image: zero-icon.svg; icon-min-distance: 3;z-index: 20000;}
+node|z15-[amenity=parking],
+area|z15-[amenity=parking]
+{icon-image: parking-m.svg; icon-min-distance: 3;}
 
 node|z17[amenity=parking],
 area|z17[amenity=parking]
-{icon-image: parking-m.svg;icon-min-distance: 15;}
-node|z17[amenity=parking][access=permissive],
-node|z17[amenity=parking][access=private]
-{icon-image: zero-icon.svg;z-index: 6;icon-min-distance: 7;}
+{icon-min-distance: 15;}
 
 node|z18[amenity=parking],
 area|z18[amenity=parking]
-{icon-image: parking-m.svg;icon-min-distance: 10;}
-node|z18[amenity=parking][access=permissive],
-node|z18[amenity=parking][access=private]
-{icon-image: zero-icon.svg;}
+{icon-min-distance: 10;}
 
 node|z19-[amenity=parking],
 area|z19-[amenity=parking]
-{icon-image: parking-m.svg;icon-min-distance: 6;}
+{icon-min-distance: 6;}
+
+node|z15-18[amenity=parking][access=permissive],
+node|z15-18[amenity=parking][access=private],
+{icon-image: zero-icon.svg;}
 
 /*
 node|z17-[amenity=bicycle_parking],
