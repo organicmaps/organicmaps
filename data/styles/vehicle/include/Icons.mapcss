@@ -934,19 +934,19 @@ area|z18-[amenity=car_sharing]
 
 node|z12[amenity=fuel],
 area|z12[amenity=fuel]
-{icon-image: fuel-s.svg;text-offset: 1;-x-me-text-priority:15500;icon-min-distance: 20;}
+{icon-image: fuel-s.svg; text-offset: 1; icon-min-distance: 20;}
 node|z13[amenity=fuel],
 area|z13[amenity=fuel]
-{icon-image: fuel-m.svg;text-offset: 1;-x-me-text-priority:15500;icon-min-distance: 20;font-size: 11.75;}
+{icon-image: fuel-m.svg; text-offset: 1; icon-min-distance: 20; font-size: 11.75;}
 node|z14[amenity=fuel],
 area|z14[amenity=fuel]
-{icon-image: fuel-m.svg;-x-me-text-priority:15500;icon-min-distance: 20;font-size: 12.25;}
+{icon-image: fuel-m.svg; icon-min-distance: 20; font-size: 12.25;}
 node|z15[amenity=fuel],
 area|z15[amenity=fuel]
-{icon-image: fuel-m.svg;-x-me-text-priority:15500;icon-min-distance: 20;font-size: 12.5;}
+{icon-image: fuel-m.svg; icon-min-distance: 20; font-size: 12.5;}
 node|z16[amenity=fuel],
 area|z16[amenity=fuel]
-{icon-image: fuel-m.svg;-x-me-text-priority:15500;icon-min-distance: 10;font-size: 12.75;}
+{icon-image: fuel-m.svg; icon-min-distance: 10; font-size: 12.75;}
 node|z17[amenity=fuel],
 area|z17[amenity=fuel]
 {icon-image: fuel-m.svg;font-size: 13.75;}
@@ -956,13 +956,13 @@ area|z18-[amenity=fuel]
 
 node|z14[amenity=charging_station][motorcar?],
 area|z14[amenity=charging_station][motorcar?],
-{icon-image: charging-station-m.svg;text-offset: 1;font-size: 12.25;-x-me-text-priority:15500;icon-min-distance: 20;}
+{icon-image: charging-station-m.svg;text-offset: 1;font-size: 12.25;icon-min-distance: 20;}
 node|z15[amenity=charging_station][motorcar?],
 area|z15[amenity=charging_station][motorcar?],
-{icon-image: charging-station-m.svg;-x-me-text-priority:15500;icon-min-distance: 20;font-size: 12.5;}
+{icon-image: charging-station-m.svg;icon-min-distance: 20;font-size: 12.5;}
 node|z16[amenity=charging_station],
 area|z16[amenity=charging_station]
-{icon-image: charging-station-m.svg;-x-me-text-priority:15500;icon-min-distance: 10;font-size: 12.75;}
+{icon-image: charging-station-m.svg;icon-min-distance: 10;font-size: 12.75;}
 node|z17[amenity=charging_station],
 area|z17[amenity=charging_station]
 {icon-image: charging-station-m.svg; font-size: 13.75;}
