@@ -1743,9 +1743,6 @@ OVRL/z19	 text	 entrance                      	 z[19]
 GEOM	 area	 man_made-breakwater           	 z[17-19]
 GEOM	 area	 man_made-pier                 	 z[17-19]
 GEOM	 line1	 waterway-dam                  	 z[14-19]
-GEOM	 line1	 waterway-ditch                	 z[17-19]
-GEOM	 line1	 waterway-drain                	 z[17-19]
-GEOM	 line1	 waterway-weir                 	 z[14]
 GEOM	 line2	 aerialway-cable_car           	 z[12-19]
 GEOM	 line2	 aerialway-chair_lift          	 z[12-19]
 GEOM	 line2	 aerialway-drag_lift           	 z[15-19]
@@ -1785,7 +1782,7 @@ GEOM	 line3	 highway-steps-tunnel          	 z[17-19]
 GEOM	 line1	 hwtag-oneway                  	 z[15-19]
 GEOM	 line1	 man_made-breakwater           	 z[14-19]
 GEOM	 line1	 man_made-pier                 	 z[14-19]
-GEOM	 line1	 waterway-weir                 	 z[15-19]
+GEOM	 line1	 waterway-weir                 	 z[14-19]
 GEOM	 line1	 barrier-city_wall             	 z[14-19]
 GEOM	 line1	 barrier-fence                 	 z[16-19]
 GEOM	 line1	 barrier-hedge                 	 z[16-19]
@@ -2059,6 +2056,8 @@ GEOM	 line1	 route-ferry                   	 z[10-19]
 GEOM	 line1	 aeroway-runway                	 z[12-19]
 GEOM	 line1	 aeroway-taxiway               	 z[14-19]
 GEOM	 line1	 barrier-ditch                 	 z[17-19]
+GEOM	 line1	 waterway-ditch                	 z[17-19]
+GEOM	 line1	 waterway-drain                	 z[17-19]
 GEOM	 line2	 highway-footway-tunnel        	 z[17-19]
 GEOM	 line2	 highway-path-tunnel           	 z[17-19]
 GEOM	 line2	 highway-steps-tunnel          	 z[17-19]
@@ -2543,5 +2542,3 @@ tourism-information-office    	 icon	 	 z[16-17]	 16590
 tourism-information-office    	 icon	 	 z[18-19]	 16600
 tourism-information-office    	 text	 	 z[16-17]	 15590
 tourism-information-office    	 text	 	 z[18-19]	 15600
-waterway-weir                 	 line1	 	 z[15-19]	 1476
-waterway-weir                 	 line1	 	 z[14]	 1971
