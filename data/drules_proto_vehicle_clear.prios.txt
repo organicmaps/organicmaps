@@ -227,7 +227,7 @@ OVRL/z12	 ptxt	 highway-living_street-tunnel  	 z[14-19]
 OVRL/z12	 ptxt	 highway-road                  	 z[14-19]
 OVRL/z12	 ptxt	 highway-road-bridge           	 z[14-19]
 OVRL/z12	 ptxt	 highway-road-tunnel           	 z[14-19]
-OVRL/z12	 text	 amenity-fuel                  	 z[17-19]
+OVRL/z12	 text	 amenity-fuel                  	 z[12-19]
 OVRL/z12	 text	 railway-station               	 z[13-19]
 OVRL/z12	 text	 railway-station-light_rail    	 z[13-19]
 OVRL/z12	 text	 railway-station-monorail      	 z[13-19]
@@ -248,7 +248,6 @@ OVRL/z12	 text	 historic-castle-shiro         	 z[15-19]
 OVRL/z12	 text	 historic-castle-stately       	 z[15-19]
 OVRL/z12	 text	 historic-fort                 	 z[15-19]
 OVRL/z12	 text	 boundary-national_park        	 z[12-19]
-OVRL/z12	 text	 amenity-fuel                  	 z[12-16]
 OVRL/z12	 text	 place-island                  	 z[12-14]
 OVRL/z13	 icon	 highway-speed_camera          	 z[13-19]
 OVRL/z13	 ptxt	 waterway-canal                	 z[13-19]
@@ -491,13 +490,12 @@ OVRL/z14	 ptxt	 highway-service-driveway      	 z[16-19]
 OVRL/z14	 ptxt	 highway-service-parking_aisle 	 z[16-19]
 OVRL/z14	 ptxt	 highway-service-tunnel        	 z[16-19]
 OVRL/z14	 icon	 highway-ford                  	 z[14-19]
-OVRL/z14	 text	 amenity-charging_station-motorcar	 z[17-19]
+OVRL/z14	 text	 amenity-charging_station-motorcar	 z[14-19]
 OVRL/z14	 text	 tourism-viewpoint             	 z[15-19]
 OVRL/z14	 text	 railway-halt                  	 z[14-19]
 OVRL/z14	 text	 tourism-theme_park            	 z[15-19]
 OVRL/z14	 text	 amenity-community_centre      	 z[15-19]
 OVRL/z14	 text	 shop-supermarket              	 z[14-19]
-OVRL/z14	 text	 amenity-charging_station-motorcar	 z[14-16]
 OVRL/z14	 icon	 shop-mall                     	 z[14-19]
 OVRL/z14	 text	 shop-mall                     	 z[14-19]
 OVRL/z14	 text	 aeroway-terminal              	 z[15-19]
@@ -712,7 +710,7 @@ OVRL/z16	 icon	 railway-subway_entrance-washington	 z[17-19]
 OVRL/z16	 icon	 railway-subway_entrance-wuhan 	 z[17-19]
 OVRL/z16	 icon	 railway-subway_entrance-yerevan	 z[17-19]
 OVRL/z16	 icon	 railway-subway_entrance-yokohama	 z[17-19]
-OVRL/z16	 text	 amenity-charging_station      	 z[17-19]
+OVRL/z16	 text	 amenity-charging_station      	 z[16-19]
 OVRL/z16	 text	 barrier-lift_gate             	 z[16-19]
 OVRL/z16	 text	 historic-boundary_stone       	 z[16-19]
 OVRL/z16	 text	 historic-gallows              	 z[16-19]
@@ -722,7 +720,6 @@ OVRL/z16	 text	 historic-tomb                 	 z[16-19]
 OVRL/z16	 text	 historic-wayside_cross        	 z[16-19]
 OVRL/z16	 text	 historic-wayside_shrine       	 z[17-19]
 OVRL/z16	 text	 amenity-restaurant            	 z[16-19]
-OVRL/z16	 text	 amenity-charging_station      	 z[16]
 OVRL/z16	 text	 amenity-place_of_worship      	 z[17-19]
 OVRL/z16	 text	 amenity-place_of_worship-buddhist	 z[17-19]
 OVRL/z16	 text	 amenity-place_of_worship-christian	 z[17-19]
@@ -1315,12 +1312,6 @@ GEOM	 area	 natural-coastline             	 z[1-19]
 
 === INCONSISTENT ZOOMS ===
 
-amenity-charging_station      	 text	 	 z[16]	 15500
-amenity-charging_station      	 text	 	 z[17-19]	 15940
-amenity-charging_station-motorcar	 text	 	 z[14-16]	 15500
-amenity-charging_station-motorcar	 text	 	 z[17-19]	 15940
-amenity-fuel                  	 text	 	 z[12-16]	 15500
-amenity-fuel                  	 text	 	 z[17-19]	 15940
 building-train_station        	 area	 	 z[18-19]	 1179
 building-train_station        	 area	 	 z[15-17]	 1965
 highway-living_street-tunnel  	 line1	 	 z[16-19]	 1415
