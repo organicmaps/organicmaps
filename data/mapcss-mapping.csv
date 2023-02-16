@@ -1545,5 +1545,4 @@ railway|subway_entrance|washington;[railway=subway_entrance][city=washington];;n
 railway|subway_entrance|wuhan;[railway=subway_entrance][city=wuhan];;name;int_name;1547;
 railway|subway_entrance|yerevan;[railway=subway_entrance][city=yerevan];;name;int_name;1548;
 railway|subway_entrance|yokohama;[railway=subway_entrance][city=yokohama];;name;int_name;1549;
-railway|station|subway|bilbao;[railway=station][transport=subway][city=bilbao],[railway=station][station=subway][city=bilbao];;name;int_name;1550;
-railway|subway_entrance|bilbao;[railway=subway_entrance][city=bilbao];;name;int_name;1551;
+railway|subway_entrance|bilbao;[railway=subway_entrance][city=bilbao];;name;int_name;1550;
