@@ -12696,14 +12696,14 @@ cont {
     scale: 14
     area {
       color: 2160707771
-      priority: 1962
+      priority: 1267
     }
   }
   element {
     scale: 15
     area {
       color: 1724500155
-      priority: 1962
+      priority: 1267
     }
   }
   element {

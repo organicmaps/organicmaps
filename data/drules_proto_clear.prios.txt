@@ -1746,7 +1746,6 @@ GEOM	 line1	 waterway-dam                  	 z[14-19]
 GEOM	 line1	 waterway-ditch                	 z[17-19]
 GEOM	 line1	 waterway-drain                	 z[17-19]
 GEOM	 line1	 waterway-weir                 	 z[14]
-GEOM	 area	 building-train_station        	 z[14-15]
 GEOM	 line2	 aerialway-cable_car           	 z[12-19]
 GEOM	 line2	 aerialway-chair_lift          	 z[12-19]
 GEOM	 line2	 aerialway-drag_lift           	 z[15-19]
@@ -2035,7 +2034,7 @@ GEOM	 line1	 railway-subway-bridge         	 z[16-19]
 GEOM	 area	 building                      	 z[14-19]
 GEOM	 area	 building-garage               	 z[14-19]
 GEOM	 area	 building-has_parts            	 z[14-19]
-GEOM	 area	 building-train_station        	 z[16-19]
+GEOM	 area	 building-train_station        	 z[14-19]
 GEOM	 line1	 piste:type-downhill           	 z[14-19]
 GEOM	 line1	 piste:type-downhill-advanced  	 z[14-19]
 GEOM	 line1	 piste:type-downhill-easy      	 z[14-19]
@@ -2254,8 +2253,6 @@ aeroway-gate                  	 text	 	 z[17]	 15590
 aeroway-gate                  	 text	 	 z[18-19]	 15980
 amenity-loading_dock          	 text	 	 z[18]	 15038
 amenity-loading_dock          	 text	 	 z[19]	 15300
-building-train_station        	 area	 	 z[16-19]	 1267
-building-train_station        	 area	 	 z[14-15]	 1962
 craft-beekeeper               	 icon	 	 z[17]	 16000
 craft-beekeeper               	 icon	 	 z[18-19]	 16600
 craft-blacksmith              	 icon	 	 z[17]	 16000
