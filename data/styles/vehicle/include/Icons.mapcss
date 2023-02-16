@@ -165,9 +165,8 @@ node[amenity=charging_station],
 area[amenity=charging_station]
 {z-index: 3590;}
 
-area[building=train_station],
 node[highway=speed_camera],
-{z-index: 8000;}
+{z-index: 75000;}
 
 /* 2. NATURAL */
 
@@ -971,9 +970,9 @@ area|z18-[amenity=charging_station]
 {icon-image: charging-station-m.svg;font-size: 14.75;}
 
 node|z13[highway=speed_camera]
-{icon-image: speedcam-s.svg; z-index: 75000;}
+{icon-image: speedcam-s.svg;}
 node|z14-[highway=speed_camera]
-{icon-image: speedcam-m.svg; z-index: 75000;}
+{icon-image: speedcam-m.svg;}
 
 node|z17[amenity=car_wash],
 area|z17[amenity=car_wash]

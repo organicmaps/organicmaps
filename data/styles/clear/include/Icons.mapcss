@@ -534,9 +534,6 @@ node[railway=subway_entrance][city=moscow],
 node[railway=station][transport=subway]
 {z-index: 2990;}
 
-area[building=train_station],
-{z-index: 3000;}
-
 /* 2. NATURAL */
 
 node|z10-[natural=volcano],
