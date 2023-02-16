@@ -2903,13 +2903,13 @@ area|z18-[amenity=car_sharing]
 
 node|z14[amenity=fuel],
 area|z14[amenity=fuel]
-{icon-image: fuel-s.svg;text-offset: 1;-x-me-text-priority:15500;icon-min-distance: 20;}
+{icon-image: fuel-s.svg; text-offset: 1; icon-min-distance: 20;}
 node|z15[amenity=fuel],
 area|z15[amenity=fuel]
-{icon-image: fuel-m.svg;-x-me-text-priority:15500;icon-min-distance: 20;}
+{icon-image: fuel-m.svg; icon-min-distance: 20;}
 node|z16[amenity=fuel],
 area|z16[amenity=fuel]
-{icon-image: fuel-m.svg;-x-me-text-priority:15500;icon-min-distance: 10;}
+{icon-image: fuel-m.svg; icon-min-distance: 10;}
 node|z17-[amenity=fuel],
 area|z17-[amenity=fuel]
 {icon-image: fuel-m.svg;}
@@ -2919,13 +2919,13 @@ area|z18-[amenity=fuel]
 
 node|z14[amenity=charging_station][motorcar?],
 area|z14[amenity=charging_station][motorcar?],
-{icon-image: charging-station-s.svg;text-offset: 1;font-size: 10;-x-me-text-priority:15500;icon-min-distance: 20;}
+{icon-image: charging-station-s.svg;text-offset: 1;font-size: 10;icon-min-distance: 20;}
 node|z15[amenity=charging_station][motorcar?],
 area|z15[amenity=charging_station][motorcar?],
-{icon-image: charging-station-m.svg;-x-me-text-priority:15500;icon-min-distance: 20;}
+{icon-image: charging-station-m.svg;icon-min-distance: 20;}
 node|z16[amenity=charging_station],
 area|z16[amenity=charging_station]
-{icon-image: charging-station-m.svg;-x-me-text-priority:15500;icon-min-distance: 10;}
+{icon-image: charging-station-m.svg;icon-min-distance: 10;}
 node|z17-[amenity=charging_station],
 area|z17-[amenity=charging_station]
 {icon-image: charging-station-m.svg;}
