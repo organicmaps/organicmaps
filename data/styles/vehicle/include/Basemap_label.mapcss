@@ -55,8 +55,6 @@ line[man_made=breakwater],
 node[man_made=pier],
 node[man_made=breakwater],
 line[waterway=dam],
-line[waterway=weir],
-node[waterway=weir],
 area[landuse=military],
 node[landuse=military]
 {z-index: 1000;}
@@ -96,7 +94,8 @@ line[waterway=river],
 line[waterway=riverbank],
 line[waterway=canal],
 line[natural=strait],
-line[waterway],
+line[waterway=dock],
+line[waterway=dam],
 {z-index: 4500;}
 
 /* 2.CONTINENTS */

@@ -149,7 +149,6 @@ area[amenity=fountain],
 
 area[waterway=dam],
 line[waterway=dam],
-line[waterway=weir],
 node[waterway=lock_gate],
 {z-index: 110;}
 

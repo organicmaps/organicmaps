@@ -104,7 +104,8 @@ line[waterway=riverbank],
 line[waterway=stream],
 line[waterway=canal],
 line[natural=strait],
-line[waterway],
+line[waterway=dock],
+line[waterway=dam],
 {z-index: 10000;}
 
 /* 2.CONTINENTS */
