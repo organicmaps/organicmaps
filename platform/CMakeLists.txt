@@ -83,15 +83,16 @@ elseif(${PLATFORM_ANDROID})
     platform_unix_impl.hpp
   )
 else() # neither iPhone nor Android
-
+  # Find bash first, on Windows it can be either in Git or in WSL
+  find_program(BASH bash)
   # Generate version header file.
-  execute_process(COMMAND tools/unix/version.sh qt_version
+  execute_process(COMMAND "${BASH}" tools/unix/version.sh qt_version
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     OUTPUT_VARIABLE OM_VERSION
     OUTPUT_STRIP_TRAILING_WHITESPACE
     COMMAND_ERROR_IS_FATAL ANY
   )
-  execute_process(COMMAND tools/unix/version.sh qt_int_version
+  execute_process(COMMAND "${BASH}" tools/unix/version.sh qt_int_version
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     OUTPUT_VARIABLE OM_INT_VERSION
     OUTPUT_STRIP_TRAILING_WHITESPACE
