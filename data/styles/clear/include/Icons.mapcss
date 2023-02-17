@@ -29,11 +29,6 @@
 
 /* 1. Z-INDEX OF ICONS */
 
-node|z17-[leisure=golf_course],
-area|z17-[leisure=golf_course]
-{z-index: 50;}
-/* нельзя другой z-index, иначе пропадают все объекты на поле */
-
 node[amenity=fountain],
 area[amenity=fountain]
 {z-index: 2000;}
@@ -109,6 +104,7 @@ area[vending=parking_tickets]
 node[amenity=veterinary],
 area[amenity=veterinary],
 node[leisure=playground],
+area[leisure=playground],
 node[historic=ruins],
 area[historic=ruins],
 node[tourism=caravan_site],
@@ -1701,7 +1697,8 @@ node|z17-[leisure=fitness_centre]
 {icon-image: gym-m.svg;-x-me-text-priority: 15500;icon-min-distance: 10;}
 node|z17-[leisure=sauna]
 {icon-image: sauna-m.svg;-x-me-text-priority: 15500;icon-min-distance: 10;}
-node|z17-[leisure=playground]
+node|z17-[leisure=playground],
+area|z17-[leisure=playground],
 {icon-image: playground-m.svg;font-size: 11;icon-min-distance: 10;}
 node|z17-[leisure=swimming_pool],
 area|z17-[leisure=swimming_pool]

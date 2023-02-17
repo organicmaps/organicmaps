@@ -123,7 +123,6 @@ area[leisure=garden]
 area[leisure=pitch],
 area[leisure=stadium],
 area[leisure=track][area?],
-area[leisure=playground],
 area[sport=multi],
 area[sport=soccer],
 {z-index: 41;}
@@ -168,13 +167,13 @@ area[railway=platform]
 
 area[landuse=grass],
 area[natural=grassland],
-area[leisure=golf_course],
 area[natural=heath]
 {z-index: 46;}
 
 area[natural=scrub]
 {z-index: 47;}
 
+area[leisure=golf_course],
 line[barrier=ditch],
 {z-index: 50;}
 
