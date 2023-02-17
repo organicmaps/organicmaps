@@ -2046,7 +2046,7 @@ GEOM	 area	 leisure-swimming_pool-private 	 z[13-19]
 GEOM	 area	 landuse-landfill              	 z[15-19]
 GEOM	 area	 sport-multi                   	 z[15-19]
 GEOM	 area	 sport-soccer                  	 z[15-19]
-GEOM	 area	 leisure-playground            	 z[17-19]
+GEOM	 area	 leisure-playground            	 z[16-19]
 GEOM	 area	 amenity-fountain              	 z[16-19]
 GEOM	 area	 landuse-military              	 z[12-19]
 GEOM	 area	 landuse-military-danger_area  	 z[10-19]
@@ -2095,10 +2095,9 @@ GEOM	 area	 natural-water-river-if[bbox_area>=4000000]	 z[10-19]
 GEOM	 area	 natural-water-tunnel          	 z[1-9]
 GEOM	 area	 natural-water-tunnel-if[bbox_area<4000000]	 z[10-19]
 GEOM	 area	 natural-water-tunnel-if[bbox_area>=4000000]	 z[10-19]
-GEOM	 area	 leisure-golf_course           	 z[17-19]
+GEOM	 area	 leisure-golf_course           	 z[12-19]
 GEOM	 area	 natural-scrub                 	 z[14-19]
 GEOM	 area	 landuse-grass                 	 z[12-19]
-GEOM	 area	 leisure-golf_course           	 z[12-16]
 GEOM	 area	 natural-grassland             	 z[12-19]
 GEOM	 area	 natural-heath                 	 z[12-19]
 GEOM	 area	 area:highway-footway          	 z[14-19]
@@ -2127,7 +2126,6 @@ GEOM	 area	 landuse-recreation_ground     	 z[12-19]
 GEOM	 area	 landuse-village_green         	 z[12-19]
 GEOM	 area	 landuse-vineyard              	 z[12-19]
 GEOM	 area	 leisure-pitch                 	 z[15-19]
-GEOM	 area	 leisure-playground            	 z[16]
 GEOM	 area	 natural-bare_rock             	 z[12-19]
 GEOM	 area	 leisure-garden                	 z[12-15]
 GEOM	 area	 leisure-garden-if[!name]      	 z[16-19]
@@ -2259,10 +2257,6 @@ highway-world_level           	 line1	 	 z[8-9]	 1432
 highway-world_level           	 line1	 	 z[4-7]	 1451
 highway-world_towns_level     	 line1	 	 z[8-9]	 1432
 highway-world_towns_level     	 line1	 	 z[6-7]	 1451
-leisure-golf_course           	 area	 	 z[12-16]	 -15875
-leisure-golf_course           	 area	 	 z[17-19]	 -15856
-leisure-playground            	 area	 	 z[16]	 -15924
-leisure-playground            	 area	 	 z[17-19]	 -15395
 man_made-breakwater           	 area	 	 z[12-16]	 -15520
 man_made-breakwater           	 area	 	 z[17-19]	 16000
 man_made-pier                 	 area	 	 z[12-16]	 -15520
