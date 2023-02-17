@@ -10256,6 +10256,46 @@ tr:4veri toplama istasyonu|4nirengi istasyonu|4jeodezik ölçüm noktası|4ölç
 uk:4Геодезичний пункт
 mr:सर्वेक्षण बिंदू|सर्व्हे पॉइंट
 
+man_made-tower-communication
+en:Communications Tower|cell tower|cellular tower
+ar:برج الاتصالات
+be:Вежа сувязі|вышка сувязі|сотавая вышка
+bg:Комуникационна кула
+ca:Torre de comunicacions
+cs:Komunikační věž
+da:Kommunikationstårn
+de:Kommunikationsturm
+el:Πύργος Επικοινωνιών
+es:Torre de comunicaciones
+et:Sidetorn
+eu:Komunikazio Dorrea
+fa:برج ارتباطات
+fi:Viestintätorni
+fr:Tour de communication
+he:מגדל תקשורת
+hu:Kommunikációs torony
+id:Menara Komunikasi
+it:Torre delle comunicazioni
+ja:通信塔
+ko:커뮤니케이션 타워
+mr:कम्युनिकेशन टॉवर
+nb:Kommunikasjonstårn
+nl:Communicatie Toren
+pl:Wieża komunikacyjna
+pt:Torre de Comunicações
+pt-BR:Torre de Comunicações
+ro:Turnul de comunicații
+ru:Вышка связи|cотовая вышка|башня связи
+sk:Komunikačná veža
+sv:Kommunikationstorn
+sw:Mnara wa Mawasiliano
+th:หอสื่อสาร
+tr:İletişim Kulesi
+uk:Вежа зв'язку|Стільникова вежа
+vi:Tháp truyền thông
+zh-Hans:通讯塔
+zh-Hant:通訊塔
+
 organic-only|organic-yes
 en:4organic|bio|biological|eco|ecological|healthy
 ar:بيولوجي|بيولوجي|صحي|بيولوجي|بيئي|طبيعي|عضوي
