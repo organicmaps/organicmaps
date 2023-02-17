@@ -28,16 +28,6 @@
 
 /* 1. Z-INDEX OF ICONS */
 
-/*
-  Set default text priority for all POIs greater than building text priority (15201) to avoid name and symbol overlap.
-  This is the only valid variant to change text priority without overriding background filling priority.
-  ToDo: I'd prefer something like area[amenity] { z-name-index: 500; };
-  -x-me-min-text-priority and -x-me-text-priority are hacks.
-*/
-area[amenity],
-area[man_made],
-{-x-me-min-text-priority: 15300;}
-
 node[amenity=marketplace],
 area[amenity=marketplace]
 {z-index: 6;}
@@ -703,35 +693,24 @@ area|z18-[building=hospital],
 
 /* 5.2 Education */
 
-area|z15[amenity=university][name],
-node|z15[amenity=university][name]
+area|z15-[amenity=university][name],
+node|z15-[amenity=university][name]
 {icon-image: college-m.svg;icon-min-distance: 15;-x-me-text-priority:16000;font-size: 12.5;}
-node|z15[amenity=university][!name]
-{}
 area|z16[amenity=university][name],
 node|z16[amenity=university][name]
-{icon-image: college-m.svg;icon-min-distance: 9;-x-me-text-priority:16000;font-size: 12.75;}
-node|z16[amenity=university][!name]
-{}
+{icon-min-distance: 9;font-size: 12.75;}
 node|z17[amenity=university][name],
 area|z17[amenity=university][name]
-{icon-image: college-m.svg;icon-min-distance: 9;-x-me-text-priority:16000;font-size: 13.75;}
-node|z17[amenity=university][!name],
-area|z17[amenity=university][!name]
-{}
+{icon-min-distance: 9;font-size: 13.75;}
 node|z18[amenity=university][name],
 area|z18[amenity=university][name]
-{icon-image: college-m.svg;icon-min-distance: 10;-x-me-text-priority:16000;font-size: 14.5;}
-node|z18[amenity=university][!name],
-area|z18[amenity=university][!name]
-{}
+{icon-min-distance: 10;font-size: 14.5;}
 node|z19[amenity=university][name],
 area|z19[amenity=university][name]
-{icon-image: college-m.svg;font-size: 14.5;-x-me-text-priority:16000;font-size: 14.5;}
-node|z19[amenity=university][!name],
-area|z19[amenity=university][!name]
-{}
+{icon-min-distance: 0; font-size: 14.5;}
 
+node|z15-[amenity=university][!name]
+{text: none;}
 
 
 /* 5.3 Sport */
