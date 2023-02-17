@@ -109,8 +109,6 @@ area[amenity=veterinary],
 node[leisure=playground],
 node[historic=ruins],
 area[historic=ruins],
-node[tourism=artwork][artwork_type=sculpture],
-area[tourism=artwork][artwork_type=sculpture],
 node[tourism=caravan_site],
 area[tourism=caravan_site],
 node[amenity=bicycle_parking],
@@ -137,8 +135,6 @@ node[power=station],
 area[power=station],
 node[power=substation],
 area[power=substation],
-node|z18-[tourism],
-area|z18-[tourism],
 node[craft],
 area[craft],
 node[amenity=bbq],
@@ -356,8 +352,6 @@ node[leisure=nature_reserve],
 area[leisure=nature_reserve]
 {z-index: 2700;}
 
-node[tourism=artwork],
-area[tourism=artwork],
 node[tourism=attraction][attraction=animal],
 area[tourism=attraction][attraction=animal],
 {z-index: 2760;}
@@ -393,8 +387,8 @@ node[historic=memorial],
 area[historic=memorial],
 node[historic=battlefield],
 area[historic=battlefield],
-node|z17-[tourism=artwork][artwork_type=sculpture],
-area|z17-[tourism=artwork][artwork_type=sculpture]
+node[tourism=artwork],
+area[tourism=artwork],
 {z-index: 2800;}
 
 /* Decrease _plaque_ priority from defaults */
@@ -463,16 +457,10 @@ node[leisure=stadium],
 area[leisure=stadium]
 {z-index: 2878;}
 node[tourism=viewpoint]
-node|z16-[tourism=artwork][artwork_type=architecture],
-area|z16-[tourism=artwork][artwork_type=architecture],
-node|z17-[tourism=artwork][artwork_type=statue],
-area|z17-[tourism=artwork][artwork_type=statue],
 node|z18-[historic=memorial][memorial=plaque],
 area|z18-[historic=memorial][memorial=plaque],
 node|z19-[historic=memorial][memorial=stolperstein],
 area|z19-[historic=memorial][memorial=stolperstein],
-node|z18-[tourism=artwork][artwork_type=painting],
-area|z18-[tourism=artwork][artwork_type=painting]
 {z-index: 2880;}
 node[tourism=zoo],
 area[tourism=zoo]
