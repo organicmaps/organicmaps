@@ -445,9 +445,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private void updateOpeningHoursView()
   {
     final String ohStr = mMapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
-    final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
-    final boolean isEmptyTT = (timetables == null || timetables.length == 0);
-    updateViewFragment(PlacePageOpeningHoursFragment.class, OPENING_HOURS_FRAGMENT_TAG, R.id.place_page_opening_hours_fragment, !isEmptyTT);
+    updateViewFragment(PlacePageOpeningHoursFragment.class, OPENING_HOURS_FRAGMENT_TAG, R.id.place_page_opening_hours_fragment, !ohStr.isEmpty());
   }
 
   private void updatePhoneView()
