@@ -12508,7 +12508,7 @@ cont {
     scale: 17
     symbol {
       name: "beekeeper-m"
-      priority: 16000
+      priority: 16605
     }
   }
   element {
@@ -12550,7 +12550,7 @@ cont {
     scale: 17
     symbol {
       name: "blacksmith-m"
-      priority: 16000
+      priority: 16605
     }
   }
   element {
@@ -12592,7 +12592,7 @@ cont {
     scale: 17
     symbol {
       name: "brewery-m"
-      priority: 16000
+      priority: 16605
     }
   }
   element {
@@ -12634,7 +12634,7 @@ cont {
     scale: 17
     symbol {
       name: "carpenter-m"
-      priority: 16000
+      priority: 16605
     }
   }
   element {
@@ -12676,7 +12676,7 @@ cont {
     scale: 17
     symbol {
       name: "sweets-m"
-      priority: 16000
+      priority: 16605
     }
   }
   element {
@@ -12718,7 +12718,7 @@ cont {
     scale: 17
     symbol {
       name: "electrician-m"
-      priority: 16000
+      priority: 16605
     }
   }
   element {
@@ -12760,7 +12760,7 @@ cont {
     scale: 17
     symbol {
       name: "electrician-m"
-      priority: 16000
+      priority: 16605
     }
   }
   element {
@@ -12802,7 +12802,7 @@ cont {
     scale: 17
     symbol {
       name: "florist-m"
-      priority: 16000
+      priority: 16605
     }
   }
   element {
@@ -12949,7 +12949,7 @@ cont {
     scale: 17
     symbol {
       name: "painter-m"
-      priority: 16000
+      priority: 16605
     }
   }
   element {
@@ -12991,7 +12991,7 @@ cont {
     scale: 17
     symbol {
       name: "photo-shop-m"
-      priority: 16000
+      priority: 16605
     }
   }
   element {
@@ -13033,7 +13033,7 @@ cont {
     scale: 17
     symbol {
       name: "plumber-m"
-      priority: 16000
+      priority: 16605
     }
   }
   element {
@@ -13075,7 +13075,7 @@ cont {
     scale: 17
     symbol {
       name: "sawmill-m"
-      priority: 16000
+      priority: 16605
     }
   }
   element {
@@ -13117,7 +13117,7 @@ cont {
     scale: 17
     symbol {
       name: "shoes-m"
-      priority: 16000
+      priority: 16605
     }
   }
   element {
@@ -13159,7 +13159,7 @@ cont {
     scale: 17
     symbol {
       name: "clothes-m"
-      priority: 16000
+      priority: 16605
     }
   }
   element {
