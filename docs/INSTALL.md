@@ -51,6 +51,16 @@ and follow instructions:
 bash ./configure.sh # execute the script by using Ubuntu WSL VM
 ```
 
+Incase your *configuration fails* on *Windows 10*:
+Make sure **cl.exe** compiler is in the path of Developer Command Prompt for VS, check by typing `cl` in the command prompt, if it fails to return a copyright message and compiler version then cl.exe is not in the path. Check this [Microsoft C++ toolset from the CLI](https://learn.microsoft.com/en-us/cpp/build/building-on-the-command-line?view=msvc-170) or try to re-install Visual Code and make sure to choose the "Desktop development with C++" as your workload. After adding cl.exe to the path, if the issue still persists, try using this command in Developer Command Prompt and follow the steps from there:
+
+```bash
+"C:\Program Files\Git\bin\bash.exe" configure.sh
+```
+It's possible that you have WSL installed but did not install g++ there. This may result in an undetected toolchain (bash is run from WSL instead of Git mingw distribution). [Install g++ in WSL](https://askubuntu.com/questions/859256/how-to-install-gcc-7-or-clang-4-0) and try running the above command in Developer Command Prompt for VS.
+
+If you face errors like `File Not Found` or `Failed to build Boost.Build engine` then try [installing Windows 10 SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/) and re-running the above command.
+
 ### Special cases options
 
 If all you want is just a one-off build or your Internet bandwidth or disk space are limited then add following options to the `git clone` command:
