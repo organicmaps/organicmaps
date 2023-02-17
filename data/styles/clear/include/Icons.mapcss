@@ -1427,8 +1427,6 @@ node|z17-[amenity=dentist],
 area|z17-[amenity=dentist],
 node|z17-[amenity=casino],
 area|z17-[amenity=casino],
-node|z17-[shop=money_lender],
-area|z17-[shop=money_lender],
 node|z17-[amenity=courthouse],
 area|z17-[amenity=courthouse],
 node|z17-[amenity=nursing_home],
@@ -1487,8 +1485,6 @@ node|z18-[amenity=toilets],
 area|z18-[amenity=toilets],
 node|z18-[amenity=atm],
 area|z18-[amenity=atm],
-node|z18-[shop=pawnbroker],
-area|z18-[shop=pawnbroker],
 node|z18-[amenity=bureau_de_change],
 area|z18-[amenity=bureau_de_change],
 node|z18-[amenity=money_transfer],
@@ -1518,7 +1514,7 @@ area|z18-[office],
 node|z18-[craft],
 area|z18-[craft],
 node|z19-[amenity],
-area|z19-[amenity]
+area|z19-[amenity],
 {text: name;text-color: @poi_label;text-offset: 1;font-size: 10;}
 
 /* POI */
@@ -1539,12 +1535,8 @@ node|z16-[shop],
 area|z16-[shop],
 {icon-min-distance: 10;}
 node|z18-[shop],
-area|z18-[shop]
-{icon-image: shop-m.svg;text-offset: 1;font-size: 10;icon-min-distance: 10;}
-
-node|z17-[shop=massage],
-area|z17-[shop=massage]
-{icon-image: sauna-m.svg;font-size: 11;}
+area|z18-[shop],
+{icon-image: shop-m.svg;}
 
 /* 5.1 Hospital */
 
@@ -2032,10 +2024,6 @@ node|z17-[amenity=casino],
 area|z17-[amenity=casino]
 {icon-image: casino-m.svg;icon-min-distance: 20;}
 
-node|z17-[shop=money_lender],
-area|z17-[shop=money_lender]
-{icon-image: bank-m.svg;icon-min-distance: 20;}
-
 node|z17-[amenity=courthouse],
 area|z17-[amenity=courthouse]
 {icon-image: public-building-m.svg;}
@@ -2175,10 +2163,6 @@ area|z17-[amenity=money_transfer],
 node|z17-[amenity=money_transfer],
 {icon-image: banknote-m.svg;font-size: 11;}
 
-area|z17-[shop=pawnbroker],
-node|z17-[shop=pawnbroker]
-{icon-image: bookmaker-m.svg;font-size: 11;}
-
 node|z18-[amenity=fire_station],
 area|z18-[amenity=fire_station]
 {icon-image: fire_station-m.svg;font-size: 11;}
@@ -2228,48 +2212,183 @@ node|z16-[man_made=survey_point]
 
 /* 6. SHOP */
 
-node|z14-[shop=mall],
-area|z14-[shop=mall],
-node|z16-[shop],
-area|z16-[shop],
 node|z16-[amenity=marketplace],
 area|z16-[amenity=marketplace],
-node|z16-[shop=supermarket],
-area|z16-[shop=supermarket],
-node|z15-[shop=car_repair][service=tyres],
-area|z15-[shop=car_repair][service=tyres],
 node|z15-[highway=services],
 area|z15-[highway=services],
-node|z17-[shop=stationery],
-area|z17-[shop=stationery],
+{text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
+
+node|z16[amenity=marketplace],
+area|z16[amenity=marketplace]
+{icon-image: marketplace-m.svg; text-offset: 1; font-size: 11; icon-min-distance: 24;}
+node|z17-[amenity=marketplace],
+area|z17-[amenity=marketplace]
+{icon-image: marketplace-m.svg; font-size: 11; icon-min-distance: 8;}
+
+node|z18-[shop],
+area|z18-[shop],
+node|z14-[shop=mall],
+area|z14-[shop=mall],
+node|z15-[shop=car_repair][service=tyres],
+area|z15-[shop=car_repair][service=tyres],
+node|z16-[shop=supermarket],
+area|z16-[shop=supermarket],
+node|z16-[shop=alcohol],
+area|z16-[shop=alcohol],
+node|z16-[shop=wine],
+area|z16-[shop=wine],
+node|z16-[shop=books],
+area|z16-[shop=books],
+node|z16-[shop=charity],
+area|z16-[shop=charity],
+node|z16-[shop=second_hand],
+area|z16-[shop=second_hand],
+node|z16-[shop=bookmaker],
+area|z16-[shop=bookmaker],
+node|z16-[shop=bakery],
+area|z16-[shop=bakery],
+node|z16-[shop=pastry],
+area|z16-[shop=pastry],
+node|z16-[shop=beauty],
+area|z16-[shop=beauty],
+node|z16-[shop=cosmetics],
+area|z16-[shop=cosmetics],
+node|z16-[shop=beverages],
+area|z16-[shop=beverages],
+node|z16-[shop=bicycle],
+area|z16-[shop=bicycle],
+node|z16-[shop=butcher],
+area|z16-[shop=butcher],
+node|z16-[shop=car],
+area|z16-[shop=car],
+node|z16-[shop=caravan],
+area|z16-[shop=caravan],
+node|z16-[shop=motorcycle],
+area|z16-[shop=motorcycle],
+node|z16-[shop=car_parts],
+area|z16-[shop=car_parts],
+node|z16-[shop=car_repair],
+area|z16-[shop=car_repair],
+node|z16-[shop=tyres],
+area|z16-[shop=tyres],
+node|z16-[shop=chemist],
+area|z16-[shop=chemist],
+node|z16-[shop=clothes],
+area|z16-[shop=clothes],
+node|z16-[shop=computer],
+area|z16-[shop=computer],
+node|z16-[shop=video_games],
+area|z16-[shop=video_games],
+node|z16-[shop=tattoo],
+area|z16-[shop=tattoo],
+node|z16-[shop=erotic],
+area|z16-[shop=erotic],
+node|z16-[shop=funeral_directors],
+area|z16-[shop=funeral_directors]
+node|z16-[shop=confectionery],
+area|z16-[shop=confectionery],
+node|z16-[shop=chocolate],
+area|z16-[shop=chocolate],
+node|z16-[shop=convenience],
+area|z16-[shop=convenience],
+node|z16-[shop=deli],
+area|z16-[shop=deli],
+node|z16-[shop=farm],
+area|z16-[shop=farm],
+node|z16-[shop=grocery],
+area|z16-[shop=grocery],
+node|z16-[shop=health_food],
+area|z16-[shop=health_food],
+node|z16-[shop=copyshop],
+area|z16-[shop=copyshop],
+node|z16-[shop=photo],
+area|z16-[shop=photo],
+node|z16-[shop=pet],
+area|z16-[shop=pet],
+node|z16-[shop=department_store],
+area|z16-[shop=department_store],
+node|z16-[shop=doityourself],
+area|z16-[shop=doityourself],
+node|z16-[shop=electronics],
+area|z16-[shop=electronics],
+node|z16-[shop=florist],
+area|z16-[shop=florist],
+node|z16-[shop=furniture],
+area|z16-[shop=furniture],
+node|z16-[shop=kitchen],
+area|z16-[shop=kitchen],
+node|z16-[shop=garden_centre],
+area|z16-[shop=garden_centre],
+node|z16-[shop=gift],
+area|z16-[shop=gift],
+node|z16-[shop=music],
+area|z16-[shop=music],
+node|z16-[shop=video],
+area|z16-[shop=video],
+node|z16-[shop=musical_instrument],
+area|z16-[shop=musical_instrument],
+node|z16-[shop=greengrocer],
+area|z16-[shop=greengrocer],
+node|z16-[shop=hairdresser],
+area|z16-[shop=hairdresser],
+node|z16-[shop=sewing],
+area|z16-[shop=sewing],
+node|z16-[shop=hardware],
+area|z16-[shop=hardware],
+node|z16-[shop=houseware],
+area|z16-[shop=houseware],
+node|z16-[shop=jewelry],
+area|z16-[shop=jewelry],
+node|z16-[shop=kiosk],
+area|z16-[shop=kiosk],
+node|z16-[shop=laundry],
+area|z16-[shop=laundry],
+node|z16-[shop=dry_cleaning],
+area|z16-[shop=dry_cleaning],
+node|z16-[shop=mobile_phone],
+area|z16-[shop=mobile_phone],
+node|z16-[shop=optician],
+area|z16-[shop=optician],
+node|z16-[shop=outdoor],
+area|z16-[shop=outdoor],
+node|z16-[shop=seafood],
+area|z16-[shop=seafood],
+node|z16-[shop=shoes],
+area|z16-[shop=shoes],
+node|z16-[shop=sports],
+area|z16-[shop=sports],
+node|z16-[shop=ticket],
+area|z16-[shop=ticket],
+node|z16-[shop=toys],
+area|z16-[shop=toys],
+node|z16-[shop=fabric],
+area|z16-[shop=fabric],
+node|z16-[shop=stationery],
+area|z16-[shop=stationery],
 node|z17-[shop=variety_store],
-area|z17-[shop=variety_store]
-{text: name;text-color: @poi_label;text-offset: 1;font-size: 10;}
+area|z17-[shop=variety_store],
+node|z17-[shop=money_lender],
+area|z17-[shop=money_lender],
+node|z17-[shop=pawnbroker],
+area|z17-[shop=pawnbroker],
+{text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
 
 node|z14[shop=mall],
-area|z14[shop=mall]
+area|z14[shop=mall],
 {icon-image: shop-s.svg;icon-min-distance: 16;}
 node|z15-[shop=mall],
-area|z15-[shop=mall]
+area|z15-[shop=mall],
 {icon-image: shop-m.svg;font-size: 11;icon-min-distance: 16;}
 node|z17-[shop=mall],
 area|z17-[shop=mall],
-node|z17-[shop=variety_store],
-area|z17-[shop=variety_store]
 {font-size: 11;icon-min-distance: 8;}
 
 node|z16[shop=supermarket],
-area|z16[shop=supermarket]
+area|z16[shop=supermarket],
 {icon-image: grocery-m.svg;font-size: 11;icon-min-distance: 16;}
-node|z16[amenity=marketplace],
-area|z16[amenity=marketplace]
-{icon-image: marketplace-m.svg;text-offset: 1;font-size: 11;icon-min-distance: 24;}
 node|z17-[shop=supermarket],
-area|z17-[shop=supermarket]
+area|z17-[shop=supermarket],
 {icon-image: grocery-m.svg;font-size: 11;icon-min-distance: 8;}
-node|z17-[amenity=marketplace],
-area|z17-[amenity=marketplace]
-{icon-image: marketplace-m.svg;font-size: 11;icon-min-distance: 8;}
 
 node|z15[shop=car_repair][service=tyres],
 area|z15[shop=car_repair][service=tyres],
@@ -2469,6 +2588,9 @@ area|z16[shop=ticket]
 node|z16[shop=toys],
 area|z16[shop=toys]
 {icon-image: toys-m.svg;}
+node|z16[shop=stationery],
+area|z16[shop=stationery]
+{icon-image: stationery_shop-m.svg;}
 node|z16[shop=fabric],
 area|z16[shop=fabric]
 {icon-image: shop-m.svg;}
@@ -2667,8 +2789,19 @@ node|z17-[shop=newsagent],
 area|z17-[shop=newsagent]
 {icon-image: newsagent_shop-m.svg;icon-min-distance: 24;}
 node|z17-[shop=fabric],
-area|z17-[shop=fabric]
+area|z17-[shop=fabric],
+node|z17-[shop=variety_store],
+area|z17-[shop=variety_store],
 {icon-image: shop-m.svg;}
+node|z17-[shop=massage],
+area|z17-[shop=massage],
+{icon-image: sauna-m.svg;icon-min-distance: 24;}
+node|z17-[shop=money_lender],
+area|z17-[shop=money_lender],
+{icon-image: bank-m.svg;icon-min-distance: 24;}
+area|z17-[shop=pawnbroker],
+node|z17-[shop=pawnbroker],
+{icon-image: bookmaker-m.svg;icon-min-distance: 24;}
 
 /* 6.1 Craft */
 
