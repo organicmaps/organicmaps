@@ -90,8 +90,6 @@ node[amenity=vending_machine],
 area[amenity=vending_machine],
 node[amenity=parcel_locker],
 area[amenity=parcel_locker],
-node[aeroway=gate],
-area[aeroway=gate],
 node[amenity=hunting_stand],
 area[amenity=hunting_stand],
 node[amenity=shower],
@@ -261,6 +259,8 @@ node[shop=charity],
 area[shop=charity],
 node[shop=second_hand],
 area[shop=second_hand],
+node[aeroway=gate],
+area[aeroway=gate],
 {z-index: 2500;}
 
 node[amenity=fuel],
@@ -2208,9 +2208,6 @@ area|z18-[amenity=vending_machine][vending=fuel]
 node|z17-[aeroway=gate],
 area|z17-[aeroway=gate]
 {icon-image: gate-m.svg;font-size: 11;}
-node|z18-[aeroway=gate],
-area|z18-[aeroway=gate]
-{icon-image: gate-m.svg;font-size: 11;z-index: 24200;}/*check*/
 
 node|z17-[amenity=bureau_de_change]
 {icon-image: banknote-m.svg;font-size: 11;text-optional: true;}
