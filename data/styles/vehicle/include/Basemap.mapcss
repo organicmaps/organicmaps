@@ -138,10 +138,10 @@ area[railway=platform]
 
 area[landuse=grass],
 area[natural=grassland],
-area[leisure=golf_course],
 area[natural=heath]
 {z-index: 45;}
 
+area[leisure=golf_course],
 area[natural=wetland],
 {z-index: 49;}
 
