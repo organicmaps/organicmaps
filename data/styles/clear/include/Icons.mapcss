@@ -29,16 +29,6 @@
 
 /* 1. Z-INDEX OF ICONS */
 
-/*
-  Set default text priority for all POIs greater than building text priority (15201) to avoid name and symbol overlap.
-  This is the only valid variant to change text priority without overriding background filling priority.
-  ToDo: I'd prefer something like area[amenity] { z-name-index: 500; };
-  -x-me-min-text-priority and -x-me-text-priority are hacks.
-*/
-area[amenity],
-area[man_made],
-{-x-me-min-text-priority: 15300;}
-
 node|z17-[leisure=golf_course],
 area|z17-[leisure=golf_course]
 {z-index: 50;}
@@ -1727,29 +1717,21 @@ area|z17-[amenity=pharmacy]
 
 area|z14[amenity=university][name]
 {icon-image: college-s.svg;icon-min-distance: 12;-x-me-text-priority:16000;}
-area|z15[amenity=university][name],
-node|z15[amenity=university][name]
+area|z15-[amenity=university][name],
+node|z15-[amenity=university][name]
 {icon-image: college-m.svg;icon-min-distance: 12;-x-me-text-priority:16000;}
-node|z15[amenity=university][!name]
-{}
 node|z16[amenity=university][name],
 area|z16[amenity=university][name]
-{icon-image: college-m.svg;icon-min-distance: 11;-x-me-text-priority:16000;}
-node|z16[amenity=university][!name],
-area|z16[amenity=university][!name]
-{}
+{icon-min-distance: 11;}
 node|z17[amenity=university][name],
 area|z17[amenity=university][name]
-{icon-image: college-m.svg;icon-min-distance: 10;-x-me-text-priority:16000;}
-node|z17[amenity=university][!name],
-area|z17[amenity=university][!name]
-{}
+{icon-min-distance: 10;}
 node|z18-[amenity=university][name],
 area|z18-[amenity=university][name]
-{icon-image: college-m.svg;font-size: 11;-x-me-text-priority:16000;text-optional: true;}
-node|z18-[amenity=university][!name],
-area|z18-[amenity=university][!name]
-{}
+{icon-min-distance: 0; font-size: 11;text-optional: true;}
+
+node|z15-[amenity=university][!name]
+{text: none}
 
 node|z16-[amenity=college],
 area|z16-[amenity=college]
