@@ -132,10 +132,6 @@ line[waterway=weir],
 node[waterway=lock_gate],
 {z-index: 110;}
 
-area[man_made=pier],
-area[man_made=breakwater],
-line[man_made=pier],
-line[man_made=breakwater],
 line[man_made=cutline]
 {z-index: 120;}
 
@@ -159,6 +155,10 @@ area[aeroway=terminal]
 area[amenity=place_of_worship]
 {z-index: 210;}
 
+area[man_made=pier],
+area[man_made=breakwater],
+line[man_made=pier],
+line[man_made=breakwater],
 line[barrier=wall],
 line[barrier=fence],
 line[barrier=hedge],

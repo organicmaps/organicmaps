@@ -58,10 +58,6 @@ node[place=continent]
 {z-index: 999;}
 
 node[place=country],
-line[man_made=pier],
-line[man_made=breakwater],
-node[man_made=pier],
-node[man_made=breakwater],
 line[waterway=dam],
 line[waterway=weir],
 node[waterway=weir],
@@ -686,7 +682,7 @@ line|z17-[man_made=pier],
 line|z17-[man_made=breakwater],
 node|z17-[man_made=pier],
 node|z17-[man_made=breakwater]
-{text: name;font-size: 10;text-color:@poi_label;fill-opacity: 1;-x-me-area-priority:16000;}
+{text: name;font-size: 10;text-color:@poi_label;fill-opacity: 1;}
 
 /*	8.2 Building */
 area|z16[building],
