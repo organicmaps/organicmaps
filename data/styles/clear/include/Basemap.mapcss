@@ -74,8 +74,6 @@ area[leisure=garden]
 area[leisure=pitch],
 area[leisure=stadium],
 area[leisure=track][area?],
-area[sport=multi],
-area[sport=soccer],
 {z-index: 41;}
 
 area[landuse=farmland],
