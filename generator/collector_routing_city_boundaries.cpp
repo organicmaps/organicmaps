@@ -139,6 +139,21 @@ bool PlaceBoundariesHolder::Locality::TestValid() const
   return true;
 }
 
+std::string DebugPrint(PlaceBoundariesHolder::Locality const & l)
+{
+  m2::RectD rect;
+  for (auto const & pts : l.m_boundary)
+    CalcRect(pts, rect);
+
+  std::string rectStr;
+  if (rect.IsValid())
+    rectStr = DebugPrint(mercator::ToLatLon(rect));
+  else
+    rectStr = "Invalid";
+
+  return "Locality { Rect = " + rectStr + "; Name = " + l.m_name + " }";
+}
+
 // PlaceBoundariesHolder --------------------------------------------------------------------------
 
 void PlaceBoundariesHolder::Serialize(std::string const & fileName) const

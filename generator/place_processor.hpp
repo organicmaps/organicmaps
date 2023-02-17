@@ -57,5 +57,7 @@ private:
   std::map<Key, std::vector<FeaturePlace>> m_nameToPlaces;
 
   OsmIdToBoundariesTable m_boundariesTable;
+
+  std::string m_logTag;
 };
 } // namespace generator

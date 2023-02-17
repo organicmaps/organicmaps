@@ -38,9 +38,6 @@ UNIT_CLASS_TEST(TestRawGenerator, Towns)
   std::string const mwmWorld = WORLD_FILE_NAME;
   BuildFB("./data/osm_test_data/towns.osm", mwmName, true /* makeWorld */);
 
-  /// @todo Taylor now defined as Node = village and Relation = city.
-  /// Ideally, we should keep only village in Country.mwm, but we can't avoid to pass it as a city into World.mwm
-
   size_t count = 0;
   ForEachFB(mwmName, [&](feature::FeatureBuilder const & fb)
   {
@@ -66,7 +63,7 @@ UNIT_CLASS_TEST(TestRawGenerator, Towns)
     bool const isTown = (fb.GetName() == "El Dorado");
     TEST(fb.HasType(isTown ? townType : cityType), ());
   });
-  TEST_EQUAL(count, 2, ());
+  TEST_EQUAL(count, 1, ());
 
   // Prepare features data source.
   FrozenDataSource dataSource;
@@ -84,7 +81,7 @@ UNIT_CLASS_TEST(TestRawGenerator, Towns)
   // Load boundaries.
   search::CitiesBoundariesTable table(dataSource);
   TEST(table.Load(), ());
-  TEST_EQUAL(table.GetSize(), 2, ());
+  TEST_EQUAL(table.GetSize(), 1, ());
 
   // Iterate for features in World.
   count = 0;
@@ -110,7 +107,7 @@ UNIT_CLASS_TEST(TestRawGenerator, Towns)
     }
   }
 
-  TEST_EQUAL(count, 2, ());
+  TEST_EQUAL(count, 1, ());
 }
 
 // https://github.com/organicmaps/organicmaps/issues/2475
@@ -511,6 +508,8 @@ UNIT_TEST(Place_CityRelations)
     "./data/osm_test_data/dmitrov_town.osm",
     "./data/osm_test_data/lesnoy_town.osm",
 
+    "./data/osm_test_data/pushkino_city.osm",
+
     /// @todo We don't store villages in World now, but for the future!
     // 1 Relation + 1 Node (not linked with each other)
     //"./data/osm_test_data/palm_beach_village.osm",
@@ -527,6 +526,9 @@ UNIT_TEST(Place_CityRelations)
     {53.5086454, 26.6979711},   // stolbtcy
     {56.3752679, 37.3288391},   // dmitrov
     {54.0026933, 27.6356912},   // lesnoy
+
+    {56.0807652, 37.9277319},   // pushkino
+
     //{26.6757006, -80.0547346},  // palm beach
   };
 

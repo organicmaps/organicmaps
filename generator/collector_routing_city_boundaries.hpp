@@ -48,6 +48,8 @@ public:
 
     std::string m_name;
 
+    friend std::string DebugPrint(Locality const & l);
+
   private:
     uint64_t m_population = 0;
     uint64_t m_populationFromNode = 0;
