@@ -97889,7 +97889,7 @@ cont {
     scale: 15
     symbol {
       name: "tourism-m"
-      priority: 16682
+      priority: 16740
       min_distance: 8
     }
     caption {
@@ -97899,14 +97899,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15682
+      priority: 15740
     }
   }
   element {
     scale: 16
     symbol {
       name: "tourism-m"
-      priority: 16682
+      priority: 16740
       min_distance: 24
     }
     caption {
@@ -97916,14 +97916,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15682
+      priority: 15740
     }
   }
   element {
     scale: 17
     symbol {
       name: "tourism-m"
-      priority: 16682
+      priority: 16740
       min_distance: 24
     }
     caption {
@@ -97933,14 +97933,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15682
+      priority: 15740
     }
   }
   element {
     scale: 18
     symbol {
       name: "tourism-m"
-      priority: 16682
+      priority: 16740
       min_distance: 24
     }
     caption {
@@ -97950,14 +97950,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15682
+      priority: 15740
     }
   }
   element {
     scale: 19
     symbol {
       name: "tourism-m"
-      priority: 16682
+      priority: 16740
       min_distance: 24
     }
     caption {
@@ -97967,7 +97967,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15682
+      priority: 15740
     }
   }
 }
@@ -97977,7 +97977,7 @@ cont {
     scale: 15
     symbol {
       name: "tourism-m"
-      priority: 16682
+      priority: 16740
       min_distance: 8
     }
     caption {
@@ -97987,14 +97987,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15682
+      priority: 15740
     }
   }
   element {
     scale: 16
     symbol {
       name: "tourism-m"
-      priority: 16865
+      priority: 16740
       min_distance: 24
     }
     caption {
@@ -98004,14 +98004,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15865
+      priority: 15740
     }
   }
   element {
     scale: 17
     symbol {
       name: "tourism-m"
-      priority: 16865
+      priority: 16740
       min_distance: 24
     }
     caption {
@@ -98021,14 +98021,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15865
+      priority: 15740
     }
   }
   element {
     scale: 18
     symbol {
       name: "tourism-m"
-      priority: 16865
+      priority: 16740
       min_distance: 24
     }
     caption {
@@ -98038,14 +98038,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15865
+      priority: 15740
     }
   }
   element {
     scale: 19
     symbol {
       name: "tourism-m"
-      priority: 16865
+      priority: 16740
       min_distance: 24
     }
     caption {
@@ -98055,7 +98055,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15865
+      priority: 15740
     }
   }
 }
@@ -98065,7 +98065,7 @@ cont {
     scale: 15
     symbol {
       name: "tourism-m"
-      priority: 16682
+      priority: 16740
       min_distance: 8
     }
     caption {
@@ -98075,14 +98075,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15682
+      priority: 15740
     }
   }
   element {
     scale: 16
     symbol {
       name: "tourism-m"
-      priority: 16682
+      priority: 16740
       min_distance: 24
     }
     caption {
@@ -98092,14 +98092,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15682
+      priority: 15740
     }
   }
   element {
     scale: 17
     symbol {
       name: "tourism-m"
-      priority: 16682
+      priority: 16740
       min_distance: 24
     }
     caption {
@@ -98109,14 +98109,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15682
+      priority: 15740
     }
   }
   element {
     scale: 18
     symbol {
       name: "tourism-m"
-      priority: 16865
+      priority: 16740
       min_distance: 24
     }
     caption {
@@ -98126,14 +98126,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15865
+      priority: 15740
     }
   }
   element {
     scale: 19
     symbol {
       name: "tourism-m"
-      priority: 16865
+      priority: 16740
       min_distance: 24
     }
     caption {
@@ -98143,7 +98143,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15865
+      priority: 15740
     }
   }
 }
@@ -98153,7 +98153,7 @@ cont {
     scale: 15
     symbol {
       name: "tourism-m"
-      priority: 16682
+      priority: 16740
       min_distance: 8
     }
     caption {
@@ -98163,14 +98163,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15682
+      priority: 15740
     }
   }
   element {
     scale: 16
     symbol {
       name: "tourism-m"
-      priority: 16682
+      priority: 16740
       min_distance: 24
     }
     caption {
@@ -98180,7 +98180,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15682
+      priority: 15740
     }
   }
   element {
@@ -98241,7 +98241,7 @@ cont {
     scale: 15
     symbol {
       name: "tourism-m"
-      priority: 16682
+      priority: 16740
       min_distance: 8
     }
     caption {
@@ -98251,14 +98251,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15682
+      priority: 15740
     }
   }
   element {
     scale: 16
     symbol {
       name: "tourism-m"
-      priority: 16682
+      priority: 16740
       min_distance: 24
     }
     caption {
@@ -98268,14 +98268,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15682
+      priority: 15740
     }
   }
   element {
     scale: 17
     symbol {
       name: "tourism-m"
-      priority: 16865
+      priority: 16740
       min_distance: 24
     }
     caption {
@@ -98285,14 +98285,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15865
+      priority: 15740
     }
   }
   element {
     scale: 18
     symbol {
       name: "tourism-m"
-      priority: 16865
+      priority: 16740
       min_distance: 24
     }
     caption {
@@ -98302,14 +98302,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15865
+      priority: 15740
     }
   }
   element {
     scale: 19
     symbol {
       name: "tourism-m"
-      priority: 16865
+      priority: 16740
       min_distance: 24
     }
     caption {
@@ -98319,7 +98319,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15865
+      priority: 15740
     }
   }
 }
@@ -99195,7 +99195,7 @@ cont {
     scale: 18
     symbol {
       name: "information-m"
-      priority: 16605
+      priority: 16596
       min_distance: 10
     }
     caption {
@@ -99205,14 +99205,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15605
+      priority: 15596
     }
   }
   element {
     scale: 19
     symbol {
       name: "information-m"
-      priority: 16605
+      priority: 16596
       min_distance: 10
     }
     caption {
@@ -99222,7 +99222,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15605
+      priority: 15596
     }
   }
 }
@@ -99266,7 +99266,7 @@ cont {
     scale: 18
     symbol {
       name: "board"
-      priority: 16605
+      priority: 16596
       min_distance: 10
     }
     caption {
@@ -99276,14 +99276,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15605
+      priority: 15596
     }
   }
   element {
     scale: 19
     symbol {
       name: "board"
-      priority: 16605
+      priority: 16596
       min_distance: 10
     }
     caption {
@@ -99293,7 +99293,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15605
+      priority: 15596
     }
   }
 }
@@ -99337,7 +99337,7 @@ cont {
     scale: 18
     symbol {
       name: "guidepost"
-      priority: 16605
+      priority: 16596
       min_distance: 10
     }
     caption {
@@ -99347,14 +99347,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15605
+      priority: 15596
     }
   }
   element {
     scale: 19
     symbol {
       name: "guidepost"
-      priority: 16605
+      priority: 16596
       min_distance: 10
     }
     caption {
@@ -99364,7 +99364,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15605
+      priority: 15596
     }
   }
 }
@@ -99408,7 +99408,7 @@ cont {
     scale: 18
     symbol {
       name: "map"
-      priority: 16605
+      priority: 16596
       min_distance: 10
     }
     caption {
@@ -99418,14 +99418,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15605
+      priority: 15596
     }
   }
   element {
     scale: 19
     symbol {
       name: "map"
-      priority: 16605
+      priority: 16596
       min_distance: 10
     }
     caption {
@@ -99435,7 +99435,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15605
+      priority: 15596
     }
   }
 }
@@ -99479,7 +99479,7 @@ cont {
     scale: 18
     symbol {
       name: "information-m"
-      priority: 16605
+      priority: 16596
       min_distance: 10
     }
     caption {
@@ -99489,14 +99489,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15605
+      priority: 15596
     }
   }
   element {
     scale: 19
     symbol {
       name: "information-m"
-      priority: 16605
+      priority: 16596
       min_distance: 10
     }
     caption {
@@ -99506,7 +99506,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15605
+      priority: 15596
     }
   }
 }
