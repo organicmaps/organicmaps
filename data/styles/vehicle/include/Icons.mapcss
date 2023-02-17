@@ -846,16 +846,16 @@ area|z18-[shop=supermarket]
 
 node|z15[shop=car_repair][service=tyres],
 area|z15[shop=car_repair][service=tyres]
-{icon-image: car-repair-m.svg;text-offset: 1;-x-me-text-priority:15500;icon-min-distance: 20;font-size:12.5;}
-node|z16[shop=car_repair][service=tyres],
-area|z16[shop=car_repair][service=tyres]
-{icon-image: car-repair-m.svg;-x-me-text-priority:15500;font-size: 12.75;}
+{icon-image: car-repair-m.svg; text-offset: 1; icon-min-distance: 20; font-size:12.5;}
+node|z16-[shop=car_repair][service=tyres],
+area|z16-[shop=car_repair][service=tyres]
+{icon-image: car-repair-m.svg; font-size: 12.75;}
 node|z17[shop=car_repair][service=tyres],
 area|z17[shop=car_repair][service=tyres]
-{icon-image: car-repair-m.svg;font-size: 13.75;}
+{font-size: 13.75;}
 node|z18-[shop=car_repair][service=tyres],
 area|z18-[shop=car_repair][service=tyres]
-{icon-image: car-repair-m.svg;font-size: 14.5;}
+{font-size: 14.5;}
 
 
 node|z17[shop=car],
