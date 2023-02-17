@@ -95720,7 +95720,7 @@ cont {
     scale: 17
     symbol {
       name: "bowling-m"
-      priority: 16615
+      priority: 16625
       min_distance: 10
     }
     caption {
@@ -95729,7 +95729,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15625
     }
   }
   element {
@@ -95773,7 +95773,7 @@ cont {
     scale: 17
     symbol {
       name: "bowling-m"
-      priority: 16615
+      priority: 16625
       min_distance: 10
     }
     caption {
@@ -95782,7 +95782,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15625
     }
   }
   element {
@@ -95826,7 +95826,7 @@ cont {
     scale: 17
     symbol {
       name: "america-football-m"
-      priority: 16615
+      priority: 16634
       min_distance: 10
     }
     caption {
@@ -95835,7 +95835,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15634
     }
   }
   element {
@@ -95879,7 +95879,7 @@ cont {
     scale: 17
     symbol {
       name: "archery-m"
-      priority: 16615
+      priority: 16625
       min_distance: 10
     }
     caption {
@@ -95888,7 +95888,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15625
     }
   }
   element {
@@ -95932,7 +95932,7 @@ cont {
     scale: 17
     symbol {
       name: "pitch-m"
-      priority: 16615
+      priority: 16634
       min_distance: 10
     }
     caption {
@@ -95941,7 +95941,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15634
     }
   }
   element {
@@ -95985,7 +95985,7 @@ cont {
     scale: 17
     symbol {
       name: "australian-football-m"
-      priority: 16615
+      priority: 16625
       min_distance: 10
     }
     caption {
@@ -95994,7 +95994,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15625
     }
   }
   element {
@@ -96038,7 +96038,7 @@ cont {
     scale: 17
     symbol {
       name: "badminton-m"
-      priority: 16615
+      priority: 16634
       min_distance: 10
     }
     caption {
@@ -96047,7 +96047,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15634
     }
   }
   element {
@@ -96091,7 +96091,7 @@ cont {
     scale: 17
     symbol {
       name: "baseball-m"
-      priority: 16615
+      priority: 16634
       min_distance: 10
     }
     caption {
@@ -96100,7 +96100,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15634
     }
   }
   element {
@@ -96144,7 +96144,7 @@ cont {
     scale: 17
     symbol {
       name: "basketball-m"
-      priority: 16615
+      priority: 16634
       min_distance: 10
     }
     caption {
@@ -96153,7 +96153,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15634
     }
   }
   element {
@@ -96197,7 +96197,7 @@ cont {
     scale: 17
     symbol {
       name: "volleyball-m"
-      priority: 16615
+      priority: 16634
       min_distance: 10
     }
     caption {
@@ -96206,7 +96206,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15634
     }
   }
   element {
@@ -96250,7 +96250,7 @@ cont {
     scale: 17
     symbol {
       name: "pitch-m"
-      priority: 16615
+      priority: 16625
       min_distance: 10
     }
     caption {
@@ -96259,7 +96259,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15625
     }
   }
   element {
@@ -96303,7 +96303,7 @@ cont {
     scale: 17
     symbol {
       name: "chess-m"
-      priority: 16615
+      priority: 16625
       min_distance: 10
     }
     caption {
@@ -96312,7 +96312,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15625
     }
   }
   element {
@@ -96356,7 +96356,7 @@ cont {
     scale: 17
     symbol {
       name: "climbing-m"
-      priority: 16615
+      priority: 16625
       min_distance: 10
     }
     caption {
@@ -96365,7 +96365,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15625
     }
   }
   element {
@@ -96409,7 +96409,7 @@ cont {
     scale: 17
     symbol {
       name: "cricket-m"
-      priority: 16615
+      priority: 16625
       min_distance: 10
     }
     caption {
@@ -96418,7 +96418,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15625
     }
   }
   element {
@@ -96462,7 +96462,7 @@ cont {
     scale: 17
     symbol {
       name: "curling-m"
-      priority: 16615
+      priority: 16625
       min_distance: 10
     }
     caption {
@@ -96471,7 +96471,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15625
     }
   }
   element {
@@ -96515,7 +96515,7 @@ cont {
     scale: 17
     symbol {
       name: "diving-m"
-      priority: 16615
+      priority: 16625
       min_distance: 10
     }
     caption {
@@ -96524,7 +96524,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15625
     }
   }
   element {
@@ -96568,7 +96568,7 @@ cont {
     scale: 17
     symbol {
       name: "equestrian-m"
-      priority: 16615
+      priority: 16625
       min_distance: 10
     }
     caption {
@@ -96577,7 +96577,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15625
     }
   }
   element {
@@ -96621,7 +96621,7 @@ cont {
     scale: 17
     symbol {
       name: "hockey-m"
-      priority: 16615
+      priority: 16634
       min_distance: 10
     }
     caption {
@@ -96630,7 +96630,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15634
     }
   }
   element {
@@ -96674,7 +96674,7 @@ cont {
     scale: 17
     symbol {
       name: "soccer-m"
-      priority: 16615
+      priority: 16625
       min_distance: 10
     }
     caption {
@@ -96683,14 +96683,14 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15625
     }
   }
   element {
     scale: 18
     symbol {
       name: "soccer-m"
-      priority: 16615
+      priority: 16625
       min_distance: 10
     }
     caption {
@@ -96700,14 +96700,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15615
+      priority: 15625
     }
   }
   element {
     scale: 19
     symbol {
       name: "soccer-m"
-      priority: 16615
+      priority: 16625
       min_distance: 10
     }
     caption {
@@ -96717,7 +96717,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15615
+      priority: 15625
     }
   }
 }
@@ -96727,7 +96727,7 @@ cont {
     scale: 17
     symbol {
       name: "golf-m"
-      priority: 16615
+      priority: 16634
       min_distance: 10
     }
     caption {
@@ -96736,7 +96736,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15634
     }
   }
   element {
@@ -96780,7 +96780,7 @@ cont {
     scale: 17
     symbol {
       name: "pitch-m"
-      priority: 16615
+      priority: 16634
       min_distance: 10
     }
     caption {
@@ -96789,7 +96789,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15634
     }
   }
   element {
@@ -96833,7 +96833,7 @@ cont {
     scale: 17
     symbol {
       name: "handball-m"
-      priority: 16615
+      priority: 16634
       min_distance: 10
     }
     caption {
@@ -96842,7 +96842,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15634
     }
   }
   element {
@@ -96886,7 +96886,7 @@ cont {
     scale: 17
     symbol {
       name: "hockey-m"
-      priority: 16615
+      priority: 16634
       min_distance: 10
     }
     caption {
@@ -96895,7 +96895,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15634
     }
   }
   element {
@@ -97018,7 +97018,7 @@ cont {
     scale: 17
     symbol {
       name: "padel-m"
-      priority: 16615
+      priority: 16634
       min_distance: 10
     }
     caption {
@@ -97027,7 +97027,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15634
     }
   }
   element {
@@ -97071,7 +97071,7 @@ cont {
     scale: 17
     symbol {
       name: "pelota-m"
-      priority: 16615
+      priority: 16634
       min_distance: 10
     }
     caption {
@@ -97080,7 +97080,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15634
     }
   }
   element {
@@ -97124,7 +97124,7 @@ cont {
     scale: 17
     symbol {
       name: "diving-m"
-      priority: 16615
+      priority: 16625
       min_distance: 10
     }
     caption {
@@ -97133,7 +97133,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15625
     }
   }
   element {
@@ -97177,7 +97177,7 @@ cont {
     scale: 17
     symbol {
       name: "archery-m"
-      priority: 16615
+      priority: 16625
       min_distance: 10
     }
     caption {
@@ -97186,7 +97186,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15625
     }
   }
   element {
@@ -97230,7 +97230,7 @@ cont {
     scale: 17
     symbol {
       name: "skateboard-m"
-      priority: 16615
+      priority: 16634
       min_distance: 10
     }
     caption {
@@ -97239,7 +97239,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15634
     }
   }
   element {
@@ -97415,7 +97415,7 @@ cont {
     scale: 17
     symbol {
       name: "swimming-m"
-      priority: 16615
+      priority: 16634
       min_distance: 10
     }
     caption {
@@ -97424,7 +97424,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15634
     }
   }
   element {
@@ -97468,7 +97468,7 @@ cont {
     scale: 17
     symbol {
       name: "table-tennis-m"
-      priority: 16615
+      priority: 16634
       min_distance: 10
     }
     caption {
@@ -97477,7 +97477,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15634
     }
   }
   element {
@@ -97574,7 +97574,7 @@ cont {
     scale: 17
     symbol {
       name: "volleyball-m"
-      priority: 16615
+      priority: 16634
       min_distance: 10
     }
     caption {
@@ -97583,7 +97583,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15634
     }
   }
   element {
@@ -97627,7 +97627,7 @@ cont {
     scale: 17
     symbol {
       name: "yoga-m"
-      priority: 16615
+      priority: 16634
       min_distance: 10
     }
     caption {
@@ -97636,7 +97636,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15615
+      priority: 15634
     }
   }
   element {
