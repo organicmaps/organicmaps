@@ -167,6 +167,7 @@ std::vector<std::vector<FeaturePlace const *>> FindClusters(std::vector<FeatureP
 }
 
 PlaceProcessor::PlaceProcessor(std::string const & filename)
+  : m_logTag("PlaceProcessor")
 {
   if (!filename.empty())
     m_boundariesHolder.Deserialize(filename);
@@ -186,6 +187,8 @@ std::vector<FeatureBuilder> PlaceProcessor::ProcessPlaces(std::vector<IDsContain
           });
 
       auto bestFb = (*best)->m_fb;
+
+      /// @todo Assign FB point from possible boundary node from |bestBnd| below?
       if (bestFb.IsArea())
         TransformToPoint(bestFb);
 
@@ -199,11 +202,37 @@ std::vector<FeatureBuilder> PlaceProcessor::ProcessPlaces(std::vector<IDsContain
       auto const bestBnd = m_boundariesHolder.GetBestBoundary(fbIDs);
       if (bestBnd)
       {
+        auto const id = bestFb.GetMostGenericOsmId();
+
+        // Boundary and FB center consistency check.
+        if (!bestBnd->IsPoint())
+        {
+          m2::RectD rect;
+          for (auto const & pts : bestBnd->m_boundary)
+            CalcRect(pts, rect);
+          CHECK(rect.IsValid(), ());
+
+          auto const center = bestFb.GetKeyPoint();
+          if (!rect.IsPointInside(center))
+            LOG(LERROR, (m_logTag, "FB center not in polygon's bound for:", id, mercator::ToLatLon(center), *bestBnd));
+        }
+
+        // Sanity check
+        using namespace ftypes;
+        auto const bndLocality = bestBnd->GetPlace();
+        auto const fbLocality = IsLocalityChecker::Instance().GetType((*best)->GetPlaceType());
+        if (bndLocality != fbLocality)
+        {
+          LOG(LWARNING, (m_logTag, "Different locality types:", bndLocality, fbLocality, "for", id));
+          // Happens in USA. For example: https://www.openstreetmap.org/relation/6603680
+          if (bndLocality == LocalityType::Village && fbLocality == LocalityType::City)
+            continue;
+        }
+
         double exactArea = 0.0;
         bool const checkArea = !bestBnd->IsHonestCity();
 
         // Assign bestBoundary to the bestFb.
-        auto const id = bestFb.GetMostGenericOsmId();
         for (auto const & poly : bestBnd->m_boundary)
         {
           if (checkArea)
@@ -218,10 +247,10 @@ std::vector<FeatureBuilder> PlaceProcessor::ProcessPlaces(std::vector<IDsContain
           // https://www.openstreetmap.org/relation/3388660
 
           double const circleArea = ms::CircleAreaOnEarth(
-                ftypes::GetRadiusByPopulationForRouting(bestBnd->GetPopulation(), bestBnd->GetPlace()));
+                GetRadiusByPopulationForRouting(bestBnd->GetPopulation(), bndLocality));
           if (exactArea > circleArea * 20.0)
           {
-            LOG(LWARNING, ("Delete big place's boundary for:", id));
+            LOG(LWARNING, (m_logTag, "Delete big boundary for", id));
             m_boundariesTable.Delete(id);
           }
         }
@@ -257,19 +286,20 @@ void PlaceProcessor::Add(FeatureBuilder && fb)
 {
   // Get name as key to find place clusters.
   auto nameKey = fb.GetName(StringUtf8Multilang::kDefaultCode);
+  auto const id = fb.GetMostGenericOsmId();
+
   if (nameKey.empty())
   {
     nameKey = fb.GetName(StringUtf8Multilang::kEnglishCode);
     if (nameKey.empty())
     {
-      LOG(LWARNING, ("Place with empty name", fb));
+      LOG(LWARNING, (m_logTag, "Place with empty name", id));
       return;
     }
   }
 
   // Places are "equal candidates" if they have equal boundary index or equal name.
-  m_nameToPlaces[{m_boundariesHolder.GetIndex(fb.GetMostGenericOsmId()), std::string(nameKey)}].push_back(
-        CreatePlace(std::move(fb)));
+  m_nameToPlaces[{m_boundariesHolder.GetIndex(id), std::string(nameKey)}].push_back(CreatePlace(std::move(fb)));
 }
 
 }  // namespace generator
