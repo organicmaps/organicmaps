@@ -439,14 +439,14 @@ node|z16-[historic=battlefield],
 area|z16-[historic=battlefield],
 {icon-image: monument-m.svg;icon-min-distance: 12;}
 
-/* Zero previous params to redefine below */
+/* Do not display following features on lower zoom levels */
 node|z15-[historic=memorial][memorial=plaque],
 area|z15-[historic=memorial][memorial=plaque],
 node|z15-[historic=memorial][memorial=stolperstein],
 area|z15-[historic=memorial][memorial=stolperstein],
 node|z15-16[historic=memorial][memorial=cross],
 area|z15-16[historic=memorial][memorial=cross],
-{icon-image: zero-icon.svg; text: none;}
+{icon-image: ; text: none;}
 
 node|z17-[historic=memorial][memorial=cross],
 area|z17-[historic=memorial][memorial=cross],
