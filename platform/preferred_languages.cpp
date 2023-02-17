@@ -41,6 +41,11 @@ namespace languages
 {
 void GetSystemPreferred(std::vector<std::string> & languages)
 {
+  /// @DebugNote
+  // Hardcode draw text language.
+  //languages.push_back("hi");
+  //return;
+
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_IPHONE) || defined(OMIM_OS_LINUX)
   // check environment variables
   char const * p = std::getenv("LANGUAGE");

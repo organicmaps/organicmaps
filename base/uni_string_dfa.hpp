@@ -1,9 +1,7 @@
 #pragma once
 
-#include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include <cstddef>
 #include <string>
 
 namespace strings
@@ -24,17 +22,19 @@ public:
   private:
     friend class UniStringDFA;
 
-    Iterator(UniString const & s);
+    explicit Iterator(UniString const & s);
 
     UniString const & m_s;
     size_t m_pos;
     bool m_rejected;
   };
 
-  explicit UniStringDFA(UniString const & s);
+  explicit UniStringDFA(UniString const & s) : m_s(s) {}
   explicit UniStringDFA(std::string const & s);
 
-  Iterator Begin() const;
+  Iterator Begin() const { return Iterator(m_s); }
+
+  friend std::string DebugPrint(UniStringDFA const & dfa);
 
 private:
   UniString const m_s;

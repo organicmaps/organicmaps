@@ -821,7 +821,8 @@ void Ranker::UpdateResults(bool lastUpdate)
 
     auto const & rankerResult = m_tentativeResults[i];
 
-    // Uncomment for debug purpose.
+    /// @DebugNote
+    // Uncomment for extended ranking print.
     //if (!m_params.m_viewportSearch)
     //  LOG(LDEBUG, (rankerResult));
 

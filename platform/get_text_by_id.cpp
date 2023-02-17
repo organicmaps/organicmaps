@@ -7,15 +7,15 @@
 
 #include "cppjansson/cppjansson.hpp"
 
-#include "std/target_os.hpp"
-
 #include <algorithm>
 
+namespace platform
+{
 using namespace std;
 
 namespace
 {
-static constexpr char const * kDefaultLanguage = "en";
+string const kDefaultLanguage = "en";
 
 string GetTextSourceString(platform::TextSource textSource)
 {
@@ -31,12 +31,9 @@ string GetTextSourceString(platform::TextSource textSource)
 }
 }  // namespace
 
-namespace platform
-{
 bool GetJsonBuffer(platform::TextSource textSource, string const & localeName, string & jsonBuffer)
 {
-  string const pathToJson =
-      base::JoinPath(GetTextSourceString(textSource), localeName + ".json", "localize.json");
+  string const pathToJson = base::JoinPath(GetTextSourceString(textSource), localeName + ".json", "localize.json");
 
   try
   {
@@ -45,14 +42,13 @@ bool GetJsonBuffer(platform::TextSource textSource, string const & localeName, s
   }
   catch (RootException const & ex)
   {
-    LOG(LWARNING, ("Can't open", localeName, "localization file. pathToJson is", pathToJson,
-                   ex.what()));
+    LOG(LWARNING, ("Can't open", localeName, "localization file:", pathToJson, ex.what()));
     return false;  // No json file for localeName
   }
   return true;
 }
 
-TGetTextByIdPtr MakeGetTextById(string const & jsonBuffer, string const & localeName)
+TGetTextByIdPtr GetTextById::Create(string const & jsonBuffer, string const & localeName)
 {
   TGetTextByIdPtr result(new GetTextById(jsonBuffer, localeName));
   if (!result->IsValid())
@@ -67,10 +63,10 @@ TGetTextByIdPtr GetTextByIdFactory(TextSource textSource, string const & localeN
 {
   string jsonBuffer;
   if (GetJsonBuffer(textSource, localeName, jsonBuffer))
-    return MakeGetTextById(jsonBuffer, localeName);
+    return GetTextById::Create(jsonBuffer, localeName);
 
   if (GetJsonBuffer(textSource, kDefaultLanguage, jsonBuffer))
-    return MakeGetTextById(jsonBuffer, kDefaultLanguage);
+    return GetTextById::Create(jsonBuffer, kDefaultLanguage);
 
   ASSERT(false, ("Can't find translate for default language. (Lang:", localeName, ")"));
   return nullptr;
@@ -78,16 +74,11 @@ TGetTextByIdPtr GetTextByIdFactory(TextSource textSource, string const & localeN
 
 TGetTextByIdPtr ForTestingGetTextByIdFactory(string const & jsonBuffer, string const & localeName)
 {
-  return MakeGetTextById(jsonBuffer, localeName);
+  return GetTextById::Create(jsonBuffer, localeName);
 }
 
 GetTextById::GetTextById(string const & jsonBuffer, string const & localeName)
   : m_locale(localeName)
-{
-  InitFromJson(jsonBuffer);
-}
-
-void GetTextById::InitFromJson(string const & jsonBuffer)
 {
   if (jsonBuffer.empty())
   {
