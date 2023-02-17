@@ -20,11 +20,6 @@ cont {
       join: BEVELJOIN
       cap: BUTTCAP
     }
-    symbol {
-      name: "cable-car-s"
-      priority: 16663
-      min_distance: 10
-    }
   }
   element {
     scale: 13
@@ -43,11 +38,6 @@ cont {
       color: 4473924
       priority: 1663
       cap: BUTTCAP
-    }
-    symbol {
-      name: "cable-car-s"
-      priority: 16663
-      min_distance: 10
     }
   }
   element {
@@ -68,10 +58,6 @@ cont {
       priority: 1663
       cap: BUTTCAP
     }
-    symbol {
-      name: "cable-car-s"
-      priority: 16663
-    }
   }
   element {
     scale: 15
@@ -91,19 +77,13 @@ cont {
       priority: 1663
       cap: BUTTCAP
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
         height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -122,19 +102,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
         height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -153,19 +127,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -184,19 +152,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -215,19 +177,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
 }
@@ -253,11 +209,6 @@ cont {
       join: BEVELJOIN
       cap: BUTTCAP
     }
-    symbol {
-      name: "cable-car-s"
-      priority: 16663
-      min_distance: 10
-    }
   }
   element {
     scale: 13
@@ -276,11 +227,6 @@ cont {
       color: 4473924
       priority: 1663
       cap: BUTTCAP
-    }
-    symbol {
-      name: "cable-car-s"
-      priority: 16663
-      min_distance: 10
     }
   }
   element {
@@ -301,10 +247,6 @@ cont {
       priority: 1663
       cap: BUTTCAP
     }
-    symbol {
-      name: "cable-car-s"
-      priority: 16663
-    }
   }
   element {
     scale: 15
@@ -324,19 +266,13 @@ cont {
       priority: 1663
       cap: BUTTCAP
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
         height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -355,19 +291,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
         height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -386,19 +316,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -417,19 +341,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -448,19 +366,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
 }
@@ -482,7 +394,7 @@ cont {
     lines {
       width: 0.5
       color: 4473924
-      priority: 1519
+      priority: 1663
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -502,7 +414,7 @@ cont {
     lines {
       width: 0.5
       color: 4473924
-      priority: 1519
+      priority: 1663
       cap: BUTTCAP
     }
   }
@@ -521,7 +433,7 @@ cont {
     lines {
       width: 0.5
       color: 4473924
-      priority: 1519
+      priority: 1663
       cap: BUTTCAP
     }
   }
@@ -543,19 +455,13 @@ cont {
       priority: 1663
       cap: BUTTCAP
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
         height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -574,19 +480,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
         height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -605,19 +505,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -636,19 +530,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -667,19 +555,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
 }
@@ -705,11 +587,6 @@ cont {
       join: BEVELJOIN
       cap: BUTTCAP
     }
-    symbol {
-      name: "cable-car-s"
-      priority: 16663
-      min_distance: 10
-    }
   }
   element {
     scale: 13
@@ -728,11 +605,6 @@ cont {
       color: 4473924
       priority: 1663
       cap: BUTTCAP
-    }
-    symbol {
-      name: "cable-car-s"
-      priority: 16663
-      min_distance: 10
     }
   }
   element {
@@ -753,10 +625,6 @@ cont {
       priority: 1663
       cap: BUTTCAP
     }
-    symbol {
-      name: "cable-car-s"
-      priority: 16663
-    }
   }
   element {
     scale: 15
@@ -776,19 +644,13 @@ cont {
       priority: 1663
       cap: BUTTCAP
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
         height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -807,19 +669,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
         height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -838,19 +694,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -869,19 +719,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -900,19 +744,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
 }
@@ -934,7 +772,7 @@ cont {
     lines {
       width: 0.5
       color: 4473924
-      priority: 1519
+      priority: 1663
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -954,7 +792,7 @@ cont {
     lines {
       width: 0.5
       color: 4473924
-      priority: 1519
+      priority: 1663
       cap: BUTTCAP
     }
   }
@@ -973,7 +811,7 @@ cont {
     lines {
       width: 0.5
       color: 4473924
-      priority: 1519
+      priority: 1663
       cap: BUTTCAP
     }
   }
@@ -995,19 +833,13 @@ cont {
       priority: 1663
       cap: BUTTCAP
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
         height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -1026,19 +858,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
         height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -1057,19 +883,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -1088,19 +908,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -1119,19 +933,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
 }
@@ -1153,7 +961,7 @@ cont {
     lines {
       width: 0.5
       color: 4473924
-      priority: 1519
+      priority: 1663
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -1173,7 +981,7 @@ cont {
     lines {
       width: 0.5
       color: 4473924
-      priority: 1519
+      priority: 1663
       cap: BUTTCAP
     }
   }
@@ -1192,7 +1000,7 @@ cont {
     lines {
       width: 0.5
       color: 4473924
-      priority: 1519
+      priority: 1663
       cap: BUTTCAP
     }
   }
@@ -1214,19 +1022,13 @@ cont {
       priority: 1663
       cap: BUTTCAP
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
         height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -1245,19 +1047,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
         height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -1276,19 +1072,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -1307,19 +1097,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -1338,19 +1122,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
 }
@@ -1376,11 +1154,6 @@ cont {
       join: BEVELJOIN
       cap: BUTTCAP
     }
-    symbol {
-      name: "cable-car-s"
-      priority: 16663
-      min_distance: 10
-    }
   }
   element {
     scale: 13
@@ -1399,11 +1172,6 @@ cont {
       color: 4473924
       priority: 1663
       cap: BUTTCAP
-    }
-    symbol {
-      name: "cable-car-s"
-      priority: 16663
-      min_distance: 10
     }
   }
   element {
@@ -1424,10 +1192,6 @@ cont {
       priority: 1663
       cap: BUTTCAP
     }
-    symbol {
-      name: "cable-car-s"
-      priority: 16663
-    }
   }
   element {
     scale: 15
@@ -1447,19 +1211,13 @@ cont {
       priority: 1663
       cap: BUTTCAP
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
         height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -1478,19 +1236,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
         height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -1509,19 +1261,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -1540,19 +1286,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -1571,19 +1311,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
 }
@@ -1605,7 +1339,7 @@ cont {
     lines {
       width: 0.5
       color: 4473924
-      priority: 1519
+      priority: 1663
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -1625,7 +1359,7 @@ cont {
     lines {
       width: 0.5
       color: 4473924
-      priority: 1519
+      priority: 1663
       cap: BUTTCAP
     }
   }
@@ -1644,7 +1378,7 @@ cont {
     lines {
       width: 0.5
       color: 4473924
-      priority: 1519
+      priority: 1663
       cap: BUTTCAP
     }
   }
@@ -1666,19 +1400,13 @@ cont {
       priority: 1663
       cap: BUTTCAP
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
         height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -1697,19 +1425,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
         height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -1728,19 +1450,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -1759,19 +1475,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -1790,19 +1500,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
 }
@@ -1824,7 +1528,7 @@ cont {
     lines {
       width: 0.5
       color: 4473924
-      priority: 1519
+      priority: 1663
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -1844,7 +1548,7 @@ cont {
     lines {
       width: 0.5
       color: 4473924
-      priority: 1519
+      priority: 1663
       cap: BUTTCAP
     }
   }
@@ -1863,7 +1567,7 @@ cont {
     lines {
       width: 0.5
       color: 4473924
-      priority: 1519
+      priority: 1663
       cap: BUTTCAP
     }
   }
@@ -1885,19 +1589,13 @@ cont {
       priority: 1663
       cap: BUTTCAP
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
         height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -1916,19 +1614,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
         height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -1947,19 +1639,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -1978,19 +1664,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -2009,19 +1689,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
 }
@@ -2154,7 +1828,7 @@ cont {
     lines {
       width: 0.5
       color: 4473924
-      priority: 1519
+      priority: 1663
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -2174,7 +1848,7 @@ cont {
     lines {
       width: 0.5
       color: 4473924
-      priority: 1519
+      priority: 1663
       cap: BUTTCAP
     }
   }
@@ -2193,7 +1867,7 @@ cont {
     lines {
       width: 0.5
       color: 4473924
-      priority: 1519
+      priority: 1663
       cap: BUTTCAP
     }
   }
@@ -2215,19 +1889,13 @@ cont {
       priority: 1663
       cap: BUTTCAP
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
         height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -2246,19 +1914,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
         height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -2277,19 +1939,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -2308,19 +1964,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
   element {
@@ -2339,19 +1989,13 @@ cont {
       color: 4473924
       priority: 1663
     }
-    symbol {
-      name: "cable-car-m"
-      priority: 16663
-    }
-    caption {
+    path_text {
       primary {
-        height: 12
+        height: 10
         color: 2236962
         stroke_color: 1308622847
-        offset_y: 1
-        is_optional: true
       }
-      priority: 15663
+      priority: 16663
     }
   }
 }
