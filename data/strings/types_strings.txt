@@ -14609,6 +14609,46 @@
     zh-Hans = 高塔
     zh-Hant = 塔
 
+  [type.man_made.tower.communication]
+    en = Communications Tower
+    ar = برج الاتصالات
+    be = Вежа сувязі
+    bg = Комуникационна кула
+    ca = Torre de comunicacions
+    cs = Komunikační věž
+    da = Kommunikationstårn
+    de = Kommunikationsturm
+    el = Πύργος Επικοινωνιών
+    es = Torre de comunicaciones
+    et = Sidetorn
+    eu = Komunikazio Dorrea
+    fa = برج ارتباطات
+    fi = Viestintätorni
+    fr = Tour de communication
+    he = מגדל תקשורת
+    hu = Kommunikációs torony
+    id = Menara Komunikasi
+    it = Torre delle comunicazioni
+    ja = 通信塔
+    ko = 커뮤니케이션 타워
+    mr = कम्युनिकेशन टॉवर
+    nb = Kommunikasjonstårn
+    nl = Communicatie Toren
+    pl = Wieża komunikacyjna
+    pt = Torre de comunicação
+    pt-BR = Torre de comunicação
+    ro = Turnul de comunicații
+    ru = Вышка связи
+    sk = Komunikačná veža
+    sv = Kommunikationstorn
+    sw = Mnara wa Mawasiliano
+    th = หอสื่อสาร
+    tr = İletişim Kulesi
+    uk = Вежа зв'язку
+    vi = Tháp truyền thông
+    zh-Hans = 通讯塔
+    zh-Hant = 通訊塔
+
   [type.man_made.wastewater_plant]
     en = Wastewater treatment plant
     de = Kläranlage
