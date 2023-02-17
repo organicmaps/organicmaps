@@ -958,8 +958,8 @@ GEOM	 line3	 highway-trunk-bridge          	 z[13]
 GEOM	 line4	 highway-trunk-bridge          	 z[14-19]
 GEOM	 line1	 highway-trunk-tunnel          	 z[7-11]
 GEOM	 line2	 highway-trunk-tunnel          	 z[12-19]
-GEOM	 line1	 highway-world_level           	 z[4-7]
-GEOM	 line1	 highway-world_towns_level     	 z[6-7]
+GEOM	 line1	 highway-world_level           	 z[4-9]
+GEOM	 line1	 highway-world_towns_level     	 z[6-9]
 GEOM	 line1	 highway-motorway              	 z[14-19]
 GEOM	 line3	 highway-motorway-bridge       	 z[14-19]
 GEOM	 line1	 highway-motorway-tunnel       	 z[12-19]
@@ -988,8 +988,6 @@ GEOM	 line1	 highway-primary-bridge        	 z[8-13]
 GEOM	 line4	 highway-primary-bridge        	 z[14-19]
 GEOM	 line1	 highway-primary-tunnel        	 z[8-13]
 GEOM	 line2	 highway-primary-tunnel        	 z[14-19]
-GEOM	 line1	 highway-world_level           	 z[8-9]
-GEOM	 line1	 highway-world_towns_level     	 z[8-9]
 GEOM	 line1	 highway-primary               	 z[14-19]
 GEOM	 line3	 highway-primary-bridge        	 z[14-19]
 GEOM	 line1	 highway-primary-tunnel        	 z[14-19]
@@ -1463,10 +1461,6 @@ highway-unclassified-bridge   	 line1	 	 z[14-19]	 1304
 highway-unclassified-bridge   	 line1	 	 z[11-13]	 1411
 highway-unclassified-tunnel   	 line1	 	 z[16-19]	 1410
 highway-unclassified-tunnel   	 line1	 	 z[11-15]	 1411
-highway-world_level           	 line1	 	 z[8-9]	 1482
-highway-world_level           	 line1	 	 z[4-7]	 1505
-highway-world_towns_level     	 line1	 	 z[8-9]	 1482
-highway-world_towns_level     	 line1	 	 z[6-7]	 1505
 railway-light_rail-bridge     	 line1	 	 z[16-19]	 1069
 railway-light_rail-bridge     	 line1	 	 z[14-15]	 1081
 railway-light_rail-bridge     	 line1	 	 z[13]	 1388
