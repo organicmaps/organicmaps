@@ -41576,14 +41576,14 @@ cont {
     scale: 12
     area {
       color: 14934482
-      priority: -15520
+      priority: -15539
     }
   }
   element {
     scale: 13
     area {
       color: 14934482
-      priority: -15520
+      priority: -15539
     }
   }
   element {
@@ -41591,12 +41591,12 @@ cont {
     lines {
       width: 1.5
       color: 14934482
-      priority: 1480
+      priority: 1461
       cap: BUTTCAP
     }
     area {
       color: 14934482
-      priority: -15520
+      priority: -15539
     }
   }
   element {
@@ -41604,12 +41604,12 @@ cont {
     lines {
       width: 2.0
       color: 14934482
-      priority: 1480
+      priority: 1461
       cap: BUTTCAP
     }
     area {
       color: 14934482
-      priority: -15520
+      priority: -15539
     }
   }
   element {
@@ -41617,11 +41617,11 @@ cont {
     lines {
       width: 3.0
       color: 14934482
-      priority: 1480
+      priority: 1461
     }
     area {
       color: 14934482
-      priority: -15520
+      priority: -15539
     }
   }
   element {
@@ -41629,18 +41629,18 @@ cont {
     lines {
       width: 4.5
       color: 14934482
-      priority: 1480
+      priority: 1461
     }
     area {
       color: 14934482
-      priority: 16000
+      priority: -15539
     }
     caption {
       primary {
         height: 10
         color: 4473924
       }
-      priority: 15480
+      priority: 15461
     }
   }
   element {
@@ -41648,18 +41648,18 @@ cont {
     lines {
       width: 6.0
       color: 14934482
-      priority: 1480
+      priority: 1461
     }
     area {
       color: 14934482
-      priority: 16000
+      priority: -15539
     }
     caption {
       primary {
         height: 10
         color: 4473924
       }
-      priority: 15480
+      priority: 15461
     }
   }
   element {
@@ -41667,18 +41667,18 @@ cont {
     lines {
       width: 8.0
       color: 14934482
-      priority: 1480
+      priority: 1461
     }
     area {
       color: 14934482
-      priority: 16000
+      priority: -15539
     }
     caption {
       primary {
         height: 10
         color: 4473924
       }
-      priority: 15480
+      priority: 15461
     }
   }
 }
@@ -42010,14 +42010,14 @@ cont {
     scale: 12
     area {
       color: 14934482
-      priority: -15520
+      priority: -15539
     }
   }
   element {
     scale: 13
     area {
       color: 14934482
-      priority: -15520
+      priority: -15539
     }
   }
   element {
@@ -42025,12 +42025,12 @@ cont {
     lines {
       width: 1.5
       color: 14934482
-      priority: 1480
+      priority: 1461
       cap: BUTTCAP
     }
     area {
       color: 14934482
-      priority: -15520
+      priority: -15539
     }
   }
   element {
@@ -42038,12 +42038,12 @@ cont {
     lines {
       width: 2.0
       color: 14934482
-      priority: 1480
+      priority: 1461
       cap: BUTTCAP
     }
     area {
       color: 14934482
-      priority: -15520
+      priority: -15539
     }
   }
   element {
@@ -42051,11 +42051,11 @@ cont {
     lines {
       width: 3.0
       color: 14934482
-      priority: 1480
+      priority: 1461
     }
     area {
       color: 14934482
-      priority: -15520
+      priority: -15539
     }
   }
   element {
@@ -42063,18 +42063,18 @@ cont {
     lines {
       width: 4.5
       color: 14934482
-      priority: 1480
+      priority: 1461
     }
     area {
       color: 14934482
-      priority: 16000
+      priority: -15539
     }
     caption {
       primary {
         height: 10
         color: 4473924
       }
-      priority: 15480
+      priority: 15461
     }
   }
   element {
@@ -42082,18 +42082,18 @@ cont {
     lines {
       width: 6.0
       color: 14934482
-      priority: 1480
+      priority: 1461
     }
     area {
       color: 14934482
-      priority: 16000
+      priority: -15539
     }
     caption {
       primary {
         height: 10
         color: 4473924
       }
-      priority: 15480
+      priority: 15461
     }
   }
   element {
@@ -42101,18 +42101,18 @@ cont {
     lines {
       width: 8.0
       color: 14934482
-      priority: 1480
+      priority: 1461
     }
     area {
       color: 14934482
-      priority: 16000
+      priority: -15539
     }
     caption {
       primary {
         height: 10
         color: 4473924
       }
-      priority: 15480
+      priority: 15461
     }
   }
 }

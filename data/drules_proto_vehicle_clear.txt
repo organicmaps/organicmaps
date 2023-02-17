@@ -25085,14 +25085,14 @@ cont {
     scale: 13
     area {
       color: 1306780114
-      priority: -15459
+      priority: -15483
     }
   }
   element {
     scale: 14
     area {
       color: 1306780114
-      priority: -15459
+      priority: -15483
     }
   }
   element {
@@ -25100,12 +25100,12 @@ cont {
     lines {
       width: 2.0
       color: 1306780114
-      priority: 1541
+      priority: 1517
       cap: BUTTCAP
     }
     area {
       color: 1306780114
-      priority: -15459
+      priority: -15483
     }
   }
   element {
@@ -25113,11 +25113,11 @@ cont {
     lines {
       width: 3.0
       color: 1306780114
-      priority: 1541
+      priority: 1517
     }
     area {
       color: 1306780114
-      priority: -15459
+      priority: -15483
     }
   }
   element {
@@ -25125,11 +25125,11 @@ cont {
     lines {
       width: 4.5
       color: 1306780114
-      priority: 1541
+      priority: 1517
     }
     area {
       color: 1306780114
-      priority: -15459
+      priority: -15483
     }
   }
   element {
@@ -25137,11 +25137,11 @@ cont {
     lines {
       width: 6.0
       color: 1306780114
-      priority: 1541
+      priority: 1517
     }
     area {
       color: 1306780114
-      priority: -15459
+      priority: -15483
     }
   }
   element {
@@ -25149,11 +25149,11 @@ cont {
     lines {
       width: 8.0
       color: 1306780114
-      priority: 1541
+      priority: 1517
     }
     area {
       color: 1306780114
-      priority: -15459
+      priority: -15483
     }
   }
 }
@@ -25252,14 +25252,14 @@ cont {
     scale: 13
     area {
       color: 1306780114
-      priority: -15459
+      priority: -15483
     }
   }
   element {
     scale: 14
     area {
       color: 1306780114
-      priority: -15459
+      priority: -15483
     }
   }
   element {
@@ -25267,12 +25267,12 @@ cont {
     lines {
       width: 2.0
       color: 1306780114
-      priority: 1541
+      priority: 1517
       cap: BUTTCAP
     }
     area {
       color: 1306780114
-      priority: -15459
+      priority: -15483
     }
   }
   element {
@@ -25280,11 +25280,11 @@ cont {
     lines {
       width: 3.0
       color: 1306780114
-      priority: 1541
+      priority: 1517
     }
     area {
       color: 1306780114
-      priority: -15459
+      priority: -15483
     }
   }
   element {
@@ -25292,11 +25292,11 @@ cont {
     lines {
       width: 4.5
       color: 1306780114
-      priority: 1541
+      priority: 1517
     }
     area {
       color: 1306780114
-      priority: -15459
+      priority: -15483
     }
   }
   element {
@@ -25304,11 +25304,11 @@ cont {
     lines {
       width: 6.0
       color: 1306780114
-      priority: 1541
+      priority: 1517
     }
     area {
       color: 1306780114
-      priority: -15459
+      priority: -15483
     }
   }
   element {
@@ -25316,11 +25316,11 @@ cont {
     lines {
       width: 8.0
       color: 1306780114
-      priority: 1541
+      priority: 1517
     }
     area {
       color: 1306780114
-      priority: -15459
+      priority: -15483
     }
   }
 }

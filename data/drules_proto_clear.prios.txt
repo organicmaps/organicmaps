@@ -1695,8 +1695,6 @@ OVRL/z19	 text	 amenity-parking_space-private 	 z[19]
 OVRL/z19	 text	 amenity-parking_space-underground	 z[19]
 OVRL/z19	 text	 amenity-public_bookcase       	 z[19]
 OVRL/z19	 text	 amenity-townhall              	 z[19]
-GEOM	 area	 man_made-breakwater           	 z[17-19]
-GEOM	 area	 man_made-pier                 	 z[17-19]
 GEOM	 line1	 waterway-dam                  	 z[14-19]
 GEOM	 line1	 waterway-ditch                	 z[17-19]
 GEOM	 line1	 waterway-drain                	 z[17-19]
@@ -1733,13 +1731,13 @@ GEOM	 line1	 highway-steps-bridge          	 z[15-19]
 GEOM	 line1	 highway-steps-tunnel          	 z[15-16]
 GEOM	 line3	 highway-steps-tunnel          	 z[17-19]
 GEOM	 line1	 hwtag-oneway                  	 z[15-19]
-GEOM	 line1	 man_made-breakwater           	 z[14-19]
-GEOM	 line1	 man_made-pier                 	 z[14-19]
 GEOM	 line1	 waterway-weir                 	 z[15-19]
 GEOM	 line1	 barrier-city_wall             	 z[14-19]
 GEOM	 line1	 barrier-fence                 	 z[16-19]
 GEOM	 line1	 barrier-hedge                 	 z[16-19]
 GEOM	 line1	 barrier-wall                  	 z[16-19]
+GEOM	 line1	 man_made-breakwater           	 z[14-19]
+GEOM	 line1	 man_made-pier                 	 z[14-19]
 GEOM	 line1	 railway-monorail              	 z[14-19]
 GEOM	 line1	 railway-monorail-bridge       	 z[14-19]
 GEOM	 line1	 railway-monorail-tunnel       	 z[14-19]
@@ -2050,8 +2048,8 @@ GEOM	 area	 leisure-playground            	 z[16-19]
 GEOM	 area	 amenity-fountain              	 z[16-19]
 GEOM	 area	 landuse-military              	 z[12-19]
 GEOM	 area	 landuse-military-danger_area  	 z[10-19]
-GEOM	 area	 man_made-breakwater           	 z[12-16]
-GEOM	 area	 man_made-pier                 	 z[12-16]
+GEOM	 area	 man_made-breakwater           	 z[12-19]
+GEOM	 area	 man_made-pier                 	 z[12-19]
 GEOM	 area	 amenity-grave_yard            	 z[14-19]
 GEOM	 area	 amenity-grave_yard-christian  	 z[14-19]
 GEOM	 area	 landuse-cemetery              	 z[14-19]
@@ -2257,10 +2255,6 @@ highway-world_level           	 line1	 	 z[8-9]	 1432
 highway-world_level           	 line1	 	 z[4-7]	 1451
 highway-world_towns_level     	 line1	 	 z[8-9]	 1432
 highway-world_towns_level     	 line1	 	 z[6-7]	 1451
-man_made-breakwater           	 area	 	 z[12-16]	 -15520
-man_made-breakwater           	 area	 	 z[17-19]	 16000
-man_made-pier                 	 area	 	 z[12-16]	 -15520
-man_made-pier                 	 area	 	 z[17-19]	 16000
 railway-light_rail-bridge     	 line1	 	 z[16-19]	 1047
 railway-light_rail-bridge     	 line1	 	 z[14-15]	 1056
 railway-light_rail-bridge     	 line1	 	 z[13]	 1346
