@@ -641,7 +641,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -657,7 +657,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -673,7 +673,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
 }
@@ -807,7 +807,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -822,7 +822,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
 }
@@ -1491,7 +1491,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -1507,7 +1507,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -1523,7 +1523,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
 }
@@ -2053,7 +2053,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15047
     }
   }
   element {
@@ -2148,7 +2148,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15047
     }
   }
   element {
@@ -2500,7 +2500,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15294
     }
   }
   element {
@@ -2516,7 +2516,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15294
     }
   }
   element {
@@ -2532,7 +2532,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15294
     }
   }
 }
@@ -2559,7 +2559,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15294
     }
   }
   element {
@@ -2575,7 +2575,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15294
     }
   }
   element {
@@ -2591,7 +2591,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15294
     }
   }
 }
@@ -2618,7 +2618,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15294
     }
   }
   element {
@@ -2634,7 +2634,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15294
     }
   }
   element {
@@ -2650,7 +2650,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15294
     }
   }
 }
@@ -2677,7 +2677,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15294
     }
   }
   element {
@@ -2693,7 +2693,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15294
     }
   }
   element {
@@ -2709,7 +2709,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15294
     }
   }
 }
@@ -2736,7 +2736,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15294
     }
   }
   element {
@@ -2752,7 +2752,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15294
     }
   }
   element {
@@ -2768,7 +2768,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15294
     }
   }
 }
@@ -2795,7 +2795,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15294
     }
   }
   element {
@@ -2811,7 +2811,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15294
     }
   }
   element {
@@ -2827,7 +2827,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15294
     }
   }
 }
@@ -2854,7 +2854,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15294
     }
   }
   element {
@@ -2870,7 +2870,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15294
     }
   }
   element {
@@ -2886,7 +2886,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15294
     }
   }
 }
@@ -2913,7 +2913,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15294
     }
   }
   element {
@@ -2929,7 +2929,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15294
     }
   }
   element {
@@ -2945,7 +2945,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15294
     }
   }
 }
@@ -2991,7 +2991,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3007,7 +3007,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3023,7 +3023,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15300
+      priority: 15000
     }
   }
 }
@@ -3109,7 +3109,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3125,7 +3125,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3141,7 +3141,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3157,7 +3157,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3173,7 +3173,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
 }
@@ -3275,18 +3275,6 @@ cont {
     apply_if: "name"
   }
   element {
-    scale: 15
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15300
-    }
-    apply_if: "!name"
-  }
-  element {
     scale: 16
     symbol {
       name: "college-m"
@@ -3302,18 +3290,6 @@ cont {
       priority: 16000
     }
     apply_if: "name"
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15300
-    }
-    apply_if: "!name"
   }
   element {
     scale: 17
@@ -3333,18 +3309,6 @@ cont {
     apply_if: "name"
   }
   element {
-    scale: 17
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15300
-    }
-    apply_if: "!name"
-  }
-  element {
     scale: 18
     symbol {
       name: "college-m"
@@ -3362,18 +3326,6 @@ cont {
     apply_if: "name"
   }
   element {
-    scale: 18
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15300
-    }
-    apply_if: "!name"
-  }
-  element {
     scale: 19
     symbol {
       name: "college-m"
@@ -3388,18 +3340,6 @@ cont {
       priority: 16000
     }
     apply_if: "name"
-  }
-  element {
-    scale: 19
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15300
-    }
-    apply_if: "!name"
   }
 }
 cont {
@@ -3417,7 +3357,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3433,7 +3373,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3449,7 +3389,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
 }
@@ -3468,7 +3408,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3484,7 +3424,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3500,7 +3440,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
 }
@@ -3519,7 +3459,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3535,7 +3475,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3551,7 +3491,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
 }
@@ -3570,7 +3510,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3586,7 +3526,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3602,7 +3542,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
 }
@@ -3621,7 +3561,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3637,7 +3577,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3653,7 +3593,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
 }
@@ -3672,7 +3612,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3688,7 +3628,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3704,7 +3644,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
 }
@@ -3723,7 +3663,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3739,7 +3679,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3755,7 +3695,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
 }
@@ -3782,7 +3722,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3798,7 +3738,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
 }
@@ -3817,7 +3757,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3833,7 +3773,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3849,7 +3789,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
 }
@@ -3868,7 +3808,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3884,7 +3824,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3900,7 +3840,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
 }
@@ -3919,7 +3859,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3935,7 +3875,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3951,7 +3891,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
 }
@@ -3970,7 +3910,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -3986,7 +3926,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
   element {
@@ -4002,7 +3942,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15300
+      priority: 15000
     }
   }
 }
