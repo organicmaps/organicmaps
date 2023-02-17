@@ -584,11 +584,10 @@ OVRL/z15	 text	 tourism-artwork-architecture  	 z[15-19]
 OVRL/z15	 text	 tourism-artwork-painting      	 z[15-19]
 OVRL/z15	 text	 tourism-artwork-sculpture     	 z[15-19]
 OVRL/z15	 text	 tourism-artwork-statue        	 z[15-19]
-OVRL/z15	 text	 shop-car_repair-tyres         	 z[17-19]
+OVRL/z15	 text	 shop-car_repair-tyres         	 z[15-19]
 OVRL/z15	 text	 amenity-cafe                  	 z[15-19]
 OVRL/z15	 text	 amenity-theatre               	 z[15-19]
 OVRL/z15	 text	 highway-motorway_junction     	 z[15-19]
-OVRL/z15	 text	 shop-car_repair-tyres         	 z[15-16]
 OVRL/z15	 text	 building                      	 z[18-19]
 OVRL/z15	 text	 building-garage               	 z[18-19]
 OVRL/z15	 text	 building-has_parts            	 z[18-19]
@@ -1492,5 +1491,3 @@ railway-yard-bridge           	 line2	 	 z[16-19]	 1081
 railway-yard-bridge           	 line2	 	 z[14-15]	 1388
 railway-yard-tunnel           	 line1	 	 z[14-19]	 1387
 railway-yard-tunnel           	 line1	 	 z[11-13]	 1388
-shop-car_repair-tyres         	 text	 	 z[15-16]	 15500
-shop-car_repair-tyres         	 text	 	 z[17-19]	 15752
