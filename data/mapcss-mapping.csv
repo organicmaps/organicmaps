@@ -308,7 +308,7 @@ mountain_pass;[mountain_pass];;name;int_name;307;
 highway|raceway;308;
 highway|primary|tunnel;[highway=primary][tunnel?];;name;int_name;309;
 highway|primary_link|bridge;[highway=primary_link][bridge?];;name;int_name;310;
-deprecated|deprecated;311;x
+man_made|tower|communication;[man_made=tower][tower:type=communication];;name;int_name;311;
 sport|equestrian;312;
 tourism|information|office;[tourism=information][information=office];;name;int_name;313;
 highway|footway|hiking;[highway=footway][sac_scale=hiking];;name;int_name;314;
