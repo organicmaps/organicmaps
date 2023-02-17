@@ -166,7 +166,7 @@ line[highway=bridleway]
 
 line[highway=track],
 line[highway=raceway],
-line[leisure=track][!area],
+line[leisure=track],
 line[highway=path],
 line[route=hiking],
 line[highway=footway]
@@ -193,16 +193,16 @@ line[railway=light_rail][!tunnel]::dash,
 line[railway=yard]::dash
 {z-index: 690;}
 
-line[highway=residential],
 line[highway=road],
 line[highway=living_street]
+line[highway=unclassified],
 {z-index: 700;}
 
 line[highway=residential_link],
 line[highway=tertiary_link]
 {z-index: 740;}
 
-line[highway=unclassified],
+line[highway=residential],
 line[highway=tertiary],
 {z-index: 750;}
 
