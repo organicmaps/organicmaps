@@ -20247,22 +20247,6 @@ cont {
 cont {
   name: "historic-memorial-cross"
   element {
-    scale: 15
-    symbol {
-      name: "zero-icon"
-      priority: 16788
-      min_distance: 24
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "zero-icon"
-      priority: 16788
-      min_distance: 12
-    }
-  }
-  element {
     scale: 17
     symbol {
       name: "cross-m"
@@ -20308,49 +20292,6 @@ cont {
         offset_y: 1
       }
       priority: 15788
-    }
-  }
-}
-cont {
-  name: "historic-memorial-plaque"
-  element {
-    scale: 15
-    symbol {
-      name: "zero-icon"
-      priority: 16788
-      min_distance: 24
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "zero-icon"
-      priority: 16788
-      min_distance: 12
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "zero-icon"
-      priority: 16788
-      min_distance: 12
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "zero-icon"
-      priority: 16788
-      min_distance: 12
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "zero-icon"
-      priority: 16788
-      min_distance: 12
     }
   }
 }
@@ -20517,49 +20458,6 @@ cont {
         offset_y: 1
       }
       priority: 15788
-    }
-  }
-}
-cont {
-  name: "historic-memorial-stolperstein"
-  element {
-    scale: 15
-    symbol {
-      name: "zero-icon"
-      priority: 16788
-      min_distance: 24
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "zero-icon"
-      priority: 16788
-      min_distance: 12
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "zero-icon"
-      priority: 16788
-      min_distance: 12
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "zero-icon"
-      priority: 16788
-      min_distance: 12
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "zero-icon"
-      priority: 16788
-      min_distance: 12
     }
   }
 }

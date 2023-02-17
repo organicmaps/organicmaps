@@ -33421,22 +33421,6 @@ cont {
 cont {
   name: "historic-memorial-cross"
   element {
-    scale: 15
-    symbol {
-      name: "zero-icon"
-      priority: 16740
-      min_distance: 24
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "zero-icon"
-      priority: 16740
-      min_distance: 12
-    }
-  }
-  element {
     scale: 17
     symbol {
       name: "cross-m"
@@ -33491,34 +33475,10 @@ cont {
 cont {
   name: "historic-memorial-plaque"
   element {
-    scale: 15
-    symbol {
-      name: "zero-icon"
-      priority: 16682
-      min_distance: 24
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "zero-icon"
-      priority: 16682
-      min_distance: 12
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "zero-icon"
-      priority: 16682
-      min_distance: 12
-    }
-  }
-  element {
     scale: 18
     symbol {
       name: "plaque"
-      priority: 16865
+      priority: 16740
       min_distance: 12
     }
     caption {
@@ -33528,14 +33488,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15865
+      priority: 15740
     }
   }
   element {
     scale: 19
     symbol {
       name: "plaque"
-      priority: 16865
+      priority: 16740
       min_distance: 12
     }
     caption {
@@ -33545,7 +33505,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15865
+      priority: 15740
     }
   }
 }
@@ -33728,42 +33688,10 @@ cont {
 cont {
   name: "historic-memorial-stolperstein"
   element {
-    scale: 15
-    symbol {
-      name: "zero-icon"
-      priority: 16682
-      min_distance: 24
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "zero-icon"
-      priority: 16682
-      min_distance: 12
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "zero-icon"
-      priority: 16682
-      min_distance: 12
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "zero-icon"
-      priority: 16682
-      min_distance: 12
-    }
-  }
-  element {
     scale: 19
     symbol {
       name: "plaque"
-      priority: 16865
+      priority: 16740
       min_distance: 12
     }
     caption {
@@ -33773,7 +33701,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15865
+      priority: 15740
     }
   }
 }
