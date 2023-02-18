@@ -43,7 +43,7 @@ Configure the repository for an opensource build:
 bash ./configure.sh
 ```
 
-For _Windows 10_: Use WSL(make sure [g++ is installed](https://askubuntu.com/a/915751)) to run `./configure.sh`, or, alternatively, install the [Visual Studio Developer Command Prompt](https://docs.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022) (make sure to choose the "Desktop development with C++" as your workload while installing Visual Studio), check whether [cl.exe]((https://learn.microsoft.com/en-us/cpp/build/building-on-the-command-line?view=msvc-170)) is in the path by typing `cl` in Developer Command Prompt for VS. Run the following command and follow instructions:
+For _Windows 10_: Use WSL(make sure [g++ is installed](https://askubuntu.com/a/915751)) to run `./configure.sh`, or, alternatively, install the [Visual Studio Developer Command Prompt](https://docs.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022) (make sure to choose the "Desktop development with C++" as your workload while installing Visual Studio), check whether [cl.exe](https://learn.microsoft.com/en-us/cpp/build/building-on-the-command-line?view=msvc-170) is in the path by typing `cl` in Developer Command Prompt for VS. Run the following command and follow instructions:
 
 ```bash
 
