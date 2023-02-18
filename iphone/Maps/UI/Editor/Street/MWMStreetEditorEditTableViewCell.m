@@ -22,9 +22,7 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
   NSString * newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
-  BOOL const isCorrect = [textField.validator validateString:newString];
-  if (isCorrect)
-    [self.delegate editCellTextChanged:newString];
+  [self.delegate editCellTextChanged:newString];
   return YES;
 }
 
