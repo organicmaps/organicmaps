@@ -10,13 +10,6 @@
 #include "platform/platform.hpp"
 #include "private.h"
 
-typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect) {
-  MWMFieldCorrectNO = 0,
-  MWMFieldCorrectLogin = 1 << 0,
-  MWMFieldCorrectPassword = 1 << 1,
-  MWMFieldCorrectAll = MWMFieldCorrectLogin | MWMFieldCorrectPassword
-};
-
 using namespace osm;
 
 @interface MWMAuthorizationOSMLoginViewController ()<UITextFieldDelegate>
@@ -26,8 +19,6 @@ using namespace osm;
 @property(weak, nonatomic) IBOutlet UIButton * loginButton;
 @property(weak, nonatomic) IBOutlet UIButton * forgotButton;
 @property(weak, nonatomic) IBOutlet UIView * spinnerView;
-
-@property(nonatomic) MWMFieldCorrect isCorrect;
 
 @property(nonatomic) MWMCircularProgress * spinner;
 
@@ -39,7 +30,6 @@ using namespace osm;
 {
   [super viewDidLoad];
   self.title = L(@"osm_account").capitalizedString;
-  self.isCorrect = MWMFieldCorrectNO;
   [self checkConnection];
   [self stopSpinner];
 }
@@ -53,33 +43,8 @@ using namespace osm;
 
 - (BOOL)shouldAutorotate { return NO; }
 - (void)checkConnection { self.forgotButton.enabled = Platform::IsConnected(); }
+
 #pragma mark - UITextFieldDelegate
-
-- (BOOL)textField:(UITextField *)textField
-    shouldChangeCharactersInRange:(NSRange)range
-                replacementString:(NSString *)string
-{
-  NSString * newString =
-      [textField.text stringByReplacingCharactersInRange:range withString:string];
-  BOOL const isValid = [textField.validator validateString:newString];
-
-  if ([textField isEqual:self.loginTextField])
-  {
-    if (isValid)
-      self.isCorrect |= MWMFieldCorrectLogin;
-    else
-      self.isCorrect &= ~MWMFieldCorrectLogin;
-  }
-  else if ([textField isEqual:self.passwordTextField])
-  {
-    if (isValid)
-      self.isCorrect |= MWMFieldCorrectPassword;
-    else
-      self.isCorrect &= ~MWMFieldCorrectPassword;
-  }
-
-  return YES;
-}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -177,14 +142,6 @@ using namespace osm;
 - (IBAction)forgotPassword
 {
   [self openUrl:@(OsmOAuth::ServerAuth().GetResetPasswordURL().c_str())];
-}
-
-#pragma mark - Properties
-
-- (void)setIsCorrect:(MWMFieldCorrect)isCorrect
-{
-  _isCorrect = isCorrect;
-  self.loginButton.enabled = isCorrect == MWMFieldCorrectAll;
 }
 
 @end
