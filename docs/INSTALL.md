@@ -48,7 +48,7 @@ For _Windows 10_:  You should be able to build the project by following either o
 **Setup 1: Using WSL**
 1. Install [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) on your machine.
 2. Install g++ by running the following command in WSL: `sudo apt install g++`
-3. Execute `bash ./configure` in WSL.
+3. Run `./configure.sh` in WSL.
 4. After bootstrapping, don't forget to generate header files by `cd 3party/boost` and executing `./b2 headers`.
 
 **Setup 2: Using Visual Studio Developer Command Prompt**
