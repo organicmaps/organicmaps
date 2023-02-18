@@ -51,9 +51,6 @@ node[cemetery=grave],
 area[cemetery=grave],
 {z-index: 800;}
 
-line[isoline],
-{z-index: 801;}
-
 node[place=continent]
 {z-index: 999;}
 
