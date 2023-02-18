@@ -459,3 +459,24 @@ UNIT_TEST(XMLFeature_AmenityRecyclingFromAndToXml)
   }
   */
 }
+
+UNIT_TEST(XMLFeature_Diet)
+{
+  XMLFeature ft(XMLFeature::Type::Node);
+  TEST(ft.GetCuisine().empty(), ());
+
+  ft.SetCuisine("vegan;vegetarian");
+  TEST_EQUAL(ft.GetCuisine(), "vegan;vegetarian", ());
+
+  ft.SetCuisine("vegan;pasta;vegetarian");
+  TEST_EQUAL(ft.GetCuisine(), "pasta;vegan;vegetarian", ());
+
+  ft.SetCuisine("vegetarian");
+  TEST_EQUAL(ft.GetCuisine(), "vegetarian", ());
+
+  ft.SetCuisine("vegan");
+  TEST_EQUAL(ft.GetCuisine(), "vegan", ());
+
+  ft.SetCuisine("");
+  TEST_EQUAL(ft.GetCuisine(), "", ());
+}
