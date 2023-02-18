@@ -763,10 +763,10 @@ line|z11-[isoline=step_1000],
 line|z12-[isoline=step_500],
 {text:name;font-size: 9;fill-opacity: 0.7;text-color: @label_isoline500;}
 
-line|z15-[isoline=step_100],
+line|z14-[isoline=step_100],
 {text:name;font-size: 9;fill-opacity: 0.7;text-color: @label_isoline100;}
 
-line|z17-[isoline=step_50],
+line|z16-[isoline=step_50],
 line|z17-[isoline=zero],
 {text:name;font-size: 9;fill-opacity: 0.7;text-color: @label_isoline50;}
 
