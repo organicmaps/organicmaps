@@ -802,10 +802,10 @@ string_view FeatureType::GetName(int8_t lang)
 
   ParseCommon();
 
-  // We don't store empty names.
+  // We don't store empty names. UPD: We do for coast features :)
   string_view name;
   if (m_params.name.GetString(lang, name))
-    ASSERT(!name.empty(), ());
+    ASSERT(!name.empty() || m_id.m_mwmId.GetInfo()->GetType() == MwmInfo::COASTS, ());
 
   return name;
 }

@@ -30,7 +30,8 @@ esac
 LANGUAGES=( en ar be bg ca cs da de el es et eu fa 'fi' fr he hu id it ja ko mr nb nl pl pt pt-BR ro ru sk sv sw th tr uk vi zh-CN zh-TW )
 
 for lang in "${LANGUAGES[@]}"; do
-  TRANSLATION=$(trans -b "$SRC:$lang" "$WORD" | sed 's/   *//')
+  # -no-bidi fixes wrong characters order for RTL languages.
+  TRANSLATION=$(trans -b -no-bidi "$SRC:$lang" "$WORD" | sed 's/   *//')
   # Correct language codes to ours.
   case $lang in
     zh-CN) lang="zh-Hans" ;;

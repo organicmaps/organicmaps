@@ -6,6 +6,7 @@
     <item name="android:gravity">center</item>
     <item name="android:textAllCaps">true</item>
     <item name="android:textSize">10sp</item>
+    <item name="android:color">?iconTint</item>
   </style>
 
   <style name="PlacePageButtonImage">
@@ -16,6 +17,7 @@
     <item name="android:paddingTop">@dimen/margin_base</item>
     <item name="android:paddingBottom">@dimen/margin_base</item>
     <item name="android:scaleType">center</item>
+    <item name="android:color">?iconTint</item>
   </style>
 
   <style name="PlacePageButton">
