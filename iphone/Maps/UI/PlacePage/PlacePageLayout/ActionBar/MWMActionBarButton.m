@@ -106,6 +106,7 @@ NSString *titleForButton(MWMActionBarButtonType type, BOOL isSelected) {
       break;
     case MWMActionBarButtonTypeRouteTo:
       [self.button setImage:[UIImage imageNamed:@"ic_route_to"] forState:UIControlStateNormal];
+      self.button.imageView.tintColor = [UIColor linkBlue];
       break;
     case MWMActionBarButtonTypeShare:
       [self.button setImage:[UIImage imageNamed:@"ic_menu_share"] forState:UIControlStateNormal];
