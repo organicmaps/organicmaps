@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollViewClickFixed;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -65,6 +66,7 @@ public class PlacePageController implements Initializable<Activity>,
   private int mPreviewHeight;
   private int mFrameHeight;
   private boolean mDeactivateMapSelection = true;
+  @Nullable
   private MapObject mMapObject;
   private WindowInsets mCurrentWindowInsets;
 
@@ -303,7 +305,7 @@ public class PlacePageController implements Initializable<Activity>,
 
   private int calculatePeekHeight()
   {
-    if (mMapObject.getOpeningMode() == MapObject.OPENING_MODE_PREVIEW_PLUS)
+    if (mMapObject != null && mMapObject.getOpeningMode() == MapObject.OPENING_MODE_PREVIEW_PLUS)
       return (int) (mCoordinator.getHeight() * PREVIEW_PLUS_RATIO);
     return mPreviewHeight + mButtonsHeight;
   }
@@ -383,54 +385,58 @@ public class PlacePageController implements Initializable<Activity>,
 
   private void removePlacePageFragments()
   {
-    Fragment placePageButtonsFragment = mMwmActivity.getSupportFragmentManager()
-                                                    .findFragmentByTag(PLACE_PAGE_BUTTONS_FRAGMENT_TAG);
+    final FragmentManager fm = mMwmActivity.getSupportFragmentManager();
+    final Fragment placePageButtonsFragment = fm.findFragmentByTag(PLACE_PAGE_BUTTONS_FRAGMENT_TAG);
+    final Fragment placePageFragment = fm.findFragmentByTag(PLACE_PAGE_FRAGMENT_TAG);
+
     if (placePageButtonsFragment != null)
     {
-      mMwmActivity.getSupportFragmentManager().beginTransaction()
-                  .remove(placePageButtonsFragment)
-                  .commit();
+      fm.beginTransaction()
+        .setReorderingAllowed(true)
+        .remove(placePageButtonsFragment)
+        .commitNow();
     }
-    Fragment placePageFragment = mMwmActivity.getSupportFragmentManager()
-                                             .findFragmentByTag(PLACE_PAGE_FRAGMENT_TAG);
     if (placePageFragment != null)
     {
-      mMwmActivity.getSupportFragmentManager().beginTransaction()
-                  .remove(placePageFragment)
-                  .commit();
+      // Make sure to synchronously remove the fragment so setting the map object to null
+      // won't impact the fragment
+      fm.beginTransaction()
+        .setReorderingAllowed(true)
+        .remove(placePageFragment)
+        .commitNow();
     }
+    viewModel.setMapObject(null);
   }
 
   private void createPlacePageFragments()
   {
-    if (mMwmActivity.getSupportFragmentManager()
-                    .findFragmentByTag(PLACE_PAGE_FRAGMENT_TAG) == null)
+    final FragmentManager fm = mMwmActivity.getSupportFragmentManager();
+    if (fm.findFragmentByTag(PLACE_PAGE_FRAGMENT_TAG) == null)
     {
-      mMwmActivity.getSupportFragmentManager().beginTransaction()
-                  .add(R.id.placepage_fragment,
-                       PlacePageView.class, null, PLACE_PAGE_FRAGMENT_TAG)
-                  .commit();
+      fm.beginTransaction()
+        .setReorderingAllowed(true)
+        .add(R.id.placepage_fragment, PlacePageView.class, null, PLACE_PAGE_FRAGMENT_TAG)
+        .commit();
     }
-    if (mMwmActivity.getSupportFragmentManager()
-                    .findFragmentByTag(PLACE_PAGE_BUTTONS_FRAGMENT_TAG) == null)
+    if (fm.findFragmentByTag(PLACE_PAGE_BUTTONS_FRAGMENT_TAG) == null)
     {
-      mMwmActivity.getSupportFragmentManager().beginTransaction()
-                  .add(R.id.pp_buttons_fragment,
-                       PlacePageButtons.class, null, PLACE_PAGE_BUTTONS_FRAGMENT_TAG)
-                  .commit();
+      fm.beginTransaction()
+        .setReorderingAllowed(true)
+        .add(R.id.pp_buttons_fragment, PlacePageButtons.class, null, PLACE_PAGE_BUTTONS_FRAGMENT_TAG)
+        .commit();
     }
   }
 
-  private void updateButtons(boolean showBackButton, boolean showRoutingButton)
+  private void updateButtons(MapObject mapObject, boolean showBackButton, boolean showRoutingButton)
   {
     List<PlacePageButtons.ButtonType> buttons = new ArrayList<>();
-    if (mMapObject.getRoadWarningMarkType() != RoadWarningMarkType.UNKNOWN)
+    if (mapObject.getRoadWarningMarkType() != RoadWarningMarkType.UNKNOWN)
     {
-      RoadWarningMarkType markType = mMapObject.getRoadWarningMarkType();
+      RoadWarningMarkType markType = mapObject.getRoadWarningMarkType();
       PlacePageButtons.ButtonType roadType = toPlacePageButton(markType);
       buttons.add(roadType);
     }
-    else if (RoutingController.get().isRoutePoint(mMapObject))
+    else if (RoutingController.get().isRoutePoint(mapObject))
     {
       buttons.add(PlacePageButtons.ButtonType.ROUTE_REMOVE);
     }
@@ -445,7 +451,7 @@ public class PlacePageController implements Initializable<Activity>,
       if (needToShowRoutingButtons)
         buttons.add(PlacePageButtons.ButtonType.ROUTE_FROM);
 
-      buttons.add(mMapObject.getMapObjectType() == MapObject.BOOKMARK
+      buttons.add(mapObject.getMapObjectType() == MapObject.BOOKMARK
                   ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
                   : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
 
@@ -461,14 +467,17 @@ public class PlacePageController implements Initializable<Activity>,
   }
 
   @Override
-  public void onChanged(MapObject mapObject)
+  public void onChanged(@Nullable MapObject mapObject)
   {
-
     mMapObject = mapObject;
-    createPlacePageFragments();
-    updateButtons(
-        MapObject.isOfType(MapObject.API_POINT, mMapObject),
-        !MapObject.isOfType(MapObject.MY_POSITION, mMapObject));
+    if (mapObject != null)
+    {
+      createPlacePageFragments();
+      updateButtons(
+          mapObject,
+          MapObject.isOfType(MapObject.API_POINT, mMapObject),
+          !MapObject.isOfType(MapObject.MY_POSITION, mMapObject));
+    }
   }
 
   @Override

@@ -420,19 +420,21 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
   private <T extends Fragment> void updateViewFragment(Class<T> controllerClass, String fragmentTag, @IdRes int containerId, boolean enabled)
   {
-    final FragmentManager fManager = getChildFragmentManager();
-    final T fragment = (T) fManager.findFragmentByTag(fragmentTag);
+    final FragmentManager fm = getChildFragmentManager();
+    final T fragment = (T) fm.findFragmentByTag(fragmentTag);
     if (enabled && fragment == null)
     {
-      fManager.beginTransaction()
-              .add(containerId, controllerClass, null, fragmentTag)
-              .commit();
+      fm.beginTransaction()
+        .setReorderingAllowed(true)
+        .add(containerId, controllerClass, null, fragmentTag)
+        .commit();
     }
     else if (!enabled && fragment != null)
     {
-      fManager.beginTransaction()
-              .remove(fragment)
-              .commit();
+      fm.beginTransaction()
+        .setReorderingAllowed(true)
+        .remove(fragment)
+        .commitNow();
     }
   }
 
