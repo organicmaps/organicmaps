@@ -333,8 +333,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
     return mid == MetadataID::FMD_POSTCODE || mid == MetadataID::FMD_BUILDING_LEVELS;
   }), editableProperties.end());
   BOOL const isCreating = self.isCreating;
-  BOOL const isThereNotes =
-      !isCreating && editableProperties.empty() && !isAddressEditable && !isNameEditable;
+  BOOL const showNotesToOSMEditors = !isCreating;
 
   if (isNameEditable)
   {
@@ -367,7 +366,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
     registerCellsForTableView(v, self.tableView);
   }
 
-  if (isThereNotes)
+  if (showNotesToOSMEditors)
   {
     m_sections.push_back(MWMEditorSectionNote);
     m_cells[MWMEditorSectionNote] = kSectionNoteCellTypes;
