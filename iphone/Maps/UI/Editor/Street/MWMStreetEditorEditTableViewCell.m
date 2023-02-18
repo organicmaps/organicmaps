@@ -1,10 +1,8 @@
 #import "MWMStreetEditorEditTableViewCell.h"
-#import "UITextField+RuntimeAttributes.h"
 
-@interface MWMStreetEditorEditTableViewCell () <UITextFieldDelegate>
+@interface MWMStreetEditorEditTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet UITextField * textField;
-
 @property (weak, nonatomic) id<MWMStreetEditorEditCellProtocol> delegate;
 
 @end
@@ -15,15 +13,21 @@
 {
   self.delegate = delegate;
   self.textField.text = street;
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(textDidChange:)
+                                               name:UITextFieldTextDidChangeNotification
+                                             object:self.textField];
 }
 
-#pragma mark - UITextFieldDelegate
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+- (void)dealloc
 {
-  NSString * newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
-  [self.delegate editCellTextChanged:newString];
-  return YES;
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)textDidChange:(NSNotification*)notification
+{
+  UITextField * textField = (UITextField *)[notification object];
+  [self.delegate editCellTextChanged:textField.text];
 }
 
 @end
