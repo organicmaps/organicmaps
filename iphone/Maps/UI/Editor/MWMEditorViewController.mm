@@ -791,7 +791,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-  return kDefaultHeaderHeight;
+  return m_sections[section] == MWMEditorSectionNote ? kDefaultHeaderHeight * 2 : kDefaultHeaderHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
