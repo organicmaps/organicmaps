@@ -2196,8 +2196,10 @@ area|z17-[amenity=waste_transfer_station],
 
 node|z17-[power=station],
 area|z17-[power=station],
+node|z17-[power=generator],
+area|z17-[power=generator],
 node|z19-[power=substation],
-area|z19-[power=substation]
+area|z19-[power=substation],
 {icon-image: power-m.svg;font-size: 11;icon-min-distance: 20;}
 
 node|z17-[amenity=shower],
