@@ -29,8 +29,8 @@
         android:layout_height="wrap_content">
         <ImageView
           android:id="@+id/imageView"
-          android:layout_width="@dimen/login_osm_logo"
-          android:layout_height="@dimen/login_osm_logo"
+          android:layout_width="@dimen/osm_logo"
+          android:layout_height="@dimen/osm_logo"
           android:layout_gravity="center"
           android:src="@drawable/ic_openstreetmap_color"
           app:layout_constraintBottom_toBottomOf="parent"

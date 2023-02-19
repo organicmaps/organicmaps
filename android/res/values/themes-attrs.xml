@@ -8,6 +8,7 @@
     <attr name="statusBar" format="color" />
     <attr name="secondary" format="color" />
     <attr name="panel" format="color" />
+    <attr name="colorLogo" format="color" />
     <attr name="iconTint" format="color" />
     <attr name="iconTintDisabled" format="color" />
     <attr name="iconTintActive" format="color" />

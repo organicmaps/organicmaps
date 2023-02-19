@@ -29,6 +29,7 @@
     <item name="colorAccent">@color/base_accent</item>
     <item name="colorBtnHighlight">@color/white_38</item>
     <item name="panel">@color/bg_panel</item>
+    <item name="colorLogo">@color/bg_primary</item>
     <item name="iconTint">@color/black_54</item>
     <item name="iconTintDisabled">@color/black_12</item>
     <item name="iconTintActive">@color/yellow</item>
@@ -160,6 +161,7 @@
     <item name="colorAccent">@color/base_accent_night</item>
     <item name="colorBtnHighlight">@color/white_24</item>
     <item name="panel">@color/bg_panel_night</item>
+    <item name="colorLogo">@color/white_primary</item>
     <item name="iconTint">@color/white_secondary</item>
     <item name="iconTintDisabled">@color/white_12</item>
     <item name="iconTintActive">@color/yellow</item>
