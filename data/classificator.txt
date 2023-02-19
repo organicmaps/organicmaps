@@ -650,7 +650,9 @@ world  +
         storage_tank  -
         surveillance  -
         survey_point  -
-        tower  -
+        tower  +
+            communication  -
+            {}
         wastewater_plant  -
         water_tap  -
         water_tower  -
@@ -771,7 +773,12 @@ world  +
         village  -
         {}
     power  +
-        generator  -
+        generator  +
+            gas  -
+            hydro  -
+            solar  -
+            wind  -
+            {}
         line  -
         minor_line  -
         pole  -
