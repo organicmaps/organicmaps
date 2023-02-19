@@ -48,15 +48,9 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>
   public void onBindViewHolder(ViewHolder viewHolder, final int position)
   {
     final MenuBottomSheetItem item = dataSet.get(position);
-    viewHolder.getContainer().setOnClickListener((v) -> onMenuItemClick(item));
     final ImageView iv = viewHolder.getIconImageView();
-    if (item.iconRes == R.drawable.ic_donate && Config.isNY())
-    {
-      iv.setImageResource(R.drawable.ic_christmas_tree);
-      iv.setImageTintMode(null);
-    }
-    else
-      iv.setImageResource(item.iconRes);
+    iv.setImageResource(item.iconRes);
+    viewHolder.getContainer().setOnClickListener((v) -> onMenuItemClick(item));
     viewHolder.getTitleTextView().setText(item.titleRes);
     TextView badge = viewHolder.getBadgeTextView();
     if (item.badgeCount > 0)

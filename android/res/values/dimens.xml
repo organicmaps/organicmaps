@@ -135,7 +135,7 @@
   <dimen name="editor_margin_timetable_left">50dp</dimen>
 
   <!-- Login -->
-  <dimen name="login_osm_logo">64dp</dimen>
+  <dimen name="osm_logo">64dp</dimen>
 
   <!-- Altitude chart -->
   <dimen name="altitude_chart_container_padding_left">16dp</dimen>
@@ -173,4 +173,5 @@
   <dimen name="sharing_options_img_size">18dp</dimen>
   <dimen name="bookmark_purchase_img_width">280dp</dimen>
   <dimen name="square_block_size">168dp</dimen>
+  <dimen name="about_logo">96dp</dimen>
 </resources>

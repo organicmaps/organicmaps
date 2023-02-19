@@ -21,6 +21,7 @@ import app.organicmaps.R;
 import app.organicmaps.downloader.MapManager;
 import app.organicmaps.downloader.UpdateInfo;
 import app.organicmaps.routing.RoutingController;
+import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.widget.menu.MyPositionButton;
 import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.util.Config;
@@ -71,10 +72,12 @@ public class MapButtonsController extends Fragment
     mBottomButtonsFrame = mFrame.findViewById(R.id.map_buttons_bottom);
 
     final FloatingActionButton helpButton = mFrame.findViewById(R.id.help_button);
-    if (Config.isNY() && helpButton != null)
+    if (helpButton != null)
     {
-      helpButton.setImageResource(R.drawable.ic_christmas_tree);
-      helpButton.getDrawable().setTintList(null);
+      helpButton.setImageResource(R.drawable.logo);
+      // Keep this button colorful in normal theme.
+      if (!ThemeUtils.isNightTheme(getContext()))
+        helpButton.getDrawable().setTintList(null);
     }
 
     final View zoomFrame = mFrame.findViewById(R.id.zoom_buttons_container);

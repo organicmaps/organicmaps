@@ -38,6 +38,17 @@
 	<string name="country_status_download_failed">Download has failed</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Try Again</string>
+	<string name="about_menu_title">About Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Free for everyone, made with love</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• No ads, no tracking, no data collection</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• No battery drain, no background data</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Fast, minimalist, no software bloat</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Open-source application created by enthusiasts and volunteers.</string>
 	<string name="connection_settings">Connection Settings</string>
 	<string name="close">Close</string>
 	<string name="unsupported_phone">The app requires hardware accelerated OpenGL. Unfortunately, your device is not supported.</string>
@@ -261,7 +272,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Donate</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">How to support us?</string>
+	<string name="how_to_support_us">Support the project</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Copyright</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -472,7 +483,8 @@
 	<string name="editor_report_problem_other_title">Different problem</string>
 	<string name="placepage_add_business_button">Add business</string>
 	<string name="message_invalid_feature_position">No object can be located here</string>
-	<string name="osm_presentation">All map data comes from the OpenStreetMap project. It is like Wikipedia for maps where you can add or edit places, and they become available to millions of users all over the World.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Cartographic data from OpenStreetMap as of %s. OSM is like Wikipedia for maps, where you can add or edit places for all users around the world.</string>
 	<string name="login_to_make_edits_visible">Log in to OpenStreetMap.org so other users can see the changes you have made.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d of %2$d</string>
@@ -1320,7 +1332,7 @@
 	<string name="type.landuse.grass">Lawn</string>
 	<string name="type.landuse.greenfield">Greenfield</string>
 	<string name="type.landuse.greenhouse_horticulture">Greenhouse</string>
-	<string name="type.landuse.industrial">Industrial Land</string>
+	<string name="type.landuse.industrial">Industrial Area</string>
 	<string name="type.landuse.landfill">Landfill</string>
 	<string name="type.landuse.meadow">Meadow</string>
 	<string name="type.landuse.military">Military Area</string>
@@ -1329,14 +1341,14 @@
 	<string name="type.landuse.railway">Railway Premises</string>
 	<string name="type.landuse.recreation_ground">Recreation Ground</string>
 	<string name="type.landuse.reservoir">Water</string>
-	<string name="type.landuse.residential">Residential Land</string>
-	<string name="type.landuse.retail">Retail Land</string>
+	<string name="type.landuse.residential">Residential Area</string>
+	<string name="type.landuse.retail">Retail Area</string>
 	<string name="type.landuse.salt_pond">Pond</string>
 	<string name="type.landuse.village_green">Land</string>
 	<string name="type.landuse.vineyard">Vineyard</string>
 	<string name="type.leisure">Leisure</string>
 	<string name="type.leisure.common">Public Land</string>
-	<string name="type.leisure.dog_park">Dog Area</string>
+	<string name="type.leisure.dog_park">Dog Park</string>
 	<string name="type.leisure.fitness_centre">Fitness Centre</string>
 	<string name="type.leisure.fitness_station">Fitness Station</string>
 	<string name="type.leisure.dance">Dance Hall</string>
@@ -1806,7 +1818,7 @@
 	<string name="type.shop.furniture">Furniture Store</string>
 	<string name="type.shop.garden_centre">Garden Store</string>
 	<string name="type.shop.gift">Gift Shop</string>
-	<string name="type.shop.greengrocer">Greengrocer\'s</string>
+	<string name="type.shop.greengrocer">Greengrocer</string>
 	<string name="type.shop.grocery">Grocery</string>
 	<string name="type.shop.hairdresser">Hairdresser</string>
 	<string name="type.shop.hardware">Hardware Store</string>

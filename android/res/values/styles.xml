@@ -53,6 +53,7 @@
 
   <style name="MwmWidget.Button.Accent">
     <item name="android:background">?accentButtonBackground</item>
+    <item name="android:textColor">?accentButtonTextColor</item>
   </style>
 
   <style name="MwmWidget.Button.StackedButtonsDialog">

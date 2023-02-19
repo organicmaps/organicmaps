@@ -664,8 +664,7 @@
 
     <activity
         android:name="app.organicmaps.help.HelpActivity"
-        android:configChanges="orientation|screenLayout|screenSize"
-        android:label="@string/help"
+        android:label="@string/about_menu_title"
         android:parentActivityName="app.organicmaps.MwmActivity"
         android:exported="false">
       <intent-filter>
