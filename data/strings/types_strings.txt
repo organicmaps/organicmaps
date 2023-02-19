@@ -5080,7 +5080,7 @@
     pt = Fronteira de subúrbio
     pt-BR = Fronteira de subúrbio
     ru = Граница пригорода
-    tr = Banliyö Sınırı
+    tr = Mahalle Sınırı
     uk = Приміська межа
     zh-Hans = 市郊行政区域界线
 
@@ -17467,7 +17467,7 @@
     sv = Förort
     sw = Pambizo
     th = ชานเมือง
-    tr = Banliyö
+    tr = Mahalle
     uk = Район
     vi = Đảo
     zh-Hans = 市郊
