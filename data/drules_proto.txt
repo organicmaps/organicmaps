@@ -43108,6 +43108,30 @@ cont {
   }
 }
 cont {
+  name: "man_made-tower-communication"
+  element {
+    scale: 17
+    symbol {
+      name: "dot-m"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "dot-m"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "dot-m"
+      priority: 16000
+    }
+  }
+}
+cont {
   name: "man_made-water_tap"
   element {
     scale: 15
@@ -57076,6 +57100,141 @@ cont {
         text: "int_name"
       }
       priority: 15514
+    }
+  }
+}
+cont {
+  name: "power-generator"
+  element {
+    scale: 17
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+}
+cont {
+  name: "power-generator-gas"
+  element {
+    scale: 17
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+}
+cont {
+  name: "power-generator-hydro"
+  element {
+    scale: 17
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+}
+cont {
+  name: "power-generator-solar"
+  element {
+    scale: 17
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+}
+cont {
+  name: "power-generator-wind"
+  element {
+    scale: 17
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
     }
   }
 }
