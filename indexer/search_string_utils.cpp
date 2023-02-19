@@ -311,8 +311,9 @@ public:
   }
 
 private:
-  // Keep only *very-common-used* synonyms here (can increase search index, otherwise).
-  // Too many synonyms increases entropy only and produces messy results ..
+  // Keep only *very-common-used* (by OSM stats) "streets" here. Can increase search index, otherwise.
+  // Too many "streets" increases entropy only and produces messy results ..
+  // Note! If "street" is present here, it should contain all possible synonyms (avenue -> av, ave).
   StreetsSynonymsHolder()
   {
     char const * affics[] =
@@ -321,7 +322,7 @@ private:
       "улица", "ул",
 
       // English - English
-      "street", "st", "road", "rd", "drive", "dr", "lane", "ln", "avenue", "av",
+      "street", "st", "road", "rd", "drive", "dr", "lane", "ln", "avenue", "av", "ave",
 
       // Belarusian - Беларуская мова
       "вуліца", "вул",
