@@ -2150,9 +2150,9 @@ UNIT_CLASS_TEST(ProcessorTest, HouseOnStreetSynonymsWithMisprints)
     Rules rulesWithStreet = {ExactMatch(countryId, houseTverskoi), ExactMatch(countryId, tverskoi)};
     TEST(AlternativeMatch("tverskoi 3", {rules, rulesWithStreet}), ());
     TEST(AlternativeMatch("tverskoi boulevard 3", {rules, rulesWithStreet}), ());
-    TEST(AlternativeMatch("tverskoi bulevard 3", {rules, rulesWithStreet}), ());
+    TEST(AlternativeMatch("tverskooi bulevard 3", {rules, rulesWithStreet}), ());
     TEST(AlternativeMatch("tverskoi blvd 3", {rules, rulesWithStreet}), ());
-    TEST(AlternativeMatch("tverskoi blvrd 3", {rules, rulesWithStreet}), ());
+    TEST(AlternativeMatch("tveskoi blvrd 3", {rules, rulesWithStreet}), ());
     TEST(AlternativeMatch("tverskoi boulevrd 3", {rules, rulesWithStreet}), ());
     TEST(AlternativeMatch("tverskoi bolevard 3", {rules, rulesWithStreet}), ());
   }
@@ -2161,9 +2161,10 @@ UNIT_CLASS_TEST(ProcessorTest, HouseOnStreetSynonymsWithMisprints)
     Rules rulesWithStreet = {ExactMatch(countryId, houseLeninsky), ExactMatch(countryId, leninsky)};
     TEST(AlternativeMatch("leninsky 5", {rules, rulesWithStreet}), ());
     TEST(AlternativeMatch("leninsky avenue 5", {rules, rulesWithStreet}), ());
-    TEST(AlternativeMatch("leninsky avenu 5", {rules, rulesWithStreet}), ());
+    TEST(AlternativeMatch("leninnsky avenu 5", {rules, rulesWithStreet}), ());
     TEST(AlternativeMatch("leninsky avneue 5", {rules, rulesWithStreet}), ());
     TEST(AlternativeMatch("leninsky av 5", {rules, rulesWithStreet}), ());
+    TEST(AlternativeMatch("lenisky ave 5", {rules, rulesWithStreet}), ());
   }
   {
     Rules rules = {ExactMatch(countryId, houseMira)};

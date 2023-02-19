@@ -127,6 +127,10 @@ void FindStreets(BaseContext const & ctx, CBV const & candidates, FeaturesFilter
     if (house_numbers::LooksLikeHouseNumber(token, isPrefix))
       emit();
 
+    /// @todo Can't say for sure what is better here:
+    /// - check only "original" token, but list all synonyms in StreetsSynonymsHolder
+    /// - rewrite here to call Put with original and synonym tokens
+
     streetsFilter.Put(token, isPrefix, curToken);
   }
   emit();
