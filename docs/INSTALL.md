@@ -43,12 +43,19 @@ Configure the repository for an opensource build:
 bash ./configure.sh
 ```
 
-For _Windows 10_: Use WSL to run `./configure.sh`, or, alternatively, run the following command from the
-[Visual Studio Developer Command Prompt](https://docs.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022)
-and follow instructions:
+For _Windows 10_:  You should be able to build the project by following either of these setups:
+
+**Setup 1: Using WSL**
+1. Install [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) on your machine.
+2. Install g++ by running the following command in WSL: `sudo apt install g++`
+3. Run `./configure.sh` in WSL.
+
+**Setup 2: Using Visual Studio Developer Command Prompt**
+1. Install the [Visual Studio Developer Command Prompt](https://docs.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022) (make sure to choose the latest MSVC x64/x86 build tool and Windows 10/11 SDK as individual components while installing Visual Studio).
+2. Run the following command and follow instructions:
 
 ```bash
-bash ./configure.sh # execute the script by using Ubuntu WSL VM
+"C:\Program Files\Git\bin\bash.exe" configure.sh # execute the script by using Developer Command Prompt
 ```
 
 ### Special cases options
