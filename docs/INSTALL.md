@@ -49,12 +49,10 @@ For _Windows 10_:  You should be able to build the project by following either o
 1. Install [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) on your machine.
 2. Install g++ by running the following command in WSL: `sudo apt install g++`
 3. Run `./configure.sh` in WSL.
-4. After bootstrapping, don't forget to generate header files by `cd 3party/boost` and executing `./b2 headers`.
 
 **Setup 2: Using Visual Studio Developer Command Prompt**
-1. Install the [Visual Studio Developer Command Prompt](https://docs.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022) (make sure to choose the "Desktop development with C++" as your workload while installing Visual Studio).
-2. Install [Windows 10/11 SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/) if you haven't already. 
-3. Execute the following command and follow instructions:
+1. Install the [Visual Studio Developer Command Prompt](https://docs.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022) (make sure to choose the latest MSVC x64/x86 build tool and Windows 10/11 SDK as individual components while installing Visual Studio).
+2. Execute the following command and follow instructions:
 
 ```bash
 "C:\Program Files\Git\bin\bash.exe" configure.sh # execute the script by using Developer Command Prompt
