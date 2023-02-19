@@ -4526,7 +4526,7 @@
     sk = Perspektívne zobrazenie
     sv = Perspektivvy
     th = มุมมองเพอร์สเปกทีฟ
-    tr = Perspektif görünüş
+    tr = Perspektif görünüm
     uk = Перспективний вид
     vi = Góc nhìn phối cảnh
     zh-Hans = 透视图
