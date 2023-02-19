@@ -38,6 +38,12 @@
   //-->
   <uses-permission android:name="android.permission.WAKE_LOCK"/>
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+  <!--
+    Android 13 (API level 33) and higher supports a runtime permission for sending non-exempt (including Foreground
+    Services (FGS)) notifications from an app.
+  //-->
+  <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
 
   <queries>
     <intent>
