@@ -21,6 +21,7 @@ import app.organicmaps.search.SearchEngine;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.Utils;
 import app.organicmaps.util.concurrency.UiThread;
 
 public class SearchWheel implements View.OnClickListener
@@ -157,7 +158,7 @@ public class SearchWheel implements View.OnClickListener
 
   public void restoreState(@NonNull Bundle savedState)
   {
-    mCurrentOption = (SearchOption) savedState.getSerializable(EXTRA_CURRENT_OPTION);
+    mCurrentOption = Utils.getSerializable(savedState, EXTRA_CURRENT_OPTION, SearchOption.class);
   }
 
   public void reset()

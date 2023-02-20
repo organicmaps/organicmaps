@@ -12,6 +12,7 @@ import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
@@ -96,7 +97,7 @@ public final class Notifier
     return new NotificationCompat.Builder(mContext, channel)
         .setAutoCancel(true)
         .setSmallIcon(R.drawable.ic_notification)
-        .setColor(UiUtils.getNotificationColor(mContext))
+        .setColor(ContextCompat.getColor(mContext, R.color.notification))
         .setContentTitle(title)
         .setContentText(content)
         .setTicker(getTicker(title, content))

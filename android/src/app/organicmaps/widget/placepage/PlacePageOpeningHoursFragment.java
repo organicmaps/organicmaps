@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -171,7 +172,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
         // Show that place is closed today.
         if (!containsCurrentWeekday)
         {
-          refreshTodayOpeningHours(resources.getString(R.string.day_off_today), resources.getColor(R.color.base_red));
+          refreshTodayOpeningHours(resources.getString(R.string.day_off_today), ContextCompat.getColor(getContext(), R.color.base_red));
           UiUtils.hide(mTodayNonBusinessTime);
         }
       }

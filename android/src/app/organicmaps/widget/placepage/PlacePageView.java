@@ -20,6 +20,7 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
@@ -46,6 +47,7 @@ import app.organicmaps.routing.RoutingController;
 import app.organicmaps.settings.RoadType;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.StringUtils;
+import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.widget.ArrowView;
@@ -421,7 +423,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private <T extends Fragment> void updateViewFragment(Class<T> controllerClass, String fragmentTag, @IdRes int containerId, boolean enabled)
   {
     final FragmentManager fm = getChildFragmentManager();
-    final T fragment = (T) fm.findFragmentByTag(fragmentTag);
+    final Fragment fragment = fm.findFragmentByTag(fragmentTag);
     if (enabled && fragment == null)
     {
       fm.beginTransaction()
@@ -476,7 +478,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       int end = text.lastIndexOf("★") + 1;
       if (start > -1)
       {
-        sb.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.base_yellow)),
+        sb.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color.base_yellow)),
                    start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
       }
       mTvSubtitle.setText(sb);

@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -185,7 +186,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
         mInputBuildingLevels.setError(isValid ? null
             : context.getString(R.string.error_enter_correct_storey_number, Editor.nativeGetMaxEditableBuildingLevels()));
         editText.setTextColor(isValid ? ThemeUtils.getColor(context, android.R.attr.textColorPrimary)
-            : context.getResources().getColor(R.color.base_red));
+            : ContextCompat.getColor(context, R.color.base_red));
       }
     });
 

@@ -1,5 +1,6 @@
 package app.organicmaps.settings;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.format.Formatter;
@@ -102,10 +103,8 @@ public class StoragePathFragment extends BaseSettingsFragment
         .show();
   }
 
-  /**
-   * Shows a progress dialog and runs a move files thread.
-   */
-  private void moveStorage(@NonNull final String newPath, @NonNull final String oldPath)
+  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3629
+  private Dialog showProgressDialog()
   {
     final ProgressDialog dialog = new ProgressDialog(requireActivity(), R.style.MwmTheme_AlertDialog);
     dialog.setMessage(getString(R.string.wait_several_minutes));
@@ -113,7 +112,15 @@ public class StoragePathFragment extends BaseSettingsFragment
     dialog.setIndeterminate(true);
     dialog.setCancelable(false);
     dialog.show();
+    return dialog;
+  }
 
+  /**
+   * Shows a progress dialog and runs a move files thread.
+   */
+  private void moveStorage(@NonNull final String newPath, @NonNull final String oldPath)
+  {
+    final Dialog dialog = showProgressDialog();
     ThreadPool.getStorage().execute(() -> {
       final boolean result = StoragePathManager.moveStorage(newPath, oldPath);
 

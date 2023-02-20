@@ -97,8 +97,7 @@ public class StorageUtils
   {
     try
     {
-      return application.getPackageManager()
-                        .getApplicationInfo(BuildConfig.APPLICATION_ID, 0).sourceDir;
+      return Utils.getApplicationInfo(application.getPackageManager(), BuildConfig.APPLICATION_ID, 0).sourceDir;
     }
     catch (final PackageManager.NameNotFoundException e)
     {

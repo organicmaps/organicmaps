@@ -359,7 +359,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       if (ParsedMwmRequest.getCurrentRequest() != null)
       {
         // Wait for the result from MwmActivity for API callers.
-        startActivityForResult(intent, REQ_CODE_API_RESULT);
+        UiUtils.startActivityForResult(this, intent, REQ_CODE_API_RESULT);
         return;
       }
     }

@@ -54,9 +54,9 @@ abstract class BaseSettingsFragment extends BaseMwmFragment
   }
 
   @Override
-  public void onActivityCreated(Bundle savedInstanceState)
+  public void onViewCreated(View view, Bundle savedInstanceState)
   {
-    super.onActivityCreated(savedInstanceState);
+    super.onViewCreated(view, savedInstanceState);
 
     savePaddings();
   }

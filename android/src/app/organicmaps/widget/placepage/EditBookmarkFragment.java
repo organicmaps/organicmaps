@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 
 import app.organicmaps.R;
@@ -60,7 +61,8 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     args.putLong(EXTRA_CATEGORY_ID, categoryId);
     args.putLong(EXTRA_BOOKMARK_ID, bookmarkId);
     String name = EditBookmarkFragment.class.getName();
-    final EditBookmarkFragment fragment = (EditBookmarkFragment) Fragment.instantiate(context, name, args);
+    final FragmentFactory factory = manager.getFragmentFactory();
+    final EditBookmarkFragment fragment = (EditBookmarkFragment) factory.instantiate(context.getClassLoader(), name);
     fragment.setArguments(args);
     fragment.setEditBookmarkListener(listener);
     fragment.show(manager, name);
@@ -165,12 +167,15 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     final Bundle args = new Bundle();
     final List<BookmarkCategory> categories = BookmarkManager.INSTANCE.getCategories();
     final int index = categories.indexOf(mBookmarkCategory);
-
     args.putInt(ChooseBookmarkCategoryFragment.CATEGORY_POSITION, index);
+
+    final FragmentManager manager = getChildFragmentManager();
     String className = ChooseBookmarkCategoryFragment.class.getName();
-    ChooseBookmarkCategoryFragment frag =
-        (ChooseBookmarkCategoryFragment) Fragment.instantiate(requireActivity(), className, args);
-    frag.show(getChildFragmentManager(), null);
+    final FragmentFactory factory = manager.getFragmentFactory();
+    final ChooseBookmarkCategoryFragment frag =
+        (ChooseBookmarkCategoryFragment) factory.instantiate(getContext().getClassLoader(), className);
+    frag.setArguments(args);
+    frag.show(manager, null);
   }
 
   private void selectBookmarkColor()
@@ -180,23 +185,22 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
 
     final Bundle args = new Bundle();
     args.putInt(BookmarkColorDialogFragment.ICON_TYPE, mIcon.getColor());
-    final BookmarkColorDialogFragment dialogFragment = (BookmarkColorDialogFragment) BookmarkColorDialogFragment.
-        instantiate(requireActivity(), BookmarkColorDialogFragment.class.getName(), args);
 
-    dialogFragment.setOnColorSetListener(new BookmarkColorDialogFragment.OnBookmarkColorChangeListener()
-    {
-      @Override
-      public void onBookmarkColorSet(int colorPos)
-      {
-        final Icon newIcon = BookmarkManager.ICONS.get(colorPos);
-        final String from = mIcon.getName();
-        final String to = newIcon.getName();
-        if (TextUtils.equals(from, to))
-          return;
+    final FragmentManager manager = getChildFragmentManager();
+    String className = BookmarkColorDialogFragment.class.getName();
+    final FragmentFactory factory = manager.getFragmentFactory();
+    final BookmarkColorDialogFragment dialogFragment =
+        (BookmarkColorDialogFragment) factory.instantiate(getContext().getClassLoader(), className);
+    dialogFragment.setArguments(args);
+    dialogFragment.setOnColorSetListener(colorPos -> {
+      final Icon newIcon = BookmarkManager.ICONS.get(colorPos);
+      final String from = mIcon.getName();
+      final String to = newIcon.getName();
+      if (TextUtils.equals(from, to))
+        return;
 
-        mIcon = newIcon;
-        refreshColorMarker();
-      }
+      mIcon = newIcon;
+      refreshColorMarker();
     });
 
     dialogFragment.show(requireActivity().getSupportFragmentManager(), null);
