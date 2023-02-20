@@ -68,25 +68,25 @@ static_assert(std::size(kType) == static_cast<size_t>(Model::TYPE_COUNT));
 
 // 0-based factors from General.
 double constexpr kPoiType[] = {
-  0.0338794 /* TransportMajor */,
-  0.01 /* TransportLocal */,
-  0.01 /* Eat */,
-  0.01 /* Hotel */,
-  0.01 /* Shop */,
-  0.01 /* Attraction */,
- -0.01 /* Service */,
-  0 /* General */
+  0.03,       // TransportMajor
+  0.003,      // TransportLocal (0 < it < Residential st)
+  0.01,       // Eat
+  0.01,       // Hotel
+  0.01,       // Shop
+  0.01,       // Attraction
+ -0.01,       // Service
+  0,          // General
 };
 static_assert(std::size(kPoiType) == base::Underlying(PoiType::Count));
 
 double constexpr kStreetType[] = {
-  0 /* Default */,
-  0 /* Pedestrian */,
-  0 /* Cycleway */,
-  0 /* Outdoor */,
-  0.004 /* Residential */,
-  0.005 /* Regular */,
-  0.006 /* Motorway */,
+  0,          // Default
+  0,          // Pedestrian
+  0,          // Cycleway
+  0,          // Outdoor
+  0.004,      // Residential
+  0.005,      // Regular
+  0.006,      // Motorway
 };
 static_assert(std::size(kStreetType) == base::Underlying(StreetType::Count));
 
