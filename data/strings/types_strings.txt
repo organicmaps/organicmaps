@@ -25,6 +25,7 @@
 
   [type.aerialway.cable_car]
     en = Cable car
+    ar = تلفريك
     de = Pendelbahn
     el = Τελεφερίκ
     es = Teleférico
@@ -224,7 +225,7 @@
 
   [type.aeroway.aerodrome.international]
     en = International Airport
-    ar = مطار
+    ar = مطار دولي
     cs = Letiště
     da = Lufthavn
     de = Flughafen
@@ -1123,7 +1124,7 @@
 
   [type.leisure.bowling_alley]
     en = Bowling Alley
-    ar = ﺞﻨﻴﻟﻮﺑ ﺔﻟﺎﺻ
+    ar = صالة بولينج
     be = Боўлінг
     bg = Боулинг писта
     ca = Bolera
@@ -1443,7 +1444,7 @@
 
   [type.amenity.music_school]
     en = Music School
-    ar = ﻰﻘﻴﺳﻮﻣ ﺔﺳﺭﺪﻣ
+    ar = مدرسة موسيقى
     be = Музычная школа
     bg = Музикално училище
     cs = Hudební škola
@@ -1480,7 +1481,7 @@
 
   [type.amenity.language_school]
     en = Language School
-    ar = ﺔﻐﻟ ﺔﺳﺭﺪﻣ
+    ar = مدرسة لغة
     be = Моўная школа
     bg = Езиково училище
     cs = Jazyková škola
@@ -1658,6 +1659,7 @@
 
   [type.amenity.food_court]
     en = Food Court
+    ar = مكان تناول الطعام
     es = Zona de comidas
     et = Toiduväljak
     eu = Jantokia
@@ -1785,6 +1787,7 @@
   [type.amenity.grave_yard.christian]
     ref = type.amenity.grave_yard
     en = Christian Graveyard
+    ar = مقبرة مسيحية
     be = Хрысціянскія могілкі
     es = Cementerio cristiano
     et = Kristlik surnuaed
@@ -2188,7 +2191,7 @@
 
   [type.amenity.parking.fee]
     en = Paid Parking
-    ar = ﺮﺟﻷ﻿ﺍ ﺔﻋﻮﻓﺪﻣ ﺕﺍﺭﺎﻴﺳ ﻒﻗﺍﻮﻣ
+    ar = موقف سيارات مدفوع
     be = Платная паркоўка
     bg = Платен паркинг
     cs = Placené parkoviště
@@ -2225,7 +2228,7 @@
 
   [type.amenity.parking.multi.storey]
     en = Multi Storey Parking
-    ar = ﻖﺑﺍﻮﻄﻟﺍ ﺓﺩﺪﻌﺘﻣ ﻒﻗﺍﻮﻣ
+    ar = موقف سيارات متعدد الطوابق
     be = Шматпавярховая паркоўка
     bg = Многоетажен паркинг
     cs = Vícepodlažní parkoviště
@@ -2269,7 +2272,7 @@
 
   [type.amenity.parking.private]
     en = Private Parking
-    ar = ﺹﺎﺧ ﻒﻗﻮﻣ
+    ar = موقف سيارات خاص
     be = Прыватная паркоўка
     bg = Частен паркинг
     cs = Soukromé parkoviště
@@ -2343,7 +2346,7 @@
 
   [type.amenity.parking.underground]
     en = Underground Parking
-    ar = ﺽﺭﻻ﻿ﺍ ﺖﺤﺗ ﻒﻗﻮﻣ
+    ar = موقف سيارات تحت الأرض
     be = Падземны паркінг
     bg = Подземен паркинг
     cs = Podzemní parkoviště
@@ -2380,7 +2383,7 @@
 
   [type.amenity.parking_entrance]
     en = Parking entrance
-    ar = ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻭ ﻞﺧﺪﻣ
+    ar = مدخل موقف سيارات
     be = Уваход на паркоўку
     bg = Вход за паркинг
     cs = Vjezd na parkoviště
@@ -2567,7 +2570,7 @@
 
   [type.amenity.parking_space.disabled]
     en = Disabled Parking Space
-    ar = ﺔﺻﺎﺨﻟﺍ ﺕﺎﺟﺎﻴﺘﺣﻻ﻿ﺍ ﻱﻭﺬﻟ ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻮﻟ ﻦﻛﺎﻣﺃ
+    ar = مكان لوقوف السيارات لذوي الاحتياجات الخاصة
     be = Паркоўка для інвалідаў
     bg = Паркомясто за инвалиди
     cs = Parkovací místo pro invalidy
@@ -3057,6 +3060,7 @@
 
   [type.amenity.prison]
     en = Prison
+    ar = سجن
     de = Gefängnis
     es = Prisión
     et = Vangla
@@ -3077,7 +3081,7 @@
 
   [type.amenity.pub]
     en = Pub
-    ar = بار
+    ar = حانة
     cs = Hospoda
     da = Værtshus
     de = Kneipe
@@ -3217,7 +3221,7 @@
 
   [type.recycling.batteries]
     en = Household Batteries
-    ar = ﺕﺎﻳﺭﺎﻄﺑ
+    ar = بطاريات
     be = Батарэйкі
     bg = Батерии
     cs = Baterie
@@ -3509,6 +3513,7 @@
 
   [type.recycling.cardboard]
     en = Cardboard
+    ar = ورق مقوى
     be = Кардон
     de = Karton
     es = Cartón
@@ -3525,6 +3530,7 @@
 
   [type.recycling.cans]
     en = Cans
+    ar = علب
     be = Бляшаныя і алюмініевыя слоікі
     de = Dosen
     es = Latas
@@ -3541,6 +3547,7 @@
 
   [type.recycling.shoes]
     en = Shoes
+    ar = أحذية
     be = Абутак
     de = Schuhe
     es = Calzado
@@ -3557,6 +3564,7 @@
 
   [type.recycling.green_waste]
     en = Green/Organic Waste
+    ar = نفايات عضوية
     be = Арганіка / Харчовыя адходы
     de = Bio-Müll
     es = Orgánico
@@ -3572,6 +3580,7 @@
 
   [type.recycling.cartons]
     en = Beverage Cartons
+    ar = علب مشروبات
     be = Тэтрапак і аналагі
     de = Getränkekarton
     es = Cartones de bebida
@@ -3936,6 +3945,7 @@
 
   [type.amenity.vending_machine]
     en = Vending Machine
+    ar = ماكينة بيع
     be = Гандлёвы аўтамат
     de = Verkaufsautomat
     es = Máquina expendedora
@@ -3993,6 +4003,7 @@
 
   [type.amenity.vending_machine.coffee]
     en = Coffee Dispenser
+    ar = ماكينة بيع قهوة
     be = Кававы аўтамат
     de = Kaffeeautomat
     es = Máquina expendedora de café
@@ -4061,6 +4072,7 @@
 
   [type.amenity.vending_machine.food]
     en = Food Dispenser
+    ar = ماكينة بيع طعام
     be = Аўтамат з ежай
     de = Essensautomat
     es = Máquina expendedora de comida
@@ -4167,6 +4179,7 @@
 
   [type.amenity.vending_machine.sweets]
     en = Sweets Dispenser
+    ar = ماكينة بيع الحلويات
     be = Аўтамат з прысмакамі
     de = Süßigkeitenautomat
     es = Máquina expendedora de dulces
@@ -4183,6 +4196,7 @@
 
   [type.amenity.vending_machine.excrement_bags]
     en = Excrement Bags Dispenser
+    ar = ماكينة بيع حقائب النفايات
     be = Мяшкі дзеля экскрыментаў
     de = Hundekotbeutelspender
     es = Maquina expendedora de bolsas para excrementos
@@ -4198,6 +4212,7 @@
 
   [type.amenity.parcel_locker]
     en = Parcel Locker
+    ar = خزانة الطرود
     be = Паштамат
     de = Paketstation
     es = Taquilla de paquetes
@@ -4215,6 +4230,7 @@
 
   [type.amenity.vending_machine.fuel]
     en = Fuel Dispenser
+    ar = ماكينة بيع الوقود
     be = Паліўная калонка
     de = Tankautomat
     es = Maquina expendedora de combustible
@@ -4334,6 +4350,7 @@
 
   [type.amenity.waste_transfer_station]
     en = Waste Transfer Station
+    ar = محطة نقل النفايات
     be = Станцыя перавалкі адходаў
     de = Müllumladestation
     es = Estación de transferencia de residuos
@@ -4384,6 +4401,7 @@
 
   [type.barrier]
     en = Barrier
+    ar = حاجز
     de = Barriere
     es = Barrera
     et = Barjäär
@@ -4546,7 +4564,7 @@
 
   [type.barrier.ditch]
     en = Moat
-    ar = ﻕﺪﻨﺧ
+    ar = حفرة
     be = Роў
     bg = Ров
     cs = Hradní příkop
@@ -4859,6 +4877,7 @@
 
   [type.barrier.wall]
     en = Wall
+    ar = جدار
     de = Mauer
     es = Muro
     et = Müür
@@ -4879,6 +4898,7 @@
 
   [type.boundary]
     en = Boundary
+    ar = حدود
     de = Grenze
     es = Frontera
     et = Piir
@@ -4899,6 +4919,7 @@
 
   [type.boundary.administrative]
     en = Administrative Boundary
+    ar = حدود إدارية
     de = Verwaltungsgrenze
     es = Frontera administrativa
     et = Halduspiir
@@ -4958,6 +4979,7 @@
 
   [type.boundary.administrative.city]
     en = City Boundary
+    ar = حدود مدينة
     es = Frontera de ciudad
     et = Linna piir
     eu = Hiriko muga
@@ -4976,6 +4998,7 @@
 
   [type.boundary.administrative.country]
     en = National Border
+    ar = حدود دولية
     es = Frontera de país
     es-MX = Frontera de país
     et = Riigipiir
@@ -4995,6 +5018,7 @@
 
   [type.boundary.administrative.county]
     en = County Boundary
+    ar = حدود مقاطعة
     es = Frontera de condado
     et = Maakonna piir
     eu = Eskualdeko muga
@@ -5012,6 +5036,7 @@
 
   [type.boundary.administrative.municipality]
     en = Municipality Boundary
+    ar = حدود بلدية
     es = Frontera de municipio
     et = Valla piir
     eu = Udalerriko muga
@@ -5037,6 +5062,7 @@
 
   [type.boundary.administrative.region]
     en = Regional Boundary
+    ar = حدود منطقة
     es = Frontera de región
     et = Piirkondlik piir
     eu = Eskualdeko muga
@@ -5294,6 +5320,7 @@
 
   [type.building.warehouse]
     en = Warehouse
+    ar = مستودع
     es = Almacén
     et = Ladu
     eu = Denda
@@ -5311,7 +5338,7 @@
 
   [type.cemetery.grave]
     en = Grave
-    ar = ﺮﻴﻄﺧ
+    ar = قبر
     be = Магіла
     bg = Гроб
     cs = Hrob
@@ -5654,7 +5681,7 @@
 
   [type.craft.gardener]
     en = Gardener
-    ar = مهندس مناظر
+    ar = بستاني
     be = Садоўнік
     bg = Градинар
     cs = Zahradník
@@ -5883,7 +5910,7 @@
 
   [type.craft.plumber]
     en = Plumber
-    ar = سمكري
+    ar = سباك
     be = Вадаправодчык
     bg = Водопроводчик
     cs = Instalatér
