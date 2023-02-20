@@ -3191,16 +3191,14 @@ UNIT_CLASS_TEST(ProcessorTest, PoiStreetCity_FancyMatch)
 
   SetViewport(RectByCenterLatLonAndSizeInMeters(53.8861373, 27.5492881, 100));  // Minsk
 
-  auto request = MakeRequest("улица Толстого Молодечно");
-  auto const & results = request->Results();
-
-  TEST_EQUAL(results.size(), 3, ());
-
   // moloBusStop (on second place) was matched like:
   // prefix name match = "улица", near street = "Толстого", in city = "Молодечно".
-  TEST(ResultsMatch({results[0]}, {ExactMatch(countryId, moloStreet)}), ());
-  TEST(ResultsMatch({results[1]}, {ExactMatch(countryId, moloBusStop)}), ());
-  TEST(ResultsMatch({results[2]}, {ExactMatch(countryId, minskStreet)}), ());
+  Rules const rules = {
+    ExactMatch(countryId, moloStreet),
+    ExactMatch(countryId, moloBusStop),
+    ExactMatch(countryId, minskStreet),
+  };
+  TEST(OrderedResultsMatch("улица Толстого Молодечно", rules), ());
 }
 
 UNIT_CLASS_TEST(ProcessorTest, ComplexPoi_Rank)
@@ -3306,8 +3304,8 @@ UNIT_CLASS_TEST(ProcessorTest, StreetCategories)
 
   {
     Rules const rules = {
+      ExactMatch(wonderlandId, street),
       ExactMatch(wonderlandId, bus),
-      ExactMatch(wonderlandId, street)
     };
     TEST(OrderedResultsMatch("avenida santa fe ", rules), ());
   }

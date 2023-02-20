@@ -301,9 +301,8 @@ UNIT_CLASS_TEST(MwmTestsFixture, Hamburg_Park)
   auto const & results = request->Results();
   TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
-  Range const range(results);
-  EqualClassifType(range, GetClassifTypes(
-                     {{"tourism"}, {"shop", "gift"}, {"amenity", "fast_food"}, {"highway", "bus_stop"}}));
+  Range const range(results, 0, 4);
+  EqualClassifType(range, GetClassifTypes({{"tourism"}, {"shop", "gift"}, {"amenity", "fast_food"}}));
   NameStartsWith(range, {"Heide Park", "Heide-Park"});
   double const dist = SortedByDistance(range, center);
   TEST_LESS(dist, 100000, ());
@@ -459,8 +458,47 @@ UNIT_CLASS_TEST(MwmTestsFixture, French_StopWord_Category)
   auto request = MakeRequest("Bouche d'incendie", "fr");
   auto const & results = request->Results();
 
-  Range const range(results, 0, kTopPoiResultsCount);
+  Range const range(results);
   EqualClassifType(range, GetClassifTypes({{"emergency", "fire_hydrant"}}));
   TEST_LESS(SortedByDistance(range, center), 1000.0, ());
+}
+
+UNIT_CLASS_TEST(MwmTestsFixture, StreetVsBus)
+{
+  // Buenos Aires
+  ms::LatLon const center(-34.60655, -58.43566);
+  SetViewportAndLoadMaps(center);
+
+  {
+    auto request = MakeRequest("Juncal", "en");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+
+    // Top results are Hotel and Street.
+    Range const range(results, 0, 3);
+    EqualClassifType(range, GetClassifTypes({{"tourism", "hotel"}, {"shop", "supermarket"}, {"highway"}}));
+  }
+
+  {
+    auto request = MakeRequest("Juncal st ", "en");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+
+    // Top results are Streets (maybe in different cities).
+    Range const range(results);
+    EqualClassifType(range, GetClassifTypes({{"highway"}}));
+    TEST_LESS(SortedByDistance(range, center), 5000.0, ());
+  }
+
+  {
+    auto request = MakeRequest("Juncal bus ", "en");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+
+    // Top results are bus stops.
+    Range const range(results);
+    EqualClassifType(range, GetClassifTypes({{"highway", "bus_stop"}}));
+    TEST_LESS(SortedByDistance(range, center), 5000.0, ());
+  }
 }
 } // namespace real_mwm_tests
