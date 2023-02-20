@@ -454,13 +454,6 @@ If you are low on RAM, disk space or traffic there are ways to reduce system req
 - make sure the emulator uses [hardware acceleration](https://developer.android.com/studio/run/emulator-acceleration);
 - don't use emulator, debug on a hardware device instead.
 
-#### Windows 10: Manual Boost library initialization
-
-1. Install Visual Studio 2019 Community Edition.
-2. Add cl.exe to your PATH (`C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\Build\\vcvars32.bat`).
-3. Run `./configure.sh` from _Git (for Window) Bash_ and ignore all errors related to Boost.
-4. Go to `./3party/boost`, run `./bootstrap.bat`, and then `b2 headers` to configure Boost.
-
 
 ## iOS app
 
