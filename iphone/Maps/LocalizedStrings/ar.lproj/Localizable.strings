@@ -1241,7 +1241,7 @@
 
 "type.aerialway" = "Aerialway";
 
-"type.aerialway.cable_car" = "Cable car";
+"type.aerialway.cable_car" = "تلفريك";
 
 "type.aerialway.chair_lift" = "Chair lift";
 
@@ -1257,7 +1257,7 @@
 
 "type.aeroway.aerodrome" = "مطار";
 
-"type.aeroway.aerodrome.international" = "مطار";
+"type.aeroway.aerodrome.international" = "مطار دولي";
 
 "type.aeroway.apron" = "Apron";
 
@@ -1317,7 +1317,7 @@
 
 "type.amenity.cinema" = "سينما";
 
-"type.leisure.bowling_alley" = "ﺞﻨﻴﻟﻮﺑ ﺔﻟﺎﺻ";
+"type.leisure.bowling_alley" = "صالة بولينج";
 
 "type.amenity.clinic" = "عيادة";
 
@@ -1335,9 +1335,9 @@
 
 "type.amenity.driving_school" = "مدرسة قيادة";
 
-"type.amenity.music_school" = "ﻰﻘﻴﺳﻮﻣ ﺔﺳﺭﺪﻣ";
+"type.amenity.music_school" = "مدرسة موسيقى";
 
-"type.amenity.language_school" = "ﺔﻐﻟ ﺔﺳﺭﺪﻣ";
+"type.amenity.language_school" = "مدرسة لغة";
 
 "type.office.diplomatic" = "سفارة";
 
@@ -1347,7 +1347,7 @@
 
 "type.amenity.fire_station" = "محطة إطفاء";
 
-"type.amenity.food_court" = "Food Court";
+"type.amenity.food_court" = "مكان تناول الطعام";
 
 "type.amenity.fountain" = "نافورة";
 
@@ -1357,7 +1357,7 @@
 "type.amenity.grave_yard" = "مقبرة";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
-"type.amenity.grave_yard.christian" = "مقبرة";
+"type.amenity.grave_yard.christian" = "مقبرة مسيحية";
 
 "type.amenity.hospital" = "عيادة";
 
@@ -1381,25 +1381,25 @@
 
 "type.amenity.parking" = "موقف سيارات";
 
-"type.amenity.parking.fee" = "ﺮﺟﻷ﻿ﺍ ﺔﻋﻮﻓﺪﻣ ﺕﺍﺭﺎﻴﺳ ﻒﻗﺍﻮﻣ";
+"type.amenity.parking.fee" = "موقف سيارات مدفوع";
 
-"type.amenity.parking.multi.storey" = "ﻖﺑﺍﻮﻄﻟﺍ ﺓﺩﺪﻌﺘﻣ ﻒﻗﺍﻮﻣ";
+"type.amenity.parking.multi.storey" = "موقف سيارات متعدد الطوابق";
 
-"type.amenity.parking.no.access" = "ﺹﺎﺧ ﻒﻗﻮﻣ";
+"type.amenity.parking.no.access" = "موقف سيارات خاص";
 
-"type.amenity.parking.permissive" = "ﺹﺎﺧ ﻒﻗﻮﻣ";
+"type.amenity.parking.permissive" = "موقف سيارات خاص";
 
-"type.amenity.parking.private" = "ﺹﺎﺧ ﻒﻗﻮﻣ";
+"type.amenity.parking.private" = "موقف سيارات خاص";
 
 "type.amenity.parking.park_and_ride" = "موقف سيارات";
 
-"type.amenity.parking.underground" = "ﺽﺭﻻ﻿ﺍ ﺖﺤﺗ ﻒﻗﻮﻣ";
+"type.amenity.parking.underground" = "موقف سيارات تحت الأرض";
 
-"type.amenity.parking_entrance" = "ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻭ ﻞﺧﺪﻣ";
+"type.amenity.parking_entrance" = "مدخل موقف سيارات";
 
-"type.amenity.parking_entrance.private" = "ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻭ ﻞﺧﺪﻣ";
+"type.amenity.parking_entrance.private" = "مدخل موقف سيارات";
 
-"type.amenity.parking_entrance.permissive" = "ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻭ ﻞﺧﺪﻣ";
+"type.amenity.parking_entrance.permissive" = "مدخل موقف سيارات";
 
 "type.amenity.parking_space" = "مكان لوقوف السيارات";
 
@@ -1409,7 +1409,7 @@
 
 "type.amenity.parking_space.underground" = "مكان لوقوف السيارات";
 
-"type.amenity.parking_space.disabled" = "ﺔﺻﺎﺨﻟﺍ ﺕﺎﺟﺎﻴﺘﺣﻻ﻿ﺍ ﻱﻭﺬﻟ ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻮﻟ ﻦﻛﺎﻣﺃ";
+"type.amenity.parking_space.disabled" = "مكان لوقوف السيارات لذوي الاحتياجات الخاصة";
 
 "type.amenity.payment_terminal" = "محطة دفع";
 
@@ -1437,9 +1437,9 @@
 
 "type.amenity.post_office" = "مكتب بريد";
 
-"type.amenity.prison" = "Prison";
+"type.amenity.prison" = "سجن";
 
-"type.amenity.pub" = "بار";
+"type.amenity.pub" = "حانة";
 
 "type.amenity.public_bookcase" = "مكتبة، تبادل كتب";
 
@@ -1452,7 +1452,7 @@
 
 "type.amenity.recycling.container" = "حاوية لإعادة التدوير";
 
-"type.recycling.batteries" = "ﺕﺎﻳﺭﺎﻄﺑ";
+"type.recycling.batteries" = "بطاريات";
 
 "type.recycling.clothes" = "ملابس قديمة";
 
@@ -1468,15 +1468,15 @@
 
 "type.recycling.small_appliances" = "نفايات الكترونية";
 
-"type.recycling.cardboard" = "Cardboard";
+"type.recycling.cardboard" = "ورق مقوى";
 
-"type.recycling.cans" = "Cans";
+"type.recycling.cans" = "علب";
 
-"type.recycling.shoes" = "Shoes";
+"type.recycling.shoes" = "أحذية";
 
-"type.recycling.green_waste" = "Green/Organic Waste";
+"type.recycling.green_waste" = "نفايات عضوية";
 
-"type.recycling.cartons" = "Beverage Cartons";
+"type.recycling.cartons" = "علب مشروبات";
 
 "type.amenity.restaurant" = "مطعم";
 
@@ -1500,17 +1500,17 @@
 
 "type.amenity.university" = "جامعة";
 
-"type.amenity.vending_machine" = "Vending Machine";
+"type.amenity.vending_machine" = "ماكينة بيع";
 
 "type.amenity.vending_machine.cigarettes" = "ماكينة بيع سجائر";
 
-"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+"type.amenity.vending_machine.coffee" = "ماكينة بيع قهوة";
 
 "type.amenity.vending_machine.condoms" = "Condoms Dispenser";
 
 "type.amenity.vending_machine.drinks" = "ماكينة بيع مشروبات";
 
-"type.amenity.vending_machine.food" = "Food Dispenser";
+"type.amenity.vending_machine.food" = "ماكينة بيع طعام";
 
 "type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
 
@@ -1518,13 +1518,13 @@
 
 "type.amenity.vending_machine.public_transport_tickets" = "آلة بيع تذاكر النقل العام";
 
-"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
+"type.amenity.vending_machine.sweets" = "ماكينة بيع الحلويات";
 
-"type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
+"type.amenity.vending_machine.excrement_bags" = "ماكينة بيع حقائب النفايات";
 
-"type.amenity.parcel_locker" = "Parcel Locker";
+"type.amenity.parcel_locker" = "خزانة الطرود";
 
-"type.amenity.vending_machine.fuel" = "Fuel Dispenser";
+"type.amenity.vending_machine.fuel" = "ماكينة بيع الوقود";
 
 "type.amenity.veterinary" = "طبيب بيطري";
 
@@ -1532,11 +1532,11 @@
 
 "type.amenity.waste_disposal" = "قمامة";
 
-"type.amenity.waste_transfer_station" = "Waste Transfer Station";
+"type.amenity.waste_transfer_station" = "محطة نقل النفايات";
 
 "type.amenity.water_point" = "نقطة مائية";
 
-"type.barrier" = "Barrier";
+"type.barrier" = "حاجز";
 
 "type.barrier.block" = "حاجز";
 
@@ -1550,7 +1550,7 @@
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
-"type.barrier.ditch" = "ﻕﺪﻨﺧ";
+"type.barrier.ditch" = "حفرة";
 
 "type.barrier.entrance" = "مدخل الحاجز";
 
@@ -1572,43 +1572,43 @@
 
 "type.barrier.toll_booth" = "كشك رسوم عبور";
 
-"type.barrier.wall" = "Wall";
+"type.barrier.wall" = "جدار";
 
-"type.boundary" = "Boundary";
+"type.boundary" = "حدود";
 
-"type.boundary.administrative" = "Administrative Boundary";
+"type.boundary.administrative" = "حدود إدارية";
 
-"type.boundary.administrative.10" = "Administrative Boundary";
+"type.boundary.administrative.10" = "حدود إدارية";
 
-"type.boundary.administrative.11" = "Administrative Boundary";
+"type.boundary.administrative.11" = "حدود إدارية";
 
-"type.boundary.administrative.2" = "National Border";
+"type.boundary.administrative.2" = "حدود دولية";
 
-"type.boundary.administrative.3" = "Administrative Boundary";
+"type.boundary.administrative.3" = "حدود إدارية";
 
-"type.boundary.administrative.4" = "Administrative Boundary";
+"type.boundary.administrative.4" = "حدود إدارية";
 
-"type.boundary.administrative.5" = "Administrative Boundary";
+"type.boundary.administrative.5" = "حدود إدارية";
 
-"type.boundary.administrative.6" = "Administrative Boundary";
+"type.boundary.administrative.6" = "حدود إدارية";
 
-"type.boundary.administrative.7" = "Administrative Boundary";
+"type.boundary.administrative.7" = "حدود إدارية";
 
-"type.boundary.administrative.8" = "Administrative Boundary";
+"type.boundary.administrative.8" = "حدود إدارية";
 
-"type.boundary.administrative.9" = "Administrative Boundary";
+"type.boundary.administrative.9" = "حدود إدارية";
 
-"type.boundary.administrative.city" = "City Boundary";
+"type.boundary.administrative.city" = "حدود مدينة";
 
-"type.boundary.administrative.country" = "National Border";
+"type.boundary.administrative.country" = "حدود دولية";
 
-"type.boundary.administrative.county" = "County Boundary";
+"type.boundary.administrative.county" = "حدود مقاطعة";
 
-"type.boundary.administrative.municipality" = "Municipality Boundary";
+"type.boundary.administrative.municipality" = "حدود بلدية";
 
-"type.boundary.administrative.nation" = "National Border";
+"type.boundary.administrative.nation" = "حدود دولية";
 
-"type.boundary.administrative.region" = "Regional Boundary";
+"type.boundary.administrative.region" = "حدود منطقة";
 
 "type.boundary.administrative.state" = "State Boundary";
 
@@ -1626,9 +1626,9 @@
 
 "type.building.train_station" = "محطة سكك حديدية";
 
-"type.building.warehouse" = "Warehouse";
+"type.building.warehouse" = "مستودع";
 
-"type.cemetery.grave" = "ﺮﻴﻄﺧ";
+"type.cemetery.grave" = "قبر";
 
 "type.craft" = "حرفة";
 
@@ -1646,7 +1646,7 @@
 
 "type.craft.electronics_repair" = "إصلاح الإلكترونيات";
 
-"type.craft.gardener" = "مهندس مناظر";
+"type.craft.gardener" = "بستاني";
 
 "type.craft.handicraft" = "مشغولات يدوية";
 
@@ -1659,7 +1659,7 @@
 
 "type.craft.photographer" = "مصور فوتوغرافي";
 
-"type.craft.plumber" = "سمكري";
+"type.craft.plumber" = "سباك";
 
 "type.craft.sawmill" = "منشرة";
 
@@ -2293,7 +2293,7 @@
 "type.landuse.cemetery" = "مقبرة";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
-"type.landuse.cemetery.christian" = "مقبرة";
+"type.landuse.cemetery.christian" = "مقبرة مسيحية";
 
 "type.landuse.churchyard" = "فناء الكنيسة";
 

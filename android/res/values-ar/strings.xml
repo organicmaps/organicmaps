@@ -714,9 +714,10 @@
 	<string name="splash_subtitle">بيانات الخريطة من خريطة الشارع المفتوحة</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.aerialway.cable_car">تلفريك</string>
 	<string name="type.aerialway.station">محطة تلفريك</string>
 	<string name="type.aeroway.aerodrome">مطار</string>
-	<string name="type.aeroway.aerodrome.international">مطار</string>
+	<string name="type.aeroway.aerodrome.international">مطار دولي</string>
 	<string name="type.aeroway.helipad">مهبط مروحيات</string>
 	<string name="type.amenity">أثر</string>
 	<string name="type.amenity.arts_centre">مركز فن</string>
@@ -741,7 +742,7 @@
 	<string name="type.amenity.charging_station.motorcar">محطة شحن</string>
 	<string name="type.amenity.childcare">حضانة</string>
 	<string name="type.amenity.cinema">سينما</string>
-	<string name="type.leisure.bowling_alley">ﺞﻨﻴﻟﻮﺑ ﺔﻟﺎﺻ</string>
+	<string name="type.leisure.bowling_alley">صالة بولينج</string>
 	<string name="type.amenity.clinic">عيادة</string>
 	<string name="type.amenity.college">كلية</string>
 	<string name="type.amenity.community_centre">مركز اجتماعي</string>
@@ -750,18 +751,19 @@
 	<string name="type.amenity.doctors">طبيب</string>
 	<string name="type.amenity.drinking_water">مياه شرب</string>
 	<string name="type.amenity.driving_school">مدرسة قيادة</string>
-	<string name="type.amenity.music_school">ﻰﻘﻴﺳﻮﻣ ﺔﺳﺭﺪﻣ</string>
-	<string name="type.amenity.language_school">ﺔﻐﻟ ﺔﺳﺭﺪﻣ</string>
+	<string name="type.amenity.music_school">مدرسة موسيقى</string>
+	<string name="type.amenity.language_school">مدرسة لغة</string>
 	<string name="type.office.diplomatic">سفارة</string>
 	<string name="type.amenity.fast_food">وجبات سريعة</string>
 	<string name="type.amenity.ferry_terminal">محطة عبّارات</string>
 	<string name="type.amenity.fire_station">محطة إطفاء</string>
+	<string name="type.amenity.food_court">مكان تناول الطعام</string>
 	<string name="type.amenity.fountain">نافورة</string>
 	<string name="type.amenity.fuel">محطة وقود</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">مقبرة</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
-	<string name="type.amenity.grave_yard.christian">مقبرة</string>
+	<string name="type.amenity.grave_yard.christian">مقبرة مسيحية</string>
 	<string name="type.amenity.hospital">عيادة</string>
 	<string name="type.amenity.hunting_stand">منصة صيد</string>
 	<string name="type.amenity.ice_cream">كشك أيس كريم</string>
@@ -773,21 +775,21 @@
 	<string name="type.amenity.nightclub">نادي ليلي</string>
 	<string name="type.amenity.nursing_home">دار تمريض</string>
 	<string name="type.amenity.parking">موقف سيارات</string>
-	<string name="type.amenity.parking.fee">ﺮﺟﻷ﻿ﺍ ﺔﻋﻮﻓﺪﻣ ﺕﺍﺭﺎﻴﺳ ﻒﻗﺍﻮﻣ</string>
-	<string name="type.amenity.parking.multi.storey">ﻖﺑﺍﻮﻄﻟﺍ ﺓﺩﺪﻌﺘﻣ ﻒﻗﺍﻮﻣ</string>
-	<string name="type.amenity.parking.no.access">ﺹﺎﺧ ﻒﻗﻮﻣ</string>
-	<string name="type.amenity.parking.permissive">ﺹﺎﺧ ﻒﻗﻮﻣ</string>
-	<string name="type.amenity.parking.private">ﺹﺎﺧ ﻒﻗﻮﻣ</string>
+	<string name="type.amenity.parking.fee">موقف سيارات مدفوع</string>
+	<string name="type.amenity.parking.multi.storey">موقف سيارات متعدد الطوابق</string>
+	<string name="type.amenity.parking.no.access">موقف سيارات خاص</string>
+	<string name="type.amenity.parking.permissive">موقف سيارات خاص</string>
+	<string name="type.amenity.parking.private">موقف سيارات خاص</string>
 	<string name="type.amenity.parking.park_and_ride">موقف سيارات</string>
-	<string name="type.amenity.parking.underground">ﺽﺭﻻ﻿ﺍ ﺖﺤﺗ ﻒﻗﻮﻣ</string>
-	<string name="type.amenity.parking_entrance">ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻭ ﻞﺧﺪﻣ</string>
-	<string name="type.amenity.parking_entrance.private">ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻭ ﻞﺧﺪﻣ</string>
-	<string name="type.amenity.parking_entrance.permissive">ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻭ ﻞﺧﺪﻣ</string>
+	<string name="type.amenity.parking.underground">موقف سيارات تحت الأرض</string>
+	<string name="type.amenity.parking_entrance">مدخل موقف سيارات</string>
+	<string name="type.amenity.parking_entrance.private">مدخل موقف سيارات</string>
+	<string name="type.amenity.parking_entrance.permissive">مدخل موقف سيارات</string>
 	<string name="type.amenity.parking_space">مكان لوقوف السيارات</string>
 	<string name="type.amenity.parking_space.permissive">مكان لوقوف السيارات</string>
 	<string name="type.amenity.parking_space.private">مكان لوقوف السيارات</string>
 	<string name="type.amenity.parking_space.underground">مكان لوقوف السيارات</string>
-	<string name="type.amenity.parking_space.disabled">ﺔﺻﺎﺨﻟﺍ ﺕﺎﺟﺎﻴﺘﺣﻻ﻿ﺍ ﻱﻭﺬﻟ ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻮﻟ ﻦﻛﺎﻣﺃ</string>
+	<string name="type.amenity.parking_space.disabled">مكان لوقوف السيارات لذوي الاحتياجات الخاصة</string>
 	<string name="type.amenity.payment_terminal">محطة دفع</string>
 	<string name="type.amenity.pharmacy">متجر أدوية</string>
 	<string name="type.amenity.place_of_worship">مكان عبادة</string>
@@ -801,14 +803,15 @@
 	<string name="type.amenity.police">شرطة</string>
 	<string name="type.amenity.post_box">صندوق بريد</string>
 	<string name="type.amenity.post_office">مكتب بريد</string>
-	<string name="type.amenity.pub">بار</string>
+	<string name="type.amenity.prison">سجن</string>
+	<string name="type.amenity.pub">حانة</string>
 	<string name="type.amenity.public_bookcase">مكتبة، تبادل كتب</string>
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">مركز إعادة تدوير</string>
 	<string name="type.amenity.recycling">حاوية لإعادة التدوير</string>
 	<string name="type.amenity.recycling.container">حاوية لإعادة التدوير</string>
-	<string name="type.recycling.batteries">ﺕﺎﻳﺭﺎﻄﺑ</string>
+	<string name="type.recycling.batteries">بطاريات</string>
 	<string name="type.recycling.clothes">ملابس قديمة</string>
 	<string name="type.recycling.glass_bottles">زجاجات زجاجية</string>
 	<string name="type.recycling.paper">نفايات ورقية</string>
@@ -816,6 +819,11 @@
 	<string name="type.recycling.plastic_bottles">زجاجات بلاستيكية</string>
 	<string name="type.recycling.scrap_metal">نفايات معدنية</string>
 	<string name="type.recycling.small_appliances">نفايات الكترونية</string>
+	<string name="type.recycling.cardboard">ورق مقوى</string>
+	<string name="type.recycling.cans">علب</string>
+	<string name="type.recycling.shoes">أحذية</string>
+	<string name="type.recycling.green_waste">نفايات عضوية</string>
+	<string name="type.recycling.cartons">علب مشروبات</string>
 	<string name="type.amenity.restaurant">مطعم</string>
 	<string name="type.amenity.school">مدرسة</string>
 	<string name="type.amenity.shelter">ملجأ</string>
@@ -826,19 +834,28 @@
 	<string name="type.amenity.toilets">حمام</string>
 	<string name="type.amenity.townhall">مبنى البلدية</string>
 	<string name="type.amenity.university">جامعة</string>
+	<string name="type.amenity.vending_machine">ماكينة بيع</string>
 	<string name="type.amenity.vending_machine.cigarettes">ماكينة بيع سجائر</string>
+	<string name="type.amenity.vending_machine.coffee">ماكينة بيع قهوة</string>
 	<string name="type.amenity.vending_machine.drinks">ماكينة بيع مشروبات</string>
+	<string name="type.amenity.vending_machine.food">ماكينة بيع طعام</string>
 	<string name="type.amenity.vending_machine.parking_tickets">ماكينة دفع تذاكر الموقف</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">آلة بيع تذاكر النقل العام</string>
+	<string name="type.amenity.vending_machine.sweets">ماكينة بيع الحلويات</string>
+	<string name="type.amenity.vending_machine.excrement_bags">ماكينة بيع حقائب النفايات</string>
+	<string name="type.amenity.parcel_locker">خزانة الطرود</string>
+	<string name="type.amenity.vending_machine.fuel">ماكينة بيع الوقود</string>
 	<string name="type.amenity.veterinary">طبيب بيطري</string>
 	<string name="type.amenity.waste_basket">صندوق قمامة</string>
 	<string name="type.amenity.waste_disposal">قمامة</string>
+	<string name="type.amenity.waste_transfer_station">محطة نقل النفايات</string>
 	<string name="type.amenity.water_point">نقطة مائية</string>
+	<string name="type.barrier">حاجز</string>
 	<string name="type.barrier.block">حاجز</string>
 	<string name="type.barrier.bollard">عمود حاجز قصير</string>
 	<string name="type.barrier.border_control">أمن الحدود</string>
 	<string name="type.barrier.city_wall">جدار المدينة</string>
-	<string name="type.barrier.ditch">ﻕﺪﻨﺧ</string>
+	<string name="type.barrier.ditch">حفرة</string>
 	<string name="type.barrier.entrance">مدخل الحاجز</string>
 	<string name="type.barrier.gate">بوابة</string>
 	<string name="type.barrier.kissing_gate">بوابة</string>
@@ -846,13 +863,33 @@
 	<string name="type.barrier.stile">ممر عبور</string>
 	<string name="type.barrier.swing_gate">حاجز بوابة</string>
 	<string name="type.barrier.toll_booth">كشك رسوم عبور</string>
+	<string name="type.barrier.wall">جدار</string>
+	<string name="type.boundary">حدود</string>
+	<string name="type.boundary.administrative">حدود إدارية</string>
+	<string name="type.boundary.administrative.10">حدود إدارية</string>
+	<string name="type.boundary.administrative.11">حدود إدارية</string>
+	<string name="type.boundary.administrative.2">حدود دولية</string>
+	<string name="type.boundary.administrative.3">حدود إدارية</string>
+	<string name="type.boundary.administrative.4">حدود إدارية</string>
+	<string name="type.boundary.administrative.5">حدود إدارية</string>
+	<string name="type.boundary.administrative.6">حدود إدارية</string>
+	<string name="type.boundary.administrative.7">حدود إدارية</string>
+	<string name="type.boundary.administrative.8">حدود إدارية</string>
+	<string name="type.boundary.administrative.9">حدود إدارية</string>
+	<string name="type.boundary.administrative.city">حدود مدينة</string>
+	<string name="type.boundary.administrative.country">حدود دولية</string>
+	<string name="type.boundary.administrative.county">حدود مقاطعة</string>
+	<string name="type.boundary.administrative.municipality">حدود بلدية</string>
+	<string name="type.boundary.administrative.nation">حدود دولية</string>
+	<string name="type.boundary.administrative.region">حدود منطقة</string>
 	<string name="type.boundary.national_park">منتزه وطني</string>
 	<string name="type.building">مبنى</string>
 	<string name="type.building.address">مبنى</string>
 	<string name="type.building.garage">جراج</string>
 	<string name="type.building.has_parts">مبنى</string>
 	<string name="type.building.train_station">محطة سكك حديدية</string>
-	<string name="type.cemetery.grave">ﺮﻴﻄﺧ</string>
+	<string name="type.building.warehouse">مستودع</string>
+	<string name="type.cemetery.grave">قبر</string>
 	<string name="type.craft">حرفة</string>
 	<string name="type.craft.beekeeper">نحال</string>
 	<string name="type.craft.blacksmith">حداد</string>
@@ -861,14 +898,14 @@
 	<string name="type.craft.confectionery">حلواني</string>
 	<string name="type.craft.electrician">كهربائي</string>
 	<string name="type.craft.electronics_repair">إصلاح الإلكترونيات</string>
-	<string name="type.craft.gardener">مهندس مناظر</string>
+	<string name="type.craft.gardener">بستاني</string>
 	<string name="type.craft.handicraft">مشغولات يدوية</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">تكييف</string>
 	<string name="type.craft.metal_construction">عامل معادن</string>
 	<string name="type.craft.painter">رسام</string>
 	<string name="type.craft.photographer">مصور فوتوغرافي</string>
-	<string name="type.craft.plumber">سمكري</string>
+	<string name="type.craft.plumber">سباك</string>
 	<string name="type.craft.sawmill">منشرة</string>
 	<string name="type.craft.shoemaker">تصليح الاحذية</string>
 	<string name="type.craft.winery">مصنع الخمرة</string>
@@ -1188,7 +1225,7 @@
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">مقبرة</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
-	<string name="type.landuse.cemetery.christian">مقبرة</string>
+	<string name="type.landuse.cemetery.christian">مقبرة مسيحية</string>
 	<string name="type.landuse.churchyard">فناء الكنيسة</string>
 	<string name="type.landuse.commercial">منطقة تجارية</string>
 	<string name="type.landuse.construction">منطقة بناء</string>
