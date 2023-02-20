@@ -1222,6 +1222,7 @@
 	<string name="type.man_made.lighthouse">Majakka</string>
 	<string name="type.man_made.surveillance">Valvontakamera</string>
 	<string name="type.man_made.tower">Torni</string>
+	<string name="type.man_made.tower.communication">Viestintätorni</string>
 	<string name="type.man_made.water_tap">Vesihana</string>
 	<string name="type.man_made.water_tower">Vesitorni</string>
 	<string name="type.man_made.water_well">Kaivo</string>
@@ -1307,6 +1308,10 @@
 	<string name="type.place.suburb">Esikaupunki</string>
 	<string name="type.place.town">Kaupunki</string>
 	<string name="type.place.village">Kylä</string>
+	<string name="type.power.generator.solar">Aurinkogeneraattori</string>
+	<string name="type.power.generator.wind">Tuuligeneraattori</string>
+	<string name="type.power.generator.gas">Kaasuturbiinivoimala</string>
+	<string name="type.power.generator.hydro">Vesivoimalaitos</string>
 	<string name="type.power.pole">Sähköpylväs</string>
 	<string name="type.power.substation">Muuntoasema</string>
 	<string name="type.power.tower">Sähköpylväs</string>

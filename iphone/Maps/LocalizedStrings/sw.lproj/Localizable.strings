@@ -2453,6 +2453,8 @@
 
 "type.man_made.tower" = "Tower";
 
+"type.man_made.tower.communication" = "Mnara wa Mawasiliano";
+
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
 "type.man_made.water_tap" = "Water Tap";
@@ -2644,6 +2646,14 @@
 "type.power" = "Power";
 
 "type.power.generator" = "Generator";
+
+"type.power.generator.solar" = "Jenereta ya jua";
+
+"type.power.generator.wind" = "Jenereta ya upepo";
+
+"type.power.generator.gas" = "Kiwanda cha nguvu cha turbine ya gesi";
+
+"type.power.generator.hydro" = "Kiwanda cha umeme wa maji";
 
 "type.power.line" = "Power Line";
 

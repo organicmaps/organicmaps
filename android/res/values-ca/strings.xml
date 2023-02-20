@@ -724,4 +724,11 @@
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.busway">Carretera dedicada a l\'autobús</string>
+
+	<!-- SECTION: Types: Historic -->
+	<string name="type.man_made.tower.communication">Torre de comunicacions</string>
+	<string name="type.power.generator.solar">Generador solar</string>
+	<string name="type.power.generator.wind">Generador eòlic</string>
+	<string name="type.power.generator.gas">Central elèctrica de turbina de gas</string>
+	<string name="type.power.generator.hydro">Central hidroelèctrica</string>
 </resources>

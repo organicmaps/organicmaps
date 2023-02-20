@@ -2453,6 +2453,8 @@
 
 "type.man_made.tower" = "Menara";
 
+"type.man_made.tower.communication" = "Menara Komunikasi";
+
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
 "type.man_made.water_tap" = "Keran Air";
@@ -2644,6 +2646,14 @@
 "type.power" = "Power";
 
 "type.power.generator" = "Generator";
+
+"type.power.generator.solar" = "Pembangkit surya";
+
+"type.power.generator.wind" = "Generator angin";
+
+"type.power.generator.gas" = "Pembangkit listrik turbin gas";
+
+"type.power.generator.hydro" = "Pembangkit listrik tenaga air";
 
 "type.power.line" = "Power Line";
 

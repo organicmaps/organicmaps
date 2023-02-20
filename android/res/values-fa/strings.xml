@@ -1081,6 +1081,7 @@
 	<string name="type.man_made.lighthouse">گردشگری</string>
 	<string name="type.man_made.surveillance">دوربین نظارتی</string>
 	<string name="type.man_made.tower">برج</string>
+	<string name="type.man_made.tower.communication">برج ارتباطات</string>
 	<string name="type.man_made.water_tap">شیراب</string>
 	<string name="type.man_made.water_tower">منبع اب</string>
 	<string name="type.man_made.water_well">چاه اب</string>
@@ -1166,6 +1167,10 @@
 	<string name="type.place.suburb">حومه</string>
 	<string name="type.place.town">شهر</string>
 	<string name="type.place.village">روستا</string>
+	<string name="type.power.generator.solar">ژنراتور خورشیدی</string>
+	<string name="type.power.generator.wind">مولد باد</string>
+	<string name="type.power.generator.gas">نیروگاه توربین گاز</string>
+	<string name="type.power.generator.hydro">نیروگاه برق آبی</string>
 	<string name="type.power.pole">برج قدرت</string>
 	<string name="type.power.tower">برج قدرت</string>
 	<string name="type.railway.halt">ایستگاه قطار</string>

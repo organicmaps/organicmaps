@@ -1164,6 +1164,7 @@
 	<string name="type.man_made.lighthouse">Maják</string>
 	<string name="type.man_made.surveillance">Bezpečnostná kamera</string>
 	<string name="type.man_made.tower">Veža</string>
+	<string name="type.man_made.tower.communication">Komunikačná veža</string>
 	<string name="type.man_made.water_tap">Vodovodný kohútik</string>
 	<string name="type.man_made.water_tower">Vodojem</string>
 	<string name="type.man_made.water_well">Studňa</string>
@@ -1247,6 +1248,10 @@
 	<string name="type.place.suburb">Predmestie</string>
 	<string name="type.place.town">Mesto</string>
 	<string name="type.place.village">Dedina</string>
+	<string name="type.power.generator.solar">Solárny generátor</string>
+	<string name="type.power.generator.wind">Veterný generátor</string>
+	<string name="type.power.generator.gas">Elektráreň s plynovou turbínou</string>
+	<string name="type.power.generator.hydro">Vodná elektráreň</string>
 	<string name="type.power.pole">Stĺp elektrického vedenia</string>
 	<string name="type.power.substation">Rozvodňa</string>
 	<string name="type.power.tower">Stĺp elektrického vedenia</string>

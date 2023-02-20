@@ -2453,6 +2453,8 @@
 
 "type.man_made.tower" = "Turm";
 
+"type.man_made.tower.communication" = "Kommunikationsturm";
+
 "type.man_made.wastewater_plant" = "Kläranlage";
 
 "type.man_made.water_tap" = "Wasserhahn";
@@ -2644,6 +2646,14 @@
 "type.power" = "Energie";
 
 "type.power.generator" = "Generator";
+
+"type.power.generator.solar" = "Solargenerator";
+
+"type.power.generator.wind" = "Windgenerator";
+
+"type.power.generator.gas" = "Gasturbinenkraftwerk";
+
+"type.power.generator.hydro" = "Wasserkraftwerk";
 
 "type.power.line" = "Hochspannungs-Freileitung";
 

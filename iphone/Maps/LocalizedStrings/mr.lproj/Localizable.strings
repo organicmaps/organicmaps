@@ -2453,6 +2453,8 @@
 
 "type.man_made.tower" = "मनोरा";
 
+"type.man_made.tower.communication" = "कम्युनिकेशन टॉवर";
+
 "type.man_made.wastewater_plant" = "सांडपाणी संयंत्र(प्लांट)";
 
 "type.man_made.water_tap" = "पाण्याचा नळ";
@@ -2644,6 +2646,14 @@
 "type.power" = "शक्ती";
 
 "type.power.generator" = "जनित्र(जनरेटर)";
+
+"type.power.generator.solar" = "सौर जनरेटर";
+
+"type.power.generator.wind" = "वारा जनरेटर";
+
+"type.power.generator.gas" = "गॅस टर्बाइन पॉवर प्लांट";
+
+"type.power.generator.hydro" = "जलविद्युत प्रकल्प";
 
 "type.power.line" = "विद्युत तार";
 

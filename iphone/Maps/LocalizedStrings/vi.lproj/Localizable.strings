@@ -2453,6 +2453,8 @@
 
 "type.man_made.tower" = "Tháp";
 
+"type.man_made.tower.communication" = "Tháp truyền thông";
+
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
 "type.man_made.water_tap" = "Vòi nước";
@@ -2644,6 +2646,14 @@
 "type.power" = "Power";
 
 "type.power.generator" = "Generator";
+
+"type.power.generator.solar" = "Máy phát điện năng lượng mặt trời";
+
+"type.power.generator.wind" = "Máy phát điện gió";
+
+"type.power.generator.gas" = "Nhà máy điện tua bin khí";
+
+"type.power.generator.hydro" = "Nhà máy thủy điện";
 
 "type.power.line" = "Power Line";
 

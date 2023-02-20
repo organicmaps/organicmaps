@@ -2453,6 +2453,8 @@
 
 "type.man_made.tower" = "Πύργος";
 
+"type.man_made.tower.communication" = "Πύργος Επικοινωνιών";
+
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
 "type.man_made.water_tap" = "Βρύση νερού";
@@ -2644,6 +2646,14 @@
 "type.power" = "Power";
 
 "type.power.generator" = "Generator";
+
+"type.power.generator.solar" = "Ηλιακή γεννήτρια";
+
+"type.power.generator.wind" = "Ανεμογεννήτρια";
+
+"type.power.generator.gas" = "Μονάδα παραγωγής ηλεκτρικής ενέργειας αεριοστροβίλου";
+
+"type.power.generator.hydro" = "Υδροηλεκτρικό εργοστάσιο";
 
 "type.power.line" = "Power Line";
 

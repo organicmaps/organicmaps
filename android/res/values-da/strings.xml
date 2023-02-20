@@ -1160,6 +1160,7 @@
 	<string name="type.man_made.lighthouse">Fyrtårn</string>
 	<string name="type.man_made.surveillance">Overvågningskamera</string>
 	<string name="type.man_made.tower">Tårn</string>
+	<string name="type.man_made.tower.communication">Kommunikationstårn</string>
 	<string name="type.man_made.water_tap">Vandhane</string>
 	<string name="type.man_made.water_tower">Vandtårn</string>
 	<string name="type.man_made.water_well">Brønd</string>
@@ -1244,6 +1245,10 @@
 	<string name="type.place.suburb">Forstad</string>
 	<string name="type.place.town">By</string>
 	<string name="type.place.village">Landsby</string>
+	<string name="type.power.generator.solar">Solar generator</string>
+	<string name="type.power.generator.wind">Vindgenerator</string>
+	<string name="type.power.generator.gas">Gasturbine kraftværk</string>
+	<string name="type.power.generator.hydro">Vandkraftværk</string>
 	<string name="type.power.pole">El-pol</string>
 	<string name="type.power.substation">Transformerstation</string>
 	<string name="type.power.tower">El-pol</string>

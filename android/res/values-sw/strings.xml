@@ -434,6 +434,7 @@
 	<string name="type.leisure.park.private">Hifadhi</string>
 	<string name="type.leisure.picnic_table">Jedwali la Picnic</string>
 	<string name="type.leisure.sauna">Chumba cha mvuke</string>
+	<string name="type.man_made.tower.communication">Mnara wa Mawasiliano</string>
 	<string name="type.natural">Uasilia</string>
 	<string name="type.natural.bare_rock">Mwamba tupu</string>
 	<string name="type.natural.bay">Hori</string>
@@ -505,6 +506,10 @@
 	<string name="type.place.suburb">Pambizo</string>
 	<string name="type.place.town">Mji</string>
 	<string name="type.place.village">Kijiji</string>
+	<string name="type.power.generator.solar">Jenereta ya jua</string>
+	<string name="type.power.generator.wind">Jenereta ya upepo</string>
+	<string name="type.power.generator.gas">Kiwanda cha nguvu cha turbine ya gesi</string>
+	<string name="type.power.generator.hydro">Kiwanda cha umeme wa maji</string>
 	<string name="type.railway.level_crossing">Tambuka Reli</string>
 	<string name="type.railway.monorail">Mfumo wa reli moja</string>
 	<string name="type.railway.rail">Njia ya Reli</string>

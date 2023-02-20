@@ -1300,6 +1300,7 @@
 	<string name="type.man_made.pipeline.overground">Rurociąg nad ziemią</string>
 	<string name="type.man_made.surveillance">Kamera monitoringu</string>
 	<string name="type.man_made.tower">Wieża</string>
+	<string name="type.man_made.tower.communication">Wieża komunikacyjna</string>
 	<string name="type.man_made.wastewater_plant">Oczyszczalnia ścieków</string>
 	<string name="type.man_made.water_tap">Woda pitna</string>
 	<string name="type.man_made.water_tower">Wieża wodna</string>
@@ -1388,6 +1389,10 @@
 	<string name="type.place.suburb">Przedmieścia</string>
 	<string name="type.place.town">Miasteczko</string>
 	<string name="type.place.village">Wioska</string>
+	<string name="type.power.generator.solar">Generator słoneczny</string>
+	<string name="type.power.generator.wind">Generator wiatru</string>
+	<string name="type.power.generator.gas">Elektrownia z turbiną gazową</string>
+	<string name="type.power.generator.hydro">Elektrownia wodna</string>
 	<string name="type.power.line">Linia wysokiego napięcia</string>
 	<string name="type.power.line.underground">Podziemna linia wysokiego napięcia</string>
 	<string name="type.power.minor_line">Linia niskiego napięcia</string>

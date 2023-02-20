@@ -1322,6 +1322,7 @@
 	<string name="type.man_made.storage_tank">Opslagtank</string>
 	<string name="type.man_made.surveillance">Bewakingscamera</string>
 	<string name="type.man_made.tower">Toren</string>
+	<string name="type.man_made.tower.communication">Communicatie Toren</string>
 	<string name="type.man_made.wastewater_plant">Waterzuiveringsinstallatie</string>
 	<string name="type.man_made.water_tap">Waterkraan</string>
 	<string name="type.man_made.water_tower">Watertoren</string>
@@ -1415,6 +1416,10 @@
 	<string name="type.place.town">Stad</string>
 	<string name="type.place.village">Dorp</string>
 	<string name="type.power">Electriciteit</string>
+	<string name="type.power.generator.solar">Zonne-generator</string>
+	<string name="type.power.generator.wind">Wind generator</string>
+	<string name="type.power.generator.gas">Gasturbine elektriciteitscentrale</string>
+	<string name="type.power.generator.hydro">Waterkrachtcentrale</string>
 	<string name="type.power.line">Hoogspanningsleiding</string>
 	<string name="type.power.line.underground">Ondergrondse hoogspanningsleiding</string>
 	<string name="type.power.minor_line">Laag-/middelspanningsleiding</string>

@@ -2453,6 +2453,8 @@
 
 "type.man_made.tower" = "برج";
 
+"type.man_made.tower.communication" = "برج الاتصالات";
+
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
 "type.man_made.water_tap" = "حنفية مياه";
@@ -2644,6 +2646,14 @@
 "type.power" = "Power";
 
 "type.power.generator" = "Generator";
+
+"type.power.generator.solar" = "مولد للطاقة الشمسية";
+
+"type.power.generator.wind" = "مولد الرياح";
+
+"type.power.generator.gas" = "محطة توليد الكهرباء بالغاز";
+
+"type.power.generator.hydro" = "محطة توليد الطاقة الكهرمائية";
 
 "type.power.line" = "Power Line";
 
