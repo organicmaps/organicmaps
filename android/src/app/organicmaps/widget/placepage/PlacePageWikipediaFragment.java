@@ -49,6 +49,7 @@ public class PlacePageWikipediaFragment extends Fragment implements Observer<Map
     mPlaceDescriptionView = view.findViewById(R.id.poi_description);
     View placeDescriptionMoreBtn = view.findViewById(R.id.more_btn);
     placeDescriptionMoreBtn.setOnClickListener(v -> showDescriptionScreen());
+    mPlaceDescriptionView.setOnClickListener(v -> showDescriptionScreen());
     mWiki = view.findViewById(R.id.ll__place_wiki);
 
     viewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
