@@ -22,6 +22,7 @@
 - (void)openInstagram:(PlacePageData *)data;
 - (void)openTwitter:(PlacePageData *)data;
 - (void)openVk:(PlacePageData *)data;
+- (void)openLine:(PlacePageData *)data;
 - (void)call:(PlacePageData *)data;
 - (void)showAllFacilities:(PlacePageData *)data;
 - (void)showPlaceDescription:(NSString *)htmlString;
@@ -96,6 +97,10 @@
 
 + (void)openVk:(PlacePageData *)data {
   [[MWMMapViewControlsManager manager].placePageManager openVk:data];
+}
+
++ (void)openLine:(PlacePageData *)data {
+  [[MWMMapViewControlsManager manager].placePageManager openLine:data];
 }
 
 + (void)call:(PlacePageData *)data {

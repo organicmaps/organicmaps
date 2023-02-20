@@ -330,8 +330,13 @@ bool EndsWith(UniString const & s1, UniString const & s2)
 
 bool EndsWith(std::string const & s1, char const * s2)
 {
+  return EndsWith(s1, std::string_view(s2));
+}
+
+bool EndsWith(std::string const & s1, std::string_view s2)
+{
   size_t const n = s1.size();
-  size_t const m = strlen(s2);
+  size_t const m = s2.size();
   if (n < m)
     return false;
   return (s1.compare(n - m, m, s2) == 0);

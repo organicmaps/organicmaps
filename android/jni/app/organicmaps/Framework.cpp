@@ -1650,6 +1650,16 @@ Java_app_organicmaps_Framework_nativeDeleteBookmarkFromMapObject(JNIEnv * env, j
   return usermark_helper::CreateMapObject(env, g_framework->GetPlacePageInfo());
 }
 
+JNIEXPORT jstring JNICALL
+Java_app_organicmaps_Framework_nativeGetPoiContactUrl(JNIEnv *env, jclass, jint id)
+{
+  auto const metaID = static_cast<osm::MapObject::MetadataID>(id);
+  string_view const value = g_framework->GetPlacePageInfo().GetMetadata(metaID);
+  if (osm::isSocialContactTag(metaID))
+    return jni::ToJavaString(env, osm::socialContactToURL(metaID, value));
+  return jni::ToJavaString(env, value);
+}
+
 JNIEXPORT void JNICALL
 Java_app_organicmaps_Framework_nativeTurnOnChoosePositionMode(JNIEnv *, jclass, jboolean isBusiness, jboolean applyPosition)
 {

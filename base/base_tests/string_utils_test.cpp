@@ -923,6 +923,18 @@ UNIT_TEST(EndsWith)
     TEST(!EndsWith(s, MakeUniString("aюя")), ());
     TEST(!EndsWith(s, MakeUniString("1zюя")), ());
   }
+  {
+    std::string const s("abcd");
+    TEST(EndsWith(s, std::string_view{""}), ());
+    TEST(EndsWith(s, std::string_view{"d"}), ());
+    TEST(EndsWith(s, std::string_view{"bcd"}), ());
+    TEST(EndsWith(s, std::string_view{"abcd"}), ());
+    TEST(!EndsWith(s, std::string_view{"dd"}), ());
+    TEST(!EndsWith(s, std::string_view{"c\""}), ());
+    TEST(!EndsWith(s, std::string_view{"cde"}), ());
+    TEST(!EndsWith(s, std::string_view{"abcde"}), ());
+    TEST(!EndsWith(s, std::string_view{"0abcd"}), ());
+  }
 }
 
 UNIT_TEST(EatPrefix_EatSuffix)
