@@ -262,7 +262,8 @@ UNIT_TEST(EditableMapObject_ValidateLinePage)
   TEST(!osm::ValidateLinePage("https://line.com/ti/p/invalid-domain"), ());
 }
 
-UNIT_TEST(EditableMapObject_socialContactToURL) {
+UNIT_TEST(EditableMapObject_socialContactToURL)
+{
   TEST_EQUAL(osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_INSTAGRAM, "some_page_name"), "https://instagram.com/some_page_name", ());
   TEST_EQUAL(osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_INSTAGRAM, "p/BvkgKZNDbqN"), "https://instagram.com/p/BvkgKZNDbqN", ());
   TEST_EQUAL(osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_FACEBOOK, "100086487430889"), "https://facebook.com/100086487430889", ());

@@ -334,7 +334,7 @@ bool EndsWith(std::string const & s1, char const * s2)
   size_t const m = strlen(s2);
   if (n < m)
     return false;
-  return (s1.compare(n - m, m, s2) == 0);
+  return EndsWith(s1, std::string_view(s2));
 }
 
 bool EndsWith(std::string const & s1, std::string_view s2)

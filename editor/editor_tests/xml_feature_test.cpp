@@ -500,15 +500,15 @@ UNIT_TEST(XMLFeature_SocialContactsProcessing)
     editor::FromXML(xmlFeature, emo);
 
     // Read and write "contact:facebook" to apply normalization.
-    std::string contactFacebook = std::string(emo.GetMetadata(feature::Metadata::FMD_CONTACT_FACEBOOK));
+    std::string contactFacebook(emo.GetMetadata(feature::Metadata::FMD_CONTACT_FACEBOOK));
     emo.SetMetadata(osm::MapObject::MetadataID::FMD_CONTACT_FACEBOOK, contactFacebook);
 
     // Read and write "contact:instagram" to apply normalization.
-    std::string contactInstagram = std::string(emo.GetMetadata(feature::Metadata::FMD_CONTACT_INSTAGRAM));
+    std::string contactInstagram(emo.GetMetadata(feature::Metadata::FMD_CONTACT_INSTAGRAM));
     emo.SetMetadata(osm::MapObject::MetadataID::FMD_CONTACT_INSTAGRAM, contactInstagram);
 
     // Read and write "contact:line" to apply normalization.
-    std::string contactLine = std::string(emo.GetMetadata(feature::Metadata::FMD_CONTACT_LINE));
+    std::string contactLine(emo.GetMetadata(feature::Metadata::FMD_CONTACT_LINE));
     emo.SetMetadata(osm::MapObject::MetadataID::FMD_CONTACT_LINE, contactLine);
 
     auto convertedFt = editor::ToXML(emo, true);
@@ -543,15 +543,15 @@ UNIT_TEST(XMLFeature_SocialContactsProcessing_clean)
     editor::FromXML(xmlFeature, emo);
 
     // Read and write "contact:facebook" to apply normalization.
-    std::string contactFacebook = std::string(emo.GetMetadata(feature::Metadata::FMD_CONTACT_FACEBOOK));
+    std::string contactFacebook(emo.GetMetadata(feature::Metadata::FMD_CONTACT_FACEBOOK));
     emo.SetMetadata(osm::MapObject::MetadataID::FMD_CONTACT_FACEBOOK, contactFacebook);
 
     // Read and write "contact:instagram" to apply normalization.
-    std::string contactInstagram = std::string(emo.GetMetadata(feature::Metadata::FMD_CONTACT_INSTAGRAM));
+    std::string contactInstagram(emo.GetMetadata(feature::Metadata::FMD_CONTACT_INSTAGRAM));
     emo.SetMetadata(osm::MapObject::MetadataID::FMD_CONTACT_INSTAGRAM, contactInstagram);
 
     // Read and write "contact:line" to apply normalization.
-    std::string contactLine = std::string(emo.GetMetadata(feature::Metadata::FMD_CONTACT_LINE));
+    std::string contactLine(emo.GetMetadata(feature::Metadata::FMD_CONTACT_LINE));
     emo.SetMetadata(osm::MapObject::MetadataID::FMD_CONTACT_LINE, contactLine);
 
     auto convertedFt = editor::ToXML(emo, true);
