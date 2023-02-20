@@ -1382,6 +1382,7 @@
 	<string name="type.man_made.storage_tank">Storage Tank</string>
 	<string name="type.man_made.surveillance">Surveillance Camera</string>
 	<string name="type.man_made.tower">Tower</string>
+	<string name="type.man_made.tower.communication">Communications Tower</string>
 	<string name="type.man_made.wastewater_plant">Wastewater treatment plant</string>
 	<string name="type.man_made.water_tap">Water Tap</string>
 	<string name="type.man_made.water_tower">Water Tower</string>
@@ -1478,6 +1479,10 @@
 	<string name="type.place.village">Village</string>
 	<string name="type.power">Power</string>
 	<string name="type.power.generator">Generator</string>
+	<string name="type.power.generator.solar">Solar Generator</string>
+	<string name="type.power.generator.wind">Wind Generator</string>
+	<string name="type.power.generator.gas">Gas turbine Power Plant</string>
+	<string name="type.power.generator.hydro">Hydroelectric Power Plant</string>
 	<string name="type.power.line">Power Line</string>
 	<string name="type.power.line.underground">Underground Power Line</string>
 	<string name="type.power.minor_line">Minor Power Line</string>

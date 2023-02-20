@@ -1170,6 +1170,7 @@
 	<string name="type.man_made.lighthouse">ประภาคาร</string>
 	<string name="type.man_made.surveillance">กล้องวงจรปิด</string>
 	<string name="type.man_made.tower">หอคอย</string>
+	<string name="type.man_made.tower.communication">หอสื่อสาร</string>
 	<string name="type.man_made.water_tap">ก๊อกน้ำ</string>
 	<string name="type.man_made.water_tower">อ่างเก็บน้ำ</string>
 	<string name="type.man_made.water_well">บ่อน้ำ</string>
@@ -1254,6 +1255,10 @@
 	<string name="type.place.suburb">ชานเมือง</string>
 	<string name="type.place.town">เมือง</string>
 	<string name="type.place.village">หมู่บ้าน</string>
+	<string name="type.power.generator.solar">เครื่องกำเนิดพลังงานแสงอาทิตย์</string>
+	<string name="type.power.generator.wind">เครื่องกำเนิดลม</string>
+	<string name="type.power.generator.gas">โรงไฟฟ้ากังหันก๊าซ</string>
+	<string name="type.power.generator.hydro">โรงไฟฟ้าพลังน้ำ</string>
 	<string name="type.power.pole">เสาไฟฟ้า</string>
 	<string name="type.power.substation">สถานีไฟฟ้า</string>
 	<string name="type.power.tower">เสาไฟฟ้า</string>

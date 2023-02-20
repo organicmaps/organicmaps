@@ -2453,6 +2453,8 @@
 
 "type.man_made.tower" = "Toren";
 
+"type.man_made.tower.communication" = "Communicatie Toren";
+
 "type.man_made.wastewater_plant" = "Waterzuiveringsinstallatie";
 
 "type.man_made.water_tap" = "Waterkraan";
@@ -2644,6 +2646,14 @@
 "type.power" = "Electriciteit";
 
 "type.power.generator" = "Generator";
+
+"type.power.generator.solar" = "Zonne-generator";
+
+"type.power.generator.wind" = "Wind generator";
+
+"type.power.generator.gas" = "Gasturbine elektriciteitscentrale";
+
+"type.power.generator.hydro" = "Waterkrachtcentrale";
 
 "type.power.line" = "Hoogspanningsleiding";
 

@@ -1232,6 +1232,7 @@
 	<string name="type.man_made.lighthouse">Itsasargia</string>
 	<string name="type.man_made.surveillance">Zaintza Kamera</string>
 	<string name="type.man_made.tower">Dorrea</string>
+	<string name="type.man_made.tower.communication">Komunikazio Dorrea</string>
 	<string name="type.man_made.water_tap">Ura hartzea</string>
 	<string name="type.man_made.water_tower">Ur depositua</string>
 	<string name="type.man_made.water_well">Ur putzua</string>
@@ -1319,6 +1320,10 @@
 	<string name="type.place.suburb">Auzoa</string>
 	<string name="type.place.town">Herria</string>
 	<string name="type.place.village">Herria</string>
+	<string name="type.power.generator.solar">Eguzki-sorgailua</string>
+	<string name="type.power.generator.wind">Sorgailu eolikoa</string>
+	<string name="type.power.generator.gas">Gas-turbinetako zentral elektrikoa</string>
+	<string name="type.power.generator.hydro">Zentral hidroelektrikoa</string>
 	<string name="type.power.pole">Zutabe elektrikoa</string>
 	<string name="type.power.substation">Azpiestazioa</string>
 	<string name="type.power.tower">Zutabe elektrikoa</string>

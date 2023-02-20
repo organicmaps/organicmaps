@@ -2453,6 +2453,8 @@
 
 "type.man_made.tower" = "Dorrea";
 
+"type.man_made.tower.communication" = "Komunikazio Dorrea";
+
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
 "type.man_made.water_tap" = "Ura hartzea";
@@ -2644,6 +2646,14 @@
 "type.power" = "Power";
 
 "type.power.generator" = "Generator";
+
+"type.power.generator.solar" = "Eguzki-sorgailua";
+
+"type.power.generator.wind" = "Sorgailu eolikoa";
+
+"type.power.generator.gas" = "Gas-turbinetako zentral elektrikoa";
+
+"type.power.generator.hydro" = "Zentral hidroelektrikoa";
 
 "type.power.line" = "Power Line";
 

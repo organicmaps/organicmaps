@@ -2453,6 +2453,8 @@
 
 "type.man_made.tower" = "Turn";
 
+"type.man_made.tower.communication" = "Turnul de comunicații";
+
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
 "type.man_made.water_tap" = "Robinet cu apă";
@@ -2644,6 +2646,14 @@
 "type.power" = "Power";
 
 "type.power.generator" = "Generator";
+
+"type.power.generator.solar" = "Generator solar";
+
+"type.power.generator.wind" = "Generator eolian";
+
+"type.power.generator.gas" = "Centrala electrica cu turbina cu gaz";
+
+"type.power.generator.hydro" = "Centrală hidroelectrică";
 
 "type.power.line" = "Power Line";
 

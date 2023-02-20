@@ -2453,6 +2453,8 @@
 
 "type.man_made.tower" = "タワー";
 
+"type.man_made.tower.communication" = "通信塔";
+
 "type.man_made.wastewater_plant" = "下水処理場";
 
 "type.man_made.water_tap" = "給水栓";
@@ -2644,6 +2646,14 @@
 "type.power" = "電力";
 
 "type.power.generator" = "発電機";
+
+"type.power.generator.solar" = "太陽光発電機";
+
+"type.power.generator.wind" = "風力発電機";
+
+"type.power.generator.gas" = "ガスタービン発電所";
+
+"type.power.generator.hydro" = "水力発電所";
 
 "type.power.line" = "電力線";
 

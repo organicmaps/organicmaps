@@ -2453,6 +2453,8 @@
 
 "type.man_made.tower" = "Torn";
 
+"type.man_made.tower.communication" = "Sidetorn";
+
 "type.man_made.wastewater_plant" = "Reoveepuhasti";
 
 "type.man_made.water_tap" = "Veekraan";
@@ -2644,6 +2646,14 @@
 "type.power" = "Energia";
 
 "type.power.generator" = "Generaator";
+
+"type.power.generator.solar" = "Päikese generaator";
+
+"type.power.generator.wind" = "Tuulegeneraator";
+
+"type.power.generator.gas" = "Gaasiturbiini elektrijaam";
+
+"type.power.generator.hydro" = "Hüdroelektrijaam";
 
 "type.power.line" = "Elektriliin";
 

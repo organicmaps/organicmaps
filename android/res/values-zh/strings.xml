@@ -1262,6 +1262,7 @@
 	<string name="type.man_made.pipeline.overground">地面管道</string>
 	<string name="type.man_made.surveillance">监视器</string>
 	<string name="type.man_made.tower">高塔</string>
+	<string name="type.man_made.tower.communication">通讯塔</string>
 	<string name="type.man_made.wastewater_plant">污水处理厂</string>
 	<string name="type.man_made.water_tap">水龙头</string>
 	<string name="type.man_made.water_tower">水塔</string>
@@ -1351,6 +1352,10 @@
 	<string name="type.place.village">村</string>
 	<string name="type.power">电力要素</string>
 	<string name="type.power.generator">发电机</string>
+	<string name="type.power.generator.solar">太阳能发电机</string>
+	<string name="type.power.generator.wind">风力发电机</string>
+	<string name="type.power.generator.gas">燃气轮机发电厂</string>
+	<string name="type.power.generator.hydro">水力发电厂</string>
 	<string name="type.power.line">超高压输电线</string>
 	<string name="type.power.line.underground">超高压输电线</string>
 	<string name="type.power.minor_line">超高压输电线</string>

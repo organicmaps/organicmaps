@@ -2453,6 +2453,8 @@
 
 "type.man_made.tower" = "Torn";
 
+"type.man_made.tower.communication" = "Kommunikationstorn";
+
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
 "type.man_made.water_tap" = "Vattenkran";
@@ -2644,6 +2646,14 @@
 "type.power" = "Power";
 
 "type.power.generator" = "Generator";
+
+"type.power.generator.solar" = "Solgenerator";
+
+"type.power.generator.wind" = "Vindgenerator";
+
+"type.power.generator.gas" = "Gasturbinkraftverk";
+
+"type.power.generator.hydro" = "Vattenkraftverk";
 
 "type.power.line" = "Power Line";
 

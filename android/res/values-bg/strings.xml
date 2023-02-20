@@ -829,6 +829,7 @@
 	<string name="type.sport.yoga">Йога</string>
 	<string name="type.leisure.swimming_pool">Басейн</string>
 	<string name="type.leisure.swimming_pool.private">Басейн</string>
+	<string name="type.man_made.tower.communication">Комуникационна кула</string>
 	<string name="type.natural">Природа</string>
 	<string name="type.natural.bare_rock">Гола скала</string>
 	<string name="type.natural.bay">Залив</string>
@@ -902,6 +903,10 @@
 	<string name="type.place.suburb">Предградие</string>
 	<string name="type.place.town">Касаба</string>
 	<string name="type.place.village">Село</string>
+	<string name="type.power.generator.solar">Слънчев генератор</string>
+	<string name="type.power.generator.wind">Вятърен генератор</string>
+	<string name="type.power.generator.gas">Газотурбинна електроцентрала</string>
+	<string name="type.power.generator.hydro">Водноелектрическа централа</string>
 	<string name="type.shop.deli">Магазин за деликатеси</string>
 	<string name="type.shop.farm">Магазин за селскостопански храни</string>
 	<string name="type.shop.grocery">Хранителни стоки</string>

@@ -1186,6 +1186,7 @@
 	<string name="type.man_made.lighthouse">Far</string>
 	<string name="type.man_made.surveillance">Cameră de supraveghere</string>
 	<string name="type.man_made.tower">Turn</string>
+	<string name="type.man_made.tower.communication">Turnul de comunicații</string>
 	<string name="type.man_made.water_tap">Robinet cu apă</string>
 	<string name="type.man_made.water_tower">Turn de apă</string>
 	<string name="type.man_made.water_well">Puț de apă</string>
@@ -1270,6 +1271,10 @@
 	<string name="type.place.suburb">Suburbie</string>
 	<string name="type.place.town">Oraș</string>
 	<string name="type.place.village">Sat</string>
+	<string name="type.power.generator.solar">Generator solar</string>
+	<string name="type.power.generator.wind">Generator eolian</string>
+	<string name="type.power.generator.gas">Centrala electrica cu turbina cu gaz</string>
+	<string name="type.power.generator.hydro">Centrală hidroelectrică</string>
 	<string name="type.power.pole">Stâlp de electricitate</string>
 	<string name="type.power.substation">Stație subterană</string>
 	<string name="type.power.tower">Stâlp de electricitate</string>

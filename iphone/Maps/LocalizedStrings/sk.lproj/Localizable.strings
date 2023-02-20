@@ -2453,6 +2453,8 @@
 
 "type.man_made.tower" = "Veža";
 
+"type.man_made.tower.communication" = "Komunikačná veža";
+
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
 "type.man_made.water_tap" = "Vodovodný kohútik";
@@ -2644,6 +2646,14 @@
 "type.power" = "Power";
 
 "type.power.generator" = "Generator";
+
+"type.power.generator.solar" = "Solárny generátor";
+
+"type.power.generator.wind" = "Veterný generátor";
+
+"type.power.generator.gas" = "Elektráreň s plynovou turbínou";
+
+"type.power.generator.hydro" = "Vodná elektráreň";
 
 "type.power.line" = "Power Line";
 

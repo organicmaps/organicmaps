@@ -499,6 +499,7 @@
 	<string name="type.landuse.basin">אגן מים</string>
 	<string name="type.leisure.dance">םידוקיר םלוא</string>
 	<string name="type.leisure.picnic_table">קינקיפ ןחלוש</string>
+	<string name="type.man_made.tower.communication">מגדל תקשורת</string>
 	<string name="type.natural">טבע</string>
 	<string name="type.natural.bare_rock">סלע חשוף</string>
 	<string name="type.natural.bay">מפרץ</string>
@@ -571,6 +572,10 @@
 	<string name="type.place.suburb">פרוור</string>
 	<string name="type.place.town">עיירה</string>
 	<string name="type.place.village">כפר</string>
+	<string name="type.power.generator.solar">גנרטור סולארי</string>
+	<string name="type.power.generator.wind">מחולל רוח</string>
+	<string name="type.power.generator.gas">תחנת כוח לטורבינת גז</string>
+	<string name="type.power.generator.hydro">תחנת כוח הידרואלקטרית</string>
 	<string name="type.shop.deli">תוינדעמ תונח</string>
 	<string name="type.shop.farm">הווחל ןוזמ תונח</string>
 	<string name="type.shop.grocery">תלֶוֹכּמַ</string>
