@@ -114,6 +114,7 @@ public class SearchFragment extends BaseMwmFragment
     }
 
     @Override
+    @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3630
     protected void startVoiceRecognition(Intent intent, int code)
     {
       startActivityForResult(intent, code);
@@ -517,6 +518,7 @@ public class SearchFragment extends BaseMwmFragment
   }
 
   @Override
+  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3630
   public void onActivityResult(int requestCode, int resultCode, Intent data)
   {
     super.onActivityResult(requestCode, resultCode, data);

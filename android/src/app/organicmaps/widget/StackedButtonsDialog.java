@@ -132,8 +132,8 @@ public class StackedButtonsDialog extends AppCompatDialog implements View.OnClic
     {
       mContext = context;
       mTitle = mContext.getString(android.R.string.dialog_alert_title);
-      mPositive = mContext.getString(android.R.string.ok);
-      mNegative = mContext.getString(android.R.string.no);
+      mPositive = mContext.getString(R.string.ok);
+      mNegative = mContext.getString(R.string.cancel);
     }
 
     @NonNull

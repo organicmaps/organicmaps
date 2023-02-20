@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -140,7 +141,7 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
     y.setLabelCount(CHART_Y_LABEL_COUNT, false);
     y.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
     y.setDrawGridLines(true);
-    y.setGridColor(mContext.getResources().getColor(R.color.black_12));
+    y.setGridColor(ContextCompat.getColor(mContext, R.color.black_12));
     y.setEnabled(true);
     y.setTextColor(Color.TRANSPARENT);
     y.setAxisLineColor(Color.TRANSPARENT);
@@ -172,7 +173,7 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
     set.setFillColor(color);
     set.setDrawHorizontalHighlightIndicator(false);
     set.setHighlightLineWidth(lineThickness);
-    set.setHighLightColor(mContext.getResources().getColor(R.color.base_accent_transparent));
+    set.setHighLightColor(ContextCompat.getColor(mContext, R.color.base_accent_transparent));
 
     LineData data = new LineData(set);
     data.setValueTextSize(mContext.getResources().getDimensionPixelSize(R.dimen.text_size_icon_title));

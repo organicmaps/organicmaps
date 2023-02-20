@@ -1,7 +1,6 @@
 package app.organicmaps.widget.placepage;
 
 import android.os.Bundle;
-import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.view.LayoutInflater;
@@ -69,7 +68,7 @@ public class PlacePageWikipediaFragment extends Fragment implements Observer<Map
     if (paragraphStart == 0 && paragraphEnd != -1)
       htmlDescription = htmlDescription.substring(3, paragraphEnd);
 
-    Spanned description = Html.fromHtml(htmlDescription);
+    Spanned description = Utils.fromHtml(htmlDescription);
     if (description.length() > mDescriptionMaxLength)
     {
       description = (Spanned) new SpannableStringBuilder(description)

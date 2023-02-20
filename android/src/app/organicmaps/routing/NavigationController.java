@@ -79,6 +79,16 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     }
   };
 
+  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3631
+  private void addWindowsInsets(@NonNull View topFrame)
+  {
+    topFrame.findViewById(R.id.nav_next_turn_container).setOnApplyWindowInsetsListener((view, windowInsets) -> {
+      view.setPadding(windowInsets.getSystemWindowInsetLeft(), view.getPaddingTop(),
+          view.getPaddingRight(), view.getPaddingBottom());
+      return windowInsets;
+    });
+  }
+
   public NavigationController(AppCompatActivity activity, @NonNull MapButtonsController mapButtonsController, View.OnClickListener onSettingsClickListener)
   {
     mFrame = activity.findViewById(R.id.navigation_frame);
@@ -93,11 +103,7 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     mNextTurnDistance = turnFrame.findViewById(R.id.distance);
     mCircleExit = turnFrame.findViewById(R.id.circle_exit);
 
-    topFrame.findViewById(R.id.nav_next_turn_container).setOnApplyWindowInsetsListener((view, windowInsets) -> {
-      view.setPadding(windowInsets.getSystemWindowInsetLeft(), view.getPaddingTop(),
-                      view.getPaddingRight(), view.getPaddingBottom());
-      return windowInsets;
-    });
+    addWindowsInsets(topFrame);
 
     mNextNextTurnFrame = topFrame.findViewById(R.id.nav_next_next_turn_frame);
     mNextNextTurnImage = mNextNextTurnFrame.findViewById(R.id.turn);

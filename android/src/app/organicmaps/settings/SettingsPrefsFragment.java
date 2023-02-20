@@ -1,5 +1,6 @@
 package app.organicmaps.settings;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -126,7 +127,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       if (lang.downloaded)
         setLanguage(lang);
       else
-        startActivityForResult(new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA), REQUEST_INSTALL_DATA);
+      {
+        UiUtils.startActivityForResult(SettingsPrefsFragment.this,
+            new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA), REQUEST_INSTALL_DATA);
+      }
 
       return false;
     }
@@ -320,6 +324,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   }
 
   @Override
+  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3630
   public void onActivityResult(int requestCode, int resultCode, Intent data)
   {
     // Do not check resultCode here as it is always RESULT_CANCELED

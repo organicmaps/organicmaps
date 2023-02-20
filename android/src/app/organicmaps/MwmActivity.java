@@ -416,6 +416,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     ));
   }
 
+  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3631
   private void updateViewsInsets()
   {
     mPointChooser.setOnApplyWindowInsetsListener((view, windowInsets) -> {
@@ -957,7 +958,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         intent.hasExtra(EXTRA_TASK) &&
         ((intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0))
     {
-      final MapTask mapTask = (MapTask) intent.getSerializableExtra(EXTRA_TASK);
+      final MapTask mapTask = Utils.getSerializable(intent, EXTRA_TASK, MapTask.class);
       mTasks.add(mapTask);
       intent.removeExtra(EXTRA_TASK);
 
@@ -1388,6 +1389,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
+  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3631
   public void onRoutingPlanStartAnimate(boolean show)
   {
     int offset = mCurrentWindowInsets.getSystemWindowInsetTop();

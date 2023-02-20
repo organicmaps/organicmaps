@@ -15,6 +15,7 @@ public class OsmUploadService extends MwmJobIntentService
   /**
    * Starts this service to upload map edits to osm servers.
    */
+  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/4531
   public static void startActionUploadOsmChanges(@NonNull Context context)
   {
     final Intent intent = new Intent(context, OsmUploadService.class);

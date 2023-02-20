@@ -104,7 +104,7 @@ public class PlacePageBookmarkFragment extends Fragment implements View.OnClickL
     else
     {
       mTvBookmarkNote.setText(notes);
-      Linkify.addLinks(mTvBookmarkNote, Linkify.ALL);
+      Linkify.addLinks(mTvBookmarkNote, Linkify.WEB_URLS | Linkify.EMAIL_ADDRESSES | Linkify.PHONE_NUMBERS);
       UiUtils.show(mTvBookmarkNote);
       if (mWvBookmarkNote != null)
         UiUtils.hide(mWvBookmarkNote);

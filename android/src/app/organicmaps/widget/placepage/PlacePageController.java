@@ -229,6 +229,7 @@ public class PlacePageController implements Initializable<Activity>,
    * Set the min and max height of the place page to prevent jumps when switching from one map object
    * to the other.
    */
+  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3631
   private void setPlacePageHeightBounds()
   {
     final int peekHeight = calculatePeekHeight();
@@ -273,6 +274,7 @@ public class PlacePageController implements Initializable<Activity>,
    * Using the animate param in setPeekHeight does not work when adding removing fragments
    * from inside the place page so we manually animate the peek height with ValueAnimator
    */
+  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3631
   private void animatePeekHeight(int peekHeight)
   {
     // Make sure to start from the current height of the place page
