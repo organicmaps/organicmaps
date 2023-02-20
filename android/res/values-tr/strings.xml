@@ -206,7 +206,7 @@
 	<!-- «Map style» entry value -->
 	<string name="pref_map_style_auto">Otomatik</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
-	<string name="pref_map_3d_title">Perspektif görünüş</string>
+	<string name="pref_map_3d_title">Perspektif görünüm</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D yapılar</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->

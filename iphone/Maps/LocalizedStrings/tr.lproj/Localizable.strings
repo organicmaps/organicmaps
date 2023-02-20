@@ -221,7 +221,7 @@
 "pref_map_style_auto" = "Otomatik";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "Perspektif görünüş";
+"pref_map_3d_title" = "Perspektif görünüm";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D yapılar";
