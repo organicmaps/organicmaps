@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.bookmarks.data.Metadata;
@@ -145,7 +146,7 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
   private void openUrl(Metadata.MetadataType type)
   {
     final String url = getLink(type);
-    if (type != Metadata.MetadataType.FMD_CONTACT_LINE || !isSocialUsername(type))
+    if (!TextUtils.isEmpty(url))
       Utils.openUrl(requireContext(), url);
   }
 
@@ -153,35 +154,21 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
   {
     final String metadata = mMapObject.getMetadata(type);
     if (TextUtils.isEmpty(metadata))
-    {
       return "";
-    }
-    String path = "";
-    String domain = "";
+
     switch (type)
     {
       case FMD_WEBSITE:
-        path = getWebsiteUrl(mMapObject);
-        break;
+        return getWebsiteUrl(mMapObject);
       case FMD_CONTACT_FACEBOOK:
-        domain = "https://m.facebook.com/";
-        break;
       case FMD_CONTACT_INSTAGRAM:
-        domain = "https://instagram.com/";
-        break;
       case FMD_CONTACT_TWITTER:
-        domain = "https://mobile.twitter.com/";
-        break;
       case FMD_CONTACT_VK:
-        domain = "https://vk.com/";
-        break;
       case FMD_CONTACT_LINE:
-        path = getLineUrl();
-        break;
+        return Framework.nativeGetPoiContactUrl(type.toInt());
+      default:
+        return metadata;
     }
-    if (TextUtils.isEmpty(path))
-      path = metadata;
-    return domain + path;
   }
 
   private boolean copyUrl(View view, Metadata.MetadataType type)
@@ -202,24 +189,10 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
     return true;
   }
 
-  private void refreshSocialPageLink(View view, TextView tvSocialPage, String socialPage, String webDomain)
+  private void refreshSocialPageLink(@NonNull MapObject mapObject, View view, TextView tvSocialPage, Metadata.MetadataType metaType)
   {
-    if (TextUtils.isEmpty(socialPage))
-      view.setVisibility(GONE);
-    else if (socialPage.indexOf('/') >= 0)
-      refreshMetadataOrHide("https://" + webDomain + "/" + socialPage, view, tvSocialPage);
-    else
-      refreshMetadataOrHide("@" + socialPage, view, tvSocialPage);
-  }
-
-  private void refreshSocialPageLink(View view, TextView tvSocialPage, String socialPage)
-  {
-    if (TextUtils.isEmpty(socialPage))
-      view.setVisibility(GONE);
-    else if (socialPage.indexOf('/') >= 0)
-      refreshMetadataOrHide("https://" + socialPage, view, tvSocialPage);
-    else
-      refreshMetadataOrHide("@" + socialPage, view, tvSocialPage);
+    final String socialPage = mapObject.getMetadata(metaType);
+    refreshMetadataOrHide(socialPage, view, tvSocialPage);
   }
 
   private static String getWebsiteUrl(MapObject mapObject)
@@ -227,15 +200,6 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
     String website = mapObject.getMetadata(Metadata.MetadataType.FMD_WEBSITE);
     String url = mapObject.getMetadata(Metadata.MetadataType.FMD_URL);
     return TextUtils.isEmpty(website) ? url : website;
-  }
-
-  private String getLineUrl()
-  {
-    final String metadata = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_LINE);
-    if (isSocialUsername(Metadata.MetadataType.FMD_CONTACT_LINE))
-      return "https://line.me/R/ti/p/@" + metadata;
-    else
-      return "https://" + metadata;
   }
 
   private void refreshLinks()
@@ -246,18 +210,11 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
     refreshMetadataOrHide(wikimedia_commons_text, mWikimedia, mTvWikimedia);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_EMAIL), mEmail, mTvEmail);
 
-    final String facebookPageLink = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_FACEBOOK);
-    refreshSocialPageLink(mFacebookPage, mTvFacebookPage, facebookPageLink, "facebook.com");
-    final String instagramPageLink = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM);
-    refreshSocialPageLink(mInstagramPage, mTvInstagramPage, instagramPageLink, "instagram.com");
-    final String twitterPageLink = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_TWITTER);
-    refreshSocialPageLink(mTwitterPage, mTvTwitterPage, twitterPageLink, "twitter.com");
-    final String vkPageLink = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_VK);
-    refreshSocialPageLink(mVkPage, mTvVkPage, vkPageLink, "vk.com");
-    final String linePageLink = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_LINE);
-    // Tag `contact:line` could contain urls from domains: line.me, liff.line.me, page.line.me, etc.
-    // And `socialPage` should not be prepended with domain, but only with "https://" protocol.
-    refreshSocialPageLink(mLinePage, mTvLinePage, linePageLink);
+    refreshSocialPageLink(mMapObject, mFacebookPage, mTvFacebookPage, Metadata.MetadataType.FMD_CONTACT_FACEBOOK);
+    refreshSocialPageLink(mMapObject, mInstagramPage, mTvInstagramPage, Metadata.MetadataType.FMD_CONTACT_INSTAGRAM);
+    refreshSocialPageLink(mMapObject, mTwitterPage, mTvTwitterPage, Metadata.MetadataType.FMD_CONTACT_TWITTER);
+    refreshSocialPageLink(mMapObject, mVkPage, mTvVkPage, Metadata.MetadataType.FMD_CONTACT_VK);
+    refreshSocialPageLink(mMapObject, mLinePage, mTvLinePage, Metadata.MetadataType.FMD_CONTACT_LINE);
   }
 
   @Override

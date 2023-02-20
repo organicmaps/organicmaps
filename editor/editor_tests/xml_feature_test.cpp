@@ -480,3 +480,89 @@ UNIT_TEST(XMLFeature_Diet)
   ft.SetCuisine("");
   TEST_EQUAL(ft.GetCuisine(), "", ());
 }
+
+UNIT_TEST(XMLFeature_SocialContactsProcessing)
+{
+  {
+    std::string const nightclubStr = R"(<?xml version="1.0"?>
+    <node lat="50.4082862" lon="30.5130017" timestamp="2022-02-24T05:07:00Z">
+    <tag k="amenity" v="nightclub" />
+    <tag k="name" v="Stereo Plaza" />
+    <tag k="contact:facebook" v="http://www.facebook.com/pages/Stereo-Plaza/118100041593935" />
+    <tag k="contact:instagram" v="https://www.instagram.com/p/CSy87IhMhfm/" />
+    <tag k="contact:line" v="liff.line.me/1645278921-kWRPP32q/?accountId=673watcr" />
+    </node>
+    )";
+
+    editor::XMLFeature xmlFeature(nightclubStr);
+
+    osm::EditableMapObject emo;
+    editor::FromXML(xmlFeature, emo);
+
+    // Read and write "contact:facebook" to apply normalization.
+    std::string contactFacebook(emo.GetMetadata(feature::Metadata::FMD_CONTACT_FACEBOOK));
+    emo.SetMetadata(osm::MapObject::MetadataID::FMD_CONTACT_FACEBOOK, contactFacebook);
+
+    // Read and write "contact:instagram" to apply normalization.
+    std::string contactInstagram(emo.GetMetadata(feature::Metadata::FMD_CONTACT_INSTAGRAM));
+    emo.SetMetadata(osm::MapObject::MetadataID::FMD_CONTACT_INSTAGRAM, contactInstagram);
+
+    // Read and write "contact:line" to apply normalization.
+    std::string contactLine(emo.GetMetadata(feature::Metadata::FMD_CONTACT_LINE));
+    emo.SetMetadata(osm::MapObject::MetadataID::FMD_CONTACT_LINE, contactLine);
+
+    auto convertedFt = editor::ToXML(emo, true);
+
+    TEST(convertedFt.HasTag("contact:facebook"), ());
+    TEST_EQUAL(convertedFt.GetTagValue("contact:facebook"), "https://facebook.com/pages/Stereo-Plaza/118100041593935", ());
+
+    TEST(convertedFt.HasTag("contact:instagram"), ());
+    TEST_EQUAL(convertedFt.GetTagValue("contact:instagram"), "https://instagram.com/p/CSy87IhMhfm", ());
+
+    TEST(convertedFt.HasTag("contact:line"), ());
+    TEST_EQUAL(convertedFt.GetTagValue("contact:line"), "https://liff.line.me/1645278921-kWRPP32q/?accountId=673watcr", ());
+  }
+}
+
+UNIT_TEST(XMLFeature_SocialContactsProcessing_clean)
+{
+  {
+    std::string const nightclubStr = R"(<?xml version="1.0"?>
+    <node lat="40.82862" lon="20.30017" timestamp="2022-02-24T05:07:00Z">
+    <tag k="amenity" v="bar" />
+    <tag k="name" v="Irish Pub" />
+    <tag k="contact:facebook" v="https://www.facebook.com/PierreCardinPeru.oficial/" />
+    <tag k="contact:instagram" v="https://www.instagram.com/fraback.genusswelt/" />
+    <tag k="contact:line" v="https://line.me/R/ti/p/%40015qevdv" />
+    </node>
+    )";
+
+    editor::XMLFeature xmlFeature(nightclubStr);
+
+    osm::EditableMapObject emo;
+    editor::FromXML(xmlFeature, emo);
+
+    // Read and write "contact:facebook" to apply normalization.
+    std::string contactFacebook(emo.GetMetadata(feature::Metadata::FMD_CONTACT_FACEBOOK));
+    emo.SetMetadata(osm::MapObject::MetadataID::FMD_CONTACT_FACEBOOK, contactFacebook);
+
+    // Read and write "contact:instagram" to apply normalization.
+    std::string contactInstagram(emo.GetMetadata(feature::Metadata::FMD_CONTACT_INSTAGRAM));
+    emo.SetMetadata(osm::MapObject::MetadataID::FMD_CONTACT_INSTAGRAM, contactInstagram);
+
+    // Read and write "contact:line" to apply normalization.
+    std::string contactLine(emo.GetMetadata(feature::Metadata::FMD_CONTACT_LINE));
+    emo.SetMetadata(osm::MapObject::MetadataID::FMD_CONTACT_LINE, contactLine);
+
+    auto convertedFt = editor::ToXML(emo, true);
+
+    TEST(convertedFt.HasTag("contact:facebook"), ());
+    TEST_EQUAL(convertedFt.GetTagValue("contact:facebook"), "PierreCardinPeru.oficial", ());
+
+    TEST(convertedFt.HasTag("contact:instagram"), ());
+    TEST_EQUAL(convertedFt.GetTagValue("contact:instagram"), "fraback.genusswelt", ());
+
+    TEST(convertedFt.HasTag("contact:line"), ());
+    TEST_EQUAL(convertedFt.GetTagValue("contact:line"), "015qevdv", ());
+  }
+}
