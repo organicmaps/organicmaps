@@ -68,6 +68,9 @@ cat "$STRINGS_PATH"/{strings,types_strings}.txt> "$MERGED_FILE"
 
 # Generate list of languages and add list in gradle.properties to be used in build.gradle in resConfig
 SUPPORTED_LOCALIZATIONS="supportedLocalizations="$(sed -nEe "s/ +([a-zA-Z]{2}(-[a-zA-Z]{2,})?) = .*$/\1/p" "data/strings/strings.txt" | sort -u | tr '\n' ',' | sed -e 's/-/_/g' -e 's/,$//')
+# Chinese locales should correspond to Android codes.
+SUPPORTED_LOCALIZATIONS=${SUPPORTED_LOCALIZATIONS/zh_Hans/zh}
+SUPPORTED_LOCALIZATIONS=${SUPPORTED_LOCALIZATIONS/zh_Hant/zh_HK,zh_MO,zh_TW}
 GRADLE_PROPERTIES="$OMIM_PATH/android/gradle.properties"
 if [ "$SUPPORTED_LOCALIZATIONS" != "$(grep supportedLocalizations "$GRADLE_PROPERTIES")" ]; then
   sed -i .bak 's/supportedLocalizations.*/'"$SUPPORTED_LOCALIZATIONS"'/' "$GRADLE_PROPERTIES"
