@@ -1276,6 +1276,7 @@
 	<string name="type.man_made.pipeline.overground">Pipeline aéreo</string>
 	<string name="type.man_made.surveillance">Câmara de vigilância</string>
 	<string name="type.man_made.tower">Torre</string>
+	<string name="type.man_made.tower.communication">Torre de comunicação</string>
 	<string name="type.man_made.wastewater_plant">Estação de tratamento de águas residuais</string>
 	<string name="type.man_made.water_tap">Torneira de água</string>
 	<string name="type.man_made.water_tower">Torre de água</string>
@@ -1369,6 +1370,10 @@
 	<string name="type.place.village">Vila</string>
 	<string name="type.power">Energia</string>
 	<string name="type.power.generator">Gerador de energia</string>
+	<string name="type.power.generator.solar">Gerador solar</string>
+	<string name="type.power.generator.wind">Gerador eólico</string>
+	<string name="type.power.generator.gas">Usina de turbina a gás</string>
+	<string name="type.power.generator.hydro">Usina hidrelétrica</string>
 	<string name="type.power.line">Linha de transmissão de energia</string>
 	<string name="type.power.line.underground">Linha de transmissão de energia subterrânea</string>
 	<string name="type.power.minor_line">Linha de transmissão de energia de baixa tensão</string>

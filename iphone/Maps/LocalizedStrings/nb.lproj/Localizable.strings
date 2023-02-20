@@ -2453,6 +2453,8 @@
 
 "type.man_made.tower" = "Tårn";
 
+"type.man_made.tower.communication" = "Kommunikasjonstårn";
+
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
 "type.man_made.water_tap" = "Vannkran";
@@ -2644,6 +2646,14 @@
 "type.power" = "Power";
 
 "type.power.generator" = "Generator";
+
+"type.power.generator.solar" = "Solenergi generator";
+
+"type.power.generator.wind" = "Vindgenerator";
+
+"type.power.generator.gas" = "Gassturbinkraftverk";
+
+"type.power.generator.hydro" = "Vannkraftverk";
 
 "type.power.line" = "Power Line";
 

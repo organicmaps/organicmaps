@@ -2453,6 +2453,8 @@
 
 "type.man_made.tower" = "Tour";
 
+"type.man_made.tower.communication" = "Tour de communication";
+
 "type.man_made.wastewater_plant" = "Station d'épuration";
 
 "type.man_made.water_tap" = "Robinet d'eau";
@@ -2644,6 +2646,14 @@
 "type.power" = "Power";
 
 "type.power.generator" = "Generator";
+
+"type.power.generator.solar" = "Générateur solaire";
+
+"type.power.generator.wind" = "Générateur de vent";
+
+"type.power.generator.gas" = "Centrale à turbine à gaz";
+
+"type.power.generator.hydro" = "Centrale hydroélectrique";
 
 "type.power.line" = "Power Line";
 

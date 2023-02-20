@@ -1612,7 +1612,7 @@
 
 "type.boundary.administrative.state" = "Devlet Sınırı";
 
-"type.boundary.administrative.suburb" = "Banliyö Sınırı";
+"type.boundary.administrative.suburb" = "Mahalle Sınırı";
 
 "type.boundary.national_park" = "Ulusal Park";
 
@@ -2453,6 +2453,8 @@
 
 "type.man_made.tower" = "Kule";
 
+"type.man_made.tower.communication" = "İletişim Kulesi";
+
 "type.man_made.wastewater_plant" = "Atıksu Tesisi";
 
 "type.man_made.water_tap" = "Su Musluğu";
@@ -2635,7 +2637,7 @@
 
 "type.place.state.USA" = "Eyalet";
 
-"type.place.suburb" = "Banliyö";
+"type.place.suburb" = "Mahalle";
 
 "type.place.town" = "Kasaba";
 
@@ -2644,6 +2646,14 @@
 "type.power" = "Enerji";
 
 "type.power.generator" = "Jeneratör";
+
+"type.power.generator.solar" = "Güneş jeneratörü";
+
+"type.power.generator.wind" = "Rüzgar jeneratörü";
+
+"type.power.generator.gas" = "Gaz türbini santrali";
+
+"type.power.generator.hydro" = "Hidroelektrik santral";
 
 "type.power.line" = "Elektrik Hattı";
 

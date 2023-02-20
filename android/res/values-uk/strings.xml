@@ -1312,6 +1312,7 @@
 	<string name="type.man_made.storage_tank">Резервуар</string>
 	<string name="type.man_made.surveillance">Камера спостереження</string>
 	<string name="type.man_made.tower">Вежа</string>
+	<string name="type.man_made.tower.communication">Вежа зв\'язку</string>
 	<string name="type.man_made.wastewater_plant">Очистні споруди</string>
 	<string name="type.man_made.water_tap">Водопровідний кран</string>
 	<string name="type.man_made.water_tower">Водонапірна вежа</string>
@@ -1405,6 +1406,10 @@
 	<string name="type.place.village">Село</string>
 	<string name="type.power">Енергія</string>
 	<string name="type.power.generator">Генератор</string>
+	<string name="type.power.generator.solar">Сонячний генератор</string>
+	<string name="type.power.generator.wind">Вітрогенератор</string>
+	<string name="type.power.generator.gas">Газотурбінна електростанція</string>
+	<string name="type.power.generator.hydro">Гідроелектростанція</string>
 	<string name="type.power.line">Лінія електропередач</string>
 	<string name="type.power.line.underground">Підземна лінія електропередач</string>
 	<string name="type.power.minor_line">Лінія електропередач низької напруги</string>

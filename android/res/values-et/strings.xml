@@ -1333,6 +1333,7 @@
 	<string name="type.man_made.storage_tank">Mahuti</string>
 	<string name="type.man_made.surveillance">Jälgimiskaamera</string>
 	<string name="type.man_made.tower">Torn</string>
+	<string name="type.man_made.tower.communication">Sidetorn</string>
 	<string name="type.man_made.wastewater_plant">Reoveepuhasti</string>
 	<string name="type.man_made.water_tap">Veekraan</string>
 	<string name="type.man_made.water_tower">Veetorn</string>
@@ -1427,6 +1428,10 @@
 	<string name="type.place.village">Küla</string>
 	<string name="type.power">Energia</string>
 	<string name="type.power.generator">Generaator</string>
+	<string name="type.power.generator.solar">Päikese generaator</string>
+	<string name="type.power.generator.wind">Tuulegeneraator</string>
+	<string name="type.power.generator.gas">Gaasiturbiini elektrijaam</string>
+	<string name="type.power.generator.hydro">Hüdroelektrijaam</string>
 	<string name="type.power.line">Elektriliin</string>
 	<string name="type.power.line.underground">Maa-alune elektriliin</string>
 	<string name="type.power.minor_line">Madal-/Keskpinge elektriliin</string>

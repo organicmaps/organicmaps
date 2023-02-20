@@ -1167,6 +1167,7 @@
 	<string name="type.man_made.lighthouse">등대</string>
 	<string name="type.man_made.surveillance">감시 카메라</string>
 	<string name="type.man_made.tower">타워</string>
+	<string name="type.man_made.tower.communication">커뮤니케이션 타워</string>
 	<string name="type.man_made.water_tap">수도꼭지</string>
 	<string name="type.man_made.water_tower">급수탑</string>
 	<string name="type.man_made.water_well">우물</string>
@@ -1252,6 +1253,10 @@
 	<string name="type.place.suburb">교외</string>
 	<string name="type.place.town">타운</string>
 	<string name="type.place.village">마을</string>
+	<string name="type.power.generator.solar">태양열 발전기</string>
+	<string name="type.power.generator.wind">풍력 발전기</string>
+	<string name="type.power.generator.gas">가스 터빈 발전소</string>
+	<string name="type.power.generator.hydro">수력 발전소</string>
 	<string name="type.power.pole">전봇대</string>
 	<string name="type.power.substation">변전소</string>
 	<string name="type.power.tower">전봇대</string>

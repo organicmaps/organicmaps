@@ -1161,6 +1161,7 @@
 	<string name="type.man_made.lighthouse">Mercusuar</string>
 	<string name="type.man_made.surveillance">Kamera Pengawas</string>
 	<string name="type.man_made.tower">Menara</string>
+	<string name="type.man_made.tower.communication">Menara Komunikasi</string>
 	<string name="type.man_made.water_tap">Keran Air</string>
 	<string name="type.man_made.water_tower">Menara air</string>
 	<string name="type.man_made.water_well">Sumur air</string>
@@ -1245,6 +1246,10 @@
 	<string name="type.place.suburb">Pinggiran kota</string>
 	<string name="type.place.town">Kota</string>
 	<string name="type.place.village">Desa</string>
+	<string name="type.power.generator.solar">Pembangkit surya</string>
+	<string name="type.power.generator.wind">Generator angin</string>
+	<string name="type.power.generator.gas">Pembangkit listrik turbin gas</string>
+	<string name="type.power.generator.hydro">Pembangkit listrik tenaga air</string>
 	<string name="type.power.pole">Menara listrik</string>
 	<string name="type.power.substation">Stasiun bawah tanah</string>
 	<string name="type.power.tower">Menara listrik</string>

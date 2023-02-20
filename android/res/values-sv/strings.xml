@@ -1160,6 +1160,7 @@
 	<string name="type.man_made.lighthouse">Fyr</string>
 	<string name="type.man_made.surveillance">Övervakningskamera</string>
 	<string name="type.man_made.tower">Torn</string>
+	<string name="type.man_made.tower.communication">Kommunikationstorn</string>
 	<string name="type.man_made.water_tap">Vattenkran</string>
 	<string name="type.man_made.water_tower">Vattentorn</string>
 	<string name="type.man_made.water_well">Brunn</string>
@@ -1243,6 +1244,10 @@
 	<string name="type.place.suburb">Förort</string>
 	<string name="type.place.town">Stad</string>
 	<string name="type.place.village">By</string>
+	<string name="type.power.generator.solar">Solgenerator</string>
+	<string name="type.power.generator.wind">Vindgenerator</string>
+	<string name="type.power.generator.gas">Gasturbinkraftverk</string>
+	<string name="type.power.generator.hydro">Vattenkraftverk</string>
 	<string name="type.power.pole">Elstolpe</string>
 	<string name="type.power.substation">Ställverk</string>
 	<string name="type.power.tower">Elstolpe</string>

@@ -1166,6 +1166,7 @@
 	<string name="type.man_made.lighthouse">Hải đăng</string>
 	<string name="type.man_made.surveillance">Camera giám sát</string>
 	<string name="type.man_made.tower">Tháp</string>
+	<string name="type.man_made.tower.communication">Tháp truyền thông</string>
 	<string name="type.man_made.water_tap">Vòi nước</string>
 	<string name="type.man_made.water_tower">Tháp Nước</string>
 	<string name="type.man_made.water_well">Giếng Nước</string>
@@ -1250,6 +1251,10 @@
 	<string name="type.place.suburb">Đảo</string>
 	<string name="type.place.town">Thành phố</string>
 	<string name="type.place.village">Xóm</string>
+	<string name="type.power.generator.solar">Máy phát điện năng lượng mặt trời</string>
+	<string name="type.power.generator.wind">Máy phát điện gió</string>
+	<string name="type.power.generator.gas">Nhà máy điện tua bin khí</string>
+	<string name="type.power.generator.hydro">Nhà máy thủy điện</string>
 	<string name="type.power.pole">Trụ Điện</string>
 	<string name="type.power.substation">Trạm biến áp</string>
 	<string name="type.power.tower">Trụ Điện</string>

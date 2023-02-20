@@ -2453,6 +2453,8 @@
 
 "type.man_made.tower" = "高塔";
 
+"type.man_made.tower.communication" = "通讯塔";
+
 "type.man_made.wastewater_plant" = "污水处理厂";
 
 "type.man_made.water_tap" = "水龙头";
@@ -2644,6 +2646,14 @@
 "type.power" = "电力要素";
 
 "type.power.generator" = "发电机";
+
+"type.power.generator.solar" = "太阳能发电机";
+
+"type.power.generator.wind" = "风力发电机";
+
+"type.power.generator.gas" = "燃气轮机发电厂";
+
+"type.power.generator.hydro" = "水力发电厂";
 
 "type.power.line" = "超高压输电线";
 

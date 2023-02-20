@@ -2453,6 +2453,8 @@
 
 "type.man_made.tower" = "Torony";
 
+"type.man_made.tower.communication" = "Kommunikációs torony";
+
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
 "type.man_made.water_tap" = "Vízcsap";
@@ -2644,6 +2646,14 @@
 "type.power" = "Power";
 
 "type.power.generator" = "Generator";
+
+"type.power.generator.solar" = "Napelemes generátor";
+
+"type.power.generator.wind" = "Szélgenerátor";
+
+"type.power.generator.gas" = "Gázturbinás erőmű";
+
+"type.power.generator.hydro" = "Vízerőmű";
 
 "type.power.line" = "Power Line";
 

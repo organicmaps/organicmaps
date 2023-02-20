@@ -955,6 +955,7 @@
 	<string name="type.man_made.mast">Мачта/вышка</string>
 	<string name="type.man_made.silo">Сілас</string>
 	<string name="type.man_made.storage_tank">Рэзервуар</string>
+	<string name="type.man_made.tower.communication">Вежа сувязі</string>
 	<string name="type.mountain_pass">Перавал</string>
 	<string name="type.natural">Прырода</string>
 	<string name="type.natural.bare_rock">Голая скала</string>
@@ -1031,6 +1032,10 @@
 	<string name="type.place.suburb">Раён</string>
 	<string name="type.place.town">Мястэчка</string>
 	<string name="type.place.village">Вёска</string>
+	<string name="type.power.generator.solar">Сонечны генератар</string>
+	<string name="type.power.generator.wind">Ветрагенератар</string>
+	<string name="type.power.generator.gas">Газатурбінная электрастанцыя</string>
+	<string name="type.power.generator.hydro">Гідраэлектрастанцыя</string>
 	<string name="type.railway.platform">Чыгуначная платформа</string>
 	<string name="type.shop.beverages">Напоі</string>
 	<string name="type.shop.caravan">Продаж аўтадамоў</string>

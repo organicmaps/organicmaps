@@ -2453,6 +2453,8 @@
 
 "type.man_made.tower" = "Башня";
 
+"type.man_made.tower.communication" = "Вышка связи";
+
 "type.man_made.wastewater_plant" = "Очистные сооружения";
 
 "type.man_made.water_tap" = "Водопроводный кран";
@@ -2644,6 +2646,14 @@
 "type.power" = "Энергетика";
 
 "type.power.generator" = "Генератор";
+
+"type.power.generator.solar" = "Солнечный генератор";
+
+"type.power.generator.wind" = "Ветрогенератор";
+
+"type.power.generator.gas" = "Газотурбинная электростанция";
+
+"type.power.generator.hydro" = "Гидроэлектростанция";
 
 "type.power.line" = "Линия электропередач";
 

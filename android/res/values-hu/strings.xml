@@ -1170,6 +1170,7 @@
 	<string name="type.man_made.lighthouse">Világítótorony</string>
 	<string name="type.man_made.surveillance">Térfigyelő kamera</string>
 	<string name="type.man_made.tower">Torony</string>
+	<string name="type.man_made.tower.communication">Kommunikációs torony</string>
 	<string name="type.man_made.water_tap">Vízcsap</string>
 	<string name="type.man_made.water_tower">Víztorony</string>
 	<string name="type.man_made.water_well">Ivókút</string>
@@ -1254,6 +1255,10 @@
 	<string name="type.place.suburb">Kerület</string>
 	<string name="type.place.town">Város</string>
 	<string name="type.place.village">Falu</string>
+	<string name="type.power.generator.solar">Napelemes generátor</string>
+	<string name="type.power.generator.wind">Szélgenerátor</string>
+	<string name="type.power.generator.gas">Gázturbinás erőmű</string>
+	<string name="type.power.generator.hydro">Vízerőmű</string>
 	<string name="type.power.pole">Villanyoszlop</string>
 	<string name="type.power.substation">Kapcsolószekrény</string>
 	<string name="type.power.tower">Villanyoszlop</string>

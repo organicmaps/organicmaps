@@ -1327,6 +1327,7 @@
 	<string name="type.man_made.storage_tank">Cisterna</string>
 	<string name="type.man_made.surveillance">Cámara de vigilancia</string>
 	<string name="type.man_made.tower">Torre</string>
+	<string name="type.man_made.tower.communication">Torre de comunicaciones</string>
 	<string name="type.man_made.wastewater_plant">Planta de tratamiento de aguas residuales</string>
 	<string name="type.man_made.water_tap">Toma de agua</string>
 	<string name="type.man_made.water_tower">Depósito de agua</string>
@@ -1420,6 +1421,10 @@
 	<string name="type.place.village">Pueblo</string>
 	<string name="type.power">Energía</string>
 	<string name="type.power.generator">Generador</string>
+	<string name="type.power.generator.solar">Generador solar</string>
+	<string name="type.power.generator.wind">Generador de viento</string>
+	<string name="type.power.generator.gas">Planta de energía de turbina de gas</string>
+	<string name="type.power.generator.hydro">Planta de energía hidroeléctrica</string>
 	<string name="type.power.line">Línea eléctrica</string>
 	<string name="type.power.line.underground">Línea eléctrica subterránea</string>
 	<string name="type.power.minor_line">Línea eléctrica de baja tensión</string>

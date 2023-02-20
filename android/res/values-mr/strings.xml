@@ -1201,6 +1201,7 @@
 	<string name="type.man_made.storage_tank">साठवण टाकी</string>
 	<string name="type.man_made.surveillance">संनिरीक्षण कॅमेरा</string>
 	<string name="type.man_made.tower">मनोरा</string>
+	<string name="type.man_made.tower.communication">कम्युनिकेशन टॉवर</string>
 	<string name="type.man_made.wastewater_plant">सांडपाणी संयंत्र(प्लांट)</string>
 	<string name="type.man_made.water_tap">पाण्याचा नळ</string>
 	<string name="type.man_made.water_tower">पाण्याचा मनोरा(टाकी)</string>
@@ -1294,6 +1295,10 @@
 	<string name="type.place.village">गाव</string>
 	<string name="type.power">शक्ती</string>
 	<string name="type.power.generator">जनित्र(जनरेटर)</string>
+	<string name="type.power.generator.solar">सौर जनरेटर</string>
+	<string name="type.power.generator.wind">वारा जनरेटर</string>
+	<string name="type.power.generator.gas">गॅस टर्बाइन पॉवर प्लांट</string>
+	<string name="type.power.generator.hydro">जलविद्युत प्रकल्प</string>
 	<string name="type.power.line">विद्युत तार</string>
 	<string name="type.power.line.underground">भूमिगत विद्युत तार</string>
 	<string name="type.power.minor_line">किरकोळ विद्युत तार</string>

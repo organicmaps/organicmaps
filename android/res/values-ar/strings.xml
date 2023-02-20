@@ -1243,6 +1243,7 @@
 	<string name="type.man_made.silo">صومعة</string>
 	<string name="type.man_made.surveillance">كاميرا مراقبة</string>
 	<string name="type.man_made.tower">برج</string>
+	<string name="type.man_made.tower.communication">برج الاتصالات</string>
 	<string name="type.man_made.water_tap">حنفية مياه</string>
 	<string name="type.man_made.water_tower">برج مياه</string>
 	<string name="type.man_made.water_well">بئر ماء</string>
@@ -1329,6 +1330,10 @@
 	<string name="type.place.suburb">حي سكني</string>
 	<string name="type.place.town">بلدة</string>
 	<string name="type.place.village">قرية</string>
+	<string name="type.power.generator.solar">مولد للطاقة الشمسية</string>
+	<string name="type.power.generator.wind">مولد الرياح</string>
+	<string name="type.power.generator.gas">محطة توليد الكهرباء بالغاز</string>
+	<string name="type.power.generator.hydro">محطة توليد الطاقة الكهرمائية</string>
 	<string name="type.power.pole">عمود كهرباء</string>
 	<string name="type.power.substation">محطة كهرباء فرعية</string>
 	<string name="type.power.tower">عمود كهرباء</string>

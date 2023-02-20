@@ -1244,6 +1244,7 @@
 	<string name="type.man_made.pipeline.overground">地表のパイプライン</string>
 	<string name="type.man_made.surveillance">監視カメラ</string>
 	<string name="type.man_made.tower">タワー</string>
+	<string name="type.man_made.tower.communication">通信塔</string>
 	<string name="type.man_made.wastewater_plant">下水処理場</string>
 	<string name="type.man_made.water_tap">給水栓</string>
 	<string name="type.man_made.water_tower">給水塔</string>
@@ -1335,6 +1336,10 @@
 	<string name="type.place.village">村</string>
 	<string name="type.power">電力</string>
 	<string name="type.power.generator">発電機</string>
+	<string name="type.power.generator.solar">太陽光発電機</string>
+	<string name="type.power.generator.wind">風力発電機</string>
+	<string name="type.power.generator.gas">ガスタービン発電所</string>
+	<string name="type.power.generator.hydro">水力発電所</string>
 	<string name="type.power.line">電力線</string>
 	<string name="type.power.line.underground">地下電力線</string>
 	<string name="type.power.minor_line">低圧電力線</string>

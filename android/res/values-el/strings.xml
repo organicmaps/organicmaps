@@ -1169,6 +1169,7 @@
 	<string name="type.man_made.lighthouse">Φάρος</string>
 	<string name="type.man_made.surveillance">Κάμερα παρακολούθησης</string>
 	<string name="type.man_made.tower">Πύργος</string>
+	<string name="type.man_made.tower.communication">Πύργος Επικοινωνιών</string>
 	<string name="type.man_made.water_tap">Βρύση νερού</string>
 	<string name="type.man_made.water_tower">Υδατόπυργος</string>
 	<string name="type.man_made.water_well">Πηγάδι νερού</string>
@@ -1254,6 +1255,10 @@
 	<string name="type.place.suburb">Προάστιο</string>
 	<string name="type.place.town">Κωμόπολη</string>
 	<string name="type.place.village">Χωριό</string>
+	<string name="type.power.generator.solar">Ηλιακή γεννήτρια</string>
+	<string name="type.power.generator.wind">Ανεμογεννήτρια</string>
+	<string name="type.power.generator.gas">Μονάδα παραγωγής ηλεκτρικής ενέργειας αεριοστροβίλου</string>
+	<string name="type.power.generator.hydro">Υδροηλεκτρικό εργοστάσιο</string>
 	<string name="type.power.pole">Πυλώνες μεταφοράς ρεύματος</string>
 	<string name="type.power.substation">Υποσταθμός</string>
 	<string name="type.power.tower">Πυλώνες μεταφοράς ρεύματος</string>
