@@ -485,6 +485,7 @@ using Observers = NSHashTable<Observer>;
       [contentView removeFromSuperview];
       [actionBarView removeFromSuperview];
       [searchBarView removeFromSuperview];
+      [self removeKeyboardObservers];
     }];
 }
 
