@@ -101,8 +101,8 @@ m2::RectD RectByCenterXYAndSizeInMeters(m2::PointD const & center, double size)
 
 m2::RectD RectByCenterXYAndOffset(m2::PointD const & center, double offset)
 {
-  return {ClampX(center.x - offset), ClampY(center.y - offset), ClampX(center.x + offset),
-          ClampY(center.y + offset)};
+  return {ClampX(center.x - offset), ClampY(center.y - offset),
+          ClampX(center.x + offset), ClampY(center.y + offset)};
 }
 
 m2::RectD RectByCenterLatLonAndSizeInMeters(double lat, double lon, double size)
@@ -110,13 +110,13 @@ m2::RectD RectByCenterLatLonAndSizeInMeters(double lat, double lon, double size)
   return RectByCenterXYAndSizeInMeters(FromLatLon(lat, lon), size);
 }
 
-m2::RectD FromLatLonRect(m2::RectD const & latLonRect)
+m2::RectD FromLatLon(m2::RectD const & rect)
 {
-  return {FromLatLon(latLonRect.minY(), latLonRect.minX()), FromLatLon(latLonRect.maxY(), latLonRect.maxX())};
+  return { FromLatLon(rect.minY(), rect.minX()), FromLatLon(rect.maxY(), rect.maxX()) };
 }
-m2::RectD ToLatLonRect(m2::RectD const & mercatorRect)
+
+m2::RectD ToLatLon(m2::RectD const & rect)
 {
-  return {YToLat(mercatorRect.minY()), XToLon(mercatorRect.minX()),
-          YToLat(mercatorRect.maxY()), XToLon(mercatorRect.maxX())};
+  return { YToLat(rect.minY()), XToLon(rect.minX()), YToLat(rect.maxY()), XToLon(rect.maxX()) };
 }
 }  // namespace mercator
