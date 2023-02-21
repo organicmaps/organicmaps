@@ -66,6 +66,8 @@ cat "$STRINGS_PATH"/{strings,types_strings}.txt> "$MERGED_FILE"
 "$TWINE" generate-all-localization-files --format jquery "$OMIM_PATH/data/countries_names.txt" "$OMIM_PATH/data/countries-strings/"
 "$TWINE" generate-all-localization-files --format jquery "$OMIM_PATH/data/strings/sound.txt" "$OMIM_PATH/data/sound-strings/"
 
+rm "$MERGED_FILE"
+
 # Generate list of languages and add list in gradle.properties to be used in build.gradle in resConfig
 SUPPORTED_LOCALIZATIONS="supportedLocalizations="$(sed -nEe "s/ +([a-zA-Z]{2}(-[a-zA-Z]{2,})?) = .*$/\1/p" "data/strings/strings.txt" | sort -u | tr '\n' ',' | sed -e 's/-/_/g' -e 's/,$//')
 # Chinese locales should correspond to Android codes.
@@ -77,4 +79,19 @@ if [ "$SUPPORTED_LOCALIZATIONS" != "$(grep supportedLocalizations "$GRADLE_PROPE
   rm "$GRADLE_PROPERTIES.bak"
 fi
 
-rm "$MERGED_FILE"
+# Generate locales_config.xml to allow users change app's language on Android 13+
+LOCALES_CONFIG="$OMIM_PATH/android/res/xml/locales_config.xml"
+SUPPORTED_LOCALIZATIONS=${SUPPORTED_LOCALIZATIONS/supportedLocalizations=/en,}
+SUPPORTED_LOCALIZATIONS=${SUPPORTED_LOCALIZATIONS/,en,/,}
+SUPPORTED_LOCALIZATIONS=${SUPPORTED_LOCALIZATIONS//_/-}
+LOCALES_CONTENT='<?xml version="1.0" encoding="utf-8"?>
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">'
+set +x
+for lang in ${SUPPORTED_LOCALIZATIONS//,/ }; do
+  LOCALES_CONTENT="$LOCALES_CONTENT"$'\n'"    <locale android:name=\"$lang\" />"
+done
+LOCALES_CONTENT="$LOCALES_CONTENT"$'\n''</locale-config>'
+if [ "$LOCALES_CONTENT" != "$(cat "$LOCALES_CONFIG")" ]; then
+  echo "$LOCALES_CONTENT" > "$LOCALES_CONFIG"
+  echo Updated "$LOCALES_CONFIG" file
+fi
