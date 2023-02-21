@@ -335,9 +335,14 @@ public final class UiUtils
 
   public static void setInputError(@NonNull TextInputLayout layout, @StringRes int error)
   {
-
-    layout.getEditText().setError(error == 0 ? null : layout.getContext().getString(error));
-    layout.getEditText().setTextColor(error == 0 ? ThemeUtils.getColor(layout.getContext(), android.R.attr.textColorPrimary)
+    setInputError(layout, error == 0 ? null : layout.getContext().getString(error));
+  }
+  
+  public static void setInputError(@NonNull TextInputLayout layout, String error)
+  {
+    layout.getEditText().setError(error);
+    final Context ctx = layout.getContext();
+    layout.getEditText().setTextColor(error == null ? ThemeUtils.getColor(layout.getContext(), android.R.attr.textColorPrimary)
                                                  : ContextCompat.getColor(layout.getContext(), R.color.base_red));
   }
 
