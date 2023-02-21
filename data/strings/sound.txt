@@ -33,7 +33,7 @@
     sv = Håll höger.
     sw = Kaa kuria.
     th = ชิดขวาไว้
-    tr = Sağdan gidin.
+    tr = Sağdan devam edin.
     uk = Тримайтеся правіше.
     vi = Đi về phía phải.
     zh-Hans = 向右走。
@@ -228,7 +228,7 @@
     sv = Håll vänster.
     sw = Kaa kushoto.
     th = ชิดซ้ายไว้
-    tr = Soldan gidin.
+    tr = Soldan devam edin.
     uk = Тримайтеся лівіше.
     vi = Đi về phía trái.
     zh-Hans = 向左走。
@@ -423,7 +423,7 @@
     sv = Utgång.
     sw = Kuondoka.
     th = ทางออก.
-    tr = çıkış.
+    tr = çıkın.
     uk = З'їзд.
     vi = Lối thoát.
     zh-Hans = 出口.
@@ -501,7 +501,7 @@
     sv = Du har anlänt.
     sw = Umewasili mwisho wa safari.
     th = คุณมาถึงแล้ว
-    tr = Vardınız.
+    tr = Hedef noktasına vardınız.
     uk = Ви прибули.
     vi = Bạn đã đến.
     zh-Hans = 您已到达目的地。
