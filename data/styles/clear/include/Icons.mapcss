@@ -360,10 +360,6 @@ area[office=lawyer]
 node[man_made=lighthouse],
 area[man_made=lighthouse],
 node[barrier=border_control],
-node[boundary=national_park],
-area[boundary=national_park],
-node[leisure=nature_reserve],
-area[leisure=nature_reserve]
 {z-index: 2700;}
 
 node[tourism=artwork],

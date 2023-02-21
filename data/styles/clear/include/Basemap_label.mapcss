@@ -65,8 +65,6 @@ node[man_made=breakwater],
 line[waterway=dam],
 line[waterway=weir],
 node[waterway=weir],
-area[landuse=military],
-node[landuse=military]
 {z-index: 1000;}
 
 node[place=state]
