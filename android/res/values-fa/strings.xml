@@ -31,7 +31,7 @@
 	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">جست‌وجوی نقشه</string>
 	<!-- Location services are disabled by user alert - message -->
-	<string name="location_is_disabled_long_text">سرویس موقعیت مکانی شما غیر فعال است .لطفا جهت کارکرد صحیح نرم افزار آن را فعال کنید.</string>
+	<string name="location_is_disabled_long_text">سرویس موقعیت مکانی شما غیر فعال است. لطفا جهت کارکرد صحیح نرم افزار آن را فعال کنید.</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">بر روی نقشه نمایش بده</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
