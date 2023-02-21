@@ -304,7 +304,7 @@ Install Android SDK and NDK:
 - Select "Android 13.0 (T) / API Level 33" SDK.
 - Switch to "SDK Tools" tab.
 - Check "Show Package Details" checkbox.
-- Select "NDK (Side by side)" version **25.1.8937393**.
+- Select "NDK (Side by side)" version **25.2.9519653**.
 - Select "CMake" version **3.22.1**.
 - Click "Apply" and wait for downloads and installation to finish.
 - In the left pane menu select "Appearance & Behavior > System Settings > Memory Settings".
@@ -451,7 +451,7 @@ You can install
 [Android SDK](https://developer.android.com/sdk/index.html) and
 [NDK](https://developer.android.com/tools/sdk/ndk/index.html) without
 Android Studio. Please make sure that SDK for API Level 33,
-NDK version **25.1.8937393** and CMake version **3.22.1** are installed.
+NDK version **25.2.9519653** and CMake version **3.22.1** are installed.
 
 If you are low on RAM, disk space or traffic there are ways to reduce system requirements:
 - in Android Studio enable "File > Power Save Mode";
