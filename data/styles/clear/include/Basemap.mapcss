@@ -390,7 +390,7 @@ line|z13-[waterway=stream],
 line|z13-[waterway=stream][intermittent=yes],
 line|z13-[waterway=canal],
 line|z13-[natural=strait],
-{opacity: 1;color: @river;-x-me-line-priority: -15600;}
+{opacity: 1; color: @river; -x-me-line-priority: 999;}
 
 /* 6.1 Area water(lake,pond etc.) */
 
