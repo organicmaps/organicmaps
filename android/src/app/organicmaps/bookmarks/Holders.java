@@ -307,7 +307,7 @@ public class Holders
     {
       mView.setOnClickListener(v -> {
         if (listener != null)
-          listener.onItemClick(v, getAdapterPosition());
+          listener.onItemClick(v, getBindingAdapterPosition());
       });
     }
 
@@ -315,7 +315,7 @@ public class Holders
     {
       mView.setOnLongClickListener(v -> {
         if (listener != null)
-          listener.onLongItemClick(v, getAdapterPosition());
+          listener.onLongItemClick(v, getBindingAdapterPosition());
         return true;
       });
     }

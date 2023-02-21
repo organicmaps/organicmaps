@@ -119,7 +119,7 @@ public class StreetAdapter extends RecyclerView.Adapter<StreetAdapter.BaseViewHo
     @Override
     public void onClick(View v)
     {
-      mSelectedStreet = mStreets[getAdapterPosition()];
+      mSelectedStreet = mStreets[getBindingAdapterPosition()];
       notifyDataSetChanged();
       mFragment.saveStreet(mSelectedStreet);
     }

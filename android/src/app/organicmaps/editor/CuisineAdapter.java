@@ -131,7 +131,7 @@ public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.ViewHold
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
     {
-      final String key = mItems.get(getAdapterPosition()).cuisineKey;
+      final String key = mItems.get(getBindingAdapterPosition()).cuisineKey;
       if (isChecked)
         mSelectedKeys.add(key);
       else

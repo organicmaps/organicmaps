@@ -177,7 +177,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     @Override
     public final void onClick(View v)
     {
-      final int position = getAdapterPosition();
+      final int position = getBindingAdapterPosition();
       onItemClicked(position);
     }
 

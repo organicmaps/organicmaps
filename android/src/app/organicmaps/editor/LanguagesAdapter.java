@@ -53,7 +53,7 @@ public class LanguagesAdapter extends RecyclerView.Adapter<LanguagesAdapter.Hold
         @Override
         public void onClick(View v)
         {
-          mFragment.onLanguageSelected(mLanguages[getAdapterPosition()]);
+          mFragment.onLanguageSelected(mLanguages[getBindingAdapterPosition()]);
         }
       });
     }
