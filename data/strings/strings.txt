@@ -6508,7 +6508,6 @@
     ko = Google Play 서비스
     mr = Google Play सेवा
     nb = Google Play-tjenester
-    ne = Google Play सेवाहरू
     nl = Google Play-services
     pl = Usługi Google Play
     pt = Serviços do Google Play
