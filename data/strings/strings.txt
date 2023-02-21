@@ -657,7 +657,7 @@
     es = No se puede acceder a los servicios de localización en este dispositivo o aplicación. Por favor, actívelos en los ajustes.
     et = Seadme või rakenduse kõik asukohateenused on praegu välja lülitatud. Luba need Seadetes.
     eu = Ezin da kokapen-zerbitzuetara sartu. Mesedez, aktibatu ezarpenetan.
-    fa = سرویس موقعیت مکانی شما غیر فعال است .لطفا جهت کارکرد صحیح نرم افزار آن را فعال کنید.
+    fa = سرویس موقعیت مکانی شما غیر فعال است. لطفا جهت کارکرد صحیح نرم افزار آن را فعال کنید.
     fi = Laitteen tai sovelluksen kaikki sijaintipalvelut ovat tällä hetkellä poissa käytöstä. Ota ne käyttöön Asetukset-valikossa.
     fr = Tous les services de localisation de cet appareil sont désactivés, ou ils le sont pour cette application. Veuillez les activer dans les paramètres.
     he = שרותי המיקום של מכשיר או ישום זה זה כבויים. הכנס ל "הגדרות" Settings)) כדי להדליקם.
