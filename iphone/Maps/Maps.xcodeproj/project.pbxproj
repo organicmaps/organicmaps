@@ -585,6 +585,10 @@
 		FA456C3E26BDC6C100B83C20 /* DatePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BDC26BC58570026D455 /* DatePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FA456C3F26BDC6CF00B83C20 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BBE26BC3B8A0026D455 /* minizip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FA456C4F26BDCCCC00B83C20 /* shaders_metal.metallib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FA456C4B26BDCC8E00B83C20 /* shaders_metal.metallib */; };
+		FA637ED229A500BE00D8921A /* drules_proto_outdoors_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = FA637ECC29A500BE00D8921A /* drules_proto_outdoors_clear.bin */; };
+		FA637ED329A500BE00D8921A /* drules_proto_outdoors_clear.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA637ECF29A500BE00D8921A /* drules_proto_outdoors_clear.txt */; };
+		FA637ED429A500BE00D8921A /* drules_proto_outdoors_dark.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA637ED029A500BE00D8921A /* drules_proto_outdoors_dark.txt */; };
+		FA637ED529A500BE00D8921A /* drules_proto_outdoors_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = FA637ED129A500BE00D8921A /* drules_proto_outdoors_dark.bin */; };
 		FA853BA726BC3ACE0026D455 /* CoreApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BA626BC3ACE0026D455 /* CoreApi.framework */; };
 		FA853BA926BC3B8A0026D455 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BA826BC3B8A0026D455 /* libbase.a */; };
 		FA853BAB26BC3B8A0026D455 /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BAA26BC3B8A0026D455 /* libcoding.a */; };
@@ -1566,6 +1570,10 @@
 		FA4F29DE28BC1B35001754FC /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FA4F29DF28BC1B36001754FC /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA4F29E028BC1B36001754FC /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ca; path = ca.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		FA637ECC29A500BE00D8921A /* drules_proto_outdoors_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_outdoors_clear.bin; path = ../../data/drules_proto_outdoors_clear.bin; sourceTree = "<group>"; };
+		FA637ECF29A500BE00D8921A /* drules_proto_outdoors_clear.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = drules_proto_outdoors_clear.txt; path = ../../data/drules_proto_outdoors_clear.txt; sourceTree = "<group>"; };
+		FA637ED029A500BE00D8921A /* drules_proto_outdoors_dark.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = drules_proto_outdoors_dark.txt; path = ../../data/drules_proto_outdoors_dark.txt; sourceTree = "<group>"; };
+		FA637ED129A500BE00D8921A /* drules_proto_outdoors_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_outdoors_dark.bin; path = ../../data/drules_proto_outdoors_dark.bin; sourceTree = "<group>"; };
 		FA64D9A813F975AD00350ECF /* types.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = types.txt; path = ../../data/types.txt; sourceTree = SOURCE_ROOT; };
 		FA853BA626BC3ACE0026D455 /* CoreApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CoreApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BA826BC3B8A0026D455 /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3546,6 +3554,10 @@
 				FA46DA2B12D4166E00968C36 /* countries.txt */,
 				4A23D1561B8B4DD700D4EB6F /* drules_proto_clear.bin */,
 				4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */,
+				FA637ECC29A500BE00D8921A /* drules_proto_outdoors_clear.bin */,
+				FA637ECF29A500BE00D8921A /* drules_proto_outdoors_clear.txt */,
+				FA637ED129A500BE00D8921A /* drules_proto_outdoors_dark.bin */,
+				FA637ED029A500BE00D8921A /* drules_proto_outdoors_dark.txt */,
 				4554B6E81E55F02B0084017F /* drules_proto_vehicle_clear.bin */,
 				4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */,
 				6B9978341C89A316003B8AA0 /* editor.config */,
@@ -3758,6 +3770,7 @@
 				6741A95B1BF340DE002C974C /* 06_code2000.ttf in Resources */,
 				471A7BC22481D44B00A0D4C1 /* BookmarkTitleCell.xib in Resources */,
 				6741A99F1BF340DE002C974C /* 07_roboto_medium.ttf in Resources */,
+				FA637ED329A500BE00D8921A /* drules_proto_outdoors_clear.txt in Resources */,
 				F6E2FE6D1E097BA00083EBEC /* _MWMOHHeaderCell.xib in Resources */,
 				F6E2FE701E097BA00083EBEC /* _MWMOHSubCell.xib in Resources */,
 				4554B6EE1E55F0F30084017F /* drules_proto_vehicle_dark.bin in Resources */,
@@ -3820,6 +3833,7 @@
 				995F1614244F0AA50060631D /* BottomMenuLayersCell.xib in Resources */,
 				3404F48C202894EA0090E401 /* BMCViewController.xib in Resources */,
 				F6E2FD681E097BA00083EBEC /* MWMMapDownloaderPlaceTableViewCell.xib in Resources */,
+				FA637ED429A500BE00D8921A /* drules_proto_outdoors_dark.txt in Resources */,
 				F6E2FD6E1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.xib in Resources */,
 				47CA68FA250F8AD100671019 /* BookmarksListSectionHeader.xib in Resources */,
 				F6E2FD741E097BA00083EBEC /* MWMMapDownloaderTableViewCell.xib in Resources */,
@@ -3828,6 +3842,7 @@
 				F6E2FDEF1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.xib in Resources */,
 				F6E2FDF51E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.xib in Resources */,
 				F6E2FDFB1E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.xib in Resources */,
+				FA637ED529A500BE00D8921A /* drules_proto_outdoors_dark.bin in Resources */,
 				4554B6EC1E55F0EF0084017F /* drules_proto_vehicle_clear.bin in Resources */,
 				47CA68F2250B54AF00671019 /* BookmarkCell.xib in Resources */,
 				337F98A321D37B5800C8AC27 /* SearchHistoryViewController.xib in Resources */,
@@ -3878,6 +3893,7 @@
 				677A2DE21C0DD50900635A00 /* resources-default in Resources */,
 				F607C1881C032A8800B53A87 /* resources-hdpi_clear in Resources */,
 				F607C18A1C032A8800B53A87 /* resources-hdpi_dark in Resources */,
+				FA637ED229A500BE00D8921A /* drules_proto_outdoors_clear.bin in Resources */,
 				6741A97F1BF340DE002C974C /* resources-mdpi_clear in Resources */,
 				6741A9901BF340DE002C974C /* resources-mdpi_dark in Resources */,
 				6741A9981BF340DE002C974C /* resources-xhdpi_clear in Resources */,
