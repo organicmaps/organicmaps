@@ -15,7 +15,6 @@
     android:layout_height="wrap_content"
     android:layout_marginEnd="@dimen/margin_base"
     android:layout_marginStart="@dimen/margin_base"
-    android:layout_marginTop="@dimen/margin_base"
     android:maxLength="@integer/place_page_description_max_length"
     android:fontFamily="@string/robotoRegular"
     android:textStyle="normal"
