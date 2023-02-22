@@ -53,7 +53,8 @@
 
   <style name="MwmTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
     <item name="colorAccent">@color/base_accent</item>
-    <item name="android:textColorPrimary">@color/black_secondary</item>
+    <item name="android:background">?cardBackground</item>
+    <item name="android:textColorPrimary">?textDialogTheme</item>
     <item name="android:textSize">@dimen/text_size_body_1</item>
     <item name="android:windowTitleStyle">@style/MwmTheme.DialogTitleStyle.Light</item>
   </style>
@@ -64,20 +65,21 @@
   </style>
 
   <style name="MwmTheme.DialogTitleStyle.Light" parent="MwmTheme.DialogTitleBase">
-    <item name="android:textColor">@color/black_primary</item>
+    <item name="android:textColor">?titleDialogTheme</item>
   </style>
 
   <style name="MwmTheme.Night.AlertDialog" parent="Theme.AppCompat.Dialog.Alert">
     <item name="colorAccent">@color/base_accent_night</item>
+    <item name="android:background">?cardBackground</item>
     <!-- Used for the message in the dialog -->
-    <item name="android:textColorPrimary">@color/white_secondary</item>
+    <item name="android:textColorPrimary">?textDialogTheme</item>
     <item name="android:textSize">@dimen/text_size_body_1</item>
     <!-- Used for the title in the dialog -->
     <item name="android:windowTitleStyle">@style/MwmTheme.DialogTitleStyle.Night</item>
   </style>
 
   <style name="MwmTheme.DialogTitleStyle.Night" parent="MwmTheme.DialogTitleBase">
-    <item name="android:textColor">@color/white_primary</item>
+    <item name="android:textColor">?titleDialogTheme</item>
   </style>
 
   <style name="MwmTheme.DialogFragment.TitleStyle" parent="Base.DialogWindowTitle.AppCompat">

@@ -23,6 +23,8 @@
     <item name="alertDialogTheme">@style/MwmTheme.AlertDialog</item>
     <item name="windowBackgroundForced">@color/bg_window</item>
     <item name="cardBackground">@color/bg_cards</item>
+    <item name="titleDialogTheme">@color/black_primary</item>
+    <item name="textDialogTheme">@color/black_secondary</item>
     <item name="fullscreenDialogTheme">@style/MwmTheme.DialogFragment.Fullscreen</item>
     <item name="colorPrimary">@color/bg_primary</item>
     <item name="colorControlNormal">?secondary</item>
@@ -155,6 +157,8 @@
     <item name="alertDialogTheme">@style/MwmTheme.Night.AlertDialog</item>
     <item name="windowBackgroundForced">@color/bg_window_night</item>
     <item name="cardBackground">@color/bg_cards_night</item>
+    <item name="titleDialogTheme">@color/white_primary</item>
+    <item name="textDialogTheme">@color/white_secondary</item>
     <item name="fullscreenDialogTheme">@style/MwmTheme.DialogFragment.Fullscreen.Night</item>
     <item name="colorPrimary">@color/bg_primary_night</item>
     <item name="colorControlNormal">?secondary</item>
