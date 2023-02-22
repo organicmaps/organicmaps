@@ -156,7 +156,7 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
     {
       Option<String> maybeError = mInputValidator.validate(activity, input);
       mPositiveButton.setEnabled(!maybeError.hasValue());
-      mEtInputLayout.setError(maybeError.getOrElse(null));
+      mEtInputLayout.getEditText().setError(maybeError.getOrElse(null));
     }
   }
 
