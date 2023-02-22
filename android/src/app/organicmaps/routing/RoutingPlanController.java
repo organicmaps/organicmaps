@@ -40,6 +40,9 @@ public class RoutingPlanController extends ToolbarController
   @NonNull
   private final WheelProgressView mProgressBicycle;
 
+  @NonNull
+  private final WheelProgressView mProgressHelicopter;
+
 //  @NonNull
 //  private final WheelProgressView mProgressTaxi;
 
@@ -93,6 +96,7 @@ public class RoutingPlanController extends ToolbarController
     mProgressPedestrian = progressFrame.findViewById(R.id.progress_pedestrian);
     mProgressTransit = progressFrame.findViewById(R.id.progress_transit);
     mProgressBicycle = progressFrame.findViewById(R.id.progress_bicycle);
+    mProgressHelicopter = progressFrame.findViewById(R.id.progress_helicopter);
 //    mProgressTaxi = (WheelProgressView) progressFrame.findViewById(R.id.progress_taxi);
 
     mRoutingBottomMenuController = RoutingBottomMenuController.newInstance(requireActivity(), mFrame, listener);
@@ -128,12 +132,13 @@ public class RoutingPlanController extends ToolbarController
   {
     setupRouterButton(R.id.vehicle, R.drawable.ic_car, this::onVehicleModeSelected);
     setupRouterButton(R.id.pedestrian, R.drawable.ic_pedestrian, this::onPedestrianModeSelected);
-    setupRouterButton(R.id.bicycle, R.drawable.ic_bike, this::onBicycleModeSelected);
 //    setupRouterButton(R.id.taxi, R.drawable.ic_taxi, this::onTaxiModeSelected);
-    setupRouterButton(R.id.transit, R.drawable.ic_transit, v -> onTransitModeSelected());
+    setupRouterButton(R.id.transit, R.drawable.ic_transit, this::onTransitModeSelected);
+    setupRouterButton(R.id.bicycle, R.drawable.ic_bike, this::onBicycleModeSelected);
+    setupRouterButton(R.id.helicopter, R.drawable.ic_helicopter, this::onHelicopterModeSelected);
   }
 
-  private void onTransitModeSelected()
+  private void onTransitModeSelected(@NonNull View v)
   {
     RoutingController.get().setRouterType(Framework.ROUTER_TYPE_TRANSIT);
   }
@@ -141,6 +146,11 @@ public class RoutingPlanController extends ToolbarController
   private void onBicycleModeSelected(@NonNull View v)
   {
     RoutingController.get().setRouterType(Framework.ROUTER_TYPE_BICYCLE);
+  }
+
+  private void onHelicopterModeSelected(@NonNull View v)
+  {
+    RoutingController.get().setRouterType(Framework.ROUTER_TYPE_HELICOPTER);
   }
 
   private void onPedestrianModeSelected(@NonNull View v)
@@ -188,7 +198,8 @@ public class RoutingPlanController extends ToolbarController
       return;
     }
 
-    mRoutingBottomMenuController.setStartButton();
+    boolean showStartButton = !RoutingController.get().isHelicopterRouterType();
+    mRoutingBottomMenuController.setStartButton(showStartButton);
     mRoutingBottomMenuController.showAltitudeChartAndRoutingDetails();
   }
 
@@ -197,30 +208,35 @@ public class RoutingPlanController extends ToolbarController
     UiUtils.invisible(mProgressVehicle, mProgressPedestrian, mProgressTransit,
                       mProgressBicycle);
     WheelProgressView progressView;
-    if (router == Framework.ROUTER_TYPE_VEHICLE)
+    switch(router)
     {
+    case Framework.ROUTER_TYPE_VEHICLE:
       mRouterTypes.check(R.id.vehicle);
       progressView = mProgressVehicle;
-    }
-    else if (router == Framework.ROUTER_TYPE_PEDESTRIAN)
-    {
+      break;
+    case Framework.ROUTER_TYPE_PEDESTRIAN:
       mRouterTypes.check(R.id.pedestrian);
       progressView = mProgressPedestrian;
-    }
-//    else if (router == Framework.ROUTER_TYPE_TAXI)
-//    {
-//      mRouterTypes.check(R.id.taxi);
-//      progressView = mProgressTaxi;
-//    }
-    else if (router == Framework.ROUTER_TYPE_TRANSIT)
-    {
+      break;
+    //case Framework.ROUTER_TYPE_TAXI:
+    //    {
+    //      mRouterTypes.check(R.id.taxi);
+    //      progressView = mProgressTaxi;
+    //    }
+    case Framework.ROUTER_TYPE_TRANSIT:
       mRouterTypes.check(R.id.transit);
       progressView = mProgressTransit;
-    }
-    else
-    {
+      break;
+    case Framework.ROUTER_TYPE_BICYCLE:
       mRouterTypes.check(R.id.bicycle);
       progressView = mProgressBicycle;
+      break;
+    case Framework.ROUTER_TYPE_HELICOPTER:
+      mRouterTypes.check(R.id.helicopter);
+      progressView = mProgressHelicopter;
+      break;
+    default:
+        throw new IllegalArgumentException("unknown router: "+router);
     }
 
     RoutingToolbarButton button = mRouterTypes

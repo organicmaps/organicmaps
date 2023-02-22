@@ -456,7 +456,9 @@ public class PlacePageController implements Initializable<Activity>,
       boolean needToShowRoutingButtons = RoutingController.get().isPlanning() || showRoutingButton;
 
       if (needToShowRoutingButtons)
+      {
         buttons.add(PlacePageButtons.ButtonType.ROUTE_FROM);
+      }
 
       // If we can show the add route button, put it in the place of the bookmark button
       // And move the bookmark button at the end
@@ -474,6 +476,12 @@ public class PlacePageController implements Initializable<Activity>,
           buttons.add(mapObject.getMapObjectType() == MapObject.BOOKMARK
                       ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
                       : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
+      }
+
+      if (RoutingController.get().isPlanning() && RoutingController.get().getLastRouterType() == Framework.ROUTER_TYPE_HELICOPTER
+         || !RoutingController.get().isPlanning() || showRoutingButton)
+      {
+        //buttons.add(PlacePageButtons.ButtonType.ROUTE_RULLER);
       }
       buttons.add(PlacePageButtons.ButtonType.SHARE);
     }

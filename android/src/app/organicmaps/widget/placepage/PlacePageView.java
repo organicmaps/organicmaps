@@ -323,6 +323,10 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       case ROUTE_AVOID_FERRY:
         onAvoidFerryBtnClicked();
         break;
+
+      case ROUTE_RULLER:
+        onRulerBtnClicked();
+        break;
     }
   }
 
@@ -387,6 +391,21 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private void onRouteAddBtnClicked()
   {
     RoutingController.get().addStop(mMapObject);
+  }
+
+  private void onRulerBtnClicked()
+  {
+    RoutingController controller = RoutingController.get();
+    if (controller.isPlanning() && controller.getLastRouterType() == Framework.ROUTER_TYPE_HELICOPTER)
+    {
+      controller.setEndPoint(mMapObject);
+      mPlacePageViewListener.onPlacePageRequestClose();
+    }
+    else
+    {
+      ((MwmActivity) requireActivity()).startLocationToPoint(mMapObject);
+      controller.setRouterType(Framework.ROUTER_TYPE_HELICOPTER);
+    }
   }
 
   private void onRouteRemoveBtnClicked()

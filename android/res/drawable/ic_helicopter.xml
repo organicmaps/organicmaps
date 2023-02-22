@@ -1,0 +1,5 @@
+<vector android:height="40dp" android:viewportHeight="24"
+    android:viewportWidth="24" android:width="40dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#FF000000" android:pathData="M8,6C7,6 7,7 8,7h4v1C11.723,8 11.5,8.223 11.5,8.5L11.5,9L9,9L7.971,9L7.932,9C7.704,8.12 6.912,7.501 6,7.5c-1.105,0 -2,0.895 -2,2s0.895,2 2,2c0.372,-0.001 0.737,-0.106 1.053,-0.303L9.5,14.5C10.507,15.95 12.318,16 13,16h5c0,0 1,0 1,-1v-0.994C19,13.273 18.874,12.874 18.5,12.5l-3,-3c0,0 -0.592,-0.5 -1.273,-0.5L13.5,9L13.5,8.5C13.5,8.223 13.277,8 13,8L13,7h4c1,0 1,-1 0,-1C17,6 8,6 8,6zM6,8.5c0.552,0 1,0.448 1,1s-0.448,1 -1,1s-1,-0.448 -1,-1C5,8.948 5.448,8.5 6,8.5zM14,10c0.5,0 0.79,0.323 1,0.5L17.5,13L14,13c0,0 -1,0 -1,-1L13,11C13,11 13,10 14,10z"/>
+</vector>
+<!-- Source: https://labs.mapbox.com/maki-icons/ -->

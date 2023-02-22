@@ -265,7 +265,8 @@ private:
   bool AssertPosition() const
   {
     bool const ret = (m_pos <= m_reader.Size());
-    ASSERT ( ret, (m_pos, m_reader.Size()) );
+    if (ret == false)
+        ASSERT ( ret, (m_pos, m_reader.Size()) );
     return ret;
   }
 

@@ -57,6 +57,10 @@ public class PlacePageButtonFactory
         titleId = R.string.avoid_ferry_crossing_placepage;
         iconId = R.drawable.ic_avoid_ferry;
         break;
+      case ROUTE_RULLER:
+        titleId = R.string.type_aerialway;
+        iconId = R.drawable.ic_ruler;
+        break;
       case SHARE:
         titleId = R.string.share;
         iconId = R.drawable.ic_share;

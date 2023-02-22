@@ -45,7 +45,7 @@ public class Framework
   public static final int MAP_STYLE_VEHICLE_DARK = 4;
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ ROUTER_TYPE_VEHICLE, ROUTER_TYPE_PEDESTRIAN, ROUTER_TYPE_BICYCLE, ROUTER_TYPE_TRANSIT })
+  @IntDef({ ROUTER_TYPE_VEHICLE, ROUTER_TYPE_PEDESTRIAN, ROUTER_TYPE_BICYCLE, ROUTER_TYPE_TRANSIT, ROUTER_TYPE_HELICOPTER })
 
   public @interface RouterType {}
 
@@ -53,6 +53,7 @@ public class Framework
   public static final int ROUTER_TYPE_PEDESTRIAN = 1;
   public static final int ROUTER_TYPE_BICYCLE = 2;
   public static final int ROUTER_TYPE_TRANSIT = 3;
+  public static final int ROUTER_TYPE_HELICOPTER = 4;
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({DO_AFTER_UPDATE_NOTHING, DO_AFTER_UPDATE_AUTO_UPDATE, DO_AFTER_UPDATE_ASK_FOR_UPDATE})

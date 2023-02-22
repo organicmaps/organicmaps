@@ -73,6 +73,14 @@
               android:layout_marginEnd="12dp"
               tools:button="@drawable/ic_bike"
               tools:buttonTint="?iconTintLight" />
+
+          <app.organicmaps.widget.RoutingToolbarButton
+              android:id="@+id/helicopter"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="12dp"
+              tools:button="@drawable/ic_helicopter"
+              tools:buttonTint="?iconTintLight" />
         </RadioGroup>
 
         <LinearLayout
@@ -109,6 +117,13 @@
 
           <app.organicmaps.widget.WheelProgressView
             android:id="@+id/progress_bicycle"
+            style="@style/MwmWidget.ProgressWheel.RoutingPlan"
+            android:layout_marginTop="@dimen/routing_selector_wheel_margin"
+            android:layout_marginBottom="@dimen/routing_selector_wheel_margin"
+            android:layout_marginEnd="12dp"/>
+
+          <app.organicmaps.widget.WheelProgressView
+            android:id="@+id/progress_helicopter"
             style="@style/MwmWidget.ProgressWheel.RoutingPlan"
             android:layout_marginTop="@dimen/routing_selector_wheel_margin"
             android:layout_marginBottom="@dimen/routing_selector_wheel_margin"

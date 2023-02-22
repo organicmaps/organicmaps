@@ -275,6 +275,10 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
   if (!m_route->IsValid())
     return m_state;
 
+  // Do not refresh helicopter route. For some reason PassCheckpoints() removes first point from the route.
+  if (m_route->GetRouterId() == "helicopter-router")
+    return m_state;
+
   m_turnNotificationsMgr.SetSpeedMetersPerSecond(info.m_speedMpS);
 
   auto const formerIter = m_route->GetCurrentIteratorTurn();

@@ -120,9 +120,11 @@ unique_ptr<DirectionsEngine> CreateDirectionsEngine(VehicleType vehicleType,
   switch (vehicleType)
   {
   case VehicleType::Pedestrian:
-  case VehicleType::Transit: return make_unique<PedestrianDirectionsEngine>(dataSource, numMwmIds);
+  case VehicleType::Transit:
+    return make_unique<PedestrianDirectionsEngine>(dataSource, numMwmIds);
   case VehicleType::Bicycle:
-  case VehicleType::Car: return make_unique<CarDirectionsEngine>(dataSource, numMwmIds);
+  case VehicleType::Car:
+    return make_unique<CarDirectionsEngine>(dataSource, numMwmIds);
   case VehicleType::Count:
     CHECK(false, ("Can't create DirectionsEngine for", vehicleType));
     return nullptr;

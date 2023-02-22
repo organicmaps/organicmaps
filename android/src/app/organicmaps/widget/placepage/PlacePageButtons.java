@@ -147,6 +147,7 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
     ROUTE_AVOID_TOLL,
     ROUTE_AVOID_FERRY,
     ROUTE_AVOID_UNPAVED,
+    ROUTE_RULLER,
     SHARE,
     MORE
   }

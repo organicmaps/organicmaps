@@ -133,6 +133,7 @@ RoutingSettings::RoutingSettings(QWidget * parent, Framework & framework)
     m_routerType->insertItem(static_cast<int>(RouterType::Pedestrian), "pedestrian");
     m_routerType->insertItem(static_cast<int>(RouterType::Bicycle), "bicycle");
     m_routerType->insertItem(static_cast<int>(RouterType::Transit), "transit");
+    m_routerType->insertItem(static_cast<int>(RouterType::Helicopter), "helicopter");
     form->addRow("Choose router:", m_routerType);
 
     m_showTurnsCheckbox = new QCheckBox({}, frame);

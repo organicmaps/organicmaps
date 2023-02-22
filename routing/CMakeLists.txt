@@ -60,6 +60,8 @@ set(SRC
   guides_connections.hpp
   guides_graph.cpp
   guides_graph.hpp
+  helicopter_router.cpp
+  helicopter_router.hpp
   index_graph.cpp
   index_graph.hpp
   index_graph_loader.cpp

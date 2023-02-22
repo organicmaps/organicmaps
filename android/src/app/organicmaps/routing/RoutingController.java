@@ -603,6 +603,11 @@ public class RoutingController implements Initializable<Void>
     return mLastRouterType == Framework.ROUTER_TYPE_VEHICLE;
   }
 
+  boolean isHelicopterRouterType()
+  {
+    return mLastRouterType == Framework.ROUTER_TYPE_HELICOPTER;
+  }
+
   public boolean isNavigating()
   {
     return mState == State.NAVIGATION;

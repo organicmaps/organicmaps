@@ -137,7 +137,9 @@ final class RoutingBottomMenuController implements View.OnClickListener
   {
     UiUtils.hide(mError, mActionFrame, mTransitFrame);
 
-    showRouteAltitudeChart();
+    if (!RoutingController.get().isVehicleRouterType() &&
+        !RoutingController.get().isHelicopterRouterType())
+      showRouteAltitudeChart();
     showRoutingDetails();
     UiUtils.show(mAltitudeChartFrame);
   }
@@ -206,15 +208,18 @@ final class RoutingBottomMenuController implements View.OnClickListener
     UiUtils.hide(mActionFrame);
   }
 
-  void setStartButton()
+  void setStartButton(boolean show)
   {
-    mStart.setText(mContext.getText(R.string.p2p_start));
-    mStart.setOnClickListener(v -> {
-      if (mListener != null)
-        mListener.onRoutingStart();
-    });
+    if (show)
+    {
+      mStart.setText(mContext.getText(R.string.p2p_start));
+      mStart.setOnClickListener(v -> {
+        if (mListener != null)
+          mListener.onRoutingStart();
+      });
+    }
 
-    showStartButton(true);
+    showStartButton(show);
   }
 
   private void showError(@NonNull String message)
@@ -250,12 +255,6 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   private void showRouteAltitudeChart()
   {
-    if (RoutingController.get().isVehicleRouterType())
-    {
-      UiUtils.hide(mAltitudeChart, mAltitudeDifference);
-      return;
-    }
-
     int chartWidth = UiUtils.dimen(mContext, R.dimen.altitude_chart_image_width);
     int chartHeight = UiUtils.dimen(mContext, R.dimen.altitude_chart_image_height);
     Framework.RouteAltitudeLimits limits = new Framework.RouteAltitudeLimits();
@@ -281,7 +280,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
       return;
     }
 
-    Spanned spanned = makeSpannedRoutingDetails(mContext, rinfo);
+    boolean isHelicopter = RoutingController.get().isHelicopterRouterType();
+    Spanned spanned = makeSpannedRoutingDetails(mContext, rinfo, !isHelicopter);
     TextView numbersTime = mNumbersFrame.findViewById(R.id.time);
     numbersTime.setText(spanned);
 
@@ -294,7 +294,9 @@ final class RoutingBottomMenuController implements View.OnClickListener
   }
 
   @NonNull
-  private static Spanned makeSpannedRoutingDetails(@NonNull Context context, @NonNull RoutingInfo routingInfo)
+  private static Spanned makeSpannedRoutingDetails(@NonNull Context context,
+                                                   @NonNull RoutingInfo routingInfo,
+                                                   boolean showTime)
 
   {
     CharSequence time = RoutingController.formatRoutingTime(context,
@@ -302,10 +304,13 @@ final class RoutingBottomMenuController implements View.OnClickListener
                                                             R.dimen.text_size_routing_number);
 
     SpannableStringBuilder builder = new SpannableStringBuilder();
-    initTimeBuilderSequence(context, time, builder);
 
-    String dot = "\u00A0• ";
-    initDotBuilderSequence(context, dot, builder);
+    if (showTime)
+    {
+      initTimeBuilderSequence(context, time, builder);
+      String dot = "\u00A0• ";
+      initDotBuilderSequence(context, dot, builder);
+    }
 
     String dist = routingInfo.distToTarget + "\u00A0" + routingInfo.targetUnits;
     initDistanceBuilderSequence(context, dist, builder);
