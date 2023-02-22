@@ -35832,6 +35832,16 @@ cont {
 cont {
   name: "isoline-step_100"
   element {
+    scale: 12
+    lines {
+      width: 0.9
+      color: 3007930697
+      priority: 98
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 13
     lines {
       width: 1.0
@@ -35847,6 +35857,13 @@ cont {
       color: 1716085065
       priority: 98
       cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 9
+        color: 4809033
+      }
+      priority: 16098
     }
   }
   element {
@@ -36074,6 +36091,15 @@ cont {
 cont {
   name: "isoline-step_50"
   element {
+    scale: 14
+    lines {
+      width: 0.9
+      color: 3008787798
+      priority: 98
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 15
     lines {
       width: 1.0
@@ -36088,6 +36114,13 @@ cont {
       width: 1.0
       color: 2153149782
       priority: 98
+    }
+    path_text {
+      primary {
+        height: 9
+        color: 5666134
+      }
+      priority: 16098
     }
   }
   element {
