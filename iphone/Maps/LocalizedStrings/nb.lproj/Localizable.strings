@@ -155,7 +155,7 @@
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
 "rv" = "Bobilanlegg";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+"share_bookmarks_email_body" = "Hei!\n\nVedlagt er mine bokmerker fra Organic Maps-appen. Åpne de dersom du har Organic Maps installert. Har du ikke har det, last ned appen til iOS eller Android ved å trykke på denne linken: https://omaps.app/get?kmz\n\nNyt reisen med Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Laster inn bokmerker";
@@ -584,17 +584,17 @@
 
 "today" = "I dag";
 
-"opens_tomorrow_at" = "Opens tomorrow at %@";
+"opens_tomorrow_at" = "Åpner i morgen klokka %@";
 
-"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+"opens_dayoftheweek_at" = "Åpner %1$@ klokka %2$@";
 
-"opens_at" = "Opens at %@";
+"opens_at" = "Åpner klokka %@";
 
-"opens_in" = "Opens in %@";
+"opens_in" = "Åpner om %@";
 
-"closes_at" = "Closes at %@";
+"closes_at" = "Stenger %@";
 
-"closes_in" = "Closes in %@";
+"closes_in" = "Stenger om %@";
 
 "closed" = "Stengt";
 
@@ -702,9 +702,9 @@
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d av %2$d";
 
-"download_over_mobile_header" = "Download over a cellular network connection?";
+"download_over_mobile_header" = "Last ned med mobildata?";
 
-"download_over_mobile_message" = "This could be considerably expensive with some plans or if roaming.";
+"download_over_mobile_message" = "Dette kan medføre store kostnader med enkelte dataplaner eller om du roamer.";
 
 "error_enter_correct_house_number" = "Skriv riktig husnummer";
 
@@ -970,7 +970,7 @@
 
 "title_error_downloading_bookmarks" = "Det oppsto en feil";
 
-"popular_place" = "Popular";
+"popular_place" = "Populær";
 
 "export_file" = "Eksporter fil";
 
@@ -1216,13 +1216,13 @@
 "whats_new_auto_update_button_later" = "Oppdater manuelt senere";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Delete Track";
+"placepage_delete_track_button" = "Slett rute";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Track Name";
+"placepage_track_name_hint" = "Rutenavn";
 
 /* move track or bookmark from the list button text */
-"move" = "Move";
+"move" = "Flytt";
 
 /* edit track screen title */
 "track_title" = "Rute";
