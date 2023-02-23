@@ -4500,7 +4500,7 @@ it:Cimitero
 ja:1墓地|墓場|お墓|墓苑|霊場
 ko:묘지|묘소|공동묘지
 mr:स्मशानभूमी
-nb:Gravplass
+nb:Gravlund|Gravplass
 pl:3Cmentarz|pochówek
 pt:Sepultura|5Cemitério
 pt-BR:5Cemitério

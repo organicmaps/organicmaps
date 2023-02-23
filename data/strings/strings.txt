@@ -1991,6 +1991,7 @@
     es = Almacenamiento interno privado
     et = Sisemine privaatne salvestusruum
     fr = Stockage interne privé
+    nb = Intern privat lagring
     nl = Intern persoonlijk geheugen
     pl = Wewnętrzna pamięć prywatna
     pt-BR = Armazenamento interno privado
@@ -2009,6 +2010,7 @@
     es = Almacenamiento interno compartido
     et = Sisemine jagatud salvestusruum
     fr = Stockage interne partagé
+    nb = Intern delt lagring
     nl = Intern gedeeld geheugen
     pl = Wewnętrzna pamięć współdzielona
     pt-BR = Armazenamento interno compartilhado
@@ -2027,6 +2029,7 @@
     es = Tarjeta SD
     et = SD-kaart
     fr = Carte SD
+    nb = SD-kort
     nl = SD-kaart
     pl = Karta SD
     pt-BR = Cartão SD
@@ -2045,6 +2048,7 @@
     es = Almacenamiento externo compartido
     et = Väline jagatud salvestusruum
     fr = Stockage externe partagé
+    nb = Ekstern delt lagring
     nl = Extern gedeeld geheugen
     pl = Zewnętrzna pamięć współdzielona
     pt-BR = Armazenamento externo compartilhado
@@ -2063,6 +2067,7 @@
     es = %1$@ libres de %2$@
     et = %1$@ vaba ruumist %2$@
     fr = %1$@ libres sur %2$@
+    nb = %1$@ ledig av %2$@
     nl = %1$@ beschikbaar van %2$@
     pl = %1$@ wolne z %2$@
     pt-BR = %1$@ livre de %2$@
@@ -2121,6 +2126,7 @@
     es = Error al mover los archivos de mapas
     et = Kaardipaanide teisaldamine ebaõnnestus
     fr = Erreur lors du déplacement des cartes
+    nb = Kunne ikke flytte kart
     nl = Fout bij het verplaatsen van kaartbestanden
     pl = Błąd przenoszenia plików map
     pt-BR = Erro ao mover arquivos de mapas
@@ -3251,6 +3257,7 @@
     fr = Bonjour !\n\nVous trouverez ci-joint mes signets de l'appli Organic Maps. Veuillez les ouvrir si vous avez installé Organic Maps. Si vous ne l'avez pas, téléchargez l'application pour votre appareil iOS ou Android en suivant ce lien : https://omaps.app/get?kmz\n\nBon voyage avec Organic Maps!
     it = Ciao!\n\nIn allegato ci sono i miei luoghi preferiti. Aprili se hai installato Organic Maps. Oppure, se non ce l'hai, scarica l'app per iOS o Android seguendo questo link: https://omaps.app/\n\nDivertiti a viaggiare con Organic Maps!
     mr = नमस्कार!\n\nOrganic Maps ऍप मधील माझे खूणपत्रे संलग्न केले आहेत. तुम्ही Organic Maps इन्स्टॉल केले असल्यास हे खूणपत्रे उघडा. इन्स्टॉल केले नसल्यास, पुढील दुव्यावर जाऊन तुमच्या iOS किंवा अँड्रॉइड उपकरणावर हे डाउनलोड करा: https://omaps.app/get?kmz\n\nOrganic Maps सह प्रवासाचा आनंद घ्या!
+    nb = Hei!\n\nVedlagt er mine bokmerker fra Organic Maps-appen. Åpne de dersom du har Organic Maps installert. Har du ikke har det, last ned appen til iOS eller Android ved å trykke på denne linken: https://omaps.app/get?kmz\n\nNyt reisen med Organic Maps!
     nl = Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app voor je iOS- of Android-apparaat door deze link te volgen: https://omaps.app/get?kmz\n\nGeniet van het reizen met Organic Maps!
     pl = Cześć!\n\nZałączam moje zakładki z aplikacji Organic Maps. Proszę otwórz je jeżeli masz zaintalowane Organic Maps. Lub, jeżeli nie masz, pobierz aplikację na swoje urządzenie iOS/Android za pomocą tego linka: https://omaps.app/get?kmz\n\nMiłego podróżowania z Organic Maps!
     pt = Olá!\n\nSegue em anexo os meus favoritos da aplicação Organic Maps. Por favor abra-os se tiver o Organic Maps instalado. Caso não tenha, descarregue a aplicação para o seu dispositivo iOS ou Android com a hiperligação https://omaps.app/get?kmz\n\nDivirta-se a viajar com o Organic Maps!
@@ -4175,6 +4182,7 @@
     fr = Paramètres généraux
     it = Opzioni generali
     mr = सर्वसामान्य सेटिंग
+    nb = Generelle instillinger
     nl = Algemene instellingen
     pl = Ustawienia ogólne
     pt = Configurações gerais
@@ -4203,6 +4211,7 @@
     fr = Information
     it = Informazioni
     mr = माहिती
+    nb = Informasjon
     nl = Informatie
     pl = Informacje
     pt = Informação
@@ -5170,6 +5179,7 @@
     ca = Menú
     es = Menú
     fr = Menu
+    nb = Meny
     pl = Menu
     ru = Меню
     uk = Меню
@@ -10737,6 +10747,7 @@
     eu = Bihar %@ean irekiko da
     fr = Ouvre demain à %@
     it = Apre domani alle %@
+    nb = Åpner i morgen klokka %@
     nl = Opent morgen om %@
     pl = Otwarcie jutro o %@
     pt = Abre amanhã às %@
@@ -10755,6 +10766,7 @@
     eu = %1$@ean %2$@ean irekiko da
     fr = Ouvre le %1$@ à %2$@
     it = Apre %1$@ alle %2$@
+    nb = Åpner %1$@ klokka %2$@
     nl = Opent %1$@ om %2$@
     pl = Otwarcie %1$@ o %2$@
     pt = Abre %1$@ às %2$@
@@ -10773,6 +10785,7 @@
     eu = %@ean irekiko da
     fr = Ouvre à %@
     it = Apre alle %@
+    nb = Åpner klokka %@
     nl = Opent om %@
     pl = Otwarcie o %@
     pt = Abre às %@
@@ -10792,6 +10805,7 @@
     eu = %@ barru irekitzen da
     fr = Ouvert dans %@
     it = Apre tra %@
+    nb = Åpner om %@
     nl = Opent over %@
     pl = Otwarcie za %@
     pt-BR = Abre em %@
@@ -10810,6 +10824,7 @@
     eu = %@ean itxiko da
     fr = Ferme à %@
     it = Chiude alle %@
+    nb = Stenger %@
     nl = Sluit om %@
     pl = Zamknięcie o %@
     pt = Encerra às %@
@@ -10829,6 +10844,7 @@
     eu = %@ barru ixten da
     fr = Fermé dans %@
     it = Chiude tra %@
+    nb = Stenger om %@
     nl = Sluit over %@
     pl = Zamknięcie za %@
     pt-BR = Fecha em %@
@@ -11716,6 +11732,7 @@
     fr = Veuillez entrer un nom de rue
     it = Inserire il nome della via
     mr = कृपया रस्त्याचे नाव जोडा
+    nb = Legg til en gateadresse
     nl = Voer een straatnaam in a.u.b.
     pl = Proszę wpisz nazwę ulicy
     pt-BR = Por favor, digite o nome da rua
@@ -12008,6 +12025,7 @@
     fr = Ajouter un numéro de téléphone
     it = Aggiungi numero
     mr = फोन जोडा
+    nb = Legg til telefon
     nl = Telefoonnummer toevoegen
     pl = Dodaj numer telefonu
     ro = Adaugă un număr
@@ -13251,6 +13269,7 @@
     ja = 携帯通信ネットワークで接続してダウンロードしますか？
     ko = 셀룰러 네트워크 접속을 사용하여 다운로드하시겠습니까?
     mr = मोबाईल डेटा वापरून डाउनलोड करायचे?
+    nb = Last ned med mobildata?
     nl = Downloaden via een mobiele gegevensverbinding?
     pl = Czy pobrać, używając połączenia z siecią komórkową?
     pt = Descarregar utilizando uma conexão de rede de telemóveis?
@@ -13289,6 +13308,7 @@
     ja = プランによって、またはローミングしている場合、非常に高額になる可能性があります。
     ko = 이는 일부 플랜이나 로밍할 경우에 비싸다고 간주될 수 있습니다.
     mr = रोमिंग वर असल्यास हे बरेच महाग पडू शकते.
+    nb = Dette kan medføre store kostnader med enkelte dataplaner eller om du roamer.
     nl = Met sommige abonnementen of bij roaming kan dit behoorlijk duur zijn.
     pl = Może to być kosztowne przy niektórych planach taryfowych lub w roamingu.
     pt = Isto pode ser muito caro com alguns planos ou em roaming.
@@ -15141,6 +15161,7 @@
     fr = Veuillez indiquer la raison pour laquelle vous effacez cet endroit
     it = Indicare il motivo dell' eliminazione del luogo
     mr = कृपया ठिकाण हटवण्याचे कारण सूचित करा
+    nb = Forklar hvorfor stedet skal slettes
     nl = Graag de reden voor verwijdering aangeven
     pl = Proszę opisz powód usunięcia miejsca
     pt-BR = Por favor, explica o motivo pelo qual você está retirando o local
@@ -15318,6 +15339,7 @@
     fr = Saisissez une adresse web, un compte ou un nom de page Facebook valide
     it = Inserisci un indirizzo web, un account o un nome di pagina Facebook valido
     mr = वैध Facebook वेब पत्ता, खाते किंवा पृष्ठ नाव प्रविष्ट करा
+    nb = Skriv inn en gyldig Facebook-adresse, -konto eller -side.
     nl = Voer een geldig Facebook-webadres, een accountnaam of een paginanaam in
     pl = Wprowadź poprawny link, nazwę konta lub nazwę strony na Facebooku
     ro = Introdu o adresă web, un cont sau un nume de pagină Facebook valabil
@@ -15338,6 +15360,7 @@
     fr = Saisissez une adresse web, un nom de compte Instagram valide
     it = Inserisci un indirizzo web o un nome di account Instagram valido
     mr = वैध Instagram वेब पत्ता किंवा खाते नाव प्रविष्ट करा
+    nb = Skriv inn en gyldig Instagram-adresse eller -kontonavn
     nl = Voer een geldig Instagram-webadres of een accountnaam in
     pl = Wprowadź poprawny link lub nazwę konta na Instagramie
     ro = Introdu o adresă web sau un nume de cont Instagram valabil
@@ -15358,6 +15381,7 @@
     fr = Saisissez une adresse web, un nom de compte Twitter valide
     it = Inserisci un indirizzo web o un nome utente Twitter valido
     mr = वैध Twitter वेब पत्ता किंवा वापरकर्तानाव प्रविष्ट करा
+    nb = Skriv inn en gyldig Twitter-adresse eller -brukernavn.
     nl = Voer een geldig Twitter-webadres of een gebruikersnaam in
     pl = Wprowadź poprawny adres lub nazwę konta na Twitterze
     ro = Introdu o adresă web sau un nume de utilizator Twitter valabil
@@ -15377,6 +15401,7 @@
     eu = Mesedez, idatzi baliozko web helbide bat edo VK kontuaren izena
     fr = Saisissez une adresse web, un nom de compte VK valide
     it = Inserisci un indirizzo web o un nome di account VK valido
+    nb = Skriv inn en gyldig VB-adresse eller -kontonavn
     nl = Voer een geldig VB webadres of een accountnaam in
     pl = Wprowadź poprawny adres lub nazwę konta na VK
     ro = Introdu o adresă web sau un nume de cont VK valabil
@@ -15396,6 +15421,7 @@
     et = Sisesta kehtiv LINE veebiaadress või LINE ID
     fr = Entrez une adresse web ou un ID de LINE valide
     it = Inserisca un indirizzo web LINE valido o un ID LINE
+    nb = Skriv inn en gyldig LINE-adresse eller -ID.
     nl = Voer een geldig LINE-webadres of een LINE ID in
     pl = Wpisz prawidłowy url LINE lub LINE ID
     ro = Introdu o adresă web LINE valabilă sau un ID LINE
@@ -17753,6 +17779,7 @@
     fr = Importer des signets
     it = Importa luoghi preferiti
     mr = खूणपत्रे आयात करा
+    nb = Importer bokmerker
     nl = Bladwijzers importeren
     pl = Import zakładek
     pt = Importar favoritos
@@ -19532,6 +19559,7 @@
     fr = Populaire
     it = Popolare
     mr = लोकप्रिय
+    nb = Populær
     nl = Populair
     pl = Popularne
     pt = Popular
@@ -24539,6 +24567,7 @@
     fr = Télécharger la carte du monde
     it = Scarica la mappa del mondo
     mr = जगाचा नकाशा डाउनलोड करा
+    nb = Last ned verdenskart
     nl = Download de wereldkaart
     pl = Pobierz mapę świata
     pt = Descarregar o mapa mundial
@@ -24558,6 +24587,7 @@
     et = Seadme sisemällu või mälukaardile ei saa kausta luua ja faile teisaldada
     fr = Impossible de créer un dossier et de déplacer les fichiers vers la mémoire interne de l'appareil ou la carte SD
     mr = उपकरणाच्या अंतर्गत मेमरी किंवा SD-card वर फोल्डर तयार करण्यात आणि फायली हलविण्यात अक्षम
+    nb = Klarte ikke opprette mappe og flytte filer i enhetens minne eller SD-kort
     nl = Het lukt niet om een map aan te maken en bestanden naar het interne geheugen of een SD-kaart te verplaatsen
     pl = Nie udało się stworzyć folderu i przenieść plików do pamięci wewnętrznej lub karty SD
     pt-BR = Não foi possível criar a pasta e mover os arquivos à memória interna ou sdcard do dispositivo
@@ -24575,6 +24605,7 @@
     et = Salvestusseadme viga
     fr = Erreur disque
     mr = डिस्क त्रुटी
+    nb = Diskfeil
     nl = Schijffout
     pl = Błąd pamięci
     pt-BR = Erro do armazenamento
@@ -24597,6 +24628,7 @@
     fr = Erreur de connexion
     it = Errore di connessione
     mr = जोडणी अयशस्वी
+    nb = Tilkoblingsfeil
     nl = Verbindingsfout
     pl = Błąd połączenia
     pt = Falha na coneção
@@ -24620,6 +24652,7 @@
     fr = Déconnectez le câble USB
     it = Scollegare il cavo USB
     mr = USB केबल काढा
+    nb = Fjern USB-kabelen
     nl = USB-kabel losmaken
     pl = Odłącz kabel USB
     pt-BR = Desconecte o cabo USB
@@ -24724,6 +24757,7 @@
     hu = Megjelenítés a zárolt képernyőn
     it = Mostra sulla schermata di blocco
     mr = लॉक पटलावर (स्क्रीनवर) दाखवा
+    nb = Vis på låseskjerm
     nl = Toon op vergrendelscherm
     pl = Pokazuj na ekranie blokady
     pt-BR = Mostrar na tela de bloqueio
@@ -24747,6 +24781,7 @@
     hu = Ha engedélyezve van, nem kell minden alkalommal feloldanod a telefonod, amíg az alkalmazás fut.
     it = Quando è abilitata, non è necessario sbloccare il dispositivo ogni volta mentre l'app è in esecuzione.
     mr = चालू असल्यास, ऍप चालू असताना प्रत्येक वेळी तुम्हाला तुमचे उपकरण अनलॉक करण्याची आवश्यकता नाही.
+    nb = Når dette er aktivert trenger du ikke låse opp enheten hver gang når appen kjører.
     nl = Indien ingeschakeld, hoeft het scherm niet te worden ontgrendeld wanneer de app actief is.
     pl = Po włączeniu tej funkcji nie będziesz musieć odblokowywać urządzenia za każdym razem, gdy aplikacja jest uruchomiona.
     pt-BR = Quando ativado, você não precisará debloquear seu dispositivo toda vez que o aplicativo estiver funcionando
@@ -24950,6 +24985,7 @@
     fr = Supprimer la route
     it = Elimina percorso
     mr = ट्रॅक पुसून टाका
+    nb = Slett rute
     nl = Verwijder traject
     pl = Usuń trasę
     pt-BR = Apagar rota
@@ -24973,6 +25009,7 @@
     fr = Nom de la route
     it = Nome percorso
     mr = ट्रॅकचे नाव
+    nb = Rutenavn
     nl = Trajectnaam
     pl = Nazwa trasy
     pt-BR = Nome da rota
@@ -24996,6 +25033,7 @@
     fr = Déplacer
     it = Sposta
     mr = हलवा
+    nb = Flytt
     nl = Verplaats
     pl = Przenieś
     pt-BR = Mover
