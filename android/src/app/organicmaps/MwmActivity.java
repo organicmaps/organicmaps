@@ -279,7 +279,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void showBookmarks()
   {
-    closeFloatingPanels();
     BookmarkCategoriesActivity.start(this);
   }
 
