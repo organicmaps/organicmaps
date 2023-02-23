@@ -25,6 +25,7 @@
       android:maxLines="2"
       android:layout_gravity="center_vertical"
       android:gravity="center"
+      android:autoSizeTextType="uniform"
       tools:text="Sample street name.\nLong looooooooong!!!!"/>
   </FrameLayout>
 
