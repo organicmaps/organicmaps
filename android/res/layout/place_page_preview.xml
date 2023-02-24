@@ -10,112 +10,119 @@
   android:paddingBottom="@dimen/margin_quarter">
 
   <include
-    android:id="@+id/pull_icon_container"
-    layout="@layout/bottom_sheet_handle" />
+      android:id="@+id/pull_icon_container"
+      layout="@layout/bottom_sheet_handle"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:layout_marginTop="@dimen/margin_half_double_plus" />
 
   <include
-    android:id="@+id/downloader_status_frame"
-    android:layout_below="@id/pull_icon_container"
-    layout="@layout/downloader_status"
-    android:layout_width="@dimen/downloader_status_size"
-    android:layout_height="@dimen/downloader_status_size"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_marginTop="@dimen/margin_base_plus"
-    android:visibility="gone"
-    tools:visibility="visible"/>
+      android:id="@+id/downloader_status_frame"
+      layout="@layout/downloader_status"
+      android:layout_width="@dimen/downloader_status_size"
+      android:layout_height="@dimen/downloader_status_size"
+      android:layout_alignParentTop="true"
+      android:layout_marginStart="@dimen/margin_base"
+      android:layout_marginTop="24dp"
+      android:visibility="gone"
+      tools:visibility="visible" />
 
   <LinearLayout
-    android:id="@+id/title_container"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_alignWithParentIfMissing="true"
-    android:layout_below="@id/pull_icon_container"
-    android:layout_marginTop="@dimen/margin_base"
-    android:layout_marginEnd="@dimen/margin_base"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_toEndOf="@id/downloader_status_frame"
-    android:layout_toStartOf="@id/direction_frame">
-    <TextView
-      android:id="@+id/tv__title"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:ellipsize="end"
-      android:fontFamily="@string/robotoMedium"
-      android:maxLines="@integer/pp_title_lines"
-      android:textAppearance="@style/MwmTextAppearance.Title"
-      tools:background="#C0800000"
-      tools:ignore="UnusedAttribute"
-      tools:text="Title"/>
-
-    <TextView
-      android:id="@+id/tv__secondary_title"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/margin_quarter"
-      android:ellipsize="end"
-      android:fontFamily="@string/robotoMedium"
-      android:maxLines="@integer/pp_title_lines"
-      android:textAppearance="@style/MwmTextAppearance.Body1"
-      tools:background="#C0800000"
-      tools:ignore="UnusedAttribute"
-      tools:text="Secondary Title"/>
-
-    <TextView
-      android:id="@+id/tv__subtitle"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/margin_quarter"
-      android:maxLines="2"
-      android:textAppearance="@style/MwmTextAppearance.Body3"
-      android:ellipsize="end"
-      tools:background="#300000F0"
-      tools:text="Subtitle, very very very very very very very long"/>
-
-    <TextView
-      android:id="@+id/tv__downloader_details"
+      android:id="@+id/title_container"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/margin_quarter"
-      android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
-      android:visibility="gone"
-      tools:background="#8000F000"
-      tools:text="2.4 GB  •  Maps: 1"
-      tools:visibility="visible"/>
+      android:layout_alignWithParentIfMissing="true"
+      android:layout_below="@id/pull_icon_container"
+      android:layout_marginStart="@dimen/margin_base"
+      android:layout_marginTop="@dimen/margin_eighth"
+      android:layout_marginEnd="@dimen/margin_base"
+      android:layout_toStartOf="@id/direction_frame"
+      android:layout_toEndOf="@id/downloader_status_frame"
+      android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv__title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@string/robotoMedium"
+        android:maxLines="@integer/pp_title_lines"
+        android:textAppearance="@style/MwmTextAppearance.Title"
+        tools:background="#C0800000"
+        tools:ignore="UnusedAttribute"
+        tools:text="Title" />
+
+    <TextView
+        android:id="@+id/tv__secondary_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_quarter"
+        android:ellipsize="end"
+        android:fontFamily="@string/robotoMedium"
+        android:maxLines="@integer/pp_title_lines"
+        android:textAppearance="@style/MwmTextAppearance.Body1"
+        tools:background="#C0800000"
+        tools:ignore="UnusedAttribute"
+        tools:text="Secondary Title" />
+
+    <TextView
+        android:id="@+id/tv__subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_quarter"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textAppearance="@style/MwmTextAppearance.Body3"
+        tools:background="#300000F0"
+        tools:text="Subtitle, very very very very very very very long" />
+
+    <TextView
+        android:id="@+id/tv__downloader_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_quarter"
+        android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
+        android:visibility="gone"
+        tools:background="#8000F000"
+        tools:text="2.4 GB  •  Maps: 1"
+        tools:visibility="visible" />
   </LinearLayout>
+
   <LinearLayout
-    android:id="@+id/direction_frame"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginEnd="@dimen/margin_base"
-    android:paddingEnd="@dimen/margin_quarter"
-    android:paddingStart="@dimen/margin_quarter"
-    android:layout_alignParentEnd="true"
-    android:layout_alignWithParentIfMissing="true"
-    android:layout_alignBottom="@id/title_container"
-    android:background="?selectableItemBackground"
-    android:layout_below="@id/pull_icon_container"
-    android:gravity="center"
-    android:orientation="vertical"
-    tools:background="#111111F0">
+      android:id="@+id/direction_frame"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignWithParentIfMissing="true"
+      android:layout_alignBottom="@id/title_container"
+      android:layout_alignParentTop="true"
+      android:layout_alignParentEnd="true"
+      android:layout_marginTop="@dimen/margin_base"
+      android:layout_marginEnd="@dimen/margin_base"
+      android:background="?selectableItemBackground"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:paddingStart="@dimen/margin_quarter"
+      android:paddingEnd="@dimen/margin_quarter"
+      tools:background="#111111F0">
 
     <app.organicmaps.widget.ArrowView
-      android:id="@+id/av__direction"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      app:tint="?colorAccent"
-      android:scaleType="center"
-      android:src="@drawable/ic_direction_pagepreview"/>
+        android:id="@+id/av__direction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:scaleType="center"
+        android:src="@drawable/ic_direction_pagepreview"
+        app:tint="?colorAccent" />
 
     <TextView
-      android:id="@+id/tv__straight_distance"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
-      android:textSize="@dimen/text_size_body_3"
-      tools:text="2000 km"/>
+        android:id="@+id/tv__straight_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
+        android:textSize="@dimen/text_size_body_3"
+        tools:text="2000 km" />
   </LinearLayout>
 
   <TextView
