@@ -299,28 +299,47 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
     return false;
 
   Classificator const & cl = classif();
+
+  uint32_t mainOverlayType = 0;
+  if (types.Size() == 1)
+    mainOverlayType = *types.cbegin();
+  else
+  {
+    // Determine main overlays type by priority.
+    // @todo: adjust/optimize depending on the final priorities setup in #4314
+    int overlayMaxPriority = std::numeric_limits<int>::min();
+    for (uint32_t t : types)
+    {
+      for (auto const & k : cl.GetObject(t)->GetDrawRules())
+      {
+        if (k.m_priority > overlayMaxPriority && IsTypeOf(k, Caption | Symbol | Shield | PathText))
+        {
+          overlayMaxPriority = k.m_priority;
+          mainOverlayType = t;
+        }
+      }
+    }
+  }
+
   auto const & hatchingChecker = IsHatchingTerritoryChecker::Instance();
   auto const geomType = types.GetGeomType();
 
   drule::KeysT keys;
-  size_t idx = 0;
   for (uint32_t t : types)
   {
-    cl.GetObject(t)->GetSuitable(zoomLevel, geomType, keys);
+    drule::KeysT typeKeys;
+    cl.GetObject(t)->GetSuitable(zoomLevel, geomType, typeKeys);
+    bool const hasHatching = hatchingChecker(t);
 
-    if (hatchingChecker(t))
+    for (auto & k : typeKeys)
     {
-      while (idx < keys.size())
+      // Take overlay drules from the main type only.
+      if (t == mainOverlayType || !IsTypeOf(k, Caption | Symbol | Shield | PathText))
       {
-        if (keys[idx].m_type == drule::area)
-          keys[idx].m_hatching = true;
-        ++idx;
+        if (hasHatching && k.m_type == drule::area)
+          k.m_hatching = true;
+        keys.push_back(k);
       }
-    }
-    else
-    {
-      // GetSuitable function appends 'keys' vector, so move start index accordingly.
-      idx = keys.size();
     }
   }
 
@@ -329,6 +348,7 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
   if (keys.empty())
     return false;
 
+  // Leave only one area drule and an optional hatching drule.
   drule::MakeUnique(keys);
 
   s.m_isCoastline = types.Has(cl.GetCoastType());
