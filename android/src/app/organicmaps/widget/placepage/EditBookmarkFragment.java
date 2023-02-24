@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
@@ -106,7 +107,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   private void initToolbar(View view)
   {
     Toolbar toolbar = view.findViewById(R.id.toolbar);
-    toolbar.setOnApplyWindowInsetsListener((v, windowInsets) -> {
+    ViewCompat.setOnApplyWindowInsetsListener(toolbar, (v, windowInsets) -> {
       UiUtils.extendViewWithStatusBar(v, windowInsets);
       return windowInsets;
     });

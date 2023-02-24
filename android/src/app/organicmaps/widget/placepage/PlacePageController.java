@@ -7,11 +7,12 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowInsets;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.NestedScrollViewClickFixed;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -68,7 +69,7 @@ public class PlacePageController implements Initializable<Activity>,
   private boolean mDeactivateMapSelection = true;
   @Nullable
   private MapObject mMapObject;
-  private WindowInsets mCurrentWindowInsets;
+  private WindowInsetsCompat mCurrentWindowInsets;
 
   private boolean mShouldCollapse;
   private int mDistanceToTop;
@@ -142,7 +143,7 @@ public class PlacePageController implements Initializable<Activity>,
     mMaxButtons = mMwmActivity.getResources().getInteger(R.integer.pp_buttons_max);
     viewModel = new ViewModelProvider(mMwmActivity).get(PlacePageViewModel.class);
 
-    mPlacePage.setOnApplyWindowInsetsListener((view, windowInsets) -> {
+    ViewCompat.setOnApplyWindowInsetsListener(mPlacePage, (view, windowInsets) -> {
       mCurrentWindowInsets = windowInsets;
       return windowInsets;
     });
@@ -229,7 +230,6 @@ public class PlacePageController implements Initializable<Activity>,
    * Set the min and max height of the place page to prevent jumps when switching from one map object
    * to the other.
    */
-  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3631
   private void setPlacePageHeightBounds()
   {
     final int peekHeight = calculatePeekHeight();
@@ -240,7 +240,7 @@ public class PlacePageController implements Initializable<Activity>,
     mPlacePageContainer.setMinimumHeight(height);
     // Set the maximum height of the place page to prevent jumps when new data results in BIGGER content
     // It does not take into account the navigation bar height so we need to add it manually
-    mPlacePageBehavior.setMaxHeight(height + mCurrentWindowInsets.getSystemWindowInsetBottom());
+    mPlacePageBehavior.setMaxHeight(height + mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom);
   }
 
   /**
@@ -274,13 +274,13 @@ public class PlacePageController implements Initializable<Activity>,
    * Using the animate param in setPeekHeight does not work when adding removing fragments
    * from inside the place page so we manually animate the peek height with ValueAnimator
    */
-  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3631
   private void animatePeekHeight(int peekHeight)
   {
+    final int bottomInsets = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
     // Make sure to start from the current height of the place page
     final int parentHeight = ((View) mPlacePage.getParent()).getHeight();
     // Make sure to remove the navbar height because the peek height already takes it into account
-    int initialHeight = parentHeight - mDistanceToTop - mCurrentWindowInsets.getSystemWindowInsetBottom();
+    int initialHeight = parentHeight - mDistanceToTop - bottomInsets;
 
     if (mCustomPeekHeightAnimator != null)
       mCustomPeekHeightAnimator.cancel();
@@ -290,10 +290,10 @@ public class PlacePageController implements Initializable<Activity>,
       int value = (Integer) valueAnimator.getAnimatedValue();
       // Make sure the place page can reach the animated peek height to prevent jumps
       // maxHeight does not take the navbar height into account so we manually add it
-      mPlacePageBehavior.setMaxHeight(value + mCurrentWindowInsets.getSystemWindowInsetBottom());
+      mPlacePageBehavior.setMaxHeight(value + bottomInsets);
       mPlacePageBehavior.setPeekHeight(value);
       // The place page is not firing the slide callbacks when using this animation, so we must call them manually
-      mDistanceToTop = parentHeight - value - mCurrentWindowInsets.getSystemWindowInsetBottom();
+      mDistanceToTop = parentHeight - value - bottomInsets;
       mSlideListener.onPlacePageSlide(mDistanceToTop);
       if (value == peekHeight)
       {

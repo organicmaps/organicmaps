@@ -11,6 +11,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import androidx.core.view.ViewCompat;
 import app.organicmaps.R;
 import app.organicmaps.base.Detachable;
 import app.organicmaps.util.UiUtils;
@@ -32,7 +33,7 @@ public class ToolbarController implements Detachable<Activity>
 
     if (useExtendedToolbar())
     {
-      getToolbar().setOnApplyWindowInsetsListener((view, windowInsets) -> {
+      ViewCompat.setOnApplyWindowInsetsListener(getToolbar(), (view, windowInsets) -> {
         UiUtils.extendViewWithStatusBar(getToolbar(), windowInsets);
         return windowInsets;
       });
