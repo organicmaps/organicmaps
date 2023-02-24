@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.AttrRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -43,7 +44,7 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
   {
     super.onViewCreated(view, savedInstanceState);
     mButtonsContainer = view.findViewById(R.id.container);
-    view.setOnApplyWindowInsetsListener((v, windowInsets) -> {
+    ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
       UiUtils.setViewInsetsPaddingNoTop(v, windowInsets);
       return windowInsets;
     });

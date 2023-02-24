@@ -11,6 +11,7 @@ import android.view.ViewTreeObserver;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.OptIn;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.badge.BadgeDrawable;
@@ -128,7 +129,7 @@ public class MapButtonsController extends Fragment
     if (helpButton != null)
       mButtonsMap.put(MapButtons.help, helpButton);
 
-    mFrame.setOnApplyWindowInsetsListener((view, windowInsets) -> {
+    ViewCompat.setOnApplyWindowInsetsListener(mFrame, (view, windowInsets) -> {
       UiUtils.setViewInsetsPadding(view, windowInsets);
       return windowInsets;
     });
