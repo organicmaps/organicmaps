@@ -32,6 +32,8 @@ import app.organicmaps.settings.RoadType;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
+import app.organicmaps.util.log.Logger;
+
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.ArrayList;
@@ -76,6 +78,30 @@ public class PlacePageController implements Initializable<Activity>,
 
   private ValueAnimator mCustomPeekHeightAnimator;
 
+  class DefaultBottomSheetCallback extends BottomSheetBehavior.BottomSheetCallback
+  {
+    @Override
+    public void onStateChanged(@NonNull View bottomSheet, int newState)
+    {
+      Logger.d(TAG, "State change, new = " + PlacePageUtils.toString(newState));
+      if (PlacePageUtils.isSettlingState(newState) || PlacePageUtils.isDraggingState(newState))
+        return;
+
+      PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
+
+      if (PlacePageUtils.isHiddenState(newState))
+        onHiddenInternal();
+    }
+
+    @Override
+    public void onSlide(@NonNull View bottomSheet, float slideOffset)
+    {
+      stopCustomPeekHeightAnimation();
+      mDistanceToTop = bottomSheet.getTop();
+      mSlideListener.onPlacePageSlide(mDistanceToTop);
+    }
+  }
+
   @SuppressLint("ClickableViewAccessibility")
   public PlacePageController(@Nullable Activity activity,
                              @NonNull SlideListener listener)
@@ -93,42 +119,7 @@ public class PlacePageController implements Initializable<Activity>,
 
     mShouldCollapse = true;
 
-    BottomSheetChangedListener bottomSheetChangedListener = new BottomSheetChangedListener()
-    {
-      @Override
-      public void onSheetHidden()
-      {
-        onHiddenInternal();
-      }
-
-      @Override
-      public void onSheetDetailsOpened()
-      {
-        // No op.
-      }
-
-      @Override
-      public void onSheetCollapsed()
-      {
-        // No op.
-      }
-
-      @Override
-      public void onSheetSliding(int top)
-      {
-        stopCustomPeekHeightAnimation();
-        mDistanceToTop = top;
-        mSlideListener.onPlacePageSlide(top);
-      }
-
-      @Override
-      public void onSheetSlideFinish()
-      {
-        PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
-      }
-    };
-    BottomSheetBehavior.BottomSheetCallback sheetCallback = new DefaultBottomSheetCallback(bottomSheetChangedListener);
-    mPlacePageBehavior.addBottomSheetCallback(sheetCallback);
+    mPlacePageBehavior.addBottomSheetCallback(new DefaultBottomSheetCallback());
     mPlacePageBehavior.setHideable(true);
     mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
     mPlacePageBehavior.setFitToContents(true);
