@@ -2011,6 +2011,46 @@
     zh-Hans = 图书馆
     zh-Hant = 圖書館
 
+  [type.amenity.loading_dock]
+    en = Loading Dock
+    ar = رصيف التحميل
+    be = Пагрузная платформа
+    bg = Товарен док
+    ca = Moll de càrrega
+    cs = Nakládaci dok
+    da = Læsserampe
+    de = Laderampe
+    el = Αποβάθρα φόρτωσης
+    es = Muelle de carga
+    et = Laadimisdokk
+    eu = Kargatzeko kaia
+    fa = اسکله بارگیری
+    fi = Lastauslaituri
+    fr = Quai de chargement
+    he = רציף טעינה
+    hu = Rakodó
+    id = Dok pemuatan
+    it = Bacino di carico
+    ja = 発送センター
+    ko = 하역장
+    mr = डक लड करत आह
+    nb = Lasterampe
+    nl = Laad-dock
+    pl = Dok załadunkowy
+    pt = Doca de carregamento
+    pt-BR = Doca de carregamento
+    ro = Încărcare doc
+    ru = Погрузочный док
+    sk = Nakladacia rampa
+    sv = Lastkaj
+    sw = Inapakia kituo
+    th = แทนวางสนคา
+    tr = Yükleme alanı
+    uk = Завантажувальна платформа
+    vi = Bến tàu
+    zh-Hans = 装卸码头
+    zh-Hant = 裝卸碼頭
+
   [type.amenity.marketplace]
     en = Marketplace
     ar = سوق
