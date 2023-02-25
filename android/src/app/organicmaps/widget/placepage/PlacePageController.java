@@ -84,7 +84,8 @@ public class PlacePageController implements Initializable<Activity>,
     public void onStateChanged(@NonNull View bottomSheet, int newState)
     {
       Logger.d(TAG, "State change, new = " + PlacePageUtils.toString(newState));
-      if (PlacePageUtils.isSettlingState(newState) || PlacePageUtils.isDraggingState(newState))
+      if (PlacePageUtils.isSettlingState(newState) || PlacePageUtils.isDraggingState(newState) ||
+          mMwmActivity.isFinishing() || mMwmActivity.isDestroyed())
         return;
 
       PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
@@ -96,6 +97,8 @@ public class PlacePageController implements Initializable<Activity>,
     @Override
     public void onSlide(@NonNull View bottomSheet, float slideOffset)
     {
+      if (mMwmActivity.isFinishing() || mMwmActivity.isDestroyed())
+        return;
       stopCustomPeekHeightAnimation();
       mDistanceToTop = bottomSheet.getTop();
       mSlideListener.onPlacePageSlide(mDistanceToTop);
