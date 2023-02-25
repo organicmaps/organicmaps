@@ -146,4 +146,16 @@ and [Google Play](https://play.google.com/store/apps/details?id=app.organicmaps)
 [Instagram](https://instagram.com/organicmaps.app/).
   - Güncellemelerimizi [Instagram](https://instagram.com/organicmapstr/) üzerinden takip edin.
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
 The Organic Maps community abides by the CNCF [code of conduct](https://github.com/organicmaps/organicmaps/blob/master/docs/CODE_OF_CONDUCT.md).
+=======
+The Organic Maps community abides by the CNCF [code of conduct.](https://github.com/organicmaps/organicmaps/blob/master/docs/CODE_OF_CONDUCT.md)
+>>>>>>> ceae858723 (Added the Link to code of conduct in Readme)
+=======
+The Organic Maps community abides by the CNCF [code of conduct](https://github.com/organicmaps/organicmaps/blob/master/docs/CODE_OF_CONDUCT.md).
+>>>>>>> d8722fe56b (Update README.md)
+=======
+The Organic Maps community abides by the CNCF [code of conduct](https://github.com/organicmaps/organicmaps/blob/master/docs/CODE_OF_CONDUCT.md).
+>>>>>>> 74fd593e1ae6dde6294662dfd1ca637f5adff26e
