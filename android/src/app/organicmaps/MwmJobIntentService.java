@@ -14,7 +14,6 @@ import androidx.work.WorkerParameters;
 
 import java.util.logging.Logger;
 
-@SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/4531
 public abstract class MwmJobIntentService extends Worker {
     private static final String TAG = MwmJobIntentService.class.getSimpleName();
 
