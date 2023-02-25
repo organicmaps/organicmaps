@@ -1,53 +1,53 @@
-‣ Our free app does not track you, does not have ads, and it needs your support.
-‣ It is constantly being improved by contributors and our small team, in our free time.
-‣ If something is wrong or missing on the map, please fix it in <b>OpenStreetMap</b> and see your changes in the future maps update.
-‣ If navigation or search doesn't work, please email us. We reply to <i>EVERY</i> email, and we'll fix it ASAP!
+‣ हमारा निःशुल्क ऐप आपको ट्रैक नहीं करता है, विज्ञापन रहित है, और इसे आपके समर्थन की आवश्यकता है।
+‣ हमारे खाली समय में योगदानकर्ताओं और हमारी छोटी टीम द्वारा इसमें लगातार सुधार किया जा रहा है।
+‣ अगर नक्शे में कुछ गलत है या गायब है, तो कृपया इसे <b>ऑर्गेनिक मैप्स"</b> में ठीक करें और भविष्य के मानचित्र अपडेट में अपने परिवर्तन देखें।
+‣ अगर नेविगेशन या सर्च (खोज) काम नहीं करता है, कृपया हमें ईमेल करें. हम <i>हर</i> ईमेल का जवाब देते हैं, और हम इसे जल्द से जल्द ठीक कर देंगे!
 
-<b>Your feedback and 5-star reviews are the best motivators for us!</b>
+<b>आपकी प्रतिक्रिया और 5-स्टार टिप्पणियाँ हमारे लिए सर्वश्रेष्ठ प्रेरक हैं!</b>
 
-Key features:
+प्रमुख विशेषताऐं:
 
-• Free, open-source, no ads, no tracking
-• Detailed offline maps with places that don't exist on Google maps, thanks to the <b>OpenStreetMap</b> community
-• Cycling routes, hiking trails, and walking paths
-• Contour lines, elevation profiles, peaks, and slopes
-• Turn-by-turn walking, cycling, and EXPERIMENTAL car navigation with voice guidance
-• Fast offline search
-• Bookmarks export and import in KML/KMZ formats (GPX is coming soon)
-• Dark mode to protect your eyes
+• नि:शुल्क, ओपन-सोर्स, कोई विज्ञापन नहीं, कोई ट्रैकिंग नहीं
+• विस्तृत ऑफ़लाइन मानचित्र उन स्थानों के साथ जो Google मानचित्र पर मौजूद नहीं हैं, <b>ओपन स्ट्रीट मैप</b> समुदाय के सौजन्य से
+• साइकिल मार्ग, लंबी पैदल यात्रा के रास्ते और पैदल पथ
+• समोच्च रेखाएँ, उन्नयन प्रोफाइल, चोटियाँ और ढलान
+• मोड़-दर-मोड़ आवाज मार्गदर्शन,पैदल, साइकिल और "प्रयोगात्मक तौर पर" कार यात्रा के लिए
+• तेज़ ऑफ़लाइन खोज
+• बुकमार्क KML/KMZ स्वरूपों में निर्यात और आयात करते हैं (जीपीएक्स जल्द ही आ रहा है)
+• आपकी आंखों की सुरक्षा के लिए डार्क मोड
 
-There is no Android Auto, public transport, satellite maps, and other cool features <i>yet</i> in Organic Maps. But with <i>your help and support</i>, we can make this world better step by step.
+ऑर्गेनिक मैप्स में <i>अभी तक</i> कोई Android Auto, सार्वजनिक परिवहन, उपग्रह मानचित्र और अन्य शानदार सुविधाएँ नहीं हैं। लेकिन <i>आपकी मदद और समर्थन</i> से हम इस दुनिया को कदम दर कदम बेहतर बना सकते हैं।
 
-Organic Maps is <b>pure and organic, made with love</b>:
+ऑर्गेनिक मैप्स <b>शुद्ध और ऑर्गेनिक होते हैं, जिन्हें प्यार से बनाया गया है</b>:
 
-• Blazing fast offline experience
-• Respects your privacy
-• Saves your battery
-• No unexpected mobile data charges
-• Simple to use, with only most important features included
+• जबरदस्त तेज ऑफ़लाइन अनुभव
+• आपकी गोपनीयता का सम्मान करता है
+• आपकी बैटरी बचाता है
+• कोई अप्रत्याशित मोबाइल डेटा शुल्क नहीं
+• उपयोग करने में सरल, केवल सबसे महत्वपूर्ण सुविधाओं के साथ
 
-Free from trackers and other bad stuff:
+ट्रैकर्स और अन्य खराब सामान से मुक्त:
 
-• No ads
-• No tracking
-• No data collection
-• No phoning home
-• No annoying registration
-• No mandatory tutorials
-• No noisy email spam
-• No push notifications
-• No crapware
-• N̶o̶ ̶p̶e̶s̶t̶i̶c̶i̶d̶e̶s̶ Purely organic
+• विज्ञापन नहीं
+• ट्रैकिंग नहीं
+• कोई डेटा संग्रह नहीं
+• कोई जासूसी नहीं 
+• कोई कष्टप्रद पंजीकरण नहीं
+• कोई अनिवार्य ट्यूटोरियल नहीं
+• कोई ईमेल स्पैम नहीं
+• कोई पुश नोटिफिकेशन नहीं
+• कोई बकवास नहीं
+• N̶o̶ ̶p̶e̶s̶t̶i̶c̶i̶d̶e̶s̶ शुद्ध ऑर्गेनिक :)
 
-At Organic Maps, we believe that <b>privacy is a fundamental human right</b>:
+ऑर्गेनिक मैप्स में, हम मानते हैं कि <b>गोपनीयता एक मौलिक मानव अधिकार है</b>:
 
-• Organic Maps is an indie community-driven open-source project
-• We protect privacy from Big Tech's prying eyes
-• Stay safe no matter wherever you are
+• ऑर्गेनिक मैप्स एक स्वतंत्र समुदाय संचालित ओपन-सोर्स प्रोजेक्ट है
+• हम बिग टेक की ताक-झांक से गोपनीयता की रक्षा करते हैं
+• आप जहां भी हैं सुरक्षित रहें
 
-Zero trackers and only minimally required permissions are found according to Exodus Privacy Report.
+एक्सोडस गोपनीयता रिपोर्ट के अनुसार हमारे ऐप में शून्य ट्रैकर्स और केवल न्यूनतम आवश्यक अनुमतियाँ पाई गयी हैं.
 
-Please visit <b><i>organicmaps.app</i></b> website for additional details and FAQ, and contact us directly at @OrganicMapsApp in Telegram.
+अतिरिक्त विवरण और अक्सर पूछे जाने वाले प्रश्नों के लिए कृपया <b><i>organicmaps.app</i></b> वेबसाइट पर जाएं, और टेलीग्राम में @OrganicMapsApp पर सीधे हमसे संपर्क करें।
 
-Reject surveillance - embrace your freedom.
-<b>Give Organic Maps a try!</b>
+निगरानी को अस्वीकार करें - अपनी स्वतंत्रता को अपनाएं।
+<b>ऑर्गेनिक मानचित्रों को आज़माएं!</b>

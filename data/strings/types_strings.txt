@@ -18735,6 +18735,9 @@
 
   [type.railway.station.subway.berlin]
     ref = type.railway.station.subway
+    
+  [type.railway.station.subway.bilbao]
+    ref = type.railway.station.subway
 
   [type.railway.station.subway.brasilia]
     ref = type.railway.station.subway
@@ -19036,7 +19039,7 @@
     it = Binari della metrò
     mr = भुयारी मार्गिका
     nl = Metro
-    pt = Metropolitano
+    pt = Metro
     pt-BR = Metrô
     ru = Ветка метро
     tr = Metro Hattı
@@ -19050,8 +19053,8 @@
     fr = Voie de métro
     mr = भुयारी मार्गिका
     nl = Metrobrug
-    pt = Metropolitano
-    pt-BR = Metrô
+    pt = Ponte de metro
+    pt-BR = Ponte de metrô
     ru = Ветка метро
     tr = Metro Hattı
     uk = Лінія метро
@@ -19064,8 +19067,8 @@
     fr = Voie de métro
     mr = भुयारी मार्गिका
     nl = Metrotunnel
-    pt = Metropolitano
-    pt-BR = Metrô
+    pt = Túnel de metro
+    pt-BR = Tunel de metrô
     ru = Ветка метро
     tr = Metro Hattı
     uk = Лінія метро
@@ -19142,6 +19145,9 @@
     ref = type.railway.subway_entrance
 
   [type.railway.subway_entrance.berlin]
+    ref = type.railway.subway_entrance
+    
+  [type.railway.subway_entrance.bilbao]
     ref = type.railway.subway_entrance
 
   [type.railway.subway_entrance.brasilia]

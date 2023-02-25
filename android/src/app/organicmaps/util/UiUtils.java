@@ -36,6 +36,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
@@ -410,9 +411,9 @@ public final class UiUtils
     }
   }
 
-  public static void extendViewWithStatusBar(@NonNull View view, WindowInsets windowInsets)
+  public static void extendViewWithStatusBar(@NonNull View view, WindowInsetsCompat windowInsets)
   {
-    final int height = windowInsets.getSystemWindowInsetTop();
+    final int height = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
     final ViewGroup.LayoutParams lp = view.getLayoutParams();
     // Extend the height only when necessary
     if (lp.height != ViewGroup.LayoutParams.WRAP_CONTENT && view.getPaddingTop() < height)
@@ -423,39 +424,31 @@ public final class UiUtils
     setViewInsetsPaddingNoBottom(view, windowInsets);
   }
 
-  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3631
-  public static void setViewInsetsPadding(View view, WindowInsets windowInsets)
+  public static void setViewInsetsPadding(View view, WindowInsetsCompat windowInsets)
   {
-    view.setPadding(windowInsets.getSystemWindowInsetLeft(), windowInsets.getSystemWindowInsetTop(),
-                    windowInsets.getSystemWindowInsetRight(), windowInsets.getSystemWindowInsetBottom());
+    final Insets systemInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+    view.setPadding(systemInsets.left, systemInsets.top,
+                    systemInsets.right, systemInsets.bottom);
   }
 
-  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3631
-  public static void setViewInsetsPaddingNoTop(View view, WindowInsets windowInsets)
+  public static void setViewInsetsPaddingNoTop(View view, WindowInsetsCompat windowInsets)
   {
-    view.setPadding(windowInsets.getSystemWindowInsetLeft(), view.getPaddingTop(),
-                    windowInsets.getSystemWindowInsetRight(), windowInsets.getSystemWindowInsetBottom());
+    final Insets systemInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+    view.setPadding(systemInsets.left, view.getPaddingTop(),
+                    systemInsets.right, systemInsets.bottom);
   }
-
-  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3631
-  public static void setViewInsetsPaddingSides(View view, WindowInsets windowInsets)
+  public static void setViewInsetsPaddingBottom(View view, WindowInsetsCompat windowInsets)
   {
-    view.setPadding(windowInsets.getSystemWindowInsetLeft(), view.getPaddingTop(),
-                    windowInsets.getSystemWindowInsetRight(), view.getPaddingBottom());
-  }
-
-  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3631
-  public static void setViewInsetsPaddingBottom(View view, WindowInsets windowInsets)
-  {
+    final Insets systemInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
     view.setPadding(view.getPaddingLeft(), view.getPaddingTop(),
-                    view.getPaddingRight(), windowInsets.getSystemWindowInsetBottom());
+                    view.getPaddingRight(), systemInsets.bottom);
   }
 
-  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3631
-  public static void setViewInsetsPaddingNoBottom(View view, WindowInsets windowInsets)
+  public static void setViewInsetsPaddingNoBottom(View view, WindowInsetsCompat windowInsets)
   {
-    view.setPadding(windowInsets.getSystemWindowInsetLeft(), windowInsets.getSystemWindowInsetTop(),
-                    windowInsets.getSystemWindowInsetRight(), view.getPaddingBottom());
+    final Insets systemInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+    view.setPadding(systemInsets.left, systemInsets.top,
+                    systemInsets.right, view.getPaddingBottom());
   }
 
   public static void setupNavigationIcon(@NonNull Toolbar toolbar,

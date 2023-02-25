@@ -798,9 +798,12 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
       continue;
     }
 
-    if (ft->GetGeomType() == feature::GeomType::Point)
+    // We transform all cities into point Features on generator stage.
+    ASSERT_EQUAL(ft->GetGeomType(), feature::GeomType::Point, (ft->GetID()));
     {
       City city(std::move(l), Model::TYPE_CITY);
+
+      auto const center = ft->GetCenter();
 
       CitiesBoundariesTable::Boundaries boundaries;
       bool haveBoundary = false;
@@ -808,20 +811,25 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
       {
         city.m_rect = boundaries.GetLimitRect();
         if (city.m_rect.IsValid())
-          haveBoundary = true;
+        {
+          /// @todo Replace with assert in future. Now make additional check for compatibility with old "buggy" World.
+          if (city.m_rect.IsPointInside(center))
+            haveBoundary = true;
+          //else
+          //  ASSERT(false, (city.m_rect, center, ft->GetID()));
+        }
       }
 
       if (!haveBoundary)
       {
-        auto const center = feature::GetCenter(*ft);
         auto const population = ftypes::GetPopulation(*ft);
         auto const radius = ftypes::GetRadiusByPopulation(population);
         city.m_rect = mercator::RectByCenterXYAndSizeInMeters(center, radius);
       }
 
       LOG(LDEBUG,
-          ("City =", ft->GetName(StringUtf8Multilang::kDefaultCode), "rect =", city.m_rect,
-           "rect source:", haveBoundary ? "table" : "population",
+          ("City =", ft->GetName(StringUtf8Multilang::kDefaultCode), "ll =", mercator::ToLatLon(center),
+           "rect =", mercator::ToLatLon(city.m_rect), "rect source:", haveBoundary ? "table" : "population",
            "sizeX =", mercator::DistanceOnEarth(city.m_rect.LeftTop(), city.m_rect.RightTop()),
            "sizeY =", mercator::DistanceOnEarth(city.m_rect.LeftTop(), city.m_rect.LeftBottom())));
 
@@ -844,20 +852,15 @@ void Geocoder::FillVillageLocalities(BaseContext const & ctx)
     if (m_model.GetType(*ft) != Model::TYPE_VILLAGE)
       continue;
 
-    m2::PointD center;
-    if (!m_context->GetCenter(l.m_featureId, center))
-    {
-      // In general, we don't have centers for newly created features, but editor doesn't support localities now.
-      ASSERT(false, (l.m_featureId, "Village feature without table's center"));
-      continue;
-    }
+    ASSERT_EQUAL(ft->GetGeomType(), feature::GeomType::Point, (ft->GetID()));
 
-    vector<m2::PointD> pivotPoints = {m_params.m_pivot.Center()};
-    if (m_params.m_position)
-      pivotPoints.push_back(*m_params.m_position);
+    auto const center = ft->GetCenter();
 
     // Always grab top kMaxNumVillages, despite of the distance.
     /*
+    vector<m2::PointD> pivotPoints = {m_params.m_pivot.Center()};
+    if (m_params.m_position)
+      pivotPoints.push_back(*m_params.m_position);
     if (!m_context->GetType().m_containsMatchedState &&
         all_of(pivotPoints.begin(), pivotPoints.end(), [&](auto const & p) {
           return mercator::DistanceOnEarth(center, p) > m_params.m_filteringParams.m_villageSearchRadiusM;
@@ -873,7 +876,8 @@ void Geocoder::FillVillageLocalities(BaseContext const & ctx)
     auto const radius = ftypes::GetRadiusByPopulation(population);
     village.m_rect = mercator::RectByCenterXYAndSizeInMeters(center, radius);
 
-    LOG(LDEBUG, ("Village =", ft->GetName(StringUtf8Multilang::kDefaultCode), "radius =", radius));
+    LOG(LDEBUG, ("Village =", ft->GetName(StringUtf8Multilang::kDefaultCode),
+                 "ll =", mercator::ToLatLon(center), "radius =", radius));
 
     m_cities[village.m_tokenRange].push_back(std::move(village));
   }

@@ -66,7 +66,7 @@ who did what, and for legal reasons.
 
 To sign-off a patch, just add a line in the commit message saying:
 
-    Signed-off-by: Some Developer somedev@example.com
+    Signed-off-by: Some Developer <somedev@example.com>
 
 Git has a flag that can sign a commit for you. An example using it is:
 

@@ -2150,9 +2150,9 @@ UNIT_CLASS_TEST(ProcessorTest, HouseOnStreetSynonymsWithMisprints)
     Rules rulesWithStreet = {ExactMatch(countryId, houseTverskoi), ExactMatch(countryId, tverskoi)};
     TEST(AlternativeMatch("tverskoi 3", {rules, rulesWithStreet}), ());
     TEST(AlternativeMatch("tverskoi boulevard 3", {rules, rulesWithStreet}), ());
-    TEST(AlternativeMatch("tverskoi bulevard 3", {rules, rulesWithStreet}), ());
+    TEST(AlternativeMatch("tverskooi bulevard 3", {rules, rulesWithStreet}), ());
     TEST(AlternativeMatch("tverskoi blvd 3", {rules, rulesWithStreet}), ());
-    TEST(AlternativeMatch("tverskoi blvrd 3", {rules, rulesWithStreet}), ());
+    TEST(AlternativeMatch("tveskoi blvrd 3", {rules, rulesWithStreet}), ());
     TEST(AlternativeMatch("tverskoi boulevrd 3", {rules, rulesWithStreet}), ());
     TEST(AlternativeMatch("tverskoi bolevard 3", {rules, rulesWithStreet}), ());
   }
@@ -2161,9 +2161,10 @@ UNIT_CLASS_TEST(ProcessorTest, HouseOnStreetSynonymsWithMisprints)
     Rules rulesWithStreet = {ExactMatch(countryId, houseLeninsky), ExactMatch(countryId, leninsky)};
     TEST(AlternativeMatch("leninsky 5", {rules, rulesWithStreet}), ());
     TEST(AlternativeMatch("leninsky avenue 5", {rules, rulesWithStreet}), ());
-    TEST(AlternativeMatch("leninsky avenu 5", {rules, rulesWithStreet}), ());
+    TEST(AlternativeMatch("leninnsky avenu 5", {rules, rulesWithStreet}), ());
     TEST(AlternativeMatch("leninsky avneue 5", {rules, rulesWithStreet}), ());
     TEST(AlternativeMatch("leninsky av 5", {rules, rulesWithStreet}), ());
+    TEST(AlternativeMatch("lenisky ave 5", {rules, rulesWithStreet}), ());
   }
   {
     Rules rules = {ExactMatch(countryId, houseMira)};
@@ -3190,16 +3191,14 @@ UNIT_CLASS_TEST(ProcessorTest, PoiStreetCity_FancyMatch)
 
   SetViewport(RectByCenterLatLonAndSizeInMeters(53.8861373, 27.5492881, 100));  // Minsk
 
-  auto request = MakeRequest("улица Толстого Молодечно");
-  auto const & results = request->Results();
-
-  TEST_EQUAL(results.size(), 3, ());
-
   // moloBusStop (on second place) was matched like:
   // prefix name match = "улица", near street = "Толстого", in city = "Молодечно".
-  TEST(ResultsMatch({results[0]}, {ExactMatch(countryId, moloStreet)}), ());
-  TEST(ResultsMatch({results[1]}, {ExactMatch(countryId, moloBusStop)}), ());
-  TEST(ResultsMatch({results[2]}, {ExactMatch(countryId, minskStreet)}), ());
+  Rules const rules = {
+    ExactMatch(countryId, moloStreet),
+    ExactMatch(countryId, moloBusStop),
+    ExactMatch(countryId, minskStreet),
+  };
+  TEST(OrderedResultsMatch("улица Толстого Молодечно", rules), ());
 }
 
 UNIT_CLASS_TEST(ProcessorTest, ComplexPoi_Rank)
@@ -3305,8 +3304,8 @@ UNIT_CLASS_TEST(ProcessorTest, StreetCategories)
 
   {
     Rules const rules = {
+      ExactMatch(wonderlandId, street),
       ExactMatch(wonderlandId, bus),
-      ExactMatch(wonderlandId, street)
     };
     TEST(OrderedResultsMatch("avenida santa fe ", rules), ());
   }

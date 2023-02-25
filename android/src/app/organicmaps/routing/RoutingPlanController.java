@@ -13,6 +13,7 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import androidx.core.view.ViewCompat;
 import app.organicmaps.Framework;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
@@ -105,7 +106,7 @@ public class RoutingPlanController extends ToolbarController
     mAnimToggle = MwmApplication.from(activity.getApplicationContext())
                                 .getResources().getInteger(R.integer.anim_default);
 
-    mFrame.setOnApplyWindowInsetsListener((view, windowInsets) -> {
+    ViewCompat.setOnApplyWindowInsetsListener(mFrame, (view, windowInsets) -> {
       UiUtils.setViewInsetsPaddingNoTop(activity.findViewById(R.id.menu_frame), windowInsets);
       return windowInsets;
     });
