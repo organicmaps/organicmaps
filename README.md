@@ -148,6 +148,7 @@ and [Google Play](https://play.google.com/store/apps/details?id=app.organicmaps)
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 The Organic Maps community abides by the CNCF [code of conduct](https://github.com/organicmaps/organicmaps/blob/master/docs/CODE_OF_CONDUCT.md).
 =======
 The Organic Maps community abides by the CNCF [code of conduct.](https://github.com/organicmaps/organicmaps/blob/master/docs/CODE_OF_CONDUCT.md)
@@ -155,3 +156,6 @@ The Organic Maps community abides by the CNCF [code of conduct.](https://github.
 =======
 The Organic Maps community abides by the CNCF [code of conduct](https://github.com/organicmaps/organicmaps/blob/master/docs/CODE_OF_CONDUCT.md).
 >>>>>>> d8722fe56b (Update README.md)
+=======
+The Organic Maps community abides by the CNCF [code of conduct](https://github.com/organicmaps/organicmaps/blob/master/docs/CODE_OF_CONDUCT.md).
+>>>>>>> 74fd593e1ae6dde6294662dfd1ca637f5adff26e
