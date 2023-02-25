@@ -770,6 +770,7 @@
 	<string name="type.amenity.internet_cafe">مقهى إنترنت</string>
 	<string name="type.amenity.kindergarten">حضانة أطفال</string>
 	<string name="type.amenity.library">مكتبة</string>
+	<string name="type.amenity.loading_dock">رصيف التحميل</string>
 	<string name="type.amenity.marketplace">سوق</string>
 	<string name="type.amenity.motorcycle_parking">موقف دراجات نارية</string>
 	<string name="type.amenity.nightclub">نادي ليلي</string>

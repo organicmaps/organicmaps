@@ -717,6 +717,7 @@
 
 	<!-- SECTION: Types -->
 	<string name="type.leisure.bowling_alley">Bolera</string>
+	<string name="type.amenity.loading_dock">Moll de càrrega</string>
 
 	<!-- SECTION: Types: Recycling -->
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->

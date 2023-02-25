@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "Kütüphane";
 
+"type.amenity.loading_dock" = "Yükleme alanı";
+
 "type.amenity.marketplace" = "Pazaryeri";
 
 "type.amenity.motorcycle_parking" = "Motosiklet Parkı";

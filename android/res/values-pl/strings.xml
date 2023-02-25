@@ -779,6 +779,7 @@
 	<string name="type.amenity.internet_cafe">Kafejka internetowa</string>
 	<string name="type.amenity.kindergarten">Przedszkole</string>
 	<string name="type.amenity.library">Biblioteka</string>
+	<string name="type.amenity.loading_dock">Dok załadunkowy</string>
 	<string name="type.amenity.marketplace">Targ</string>
 	<string name="type.amenity.motorcycle_parking">Parking motocyklowy</string>
 	<string name="type.amenity.nightclub">Klub nocny</string>

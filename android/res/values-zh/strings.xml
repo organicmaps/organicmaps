@@ -742,6 +742,7 @@
 	<string name="type.amenity.internet_cafe">网吧</string>
 	<string name="type.amenity.kindergarten">幼儿园</string>
 	<string name="type.amenity.library">图书馆</string>
+	<string name="type.amenity.loading_dock">装卸码头</string>
 	<string name="type.amenity.marketplace">市场</string>
 	<string name="type.amenity.motorcycle_parking">摩托车停车场</string>
 	<string name="type.amenity.nightclub">夜总会</string>

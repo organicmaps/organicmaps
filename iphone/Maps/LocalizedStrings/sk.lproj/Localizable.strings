@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "Knižnica";
 
+"type.amenity.loading_dock" = "Nakladacia rampa";
+
 "type.amenity.marketplace" = "Trhovisko";
 
 "type.amenity.motorcycle_parking" = "Parkovisko pre motocykle";

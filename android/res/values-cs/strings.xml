@@ -732,6 +732,7 @@
 	<string name="type.amenity.internet_cafe">Internetová kavárna</string>
 	<string name="type.amenity.kindergarten">Školka</string>
 	<string name="type.amenity.library">Knihovna</string>
+	<string name="type.amenity.loading_dock">Nakládaci dok</string>
 	<string name="type.amenity.marketplace">Tržiště</string>
 	<string name="type.amenity.motorcycle_parking">Parkování pro motocykly</string>
 	<string name="type.amenity.nightclub">Noční klub</string>

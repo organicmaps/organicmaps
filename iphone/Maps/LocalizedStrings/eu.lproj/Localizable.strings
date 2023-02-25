@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "Liburutegia";
 
+"type.amenity.loading_dock" = "Kargatzeko kaia";
+
 "type.amenity.marketplace" = "Merkatua";
 
 "type.amenity.motorcycle_parking" = "Motoentzako aparkalekua";

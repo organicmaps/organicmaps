@@ -720,6 +720,7 @@
 	<string name="type.amenity.internet_cafe">کافی نت</string>
 	<string name="type.amenity.kindergarten">مهدکودک</string>
 	<string name="type.amenity.library">کتابخانه</string>
+	<string name="type.amenity.loading_dock">اسکله بارگیری</string>
 	<string name="type.amenity.marketplace">فروشگاه</string>
 	<string name="type.amenity.motorcycle_parking">پارکینگ موتورسیکلت</string>
 	<string name="type.amenity.nightclub">کلوپ شبانه</string>

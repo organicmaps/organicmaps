@@ -795,6 +795,7 @@
 	<string name="type.amenity.internet_cafe">Интернет-кафе</string>
 	<string name="type.amenity.kindergarten">Детсад</string>
 	<string name="type.amenity.library">Библиотека</string>
+	<string name="type.amenity.loading_dock">Погрузочный док</string>
 	<string name="type.amenity.marketplace">Рынок</string>
 	<string name="type.amenity.motorcycle_parking">Мотопарковка</string>
 	<string name="type.amenity.nightclub">Ночной клуб</string>

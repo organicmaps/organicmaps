@@ -815,6 +815,7 @@
 	<string name="type.amenity.internet_cafe">Internet Cafe</string>
 	<string name="type.amenity.kindergarten">Kindergarten</string>
 	<string name="type.amenity.library">Library</string>
+	<string name="type.amenity.loading_dock">Loading Dock</string>
 	<string name="type.amenity.marketplace">Marketplace</string>
 	<string name="type.amenity.motorcycle_parking">Motorcycle Parking</string>
 	<string name="type.amenity.nightclub">Nightclub</string>

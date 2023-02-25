@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "Könyvtár";
 
+"type.amenity.loading_dock" = "Rakodó";
+
 "type.amenity.marketplace" = "Piac";
 
 "type.amenity.motorcycle_parking" = "Motorbicikli parkoló";

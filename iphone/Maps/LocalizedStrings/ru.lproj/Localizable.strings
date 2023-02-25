@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "Библиотека";
 
+"type.amenity.loading_dock" = "Погрузочный док";
+
 "type.amenity.marketplace" = "Рынок";
 
 "type.amenity.motorcycle_parking" = "Мотопарковка";

@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "圖書館";
 
+"type.amenity.loading_dock" = "裝卸碼頭";
+
 "type.amenity.marketplace" = "市場";
 
 "type.amenity.motorcycle_parking" = "機車停車格";

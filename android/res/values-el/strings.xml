@@ -718,6 +718,7 @@
 	<string name="type.amenity.internet_cafe">Καφετέρια με Ίντερνετ</string>
 	<string name="type.amenity.kindergarten">Νηπιαγωγείο</string>
 	<string name="type.amenity.library">Βιβλιοθήκη</string>
+	<string name="type.amenity.loading_dock">Αποβάθρα φόρτωσης</string>
 	<string name="type.amenity.marketplace">Αγορά</string>
 	<string name="type.amenity.motorcycle_parking">Χώρος στάθμευσης μοτοσικλετών</string>
 	<string name="type.amenity.nightclub">Νυχτερινό κέντρο διασκέδασης</string>

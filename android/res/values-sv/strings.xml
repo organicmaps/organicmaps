@@ -715,6 +715,7 @@
 	<string name="type.amenity.internet_cafe">Internetkafé</string>
 	<string name="type.amenity.kindergarten">Förskola</string>
 	<string name="type.amenity.library">Bibliotek</string>
+	<string name="type.amenity.loading_dock">Lastkaj</string>
 	<string name="type.amenity.marketplace">Marknadsplats</string>
 	<string name="type.amenity.motorcycle_parking">Motorcykelparkering</string>
 	<string name="type.amenity.nightclub">Nattklubb</string>

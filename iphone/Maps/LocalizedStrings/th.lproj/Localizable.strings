@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "ห้องสมุด";
 
+"type.amenity.loading_dock" = "แทนวางสนคา";
+
 "type.amenity.marketplace" = "ตลาดสินค้า";
 
 "type.amenity.motorcycle_parking" = "ที่จอดรถมอเตอร์ไซค์";

@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "کتابخانه";
 
+"type.amenity.loading_dock" = "اسکله بارگیری";
+
 "type.amenity.marketplace" = "فروشگاه";
 
 "type.amenity.motorcycle_parking" = "پارکینگ موتورسیکلت";

@@ -774,6 +774,7 @@
 	<string name="type.amenity.ice_cream">Eisstand</string>
 	<string name="type.amenity.internet_cafe">Internetcafé</string>
 	<string name="type.amenity.library">Bibliothek</string>
+	<string name="type.amenity.loading_dock">Laderampe</string>
 	<string name="type.amenity.marketplace">Marktplatz</string>
 	<string name="type.amenity.motorcycle_parking">Motorrad-Parkplatz</string>
 	<string name="type.amenity.nightclub">Nachtclub</string>

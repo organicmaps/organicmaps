@@ -741,6 +741,7 @@
 	<string name="type.amenity.internet_cafe">Internetkahvila</string>
 	<string name="type.amenity.kindergarten">Päiväkoti</string>
 	<string name="type.amenity.library">Kirjasto</string>
+	<string name="type.amenity.loading_dock">Lastauslaituri</string>
 	<string name="type.amenity.marketplace">Kauppatori</string>
 	<string name="type.amenity.motorcycle_parking">Moottoripyörien pysäköinti</string>
 	<string name="type.amenity.nightclub">Yökerho</string>
