@@ -502,6 +502,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">개인 정보를 입력하지 않았는지 확인하십시오.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap 편집자가 변경 사항을 확인하고 질문이 있는 경우 귀하에게 연락할 것입니다.</string>
+	<string name="navigation_stop_button">중지</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps는 무료 오픈 소스 오프라인 지도 애플리케이션입니다. 광고 없음. 추적이 없습니다. 지도에 오류가 표시되면 OpenStreetMap에서 수정하세요. 이 프로젝트는 여가 시간에 열광자들에 의해 만들어지므로 여러분의 피드백과 지원이 필요합니다.</string>
 	<!-- For the first routing -->
@@ -536,7 +537,6 @@
 	<string name="core_exit">끝내기</string>
 	<string name="routing_add_start_point">경로 계획을 세우기 위한 시작 지점을 추가하세요</string>
 	<string name="routing_add_finish_point">경로 계획을 세우기 위한 끝 지점을 추가하세요</string>
-	<string name="button_exit">끝내기</string>
 	<string name="placepage_remove_stop">제거</string>
 	<string name="placepage_add_stop">스톱 추가</string>
 	<string name="dialog_error_storage_title">저장소 액세스 문제</string>

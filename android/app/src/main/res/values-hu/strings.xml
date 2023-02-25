@@ -516,6 +516,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Győződj meg arról, hogy nem adsz meg semmilyen személyes információt.</string>
 	<string name="editor_share_to_all_dialog_message_2">Az OpenStreetMap szerkesztői ellenőrzik a változásokat, és felveszik Önnel a kapcsolatot, ha kérdéseik vannak.</string>
+	<string name="navigation_stop_button">megállítás</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Az Organic Maps egy gyors és ingyenes offline térképalkalmazás hirdetések és nyomkövetés nélkül. A térképek az OpenStreetMap.org közösség által fenntartott adatain alapulnak, így a térképen megtalálható hibákat te is javíthatod, és adhatsz hozzá új helyeket. Az Organic Maps egy nyílt forráskódú projekt, amelyet lelkes fejlesztők hoztak létre szabadidejükben. Visszajelzéseidet és támogatásodat nagyra értékeljük!</string>
 	<!-- For the first routing -->
@@ -550,7 +551,6 @@
 	<string name="core_exit">Kilépés</string>
 	<string name="routing_add_start_point">Adjon hozzá kiindulási pontot az útvonal megtervezéséhez</string>
 	<string name="routing_add_finish_point">Adjon hozzá végpontot az útvonal tervezéséhez</string>
-	<string name="button_exit">Kilépés</string>
 	<string name="placepage_remove_stop">Eltávolítja</string>
 	<string name="placepage_add_stop">Hozzáad megállót</string>
 	<string name="dialog_error_storage_title">Tároló hozzáférési hiba</string>

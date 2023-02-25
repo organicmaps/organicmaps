@@ -560,6 +560,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Make sure you did not enter any private or personal data.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap editors will check the changes and contact you if they have any questions.</string>
+	<string name="navigation_stop_button">stop</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps is a fast and free offline maps app without ads and tracking. Maps are based on crowd-sourced OpenStreetMap.org data, so you can fix mapping errors and add features there yourself. Organic Maps is an open-source project created by enthusiasts in their spare time. Your feedback and support are much appreciated!</string>
 	<!-- For the first routing -->
@@ -594,7 +595,6 @@
 	<string name="core_exit">Exit</string>
 	<string name="routing_add_start_point">Add a starting point to plan a route</string>
 	<string name="routing_add_finish_point">Add a destination to plan a route</string>
-	<string name="button_exit">Exit</string>
 	<string name="placepage_remove_stop">Remove</string>
 	<string name="placepage_add_stop">Add Stop</string>
 	<string name="dialog_error_storage_title">Storage access problem</string>

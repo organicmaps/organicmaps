@@ -93,7 +93,6 @@
 	<string name="core_exit">Toka</string>
 	<string name="routing_add_start_point">Ongeza eneo la kuanzia ili kupanga njia ya kufuata</string>
 	<string name="routing_add_finish_point">Ongeza eneo la kumalizia ili kupanga njia ya kufuata</string>
-	<string name="button_exit">Toka</string>
 	<string name="placepage_remove_stop">Ondoa</string>
 	<string name="placepage_add_stop">Ongeza eneo la kusimama</string>
 	<string name="dialog_error_storage_title">Tatizo la kufikia hifadhi</string>

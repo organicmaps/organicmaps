@@ -512,6 +512,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">确保您没有输入任何个人数据。</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap 编辑人员将检查更改并在有任何问题时与您联系。</string>
+	<string name="navigation_stop_button">停止</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps 是一款免费的开源离线地图应用程序。无广告。没有跟踪。如果您在地图上看到错误，请在 OpenStreetMap 中修复它。该项目由爱好者在我们的空闲时间创建，因此我们需要您的反馈和支持。</string>
 	<!-- For the first routing -->
@@ -546,7 +547,6 @@
 	<string name="core_exit">退出</string>
 	<string name="routing_add_start_point">添加起点以规划路线</string>
 	<string name="routing_add_finish_point">添加终点以规划路线</string>
-	<string name="button_exit">退出</string>
 	<string name="placepage_remove_stop">移除</string>
 	<string name="placepage_add_stop">添加经停点</string>
 	<string name="dialog_error_storage_title">存储空间访问问题</string>

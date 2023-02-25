@@ -524,6 +524,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Assegureu-vos que no heu introduït cap dada personal.</string>
 	<string name="editor_share_to_all_dialog_message_2">Revisarem els canvis. Si tenim cap pregunta contactem amb vós via correu electrònic.</string>
+	<string name="navigation_stop_button">atura\'t</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps és una aplicació de mapes sense connexió, ràpida, de codi lliure, gratuïta, sense anuncis ni seguiment. Els mapes es basen en les dades col·laboratives d\'OpenStreetMap. Podeu corregir errors del mapa i afegir-hi característiques. L\'Organic Maps és un projecte de codi obert creat per entusiastes en el seu temps lliure. Els vostres comentaris i suport són molt apreciats!</string>
 	<!-- For the first routing -->
@@ -558,7 +559,6 @@
 	<string name="core_exit">Surt</string>
 	<string name="routing_add_start_point">Afegiu un punt inical per a planificar una ruta</string>
 	<string name="routing_add_finish_point">Afegeiu la destinació per a planificar la ruta</string>
-	<string name="button_exit">Surt</string>
 	<string name="placepage_remove_stop">Elimina</string>
 	<string name="placepage_add_stop">Afegeix una parada</string>
 	<string name="dialog_error_storage_title">S\'ha produït un problema en l\'accés a l\'emmagatzematge</string>

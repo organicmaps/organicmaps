@@ -183,6 +183,7 @@ public enum LocationHelper implements Initializable<Context>, BaseLocationProvid
       listener.onLocationResolutionRequired(pendingIntent);
   }
 
+  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
   @Override
   @UiThread
   public void onFusedLocationUnsupported()
@@ -293,16 +294,11 @@ public enum LocationHelper implements Initializable<Context>, BaseLocationProvid
    * @see #start()
    *
    */
+  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
   public void restart()
   {
     Logger.d(TAG);
     stop();
-    if (ContextCompat.checkSelfPermission(mContext, ACCESS_COARSE_LOCATION) != PERMISSION_GRANTED &&
-        ContextCompat.checkSelfPermission(mContext, ACCESS_FINE_LOCATION) != PERMISSION_GRANTED)
-    {
-      Logger.w(TAG, "Location is not restarted in foreground because of missing permissions");
-      return;
-    }
     start();
   }
 

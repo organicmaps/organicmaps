@@ -500,6 +500,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Nezadávajte žiadne osobné udaje.</string>
 	<string name="editor_share_to_all_dialog_message_2">Redaktori OpenStreetMap skontrolujú zmeny a budú vás kontaktovať, ak budú mať nejaké otázky.</string>
+	<string name="navigation_stop_button">stop</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps je bezplatná offline aplikácia máp s otvoreným zdrojom. Žiadne reklamy. Žiadne sledovanie. Ak na mape vidíte chybu, opravte ju v OpenStreetMap. Projekt vytvárajú nadšenci v našom voľnom čase, preto potrebujeme vašu spätnú väzbu a podporu.</string>
 	<!-- For the first routing -->
@@ -534,7 +535,6 @@
 	<string name="core_exit">Ukončiť</string>
 	<string name="routing_add_start_point">Pridaním počiatočného bodu začnite plánovať trasu</string>
 	<string name="routing_add_finish_point">Pridaním cieľového bodu naplánujete trasu</string>
-	<string name="button_exit">Ukončiť</string>
 	<string name="placepage_remove_stop">Odstrániť</string>
 	<string name="placepage_add_stop">Pridať zastávku</string>
 	<string name="dialog_error_storage_title">Problém s prístupom k úložisku</string>

@@ -516,6 +516,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Asigură-te că nu ai introdus niciun fel de date personale.</string>
 	<string name="editor_share_to_all_dialog_message_2">Editorii OpenStreetMap vor verifica modificările și vor lua legătura cu dvs. dacă au întrebări.</string>
+	<string name="navigation_stop_button">oprește</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps este o aplicație rapidă și gratuită fără reclame și urmărire. Hărțile sunt bazate pe datele OpenStreetMap.org oferite de utilizatori, de aceea chiar și tu poți corecta erorile și adăuga obiecte noi pe hartă. Organic Maps este un proiect creat de entuziaști în timpul lor liber. Părerea și sprijinul tău sunt foarte importante pentru noi</string>
 	<!-- For the first routing -->
@@ -550,7 +551,6 @@
 	<string name="core_exit">Ieșire</string>
 	<string name="routing_add_start_point">Adaugă un punct de plecare pentru a planifica un traseu</string>
 	<string name="routing_add_finish_point">Adaugă un punct de sosire pentru a planifica un traseu</string>
-	<string name="button_exit">Ieșire</string>
 	<string name="placepage_remove_stop">Elimină</string>
 	<string name="placepage_add_stop">Adaugă oprire</string>
 	<string name="dialog_error_storage_title">Problemă de acces la spațiul de stocare</string>

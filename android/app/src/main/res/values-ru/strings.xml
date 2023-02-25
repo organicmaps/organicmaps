@@ -538,6 +538,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Убедитесь, что вы не ввели личные данные.</string>
 	<string name="editor_share_to_all_dialog_message_2">Редакторы OpenStreetMap проверят изменения и свяжутся с вами, если у них возникнут вопросы.</string>
+	<string name="navigation_stop_button">стоп</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps — быстрые и бесплатные карты, которые работают без Интернета. Все картографические данные берутся из OpenStreetMap.org, там можно самостоятельно исправлять ошибки и добавлять новые объекты. В Organic Maps нет рекламы и сбора персональных данных. Это проект с открытым исходным кодом, создаваемый энтузиастами в свободное время. Будем рады вашей поддержке и обратной связи!</string>
 	<!-- For the first routing -->
@@ -572,7 +573,6 @@
 	<string name="core_exit">Выход</string>
 	<string name="routing_add_start_point">Добавьте стартовую точку, чтобы построить маршрут</string>
 	<string name="routing_add_finish_point">Добавьте конечную точку, чтобы построить маршрут</string>
-	<string name="button_exit">Выход</string>
 	<string name="placepage_remove_stop">Удалить</string>
 	<string name="placepage_add_stop">Заехать</string>
 	<string name="dialog_error_storage_title">Проблема с доступом к хранилищу</string>

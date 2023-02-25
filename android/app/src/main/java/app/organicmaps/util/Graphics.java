@@ -6,6 +6,8 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
@@ -156,6 +158,19 @@ public final class Graphics
     final Bitmap bitmap = Bitmap.createBitmap(drawableWidth, drawableHeight, Bitmap.Config.ARGB_8888);
     final Canvas canvas = new Canvas(bitmap);
     drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+    drawable.draw(canvas);
+    return bitmap;
+  }
+
+  public static Bitmap drawableToBitmapWithTint(Drawable drawable, @ColorInt int color)
+  {
+    final int drawableWidth = Math.max(drawable.getIntrinsicWidth(), 1);
+    final int drawableHeight = Math.max(drawable.getIntrinsicHeight(), 1);
+    final Bitmap bitmap = Bitmap.createBitmap(drawableWidth, drawableHeight, Bitmap.Config.ARGB_8888);
+    final Canvas canvas = new Canvas(bitmap);
+    drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+    final ColorFilter filter = new LightingColorFilter(color, 1);
+    drawable.setColorFilter(filter);
     drawable.draw(canvas);
     return bitmap;
   }

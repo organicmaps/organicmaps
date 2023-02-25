@@ -533,6 +533,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Ziurtatu ez duzula datu pertsonalik sartu.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap editoreek aldaketak egiaztatuko dituzte eta zurekin harremanetan jarriko dira zalantzaren bat izanez gero.</string>
+	<string name="navigation_stop_button">gelditu</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps lineaz kanpoko mapa aplikazio doako eta irekia da. Iragarkirik ez. Ez dago jarraipenik. Mapan errore bat ikusten baduzu, konpondu OpenStreetMap-en. Proiektua zaleek sortu dute haien aisialdian, beraz, zure iritzia eta laguntza behar dugu.</string>
 	<!-- For the first routing -->
@@ -567,7 +568,6 @@
 	<string name="core_exit">Irten</string>
 	<string name="routing_add_start_point">Gehitu abiapuntu bat ibilbide bat antolatzeko</string>
 	<string name="routing_add_finish_point">Gehitu helmuga bat ibilbide bat antolatzeko</string>
-	<string name="button_exit">Irten</string>
 	<string name="placepage_remove_stop">Kendu</string>
 	<string name="placepage_add_stop">Gehitu geldiunea</string>
 	<string name="dialog_error_storage_title">Biltegiratze sarbidearen arazoa</string>

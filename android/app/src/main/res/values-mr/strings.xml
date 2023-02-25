@@ -499,6 +499,7 @@
 	<string name="editor_share_to_all_dialog_title">तुम्ही ते सर्व वापरकर्त्यांना पाठवू इच्छिता?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">आपण कोणतीही वैयक्तिक माहिती प्रविष्ट केला नाही याची खात्री करा.</string>
+	<string name="navigation_stop_button">थांबा</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps हे एक विनामूल्य, जलद व ऑफलाईन नकाशांचे ऍप आहे जिथे जाहिरातीही नसतात व तुम्ही माहिती देखील गोळा केला जात नाही. हे नकाशे OpenStreetMap ह्या जनयोगदान प्रकल्पावर आधारित असल्याने नकाशातील त्रुट्या सुधारणे, नवीन ठिकाण जोडणे हे आपण स्वतः करू शकता. Organic Maps हा काही उत्साही लोकांनी त्यांच्या ऐत्यावेळात निर्माण केलेला मुक्त स्त्रोत स्वरूपाचा प्रकल्प आहे. तुमचा पाठिंबा व अभिप्राय बहुमोल आहे.</string>
 	<!-- For the first routing -->
@@ -533,7 +534,6 @@
 	<string name="core_exit">बाहेर पडा</string>
 	<string name="routing_add_start_point">मार्ग नियोजित करण्यासाठी प्रारंभ बिंदू जोडा</string>
 	<string name="routing_add_finish_point">मार्ग नियोजित करण्यासाठी इष्टस्थान जोडा</string>
-	<string name="button_exit">बाहेर पडा</string>
 	<string name="placepage_remove_stop">काढा</string>
 	<string name="placepage_add_stop">स्टॉप जोडा</string>
 	<string name="dialog_error_storage_title">स्टोरेज प्रवेश समस्या</string>

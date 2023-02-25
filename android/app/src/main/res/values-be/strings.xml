@@ -529,6 +529,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Упэўніцеся, што вы не ўвялі ніякіх асабістых даных.</string>
 	<string name="editor_share_to_all_dialog_message_2">Рэдактары OpenStreetMap правераць змены і звяжуцца з вамі, калі ў іх узнікнуць пытанні.</string>
+	<string name="navigation_stop_button">спыніць</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps — гэта хуткія і бясплатныя мапы без рэкламы, якія працуюць без інтэрнэту і не шпіёняць за вамі. Усе картаграфічныя даныя бяруцца з OpenStreetMap.org, там вы зможаце самастойна выпраўляць памылкі і дадаваць новыя аб\'екты. Organic Maps — гэта праект з адкрытым зыходным кодам, які ствараецца энтузіястамі ў вольны час. Будзем рады вашай падтрымцы і зваротнай сувязі!</string>
 	<!-- For the first routing -->
@@ -563,7 +564,6 @@
 	<string name="core_exit">Выхад</string>
 	<string name="routing_add_start_point">Дадайце пункт адпраўлення, каб пракласці маршрут</string>
 	<string name="routing_add_finish_point">Дадайце пункт прызначэння, каб пракласці маршрут</string>
-	<string name="button_exit">Выхад</string>
 	<string name="placepage_remove_stop">Выдаліць</string>
 	<string name="placepage_add_stop">Дадаць прыпынак</string>
 	<string name="dialog_error_storage_title">Праблема з доступам да сховішча</string>

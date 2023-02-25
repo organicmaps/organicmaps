@@ -535,6 +535,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Varmista, ettet syöttänyt henkilökohtaisia tietojasi.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap-editorit tarkistavat muutokset ja ottavat sinuun yhteyttä, jos heillä on kysyttävää.</string>
+	<string name="navigation_stop_button">lopeta</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps on ilmainen ja avoimen lähdekoodin offline-karttasovellus. Ei mainoksia. Ei seurantaa. Jos näet virheen kartalla, korjaa se OpenStreetMapissa. Hankkeen ovat luoneet harrastajat vapaa-ajallaan, joten palautettasi ja tukeasi tarvitaan.</string>
 	<!-- For the first routing -->
@@ -569,7 +570,6 @@
 	<string name="core_exit">Poistu</string>
 	<string name="routing_add_start_point">Lisää alkupiste reitin suunnittelua varten</string>
 	<string name="routing_add_finish_point">Lisää määränpää reitin suunnittelua varten</string>
-	<string name="button_exit">Poistu</string>
 	<string name="placepage_remove_stop">Poista</string>
 	<string name="placepage_add_stop">Lisää pysähdys</string>
 	<string name="dialog_error_storage_title">Ongelma tallennustilan käyttämisessä</string>

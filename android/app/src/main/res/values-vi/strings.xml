@@ -502,6 +502,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Chắc chắn rằng bạn không nhập bất kỳ thông tin cá nhân nào.</string>
 	<string name="editor_share_to_all_dialog_message_2">Các biên tập viên của OpenStreetMap sẽ kiểm tra các thay đổi và liên hệ với bạn nếu họ có bất kỳ câu hỏi nào.</string>
+	<string name="navigation_stop_button">dừng</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps là một ứng dụng bản đồ ngoại tuyến mã nguồn mở và miễn phí. Không quảng cáo. Không theo dõi. Nếu bạn thấy lỗi trên bản đồ, hãy sửa lỗi đó trong OpenStreetMap. Dự án được tạo ra bởi những người đam mê trong thời gian rảnh của chúng tôi, vì vậy chúng tôi cần phản hồi và hỗ trợ của bạn.</string>
 	<!-- For the first routing -->
@@ -536,7 +537,6 @@
 	<string name="core_exit">Lối ra</string>
 	<string name="routing_add_start_point">Bổ sung điểm bắt đầu để lập kế hoạch lộ trình</string>
 	<string name="routing_add_finish_point">Bổ sung điểm kết thúc để lập kế hoạch lộ trình</string>
-	<string name="button_exit">Thoát</string>
 	<string name="placepage_remove_stop">Xóa</string>
 	<string name="placepage_add_stop">Thêm điểm dừng</string>
 	<string name="dialog_error_storage_title">Vấn đề truy cập ổ lưu trữ</string>

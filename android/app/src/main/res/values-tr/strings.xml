@@ -535,6 +535,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Herhangi bir kişisel bilgi girmediğinizden emin olun.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap editörleri değişikliklerinizi kontrol edecek ve bir soruları olursa sizinle iletişime geçecekler.</string>
+	<string name="navigation_stop_button">dur</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps, reklam ve izleyici içermeyen hızlı ve ücretsiz bir çevrimdışı harita uygulamasıdır. Haritalar kitle kaynaklı OpenStreetMap.org verilerine dayanmaktadır, böylece kendiniz harita hatalarını düzeltebilir ve haritaya yeni nesneler ekleyebilirsiniz. Organic Maps, teknoloji tutkunlarının boş zamanlarında oluşturduğu açık kaynaklı bir projedir. Geri bildirim ve desteğinize çok değer veriyoruz!</string>
 	<!-- For the first routing -->
@@ -569,7 +570,6 @@
 	<string name="core_exit">Çık</string>
 	<string name="routing_add_start_point">Rotayı planlamak için bir başlangıç noktası ekleyin</string>
 	<string name="routing_add_finish_point">Rotayı planlamak için bir varış noktası ekleyin</string>
-	<string name="button_exit">Çık</string>
 	<string name="placepage_remove_stop">Kaldır</string>
 	<string name="placepage_add_stop">Ara nokta ekle</string>
 	<string name="dialog_error_storage_title">Depolama alanı erişim sorunu</string>

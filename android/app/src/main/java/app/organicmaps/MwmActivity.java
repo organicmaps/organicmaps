@@ -74,6 +74,7 @@ import app.organicmaps.maplayer.isolines.IsolinesManager;
 import app.organicmaps.maplayer.isolines.IsolinesState;
 import app.organicmaps.maplayer.subway.SubwayManager;
 import app.organicmaps.routing.NavigationController;
+import app.organicmaps.routing.NavigationService;
 import app.organicmaps.routing.RoutePointInfo;
 import app.organicmaps.routing.RoutingBottomMenuListener;
 import app.organicmaps.routing.RoutingController;
@@ -857,8 +858,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
         fragment.saveRoutingPanelState(outState);
     }
 
-    mNavigationController.onActivitySaveInstanceState(this, outState);
-
     RoutingController.get().onSaveState();
 
     if (!isChangingConfigurations())
@@ -891,8 +890,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (!mIsTabletLayout && RoutingController.get().isPlanning())
       mRoutingPlanInplaceController.restoreState(savedInstanceState);
-
-    mNavigationController.onRestoreState(savedInstanceState, this);
   }
 
   @Override
@@ -1011,7 +1008,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mOnmapDownloader != null)
       mOnmapDownloader.onResume();
 
-    mNavigationController.onActivityResumed(this);
+    mNavigationController.refresh();
     refreshLightStatusBar();
 
     LocationState.nativeSetLocationPendingTimeoutListener(this::onLocationPendingTimeout);
@@ -1037,11 +1034,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   protected void onPause()
   {
-    if (!RoutingController.get().isNavigating())
-      TtsPlayer.INSTANCE.stop();
     if (mOnmapDownloader != null)
       mOnmapDownloader.onPause();
-    mNavigationController.onActivityPaused(this);
     LocationState.nativeRemoveLocationPendingTimeoutListener();
     SensorHelper.from(this).removeListener(this);
     dismissLocationErrorDialog();
@@ -1523,7 +1517,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     mRoutingPlanInplaceController.hideDrivingOptionsView();
-    mNavigationController.stop(this);
+    NavigationService.stopService(this);
     mMapButtonsViewModel.setSearchOption(null);
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.regular);
     refreshLightStatusBar();
@@ -1534,9 +1528,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     closeFloatingToolbarsAndPanels(true);
     ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
-    mNavigationController.start(this);
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.navigation);
     refreshLightStatusBar();
+
+    // Don't start the background navigation service without fine location.
+    if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PERMISSION_GRANTED)
+    {
+      Logger.w(LOCATION_TAG, "Permission ACCESS_FINE_LOCATION is not granted, skipping NavigationService");
+      return;
+    }
+
+    requestPostNotificationsPermission();
+    NavigationService.startForegroundService(this);
   }
 
   @Override
@@ -1560,7 +1563,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     closeFloatingToolbarsAndPanels(true);
     ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
-    mNavigationController.stop(this);
+    NavigationService.stopService(this);
     mMapButtonsViewModel.setSearchOption(null);
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.planning);
     refreshLightStatusBar();
@@ -1726,11 +1729,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     // because calling the native method 'nativeIsRouteFinished'
     // too often can result in poor UI performance.
     if (Framework.nativeIsRouteFinished())
-    {
       routing.cancel();
-      // Restart location with a new interval.
-      LocationHelper.INSTANCE.restart();
-    }
   }
 
   /**
@@ -1930,8 +1929,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    Logger.i(LOCATION_TAG, "Location resolution has been granted");
-    LocationHelper.INSTANCE.restart();
+    Logger.i(LOCATION_TAG, "Location resolution has been granted, restarting location");
+    LocationHelper.INSTANCE.stop();
+    startLocation();
   }
 
   /**

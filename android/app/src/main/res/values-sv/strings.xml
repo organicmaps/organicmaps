@@ -500,6 +500,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Se till att du inte angett någon personinformation</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap-redigerare kommer att kontrollera ändringarna och kontakta dig om de har några frågor.</string>
+	<string name="navigation_stop_button">stopp</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps är en gratis offlinekartapplikation med öppen källkod. Inga annonser. Ingen spårning. Om du ser ett fel på kartan, åtgärda det i OpenStreetMap. Projektet skapas av entusiaster på vår fritid, så vi behöver din feedback och support.</string>
 	<!-- For the first routing -->
@@ -534,7 +535,6 @@
 	<string name="core_exit">Avsluta</string>
 	<string name="routing_add_start_point">Lägg till startpunkt för att planera en rutt</string>
 	<string name="routing_add_finish_point">Lägg till slutpunkt för att planera en rutt</string>
-	<string name="button_exit">Avsluta</string>
 	<string name="placepage_remove_stop">Ta bort</string>
 	<string name="placepage_add_stop">Lägg till stopp</string>
 	<string name="dialog_error_storage_title">Lagringsåtkomstproblem</string>

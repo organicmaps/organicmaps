@@ -499,6 +499,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">مطمئن شوید که هیچ اطلاعات شخصی وارد نکرده باشد.</string>
 	<string name="editor_share_to_all_dialog_message_2">ویرایشگران OpenStreetMap ﺗﻐﯿﯿﺮﺍﺕ ﺭﺍ ﺑﺮﺭﺳﯽ ﮐﺮﺩﻩ ﻭ ﺩﺭ ﺻﻮﺭﺕ ﺩﺍﺷﺘﻦ ﻫﺮﮔﻮﻧﻪ ﺳﻮﺍﻝ ﺑﺎ ﺷﻤﺎ ﺗﻤﺎﺱ ﺧﻮﺍﻫﻨﺪ ﮔﺮﻓﺖ.</string>
+	<string name="navigation_stop_button">توقف</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps یک برنامه نقشه آفلاین رایگان و منبع باز است. بدون تبلیغات بدون ردیابی اگر خطایی روی نقشه مشاهده کردید، لطفاً آن را در OpenStreetMap برطرف کنید. این پروژه توسط علاقه مندان در اوقات فراغت ما ایجاد می شود، بنابراین ما به بازخورد و پشتیبانی شما نیاز داریم.</string>
 	<!-- For the first routing -->
@@ -533,7 +534,6 @@
 	<string name="core_exit">خروج</string>
 	<string name="routing_add_start_point">یک نقطه شروع برای برنامه ریزی یک مسیر اضافه کنید</string>
 	<string name="routing_add_finish_point">یک مقصد برای برنامه ریزی یک مسیر اضافه کنید</string>
-	<string name="button_exit">خروج</string>
 	<string name="placepage_remove_stop">حذف</string>
 	<string name="placepage_add_stop">اضافه کردن توقف</string>
 	<string name="dialog_error_storage_title">مشکل دسترسی به ذخیره‌سازی</string>

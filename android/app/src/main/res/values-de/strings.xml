@@ -531,6 +531,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Stellen Sie sicher, dass Sie keine persönlichen Daten eingegeben haben.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap-Redakteure werden die Änderungen prüfen und sich bei Fragen mit Ihnen in Verbindung setzen.</string>
+	<string name="navigation_stop_button">Stopp</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps ist eine schnelle und kostenlose Offline-Karten-App ohne Werbung und Tracking. Die Karten basieren auf den Daten von OpenStreetMap.org, so dass Sie selbst Kartenfehler beheben und Orte hinzufügen können. Organic Maps ist ein Open-Source-Projekt, das von Enthusiasten in ihrer Freizeit entwickelt wird. Ihr Feedback und Ihre Unterstützung sind sehr willkommen!</string>
 	<!-- For the first routing -->
@@ -565,7 +566,6 @@
 	<string name="core_exit">Ausgang</string>
 	<string name="routing_add_start_point">Fügen Sie einen Startpunkt hinzu, um eine Route zu planen</string>
 	<string name="routing_add_finish_point">Fügen Sie ein Ziel hinzu, um eine Route zu planen</string>
-	<string name="button_exit">Beenden</string>
 	<string name="placepage_remove_stop">Entfernen</string>
 	<string name="placepage_add_stop">Stopp einfügen</string>
 	<string name="dialog_error_storage_title">Problem mit dem Zugreifen auf den Speicher</string>

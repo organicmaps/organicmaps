@@ -504,6 +504,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">ตรวจสอบว่าคุณไม่ได้กรอกข้อมูลส่วนตัวใด ๆ</string>
 	<string name="editor_share_to_all_dialog_message_2">ผู้แก้ไข OpenStreetMap จะตรวจสอบการเปลี่ยนแปลงและติดต่อคุณหากมีคำถามใดๆ</string>
+	<string name="navigation_stop_button">หยุด</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps เป็นแอปพลิเคชันแผนที่ออฟไลน์แบบโอเพนซอร์สฟรี ไม่มีโฆษณา ไม่มีการติดตาม. หากคุณเห็นข้อผิดพลาดบนแผนที่ โปรดแก้ไขใน OpenStreetMap โครงการนี้สร้างขึ้นโดยผู้ที่ชื่นชอบในเวลาว่าง เราจึงต้องการความคิดเห็นและการสนับสนุนจากคุณ</string>
 	<!-- For the first routing -->
@@ -538,7 +539,6 @@
 	<string name="core_exit">ออก</string>
 	<string name="routing_add_start_point">เพิ่มจุดเริ่มต้นเพื่อวางแผนเส้นทาง</string>
 	<string name="routing_add_finish_point">เพิ่มจุดสิ้นสุดเพื่อวางแผนเส้นทาง</string>
-	<string name="button_exit">ออก</string>
 	<string name="placepage_remove_stop">เอาออก</string>
 	<string name="placepage_add_stop">เพิ่มจุดแวะพัก</string>
 	<string name="dialog_error_storage_title">ปัญหาการเข้าถึงที่เก็บข้อมูล</string>

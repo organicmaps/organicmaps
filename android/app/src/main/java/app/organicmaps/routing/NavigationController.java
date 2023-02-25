@@ -2,13 +2,9 @@ package app.organicmaps.routing;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -33,12 +29,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.Arrays;
 
-public class NavigationController implements Application.ActivityLifecycleCallbacks,
-                                             TrafficManager.TrafficCallback,
+public class NavigationController implements TrafficManager.TrafficCallback,
                                              NavMenu.NavMenuListener
 {
-  private static final String STATE_BOUND = "Bound";
-
   private final View mFrame;
 
   private final ImageView mNextTurnImage;
@@ -63,28 +56,6 @@ public class NavigationController implements Application.ActivityLifecycleCallba
 
   private final NavMenu mNavMenu;
   View.OnClickListener mOnSettingsClickListener;
-  @Nullable
-  private NavigationService mService = null;
-  private boolean mBound = false;
-  @NonNull
-  private final ServiceConnection mServiceConnection = new ServiceConnection()
-  {
-    @Override
-    public void onServiceConnected(ComponentName name, IBinder service)
-    {
-      NavigationService.LocalBinder binder = (NavigationService.LocalBinder) service;
-      mService = binder.getService();
-      mBound = true;
-      doBackground();
-    }
-
-    @Override
-    public void onServiceDisconnected(ComponentName name)
-    {
-      mService = null;
-      mBound = false;
-    }
-  };
 
   private void addWindowsInsets(@NonNull View topFrame)
   {
@@ -144,38 +115,6 @@ public class NavigationController implements Application.ActivityLifecycleCallba
 
     final Application app = (Application) mFrame.getContext().getApplicationContext();
     mSpeedCamSignalCompletionListener = new CameraWarningSignalCompletionListener(app);
-  }
-
-  public void stop(MwmActivity parent)
-  {
-    if (mBound)
-    {
-      parent.unbindService(mServiceConnection);
-      mBound = false;
-      if (mService != null)
-        mService.stopSelf();
-    }
-  }
-
-  public void start(@NonNull MwmActivity parent)
-  {
-    parent.bindService(new Intent(parent, NavigationService.class),
-                       mServiceConnection,
-                       Context.BIND_AUTO_CREATE);
-    mBound = true;
-    parent.startService(new Intent(parent, NavigationService.class));
-  }
-
-  public void doForeground()
-  {
-    if (mService != null)
-      mService.doForeground();
-  }
-
-  public void doBackground()
-  {
-    if (mService != null)
-      mService.stopForeground(true);
   }
 
   private void updateVehicle(@NonNull RoutingInfo info)
@@ -276,55 +215,9 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     mNavMenu.collapseNavBottomSheet();
   }
 
-  @Override
-  public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState)
-  {
-    // no op
-  }
-
-  @Override
-  public void onActivityStarted(@NonNull Activity activity)
-  {
-    // no op
-  }
-
-  @Override
-  public void onActivityResumed(@NonNull Activity activity)
+  public void refresh()
   {
     mNavMenu.refreshTts();
-    if (mBound)
-      doBackground();
-  }
-
-  @Override
-  public void onActivityPaused(Activity activity)
-  {
-    doForeground();
-  }
-
-  @Override
-  public void onActivityStopped(@NonNull Activity activity)
-  {
-    // no op
-  }
-
-  @Override
-  public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState)
-  {
-    outState.putBoolean(STATE_BOUND, mBound);
-  }
-
-  public void onRestoreState(@NonNull Bundle savedInstanceState, @NonNull MwmActivity parent)
-  {
-    mBound = savedInstanceState.getBoolean(STATE_BOUND);
-    if (mBound)
-      start(parent);
-  }
-
-  @Override
-  public void onActivityDestroyed(@NonNull Activity activity)
-  {
-    // no op
   }
 
   @Override

@@ -526,7 +526,6 @@
 	<string name="core_exit">Изход</string>
 	<string name="routing_add_start_point">Добавяне на начална точка за планиране на маршрут</string>
 	<string name="routing_add_finish_point">Добавяне на крайна точка за планиране на маршрут</string>
-	<string name="button_exit">Изход</string>
 	<string name="placepage_remove_stop">Премахване</string>
 	<string name="placepage_add_stop">Добавяне на спирка</string>
 	<string name="dialog_error_storage_title">Проблем с достъпа до хранилището</string>

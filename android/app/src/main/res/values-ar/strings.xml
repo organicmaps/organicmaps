@@ -540,6 +540,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">تأكد من أنك لم تقم بإدخال أية بيانات شخصية.</string>
 	<string name="editor_share_to_all_dialog_message_2">.ﺔﻠﺌﺳﺃ ﻱﺃ ﻢﻬﻳﺪﻟ ﻥﺎﻛ ﺍﺫﺇ ﻚﻌﻣ ﻥﻮﻠﺻﺍﻮﺘﻳﻭ ﺕﺍﺮﻴﻴﻐﺘﻟﺍ ﻦﻣ OpenStreetMap ﻭﺭﺮﺤﻣ ﻖﻘﺤﺘﻴﺳ</string>
+	<string name="navigation_stop_button">توقف</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps هو تطبيق سريع ومجاني للوصول إلى الخرائط بدون اتصال بالانترنت، وهو بدون إعلانات ومتتبعات. إن الخرائط هي مصدرها بيانات خريطة الشارع المفتوحة التي يستطيع الجميع تعديلها، لذلك يمكنك إصلاح أخطاء الخريطة وإضافة الميزات بنفسك. Organic Maps هو مشروع مفتوح المصدر أُنشأ من قبل مجموعة من الهواة في وقت فراغهم. نقدّر جداً مساهماتك ودعمك.</string>
 	<!-- For the first routing -->
@@ -574,7 +575,6 @@
 	<string name="core_exit">خروج</string>
 	<string name="routing_add_start_point">أضف نقطة البداية لتخطيط المسار</string>
 	<string name="routing_add_finish_point">أضف النهاية لتخطيط المسار</string>
-	<string name="button_exit">خروج</string>
 	<string name="placepage_remove_stop">إزالة</string>
 	<string name="placepage_add_stop">إضافة نقطة توقف</string>
 	<string name="dialog_error_storage_title">مشكلة الوصول للتخزين</string>

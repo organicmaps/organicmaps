@@ -530,6 +530,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Переконайтеся, що ви не ввели особисті дані.</string>
 	<string name="editor_share_to_all_dialog_message_2">Редактори OpenStreetMap перевірять зміни та зв’яжуться з вами, якщо у них виникнуть запитання.</string>
+	<string name="navigation_stop_button">стоп</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps – це швидкі та безкоштовні карти, які не потребують доступу до Інтернету. Карти засновані на даних проекта OpenStreetMap.org, саме там Ви можете виправити помилки та додати відсутні дані. Реклама та збір особистої інформації відсутні. Organic Maps це проект з відкритим вихідним кодом, створюється ентузіастами у вільний час, тому нам потрібні Ваші відгуки та підтримку!</string>
 	<!-- For the first routing -->
@@ -564,7 +565,6 @@
 	<string name="core_exit">Вихід</string>
 	<string name="routing_add_start_point">Вкажіть початкову точку для побудови маршруту</string>
 	<string name="routing_add_finish_point">Вкажіть кінцеву точку для побудови маршруту</string>
-	<string name="button_exit">Вихід</string>
 	<string name="placepage_remove_stop">Видалити</string>
 	<string name="placepage_add_stop">Додати зупинку</string>
 	<string name="dialog_error_storage_title">Не вдалося отримати доступ до сховища</string>

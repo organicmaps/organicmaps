@@ -42,8 +42,7 @@
     Android 13 (API level 33) and higher supports a runtime permission for sending non-exempt (including Foreground
     Services (FGS)) notifications from an app.
   //-->
-  <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-
+  <uses-permission-sdk-23 android:name="android.permission.POST_NOTIFICATIONS"/>
 
   <queries>
     <intent>
@@ -68,7 +67,7 @@
       android:theme="@style/MwmTheme"
       android:supportsRtl="true"
       android:networkSecurityConfig="@xml/network_security_config"
-      tools:targetApi="t">
+      tools:targetApi="33">
 
     <activity
       android:name="app.organicmaps.SplashActivity"
@@ -851,6 +850,15 @@
     <activity
       android:name="app.organicmaps.settings.DrivingOptionsActivity"
       android:label="@string/driving_options_title"/>
+
+    <service
+        android:name=".routing.NavigationService"
+        android:foregroundServiceType="location"
+        android:exported="true"
+        android:enabled="true"
+        android:stopWithTask="false"
+        android:permission="android.permission.ACCESS_FINE_LOCATION">
+    </service>
 
     <!-- Catches app upgraded intent -->
     <receiver

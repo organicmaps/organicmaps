@@ -71,7 +71,7 @@
       android:background="?redButtonBackground"
       android:fontFamily="@string/robotoMedium"
       android:minWidth="@dimen/start_button_width"
-      android:text="@string/current_location_unknown_stop_button"
+      android:text="@string/navigation_stop_button"
       android:textAppearance="@style/MwmTextAppearance.Button.Red"
       tools:ignore="UnusedAttribute" />
   </LinearLayout>

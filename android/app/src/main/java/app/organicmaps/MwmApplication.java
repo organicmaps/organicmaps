@@ -1,5 +1,7 @@
 package app.organicmaps;
 
+import static app.organicmaps.location.LocationState.LOCATION_TAG;
+
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
@@ -27,6 +29,7 @@ import app.organicmaps.location.SensorHelper;
 import app.organicmaps.maplayer.isolines.IsolinesManager;
 import app.organicmaps.maplayer.subway.SubwayManager;
 import app.organicmaps.maplayer.traffic.TrafficManager;
+import app.organicmaps.routing.NavigationService;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.search.SearchEngine;
 import app.organicmaps.settings.StoragePathManager;
@@ -72,7 +75,7 @@ public class MwmApplication extends Application implements Application.ActivityL
   private final MapManager.StorageCallback mStorageCallbacks = new StorageCallbackImpl();
   private MediaPlayerWrapper mPlayer;
 
-  @NonNull
+  @Nullable
   private WeakReference<Activity> mTopActivity;
 
   @UiThread
@@ -134,8 +137,9 @@ public class MwmApplication extends Application implements Application.ActivityL
 
     mMainLoopHandler = new Handler(getMainLooper());
     ConnectionState.INSTANCE.initialize(this);
-    
+
     DownloaderNotifier.createNotificationChannel(this);
+    NavigationService.createNotificationChannel(this);
 
     registerActivityLifecycleCallbacks(this);
     mSubwayManager = new SubwayManager(this);
@@ -348,6 +352,11 @@ public class MwmApplication extends Application implements Application.ActivityL
 
     OsmUploadWork.startActionUploadOsmChanges(this);
 
+    if (RoutingController.get().isNavigating())
+    {
+      Logger.i(LOCATION_TAG, "Navigation is in progress, keeping location in the background");
+      return;
+    }
     LocationHelper.INSTANCE.stop();
   }
 

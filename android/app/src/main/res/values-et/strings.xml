@@ -523,6 +523,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Palun kontrolli, et Sa ei sisestanud isiklikke andmeid.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap muutjad kontrollivad muudatused üle ja võtavad küsimuste korral Sinuga ühendust.</string>
+	<string name="navigation_stop_button">lõpeta</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps on kiire ja tasuta võrguühenduseta kaartide rakendus ilma reklaamide ja jälgimiseta. Kaardid põhinevad vabatahtlike loodud OpenStreetMap.org-i andmetel, nii et saate kaardistamise vigu parandada ja ise funktsioone lisada. Organic Maps on avatud lähtekoodiga projekt, mille on loonud entusiastid oma vabast ajast. Teie tagasiside ja toetus on väga teretulnud!</string>
 	<!-- For the first routing -->
@@ -557,7 +558,6 @@
 	<string name="core_exit">Välju</string>
 	<string name="routing_add_start_point">Marsruudi planeerimiseks lisa lähtepunkt</string>
 	<string name="routing_add_finish_point">Marsruudi planeerimiseks lisa sihtkoht</string>
-	<string name="button_exit">Välju</string>
 	<string name="placepage_remove_stop">Eemalda</string>
 	<string name="placepage_add_stop">Lisa peatus</string>
 	<string name="dialog_error_storage_title">Salvestusruumi ligipääsu probleem</string>

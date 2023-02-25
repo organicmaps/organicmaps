@@ -16945,7 +16945,7 @@
     zh-Hant = OpenStreetMap 編輯人員將檢查更改並在有任何問題時與您聯繫。
 
   [navigation_stop_button]
-    tags = ios
+    tags = android,ios
     en = stop
     af = stop
     ar = توقف
@@ -18403,48 +18403,6 @@
     vi = Bổ sung điểm kết thúc để lập kế hoạch lộ trình
     zh-Hans = 添加终点以规划路线
     zh-Hant = 新增終點以計劃路線
-
-  [button_exit]
-    tags = android
-    en = Exit
-    af = Verlaat
-    ar = خروج
-    be = Выхад
-    bg = Изход
-    ca = Surt
-    cs = Ukončit
-    da = Afslut
-    de = Beenden
-    el = Έξοδος
-    es = Salir
-    et = Välju
-    eu = Irten
-    fa = خروج
-    fi = Poistu
-    fr = Quitter
-    hu = Kilépés
-    id = Keluar
-    it = Uscita
-    ja = 終了
-    ko = 끝내기
-    lt = Išeiti
-    mr = बाहेर पडा
-    nb = Avslutt
-    nl = Verlaten
-    pl = Wyjdź
-    pt = Sair
-    pt-BR = Sair
-    ro = Ieșire
-    ru = Выход
-    sk = Ukončiť
-    sv = Avsluta
-    sw = Toka
-    th = ออก
-    tr = Çık
-    uk = Вихід
-    vi = Thoát
-    zh-Hans = 退出
-    zh-Hant = 退出
 
   [planning_route_manage_route]
     tags = ios

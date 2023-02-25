@@ -430,7 +430,6 @@ public class RoutingController implements Initializable<Void>
     startNavigation();
 
     Framework.nativeFollowRoute();
-    LocationHelper.INSTANCE.restart();
   }
 
   public void addStop(@NonNull MapObject mapObject)

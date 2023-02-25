@@ -520,6 +520,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">確保您沒有輸入任何個人資料。</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap 編輯人員將檢查更改並在有任何問題時與您聯繫。</string>
+	<string name="navigation_stop_button">停止</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps 是一款免費的開源離線地圖 app。沒有廣告，不會追蹤。如果您在地圖上看到錯誤，請在 OpenStreetMap 中修復吧。這個專案由愛好者在我們的空閒時間創建，因此我們需要您的回饋和支援。</string>
 	<!-- For the first routing -->
@@ -554,7 +555,6 @@
 	<string name="core_exit">退出</string>
 	<string name="routing_add_start_point">新增起點以計劃路線</string>
 	<string name="routing_add_finish_point">新增終點以計劃路線</string>
-	<string name="button_exit">退出</string>
 	<string name="placepage_remove_stop">移除</string>
 	<string name="placepage_add_stop">新增停靠站</string>
 	<string name="dialog_error_storage_title">儲存空間存取問題</string>

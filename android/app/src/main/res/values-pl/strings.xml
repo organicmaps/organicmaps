@@ -535,6 +535,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Upewnij się, że nie podałeś osobistych danych.</string>
 	<string name="editor_share_to_all_dialog_message_2">Redaktorzy OpenStreetMap sprawdzą zmiany i skontaktują się z Tobą, jeśli będą mieli jakiekolwiek pytania.</string>
+	<string name="navigation_stop_button">stop</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps to bezpłatna aplikacja do map offline typu open source. Bez reklam. Bez śledzenia. Jeśli zobaczysz błąd na mapie, popraw go w OpenStreetMap. Projekt jest tworzony przez entuzjastów w czasie wolnym, dlatego potrzebujemy Twojej opinii i wsparcia.</string>
 	<!-- For the first routing -->
@@ -569,7 +570,6 @@
 	<string name="core_exit">Wyjście</string>
 	<string name="routing_add_start_point">Aby zaplanować trasę, dodaj punkt początkowy</string>
 	<string name="routing_add_finish_point">Aby zaplanować trasę, dodaj punkt końcowy</string>
-	<string name="button_exit">Wyjdź</string>
 	<string name="placepage_remove_stop">Usuń</string>
 	<string name="placepage_add_stop">Dodaj postój</string>
 	<string name="dialog_error_storage_title">Problem z dostępem do pamięci masowej</string>
