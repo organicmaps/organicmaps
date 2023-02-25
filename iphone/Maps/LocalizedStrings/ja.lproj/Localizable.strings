@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "図書館";
 
+"type.amenity.loading_dock" = "発送センター";
+
 "type.amenity.marketplace" = "市場";
 
 "type.amenity.motorcycle_parking" = "バイク駐輪場";

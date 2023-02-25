@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "Biblioteka";
 
+"type.amenity.loading_dock" = "Dok załadunkowy";
+
 "type.amenity.marketplace" = "Targ";
 
 "type.amenity.motorcycle_parking" = "Parking motocyklowy";

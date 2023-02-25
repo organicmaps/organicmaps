@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "Knihovna";
 
+"type.amenity.loading_dock" = "Nakládaci dok";
+
 "type.amenity.marketplace" = "Tržiště";
 
 "type.amenity.motorcycle_parking" = "Parkování pro motocykly";

@@ -741,6 +741,7 @@
 	<string name="type.amenity.ice_cream">Chioșc cu înghețată</string>
 	<string name="type.amenity.kindergarten">Grădiniță</string>
 	<string name="type.amenity.library">Bibliotecă</string>
+	<string name="type.amenity.loading_dock">Încărcare doc</string>
 	<string name="type.amenity.marketplace">Magazin</string>
 	<string name="type.amenity.motorcycle_parking">Parcare de motociclete</string>
 	<string name="type.amenity.nightclub">Club de noapte</string>

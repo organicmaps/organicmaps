@@ -786,6 +786,7 @@
 	<string name="type.amenity.internet_cafe">İnternet Kafe</string>
 	<string name="type.amenity.kindergarten">Anaokulu</string>
 	<string name="type.amenity.library">Kütüphane</string>
+	<string name="type.amenity.loading_dock">Yükleme alanı</string>
 	<string name="type.amenity.marketplace">Pazaryeri</string>
 	<string name="type.amenity.motorcycle_parking">Motosiklet Parkı</string>
 	<string name="type.amenity.nightclub">Gece Kulübü</string>

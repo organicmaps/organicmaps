@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "Thư viện";
 
+"type.amenity.loading_dock" = "Bến tàu";
+
 "type.amenity.marketplace" = "Cửa hàng";
 
 "type.amenity.motorcycle_parking" = "Bãi đỗ xe máy";

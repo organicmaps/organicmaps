@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "Kirjasto";
 
+"type.amenity.loading_dock" = "Lastauslaituri";
+
 "type.amenity.marketplace" = "Kauppatori";
 
 "type.amenity.motorcycle_parking" = "Moottoripyörien pysäköinti";

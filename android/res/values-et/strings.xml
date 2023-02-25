@@ -781,6 +781,7 @@
 	<string name="type.amenity.internet_cafe">Internetikohvik</string>
 	<string name="type.amenity.kindergarten">Lasteaed</string>
 	<string name="type.amenity.library">Raamatukogu</string>
+	<string name="type.amenity.loading_dock">Laadimisdokk</string>
 	<string name="type.amenity.marketplace">Turg</string>
 	<string name="type.amenity.motorcycle_parking">Mootorrataste parkimine</string>
 	<string name="type.amenity.nightclub">Ööklubi</string>

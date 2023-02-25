@@ -723,6 +723,7 @@
 	<string name="type.amenity.internet_cafe">Internet kávézó</string>
 	<string name="type.amenity.kindergarten">Óvoda</string>
 	<string name="type.amenity.library">Könyvtár</string>
+	<string name="type.amenity.loading_dock">Rakodó</string>
 	<string name="type.amenity.marketplace">Piac</string>
 	<string name="type.amenity.motorcycle_parking">Motorbicikli parkoló</string>
 	<string name="type.amenity.nightclub">Éjszakai mulató</string>

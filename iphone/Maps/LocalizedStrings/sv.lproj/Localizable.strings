@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "Bibliotek";
 
+"type.amenity.loading_dock" = "Lastkaj";
+
 "type.amenity.marketplace" = "Marknadsplats";
 
 "type.amenity.motorcycle_parking" = "Motorcykelparkering";

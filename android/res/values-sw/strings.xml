@@ -235,6 +235,7 @@
 	<string name="type.leisure.bowling_alley">Njia ya Bowling</string>
 	<string name="type.amenity.music_school">Shule ya Muziki</string>
 	<string name="type.amenity.language_school">Shule ya Lugha</string>
+	<string name="type.amenity.loading_dock">Inapakia kituo</string>
 	<string name="type.amenity.parking">Maegesho</string>
 	<string name="type.amenity.parking.fee">Maegesho ya Kulipwa</string>
 	<string name="type.amenity.parking.multi.storey">Maegesho ya Hifadhi nyingi</string>

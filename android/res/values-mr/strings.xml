@@ -745,6 +745,7 @@
 	<string name="type.amenity.internet_cafe">इंटरनेट कॅफे</string>
 	<string name="type.amenity.kindergarten">बालवाडी</string>
 	<string name="type.amenity.library">ग्रंथालय</string>
+	<string name="type.amenity.loading_dock">डक लड करत आह</string>
 	<string name="type.amenity.marketplace">बाजारपेठ</string>
 	<string name="type.amenity.motorcycle_parking">दुचाकी वाहनतळ</string>
 	<string name="type.amenity.nightclub">नाईट क्लब</string>

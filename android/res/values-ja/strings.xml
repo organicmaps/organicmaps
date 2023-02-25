@@ -729,6 +729,7 @@
 	<string name="type.amenity.internet_cafe">インターネットカフェ</string>
 	<string name="type.amenity.kindergarten">幼稚園</string>
 	<string name="type.amenity.library">図書館</string>
+	<string name="type.amenity.loading_dock">発送センター</string>
 	<string name="type.amenity.marketplace">市場</string>
 	<string name="type.amenity.motorcycle_parking">バイク駐輪場</string>
 	<string name="type.amenity.nightclub">ナイトクラブ</string>

@@ -780,6 +780,7 @@
 	<string name="type.amenity.internet_cafe">Cybercafé</string>
 	<string name="type.amenity.kindergarten">Maternelle</string>
 	<string name="type.amenity.library">Bibliothèque</string>
+	<string name="type.amenity.loading_dock">Quai de chargement</string>
 	<string name="type.amenity.marketplace">Marché</string>
 	<string name="type.amenity.motorcycle_parking">Parking moto</string>
 	<string name="type.amenity.nightclub">Discothèque</string>

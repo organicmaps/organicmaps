@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "Bibliotecă";
 
+"type.amenity.loading_dock" = "Încărcare doc";
+
 "type.amenity.marketplace" = "Magazin";
 
 "type.amenity.motorcycle_parking" = "Parcare de motociclete";

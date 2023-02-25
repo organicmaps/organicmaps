@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "도서관";
 
+"type.amenity.loading_dock" = "하역장";
+
 "type.amenity.marketplace" = "시장";
 
 "type.amenity.motorcycle_parking" = "오토바이 주차";

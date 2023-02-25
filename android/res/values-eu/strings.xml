@@ -736,6 +736,7 @@
 	<string name="type.amenity.internet_cafe">Cyberkafea</string>
 	<string name="type.amenity.kindergarten">Haurtzaindegia</string>
 	<string name="type.amenity.library">Liburutegia</string>
+	<string name="type.amenity.loading_dock">Kargatzeko kaia</string>
 	<string name="type.amenity.marketplace">Merkatua</string>
 	<string name="type.amenity.motorcycle_parking">Motoentzako aparkalekua</string>
 	<string name="type.amenity.nightclub">Diskoteka</string>

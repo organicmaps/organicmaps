@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "Perpustakaan";
 
+"type.amenity.loading_dock" = "Dok pemuatan";
+
 "type.amenity.marketplace" = "Toko";
 
 "type.amenity.motorcycle_parking" = "Tempat Parkir Sepeda Motor";

@@ -718,6 +718,7 @@
 	<string name="type.amenity.internet_cafe">Internetcafe</string>
 	<string name="type.amenity.kindergarten">Børnehave</string>
 	<string name="type.amenity.library">Bibliotek</string>
+	<string name="type.amenity.loading_dock">Læsserampe</string>
 	<string name="type.amenity.marketplace">Markedsplads</string>
 	<string name="type.amenity.motorcycle_parking">Motorcykelparkering</string>
 	<string name="type.amenity.nightclub">Natklub</string>

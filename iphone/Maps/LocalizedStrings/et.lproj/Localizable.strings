@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "Raamatukogu";
 
+"type.amenity.loading_dock" = "Laadimisdokk";
+
 "type.amenity.marketplace" = "Turg";
 
 "type.amenity.motorcycle_parking" = "Mootorrataste parkimine";

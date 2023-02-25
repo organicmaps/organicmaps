@@ -715,6 +715,7 @@
 	<string name="type.amenity.internet_cafe">Kafe Internet</string>
 	<string name="type.amenity.kindergarten">Taman kanak-kanak</string>
 	<string name="type.amenity.library">Perpustakaan</string>
+	<string name="type.amenity.loading_dock">Dok pemuatan</string>
 	<string name="type.amenity.marketplace">Toko</string>
 	<string name="type.amenity.motorcycle_parking">Tempat Parkir Sepeda Motor</string>
 	<string name="type.amenity.nightclub">Kelab malam</string>

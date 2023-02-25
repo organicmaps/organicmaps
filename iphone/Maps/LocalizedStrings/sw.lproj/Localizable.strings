@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "Library";
 
+"type.amenity.loading_dock" = "Inapakia kituo";
+
 "type.amenity.marketplace" = "Marketplace";
 
 "type.amenity.motorcycle_parking" = "Motorcycle Parking";

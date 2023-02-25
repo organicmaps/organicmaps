@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "Βιβλιοθήκη";
 
+"type.amenity.loading_dock" = "Αποβάθρα φόρτωσης";
+
 "type.amenity.marketplace" = "Αγορά";
 
 "type.amenity.motorcycle_parking" = "Χώρος στάθμευσης μοτοσικλετών";

@@ -718,6 +718,7 @@
 	<string name="type.amenity.internet_cafe">인터넷 카페</string>
 	<string name="type.amenity.kindergarten">유치원</string>
 	<string name="type.amenity.library">도서관</string>
+	<string name="type.amenity.loading_dock">하역장</string>
 	<string name="type.amenity.marketplace">시장</string>
 	<string name="type.amenity.motorcycle_parking">오토바이 주차</string>
 	<string name="type.amenity.nightclub">나이트 클럽</string>

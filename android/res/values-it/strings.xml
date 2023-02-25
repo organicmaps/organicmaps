@@ -758,6 +758,7 @@
 	<string name="type.amenity.internet_cafe">Cybercaffè</string>
 	<string name="type.amenity.kindergarten">Scuola materna</string>
 	<string name="type.amenity.library">Biblioteca</string>
+	<string name="type.amenity.loading_dock">Bacino di carico</string>
 	<string name="type.amenity.marketplace">Mercato</string>
 	<string name="type.amenity.motorcycle_parking">Parcheggio moto</string>
 	<string name="type.amenity.nightclub">Locale notturno</string>

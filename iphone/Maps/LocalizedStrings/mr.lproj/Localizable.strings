@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "ग्रंथालय";
 
+"type.amenity.loading_dock" = "डक लड करत आह";
+
 "type.amenity.marketplace" = "बाजारपेठ";
 
 "type.amenity.motorcycle_parking" = "दुचाकी वाहनतळ";

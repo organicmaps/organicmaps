@@ -719,6 +719,7 @@
 	<string name="type.amenity.internet_cafe">Quán Internet</string>
 	<string name="type.amenity.kindergarten">Mẫu giáo</string>
 	<string name="type.amenity.library">Thư viện</string>
+	<string name="type.amenity.loading_dock">Bến tàu</string>
 	<string name="type.amenity.marketplace">Cửa hàng</string>
 	<string name="type.amenity.motorcycle_parking">Bãi đỗ xe máy</string>
 	<string name="type.amenity.nightclub">Câu lạc bộ đêm</string>

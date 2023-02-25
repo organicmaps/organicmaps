@@ -774,6 +774,7 @@
 	<string name="type.amenity.internet_cafe">Internetcafé</string>
 	<string name="type.amenity.kindergarten">Kleuterschool</string>
 	<string name="type.amenity.library">Bibliotheek</string>
+	<string name="type.amenity.loading_dock">Laad-dock</string>
 	<string name="type.amenity.marketplace">Markt</string>
 	<string name="type.amenity.motorcycle_parking">Parking Motorfietsen</string>
 	<string name="type.amenity.nightclub">Nachtclub</string>
