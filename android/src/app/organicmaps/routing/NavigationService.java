@@ -59,7 +59,7 @@ public class NavigationService extends Service
   private boolean mChangingConfiguration = false;
 
   @NonNull
-  private final LocationListener mLocationListener = new LocationListener.Simple()
+  private final LocationListener mLocationListener = new LocationListener()
   {
     @Override
     public void onLocationUpdated(Location location)

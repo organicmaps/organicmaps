@@ -168,7 +168,7 @@ public class SearchFragment extends BaseMwmFragment
   private String mInitialLocale;
   private boolean mInitialSearchOnMap = false;
 
-  private final LocationListener mLocationListener = new LocationListener.Simple()
+  private final LocationListener mLocationListener = new LocationListener()
   {
     @Override
     public void onLocationUpdated(Location location)

@@ -94,7 +94,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       new Factory.KmzKmlProcessor(this),
   };
 
-  private final LocationListener mLocationListener = new LocationListener.Simple()
+  private final LocationListener mLocationListener = new LocationListener()
   {
     @Override
     public void onLocationUpdated(Location location)
