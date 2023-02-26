@@ -625,7 +625,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mMapButtonsController = new MapButtonsController();
       mMapButtonsController.init(
           layoutMode,
-          LocationHelper.INSTANCE.getMyPositionMode(),
+          LocationState.nativeGetMode(),
           this::onMapButtonClick,
           (v) -> closeSearchToolbar(true, true),
           mPlacePageController,
