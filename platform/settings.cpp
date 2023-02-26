@@ -401,9 +401,8 @@ void UsageStats::EnterBackground()
   if (currTime < m_enterForegroundTime)
     return;
 
-  // Safe check if uninitialized. Not sure, but possible if foreground/background calls
-  // are not sequential during activity initialization.
-  ASSERT(m_enterForegroundTime > 0, ());
+  // Safe check if uninitialized. Possible when entering background on DownloadResourcesLegacyActivity.
+  //ASSERT(m_enterForegroundTime > 0, ());
   if (m_enterForegroundTime == 0)
     return;
 
