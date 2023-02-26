@@ -43,6 +43,8 @@ Please follow instructions in [INSTALL.md](INSTALL.md) to set up your developmen
 and check the [developer's guidelines](#developers-guidelines).
 You will find a list of issues for new contributors [here](https://github.com/organicmaps/organicmaps/labels/Good%20first%20issue) to help you get started with simple tasks.
 
+Reading everything in the [docs folder](docs/) of the repository is recommended.
+
 ## Submitting your changes
 
 All contributions to Organic Maps repository should be submitted via

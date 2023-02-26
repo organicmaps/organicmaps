@@ -118,7 +118,7 @@ See [GOVERNANCE](docs/GOVERNANCE.md).
 ## Contributing
 
 If you want to build the project, check [docs/INSTALL.md](docs/INSTALL.md). If you want to help the project,
-see [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) and read everything in the [docs folder](docs/) of the repository.
+see [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md). You can help in many ways, ability to code is not necessary.
 
 ## Beta
 
