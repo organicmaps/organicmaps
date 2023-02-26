@@ -73,7 +73,7 @@ jobs:
         run: |
           cmake --version
           ninja --version
-          gradle -Pfirebase assembleGoogleDebug uploadCrashlyticsSymbolFileGoogleDebug
+          gradle -Pfirebase -Parm64-v8a -Parmeabi-v7a -Px86_64 -Px86 assembleGoogleDebug uploadCrashlyticsSymbolFileGoogleDebug
 
       - name: Run monkey
         run: |
