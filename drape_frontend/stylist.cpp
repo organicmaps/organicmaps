@@ -186,6 +186,7 @@ private:
 
     // Skip lines with zero width. Lines can have zero width only if they have
     // path symbols along.
+    /// @todo should never happen, change to assert.
     auto const lineRule = dRule->GetLine();
     if (lineRule != nullptr && (lineRule->width() < 1e-5 && !lineRule->has_pathsym()))
       return;
@@ -314,6 +315,7 @@ void CaptionDescription::ProcessMainTextType(drule::text_type_t const & mainText
 
   if (mainTextType == drule::text_type_housenumber)
   {
+    /// @todo this code path is never used, probably need to have e.g. "text: housenumber" in styles for it.
     m_mainText.swap(m_houseNumber);
     m_houseNumber.clear();
     m_isHouseNumberInMainText = true;
