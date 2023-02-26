@@ -391,7 +391,7 @@
     ar = أثر
     cs = Prostor
     da = Rekreative område
-    de = Infrastrukturobjekte
+    de = Infrastrukturobjekt
     el = Εγκαταστάσεις υποδομής
     es = Infraestructura
     es-MX = Infraestructura
@@ -9312,7 +9312,7 @@
     bg = Физиотерапевт
     cs = Fyzioterapeut
     da = Fysioterapeut
-    de = Physiotherapeut
+    de = Physiotherapie
     el = Φυσικοθεραπευτής
     es = Fisioterapeuta
     et = Füsioterapeut
@@ -9624,7 +9624,7 @@
     bg = Логопедия
     cs = Logopedie
     da = Tale terapi
-    de = Logopedie
+    de = Logopädie
     el = Λογοθεραπεία
     es = Logopedia
     et = Logopeedia
@@ -12598,6 +12598,7 @@
   [type.junction]
     en = Junction
     ar = تقاطع
+    de = Straßenknotenpunkt
     et = Ristmik
     it = Incrocio
     ja = 交差点
@@ -14470,6 +14471,7 @@
     en = Flagpole
     ar = سارية علم
     be = Флагшток
+    de = Fahnenmast
     es = Mástil de bandera
     et = Lipumast
     fr = Mât de drapeau
@@ -16634,7 +16636,7 @@
     ar = مكتب حكومي
     cs = Úřad vlády
     da = Regeringskontor
-    de = Regierungsstelle
+    de = Behörde
     el = Κυβερνητικό γραφείο
     es = Oficina gubernamental
     et = Riigikantselei
@@ -18494,7 +18496,7 @@
     ar = خط سكة حديد
     cs = Železnice
     da = Jernbane
-    de = S-Bahn
+    de = Eisenbahn
     el = Σιδηρόδρομος
     es = Ferrocarril
     es-MX = Línea de ferrocarril
@@ -18710,7 +18712,7 @@
     ar = محطة مترو
     cs = Metro
     da = Metro
-    de = U-Bahnstation
+    de = U-Bahn-Station
     el = Μετρό
     es = Metro
     et = Metroo
@@ -24537,7 +24539,7 @@
     ar = عمل فني
     cs = Umělecké dílo
     da = Kunstværk
-    de = Kunstwerk
+    de = Architektonisches Kunstwerk
     el = Έργα τέχνης
     es = Obras de arte
     et = Kunstiteos - arhitektuur
