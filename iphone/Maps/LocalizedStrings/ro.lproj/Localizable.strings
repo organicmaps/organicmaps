@@ -1241,15 +1241,15 @@
 
 "type.aerialway" = "Aerialway";
 
-"type.aerialway.cable_car" = "Cable car";
+"type.aerialway.cable_car" = "Cable Car";
 
-"type.aerialway.chair_lift" = "Chair lift";
+"type.aerialway.chair_lift" = "Chair Lift";
 
-"type.aerialway.drag_lift" = "Drag lift";
+"type.aerialway.drag_lift" = "Drag Lift";
 
 "type.aerialway.gondola" = "Gondola";
 
-"type.aerialway.mixed_lift" = "Mixed lift";
+"type.aerialway.mixed_lift" = "Mixed Lift";
 
 "type.aerialway.station" = "Stație de teleferic";
 

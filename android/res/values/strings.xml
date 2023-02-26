@@ -749,11 +749,11 @@
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Aerialway</string>
-	<string name="type.aerialway.cable_car">Cable car</string>
-	<string name="type.aerialway.chair_lift">Chair lift</string>
-	<string name="type.aerialway.drag_lift">Drag lift</string>
+	<string name="type.aerialway.cable_car">Cable Car</string>
+	<string name="type.aerialway.chair_lift">Chair Lift</string>
+	<string name="type.aerialway.drag_lift">Drag Lift</string>
 	<string name="type.aerialway.gondola">Gondola</string>
-	<string name="type.aerialway.mixed_lift">Mixed lift</string>
+	<string name="type.aerialway.mixed_lift">Mixed Lift</string>
 	<string name="type.aerialway.station">Aerialway Station</string>
 	<string name="type.aeroway">Airspace Infrastructure</string>
 	<string name="type.aeroway.aerodrome">Airport</string>
