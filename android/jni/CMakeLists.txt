@@ -30,7 +30,6 @@ set(SRC
   app/organicmaps/editor/OsmOAuth.cpp
   app/organicmaps/Framework.cpp
   app/organicmaps/isolines/IsolinesManager.cpp
-  app/organicmaps/LocationHelper.cpp
   app/organicmaps/LocationState.cpp
   app/organicmaps/Map.cpp
   app/organicmaps/MapManager.cpp
