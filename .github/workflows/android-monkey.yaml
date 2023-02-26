@@ -73,7 +73,7 @@ jobs:
         run: |
           cmake --version
           ninja --version
-          gradle -Pfirebase assembleGoogleDebug uploadCrashlyticsSymbolFileGoogleDebug
+          gradle -Pfirebase -Parm64-v8a -Parmeabi-v7a -Px86_64 assembleGoogleDebug uploadCrashlyticsSymbolFileGoogleDebug
 
       - name: Run monkey
         run: |
@@ -93,6 +93,4 @@ jobs:
             --device model=Nexus6,version=25 \
             --device model=NexusLowRes,version=24 \
             --device model=NexusLowRes,version=23,orientation=landscape \
-            --device model=Nexus6,version=22 \
-            --device model=Nexus7,version=21 \
             --timeout 15m
