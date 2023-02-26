@@ -24,7 +24,7 @@
 #       typed in a search query to make this synonym appear in the list of suggestions.
 #       Located immediately after the separating characters ':' or '|'. At most one
 #       digit per synonym is allowed.
-# Its possible to use emoji codes as search synonims, e.g. U+1F6B0 for Potable water.
+# Its possible to use emoji codes as search synonyms, e.g. U+1F6B0 for Potable water.
 # Each category must end with an empty line.
 #
 # Note: some features are not searchable unless they have a [name=] tag,
@@ -2291,7 +2291,7 @@ da:3Sporvogn|station
 nl:3Tramhalte
 fi:4Raitiovaunupysäkki
 fr:Arrêt de tramway|3tramway|tram|arrêt
-de:4Straßenbahnhaltestelle|4Tramhaltestelle|Haltestelle|Tram|ÖPNV
+de:4Straßenbahnhaltestelle|4Tramhaltestelle|3Haltestelle|Tram|ÖPNV
 hu:4Villamosmegálló|3villamos|megálló
 id:3Perhentian trem
 it:3Fermata|3tram
@@ -2586,7 +2586,7 @@ da:3Kunstværk
 nl:3Kunstwerk
 fi:Taideteos
 fr:3Œuvre|3oeuvre|3art
-de:3Kunstwerk
+de:3Kunstwerk|4Skulptur|4Gemälde|Statue
 hu:3Műalkotás
 id:3Pariwisata
 it:3Opere d'arte
@@ -3209,7 +3209,7 @@ be:Замак|Каструм|Крэпасць|Гарадзішча|Крэмль|
 bg:3Замък|4Дворец|4крепост|Каструм|Градище|Кремъл|Усадба
 cs:3Zámek|zajímavost|Hrad|Castrum|Pevnost|Hradiště|Kreml|Panský dům|Palác
 da:Slot|borg|Fæstningsværk|Voldsted|Kreml|Herregård|Palads
-de:Burg|Schloss|Festung|Palast|Wallburg|Kreml|Herrenhaus|Palais|Ruine
+de:3Burg|4Schloss|Festung|3Palast|Wallburg|Kreml|4Herrenhaus|Palais|3Ruine
 el:Κάστρο|θέαμα|τουρισμός|αξιοθέατα|Ρωμαϊκό κάστρο|Οχυρωμένη εκκλησία|Φρούριο|Κρεμλίνο|Αρχοντικό|Παλάτι
 es:4Castillo|Castrum|Iglesia fortificada|Fortaleza|Castro|Kremlin|Casa solariega|Palacio
 eu:4Gaztelua|Castrum|Eliza-gotorleku|Gotorlekua|Kastro|Kremlina|Jauregitxo|Jauregi
@@ -3285,7 +3285,7 @@ be:Гарадскі вал
 bg:Градска стена
 cs:Městská zeď
 da:Bymur
-de:Stadtmauer
+de:4Stadtmauer
 el:Τείχος της πόλης
 es:Muro de la ciudad
 et:Linnamüür
@@ -3398,7 +3398,7 @@ be:Мемарыял
 bg:4Паметник|4мемориал
 cs:4Pomník|památka|zajímavost
 da:Mindesmærke|mindesten
-de:Denkmal|Gedenkstätte
+de:4Denkmal|3Gedenkstätte
 el:Μνημείο|θέαμα|τουρισμός|αξιοθέατα
 es:4Memorial
 et:4Mälestusmärk|monument
@@ -4778,7 +4778,7 @@ be:Фізіятэрапеўт
 bg:Физиотерапевт
 cs:Fyzioterapeut
 da:Fysioterapeut
-de:Physiotherapeut
+de:4Physiotherapie|Physiotherapeut|Physiotherapeutin
 el:Φυσικοθεραπευτής
 es:Fisioterapeuta
 eu:Fisioterapeuta
@@ -4815,7 +4815,7 @@ be:Альтэрнатыўная медыцына
 bg:Алтернативна медицина
 cs:Alternativní medicína
 da:Alternativ medicin
-de:Alternative Medizin
+de:5Alternative Medizin
 el:Εναλλακτική ιατρική
 es:Medicina alternativa
 et:Alternatiivne meditsiin
@@ -4854,7 +4854,7 @@ be:Аўдыялогія|Аўдыёлаг
 bg:Аудиология|Аудиолог
 cs:Audiologie|Audiolog
 da:Audiologi|Audiolog
-de:Audiologie|Audiologin|Audiologe
+de:4Audiologie|Audiologin|Audiologe
 el:Ακοολογία|Ακουολόγος
 es:Audiología|Audiólogo
 et:Audioloogia|Audioloog
@@ -4890,7 +4890,7 @@ healthcare-blood_donation
 en:Blood donation
 ar:مركز التبرع بالدم
 be:Донарства крыві
-de:Blutspendezentrum|Blutspende
+de:4Blutspendezentrum|Blutspende
 el:Αιμοδοσία
 es:Donación de sangre
 et:Vereloovutuskeskus|Veredoonorlus
@@ -4929,7 +4929,7 @@ be:Оптаметрыя|Акуліст
 bg:Оптометрия|Оптометрист
 cs:Optometrie|Optometrista
 da:Optometri|Optometrist
-de:Optometrie|
+de:4Optometrie
 el:Οπτομετρία|Οπτομέτρης
 es:Optometría|Optometrista
 et:Optomeetria|Optometrist
@@ -4968,7 +4968,7 @@ be:Подологія|Артапед
 bg:Подиология|Подиатрист
 cs:Podiatrie|Podiatr
 da:Fodterapi|Fodterapeut
-de:Podologie|Podologe|Podologin
+de:4Podologie|Podologe|Podologin
 el:Ποδιατρική|Ποδίατρος
 es:Podología|Podólogo
 et:Jalaravi
@@ -5007,7 +5007,7 @@ be:Псіхатэрапія|Псіхатэрапеўт
 bg:Психотерапия|Психотерапевт
 cs:Psychoterapie|Psychoterapeut
 da:Psykoterapi|Psykoterapeut
-de:Psychotherapie|Psychotherapeutin|Psychotherapeut
+de:4Psychotherapie|Psychotherapeutin|Psychotherapeut
 el:Ψυχοθεραπεία|Ψυχοθεραπευτής
 es:Psicoterapia|Psicoterapeuta
 et:Psühhoteraapia|Psühhoterapeut
@@ -5052,7 +5052,7 @@ be:лагапедыя|Лагапед
 bg:Логопедия|Логопед
 cs:Logopedie|Logoped
 da:Tale terapi|Talepædagog|Talerapi
-de:Logopedie|Logopädin|Logopäde
+de:4Logopädie|Logopädin|Logopäde
 el:Λογοθεραπεία|Λογοθεραπευτής
 es:Logopedia|Logopeda
 et:Logopeedia|Logopeed
@@ -9194,7 +9194,7 @@ da:Regeringskontor
 nl:Overheidskantoor|overheidspand|regeringskantoor
 fi:Viranomaistoimisto
 fr:Administration publique
-de:3Regierungsstelle|Amt|3Behörde
+de:3Regierungsstelle|Amt|3Behörde|4Verwaltung
 hu:Kormányzati iroda
 id:Kantor pemerintah
 it:Ufficio governativo|ufficio amministrativo
