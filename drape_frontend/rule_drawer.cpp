@@ -303,12 +303,6 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
     applyPointStyle = m_globalRect.IsPointInside(featureCenter);
   }
 
-  if (applyPointStyle || is3dBuilding)
-  {
-    // At this point a proper geometry is loaded already.
-    minVisibleScale = feature::GetMinDrawableScale(f);
-  }
-
   ApplyAreaFeature apply(m_context->GetTileKey(), insertShape, f.GetID(),
                          m_currentScaleGtoP, isBuilding,
                          m_context->Is3dBuildingsEnabled() && isBuildingOutline,
@@ -452,7 +446,6 @@ void RuleDrawer::ProcessPointStyle(FeatureType & f, Stylist const & s,
   if (isSpeedCamera)
     depthLayer = DepthLayer::NavigationLayer;
 
-  minVisibleScale = feature::GetMinDrawableScale(f);
   ApplyPointFeature apply(m_context->GetTileKey(), insertShape, f.GetID(), minVisibleScale, f.GetRank(),
                           s.GetCaptionDescription(), 0.0f /* posZ */, depthLayer);
   f.ForEachPoint([&apply](m2::PointD const & pt) { apply(pt, false /* hasArea */); }, zoomLevel);
@@ -499,7 +492,7 @@ void RuleDrawer::operator()(FeatureType & f)
   }
 #endif
 
-  /// @todo Call feature::GetMinDrawableScale() here.
+  /// @todo Remove passing of minVisibleScale arg everywhere.
   int minVisibleScale = 0;
   auto insertShape = [this, &minVisibleScale](drape_ptr<MapShape> && shape)
   {
@@ -559,7 +552,7 @@ void RuleDrawer::DrawTileNet()
   p.m_baseGtoPScale = 1.0;
   p.m_cap = dp::ButtCap;
   p.m_color = dp::Color::Blue();
-  p.m_depth = 20000;
+  p.m_depth = dp::kMaxDepth;
   p.m_depthLayer = DepthLayer::GeometryLayer;
   p.m_width = 1;
   p.m_join = dp::RoundJoin;
@@ -574,7 +567,7 @@ void RuleDrawer::DrawTileNet()
   tp.m_markId = kml::kDebugMarkId;
   tp.m_tileCenter = m_globalRect.Center();
   tp.m_titleDecl.m_anchor = dp::Center;
-  tp.m_depth = 20000;
+  tp.m_depth = dp::kMaxDepth;
   tp.m_depthLayer = DepthLayer::OverlayLayer;
   tp.m_titleDecl.m_primaryText = key.Coord2String();
 

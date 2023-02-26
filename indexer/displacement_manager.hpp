@@ -174,11 +174,11 @@ private:
           depth = k.m_priority;
       }
 
-      float const kMinDepth = -100000.0f;
-      float const kMaxDepth = 100000.0f;
-      float const d = base::Clamp(depth, kMinDepth, kMaxDepth) - kMinDepth;
+      // @todo: make sure features are prioritised the same way as in the run-time displacer,
+      // see overlay_handle.cpp::CalculateOverlayPriority()
+      ASSERT(0 <= depth && depth <= 190000, (depth));
       uint8_t rank = ft.GetRank();
-      m_priority = (static_cast<uint32_t>(d) << 8) | rank;
+      m_priority = (static_cast<uint32_t>(depth) << 8) | rank;
     }
 
     // Same to dynamic displacement behaviour.
