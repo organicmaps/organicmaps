@@ -173,6 +173,12 @@ void PoiSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batc
   textures->GetSymbolRegion(m_params.m_symbolName, region);
 
   glsl::vec2 const pt = glsl::ToVec2(ConvertToLocal(m_pt, m_params.m_tileCenter, kShapeCoordScalar));
+  // TODO: if m_params.m_depthTestEnabled == false then passing a real
+  // m_params.m_depth value to OGL doesn't make sense, but could lead to
+  // elements out of [dp::kMinDepth, dp::kMaxDepth] depth range being
+  // not rendered at all. E.g. depth values for overlays are derived from priorities
+  // hence it leads to unnecessary restriction of overlays priorities range.
+  // The same is true for TextShape, ColoredSymbolShape etc.
   glsl::vec4 const position = glsl::vec4(pt, m_params.m_depth, -m_params.m_posZ);
 
   auto const createOverlayHandle = [this](auto const & vertexes) -> drape_ptr<dp::OverlayHandle>

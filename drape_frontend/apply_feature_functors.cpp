@@ -218,6 +218,8 @@ m2::PointF GetOffset(int offsetX, int offsetY)
   return { static_cast<float>(offsetX * vs), static_cast<float>(offsetY * vs) };
 }
 
+// TODO : review following exceptions for navigation mode priorities.
+// Shields and highway pathtexts could be made the highest in the prios.txt file directly.
 uint16_t CalculateNavigationPoiPriority()
 {
   // All navigation POI have maximum priority in navigation mode.
@@ -472,6 +474,8 @@ void ApplyPointFeature::ProcessPointRule(Stylist::TRuleWrapper const & rule)
     params.m_depthLayer = m_depthLayer;
     params.m_depthTestEnabled = m_depthLayer != DepthLayer::NavigationLayer &&
       m_depthLayer != DepthLayer::OverlayLayer;
+    // @todo: m_depthTestEnabled is false always?
+    ASSERT(!params.m_depthTestEnabled, (params.m_titleDecl.m_primaryText));
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
     params.m_posZ = m_posZ;
@@ -508,6 +512,8 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
     params.m_tileCenter = m_tileRect.Center();
     params.m_depthTestEnabled = m_depthLayer != DepthLayer::NavigationLayer &&
       m_depthLayer != DepthLayer::OverlayLayer;
+    // @todo: m_depthTestEnabled is false always?
+    ASSERT(!params.m_depthTestEnabled, (params.m_featureId));
     params.m_depth = m_symbolDepth;
     params.m_depthLayer = m_depthLayer;
     params.m_minVisibleScale = m_minVisibleScale;
@@ -529,7 +535,7 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
     symbolSize = region.GetPixelSize();
 
     if (region.IsValid())
-      m_insertShape(make_unique_dp<PoiSymbolShape>(m2::PointD(m_centerPoint), params, m_tileKey, 0 /* text index */));
+      m_insertShape(make_unique_dp<PoiSymbolShape>(m2::PointD(m_centerPoint), params, m_tileKey, 0 /* textIndex */));
     else
       LOG(LERROR, ("Style error. Symbol name must be valid for feature", m_id));
   }
