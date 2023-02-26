@@ -24,7 +24,7 @@
     zh-Hant = 纜車要素
 
   [type.aerialway.cable_car]
-    en = Cable car
+    en = Cable Car
     ar = تلفريك
     de = Pendelbahn
     el = Τελεφερίκ
@@ -48,7 +48,7 @@
     zh-Hant = 纜車
 
   [type.aerialway.chair_lift]
-    en = Chair lift
+    en = Chair Lift
     de = Sessellift
     el = Τελεφερίκ
     es = Telesilla
@@ -70,7 +70,7 @@
     zh-Hans = 登山吊椅
 
   [type.aerialway.drag_lift]
-    en = Drag lift
+    en = Drag Lift
     de = Schlepplift
     el = Τελεφερίκ
     es = Telesquí
@@ -116,7 +116,7 @@
     zh-Hant = 循環式索道
 
   [type.aerialway.mixed_lift]
-    en = Mixed lift
+    en = Mixed Lift
     de = Kombibahn
     el = Τελεφερίκ
     es = Telecabina/telesilla
