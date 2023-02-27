@@ -150,11 +150,12 @@ private:
         {"amenity", "shelter"},
         {"amenity", "toilets"},
         {"amenity", "drinking_water"},
-        {"shop", "copyshop"}, // often used as secondary tag for amenity=post_office
-        {"leisure", "pitch"}, // Give priority to tag "sport"=*.
+        {"shop", "copyshop"},             // often used as secondary tag for amenity=post_office
+        {"leisure", "pitch"},             // give priority to the "sport"=* tag
         {"sport", "9pin"},
         {"sport", "10pin"},
         {"public_transport", "platform"},
+        {"highway", "elevator"},          // used with railway=subway_entrance (DC)
     };
 
     Classificator const & c = classif();
