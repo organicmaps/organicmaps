@@ -1423,6 +1423,7 @@
 	<string name="type.railway.station.subway.beijing">Metro</string>
 	<string name="type.railway.station.subway.bengalore">Metro</string>
 	<string name="type.railway.station.subway.berlin">Metro</string>
+	<string name="type.railway.station.subway.bilbao">Metro</string>
 	<string name="type.railway.station.subway.brasilia">Metro</string>
 	<string name="type.railway.station.subway.brescia">Metro</string>
 	<string name="type.railway.station.subway.brussels">Metro</string>
@@ -1532,6 +1533,7 @@
 	<string name="type.railway.subway_entrance.beijing">Wejście do metra</string>
 	<string name="type.railway.subway_entrance.bengalore">Wejście do metra</string>
 	<string name="type.railway.subway_entrance.berlin">Wejście do metra</string>
+	<string name="type.railway.subway_entrance.bilbao">Wejście do metra</string>
 	<string name="type.railway.subway_entrance.brasilia">Wejście do metra</string>
 	<string name="type.railway.subway_entrance.brescia">Wejście do metra</string>
 	<string name="type.railway.subway_entrance.brussels">Wejście do metra</string>

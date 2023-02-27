@@ -2787,6 +2787,8 @@
 
 "type.railway.station.subway.berlin" = "T-bane";
 
+"type.railway.station.subway.bilbao" = "T-bane";
+
 "type.railway.station.subway.brasilia" = "T-bane";
 
 "type.railway.station.subway.brescia" = "T-bane";
@@ -3010,6 +3012,8 @@
 "type.railway.subway_entrance.bengalore" = "T-bane inngang";
 
 "type.railway.subway_entrance.berlin" = "T-bane inngang";
+
+"type.railway.subway_entrance.bilbao" = "T-bane inngang";
 
 "type.railway.subway_entrance.brasilia" = "T-bane inngang";
 

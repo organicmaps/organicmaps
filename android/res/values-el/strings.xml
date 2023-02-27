@@ -1282,6 +1282,7 @@
 	<string name="type.railway.station.subway.beijing">Μετρό</string>
 	<string name="type.railway.station.subway.bengalore">Μετρό</string>
 	<string name="type.railway.station.subway.berlin">Μετρό</string>
+	<string name="type.railway.station.subway.bilbao">Μετρό</string>
 	<string name="type.railway.station.subway.brasilia">Μετρό</string>
 	<string name="type.railway.station.subway.brescia">Μετρό</string>
 	<string name="type.railway.station.subway.brussels">Μετρό</string>
@@ -1391,6 +1392,7 @@
 	<string name="type.railway.subway_entrance.beijing">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.bengalore">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.berlin">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.bilbao">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.brasilia">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.brescia">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.brussels">Είσοδος μετρό</string>

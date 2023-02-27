@@ -1193,6 +1193,7 @@
 	<string name="type.railway.station.subway.beijing">حمل و نقل</string>
 	<string name="type.railway.station.subway.bengalore">حمل و نقل</string>
 	<string name="type.railway.station.subway.berlin">حمل و نقل</string>
+	<string name="type.railway.station.subway.bilbao">حمل و نقل</string>
 	<string name="type.railway.station.subway.brasilia">حمل و نقل</string>
 	<string name="type.railway.station.subway.brescia">حمل و نقل</string>
 	<string name="type.railway.station.subway.brussels">حمل و نقل</string>
@@ -1302,6 +1303,7 @@
 	<string name="type.railway.subway_entrance.beijing">ورودی مترو</string>
 	<string name="type.railway.subway_entrance.bengalore">ورودی مترو</string>
 	<string name="type.railway.subway_entrance.berlin">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.bilbao">ورودی مترو</string>
 	<string name="type.railway.subway_entrance.brasilia">ورودی مترو</string>
 	<string name="type.railway.subway_entrance.brescia">ورودی مترو</string>
 	<string name="type.railway.subway_entrance.brussels">ورودی مترو</string>

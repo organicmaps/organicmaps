@@ -2787,6 +2787,8 @@
 
 "type.railway.station.subway.berlin" = "حمل و نقل";
 
+"type.railway.station.subway.bilbao" = "حمل و نقل";
+
 "type.railway.station.subway.brasilia" = "حمل و نقل";
 
 "type.railway.station.subway.brescia" = "حمل و نقل";
@@ -3010,6 +3012,8 @@
 "type.railway.subway_entrance.bengalore" = "ورودی مترو";
 
 "type.railway.subway_entrance.berlin" = "ورودی مترو";
+
+"type.railway.subway_entrance.bilbao" = "ورودی مترو";
 
 "type.railway.subway_entrance.brasilia" = "ورودی مترو";
 

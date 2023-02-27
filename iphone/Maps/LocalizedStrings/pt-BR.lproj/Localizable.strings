@@ -2787,6 +2787,8 @@
 
 "type.railway.station.subway.berlin" = "Estação de metrô";
 
+"type.railway.station.subway.bilbao" = "Estação de metrô";
+
 "type.railway.station.subway.brasilia" = "Estação de metrô";
 
 "type.railway.station.subway.brescia" = "Estação de metrô";
@@ -2981,9 +2983,9 @@
 
 "type.railway.subway" = "Metrô";
 
-"type.railway.subway.bridge" = "Metrô";
+"type.railway.subway.bridge" = "Ponte de metrô";
 
-"type.railway.subway.tunnel" = "Metrô";
+"type.railway.subway.tunnel" = "Tunel de metrô";
 
 "type.railway.subway_entrance" = "Entrada do metrô";
 
@@ -3010,6 +3012,8 @@
 "type.railway.subway_entrance.bengalore" = "Entrada do metrô";
 
 "type.railway.subway_entrance.berlin" = "Entrada do metrô";
+
+"type.railway.subway_entrance.bilbao" = "Entrada do metrô";
 
 "type.railway.subway_entrance.brasilia" = "Entrada do metrô";
 

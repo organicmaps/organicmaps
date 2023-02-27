@@ -1340,6 +1340,7 @@
 	<string name="type.railway.station.subway.beijing">T-bane</string>
 	<string name="type.railway.station.subway.bengalore">T-bane</string>
 	<string name="type.railway.station.subway.berlin">T-bane</string>
+	<string name="type.railway.station.subway.bilbao">T-bane</string>
 	<string name="type.railway.station.subway.brasilia">T-bane</string>
 	<string name="type.railway.station.subway.brescia">T-bane</string>
 	<string name="type.railway.station.subway.brussels">T-bane</string>
@@ -1449,6 +1450,7 @@
 	<string name="type.railway.subway_entrance.beijing">T-bane inngang</string>
 	<string name="type.railway.subway_entrance.bengalore">T-bane inngang</string>
 	<string name="type.railway.subway_entrance.berlin">T-bane inngang</string>
+	<string name="type.railway.subway_entrance.bilbao">T-bane inngang</string>
 	<string name="type.railway.subway_entrance.brasilia">T-bane inngang</string>
 	<string name="type.railway.subway_entrance.brescia">T-bane inngang</string>
 	<string name="type.railway.subway_entrance.brussels">T-bane inngang</string>

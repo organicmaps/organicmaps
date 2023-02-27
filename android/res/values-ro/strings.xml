@@ -1298,6 +1298,7 @@
 	<string name="type.railway.station.subway.beijing">Metrou</string>
 	<string name="type.railway.station.subway.bengalore">Metrou</string>
 	<string name="type.railway.station.subway.berlin">Metrou</string>
+	<string name="type.railway.station.subway.bilbao">Metrou</string>
 	<string name="type.railway.station.subway.brasilia">Metrou</string>
 	<string name="type.railway.station.subway.brescia">Metrou</string>
 	<string name="type.railway.station.subway.brussels">Metrou</string>
@@ -1407,6 +1408,7 @@
 	<string name="type.railway.subway_entrance.beijing">Intrare în metro</string>
 	<string name="type.railway.subway_entrance.bengalore">Intrare în metro</string>
 	<string name="type.railway.subway_entrance.berlin">Intrare în metro</string>
+	<string name="type.railway.subway_entrance.bilbao">Intrare în metro</string>
 	<string name="type.railway.subway_entrance.brasilia">Intrare în metro</string>
 	<string name="type.railway.subway_entrance.brescia">Intrare în metro</string>
 	<string name="type.railway.subway_entrance.brussels">Intrare în metro</string>
