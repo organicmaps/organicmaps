@@ -2787,6 +2787,8 @@
 
 "type.railway.station.subway.berlin" = "Földalatti";
 
+"type.railway.station.subway.bilbao" = "Földalatti";
+
 "type.railway.station.subway.brasilia" = "Földalatti";
 
 "type.railway.station.subway.brescia" = "Földalatti";
@@ -3010,6 +3012,8 @@
 "type.railway.subway_entrance.bengalore" = "Földalatti bejárat";
 
 "type.railway.subway_entrance.berlin" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.bilbao" = "Földalatti bejárat";
 
 "type.railway.subway_entrance.brasilia" = "Földalatti bejárat";
 

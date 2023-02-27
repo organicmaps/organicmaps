@@ -1273,6 +1273,7 @@
 	<string name="type.railway.station.subway.beijing">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.bengalore">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.berlin">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.bilbao">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.brasilia">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.brescia">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.brussels">Stasiun bawah tanah</string>
@@ -1382,6 +1383,7 @@
 	<string name="type.railway.subway_entrance.beijing">Pintu masuk kereta bawah tanah</string>
 	<string name="type.railway.subway_entrance.bengalore">Pintu masuk kereta bawah tanah</string>
 	<string name="type.railway.subway_entrance.berlin">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.bilbao">Pintu masuk kereta bawah tanah</string>
 	<string name="type.railway.subway_entrance.brasilia">Pintu masuk kereta bawah tanah</string>
 	<string name="type.railway.subway_entrance.brescia">Pintu masuk kereta bawah tanah</string>
 	<string name="type.railway.subway_entrance.brussels">Pintu masuk kereta bawah tanah</string>

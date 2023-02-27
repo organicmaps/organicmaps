@@ -1280,6 +1280,7 @@
 	<string name="type.railway.station.subway.beijing">지하철</string>
 	<string name="type.railway.station.subway.bengalore">지하철</string>
 	<string name="type.railway.station.subway.berlin">지하철</string>
+	<string name="type.railway.station.subway.bilbao">지하철</string>
 	<string name="type.railway.station.subway.brasilia">지하철</string>
 	<string name="type.railway.station.subway.brescia">지하철</string>
 	<string name="type.railway.station.subway.brussels">지하철</string>
@@ -1389,6 +1390,7 @@
 	<string name="type.railway.subway_entrance.beijing">지하철 입구</string>
 	<string name="type.railway.subway_entrance.bengalore">지하철 입구</string>
 	<string name="type.railway.subway_entrance.berlin">지하철 입구</string>
+	<string name="type.railway.subway_entrance.bilbao">지하철 입구</string>
 	<string name="type.railway.subway_entrance.brasilia">지하철 입구</string>
 	<string name="type.railway.subway_entrance.brescia">지하철 입구</string>
 	<string name="type.railway.subway_entrance.brussels">지하철 입구</string>

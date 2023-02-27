@@ -2787,6 +2787,8 @@
 
 "type.railway.station.subway.berlin" = "地铁车站";
 
+"type.railway.station.subway.bilbao" = "地铁车站";
+
 "type.railway.station.subway.brasilia" = "地铁车站";
 
 "type.railway.station.subway.brescia" = "地铁车站";
@@ -3010,6 +3012,8 @@
 "type.railway.subway_entrance.bengalore" = "地铁出入口";
 
 "type.railway.subway_entrance.berlin" = "地铁出入口";
+
+"type.railway.subway_entrance.bilbao" = "地铁出入口";
 
 "type.railway.subway_entrance.brasilia" = "地铁出入口";
 

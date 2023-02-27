@@ -2787,6 +2787,8 @@
 
 "type.railway.station.subway.berlin" = "U-Bahnstation";
 
+"type.railway.station.subway.bilbao" = "U-Bahnstation";
+
 "type.railway.station.subway.brasilia" = "U-Bahnstation";
 
 "type.railway.station.subway.brescia" = "U-Bahnstation";
@@ -3010,6 +3012,8 @@
 "type.railway.subway_entrance.bengalore" = "U-Bahn-Eingang";
 
 "type.railway.subway_entrance.berlin" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.bilbao" = "U-Bahn-Eingang";
 
 "type.railway.subway_entrance.brasilia" = "U-Bahn-Eingang";
 

@@ -1345,6 +1345,7 @@
 	<string name="type.railway.station.subway.beijing">Estação de metrô</string>
 	<string name="type.railway.station.subway.bengalore">Estação de metrô</string>
 	<string name="type.railway.station.subway.berlin">Estação de metrô</string>
+	<string name="type.railway.station.subway.bilbao">Estação de metrô</string>
 	<string name="type.railway.station.subway.brasilia">Estação de metrô</string>
 	<string name="type.railway.station.subway.brescia">Estação de metrô</string>
 	<string name="type.railway.station.subway.brussels">Estação de metrô</string>
@@ -1442,8 +1443,8 @@
 	<string name="type.railway.station.subway.yerevan">Estação de metrô</string>
 	<string name="type.railway.station.subway.yokohama">Estação de metrô</string>
 	<string name="type.railway.subway">Metrô</string>
-	<string name="type.railway.subway.bridge">Metrô</string>
-	<string name="type.railway.subway.tunnel">Metrô</string>
+	<string name="type.railway.subway.bridge">Ponte de metrô</string>
+	<string name="type.railway.subway.tunnel">Tunel de metrô</string>
 	<string name="type.railway.subway_entrance">Entrada do metrô</string>
 	<string name="type.railway.subway_entrance.adana">Entrada do metrô</string>
 	<string name="type.railway.subway_entrance.algiers">Entrada do metrô</string>
@@ -1457,6 +1458,7 @@
 	<string name="type.railway.subway_entrance.beijing">Entrada do metrô</string>
 	<string name="type.railway.subway_entrance.bengalore">Entrada do metrô</string>
 	<string name="type.railway.subway_entrance.berlin">Entrada do metrô</string>
+	<string name="type.railway.subway_entrance.bilbao">Entrada do metrô</string>
 	<string name="type.railway.subway_entrance.brasilia">Entrada do metrô</string>
 	<string name="type.railway.subway_entrance.brescia">Entrada do metrô</string>
 	<string name="type.railway.subway_entrance.brussels">Entrada do metrô</string>

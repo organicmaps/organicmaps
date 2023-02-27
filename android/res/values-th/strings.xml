@@ -1282,6 +1282,7 @@
 	<string name="type.railway.station.subway.beijing">รถไฟ</string>
 	<string name="type.railway.station.subway.bengalore">รถไฟ</string>
 	<string name="type.railway.station.subway.berlin">รถไฟ</string>
+	<string name="type.railway.station.subway.bilbao">รถไฟ</string>
 	<string name="type.railway.station.subway.brasilia">รถไฟ</string>
 	<string name="type.railway.station.subway.brescia">รถไฟ</string>
 	<string name="type.railway.station.subway.brussels">รถไฟ</string>
@@ -1391,6 +1392,7 @@
 	<string name="type.railway.subway_entrance.beijing">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.subway_entrance.bengalore">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.subway_entrance.berlin">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.bilbao">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.subway_entrance.brasilia">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.subway_entrance.brescia">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.subway_entrance.brussels">ทางเข้ารถไฟใต้ดิน</string>

@@ -2787,6 +2787,8 @@
 
 "type.railway.station.subway.berlin" = "Metro";
 
+"type.railway.station.subway.bilbao" = "Metro";
+
 "type.railway.station.subway.brasilia" = "Metro";
 
 "type.railway.station.subway.brescia" = "Metro";
@@ -3010,6 +3012,8 @@
 "type.railway.subway_entrance.bengalore" = "Vchod do podchodu";
 
 "type.railway.subway_entrance.berlin" = "Vchod do podchodu";
+
+"type.railway.subway_entrance.bilbao" = "Vchod do podchodu";
 
 "type.railway.subway_entrance.brasilia" = "Vchod do podchodu";
 

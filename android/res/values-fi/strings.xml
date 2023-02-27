@@ -1335,6 +1335,7 @@
 	<string name="type.railway.station.subway.beijing">Metro</string>
 	<string name="type.railway.station.subway.bengalore">Metro</string>
 	<string name="type.railway.station.subway.berlin">Metro</string>
+	<string name="type.railway.station.subway.bilbao">Metro</string>
 	<string name="type.railway.station.subway.brasilia">Metro</string>
 	<string name="type.railway.station.subway.brescia">Metro</string>
 	<string name="type.railway.station.subway.brussels">Metro</string>
@@ -1444,6 +1445,7 @@
 	<string name="type.railway.subway_entrance.beijing">Metron sisäänkäynti</string>
 	<string name="type.railway.subway_entrance.bengalore">Metron sisäänkäynti</string>
 	<string name="type.railway.subway_entrance.berlin">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.bilbao">Metron sisäänkäynti</string>
 	<string name="type.railway.subway_entrance.brasilia">Metron sisäänkäynti</string>
 	<string name="type.railway.subway_entrance.brescia">Metron sisäänkäynti</string>
 	<string name="type.railway.subway_entrance.brussels">Metron sisäänkäynti</string>

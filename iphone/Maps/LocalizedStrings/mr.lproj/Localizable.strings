@@ -2787,6 +2787,8 @@
 
 "type.railway.station.subway.berlin" = "भुयारी मार्ग";
 
+"type.railway.station.subway.bilbao" = "भुयारी मार्ग";
+
 "type.railway.station.subway.brasilia" = "भुयारी मार्ग";
 
 "type.railway.station.subway.brescia" = "भुयारी मार्ग";
@@ -3010,6 +3012,8 @@
 "type.railway.subway_entrance.bengalore" = "भुयारी प्रवेशद्वार";
 
 "type.railway.subway_entrance.berlin" = "भुयारी प्रवेशद्वार";
+
+"type.railway.subway_entrance.bilbao" = "भुयारी प्रवेशद्वार";
 
 "type.railway.subway_entrance.brasilia" = "भुयारी प्रवेशद्वार";
 

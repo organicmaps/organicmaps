@@ -18735,7 +18735,7 @@
 
   [type.railway.station.subway.berlin]
     ref = type.railway.station.subway
-    
+
   [type.railway.station.subway.bilbao]
     ref = type.railway.station.subway
 
@@ -19146,7 +19146,7 @@
 
   [type.railway.subway_entrance.berlin]
     ref = type.railway.subway_entrance
-    
+
   [type.railway.subway_entrance.bilbao]
     ref = type.railway.subway_entrance
 

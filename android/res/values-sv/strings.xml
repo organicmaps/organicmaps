@@ -1271,6 +1271,7 @@
 	<string name="type.railway.station.subway.beijing">Tunnelbana</string>
 	<string name="type.railway.station.subway.bengalore">Tunnelbana</string>
 	<string name="type.railway.station.subway.berlin">Tunnelbana</string>
+	<string name="type.railway.station.subway.bilbao">Tunnelbana</string>
 	<string name="type.railway.station.subway.brasilia">Tunnelbana</string>
 	<string name="type.railway.station.subway.brescia">Tunnelbana</string>
 	<string name="type.railway.station.subway.brussels">Tunnelbana</string>
@@ -1380,6 +1381,7 @@
 	<string name="type.railway.subway_entrance.beijing">Tunnelbana entré</string>
 	<string name="type.railway.subway_entrance.bengalore">Tunnelbana entré</string>
 	<string name="type.railway.subway_entrance.berlin">Tunnelbana entré</string>
+	<string name="type.railway.subway_entrance.bilbao">Tunnelbana entré</string>
 	<string name="type.railway.subway_entrance.brasilia">Tunnelbana entré</string>
 	<string name="type.railway.subway_entrance.brescia">Tunnelbana entré</string>
 	<string name="type.railway.subway_entrance.brussels">Tunnelbana entré</string>

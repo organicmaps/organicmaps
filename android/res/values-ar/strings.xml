@@ -1394,6 +1394,7 @@
 	<string name="type.railway.station.subway.beijing">محطة مترو</string>
 	<string name="type.railway.station.subway.bengalore">محطة مترو</string>
 	<string name="type.railway.station.subway.berlin">محطة مترو</string>
+	<string name="type.railway.station.subway.bilbao">محطة مترو</string>
 	<string name="type.railway.station.subway.brasilia">محطة مترو</string>
 	<string name="type.railway.station.subway.brescia">محطة مترو</string>
 	<string name="type.railway.station.subway.brussels">محطة مترو</string>
@@ -1503,6 +1504,7 @@
 	<string name="type.railway.subway_entrance.beijing">مدخل المترو</string>
 	<string name="type.railway.subway_entrance.bengalore">مدخل المترو</string>
 	<string name="type.railway.subway_entrance.berlin">مدخل المترو</string>
+	<string name="type.railway.subway_entrance.bilbao">مدخل المترو</string>
 	<string name="type.railway.subway_entrance.brasilia">مدخل المترو</string>
 	<string name="type.railway.subway_entrance.brescia">مدخل المترو</string>
 	<string name="type.railway.subway_entrance.brussels">مدخل المترو</string>

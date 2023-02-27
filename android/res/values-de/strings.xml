@@ -1459,6 +1459,7 @@
 	<string name="type.railway.station.subway.beijing">U-Bahnstation</string>
 	<string name="type.railway.station.subway.bengalore">U-Bahnstation</string>
 	<string name="type.railway.station.subway.berlin">U-Bahnstation</string>
+	<string name="type.railway.station.subway.bilbao">U-Bahnstation</string>
 	<string name="type.railway.station.subway.brasilia">U-Bahnstation</string>
 	<string name="type.railway.station.subway.brescia">U-Bahnstation</string>
 	<string name="type.railway.station.subway.brussels">U-Bahnstation</string>
@@ -1571,6 +1572,7 @@
 	<string name="type.railway.subway_entrance.beijing">U-Bahn-Eingang</string>
 	<string name="type.railway.subway_entrance.bengalore">U-Bahn-Eingang</string>
 	<string name="type.railway.subway_entrance.berlin">U-Bahn-Eingang</string>
+	<string name="type.railway.subway_entrance.bilbao">U-Bahn-Eingang</string>
 	<string name="type.railway.subway_entrance.brasilia">U-Bahn-Eingang</string>
 	<string name="type.railway.subway_entrance.brescia">U-Bahn-Eingang</string>
 	<string name="type.railway.subway_entrance.brussels">U-Bahn-Eingang</string>

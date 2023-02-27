@@ -1278,6 +1278,7 @@
 	<string name="type.railway.station.subway.beijing">Ngầm</string>
 	<string name="type.railway.station.subway.bengalore">Ngầm</string>
 	<string name="type.railway.station.subway.berlin">Ngầm</string>
+	<string name="type.railway.station.subway.bilbao">Ngầm</string>
 	<string name="type.railway.station.subway.brasilia">Ngầm</string>
 	<string name="type.railway.station.subway.brescia">Ngầm</string>
 	<string name="type.railway.station.subway.brussels">Ngầm</string>
@@ -1387,6 +1388,7 @@
 	<string name="type.railway.subway_entrance.beijing">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.bengalore">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.berlin">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.bilbao">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.brasilia">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.brescia">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.brussels">Lỗi vào Metro</string>

@@ -2787,6 +2787,8 @@
 
 "type.railway.station.subway.berlin" = "Stasiun bawah tanah";
 
+"type.railway.station.subway.bilbao" = "Stasiun bawah tanah";
+
 "type.railway.station.subway.brasilia" = "Stasiun bawah tanah";
 
 "type.railway.station.subway.brescia" = "Stasiun bawah tanah";
@@ -3010,6 +3012,8 @@
 "type.railway.subway_entrance.bengalore" = "Pintu masuk kereta bawah tanah";
 
 "type.railway.subway_entrance.berlin" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.bilbao" = "Pintu masuk kereta bawah tanah";
 
 "type.railway.subway_entrance.brasilia" = "Pintu masuk kereta bawah tanah";
 
