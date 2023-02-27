@@ -13091,7 +13091,7 @@
     zh-Hans = 温室园艺
 
   [type.landuse.industrial]
-    en = Industrial Land
+    en = Industrial Area
     ar = منطقة صناعية
     de = Industriegebiet
     es = Zona industrial
@@ -13309,7 +13309,7 @@
     zh-Hant = 水庫
 
   [type.landuse.residential]
-    en = Residential Land
+    en = Residential Area
     ar = منطقة سكنية
     de = Wohngebiet
     es = Zona residencial
@@ -13328,7 +13328,7 @@
     zh-Hans = 住宅用地
 
   [type.landuse.retail]
-    en = Retail Land
+    en = Retail Area
     ar = منطقة متاجر
     de = Einzelhandelsgebiet
     es = Zona comercial
@@ -13430,7 +13430,7 @@
     zh-Hans = 公共用地
 
   [type.leisure.dog_park]
-    en = Dog Area
+    en = Dog Park
     ar = منطقة كلاب
     cs = Místo pro psy
     da = Hundepark
@@ -20851,7 +20851,7 @@
     zh-Hant = 禮品店
 
   [type.shop.greengrocer]
-    en = Greengrocer's
+    en = Greengrocer
     ar = متجر خضروات وفواكه
     cs = Ovoce a zelenina
     da = Grønthandler
