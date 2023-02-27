@@ -79823,6 +79823,104 @@ cont {
   }
 }
 cont {
+  name: "railway-subway_entrance-bilbao"
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 10
+        color: 2236962
+        stroke_color: 1728053247
+        is_optional: true
+      }
+      secondary {
+        height: 10
+        color: 2236962
+        stroke_color: 1728053247
+        offset_y: 1
+        text: "int_name"
+        is_optional: true
+      }
+      priority: 15913
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway-bilbao-s"
+      priority: 16913
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        text: "int_name"
+        is_optional: true
+      }
+      priority: 15913
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-bilbao-s"
+      priority: 16913
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        text: "int_name"
+        is_optional: true
+      }
+      priority: 15913
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-bilbao-s"
+      priority: 16913
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        text: "int_name"
+        is_optional: true
+      }
+      priority: 15913
+    }
+  }
+}
+cont {
   name: "railway-subway_entrance-brasilia"
   element {
     scale: 16

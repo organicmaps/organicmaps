@@ -1547,3 +1547,4 @@ mapswithme
 *railway|subway_entrance|wuhan
 *railway|subway_entrance|yerevan
 *railway|subway_entrance|yokohama
+*railway|subway_entrance|bilbao
