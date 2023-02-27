@@ -101,7 +101,7 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
 
     mEmail = mFrame.findViewById(R.id.ll__place_email);
     mTvEmail = mFrame.findViewById(R.id.tv__place_email);
-    mEmail.setOnClickListener((v) -> openUrl(Metadata.MetadataType.FMD_EMAIL));
+    mEmail.setOnClickListener((v) -> Utils.sendTo(requireContext(), getLink(Metadata.MetadataType.FMD_EMAIL)));
     mEmail.setOnLongClickListener((v) -> copyUrl(mEmail, Metadata.MetadataType.FMD_EMAIL));
 
     mWikimedia = mFrame.findViewById(R.id.ll__place_wikimedia);
