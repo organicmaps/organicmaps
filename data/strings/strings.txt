@@ -13452,6 +13452,7 @@
     da = Postnummer
     de = Postleitzahl
     el = Ταχυδρομικός κώδικας
+    en-GB = Postcode
     es = Código postal
     et = Postiindeks
     eu = Posta kodea
@@ -13491,6 +13492,7 @@
     da = Indtast det korrekte postnummer
     de = Geben Sie die korrekte Postleitzahl ein
     el = Πληκτρολογήστε έναν έγκυρο ταχυδρομικό κώδικα
+    en-GB = Enter a valid postcode
     es = Introduzca el código postal correcto
     et = Sisesta korrektne postiindeks
     eu = Mesedez, idatzi posta-kode zuzena
