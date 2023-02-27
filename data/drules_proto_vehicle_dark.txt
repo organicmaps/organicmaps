@@ -60230,6 +60230,93 @@ cont {
   }
 }
 cont {
+  name: "railway-subway_entrance-bilbao"
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 10
+        color: 8947848
+        stroke_color: 1712394496
+      }
+      secondary {
+        height: 10
+        color: 8947848
+        stroke_color: 1712394496
+        offset_y: 1
+        text: "int_name"
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway-bilbao-s"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 8947848
+        stroke_color: 1712394496
+      }
+      secondary {
+        height: 10
+        color: 8947848
+        stroke_color: 1712394496
+        offset_y: 1
+        text: "int_name"
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-bilbao-s"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 8947848
+        stroke_color: 1712394496
+      }
+      secondary {
+        height: 10
+        color: 8947848
+        stroke_color: 1712394496
+        offset_y: 1
+        text: "int_name"
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-bilbao-s"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 8947848
+        stroke_color: 1712394496
+      }
+      secondary {
+        height: 10
+        color: 8947848
+        stroke_color: 1712394496
+        offset_y: 1
+        text: "int_name"
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
   name: "railway-subway_entrance-brasilia"
   element {
     scale: 16
