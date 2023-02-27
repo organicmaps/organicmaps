@@ -1,11 +1,11 @@
-Kalbimiz depremden etkilenen herkesle birlikte
-
-Yaşamını yitirenlere Allah'tan rahmet, yaralılara acil şifalar dileriz. Tüm milletimizin başı sağ olsun.
-
-#GeçmişOlsunTürkiye
-
-Deprem bölgesindekilere yardımcı olabilmek adına Güneydoğu Anadolu'daki harita verileri güncellendi.
-
-Organic Maps ile şarjınızı korurken internetsiz olarak haritayı kullanabilirsiniz. Gerekli durumlarda Organic Maps ayarlarında bulunan "maksimum güç tasarrufunu" açmayı unutmayın.
-
-Daha fazla bilgi: omaps.app/tr/news
+• New OpenStreetMap data as of February 25
+• Fixed several crashes
+• Fixed missing Traditional Chinese localization
+• Improved Help and selected POI dialogs
+• Fixed some not displayed complex opening hours
+• Wiki articles are now clickable and visible for bookmarks
+• Fixed and improved search
+• Added healthcare specialists
+• Added communication towers, solar, wind, gas, and hydropower generators
+• Improved ar, nb, pt, and tr translations
+…more: omaps.app/news

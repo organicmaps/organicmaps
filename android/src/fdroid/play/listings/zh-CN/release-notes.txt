@@ -1,7 +1,11 @@
-• 截至 2 月 10 日的新 OpenStreetMap 数据，包括土耳其和叙利亚地震后人道主义 OpenStreetMap 团队 (HOT) 所做的更改
-• 在列表和地图上过滤错误的搜索结果
-• 修复了打开时的崩溃
-• 主楼和陪楼更好的入口图标
-• 改进了短距离的下一转弯语音通知
-• 修复了波斯语、波兰语和德语翻译
-…更多：omaps.app/news
+• New OpenStreetMap data as of February 25
+• Fixed several crashes
+• Fixed missing Traditional Chinese localization
+• Improved Help and selected POI dialogs
+• Fixed some not displayed complex opening hours
+• Wiki articles are now clickable and visible for bookmarks
+• Fixed and improved search
+• Added healthcare specialists
+• Added communication towers, solar, wind, gas, and hydropower generators
+• Improved ar, nb, pt, and tr translations
+…more: omaps.app/news

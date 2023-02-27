@@ -1,6 +1,11 @@
-• Новые данные OpenStreetMap за 10 февраля, включая изменения, внесенные Гуманитарной командой OpenStreetMap (HOT) после землетрясения в Турции и Сирии
-• Отфильтрованы ошибочные результаты поиска в списке и на карте
-• Исправлен сбой при открытии приложения
-• Улучшены голосовые уведомления о следующем повороте для небольших расстояний
-• Улучшены иконки для входов в здания
-• Исправлены персидский, польский и немецкий переводы
+• New OpenStreetMap data as of February 25
+• Fixed several crashes
+• Fixed missing Traditional Chinese localization
+• Improved Help and selected POI dialogs
+• Fixed some not displayed complex opening hours
+• Wiki articles are now clickable and visible for bookmarks
+• Fixed and improved search
+• Added healthcare specialists
+• Added communication towers, solar, wind, gas, and hydropower generators
+• Improved ar, nb, pt, and tr translations
+…more: omaps.app/news

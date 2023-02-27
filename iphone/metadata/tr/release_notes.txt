@@ -1,11 +1,13 @@
-Kalbimiz depremden etkilenen herkesle birlikte
+• New OpenStreetMap data as of February 25
+• Fixed freeze on iPad when a keyboard is connected
+• Fixed unnecessary double click on the route button
+• Removed duplicated floors and zip code cells
+• Enabled OpenStreetMap editor notes for all selected places
+• Fixed and improved search
+• Split vegan and vegetarian cuisines in search
+• Fixed styles for airports, landuses, waterways, and hatching fill areas
+• Added healthcare specialists: alternative, audiologist, blood_donation, optometrist, podiatrist, psychotherapist, sample_collection, speech_therapist
+• Added communication towers and solar, wind, gas, and hydropower generators
+• Improved Arabic, Norwegian, Portuguese, and Turkish translations
 
-Yaşamını yitirenlere Allah'tan rahmet, yaralılara acil şifalar dileriz. Tüm milletimizin başı sağ olsun.
-
-#GeçmişOlsunTürkiye
-
-Deprem bölgesindekilere yardımcı olabilmek adına Güneydoğu Anadolu'daki harita verileri güncellendi.
-
-Organic Maps ile şarjınızı korurken internetsiz olarak haritayı kullanabilirsiniz. Gerekli durumlarda Organic Maps ayarlarında bulunan "maksimum güç tasarrufunu" açmayı unutmayın.
-
-Daha fazla bilgi: omaps.app/tr/news
+Follow our news at omaps.app/news
