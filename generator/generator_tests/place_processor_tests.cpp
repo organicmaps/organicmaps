@@ -237,6 +237,9 @@ UNIT_CLASS_TEST(TestPlaceProcessor, SelectBestPlaceTest)
   //TEST(TestTable(*table, {}), ());
 }
 
+// Correct city Relations processing is not in PlaceProcessor only, but also in RoutingCityBoundariesCollector.
+// See Place_CityRelations test.
+/*
 UNIT_CLASS_TEST(TestPlaceProcessor, MinskDuplicatingCityFeatureTest)
 {
   DisablerIdInc _;
@@ -777,7 +780,7 @@ UNIT_CLASS_TEST(TestPlaceProcessor, MinskDuplicatingCityFeatureTest)
   std::vector<PlaceWithIDs> expected{
       {point, {point.GetMostGenericOsmId(), areaPart1.GetMostGenericOsmId()}}};
   Test(pp, expected);
-  //TEST(TestTable(*table, {{{point.GetMostGenericOsmId(), areaPart1.GetMostGenericOsmId()}, 3 /* cluster size */}}), ());
+  //TEST(TestTable(*table, {{{point.GetMostGenericOsmId(), areaPart1.GetMostGenericOsmId()}, 3}}), ());
 }
 
 UNIT_CLASS_TEST(TestPlaceProcessor, VoronezhDuplicatingCityFeatureTest)
@@ -1332,8 +1335,9 @@ UNIT_CLASS_TEST(TestPlaceProcessor, VoronezhDuplicatingCityFeatureTest)
   std::vector<PlaceWithIDs> expected{
       {point, {point.GetMostGenericOsmId(), areaPart1.GetMostGenericOsmId()}}};
   Test(pp, expected);
-  //TEST(TestTable(*table, {{{point.GetMostGenericOsmId(), areaPart1.GetMostGenericOsmId()}, 2 /* cluster size */}}), ());
+  //TEST(TestTable(*table, {{{point.GetMostGenericOsmId(), areaPart1.GetMostGenericOsmId()}, 2}}), ());
 }
+*/
 
 UNIT_CLASS_TEST(TestPlaceProcessor, KuznetsovoNearbyHamletsTest)
 {

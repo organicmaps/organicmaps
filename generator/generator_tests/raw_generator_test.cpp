@@ -499,6 +499,9 @@ UNIT_TEST(Place_CityRelations)
     "./data/osm_test_data/berlin_city.osm",
     // Relation boundary is place=suburb, but border_type=city
     "./data/osm_test_data/riviera_beach_city.osm",
+    "./data/osm_test_data/hotchkiss_town.osm",
+    "./data/osm_test_data/voronezh_city.osm",
+    "./data/osm_test_data/minsk_city.osm",
 
     // 1 boundary-only Relation + 1 Node
     "./data/osm_test_data/kadikoy_town.osm",
@@ -509,6 +512,8 @@ UNIT_TEST(Place_CityRelations)
     "./data/osm_test_data/lesnoy_town.osm",
 
     "./data/osm_test_data/pushkino_city.osm",
+    "./data/osm_test_data/korday_town.osm",
+    "./data/osm_test_data/bad_neustadt_town.osm",
 
     /// @todo We don't store villages in World now, but for the future!
     // 1 Relation + 1 Node (not linked with each other)
@@ -521,6 +526,9 @@ UNIT_TEST(Place_CityRelations)
     {64.0469397, -21.9772409},  // reykjavik
     {52.4013879, 13.0601531},   // berlin
     {26.7481191, -80.0836532},  // riviera beach
+    {38.7981690, -107.7347750}, // hotchkiss
+    {51.7505379, 39.5894547},   // voronezh
+    {53.9170050, 27.8576710},   // minsk
 
     {41.0150982, 29.0213844},   // kadikoy
     {53.5086454, 26.6979711},   // stolbtcy
@@ -528,11 +536,13 @@ UNIT_TEST(Place_CityRelations)
     {54.0026933, 27.6356912},   // lesnoy
 
     {56.0807652, 37.9277319},   // pushkino
+    {43.2347760, 74.7573240},   // korday
+    {50.4006992, 10.2020744},   // bad_neustadt
 
     //{26.6757006, -80.0547346},  // palm beach
   };
 
-  size_t constexpr kManyBoundriesUpperIndex = 5;
+  size_t constexpr kManyBoundriesUpperIndex = 8;
 
   static_assert(std::size(arrFiles) == std::size(arrNotInBoundary));
 
@@ -606,7 +616,77 @@ UNIT_TEST(Place_CityRelations)
       }
     }
 
-    CHECK(foundCity, ());
+    TEST(foundCity, ());
+  }
+}
+
+UNIT_TEST(Place_CityRelations_IncludePoint)
+{
+  std::string const mwmName = "Cities";
+  std::string const worldMwmName = WORLD_FILE_NAME;
+
+  std::string const arrFiles[] = {
+    "./data/osm_test_data/valentin_alsina_town.osm",
+  };
+
+  ms::LatLon arrInBoundary[] = {
+    {-34.6699107, -58.4302163},   // valentin_alsina
+  };
+
+  for (size_t i = 0; i < std::size(arrFiles); ++i)
+  {
+    TestRawGenerator generator;
+    generator.BuildFB(arrFiles[i], mwmName, true /* makeWorld */);
+
+    auto const & checker = ftypes::IsCityTownOrVillageChecker::Instance();
+
+    // Check that we have only 1 city without duplicates.
+    size_t count = 0;
+    generator.ForEachFB(worldMwmName, [&](feature::FeatureBuilder const & fb)
+    {
+      if (fb.GetGeomType() == feature::GeomType::Point)
+      {
+        ++count;
+        TEST(checker(fb.GetTypes()), ());
+        TEST(fb.GetRank() > 0, ());
+      }
+    });
+
+    TEST_EQUAL(count, 1, ());
+
+    // Build boundaries table.
+    generator.BuildFeatures(worldMwmName);
+    generator.BuildSearch(worldMwmName);
+
+    // Check that we have valid boundary in World.
+    FrozenDataSource dataSource;
+    auto const res = dataSource.RegisterMap(platform::LocalCountryFile::MakeTemporary(generator.GetMwmPath(worldMwmName)));
+    TEST_EQUAL(res.second, MwmSet::RegResult::Success, ());
+
+    search::CitiesBoundariesTable table(dataSource);
+    TEST(table.Load(), ());
+    TEST_EQUAL(table.GetSize(), 1, ());
+
+    FeaturesLoaderGuard guard(dataSource, res.first);
+    bool foundCity = false;
+
+    size_t const numFeatures = guard.GetNumFeatures();
+    for (size_t id = 0; id < numFeatures; ++id)
+    {
+      auto ft = guard.GetFeatureByIndex(id);
+      if (checker(*ft))
+      {
+        TEST_EQUAL(ft->GetGeomType(), feature::GeomType::Point, ());
+        foundCity = true;
+
+        search::CitiesBoundariesTable::Boundaries boundary;
+        TEST(table.Get(ft->GetID(), boundary), ());
+        TEST(boundary.HasPoint(ft->GetCenter()), ());
+        TEST(boundary.HasPoint(mercator::FromLatLon(arrInBoundary[i])), (i));
+      }
+    }
+
+    TEST(foundCity, ());
   }
 }
 
@@ -644,6 +724,29 @@ UNIT_CLASS_TEST(TestRawGenerator, Place_NoCityBoundaries)
   search::CitiesBoundariesTable table(dataSource);
   TEST(table.Load(), ());
   TEST_EQUAL(table.GetSize(), 0, ());
+}
+
+UNIT_CLASS_TEST(TestRawGenerator, Place_2Villages)
+{
+  std::string const mwmName = "Villages";
+
+  BuildFB("./data/osm_test_data/tarachevo_villages.osm", mwmName, false /* makeWorld */);
+
+  auto const & checker = ftypes::IsCityTownOrVillageChecker::Instance();
+
+  // Check that we have 2 villages (Тарачево).
+  size_t count = 0;
+  ForEachFB(mwmName, [&](feature::FeatureBuilder const & fb)
+  {
+    if (fb.GetGeomType() == feature::GeomType::Point)
+    {
+      ++count;
+      TEST(checker(fb.GetTypes()), ());
+      TEST_EQUAL(fb.GetName(), "Тарачево", ());
+    }
+  });
+
+  TEST_EQUAL(count, 2, ());
 }
 
 UNIT_CLASS_TEST(TestRawGenerator, Relation_Fence)
