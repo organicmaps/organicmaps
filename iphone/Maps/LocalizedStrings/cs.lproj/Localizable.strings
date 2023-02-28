@@ -765,11 +765,6 @@
 
 "kilometers_per_hour" = "km/h";
 
-"mile" = "mil";
-
-/* A unit of measure */
-"foot" = "stopa";
-
 "miles_per_hour" = "mil/h";
 
 "hour" = "hod";
@@ -2327,7 +2322,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "Skládka";
 
@@ -2345,9 +2340,9 @@
 
 "type.landuse.reservoir" = "Voda";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 

@@ -453,9 +453,13 @@
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/t</string>
-	<string name="mile">mil</string>
+	<plurals name="mile">
+	  <item quantity="other">mil</item>
+	</plurals>
 	<!-- A unit of measure -->
-	<string name="foot">fod</string>
+	<plurals name="foot">
+	  <item quantity="other">fod</item>
+	</plurals>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">time</string>
 	<string name="minute">min</string>

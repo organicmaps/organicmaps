@@ -9,6 +9,45 @@
 
 <!-- ********** Strings for downloading map from search **********/ -->
 
+  <key>mile</key>
+  <dict>
+    <key>NSStringLocalizedFormatKey</key>
+    <string>%#@value@</string>
+    <key>value</key>
+    <dict>
+      <key>NSStringFormatSpecTypeKey</key>
+      <string>NSStringPluralRuleType</string>
+      <key>NSStringFormatValueTypeKey</key>
+      <string>d</string>
+      <key>few</key>
+      <string>милі</string>
+      <key>one</key>
+      <string>миля</string>
+      <key>other</key>
+      <string>миль</string>
+    </dict>
+  </dict>
+
+<!-- A unit of measure -->
+  <key>foot</key>
+  <dict>
+    <key>NSStringLocalizedFormatKey</key>
+    <string>%#@value@</string>
+    <key>value</key>
+    <dict>
+      <key>NSStringFormatSpecTypeKey</key>
+      <string>NSStringPluralRuleType</string>
+      <key>NSStringFormatValueTypeKey</key>
+      <string>d</string>
+      <key>few</key>
+      <string>фути</string>
+      <key>one</key>
+      <string>фут</string>
+      <key>other</key>
+      <string>футів</string>
+    </dict>
+  </dict>
+
   <key>bookmarks_places</key>
   <dict>
     <key>NSStringLocalizedFormatKey</key>

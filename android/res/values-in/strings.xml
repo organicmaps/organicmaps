@@ -451,9 +451,13 @@
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/j</string>
-	<string name="mile">mil</string>
+	<plurals name="mile">
+	  <item quantity="other">mil</item>
+	</plurals>
 	<!-- A unit of measure -->
-	<string name="foot">kaki</string>
+	<plurals name="foot">
+	  <item quantity="other">kaki</item>
+	</plurals>
 	<string name="miles_per_hour">mpj</string>
 	<string name="hour">j</string>
 	<string name="minute">mnt</string>

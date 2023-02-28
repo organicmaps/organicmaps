@@ -477,9 +477,13 @@
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/s</string>
-	<string name="mile">mil</string>
+	<plurals name="mile">
+	  <item quantity="other">mil</item>
+	</plurals>
 	<!-- A unit of measure -->
-	<string name="foot">fit</string>
+	<plurals name="foot">
+	  <item quantity="other">fit</item>
+	</plurals>
 	<string name="miles_per_hour">saatte mil</string>
 	<string name="hour">sa</string>
 	<string name="minute">dk</string>

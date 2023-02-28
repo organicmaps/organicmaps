@@ -765,11 +765,6 @@
 
 "kilometers_per_hour" = "公里每小時";
 
-"mile" = "英哩";
-
-/* A unit of measure */
-"foot" = "英尺";
-
 "miles_per_hour" = "英哩每小時";
 
 "hour" = "小時";
@@ -2327,7 +2322,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "堆積場";
 
@@ -2345,9 +2340,9 @@
 
 "type.landuse.reservoir" = "水庫";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 

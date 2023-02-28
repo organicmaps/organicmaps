@@ -765,11 +765,6 @@
 
 "kilometers_per_hour" = "キロメートル毎時";
 
-"mile" = "マイル";
-
-/* A unit of measure */
-"foot" = "フィート";
-
 "miles_per_hour" = "マイル毎時";
 
 "hour" = "時間";

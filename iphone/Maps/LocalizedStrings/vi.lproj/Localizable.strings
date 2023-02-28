@@ -765,11 +765,6 @@
 
 "kilometers_per_hour" = "km/giờ";
 
-"mile" = "dặm";
-
-/* A unit of measure */
-"foot" = "ft";
-
 "miles_per_hour" = "mph";
 
 "hour" = "giờ";
@@ -2327,7 +2322,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "Bãi rác";
 
@@ -2345,9 +2340,9 @@
 
 "type.landuse.reservoir" = "Nước";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 

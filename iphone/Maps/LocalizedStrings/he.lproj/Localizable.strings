@@ -765,11 +765,6 @@
 
 "kilometers_per_hour" = "km/h";
 
-"mile" = "mi";
-
-/* A unit of measure */
-"foot" = "ft";
-
 "miles_per_hour" = "mph";
 
 "hour" = "h";
@@ -2327,7 +2322,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "Landfill";
 
@@ -2345,9 +2340,9 @@
 
 "type.landuse.reservoir" = "Water";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 
@@ -2359,7 +2354,7 @@
 
 "type.leisure.common" = "Public Land";
 
-"type.leisure.dog_park" = "Dog Area";
+"type.leisure.dog_park" = "Dog Park";
 
 "type.leisure.fitness_centre" = "Fitness Centre";
 
@@ -3299,7 +3294,7 @@
 
 "type.shop.gift" = "Gift Shop";
 
-"type.shop.greengrocer" = "Greengrocer's";
+"type.shop.greengrocer" = "Greengrocer";
 
 "type.shop.grocery" = "תלֶוֹכּמַ";
 

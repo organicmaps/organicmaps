@@ -765,11 +765,6 @@
 
 "kilometers_per_hour" = "كم/ساعة";
 
-"mile" = "ميل";
-
-/* A unit of measure */
-"foot" = "قدم";
-
 "miles_per_hour" = "ميل/ساعة";
 
 "hour" = "س";

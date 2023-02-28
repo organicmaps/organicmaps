@@ -14429,8 +14429,8 @@
     tags = android,ios
     en = ft
     ar = قدم
-    be:one = фут
     be:few = фута
+    be:one = фут
     be:other = футаў
     bg = фут
     ca = ft
@@ -14453,15 +14453,15 @@
     pl = ft
     pt = ft
     pt-BR = ft
-    ru:one = фут
     ru:few = фута
+    ru:one = фут
     ru:other = футов
     sk = stopa
     sv = fot
     th = ฟุต
     tr = fit
-    uk:one = фут
     uk:few = фути
+    uk:one = фут
     uk:other = футів
     vi = ft
     zh-Hans = 英尺
