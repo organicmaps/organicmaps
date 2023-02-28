@@ -5,7 +5,6 @@
 #include "generator/routing_city_boundaries_processor.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/feature_algo.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
 #include "geometry/area_on_earth.hpp"
@@ -149,17 +148,22 @@ std::vector<std::vector<FeaturePlace const *>> FindClusters(std::vector<FeatureP
 
   auto isSamePlace = [&localityChecker](FeaturePlace const & lFP, FeaturePlace const & rFP)
   {
-    // See https://github.com/organicmaps/organicmaps/issues/2035 for more details.
-
     if (lFP.m_rect.IsIntersect(rFP.m_rect))
       return true;
 
+    // If we have "true" boundaries and they are not intersecting - return false.
+    // IsEmptyInterior() == true for Point FB.
+    if (!lFP.m_rect.IsEmptyInterior() && !rFP.m_rect.IsEmptyInterior())
+      return false;
+
     /// @todo Small hack here. Need to check enclosing/parent region.
+    /// @see https://github.com/organicmaps/organicmaps/issues/2035 for more details.
     // Do not merge places with different ranks (population). See https://www.openstreetmap.org/#map=15/33.0145/-92.7249
     // Junction City in Arkansas and Louisiana.
     if (lFP.GetRank() > 0 && rFP.GetRank() > 0 && lFP.GetRank() != rFP.GetRank())
       return false;
 
+    // Assume that equal-type localities within some fixed radius (GetRadiusM) are the same.
     return localityChecker.GetType(lFP.GetPlaceType()) == localityChecker.GetType(lFP.GetPlaceType());
   };
 
@@ -199,23 +203,10 @@ std::vector<FeatureBuilder> PlaceProcessor::ProcessPlaces(std::vector<IDsContain
         return fp->m_fb.GetMostGenericOsmId();
       });
 
-      auto const bestBnd = m_boundariesHolder.GetBestBoundary(fbIDs);
+      auto const bestBnd = m_boundariesHolder.GetBestBoundary(fbIDs, bestFb.GetKeyPoint());
       if (bestBnd)
       {
         auto const id = bestFb.GetMostGenericOsmId();
-
-        // Boundary and FB center consistency check.
-        if (!bestBnd->IsPoint())
-        {
-          m2::RectD rect;
-          for (auto const & pts : bestBnd->m_boundary)
-            CalcRect(pts, rect);
-          CHECK(rect.IsValid(), ());
-
-          auto const center = bestFb.GetKeyPoint();
-          if (!rect.IsPointInside(center))
-            LOG(LERROR, (m_logTag, "FB center not in polygon's bound for:", id, mercator::ToLatLon(center), *bestBnd));
-        }
 
         // Sanity check
         using namespace ftypes;
@@ -250,7 +241,7 @@ std::vector<FeatureBuilder> PlaceProcessor::ProcessPlaces(std::vector<IDsContain
                 GetRadiusByPopulationForRouting(bestBnd->GetPopulation(), bndLocality));
           if (exactArea > circleArea * 20.0)
           {
-            LOG(LWARNING, (m_logTag, "Delete big boundary for", id));
+            LOG(LWARNING, (m_logTag, "Delete big boundary for", id, exactArea / circleArea));
             m_boundariesTable.Delete(id);
           }
         }
@@ -273,10 +264,18 @@ FeaturePlace PlaceProcessor::CreatePlace(feature::FeatureBuilder && fb) const
   if (fb.GetGeomType() == GeomType::Point)
   {
     // Update point rect with boundary polygons. Rect is used to filter places.
-    m_boundariesHolder.ForEachBoundary(fb.GetMostGenericOsmId(), [&rect](auto const & poly)
+    auto const id = fb.GetMostGenericOsmId();
+
+    m2::RectD const r = m_boundariesHolder.GetBoundaryRect(id);
+    if (r.IsValid())
     {
-      CalcRect(poly, rect);
-    });
+      if (!r.IsIntersect(rect))
+      {
+        LOG(LERROR, (m_logTag, "FB center not in polygon's bound for:", id,
+                    mercator::ToLatLon(rect), mercator::ToLatLon(r)));
+      }
+      rect.Add(r);
+    }
   }
 
   return {std::move(fb), rect};

@@ -37,12 +37,16 @@ public:
 
     bool TestValid() const;
 
+    bool IsInBoundary(m2::PointD const & pt) const;
+    void RecalcBoundaryRect();
+
     // Valid if m_boundary is empty or m_adminLevel > 0.
     m2::PointD m_center{0, 0};
 
     /// @todo Do not take into account holes, store only outer geometry.
     using PointSeq = feature::FeatureBuilder::PointSeq;
     std::vector<PointSeq> m_boundary;
+    m2::RectD m_boundaryRect;
 
     uint8_t m_adminLevel = 0;
 
@@ -71,20 +75,17 @@ public:
       fn(loc);
   }
 
-  template <class FnT> void ForEachBoundary(IDType id, FnT && fn) const
+  m2::RectD GetBoundaryRect(IDType id) const
   {
     auto const it = m_id2index.find(id);
     if (it != m_id2index.end())
-    {
-      auto const & loc = m_data[it->second];
-      for (auto const & poly : loc.m_boundary)
-        fn(poly);
-    }
+      return m_data[it->second].m_boundaryRect;
+    return {};
   }
 
   int GetIndex(IDType id) const;
 
-  Locality const * GetBestBoundary(std::vector<IDType> const & ids) const;
+  Locality const * GetBestBoundary(std::vector<IDType> const & ids, m2::PointD const & center) const;
 
 private:
   // Value is an index in m_data vector.
@@ -104,7 +105,9 @@ public:
 
 private:
   std::unordered_map<IDType, Locality> m_id2loc;
-  std::unordered_map<IDType, std::unordered_set<IDType>> m_node2rel;
+  using IDsSetT = std::unordered_set<IDType>;
+  std::unordered_map<IDType, IDsSetT> m_node2rel;
+  std::unordered_map<std::string, IDsSetT> m_name2rel;
 };
 
 class RoutingCityBoundariesCollector : public CollectorInterface

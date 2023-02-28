@@ -61,6 +61,8 @@ template <class Source> void PlaceBoundariesHolder::Locality::Deserialize(Source
   for (auto & e : m_boundary)
     rw::ReadVectorOfPOD(src, e);
 
+  RecalcBoundaryRect();
+
   CHECK(TestValid(), ());
 }
 
@@ -127,7 +129,7 @@ bool PlaceBoundariesHolder::Locality::TestValid() const
   if (IsPoint())
     return IsHonestCity() && !m_center.IsAlmostZero();
 
-  if (m_boundary.empty())
+  if (m_boundary.empty() || !m_boundaryRect.IsValid())
     return false;
 
   if (!IsHonestCity())
@@ -139,15 +141,24 @@ bool PlaceBoundariesHolder::Locality::TestValid() const
   return true;
 }
 
+bool PlaceBoundariesHolder::Locality::IsInBoundary(m2::PointD const & pt) const
+{
+  CHECK(!m_boundary.empty(), ());
+  return m_boundaryRect.IsPointInside(pt);
+}
+
+void PlaceBoundariesHolder::Locality::RecalcBoundaryRect()
+{
+  m_boundaryRect.MakeEmpty();
+  for (auto const & pts : m_boundary)
+    feature::CalcRect(pts, m_boundaryRect);
+}
+
 std::string DebugPrint(PlaceBoundariesHolder::Locality const & l)
 {
-  m2::RectD rect;
-  for (auto const & pts : l.m_boundary)
-    CalcRect(pts, rect);
-
   std::string rectStr;
-  if (rect.IsValid())
-    rectStr = DebugPrint(mercator::ToLatLon(rect));
+  if (l.m_boundaryRect.IsValid())
+    rectStr = DebugPrint(mercator::ToLatLon(l.m_boundaryRect));
   else
     rectStr = "Invalid";
 
@@ -215,7 +226,7 @@ int PlaceBoundariesHolder::GetIndex(IDType id) const
 }
 
 PlaceBoundariesHolder::Locality const *
-PlaceBoundariesHolder::GetBestBoundary(std::vector<IDType> const & ids) const
+PlaceBoundariesHolder::GetBestBoundary(std::vector<IDType> const & ids, m2::PointD const & center) const
 {
   Locality const * bestLoc = nullptr;
 
@@ -236,7 +247,7 @@ PlaceBoundariesHolder::GetBestBoundary(std::vector<IDType> const & ids) const
       continue;
 
     Locality const & loc = m_data[idx];
-    if (isBetter(loc))
+    if (isBetter(loc) && loc.IsInBoundary(center))
       bestLoc = &loc;
   }
 
@@ -247,6 +258,11 @@ PlaceBoundariesHolder::GetBestBoundary(std::vector<IDType> const & ids) const
 
 void PlaceBoundariesBuilder::Add(Locality && loc, IDType id, std::vector<uint64_t> const & nodes)
 {
+  // Heuristic: store Relation by name only if "connection" nodes are empty.
+  // See Place_CityRelations_IncludePoint.
+  if (nodes.empty() && !loc.m_name.empty() && id.GetType() == base::GeoObjectId::Type::ObsoleteOsmRelation)
+    m_name2rel[loc.m_name].insert(id);
+
   CHECK(m_id2loc.emplace(id, std::move(loc)).second, ());
 
   for (uint64_t nodeID : nodes)
@@ -261,6 +277,9 @@ void PlaceBoundariesBuilder::MergeInto(PlaceBoundariesBuilder & dest) const
 
   for (auto const & e : m_node2rel)
     dest.m_node2rel[e.first].insert(e.second.begin(), e.second.end());
+
+  for (auto const & e : m_name2rel)
+    dest.m_name2rel[e.first].insert(e.second.begin(), e.second.end());
 }
 
 void PlaceBoundariesBuilder::Save(std::string const & fileName)
@@ -273,25 +292,32 @@ void PlaceBoundariesBuilder::Save(std::string const & fileName)
     // Iterate via honest Node place localities to select best Relation for them.
     if (!e.second.IsPoint())
       continue;
-    auto itRelations = m_node2rel.find(e.first);
-    if (itRelations == m_node2rel.end())
+
+    IDsSetT ids;
+    if (auto it = m_node2rel.find(e.first); it != m_node2rel.end())
+      ids.insert(it->second.begin(), it->second.end());
+    if (auto it = m_name2rel.find(e.second.m_name); it != m_name2rel.end())
+      ids.insert(it->second.begin(), it->second.end());
+    if (ids.empty())
       continue;
+
     CHECK(e.second.IsHonestCity(), (e.first));
 
     Locality const * best = nullptr;
     IDType bestID;
-    for (auto const & relID : itRelations->second)
+    for (auto const & relID : ids)
     {
       auto const & loc = m_id2loc[relID];
-      if (best == nullptr || loc.IsBetterBoundary(*best, e.second.m_name))
+      if ((best == nullptr || loc.IsBetterBoundary(*best, e.second.m_name)) &&
+          loc.IsInBoundary(e.second.m_center))
       {
         best = &loc;
         bestID = relID;
       }
     }
 
-    CHECK(best, (e.first));
-    node2rel.emplace_back(e.first, bestID);
+    if (best)
+      node2rel.emplace_back(e.first, bestID);
   }
 
   PlaceBoundariesHolder holder;
@@ -373,11 +399,17 @@ void RoutingCityBoundariesCollector::Collect(OsmElement const & elem)
     // * Riviera Beach boundary has place=suburb
     // * Hong Kong boundary has place=region
 
-    if (loc.m_adminLevel < 4 || nodes.empty())
+    if (loc.m_adminLevel < 4)
       return;
 
     // Skip Relations like boundary=religious_administration.
-    if (elem.GetTag("boundary") != "administrative")
+    // Also "boundary" == "administrative" is missing sometimes.
+    auto const boundary = elem.GetTag("boundary");
+    if (boundary != "administrative")
+      return;
+
+    // Should be at least one reference.
+    if (nodes.empty() && loc.m_name.empty())
       return;
   }
 
@@ -396,6 +428,7 @@ void RoutingCityBoundariesCollector::Collect(OsmElement const & elem)
     case GeomType::Area:
       /// @todo Move geometry or make parsing geometry without FeatureBuilder class.
       loc.m_boundary.push_back(fb.GetOuterGeometry());
+      loc.RecalcBoundaryRect();
       break;
 
     default:  // skip non-closed ways
