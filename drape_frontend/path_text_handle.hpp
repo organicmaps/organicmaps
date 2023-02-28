@@ -60,7 +60,6 @@ public:
   m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override;
   void GetPixelShape(ScreenBase const & screen, bool perspective, Rects & rects) const override;
   void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator) const override;
-  uint64_t GetPriorityMask() const override;
   bool Enable3dExtention() const override;
   bool HasLinearFeatureShape() const override;
 
