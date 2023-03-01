@@ -1,7 +1,10 @@
-• Február 10-i OpenStreetMap adatok, a Humanitárius OpenStreetMap Csapat változtatásaival, a törökországi és szíriai földrengések következtében
-• Kiszűrtük a hibás keresési találatokat a listában és a térképen
-• A megnyitáskor történő összeomlást kijavítottuk
-• A főbejáratok mostantól megkülönböztethetőek az alsóbbrendű bejáratoktól a csodás új ikonokkal
-• Továbbfejlesztettük a hangnavigációt kisebb távolságok esetén
-• Javítottunk a perzsa, lengyel és német fordításokon
-https://omaps.app/news
+• Új február 27-i OpenStreetMap adatok
+• A Wiki cikkek mostantól kattinthatóak és láthatóak a könyvjelzők számára
+• Számos összeomlás javítása
+• Hagyományos kínai lokalizáció javítva
+• Javítottuk a Súgó és a kiválasztott POI párbeszédablakokat
+• Javított és optimalizáltabb keresés
+• Egészségügyi specialista POI-k hozzáadása
+• Kommunikációs torony, nap-, szél-, gáz- és vízenergia-generátor POI-k hozzáadása.
+• Javított ar, nb, pt és tr fordítások
+…további információ: omaps.app/news

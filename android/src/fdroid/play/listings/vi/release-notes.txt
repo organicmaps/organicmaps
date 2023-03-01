@@ -1,7 +1,11 @@
-• Dữ liệu OpenStreetMap mới kể từ ngày 10 tháng 2, bao gồm các thay đổi của Nhóm Humanitarian OpenStreetMap (HOT) sau trận động đất ở Thổ Nhĩ Kỳ và Syria
-• Lọc kết quả tìm kiếm sai trong danh sách và trên bản đồ
-• Đã sửa lỗi sự cố khi mở
-• Biểu tượng tốt hơn cho lối vào tòa nhà chính và phụ
-• Cải thiện thông báo bằng giọng nói ở lượt tiếp theo cho khoảng cách nhỏ hơn
-• Đã sửa lỗi bản dịch tiếng Ba Tư, tiếng Ba Lan và tiếng Đức
-…thêm: omaps.app/news
+• New OpenStreetMap data as of February 27
+• Wiki articles are now clickable and visible for bookmarks
+• Fixed several crashes
+• Fixed missing Traditional Chinese localization
+• Improved Help and selected POI dialogs
+• Fixed some not displayed complex opening hours
+• Fixed and improved search
+• Added healthcare specialists
+• Added communication towers, solar, wind, gas, and hydropower generators
+• Improved ar, nb, pt, and tr translations
+…more: omaps.app/news

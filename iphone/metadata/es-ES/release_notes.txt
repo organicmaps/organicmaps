@@ -1,11 +1,13 @@
-• Nuevos datos de OpenStreetMap a partir del 10 de febrero, incluidos los cambios realizados por el Humanitarian OpenStreetMap Team (HOT) tras el terremoto de Turquía y Siria
-• Filtrados los resultados de búsqueda erróneos en la lista y en el mapa
-• Mejora de las notificaciones de voz de próximo giro para distancias más cortas
-• Mejores iconos para las entradas principales y secundarias de los edificios
-• Corregidas las traducciones al Persa, Polaco y Alemán
-• Corregido el fallo al abrir enlaces om:// y https://omaps.app/
-• Mostrar el nombre del POI compartido en los enlaces om:// y https://omaps.app/
+• New OpenStreetMap data as of February 27
+• Fixed freeze on iPad when a keyboard is connected
+• Fixed unnecessary double click on the route button
+• Removed duplicated floors and zip code cells
+• Enabled OpenStreetMap editor notes for all selected places
+• Fixed and improved search
+• Split vegan and vegetarian cuisines in search
+• Fixed styles for airports, landuses, waterways, and hatching fill areas
+• Added healthcare specialists: alternative, audiologist, blood_donation, optometrist, podiatrist, psychotherapist, sample_collection, speech_therapist
+• Added communication towers and solar, wind, gas, and hydropower generators
+• Improved Arabic, Norwegian, Portuguese, and Turkish translations
 
-Vea más ejemplos de nuestra API y esquemas de URL en omaps.app/api
-
-Siga nuestras noticias en omaps.app/news
+Follow our news at omaps.app/news

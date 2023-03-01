@@ -1,7 +1,11 @@
-• Neue OpenStreetMap-Daten vom 10. Februar, einschließlich Änderungen durch das Humanitarian OpenStreetMap Team (HOT) nach dem Erdbeben in der Türkei und Syrien
-• Falsche Suchergebnisse in der Liste und auf der Karte gefiltert
-• Absturz beim Öffnen behoben
-• Bessere Icons für Haupt- und Nebeneingänge von Gebäuden
-• Verbesserte Sprachbenachrichtigungen für kleinere Entfernungen bei der nächsten Abbiegung
-• Persische, polnische und deutsche Übersetzungen korrigiert
-…mehr: omaps.app/news
+• Neue OSM-Daten vom 27. Februar
+• Div. Abstürze behoben
+• Fehlende Lokalisierung für chin. Langzeichen behoben
+• Dialoge für Hilfe und ausgewählte POI verbessert
+• Fehler bei komplexeren Öffnungszeiten behoben
+• Wiki-Artikel sind nun klickbar und für Lesezeichen sichtbar
+• Suche korrigiert und verbessert
+• Spezialisten im Gesundheitswesen hinzugefügt
+• Funktürme, Solar-, Wind-, Gas- und Wassergeneratoren hinzugefügt
+• Verbesserte ar-, nb-, pt- und tr-Übersetzungen
+• ...mehr: omaps.app/news

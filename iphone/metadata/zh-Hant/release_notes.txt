@@ -1,11 +1,13 @@
-• 截至 2 月 10 日的新 OpenStreetMap 数据，包括土耳其和叙利亚地震后人道主义 OpenStreetMap 团队 (HOT) 所做的更改
-• 在列表和地图上过滤错误的搜索结果
-• 改进了小距离的下一转弯语音通知
-• 主楼和陪楼更好的入口图标
-• 修复了波斯语、波兰语和德语翻译
-• 修复了打开 om:// 和 https://omaps.app/links 时的崩溃问题
-• 在 om:// 和 https://omaps.app/links 中显示共享 POI 的名称
+• New OpenStreetMap data as of February 27
+• Fixed freeze on iPad when a keyboard is connected
+• Fixed unnecessary double click on the route button
+• Removed duplicated floors and zip code cells
+• Enabled OpenStreetMap editor notes for all selected places
+• Fixed and improved search
+• Split vegan and vegetarian cuisines in search
+• Fixed styles for airports, landuses, waterways, and hatching fill areas
+• Added healthcare specialists: alternative, audiologist, blood_donation, optometrist, podiatrist, psychotherapist, sample_collection, speech_therapist
+• Added communication towers and solar, wind, gas, and hydropower generators
+• Improved Arabic, Norwegian, Portuguese, and Turkish translations
 
-在 omaps.app/api 上查看我们的 API 和 URL 方案的更多示例
-
-在 omaps.app/news 关注我们的新闻
+Follow our news at omaps.app/news
