@@ -4,6 +4,16 @@
 <!-- Language: sw -->
 <resources>
 	<!-- SECTION: Strings -->
+	<!-- Text in About screen -->
+	<string name="about_headline">Bure kwa kila mtu, iliyotengenezwa na upendo</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Hakuna matangazo, hakuna ufuatiliaji, hakuna mkusanyiko wa data</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Huokoa betri, haitumii data ya usuli</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Haraka, minimalistic, hakuna taka</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Maombi ya chanzo-wazi iliyoundwa na wanaovutia na wanaojitolea.</string>
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage">Hifadhi ramani kwenye</string>
 
@@ -33,7 +43,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Changia</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Jinsi ya kutuunga mkono?</string>
+	<string name="how_to_support_us">Saidia mradi</string>
 	<!-- Preference title -->
 	<string name="google_play_services">Huduma za Google Play</string>
 	<!-- deep purple color -->
@@ -60,7 +70,8 @@
 	<!-- SECTION: Strings for downloading map from search -->
 	<string name="login_osm">Ingia kwa OpenStreetMap</string>
 	<string name="level">Ghorofa</string>
-	<string name="osm_presentation">Data yote ya ramani inatoka kwa mradi wa OpenStreetMap. Ni kama Wikipedia ya ramani ambapo unaweza kuongeza au kuhariri maeneo, na yanapatikana kwa mamilioni ya watumiaji duniani kote.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Takwimu za katuni kutoka kwa OpenStreetMap kama ya %s. Ni kama Wikipedia ambapo unaweza kuongeza au kuhariri maeneo kwa watumiaji wote ulimwenguni.</string>
 	<string name="editor_other_info">Tuma ujumbe kwenye vihariri vya OSM</string>
 	<string name="editor_share_to_all_dialog_message_2">Wahariri wa OpenStreetMap watakagua mabadiliko na kuwasiliana nawe ikiwa wana maswali yoyote.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->

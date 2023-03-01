@@ -304,7 +304,7 @@
 "donate" = "Doar";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Como nos apoiar?";
+"how_to_support_us" = "Apoie o projeto";
 
 /* Button in the main Help dialog */
 "copyright" = "Direitos autorais";
@@ -1548,7 +1548,7 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "Muralha";
+"type.barrier.city_wall" = "City Wall";
 
 "type.barrier.cycle_barrier" = "Barreira de bicicletas";
 

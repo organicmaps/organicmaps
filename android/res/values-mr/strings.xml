@@ -35,6 +35,9 @@
 	<string name="country_status_download_failed">डाउनलोड अयशस्वी</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">पुन्हा प्रयत्न करा</string>
+	<string name="about_menu_title">Organic Maps बद्दल</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• बॅटरी वाचवते, पार्श्वभूमी डेटा वापरत नाही</string>
 	<string name="connection_settings">जोडणी सेटिंग</string>
 	<string name="close">बंद</string>
 	<string name="unsupported_phone">ह्या ऍपला हार्डवेअर प्रवेगक OpenGL आवश्यक आहे. दुर्दैवाने, तुमच्या उपकरणाला ह्याचा आधार नाही.</string>
@@ -218,7 +221,7 @@
 	<!-- Button in the main Help dialog -->
 	<string name="faq">वारंवार विचारलेले प्रश्न</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">आम्हाला आधार कसा द्यायचा?</string>
+	<string name="how_to_support_us">प्रकल्पाला पाठठिंबा द्या</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">प्रकाशन अधिकार (कॉपीराईट)</string>
 	<!-- Text in menu + Button in the main Help dialog -->

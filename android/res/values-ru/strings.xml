@@ -38,6 +38,17 @@
 	<string name="country_status_download_failed">Ошибка загрузки</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Попробуйте еще раз</string>
+	<string name="about_menu_title">Про Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Бесплатно для всех, сделано с любовью</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Без рекламы, без трекинга, без слежки</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Экономит батарею, без фоновых данных</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Быстрые, минималистичные, без мусора</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Приложение с открытым исходным кодом, созданное энтузиастами и волонтерами.</string>
 	<string name="connection_settings">Настройки подключения</string>
 	<string name="close">Закрыть</string>
 	<string name="unsupported_phone">Для работы приложения необходим аппаратно ускоренный OpenGL. К сожалению, ваше устройство не поддерживается.</string>
@@ -241,7 +252,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Поддержать рублём</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Как наc поддержать?</string>
+	<string name="how_to_support_us">Помочь проекту</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Копирайт</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -450,7 +461,8 @@
 	<string name="editor_report_problem_other_title">Другая проблема</string>
 	<string name="placepage_add_business_button">Добавить организацию</string>
 	<string name="message_invalid_feature_position">Объект не может находиться в этом месте</string>
-	<string name="osm_presentation">Все данные карты поступают из проекта OpenStreetMap. Это как Википедия для карт, где вы можете добавлять или редактировать места, и они становятся доступными для миллионов пользователей по всему миру.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Картографические данные из OpenStreetMap по состоянию на %s. Это как Википедия, где вы можете добавить или редактировать места для всех пользователей по всему миру.</string>
 	<string name="login_to_make_edits_visible">Авторизуйтесь в OpenStreetMap.org, чтобы ваши изменения увидели другие пользователи.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d из %2$d</string>

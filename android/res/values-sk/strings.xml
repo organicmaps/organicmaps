@@ -35,6 +35,17 @@
 	<string name="country_status_download_failed">Sťahovanie zlyhalo</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Skúsiť znova</string>
+	<string name="about_menu_title">O aplikácii Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Zadarmo pre každého, vyrobený s láskou</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Žiadne reklamy, žiadne sledovanie, žiadny zber údajov</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Šetrí batériu, nepoužíva dáta na pozadí</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Rýchle, minimalistické, žiadne nevyžiadané</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Aplikácia s otvoreným zdrojovým kódom vytvorené nadšencami a dobrovoľníkmi.</string>
 	<string name="connection_settings">Nastavenie pripojenia</string>
 	<string name="close">Zavrieť</string>
 	<string name="unsupported_phone">Je vyžadovaná hardwarová akcelerácia OpenGL. Bohužial, vaše zariadenie nie je podporované.</string>
@@ -219,7 +230,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Darovať</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Ako nás podporiť?</string>
+	<string name="how_to_support_us">Podporte projekt</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Autorské práva</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -419,7 +430,8 @@
 	<string name="editor_report_problem_other_title">Iný problém</string>
 	<string name="placepage_add_business_button">Pridať organizáciu</string>
 	<string name="message_invalid_feature_position">Objekt sa tu nedá umiestniť</string>
-	<string name="osm_presentation">Všetky mapové podklady pochádzajú z projektu OpenStreetMap. Je to ako Wikipedia pre mapy, kde môžete pridávať alebo upravovať miesta a sú dostupné pre milióny používateľov na celom svete.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Kartografické údaje z OpenStreetMap od %s. Je to ako Wikipedia, kde môžete pridať alebo upravovať miesta pre všetkých používateľov po celom svete.</string>
 	<string name="login_to_make_edits_visible">Prihláste sa, aby mohli ostatní užívatelia vidieť Vami vykonané zmeny.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d z %2$d</string>

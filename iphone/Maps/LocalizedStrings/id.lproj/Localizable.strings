@@ -304,7 +304,7 @@
 "donate" = "Menyumbangkan";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Bagaimana cara mendukung kami?";
+"how_to_support_us" = "Mendukung proyek";
 
 /* Button in the main Help dialog */
 "copyright" = "Hak cipta";
@@ -2329,7 +2329,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "TPA";
 
@@ -2347,9 +2347,9 @@
 
 "type.landuse.reservoir" = "Air";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 

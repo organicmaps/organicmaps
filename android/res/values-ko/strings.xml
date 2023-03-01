@@ -35,6 +35,17 @@
 	<string name="country_status_download_failed">다운로드에 실패하였습니다</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">다시 시도</string>
+	<string name="about_menu_title">Organic Maps 정보</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">사랑으로 만든 모든 사람에게 무료</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• 광고 없음, 추적 없음, 데이터 수집 없음</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• 배터리를 절약하고 백그라운드 데이터를 사용하지 않습니다.</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• 빠르고 최소한의 정크가 없습니다</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">애호가와 자원 봉사자가 만든 오픈 소스 응용 프로그램.</string>
 	<string name="connection_settings">연결 설정</string>
 	<string name="close">닫기</string>
 	<string name="unsupported_phone">하드웨어 촉진 OpenGL이 요구됩니다. 애석하게도 귀하의 장치는 지원되지 않습니다.</string>
@@ -219,7 +230,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">기부</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">우리를 지원하는 방법?</string>
+	<string name="how_to_support_us">프로젝트 지원</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">저작권</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -421,7 +432,8 @@
 	<string name="editor_report_problem_other_title">다른 문제</string>
 	<string name="placepage_add_business_button">조직 추가</string>
 	<string name="message_invalid_feature_position">목적지를 이곳에서 찾을 수 없습니다</string>
-	<string name="osm_presentation">모든 지도 데이터는 OpenStreetMap 프로젝트에서 가져옵니다. \"\"장소를 추가하거나 편집할 수 있는 지도용 Wikipedia와 같으며 전 세계 수백만 사용자가 사용할 수 있습니다.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">%s 기준 OpenStreetMap의지도 제작 데이터. 전 세계 모든 사용자의 장소를 추가하거나 편집 할 수있는 Wikipedia와 같습니다.</string>
 	<string name="login_to_make_edits_visible">로그인하여 다른 사용자가 변경한 내용을 볼 수 있도록 하십시오.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%2$d중의 %1$d</string>

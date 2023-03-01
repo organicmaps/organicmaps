@@ -301,10 +301,10 @@
 "faq" = "اسئلة مكررة";
 
 /* Button in the main menu */
-"donate" = "ﻉﺮﺒﺘﻳ";
+"donate" = "تبرع";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "كيف يمكنك دعمنا؟";
+"how_to_support_us" = "ﻉﻭﺮﺸﻤﻟﺍ ﻢﻋﺩ";
 
 /* Button in the main Help dialog */
 "copyright" = "حقوق النشر";

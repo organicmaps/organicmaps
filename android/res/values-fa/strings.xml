@@ -38,6 +38,17 @@
 	<string name="country_status_download_failed">دانلود با شکست مواجه شد</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">تلاش مجدد</string>
+	<string name="about_menu_title">Organic Maps درباره‌ی</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">رایگان برای همه ، ساخته شده با عشق</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• بدون تبلیغات ، ردیابی ، جمع آوری داده ها</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• باتری را ذخیره می کند، از داده های پس زمینه استفاده نمی کند</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• سریع ، مینیمالیستی ، بدون آشغال</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">برنامه منبع باز ایجاد شده توسط علاقه مندان و داوطلبان.</string>
 	<string name="connection_settings">تنظیمات اتصال</string>
 	<string name="close">بستن</string>
 	<string name="unsupported_phone">نیازمند است. متاسفانه دستگاه شما از آن پشتیبانی نمی‌کندOpenGLبرنامه برای اجرا به</string>
@@ -212,7 +223,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">حمایت مالی</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">چگونه از ما حمایت کنیم؟</string>
+	<string name="how_to_support_us">ﺪﯿﻨﮐ ﺖﯾﺎﻤﺣ ﻩﮊﻭﺮﭘ ﺯﺍ</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">حق نشر و کپی رایت</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -418,7 +429,8 @@
 	<string name="editor_report_problem_other_title">مشکلی دیگر</string>
 	<string name="placepage_add_business_button">اضافه کردن یک تجارت</string>
 	<string name="message_invalid_feature_position">نمی توان شی ای در این مکان باشد</string>
-	<string name="osm_presentation">تمام داده‌های نقشه از پروژه OpenStreetMap می‌آید. این مثل ویکی‌پدیا برای نقشه‌هاست که شما می‌توانید مکان را اضافه یا ویرایش کنید ﻭ ﺁنها ﺑﺮﺍﯼ ﻣﯿﻠﯿﻮن‌ها ﮐﺎﺭﺑﺮ ﺩﺭ ﺳﺮﺍﺳﺮ ﺟﻬﺎﻥ ﺩﺭ ﺩﺳﺘﺮﺱ ﻗﺮﺍﺭ ﻣﯽﮔﯿﺮﻧﺪ.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">داده های نقشه برداری از OpenStreetMap از %s. این مانند ویکی پدیا است که می توانید مکانهایی را برای همه کاربران در سراسر جهان اضافه یا ویرایش کنید.</string>
 	<string name="login_to_make_edits_visible">وارد شوید تا دیگر کاربران نیز بتوانند تغییرات ایجاد شده توسط شما را ببینند</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d  از  %2$d</string>

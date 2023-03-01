@@ -35,6 +35,9 @@
 	<string name="country_status_download_failed">Allalaadimine ebaõnnestus</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Proovi uuesti</string>
+	<string name="about_menu_title">Organic Maps kohta</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Säästab akut, ei kasuta taustaandmeid</string>
 	<string name="connection_settings">Ühenduse seaded</string>
 	<string name="close">Sulge</string>
 	<string name="unsupported_phone">Rakendus vajab riistvaralist OpenGL tuge. Kahjuks Sinu seade ei ole toetatud.</string>
@@ -236,7 +239,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Anneta</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Kuidas meid toetada?</string>
+	<string name="how_to_support_us">Toetage projekti</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Autoriõigused</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -445,7 +448,6 @@
 	<string name="editor_report_problem_other_title">Erinev probleem</string>
 	<string name="placepage_add_business_button">Lisa ettevõte</string>
 	<string name="message_invalid_feature_position">Ükski objekt ei saa siin asuda</string>
-	<string name="osm_presentation">Kõik kaardiandmed pärinevad OpenStreetMapi projektist. See on nagu Vikipeedia kaartide jaoks, kus saate kohti lisada või muuta ja need muutuvad kättesaadavaks miljonitele kasutajatele üle kogu maailma.</string>
 	<string name="login_to_make_edits_visible">Logi sisse OpenStreetMap.org keskkonda, et teised kasutajad näeksid Sinu tehtud muudatusi.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>

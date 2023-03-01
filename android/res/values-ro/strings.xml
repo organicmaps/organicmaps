@@ -35,6 +35,17 @@
 	<string name="country_status_download_failed">Descărcarea a eșuat</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Mai încearcă</string>
+	<string name="about_menu_title">Despre Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Gratuit pentru toată lumea, făcut cu dragoste</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Fără reclame, fără urmărire, fără colectare de date</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Economisește bateria, nu utilizează date de fundal</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Rapid, minimalist, fără gunoi</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Aplicație open-source creată de entuziaști și voluntari.</string>
 	<string name="connection_settings">Opțiuni de conectare</string>
 	<string name="close">Închide</string>
 	<string name="unsupported_phone">Această aplicație necesită accelerarea hardware OpenGL. Din păcate, dispozitivul tău nu este compatibil.</string>
@@ -224,7 +235,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Donează</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Cum să ne sprijiniți?</string>
+	<string name="how_to_support_us">Susține proiectul</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Drepturi de autor</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -431,7 +442,8 @@
 	<string name="editor_report_problem_other_title">Altă problemă</string>
 	<string name="placepage_add_business_button">Adaugă o firmă</string>
 	<string name="message_invalid_feature_position">Niciun obiect nu poate fi poziționat aici</string>
-	<string name="osm_presentation">Toate datele hărții provin din proiectul OpenStreetMap. Este ca Wikipedia pentru hărți în care puteți adăuga sau edita locuri și acestea devin disponibile pentru milioane de utilizatori din întreaga lume.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Date cartografice de la OpenStreetMap din %s. Este ca Wikipedia unde puteți adăuga sau edita locuri pentru toți utilizatorii din lume.</string>
 	<string name="login_to_make_edits_visible">Autentifică-te pentru ca modificările pe care le-ai făcut să poată fi văzute și de alți utilizatori.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d din %2$d</string>

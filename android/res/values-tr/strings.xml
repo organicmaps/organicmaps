@@ -37,6 +37,17 @@
 	<string name="country_status_download_failed">İndirme başarısız oldu</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Tekrar Dene</string>
+	<string name="about_menu_title">Organic Maps Hakkında</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Sevgiyle yapılmış, herkes için ücretsiz harita</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Reklam yok, takip yok, veri toplama yok</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Pilinizi tüketmez, arka planda veri alıp göndermez</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Hızlı, minimalist ve hafif</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Teknoloji tutkunları ve gönüllüler tarafından oluşturulan açık kaynaklı bir uygulama.</string>
 	<string name="connection_settings">Konum Ayarları</string>
 	<string name="close">Kapat</string>
 	<string name="unsupported_phone">Hızlı donanıma sahip bir OpenGL gerekli. Ne yazık ki cihazınız desteklenmiyor.</string>
@@ -238,7 +249,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Bağış yapın</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Sizi nasıl destekleyebilirim?</string>
+	<string name="how_to_support_us">Bu projeyi destekle</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Telif hakkı</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -447,7 +458,8 @@
 	<string name="editor_report_problem_other_title">Farklı bir sorun</string>
 	<string name="placepage_add_business_button">Kuruluş ekle</string>
 	<string name="message_invalid_feature_position">Buraya bir nesne konumlandırılamıyor</string>
-	<string name="osm_presentation">Tüm harita verileri OpenStreetMap projesinden geliyor. Bu proje Vikipedi\'nin harita sürümü gibidir, yer ekleyerek veya düzenleyerek tüm dünyadaki milyonlarca kullanıcı gibi bu harita verilerinin gelişmesine katkıda bulunabilirsiniz.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Harita verileri, %s tarihine ait OpenStreetMap verilerinden alınmıştır. OpenStreetMap, Vikipedi\'nin harita sürümü gibidir: dünyadaki herkes yer ekleyebilir veya düzenleyebilir.</string>
 	<string name="login_to_make_edits_visible">Diğer kullanıcıların yaptığınız değişiklikleri görebilmesi için OpenStreetMap.org\'da oturum açın.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>

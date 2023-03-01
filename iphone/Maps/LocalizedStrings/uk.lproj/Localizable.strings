@@ -50,7 +50,7 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Помилка завантаження";
 
-"about_menu_title" = "Про програму";
+"about_menu_title" = "Про Organic Maps";
 
 "close" = "Закрити";
 
@@ -304,7 +304,7 @@
 "donate" = "Підтримати грошима";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Як нас підтримати?";
+"how_to_support_us" = "Підтримайте проект";
 
 /* Button in the main Help dialog */
 "copyright" = "Копірайт";

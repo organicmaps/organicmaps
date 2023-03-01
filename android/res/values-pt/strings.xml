@@ -35,6 +35,17 @@
 	<string name="country_status_download_failed">O descarregamento falhou</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Tentar novamente</string>
+	<string name="about_menu_title">Sobre o Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Grátis para todos, feito com amor</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Sem anúncios, rastreamento ou coleta de dados</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Baixo consumo de bateria, sem atualização em segundo plano</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Rápido, minimalista e sem recursos desnecessários</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Aplicativo de código aberto criado por entusiastas e voluntários.</string>
 	<string name="connection_settings">Definições de ligação</string>
 	<string name="close">Fechar</string>
 	<string name="unsupported_phone">É necessário a acelaração OpenGL por hardware. Infelizmente o seu dispositivo não é compatível.</string>
@@ -224,7 +235,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Doar</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Como nos apoiar?</string>
+	<string name="how_to_support_us">Apoie o projeto</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Direitos de autor</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -428,7 +439,8 @@
 	<string name="editor_report_problem_other_title">Um problema diferente</string>
 	<string name="placepage_add_business_button">Adicionar uma organização</string>
 	<string name="message_invalid_feature_position">Nenhum objeto pode ser posicionado aqui</string>
-	<string name="osm_presentation">Todos os dados cartográficos provêm do projecto OpenStreetMap. É como a Wikipedia para mapas onde se podem adicionar ou editar locais, e estes ficam disponíveis para milhões de utilizadores em todo o mundo.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Os dados do mapa são provenientes do OpenStreetMap do dia %s. O OSM é como a Wikipédia dos mapas, onde você pode adicionar ou editar lugares para todos os usuários do mundo.</string>
 	<string name="login_to_make_edits_visible">Inicie a sessão para que outros utilizadores vejam as alterações que fez.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d de %2$d</string>
