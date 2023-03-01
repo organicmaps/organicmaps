@@ -17,6 +17,7 @@ import androidx.core.widget.NestedScrollViewClickFixed;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.Framework;
@@ -83,9 +84,15 @@ public class PlacePageController implements Initializable<Activity>,
     @Override
     public void onStateChanged(@NonNull View bottomSheet, int newState)
     {
+      final Lifecycle.State state = mMwmActivity.getLifecycle().getCurrentState();
+      if (!state.isAtLeast(Lifecycle.State.RESUMED))
+      {
+        Logger.e(TAG, "Called in the wrong activity state=" + state);
+        return;
+      }
+
       Logger.d(TAG, "State change, new = " + PlacePageUtils.toString(newState));
-      if (PlacePageUtils.isSettlingState(newState) || PlacePageUtils.isDraggingState(newState) ||
-          mMwmActivity.isFinishing() || mMwmActivity.isDestroyed())
+      if (PlacePageUtils.isSettlingState(newState) || PlacePageUtils.isDraggingState(newState))
         return;
 
       PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
@@ -97,8 +104,12 @@ public class PlacePageController implements Initializable<Activity>,
     @Override
     public void onSlide(@NonNull View bottomSheet, float slideOffset)
     {
-      if (mMwmActivity.isFinishing() || mMwmActivity.isDestroyed())
+      final Lifecycle.State state = mMwmActivity.getLifecycle().getCurrentState();
+      if (!state.isAtLeast(Lifecycle.State.RESUMED))
+      {
+        Logger.e(TAG, "Called in the wrong activity state=" + state);
         return;
+      }
       stopCustomPeekHeightAnimation();
       mDistanceToTop = bottomSheet.getTop();
       mSlideListener.onPlacePageSlide(mDistanceToTop);
