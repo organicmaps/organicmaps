@@ -20,12 +20,12 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 import app.organicmaps.Framework;
 import app.organicmaps.R;
@@ -638,7 +638,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       message = R.string.editor_reset_edits_message;
     }
 
-    new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
+    new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
         .setTitle(message)
         .setPositiveButton(title, (dialog, which) -> {
           Editor.nativeRollbackMapObject();

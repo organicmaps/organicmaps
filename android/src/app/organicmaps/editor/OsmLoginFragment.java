@@ -14,7 +14,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Size;
-import androidx.appcompat.app.AlertDialog;
 
 import app.organicmaps.Framework;
 import app.organicmaps.R;
@@ -25,6 +24,7 @@ import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.concurrency.ThreadPool;
 import app.organicmaps.util.concurrency.UiThread;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class OsmLoginFragment extends BaseMwmToolbarFragment
 {
@@ -105,7 +105,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
 
   private void onAuthFail()
   {
-    new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
+    new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.editor_login_error_dialog)
         .setPositiveButton(R.string.ok, null)
         .show();

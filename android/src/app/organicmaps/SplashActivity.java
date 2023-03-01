@@ -14,7 +14,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -26,6 +25,7 @@ import app.organicmaps.util.Counters;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.IOException;
 
@@ -143,7 +143,7 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
   private void showFatalErrorDialog(@StringRes int titleId, @StringRes int messageId)
   {
     mCanceled = true;
-    new AlertDialog.Builder(this, R.style.MwmTheme_AlertDialog)
+    new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
         .setTitle(titleId)
         .setMessage(messageId)
         .setNegativeButton(R.string.ok, (dialog, which) -> SplashActivity.this.finish())

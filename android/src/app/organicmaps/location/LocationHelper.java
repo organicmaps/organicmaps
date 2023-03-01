@@ -17,7 +17,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import app.organicmaps.Framework;
@@ -34,6 +33,7 @@ import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.NetworkPolicy;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.log.Logger;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public enum LocationHelper implements Initializable<Context>, AppBackgroundTracker.OnTransitionListener, BaseLocationProvider.Listener
 {
@@ -298,7 +298,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
       return;
     }
 
-    AlertDialog.Builder builder = new AlertDialog.Builder(mActivity, R.style.MwmTheme_AlertDialog)
+    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mActivity, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.enable_location_services)
         .setMessage(R.string.location_is_disabled_long_text)
         .setOnDismissListener(dialog -> mErrorDialog = null)
@@ -336,7 +336,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
       return;
     }
 
-    mErrorDialog = new AlertDialog.Builder(mActivity, R.style.MwmTheme_AlertDialog)
+    mErrorDialog = new MaterialAlertDialogBuilder(mActivity, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.enable_location_services)
         .setMessage(R.string.location_is_disabled_long_text)
         .setOnDismissListener(dialog -> mErrorDialog = null)
@@ -373,7 +373,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     }
 
     final AppCompatActivity activity = mActivity;
-    mErrorDialog = new AlertDialog.Builder(activity, R.style.MwmTheme_AlertDialog)
+    mErrorDialog = new MaterialAlertDialogBuilder(activity, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.current_location_unknown_title)
         .setMessage(R.string.current_location_unknown_message)
         .setOnDismissListener(dialog -> mErrorDialog = null)

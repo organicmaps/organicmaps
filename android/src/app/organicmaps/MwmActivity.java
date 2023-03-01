@@ -93,6 +93,7 @@ import app.organicmaps.widget.placepage.PlacePageButtons;
 import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageData;
 import app.organicmaps.widget.placepage.PlacePageView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -324,7 +325,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    new AlertDialog.Builder(MwmActivity.this, R.style.MwmTheme_AlertDialog)
+    new MaterialAlertDialogBuilder(MwmActivity.this, R.style.MwmTheme_AlertDialog)
         .setMessage(R.string.unknown_current_position)
         .setCancelable(true)
         .setPositiveButton(R.string.ok, null)
@@ -446,7 +447,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onNoConnectionError()
   {
-    new AlertDialog.Builder(this, R.style.MwmTheme_AlertDialog)
+    new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.common_check_internet_connection_dialog_title)
         .setMessage(R.string.common_check_internet_connection_dialog)
         .setPositiveButton(R.string.ok, null)
@@ -919,7 +920,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    new AlertDialog.Builder(this, R.style.MwmTheme_AlertDialog)
+    new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.downloader_update_maps)
         .setMessage(R.string.isolines_activation_error_dialog)
         .setPositiveButton(R.string.ok, (dialog, which) -> startActivity(new Intent(this, DownloaderActivity.class)))
@@ -1591,7 +1592,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onDrivingOptionsBuildError()
   {
-    new AlertDialog.Builder(this, R.style.MwmTheme_AlertDialog)
+    new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.unable_to_calc_alert_title)
         .setMessage(R.string.unable_to_calc_alert_subtitle)
         .setPositiveButton(R.string.settings, (dialog, which) -> DrivingOptionsActivity.start(this))

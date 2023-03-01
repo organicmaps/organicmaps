@@ -19,6 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.tabs.TabLayout;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmDialogFragment;
@@ -81,7 +82,7 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
     @StyleRes final int theme = ThemeUtils.isNightTheme(requireContext()) ?
         R.style.MwmMain_DialogFragment_TimePicker_Night :
         R.style.MwmMain_DialogFragment_TimePicker;
-    final AlertDialog dialog = new AlertDialog.Builder(requireActivity(), theme)
+    final AlertDialog dialog = new MaterialAlertDialogBuilder(requireActivity(), theme)
         .setView(root)
         .setNegativeButton(R.string.cancel, null)
         .setPositiveButton(R.string.ok, null)

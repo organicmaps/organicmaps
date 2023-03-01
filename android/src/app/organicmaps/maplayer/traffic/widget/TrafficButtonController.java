@@ -5,11 +5,11 @@ import android.app.Dialog;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 
 import app.organicmaps.R;
 import app.organicmaps.maplayer.traffic.TrafficManager;
 import app.organicmaps.util.Utils;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class TrafficButtonController implements TrafficManager.TrafficCallback
 {
@@ -110,7 +110,7 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
     if (mDialog != null && mDialog.isShowing())
       return;
 
-    mDialog = new AlertDialog.Builder(mActivity, R.style.MwmTheme_AlertDialog)
+    mDialog = new MaterialAlertDialogBuilder(mActivity, R.style.MwmTheme_AlertDialog)
         .setMessage(R.string.common_check_internet_connection_dialog)
         .setPositiveButton(R.string.ok, (dialog, which) -> TrafficManager.INSTANCE.setEnabled(false))
         .setCancelable(true)
