@@ -1028,6 +1028,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mOnmapDownloader != null)
       mOnmapDownloader.onPause();
     mNavigationController.onActivityPaused(this);
+    LocationHelper.INSTANCE.closeLocationDialog();
     super.onPause();
   }
 

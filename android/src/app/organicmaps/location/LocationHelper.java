@@ -161,6 +161,13 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     }
   }
 
+  public void closeLocationDialog()
+  {
+    if (mErrorDialog != null && mErrorDialog.isShowing())
+      mErrorDialog.dismiss();
+    mErrorDialog = null;
+  }
+
   void notifyCompassUpdated(double north)
   {
     mSavedNorth = north;
@@ -179,8 +186,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     if (mSavedLocation == null)
       throw new IllegalStateException("No saved location");
 
-    if (mErrorDialog != null && mErrorDialog.isShowing())
-      mErrorDialog.dismiss();
+    closeLocationDialog();
 
     for (LocationListener listener : mListeners)
       listener.onLocationUpdated(mSavedLocation);
@@ -250,8 +256,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     }
 
     // Cancel our dialog in favor of system dialog.
-    if (mErrorDialog != null && mErrorDialog.isShowing())
-      mErrorDialog.dismiss();
+    closeLocationDialog();
 
     // Launch system permission resolution dialog.
     IntentSenderRequest intentSenderRequest = new IntentSenderRequest.Builder(pendingIntent.getIntentSender())
