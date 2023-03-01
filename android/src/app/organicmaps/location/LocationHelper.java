@@ -567,7 +567,10 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     Logger.d(TAG, "activity = " + activity);
 
     if (mActivity != null)
-      throw new IllegalStateException("Another Activity is already attached");
+    {
+      Logger.e(TAG, "Another Activity = " + mActivity + " is already attached");
+      detach();
+    }
 
     mActivity = activity;
 
@@ -586,7 +589,10 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     Logger.d(TAG, "activity = " + mActivity);
 
     if (mActivity == null)
-      throw new IllegalStateException("Activity is not attached");
+    {
+      Logger.e(TAG, "Activity is not attached");
+      return;
+    }
 
     assert mPermissionRequest != null;
     mPermissionRequest.unregister();
