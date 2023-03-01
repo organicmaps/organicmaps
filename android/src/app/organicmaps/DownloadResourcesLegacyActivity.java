@@ -17,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
-import androidx.appcompat.app.AlertDialog;
 
 import app.organicmaps.api.ParsedMwmRequest;
 import app.organicmaps.base.BaseMwmFragmentActivity;
@@ -34,6 +33,7 @@ import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.log.Logger;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;
 
@@ -459,7 +459,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       throw new AssertionError("Unexpected result code = " + result);
     }
 
-    new AlertDialog.Builder(this, R.style.MwmTheme_AlertDialog)
+    new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
         .setTitle(titleId)
         .setMessage(messageId)
         .setCancelable(true)

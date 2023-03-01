@@ -14,7 +14,6 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -40,6 +39,7 @@ import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.log.LogsManager;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.HashMap;
 import java.util.List;
@@ -698,7 +698,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       {
         if (MapManager.nativeIsDownloading())
         {
-          new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
+          new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
               .setTitle(R.string.downloading_is_active)
               .setMessage(R.string.cant_change_this_setting)
               .setPositiveButton(R.string.ok, null)

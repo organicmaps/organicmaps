@@ -11,7 +11,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 
 import app.organicmaps.Framework;
 import app.organicmaps.R;
@@ -21,6 +20,7 @@ import app.organicmaps.util.StorageUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.concurrency.ThreadPool;
 import app.organicmaps.util.concurrency.UiThread;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.File;
 import java.util.List;
@@ -94,7 +94,7 @@ public class StoragePathFragment extends BaseSettingsFragment
     final String oldPath = storages.get(currentIndex).mPath;
     final String newPath = storages.get(newIndex).mPath;
 
-    new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
+    new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
         .setCancelable(false)
         .setTitle(R.string.move_maps)
         .setPositiveButton(R.string.ok, (dlg, which) -> moveStorage(newPath, oldPath))
@@ -130,7 +130,7 @@ public class StoragePathFragment extends BaseSettingsFragment
 
         if (!result)
         {
-          new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
+          new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
               .setTitle(R.string.move_maps_error)
               .setPositiveButton(R.string.report_a_bug,
                   (dlg, which) -> Utils.sendBugReport(requireActivity(), "Error moving map files"))
