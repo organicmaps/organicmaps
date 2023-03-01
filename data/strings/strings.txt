@@ -17419,7 +17419,7 @@
     ca = Afegeix una parada
     cs = Přidat zastávku
     da = Tilføj stop
-    de = Zwischenstopp hinzufügen
+    de = Stopp einfügen
     el = Προσθήκη στάσης
     es = Añadir parada
     et = Lisa peatus
