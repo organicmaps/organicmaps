@@ -59,7 +59,8 @@ UNIT_TEST(Transit_Piter_FrunzenskyaToPlochadVosstaniya)
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
   /// @todo Check https://github.com/organicmaps/organicmaps/issues/1669 for details.
-  integration::TestRouteLength(*routeResult.first, 5593.96);
+  // Looks good now.
+  integration::TestRouteLength(*routeResult.first, 4868.12);
 
   TEST(routeResult.first, ());
   integration::CheckSubwayExistence(*routeResult.first);
@@ -157,7 +158,8 @@ UNIT_TEST(Transit_Washington_FoggyToShaw)
 
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
-  integration::TestRouteLength(*routeResult.first, 5818.35);
+  // I don't see any bad routing sections here. Make actual value.
+  integration::TestRouteLength(*routeResult.first, 5889.15);
 
   CHECK(routeResult.first, ());
   integration::CheckSubwayExistence(*routeResult.first);

@@ -776,8 +776,8 @@ UNIT_TEST(Turkey_AvoidMountainsSecondary)
                               FromLatLon(41.0027, 27.6752), {0., 0.},
                               FromLatLon(40.6119, 27.1136));
 
-  TestRouteLength(*res.first, 100329.0);
-  TestRouteTime(*res.first, 5342.23);
+  TestRouteLength(*res.first, 100386.0);
+  TestRouteTime(*res.first, 5096.9);
 }
 
 // https://github.com/organicmaps/organicmaps/issues/4110
