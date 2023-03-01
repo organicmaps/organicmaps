@@ -19,12 +19,13 @@ public class PlacePagePhoneFragment extends Fragment implements Observer<MapObje
 {
   private PlacePhoneAdapter mPhoneAdapter;
 
-  private PlacePageViewModel viewModel;
+  private PlacePageViewModel mViewModel;
 
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
+    mViewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
     return inflater.inflate(R.layout.place_page_phone_fragment, container, false);
   }
 
@@ -36,15 +37,14 @@ public class PlacePagePhoneFragment extends Fragment implements Observer<MapObje
     mPhoneAdapter = new PlacePhoneAdapter();
     phoneRecycler.setAdapter(mPhoneAdapter);
 
-    viewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
-    viewModel.getMapObject().observe(requireActivity(), this);
+    mViewModel.getMapObject().observe(requireActivity(), this);
   }
 
   @Override
-  public void onDestroy()
+  public void onDestroyView()
   {
-    super.onDestroy();
-    viewModel.getMapObject().removeObserver(this);
+    super.onDestroyView();
+    mViewModel.getMapObject().removeObserver(this);
   }
 
   @Override

@@ -38,12 +38,13 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
   private RecyclerView mFullWeekOpeningHours;
   private PlaceOpeningHoursAdapter mOpeningHoursAdapter;
 
-  private PlacePageViewModel viewModel;
+  private PlacePageViewModel mViewModel;
 
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
+    mViewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
     return inflater.inflate(R.layout.place_page_opening_hours_fragment, container, false);
   }
 
@@ -59,8 +60,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     mOpeningHoursAdapter = new PlaceOpeningHoursAdapter();
     mFullWeekOpeningHours.setAdapter(mOpeningHoursAdapter);
 
-    viewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
-    viewModel.getMapObject().observe(requireActivity(), this);
+    mViewModel.getMapObject().observe(requireActivity(), this);
   }
 
   private void refreshTodayNonBusinessTime(Timespan[] closedTimespans)
@@ -92,7 +92,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
 
   private void refreshOpeningHours()
   {
-    final String ohStr = viewModel.getMapObject()
+    final String ohStr = mViewModel.getMapObject()
                                   .getValue()
                                   .getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
     final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
@@ -180,10 +180,10 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
   }
 
   @Override
-  public void onDestroy()
+  public void onDestroyView()
   {
-    super.onDestroy();
-    viewModel.getMapObject().removeObserver(this);
+    super.onDestroyView();
+    mViewModel.getMapObject().removeObserver(this);
   }
 
   @Override

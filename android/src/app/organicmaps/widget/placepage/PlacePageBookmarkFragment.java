@@ -37,7 +37,7 @@ public class PlacePageBookmarkFragment extends Fragment implements View.OnClickL
   @Nullable
   private WebView mWvBookmarkNote;
 
-  private PlacePageViewModel viewModel;
+  private PlacePageViewModel mViewModel;
 
   private Bookmark currentBookmark;
 
@@ -45,6 +45,7 @@ public class PlacePageBookmarkFragment extends Fragment implements View.OnClickL
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
+    mViewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
     return inflater.inflate(R.layout.place_page_bookmark_fragment, container, false);
   }
 
@@ -59,8 +60,7 @@ public class PlacePageBookmarkFragment extends Fragment implements View.OnClickL
     final View editBookmarkBtn = mFrame.findViewById(R.id.tv__bookmark_edit);
     editBookmarkBtn.setOnClickListener(this);
 
-    viewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
-    viewModel.getMapObject().observe(requireActivity(), this);
+    mViewModel.getMapObject().observe(requireActivity(), this);
   }
 
   private void initWebView()
@@ -75,10 +75,10 @@ public class PlacePageBookmarkFragment extends Fragment implements View.OnClickL
   }
 
   @Override
-  public void onDestroy()
+  public void onDestroyView()
   {
-    super.onDestroy();
-    viewModel.getMapObject().removeObserver(this);
+    super.onDestroyView();
+    mViewModel.getMapObject().removeObserver(this);
   }
 
   private void updateBookmarkDetails()
@@ -154,6 +154,6 @@ public class PlacePageBookmarkFragment extends Fragment implements View.OnClickL
     Bookmark updatedBookmark = BookmarkManager.INSTANCE.updateBookmarkPlacePage(bookmarkId);
     if (updatedBookmark == null)
       return;
-    viewModel.setMapObject(updatedBookmark);
+    mViewModel.setMapObject(updatedBookmark);
   }
 }

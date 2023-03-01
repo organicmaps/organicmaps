@@ -56,7 +56,7 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
   private View mWikimedia;
   private TextView mTvWikimedia;
 
-  private PlacePageViewModel viewModel;
+  private PlacePageViewModel mViewModel;
   private MapObject mMapObject;
 
   private static void refreshMetadataOrHide(String metadata, View metaLayout, TextView metaTv)
@@ -85,6 +85,7 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
+    mViewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
     return inflater.inflate(R.layout.place_page_links_fragment, container, false);
   }
 
@@ -134,8 +135,7 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
     mLinePage.setOnClickListener((v) -> openUrl(Metadata.MetadataType.FMD_CONTACT_LINE));
     mLinePage.setOnLongClickListener((v) -> copyUrl(mLinePage, Metadata.MetadataType.FMD_CONTACT_LINE));
 
-    viewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
-    viewModel.getMapObject().observe(requireActivity(), this);
+    mViewModel.getMapObject().observe(requireActivity(), this);
   }
 
   private boolean isSocialUsername(Metadata.MetadataType type)
@@ -218,10 +218,10 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
   }
 
   @Override
-  public void onDestroy()
+  public void onDestroyView()
   {
-    super.onDestroy();
-    viewModel.getMapObject().removeObserver(this);
+    super.onDestroyView();
+    mViewModel.getMapObject().removeObserver(this);
   }
 
   @Override

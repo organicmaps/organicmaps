@@ -65,7 +65,7 @@ public class PlacePageController implements Initializable<Activity>,
   private final AppCompatActivity mMwmActivity;
   private final int mButtonsHeight;
   private final int mMaxButtons;
-  private final PlacePageViewModel viewModel;
+  private final PlacePageViewModel mViewModel;
   private int mPreviewHeight;
   private int mFrameHeight;
   private boolean mDeactivateMapSelection = true;
@@ -135,7 +135,7 @@ public class PlacePageController implements Initializable<Activity>,
     mButtonsHeight = (int) mMwmActivity.getResources()
                                        .getDimension(R.dimen.place_page_buttons_height);
     mMaxButtons = mMwmActivity.getResources().getInteger(R.integer.pp_buttons_max);
-    viewModel = new ViewModelProvider(mMwmActivity).get(PlacePageViewModel.class);
+    mViewModel = new ViewModelProvider(mMwmActivity).get(PlacePageViewModel.class);
 
     ViewCompat.setOnApplyWindowInsetsListener(mPlacePage, (view, windowInsets) -> {
       mCurrentWindowInsets = windowInsets;
@@ -186,7 +186,7 @@ public class PlacePageController implements Initializable<Activity>,
   @Nullable
   public ArrayList<MenuBottomSheetItem> getMenuBottomSheetItems(String id)
   {
-    final List<PlacePageButtons.ButtonType> currentItems = viewModel.getCurrentButtons().getValue();
+    final List<PlacePageButtons.ButtonType> currentItems = mViewModel.getCurrentButtons().getValue();
     if (currentItems == null || currentItems.size() <= mMaxButtons)
       return null;
     ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
@@ -206,10 +206,10 @@ public class PlacePageController implements Initializable<Activity>,
   {
     mDeactivateMapSelection = true;
     MapObject mapObject = (MapObject) data;
-    final MapObject previousMapObject = viewModel.getMapObject().getValue();
+    final MapObject previousMapObject = mViewModel.getMapObject().getValue();
     // Only collapse the place page if the data is different from the one already available
     mShouldCollapse = PlacePageUtils.isHiddenState(mPlacePageBehavior.getState()) || !MapObject.same(previousMapObject, mapObject);
-    viewModel.setMapObject(mapObject);
+    mViewModel.setMapObject(mapObject);
   }
 
   private void resetPlacePageHeightBounds()
@@ -401,7 +401,7 @@ public class PlacePageController implements Initializable<Activity>,
         .remove(placePageFragment)
         .commitNow();
     }
-    viewModel.setMapObject(null);
+    mViewModel.setMapObject(null);
   }
 
   private void createPlacePageFragments()
@@ -459,7 +459,7 @@ public class PlacePageController implements Initializable<Activity>,
       }
       buttons.add(PlacePageButtons.ButtonType.SHARE);
     }
-    viewModel.setCurrentButtons(buttons);
+    mViewModel.setCurrentButtons(buttons);
   }
 
   @Override
@@ -480,13 +480,13 @@ public class PlacePageController implements Initializable<Activity>,
   public void initialize(@Nullable Activity activity)
   {
     Objects.requireNonNull(activity);
-    viewModel.getMapObject().observe((MwmActivity) activity, this);
+    mViewModel.getMapObject().observe((MwmActivity) activity, this);
   }
 
   @Override
   public void destroy()
   {
-    viewModel.getMapObject().removeObserver(this);
+    mViewModel.getMapObject().removeObserver(this);
   }
 
   public interface SlideListener
