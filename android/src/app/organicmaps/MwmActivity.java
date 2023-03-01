@@ -960,7 +960,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         intent.hasExtra(EXTRA_TASK) &&
         ((intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0))
     {
-      final MapTask mapTask = Utils.getSerializable(intent, EXTRA_TASK, MapTask.class);
+      final MapTask mapTask = (MapTask) intent.getSerializableExtra(EXTRA_TASK);
       mTasks.add(mapTask);
       intent.removeExtra(EXTRA_TASK);
 

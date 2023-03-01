@@ -814,12 +814,6 @@ public class Utils
     return (T) args.getParcelable(key);
   }
 
-  @Nullable
-  public static <T> T getParcelable(@NonNull Intent intent, String key, Class<T> clazz)
-  {
-    final Bundle args = intent.getExtras();
-    return (args == null) ? null : getParcelable(args, key, clazz);
-  }
 
   @Nullable
   public static <T> T getParcelable(@NonNull Bundle args, String key, Class<T> clazz)
@@ -846,12 +840,6 @@ public class Utils
     return args.getSerializable(key, clazz);
   }
 
-  @Nullable
-  public static <T extends Serializable> T getSerializable(@NonNull Intent intent, String key, Class<T> clazz)
-  {
-    final Bundle args = intent.getExtras();
-    return (args == null) ? null : getSerializable(args, key, clazz);
-  }
 
   @SuppressWarnings("deprecation")
   private static Spanned fromHtmlOld(@NonNull String htmlDescription)
