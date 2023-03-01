@@ -35,6 +35,17 @@
 	<string name="country_status_download_failed">Letöltése sikertelen</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Újrapróbálkozás</string>
+	<string name="about_menu_title">A Organic Maps programról</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Ingyenes mindenkinek, szeretettel készítve</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Nincs hirdetés, nincs nyomon követés, nincs adatgyűjtés</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Kíméli az akkumulátort, nem használ háttéradatokat</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Gyors, minimalista, nincs szemét</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">A rajongók és az önkéntesek által létrehozott nyílt forráskódú alkalmazás.</string>
 	<string name="connection_settings">Kapcsolat beállítások</string>
 	<string name="close">Bezár</string>
 	<string name="unsupported_phone">Hardware-s gyorsítású OpenGL szükséges. Sajnos az Ön eszköze nem támogatott.</string>
@@ -219,7 +230,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Adományozni</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Hogyan támogathatsz minket?</string>
+	<string name="how_to_support_us">Támogassa a projektet</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Szerzői jog</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -421,7 +432,8 @@
 	<string name="editor_report_problem_other_title">Különböző problémaDifferent problem</string>
 	<string name="placepage_add_business_button">Szervezet hozzáadása</string>
 	<string name="message_invalid_feature_position">Célpont áthelyezése ide nem lehetséges</string>
-	<string name="osm_presentation">Minden térképadat az OpenStreetMap projektből származik. Olyan ez, mint a Wikipédia a térképekhez, ahol helyeket adhat hozzá vagy szerkeszthet, és a felhasználók milliói számára válnak elérhetővé szerte a világon.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Kartográfiai adatok az OpenStreetMap-ból a %s-től. Olyan, mint a Wikipedia, ahol a világ minden felhasználójának helyét hozzáadhatja vagy szerkesztheti.</string>
 	<string name="login_to_make_edits_visible">Jelentkezz be, hogy más felhasználók is láthassák a változtatásaidat.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>

@@ -37,6 +37,17 @@
 	<string name="country_status_download_failed">การดาวน์โหลดล้มเหลว</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">ลองอีกครั้ง</string>
+	<string name="about_menu_title">เกี่ยวกับ Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">ฟรีสำหรับทุกคนทำด้วยความรัก</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• ไม่มีโฆษณาไม่มีการติดตามไม่มีการรวบรวมข้อมูล</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• ประหยัดแบตเตอรี่ ไม่ใช้ข้อมูลพื้นหลัง</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">•เร็วเรียบง่ายไม่มีขยะ</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">แอปพลิเคชันโอเพนซอร์ซที่สร้างขึ้นโดยผู้ที่ชื่นชอบและอาสาสมัคร</string>
 	<string name="connection_settings">การตั้งค่าการเชื่อมต่อ</string>
 	<string name="close">ปิด</string>
 	<string name="unsupported_phone">จำเป็นต้องใช้ฮาร์ดแวร์ที่เพิ่มความเร็ว OpenGL โชคไม่ดีที่อุปกรณ์ของคุณไม่รองรับ</string>
@@ -221,7 +232,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">บริจาค</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">วิธีการสนับสนุนเรา</string>
+	<string name="how_to_support_us">สนับสนุนโครงการ</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">ลิขสิทธิ์</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -423,7 +434,8 @@
 	<string name="editor_report_problem_other_title">ปัญหาอีกอย่างหนึ่ง</string>
 	<string name="placepage_add_business_button">เพิ่มองค์กร</string>
 	<string name="message_invalid_feature_position">ไม่สามารถตั้งวัตถุได้ที่นี่</string>
-	<string name="osm_presentation">ข้อมูลแผนที่ทั้งหมดมาจากโครงการ OpenStreetMap เหมือนกับวิกิพีเดียสำหรับแผนที่ที่คุณสามารถเพิ่มหรือแก้ไขสถานที่ได้ และพวกเขาพร้อมให้ผู้ใช้หลายล้านคนทั่วโลกใช้งานได้</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">ข้อมูลการทำแผนที่จาก OpenStreetMap ณ ปี %sมันเป็นเหมือนวิกิพีเดียที่คุณสามารถเพิ่มหรือแก้ไขสถานที่สำหรับผู้ใช้ทุกคนทั่วโลก</string>
 	<string name="login_to_make_edits_visible">ล็อกอินเพื่อให้ผู้ใช้คนอื่นสามารถเห็นการเปลี่ยนแปลงของคุณได้</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d จาก %2$d</string>

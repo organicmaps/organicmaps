@@ -16,6 +16,8 @@
 	<string name="fuel">Petrol</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
+	<string name="editor_zip_code">Postcode</string>
+	<string name="error_enter_correct_zip_code">Enter a valid postcode</string>
 	<string name="button_layer_subway">Metro</string>
 	<string name="subway_data_unavailable">Metro map is unavailable</string>
 

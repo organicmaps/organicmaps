@@ -35,6 +35,17 @@
 	<string name="country_status_download_failed">Download mislykket</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Prøv igen</string>
+	<string name="about_menu_title">Om Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Gratis for alle, lavet med kærlighed</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Ingen annoncer, ingen sporing, ingen dataindsamling</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Sparer batteriet, bruger ikke baggrundsdata</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Hurtig, minimalistisk, intet skrammel</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Open source-applikation oprettet af entusiaster og frivillige.</string>
 	<string name="connection_settings">Forbindelsesindstillinger</string>
 	<string name="close">Luk</string>
 	<string name="unsupported_phone">En hardware accelereret OpenGL er påkrævet. Din enhed er desværre ikke understøttet.</string>
@@ -219,7 +230,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Doner</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Sådan støtter vi os?</string>
+	<string name="how_to_support_us">Støt projektet</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Copyright</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -423,7 +434,8 @@
 	<string name="editor_report_problem_other_title">Et anderledes problem</string>
 	<string name="placepage_add_business_button">Tilføj organisationen</string>
 	<string name="message_invalid_feature_position">Et objekt kan ikke placeres her</string>
-	<string name="osm_presentation">Alle kortdata kommer fra OpenStreetMap-projektet. Det er ligesom Wikipedia for kort, hvor du kan tilføje eller redigere steder, og de bliver tilgængelige for millioner af brugere over hele verden.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Kartografiske data fra OpenStreetMap fra %s. Det er som Wikipedia, hvor du kan tilføje eller redigere steder for alle brugere over hele verden.</string>
 	<string name="login_to_make_edits_visible">Log på så andre brugere kan se ændringerne som du har foretaget.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d af %2$d</string>

@@ -37,6 +37,17 @@
 	<string name="country_status_download_failed">Sedang Mengunduh telah gagal</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Coba Lagi</string>
+	<string name="about_menu_title">Tentang Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Gratis untuk semua orang, dibuat dengan cinta</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Tidak ada iklan, tidak ada pelacakan, tidak ada pengumpulan data</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Menghemat baterai, tidak menggunakan data latar belakang</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Cepat, minimalis, tidak ada sampah</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Aplikasi open-source yang dibuat oleh penggemar dan sukarelawan.</string>
 	<string name="connection_settings">Pengaturan Koneksi</string>
 	<string name="close">Tutup</string>
 	<string name="unsupported_phone">OpenGL yang dipercepat oleh OpenGL diperlukan. Sayangnya, perangkat Anda tidak mendukung.</string>
@@ -221,7 +232,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Menyumbangkan</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Bagaimana cara mendukung kami?</string>
+	<string name="how_to_support_us">Mendukung proyek</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Hak cipta</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -421,7 +432,8 @@
 	<string name="editor_report_problem_other_title">Masalah yang berbeda</string>
 	<string name="placepage_add_business_button">Tambahkan organisasi</string>
 	<string name="message_invalid_feature_position">Objek tidak dapat diletakkan di sini</string>
-	<string name="osm_presentation">Semua data peta berasal dari proyek OpenStreetMap. Ini seperti Wikipedia untuk peta tempat Anda dapat menambahkan atau mengedit tempat, dan peta tersebut tersedia bagi jutaan pengguna di seluruh Dunia.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Data kartografi dari OpenStreetMap pada %s. Ini seperti Wikipedia di mana Anda dapat menambahkan atau mengedit tempat untuk semua pengguna di seluruh dunia.</string>
 	<string name="login_to_make_edits_visible">Masuk agar pengguna lain dapat melihat perubahan yang Anda buat.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d dari %2$d</string>

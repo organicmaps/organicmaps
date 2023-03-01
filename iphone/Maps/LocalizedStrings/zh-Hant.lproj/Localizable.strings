@@ -304,7 +304,7 @@
 "donate" = "捐";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "如何支持我們？";
+"how_to_support_us" = "支持項目";
 
 /* Button in the main Help dialog */
 "copyright" = "版權";
@@ -2329,7 +2329,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "堆積場";
 
@@ -2347,9 +2347,9 @@
 
 "type.landuse.reservoir" = "水庫";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 

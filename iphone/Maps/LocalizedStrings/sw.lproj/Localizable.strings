@@ -304,7 +304,7 @@
 "donate" = "Changia";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Jinsi ya kutuunga mkono?";
+"how_to_support_us" = "Saidia mradi";
 
 /* Button in the main Help dialog */
 "copyright" = "Copyright";
@@ -2329,7 +2329,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "Shamba la Taka";
 
@@ -2347,9 +2347,9 @@
 
 "type.landuse.reservoir" = "Water";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 
@@ -3301,7 +3301,7 @@
 
 "type.shop.gift" = "Gift Shop";
 
-"type.shop.greengrocer" = "Greengrocer's";
+"type.shop.greengrocer" = "Greengrocer";
 
 "type.shop.grocery" = "Chakula cha mboga";
 

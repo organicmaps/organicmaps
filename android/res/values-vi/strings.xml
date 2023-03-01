@@ -35,6 +35,17 @@
 	<string name="country_status_download_failed">Tải xuống đã thất bại</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Thử lại</string>
+	<string name="about_menu_title">Giới thiệu về Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Miễn phí cho mọi người, được làm bằng tình yêu</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Không có quảng cáo, không theo dõi, không thu thập dữ liệu</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Tiết kiệm pin, không sử dụng dữ liệu nền</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Nhanh chóng, tối giản, không có rác</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Ứng dụng nguồn mở được tạo bởi những người đam mê và tình nguyện viên.</string>
 	<string name="connection_settings">Thiết lập Kết nối</string>
 	<string name="close">Đóng</string>
 	<string name="unsupported_phone">Cần có OpenGL được tăng tốc phần cứng. Thật không may, thiết bị của bạn không được hỗ trợ.</string>
@@ -219,7 +230,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Quyên tặng</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Làm thế nào để hỗ trợ chúng tôi?</string>
+	<string name="how_to_support_us">Hỗ trợ dự án</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Bản quyền</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -421,7 +432,8 @@
 	<string name="editor_report_problem_other_title">Một vấn đề khác</string>
 	<string name="placepage_add_business_button">Thêm tổ chức</string>
 	<string name="message_invalid_feature_position">Một đối tượng không thể đặt được ở đây</string>
-	<string name="osm_presentation">Tất cả dữ liệu bản đồ đến từ dự án OpenStreetMap. Nó giống như Wikipedia dành cho bản đồ nơi bạn có thể thêm hoặc chỉnh sửa các địa điểm và chúng có sẵn cho hàng triệu người dùng trên khắp Thế giới.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Dữ liệu bản đồ từ OpenStreetMap kể từ %s. Nó giống như Wikipedia nơi bạn có thể thêm hoặc chỉnh sửa địa điểm cho tất cả người dùng trên toàn thế giới.</string>
 	<string name="login_to_make_edits_visible">Đăng nhập để người dùng khác có thể nhìn thấy những thay đổi bạn đã thực hiện.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d trên %2$d</string>

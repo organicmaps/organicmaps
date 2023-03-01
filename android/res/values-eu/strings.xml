@@ -35,6 +35,9 @@
 	<string name="country_status_download_failed">Errore bat deskargatzean</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Saiatu berriro</string>
+	<string name="about_menu_title">Organic Maps buruz</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Bateria aurrezten du, ez du atzeko planoko daturik erabiltzen</string>
 	<string name="connection_settings">Konexio ezarpenak</string>
 	<string name="close">Itxi</string>
 	<string name="unsupported_phone">Aplikazioak hardware-azeleratutako OpenGL behar du. Zoritxarrez, zure gailua ez da onartzen.</string>
@@ -222,7 +225,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Dohaintza eman</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Nola lagundu diguzu?</string>
+	<string name="how_to_support_us">Proiektuari laguntza ematea</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Copyright</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -428,7 +431,6 @@
 	<string name="editor_report_problem_other_title">Beste arazo bat</string>
 	<string name="placepage_add_business_button">Negozioa gehitu</string>
 	<string name="message_invalid_feature_position">Hemen ezin da objekturik jarri</string>
-	<string name="osm_presentation">Maparen datu guztiak OpenStreetMap proiektutik datoz. Tokiak gehitu edo edita ditzakezun mapetarako Wikipedia bezalakoa da, eta mundu osoko milioika erabiltzaileren eskura jartzen dira.</string>
 	<string name="login_to_make_edits_visible">Hasi saioa beste erabiltzaileek zuk egindako aldaketak ikus ditzaten.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>

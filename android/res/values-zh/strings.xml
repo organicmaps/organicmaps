@@ -35,6 +35,17 @@
 	<string name="country_status_download_failed">下载失败</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">重试</string>
+	<string name="about_menu_title">关于 Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">对每个人都免费，用爱制成</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">•没有广告，没有跟踪，没有数据收集</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• 节省电池电量，不使用后台数据</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">•快速，简约，没有垃圾</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">由爱好者和志愿者创建的开源应用程序。</string>
 	<string name="connection_settings">连接设置</string>
 	<string name="close">关闭</string>
 	<string name="unsupported_phone">硬件加速的 OpenGL 是必需的。遗憾的是您的设备不支持此功能。</string>
@@ -227,7 +238,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">捐</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">如何支持我们？</string>
+	<string name="how_to_support_us">支持项目</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">版权</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -431,7 +442,8 @@
 	<string name="editor_report_problem_other_title">一个不同的问题</string>
 	<string name="placepage_add_business_button">添加组织</string>
 	<string name="message_invalid_feature_position">对象无法设置在这里</string>
-	<string name="osm_presentation">所有地图数据均来自 OpenStreetMap 项目。它就像 Wikipedia 中的地图，您可以在其中添加或编辑地点，并且它们可供全球数百万用户使用。</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">截至%s的OpenStreetMap的制图数据。就像Wikipedia一样，您可以为世界上所有用户添加或编辑位置。</string>
 	<string name="login_to_make_edits_visible">登录，让其他用户能看到您所作出的修改。</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d个/共%2$d个</string>
