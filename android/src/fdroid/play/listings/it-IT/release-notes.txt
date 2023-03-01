@@ -1,7 +1,10 @@
-• New OpenStreetMap data as of February 10, including changes by the Humanitarian OpenStreetMap Team (HOT) after the earthquake in Turkey and Syria
-• Filtered wrong search results in the list and on the map
-• Fixed crash on opening
-• Better icons for main and secondary building entrances
-• Improved next-turn voice notifications for smaller distances
-• Fixed Persian, Polish, and German translations
-…more: omaps.app/news
+• Nuovi dati OpenStreetMap aggiornati al 27 febbraio
+• Gli articoli Wiki sono ora cliccabili e visibili per segnalibri
+• Risolti diversi arresti anomali
+• Corretta la localizzazione in cinese tradizionale mancante
+• Miglioramenti nella Guida in linea e nelle finestre di dialogo selezione POI
+• Ricerca corretta e migliorata
+• Aggiunti medici specialisti
+• Aggiunte torri di comunicazione, generatori solari, eolici, a gas e idroelettrici
+• Traduzioni migliorate
+…di più: omaps.app/news

@@ -1,7 +1,11 @@
-• Novos dados OSM de 10/2, incluindo alterações feitas pela Humanitarian OpenStreetMap Team (HOT) após o terremoto na Turquia e na Síria
-• Resultados de busca errados são filtrados na lista e mapa
-• Correção de erro na abertura
-• Melhoria nos ícones para entradas principais e secundárias
-• Melhoria nas notificações de voz da próxima curva para distâncias curtas
-• Traduções atualizadas para alemão, persa e polonês
-…mais: omaps.app/news
+• Novos dados OSM de 27/2
+• Artigos da Wiki agora podem ser clicados e visíveis para os favoritos
+• Correção de várias falhas
+• Correção de Chinês Tradicional
+• Melhoria nos diálogos da Ajuda e de elementos selecionados
+• Correção ao mostrar alguns horários de funcionamento complexos
+• Correção e melhoria na busca
+• Adição de especialidades de saúde
+• Adição de torres de comunicação, geradores solares, eólicos, a gás e hidrelétricos
+• Traduções atualizadas
+… mais: omaps.app/news

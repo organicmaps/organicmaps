@@ -1,11 +1,13 @@
-Kalbimiz depremden etkilenen herkesle birlikte
+• 27 Şubat tarihine ait yeni OpenStreetMap harita verileri
+• iPad'lerde bir klavye bağlandığında oluşan donma sorunu düzeltildi
+• Rota oluşturma butonundaki gereksiz ikinci tıklama kaldırıldı
+• Yinelenen kat ve posta kodu hücreleri kaldırıldı
+• Seçilen tüm yerler için OpenStreetMap editör notları etkinleştirildi
+• Arama düzeltildi ve iyileştirildi
+• Arama sayfasında vegan ve vejetaryen yemek kategorileri ayrıldı
+• Havaalanları, kara yolları, su yolları ve tarama dolgu alanları stilleri düzeltildi
+• Sağlık alanında bazı uzmanlıklar eklendi: alternatif tıb, odyolog, kan bağışı, optometrist, ayak hastalıkları uzmanı, psikoterapist, numune toplama, konuşma terapisti
+• Haberleşme kulesi ve güneş, rüzgar, gaz, hidroelektrik jeneratörleri eklendi
+• Çeviriler iyileştirildi
 
-Yaşamını yitirenlere Allah'tan rahmet, yaralılara acil şifalar dileriz. Tüm milletimizin başı sağ olsun.
-
-#GeçmişOlsunTürkiye
-
-Deprem bölgesindekilere yardımcı olabilmek adına Güneydoğu Anadolu'daki harita verileri güncellendi.
-
-Organic Maps ile şarjınızı korurken internetsiz olarak haritayı kullanabilirsiniz. Gerekli durumlarda Organic Maps ayarlarında bulunan "maksimum güç tasarrufunu" açmayı unutmayın.
-
-Daha fazla bilgi: omaps.app/tr/news
+Gelişmelerimizi omaps.app/tr/news üzerinden takip edebilirsiniz
