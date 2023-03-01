@@ -30,12 +30,13 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
 
   private PlacePageButtonClickListener mItemListener;
   private ViewGroup mButtonsContainer;
-  private PlacePageViewModel viewModel;
+  private PlacePageViewModel mViewModel;
 
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
+    mViewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
     return inflater.inflate(R.layout.pp_buttons_fragment, container, false);
   }
 
@@ -49,9 +50,8 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
       return windowInsets;
     });
     mMaxButtons = getResources().getInteger(R.integer.pp_buttons_max);
-    viewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
-    viewModel.getCurrentButtons().observe(requireActivity(), this);
-    createButtons(viewModel.getCurrentButtons().getValue());
+    mViewModel.getCurrentButtons().observe(requireActivity(), this);
+    createButtons(mViewModel.getCurrentButtons().getValue());
   }
 
   @Override
@@ -69,10 +69,10 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
   }
 
   @Override
-  public void onDestroy()
+  public void onDestroyView()
   {
-    super.onDestroy();
-    viewModel.getCurrentButtons().removeObserver(this);
+    super.onDestroyView();
+    mViewModel.getCurrentButtons().removeObserver(this);
   }
 
   private @NonNull
