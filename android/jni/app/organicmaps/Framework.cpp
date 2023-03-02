@@ -40,7 +40,7 @@
 #include "platform/location.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/network_policy.hpp"
-#include "platform/platform.hpp"
+#include "platform/Platform.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 #include "platform/localization.hpp"

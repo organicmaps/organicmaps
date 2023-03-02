@@ -7,7 +7,7 @@
 
 #include "platform/downloader_defines.hpp"
 #include "platform/http_request.hpp"
-#include "platform/platform.hpp"
+#include "platform/Platform.hpp"
 
 #include "coding/internal/file_data.hpp"
 #include "coding/reader_streambuf.hpp"
