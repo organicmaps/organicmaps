@@ -206,7 +206,7 @@ public class RoutingPlanController extends ToolbarController
   public void updateBuildProgress(int progress, @Framework.RouterType int router)
   {
     UiUtils.invisible(mProgressVehicle, mProgressPedestrian, mProgressTransit,
-                      mProgressBicycle);
+                      mProgressBicycle, mProgressHelicopter);
     WheelProgressView progressView;
     switch(router)
     {

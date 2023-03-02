@@ -312,6 +312,10 @@ public class Framework
                                                 int intermediateIndex, boolean isMyPosition,
                                                 double lat, double lon);
 
+  public static native void nativeContinueRouteToPoint(String title, String subtitle,
+                                                int intermediateIndex, boolean isMyPosition,
+                                                double lat, double lon);
+
   public static native void nativeRemoveRoutePoint(@RoutePointInfo.RouteMarkType int markType,
                                                    int intermediateIndex);
 

@@ -226,6 +226,7 @@ public:
   void GenerateNotifications(std::vector<std::string> & notifications);
 
   void AddRoutePoint(RouteMarkData && markData);
+  void ContinueRouteToPoint(RouteMarkData && markData);
   std::vector<RouteMarkData> GetRoutePoints() const;
   size_t GetRoutePointsCount() const;
   void RemoveRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);

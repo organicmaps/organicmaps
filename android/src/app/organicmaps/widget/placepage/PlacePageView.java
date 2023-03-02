@@ -324,8 +324,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
         onAvoidFerryBtnClicked();
         break;
 
-      case ROUTE_RULLER:
-        onRulerBtnClicked();
+      case ROUTE_CONTINUE:
+        onRouteContinueBtnClicked();
         break;
     }
   }
@@ -393,18 +393,18 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     RoutingController.get().addStop(mMapObject);
   }
 
-  private void onRulerBtnClicked()
+  private void onRouteContinueBtnClicked()
   {
     RoutingController controller = RoutingController.get();
-    if (controller.isPlanning() && controller.getLastRouterType() == Framework.ROUTER_TYPE_HELICOPTER)
+    if (controller.isPlanning())
     {
-      controller.setEndPoint(mMapObject);
+      controller.continueToPoint(mMapObject);
       mPlacePageViewListener.onPlacePageRequestClose();
     }
     else
     {
+      // This should never happen 'cause "Continue route" button is visible only in route planning mode
       ((MwmActivity) requireActivity()).startLocationToPoint(mMapObject);
-      controller.setRouterType(Framework.ROUTER_TYPE_HELICOPTER);
     }
   }
 

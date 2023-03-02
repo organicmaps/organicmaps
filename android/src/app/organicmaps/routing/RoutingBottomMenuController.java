@@ -135,7 +135,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   void showAltitudeChartAndRoutingDetails()
   {
-    UiUtils.hide(mError, mActionFrame, mTransitFrame);
+    UiUtils.hide(mError, mActionFrame, mAltitudeChart, mAltitudeDifference, mTransitFrame);
 
     if (!RoutingController.get().isVehicleRouterType() &&
         !RoutingController.get().isHelicopterRouterType())

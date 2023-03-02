@@ -844,6 +844,36 @@ public class RoutingController implements Initializable<Void>
     return true;
   }
 
+  public boolean continueToPoint(@NonNull MapObject point)
+  {
+    MapObject startPoint = getStartPoint();
+    MapObject endPoint = getEndPoint();
+    boolean isSamePoint = MapObject.same(endPoint, point);
+
+    int type = RoutePointInfo.ROUTE_MARK_FINISH;
+    Pair<String, String> description = getDescriptionForPoint(point);
+    Framework.nativeContinueRouteToPoint(description.first /* title */, description.second /* subtitle */,
+                                         0 /* intermediateIndex */, MapObject.isOfType(MapObject.MY_POSITION, point),
+                                         point.getLat(), point.getLon());
+
+    if (point.sameAs(startPoint))
+    {
+      if (endPoint == null)
+      {
+        Logger.d(TAG, "setEndPoint: skip because end point is empty");
+        return false;
+      }
+
+      Logger.d(TAG, "setEndPoint: swap with starting point");
+      startPoint = endPoint;
+    }
+
+    endPoint = point;
+    setPointsInternal(startPoint, endPoint);
+    checkAndBuildRoute();
+    return true;
+  }
+
   private static void addRoutePoint(@RoutePointInfo.RouteMarkType int type, @NonNull MapObject point)
   {
     Pair<String, String> description = getDescriptionForPoint(point);

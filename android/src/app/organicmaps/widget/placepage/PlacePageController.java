@@ -478,10 +478,9 @@ public class PlacePageController implements Initializable<Activity>,
                       : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
       }
 
-      if (RoutingController.get().isPlanning() && RoutingController.get().getLastRouterType() == Framework.ROUTER_TYPE_HELICOPTER
-         || !RoutingController.get().isPlanning() || showRoutingButton)
+      if (RoutingController.get().isPlanning() && RoutingController.get().hasEndPoint() && showRoutingButton)
       {
-        //buttons.add(PlacePageButtons.ButtonType.ROUTE_RULLER);
+        buttons.add(PlacePageButtons.ButtonType.ROUTE_CONTINUE);
       }
       buttons.add(PlacePageButtons.ButtonType.SHARE);
     }
