@@ -14,26 +14,30 @@ import androidx.lifecycle.LifecycleOwner;
 
 import app.organicmaps.Framework;
 import app.organicmaps.Map;
-import app.organicmaps.Map.MapType;
 import app.organicmaps.R;
 import app.organicmaps.util.log.Logger;
+
+import static app.organicmaps.display.DisplayType.Car;
 
 public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallback
 {
   private static final String TAG = SurfaceRenderer.class.getSimpleName();
 
   private final CarContext mCarContext;
-  private final Map mMap = new Map(MapType.AndroidAuto);
+  private final Map mMap = new Map(Car);
 
   @NonNull
   private Rect mVisibleArea = new Rect();
   @NonNull
   private Rect mStableArea = new Rect();
 
+  private boolean mIsRunning;
+
   public SurfaceRenderer(@NonNull CarContext carContext, @NonNull Lifecycle lifecycle)
   {
     Logger.d(TAG, "SurfaceRenderer()");
     mCarContext = carContext;
+    mIsRunning = true;
     lifecycle.addObserver(this);
   }
 
@@ -54,6 +58,9 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   {
     Logger.d(TAG, "Visible area changed. visibleArea: " + visibleArea);
     mVisibleArea = visibleArea;
+
+    if (!mVisibleArea.isEmpty())
+      Framework.nativeSetVisibleRect(mVisibleArea.left, mVisibleArea.top, mVisibleArea.right, mVisibleArea.bottom);
   }
 
   @Override
@@ -164,7 +171,38 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   public void onClick(float x, float y)
   {
     Logger.d(TAG, "x: " + x + ", y: " + y);
-    Map.onClick(x, y);
+//    Map.onClick(x, y);
+  }
+
+  public void disable()
+  {
+    if (!mIsRunning)
+    {
+      Logger.e(TAG, "Already disabled");
+      return;
+    }
+
+    mCarContext.getCarService(AppManager.class).setSurfaceCallback(null);
+    mMap.onSurfaceDestroyed(false, true);
+    mMap.onStop();
+    mMap.setCallbackUnsupported(null);
+
+    mIsRunning = false;
+  }
+
+  public void enable()
+  {
+    if (mIsRunning)
+    {
+      Logger.e(TAG, "Already enabled");
+      return;
+    }
+
+    mCarContext.getCarService(AppManager.class).setSurfaceCallback(this);
+    mMap.onStart();
+    mMap.setCallbackUnsupported(this::reportUnsupported);
+
+    mIsRunning = true;
   }
 
   private void reportUnsupported()
