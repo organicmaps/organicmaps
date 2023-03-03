@@ -15,14 +15,14 @@ import androidx.annotation.Nullable;
 import androidx.core.content.res.ConfigurationHelper;
 
 import app.organicmaps.base.BaseMwmFragment;
+import app.organicmaps.display.DisplayType;
 import app.organicmaps.util.log.Logger;
-import app.organicmaps.Map.MapType;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class MapFragment extends BaseMwmFragment implements View.OnTouchListener, SurfaceHolder.Callback
 {
   private static final String TAG = MapFragment.class.getSimpleName();
-  private final Map mMap = new Map(MapType.Android);
+  private final Map mMap = new Map(DisplayType.Device);
 
   public void adjustCompass(int offsetX, int offsetY)
   {
@@ -47,6 +47,7 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
   @Override
   public void surfaceCreated(SurfaceHolder surfaceHolder)
   {
+    Logger.d(TAG);
     int densityDpi;
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
@@ -60,19 +61,21 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
   @Override
   public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height)
   {
+    Logger.d(TAG);
     mMap.onSurfaceChanged(requireContext(), surfaceHolder.getSurface(), surfaceHolder.getSurfaceFrame(), surfaceHolder.isCreating());
   }
 
   @Override
   public void surfaceDestroyed(SurfaceHolder surfaceHolder)
   {
-    Logger.d(TAG, "surfaceDestroyed");
-    destroySurface();
+    Logger.d(TAG);
+    mMap.onSurfaceDestroyed(requireActivity().isChangingConfigurations(), true);
   }
 
   @Override
   public void onAttach(Context context)
   {
+    Logger.d(TAG);
     super.onAttach(context);
     mMap.setMapRenderingListener((MapRenderingListener) context);
     mMap.setCallbackUnsupported(this::reportUnsupported);
@@ -81,6 +84,7 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
   @Override
   public void onDetach()
   {
+    Logger.d(TAG);
     super.onDetach();
     mMap.setMapRenderingListener(null);
     mMap.setCallbackUnsupported(null);
@@ -89,6 +93,7 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
   @Override
   public void onCreate(Bundle b)
   {
+    Logger.d(TAG);
     super.onCreate(b);
     setRetainInstance(true);
     boolean launchByDeepLink = false;
@@ -101,28 +106,31 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
   @Override
   public void onStart()
   {
+    Logger.d(TAG);
     super.onStart();
     mMap.onStart();
-    Logger.d(TAG, "onStart");
   }
 
+  @Override
   public void onStop()
   {
+    Logger.d(TAG);
     super.onStop();
     mMap.onStop();
-    Logger.d(TAG, "onStop");
   }
 
   @Override
   public void onPause()
   {
-    mMap.onPause(requireContext());
+    Logger.d(TAG);
     super.onPause();
+    mMap.onPause(requireContext());
   }
 
   @Override
   public void onResume()
   {
+    Logger.d(TAG);
     super.onResume();
     mMap.onResume();
   }
@@ -130,7 +138,8 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
-    View view = inflater.inflate(R.layout.fragment_map, container, false);
+    Logger.d(TAG);
+    final View view = inflater.inflate(R.layout.fragment_map, container, false);
     final SurfaceView mSurfaceView = view.findViewById(R.id.map_surfaceview);
     mSurfaceView.getHolder().addCallback(this);
     return view;

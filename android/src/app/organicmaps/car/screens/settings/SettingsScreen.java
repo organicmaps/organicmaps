@@ -16,10 +16,10 @@ import androidx.core.graphics.drawable.IconCompat;
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.UiHelpers;
-import app.organicmaps.car.screens.MapScreen;
+import app.organicmaps.car.screens.BaseMapScreen;
 import app.organicmaps.util.Config;
 
-public class SettingsScreen extends MapScreen
+public class SettingsScreen extends BaseMapScreen
 {
   private interface PrefsGetter
   {
