@@ -27014,3 +27014,33 @@
     comment = A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks
     tags = android
     en = %@, %@
+
+  [aa_used_on_phone_screen]
+    comment = Text on car placeholder screen that maps are shown on the phone screen
+    tags = android
+    en = You are now using Organic Maps on the phone screen
+    ru = Сейчас Вы используете Organic Maps на экране телефона
+
+  [aa_used_on_car_screen]
+    comment = Text on phone placeholder screen that maps are shown on the car screen
+    tags = android
+    en = You are now using Organic Maps on the car screen
+    ru = Сейчас Вы используете Organic Maps на экране автомобиля
+
+  [aa_connected]
+    comment = Android Auto connected
+    tags = android
+    en = You are connected to Android Auto
+    ru = Вы подключены к Android Auto
+
+  [aa_continue_on_phone]
+    comment = Button to show maps on the phone screen instead of a car
+    tags = android
+    en = Continue on phone
+    ru = Продолжить в телефоне
+
+  [aa_continue_in_car]
+    comment = Button to show maps on the car screen instead of a phone. Must be no more than 18 symbols!
+    tags = android
+    en = Continue in car
+    ru = Продолжить в авто

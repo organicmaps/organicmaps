@@ -94,6 +94,7 @@ namespace android
     bool CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch,
                            bool launchByDeepLink, uint32_t appVersionCode);
     bool IsDrapeEngineCreated() const;
+    void UpdateDpi(int dpi);
     bool DestroySurfaceOnDetach();
     void DetachSurface(bool destroySurface);
     bool AttachSurface(JNIEnv * env, jobject jSurface);
