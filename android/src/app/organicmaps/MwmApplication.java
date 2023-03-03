@@ -13,6 +13,7 @@ import app.organicmaps.background.NotificationChannelProvider;
 import app.organicmaps.background.Notifier;
 import app.organicmaps.base.MediaPlayerWrapper;
 import app.organicmaps.bookmarks.data.BookmarkManager;
+import app.organicmaps.display.DisplayManager;
 import app.organicmaps.downloader.CountryItem;
 import app.organicmaps.downloader.MapManager;
 import app.organicmaps.editor.Editor;
@@ -53,6 +54,9 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   @NonNull
   private IsolinesManager mIsolinesManager;
 
+  @NonNull
+  private DisplayManager mDisplayManager;
+
   private volatile boolean mFrameworkInitialized;
   private volatile boolean mPlatformInitialized;
 
@@ -72,6 +76,12 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   public IsolinesManager getIsolinesManager()
   {
     return mIsolinesManager;
+  }
+
+  @NonNull
+  public DisplayManager getDisplayManager()
+  {
+    return mDisplayManager;
   }
 
   public MwmApplication()
@@ -121,6 +131,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     mBackgroundTracker = new AppBackgroundTracker(this);
     mSubwayManager = new SubwayManager(this);
     mIsolinesManager = new IsolinesManager(this);
+    mDisplayManager = new DisplayManager();
 
     mPlayer = new MediaPlayerWrapper(this);
   }

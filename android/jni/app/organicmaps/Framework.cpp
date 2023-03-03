@@ -258,6 +258,12 @@ bool Framework::IsDrapeEngineCreated() const
   return m_work.IsDrapeEngineCreated();
 }
 
+void Framework::UpdateDpi(int dpi)
+{
+  ASSERT_GREATER(dpi, 0, ());
+  m_work.UpdateVisualScale(dp::VisualScale(dpi));
+}
+
 void Framework::Resize(JNIEnv * env, jobject jSurface, int w, int h)
 {
   if (m_vulkanContextFactory)

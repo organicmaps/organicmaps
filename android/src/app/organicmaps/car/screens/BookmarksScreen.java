@@ -26,7 +26,7 @@ import app.organicmaps.util.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookmarksScreen extends MapScreen
+public class BookmarksScreen extends BaseMapScreen
 {
   private final int MAX_CATEGORIES_SIZE;
 
