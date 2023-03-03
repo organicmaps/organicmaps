@@ -7,6 +7,7 @@ import android.view.Surface;
 
 import androidx.annotation.Nullable;
 
+import app.organicmaps.display.DisplayType;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.UiUtils;
@@ -15,12 +16,6 @@ import app.organicmaps.util.log.Logger;
 
 public final class Map
 {
-  public enum MapType
-  {
-    Android,
-    AndroidAuto
-  }
-
   public interface CallbackUnsupported
   {
     void report();
@@ -56,7 +51,7 @@ public final class Map
   public static final int INVALID_POINTER_MASK = 0xFF;
   public static final int INVALID_TOUCH_ID = -1;
 
-  private final MapType mMapType;
+  private final DisplayType mDisplayType;
 
   private int mCurrentCompassOffsetX;
   private int mCurrentCompassOffsetY;
@@ -76,9 +71,11 @@ public final class Map
   @Nullable
   private CallbackUnsupported mCallbackUnsupported;
 
-  public Map(MapType mapType)
+  private static int currentDpi = 0;
+
+  public Map(DisplayType mapType)
   {
-    mMapType = mapType;
+    mDisplayType = mapType;
     onCreate(false);
   }
 
@@ -148,6 +145,12 @@ public final class Map
     Logger.d(TAG, "mSurfaceCreated = " + mSurfaceCreated);
     if (nativeIsEngineCreated())
     {
+      if (currentDpi != surfaceDpi)
+      {
+        currentDpi = surfaceDpi;
+        nativeUpdateEngineDpi(currentDpi);
+        setupWidgets(context, surfaceFrame.width(), surfaceFrame.height());
+      }
       if (!nativeAttachSurface(surface))
       {
         if (mCallbackUnsupported != null)
@@ -322,8 +325,8 @@ public final class Map
     nativeCleanWidgets();
     updateBottomWidgetsOffset(context, mBottomWidgetOffsetX, mBottomWidgetOffsetY);
     nativeSetupWidget(WIDGET_SCALE_FPS_LABEL, UiUtils.dimen(context, R.dimen.margin_base), UiUtils.dimen(context, R.dimen.margin_base), ANCHOR_LEFT_TOP);
-    // Don't show compass on Android Auto
-    if (mMapType == MapType.Android)
+    // Don't show compass on car display
+    if (mDisplayType == DisplayType.Device)
       updateCompassOffset(context, mCurrentCompassOffsetX, mCurrentCompassOffsetY, false);
   }
 
@@ -358,6 +361,7 @@ public final class Map
                                                    boolean isLaunchByDeepLink,
                                                    int appVersionCode);
   private static native boolean nativeIsEngineCreated();
+  private static native void nativeUpdateEngineDpi(int dpi);
   private static native void nativeSetRenderingInitializationFinishedListener(
       @Nullable MapRenderingListener listener);
   private static native boolean nativeShowMapForUrl(String url);
