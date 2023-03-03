@@ -21,7 +21,7 @@ import app.organicmaps.car.UiHelpers;
 import java.util.Arrays;
 import java.util.List;
 
-public class CategoriesScreen extends MapScreen
+public class CategoriesScreen extends BaseMapScreen
 {
   private static class CategoryData
   {

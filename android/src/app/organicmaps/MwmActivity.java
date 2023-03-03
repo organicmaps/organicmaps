@@ -26,6 +26,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
 import app.organicmaps.Framework.PlacePageActivationListener;
 import app.organicmaps.api.Const;
 import app.organicmaps.background.Notifier;
@@ -38,6 +39,8 @@ import app.organicmaps.bookmarks.data.BookmarkInfo;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.bookmarks.data.Track;
+import app.organicmaps.display.DisplayManager;
+import app.organicmaps.display.DisplayType;
 import app.organicmaps.downloader.DownloaderActivity;
 import app.organicmaps.downloader.DownloaderFragment;
 import app.organicmaps.downloader.MapManager;
@@ -195,6 +198,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   @Nullable
   private WindowInsetsCompat mCurrentWindowInsets;
+
+  @NonNull
+  private DisplayManager mDisplayManager;
 
   public interface LeftAnimationTrackListener
   {
@@ -357,6 +363,32 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return super.getThemeResourceId(theme);
   }
 
+  private void replaceMapWithPlaceholder()
+  {
+    disableControls();
+    if (mMapFragment != null)
+    {
+      getSupportFragmentManager().beginTransaction().remove(mMapFragment).commitNowAllowingStateLoss();
+      mMapFragment = null;
+    }
+    getSupportFragmentManager().beginTransaction().replace(R.id.map_fragment_container, new MapPlaceholderFragment()).commitNowAllowingStateLoss();
+  }
+
+  private void replacePlaceholderWithMap()
+  {
+    initMap(false /* isLaunchByDeepLink */, true /* force */);
+    enableControls();
+  }
+
+  private void mapDisplayChanged(@NonNull final DisplayType newDisplayType)
+  {
+    Logger.d(TAG);
+    if (newDisplayType == DisplayType.Device)
+      replacePlaceholderWithMap();
+    else
+      replaceMapWithPlaceholder();
+  }
+
   @SuppressLint("InlinedApi")
   @CallSuper
   @Override
@@ -386,6 +418,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mSearchController = new FloatingSearchToolbarController(this, this);
     mSearchController.getToolbar()
                      .getViewTreeObserver();
+
+    mDisplayManager = DisplayManager.from(this);
+    mDisplayManager.addListener(DisplayType.Device, this::mapDisplayChanged);
+    getLifecycle().addObserver(mDisplayManager.getObserverFor(DisplayType.Device));
 
     boolean isLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
     initViews(isLaunchByDeepLink);
@@ -450,7 +486,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void initViews(boolean isLaunchByDeeplink)
   {
-    initMap(isLaunchByDeeplink);
+    if (mDisplayManager.isDeviceDisplayUsed())
+      initMap(isLaunchByDeeplink, false /* force */);
     initNavigationButtons();
 
     if (!mIsTabletLayout)
@@ -575,7 +612,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     refreshLightStatusBar();
   }
 
-  private void initMap(boolean isLaunchByDeepLink)
+  private void initMap(boolean isLaunchByDeepLink, boolean force)
   {
     final FragmentManager manager = getSupportFragmentManager();
     mMapFragment = (MapFragment) manager.findFragmentByTag(MapFragment.class.getName());
@@ -586,10 +623,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
       final FragmentFactory factory = manager.getFragmentFactory();
       mMapFragment = (MapFragment) factory.instantiate(getClassLoader(), MapFragment.class.getName());
       mMapFragment.setArguments(args);
-      manager
-          .beginTransaction()
-          .replace(R.id.map_fragment_container, mMapFragment, MapFragment.class.getName())
-          .commit();
+      if (force)
+      {
+        manager
+            .beginTransaction()
+            .replace(R.id.map_fragment_container, mMapFragment, MapFragment.class.getName())
+            .commitNowAllowingStateLoss();
+      }
+      else
+      {
+        manager
+            .beginTransaction()
+            .replace(R.id.map_fragment_container, mMapFragment, MapFragment.class.getName())
+            .commit();
+      }
     }
 
     View container = findViewById(R.id.map_fragment_container);
@@ -601,10 +648,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void initNavigationButtons()
   {
-    initNavigationButtons(mCurrentLayoutMode);
+    initNavigationButtons(mCurrentLayoutMode, false /* force */);
   }
 
-  private void initNavigationButtons(MapButtonsController.LayoutMode layoutMode)
+  private void initNavigationButtons(MapButtonsController.LayoutMode layoutMode, boolean force)
   {
     if (mMapButtonsController == null || mMapButtonsController.getLayoutMode() != layoutMode)
     {
@@ -622,7 +669,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
       FragmentTransaction transaction = getSupportFragmentManager()
           .beginTransaction().replace(R.id.map_buttons, mMapButtonsController);
-      transaction.commit();
+      if (force)
+        transaction.commitNowAllowingStateLoss();
+      else
+        transaction.commit();
     }
   }
 
@@ -1024,10 +1074,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     BookmarkManager.INSTANCE.addLoadingListener(this);
     RoutingController.get().attach(this);
     IsolinesManager.from(getApplicationContext()).attach(this::onIsolinesStateChanged);
+    if (mDisplayManager.isDeviceDisplayUsed())
+    {
+      LocationState.nativeSetListener(this);
+      onMyPositionModeChanged(LocationState.nativeGetMode());
+    }
     LocationHelper.INSTANCE.attach(this);
-    LocationState.nativeSetListener(this);
     LocationHelper.INSTANCE.addListener(this);
-    onMyPositionModeChanged(LocationState.nativeGetMode());
     mSearchController.attach(this);
     if (!Config.isScreenSleepEnabled())
       Utils.keepScreenOn(true, getWindow());
@@ -1040,7 +1093,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Framework.nativeRemovePlacePageActivationListener();
     BookmarkManager.INSTANCE.removeLoadingListener(this);
     LocationHelper.INSTANCE.removeListener(this);
-    LocationState.nativeRemoveListener();
+    if (mDisplayManager.isDeviceDisplayUsed())
+      LocationState.nativeRemoveListener();
     LocationHelper.INSTANCE.detach();
     RoutingController.get().detach();
     IsolinesManager.from(getApplicationContext()).detach();
@@ -1061,9 +1115,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onBackPressed()
   {
-    RoutingController routingController = RoutingController.get();
-    if (!closeBottomSheet(MAIN_MENU_ID) && !closeBottomSheet(LAYERS_MENU_ID) && !collapseNavMenu() &&
-        !closePlacePage() &&!closeSearchToolbar(true, true) &&
+    final boolean isCarDisplayUsed = DisplayManager.from(this).isCarDisplayUsed();
+    final RoutingController routingController = RoutingController.get();
+    if (!isCarDisplayUsed && !closeBottomSheet(MAIN_MENU_ID) && !closeBottomSheet(LAYERS_MENU_ID) &&
+        !collapseNavMenu() && !closePlacePage() && !closeSearchToolbar(true, true) &&
         !closeSidePanel() && !closePositionChooser() &&
         !routingController.resetToPlanningStateIfNavigating() && !routingController.cancel())
     {
@@ -1485,7 +1540,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mRoutingPlanInplaceController.hideDrivingOptionsView();
     mNavigationController.stop(this);
-    initNavigationButtons(MapButtonsController.LayoutMode.regular);
+    initNavigationButtons(MapButtonsController.LayoutMode.regular, false /* force */);
     refreshLightStatusBar();
   }
 
@@ -1495,7 +1550,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     closeFloatingToolbarsAndPanels(true);
     ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
     mNavigationController.start(this);
-    initNavigationButtons(MapButtonsController.LayoutMode.navigation);
+    initNavigationButtons(MapButtonsController.LayoutMode.navigation, false /* force */);
     refreshLightStatusBar();
   }
 
@@ -1503,7 +1558,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onPlanningCancelled()
   {
     closeFloatingToolbarsAndPanels(true);
-    initNavigationButtons(MapButtonsController.LayoutMode.regular);
+    initNavigationButtons(MapButtonsController.LayoutMode.regular, false /* force */);
     refreshLightStatusBar();
   }
 
@@ -1511,7 +1566,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onPlanningStarted()
   {
     closeFloatingToolbarsAndPanels(true);
-    initNavigationButtons(MapButtonsController.LayoutMode.planning);
+    initNavigationButtons(MapButtonsController.LayoutMode.planning, false /* force */);
     refreshLightStatusBar();
   }
 
@@ -1521,7 +1576,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     closeFloatingToolbarsAndPanels(true);
     ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
     mNavigationController.stop(this);
-    initNavigationButtons(MapButtonsController.LayoutMode.planning);
+    initNavigationButtons(MapButtonsController.LayoutMode.planning, false /* force */);
     refreshLightStatusBar();
   }
 
@@ -1888,5 +1943,44 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Logger.d(TAG, "trim memory, level = " + level);
     if (level >= TRIM_MEMORY_RUNNING_LOW)
       Framework.nativeMemoryWarning();
+  }
+
+  private void disableControls()
+  {
+    initNavigationButtons(MapButtonsController.LayoutMode.regular, true /* force */);
+    if (mMapButtonsController != null)
+      mMapButtonsController.showMapButtons(false);
+    mPlacePageController.close(true);
+    mMainMenu.show(false);
+    mNavigationController.show(false);
+    mRoutingPlanInplaceController.show(false);
+    closeFloatingToolbarsAndPanels(false);
+    Framework.nativeDeactivatePopup();
+    if (mOnmapDownloader != null)
+      mOnmapDownloader.onPause();
+  }
+
+  private void enableControls()
+  {
+    if (RoutingController.get().isNavigating())
+    {
+      showNavigation(true);
+      initNavigationButtons(MapButtonsController.LayoutMode.navigation, true /* force */);
+    }
+    else if (RoutingController.get().isPlanning())
+    {
+      mMainMenu.show(true);
+      mRoutingPlanInplaceController.show(true);
+      initNavigationButtons(MapButtonsController.LayoutMode.planning, true /* force */);
+    }
+    else
+      initNavigationButtons(MapButtonsController.LayoutMode.regular, true /* force */);
+    if (mMapButtonsController != null)
+      mMapButtonsController.showMapButtons(true);
+    LocationState.nativeSetListener(this);
+    onMyPositionModeChanged(LocationState.nativeGetMode());
+    updateViewsInsets();
+    if (mOnmapDownloader != null)
+      mOnmapDownloader.onResume();
   }
 }

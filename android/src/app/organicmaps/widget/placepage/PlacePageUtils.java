@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.util.Utils;
+import app.organicmaps.display.DisplayManager;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.List;
@@ -20,6 +21,9 @@ class PlacePageUtils
   static void moveViewportUp(@NonNull View placePageView, int viewportMinHeight)
   {
     placePageView.post(() -> {
+      // Because of the post(), this lambda is called after the car.SurfaceRenderer.onStableAreaChanged() and breaks the visibleRect configuration
+      if (DisplayManager.from(placePageView.getContext()).isCarDisplayUsed())
+        return;
       final View coordinatorLayout = (ViewGroup) placePageView.getParent();
       final int viewPortWidth = coordinatorLayout.getWidth();
       int viewPortHeight = coordinatorLayout.getHeight();
