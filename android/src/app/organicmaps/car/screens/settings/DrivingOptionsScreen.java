@@ -15,11 +15,11 @@ import androidx.core.graphics.drawable.IconCompat;
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.UiHelpers;
-import app.organicmaps.car.screens.MapScreen;
+import app.organicmaps.car.screens.BaseMapScreen;
 import app.organicmaps.routing.RoutingOptions;
 import app.organicmaps.settings.RoadType;
 
-public class DrivingOptionsScreen extends MapScreen
+public class DrivingOptionsScreen extends BaseMapScreen
 {
   @NonNull
   private final CarIcon mCheckboxIcon;
