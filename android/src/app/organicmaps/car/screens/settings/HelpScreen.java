@@ -15,10 +15,10 @@ import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.UiHelpers;
-import app.organicmaps.car.screens.MapScreen;
+import app.organicmaps.car.screens.BaseMapScreen;
 import app.organicmaps.util.DateUtils;
 
-public class HelpScreen extends MapScreen
+public class HelpScreen extends BaseMapScreen
 {
   public HelpScreen(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer)
   {

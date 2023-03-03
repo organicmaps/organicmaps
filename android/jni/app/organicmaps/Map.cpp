@@ -39,6 +39,12 @@ Java_app_organicmaps_Map_nativeIsEngineCreated(JNIEnv *, jclass)
   return g_framework->IsDrapeEngineCreated();
 }
 
+JNIEXPORT void JNICALL
+Java_app_organicmaps_Map_nativeUpdateEngineDpi(JNIEnv *, jclass, jint dpi)
+{
+  return g_framework->UpdateDpi(dpi);
+}
+
 JNIEXPORT jboolean JNICALL
 Java_app_organicmaps_Map_nativeShowMapForUrl(JNIEnv * env, jclass, jstring url)
 {

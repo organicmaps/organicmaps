@@ -727,6 +727,7 @@
       android:exported="false"/>
     <service
         android:name="app.organicmaps.car.NavigationCarAppService"
+        android:foregroundServiceType="location"
         android:exported="true">
       <intent-filter>
         <action android:name="androidx.car.app.CarAppService" />
