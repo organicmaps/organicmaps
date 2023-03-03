@@ -773,6 +773,16 @@
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
 	<!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
 	<string name="comma_separated_pair">%1$s, %2$s</string>
+	<!-- Text on car placeholder screen that maps are shown on the phone screen -->
+	<string name="aa_used_on_phone_screen">You are now using Organic Maps on the phone screen</string>
+	<!-- Text on phone placeholder screen that maps are shown on the car screen -->
+	<string name="aa_used_on_car_screen">You are now using Organic Maps on the car screen</string>
+	<!-- Android Auto connected -->
+	<string name="aa_connected">You are connected to Android Auto</string>
+	<!-- Button to show maps on the phone screen instead of a car -->
+	<string name="aa_continue_on_phone">Continue on phone</string>
+	<!-- Button to show maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="aa_continue_in_car">Continue in car</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Address/Block</string>

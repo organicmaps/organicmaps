@@ -22,6 +22,7 @@ import app.organicmaps.background.OsmUploadWork;
 import app.organicmaps.downloader.DownloaderNotifier;
 import app.organicmaps.base.MediaPlayerWrapper;
 import app.organicmaps.bookmarks.data.BookmarkManager;
+import app.organicmaps.display.DisplayManager;
 import app.organicmaps.downloader.CountryItem;
 import app.organicmaps.downloader.MapManager;
 import app.organicmaps.location.LocationHelper;
@@ -66,6 +67,9 @@ public class MwmApplication extends Application implements Application.ActivityL
   @NonNull
   private SensorHelper mSensorHelper;
 
+  @NonNull
+  private DisplayManager mDisplayManager;
+
   private volatile boolean mFrameworkInitialized;
   private volatile boolean mPlatformInitialized;
 
@@ -101,6 +105,12 @@ public class MwmApplication extends Application implements Application.ActivityL
   public SensorHelper getSensorHelper()
   {
     return mSensorHelper;
+  }
+
+  @NonNull
+  public DisplayManager getDisplayManager()
+  {
+    return mDisplayManager;
   }
 
   public MwmApplication()
@@ -145,6 +155,7 @@ public class MwmApplication extends Application implements Application.ActivityL
     mSubwayManager = new SubwayManager(this);
     mIsolinesManager = new IsolinesManager(this);
     mSensorHelper = new SensorHelper(this);
+    mDisplayManager = new DisplayManager();
 
     mPlayer = new MediaPlayerWrapper(this);
   }
