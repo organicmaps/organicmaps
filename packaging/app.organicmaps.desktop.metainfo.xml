@@ -113,6 +113,29 @@
   </screenshots>
 
   <releases>
+   <release version="2023.03.02-2" date="2023-03-02">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OpenStreetMap data as of February 27</li>
+           <li>Fixed and improved search</li>
+           <li>Split vegan and vegetarian cuisines in search</li>
+         </ul>
+       <p>Map Styles:</p>
+         <ul>
+           <li>Fixed styles for airports, land uses, waterways, and hatching fill areas</li>
+           <li>Some smaller areas are not obscured by large ones anymore</li>
+           <li>Added healthcare specialists: alternative, audiologist, blood_donation, optometrist, podiatrist, psychotherapist, sample_collection, speech_therapist</li>
+           <li>Added communication towers, loading docks, solar, wind, gas, and hydropower generators</li>
+           <li>Fixed the Bilbao metro icon</li>
+           <li>Historic ruins can now be added in the Editor</li>
+         </ul>
+       <p>Translations:</p>
+         <ul>
+           <li>Improved Arabic, Norwegian, Portuguese, and Turkish translations</li>
+         </ul>
+     </description>
+   </release>
    <release version="2023.02.13-11" date="2023-02-13">
      <description>
        <p>Highlights:</p>
