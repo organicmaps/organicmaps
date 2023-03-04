@@ -4,9 +4,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.XmlRes;
 import androidx.core.content.ContextCompat;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import app.organicmaps.R;
@@ -17,6 +19,14 @@ abstract class BaseXmlSettingsFragment extends PreferenceFragmentCompat
 {
   protected abstract @XmlRes int getXmlResources();
 
+  @NonNull
+  public <T extends Preference> T getPreference(@NonNull CharSequence key)
+  {
+    final T pref = findPreference(key);
+    if (pref == null)
+      throw new RuntimeException("Can't get preference by key: "+key);
+    return pref;
+  }
   @Override
   public void onCreatePreferences(Bundle bundle, String root)
   {
