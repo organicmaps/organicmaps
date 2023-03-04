@@ -268,14 +268,10 @@ public class MapButtonsController extends Fragment
 
   public void showMapButtons(boolean show)
   {
-    if (show) {
+    if (show)
       UiUtils.show(mFrame);
-      showButton(true, MapButtons.zoom);
-    }
-    else {
+    else
       UiUtils.hide(mFrame);
-      showButton(false, MapButtons.zoom);
-    }
     mOnBottomButtonsHeightChangedListener.OnBottomButtonsHeightChanged();
   }
 

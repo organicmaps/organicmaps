@@ -54,67 +54,63 @@
     android:paddingStart="@dimen/nav_numbers_margin"
     android:paddingEnd="@dimen/nav_numbers_margin">
 
-    <TextView
-        android:id="@+id/time_estimate"
-        android:layout_width="126dp"
+    <LinearLayout
+      android:id="@+id/time_values_container"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerHorizontal="true"
+      tools:background="#20FF0000">
+
+      <TextView
+        android:id="@+id/time_hour_value"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="0dp"
-        android:alpha="0"
+        android:includeFontPadding="false"
+        android:lines="1"
+        android:textAppearance="@style/MwmTextAppearance.NavMenu.Time"
+        tools:text="999" />
+
+      <TextView
+        android:id="@+id/time_hour_dimen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_quarter"
+        android:includeFontPadding="false"
+        android:lines="1"
+        android:textAppearance="@style/MwmTextAppearance.NavMenu.Time.Dimension"
+        tools:text="h" />
+
+      <TextView
+        android:id="@+id/time_minute_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:includeFontPadding="false"
         android:lines="1"
         android:textAlignment="center"
-        android:textAppearance="@style/MwmTextAppearance.NavMenu.Number.Dimension"
-        android:textSize="28sp"
-        tools:text="99:99 AM" />
+        android:textAppearance="@style/MwmTextAppearance.NavMenu.Time"
+        tools:text="99" />
 
-    <LinearLayout
-        android:id="@+id/time_values_container"
+      <TextView
+        android:id="@+id/time_minute_dimen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        tools:background="#20FF0000">
-
-      <TextView
-          android:id="@+id/time_hour_value"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:includeFontPadding="false"
-          android:lines="1"
-          android:textAppearance="@style/MwmTextAppearance.NavMenu.Time"
-          tools:text="999" />
-
-      <TextView
-          android:id="@+id/time_hour_dimen"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="@dimen/margin_quarter"
-          android:includeFontPadding="false"
-          android:lines="1"
-          android:textAppearance="@style/MwmTextAppearance.NavMenu.Time.Dimension"
-          tools:text="h" />
-
-      <TextView
-          android:id="@+id/time_minute_value"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:includeFontPadding="false"
-          android:lines="1"
-          android:textAlignment="center"
-          android:textAppearance="@style/MwmTextAppearance.NavMenu.Time"
-          tools:text="99" />
-
-      <TextView
-          android:id="@+id/time_minute_dimen"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:includeFontPadding="false"
-          android:lines="1"
-          android:textAppearance="@style/MwmTextAppearance.NavMenu.Time.Dimension"
-          tools:text="m" />
+        android:includeFontPadding="false"
+        android:lines="1"
+        android:textAppearance="@style/MwmTextAppearance.NavMenu.Time.Dimension"
+        tools:text="m" />
     </LinearLayout>
 
+    <TextView
+      android:id="@+id/time_estimate"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/time_values_container"
+      android:layout_centerHorizontal="true"
+      android:includeFontPadding="false"
+      android:lines="1"
+      android:textAlignment="center"
+      android:textAppearance="@style/MwmTextAppearance.NavMenu.Number.Dimension"
+      tools:text="99:99 AM" />
   </RelativeLayout>
 
 

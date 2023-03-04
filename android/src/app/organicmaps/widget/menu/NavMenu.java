@@ -5,7 +5,6 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -49,8 +48,6 @@ public class NavMenu
   private final NavMenuListener mNavMenuListener;
 
   private int currentPeekHeight = 0;
-
-  private int check = 1;
 
   public NavMenu(AppCompatActivity activity, NavMenuListener navMenuListener)
   {
@@ -180,18 +177,8 @@ public class NavMenu
     mTimeMinuteValue.setText(String.valueOf(minutes));
     String min = mActivity.getResources().getString(R.string.minute);
     mTimeMinuteUnits.setText(min);
-    if(check==1) {
-      mTimeMinuteValue.setAlpha(1f);
-      mTimeMinuteUnits.setAlpha(1f);
-      mTimeHourValue.setAlpha(1f);
-      mTimeHourUnits.setAlpha(1f);
-    } else if (check==2) {
-      mTimeMinuteValue.setAlpha(0f);
-      mTimeMinuteUnits.setAlpha(0f);
-      mTimeHourValue.setAlpha(0f);
-      mTimeHourUnits.setAlpha(0f);
-    }
-    if (hours == 0) {
+    if (hours == 0)
+    {
       UiUtils.hide(mTimeHourUnits, mTimeHourValue);
       return;
     }
@@ -202,12 +189,6 @@ public class NavMenu
 
   private void updateTimeEstimate(int seconds)
   {
-    if(check == 1){
-      mTimeEstimate.setAlpha(0f);
-    } else if (check == 2) {
-      mTimeEstimate.setAlpha(1f);
-    }
-
     final Calendar currentTime = Calendar.getInstance();
     currentTime.add(Calendar.SECOND, seconds);
     DateFormat timeFormat;
@@ -216,12 +197,6 @@ public class NavMenu
     else
       timeFormat = new SimpleDateFormat("h:mm aa", Locale.getDefault());
     mTimeEstimate.setText(timeFormat.format(currentTime.getTime()));
-    mTimeEstimate.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        check = (check==1)?2:1;
-      }
-    });
   }
 
 
