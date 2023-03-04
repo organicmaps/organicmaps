@@ -1,6 +1,6 @@
 package app.organicmaps.scheduling;
 
-import app.organicmaps.background.OsmUploadService;
+import app.organicmaps.background.OsmUploadWork;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +10,7 @@ public class JobIdMap
   private static final Map<Class<?>, Integer> MAP = new HashMap<>();
 
   static {
-    MAP.put(OsmUploadService.class, calcIdentifier(MAP.size()));
+    MAP.put(OsmUploadWork.class, calcIdentifier(MAP.size()));
   }
 
   private static final int ID_BASIC = 1070;
@@ -21,7 +21,7 @@ public class JobIdMap
     return (count + 1 << JOB_TYPE_SHIFTS) + ID_BASIC;
   }
 
-  public static int getId(Class<?> clazz)
+  public static Integer getId(Class<?> clazz)
   {
     Integer integer = MAP.get(clazz);
     if (integer == null)
