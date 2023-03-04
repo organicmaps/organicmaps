@@ -81,6 +81,12 @@ The OM community abides by the [CNCF code of conduct](CODE_OF_CONDUCT.md).
 
 ## Developer's Guidelines
 
+Please [learn how to use `git rebase`](https://git-scm.com/book/en/v2/Git-Branching-Rebasing) to amend your commits
+and have a clean history for your changes/branches.
+Do not close/recreate Pull Requests if you want to edit commits. Use `git rebase` and `git commit --amend`,
+or any git tool with a graphical interface ([Fork for Mac](https://git-fork.com/) is quite good) to make clean,
+logical commits, properly signed with [DCO](DCO.md).
+
 - [Directories structure](STRUCTURE.md)
 - [C++ Style Guide](CPP_STYLE.md).
 - [Java Style Guide](JAVA_STYLE.md).
