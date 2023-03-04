@@ -61262,14 +61262,6 @@ cont {
 cont {
   name: "railway-station-subway-barcelona"
   element {
-    scale: 12
-    symbol {
-      name: "subway-barcelona-s"
-      priority: 16951
-      min_distance: 1
-    }
-  }
-  element {
     scale: 13
     symbol {
       name: "subway-barcelona-s"
