@@ -72,7 +72,21 @@ using namespace power_management;
 
   bool on = true, _ = true;
   GetFramework().Load3dMode(_, on);
-  [self.is3dCell configWithDelegate:self title:L(@"pref_map_3d_buildings_title") isOn:on];
+  if (GetFramework().GetPowerManager().GetScheme() == Scheme::EconomyMaximum)
+  {
+    self.is3dCell.isEnabled = false;
+    [self.is3dCell configWithDelegate:self title:L(@"pref_map_3d_buildings_title") isOn:false];
+    UITapGestureRecognizer* tapRecogniser = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                            action:@selector(show3dBuildingsAlert:)];
+
+    self.is3dCell.gestureRecognizers = @[tapRecogniser];
+  }
+  else
+  {
+    self.is3dCell.isEnabled = true;
+    [self.is3dCell configWithDelegate:self title:L(@"pref_map_3d_buildings_title") isOn:on];
+    self.is3dCell.gestureRecognizers = nil;
+  }
 
   [self.autoDownloadCell configWithDelegate:self
                                       title:L(@"autodownload")
@@ -148,6 +162,20 @@ using namespace power_management;
   [self.compassCalibrationCell configWithDelegate:self
                                             title:L(@"pref_calibration_title")
                                              isOn:[MWMSettings compassCalibrationEnabled]];
+}
+
+- (void)show3dBuildingsAlert:(UITapGestureRecognizer *)recognizer {
+  UIAlertController *alert =
+  [UIAlertController alertControllerWithTitle:L(@"pref_map_3d_buildings_title")
+                                      message:L(@"pref_map_3d_buildings_disabled_summary")
+                               preferredStyle:UIAlertControllerStyleAlert];
+
+  UIAlertAction *okButton = [UIAlertAction actionWithTitle:@"OK"
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:nil];
+  [alert addAction:okButton];
+
+  [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)configNavigationSection {

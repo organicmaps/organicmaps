@@ -4774,6 +4774,48 @@
     zh-Hans = 3D 建筑
     zh-Hant = 3D 建築
 
+  [pref_map_3d_buildings_disabled_summary]
+    comment = A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled
+    tags = android,ios
+    en = 3D buildings are turned off in power saving mode
+    ar = يتم إيقاف تشغيل المباني ثلاثية الأبعاد في وضع توفير الطاقة
+    be = У рэжыме энергазберажэння 3D-будынкі выключаны
+    bg = 3D сградите са изключени в режим на пестене на енергия
+    ca = Els edificis en 3D es desactiven en mode d'estalvi d'energia
+    cs = 3D budovy jsou vypnuty v úsporném režimu
+    da = 3D-bygninger er slukket i strømbesparende tilstand
+    de = 3D-Gebäude werden im Energiesparmodus ausgeschaltet
+    el = Τα τρισδιάστατα κτίρια απενεργοποιούνται σε λειτουργία εξοικονόμησης ενέργειας
+    es = Los edificios 3D se apagan en el modo de ahorro de energía
+    et = 3D-hooned lülitatakse energiasäästurežiimis välja
+    eu = 3D eraikinak itzalita daude energia aurrezteko moduan
+    fa = ساختمان های سه بعدی در حالت صرفه جویی در مصرف برق خاموش می شوند
+    fi = 3D-rakennukset sammutetaan virransäästötilassa
+    fr = Les bâtiments 3D sont désactivés en mode d'économie d'énergie
+    he = מבנים תלת מימדיים כבויים במצב חיסכון בחשמל
+    hu = A 3D épületek energiatakarékos módban ki vannak kapcsolva
+    id = Bangunan 3D dimatikan dalam mode hemat daya
+    it = Gli edifici 3D sono disattivati in modalità di risparmio energetico
+    ja = 省電力モードで建物の 3D 表示がオフになっている
+    ko = 3D 빌딩은 절전 모드에서 꺼집니다.
+    mr = 3D इमारती वीज बचत मोडमध्ये बंद केल्या आहेत
+    nb = 3D-bygninger er slått av i strømsparingsmodus
+    nl = 3D-gebouwen worden uitgeschakeld in de energiebesparende modus
+    pl = Budynki 3D są wyłączone w trybie oszczędzania energii
+    pt = Os edifícios 3D são desativados no modo de poupança de energia
+    pt-BR = Os edifícios 3D são desativados no modo de economia de energia
+    ro = Clădirile 3D sunt oprite în modul de economisire a energiei
+    ru = 3D-здания отключаются в режиме энергосбережения
+    sk = 3D budovy sú vypnuté v režime úspory energie
+    sv = 3D-byggnader är avstängda i energisparläge
+    sw = Majengo ya 3D yamezimwa katika hali ya kuokoa nishati
+    th = สิ่งปลูกสร้าง 3 มิติจะปิดในโหมดประหยัดพลังงาน
+    tr = 3D binalar güç tasarrufu modunda kapatılır
+    uk = 3D будівлі вимкнені в режимі енергозбереження
+    vi = Tòa nhà 3D bị tắt ở chế độ tiết kiệm năng lượng
+    zh-Hans = 3D 建筑在省电模式下关闭
+    zh-Hant = 3D 建築在省電模式下關閉
+
   [pref_tts_enable_title]
     comment = Settings «Route» category: «Tts enabled» title
     tags = android,ios
