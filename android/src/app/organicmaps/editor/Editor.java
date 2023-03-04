@@ -11,7 +11,7 @@ import app.organicmaps.BuildConfig;
 import app.organicmaps.Framework;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.background.AppBackgroundTracker;
-import app.organicmaps.background.OsmUploadService;
+import app.organicmaps.background.OsmUploadWork;
 import app.organicmaps.bookmarks.data.Metadata;
 import app.organicmaps.editor.data.FeatureCategory;
 import app.organicmaps.editor.data.Language;
@@ -207,7 +207,7 @@ public final class Editor
       if (foreground)
         return;
 
-      OsmUploadService.startActionUploadOsmChanges(mContext);
+      OsmUploadWork.startActionUploadOsmChanges(mContext);
     }
   }
 }
