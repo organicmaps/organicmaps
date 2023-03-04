@@ -719,10 +719,7 @@
     <activity
       android:name="app.organicmaps.settings.DrivingOptionsActivity"
       android:label="@string/driving_options_title"/>
-    <service
-      android:name="app.organicmaps.background.OsmUploadService"
-      android:permission="android.permission.BIND_JOB_SERVICE"
-      android:exported="false"/>
+   
 
     <!-- Catches app upgraded intent -->
     <receiver
