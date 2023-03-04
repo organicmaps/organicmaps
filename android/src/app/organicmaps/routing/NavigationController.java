@@ -116,7 +116,7 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     final View navigationBarBackground = mFrame.findViewById(R.id.nav_bottom_sheet_nav_bar);
     final View nextTurnContainer = mFrame.findViewById(R.id.nav_next_turn_container);
     ViewCompat.setOnApplyWindowInsetsListener(mStreetFrame, (v, windowInsets) -> {
-      UiUtils.extendViewWithStatusBar(v, windowInsets);
+      UiUtils.setViewInsetsPaddingNoBottom(v, windowInsets);
       nextTurnContainer.setPadding(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).left, nextTurnContainer.getPaddingTop(),
                                    nextTurnContainer.getPaddingRight(), nextTurnContainer.getPaddingBottom());
       navigationBarBackground.getLayoutParams().height = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
