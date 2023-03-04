@@ -422,7 +422,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     ViewCompat.setOnApplyWindowInsetsListener(mPointChooser, (view, windowInsets) -> {
       UiUtils.setViewInsetsPaddingBottom(mPointChooser, windowInsets);
-      UiUtils.extendViewWithStatusBar(mPointChooserToolbar, windowInsets);
+      UiUtils.setViewInsetsPaddingNoBottom(mPointChooserToolbar, windowInsets);
 
       mNavBarHeight = mIsFullscreen ? 0 : windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
       // For the first loading, set compass top margin to status bar size

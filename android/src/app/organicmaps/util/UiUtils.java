@@ -411,19 +411,6 @@ public final class UiUtils
     }
   }
 
-  public static void extendViewWithStatusBar(@NonNull View view, WindowInsetsCompat windowInsets)
-  {
-    final int height = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
-    final ViewGroup.LayoutParams lp = view.getLayoutParams();
-    // Extend the height only when necessary
-    if (lp.height != ViewGroup.LayoutParams.WRAP_CONTENT && view.getPaddingTop() < height)
-    {
-      lp.height += height;
-      view.setLayoutParams(lp);
-    }
-    setViewInsetsPaddingNoBottom(view, windowInsets);
-  }
-
   public static void setViewInsetsPadding(View view, WindowInsetsCompat windowInsets)
   {
     final Insets systemInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());

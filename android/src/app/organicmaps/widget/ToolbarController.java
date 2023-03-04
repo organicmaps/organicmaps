@@ -34,7 +34,7 @@ public class ToolbarController implements Detachable<Activity>
     if (useExtendedToolbar())
     {
       ViewCompat.setOnApplyWindowInsetsListener(getToolbar(), (view, windowInsets) -> {
-        UiUtils.extendViewWithStatusBar(getToolbar(), windowInsets);
+        UiUtils.setViewInsetsPaddingNoBottom(getToolbar(), windowInsets);
         return windowInsets;
       });
     }

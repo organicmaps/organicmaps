@@ -12,20 +12,25 @@
   <FrameLayout
     android:id="@+id/street_frame"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/nav_street_height"
+    android:layout_height="wrap_content"
     android:elevation="@dimen/nav_elevation"
     app:layout_constraintTop_toTopOf="parent"
     android:background="?cardBackground">
-    <TextView
-      android:id="@+id/street"
-      style="@style/MwmWidget.TextView.NavStreet"
+    <RelativeLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_marginStart="@dimen/nav_street_left"
-      android:maxLines="2"
-      android:layout_gravity="center_vertical"
-      android:gravity="center"
-      tools:text="Sample street name.\nLong looooooooong!!!!"/>
+      android:layout_height="@dimen/nav_street_height"
+      tools:ignore="UselessParent">
+      <TextView
+        android:id="@+id/street"
+        style="@style/MwmWidget.TextView.NavStreet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/nav_street_left"
+        android:maxLines="2"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        tools:text="Sample street name.\nLong looooooooong!!!!"/>
+    </RelativeLayout>
   </FrameLayout>
 
   <RelativeLayout

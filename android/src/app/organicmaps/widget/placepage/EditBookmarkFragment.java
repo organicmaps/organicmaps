@@ -108,7 +108,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   {
     Toolbar toolbar = view.findViewById(R.id.toolbar);
     ViewCompat.setOnApplyWindowInsetsListener(toolbar, (v, windowInsets) -> {
-      UiUtils.extendViewWithStatusBar(v, windowInsets);
+      UiUtils.setViewInsetsPaddingNoBottom(v, windowInsets);
       return windowInsets;
     });
     final TextView textView = toolbar.findViewById(R.id.tv__save);
