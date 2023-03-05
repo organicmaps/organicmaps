@@ -236,6 +236,7 @@ node[highway=motorway_junction],
 node[junction],
 {z-index: 1000;}
 
+/*
 line[aerialway=cable_car]::dash,
 line[aerialway=chair_lift]::dash,
 line[aerialway=gondola]::dash,
@@ -262,6 +263,7 @@ line[aerialway=rope_tow],
 
 line[power=line]
 {z-index: 2000;}
+*/
 
 line[highway]
 {casing-width: 0;}
