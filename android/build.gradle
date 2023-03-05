@@ -95,7 +95,6 @@ dependencies {
   implementation 'androidx.work:work-runtime:2.8.0'
   implementation 'com.google.android.material:material:1.8.0'
   implementation 'com.google.code.gson:gson:2.10.1'
-  implementation 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
   implementation 'com.github.devnullorthrow:MPAndroidChart:3.2.0-alpha'
   implementation 'net.jcip:jcip-annotations:1.0'
 

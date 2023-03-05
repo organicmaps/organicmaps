@@ -30,8 +30,6 @@ import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
-import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -42,7 +40,6 @@ import java.util.Map;
 import java.util.Stack;
 
 class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolderWrapper>
-                     implements StickyRecyclerHeadersAdapter<DownloaderAdapter.HeaderViewHolder>
 {
   private static final int HEADER_ADVERTISMENT_ID = CountryItem.CATEGORY__LAST + 1;
   private static final int HEADER_ADS_OFFSET = 10;
@@ -54,8 +51,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   private final RecyclerView mRecycler;
   private final Activity mActivity;
   private final DownloaderFragment mFragment;
-  private final StickyRecyclerHeadersDecoration mHeadersDecoration;
-
   private boolean mMyMapsMode = true;
   private boolean mSearchResultsMode;
   private String mSearchQuery;
@@ -662,7 +657,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
     mFragment.showPlaceholder(mItems.isEmpty());
 
-    mHeadersDecoration.invalidateHeaders();
     notifyDataSetChanged();
   }
 
@@ -671,8 +665,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     mActivity = fragment.requireActivity();
     mFragment = fragment;
     mRecycler = mFragment.getRecyclerView();
-    mHeadersDecoration = new StickyRecyclerHeadersDecoration(this);
-    mRecycler.addItemDecoration(mHeadersDecoration);
   }
 
   @NonNull
@@ -697,30 +689,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   public void onBindViewHolder(ViewHolderWrapper holder, int position)
   {
     holder.bind(position);
-  }
-
-  @Override
-  public HeaderViewHolder onCreateHeaderViewHolder(ViewGroup parent)
-  {
-    return new HeaderViewHolder(inflate(parent, R.layout.downloader_item_header));
-  }
-
-  @Override
-  public void onBindHeaderViewHolder(HeaderViewHolder holder, int position)
-  {
-    holder.bind(position);
-  }
-
-  @Override
-  public long getHeaderId(int position)
-  {
-    if (position >= mNearMeCount)
-    {
-      if (position < mNearMeCount)
-        return HEADER_ADVERTISMENT_ID;
-    }
-
-    return mItems.get(position).headerId;
   }
 
   @Override
