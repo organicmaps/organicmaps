@@ -138,33 +138,6 @@ node[highway=motorway_junction]
 line|z15-[hwtag=oneway]::arrows
 {z-index: 1000;}
 
-line[aerialway=cable_car]::dash,
-line[aerialway=chair_lift]::dash,
-line[aerialway=gondola]::dash,
-line[aerialway=mixed_lift]::dash,
-line[aerialway=drag_lift] ::dash,
-line[aerialway=j-bar]::dash,
-line[aerialway=t-bar]::dash,
-line[aerialway=magic_carpet]::dash,
-line[aerialway=platter]::dash,
-line[aerialway=rope_tow]::dash,
-{z-index: 1049;}
-
-line[aerialway=cable_car],
-line[aerialway=chair_lift],
-line[aerialway=gondola],
-line[aerialway=mixed_lift],
-line[aerialway=drag_lift],
-line[aerialway=j-bar],
-line[aerialway=t-bar],
-line[aerialway=magic_carpet],
-line[aerialway=platter],
-line[aerialway=rope_tow],
-{z-index: 1050;}
-
-line[power=line]
-{z-index: 2000;}
-
 /* 2.SHIELD 10-22 ZOOM */
 
 line|z10-[highway=motorway],
@@ -483,9 +456,9 @@ line[railway=funicular]
 /* 10.PISTE 15-22 ZOOM */
 
 line|z15-[aerialway=cable_car],
-line|z15-[aerialway=chair_lift],
 line|z15-[aerialway=gondola],
 line|z15-[aerialway=mixed_lift],
+line|z15-[aerialway=chair_lift],
 line|z15-[aerialway=drag_lift],
 line|z15-[aerialway=j-bar],
 line|z15-[aerialway=t-bar],

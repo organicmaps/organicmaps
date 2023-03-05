@@ -280,16 +280,6 @@ area[amenity=charging_station]
 {z-index: 2590;}
 
 node[aerialway=station],
-line[aerialway=cable_car],
-line[aerialway=chair_lift],
-line[aerialway=gondola],
-line[aerialway=mixed_lift],
-line[aerialway=drag_lift],
-line[aerialway=j-bar],
-line[aerialway=t-bar],
-line[aerialway=magic_carpet],
-line[aerialway=platter],
-line[aerialway=rope_tow],
 node[railway=level_crossing],
 node[amenity=marketplace],
 area[amenity=marketplace],

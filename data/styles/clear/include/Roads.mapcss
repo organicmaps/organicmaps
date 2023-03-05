@@ -241,32 +241,34 @@ node[highway=motorway_junction],
 node[junction],
 {z-index: 1000;}
 
-line[aerialway=cable_car]::dash,
-line[aerialway=chair_lift]::dash,
-line[aerialway=gondola]::dash,
-line[aerialway=mixed_lift]::dash,
-line[aerialway=drag_lift] ::dash,
-line[aerialway=j-bar]::dash,
-line[aerialway=t-bar]::dash,
-line[aerialway=magic_carpet]::dash,
-line[aerialway=platter]::dash,
-line[aerialway=rope_tow]::dash,
-{z-index: 1049;}
+line[power=line]::dash
+{z-index: 1999;}
+line[power=line]
+{z-index: 2000;}
 
 line[aerialway=cable_car],
-line[aerialway=chair_lift],
 line[aerialway=gondola],
 line[aerialway=mixed_lift],
+line[aerialway=chair_lift],
 line[aerialway=drag_lift],
 line[aerialway=j-bar],
 line[aerialway=t-bar],
 line[aerialway=magic_carpet],
 line[aerialway=platter],
 line[aerialway=rope_tow],
-{z-index: 1050;}
+{z-index: 2600;}
 
-line[power=line]
-{z-index: 2000;}
+line[aerialway=cable_car]::dash,
+line[aerialway=gondola]::dash,
+line[aerialway=mixed_lift]::dash,
+line[aerialway=chair_lift]::dash,
+line[aerialway=drag_lift] ::dash,
+line[aerialway=j-bar]::dash,
+line[aerialway=t-bar]::dash,
+line[aerialway=magic_carpet]::dash,
+line[aerialway=platter]::dash,
+line[aerialway=rope_tow]::dash,
+{z-index: 2605;}
 
 line[highway]
 {casing-width: 0;}
@@ -1266,44 +1268,62 @@ line|z15-[railway=funicular],
 /* 10.PISTE 12-22 ZOOM */
 
 line|z12-[aerialway=cable_car],
-line|z12-[aerialway=chair_lift],
 line|z12-[aerialway=gondola],
 line|z12-[aerialway=mixed_lift],
-line|z12-[aerialway=drag_lift],
-line|z12-[aerialway=j-bar],
-line|z12-[aerialway=t-bar],
-line|z12-[aerialway=magic_carpet],
-line|z12-[aerialway=platter],
-line|z12-[aerialway=rope_tow],
+line|z13-[aerialway=chair_lift],
+line|z13-[aerialway=drag_lift],
+line|z13-[aerialway=j-bar],
+line|z13-[aerialway=t-bar],
+line|z13-[aerialway=magic_carpet],
+line|z13-[aerialway=platter],
+line|z13-[aerialway=rope_tow],
+{color: @aerialway; opacity: 1;}
+
 line|z12-[aerialway=cable_car]::dash,
-line|z12-[aerialway=chair_lift]::dash,
 line|z12-[aerialway=gondola]::dash,
 line|z12-[aerialway=mixed_lift]::dash,
-line|z12-[aerialway=drag_lift] ::dash,
-line|z12-[aerialway=j-bar]::dash,
-line|z12-[aerialway=t-bar]::dash,
-line|z12-[aerialway=magic_carpet]::dash,
-line|z12-[aerialway=platter]::dash,
-line|z12-[aerialway=rope_tow]::dash,
-{color: @aerialway;opacity: 1;}
+line|z13-[aerialway=chair_lift]::dash,
+line|z13-[aerialway=drag_lift]::dash,
+line|z13-[aerialway=j-bar]::dash,
+line|z13-[aerialway=t-bar]::dash,
+line|z13-[aerialway=magic_carpet]::dash,
+line|z13-[aerialway=platter]::dash,
+line|z13-[aerialway=rope_tow]::dash,
+{color: @aerialway; opacity: 0.8;}
 
 /* 10.2 Aerialway 12-22 ZOOM */
 
 line|z12-15[aerialway=cable_car],
-line|z12-15[aerialway=chair_lift],
 line|z12-15[aerialway=gondola],
 line|z12-15[aerialway=mixed_lift],
-line|z12-15[aerialway=drag_lift],
-line|z12-15[aerialway=j-bar],
-line|z12-15[aerialway=t-bar],
-line|z12-15[aerialway=magic_carpet],
-line|z12-15[aerialway=platter],
-line|z12-15[aerialway=rope_tow],
 {width: 0.5;}
 line|z16-[aerialway=cable_car],
-line|z16-[aerialway=chair_lift],
 line|z16-[aerialway=gondola],
 line|z16-[aerialway=mixed_lift],
+{width: 1;}
+
+line|z12-13[aerialway=cable_car]::dash,
+line|z12-13[aerialway=gondola]::dash,
+line|z12-13[aerialway=mixed_lift]::dash,
+{width: 2.5; dashes: 2.5,15;}
+line|z14-15[aerialway=cable_car]::dash,
+line|z14-15[aerialway=gondola]::dash,
+line|z14-15[aerialway=mixed_lift]::dash,
+{width: 3; dashes: 3,22;}
+line|z16-[aerialway=cable_car]::dash,
+line|z16-[aerialway=gondola]::dash,
+line|z16-[aerialway=mixed_lift]::dash,
+{width: 4; dashes: 4,32; opacity: 1;}
+
+line|z13-15[aerialway=chair_lift],
+line|z13-15[aerialway=drag_lift],
+line|z13-15[aerialway=j-bar],
+line|z13-15[aerialway=t-bar],
+line|z13-15[aerialway=magic_carpet],
+line|z13-15[aerialway=platter],
+line|z13-15[aerialway=rope_tow],
+{width: 0.5;}
+line|z16-[aerialway=chair_lift],
 line|z16-[aerialway=drag_lift],
 line|z16-[aerialway=j-bar],
 line|z16-[aerialway=t-bar],
@@ -1311,31 +1331,36 @@ line|z16-[aerialway=magic_carpet],
 line|z16-[aerialway=platter],
 line|z16-[aerialway=rope_tow],
 {width: 1;}
-line|z12-13[aerialway=cable_car]::dash,
-line|z12-13[aerialway=chair_lift]::dash,
-line|z12-13[aerialway=gondola]::dash,
-line|z12-13[aerialway=mixed_lift]::dash,
-line|z12-13[aerialway=drag_lift] ::dash,
-line|z12-13[aerialway=j-bar]::dash,
-line|z12-13[aerialway=t-bar]::dash,
-line|z12-13[aerialway=magic_carpet]::dash,
-line|z12-13[aerialway=platter]::dash,
-line|z12-13[aerialway=rope_tow]::dash,
-{width: 2;opacity: 0.6;dashes: 0.9,18;}
-line|z14-[aerialway=cable_car]::dash,
-line|z14-[aerialway=chair_lift]::dash,
-line|z14-[aerialway=gondola]::dash,
-line|z14-[aerialway=mixed_lift]::dash,
-line|z14-[aerialway=drag_lift] ::dash,
-line|z14-[aerialway=j-bar]::dash,
-line|z14-[aerialway=t-bar]::dash,
-line|z14-[aerialway=magic_carpet]::dash,
-line|z14-[aerialway=platter]::dash,
-line|z14-[aerialway=rope_tow]::dash,
-{width: 2.5;opacity: 0.6;dashes: 0.9,18;}
+
+line|z13-14[aerialway=chair_lift]::dash,
+line|z13-14[aerialway=drag_lift]::dash,
+line|z13-14[aerialway=j-bar]::dash,
+line|z13-14[aerialway=t-bar]::dash,
+line|z13-14[aerialway=magic_carpet]::dash,
+line|z13-14[aerialway=platter]::dash,
+line|z13-14[aerialway=rope_tow]::dash,
+{width: 2.5; dashes: 1,10; opacity: 0.6;}
+line|z15-16[aerialway=chair_lift]::dash,
+line|z15-16[aerialway=drag_lift]::dash,
+line|z15-16[aerialway=j-bar]::dash,
+line|z15-16[aerialway=t-bar]::dash,
+line|z15-16[aerialway=magic_carpet]::dash,
+line|z15-16[aerialway=platter]::dash,
+line|z15-16[aerialway=rope_tow]::dash,
+{width: 3; dashes: 1,15;}
+line|z17-[aerialway=chair_lift]::dash,
+line|z17-[aerialway=drag_lift]::dash,
+line|z17-[aerialway=j-bar]::dash,
+line|z17-[aerialway=t-bar]::dash,
+line|z17-[aerialway=magic_carpet]::dash,
+line|z17-[aerialway=platter]::dash,
+line|z17-[aerialway=rope_tow]::dash,
+{width: 4; dashes: 1,22; opacity: 1;}
 
 line|z19-[power=line],
 {color: @powerline; width: 1; opacity: 0.6;}
+line|z19-[power=line]::dash,
+{color: @powerline; width: 4; opacity: 1; dashes: 1,32;}
 
 /* 10.3 Piste & Route 14-22 ZOOM */
 
