@@ -280,16 +280,16 @@ area[amenity=charging_station]
 {z-index: 2590;}
 
 node[aerialway=station],
-node[aerialway=cable_car],
-node[aerialway=chair_lift],
-node[aerialway=gondola],
-node[aerialway=mixed_lift],
-node[aerialway=drag_lift],
-node[aerialway=j-bar],
-node[aerialway=t-bar],
-node[aerialway=magic_carpet],
-node[aerialway=platter],
-node[aerialway=rope_tow],
+line[aerialway=cable_car],
+line[aerialway=chair_lift],
+line[aerialway=gondola],
+line[aerialway=mixed_lift],
+line[aerialway=drag_lift],
+line[aerialway=j-bar],
+line[aerialway=t-bar],
+line[aerialway=magic_carpet],
+line[aerialway=platter],
+line[aerialway=rope_tow],
 node[railway=level_crossing],
 node[amenity=marketplace],
 area[amenity=marketplace],
@@ -760,16 +760,6 @@ node|z10-[aeroway=aerodrome][aerodrome=international],
 area|z14-[aeroway=aerodrome],
 node|z14-[aeroway=aerodrome],
 node|z15-[aerialway=station],
-node|z15-[aerialway=cable_car],
-node|z15-[aerialway=chair_lift],
-node|z15-[aerialway=gondola],
-node|z15-[aerialway=mixed_lift],
-node|z15-[aerialway=drag_lift],
-node|z15-[aerialway=j-bar],
-node|z15-[aerialway=t-bar],
-node|z15-[aerialway=magic_carpet],
-node|z15-[aerialway=platter],
-node|z15-[aerialway=rope_tow],
 node|z16-[amenity=ferry_terminal]
 {text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.7;text-halo-color: @label_halo_light;text-position: center;text-optional: true;}
 area|z12-[aeroway=aerodrome][aerodrome=international]::int_name,
@@ -952,41 +942,13 @@ node|z16-[aeroway=helipad]
 /* 3.7 Aerialway */
 
 node|z12-13[aerialway=station],
-node|z12-13[aerialway=cable_car],
-node|z12-13[aerialway=chair_lift],
-node|z12-13[aerialway=gondola],
-node|z12-13[aerialway=mixed_lift]
-{icon-image: cable-car-s.svg;icon-min-distance: 10;text-optional: true;}
+{icon-image: cable-car-s.svg;icon-min-distance: 10;}
 node|z14[aerialway=station],
-node|z14[aerialway=cable_car],
-node|z14[aerialway=chair_lift],
-node|z14[aerialway=gondola],
-node|z14[aerialway=mixed_lift]
-{icon-image: cable-car-s.svg;text-optional: true;}
-node|z15-16[aerialway=station],
-node|z15-16[aerialway=cable_car],
-node|z15-16[aerialway=chair_lift],
-node|z15-16[aerialway=gondola],
-node|z15-16[aerialway=mixed_lift],
-node|z15-16[aerialway=drag_lift],
-node|z15-16[aerialway=j-bar],
-node|z15-16[aerialway=t-bar],
-node|z15-16[aerialway=magic_carpet],
-node|z15-16[aerialway=platter],
-node|z15-16[aerialway=rope_tow]
-{icon-image: cable-car-m.svg;text-offset: 1;font-size: 10;text-optional: true;}
+{icon-image: cable-car-s.svg;}
+node|z15-[aerialway=station],
+{icon-image: cable-car-m.svg;text-offset: 1;font-size: 10;}
 node|z17-[aerialway=station],
-node|z17-[aerialway=cable_car],
-node|z17-[aerialway=chair_lift],
-node|z17-[aerialway=gondola],
-node|z17-[aerialway=mixed_lift],
-node|z17-[aerialway=drag_lift],
-node|z17-[aerialway=j-bar],
-node|z17-[aerialway=t-bar],
-node|z17-[aerialway=magic_carpet],
-node|z17-[aerialway=platter],
-node|z17-[aerialway=rope_tow]
-{icon-image: cable-car-m.svg;text-offset: 1;font-size: 12;text-optional: true;}
+{font-size: 12;}
 
 node|z17-[railway=level_crossing]
 {icon-image: railway-crossing-m.svg;text-optional: true;}

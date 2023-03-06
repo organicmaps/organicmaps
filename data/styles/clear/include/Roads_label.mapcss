@@ -481,19 +481,19 @@ line[railway=narrow_gauge],
 line[railway=funicular]
 */
 /* 10.PISTE 15-22 ZOOM */
-/*
-line[power=line],
-line[aerialway=cable_car],
-line[aerialway=chair_lift],
-line[aerialway=gondola],
-line[aerialway=mixed_lift],
-line[aerialway=drag_lift],
-line[aerialway=j-bar],
-line[aerialway=t-bar],
-line[aerialway=magic_carpet],
-line[aerialway=platter],
-line[aerialway=rope_tow],
-*/
+
+line|z15-[aerialway=cable_car],
+line|z15-[aerialway=chair_lift],
+line|z15-[aerialway=gondola],
+line|z15-[aerialway=mixed_lift],
+line|z15-[aerialway=drag_lift],
+line|z15-[aerialway=j-bar],
+line|z15-[aerialway=t-bar],
+line|z15-[aerialway=magic_carpet],
+line|z15-[aerialway=platter],
+line|z15-[aerialway=rope_tow],
+{text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.7;text-halo-color: @label_halo_light;text-position: line;}
+
 /* 10.3 Piste & Route 14-22 ZOOM */
 /*
 line[piste:type=downhill],
