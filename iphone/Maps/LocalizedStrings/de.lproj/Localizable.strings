@@ -1271,7 +1271,7 @@
 
 "type.aeroway.terminal" = "Terminal";
 
-"type.amenity" = "Infrastrukturobjekte";
+"type.amenity" = "Infrastrukturobjekt";
 
 "type.amenity.arts_centre" = "Kunststätte";
 
@@ -1859,7 +1859,7 @@
 
 "type.healthcare.laboratory" = "Medizinisches Labor";
 
-"type.healthcare.physiotherapist" = "Physiotherapeut";
+"type.healthcare.physiotherapist" = "Physiotherapie";
 
 "type.healthcare.alternative" = "Alternative Medizin";
 
@@ -1875,7 +1875,7 @@
 
 "type.healthcare.sample_collection" = "Probenahme";
 
-"type.healthcare.speech_therapist" = "Logopedie";
+"type.healthcare.speech_therapist" = "Logopädie";
 
 
 /********** Types: Roads **********/
@@ -2279,7 +2279,7 @@
 
 "type.internet_access.wlan" = "Internet";
 
-"type.junction" = "Junction";
+"type.junction" = "Straßenknotenpunkt";
 
 "type.junction.roundabout" = "Kreisverkehr";
 
@@ -2435,7 +2435,7 @@
 
 "type.man_made.survey_point" = "Vermessungspunkt";
 
-"type.man_made.flagpole" = "Flagpole";
+"type.man_made.flagpole" = "Fahnenmast";
 
 "type.man_made.lighthouse" = "Leuchtturm";
 
@@ -2569,7 +2569,7 @@
 
 "type.office.estate_agent" = "Immobilienmakler";
 
-"type.office.government" = "Regierungsstelle";
+"type.office.government" = "Behörde";
 
 "type.office.insurance" = "Versicherungsbüro";
 
@@ -2735,7 +2735,7 @@
 
 "type.railway.preserved.tunnel" = "Museumsbahntunnel";
 
-"type.railway.rail" = "S-Bahn";
+"type.railway.rail" = "Eisenbahn";
 
 "type.railway.rail.bridge" = "S-Bahn-Brücke";
 
@@ -2763,225 +2763,225 @@
 
 "type.railway.station.monorail" = "Bahnhof";
 
-"type.railway.station.subway" = "U-Bahnstation";
+"type.railway.station.subway" = "U-Bahn-Station";
 
-"type.railway.station.subway.adana" = "U-Bahnstation";
+"type.railway.station.subway.adana" = "U-Bahn-Station";
 
-"type.railway.station.subway.algiers" = "U-Bahnstation";
+"type.railway.station.subway.algiers" = "U-Bahn-Station";
 
-"type.railway.station.subway.almaty" = "U-Bahnstation";
+"type.railway.station.subway.almaty" = "U-Bahn-Station";
 
-"type.railway.station.subway.amsterdam" = "U-Bahnstation";
+"type.railway.station.subway.amsterdam" = "U-Bahn-Station";
 
-"type.railway.station.subway.ankara" = "U-Bahnstation";
+"type.railway.station.subway.ankara" = "U-Bahn-Station";
 
-"type.railway.station.subway.athens" = "U-Bahnstation";
+"type.railway.station.subway.athens" = "U-Bahn-Station";
 
-"type.railway.station.subway.baku" = "U-Bahnstation";
+"type.railway.station.subway.baku" = "U-Bahn-Station";
 
-"type.railway.station.subway.bangkok" = "U-Bahnstation";
+"type.railway.station.subway.bangkok" = "U-Bahn-Station";
 
-"type.railway.station.subway.barcelona" = "U-Bahnstation";
+"type.railway.station.subway.barcelona" = "U-Bahn-Station";
 
-"type.railway.station.subway.beijing" = "U-Bahnstation";
+"type.railway.station.subway.beijing" = "U-Bahn-Station";
 
-"type.railway.station.subway.bengalore" = "U-Bahnstation";
+"type.railway.station.subway.bengalore" = "U-Bahn-Station";
 
-"type.railway.station.subway.berlin" = "U-Bahnstation";
+"type.railway.station.subway.berlin" = "U-Bahn-Station";
 
-"type.railway.station.subway.bilbao" = "U-Bahnstation";
+"type.railway.station.subway.bilbao" = "U-Bahn-Station";
 
-"type.railway.station.subway.brasilia" = "U-Bahnstation";
+"type.railway.station.subway.brasilia" = "U-Bahn-Station";
 
-"type.railway.station.subway.brescia" = "U-Bahnstation";
+"type.railway.station.subway.brescia" = "U-Bahn-Station";
 
-"type.railway.station.subway.brussels" = "U-Bahnstation";
+"type.railway.station.subway.brussels" = "U-Bahn-Station";
 
-"type.railway.station.subway.bucharest" = "U-Bahnstation";
+"type.railway.station.subway.bucharest" = "U-Bahn-Station";
 
-"type.railway.station.subway.budapest" = "U-Bahnstation";
+"type.railway.station.subway.budapest" = "U-Bahn-Station";
 
-"type.railway.station.subway.buenos_aires" = "U-Bahnstation";
+"type.railway.station.subway.buenos_aires" = "U-Bahn-Station";
 
-"type.railway.station.subway.bursa" = "U-Bahnstation";
+"type.railway.station.subway.bursa" = "U-Bahn-Station";
 
-"type.railway.station.subway.cairo" = "U-Bahnstation";
+"type.railway.station.subway.cairo" = "U-Bahn-Station";
 
-"type.railway.station.subway.caracas" = "U-Bahnstation";
+"type.railway.station.subway.caracas" = "U-Bahn-Station";
 
-"type.railway.station.subway.catania" = "U-Bahnstation";
+"type.railway.station.subway.catania" = "U-Bahn-Station";
 
-"type.railway.station.subway.changchun" = "U-Bahnstation";
+"type.railway.station.subway.changchun" = "U-Bahn-Station";
 
-"type.railway.station.subway.chengdu" = "U-Bahnstation";
+"type.railway.station.subway.chengdu" = "U-Bahn-Station";
 
-"type.railway.station.subway.chicago" = "U-Bahnstation";
+"type.railway.station.subway.chicago" = "U-Bahn-Station";
 
-"type.railway.station.subway.chongqing" = "U-Bahnstation";
+"type.railway.station.subway.chongqing" = "U-Bahn-Station";
 
-"type.railway.station.subway.dalian" = "U-Bahnstation";
+"type.railway.station.subway.dalian" = "U-Bahn-Station";
 
-"type.railway.station.subway.delhi" = "U-Bahnstation";
+"type.railway.station.subway.delhi" = "U-Bahn-Station";
 
-"type.railway.station.subway.dnepro" = "U-Bahnstation";
+"type.railway.station.subway.dnepro" = "U-Bahn-Station";
 
-"type.railway.station.subway.dubai" = "U-Bahnstation";
+"type.railway.station.subway.dubai" = "U-Bahn-Station";
 
-"type.railway.station.subway.ekb" = "U-Bahnstation";
+"type.railway.station.subway.ekb" = "U-Bahn-Station";
 
-"type.railway.station.subway.fukuoka" = "U-Bahnstation";
+"type.railway.station.subway.fukuoka" = "U-Bahn-Station";
 
-"type.railway.station.subway.glasgow" = "U-Bahnstation";
+"type.railway.station.subway.glasgow" = "U-Bahn-Station";
 
-"type.railway.station.subway.guangzhou" = "U-Bahnstation";
+"type.railway.station.subway.guangzhou" = "U-Bahn-Station";
 
-"type.railway.station.subway.hamburg" = "U-Bahnstation";
+"type.railway.station.subway.hamburg" = "U-Bahn-Station";
 
-"type.railway.station.subway.helsinki" = "U-Bahnstation";
+"type.railway.station.subway.helsinki" = "U-Bahn-Station";
 
-"type.railway.station.subway.hiroshima" = "U-Bahnstation";
+"type.railway.station.subway.hiroshima" = "U-Bahn-Station";
 
-"type.railway.station.subway.isfahan" = "U-Bahnstation";
+"type.railway.station.subway.isfahan" = "U-Bahn-Station";
 
-"type.railway.station.subway.istanbul" = "U-Bahnstation";
+"type.railway.station.subway.istanbul" = "U-Bahn-Station";
 
-"type.railway.station.subway.izmir" = "U-Bahnstation";
+"type.railway.station.subway.izmir" = "U-Bahn-Station";
 
-"type.railway.station.subway.kazan" = "U-Bahnstation";
+"type.railway.station.subway.kazan" = "U-Bahn-Station";
 
-"type.railway.station.subway.kharkiv" = "U-Bahnstation";
+"type.railway.station.subway.kharkiv" = "U-Bahn-Station";
 
-"type.railway.station.subway.kiev" = "U-Bahnstation";
+"type.railway.station.subway.kiev" = "U-Bahn-Station";
 
-"type.railway.station.subway.kobe" = "U-Bahnstation";
+"type.railway.station.subway.kobe" = "U-Bahn-Station";
 
-"type.railway.station.subway.kolkata" = "U-Bahnstation";
+"type.railway.station.subway.kolkata" = "U-Bahn-Station";
 
-"type.railway.station.subway.kunming" = "U-Bahnstation";
+"type.railway.station.subway.kunming" = "U-Bahn-Station";
 
-"type.railway.station.subway.kyoto" = "U-Bahnstation";
+"type.railway.station.subway.kyoto" = "U-Bahn-Station";
 
-"type.railway.station.subway.la" = "U-Bahnstation";
+"type.railway.station.subway.la" = "U-Bahn-Station";
 
-"type.railway.station.subway.lausanne" = "U-Bahnstation";
+"type.railway.station.subway.lausanne" = "U-Bahn-Station";
 
-"type.railway.station.subway.lille" = "U-Bahnstation";
+"type.railway.station.subway.lille" = "U-Bahn-Station";
 
-"type.railway.station.subway.lima" = "U-Bahnstation";
+"type.railway.station.subway.lima" = "U-Bahn-Station";
 
-"type.railway.station.subway.lisboa" = "U-Bahnstation";
+"type.railway.station.subway.lisboa" = "U-Bahn-Station";
 
-"type.railway.station.subway.london" = "U-Bahnstation";
+"type.railway.station.subway.london" = "U-Bahn-Station";
 
-"type.railway.station.subway.lyon" = "U-Bahnstation";
+"type.railway.station.subway.lyon" = "U-Bahn-Station";
 
-"type.railway.station.subway.madrid" = "U-Bahnstation";
+"type.railway.station.subway.madrid" = "U-Bahn-Station";
 
-"type.railway.station.subway.malaga" = "U-Bahnstation";
+"type.railway.station.subway.malaga" = "U-Bahn-Station";
 
-"type.railway.station.subway.manila" = "U-Bahnstation";
+"type.railway.station.subway.manila" = "U-Bahn-Station";
 
-"type.railway.station.subway.maracaibo" = "U-Bahnstation";
+"type.railway.station.subway.maracaibo" = "U-Bahn-Station";
 
-"type.railway.station.subway.mashhad" = "U-Bahnstation";
+"type.railway.station.subway.mashhad" = "U-Bahn-Station";
 
-"type.railway.station.subway.mecca" = "U-Bahnstation";
+"type.railway.station.subway.mecca" = "U-Bahn-Station";
 
-"type.railway.station.subway.medellin" = "U-Bahnstation";
+"type.railway.station.subway.medellin" = "U-Bahn-Station";
 
-"type.railway.station.subway.mexico" = "U-Bahnstation";
+"type.railway.station.subway.mexico" = "U-Bahn-Station";
 
-"type.railway.station.subway.milan" = "U-Bahnstation";
+"type.railway.station.subway.milan" = "U-Bahn-Station";
 
-"type.railway.station.subway.minsk" = "U-Bahnstation";
+"type.railway.station.subway.minsk" = "U-Bahn-Station";
 
-"type.railway.station.subway.montreal" = "U-Bahnstation";
+"type.railway.station.subway.montreal" = "U-Bahn-Station";
 
-"type.railway.station.subway.moscow" = "U-Bahnstation";
+"type.railway.station.subway.moscow" = "U-Bahn-Station";
 
-"type.railway.station.subway.munchen" = "U-Bahnstation";
+"type.railway.station.subway.munchen" = "U-Bahn-Station";
 
-"type.railway.station.subway.nagoya" = "U-Bahnstation";
+"type.railway.station.subway.nagoya" = "U-Bahn-Station";
 
-"type.railway.station.subway.newyork" = "U-Bahnstation";
+"type.railway.station.subway.newyork" = "U-Bahn-Station";
 
-"type.railway.station.subway.nnov" = "U-Bahnstation";
+"type.railway.station.subway.nnov" = "U-Bahn-Station";
 
-"type.railway.station.subway.novosibirsk" = "U-Bahnstation";
+"type.railway.station.subway.novosibirsk" = "U-Bahn-Station";
 
-"type.railway.station.subway.osaka" = "U-Bahnstation";
+"type.railway.station.subway.osaka" = "U-Bahn-Station";
 
-"type.railway.station.subway.oslo" = "U-Bahnstation";
+"type.railway.station.subway.oslo" = "U-Bahn-Station";
 
-"type.railway.station.subway.palma" = "U-Bahnstation";
+"type.railway.station.subway.palma" = "U-Bahn-Station";
 
-"type.railway.station.subway.panama" = "U-Bahnstation";
+"type.railway.station.subway.panama" = "U-Bahn-Station";
 
-"type.railway.station.subway.paris" = "U-Bahnstation";
+"type.railway.station.subway.paris" = "U-Bahn-Station";
 
-"type.railway.station.subway.philadelphia" = "U-Bahnstation";
+"type.railway.station.subway.philadelphia" = "U-Bahn-Station";
 
-"type.railway.station.subway.pyongyang" = "U-Bahnstation";
+"type.railway.station.subway.pyongyang" = "U-Bahn-Station";
 
-"type.railway.station.subway.rennes" = "U-Bahnstation";
+"type.railway.station.subway.rennes" = "U-Bahn-Station";
 
-"type.railway.station.subway.rio" = "U-Bahnstation";
+"type.railway.station.subway.rio" = "U-Bahn-Station";
 
-"type.railway.station.subway.roma" = "U-Bahnstation";
+"type.railway.station.subway.roma" = "U-Bahn-Station";
 
-"type.railway.station.subway.rotterdam" = "U-Bahnstation";
+"type.railway.station.subway.rotterdam" = "U-Bahn-Station";
 
-"type.railway.station.subway.samara" = "U-Bahnstation";
+"type.railway.station.subway.samara" = "U-Bahn-Station";
 
-"type.railway.station.subway.santiago" = "U-Bahnstation";
+"type.railway.station.subway.santiago" = "U-Bahn-Station";
 
-"type.railway.station.subway.santo_domingo" = "U-Bahnstation";
+"type.railway.station.subway.santo_domingo" = "U-Bahn-Station";
 
-"type.railway.station.subway.saopaulo" = "U-Bahnstation";
+"type.railway.station.subway.saopaulo" = "U-Bahn-Station";
 
-"type.railway.station.subway.sapporo" = "U-Bahnstation";
+"type.railway.station.subway.sapporo" = "U-Bahn-Station";
 
-"type.railway.station.subway.sendai" = "U-Bahnstation";
+"type.railway.station.subway.sendai" = "U-Bahn-Station";
 
-"type.railway.station.subway.sf" = "U-Bahnstation";
+"type.railway.station.subway.sf" = "U-Bahn-Station";
 
-"type.railway.station.subway.shanghai" = "U-Bahnstation";
+"type.railway.station.subway.shanghai" = "U-Bahn-Station";
 
-"type.railway.station.subway.shiraz" = "U-Bahnstation";
+"type.railway.station.subway.shiraz" = "U-Bahn-Station";
 
-"type.railway.station.subway.sofia" = "U-Bahnstation";
+"type.railway.station.subway.sofia" = "U-Bahn-Station";
 
-"type.railway.station.subway.spb" = "U-Bahnstation";
+"type.railway.station.subway.spb" = "U-Bahn-Station";
 
-"type.railway.station.subway.stockholm" = "U-Bahnstation";
+"type.railway.station.subway.stockholm" = "U-Bahn-Station";
 
-"type.railway.station.subway.tabriz" = "U-Bahnstation";
+"type.railway.station.subway.tabriz" = "U-Bahn-Station";
 
-"type.railway.station.subway.taipei" = "U-Bahnstation";
+"type.railway.station.subway.taipei" = "U-Bahn-Station";
 
-"type.railway.station.subway.taoyuan" = "U-Bahnstation";
+"type.railway.station.subway.taoyuan" = "U-Bahn-Station";
 
-"type.railway.station.subway.tashkent" = "U-Bahnstation";
+"type.railway.station.subway.tashkent" = "U-Bahn-Station";
 
-"type.railway.station.subway.tbilisi" = "U-Bahnstation";
+"type.railway.station.subway.tbilisi" = "U-Bahn-Station";
 
-"type.railway.station.subway.tianjin" = "U-Bahnstation";
+"type.railway.station.subway.tianjin" = "U-Bahn-Station";
 
-"type.railway.station.subway.tokyo" = "U-Bahnstation";
+"type.railway.station.subway.tokyo" = "U-Bahn-Station";
 
-"type.railway.station.subway.valencia" = "U-Bahnstation";
+"type.railway.station.subway.valencia" = "U-Bahn-Station";
 
-"type.railway.station.subway.vienna" = "U-Bahnstation";
+"type.railway.station.subway.vienna" = "U-Bahn-Station";
 
-"type.railway.station.subway.warszawa" = "U-Bahnstation";
+"type.railway.station.subway.warszawa" = "U-Bahn-Station";
 
-"type.railway.station.subway.washington" = "U-Bahnstation";
+"type.railway.station.subway.washington" = "U-Bahn-Station";
 
-"type.railway.station.subway.wuhan" = "U-Bahnstation";
+"type.railway.station.subway.wuhan" = "U-Bahn-Station";
 
-"type.railway.station.subway.yerevan" = "U-Bahnstation";
+"type.railway.station.subway.yerevan" = "U-Bahn-Station";
 
-"type.railway.station.subway.yokohama" = "U-Bahnstation";
+"type.railway.station.subway.yokohama" = "U-Bahn-Station";
 
 "type.railway.subway" = "U-Bahn";
 
@@ -3504,7 +3504,7 @@
 
 "type.tourism.artwork" = "Kunstwerk";
 
-"type.tourism.artwork.architecture" = "Kunstwerk";
+"type.tourism.artwork.architecture" = "Architektonisches Kunstwerk";
 
 "type.tourism.artwork.painting" = "Gemälde";
 
