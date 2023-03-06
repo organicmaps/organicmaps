@@ -624,7 +624,7 @@
 
     <activity
         android:name="app.organicmaps.DownloadResourcesLegacyActivity"
-        android:configChanges="screenLayout|screenSize"/>
+        android:configChanges="orientation|screenLayout|screenSize"/>
 
     <activity-alias
       android:name="app.organicmaps.DownloadResourcesActivity"
