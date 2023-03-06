@@ -4,7 +4,7 @@ Thank you for your interest in contributing to Organic Maps (OM)!
 
 ## How Can I Contribute?
 
-There are many ways to contribute and OM needs a variety of talents: programmers, graphic designers, translators, UI/UX experts, etc.
+There are many ways to contribute and OM needs a variety of talents: software engineers, graphic designers, translators, UI/UX experts, marketing/PR, etc.
 
 ### Donate
 
@@ -13,12 +13,14 @@ See https://organicmaps.app/donate/
 ### Bug Reports
 
 The simplest way to contribute is to [submit an issue](https://github.com/organicmaps/organicmaps/issues).
-Please give developers as much information as possible: OS and application versions,
+Please check if there are no similar issues already submitted by someone else,
+and give developers as much information as possible: OS and application versions,
 list of actions leading to a bug, a log file produced by the app.
 
-When using the OM app on a device, use the built-in "Report a bug" option:
+When using Organic Maps app on a device, use the built-in "Report a bug" option:
 on Android it creates a new e-mail with a log file attached. Your issue will be processed much
-faster if you send it to bugs@organicmaps.app.
+faster if you send it to bugs@organicmaps.app. Enabling logs in Organic Maps settings on Android
+before sending the bug report also helps us a lot with debugging.
 
 ### Feature Requests
 
@@ -42,6 +44,8 @@ See [styles and icons instructions](STYLES.md) for details.
 Please follow instructions in [INSTALL.md](INSTALL.md) to set up your development environment
 and check the [developer's guidelines](#developers-guidelines).
 You will find a list of issues for new contributors [here](https://github.com/organicmaps/organicmaps/labels/Good%20first%20issue) to help you get started with simple tasks.
+
+**Please do not ask for permission to work on the issue or to assign an issue to you**. We do not assign issues to first-time contributors. Any such comment notifies our contributors and the development team, and creates unnecessary noise that distracts us from the work.
 
 ## Submitting your changes
 
