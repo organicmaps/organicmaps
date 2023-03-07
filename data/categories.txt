@@ -14777,3 +14777,43 @@ ru:Беговая дорожка
 tr:Pist
 uk:Бігова доріжка
 zh-Hans = 賽道
+
+power-plant
+en:Power Plant
+ar:محطة توليد الكهرباء
+be:Электрастанцыя
+bg:Електроцентрала
+ca:Central elèctrica
+cs:Elektrárna
+da:Kraftværk
+de:Kraftwerk
+el:Εργοστάσιο ηλεκτρισμού
+es:Planta de energía
+et:Elektrijaam
+eu:Elektrizitate-parkea
+fa:نیروگاه
+fi:Voimalaitos
+fr:Centrale électrique
+he:תחנת כוח
+hu:Erőmű
+id:Pembangkit listrik
+it:Centrale elettrica
+ja:発電所
+ko:발전소
+mr:वीज प्रकल्प
+nb:Kraftverk
+nl:Energiecentrale
+pl:Elektrownia
+pt:Usina elétrica
+pt-BR:Usina elétrica
+ro:Centrală electrică
+ru:Электростанция
+sk:Elektráreň
+sv:Kraftverk
+sw:Kiwanda cha nguvu
+th:โรงไฟฟ้า
+tr:Enerji santrali
+uk:Електростанція
+vi:Nhà máy điện
+zh-Hans:发电厂
+zh-Hant:發電廠
