@@ -28,7 +28,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include "gflags/gflags.h"
+#include <gflags/gflags.h>
 #include <pugixml.hpp>
 
 DEFINE_string(input, "", "Path to OpenLR file.");

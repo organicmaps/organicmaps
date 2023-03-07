@@ -30,7 +30,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include "gflags/gflags.h"
+#include <gflags/gflags.h>
 
 using namespace search::search_quality;
 using namespace search;
