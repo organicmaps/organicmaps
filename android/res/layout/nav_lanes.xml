@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  app:cardBackgroundColor="?navLanesCardBackgroundColor"
+  tools:showIn="@layout/layout_nav_top">
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/lanes"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_quarter"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    android:orientation="horizontal"
+    tools:listitem="@layout/nav_single_lane"
+    tools:itemCount="6" />
+</androidx.cardview.widget.CardView>
