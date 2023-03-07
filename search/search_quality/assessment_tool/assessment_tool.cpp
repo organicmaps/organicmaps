@@ -12,7 +12,7 @@
 #include <QtGui/QScreen>
 #include <QtWidgets/QApplication>
 
-#include "gflags/gflags.h"
+#include <gflags/gflags.h>
 
 DEFINE_string(resources_path, "", "Path to resources directory");
 DEFINE_string(data_path, "", "Path to data directory");

@@ -43,7 +43,7 @@
 
 #include "defines.hpp"
 
-#include "gflags/gflags.h"
+#include <gflags/gflags.h>
 
 DEFINE_string(node_storage, "map",
               "Type of storage for intermediate points representation. Available: raw, map, mem.");
