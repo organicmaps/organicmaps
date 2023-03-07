@@ -56405,33 +56405,6 @@ cont {
   }
 }
 cont {
-  name: "power-generator-solar"
-  element {
-    scale: 17
-    symbol {
-      name: "power-m"
-      priority: 16000
-      min_distance: 20
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "power-m"
-      priority: 16000
-      min_distance: 20
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "power-m"
-      priority: 16000
-      min_distance: 20
-    }
-  }
-}
-cont {
   name: "power-generator-wind"
   element {
     scale: 17
@@ -56475,6 +56448,168 @@ cont {
       width: 1.0
       color: 1714631475
       priority: 1557
+    }
+  }
+}
+cont {
+  name: "power-plant"
+  element {
+    scale: 17
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+}
+cont {
+  name: "power-plant-coal"
+  element {
+    scale: 17
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+}
+cont {
+  name: "power-plant-gas"
+  element {
+    scale: 17
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+}
+cont {
+  name: "power-plant-hydro"
+  element {
+    scale: 17
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+}
+cont {
+  name: "power-plant-solar"
+  element {
+    scale: 17
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+}
+cont {
+  name: "power-plant-wind"
+  element {
+    scale: 17
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
     }
   }
 }

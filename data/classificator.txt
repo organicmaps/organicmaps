@@ -781,6 +781,13 @@ world  +
             {}
         line  -
         minor_line  -
+        plant  +
+            coal  -
+            gas  -
+            hydro  -
+            solar  -
+            wind  -
+            {}
         pole  -
         station  -
         substation  -
