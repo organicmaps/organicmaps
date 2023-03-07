@@ -35,6 +35,9 @@
 	<string name="country_status_download_failed">डाउनलोड अयशस्वी</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">पुन्हा प्रयत्न करा</string>
+	<string name="about_menu_title">Organic Maps बद्दल</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• बॅटरी वाचवते, पार्श्वभूमी डेटा वापरत नाही</string>
 	<string name="connection_settings">जोडणी सेटिंग</string>
 	<string name="close">बंद</string>
 	<string name="unsupported_phone">ह्या ऍपला हार्डवेअर प्रवेगक OpenGL आवश्यक आहे. दुर्दैवाने, तुमच्या उपकरणाला ह्याचा आधार नाही.</string>
@@ -218,7 +221,7 @@
 	<!-- Button in the main Help dialog -->
 	<string name="faq">वारंवार विचारलेले प्रश्न</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">आम्हाला आधार कसा द्यायचा?</string>
+	<string name="how_to_support_us">प्रकल्पाला पाठठिंबा द्या</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">प्रकाशन अधिकार (कॉपीराईट)</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -431,8 +434,8 @@
 	<string name="download_over_mobile_message">रोमिंग वर असल्यास हे बरेच महाग पडू शकते.</string>
 	<string name="error_enter_correct_house_number">एक वैध बिल्डिंग क्रमांक प्रविष्ट करा</string>
 	<string name="editor_storey_number">मजल्यांची संख्या (कमाल %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">मजल्यांची संख्या २५ पेक्षा जास्त नसावी</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">मजल्यांची संख्या %d पेक्षा जास्त नसावी</string>
 	<string name="editor_zip_code">पिनकोड</string>
 	<string name="error_enter_correct_zip_code">वैध पिनकोड प्रविष्ट करा</string>
 	<!-- Place Page title for long tap -->
@@ -745,6 +748,7 @@
 	<string name="type.amenity.internet_cafe">इंटरनेट कॅफे</string>
 	<string name="type.amenity.kindergarten">बालवाडी</string>
 	<string name="type.amenity.library">ग्रंथालय</string>
+	<string name="type.amenity.loading_dock">डक लड करत आह</string>
 	<string name="type.amenity.marketplace">बाजारपेठ</string>
 	<string name="type.amenity.motorcycle_parking">दुचाकी वाहनतळ</string>
 	<string name="type.amenity.nightclub">नाईट क्लब</string>
@@ -904,9 +908,20 @@
 	<string name="type.emergency.defibrillator">कंपनरोधक</string>
 	<string name="type.emergency.fire_hydrant">अग्निशामक नळ</string>
 	<string name="type.emergency.phone">संकटकालीन फोन</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">प्रवेशद्वार</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">मुख्य प्रवेशद्वार</string>
 	<string name="type.healthcare.laboratory">वैद्यकीय प्रयोगशाळा</string>
 	<string name="type.healthcare.physiotherapist">फिजिओथेरपिस्ट</string>
+	<string name="type.healthcare.alternative">पर्यायी औषध</string>
+	<string name="type.healthcare.audiologist">ऑडिओलॉजी</string>
+	<string name="type.healthcare.blood_donation">रक्तदान केंद्र</string>
+	<string name="type.healthcare.optometrist">ऑप्टोमेट्री</string>
+	<string name="type.healthcare.podiatrist">पोडियाट्री</string>
+	<string name="type.healthcare.psychotherapist">मानसोपचार</string>
+	<string name="type.healthcare.sample_collection">नमुना</string>
+	<string name="type.healthcare.speech_therapist">स्पीच थेरपी</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">महामार्ग</string>
@@ -914,6 +929,7 @@
 	<string name="type.highway.bridleway.bridge">पूल</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">बोगदा</string>
+	<string name="type.highway.busway">समर्पित बस रस्ता</string>
 	<string name="type.highway.bus_stop">बस थांबा</string>
 	<string name="type.highway.construction">बांधकामाधीन रस्ता</string>
 	<string name="type.highway.cycleway">सायकल वाट</string>
@@ -1189,6 +1205,7 @@
 	<string name="type.man_made.storage_tank">साठवण टाकी</string>
 	<string name="type.man_made.surveillance">संनिरीक्षण कॅमेरा</string>
 	<string name="type.man_made.tower">मनोरा</string>
+	<string name="type.man_made.tower.communication">कम्युनिकेशन टॉवर</string>
 	<string name="type.man_made.wastewater_plant">सांडपाणी संयंत्र(प्लांट)</string>
 	<string name="type.man_made.water_tap">पाण्याचा नळ</string>
 	<string name="type.man_made.water_tower">पाण्याचा मनोरा(टाकी)</string>
@@ -1282,6 +1299,10 @@
 	<string name="type.place.village">गाव</string>
 	<string name="type.power">शक्ती</string>
 	<string name="type.power.generator">जनित्र(जनरेटर)</string>
+	<string name="type.power.generator.solar">सौर जनरेटर</string>
+	<string name="type.power.generator.wind">वारा जनरेटर</string>
+	<string name="type.power.generator.gas">गॅस टर्बाइन पॉवर प्लांट</string>
+	<string name="type.power.generator.hydro">जलविद्युत प्रकल्प</string>
 	<string name="type.power.line">विद्युत तार</string>
 	<string name="type.power.line.underground">भूमिगत विद्युत तार</string>
 	<string name="type.power.minor_line">किरकोळ विद्युत तार</string>
@@ -1326,6 +1347,7 @@
 	<string name="type.railway.station.subway.beijing">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.bengalore">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.berlin">भुयारी मार्ग</string>
+	<string name="type.railway.station.subway.bilbao">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.brasilia">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.brescia">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.brussels">भुयारी मार्ग</string>
@@ -1438,6 +1460,7 @@
 	<string name="type.railway.subway_entrance.beijing">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.bengalore">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.berlin">भुयारी प्रवेशद्वार</string>
+	<string name="type.railway.subway_entrance.bilbao">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.brasilia">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.brescia">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.brussels">भुयारी प्रवेशद्वार</string>

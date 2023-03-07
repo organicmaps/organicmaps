@@ -10,16 +10,18 @@ UNIT_TEST(EditorConfig_TypeDescription)
   using EType = feature::Metadata::EType;
   using Fields = editor::TypeAggregatedDescription::FeatureFields;
 
-  Fields const poi = {
+  Fields const poiInternet = {
     EType::FMD_OPEN_HOURS,
     EType::FMD_PHONE_NUMBER,
     EType::FMD_WEBSITE,
+    EType::FMD_INTERNET,
     EType::FMD_EMAIL,
     EType::FMD_LEVEL,
     EType::FMD_CONTACT_FACEBOOK,
     EType::FMD_CONTACT_INSTAGRAM,
     EType::FMD_CONTACT_TWITTER,
     EType::FMD_CONTACT_VK,
+    EType::FMD_CONTACT_LINE,
   };
 
   pugi::xml_document doc;
@@ -44,10 +46,7 @@ UNIT_TEST(EditorConfig_TypeDescription)
     TEST(config.GetTypeDescription({"shop-toys"}, desc), ());
     TEST(desc.IsNameEditable(), ());
     TEST(desc.IsAddressEditable(), ());
-    auto fields = poi;
-    fields.push_back(EType::FMD_INTERNET);
-    base::SortUnique(fields);
-    TEST_EQUAL(desc.GetEditableFields(), fields, ());
+    TEST_EQUAL(desc.GetEditableFields(), poiInternet, ());
   }
   {
     // Test that amenity-bank is selected as it goes first in config.
@@ -55,17 +54,14 @@ UNIT_TEST(EditorConfig_TypeDescription)
     TEST(config.GetTypeDescription({"amenity-bicycle_rental", "amenity-bank"}, desc), ());
     TEST(desc.IsNameEditable(), ());
     TEST(desc.IsAddressEditable(), ());
-    auto fields = poi;
-    fields.push_back(EType::FMD_INTERNET);
-    base::SortUnique(fields);
-    TEST_EQUAL(desc.GetEditableFields(), fields, ());
+    TEST_EQUAL(desc.GetEditableFields(), poiInternet, ());
   }
   {
     // Testing type inheritance
     editor::TypeAggregatedDescription desc;
     TEST(config.GetTypeDescription({"amenity-place_of_worship-christian"}, desc), ());
     TEST(desc.IsNameEditable(), ());
-    TEST_EQUAL(desc.GetEditableFields(), poi, ());
+    TEST_EQUAL(desc.GetEditableFields(), poiInternet, ());
   }
   {
     // Testing long type inheritance on a fake object

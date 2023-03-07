@@ -304,7 +304,7 @@
 "donate" = "Падтрымаць грашыма";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Як нас падтрымаць?";
+"how_to_support_us" = "Падтрымаць праект";
 
 /* Button in the main Help dialog */
 "copyright" = "Капірайт";
@@ -710,8 +710,8 @@
 
 "editor_storey_number" = "Колькасць паверхаў (максімум %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "Колькасць паверхаў павінна быць не больш за 25";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Колькасць паверхаў павінна быць не больш за %d";
 
 "editor_zip_code" = "Паштовы індэкс";
 
@@ -1241,15 +1241,15 @@
 
 "type.aerialway" = "Aerialway";
 
-"type.aerialway.cable_car" = "Cable car";
+"type.aerialway.cable_car" = "Cable Car";
 
-"type.aerialway.chair_lift" = "Chair lift";
+"type.aerialway.chair_lift" = "Chair Lift";
 
-"type.aerialway.drag_lift" = "Drag lift";
+"type.aerialway.drag_lift" = "Drag Lift";
 
 "type.aerialway.gondola" = "Gondola";
 
-"type.aerialway.mixed_lift" = "Mixed lift";
+"type.aerialway.mixed_lift" = "Mixed Lift";
 
 "type.aerialway.station" = "Aerialway Station";
 
@@ -1370,6 +1370,8 @@
 "type.amenity.kindergarten" = "Kindergarten";
 
 "type.amenity.library" = "Library";
+
+"type.amenity.loading_dock" = "Пагрузная платформа";
 
 "type.amenity.marketplace" = "Marketplace";
 
@@ -1849,11 +1851,31 @@
 
 "type.emergency.phone" = "Emergency Phone";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Entrance";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Галоўны ўваход";
 
 "type.healthcare.laboratory" = "Медыцынская лабараторыя";
 
 "type.healthcare.physiotherapist" = "Фізіятэрапеўт";
+
+"type.healthcare.alternative" = "Альтэрнатыўная медыцына";
+
+"type.healthcare.audiologist" = "Аўдыялогія";
+
+"type.healthcare.blood_donation" = "Цэнтр донарства крыві";
+
+"type.healthcare.optometrist" = "Оптаметрыя";
+
+"type.healthcare.podiatrist" = "Подологія";
+
+"type.healthcare.psychotherapist" = "Псіхатэрапія";
+
+"type.healthcare.sample_collection" = "Збор аналізаў";
+
+"type.healthcare.speech_therapist" = "лагапедыя";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1891,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Тунэль";
+
+"type.highway.busway" = "Выдзеленая аўтобусная дарога";
 
 "type.highway.bus_stop" = "Bus Stop";
 
@@ -2305,7 +2329,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "Landfill";
 
@@ -2323,9 +2347,9 @@
 
 "type.landuse.reservoir" = "Water";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 
@@ -2337,7 +2361,7 @@
 
 "type.leisure.common" = "Public Land";
 
-"type.leisure.dog_park" = "Dog Area";
+"type.leisure.dog_park" = "Dog Park";
 
 "type.leisure.fitness_centre" = "Fitness Centre";
 
@@ -2430,6 +2454,8 @@
 "type.man_made.surveillance" = "Surveillance Camera";
 
 "type.man_made.tower" = "Tower";
+
+"type.man_made.tower.communication" = "Вежа сувязі";
 
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
@@ -2623,6 +2649,14 @@
 
 "type.power.generator" = "Generator";
 
+"type.power.generator.solar" = "Сонечны генератар";
+
+"type.power.generator.wind" = "Ветрагенератар";
+
+"type.power.generator.gas" = "Газатурбінная электрастанцыя";
+
+"type.power.generator.hydro" = "Гідраэлектрастанцыя";
+
 "type.power.line" = "Power Line";
 
 "type.power.line.underground" = "Underground Power Line";
@@ -2754,6 +2788,8 @@
 "type.railway.station.subway.bengalore" = "Subway";
 
 "type.railway.station.subway.berlin" = "Subway";
+
+"type.railway.station.subway.bilbao" = "Subway";
 
 "type.railway.station.subway.brasilia" = "Subway";
 
@@ -2978,6 +3014,8 @@
 "type.railway.subway_entrance.bengalore" = "Subway Entrance";
 
 "type.railway.subway_entrance.berlin" = "Subway Entrance";
+
+"type.railway.subway_entrance.bilbao" = "Subway Entrance";
 
 "type.railway.subway_entrance.brasilia" = "Subway Entrance";
 
@@ -3263,7 +3301,7 @@
 
 "type.shop.gift" = "Gift Shop";
 
-"type.shop.greengrocer" = "Greengrocer's";
+"type.shop.greengrocer" = "Greengrocer";
 
 "type.shop.grocery" = "Бакалея";
 

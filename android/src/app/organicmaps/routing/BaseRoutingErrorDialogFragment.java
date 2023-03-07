@@ -21,6 +21,7 @@ import app.organicmaps.base.BaseMwmDialogFragment;
 import app.organicmaps.downloader.CountryItem;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,7 +58,7 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
   public Dialog onCreateDialog(Bundle savedInstanceState)
   {
     parseArguments();
-    AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
+    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
         .setCancelable(true)
         .setNegativeButton(android.R.string.cancel, null);
     beforeDialogCreated(builder);

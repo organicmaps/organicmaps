@@ -304,7 +304,7 @@
 "donate" = "捐";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "如何支持我們？";
+"how_to_support_us" = "支持項目";
 
 /* Button in the main Help dialog */
 "copyright" = "版權";
@@ -710,8 +710,8 @@
 
 "editor_storey_number" = "樓層數（最大 %d）";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "編輯最多 25 層的建築";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "編輯最多 %d 層的建築";
 
 "editor_zip_code" = "郵遞區號";
 
@@ -1243,7 +1243,7 @@
 
 "type.aerialway.cable_car" = "纜車";
 
-"type.aerialway.chair_lift" = "Chair lift";
+"type.aerialway.chair_lift" = "Chair Lift";
 
 "type.aerialway.drag_lift" = "纜車要素";
 
@@ -1370,6 +1370,8 @@
 "type.amenity.kindergarten" = "幼兒園";
 
 "type.amenity.library" = "圖書館";
+
+"type.amenity.loading_dock" = "裝卸碼頭";
 
 "type.amenity.marketplace" = "市場";
 
@@ -1849,11 +1851,31 @@
 
 "type.emergency.phone" = "緊急電話";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "入口";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "主要入口";
 
 "type.healthcare.laboratory" = "醫學實驗室";
 
 "type.healthcare.physiotherapist" = "物理治療師";
+
+"type.healthcare.alternative" = "替代藥物";
+
+"type.healthcare.audiologist" = "聽力學";
+
+"type.healthcare.blood_donation" = "捐血中心";
+
+"type.healthcare.optometrist" = "驗光";
+
+"type.healthcare.podiatrist" = "足病學";
+
+"type.healthcare.psychotherapist" = "心理治療";
+
+"type.healthcare.sample_collection" = "採樣";
+
+"type.healthcare.speech_therapist" = "言語治療";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1891,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "隧道";
+
+"type.highway.busway" = "巴士專用道";
 
 "type.highway.bus_stop" = "巴士站";
 
@@ -2305,7 +2329,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "堆積場";
 
@@ -2323,9 +2347,9 @@
 
 "type.landuse.reservoir" = "水庫";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 
@@ -2430,6 +2454,8 @@
 "type.man_made.surveillance" = "監控攝影機";
 
 "type.man_made.tower" = "塔";
+
+"type.man_made.tower.communication" = "通訊塔";
 
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
@@ -2623,6 +2649,14 @@
 
 "type.power.generator" = "Generator";
 
+"type.power.generator.solar" = "太陽能發電機";
+
+"type.power.generator.wind" = "風力發電機";
+
+"type.power.generator.gas" = "燃氣輪機發電廠";
+
+"type.power.generator.hydro" = "水力發電廠";
+
 "type.power.line" = "Power Line";
 
 "type.power.line.underground" = "Underground Power Line";
@@ -2754,6 +2788,8 @@
 "type.railway.station.subway.bengalore" = "捷運站";
 
 "type.railway.station.subway.berlin" = "捷運站";
+
+"type.railway.station.subway.bilbao" = "捷運站";
 
 "type.railway.station.subway.brasilia" = "捷運站";
 
@@ -2978,6 +3014,8 @@
 "type.railway.subway_entrance.bengalore" = "地鐵入口";
 
 "type.railway.subway_entrance.berlin" = "地鐵入口";
+
+"type.railway.subway_entrance.bilbao" = "地鐵入口";
 
 "type.railway.subway_entrance.brasilia" = "地鐵入口";
 

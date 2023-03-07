@@ -291,7 +291,7 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     {
       BookmarkCategory category = mHolder.getEntity();
       BookmarkManager.INSTANCE.toggleCategoryVisibility(category);
-      notifyItemChanged(mHolder.getAdapterPosition());
+      notifyItemChanged(mHolder.getBindingAdapterPosition());
       notifyItemChanged(HEADER_POSITION);
     }
   }

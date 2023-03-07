@@ -28,6 +28,7 @@
   <style name="MwmTextAppearance.Headline">
     <item name="android:textSize">@dimen/text_size_headline</item>
     <item name="android:textColor">?android:textColorPrimary</item>
+    <item name="android:fontFamily">@string/robotoMedium</item>
   </style>
 
   <style name="MwmTextAppearance.Body1" parent="TextAppearance.AppCompat.Large">

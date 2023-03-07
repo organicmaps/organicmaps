@@ -16,6 +16,8 @@
 	<string name="fuel">Petrol</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
+	<string name="editor_zip_code">Postcode</string>
+	<string name="error_enter_correct_zip_code">Enter a valid postcode</string>
 	<string name="button_layer_subway">Metro</string>
 	<string name="subway_data_unavailable">Metro map is unavailable</string>
 
@@ -45,6 +47,7 @@
 	<string name="type.railway.station.subway.beijing">Metro</string>
 	<string name="type.railway.station.subway.bengalore">Metro</string>
 	<string name="type.railway.station.subway.berlin">Metro</string>
+	<string name="type.railway.station.subway.bilbao">Metro</string>
 	<string name="type.railway.station.subway.brasilia">Metro</string>
 	<string name="type.railway.station.subway.brescia">Metro</string>
 	<string name="type.railway.station.subway.brussels">Metro</string>
@@ -157,6 +160,7 @@
 	<string name="type.railway.subway_entrance.beijing">Metro Entrance</string>
 	<string name="type.railway.subway_entrance.bengalore">Metro Entrance</string>
 	<string name="type.railway.subway_entrance.berlin">Metro Entrance</string>
+	<string name="type.railway.subway_entrance.bilbao">Metro Entrance</string>
 	<string name="type.railway.subway_entrance.brasilia">Metro Entrance</string>
 	<string name="type.railway.subway_entrance.brescia">Metro Entrance</string>
 	<string name="type.railway.subway_entrance.brussels">Metro Entrance</string>

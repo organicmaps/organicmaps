@@ -6,12 +6,16 @@ import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -28,12 +32,13 @@ import androidx.annotation.DimenRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NavUtils;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
+
 import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
@@ -44,6 +49,7 @@ import app.organicmaps.util.log.LogsManager;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.text.DateFormat;
 import java.text.NumberFormat;
@@ -88,11 +94,6 @@ public class Utils
     return Build.VERSION.SDK_INT >= target;
   }
 
-  public static boolean isAmazonDevice()
-  {
-    return "Amazon".equalsIgnoreCase(Build.MANUFACTURER);
-  }
-
   /**
    * Enable to keep screen on.
    * Disable to let system turn it off automatically.
@@ -105,14 +106,21 @@ public class Utils
       w.clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
   }
 
-  public static void showOnLockScreen(boolean enable, Activity activity)
+  @SuppressWarnings("deprecation")
+  private static void showOnLockScreenOld(boolean enable, Activity activity)
   {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1)
-      activity.setShowWhenLocked(enable);
-    else if (enable)
+    if (enable)
       activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
     else
       activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+  }
+
+  public static void showOnLockScreen(boolean enable, Activity activity)
+  {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O_MR1)
+      showOnLockScreenOld(enable, activity);
+    else
+      activity.setShowWhenLocked(enable);
   }
 
   public static void showSnackbar(@NonNull View view, @NonNull String message)
@@ -151,9 +159,18 @@ public class Utils
       showSnackbarAbove(view, viewAbove, message);
   }
 
+  @SuppressWarnings("deprecated")
+  private static @Nullable ResolveInfo resolveActivity(@NonNull PackageManager pm, @NonNull Intent intent, int flags)
+  {
+    return pm.resolveActivity(intent, flags);
+  }
+
   public static boolean isIntentSupported(@NonNull Context context, @NonNull Intent intent)
   {
-    return context.getPackageManager().resolveActivity(intent, 0) != null;
+    final PackageManager pm = context.getPackageManager();
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
+      return resolveActivity(pm, intent, 0) != null;
+    return pm.resolveActivity(intent, PackageManager.ResolveInfoFlags.of(0)) != null;
   }
 
   public static @Nullable Intent makeSystemLocationSettingIntent(@NonNull Context context)
@@ -206,21 +223,6 @@ public class Utils
     return "[" + joined + "]";
   }
 
-  public static boolean isPackageInstalled(@NonNull Context context, String packageUri)
-  {
-    PackageManager pm = context.getPackageManager();
-    boolean installed;
-    try
-    {
-      pm.getPackageInfo(packageUri, PackageManager.GET_ACTIVITIES);
-      installed = true;
-    } catch (PackageManager.NameNotFoundException e)
-    {
-      installed = false;
-    }
-    return installed;
-  }
-
   public static Uri buildMailUri(String to, String subject, String body)
   {
     String uriString = Constants.Url.MAILTO_SCHEME + Uri.encode(to) +
@@ -250,7 +252,7 @@ public class Utils
     try
     {
       // Exception is thrown if we don't have installed Facebook application.
-      activity.getPackageManager().getPackageInfo(Constants.Package.FB_PACKAGE, 0);
+      getPackageInfo(activity.getPackageManager(), Constants.Package.FB_PACKAGE, 0);
       activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.FB_OM_COMMUNITY_NATIVE)));
     } catch (final Exception e)
     {
@@ -310,13 +312,6 @@ public class Utils
   private static boolean isHttpOrHttpsScheme(@NonNull String url)
   {
     return url.startsWith("http://") || url.startsWith("https://");
-  }
-
-  @NonNull
-  public static <T> T castTo(@NonNull Object instance)
-  {
-    // Noinspection unchecked
-    return (T) instance;
   }
 
   public static void closeSafely(@NonNull Closeable... closeable)
@@ -390,7 +385,7 @@ public class Utils
     }
 
     final Holder holder = new Holder();
-    new AlertDialog.Builder(context, R.style.MwmTheme_AlertDialog)
+    new MaterialAlertDialogBuilder(context, R.style.MwmTheme_AlertDialog)
         .setMessage(message)
         .setNegativeButton(R.string.cancel, null)
         .setPositiveButton(R.string.downloader_retry, (dialog, which) -> {
@@ -408,7 +403,7 @@ public class Utils
     try
     {
       PackageManager pm = context.getPackageManager();
-      pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+      getPackageInfo(pm, packageName, PackageManager.GET_ACTIVITIES);
       return true;
     } catch (PackageManager.NameNotFoundException e)
     {
@@ -812,19 +807,81 @@ public class Utils
     }
   }
 
-  @Nullable
-  public static <T> T getParcelable(Bundle args, String key, Class<T> clazz)
-  {
-    args.setClassLoader(clazz.getClassLoader());
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-      return args.getParcelable(key, clazz);
-    return getParcelableOld(args, key);
-  }
-
   @SuppressWarnings({"deprecation", "unchecked"})
   @Nullable
   private static <T> T getParcelableOld(Bundle args, String key)
   {
     return (T) args.getParcelable(key);
+  }
+
+
+  @Nullable
+  public static <T> T getParcelable(@NonNull Bundle args, String key, Class<T> clazz)
+  {
+    args.setClassLoader(clazz.getClassLoader());
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
+      return getParcelableOld(args, key);
+    return args.getParcelable(key, clazz);
+  }
+
+  @SuppressWarnings({"deprecation", "unchecked"})
+  @Nullable
+  private static <T extends Serializable> T getSerializableOld(Bundle args, String key)
+  {
+    return (T) args.getSerializable(key);
+  }
+
+  @Nullable
+  public static <T extends Serializable> T getSerializable(@NonNull Bundle args, String key, Class<T> clazz)
+  {
+    args.setClassLoader(clazz.getClassLoader());
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
+      return getSerializableOld(args, key);
+    return args.getSerializable(key, clazz);
+  }
+
+
+  @SuppressWarnings("deprecation")
+  private static Spanned fromHtmlOld(@NonNull String htmlDescription)
+  {
+    return Html.fromHtml(htmlDescription);
+  }
+
+  public static Spanned fromHtml(@NonNull String htmlDescription)
+  {
+    if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N)
+      return fromHtmlOld(htmlDescription);
+    return Html.fromHtml(htmlDescription, Html.FROM_HTML_MODE_LEGACY);
+  }
+
+  @SuppressWarnings("deprecation")
+  private static ApplicationInfo getApplicationInfoOld(@NonNull PackageManager manager, @NonNull String packageName, int flags)
+      throws PackageManager.NameNotFoundException
+  {
+    return manager.getApplicationInfo(packageName, flags);
+  }
+
+  public static ApplicationInfo getApplicationInfo(@NonNull PackageManager manager, @NonNull String packageName,
+                                                   int flags)
+      throws PackageManager.NameNotFoundException
+  {
+    if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
+      return getApplicationInfoOld(manager, packageName, flags);
+    return manager.getApplicationInfo(packageName, PackageManager.ApplicationInfoFlags.of(flags));
+  }
+
+  @SuppressWarnings("deprecation")
+  private static PackageInfo getPackageInfoOld(@NonNull PackageManager manager, @NonNull String packageName, int flags)
+      throws PackageManager.NameNotFoundException
+  {
+    return manager.getPackageInfo(packageName, flags);
+  }
+
+  public static PackageInfo getPackageInfo(@NonNull PackageManager manager, @NonNull String packageName, int flags)
+      throws PackageManager.NameNotFoundException
+  {
+    if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
+      return getPackageInfoOld(manager, packageName, flags);
+    return manager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(flags));
   }
 }

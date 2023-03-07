@@ -968,6 +968,7 @@
 					"$(OMIM_ROOT)/3party/glm",
 					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
 					"$(OMIM_ROOT)/3party/protobuf",
+					"$(OMIM_ROOT)/3party/pugixml/pugixml/src",
 				);
 			};
 			name = Debug;
@@ -985,6 +986,7 @@
 					"$(OMIM_ROOT)/3party/glm",
 					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
 					"$(OMIM_ROOT)/3party/protobuf",
+					"$(OMIM_ROOT)/3party/pugixml/pugixml/src",
 				);
 			};
 			name = Release;

@@ -35,6 +35,17 @@
 	<string name="country_status_download_failed">Herunterladen fehlgeschlagen</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Erneut versuchen</string>
+	<string name="about_menu_title">Über Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Kostenlos für alle, mit Liebe gemacht</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Keine Werbung, kein Tracking, keine Datenerfassung</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Schont den Akku, keine Hintergrunddaten</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Schnell, minimalistisch, keine Bloatware</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Open-Source-Anwendung von Enthusiasten und Freiwilligen.</string>
 	<string name="connection_settings">Verbindungseinstellungen</string>
 	<string name="close">Schließen</string>
 	<string name="unsupported_phone">Das Programm benötigt OpenGL, um zu funktionieren. Leider wird Ihr Gerät nicht unterstützt.</string>
@@ -236,7 +247,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Spenden</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Wie unterstützen Sie uns?</string>
+	<string name="how_to_support_us">Unterstütze das Projekt</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Copyright</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -443,7 +454,8 @@
 	<string name="editor_report_problem_other_title">Ein anderes Problem</string>
 	<string name="placepage_add_business_button">Organisation hinzufügen</string>
 	<string name="message_invalid_feature_position">Ein Objekt kann hier nicht positioniert werden</string>
-	<string name="osm_presentation">Alle Kartendaten stammen aus dem OpenStreetMap-Projekt. Es ist wie Wikipedia für Karten, wo Sie Orte hinzufügen oder bearbeiten können, und sie werden Millionen von Benutzern auf der ganzen Welt zur Verfügung gestellt.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Kartografische Daten von OpenStreetMap vom %s. OSM ist wie Wikipedia für Karten, wo Sie Orte hinzufügen oder bearbeiten können.</string>
 	<string name="login_to_make_edits_visible">Melden Sie sich an, damit andere Benutzer Ihre Änderungen sehen können.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d von %2$d</string>
@@ -451,8 +463,8 @@
 	<string name="download_over_mobile_message">Das könnte mit einigen Tarifen oder beim Roaming sehr teuer werden.</string>
 	<string name="error_enter_correct_house_number">Richtige Hausnummer eingeben</string>
 	<string name="editor_storey_number">Anzahl der Etagen (maximal %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Das Gebäude kann nicht mehr als 25 Etagen haben</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Das Gebäude kann nicht mehr als %d Etagen haben</string>
 	<string name="editor_zip_code">Postleitzahl</string>
 	<string name="error_enter_correct_zip_code">Geben Sie die korrekte Postleitzahl ein</string>
 	<!-- Place Page title for long tap -->
@@ -542,7 +554,7 @@
 	<string name="routing_add_finish_point">Fügen Sie ein Ziel hinzu, um eine Route zu planen</string>
 	<string name="button_exit">Beenden</string>
 	<string name="placepage_remove_stop">Entfernen</string>
-	<string name="placepage_add_stop">Zwischenstopp hinzufügen</string>
+	<string name="placepage_add_stop">Stopp einfügen</string>
 	<string name="dialog_error_storage_title">Problem mit dem Zugreifen auf den Speicher</string>
 	<string name="dialog_error_storage_message">Der externe Speicher ist nicht verfügbar, möglicherweise wurde die SD-Karte entfernt oder sie ist beschädigt oder das Dateisystem ist schreibgeschützt. Überprüfen Sie das bitte oder kontaktieren Sie uns unter support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Fehlerhaften Speicher emulieren</string>
@@ -774,6 +786,7 @@
 	<string name="type.amenity.ice_cream">Eisstand</string>
 	<string name="type.amenity.internet_cafe">Internetcafé</string>
 	<string name="type.amenity.library">Bibliothek</string>
+	<string name="type.amenity.loading_dock">Laderampe</string>
 	<string name="type.amenity.marketplace">Marktplatz</string>
 	<string name="type.amenity.motorcycle_parking">Motorrad-Parkplatz</string>
 	<string name="type.amenity.nightclub">Nachtclub</string>
@@ -963,7 +976,7 @@
 	<string name="type.cuisine.korean">Koreanisch</string>
 	<string name="type.cuisine.lao">Laotisch</string>
 	<string name="type.cuisine.lebanese">Libanesisch</string>
-	<string name="type.cuisine.local">Regional</string>
+	<string name="type.cuisine.local">Lokale Küche</string>
 	<string name="type.cuisine.malagasy">Madegassisch</string>
 	<string name="type.cuisine.malaysian">Malaysisch</string>
 	<string name="type.cuisine.mediterranean">Mediterran</string>
@@ -979,7 +992,7 @@
 	<string name="type.cuisine.polish">Polnisch</string>
 	<string name="type.cuisine.portuguese">Portugiesisch</string>
 	<string name="type.cuisine.ramen">Ramen</string>
-	<string name="type.cuisine.regional">Regional</string>
+	<string name="type.cuisine.regional">Regionale Küche</string>
 	<string name="type.cuisine.russian">Russisch</string>
 	<string name="type.cuisine.sandwich">Sandwich</string>
 	<string name="type.cuisine.sausage">Wurst</string>
@@ -1000,9 +1013,20 @@
 	<string name="type.emergency.defibrillator">Defibrillator</string>
 	<string name="type.emergency.fire_hydrant">Hydrant</string>
 	<string name="type.emergency.phone">Notruftelefon</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Eingang</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Haupteingang</string>
 	<string name="type.healthcare.laboratory">Medizinisches Labor</string>
 	<string name="type.healthcare.physiotherapist">Physiotherapeut</string>
+	<string name="type.healthcare.alternative">Alternative Medizin</string>
+	<string name="type.healthcare.audiologist">Audiologie</string>
+	<string name="type.healthcare.blood_donation">Blutspendezentrum</string>
+	<string name="type.healthcare.optometrist">Optometrie</string>
+	<string name="type.healthcare.podiatrist">Podologie</string>
+	<string name="type.healthcare.psychotherapist">Psychotherapie</string>
+	<string name="type.healthcare.sample_collection">Probenahme</string>
+	<string name="type.healthcare.speech_therapist">Logopedie</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Straße</string>
@@ -1012,6 +1036,7 @@
 	<string name="type.highway.bridleway.permissive">Reitweg</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
+	<string name="type.highway.busway">Eigene Busstraße</string>
 	<string name="type.highway.bus_stop">Bushaltestelle</string>
 	<string name="type.highway.construction">Straße im Bau</string>
 	<string name="type.highway.cycleway">Radweg</string>
@@ -1289,6 +1314,7 @@
 	<string name="type.man_made.storage_tank">Speichertank</string>
 	<string name="type.man_made.surveillance">Überwachungskamera</string>
 	<string name="type.man_made.tower">Turm</string>
+	<string name="type.man_made.tower.communication">Kommunikationsturm</string>
 	<string name="type.man_made.wastewater_plant">Kläranlage</string>
 	<string name="type.man_made.water_tap">Wasserhahn</string>
 	<string name="type.man_made.water_tower">Wasserturm</string>
@@ -1382,6 +1408,10 @@
 	<string name="type.place.village">Dorf</string>
 	<string name="type.power">Energie</string>
 	<string name="type.power.generator">Generator</string>
+	<string name="type.power.generator.solar">Solargenerator</string>
+	<string name="type.power.generator.wind">Windgenerator</string>
+	<string name="type.power.generator.gas">Gasturbinenkraftwerk</string>
+	<string name="type.power.generator.hydro">Wasserkraftwerk</string>
 	<string name="type.power.line">Hochspannungs-Freileitung</string>
 	<string name="type.power.line.underground">Unterirdische Hochpannungsleitung</string>
 	<string name="type.power.minor_line">Nieder-/Mittelspannungsfreileitung</string>
@@ -1442,6 +1472,7 @@
 	<string name="type.railway.station.subway.beijing">U-Bahnstation</string>
 	<string name="type.railway.station.subway.bengalore">U-Bahnstation</string>
 	<string name="type.railway.station.subway.berlin">U-Bahnstation</string>
+	<string name="type.railway.station.subway.bilbao">U-Bahnstation</string>
 	<string name="type.railway.station.subway.brasilia">U-Bahnstation</string>
 	<string name="type.railway.station.subway.brescia">U-Bahnstation</string>
 	<string name="type.railway.station.subway.brussels">U-Bahnstation</string>
@@ -1554,6 +1585,7 @@
 	<string name="type.railway.subway_entrance.beijing">U-Bahn-Eingang</string>
 	<string name="type.railway.subway_entrance.bengalore">U-Bahn-Eingang</string>
 	<string name="type.railway.subway_entrance.berlin">U-Bahn-Eingang</string>
+	<string name="type.railway.subway_entrance.bilbao">U-Bahn-Eingang</string>
 	<string name="type.railway.subway_entrance.brasilia">U-Bahn-Eingang</string>
 	<string name="type.railway.subway_entrance.brescia">U-Bahn-Eingang</string>
 	<string name="type.railway.subway_entrance.brussels">U-Bahn-Eingang</string>

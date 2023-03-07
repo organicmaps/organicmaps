@@ -162,7 +162,7 @@ void GenerateUploadedFeature(MwmSet::MwmId const & mwmId,
                              osm::EditableMapObject const & emo,
                              pugi::xml_document & out)
 {
-  pugi::xml_node root = out.append_child("mapsme");
+  pugi::xml_node root = out.append_child("omaps");
   root.append_attribute("format_version") = 1;
 
   pugi::xml_node mwmNode = root.append_child("mwm");
@@ -1327,6 +1327,43 @@ bool EditorTest::RemoveMwm(MwmSet::MwmId const & mwmId)
   m_mwmFiles.erase(it);
   return true;
 }
+
+void EditorTest::LoadExistingEditsXml()
+{
+  char const * data = R"(
+    <?xml version="1.0"?>
+    <mapsme format_version="1">
+      <mwm name="TestCountry" version="221119">
+        <delete />
+        <modify />
+        <create>
+          <node lat="54.0446163" lon="27.6597626" mwm_file_index="4293918720" timestamp="2022-12-09T18:58:28Z">
+            <tag k="name:ru" v="xxx" />
+            <tag k="amenity" v="bar" />
+          </node>
+        </create>
+        <obsolete />
+      </mwm>
+    </mapsme>
+  )";
+
+  ConstructTestMwm([](editor::testing::TestMwmBuilder &)
+  {
+  });
+
+  pugi::xml_document doc;
+  TEST(doc.load(data), ());
+
+  auto memStorage = std::make_unique<editor::InMemoryStorage>();
+  memStorage->Save(doc);
+
+  auto & editor = osm::Editor::Instance();
+  editor.SetStorageForTesting(std::move(memStorage));
+
+  editor.LoadEdits();
+  TEST_EQUAL(editor.m_features.Get()->size(), 1, ());
+}
+
 }  // namespace testing
 }  // namespace editor
 
@@ -1427,4 +1464,6 @@ UNIT_CLASS_TEST(EditorTest, SaveEditedFeatureTest)
 }
 
 UNIT_CLASS_TEST(EditorTest, SaveTransactionTest) { EditorTest::SaveTransactionTest(); }
+
+UNIT_CLASS_TEST(EditorTest, LoadEditsXml) { LoadExistingEditsXml(); }
 }  // namespace

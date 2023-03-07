@@ -304,7 +304,7 @@
 "donate" = "Doneren";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Hoe ons te steunen?";
+"how_to_support_us" = "Steun het project";
 
 /* Button in the main Help dialog */
 "copyright" = "Auteursrechten";
@@ -710,8 +710,8 @@
 
 "editor_storey_number" = "Aantal verdiepingen (max. %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "Bewerk het gebouw met maximaal 25 verdiepingen";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Het gebouw mag niet meer dan %d verdiepingen hebben";
 
 "editor_zip_code" = "Postcode";
 
@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "Bibliotheek";
 
+"type.amenity.loading_dock" = "Laad-dock";
+
 "type.amenity.marketplace" = "Markt";
 
 "type.amenity.motorcycle_parking" = "Parking Motorfietsen";
@@ -1849,11 +1851,31 @@
 
 "type.emergency.phone" = "Praatpaal";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Ingang";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Hoofdingang";
 
 "type.healthcare.laboratory" = "Medisch laboratorium";
 
 "type.healthcare.physiotherapist" = "Fysiotherapeut";
+
+"type.healthcare.alternative" = "Alternatieve geneeskunde";
+
+"type.healthcare.audiologist" = "Audiologie";
+
+"type.healthcare.blood_donation" = "Bloeddonatiecentrum";
+
+"type.healthcare.optometrist" = "Optometrie";
+
+"type.healthcare.podiatrist" = "Podologie";
+
+"type.healthcare.psychotherapist" = "Psychotherapie";
+
+"type.healthcare.sample_collection" = "Bemonstering";
+
+"type.healthcare.speech_therapist" = "Logopedie";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1891,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunnel";
+
+"type.highway.busway" = "Speciale busweg";
 
 "type.highway.bus_stop" = "Bushalte";
 
@@ -2431,6 +2455,8 @@
 
 "type.man_made.tower" = "Toren";
 
+"type.man_made.tower.communication" = "Communicatie Toren";
+
 "type.man_made.wastewater_plant" = "Waterzuiveringsinstallatie";
 
 "type.man_made.water_tap" = "Waterkraan";
@@ -2623,6 +2649,14 @@
 
 "type.power.generator" = "Generator";
 
+"type.power.generator.solar" = "Zonne-generator";
+
+"type.power.generator.wind" = "Wind generator";
+
+"type.power.generator.gas" = "Gasturbine elektriciteitscentrale";
+
+"type.power.generator.hydro" = "Waterkrachtcentrale";
+
 "type.power.line" = "Hoogspanningsleiding";
 
 "type.power.line.underground" = "Ondergrondse hoogspanningsleiding";
@@ -2754,6 +2788,8 @@
 "type.railway.station.subway.bengalore" = "Metrostation";
 
 "type.railway.station.subway.berlin" = "Metrostation";
+
+"type.railway.station.subway.bilbao" = "Metrostation";
 
 "type.railway.station.subway.brasilia" = "Metrostation";
 
@@ -2978,6 +3014,8 @@
 "type.railway.subway_entrance.bengalore" = "Metro ingang";
 
 "type.railway.subway_entrance.berlin" = "Metro ingang";
+
+"type.railway.subway_entrance.bilbao" = "Metro ingang";
 
 "type.railway.subway_entrance.brasilia" = "Metro ingang";
 

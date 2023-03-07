@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-#include "3party/pugixml/pugixml/src/pugixml.hpp"
+#include <pugixml.hpp>
 
 class Reader;
 

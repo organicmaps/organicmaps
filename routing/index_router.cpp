@@ -1091,6 +1091,9 @@ unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
 {
   // Use saved routing options for all types (car, bicycle, pedestrian).
   RoutingOptions const routingOptions = RoutingOptions::LoadCarOptionsFromSettings();
+  /// @DebugNote
+  // Add avoid roads here for debug purpose.
+  //routingOptions.Add(RoutingOptions::Road::Motorway);
   LOG(LINFO, ("Avoid next roads:", routingOptions));
 
   auto crossMwmGraph = make_unique<CrossMwmGraph>(

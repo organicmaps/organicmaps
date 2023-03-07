@@ -1,0 +1,11 @@
+- Nová data OpenStreetMap k 27. únoru
+- Články ve Wiki jsou nyní klikatelné a viditelné pro záložky
+- Opraveno několik pádů
+- Opravena chybějící lokalizace do tradiční čínštiny
+- Vylepšeny dialogy nápovědy a vybraných bodů zájmu
+- Opraveny některé nezobrazené komplexní otevírací hodiny
+- Opraveno a vylepšeno vyhledávání
+- Přidáni zdravotničtí specialisté
+- Přidány komunikační věže, solární, větrné, plynové a vodní elektrárny
+- Vylepšeny překlady ar, nb, pt a tr
+...více: omaps.app/news

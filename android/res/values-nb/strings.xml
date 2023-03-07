@@ -37,6 +37,17 @@
 	<string name="country_status_download_failed">Laster ned mislyktes</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Prøv på nytt</string>
+	<string name="about_menu_title">Om Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Gratis for alle, laget med kjærlighet</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Ingen annonser, ingen sporing, ingen datainnsamling</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Sparer batteriet, bruker ikke bakgrunnsdata</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Rask, minimalistisk, ingen søppel</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Open source-applikasjon opprettet av entusiaster og frivillige.</string>
 	<string name="connection_settings">Tilkoblingsinnstillinger</string>
 	<string name="close">Lukk</string>
 	<string name="unsupported_phone">En maskinvareakselerert OpenGL kreves. Dessverre støttes ikke enheten din.</string>
@@ -80,8 +91,20 @@
 	<string name="maps_storage_summary">Velg hvor du vil at kartene skal lastes ned til</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
 	<string name="maps_storage_downloaded">Kart</string>
+	<!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+	<string name="maps_storage_internal">Intern privat lagring</string>
+	<!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+	<string name="maps_storage_shared">Intern delt lagring</string>
+	<!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+	<string name="maps_storage_removable">SD-kort</string>
+	<!-- Generic external storage type in Maps Storage settings -->
+	<string name="maps_storage_external">Ekstern delt lagring</string>
+	<!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+	<string name="maps_storage_free_size">%1$s ledig av %2$s</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Flytt kart?</string>
+	<!-- Error moving map files from one storage to another -->
+	<string name="move_maps_error">Kunne ikke flytte kart</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Dette kan ta flere minutter. Vent et øyeblikk …</string>
 	<!-- Measurement units title in settings activity -->
@@ -138,6 +161,7 @@
 	<string name="description">Merknader</string>
 	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Delte Organic Maps-bokmerker</string>
+	<string name="share_bookmarks_email_body">Hei!\n\nVedlagt er mine bokmerker fra Organic Maps-appen. Åpne de dersom du har Organic Maps installert. Har du ikke har det, last ned appen til iOS eller Android ved å trykke på denne linken: https://omaps.app/get?kmz\n\nNyt reisen med Organic Maps!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Laster inn bokmerker</string>
 	<!-- Kmz file successful loading -->
@@ -177,6 +201,10 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Lengde</string>
 	<string name="share_my_location">Del posisjonen min</string>
+	<!-- Settings general group in settings screen -->
+	<string name="prefs_group_general">Generelle instillinger</string>
+	<!-- Settings information group in settings screen -->
+	<string name="prefs_group_information">Informasjon</string>
 	<string name="prefs_group_route">Navigasjon</string>
 	<string name="pref_zoom_title">Zoom-knapper</string>
 	<string name="pref_zoom_summary">Vis på skjermen</string>
@@ -206,6 +234,8 @@
 	<string name="duration_12_hours">12 timer</string>
 	<string name="duration_1_day">1 dag</string>
 	<string name="search_show_on_map">Vis på kartet</string>
+	<!-- Menu button -->
+	<string name="menu">Meny</string>
 	<!-- Text in menu -->
 	<string name="website">Nettside</string>
 	<!-- Text in About menu, opens Organic Maps news website -->
@@ -221,7 +251,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Donere</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Hvordan støtte oss?</string>
+	<string name="how_to_support_us">Støtt prosjektet</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Opphavsrett</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -380,6 +410,8 @@
 	<string name="day_off_today">Fridag i dag</string>
 	<string name="day_off">Fridag</string>
 	<string name="today">I dag</string>
+	<string name="opens_in">Åpner om %s</string>
+	<string name="closes_in">Stenger om %s</string>
 	<string name="closed">Stengt</string>
 	<string name="edit_opening_hours">Rediger åpningstider</string>
 	<string name="no_osm_account">Har du ingen konto hos OpenStreetMap?</string>
@@ -397,6 +429,8 @@
 	<string name="details">Detaljer</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">Legg til en gate</string>
+	<!-- Error to display when a new street name is not entered in the New street dialog -->
+	<string name="empty_street_name_error">Legg til en gateadresse</string>
 	<string name="choose_language">Velg et språk</string>
 	<string name="choose_street">Velg en gate</string>
 	<string name="postal_code">Postnummer</string>
@@ -404,6 +438,7 @@
 	<string name="select_cuisine">Velg matrett</string>
 	<!-- login text field -->
 	<string name="email_or_username">E-postadresse eller brukernavn</string>
+	<string name="editor_add_phone">Legg til telefon</string>
 	<string name="level">Gulv</string>
 	<string name="downloader_delete_map_dialog">Alle endringer i kartet vil slettes sammen med kartet.</string>
 	<string name="downloader_update_maps">Oppdater kart</string>
@@ -423,14 +458,17 @@
 	<string name="editor_report_problem_other_title">Et annet problem</string>
 	<string name="placepage_add_business_button">Legg til organisasjon</string>
 	<string name="message_invalid_feature_position">Et objekt kan ikke plasseres her</string>
-	<string name="osm_presentation">Alle kartdata kommer fra OpenStreetMap-prosjektet. Det er som Wikipedia for kart hvor du kan legge til eller redigere steder, og de blir tilgjengelige for millioner av brukere over hele verden.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Kartografiske data fra OpenStreetMap fra %s. Det er som Wikipedia hvor du kan legge til eller redigere steder for alle brukere over hele verden.</string>
 	<string name="login_to_make_edits_visible">Logg inn slik at andre brukere kan se endringene du har utført.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d av %2$d</string>
+	<string name="download_over_mobile_header">Last ned med mobildata?</string>
+	<string name="download_over_mobile_message">Dette kan medføre store kostnader med enkelte dataplaner eller om du roamer.</string>
 	<string name="error_enter_correct_house_number">Skriv riktig husnummer</string>
 	<string name="editor_storey_number">Antall etasjer (maks. %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Rediger bygningen med maks. 25 etasjer</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Rediger bygningen med maks. %d etasjer</string>
 	<string name="editor_zip_code">Postnummer</string>
 	<string name="error_enter_correct_zip_code">Angi riktig postnummer</string>
 	<!-- Place Page title for long tap -->
@@ -467,10 +505,17 @@
 	<string name="editor_remove_place_message">Fjerne et tilføyd sted?</string>
 	<string name="editor_remove_place_button">Fjern</string>
 	<string name="editor_place_doesnt_exist">Sted finnes ikke</string>
+	<!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+	<string name="delete_place_empty_comment_error">Forklar hvorfor stedet skal slettes</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Skriv riktig telefonnummer</string>
 	<string name="error_enter_correct_web">Oppgi en gyldig nettadresse</string>
 	<string name="error_enter_correct_email">Oppgi en gyldig epostadresse</string>
+	<string name="error_enter_correct_facebook_page">Skriv inn en gyldig Facebook-adresse, -konto eller -side.</string>
+	<string name="error_enter_correct_instagram_page">Skriv inn en gyldig Instagram-adresse eller -kontonavn</string>
+	<string name="error_enter_correct_twitter_page">Skriv inn en gyldig Twitter-adresse eller -brukernavn.</string>
+	<string name="error_enter_correct_vk_page">Skriv inn en gyldig VB-adresse eller -kontonavn</string>
+	<string name="error_enter_correct_line_page">Skriv inn en gyldig LINE-adresse eller -ID.</string>
 	<string name="placepage_add_place_button">Legg til en plass på kartet</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Vil du sende det til alle brukere?</string>
@@ -524,6 +569,8 @@
 	<string name="bookmark_lists_hide_all">Skjul alle</string>
 	<string name="bookmark_lists_show_all">Vis alle</string>
 	<string name="bookmarks_create_new_group">Opprett ny liste</string>
+	<!-- Bookmark categories screen -->
+	<string name="bookmarks_import">Importer bokmerker</string>
 	<string name="bookmarks_error_message_share_general">Kan ikke dele på grunn av en programfeil</string>
 	<string name="bookmarks_error_title_share_empty">Delingsfeil</string>
 	<string name="bookmarks_error_message_share_empty">Kan ikke dele en tom liste</string>
@@ -659,9 +706,22 @@
 	<string name="elevation_profile_distance">Avstand:</string>
 	<string name="elevation_profile_time">I rute</string>
 	<string name="isolines_toast_zooms_1_10">Forstørr kartet for å se høydekurver</string>
+	<string name="download_map_title">Last ned verdenskart</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error">Klarte ikke opprette mappe og flytte filer i enhetens minne eller SD-kort</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error_title">Diskfeil</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="connection_failure">Tilkoblingsfeil</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disconnect_usb_cable_title">Fjern USB-kabelen</string>
 	<string name="enable_screen_sleep">La skjermen sove</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Når den er aktivert, får skjermen lov til å sove etter en periode med inaktivitet.</string>
+	<!-- A preference title; keep short! -->
+	<string name="enable_show_on_lock_screen">Vis på låseskjerm</string>
+	<!-- Description in preferences -->
+	<string name="enable_show_on_lock_screen_description">Når dette er aktivert trenger du ikke låse opp enheten hver gang når appen kjører.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Kartdata fra OpenStreetMap</string>
 
@@ -723,6 +783,7 @@
 	<string name="type.amenity.internet_cafe">Internettkafé</string>
 	<string name="type.amenity.kindergarten">Barnehage</string>
 	<string name="type.amenity.library">Bibliotek</string>
+	<string name="type.amenity.loading_dock">Lasterampe</string>
 	<string name="type.amenity.marketplace">Torg</string>
 	<string name="type.amenity.motorcycle_parking">Motorsykkelparkering</string>
 	<string name="type.amenity.nightclub">Nattklubb</string>
@@ -916,9 +977,20 @@
 	<string name="type.emergency.defibrillator">Hjertestarter</string>
 	<string name="type.emergency.fire_hydrant">Brannhydrant</string>
 	<string name="type.emergency.phone">Nødtelefon</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Inngang</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Hovedinngang</string>
 	<string name="type.healthcare.laboratory">Medisinsk laboratorium</string>
 	<string name="type.healthcare.physiotherapist">Fysioterapeut</string>
+	<string name="type.healthcare.alternative">Alternativ medisin</string>
+	<string name="type.healthcare.audiologist">Audiologi</string>
+	<string name="type.healthcare.blood_donation">Bloddonasjonssenter</string>
+	<string name="type.healthcare.optometrist">Optometri</string>
+	<string name="type.healthcare.podiatrist">Fotterapi</string>
+	<string name="type.healthcare.psychotherapist">Psykoterapi</string>
+	<string name="type.healthcare.sample_collection">Prøvetaking</string>
+	<string name="type.healthcare.speech_therapist">Snakketerapi</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bridleway">Ridevei</string>
@@ -927,6 +999,7 @@
 	<string name="type.highway.bridleway.permissive">Ridevei</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
+	<string name="type.highway.busway">Dedikert bussvei</string>
 	<string name="type.highway.bus_stop">Busstopp</string>
 	<string name="type.highway.construction">Veikonstruksjon</string>
 	<string name="type.highway.cycleway">Sykkelvei</string>
@@ -1163,6 +1236,7 @@
 	<string name="type.man_made.lighthouse">Fyr</string>
 	<string name="type.man_made.surveillance">Overvåkingskamera</string>
 	<string name="type.man_made.tower">Tårn</string>
+	<string name="type.man_made.tower.communication">Kommunikasjonstårn</string>
 	<string name="type.man_made.water_tap">Vannkran</string>
 	<string name="type.man_made.water_tower">Vanntårn</string>
 	<string name="type.man_made.water_well">Brønn</string>
@@ -1247,6 +1321,10 @@
 	<string name="type.place.suburb">Forstad</string>
 	<string name="type.place.town">By</string>
 	<string name="type.place.village">Landsby</string>
+	<string name="type.power.generator.solar">Solenergi generator</string>
+	<string name="type.power.generator.wind">Vindgenerator</string>
+	<string name="type.power.generator.gas">Gassturbinkraftverk</string>
+	<string name="type.power.generator.hydro">Vannkraftverk</string>
 	<string name="type.power.pole">Strømmast</string>
 	<string name="type.power.substation">Trafo</string>
 	<string name="type.power.tower">Strømmast</string>
@@ -1275,6 +1353,7 @@
 	<string name="type.railway.station.subway.beijing">T-bane</string>
 	<string name="type.railway.station.subway.bengalore">T-bane</string>
 	<string name="type.railway.station.subway.berlin">T-bane</string>
+	<string name="type.railway.station.subway.bilbao">T-bane</string>
 	<string name="type.railway.station.subway.brasilia">T-bane</string>
 	<string name="type.railway.station.subway.brescia">T-bane</string>
 	<string name="type.railway.station.subway.brussels">T-bane</string>
@@ -1384,6 +1463,7 @@
 	<string name="type.railway.subway_entrance.beijing">T-bane inngang</string>
 	<string name="type.railway.subway_entrance.bengalore">T-bane inngang</string>
 	<string name="type.railway.subway_entrance.berlin">T-bane inngang</string>
+	<string name="type.railway.subway_entrance.bilbao">T-bane inngang</string>
 	<string name="type.railway.subway_entrance.brasilia">T-bane inngang</string>
 	<string name="type.railway.subway_entrance.brescia">T-bane inngang</string>
 	<string name="type.railway.subway_entrance.brussels">T-bane inngang</string>

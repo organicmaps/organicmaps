@@ -290,7 +290,7 @@ unique_ptr<MwmContext> GetWorldContext(DataSource const & dataSource)
   dataSource.GetMwmsInfo(infos);
   MwmSet::MwmHandle handle = indexer::FindWorld(dataSource, infos);
   if (handle.IsAlive())
-    return make_unique<MwmContext>(move(handle));
+    return make_unique<MwmContext>(std::move(handle));
   return {};
 }
 
@@ -356,6 +356,14 @@ void Geocoder::SetParams(Params const & params)
 
   m_params = params;
 
+  auto const MakeRequest = [this](size_t i, auto & request)
+  {
+    FillRequestFromToken(m_params.GetToken(i), request);
+    for (auto const & index : m_params.GetTypeIndices(i))
+      request.m_categories.emplace_back(FeatureTypeToString(index));
+    request.SetLangs(m_params.GetLangs());
+  };
+
   m_tokenRequests.clear();
   m_prefixTokenRequest.Clear();
   for (size_t i = 0; i < m_params.GetNumTokens(); ++i)
@@ -363,19 +371,11 @@ void Geocoder::SetParams(Params const & params)
     if (!m_params.IsPrefixToken(i))
     {
       m_tokenRequests.emplace_back();
-      auto & request = m_tokenRequests.back();
-      FillRequestFromToken(m_params.GetToken(i), request);
-      for (auto const & index : m_params.GetTypeIndices(i))
-        request.m_categories.emplace_back(FeatureTypeToString(index));
-      request.SetLangs(m_params.GetLangs());
+      MakeRequest(i, m_tokenRequests.back());
     }
     else
     {
-      auto & request = m_prefixTokenRequest;
-      FillRequestFromToken(m_params.GetToken(i), request);
-      for (auto const & index : m_params.GetTypeIndices(i))
-        request.m_categories.emplace_back(FeatureTypeToString(index));
-      request.SetLangs(m_params.GetLangs());
+      MakeRequest(i, m_prefixTokenRequest);
     }
   }
 
@@ -554,7 +554,7 @@ void Geocoder::GoImpl(vector<MwmInfoPtr> const & infos, bool inViewport)
       // All MwmIds are unique during the application lifetime, so
       // it's ok to save MwmId.
       m_worldId = handle.GetId();
-      m_context = make_unique<MwmContext>(move(handle));
+      m_context = make_unique<MwmContext>(std::move(handle));
 
       if (value.HasSearchIndex())
       {
@@ -584,7 +584,7 @@ void Geocoder::GoImpl(vector<MwmInfoPtr> const & infos, bool inViewport)
   // intersecting with position and viewport.
   auto processCountry = [&](unique_ptr<MwmContext> context, bool updatePreranker) {
     ASSERT(context, ());
-    m_context = move(context);
+    m_context = std::move(context);
 
     SCOPE_GUARD(cleanup, [&]() {
       LOG(LDEBUG, (m_context->GetName(), "geocoding complete."));
@@ -798,9 +798,12 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
       continue;
     }
 
-    if (ft->GetGeomType() == feature::GeomType::Point)
+    // We transform all cities into point Features on generator stage.
+    ASSERT_EQUAL(ft->GetGeomType(), feature::GeomType::Point, (ft->GetID()));
     {
       City city(std::move(l), Model::TYPE_CITY);
+
+      auto const center = ft->GetCenter();
 
       CitiesBoundariesTable::Boundaries boundaries;
       bool haveBoundary = false;
@@ -808,20 +811,25 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
       {
         city.m_rect = boundaries.GetLimitRect();
         if (city.m_rect.IsValid())
-          haveBoundary = true;
+        {
+          /// @todo Replace with assert in future. Now make additional check for compatibility with old "buggy" World.
+          if (city.m_rect.IsPointInside(center))
+            haveBoundary = true;
+          //else
+          //  ASSERT(false, (city.m_rect, center, ft->GetID()));
+        }
       }
 
       if (!haveBoundary)
       {
-        auto const center = feature::GetCenter(*ft);
         auto const population = ftypes::GetPopulation(*ft);
         auto const radius = ftypes::GetRadiusByPopulation(population);
         city.m_rect = mercator::RectByCenterXYAndSizeInMeters(center, radius);
       }
 
       LOG(LDEBUG,
-          ("City =", ft->GetName(StringUtf8Multilang::kDefaultCode), "rect =", city.m_rect,
-           "rect source:", haveBoundary ? "table" : "population",
+          ("City =", ft->GetName(StringUtf8Multilang::kDefaultCode), "ll =", mercator::ToLatLon(center),
+           "rect =", mercator::ToLatLon(city.m_rect), "rect source:", haveBoundary ? "table" : "population",
            "sizeX =", mercator::DistanceOnEarth(city.m_rect.LeftTop(), city.m_rect.RightTop()),
            "sizeY =", mercator::DistanceOnEarth(city.m_rect.LeftTop(), city.m_rect.LeftBottom())));
 
@@ -844,20 +852,15 @@ void Geocoder::FillVillageLocalities(BaseContext const & ctx)
     if (m_model.GetType(*ft) != Model::TYPE_VILLAGE)
       continue;
 
-    m2::PointD center;
-    if (!m_context->GetCenter(l.m_featureId, center))
-    {
-      // In general, we don't have centers for newly created features, but editor doesn't support localities now.
-      ASSERT(false, (l.m_featureId, "Village feature without table's center"));
-      continue;
-    }
+    ASSERT_EQUAL(ft->GetGeomType(), feature::GeomType::Point, (ft->GetID()));
 
-    vector<m2::PointD> pivotPoints = {m_params.m_pivot.Center()};
-    if (m_params.m_position)
-      pivotPoints.push_back(*m_params.m_position);
+    auto const center = ft->GetCenter();
 
     // Always grab top kMaxNumVillages, despite of the distance.
     /*
+    vector<m2::PointD> pivotPoints = {m_params.m_pivot.Center()};
+    if (m_params.m_position)
+      pivotPoints.push_back(*m_params.m_position);
     if (!m_context->GetType().m_containsMatchedState &&
         all_of(pivotPoints.begin(), pivotPoints.end(), [&](auto const & p) {
           return mercator::DistanceOnEarth(center, p) > m_params.m_filteringParams.m_villageSearchRadiusM;
@@ -873,7 +876,8 @@ void Geocoder::FillVillageLocalities(BaseContext const & ctx)
     auto const radius = ftypes::GetRadiusByPopulation(population);
     village.m_rect = mercator::RectByCenterXYAndSizeInMeters(center, radius);
 
-    LOG(LDEBUG, ("Village =", ft->GetName(StringUtf8Multilang::kDefaultCode), "radius =", radius));
+    LOG(LDEBUG, ("Village =", ft->GetName(StringUtf8Multilang::kDefaultCode),
+                 "ll =", mercator::ToLatLon(center), "radius =", radius));
 
     m_cities[village.m_tokenRange].push_back(std::move(village));
   }
@@ -907,7 +911,7 @@ void Geocoder::ForEachCountry(ExtendedMwmInfos const & extendedInfos, Fn && fn)
       continue;
     bool const updatePreranker = i + 1 >= extendedInfos.m_firstBatchSize;
     auto const & mwmType = extendedInfos.m_infos[i].m_type;
-    if (fn(make_unique<MwmContext>(move(handle), mwmType), updatePreranker) ==
+    if (fn(make_unique<MwmContext>(std::move(handle), mwmType), updatePreranker) ==
         base::ControlFlow::Break)
     {
       break;
@@ -1188,7 +1192,7 @@ void Geocoder::WithPostcodes(BaseContext & ctx, Fn && fn)
       }
 
       m_postcodes.m_tokenRange = tokenRange;
-      m_postcodes.m_countryFeatures = move(postcodes);
+      m_postcodes.m_countryFeatures = std::move(postcodes);
 
       if (ctx.AllTokensUsed() && CityHasPostcode(ctx))
       {
@@ -1205,14 +1209,21 @@ void Geocoder::GreedilyMatchStreets(BaseContext & ctx, CentersFilter const & cen
 {
   TRACE(GreedilyMatchStreets);
 
-  // Match streets without suburbs.
-  vector<StreetsMatcher::Prediction> predictions;
-  StreetsMatcher::Go(ctx, ctx.m_streets, *m_filter, m_params, predictions);
-
-  for (auto const & prediction : predictions)
-    CreateStreetsLayerAndMatchLowerLayers(ctx, prediction, centers);
+  ProcessStreets(ctx, centers, ctx.m_streets);
 
   GreedilyMatchStreetsWithSuburbs(ctx, centers);
+}
+
+void Geocoder::ProcessStreets(BaseContext & ctx, CentersFilter const & centers, CBV const & streets)
+{
+  using PredictionT = StreetsMatcher::Prediction;
+  vector<PredictionT> predictions;
+  StreetsMatcher::Go(ctx, streets, *m_filter, m_params, predictions);
+
+  // Iterating from best to worst predictions here. Make "Relaxed" results for the best prediction only
+  // to avoid dummy streets results, matched by very _common_ tokens.
+  for (size_t i = 0; i < predictions.size(); ++i)
+    CreateStreetsLayerAndMatchLowerLayers(ctx, predictions[i], centers, i == 0 /* makeRelaxed */);
 }
 
 void Geocoder::GreedilyMatchStreetsWithSuburbs(BaseContext & ctx, CentersFilter const & centers)
@@ -1256,11 +1267,7 @@ void Geocoder::GreedilyMatchStreetsWithSuburbs(BaseContext & ctx, CentersFilter 
       auto const suburbCBV = RetrieveGeometryFeatures(*m_context, rect, RectId::Suburb);
       auto const suburbStreets = ctx.m_streets.Intersect(suburbCBV);
 
-      vector<StreetsMatcher::Prediction> predictions;
-      StreetsMatcher::Go(ctx, suburbStreets, *m_filter, m_params, predictions);
-
-      for (auto const & prediction : predictions)
-        CreateStreetsLayerAndMatchLowerLayers(ctx, prediction, centers);
+      ProcessStreets(ctx, centers, suburbStreets);
 
       MatchPOIsAndBuildings(ctx, 0 /* curToken */, suburbCBV);
     });
@@ -1342,7 +1349,7 @@ void Geocoder::CentersFilter::ProcessStreets(std::vector<uint32_t> & streets, Ge
 
 void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
                                                      StreetsMatcher::Prediction const & prediction,
-                                                     CentersFilter const & centers)
+                                                     CentersFilter const & centers, bool makeRelaxed)
 {
   auto & layers = ctx.m_layers;
 
@@ -1367,7 +1374,7 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
   MatchPOIsAndBuildings(ctx, 0 /* curToken */, CBV::GetFull());
 
   // A relaxed best effort parse: at least show the street if we can find one.
-  if (numEmitted == ctx.m_numEmitted && ctx.SkipUsedTokens(0) != ctx.m_numTokens)
+  if (makeRelaxed && numEmitted == ctx.m_numEmitted && ctx.SkipUsedTokens(0) != ctx.m_numTokens)
   {
     TRACE(Relaxed);
     FindPaths(ctx);

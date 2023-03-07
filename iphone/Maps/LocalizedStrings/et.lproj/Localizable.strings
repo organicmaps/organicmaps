@@ -304,7 +304,7 @@
 "donate" = "Anneta";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Kuidas meid toetada?";
+"how_to_support_us" = "Toetage projekti";
 
 /* Button in the main Help dialog */
 "copyright" = "Autoriõigused";
@@ -710,8 +710,8 @@
 
 "editor_storey_number" = "Korruste arv (maks. %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "Korruste arv ei või olla üle 25";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Korruste arv ei või olla üle %d";
 
 "editor_zip_code" = "Postiindeks";
 
@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "Raamatukogu";
 
+"type.amenity.loading_dock" = "Laadimisdokk";
+
 "type.amenity.marketplace" = "Turg";
 
 "type.amenity.motorcycle_parking" = "Mootorrataste parkimine";
@@ -1849,11 +1851,31 @@
 
 "type.emergency.phone" = "Hädaabi telefon";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Sissepääs";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Peasissekäik";
 
 "type.healthcare.laboratory" = "Meditsiinilabor";
 
 "type.healthcare.physiotherapist" = "Füsioterapeut";
+
+"type.healthcare.alternative" = "Alternatiivne meditsiin";
+
+"type.healthcare.audiologist" = "Audioloogia";
+
+"type.healthcare.blood_donation" = "Vereloovutuskeskus";
+
+"type.healthcare.optometrist" = "Optomeetria";
+
+"type.healthcare.podiatrist" = "Jalaravi";
+
+"type.healthcare.psychotherapist" = "Psühhoteraapia";
+
+"type.healthcare.sample_collection" = "Proovivõtmine";
+
+"type.healthcare.speech_therapist" = "Logopeedia";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1891,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunnel";
+
+"type.highway.busway" = "Spetsiaalne bussitee";
 
 "type.highway.bus_stop" = "Bussipeatus";
 
@@ -2431,6 +2455,8 @@
 
 "type.man_made.tower" = "Torn";
 
+"type.man_made.tower.communication" = "Sidetorn";
+
 "type.man_made.wastewater_plant" = "Reoveepuhasti";
 
 "type.man_made.water_tap" = "Veekraan";
@@ -2623,6 +2649,14 @@
 
 "type.power.generator" = "Generaator";
 
+"type.power.generator.solar" = "Päikese generaator";
+
+"type.power.generator.wind" = "Tuulegeneraator";
+
+"type.power.generator.gas" = "Gaasiturbiini elektrijaam";
+
+"type.power.generator.hydro" = "Hüdroelektrijaam";
+
 "type.power.line" = "Elektriliin";
 
 "type.power.line.underground" = "Maa-alune elektriliin";
@@ -2754,6 +2788,8 @@
 "type.railway.station.subway.bengalore" = "Metroo";
 
 "type.railway.station.subway.berlin" = "Metroo";
+
+"type.railway.station.subway.bilbao" = "Metroo";
 
 "type.railway.station.subway.brasilia" = "Metroo";
 
@@ -2978,6 +3014,8 @@
 "type.railway.subway_entrance.bengalore" = "Metroo sissepääs";
 
 "type.railway.subway_entrance.berlin" = "Metroo sissepääs";
+
+"type.railway.subway_entrance.bilbao" = "Metroo sissepääs";
 
 "type.railway.subway_entrance.brasilia" = "Metroo sissepääs";
 

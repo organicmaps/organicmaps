@@ -31,6 +31,17 @@
 	<string name="country_status_download_failed">הורדנכשלה</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">נסה שוב</string>
+	<string name="about_menu_title">Organic Maps אודות</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">חינם לכולם, מיוצרים באהבה</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• אין מודעות, ללא מעקב, ללא איסוף נתונים</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• חוסך בסוללה, אינו משתמש בנתוני רקע</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• מהיר, מינימליסטי, ללא זבל</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">יישום קוד פתוח שנוצר על ידי חובבים ומתנדבים.</string>
 	<string name="connection_settings">הגדרות תקשורת</string>
 	<string name="close">סגור</string>
 	<string name="unsupported_phone">נדרש מאיץ חומרה OpenGL. לצערינו מכשיר זה אינו נתמך.</string>
@@ -167,7 +178,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">םוֹרתְלִ</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">כיצד לתמוך בנו?</string>
+	<string name="how_to_support_us">טקיורפב וכמת</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">זכויות יוצרים</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -217,7 +228,8 @@
 	<string name="twentyfour_seven">יום ולילה</string>
 	<string name="login_osm">OpenStreetMap-ל סנכיה</string>
 	<string name="level">קוֹמָה</string>
-	<string name="osm_presentation">כל נתוני המפה מגיעים מפרויקט OpenStreetMap. זה כמו ויקיפדיה למפות, שבה אתה יכול להוסיף או לערוך מקומות, והם הופכים לזמינים למיליוני משתמשים בכל רחבי העולם.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">נתונים קרטוגרפיים מ- OpenStreetMap נכון לשנת %s. זה כמו Wikipedia בו תוכלו להוסיף או לערוך מקומות לכל המשתמשים ברחבי העולם.</string>
 	<string name="editor_share_to_all_dialog_message_2">.ןהשלכ תולאש םהל שי םא רשק ךתיא ורציו םייונישה תא וקדבי OpenStreetMap יכרוע</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps היא אפליקציית מפות לא מקוונות בחינם ובקוד פתוח. ללא פרסומות. אין מעקב. אם אתה רואה שגיאה במפה, אנא תקן אותה ב-OpenStreetMap. הפרויקט נוצר על ידי חובבים בזמננו הפנוי, אז אנו זקוקים למשוב ולתמיכה שלכם.</string>
@@ -236,6 +248,7 @@
 	<string name="type.leisure.bowling_alley">גנילואב םלוא</string>
 	<string name="type.amenity.music_school">הקיזומל רפס תיב</string>
 	<string name="type.amenity.language_school">תופשל רפס תיב</string>
+	<string name="type.amenity.loading_dock">רציף טעינה</string>
 	<string name="type.amenity.parking">היָנָחֲ</string>
 	<string name="type.amenity.parking.fee">םולשתב הינח</string>
 	<string name="type.amenity.parking.multi.storey">תומוק בר הינח</string>
@@ -358,14 +371,25 @@
 	<string name="type.cuisine.vegan">מטבח טבעוני</string>
 	<string name="type.cuisine.vegetarian">מטבח צמחוני</string>
 	<string name="type.cuisine.vietnamese">מטבח וייטנאמי</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">תישארה הסינכ</string>
 	<string name="type.healthcare.laboratory">תיאופר הדבעמ</string>
 	<string name="type.healthcare.physiotherapist">פיזיותרפיסט</string>
+	<string name="type.healthcare.alternative">רפואה אלטרנטיבית</string>
+	<string name="type.healthcare.audiologist">אודיולוגיה</string>
+	<string name="type.healthcare.blood_donation">מרכז תרומת דם</string>
+	<string name="type.healthcare.optometrist">אופטומטריה</string>
+	<string name="type.healthcare.podiatrist">פודיאטריה</string>
+	<string name="type.healthcare.psychotherapist">פסיכותרפיה</string>
+	<string name="type.healthcare.sample_collection">דְגִימָה</string>
+	<string name="type.healthcare.speech_therapist">ריפוי בדיבור</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">מִנהָרָה</string>
+	<string name="type.highway.busway">ידועיי סובוטוא שיבכ</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.cycleway.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -488,6 +512,7 @@
 	<string name="type.landuse.basin">אגן מים</string>
 	<string name="type.leisure.dance">םידוקיר םלוא</string>
 	<string name="type.leisure.picnic_table">קינקיפ ןחלוש</string>
+	<string name="type.man_made.tower.communication">מגדל תקשורת</string>
 	<string name="type.natural">טבע</string>
 	<string name="type.natural.bare_rock">סלע חשוף</string>
 	<string name="type.natural.bay">מפרץ</string>
@@ -560,6 +585,10 @@
 	<string name="type.place.suburb">פרוור</string>
 	<string name="type.place.town">עיירה</string>
 	<string name="type.place.village">כפר</string>
+	<string name="type.power.generator.solar">גנרטור סולארי</string>
+	<string name="type.power.generator.wind">מחולל רוח</string>
+	<string name="type.power.generator.gas">תחנת כוח לטורבינת גז</string>
+	<string name="type.power.generator.hydro">תחנת כוח הידרואלקטרית</string>
 	<string name="type.shop.deli">תוינדעמ תונח</string>
 	<string name="type.shop.farm">הווחל ןוזמ תונח</string>
 	<string name="type.shop.grocery">תלֶוֹכּמַ</string>

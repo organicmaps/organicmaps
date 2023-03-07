@@ -59,7 +59,6 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:textAppearance="@style/MwmTextAppearance.Body4"
-      android:maxLines="1"
       tools:text="Украина"
       tools:background="#60FFFF00"/>
   </LinearLayout>

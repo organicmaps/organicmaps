@@ -23,6 +23,10 @@ import app.organicmaps.util.Constants;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * This class wraps android::Framework.cpp class
@@ -194,7 +198,21 @@ public class Framework
 //
 //  public static native void nativeUpdateSavedDataVersion();
 
-  public static native long nativeGetDataVersion();
+  private static native long nativeGetDataVersion();
+
+  public static Date getDataVersion()
+  {
+    long dataVersion = nativeGetDataVersion();
+    final SimpleDateFormat format = new SimpleDateFormat("yyMMdd", Locale.ENGLISH);
+    try
+    {
+      return format.parse(String.valueOf(dataVersion));
+    }
+    catch (ParseException e)
+    {
+      throw new AssertionError("Invalid data version code: " + dataVersion);
+    }
+  }
 
   public static native void nativeClearApiPoints();
 
@@ -335,12 +353,11 @@ public class Framework
 
   public static native boolean nativeIsIsolinesLayerEnabled();
 
-  public static native void nativeSetGuidesLayerEnabled(boolean enabled);
-
-  public static native boolean nativeIsGuidesLayerEnabled();
-
   @NonNull
   public static native MapObject nativeDeleteBookmarkFromMapObject();
+
+  @NonNull
+  public static native String nativeGetPoiContactUrl(int metadataType);
 
   public static native void nativeZoomToPoint(double lat, double lon, int zoom, boolean animate);
 

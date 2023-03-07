@@ -4,8 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:background="?windowBackgroundForced"
+  android:background="?panel"
   android:orientation="vertical">
 
   <include layout="@layout/place_page_fat_shadow"/>
@@ -16,63 +15,47 @@
     android:background="?ppBackground"
     android:orientation="vertical">
 
-    <include
-        layout="@layout/place_page_description_header"
-        android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="wrap_content"/>
-
-    <include
-        layout="@layout/place_page_bookmark_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:visibility="visible"/>
-
-    <include
-      layout="@layout/place_page_description_layout"
+    <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/place_page_bookmark_fragment"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/margin_half"
-      tools:visibility="visible"/>
+      tools:layout="@layout/place_page_bookmark_fragment" />
+
+    <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/place_page_wikipedia_fragment"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:layout="@layout/place_page_wikipedia_fragment" />
 
     <include layout="@layout/place_page_placename"/>
 
-    <include layout="@layout/place_page_opening_hours"/>
+    <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/place_page_opening_hours_fragment"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:layout="@layout/place_page_opening_hours_fragment" />
 
     <include layout="@layout/place_page_cuisine"/>
 
     <include layout="@layout/place_page_entrance"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/rw__phone"
+    <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/place_page_phone_fragment"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="?cardBackground"
-      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+      tools:layout="@layout/place_page_phone_fragment" />
 
     <include layout="@layout/place_page_operator"/>
 
-    <include layout="@layout/place_page_website"/>
-
     <include layout="@layout/place_page_wifi"/>
 
+    <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/place_page_links_fragment"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:layout="@layout/place_page_links_fragment" />
+
     <include layout="@layout/place_page_level" />
-
-    <include layout="@layout/place_page_email"/>
-
-    <include layout="@layout/place_page_facebook"/>
-
-    <include layout="@layout/place_page_instagram"/>
-
-    <include layout="@layout/place_page_twitter"/>
-
-    <include layout="@layout/place_page_vk"/>
-
-    <include layout="@layout/place_page_line"/>
-
-    <include layout="@layout/place_page_wiki"/>
-
-    <include layout="@layout/place_page_wikimedia"/>
 
     <!-- ToDo: Address is missing compared with iOS. It's shown in title but anyway .. -->
 

@@ -155,7 +155,7 @@
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
 "rv" = "Bobilanlegg";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+"share_bookmarks_email_body" = "Hei!\n\nVedlagt er mine bokmerker fra Organic Maps-appen. Åpne de dersom du har Organic Maps installert. Har du ikke har det, last ned appen til iOS eller Android ved å trykke på denne linken: https://omaps.app/get?kmz\n\nNyt reisen med Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Laster inn bokmerker";
@@ -304,7 +304,7 @@
 "donate" = "Donere";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Hvordan støtte oss?";
+"how_to_support_us" = "Støtt prosjektet";
 
 /* Button in the main Help dialog */
 "copyright" = "Opphavsrett";
@@ -584,17 +584,17 @@
 
 "today" = "I dag";
 
-"opens_tomorrow_at" = "Opens tomorrow at %@";
+"opens_tomorrow_at" = "Åpner i morgen klokka %@";
 
-"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+"opens_dayoftheweek_at" = "Åpner %1$@ klokka %2$@";
 
-"opens_at" = "Opens at %@";
+"opens_at" = "Åpner klokka %@";
 
-"opens_in" = "Opens in %@";
+"opens_in" = "Åpner om %@";
 
-"closes_at" = "Closes at %@";
+"closes_at" = "Stenger %@";
 
-"closes_in" = "Closes in %@";
+"closes_in" = "Stenger om %@";
 
 "closed" = "Stengt";
 
@@ -702,16 +702,16 @@
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d av %2$d";
 
-"download_over_mobile_header" = "Download over a cellular network connection?";
+"download_over_mobile_header" = "Last ned med mobildata?";
 
-"download_over_mobile_message" = "This could be considerably expensive with some plans or if roaming.";
+"download_over_mobile_message" = "Dette kan medføre store kostnader med enkelte dataplaner eller om du roamer.";
 
 "error_enter_correct_house_number" = "Skriv riktig husnummer";
 
 "editor_storey_number" = "Antall etasjer (maks. %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "Rediger bygningen med maks. 25 etasjer";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Rediger bygningen med maks. %d etasjer";
 
 "editor_zip_code" = "Postnummer";
 
@@ -970,7 +970,7 @@
 
 "title_error_downloading_bookmarks" = "Det oppsto en feil";
 
-"popular_place" = "Popular";
+"popular_place" = "Populær";
 
 "export_file" = "Eksporter fil";
 
@@ -1216,13 +1216,13 @@
 "whats_new_auto_update_button_later" = "Oppdater manuelt senere";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Delete Track";
+"placepage_delete_track_button" = "Slett rute";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Track Name";
+"placepage_track_name_hint" = "Rutenavn";
 
 /* move track or bookmark from the list button text */
-"move" = "Move";
+"move" = "Flytt";
 
 /* edit track screen title */
 "track_title" = "Rute";
@@ -1370,6 +1370,8 @@
 "type.amenity.kindergarten" = "Barnehage";
 
 "type.amenity.library" = "Bibliotek";
+
+"type.amenity.loading_dock" = "Lasterampe";
 
 "type.amenity.marketplace" = "Torg";
 
@@ -1849,11 +1851,31 @@
 
 "type.emergency.phone" = "Nødtelefon";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Inngang";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Hovedinngang";
 
 "type.healthcare.laboratory" = "Medisinsk laboratorium";
 
 "type.healthcare.physiotherapist" = "Fysioterapeut";
+
+"type.healthcare.alternative" = "Alternativ medisin";
+
+"type.healthcare.audiologist" = "Audiologi";
+
+"type.healthcare.blood_donation" = "Bloddonasjonssenter";
+
+"type.healthcare.optometrist" = "Optometri";
+
+"type.healthcare.podiatrist" = "Fotterapi";
+
+"type.healthcare.psychotherapist" = "Psykoterapi";
+
+"type.healthcare.sample_collection" = "Prøvetaking";
+
+"type.healthcare.speech_therapist" = "Snakketerapi";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1891,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunnel";
+
+"type.highway.busway" = "Dedikert bussvei";
 
 "type.highway.bus_stop" = "Busstopp";
 
@@ -2305,7 +2329,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "Land-deponi";
 
@@ -2323,9 +2347,9 @@
 
 "type.landuse.reservoir" = "Vann";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 
@@ -2430,6 +2454,8 @@
 "type.man_made.surveillance" = "Overvåkingskamera";
 
 "type.man_made.tower" = "Tårn";
+
+"type.man_made.tower.communication" = "Kommunikasjonstårn";
 
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
@@ -2623,6 +2649,14 @@
 
 "type.power.generator" = "Generator";
 
+"type.power.generator.solar" = "Solenergi generator";
+
+"type.power.generator.wind" = "Vindgenerator";
+
+"type.power.generator.gas" = "Gassturbinkraftverk";
+
+"type.power.generator.hydro" = "Vannkraftverk";
+
 "type.power.line" = "Power Line";
 
 "type.power.line.underground" = "Underground Power Line";
@@ -2754,6 +2788,8 @@
 "type.railway.station.subway.bengalore" = "T-bane";
 
 "type.railway.station.subway.berlin" = "T-bane";
+
+"type.railway.station.subway.bilbao" = "T-bane";
 
 "type.railway.station.subway.brasilia" = "T-bane";
 
@@ -2978,6 +3014,8 @@
 "type.railway.subway_entrance.bengalore" = "T-bane inngang";
 
 "type.railway.subway_entrance.berlin" = "T-bane inngang";
+
+"type.railway.subway_entrance.bilbao" = "T-bane inngang";
 
 "type.railway.subway_entrance.brasilia" = "T-bane inngang";
 

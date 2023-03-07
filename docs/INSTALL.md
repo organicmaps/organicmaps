@@ -16,7 +16,11 @@ For _Windows_ you need to have [Git for Windows](https://git-scm.com/download/wi
 
 First of all get the source code. The full Organic Maps sources repository is ~8.5Gb in size, there are various [clone options](#special-cases-options) to reduce download size to suit your needs.
 
-For _Windows 10_ enable [symlinks](https://git-scm.com/docs/git-config#Documentation/git-config.txt-coresymlinks) support in git first:
+For _Windows_, it's necessary to enable symlinks support:
+1. Activate _Windows Development Mode_ to enable symlinks globally:
+  - Windows 10: _Settings_ -> _Update and Security_ -> _For Developers_ -> _Activate Developer Mode_
+  - Windows 11: _Settings_ -> _Privacy and Security_ -> _For Developers_ -> _Activate Developer Mode_
+2. Enable [symlinks](https://git-scm.com/docs/git-config#Documentation/git-config.txt-coresymlinks) support in git. The easiest way is to reinstall the latest [Git for Windows](https://gitforwindows.org/) with the "Enable Symlinks" checkbox checked. If you don't want to reinstall Git, then you can add `-c core.symlinks=true` parameter to the clone command below to enable symlinks for the repository.
 
 ```bash
 git config --global core.symlinks true
@@ -43,12 +47,19 @@ Configure the repository for an opensource build:
 bash ./configure.sh
 ```
 
-For _Windows 10_: Use WSL to run `./configure.sh`, or, alternatively, run the following command from the
-[Visual Studio Developer Command Prompt](https://docs.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022)
-and follow instructions:
+For _Windows 10_:  You should be able to build the project by following either of these setups:
+
+**Setup 1: Using WSL**
+1. Install [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) on your machine.
+2. Install g++ by running the following command in WSL: `sudo apt install g++`
+3. Run `./configure.sh` in WSL.
+
+**Setup 2: Using Visual Studio Developer Command Prompt**
+1. Install the [Visual Studio Developer Command Prompt](https://docs.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022) (make sure to choose the latest MSVC x64/x86 build tool and Windows 10/11 SDK as individual components while installing Visual Studio).
+2. Run the following command and follow instructions:
 
 ```bash
-bash ./configure.sh # execute the script by using Ubuntu WSL VM
+"C:\Program Files\Git\bin\bash.exe" configure.sh # execute the script by using Developer Command Prompt
 ```
 
 ### Special cases options
@@ -297,13 +308,18 @@ Install Android SDK and NDK:
 - Select "Android 13.0 (T) / API Level 33" SDK.
 - Switch to "SDK Tools" tab.
 - Check "Show Package Details" checkbox.
-- Select "NDK (Side by side)" version **25.1.8937393**.
+- Select "NDK (Side by side)" version **25.2.9519653**.
 - Select "CMake" version **3.22.1**.
 - Click "Apply" and wait for downloads and installation to finish.
 - In the left pane menu select "Appearance & Behavior > System Settings > Memory Settings".
 - Set "IDE max heap size" to 2048Mb or more (otherwise the Studio might get stuck on "Updating indexes" when opening the project).
 
-Configure the repo with Android SDK and NDK paths:
+Configure the repo with Android SDK and NDK paths. You can do it either by setting a global environment variable pointing at your Android SDK:
+```
+ANDROID_HOME=<here is the absolute path to the root folder of your Android SDK installation>
+```
+
+or by running the following script, that creates `android/local.properties` file with the line `sdk.dir=<path to your Android SDK>` in it: 
 
 _Linux:_
 ```bash
@@ -439,7 +455,7 @@ You can install
 [Android SDK](https://developer.android.com/sdk/index.html) and
 [NDK](https://developer.android.com/tools/sdk/ndk/index.html) without
 Android Studio. Please make sure that SDK for API Level 33,
-NDK version **25.1.8937393** and CMake version **3.22.1** are installed.
+NDK version **25.2.9519653** and CMake version **3.22.1** are installed.
 
 If you are low on RAM, disk space or traffic there are ways to reduce system requirements:
 - in Android Studio enable "File > Power Save Mode";
@@ -448,13 +464,6 @@ If you are low on RAM, disk space or traffic there are ways to reduce system req
 - for debugging use an older emulated device with low RAM and screen resolution, e.g. "Nexus S";
 - make sure the emulator uses [hardware acceleration](https://developer.android.com/studio/run/emulator-acceleration);
 - don't use emulator, debug on a hardware device instead.
-
-#### Windows 10: Manual Boost library initialization
-
-1. Install Visual Studio 2019 Community Edition.
-2. Add cl.exe to your PATH (`C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\Build\\vcvars32.bat`).
-3. Run `./configure.sh` from _Git (for Window) Bash_ and ignore all errors related to Boost.
-4. Go to `./3party/boost`, run `./bootstrap.bat`, and then `b2 headers` to configure Boost.
 
 
 ## iOS app

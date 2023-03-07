@@ -304,7 +304,7 @@
 "donate" = "捐";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "如何支持我们？";
+"how_to_support_us" = "支持项目";
 
 /* Button in the main Help dialog */
 "copyright" = "版权";
@@ -710,8 +710,8 @@
 
 "editor_storey_number" = "楼号 (最大 %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "编辑最多 25 层的建筑";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "最多可编辑 %d 层的建筑";
 
 "editor_zip_code" = "邮政编码";
 
@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "图书馆";
 
+"type.amenity.loading_dock" = "装卸码头";
+
 "type.amenity.marketplace" = "市场";
 
 "type.amenity.motorcycle_parking" = "摩托车停车场";
@@ -1849,11 +1851,31 @@
 
 "type.emergency.phone" = "紧急电话";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "入口";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "主要入口";
 
 "type.healthcare.laboratory" = "医学实验室";
 
 "type.healthcare.physiotherapist" = "物理治疗师";
+
+"type.healthcare.alternative" = "替代医学";
+
+"type.healthcare.audiologist" = "听力学家";
+
+"type.healthcare.blood_donation" = "献血中心";
+
+"type.healthcare.optometrist" = "验光师";
+
+"type.healthcare.podiatrist" = "足疗师";
+
+"type.healthcare.psychotherapist" = "心理治疗师";
+
+"type.healthcare.sample_collection" = "样本采集设施";
+
+"type.healthcare.speech_therapist" = "语言治疗师";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1891,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "隧道";
+
+"type.highway.busway" = "巴士专用道";
 
 "type.highway.bus_stop" = "公交站";
 
@@ -2431,6 +2455,8 @@
 
 "type.man_made.tower" = "高塔";
 
+"type.man_made.tower.communication" = "通讯塔";
+
 "type.man_made.wastewater_plant" = "污水处理厂";
 
 "type.man_made.water_tap" = "水龙头";
@@ -2623,6 +2649,14 @@
 
 "type.power.generator" = "发电机";
 
+"type.power.generator.solar" = "太阳能发电机";
+
+"type.power.generator.wind" = "风力发电机";
+
+"type.power.generator.gas" = "燃气轮机发电厂";
+
+"type.power.generator.hydro" = "水力发电厂";
+
 "type.power.line" = "超高压输电线";
 
 "type.power.line.underground" = "超高压输电线";
@@ -2754,6 +2788,8 @@
 "type.railway.station.subway.bengalore" = "地铁车站";
 
 "type.railway.station.subway.berlin" = "地铁车站";
+
+"type.railway.station.subway.bilbao" = "地铁车站";
 
 "type.railway.station.subway.brasilia" = "地铁车站";
 
@@ -2978,6 +3014,8 @@
 "type.railway.subway_entrance.bengalore" = "地铁出入口";
 
 "type.railway.subway_entrance.berlin" = "地铁出入口";
+
+"type.railway.subway_entrance.bilbao" = "地铁出入口";
 
 "type.railway.subway_entrance.brasilia" = "地铁出入口";
 

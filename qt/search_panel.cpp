@@ -201,6 +201,10 @@ bool SearchPanel::TryTrafficSimplifiedColorsCmd(std::string const & str)
 
 std::string SearchPanel::GetCurrentInputLocale()
 {
+  /// @DebugNote
+  // Hardcode search input language.
+  //return "de";
+
   QString loc = QGuiApplication::inputMethod()->locale().name();
   loc.replace('_', '-');
   auto res = loc.toStdString();

@@ -50,7 +50,7 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "다운로드에 실패하였습니다";
 
-"about_menu_title" = "소개";
+"about_menu_title" = "Organic Maps 정보";
 
 "close" = "닫기";
 
@@ -304,7 +304,7 @@
 "donate" = "기부";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "우리를 지원하는 방법?";
+"how_to_support_us" = "프로젝트 지원";
 
 /* Button in the main Help dialog */
 "copyright" = "저작권";
@@ -710,8 +710,8 @@
 
 "editor_storey_number" = "층 수(최대 %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "최대 25층까지 입력하세요";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "최대 %d층까지 입력하세요";
 
 "editor_zip_code" = "우편번호";
 
@@ -1241,15 +1241,15 @@
 
 "type.aerialway" = "Aerialway";
 
-"type.aerialway.cable_car" = "Cable car";
+"type.aerialway.cable_car" = "Cable Car";
 
-"type.aerialway.chair_lift" = "Chair lift";
+"type.aerialway.chair_lift" = "Chair Lift";
 
-"type.aerialway.drag_lift" = "Drag lift";
+"type.aerialway.drag_lift" = "Drag Lift";
 
 "type.aerialway.gondola" = "Gondola";
 
-"type.aerialway.mixed_lift" = "Mixed lift";
+"type.aerialway.mixed_lift" = "Mixed Lift";
 
 "type.aerialway.station" = "케이블카 역";
 
@@ -1370,6 +1370,8 @@
 "type.amenity.kindergarten" = "유치원";
 
 "type.amenity.library" = "도서관";
+
+"type.amenity.loading_dock" = "하역장";
 
 "type.amenity.marketplace" = "시장";
 
@@ -1849,11 +1851,31 @@
 
 "type.emergency.phone" = "긴급 전화";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "입구";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "정문";
 
 "type.healthcare.laboratory" = "의료 연구실";
 
 "type.healthcare.physiotherapist" = "물리치료사";
+
+"type.healthcare.alternative" = "대체 약품";
+
+"type.healthcare.audiologist" = "청력학";
+
+"type.healthcare.blood_donation" = "헌혈센터";
+
+"type.healthcare.optometrist" = "검안";
+
+"type.healthcare.podiatrist" = "발병학";
+
+"type.healthcare.psychotherapist" = "심리치료";
+
+"type.healthcare.sample_collection" = "견본 추출";
+
+"type.healthcare.speech_therapist" = "대화 요법";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1891,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "터널";
+
+"type.highway.busway" = "버스전용도로";
 
 "type.highway.bus_stop" = "버스 정류장";
 
@@ -2305,7 +2329,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "쓰레기 매립지";
 
@@ -2323,9 +2347,9 @@
 
 "type.landuse.reservoir" = "저수지";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 
@@ -2430,6 +2454,8 @@
 "type.man_made.surveillance" = "감시 카메라";
 
 "type.man_made.tower" = "타워";
+
+"type.man_made.tower.communication" = "커뮤니케이션 타워";
 
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
@@ -2623,6 +2649,14 @@
 
 "type.power.generator" = "Generator";
 
+"type.power.generator.solar" = "태양열 발전기";
+
+"type.power.generator.wind" = "풍력 발전기";
+
+"type.power.generator.gas" = "가스 터빈 발전소";
+
+"type.power.generator.hydro" = "수력 발전소";
+
 "type.power.line" = "Power Line";
 
 "type.power.line.underground" = "Underground Power Line";
@@ -2754,6 +2788,8 @@
 "type.railway.station.subway.bengalore" = "지하철";
 
 "type.railway.station.subway.berlin" = "지하철";
+
+"type.railway.station.subway.bilbao" = "지하철";
 
 "type.railway.station.subway.brasilia" = "지하철";
 
@@ -2978,6 +3014,8 @@
 "type.railway.subway_entrance.bengalore" = "지하철 입구";
 
 "type.railway.subway_entrance.berlin" = "지하철 입구";
+
+"type.railway.subway_entrance.bilbao" = "지하철 입구";
 
 "type.railway.subway_entrance.brasilia" = "지하철 입구";
 

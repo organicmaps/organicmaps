@@ -9,7 +9,7 @@
 #include <optional>
 #include <type_traits>
 
-#include "3party/pugixml/pugixml/src/pugixml.hpp"
+#include <pugixml.hpp>
 
 using namespace std;
 

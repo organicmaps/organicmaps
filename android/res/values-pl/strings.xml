@@ -35,6 +35,17 @@
 	<string name="country_status_download_failed">Nie udało się pobrać</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Spróbuj ponownie</string>
+	<string name="about_menu_title">O aplikacji Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Darmowa dla wszystkich, wykonana z miłością</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Bez reklam, bez śledzenia, bez gromadzenia danych</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Bez drenażu baterii, brak danych w tle</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Szybka, minimalistyczna, bez śmieci</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Aplikacja typu open source stworzona przez entuzjastów i wolontariuszy.</string>
 	<string name="connection_settings">Ustawienia połączenia</string>
 	<string name="close">Zamknij</string>
 	<string name="unsupported_phone">Wymagana jest sprzętowa akceleracja OpenGL. Aktualne urządzenie nie jest obsługiwane.</string>
@@ -107,7 +118,7 @@
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
 	<string name="transport">Transport</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Stacja benzynowa</string>
+	<string name="fuel">Stacja paliw</string>
 	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
 	<string name="parking">Parking</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
@@ -238,7 +249,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Wspomóż</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Jak nas wspierać?</string>
+	<string name="how_to_support_us">Wesprzyj projekt</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Prawa autorskie</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -447,7 +458,8 @@
 	<string name="editor_report_problem_other_title">Inny problem</string>
 	<string name="placepage_add_business_button">Dodaj organizację</string>
 	<string name="message_invalid_feature_position">Obiekt nie może znajdować się tutaj</string>
-	<string name="osm_presentation">Wszystkie dane mapy pochodzą z projektu OpenStreetMap. Jest jak Wikipedia, tylko dla map. Możesz dodawać lub edytować miejsca i staną się dostępne dla milionów użytkowników na całym świecie.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Dane kartograficzne z OpenStreetMap na dzień %s. To jest jak Wikipedia, gdzie możesz dodawać lub edytować miejsca dla wszystkich użytkowników na całym świecie.</string>
 	<string name="login_to_make_edits_visible">Zaloguj się, by inni użytkownicy mogli zobaczyć Twoje zmiany.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d z %2$d</string>
@@ -455,8 +467,8 @@
 	<string name="download_over_mobile_message">Może to być kosztowne przy niektórych planach taryfowych lub w roamingu.</string>
 	<string name="error_enter_correct_house_number">Wprowadź poprawny numer domu</string>
 	<string name="editor_storey_number">Liczba pięter (maks. %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Edytuj budynek z maksymalną liczbą 25 pięter</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Edytuj budynek z maksymalną liczbą %d pięter</string>
 	<string name="editor_zip_code">Kod pocztowy</string>
 	<string name="error_enter_correct_zip_code">Podaj prawidłowy kod pocztowy</string>
 	<!-- Place Page title for long tap -->
@@ -768,7 +780,7 @@
 	<string name="type.amenity.fire_station">Straż pożarna</string>
 	<string name="type.amenity.food_court">Sekcja gastronomiczna</string>
 	<string name="type.amenity.fountain">Fontanna</string>
-	<string name="type.amenity.fuel">Stacja benzynowa</string>
+	<string name="type.amenity.fuel">Stacja paliw</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">Cmentarz</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
@@ -779,6 +791,7 @@
 	<string name="type.amenity.internet_cafe">Kafejka internetowa</string>
 	<string name="type.amenity.kindergarten">Przedszkole</string>
 	<string name="type.amenity.library">Biblioteka</string>
+	<string name="type.amenity.loading_dock">Dok załadunkowy</string>
 	<string name="type.amenity.marketplace">Targ</string>
 	<string name="type.amenity.motorcycle_parking">Parking motocyklowy</string>
 	<string name="type.amenity.nightclub">Klub nocny</string>
@@ -1002,9 +1015,20 @@
 	<string name="type.emergency.defibrillator">Defibrylator</string>
 	<string name="type.emergency.fire_hydrant">Hydrant</string>
 	<string name="type.emergency.phone">Telefon alarmowy</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Wejście</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Główne wejście</string>
 	<string name="type.healthcare.laboratory">Laboratorium Medyczne</string>
 	<string name="type.healthcare.physiotherapist">Fizjoterapeuta</string>
+	<string name="type.healthcare.alternative">Medycyna alternatywna</string>
+	<string name="type.healthcare.audiologist">Audiologia</string>
+	<string name="type.healthcare.blood_donation">Centrum krwiodawstwa</string>
+	<string name="type.healthcare.optometrist">Optometria</string>
+	<string name="type.healthcare.podiatrist">Podiatria</string>
+	<string name="type.healthcare.psychotherapist">Psychoterapia</string>
+	<string name="type.healthcare.sample_collection">Próbkowanie</string>
+	<string name="type.healthcare.speech_therapist">Logopeda</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Droga</string>
@@ -1014,6 +1038,7 @@
 	<string name="type.highway.bridleway.permissive">Droga dla koni ograniczona</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunel drogowy dla koni</string>
+	<string name="type.highway.busway">Dedykowana droga autobusowa</string>
 	<string name="type.highway.bus_stop">Przystanek autobusowy</string>
 	<string name="type.highway.construction">Droga w trakcie budowy</string>
 	<string name="type.highway.cycleway">Droga rowerowa</string>
@@ -1288,6 +1313,7 @@
 	<string name="type.man_made.pipeline.overground">Rurociąg nad ziemią</string>
 	<string name="type.man_made.surveillance">Kamera monitoringu</string>
 	<string name="type.man_made.tower">Wieża</string>
+	<string name="type.man_made.tower.communication">Wieża komunikacyjna</string>
 	<string name="type.man_made.wastewater_plant">Oczyszczalnia ścieków</string>
 	<string name="type.man_made.water_tap">Woda pitna</string>
 	<string name="type.man_made.water_tower">Wieża wodna</string>
@@ -1376,6 +1402,10 @@
 	<string name="type.place.suburb">Przedmieścia</string>
 	<string name="type.place.town">Miasteczko</string>
 	<string name="type.place.village">Wioska</string>
+	<string name="type.power.generator.solar">Generator słoneczny</string>
+	<string name="type.power.generator.wind">Generator wiatru</string>
+	<string name="type.power.generator.gas">Elektrownia z turbiną gazową</string>
+	<string name="type.power.generator.hydro">Elektrownia wodna</string>
 	<string name="type.power.line">Linia wysokiego napięcia</string>
 	<string name="type.power.line.underground">Podziemna linia wysokiego napięcia</string>
 	<string name="type.power.minor_line">Linia niskiego napięcia</string>
@@ -1406,6 +1436,7 @@
 	<string name="type.railway.station.subway.beijing">Metro</string>
 	<string name="type.railway.station.subway.bengalore">Metro</string>
 	<string name="type.railway.station.subway.berlin">Metro</string>
+	<string name="type.railway.station.subway.bilbao">Metro</string>
 	<string name="type.railway.station.subway.brasilia">Metro</string>
 	<string name="type.railway.station.subway.brescia">Metro</string>
 	<string name="type.railway.station.subway.brussels">Metro</string>
@@ -1515,6 +1546,7 @@
 	<string name="type.railway.subway_entrance.beijing">Wejście do metra</string>
 	<string name="type.railway.subway_entrance.bengalore">Wejście do metra</string>
 	<string name="type.railway.subway_entrance.berlin">Wejście do metra</string>
+	<string name="type.railway.subway_entrance.bilbao">Wejście do metra</string>
 	<string name="type.railway.subway_entrance.brasilia">Wejście do metra</string>
 	<string name="type.railway.subway_entrance.brescia">Wejście do metra</string>
 	<string name="type.railway.subway_entrance.brussels">Wejście do metra</string>

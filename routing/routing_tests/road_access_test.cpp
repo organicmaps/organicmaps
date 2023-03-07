@@ -15,14 +15,14 @@
 
 #include "3party/opening_hours/opening_hours.hpp"
 
+namespace road_access_test
+{
 using namespace routing;
 using namespace routing_test;
 using namespace std;
 
 using TestEdge = TestIndexGraphTopology::Edge;
 
-namespace
-{
 void FillRoadAccessBySample_1(RoadAccess & roadAccess)
 {
   RoadAccess::WayToAccess wayToAccess = {
@@ -739,4 +739,4 @@ UNIT_TEST(RoadAccess_WayBlockedWhenStartButOpenWhenReach)
   TestTopologyGraph(graph, 0 /* from */, 5 /* to */, false /* pathFound */, expectedWeight,
                     expectedEdges);
 }
-}  // namespace
+}  // namespace namespace road_access_test

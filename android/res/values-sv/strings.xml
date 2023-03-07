@@ -35,6 +35,17 @@
 	<string name="country_status_download_failed">Downloading har misslyckats</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Försök igen</string>
+	<string name="about_menu_title">Om Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Gratis för alla, gjorda med kärlek</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Inga annonser, ingen spårning, ingen datainsamling</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Sparar batteriet, använder inte bakgrundsdata</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Snabb, minimalistisk, inget skräp</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Open-källansökan skapad av entusiaster och frivilliga.</string>
 	<string name="connection_settings">Anslutningsinställningar</string>
 	<string name="close">Stäng</string>
 	<string name="unsupported_phone">Hårdvaruaccelererad OpenGL krävs. Din enhet stöds tyvärr inte.</string>
@@ -217,7 +228,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Donera</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Hur stöder vi oss?</string>
+	<string name="how_to_support_us">Stöd projektet</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Copyright</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -419,7 +430,8 @@
 	<string name="editor_report_problem_other_title">Ett annat problem</string>
 	<string name="placepage_add_business_button">Lägg till organisation</string>
 	<string name="message_invalid_feature_position">Ett objekt kan inte placeras här</string>
-	<string name="osm_presentation">All kartdata kommer från OpenStreetMap-projektet. Det är som Wikipedia för kartor där du kan lägga till eller redigera platser, och de blir tillgängliga för miljontals användare över hela världen.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Kartografiska data från OpenStreetMap från och med %s. Det är som Wikipedia där du kan lägga till eller redigera platser för alla användare över hela världen.</string>
 	<string name="login_to_make_edits_visible">Logga in så att andra användare kan se de ändringar du gjort.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d av %2$d</string>
@@ -427,8 +439,8 @@
 	<string name="download_over_mobile_message">Detta kan vara mycket dyrt med vissa abonnemang och vid roaming.</string>
 	<string name="error_enter_correct_house_number">Ange korrekt husnummer</string>
 	<string name="editor_storey_number">Antal våningar (max %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Redigera byggnaden med max 25 våningar</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Redigera byggnaden med max %d våningar</string>
 	<string name="editor_zip_code">Postnr</string>
 	<string name="error_enter_correct_zip_code">Ange korrekt postnr</string>
 	<!-- Place Page title for long tap -->
@@ -715,6 +727,7 @@
 	<string name="type.amenity.internet_cafe">Internetkafé</string>
 	<string name="type.amenity.kindergarten">Förskola</string>
 	<string name="type.amenity.library">Bibliotek</string>
+	<string name="type.amenity.loading_dock">Lastkaj</string>
 	<string name="type.amenity.marketplace">Marknadsplats</string>
 	<string name="type.amenity.motorcycle_parking">Motorcykelparkering</string>
 	<string name="type.amenity.nightclub">Nattklubb</string>
@@ -905,15 +918,27 @@
 	<string name="type.cuisine.vietnamese">Vietnamesisk mat</string>
 	<string name="type.emergency.fire_hydrant">Brandpost</string>
 	<string name="type.emergency.phone">Nödtelefon</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Entré</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Huvudentré</string>
 	<string name="type.healthcare.laboratory">Medicinskt laboratorium</string>
 	<string name="type.healthcare.physiotherapist">Fysioterapeut</string>
+	<string name="type.healthcare.alternative">Alternativ medicin</string>
+	<string name="type.healthcare.audiologist">Audiologi</string>
+	<string name="type.healthcare.blood_donation">Centrum för blodgivning</string>
+	<string name="type.healthcare.optometrist">Optometri</string>
+	<string name="type.healthcare.podiatrist">Fotvård</string>
+	<string name="type.healthcare.psychotherapist">Psykoterapi</string>
+	<string name="type.healthcare.sample_collection">Provtagning</string>
+	<string name="type.healthcare.speech_therapist">Logopedics</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">Bro</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
+	<string name="type.highway.busway">Dedikerad bussväg</string>
 	<string name="type.highway.bus_stop">Busshållplats</string>
 	<string name="type.highway.construction">Väg under uppförande</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1148,6 +1173,7 @@
 	<string name="type.man_made.lighthouse">Fyr</string>
 	<string name="type.man_made.surveillance">Övervakningskamera</string>
 	<string name="type.man_made.tower">Torn</string>
+	<string name="type.man_made.tower.communication">Kommunikationstorn</string>
 	<string name="type.man_made.water_tap">Vattenkran</string>
 	<string name="type.man_made.water_tower">Vattentorn</string>
 	<string name="type.man_made.water_well">Brunn</string>
@@ -1231,6 +1257,10 @@
 	<string name="type.place.suburb">Förort</string>
 	<string name="type.place.town">Stad</string>
 	<string name="type.place.village">By</string>
+	<string name="type.power.generator.solar">Solgenerator</string>
+	<string name="type.power.generator.wind">Vindgenerator</string>
+	<string name="type.power.generator.gas">Gasturbinkraftverk</string>
+	<string name="type.power.generator.hydro">Vattenkraftverk</string>
 	<string name="type.power.pole">Elstolpe</string>
 	<string name="type.power.substation">Ställverk</string>
 	<string name="type.power.tower">Elstolpe</string>
@@ -1254,6 +1284,7 @@
 	<string name="type.railway.station.subway.beijing">Tunnelbana</string>
 	<string name="type.railway.station.subway.bengalore">Tunnelbana</string>
 	<string name="type.railway.station.subway.berlin">Tunnelbana</string>
+	<string name="type.railway.station.subway.bilbao">Tunnelbana</string>
 	<string name="type.railway.station.subway.brasilia">Tunnelbana</string>
 	<string name="type.railway.station.subway.brescia">Tunnelbana</string>
 	<string name="type.railway.station.subway.brussels">Tunnelbana</string>
@@ -1363,6 +1394,7 @@
 	<string name="type.railway.subway_entrance.beijing">Tunnelbana entré</string>
 	<string name="type.railway.subway_entrance.bengalore">Tunnelbana entré</string>
 	<string name="type.railway.subway_entrance.berlin">Tunnelbana entré</string>
+	<string name="type.railway.subway_entrance.bilbao">Tunnelbana entré</string>
 	<string name="type.railway.subway_entrance.brasilia">Tunnelbana entré</string>
 	<string name="type.railway.subway_entrance.brescia">Tunnelbana entré</string>
 	<string name="type.railway.subway_entrance.brussels">Tunnelbana entré</string>

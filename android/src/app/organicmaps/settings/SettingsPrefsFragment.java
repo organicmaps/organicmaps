@@ -1,5 +1,6 @@
 package app.organicmaps.settings;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -13,7 +14,6 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -39,6 +39,7 @@ import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.log.LogsManager;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.HashMap;
 import java.util.List;
@@ -126,7 +127,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       if (lang.downloaded)
         setLanguage(lang);
       else
-        startActivityForResult(new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA), REQUEST_INSTALL_DATA);
+      {
+        UiUtils.startActivityForResult(SettingsPrefsFragment.this,
+            new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA), REQUEST_INSTALL_DATA);
+      }
 
       return false;
     }
@@ -320,6 +324,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   }
 
   @Override
+  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3630
   public void onActivityResult(int requestCode, int resultCode, Intent data)
   {
     // Do not check resultCode here as it is always RESULT_CANCELED
@@ -693,7 +698,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       {
         if (MapManager.nativeIsDownloading())
         {
-          new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
+          new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
               .setTitle(R.string.downloading_is_active)
               .setMessage(R.string.cant_change_this_setting)
               .setPositiveButton(R.string.ok, null)

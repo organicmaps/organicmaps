@@ -12,11 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.res.ConfigurationHelper;
 
 import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.util.log.Logger;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class MapFragment extends BaseMwmFragment implements View.OnTouchListener, SurfaceHolder.Callback
 {
@@ -170,7 +170,7 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
 
   private void reportUnsupported()
   {
-    new AlertDialog.Builder(requireContext(), R.style.MwmTheme_AlertDialog)
+    new MaterialAlertDialogBuilder(requireContext(), R.style.MwmTheme_AlertDialog)
         .setMessage(R.string.unsupported_phone)
         .setCancelable(false)
         .setPositiveButton(R.string.close, (dlg, which) -> requireActivity().moveTaskToBack(true))

@@ -101,7 +101,7 @@ std::string TimestampToString(time_t time)
     return std::string("INVALID_TIME_STAMP");
 
   tm * t = gmtime(&time);
-  char buf[21] = { 0 };
+  char buf[100];
 #ifdef OMIM_OS_WINDOWS
   sprintf_s(buf, ARRAY_SIZE(buf), "%04d-%02d-%02dT%02d:%02d:%02dZ", t->tm_year + 1900,
             t->tm_mon + 1, t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec);

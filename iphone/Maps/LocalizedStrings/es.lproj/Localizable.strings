@@ -304,7 +304,7 @@
 "donate" = "Donar";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "¿Cómo apoyarnos?";
+"how_to_support_us" = "Apoya el proyecto";
 
 /* Button in the main Help dialog */
 "copyright" = "Derechos de autor";
@@ -710,8 +710,8 @@
 
 "editor_storey_number" = "Número de plantas (máx. %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "El número de plantas no debe superar 25";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "El número de plantas no debe superar %d";
 
 "editor_zip_code" = "Código postal";
 
@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "Biblioteca";
 
+"type.amenity.loading_dock" = "Muelle de carga";
+
 "type.amenity.marketplace" = "Mercado";
 
 "type.amenity.motorcycle_parking" = "Aparcamiento de motocicletas";
@@ -1849,11 +1851,31 @@
 
 "type.emergency.phone" = "Teléfono de emergencias";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Entrada";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Entrada principal";
 
 "type.healthcare.laboratory" = "Laboratorio médico";
 
 "type.healthcare.physiotherapist" = "Fisioterapeuta";
+
+"type.healthcare.alternative" = "Medicina alternativa";
+
+"type.healthcare.audiologist" = "Audiología";
+
+"type.healthcare.blood_donation" = "Centro de donación de sangre";
+
+"type.healthcare.optometrist" = "Optometría";
+
+"type.healthcare.podiatrist" = "Podología";
+
+"type.healthcare.psychotherapist" = "Psicoterapia";
+
+"type.healthcare.sample_collection" = "Muestreo";
+
+"type.healthcare.speech_therapist" = "Logopedia";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1891,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Túnel";
+
+"type.highway.busway" = "Carretera exclusiva para autobuses";
 
 "type.highway.bus_stop" = "Parada de autobús";
 
@@ -2431,6 +2455,8 @@
 
 "type.man_made.tower" = "Torre";
 
+"type.man_made.tower.communication" = "Torre de comunicaciones";
+
 "type.man_made.wastewater_plant" = "Planta de tratamiento de aguas residuales";
 
 "type.man_made.water_tap" = "Toma de agua";
@@ -2623,6 +2649,14 @@
 
 "type.power.generator" = "Generador";
 
+"type.power.generator.solar" = "Generador solar";
+
+"type.power.generator.wind" = "Generador de viento";
+
+"type.power.generator.gas" = "Planta de energía de turbina de gas";
+
+"type.power.generator.hydro" = "Planta de energía hidroeléctrica";
+
 "type.power.line" = "Línea eléctrica";
 
 "type.power.line.underground" = "Línea eléctrica subterránea";
@@ -2754,6 +2788,8 @@
 "type.railway.station.subway.bengalore" = "Metro";
 
 "type.railway.station.subway.berlin" = "Metro";
+
+"type.railway.station.subway.bilbao" = "Metro";
 
 "type.railway.station.subway.brasilia" = "Metro";
 
@@ -2978,6 +3014,8 @@
 "type.railway.subway_entrance.bengalore" = "Entrada al metro";
 
 "type.railway.subway_entrance.berlin" = "Entrada al metro";
+
+"type.railway.subway_entrance.bilbao" = "Entrada al metro";
 
 "type.railway.subway_entrance.brasilia" = "Entrada al metro";
 

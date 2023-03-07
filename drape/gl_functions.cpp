@@ -10,10 +10,10 @@
 #include "std/target_os.hpp"
 
 #include <algorithm>
+#include <cstring>    // strlen
 #include <limits>
 #include <map>
 #include <mutex>
-#include <utility>
 
 #if defined(OMIM_OS_WINDOWS)
 #define DP_APIENTRY __stdcall

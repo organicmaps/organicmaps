@@ -11,6 +11,7 @@ import android.view.ViewTreeObserver;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.OptIn;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.badge.BadgeDrawable;
@@ -20,6 +21,7 @@ import app.organicmaps.R;
 import app.organicmaps.downloader.MapManager;
 import app.organicmaps.downloader.UpdateInfo;
 import app.organicmaps.routing.RoutingController;
+import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.widget.menu.MyPositionButton;
 import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.util.Config;
@@ -70,10 +72,12 @@ public class MapButtonsController extends Fragment
     mBottomButtonsFrame = mFrame.findViewById(R.id.map_buttons_bottom);
 
     final FloatingActionButton helpButton = mFrame.findViewById(R.id.help_button);
-    if (Config.isNY() && helpButton != null)
+    if (helpButton != null)
     {
-      helpButton.setImageResource(R.drawable.ic_christmas_tree);
-      helpButton.getDrawable().setTintList(null);
+      helpButton.setImageResource(R.drawable.logo);
+      // Keep this button colorful in normal theme.
+      if (!ThemeUtils.isNightTheme(getContext()))
+        helpButton.getDrawable().setTintList(null);
     }
 
     final View zoomFrame = mFrame.findViewById(R.id.zoom_buttons_container);
@@ -128,19 +132,12 @@ public class MapButtonsController extends Fragment
     if (helpButton != null)
       mButtonsMap.put(MapButtons.help, helpButton);
 
-    mFrame.setOnApplyWindowInsetsListener((view, windowInsets) -> {
+    ViewCompat.setOnApplyWindowInsetsListener(mFrame, (view, windowInsets) -> {
       UiUtils.setViewInsetsPadding(view, windowInsets);
       return windowInsets;
     });
 
     return mFrame;
-  }
-
-  @Override
-  public void onStart()
-  {
-    super.onStart();
-    showMapButtons(true);
   }
 
   public LayoutMode getLayoutMode()
@@ -272,10 +269,7 @@ public class MapButtonsController extends Fragment
   public void showMapButtons(boolean show)
   {
     if (show)
-    {
       UiUtils.show(mFrame);
-      showButton(true, MapButtons.zoom);
-    }
     else
       UiUtils.hide(mFrame);
     mOnBottomButtonsHeightChangedListener.OnBottomButtonsHeightChanged();

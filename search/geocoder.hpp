@@ -254,7 +254,9 @@ private:
 
   void CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
                                              StreetsMatcher::Prediction const & prediction,
-                                             CentersFilter const & centers);
+                                             CentersFilter const & centers, bool makeRelaxed);
+
+  void ProcessStreets(BaseContext & ctx, CentersFilter const & centers, CBV const & streets);
 
   // Tries to find all paths in a search tree, where each edge is
   // marked with some substring of the query tokens. These paths are

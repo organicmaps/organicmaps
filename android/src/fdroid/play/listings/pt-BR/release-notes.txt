@@ -1,0 +1,11 @@
+• Novos dados OSM de 27/2
+• Artigos da Wiki agora podem ser clicados e visíveis para os favoritos
+• Correção de várias falhas
+• Correção de Chinês Tradicional
+• Melhoria nos diálogos da Ajuda e de elementos selecionados
+• Correção ao mostrar alguns horários de funcionamento complexos
+• Correção e melhoria na busca
+• Adição de especialidades de saúde
+• Adição de torres de comunicação, geradores solares, eólicos, a gás e hidrelétricos
+• Traduções atualizadas
+… mais: omaps.app/news

@@ -38,6 +38,17 @@
 	<string name="country_status_download_failed">Спампоўка не атрымалася</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Паспрабаваць зноў</string>
+	<string name="about_menu_title">Аб дадатку Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Бескаштоўна для ўсіх, зроблена з любоўю</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Ніякай рэкламы, без сачэння і збору вашых дадзеных</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Эканоміць батарэю, не выкарыстоўвае фонавыя дадзеныя</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Хуткія, мінімалістычныя, без смецця</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Прыкладанне з адкрытым зыходным кодам, створанае энтузіястамі і валанцёрамі.</string>
 	<string name="connection_settings">Налады злучэння</string>
 	<string name="close">Зачыніць</string>
 	<string name="unsupported_phone">Дадатак патрабуе апаратна паскоранага OpenGL. Нажаль, ваша прылада не падтрымліваецца.</string>
@@ -237,7 +248,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Падтрымаць грашыма</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Як нас падтрымаць?</string>
+	<string name="how_to_support_us">Падтрымаць праект</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Капірайт</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -445,7 +456,8 @@
 	<string name="editor_report_problem_other_title">Іншая праблема</string>
 	<string name="placepage_add_business_button">Дадаць установу</string>
 	<string name="message_invalid_feature_position">Аб\'ект не можа знаходзіцца тут</string>
-	<string name="osm_presentation">Усе дадзеныя карты паходзяць з праекта OpenStreetMap. Гэта як Wikipedia для карт, дзе вы можаце дадаваць або рэдагаваць месцы, і яны становяцца даступнымі для мільёнаў карыстальнікаў па ўсім свеце.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Картаграфічныя дадзеныя OpenStreetMap па стане на %s. Гэта як Вікіпедыя, дзе вы можаце дадаць або рэдагаваць месцы для ўсіх карыстальнікаў па ўсім свеце.</string>
 	<string name="login_to_make_edits_visible">Аўтарызуйцеся ў OpenStreetMap.org, каб іншыя карыстальнікі бачылі вашыя змены.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d з %2$d</string>
@@ -453,8 +465,8 @@
 	<string name="download_over_mobile_message">Гэта можа быць даволі дорага з некаторымі тарыфнымі планамі альбо ў роўмінгу.</string>
 	<string name="error_enter_correct_house_number">Увядзіце нумар дома правільна</string>
 	<string name="editor_storey_number">Колькасць паверхаў (максімум %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Колькасць паверхаў павінна быць не больш за 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Колькасць паверхаў павінна быць не больш за %d</string>
 	<string name="editor_zip_code">Паштовы індэкс</string>
 	<string name="error_enter_correct_zip_code">Увядзіце паштовы індэкс правільна</string>
 	<!-- Place Page title for long tap -->
@@ -722,6 +734,7 @@
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">Хрысціянскія могілкі</string>
 	<string name="type.amenity.ice_cream">Марозіва</string>
+	<string name="type.amenity.loading_dock">Пагрузная платформа</string>
 	<string name="type.amenity.parking">Паркоўка</string>
 	<string name="type.amenity.parking.fee">Платная паркоўка</string>
 	<string name="type.amenity.parking.multi.storey">Шматпавярховая паркоўка</string>
@@ -798,14 +811,25 @@
 	<string name="type.cuisine.deli">Дэлікатэсы</string>
 	<string name="type.emergency.defibrillator">Дэфібрылятар</string>
 	<string name="type.emergency.fire_hydrant">Пажарны гідрант</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Галоўны ўваход</string>
 	<string name="type.healthcare.laboratory">Медыцынская лабараторыя</string>
 	<string name="type.healthcare.physiotherapist">Фізіятэрапеўт</string>
+	<string name="type.healthcare.alternative">Альтэрнатыўная медыцына</string>
+	<string name="type.healthcare.audiologist">Аўдыялогія</string>
+	<string name="type.healthcare.blood_donation">Цэнтр донарства крыві</string>
+	<string name="type.healthcare.optometrist">Оптаметрыя</string>
+	<string name="type.healthcare.podiatrist">Подологія</string>
+	<string name="type.healthcare.psychotherapist">Псіхатэрапія</string>
+	<string name="type.healthcare.sample_collection">Збор аналізаў</string>
+	<string name="type.healthcare.speech_therapist">лагапедыя</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Тунэль</string>
+	<string name="type.highway.busway">Выдзеленая аўтобусная дарога</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.cycleway.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -944,6 +968,7 @@
 	<string name="type.man_made.mast">Мачта/вышка</string>
 	<string name="type.man_made.silo">Сілас</string>
 	<string name="type.man_made.storage_tank">Рэзервуар</string>
+	<string name="type.man_made.tower.communication">Вежа сувязі</string>
 	<string name="type.mountain_pass">Перавал</string>
 	<string name="type.natural">Прырода</string>
 	<string name="type.natural.bare_rock">Голая скала</string>
@@ -1020,6 +1045,10 @@
 	<string name="type.place.suburb">Раён</string>
 	<string name="type.place.town">Мястэчка</string>
 	<string name="type.place.village">Вёска</string>
+	<string name="type.power.generator.solar">Сонечны генератар</string>
+	<string name="type.power.generator.wind">Ветрагенератар</string>
+	<string name="type.power.generator.gas">Газатурбінная электрастанцыя</string>
+	<string name="type.power.generator.hydro">Гідраэлектрастанцыя</string>
 	<string name="type.railway.platform">Чыгуначная платформа</string>
 	<string name="type.shop.beverages">Напоі</string>
 	<string name="type.shop.caravan">Продаж аўтадамоў</string>

@@ -168,10 +168,10 @@ private:
       drule::MakeUnique(keys);
 
       float depth = 0;
-      for (size_t i = 0, count = keys.size(); i < count; ++i)
+      for (auto const & k : keys)
       {
-        if (depth < keys[i].m_priority)
-          depth = keys[i].m_priority;
+        if (depth < k.m_priority)
+          depth = k.m_priority;
       }
 
       float const kMinDepth = -100000.0f;

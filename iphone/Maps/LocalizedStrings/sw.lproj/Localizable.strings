@@ -304,7 +304,7 @@
 "donate" = "Changia";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Jinsi ya kutuunga mkono?";
+"how_to_support_us" = "Saidia mradi";
 
 /* Button in the main Help dialog */
 "copyright" = "Copyright";
@@ -710,8 +710,8 @@
 
 "editor_storey_number" = "Number of floors (maximum of %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "The number of floors must non exceed 25";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "The number of floors must non exceed %d";
 
 "editor_zip_code" = "ZIP Code";
 
@@ -1241,15 +1241,15 @@
 
 "type.aerialway" = "Aerialway";
 
-"type.aerialway.cable_car" = "Cable car";
+"type.aerialway.cable_car" = "Cable Car";
 
-"type.aerialway.chair_lift" = "Chair lift";
+"type.aerialway.chair_lift" = "Chair Lift";
 
-"type.aerialway.drag_lift" = "Drag lift";
+"type.aerialway.drag_lift" = "Drag Lift";
 
 "type.aerialway.gondola" = "Gondola";
 
-"type.aerialway.mixed_lift" = "Mixed lift";
+"type.aerialway.mixed_lift" = "Mixed Lift";
 
 "type.aerialway.station" = "Aerialway Station";
 
@@ -1370,6 +1370,8 @@
 "type.amenity.kindergarten" = "Kindergarten";
 
 "type.amenity.library" = "Library";
+
+"type.amenity.loading_dock" = "Inapakia kituo";
 
 "type.amenity.marketplace" = "Marketplace";
 
@@ -1849,11 +1851,31 @@
 
 "type.emergency.phone" = "Emergency Phone";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Entrance";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Mlango Mkuu";
 
 "type.healthcare.laboratory" = "Maabara ya Matibabu";
 
 "type.healthcare.physiotherapist" = "Mtaalamu wa Physiotherapist";
+
+"type.healthcare.alternative" = "Dawa mbadala";
+
+"type.healthcare.audiologist" = "Mtaalamu wa kusikia";
+
+"type.healthcare.blood_donation" = "Kituo cha Uchangiaji Damu";
+
+"type.healthcare.optometrist" = "Optometry";
+
+"type.healthcare.podiatrist" = "Matibabu ya miguu";
+
+"type.healthcare.psychotherapist" = "Tiba ya kisaikolojia";
+
+"type.healthcare.sample_collection" = "Sampuli";
+
+"type.healthcare.speech_therapist" = "Tiba ya hotuba";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1891,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Mtaro";
+
+"type.highway.busway" = "Barabara ya basi iliyotengwa";
 
 "type.highway.bus_stop" = "Bus Stop";
 
@@ -2305,7 +2329,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "Shamba la Taka";
 
@@ -2323,9 +2347,9 @@
 
 "type.landuse.reservoir" = "Water";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 
@@ -2430,6 +2454,8 @@
 "type.man_made.surveillance" = "Surveillance Camera";
 
 "type.man_made.tower" = "Tower";
+
+"type.man_made.tower.communication" = "Mnara wa Mawasiliano";
 
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
@@ -2623,6 +2649,14 @@
 
 "type.power.generator" = "Generator";
 
+"type.power.generator.solar" = "Jenereta ya jua";
+
+"type.power.generator.wind" = "Jenereta ya upepo";
+
+"type.power.generator.gas" = "Kiwanda cha nguvu cha turbine ya gesi";
+
+"type.power.generator.hydro" = "Kiwanda cha umeme wa maji";
+
 "type.power.line" = "Power Line";
 
 "type.power.line.underground" = "Underground Power Line";
@@ -2754,6 +2788,8 @@
 "type.railway.station.subway.bengalore" = "Subway";
 
 "type.railway.station.subway.berlin" = "Subway";
+
+"type.railway.station.subway.bilbao" = "Subway";
 
 "type.railway.station.subway.brasilia" = "Subway";
 
@@ -2978,6 +3014,8 @@
 "type.railway.subway_entrance.bengalore" = "Lango la kuingilia stesheni ya reli";
 
 "type.railway.subway_entrance.berlin" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.bilbao" = "Lango la kuingilia stesheni ya reli";
 
 "type.railway.subway_entrance.brasilia" = "Lango la kuingilia stesheni ya reli";
 
@@ -3263,7 +3301,7 @@
 
 "type.shop.gift" = "Gift Shop";
 
-"type.shop.greengrocer" = "Greengrocer's";
+"type.shop.greengrocer" = "Greengrocer";
 
 "type.shop.grocery" = "Chakula cha mboga";
 

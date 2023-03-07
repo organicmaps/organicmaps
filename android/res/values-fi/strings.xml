@@ -37,6 +37,17 @@
 	<string name="country_status_download_failed">Lataus epäonnistui</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Yritä uudelleen</string>
+	<string name="about_menu_title">Tietoa Organic Maps:stä</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Ilmainen kaikille, tehty rakkaudella</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Ei mainoksia, ei seurantaa, ei tiedonkeruua</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Säästää akkua, ei käytä taustatietoja</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Nopea, minimalistinen, ei roskaa</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Harrastajien ja vapaaehtoisten luoma avoimen lähdekoodin sovellus.</string>
 	<string name="connection_settings">Yhteysasetukset</string>
 	<string name="close">Sulje</string>
 	<string name="unsupported_phone">Laitteistokiihdytetty OpenGL vaaditaan. Valitettavasti laitteesi ei ole tuettu.</string>
@@ -225,7 +236,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Lahjoittaa</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Kuinka tukea meitä?</string>
+	<string name="how_to_support_us">Tue projektia</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Tekijänoikeudet</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -427,7 +438,8 @@
 	<string name="editor_report_problem_other_title">Eri ongelma</string>
 	<string name="placepage_add_business_button">Lisää organisaatio</string>
 	<string name="message_invalid_feature_position">Kohdetta ei voida asettaa tänne</string>
-	<string name="osm_presentation">Kaikki karttatiedot tulevat OpenStreetMap-projektista. Se on kuin karttojen Wikipedia, jossa voit lisätä tai muokata paikkoja, ja ne ovat miljoonien käyttäjien saatavilla kaikkialla maailmassa.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Kartografiset tiedot OpenStreetMapista vuodesta %s. Se on kuin Wikipedia, johon voit lisätä tai muokata paikkoja kaikille käyttäjille ympäri maailmaa.</string>
 	<string name="login_to_make_edits_visible">Kirjaudu sisään jotta muut käyttäjät voivat nähdä tekemäsi muokkaukset.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>
@@ -435,8 +447,8 @@
 	<string name="download_over_mobile_message">Tämä vaihtoehto saattaa olla huomattavasti kalliimpi tietyillä sopimuksilla tai roaming-yhteydellä.</string>
 	<string name="error_enter_correct_house_number">Syötä oikea talon numero</string>
 	<string name="editor_storey_number">Kerrosten määrä (maks. %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Muokkaa kerroksia, enintään 25 kerrosta</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Muokkaa kerroksia, enintään %d kerrosta</string>
 	<string name="editor_zip_code">Postinumero</string>
 	<string name="error_enter_correct_zip_code">Anna kelvollinen postinumero</string>
 	<!-- Place Page title for long tap -->
@@ -741,6 +753,7 @@
 	<string name="type.amenity.internet_cafe">Internetkahvila</string>
 	<string name="type.amenity.kindergarten">Päiväkoti</string>
 	<string name="type.amenity.library">Kirjasto</string>
+	<string name="type.amenity.loading_dock">Lastauslaituri</string>
 	<string name="type.amenity.marketplace">Kauppatori</string>
 	<string name="type.amenity.motorcycle_parking">Moottoripyörien pysäköinti</string>
 	<string name="type.amenity.nightclub">Yökerho</string>
@@ -966,15 +979,27 @@
 	<string name="type.emergency.defibrillator">Defibrillaattori</string>
 	<string name="type.emergency.fire_hydrant">Paloposti</string>
 	<string name="type.emergency.phone">Hätäpuhelin</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Sisäänkäynti</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Pääsisäänkäynti</string>
 	<string name="type.healthcare.laboratory">Lääketieteellinen laboratorio</string>
 	<string name="type.healthcare.physiotherapist">Fysioterapeutti</string>
+	<string name="type.healthcare.alternative">Vaihtoehtoinen lääketiede</string>
+	<string name="type.healthcare.audiologist">Audiologia</string>
+	<string name="type.healthcare.blood_donation">Verenluovutuskeskus</string>
+	<string name="type.healthcare.optometrist">Optometria</string>
+	<string name="type.healthcare.podiatrist">Jalkaterapia</string>
+	<string name="type.healthcare.psychotherapist">Psykoterapia</string>
+	<string name="type.healthcare.sample_collection">Näytteenotto</string>
+	<string name="type.healthcare.speech_therapist">Logopedia</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">Silta</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunneli</string>
+	<string name="type.highway.busway">Oma bussitie</string>
 	<string name="type.highway.bus_stop">Bussipysäkki</string>
 	<string name="type.highway.construction">Rakenteilla oleva tie</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1210,6 +1235,7 @@
 	<string name="type.man_made.lighthouse">Majakka</string>
 	<string name="type.man_made.surveillance">Valvontakamera</string>
 	<string name="type.man_made.tower">Torni</string>
+	<string name="type.man_made.tower.communication">Viestintätorni</string>
 	<string name="type.man_made.water_tap">Vesihana</string>
 	<string name="type.man_made.water_tower">Vesitorni</string>
 	<string name="type.man_made.water_well">Kaivo</string>
@@ -1295,6 +1321,10 @@
 	<string name="type.place.suburb">Esikaupunki</string>
 	<string name="type.place.town">Kaupunki</string>
 	<string name="type.place.village">Kylä</string>
+	<string name="type.power.generator.solar">Aurinkogeneraattori</string>
+	<string name="type.power.generator.wind">Tuuligeneraattori</string>
+	<string name="type.power.generator.gas">Kaasuturbiinivoimala</string>
+	<string name="type.power.generator.hydro">Vesivoimalaitos</string>
 	<string name="type.power.pole">Sähköpylväs</string>
 	<string name="type.power.substation">Muuntoasema</string>
 	<string name="type.power.tower">Sähköpylväs</string>
@@ -1318,6 +1348,7 @@
 	<string name="type.railway.station.subway.beijing">Metro</string>
 	<string name="type.railway.station.subway.bengalore">Metro</string>
 	<string name="type.railway.station.subway.berlin">Metro</string>
+	<string name="type.railway.station.subway.bilbao">Metro</string>
 	<string name="type.railway.station.subway.brasilia">Metro</string>
 	<string name="type.railway.station.subway.brescia">Metro</string>
 	<string name="type.railway.station.subway.brussels">Metro</string>
@@ -1427,6 +1458,7 @@
 	<string name="type.railway.subway_entrance.beijing">Metron sisäänkäynti</string>
 	<string name="type.railway.subway_entrance.bengalore">Metron sisäänkäynti</string>
 	<string name="type.railway.subway_entrance.berlin">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.bilbao">Metron sisäänkäynti</string>
 	<string name="type.railway.subway_entrance.brasilia">Metron sisäänkäynti</string>
 	<string name="type.railway.subway_entrance.brescia">Metron sisäänkäynti</string>
 	<string name="type.railway.subway_entrance.brussels">Metron sisäänkäynti</string>

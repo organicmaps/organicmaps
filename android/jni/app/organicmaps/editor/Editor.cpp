@@ -100,6 +100,14 @@ Java_app_organicmaps_editor_Editor_nativeGetMetadata(JNIEnv * env, jclass, jint 
 {
   auto const metaID = static_cast<osm::MapObject::MetadataID>(id);
   ASSERT_LESS(metaID, osm::MapObject::MetadataID::FMD_COUNT, ());
+  if (osm::isSocialContactTag(metaID))
+  {
+    auto const value = g_editableMapObject.GetMetadata(metaID);
+    if (value.find('/') == std::string::npos) // `value` contains pagename.
+      return jni::ToJavaString(env, value);
+    // `value` contains URL.
+    return jni::ToJavaString(env, osm::socialContactToURL(metaID, value));
+  }
   return jni::ToJavaString(env, g_editableMapObject.GetMetadata(metaID));
 }
 
@@ -123,6 +131,12 @@ JNIEXPORT jint JNICALL
 Java_app_organicmaps_editor_Editor_nativeGetStars(JNIEnv * env, jclass)
 {
   return g_editableMapObject.GetStars();
+}
+
+JNIEXPORT jint JNICALL
+Java_app_organicmaps_editor_Editor_nativeGetMaxEditableBuildingLevels(JNIEnv *, jclass)
+{
+  return osm::EditableMapObject::kMaximumLevelsEditableByUsers;
 }
 
 JNIEXPORT jboolean JNICALL

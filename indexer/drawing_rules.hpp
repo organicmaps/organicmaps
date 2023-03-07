@@ -31,14 +31,13 @@ namespace drule
   class BaseRule
   {
     mutable buffer_vector<uint32_t, 4> m_id1;
-    char m_type;      // obsolete for new styles, can be removed
 
     std::unique_ptr<ISelector> m_selector;
 
   public:
     static uint32_t const empty_id = 0xFFFFFFFF;
 
-    BaseRule();
+    BaseRule() = default;
     virtual ~BaseRule() = default;
 
     void CheckCacheSize(size_t s);
@@ -48,9 +47,6 @@ namespace drule
 
     void MakeEmptyID(size_t threadSlot);
     void MakeEmptyID();
-
-    void SetType(char type) { m_type = type; }
-    inline char GetType() const { return m_type; }
 
     virtual LineDefProto const * GetLine() const;
     virtual AreaRuleProto const * GetArea() const;

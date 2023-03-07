@@ -35,6 +35,17 @@
 	<string name="country_status_download_failed">下載失敗</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">再試一次</string>
+	<string name="about_menu_title">關於 Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">對每個人都免費，用愛製成</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">•沒有廣告，沒有跟踪，沒有數據收集</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• 節省電池電量，不使用後台數據</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">•快速，簡約，沒有垃圾</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">由愛好者和志願者創建的開源應用程序。</string>
 	<string name="connection_settings">連線設定</string>
 	<string name="close">關閉</string>
 	<string name="unsupported_phone">需要 OpenGL 硬體加速功能的支援。但很不幸的，您的裝置並不支援此功能！</string>
@@ -230,7 +241,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">捐</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">如何支持我們？</string>
+	<string name="how_to_support_us">支持項目</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">版權</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -435,7 +446,8 @@
 	<string name="editor_report_problem_other_title">不同的問題</string>
 	<string name="placepage_add_business_button">添加組織</string>
 	<string name="message_invalid_feature_position">物件無法設置在這裡</string>
-	<string name="osm_presentation">所有地圖數據均來自 OpenStreetMap 項目。它就像 Wikipedia 中的地圖，您可以在其中添加或編輯地點，並且它們可供全球數百萬用戶使用。</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">截至%s的OpenStreetMap的製圖數據。就像Wikipedia一樣，您可以為世界上所有用戶添加或編輯位置。</string>
 	<string name="login_to_make_edits_visible">登入來讓其他使用者能看到您所作出的修改。</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d個/共%2$d個</string>
@@ -443,8 +455,8 @@
 	<string name="download_over_mobile_message">用某些方案或漫遊的話這可能相當昂貴。</string>
 	<string name="error_enter_correct_house_number">輸入正確的門牌號碼</string>
 	<string name="editor_storey_number">樓層數（最大 %d）</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">編輯最多 25 層的建築</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">編輯最多 %d 層的建築</string>
 	<string name="editor_zip_code">郵遞區號</string>
 	<string name="error_enter_correct_zip_code">輸入正確的郵遞區號</string>
 	<!-- Place Page title for long tap -->
@@ -752,6 +764,7 @@
 	<string name="type.amenity.internet_cafe">網路咖啡店</string>
 	<string name="type.amenity.kindergarten">幼兒園</string>
 	<string name="type.amenity.library">圖書館</string>
+	<string name="type.amenity.loading_dock">裝卸碼頭</string>
 	<string name="type.amenity.marketplace">市場</string>
 	<string name="type.amenity.motorcycle_parking">機車停車格</string>
 	<string name="type.amenity.nightclub">夜店</string>
@@ -946,15 +959,27 @@
 	<string name="type.emergency.defibrillator">心臟電擊器</string>
 	<string name="type.emergency.fire_hydrant">消防栓</string>
 	<string name="type.emergency.phone">緊急電話</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">入口</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">主要入口</string>
 	<string name="type.healthcare.laboratory">醫學實驗室</string>
 	<string name="type.healthcare.physiotherapist">物理治療師</string>
+	<string name="type.healthcare.alternative">替代藥物</string>
+	<string name="type.healthcare.audiologist">聽力學</string>
+	<string name="type.healthcare.blood_donation">捐血中心</string>
+	<string name="type.healthcare.optometrist">驗光</string>
+	<string name="type.healthcare.podiatrist">足病學</string>
+	<string name="type.healthcare.psychotherapist">心理治療</string>
+	<string name="type.healthcare.sample_collection">採樣</string>
+	<string name="type.healthcare.speech_therapist">言語治療</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">橋</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">隧道</string>
+	<string name="type.highway.busway">巴士專用道</string>
 	<string name="type.highway.bus_stop">巴士站</string>
 	<string name="type.highway.construction">在建道路</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1192,6 +1217,7 @@
 	<string name="type.man_made.lighthouse">燈塔</string>
 	<string name="type.man_made.surveillance">監控攝影機</string>
 	<string name="type.man_made.tower">塔</string>
+	<string name="type.man_made.tower.communication">通訊塔</string>
 	<string name="type.man_made.water_tap">水龍頭</string>
 	<string name="type.man_made.water_tower">水塔</string>
 	<string name="type.man_made.water_well">水井</string>
@@ -1276,6 +1302,10 @@
 	<string name="type.place.suburb">郊區</string>
 	<string name="type.place.town">鎮</string>
 	<string name="type.place.village">村莊</string>
+	<string name="type.power.generator.solar">太陽能發電機</string>
+	<string name="type.power.generator.wind">風力發電機</string>
+	<string name="type.power.generator.gas">燃氣輪機發電廠</string>
+	<string name="type.power.generator.hydro">水力發電廠</string>
 	<string name="type.power.pole">電塔</string>
 	<string name="type.power.substation">變電所</string>
 	<string name="type.power.tower">電塔</string>
@@ -1304,6 +1334,7 @@
 	<string name="type.railway.station.subway.beijing">捷運站</string>
 	<string name="type.railway.station.subway.bengalore">捷運站</string>
 	<string name="type.railway.station.subway.berlin">捷運站</string>
+	<string name="type.railway.station.subway.bilbao">捷運站</string>
 	<string name="type.railway.station.subway.brasilia">捷運站</string>
 	<string name="type.railway.station.subway.brescia">捷運站</string>
 	<string name="type.railway.station.subway.brussels">捷運站</string>
@@ -1413,6 +1444,7 @@
 	<string name="type.railway.subway_entrance.beijing">地鐵入口</string>
 	<string name="type.railway.subway_entrance.bengalore">地鐵入口</string>
 	<string name="type.railway.subway_entrance.berlin">地鐵入口</string>
+	<string name="type.railway.subway_entrance.bilbao">地鐵入口</string>
 	<string name="type.railway.subway_entrance.brasilia">地鐵入口</string>
 	<string name="type.railway.subway_entrance.brescia">地鐵入口</string>
 	<string name="type.railway.subway_entrance.brussels">地鐵入口</string>

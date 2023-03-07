@@ -18,6 +18,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
@@ -79,6 +81,15 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     }
   };
 
+  private void addWindowsInsets(@NonNull View topFrame)
+  {
+    ViewCompat.setOnApplyWindowInsetsListener(topFrame.findViewById(R.id.nav_next_turn_container), (view, windowInsets) -> {
+      view.setPadding(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).left, view.getPaddingTop(),
+                      view.getPaddingRight(), view.getPaddingBottom());
+      return windowInsets;
+    });
+  }
+
   public NavigationController(AppCompatActivity activity, @NonNull MapButtonsController mapButtonsController, View.OnClickListener onSettingsClickListener)
   {
     mFrame = activity.findViewById(R.id.navigation_frame);
@@ -93,11 +104,7 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     mNextTurnDistance = turnFrame.findViewById(R.id.distance);
     mCircleExit = turnFrame.findViewById(R.id.circle_exit);
 
-    topFrame.findViewById(R.id.nav_next_turn_container).setOnApplyWindowInsetsListener((view, windowInsets) -> {
-      view.setPadding(windowInsets.getSystemWindowInsetLeft(), view.getPaddingTop(),
-                      view.getPaddingRight(), view.getPaddingBottom());
-      return windowInsets;
-    });
+    addWindowsInsets(topFrame);
 
     mNextNextTurnFrame = topFrame.findViewById(R.id.nav_next_next_turn_frame);
     mNextNextTurnImage = mNextNextTurnFrame.findViewById(R.id.turn);
@@ -108,11 +115,11 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     // Show a blank view below the navbar to hide the menu content
     final View navigationBarBackground = mFrame.findViewById(R.id.nav_bottom_sheet_nav_bar);
     final View nextTurnContainer = mFrame.findViewById(R.id.nav_next_turn_container);
-    mStreetFrame.setOnApplyWindowInsetsListener((v, windowInsets) -> {
-      UiUtils.extendViewWithStatusBar(v, windowInsets);
-      nextTurnContainer.setPadding(windowInsets.getSystemWindowInsetLeft(), nextTurnContainer.getPaddingTop(),
+    ViewCompat.setOnApplyWindowInsetsListener(mStreetFrame, (v, windowInsets) -> {
+      UiUtils.setViewInsetsPaddingNoBottom(v, windowInsets);
+      nextTurnContainer.setPadding(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).left, nextTurnContainer.getPaddingTop(),
                                    nextTurnContainer.getPaddingRight(), nextTurnContainer.getPaddingBottom());
-      navigationBarBackground.getLayoutParams().height = windowInsets.getSystemWindowInsetBottom();
+      navigationBarBackground.getLayoutParams().height = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
       // The gesture navigation bar stays at the bottom in landscape
       // We need to add a background only above the nav menu
       navigationBarBackground.getLayoutParams().width = mFrame.findViewById(R.id.nav_bottom_sheet).getWidth();

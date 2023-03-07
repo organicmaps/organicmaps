@@ -17,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
-import androidx.appcompat.app.AlertDialog;
 
 import app.organicmaps.api.ParsedMwmRequest;
 import app.organicmaps.base.BaseMwmFragmentActivity;
@@ -34,6 +33,7 @@ import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.log.Logger;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;
 
@@ -94,7 +94,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       new Factory.KmzKmlProcessor(this),
   };
 
-  private final LocationListener mLocationListener = new LocationListener.Simple()
+  private final LocationListener mLocationListener = new LocationListener()
   {
     @Override
     public void onLocationUpdated(Location location)
@@ -347,7 +347,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     final Intent intent = new Intent(this, MwmActivity.class);
 
     // Disable animation because MwmActivity should appear exactly over this one
-    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 
     // Add saved task to forward to map activity.
     if (mMapTaskToForward != null)
@@ -359,7 +359,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       if (ParsedMwmRequest.getCurrentRequest() != null)
       {
         // Wait for the result from MwmActivity for API callers.
-        startActivityForResult(intent, REQ_CODE_API_RESULT);
+        UiUtils.startActivityForResult(this, intent, REQ_CODE_API_RESULT);
         return;
       }
     }
@@ -459,7 +459,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       throw new AssertionError("Unexpected result code = " + result);
     }
 
-    new AlertDialog.Builder(this, R.style.MwmTheme_AlertDialog)
+    new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
         .setTitle(titleId)
         .setMessage(messageId)
         .setCancelable(true)

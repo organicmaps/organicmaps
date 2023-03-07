@@ -24,7 +24,8 @@
     zh-Hant = 纜車要素
 
   [type.aerialway.cable_car]
-    en = Cable car
+    en = Cable Car
+    ar = تلفريك
     de = Pendelbahn
     el = Τελεφερίκ
     es = Teleférico
@@ -47,7 +48,7 @@
     zh-Hant = 纜車
 
   [type.aerialway.chair_lift]
-    en = Chair lift
+    en = Chair Lift
     de = Sessellift
     el = Τελεφερίκ
     es = Telesilla
@@ -69,7 +70,7 @@
     zh-Hans = 登山吊椅
 
   [type.aerialway.drag_lift]
-    en = Drag lift
+    en = Drag Lift
     de = Schlepplift
     el = Τελεφερίκ
     es = Telesquí
@@ -115,7 +116,7 @@
     zh-Hant = 循環式索道
 
   [type.aerialway.mixed_lift]
-    en = Mixed lift
+    en = Mixed Lift
     de = Kombibahn
     el = Τελεφερίκ
     es = Telecabina/telesilla
@@ -224,7 +225,7 @@
 
   [type.aeroway.aerodrome.international]
     en = International Airport
-    ar = مطار
+    ar = مطار دولي
     cs = Letiště
     da = Lufthavn
     de = Flughafen
@@ -1123,7 +1124,7 @@
 
   [type.leisure.bowling_alley]
     en = Bowling Alley
-    ar = ﺞﻨﻴﻟﻮﺑ ﺔﻟﺎﺻ
+    ar = صالة بولينج
     be = Боўлінг
     bg = Боулинг писта
     ca = Bolera
@@ -1443,7 +1444,7 @@
 
   [type.amenity.music_school]
     en = Music School
-    ar = ﻰﻘﻴﺳﻮﻣ ﺔﺳﺭﺪﻣ
+    ar = مدرسة موسيقى
     be = Музычная школа
     bg = Музикално училище
     cs = Hudební škola
@@ -1480,7 +1481,7 @@
 
   [type.amenity.language_school]
     en = Language School
-    ar = ﺔﻐﻟ ﺔﺳﺭﺪﻣ
+    ar = مدرسة لغة
     be = Моўная школа
     bg = Езиково училище
     cs = Jazyková škola
@@ -1636,7 +1637,7 @@
     fr = Caserne de pompiers
     hu = Tűzoltóság
     id = Kantor pemadam kebakaran
-    it = Scuadra antincendio
+    it = Squadra antincendio
     ja = 消防署
     ko = 소방서
     mr = अग्निशमन केंद्र
@@ -1658,6 +1659,7 @@
 
   [type.amenity.food_court]
     en = Food Court
+    ar = مكان تناول الطعام
     es = Zona de comidas
     et = Toiduväljak
     eu = Jantokia
@@ -1731,7 +1733,7 @@
     mr = पेट्रोल पंप
     nb = Bensinstasjon
     nl = Tankstation
-    pl = Stacja benzynowa
+    pl = Stacja paliw
     pt = Posto de combustível
     pt-BR = Posto de combustível
     ro = Benzinărie
@@ -1785,6 +1787,7 @@
   [type.amenity.grave_yard.christian]
     ref = type.amenity.grave_yard
     en = Christian Graveyard
+    ar = مقبرة مسيحية
     be = Хрысціянскія могілкі
     es = Cementerio cristiano
     et = Kristlik surnuaed
@@ -2008,6 +2011,46 @@
     zh-Hans = 图书馆
     zh-Hant = 圖書館
 
+  [type.amenity.loading_dock]
+    en = Loading Dock
+    ar = رصيف التحميل
+    be = Пагрузная платформа
+    bg = Товарен док
+    ca = Moll de càrrega
+    cs = Nakládaci dok
+    da = Læsserampe
+    de = Laderampe
+    el = Αποβάθρα φόρτωσης
+    es = Muelle de carga
+    et = Laadimisdokk
+    eu = Kargatzeko kaia
+    fa = اسکله بارگیری
+    fi = Lastauslaituri
+    fr = Quai de chargement
+    he = רציף טעינה
+    hu = Rakodó
+    id = Dok pemuatan
+    it = Bacino di carico
+    ja = 発送センター
+    ko = 하역장
+    mr = डक लड करत आह
+    nb = Lasterampe
+    nl = Laad-dock
+    pl = Dok załadunkowy
+    pt = Doca de carregamento
+    pt-BR = Doca de carregamento
+    ro = Încărcare doc
+    ru = Погрузочный док
+    sk = Nakladacia rampa
+    sv = Lastkaj
+    sw = Inapakia kituo
+    th = แทนวางสนคา
+    tr = Yükleme alanı
+    uk = Завантажувальна платформа
+    vi = Bến tàu
+    zh-Hans = 装卸码头
+    zh-Hant = 裝卸碼頭
+
   [type.amenity.marketplace]
     en = Marketplace
     ar = سوق
@@ -2188,7 +2231,7 @@
 
   [type.amenity.parking.fee]
     en = Paid Parking
-    ar = ﺮﺟﻷ﻿ﺍ ﺔﻋﻮﻓﺪﻣ ﺕﺍﺭﺎﻴﺳ ﻒﻗﺍﻮﻣ
+    ar = موقف سيارات مدفوع
     be = Платная паркоўка
     bg = Платен паркинг
     cs = Placené parkoviště
@@ -2225,7 +2268,7 @@
 
   [type.amenity.parking.multi.storey]
     en = Multi Storey Parking
-    ar = ﻖﺑﺍﻮﻄﻟﺍ ﺓﺩﺪﻌﺘﻣ ﻒﻗﺍﻮﻣ
+    ar = موقف سيارات متعدد الطوابق
     be = Шматпавярховая паркоўка
     bg = Многоетажен паркинг
     cs = Vícepodlažní parkoviště
@@ -2269,7 +2312,7 @@
 
   [type.amenity.parking.private]
     en = Private Parking
-    ar = ﺹﺎﺧ ﻒﻗﻮﻣ
+    ar = موقف سيارات خاص
     be = Прыватная паркоўка
     bg = Частен паркинг
     cs = Soukromé parkoviště
@@ -2343,7 +2386,7 @@
 
   [type.amenity.parking.underground]
     en = Underground Parking
-    ar = ﺽﺭﻻ﻿ﺍ ﺖﺤﺗ ﻒﻗﻮﻣ
+    ar = موقف سيارات تحت الأرض
     be = Падземны паркінг
     bg = Подземен паркинг
     cs = Podzemní parkoviště
@@ -2380,7 +2423,7 @@
 
   [type.amenity.parking_entrance]
     en = Parking entrance
-    ar = ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻭ ﻞﺧﺪﻣ
+    ar = مدخل موقف سيارات
     be = Уваход на паркоўку
     bg = Вход за паркинг
     cs = Vjezd na parkoviště
@@ -2567,7 +2610,7 @@
 
   [type.amenity.parking_space.disabled]
     en = Disabled Parking Space
-    ar = ﺔﺻﺎﺨﻟﺍ ﺕﺎﺟﺎﻴﺘﺣﻻ﻿ﺍ ﻱﻭﺬﻟ ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻮﻟ ﻦﻛﺎﻣﺃ
+    ar = مكان لوقوف السيارات لذوي الاحتياجات الخاصة
     be = Паркоўка для інвалідаў
     bg = Паркомясто за инвалиди
     cs = Parkovací místo pro invalidy
@@ -3057,6 +3100,7 @@
 
   [type.amenity.prison]
     en = Prison
+    ar = سجن
     de = Gefängnis
     es = Prisión
     et = Vangla
@@ -3077,7 +3121,7 @@
 
   [type.amenity.pub]
     en = Pub
-    ar = بار
+    ar = حانة
     cs = Hospoda
     da = Værtshus
     de = Kneipe
@@ -3217,7 +3261,7 @@
 
   [type.recycling.batteries]
     en = Household Batteries
-    ar = ﺕﺎﻳﺭﺎﻄﺑ
+    ar = بطاريات
     be = Батарэйкі
     bg = Батерии
     cs = Baterie
@@ -3509,6 +3553,7 @@
 
   [type.recycling.cardboard]
     en = Cardboard
+    ar = ورق مقوى
     be = Кардон
     de = Karton
     es = Cartón
@@ -3525,6 +3570,7 @@
 
   [type.recycling.cans]
     en = Cans
+    ar = علب
     be = Бляшаныя і алюмініевыя слоікі
     de = Dosen
     es = Latas
@@ -3541,6 +3587,7 @@
 
   [type.recycling.shoes]
     en = Shoes
+    ar = أحذية
     be = Абутак
     de = Schuhe
     es = Calzado
@@ -3557,6 +3604,7 @@
 
   [type.recycling.green_waste]
     en = Green/Organic Waste
+    ar = نفايات عضوية
     be = Арганіка / Харчовыя адходы
     de = Bio-Müll
     es = Orgánico
@@ -3572,6 +3620,7 @@
 
   [type.recycling.cartons]
     en = Beverage Cartons
+    ar = علب مشروبات
     be = Тэтрапак і аналагі
     de = Getränkekarton
     es = Cartones de bebida
@@ -3936,6 +3985,7 @@
 
   [type.amenity.vending_machine]
     en = Vending Machine
+    ar = ماكينة بيع
     be = Гандлёвы аўтамат
     de = Verkaufsautomat
     es = Máquina expendedora
@@ -3993,6 +4043,7 @@
 
   [type.amenity.vending_machine.coffee]
     en = Coffee Dispenser
+    ar = ماكينة بيع قهوة
     be = Кававы аўтамат
     de = Kaffeeautomat
     es = Máquina expendedora de café
@@ -4061,6 +4112,7 @@
 
   [type.amenity.vending_machine.food]
     en = Food Dispenser
+    ar = ماكينة بيع طعام
     be = Аўтамат з ежай
     de = Essensautomat
     es = Máquina expendedora de comida
@@ -4167,6 +4219,7 @@
 
   [type.amenity.vending_machine.sweets]
     en = Sweets Dispenser
+    ar = ماكينة بيع الحلويات
     be = Аўтамат з прысмакамі
     de = Süßigkeitenautomat
     es = Máquina expendedora de dulces
@@ -4183,6 +4236,7 @@
 
   [type.amenity.vending_machine.excrement_bags]
     en = Excrement Bags Dispenser
+    ar = ماكينة بيع حقائب النفايات
     be = Мяшкі дзеля экскрыментаў
     de = Hundekotbeutelspender
     es = Maquina expendedora de bolsas para excrementos
@@ -4198,6 +4252,7 @@
 
   [type.amenity.parcel_locker]
     en = Parcel Locker
+    ar = خزانة الطرود
     be = Паштамат
     de = Paketstation
     es = Taquilla de paquetes
@@ -4215,6 +4270,7 @@
 
   [type.amenity.vending_machine.fuel]
     en = Fuel Dispenser
+    ar = ماكينة بيع الوقود
     be = Паліўная калонка
     de = Tankautomat
     es = Maquina expendedora de combustible
@@ -4334,6 +4390,7 @@
 
   [type.amenity.waste_transfer_station]
     en = Waste Transfer Station
+    ar = محطة نقل النفايات
     be = Станцыя перавалкі адходаў
     de = Müllumladestation
     es = Estación de transferencia de residuos
@@ -4384,6 +4441,7 @@
 
   [type.barrier]
     en = Barrier
+    ar = حاجز
     de = Barriere
     es = Barrera
     et = Barjäär
@@ -4546,7 +4604,7 @@
 
   [type.barrier.ditch]
     en = Moat
-    ar = ﻕﺪﻨﺧ
+    ar = حفرة
     be = Роў
     bg = Ров
     cs = Hradní příkop
@@ -4859,6 +4917,7 @@
 
   [type.barrier.wall]
     en = Wall
+    ar = جدار
     de = Mauer
     es = Muro
     et = Müür
@@ -4879,6 +4938,7 @@
 
   [type.boundary]
     en = Boundary
+    ar = حدود
     de = Grenze
     es = Frontera
     et = Piir
@@ -4899,6 +4959,7 @@
 
   [type.boundary.administrative]
     en = Administrative Boundary
+    ar = حدود إدارية
     de = Verwaltungsgrenze
     es = Frontera administrativa
     et = Halduspiir
@@ -4958,6 +5019,7 @@
 
   [type.boundary.administrative.city]
     en = City Boundary
+    ar = حدود مدينة
     es = Frontera de ciudad
     et = Linna piir
     eu = Hiriko muga
@@ -4976,6 +5038,7 @@
 
   [type.boundary.administrative.country]
     en = National Border
+    ar = حدود دولية
     es = Frontera de país
     es-MX = Frontera de país
     et = Riigipiir
@@ -4995,6 +5058,7 @@
 
   [type.boundary.administrative.county]
     en = County Boundary
+    ar = حدود مقاطعة
     es = Frontera de condado
     et = Maakonna piir
     eu = Eskualdeko muga
@@ -5012,6 +5076,7 @@
 
   [type.boundary.administrative.municipality]
     en = Municipality Boundary
+    ar = حدود بلدية
     es = Frontera de municipio
     et = Valla piir
     eu = Udalerriko muga
@@ -5037,6 +5102,7 @@
 
   [type.boundary.administrative.region]
     en = Regional Boundary
+    ar = حدود منطقة
     es = Frontera de región
     et = Piirkondlik piir
     eu = Eskualdeko muga
@@ -5080,7 +5146,7 @@
     pt = Fronteira de subúrbio
     pt-BR = Fronteira de subúrbio
     ru = Граница пригорода
-    tr = Banliyö Sınırı
+    tr = Mahalle Sınırı
     uk = Приміська межа
     zh-Hans = 市郊行政区域界线
 
@@ -5294,6 +5360,7 @@
 
   [type.building.warehouse]
     en = Warehouse
+    ar = مستودع
     es = Almacén
     et = Ladu
     eu = Denda
@@ -5311,7 +5378,7 @@
 
   [type.cemetery.grave]
     en = Grave
-    ar = ﺮﻴﻄﺧ
+    ar = قبر
     be = Магіла
     bg = Гроб
     cs = Hrob
@@ -5654,7 +5721,7 @@
 
   [type.craft.gardener]
     en = Gardener
-    ar = مهندس مناظر
+    ar = بستاني
     be = Садоўнік
     bg = Градинар
     cs = Zahradník
@@ -5883,7 +5950,7 @@
 
   [type.craft.plumber]
     en = Plumber
-    ar = سمكري
+    ar = سباك
     be = Вадаправодчык
     bg = Водопроводчик
     cs = Instalatér
@@ -7873,7 +7940,7 @@
     ar = مطبخ محلي
     cs = Místní kuchyně
     da = Lokalt køkken
-    de = Regional
+    de = Lokale Küche
     el = Τοπική
     es = Cocina local
     et = Kohalik
@@ -8421,7 +8488,7 @@
     ar = مطبخ إقليمي
     cs = Regionální kuchyně
     da = Regionalt køkken
-    de = Regional
+    de = Regionale Küche
     el = Περιφερειακή
     es = Cocina regional
     et = Piirkondlik
@@ -9123,6 +9190,7 @@
     zh-Hant = 緊急電話
 
   [type.entrance]
+    comment = This is for secondary entrances, for main entrances see type.entrance.main
     en = Entrance
     ar = مدخل
     cs = Vchod
@@ -9156,6 +9224,47 @@
     vi = Lối vào
     zh-Hans = 入口
     zh-Hant = 入口
+
+  [type.entrance.main]
+    comment = This is for main/primary entrances, for secondary entrances see type.entrance
+    en = Main Entrance
+    ar = ﻲﺴﻴﺋﺮﻟﺍ ﻞﺧﺪﻤﻟﺍ
+    be = Галоўны ўваход
+    bg = Главния вход
+    ca = Entrada principal
+    cs = Hlavní vchod
+    da = Hovedindgang
+    de = Haupteingang
+    el = Κύρια είσοδος
+    es = Entrada principal
+    et = Peasissekäik
+    eu = Sarrera Nagusia
+    fa = ﯽﻠﺻﺍ ﯼﺩﻭﺭﻭ
+    fi = Pääsisäänkäynti
+    fr = Entrée principale
+    he = תישארה הסינכ
+    hu = Főbejárat
+    id = Pintu masuk utama
+    it = Entrata principale
+    ja = 正面玄関
+    ko = 정문
+    mr = मुख्य प्रवेशद्वार
+    nb = Hovedinngang
+    nl = Hoofdingang
+    pl = Główne wejście
+    pt = Entrada principal
+    pt-BR = Entrada principal
+    ro = Intrarea principala
+    ru = Главный вход
+    sk = Hlavný vchod
+    sv = Huvudentré
+    sw = Mlango Mkuu
+    th = ทางเข้าหลัก
+    tr = Ana giriş
+    uk = Головний вхід
+    vi = Lối vào chính
+    zh-Hans = 主要入口
+    zh-Hant = 主要入口
 
   [type.healthcare.laboratory]
     en = Medical Laboratory
@@ -9235,6 +9344,318 @@
     zh-Hans = 物理治疗师
     zh-Hant = 物理治療師
 
+  [type.healthcare.alternative]
+    en = Alternative medicine
+    ar = الطب البديل
+    be = Альтэрнатыўная медыцына
+    bg = Алтернативна медицина
+    cs = Alternativní medicína
+    da = Alternativ medicin
+    de = Alternative Medizin
+    el = Εναλλακτική ιατρική
+    es = Medicina alternativa
+    et = Alternatiivne meditsiin
+    eu = Medikuntza alternatiboa
+    fa = طب جایگزین
+    fi = Vaihtoehtoinen lääketiede
+    fr = Médecine alternative
+    he = רפואה אלטרנטיבית
+    hu = Alternatív gyógyászat
+    id = Pengobatan alternatif
+    it = Medicina alternativa
+    ja = 代替医療
+    ko = 대체 약품
+    mr = पर्यायी औषध
+    nb = Alternativ medisin
+    nl = Alternatieve geneeskunde
+    pl = Medycyna alternatywna
+    pt = Medicina alternativa
+    pt-BR = Medicina alternativa
+    ro = Medicină alternativă
+    ru = Альтернативная медицина
+    sk = Alternatívna medicína
+    sv = Alternativ medicin
+    sw = Dawa mbadala
+    th = การแพทย์ทางเลือก
+    tr = Alternatif tıp
+    uk = Альтернативна медицина
+    vi = Liều thuốc thay thế
+    zh-Hans = 替代医学
+    zh-Hant = 替代藥物
+
+  [type.healthcare.audiologist]
+    en = Audiology
+    ar = السمع
+    be = Аўдыялогія
+    bg = Аудиология
+    cs = Audiologie
+    da = Audiologi
+    de = Audiologie
+    el = Ακοολογία
+    es = Audiología
+    et = Audioloogia
+    eu = Audiologia
+    fa = شنوایی شناسی
+    fi = Audiologia
+    fr = Audiologie
+    he = אודיולוגיה
+    hu = Audiológia
+    id = Audiologi
+    it = Audiologia
+    ja = オーディオロジー
+    ko = 청력학
+    mr = ऑडिओलॉजी
+    nb = Audiologi
+    nl = Audiologie
+    pl = Audiologia
+    pt = Audiologia
+    pt-BR = Fonoaudiologia
+    ro = Audiologie
+    ru = Аудиология
+    sk = Audiológia
+    sv = Audiologi
+    sw = Mtaalamu wa kusikia
+    th = โสตวิทยา
+    tr = Odyoloji
+    uk = Аудіологія
+    vi = Thính học
+    zh-Hans = 听力学家
+    zh-Hant = 聽力學
+
+  [type.healthcare.blood_donation]
+    en = Blood donation center
+    ar = مركز التبرع بالدم
+    be = Цэнтр донарства крыві
+    bg = Център за кръводаряване
+    cs = Centrum dárcovství krve
+    da = Center for bloddonation
+    de = Blutspendezentrum
+    el = Κέντρο αιμοδοσίας
+    es = Centro de donación de sangre
+    et = Vereloovutuskeskus
+    eu = Odol Emate Zentroa
+    fa = مرکز اهدای خون
+    fi = Verenluovutuskeskus
+    fr = Centre de don du sang
+    he = מרכז תרומת דם
+    hu = Véradó központ
+    id = Pusat Donor Darah
+    it = Centro di donazione del sangue
+    ja = 献血センター
+    ko = 헌혈센터
+    mr = रक्तदान केंद्र
+    nb = Bloddonasjonssenter
+    nl = Bloeddonatiecentrum
+    pl = Centrum krwiodawstwa
+    pt = Centro de Doação de Sangue
+    pt-BR = Hemocentro
+    ro = Centrul de donare de sânge
+    ru = Центр донорства крови
+    sk = Centrum darcovstva krvi
+    sv = Centrum för blodgivning
+    sw = Kituo cha Uchangiaji Damu
+    th = ศูนย์รับบริจาคโลหิต
+    tr = Kan Bağışı Merkezi
+    uk = Центр донорства крові
+    vi = Trung tâm hiến máu
+    zh-Hans = 献血中心
+    zh-Hant = 捐血中心
+
+  [type.healthcare.optometrist]
+    en = Optometry
+    ar = قياس البصر
+    be = Оптаметрыя
+    bg = Оптометрия
+    cs = Optometrie
+    da = Optometri
+    de = Optometrie
+    el = Οπτομετρία
+    es = Optometría
+    et = Optomeetria
+    eu = Optometria
+    fa = بینایی سنجی
+    fi = Optometria
+    fr = Optométrie
+    he = אופטומטריה
+    hu = Optometria
+    id = Optometri
+    it = Optometria
+    ja = オプトメトリー
+    ko = 검안
+    mr = ऑप्टोमेट्री
+    nb = Optometri
+    nl = Optometrie
+    pl = Optometria
+    pt = Optometria
+    pt-BR = Optometria
+    ro = Optometrie
+    ru = Оптометрия
+    sk = Optometria
+    sv = Optometri
+    sw = Optometry
+    th = ทัศนมาตรศาสตร์
+    tr = Optometri
+    uk = Оптометрія
+    vi = Khúc xạ nhãn khoa
+    zh-Hans = 验光师
+    zh-Hant = 驗光
+
+  [type.healthcare.podiatrist]
+    en = Podiatry
+    ar = علاج الأرجل
+    be = Подологія
+    bg = Подиология
+    cs = Podiatrie
+    da = Fodterapi
+    de = Podologie
+    el = Ποδιατρική
+    es = Podología
+    et = Jalaravi
+    eu = Podologia
+    fa = پزشکی پا
+    fi = Jalkaterapia
+    fr = Podologie
+    he = פודיאטריה
+    hu = Podiatria
+    id = Podiatri
+    it = Podologia
+    ja = 足病学
+    ko = 발병학
+    mr = पोडियाट्री
+    nb = Fotterapi
+    nl = Podologie
+    pl = Podiatria
+    pt = Podiatria
+    pt-BR = Podiatria
+    ro = Podiatrie
+    ru = Подиатрия
+    sk = Podiatria
+    sv = Fotvård
+    sw = Matibabu ya miguu
+    th = แก้โรคเท้า
+    tr = Podiatri
+    uk = Подологія
+    vi = khoa bàn chân
+    zh-Hans = 足疗师
+    zh-Hant = 足病學
+
+  [type.healthcare.psychotherapist]
+    en = Psychotherapy
+    ar = العلاج النفسي
+    be = Псіхатэрапія
+    bg = Психотерапия
+    cs = Psychoterapie
+    da = Psykoterapi
+    de = Psychotherapie
+    el = Ψυχοθεραπεία
+    es = Psicoterapia
+    et = Psühhoteraapia
+    eu = Psikoterapia
+    fa = روان درمانی
+    fi = Psykoterapia
+    fr = Psychothérapie
+    he = פסיכותרפיה
+    hu = Pszichoterápia
+    id = Psikoterapi
+    it = Psicoterapia
+    ja = 心理療法
+    ko = 심리치료
+    mr = मानसोपचार
+    nb = Psykoterapi
+    nl = Psychotherapie
+    pl = Psychoterapia
+    pt = Psicoterapia
+    pt-BR = Psicoterapia
+    ro = Psihoterapie
+    ru = Психотерапия
+    sk = Psychoterapia
+    sv = Psykoterapi
+    sw = Tiba ya kisaikolojia
+    th = จิตบำบัด
+    tr = Psikoterapi
+    uk = Психотерапія
+    vi = Tâm lý trị liệu
+    zh-Hans = 心理治疗师
+    zh-Hant = 心理治療
+
+  [type.healthcare.sample_collection]
+    en = Sample collection
+    ar = أخذ العينات
+    be = Збор аналізаў
+    bg = Вземане на проби
+    cs = Odběr vzorků
+    da = Prøvetagning
+    de = Probenahme
+    el = Δειγματοληψία
+    es = Muestreo
+    et = Proovivõtmine
+    eu = Laginketa
+    fa = نمونه برداری
+    fi = Näytteenotto
+    fr = Prélèvements biologiques
+    he = דְגִימָה
+    hu = Mintavétel
+    id = Pengambilan sampel
+    it = Campionamento
+    ja = サンプリング
+    ko = 견본 추출
+    mr = नमुना
+    nb = Prøvetaking
+    nl = Bemonstering
+    pl = Próbkowanie
+    pt = Amostragem
+    pt-BR = Amostragem
+    ro = Eșantionare
+    ru = Сбор анализов
+    sk = Vzorkovanie|Zber vzoriek
+    sv = Provtagning
+    sw = Sampuli
+    th = การสุ่มตัวอย่าง
+    tr = Örnekleme
+    uk = Збір аналізів
+    vi = lấy mẫu
+    zh-Hans = 样本采集设施
+    zh-Hant = 採樣
+
+  [type.healthcare.speech_therapist]
+    en = Logopedics
+    ar = علاج النطق
+    be = лагапедыя
+    bg = Логопедия
+    cs = Logopedie
+    da = Tale terapi
+    de = Logopedie
+    el = Λογοθεραπεία
+    es = Logopedia
+    et = Logopeedia
+    eu = Logopedia
+    fa = گفتار درمانی
+    fi = Logopedia
+    fr = Logopédie
+    he = ריפוי בדיבור
+    hu = Logopédia
+    id = Logopedik
+    it = Logopedia
+    ja = ロゴペディックス
+    ko = 대화 요법
+    mr = स्पीच थेरपी
+    nb = Snakketerapi
+    nl = Logopedie
+    pl = Logopeda
+    pt = Terapia da fala
+    pt-BR = Terapia da fala
+    ro = Logopedie
+    ru = Логопедия
+    sk = Logopédia
+    sv = Logopedics
+    sw = Tiba ya hotuba
+    th = การบำบัดด้วยการพูด
+    tr = Logopedi
+    uk = Логопедія
+    vi = Ngôn ngữ trị liệu
+    zh-Hans = 语言治疗师
+    zh-Hant = 言語治療
+
 [[Types: Roads]]
 
   [type.highway]
@@ -9289,6 +9710,46 @@
     ja = 馬道(トンネル)
     pl = Tunel drogowy dla koni
     pt-BR = Túnel para cavaleiros
+
+  [type.highway.busway]
+    en = Dedicated bus road
+    ar = ﺺﺼﺨﻣ ﺕﻼﻓﺎﺣ ﻖﻳﺮﻃ
+    be = Выдзеленая аўтобусная дарога
+    bg = Обособен автобусен път
+    ca = Carretera dedicada a l'autobús
+    cs = Vyhrazená autobusová silnice
+    da = Dedikeret busvej
+    de = Eigene Busstraße
+    el = Αφιερωμένος δρόμος λεωφορείων
+    es = Carretera exclusiva para autobuses
+    et = Spetsiaalne bussitee
+    eu = Autobus errepidea
+    fa = ﺱﻮﺑﻮﺗﺍ ﯽﺻﺎﺼﺘﺧﺍ ﻩﺩﺎﺟ
+    fi = Oma bussitie
+    fr = Route réservée aux bus
+    he = ידועיי סובוטוא שיבכ
+    hu = Kijelölt buszút
+    id = Jalan khusus bus
+    it = Strada dedicata agli autobus
+    ja = バス専用道路
+    ko = 버스전용도로
+    mr = समर्पित बस रस्ता
+    nb = Dedikert bussvei
+    nl = Speciale busweg
+    pl = Dedykowana droga autobusowa
+    pt = Via exclusiva de autocarro
+    pt-BR = Via exclusiva de ônibus
+    ro = Drum dedicat autobuzului
+    ru = Выделенная автобусная дорога
+    sk = Vyhradená autobusová cesta
+    sv = Dedikerad bussväg
+    sw = Barabara ya basi iliyotengwa
+    th = ถนนทางเดินรถโดยเฉพาะ
+    tr = Özel otobüs yolu
+    uk = Виділена автобусна дорога
+    vi = Đường dành riêng cho xe buýt
+    zh-Hans = 巴士专用道
+    zh-Hant = 巴士專用道
 
   [type.highway.bus_stop]
     en = Bus Stop
@@ -12275,7 +12736,7 @@
 
   [type.landuse.cemetery.christian]
     ref = type.amenity.grave_yard.christian
-    en = Cementerio cristiano
+    en = Christian Cemetery
     nl = Christelijke begraafplaats
 
   [type.landuse.churchyard]
@@ -12682,7 +13143,7 @@
     zh-Hans = 温室园艺
 
   [type.landuse.industrial]
-    en = Industrial Land
+    en = Industrial Area
     ar = منطقة صناعية
     de = Industriegebiet
     es = Zona industrial
@@ -12900,7 +13361,7 @@
     zh-Hant = 水庫
 
   [type.landuse.residential]
-    en = Residential Land
+    en = Residential Area
     ar = منطقة سكنية
     de = Wohngebiet
     es = Zona residencial
@@ -12919,7 +13380,7 @@
     zh-Hans = 住宅用地
 
   [type.landuse.retail]
-    en = Retail Land
+    en = Retail Area
     ar = منطقة متاجر
     de = Einzelhandelsgebiet
     es = Zona comercial
@@ -13021,7 +13482,7 @@
     zh-Hans = 公共用地
 
   [type.leisure.dog_park]
-    en = Dog Area
+    en = Dog Park
     ar = منطقة كلاب
     cs = Místo pro psy
     da = Hundepark
@@ -14226,6 +14687,46 @@
     vi = Tháp
     zh-Hans = 高塔
     zh-Hant = 塔
+
+  [type.man_made.tower.communication]
+    en = Communications Tower
+    ar = برج الاتصالات
+    be = Вежа сувязі
+    bg = Комуникационна кула
+    ca = Torre de comunicacions
+    cs = Komunikační věž
+    da = Kommunikationstårn
+    de = Kommunikationsturm
+    el = Πύργος Επικοινωνιών
+    es = Torre de comunicaciones
+    et = Sidetorn
+    eu = Komunikazio Dorrea
+    fa = برج ارتباطات
+    fi = Viestintätorni
+    fr = Tour de communication
+    he = מגדל תקשורת
+    hu = Kommunikációs torony
+    id = Menara Komunikasi
+    it = Torre delle comunicazioni
+    ja = 通信塔
+    ko = 커뮤니케이션 타워
+    mr = कम्युनिकेशन टॉवर
+    nb = Kommunikasjonstårn
+    nl = Communicatie Toren
+    pl = Wieża komunikacyjna
+    pt = Torre de comunicação
+    pt-BR = Torre de comunicação
+    ro = Turnul de comunicații
+    ru = Вышка связи
+    sk = Komunikačná veža
+    sv = Kommunikationstorn
+    sw = Mnara wa Mawasiliano
+    th = หอสื่อสาร
+    tr = İletişim Kulesi
+    uk = Вежа зв'язку
+    vi = Tháp truyền thông
+    zh-Hans = 通讯塔
+    zh-Hant = 通訊塔
 
   [type.man_made.wastewater_plant]
     en = Wastewater treatment plant
@@ -17085,7 +17586,7 @@
     sv = Förort
     sw = Pambizo
     th = ชานเมือง
-    tr = Banliyö
+    tr = Mahalle
     uk = Район
     vi = Đảo
     zh-Hans = 市郊
@@ -17198,6 +17699,166 @@
     tr = Jeneratör
     uk = Генератор
     zh-Hans = 发电机
+
+  [type.power.generator.solar]
+    en = Solar Generator
+    ar = مولد للطاقة الشمسية
+    be = Сонечны генератар
+    bg = Слънчев генератор
+    ca = Generador solar
+    cs = Solární generátor
+    da = Solar generator
+    de = Solargenerator
+    el = Ηλιακή γεννήτρια
+    es = Generador solar
+    et = Päikese generaator
+    eu = Eguzki-sorgailua
+    fa = ژنراتور خورشیدی
+    fi = Aurinkogeneraattori
+    fr = Générateur solaire
+    he = גנרטור סולארי
+    hu = Napelemes generátor
+    id = Pembangkit surya
+    it = Generatore solare
+    ja = 太陽光発電機
+    ko = 태양열 발전기
+    mr = सौर जनरेटर
+    nb = Solenergi generator
+    nl = Zonne-generator
+    pl = Generator słoneczny
+    pt = Gerador solar
+    pt-BR = Gerador solar
+    ro = Generator solar
+    ru = Солнечный генератор
+    sk = Solárny generátor
+    sv = Solgenerator
+    sw = Jenereta ya jua
+    th = เครื่องกำเนิดพลังงานแสงอาทิตย์
+    tr = Güneş jeneratörü
+    uk = Сонячний генератор
+    vi = Máy phát điện năng lượng mặt trời
+    zh-Hans = 太阳能发电机
+    zh-Hant = 太陽能發電機
+
+  [type.power.generator.wind]
+    en = Wind Generator
+    ar = مولد الرياح
+    be = Ветрагенератар
+    bg = Вятърен генератор
+    ca = Generador eòlic
+    cs = Větrný generátor
+    da = Vindgenerator
+    de = Windgenerator
+    el = Ανεμογεννήτρια
+    es = Generador de viento
+    et = Tuulegeneraator
+    eu = Sorgailu eolikoa
+    fa = مولد باد
+    fi = Tuuligeneraattori
+    fr = Générateur de vent
+    he = מחולל רוח
+    hu = Szélgenerátor
+    id = Generator angin
+    it = Generatore eolico
+    ja = 風力発電機
+    ko = 풍력 발전기
+    mr = वारा जनरेटर
+    nb = Vindgenerator
+    nl = Wind generator
+    pl = Generator wiatru
+    pt = Gerador eólico
+    pt-BR = Gerador eólico
+    ro = Generator eolian
+    ru = Ветрогенератор
+    sk = Veterný generátor
+    sv = Vindgenerator
+    sw = Jenereta ya upepo
+    th = เครื่องกำเนิดลม
+    tr = Rüzgar jeneratörü
+    uk = Вітрогенератор
+    vi = Máy phát điện gió
+    zh-Hans = 风力发电机
+    zh-Hant = 風力發電機
+
+  [type.power.generator.gas]
+    en = Gas turbine Power Plant
+    ar = محطة توليد الكهرباء بالغاز
+    be = Газатурбінная электрастанцыя
+    bg = Газотурбинна електроцентрала
+    ca = Central elèctrica de turbina de gas
+    cs = Elektrárna s plynovou turbínou
+    da = Gasturbine kraftværk
+    de = Gasturbinenkraftwerk
+    el = Μονάδα παραγωγής ηλεκτρικής ενέργειας αεριοστροβίλου
+    es = Planta de energía de turbina de gas
+    et = Gaasiturbiini elektrijaam
+    eu = Gas-turbinetako zentral elektrikoa
+    fa = نیروگاه توربین گاز
+    fi = Kaasuturbiinivoimala
+    fr = Centrale à turbine à gaz
+    he = תחנת כוח לטורבינת גז
+    hu = Gázturbinás erőmű
+    id = Pembangkit listrik turbin gas
+    it = Centrale elettrica a turbina a gas
+    ja = ガスタービン発電所
+    ko = 가스 터빈 발전소
+    mr = गॅस टर्बाइन पॉवर प्लांट
+    nb = Gassturbinkraftverk
+    nl = Gasturbine elektriciteitscentrale
+    pl = Elektrownia z turbiną gazową
+    pt = Usina de turbina a gás
+    pt-BR = Usina de turbina a gás
+    ro = Centrala electrica cu turbina cu gaz
+    ru = Газотурбинная электростанция
+    sk = Elektráreň s plynovou turbínou
+    sv = Gasturbinkraftverk
+    sw = Kiwanda cha nguvu cha turbine ya gesi
+    th = โรงไฟฟ้ากังหันก๊าซ
+    tr = Gaz türbini santrali
+    uk = Газотурбінна електростанція
+    vi = Nhà máy điện tua bin khí
+    zh-Hans = 燃气轮机发电厂
+    zh-Hant = 燃氣輪機發電廠
+
+  [type.power.generator.hydro]
+    en = Hydroelectric Power Plant
+    ar = محطة توليد الطاقة الكهرمائية
+    be = Гідраэлектрастанцыя
+    bg = Водноелектрическа централа
+    ca = Central hidroelèctrica
+    cs = Vodní elektrárna
+    da = Vandkraftværk
+    de = Wasserkraftwerk
+    el = Υδροηλεκτρικό εργοστάσιο
+    es = Planta de energía hidroeléctrica
+    et = Hüdroelektrijaam
+    eu = Zentral hidroelektrikoa
+    fa = نیروگاه برق آبی
+    fi = Vesivoimalaitos
+    fr = Centrale hydroélectrique
+    he = תחנת כוח הידרואלקטרית
+    hu = Vízerőmű
+    id = Pembangkit listrik tenaga air
+    it = Centrale idroelettrica
+    ja = 水力発電所
+    ko = 수력 발전소
+    mr = जलविद्युत प्रकल्प
+    nb = Vannkraftverk
+    nl = Waterkrachtcentrale
+    pl = Elektrownia wodna
+    pt = Usina hidrelétrica
+    pt-BR = Usina hidrelétrica
+    ro = Centrală hidroelectrică
+    ru = Гидроэлектростанция
+    sk = Vodná elektráreň
+    sv = Vattenkraftverk
+    sw = Kiwanda cha umeme wa maji
+    th = โรงไฟฟ้าพลังน้ำ
+    tr = Hidroelektrik santral
+    uk = Гідроелектростанція
+    vi = Nhà máy thủy điện
+    zh-Hans = 水力发电厂
+    zh-Hant = 水力發電廠
 
   [type.power.line]
     en = Power Line
@@ -18127,6 +18788,9 @@
   [type.railway.station.subway.berlin]
     ref = type.railway.station.subway
 
+  [type.railway.station.subway.bilbao]
+    ref = type.railway.station.subway
+
   [type.railway.station.subway.brasilia]
     ref = type.railway.station.subway
 
@@ -18427,7 +19091,7 @@
     it = Binari della metrò
     mr = भुयारी मार्गिका
     nl = Metro
-    pt = Metropolitano
+    pt = Metro
     pt-BR = Metrô
     ru = Ветка метро
     tr = Metro Hattı
@@ -18441,8 +19105,8 @@
     fr = Voie de métro
     mr = भुयारी मार्गिका
     nl = Metrobrug
-    pt = Metropolitano
-    pt-BR = Metrô
+    pt = Ponte de metro
+    pt-BR = Ponte de metrô
     ru = Ветка метро
     tr = Metro Hattı
     uk = Лінія метро
@@ -18455,8 +19119,8 @@
     fr = Voie de métro
     mr = भुयारी मार्गिका
     nl = Metrotunnel
-    pt = Metropolitano
-    pt-BR = Metrô
+    pt = Túnel de metro
+    pt-BR = Tunel de metrô
     ru = Ветка метро
     tr = Metro Hattı
     uk = Лінія метро
@@ -18533,6 +19197,9 @@
     ref = type.railway.subway_entrance
 
   [type.railway.subway_entrance.berlin]
+    ref = type.railway.subway_entrance
+
+  [type.railway.subway_entrance.bilbao]
     ref = type.railway.subway_entrance
 
   [type.railway.subway_entrance.brasilia]
@@ -19506,7 +20173,7 @@
     fa = فروشگاه
     fi = Kauppa
     fr = Chocolatier
-    hu = Bolt
+    hu = Csokoládébolt
     id = Toko
     it = Choccolateria
     ja = チョコレート屋
@@ -20236,7 +20903,7 @@
     zh-Hant = 禮品店
 
   [type.shop.greengrocer]
-    en = Greengrocer's
+    en = Greengrocer
     ar = متجر خضروات وفواكه
     cs = Ovoce a zelenina
     da = Grønthandler

@@ -17,7 +17,6 @@ import android.widget.TextView;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +29,7 @@ import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
@@ -100,7 +100,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   {
     if (RoutingController.get().isNavigating())
     {
-      new AlertDialog.Builder(adapter.mActivity, R.style.MwmTheme_AlertDialog)
+      new MaterialAlertDialogBuilder(adapter.mActivity, R.style.MwmTheme_AlertDialog)
           .setTitle(R.string.downloader_delete_map)
           .setMessage(R.string.downloader_delete_map_while_routing_dialog)
           .setPositiveButton(R.string.ok, null)
@@ -114,7 +114,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       return;
     }
 
-    new AlertDialog.Builder(adapter.mActivity, R.style.MwmTheme_AlertDialog)
+    new MaterialAlertDialogBuilder(adapter.mActivity, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.downloader_delete_map)
         .setMessage(R.string.downloader_delete_map_dialog)
         .setNegativeButton(R.string.cancel, null)
@@ -481,7 +481,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       String found = null;
       if (mSearchResultsMode)
       {
-        mName.setMaxLines(1);
         mName.setText(mItem.name);
 
         String searchResultName = mItem.searchResultName;
@@ -502,7 +501,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       }
       else
       {
-        mName.setMaxLines(2);
         mName.setText(mItem.name);
         if (!mItem.isExpandable())
           UiUtils.setTextAndHideIfEmpty(mSubtitle, mItem.description);

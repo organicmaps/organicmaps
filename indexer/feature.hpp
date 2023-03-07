@@ -86,6 +86,7 @@ public:
   enum { BEST_GEOMETRY = -1, WORST_GEOMETRY = -2 };
 
   m2::RectD GetLimitRect(int scale);
+  m2::RectD const & GetLimitRectChecked() const;
 
   bool IsEmptyGeometry(int scale);
 

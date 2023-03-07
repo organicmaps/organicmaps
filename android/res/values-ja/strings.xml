@@ -35,6 +35,17 @@
 	<string name="country_status_download_failed">のダウンロードに失敗しました</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">再実行</string>
+	<string name="about_menu_title">Organic Mapsについて</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">すべての人のために無料で、愛を込めて作られています</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">•広告、追跡なし、データ収集なし</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• バッテリーを節約し、バックグラウンド データを使用しません</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">•速く、ミニマルな、ジャンクなし</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">愛好家とボランティアによって作成されたオープンソースアプリケーション。</string>
 	<string name="connection_settings">接続設定</string>
 	<string name="close">閉じる</string>
 	<string name="unsupported_phone">ハードウェアアクセラレーションされたOpenGLが必要です。残念ながらご利用中のデバイスではサポートされていません。</string>
@@ -217,7 +228,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">寄付</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">どのように私たちを支持する方法？</string>
+	<string name="how_to_support_us">プロジェクトを支援する</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">著作権</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -419,7 +430,8 @@
 	<string name="editor_report_problem_other_title">異なる問題</string>
 	<string name="placepage_add_business_button">団体を追加</string>
 	<string name="message_invalid_feature_position">ここにはオブジェクトを配置できません</string>
-	<string name="osm_presentation">すべての地図データは、OpenStreetMap プロジェクトから取得されます。場所を追加または編集できる地図のウィキペディアのようなもので、世界中の何百万人ものユーザーが利用できるようになります。</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">%sの時点でのOpenStreetMapからの地図作成データ。これは、世界中のすべてのユーザーの場所を追加または編集できるウィキペディアのようなものです。</string>
 	<string name="login_to_make_edits_visible">他のユーザーにも変更が表示されるようログインしてください。</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%2$d中%1$d</string>
@@ -427,8 +439,8 @@
 	<string name="download_over_mobile_message">プランによって、またはローミングしている場合、非常に高額になる可能性があります。</string>
 	<string name="error_enter_correct_house_number">正しい番地を入力してください</string>
 	<string name="editor_storey_number">フロアの数（最大%d）</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">最高25階までのビルを編集</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">最高%d階までのビルを編集</string>
 	<string name="editor_zip_code">郵便番号</string>
 	<string name="error_enter_correct_zip_code">正しい郵便番号を入力してください</string>
 	<!-- Place Page title for long tap -->
@@ -729,6 +741,7 @@
 	<string name="type.amenity.internet_cafe">インターネットカフェ</string>
 	<string name="type.amenity.kindergarten">幼稚園</string>
 	<string name="type.amenity.library">図書館</string>
+	<string name="type.amenity.loading_dock">発送センター</string>
 	<string name="type.amenity.marketplace">市場</string>
 	<string name="type.amenity.motorcycle_parking">バイク駐輪場</string>
 	<string name="type.amenity.nightclub">ナイトクラブ</string>
@@ -941,9 +954,20 @@
 	<string name="type.emergency.defibrillator">除細動器</string>
 	<string name="type.emergency.fire_hydrant">消火栓</string>
 	<string name="type.emergency.phone">緊急電話</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">エントランス</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">正面玄関</string>
 	<string name="type.healthcare.laboratory">医療研究所</string>
 	<string name="type.healthcare.physiotherapist">理学療法士</string>
+	<string name="type.healthcare.alternative">代替医療</string>
+	<string name="type.healthcare.audiologist">オーディオロジー</string>
+	<string name="type.healthcare.blood_donation">献血センター</string>
+	<string name="type.healthcare.optometrist">オプトメトリー</string>
+	<string name="type.healthcare.podiatrist">足病学</string>
+	<string name="type.healthcare.psychotherapist">心理療法</string>
+	<string name="type.healthcare.sample_collection">サンプリング</string>
+	<string name="type.healthcare.speech_therapist">ロゴペディックス</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">道路</string>
@@ -953,6 +977,7 @@
 	<string name="type.highway.bridleway.permissive">馬道</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">馬道(トンネル)</string>
+	<string name="type.highway.busway">バス専用道路</string>
 	<string name="type.highway.bus_stop">バス停</string>
 	<string name="type.highway.construction">工事中の道路</string>
 	<string name="type.highway.cycleway">自転車道</string>
@@ -1232,6 +1257,7 @@
 	<string name="type.man_made.pipeline.overground">地表のパイプライン</string>
 	<string name="type.man_made.surveillance">監視カメラ</string>
 	<string name="type.man_made.tower">タワー</string>
+	<string name="type.man_made.tower.communication">通信塔</string>
 	<string name="type.man_made.wastewater_plant">下水処理場</string>
 	<string name="type.man_made.water_tap">給水栓</string>
 	<string name="type.man_made.water_tower">給水塔</string>
@@ -1323,6 +1349,10 @@
 	<string name="type.place.village">村</string>
 	<string name="type.power">電力</string>
 	<string name="type.power.generator">発電機</string>
+	<string name="type.power.generator.solar">太陽光発電機</string>
+	<string name="type.power.generator.wind">風力発電機</string>
+	<string name="type.power.generator.gas">ガスタービン発電所</string>
+	<string name="type.power.generator.hydro">水力発電所</string>
 	<string name="type.power.line">電力線</string>
 	<string name="type.power.line.underground">地下電力線</string>
 	<string name="type.power.minor_line">低圧電力線</string>
@@ -1384,6 +1414,7 @@
 	<string name="type.railway.station.subway.beijing">地下鉄</string>
 	<string name="type.railway.station.subway.bengalore">地下鉄</string>
 	<string name="type.railway.station.subway.berlin">地下鉄</string>
+	<string name="type.railway.station.subway.bilbao">地下鉄</string>
 	<string name="type.railway.station.subway.brasilia">地下鉄</string>
 	<string name="type.railway.station.subway.brescia">地下鉄</string>
 	<string name="type.railway.station.subway.brussels">地下鉄</string>
@@ -1493,6 +1524,7 @@
 	<string name="type.railway.subway_entrance.beijing">地下鉄入り口</string>
 	<string name="type.railway.subway_entrance.bengalore">地下鉄入り口</string>
 	<string name="type.railway.subway_entrance.berlin">地下鉄入り口</string>
+	<string name="type.railway.subway_entrance.bilbao">地下鉄入り口</string>
 	<string name="type.railway.subway_entrance.brasilia">地下鉄入り口</string>
 	<string name="type.railway.subway_entrance.brescia">地下鉄入り口</string>
 	<string name="type.railway.subway_entrance.brussels">地下鉄入り口</string>

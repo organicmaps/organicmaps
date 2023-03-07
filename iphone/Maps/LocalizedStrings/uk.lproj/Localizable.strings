@@ -50,7 +50,7 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Помилка завантаження";
 
-"about_menu_title" = "Про програму";
+"about_menu_title" = "Про Organic Maps";
 
 "close" = "Закрити";
 
@@ -304,7 +304,7 @@
 "donate" = "Підтримати грошима";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Як нас підтримати?";
+"how_to_support_us" = "Підтримайте проект";
 
 /* Button in the main Help dialog */
 "copyright" = "Копірайт";
@@ -710,8 +710,8 @@
 
 "editor_storey_number" = "Кількість поверхів (максимум %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "Редагуйте будівлі висотою максимум 25 поверхів";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Редагуйте будівлі висотою максимум %d поверхів";
 
 "editor_zip_code" = "Поштовий індекс";
 
@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "Бібліотека";
 
+"type.amenity.loading_dock" = "Завантажувальна платформа";
+
 "type.amenity.marketplace" = "Ринкова площа";
 
 "type.amenity.motorcycle_parking" = "Парковка для мотоциклів";
@@ -1849,11 +1851,31 @@
 
 "type.emergency.phone" = "Аварійний телефон";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Вхід";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Головний вхід";
 
 "type.healthcare.laboratory" = "Медична лабораторія";
 
 "type.healthcare.physiotherapist" = "Фізіотерапевт";
+
+"type.healthcare.alternative" = "Альтернативна медицина";
+
+"type.healthcare.audiologist" = "Аудіологія";
+
+"type.healthcare.blood_donation" = "Центр донорства крові";
+
+"type.healthcare.optometrist" = "Оптометрія";
+
+"type.healthcare.podiatrist" = "Подологія";
+
+"type.healthcare.psychotherapist" = "Психотерапія";
+
+"type.healthcare.sample_collection" = "Збір аналізів";
+
+"type.healthcare.speech_therapist" = "Логопедія";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1891,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Тунель";
+
+"type.highway.busway" = "Виділена автобусна дорога";
 
 "type.highway.bus_stop" = "Зупинка";
 
@@ -2431,6 +2455,8 @@
 
 "type.man_made.tower" = "Вежа";
 
+"type.man_made.tower.communication" = "Вежа зв'язку";
+
 "type.man_made.wastewater_plant" = "Очистні споруди";
 
 "type.man_made.water_tap" = "Водопровідний кран";
@@ -2623,6 +2649,14 @@
 
 "type.power.generator" = "Генератор";
 
+"type.power.generator.solar" = "Сонячний генератор";
+
+"type.power.generator.wind" = "Вітрогенератор";
+
+"type.power.generator.gas" = "Газотурбінна електростанція";
+
+"type.power.generator.hydro" = "Гідроелектростанція";
+
 "type.power.line" = "Лінія електропередач";
 
 "type.power.line.underground" = "Підземна лінія електропередач";
@@ -2754,6 +2788,8 @@
 "type.railway.station.subway.bengalore" = "Метро";
 
 "type.railway.station.subway.berlin" = "Метро";
+
+"type.railway.station.subway.bilbao" = "Метро";
 
 "type.railway.station.subway.brasilia" = "Метро";
 
@@ -2978,6 +3014,8 @@
 "type.railway.subway_entrance.bengalore" = "Вхід до метро";
 
 "type.railway.subway_entrance.berlin" = "Вхід до метро";
+
+"type.railway.subway_entrance.bilbao" = "Вхід до метро";
 
 "type.railway.subway_entrance.brasilia" = "Вхід до метро";
 

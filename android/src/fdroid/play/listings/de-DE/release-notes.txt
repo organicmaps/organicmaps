@@ -1,0 +1,11 @@
+• Neue OSM-Daten vom 27. Februar
+• Div. Abstürze behoben
+• Fehlende Lokalisierung für chin. Langzeichen behoben
+• Dialoge für Hilfe und ausgewählte POI verbessert
+• Fehler bei komplexeren Öffnungszeiten behoben
+• Wiki-Artikel sind nun klickbar und für Lesezeichen sichtbar
+• Suche korrigiert und verbessert
+• Spezialisten im Gesundheitswesen hinzugefügt
+• Funktürme, Solar-, Wind-, Gas- und Wassergeneratoren hinzugefügt
+• Verbesserte ar-, nb-, pt- und tr-Übersetzungen
+• ...mehr: omaps.app/news

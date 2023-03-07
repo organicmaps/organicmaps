@@ -37,6 +37,17 @@
 	<string name="country_status_download_failed">การดาวน์โหลดล้มเหลว</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">ลองอีกครั้ง</string>
+	<string name="about_menu_title">เกี่ยวกับ Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">ฟรีสำหรับทุกคนทำด้วยความรัก</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• ไม่มีโฆษณาไม่มีการติดตามไม่มีการรวบรวมข้อมูล</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• ประหยัดแบตเตอรี่ ไม่ใช้ข้อมูลพื้นหลัง</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">•เร็วเรียบง่ายไม่มีขยะ</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">แอปพลิเคชันโอเพนซอร์ซที่สร้างขึ้นโดยผู้ที่ชื่นชอบและอาสาสมัคร</string>
 	<string name="connection_settings">การตั้งค่าการเชื่อมต่อ</string>
 	<string name="close">ปิด</string>
 	<string name="unsupported_phone">จำเป็นต้องใช้ฮาร์ดแวร์ที่เพิ่มความเร็ว OpenGL โชคไม่ดีที่อุปกรณ์ของคุณไม่รองรับ</string>
@@ -221,7 +232,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">บริจาค</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">วิธีการสนับสนุนเรา</string>
+	<string name="how_to_support_us">สนับสนุนโครงการ</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">ลิขสิทธิ์</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -423,7 +434,8 @@
 	<string name="editor_report_problem_other_title">ปัญหาอีกอย่างหนึ่ง</string>
 	<string name="placepage_add_business_button">เพิ่มองค์กร</string>
 	<string name="message_invalid_feature_position">ไม่สามารถตั้งวัตถุได้ที่นี่</string>
-	<string name="osm_presentation">ข้อมูลแผนที่ทั้งหมดมาจากโครงการ OpenStreetMap เหมือนกับวิกิพีเดียสำหรับแผนที่ที่คุณสามารถเพิ่มหรือแก้ไขสถานที่ได้ และพวกเขาพร้อมให้ผู้ใช้หลายล้านคนทั่วโลกใช้งานได้</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">ข้อมูลการทำแผนที่จาก OpenStreetMap ณ ปี %sมันเป็นเหมือนวิกิพีเดียที่คุณสามารถเพิ่มหรือแก้ไขสถานที่สำหรับผู้ใช้ทุกคนทั่วโลก</string>
 	<string name="login_to_make_edits_visible">ล็อกอินเพื่อให้ผู้ใช้คนอื่นสามารถเห็นการเปลี่ยนแปลงของคุณได้</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d จาก %2$d</string>
@@ -431,8 +443,8 @@
 	<string name="download_over_mobile_message">มันอาจมีราคาสูงมากหากใช้แผนโทรศัพท์บางประเภทหรือหากทำการโรมมิ่ง</string>
 	<string name="error_enter_correct_house_number">กรอกบ้านเลขที่ให้ถูกต้อง</string>
 	<string name="editor_storey_number">จำนวนชั้น (มากสุด %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">แก้ไขอาคารที่มีจำนวนชั้นมากกว่า 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">แก้ไขอาคารที่มีจำนวนชั้นมากกว่า %d</string>
 	<string name="editor_zip_code">รหัสไปรษณีย์</string>
 	<string name="error_enter_correct_zip_code">กรุณาใส่รหัสไปรษณีย์ที่ถูกต้อง</string>
 	<!-- Place Page title for long tap -->
@@ -721,6 +733,7 @@
 	<string name="type.amenity.internet_cafe">อินเทอร์เน็ตคาเฟ่</string>
 	<string name="type.amenity.kindergarten">โรงเรียนอนุบาล</string>
 	<string name="type.amenity.library">ห้องสมุด</string>
+	<string name="type.amenity.loading_dock">แทนวางสนคา</string>
 	<string name="type.amenity.marketplace">ตลาดสินค้า</string>
 	<string name="type.amenity.motorcycle_parking">ที่จอดรถมอเตอร์ไซค์</string>
 	<string name="type.amenity.nightclub">ไนต์คลับ</string>
@@ -914,15 +927,27 @@
 	<string name="type.emergency.defibrillator">เครื่องกระตุ้นหัวใจ</string>
 	<string name="type.emergency.fire_hydrant">หัวจ่ายน้ำดับเพลิง</string>
 	<string name="type.emergency.phone">โทรศัพท์ฉุกเฉิน</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">ทางเข้า</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">ทางเข้าหลัก</string>
 	<string name="type.healthcare.laboratory">ห้องปฏิบัติการทางการแพทย์</string>
 	<string name="type.healthcare.physiotherapist">นักกายภาพบำบัด</string>
+	<string name="type.healthcare.alternative">การแพทย์ทางเลือก</string>
+	<string name="type.healthcare.audiologist">โสตวิทยา</string>
+	<string name="type.healthcare.blood_donation">ศูนย์รับบริจาคโลหิต</string>
+	<string name="type.healthcare.optometrist">ทัศนมาตรศาสตร์</string>
+	<string name="type.healthcare.podiatrist">แก้โรคเท้า</string>
+	<string name="type.healthcare.psychotherapist">จิตบำบัด</string>
+	<string name="type.healthcare.sample_collection">การสุ่มตัวอย่าง</string>
+	<string name="type.healthcare.speech_therapist">การบำบัดด้วยการพูด</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">สะพาน</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">อุโมงค์</string>
+	<string name="type.highway.busway">ถนนทางเดินรถโดยเฉพาะ</string>
 	<string name="type.highway.bus_stop">ป้ายรถเมล์</string>
 	<string name="type.highway.construction">ทางกำลังอยู่ในการก่อสร้าง</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1158,6 +1183,7 @@
 	<string name="type.man_made.lighthouse">ประภาคาร</string>
 	<string name="type.man_made.surveillance">กล้องวงจรปิด</string>
 	<string name="type.man_made.tower">หอคอย</string>
+	<string name="type.man_made.tower.communication">หอสื่อสาร</string>
 	<string name="type.man_made.water_tap">ก๊อกน้ำ</string>
 	<string name="type.man_made.water_tower">อ่างเก็บน้ำ</string>
 	<string name="type.man_made.water_well">บ่อน้ำ</string>
@@ -1242,6 +1268,10 @@
 	<string name="type.place.suburb">ชานเมือง</string>
 	<string name="type.place.town">เมือง</string>
 	<string name="type.place.village">หมู่บ้าน</string>
+	<string name="type.power.generator.solar">เครื่องกำเนิดพลังงานแสงอาทิตย์</string>
+	<string name="type.power.generator.wind">เครื่องกำเนิดลม</string>
+	<string name="type.power.generator.gas">โรงไฟฟ้ากังหันก๊าซ</string>
+	<string name="type.power.generator.hydro">โรงไฟฟ้าพลังน้ำ</string>
 	<string name="type.power.pole">เสาไฟฟ้า</string>
 	<string name="type.power.substation">สถานีไฟฟ้า</string>
 	<string name="type.power.tower">เสาไฟฟ้า</string>
@@ -1265,6 +1295,7 @@
 	<string name="type.railway.station.subway.beijing">รถไฟ</string>
 	<string name="type.railway.station.subway.bengalore">รถไฟ</string>
 	<string name="type.railway.station.subway.berlin">รถไฟ</string>
+	<string name="type.railway.station.subway.bilbao">รถไฟ</string>
 	<string name="type.railway.station.subway.brasilia">รถไฟ</string>
 	<string name="type.railway.station.subway.brescia">รถไฟ</string>
 	<string name="type.railway.station.subway.brussels">รถไฟ</string>
@@ -1374,6 +1405,7 @@
 	<string name="type.railway.subway_entrance.beijing">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.subway_entrance.bengalore">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.subway_entrance.berlin">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.bilbao">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.subway_entrance.brasilia">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.subway_entrance.brescia">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.subway_entrance.brussels">ทางเข้ารถไฟใต้ดิน</string>

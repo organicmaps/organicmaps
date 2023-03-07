@@ -37,6 +37,17 @@
 	<string name="country_status_download_failed">İndirme başarısız oldu</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Tekrar Dene</string>
+	<string name="about_menu_title">Organic Maps Hakkında</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Sevgiyle yapılmış, herkes için ücretsiz harita</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Reklam yok, takip yok, veri toplama yok</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Pilinizi tüketmez, arka planda veri alıp göndermez</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Hızlı, minimalist ve hafif</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Teknoloji tutkunları ve gönüllüler tarafından oluşturulan açık kaynaklı bir uygulama.</string>
 	<string name="connection_settings">Konum Ayarları</string>
 	<string name="close">Kapat</string>
 	<string name="unsupported_phone">Hızlı donanıma sahip bir OpenGL gerekli. Ne yazık ki cihazınız desteklenmiyor.</string>
@@ -206,7 +217,7 @@
 	<!-- «Map style» entry value -->
 	<string name="pref_map_style_auto">Otomatik</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
-	<string name="pref_map_3d_title">Perspektif görünüş</string>
+	<string name="pref_map_3d_title">Perspektif görünüm</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D yapılar</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
@@ -238,7 +249,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Bağış yapın</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Sizi nasıl destekleyebilirim?</string>
+	<string name="how_to_support_us">Bu projeyi destekle</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Telif hakkı</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -447,7 +458,8 @@
 	<string name="editor_report_problem_other_title">Farklı bir sorun</string>
 	<string name="placepage_add_business_button">Kuruluş ekle</string>
 	<string name="message_invalid_feature_position">Buraya bir nesne konumlandırılamıyor</string>
-	<string name="osm_presentation">Tüm harita verileri OpenStreetMap projesinden geliyor. Bu proje Vikipedi\'nin harita sürümü gibidir, yer ekleyerek veya düzenleyerek tüm dünyadaki milyonlarca kullanıcı gibi bu harita verilerinin gelişmesine katkıda bulunabilirsiniz.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Harita verileri, %s tarihine ait OpenStreetMap verilerinden alınmıştır. OpenStreetMap, Vikipedi\'nin harita sürümü gibidir: dünyadaki herkes yer ekleyebilir veya düzenleyebilir.</string>
 	<string name="login_to_make_edits_visible">Diğer kullanıcıların yaptığınız değişiklikleri görebilmesi için OpenStreetMap.org\'da oturum açın.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>
@@ -455,8 +467,8 @@
 	<string name="download_over_mobile_message">Bu işlem, bazı planlarda veya dolaşımda oldukça pahalı olabilir.</string>
 	<string name="error_enter_correct_house_number">Geçerli bir bina numarası girin</string>
 	<string name="editor_storey_number">Kat sayısı (en fazla %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Kat sayısı 25\'i geçmemelidir</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Kat sayısı %d\'i geçmemelidir</string>
 	<string name="editor_zip_code">Posta Kodu</string>
 	<string name="error_enter_correct_zip_code">Geçerli bir posta kodu girin</string>
 	<!-- Place Page title for long tap -->
@@ -786,6 +798,7 @@
 	<string name="type.amenity.internet_cafe">İnternet Kafe</string>
 	<string name="type.amenity.kindergarten">Anaokulu</string>
 	<string name="type.amenity.library">Kütüphane</string>
+	<string name="type.amenity.loading_dock">Yükleme alanı</string>
 	<string name="type.amenity.marketplace">Pazaryeri</string>
 	<string name="type.amenity.motorcycle_parking">Motosiklet Parkı</string>
 	<string name="type.amenity.nightclub">Gece Kulübü</string>
@@ -902,7 +915,7 @@
 	<string name="type.boundary.administrative.nation">Ulusal Sınır</string>
 	<string name="type.boundary.administrative.region">Bölgesel Sınır</string>
 	<string name="type.boundary.administrative.state">Devlet Sınırı</string>
-	<string name="type.boundary.administrative.suburb">Banliyö Sınırı</string>
+	<string name="type.boundary.administrative.suburb">Mahalle Sınırı</string>
 	<string name="type.boundary.national_park">Ulusal Park</string>
 	<string name="type.building">Bina</string>
 	<string name="type.building.address">Bina</string>
@@ -1020,9 +1033,20 @@
 	<string name="type.emergency.defibrillator">Defibrilatör</string>
 	<string name="type.emergency.fire_hydrant">Yangın Söndürme Musluğu</string>
 	<string name="type.emergency.phone">Acil Telefon</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Giriş</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Ana giriş</string>
 	<string name="type.healthcare.laboratory">Tıbbi Laboratuvar</string>
 	<string name="type.healthcare.physiotherapist">Fizyoterapist</string>
+	<string name="type.healthcare.alternative">Alternatif tıp</string>
+	<string name="type.healthcare.audiologist">Odyoloji</string>
+	<string name="type.healthcare.blood_donation">Kan Bağışı Merkezi</string>
+	<string name="type.healthcare.optometrist">Optometri</string>
+	<string name="type.healthcare.podiatrist">Podiatri</string>
+	<string name="type.healthcare.psychotherapist">Psikoterapi</string>
+	<string name="type.healthcare.sample_collection">Örnekleme</string>
+	<string name="type.healthcare.speech_therapist">Logopedi</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Otoyol</string>
@@ -1032,6 +1056,7 @@
 	<string name="type.highway.bridleway.permissive">Atlı Yolu</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tünel</string>
+	<string name="type.highway.busway">Özel otobüs yolu</string>
 	<string name="type.highway.bus_stop">Otobüs Durağı</string>
 	<string name="type.highway.construction">Yapım Aşamasında Yol</string>
 	<string name="type.highway.cycleway">Bisiklet Yolu</string>
@@ -1318,6 +1343,7 @@
 	<string name="type.man_made.storage_tank">Depolama Tankı</string>
 	<string name="type.man_made.surveillance">Güvenlik Kamerası</string>
 	<string name="type.man_made.tower">Kule</string>
+	<string name="type.man_made.tower.communication">İletişim Kulesi</string>
 	<string name="type.man_made.wastewater_plant">Atıksu Tesisi</string>
 	<string name="type.man_made.water_tap">Su Musluğu</string>
 	<string name="type.man_made.water_tower">Su Kulesi</string>
@@ -1404,11 +1430,15 @@
 	<string name="type.place.square">Meydan</string>
 	<string name="type.place.state">Eyalet</string>
 	<string name="type.place.state.USA">Eyalet</string>
-	<string name="type.place.suburb">Banliyö</string>
+	<string name="type.place.suburb">Mahalle</string>
 	<string name="type.place.town">Kasaba</string>
 	<string name="type.place.village">Köy</string>
 	<string name="type.power">Enerji</string>
 	<string name="type.power.generator">Jeneratör</string>
+	<string name="type.power.generator.solar">Güneş jeneratörü</string>
+	<string name="type.power.generator.wind">Rüzgar jeneratörü</string>
+	<string name="type.power.generator.gas">Gaz türbini santrali</string>
+	<string name="type.power.generator.hydro">Hidroelektrik santral</string>
 	<string name="type.power.line">Elektrik Hattı</string>
 	<string name="type.power.line.underground">Yeraltı Elektrik Hattı</string>
 	<string name="type.power.minor_line">Küçük Elektrik Hattı</string>
@@ -1470,6 +1500,7 @@
 	<string name="type.railway.station.subway.beijing">Metro</string>
 	<string name="type.railway.station.subway.bengalore">Metro</string>
 	<string name="type.railway.station.subway.berlin">Metro</string>
+	<string name="type.railway.station.subway.bilbao">Metro</string>
 	<string name="type.railway.station.subway.brasilia">Metro</string>
 	<string name="type.railway.station.subway.brescia">Metro</string>
 	<string name="type.railway.station.subway.brussels">Metro</string>
@@ -1582,6 +1613,7 @@
 	<string name="type.railway.subway_entrance.beijing">Metro Girişi</string>
 	<string name="type.railway.subway_entrance.bengalore">Metro Girişi</string>
 	<string name="type.railway.subway_entrance.berlin">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.bilbao">Metro Girişi</string>
 	<string name="type.railway.subway_entrance.brasilia">Metro Girişi</string>
 	<string name="type.railway.subway_entrance.brescia">Metro Girişi</string>
 	<string name="type.railway.subway_entrance.brussels">Metro Girişi</string>

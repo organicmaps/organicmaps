@@ -314,6 +314,12 @@ if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
   set(JANSSON_WITHOUT_TESTS ON)
   add_subdirectory(3party/jansson/jansson/)
   target_include_directories(jansson INTERFACE "${PROJECT_BINARY_DIR}/3party/jansson/jansson/include")
+
+  # Add pugixml library.
+  add_subdirectory(3party/pugixml)
+
+  # Add protobuf library.
+  add_subdirectory(${OMIM_ROOT}/3party/protobuf)
 endif()
 
 add_subdirectory(3party/agg)
@@ -338,7 +344,6 @@ endif()
 add_subdirectory(3party/liboauthcpp)
 add_subdirectory(3party/minizip)
 add_subdirectory(3party/opening_hours)
-add_subdirectory(3party/pugixml)
 add_subdirectory(3party/sdf_image)
 add_subdirectory(3party/stb_image)
 add_subdirectory(3party/succinct)

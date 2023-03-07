@@ -1,0 +1,10 @@
+• Datos nuevos de OpenStreetMap al 27 de febrero
+• Se pueden abrir artículos de wiki, que están visibles en marcadores
+• Varios cierres inesperados corregidos
+• Ya no falta la traducción al chino tradicional
+• Se mejoraron la ayuda y diálogos de PDI selectos
+• Búsqueda arreglada y mejorada
+• Se añadieron especialistas en atención sanitaria
+• Se añadieron torres de comunicación y generadores de energía solar, eólica, de gas e hídrica
+• Mejores traducciones
+… para más: omaps.app/news

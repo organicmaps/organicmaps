@@ -304,7 +304,7 @@
 "donate" = "Quyên tặng";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Làm thế nào để hỗ trợ chúng tôi?";
+"how_to_support_us" = "Hỗ trợ dự án";
 
 /* Button in the main Help dialog */
 "copyright" = "Bản quyền";
@@ -710,8 +710,8 @@
 
 "editor_storey_number" = "Số tầng (tối đa %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "Sửa tòa nhà có tối đa 25 tầng";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Sửa tòa nhà có tối đa %d tầng";
 
 "editor_zip_code" = "Mã ZIP";
 
@@ -1241,15 +1241,15 @@
 
 "type.aerialway" = "Aerialway";
 
-"type.aerialway.cable_car" = "Cable car";
+"type.aerialway.cable_car" = "Cable Car";
 
-"type.aerialway.chair_lift" = "Chair lift";
+"type.aerialway.chair_lift" = "Chair Lift";
 
-"type.aerialway.drag_lift" = "Drag lift";
+"type.aerialway.drag_lift" = "Drag Lift";
 
 "type.aerialway.gondola" = "Gondola";
 
-"type.aerialway.mixed_lift" = "Mixed lift";
+"type.aerialway.mixed_lift" = "Mixed Lift";
 
 "type.aerialway.station" = "Trạm Cáp Treo";
 
@@ -1370,6 +1370,8 @@
 "type.amenity.kindergarten" = "Mẫu giáo";
 
 "type.amenity.library" = "Thư viện";
+
+"type.amenity.loading_dock" = "Bến tàu";
 
 "type.amenity.marketplace" = "Cửa hàng";
 
@@ -1849,11 +1851,31 @@
 
 "type.emergency.phone" = "Điện thoại khẩn cấp";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Lối vào";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Lối vào chính";
 
 "type.healthcare.laboratory" = "Phòng thí nghiệm y tế";
 
 "type.healthcare.physiotherapist" = "Nhà vật lý trị liệu";
+
+"type.healthcare.alternative" = "Liều thuốc thay thế";
+
+"type.healthcare.audiologist" = "Thính học";
+
+"type.healthcare.blood_donation" = "Trung tâm hiến máu";
+
+"type.healthcare.optometrist" = "Khúc xạ nhãn khoa";
+
+"type.healthcare.podiatrist" = "khoa bàn chân";
+
+"type.healthcare.psychotherapist" = "Tâm lý trị liệu";
+
+"type.healthcare.sample_collection" = "lấy mẫu";
+
+"type.healthcare.speech_therapist" = "Ngôn ngữ trị liệu";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1891,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Đường hầm";
+
+"type.highway.busway" = "Đường dành riêng cho xe buýt";
 
 "type.highway.bus_stop" = "Bến xe buýt";
 
@@ -2305,7 +2329,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "Bãi rác";
 
@@ -2323,9 +2347,9 @@
 
 "type.landuse.reservoir" = "Nước";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 
@@ -2430,6 +2454,8 @@
 "type.man_made.surveillance" = "Camera giám sát";
 
 "type.man_made.tower" = "Tháp";
+
+"type.man_made.tower.communication" = "Tháp truyền thông";
 
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
@@ -2623,6 +2649,14 @@
 
 "type.power.generator" = "Generator";
 
+"type.power.generator.solar" = "Máy phát điện năng lượng mặt trời";
+
+"type.power.generator.wind" = "Máy phát điện gió";
+
+"type.power.generator.gas" = "Nhà máy điện tua bin khí";
+
+"type.power.generator.hydro" = "Nhà máy thủy điện";
+
 "type.power.line" = "Power Line";
 
 "type.power.line.underground" = "Underground Power Line";
@@ -2754,6 +2788,8 @@
 "type.railway.station.subway.bengalore" = "Ngầm";
 
 "type.railway.station.subway.berlin" = "Ngầm";
+
+"type.railway.station.subway.bilbao" = "Ngầm";
 
 "type.railway.station.subway.brasilia" = "Ngầm";
 
@@ -2978,6 +3014,8 @@
 "type.railway.subway_entrance.bengalore" = "Lỗi vào Metro";
 
 "type.railway.subway_entrance.berlin" = "Lỗi vào Metro";
+
+"type.railway.subway_entrance.bilbao" = "Lỗi vào Metro";
 
 "type.railway.subway_entrance.brasilia" = "Lỗi vào Metro";
 

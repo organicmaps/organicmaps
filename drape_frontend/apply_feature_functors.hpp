@@ -49,7 +49,7 @@ public:
 protected:
   void ExtractCaptionParams(CaptionDefProto const * primaryProto,
                             CaptionDefProto const * secondaryProto,
-                            double depth, TextViewParams & params) const;
+                            float depth, TextViewParams & params) const;
   std::string ExtractHotelInfo() const;
 
   TInsertShapeFn m_insertShape;
@@ -85,7 +85,7 @@ private:
   bool m_createdByEditor;
   bool m_obsoleteInEditor;
   DepthLayer m_depthLayer;
-  double m_symbolDepth;
+  float m_symbolDepth;
   SymbolRuleProto const * m_symbolRule;
   m2::PointF m_centerPoint;
   std::vector<TextViewParams> m_textParams;

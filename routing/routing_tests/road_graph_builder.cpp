@@ -13,11 +13,9 @@
 #include <algorithm>
 #include <memory>
 
-using namespace routing;
-using namespace std;
-
-namespace
+namespace routing_test
 {
+using std::move;
 
 auto constexpr kMaxSpeedKMpH = 5.0;
 
@@ -29,7 +27,7 @@ public:
   {
     UNUSED_VALUE(Register(platform::LocalCountryFile::MakeForTesting("0")));
 
-    vector<shared_ptr<MwmInfo>> mwmsInfoList;
+    std::vector<std::shared_ptr<MwmInfo>> mwmsInfoList;
     GetMwmsInfo(mwmsInfoList);
 
     m_mwmInfo = mwmsInfoList[0];
@@ -43,27 +41,22 @@ public:
 private:
   /// @name MwmSet overrides
   //@{
-  unique_ptr<MwmInfo> CreateInfo(platform::LocalCountryFile const &) const override
+  std::unique_ptr<MwmInfo> CreateInfo(platform::LocalCountryFile const &) const override
   {
-    unique_ptr<MwmInfo> info(new MwmInfo());
+    std::unique_ptr<MwmInfo> info(new MwmInfo());
     info->m_maxScale = 1;
     info->m_bordersRect = m2::RectD(0, 0, 1, 1);
     info->m_version.SetFormat(version::Format::lastFormat);
     return info;
   }
-  unique_ptr<MwmValue> CreateValue(MwmInfo & info) const override
+  std::unique_ptr<MwmValue> CreateValue(MwmInfo & info) const override
   {
-    return make_unique<MwmValue>(info.GetLocalFile());
+    return std::make_unique<MwmValue>(info.GetLocalFile());
   }
   //@}
 
-  shared_ptr<MwmInfo> m_mwmInfo;
+  std::shared_ptr<MwmInfo> m_mwmInfo;
 };
-
-}  // namespace
-
-namespace routing_test
-{
 
 void RoadGraphMockSource::AddRoad(RoadInfo && ri)
 {

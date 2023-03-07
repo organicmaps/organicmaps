@@ -1,25 +1,13 @@
-• New OpenStreetMap data as of December 16, 2022
-• Improved routing algorithm
-• Do not route over highway=construction :)
-• Support multiple track geometry in KML files
-• Fixed KML 2.3 track import from OpenTracks
-• Faster parsing and rendering of complex KML tracks
-• Allow adding some shops, galleries, music schools in Editor
-• Improved city borders in search results
-• Settings & routing options headers are visible now in the Night Mode
-• Fixed crash when displaying the menu
+• 27 Şubat tarihine ait yeni OpenStreetMap harita verileri
+• iPad'lerde bir klavye bağlandığında oluşan donma sorunu düzeltildi
+• Rota oluşturma butonundaki gereksiz ikinci tıklama kaldırıldı
+• Yinelenen kat ve posta kodu hücreleri kaldırıldı
+• Seçilen tüm yerler için OpenStreetMap editör notları etkinleştirildi
+• Arama düzeltildi ve iyileştirildi
+• Arama sayfasında vegan ve vejetaryen yemek kategorileri ayrıldı
+• Havaalanları, kara yolları, su yolları ve tarama dolgu alanları stilleri düzeltildi
+• Sağlık alanında bazı uzmanlıklar eklendi: alternatif tıb, odyolog, kan bağışı, optometrist, ayak hastalıkları uzmanı, psikoterapist, numune toplama, konuşma terapisti
+• Haberleşme kulesi ve güneş, rüzgar, gaz, hidroelektrik jeneratörleri eklendi
+• Çeviriler iyileştirildi
 
-Map Styles:
-• Improved, less bright icons in Night mode
-• Fixed subway icons in some cities
-• Properly draw barriers for areas and relations
-• Fixed duplicated names on the world map
-• Updated cave, mountain pass, peak, volcano, emergency phone, historic ship, ice cream, nightclub, music shop, stadium, video games icons
-• Fixed wrong priorities of leisure=pitch, historic, post office
-• More consistent filled/round icons (round means some kind of business/service)
-
-Translations:
-• TTS (Text-To-Speech) for Brazil, Mexican Spanish and Norwegian
-• Fixed German and Hungarian search strings
-• Updated TTS for Portuguese and Brazilian
-• Updated Czech, Spanish translations
+Gelişmelerimizi omaps.app/tr/news üzerinden takip edebilirsiniz

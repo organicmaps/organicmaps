@@ -313,6 +313,22 @@ node[healthcare=laboratory],
 area[healthcare=laboratory],
 node[healthcare=physiotherapist],
 area[healthcare=physiotherapist],
+node[healthcare=alternative],
+area[healthcare=alternative],
+node[healthcare=audiologist],
+area[healthcare=audiologist],
+node[healthcare=blood_donation],
+area[healthcare=blood_donation],
+node[healthcare=optometrist],
+area[healthcare=optometrist],
+node[healthcare=podiatrist],
+area[healthcare=podiatrist],
+node[healthcare=psychotherapist],
+area[healthcare=psychotherapist],
+node[healthcare=sample_collection],
+area[healthcare=sample_collection],
+node[healthcare=speech_therapist],
+area[healthcare=speech_therapist],
 node[leisure=swimming_pool],
 area[leisure=swimming_pool],
 area[aeroway=heliport],
@@ -344,10 +360,6 @@ area[office=lawyer]
 node[man_made=lighthouse],
 area[man_made=lighthouse],
 node[barrier=border_control],
-node[boundary=national_park],
-area[boundary=national_park],
-node[leisure=nature_reserve],
-area[leisure=nature_reserve]
 {z-index: 2700;}
 
 node[tourism=artwork],
@@ -672,16 +684,16 @@ node|z12-[landuse=forest][!name],
 area|z12-[landuse=forest][!name]
 {}
 
-node|z14[natural=spring],
-area|z14[natural=spring],
-node|z14[natural=hot_spring],
-area|z14[natural=hot_spring]
-{icon-image: drinking-water-s.svg;text-offset:6;font-size: 10;icon-min-distance: 24;text-optional: true;}
-node|z15-[natural=spring],
-area|z15-[natural=spring],
-node|z15-[natural=hot_spring],
-area|z15-[natural=hot_spring]
-{icon-image: drinking-water-m.svg;text-offset:8;font-size: 10;icon-min-distance: 24;text-optional: true;}
+node|z14-[natural=spring],
+area|z14-[natural=spring],
+node|z14-[natural=hot_spring],
+area|z14-[natural=hot_spring]
+{icon-image: drinking-water-s.svg; text-offset: 6; font-size: 10; icon-min-distance: 24; text-optional: true;}
+node|z18-[natural=spring],
+area|z18-[natural=spring],
+node|z18-[natural=hot_spring],
+area|z18-[natural=hot_spring]
+{icon-image: drinking-water-m.svg; text-offset: 8;}
 
 node|z14[natural=geyser],
 area|z14[natural=geyser]
@@ -743,8 +755,10 @@ node|z14-[amenity=bus_station]::int_name,
 area|z14-[amenity=bus_station]::int_name
 {text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.9;text-halo-color: @label_halo_light;text-position: center;text-optional: true;}
 
-area|z10-[aeroway=aerodrome],
-node|z10-[aeroway=aerodrome],
+area|z10-[aeroway=aerodrome][aerodrome=international],
+node|z10-[aeroway=aerodrome][aerodrome=international],
+area|z14-[aeroway=aerodrome],
+node|z14-[aeroway=aerodrome],
 node|z15-[aerialway=station],
 node|z15-[aerialway=cable_car],
 node|z15-[aerialway=chair_lift],
@@ -758,8 +772,10 @@ node|z15-[aerialway=platter],
 node|z15-[aerialway=rope_tow],
 node|z16-[amenity=ferry_terminal]
 {text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.7;text-halo-color: @label_halo_light;text-position: center;text-optional: true;}
-area|z12-[aeroway=aerodrome]::int_name,
-node|z12-[aeroway=aerodrome]::int_name,
+area|z12-[aeroway=aerodrome][aerodrome=international]::int_name,
+node|z12-[aeroway=aerodrome][aerodrome=international]::int_name,
+area|z14-[aeroway=aerodrome]::int_name,
+node|z14-[aeroway=aerodrome]::int_name,
 {text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.7;text-halo-color: @label_halo_light;text-position: center;text-optional: true;}
 
 /* 3.1 Train Station */
@@ -910,28 +926,22 @@ node|z17-[amenity=ferry_terminal]
 
 /* 3.6 Airport */
 
-/* Manually define priority to avoid city names displacement */
 area|z7-9[aeroway=aerodrome][aerodrome=international],
 node|z7-9[aeroway=aerodrome][aerodrome=international],
-{ icon-image: airport-s.svg; -x-me-icon-priority: 10000 }
+{icon-image: airport-s.svg;}
 
 area|z10[aeroway=aerodrome][aerodrome=international],
 node|z10[aeroway=aerodrome][aerodrome=international],
-{icon-image: airport-s.svg;text-offset: 1;font-size: 10;fill-opacity: 1;text-optional: true;}
+{icon-image: airport-s.svg;text-offset: 1;font-size: 10;}
 area|z11-13[aeroway=aerodrome][aerodrome=international],
 node|z11-13[aeroway=aerodrome][aerodrome=international],
-area|z12-13[aeroway=aerodrome][aerodrome=international],
-node|z12-13[aeroway=aerodrome][aerodrome=international]
-{icon-image: airport-m.svg;text-offset: 1;font-size: 11;-x-me-icon-priority: 3100;text-optional: true;}
-area|z12-13[aeroway=aerodrome]::int_name,
-node|z12-13[aeroway=aerodrome]::int_name,
-{font-size: 10;text-optional: true;}
+{icon-image: airport-m.svg; text-offset: 1; font-size: 11;}
 area|z14-[aeroway=aerodrome],
 node|z14-[aeroway=aerodrome]
-{icon-image: airport-m.svg;text-offset: 1;font-size: 12;text-optional: true;}
+{icon-image: airport-m.svg;text-offset: 1;font-size: 12;}
 area|z14-[aeroway=aerodrome]::int_name,
 node|z14-[aeroway=aerodrome]::int_name,
-{font-size: 11;text-optional: true;}
+{font-size: 11;}
 
 area|z16-[aeroway=heliport],
 area|z16-[aeroway=helipad],
@@ -1466,6 +1476,22 @@ node|z17-[healthcare=laboratory],
 area|z17-[healthcare=laboratory],
 node|z17-[healthcare=physiotherapist],
 area|z17-[healthcare=physiotherapist],
+node|z17-[healthcare=alternative],
+area|z17-[healthcare=alternative],
+node|z17-[healthcare=audiologist],
+area|z17-[healthcare=audiologist],
+node|z17-[healthcare=blood_donation],
+area|z17-[healthcare=blood_donation],
+node|z17-[healthcare=optometrist],
+area|z17-[healthcare=optometrist],
+node|z17-[healthcare=podiatrist],
+area|z17-[healthcare=podiatrist],
+node|z17-[healthcare=psychotherapist],
+area|z17-[healthcare=psychotherapist],
+node|z17-[healthcare=sample_collection],
+area|z17-[healthcare=sample_collection],
+node|z17-[healthcare=speech_therapist],
+area|z17-[healthcare=speech_therapist],
 node|z17-[amenity=dentist],
 area|z17-[amenity=dentist],
 node|z17-[amenity=casino],
@@ -1603,8 +1629,6 @@ node|z17[amenity=clinic],
 area|z17[amenity=clinic],
 node|z17[amenity=doctors],
 area|z17[amenity=doctors],
-node|z17[healthcare=laboratory],
-area|z17[healthcare=laboratory],
 {icon-image: hospital-m.svg;icon-min-distance: 4;text-optional: true;}
 node|z18-[amenity=hospital],
 node|z18-[building=hospital],
@@ -1613,9 +1637,13 @@ node|z18-[amenity=clinic],
 area|z18-[amenity=clinic],
 node|z18-[amenity=doctors],
 area|z18-[amenity=doctors],
+{icon-image: hospital-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=laboratory],
+area|z17[healthcare=laboratory],
+{icon-image: sample_collection-m.svg;}
 node|z18-[healthcare=laboratory],
 area|z18-[healthcare=laboratory],
-{icon-image: hospital-m.svg;font-size: 11;text-optional: true;}
+{icon-image: sample_collection-m.svg;font-size: 11;text-optional: true;}
 node|z17[amenity=dentist],
 area|z17[amenity=dentist]
 {icon-image: dentist-m.svg;}
@@ -1628,6 +1656,54 @@ area|z17[healthcare=physiotherapist]
 node|z18-[healthcare=physiotherapist],
 area|z18-[healthcare=physiotherapist]
 {icon-image: physiotherapist-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=alternative],
+area|z17[healthcare=alternative]
+{icon-image: alternative-m.svg;}
+node|z18-[healthcare=alternative],
+area|z18-[healthcare=alternative]
+{icon-image: alternative-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=audiologist],
+area|z17[healthcare=audiologist]
+{icon-image: audiologist-m.svg;}
+node|z18-[healthcare=audiologist],
+area|z18-[healthcare=audiologist]
+{icon-image: audiologist-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=blood_donation],
+area|z17[healthcare=blood_donation]
+{icon-image: blood_donation-m.svg;}
+node|z18-[healthcare=blood_donation],
+area|z18-[healthcare=blood_donation]
+{icon-image: blood_donation-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=optometrist],
+area|z17[healthcare=optometrist]
+{icon-image: optometrist-m.svg;}
+node|z18-[healthcare=optometrist],
+area|z18-[healthcare=optometrist]
+{icon-image: optometrist-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=podiatrist],
+area|z17[healthcare=podiatrist]
+{icon-image: podiatrist-m.svg;}
+node|z18-[healthcare=podiatrist],
+area|z18-[healthcare=podiatrist]
+{icon-image: podiatrist-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=psychotherapist],
+area|z17[healthcare=psychotherapist]
+{icon-image: psychotherapist-m.svg;}
+node|z18-[healthcare=psychotherapist],
+area|z18-[healthcare=psychotherapist]
+{icon-image: psychotherapist-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=sample_collection],
+area|z17[healthcare=sample_collection]
+{icon-image: sample_collection-m.svg;}
+node|z18-[healthcare=sample_collection],
+area|z18-[healthcare=sample_collection]
+{icon-image: sample_collection-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=speech_therapist],
+area|z17[healthcare=speech_therapist]
+{icon-image: speech_therapist-m.svg;}
+node|z18-[healthcare=speech_therapist],
+area|z18-[healthcare=speech_therapist]
+{icon-image: speech_therapist-m.svg;font-size: 11;text-optional: true;}
 
 node|z16-[amenity=veterinary],
 area|z16-[amenity=veterinary]
@@ -1985,6 +2061,7 @@ node|z16-[highway=ford],
 node|z16-[power=tower],
 node|z15-[man_made=flagpole],
 node|z16-[man_made=mast],
+node|z17-[man_made=tower][tower:type=communication],
 {icon-image: dot-m.svg;}
 
 node|z16-[amenity=taxi],
@@ -2115,8 +2192,10 @@ area|z17-[amenity=waste_transfer_station],
 
 node|z17-[power=station],
 area|z17-[power=station],
+node|z17-[power=generator],
+area|z17-[power=generator],
 node|z19-[power=substation],
-area|z19-[power=substation]
+area|z19-[power=substation],
 {icon-image: power-m.svg;font-size: 11;icon-min-distance: 20;}
 
 node|z17-[amenity=shower],

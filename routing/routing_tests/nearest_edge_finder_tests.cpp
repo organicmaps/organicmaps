@@ -11,6 +11,8 @@
 
 #include "base/checked_cast.hpp"
 
+namespace nearest_edge_finder_tests
+{
 using namespace routing;
 using namespace routing_test;
 using namespace std;
@@ -70,3 +72,4 @@ UNIT_TEST(MiddleSegmentTest_Mock1Graph)
                 geometry::MakePointWithAltitudeForTesting(m2::PointD(12.5, 0)))};
   TestNearestOnMock1(m2::PointD(12.5, 2.5), 2, expected);
 }
+}  // namespace nearest_edge_finder_tests

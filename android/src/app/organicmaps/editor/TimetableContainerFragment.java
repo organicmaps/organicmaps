@@ -12,7 +12,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -20,6 +19,7 @@ import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.base.OnBackPressListener;
 import app.organicmaps.util.UiUtils;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class TimetableContainerFragment extends BaseMwmFragment implements OnBackPressListener,
                                                                            TimetableChangedListener
@@ -151,7 +151,7 @@ public class TimetableContainerFragment extends BaseMwmFragment implements OnBac
       if (activity == null)
         return;
 
-      new AlertDialog.Builder(activity)
+      new MaterialAlertDialogBuilder(activity)
         .setMessage(R.string.editor_correct_mistake)
         .setPositiveButton(android.R.string.ok, null)
         .show();

@@ -1,17 +1,18 @@
-• Podrobné offline mapy s místy, která na jiných mapách nejsou.
+• Podrobné offline mapy s místy, která na jiných mapách nejsou
 • Cyklistické trasy, turistické stezky a pěší trasy
 • Vrstevnice, výškové profily, vrcholy a svahy
 • Pěší, cyklistická a automobilová navigace turn-by-turn s hlasovými pokyny
 • Rychlé offline vyhledávání na mapě a záložky
 • Tmavý režim pro ochranu vašich očí
+• ... a mnoho dalších funkcí!
 
-Mapy Organic jsou čisté a organické, vyrobené s láskou:
+Organic Maps jsou čisté a organické, vyrobené s láskou:
 
 • respektuje vaše soukromí
 • Šetří baterii
 • Žádné nečekané poplatky za mobilní data
 
-Organické mapy neobsahují sledovací zařízení a další špatné věci:
+Organic Maps neobsahují sledovací zařízení a další špatné věci:
 
 • Žádné reklamy
 • Žádné sledování
@@ -24,12 +25,12 @@ Organické mapy neobsahují sledovací zařízení a další špatné věci:
 • Žádný crapware
 • Žádné pesticidy
 
-Ve společnosti Organic Maps věříme, že soukromí je základním lidským právem:
+V Organic Maps věříme, že soukromí je základním lidským právem:
 
-• Organické mapy jsou nezávislý projekt řízený komunitou.
+• Organic Maps jsou nezávislý projekt řízený komunitou
 • Kód je otevřený
-• Mapová data jsou převzata z OpenStreetMap, rovněž komunitně řízeného projektu.
-• Chráníme vaše soukromí před zvědavýma očima velkých technologických firem.
+• Mapová data jsou převzata z OpenStreetMap, rovněž komunitně řízeného projektu
+• Chráníme vaše soukromí před zvědavýma očima velkých technologických firem
 • Zůstaňte v bezpečí, ať jste kdekoli
 
 Odmítněte dohled, přijměte svou svobodu a podpořte komunitu.

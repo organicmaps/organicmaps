@@ -1,4 +1,5 @@
 #include "drape_frontend/stylist.hpp"
+#include "drape/utils/projection.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
@@ -15,6 +16,11 @@ namespace df
 {
 namespace
 {
+// Minimum possible log2() value for the float (== -126).
+double const kMinLog2 = std::log2(std::numeric_limits<float>::min());
+// Minimum priority/depth value for lines and foreground areas. Should be same as in kothic.
+static double constexpr kMinLinesDepth = 999.0f;
+
 enum Type
 {
   Line      = 1 << 0,
@@ -45,7 +51,7 @@ inline drule::rule_type_t Convert(Type t)
   }
 }
 
-double constexpr kMinPriority = std::numeric_limits<double>::lowest();
+float constexpr kMinPriority = std::numeric_limits<float>::lowest();
 
 inline bool IsTypeOf(drule::Key const & key, int flags)
 {
@@ -73,6 +79,7 @@ public:
     , m_f(f)
     , m_geomType(type)
     , m_zoomLevel(zoomLevel)
+    , m_areaDepth(0)
   {
     m_rules.reserve(keyCount);
     Init();
@@ -104,18 +111,27 @@ private:
   void ProcessKey(drule::Key const & key)
   {
     double depth = key.m_priority;
-    if (m_depthLayer != feature::LAYER_EMPTY)
+
+    // Prioritize background areas by their sizes instead of style-set priorities.
+    // Foreground areas continue to use priorities to be orderable inbetween lines.
+    if (depth <= kMinLinesDepth && IsTypeOf(key, Area))
+      depth = m_areaDepth;
+
+    if (m_featureLayer != feature::LAYER_EMPTY)
     {
+      // @todo layers are applicable relative to intersecting features only
+      // (atm layer correction changes feature's priority against ALL other features);
+      // and the current implementation is dependent on a stable priorities range.
       if (IsTypeOf(key, Line))
       {
-        double const layerPart = m_depthLayer * drule::layer_base_priority;
+        double const layerPart = m_featureLayer * drule::layer_base_priority;
         double const depthPart = fmod(depth, drule::layer_base_priority);
         depth = layerPart + depthPart;
       }
       else if (IsTypeOf(key, Area))
       {
-        // Area styles have big negative priorities (like -15000), so just add layer correction.
-        depth += m_depthLayer * drule::layer_base_priority;
+        // Background areas have big negative priorities (-13000, -8000), so just add layer correction.
+        depth += m_featureLayer * drule::layer_base_priority;
       }
       else
       {
@@ -138,26 +154,34 @@ private:
     if (lineRule != nullptr && (lineRule->width() < 1e-5 && !lineRule->has_pathsym()))
       return;
 
-    m_rules.push_back({ dRule, depth, key.m_hatching });
+    m_rules.push_back({ dRule, static_cast<float>(depth), key.m_hatching });
   }
 
   void Init()
   {
-    m_depthLayer = m_f.GetLayer();
-    if (m_geomType == feature::GeomType::Point)
-      m_priorityModifier = (double)m_f.GetPopulation() / 7E9;
-    else
+    m_featureLayer = m_f.GetLayer();
+    if (m_geomType == feature::GeomType::Area)
     {
+      // Calculate depth based on areas' sizes instead of style-set priorities.
       m2::RectD const r = m_f.GetLimitRect(m_zoomLevel);
-      m_priorityModifier = std::min(1.0, r.SizeX() * r.SizeY() * 10000.0);
+      // Raw areas' size range of about (1e-10, 3000) is too big, have to shrink it.
+      double const areaSize = r.SizeX() * r.SizeY();
+      // log2() of numbers <1.0 is negative, adjust it to be positive.
+      double const areaSizeCompact = std::log2(areaSize) - kMinLog2;
+      // Should be well below lines and foreground areas for the layering logic to work correctly,
+      // produces a depth range of about (-13000, -8000).
+      m_areaDepth = kMinLinesDepth - areaSizeCompact * 100.0f;
+
+      // There are depth limits out of which areas won't render.
+      ASSERT(dp::kMinDepth < m_areaDepth && m_areaDepth < dp::kMaxDepth, (m_areaDepth));
     }
   }
 
   FeatureType & m_f;
   feature::GeomType m_geomType;
   int const m_zoomLevel;
-  double m_priorityModifier;
-  int m_depthLayer;
+  int m_featureLayer;
+  double m_areaDepth;
 };
 }  // namespace
 
@@ -354,7 +378,7 @@ double GetFeaturePriority(FeatureType & f, int const zoomLevel)
   Aggregator aggregator(f, types.GetGeomType(), zoomLevel, keys.size());
   aggregator.AggregateKeys(keys);
 
-  double maxPriority = kMinPriority;
+  float maxPriority = kMinPriority;
   for (auto const & rule : aggregator.m_rules)
   {
     if (rule.m_depth > maxPriority)

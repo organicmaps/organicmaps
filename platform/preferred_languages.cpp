@@ -1,12 +1,12 @@
 #include "platform/preferred_languages.hpp"
 
 #include "base/string_utils.hpp"
-#include "base/logging.hpp"
 #include "base/macros.hpp"
 
 #include "std/target_os.hpp"
 
 #include <cstdlib>  // getenv
+#include <cstring>  // strlen
 #include <string>
 #include <vector>
 
@@ -41,6 +41,11 @@ namespace languages
 {
 void GetSystemPreferred(std::vector<std::string> & languages)
 {
+  /// @DebugNote
+  // Hardcode draw text language.
+  //languages.push_back("hi");
+  //return;
+
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_IPHONE) || defined(OMIM_OS_LINUX)
   // check environment variables
   char const * p = std::getenv("LANGUAGE");

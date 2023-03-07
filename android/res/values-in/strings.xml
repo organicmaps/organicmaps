@@ -37,6 +37,17 @@
 	<string name="country_status_download_failed">Sedang Mengunduh telah gagal</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Coba Lagi</string>
+	<string name="about_menu_title">Tentang Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Gratis untuk semua orang, dibuat dengan cinta</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Tidak ada iklan, tidak ada pelacakan, tidak ada pengumpulan data</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Menghemat baterai, tidak menggunakan data latar belakang</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Cepat, minimalis, tidak ada sampah</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Aplikasi open-source yang dibuat oleh penggemar dan sukarelawan.</string>
 	<string name="connection_settings">Pengaturan Koneksi</string>
 	<string name="close">Tutup</string>
 	<string name="unsupported_phone">OpenGL yang dipercepat oleh OpenGL diperlukan. Sayangnya, perangkat Anda tidak mendukung.</string>
@@ -221,7 +232,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Menyumbangkan</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Bagaimana cara mendukung kami?</string>
+	<string name="how_to_support_us">Mendukung proyek</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Hak cipta</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -421,7 +432,8 @@
 	<string name="editor_report_problem_other_title">Masalah yang berbeda</string>
 	<string name="placepage_add_business_button">Tambahkan organisasi</string>
 	<string name="message_invalid_feature_position">Objek tidak dapat diletakkan di sini</string>
-	<string name="osm_presentation">Semua data peta berasal dari proyek OpenStreetMap. Ini seperti Wikipedia untuk peta tempat Anda dapat menambahkan atau mengedit tempat, dan peta tersebut tersedia bagi jutaan pengguna di seluruh Dunia.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Data kartografi dari OpenStreetMap pada %s. Ini seperti Wikipedia di mana Anda dapat menambahkan atau mengedit tempat untuk semua pengguna di seluruh dunia.</string>
 	<string name="login_to_make_edits_visible">Masuk agar pengguna lain dapat melihat perubahan yang Anda buat.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d dari %2$d</string>
@@ -429,8 +441,8 @@
 	<string name="download_over_mobile_message">Ini bisa menjadi jauh mahal pada beberapa paket atau jika roaming.</string>
 	<string name="error_enter_correct_house_number">Masukkan nomor rumah yang benar</string>
 	<string name="editor_storey_number">Jumlah lantai (maksimum %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Edit bangunan dengan maksimum 25 lantai</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Edit bangunan dengan maksimum %d lantai</string>
 	<string name="editor_zip_code">Kode Pos</string>
 	<string name="error_enter_correct_zip_code">Masukkan Kode Pos yang benar</string>
 	<!-- Place Page title for long tap -->
@@ -715,6 +727,7 @@
 	<string name="type.amenity.internet_cafe">Kafe Internet</string>
 	<string name="type.amenity.kindergarten">Taman kanak-kanak</string>
 	<string name="type.amenity.library">Perpustakaan</string>
+	<string name="type.amenity.loading_dock">Dok pemuatan</string>
 	<string name="type.amenity.marketplace">Toko</string>
 	<string name="type.amenity.motorcycle_parking">Tempat Parkir Sepeda Motor</string>
 	<string name="type.amenity.nightclub">Kelab malam</string>
@@ -906,15 +919,27 @@
 	<string name="type.emergency.defibrillator">Defibrilator</string>
 	<string name="type.emergency.fire_hydrant">Keran Kebakaran</string>
 	<string name="type.emergency.phone">Telepon darurat</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Pintu masuk</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Pintu masuk utama</string>
 	<string name="type.healthcare.laboratory">Laboratorium medis</string>
 	<string name="type.healthcare.physiotherapist">Fisioterapis</string>
+	<string name="type.healthcare.alternative">Pengobatan alternatif</string>
+	<string name="type.healthcare.audiologist">Audiologi</string>
+	<string name="type.healthcare.blood_donation">Pusat Donor Darah</string>
+	<string name="type.healthcare.optometrist">Optometri</string>
+	<string name="type.healthcare.podiatrist">Podiatri</string>
+	<string name="type.healthcare.psychotherapist">Psikoterapi</string>
+	<string name="type.healthcare.sample_collection">Pengambilan sampel</string>
+	<string name="type.healthcare.speech_therapist">Logopedik</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">Menjembatani</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Terowongan</string>
+	<string name="type.highway.busway">Jalan khusus bus</string>
 	<string name="type.highway.bus_stop">Halte bus</string>
 	<string name="type.highway.construction">Jalan sedang dibangun</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1149,6 +1174,7 @@
 	<string name="type.man_made.lighthouse">Mercusuar</string>
 	<string name="type.man_made.surveillance">Kamera Pengawas</string>
 	<string name="type.man_made.tower">Menara</string>
+	<string name="type.man_made.tower.communication">Menara Komunikasi</string>
 	<string name="type.man_made.water_tap">Keran Air</string>
 	<string name="type.man_made.water_tower">Menara air</string>
 	<string name="type.man_made.water_well">Sumur air</string>
@@ -1233,6 +1259,10 @@
 	<string name="type.place.suburb">Pinggiran kota</string>
 	<string name="type.place.town">Kota</string>
 	<string name="type.place.village">Desa</string>
+	<string name="type.power.generator.solar">Pembangkit surya</string>
+	<string name="type.power.generator.wind">Generator angin</string>
+	<string name="type.power.generator.gas">Pembangkit listrik turbin gas</string>
+	<string name="type.power.generator.hydro">Pembangkit listrik tenaga air</string>
 	<string name="type.power.pole">Menara listrik</string>
 	<string name="type.power.substation">Stasiun bawah tanah</string>
 	<string name="type.power.tower">Menara listrik</string>
@@ -1256,6 +1286,7 @@
 	<string name="type.railway.station.subway.beijing">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.bengalore">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.berlin">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.bilbao">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.brasilia">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.brescia">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.brussels">Stasiun bawah tanah</string>
@@ -1365,6 +1396,7 @@
 	<string name="type.railway.subway_entrance.beijing">Pintu masuk kereta bawah tanah</string>
 	<string name="type.railway.subway_entrance.bengalore">Pintu masuk kereta bawah tanah</string>
 	<string name="type.railway.subway_entrance.berlin">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.bilbao">Pintu masuk kereta bawah tanah</string>
 	<string name="type.railway.subway_entrance.brasilia">Pintu masuk kereta bawah tanah</string>
 	<string name="type.railway.subway_entrance.brescia">Pintu masuk kereta bawah tanah</string>
 	<string name="type.railway.subway_entrance.brussels">Pintu masuk kereta bawah tanah</string>

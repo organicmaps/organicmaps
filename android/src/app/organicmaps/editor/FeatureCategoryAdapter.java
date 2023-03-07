@@ -63,7 +63,7 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<FeatureCategory
       mName = itemView.findViewById(R.id.name);
       mSelected = itemView.findViewById(R.id.selected);
       UiUtils.hide(mSelected);
-      itemView.setOnClickListener(v -> onCategorySelected(getAdapterPosition()));
+      itemView.setOnClickListener(v -> onCategorySelected(getBindingAdapterPosition()));
     }
 
     public void bind(int position)

@@ -114,6 +114,7 @@ public class SearchFragment extends BaseMwmFragment
     }
 
     @Override
+    @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3630
     protected void startVoiceRecognition(Intent intent, int code)
     {
       startActivityForResult(intent, code);
@@ -167,7 +168,7 @@ public class SearchFragment extends BaseMwmFragment
   private String mInitialLocale;
   private boolean mInitialSearchOnMap = false;
 
-  private final LocationListener mLocationListener = new LocationListener.Simple()
+  private final LocationListener mLocationListener = new LocationListener()
   {
     @Override
     public void onLocationUpdated(Location location)
@@ -517,6 +518,7 @@ public class SearchFragment extends BaseMwmFragment
   }
 
   @Override
+  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3630
   public void onActivityResult(int requestCode, int resultCode, Intent data)
   {
     super.onActivityResult(requestCode, resultCode, data);

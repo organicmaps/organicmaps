@@ -38,6 +38,17 @@
 	<string name="country_status_download_failed">Ошибка загрузки</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Попробуйте еще раз</string>
+	<string name="about_menu_title">Про Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Бесплатно для всех, сделано с любовью</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Без рекламы, без трекинга, без слежки</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Экономит батарею, без фоновых данных</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Быстрые, минималистичные, без мусора</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Приложение с открытым исходным кодом, созданное энтузиастами и волонтерами.</string>
 	<string name="connection_settings">Настройки подключения</string>
 	<string name="close">Закрыть</string>
 	<string name="unsupported_phone">Для работы приложения необходим аппаратно ускоренный OpenGL. К сожалению, ваше устройство не поддерживается.</string>
@@ -241,7 +252,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Поддержать рублём</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Как наc поддержать?</string>
+	<string name="how_to_support_us">Помочь проекту</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Копирайт</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -450,7 +461,8 @@
 	<string name="editor_report_problem_other_title">Другая проблема</string>
 	<string name="placepage_add_business_button">Добавить организацию</string>
 	<string name="message_invalid_feature_position">Объект не может находиться в этом месте</string>
-	<string name="osm_presentation">Все данные карты поступают из проекта OpenStreetMap. Это как Википедия для карт, где вы можете добавлять или редактировать места, и они становятся доступными для миллионов пользователей по всему миру.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Картографические данные из OpenStreetMap по состоянию на %s. Это как Википедия, где вы можете добавить или редактировать места для всех пользователей по всему миру.</string>
 	<string name="login_to_make_edits_visible">Авторизуйтесь в OpenStreetMap.org, чтобы ваши изменения увидели другие пользователи.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d из %2$d</string>
@@ -458,8 +470,8 @@
 	<string name="download_over_mobile_message">На некоторых тарифных планах или в роуминге это может привести к значительным расходам.</string>
 	<string name="error_enter_correct_house_number">Введите корректный номер дома</string>
 	<string name="editor_storey_number">Количество этажей (максимум %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Количество этажей не должно превышать 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Количество этажей не должно превышать %d</string>
 	<string name="editor_zip_code">Почтовый индекс</string>
 	<string name="error_enter_correct_zip_code">Введите корректный почтовый индекс</string>
 	<!-- Place Page title for long tap -->
@@ -795,6 +807,7 @@
 	<string name="type.amenity.internet_cafe">Интернет-кафе</string>
 	<string name="type.amenity.kindergarten">Детсад</string>
 	<string name="type.amenity.library">Библиотека</string>
+	<string name="type.amenity.loading_dock">Погрузочный док</string>
 	<string name="type.amenity.marketplace">Рынок</string>
 	<string name="type.amenity.motorcycle_parking">Мотопарковка</string>
 	<string name="type.amenity.nightclub">Ночной клуб</string>
@@ -1035,9 +1048,20 @@
 	<string name="type.emergency.defibrillator">Дефибриллятор</string>
 	<string name="type.emergency.fire_hydrant">Пожарный гидрант</string>
 	<string name="type.emergency.phone">Телефон для экстренных вызовов</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Вход</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Главный вход</string>
 	<string name="type.healthcare.laboratory">Медицинская лаборатория</string>
 	<string name="type.healthcare.physiotherapist">Физиотерапевт</string>
+	<string name="type.healthcare.alternative">Альтернативная медицина</string>
+	<string name="type.healthcare.audiologist">Аудиология</string>
+	<string name="type.healthcare.blood_donation">Центр донорства крови</string>
+	<string name="type.healthcare.optometrist">Оптометрия</string>
+	<string name="type.healthcare.podiatrist">Подиатрия</string>
+	<string name="type.healthcare.psychotherapist">Психотерапия</string>
+	<string name="type.healthcare.sample_collection">Сбор анализов</string>
+	<string name="type.healthcare.speech_therapist">Логопедия</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Дорога</string>
@@ -1047,6 +1071,7 @@
 	<string name="type.highway.bridleway.permissive">Конная дорожка</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Тоннель</string>
+	<string name="type.highway.busway">Выделенная автобусная дорога</string>
 	<string name="type.highway.bus_stop">Остановка</string>
 	<string name="type.highway.construction">Строящаяся дорога</string>
 	<string name="type.highway.cycleway">Велодорожка</string>
@@ -1335,6 +1360,7 @@
 	<string name="type.man_made.storage_tank">Резервуар</string>
 	<string name="type.man_made.surveillance">Камера наблюдения</string>
 	<string name="type.man_made.tower">Башня</string>
+	<string name="type.man_made.tower.communication">Вышка связи</string>
 	<string name="type.man_made.wastewater_plant">Очистные сооружения</string>
 	<string name="type.man_made.water_tap">Водопроводный кран</string>
 	<string name="type.man_made.water_tower">Водонапорная башня</string>
@@ -1429,6 +1455,10 @@
 	<string name="type.place.village">Деревня</string>
 	<string name="type.power">Энергетика</string>
 	<string name="type.power.generator">Генератор</string>
+	<string name="type.power.generator.solar">Солнечный генератор</string>
+	<string name="type.power.generator.wind">Ветрогенератор</string>
+	<string name="type.power.generator.gas">Газотурбинная электростанция</string>
+	<string name="type.power.generator.hydro">Гидроэлектростанция</string>
 	<string name="type.power.line">Линия электропередач</string>
 	<string name="type.power.line.underground">Подземная линия электропередач</string>
 	<string name="type.power.minor_line">Линия электропередачи низкого напряжения</string>
@@ -1495,6 +1525,7 @@
 	<string name="type.railway.station.subway.beijing">Метро</string>
 	<string name="type.railway.station.subway.bengalore">Метро</string>
 	<string name="type.railway.station.subway.berlin">Метро</string>
+	<string name="type.railway.station.subway.bilbao">Метро</string>
 	<string name="type.railway.station.subway.brasilia">Метро</string>
 	<string name="type.railway.station.subway.brescia">Метро</string>
 	<string name="type.railway.station.subway.brussels">Метро</string>
@@ -1607,6 +1638,7 @@
 	<string name="type.railway.subway_entrance.beijing">Вход в метро</string>
 	<string name="type.railway.subway_entrance.bengalore">Вход в метро</string>
 	<string name="type.railway.subway_entrance.berlin">Вход в метро</string>
+	<string name="type.railway.subway_entrance.bilbao">Вход в метро</string>
 	<string name="type.railway.subway_entrance.brasilia">Вход в метро</string>
 	<string name="type.railway.subway_entrance.brescia">Вход в метро</string>
 	<string name="type.railway.subway_entrance.brussels">Вход в метро</string>

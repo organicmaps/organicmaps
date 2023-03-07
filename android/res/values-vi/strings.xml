@@ -35,6 +35,17 @@
 	<string name="country_status_download_failed">Tải xuống đã thất bại</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Thử lại</string>
+	<string name="about_menu_title">Giới thiệu về Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Miễn phí cho mọi người, được làm bằng tình yêu</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Không có quảng cáo, không theo dõi, không thu thập dữ liệu</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Tiết kiệm pin, không sử dụng dữ liệu nền</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Nhanh chóng, tối giản, không có rác</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Ứng dụng nguồn mở được tạo bởi những người đam mê và tình nguyện viên.</string>
 	<string name="connection_settings">Thiết lập Kết nối</string>
 	<string name="close">Đóng</string>
 	<string name="unsupported_phone">Cần có OpenGL được tăng tốc phần cứng. Thật không may, thiết bị của bạn không được hỗ trợ.</string>
@@ -219,7 +230,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Quyên tặng</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Làm thế nào để hỗ trợ chúng tôi?</string>
+	<string name="how_to_support_us">Hỗ trợ dự án</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Bản quyền</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -421,7 +432,8 @@
 	<string name="editor_report_problem_other_title">Một vấn đề khác</string>
 	<string name="placepage_add_business_button">Thêm tổ chức</string>
 	<string name="message_invalid_feature_position">Một đối tượng không thể đặt được ở đây</string>
-	<string name="osm_presentation">Tất cả dữ liệu bản đồ đến từ dự án OpenStreetMap. Nó giống như Wikipedia dành cho bản đồ nơi bạn có thể thêm hoặc chỉnh sửa các địa điểm và chúng có sẵn cho hàng triệu người dùng trên khắp Thế giới.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Dữ liệu bản đồ từ OpenStreetMap kể từ %s. Nó giống như Wikipedia nơi bạn có thể thêm hoặc chỉnh sửa địa điểm cho tất cả người dùng trên toàn thế giới.</string>
 	<string name="login_to_make_edits_visible">Đăng nhập để người dùng khác có thể nhìn thấy những thay đổi bạn đã thực hiện.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d trên %2$d</string>
@@ -429,8 +441,8 @@
 	<string name="download_over_mobile_message">Như vậy sẽ rất đắt tiền với một số gói dữ liệu hoặc khi chuyển vùng.</string>
 	<string name="error_enter_correct_house_number">Nhập số nhà chính xác</string>
 	<string name="editor_storey_number">Số tầng (tối đa %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Sửa tòa nhà có tối đa 25 tầng</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Sửa tòa nhà có tối đa %d tầng</string>
 	<string name="editor_zip_code">Mã ZIP</string>
 	<string name="error_enter_correct_zip_code">Nhập Mã ZIP chính xác</string>
 	<!-- Place Page title for long tap -->
@@ -719,6 +731,7 @@
 	<string name="type.amenity.internet_cafe">Quán Internet</string>
 	<string name="type.amenity.kindergarten">Mẫu giáo</string>
 	<string name="type.amenity.library">Thư viện</string>
+	<string name="type.amenity.loading_dock">Bến tàu</string>
 	<string name="type.amenity.marketplace">Cửa hàng</string>
 	<string name="type.amenity.motorcycle_parking">Bãi đỗ xe máy</string>
 	<string name="type.amenity.nightclub">Câu lạc bộ đêm</string>
@@ -911,15 +924,27 @@
 	<string name="type.emergency.defibrillator">Máy khử rung tim</string>
 	<string name="type.emergency.fire_hydrant">Vòi chữa cháy</string>
 	<string name="type.emergency.phone">Điện thoại khẩn cấp</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Lối vào</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Lối vào chính</string>
 	<string name="type.healthcare.laboratory">Phòng thí nghiệm y tế</string>
 	<string name="type.healthcare.physiotherapist">Nhà vật lý trị liệu</string>
+	<string name="type.healthcare.alternative">Liều thuốc thay thế</string>
+	<string name="type.healthcare.audiologist">Thính học</string>
+	<string name="type.healthcare.blood_donation">Trung tâm hiến máu</string>
+	<string name="type.healthcare.optometrist">Khúc xạ nhãn khoa</string>
+	<string name="type.healthcare.podiatrist">khoa bàn chân</string>
+	<string name="type.healthcare.psychotherapist">Tâm lý trị liệu</string>
+	<string name="type.healthcare.sample_collection">lấy mẫu</string>
+	<string name="type.healthcare.speech_therapist">Ngôn ngữ trị liệu</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">Cầu</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Đường hầm</string>
+	<string name="type.highway.busway">Đường dành riêng cho xe buýt</string>
 	<string name="type.highway.bus_stop">Bến xe buýt</string>
 	<string name="type.highway.construction">Đường đang thi công</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1154,6 +1179,7 @@
 	<string name="type.man_made.lighthouse">Hải đăng</string>
 	<string name="type.man_made.surveillance">Camera giám sát</string>
 	<string name="type.man_made.tower">Tháp</string>
+	<string name="type.man_made.tower.communication">Tháp truyền thông</string>
 	<string name="type.man_made.water_tap">Vòi nước</string>
 	<string name="type.man_made.water_tower">Tháp Nước</string>
 	<string name="type.man_made.water_well">Giếng Nước</string>
@@ -1238,6 +1264,10 @@
 	<string name="type.place.suburb">Đảo</string>
 	<string name="type.place.town">Thành phố</string>
 	<string name="type.place.village">Xóm</string>
+	<string name="type.power.generator.solar">Máy phát điện năng lượng mặt trời</string>
+	<string name="type.power.generator.wind">Máy phát điện gió</string>
+	<string name="type.power.generator.gas">Nhà máy điện tua bin khí</string>
+	<string name="type.power.generator.hydro">Nhà máy thủy điện</string>
 	<string name="type.power.pole">Trụ Điện</string>
 	<string name="type.power.substation">Trạm biến áp</string>
 	<string name="type.power.tower">Trụ Điện</string>
@@ -1261,6 +1291,7 @@
 	<string name="type.railway.station.subway.beijing">Ngầm</string>
 	<string name="type.railway.station.subway.bengalore">Ngầm</string>
 	<string name="type.railway.station.subway.berlin">Ngầm</string>
+	<string name="type.railway.station.subway.bilbao">Ngầm</string>
 	<string name="type.railway.station.subway.brasilia">Ngầm</string>
 	<string name="type.railway.station.subway.brescia">Ngầm</string>
 	<string name="type.railway.station.subway.brussels">Ngầm</string>
@@ -1370,6 +1401,7 @@
 	<string name="type.railway.subway_entrance.beijing">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.bengalore">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.berlin">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.bilbao">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.brasilia">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.brescia">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.brussels">Lỗi vào Metro</string>

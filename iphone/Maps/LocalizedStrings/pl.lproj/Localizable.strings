@@ -99,7 +99,7 @@
 "transport" = "Transport";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Stacja benzynowa";
+"fuel" = "Stacja paliw";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
 "parking" = "Parking";
@@ -304,7 +304,7 @@
 "donate" = "Wspomóż";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Jak nas wspierać?";
+"how_to_support_us" = "Wesprzyj projekt";
 
 /* Button in the main Help dialog */
 "copyright" = "Prawa autorskie";
@@ -710,8 +710,8 @@
 
 "editor_storey_number" = "Liczba pięter (maks. %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "Edytuj budynek z maksymalną liczbą 25 pięter";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Edytuj budynek z maksymalną liczbą %d pięter";
 
 "editor_zip_code" = "Kod pocztowy";
 
@@ -1351,7 +1351,7 @@
 
 "type.amenity.fountain" = "Fontanna";
 
-"type.amenity.fuel" = "Stacja benzynowa";
+"type.amenity.fuel" = "Stacja paliw";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard" = "Cmentarz";
@@ -1370,6 +1370,8 @@
 "type.amenity.kindergarten" = "Przedszkole";
 
 "type.amenity.library" = "Biblioteka";
+
+"type.amenity.loading_dock" = "Dok załadunkowy";
 
 "type.amenity.marketplace" = "Targ";
 
@@ -1849,11 +1851,31 @@
 
 "type.emergency.phone" = "Telefon alarmowy";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Wejście";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Główne wejście";
 
 "type.healthcare.laboratory" = "Laboratorium Medyczne";
 
 "type.healthcare.physiotherapist" = "Fizjoterapeuta";
+
+"type.healthcare.alternative" = "Medycyna alternatywna";
+
+"type.healthcare.audiologist" = "Audiologia";
+
+"type.healthcare.blood_donation" = "Centrum krwiodawstwa";
+
+"type.healthcare.optometrist" = "Optometria";
+
+"type.healthcare.podiatrist" = "Podiatria";
+
+"type.healthcare.psychotherapist" = "Psychoterapia";
+
+"type.healthcare.sample_collection" = "Próbkowanie";
+
+"type.healthcare.speech_therapist" = "Logopeda";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1891,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunel drogowy dla koni";
+
+"type.highway.busway" = "Dedykowana droga autobusowa";
 
 "type.highway.bus_stop" = "Przystanek autobusowy";
 
@@ -2431,6 +2455,8 @@
 
 "type.man_made.tower" = "Wieża";
 
+"type.man_made.tower.communication" = "Wieża komunikacyjna";
+
 "type.man_made.wastewater_plant" = "Oczyszczalnia ścieków";
 
 "type.man_made.water_tap" = "Woda pitna";
@@ -2623,6 +2649,14 @@
 
 "type.power.generator" = "Generator";
 
+"type.power.generator.solar" = "Generator słoneczny";
+
+"type.power.generator.wind" = "Generator wiatru";
+
+"type.power.generator.gas" = "Elektrownia z turbiną gazową";
+
+"type.power.generator.hydro" = "Elektrownia wodna";
+
 "type.power.line" = "Linia wysokiego napięcia";
 
 "type.power.line.underground" = "Podziemna linia wysokiego napięcia";
@@ -2754,6 +2788,8 @@
 "type.railway.station.subway.bengalore" = "Metro";
 
 "type.railway.station.subway.berlin" = "Metro";
+
+"type.railway.station.subway.bilbao" = "Metro";
 
 "type.railway.station.subway.brasilia" = "Metro";
 
@@ -2978,6 +3014,8 @@
 "type.railway.subway_entrance.bengalore" = "Wejście do metra";
 
 "type.railway.subway_entrance.berlin" = "Wejście do metra";
+
+"type.railway.subway_entrance.bilbao" = "Wejście do metra";
 
 "type.railway.subway_entrance.brasilia" = "Wejście do metra";
 

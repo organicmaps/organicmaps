@@ -238,6 +238,11 @@ public:
   {
   }
 
+  explicit DeserializerJson(char const * buffer)
+    : m_jsonObject(buffer), m_json(m_jsonObject.get())
+  {
+  }
+
   explicit DeserializerJson(json_t * json) : m_json(json) {}
 
   template <typename T>

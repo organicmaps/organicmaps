@@ -62,7 +62,7 @@ public:
   struct TRuleWrapper
   {
     drule::BaseRule const * m_rule;
-    double m_depth;
+    float m_depth;
     bool m_hatching;
   };
 

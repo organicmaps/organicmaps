@@ -231,7 +231,7 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
         closedHours[i] = span;
         final int finalI = i;
         span.findViewById(R.id.iv__remove_closed)
-            .setOnClickListener(v -> removeClosedHours(getAdapterPosition(), finalI));
+            .setOnClickListener(v -> removeClosedHours(getBindingAdapterPosition(), finalI));
       }
     }
 
@@ -249,7 +249,7 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
     @Override
     void onBind()
     {
-      final int position = getAdapterPosition();
+      final int position = getBindingAdapterPosition();
       final Timetable data = mItems.get(position);
       UiUtils.showIf(position > 0, deleteTimetable);
       tvOpen.setText(data.workingTimespan.start.toString());
@@ -264,13 +264,13 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
     {
       final int id = v.getId();
       if (id == R.id.time_open)
-        pickTime(getAdapterPosition(), HoursMinutesPickerFragment.TAB_FROM, ID_OPENING);
+        pickTime(getBindingAdapterPosition(), HoursMinutesPickerFragment.TAB_FROM, ID_OPENING);
       else if (id == R.id.time_close)
-        pickTime(getAdapterPosition(), HoursMinutesPickerFragment.TAB_TO, ID_OPENING);
+        pickTime(getBindingAdapterPosition(), HoursMinutesPickerFragment.TAB_TO, ID_OPENING);
       else if (id == R.id.tv__remove_timetable)
-        removeTimetable(getAdapterPosition());
+        removeTimetable(getBindingAdapterPosition());
       else if (id == R.id.tv__add_closed)
-        pickTime(getAdapterPosition(), HoursMinutesPickerFragment.TAB_FROM, ID_CLOSING);
+        pickTime(getBindingAdapterPosition(), HoursMinutesPickerFragment.TAB_FROM, ID_CLOSING);
       else if (id == R.id.allday)
         swAllday.toggle();
     }
@@ -280,7 +280,7 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
     {
       final int id = buttonView.getId();
       if (id == R.id.sw__allday)
-        setFullday(getAdapterPosition(), isChecked);
+        setFullday(getBindingAdapterPosition(), isChecked);
       else if (id == R.id.chb__day)
       {
         final int dayIndex = (Integer) buttonView.getTag();
@@ -353,9 +353,9 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
     {
       final CheckBox checkBox = days.get(dayIndex);
       if (checkBox.isChecked())
-        addWorkingDay(dayIndex, getAdapterPosition());
+        addWorkingDay(dayIndex, getBindingAdapterPosition());
       else
-        removeWorkingDay(dayIndex, getAdapterPosition());
+        removeWorkingDay(dayIndex, getBindingAdapterPosition());
     }
 
     private void checkWithoutCallback(CompoundButton button, boolean check)

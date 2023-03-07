@@ -22,8 +22,7 @@
 #include <sstream>
 #include <vector>
 
-#include "3party/pugixml/pugixml/src/pugixml.hpp"
-#include "3party/pugixml/utils.hpp"
+#include <pugixml.hpp>
 
 using namespace generator::tests_support;
 using namespace platform::tests_support;

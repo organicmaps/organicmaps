@@ -19,7 +19,7 @@ public:
 
   // Feature's centers table is created with low coordinates precision for better compression,
   // so distance-to-pivot is not precise and real meters distance may differ.
-  static double constexpr kDistanceEpsilon = 5;
+  static double constexpr kDistanceEpsilon = 10;
   static double constexpr kDefaultViewportRadiusM = 10000;
   static double constexpr kLoadMwmRadiusM = 200000;
 
@@ -301,9 +301,8 @@ UNIT_CLASS_TEST(MwmTestsFixture, Hamburg_Park)
   auto const & results = request->Results();
   TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
-  Range const range(results);
-  EqualClassifType(range, GetClassifTypes(
-                     {{"tourism"}, {"shop", "gift"}, {"amenity", "fast_food"}, {"highway", "bus_stop"}}));
+  Range const range(results, 0, 4);
+  EqualClassifType(range, GetClassifTypes({{"tourism"}, {"shop", "gift"}, {"amenity", "fast_food"}}));
   NameStartsWith(range, {"Heide Park", "Heide-Park"});
   double const dist = SortedByDistance(range, center);
   TEST_LESS(dist, 100000, ());
@@ -459,8 +458,76 @@ UNIT_CLASS_TEST(MwmTestsFixture, French_StopWord_Category)
   auto request = MakeRequest("Bouche d'incendie", "fr");
   auto const & results = request->Results();
 
-  Range const range(results, 0, kTopPoiResultsCount);
+  Range const range(results);
   EqualClassifType(range, GetClassifTypes({{"emergency", "fire_hydrant"}}));
   TEST_LESS(SortedByDistance(range, center), 1000.0, ());
+}
+
+UNIT_CLASS_TEST(MwmTestsFixture, Street_BusStop)
+{
+  // Buenos Aires
+  ms::LatLon const center(-34.60655, -58.43566);
+  SetViewportAndLoadMaps(center);
+
+  {
+    auto request = MakeRequest("Juncal", "en");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+
+    // Top results are Hotel and Street.
+    Range const range(results, 0, 3);
+    EqualClassifType(range, GetClassifTypes({{"tourism", "hotel"}, {"shop", "supermarket"}, {"highway"}}));
+  }
+
+  {
+    auto request = MakeRequest("Juncal st ", "en");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+
+    // Top results are Streets (maybe in different cities).
+    Range const range(results);
+    EqualClassifType(range, GetClassifTypes({{"highway"}}));
+    TEST_LESS(SortedByDistance(range, center), 5000.0, ());
+  }
+
+  {
+    auto request = MakeRequest("Juncal bus ", "en");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+
+    // Top results are bus stops.
+    Range const range(results);
+    EqualClassifType(range, GetClassifTypes({{"highway", "bus_stop"}}));
+    TEST_LESS(SortedByDistance(range, center), 5000.0, ());
+  }
+}
+
+UNIT_CLASS_TEST(MwmTestsFixture, Generic_Buildings_Rank)
+{
+  // Buenos Aires
+  ms::LatLon const center(-34.60655, -58.43566);
+  SetViewportAndLoadMaps(center);
+
+  {
+    size_t constexpr kResultsCount = 10;
+    auto request = MakeRequest("cell tower", "en");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kResultsCount, ());
+
+    Range const range(results, 0, kResultsCount);
+    EqualClassifType(range, GetClassifTypes({{"man_made", "tower", "communication"}}));
+    TEST_LESS(SortedByDistance(range, center), 5000.0, ());
+  }
+
+  {
+    auto request = MakeRequest("dia ", "en");
+    auto const & results = request->Results();
+    LOG(LINFO, (results));
+    TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+
+    Range const range(results);
+    EqualClassifType(range, GetClassifTypes({{"shop", "supermarket"}}));
+    TEST_LESS(SortedByDistance(range, center), 1000.0, ());
+  }
 }
 } // namespace real_mwm_tests

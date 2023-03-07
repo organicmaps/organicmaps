@@ -35,6 +35,17 @@
 	<string name="country_status_download_failed">Sťahovanie zlyhalo</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Skúsiť znova</string>
+	<string name="about_menu_title">O aplikácii Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Zadarmo pre každého, vyrobený s láskou</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Žiadne reklamy, žiadne sledovanie, žiadny zber údajov</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Šetrí batériu, nepoužíva dáta na pozadí</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Rýchle, minimalistické, žiadne nevyžiadané</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Aplikácia s otvoreným zdrojovým kódom vytvorené nadšencami a dobrovoľníkmi.</string>
 	<string name="connection_settings">Nastavenie pripojenia</string>
 	<string name="close">Zavrieť</string>
 	<string name="unsupported_phone">Je vyžadovaná hardwarová akcelerácia OpenGL. Bohužial, vaše zariadenie nie je podporované.</string>
@@ -219,7 +230,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Darovať</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Ako nás podporiť?</string>
+	<string name="how_to_support_us">Podporte projekt</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Autorské práva</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -419,7 +430,8 @@
 	<string name="editor_report_problem_other_title">Iný problém</string>
 	<string name="placepage_add_business_button">Pridať organizáciu</string>
 	<string name="message_invalid_feature_position">Objekt sa tu nedá umiestniť</string>
-	<string name="osm_presentation">Všetky mapové podklady pochádzajú z projektu OpenStreetMap. Je to ako Wikipedia pre mapy, kde môžete pridávať alebo upravovať miesta a sú dostupné pre milióny používateľov na celom svete.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Kartografické údaje z OpenStreetMap od %s. Je to ako Wikipedia, kde môžete pridať alebo upravovať miesta pre všetkých používateľov po celom svete.</string>
 	<string name="login_to_make_edits_visible">Prihláste sa, aby mohli ostatní užívatelia vidieť Vami vykonané zmeny.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d z %2$d</string>
@@ -427,8 +439,8 @@
 	<string name="download_over_mobile_message">V prípade niektorých plánov alebo použitím roamingu by to mohlo byť značne nákladné.</string>
 	<string name="error_enter_correct_house_number">Zadajte správne číslo domu</string>
 	<string name="editor_storey_number">Počet poschodí (max %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Upraviť s maximálne 25 poschodiami</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Upraviť s maximálne %d poschodiami</string>
 	<string name="editor_zip_code">PSČ</string>
 	<string name="error_enter_correct_zip_code">Zadajte správne PSČ</string>
 	<!-- Place Page title for long tap -->
@@ -717,6 +729,7 @@
 	<string name="type.amenity.internet_cafe">Internetová kaviareň</string>
 	<string name="type.amenity.kindergarten">Škôlka</string>
 	<string name="type.amenity.library">Knižnica</string>
+	<string name="type.amenity.loading_dock">Nakladacia rampa</string>
 	<string name="type.amenity.marketplace">Trhovisko</string>
 	<string name="type.amenity.motorcycle_parking">Parkovisko pre motocykle</string>
 	<string name="type.amenity.nightclub">Nočný klub</string>
@@ -909,15 +922,27 @@
 	<string name="type.emergency.defibrillator">Defibrilátor</string>
 	<string name="type.emergency.fire_hydrant">Požiarny hydrant</string>
 	<string name="type.emergency.phone">Tiesňového volania</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Vstup</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Hlavný vchod</string>
 	<string name="type.healthcare.laboratory">Lekárske laboratórium</string>
 	<string name="type.healthcare.physiotherapist">Fyzioterapeut</string>
+	<string name="type.healthcare.alternative">Alternatívna medicína</string>
+	<string name="type.healthcare.audiologist">Audiológia</string>
+	<string name="type.healthcare.blood_donation">Centrum darcovstva krvi</string>
+	<string name="type.healthcare.optometrist">Optometria</string>
+	<string name="type.healthcare.podiatrist">Podiatria</string>
+	<string name="type.healthcare.psychotherapist">Psychoterapia</string>
+	<string name="type.healthcare.sample_collection">Vzorkovanie|Zber vzoriek</string>
+	<string name="type.healthcare.speech_therapist">Logopédia</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">Most</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunel</string>
+	<string name="type.highway.busway">Vyhradená autobusová cesta</string>
 	<string name="type.highway.bus_stop">Autobusová zastávka</string>
 	<string name="type.highway.construction">Cesta vo výstavbe</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1152,6 +1177,7 @@
 	<string name="type.man_made.lighthouse">Maják</string>
 	<string name="type.man_made.surveillance">Bezpečnostná kamera</string>
 	<string name="type.man_made.tower">Veža</string>
+	<string name="type.man_made.tower.communication">Komunikačná veža</string>
 	<string name="type.man_made.water_tap">Vodovodný kohútik</string>
 	<string name="type.man_made.water_tower">Vodojem</string>
 	<string name="type.man_made.water_well">Studňa</string>
@@ -1235,6 +1261,10 @@
 	<string name="type.place.suburb">Predmestie</string>
 	<string name="type.place.town">Mesto</string>
 	<string name="type.place.village">Dedina</string>
+	<string name="type.power.generator.solar">Solárny generátor</string>
+	<string name="type.power.generator.wind">Veterný generátor</string>
+	<string name="type.power.generator.gas">Elektráreň s plynovou turbínou</string>
+	<string name="type.power.generator.hydro">Vodná elektráreň</string>
 	<string name="type.power.pole">Stĺp elektrického vedenia</string>
 	<string name="type.power.substation">Rozvodňa</string>
 	<string name="type.power.tower">Stĺp elektrického vedenia</string>
@@ -1258,6 +1288,7 @@
 	<string name="type.railway.station.subway.beijing">Metro</string>
 	<string name="type.railway.station.subway.bengalore">Metro</string>
 	<string name="type.railway.station.subway.berlin">Metro</string>
+	<string name="type.railway.station.subway.bilbao">Metro</string>
 	<string name="type.railway.station.subway.brasilia">Metro</string>
 	<string name="type.railway.station.subway.brescia">Metro</string>
 	<string name="type.railway.station.subway.brussels">Metro</string>
@@ -1367,6 +1398,7 @@
 	<string name="type.railway.subway_entrance.beijing">Vstup do metra</string>
 	<string name="type.railway.subway_entrance.bengalore">Vstup do metra</string>
 	<string name="type.railway.subway_entrance.berlin">Vstup do metra</string>
+	<string name="type.railway.subway_entrance.bilbao">Vstup do metra</string>
 	<string name="type.railway.subway_entrance.brasilia">Vstup do metra</string>
 	<string name="type.railway.subway_entrance.brescia">Vstup do metra</string>
 	<string name="type.railway.subway_entrance.brussels">Vstup do metra</string>

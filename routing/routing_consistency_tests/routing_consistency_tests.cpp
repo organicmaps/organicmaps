@@ -18,7 +18,7 @@
 
 #include "gflags/gflags.h"
 
-namespace testingmain
+namespace routing_consistency_tests
 {
 using namespace routing;
 using namespace std;
@@ -194,6 +194,6 @@ int RunRoutingConsistencyTests(int argc, char ** argv)
 
   return 0;
 }
-}  // namespace testingmain
+}  // namespace testingmain routing_consistency_tests
 
-int main(int argc, char ** argv) { return ::testingmain::RunRoutingConsistencyTests(argc, argv); }
+int main(int argc, char ** argv) { return ::routing_consistency_tests::RunRoutingConsistencyTests(argc, argv); }

@@ -72,7 +72,6 @@ public final class Editor
   public static native String nativeGetMetadata(int id);
   public static native boolean nativeIsMetadataValid(int id, String value);
   public static native void nativeSetMetadata(int id, String value);
-
   public static native String nativeGetOpeningHours();
   public static native void nativeSetOpeningHours(String openingHours);
   public static String nativeGetPhone()
@@ -84,6 +83,7 @@ public final class Editor
     nativeSetMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER.toInt(), phone);
   }
   public static native int nativeGetStars();
+  public static native int nativeGetMaxEditableBuildingLevels();
   public static String nativeGetBuildingLevels()
   {
     return nativeGetMetadata(Metadata.MetadataType.FMD_BUILDING_LEVELS.toInt());

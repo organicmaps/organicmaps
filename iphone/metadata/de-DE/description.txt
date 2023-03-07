@@ -1,40 +1,39 @@
-• Detaillierte Offline-Karten mit Orten, die dank OpenStreetMap.org auf anderen Karten nicht zu finden sind
-• Radwege, Wanderwege und Spazierwege
-• Höhenlinien, Höhenprofile, Gipfel und Steigungen
-• Navigation mit Abbiegehinweisen für Fußgänger, Radfahrer und Autos mit Sprachführung
-• Schnelle Offlinesuche auf der Karte und in den Lesezeichen
-• Import und Export von Lesezeichen in den Formaten KML/KMZ (GPX ist geplant)
-• Dunkles Design zum besseren Schutz Ihrer Augen
-• Länder und Regionen nehmen nicht viel Speicherplatz in Anspruch
-• Kostenlos und Open-Source
+• Detaillierte Offline-Karten mit Orten, die es auf anderen Karten nicht gibt
+• Rad-, Wander- und Spazierwege
+• Höhenlinien, Höhenprofile, Bergspitzen und Steigungen
+• Schritt-für-Schritt-Navigation für Fußgänger, Radfahrer und Autos mit Sprachführung
+• Schnelle Offlinesuche
+• Export und Import von Lesezeichen im KML/KMZ-Format (GPX ist geplant)
+• Dunkler Modus zum Schutz deiner Augen
+• … und viele weitere Funktionen!
 
 Organic Maps ist rein, organisch und mit Liebe gemacht:
 
-• Respektiert Ihre Privatsphäre
-• Schont Ihren Akku
-• Keine unerwarteten Kosten für mobile Daten
+• Respektiert deine Privatsphäre
+• Schont deinen Akku
+• Keine unerwarteten Gebühren für mobile Daten
 
-Frei von Trackern und sonstigem schädlichen Inhalt:
+Frei von Trackern und schlechten Dingen:
 
 • Keine Werbung
 • Kein Tracking
 • Keine Datensammlung
-• Kein "Telefonieren nach Hause"
+• Kein Telefonieren nach Hause
 • Keine lästige Registrierung
 • Keine obligatorischen Tutorials
 • Kein lästiger E-Mail-Spam
 • Keine Push-Benachrichtigungen
 • Keine Crapware
-• No pesticides
+• Keine Pestizide
 
 Wir bei Organic Maps glauben, dass Privatsphäre ein grundlegendes Menschenrecht ist:
 
-• Organic Maps ist ein Open-Source-Projekt, das von einer unabhängigen Gemeinschaft betrieben wird
+• Organic Maps ist ein von einer unabhängigen Gemeinschaft betriebenes Open-Source-Projekt
 • Der Code ist Open Source
 • Die Kartendaten stammen von OpenStreetMap, einem ebenfalls von der Community betriebenen Projekt
-• Wir schützen Ihre Privatsphäre vor den neugierigen Augen von Großunternehmen
-• Bleiben Sie sicher, egal wo Sie sind
+• Wir schützen deine Privatsphäre vor den neugierigen Augen der großen Technologiekonzerne
+• Bleib sicher, egal wo du bist
 
-Lehnen Sie Überwachung ab, ergreifen Sie Ihre Freiheit und unterstützen Sie die Gemeinschaft.
+Lehne Überwachung ab, lebe deine Freiheit und unterstütze die Community.
 
-Testen Sie Organic Maps!
+Teste Organic Maps!

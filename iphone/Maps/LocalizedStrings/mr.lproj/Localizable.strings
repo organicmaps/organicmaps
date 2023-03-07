@@ -304,7 +304,7 @@
 "donate" = "Donate";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "आम्हाला आधार कसा द्यायचा?";
+"how_to_support_us" = "प्रकल्पाला पाठठिंबा द्या";
 
 /* Button in the main Help dialog */
 "copyright" = "प्रकाशन अधिकार (कॉपीराईट)";
@@ -710,8 +710,8 @@
 
 "editor_storey_number" = "मजल्यांची संख्या (कमाल %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "मजल्यांची संख्या २५ पेक्षा जास्त नसावी";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "मजल्यांची संख्या %d पेक्षा जास्त नसावी";
 
 "editor_zip_code" = "पिनकोड";
 
@@ -1371,6 +1371,8 @@
 
 "type.amenity.library" = "ग्रंथालय";
 
+"type.amenity.loading_dock" = "डक लड करत आह";
+
 "type.amenity.marketplace" = "बाजारपेठ";
 
 "type.amenity.motorcycle_parking" = "दुचाकी वाहनतळ";
@@ -1849,11 +1851,31 @@
 
 "type.emergency.phone" = "संकटकालीन फोन";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "प्रवेशद्वार";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "मुख्य प्रवेशद्वार";
 
 "type.healthcare.laboratory" = "वैद्यकीय प्रयोगशाळा";
 
 "type.healthcare.physiotherapist" = "फिजिओथेरपिस्ट";
+
+"type.healthcare.alternative" = "पर्यायी औषध";
+
+"type.healthcare.audiologist" = "ऑडिओलॉजी";
+
+"type.healthcare.blood_donation" = "रक्तदान केंद्र";
+
+"type.healthcare.optometrist" = "ऑप्टोमेट्री";
+
+"type.healthcare.podiatrist" = "पोडियाट्री";
+
+"type.healthcare.psychotherapist" = "मानसोपचार";
+
+"type.healthcare.sample_collection" = "नमुना";
+
+"type.healthcare.speech_therapist" = "स्पीच थेरपी";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1891,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "बोगदा";
+
+"type.highway.busway" = "समर्पित बस रस्ता";
 
 "type.highway.bus_stop" = "बस थांबा";
 
@@ -2431,6 +2455,8 @@
 
 "type.man_made.tower" = "मनोरा";
 
+"type.man_made.tower.communication" = "कम्युनिकेशन टॉवर";
+
 "type.man_made.wastewater_plant" = "सांडपाणी संयंत्र(प्लांट)";
 
 "type.man_made.water_tap" = "पाण्याचा नळ";
@@ -2623,6 +2649,14 @@
 
 "type.power.generator" = "जनित्र(जनरेटर)";
 
+"type.power.generator.solar" = "सौर जनरेटर";
+
+"type.power.generator.wind" = "वारा जनरेटर";
+
+"type.power.generator.gas" = "गॅस टर्बाइन पॉवर प्लांट";
+
+"type.power.generator.hydro" = "जलविद्युत प्रकल्प";
+
 "type.power.line" = "विद्युत तार";
 
 "type.power.line.underground" = "भूमिगत विद्युत तार";
@@ -2754,6 +2788,8 @@
 "type.railway.station.subway.bengalore" = "भुयारी मार्ग";
 
 "type.railway.station.subway.berlin" = "भुयारी मार्ग";
+
+"type.railway.station.subway.bilbao" = "भुयारी मार्ग";
 
 "type.railway.station.subway.brasilia" = "भुयारी मार्ग";
 
@@ -2978,6 +3014,8 @@
 "type.railway.subway_entrance.bengalore" = "भुयारी प्रवेशद्वार";
 
 "type.railway.subway_entrance.berlin" = "भुयारी प्रवेशद्वार";
+
+"type.railway.subway_entrance.bilbao" = "भुयारी प्रवेशद्वार";
 
 "type.railway.subway_entrance.brasilia" = "भुयारी प्रवेशद्वार";
 

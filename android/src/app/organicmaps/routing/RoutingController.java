@@ -29,6 +29,7 @@ import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
@@ -343,7 +344,7 @@ public class RoutingController implements Initializable<Void>
                                  R.string.dialog_routing_disclaimer_beware })
       builder.append(MwmApplication.from(activity.getApplicationContext()).getString(resId)).append("\n\n");
 
-    new AlertDialog.Builder(activity, R.style.MwmTheme_AlertDialog)
+    new MaterialAlertDialogBuilder(activity, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.dialog_routing_disclaimer_title)
         .setMessage(builder.toString())
         .setCancelable(false)
@@ -538,7 +539,7 @@ public class RoutingController implements Initializable<Void>
     if (mContainer == null)
       return;
 
-    final AlertDialog.Builder builder = new AlertDialog.Builder(mContainer.requireActivity())
+    final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mContainer.requireActivity())
         .setMessage(R.string.p2p_reroute_from_current)
         .setCancelable(false)
         .setNegativeButton(R.string.cancel, null);

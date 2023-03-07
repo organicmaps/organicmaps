@@ -85,6 +85,10 @@ static CGFloat const changeModeViewOffsetKeyboard = -12;
                                              object:nil];
 }
 
+- (void)removeKeyboardObservers {
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - keyboard movements
 - (void)keyboardWillShow:(NSNotification *)notification {
   CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;

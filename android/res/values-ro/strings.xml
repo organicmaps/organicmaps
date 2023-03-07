@@ -35,6 +35,17 @@
 	<string name="country_status_download_failed">Descărcarea a eșuat</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Mai încearcă</string>
+	<string name="about_menu_title">Despre Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Gratuit pentru toată lumea, făcut cu dragoste</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Fără reclame, fără urmărire, fără colectare de date</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Economisește bateria, nu utilizează date de fundal</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Rapid, minimalist, fără gunoi</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Aplicație open-source creată de entuziaști și voluntari.</string>
 	<string name="connection_settings">Opțiuni de conectare</string>
 	<string name="close">Închide</string>
 	<string name="unsupported_phone">Această aplicație necesită accelerarea hardware OpenGL. Din păcate, dispozitivul tău nu este compatibil.</string>
@@ -224,7 +235,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Donează</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Cum să ne sprijiniți?</string>
+	<string name="how_to_support_us">Susține proiectul</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Drepturi de autor</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -431,7 +442,8 @@
 	<string name="editor_report_problem_other_title">Altă problemă</string>
 	<string name="placepage_add_business_button">Adaugă o firmă</string>
 	<string name="message_invalid_feature_position">Niciun obiect nu poate fi poziționat aici</string>
-	<string name="osm_presentation">Toate datele hărții provin din proiectul OpenStreetMap. Este ca Wikipedia pentru hărți în care puteți adăuga sau edita locuri și acestea devin disponibile pentru milioane de utilizatori din întreaga lume.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Date cartografice de la OpenStreetMap din %s. Este ca Wikipedia unde puteți adăuga sau edita locuri pentru toți utilizatorii din lume.</string>
 	<string name="login_to_make_edits_visible">Autentifică-te pentru ca modificările pe care le-ai făcut să poată fi văzute și de alți utilizatori.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d din %2$d</string>
@@ -439,8 +451,8 @@
 	<string name="download_over_mobile_message">Aceasta poate fi destul de costisitoare în cazul unor abonamente sau în roaming.</string>
 	<string name="error_enter_correct_house_number">Introdu un număr corect</string>
 	<string name="editor_storey_number">Număr de etaje (maximum %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Numărul de etaje nu trebuie să depășească 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Numărul de etaje nu trebuie să depășească %d</string>
 	<string name="editor_zip_code">Cod poștal</string>
 	<string name="error_enter_correct_zip_code">Introdu codul poștal corect</string>
 	<!-- Place Page title for long tap -->
@@ -741,6 +753,7 @@
 	<string name="type.amenity.ice_cream">Chioșc cu înghețată</string>
 	<string name="type.amenity.kindergarten">Grădiniță</string>
 	<string name="type.amenity.library">Bibliotecă</string>
+	<string name="type.amenity.loading_dock">Încărcare doc</string>
 	<string name="type.amenity.marketplace">Magazin</string>
 	<string name="type.amenity.motorcycle_parking">Parcare de motociclete</string>
 	<string name="type.amenity.nightclub">Club de noapte</string>
@@ -931,15 +944,27 @@
 	<string name="type.emergency.defibrillator">Defibrilator</string>
 	<string name="type.emergency.fire_hydrant">Hidrant</string>
 	<string name="type.emergency.phone">Telefon de urgență</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Intrare</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Intrarea principala</string>
 	<string name="type.healthcare.laboratory">Laborator medical</string>
 	<string name="type.healthcare.physiotherapist">Fizioterapeut</string>
+	<string name="type.healthcare.alternative">Medicină alternativă</string>
+	<string name="type.healthcare.audiologist">Audiologie</string>
+	<string name="type.healthcare.blood_donation">Centrul de donare de sânge</string>
+	<string name="type.healthcare.optometrist">Optometrie</string>
+	<string name="type.healthcare.podiatrist">Podiatrie</string>
+	<string name="type.healthcare.psychotherapist">Psihoterapie</string>
+	<string name="type.healthcare.sample_collection">Eșantionare</string>
+	<string name="type.healthcare.speech_therapist">Logopedie</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">Pod</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunel</string>
+	<string name="type.highway.busway">Drum dedicat autobuzului</string>
 	<string name="type.highway.bus_stop">Stație de autobuz</string>
 	<string name="type.highway.construction">Drum în construcție</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1174,6 +1199,7 @@
 	<string name="type.man_made.lighthouse">Far</string>
 	<string name="type.man_made.surveillance">Cameră de supraveghere</string>
 	<string name="type.man_made.tower">Turn</string>
+	<string name="type.man_made.tower.communication">Turnul de comunicații</string>
 	<string name="type.man_made.water_tap">Robinet cu apă</string>
 	<string name="type.man_made.water_tower">Turn de apă</string>
 	<string name="type.man_made.water_well">Puț de apă</string>
@@ -1258,6 +1284,10 @@
 	<string name="type.place.suburb">Suburbie</string>
 	<string name="type.place.town">Oraș</string>
 	<string name="type.place.village">Sat</string>
+	<string name="type.power.generator.solar">Generator solar</string>
+	<string name="type.power.generator.wind">Generator eolian</string>
+	<string name="type.power.generator.gas">Centrala electrica cu turbina cu gaz</string>
+	<string name="type.power.generator.hydro">Centrală hidroelectrică</string>
 	<string name="type.power.pole">Stâlp de electricitate</string>
 	<string name="type.power.substation">Stație subterană</string>
 	<string name="type.power.tower">Stâlp de electricitate</string>
@@ -1281,6 +1311,7 @@
 	<string name="type.railway.station.subway.beijing">Metrou</string>
 	<string name="type.railway.station.subway.bengalore">Metrou</string>
 	<string name="type.railway.station.subway.berlin">Metrou</string>
+	<string name="type.railway.station.subway.bilbao">Metrou</string>
 	<string name="type.railway.station.subway.brasilia">Metrou</string>
 	<string name="type.railway.station.subway.brescia">Metrou</string>
 	<string name="type.railway.station.subway.brussels">Metrou</string>
@@ -1390,6 +1421,7 @@
 	<string name="type.railway.subway_entrance.beijing">Intrare în metro</string>
 	<string name="type.railway.subway_entrance.bengalore">Intrare în metro</string>
 	<string name="type.railway.subway_entrance.berlin">Intrare în metro</string>
+	<string name="type.railway.subway_entrance.bilbao">Intrare în metro</string>
 	<string name="type.railway.subway_entrance.brasilia">Intrare în metro</string>
 	<string name="type.railway.subway_entrance.brescia">Intrare în metro</string>
 	<string name="type.railway.subway_entrance.brussels">Intrare în metro</string>

@@ -1,5 +1,6 @@
 package app.organicmaps.editor;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,11 +20,12 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 import app.organicmaps.Framework;
 import app.organicmaps.R;
@@ -39,6 +41,7 @@ import app.organicmaps.util.Graphics;
 import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.Option;
 import app.organicmaps.util.StringUtils;
+import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 
@@ -177,7 +180,9 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       @Override
       public void onTextChanged(CharSequence s, int start, int before, int count)
       {
-        UiUtils.setInputError(mInputBuildingLevels, Editor.nativeIsLevelValid(s.toString()) ? 0 : R.string.error_enter_correct_storey_number);
+        final Context context = mInputBuildingLevels.getContext();
+        final boolean isValid = Editor.nativeIsLevelValid(s.toString());
+        UiUtils.setInputError(mInputBuildingLevels, isValid ? null : context.getString(R.string.error_enter_correct_storey_number, Editor.nativeGetMaxEditableBuildingLevels()));
       }
     });
 
@@ -422,7 +427,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
     // Details
     mBlockLevels = view.findViewById(R.id.block_levels);
-    mBuildingLevels = findInputAndInitBlock(mBlockLevels, 0, getString(R.string.editor_storey_number, 25));
+    mBuildingLevels = findInputAndInitBlock(mBlockLevels, 0,
+        getString(R.string.editor_storey_number, Editor.nativeGetMaxEditableBuildingLevels()));
     mBuildingLevels.setInputType(InputType.TYPE_CLASS_NUMBER);
     mInputBuildingLevels = mBlockLevels.findViewById(R.id.custom_input);
     View blockPhone = view.findViewById(R.id.block_phone);
@@ -632,7 +638,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       message = R.string.editor_reset_edits_message;
     }
 
-    new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
+    new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
         .setTitle(message)
         .setPositiveButton(title, (dialog, which) -> {
           Editor.nativeRollbackMapObject();

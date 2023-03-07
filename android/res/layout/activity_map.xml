@@ -51,26 +51,26 @@
       android:paddingBottom="@dimen/margin_base"
       android:visibility="invisible" />
   </RelativeLayout>
-  <app.organicmaps.widget.placepage.PlacePageView
+  <androidx.core.widget.NestedScrollViewClickFixed
     android:id="@+id/placepage"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     style="?attr/bottomSheetStyle"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     android:fillViewport="true"
-    app:layout_behavior="@string/placepage_behavior" />
-  <FrameLayout
-    android:id="@+id/pp_buttons_layout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom"
-    android:background="?ppButtonsBackground"
-    android:visibility="invisible">
-    <LinearLayout
-      android:id="@+id/container"
+    app:layout_behavior="@string/placepage_behavior" >
+    <RelativeLayout
+      android:id="@+id/placepage_container"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/place_page_buttons_height"
-      android:orientation="horizontal" />
-    <include layout="@layout/divider_horizontal" />
-  </FrameLayout>
-  <include layout="@layout/elevation_profile_bottom_sheet" />
+      android:layout_height="wrap_content"
+      android:background="?panel" >
+      <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/placepage_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    </RelativeLayout>
+  </androidx.core.widget.NestedScrollViewClickFixed>
+  <androidx.fragment.app.FragmentContainerView
+    android:id="@+id/pp_buttons_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,1 +1,0 @@
-map,roaming,route,cycling,openstreetmap,osm,nav,metro,subway,hiking,directions,car,privacy,city,town

@@ -475,22 +475,22 @@ area|z16-[landuse=cemetery]
 
 area|z10[aeroway=aerodrome][aerodrome=international],
 area|z10[aeroway=aerodrome],
-{fill-color: @aerodrome0;fill-opacity: 1;}
+{fill-color: @aerodrome0;}
 area|z11[aeroway=aerodrome][aerodrome=international],
 area|z11[aeroway=aerodrome],
-{fill-color: @aerodrome1;fill-opacity: 1;}
+{fill-color: @aerodrome1;}
 area|z12-[aeroway=aerodrome][aerodrome=international],
 area|z12-[aeroway=aerodrome]
-{fill-color: @aerodrome2;fill-opacity: 1;}
+{fill-color: @aerodrome2;}
 area|z13[aeroway=aerodrome][aerodrome=international],
 area|z13[aeroway=aerodrome]
-{fill-color: @aerodrome3;fill-opacity: 1;}
+{fill-color: @aerodrome3;}
 area|z14[aeroway=aerodrome][aerodrome=international],
 area|z14[aeroway=aerodrome]
-{fill-color: @aerodrome4;fill-opacity: 1;}
+{fill-color: @aerodrome4;}
 area|z15-19[aeroway=aerodrome][aerodrome=international],
 area|z15-19[aeroway=aerodrome]
-{fill-color: @aerodrome5; fill-opacity: 1;}
+{fill-color: @aerodrome5;}
 
 /* 7.7 Religion */
 area|z15-[landuse=churchyard]

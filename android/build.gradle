@@ -26,25 +26,25 @@ buildscript {
   ext.googleFirebaseServicesEnabled = project.hasProperty('firebase') ?: googleFirebaseServicesDefault
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:7.3.1'
+    classpath 'com.android.tools.build:gradle:7.4.1'
 
     if (googleMobileServicesEnabled) {
       println("Building with Google Mobile Services")
-      classpath 'com.google.gms:google-services:4.3.10'
+      classpath 'com.google.gms:google-services:4.3.15'
     } else {
       println("Building without Google Services")
     }
 
     if (googleFirebaseServicesEnabled) {
       println("Building with Google Firebase Services")
-      classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.1'
-      classpath 'com.google.firebase:firebase-appdistribution-gradle:2.2.0'
+      classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.4'
+      classpath 'com.google.firebase:firebase-appdistribution-gradle:3.2.0'
     } else {
       println("Building without Google Firebase Services")
     }
 
     classpath("com.github.triplet.gradle:play-publisher:3.7.0")
-    classpath("ru.cian:huawei-publish-gradle-plugin:1.3.3")
+    classpath("ru.cian:huawei-publish-gradle-plugin:1.3.5")
   }
 }
 
@@ -75,36 +75,34 @@ dependencies {
   // Google Firebase Services
   if (googleFirebaseServicesEnabled) {
     // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:30.5.0')
+    implementation platform('com.google.firebase:firebase-bom:31.2.1')
     // Add the dependencies for the Crashlytics and Analytics libraries
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation 'com.google.firebase:firebase-crashlytics-ndk'
   }
 
-  implementation 'androidx.annotation:annotation:1.5.0'
-  implementation 'androidx.appcompat:appcompat:1.7.0-alpha01'
-  implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-  implementation 'androidx.fragment:fragment:1.5.4'
-  // Lifecycle is added as a workaround for duplicate classes error caused by some outdated dependency:
+  // This line is added as a workaround for duplicate classes error caused by some outdated dependency:
   // > A failure occurred while executing com.android.build.gradle.internal.tasks.CheckDuplicatesRunnable
-  //   > Duplicate class androidx.lifecycle.ViewModelLazy found in modules jetified-lifecycle-viewmodel-ktx-2.3.1-runtime (androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1) and lifecycle-viewmodel-2.5.1-runtime (androidx.lifecycle:lifecycle-viewmodel:2.5.1)
-  //     Duplicate class androidx.lifecycle.ViewTreeViewModelKt found in modules jetified-lifecycle-viewmodel-ktx-2.3.1-runtime (androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1) and lifecycle-viewmodel-2.5.1-runtime (androidx.lifecycle:lifecycle-viewmodel:2.5.1)
-  implementation 'androidx.lifecycle:lifecycle-viewmodel:2.5.1'
-  implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+  // We don't use Kotlin, but some dependencies are actively using it.
+  implementation(platform('org.jetbrains.kotlin:kotlin-bom:1.8.0'))
+  implementation 'androidx.annotation:annotation:1.6.0-dev01'
+  implementation 'androidx.appcompat:appcompat:1.6.1'
+  implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+  implementation 'androidx.fragment:fragment:1.5.5'
   implementation 'androidx.preference:preference:1.2.0'
   implementation 'androidx.recyclerview:recyclerview:1.2.1'
-  implementation 'androidx.work:work-runtime:2.7.1'
-  implementation 'com.google.android.material:material:1.8.0-alpha02'
-  implementation 'com.google.code.gson:gson:2.10'
+  implementation 'androidx.work:work-runtime:2.8.0'
+  implementation 'com.google.android.material:material:1.8.0'
+  implementation 'com.google.code.gson:gson:2.10.1'
   implementation 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
   implementation 'com.github.devnullorthrow:MPAndroidChart:3.2.0-alpha'
   implementation 'net.jcip:jcip-annotations:1.0'
 
   // Test Dependencies
   testImplementation 'junit:junit:4.13.2'
-  testImplementation 'org.mockito:mockito-core:4.8.1'
-  testImplementation 'org.mockito:mockito-inline:4.8.1'
+  testImplementation 'org.mockito:mockito-core:5.1.1'
+  testImplementation 'org.mockito:mockito-inline:5.1.1'
 }
 
 def run(cmd) {
@@ -116,6 +114,8 @@ def run(cmd) {
   return stdout.toString()
 }
 
+
+import com.github.triplet.gradle.androidpublisher.ReleaseStatus
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 
 def getVersion() {
@@ -145,7 +145,7 @@ android {
   compileSdkVersion propCompileSdkVersion.toInteger()
   buildToolsVersion propBuildToolsVersion
 
-  ndkVersion '25.1.8937393'
+  ndkVersion '25.2.9519653'
 
   defaultConfig {
     // Default package name is taken from the manifest and should be app.organicmaps
@@ -442,7 +442,31 @@ android.buildTypes.all { buildType ->
   manifestPlaceholders += [FILE_PROVIDER_PLACEHOLDER : authorityValue]
 }
 
-import com.github.triplet.gradle.androidpublisher.ReleaseStatus
+task prepareGoogleReleaseListing {
+  // Prepares Google Play metainfo from F-Droid metainfo.
+  final sourceFlavor = 'fdroid'
+  final targetFlavor = 'google'
+  doLast {
+    final sourceDir = new File("${projectDir}/src/$sourceFlavor/play/listings")
+    final targetDir = new File("${projectDir}/src/$targetFlavor/play/listings")
+    final sourceFiles = fileTree(dir: sourceDir,
+        include: "**/*.txt", exclude: "**/*-${targetFlavor}.txt")
+    sourceFiles.each { File sourceFile ->
+      final locale = sourceFile.parentFile.getName()
+      final targetLocaleDir = new File(targetDir, locale)
+      if (!targetLocaleDir.isDirectory())
+        targetLocaleDir.mkdirs()
+      final targetFile = new File(targetLocaleDir, sourceFile.getName())
+      // Override Google-specific values by using ${name}-google.txt files.
+      final overrideFile = new File(sourceFile.getPath().replace(".txt", "-${targetFlavor}.txt"))
+      targetFile.text = overrideFile.exists() ? overrideFile.text : sourceFile.text
+    }
+    copy {
+      from "${projectDir}/../screenshots/android"
+      into targetDir
+    }
+  }
+}
 
 play {
   enabled.set(false)
@@ -457,9 +481,28 @@ huaweiPublish {
   instances {
     huaweiRelease {
       credentialsPath = "$rootDir/huawei-appgallery.json"
-      buildFormat = "aab"
-      // https://github.com/cianru/huawei-publish-gradle-plugin/issues/32
-      deployType = 'draft'
+      buildFormat = 'aab'
+      deployType = 'draft' // confirm manually
+      releaseNotes = []
+      def localeOverride = [
+          'am' : 'am-ET',
+          'gu': 'gu_IN',
+          'iw-IL': 'he_IL',
+          'kn-IN': 'kn_IN',
+          'ml-IN': 'ml_IN',
+          'mn-MN': 'mn_MN',
+          'mr-IN': 'mr_IN',
+          'ta-IN': 'ta_IN',
+          'te-IN': 'te_IN',
+      ]
+      def files = fileTree(dir: "$projectDir/src/fdroid/play/listings",
+          include: '**/release-notes.txt')
+      files.each { File file ->
+        def path = file.getPath()
+        def locale = file.parentFile.getName()
+        locale = localeOverride.get(locale, locale)
+        releaseNotes.add(new ru.cian.huawei.publish.ReleaseNote(locale, path))
+      }
     }
   }
 }

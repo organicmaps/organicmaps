@@ -35,6 +35,9 @@
 	<string name="country_status_download_failed">Allalaadimine ebaõnnestus</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Proovi uuesti</string>
+	<string name="about_menu_title">Organic Maps kohta</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Säästab akut, ei kasuta taustaandmeid</string>
 	<string name="connection_settings">Ühenduse seaded</string>
 	<string name="close">Sulge</string>
 	<string name="unsupported_phone">Rakendus vajab riistvaralist OpenGL tuge. Kahjuks Sinu seade ei ole toetatud.</string>
@@ -236,7 +239,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Anneta</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Kuidas meid toetada?</string>
+	<string name="how_to_support_us">Toetage projekti</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Autoriõigused</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -445,7 +448,6 @@
 	<string name="editor_report_problem_other_title">Erinev probleem</string>
 	<string name="placepage_add_business_button">Lisa ettevõte</string>
 	<string name="message_invalid_feature_position">Ükski objekt ei saa siin asuda</string>
-	<string name="osm_presentation">Kõik kaardiandmed pärinevad OpenStreetMapi projektist. See on nagu Vikipeedia kaartide jaoks, kus saate kohti lisada või muuta ja need muutuvad kättesaadavaks miljonitele kasutajatele üle kogu maailma.</string>
 	<string name="login_to_make_edits_visible">Logi sisse OpenStreetMap.org keskkonda, et teised kasutajad näeksid Sinu tehtud muudatusi.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>
@@ -453,8 +455,8 @@
 	<string name="download_over_mobile_message">See võib mõningate lepingute või roamingu korral olla märgatavalt kallim.</string>
 	<string name="error_enter_correct_house_number">Sisesta kehtiv majanumber</string>
 	<string name="editor_storey_number">Korruste arv (maks. %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Korruste arv ei või olla üle 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Korruste arv ei või olla üle %d</string>
 	<string name="editor_zip_code">Postiindeks</string>
 	<string name="error_enter_correct_zip_code">Sisesta korrektne postiindeks</string>
 	<!-- Place Page title for long tap -->
@@ -781,6 +783,7 @@
 	<string name="type.amenity.internet_cafe">Internetikohvik</string>
 	<string name="type.amenity.kindergarten">Lasteaed</string>
 	<string name="type.amenity.library">Raamatukogu</string>
+	<string name="type.amenity.loading_dock">Laadimisdokk</string>
 	<string name="type.amenity.marketplace">Turg</string>
 	<string name="type.amenity.motorcycle_parking">Mootorrataste parkimine</string>
 	<string name="type.amenity.nightclub">Ööklubi</string>
@@ -1021,9 +1024,20 @@
 	<string name="type.emergency.defibrillator">Defibrillaator</string>
 	<string name="type.emergency.fire_hydrant">Tuletõrjehüdrant</string>
 	<string name="type.emergency.phone">Hädaabi telefon</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Sissepääs</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Peasissekäik</string>
 	<string name="type.healthcare.laboratory">Meditsiinilabor</string>
 	<string name="type.healthcare.physiotherapist">Füsioterapeut</string>
+	<string name="type.healthcare.alternative">Alternatiivne meditsiin</string>
+	<string name="type.healthcare.audiologist">Audioloogia</string>
+	<string name="type.healthcare.blood_donation">Vereloovutuskeskus</string>
+	<string name="type.healthcare.optometrist">Optomeetria</string>
+	<string name="type.healthcare.podiatrist">Jalaravi</string>
+	<string name="type.healthcare.psychotherapist">Psühhoteraapia</string>
+	<string name="type.healthcare.sample_collection">Proovivõtmine</string>
+	<string name="type.healthcare.speech_therapist">Logopeedia</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Maantee</string>
@@ -1033,6 +1047,7 @@
 	<string name="type.highway.bridleway.permissive">Valjarada</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
+	<string name="type.highway.busway">Spetsiaalne bussitee</string>
 	<string name="type.highway.bus_stop">Bussipeatus</string>
 	<string name="type.highway.construction">Ehitusjärgus tee</string>
 	<string name="type.highway.cycleway">Jalgrattatee</string>
@@ -1321,6 +1336,7 @@
 	<string name="type.man_made.storage_tank">Mahuti</string>
 	<string name="type.man_made.surveillance">Jälgimiskaamera</string>
 	<string name="type.man_made.tower">Torn</string>
+	<string name="type.man_made.tower.communication">Sidetorn</string>
 	<string name="type.man_made.wastewater_plant">Reoveepuhasti</string>
 	<string name="type.man_made.water_tap">Veekraan</string>
 	<string name="type.man_made.water_tower">Veetorn</string>
@@ -1415,6 +1431,10 @@
 	<string name="type.place.village">Küla</string>
 	<string name="type.power">Energia</string>
 	<string name="type.power.generator">Generaator</string>
+	<string name="type.power.generator.solar">Päikese generaator</string>
+	<string name="type.power.generator.wind">Tuulegeneraator</string>
+	<string name="type.power.generator.gas">Gaasiturbiini elektrijaam</string>
+	<string name="type.power.generator.hydro">Hüdroelektrijaam</string>
 	<string name="type.power.line">Elektriliin</string>
 	<string name="type.power.line.underground">Maa-alune elektriliin</string>
 	<string name="type.power.minor_line">Madal-/Keskpinge elektriliin</string>
@@ -1477,6 +1497,7 @@
 	<string name="type.railway.station.subway.beijing">Metroo</string>
 	<string name="type.railway.station.subway.bengalore">Metroo</string>
 	<string name="type.railway.station.subway.berlin">Metroo</string>
+	<string name="type.railway.station.subway.bilbao">Metroo</string>
 	<string name="type.railway.station.subway.brasilia">Metroo</string>
 	<string name="type.railway.station.subway.brescia">Metroo</string>
 	<string name="type.railway.station.subway.brussels">Metroo</string>
@@ -1589,6 +1610,7 @@
 	<string name="type.railway.subway_entrance.beijing">Metroo sissepääs</string>
 	<string name="type.railway.subway_entrance.bengalore">Metroo sissepääs</string>
 	<string name="type.railway.subway_entrance.berlin">Metroo sissepääs</string>
+	<string name="type.railway.subway_entrance.bilbao">Metroo sissepääs</string>
 	<string name="type.railway.subway_entrance.brasilia">Metroo sissepääs</string>
 	<string name="type.railway.subway_entrance.brescia">Metroo sissepääs</string>
 	<string name="type.railway.subway_entrance.brussels">Metroo sissepääs</string>

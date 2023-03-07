@@ -176,6 +176,8 @@ tools/python/routing/etc/*.ini
 # VS Code
 .vscode
 
-# Screenshots
-screenshots
-android/src/google/play/listings/??-??/graphics
+# AppStore metadata
+screenshots/
+android/src/google/play/listings/
+keywords/
+iphone/metadata/**/keywords.txt

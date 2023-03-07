@@ -36,6 +36,17 @@
 	<string name="country_status_download_failed">Η λήψη απέτυχε</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Δοκιμάστε ξανά</string>
+	<string name="about_menu_title">Σχετικά με το Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Δωρεάν για όλους, φτιαγμένα με αγάπη</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Δεν υπάρχουν διαφημίσεις, χωρίς παρακολούθηση, χωρίς συλλογή δεδομένων</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Εξοικονομεί μπαταρία, δεν χρησιμοποιεί δεδομένα παρασκηνίου</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Γρήγορη, μινιμαλιστική, χωρίς σκουπίδια</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Εφαρμογή ανοιχτού κώδικα που δημιουργήθηκε από ενθουσιώδες και εθελοντές.</string>
 	<string name="connection_settings">Ρυθμίσεις σύνδεσης</string>
 	<string name="close">Κλείσιμο</string>
 	<string name="unsupported_phone">Η εφαρμογή απαιτεί OpenGL με επιτάχυνση υλικού. Δυστυχώς, η συσκευή σας δεν το υποστηρίζει.</string>
@@ -220,7 +231,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Προσφέρω</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Πώς να μας υποστηρίξετε;</string>
+	<string name="how_to_support_us">Υποστηρίξτε το έργο</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Πνευματικά δικαιώματα</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -425,7 +436,8 @@
 	<string name="editor_report_problem_other_title">Διαφορετικό πρόβλημα</string>
 	<string name="placepage_add_business_button">Προσθήκη επιχείρησης</string>
 	<string name="message_invalid_feature_position">Δε μπορεί να εντοπιστεί αντικείμενο εδώ</string>
-	<string name="osm_presentation">Όλα τα δεδομένα χάρτη προέρχονται από το έργο OpenStreetMap. Μοιάζει με τη Wikipedia για χάρτες όπου μπορείτε να προσθέσετε ή να επεξεργαστείτε μέρη και γίνονται διαθέσιμα σε εκατομμύρια χρήστες σε όλο τον κόσμο.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Χαρτογραφικά δεδομένα από το OpenStreetMap από το %s. Είναι σαν τη Wikipedia όπου μπορείτε να προσθέσετε ή να επεξεργαστείτε θέσεις για όλους τους χρήστες του κόσμου.</string>
 	<string name="login_to_make_edits_visible">Συνδεθείτε ώστε άλλοι χρήστες να μπορούν να δουν τις αλλαγές που έχετε κάνει</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d από %2$d</string>
@@ -433,8 +445,8 @@
 	<string name="download_over_mobile_message">Αυτό μπορεί να είναι σημαντικά πιο ακριβό για μερικά πακέτα ή στην περίπτωση περιαγωγής</string>
 	<string name="error_enter_correct_house_number">Εισαγάγετε έναν έγκυρο αριθμό κτιρίου</string>
 	<string name="editor_storey_number">Αριθμός ορόφων (μέγιστο %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Ο αριθμός των ορόφων δεν πρέπει να υπερβαίνει τους 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Ο αριθμός των ορόφων δεν πρέπει να υπερβαίνει τους %d</string>
 	<string name="editor_zip_code">Ταχυδρομικός κώδικας</string>
 	<string name="error_enter_correct_zip_code">Πληκτρολογήστε έναν έγκυρο ταχυδρομικό κώδικα</string>
 	<!-- Place Page title for long tap -->
@@ -718,6 +730,7 @@
 	<string name="type.amenity.internet_cafe">Καφετέρια με Ίντερνετ</string>
 	<string name="type.amenity.kindergarten">Νηπιαγωγείο</string>
 	<string name="type.amenity.library">Βιβλιοθήκη</string>
+	<string name="type.amenity.loading_dock">Αποβάθρα φόρτωσης</string>
 	<string name="type.amenity.marketplace">Αγορά</string>
 	<string name="type.amenity.motorcycle_parking">Χώρος στάθμευσης μοτοσικλετών</string>
 	<string name="type.amenity.nightclub">Νυχτερινό κέντρο διασκέδασης</string>
@@ -911,15 +924,27 @@
 	<string name="type.emergency.defibrillator">Πρώτες βοήθειες</string>
 	<string name="type.emergency.fire_hydrant">Πυροσβεστικός κρουνός</string>
 	<string name="type.emergency.phone">Τηλέφωνο έκτακτης ανάγκης</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Είσοδος</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Κύρια είσοδος</string>
 	<string name="type.healthcare.laboratory">Ιατρικό Εργαστήριο</string>
 	<string name="type.healthcare.physiotherapist">Φυσικοθεραπευτής</string>
+	<string name="type.healthcare.alternative">Εναλλακτική ιατρική</string>
+	<string name="type.healthcare.audiologist">Ακοολογία</string>
+	<string name="type.healthcare.blood_donation">Κέντρο αιμοδοσίας</string>
+	<string name="type.healthcare.optometrist">Οπτομετρία</string>
+	<string name="type.healthcare.podiatrist">Ποδιατρική</string>
+	<string name="type.healthcare.psychotherapist">Ψυχοθεραπεία</string>
+	<string name="type.healthcare.sample_collection">Δειγματοληψία</string>
+	<string name="type.healthcare.speech_therapist">Λογοθεραπεία</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">Γέφυρα</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Σήραγγα</string>
+	<string name="type.highway.busway">Αφιερωμένος δρόμος λεωφορείων</string>
 	<string name="type.highway.bus_stop">Στάση λεωφορείου</string>
 	<string name="type.highway.construction">Οδός υπό κατασκευή</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1157,6 +1182,7 @@
 	<string name="type.man_made.lighthouse">Φάρος</string>
 	<string name="type.man_made.surveillance">Κάμερα παρακολούθησης</string>
 	<string name="type.man_made.tower">Πύργος</string>
+	<string name="type.man_made.tower.communication">Πύργος Επικοινωνιών</string>
 	<string name="type.man_made.water_tap">Βρύση νερού</string>
 	<string name="type.man_made.water_tower">Υδατόπυργος</string>
 	<string name="type.man_made.water_well">Πηγάδι νερού</string>
@@ -1242,6 +1268,10 @@
 	<string name="type.place.suburb">Προάστιο</string>
 	<string name="type.place.town">Κωμόπολη</string>
 	<string name="type.place.village">Χωριό</string>
+	<string name="type.power.generator.solar">Ηλιακή γεννήτρια</string>
+	<string name="type.power.generator.wind">Ανεμογεννήτρια</string>
+	<string name="type.power.generator.gas">Μονάδα παραγωγής ηλεκτρικής ενέργειας αεριοστροβίλου</string>
+	<string name="type.power.generator.hydro">Υδροηλεκτρικό εργοστάσιο</string>
 	<string name="type.power.pole">Πυλώνες μεταφοράς ρεύματος</string>
 	<string name="type.power.substation">Υποσταθμός</string>
 	<string name="type.power.tower">Πυλώνες μεταφοράς ρεύματος</string>
@@ -1265,6 +1295,7 @@
 	<string name="type.railway.station.subway.beijing">Μετρό</string>
 	<string name="type.railway.station.subway.bengalore">Μετρό</string>
 	<string name="type.railway.station.subway.berlin">Μετρό</string>
+	<string name="type.railway.station.subway.bilbao">Μετρό</string>
 	<string name="type.railway.station.subway.brasilia">Μετρό</string>
 	<string name="type.railway.station.subway.brescia">Μετρό</string>
 	<string name="type.railway.station.subway.brussels">Μετρό</string>
@@ -1374,6 +1405,7 @@
 	<string name="type.railway.subway_entrance.beijing">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.bengalore">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.berlin">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.bilbao">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.brasilia">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.brescia">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.brussels">Είσοδος μετρό</string>

@@ -35,6 +35,17 @@
 	<string name="country_status_download_failed">Downloaden is mislukt</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Opnieuw proberen</string>
+	<string name="about_menu_title">Over Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Gratis voor iedereen, met liefde gemaakt</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Geen advertenties, geen tracking, geen gegevensverzameling</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Spaart de batterij, gebruikt geen achtergrondgegevens</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Snel, minimalistisch, geen junk</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Open-source applicatie gemaakt door enthousiastelingen en vrijwilligers.</string>
 	<string name="connection_settings">Verbindingsinstellingen</string>
 	<string name="close">Sluiten</string>
 	<string name="unsupported_phone">Een hardware geaccellereerde OpenGL is nodig. Jammer genoeg wordt uw apparaat niet ondersteund.</string>
@@ -236,7 +247,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Doneren</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Hoe ons te steunen?</string>
+	<string name="how_to_support_us">Steun het project</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Auteursrechten</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -443,7 +454,8 @@
 	<string name="editor_report_problem_other_title">Een ander probleem</string>
 	<string name="placepage_add_business_button">Een organisatie toevoegen</string>
 	<string name="message_invalid_feature_position">Hier kan geen object worden geplaatst</string>
-	<string name="osm_presentation">Alle kaartgegevens komen uit het OpenStreetMap-project. Het is als Wikipedia voor kaarten waar je plaatsen kunt toevoegen of bewerken, en ze worden beschikbaar voor miljoenen gebruikers over de hele wereld.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Cartografische gegevens van OpenStreetMap per %s. OSM is als Wikipedia voor kaarten, waar je plaatsen kunt toevoegen of bewerken voor alle gebruikers over de hele wereld.</string>
 	<string name="login_to_make_edits_visible">Log in zodat andere gebruikers kunnen zien wat u hebt gewijzigd.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d van %2$d</string>
@@ -451,8 +463,8 @@
 	<string name="download_over_mobile_message">Met sommige abonnementen of bij roaming kan dit behoorlijk duur zijn.</string>
 	<string name="error_enter_correct_house_number">Een juist huisnummer invoeren</string>
 	<string name="editor_storey_number">Aantal verdiepingen (max. %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Bewerk het gebouw met maximaal 25 verdiepingen</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Het gebouw mag niet meer dan %d verdiepingen hebben</string>
 	<string name="editor_zip_code">Postcode</string>
 	<string name="error_enter_correct_zip_code">Voer de juiste postcode in</string>
 	<!-- Place Page title for long tap -->
@@ -774,6 +786,7 @@
 	<string name="type.amenity.internet_cafe">Internetcafé</string>
 	<string name="type.amenity.kindergarten">Kleuterschool</string>
 	<string name="type.amenity.library">Bibliotheek</string>
+	<string name="type.amenity.loading_dock">Laad-dock</string>
 	<string name="type.amenity.marketplace">Markt</string>
 	<string name="type.amenity.motorcycle_parking">Parking Motorfietsen</string>
 	<string name="type.amenity.nightclub">Nachtclub</string>
@@ -1013,9 +1026,20 @@
 	<string name="type.emergency.defibrillator">Defibrillator (AED)</string>
 	<string name="type.emergency.fire_hydrant">Brandkraan</string>
 	<string name="type.emergency.phone">Praatpaal</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Ingang</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Hoofdingang</string>
 	<string name="type.healthcare.laboratory">Medisch laboratorium</string>
 	<string name="type.healthcare.physiotherapist">Fysiotherapeut</string>
+	<string name="type.healthcare.alternative">Alternatieve geneeskunde</string>
+	<string name="type.healthcare.audiologist">Audiologie</string>
+	<string name="type.healthcare.blood_donation">Bloeddonatiecentrum</string>
+	<string name="type.healthcare.optometrist">Optometrie</string>
+	<string name="type.healthcare.podiatrist">Podologie</string>
+	<string name="type.healthcare.psychotherapist">Psychotherapie</string>
+	<string name="type.healthcare.sample_collection">Bemonstering</string>
+	<string name="type.healthcare.speech_therapist">Logopedie</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Straat</string>
@@ -1025,6 +1049,7 @@
 	<string name="type.highway.bridleway.permissive">Ruiterpad</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
+	<string name="type.highway.busway">Speciale busweg</string>
 	<string name="type.highway.bus_stop">Bushalte</string>
 	<string name="type.highway.construction">Baan in aanbouw</string>
 	<string name="type.highway.cycleway">Fietspad</string>
@@ -1310,6 +1335,7 @@
 	<string name="type.man_made.storage_tank">Opslagtank</string>
 	<string name="type.man_made.surveillance">Bewakingscamera</string>
 	<string name="type.man_made.tower">Toren</string>
+	<string name="type.man_made.tower.communication">Communicatie Toren</string>
 	<string name="type.man_made.wastewater_plant">Waterzuiveringsinstallatie</string>
 	<string name="type.man_made.water_tap">Waterkraan</string>
 	<string name="type.man_made.water_tower">Watertoren</string>
@@ -1403,6 +1429,10 @@
 	<string name="type.place.town">Stad</string>
 	<string name="type.place.village">Dorp</string>
 	<string name="type.power">Electriciteit</string>
+	<string name="type.power.generator.solar">Zonne-generator</string>
+	<string name="type.power.generator.wind">Wind generator</string>
+	<string name="type.power.generator.gas">Gasturbine elektriciteitscentrale</string>
+	<string name="type.power.generator.hydro">Waterkrachtcentrale</string>
 	<string name="type.power.line">Hoogspanningsleiding</string>
 	<string name="type.power.line.underground">Ondergrondse hoogspanningsleiding</string>
 	<string name="type.power.minor_line">Laag-/middelspanningsleiding</string>
@@ -1469,6 +1499,7 @@
 	<string name="type.railway.station.subway.beijing">Metrostation</string>
 	<string name="type.railway.station.subway.bengalore">Metrostation</string>
 	<string name="type.railway.station.subway.berlin">Metrostation</string>
+	<string name="type.railway.station.subway.bilbao">Metrostation</string>
 	<string name="type.railway.station.subway.brasilia">Metrostation</string>
 	<string name="type.railway.station.subway.brescia">Metrostation</string>
 	<string name="type.railway.station.subway.brussels">Metrostation</string>
@@ -1581,6 +1612,7 @@
 	<string name="type.railway.subway_entrance.beijing">Metro ingang</string>
 	<string name="type.railway.subway_entrance.bengalore">Metro ingang</string>
 	<string name="type.railway.subway_entrance.berlin">Metro ingang</string>
+	<string name="type.railway.subway_entrance.bilbao">Metro ingang</string>
 	<string name="type.railway.subway_entrance.brasilia">Metro ingang</string>
 	<string name="type.railway.subway_entrance.brescia">Metro ingang</string>
 	<string name="type.railway.subway_entrance.brussels">Metro ingang</string>

@@ -964,11 +964,48 @@ el:Τσάι
 he:תה
 sk:Čaj
 
-cuisine-vegan|cuisine-vegetarian
-en:Vegan|Vegetarian|veg cafe
-ru:Веганская кухня|Веганская еда|Вегетарианская кухня|Вегетарианская еда
-bg:Веганско|Вегетарианско
+cuisine-vegetarian
+en:Vegetarian
+ru:Вегетарианская кухня
 ar:مطبخ نباتي
+be:Вегетарыянская кухня
+bg:Вегетарианско
+cs:Vegetariánská kuchyně
+da:Vegetarretter
+nl:Vegetarisch
+fi:Kasvis keittiö
+fr:Cuisine végétarienne
+de:Vegetarische Küche
+hu:Vegetáriánus konyha
+id:Masakan vegetarian
+it:Cucina vegetariana
+ja:ベジタリアン料理
+ko:채식주의자 음식
+nb:Vegetarisk|Vegetarretter
+pl:Kuchnia wegetariańska
+pt:Vegetariana
+pt-BR:Vegetariana
+ro:Bucătărie vegetarian
+es:Cocina vegetariana
+eu:Sukaldaritza begetarianoa
+sv:Vegetarisk mat
+th:อาหารมังสวิรัติ
+tr:Vejetaryen mutfağı
+uk:Вегетаріанська кухня
+vi:Ẩm thực chay
+zh-Hans:素菜
+zh-Hant:素食
+el:Χορτοφαγική
+he:מטבח טבעוני
+sk:Vegetariánske jedlá
+
+# Vegan is also Vegetarian
+cuisine-vegan
+en:Vegan|Vegetarian|veg cafe
+ru:Веганская кухня|Вегетарианская кухня
+ar:مطبخ نباتي
+be:Веганская кухня|Вегетарыянская кухня
+bg:Веганско|Вегетарианско
 cs:Veganská kuchyně|Vegetariánská kuchyně
 da:Vegansk|Vegetarretter
 nl:Veganistisch|Vegetarisch

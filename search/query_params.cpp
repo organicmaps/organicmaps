@@ -3,22 +3,18 @@
 #include "search/ranking_utils.hpp"
 #include "search/token_range.hpp"
 
-#include "indexer/feature_impl.hpp"
-
 #include <map>
 #include <sstream>
 
 namespace search
 {
 using namespace std;
-using namespace strings;
 
 namespace
 {
 // All synonyms should be lowercase.
 
-// @todo These should check the map language and use
-// only the corresponding translation.
+/// @todo These should check the map language and use only the corresponding translation.
 map<string, vector<string>> const kSynonyms = {
     {"n",    {"north"}},
     {"w",    {"west"}},
@@ -29,21 +25,49 @@ map<string, vector<string>> const kSynonyms = {
     {"sw",   {"southwest"}},
     {"se",   {"southeast"}},
     {"st",   {"saint", "street"}},
-    {"blvd", {"boulevard"}},
-    {"cir",  {"circle"}},
-    {"ct",   {"court"}},
-    {"rt",   {"route"}},
+    {"dr",   {"doctor"}},
+
+    {"al",    {"allee", "alle"}},
+    {"ave",   {"avenue"}},
+    /// @todo Should process synonyms with errors like "blvrd" -> "blvd".
+    /// @see HouseOnStreetSynonymsWithMisprints test.
+    {"blvd",  {"boulevard"}},
+    {"blvrd", {"boulevard"}},
+    {"cir",   {"circle"}},
+    {"ct",    {"court"}},
+    {"hwy",   {"highway"}},
+    {"pl",    {"place", "platz"}},
+    {"rt",    {"route"}},
+    {"sq",    {"square"}},
+
+    {"ал",    {"аллея", "алея"}},
+    {"бул",   {"бульвар"}},
+    {"зав",   {"завулак"}},
+    {"кв",    {"квартал"}},
+    {"наб",   {"набережная", "набярэжная", "набережна"}},
+    {"пер",   {"переулок"}},
+    {"пл",    {"площадь", "площа"}},
+    {"пр",    {"проспект", "праспект", "провулок", "проезд", "праезд", "проїзд"}},
+    {"туп",   {"тупик", "тупік"}},
+    {"ш",     {"шоссе", "шаша", "шосе"}},
+
+    {"cd",    {"caddesi"}},
+
     {"св",   {"святой", "святого", "святая", "святые", "святых", "свято"}},
     {"б",    {"большая", "большой"}},
     {"бол",  {"большая", "большой"}},
     {"м",    {"малая", "малый"}},
     {"мал",  {"малая", "малый"}},
     {"нов",  {"новая", "новый"}},
-    {"стар", {"старая", "старый"}}};
+    {"стар", {"старая", "старый"}},
+};
 }  // namespace
 
 // QueryParams::Token ------------------------------------------------------------------------------
-void QueryParams::Token::AddSynonym(string const & s) { AddSynonym(MakeUniString(s)); }
+void QueryParams::Token::AddSynonym(string const & s)
+{
+  AddSynonym(strings::MakeUniString(s));
+}
 
 void QueryParams::Token::AddSynonym(String const & s)
 {

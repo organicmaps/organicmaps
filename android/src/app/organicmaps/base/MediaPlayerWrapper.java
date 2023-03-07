@@ -112,6 +112,7 @@ public class MediaPlayerWrapper
     return app.getMediaPlayer();
   }
 
+  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3632
   private static class InitPlayerTask extends AsyncTask<Integer, Void, InitializationResult>
   {
     @NonNull

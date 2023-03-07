@@ -4,6 +4,16 @@
 <!-- Language: sw -->
 <resources>
 	<!-- SECTION: Strings -->
+	<!-- Text in About screen -->
+	<string name="about_headline">Bure kwa kila mtu, iliyotengenezwa na upendo</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Hakuna matangazo, hakuna ufuatiliaji, hakuna mkusanyiko wa data</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Huokoa betri, haitumii data ya usuli</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Haraka, minimalistic, hakuna taka</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Maombi ya chanzo-wazi iliyoundwa na wanaovutia na wanaojitolea.</string>
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage">Hifadhi ramani kwenye</string>
 
@@ -33,7 +43,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Changia</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Jinsi ya kutuunga mkono?</string>
+	<string name="how_to_support_us">Saidia mradi</string>
 	<!-- Preference title -->
 	<string name="google_play_services">Huduma za Google Play</string>
 	<!-- deep purple color -->
@@ -60,7 +70,8 @@
 	<!-- SECTION: Strings for downloading map from search -->
 	<string name="login_osm">Ingia kwa OpenStreetMap</string>
 	<string name="level">Ghorofa</string>
-	<string name="osm_presentation">Data yote ya ramani inatoka kwa mradi wa OpenStreetMap. Ni kama Wikipedia ya ramani ambapo unaweza kuongeza au kuhariri maeneo, na yanapatikana kwa mamilioni ya watumiaji duniani kote.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Takwimu za katuni kutoka kwa OpenStreetMap kama ya %s. Ni kama Wikipedia ambapo unaweza kuongeza au kuhariri maeneo kwa watumiaji wote ulimwenguni.</string>
 	<string name="editor_other_info">Tuma ujumbe kwenye vihariri vya OSM</string>
 	<string name="editor_share_to_all_dialog_message_2">Wahariri wa OpenStreetMap watakagua mabadiliko na kuwasiliana nawe ikiwa wana maswali yoyote.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
@@ -235,6 +246,7 @@
 	<string name="type.leisure.bowling_alley">Njia ya Bowling</string>
 	<string name="type.amenity.music_school">Shule ya Muziki</string>
 	<string name="type.amenity.language_school">Shule ya Lugha</string>
+	<string name="type.amenity.loading_dock">Inapakia kituo</string>
 	<string name="type.amenity.parking">Maegesho</string>
 	<string name="type.amenity.parking.fee">Maegesho ya Kulipwa</string>
 	<string name="type.amenity.parking.multi.storey">Maegesho ya Hifadhi nyingi</string>
@@ -280,14 +292,25 @@
 	<string name="type.craft.winery">Mvinyo</string>
 	<string name="type.craft.tailor">Mshonaji nguo</string>
 	<string name="type.cuisine.coffee_shop">Kahawa</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Mlango Mkuu</string>
 	<string name="type.healthcare.laboratory">Maabara ya Matibabu</string>
 	<string name="type.healthcare.physiotherapist">Mtaalamu wa Physiotherapist</string>
+	<string name="type.healthcare.alternative">Dawa mbadala</string>
+	<string name="type.healthcare.audiologist">Mtaalamu wa kusikia</string>
+	<string name="type.healthcare.blood_donation">Kituo cha Uchangiaji Damu</string>
+	<string name="type.healthcare.optometrist">Optometry</string>
+	<string name="type.healthcare.podiatrist">Matibabu ya miguu</string>
+	<string name="type.healthcare.psychotherapist">Tiba ya kisaikolojia</string>
+	<string name="type.healthcare.sample_collection">Sampuli</string>
+	<string name="type.healthcare.speech_therapist">Tiba ya hotuba</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">Daraja</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Mtaro</string>
+	<string name="type.highway.busway">Barabara ya basi iliyotengwa</string>
 	<string name="type.highway.construction">Barabara inatengenezwa</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.cycleway.bridge">Daraja</string>
@@ -423,6 +446,7 @@
 	<string name="type.leisure.park.private">Hifadhi</string>
 	<string name="type.leisure.picnic_table">Jedwali la Picnic</string>
 	<string name="type.leisure.sauna">Chumba cha mvuke</string>
+	<string name="type.man_made.tower.communication">Mnara wa Mawasiliano</string>
 	<string name="type.natural">Uasilia</string>
 	<string name="type.natural.bare_rock">Mwamba tupu</string>
 	<string name="type.natural.bay">Hori</string>
@@ -494,6 +518,10 @@
 	<string name="type.place.suburb">Pambizo</string>
 	<string name="type.place.town">Mji</string>
 	<string name="type.place.village">Kijiji</string>
+	<string name="type.power.generator.solar">Jenereta ya jua</string>
+	<string name="type.power.generator.wind">Jenereta ya upepo</string>
+	<string name="type.power.generator.gas">Kiwanda cha nguvu cha turbine ya gesi</string>
+	<string name="type.power.generator.hydro">Kiwanda cha umeme wa maji</string>
 	<string name="type.railway.level_crossing">Tambuka Reli</string>
 	<string name="type.railway.monorail">Mfumo wa reli moja</string>
 	<string name="type.railway.rail">Njia ya Reli</string>
@@ -510,6 +538,7 @@
 	<string name="type.railway.subway_entrance.beijing">Lango la kuingilia stesheni ya reli</string>
 	<string name="type.railway.subway_entrance.bengalore">Lango la kuingilia stesheni ya reli</string>
 	<string name="type.railway.subway_entrance.berlin">Lango la kuingilia stesheni ya reli</string>
+	<string name="type.railway.subway_entrance.bilbao">Lango la kuingilia stesheni ya reli</string>
 	<string name="type.railway.subway_entrance.brasilia">Lango la kuingilia stesheni ya reli</string>
 	<string name="type.railway.subway_entrance.brescia">Lango la kuingilia stesheni ya reli</string>
 	<string name="type.railway.subway_entrance.brussels">Lango la kuingilia stesheni ya reli</string>

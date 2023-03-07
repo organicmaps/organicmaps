@@ -304,7 +304,7 @@
 "donate" = "Donează";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Cum să ne sprijiniți?";
+"how_to_support_us" = "Susține proiectul";
 
 /* Button in the main Help dialog */
 "copyright" = "Drepturi de autor";
@@ -710,8 +710,8 @@
 
 "editor_storey_number" = "Număr de etaje (maximum %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "Numărul de etaje nu trebuie să depășească 25";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Numărul de etaje nu trebuie să depășească %d";
 
 "editor_zip_code" = "Cod poștal";
 
@@ -1241,15 +1241,15 @@
 
 "type.aerialway" = "Aerialway";
 
-"type.aerialway.cable_car" = "Cable car";
+"type.aerialway.cable_car" = "Cable Car";
 
-"type.aerialway.chair_lift" = "Chair lift";
+"type.aerialway.chair_lift" = "Chair Lift";
 
-"type.aerialway.drag_lift" = "Drag lift";
+"type.aerialway.drag_lift" = "Drag Lift";
 
 "type.aerialway.gondola" = "Gondola";
 
-"type.aerialway.mixed_lift" = "Mixed lift";
+"type.aerialway.mixed_lift" = "Mixed Lift";
 
 "type.aerialway.station" = "Stație de teleferic";
 
@@ -1370,6 +1370,8 @@
 "type.amenity.kindergarten" = "Grădiniță";
 
 "type.amenity.library" = "Bibliotecă";
+
+"type.amenity.loading_dock" = "Încărcare doc";
 
 "type.amenity.marketplace" = "Magazin";
 
@@ -1849,11 +1851,31 @@
 
 "type.emergency.phone" = "Telefon de urgență";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Intrare";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Intrarea principala";
 
 "type.healthcare.laboratory" = "Laborator medical";
 
 "type.healthcare.physiotherapist" = "Fizioterapeut";
+
+"type.healthcare.alternative" = "Medicină alternativă";
+
+"type.healthcare.audiologist" = "Audiologie";
+
+"type.healthcare.blood_donation" = "Centrul de donare de sânge";
+
+"type.healthcare.optometrist" = "Optometrie";
+
+"type.healthcare.podiatrist" = "Podiatrie";
+
+"type.healthcare.psychotherapist" = "Psihoterapie";
+
+"type.healthcare.sample_collection" = "Eșantionare";
+
+"type.healthcare.speech_therapist" = "Logopedie";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1891,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunel";
+
+"type.highway.busway" = "Drum dedicat autobuzului";
 
 "type.highway.bus_stop" = "Stație de autobuz";
 
@@ -2305,7 +2329,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "Gunoiște";
 
@@ -2323,9 +2347,9 @@
 
 "type.landuse.reservoir" = "Apă";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 
@@ -2430,6 +2454,8 @@
 "type.man_made.surveillance" = "Cameră de supraveghere";
 
 "type.man_made.tower" = "Turn";
+
+"type.man_made.tower.communication" = "Turnul de comunicații";
 
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
@@ -2623,6 +2649,14 @@
 
 "type.power.generator" = "Generator";
 
+"type.power.generator.solar" = "Generator solar";
+
+"type.power.generator.wind" = "Generator eolian";
+
+"type.power.generator.gas" = "Centrala electrica cu turbina cu gaz";
+
+"type.power.generator.hydro" = "Centrală hidroelectrică";
+
 "type.power.line" = "Power Line";
 
 "type.power.line.underground" = "Underground Power Line";
@@ -2754,6 +2788,8 @@
 "type.railway.station.subway.bengalore" = "Metrou";
 
 "type.railway.station.subway.berlin" = "Metrou";
+
+"type.railway.station.subway.bilbao" = "Metrou";
 
 "type.railway.station.subway.brasilia" = "Metrou";
 
@@ -2978,6 +3014,8 @@
 "type.railway.subway_entrance.bengalore" = "Intrare în metro";
 
 "type.railway.subway_entrance.berlin" = "Intrare în metro";
+
+"type.railway.subway_entrance.bilbao" = "Intrare în metro";
 
 "type.railway.subway_entrance.brasilia" = "Intrare în metro";
 

@@ -190,4 +190,10 @@ UNIT_TEST(LooksLikeHouseNumber_Smoke)
   TEST(LooksLikeHouseNumber("д 16", false /* isPrefix */), ());
   TEST(LooksLikeHouseNumber("дом 16", false /* isPrefix */), ());
   TEST(LooksLikeHouseNumber("дом 14 д 1", false /* isPrefix */), ());
+
+  TEST(!LooksLikeHouseNumber("улица", false /* isPrefix */), ());
+  /// @todo By VNG: Don't know is it supposed or not, but next tokens are _looks like house numbers_!
+  /// @see g_strings in house_numbers_matching.cpp
+  TEST(LooksLikeHouseNumber("avenida", false /* isPrefix */), ());
+  TEST(LooksLikeHouseNumber("street", false /* isPrefix */), ());
 }

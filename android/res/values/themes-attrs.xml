@@ -2,12 +2,15 @@
 <resources>
   <declare-styleable name="ThemeAttrs">
     <attr name="fullscreenDialogTheme" format="reference" />
+    <attr name="titleDialogTheme" format="reference" />
+    <attr name="textDialogTheme" format="reference" />
     <attr name="windowBackgroundForced" format="reference|color" />
     <attr name="cardBackground" format="reference" />
     <attr name="clickableBackground" format="reference" />
     <attr name="statusBar" format="color" />
     <attr name="secondary" format="color" />
     <attr name="panel" format="color" />
+    <attr name="colorLogo" format="color" />
     <attr name="iconTint" format="color" />
     <attr name="iconTintDisabled" format="color" />
     <attr name="iconTintActive" format="color" />

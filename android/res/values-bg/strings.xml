@@ -38,6 +38,17 @@
 	<string name="country_status_download_failed">Изтеглянето се провали</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Опитайте отново</string>
+	<string name="about_menu_title">Относно приложението</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Безплатно за всички, направени с любов</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Без реклами, без проследяване, без събиране на данни</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Пести батерията, не използва фонови данни</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Бързи, минималистични, без боклуци</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Приложение с отворен код, създадено от ентусиасти и доброволци.</string>
 	<string name="connection_settings">Настройки за свързване</string>
 	<string name="close">Затваряне</string>
 	<string name="unsupported_phone">Приложението изисква хардуерно ускорение на OpenGL. За съжаление вашето устройство не се поддържа.</string>
@@ -226,7 +237,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Дарете</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Как да ни подкрепите?</string>
+	<string name="how_to_support_us">Подкрепете проекта</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Авторски права</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -414,7 +425,8 @@
 	<string name="editor_report_problem_other_title">Друг проблем</string>
 	<string name="placepage_add_business_button">Добавяне на бизнес</string>
 	<string name="message_invalid_feature_position">Тук не може да бъде намерен обект</string>
-	<string name="osm_presentation">Всички картографски данни идват от проекта OpenStreetMap. Това е като Wikipedia за карти, където можете да добавяте или редактирате места и те стават достъпни за милиони потребители по целия свят.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Картографски данни от OpenStreetMap към %s. Това е като Wikipedia, където можете да добавяте или редактирате места за всички потребители по света.</string>
 	<string name="login_to_make_edits_visible">Влезте в системата, за да могат другите потребители да видят направените от вас промени</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d от %2$d</string>
@@ -422,8 +434,8 @@
 	<string name="download_over_mobile_message">Това може да бъде значително скъпо при някои планове или при роуминг.</string>
 	<string name="error_enter_correct_house_number">Въведете валиден номер на сграда</string>
 	<string name="editor_storey_number">Брой етажи (максимум %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Броят на етажите не трябва да надвишава 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Броят на етажите не трябва да надвишава %d</string>
 	<string name="editor_zip_code">Пощенски код</string>
 	<string name="error_enter_correct_zip_code">Въведете валиден пощенски код</string>
 	<!-- Place Page title for long tap -->
@@ -646,6 +658,7 @@
 	<string name="type.amenity.driving_school">Автошкола</string>
 	<string name="type.amenity.music_school">Музикално училище</string>
 	<string name="type.amenity.language_school">Езиково училище</string>
+	<string name="type.amenity.loading_dock">Товарен док</string>
 	<string name="type.amenity.parking">Паркинг</string>
 	<string name="type.amenity.parking.fee">Платен паркинг</string>
 	<string name="type.amenity.parking.multi.storey">Многоетажен паркинг</string>
@@ -684,14 +697,25 @@
 	<string name="type.craft.winery">Винарна</string>
 	<string name="type.craft.tailor">Шивач</string>
 	<string name="type.cuisine.deli">Деликатеси</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Главния вход</string>
 	<string name="type.healthcare.laboratory">Медицинска лаборатория</string>
 	<string name="type.healthcare.physiotherapist">Физиотерапевт</string>
+	<string name="type.healthcare.alternative">Алтернативна медицина</string>
+	<string name="type.healthcare.audiologist">Аудиология</string>
+	<string name="type.healthcare.blood_donation">Център за кръводаряване</string>
+	<string name="type.healthcare.optometrist">Оптометрия</string>
+	<string name="type.healthcare.podiatrist">Подиология</string>
+	<string name="type.healthcare.psychotherapist">Психотерапия</string>
+	<string name="type.healthcare.sample_collection">Вземане на проби</string>
+	<string name="type.healthcare.speech_therapist">Логопедия</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Тунел</string>
+	<string name="type.highway.busway">Обособен автобусен път</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.cycleway.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -818,6 +842,7 @@
 	<string name="type.sport.yoga">Йога</string>
 	<string name="type.leisure.swimming_pool">Басейн</string>
 	<string name="type.leisure.swimming_pool.private">Басейн</string>
+	<string name="type.man_made.tower.communication">Комуникационна кула</string>
 	<string name="type.natural">Природа</string>
 	<string name="type.natural.bare_rock">Гола скала</string>
 	<string name="type.natural.bay">Залив</string>
@@ -891,6 +916,10 @@
 	<string name="type.place.suburb">Предградие</string>
 	<string name="type.place.town">Касаба</string>
 	<string name="type.place.village">Село</string>
+	<string name="type.power.generator.solar">Слънчев генератор</string>
+	<string name="type.power.generator.wind">Вятърен генератор</string>
+	<string name="type.power.generator.gas">Газотурбинна електроцентрала</string>
+	<string name="type.power.generator.hydro">Водноелектрическа централа</string>
 	<string name="type.shop.deli">Магазин за деликатеси</string>
 	<string name="type.shop.farm">Магазин за селскостопански храни</string>
 	<string name="type.shop.grocery">Хранителни стоки</string>

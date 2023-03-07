@@ -394,38 +394,38 @@ line|z15-[highway=trunk_link][tunnel?]
 
 line|z13[highway=motorway][bridge?]::bridgewhite,
 line|z13[highway=trunk][bridge?]::bridgewhite
-{casing-width: eval(prop("width")+0.2);}
+{casing-width-add: 0.2;}
 line|z14-16[highway=motorway][bridge?]::bridgewhite,
 line|z14-16[highway=trunk][bridge?]::bridgewhite,
 line|z14-16[highway=motorway_link][bridge?]::bridgewhite,
 line|z14-16[highway=trunk_link][bridge?]::bridgewhite,
-{casing-width: eval(prop("width"));}
+{casing-width-add: 0;}
 line|z17[highway=motorway][bridge?]::bridgewhite,
 line|z17[highway=trunk][bridge?]::bridgewhite,
 line|z17[highway=motorway_link][bridge?]::bridgewhite,
 line|z17[highway=trunk_link][bridge?]::bridgewhite,
-{casing-width: eval(prop("width")+0.8);}
+{casing-width-add: 0.8;}
 line|z18-[highway=motorway][bridge?]::bridgewhite,
 line|z18-[highway=trunk][bridge?]::bridgewhite,
 line|z18-[highway=motorway_link][bridge?]::bridgewhite,
 line|z18-[highway=trunk_link][bridge?]::bridgewhite,
-{casing-width: eval(prop("width")+1);}
+{casing-width-add: 1;}
 
 line|z13-16[highway=motorway][bridge?]::bridgeblack,
 line|z13-16[highway=trunk][bridge?]::bridgeblack,
 line|z14-16[highway=motorway_link][bridge?]::bridgeblack,
 line|z14-16[highway=trunk_link][bridge?]::bridgeblack,
-{casing-width: eval(prop("width")+0.4);}
+{casing-width-add: 0.4;}
 line|z17[highway=motorway][bridge?]::bridgeblack,
 line|z17[highway=trunk][bridge?]::bridgeblack,
 line|z17[highway=motorway_link][bridge?]::bridgeblack,
 line|z17[highway=trunk_link][bridge?]::bridgeblack,
-{casing-width: eval(prop("width")+1.6);}
+{casing-width-add: 1.6;}
 line|z18-[highway=motorway][bridge?]::bridgeblack,
 line|z18-[highway=trunk][bridge?]::bridgeblack,
 line|z18-[highway=motorway_link][bridge?]::bridgeblack,
 line|z18-[highway=trunk_link][bridge?]::bridgeblack,
-{casing-width: eval(prop("width")+2);}
+{casing-width-add: 2;}
 
 /* 4.PRIMARY 8-22 ZOOM */
 
@@ -496,23 +496,23 @@ line|z15-[highway=primary_link][tunnel?]
 
 line|z14-16[highway=primary][bridge?]::bridgewhite,
 line|z14-16[highway=primary_link][bridge?]::bridgewhite,
-{casing-width: eval(prop("width"));}
+{casing-width-add: 0;}
 line|z17[highway=primary][bridge?]::bridgewhite,
 line|z17[highway=primary_link][bridge?]::bridgewhite,
-{casing-width: eval(prop("width")+0.8);}
+{casing-width-add: 0.8;}
 line|z18-[highway=primary][bridge?]::bridgewhite,
 line|z18-[highway=primary_link][bridge?]::bridgewhite,
-{casing-width: eval(prop("width")+1);}
+{casing-width-add: 1;}
 
 line|z14-16[highway=primary][bridge?]::bridgeblack,
 line|z14-16[highway=primary_link][bridge?]::bridgeblack,
-{casing-width: eval(prop("width")+0.4);}
+{casing-width-add: 0.4;}
 line|z17[highway=primary][bridge?]::bridgeblack,
 line|z17[highway=primary_link][bridge?]::bridgeblack,
-{casing-width: eval(prop("width")+1.6);}
+{casing-width-add: 1.6;}
 line|z18-[highway=primary][bridge?]::bridgeblack,
 line|z18-[highway=primary_link][bridge?]::bridgeblack,
-{casing-width: eval(prop("width")+2);}
+{casing-width-add: 2;}
 
 /* 5.SECONDARY 10-22 ZOOM */
 
@@ -571,23 +571,23 @@ line|z18-[highway=secondary_link][tunnel?]
 
 line|z14-16[highway=secondary][bridge?]::bridgewhite,
 line|z14-16[highway=secondary_link][bridge?]::bridgewhite,
-{casing-width: eval(prop("width"));}
+{casing-width-add: 0;}
 line|z17[highway=secondary][bridge?]::bridgewhite,
 line|z17[highway=secondary_link][bridge?]::bridgewhite,
-{casing-width: eval(prop("width")+0.8);}
+{casing-width-add: 0.8;}
 line|z18-[highway=secondary][bridge?]::bridgewhite,
 line|z18-[highway=secondary_link][bridge?]::bridgewhite,
-{casing-width: eval(prop("width")+1);}
+{casing-width-add: 1;}
 
 line|z14-16[highway=secondary][bridge?]::bridgeblack,
 line|z14-16[highway=secondary_link][bridge?]::bridgeblack,
-{casing-width: eval(prop("width")+0.4);}
+{casing-width-add: 0.4;}
 line|z17[highway=secondary][bridge?]::bridgeblack,
 line|z17[highway=secondary_link][bridge?]::bridgeblack,
-{casing-width: eval(prop("width")+1.6);}
+{casing-width-add: 1.6;}
 line|z18-[highway=secondary][bridge?]::bridgeblack,
 line|z18-[highway=secondary_link][bridge?]::bridgeblack
-{casing-width: eval(prop("width")+2);}
+{casing-width-add: 2;}
 
 /* 6.RESIDENTAL & TERTIARY 11-22 ZOOM */
 
@@ -673,28 +673,28 @@ line|z16-[highway=residential_link][tunnel?],
 line|z14-16[highway=tertiary][bridge?]::bridgewhite,
 line|z14-16[highway=tertiary_link][bridge?]::bridgewhite,
 line|z14-16[highway=residential][bridge?]::bridgewhite,
-{casing-width: eval(prop("width"));}
+{casing-width-add: 0;}
 line|z17[highway=tertiary][bridge?]::bridgewhite,
 line|z17[highway=tertiary_link][bridge?]::bridgewhite,
 line|z17[highway=residential][bridge?]::bridgewhite,
-{casing-width: eval(prop("width")+0.8);}
+{casing-width-add: 0.8;}
 line|z18-[highway=tertiary][bridge?]::bridgewhite,
 line|z18-[highway=tertiary_link][bridge?]::bridgewhite,
 line|z18-[highway=residential][bridge?]::bridgewhite,
-{casing-width: eval(prop("width")+1);}
+{casing-width-add: 1;}
 
 line|z14-16[highway=tertiary][bridge?]::bridgeblack,
 line|z14-16[highway=tertiary_link][bridge?]::bridgeblack,
 line|z14-16[highway=residential][bridge?]::bridgeblack,
-{casing-width: eval(prop("width")+0.4);}
+{casing-width-add: 0.4;}
 line|z17[highway=tertiary][bridge?]::bridgeblack,
 line|z17[highway=tertiary_link][bridge?]::bridgeblack,
 line|z17[highway=residential][bridge?]::bridgeblack,
-{casing-width: eval(prop("width")+1.6);}
+{casing-width-add: 1.6;}
 line|z18-[highway=tertiary][bridge?]::bridgeblack,
 line|z18-[highway=tertiary_link][bridge?]::bridgeblack,
 line|z18-[highway=residential][bridge?]::bridgeblack,
-{casing-width: eval(prop("width")+2);}
+{casing-width-add: 2;}
 
 /* 7.ROAD, STREETS, UNCLASSIFIED & SERVICE 12-22 ZOOM */
 
@@ -761,18 +761,18 @@ line|z16-[highway=living_street][tunnel?],
 /* 7.3 Road, Street, Unclassified bridge 14-22 ZOOM */
 
 line|z14-16[highway=unclassified][bridge?]::bridgewhite,
-{casing-width: eval(prop("width"));}
+{casing-width-add: 0;}
 line|z17[highway=unclassified][bridge?]::bridgewhite,
-{casing-width: eval(prop("width")+0.8);}
+{casing-width-add: 0.8;}
 line|z18-[highway=unclassified][bridge?]::bridgewhite,
-{casing-width: eval(prop("width")+1);}
+{casing-width-add: 1;}
 
 line|z14-16[highway=unclassified][bridge?]::bridgeblack,
-{casing-width: eval(prop("width")+0.4);}
+{casing-width-add: 0.4;}
 line|z17[highway=unclassified][bridge?]::bridgeblack,
-{casing-width: eval(prop("width")+1.6);}
+{casing-width-add: 1.6;}
 line|z18-[highway=unclassified][bridge?]::bridgeblack,
-{casing-width: eval(prop("width")+2);}
+{casing-width-add: 2;}
 
 /* 7.4 Service 15-22 ZOOM */
 
@@ -848,26 +848,26 @@ line|z19-[highway=ford]
 
 /*line|z13[highway=pedestrian][bridge?]::bridgewhite,
 line|z13[highway=footway][bridge?]::bridgewhite,
-{casing-width: eval(prop("width")-0.2);}
+{casing-width: eval(prop("width")-0.2;}
 line|z14-[highway=pedestrian][bridge?]::bridgewhite,
 line|z14-[highway=footway][bridge?]::bridgewhite,
 line|z16-[highway=steps][bridge?]::bridgewhite,
 line|z16-[highway=road][bridge?]::bridgewhite,
 line|z16-[highway=service][bridge?]::bridgewhite
-{casing-width: eval(prop("width"));}
+{casing-width-add: 0;}
 line|z16-[highway=pedestrian][bridge?]::bridgewhite,
 line|z16-[highway=footway][bridge?]::bridgewhite
-{casing-width: eval(prop("width")+0.2);}
+{casing-width-add: 0.2;}
 
 line|z14-[highway=pedestrian][bridge?]::bridgeblack,
 line|z14-[highway=footway][bridge?]::bridgeblack,
 line|z16-[highway=steps][bridge?]::bridgeblack,
 line|z16-[highway=road][bridge?]::bridgeblack,
 line|z16-[highway=service][bridge?]::bridgeblack
-{casing-width: eval(prop("width")+0.2);}
+{casing-width-add: 0.2;}
 line|z16-[highway=pedestrian][bridge?]::bridgeblack,
 line|z16-[highway=footway][bridge?]::bridgeblack,
-{casing-width: eval(prop("width")+0.6);}*/
+{casing-width-add: 0.6;}*/
 
 /* 8.4 Cycleway 13-22 ZOOM */
 
@@ -939,7 +939,7 @@ line|z19-[psurface=unpaved_bad]
 {width: 4;dashes: 6.3,2.7;}
 
 
-line|z16[highway=track],
+line|z16-[highway=track],
 {color: @track; opacity: 1; width: 1.1; dashes: 6,2.5;}
 line|z17[highway=track],
 {width: 1.4; dashes: 6,2.5;}
@@ -949,9 +949,9 @@ line|z19-[highway=track],
 {width: 2.5; dashes: 7,3;}
 
 
-line|z17[highway=path],
-line|z17[route=hiking],
-line|z17[highway=footway][sac_scale],
+line|z17-[highway=path],
+line|z17-[route=hiking],
+line|z17-[highway=footway][sac_scale],
 {color: @path; opacity: 1; width: 0.9; dashes: 3.5,2;}
 line|z18[highway=path],
 line|z18[route=hiking],
@@ -1118,33 +1118,46 @@ line|z14-[railway=yard][tunnel?]
 
 /* 9.3 Rail bridge 14-22 ZOOM */
 
+/* TODO
+  remove following rules
+  add casing-color and z-index definitions
+  to test these new bridge styles
+*/
+line|z14-[railway=tram][bridge?]::bridgewhite,
+line|z14-[railway=monorail][bridge?]::bridgewhite,
+line|z14-[railway=narrow_gauge][bridge?]::bridgewhite,
+line|z14-[railway=tram][bridge?]::bridgeblack,
+line|z14-[railway=monorail][bridge?]::bridgeblack,
+line|z14-[railway=narrow_gauge][bridge?]::bridgeblack,
+{casing-linecap: round;}
+
 line|z14-15[railway][bridge?]::bridgewhite,
-{casing-width: eval(prop("width")+1);}
+{casing-width-add: 1;}
 line|z16[railway][bridge?]::bridgewhite,
-{casing-width: eval(prop("width")+1.2);}
+{casing-width-add: 1.2;}
 line|z17-[railway][bridge?]::bridgewhite,
-{casing-width: eval(prop("width")+1.4);}
+{casing-width-add: 1.4;}
 line|z18-[railway=rail][bridge?]::bridgewhite,
 line|z18-[railway=subway][bridge?]::bridgewhite,
 line|z18-[railway=light_rail][bridge?]::bridgewhite,
 line|z18-[railway=yard][bridge?]::bridgewhite
-{casing-width: eval(prop("width")+2);}
+{casing-width-add: 2;}
 
 line|z16[railway=rail][bridge?]::bridgeblack,
 line|z16[railway=subway][bridge?]::bridgeblack,
 line|z16[railway=light_rail][bridge?]::bridgeblack ,
 line|z16[railway=yard][bridge?]::bridgeblack ,
-{casing-width: eval(prop("width")+1.4);}
+{casing-width-add: 1.4;}
 line|z17-[railway=rail][bridge?]::bridgeblack,
 line|z17-[railway=subway][bridge?]::bridgeblack,
 line|z17-[railway=light_rail][bridge?]::bridgeblack,
 line|z17-[railway=yard][bridge?]::bridgeblack
-{casing-width: eval(prop("width")+1.6);}
+{casing-width-add: 1.6;}
 line|z18-[railway=rail][bridge?]::bridgeblack,
 line|z18-[railway=subway][bridge?]::bridgeblack,
 line|z18-[railway=light_rail][bridge?]::bridgeblack,
 line|z18-[railway=yard][bridge?]::bridgeblack
-{casing-width: eval(prop("width")+2.2);}
+{casing-width-add: 2.2;}
 
 /* 9.4 Monorail 14-22 ZOOM */
 
