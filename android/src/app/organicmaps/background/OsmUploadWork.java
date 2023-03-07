@@ -2,21 +2,31 @@ package app.organicmaps.background;
 
 import android.content.Context;
 
-
 import androidx.annotation.NonNull;
+import androidx.work.Constraints;
+import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.WorkRequest;
+import androidx.work.Worker;
 import androidx.work.WorkerParameters;
-import app.organicmaps.MwmWork;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.editor.Editor;
-import app.organicmaps.scheduling.JobIdMap;
+import app.organicmaps.editor.OsmOAuth;
+import app.organicmaps.util.log.Logger;
 
-public class OsmUploadWork extends MwmWork
+public class OsmUploadWork extends Worker
 {
+
+  private static final String TAG = OsmUploadWork.class.getSimpleName();
+  private final Context mContext;
+  private final WorkerParameters mWorkerParameters;
+
   public OsmUploadWork(@NonNull Context context, @NonNull WorkerParameters workerParams)
   {
     super(context, workerParams);
+    this.mContext = context;
+    this.mWorkerParameters = workerParams;
   }
 
   /**
@@ -24,16 +34,30 @@ public class OsmUploadWork extends MwmWork
    */
   public static void startActionUploadOsmChanges(@NonNull Context context)
   {
-    WorkRequest workReq =new  OneTimeWorkRequest.Builder(OsmUploadWork.class)
-        .addTag(JobIdMap.getId(OsmUploadWork.class).toString()).build();
-    WorkManager.getInstance(context).enqueue(workReq);
+    if (Editor.nativeHasSomethingToUpload() && OsmOAuth.isAuthorized(context))
+    {
+
+      final Constraints constraints = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED)
+                                                               .setRequiresCharging(true)
+                                                               .build();
+
+      final WorkRequest workReq = new OneTimeWorkRequest.Builder(OsmUploadWork.class).setConstraints(constraints)
+                                                                                     .build();
+      WorkManager.getInstance(context).enqueue(workReq);
+    }
   }
 
-
+  @NonNull
   @Override
-  protected void onHandleWorkInitialized(@NonNull WorkerParameters workerParameters)
+  public Result doWork()
   {
-    final Context context = getApplicationContext();
-    Editor.uploadChanges(context);
+    final MwmApplication app = MwmApplication.from(mContext);
+    if (!app.arePlatformAndCoreInitialized())
+    {
+      Logger.w(TAG, "Application is not initialized, ignoring " + mWorkerParameters);
+      return Result.failure();
+    }
+    Editor.uploadChanges(mContext);
+    return Result.success();
   }
 }
