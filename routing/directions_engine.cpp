@@ -3,6 +3,7 @@
 #include "routing/data_source.hpp"
 #include "routing/fake_feature_ids.hpp"
 #include "routing/routing_helpers.hpp"
+#include "routing/turns.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 
@@ -22,6 +23,21 @@ bool IsFakeFeature(uint32_t featureId)
 {
   return routing::FakeFeatureIds::IsGuidesFeature(featureId) ||
          routing::FakeFeatureIds::IsTransitFeature(featureId);
+}
+
+feature::Metadata::EType GetLanesMetadataTag(FeatureType & ft, bool isForward)
+{
+  auto directionTag = isForward ? feature::Metadata::FMD_TURN_LANES_FORWARD
+                                : feature::Metadata::FMD_TURN_LANES_BACKWARD;
+  if (ft.HasMetadata(directionTag))
+    return directionTag;
+  return feature::Metadata::FMD_TURN_LANES;
+}
+
+void LoadLanes(LoadedPathSegment & pathSegment, FeatureType & ft, bool isForward)
+{
+  auto tag = GetLanesMetadataTag(ft, isForward);
+  ParseLanes(std::string(ft.GetMetadata(tag)), pathSegment.m_lanes);
 }
 }  // namespace
 
@@ -48,7 +64,7 @@ unique_ptr<FeatureType> DirectionsEngine::GetFeature(FeatureID const & featureId
 }
 
 void DirectionsEngine::LoadPathAttributes(FeatureID const & featureId,
-                                          LoadedPathSegment & pathSegment)
+                                          LoadedPathSegment & pathSegment, bool isForward)
 {
   if (!featureId.IsValid())
     return;
@@ -58,6 +74,8 @@ void DirectionsEngine::LoadPathAttributes(FeatureID const & featureId,
     return;
 
   feature::TypesHolder types(*ft);
+
+  LoadLanes(pathSegment, *ft, isForward);
 
   pathSegment.m_highwayClass = GetHighwayClass(types);
   ASSERT_NOT_EQUAL(pathSegment.m_highwayClass, HighwayClass::Error, ());
@@ -195,7 +213,7 @@ void DirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     pathSegment.m_path = move(prevJunctions);
     pathSegment.m_segments = move(prevSegments);
 
-    LoadPathAttributes(segmentRange.GetFeature(), pathSegment); // inEdge.IsForward()
+    LoadPathAttributes(segmentRange.GetFeature(), pathSegment, inEdge.IsForward());
 
     if (!segmentRange.IsEmpty())
     {
