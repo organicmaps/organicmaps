@@ -239,12 +239,14 @@ bool IsLaneWayConformedTurnDirection(LaneWay l, CarDirection t)
     case CarDirection::TurnSharpRight:
       return l == LaneWay::SharpRight;
     case CarDirection::TurnSlightRight:
+    case CarDirection::ExitHighwayToRight:
       return l == LaneWay::SlightRight;
     case CarDirection::TurnLeft:
       return l == LaneWay::Left;
     case CarDirection::TurnSharpLeft:
       return l == LaneWay::SharpLeft;
     case CarDirection::TurnSlightLeft:
+    case CarDirection::ExitHighwayToLeft:
       return l == LaneWay::SlightLeft;
     case CarDirection::UTurnLeft:
     case CarDirection::UTurnRight:
@@ -275,6 +277,10 @@ bool IsLaneWayConformedTurnDirectionApproximately(LaneWay l, CarDirection t)
     case CarDirection::UTurnLeft:
     case CarDirection::UTurnRight:
       return l == LaneWay::Reverse;
+    case CarDirection::ExitHighwayToLeft:
+      return l == LaneWay::SlightLeft || l == LaneWay::Left;
+    case CarDirection::ExitHighwayToRight:
+      return l == LaneWay::SlightRight || l == LaneWay::Right;
   }
 }
 
