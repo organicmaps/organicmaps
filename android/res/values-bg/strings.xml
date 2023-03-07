@@ -920,6 +920,12 @@
 	<string name="type.power.generator.wind">Вятърен генератор</string>
 	<string name="type.power.generator.gas">Газотурбинна електроцентрала</string>
 	<string name="type.power.generator.hydro">Водноелектрическа централа</string>
+	<string name="type.power.plant">Електроцентрала</string>
+	<string name="type.power.plant.coal">Въглищна централа</string>
+	<string name="type.power.plant.gas">Газотурбинна електроцентрала</string>
+	<string name="type.power.plant.hydro">Водноелектрическа централа</string>
+	<string name="type.power.plant.solar">Слънчева електроцентрала</string>
+	<string name="type.power.plant.wind">Вятърна електроцентрала</string>
 	<string name="type.shop.deli">Магазин за деликатеси</string>
 	<string name="type.shop.farm">Магазин за селскостопански храни</string>
 	<string name="type.shop.grocery">Хранителни стоки</string>

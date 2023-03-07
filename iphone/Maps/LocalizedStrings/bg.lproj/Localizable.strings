@@ -2663,6 +2663,18 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
+"type.power.plant" = "Електроцентрала";
+
+"type.power.plant.coal" = "Въглищна централа";
+
+"type.power.plant.gas" = "Газотурбинна електроцентрала";
+
+"type.power.plant.hydro" = "Водноелектрическа централа";
+
+"type.power.plant.solar" = "Слънчева електроцентрала";
+
+"type.power.plant.wind" = "Вятърна електроцентрала";
+
 "type.power.pole" = "Power Tower";
 
 "type.power.station" = "Power Station";

@@ -2663,6 +2663,18 @@
 
 "type.power.minor_line" = "超高压输电线";
 
+"type.power.plant" = "发电厂";
+
+"type.power.plant.coal" = "燃煤电厂";
+
+"type.power.plant.gas" = "燃气轮机发电厂";
+
+"type.power.plant.hydro" = "水力发电厂";
+
+"type.power.plant.solar" = "太阳能发电厂";
+
+"type.power.plant.wind" = "风力发电厂";
+
 "type.power.pole" = "电线杆";
 
 "type.power.station" = "Power Station";

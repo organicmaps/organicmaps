@@ -1262,6 +1262,12 @@
 	<string name="type.power.generator.wind">Vindgenerator</string>
 	<string name="type.power.generator.gas">Gasturbine kraftværk</string>
 	<string name="type.power.generator.hydro">Vandkraftværk</string>
+	<string name="type.power.plant">Kraftværk</string>
+	<string name="type.power.plant.coal">Kulkraftværk</string>
+	<string name="type.power.plant.gas">Gasturbine kraftværk</string>
+	<string name="type.power.plant.hydro">Vandkraftværk</string>
+	<string name="type.power.plant.solar">Solcelleanlæg</string>
+	<string name="type.power.plant.wind">Vindkraftværk</string>
 	<string name="type.power.pole">El-pol</string>
 	<string name="type.power.substation">Transformerstation</string>
 	<string name="type.power.tower">El-pol</string>

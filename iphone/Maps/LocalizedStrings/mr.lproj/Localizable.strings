@@ -2663,6 +2663,18 @@
 
 "type.power.minor_line" = "किरकोळ विद्युत तार";
 
+"type.power.plant" = "वीज प्रकल्प";
+
+"type.power.plant.coal" = "कोळसा ऊर्जा प्रकल्प";
+
+"type.power.plant.gas" = "गॅस टर्बाइन पॉवर प्लांट";
+
+"type.power.plant.hydro" = "जलविद्युत प्रकल्प";
+
+"type.power.plant.solar" = "सौर ऊर्जा संयंत्र";
+
+"type.power.plant.wind" = "पवन ऊर्जा संयंत्र";
+
 "type.power.pole" = "विद्युत मनोरा";
 
 "type.power.station" = "विद्युत घर";

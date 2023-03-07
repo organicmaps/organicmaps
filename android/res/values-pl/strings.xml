@@ -1409,6 +1409,12 @@
 	<string name="type.power.line">Linia wysokiego napięcia</string>
 	<string name="type.power.line.underground">Podziemna linia wysokiego napięcia</string>
 	<string name="type.power.minor_line">Linia niskiego napięcia</string>
+	<string name="type.power.plant">Elektrownia</string>
+	<string name="type.power.plant.coal">Elektrownia węglowa</string>
+	<string name="type.power.plant.gas">Elektrownia z turbiną gazową</string>
+	<string name="type.power.plant.hydro">Elektrownia wodna</string>
+	<string name="type.power.plant.solar">Elektrownia słoneczna</string>
+	<string name="type.power.plant.wind">Elektrownia wiatrowa</string>
 	<string name="type.power.pole">Słup elektryczny</string>
 	<string name="type.power.station">Elektrownia</string>
 	<string name="type.power.substation">Podstacja</string>

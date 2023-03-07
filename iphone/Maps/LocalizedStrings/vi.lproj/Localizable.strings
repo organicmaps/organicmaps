@@ -2663,6 +2663,18 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
+"type.power.plant" = "Nhà máy điện";
+
+"type.power.plant.coal" = "Nhà máy điện than";
+
+"type.power.plant.gas" = "Nhà máy điện tua bin khí";
+
+"type.power.plant.hydro" = "Nhà máy thủy điện";
+
+"type.power.plant.solar" = "Nhà máy điện mặt trời";
+
+"type.power.plant.wind" = "Nhà máy điện gió";
+
 "type.power.pole" = "Trụ Điện";
 
 "type.power.station" = "Power Station";

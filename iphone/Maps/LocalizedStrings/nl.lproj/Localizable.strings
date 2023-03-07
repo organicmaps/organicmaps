@@ -2663,6 +2663,18 @@
 
 "type.power.minor_line" = "Laag-/middelspanningsleiding";
 
+"type.power.plant" = "Energiecentrale";
+
+"type.power.plant.coal" = "Kolen elektriciteitscentrale";
+
+"type.power.plant.gas" = "Gasturbine elektriciteitscentrale";
+
+"type.power.plant.hydro" = "Waterkrachtcentrale";
+
+"type.power.plant.solar" = "Zonne-energiecentrale";
+
+"type.power.plant.wind" = "Windkrachtcentrale";
+
 "type.power.pole" = "Elektriciteitspaal";
 
 "type.power.station" = "Transformatorstation";

@@ -1288,6 +1288,12 @@
 	<string name="type.power.generator.wind">Generator eolian</string>
 	<string name="type.power.generator.gas">Centrala electrica cu turbina cu gaz</string>
 	<string name="type.power.generator.hydro">Centrală hidroelectrică</string>
+	<string name="type.power.plant">Centrală electrică</string>
+	<string name="type.power.plant.coal">Centrală electrică pe cărbune</string>
+	<string name="type.power.plant.gas">Centrala electrica cu turbina cu gaz</string>
+	<string name="type.power.plant.hydro">Centrală hidroelectrică</string>
+	<string name="type.power.plant.solar">Centrală solară</string>
+	<string name="type.power.plant.wind">Centrală eoliană</string>
 	<string name="type.power.pole">Stâlp de electricitate</string>
 	<string name="type.power.substation">Stație subterană</string>
 	<string name="type.power.tower">Stâlp de electricitate</string>

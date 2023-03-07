@@ -2663,6 +2663,18 @@
 
 "type.power.minor_line" = "Línea eléctrica de baja tensión";
 
+"type.power.plant" = "Planta de energía";
+
+"type.power.plant.coal" = "Central eléctrica de carbón";
+
+"type.power.plant.gas" = "Planta de energía de turbina de gas";
+
+"type.power.plant.hydro" = "Planta de energía hidroeléctrica";
+
+"type.power.plant.solar" = "Planta de energía solar";
+
+"type.power.plant.wind" = "Planta eólica";
+
 "type.power.pole" = "Poste eléctrico";
 
 "type.power.station" = "Estación eléctrica";

@@ -2663,6 +2663,18 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
+"type.power.plant" = "Central elèctrica";
+
+"type.power.plant.coal" = "Central elèctrica de carbó";
+
+"type.power.plant.gas" = "Central elèctrica de turbina de gas";
+
+"type.power.plant.hydro" = "Central hidroelèctrica";
+
+"type.power.plant.solar" = "Central d'energia solar";
+
+"type.power.plant.wind" = "Central eòlica";
+
 "type.power.pole" = "Power Tower";
 
 "type.power.station" = "Power Station";

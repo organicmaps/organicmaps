@@ -2663,6 +2663,18 @@
 
 "type.power.minor_line" = "Лінія електропередач низької напруги";
 
+"type.power.plant" = "Електростанція";
+
+"type.power.plant.coal" = "Вугільна електростанція";
+
+"type.power.plant.gas" = "Газотурбінна електростанція";
+
+"type.power.plant.hydro" = "Гідроелектростанція";
+
+"type.power.plant.solar" = "Сонячна електростанція";
+
+"type.power.plant.wind" = "Вітрова електростанція";
+
 "type.power.pole" = "Стовп ЛЕП";
 
 "type.power.station" = "Електростанція";

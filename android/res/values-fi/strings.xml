@@ -1325,6 +1325,12 @@
 	<string name="type.power.generator.wind">Tuuligeneraattori</string>
 	<string name="type.power.generator.gas">Kaasuturbiinivoimala</string>
 	<string name="type.power.generator.hydro">Vesivoimalaitos</string>
+	<string name="type.power.plant">Voimalaitos</string>
+	<string name="type.power.plant.coal">Hiilivoimala</string>
+	<string name="type.power.plant.gas">Kaasuturbiinivoimala</string>
+	<string name="type.power.plant.hydro">Vesivoimalaitos</string>
+	<string name="type.power.plant.solar">Aurinkovoimala</string>
+	<string name="type.power.plant.wind">Tuulivoimala</string>
 	<string name="type.power.pole">Sähköpylväs</string>
 	<string name="type.power.substation">Muuntoasema</string>
 	<string name="type.power.tower">Sähköpylväs</string>

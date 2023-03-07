@@ -1499,6 +1499,12 @@
 	<string name="type.power.line">Power Line</string>
 	<string name="type.power.line.underground">Underground Power Line</string>
 	<string name="type.power.minor_line">Minor Power Line</string>
+	<string name="type.power.plant">Power Plant</string>
+	<string name="type.power.plant.coal">Coal Power Plant</string>
+	<string name="type.power.plant.gas">Gas turbine Power Plant</string>
+	<string name="type.power.plant.hydro">Hydroelectric Power Plant</string>
+	<string name="type.power.plant.solar">Solar Power Plant</string>
+	<string name="type.power.plant.wind">Wind Power Plant</string>
 	<string name="type.power.pole">Power Tower</string>
 	<string name="type.power.station">Power Station</string>
 	<string name="type.power.substation">Substation</string>

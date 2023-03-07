@@ -2663,6 +2663,18 @@
 
 "type.power.minor_line" = "Cavo elettrico";
 
+"type.power.plant" = "Centrale elettrica";
+
+"type.power.plant.coal" = "Centrale elettrica a carbone";
+
+"type.power.plant.gas" = "Centrale elettrica a turbina a gas";
+
+"type.power.plant.hydro" = "Centrale idroelettrica";
+
+"type.power.plant.solar" = "Centrale solare";
+
+"type.power.plant.wind" = "Centrale eolica";
+
 "type.power.pole" = "Palo elettrico";
 
 "type.power.station" = "Power Station";

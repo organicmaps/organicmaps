@@ -2663,6 +2663,18 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
+"type.power.plant" = "Elektráreň";
+
+"type.power.plant.coal" = "Uhoľná elektráreň";
+
+"type.power.plant.gas" = "Elektráreň s plynovou turbínou";
+
+"type.power.plant.hydro" = "Vodná elektráreň";
+
+"type.power.plant.solar" = "Solárna elektráreň";
+
+"type.power.plant.wind" = "Veterná elektráreň";
+
 "type.power.pole" = "Stĺp elektrického vedenia";
 
 "type.power.station" = "Power Station";

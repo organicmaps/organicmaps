@@ -2663,6 +2663,18 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
+"type.power.plant" = "發電廠";
+
+"type.power.plant.coal" = "燃煤電廠";
+
+"type.power.plant.gas" = "燃氣輪機發電廠";
+
+"type.power.plant.hydro" = "水力發電廠";
+
+"type.power.plant.solar" = "太陽能發電廠";
+
+"type.power.plant.wind" = "風力發電廠";
+
 "type.power.pole" = "電塔";
 
 "type.power.station" = "Power Station";

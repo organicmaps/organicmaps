@@ -1263,6 +1263,12 @@
 	<string name="type.power.generator.wind">Generator angin</string>
 	<string name="type.power.generator.gas">Pembangkit listrik turbin gas</string>
 	<string name="type.power.generator.hydro">Pembangkit listrik tenaga air</string>
+	<string name="type.power.plant">Pembangkit listrik</string>
+	<string name="type.power.plant.coal">Pembangkit listrik batubara</string>
+	<string name="type.power.plant.gas">Pembangkit listrik turbin gas</string>
+	<string name="type.power.plant.hydro">Pembangkit listrik tenaga air</string>
+	<string name="type.power.plant.solar">Pembangkit listrik tenaga surya</string>
+	<string name="type.power.plant.wind">Pembangkit listrik tenaga angin</string>
 	<string name="type.power.pole">Menara listrik</string>
 	<string name="type.power.substation">Stasiun bawah tanah</string>
 	<string name="type.power.tower">Menara listrik</string>

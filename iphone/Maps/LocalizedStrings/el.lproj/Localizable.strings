@@ -2663,6 +2663,18 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
+"type.power.plant" = "Εργοστάσιο ηλεκτρισμού";
+
+"type.power.plant.coal" = "Εργοστάσιο παραγωγής ενέργειας από άνθρακα";
+
+"type.power.plant.gas" = "Μονάδα παραγωγής ηλεκτρικής ενέργειας αεριοστροβίλου";
+
+"type.power.plant.hydro" = "Υδροηλεκτρικό εργοστάσιο";
+
+"type.power.plant.solar" = "Ηλιακός σταθμός παραγωγής ενέργειας";
+
+"type.power.plant.wind" = "Αιολική μονάδα παραγωγής ενέργειας";
+
 "type.power.pole" = "Πυλώνες μεταφοράς ρεύματος";
 
 "type.power.station" = "Power Station";

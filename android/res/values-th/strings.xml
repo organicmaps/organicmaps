@@ -1272,6 +1272,12 @@
 	<string name="type.power.generator.wind">เครื่องกำเนิดลม</string>
 	<string name="type.power.generator.gas">โรงไฟฟ้ากังหันก๊าซ</string>
 	<string name="type.power.generator.hydro">โรงไฟฟ้าพลังน้ำ</string>
+	<string name="type.power.plant">โรงไฟฟ้า</string>
+	<string name="type.power.plant.coal">โรงไฟฟ้าถ่านหิน</string>
+	<string name="type.power.plant.gas">โรงไฟฟ้ากังหันก๊าซ</string>
+	<string name="type.power.plant.hydro">โรงไฟฟ้าพลังน้ำ</string>
+	<string name="type.power.plant.solar">โรงไฟฟ้าพลังงานแสงอาทิตย์</string>
+	<string name="type.power.plant.wind">โรงไฟฟ้าพลังงานลม</string>
 	<string name="type.power.pole">เสาไฟฟ้า</string>
 	<string name="type.power.substation">สถานีไฟฟ้า</string>
 	<string name="type.power.tower">เสาไฟฟ้า</string>

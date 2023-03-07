@@ -1049,6 +1049,12 @@
 	<string name="type.power.generator.wind">Ветрагенератар</string>
 	<string name="type.power.generator.gas">Газатурбінная электрастанцыя</string>
 	<string name="type.power.generator.hydro">Гідраэлектрастанцыя</string>
+	<string name="type.power.plant">Электрастанцыя</string>
+	<string name="type.power.plant.coal">Вугальная электрастанцыя</string>
+	<string name="type.power.plant.gas">Газатурбінная электрастанцыя</string>
+	<string name="type.power.plant.hydro">Гідраэлектрастанцыя</string>
+	<string name="type.power.plant.solar">Сонечная электрастанцыя</string>
+	<string name="type.power.plant.wind">Ветраэлектрастанцыя</string>
 	<string name="type.railway.platform">Чыгуначная платформа</string>
 	<string name="type.shop.beverages">Напоі</string>
 	<string name="type.shop.caravan">Продаж аўтадамоў</string>

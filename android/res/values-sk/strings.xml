@@ -1265,6 +1265,12 @@
 	<string name="type.power.generator.wind">Veterný generátor</string>
 	<string name="type.power.generator.gas">Elektráreň s plynovou turbínou</string>
 	<string name="type.power.generator.hydro">Vodná elektráreň</string>
+	<string name="type.power.plant">Elektráreň</string>
+	<string name="type.power.plant.coal">Uhoľná elektráreň</string>
+	<string name="type.power.plant.gas">Elektráreň s plynovou turbínou</string>
+	<string name="type.power.plant.hydro">Vodná elektráreň</string>
+	<string name="type.power.plant.solar">Solárna elektráreň</string>
+	<string name="type.power.plant.wind">Veterná elektráreň</string>
 	<string name="type.power.pole">Stĺp elektrického vedenia</string>
 	<string name="type.power.substation">Rozvodňa</string>
 	<string name="type.power.tower">Stĺp elektrického vedenia</string>

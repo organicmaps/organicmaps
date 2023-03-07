@@ -2663,6 +2663,18 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
+"type.power.plant" = "نیروگاه";
+
+"type.power.plant.coal" = "نیروگاه زغال سنگ";
+
+"type.power.plant.gas" = "نیروگاه توربین گاز";
+
+"type.power.plant.hydro" = "نیروگاه برق آبی";
+
+"type.power.plant.solar" = "نیروگاه خورشیدی";
+
+"type.power.plant.wind" = "نیروگاه بادی";
+
 "type.power.pole" = "برج قدرت";
 
 "type.power.station" = "Power Station";

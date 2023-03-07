@@ -2663,6 +2663,18 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
+"type.power.plant" = "Centrală electrică";
+
+"type.power.plant.coal" = "Centrală electrică pe cărbune";
+
+"type.power.plant.gas" = "Centrala electrica cu turbina cu gaz";
+
+"type.power.plant.hydro" = "Centrală hidroelectrică";
+
+"type.power.plant.solar" = "Centrală solară";
+
+"type.power.plant.wind" = "Centrală eoliană";
+
 "type.power.pole" = "Stâlp de electricitate";
 
 "type.power.station" = "Power Station";

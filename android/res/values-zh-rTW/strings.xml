@@ -1306,6 +1306,12 @@
 	<string name="type.power.generator.wind">風力發電機</string>
 	<string name="type.power.generator.gas">燃氣輪機發電廠</string>
 	<string name="type.power.generator.hydro">水力發電廠</string>
+	<string name="type.power.plant">發電廠</string>
+	<string name="type.power.plant.coal">燃煤電廠</string>
+	<string name="type.power.plant.gas">燃氣輪機發電廠</string>
+	<string name="type.power.plant.hydro">水力發電廠</string>
+	<string name="type.power.plant.solar">太陽能發電廠</string>
+	<string name="type.power.plant.wind">風力發電廠</string>
 	<string name="type.power.pole">電塔</string>
 	<string name="type.power.substation">變電所</string>
 	<string name="type.power.tower">電塔</string>

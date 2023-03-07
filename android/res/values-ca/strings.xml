@@ -734,4 +734,10 @@
 	<string name="type.power.generator.wind">Generador eòlic</string>
 	<string name="type.power.generator.gas">Central elèctrica de turbina de gas</string>
 	<string name="type.power.generator.hydro">Central hidroelèctrica</string>
+	<string name="type.power.plant">Central elèctrica</string>
+	<string name="type.power.plant.coal">Central elèctrica de carbó</string>
+	<string name="type.power.plant.gas">Central elèctrica de turbina de gas</string>
+	<string name="type.power.plant.hydro">Central hidroelèctrica</string>
+	<string name="type.power.plant.solar">Central d\'energia solar</string>
+	<string name="type.power.plant.wind">Central eòlica</string>
 </resources>

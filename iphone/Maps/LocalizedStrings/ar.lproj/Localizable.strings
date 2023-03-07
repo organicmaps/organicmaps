@@ -2663,6 +2663,18 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
+"type.power.plant" = "محطة توليد الكهرباء";
+
+"type.power.plant.coal" = "محطة لتوليد الطاقه من الفحم";
+
+"type.power.plant.gas" = "محطة توليد الكهرباء بالغاز";
+
+"type.power.plant.hydro" = "محطة توليد الطاقة الكهرمائية";
+
+"type.power.plant.solar" = "محطة للطاقة الشمسية";
+
+"type.power.plant.wind" = "محطة طاقة الرياح";
+
 "type.power.pole" = "عمود كهرباء";
 
 "type.power.station" = "Power Station";
