@@ -43,7 +43,7 @@ See [styles and icons instructions](STYLES.md) for details.
 
 Please follow instructions in [INSTALL.md](INSTALL.md) to set up your development environment
 and check the [developer's guidelines](#developers-guidelines).
-You will find a list of issues for new contributors [here](https://github.com/organicmaps/organicmaps/labels/Good%20first%20issue) to help you get started with simple tasks.
+You will find a list of issues for new contributors [here](https://github.com/organicmaps/organicmaps/labels/Good%20first%20issue) to help you get started with simple tasks. If you want to focus on the most important issues, please check our [Milestones](https://github.com/organicmaps/organicmaps/milestones).
 
 **Please do not ask for permission to work on the issue or to assign an issue to you**. We do not assign issues to first-time contributors. Any such comment notifies our contributors and the development team, and creates unnecessary noise that distracts us from the work.
 
