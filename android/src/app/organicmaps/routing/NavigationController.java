@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
@@ -31,6 +32,8 @@ import app.organicmaps.sound.TtsPlayer;
 import app.organicmaps.widget.menu.NavMenu;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
+
+import java.util.Arrays;
 
 public class NavigationController implements Application.ActivityLifecycleCallbacks,
                                              TrafficManager.TrafficCallback,
@@ -49,6 +52,11 @@ public class NavigationController implements Application.ActivityLifecycleCallba
 
   private final View mStreetFrame;
   private final TextView mNextStreet;
+
+  @NonNull
+  private final RecyclerView mLanes;
+  @NonNull
+  private final LanesAdapter mLanesAdapter;
 
   @NonNull
   private final MapButtonsController mMapButtonsController;
@@ -90,6 +98,12 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     });
   }
 
+  private void initLanesRecycler()
+  {
+    mLanes.setAdapter(mLanesAdapter);
+    mLanes.setNestedScrollingEnabled(false);
+  }
+
   public NavigationController(AppCompatActivity activity, @NonNull MapButtonsController mapButtonsController, View.OnClickListener onSettingsClickListener)
   {
     mFrame = activity.findViewById(R.id.navigation_frame);
@@ -111,6 +125,10 @@ public class NavigationController implements Application.ActivityLifecycleCallba
 
     mStreetFrame = topFrame.findViewById(R.id.street_frame);
     mNextStreet = mStreetFrame.findViewById(R.id.street);
+
+    mLanes = topFrame.findViewById(R.id.lanes);
+    mLanesAdapter = new LanesAdapter();
+    initLanesRecycler();
 
     // Show a blank view below the navbar to hide the menu content
     final View navigationBarBackground = mFrame.findViewById(R.id.nav_bottom_sheet_nav_bar);
@@ -185,6 +203,11 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     UiUtils.showIf(info.nextCarDirection.containsNextTurn(), mNextNextTurnFrame);
     if (info.nextCarDirection.containsNextTurn())
       info.nextCarDirection.setNextTurnDrawable(mNextNextTurnImage);
+
+    if (info.lanes != null)
+      mLanesAdapter.setItems(Arrays.asList(info.lanes));
+    else
+      mLanesAdapter.clearItems();
   }
 
   private void updatePedestrian(RoutingInfo info)

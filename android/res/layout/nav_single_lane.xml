@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<app.organicmaps.widget.ArrowView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/lane_image"
+  android:layout_width="@dimen/nav_lane"
+  android:layout_height="@dimen/nav_lane"
+  android:theme="?navigationTheme"
+  app:tint="?iconTint"
+  app:srcCompat="@drawable/ic_then_right"
+  tools:showIn="@layout/layout_nav_top" />
