@@ -1270,6 +1270,12 @@
 	<string name="type.power.generator.wind">Máy phát điện gió</string>
 	<string name="type.power.generator.gas">Nhà máy điện tua bin khí</string>
 	<string name="type.power.generator.hydro">Nhà máy thủy điện</string>
+	<string name="type.power.plant">Nhà máy điện</string>
+	<string name="type.power.plant.coal">Nhà máy điện than</string>
+	<string name="type.power.plant.gas">Nhà máy điện tua bin khí</string>
+	<string name="type.power.plant.hydro">Nhà máy thủy điện</string>
+	<string name="type.power.plant.solar">Nhà máy điện mặt trời</string>
+	<string name="type.power.plant.wind">Nhà máy điện gió</string>
 	<string name="type.power.pole">Trụ Điện</string>
 	<string name="type.power.substation">Trạm biến áp</string>
 	<string name="type.power.tower">Trụ Điện</string>

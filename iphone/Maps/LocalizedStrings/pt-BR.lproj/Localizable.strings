@@ -2666,6 +2666,18 @@
 
 "type.power.minor_line" = "Linha de transmissão de energia de baixa tensão";
 
+"type.power.plant" = "Usina elétrica";
+
+"type.power.plant.coal" = "Usina de carvão";
+
+"type.power.plant.gas" = "Usina de turbina a gás";
+
+"type.power.plant.hydro" = "Usina hidrelétrica";
+
+"type.power.plant.solar" = "Planta de energia solar";
+
+"type.power.plant.wind" = "Usina de energia eólica";
+
 "type.power.pole" = "Poste de eletricidade";
 
 "type.power.station" = "Subestação elétrica";

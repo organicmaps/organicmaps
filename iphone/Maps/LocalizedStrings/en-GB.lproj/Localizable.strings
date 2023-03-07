@@ -2666,6 +2666,18 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
+"type.power.plant" = "Power Plant";
+
+"type.power.plant.coal" = "Coal Power Plant";
+
+"type.power.plant.gas" = "Gas turbine Power Plant";
+
+"type.power.plant.hydro" = "Hydroelectric Power Plant";
+
+"type.power.plant.solar" = "Solar Power Plant";
+
+"type.power.plant.wind" = "Wind Power Plant";
+
 "type.power.pole" = "Power Tower";
 
 "type.power.station" = "Power Station";

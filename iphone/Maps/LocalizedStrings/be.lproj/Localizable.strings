@@ -2666,6 +2666,18 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
+"type.power.plant" = "Электрастанцыя";
+
+"type.power.plant.coal" = "Вугальная электрастанцыя";
+
+"type.power.plant.gas" = "Газатурбінная электрастанцыя";
+
+"type.power.plant.hydro" = "Гідраэлектрастанцыя";
+
+"type.power.plant.solar" = "Сонечная электрастанцыя";
+
+"type.power.plant.wind" = "Ветраэлектрастанцыя";
+
 "type.power.pole" = "Power Tower";
 
 "type.power.station" = "Power Station";

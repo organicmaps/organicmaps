@@ -1438,6 +1438,12 @@
 	<string name="type.power.line">Hoogspanningsleiding</string>
 	<string name="type.power.line.underground">Ondergrondse hoogspanningsleiding</string>
 	<string name="type.power.minor_line">Laag-/middelspanningsleiding</string>
+	<string name="type.power.plant">Energiecentrale</string>
+	<string name="type.power.plant.coal">Kolen elektriciteitscentrale</string>
+	<string name="type.power.plant.gas">Gasturbine elektriciteitscentrale</string>
+	<string name="type.power.plant.hydro">Waterkrachtcentrale</string>
+	<string name="type.power.plant.solar">Zonne-energiecentrale</string>
+	<string name="type.power.plant.wind">Windkrachtcentrale</string>
 	<string name="type.power.pole">Elektriciteitspaal</string>
 	<string name="type.power.station">Transformatorstation</string>
 	<string name="type.power.substation">Transformatorstation</string>

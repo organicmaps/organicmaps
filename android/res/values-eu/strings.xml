@@ -1329,6 +1329,12 @@
 	<string name="type.power.generator.wind">Sorgailu eolikoa</string>
 	<string name="type.power.generator.gas">Gas-turbinetako zentral elektrikoa</string>
 	<string name="type.power.generator.hydro">Zentral hidroelektrikoa</string>
+	<string name="type.power.plant">Elektrizitate-parkea</string>
+	<string name="type.power.plant.coal">Ikatz zentrala</string>
+	<string name="type.power.plant.gas">Gas-turbinetako zentral elektrikoa</string>
+	<string name="type.power.plant.hydro">Zentral hidroelektrikoa</string>
+	<string name="type.power.plant.solar">Eguzki-zentrala</string>
+	<string name="type.power.plant.wind">Zentral eolikoa</string>
 	<string name="type.power.pole">Zutabe elektrikoa</string>
 	<string name="type.power.substation">Azpiestazioa</string>
 	<string name="type.power.tower">Zutabe elektrikoa</string>

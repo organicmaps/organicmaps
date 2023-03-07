@@ -2666,6 +2666,18 @@
 
 "type.power.minor_line" = "Nieder-/Mittelspannungsfreileitung";
 
+"type.power.plant" = "Kraftwerk";
+
+"type.power.plant.coal" = "Kohlekraftwerk";
+
+"type.power.plant.gas" = "Gasturbinenkraftwerk";
+
+"type.power.plant.hydro" = "Wasserkraftwerk";
+
+"type.power.plant.solar" = "Solarkraftwerk";
+
+"type.power.plant.wind" = "Windkraftanlage";
+
 "type.power.pole" = "Nieder-/Mittelspannungsmast";
 
 "type.power.station" = "Umspannwerk";

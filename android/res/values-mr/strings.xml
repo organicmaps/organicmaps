@@ -1308,6 +1308,12 @@
 	<string name="type.power.line">विद्युत तार</string>
 	<string name="type.power.line.underground">भूमिगत विद्युत तार</string>
 	<string name="type.power.minor_line">किरकोळ विद्युत तार</string>
+	<string name="type.power.plant">वीज प्रकल्प</string>
+	<string name="type.power.plant.coal">कोळसा ऊर्जा प्रकल्प</string>
+	<string name="type.power.plant.gas">गॅस टर्बाइन पॉवर प्लांट</string>
+	<string name="type.power.plant.hydro">जलविद्युत प्रकल्प</string>
+	<string name="type.power.plant.solar">सौर ऊर्जा संयंत्र</string>
+	<string name="type.power.plant.wind">पवन ऊर्जा संयंत्र</string>
 	<string name="type.power.pole">विद्युत मनोरा</string>
 	<string name="type.power.station">विद्युत घर</string>
 	<string name="type.power.substation">विद्युत सबस्टेशन</string>

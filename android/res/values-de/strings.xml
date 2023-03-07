@@ -1419,6 +1419,12 @@
 	<string name="type.power.line">Hochspannungs-Freileitung</string>
 	<string name="type.power.line.underground">Unterirdische Hochpannungsleitung</string>
 	<string name="type.power.minor_line">Nieder-/Mittelspannungsfreileitung</string>
+	<string name="type.power.plant">Kraftwerk</string>
+	<string name="type.power.plant.coal">Kohlekraftwerk</string>
+	<string name="type.power.plant.gas">Gasturbinenkraftwerk</string>
+	<string name="type.power.plant.hydro">Wasserkraftwerk</string>
+	<string name="type.power.plant.solar">Solarkraftwerk</string>
+	<string name="type.power.plant.wind">Windkraftanlage</string>
 	<string name="type.power.pole">Nieder-/Mittelspannungsmast</string>
 	<string name="type.power.station">Umspannwerk</string>
 	<string name="type.power.substation">Umspannwerk</string>

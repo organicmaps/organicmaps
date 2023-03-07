@@ -2666,6 +2666,18 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
+"type.power.plant" = "Kraftverk";
+
+"type.power.plant.coal" = "Kolkraftverk";
+
+"type.power.plant.gas" = "Gasturbinkraftverk";
+
+"type.power.plant.hydro" = "Vattenkraftverk";
+
+"type.power.plant.solar" = "Solkraftverk";
+
+"type.power.plant.wind" = "Vindkraftverk";
+
 "type.power.pole" = "Elstolpe";
 
 "type.power.station" = "Power Station";

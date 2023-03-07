@@ -1398,6 +1398,12 @@
 	<string name="type.power.generator.hydro">Centrale idroelettrica</string>
 	<string name="type.power.line">Cavo elettrico</string>
 	<string name="type.power.minor_line">Cavo elettrico</string>
+	<string name="type.power.plant">Centrale elettrica</string>
+	<string name="type.power.plant.coal">Centrale elettrica a carbone</string>
+	<string name="type.power.plant.gas">Centrale elettrica a turbina a gas</string>
+	<string name="type.power.plant.hydro">Centrale idroelettrica</string>
+	<string name="type.power.plant.solar">Centrale solare</string>
+	<string name="type.power.plant.wind">Centrale eolica</string>
 	<string name="type.power.pole">Palo elettrico</string>
 	<string name="type.power.substation">Sottostazione elettrica</string>
 	<string name="type.power.tower">Pilone elettrico</string>

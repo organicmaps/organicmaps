@@ -2666,6 +2666,18 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
+"type.power.plant" = "תחנת כוח";
+
+"type.power.plant.coal" = "תחנת כוח פחמית";
+
+"type.power.plant.gas" = "תחנת כוח לטורבינת גז";
+
+"type.power.plant.hydro" = "תחנת כוח הידרואלקטרית";
+
+"type.power.plant.solar" = "תחנת כוח סולארית";
+
+"type.power.plant.wind" = "תחנת כוח רוח";
+
 "type.power.pole" = "Power Tower";
 
 "type.power.station" = "Power Station";

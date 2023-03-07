@@ -2666,6 +2666,18 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
+"type.power.plant" = "Voimalaitos";
+
+"type.power.plant.coal" = "Hiilivoimala";
+
+"type.power.plant.gas" = "Kaasuturbiinivoimala";
+
+"type.power.plant.hydro" = "Vesivoimalaitos";
+
+"type.power.plant.solar" = "Aurinkovoimala";
+
+"type.power.plant.wind" = "Tuulivoimala";
+
 "type.power.pole" = "Sähköpylväs";
 
 "type.power.station" = "Power Station";

@@ -2666,6 +2666,18 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
+"type.power.plant" = "Pembangkit listrik";
+
+"type.power.plant.coal" = "Pembangkit listrik batubara";
+
+"type.power.plant.gas" = "Pembangkit listrik turbin gas";
+
+"type.power.plant.hydro" = "Pembangkit listrik tenaga air";
+
+"type.power.plant.solar" = "Pembangkit listrik tenaga surya";
+
+"type.power.plant.wind" = "Pembangkit listrik tenaga angin";
+
 "type.power.pole" = "Menara listrik";
 
 "type.power.station" = "Power Station";

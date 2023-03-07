@@ -2666,6 +2666,18 @@
 
 "type.power.minor_line" = "Küçük Elektrik Hattı";
 
+"type.power.plant" = "Enerji santrali";
+
+"type.power.plant.coal" = "Kömür santrali";
+
+"type.power.plant.gas" = "Gaz türbini santrali";
+
+"type.power.plant.hydro" = "Hidroelektrik santral";
+
+"type.power.plant.solar" = "Güneş enerjili elektrik santrali";
+
+"type.power.plant.wind" = "Rüzgar santrali";
+
 "type.power.pole" = "Elektrik Kulesi";
 
 "type.power.station" = "Elektrik İstasyonu";

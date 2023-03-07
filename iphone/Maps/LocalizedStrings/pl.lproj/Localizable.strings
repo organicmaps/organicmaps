@@ -2666,6 +2666,18 @@
 
 "type.power.minor_line" = "Linia niskiego napięcia";
 
+"type.power.plant" = "Elektrownia";
+
+"type.power.plant.coal" = "Elektrownia węglowa";
+
+"type.power.plant.gas" = "Elektrownia z turbiną gazową";
+
+"type.power.plant.hydro" = "Elektrownia wodna";
+
+"type.power.plant.solar" = "Elektrownia słoneczna";
+
+"type.power.plant.wind" = "Elektrownia wiatrowa";
+
 "type.power.pole" = "Słup elektryczny";
 
 "type.power.station" = "Elektrownia";

@@ -1440,6 +1440,12 @@
 	<string name="type.power.line">Elektriliin</string>
 	<string name="type.power.line.underground">Maa-alune elektriliin</string>
 	<string name="type.power.minor_line">Madal-/Keskpinge elektriliin</string>
+	<string name="type.power.plant">Elektrijaam</string>
+	<string name="type.power.plant.coal">Söeelektrijaam</string>
+	<string name="type.power.plant.gas">Gaasiturbiini elektrijaam</string>
+	<string name="type.power.plant.hydro">Hüdroelektrijaam</string>
+	<string name="type.power.plant.solar">Päikeseelektrijaam</string>
+	<string name="type.power.plant.wind">Tuuleelektrijaam</string>
 	<string name="type.power.pole">Elektripost</string>
 	<string name="type.power.station">Elektrijaam</string>
 	<string name="type.power.substation">Alajaam</string>

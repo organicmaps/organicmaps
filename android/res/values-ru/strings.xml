@@ -1464,6 +1464,12 @@
 	<string name="type.power.line">Линия электропередач</string>
 	<string name="type.power.line.underground">Подземная линия электропередач</string>
 	<string name="type.power.minor_line">Линия электропередачи низкого напряжения</string>
+	<string name="type.power.plant">Электростанция</string>
+	<string name="type.power.plant.coal">Угольная электростанция</string>
+	<string name="type.power.plant.gas">Газотурбинная электростанция</string>
+	<string name="type.power.plant.hydro">Гидроэлектростанция</string>
+	<string name="type.power.plant.solar">Солнечная электростанция</string>
+	<string name="type.power.plant.wind">Ветряная электростанция</string>
 	<string name="type.power.pole">Опора ЛЭП</string>
 	<string name="type.power.station">Электростанция</string>
 	<string name="type.power.substation">Подстанция</string>

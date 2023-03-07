@@ -1406,6 +1406,12 @@
 	<string name="type.power.generator.wind">Générateur de vent</string>
 	<string name="type.power.generator.gas">Centrale à turbine à gaz</string>
 	<string name="type.power.generator.hydro">Centrale hydroélectrique</string>
+	<string name="type.power.plant">Centrale électrique</string>
+	<string name="type.power.plant.coal">Centrale au charbon</string>
+	<string name="type.power.plant.gas">Centrale à turbine à gaz</string>
+	<string name="type.power.plant.hydro">Centrale hydroélectrique</string>
+	<string name="type.power.plant.solar">Centrale solaire</string>
+	<string name="type.power.plant.wind">Centrale éolienne</string>
 	<string name="type.power.pole">Poteau électrique</string>
 	<string name="type.power.substation">Poste électrique</string>
 	<string name="type.power.tower">Poteau électrique</string>
