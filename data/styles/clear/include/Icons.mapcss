@@ -2010,6 +2010,7 @@ node|z16-[barrier=stile],
 {icon-image: dot-m.svg;font-size: 11;}
 
 node|z16-[highway=ford],
+/* ToDo: Make separate tower icon? Because of a good landmark */
 node|z16-[power=tower],
 node|z15-[man_made=flagpole],
 node|z16-[man_made=mast],
@@ -2144,8 +2145,12 @@ area|z17-[amenity=waste_transfer_station],
 
 node|z17-[power=station],
 area|z17-[power=station],
-node|z17-[power=generator],
-area|z17-[power=generator],
+node|z17-[power=plant],
+area|z17-[power=plant],
+/* Skip individual solar generators, because there are a lot of mapped panels */
+/* ToDo: Make separate wind generator icon? Because of a good landmark */
+node|z17-[power=generator][generator:source!=solar],
+area|z17-[power=generator][generator:source!=solar],
 node|z19-[power=substation],
 area|z19-[power=substation],
 {icon-image: power-m.svg;font-size: 11;icon-min-distance: 20;}
