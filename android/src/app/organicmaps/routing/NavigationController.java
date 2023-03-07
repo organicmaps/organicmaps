@@ -54,6 +54,8 @@ public class NavigationController implements Application.ActivityLifecycleCallba
   private final TextView mNextStreet;
 
   @NonNull
+  private final View mLanesFrame;
+  @NonNull
   private final RecyclerView mLanes;
   @NonNull
   private final LanesAdapter mLanesAdapter;
@@ -126,7 +128,8 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     mStreetFrame = topFrame.findViewById(R.id.street_frame);
     mNextStreet = mStreetFrame.findViewById(R.id.street);
 
-    mLanes = topFrame.findViewById(R.id.lanes);
+    mLanesFrame = topFrame.findViewById(R.id.lanes_frame);
+    mLanes = mLanesFrame.findViewById(R.id.lanes);
     mLanesAdapter = new LanesAdapter();
     initLanesRecycler();
 
@@ -205,9 +208,15 @@ public class NavigationController implements Application.ActivityLifecycleCallba
       info.nextCarDirection.setNextTurnDrawable(mNextNextTurnImage);
 
     if (info.lanes != null)
+    {
+      UiUtils.show(mLanesFrame);
       mLanesAdapter.setItems(Arrays.asList(info.lanes));
+    }
     else
+    {
+      UiUtils.hide(mLanesFrame);
       mLanesAdapter.clearItems();
+    }
   }
 
   private void updatePedestrian(RoutingInfo info)

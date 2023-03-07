@@ -1,5 +1,7 @@
 package app.organicmaps.routing;
 
+import android.content.res.ColorStateList;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,8 +66,25 @@ public class LanesAdapter extends RecyclerView.Adapter<LanesAdapter.LanesViewHol
       mArrow = itemView.findViewById(R.id.lane_image);
     }
 
+    private void setIconTint(@NonNull SingleLaneInfo info)
+    {
+      int iconTint = info.mIsActive ? R.attr.iconTint : R.attr.iconTintLight;
+      TypedValue color = new TypedValue();
+      mArrow.getContext().getTheme().resolveAttribute(iconTint, color, true);
+      mArrow.setImageTintList(ColorStateList.valueOf(color.data));
+    }
+
+    private void setIcon(@NonNull SingleLaneInfo info)
+    {
+      boolean haveLaneData = (info.mLane.length > 0);
+      int imageRes = haveLaneData ? info.mLane[0].mTurnRes : 0;
+      mArrow.setImageResource(imageRes);
+    }
+
     void bind(@NonNull SingleLaneInfo info)
     {
+      setIconTint(info);
+      setIcon(info);
     }
   }
 }
