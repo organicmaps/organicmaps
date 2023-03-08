@@ -1,18 +1,11 @@
 #include "testing/testing.hpp"
 #include "helpers.hpp"
 
+#include "drape/stipple_pen_resource.hpp"
+#include "drape_frontend/visual_params.hpp"
 #include "indexer/classificator_loader.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/drules_include.hpp"
-
-namespace
-{
-double constexpr kMaxVisualScale = 4.;
-
-double constexpr kMaxDashLength = 128 / kMaxVisualScale;
-// Why 128? 7 bits are used to pack dash value (see stipple_pen_resource.cpp, StipplePenHandle::Init)
-// Max value, which can be packed in 7 bits, is 128.
-} // namespace
 
 UNIT_TEST(Test_Dashes)
 {
@@ -27,11 +20,18 @@ UNIT_TEST(Test_Dashes)
       DashDotProto const & dd = line->dashdot();
 
       int const n = dd.dd_size();
-      for (int i = 0; i < n; ++i)
+      if (n > 0)
       {
-        double const value = dd.dd(i);
-        TEST_GREATER_OR_EQUAL(value, 0.0, ());
-        TEST_LESS_OR_EQUAL(value, kMaxDashLength, ());
+        TEST_GREATER_OR_EQUAL(n, 2, ());
+        TEST_LESS_OR_EQUAL(n, 4, ());
+        for (int i = 0; i < n; ++i)
+        {
+          double const value = dd.dd(i);
+          TEST_GREATER_OR_EQUAL(value, 0.0, ());
+        }
+
+        double const patternLength = (dd.dd(0) + dd.dd(1)) * df::kMaxVisualScale;
+        TEST_LESS_OR_EQUAL(patternLength, dp::kMaxStipplePenLength, (dd.dd(0), dd.dd(1)));
       }
     });
   });
