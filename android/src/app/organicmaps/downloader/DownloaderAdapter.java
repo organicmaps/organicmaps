@@ -41,10 +41,8 @@ import java.util.Stack;
 
 class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolderWrapper>
 {
-  private static final int HEADER_ADVERTISMENT_ID = CountryItem.CATEGORY__LAST + 1;
-  private static final int HEADER_ADS_OFFSET = 10;
-
   private static final int TYPE_COUNTRY = 0;
+  private static final int TYPE_HEADER = 1;
 
   private static final String DOWNLOADER_MENU_ID = "DOWNLOADER_BOTTOM_SHEET";
 
@@ -55,17 +53,32 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   private boolean mSearchResultsMode;
   private String mSearchQuery;
 
+  private final List<GenericItem> mItemsAndHeader = new ArrayList<>();
+
   private final List<CountryItem> mItems = new ArrayList<>();
   // Core Country.id String -> List<CountryItem> mapping index for updateItem function.
   // Use List, because we have multiple search results now for a single country.
   private final Map<String, List<CountryItem>> mCountryIndex = new HashMap<>();
 
-  private final SparseArray<String> mHeaders = new SparseArray<>();
   private final Stack<PathEntry> mPath = new Stack<>();  // Holds navigation history. The last element is the current level.
-  private int mNearMeCount;
 
   private int mListenerSlot;
   private CountryItem mSelectedItem;
+
+  private static class GenericItem {
+    @Nullable
+    public final String mHeaderText;
+    @Nullable
+    public final CountryItem mItem;
+    public GenericItem(@Nullable CountryItem item) {
+      mItem = item;
+      mHeaderText = null;
+    }
+    public GenericItem(@Nullable String headerText) {
+      mItem = null;
+      mHeaderText = headerText;
+    }
+  }
 
   private void onDownloadActionSelected(final CountryItem item, DownloaderAdapter adapter)
   {
@@ -220,7 +233,11 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
   private View createViewHolderFrame(ViewGroup parent, int kind)
   {
-    return inflate(parent, R.layout.downloader_item);
+    if (kind == TYPE_COUNTRY)
+      return inflate(parent, R.layout.downloader_item);
+    else
+      return inflate(parent, R.layout.downloader_item_header);
+
   }
 
   class ViewHolderWrapper extends RecyclerView.ViewHolder
@@ -234,13 +251,20 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       super(createViewHolderFrame(parent, kind));
 
       mKind = kind;
-      mHolder = new ItemViewHolder(itemView);
+      if (mKind == TYPE_COUNTRY)
+        mHolder = new ItemViewHolder(itemView);
+      else
+        mHolder = new HeaderViewHolder(itemView);
     }
 
     @SuppressWarnings("unchecked")
     void bind(int position)
     {
-      mHolder.bind(mItems.get(position));
+      final GenericItem item = mItemsAndHeader.get(position);
+      if (mKind == TYPE_COUNTRY && item.mItem != null)
+        mHolder.bind(item.mItem);
+      else if (item.mHeaderText != null)
+        mHolder.bind(item.mHeaderText);
     }
   }
 
@@ -527,68 +551,63 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     }
   }
 
-  class HeaderViewHolder extends RecyclerView.ViewHolder
+  class HeaderViewHolder extends BaseInnerViewHolder<String>
   {
     @NonNull
     private final TextView mTitle;
 
     HeaderViewHolder(@NonNull View frame)
     {
-      super(frame);
       mTitle = frame.findViewById(R.id.title);
     }
 
-    void bind(int position)
+    void bind(String text)
     {
-        CountryItem ci = mItems.get(position);
-        mTitle.setText(mHeaders.get(ci.headerId));
+        mTitle.setText(text);
     }
   }
 
   private void collectHeaders()
   {
-    mNearMeCount = 0;
-    mHeaders.clear();
-    if (mSearchResultsMode)
-      return;
+    mItemsAndHeader.clear();
 
     int headerId = 0;
     int prev = -1;
     for (CountryItem ci: mItems)
     {
-      switch (ci.category)
-      {
-      case CountryItem.CATEGORY_NEAR_ME:
-        if (ci.category != prev)
+      // Disable headers when using the search
+      if (!mSearchResultsMode) {
+        switch (ci.category)
         {
-          headerId = CountryItem.CATEGORY_NEAR_ME;
-          mHeaders.put(headerId, mActivity.getString(R.string.downloader_near_me_subtitle));
-          prev = ci.category;
+          case CountryItem.CATEGORY_NEAR_ME:
+            if (ci.category != prev)
+            {
+              headerId = CountryItem.CATEGORY_NEAR_ME;
+              mItemsAndHeader.add(new GenericItem(mActivity.getString(R.string.downloader_near_me_subtitle)));
+              prev = ci.category;
+            }
+            break;
+
+          case CountryItem.CATEGORY_DOWNLOADED:
+            if (ci.category != prev)
+            {
+              headerId = CountryItem.CATEGORY_DOWNLOADED;
+              mItemsAndHeader.add(new GenericItem(mActivity.getString(R.string.downloader_downloaded_subtitle)));
+              prev = ci.category;
+            }
+            break;
+          default:
+            int prevHeader = headerId;
+            headerId = CountryItem.CATEGORY_AVAILABLE + ci.name.charAt(0);
+
+            if (headerId != prevHeader)
+              mItemsAndHeader.add(new GenericItem(StringUtils.toUpperCase(ci.name.substring(0, 1))));
+
+            prev = ci.category;
         }
-
-        mNearMeCount++;
-        break;
-
-      case CountryItem.CATEGORY_DOWNLOADED:
-        if (ci.category != prev)
-        {
-          headerId = CountryItem.CATEGORY_DOWNLOADED;
-          mHeaders.put(headerId, mActivity.getString(R.string.downloader_downloaded_subtitle));
-          prev = ci.category;
-        }
-        break;
-
-      default:
-        int prevHeader = headerId;
-        headerId = CountryItem.CATEGORY_AVAILABLE * HEADER_ADS_OFFSET + ci.name.charAt(0);
-
-        if (headerId != prevHeader)
-          mHeaders.put(headerId, StringUtils.toUpperCase(ci.name.substring(0, 1)));
-
-        prev = ci.category;
+        ci.headerId = headerId;
       }
-
-      ci.headerId = headerId;
+      mItemsAndHeader.add(new GenericItem(ci));
     }
   }
 
@@ -676,7 +695,10 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   @Override
   public int getItemViewType(int position)
   {
-    return TYPE_COUNTRY;
+    if (mItemsAndHeader.get(position).mItem != null)
+      return TYPE_COUNTRY;
+    else
+      return TYPE_HEADER;
   }
 
   @Override
@@ -694,7 +716,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   @Override
   public int getItemCount()
   {
-    return mItems.size();
+    return mItemsAndHeader.size();
   }
 
   private void goDeeper(CountryItem child, boolean refresh)
