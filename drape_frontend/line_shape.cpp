@@ -364,7 +364,7 @@ void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
   // Each segment should lie in pattern mask according to the "longest" possible pixel length in current tile.
   // Since, we calculate vertices once, usually for the "smallest" tile scale, need to apply divide factor here.
   // In other words, if m_baseGtoPScale = Scale(tileLevel), we should use Scale(tileLevel + 1) to calculate 'maskLengthG'.
-  /// @todo Logically, the factor should be 2, but drawing artifacts still present.
+  /// @todo Logically, the factor should be 2, but drawing artifacts are still present at higher visual scales.
   /// Use 3 for the best quality, but need to review here, probably I missed something.
   float const maskLengthG = builder.GetMaskLengthG() / 3;
 

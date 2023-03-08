@@ -12,8 +12,6 @@
 
 namespace dp
 {
-uint32_t const kMaxStipplePenLength = 512;  /// @todo Should be equal with kStippleTextureWidth?
-
 StipplePenPacker::StipplePenPacker(m2::PointU const & canvasSize)
   : m_canvasSize(canvasSize)
   , m_currentRow(0)
