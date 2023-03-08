@@ -37,7 +37,7 @@
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent" />
         <TextView
-          android:id="@+id/textView"
+          android:id="@+id/osm_presentation"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/margin_base"
