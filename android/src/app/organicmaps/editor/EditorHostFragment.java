@@ -301,16 +301,8 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
       {
       case OPENING_HOURS:
         final String timetables = ((TimetableContainerFragment) getChildFragmentManager().findFragmentByTag(TimetableContainerFragment.class.getName())).getTimetable();
-        if (OpeningHours.nativeIsTimetableStringValid(timetables))
-        {
-          Editor.nativeSetOpeningHours(timetables);
-          editMapObject();
-        }
-        else
-        {
-          // TODO (yunikkk) correct translation
-          showMistakeDialog(R.string.editor_correct_mistake);
-        }
+        Editor.nativeSetOpeningHours(timetables);
+        editMapObject();
         break;
       case STREET:
         setStreet(((StreetFragment) getChildFragmentManager().findFragmentByTag(StreetFragment.class.getName())).getStreet());
