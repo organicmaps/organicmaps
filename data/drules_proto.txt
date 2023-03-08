@@ -13035,9 +13035,16 @@ cont {
 cont {
   name: "craft-metal_construction"
   element {
+    scale: 17
+    symbol {
+      name: "metal_construction-m"
+      priority: 16000
+    }
+  }
+  element {
     scale: 18
     symbol {
-      name: "hand-m"
+      name: "metal_construction-m"
       priority: 16586
     }
     caption {
@@ -13053,7 +13060,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-m"
+      name: "metal_construction-m"
       priority: 16586
     }
     caption {
