@@ -36,6 +36,8 @@
 	<string name="rv">Kwa RV</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Data ya OpenStreetMap: %s</string>
+	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+	<string name="pref_map_3d_buildings_disabled_summary">Majengo ya 3D yamezimwa katika hali ya kuokoa nishati</string>
 	<!-- Text in About menu, opens Organic Maps news website -->
 	<string name="news">Habari</string>
 	<!-- Button in the main Help dialog -->

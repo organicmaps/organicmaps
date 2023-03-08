@@ -226,6 +226,9 @@
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3Dビルディング";
 
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "省電力モードで建物の 3D 表示がオフになっている";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "音声指示";
 
