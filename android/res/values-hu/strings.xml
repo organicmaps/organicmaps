@@ -201,6 +201,8 @@
 	<string name="pref_map_3d_title">Perspektivikus nézet</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D-s épületek</string>
+	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+	<string name="pref_map_3d_buildings_disabled_summary">A 3D épületek energiatakarékos módban ki vannak kapcsolva</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Hangutasítások</string>
 	<!-- Settings «Route» category: «Tts language» title -->

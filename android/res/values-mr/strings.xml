@@ -194,6 +194,8 @@
 	<string name="pref_map_3d_title">यथार्थ दृश्य</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">त्रिमिती (3D) इमारती</string>
+	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+	<string name="pref_map_3d_buildings_disabled_summary">3D इमारती वीज बचत मोडमध्ये बंद केल्या आहेत</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">ध्वनी सूचना</string>
 	<!-- Settings «Route» category: «Tts language» title -->

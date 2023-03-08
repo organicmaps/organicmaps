@@ -218,6 +218,8 @@
 	<string name="pref_map_3d_title">Widok z perspektywy</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">Budynki w 3D</string>
+	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+	<string name="pref_map_3d_buildings_disabled_summary">Budynki 3D są wyłączone w trybie oszczędzania energii</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Komunikaty głosowe</string>
 	<!-- Settings «Route» category: «Tts language» title -->

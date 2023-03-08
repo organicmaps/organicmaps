@@ -194,6 +194,8 @@
 	<string name="pref_map_3d_title">نمای چشم انداز</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">ساختمان‌های سه بعدی</string>
+	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+	<string name="pref_map_3d_buildings_disabled_summary">ساختمان های سه بعدی در حالت صرفه جویی در مصرف برق خاموش می شوند</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">دستور العمل صوتی</string>
 	<!-- Settings «Route» category: «Tts language» title -->
