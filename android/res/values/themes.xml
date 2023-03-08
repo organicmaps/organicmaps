@@ -52,7 +52,7 @@
   </style>
 
   <style name="MwmTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
-    <item name="colorAccent">@color/base_accent</item>
+    <item name="colorAccent">?buttonDialogTextColor</item>
     <item name="android:background">?cardBackground</item>
     <item name="android:textColorPrimary">?textDialogTheme</item>
     <item name="android:textSize">@dimen/text_size_body_1</item>
@@ -69,7 +69,7 @@
   </style>
 
   <style name="MwmTheme.Night.AlertDialog" parent="Theme.AppCompat.Dialog.Alert">
-    <item name="colorAccent">@color/base_accent_night</item>
+    <item name="colorAccent">?buttonDialogTextColor</item>
     <item name="android:background">?cardBackground</item>
     <!-- Used for the message in the dialog -->
     <item name="android:textColorPrimary">?textDialogTheme</item>
