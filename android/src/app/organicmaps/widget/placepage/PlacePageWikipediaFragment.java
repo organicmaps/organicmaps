@@ -52,8 +52,6 @@ public class PlacePageWikipediaFragment extends Fragment implements Observer<Map
     placeDescriptionMoreBtn.setOnClickListener(v -> showDescriptionScreen());
     mPlaceDescriptionView.setOnClickListener(v -> showDescriptionScreen());
     mWiki = view.findViewById(R.id.ll__place_wiki);
-
-    mViewModel.getMapObject().observe(requireActivity(), this);
   }
 
   private void showDescriptionScreen()
@@ -97,9 +95,16 @@ public class PlacePageWikipediaFragment extends Fragment implements Observer<Map
   }
 
   @Override
-  public void onDestroyView()
+  public void onResume()
   {
-    super.onDestroyView();
+    super.onResume();
+    mViewModel.getMapObject().observe(requireActivity(), this);
+  }
+
+  @Override
+  public void onPause()
+  {
+    super.onPause();
     mViewModel.getMapObject().removeObserver(this);
   }
 
