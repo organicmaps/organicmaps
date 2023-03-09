@@ -47,7 +47,7 @@ final class BMCViewController: MWMViewController {
     // Disable all notifications in BM on appearance of this view.
     // It allows to significantly improve performance in case of bookmarks
     // modification. All notifications will be sent on controller's disappearance.
-    viewModel.setNotificationsEnabled(false)
+    viewModel.setNotificationsEnabled(true)
     viewModel.addToObserverList()
   }
 
