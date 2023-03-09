@@ -49,7 +49,12 @@ int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale)
     for (int i = 0; i < count; ++i)
     {
       if (scale <= loadInfo.GetScale(i))
+      {
+        ++i;
+        if (i == count)
+          i = count - 1;
         return i;
+      }
     }
     return -1;
   }
@@ -88,7 +93,12 @@ int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale,
     for (int i = 0; i < n; ++i)
     {
       if (scale <= loadInfo.GetScale(i))
+      {
+        ++i;
+        if (i == n)
+          i = n - 1;
         return (offsets[i] != kInvalidOffset ? i : -1);
+      }
     }
   }
   }
