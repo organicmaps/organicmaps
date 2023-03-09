@@ -59,8 +59,6 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     mFullWeekOpeningHours = view.findViewById(R.id.rw__full_opening_hours);
     mOpeningHoursAdapter = new PlaceOpeningHoursAdapter();
     mFullWeekOpeningHours.setAdapter(mOpeningHoursAdapter);
-
-    mViewModel.getMapObject().observe(requireActivity(), this);
   }
 
   private void refreshTodayNonBusinessTime(Timespan[] closedTimespans)
@@ -180,9 +178,16 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
   }
 
   @Override
-  public void onDestroyView()
+  public void onResume()
   {
-    super.onDestroyView();
+    super.onResume();
+    mViewModel.getMapObject().observe(requireActivity(), this);
+  }
+
+  @Override
+  public void onPause()
+  {
+    super.onPause();
     mViewModel.getMapObject().removeObserver(this);
   }
 
