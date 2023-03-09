@@ -49,6 +49,8 @@ public class NavMenu
 
   private int currentPeekHeight = 0;
 
+  private int check = 0;
+
   public NavMenu(AppCompatActivity activity, NavMenuListener navMenuListener)
   {
     mActivity = activity;
@@ -189,6 +191,12 @@ public class NavMenu
 
   private void updateTimeEstimate(int seconds)
   {
+    if(check == 1){
+      mTimeEstimate.setAlpha(0f);
+    } else if (check == 2) {
+      mTimeEstimate.setAlpha(1f);
+    }
+
     final Calendar currentTime = Calendar.getInstance();
     currentTime.add(Calendar.SECOND, seconds);
     DateFormat timeFormat;
@@ -197,6 +205,12 @@ public class NavMenu
     else
       timeFormat = new SimpleDateFormat("h:mm aa", Locale.getDefault());
     mTimeEstimate.setText(timeFormat.format(currentTime.getTime()));
+    mTimeEstimate.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        check = (check==1)?2:1;
+      }
+    });
   }
 
 
