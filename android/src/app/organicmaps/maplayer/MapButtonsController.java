@@ -268,6 +268,7 @@ public class MapButtonsController extends Fragment
 
   public void showMapButtons(boolean show)
   {
+    resumeZoomButtons();
     if (show)
       UiUtils.show(mFrame);
     else
@@ -367,6 +368,17 @@ public class MapButtonsController extends Fragment
       mContentWidth = right - left;
       mOnBottomButtonsHeightChangedListener.OnBottomButtonsHeightChanged();
       mContentView.removeOnLayoutChangeListener(this);
+    }
+  }
+
+  public void resumeZoomButtons(){
+    if(Config.showZoomButtons())
+    {
+      mButtonsMap.get(MapButtons.zoom).setVisibility(View.VISIBLE);
+    }
+    else
+    {
+      mButtonsMap.get(MapButtons.zoom).setVisibility(View.GONE);
     }
   }
 }
