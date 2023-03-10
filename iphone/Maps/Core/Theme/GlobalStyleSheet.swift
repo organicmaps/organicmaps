@@ -39,7 +39,7 @@ class GlobalStyleSheet: IStyleSheet {
       s.tintColor = colors.whitePrimaryText
       s.backgroundImage = UIImage()
       s.shadowImage = UIImage()
-      s.font = fonts.regular18
+      s.font = fonts.header
       s.fontColor = colors.whitePrimaryText
     }
 
