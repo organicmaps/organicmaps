@@ -12,7 +12,6 @@ logger = logging.getLogger("maps_generator")
 
 class GenTool:
     OPTIONS = {
-        "add_ads": bool,
         "disable_cross_mwm_progress": bool,
         "dump_cities_boundaries": bool,
         "emit_coasts": bool,
