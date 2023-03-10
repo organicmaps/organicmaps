@@ -213,8 +213,7 @@ optional arguments:
                         If build is continued, files will always be downloaded
                         again.
   --production          Build production maps. In another case, 'osm only
-                        maps' are built - maps without additional data and
-                        advertising.
+                        maps' are built - maps without additional data.
   --order ORDER         Mwm generation order.
 ```
 
