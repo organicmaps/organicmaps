@@ -1,6 +1,6 @@
 #include "app/organicmaps/Framework.hpp"
 #include "app/organicmaps/UserMarkHelper.hpp"
-#include "app/organicmaps/platform/Platform.hpp"
+#include "app/organicmaps/platform/PlatformNew.hpp"
 
 #include "map/bookmarks_search_params.hpp"
 #include "map/everywhere_search_params.hpp"

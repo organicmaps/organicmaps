@@ -1,4 +1,4 @@
-#include "Platform.hpp"
+#include "PlatformNew.hpp"
 #include "app/organicmaps/core/jni_helper.hpp"
 
 #include "base/logging.hpp"

@@ -2,7 +2,7 @@
 
 #include "app/organicmaps/core/jni_helper.hpp"
 #include "app/organicmaps/core/ScopedLocalRef.hpp"
-#include "app/organicmaps/platform/Platform.hpp"
+#include "app/organicmaps/platform/PlatformNew.hpp"
 
 #include "platform/localization.hpp"
 

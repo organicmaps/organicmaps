@@ -1,6 +1,6 @@
 #include "android_vulkan_context_factory.hpp"
 
-#include "app/organicmaps/platform/Platform.hpp"
+#include "app/organicmaps/platform/PlatformNew.hpp"
 
 #include "drape/drape_diagnostics.hpp"
 #include "drape/support_manager.hpp"
