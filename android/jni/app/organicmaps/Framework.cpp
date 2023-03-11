@@ -3,7 +3,7 @@
 #include "app/organicmaps/core/jni_helper.hpp"
 #include "app/organicmaps/UserMarkHelper.hpp"
 #include "app/organicmaps/opengl/androidoglcontextfactory.hpp"
-#include "app/organicmaps/platform/Platform.hpp"
+#include "app/organicmaps/platform/AndroidPlatform.hpp"
 #include "app/organicmaps/util/FeatureIdBuilder.hpp"
 #include "app/organicmaps/util/NetworkPolicy.hpp"
 #include "app/organicmaps/vulkan/android_vulkan_context_factory.hpp"
