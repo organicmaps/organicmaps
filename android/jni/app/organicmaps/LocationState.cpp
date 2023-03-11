@@ -3,7 +3,7 @@
 
 #include "app/organicmaps/core/jni_helper.hpp"
 
-#include "app/organicmaps/platform/PlatformNew.hpp"
+#include "app/organicmaps/platform/AndroidPlatform.hpp"
 
 extern "C"
 {

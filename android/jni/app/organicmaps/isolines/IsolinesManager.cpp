@@ -1,7 +1,7 @@
 #include <jni.h>
 #include "app/organicmaps/Framework.hpp"
 #include "app/organicmaps/core/jni_helper.hpp"
-#include "app/organicmaps/platform/PlatformNew.hpp"
+#include "app/organicmaps/platform/AndroidPlatform.hpp"
 
 using namespace std::placeholders;
 
