@@ -18,6 +18,16 @@ class WikiDescriptionViewController: UIViewController {
 
     descriptionTextView.textContainerInset = .zero
     updateDescription()
+    
+    let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+      descriptionTextView.addGestureRecognizer(longPressGesture)
+  }
+  
+  @objc func handleLongPress(sender: UILongPressGestureRecognizer) {
+    if sender.state == .began {
+      UIPasteboard.general.string = descriptionTextView.text
+      Toast.toast(withText: "Copied!").show()
+    }
   }
 
   private func updateDescription() {
