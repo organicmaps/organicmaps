@@ -33,6 +33,21 @@
 
 /* 8.BUILDINGS */
 
+/* 8.1 Pier, dam, cutline */
+
+line|z13-[man_made=cutline],
+{width: 1.5; color: @green0; opacity: 0.6;}
+line|z14[man_made=cutline],
+{width: 2;}
+line|z15[man_made=cutline],
+{width: 3;}
+line|z16[man_made=cutline],
+{width: 4.5;}
+line|z17[man_made=cutline],
+{width: 6;}
+line|z18-[man_made=cutline],
+{width: 8;}
+
 /* 8.3 Barriers, cliffs */
 
 /*
@@ -77,7 +92,7 @@ line|z12-[isoline=step_100],
 {color: @isoline100;}
 
 line|z14-[isoline=step_50],
-line|z14-[isoline=zero],
+line|z15-[isoline=zero],
 {color: @isoline50;}
 
 line|z15-[isoline=step_10],
@@ -102,7 +117,7 @@ line|z13-14[isoline=step_100],
 line|z15[isoline=step_100],
 {width: 1.3;opacity: 0.8;}
 line|z14-15[isoline=step_50],
-line|z14-15[isoline=zero],
+line|z15[isoline=zero],
 line|z15[isoline=step_10],
 {width: 1.0;opacity: 0.5;}
 

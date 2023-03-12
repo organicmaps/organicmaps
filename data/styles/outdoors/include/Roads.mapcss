@@ -63,6 +63,17 @@ line|z11-[route=hiking],
 line|z11-[highway=footway][sac_scale],
 {color: @path;opacity: 1;}
 
+/* 8.5 Construction & Proposed 13-22 ZOOM */
+
+line|z11-[highway=construction],
+line|z11-[highway=proposed]
+{color: @construction; opacity: 1;}
+
+line|z11-12[highway=construction],
+line|z11-12[highway=proposed]
+{width: 1.2; dashes: 3.6,1.8;}
+/* see base style for other zooms */
+
 /* 8.6 Track & Path 14-22 ZOOM */
 
 line|z11[highway=track],
@@ -79,10 +90,8 @@ line|z16[highway=track],
 {width: 4.9; dashes: 12,4;}
 line|z17[highway=track],
 {width: 7; dashes: 12,4;}
-line|z18[highway=track],
+line|z18-[highway=track],
 {width: 10; dashes: 17,5;}
-line|z19-[highway=track],
-{width: 13; dashes: 17,5;}
 
 line|z11[highway=path],
 line|z11[route=hiking],
@@ -112,14 +121,10 @@ line|z17[highway=path],
 line|z17[route=hiking],
 line|z17[highway=footway][sac_scale],
 {width: 5.3; dashes: 8,4;}
-line|z18[highway=path],
-line|z18[route=hiking],
-line|z18[highway=footway][sac_scale],
+line|z18-[highway=path],
+line|z18-[route=hiking],
+line|z18-[highway=footway][sac_scale],
 {width: 7.5; dashes: 12,5;}
-line|z19-[highway=path],
-line|z19-[route=hiking],
-line|z19-[highway=footway][sac_scale],
-{width: 10; dashes: 12,5;}
 
 /* 9.RAIL 11-22 ZOOM */
 
@@ -128,70 +133,85 @@ line|z13-[railway=subway][!tunnel],
 line|z13-[railway=light_rail][!tunnel],
 {color: @railway; opacity:1;}
 
-line|z14-[railway=rail]::dash,
-line|z14-[railway=subway][!tunnel]::dash,
-line|z14-[railway=light_rail][!tunnel]::dash,
+line|z13-[railway=rail]::dash,
+line|z13-[railway=subway][!tunnel]::dash,
+line|z13-[railway=light_rail][!tunnel]::dash,
 {color: @railway_dash; opacity:1;}
 
 /* 9.1 RAIL 10-22 ZOOM */
 
-line|z10-[railway=rail],
-{width: 2;}
+line|z10[railway=rail],
+{width: 1;}
+line|z11[railway=rail],
+{width: 1.2;}
 line|z12[railway=rail],
-{width: 2.5;}
-line|z13[railway=rail],
+{width: 1.5;}
+line|z13-[railway=rail],
+{color: @railway_dark;}
+line|z13-[railway=rail],
 line|z13[railway=subway][!tunnel],
 line|z13[railway=light_rail][!tunnel],
-{width: 3.2;}
+{width: 2.6;}
 line|z14[railway=rail],
 line|z14[railway=subway][!tunnel],
 line|z14[railway=light_rail][!tunnel],
-{width: 4.1;}
+{width: 3.2;}
 line|z15[railway=rail],
 line|z15[railway=subway][!tunnel],
 line|z15[railway=light_rail][!tunnel],
-{width: 5.2;}
+{width: 4.1;}
 line|z16[railway=rail],
 line|z16[railway=subway][!tunnel],
 line|z16[railway=light_rail][!tunnel],
-{width: 6.6;}
+{width: 5.2;}
 line|z17[railway=rail],
 line|z17[railway=subway][!tunnel],
 line|z17[railway=light_rail][!tunnel],
-{width: 9.5;}
+{width: 6.6;}
 line|z18-[railway=rail],
 line|z18-[railway=subway][!tunnel],
 line|z18-[railway=light_rail][!tunnel],
-{width: 13;}
+{width: 9.5;}
 
+line|z13[railway=rail]::dash,
+line|z13[railway=subway][!tunnel]::dash,
+line|z13[railway=light_rail][!tunnel]::dash,
+{width: 1.2; dashes: 4,4;}
 line|z14[railway=rail]::dash,
 line|z14[railway=subway][!tunnel]::dash,
 line|z14[railway=light_rail][!tunnel]::dash,
-{width: 3.4; dashes: 5,5;}
+{width: 1.8; dashes: 5,5;}
 line|z15[railway=rail]::dash,
 line|z15[railway=subway][!tunnel]::dash,
 line|z15[railway=light_rail][!tunnel]::dash,
-{width: 4.2; dashes: 6,6;}
+{width: 2.6; dashes: 6,6;}
 line|z16[railway=rail]::dash,
 line|z16[railway=subway][!tunnel]::dash,
 line|z16[railway=light_rail][!tunnel]::dash,
-{width: 5; dashes: 6,6;}
+{width: 3.4; dashes: 6,6;}
 line|z17[railway=rail]::dash,
 line|z17[railway=subway][!tunnel]::dash,
 line|z17[railway=light_rail][!tunnel]::dash,
-{width: 7.5; dashes: 8,8;}
+{width: 4.2; dashes: 8,8;}
 line|z18-[railway=rail]::dash,
 line|z18-[railway=subway][!tunnel]::dash,
 line|z18-[railway=light_rail][!tunnel]::dash,
-{width: 10; dashes: 10,10;}
+{width: 6.6; dashes: 10,10;}
 
 line|z14-[railway=preserved],
 line|z14-[railway=abandoned]
-{width: 2; dashes: 6.3,6.3;}
+{width: 1.6; dashes: 6,6;}
+line|z16-[railway=preserved],
+line|z16-[railway=abandoned]
+{width: 2.2; dashes: 8,8;}
 
 line|z14-[railway=construction],
 line|z14-[railway=disused]
-{width: 1.7; dashes: 1.8,5.4;}
+{width: 1; dashes: 1.8,5;}
+line|z16-[railway=construction],
+line|z16-[railway=disused]
+{width: 1.7; dashes: 2.5,7;}
+
 
 /* 10.PISTE 12-22 ZOOM */
 
@@ -201,3 +221,8 @@ line|z15-[power=line],
 {color: @powerline; width: 1; opacity: 0.6;}
 line|z17-[power=line],
 {width: 1.3; opacity: 0.7;}
+
+line|z15-[power=line]::dash,
+{color: @powerline; width: 4; opacity: 1; dashes: 1,50;}
+line|z17-[power=line]::dash,
+{width: 4.5; dashes: 1,80;}

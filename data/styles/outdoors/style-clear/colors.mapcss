@@ -29,6 +29,13 @@
 
 /* 5.ROADS */
 
+/* 5.ROADS */
+/* 5.1 All roads */
+
+@construction: #ABAB9A;
+
 /* 5.5 Transport */
 
-@railway: #868576;
+@railway: #818071;
+@railway_dark: #767566;
+@railway_dash: #F5F5F5;
