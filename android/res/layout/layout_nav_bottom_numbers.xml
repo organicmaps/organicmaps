@@ -8,23 +8,25 @@
   tools:background="#3000FF00"
   tools:ignore="RtlSymmetry">
 
-  <!-- Speed -->
-  <RelativeLayout
-    android:id="@+id/speed_view_container"
+  <Space
     android:layout_width="0dp"
     android:layout_height="match_parent"
-    android:layout_weight="1"
+    android:layout_weight="0.5"/>
+
+  <!-- Speed -->
+  <LinearLayout
+    android:id="@+id/speed_view_container"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@drawable/speed_cams_bg"
     android:gravity="center"
-    android:minWidth="@dimen/nav_numbers_side_min_width"
-    android:paddingStart="@dimen/nav_numbers_margin"
-    android:paddingEnd="@dimen/nav_numbers_margin">
+    android:minWidth="@dimen/nav_numbers_side_min_width">
 
     <TextView
       android:id="@+id/speed_value"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_centerHorizontal="true"
       android:includeFontPadding="false"
       android:lines="1"
       android:textAppearance="@style/MwmTextAppearance.NavMenu.Number"
@@ -35,30 +37,30 @@
       android:id="@+id/speed_dimen"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_below="@id/speed_value"
-      android:layout_centerHorizontal="true"
       android:includeFontPadding="false"
       android:lines="1"
       android:textAppearance="@style/MwmTextAppearance.NavMenu.Number.Dimension"
       tools:background="#20FF0000"
       tools:text="km/h" />
-  </RelativeLayout>
+  </LinearLayout>
 
-  <!-- Time -->
-  <RelativeLayout
+  <Space
     android:layout_width="0dp"
     android:layout_height="match_parent"
-    android:layout_weight="1.5"
+    android:layout_weight="1.25"/>
+
+  <!-- Time -->
+  <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
     android:gravity="center"
-    android:minWidth="@dimen/nav_numbers_side_min_width"
-    android:paddingStart="@dimen/nav_numbers_margin"
-    android:paddingEnd="@dimen/nav_numbers_margin">
+    android:minWidth="@dimen/nav_numbers_side_min_width">
 
     <LinearLayout
       android:id="@+id/time_values_container"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_centerHorizontal="true"
       tools:background="#20FF0000">
 
       <TextView
@@ -104,31 +106,30 @@
       android:id="@+id/time_estimate"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_below="@+id/time_values_container"
-      android:layout_centerHorizontal="true"
       android:includeFontPadding="false"
       android:lines="1"
       android:textAlignment="center"
       android:textAppearance="@style/MwmTextAppearance.NavMenu.Number.Dimension"
       tools:text="99:99 AM" />
-  </RelativeLayout>
+  </LinearLayout>
 
-
-  <!-- Distance -->
-  <RelativeLayout
+  <Space
     android:layout_width="0dp"
     android:layout_height="match_parent"
-    android:layout_weight="1"
+    android:layout_weight="1.25"/>
+
+  <!-- Distance -->
+  <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
     android:gravity="center"
-    android:minWidth="@dimen/nav_numbers_side_min_width"
-    android:paddingStart="@dimen/nav_numbers_margin"
-    android:paddingEnd="@dimen/nav_numbers_margin">
+    android:minWidth="@dimen/nav_numbers_side_min_width">
 
     <TextView
       android:id="@+id/distance_value"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_centerHorizontal="true"
       android:includeFontPadding="false"
       android:lines="1"
       android:textAppearance="@style/MwmTextAppearance.NavMenu.Number"
@@ -138,12 +139,15 @@
       android:id="@+id/distance_dimen"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_below="@id/distance_value"
-      android:layout_centerHorizontal="true"
       android:includeFontPadding="false"
       android:lines="1"
       android:textAppearance="@style/MwmTextAppearance.NavMenu.Number.Dimension"
       tools:background="#20FF0000"
       tools:text="km" />
-  </RelativeLayout>
+  </LinearLayout>
+
+  <Space
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="0.5"/>
 </LinearLayout>
