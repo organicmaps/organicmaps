@@ -242,13 +242,9 @@ public class MapButtonsController extends Fragment
   public void updateButtonsVisibility()
   {
     if (mInnerLeftButtonsFrame != null)
-    {
       updateButtonsVisibility(mInnerLeftButtonsFrame.getTranslationY(), mInnerLeftButtonsFrame);
-    }
     if (mInnerRightButtonsFrame != null)
-    {
       updateButtonsVisibility(mInnerRightButtonsFrame.getTranslationY(), mInnerRightButtonsFrame);
-    }
   }
 
   private void updateButtonsVisibility(final float translation, @Nullable View parent)
