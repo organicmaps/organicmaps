@@ -8,7 +8,6 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.StyleSpan;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,16 +64,19 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   private int mListenerSlot;
   private CountryItem mSelectedItem;
 
-  private static class GenericItem {
+  private static class GenericItem
+  {
     @Nullable
     public final String mHeaderText;
     @Nullable
     public final CountryItem mItem;
-    public GenericItem(@Nullable CountryItem item) {
+    public GenericItem(@Nullable CountryItem item)
+    {
       mItem = item;
       mHeaderText = null;
     }
-    public GenericItem(@Nullable String headerText) {
+    public GenericItem(@Nullable String headerText)
+    {
       mItem = null;
       mHeaderText = headerText;
     }
@@ -184,7 +186,8 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       if (lst == null)
         return;
 
-      for (CountryItem ci : lst) {
+      for (CountryItem ci : lst)
+      {
         ci.update();
 
         LinearLayoutManager lm = (LinearLayoutManager) mRecycler.getLayoutManager();
@@ -193,7 +196,8 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         if (first == RecyclerView.NO_POSITION || last == RecyclerView.NO_POSITION)
           return;
 
-        for (int i = first; i <= last; i++) {
+        for (int i = first; i <= last; i++)
+        {
           ViewHolderWrapper vh = (ViewHolderWrapper) mRecycler.findViewHolderForAdapterPosition(i);
           if (vh != null && vh.mKind == TYPE_COUNTRY && ((CountryItem) vh.mHolder.mItem).id.equals(countryId))
             vh.mHolder.rebind();
@@ -359,7 +363,8 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   {
     // Do not show "Delete" option for World files.
     // Checking the name is not beautiful, but the simplest way for now ..
-    if (!mSelectedItem.id.startsWith("World")) {
+    if (!mSelectedItem.id.startsWith("World"))
+    {
       items.add(new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete,
                                         () -> onDeleteActionSelected(mSelectedItem, DownloaderAdapter.this)));
     }
@@ -551,7 +556,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     }
   }
 
-  class HeaderViewHolder extends BaseInnerViewHolder<String>
+  static class HeaderViewHolder extends BaseInnerViewHolder<String>
   {
     @NonNull
     private final TextView mTitle;
@@ -576,7 +581,8 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     for (CountryItem ci: mItems)
     {
       // Disable headers when using the search
-      if (!mSearchResultsMode) {
+      if (!mSearchResultsMode)
+      {
         switch (ci.category)
         {
           case CountryItem.CATEGORY_NEAR_ME:
@@ -660,7 +666,8 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     collectHeaders();
 
     mCountryIndex.clear();
-    for (CountryItem ci: mItems) {
+    for (CountryItem ci: mItems)
+    {
       List<CountryItem> lst = mCountryIndex.get(ci.id);
       if (lst != null)
         lst.add(ci);
