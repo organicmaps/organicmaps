@@ -105,7 +105,6 @@
   <dimen name="nav_next_turn_space">6dp</dimen>
   <dimen name="nav_next_turn_sign">64dp</dimen>
   <dimen name="nav_next_next_turn_frame">32dp</dimen>
-  <dimen name="nav_numbers_margin">8dp</dimen>
   <dimen name="nav_numbers_side_min_width">90dp</dimen>
   <dimen name="nav_progress">4sp</dimen>
   <dimen name="nav_progress_head">2dp</dimen>
