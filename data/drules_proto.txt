@@ -15288,6 +15288,32 @@ cont {
 cont {
   name: "highway-construction"
   element {
+    scale: 11
+    lines {
+      width: 1.2
+      color: 12303274
+      dashdot {
+        dd: 3.6
+        dd: 1.8
+      }
+      priority: 1291
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 1.2
+      color: 12303274
+      dashdot {
+        dd: 3.6
+        dd: 1.8
+      }
+      priority: 1291
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 13
     lines {
       width: 1.2
@@ -36891,15 +36917,6 @@ cont {
 cont {
   name: "isoline-zero"
   element {
-    scale: 14
-    lines {
-      width: 1.0
-      color: 2153149782
-      priority: 1087
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 15
     lines {
       width: 1.0
@@ -43837,6 +43854,15 @@ cont {
 }
 cont {
   name: "man_made-cutline"
+  element {
+    scale: 13
+    lines {
+      width: 1.0
+      color: 1724896680
+      priority: 1184
+      cap: BUTTCAP
+    }
+  }
   element {
     scale: 14
     lines {
