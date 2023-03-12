@@ -13,18 +13,22 @@ import androidx.annotation.Nullable;
 import androidx.annotation.OptIn;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
+
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.badge.BadgeUtils;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.badge.BadgeUtils;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import app.organicmaps.R;
 import app.organicmaps.downloader.MapManager;
 import app.organicmaps.downloader.UpdateInfo;
 import app.organicmaps.routing.RoutingController;
-import app.organicmaps.util.Config;
 import app.organicmaps.util.ThemeUtils;
-import app.organicmaps.util.UiUtils;
 import app.organicmaps.widget.menu.MyPositionButton;
 import app.organicmaps.widget.placepage.PlacePageController;
-import com.google.android.material.badge.BadgeDrawable;
-import com.google.android.material.badge.BadgeUtils;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import app.organicmaps.util.Config;
+import app.organicmaps.util.UiUtils;
 
 import java.util.HashMap;
 import java.util.Map;
