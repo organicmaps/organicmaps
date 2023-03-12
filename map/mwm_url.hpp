@@ -102,7 +102,9 @@ private:
   SearchRequest m_searchRequest;
   std::string m_globalBackUrl;
   std::string m_appName;
-  ms::LatLon m_centerLatLon;
+  // TODO: om://search? api needs to distinguish if a (search center) point was passed or not.
+  // Now Android and iOS clients check if either lat or lon is equal to zero in the "not initialized" case.
+  ms::LatLon m_centerLatLon = ms::LatLon::Zero();
   std::string m_routingType;
   int m_version = 0;
   /// Zoom level in OSM format (e.g. from 1.0 to 20.0)

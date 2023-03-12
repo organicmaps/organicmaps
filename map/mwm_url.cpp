@@ -352,14 +352,11 @@ void ParsedMapApi::ParseCommonParam(std::string const & key, std::string const &
   }
   else if (key == kCenterLatLon)
   {
-    double lat = 0.0;
-    double lon = 0.0;
-    if (!ParseLatLon(key, value, lat, lon))
-    {
+    double lat, lon;
+    if (ParseLatLon(key, value, lat, lon))
+      m_centerLatLon = {lat, lon};
+    else
       LOG(LWARNING, ("Incorrect 'cll':", value));
-      return;
-    }
-    m_centerLatLon = ms::LatLon(lat, lon);
   }
 }
 
@@ -369,7 +366,7 @@ void ParsedMapApi::Reset()
   m_searchRequest = {};
   m_globalBackUrl ={};
   m_appName = {};
-  m_centerLatLon = {};
+  m_centerLatLon = ms::LatLon::Zero();
   m_routingType = {};
   m_version = 0;
   m_zoomLevel = 0.0;
