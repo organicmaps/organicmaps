@@ -734,7 +734,7 @@ void KmlParser::ParseAndAddPoints(MultiGeometry::LineT & line, std::string_view 
     geometry::PointWithAltitude point;
     if (ParsePointWithAltitude(v, coordSeparator, point))
     {
-      // We dont't expect vertical surfaces, so do not compare heights here.
+      // We don't expect vertical surfaces, so do not compare heights here.
       // Will get a lot of duplicating points otherwise after import some user KMLs.
       // https://github.com/organicmaps/organicmaps/issues/3895
       if (line.empty() || !AlmostEqualAbs(line.back().GetPoint(), point.GetPoint(), kMwmPointAccuracy))
@@ -745,7 +745,9 @@ void KmlParser::ParseAndAddPoints(MultiGeometry::LineT & line, std::string_view 
 
 void KmlParser::ParseLineString(std::string const & s)
 {
-  m_geometryType = GEOMETRY_TYPE_LINE;
+  // If m_org is not empty, then it's still a Bookmark but with track data
+  if (m_org == m2::PointD::Zero())
+    m_geometryType = GEOMETRY_TYPE_LINE;
 
   MultiGeometry::LineT line;
   ParseAndAddPoints(line, s, " \n\r\t", ",");
@@ -934,6 +936,23 @@ void KmlParser::Pop(std::string const & tag)
         }
 
         m_data.m_bookmarksData.push_back(std::move(data));
+
+        // There is a track stored inside a bookmark
+        if (m_geometry.IsValid())
+        {
+          BookmarkData const & bookmarkData = m_data.m_bookmarksData.back();
+          TrackData trackData;
+          trackData.m_localId = m_localId;
+          trackData.m_name = bookmarkData.m_name;
+          trackData.m_description = bookmarkData.m_description;
+          trackData.m_layers = std::move(m_trackLayers);
+          trackData.m_timestamp = m_timestamp;
+          trackData.m_geometry = std::move(m_geometry);
+          trackData.m_visible = m_visible;
+          trackData.m_nearestToponyms = std::move(m_nearestToponyms);
+          trackData.m_properties = bookmarkData.m_properties;
+          m_data.m_tracksData.push_back(std::move(trackData));
+        }
       }
       else if (GEOMETRY_TYPE_LINE == m_geometryType)
       {
