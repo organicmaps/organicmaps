@@ -255,7 +255,7 @@ public class MapButtonsController extends Fragment
     {
       final View button = entry.getValue();
       if (button.getParent() == parent)
-        showButton(getViewTopOffset(translation, button) > 0, entry.getKey());
+        showButton(getViewTopOffset(translation, button) >= 0, entry.getKey());
     }
   }
 
