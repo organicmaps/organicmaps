@@ -1,4 +1,4 @@
-package app.organicmaps.widget.placepage;
+package app.organicmaps.widget.placepage.sections;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -26,6 +26,8 @@ import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.widget.placepage.EditBookmarkFragment;
+import app.organicmaps.widget.placepage.PlacePageViewModel;
 
 public class PlacePageBookmarkFragment extends Fragment implements View.OnClickListener,
                                                                    View.OnLongClickListener,
