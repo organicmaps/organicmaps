@@ -24713,7 +24713,7 @@
     fa = گردشگری
     fi = Taideteos
     fr = Œuvre
-    hu = Szobor
+    hu = Műalkotás
     id = Pariwisata
     it = Opera d'arte
     ja = 建築
@@ -24748,7 +24748,7 @@
     fa = گردشگری
     fi = Taideteos
     fr = Œuvre
-    hu = Szobor
+    hu = Műalkotás
     id = Pariwisata
     it = Dipinto
     ja = 絵画
