@@ -1,4 +1,4 @@
-package app.organicmaps.widget.placepage;
+package app.organicmaps.widget.placepage.sections;
 
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
@@ -19,6 +19,9 @@ import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.bookmarks.data.Metadata;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.widget.placepage.PlaceDescriptionActivity;
+import app.organicmaps.widget.placepage.PlacePageUtils;
+import app.organicmaps.widget.placepage.PlacePageViewModel;
 
 public class PlacePageWikipediaFragment extends Fragment implements Observer<MapObject>
 {

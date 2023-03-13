@@ -48,6 +48,11 @@ import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.widget.ArrowView;
+import app.organicmaps.widget.placepage.sections.PlacePageBookmarkFragment;
+import app.organicmaps.widget.placepage.sections.PlacePageLinksFragment;
+import app.organicmaps.widget.placepage.sections.PlacePageOpeningHoursFragment;
+import app.organicmaps.widget.placepage.sections.PlacePagePhoneFragment;
+import app.organicmaps.widget.placepage.sections.PlacePageWikipediaFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
