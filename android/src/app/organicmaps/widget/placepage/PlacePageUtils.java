@@ -15,7 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.List;
 
-class PlacePageUtils
+public class PlacePageUtils
 {
   static void moveViewportUp(@NonNull View placePageView, int viewportMinHeight)
   {
@@ -84,7 +84,7 @@ class PlacePageUtils
     }
   }
 
-  static void copyToClipboard(Context context, View frame, String text)
+  public static void copyToClipboard(Context context, View frame, String text)
   {
     Utils.copyTextToClipboard(context, text);
     Utils.showSnackbarAbove(frame,
@@ -92,7 +92,7 @@ class PlacePageUtils
                             context.getString(R.string.copied_to_clipboard, text));
   }
 
-  static void showCopyPopup(Context context, View popupAnchor, View frame, List<String> items)
+  public static void showCopyPopup(Context context, View popupAnchor, View frame, List<String> items)
   {
     final PopupMenu popup = new PopupMenu(context, popupAnchor);
     final Menu menu = popup.getMenu();

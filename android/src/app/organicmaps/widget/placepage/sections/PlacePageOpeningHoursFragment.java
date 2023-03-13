@@ -1,4 +1,4 @@
-package app.organicmaps.widget.placepage;
+package app.organicmaps.widget.placepage.sections;
 
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -25,6 +25,9 @@ import app.organicmaps.editor.data.Timetable;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.widget.placepage.PlacePageUtils;
+import app.organicmaps.widget.placepage.PlacePageViewModel;
+import app.organicmaps.widget.placepage.sections.PlaceOpeningHoursAdapter;
 
 import java.util.Calendar;
 import java.util.Locale;

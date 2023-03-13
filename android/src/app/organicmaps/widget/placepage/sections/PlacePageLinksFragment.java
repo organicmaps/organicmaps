@@ -1,4 +1,4 @@
-package app.organicmaps.widget.placepage;
+package app.organicmaps.widget.placepage.sections;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,6 +17,8 @@ import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.bookmarks.data.Metadata;
 import app.organicmaps.util.Utils;
+import app.organicmaps.widget.placepage.PlacePageUtils;
+import app.organicmaps.widget.placepage.PlacePageViewModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
