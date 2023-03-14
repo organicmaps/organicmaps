@@ -30,6 +30,7 @@
 #include "geometry/point_with_altitude.hpp"
 
 #include "indexer/feature_altitude.hpp"
+#include "indexer/validate_and_format_contacts.hpp"
 
 #include "routing/following_info.hpp"
 #include "routing/speed_camera_manager.hpp"
