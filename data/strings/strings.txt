@@ -13315,7 +13315,7 @@
     sv = Kartografiska data från OpenStreetMap från och med %@. Det är som Wikipedia där du kan lägga till eller redigera platser för alla användare över hela världen.
     sw = Takwimu za katuni kutoka kwa OpenStreetMap kama ya %@. Ni kama Wikipedia ambapo unaweza kuongeza au kuhariri maeneo kwa watumiaji wote ulimwenguni.
     th = ข้อมูลการทำแผนที่จาก OpenStreetMap ณ ปี %@มันเป็นเหมือนวิกิพีเดียที่คุณสามารถเพิ่มหรือแก้ไขสถานที่สำหรับผู้ใช้ทุกคนทั่วโลก
-    tr = Harita verileri, %@ tarihine ait OpenStreetMap verilerinden alınmıştır. OpenStreetMap, Vikipedi'nin harita sürümü gibidir: dünyadaki herkes yer ekleyebilir veya düzenleyebilir.
+    tr = Harita verileri, %@ tarihine ait OpenStreetMap verilerinden alınmıştır. OpenStreetMap, Vikipedi'nin harita sürümü gibidir: dünyadaki tüm kullanıcılar için yer ekleyebilir veya düzenleyebilirsiniz.
     uk = Картографічні дані з OpenStreetMap станом на %@. Це як Вікіпедія, де ви можете додавати або редагувати місця для всіх користувачів у всьому світі.
     vi = Dữ liệu bản đồ từ OpenStreetMap kể từ %@. Nó giống như Wikipedia nơi bạn có thể thêm hoặc chỉnh sửa địa điểm cho tất cả người dùng trên toàn thế giới.
     zh-Hans = 截至%@的OpenStreetMap的制图数据。就像Wikipedia一样，您可以为世界上所有用户添加或编辑位置。
