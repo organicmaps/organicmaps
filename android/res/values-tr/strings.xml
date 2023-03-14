@@ -461,7 +461,7 @@
 	<string name="placepage_add_business_button">Kuruluş ekle</string>
 	<string name="message_invalid_feature_position">Buraya bir nesne konumlandırılamıyor</string>
 	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Harita verileri, %s tarihine ait OpenStreetMap verilerinden alınmıştır. OpenStreetMap, Vikipedi\'nin harita sürümü gibidir: dünyadaki herkes yer ekleyebilir veya düzenleyebilir.</string>
+	<string name="osm_presentation">Harita verileri, %s tarihine ait OpenStreetMap verilerinden alınmıştır. OpenStreetMap, Vikipedi\'nin harita sürümü gibidir: dünyadaki tüm kullanıcılar için yer ekleyebilir veya düzenleyebilirsiniz.</string>
 	<string name="login_to_make_edits_visible">Diğer kullanıcıların yaptığınız değişiklikleri görebilmesi için OpenStreetMap.org\'da oturum açın.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>
