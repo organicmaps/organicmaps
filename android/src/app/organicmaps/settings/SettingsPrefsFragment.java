@@ -1,5 +1,6 @@
 package app.organicmaps.settings;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -71,7 +72,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue)
     {
-      final Preference root = getPreference(getString(R.string.pref_tts_screen));
+      Preference root = findPreference(getString(R.string.pref_tts_screen));
       boolean set = (Boolean)newValue;
       if (!set)
       {
@@ -83,7 +84,8 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
         if (mLangInfoLink != null && isOnTtsScreen())
           getPreferenceScreen().addPreference(mLangInfoLink);
 
-        root.setSummary(R.string.off);
+        if (root != null)
+          root.setSummary(R.string.off);
 
         if (mPrefEnabled != null)
           mPrefEnabled.setTitle(R.string.off);
@@ -92,7 +94,8 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
       if (mLangInfo != null)
         mLangInfo.setSummary(R.string.prefs_languages_information);
-      root.setSummary(R.string.on);
+      if (root != null)
+        root.setSummary(R.string.on);
       if (mPrefEnabled != null)
         mPrefEnabled.setTitle(R.string.on);
       if (mLangInfoLink != null)
@@ -124,8 +127,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       if (lang.downloaded)
         setLanguage(lang);
       else
+      {
         UiUtils.startActivityForResult(SettingsPrefsFragment.this,
             new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA), REQUEST_INSTALL_DATA);
+      }
 
       return false;
     }
@@ -160,7 +165,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     mLanguages.clear();
     mCurrentLanguage = null;
 
-    final Preference root = getPreference(getString(R.string.pref_tts_screen));
+    Preference root = findPreference(getString(R.string.pref_tts_screen));
 
     if (languages.isEmpty())
     {
@@ -173,7 +178,8 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       mLangInfo.setSummary(R.string.prefs_languages_information_off);
       if (isOnTtsScreen())
         getPreferenceScreen().addPreference(mLangInfoLink);
-      root.setSummary(R.string.off);
+      if (root != null)
+        root.setSummary(R.string.off);
 
       enableListeners(true);
       return;
@@ -241,11 +247,11 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   {
     super.onViewCreated(view, savedInstanceState);
     mPreferenceScreen = getPreferenceScreen();
-    mStoragePref = getPreference(getString(R.string.pref_storage));
-    mPrefEnabled = getPreference(getString(R.string.pref_tts_enabled));
-    mPrefLanguages = getPreference(getString(R.string.pref_tts_language));
-    mLangInfo = getPreference(getString(R.string.pref_tts_info));
-    mLangInfoLink = getPreference(getString(R.string.pref_tts_info_link));
+    mStoragePref = findPreference(getString(R.string.pref_storage));
+    mPrefEnabled = findPreference(getString(R.string.pref_tts_enabled));
+    mPrefLanguages = findPreference(getString(R.string.pref_tts_language));
+    mLangInfo = findPreference(getString(R.string.pref_tts_info));
+    mLangInfoLink = findPreference(getString(R.string.pref_tts_info_link));
     initLangInfoLink();
     initStoragePrefCallbacks();
     initMeasureUnitsPrefsCallbacks();
@@ -267,8 +273,9 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (!playServices && !crashReports)
     {
       // Remove "Tracking" section completely.
-      final PreferenceCategory tracking = getPreference(getString(R.string.pref_subtittle_opt_out));
-      mPreferenceScreen.removePreference(tracking);
+      PreferenceCategory tracking = findPreference(getString(R.string.pref_subtittle_opt_out));
+      if (tracking != null)
+        mPreferenceScreen.removePreference(tracking);
     }
     initScreenSleepEnabledPrefsCallbacks();
     initShowOnLockScreenPrefsCallbacks();
@@ -278,7 +285,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private void initSpeedCamerasPrefs()
   {
     String key = getString(R.string.pref_speed_cameras);
-    final ListPreference pref = getPreference(key);
+    final ListPreference pref = findPreference(key);
+    // TODO: check whether it's needed #2049
+    if (pref == null)
+      return;
     pref.setSummary(pref.getEntry());
     pref.setOnPreferenceChangeListener(this::onSpeedCamerasPrefSelected);
   }
@@ -366,7 +376,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void initLargeFontSizePrefsCallbacks()
   {
-    final Preference pref = getPreference(getString(R.string.pref_large_fonts_size));
+    Preference pref = findPreference(getString(R.string.pref_large_fonts_size));
+    // TODO: check whether it's needed #2049
+    if (pref == null)
+      return;
 
     ((TwoStatePreference)pref).setChecked(Config.isLargeFontsSize());
     pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
@@ -386,7 +399,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void initTransliterationPrefsCallbacks()
   {
-    final Preference pref = getPreference(getString(R.string.pref_transliteration));
+    Preference pref = findPreference(getString(R.string.pref_transliteration));
+    // TODO: check whether it's needed #2049
+    if (pref == null)
+      return;
 
     ((TwoStatePreference)pref).setChecked(Config.isTransliteration());
     pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
@@ -406,7 +422,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void initUseMobileDataPrefsCallbacks()
   {
-    final ListPreference mobilePref = getPreference(getString(R.string.pref_use_mobile_data));
+    final ListPreference mobilePref = findPreference(
+        getString(R.string.pref_use_mobile_data));
+    if (mobilePref == null)
+      return;
 
     NetworkPolicy.Type curValue = Config.getUseMobileDataSettings();
     if (curValue == NetworkPolicy.Type.NOT_TODAY || curValue == NetworkPolicy.Type.TODAY)
@@ -427,7 +446,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void initPowerManagementPrefsCallbacks()
   {
-    final ListPreference powerManagementPref = getPreference(getString(R.string.pref_power_management));
+    final ListPreference powerManagementPref = findPreference(
+      getString(R.string.pref_power_management));
+    if (powerManagementPref == null)
+      return;
 
     @PowerManagment.SchemeType
     int curValue = PowerManagment.getScheme();
@@ -440,15 +462,16 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
       PowerManagment.setScheme(scheme);
 
-      disableOrEnable3DBuildingsForPowerMode(scheme);
-
       return true;
     });
   }
 
   private void initLoggingEnabledPrefsCallbacks()
   {
-    final Preference pref = getPreference(getString(R.string.pref_enable_logging));
+    Preference pref = findPreference(getString(R.string.pref_enable_logging));
+    // TODO: check whether it's needed #2049
+    if (pref == null)
+      return;
 
     ((TwoStatePreference) pref).setChecked(LogsManager.INSTANCE.isFileLoggingEnabled());
     pref.setOnPreferenceChangeListener((preference, newValue) -> {
@@ -464,7 +487,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void initEmulationBadStorage()
   {
-    final Preference pref = getPreference(getString(R.string.pref_emulate_bad_external_storage));
+    Preference pref = findPreference(getString(R.string.pref_emulate_bad_external_storage));
+    // TODO: check whether it's needed #2049
+    if (pref == null)
+      return;
 
     if (!SharedPropertiesUtils.shouldShowEmulateBadStorageSetting(requireContext()))
       removePreference(getString(R.string.pref_settings_general), pref);
@@ -472,7 +498,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void initAutoZoomPrefsCallbacks()
   {
-    final TwoStatePreference pref = getPreference(getString(R.string.pref_auto_zoom));
+    final TwoStatePreference pref = findPreference(getString(R.string.pref_auto_zoom));
+    // TODO: check whether it's needed #2049
+    if (pref == null)
+      return;
 
     boolean autozoomEnabled = Framework.nativeGetAutoZoomEnabled();
     pref.setChecked(autozoomEnabled);
@@ -489,7 +518,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private boolean initPlayServicesPrefsCallbacks()
   {
-    final Preference pref = getPreference(getString(R.string.pref_play_services));
+    Preference pref = findPreference(getString(R.string.pref_play_services));
+    // TODO: check whether it's needed #2049
+    if (pref == null)
+      return false;
 
     if (!LocationProviderFactory.isGoogleLocationAvailable(requireActivity().getApplicationContext()))
     {
@@ -520,16 +552,15 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void init3dModePrefsCallbacks()
   {
-    final TwoStatePreference pref = getPreference(getString(R.string.pref_3d_buildings));
+    final TwoStatePreference pref = findPreference(getString(R.string.pref_3d_buildings));
+    // TODO: check whether it's needed #2049
+    if (pref == null)
+      return;
 
     final Framework.Params3dMode _3d = new Framework.Params3dMode();
     Framework.nativeGet3dMode(_3d);
 
-    // Read power managements preference.
-    final ListPreference powerManagementPref = getPreference(getString(R.string.pref_power_management));
-    final String powerManagementValueStr = powerManagementPref.getValue();
-    final Integer powerManagementValue = (powerManagementValueStr!=null) ? Integer.parseInt(powerManagementValueStr) : null;
-    disableOrEnable3DBuildingsForPowerMode(powerManagementValue);
+    pref.setChecked(_3d.buildings);
 
     pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
     {
@@ -542,33 +573,12 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     });
   }
 
-  // Argument `powerManagementValue` could be null on the first app run.
-  private void disableOrEnable3DBuildingsForPowerMode(@Nullable Integer powerManagementValue)
-  {
-    final TwoStatePreference pref = getPreference(getString(R.string.pref_3d_buildings));
-
-    if (powerManagementValue != null && powerManagementValue == PowerManagment.HIGH)
-    {
-      pref.setShouldDisableView(true);
-      pref.setEnabled(false);
-      pref.setSummary(getString(R.string.pref_map_3d_buildings_disabled_summary));
-      pref.setChecked(false);
-    }
-    else
-    {
-      final Framework.Params3dMode _3d = new Framework.Params3dMode();
-      Framework.nativeGet3dMode(_3d);
-
-      pref.setShouldDisableView(false);
-      pref.setEnabled(true);
-      pref.setSummary("");
-      pref.setChecked(_3d.buildings);
-    }
-  }
-
   private void initPerspectivePrefsCallbacks()
   {
-    final TwoStatePreference pref = getPreference(getString(R.string.pref_3d));
+    final TwoStatePreference pref = findPreference(getString(R.string.pref_3d));
+    // TODO: check whether it's needed #2049
+    if (pref == null)
+      return;
 
     final Framework.Params3dMode _3d = new Framework.Params3dMode();
     Framework.nativeGet3dMode(_3d);
@@ -588,7 +598,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void initAutoDownloadPrefsCallbacks()
   {
-    final TwoStatePreference pref = getPreference(getString(R.string.pref_autodownload));
+    TwoStatePreference pref = findPreference(getString(R.string.pref_autodownload));
+    // TODO: check whether it's needed #2049
+    if (pref == null)
+      return;
 
     pref.setChecked(Config.isAutodownloadEnabled());
     pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
@@ -609,7 +622,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void initMapStylePrefsCallbacks()
   {
-    final ListPreference pref = getPreference(getString(R.string.pref_map_style));
+    final ListPreference pref = findPreference(getString(R.string.pref_map_style));
+    // TODO: check whether it's needed #2049
+    if (pref == null)
+      return;
 
     String curTheme = Config.getUiThemeSettings(requireContext());
     pref.setValue(curTheme);
@@ -634,7 +650,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void initZoomPrefsCallbacks()
   {
-    final Preference pref = getPreference(getString(R.string.pref_show_zoom_buttons));
+    Preference pref = findPreference(getString(R.string.pref_show_zoom_buttons));
+    // TODO: check whether it's needed #2049
+    if (pref == null)
+      return;
 
     ((TwoStatePreference)pref).setChecked(Config.showZoomButtons());
     pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
@@ -650,7 +669,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void initMeasureUnitsPrefsCallbacks()
   {
-    final Preference pref = getPreference(getString(R.string.pref_munits));
+    Preference pref = findPreference(getString(R.string.pref_munits));
+    // TODO: check whether it's needed #2049
+    if (pref == null)
+      return;
 
     ((ListPreference)pref).setValue(String.valueOf(UnitLocale.getUnits()));
     pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
@@ -694,7 +716,11 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private boolean initCrashReports()
   {
-    final Preference pref = getPreference(getString(R.string.pref_crash_reports));
+    String key = getString(R.string.pref_crash_reports);
+    Preference pref = findPreference(key);
+    // TODO: check whether it's needed #2049
+    if (pref == null)
+      return false;
 
     if (!CrashlyticsUtils.INSTANCE.isAvailable())
     {
@@ -709,7 +735,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void initScreenSleepEnabledPrefsCallbacks()
   {
-    final Preference pref = getPreference(getString(R.string.pref_screen_sleep));
+    Preference pref = findPreference(getString(R.string.pref_screen_sleep));
+    // TODO: check whether it's needed #2049
+    if (pref == null)
+      return;
 
     final boolean isScreenSleepEnabled = Config.isScreenSleepEnabled();
     ((TwoStatePreference) pref).setChecked(isScreenSleepEnabled);
@@ -728,7 +757,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void initShowOnLockScreenPrefsCallbacks()
   {
-    final Preference pref = getPreference(getString(R.string.pref_show_on_lock_screen));
+    Preference pref = findPreference(getString(R.string.pref_show_on_lock_screen));
+    // TODO: check whether it's needed #2049
+    if (pref == null)
+      return;
 
     final boolean isShowOnLockScreenEnabled = Config.isShowOnLockScreenEnabled();
     ((TwoStatePreference) pref).setChecked(isShowOnLockScreenEnabled);
@@ -747,7 +779,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void removePreference(@NonNull String categoryKey, @NonNull Preference preference)
   {
-    final PreferenceCategory category = getPreference(categoryKey);
+    PreferenceCategory category = findPreference(categoryKey);
+    // TODO: check whether it's needed #2049
+    if (category == null)
+      return;
 
     category.removePreference(preference);
   }
