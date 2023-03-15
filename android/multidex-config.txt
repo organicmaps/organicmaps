@@ -17,6 +17,7 @@ app/organicmaps/downloader/ChunkTask.class
 app/organicmaps/downloader/CountryItem.class
 app/organicmaps/downloader/MapManager$StorageCallbackData.class
 app/organicmaps/downloader/UpdateInfo.class
+app/organicmaps/editor/data/FeatureCategory.class
 app/organicmaps/editor/data/HoursMinutes.class
 app/organicmaps/editor/data/Language.class
 app/organicmaps/editor/data/LocalizedName.class

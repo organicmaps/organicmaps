@@ -1392,6 +1392,12 @@
 	<string name="type.power.line">Linha de transmissão de energia</string>
 	<string name="type.power.line.underground">Linha de transmissão de energia subterrânea</string>
 	<string name="type.power.minor_line">Linha de transmissão de energia de baixa tensão</string>
+	<string name="type.power.plant">Usina elétrica</string>
+	<string name="type.power.plant.coal">Usina de carvão</string>
+	<string name="type.power.plant.gas">Usina de turbina a gás</string>
+	<string name="type.power.plant.hydro">Usina hidrelétrica</string>
+	<string name="type.power.plant.solar">Planta de energia solar</string>
+	<string name="type.power.plant.wind">Usina de energia eólica</string>
 	<string name="type.power.pole">Poste de eletricidade</string>
 	<string name="type.power.station">Subestação elétrica</string>
 	<string name="type.power.substation">Subestação elétrica</string>

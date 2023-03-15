@@ -1309,11 +1309,11 @@ line|z12-13[aerialway=mixed_lift]::dash,
 line|z14-15[aerialway=cable_car]::dash,
 line|z14-15[aerialway=gondola]::dash,
 line|z14-15[aerialway=mixed_lift]::dash,
-{width: 3; dashes: 3,22;}
+{width: 3; dashes: 3,30;}
 line|z16-[aerialway=cable_car]::dash,
 line|z16-[aerialway=gondola]::dash,
 line|z16-[aerialway=mixed_lift]::dash,
-{width: 4; dashes: 4,32; opacity: 1;}
+{width: 4; dashes: 4,45; opacity: 1;}
 
 line|z13-15[aerialway=chair_lift],
 line|z13-15[aerialway=drag_lift],
@@ -1360,7 +1360,7 @@ line|z17-[aerialway=rope_tow]::dash,
 line|z19-[power=line],
 {color: @powerline; width: 1; opacity: 0.6;}
 line|z19-[power=line]::dash,
-{color: @powerline; width: 4; opacity: 1; dashes: 1,32;}
+{color: @powerline; width: 4; opacity: 1; dashes: 1,80;}
 
 /* 10.3 Piste & Route 14-22 ZOOM */
 

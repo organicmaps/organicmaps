@@ -1,7 +1,7 @@
 #include <jni.h>
 #include <android/jni/app/organicmaps/Framework.hpp>
 #include "app/organicmaps/core/jni_helper.hpp"
-#include "app/organicmaps/platform/Platform.hpp"
+#include "app/organicmaps/platform/AndroidPlatform.hpp"
 
 extern "C"
 {

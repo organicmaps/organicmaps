@@ -1358,6 +1358,12 @@
 	<string name="type.power.line">電力線</string>
 	<string name="type.power.line.underground">地下電力線</string>
 	<string name="type.power.minor_line">低圧電力線</string>
+	<string name="type.power.plant">発電所</string>
+	<string name="type.power.plant.coal">石炭火力発電所</string>
+	<string name="type.power.plant.gas">ガスタービン発電所</string>
+	<string name="type.power.plant.hydro">水力発電所</string>
+	<string name="type.power.plant.solar">太陽光発電所</string>
+	<string name="type.power.plant.wind">風力発電所</string>
 	<string name="type.power.pole">電柱</string>
 	<string name="type.power.station">変電所</string>
 	<string name="type.power.substation">変電所</string>

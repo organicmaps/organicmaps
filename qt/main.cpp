@@ -18,7 +18,7 @@
 #include <cstdlib>
 #include <sstream>
 
-#include "gflags/gflags.h"
+#include <gflags/gflags.h>
 
 #include <QtCore/QDir>
 #include <QtGui/QScreen>

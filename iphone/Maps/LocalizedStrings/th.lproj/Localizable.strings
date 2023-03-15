@@ -2666,6 +2666,18 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
+"type.power.plant" = "โรงไฟฟ้า";
+
+"type.power.plant.coal" = "โรงไฟฟ้าถ่านหิน";
+
+"type.power.plant.gas" = "โรงไฟฟ้ากังหันก๊าซ";
+
+"type.power.plant.hydro" = "โรงไฟฟ้าพลังน้ำ";
+
+"type.power.plant.solar" = "โรงไฟฟ้าพลังงานแสงอาทิตย์";
+
+"type.power.plant.wind" = "โรงไฟฟ้าพลังงานลม";
+
 "type.power.pole" = "เสาไฟฟ้า";
 
 "type.power.station" = "Power Station";

@@ -1186,6 +1186,12 @@
 	<string name="type.power.generator.wind">مولد باد</string>
 	<string name="type.power.generator.gas">نیروگاه توربین گاز</string>
 	<string name="type.power.generator.hydro">نیروگاه برق آبی</string>
+	<string name="type.power.plant">نیروگاه</string>
+	<string name="type.power.plant.coal">نیروگاه زغال سنگ</string>
+	<string name="type.power.plant.gas">نیروگاه توربین گاز</string>
+	<string name="type.power.plant.hydro">نیروگاه برق آبی</string>
+	<string name="type.power.plant.solar">نیروگاه خورشیدی</string>
+	<string name="type.power.plant.wind">نیروگاه بادی</string>
 	<string name="type.power.pole">برج قدرت</string>
 	<string name="type.power.tower">برج قدرت</string>
 	<string name="type.railway.halt">ایستگاه قطار</string>

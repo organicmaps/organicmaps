@@ -2666,6 +2666,18 @@
 
 "type.power.minor_line" = "Madal-/Keskpinge elektriliin";
 
+"type.power.plant" = "Elektrijaam";
+
+"type.power.plant.coal" = "Söeelektrijaam";
+
+"type.power.plant.gas" = "Gaasiturbiini elektrijaam";
+
+"type.power.plant.hydro" = "Hüdroelektrijaam";
+
+"type.power.plant.solar" = "Päikeseelektrijaam";
+
+"type.power.plant.wind" = "Tuuleelektrijaam";
+
 "type.power.pole" = "Elektripost";
 
 "type.power.station" = "Elektrijaam";

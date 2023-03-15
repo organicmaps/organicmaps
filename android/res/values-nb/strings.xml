@@ -1327,6 +1327,12 @@
 	<string name="type.power.generator.wind">Vindgenerator</string>
 	<string name="type.power.generator.gas">Gassturbinkraftverk</string>
 	<string name="type.power.generator.hydro">Vannkraftverk</string>
+	<string name="type.power.plant">Kraftverk</string>
+	<string name="type.power.plant.coal">Kullkraftverk</string>
+	<string name="type.power.plant.gas">Gassturbinkraftverk</string>
+	<string name="type.power.plant.hydro">Vannkraftverk</string>
+	<string name="type.power.plant.solar">Solkraftverk</string>
+	<string name="type.power.plant.wind">Vindkraftverk</string>
 	<string name="type.power.pole">Strømmast</string>
 	<string name="type.power.substation">Trafo</string>
 	<string name="type.power.tower">Strømmast</string>

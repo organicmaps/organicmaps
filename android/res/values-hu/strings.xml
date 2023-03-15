@@ -1274,6 +1274,12 @@
 	<string name="type.power.generator.wind">Szélgenerátor</string>
 	<string name="type.power.generator.gas">Gázturbinás erőmű</string>
 	<string name="type.power.generator.hydro">Vízerőmű</string>
+	<string name="type.power.plant">Erőmű</string>
+	<string name="type.power.plant.coal">Szénerőmű</string>
+	<string name="type.power.plant.gas">Gázturbinás erőmű</string>
+	<string name="type.power.plant.hydro">Vízerőmű</string>
+	<string name="type.power.plant.solar">Naperőmű</string>
+	<string name="type.power.plant.wind">Szélerőmű</string>
 	<string name="type.power.pole">Villanyoszlop</string>
 	<string name="type.power.substation">Kapcsolószekrény</string>
 	<string name="type.power.tower">Villanyoszlop</string>

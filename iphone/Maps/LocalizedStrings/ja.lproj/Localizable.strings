@@ -2666,6 +2666,18 @@
 
 "type.power.minor_line" = "低圧電力線";
 
+"type.power.plant" = "発電所";
+
+"type.power.plant.coal" = "石炭火力発電所";
+
+"type.power.plant.gas" = "ガスタービン発電所";
+
+"type.power.plant.hydro" = "水力発電所";
+
+"type.power.plant.solar" = "太陽光発電所";
+
+"type.power.plant.wind" = "風力発電所";
+
 "type.power.pole" = "電柱";
 
 "type.power.station" = "変電所";

@@ -2666,6 +2666,18 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
+"type.power.plant" = "Elektrizitate-parkea";
+
+"type.power.plant.coal" = "Ikatz zentrala";
+
+"type.power.plant.gas" = "Gas-turbinetako zentral elektrikoa";
+
+"type.power.plant.hydro" = "Zentral hidroelektrikoa";
+
+"type.power.plant.solar" = "Eguzki-zentrala";
+
+"type.power.plant.wind" = "Zentral eolikoa";
+
 "type.power.pole" = "Zutabe elektrikoa";
 
 "type.power.station" = "Power Station";

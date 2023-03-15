@@ -22,6 +22,11 @@ on:
       - '!tools/python/SiblingKiller.py'
       - xcode/**
 
+# Cancels previous jobs if the same branch or PR was updated again.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   macos-matrix:
     name: macOS builds and tests

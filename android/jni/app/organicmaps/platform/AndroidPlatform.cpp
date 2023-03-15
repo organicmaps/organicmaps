@@ -1,4 +1,4 @@
-#include "app/organicmaps/platform/Platform.hpp"
+#include "app/organicmaps/platform/AndroidPlatform.hpp"
 #include "app/organicmaps/platform/GuiThread.hpp"
 
 #include "app/organicmaps/core/jni_helper.hpp"

@@ -61,7 +61,7 @@
 #include <memory>
 #include <string>
 
-#include "gflags/gflags.h"
+#include <gflags/gflags.h>
 
 namespace
 {

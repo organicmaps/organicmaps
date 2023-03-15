@@ -1386,6 +1386,12 @@
 	<string name="type.power.generator.wind">مولد الرياح</string>
 	<string name="type.power.generator.gas">محطة توليد الكهرباء بالغاز</string>
 	<string name="type.power.generator.hydro">محطة توليد الطاقة الكهرمائية</string>
+	<string name="type.power.plant">محطة توليد الكهرباء</string>
+	<string name="type.power.plant.coal">محطة لتوليد الطاقه من الفحم</string>
+	<string name="type.power.plant.gas">محطة توليد الكهرباء بالغاز</string>
+	<string name="type.power.plant.hydro">محطة توليد الطاقة الكهرمائية</string>
+	<string name="type.power.plant.solar">محطة للطاقة الشمسية</string>
+	<string name="type.power.plant.wind">محطة طاقة الرياح</string>
 	<string name="type.power.pole">عمود كهرباء</string>
 	<string name="type.power.substation">محطة كهرباء فرعية</string>
 	<string name="type.power.tower">عمود كهرباء</string>

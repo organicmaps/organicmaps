@@ -53,7 +53,7 @@ cont {
       color: 860111940
       dashdot {
         dd: 3.0
-        dd: 22.0
+        dd: 30.0
       }
       priority: 1653
       cap: BUTTCAP
@@ -72,7 +72,7 @@ cont {
       color: 860111940
       dashdot {
         dd: 3.0
-        dd: 22.0
+        dd: 30.0
       }
       priority: 1653
       cap: BUTTCAP
@@ -98,7 +98,7 @@ cont {
       color: 4473924
       dashdot {
         dd: 4.0
-        dd: 32.0
+        dd: 45.0
       }
       priority: 1653
     }
@@ -123,7 +123,7 @@ cont {
       color: 4473924
       dashdot {
         dd: 4.0
-        dd: 32.0
+        dd: 45.0
       }
       priority: 1653
     }
@@ -148,7 +148,7 @@ cont {
       color: 4473924
       dashdot {
         dd: 4.0
-        dd: 32.0
+        dd: 45.0
       }
       priority: 1653
     }
@@ -173,7 +173,7 @@ cont {
       color: 4473924
       dashdot {
         dd: 4.0
-        dd: 32.0
+        dd: 45.0
       }
       priority: 1653
     }
@@ -578,7 +578,7 @@ cont {
       color: 860111940
       dashdot {
         dd: 3.0
-        dd: 22.0
+        dd: 30.0
       }
       priority: 1653
       cap: BUTTCAP
@@ -597,7 +597,7 @@ cont {
       color: 860111940
       dashdot {
         dd: 3.0
-        dd: 22.0
+        dd: 30.0
       }
       priority: 1653
       cap: BUTTCAP
@@ -623,7 +623,7 @@ cont {
       color: 4473924
       dashdot {
         dd: 4.0
-        dd: 32.0
+        dd: 45.0
       }
       priority: 1653
     }
@@ -648,7 +648,7 @@ cont {
       color: 4473924
       dashdot {
         dd: 4.0
-        dd: 32.0
+        dd: 45.0
       }
       priority: 1653
     }
@@ -673,7 +673,7 @@ cont {
       color: 4473924
       dashdot {
         dd: 4.0
-        dd: 32.0
+        dd: 45.0
       }
       priority: 1653
     }
@@ -698,7 +698,7 @@ cont {
       color: 4473924
       dashdot {
         dd: 4.0
-        dd: 32.0
+        dd: 45.0
       }
       priority: 1653
     }
@@ -1103,7 +1103,7 @@ cont {
       color: 860111940
       dashdot {
         dd: 3.0
-        dd: 22.0
+        dd: 30.0
       }
       priority: 1653
       cap: BUTTCAP
@@ -1122,7 +1122,7 @@ cont {
       color: 860111940
       dashdot {
         dd: 3.0
-        dd: 22.0
+        dd: 30.0
       }
       priority: 1653
       cap: BUTTCAP
@@ -1148,7 +1148,7 @@ cont {
       color: 4473924
       dashdot {
         dd: 4.0
-        dd: 32.0
+        dd: 45.0
       }
       priority: 1653
     }
@@ -1173,7 +1173,7 @@ cont {
       color: 4473924
       dashdot {
         dd: 4.0
-        dd: 32.0
+        dd: 45.0
       }
       priority: 1653
     }
@@ -1198,7 +1198,7 @@ cont {
       color: 4473924
       dashdot {
         dd: 4.0
-        dd: 32.0
+        dd: 45.0
       }
       priority: 1653
     }
@@ -1223,7 +1223,7 @@ cont {
       color: 4473924
       dashdot {
         dd: 4.0
-        dd: 32.0
+        dd: 45.0
       }
       priority: 1653
     }
@@ -56320,33 +56320,6 @@ cont {
   }
 }
 cont {
-  name: "power-generator-solar"
-  element {
-    scale: 17
-    symbol {
-      name: "power-m"
-      priority: 16000
-      min_distance: 20
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "power-m"
-      priority: 16000
-      min_distance: 20
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "power-m"
-      priority: 16000
-      min_distance: 20
-    }
-  }
-}
-cont {
   name: "power-generator-wind"
   element {
     scale: 17
@@ -56382,7 +56355,7 @@ cont {
       color: 9868678
       dashdot {
         dd: 1.0
-        dd: 32.0
+        dd: 80.0
       }
       priority: 1548
     }
@@ -56390,6 +56363,168 @@ cont {
       width: 1.0
       color: 1721144710
       priority: 1557
+    }
+  }
+}
+cont {
+  name: "power-plant"
+  element {
+    scale: 17
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+}
+cont {
+  name: "power-plant-coal"
+  element {
+    scale: 17
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+}
+cont {
+  name: "power-plant-gas"
+  element {
+    scale: 17
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+}
+cont {
+  name: "power-plant-hydro"
+  element {
+    scale: 17
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+}
+cont {
+  name: "power-plant-solar"
+  element {
+    scale: 17
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+}
+cont {
+  name: "power-plant-wind"
+  element {
+    scale: 17
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "power-m"
+      priority: 16000
+      min_distance: 20
     }
   }
 }

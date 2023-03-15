@@ -2,7 +2,7 @@
 
 #include "openlr/openlr_match_quality/openlr_assessment_tool/mainwindow.hpp"
 
-#include "gflags/gflags.h"
+#include <gflags/gflags.h>
 
 #include <cstdio>
 

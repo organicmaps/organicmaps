@@ -2666,6 +2666,18 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
+"type.power.plant" = "Kiwanda cha nguvu";
+
+"type.power.plant.coal" = "Kiwanda cha nguvu cha makaa ya mawe";
+
+"type.power.plant.gas" = "Kiwanda cha nguvu cha turbine ya gesi";
+
+"type.power.plant.hydro" = "Kiwanda cha umeme wa maji";
+
+"type.power.plant.solar" = "Kiwanda cha nishati ya jua";
+
+"type.power.plant.wind" = "Kiwanda cha nguvu cha upepo";
+
 "type.power.pole" = "Power Tower";
 
 "type.power.station" = "Power Station";

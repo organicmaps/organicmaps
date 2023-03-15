@@ -2666,6 +2666,18 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
+"type.power.plant" = "발전소";
+
+"type.power.plant.coal" = "석탄 발전소";
+
+"type.power.plant.gas" = "가스 터빈 발전소";
+
+"type.power.plant.hydro" = "수력 발전소";
+
+"type.power.plant.solar" = "태양광 발전소";
+
+"type.power.plant.wind" = "풍력 발전소";
+
 "type.power.pole" = "전봇대";
 
 "type.power.station" = "Power Station";

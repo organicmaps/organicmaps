@@ -2666,6 +2666,18 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
+"type.power.plant" = "Erőmű";
+
+"type.power.plant.coal" = "Szénerőmű";
+
+"type.power.plant.gas" = "Gázturbinás erőmű";
+
+"type.power.plant.hydro" = "Vízerőmű";
+
+"type.power.plant.solar" = "Naperőmű";
+
+"type.power.plant.wind" = "Szélerőmű";
+
 "type.power.pole" = "Villanyoszlop";
 
 "type.power.station" = "Power Station";

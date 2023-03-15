@@ -1274,6 +1274,12 @@
 	<string name="type.power.generator.wind">Ανεμογεννήτρια</string>
 	<string name="type.power.generator.gas">Μονάδα παραγωγής ηλεκτρικής ενέργειας αεριοστροβίλου</string>
 	<string name="type.power.generator.hydro">Υδροηλεκτρικό εργοστάσιο</string>
+	<string name="type.power.plant">Εργοστάσιο ηλεκτρισμού</string>
+	<string name="type.power.plant.coal">Εργοστάσιο παραγωγής ενέργειας από άνθρακα</string>
+	<string name="type.power.plant.gas">Μονάδα παραγωγής ηλεκτρικής ενέργειας αεριοστροβίλου</string>
+	<string name="type.power.plant.hydro">Υδροηλεκτρικό εργοστάσιο</string>
+	<string name="type.power.plant.solar">Ηλιακός σταθμός παραγωγής ενέργειας</string>
+	<string name="type.power.plant.wind">Αιολική μονάδα παραγωγής ενέργειας</string>
 	<string name="type.power.pole">Πυλώνες μεταφοράς ρεύματος</string>
 	<string name="type.power.substation">Υποσταθμός</string>
 	<string name="type.power.tower">Πυλώνες μεταφοράς ρεύματος</string>

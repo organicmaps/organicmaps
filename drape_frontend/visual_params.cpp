@@ -49,6 +49,8 @@ VisualParams & VisualParams::Instance()
 
 void VisualParams::Init(double vs, uint32_t tileSize)
 {
+  ASSERT_LESS_OR_EQUAL(vs, kMaxVisualScale, ());
+
   VisualParams & vizParams = Instance();
   vizParams.m_tileSize = tileSize;
   vizParams.m_visualScale = vs;
@@ -97,6 +99,7 @@ void VisualParams::SetFontScale(double fontScale)
 void VisualParams::SetVisualScale(double visualScale)
 {
   ASSERT_INITED;
+  ASSERT_LESS_OR_EQUAL(visualScale, kMaxVisualScale, ());
   m_visualScale = visualScale;
 
   LOG(LINFO, ("Visual scale =", visualScale));
