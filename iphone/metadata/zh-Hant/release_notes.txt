@@ -1,13 +1,13 @@
-• New OpenStreetMap data as of February 27
-• Fixed freeze on iPad when a keyboard is connected
-• Fixed unnecessary double click on the route button
-• Removed duplicated floors and zip code cells
-• Enabled OpenStreetMap editor notes for all selected places
-• Fixed and improved search
-• Split vegan and vegetarian cuisines in search
-• Fixed styles for airports, landuses, waterways, and hatching fill areas
-• Added healthcare specialists: alternative, audiologist, blood_donation, optometrist, podiatrist, psychotherapist, sample_collection, speech_therapist
-• Added communication towers and solar, wind, gas, and hydropower generators
-• Improved Arabic, Norwegian, Portuguese, and Turkish translations
+• 2月27日最新開放街圖資料
+• 修正 iPad 連接鍵盤會當掉的問題
+• 修正不必要的路線按鈕點兩下功能
+• 移除重複的樓層與郵遞區號欄位
+• 為所有選擇地方啟用開放街圖編輯器的註解功能
+• 修正與改善搜選功能
+• 搜尋時分開維根與素食飲食選項
+• 修正機場、土地利用、水路與棲息地的樣式
+• 新增健康照護專家：另類、聽力師、捐血、驗光師、足科醫師、心理治療師、醫檢師、語言治療師
+• 新增通訊塔與太陽能、風力、燃氣與水力發電機組
+• 改善阿拉伯文、挪威文、葡萄牙文與土耳其文翻譯
 
-Follow our news at omaps.app/news
+更多消息請見 omaps.app/news
