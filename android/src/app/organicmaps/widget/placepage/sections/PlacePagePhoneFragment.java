@@ -40,22 +40,23 @@ public class PlacePagePhoneFragment extends Fragment implements Observer<MapObje
   }
 
   @Override
-  public void onResume()
+  public void onStart()
   {
-    super.onResume();
+    super.onStart();
     mViewModel.getMapObject().observe(requireActivity(), this);
   }
 
   @Override
-  public void onPause()
+  public void onStop()
   {
-    super.onPause();
+    super.onStop();
     mViewModel.getMapObject().removeObserver(this);
   }
 
   @Override
-  public void onChanged(MapObject mapObject)
+  public void onChanged(@Nullable MapObject mapObject)
   {
-    mPhoneAdapter.refreshPhones(mapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER));
+    if (mapObject != null)
+      mPhoneAdapter.refreshPhones(mapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER));
   }
 }

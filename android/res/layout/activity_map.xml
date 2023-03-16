@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/coordinator"
   android:layout_width="match_parent"
@@ -51,26 +50,9 @@
       android:paddingBottom="@dimen/margin_base"
       android:visibility="invisible" />
   </RelativeLayout>
-  <androidx.core.widget.NestedScrollViewClickFixed
-    android:id="@+id/placepage"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    style="?attr/bottomSheetStyle"
-    android:fillViewport="true"
-    app:layout_behavior="@string/placepage_behavior" >
-    <RelativeLayout
-      android:id="@+id/placepage_container"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:background="?panel" >
-      <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/placepage_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    </RelativeLayout>
-  </androidx.core.widget.NestedScrollViewClickFixed>
   <androidx.fragment.app.FragmentContainerView
-    android:id="@+id/pp_buttons_fragment"
+    android:id="@+id/place_page_container_fragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    android:name="app.organicmaps.widget.placepage.PlacePageController" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

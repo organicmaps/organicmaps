@@ -218,23 +218,26 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
   }
 
   @Override
-  public void onResume()
+  public void onStart()
   {
-    super.onResume();
+    super.onStart();
     mViewModel.getMapObject().observe(requireActivity(), this);
   }
 
   @Override
-  public void onPause()
+  public void onStop()
   {
-    super.onPause();
+    super.onStop();
     mViewModel.getMapObject().removeObserver(this);
   }
 
   @Override
-  public void onChanged(MapObject mapObject)
+  public void onChanged(@Nullable  MapObject mapObject)
   {
-    mMapObject = mapObject;
-    refreshLinks();
+    if (mapObject != null)
+    {
+      mMapObject = mapObject;
+      refreshLinks();
+    }
   }
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+  <androidx.core.widget.NestedScrollViewClickFixed
+    android:id="@+id/placepage"
+    style="?attr/bottomSheetStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    app:layout_behavior="@string/placepage_behavior">
+    <RelativeLayout
+      android:id="@+id/placepage_container"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="?panel">
+      <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/placepage_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    </RelativeLayout>
+  </androidx.core.widget.NestedScrollViewClickFixed>
+  <androidx.fragment.app.FragmentContainerView
+    android:id="@+id/pp_buttons_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

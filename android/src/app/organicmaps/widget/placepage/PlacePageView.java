@@ -1,8 +1,6 @@
 package app.organicmaps.widget.placepage;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
@@ -29,9 +27,6 @@ import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.api.Const;
-import app.organicmaps.api.ParsedMwmRequest;
-import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.bookmarks.data.Metadata;
@@ -42,8 +37,6 @@ import app.organicmaps.editor.Editor;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.routing.RoutingController;
-import app.organicmaps.settings.RoadType;
-import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.concurrency.UiThread;
@@ -63,7 +56,6 @@ import static android.view.View.VISIBLE;
 
 public class PlacePageView extends Fragment implements View.OnClickListener,
                                                        View.OnLongClickListener,
-                                                       PlacePageButtons.PlacePageButtonClickListener,
                                                        LocationListener,
                                                        Observer<MapObject>
 
@@ -181,6 +173,9 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
         MwmApplication.prefs(requireContext()).getInt(
             PREF_COORDINATES_FORMAT, CoordinatesFormat.LatLonDecimal.getId()));
 
+    Fragment parentFragment = getParentFragment();
+    mPlacePageViewListener = (PlacePageViewListener) parentFragment;
+
     mFrame = view;
     mFrame.setOnClickListener((v) -> mPlacePageViewListener.onPlacePageRequestToggleState());
 
@@ -243,186 +238,30 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mDownloaderIcon = new DownloaderStatusIcon(mPreview.findViewById(R.id.downloader_status_frame));
 
     mDownloaderInfo = mPreview.findViewById(R.id.tv__downloader_details);
-
-    mMapObject = mViewModel.getMapObject().getValue();
   }
 
   @Override
-  public void onAttach(@NonNull Context context)
+  public void onStart()
   {
-    super.onAttach(context);
-    mPlacePageViewListener = (MwmActivity) context;
-  }
-
-  @Override
-  public void onResume()
-  {
-    super.onResume();
+    super.onStart();
     mViewModel.getMapObject().observe(requireActivity(), this);
     LocationHelper.INSTANCE.addListener(this);
-  }
-
-  @Override
-  public void onPause()
-  {
-    super.onPause();
-    // Unsubscribe from events as soon as the fragment becomes inactive
-    // to prevent unwanted side effects
-    mViewModel.getMapObject().removeObserver(this);
-    LocationHelper.INSTANCE.removeListener(this);
+    setCurrentCountry();
   }
 
   @Override
   public void onStop()
   {
     super.onStop();
-    // Safely detach the country once the fragment is hidden from the user
-    // It is safer to call this here than in onPause as the app could go from onPause to
-    // onResume without killing the fragment.
-    // In this case we would not want to detach the country.
+    mViewModel.getMapObject().removeObserver(this);
+    LocationHelper.INSTANCE.removeListener(this);
     detachCountry();
-  }
-
-  @Override
-  public void onPlacePageButtonClick(PlacePageButtons.ButtonType item)
-  {
-    switch (item)
-    {
-      case BOOKMARK_SAVE:
-      case BOOKMARK_DELETE:
-        onBookmarkBtnClicked();
-        break;
-
-      case SHARE:
-        onShareBtnClicked();
-        break;
-
-      case BACK:
-        onBackBtnClicked();
-        break;
-
-      case ROUTE_FROM:
-        onRouteFromBtnClicked();
-        break;
-
-      case ROUTE_TO:
-        onRouteToBtnClicked();
-        break;
-
-      case ROUTE_ADD:
-        onRouteAddBtnClicked();
-        break;
-
-      case ROUTE_REMOVE:
-        onRouteRemoveBtnClicked();
-        break;
-
-      case ROUTE_AVOID_TOLL:
-        onAvoidTollBtnClicked();
-        break;
-
-      case ROUTE_AVOID_UNPAVED:
-        onAvoidUnpavedBtnClicked();
-        break;
-
-      case ROUTE_AVOID_FERRY:
-        onAvoidFerryBtnClicked();
-        break;
-    }
-  }
-
-  private void onBookmarkBtnClicked()
-  {
-    // No need to call setMapObject here as the native methods will reopen the place page
-    if (MapObject.isOfType(MapObject.BOOKMARK, mMapObject))
-      Framework.nativeDeleteBookmarkFromMapObject();
-    else
-      BookmarkManager.INSTANCE.addNewBookmark(mMapObject.getLat(), mMapObject.getLon());
-  }
-
-  private void onShareBtnClicked()
-  {
-    SharingUtils.shareMapObject(requireContext(), mMapObject);
-  }
-
-  private void onBackBtnClicked()
-  {
-    final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
-    if (request != null && request.isPickPointMode())
-    {
-      final Intent result = new Intent();
-      result.putExtra(Const.EXTRA_POINT_LAT, mMapObject.getLat())
-            .putExtra(Const.EXTRA_POINT_LON, mMapObject.getLon())
-            .putExtra(Const.EXTRA_POINT_NAME, mMapObject.getTitle())
-            .putExtra(Const.EXTRA_POINT_ID, mMapObject.getApiId())
-            .putExtra(Const.EXTRA_ZOOM_LEVEL, Framework.nativeGetDrawScale());
-      requireActivity().setResult(Activity.RESULT_OK, result);
-      ParsedMwmRequest.setCurrentRequest(null);
-    }
-    requireActivity().finish();
-  }
-
-  private void onRouteFromBtnClicked()
-  {
-    RoutingController controller = RoutingController.get();
-    if (!controller.isPlanning())
-    {
-      controller.prepare(mMapObject, null);
-      mPlacePageViewListener.onPlacePageRequestClose();
-    }
-    else if (controller.setStartPoint(mMapObject))
-    {
-      mPlacePageViewListener.onPlacePageRequestClose();
-    }
-  }
-
-  private void onRouteToBtnClicked()
-  {
-    if (RoutingController.get().isPlanning())
-    {
-      RoutingController.get().setEndPoint(mMapObject);
-      mPlacePageViewListener.onPlacePageRequestClose();
-    }
-    else
-    {
-      ((MwmActivity) requireActivity()).startLocationToPoint(mMapObject);
-    }
-  }
-
-  private void onRouteAddBtnClicked()
-  {
-    RoutingController.get().addStop(mMapObject);
-  }
-
-  private void onRouteRemoveBtnClicked()
-  {
-    RoutingController.get().removeStop(mMapObject);
-  }
-
-  private void onAvoidUnpavedBtnClicked()
-  {
-    onAvoidBtnClicked(RoadType.Dirty);
-  }
-
-  private void onAvoidFerryBtnClicked()
-  {
-    onAvoidBtnClicked(RoadType.Ferry);
-  }
-
-  private void onAvoidTollBtnClicked()
-  {
-    onAvoidBtnClicked(RoadType.Toll);
-  }
-
-  private void onAvoidBtnClicked(@NonNull RoadType roadType)
-  {
-    mPlacePageViewListener.onPlacePageRequestToggleRouteSettings(roadType);
   }
 
   private void setCurrentCountry()
   {
-    if (mCurrentCountry != null)
-      throw new AssertionError("country should be detached before!");
+    if (mCurrentCountry != null || mMapObject == null)
+      return;
     String country = MapManager.nativeGetSelectedCountry();
     if (country != null && !RoutingController.get().isNavigating())
       attachCountry(country);
@@ -455,7 +294,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       fm.beginTransaction()
         .setReorderingAllowed(true)
         .remove(fragment)
-        .commitNow();
+        .commit();
     }
   }
 
@@ -504,7 +343,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       int end = text.lastIndexOf("★") + 1;
       if (start > -1)
       {
-        sb.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color.base_yellow)),
+        sb.setSpan(new ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.base_yellow)),
                    start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
       }
       mTvSubtitle.setText(sb);
@@ -758,8 +597,10 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   }
 
   @Override
-  public void onChanged(MapObject mapObject)
+  public void onChanged(@Nullable MapObject mapObject)
   {
+    if (mapObject == null)
+      return;
     if (!mapObject.sameAs(mMapObject))
     {
       detachCountry();
@@ -778,6 +619,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   @Override
   public void onLocationUpdated(@NonNull Location location)
   {
+    if (mMapObject == null)
+      return;
     if (MapObject.isOfType(MapObject.MY_POSITION, mMapObject))
       refreshMyPosition(location);
     else
@@ -787,7 +630,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   @Override
   public void onCompassUpdated(double north)
   {
-    if (MapObject.isOfType(MapObject.MY_POSITION, mMapObject))
+    if (mMapObject == null || MapObject.isOfType(MapObject.MY_POSITION, mMapObject))
       return;
 
     final Location location = LocationHelper.INSTANCE.getSavedLocation();
@@ -815,10 +658,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     // Called when the content has actually changed and we are ready to compute the peek height
     void onPlacePageContentChanged(int previewHeight, int frameHeight);
 
-    void onPlacePageRequestClose();
-
     void onPlacePageRequestToggleState();
-
-    void onPlacePageRequestToggleRouteSettings(@NonNull RoadType roadType);
   }
 }
