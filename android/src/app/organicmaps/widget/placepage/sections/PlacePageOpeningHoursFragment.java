@@ -27,7 +27,6 @@ import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.placepage.PlacePageUtils;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
-import app.organicmaps.widget.placepage.sections.PlaceOpeningHoursAdapter;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -91,11 +90,9 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     mTodayOpenTime.setTextColor(color);
   }
 
-  private void refreshOpeningHours()
+  private void refreshOpeningHours(MapObject mapObject)
   {
-    final String ohStr = mViewModel.getMapObject()
-                                  .getValue()
-                                  .getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
+    final String ohStr = mapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
     final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
     mFrame.setOnLongClickListener((v) -> {
       PlacePageUtils.copyToClipboard(requireContext(), mFrame, TimeFormatUtils.formatTimetables(getResources(), ohStr, timetables));
@@ -173,7 +170,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
         // Show that place is closed today.
         if (!containsCurrentWeekday)
         {
-          refreshTodayOpeningHours(resources.getString(R.string.day_off_today), ContextCompat.getColor(getContext(), R.color.base_red));
+          refreshTodayOpeningHours(resources.getString(R.string.day_off_today), ContextCompat.getColor(requireContext(), R.color.base_red));
           UiUtils.hide(mTodayNonBusinessTime);
         }
       }
@@ -181,22 +178,23 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
   }
 
   @Override
-  public void onResume()
+  public void onStart()
   {
-    super.onResume();
+    super.onStart();
     mViewModel.getMapObject().observe(requireActivity(), this);
   }
 
   @Override
-  public void onPause()
+  public void onStop()
   {
-    super.onPause();
+    super.onStop();
     mViewModel.getMapObject().removeObserver(this);
   }
 
   @Override
-  public void onChanged(MapObject mapObject)
+  public void onChanged(@Nullable MapObject mapObject)
   {
-    refreshOpeningHours();
+    if (mapObject != null)
+      refreshOpeningHours(mapObject);
   }
 }

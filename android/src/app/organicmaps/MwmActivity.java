@@ -27,6 +27,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.Framework.PlacePageActivationListener;
 import app.organicmaps.api.Const;
 import app.organicmaps.background.Notifier;
@@ -89,17 +90,14 @@ import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.util.log.Logger;
 import app.organicmaps.widget.menu.MainMenu;
-import app.organicmaps.widget.placepage.PlacePageButtons;
 import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageData;
-import app.organicmaps.widget.placepage.PlacePageView;
+import app.organicmaps.widget.placepage.PlacePageViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Stack;
-
-import static app.organicmaps.widget.placepage.PlacePageButtons.PLACEPAGE_MORE_MENU_ID;
 
 public class MwmActivity extends BaseMwmFragmentActivity
     implements PlacePageActivationListener,
@@ -113,12 +111,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
                RoutingBottomMenuListener,
                BookmarkManager.BookmarksLoadingListener,
                FloatingSearchToolbarController.SearchToolbarListener,
-               PlacePageController.SlideListener,
                NoConnectionListener,
                MenuBottomSheetFragment.MenuBottomSheetInterfaceWithHeader,
+               PlacePageController.PlacePageRouteSettingsListener,
+               MapButtonsController.MapButtonClickListener,
                ToggleMapLayerFragment.LayerItemClickListener,
-               PlacePageButtons.PlacePageButtonClickListener,
-               PlacePageView.PlacePageViewListener
 {
   private static final String TAG = MwmActivity.class.getSimpleName();
 
@@ -185,14 +182,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean mRestoreRoutingPlanFragmentNeeded;
   @Nullable
   private Bundle mSavedForTabletState;
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
-  private PlacePageController mPlacePageController;
   private MapButtonsController.LayoutMode mCurrentLayoutMode;
 
   private String mDonatesUrl;
 
   private int mNavBarHeight;
+
+  private PlacePageViewModel mPlacePageViewModel;
 
   @Nullable
   private WindowInsetsCompat mCurrentWindowInsets;
@@ -386,8 +382,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     setContentView(R.layout.activity_map);
     UiUtils.setupTransparentStatusBar(this);
 
-    mPlacePageController = new PlacePageController(this, this);
-    mPlacePageController.initialize(this);
+    mPlacePageViewModel = new ViewModelProvider(this).get(PlacePageViewModel.class);
 
     mSearchController = new FloatingSearchToolbarController(this, this);
     mSearchController.getToolbar()
@@ -628,7 +623,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
           LocationState.nativeGetMode(),
           this::onMapButtonClick,
           (v) -> closeSearchToolbar(true, true),
-          mPlacePageController,
           this::updateBottomWidgetsOffset);
 
 
@@ -699,10 +693,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
    */
   public boolean closePlacePage()
   {
-    if (mPlacePageController.isClosed())
+    if (mPlacePageViewModel.getMapObject().getValue() == null)
       return false;
 
-    mPlacePageController.close(true);
+    mPlacePageViewModel.setMapObject(null);
     return true;
   }
 
@@ -829,7 +823,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   protected void onSaveInstanceState(@NonNull Bundle outState)
   {
-    mPlacePageController.onSave(outState);
     if (!mIsTabletLayout && RoutingController.get().isPlanning())
       mRoutingPlanInplaceController.onSaveState(outState);
 
@@ -860,7 +853,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState)
   {
     super.onRestoreInstanceState(savedInstanceState);
-    mPlacePageController.onRestore(savedInstanceState);
     if (mIsTabletLayout)
     {
       RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
@@ -1070,8 +1062,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onSafeDestroy();
     mNavigationController.destroy();
-    //TrafficManager.INSTANCE.detachAll();
-    mPlacePageController.destroy();
   }
 
   @Override
@@ -1150,8 +1140,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onPlacePageActivated(@NonNull PlacePageData data)
   {
     setFullscreen(false);
-
-    mPlacePageController.openFor(data);
+    // This will open the place page
+    mPlacePageViewModel.setMapObject((MapObject) data);
   }
 
   // Called from JNI.
@@ -1182,12 +1172,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mIsFullscreen = isFullscreen;
     mMapButtonsController.showMapButtons(!isFullscreen);
     UiUtils.setFullscreen(this, isFullscreen);
-  }
-
-  @Override
-  public void onPlacePageSlide(int top)
-  {
-    mMapButtonsController.move(top);
   }
 
   @Override
@@ -1812,8 +1796,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       items.add(new MenuBottomSheetItem(R.string.share_my_location, R.drawable.ic_share, this::onShareLocationOptionSelected));
       return items;
     }
-    else if (id.equals(PLACEPAGE_MORE_MENU_ID))
-      return mPlacePageController.getMenuBottomSheetItems(id);
     return null;
   }
 
@@ -1824,30 +1806,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (id.equals(LAYERS_MENU_ID))
       return new ToggleMapLayerFragment();
     return null;
-  }
-
-  @Override
-  public void onPlacePageButtonClick(PlacePageButtons.ButtonType item)
-  {
-    mPlacePageController.onPlacePageButtonClick(item);
-  }
-
-  @Override
-  public void onPlacePageContentChanged(int previewHeight, int frameHeight)
-  {
-    mPlacePageController.onPlacePageContentChanged(previewHeight, frameHeight);
-  }
-
-  @Override
-  public void onPlacePageRequestClose()
-  {
-    mPlacePageController.onPlacePageRequestClose();
-  }
-
-  @Override
-  public void onPlacePageRequestToggleState()
-  {
-    mPlacePageController.onPlacePageRequestToggleState();
   }
 
   @Override

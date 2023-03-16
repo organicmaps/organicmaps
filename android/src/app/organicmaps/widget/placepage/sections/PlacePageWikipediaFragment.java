@@ -112,23 +112,26 @@ public class PlacePageWikipediaFragment extends Fragment implements Observer<Map
   }
 
   @Override
-  public void onResume()
+  public void onStart()
   {
-    super.onResume();
+    super.onStart();
     mViewModel.getMapObject().observe(requireActivity(), this);
   }
 
   @Override
-  public void onPause()
+  public void onStop()
   {
-    super.onPause();
+    super.onStop();
     mViewModel.getMapObject().removeObserver(this);
   }
 
   @Override
-  public void onChanged(MapObject mapObject)
+  public void onChanged(@Nullable MapObject mapObject)
   {
-    mMapObject = mapObject;
-    updateViews();
+    if (mapObject != null)
+    {
+      mMapObject = mapObject;
+      updateViews();
+    }
   }
 }

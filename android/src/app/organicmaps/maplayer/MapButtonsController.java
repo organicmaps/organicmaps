@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.OptIn;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.R;
 import app.organicmaps.downloader.MapManager;
 import app.organicmaps.downloader.UpdateInfo;
@@ -21,7 +22,7 @@ import app.organicmaps.util.Config;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.widget.menu.MyPositionButton;
-import app.organicmaps.widget.placepage.PlacePageController;
+import app.organicmaps.widget.placepage.PlacePageViewModel;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.badge.BadgeUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -49,11 +50,11 @@ public class MapButtonsController extends Fragment
 
   private MapButtonClickListener mMapButtonClickListener;
   private View.OnClickListener mOnSearchCanceledListener;
-  private PlacePageController mPlacePageController;
   private OnBottomButtonsHeightChangedListener mOnBottomButtonsHeightChangedListener;
 
   private LayoutMode mLayoutMode;
   private int mMyPositionMode;
+  private PlacePageViewModel mViewModel;
 
   @Nullable
   @Override
@@ -136,6 +137,8 @@ public class MapButtonsController extends Fragment
       return windowInsets;
     });
 
+    mViewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
+
     return mFrame;
   }
 
@@ -144,13 +147,12 @@ public class MapButtonsController extends Fragment
     return mLayoutMode;
   }
 
-  public void init(LayoutMode layoutMode, int myPositionMode, MapButtonClickListener mapButtonClickListener, @NonNull View.OnClickListener onSearchCanceledListener, PlacePageController placePageController, OnBottomButtonsHeightChangedListener onBottomButtonsHeightChangedListener)
+  public void init(LayoutMode layoutMode, int myPositionMode, MapButtonClickListener mapButtonClickListener, @NonNull View.OnClickListener onSearchCanceledListener, OnBottomButtonsHeightChangedListener onBottomButtonsHeightChangedListener)
   {
     mLayoutMode = layoutMode;
     mMyPositionMode = myPositionMode;
     mMapButtonClickListener = mapButtonClickListener;
     mOnSearchCanceledListener = onSearchCanceledListener;
-    mPlacePageController = placePageController;
     mOnBottomButtonsHeightChangedListener = onBottomButtonsHeightChangedListener;
   }
 
@@ -209,7 +211,10 @@ public class MapButtonsController extends Fragment
 
   private boolean isBehindPlacePage(View v)
   {
-    return !(mContentWidth / 2 > (mPlacePageController.getPlacePageWidth() / 2.0) + v.getWidth());
+    if (mViewModel == null)
+      return false;
+    final int placePageWidth = mViewModel.getPlacePageWidth().getValue();
+    return !(mContentWidth / 2 > (placePageWidth / 2.0) + v.getWidth());
   }
 
   private boolean isMoving(View v)
@@ -301,9 +306,16 @@ public class MapButtonsController extends Fragment
     return (int) (translation + v.getTop());
   }
 
+  @Override
+  public void onPause()
+  {
+    super.onPause();
+    mViewModel.getPlacePageDistanceToTop().removeObserver(this::move);
+  }
   public void onResume()
   {
     super.onResume();
+    mViewModel.getPlacePageDistanceToTop().observe(requireActivity(), this::move);
     mSearchWheel.onResume();
     updateMenuBadge();
   }

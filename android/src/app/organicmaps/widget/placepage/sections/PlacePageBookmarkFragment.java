@@ -75,16 +75,16 @@ public class PlacePageBookmarkFragment extends Fragment implements View.OnClickL
   }
 
   @Override
-  public void onResume()
+  public void onStart()
   {
-    super.onResume();
+    super.onStart();
     mViewModel.getMapObject().observe(requireActivity(), this);
   }
 
   @Override
-  public void onPause()
+  public void onStop()
   {
-    super.onPause();
+    super.onStop();
     mViewModel.getMapObject().removeObserver(this);
   }
 
@@ -143,12 +143,12 @@ public class PlacePageBookmarkFragment extends Fragment implements View.OnClickL
   }
 
   @Override
-  public void onChanged(MapObject mapObject)
+  public void onChanged(@Nullable MapObject mapObject)
   {
     // MapObject could be something else than a bookmark if the user already has the place page
     // opened and clicks on a non-bookmarked POI.
     // This callback would be called before the fragment had time to be destroyed
-    if (mapObject.getMapObjectType() == MapObject.BOOKMARK)
+    if (mapObject != null && mapObject.getMapObjectType() == MapObject.BOOKMARK)
     {
       currentBookmark = (Bookmark) mapObject;
       updateBookmarkDetails();
