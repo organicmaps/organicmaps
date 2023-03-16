@@ -19,6 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.FragmentManager;
 
+import app.organicmaps.compat.CompatHelper;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.tabs.TabLayout;
 import app.organicmaps.R;
@@ -179,8 +180,10 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
   private void saveHoursMinutes()
   {
     boolean is24HourFormat = DateUtils.is24HourFormat(requireContext());
-    final HoursMinutes hoursMinutes = new HoursMinutes(mPicker.getCurrentHour(),
-                                                       mPicker.getCurrentMinute(), is24HourFormat);
+    final HoursMinutes hoursMinutes = new HoursMinutes(
+        CompatHelper.Companion.getCompat().getHour(mPicker),
+        CompatHelper.Companion.getCompat().getMinute(mPicker),
+        is24HourFormat);
     if (mSelectedTab == TAB_FROM)
       mFrom = hoursMinutes;
     else
@@ -209,8 +212,7 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
       hoursMinutes = mTo;
       okBtnRes = R.string.ok;
     }
-    mPicker.setCurrentMinute((int) hoursMinutes.minutes);
-    mPicker.setCurrentHour((int) hoursMinutes.hours);
+    CompatHelper.Companion.getCompat().setTime(mPicker, (int) hoursMinutes.hours, (int) hoursMinutes.minutes);
     mOkButton.setText(okBtnRes);
   }
 }
