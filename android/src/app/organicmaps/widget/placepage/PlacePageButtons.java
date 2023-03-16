@@ -1,6 +1,5 @@
 package app.organicmaps.widget.placepage;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,28 +49,24 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
       return windowInsets;
     });
     mMaxButtons = getResources().getInteger(R.integer.pp_buttons_max);
-    mViewModel.getCurrentButtons().observe(requireActivity(), this);
+
+    Fragment parentFragment = getParentFragment();
+    mItemListener = (PlacePageButtonClickListener) parentFragment;
+
     createButtons(mViewModel.getCurrentButtons().getValue());
   }
 
   @Override
-  public void onAttach(@NonNull Context context)
+  public void onStart()
   {
-    super.onAttach(context);
-    try
-    {
-      mItemListener = (PlacePageButtonClickListener) context;
-    }
-    catch (ClassCastException e)
-    {
-      throw new ClassCastException(context + " must implement PlacePageButtonClickListener");
-    }
+    super.onStart();
+    mViewModel.getCurrentButtons().observe(requireActivity(), this);
   }
 
   @Override
-  public void onDestroyView()
+  public void onStop()
   {
-    super.onDestroyView();
+    super.onStop();
     mViewModel.getCurrentButtons().removeObserver(this);
   }
 
@@ -94,7 +89,7 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
   private void showMoreBottomSheet()
   {
     MenuBottomSheetFragment.newInstance(PLACEPAGE_MORE_MENU_ID)
-                           .show(requireActivity().getSupportFragmentManager(), PLACEPAGE_MORE_MENU_ID);
+                           .show(getParentFragmentManager(), PLACEPAGE_MORE_MENU_ID);
   }
 
   private void createButtons(@Nullable List<ButtonType> buttons)
