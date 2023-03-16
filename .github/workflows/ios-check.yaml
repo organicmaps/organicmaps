@@ -26,7 +26,7 @@ on:
 
 # Cancels previous jobs if the same branch or PR was updated again.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  group: ${{ github.workflow }}-${{ matrix.buildType }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
