@@ -1,0 +1,11 @@
+To build, install and run e.g. a Web Debug version on your device/emulator: './gradlew runWebDebug'
+
+Or to compile a redistributable Fdroid Beta apk for testing: './gradlew assembleFdroidBeta'
+
+Or to build release apks for all flavors: './gradlew assembleRelease'
+
+To see all available build targets './gradlew tasks'
+
+To remove all intermediate build files run './gradlew clean'
+
+See ../docs/INSTALL.md for more detailed instructions.

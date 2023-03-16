@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="PlacePageButtonText">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:gravity">center</item>
+    <item name="android:textAllCaps">true</item>
+    <item name="android:textSize">10sp</item>
+    <item name="android:color">?iconTint</item>
+  </style>
+
+  <style name="PlacePageButtonImage">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">0dp</item>
+    <item name="android:layout_weight">1</item>
+    <item name="android:layout_marginBottom">@dimen/margin_eighth</item>
+    <item name="android:paddingTop">@dimen/margin_base</item>
+    <item name="android:paddingBottom">@dimen/margin_base</item>
+    <item name="android:scaleType">center</item>
+    <item name="android:color">?iconTint</item>
+  </style>
+
+  <style name="PlacePageButton">
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_height">@dimen/place_page_buttons_height</item>
+    <item name="android:layout_gravity">center_horizontal</item>
+    <item name="android:layout_weight">1</item>
+    <item name="android:orientation">vertical</item>
+    <item name="android:paddingTop">@dimen/margin_quarter</item>
+    <item name="android:paddingBottom">@dimen/margin_quarter</item>
+    <item name="android:gravity">center_horizontal</item>
+    <item name="android:background">?clickableBackground</item>
+  </style>
+
+  <style name="PlacePageItemFrame">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:minHeight">@dimen/height_block_base</item>
+    <item name="android:orientation">horizontal</item>
+    <item name="android:paddingBottom">@dimen/margin_half</item>
+    <item name="android:paddingStart">@dimen/margin_base</item>
+    <item name="android:paddingEnd">@dimen/margin_base</item>
+    <item name="android:paddingTop">@dimen/margin_half</item>
+    <item name="android:gravity">center_vertical</item>
+    <item name="android:background">?clickableBackground</item>
+    <item name="android:clickable">true</item>
+    <item name="android:visibility">gone</item>
+  </style>
+
+  <style name="PlacePageMetadataText">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textAppearance">@style/MwmTextAppearance.PlacePage</item>
+  </style>
+
+  <style name="PlacePageMetadataText.Button">
+    <item name="android:textAllCaps">true</item>
+    <item name="android:gravity">center_vertical</item>
+    <item name="android:textAppearance">@style/MwmTextAppearance.PlacePage.Accent</item>
+  </style>
+
+  <style name="PlacePageMetadataIcon">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:maxHeight">24dp</item>
+    <item name="android:maxWidth">24dp</item>
+    <item name="android:adjustViewBounds">true</item>
+    <item name="android:tint">?iconTint</item>
+    <item name="android:layout_marginEnd">@dimen/margin_base</item>
+  </style>
+
+  <style name="PlacePageOpeningHoursItem">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:minHeight">24dp</item>
+    <item name="android:adjustViewBounds">true</item>
+    <item name="android:gravity">center_vertical</item>
+    <item name="android:clickable">false</item>
+    <item name="android:paddingStart">0dp</item>
+    <item name="android:paddingEnd">0dp</item>
+    <item name="android:paddingTop">@dimen/margin_half</item>
+    <item name="android:paddingBottom">@dimen/margin_half</item>
+    <item name="android:orientation">horizontal</item>
+  </style>
+</resources>

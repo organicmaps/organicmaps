@@ -1,0 +1,13 @@
+- Nová data OpenStreetMap k 27. únoru
+- Opraveno zamrzání na iPadu při připojení klávesnice
+- Opraveno zbytečné dvojité kliknutí na tlačítko trasy
+- Odstraněny duplicitní buňky s patry a poštovními směrovacími čísly
+- Povoleny poznámky editoru OpenStreetMap pro všechna vybraná místa
+- Opraveno a vylepšeno vyhledávání
+- Rozdělení veganské a vegetariánské kuchyně ve vyhledávání
+- Opraveny styly pro letiště, landusy, vodní cesty a šrafování výplní oblastí
+- Přidáni zdravotničtí specialisté: alternativní, audiolog, darování krve, optometrista, podiatr, psychoterapeut, odběr vzorků, logoped_terapeut
+- Přidány komunikační věže a generátory solární, větrné, plynové a vodní energie
+- Vylepšeny překlady do arabštiny, norštiny, portugalštiny a turečtiny
+
+Sledujte naše novinky na adrese omaps.app/news

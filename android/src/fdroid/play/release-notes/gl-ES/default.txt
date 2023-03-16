@@ -1,0 +1,1 @@
+../../listings/gl-ES/release-notes.txt

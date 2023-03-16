@@ -1,0 +1,161 @@
+# Sometimes a few different OSM tags are used interchangeably to map the same feature.
+# Or there might be some difference between tags usage but it doesn't matter in the context of Organic Maps.
+# For such cases we can rename/replace/merge one tag into the other to avoid duplicating style rules, translations, etc.
+#
+# E.g.
+#      shop=ice_cream : amenity=ice_cream
+# means that all shop=ice_cream tags will be converted into amenity=ice_cream during maps generation,
+# so there will be no shop=ice_cream in MWM map files at all.
+#
+# In the following example
+#      vending=parcel_pickup : amenity=parcel_locker | u
+# the 'u' flag means update/replace existing tag with the same key (if any),
+# e.g. for a feature {amenity=vending_machine, vending=parcel_pickup}
+# the above rule will produce {amenity=vending_machine, amenity=parcel_locker},
+# but we don't need two "amenity" keys here,
+# so adding the 'u' updates value of the existing amenity=vending_machine tag with "parcel_locker"
+# and the result becomes {amenity=parcel_locker}.
+#
+# Format:
+# <replacement>           ::= <original tag> ' : ' <replacement tags list> [' | ' flag]
+# <original tag>          ::= <tag>
+# <replacement tags list> ::= <tag>[', ' <replacement tags list>]
+# <tag>                   ::= <key> '=' <value>
+# <key>                   ::= string without spaces, '=', ',', '|' symbols
+# <value>                 ::= string without spaces, '=', ',', '|' symbols
+# <flag>                  ::= control flag {'u'}
+
+atm=yes : amenity=atm
+bench=yes : amenity=bench
+shelter=yes : amenity=shelter
+toilets=yes : amenity=toilets
+restaurant=yes : amenity=restaurant
+ice_cream=yes : amenity=ice_cream
+
+sauna=yes : leisure=sauna
+
+shop=ice_cream : amenity=ice_cream
+shop=e-cigarette : shop=tobacco
+shop=food : shop=convenience
+shop=haberdashery : shop=sewing
+
+ford=boat : highway=ford
+ford=intermittent : highway=ford
+ford=seasonal : highway=ford
+ford=stream : highway=ford
+ford=stepping_stones : highway=ford
+ford=yes : highway=ford
+
+barrier=jersey_barrier : barrier=block
+barrier=sliding_gate : barrier=gate
+barrier=turnstile : barrier=stile
+
+drinkable=yes : amenity=drinking_water
+drinking_water=yes : amenity=drinking_water
+water_point=yes : amenity=water_point
+waterway=water_point : amenity=water_point
+sanitary_dump_station=yes : amenity=sanitary_dump_station
+sanitary_dump_station=customers : amenity=sanitary_dump_station
+sanitary_dump_station=public : amenity=sanitary_dump_station
+waterway=sanitary_dump_station : amenity=sanitary_dump_station
+amenity=monastery : amenity=place_of_worship
+vending=parcel_pickup;parcel_mail_in : amenity=parcel_locker | u
+vending=parcel_pickup : amenity=parcel_locker | u
+vending=water : vending=drinks
+vending=milk : vending=drinks
+vending=bread : vending=food
+
+building=entrance : entrance=yes
+
+ice_road=yes : highway=ice_road
+winter_road=yes : highway=ice_road
+highway=turning_loop : highway=mini_roundabout
+highway=platform : highway=pedestrian
+
+man_made=quay : man_made=pier
+
+natural=marsh     : natural=wetland, wetland=marsh
+natural=waterfall : waterway=waterfall
+natural=forest    : natural=wood
+natural=shrubbery : natural=scrub
+cliff=yes         : natural=cliff
+
+desert=sand : desert=erg
+desert=yes : desert=erg
+desert=semi_arid : desert=erg
+desert=dune : desert=erg
+
+office=notary : office=lawyer
+office=administrative : office=government
+
+craft=dressmaker : craft=tailor
+
+cycleway=opposite_lane : oneway:bicycle=no
+
+power=transformer : power=substation
+
+organic=limited : organic=yes
+
+amenity=dancing_school : leisure=dance
+
+wifi=yes : internet_access=wlan
+wifi=free : internet_access=wlan
+wifi=no : internet_access=no
+
+diet:vegetarian=yes : cuisine=vegetarian
+diet:vegetarian=only : cuisine=vegetarian
+diet=vegetarian : cuisine=vegetarian
+diet:vegan=yes : cuisine=vegan
+diet:vegan=only : cuisine=vegan
+diet=vegan : cuisine=vegan
+
+ruins=yes : historic=ruins
+historic=cannon : historic=memorial
+historic=technical_monument : historic=memorial
+historic=shield : historic=memorial
+historic=fountain : amenity=fountain | u
+
+memorial=blue_plaque : memorial=plaque
+memorial=stele : memorial=sculpture
+memorial=obelisk : memorial=sculpture
+memorial=stone : memorial=sculpture
+memorial=bust : memorial=statue
+memorial=person : memorial=statue
+memorial:type=plate : memorial:type=plaque
+
+artwork_type=mural : artwork_type=painting
+artwork_type=mural_painting : artwork_type=painting
+artwork_type=graffiti : artwork_type=painting
+artwork_type=stone : artwork_type=sculpture
+artwork_type=installation : artwork_type=sculpture
+artwork_type=bust : artwork_type=statue
+
+place=allotments : place=neighbourhood
+
+crossing=traffic_signals : highway=traffic_signals
+
+# Replace top tags from here https://taginfo.openstreetmap.org/search?q=recycling on the common ones.
+recycling:electrical_appliances=yes       : recycling:small_appliances=yes
+recycling:small_electrical_appliances=yes : recycling:small_appliances=yes
+recycling:electrical_items=yes            : recycling:small_appliances=yes
+
+recycling:metal=yes       : recycling:scrap_metal=yes
+recycling:sheet_metal=yes : recycling:scrap_metal=yes
+recycling:aluminium=yes   : recycling:scrap_metal=yes
+
+recycling:PET=yes               : recycling:plastic_bottles=yes
+recycling:plastic_packaging=yes : recycling:plastic=yes
+recycling:glass=yes             : recycling:glass_bottles=yes
+recycling:organic=yes           : recycling:green_waste=yes
+recycling:garden_waste=yes      : recycling:green_waste=yes
+
+recycling:paper_packaging=yes   : recycling:paper=yes
+recycling:newspaper=yes         : recycling:paper=yes
+recycling:magazines=yes         : recycling:paper=yes
+recycling:beverage_cartons=yes  : recycling:cartons=yes
+
+piste:lift=platter : aerialway=platter
+piste:lift=t-bar : aerialway=t-bar
+piste:lift=j-bar : aerialway=j-bar
+piste:lift=rope_tow : aerialway=rope_tow
+piste:lift=magic_carpet : aerialway=magic_carpet

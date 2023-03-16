@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="@dimen/editor_height_closed"
+  android:paddingTop="@dimen/margin_base">
+
+  <ImageView
+    android:id="@+id/iv__remove_closed"
+    android:layout_width="@dimen/height_block_base"
+    android:layout_height="@dimen/height_block_base"
+    android:layout_alignParentEnd="true"
+    android:layout_centerVertical="true"
+    android:background="?selectableItemBackgroundBorderless"
+    android:scaleType="center"
+    android:src="@drawable/ic_close"/>
+
+  <TextView
+    android:id="@+id/tv__closed_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_base"
+    android:layout_toStartOf="@id/iv__remove_closed"
+    android:text="@string/editor_hours_closed"
+    android:textAppearance="@style/MwmTextAppearance.Body3"/>
+
+  <TextView
+    android:id="@+id/tv__closed"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignStart="@id/tv__closed_title"
+    android:layout_below="@id/tv__closed_title"
+    android:layout_marginTop="@dimen/margin_eighth"
+    android:layout_toStartOf="@id/iv__remove_closed"
+    android:textAppearance="@style/MwmTextAppearance.Body1"
+    tools:text="15:00--16:00"/>
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_alignParentBottom="true"
+    android:background="?dividerHorizontal"/>
+
+</RelativeLayout>

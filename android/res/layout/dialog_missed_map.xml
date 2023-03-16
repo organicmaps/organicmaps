@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
+  <TextView
+    android:id="@+id/tv__message"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_base"
+    android:layout_marginBottom="@dimen/margin_base"
+    android:paddingStart="@dimen/margin_base_plus"
+    android:paddingEnd="@dimen/margin_base_plus"
+    android:textAppearance="@style/MwmTextAppearance.Body2"
+    android:visibility="gone"
+    tools:visibility="visible"/>
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="?dividerHorizontal"/>
+
+  <!-- Outer FrameLayout must NOT be removed -->
+  <FrameLayout
+    android:id="@+id/items_frame"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?panel">
+    <include
+      layout="@layout/item_missed_map"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
+  </FrameLayout>
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="?dividerHorizontal"/>
+</LinearLayout>

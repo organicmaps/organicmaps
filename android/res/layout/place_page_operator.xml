@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/ll__place_operator"
+  style="@style/PlacePageItemFrame"
+  android:tag="operator"
+  tools:background="#4000FFFF"
+  tools:visibility="visible">
+
+  <ImageView
+    android:id="@+id/iv__place_operator"
+    style="@style/PlacePageMetadataIcon"
+    android:src="@drawable/ic_bank" />
+
+  <TextView
+    android:id="@+id/tv__place_operator"
+    style="@style/PlacePageMetadataText"
+    tools:text="Operator" />
+</LinearLayout>

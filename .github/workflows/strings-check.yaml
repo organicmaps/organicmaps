@@ -1,0 +1,26 @@
+name: Validate translation strings
+on:
+  workflow_dispatch: # Manual trigger
+  pull_request:
+    paths:
+      - .github/workflows/strings-check.yaml  # Run check on self change
+      - data/countries_names.txt
+      - data/strings/*
+      - tools/python/strings_utils.py
+
+jobs:
+  validate-translation-strings:
+    name: Validate translation strings
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3'
+
+      - name: Validate strings.txt and types_strings.txt files
+        shell: bash
+        run: |
+          ./tools/python/strings_utils.py --validate
+          ./tools/python/strings_utils.py --types-strings --validate

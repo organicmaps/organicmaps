@@ -1,0 +1,231 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		340C21011C3E5EED00111D22 /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 340C20F81C3E5EED00111D22 /* base64.cpp */; };
+		340C21021C3E5EED00111D22 /* base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 340C20F91C3E5EED00111D22 /* base64.h */; };
+		340C21031C3E5EED00111D22 /* HMAC_SHA1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 340C20FA1C3E5EED00111D22 /* HMAC_SHA1.cpp */; };
+		340C21041C3E5EED00111D22 /* HMAC_SHA1.h in Headers */ = {isa = PBXBuildFile; fileRef = 340C20FB1C3E5EED00111D22 /* HMAC_SHA1.h */; };
+		340C21051C3E5EED00111D22 /* liboauthcpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 340C20FC1C3E5EED00111D22 /* liboauthcpp.cpp */; };
+		340C21061C3E5EED00111D22 /* SHA1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 340C20FD1C3E5EED00111D22 /* SHA1.cpp */; };
+		340C21071C3E5EED00111D22 /* SHA1.h in Headers */ = {isa = PBXBuildFile; fileRef = 340C20FE1C3E5EED00111D22 /* SHA1.h */; };
+		340C21081C3E5EED00111D22 /* urlencode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 340C20FF1C3E5EED00111D22 /* urlencode.cpp */; };
+		340C21091C3E5EED00111D22 /* urlencode.h in Headers */ = {isa = PBXBuildFile; fileRef = 340C21001C3E5EED00111D22 /* urlencode.h */; };
+		340C210B1C3E5EF600111D22 /* liboauthcpp.h in Headers */ = {isa = PBXBuildFile; fileRef = 340C210A1C3E5EF600111D22 /* liboauthcpp.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		340C20EF1C3E5E5000111D22 /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		340C20F81C3E5EED00111D22 /* base64.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = base64.cpp; path = src/base64.cpp; sourceTree = "<group>"; };
+		340C20F91C3E5EED00111D22 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = base64.h; path = src/base64.h; sourceTree = "<group>"; };
+		340C20FA1C3E5EED00111D22 /* HMAC_SHA1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HMAC_SHA1.cpp; path = src/HMAC_SHA1.cpp; sourceTree = "<group>"; };
+		340C20FB1C3E5EED00111D22 /* HMAC_SHA1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HMAC_SHA1.h; path = src/HMAC_SHA1.h; sourceTree = "<group>"; };
+		340C20FC1C3E5EED00111D22 /* liboauthcpp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = liboauthcpp.cpp; path = src/liboauthcpp.cpp; sourceTree = "<group>"; };
+		340C20FD1C3E5EED00111D22 /* SHA1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SHA1.cpp; path = src/SHA1.cpp; sourceTree = "<group>"; };
+		340C20FE1C3E5EED00111D22 /* SHA1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHA1.h; path = src/SHA1.h; sourceTree = "<group>"; };
+		340C20FF1C3E5EED00111D22 /* urlencode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = urlencode.cpp; path = src/urlencode.cpp; sourceTree = "<group>"; };
+		340C21001C3E5EED00111D22 /* urlencode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = urlencode.h; path = src/urlencode.h; sourceTree = "<group>"; };
+		340C210A1C3E5EF600111D22 /* liboauthcpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = liboauthcpp.h; path = include/liboauthcpp/liboauthcpp.h; sourceTree = "<group>"; };
+		34F558701DBF4AB300A4FC11 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		34F558711DBF4AB300A4FC11 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		340C20EC1C3E5E5000111D22 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		340C20E61C3E5E5000111D22 = {
+			isa = PBXGroup;
+			children = (
+				34F558701DBF4AB300A4FC11 /* common-debug.xcconfig */,
+				34F558711DBF4AB300A4FC11 /* common-release.xcconfig */,
+				340C20F71C3E5EA200111D22 /* liboauthcpp */,
+				340C20F01C3E5E5000111D22 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		340C20F01C3E5E5000111D22 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				340C20EF1C3E5E5000111D22 /* liboauthcpp.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		340C20F71C3E5EA200111D22 /* liboauthcpp */ = {
+			isa = PBXGroup;
+			children = (
+				340C20F81C3E5EED00111D22 /* base64.cpp */,
+				340C20F91C3E5EED00111D22 /* base64.h */,
+				340C20FA1C3E5EED00111D22 /* HMAC_SHA1.cpp */,
+				340C20FB1C3E5EED00111D22 /* HMAC_SHA1.h */,
+				340C20FC1C3E5EED00111D22 /* liboauthcpp.cpp */,
+				340C210A1C3E5EF600111D22 /* liboauthcpp.h */,
+				340C20FD1C3E5EED00111D22 /* SHA1.cpp */,
+				340C20FE1C3E5EED00111D22 /* SHA1.h */,
+				340C20FF1C3E5EED00111D22 /* urlencode.cpp */,
+				340C21001C3E5EED00111D22 /* urlencode.h */,
+			);
+			name = liboauthcpp;
+			path = ../../3party/liboauthcpp;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		340C20ED1C3E5E5000111D22 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				340C21041C3E5EED00111D22 /* HMAC_SHA1.h in Headers */,
+				340C21021C3E5EED00111D22 /* base64.h in Headers */,
+				340C21091C3E5EED00111D22 /* urlencode.h in Headers */,
+				340C210B1C3E5EF600111D22 /* liboauthcpp.h in Headers */,
+				340C21071C3E5EED00111D22 /* SHA1.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		340C20EE1C3E5E5000111D22 /* oauthcpp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 340C20F31C3E5E5000111D22 /* Build configuration list for PBXNativeTarget "oauthcpp" */;
+			buildPhases = (
+				340C20EB1C3E5E5000111D22 /* Sources */,
+				340C20EC1C3E5E5000111D22 /* Frameworks */,
+				340C20ED1C3E5E5000111D22 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = oauthcpp;
+			productName = oauthcpp;
+			productReference = 340C20EF1C3E5E5000111D22 /* liboauthcpp.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		340C20E71C3E5E5000111D22 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1410;
+				TargetAttributes = {
+					340C20EE1C3E5E5000111D22 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+				};
+			};
+			buildConfigurationList = 340C20EA1C3E5E5000111D22 /* Build configuration list for PBXProject "oauthcpp" */;
+			compatibilityVersion = "Xcode 12.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 340C20E61C3E5E5000111D22;
+			productRefGroup = 340C20F01C3E5E5000111D22 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				340C20EE1C3E5E5000111D22 /* oauthcpp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		340C20EB1C3E5E5000111D22 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				340C21081C3E5EED00111D22 /* urlencode.cpp in Sources */,
+				340C21011C3E5EED00111D22 /* base64.cpp in Sources */,
+				340C21031C3E5EED00111D22 /* HMAC_SHA1.cpp in Sources */,
+				340C21061C3E5EED00111D22 /* SHA1.cpp in Sources */,
+				340C21051C3E5EED00111D22 /* liboauthcpp.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		340C20F11C3E5E5000111D22 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34F558701DBF4AB300A4FC11 /* common-debug.xcconfig */;
+			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/liboauthcpp/include",
+				);
+			};
+			name = Debug;
+		};
+		340C20F21C3E5E5000111D22 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34F558711DBF4AB300A4FC11 /* common-release.xcconfig */;
+			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/liboauthcpp/include",
+				);
+			};
+			name = Release;
+		};
+		340C20F41C3E5E5000111D22 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		340C20F51C3E5E5000111D22 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		340C20EA1C3E5E5000111D22 /* Build configuration list for PBXProject "oauthcpp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				340C20F11C3E5E5000111D22 /* Debug */,
+				340C20F21C3E5E5000111D22 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		340C20F31C3E5E5000111D22 /* Build configuration list for PBXNativeTarget "oauthcpp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				340C20F41C3E5E5000111D22 /* Debug */,
+				340C20F51C3E5E5000111D22 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 340C20E71C3E5E5000111D22 /* Project object */;
+}

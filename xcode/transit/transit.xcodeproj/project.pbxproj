@@ -1,0 +1,250 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		562DDBDC1FE8EA0A0091F566 /* transit_graph_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 562DDBD81FE8EA080091F566 /* transit_graph_data.cpp */; };
+		562DDBDD1FE8EA0A0091F566 /* transit_graph_data.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 562DDBD91FE8EA080091F566 /* transit_graph_data.hpp */; };
+		562DDBDF1FE8EA0A0091F566 /* transit_serdes.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 562DDBDB1FE8EA0A0091F566 /* transit_serdes.hpp */; };
+		56EE14CB1FE7F2900036F20C /* transit_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56EE14C91FE7F2900036F20C /* transit_types.cpp */; };
+		56EE14CC1FE7F2900036F20C /* transit_types.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56EE14CA1FE7F2900036F20C /* transit_types.hpp */; };
+		D55B290A24CACF9E000E2EBE /* transit_display_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D55B290524CACF9E000E2EBE /* transit_display_info.hpp */; };
+		D55B290B24CACF9E000E2EBE /* transit_version.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D55B290624CACF9E000E2EBE /* transit_version.hpp */; };
+		D55B290C24CACF9E000E2EBE /* transit_version.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D55B290724CACF9E000E2EBE /* transit_version.cpp */; };
+		D55B290D24CACF9E000E2EBE /* transit_entities.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D55B290924CACF9E000E2EBE /* transit_entities.hpp */; };
+		D56AD1DB24CB02C00057F2E0 /* transit_types_experimental.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D56AD1D724CB02BF0057F2E0 /* transit_types_experimental.hpp */; };
+		D56AD1DC24CB02C00057F2E0 /* transit_data.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D56AD1D824CB02BF0057F2E0 /* transit_data.hpp */; };
+		D56AD1DD24CB02C00057F2E0 /* transit_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D56AD1D924CB02BF0057F2E0 /* transit_data.cpp */; };
+		D56AD1DE24CB02C00057F2E0 /* transit_types_experimental.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D56AD1DA24CB02BF0057F2E0 /* transit_types_experimental.cpp */; };
+		D5E1DDB024F6A0E9001F72D5 /* transit_schedule.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D5E1DDAE24F6A0E9001F72D5 /* transit_schedule.hpp */; };
+		D5E1DDB124F6A0E9001F72D5 /* transit_schedule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5E1DDAF24F6A0E9001F72D5 /* transit_schedule.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		562DDBD81FE8EA080091F566 /* transit_graph_data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_graph_data.cpp; sourceTree = "<group>"; };
+		562DDBD91FE8EA080091F566 /* transit_graph_data.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_graph_data.hpp; sourceTree = "<group>"; };
+		562DDBDB1FE8EA0A0091F566 /* transit_serdes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_serdes.hpp; sourceTree = "<group>"; };
+		56D7F2F41FE7F0F200D99E62 /* libtransit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtransit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56EE14C71FE7F1FF0036F20C /* common-debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		56EE14C81FE7F20A0036F20C /* common-release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		56EE14C91FE7F2900036F20C /* transit_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_types.cpp; sourceTree = "<group>"; };
+		56EE14CA1FE7F2900036F20C /* transit_types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_types.hpp; sourceTree = "<group>"; };
+		D55B290524CACF9E000E2EBE /* transit_display_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_display_info.hpp; sourceTree = "<group>"; };
+		D55B290624CACF9E000E2EBE /* transit_version.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_version.hpp; sourceTree = "<group>"; };
+		D55B290724CACF9E000E2EBE /* transit_version.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_version.cpp; sourceTree = "<group>"; };
+		D55B290924CACF9E000E2EBE /* transit_entities.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_entities.hpp; sourceTree = "<group>"; };
+		D56AD1D724CB02BF0057F2E0 /* transit_types_experimental.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_types_experimental.hpp; sourceTree = "<group>"; };
+		D56AD1D824CB02BF0057F2E0 /* transit_data.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_data.hpp; sourceTree = "<group>"; };
+		D56AD1D924CB02BF0057F2E0 /* transit_data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_data.cpp; sourceTree = "<group>"; };
+		D56AD1DA24CB02BF0057F2E0 /* transit_types_experimental.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_types_experimental.cpp; sourceTree = "<group>"; };
+		D5E1DDAE24F6A0E9001F72D5 /* transit_schedule.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_schedule.hpp; sourceTree = "<group>"; };
+		D5E1DDAF24F6A0E9001F72D5 /* transit_schedule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_schedule.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		56D7F2F11FE7F0F200D99E62 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		56D7F2EB1FE7F0F200D99E62 = {
+			isa = PBXGroup;
+			children = (
+				56EE14C71FE7F1FF0036F20C /* common-debug.xcconfig */,
+				56EE14C81FE7F20A0036F20C /* common-release.xcconfig */,
+				56D7F2F51FE7F0F200D99E62 /* Products */,
+				56D7F2F61FE7F0F200D99E62 /* transit */,
+			);
+			sourceTree = "<group>";
+		};
+		56D7F2F51FE7F0F200D99E62 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				56D7F2F41FE7F0F200D99E62 /* libtransit.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		56D7F2F61FE7F0F200D99E62 /* transit */ = {
+			isa = PBXGroup;
+			children = (
+				D56AD1D624CB02BF0057F2E0 /* experimental */,
+				D55B290524CACF9E000E2EBE /* transit_display_info.hpp */,
+				D55B290924CACF9E000E2EBE /* transit_entities.hpp */,
+				562DDBD81FE8EA080091F566 /* transit_graph_data.cpp */,
+				562DDBD91FE8EA080091F566 /* transit_graph_data.hpp */,
+				D5E1DDAF24F6A0E9001F72D5 /* transit_schedule.cpp */,
+				D5E1DDAE24F6A0E9001F72D5 /* transit_schedule.hpp */,
+				562DDBDB1FE8EA0A0091F566 /* transit_serdes.hpp */,
+				56EE14C91FE7F2900036F20C /* transit_types.cpp */,
+				56EE14CA1FE7F2900036F20C /* transit_types.hpp */,
+				D55B290724CACF9E000E2EBE /* transit_version.cpp */,
+				D55B290624CACF9E000E2EBE /* transit_version.hpp */,
+			);
+			name = transit;
+			path = ../../transit;
+			sourceTree = "<group>";
+		};
+		D56AD1D624CB02BF0057F2E0 /* experimental */ = {
+			isa = PBXGroup;
+			children = (
+				D56AD1D924CB02BF0057F2E0 /* transit_data.cpp */,
+				D56AD1D824CB02BF0057F2E0 /* transit_data.hpp */,
+				D56AD1DA24CB02BF0057F2E0 /* transit_types_experimental.cpp */,
+				D56AD1D724CB02BF0057F2E0 /* transit_types_experimental.hpp */,
+			);
+			path = experimental;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		56D7F2F21FE7F0F200D99E62 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D56AD1DC24CB02C00057F2E0 /* transit_data.hpp in Headers */,
+				D55B290D24CACF9E000E2EBE /* transit_entities.hpp in Headers */,
+				56EE14CC1FE7F2900036F20C /* transit_types.hpp in Headers */,
+				D5E1DDB024F6A0E9001F72D5 /* transit_schedule.hpp in Headers */,
+				D56AD1DB24CB02C00057F2E0 /* transit_types_experimental.hpp in Headers */,
+				562DDBDD1FE8EA0A0091F566 /* transit_graph_data.hpp in Headers */,
+				D55B290A24CACF9E000E2EBE /* transit_display_info.hpp in Headers */,
+				D55B290B24CACF9E000E2EBE /* transit_version.hpp in Headers */,
+				562DDBDF1FE8EA0A0091F566 /* transit_serdes.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		56D7F2F31FE7F0F200D99E62 /* transit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 56D7F2FF1FE7F0F200D99E62 /* Build configuration list for PBXNativeTarget "transit" */;
+			buildPhases = (
+				56D7F2F01FE7F0F200D99E62 /* Sources */,
+				56D7F2F11FE7F0F200D99E62 /* Frameworks */,
+				56D7F2F21FE7F0F200D99E62 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = transit;
+			productName = transit;
+			productReference = 56D7F2F41FE7F0F200D99E62 /* libtransit.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		56D7F2EC1FE7F0F200D99E62 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1410;
+				TargetAttributes = {
+					56D7F2F31FE7F0F200D99E62 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 56D7F2EF1FE7F0F200D99E62 /* Build configuration list for PBXProject "transit" */;
+			compatibilityVersion = "Xcode 12.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 56D7F2EB1FE7F0F200D99E62;
+			productRefGroup = 56D7F2F51FE7F0F200D99E62 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				56D7F2F31FE7F0F200D99E62 /* transit */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		56D7F2F01FE7F0F200D99E62 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D55B290C24CACF9E000E2EBE /* transit_version.cpp in Sources */,
+				562DDBDC1FE8EA0A0091F566 /* transit_graph_data.cpp in Sources */,
+				56EE14CB1FE7F2900036F20C /* transit_types.cpp in Sources */,
+				D56AD1DD24CB02C00057F2E0 /* transit_data.cpp in Sources */,
+				D5E1DDB124F6A0E9001F72D5 /* transit_schedule.cpp in Sources */,
+				D56AD1DE24CB02C00057F2E0 /* transit_types_experimental.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		56D7F2FD1FE7F0F200D99E62 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 56EE14C71FE7F1FF0036F20C /* common-debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		56D7F2FE1FE7F0F200D99E62 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 56EE14C81FE7F20A0036F20C /* common-release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		56D7F3001FE7F0F200D99E62 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		56D7F3011FE7F0F200D99E62 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		56D7F2EF1FE7F0F200D99E62 /* Build configuration list for PBXProject "transit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				56D7F2FD1FE7F0F200D99E62 /* Debug */,
+				56D7F2FE1FE7F0F200D99E62 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		56D7F2FF1FE7F0F200D99E62 /* Build configuration list for PBXNativeTarget "transit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				56D7F3001FE7F0F200D99E62 /* Debug */,
+				56D7F3011FE7F0F200D99E62 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 56D7F2EC1FE7F0F200D99E62 /* Project object */;
+}

@@ -1,0 +1,8 @@
+<svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <rect width="18" height="18" fill="#FFF" opacity=".6"/>
+  <rect x="1" y="1" width="16" height="16" fill="#20287D"/>
+  <path d="m4 10h3v7h-3v-7zm7 0h3v7h-3v-7z" fill="#FF8E03"/>
+  <path d="m10 13h1v4h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h1 1 1 1v1h1v1h1v1zm6-1h1v4h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h1 1 1 1v1h1v1z" fill="#FFF"/>
+ </g>
+</svg>

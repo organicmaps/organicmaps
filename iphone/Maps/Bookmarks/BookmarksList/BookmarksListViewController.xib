@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookmarksListViewController" customModule="OMaps" customModuleProvider="target">
+            <connections>
+                <outlet property="moreToolbarItem" destination="Hhy-7w-Mz0" id="0bI-d2-WuP"/>
+                <outlet property="searchBar" destination="NbN-CP-W78" id="rqo-ea-6JD"/>
+                <outlet property="sortToolbarItem" destination="BWR-ft-be3" id="iiS-BA-nqF"/>
+                <outlet property="tableView" destination="fva-qQ-WqU" id="XoT-Z8-nGb"/>
+                <outlet property="toolBar" destination="cD8-kh-Gmp" id="1M2-EB-fbH"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ue9-xA-QN5">
+                    <rect key="frame" x="0.0" y="-52" width="375" height="108"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="108" id="Cq7-bf-LwJ"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchBarView"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="NbN-CP-W78">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="Ub6-3s-o8d"/>
+                    </connections>
+                </searchBar>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="60" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="fva-qQ-WqU">
+                    <rect key="frame" x="0.0" y="56" width="375" height="567"/>
+                    <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
+                    <inset key="separatorInset" minX="56" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="TableView:PressBackground"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="1RG-NX-TL8"/>
+                        <outlet property="delegate" destination="-1" id="Djq-Nz-win"/>
+                    </connections>
+                </tableView>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cD8-kh-Gmp">
+                    <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                    <items>
+                        <barButtonItem width="8" style="plain" systemItem="fixedSpace" id="E0V-Le-AEM"/>
+                        <barButtonItem title="Sort" style="plain" id="BWR-ft-be3">
+                            <connections>
+                                <action selector="onSortItem:" destination="-1" id="bcl-jw-IY1"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="z0r-ms-Z5o"/>
+                        <barButtonItem title="More..." style="plain" id="Hhy-7w-Mz0">
+                            <connections>
+                                <action selector="onMoreItem:" destination="-1" id="P0K-AE-UgC"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem width="8" style="plain" systemItem="fixedSpace" id="9Q2-6r-Qjv"/>
+                    </items>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+                    </userDefinedRuntimeAttributes>
+                </toolbar>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="NbN-CP-W78" secondAttribute="trailing" id="2y5-UT-rDQ"/>
+                <constraint firstItem="fva-qQ-WqU" firstAttribute="top" secondItem="NbN-CP-W78" secondAttribute="bottom" id="3cQ-al-WYm"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="cD8-kh-Gmp" secondAttribute="bottom" id="FgV-RT-cCW"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="cD8-kh-Gmp" secondAttribute="trailing" id="LZs-Au-R4I"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="fva-qQ-WqU" secondAttribute="trailing" id="OsX-Pn-Js4"/>
+                <constraint firstItem="NbN-CP-W78" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Ytt-hF-2JT"/>
+                <constraint firstItem="NbN-CP-W78" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Zdn-7V-Z3C"/>
+                <constraint firstItem="fva-qQ-WqU" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="d61-I4-Ku3"/>
+                <constraint firstItem="cD8-kh-Gmp" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="jVJ-nY-UBF"/>
+                <constraint firstItem="cD8-kh-Gmp" firstAttribute="top" secondItem="fva-qQ-WqU" secondAttribute="bottom" id="lQL-J0-O69"/>
+                <constraint firstItem="Ue9-xA-QN5" firstAttribute="bottom" secondItem="NbN-CP-W78" secondAttribute="bottom" id="mVe-ws-GS2"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Ue9-xA-QN5" secondAttribute="trailing" id="nqx-vt-Clg"/>
+                <constraint firstItem="Ue9-xA-QN5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="qft-2l-dyg"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PressBackground"/>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="137.68115942028987" y="95.758928571428569"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

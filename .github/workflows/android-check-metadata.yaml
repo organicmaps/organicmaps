@@ -1,0 +1,20 @@
+name: Android Check Metadata
+on:
+  workflow_dispatch: # Manual trigger
+  pull_request:
+    paths:
+      - .github/workflows/android-check-metadata.yaml  # Run check on self change
+      - android/src/fdroid/**
+      - android/src/google/**
+      - tools/python/check_store_metadata.py
+
+jobs:
+  android-check-metadata:
+    name: Check app metadata
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Check metadata
+        run: ./tools/python/check_store_metadata.py android

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:minHeight="@dimen/height_item_multiline"
+  android:background="?clickableBackground"
+  android:paddingStart="@dimen/margin_base">
+
+  <ImageView
+    android:id="@+id/iv__bookmark_color"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:layout_alignParentStart="true"
+    android:layout_marginEnd="@dimen/margin_base"/>
+
+  <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_centerVertical="true"
+    android:layout_toEndOf="@id/iv__bookmark_color"
+    android:layout_toStartOf="@id/more">
+    <TextView
+      android:id="@+id/tv__bookmark_name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:singleLine="true"
+      android:textAppearance="@style/MwmTextAppearance.Body1"/>
+
+    <TextView
+      android:id="@+id/tv__bookmark_distance"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textAppearance="@style/MwmTextAppearance.Body3"/>
+  </LinearLayout>
+</RelativeLayout>

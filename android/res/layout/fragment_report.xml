@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
+
+  <androidx.appcompat.widget.Toolbar
+    android:id="@+id/toolbar"
+    style="@style/MwmWidget.ToolbarStyle"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:gravity="end|center_vertical"
+    android:theme="@style/MwmWidget.ToolbarTheme"
+    tools:ignore="UnusedAttribute">
+    <TextView
+      android:id="@+id/save"
+      style="@style/MwmWidget.Downloader.ToolbarButton"
+      android:text="@string/editor_report_problem_send_button"/>
+  </androidx.appcompat.widget.Toolbar>
+
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?panel">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <LinearLayout
+        android:id="@+id/ll__problems"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:visibility="gone">
+
+        <TextView
+          android:id="@+id/problem_not_exist"
+          style="@style/MwmWidget.Editor.Problem"
+          android:text="@string/editor_report_problem_no_place_title"
+          android:tag="@string/problem_does_not_exist"/>
+
+        <!-- TODO: Uncomment when the multiple choices are supported -->
+        <!--<TextView-->
+          <!--android:id="@+id/problem_closed_repair"-->
+          <!--style="@style/MwmWidget.Editor.Problem"-->
+          <!--android:text="@string/editor_report_problem_under_construction_title"/>-->
+
+        <!--<TextView-->
+          <!--android:id="@+id/problem_duplicated_place"-->
+          <!--style="@style/MwmWidget.Editor.Problem"-->
+          <!--android:text="@string/editor_report_problem_duplicate_place_title"/>-->
+
+        <TextView
+          android:id="@+id/problem_other"
+          style="@style/MwmWidget.Editor.Problem"
+          android:text="@string/editor_report_problem_other_title"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/ll__other_problem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+          android:id="@+id/input"
+          android:layout_width="match_parent"
+          android:layout_height="128dp"
+          android:background="?cardBackground"
+          android:gravity="start|top"
+          android:hint="@string/detailed_problem_description"
+          android:padding="@dimen/margin_base"
+          android:textAppearance="@style/MwmTextAppearance.Body1"/>
+
+        <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_base"
+          android:layout_marginEnd="@dimen/margin_base"
+          android:layout_marginTop="@dimen/margin_quarter_plus"
+          android:text="@string/editor_report_problem_desription_1"/>
+
+        <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_base"
+          android:layout_marginEnd="@dimen/margin_base"
+          android:layout_marginTop="@dimen/margin_quarter_plus"
+          android:text="@string/editor_report_problem_desription_2"/>
+
+      </LinearLayout>
+
+    </LinearLayout>
+
+  </ScrollView>
+
+</LinearLayout>

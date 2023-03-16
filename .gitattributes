@@ -1,0 +1,46 @@
+# Set default behaviour, in case users don't have core.autocrlf set.
+* text=auto
+
+# Explicitly declare text files we want to always be normalized and converted 
+# to native line endings on checkout.
+*.c    text
+*.h    text
+*.cpp  text
+*.hpp  text
+*.cxx  text
+*.cc   text
+*.java text
+*.mm   text
+
+# Declare files that will always have LF line endings on checkout.
+*.txt    text eol=lf
+*.html   text eol=lf
+*.xml    text eol=lf
+*.csv    text eol=lf
+*.svg    text eol=lf
+*.py     text eol=lf
+*.sh     text eol=lf
+*.lst    text eol=lf
+*.mapcss text eol=lf
+*.test   text eol=lf
+*.skn    text eol=lf
+*.meta   text eol=lf
+*.gitattributes text eol=lf
+*.gitignore text eol=lf
+
+# Declare files that will always have CRLF line endings on checkout.
+*.dsp    text eol=crlf
+*.dsw    text eol=crlf
+
+# Binary files which doesn't need any normalization
+*.bin     binary
+*.bz2     binary
+*.kmz     binary
+*.mwm     binary
+*.png     binary
+*.jpg     binary
+*.jpeg    binary
+*.ttf     binary
+*.slf     binary
+*.borders binary
+*.pdf     binary

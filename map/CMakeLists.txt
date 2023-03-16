@@ -1,0 +1,108 @@
+project(map)
+
+set(SRC
+  api_mark_point.cpp
+  api_mark_point.hpp
+  benchmark_tools.hpp
+  benchmark_tools.cpp
+  bookmark.cpp
+  bookmark.hpp
+  bookmark_helpers.cpp
+  bookmark_helpers.hpp
+  bookmark_manager.cpp
+  bookmark_manager.hpp
+  bookmarks_search_params.hpp
+  caching_address_getter.hpp
+  chart_generator.cpp
+  chart_generator.hpp
+  elevation_info.cpp
+  elevation_info.hpp
+  everywhere_search_callback.cpp
+  everywhere_search_callback.hpp
+  everywhere_search_params.hpp
+  extrapolation/extrapolator.cpp
+  extrapolation/extrapolator.hpp
+  features_fetcher.cpp
+  features_fetcher.hpp
+  framework.cpp
+  framework.hpp
+  gps_track_collection.cpp
+  gps_track_collection.hpp
+  gps_track_filter.cpp
+  gps_track_filter.hpp
+  gps_track_storage.cpp
+  gps_track_storage.hpp
+  gps_track.cpp
+  gps_track.hpp
+  gps_tracker.cpp
+  gps_tracker.hpp
+  isolines_manager.cpp
+  isolines_manager.hpp
+  mwm_url.cpp
+  mwm_url.hpp
+  place_page_info.cpp
+  place_page_info.hpp
+  position_provider.hpp
+  power_management/power_manager.cpp
+  power_management/power_manager.hpp
+  power_management/power_management_schemas.cpp
+  power_management/power_management_schemas.hpp
+  routing_manager.cpp
+  routing_manager.hpp
+  routing_mark.cpp
+  routing_mark.hpp
+  search_api.cpp
+  search_api.hpp
+  search_mark.cpp
+  search_mark.hpp
+  search_product_info.hpp
+  track.cpp
+  track.hpp
+  track_mark.cpp
+  track_mark.hpp
+  traffic_manager.cpp
+  traffic_manager.hpp
+  transit/transit_display.cpp
+  transit/transit_display.hpp
+  transit/transit_reader.cpp
+  transit/transit_reader.hpp
+  user_mark_id_storage.cpp
+  user_mark_id_storage.hpp
+  user_mark_layer.cpp
+  user_mark_layer.hpp
+  user_mark.cpp
+  user_mark.hpp
+  viewport_search_params.hpp
+  viewport_search_callback.cpp
+  viewport_search_callback.hpp
+)
+
+if (PLATFORM_DESKTOP)
+  append(SRC
+    framework_visualize.cpp
+  )
+endif()
+
+omim_add_library(${PROJECT_NAME} ${SRC})
+
+target_link_libraries(${PROJECT_NAME}
+  routing
+  indexer
+  search
+  descriptions
+  transit
+  kml
+  ge0
+  drape_frontend
+  agg
+)
+
+omim_add_test_subdirectory(map_integration_tests)
+omim_add_test_subdirectory(map_tests)
+omim_add_test_subdirectory(mwm_tests)
+omim_add_test_subdirectory(style_tests)
+
+if (PLATFORM_DESKTOP)
+  omim_add_tool_subdirectory(benchmark_tool)
+  omim_add_tool_subdirectory(extrapolation_benchmark)
+endif()

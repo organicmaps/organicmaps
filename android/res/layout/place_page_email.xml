@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/ll__place_email"
+  style="@style/PlacePageItemFrame"
+  android:tag="email"
+  tools:background="#200000FF"
+  tools:visibility="visible">
+
+  <ImageView
+    android:id="@+id/iv__place_email"
+    style="@style/PlacePageMetadataIcon"
+    android:src="@drawable/ic_email" />
+
+  <TextView
+    android:id="@+id/tv__place_email"
+    style="@style/PlacePageMetadataText"
+    android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
+    tools:text="support@organicmaps.app" />
+</LinearLayout>

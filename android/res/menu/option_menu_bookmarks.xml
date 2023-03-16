@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <item android:id="@+id/bookmarks_search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/search"
+        app:showAsAction="ifRoom"/>
+
+  <item android:id="@+id/bookmarks_more"
+        android:icon="@drawable/ic_more"
+        android:title="@string/placepage_more_button"
+        app:showAsAction="ifRoom"/>
+
+</menu>

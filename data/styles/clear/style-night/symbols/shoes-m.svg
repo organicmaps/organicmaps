@@ -1,0 +1,10 @@
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>shoes-m</title>
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity="1">
+  <g id="shoes-m" fill-rule="nonzero">
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#000" opacity=".6"/>
+   <circle id="Oval" cx="12" cy="12" r="11" fill="#8C5F93"/>
+   <path id="Path" d="m6 18h2.6956v-2.7326h0.74335l2.2301 2.7326h1.4867l4.8439-1.7841s0.073406-1.3235-1.7515-1.3235c-3.7549 0-4.7389-2.7318-4.5791-3.8206 0.15982-1.0888 0.74335-5.0718 0.74335-5.0718l-6.4124 1.4118v10.588z" fill="#000"/>
+  </g>
+ </g>
+</svg>

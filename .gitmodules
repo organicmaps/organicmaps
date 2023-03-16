@@ -1,0 +1,55 @@
+[submodule "tools/osmctools"]
+  path = tools/osmctools
+  url = https://github.com/organicmaps/osmctools.git
+[submodule "tools/kothic"]
+  path = tools/kothic
+  url = https://github.com/organicmaps/kothic.git
+[submodule "tools/macdeployqtfix"]
+  path = tools/macdeployqtfix
+  url = https://github.com/aurelien-rainone/macdeployqtfix.git
+[submodule "3party/protobuf/protobuf"]
+  path = 3party/protobuf/protobuf
+  url = https://github.com/organicmaps/protobuf.git
+[submodule "tools/twine"]
+  path = tools/twine
+  url = https://github.com/organicmaps/twine.git
+[submodule "3party/Vulkan-Headers"]
+  path = 3party/Vulkan-Headers
+  url = https://github.com/KhronosGroup/Vulkan-Headers.git
+[submodule "3party/boost"]
+  path = 3party/boost
+  url = https://github.com/boostorg/boost.git
+  branch = boost-1.76.0
+  ignore = dirty
+[submodule "3party/just_gtfs"]
+  path = 3party/just_gtfs
+  url = https://github.com/organicmaps/just_gtfs.git
+  branch = for-usage-as-submodule
+[submodule "3party/expat"]
+  path = 3party/expat
+  url = https://github.com/libexpat/libexpat.git
+  branch = R_2_2_9
+[submodule "3party/glm"]
+  path = 3party/glm
+  url = https://github.com/g-truc/glm.git
+[submodule "3party/icu/icu"]
+  path = 3party/icu/icu
+  url = https://github.com/unicode-org/icu.git
+[submodule "3party/freetype/freetype"]
+	path = 3party/freetype/freetype
+	url = https://github.com/freetype/freetype.git
+[submodule "3party/googletest"]
+	path = 3party/googletest
+	url = https://github.com/google/googletest.git
+[submodule "3party/fast_double_parser"]
+	path = 3party/fast_double_parser
+	url = https://github.com/lemire/fast_double_parser.git
+[submodule "3party/pugixml/pugixml"]
+	path = 3party/pugixml/pugixml
+	url = https://github.com/zeux/pugixml.git
+[submodule "3party/jansson/jansson"]
+	path = 3party/jansson/jansson
+	url = https://github.com/akheron/jansson.git
+[submodule "3party/gflags"]
+	path = 3party/gflags
+	url = https://github.com/gflags/gflags

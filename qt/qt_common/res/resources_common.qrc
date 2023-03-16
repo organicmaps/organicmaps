@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/common">
+        <file>minus.png</file>
+        <file>plus.png</file>
+        <file>spinner1.png</file>
+        <file>spinner2.png</file>
+        <file>spinner3.png</file>
+        <file>spinner4.png</file>
+        <file>spinner5.png</file>
+        <file>spinner6.png</file>
+        <file>spinner7.png</file>
+        <file>spinner8.png</file>
+        <file>spinner9.png</file>
+        <file>spinner10.png</file>
+        <file>spinner11.png</file>
+        <file>spinner12.png</file>
+    </qresource>
+</RCC>

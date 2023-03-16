@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Font names -->
+  <string name="robotoLight" translatable="false">sans-serif-light</string>
+  <string name="robotoRegular" translatable="false">sans-serif</string>
+  <string name="robotoMedium" translatable="false">sans-serif-medium</string>
+
+  <!--  Prefs -->
+  <string name="pref_munits" translatable="false">MeasurementUnits</string>
+  <string name="pref_storage" translatable="false">Storage</string>
+  <string name="pref_show_zoom_buttons" translatable="false">ZoomButtonsEnabled</string>
+  <string name="pref_play_services" translatable="false">PlayServicesEnabled</string>
+  <string name="pref_enable_logging" translatable="false">EnableLogging</string>
+  <string name="pref_emulate_bad_external_storage" translatable="false">EmulateBadExternalStorage</string>
+  <string name="pref_about" translatable="false">AboutOrganicMaps</string>
+  <string name="pref_help" translatable="false">Help</string>
+  <string name="pref_file_name" translatable="false">OrganicMapsPrefs</string>
+  <string name="pref_map_style" translatable="false">MapStyle</string>
+  <string name="pref_tts_screen" translatable="false">TtsScreen</string>
+  <string name="pref_tts_enabled" translatable="false">TtsEnabled</string>
+  <string name="pref_tts_language" translatable="false">TtsLanguage</string>
+  <string name="pref_tts_info" translatable="false">TtsInfo</string>
+  <string name="pref_tts_info_link" translatable="false">TtsInfoLink</string>
+  <string name="pref_speed_cameras" translatable="false">SpeedCameras</string>
+  <!-- TODO: Move to another domain. -->
+  <string name="tts_info_link" translatable="false">https://mapsme.zendesk.com/hc/en-us/articles/208628985-How-can-I-check-TTS-settings-on-my-Android-device-</string>
+  <string name="pref_autodownload" translatable="false">AutoDownloadMap</string>
+  <string name="pref_3d" translatable="false">3D</string>
+  <string name="pref_3d_buildings" translatable="false">3DBuildings</string>
+  <string name="pref_osm_profile" translatable="false">Osm profile</string>
+  <string name="pref_auto_zoom" translatable="false">AutoZoom</string>
+  <string name="pref_large_fonts_size" translatable="false">LargeFontSize</string>
+  <string name="pref_use_mobile_data" translatable="false">UseMobileData</string>
+  <string name="pref_settings_general" translatable="false">GeneralSettings</string>
+  <string name="pref_navigation" translatable="false">Navigation</string>
+  <string name="pref_information" translatable="false">Information</string>
+  <string name="pref_transliteration" translatable="false">Transliteration</string>
+  <string name="pref_power_management" translatable="false">PowerManagment</string>
+  <string name="pref_screen_sleep" translatable="false">ScreenSleep</string>
+  <string name="pref_show_on_lock_screen" translatable="false">ShowOnLockScreen</string>
+
+  <string name="notification_ticker_ltr" translatable="false">%1$s: %2$s</string>
+  <string name="notification_ticker_rtl" translatable="false">%2$s :%1$s</string>
+
+  <!-- "Report a problem" predefined texts -->
+  <string name="problem_does_not_exist" translatable="false">The amenity has gone or never existed. This is an auto-generated note from Organic Maps application: a user reports a POI that is visible on a map (which can be a month old), but cannot be found on the ground.</string>
+
+  <!-- UI themes -->
+  <string name="theme_default" translatable="false">default</string>
+  <string name="theme_night" translatable="false">night</string>
+  <string name="theme_auto" translatable="false">auto</string>
+
+  <!-- Tags -->
+  <string name="tag_menu_collapse" translatable="false">collapse</string>
+  <string name="tag_height_limited" translatable="false">height limited</string>
+
+  <string name="pref_subtittle_opt_out" translatable="false">pref_opt_out</string>
+  <string name="pref_crash_reports" translatable="false">pref_crash_reports</string>
+  <string name="never_enum_value" translatable="false">NEVER</string>
+  <string name="always_enum_value" translatable="false">ALWAYS</string>
+  <string name="auto_enum_value" translatable="false">AUTO</string>
+  <string name="placepage_behavior" translatable="false">com.google.android.material.bottomsheet.BottomSheetBehavior</string>
+</resources>

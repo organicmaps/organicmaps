@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MWMDownloaderDialogCell" rowHeight="33" id="LWd-Zy-XGd" customClass="MWMDownloaderDialogCell" propertyAccessControl="none">
+            <rect key="frame" x="0.0" y="0.0" width="280" height="33"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LWd-Zy-XGd" id="gf8-bS-tvq">
+                <rect key="frame" x="0.0" y="0.0" width="280" height="33"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1B4-T1-g4X">
+                        <rect key="frame" x="20" y="8" width="240" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="u5A-6l-INO"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstAttribute="centerX" secondItem="1B4-T1-g4X" secondAttribute="centerX" id="2AW-qe-sgg"/>
+                    <constraint firstAttribute="centerY" secondItem="1B4-T1-g4X" secondAttribute="centerY" id="TD9-6y-WM8"/>
+                    <constraint firstAttribute="trailing" secondItem="1B4-T1-g4X" secondAttribute="trailing" constant="20" id="ruG-JF-m2y"/>
+                    <constraint firstItem="1B4-T1-g4X" firstAttribute="leading" secondItem="gf8-bS-tvq" secondAttribute="leading" constant="20" id="sZo-pt-LJL"/>
+                </constraints>
+                <userDefinedRuntimeAttributes>
+                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PressBackground"/>
+                </userDefinedRuntimeAttributes>
+            </tableViewCellContentView>
+            <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <viewLayoutGuide key="safeArea" id="hHf-it-4Q9"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PressBackground"/>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="titleLabel" destination="1B4-T1-g4X" id="m4n-H9-1Ta"/>
+            </connections>
+            <point key="canvasLocation" x="235" y="180"/>
+        </tableViewCell>
+    </objects>
+</document>

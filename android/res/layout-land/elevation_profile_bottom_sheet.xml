@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/elevation_profile"
+  android:layout_width="@dimen/place_page_width"
+  android:layout_height="wrap_content"
+  android:paddingTop="@dimen/margin_base"
+  android:paddingBottom="@dimen/margin_base"
+  android:background="?cardBackground"
+  android:clickable="true"
+  android:focusable="true"
+  android:fillViewport="true"
+  app:layout_behavior="@string/placepage_behavior">
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <include layout="@layout/elevation_profile_internal" />
+  </LinearLayout>
+</androidx.core.widget.NestedScrollView>

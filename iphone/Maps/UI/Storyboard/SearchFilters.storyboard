@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Фильтр-->
+        <scene sceneID="3Lw-zP-9hH">
+            <objects>
+                <viewController storyboardIdentifier="MWMSearchHotelsFilterViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LNn-Gp-Jtg" customClass="MWMSearchHotelsFilterViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="a4S-IT-Fgz">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="1" estimatedSectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="7db-bh-egf">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MWMFilterRatingCell" rowHeight="52" id="HvO-7t-FdB" customClass="MWMFilterRatingCell">
+                                        <rect key="frame" x="0.0" y="55.5" width="414" height="52"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HvO-7t-FdB" id="waN-Zz-Fjw">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="52"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="JOt-Yh-HTx">
+                                                    <rect key="frame" x="16" y="0.0" width="89.5" height="52"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" priority="999" constant="52" id="ruI-U2-WeD"/>
+                                                    </constraints>
+                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" title="ANY"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FilterRatingButton"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="tapWithSender:" destination="HvO-7t-FdB" eventType="touchUpInside" id="Jn8-i9-S7Z"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="tIg-d6-2V9">
+                                                    <rect key="frame" x="113.5" y="0.0" width="89.5" height="52"/>
+                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" title="7.0+"/>
+                                                    <state key="disabled">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FilterRatingButton"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="tapWithSender:" destination="HvO-7t-FdB" eventType="touchUpInside" id="uqM-8E-QJL"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="LLw-eV-IqX">
+                                                    <rect key="frame" x="211" y="0.0" width="89.5" height="52"/>
+                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" title="8.0+"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FilterRatingButton"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="tapWithSender:" destination="HvO-7t-FdB" eventType="touchUpInside" id="RPh-fR-jXK"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="30K-lZ-hUy">
+                                                    <rect key="frame" x="308.5" y="0.0" width="89.5" height="52"/>
+                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" title="9.0+"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FilterRatingButton"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="tapWithSender:" destination="HvO-7t-FdB" eventType="touchUpInside" id="qSN-2y-IEP"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="LLw-eV-IqX" firstAttribute="width" secondItem="30K-lZ-hUy" secondAttribute="width" id="4pP-Zp-y9U"/>
+                                                <constraint firstItem="LLw-eV-IqX" firstAttribute="leading" secondItem="tIg-d6-2V9" secondAttribute="trailing" constant="8" id="6xc-9x-zVh"/>
+                                                <constraint firstItem="30K-lZ-hUy" firstAttribute="top" secondItem="waN-Zz-Fjw" secondAttribute="top" id="ABJ-9a-bvf"/>
+                                                <constraint firstItem="30K-lZ-hUy" firstAttribute="leading" secondItem="LLw-eV-IqX" secondAttribute="trailing" constant="8" id="AVD-bt-Tbf"/>
+                                                <constraint firstAttribute="bottom" secondItem="30K-lZ-hUy" secondAttribute="bottom" id="Dhh-yh-cUj"/>
+                                                <constraint firstItem="30K-lZ-hUy" firstAttribute="height" secondItem="JOt-Yh-HTx" secondAttribute="height" id="P4S-QP-iMi"/>
+                                                <constraint firstItem="tIg-d6-2V9" firstAttribute="leading" secondItem="JOt-Yh-HTx" secondAttribute="trailing" constant="8" id="Xt5-Ci-dPe"/>
+                                                <constraint firstItem="JOt-Yh-HTx" firstAttribute="leading" secondItem="waN-Zz-Fjw" secondAttribute="leading" constant="16" id="afW-S8-Vvt"/>
+                                                <constraint firstItem="tIg-d6-2V9" firstAttribute="width" secondItem="LLw-eV-IqX" secondAttribute="width" id="bLN-Qd-LXf"/>
+                                                <constraint firstItem="LLw-eV-IqX" firstAttribute="top" secondItem="waN-Zz-Fjw" secondAttribute="top" id="bMV-s9-W6R"/>
+                                                <constraint firstAttribute="bottom" secondItem="tIg-d6-2V9" secondAttribute="bottom" id="kFc-Xp-xXa"/>
+                                                <constraint firstAttribute="bottom" secondItem="JOt-Yh-HTx" secondAttribute="bottom" id="mIW-AM-ash"/>
+                                                <constraint firstItem="JOt-Yh-HTx" firstAttribute="width" secondItem="tIg-d6-2V9" secondAttribute="width" id="mX9-mR-CLA"/>
+                                                <constraint firstAttribute="trailing" secondItem="30K-lZ-hUy" secondAttribute="trailing" constant="16" id="qh1-59-b43"/>
+                                                <constraint firstItem="LLw-eV-IqX" firstAttribute="height" secondItem="JOt-Yh-HTx" secondAttribute="height" id="sMz-Th-Ffa"/>
+                                                <constraint firstItem="tIg-d6-2V9" firstAttribute="top" secondItem="waN-Zz-Fjw" secondAttribute="top" id="sx2-3N-F0c"/>
+                                                <constraint firstAttribute="bottom" secondItem="LLw-eV-IqX" secondAttribute="bottom" id="uJE-dI-FWa"/>
+                                                <constraint firstItem="JOt-Yh-HTx" firstAttribute="top" secondItem="waN-Zz-Fjw" secondAttribute="top" id="w1L-U4-tNT"/>
+                                                <constraint firstItem="tIg-d6-2V9" firstAttribute="height" secondItem="JOt-Yh-HTx" secondAttribute="height" id="wuT-Sx-ZCB"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="any" destination="JOt-Yh-HTx" id="XYj-2S-NPG"/>
+                                            <outlet property="excellent" destination="30K-lZ-hUy" id="LEk-O4-QOB"/>
+                                            <outlet property="good" destination="tIg-d6-2V9" id="Me8-mF-006"/>
+                                            <outlet property="veryGood" destination="LLw-eV-IqX" id="L4g-3p-3ch"/>
+                                            <outletCollection property="ratingButtons" destination="JOt-Yh-HTx" collectionClass="NSMutableArray" id="y4B-tS-zYK"/>
+                                            <outletCollection property="ratingButtons" destination="tIg-d6-2V9" collectionClass="NSMutableArray" id="fBL-hc-tOP"/>
+                                            <outletCollection property="ratingButtons" destination="LLw-eV-IqX" collectionClass="NSMutableArray" id="CCq-jP-1fW"/>
+                                            <outletCollection property="ratingButtons" destination="30K-lZ-hUy" collectionClass="NSMutableArray" id="Iys-NH-dNe"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MWMFilterPriceCategoryCell" rowHeight="40" id="Awa-kZ-hF2" customClass="MWMFilterPriceCategoryCell">
+                                        <rect key="frame" x="0.0" y="107.5" width="414" height="40"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Awa-kZ-hF2" id="m4Z-4y-BeU">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="cm9-a2-KtE">
+                                                    <rect key="frame" x="16" y="0.0" width="122" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" priority="999" constant="40" id="ntq-iz-6Ov"/>
+                                                    </constraints>
+                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" title="$"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FilterRatingButton"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="tapWithSender:" destination="Awa-kZ-hF2" eventType="touchUpInside" id="ghA-FY-nXb"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="eEn-77-iwI">
+                                                    <rect key="frame" x="146" y="0.0" width="122" height="40"/>
+                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" title="$$"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FilterRatingButton"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="tapWithSender:" destination="Awa-kZ-hF2" eventType="touchUpInside" id="J3i-Eu-nrp"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="96b-HD-t1A">
+                                                    <rect key="frame" x="276" y="0.0" width="122" height="40"/>
+                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" title="$$$"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FilterRatingButton"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="tapWithSender:" destination="Awa-kZ-hF2" eventType="touchUpInside" id="Yxp-Ek-iI8"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="cm9-a2-KtE" firstAttribute="leading" secondItem="m4Z-4y-BeU" secondAttribute="leading" constant="16" id="0k7-Q1-vkR"/>
+                                                <constraint firstItem="96b-HD-t1A" firstAttribute="top" secondItem="m4Z-4y-BeU" secondAttribute="top" id="5c1-no-GfT"/>
+                                                <constraint firstItem="cm9-a2-KtE" firstAttribute="top" secondItem="m4Z-4y-BeU" secondAttribute="top" id="9V5-CQ-aOf"/>
+                                                <constraint firstItem="eEn-77-iwI" firstAttribute="top" secondItem="m4Z-4y-BeU" secondAttribute="top" id="Ccf-cE-dtW"/>
+                                                <constraint firstAttribute="trailing" secondItem="96b-HD-t1A" secondAttribute="trailing" constant="16" id="Dws-aA-Sq6"/>
+                                                <constraint firstItem="eEn-77-iwI" firstAttribute="height" secondItem="cm9-a2-KtE" secondAttribute="height" id="IpR-r7-Ulf"/>
+                                                <constraint firstItem="eEn-77-iwI" firstAttribute="leading" secondItem="cm9-a2-KtE" secondAttribute="trailing" constant="8" id="MIs-g5-t7c"/>
+                                                <constraint firstItem="96b-HD-t1A" firstAttribute="height" secondItem="cm9-a2-KtE" secondAttribute="height" id="Vyv-zn-rua"/>
+                                                <constraint firstAttribute="bottom" secondItem="cm9-a2-KtE" secondAttribute="bottom" id="XHZ-oV-OhQ"/>
+                                                <constraint firstAttribute="bottom" secondItem="eEn-77-iwI" secondAttribute="bottom" id="Y5W-vQ-0t9"/>
+                                                <constraint firstItem="96b-HD-t1A" firstAttribute="leading" secondItem="eEn-77-iwI" secondAttribute="trailing" constant="8" id="YDc-oc-0nt"/>
+                                                <constraint firstItem="cm9-a2-KtE" firstAttribute="width" secondItem="eEn-77-iwI" secondAttribute="width" id="dF7-hb-fIR"/>
+                                                <constraint firstAttribute="bottom" secondItem="96b-HD-t1A" secondAttribute="bottom" id="dxf-Rz-kpg"/>
+                                                <constraint firstItem="eEn-77-iwI" firstAttribute="width" secondItem="96b-HD-t1A" secondAttribute="width" id="wq7-TT-8Vy"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="one" destination="cm9-a2-KtE" id="IJD-ag-dAe"/>
+                                            <outlet property="three" destination="96b-HD-t1A" id="8Am-J8-Uh9"/>
+                                            <outlet property="two" destination="eEn-77-iwI" id="4cE-Rj-xc4"/>
+                                            <outletCollection property="priceButtons" destination="cm9-a2-KtE" collectionClass="NSMutableArray" id="HOG-o8-6O8"/>
+                                            <outletCollection property="priceButtons" destination="eEn-77-iwI" collectionClass="NSMutableArray" id="y0p-cb-9yN"/>
+                                            <outletCollection property="priceButtons" destination="96b-HD-t1A" collectionClass="NSMutableArray" id="A2o-QC-xn7"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MWMFilterCollectionHolderCell" id="MeX-wf-jsM" customClass="MWMFilterCollectionHolderCell">
+                                        <rect key="frame" x="0.0" y="147.5" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MeX-wf-jsM" id="Kwo-Nv-Eyz">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <collectionView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PXc-fE-tNi">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" priority="999" constant="43.5" id="wiY-V3-s47"/>
+                                                    </constraints>
+                                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="12" minimumInteritemSpacing="8" id="hQi-pH-6ln" customClass="TagsCollectionViewLayout" customModule="OMaps" customModuleProvider="target">
+                                                        <size key="itemSize" width="50" height="36"/>
+                                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                        <inset key="sectionInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="itemHeight">
+                                                                <real key="value" value="50"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="itemWidth">
+                                                                <real key="value" value="36"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="lineSpacing">
+                                                                <real key="value" value="12"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="elementsSpacing">
+                                                                <real key="value" value="8"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="showHeaders" value="NO"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </collectionViewFlowLayout>
+                                                    <cells>
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MWMFilterTypeCell" id="hww-0Y-dGV" customClass="MWMFilterTypeCell">
+                                                            <rect key="frame" x="16" y="0.0" width="50" height="36"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="36"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gV-WJ-Hqd">
+                                                                        <rect key="frame" x="12" y="8" width="26" height="20"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackPrimaryText"/>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </label>
+                                                                </subviews>
+                                                            </view>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstItem="3gV-WJ-Hqd" firstAttribute="top" secondItem="hww-0Y-dGV" secondAttribute="top" constant="8" id="CzM-fK-u9K"/>
+                                                                <constraint firstItem="3gV-WJ-Hqd" firstAttribute="leading" secondItem="hww-0Y-dGV" secondAttribute="leading" constant="12" id="mfs-Ep-xlJ"/>
+                                                                <constraint firstAttribute="bottom" secondItem="3gV-WJ-Hqd" secondAttribute="bottom" constant="8" id="nag-Fr-Z0G"/>
+                                                                <constraint firstAttribute="trailing" secondItem="3gV-WJ-Hqd" secondAttribute="trailing" constant="12" id="sBl-KU-nY0"/>
+                                                            </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchFilterTypeCell"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <outlet property="tagName" destination="3gV-WJ-Hqd" id="3iN-Tf-ZKI"/>
+                                                            </connections>
+                                                        </collectionViewCell>
+                                                    </cells>
+                                                    <connections>
+                                                        <outlet property="dataSource" destination="LNn-Gp-Jtg" id="4a4-kY-JAr"/>
+                                                        <outlet property="delegate" destination="LNn-Gp-Jtg" id="foC-FM-cC6"/>
+                                                    </connections>
+                                                </collectionView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="PXc-fE-tNi" secondAttribute="trailing" id="KCm-4i-Mtq"/>
+                                                <constraint firstAttribute="bottom" secondItem="PXc-fE-tNi" secondAttribute="bottom" id="Qrg-ec-3nv"/>
+                                                <constraint firstItem="PXc-fE-tNi" firstAttribute="leading" secondItem="Kwo-Nv-Eyz" secondAttribute="leading" id="cwj-sE-sNS"/>
+                                                <constraint firstItem="PXc-fE-tNi" firstAttribute="top" secondItem="Kwo-Nv-Eyz" secondAttribute="top" id="eOR-FB-guZ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="collectionView" destination="PXc-fE-tNi" id="rN7-zo-kWI"/>
+                                            <outlet property="collectionViewHeight" destination="wiY-V3-s47" id="2HB-Yh-vMR"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                                <connections>
+                                    <outlet property="dataSource" destination="LNn-Gp-Jtg" id="rq0-5v-lvv"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZN9-tQ-vmX">
+                                <rect key="frame" x="16" y="818" width="382" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="5sg-ZZ-930"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="applyAction" destination="LNn-Gp-Jtg" eventType="touchUpInside" id="q2Q-O2-QLa"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="7db-bh-egf" firstAttribute="leading" secondItem="a4S-IT-Fgz" secondAttribute="leading" id="391-VR-alp"/>
+                            <constraint firstAttribute="trailing" secondItem="7db-bh-egf" secondAttribute="trailing" id="5VV-72-Y7v"/>
+                            <constraint firstItem="ZN9-tQ-vmX" firstAttribute="leading" secondItem="WEm-4S-gb9" secondAttribute="leading" constant="16" id="VQ6-h4-L6t"/>
+                            <constraint firstItem="7db-bh-egf" firstAttribute="top" secondItem="a4S-IT-Fgz" secondAttribute="top" id="f0d-a8-5Mp"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ZN9-tQ-vmX" secondAttribute="bottom" constant="16" id="qNP-0R-u0W"/>
+                            <constraint firstItem="WEm-4S-gb9" firstAttribute="bottom" secondItem="ZN9-tQ-vmX" secondAttribute="bottom" priority="100" id="z2w-0r-wN3"/>
+                            <constraint firstItem="WEm-4S-gb9" firstAttribute="trailing" secondItem="ZN9-tQ-vmX" secondAttribute="trailing" constant="16" id="zVX-kB-p39"/>
+                            <constraint firstAttribute="bottom" secondItem="7db-bh-egf" secondAttribute="bottom" id="zwQ-GR-Y9L"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="WEm-4S-gb9"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PressBackground"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Фильтр" id="LCw-vA-SlU">
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="e9P-kS-9Lb">
+                            <connections>
+                                <action selector="closeAction" destination="LNn-Gp-Jtg" id="yeE-jT-g0N"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Сбросить" style="plain" id="GLW-fe-qUA">
+                            <connections>
+                                <action selector="resetAction" destination="LNn-Gp-Jtg" id="ibg-4x-8qC"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="doneButton" destination="ZN9-tQ-vmX" id="yjh-3u-Occ"/>
+                        <outlet property="tableView" destination="7db-bh-egf" id="rYy-3D-opK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KeS-zw-DbF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="808.79999999999995" y="42.728635682158924"/>
+        </scene>
+    </scenes>
+</document>

@@ -1,0 +1,162 @@
+name: Linux Check
+on:
+  workflow_dispatch: # Manual trigger
+  pull_request:
+    paths-ignore:
+      - .gitignore
+      - .github/**
+      - '!.github/workflows/linux-check.yaml'  # Run check on self change
+      - CONTRIBUTORS
+      - LICENSE
+      - NOTICE
+      - README.md
+      - android/**
+      - iphone/**
+      - data/strings/**
+      - docs/**
+      - packaging/**
+      - pyhelpers/**
+      - tools/**
+      - '!tools/python/run_desktop_tests.py'
+      - '!tools/python/testserver.py'
+      - '!tools/python/SiblingKiller.py'
+      - xcode/**
+
+# Cancels previous jobs if the same branch or PR was updated again.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  linux-no-unity:
+    name: Linux no unity build
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+    steps:
+      - name: Free disk space by removing .NET, Android and Haskell
+        shell: bash
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
+
+      - name: Checkout sources
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 100 # enough to get all commits for the current day
+
+      - name: Parallel submodules checkout
+        shell: bash
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
+
+      - name: Install build tools and dependencies
+        shell: bash
+        run: |
+          sudo apt update -y
+          sudo apt install -y \
+              ninja-build \
+              qtbase5-dev \
+              libqt5svg5-dev
+
+      - name: Configure
+        shell: bash
+        run: ./configure.sh
+
+      - name: CMake
+        shell: bash
+        env:
+          CC: clang-14
+          CXX: clang++-14
+        # -g1 should slightly reduce build time.
+        run: |
+          cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS=-g1 -DUNITY_DISABLE=ON
+
+      - name: Compile
+        shell: bash
+        working-directory: build
+        run: ninja
+
+  linux-matrix:
+    name: Linux builds and tests
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler: [{ CXX: g++-12, CC: gcc-12 }, { CXX: clang++-14, CC: clang-14 }]
+        CMAKE_BUILD_TYPE: [Debug, RelWithDebInfo]
+
+    steps:
+      - name: Free disk space by removing .NET, Android and Haskell
+        shell: bash
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
+
+      - name: Checkout sources
+        uses: actions/checkout@v3
+
+      - name: Parallel submodules checkout
+        shell: bash
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
+
+      - name: Install build tools and dependencies
+        shell: bash
+        run: |
+          sudo apt update -y
+          sudo apt install -y \
+              g++-12 \
+              gcc-12 \
+              ninja-build \
+              qtbase5-dev \
+              libqt5svg5-dev
+
+      - name: Configure
+        shell: bash
+        run: ./configure.sh
+
+      - name: CMake
+        shell: bash
+        env:
+          CC: ${{ matrix.compiler.CC }}
+          CXX: ${{ matrix.compiler.CXX }}
+        # -g1 should slightly reduce build time.
+        run: |
+          echo "Building ${{ matrix.CMAKE_BUILD_TYPE }}"
+          cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.CMAKE_BUILD_TYPE }} -DCMAKE_C_FLAGS=-g1 -DCMAKE_CXX_FLAGS=-g1
+
+      - name: Compile
+        shell: bash
+        working-directory: build
+        run: ninja
+
+      - name: Checkout world_feed_integration_tests_data
+        uses: actions/checkout@v3
+        with:
+          repository: organicmaps/world_feed_integration_tests_data
+          path: data/world_feed_integration_tests_data
+
+      - name: Tests
+        shell: bash
+        # generator_integration_tests - https://github.com/organicmaps/organicmaps/issues/225
+        # routing_integration_tests - https://github.com/organicmaps/organicmaps/issues/221
+        # routing_quality_tests - https://github.com/organicmaps/organicmaps/issues/215
+        # drape_tests - requires X Window
+
+        # Separate run of OH boost-based test
+        run: |
+          ./build/opening_hours_tests |
+          ./tools/python/run_desktop_tests.py \
+            -f ./build \
+            -u ./data \
+            -d ./data \
+            -e generator_integration_tests \
+            -e routing_integration_tests \
+            -e routing_quality_tests \
+            -e search_quality_tests \
+            -e world_feed_integration_tests \
+            -e drape_tests \
+            -e shaders_tests \
+                            \
+            -e opening_hours_tests \
+            -e opening_hours_integration_tests \
+            -e routing_consistency_tests \
+            -e opening_hours_supported_features_tests \
+            -e storage_integration_tests \

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMActionBarButton"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MWMActionBarButton" propertyAccessControl="none">
+            <rect key="frame" x="0.0" y="0.0" width="80" height="48"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R50-Tj-X0W">
+                    <rect key="frame" x="0.0" y="0.0" width="80" height="48"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W07-Hz-J60" customClass="MWMButton">
+                    <rect key="frame" x="0.0" y="2" width="80" height="33"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="tap" destination="iN0-l3-epB" eventType="touchUpInside" id="yKY-7K-Wyl"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="80" translatesAutoresizingMaskIntoConstraints="NO" id="rrI-0A-w3s">
+                    <rect key="frame" x="0.0" y="32" width="80" height="14"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="14" id="BBl-pC-RJq"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PPActionBarTitle"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="R50-Tj-X0W" secondAttribute="trailing" id="2jF-U9-Gei"/>
+                <constraint firstAttribute="trailing" secondItem="rrI-0A-w3s" secondAttribute="trailing" id="LPs-Yx-xz6"/>
+                <constraint firstItem="rrI-0A-w3s" firstAttribute="top" secondItem="W07-Hz-J60" secondAttribute="bottom" constant="-3" id="SMD-s3-Tz5"/>
+                <constraint firstItem="W07-Hz-J60" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="2" id="UJy-Ef-B7E"/>
+                <constraint firstItem="rrI-0A-w3s" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="X6f-tU-o9a"/>
+                <constraint firstItem="R50-Tj-X0W" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ZHQ-XD-E90"/>
+                <constraint firstAttribute="bottom" secondItem="rrI-0A-w3s" secondAttribute="bottom" constant="2" id="Zsi-G2-yc8"/>
+                <constraint firstAttribute="bottom" secondItem="R50-Tj-X0W" secondAttribute="bottom" id="adE-76-Hab"/>
+                <constraint firstItem="R50-Tj-X0W" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="qid-13-F5b"/>
+                <constraint firstItem="W07-Hz-J60" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="rBR-of-5Ha"/>
+                <constraint firstAttribute="trailing" secondItem="W07-Hz-J60" secondAttribute="trailing" id="teM-gm-CX7"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="button" destination="W07-Hz-J60" id="dAN-CS-btL"/>
+                <outlet property="extraBackground" destination="R50-Tj-X0W" id="c90-1d-BSU"/>
+                <outlet property="label" destination="rrI-0A-w3s" id="LMD-pz-agZ"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="154"/>
+        </view>
+    </objects>
+</document>

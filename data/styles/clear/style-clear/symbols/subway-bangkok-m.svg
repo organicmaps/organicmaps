@@ -1,0 +1,9 @@
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <path d="m12 0c-6.6 0-12 5.4-12 12s5.4 12 12 12 12-5.4 12-12-5.4-12-12-12z" fill="#FFF" opacity=".6"/>
+  <path d="m12 1c-6.1 0-11 4.9-11 11s4.9 11 11 11 11-4.9 11-11-4.9-11-11-11z" fill="#0D47A1"/>
+  <g transform="translate(6 6)" fill="#FFF">
+   <path d="m0-1.7764e-15h3l3 5 3-5h3v12h-3v-7.1l-3 4.9-3-4.9v7.1h-3v-12z"/>
+  </g>
+ </g>
+</svg>

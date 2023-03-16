@@ -1,0 +1,10 @@
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>department_store-m</title>
+ <g fill="none" fill-rule="evenodd">
+  <g id="department_store-m" fill-rule="nonzero">
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#fff" opacity=".6"/>
+   <circle id="Oval" cx="12" cy="12" r="11" fill="#8C5F93"/>
+   <path id="Shape" d="m10.636 6.3197 0.37636-0.3864h1.9745l0.37636 0.3864v1.4803h0.90909v-2.2531l-0.53273-0.54693h-3.48l-0.53273 0.54693v2.2531h0.90909v-1.4803zm3.6364 3.3469v3.1864l-0.53273 0.54693h-3.48l-0.53273-0.54693v-3.1864h-2.7273v7.4667c0 1.0304 0.81455 1.8667 1.8182 1.8667h6.3636c1.0036 0 1.8182-0.83627 1.8182-1.8667v-7.4667h-2.7273zm-3.6364 2.4136 0.37636 0.3864h1.9745l0.37636-0.3864v-2.4136h-2.7273v2.4136z" fill="#fff"/>
+  </g>
+ </g>
+</svg>

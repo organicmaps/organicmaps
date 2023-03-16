@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:fillViewport="true"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+  <FrameLayout
+    style="@style/MwmWidget.FrameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true">
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+      <include
+        layout="@layout/recycler_default"
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/bookmark_recycler_view_bottom_margin"/>
+    </LinearLayout>
+  </FrameLayout>
+</androidx.core.widget.NestedScrollView>

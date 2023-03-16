@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<app.organicmaps.widget.HeightLimitedFrameLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:wheel="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="?windowBackgroundForced"
+  android:animateLayoutChanges="true"
+  android:clickable="true"
+  android:clipToPadding="false"
+  android:clipChildren="false">
+  <LinearLayout
+    android:id="@+id/ll__select_download"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:minWidth="@dimen/placeholder_size"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/margin_double"
+    android:paddingStart="@dimen/margin_double_and_half"
+    android:paddingEnd="@dimen/margin_double_and_half">
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:text="@string/search_without_internet_advertisement"
+      android:textAppearance="@style/MwmTextAppearance.Body2"/>
+
+    <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/placeholder_size"
+      android:layout_marginTop="@dimen/margin_half"
+      android:src="@drawable/img_search_no_maps"
+      android:tag="@string/tag_height_limited"/>
+
+    <LinearLayout
+      android:id="@+id/ll__location_determined"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:gravity="center_horizontal"
+      android:orientation="vertical">
+      <TextView
+        android:id="@+id/tv__country_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_half"
+        android:paddingTop="@dimen/margin_half"
+        android:paddingBottom="@dimen/margin_half"
+        android:gravity="center"
+        android:textAppearance="@style/MwmTextAppearance.Title"
+        tools:text="Some country name"/>
+
+      <Button
+        android:id="@+id/btn__download_map"
+        style="@style/MwmWidget.Button.Primary"
+        android:layout_marginTop="@dimen/margin_half"
+        android:text="@string/downloader_download_map"/>
+    </LinearLayout>
+
+    <LinearLayout
+      android:id="@+id/ll__location_unknown"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:gravity="center_horizontal"
+      android:clipToPadding="false"
+      android:clipChildren="false"
+      android:visibility="gone"
+      tools:visibility="visible">
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_block_base"
+        android:layout_marginTop="@dimen/margin_half"
+        android:gravity="center"
+        android:text="@string/unknown_current_position"
+        android:textAppearance="@style/MwmTextAppearance.Body3"/>
+
+      <Button
+        android:id="@+id/btn__select_map"
+        style="@style/MwmWidget.Button.Primary"
+        android:layout_marginTop="@dimen/margin_half"
+        android:text="@string/search_select_map"/>
+    </LinearLayout>
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/ll__active_download"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/margin_double_and_half"
+    android:paddingEnd="@dimen/margin_double_and_half"
+    android:visibility="gone">
+    <TextView
+      android:id="@+id/tv__active_country_name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textAppearance="@style/MwmTextAppearance.Title"/>
+
+    <TextView
+      android:id="@+id/downloader_progress"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/margin_half"
+      android:textAppearance="@style/MwmTextAppearance.Body2"
+      tools:text="1024%"/>
+
+    <app.organicmaps.widget.WheelProgressView
+      android:id="@+id/wpv__download_progress"
+      android:layout_width="@dimen/downloader_status_size"
+      android:layout_height="@dimen/downloader_status_size"
+      android:background="?clickableBackground"
+      wheel:wheelProgressColor="?colorAccent"
+      wheel:wheelSecondaryColor="?dividerHorizontal"
+      wheel:wheelThickness="@dimen/margin_eighth"/>
+  </LinearLayout>
+</app.organicmaps.widget.HeightLimitedFrameLayout>

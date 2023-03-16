@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/title"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:layout_marginBottom="@dimen/margin_half_plus"
+  android:textAppearance="@style/MwmTextAppearance.Title.Toolbar"
+  android:gravity="center_horizontal"
+  tools:text="Some long long long placeholder title"/>

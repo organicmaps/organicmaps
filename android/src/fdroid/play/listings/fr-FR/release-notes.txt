@@ -1,0 +1,10 @@
+• Nouvelles données OpenStreetMap au 27 février
+• Les articles Wikipedia sont désormais cliquables et visibles pour les signets
+• Correction de plusieurs plantages
+• Amélioration aide et dialogues des POI sélectionnés
+• Correction d'heures d'ouverture complexes non affichées
+• Recherche corrigée et améliorée
+• Ajout spécialistes de soins de santé
+• Ajout des tours de communication, des générateurs solaires, éoliens, gaziers et hydroélectriques
+• Amélioration traductions
+…Plus : omaps.app/news

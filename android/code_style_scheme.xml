@@ -1,0 +1,229 @@
+<code_scheme name="maps.me" version="173">
+  <option name="OTHER_INDENT_OPTIONS">
+    <value>
+      <option name="INDENT_SIZE" value="2" />
+      <option name="TAB_SIZE" value="2" />
+    </value>
+  </option>
+  <AndroidXmlCodeStyleSettings>
+    <option name="LAYOUT_SETTINGS">
+      <value>
+        <option name="INSERT_BLANK_LINE_BEFORE_TAG" value="false" />
+        <option name="INSERT_LINE_BREAK_BEFORE_NAMESPACE_DECLARATION" value="true" />
+      </value>
+    </option>
+    <option name="MANIFEST_SETTINGS">
+      <value>
+        <option name="GROUP_TAGS_WITH_SAME_NAME" value="false" />
+        <option name="INSERT_LINE_BREAK_BEFORE_NAMESPACE_DECLARATION" value="true" />
+      </value>
+    </option>
+    <option name="OTHER_SETTINGS">
+      <value>
+        <option name="INSERT_LINE_BREAK_BEFORE_NAMESPACE_DECLARATION" value="true" />
+      </value>
+    </option>
+  </AndroidXmlCodeStyleSettings>
+  <HTMLCodeStyleSettings>
+    <option name="HTML_ATTRIBUTE_WRAP" value="2" />
+    <option name="HTML_KEEP_LINE_BREAKS_IN_TEXT" value="false" />
+    <option name="HTML_ALIGN_TEXT" value="true" />
+    <option name="HTML_INLINE_ELEMENTS" value="a,abbr,acronym,b,basefont,bdo,big,br,cite,cite,code,dfn,em,font,i,img,input,kbd,label,q,s,samp,select,strike,strong,sub,sup,textarea,tt,u,var,span" />
+  </HTMLCodeStyleSettings>
+  <JavaCodeStyleSettings>
+    <option name="FIELD_NAME_PREFIX" value="m" />
+    <option name="STATIC_FIELD_NAME_PREFIX" value="s" />
+    <option name="ALIGN_MULTILINE_ANNOTATION_PARAMETERS" value="true" />
+    <option name="PACKAGES_TO_USE_IMPORT_ON_DEMAND">
+      <value>
+        <package name="java.awt" withSubpackages="false" static="false" />
+        <package name="javax.swing" withSubpackages="false" static="false" />
+      </value>
+    </option>
+    <option name="IMPORT_LAYOUT_TABLE">
+      <value>
+        <package name="android" withSubpackages="true" static="false" />
+        <emptyLine />
+        <package name="" withSubpackages="true" static="false" />
+        <emptyLine />
+        <package name="javax" withSubpackages="true" static="false" />
+        <package name="java" withSubpackages="true" static="false" />
+        <emptyLine />
+        <package name="" withSubpackages="true" static="true" />
+      </value>
+    </option>
+  </JavaCodeStyleSettings>
+  <Objective-C>
+    <option name="INDENT_NAMESPACE_MEMBERS" value="0" />
+    <option name="INDENT_C_STRUCT_MEMBERS" value="2" />
+    <option name="INDENT_CLASS_MEMBERS" value="2" />
+    <option name="INDENT_INSIDE_CODE_BLOCK" value="2" />
+    <option name="KEEP_NESTED_NAMESPACES_IN_ONE_LINE" value="true" />
+    <option name="NAMESPACE_BRACE_PLACEMENT" value="2" />
+    <option name="FUNCTION_BRACE_PLACEMENT" value="2" />
+    <option name="BLOCK_BRACE_PLACEMENT" value="2" />
+  </Objective-C>
+  <XML>
+    <option name="XML_ATTRIBUTE_WRAP" value="2" />
+    <option name="XML_TEXT_WRAP" value="0" />
+    <option name="XML_KEEP_BLANK_LINES" value="0" />
+    <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
+  </XML>
+  <codeStyleSettings language="HTML">
+    <option name="RIGHT_MARGIN" value="150" />
+  </codeStyleSettings>
+  <codeStyleSettings language="JAVA">
+    <option name="KEEP_BLANK_LINES_IN_DECLARATIONS" value="1" />
+    <option name="KEEP_BLANK_LINES_IN_CODE" value="1" />
+    <option name="KEEP_BLANK_LINES_BEFORE_RBRACE" value="0" />
+    <option name="BRACE_STYLE" value="2" />
+    <option name="CLASS_BRACE_STYLE" value="2" />
+    <option name="METHOD_BRACE_STYLE" value="2" />
+    <option name="ELSE_ON_NEW_LINE" value="true" />
+    <option name="CATCH_ON_NEW_LINE" value="true" />
+    <option name="FINALLY_ON_NEW_LINE" value="true" />
+    <option name="ALIGN_MULTILINE_CHAINED_METHODS" value="true" />
+    <option name="ALIGN_MULTILINE_PARAMETERS_IN_CALLS" value="true" />
+    <option name="ALIGN_MULTILINE_BINARY_OPERATION" value="true" />
+    <option name="ALIGN_MULTILINE_ASSIGNMENT" value="true" />
+    <option name="ALIGN_MULTILINE_TERNARY_OPERATION" value="true" />
+    <option name="ALIGN_MULTILINE_THROWS_LIST" value="true" />
+    <option name="ALIGN_MULTILINE_EXTENDS_LIST" value="true" />
+    <option name="ALIGN_MULTILINE_METHOD_BRACKETS" value="true" />
+    <option name="ALIGN_MULTILINE_PARENTHESIZED_EXPRESSION" value="true" />
+    <option name="ALIGN_MULTILINE_ARRAY_INITIALIZER_EXPRESSION" value="true" />
+    <option name="SPACE_WITHIN_ARRAY_INITIALIZER_BRACES" value="true" />
+    <option name="SPACE_BEFORE_ARRAY_INITIALIZER_LBRACE" value="true" />
+    <option name="METHOD_CALL_CHAIN_WRAP" value="5" />
+    <option name="WRAP_ON_TYPING" value="0" />
+    <indentOptions>
+      <option name="INDENT_SIZE" value="2" />
+      <option name="CONTINUATION_INDENT_SIZE" value="4" />
+      <option name="TAB_SIZE" value="2" />
+      <option name="LABEL_INDENT_ABSOLUTE" value="true" />
+    </indentOptions>
+  </codeStyleSettings>
+  <codeStyleSettings language="ObjectiveC">
+    <option name="BRACE_STYLE" value="2" />
+    <option name="CLASS_BRACE_STYLE" value="2" />
+    <indentOptions>
+      <option name="INDENT_SIZE" value="2" />
+      <option name="CONTINUATION_INDENT_SIZE" value="2" />
+      <option name="TAB_SIZE" value="2" />
+    </indentOptions>
+  </codeStyleSettings>
+  <codeStyleSettings language="XML">
+    <indentOptions>
+      <option name="INDENT_SIZE" value="2" />
+      <option name="CONTINUATION_INDENT_SIZE" value="2" />
+      <option name="TAB_SIZE" value="2" />
+    </indentOptions>
+    <arrangement>
+      <rules>
+        <section>
+          <rule>
+            <match>
+              <AND>
+                <NAME>xmlns:android</NAME>
+                <XML_ATTRIBUTE />
+                <XML_NAMESPACE>^$</XML_NAMESPACE>
+              </AND>
+            </match>
+          </rule>
+        </section>
+        <section>
+          <rule>
+            <match>
+              <AND>
+                <NAME>xmlns:.*</NAME>
+                <XML_ATTRIBUTE />
+                <XML_NAMESPACE>^$</XML_NAMESPACE>
+              </AND>
+            </match>
+            <order>BY_NAME</order>
+          </rule>
+        </section>
+        <section>
+          <rule>
+            <match>
+              <AND>
+                <NAME>.*:id</NAME>
+                <XML_ATTRIBUTE />
+                <XML_NAMESPACE>http://schemas.android.com/apk/res/android</XML_NAMESPACE>
+              </AND>
+            </match>
+          </rule>
+        </section>
+        <section>
+          <rule>
+            <match>
+              <AND>
+                <NAME>.*:name</NAME>
+                <XML_ATTRIBUTE />
+                <XML_NAMESPACE>http://schemas.android.com/apk/res/android</XML_NAMESPACE>
+              </AND>
+            </match>
+          </rule>
+        </section>
+        <section>
+          <rule>
+            <match>
+              <AND>
+                <NAME>name</NAME>
+                <XML_ATTRIBUTE />
+                <XML_NAMESPACE>^$</XML_NAMESPACE>
+              </AND>
+            </match>
+          </rule>
+        </section>
+        <section>
+          <rule>
+            <match>
+              <AND>
+                <NAME>style</NAME>
+                <XML_ATTRIBUTE />
+                <XML_NAMESPACE>^$</XML_NAMESPACE>
+              </AND>
+            </match>
+          </rule>
+        </section>
+        <section>
+          <rule>
+            <match>
+              <AND>
+                <NAME>.*</NAME>
+                <XML_ATTRIBUTE />
+                <XML_NAMESPACE>^$</XML_NAMESPACE>
+              </AND>
+            </match>
+            <order>BY_NAME</order>
+          </rule>
+        </section>
+        <section>
+          <rule>
+            <match>
+              <AND>
+                <NAME>.*</NAME>
+                <XML_ATTRIBUTE />
+                <XML_NAMESPACE>http://schemas.android.com/apk/res/android</XML_NAMESPACE>
+              </AND>
+            </match>
+            <order>ANDROID_ATTRIBUTE_ORDER</order>
+          </rule>
+        </section>
+        <section>
+          <rule>
+            <match>
+              <AND>
+                <NAME>.*</NAME>
+                <XML_ATTRIBUTE />
+                <XML_NAMESPACE>.*</XML_NAMESPACE>
+              </AND>
+            </match>
+            <order>BY_NAME</order>
+          </rule>
+        </section>
+      </rules>
+    </arrangement>
+  </codeStyleSettings>
+</code_scheme>

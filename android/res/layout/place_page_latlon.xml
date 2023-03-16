@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/ll__place_latlon"
+  style="@style/PlacePageItemFrame"
+  android:tag="latlon"
+  android:visibility="visible"
+  tools:background="#20FF0000">
+
+  <ImageView
+    android:id="@+id/iv__place_latlon"
+    style="@style/PlacePageMetadataIcon"
+    android:src="@drawable/ic_coordinates" />
+
+  <TextView
+    android:id="@+id/tv__place_latlon"
+    style="@style/PlacePageMetadataText"
+    tools:text="55.747, 37.616" />
+</LinearLayout>

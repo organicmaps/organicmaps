@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:drawable="@drawable/ic_menu_location_pending_1"
+        android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_2"
+        android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_3"
+        android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_4"
+        android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_5"
+        android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_6"
+        android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_7"
+        android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_8"
+        android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_9"
+    android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_10"
+    android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_11"
+    android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_12"
+    android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_13"
+    android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_14"
+    android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_15"
+    android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_16"
+    android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_17"
+    android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_18"
+    android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_19"
+    android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_20"
+    android:duration="@integer/anim_location_pending_item"/>
+</animation-list>

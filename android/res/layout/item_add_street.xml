@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="@dimen/height_item_oneline"
+  android:background="?clickableBackground"
+  android:gravity="center_vertical"
+  android:orientation="horizontal"
+  android:padding="@dimen/margin_base">
+
+  <ImageView
+    android:layout_width="24dp"
+    android:layout_height="24dp"
+    android:layout_marginEnd="@dimen/margin_double"
+    android:scaleType="centerCrop"
+    android:src="@drawable/ic_plus"
+    app:tint="?colorAccent" />
+
+  <TextView
+    android:id="@+id/street"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:singleLine="true"
+    android:text="@string/add_street"
+    android:textAppearance="@style/MwmTextAppearance.Body1"
+    android:textColor="?colorAccent"/>
+
+</LinearLayout>

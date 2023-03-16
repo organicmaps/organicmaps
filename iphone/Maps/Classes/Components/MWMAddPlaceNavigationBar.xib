@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="BJ6-My-yAy" customClass="MWMAddPlaceNavigationBar" propertyAccessControl="none">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IhK-ce-TXk">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <color key="backgroundColor" red="0.1176470588" green="0.58823529409999997" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PrimaryBackground"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZKD-Be-eMp">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zs9-MX-bIe">
+                            <rect key="frame" x="258" y="12" width="54" height="19"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="19" id="psK-YU-lUF"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <state key="normal" title="Готово"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="NavigationBarItem"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="done"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="doneTap" destination="BJ6-My-yAy" eventType="touchUpInside" id="hS1-Tz-6Zo"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Местоположение" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8So-22-JS1">
+                            <rect key="frame" x="89.5" y="12" width="141" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="JFT-iW-rJY"/>
+                                <constraint firstAttribute="height" constant="20" id="mun-d1-wdT"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="NavigationBarItem"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_add_select_location"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="boX-sU-7DW">
+                            <rect key="frame" x="8" y="12" width="62" height="19"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="19" id="KDz-RG-UH2"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <state key="normal" title="Отмена"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="NavigationBarItem"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="cancel"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="cancelTap" destination="BJ6-My-yAy" eventType="touchUpInside" id="f2O-El-juu"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.1176470588" green="0.58823529409999997" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="5VI-KR-aXh"/>
+                        <constraint firstItem="zs9-MX-bIe" firstAttribute="top" secondItem="ZKD-Be-eMp" secondAttribute="top" constant="12" id="BNr-Gr-o3j"/>
+                        <constraint firstItem="8So-22-JS1" firstAttribute="top" secondItem="ZKD-Be-eMp" secondAttribute="top" constant="12" id="CCm-fM-FcD"/>
+                        <constraint firstItem="boX-sU-7DW" firstAttribute="top" secondItem="ZKD-Be-eMp" secondAttribute="top" constant="12" id="Ofu-8n-bBo"/>
+                        <constraint firstItem="boX-sU-7DW" firstAttribute="leading" secondItem="ZKD-Be-eMp" secondAttribute="leading" constant="8" id="Sbg-dn-iro"/>
+                        <constraint firstAttribute="trailing" secondItem="zs9-MX-bIe" secondAttribute="trailing" constant="8" id="jiJ-gk-0bx"/>
+                        <constraint firstItem="8So-22-JS1" firstAttribute="centerX" secondItem="ZKD-Be-eMp" secondAttribute="centerX" id="m6T-st-PPz"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PrimaryBackground"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UsM-Al-MCC">
+                    <rect key="frame" x="0.0" y="44" width="320" height="56"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Потяните карту, чтобы выбрать правильное местоположение места. " lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R6E-kO-6Lb">
+                            <rect key="frame" x="14" y="16" width="292" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular12:blackSecondaryText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_focus_map_on_location"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="R6E-kO-6Lb" firstAttribute="leading" secondItem="UsM-Al-MCC" secondAttribute="leadingMargin" constant="6" id="F0k-Ua-uzh"/>
+                        <constraint firstItem="R6E-kO-6Lb" firstAttribute="top" secondItem="UsM-Al-MCC" secondAttribute="topMargin" constant="8" id="G1O-ji-PsY"/>
+                        <constraint firstAttribute="height" constant="56" id="RVj-Yg-4Hc"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="R6E-kO-6Lb" secondAttribute="trailing" constant="6" id="cRp-da-FUC"/>
+                        <constraint firstAttribute="bottomMargin" secondItem="R6E-kO-6Lb" secondAttribute="bottom" constant="2" id="e1g-Jr-sY9"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MenuBackground"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="top" secondItem="IhK-ce-TXk" secondAttribute="top" id="B9q-oF-68E"/>
+                <constraint firstItem="UsM-Al-MCC" firstAttribute="leading" secondItem="BJ6-My-yAy" secondAttribute="leading" id="C3j-SM-MSO"/>
+                <constraint firstItem="ZKD-Be-eMp" firstAttribute="leading" secondItem="BJ6-My-yAy" secondAttribute="leading" id="Ckp-sr-B7c"/>
+                <constraint firstItem="ZKD-Be-eMp" firstAttribute="top" secondItem="tvs-e8-vSU" secondAttribute="top" id="Drs-L4-75n"/>
+                <constraint firstItem="IhK-ce-TXk" firstAttribute="leading" secondItem="tvs-e8-vSU" secondAttribute="leading" id="E1h-R5-QaY"/>
+                <constraint firstAttribute="bottom" secondItem="UsM-Al-MCC" secondAttribute="bottom" id="Eii-Wt-WAj"/>
+                <constraint firstItem="tvs-e8-vSU" firstAttribute="trailing" secondItem="IhK-ce-TXk" secondAttribute="trailing" id="FcR-B0-Kwb"/>
+                <constraint firstAttribute="trailing" secondItem="UsM-Al-MCC" secondAttribute="trailing" id="FrY-zu-zwd"/>
+                <constraint firstItem="UsM-Al-MCC" firstAttribute="top" secondItem="IhK-ce-TXk" secondAttribute="bottom" id="Tfo-lj-gPb"/>
+                <constraint firstAttribute="trailing" secondItem="ZKD-Be-eMp" secondAttribute="trailing" id="Yrh-qN-0sk"/>
+                <constraint firstItem="IhK-ce-TXk" firstAttribute="bottom" secondItem="ZKD-Be-eMp" secondAttribute="bottom" id="fae-mk-c1a"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="tvs-e8-vSU"/>
+            <point key="canvasLocation" x="321.60000000000002" y="248.27586206896552"/>
+        </view>
+    </objects>
+</document>

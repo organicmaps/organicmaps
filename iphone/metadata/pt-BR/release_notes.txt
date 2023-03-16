@@ -1,0 +1,12 @@
+• Novos dados OSM de 27 de fevereiro
+• Correção de bug no iPad quando um teclado era conectado
+• Correção de duplo clique desnecessário no botão de rota
+• Remoção de campos de preenchimento duplicados de número de andares e CEP
+• Ativação do editor de notas OpenStreetMap para todos os lugares selecionados
+• Correção e melhoria na busca
+• Divisão de cozinha vegana e vegetariana na busca
+• Correção de estilos para aeroportos, usos de terra, vias navegáveis e áreas hachuradas
+• Adição de especialidades de saúde: alternativa, audiologista, coleta de amostras, doação de sangue, optometrista, podólogo, psicoterapeuta e terapeuta da fala
+• Adição de torres de comunicação e geradores solares, eólicos, a gás e hidrelétricos
+
+Acompanhe nossas novidades em omaps.app/news

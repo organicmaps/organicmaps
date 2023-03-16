@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+  <!-- Default theme -->
+  <style name="MwmTheme.Base" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+    <item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar</item>
+    <item name="materialCalendarFullscreenTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen</item>
+    <item name="materialCalendarTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar</item>
+    <item name="android:listViewStyle">@style/MwmWidget.ListView</item>
+    <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
+    <item name="android:forceDarkAllowed" tools:targetApi="Q">false</item>
+
+    <item name="android:textColorPrimary">@color/text_dark</item>
+    <item name="android:textColorPrimaryInverse">@color/text_light</item>
+    <item name="android:textColorSecondary">@color/text_dark_subtitle</item>
+    <item name="android:windowBackground">?windowBackgroundForced</item>
+    <item name="android:colorPrimaryDark">@color/bg_primary_dark</item>
+    <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    <item name="android:fontFamily">@string/robotoRegular</item>
+    <item name="android:colorBackgroundCacheHint">@null</item>
+    <item name="android:windowActionBarOverlay">true</item>
+    <item name="clickableBackground">?selectableItemBackground</item>
+    <item name="android:statusBarColor">?colorPrimary</item>
+    <item name="alertDialogTheme">@style/MwmTheme.AlertDialog</item>
+    <item name="windowBackgroundForced">@color/bg_window</item>
+    <item name="cardBackground">@color/bg_cards</item>
+    <item name="titleDialogTheme">@color/black_primary</item>
+    <item name="textDialogTheme">@color/black_secondary</item>
+    <item name="fullscreenDialogTheme">@style/MwmTheme.DialogFragment.Fullscreen</item>
+    <item name="colorPrimary">@color/bg_primary</item>
+    <item name="colorControlNormal">?secondary</item>
+    <item name="colorAccent">@color/base_accent</item>
+    <item name="colorBtnHighlight">@color/white_38</item>
+    <item name="panel">@color/bg_panel</item>
+    <item name="colorLogo">@color/bg_primary</item>
+    <item name="iconTint">@color/black_54</item>
+    <item name="iconTintDisabled">@color/black_12</item>
+    <item name="iconTintActive">@color/yellow</item>
+    <item name="iconTintLight">@color/icon_tint_light</item>
+
+    <item name="secondary">@color/text_dark_hint</item>
+    <item name="dividerHorizontal">@color/divider</item>
+
+    <item name="ppBackground">@color/bg_cards</item>
+    <item name="ppButtonsBackground">?panel</item>
+
+    <item name="navNextTurnFrame">@drawable/bg_nav_next_turn</item>
+    <item name="navNextNextTurnFrame">@drawable/bg_nav_next_next_turn</item>
+
+    <item name="buttonBackground">@drawable/button</item>
+    <item name="buttonTextColor">@color/button_text</item>
+    <item name="buttonTextColorDisabled">@color/button_text_disabled</item>
+    <item name="buttonDialogTextColor">@color/base_accent</item>
+
+    <item name="accentButtonBackground">@drawable/button_accent</item>
+    <item name="accentButtonTextColor">@color/button_text_accent</item>
+    <!-- TODO: remove accentButtonTextColorDisabled attribute and use everywhere
+               accentButtonTextColor selector -->
+    <item name="accentButtonTextColorDisabled">@color/button_accent_text_disabled</item>
+
+    <item name="redButtonBackground">@drawable/button_red</item>
+    <item name="redButtonTextColor">@color/button_red_text</item>
+    <item name="redButtonTextColorDisabled">@color/button_red_text_disabled</item>
+
+    <item name="primaryButtonBackground">@drawable/button_accent</item>
+
+    <item name="menuBackground">@color/bg_menu</item>
+
+    <item name="myPositionButtonAnimation">@drawable/anim_myposition_pending</item>
+    <item name="wheelPendingAnimation">@drawable/anim_spinner_pending</item>
+    <item name="trafficLoadingAnimation">@drawable/anim_traffic_loading</item>
+
+    <item name="navButtonsThemeRect">@style/MwmTheme.NavButtonsRect</item>
+    <item name="navButtonsThemeRound">@style/MwmTheme.NavButtonsRound</item>
+    <item name="downloaderTheme">@style/MwmTheme.Downloader</item>
+    <item name="navigationTheme">@style/MwmTheme.Navigation</item>
+
+    <item name="routingButtonHint">@color/routing_button_tint</item>
+
+    <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+
+    <item name="android:listDivider">@drawable/list_divider</item>
+
+    <!-- if don't override this attribute the app will be crashed on start on Android 4.xx,
+      because on old prelolipop devices vector drawables don't work correctly -->
+    <item name="homeAsUpIndicator">@drawable/back_arrow</item>
+
+    <item name="transitPedestrianBackground">@color/black_4</item>
+    <item name="transitStepDivider">@drawable/dot_divider</item>
+    <item name="trafficMenuEnabled">@drawable/ic_layers_traffic_active</item>
+    <item name="subwayMenuEnabled">@drawable/ic_layers_subway_active</item>
+    <item name="isoLinesMenuEnabled">@drawable/ic_layers_isoline_active</item>
+    <item name="trafficMenuDisabled">@drawable/ic_layers_traffic_inactive</item>
+    <item name="subwayMenuDisabled">@drawable/ic_layers_subway_inactive</item>
+    <item name="isoLinesMenuDisabled">@drawable/ic_layers_isoline_inactive</item>
+    <item name="accentColorSelector">@color/accent_color_selector</item>
+    <item name="icClearRounded">@drawable/ic_clear_rounded</item>
+    <item name="android:textAppearance">@style/TextAppearance</item>
+    <item name="android:textAppearanceSmall">@style/TextAppearance.Small</item>
+    <item name="android:textAppearanceMedium">@style/TextAppearance.Medium</item>
+    <item name="android:textAppearanceLarge">@style/TextAppearance.Large</item>
+    <item name="android:textAppearanceInverse">@style/TextAppearance.Inverse</item>
+    <item name="android:textAppearanceSmallInverse">@style/TextAppearance.Small.Inverse</item>
+    <item name="android:textAppearanceMediumInverse">@style/TextAppearance.Medium.Inverse</item>
+    <item name="android:textAppearanceLargeInverse">@style/TextAppearance.Large.Inverse</item>
+    <item name="fontHeadline1">@style/TextAppearance.MdcTypographyStyles.Headline1</item>
+    <item name="fontHeadline2">@style/TextAppearance.MdcTypographyStyles.Headline2</item>
+    <item name="fontHeadline3">@style/TextAppearance.MdcTypographyStyles.Headline3</item>
+    <item name="fontHeadline4">@style/TextAppearance.MdcTypographyStyles.Headline4</item>
+    <item name="fontHeadline5">@style/TextAppearance.MaterialComponents.Headline5</item>
+    <item name="fontHeadline6">@style/TextAppearance.MdcTypographyStyles.Headline6</item>
+    <item name="fontSubtitle1">@style/TextAppearance.MdcTypographyStyles.Subtitle1</item>
+    <item name="fontSubtitle2">@style/TextAppearance.MdcTypographyStyles.Subtitle2</item>
+    <item name="fontBody1">@style/TextAppearance.MdcTypographyStyles.Body1</item>
+    <item name="fontBody2">@style/TextAppearance.MdcTypographyStyles.Body2</item>
+    <item name="fontButton">@style/TextAppearance.MdcTypographyStyles.Button</item>
+    <item name="fontCaption">@style/TextAppearance.MdcTypographyStyles.Caption</item>
+    <item name="fontOverline">@style/TextAppearance.MdcTypographyStyles.Overline</item>
+    <item name="drivingOptionsViewBg">@color/light_green</item>
+    <item name="elevationProfilePropertyBg">@drawable/bg_rounded_rect</item>
+    <item name="elevationProfilePropIconTint">@color/black_secondary</item>
+    <item name="altitudeBg">@drawable/bg_altitude</item>
+    <item name="elevationProfileAxisLabelColor">@color/black_54</item>
+    <item name="elevationProfileYourLocationPinBg">@drawable/bg_your_location_pin</item>
+    <item name="elevationProfileSelectedPointBg">@drawable/bg_point_desc</item>
+    <item name="elevationProfileSelectedPointTriangle">@drawable/ic_triangle</item>
+    <item name="elevationProfileFloatingTriangle">@drawable/ic_triangle_elevation</item>
+    <item name="elevationProfileColor">@color/elevation_profile</item>
+    <item name="android:popupMenuStyle">@style/PopupMenu</item>
+
+    <!-- Style used for bottom sheet behavior components -->
+    <item name="bottomSheetStyle">@style/MwmWidget.BottomSheet</item>
+    <!-- Theme used for bottom sheet dialog components -->
+    <item name="bottomSheetDialogTheme">@style/MwmTheme.BottomSheetDialog</item>
+  </style>
+
+  <!-- Night theme -->
+  <style name="MwmTheme.Night.Base" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+    <item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar</item>
+    <item name="materialCalendarFullscreenTheme">@style/MwmWidget.MaterialCalendar.Theme.FullScreen.Dark</item>
+    <item name="materialCalendarTheme">@style/MwmWidget.MaterialCalendar.Theme.Dark</item>
+    <item name="android:listViewStyle">@style/MwmWidget.ListView</item>
+    <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
+    <item name="android:forceDarkAllowed" tools:targetApi="Q">false</item>
+
+    <item name="android:textColorPrimary">@color/text_light</item>
+    <item name="android:textColorPrimaryInverse">@color/text_dark</item>
+    <item name="android:textColorSecondary">@color/text_light_subtitle</item>
+    <item name="android:windowBackground">?windowBackgroundForced</item>
+    <item name="android:colorPrimaryDark">@color/bg_primary_dark_night</item>
+    <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    <item name="android:fontFamily">@string/robotoRegular</item>
+    <item name="android:colorBackgroundCacheHint">@null</item>
+    <item name="android:windowActionBarOverlay">true</item>
+    <item name="clickableBackground">?selectableItemBackground</item>
+    <item name="android:statusBarColor">?colorPrimary</item>
+
+    <item name="alertDialogTheme">@style/MwmTheme.Night.AlertDialog</item>
+    <item name="windowBackgroundForced">@color/bg_window_night</item>
+    <item name="cardBackground">@color/bg_cards_night</item>
+    <item name="titleDialogTheme">@color/white_primary</item>
+    <item name="textDialogTheme">@color/white_secondary</item>
+    <item name="fullscreenDialogTheme">@style/MwmTheme.DialogFragment.Fullscreen.Night</item>
+    <item name="colorPrimary">@color/bg_primary_night</item>
+    <item name="colorControlNormal">?secondary</item>
+    <item name="colorAccent">@color/base_accent_night</item>
+    <item name="colorBtnHighlight">@color/white_24</item>
+    <item name="panel">@color/bg_panel_night</item>
+    <item name="colorLogo">@color/white_primary</item>
+    <item name="iconTint">@color/white_secondary</item>
+    <item name="iconTintDisabled">@color/white_12</item>
+    <item name="iconTintActive">@color/yellow</item>
+    <item name="iconTintLight">@color/icon_tint_light_night</item>
+
+    <item name="secondary">@color/text_light_hint</item>
+    <item name="dividerHorizontal">@color/divider_night</item>
+
+    <item name="ppBackground">@color/bg_cards_night</item>
+    <item name="ppButtonsBackground">@color/bg_window_night</item>
+
+    <item name="navNextTurnFrame">@drawable/bg_nav_next_turn_night</item>
+    <item name="navNextNextTurnFrame">@drawable/bg_nav_next_next_turn_night</item>
+
+    <item name="buttonBackground">@drawable/button_night</item>
+    <item name="buttonTextColor">@color/button_text_night</item>
+    <item name="buttonTextColorDisabled">@color/button_text_disabled_night</item>
+    <item name="buttonDialogTextColor">@color/base_accent_night</item>
+
+    <item name="accentButtonBackground">@drawable/button_accent_night</item>
+    <item name="accentButtonTextColor">@color/button_accent_text_night</item>
+    <!-- TODO: remove accentButtonTextColorDisabled attribute and use everywhere
+               accentButtonTextColor selector -->
+    <item name="accentButtonTextColorDisabled">@color/button_accent_text_disabled_night</item>
+
+    <item name="redButtonBackground">@drawable/button_red</item>
+    <item name="redButtonTextColor">@color/button_red_text</item>
+    <item name="redButtonTextColorDisabled">@color/button_red_text_disabled</item>
+
+    <item name="primaryButtonBackground">@drawable/button_accent</item>
+
+    <item name="menuBackground">@color/bg_menu_night</item>
+
+    <item name="myPositionButtonAnimation">@drawable/anim_myposition_pending_night</item>
+    <item name="wheelPendingAnimation">@drawable/anim_spinner_pending</item>
+    <item name="trafficLoadingAnimation">@drawable/anim_traffic_loading_night</item>
+
+    <item name="navButtonsThemeRect">@style/MwmTheme.NavButtonsRect.Night</item>
+    <item name="navButtonsThemeRound">@style/MwmTheme.NavButtonsRound.Night</item>
+    <item name="downloaderTheme">@style/MwmTheme.Downloader.Night</item>
+    <item name="navigationTheme">@style/MwmTheme.Navigation.Night</item>
+
+    <item name="routingButtonHint">@color/routing_button_tint</item>
+
+    <item name="android:listDivider">@drawable/list_divider_night</item>
+
+    <!-- if don't override this attribute the app will be crashed on start on Android 4.xx,
+      because on old prelolipop devices vector drawables don't work correctly -->
+    <item name="homeAsUpIndicator">@drawable/back_arrow</item>
+
+    <item name="transitPedestrianBackground">@color/white_4</item>
+    <item name="transitStepDivider">@drawable/dot_divider_night</item>
+    <item name="trafficMenuEnabled">@drawable/ic_layers_traffic_active_night</item>
+    <item name="subwayMenuEnabled">@drawable/ic_layers_subway_active_night</item>
+    <item name="isoLinesMenuEnabled">@drawable/ic_layers_isoline_active_night</item>
+    <item name="accentColorSelector">@color/accent_color_selector_night</item>
+    <item name="icClearRounded">@drawable/ic_clear_rounded_night</item>
+    <item name="android:textAppearance">@style/TextAppearance</item>
+    <item name="android:textAppearanceSmall">@style/TextAppearance.Small</item>
+    <item name="android:textAppearanceMedium">@style/TextAppearance.Medium</item>
+    <item name="android:textAppearanceLarge">@style/TextAppearance.Large</item>
+    <item name="fontHeadline1">@style/TextAppearance.MdcTypographyStyles.Headline1</item>
+    <item name="fontHeadline2">@style/TextAppearance.MdcTypographyStyles.Headline2</item>
+    <item name="fontHeadline3">@style/TextAppearance.MdcTypographyStyles.Headline3</item>
+    <item name="fontHeadline4">@style/TextAppearance.MdcTypographyStyles.Headline4</item>
+    <item name="fontHeadline5">@style/TextAppearance.MaterialComponents.Headline5</item>
+    <item name="fontHeadline6">@style/TextAppearance.MdcTypographyStyles.Headline6</item>
+    <item name="fontSubtitle1">@style/TextAppearance.MdcTypographyStyles.Subtitle1</item>
+    <item name="fontSubtitle2">@style/TextAppearance.MdcTypographyStyles.Subtitle2</item>
+    <item name="fontBody1">@style/TextAppearance.MdcTypographyStyles.Body1</item>
+    <item name="fontBody2">@style/TextAppearance.MdcTypographyStyles.Body2</item>
+    <item name="fontButton">@style/TextAppearance.MdcTypographyStyles.Button</item>
+    <item name="fontCaption">@style/TextAppearance.MdcTypographyStyles.Caption</item>
+    <item name="fontOverline">@style/TextAppearance.MdcTypographyStyles.Overline</item>
+    <item name="drivingOptionsViewBg">@color/driving_options_bg_black</item>
+    <item name="elevationProfilePropertyBg">@drawable/bg_rounded_rect_night</item>
+    <item name="elevationProfilePropIconTint">@color/white_secondary</item>
+    <item name="altitudeBg">@drawable/bg_altitude_night</item>
+    <item name="elevationProfileAxisLabelColor">@color/white_54</item>
+    <item name="elevationProfileYourLocationPinBg">@drawable/bg_your_location_pin_night</item>
+    <item name="elevationProfileSelectedPointBg">@drawable/bg_point_desc_night</item>
+    <item name="elevationProfileSelectedPointTriangle">@drawable/ic_triangle_night</item>
+    <item name="elevationProfileFloatingTriangle">@drawable/ic_triangle_elevation_night</item>
+    <item name="elevationProfileColor">@color/elevation_profile_dark</item>
+    <item name="android:popupMenuStyle">@style/PopupMenu.Dark</item>
+
+    <item name="bottomSheetStyle">@style/MwmWidget.BottomSheet</item>
+    <item name="bottomSheetDialogTheme">@style/MwmTheme.BottomSheetDialog</item>
+  </style>
+</resources>

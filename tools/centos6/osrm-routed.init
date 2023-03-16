@@ -1,0 +1,82 @@
+#! /bin/sh
+#
+# chkconfig: - 55 45
+# description:  osrm-routed - OpenStreetMap routing machine daemon.
+# processname: osrm-routed
+# config: /etc/sysconfig/osrm-routed
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+prog="osrm-routed"
+PORT=10000
+USER=osrm
+THREADS=8
+BORDERS_DIR="/usr/share/omim/data"
+BASE_OSRM="/home/mapsme/planet-latest.osrm"
+PIDFILE="/var/run/osrm-routed/osrm-routed.pid"
+OPTIONS=""
+LOCKFILE="/var/lock/subsys/osrm-routed"
+
+if [ -f /etc/sysconfig/osrm-routed ];then
+    . /etc/sysconfig/osrm-routed
+fi
+
+# Check that networking is up.
+if [ "$NETWORKING" = "no" ]
+then
+    exit 0
+fi
+
+RETVAL=0
+
+start () {
+    echo -n $"Starting $prog: "
+    # insure that /var/run/osrm-routed has proper permissions
+    chown $USER /var/run/osrm-routed
+    daemon --check=$prog --user $USER --pidfile $PIDFILE "(cd /; $prog $BASE_OSRM --borders $BORDERS_DIR --port $PORT --threads $THREADS $OPTIONS </dev/null 2>&1 & echo \$! > $PIDFILE) | /bin/logger -t $prog &"
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch $LOCKFILE
+}
+
+stop () {
+    echo -n $"Stopping $prog: "
+    killproc -p $PIDFILE osrm-routed
+    RETVAL=$?
+    echo
+    if [ $RETVAL -eq 0 ] ; then
+        rm -f $LOCKFILE
+        rm -f $PIDFILE
+    fi
+}
+
+restart () {
+    stop
+    start
+}
+
+
+# See how we were called.
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+    stop
+    ;;
+    status)
+    status osrm-routed
+    ;;
+    restart|reload)
+    restart
+    ;;
+    condrestart)
+    [ -f $LOCKFILE ] && restart || :
+    ;;
+    *)
+    echo $"Usage: $0 {start|stop|status|restart|reload|condrestart}"
+    exit 1
+esac
+
+exit $?

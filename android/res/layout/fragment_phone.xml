@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <FrameLayout
+        style="@style/MwmWidget.FrameLayout.Elevation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?windowBackgroundForced"
+        android:layout_above="@+id/tv__mode_switch"
+        android:layout_below="@id/toolbar">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/phones_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?cardBackground"
+            android:scrollbars="vertical" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv__append_phone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_block_base"
+        android:layout_alignParentBottom="true"
+        android:background="?clickableBackground"
+        android:gravity="center_vertical"
+        android:padding="@dimen/margin_base"
+        android:text="@string/editor_add_phone"
+        android:textAllCaps="true"
+        android:textAppearance="@style/MwmTextAppearance.Body3"
+        android:textColor="?colorAccent"/>
+
+    <include
+        layout="@layout/shadow_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/tv__mode_switch"/>
+
+</RelativeLayout>

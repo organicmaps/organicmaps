@@ -1,0 +1,13 @@
+• Neue OpenStreetMap-Daten vom 27. Februar
+• Einfrieren auf dem iPad behoben, wenn eine Tastatur angeschlossen ist
+• Unnötiger Doppelklick auf die Schaltfläche "Route" behoben
+• Doppelte Eingabezellen bei Stockwerke und Postleitzahlen wurden entfernt
+• OpenStreetMap-Editor-Notizen für alle ausgewählten Orte aktiviert
+• Suche wurde korrigiert und verbessert
+• Vegane und vegetarische Küche in der Suche aufgeteilt
+• Stile für Flughäfen, Landstriche, Wasserstraßen und schraffierte Füllbereiche korrigiert
+• Gesundheitsspezialisten hinzugefügt: Alternativmedizin, Audiologe, Blutspende, Optometrist, Podologe, Psychotherapeut, Probensammlung, Logopäde
+• Funktürme, Solar-, Wind-, Gas- und Wassergeneratoren hinzugefügt
+• Verbesserte Übersetzungen für Arabisch, Norwegisch, Portugiesisch und Türkisch
+
+Verfolge unsere Neuigkeiten unter omaps.app/news

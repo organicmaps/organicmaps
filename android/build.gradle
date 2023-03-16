@@ -1,0 +1,507 @@
+buildscript {
+  repositories {
+    google()
+    mavenCentral()
+  }
+
+  //
+  // The magic below is needed to disable Google Mobile Services (a.k.a GMS) and
+  // Google Firebase Services during the build time. Unfortunately, the only way
+  // to disable Gradle plugins is to add these hardcore switches to buildscript().
+  //
+
+  // Detect flavors from the task name.
+  def taskName = getGradle().getStartParameter().getTaskRequests().toString().toLowerCase()
+  def isFdroid = taskName.contains("fdroid")
+  def isBeta = taskName.contains("beta")
+
+  // Enable Google Mobile Services for all flavors except fdroid.
+  def googleMobileServicesDefault = !isFdroid
+  // Add a parameter to force GMS.
+  ext.googleMobileServicesEnabled = project.hasProperty('gms') ?: googleMobileServicesDefault
+
+  // Enable Firebase for all beta flavors except fdroid only if google-services.json exists.
+  def googleFirebaseServicesDefault = isBeta && !isFdroid && file('google-services.json').exists()
+  // Add a parameter to force Firebase.
+  ext.googleFirebaseServicesEnabled = project.hasProperty('firebase') ?: googleFirebaseServicesDefault
+
+  dependencies {
+    classpath 'com.android.tools.build:gradle:7.4.2'
+
+    if (googleMobileServicesEnabled) {
+      println("Building with Google Mobile Services")
+      classpath 'com.google.gms:google-services:4.3.15'
+    } else {
+      println("Building without Google Services")
+    }
+
+    if (googleFirebaseServicesEnabled) {
+      println("Building with Google Firebase Services")
+      classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.4'
+      classpath 'com.google.firebase:firebase-appdistribution-gradle:4.0.0'
+    } else {
+      println("Building without Google Firebase Services")
+    }
+
+    classpath("com.github.triplet.gradle:play-publisher:3.8.1")
+    classpath("ru.cian:huawei-publish-gradle-plugin:1.3.5")
+  }
+}
+
+repositories {
+  google()
+  mavenCentral()
+  maven { url 'https://www.jitpack.io' } // MPAndroidChart
+}
+
+apply plugin: 'com.android.application'
+apply from: 'secure.properties'
+if (googleMobileServicesEnabled) {
+  apply plugin: 'com.google.gms.google-services'
+}
+if (googleFirebaseServicesEnabled) {
+  apply plugin: 'com.google.firebase.crashlytics'
+  apply plugin: 'com.google.firebase.appdistribution'
+}
+apply plugin: 'com.github.triplet.play'
+apply plugin: 'ru.cian.huawei-publish-gradle-plugin'
+
+dependencies {
+  // Google Mobile Services
+  if (googleMobileServicesEnabled) {
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+  }
+
+  // Google Firebase Services
+  if (googleFirebaseServicesEnabled) {
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:31.2.3')
+    // Add the dependencies for the Crashlytics and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-crashlytics-ndk'
+  }
+
+  // This line is added as a workaround for duplicate classes error caused by some outdated dependency:
+  // > A failure occurred while executing com.android.build.gradle.internal.tasks.CheckDuplicatesRunnable
+  // We don't use Kotlin, but some dependencies are actively using it.
+  implementation(platform('org.jetbrains.kotlin:kotlin-bom:1.8.10'))
+  implementation 'androidx.annotation:annotation:1.6.0'
+  implementation 'androidx.appcompat:appcompat:1.6.1'
+  implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+  implementation 'androidx.fragment:fragment:1.5.5'
+  implementation 'androidx.preference:preference:1.2.0'
+  implementation 'androidx.recyclerview:recyclerview:1.3.0'
+  implementation 'androidx.work:work-runtime:2.8.0'
+  implementation 'com.google.android.material:material:1.8.0'
+  implementation 'com.google.code.gson:gson:2.10.1'
+  implementation 'com.github.devnullorthrow:MPAndroidChart:3.2.0-alpha'
+  implementation 'net.jcip:jcip-annotations:1.0'
+
+  // Test Dependencies
+  testImplementation 'junit:junit:4.13.2'
+  testImplementation 'org.mockito:mockito-core:5.1.1'
+  testImplementation 'org.mockito:mockito-inline:5.1.1'
+}
+
+def run(cmd) {
+  def stdout = new ByteArrayOutputStream()
+  exec {
+    commandLine = cmd
+    standardOutput = stdout
+  }
+  return stdout.toString()
+}
+
+
+import com.github.triplet.gradle.androidpublisher.ReleaseStatus
+import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
+
+def getVersion() {
+  def isWindows = DefaultNativePlatform.getCurrentOperatingSystem().isWindows()
+  def bash = isWindows ? 'C:\\Program Files\\Git\\bin\\bash.exe' : 'bash'
+  def versionCode = Integer.parseInt(run([bash, '../tools/unix/version.sh', 'android_code']).trim())
+  def versionName = run([bash, '../tools/unix/version.sh', 'android_name']).trim()
+  return new Tuple2(versionCode, versionName)
+}
+
+def getCommitMessage() {
+  return run(['git', '--no-pager', 'show', '-s', '--format=%s%n%n%b', 'HEAD']).trim()
+}
+
+def osName = System.properties['os.name'].toLowerCase()
+
+project.ext.appId = 'app.organicmaps'
+project.ext.appName = 'Organic Maps'
+
+android {
+  namespace 'app.organicmaps'
+
+  buildFeatures {
+    dataBinding = true
+  }
+  // All properties are read from gradle.properties file
+  compileSdkVersion propCompileSdkVersion.toInteger()
+  buildToolsVersion propBuildToolsVersion
+
+  ndkVersion '25.2.9519653'
+
+  defaultConfig {
+    // Default package name is taken from the manifest and should be app.organicmaps
+    def ver = getVersion()
+    versionCode = ver.V1
+    versionName = ver.V2
+    println('Version: ' + versionName)
+    println('VersionCode: ' + versionCode)
+    minSdkVersion propMinSdkVersion.toInteger()
+    targetSdkVersion propTargetSdkVersion.toInteger()
+    applicationId project.ext.appId
+    buildConfigField 'String', 'SUPPORT_MAIL', '"android@organicmaps.app"'
+    // Should be customized in flavors.
+    buildConfigField 'String', 'REVIEW_URL', '""'
+    
+    resConfigs project.ext.supportedLocalizations
+
+    multiDexEnabled true
+    multiDexKeepFile file('multidex-config.txt')
+
+    externalNativeBuild {
+      def pchFlag = 'OFF'
+      if (project.hasProperty('pch')) pchFlag = 'ON'
+
+      def njobs = ''
+      if (project.hasProperty('njobs')) njobs = project.getProperty('njobs')
+
+      cmake {
+        cppFlags '-fexceptions', '-frtti'
+        // There is no sense to enable sections without gcc's --gc-sections flag.
+        cFlags '-fno-function-sections', '-fno-data-sections',
+               '-Wno-extern-c-compat'
+        arguments '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_static',
+                  "-DOS=$osName", '-DSKIP_TESTS=ON', "-DUSE_PCH=$pchFlag",
+                  "-DNJOBS=$njobs"
+        targets 'organicmaps'
+      }
+    }
+
+    // Use, for example, -Parm32 gradle parameter to build only for armeabi-v7a.
+    ndk {
+      abiFilters = new HashSet<>()
+      if (project.hasProperty('arm32') || project.hasProperty('armeabi-v7a')) {
+        abiFilters.add('armeabi-v7a')
+      }
+      if (project.hasProperty('arm64') || project.hasProperty('arm64-v8a')) {
+        abiFilters.add('arm64-v8a')
+      }
+      if (project.hasProperty('x86')) {
+        abiFilters.add('x86')
+      }
+      if (project.hasProperty('x86_64') || project.hasProperty('x64')) {
+        abiFilters.add('x86_64')
+      }
+      if (abiFilters.isEmpty()) {
+        abiFilters.add('armeabi-v7a')
+        abiFilters.add('arm64-v8a')
+        // For the emulator, chromebooks and some Intel Atom devices.
+        abiFilters.add('x86_64')
+      }
+      println("Building for " + abiFilters + " archs.")
+    }
+
+    setProperty("archivesBaseName", appName.replaceAll("\\s","") + "-" + defaultConfig.versionCode)
+  }
+
+  sourceSets.main {
+    manifest.srcFile 'AndroidManifest.xml'
+    res.srcDirs = ['res']
+    java.srcDirs = ['src']
+    if (googleMobileServicesEnabled) {
+      java.srcDirs += 'flavors/gms-enabled'
+    } else {
+      java.srcDirs += 'flavors/gms-disabled'
+    }
+    if (googleFirebaseServicesEnabled) {
+      java.srcDirs += 'flavors/firebase-enabled'
+    } else {
+      java.srcDirs += 'flavors/firebase-disabled'
+    }
+    assets.srcDirs = ['assets']
+  }
+
+  sourceSets.test {
+    java.srcDirs = ['tests/java']
+    res.srcDirs = ['tests/resources']
+  }
+
+  flavorDimensions 'default'
+
+  productFlavors {
+    // 01 is a historical artefact, sorry.
+    final int HUAWEI_VERSION_CODE_BASE = 01_00_00_00_00
+
+    google {
+      dimension "default"
+      versionName = android.defaultConfig.versionName + '-Google'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@organicmaps.app"'
+      buildConfigField 'String', 'REVIEW_URL', '"market://details?id=app.organicmaps"'
+      android.sourceSets.google.assets.srcDirs = ['flavors/world-enabled']
+    }
+
+    web {
+      dimension "default"
+      versionName = android.defaultConfig.versionName + '-Web'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"apk@organicmaps.app"'
+      //android.sourceSets.web.assets.srcDirs = ['flavors/world-enabled']
+    }
+
+    fdroid {
+      dimension "default"
+      versionName = android.defaultConfig.versionName + '-FDroid'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"fdroid@organicmaps.app"'
+      //android.sourceSets.fdroid.assets.srcDirs = ['flavors/world-enabled']
+    }
+
+    huawei {
+      dimension "default"
+      versionName = android.defaultConfig.versionName + '-Huawei'
+      versionCode = HUAWEI_VERSION_CODE_BASE + android.defaultConfig.versionCode
+      buildConfigField 'String', 'SUPPORT_MAIL', '"huawei@organicmaps.app"'
+      buildConfigField 'String', 'REVIEW_URL', '"appmarket://details?id=app.organicmaps"'
+      android.sourceSets.huawei.assets.srcDirs = ['flavors/world-enabled']
+    }
+  }
+
+  playConfigs {
+    googleRelease {
+      enabled.set(true)
+    }
+  }
+
+  splits.abi {
+    boolean enabled = project.hasProperty('splitApk')
+    println ("Create separate apks: " + enabled)
+    enable enabled
+    reset()
+    include 'x86', 'armeabi-v7a', 'arm64-v8a', 'x86_64'
+    universalApk true
+  }
+
+  lint {
+    disable 'MissingTranslation'
+    // https://github.com/organicmaps/organicmaps/issues/3551
+    disable 'MissingQuantity', 'UnusedQuantity'
+    // https://github.com/organicmaps/organicmaps/issues/3550
+    disable 'ByteOrderMark'
+    // https://github.com/organicmaps/organicmaps/issues/1077
+    disable 'CustomSplashScreen'
+    // https://github.com/organicmaps/organicmaps/issues/3610
+    disable 'InsecureBaseConfiguration'
+    // https://github.com/organicmaps/organicmaps/issues/3608
+    disable 'UnusedResources'
+    abortOnError true
+  }
+
+  gradle.projectsEvaluated {
+    android.applicationVariants.all { variant ->
+      def task = variant.name.capitalize()
+      project.task(type: Exec, "run${task}", dependsOn: "install${task}") {
+        commandLine android.getAdbExe(), 'shell', 'am', 'start', '-n', "${applicationId}/app.organicmaps.SplashActivity"
+      }
+    }
+  }
+
+  signingConfigs {
+    debug {
+      storeFile file('debug.keystore')
+      storePassword '12345678'
+      keyAlias 'debug'
+      keyPassword '12345678'
+    }
+
+    release {
+      storeFile file(spropStoreFile)
+      storePassword spropStorePassword
+      keyAlias spropKeyAlias
+      keyPassword spropKeyPassword
+    }
+  }
+
+  buildTypes {
+    debug {
+      applicationIdSuffix '.debug'   // Allows to install debug and release builds together
+      versionNameSuffix '-debug'
+      jniDebuggable true           // Enable jni debug build
+      zipAlignEnabled true
+      signingConfig signingConfigs.debug
+      resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
+      resValue 'string', 'app_name', project.ext.appName  + ' ' + '(Debug)'
+      // Do not generate separate debug symbols for debug apps, because we don't distribute them.
+      ndk.debugSymbolLevel = 'none'
+
+      if (googleFirebaseServicesEnabled) {
+        // Keep debug symbols for test lab.
+        ndk.debugSymbolLevel = 'symbol_table'
+        firebaseCrashlytics {
+          nativeSymbolUploadEnabled true
+        }
+      }
+    }
+
+    release {
+      signingConfig signingConfigs.release
+      minifyEnabled true
+      shrinkResources true
+      // Includes the default ProGuard rules files that are packaged with the Android Gradle plugin.
+      // To learn more, go to the documentation section about R8 configuration files.
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-mwm.txt'
+      resValue 'string', 'app_id', android.defaultConfig.applicationId
+      resValue 'string', 'app_name', project.ext.appName
+      // Full size symbols are too big for Google, 217mb aab vs 95mb.
+      ndk.debugSymbolLevel = 'symbol_table'
+
+      if (googleFirebaseServicesEnabled) {
+        firebaseCrashlytics {
+          nativeSymbolUploadEnabled true
+        }
+      }
+    }
+
+    beta {
+      applicationIdSuffix '.beta'
+      versionNameSuffix '-beta'
+      signingConfig signingConfigs.release
+      minifyEnabled true
+      shrinkResources true
+      // Includes the default ProGuard rules files that are packaged with the Android Gradle plugin.
+      // To learn more, go to the documentation section about R8 configuration files.
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-mwm.txt'
+      matchingFallbacks = ['debug', 'release']
+      resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
+      resValue 'string', 'app_name', project.ext.appName + ' ' + '(Beta)'
+      // Full size symbols are too big for Google, 217mb aab vs 95mb.
+      ndk.debugSymbolLevel = 'symbol_table'
+
+      if (googleFirebaseServicesEnabled) {
+        firebaseCrashlytics {
+          nativeSymbolUploadEnabled true
+        }
+        firebaseAppDistribution {
+          // A new beta release is created for each commit.
+          // Use the last commit message for the release notes.
+          releaseNotes = getCommitMessage()
+          groups = "qa" // Notify only selected people.
+          serviceCredentialsFile = "firebase-app-distribution.json"
+        }
+      }
+    }
+  }
+
+  externalNativeBuild {
+    cmake {
+      version "3.22.1+"
+      buildStagingDirectory "./nativeOutputs"
+      path "../CMakeLists.txt"
+    }
+  }
+
+  // We don't compress these extensions in assets/ because our random FileReader can't read zip-compressed files from apk.
+  // TODO: Load all minor files via separate call to ReadAsString which can correctly handle compressed files in zip containers.
+  androidResources {
+    ignoreAssetsPattern '!.svn:!.git:!.DS_Store:!*.scc:.*:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~'
+    noCompress 'txt', 'bin', 'html', 'png', 'json', 'mwm', 'ttf', 'sdf', 'ui', 'config', 'csv', 'spv'
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_11
+    targetCompatibility JavaVersion.VERSION_11
+  }
+  packagingOptions.jniLibs {
+    excludes += [
+        'lib/**/libVkLayer_khronos_validation.so',
+        'lib/**/libVkLayer_core_validation.so',
+        'lib/**/libVkLayer_threading.so',
+        'lib/**/libVkLayer_image.so',
+        'lib/**/libVkLayer_parameter_validation.so',
+        'lib/**/libVkLayer_object_tracker.so',
+        'lib/**/libVkLayer_swapchain.so',
+        'lib/**/libVkLayer_unique_objects.so',
+    ]
+  }
+}
+
+tasks.withType(JavaCompile) {
+  options.compilerArgs << '-Xlint:unchecked' << '-Xlint:deprecation'
+}
+
+android.buildTypes.all { buildType ->
+  def suffix = applicationIdSuffix != null ? applicationIdSuffix : ""
+  def authorityValue = android.defaultConfig.applicationId + suffix + ".provider"
+  def authority = "\"" + authorityValue + "\""
+  buildConfigField 'String', 'FILE_PROVIDER_AUTHORITY', authority
+  manifestPlaceholders += [FILE_PROVIDER_PLACEHOLDER : authorityValue]
+}
+
+task prepareGoogleReleaseListing {
+  // Prepares Google Play metainfo from F-Droid metainfo.
+  final sourceFlavor = 'fdroid'
+  final targetFlavor = 'google'
+  doLast {
+    final sourceDir = new File("${projectDir}/src/$sourceFlavor/play/listings")
+    final targetDir = new File("${projectDir}/src/$targetFlavor/play/listings")
+    final sourceFiles = fileTree(dir: sourceDir,
+        include: "**/*.txt", exclude: "**/*-${targetFlavor}.txt")
+    sourceFiles.each { File sourceFile ->
+      final locale = sourceFile.parentFile.getName()
+      final targetLocaleDir = new File(targetDir, locale)
+      if (!targetLocaleDir.isDirectory())
+        targetLocaleDir.mkdirs()
+      final targetFile = new File(targetLocaleDir, sourceFile.getName())
+      // Override Google-specific values by using ${name}-google.txt files.
+      final overrideFile = new File(sourceFile.getPath().replace(".txt", "-${targetFlavor}.txt"))
+      targetFile.text = overrideFile.exists() ? overrideFile.text : sourceFile.text
+    }
+    copy {
+      from "${projectDir}/../screenshots/android"
+      into targetDir
+    }
+  }
+}
+
+play {
+  enabled.set(false)
+  track.set("production")
+  userFraction.set(Double.valueOf(0.10)) // 10%
+  defaultToAppBundles.set(true)
+  releaseStatus.set(ReleaseStatus.IN_PROGRESS)
+  serviceAccountCredentials.set(file("google-play.json"))
+}
+
+huaweiPublish {
+  instances {
+    huaweiRelease {
+      credentialsPath = "$rootDir/huawei-appgallery.json"
+      buildFormat = 'aab'
+      deployType = 'draft' // confirm manually
+      releaseNotes = []
+      def localeOverride = [
+          'am' : 'am-ET',
+          'gu': 'gu_IN',
+          'iw-IL': 'he_IL',
+          'kn-IN': 'kn_IN',
+          'ml-IN': 'ml_IN',
+          'mn-MN': 'mn_MN',
+          'mr-IN': 'mr_IN',
+          'ta-IN': 'ta_IN',
+          'te-IN': 'te_IN',
+      ]
+      def files = fileTree(dir: "$projectDir/src/fdroid/play/listings",
+          include: '**/release-notes.txt')
+      files.each { File file ->
+        def path = file.getPath()
+        def locale = file.parentFile.getName()
+        locale = localeOverride.get(locale, locale)
+        releaseNotes.add(new ru.cian.huawei.publish.ReleaseNote(locale, path))
+      }
+    }
+  }
+}

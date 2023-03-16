@@ -1,0 +1,39 @@
+• Detaillierte Offline-Karten mit Orten, die es auf anderen Karten nicht gibt
+• Rad-, Wander- und Spazierwege
+• Höhenlinien, Höhenprofile, Bergspitzen und Steigungen
+• Schritt-für-Schritt-Navigation für Fußgänger, Radfahrer und Autos mit Sprachführung
+• Schnelle Offlinesuche
+• Export und Import von Lesezeichen im KML/KMZ-Format (GPX ist geplant)
+• Dunkler Modus zum Schutz deiner Augen
+• … und viele weitere Funktionen!
+
+Organic Maps ist rein, organisch und mit Liebe gemacht:
+
+• Respektiert deine Privatsphäre
+• Schont deinen Akku
+• Keine unerwarteten Gebühren für mobile Daten
+
+Frei von Trackern und schlechten Dingen:
+
+• Keine Werbung
+• Kein Tracking
+• Keine Datensammlung
+• Kein Telefonieren nach Hause
+• Keine lästige Registrierung
+• Keine obligatorischen Tutorials
+• Kein lästiger E-Mail-Spam
+• Keine Push-Benachrichtigungen
+• Keine Crapware
+• Keine Pestizide
+
+Wir bei Organic Maps glauben, dass Privatsphäre ein grundlegendes Menschenrecht ist:
+
+• Organic Maps ist ein von einer unabhängigen Gemeinschaft betriebenes Open-Source-Projekt
+• Der Code ist Open Source
+• Die Kartendaten stammen von OpenStreetMap, einem ebenfalls von der Community betriebenen Projekt
+• Wir schützen deine Privatsphäre vor den neugierigen Augen der großen Technologiekonzerne
+• Bleib sicher, egal wo du bist
+
+Lehne Überwachung ab, lebe deine Freiheit und unterstütze die Community.
+
+Teste Organic Maps!

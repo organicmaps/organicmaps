@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/altitude_chart_panel"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:layout_marginBottom="@dimen/altitude_chart_margin_bottom"
+    android:layout_marginTop="@dimen/altitude_chart_margin_top"
+    android:paddingStart="@dimen/altitude_chart_container_padding_left"
+    android:paddingEnd="@dimen/altitude_chart_container_padding_left"
+    android:orientation="vertical"
+    tools:showIn="@layout/fragment_routing">
+
+    <include layout="@layout/routing_details"/>
+
+    <ImageView
+        android:id="@+id/altitude_chart"
+        android:layout_width="@dimen/altitude_chart_image_width"
+        android:layout_height="@dimen/altitude_chart_image_height"
+        android:layout_marginBottom="8dp"/>
+</LinearLayout>

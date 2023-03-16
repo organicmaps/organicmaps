@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="?panel"
+  android:orientation="vertical">
+
+  <include layout="@layout/place_page_fat_shadow"/>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?ppBackground"
+    android:orientation="vertical">
+
+    <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/place_page_bookmark_fragment"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:layout="@layout/place_page_bookmark_fragment" />
+
+    <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/place_page_wikipedia_fragment"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:layout="@layout/place_page_wikipedia_fragment" />
+
+    <include layout="@layout/place_page_placename"/>
+
+    <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/place_page_opening_hours_fragment"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:layout="@layout/place_page_opening_hours_fragment" />
+
+    <include layout="@layout/place_page_cuisine"/>
+
+    <include layout="@layout/place_page_entrance"/>
+
+    <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/place_page_phone_fragment"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:layout="@layout/place_page_phone_fragment" />
+
+    <include layout="@layout/place_page_operator"/>
+
+    <include layout="@layout/place_page_wifi"/>
+
+    <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/place_page_links_fragment"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:layout="@layout/place_page_links_fragment" />
+
+    <include layout="@layout/place_page_level" />
+
+    <!-- ToDo: Address is missing compared with iOS. It's shown in title but anyway .. -->
+
+    <include layout="@layout/place_page_latlon"/>
+  </LinearLayout>
+
+  <include
+    layout="@layout/place_page_fat_shadow"
+    android:id="@+id/edit_top_space"
+    android:visibility="gone"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+
+  <include android:visibility="gone" layout="@layout/place_page_editor"/>
+
+  <include android:visibility="gone" layout="@layout/place_page_add_business"/>
+
+  <include android:visibility="gone" layout="@layout/place_page_add"/>
+
+  <android.widget.Space
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/place_page_buttons_height"/>
+
+</LinearLayout>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_margin="@dimen/margin_double_and_half"
+  android:background="?cardBackground"
+  android:minWidth="@dimen/dialog_min_width"
+  android:minHeight="@dimen/dialog_min_height"
+  android:orientation="vertical"
+  android:padding="@dimen/margin_base_plus">
+
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/margin_quarter"
+    android:textAppearance="?android:textAppearanceLarge"
+    android:fontFamily="@string/robotoMedium"
+    android:text="@string/sort_bookmarks"/>
+
+  <RadioGroup
+    android:id="@+id/sorting_types"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_base">
+
+    <RadioButton
+      style="?fontSubtitle1"
+      android:id="@+id/sort_by_default"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/margin_half_plus"
+      android:checked="true"
+      android:text="@string/by_default"/>
+
+    <RadioButton
+      style="?fontSubtitle1"
+      android:id="@+id/sort_by_type"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/margin_half_plus"
+      android:checked="false"
+      android:text="@string/by_type"/>
+
+    <RadioButton
+      style="?fontSubtitle1"
+      android:id="@+id/sort_by_distance"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/margin_half_plus"
+      android:checked="false"
+      android:text="@string/by_distance"/>
+
+    <RadioButton
+      style="?fontSubtitle1"
+      android:id="@+id/sort_by_time"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/margin_half_plus"
+      android:checked="false"
+      android:text="@string/by_date"/>
+  </RadioGroup>
+</LinearLayout>

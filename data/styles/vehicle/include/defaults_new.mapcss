@@ -1,0 +1,68 @@
+way::*
+{
+  text-position: line;
+}
+
+way|z1-12::*
+{
+  linejoin: bevel;
+}
+
+way|z13-::*
+{
+  linejoin: round;
+}
+
+way|z1-15::*
+{
+  linecap: butt;
+}
+
+way|z16-::*
+{
+  linecap: round;
+}
+
+*::*
+{
+  text-halo-color: @white;
+  text-anchor-horizontal: center;
+  text-anchor-vertical: center;
+  icon-width: 16;
+  icon-height: 16;
+}
+
+*::int_name
+{
+  text-offset: 1;
+}
+
+node::* {
+  text-anchor-vertical: top;
+}
+
+area::* {
+  text-position: center;
+  text-anchor-vertical: center;
+}
+
+
+*[amenity],
+*[office],
+*[historic],
+*[tourism],
+*[leisure],
+*[man_made],
+*[natural],
+*[power],
+*[landuse],
+*[craft],
+*[internet_access],
+{
+  text-position: center;
+}
+area[aeroway],
+area[tourism]
+{
+  fill-position: background;
+}

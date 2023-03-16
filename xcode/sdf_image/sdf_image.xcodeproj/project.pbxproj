@@ -1,0 +1,191 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		675D21AF1BFB8D8A00717E4F /* sdf_image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675D21AD1BFB8D8A00717E4F /* sdf_image.cpp */; };
+		675D21B01BFB8D8A00717E4F /* sdf_image.h in Headers */ = {isa = PBXBuildFile; fileRef = 675D21AE1BFB8D8A00717E4F /* sdf_image.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		34F5586A1DBF48E500A4FC11 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		34F5586B1DBF48E500A4FC11 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		675D21A41BFB8D3F00717E4F /* libsdf_image.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsdf_image.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		675D21AD1BFB8D8A00717E4F /* sdf_image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sdf_image.cpp; sourceTree = "<group>"; };
+		675D21AE1BFB8D8A00717E4F /* sdf_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sdf_image.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		675D21A11BFB8D3F00717E4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		675D219B1BFB8D3F00717E4F = {
+			isa = PBXGroup;
+			children = (
+				34F5586A1DBF48E500A4FC11 /* common-debug.xcconfig */,
+				34F5586B1DBF48E500A4FC11 /* common-release.xcconfig */,
+				675D21AC1BFB8D6700717E4F /* sdf_image */,
+				675D21A51BFB8D3F00717E4F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		675D21A51BFB8D3F00717E4F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				675D21A41BFB8D3F00717E4F /* libsdf_image.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		675D21AC1BFB8D6700717E4F /* sdf_image */ = {
+			isa = PBXGroup;
+			children = (
+				675D21AD1BFB8D8A00717E4F /* sdf_image.cpp */,
+				675D21AE1BFB8D8A00717E4F /* sdf_image.h */,
+			);
+			name = sdf_image;
+			path = ../../3party/sdf_image;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		675D21A21BFB8D3F00717E4F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				675D21B01BFB8D8A00717E4F /* sdf_image.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		675D21A31BFB8D3F00717E4F /* sdf_image */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 675D21A81BFB8D3F00717E4F /* Build configuration list for PBXNativeTarget "sdf_image" */;
+			buildPhases = (
+				675D21A01BFB8D3F00717E4F /* Sources */,
+				675D21A11BFB8D3F00717E4F /* Frameworks */,
+				675D21A21BFB8D3F00717E4F /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = sdf_image;
+			productName = sdf_image;
+			productReference = 675D21A41BFB8D3F00717E4F /* libsdf_image.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		675D219C1BFB8D3F00717E4F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1410;
+				TargetAttributes = {
+					675D21A31BFB8D3F00717E4F = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
+				};
+			};
+			buildConfigurationList = 675D219F1BFB8D3F00717E4F /* Build configuration list for PBXProject "sdf_image" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 675D219B1BFB8D3F00717E4F;
+			productRefGroup = 675D21A51BFB8D3F00717E4F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				675D21A31BFB8D3F00717E4F /* sdf_image */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		675D21A01BFB8D3F00717E4F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				675D21AF1BFB8D8A00717E4F /* sdf_image.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		675D21A61BFB8D3F00717E4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34F5586A1DBF48E500A4FC11 /* common-debug.xcconfig */;
+			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+			};
+			name = Debug;
+		};
+		675D21A71BFB8D3F00717E4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34F5586B1DBF48E500A4FC11 /* common-release.xcconfig */;
+			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+			};
+			name = Release;
+		};
+		675D21A91BFB8D3F00717E4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		675D21AA1BFB8D3F00717E4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		675D219F1BFB8D3F00717E4F /* Build configuration list for PBXProject "sdf_image" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				675D21A61BFB8D3F00717E4F /* Debug */,
+				675D21A71BFB8D3F00717E4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		675D21A81BFB8D3F00717E4F /* Build configuration list for PBXNativeTarget "sdf_image" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				675D21A91BFB8D3F00717E4F /* Debug */,
+				675D21AA1BFB8D3F00717E4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 675D219C1BFB8D3F00717E4F /* Project object */;
+}

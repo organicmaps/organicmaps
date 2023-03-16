@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MWMSearchCommonCell" rowHeight="86" id="KGk-i7-Jjw" customClass="MWMSearchCommonCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="86"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="86"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" text="New York Cafe" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4FD-RE-ffF">
+                        <rect key="frame" x="16" y="12" width="220" height="20"/>
+                        <accessibility key="accessibilityConfiguration" identifier="searchTitle"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.12941176470588234" green="0.12941176470588234" blue="0.12941176470588234" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17:blackPrimaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P8X-Xp-AaE">
+                        <rect key="frame" x="236" y="73" width="68" height="0.0"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.12549019607843137" green="0.58823529411764708" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:linkBlueText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HGm-lZ-JNr" userLabel="Separator">
+                        <rect key="frame" x="16" y="85" width="304" height="1"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="ZWt-cn-KrT"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uWz-7m-GUu">
+                        <rect key="frame" x="262.5" y="16" width="41.5" height="20"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yjT-ah-SWQ">
+                                <rect key="frame" x="8" y="0.0" width="25.5" height="20"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <color key="textColor" red="0.1176470588" green="0.58823529409999997" blue="0.93983289930000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="bold12:linkBlueText"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="popular_place"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.14117647059999999" green="0.61176470589999998" blue="0.94901960780000005" alpha="0.16424978600000001" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="g2X-lA-DE3"/>
+                            <constraint firstAttribute="bottom" secondItem="yjT-ah-SWQ" secondAttribute="bottom" id="ghe-TD-Ni1"/>
+                            <constraint firstItem="yjT-ah-SWQ" firstAttribute="top" secondItem="uWz-7m-GUu" secondAttribute="top" id="rK0-T0-I3J"/>
+                            <constraint firstItem="yjT-ah-SWQ" firstAttribute="leading" secondItem="uWz-7m-GUu" secondAttribute="leading" constant="8" id="ucR-R6-Fyw"/>
+                            <constraint firstAttribute="trailing" secondItem="yjT-ah-SWQ" secondAttribute="trailing" constant="8" id="vYZ-sk-v7u"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchPopularView"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Сafe" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5UO-MD-Hgx">
+                        <rect key="frame" x="16" y="36" width="26" height="14"/>
+                        <accessibility key="accessibilityConfiguration" identifier="searchType"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="26" id="O31-Vq-Bsz"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular12:blackSecondaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Open" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SDd-3c-YeL">
+                        <rect key="frame" x="274.5" y="36" width="29.5" height="14"/>
+                        <accessibility key="accessibilityConfiguration" identifier="searchType"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="26" id="tqr-8N-JwN"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular12:blackSecondaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" ambiguous="YES" text="Russia, Moscow &amp; Central, Moscow" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6pc-4s-GyP">
+                        <rect key="frame" x="16" y="59" width="220" height="14"/>
+                        <accessibility key="accessibilityConfiguration" identifier="searchSubTitle"/>
+                        <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="italic12:blackSecondaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="P8X-Xp-AaE" firstAttribute="leading" secondItem="6pc-4s-GyP" secondAttribute="trailing" id="0hr-QT-t0D"/>
+                    <constraint firstItem="5UO-MD-Hgx" firstAttribute="top" secondItem="4FD-RE-ffF" secondAttribute="bottom" constant="4" id="5dn-ca-dCn"/>
+                    <constraint firstItem="6pc-4s-GyP" firstAttribute="top" secondItem="5UO-MD-Hgx" secondAttribute="bottom" constant="8" id="7pm-XZ-vLK"/>
+                    <constraint firstItem="4FD-RE-ffF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Qld-dY-CQN"/>
+                    <constraint firstItem="5UO-MD-Hgx" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="SDd-3c-YeL" secondAttribute="leading" id="SJj-b5-T2k"/>
+                    <constraint firstAttribute="trailing" secondItem="4FD-RE-ffF" secondAttribute="trailing" constant="84" id="Ugu-lP-b9G"/>
+                    <constraint firstAttribute="trailing" secondItem="P8X-Xp-AaE" secondAttribute="trailing" constant="16" id="VJE-wo-TBb"/>
+                    <constraint firstItem="4FD-RE-ffF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="hM6-br-iKE"/>
+                    <constraint firstItem="6pc-4s-GyP" firstAttribute="leading" secondItem="5UO-MD-Hgx" secondAttribute="leading" id="jvQ-jd-XUJ"/>
+                    <constraint firstItem="HGm-lZ-JNr" firstAttribute="top" secondItem="6pc-4s-GyP" secondAttribute="bottom" constant="12" id="m1K-R2-0LQ"/>
+                    <constraint firstItem="5UO-MD-Hgx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="nGL-Ta-pBZ"/>
+                    <constraint firstAttribute="trailing" secondItem="6pc-4s-GyP" secondAttribute="trailing" constant="84" id="nfE-NI-LX9"/>
+                    <constraint firstItem="6pc-4s-GyP" firstAttribute="bottom" secondItem="P8X-Xp-AaE" secondAttribute="bottom" id="q7E-Jg-MYT"/>
+                    <constraint firstItem="HGm-lZ-JNr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="sq9-C3-M3R"/>
+                    <constraint firstAttribute="bottom" secondItem="HGm-lZ-JNr" secondAttribute="bottom" id="vJc-aE-MsA"/>
+                    <constraint firstAttribute="trailing" secondItem="SDd-3c-YeL" secondAttribute="trailing" constant="16" id="vay-ux-6dA"/>
+                    <constraint firstItem="SDd-3c-YeL" firstAttribute="top" secondItem="5UO-MD-Hgx" secondAttribute="top" id="wXg-ce-SnG"/>
+                    <constraint firstAttribute="trailing" secondItem="HGm-lZ-JNr" secondAttribute="trailing" id="xt0-86-Efu"/>
+                </constraints>
+            </tableViewCellContentView>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="distanceLabel" destination="P8X-Xp-AaE" id="Kaw-aR-8uJ"/>
+                <outlet property="locationLabel" destination="6pc-4s-GyP" id="Te0-y3-sVQ"/>
+                <outlet property="openLabel" destination="SDd-3c-YeL" id="5Rv-fO-g4x"/>
+                <outlet property="popularView" destination="uWz-7m-GUu" id="LAK-NA-Fea"/>
+                <outlet property="titleLabel" destination="4FD-RE-ffF" id="OQm-o8-LUd"/>
+                <outlet property="infoLabel" destination="5UO-MD-Hgx" id="lgJ-zE-omX"/>
+            </connections>
+            <point key="canvasLocation" x="314.49275362318843" y="297.99107142857139"/>
+        </tableViewCell>
+    </objects>
+</document>

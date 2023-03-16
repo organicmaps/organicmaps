@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:paddingBottom="@dimen/margin_base_plus"
+  android:paddingTop="@dimen/margin_base_plus">
+
+  <Button
+    android:id="@+id/btn__add_time"
+    style="@style/MwmWidget.Button.Primary"
+    android:layout_gravity="center"
+    android:enabled="false"
+    android:text="@string/editor_time_add"/>
+
+</FrameLayout>

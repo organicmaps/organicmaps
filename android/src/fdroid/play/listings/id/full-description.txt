@@ -1,0 +1,53 @@
+‣ Aplikasi bebas kami tidak melacak Anda dan tidak memiliki iklan, dan dibantu dengan donasi Anda.
+‣ Ini terus ditingkatkan oleh tim kecil kami, di waktu luang kami, menggunakan uang kami sendiri dan sumbangan/kontribusi dari pengguna kami.
+‣ Jika ada yang salah atau hilang pada peta, harap perbaiki di <b>OpenStreetMap</b> dan lihat perubahan Anda di pembaruan peta mendatang.
+‣ Jika navigasi atau pencarian tidak berfungsi, silakan kirim sebuah email kepada kami. Kami membalas <i>SETIAP</i> email, dan kami akan memperbaikinya secepatnya!
+
+<b>Umpan balik dan ulasan bintang lima Anda adalah motivasi terbaik bagi kami!</b>
+
+Fitur utama:
+
+• Bebas, sumber terbuka, tanpa iklan, tanpa pelacakan
+• Peta luring terperinci dengan tempat-tempat yang tidak ada di peta Google, berkat komunitas <b>OpenStreetMap</b>
+• Rute bersepeda, jalur pendakian, dan jalur jalan kaki
+• Garis kontur, profil ketinggian, puncak, dan lereng
+• Jalan kaki belokan demi belokan, bersepeda, dan navigasi mobil EKSPERIMENTAL dengan panduan suara
+• Pencarian luring cepat
+• Ekspor dan impor markah dalam format KML/KMZ (GPX akan segera hadir)
+• Mode gelap untuk melindungi mata Anda
+
+<i>Belum ada</i> Android Auto, transportasi umum, peta satelit, dan fitur keren lainnya di Organic Maps. Namun dengan <i>bantuan dan dukungan Anda</i>, kami dapat membuat dunia ini lebih baik selangkah demi selangkah.
+
+Organic Maps <b>murni dan organik, dibuat dengan cinta</b>:
+
+• Pengalaman luring yang sangat cepat
+• Menghormati privasi Anda
+• Menghemat baterai Anda
+• Tidak ada biaya data seluler yang tidak terduga
+• Mudah digunakan, dengan hanya menyertakan fitur terpenting
+
+Bebas dari pelacak dan hal-hal buruk lainnya:
+
+• Tanpa iklan
+• Tidak ada pelacakan
+• Tidak ada pengumpulan data
+• Tidak peneleponan rumah
+• Tidak ada pendaftaran yang mengganggu
+• Tidak ada tutorial wajib
+• Tidak ada spam email yang berisik
+• Tidak ada pemberitahuan push
+• Tidak ada perangkat lunak sampah
+• T̶i̶d̶a̶k̶ ̶a̶d̶a̶ ̶p̶e̶s̶t̶i̶s̶i̶d̶a̶ Organik secara murni
+
+Di Organic Maps, kami percaya bahwa <b>privasi adalah hak asasi manusia</b>:
+
+• Peta Organik adalah proyek sumber terbuka berbasis komunitas sendiri
+• Kami melindungi privasi dari mata-mata Teknologi Besar
+• Tetap aman di mana pun Anda berada
+
+Tidak ada pelacak dan hanya izin yang dibutuhkan minimal yang ditemukan menurut Laporan Privasi Exodus.
+
+Silakan kunjungi situs web <b><i>organicmaps.app</i></b> untuk detail tambahan dan FAQ, dan hubungi kami langsung di @OrganicMapsApp di Telegram.
+
+Tolak pengawasan — rangkul kebebasan Anda.
+<b>Cobalah Organic Maps!</b>

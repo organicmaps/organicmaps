@@ -1,0 +1,363 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4568C86420BD455700E2192B /* type_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4568C86320BD455600E2192B /* type_utils.cpp */; };
+		45E4559520584ABA00D9F45E /* serdes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45E4558E20584AB900D9F45E /* serdes.cpp */; };
+		45E4559620584ABA00D9F45E /* serdes_binary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45E4559220584ABA00D9F45E /* serdes_binary.cpp */; };
+		45E4560120584DF200D9F45E /* serdes_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45E455FF20584DEF00D9F45E /* serdes_tests.cpp */; };
+		45E4560320584E1C00D9F45E /* libkml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45E4557D205849A600D9F45E /* libkml.a */; };
+		45E456142058509200D9F45E /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45E456122058508C00D9F45E /* testingmain.cpp */; };
+		E2AA225E25275C6B002589E2 /* minzoom_quadtree_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2AA225C25275C6B002589E2 /* minzoom_quadtree_tests.cpp */; };
+		E2DC9C9125264E3E0098174E /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9C9025264E3E0098174E /* types.cpp */; };
+		FA67C84B26BB365600B33DCA /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA67C84A26BB365600B33DCA /* libplatform.a */; };
+		FA67C84D26BB365C00B33DCA /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA67C84C26BB365C00B33DCA /* libbase.a */; };
+		FA67C85126BB370C00B33DCA /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA67C85026BB370C00B33DCA /* libcoding.a */; };
+		FA67C85326BB372100B33DCA /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA67C85226BB372100B33DCA /* libexpat.a */; };
+		FA67C85526BB372E00B33DCA /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA67C85426BB372E00B33DCA /* libindexer.a */; };
+		FA67C85726BB373800B33DCA /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA67C85626BB373800B33DCA /* libgeometry.a */; };
+		FA67C85926BB374300B33DCA /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA67C85826BB374300B33DCA /* libicu.a */; };
+		FA67C85B26BB374E00B33DCA /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA67C85A26BB374E00B33DCA /* liboauthcpp.a */; };
+		FA67C85D26BB376300B33DCA /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA67C85C26BB376300B33DCA /* libprotobuf.a */; };
+		FA67C85F26BB377800B33DCA /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA67C85E26BB377800B33DCA /* libsuccinct.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		45E4557B205849A600D9F45E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		4568C86320BD455600E2192B /* type_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = type_utils.cpp; sourceTree = "<group>"; };
+		45E4557D205849A600D9F45E /* libkml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libkml.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		45E45589205849DC00D9F45E /* common-release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		45E4558A205849DC00D9F45E /* common-debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		45E4558D20584AB900D9F45E /* header_binary.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = header_binary.hpp; sourceTree = "<group>"; };
+		45E4558E20584AB900D9F45E /* serdes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = serdes.cpp; sourceTree = "<group>"; };
+		45E4558F20584AB900D9F45E /* type_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = type_utils.hpp; sourceTree = "<group>"; };
+		45E4559020584AB900D9F45E /* serdes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = serdes.hpp; sourceTree = "<group>"; };
+		45E4559120584ABA00D9F45E /* visitors.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = visitors.hpp; sourceTree = "<group>"; };
+		45E4559220584ABA00D9F45E /* serdes_binary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = serdes_binary.cpp; sourceTree = "<group>"; };
+		45E4559320584ABA00D9F45E /* serdes_binary.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = serdes_binary.hpp; sourceTree = "<group>"; };
+		45E4559420584ABA00D9F45E /* types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
+		45E455ED20584DCB00D9F45E /* kml_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kml_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		45E455FF20584DEF00D9F45E /* serdes_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = serdes_tests.cpp; sourceTree = "<group>"; };
+		45E456122058508C00D9F45E /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
+		E2AA225925275C1D002589E2 /* minzoom_quadtree.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = minzoom_quadtree.hpp; sourceTree = "<group>"; };
+		E2AA225C25275C6B002589E2 /* minzoom_quadtree_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = minzoom_quadtree_tests.cpp; sourceTree = "<group>"; };
+		E2AA225D25275C6B002589E2 /* tests_data.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tests_data.hpp; sourceTree = "<group>"; };
+		E2DC9C8925264E0C0098174E /* types_v3.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types_v3.hpp; sourceTree = "<group>"; };
+		E2DC9C8A25264E0C0098174E /* types_v7.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types_v7.hpp; sourceTree = "<group>"; };
+		E2DC9C8B25264E0C0098174E /* types_v9.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types_v9.hpp; sourceTree = "<group>"; };
+		E2DC9C8C25264E0C0098174E /* types_v6.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types_v6.hpp; sourceTree = "<group>"; };
+		E2DC9C8D25264E0C0098174E /* types_v8.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types_v8.hpp; sourceTree = "<group>"; };
+		E2DC9C9025264E3E0098174E /* types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = types.cpp; sourceTree = "<group>"; };
+		FA67C84A26BB365600B33DCA /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA67C84C26BB365C00B33DCA /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA67C85026BB370C00B33DCA /* libcoding.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcoding.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA67C85226BB372100B33DCA /* libexpat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libexpat.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA67C85426BB372E00B33DCA /* libindexer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libindexer.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA67C85626BB373800B33DCA /* libgeometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgeometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA67C85826BB374300B33DCA /* libicu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libicu.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA67C85A26BB374E00B33DCA /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA67C85C26BB376300B33DCA /* libprotobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libprotobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA67C85E26BB377800B33DCA /* libsuccinct.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsuccinct.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		45E4557A205849A600D9F45E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		45E455EA20584DCB00D9F45E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA67C85F26BB377800B33DCA /* libsuccinct.a in Frameworks */,
+				FA67C85D26BB376300B33DCA /* libprotobuf.a in Frameworks */,
+				FA67C85B26BB374E00B33DCA /* liboauthcpp.a in Frameworks */,
+				FA67C85926BB374300B33DCA /* libicu.a in Frameworks */,
+				FA67C85726BB373800B33DCA /* libgeometry.a in Frameworks */,
+				FA67C85526BB372E00B33DCA /* libindexer.a in Frameworks */,
+				FA67C85326BB372100B33DCA /* libexpat.a in Frameworks */,
+				FA67C85126BB370C00B33DCA /* libcoding.a in Frameworks */,
+				FA67C84D26BB365C00B33DCA /* libbase.a in Frameworks */,
+				FA67C84B26BB365600B33DCA /* libplatform.a in Frameworks */,
+				45E4560320584E1C00D9F45E /* libkml.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		45E45574205849A600D9F45E = {
+			isa = PBXGroup;
+			children = (
+				45E4558A205849DC00D9F45E /* common-debug.xcconfig */,
+				45E45589205849DC00D9F45E /* common-release.xcconfig */,
+				45E4557F205849A600D9F45E /* kml */,
+				45E455EE20584DCC00D9F45E /* kml_tests */,
+				45E4557E205849A600D9F45E /* Products */,
+				45E4560220584E1C00D9F45E /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		45E4557E205849A600D9F45E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				45E4557D205849A600D9F45E /* libkml.a */,
+				45E455ED20584DCB00D9F45E /* kml_tests.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		45E4557F205849A600D9F45E /* kml */ = {
+			isa = PBXGroup;
+			children = (
+				45E4558D20584AB900D9F45E /* header_binary.hpp */,
+				E2AA225925275C1D002589E2 /* minzoom_quadtree.hpp */,
+				45E4559220584ABA00D9F45E /* serdes_binary.cpp */,
+				45E4559320584ABA00D9F45E /* serdes_binary.hpp */,
+				45E4558E20584AB900D9F45E /* serdes.cpp */,
+				45E4559020584AB900D9F45E /* serdes.hpp */,
+				4568C86320BD455600E2192B /* type_utils.cpp */,
+				45E4558F20584AB900D9F45E /* type_utils.hpp */,
+				E2DC9C8925264E0C0098174E /* types_v3.hpp */,
+				E2DC9C8C25264E0C0098174E /* types_v6.hpp */,
+				E2DC9C8A25264E0C0098174E /* types_v7.hpp */,
+				E2DC9C8D25264E0C0098174E /* types_v8.hpp */,
+				E2DC9C8B25264E0C0098174E /* types_v9.hpp */,
+				E2DC9C9025264E3E0098174E /* types.cpp */,
+				45E4559420584ABA00D9F45E /* types.hpp */,
+				45E4559120584ABA00D9F45E /* visitors.hpp */,
+			);
+			name = kml;
+			path = ../../kml;
+			sourceTree = "<group>";
+		};
+		45E455EE20584DCC00D9F45E /* kml_tests */ = {
+			isa = PBXGroup;
+			children = (
+				E2AA225C25275C6B002589E2 /* minzoom_quadtree_tests.cpp */,
+				45E455FF20584DEF00D9F45E /* serdes_tests.cpp */,
+				45E456122058508C00D9F45E /* testingmain.cpp */,
+				E2AA225D25275C6B002589E2 /* tests_data.hpp */,
+			);
+			name = kml_tests;
+			path = ../../kml/kml_tests;
+			sourceTree = "<group>";
+		};
+		45E4560220584E1C00D9F45E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FA67C85E26BB377800B33DCA /* libsuccinct.a */,
+				FA67C85C26BB376300B33DCA /* libprotobuf.a */,
+				FA67C85A26BB374E00B33DCA /* liboauthcpp.a */,
+				FA67C85826BB374300B33DCA /* libicu.a */,
+				FA67C85626BB373800B33DCA /* libgeometry.a */,
+				FA67C85426BB372E00B33DCA /* libindexer.a */,
+				FA67C85226BB372100B33DCA /* libexpat.a */,
+				FA67C85026BB370C00B33DCA /* libcoding.a */,
+				FA67C84C26BB365C00B33DCA /* libbase.a */,
+				FA67C84A26BB365600B33DCA /* libplatform.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		45E4557C205849A600D9F45E /* kml */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 45E45586205849A600D9F45E /* Build configuration list for PBXNativeTarget "kml" */;
+			buildPhases = (
+				45E45579205849A600D9F45E /* Sources */,
+				45E4557A205849A600D9F45E /* Frameworks */,
+				45E4557B205849A600D9F45E /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = kml;
+			productName = kml;
+			productReference = 45E4557D205849A600D9F45E /* libkml.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		45E455EC20584DCB00D9F45E /* kml_tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 45E455FB20584DCC00D9F45E /* Build configuration list for PBXNativeTarget "kml_tests" */;
+			buildPhases = (
+				45E455E920584DCB00D9F45E /* Sources */,
+				45E455EA20584DCB00D9F45E /* Frameworks */,
+				45E455EB20584DCB00D9F45E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = kml_tests;
+			productName = kml_tests;
+			productReference = 45E455ED20584DCB00D9F45E /* kml_tests.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		45E45575205849A600D9F45E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1410;
+				TargetAttributes = {
+					45E4557C205849A600D9F45E = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					45E455EC20584DCB00D9F45E = {
+						CreatedOnToolsVersion = 9.2;
+					};
+				};
+			};
+			buildConfigurationList = 45E45578205849A600D9F45E /* Build configuration list for PBXProject "kml" */;
+			compatibilityVersion = "Xcode 12.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 45E45574205849A600D9F45E;
+			productRefGroup = 45E4557E205849A600D9F45E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				45E4557C205849A600D9F45E /* kml */,
+				45E455EC20584DCB00D9F45E /* kml_tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		45E455EB20584DCB00D9F45E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		45E45579205849A600D9F45E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45E4559620584ABA00D9F45E /* serdes_binary.cpp in Sources */,
+				4568C86420BD455700E2192B /* type_utils.cpp in Sources */,
+				45E4559520584ABA00D9F45E /* serdes.cpp in Sources */,
+				E2DC9C9125264E3E0098174E /* types.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		45E455E920584DCB00D9F45E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E2AA225E25275C6B002589E2 /* minzoom_quadtree_tests.cpp in Sources */,
+				45E4560120584DF200D9F45E /* serdes_tests.cpp in Sources */,
+				45E456142058509200D9F45E /* testingmain.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		45E45584205849A600D9F45E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 45E4558A205849DC00D9F45E /* common-debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		45E45585205849A600D9F45E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 45E45589205849DC00D9F45E /* common-release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		45E45587205849A600D9F45E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		45E45588205849A600D9F45E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		45E455FC20584DCC00D9F45E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+			};
+			name = Debug;
+		};
+		45E455FD20584DCC00D9F45E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		45E45578205849A600D9F45E /* Build configuration list for PBXProject "kml" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				45E45584205849A600D9F45E /* Debug */,
+				45E45585205849A600D9F45E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		45E45586205849A600D9F45E /* Build configuration list for PBXNativeTarget "kml" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				45E45587205849A600D9F45E /* Debug */,
+				45E45588205849A600D9F45E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		45E455FB20584DCC00D9F45E /* Build configuration list for PBXNativeTarget "kml_tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				45E455FC20584DCC00D9F45E /* Debug */,
+				45E455FD20584DCC00D9F45E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 45E45575205849A600D9F45E /* Project object */;
+}

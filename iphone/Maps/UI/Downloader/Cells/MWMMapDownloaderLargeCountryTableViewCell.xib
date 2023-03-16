@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MWMMapDownloaderLargeCountryTableViewCell" rowHeight="62" id="4CW-jw-1JP" customClass="MWMMapDownloaderLargeCountryTableViewCell" propertyAccessControl="none">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4CW-jw-1JP" id="rFT-0r-5zy">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3NQ-tT-U9b">
+                        <rect key="frame" x="12" y="13" width="36" height="36"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="36" id="3vs-uR-5WA"/>
+                            <constraint firstAttribute="width" constant="36" id="WtB-IW-uuH"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="People's Republic of China" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cum-4j-JlQ">
+                        <rect key="frame" x="60" y="12" width="167" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.87" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17:blackPrimaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="14 maps" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="851-fC-gEN">
+                        <rect key="frame" x="60" y="36" width="224" height="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular12:blackSecondaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="760" text="405 MB" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ni-mb-fA5">
+                        <rect key="frame" x="235" y="22.5" width="49" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_gray_right" translatesAutoresizingMaskIntoConstraints="NO" id="7HN-EK-QXO" userLabel="Arrow">
+                        <rect key="frame" x="284" y="17" width="28" height="28"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="28" id="OyB-rL-7rb"/>
+                            <constraint firstAttribute="height" constant="28" id="dNb-uE-TzF"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMGray"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="cum-4j-JlQ" firstAttribute="leading" secondItem="rFT-0r-5zy" secondAttribute="leading" constant="60" id="6W7-tW-rcf"/>
+                    <constraint firstAttribute="trailing" secondItem="9Ni-mb-fA5" secondAttribute="trailing" constant="36" id="C7I-fY-Gfw"/>
+                    <constraint firstItem="851-fC-gEN" firstAttribute="trailing" secondItem="9Ni-mb-fA5" secondAttribute="trailing" id="DJE-zo-NaQ"/>
+                    <constraint firstAttribute="trailing" secondItem="7HN-EK-QXO" secondAttribute="trailing" constant="8" id="EZJ-3g-VZ0"/>
+                    <constraint firstItem="3NQ-tT-U9b" firstAttribute="leading" secondItem="rFT-0r-5zy" secondAttribute="leading" constant="12" id="Km2-Bp-fFb"/>
+                    <constraint firstItem="851-fC-gEN" firstAttribute="leading" secondItem="cum-4j-JlQ" secondAttribute="leading" id="NHY-P5-axf"/>
+                    <constraint firstItem="cum-4j-JlQ" firstAttribute="top" secondItem="rFT-0r-5zy" secondAttribute="top" constant="12" id="SEx-Ax-stg"/>
+                    <constraint firstAttribute="bottom" secondItem="851-fC-gEN" secondAttribute="bottom" constant="12" id="ZwR-py-AZC"/>
+                    <constraint firstItem="851-fC-gEN" firstAttribute="top" secondItem="cum-4j-JlQ" secondAttribute="bottom" constant="4" id="aAE-b0-nwb"/>
+                    <constraint firstItem="9Ni-mb-fA5" firstAttribute="leading" secondItem="cum-4j-JlQ" secondAttribute="trailing" constant="8" id="hV0-8P-jwr"/>
+                    <constraint firstItem="9Ni-mb-fA5" firstAttribute="centerY" secondItem="rFT-0r-5zy" secondAttribute="centerY" id="tB8-k0-qYw"/>
+                    <constraint firstItem="7HN-EK-QXO" firstAttribute="centerY" secondItem="rFT-0r-5zy" secondAttribute="centerY" id="tjc-5f-EBn"/>
+                    <constraint firstItem="3NQ-tT-U9b" firstAttribute="centerY" secondItem="rFT-0r-5zy" secondAttribute="centerY" id="zd3-Ex-VJY"/>
+                </constraints>
+            </tableViewCellContentView>
+            <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="downloadSize" destination="9Ni-mb-fA5" id="btQ-8t-pIV"/>
+                <outlet property="mapsCount" destination="851-fC-gEN" id="dY0-zX-KS2"/>
+                <outlet property="stateWrapper" destination="3NQ-tT-U9b" id="PJw-9U-8b3"/>
+                <outlet property="title" destination="cum-4j-JlQ" id="f9c-KC-2dR"/>
+            </connections>
+            <point key="canvasLocation" x="408.69565217391306" y="269.86607142857139"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic_arrow_gray_right" width="28" height="28"/>
+    </resources>
+</document>

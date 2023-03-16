@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Name=Organic Maps
+Version=1.0
+GenericName=Detailed Offline Maps of the World
+GenericName[ru]=Подробная оффлайновая карта мира
+Icon=organicmaps
+TryExec=OMaps
+Exec=OMaps
+Terminal=false
+StartupNotify=false
+Categories=Qt;Education;Science;Geography;Geoscience
+Keywords=Maps;Offline Maps;Minsk;London;Briefcase;Case;OMaps;OrganicMaps;OSM;OpenStreetMap;Map

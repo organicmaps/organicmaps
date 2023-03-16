@@ -1,0 +1,2847 @@
+/* ~~~~ CONTENT OF ICONS~~~~~
+
+1.Z-INDEX of ICONS
+2.NATURAL
+3.TRANSPORT
+ 3.1 Train Station
+ 3.2 Subway Station
+ 3.3 Tram Station
+ 3.4 Bus Station
+ 3.5 Ferry terminal
+ 3.6 Airport
+ 3.7 Aerialway
+4.TOURISM
+ 4.1 Main POI
+ 4.2 Apartament
+ 4.3 Food
+5.AMENITY (infrastructure)
+ 5.1 Hospital
+ 5.2 Education
+ 5.3 Sport
+ 5.4 Religion
+ 5.5 Others
+6.SHOP
+ 6.1 Craft
+7.CAR
+ 7.1 Parking
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+/* 1. Z-INDEX OF ICONS */
+
+/*
+  Set default text priority for all POIs greater than building text priority (15201) to avoid name and symbol overlap.
+  This is the only valid variant to change text priority without overriding background filling priority.
+  ToDo: I'd prefer something like area[amenity] { z-name-index: 500; };
+  -x-me-min-text-priority and -x-me-text-priority are hacks.
+*/
+area[amenity],
+area[man_made],
+{-x-me-min-text-priority: 15300;}
+
+node|z17-[leisure=golf_course],
+area|z17-[leisure=golf_course]
+{z-index: 50;}
+/* нельзя другой z-index, иначе пропадают все объекты на поле */
+
+node[amenity=fountain],
+area[amenity=fountain]
+{z-index: 2000;}
+
+node[natural=spring],
+area[natural=spring],
+node[natural=hot_spring],
+area[natural=hot_spring],
+node[natural=geyser],
+area[natural=geyser],
+node[amenity=drinking_water],
+area[amenity=drinking_water],
+node[man_made=water_tap],
+area[man_made=water_tap],
+node[amenity=water_point],
+area[amenity=water_point],
+node[man_made=water_well],
+area[man_made=water_well],
+node[amenity=waste_basket],
+node[amenity=waste_disposal],
+area[amenity=waste_disposal],
+node[man_made=survey_point],
+node[highway=elevator],
+area[highway=elevator],
+{z-index: 2100;}
+
+node[natural=cave_entrance],
+area[natural=cave_entrance],
+node[waterway=waterfall],
+area[waterway=waterfall],
+node[natural=volcano],
+area[natural=volcano],
+node[natural=peak],
+area[natural=peak],
+node[natural=saddle],
+area[natural=saddle],
+node[mountain_pass],
+area[mountain_pass],
+node[tourism=information],
+node[historic],
+area[historic],
+node[amenity=post_box],
+area[amenity=post_box],
+node[amenity=telephone],
+node[emergency=phone],
+node[amenity=bench],
+node[amenity=recycling],
+area[amenity=recycling],
+node[amenity=sanitary_dump_station],
+area[amenity=sanitary_dump_station],
+node[amenity=waste_transfer_station],
+area[amenity=waste_transfer_station],
+node[amenity=vending_machine],
+area[amenity=vending_machine],
+node[amenity=parcel_locker],
+area[amenity=parcel_locker],
+node[aeroway=gate],
+area[aeroway=gate],
+node[amenity=hunting_stand],
+area[amenity=hunting_stand],
+node[amenity=shower],
+area[amenity=shower],
+node[amenity=events_venue],
+area[amenity=events_venue],
+node[man_made=chimney],
+area[man_made=chimney],
+node[vending=parking_tickets],
+area[vending=parking_tickets]
+{z-index: 2200;}
+
+node[shop],
+area[shop],
+node[amenity=veterinary],
+area[amenity=veterinary],
+node[leisure=playground],
+node[historic=ruins],
+area[historic=ruins],
+node[tourism=artwork][artwork_type=sculpture],
+area[tourism=artwork][artwork_type=sculpture],
+node[tourism=caravan_site],
+area[tourism=caravan_site],
+node[amenity=bicycle_parking],
+area[amenity=bicycle_parking],
+node[leisure=water_park],
+area[leisure=water_park],
+node[amenity=taxi],
+area[amenity=taxi],
+node[barrier=lift_gate],
+area[barrier=lift_gate],
+node[leisure=dog_park],
+area[leisure=dog_park],
+node[leisure=water_park],
+area[leisure=water_park],
+node[man_made=windmill],
+area[man_made=windmill],
+node[amenity=casino],
+area[amenity=casino],
+node[shop=money_lender],
+area[shop=money_lender],
+node[amenity=childcare],
+area[amenity=childcare],
+node[power=station],
+area[power=station],
+node[power=substation],
+area[power=substation],
+node|z18-[tourism],
+area|z18-[tourism],
+node|z18-[craft],
+area|z18-[craft],
+node[amenity=bbq],
+area[amenity=bbq],
+node[amenity=toilets],
+area[amenity=toilets]
+{z-index: 2400;}
+
+/* Bigger than leisure=playground, sports_centre, pitch */
+node[sport],
+area[sport],
+{z-index: 2410;}
+
+node|z18-[sport=archery],
+area|z18-[sport=archery],
+node|z18-[sport=shooting],
+area|z18-[sport=shooting],
+node|z18-[sport=australian_football],
+area|z18-[sport=australian_football],
+node|z18-[sport=bowls],
+area|z18-[sport=bowls],
+node|z18-[sport=cricket],
+area|z18-[sport=cricket],
+node|z18-[sport=curling],
+area|z18-[sport=curling],
+node|z18-[sport=diving],
+area|z18-[sport=diving],
+node|z18-[sport=scuba_diving],
+area|z18-[sport=scuba_diving],
+node|z18-[sport=equestrian],
+area|z18-[sport=equestrian],
+node|z18-[sport=climbing],
+area|z18-[sport=climbing],
+node|z18-[sport=9pin],
+area|z18-[sport=9pin],
+node|z18-[sport=10pin],
+area|z18-[sport=10pin],
+node|z18-[sport=chess],
+area|z18-[sport=chess],
+{z-index: 2440;}
+
+node|z18-[sport=swimming],
+area|z18-[sport=swimming],
+node|z18-[sport=baseball],
+area|z18-[sport=baseball],
+node|z18-[sport=basketball],
+area|z18-[sport=basketball],
+node|z18-[sport=american_football],
+area|z18-[sport=american_football],
+node|z18-[sport=athletics],
+area|z18-[sport=athletics],
+node|z18-[sport=golf],
+area|z18-[sport=golf],
+node|z18-[sport=gymnastics],
+area|z18-[sport=gymnastics],
+node|z18-[sport=skateboard],
+area|z18-[sport=skateboard],
+node|z18-[sport=volleyball],
+area|z18-[sport=volleyball],
+node|z18-[sport=beachvolleyball],
+area|z18-[sport=beachvolleyball],
+node|z18-[sport=table_tennis],
+area|z18-[sport=table_tennis],
+node|z18-[sport=yoga],
+area|z18-[sport=yoga],
+node|z18-[sport=padel],
+area|z18-[sport=padel],
+node|z18-[sport=handball],
+area|z18-[sport=handball],
+node|z18-[sport=ice_hockey],
+area|z18-[sport=ice_hockey],
+node|z18-[sport=field_hockey],
+area|z18-[sport=field_hockey],
+node|z18-[sport=badminton],
+area|z18-[sport=badminton],
+node|z18-[sport=pelota],
+area|z18-[sport=pelota],
+{z-index: 2460;}
+
+node[landuse=landfill],
+area[landuse=landfill],
+node|z17-[sport=tennis],
+area|z17-[sport=tennis],
+node|z17-[sport=skiing],
+area|z17-[sport=skiing],
+node[tourism=camp_site],
+area[tourism=camp_site],
+node[tourism=picnic_site],
+area[tourism=picnic_site],
+node[leisure=picnic_table],
+area[leisure=picnic_table],
+node[amenity=shelter],
+area[amenity=shelter],
+node[highway=rest_area],
+area[highway=rest_area],
+node[amenity=bicycle_rental],
+area[amenity=bicycle_rental],
+node[amenity=bicycle_repair_station],
+area[amenity=bicycle_repair_station],
+node[amenity=car_wash],
+area[amenity=car_wash],
+node[amenity=car_sharing],
+area[amenity=car_sharing],
+node[amenity=car_rental],
+area[amenity=car_rental],
+node|z18-[office],
+area|z18-[office],
+node[amenity=fire_station],
+area[amenity=fire_station],
+node[amenity=atm],
+area[amenity=atm],
+node[amenity=bureau_de_change],
+node[shop=pawnbroker],
+area[shop=pawnbroker],
+node[amenity=library],
+area[amenity=library],
+node[shop=charity],
+area[shop=charity],
+node[shop=second_hand],
+area[shop=second_hand],
+{z-index: 2500;}
+
+node[amenity=fuel],
+area[amenity=fuel],
+node[amenity=charging_station],
+area[amenity=charging_station]
+{z-index: 2590;}
+
+node[aerialway=station],
+node[railway=level_crossing],
+node[amenity=marketplace],
+area[amenity=marketplace],
+node[shop=supermarket],
+area[shop=supermarket],
+node[shop=car_repair][service=tyres],
+area[shop=car_repair][service=tyres],
+node[shop=caravan],
+area[shop=caravan],
+node[highway=services],
+area[highway=services],
+node[amenity=post_office],
+area[amenity=post_office],
+node[amenity=dentist],
+area[amenity=dentist],
+node[amenity=clinic],
+area[amenity=clinic],
+node[amenity=doctors],
+area[amenity=doctors],
+node[healthcare=laboratory],
+area[healthcare=laboratory],
+node[healthcare=physiotherapist],
+area[healthcare=physiotherapist],
+node[healthcare=alternative],
+area[healthcare=alternative],
+node[healthcare=audiologist],
+area[healthcare=audiologist],
+node[healthcare=blood_donation],
+area[healthcare=blood_donation],
+node[healthcare=optometrist],
+area[healthcare=optometrist],
+node[healthcare=podiatrist],
+area[healthcare=podiatrist],
+node[healthcare=psychotherapist],
+area[healthcare=psychotherapist],
+node[healthcare=sample_collection],
+area[healthcare=sample_collection],
+node[healthcare=speech_therapist],
+area[healthcare=speech_therapist],
+node[leisure=swimming_pool],
+area[leisure=swimming_pool],
+area[aeroway=heliport],
+area[aeroway=helipad],
+node[aeroway=heliport],
+node[aeroway=helipad],
+node[historic=archaeological_site],
+area[historic=archaeological_site],
+node[amenity=bank],
+area[amenity=bank],
+node[amenity=courthouse],
+area[amenity=courthouse],
+node[amenity=cinema],
+area[amenity=cinema],
+node[leisure=bowling_alley],
+area[leisure=bowling_alley],
+node[amenity=nightclub],
+area[amenity=nightclub],
+node[amenity=police],
+area[amenity=police],
+node[amenity=prison],
+area[amenity=prison],
+node[office=diplomatic],
+area[office=diplomatic],
+node[office=lawyer],
+area[office=lawyer]
+{z-index: 2600;}
+
+node[man_made=lighthouse],
+area[man_made=lighthouse],
+node[barrier=border_control],
+{z-index: 2700;}
+
+node[tourism=artwork],
+area[tourism=artwork],
+node[tourism=attraction][attraction=animal],
+area[tourism=attraction][attraction=animal],
+{z-index: 2760;}
+
+node[amenity=cafe],
+area[amenity=cafe],
+node[amenity=theatre],
+area[amenity=theatre]
+{z-index: 2790;}
+
+node[amenity=restaurant],
+area[amenity=restaurant]
+{z-index: 2788;}
+node[amenity=fast_food],
+area[amenity=fast_food],
+node[amenity=food_court],
+area[amenity=food_court]
+{z-index: 2786;}
+node[amenity=bar],
+area[amenity=bar]
+{z-index: 2784;}
+node[amenity=pub],
+area[amenity=pub],
+node[amenity=biergarten],
+area[amenity=biergarten],
+node[amenity=ice_cream],
+area[amenity=ice_cream],
+{z-index: 2782;}
+
+node[historic=monument],
+area[historic=monument],
+node[historic=memorial],
+area[historic=memorial],
+node[historic=battlefield],
+area[historic=battlefield],
+node|z17-[tourism=artwork][artwork_type=sculpture],
+area|z17-[tourism=artwork][artwork_type=sculpture]
+{z-index: 2800;}
+
+/* Decrease _plaque_ priority from defaults */
+node[historic=memorial][memorial=plaque],
+area[historic=memorial][memorial=plaque],
+node[historic=memorial][memorial=stolperstein],
+area[historic=memorial][memorial=stolperstein],
+{z-index: 2760;}
+
+/* OSM Hotel */
+
+node[tourism=apartment],
+area[tourism=apartment],
+node[tourism=chalet],
+area[tourism=chalet],
+node[tourism=guest_house],
+area[tourism=guest_house]
+{z-index: 2812;}
+
+node[tourism=alpine_hut],
+area[tourism=alpine_hut],
+node[tourism=wilderness_hut],
+area[tourism=wilderness_hut]
+{z-index: 2813;}
+
+node[tourism=hostel],
+area[tourism=hostel]
+{z-index: 2814;}
+
+node[tourism=motel],
+area[tourism=motel]
+{z-index: 2815;}
+
+node[tourism=resort],
+area[tourism=resort]
+{z-index: 2816;}
+
+node[tourism=hotel],
+area[tourism=hotel]
+{z-index: 2818;}
+
+node[amenity=place_of_worship],
+area[amenity=place_of_worship]
+{z-index: 2872;}
+
+node[amenity=community_centre],
+area[amenity=community_centre],
+{z-index: 2870;}
+node[tourism=attraction],
+area[tourism=attraction],
+area[place=square],
+node|z16-[tourism=attraction][attraction=animal],
+area|z16-[tourism=attraction][attraction=animal],
+node[tourism=theme_park],
+area[tourism=theme_park]
+{z-index: 2872;}
+node[historic=ship],
+area[historic=ship],
+{z-index: 2873;}
+node[tourism=gallery]
+{z-index: 2874;}
+node[tourism=museum],
+area[tourism=museum]
+{z-index: 2876;}
+node[leisure=stadium],
+area[leisure=stadium]
+{z-index: 2878;}
+node[tourism=viewpoint]
+node|z16-[tourism=artwork][artwork_type=architecture],
+area|z16-[tourism=artwork][artwork_type=architecture],
+node|z17-[tourism=artwork][artwork_type=statue],
+area|z17-[tourism=artwork][artwork_type=statue],
+node|z18-[historic=memorial][memorial=plaque],
+area|z18-[historic=memorial][memorial=plaque],
+node|z19-[historic=memorial][memorial=stolperstein],
+area|z19-[historic=memorial][memorial=stolperstein],
+node|z18-[tourism=artwork][artwork_type=painting],
+area|z18-[tourism=artwork][artwork_type=painting]
+{z-index: 2880;}
+node[tourism=zoo],
+area[tourism=zoo]
+{z-index: 2882;}
+
+node[historic=fort],
+area[historic=fort],
+node[historic=castle],
+area[historic=castle]
+{z-index: 2890;}
+
+node[building=hospital],
+area[building=hospital],
+node[building=university],
+area[building=university],
+node[amenity=pharmacy],
+area[amenity=pharmacy]
+{z-index: 2900;}
+
+node[barrier=toll_booth],
+area[barrier=toll_booth]
+{z-index: 2910;}
+
+node[shop=mall],
+area[shop=mall]
+{z-index: 2930;}
+
+node[railway=subway_entrance],
+node[highway=bus_stop],
+area[highway=bus_stop]
+{z-index: 2950;}
+
+node[railway=halt],
+node[railway=tram_stop],
+area[railway=tram_stop]
+{z-index: 2960;}
+
+node[amenity=bus_station],
+node[public_transport=station],
+{z-index: 2970;}
+
+area[amenity=bus_station],
+area[public_transport=station]
+{z-index: 2980;}
+
+node[railway=station],
+node[amenity=ferry_terminal],
+node[railway=subway_entrance][city=moscow],
+node[railway=station][transport=subway]
+{z-index: 2990;}
+
+area[building=train_station],
+{z-index: 3000;}
+
+/* 2. NATURAL */
+
+node|z10-[natural=volcano],
+area|z10-[natural=volcano],
+node|z11-[natural=cave_entrance],
+area|z11-[natural=cave_entrance],
+node|z11-[waterway=waterfall],
+area|z11-[waterway=waterfall],
+node|z13-[natural=peak],
+area|z13-[natural=peak],
+node|z14-[natural=saddle],
+area|z14-[natural=saddle],
+node|z14-[mountain_pass],
+area|z14-[mountain_pass],
+node|z14-[natural=spring],
+area|z14-[natural=spring],
+node|z14-[natural=hot_spring],
+area|z14-[natural=hot_spring],
+node|z14-[natural=geyser],
+area|z14-[natural=geyser],
+node|z16-[natural=beach],
+area|z16-[natural=beach],
+area|z14-[natural=bare_rock],
+{text: name;text-color: @poi_label;text-position: center;text-offset: 1;text-optional: true;}
+
+node|z12-[boundary=national_park],
+area|z12-[boundary=national_park],
+node|z12-[boundary=national_park],
+area|z12-[boundary=national_park],
+node|z12-[leisure=nature_reserve],
+area|z12-[leisure=nature_reserve]
+{text: name;text-color: @park_label;text-halo-opacity: 0.8;text-halo-color: @label_halo_light;text-halo-radius:0.5;}
+
+node|z18-[boundary=national_park],
+area|z18-[boundary=national_park],
+node|z18-[boundary=national_park],
+area|z18-[boundary=national_park],
+node|z18-[leisure=nature_reserve],
+area|z18-[leisure=nature_reserve]
+{text-optional: true;}
+
+node|z11[natural=cave_entrance],
+area|z11[natural=cave_entrance]
+{icon-image: cave-s.svg;icon-min-distance: 20;text-optional: true;}
+node|z12-[natural=cave_entrance],
+area|z12-[natural=cave_entrance]
+{icon-image: cave-s.svg;text-offset: 1;font-size: 10;text-optional: true;}
+node|z15-[natural=cave_entrance],
+area|z15-[natural=cave_entrance]
+{icon-image: cave-m.svg;text-offset: 1;font-size: 10;text-optional: true;}
+node|z17-[natural=cave_entrance],
+area|z17-[natural=cave_entrance]
+{icon-image: cave-m.svg;text-offset: 1;font-size: 11;text-optional: true;}
+
+node|z11[waterway=waterfall],
+area|z11[waterway=waterfall]
+{icon-image: waterfall-s.svg;icon-min-distance: 15;text-optional: true;}
+node|z12-[waterway=waterfall],
+area|z12-[waterway=waterfall]
+{icon-image: waterfall-s.svg;text-offset: 1;font-size: 10;text-optional: true;}
+node|z17-[waterway=waterfall],
+area|z17-[waterway=waterfall]
+{icon-image: waterfall-m.svg;text-offset: 1;font-size: 10;text-optional: true;}
+
+node|z10-[natural=volcano],
+area|z10-[natural=volcano]
+{icon-image: volcano-s.svg;text-offset: 1;font-size: 10;text-optional: true;}
+node|z15-[natural=volcano],
+area|z15-[natural=volcano]
+{icon-image: volcano-m.svg;text-offset: 1;font-size: 10;text-optional: true;}
+
+node|z12[natural=peak][name],
+area|z12[natural=peak][name]
+{icon-image: peakt-s.svg;icon-min-distance: 10;text-offset: 1;text: name;text-color: @poi_label;text-position: center;text-optional: true;}
+node|z12-14[natural=peak][!name],
+node|z12-14[natural=rock][!name],
+area|z12-14[natural=peak][!name],
+area|z12-14[natural=rock][!name]
+{font-size: 0;}
+node|z13[natural=peak][name],
+area|z13[natural=peak][name]
+{icon-image: peakt-s.svg;text-offset: 1;font-size: 9;text-optional: true;}
+node|z14[natural=peak][name],
+area|z14[natural=peak][name]
+{icon-image: peakt-s.svg;text-offset: 1;font-size: 10;text-optional: true;}
+node|z15-[natural=peak],
+node|z15-[natural=rock],
+area|z15-[natural=peak],
+area|z15-[natural=rock]
+{icon-image: peakt-m.svg;text-offset: 1;font-size: 10;text-optional: true;}
+
+/* ToDo: Make the same as natural=peak when we will have -s,-m icons */
+node|z14-[natural=saddle],
+area|z14-[natural=saddle],
+node|z14-[mountain_pass],
+area|z14-[mountain_pass],
+{icon-image: mountain-pass.svg;text-offset: 1;font-size: 10;text-optional: true;}
+
+node|z16[leisure=beach_resort],
+area|z16[leisure=beach_resort]
+{icon-image: beach-m.svg;}
+node|z17-[leisure=beach_resort],
+area|z17-[leisure=beach_resort]
+{icon-image: beach-m.svg;font-size: 11;text-optional: true;}
+
+node|z11[boundary=national_park],
+area|z11[boundary=national_park],
+node|z11[boundary=national_park],
+area|z11[boundary=national_park],
+node|z11[leisure=nature_reserve],
+area|z11[leisure=nature_reserve]
+{icon-image: nparkf-outline-s.svg;icon-min-distance: 20;}
+node|z12-13[boundary=national_park],
+area|z12-13[boundary=national_park],
+node|z12-13[boundary=national_park],
+area|z12-13[boundary=national_park],
+node|z12-13[leisure=nature_reserve],
+area|z12-13[leisure=nature_reserve]
+{icon-image: nparkf-outline-s.svg;text-offset: 1;font-size: 10;icon-min-distance: 12;}
+node|z14[boundary=national_park],
+area|z14[boundary=national_park],
+node|z14[boundary=national_park],
+area|z14[boundary=national_park],
+node|z14[leisure=nature_reserve],
+area|z14[leisure=nature_reserve]
+{icon-image: nparkf-outline-s.svg;text-offset: 1;font-size: 11;}
+node|z15-[boundary=national_park],
+area|z15-[boundary=national_park],
+node|z15-[boundary=national_park],
+area|z15-[boundary=national_park],
+node|z15-[leisure=nature_reserve],
+area|z15-[leisure=nature_reserve]
+{icon-image: nparkf-outline-m.svg;text-offset: 1;font-size: 12;text-halo-opacity: 0.9;}
+
+node|z12-[landuse=forest][name],
+area|z12-[landuse=forest][name]
+{text: name;text-color: @park_label;text-halo-opacity: 0.8;text-halo-color: @label_halo_light;text-halo-radius:0.5;}
+node|z13[landuse=forest][name],
+area|z13[landuse=forest][name]
+{icon-image: nparkf-outline-s.svg;text-offset: 1;font-size: 10;icon-min-distance: 12;}
+node|z14[landuse=forest][name],
+area|z14[landuse=forest][name]
+{icon-image: nparkf-outline-s.svg;text-offset: 1;font-size: 11;}
+node|z15-[landuse=forest][name],
+area|z15-[landuse=forest][name]
+{icon-image: nparkf-outline-m.svg;text-offset: 1;font-size: 12;text-halo-opacity: 0.9;}
+
+node|z12-[landuse=forest][!name],
+area|z12-[landuse=forest][!name]
+{}
+
+node|z14-[natural=spring],
+area|z14-[natural=spring],
+node|z14-[natural=hot_spring],
+area|z14-[natural=hot_spring]
+{icon-image: drinking-water-s.svg; text-offset: 6; font-size: 10; icon-min-distance: 24; text-optional: true;}
+node|z18-[natural=spring],
+area|z18-[natural=spring],
+node|z18-[natural=hot_spring],
+area|z18-[natural=hot_spring]
+{icon-image: drinking-water-m.svg; text-offset: 8;}
+
+node|z14[natural=geyser],
+area|z14[natural=geyser]
+{icon-image: geyser-s.svg;text-offset:6;font-size: 10;icon-min-distance: 24;text-optional: true;}
+node|z15-[natural=geyser],
+area|z15-[natural=geyser]
+{icon-image: geyser-m.svg;text-offset:8;font-size: 10;icon-min-distance: 24;text-optional: true;}
+
+node|z15-[amenity=water_point],
+area|z15-[amenity=water_point],
+node|z15-[amenity=drinking_water],
+area|z15-[amenity=drinking_water],
+node|z15-[man_made=water_tap],
+area|z15-[man_made=water_tap],
+node|z15-[man_made=water_well],
+area|z15-[man_made=water_well],
+{icon-image: drinking-water-s.svg;icon-min-distance: 36;text-optional: true;}
+node|z19-[amenity=water_point],
+area|z19-[amenity=water_point],
+node|z19-[amenity=drinking_water],
+area|z19-[amenity=drinking_water],
+node|z19-[man_made=water_tap],
+area|z19-[man_made=water_tap],
+node|z19-[man_made=water_well],
+area|z19-[man_made=water_well],
+{icon-image: drinking-water-m.svg;icon-min-distance: 36;text-optional: true;}
+
+/* 3. TRANSPORT */
+
+node|z12-[railway=station][!transport],
+node|z13-[railway=halt],
+node|z14-[railway=station][transport=subway],
+node|z16-[railway=subway_entrance],
+{text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.6;text-halo-color: @label_halo_light;text-optional: true;}
+node|z12-[railway=station][!transport]::int_name,
+node|z13-[railway=halt]::int_name,
+node|z14-[railway=station][transport=subway]::int_name,
+node|z16-[railway=subway_entrance]::int_name,
+{text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.6;text-halo-color: @label_halo_light;text-optional: true;}
+
+node|z17-[railway=tram_stop],
+area|z17-[railway=tram_stop]
+{text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 1;text-halo-color: @label_halo_light;text-optional: true;}
+node|z17-[railway=tram_stop]::int_name,
+area|z17-[railway=tram_stop]::int_name
+{text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 1;text-halo-color: @label_halo_light;text-optional: true;}
+node|z17-[highway=bus_stop],
+area|z17-[highway=bus_stop],
+node|z17-[public_transport=station],
+area|z17-[public_transport=station],
+node|z14-[amenity=bus_station],
+area|z14-[amenity=bus_station]
+{text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.9;text-halo-color: @label_halo_light;text-position: center;text-optional: true;}
+node|z17-[highway=bus_stop]::int_name,
+area|z17-[highway=bus_stop]::int_name,
+node|z17-[public_transport=station]::int_name,
+area|z17-[public_transport=station]::int_name,
+node|z14-[amenity=bus_station]::int_name,
+area|z14-[amenity=bus_station]::int_name
+{text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.9;text-halo-color: @label_halo_light;text-position: center;text-optional: true;}
+
+area|z10-[aeroway=aerodrome][aerodrome=international],
+node|z10-[aeroway=aerodrome][aerodrome=international],
+area|z14-[aeroway=aerodrome],
+node|z14-[aeroway=aerodrome],
+node|z15-[aerialway=station],
+node|z16-[amenity=ferry_terminal]
+{text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.7;text-halo-color: @label_halo_light;text-position: center;text-optional: true;}
+area|z12-[aeroway=aerodrome][aerodrome=international]::int_name,
+node|z12-[aeroway=aerodrome][aerodrome=international]::int_name,
+area|z14-[aeroway=aerodrome]::int_name,
+node|z14-[aeroway=aerodrome]::int_name,
+{text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.7;text-halo-color: @label_halo_light;text-position: center;text-optional: true;}
+
+/* 3.1 Train Station */
+
+/* ToDo: check offset int_name */
+
+node|z12[railway=station][!transport],
+{icon-image: train-s.svg;text-offset: 1;font-size: 9;text-optional: true;}
+node|z12[railway=station][!transport]::int_name,
+{text-offset: 1;font-size: 8;text-optional: true;}
+node|z13[railway=station],
+node|z13[railway=halt],
+{icon-image: train-s.svg;text-offset: 1;font-size: 10;text-optional: true;}
+node|z13[railway=station]::int_name,
+node|z13[railway=halt]::int_name,
+{text-offset: 1;font-size: 9;}
+node|z14[railway=station],
+node|z14[railway=halt],
+{icon-image: train-s.svg;text-offset: 1;font-size: 11;text-halo-opacity: 0.7;text-optional: true;}
+node|z14[railway=station]::int_name,
+node|z14[railway=halt]::int_name,
+{text-offset: 1;font-size: 10;text-halo-opacity: 0.7;text-optional: true;}
+node|z15[railway=station],
+node|z15[railway=halt],
+{icon-image: train-m.svg;text-offset: 1;font-size: 12;text-halo-opacity: 0.8;text-optional: true;}
+node|z15[railway=station]::int_name,
+node|z15[railway=halt]::int_name,
+{text-offset: 1;font-size: 10;text-halo-opacity: 0.8;text-optional: true;}
+node|z16[railway=station],
+node|z16[railway=halt],
+{icon-image: train-m.svg;text-offset: 1;font-size: 13;text-halo-opacity: 0.8;text-optional: true;}
+node|z16[railway=station]::int_name,
+node|z16[railway=halt]::int_name,
+{text-offset: 1;font-size: 11;text-halo-opacity: 0.8;text-optional: true;}
+node|z17-[railway=station],
+node|z17-[railway=halt],
+{icon-image: train-m.svg;text-offset: 1;font-size: 13;text-halo-opacity: 0.9;text-optional: true;}
+node|z17-[railway=station]::int_name,
+node|z17-[railway=halt]::int_name,
+{text-offset: 1;font-size: 12;text-halo-opacity: 0.9;text-optional: true;}
+
+/* 3.2 Subway Station */
+
+node|z13[railway=station][transport=subway]
+{icon-image: subway-s.svg;icon-min-distance: 1;text-optional: true;}
+node|z14[railway=station][transport=subway]
+{icon-image: subway-s.svg;text-offset: 1;font-size: 11;text-halo-opacity: 0.7;icon-min-distance: 1;text-optional: true;}
+node|z14[railway=station][transport=subway]::int_name
+{text-offset: 1;font-size: 9;text-halo-opacity: 0.7;icon-min-distance: 1;text-optional: true;}
+node|z15[railway=station][transport=subway]
+{icon-image: subway-m.svg;text-offset: 1;font-size: 12;text-halo-opacity: 0.8;text-optional: true;}
+node|z15[railway=station][transport=subway]::int_name
+{text-offset: 1;font-size: 10;text-halo-opacity: 0.8;text-optional: true;} /*check*/
+node|z16[railway=station][transport=subway]
+{icon-image: subway-m.svg;text-offset: 1;font-size: 13;text-halo-opacity: 0.8;text-optional: true;}
+node|z16[railway=station][transport=subway]::int_name
+{text-offset: 1;font-size: 11;text-halo-opacity: 0.8;text-optional: true;} /*check*/
+node|z17-[railway=station][transport=subway]
+{icon-image: subway-m.svg;text-offset: 1;font-size: 13;text-halo-opacity: 0.9;text-optional: true;}
+node|z17-[railway=station][transport=subway]::int_name
+{text-offset: 1;font-size: 11;text-halo-opacity: 0.9;text-optional: true;} /*check*/
+
+node|z17-[railway=subway_entrance]
+{icon-image: subway-entrance-m.svg;text-offset: 1;font-size: 13;text-halo-opacity: 0.9;text-optional: true;}
+node|z17-[railway=subway_entrance]::int_name
+{text-offset: 1;font-size: 11;text-halo-opacity: 0.9;text-optional: true;} /*check*/
+
+node|z17-[highway=elevator],
+area|z17-[highway=elevator],
+{icon-image: elevator.svg;}
+
+/* 3.3 Tram Station */
+
+node|z14[railway=tram_stop]
+{icon-image: tram-s.svg;}
+node|z15-16[railway=tram_stop],
+area|z15-16[railway=tram_stop]
+{icon-image: tram-m.svg;}
+node|z17[railway=tram_stop],
+area|z17[railway=tram_stop]
+{icon-image: tram-m.svg;text-offset: 1;font-size: 11;text-halo-opacity: 0.9;text-optional: true;}
+node|z17-[railway=tram_stop]::int_name,
+area|z17-[railway=tram_stop]::int_name
+{text-offset: 1;font-size: 10;text-halo-opacity: 0.9;text-optional: true;} /*check*/
+node|z18-[railway=tram_stop],
+area|z18-[railway=tram_stop]
+{icon-image: tram-m.svg;text-offset: 1;font-size: 12;text-halo-opacity: 0.9;text-optional: true;}
+
+/* 3.4 Bus Station */
+
+node|z13[amenity=bus_station],
+area|z13[amenity=bus_station]
+{icon-image: bus-s.svg;icon-min-distance: 1;text-optional: true;}
+node|z14[amenity=bus_station],
+area|z14[amenity=bus_station]
+{icon-image: bus-s.svg;text-offset: 1;font-size: 10;text-halo-opacity: 0.8;text-optional: true;}
+node|z15-16[amenity=bus_station],
+area|z15-16[amenity=bus_station]
+{icon-image: bus-m.svg;text-offset: 1;font-size: 11;text-halo-opacity: 0.8;text-optional: true;}
+node|z15-16[amenity=bus_station]::int_name,
+area|z15-16[amenity=bus_station]::int_name
+{text-offset: 1;font-size: 9;text-halo-opacity: 0.8;text-optional: true;}
+node|z17[amenity=bus_station],
+area|z17[amenity=bus_station]
+{icon-image: bus-m.svg;text-offset: 1;font-size: 11;text-optional: true;}
+node|z17[amenity=bus_station]::int_name,
+area|z17[amenity=bus_station]::int_name
+{text-offset: 1;font-size: 9;}
+node|z18[amenity=bus_station],
+area|z18[amenity=bus_station]
+{icon-image: bus-m.svg;text-offset: 1;font-size: 12;text-optional: true;}
+node|z18[amenity=bus_station]::int_name,
+area|z18[amenity=bus_station]::int_name
+{text-offset: 1;font-size: 10;}
+node|z19-[amenity=bus_station],
+area|z19-[amenity=bus_station]
+{icon-image: bus-m.svg;text-offset: 1;font-size: 12;text-optional: true;}
+node|z19-[amenity=bus_station]::int_name,
+area|z19-[amenity=bus_station]::int_name
+{text-offset: 1;font-size: 10;}
+
+node|z16[highway=bus_stop],
+area|z16[highway=bus_stop]
+{icon-image: bus-m.svg;}
+node|z17-[highway=bus_stop],
+area|z17-[highway=bus_stop],
+node|z18-[public_transport=station],
+area|z18-[public_transport=station]
+{icon-image: bus-m.svg;text-offset: 1;font-size: 11;text-optional: true;}
+node|z18-19[highway=bus_stop]::int_name,
+area|z18-19[highway=bus_stop]::int_name,
+node|z18-19[public_transport=station]::int_name,
+area|z18-19[public_transport=station]::int_name
+{icon-image: bus-m.svg;text-offset: 1;font-size: 9;text-optional: true;}
+
+/* 3.5 Ferry terminal */
+
+node|z11-12[amenity=ferry_terminal]
+{icon-image: ship-s.svg;icon-min-distance: 12;text-optional: true;}
+node|z13-14[amenity=ferry_terminal]
+{icon-image: ship-s.svg;text-optional: true;}
+node|z15[amenity=ferry_terminal]
+{icon-image: ship-m.svg;text-optional: true;}
+node|z16[amenity=ferry_terminal]
+{icon-image: ship-m.svg;text-offset: 1;font-size: 11;text-halo-opacity: 0.8;text-optional: true;}
+node|z17-[amenity=ferry_terminal]
+{icon-image: ship-m.svg;text-offset: 1;font-size: 12;text-optional: true;}
+
+/* 3.6 Airport */
+
+area|z7-9[aeroway=aerodrome][aerodrome=international],
+node|z7-9[aeroway=aerodrome][aerodrome=international],
+{icon-image: airport-s.svg;}
+
+area|z10[aeroway=aerodrome][aerodrome=international],
+node|z10[aeroway=aerodrome][aerodrome=international],
+{icon-image: airport-s.svg;text-offset: 1;font-size: 10;}
+area|z11-13[aeroway=aerodrome][aerodrome=international],
+node|z11-13[aeroway=aerodrome][aerodrome=international],
+{icon-image: airport-m.svg; text-offset: 1; font-size: 11;}
+area|z14-[aeroway=aerodrome],
+node|z14-[aeroway=aerodrome]
+{icon-image: airport-m.svg;text-offset: 1;font-size: 12;}
+area|z14-[aeroway=aerodrome]::int_name,
+node|z14-[aeroway=aerodrome]::int_name,
+{font-size: 11;}
+
+area|z16-[aeroway=heliport],
+area|z16-[aeroway=helipad],
+node|z16-[aeroway=heliport],
+node|z16-[aeroway=helipad]
+{icon-image: helipad-m.svg;text-offset: 1;font-size: 10;text: name;text-color: @poi_label;text-optional: true;}
+
+/* 3.7 Aerialway */
+
+node|z12-13[aerialway=station],
+{icon-image: cable-car-s.svg;icon-min-distance: 10;}
+node|z14[aerialway=station],
+{icon-image: cable-car-s.svg;}
+node|z15-[aerialway=station],
+{icon-image: cable-car-m.svg;text-offset: 1;font-size: 10;}
+node|z17-[aerialway=station],
+{font-size: 12;}
+
+node|z17-[railway=level_crossing]
+{icon-image: railway-crossing-m.svg;text-optional: true;}
+
+/* 4.TOURISM */
+
+/* 4.1 Main POI */
+
+node|z12-[historic=fort],
+area|z12-[historic=fort],
+node|z12-[historic=castle],
+area|z12-[historic=castle],
+node|z13-[historic=city_gate],
+area|z13-[historic=city_gate],
+node|z13-[historic=monument],
+area|z13-[historic=monument],
+node|z13-[tourism=museum],
+area|z13-[tourism=museum],
+node|z13-[tourism=zoo],
+area|z13-[tourism=zoo],
+node|z14-[amenity=theatre],
+area|z14-[amenity=theatre],
+node|z14-[tourism=attraction],
+area|z14-[tourism=attraction],
+area|z14-[place=square],
+node|z14-[tourism=theme_park],
+area|z14-[tourism=theme_park],
+node|z14-[amenity=community_centre],
+area|z14-[amenity=community_centre],
+node|z14-[tourism=viewpoint],
+node|z15-[historic=memorial],
+area|z15-[historic=memorial],
+node|z15-[historic=battlefield],
+area|z15-[historic=battlefield],
+node|z15-[tourism=gallery],
+area|z15-[tourism=gallery],
+node|z15-[tourism=artwork],
+node|z16-[tourism=information],
+node|z16-[historic=boundary_stone],
+area|z16-[historic=boundary_stone],
+node|z16-[historic=wayside_cross],
+area|z16-[historic=wayside_cross],
+node|z16-[historic=ship],
+area|z16-[historic=ship],
+node|z16-[historic=tomb],
+area|z16-[historic=tomb],
+node|z17-[historic=ruins],
+area|z17-[historic=ruins],
+node|z17-[historic=wayside_shrine],
+area|z17-[historic=wayside_shrine],
+node|z17-[historic=archaeological_site],
+area|z17-[historic=archaeological_site],
+node|z17-[historic=gallows],
+area|z17-[historic=gallows],
+node|z17-[historic=pillory],
+area|z17-[historic=pillory],
+node|z17-[amenity=arts_centre],
+area|z17-[amenity=arts_centre],
+{text: name;text-offset: 1;font-size: 10;text-color: @poi_label;text-optional: true;}
+
+node|z12-14[historic=fort],
+area|z12-14[historic=fort],
+node|z12-14[historic=castle],
+area|z12-14[historic=castle]
+{icon-image: remains-s.svg;text-offset: 1;icon-min-distance: 12;}
+node|z15[historic=fort],
+area|z15[historic=fort],
+node|z15[historic=castle],
+area|z15[historic=castle]
+{icon-image: remains-m.svg;icon-min-distance: 5;}
+node|z16[historic=fort],
+area|z16[historic=fort],
+node|z16[historic=castle],
+area|z16[historic=castle]
+{icon-image: remains-m.svg;text-offset: 1;}
+node|z17-[historic=ruins][name],
+area|z17-[historic=ruins][name],
+node|z17-[historic=fort],
+area|z17-[historic=fort],
+node|z17-[historic=castle],
+area|z17-[historic=castle]
+{icon-image: remains-m.svg;}
+
+node|z17-[historic=archaeological_site],
+area|z17-[historic=archaeological_site]
+{icon-image: archaeological-site-m.svg;}
+
+
+node|z19-[historic=ruins][!name],
+area|z19-[historic=ruins][!name],
+{icon-image: remains-m.svg;}
+
+node|z13-14[historic=monument],
+area|z13-14[historic=monument]
+{icon-image: monument-s.svg;text-offset: 1;icon-min-distance: 12;}
+node|z15[historic=monument],
+area|z15[historic=monument],
+node|z15[historic=memorial],
+area|z15[historic=memorial],
+node|z15[historic=battlefield],
+area|z15[historic=battlefield],
+{icon-image: monument-m.svg;icon-min-distance: 24;}
+node|z16-[historic=monument],
+area|z16-[historic=monument],
+node|z16-[historic=memorial],
+area|z16-[historic=memorial],
+node|z16-[historic=battlefield],
+area|z16-[historic=battlefield],
+{icon-image: monument-m.svg;icon-min-distance: 12;}
+
+/* Zero previous params to redefine below */
+node|z15-17[historic=memorial][memorial=plaque],
+area|z15-17[historic=memorial][memorial=plaque],
+node|z15-18[historic=memorial][memorial=stolperstein],
+area|z15-18[historic=memorial][memorial=stolperstein],
+node|z15-16[historic=memorial][memorial=cross],
+area|z15-16[historic=memorial][memorial=cross],
+{icon-image: zero-icon.svg;text: none;}
+
+node|z18-[historic=memorial][memorial=plaque],
+area|z18-[historic=memorial][memorial=plaque],
+node|z19-[historic=memorial][memorial=stolperstein],
+area|z19-[historic=memorial][memorial=stolperstein],
+{icon-image: plaque.svg;}
+node|z17-[historic=memorial][memorial=cross],
+area|z17-[historic=memorial][memorial=cross],
+{icon-image: cross-m.svg;icon-min-distance: 12;}
+
+node|z13-14[historic=city_gate],
+area|z13-14[historic=city_gate]
+{icon-image: remains-s.svg;text-offset: 1;icon-min-distance: 12;}
+node|z15[historic=city_gate],
+area|z15[historic=city_gate],
+{icon-image: remains-m.svg;icon-min-distance: 24;}
+node|z16-[historic=city_gate],
+area|z16-[historic=city_gate],
+{icon-image: remains-m.svg;icon-min-distance: 12;}
+
+node|z13-14[tourism=museum],
+area|z13-14[tourism=museum]
+{icon-image: museum-s.svg;icon-min-distance: 16;}
+node|z15[tourism=museum],
+area|z15[tourism=museum]
+{icon-image: museum-m.svg;icon-min-distance: 24;}
+node|z16-[tourism=museum],
+area|z16-[tourism=museum],
+{icon-image: museum-m.svg;text-offset: 1;icon-min-distance: 12;}
+
+node|z15[tourism=gallery]
+{icon-image: gallery-m.svg;icon-min-distance: 8;} /* <-- <-- не показывается, непонятно почему, позже разобраться */
+node|z16-[tourism=gallery],
+area|z16-[tourism=gallery],
+node|z17-[amenity=arts_centre],
+area|z17-[amenity=arts_centre]
+{icon-image: gallery-m.svg;text-offset: 1;icon-min-distance: 12;}
+
+node|z14[amenity=theatre],
+area|z14[amenity=theatre]
+{icon-image: theatre-s.svg;text-offset: 1;icon-min-distance: 8;}
+node|z16-[amenity=theatre],
+area|z16-[amenity=theatre]
+{icon-image: theatre-m.svg;icon-min-distance: 10;}
+
+node|z13-14[tourism=zoo],
+area|z13-14[tourism=zoo]
+{icon-image: zoo-s.svg;text-offset: 1;icon-min-distance: 12;}
+node|z15[tourism=zoo],
+area|z15[tourism=zoo]
+{icon-image: zoo-m.svg;icon-min-distance: 8;}
+node|z16-[tourism=zoo],
+area|z16-[tourism=zoo]
+{icon-image: zoo-m.svg;text-offset: 1;icon-min-distance: 8;}
+
+node|z14[tourism=viewpoint]
+{icon-image: viewpoint-s.svg;text-offset: 1;icon-min-distance: 8;}
+node|z15-[tourism=viewpoint]
+{icon-image: viewpoint-m.svg;icon-min-distance: 8;}
+
+node|z16-[tourism=information]
+{icon-image: information-m.svg;text-offset: 1;icon-min-distance: 10;}
+node|z16-[tourism=information][information=board]
+{icon-image: board.svg;text-offset: 1;icon-min-distance: 10;}
+node|z16-[tourism=information][information=guidepost]
+{icon-image: guidepost.svg;text-offset: 1;icon-min-distance: 10;}
+node|z16-[tourism=information][information=map]
+{icon-image: map.svg;text-offset: 1;icon-min-distance: 10;}
+
+node|z16-[historic=boundary_stone],
+area|z16-[historic=boundary_stone],
+node|z16-[historic=gallows],
+area|z16-[historic=gallows],
+node|z16-[historic=pillory],
+area|z16-[historic=pillory],
+{icon-image: monument-m.svg;font-size: 11;icon-min-distance: 8;}
+node|z16-[historic=wayside_cross],
+area|z16-[historic=wayside_cross],
+{icon-image: cross-m.svg;font-size: 11;icon-min-distance: 8;}
+node|z16-[historic=ship],
+area|z16-[historic=ship],
+{icon-image: historic-ship-m.svg;font-size: 11;icon-min-distance: 8;}
+node|z16-[historic=tomb],
+area|z16-[historic=tomb],
+{icon-image: tomb-m.svg;font-size: 11;icon-min-distance: 8;}
+node|z16-[historic=wayside_shrine],
+area|z16-[historic=wayside_shrine],
+{icon-image: wayside_shrine-m.svg;font-size: 11;icon-min-distance: 8;}
+
+node|z15[tourism=artwork],
+area|z15[tourism=artwork],
+{icon-image: tourism-m.svg;icon-min-distance: 8;}
+node|z16-[tourism=artwork],
+area|z16-[tourism=artwork],
+{icon-image: tourism-m.svg;icon-min-distance: 24;}
+
+node|z14[tourism=attraction],
+area|z14[tourism=attraction],
+area|z14[place=square],
+{icon-image: tourism-s.svg;icon-min-distance: 12;}
+node|z15[tourism=attraction],
+area|z15[tourism=attraction],
+area|z15[place=square],
+{icon-image: tourism-m.svg;icon-min-distance: 36;}
+node|z16-[tourism=attraction],
+area|z16-[tourism=attraction],
+area|z16-[place=square],
+{icon-image: tourism-m.svg;icon-min-distance: 24;}
+
+node|z14[tourism=theme_park],
+area|z14[tourism=theme_park]
+{icon-image: theme_park-s.svg;icon-min-distance: 12;}
+node|z15[tourism=theme_park],
+area|z15[tourism=theme_park]
+{icon-image: theme_park-m.svg;icon-min-distance: 36;}
+node|z16-[tourism=theme_park],
+area|z16-[tourism=theme_park]
+{icon-image: theme_park-m.svg;icon-min-distance: 24;}
+
+node|z17-[tourism=attraction][attraction=animal],
+area|z17-[tourism=attraction][attraction=animal]
+{icon-image: zoo-m.svg;icon-min-distance: 24;}
+
+node|z14[amenity=community_centre],
+area|z14[amenity=community_centre]
+{icon-image: tourism-s.svg;icon-min-distance: 8;}
+node|z15[amenity=community_centre],
+area|z15[amenity=community_centre]
+{icon-image: tourism-m.svg;icon-min-distance: 24;}
+node|z16-[amenity=community_centre],
+area|z16-[amenity=community_centre]
+{icon-image: tourism-m.svg;icon-min-distance: 16;}
+
+/* 4.2 Apartament */
+
+node|z16-[tourism=hotel],
+node|z16-[tourism=hostel],
+node|z16-[tourism=guest_house],
+area|z16-[tourism=guest_house],
+node|z16-[tourism=alpine_hut],
+area|z16-[tourism=alpine_hut],
+node|z16-[tourism=wilderness_hut],
+area|z16-[tourism=wilderness_hut],
+node|z16-[tourism=chalet],
+area|z16-[tourism=chalet],
+node|z16-[tourism=resort],
+area|z16-[tourism=resort],
+node|z16-[tourism=motel],
+area|z16-[tourism=motel],
+node|z16-[tourism=apartment],
+area|z16-[tourism=apartment]
+{text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
+node|z15-[tourism=camp_site],
+area|z15-[tourism=camp_site],
+node|z16-[tourism=picnic_site],
+area|z16-[tourism=picnic_site],
+node|z16-[leisure=picnic_table],
+area|z16-[leisure=picnic_table],
+node|z16-[amenity=shelter],
+area|z16-[amenity=shelter],
+node|z16-[highway=rest_area],
+area|z16-[highway=rest_area],
+node|z16-[tourism=caravan_site],
+area|z16-[tourism=caravan_site]
+{text: name;text-color: @poi_label;text-offset: 1;font-size: 10;}
+
+
+node|z16[tourism=hotel],
+node|z16[tourism=resort],
+area|z16[tourism=resort],
+node|z16[tourism=motel],
+area|z16[tourism=motel]
+{icon-image: hotel-m.svg;icon-min-distance: 24;}
+node|z16[tourism=hostel]
+{icon-image: hostel-m.svg;icon-min-distance: 24;}
+node|z16[tourism=guest_house],
+area|z16[tourism=guest_house],
+node|z16[tourism=apartment],
+area|z16[tourism=apartment]
+{icon-image: apartment-m.svg;icon-min-distance: 24;text-halo-radius: 0;}
+node|z16[tourism=alpine_hut],
+area|z16[tourism=alpine_hut],
+node|z16[tourism=wilderness_hut],
+area|z16[tourism=wilderness_hut],
+node|z16[tourism=chalet],
+area|z16[tourism=chalet]
+{icon-image: alpine_hut-m.svg;icon-min-distance: 24;}
+
+node|z17-[tourism=hotel],
+node|z17-[tourism=motel],
+area|z17-[tourism=motel],
+node|z17-[tourism=resort],
+area|z17-[tourism=resort]
+{icon-image: hotel-m.svg;icon-min-distance: 16;}
+node|z17-[tourism=hostel]
+{icon-image: hostel-m.svg;icon-min-distance: 16;}
+node|z17[tourism=guest_house],
+area|z17[tourism=guest_house],
+node|z17[tourism=apartment],
+area|z17[tourism=apartment]
+{icon-image: apartment-m.svg;text-halo-radius: 0;}
+node|z17-[tourism=alpine_hut],
+area|z17-[tourism=alpine_hut],
+node|z17-[tourism=wilderness_hut],
+area|z17-[tourism=wilderness_hut],
+node|z17-[tourism=chalet],
+area|z17-[tourism=chalet]
+{icon-image: alpine_hut-m.svg;icon-min-distance: 16;}
+
+node|z18-[tourism=guest_house],
+area|z18-[tourism=guest_house],
+node|z18-[tourism=apartment],
+area|z18-[tourism=apartment]
+{icon-image: apartment-m.svg;icon-min-distance: 16;}
+
+node|z15-[tourism=camp_site],
+area|z15-[tourism=camp_site]
+{icon-image: campsite-m.svg;icon-min-distance: 12;}
+
+node|z16-[tourism=picnic_site],
+area|z16-[tourism=picnic_site],
+node|z16-[highway=rest_area],
+area|z16-[highway=rest_area]
+{icon-image: picnic-m.svg;icon-min-distance: 10;}
+node|z16-[leisure=picnic_table],
+area|z16-[leisure=picnic_table]
+{icon-image: picnic_table-m.svg;icon-min-distance: 10;}
+
+node|z16-[amenity=shelter],
+area|z16-[amenity=shelter]
+{icon-image: shelter-m.svg;icon-min-distance: 10;}
+
+node|z16[tourism=caravan_site],
+area|z16[tourism=caravan_site]
+{icon-image: caravan_site-m.svg;font-size: 11;icon-min-distance: 30;}
+node|z17-[tourism=caravan_site],
+area|z17-[tourism=caravan_site]
+{icon-image: caravan_site-m.svg;font-size: 11;icon-min-distance: 20;}
+
+/* 4.3 Food */
+node|z15-[amenity=cafe],
+area|z15-[amenity=cafe],
+node|z15-[amenity=restaurant],
+area|z15-[amenity=restaurant],
+node|z15-[amenity=fast_food],
+area|z15-[amenity=fast_food],
+node|z15-[amenity=food_court],
+area|z15-[amenity=food_court],
+node|z15-[amenity=bar],
+area|z15-[amenity=bar],
+node|z15-[amenity=pub],
+area|z15-[amenity=pub],
+node|z15-[amenity=biergarten],
+area|z15-[amenity=biergarten]
+{text: name;text-color: @poi_label;text-offset: 1;font-size: 10;}
+
+node|z15[amenity=cafe],
+area|z15[amenity=cafe]
+{icon-image: cafe-m.svg;icon-min-distance: 12;}
+node|z15[amenity=restaurant],
+area|z15[amenity=restaurant]
+{icon-image: restaurant-m.svg;icon-min-distance: 28;}
+node|z15[amenity=fast_food],
+area|z15[amenity=fast_food],
+node|z15[amenity=food_court],
+area|z15[amenity=food_court]
+{icon-image: fastfood-m.svg;icon-min-distance: 28;}
+node|z15[amenity=bar],
+area|z15[amenity=bar]
+{icon-image: bar-m.svg;icon-min-distance: 28;}
+node|z15[amenity=pub],
+area|z15[amenity=pub],
+node|z15[amenity=biergarten],
+area|z15[amenity=biergarten]
+{icon-image: beer-m.svg;icon-min-distance: 28;}
+
+node|z16-[amenity=cafe],
+area|z16-[amenity=cafe]
+{icon-image: cafe-m.svg;icon-min-distance: 12;}
+node|z16-[amenity=restaurant],
+area|z16-[amenity=restaurant]
+{icon-image: restaurant-m.svg;icon-min-distance: 12;}
+node|z16-[amenity=fast_food],
+area|z16-[amenity=fast_food],
+node|z16-[amenity=food_court],
+area|z16-[amenity=food_court]
+{icon-image: fastfood-m.svg;icon-min-distance: 12;}
+node|z16-[amenity=bar],
+area|z16-[amenity=bar]
+{icon-image: bar-m.svg;icon-min-distance: 12;}
+node|z16-[amenity=pub],
+area|z16-[amenity=pub],
+node|z16-[amenity=biergarten],
+area|z16-[amenity=biergarten]
+{icon-image: beer-m.svg;icon-min-distance: 12;}
+
+node|z18-[amenity=cafe],
+area|z18-[amenity=cafe],
+node|z18-[amenity=restaurant],
+area|z18-[amenity=restaurant],
+node|z18-[amenity=fast_food],
+area|z18-[amenity=fast_food],
+node|z18-[amenity=food_court],
+area|z18-[amenity=food_court],
+node|z18-[amenity=bar],
+area|z18-[amenity=bar],
+node|z18-[amenity=pub],
+area|z18-[amenity=pub],
+node|z18-[amenity=biergarten],
+area|z18-[amenity=biergarten]
+{ text-optional: true;}
+
+
+/* 5.AMENITY (infrastructure) */
+
+node|z13-[leisure=stadium],
+area|z13-[leisure=stadium],
+node|z14-[barrier=toll_booth],
+area|z14-[barrier=toll_booth],
+node|z14-[amenity=university],
+area|z14-[amenity=university],
+node|z14-[amenity=place_of_worship],
+area|z14-[amenity=place_of_worship],
+node|z14-[man_made=lighthouse],
+area|z14-[man_made=lighthouse],
+node|z15-[amenity=hospital],
+node|z15-[landuse=landfill],
+area|z15-[landuse=landfill],
+node|z15-[barrier=border_control],
+node|z16-[building=hospital],
+area|z16-[building=hospital],
+node|z16-[amenity=veterinary],
+area|z16-[amenity=veterinary],
+node|z16-[amenity=fountain],
+area|z16-[amenity=fountain],
+node|z16-[leisure=marina],
+area|z16-[leisure=marina],
+node|z16-[leisure=water_park],
+area|z16-[leisure=water_park],
+node|z16-[barrier=block],
+node|z16-[barrier=bollard],
+node|z16-[barrier=chain],
+node|z16-[barrier=entrance],
+node|z16-[barrier=gate],
+node|z16-[barrier=kissing_gate],
+node|z16-[barrier=lift_gate],
+node|z16-[barrier=swing_gate],
+node|z16-[barrier=stile],
+node|z16-[amenity=nightclub],
+area|z16-[amenity=nightclub],
+node|z16-[amenity=bank],
+area|z16-[amenity=bank],
+node|z16-[amenity=taxi],
+area|z16-[amenity=taxi],
+node|z16-[leisure=dog_park],
+area|z16-[leisure=dog_park],
+node|z16-[man_made=windmill],
+area|z16-[man_made=windmill],
+node|z16-[man_made=survey_point],
+node|z16-[amenity=college],
+area|z16-[amenity=college],
+node|z17-[amenity=pharmacy],
+area|z17-[amenity=pharmacy],
+node|z17-[amenity=clinic],
+area|z17-[amenity=clinic],
+node|z17-[amenity=doctors],
+area|z17-[amenity=doctors],
+node|z17-[healthcare=laboratory],
+area|z17-[healthcare=laboratory],
+node|z17-[healthcare=physiotherapist],
+area|z17-[healthcare=physiotherapist],
+node|z17-[healthcare=alternative],
+area|z17-[healthcare=alternative],
+node|z17-[healthcare=audiologist],
+area|z17-[healthcare=audiologist],
+node|z17-[healthcare=blood_donation],
+area|z17-[healthcare=blood_donation],
+node|z17-[healthcare=optometrist],
+area|z17-[healthcare=optometrist],
+node|z17-[healthcare=podiatrist],
+area|z17-[healthcare=podiatrist],
+node|z17-[healthcare=psychotherapist],
+area|z17-[healthcare=psychotherapist],
+node|z17-[healthcare=sample_collection],
+area|z17-[healthcare=sample_collection],
+node|z17-[healthcare=speech_therapist],
+area|z17-[healthcare=speech_therapist],
+node|z17-[amenity=dentist],
+area|z17-[amenity=dentist],
+node|z17-[amenity=casino],
+area|z17-[amenity=casino],
+node|z17-[shop=money_lender],
+area|z17-[shop=money_lender],
+node|z17-[amenity=courthouse],
+area|z17-[amenity=courthouse],
+node|z17-[amenity=nursing_home],
+area|z17-[amenity=nursing_home],
+node|z17-[amenity=kindergarten],
+area|z17-[amenity=kindergarten],
+node|z17-[amenity=childcare],
+area|z17-[amenity=childcare],
+node|z17-[amenity=school],
+area|z17-[amenity=school],
+node|z17-[amenity=cinema],
+area|z17-[amenity=cinema],
+node|z17-[leisure=bowling_alley],
+area|z17-[leisure=bowling_alley],
+node|z17-[amenity=police],
+area|z17-[amenity=police],
+node|z17-[amenity=prison],
+area|z17-[amenity=prison],
+node|z17-[office=diplomatic],
+area|z17-[office=diplomatic],
+node|z17-[office=lawyer],
+area|z17-[office=lawyer],
+node|z17-[vending=parking_tickets],
+area|z17-[vending=parking_tickets],
+node|z17-[amenity=payment_terminal],
+area|z17-[amenity=payment_terminal],
+node|z17-[amenity=shower],
+area|z17-[amenity=shower],
+node|z17-[amenity=bicycle_rental],
+area|z17-[amenity=bicycle_rental],
+node|z17-[amenity=bicycle_repair_station],
+area|z17-[amenity=bicycle_repair_station],
+node|z17-[amenity=post_office],
+area|z17-[amenity=post_office],
+node|z17-[power=station],
+area|z17-[power=station],
+node|z17-[amenity=vending_machine],
+area|z17-[amenity=vending_machine],
+node|z17-[amenity=parcel_locker],
+area|z17-[amenity=parcel_locker],
+node|z17-[amenity=events_venue],
+area|z17-[amenity=events_venue],
+node|z17-[aeroway=gate],
+area|z17-[aeroway=gate],
+node|z17-[sport],
+area|z17-[sport],
+node|z18-[amenity=post_box],
+area|z18-[amenity=post_box],
+node|z18-[emergency=fire_hydrant],
+area|z18-[emergency=fire_hydrant],
+node|z18-[amenity=fire_station],
+area|z18-[amenity=fire_station],
+node|z18-[emergency=defibrillator],
+area|z18-[emergency=defibrillator],
+node|z18-[amenity=toilets],
+area|z18-[amenity=toilets],
+node|z18-[amenity=atm],
+area|z18-[amenity=atm],
+node|z18-[shop=pawnbroker],
+area|z18-[shop=pawnbroker],
+node|z18-[amenity=bureau_de_change],
+node|z18-[amenity=library],
+node|z18-[amenity=waste_disposal],
+area|z18-[amenity=waste_disposal],
+node|z18-[amenity=hunting_stand],
+area|z18-[amenity=hunting_stand],
+node|z18-[man_made=chimney],
+area|z18-[man_made=chimney],
+node|z18-[man_made=works],
+area|z18-[man_made=works],
+node|z18-[man_made=silo],
+area|z18-[man_made=silo],
+node|z18-[man_made=storage_tank],
+area|z18-[man_made=storage_tank],
+node|z18-[amenity=bbq],
+area|z18-[amenity=bbq],
+node|z19-[power=substation],
+area|z19-[power=substation],
+node|z18-[tourism],
+area|z18-[tourism],
+node|z18-[office],
+area|z18-[office],
+node|z18-[craft],
+area|z18-[craft],
+node|z19-[amenity],
+area|z19-[amenity]
+{text: name;text-color: @poi_label;text-offset: 1;font-size: 10;}
+
+/* POI */
+
+node|z18-[tourism],
+area|z18-[tourism]
+{font-size: 11;text-offset: 1;text-optional: true;}
+node|z18-[office],
+area|z18-[office]
+{icon-image: office-m.svg;font-size: 11;text-optional: true;}
+
+node|z18-[craft],
+area|z18-[craft]
+{icon-image: hand-m.svg;font-size: 11;text-optional: true;}
+
+/* Declare _before_ all concrete shops to avoid icons override */
+node|z16-[shop],
+area|z16-[shop],
+{icon-min-distance: 10;}
+node|z18-[shop],
+area|z18-[shop]
+{icon-image: shop-m.svg;text-offset: 1;font-size: 10;icon-min-distance: 10;}
+
+node|z17-[shop=massage],
+area|z17-[shop=massage]
+{icon-image: sauna-m.svg;font-size: 11;text-optional: true;}
+
+/* 5.1 Hospital */
+
+area|z15-[amenity=hospital],
+node|z15-[amenity=hospital],
+{-x-me-text-priority:16000;}
+
+area|z14[amenity=hospital]
+{icon-image: hospital-s.svg;icon-min-distance: 8;}
+node|z15[amenity=hospital]
+{icon-image: hospital-m.svg;icon-min-distance: 6;}
+node|z16-[amenity=hospital],
+node|z16-[building=hospital],
+area|z16-[building=hospital]
+{icon-image: hospital-m.svg;icon-min-distance: 4;text-optional: true;}
+node|z17[amenity=clinic],
+area|z17[amenity=clinic],
+node|z17[amenity=doctors],
+area|z17[amenity=doctors],
+{icon-image: hospital-m.svg;icon-min-distance: 4;text-optional: true;}
+node|z18-[amenity=hospital],
+node|z18-[building=hospital],
+area|z18-[building=hospital],
+node|z18-[amenity=clinic],
+area|z18-[amenity=clinic],
+node|z18-[amenity=doctors],
+area|z18-[amenity=doctors],
+{icon-image: hospital-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=laboratory],
+area|z17[healthcare=laboratory],
+{icon-image: sample_collection-m.svg;}
+node|z18-[healthcare=laboratory],
+area|z18-[healthcare=laboratory],
+{icon-image: sample_collection-m.svg;font-size: 11;text-optional: true;}
+node|z17[amenity=dentist],
+area|z17[amenity=dentist]
+{icon-image: dentist-m.svg;}
+node|z18-[amenity=dentist],
+area|z18-[amenity=dentist]
+{icon-image: dentist-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=physiotherapist],
+area|z17[healthcare=physiotherapist]
+{icon-image: physiotherapist-m.svg;}
+node|z18-[healthcare=physiotherapist],
+area|z18-[healthcare=physiotherapist]
+{icon-image: physiotherapist-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=alternative],
+area|z17[healthcare=alternative]
+{icon-image: alternative-m.svg;}
+node|z18-[healthcare=alternative],
+area|z18-[healthcare=alternative]
+{icon-image: alternative-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=audiologist],
+area|z17[healthcare=audiologist]
+{icon-image: audiologist-m.svg;}
+node|z18-[healthcare=audiologist],
+area|z18-[healthcare=audiologist]
+{icon-image: audiologist-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=blood_donation],
+area|z17[healthcare=blood_donation]
+{icon-image: blood_donation-m.svg;}
+node|z18-[healthcare=blood_donation],
+area|z18-[healthcare=blood_donation]
+{icon-image: blood_donation-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=optometrist],
+area|z17[healthcare=optometrist]
+{icon-image: optometrist-m.svg;}
+node|z18-[healthcare=optometrist],
+area|z18-[healthcare=optometrist]
+{icon-image: optometrist-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=podiatrist],
+area|z17[healthcare=podiatrist]
+{icon-image: podiatrist-m.svg;}
+node|z18-[healthcare=podiatrist],
+area|z18-[healthcare=podiatrist]
+{icon-image: podiatrist-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=psychotherapist],
+area|z17[healthcare=psychotherapist]
+{icon-image: psychotherapist-m.svg;}
+node|z18-[healthcare=psychotherapist],
+area|z18-[healthcare=psychotherapist]
+{icon-image: psychotherapist-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=sample_collection],
+area|z17[healthcare=sample_collection]
+{icon-image: sample_collection-m.svg;}
+node|z18-[healthcare=sample_collection],
+area|z18-[healthcare=sample_collection]
+{icon-image: sample_collection-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=speech_therapist],
+area|z17[healthcare=speech_therapist]
+{icon-image: speech_therapist-m.svg;}
+node|z18-[healthcare=speech_therapist],
+area|z18-[healthcare=speech_therapist]
+{icon-image: speech_therapist-m.svg;font-size: 11;text-optional: true;}
+
+node|z16-[amenity=veterinary],
+area|z16-[amenity=veterinary]
+{icon-image: veterinary-m.svg;}
+node|z18-[amenity=veterinary],
+area|z18-[amenity=veterinary]
+{font-size: 11;text-optional: true;}
+
+node|z16-[amenity=pharmacy],
+area|z16-[amenity=pharmacy]
+{icon-image: pharmacy-m.svg;icon-min-distance: 20;}
+node|z17-[amenity=pharmacy],
+area|z17-[amenity=pharmacy]
+{text-offset: 1;font-size: 11;icon-min-distance: 20;text-optional: true;}
+
+/* 5.2 Education */
+
+area|z14[amenity=university][name]
+{icon-image: college-s.svg;icon-min-distance: 12;-x-me-text-priority:16000;}
+area|z15[amenity=university][name],
+node|z15[amenity=university][name]
+{icon-image: college-m.svg;icon-min-distance: 12;-x-me-text-priority:16000;}
+node|z15[amenity=university][!name]
+{}
+node|z16[amenity=university][name],
+area|z16[amenity=university][name]
+{icon-image: college-m.svg;icon-min-distance: 11;-x-me-text-priority:16000;}
+node|z16[amenity=university][!name],
+area|z16[amenity=university][!name]
+{}
+node|z17[amenity=university][name],
+area|z17[amenity=university][name]
+{icon-image: college-m.svg;icon-min-distance: 10;-x-me-text-priority:16000;}
+node|z17[amenity=university][!name],
+area|z17[amenity=university][!name]
+{}
+node|z18-[amenity=university][name],
+area|z18-[amenity=university][name]
+{icon-image: college-m.svg;font-size: 11;-x-me-text-priority:16000;text-optional: true;}
+node|z18-[amenity=university][!name],
+area|z18-[amenity=university][!name]
+{}
+
+node|z16-[amenity=college],
+area|z16-[amenity=college]
+{icon-image: college-m.svg; -x-me-text-priority:16000;}
+node|z18-[amenity=college],
+area|z18-[amenity=college]
+{font-size: 11;text-optional: true;}
+node|z17-[amenity=kindergarten],
+area|z17-[amenity=kindergarten]
+{icon-image: kindergarten-m.svg; -x-me-text-priority:16000;}
+node|z18-[amenity=kindergarten],
+area|z18-[amenity=kindergarten]
+{font-size: 11;text-optional: true;}
+node|z17-[amenity=childcare],
+area|z17-[amenity=childcare]
+{icon-image: kindergarten-m.svg;}
+node|z18-[amenity=childcare],
+area|z18-[amenity=childcare]
+{font-size: 11;text-optional: true;}
+node|z17-[amenity=school],
+area|z17-[amenity=school]
+{icon-image: school-m.svg; -x-me-text-priority:16000;}
+node|z18-[amenity=school],
+area|z18-[amenity=school]
+{font-size: 11;text-optional: true;}
+
+node|z17-[amenity=music_school],
+area|z17-[amenity=music_school]
+{icon-image: music_school-m.svg;}
+node|z17-[amenity=driving_school],
+area|z17-[amenity=driving_school]
+{icon-image: driving_school-m.svg;}
+node|z17-[amenity=language_school],
+area|z17-[amenity=language_school]
+{icon-image: language_school-m.svg;}
+
+/* 5.3 Sport */
+
+node|z13-14[leisure=stadium]
+{icon-image: stadium-s.svg;icon-min-distance: 16;}
+node|z15-[leisure=stadium]
+{icon-image: stadium-m.svg;icon-min-distance: 8;}
+
+node|z17-[leisure=pitch],
+node|z17-[leisure=ice_rink]
+{icon-image: pitch-m.svg;icon-min-distance: 10;-x-me-text-priority: 16000;}
+node|z17-[leisure=fitness_station]
+{icon-image: gym-m.svg;icon-min-distance: 10;-x-me-text-priority: 16000;}
+node|z17-[leisure=sports_centre]
+{icon-image: pitch-m.svg;-x-me-text-priority: 15500;icon-min-distance: 10;}
+node|z17-[leisure=fitness_centre]
+{icon-image: gym-m.svg;-x-me-text-priority: 15500;icon-min-distance: 10;}
+node|z17-[leisure=sauna]
+{icon-image: sauna-m.svg;-x-me-text-priority: 15500;icon-min-distance: 10;}
+node|z17-[leisure=playground]
+{icon-image: playground-m.svg;font-size: 11;icon-min-distance: 10;}
+node|z17-[leisure=swimming_pool],
+area|z17-[leisure=swimming_pool]
+{icon-image: swimming-m.svg;icon-min-distance: 10;}
+node|z17-[leisure=swimming_pool][access=private],
+area|z17-[leisure=swimming_pool][access=private]
+{icon-image: zero-icon.svg;}
+node|z17-[leisure=golf_course],
+area|z17-[leisure=golf_course]
+{icon-image: golf-m.svg;icon-min-distance: 10;}
+
+node|z17-[sport],
+area|z17-[sport],
+{icon-image: pitch-m.svg; icon-min-distance: 10; }
+
+node|z17-[sport=american_football],
+area|z17-[sport=american_football]
+{icon-image: america-football-m.svg;}
+node|z17-[sport=basketball],
+area|z17-[sport=basketball]
+{icon-image: basketball-m.svg;}
+node|z17-[sport=baseball],
+area|z17-[sport=baseball]
+{icon-image: baseball-m.svg;}
+node|z17-[sport=equestrian],
+area|z17-[sport=equestrian]
+{icon-image: equestrian-m.svg;}
+node|z17-[sport=soccer],
+area|z17-[sport=soccer]
+{icon-image: soccer-m.svg;}
+node|z17-[sport=tennis],
+area|z17-[sport=tennis]
+{icon-image: tennis-m.svg;}
+node|z17-[sport=skiing],
+area|z17-[sport=skiing]
+{icon-image: skiing-m.svg;}
+node|z17-[sport=archery],
+area|z17-[sport=archery]
+{icon-image: archery-m.svg;}
+node|z17-[sport=shooting],
+area|z17-[sport=shooting]
+{icon-image: archery-m.svg;}
+node|z17-[sport=australian_football],
+area|z17-[sport=australian_football]
+{icon-image: australian-football-m.svg;}
+node|z17-[sport=cricket],
+area|z17-[sport=cricket]
+{icon-image: cricket-m.svg;}
+node|z17-[sport=curling],
+area|z17-[sport=curling]
+{icon-image: curling-m.svg;}
+node|z17-[sport=diving],
+area|z17-[sport=diving]
+{icon-image: diving-m.svg;}
+node|z17-[sport=scuba_diving],
+area|z17-[sport=scuba_diving]
+{icon-image: diving-m.svg;}
+node|z17-[sport=9pin],
+area|z17-[sport=9pin]
+{icon-image: bowling-m.svg;}
+node|z17-[sport=10pin],
+area|z17-[sport=10pin]
+{icon-image: bowling-m.svg;}
+node|z17-[sport=chess],
+area|z17-[sport=chess]
+{icon-image: chess-m.svg;}
+node|z17-[sport=climbing],
+area|z17-[sport=climbing]
+{icon-image: climbing-m.svg;}
+node|z17-[sport=golf],
+area|z17-[sport=golf]
+{icon-image: golf-m.svg;}
+node|z17-[sport=skateboard],
+area|z17-[sport=skateboard]
+{icon-image: skateboard-m.svg;}
+node|z17-[sport=swimming],
+area|z17-[sport=swimming]
+{icon-image: swimming-m.svg;}
+node|z17-[sport=table_tennis],
+area|z17-[sport=table_tennis]
+{icon-image: table-tennis-m.svg;}
+node|z17-[sport=volleyball],
+area|z17-[sport=volleyball],
+node|z17-[sport=beachvolleyball],
+area|z17-[sport=beachvolleyball],
+{icon-image: volleyball-m.svg;}
+node|z17-[sport=yoga],
+area|z17-[sport=yoga]
+{icon-image: yoga-m.svg;}
+node|z17-[sport=padel],
+area|z17-[sport=padel]
+{icon-image: padel-m.svg;}
+node|z17-[sport=handball],
+area|z17-[sport=handball]
+{icon-image: handball-m.svg;}
+node|z17-[sport=futsal],
+area|z17-[sport=futsal]
+{icon-image: soccer-m.svg;}
+node|z17-[sport=ice_hockey],
+area|z17-[sport=ice_hockey]
+{icon-image: hockey-m.svg;}
+node|z17-[sport=field_hockey],
+area|z17-[sport=field_hockey]
+{icon-image: hockey-m.svg;}
+node|z17-[sport=badminton],
+area|z17-[sport=badminton]
+{icon-image: badminton-m.svg;}
+node|z17-[sport=pelota],
+area|z17-[sport=pelota]
+{icon-image: pelota-m.svg;}
+
+node|z18-[sport],
+area|z18-[sport],
+{font-size: 11; text-optional: true;}
+
+/* 5.4 Religion */
+
+node|z14[amenity=place_of_worship],
+area|z14[amenity=place_of_worship]
+{icon-image: place-of-worship-s.svg;text-offset: 1;icon-min-distance: 12;text-optional: true;}
+node|z14[amenity=place_of_worship][religion=christian],
+area|z14[amenity=place_of_worship][religion=christian]
+{icon-image: christian-s.svg;text-offset: 1;icon-min-distance: 12;text-optional: true;}
+node|z14[amenity=place_of_worship][religion=muslim],
+area|z14[amenity=place_of_worship][religion=muslim]
+{icon-image: muslim-s.svg;text-offset: 1;icon-min-distance: 12;text-optional: true;}
+node|z14[amenity=place_of_worship][religion=buddhist],
+area|z14[amenity=place_of_worship][religion=buddhist]
+{icon-image: buddhist-s.svg;text-offset: 1;icon-min-distance: 12;text-optional: true;}
+node|z14[amenity=place_of_worship][religion=hindu],
+area|z14[amenity=place_of_worship][religion=hindu]
+{icon-image: hindu-s.svg;text-offset: 1;icon-min-distance: 12;text-optional: true;}
+node|z14[amenity=place_of_worship][religion=shinto],
+area|z14[amenity=place_of_worship][religion=shinto]
+{icon-image: shinto-s.svg;text-offset: 1;icon-min-distance: 12;text-optional: true;}
+node|z14[amenity=place_of_worship][religion=jewish],
+area|z14[amenity=place_of_worship][religion=jewish]
+{icon-image: jewish-s.svg;text-offset: 1;icon-min-distance: 12;text-optional: true;}
+node|z14[amenity=place_of_worship][religion=taoist],
+area|z14[amenity=place_of_worship][religion=taoist]
+{icon-image: taoist-s.svg;text-offset: 1;icon-min-distance: 12;text-optional: true;}
+
+node|z15-[amenity=place_of_worship],
+area|z15-[amenity=place_of_worship]
+{icon-image: place-of-worship-m.svg;icon-min-distance: 10;text-optional: true;}
+node|z15-[amenity=place_of_worship][religion=christian],
+area|z15-[amenity=place_of_worship][religion=christian]
+{icon-image: christian-m.svg;text-optional: true;}
+node|z15-[amenity=place_of_worship][religion=muslim],
+area|z15-[amenity=place_of_worship][religion=muslim]
+{icon-image: muslim-m.svg;text-optional: true;}
+node|z15-[amenity=place_of_worship][religion=buddhist],
+area|z15-[amenity=place_of_worship][religion=buddhist]
+{icon-image: buddhist-m.svg;text-optional: true;}
+node|z15-[amenity=place_of_worship][religion=hindu],
+area|z15-[amenity=place_of_worship][religion=hindu]
+{icon-image: hindu-m.svg;text-optional: true;}
+node|z15-[amenity=place_of_worship][religion=shinto],
+area|z15-[amenity=place_of_worship][religion=shinto]
+{icon-image: shinto-m.svg;text-optional: true;}
+node|z15-[amenity=place_of_worship][religion=jewish],
+area|z15-[amenity=place_of_worship][religion=jewish]
+{icon-image: jewish-m.svg;text-optional: true;}
+node|z15-[amenity=place_of_worship][religion=taoist],
+area|z15-[amenity=place_of_worship][religion=taoist]
+{icon-image: taoist-m.svg;text-optional: true;}
+
+node|z18-[amenity=place_of_worship],
+area|z18-[amenity=place_of_worship]
+{icon-image: place-of-worship-m.svg;icon-min-distance: 10;text-optional: true;}
+node|z18-[amenity=place_of_worship][religion=christian],
+area|z18-[amenity=place_of_worship][religion=christian]
+{icon-image: christian-m.svg;text-optional: true;}
+node|z18-[amenity=place_of_worship][religion=muslim],
+area|z18-[amenity=place_of_worship][religion=muslim]
+{icon-image: muslim-m.svg;text-optional: true;}
+node|z18-[amenity=place_of_worship][religion=buddhist],
+area|z18-[amenity=place_of_worship][religion=buddhist]
+{icon-image: buddhist-m.svg;text-optional: true;}
+node|z18-[amenity=place_of_worship][religion=hindu],
+area|z18-[amenity=place_of_worship][religion=hindu]
+{icon-image: hindu-m.svg;text-optional: true;}
+node|z18-[amenity=place_of_worship][religion=shinto],
+area|z18-[amenity=place_of_worship][religion=shinto]
+{icon-image: shinto-m.svg;text-optional: true;}
+node|z18-[amenity=place_of_worship][religion=jewish],
+area|z18-[amenity=place_of_worship][religion=jewish]
+{icon-image: jewish-m.svg;text-optional: true;}
+node|z18-[amenity=place_of_worship][religion=taoist],
+area|z18-[amenity=place_of_worship][religion=taoist]
+{icon-image: taoist-m.svg;text-optional: true;}
+
+/* 5.5 Others */
+
+node|z16-[amenity=nightclub],
+area|z16-[amenity=nightclub]
+{icon-image: nightclub-m.svg;font-size: 11;}
+
+node|z16[amenity=bank],
+area|z16[amenity=bank]
+{icon-image: bank-m.svg;text-offset: 1;font-size: 11;}
+node|z17-[amenity=bank],
+area|z17-[amenity=bank]
+{icon-image: bank-m.svg;}
+
+node|z15-[landuse=landfill],
+area|z15-[landuse=landfill]
+{icon-image: waste-basket-m.svg;text-offset: 1;font-size: 10;}
+
+node|z16-[leisure=water_park],
+area|z16-[leisure=water_park]
+{icon-image: swimming-m.svg;icon-min-distance: 30;}
+node|z17-[leisure=water_park],
+area|z17-[leisure=water_park]
+{icon-min-distance: 20;text-optional: true;}
+
+node|z16-[leisure=marina],
+area|z16-[leisure=marina]
+{icon-image: marina-m.svg;icon-min-distance: 30;}
+node|z17-[leisure=marina],
+area|z17-[leisure=marina]
+{icon-min-distance: 20;text-optional: true;}
+
+node|z16-[amenity=fountain],
+area|z16-[amenity=fountain]
+{icon-image: fountain-s.svg;icon-min-distance: 20;}
+node|z19-[amenity=fountain],
+area|z19-[amenity=fountain]
+{icon-image: fountain-m.svg;icon-min-distance: 20;}
+
+node|z14[man_made=lighthouse],
+area|z14[man_made=lighthouse]
+{icon-image: lighthouse-s.svg;text-offset: 1;icon-min-distance: 5;}
+node|z15-[man_made=lighthouse],
+area|z15-[man_made=lighthouse]
+{icon-image: lighthouse-m.svg;}
+
+node|z12-14[barrier=toll_booth],
+area|z12-14[barrier=toll_booth]
+{icon-image: toll_booth-s.svg;icon-min-distance: 8;}
+node|z15-[barrier=toll_booth],
+area|z15-[barrier=toll_booth]
+{icon-image: toll_booth-m.svg;icon-min-distance: 8;text-optional: true;}
+
+node|z15-[barrier=border_control]
+{icon-image:bcontrol-m.svg;}
+
+node|z16-[barrier=block],
+node|z16-[barrier=bollard],
+node|z16-[barrier=chain],
+node|z16-[barrier=entrance],
+node|z16-[barrier=gate],
+node|z16-[barrier=kissing_gate],
+node|z16-[barrier=stile],
+{icon-image: dot-m.svg;font-size: 11;}
+
+node|z16-[highway=ford],
+/* ToDo: Make separate tower icon? Because of a good landmark */
+node|z16-[power=tower],
+node|z15-[man_made=flagpole],
+node|z16-[man_made=mast],
+node|z17-[man_made=tower][tower:type=communication],
+{icon-image: dot-m.svg;}
+
+node|z16-[amenity=taxi],
+area|z16-[amenity=taxi]
+{icon-image: taxi-m.svg;icon-min-distance: 30;}
+node|z17-[amenity=taxi],
+area|z17-[amenity=taxi]
+{icon-min-distance: 20;}
+
+line|z16-[barrier=lift_gate],
+line|z16-[barrier=swing_gate],
+{icon-image: lift_gate-m.svg;icon-min-distance: 30;}
+line|z17-[barrier=lift_gate],
+line|z17-[barrier=swing_gate],
+{icon-min-distance: 20;text-optional: true;}
+
+node|z16-[leisure=dog_park],
+area|z16-[leisure=dog_park]
+{icon-image: dog_park-m.svg;icon-min-distance: 30;}
+node|z17-[leisure=dog_park],
+area|z17-[leisure=dog_park]
+{icon-min-distance: 20;text-optional: true;}
+
+node|z16-[man_made=windmill],
+area|z16-[man_made=windmill]
+{icon-image: windmill-m.svg;icon-min-distance: 30;}
+node|z17-[man_made=windmill],
+area|z17-[man_made=windmill]
+{icon-min-distance: 20;text-optional: true;}
+
+node|z17-[amenity=casino],
+area|z17-[amenity=casino]
+{icon-image: casino-m.svg;icon-min-distance: 20;text-optional: true;}
+
+node|z17-[shop=money_lender],
+area|z17-[shop=money_lender]
+{icon-image: bank-m.svg;icon-min-distance: 20;text-optional: true;}
+
+node|z17-[amenity=courthouse],
+area|z17-[amenity=courthouse]
+{icon-image: public-building-m.svg;text-optional: true;}
+
+node|z17-[amenity=nursing_home],
+area|z17-[amenity=nursing_home]
+{icon-image: home-m.svg;text-optional: true;}
+
+node|z17-[amenity=cinema],
+area|z17-[amenity=cinema]
+{icon-image: cinema-m.svg;text-optional: true;}
+node|z18-[amenity=cinema],
+area|z18-[amenity=cinema]
+{font-size: 11;text-optional: true;}
+
+node|z17-[leisure=bowling_alley],
+area|z17-[leisure=bowling_alley],
+{icon-image: bowling_alley-m.svg;text-optional: true;}
+node|z18-[leisure=bowling_alley],
+area|z18-[leisure=bowling_alley],
+{font-size: 11;text-optional: true;}
+
+node|z17-[amenity=police],
+area|z17-[amenity=police]
+{icon-image: police-m.svg;text-optional: true;}
+node|z18-[amenity=police],
+area|z18-[amenity=police]
+{font-size: 11;text-optional: true;}
+
+node|z17-[amenity=prison],
+area|z17-[amenity=prison]
+{icon-image: prison-m.svg;}
+node|z18-[amenity=prison],
+area|z18-[amenity=prison]
+{font-size: 11;text-optional: true;}
+
+node|z17-[office=diplomatic],
+area|z17-[office=diplomatic]
+{icon-image: embassy-m.svg;text-optional: true;}
+node|z18-[office=diplomatic],
+area|z18-[office=diplomatic]
+{font-size: 11;text-optional: true;}
+
+node|z17-[amenity=bicycle_rental],
+area|z17-[amenity=bicycle_rental]
+{icon-image: bicycle-rental.svg;text-optional: true;}
+node|z18-[amenity=bicycle_rental],
+area|z18-[amenity=bicycle_rental]
+{font-size: 11;text-optional: true;}
+
+node|z17-[amenity=bicycle_repair_station],
+area|z17-[amenity=bicycle_repair_station]
+{icon-image: bicycle-repair-station.svg;text-optional: true;}
+node|z18-[amenity=bicycle_repair_station],
+area|z18-[amenity=bicycle_repair_station]
+{font-size: 11;text-optional: true;}
+
+node|z17-[amenity=post_office],
+area|z17-[amenity=post_office],
+{icon-image: mail-m.svg;text-optional: true;}
+node|z18-[amenity=post_office],
+area|z18-[amenity=post_office],
+{font-size: 11;text-optional: true;}
+node|z18-[amenity=post_box],
+area|z18-[amenity=post_box],
+{icon-image: postbox-m.svg;font-size: 11;text-optional: true;}
+node|z18-[emergency=fire_hydrant],
+area|z18-[emergency=fire_hydrant]
+{icon-image: firehydrant-m.svg;font-size: 11;text-optional: true;}
+
+node|z18-[emergency=defibrillator],
+area|z18-[emergency=defibrillator]
+{icon-image: defibrillator-m.svg;font-size: 11;text-optional: true;}
+
+node|z17-[office=lawyer],
+area|z17-[office=lawyer]
+{icon-image: lawyer-m.svg;icon-min-distance: 10;text-optional: true;}
+
+node|z17-[amenity=telephone]
+{icon-image: phone-m.svg;icon-min-distance: 30;}
+
+node|z17-[emergency=phone]
+{icon-image: emergency-phone-m.svg;icon-min-distance: 30;}
+
+node|z17-[amenity=recycling],
+area|z17-[amenity=recycling],
+node|z17-[amenity=waste_transfer_station],
+area|z17-[amenity=waste_transfer_station],
+{icon-image: recycling-m.svg;icon-min-distance: 30;}
+
+node|z17-[power=station],
+area|z17-[power=station],
+node|z17-[power=plant],
+area|z17-[power=plant],
+/* Skip individual solar generators, because there are a lot of mapped panels */
+/* ToDo: Make separate wind generator icon? Because of a good landmark */
+node|z17-[power=generator][generator:source!=solar],
+area|z17-[power=generator][generator:source!=solar],
+node|z19-[power=substation],
+area|z19-[power=substation],
+{icon-image: power-m.svg;font-size: 11;icon-min-distance: 20;}
+
+node|z17-[amenity=shower],
+area|z17-[amenity=shower]
+{icon-image: shower-m.svg;icon-min-distance: 20;}
+
+node|z17-[amenity=payment_terminal],
+area|z17-[amenity=payment_terminal]
+{icon-image: vending-m.svg;icon-min-distance: 20;}
+node|z17-[amenity=vending_machine],
+area|z17-[amenity=vending_machine],
+{icon-image: vending-m.svg;icon-min-distance: 20;}
+node|z17-[amenity=vending_machine][vending=parking_tickets],
+area|z17-[amenity=vending_machine][vending=parking_tickets]
+{icon-image: parking-meter-m.svg;font-size: 11;}
+node|z17-[amenity=parcel_locker],
+area|z17-[amenity=parcel_locker],
+{icon-image: mail-m.svg;icon-min-distance: 20;}
+
+node|z17[amenity=vending_machine][vending=fuel],
+area|z17[amenity=vending_machine][vending=fuel]
+{icon-image: zero-icon.svg;text: none;}
+node|z18-[amenity=vending_machine][vending=fuel],
+area|z18-[amenity=vending_machine][vending=fuel]
+{icon-image: fuel-dispenser-m.svg;}
+
+node|z17-[aeroway=gate],
+area|z17-[aeroway=gate]
+{icon-image: gate-m.svg;font-size: 11;}
+node|z18-[aeroway=gate],
+area|z18-[aeroway=gate]
+{icon-image: gate-m.svg;font-size: 11;z-index: 24200;}/*check*/
+
+node|z17-[amenity=bureau_de_change]
+{icon-image: banknote-m.svg;font-size: 11;text-optional: true;}
+
+area|z17-[shop=pawnbroker],
+node|z17-[shop=pawnbroker]
+{icon-image: bookmaker-m.svg;font-size: 11;text-optional: true;}
+
+node|z18-[amenity=fire_station],
+area|z18-[amenity=fire_station]
+{icon-image: fire_station-m.svg;font-size: 11;text-optional: true;}
+node|z18-[amenity=toilets],
+area|z18-[amenity=toilets]
+{icon-image: toilets-m.svg;font-size: 11;text-optional: true;}
+node|z18-[amenity=atm],
+area|z18-[amenity=atm]
+{icon-image: atm-m.svg;font-size: 11;text-optional: true;}
+
+node|z18-[amenity=bench]
+{icon-image: bench.svg;}
+node|z18-[amenity=waste_basket]
+{icon-image: waste-basket-s.svg;}
+
+node|z18-[amenity=library]
+{icon-image: library-m.svg;font-size: 11;text-optional: true;}
+node|z18-[amenity=waste_disposal],
+area|z18-[amenity=waste_disposal]
+{icon-image: waste-basket-m.svg;font-size: 11;}
+
+node|z18-[amenity=internet_cafe]
+{icon-image: internet_cafe-m.svg;}
+
+node|z18-[amenity=hunting_stand],
+area|z18-[amenity=hunting_stand]
+{icon-image: hunting-tower-m.svg;font-size: 11;text-optional: true;}
+
+node|z16-[man_made=chimney],
+area|z16-[man_made=chimney],
+node|z16-[man_made=works],
+area|z16-[man_made=works]
+{icon-image: chimney-m.svg;font-size: 11;}
+
+node|z16-[man_made=silo],
+area|z16-[man_made=silo],
+node|z16-[man_made=storage_tank],
+area|z16-[man_made=storage_tank],
+{icon-image: storage-tank.svg;font-size: 11;}
+
+node|z18-[amenity=bbq],
+area|z18-[amenity=bbq]
+{icon-image: bbq-m.svg;font-size: 11;-x-me-text-priority:16000;text-optional: true;}
+
+node|z16-[man_made=survey_point]
+{icon-image: survey_point-m.svg;font-size: 11;text-optional: true;}
+
+/* 6. SHOP */
+
+node|z14-[shop=mall],
+area|z14-[shop=mall],
+node|z16-[shop],
+area|z16-[shop],
+node|z16-[amenity=marketplace],
+area|z16-[amenity=marketplace],
+node|z16-[shop=supermarket],
+area|z16-[shop=supermarket],
+node|z15-[shop=car_repair][service=tyres],
+area|z15-[shop=car_repair][service=tyres],
+node|z15-[highway=services],
+area|z15-[highway=services],
+node|z17-[shop=stationery],
+area|z17-[shop=stationery],
+node|z17-[shop=variety_store],
+area|z17-[shop=variety_store]
+{text: name;text-color: @poi_label;text-offset: 1;font-size: 10;}
+
+node|z14[shop=mall],
+area|z14[shop=mall]
+{icon-image: shop-s.svg;icon-min-distance: 16;}
+node|z15-[shop=mall],
+area|z15-[shop=mall]
+{icon-image: shop-m.svg;font-size: 11;icon-min-distance: 16;}
+node|z17-[shop=mall],
+area|z17-[shop=mall],
+node|z17-[shop=variety_store],
+area|z17-[shop=variety_store]
+{font-size: 11;icon-min-distance: 8;}
+
+node|z16[shop=supermarket],
+area|z16[shop=supermarket]
+{icon-image: grocery-m.svg;font-size: 11;icon-min-distance: 16;}
+node|z16[amenity=marketplace],
+area|z16[amenity=marketplace]
+{icon-image: marketplace-m.svg;text-offset: 1;font-size: 11;icon-min-distance: 24;}
+node|z17-[shop=supermarket],
+area|z17-[shop=supermarket]
+{icon-image: grocery-m.svg;font-size: 11;icon-min-distance: 8;}
+node|z17-[amenity=marketplace],
+area|z17-[amenity=marketplace]
+{icon-image: marketplace-m.svg;font-size: 11;icon-min-distance: 8;}
+
+node|z15[shop=car_repair][service=tyres],
+area|z15[shop=car_repair][service=tyres],
+node|z15[highway=services],
+area|z15[highway=services]
+{icon-image: car-repair-s.svg;text-offset: 1;-x-me-text-priority:15500;icon-min-distance: 20;}
+node|z16-[shop=car_repair][service=tyres],
+area|z16-[shop=car_repair][service=tyres],
+node|z16-[highway=services],
+area|z16-[highway=services]
+{icon-image: car-repair-m.svg;-x-me-text-priority:15500;}
+
+node|z16[shop=alcohol],
+area|z16[shop=alcohol]
+{icon-image: alcohol-m.svg;}
+node|z16[shop=wine],
+area|z16[shop=wine]
+{icon-image: alcohol-m.svg;}
+node|z16[shop=books],
+area|z16[shop=books]
+{icon-image: book-shop-m.svg;}
+node|z16[shop=charity],
+area|z16[shop=charity]
+{icon-image: charity_shop-m.svg;}
+node|z16[shop=second_hand],
+area|z16[shop=second_hand]
+{icon-image: second_hand_shop-m.svg;}
+node|z16[shop=bookmaker],
+area|z16[shop=bookmaker]
+{icon-image: bookmaker-m.svg;}
+node|z16[shop=bakery],
+area|z16[shop=bakery],
+node|z16[shop=pastry],
+area|z16[shop=pastry],
+{icon-image: bakery-m.svg;}
+node|z16[shop=beauty],
+area|z16[shop=beauty]
+{icon-image: beauty-m.svg;}
+node|z16[shop=cosmetics],
+area|z16[shop=cosmetics]
+{icon-image: beauty-m.svg;}
+node|z16[shop=beverages],
+area|z16[shop=beverages]
+{icon-image: alcohol-m.svg;}
+node|z16[shop=bicycle],
+area|z16[shop=bicycle]
+{icon-image: shop-bicycle-m.svg;}
+node|z16[shop=butcher],
+area|z16[shop=butcher]
+{icon-image: butcher-m.svg;}
+node|z16[shop=car],
+area|z16[shop=car]
+{icon-image: car_shop-m.svg;}
+node|z16[shop=caravan],
+area|z16[shop=caravan]
+{icon-image: caravan-shop-m.svg;}
+node|z16[shop=motorcycle],
+area|z16[shop=motorcycle]
+{icon-image: motorcycle_shop-m.svg;}
+node|z16[shop=car_parts],
+area|z16[shop=car_parts]
+{icon-image: car-part-m.svg;}
+node|z16[shop=car_repair],
+area|z16[shop=car_repair]
+{icon-image: car-repair-m.svg;}
+node|z16[shop=tyres],
+area|z16[shop=tyres]
+{icon-image: car-repair-m.svg;}
+node|z16[shop=chemist],
+area|z16[shop=chemist]
+{icon-image: chemist-m.svg;}
+node|z16[shop=clothes],
+area|z16[shop=clothes]
+{icon-image: clothes-m.svg;}
+node|z16[shop=computer],
+area|z16[shop=computer]
+{icon-image: computer-m.svg;}
+node|z16[shop=video_games],
+area|z16[shop=video_games]
+{icon-image: video-games-m.svg;}
+node|z16[shop=tattoo],
+area|z16[shop=tattoo]
+{icon-image: hand-m.svg;}
+node|z16[shop=erotic],
+area|z16[shop=erotic]
+{icon-image: erotic-m.svg;}
+node|z16[shop=funeral_directors],
+area|z16[shop=funeral_directors]
+{icon-image: funeral_directors-m.svg;}
+node|z16[shop=confectionery],
+area|z16[shop=confectionery],
+node|z16[shop=chocolate],
+area|z16[shop=chocolate]
+{icon-image: sweets-m.svg;}
+node|z16[amenity=ice_cream],
+area|z16[amenity=ice_cream]
+{icon-image: ice_cream-m.svg;}
+node|z16[shop=convenience],
+area|z16[shop=convenience],
+node|z16[shop=deli],
+area|z16[shop=deli],
+node|z16[shop=farm],
+area|z16[shop=farm],
+node|z16[shop=grocery],
+area|z16[shop=grocery],
+node|z16[shop=health_food],
+area|z16[shop=health_food],
+{icon-image: grocery-m.svg;}
+node|z16[shop=copyshop],
+area|z16[shop=copyshop]
+{icon-image: copyshop-m.svg;}
+node|z16[shop=photo],
+area|z16[shop=photo]
+{icon-image: photo-shop-m.svg;}
+node|z16[shop=pet],
+area|z16[shop=pet]
+{icon-image: petshop-m.svg;}
+node|z16[shop=department_store],
+area|z16[shop=department_store]
+{icon-image: department_store-m.svg;}
+node|z16[shop=doityourself],
+area|z16[shop=doityourself]
+{icon-image: doityourself-m.svg;}
+node|z16[shop=electronics],
+area|z16[shop=electronics]
+{icon-image: electronics-m.svg;}
+node|z16[shop=florist],
+area|z16[shop=florist]
+{icon-image: florist-m.svg;}
+node|z16[shop=furniture],
+area|z16[shop=furniture],
+node|z16[shop=kitchen],
+area|z16[shop=kitchen],
+{icon-image: furniture-m.svg;}
+node|z16[shop=garden_centre],
+area|z16[shop=garden_centre]
+{icon-image: garden_center-m.svg;}
+node|z16[shop=gift],
+area|z16[shop=gift]
+{icon-image: gift-m.svg;}
+node|z16[shop=music],
+area|z16[shop=music],
+{icon-image: music-m.svg;}
+node|z16[shop=video],
+area|z16[shop=video]
+{icon-image: media-m.svg;}
+node|z16[shop=musical_instrument],
+area|z16[shop=musical_instrument]
+{icon-image: musical-instrument-m.svg;}
+node|z16[shop=greengrocer],
+area|z16[shop=greengrocer]
+{icon-image: greengrocer-m.svg;}
+node|z16[shop=hairdresser],
+area|z16[shop=hairdresser]
+{icon-image: hairdresser-m.svg;}
+node|z16[shop=hardware],
+area|z16[shop=hardware],
+node|z16[shop=houseware],
+area|z16[shop=houseware],
+{icon-image: doityourself-m.svg;}
+node|z16[shop=jewelry],
+area|z16[shop=jewelry]
+{icon-image: jewelry-m.svg;}
+node|z16[shop=kiosk],
+area|z16[shop=kiosk]
+{icon-image: kiosk-m.svg;}
+node|z16[shop=laundry],
+area|z16[shop=laundry]
+{icon-image:laundry-m.svg;}
+node|z16[shop=dry_cleaning],
+area|z16[shop=dry_cleaning]
+{icon-image:laundry-m.svg;}
+node|z16[shop=mobile_phone],
+area|z16[shop=mobile_phone]
+{icon-image: mobile_phone-m.svg;}
+node|z16[shop=optician],
+area|z16[shop=optician]
+{icon-image: optician-m.svg;}
+node|z16[shop=outdoor],
+area|z16[shop=outdoor]
+{icon-image: outdoor-shop-m.svg;}
+node|z16[shop=seafood],
+area|z16[shop=seafood]
+{icon-image: seafood-shop-m.svg;}
+node|z16[shop=shoes],
+area|z16[shop=shoes]
+{icon-image: shoes-m.svg;}
+node|z16[shop=sports],
+area|z16[shop=sports]
+{icon-image: sports-m.svg;}
+node|z16[shop=ticket],
+area|z16[shop=ticket]
+{icon-image: ticket-shop-m.svg;}
+node|z16[shop=toys],
+area|z16[shop=toys]
+{icon-image: toys-m.svg;}
+node|z16[shop=fabric],
+area|z16[shop=fabric]
+{icon-image: shop-m.svg;}
+
+node|z17-[shop=alcohol],
+area|z17-[shop=alcohol]
+{icon-image: alcohol-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=wine],
+area|z17-[shop=wine]
+{icon-image: alcohol-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=books],
+area|z17-[shop=books]
+{icon-image: book-shop-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=charity],
+area|z17-[shop=charity]
+{icon-image: charity_shop-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=second_hand],
+area|z17-[shop=second_hand]
+{icon-image: second_hand_shop-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=bookmaker],
+area|z17-[shop=bookmaker]
+{icon-image: bookmaker-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=bakery],
+area|z17-[shop=bakery],
+node|z17-[shop=pastry],
+area|z17-[shop=pastry],
+{icon-image: bakery-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=beauty],
+area|z17-[shop=beauty]
+{icon-image: beauty-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=cosmetics],
+area|z17-[shop=cosmetics]
+{icon-image: beauty-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=beverages],
+area|z17-[shop=beverages]
+{icon-image: alcohol-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=bicycle],
+area|z17-[shop=bicycle]
+{icon-image: shop-bicycle-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=butcher],
+area|z17-[shop=butcher]
+{icon-image: butcher-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=car],
+area|z17-[shop=car]
+{icon-image: car_shop-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=caravan],
+area|z17-[shop=caravan]
+{icon-image: caravan-shop-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=motorcycle],
+area|z17-[shop=motorcycle]
+{icon-image: motorcycle_shop-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=car_parts],
+area|z17-[shop=car_parts]
+{icon-image: car-part-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=car_repair],
+area|z17-[shop=car_repair]
+{icon-image: car-repair-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=tyres],
+area|z17-[shop=tyres]
+{icon-image: car-repair-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=chemist],
+area|z17-[shop=chemist]
+{icon-image: chemist-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=clothes],
+area|z17-[shop=clothes]
+{icon-image: clothes-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=computer],
+area|z17-[shop=computer]
+{icon-image: computer-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=video_games],
+area|z17-[shop=video_games]
+{icon-image: video-games-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=tattoo],
+area|z17-[shop=tattoo]
+{icon-image: hand-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=erotic],
+area|z17-[shop=erotic]
+{icon-image: erotic-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=funeral_directors],
+area|z17-[shop=funeral_directors]
+{icon-image: funeral_directors-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=confectionery],
+area|z17-[shop=confectionery],
+node|z17-[shop=chocolate],
+area|z17-[shop=chocolate]
+{icon-image: sweets-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[amenity=ice_cream],
+area|z17-[amenity=ice_cream]
+{icon-image: ice_cream-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=convenience],
+area|z17-[shop=convenience],
+node|z17-[shop=deli],
+area|z17-[shop=deli],
+node|z17-[shop=farm],
+area|z17-[shop=farm],
+node|z17-[shop=grocery],
+area|z17-[shop=grocery],
+node|z17-[shop=health_food],
+area|z17-[shop=health_food],
+{icon-image: grocery-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=copyshop],
+area|z17-[shop=copyshop]
+{icon-image: copyshop-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=photo],
+area|z17-[shop=photo]
+{icon-image: photo-shop-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=pet],
+area|z17-[shop=pet]
+{icon-image: petshop-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=department_store],
+area|z17-[shop=department_store]
+{icon-image: department_store-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=doityourself],
+area|z17-[shop=doityourself]
+{icon-image: doityourself-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=electronics],
+area|z17-[shop=electronics]
+{icon-image: electronics-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=florist],
+area|z17-[shop=florist]
+{icon-image: florist-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=furniture],
+area|z17-[shop=furniture],
+node|z17-[shop=kitchen],
+area|z17-[shop=kitchen],
+{icon-image: furniture-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=garden_centre],
+area|z17-[shop=garden_centre]
+{icon-image: garden_center-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=gift],
+area|z17-[shop=gift]
+{icon-image: gift-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=music],
+area|z17-[shop=music],
+{icon-image: music-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=video],
+area|z17-[shop=video]
+{icon-image: media-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=musical_instrument],
+area|z17-[shop=musical_instrument]
+{icon-image: musical-instrument-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=greengrocer],
+area|z17-[shop=greengrocer]
+{icon-image: greengrocer-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=hairdresser],
+area|z17-[shop=hairdresser]
+{icon-image: hairdresser-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=hardware],
+area|z17-[shop=hardware],
+node|z17-[shop=houseware],
+area|z17-[shop=houseware],
+{icon-image: doityourself-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=jewelry],
+area|z17-[shop=jewelry]
+{icon-image: jewelry-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=kiosk],
+area|z17-[shop=kiosk]
+{icon-image: kiosk-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=laundry],
+area|z17-[shop=laundry]
+{icon-image:laundry-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=dry_cleaning],
+area|z17-[shop=dry_cleaning]
+{icon-image:laundry-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=mobile_phone],
+area|z17-[shop=mobile_phone]
+{icon-image: mobile_phone-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=optician],
+area|z17-[shop=optician]
+{icon-image: optician-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=outdoor],
+area|z17-[shop=outdoor]
+{icon-image: outdoor-shop-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=seafood],
+area|z17-[shop=seafood]
+{icon-image: seafood-shop-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=shoes],
+area|z17-[shop=shoes]
+{icon-image: shoes-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=sports],
+area|z17-[shop=sports]
+{icon-image: sports-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=ticket],
+area|z17-[shop=ticket]
+{icon-image: ticket-shop-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=toys],
+area|z17-[shop=toys]
+{icon-image: toys-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=stationery],
+area|z17-[shop=stationery]
+{icon-image: stationery_shop-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=newsagent],
+area|z17-[shop=newsagent]
+{icon-image: newsagent_shop-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=fabric],
+area|z17-[shop=fabric]
+{icon-image: shop-m.svg;}
+
+/* 6.1 Craft */
+
+node|z17-[craft=beekeeper],
+area|z17-[craft=beekeeper]
+{icon-image:beekeeper-m.svg;}
+node|z17-[craft=blacksmith],
+area|z17-[craft=blacksmith]
+{icon-image:blacksmith-m.svg;}
+node|z17-[craft=brewery],
+area|z17-[craft=brewery]
+{icon-image:brewery-m.svg;}
+node|z17-[craft=carpenter],
+area|z17-[craft=carpenter]
+{icon-image:carpenter-m.svg;}
+node|z17-[craft=confectionery],
+area|z17-[craft=confectionery]
+{icon-image:sweets-m.svg;}
+node|z17-[craft=electrician],
+area|z17-[craft=electrician]
+{icon-image:electrician-m.svg;}
+node|z17-[craft=electronics_repair],
+area|z17-[craft=electronics_repair]
+{icon-image:electrician-m.svg;}
+node|z17-[craft=gardener],
+area|z17-[craft=gardener]
+{icon-image:florist-m.svg;}
+node|z17-[craft=painter],
+area|z17-[craft=painter]
+{icon-image:painter-m.svg;}
+node|z17-[craft=photographer],
+area|z17-[craft=photographer]
+{icon-image:photo-shop-m.svg;}
+node|z17-[craft=plumber],
+area|z17-[craft=plumber]
+{icon-image:plumber-m.svg;}
+node|z17-[craft=sawmill],
+area|z17-[craft=sawmill]
+{icon-image:sawmill-m.svg;}
+node|z17-[craft=shoemaker],
+area|z17-[craft=shoemaker]
+{icon-image:shoes-m.svg;}
+node|z17-[craft=tailor],
+area|z17-[craft=tailor]
+{icon-image:clothes-m.svg;}
+
+/* 7. CAR */
+
+node|z14-[amenity=fuel],
+area|z14-[amenity=fuel],
+node|z14-[amenity=charging_station][motorcar?],
+area|z14-[amenity=charging_station][motorcar?],
+node|z15-[amenity=sanitary_dump_station],
+area|z15-[amenity=sanitary_dump_station],
+node|z16-[amenity=charging_station],
+area|z16-[amenity=charging_station],
+node|z17-[amenity=bicycle_parking],
+area|z17-[amenity=bicycle_parking],
+node|z17-[amenity=motorcycle_parking],
+area|z17-[amenity=motorcycle_parking],
+node|z17-[amenity=car_wash],
+area|z17-[amenity=car_wash],
+node|z18-[amenity=parking],
+area|z18-[amenity=parking],
+node|z18-[amenity=car_rental],
+area|z18-[amenity=car_rental],
+node|z18-[amenity=car_sharing],
+area|z18-[amenity=car_sharing]
+{text: name;text-color: @poi_label;text-offset: 1;font-size: 10;text-optional: true;}
+
+node|z14[amenity=fuel],
+area|z14[amenity=fuel]
+{icon-image: fuel-s.svg;text-offset: 1;-x-me-text-priority:15500;icon-min-distance: 20;}
+node|z15[amenity=fuel],
+area|z15[amenity=fuel]
+{icon-image: fuel-m.svg;-x-me-text-priority:15500;icon-min-distance: 20;}
+node|z16[amenity=fuel],
+area|z16[amenity=fuel]
+{icon-image: fuel-m.svg;-x-me-text-priority:15500;icon-min-distance: 10;}
+node|z17-[amenity=fuel],
+area|z17-[amenity=fuel]
+{icon-image: fuel-m.svg;}
+node|z18-[amenity=fuel],
+area|z18-[amenity=fuel]
+{font-size: 11;}
+
+node|z14[amenity=charging_station][motorcar?],
+area|z14[amenity=charging_station][motorcar?],
+{icon-image: charging-station-s.svg;text-offset: 1;font-size: 10;-x-me-text-priority:15500;icon-min-distance: 20;}
+node|z15[amenity=charging_station][motorcar?],
+area|z15[amenity=charging_station][motorcar?],
+{icon-image: charging-station-m.svg;-x-me-text-priority:15500;icon-min-distance: 20;}
+node|z16[amenity=charging_station],
+area|z16[amenity=charging_station]
+{icon-image: charging-station-m.svg;-x-me-text-priority:15500;icon-min-distance: 10;}
+node|z17-[amenity=charging_station],
+area|z17-[amenity=charging_station]
+{icon-image: charging-station-m.svg;}
+node|z18-[amenity=charging_station],
+area|z18-[amenity=charging_station]
+{font-size: 11;}
+
+node|z17-[amenity=car_wash],
+area|z17-[amenity=car_wash]
+{icon-image: car-wash-m.svg;font-size: 11;icon-min-distance: 24;}
+
+node|z18-[amenity=car_rental],
+area|z18-[amenity=car_rental]
+{icon-image: car_sharing-m.svg;text-offset: 1;font-size: 11;}
+
+node|z18-[amenity=car_sharing],
+area|z18-[amenity=car_sharing]
+{icon-image: car_sharing-m.svg;text-offset: 1;font-size: 11;}
+
+node|z15-[amenity=sanitary_dump_station],
+area|z15-[amenity=sanitary_dump_station]
+{icon-image: dump-station-m.svg; icon-min-distance: 20;}
+
+/* 7.1 Parking */
+
+node|z16[amenity=parking],
+area|z16[amenity=parking]
+{icon-image: parking-s.svg;icon-min-distance: 25;}
+node|z16[amenity=parking][access=permissive],
+node|z16[amenity=parking][access=private]
+{icon-image: zero-icon.svg;}
+
+node|z17[amenity=parking],
+area|z17[amenity=parking]
+{icon-image: parking-m.svg;}
+node|z17[amenity=parking][access=permissive],
+node|z17[amenity=parking][access=private]
+{icon-image: zero-icon.svg;}
+
+node|z18-[amenity=parking],
+area|z18-[amenity=parking]
+{icon-image: parking-m.svg;font-size: 11;text-optional: true;}
+
+node|z17[amenity=parking_entrance],
+area|z17[amenity=parking_entrance]
+{icon-image: parking_entrance-m.svg;}
+node|z17[amenity=parking_entrance][access=permissive],
+node|z17[amenity=parking_entrance][access=private]
+{icon-image: zero-icon.svg;}
+
+node|z18-[amenity=parking_entrance],
+area|z18-[amenity=parking_entrance]
+{icon-image: parking_entrance-m.svg;font-size: 11;text-optional: true;}
+
+node|z17-[amenity=bicycle_parking],
+area|z17-[amenity=bicycle_parking]
+{icon-image: bike-parking-m.svg;icon-min-distance: 20;}
+
+node|z17-[amenity=motorcycle_parking],
+area|z17-[amenity=motorcycle_parking]
+{icon-image: motorcycle-parking-m.svg;icon-min-distance: 20;}
+
+node|z18-[amenity=bicycle_parking],
+area|z18-[amenity=bicycle_parking]
+{icon-image: bike-parking-m.svg;icon-min-distance: 20;text-optional: true;}
+
+node|z18-[amenity=motorcycle_parking],
+area|z18-[amenity=motorcycle_parking]
+{icon-image: motorcycle-parking-m.svg;icon-min-distance: 20;text-optional: true;}
+
+node|z18-[amenity=parking_space][parking_space=disabled],
+area|z18-[amenity=parking_space][parking_space=disabled]
+{icon-image: parking-disabled-m.svg;}
