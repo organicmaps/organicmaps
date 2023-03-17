@@ -30,13 +30,13 @@ public class MyPositionButton
 
   private final int mFollowPaddingShift;
 
-  public MyPositionButton(@NonNull View button, int myPositionMode, @NonNull View.OnClickListener listener)
+  public MyPositionButton(@NonNull View button, @NonNull View.OnClickListener listener)
   {
     mButton = (FloatingActionButton) button;
     mButton.setOnClickListener(listener);
     mIcons.clear();
     mFollowPaddingShift = (int) (FOLLOW_SHIFT * button.getResources().getDisplayMetrics().density);
-    update(myPositionMode);
+    update(LocationState.nativeGetMode());
   }
 
   public void update(int mode)
