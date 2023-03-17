@@ -27,6 +27,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.Framework.PlacePageActivationListener;
 import app.organicmaps.api.Const;
@@ -57,6 +58,7 @@ import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.location.LocationState;
 import app.organicmaps.maplayer.MapButtonsController;
+import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.maplayer.Mode;
 import app.organicmaps.maplayer.ToggleMapLayerFragment;
 import app.organicmaps.maplayer.isolines.IsolinesManager;
@@ -114,8 +116,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                NoConnectionListener,
                MenuBottomSheetFragment.MenuBottomSheetInterfaceWithHeader,
                PlacePageController.PlacePageRouteSettingsListener,
-               MapButtonsController.MapButtonClickListener,
-               ToggleMapLayerFragment.LayerItemClickListener,
+               MapButtonsController.MapButtonClickListener
 {
   private static final String TAG = MwmActivity.class.getSimpleName();
 
@@ -130,8 +131,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                                      EditorHostFragment.class.getName(),
                                                      ReportFragment.class.getName() };
 
-  private static final String EXTRA_CURRENT_LAYOUT_MODE = "CURRENT_LAYOUT_MODE";
-  private static final String EXTRA_IS_FULLSCREEN = "IS_FULLSCREEN";
   public static final int REQ_CODE_ERROR_DRIVING_OPTIONS_DIALOG = 5;
   public static final int REQ_CODE_DRIVING_OPTIONS = 6;
   private static final int REQ_CODE_ISOLINES_ERROR = 8;
@@ -169,12 +168,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private PanelAnimator mPanelAnimator;
   @Nullable
   private OnmapDownloader mOnmapDownloader;
-
-  @Nullable
-  private MapButtonsController mMapButtonsController;
-
   private boolean mIsTabletLayout;
-  private boolean mIsFullscreen;
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private FloatingSearchToolbarController mSearchController;
@@ -182,13 +176,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean mRestoreRoutingPlanFragmentNeeded;
   @Nullable
   private Bundle mSavedForTabletState;
-  private MapButtonsController.LayoutMode mCurrentLayoutMode;
-
   private String mDonatesUrl;
 
   private int mNavBarHeight;
 
   private PlacePageViewModel mPlacePageViewModel;
+  private MapButtonsViewModel mMapButtonsViewModel;
+  private MapButtonsController.LayoutMode mPreviousMapLayoutMode;
+  private Mode mPreviousLayerMode;
 
   @Nullable
   private WindowInsetsCompat mCurrentWindowInsets;
@@ -365,15 +360,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onSafeCreate(@Nullable Bundle savedInstanceState)
   {
     super.onSafeCreate(savedInstanceState);
-    if (savedInstanceState != null)
-    {
-      mCurrentLayoutMode = MapButtonsController.LayoutMode.values()[savedInstanceState.getInt(EXTRA_CURRENT_LAYOUT_MODE)];
-      mIsFullscreen = savedInstanceState.getBoolean(EXTRA_IS_FULLSCREEN);
-    }
-    else
-    {
-      mCurrentLayoutMode = MapButtonsController.LayoutMode.regular;
-    }
     mIsTabletLayout = getResources().getBoolean(R.bool.tabletLayout);
 
     if (!mIsTabletLayout)
@@ -383,6 +369,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     UiUtils.setupTransparentStatusBar(this);
 
     mPlacePageViewModel = new ViewModelProvider(this).get(PlacePageViewModel.class);
+    mMapButtonsViewModel = new ViewModelProvider(this).get(MapButtonsViewModel.class);
+    // We don't need to manually handle removing the observers it follows the activity lifecycle
+    mMapButtonsViewModel.getBottomButtonsHeight().observe(this, this::onMapBottomButtonsHeightChange);
+    mMapButtonsViewModel.getLayoutMode().observe(this, this::initNavigationButtons);
+    mPreviousLayerMode = mMapButtonsViewModel.getMapLayerMode().getValue();
+    mMapButtonsViewModel.getMapLayerMode().observe(this, this::onLayerChange);
 
     mSearchController = new FloatingSearchToolbarController(this, this);
     mSearchController.getToolbar()
@@ -419,7 +411,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       UiUtils.setViewInsetsPaddingBottom(mPointChooser, windowInsets);
       UiUtils.setViewInsetsPaddingNoBottom(mPointChooserToolbar, windowInsets);
 
-      mNavBarHeight = mIsFullscreen ? 0 : windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
+      mNavBarHeight = isFullscreen() ? 0 : windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
       // For the first loading, set compass top margin to status bar size
       // The top inset will be then be updated by the routing controller
       if (mCurrentWindowInsets == null)
@@ -460,7 +452,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       removeCurrentFragment(false);
     }
 
-    mNavigationController = new NavigationController(this, mMapButtonsController, v -> onSettingsOptionSelected(), this::updateBottomWidgetsOffset);
+    mNavigationController = new NavigationController(this, v -> onSettingsOptionSelected(), this::updateBottomWidgetsOffset);
     //TrafficManager.INSTANCE.attach(mNavigationController);
 
     initMainMenu();
@@ -560,7 +552,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPointChooserMode = mode;
     closeFloatingToolbarsAndPanels(false);
     UiUtils.show(mPointChooser);
-    mMapButtonsController.showMapButtons(false);
+    mMapButtonsViewModel.setButtonsHidden(true);
     Framework.nativeTurnOnChoosePositionMode(isBusiness, applyPosition);
     refreshLightStatusBar();
   }
@@ -569,7 +561,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     UiUtils.hide(mPointChooser);
     Framework.nativeTurnOffChoosePositionMode();
-    mMapButtonsController.showMapButtons(true);
+    mMapButtonsViewModel.setButtonsHidden(false);
     if (mPointChooserMode == PointChooserMode.API)
       finish();
     mPointChooserMode = PointChooserMode.NONE;
@@ -608,31 +600,29 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void initNavigationButtons()
   {
-    initNavigationButtons(mCurrentLayoutMode);
+    initNavigationButtons(mMapButtonsViewModel.getLayoutMode().getValue());
   }
 
   private void initNavigationButtons(MapButtonsController.LayoutMode layoutMode)
   {
-    if (mMapButtonsController == null || mMapButtonsController.getLayoutMode() != layoutMode)
+    // Recreate the navigation buttons with the correct layout when it changes
+    if (mPreviousMapLayoutMode != layoutMode)
     {
-      mCurrentLayoutMode = layoutMode;
-
-      mMapButtonsController = new MapButtonsController();
-      mMapButtonsController.init(
-          layoutMode,
-          LocationState.nativeGetMode(),
-          this::onMapButtonClick,
-          (v) -> closeSearchToolbar(true, true),
-          this::updateBottomWidgetsOffset);
-
-
       FragmentTransaction transaction = getSupportFragmentManager()
-          .beginTransaction().replace(R.id.map_buttons, mMapButtonsController);
+          .beginTransaction().replace(R.id.map_buttons, new MapButtonsController());
       transaction.commit();
+      mPreviousMapLayoutMode = layoutMode;
     }
   }
 
-  void onMapButtonClick(MapButtonsController.MapButtons button)
+  @Override
+  public void onSearchCanceled()
+  {
+    closeSearchToolbar(true, true);
+  }
+
+  @Override
+  public void onMapButtonClick(MapButtonsController.MapButtons button)
   {
     switch (button)
     {
@@ -756,7 +746,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (stopSearch)
       {
         mSearchController.cancelSearchApiAndHide(clearText);
-        mMapButtonsController.resetSearch();
+        mMapButtonsViewModel.setSearchOption(null);
       }
       else
       {
@@ -836,8 +826,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mNavigationController.onActivitySaveInstanceState(this, outState);
 
     RoutingController.get().onSaveState();
-    outState.putInt(EXTRA_CURRENT_LAYOUT_MODE, mCurrentLayoutMode.ordinal());
-    outState.putBoolean(EXTRA_IS_FULLSCREEN, mIsFullscreen);
 
     if (!isChangingConfigurations())
       RoutingController.get().saveRoute();
@@ -983,11 +971,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onResume();
     refreshSearchToolbar();
-    setFullscreen(mIsFullscreen);
+    setFullscreen(isFullscreen());
     if (Framework.nativeIsInChoosePositionMode())
     {
       UiUtils.show(mPointChooser);
-      mMapButtonsController.showMapButtons(false);
+      mMapButtonsViewModel.setButtonsHidden(true);
     }
     if (mOnmapDownloader != null)
       mOnmapDownloader.onResume();
@@ -1154,7 +1142,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           UiUtils.isVisible(mSearchController.getToolbar()))
         return;
 
-      setFullscreen(!mIsFullscreen);
+      setFullscreen(!isFullscreen());
     }
     else
     {
@@ -1169,9 +1157,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
         || RoutingController.get().isPlanning())
       return;
 
-    mIsFullscreen = isFullscreen;
-    mMapButtonsController.showMapButtons(!isFullscreen);
+    mMapButtonsViewModel.setButtonsHidden(isFullscreen);
     UiUtils.setFullscreen(this, isFullscreen);
+  }
+
+  private boolean isFullscreen()
+  {
+    // Buttons are hidden in position chooser mode but we are not in fullscreen
+    return Boolean.TRUE.equals(mMapButtonsViewModel.getButtonsHidden().getValue()) && !Framework.nativeIsInChoosePositionMode();
   }
 
   @Override
@@ -1206,6 +1199,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Map.onCompassUpdated(north, true);
   }
 
+  public void onMapBottomButtonsHeightChange(float height) {
+    updateBottomWidgetsOffset();
+  }
+
   public void updateBottomWidgetsOffset()
   {
     updateBottomWidgetsOffset(-1);
@@ -1217,8 +1214,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     int offsetY = mNavBarHeight;
-    if (mMapButtonsController != null)
-      offsetY = Math.max(offsetY, (int) mMapButtonsController.getBottomButtonsHeight() + mNavBarHeight);
+    final Float bottomButtonHeight = mMapButtonsViewModel.getBottomButtonsHeight().getValue();
+    if (bottomButtonHeight != null)
+      offsetY = Math.max(offsetY, bottomButtonHeight.intValue() + mNavBarHeight);
     if (mMainMenu != null)
       offsetY = Math.max(offsetY, mMainMenu.getMenuHeight());
 
@@ -1255,17 +1253,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       mNavigationController.show(true);
       closeSearchToolbar(false, false);
-      mMainMenu.setState(MainMenu.State.NAVIGATION, mIsFullscreen);
+      mMainMenu.setState(MainMenu.State.NAVIGATION, isFullscreen());
       return;
     }
 
     if (RoutingController.get().isPlanning())
     {
-      mMainMenu.setState(MainMenu.State.ROUTE_PREPARE, mIsFullscreen);
+      mMainMenu.setState(MainMenu.State.ROUTE_PREPARE, isFullscreen());
       return;
     }
 
-    mMainMenu.setState(MainMenu.State.MENU, mIsFullscreen);
+    mMainMenu.setState(MainMenu.State.MENU, isFullscreen());
   }
 
   private boolean adjustMenuLineFrameVisibility()
@@ -1492,7 +1490,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mRoutingPlanInplaceController.hideDrivingOptionsView();
     mNavigationController.stop(this);
-    initNavigationButtons(MapButtonsController.LayoutMode.regular);
+    mMapButtonsViewModel.setSearchOption(null);
+    mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.regular);
     refreshLightStatusBar();
   }
 
@@ -1502,7 +1501,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     closeFloatingToolbarsAndPanels(true);
     ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
     mNavigationController.start(this);
-    initNavigationButtons(MapButtonsController.LayoutMode.navigation);
+    mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.navigation);
     refreshLightStatusBar();
   }
 
@@ -1510,7 +1509,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onPlanningCancelled()
   {
     closeFloatingToolbarsAndPanels(true);
-    initNavigationButtons(MapButtonsController.LayoutMode.regular);
+    mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.regular);
     refreshLightStatusBar();
   }
 
@@ -1518,7 +1517,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onPlanningStarted()
   {
     closeFloatingToolbarsAndPanels(true);
-    initNavigationButtons(MapButtonsController.LayoutMode.planning);
+    mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.planning);
     refreshLightStatusBar();
   }
 
@@ -1528,7 +1527,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     closeFloatingToolbarsAndPanels(true);
     ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
     mNavigationController.stop(this);
-    initNavigationButtons(MapButtonsController.LayoutMode.planning);
+    mMapButtonsViewModel.setSearchOption(null);
+    mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.planning);
     refreshLightStatusBar();
   }
 
@@ -1591,7 +1591,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onMyPositionModeChanged(int newMode)
   {
     Logger.d(TAG, "location newMode = " + newMode);
-    mMapButtonsController.updateNavMyPositionButton(newMode);
+    mMapButtonsViewModel.setMyPositionMode(newMode);
     RoutingController controller = RoutingController.get();
     if (controller.isPlanning())
       showAddStartOrFinishFrame(controller, true);
@@ -1767,12 +1767,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     shareMyLocation();
   }
 
-  @Override
-  public void onLayerItemClick(@NonNull Mode mode)
+  public void onLayerChange(Mode mode)
   {
-    closeFloatingPanels();
-    if (mMapButtonsController != null)
-      mMapButtonsController.toggleMapLayer(mode);
+    if (mPreviousLayerMode != mode)
+      closeFloatingPanels();
+    mPreviousLayerMode = mode;
   }
 
   @Override
