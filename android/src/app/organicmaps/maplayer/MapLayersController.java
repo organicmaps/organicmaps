@@ -23,21 +23,19 @@ public class MapLayersController
   OnShowMenuListener mOnShowMenuListener;
   @NonNull
   private Mode mCurrentLayer;
+  private final MapButtonsViewModel mMapButtonsViewModel;
 
-  public MapLayersController(@NonNull ImageButton layersButton, @NonNull OnShowMenuListener onShowMenuListener, @NonNull Activity activity)
+  public MapLayersController(@NonNull ImageButton layersButton, @NonNull OnShowMenuListener onShowMenuListener, @NonNull Activity activity, MapButtonsViewModel mapButtonsViewModel)
   {
     mActivity = activity;
+    mMapButtonsViewModel = mapButtonsViewModel;
     mLayersButton = layersButton;
     mLayersButton.setOnClickListener(view -> onLayersButtonClick());
     mOnShowMenuListener = onShowMenuListener;
     mLayers = LayersUtils.getAvailableLayers();
     mCurrentLayer = getCurrentLayer();
-    initMode();
-  }
-
-  private void initMode()
-  {
-    setEnabled(mCurrentLayer.isEnabled(mActivity));
+    // View model only expects a layer if it is active
+    mMapButtonsViewModel.setMapLayerMode(mCurrentLayer.isEnabled(activity) ? mCurrentLayer : null);
     showButton(true);
   }
 
@@ -76,16 +74,21 @@ public class MapLayersController
   private void onLayersButtonClick()
   {
     if (mCurrentLayer.isEnabled(mActivity))
-      setEnabled(false);
+      mMapButtonsViewModel.setMapLayerMode(null);
     else
       mOnShowMenuListener.onShow();
   }
 
-  public void toggleMode(@NonNull Mode mode)
+  public void disableModes()
+  {
+    setEnabled(false);
+  }
+
+  public void enableMode(@NonNull Mode mode)
   {
     setCurrentLayer(mode);
     showButton(true);
-    setEnabled(!mode.isEnabled(mActivity));
+    setEnabled(true);
   }
 
   public void showButton(boolean show)

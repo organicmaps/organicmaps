@@ -26,7 +26,6 @@ import app.organicmaps.util.concurrency.UiThread;
 
 public class SearchWheel implements View.OnClickListener
 {
-  private static final String EXTRA_CURRENT_OPTION = "extra_current_option";
   private final View mFrame;
 
   private View mSearchLayout;
@@ -35,12 +34,11 @@ public class SearchWheel implements View.OnClickListener
   private final View mTouchInterceptor;
 
   private boolean mIsExpanded;
-  @Nullable
-  private SearchOption mCurrentOption;
   @NonNull
   private final View.OnClickListener mOnSearchPressedListener;
   @NonNull
   private final View.OnClickListener mOnSearchCanceledListener;
+  private MapButtonsViewModel mMapButtonsViewModel;
 
   private static final long CLOSE_DELAY_MILLIS = 5000L;
   private final Runnable mCloseRunnable = new Runnable() {
@@ -55,7 +53,7 @@ public class SearchWheel implements View.OnClickListener
     }
   };
 
-  private enum SearchOption
+  public enum SearchOption
   {
     FUEL(R.id.search_fuel, R.drawable.ic_routing_fuel_off, R.string.fuel),
     PARKING(R.id.search_parking, R.drawable.ic_routing_parking_off, R.string.parking),
@@ -103,9 +101,11 @@ public class SearchWheel implements View.OnClickListener
     }
   }
 
-  public SearchWheel(View frame, @NonNull View.OnClickListener onSearchPressedListener, @NonNull View.OnClickListener onSearchCanceledListener)
+  public SearchWheel(View frame, @NonNull View.OnClickListener onSearchPressedListener,
+                     @NonNull View.OnClickListener onSearchCanceledListener, MapButtonsViewModel mapButtonsViewModel)
   {
     mFrame = frame;
+    mMapButtonsViewModel = mapButtonsViewModel;
     mOnSearchPressedListener = onSearchPressedListener;
     mOnSearchCanceledListener = onSearchCanceledListener;
     mTouchInterceptor = mFrame.findViewById(R.id.touch_interceptor);
@@ -151,26 +151,15 @@ public class SearchWheel implements View.OnClickListener
       UiUtils.showIf(show && mIsExpanded, mSearchLayout);
   }
 
-  public void saveState(@NonNull Bundle outState)
-  {
-    outState.putSerializable(EXTRA_CURRENT_OPTION, mCurrentOption);
-  }
-
-  public void restoreState(@NonNull Bundle savedState)
-  {
-    mCurrentOption = Utils.getSerializable(savedState, EXTRA_CURRENT_OPTION, SearchOption.class);
-  }
-
   public void reset()
   {
     mIsExpanded = false;
-    mCurrentOption = null;
     resetSearchButtonImage();
   }
 
   public void onResume()
   {
-    if (mCurrentOption != null)
+    if (mMapButtonsViewModel.getSearchOption().getValue() != null)
     {
       refreshSearchButtonImage();
       return;
@@ -183,7 +172,6 @@ public class SearchWheel implements View.OnClickListener
       return;
     }
 
-    mCurrentOption = SearchOption.fromSearchQuery(query, mFrame.getContext());
     refreshSearchButtonImage();
   }
 
@@ -244,10 +232,11 @@ public class SearchWheel implements View.OnClickListener
 
   private void refreshSearchButtonImage()
   {
+    final SearchOption searchOption = mMapButtonsViewModel.getSearchOption().getValue();
     mSearchButton.setImageDrawable(Graphics.tint(mSearchButton.getContext(),
-                                                 mCurrentOption == null ?
+                                                 searchOption == null ?
                                                  R.drawable.ic_routing_search_off :
-                                                 mCurrentOption.mDrawableOff,
+                                                 searchOption.mDrawableOff,
                                                  R.attr.colorAccent));
   }
 
@@ -278,7 +267,7 @@ public class SearchWheel implements View.OnClickListener
       return;
     }
 
-    if (mCurrentOption != null || !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
+    if (mMapButtonsViewModel.getSearchOption().getValue() != null || !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
     {
       mOnSearchCanceledListener.onClick(v);
       refreshSearchVisibility();
@@ -303,7 +292,7 @@ public class SearchWheel implements View.OnClickListener
 
   private void startSearch(SearchOption searchOption)
   {
-    mCurrentOption = searchOption;
+    mMapButtonsViewModel.setSearchOption(searchOption);
     final String query = mFrame.getContext().getString(searchOption.mQueryId);
     // Category request from navigation search wheel.
     SearchEngine.INSTANCE.searchInteractive(mFrame.getContext(), query, true, System.nanoTime(), false);
