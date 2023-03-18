@@ -2,9 +2,11 @@ package app.organicmaps.widget.menu;
 
 import android.location.Location;
 import android.util.Pair;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,13 +45,12 @@ public class NavMenu
   private final TextView mDistanceValue;
   private final TextView mDistanceUnits;
   private final FlatProgressView mRouteProgress;
+  private final LinearLayout mTimeValueContainer;
 
   private final AppCompatActivity mActivity;
   private final NavMenuListener mNavMenuListener;
 
   private int currentPeekHeight = 0;
-
-  private int check = 0;
 
   public NavMenu(AppCompatActivity activity, NavMenuListener navMenuListener)
   {
@@ -64,6 +65,7 @@ public class NavMenu
     mBottomSheetBackground.setOnClickListener(v -> collapseNavBottomSheet());
     mBottomSheetBackground.setVisibility(View.GONE);
     mBottomSheetBackground.setAlpha(0);
+    mTimeValueContainer = bottomFrame.findViewById(R.id.time_values_container);
     mNavBottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback()
     {
       @Override
@@ -161,8 +163,8 @@ public class NavMenu
   public void refreshTts()
   {
     mTts.setImageDrawable(TtsPlayer.isEnabled() ? Graphics.tint(mActivity, R.drawable.ic_voice_on,
-        R.attr.colorAccent)
-        : Graphics.tint(mActivity, R.drawable.ic_voice_off));
+                                                                R.attr.colorAccent)
+                                                : Graphics.tint(mActivity, R.drawable.ic_voice_off));
   }
 
 
@@ -179,6 +181,14 @@ public class NavMenu
     mTimeMinuteValue.setText(String.valueOf(minutes));
     String min = mActivity.getResources().getString(R.string.minute);
     mTimeMinuteUnits.setText(min);
+    mTimeValueContainer.setOnClickListener(new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        changeTimes();
+      }
+    });
     if (hours == 0)
     {
       UiUtils.hide(mTimeHourUnits, mTimeHourValue);
@@ -189,14 +199,26 @@ public class NavMenu
     UiUtils.setTextAndShow(mTimeHourUnits, hour);
   }
 
+  private void changeTimes(){
+    float s1 = mTimeEstimate.getTextSize(), s2 = mTimeMinuteValue.getTextSize();
+    mTimeEstimate.setTextSize(TypedValue.COMPLEX_UNIT_PX, s2);
+    mTimeHourValue.setTextSize(TypedValue.COMPLEX_UNIT_PX, s1);
+    mTimeMinuteValue.setTextSize(TypedValue.COMPLEX_UNIT_PX, s1);
+
+    if(mTimeValueContainer.getY() < mTimeEstimate.getY())
+    {
+      mTimeValueContainer.setY(95);
+      mTimeEstimate.setY(40);
+    }
+    else
+    {
+      mTimeEstimate.setY(50);
+      mTimeValueContainer.setY(0);
+    }
+  }
+
   private void updateTimeEstimate(int seconds)
   {
-    if(check == 1){
-      mTimeEstimate.setAlpha(0f);
-    } else if (check == 2) {
-      mTimeEstimate.setAlpha(1f);
-    }
-
     final Calendar currentTime = Calendar.getInstance();
     currentTime.add(Calendar.SECOND, seconds);
     DateFormat timeFormat;
@@ -205,10 +227,13 @@ public class NavMenu
     else
       timeFormat = new SimpleDateFormat("h:mm aa", Locale.getDefault());
     mTimeEstimate.setText(timeFormat.format(currentTime.getTime()));
-    mTimeEstimate.setOnClickListener(new View.OnClickListener() {
+
+    mTimeEstimate.setOnClickListener(new View.OnClickListener()
+    {
       @Override
-      public void onClick(View v) {
-        check = (check==1)?2:1;
+      public void onClick(View v)
+      {
+        changeTimes();
       }
     });
   }
