@@ -874,3 +874,46 @@ UNIT_TEST(Kml_Ver_2_3)
   TEST_EQUAL(lines[0].size(), 7, ());
   TEST_EQUAL(lines[1].size(), 6, ());
 }
+
+UNIT_TEST(Kml_Placemark_contains_both_Bookmark_and_Track_data)
+{
+  char const * input = R"(<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Placemark>
+    <MultiGeometry>
+      <Point>
+        <coordinates>28.968447783842,41.009030507129,0</coordinates>
+      </Point>
+      <LineString>
+        <coordinates>28.968447783842,41.009030507129,0 28.965858,41.018449,0</coordinates>
+      </LineString>
+    </MultiGeometry>
+  </Placemark>
+  <Placemark>
+  <MultiGeometry>
+    <LineString>
+      <coordinates>28.968447783842,41.009030507129,0 28.965858,41.018449,0</coordinates>
+    </LineString>
+    <Point>
+      <coordinates>28.968447783842,41.009030507129,0</coordinates>
+    </Point>
+  </MultiGeometry>
+</Placemark>
+</kml>
+  )";
+
+  kml::FileData fData;
+  try
+  {
+    MemReader reader(input, strlen(input));
+    kml::DeserializerKml des(fData);
+    des.Deserialize(reader);
+  }
+  catch (kml::DeserializerKml::DeserializeException const & ex)
+  {
+    TEST(false, ("Exception raised", ex.Msg()));
+  }
+
+  TEST_EQUAL(fData.m_bookmarksData.size(), 2, ());
+  TEST_EQUAL(fData.m_tracksData.size(), 2, ());
+}

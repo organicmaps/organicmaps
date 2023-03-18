@@ -13,19 +13,18 @@ import androidx.annotation.Nullable;
 import androidx.annotation.OptIn;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
-
-import com.google.android.material.badge.BadgeDrawable;
-import com.google.android.material.badge.BadgeUtils;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import app.organicmaps.R;
 import app.organicmaps.downloader.MapManager;
 import app.organicmaps.downloader.UpdateInfo;
 import app.organicmaps.routing.RoutingController;
+import app.organicmaps.util.Config;
 import app.organicmaps.util.ThemeUtils;
+import app.organicmaps.util.UiUtils;
 import app.organicmaps.widget.menu.MyPositionButton;
 import app.organicmaps.widget.placepage.PlacePageController;
-import app.organicmaps.util.Config;
-import app.organicmaps.util.UiUtils;
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.badge.BadgeUtils;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -242,8 +241,10 @@ public class MapButtonsController extends Fragment
 
   public void updateButtonsVisibility()
   {
-    updateButtonsVisibility(mInnerLeftButtonsFrame.getTranslationY(), mInnerLeftButtonsFrame);
-    updateButtonsVisibility(mInnerRightButtonsFrame.getTranslationY(), mInnerRightButtonsFrame);
+    if (mInnerLeftButtonsFrame != null)
+      updateButtonsVisibility(mInnerLeftButtonsFrame.getTranslationY(), mInnerLeftButtonsFrame);
+    if (mInnerRightButtonsFrame != null)
+      updateButtonsVisibility(mInnerRightButtonsFrame.getTranslationY(), mInnerRightButtonsFrame);
   }
 
   private void updateButtonsVisibility(final float translation, @Nullable View parent)
@@ -254,7 +255,7 @@ public class MapButtonsController extends Fragment
     {
       final View button = entry.getValue();
       if (button.getParent() == parent)
-        showButton(getViewTopOffset(translation, button) > 0, entry.getKey());
+        showButton(getViewTopOffset(translation, button) >= 0, entry.getKey());
     }
   }
 
@@ -269,7 +270,10 @@ public class MapButtonsController extends Fragment
   public void showMapButtons(boolean show)
   {
     if (show)
+    {
       UiUtils.show(mFrame);
+      updateButtonsVisibility();
+    }
     else
       UiUtils.hide(mFrame);
     mOnBottomButtonsHeightChangedListener.OnBottomButtonsHeightChanged();

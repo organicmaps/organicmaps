@@ -59,8 +59,6 @@ public class PlacePageBookmarkFragment extends Fragment implements View.OnClickL
     mTvBookmarkNote.setOnLongClickListener(this);
     final View editBookmarkBtn = mFrame.findViewById(R.id.tv__bookmark_edit);
     editBookmarkBtn.setOnClickListener(this);
-
-    mViewModel.getMapObject().observe(requireActivity(), this);
   }
 
   private void initWebView()
@@ -75,9 +73,16 @@ public class PlacePageBookmarkFragment extends Fragment implements View.OnClickL
   }
 
   @Override
-  public void onDestroyView()
+  public void onResume()
   {
-    super.onDestroyView();
+    super.onResume();
+    mViewModel.getMapObject().observe(requireActivity(), this);
+  }
+
+  @Override
+  public void onPause()
+  {
+    super.onPause();
     mViewModel.getMapObject().removeObserver(this);
   }
 

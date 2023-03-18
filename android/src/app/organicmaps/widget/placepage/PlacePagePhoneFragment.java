@@ -36,14 +36,19 @@ public class PlacePagePhoneFragment extends Fragment implements Observer<MapObje
     RecyclerView phoneRecycler = view.findViewById(R.id.rw__phone);
     mPhoneAdapter = new PlacePhoneAdapter();
     phoneRecycler.setAdapter(mPhoneAdapter);
+  }
 
+  @Override
+  public void onResume()
+  {
+    super.onResume();
     mViewModel.getMapObject().observe(requireActivity(), this);
   }
 
   @Override
-  public void onDestroyView()
+  public void onPause()
   {
-    super.onDestroyView();
+    super.onPause();
     mViewModel.getMapObject().removeObserver(this);
   }
 

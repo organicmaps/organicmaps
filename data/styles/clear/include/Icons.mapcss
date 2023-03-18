@@ -2722,6 +2722,9 @@ area|z17-[craft=shoemaker]
 node|z17-[craft=tailor],
 area|z17-[craft=tailor]
 {icon-image:clothes-m.svg;}
+node|z17-[craft=metal_construction],
+area|z17-[craft=metal_construction]
+{icon-image:metal_construction-m.svg;}
 
 /* 7. CAR */
 

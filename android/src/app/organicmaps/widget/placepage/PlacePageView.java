@@ -239,10 +239,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
     mDownloaderInfo = mPreview.findViewById(R.id.tv__downloader_details);
 
-    mViewModel.getMapObject().observe(requireActivity(), this);
     mMapObject = mViewModel.getMapObject().getValue();
-
-    LocationHelper.INSTANCE.addListener(this);
   }
 
   @Override
@@ -253,12 +250,32 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   }
 
   @Override
-  public void onDestroyView()
+  public void onResume()
   {
-    super.onDestroyView();
-    detachCountry();
+    super.onResume();
+    mViewModel.getMapObject().observe(requireActivity(), this);
+    LocationHelper.INSTANCE.addListener(this);
+  }
+
+  @Override
+  public void onPause()
+  {
+    super.onPause();
+    // Unsubscribe from events as soon as the fragment becomes inactive
+    // to prevent unwanted side effects
     mViewModel.getMapObject().removeObserver(this);
     LocationHelper.INSTANCE.removeListener(this);
+  }
+
+  @Override
+  public void onStop()
+  {
+    super.onStop();
+    // Safely detach the country once the fragment is hidden from the user
+    // It is safer to call this here than in onPause as the app could go from onPause to
+    // onResume without killing the fragment.
+    // In this case we would not want to detach the country.
+    detachCountry();
   }
 
   @Override

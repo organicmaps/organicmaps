@@ -134,8 +134,6 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
     mTvLinePage = mFrame.findViewById(R.id.tv__place_line_page);
     mLinePage.setOnClickListener((v) -> openUrl(Metadata.MetadataType.FMD_CONTACT_LINE));
     mLinePage.setOnLongClickListener((v) -> copyUrl(mLinePage, Metadata.MetadataType.FMD_CONTACT_LINE));
-
-    mViewModel.getMapObject().observe(requireActivity(), this);
   }
 
   private boolean isSocialUsername(Metadata.MetadataType type)
@@ -218,9 +216,16 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
   }
 
   @Override
-  public void onDestroyView()
+  public void onResume()
   {
-    super.onDestroyView();
+    super.onResume();
+    mViewModel.getMapObject().observe(requireActivity(), this);
+  }
+
+  @Override
+  public void onPause()
+  {
+    super.onPause();
     mViewModel.getMapObject().removeObserver(this);
   }
 

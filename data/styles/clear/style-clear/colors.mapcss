@@ -47,13 +47,13 @@
 
 /*3.2 Vegetation*/
 
-@forest: #AABF65;
 @green0: #CFD5A8;
 @green1: #C6CF93;
 @green2: #BCC87E;
 @green3: #B3C471;
 @green4: #AEC26B;
 @green5: #B0C270;
+@forest: #AABF65;
 @green6: #888C38;
 
 /* 4.LANDUSE */
