@@ -113,6 +113,7 @@
     app:layout_constrainedWidth="true"
     app:layout_constraintHeight_percent="@fraction/nav_lane_height"
     app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
     app:layout_constraintStart_toEndOf="@+id/nav_next_turn_container"
     app:layout_constraintTop_toBottomOf="@+id/street_frame"
     android:visibility="gone"
