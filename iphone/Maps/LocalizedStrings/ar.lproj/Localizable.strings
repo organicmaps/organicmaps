@@ -1338,6 +1338,8 @@
 
 "type.amenity.driving_school" = "مدرسة قيادة";
 
+"type.amenity.money_transfer" = "تحويل المال";
+
 "type.amenity.music_school" = "مدرسة موسيقى";
 
 "type.amenity.language_school" = "مدرسة لغة";

@@ -1338,6 +1338,8 @@
 
 "type.amenity.driving_school" = "Körskola";
 
+"type.amenity.money_transfer" = "Pengaöverföring";
+
 "type.amenity.music_school" = "Musikskola";
 
 "type.amenity.language_school" = "Språkskola";

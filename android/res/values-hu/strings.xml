@@ -719,6 +719,7 @@
 	<string name="type.amenity.doctors">Rendelő</string>
 	<string name="type.amenity.drinking_water">Ivóvíz</string>
 	<string name="type.amenity.driving_school">Autósiskola</string>
+	<string name="type.amenity.money_transfer">Pénz átutalás</string>
 	<string name="type.amenity.music_school">Zeneiskola</string>
 	<string name="type.amenity.language_school">Nyelviskola</string>
 	<string name="type.office.diplomatic">Nagykövetség</string>
@@ -1646,8 +1647,8 @@
 	<string name="type.tourism.alpine_hut">Hegyi menedék</string>
 	<string name="type.tourism.apartment">Apartmanok</string>
 	<string name="type.tourism.artwork">Szobor</string>
-	<string name="type.tourism.artwork.architecture">Szobor</string>
-	<string name="type.tourism.artwork.painting">Szobor</string>
+	<string name="type.tourism.artwork.architecture">Műalkotás</string>
+	<string name="type.tourism.artwork.painting">Műalkotás</string>
 	<string name="type.tourism.artwork.sculpture">Szobor</string>
 	<string name="type.tourism.artwork.statue">Szobor</string>
 	<string name="type.tourism.attraction">Látnivaló</string>

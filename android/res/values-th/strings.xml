@@ -717,6 +717,7 @@
 	<string name="type.amenity.doctors">ห้องแพทย์</string>
 	<string name="type.amenity.drinking_water">น้ำดื่ม</string>
 	<string name="type.amenity.driving_school">โรงเรียนสอนขับรถ</string>
+	<string name="type.amenity.money_transfer">การโอนเงิน</string>
 	<string name="type.amenity.music_school">โรงเรียนดนตรี</string>
 	<string name="type.amenity.language_school">โรงเรียนภาษา</string>
 	<string name="type.office.diplomatic">สถานทูต</string>

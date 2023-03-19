@@ -716,6 +716,7 @@
 	<string name="type.amenity.doctors">کلینیک</string>
 	<string name="type.amenity.drinking_water">اب اشامیدنی</string>
 	<string name="type.amenity.driving_school">اموزشگاه رانندگی</string>
+	<string name="type.amenity.money_transfer">انتقال پول</string>
 	<string name="type.amenity.music_school">ﯽﻘﯿﺳﻮﻣ ﻩﺎﮕﺷﺯﻮﻣﺁ</string>
 	<string name="type.amenity.language_school">ﻥﺎﺑﺯ ﻪﺳﺭﺪﻣ</string>
 	<string name="type.office.diplomatic">سفارت</string>

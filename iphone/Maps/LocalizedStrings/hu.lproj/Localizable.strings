@@ -1338,6 +1338,8 @@
 
 "type.amenity.driving_school" = "Autósiskola";
 
+"type.amenity.money_transfer" = "Pénz átutalás";
+
 "type.amenity.music_school" = "Zeneiskola";
 
 "type.amenity.language_school" = "Nyelviskola";
@@ -3519,9 +3521,9 @@
 
 "type.tourism.artwork" = "Szobor";
 
-"type.tourism.artwork.architecture" = "Szobor";
+"type.tourism.artwork.architecture" = "Műalkotás";
 
-"type.tourism.artwork.painting" = "Szobor";
+"type.tourism.artwork.painting" = "Műalkotás";
 
 "type.tourism.artwork.sculpture" = "Szobor";
 

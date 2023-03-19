@@ -737,6 +737,7 @@
 	<string name="type.amenity.doctors">Lääkärin vastaanotto</string>
 	<string name="type.amenity.drinking_water">Juomavesi</string>
 	<string name="type.amenity.driving_school">Autokoulu</string>
+	<string name="type.amenity.money_transfer">Rahansiirto</string>
 	<string name="type.amenity.music_school">Musiikkikoulu</string>
 	<string name="type.amenity.language_school">Kielikoulu</string>
 	<string name="type.office.diplomatic">Suurlähetystö</string>

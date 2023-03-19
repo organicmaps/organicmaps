@@ -721,6 +721,7 @@
 
 	<!-- SECTION: Types -->
 	<string name="type.leisure.bowling_alley">Bolera</string>
+	<string name="type.amenity.money_transfer">Transferència de diners</string>
 	<string name="type.amenity.loading_dock">Moll de càrrega</string>
 
 	<!-- SECTION: Types: Recycling -->

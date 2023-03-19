@@ -1338,6 +1338,8 @@
 
 "type.amenity.driving_school" = "Rijschool";
 
+"type.amenity.money_transfer" = "Overschrijving";
+
 "type.amenity.music_school" = "Muziekschool";
 
 "type.amenity.language_school" = "Taalschool";

@@ -790,6 +790,7 @@
 	<string name="type.amenity.doctors">Врач</string>
 	<string name="type.amenity.drinking_water">Питьевая вода</string>
 	<string name="type.amenity.driving_school">Автошкола</string>
+	<string name="type.amenity.money_transfer">Денежные переводы</string>
 	<string name="type.amenity.music_school">Музыкальная школа</string>
 	<string name="type.amenity.language_school">Языковая школа</string>
 	<string name="type.office.diplomatic">Посольство</string>

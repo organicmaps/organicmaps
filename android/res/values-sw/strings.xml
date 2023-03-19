@@ -246,6 +246,7 @@
 	<string name="type.amenity.arts_centre">Kituo cha sanaa</string>
 	<string name="type.amenity.bicycle_repair_station">Cykelreparationsstation</string>
 	<string name="type.leisure.bowling_alley">Njia ya Bowling</string>
+	<string name="type.amenity.money_transfer">Uhamisho wa pesa</string>
 	<string name="type.amenity.music_school">Shule ya Muziki</string>
 	<string name="type.amenity.language_school">Shule ya Lugha</string>
 	<string name="type.amenity.loading_dock">Inapakia kituo</string>
