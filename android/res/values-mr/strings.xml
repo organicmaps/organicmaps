@@ -734,6 +734,7 @@
 	<string name="type.amenity.doctors">डॉक्टर</string>
 	<string name="type.amenity.drinking_water">पिण्याचे पाणी</string>
 	<string name="type.amenity.driving_school">वाहनचालक शाळा</string>
+	<string name="type.amenity.money_transfer">पैसे हस्तांतरण</string>
 	<string name="type.office.diplomatic">दूतावास</string>
 	<string name="type.amenity.fast_food">फास्ट फूड</string>
 	<string name="type.amenity.ferry_terminal">होडी</string>

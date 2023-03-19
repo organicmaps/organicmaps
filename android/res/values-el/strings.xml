@@ -714,6 +714,7 @@
 	<string name="type.amenity.doctors">Γιατροί</string>
 	<string name="type.amenity.drinking_water">Πόσιμο νερό</string>
 	<string name="type.amenity.driving_school">Σχολή οδήγησης</string>
+	<string name="type.amenity.money_transfer">Μεταφορά χρημάτων</string>
 	<string name="type.amenity.music_school">Μουσική Σχολή</string>
 	<string name="type.amenity.language_school">Σχολή Γλωσσών</string>
 	<string name="type.office.diplomatic">Πρεσβεία</string>

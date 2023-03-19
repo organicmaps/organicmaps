@@ -1338,6 +1338,8 @@
 
 "type.amenity.driving_school" = "Driving School";
 
+"type.amenity.money_transfer" = "העברת כספים";
+
 "type.amenity.music_school" = "הקיזומל רפס תיב";
 
 "type.amenity.language_school" = "תופשל רפס תיב";

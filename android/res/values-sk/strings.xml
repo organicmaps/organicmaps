@@ -713,6 +713,7 @@
 	<string name="type.amenity.doctors">Ambulancia</string>
 	<string name="type.amenity.drinking_water">Pitná voda</string>
 	<string name="type.amenity.driving_school">Autoškola</string>
+	<string name="type.amenity.money_transfer">Prevod peňazí</string>
 	<string name="type.amenity.music_school">Hudobná škola</string>
 	<string name="type.amenity.language_school">Jazyková škola</string>
 	<string name="type.office.diplomatic">Veľvyslanectvo</string>

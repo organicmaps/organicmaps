@@ -1338,6 +1338,8 @@
 
 "type.amenity.driving_school" = "Autoeskola";
 
+"type.amenity.money_transfer" = "Diru transferentzia";
+
 "type.amenity.music_school" = "Musika Eskola";
 
 "type.amenity.language_school" = "Hizkuntza Eskola";

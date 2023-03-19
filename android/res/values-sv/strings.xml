@@ -711,6 +711,7 @@
 	<string name="type.amenity.doctors">Läkarmottagning</string>
 	<string name="type.amenity.drinking_water">Dricksvatten</string>
 	<string name="type.amenity.driving_school">Körskola</string>
+	<string name="type.amenity.money_transfer">Pengaöverföring</string>
 	<string name="type.amenity.music_school">Musikskola</string>
 	<string name="type.amenity.language_school">Språkskola</string>
 	<string name="type.office.diplomatic">Ambassad</string>

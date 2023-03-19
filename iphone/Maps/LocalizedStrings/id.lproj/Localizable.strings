@@ -1338,6 +1338,8 @@
 
 "type.amenity.driving_school" = "Sekolah Mengemudi";
 
+"type.amenity.money_transfer" = "Transfer uang";
+
 "type.amenity.music_school" = "Sekolah musik";
 
 "type.amenity.language_school" = "Sekolah bahasa";

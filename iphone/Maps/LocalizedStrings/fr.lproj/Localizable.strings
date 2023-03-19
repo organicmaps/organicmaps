@@ -1338,6 +1338,8 @@
 
 "type.amenity.driving_school" = "Auto-école";
 
+"type.amenity.money_transfer" = "Transfert d'argent";
+
 "type.amenity.music_school" = "École de musique";
 
 "type.amenity.language_school" = "École de langue";

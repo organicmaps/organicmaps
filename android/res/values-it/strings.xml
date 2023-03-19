@@ -753,6 +753,7 @@
 	<string name="type.amenity.doctors">Studio medico</string>
 	<string name="type.amenity.drinking_water">Acqua potabile</string>
 	<string name="type.amenity.driving_school">Scuola guida</string>
+	<string name="type.amenity.money_transfer">Trasferimento di denaro</string>
 	<string name="type.amenity.music_school">Scuola di Musica</string>
 	<string name="type.amenity.language_school">Scuola di lingue</string>
 	<string name="type.office.diplomatic">Ambasciata</string>

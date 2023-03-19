@@ -1338,6 +1338,8 @@
 
 "type.amenity.driving_school" = "Σχολή οδήγησης";
 
+"type.amenity.money_transfer" = "Μεταφορά χρημάτων";
+
 "type.amenity.music_school" = "Μουσική Σχολή";
 
 "type.amenity.language_school" = "Σχολή Γλωσσών";
