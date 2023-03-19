@@ -263,6 +263,9 @@ area[amenity=fire_station],
 node[amenity=atm],
 area[amenity=atm],
 node[amenity=bureau_de_change],
+area[amenity=bureau_de_change],
+node[amenity=money_transfer],
+area[amenity=money_transfer],
 node[shop=pawnbroker],
 area[shop=pawnbroker],
 node[amenity=library],
@@ -1511,7 +1514,11 @@ area|z18-[amenity=atm],
 node|z18-[shop=pawnbroker],
 area|z18-[shop=pawnbroker],
 node|z18-[amenity=bureau_de_change],
+area|z18-[amenity=bureau_de_change],
+node|z18-[amenity=money_transfer],
+area|z18-[amenity=money_transfer],
 node|z18-[amenity=library],
+area|z18-[amenity=library],
 node|z18-[amenity=waste_disposal],
 area|z18-[amenity=waste_disposal],
 node|z18-[amenity=hunting_stand],
@@ -2186,7 +2193,10 @@ node|z18-[aeroway=gate],
 area|z18-[aeroway=gate]
 {icon-image: gate-m.svg;font-size: 11;z-index: 24200;}/*check*/
 
-node|z17-[amenity=bureau_de_change]
+area|z17-[amenity=bureau_de_change],
+node|z17-[amenity=bureau_de_change],
+area|z17-[amenity=money_transfer],
+node|z17-[amenity=money_transfer],
 {icon-image: banknote-m.svg;font-size: 11;text-optional: true;}
 
 area|z17-[shop=pawnbroker],
