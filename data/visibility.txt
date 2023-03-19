@@ -74,6 +74,7 @@ world  00000000000000000000  +
         library  00000000000000000000  -
         loading_dock  00000000000000000000  -
         marketplace  00000000000000000000  -
+        money_transfer  00000000000000000000  -
         motorcycle_parking  00000000000000000000  -
         music_school  00000000000000000000  -
         nightclub  00000000000000000000  -
