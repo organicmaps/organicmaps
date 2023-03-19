@@ -894,7 +894,7 @@ historic|memorial|war_memorial;[historic=memorial][memorial=war_memorial],[histo
 historic|memorial|cross;[historic=memorial][memorial=cross];;name;int_name;895;
 historic|gallows;[historic=gallows];;name;int_name;896;
 historic|pillory;[historic=pillory];;name;int_name;897;
-deprecated|deprecated;898;x
+amenity|money_transfer;898;
 deprecated|deprecated;899;x
 railway|subway|darkgreen;[railway=subway][colour=darkgreen];x;name;int_name;900;railway|subway|tunnel
 deprecated|deprecated;901;x

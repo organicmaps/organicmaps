@@ -38,6 +38,7 @@ shop=ice_cream : amenity=ice_cream
 shop=e-cigarette : shop=tobacco
 shop=food : shop=convenience
 shop=haberdashery : shop=sewing
+shop=money_transfer : amenity=money_transfer
 
 ford=boat : highway=ford
 ford=intermittent : highway=ford

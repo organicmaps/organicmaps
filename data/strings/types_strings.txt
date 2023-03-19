@@ -1442,6 +1442,46 @@
     zh-Hans = 驾校
     zh-Hant = 駕訓班
 
+  [type.amenity.money_transfer]
+    en = Money Transfer
+    ar = تحويل المال
+    be = Грашовыя пераводы
+    bg = Паричен превод
+    ca = Transferència de diners
+    cs = Převod peněz
+    da = Pengeoverførsel
+    de = Geldtransfer
+    el = Μεταφορά χρημάτων
+    es = Transferencia de dinero
+    et = Raha ülekanne
+    eu = Diru transferentzia
+    fa = انتقال پول
+    fi = Rahansiirto
+    fr = Transfert d'argent
+    he = העברת כספים
+    hu = Pénz átutalás
+    id = Transfer uang
+    it = Trasferimento di denaro
+    ja = 送金
+    ko = 송금
+    mr = पैसे हस्तांतरण
+    nb = Pengeoverføring
+    nl = Overschrijving
+    pl = Transfer pieniędzy
+    pt = Transferência de dinheiro
+    pt-BR = Transferência de dinheiro
+    ro = Transfer de bani
+    ru = Денежные переводы
+    sk = Prevod peňazí
+    sv = Pengaöverföring
+    sw = Uhamisho wa pesa
+    th = การโอนเงิน
+    tr = Para transferi
+    uk = Грошовий переказ
+    vi = Chuyển tiền
+    zh-Hans = 汇款
+    zh-Hant = 匯款
+
   [type.amenity.music_school]
     en = Music School
     ar = مدرسة موسيقى
