@@ -137,7 +137,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     else if (id == R.id.mastodon)
       openLink(Constants.Url.MASTODON);
     else if (id == R.id.openstreetmap)
-      openLink(Constants.Url.OSM_ABOUT);
+      openLink(getString(R.string.osm_wiki_url));
     else if (id == R.id.faq)
       ((HelpActivity) requireActivity()).stackFragment(FaqFragment.class, getString(R.string.faq), null);
     else if (id == R.id.report)
