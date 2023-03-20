@@ -1,5 +1,6 @@
 package app.organicmaps.widget.menu;
 
+import android.content.res.ColorStateList;
 import android.location.Location;
 import android.util.Pair;
 import android.util.TypedValue;
@@ -204,16 +205,22 @@ public class NavMenu
     mTimeEstimate.setTextSize(TypedValue.COMPLEX_UNIT_PX, s2);
     mTimeHourValue.setTextSize(TypedValue.COMPLEX_UNIT_PX, s1);
     mTimeMinuteValue.setTextSize(TypedValue.COMPLEX_UNIT_PX, s1);
+    ColorStateList col = mTimeEstimate.getTextColors();
+    mTimeEstimate.setTextColor(mTimeMinuteValue.getTextColors());
+    mTimeMinuteUnits.setTextColor(col);
+    mTimeHourUnits.setTextColor(col);
+    mTimeMinuteValue.setTextColor(col);
+    mTimeHourValue.setTextColor(col);
 
     if(mTimeValueContainer.getY() < mTimeEstimate.getY())
     {
-      mTimeValueContainer.setY(95);
-      mTimeEstimate.setY(40);
+      mTimeValueContainer.setY(mSpeedUnits.getY());
+      mTimeEstimate.setY(mTimeEstimate.getY()/2);
     }
     else
     {
-      mTimeEstimate.setY(50);
-      mTimeValueContainer.setY(0);
+      mTimeValueContainer.setY(mSpeedValue.getY());
+      mTimeEstimate.setY(mSpeedUnits.getY()/2);
     }
   }
 
