@@ -765,6 +765,7 @@
 	<string name="type.amenity.doctors">طبيب</string>
 	<string name="type.amenity.drinking_water">مياه شرب</string>
 	<string name="type.amenity.driving_school">مدرسة قيادة</string>
+	<string name="type.amenity.money_transfer">تحويل المال</string>
 	<string name="type.amenity.music_school">مدرسة موسيقى</string>
 	<string name="type.amenity.language_school">مدرسة لغة</string>
 	<string name="type.office.diplomatic">سفارة</string>

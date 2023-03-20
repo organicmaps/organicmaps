@@ -25,11 +25,6 @@ on:
       - track_generator/**
       - xcode/**
 
-# Cancels previous jobs if the same branch or PR was updated again.
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
-
 jobs:
   lint:
     name: Android Lint
@@ -60,6 +55,10 @@ jobs:
       fail-fast: false
       matrix:
         flavor: [WebDebug, FdroidBeta]
+    # Cancels previous jobs if the same branch or PR was updated again.
+    concurrency:
+      group: ${{ github.workflow }}-${{ matrix.flavor }}-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
 
     steps:
       - name: Install build tools and dependencies

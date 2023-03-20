@@ -5681,6 +5681,48 @@ cont {
   }
 }
 cont {
+  name: "amenity-money_transfer"
+  element {
+    scale: 17
+    symbol {
+      name: "banknote-m"
+      priority: 16625
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "banknote-m"
+      priority: 16625
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15625
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "banknote-m"
+      priority: 16625
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15625
+    }
+  }
+}
+cont {
   name: "amenity-motorcycle_parking"
   element {
     scale: 17

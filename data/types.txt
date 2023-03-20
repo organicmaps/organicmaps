@@ -895,7 +895,7 @@ railway|subway|tunnel
 *historic|memorial|cross
 *historic|gallows
 *historic|pillory
-mapswithme
+*amenity|money_transfer
 mapswithme
 railway|subway|tunnel
 mapswithme

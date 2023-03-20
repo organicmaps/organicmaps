@@ -74,6 +74,7 @@ world  +
         library  -
         loading_dock  -
         marketplace  -
+        money_transfer  -
         motorcycle_parking  -
         music_school  -
         nightclub  -

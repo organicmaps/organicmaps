@@ -766,6 +766,7 @@
 	<string name="type.amenity.doctors">Arst</string>
 	<string name="type.amenity.drinking_water">Joogivesi</string>
 	<string name="type.amenity.driving_school">Autokool</string>
+	<string name="type.amenity.money_transfer">Raha ülekanne</string>
 	<string name="type.amenity.music_school">Muusikakool</string>
 	<string name="type.amenity.language_school">Keeltekool</string>
 	<string name="type.office.diplomatic">Saatkond</string>

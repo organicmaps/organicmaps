@@ -2085,6 +2085,46 @@ sk:3Trhovisko|samoobsluha
 sw:Soko
 fa:بازار
 
+amenity-money_transfer
+en:Money Transfer
+ar:تحويل المال
+be:Грашовыя пераводы|Грошы
+bg:Паричен превод
+ca:Transferència de diners
+cs:Převod peněz
+da:Pengeoverførsel
+de:Geldtransfer
+el:Μεταφορά χρημάτων
+es:Transferencia de dinero
+et:Raha ülekanne
+eu:Diru transferentzia
+fa:انتقال پول
+fi:Rahansiirto
+fr:Transfert d'argent
+he:העברת כספים
+hu:Pénz átutalás
+id:Transfer uang
+it:Trasferimento di denaro
+ja:送金
+ko:송금
+mr:पैसे हस्तांतरण
+nb:Pengeoverføring
+nl:Overschrijving
+pl:Transfer pieniędzy
+pt:Transferência de dinheiro
+pt-BR:Transferência de dinheiro
+ro:Transfer de bani
+ru:Денежные переводы|Деньги
+sk:Prevod peňazí
+sv:Pengaöverföring
+sw:Uhamisho wa pesa
+th:การโอนเงิน
+tr:Para transferi
+uk:Грошовий переказ|Гроши
+vi:Chuyển tiền
+zh-Hans:汇款
+zh-Hant:匯款
+
 shop-clothes|@shopping
 en:Clothes Shop|3clothes|U+1F45A|U+1F457|U+1F456|U+1F455|clothing shop|clothing store|wear
 ru:Магазин одежды|3одежда

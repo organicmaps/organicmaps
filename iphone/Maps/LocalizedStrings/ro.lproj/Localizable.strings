@@ -1338,6 +1338,8 @@
 
 "type.amenity.driving_school" = "Școală de șoferi";
 
+"type.amenity.money_transfer" = "Transfer de bani";
+
 "type.amenity.music_school" = "Scoala de Muzica";
 
 "type.amenity.language_school" = "Școala de limbi străine";

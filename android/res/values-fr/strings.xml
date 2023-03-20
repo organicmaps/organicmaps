@@ -775,6 +775,7 @@
 	<string name="type.amenity.doctors">Cabinet médical</string>
 	<string name="type.amenity.drinking_water">Eau potable</string>
 	<string name="type.amenity.driving_school">Auto-école</string>
+	<string name="type.amenity.money_transfer">Transfert d\'argent</string>
 	<string name="type.amenity.music_school">École de musique</string>
 	<string name="type.amenity.language_school">École de langue</string>
 	<string name="type.office.diplomatic">Ambassade</string>

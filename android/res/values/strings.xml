@@ -810,6 +810,7 @@
 	<string name="type.amenity.doctors">Doctor</string>
 	<string name="type.amenity.drinking_water">Drinking Water</string>
 	<string name="type.amenity.driving_school">Driving School</string>
+	<string name="type.amenity.money_transfer">Money Transfer</string>
 	<string name="type.amenity.music_school">Music School</string>
 	<string name="type.amenity.language_school">Language School</string>
 	<string name="type.office.diplomatic">Embassy</string>

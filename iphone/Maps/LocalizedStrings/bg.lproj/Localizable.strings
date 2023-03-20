@@ -1338,6 +1338,8 @@
 
 "type.amenity.driving_school" = "Автошкола";
 
+"type.amenity.money_transfer" = "Паричен превод";
+
 "type.amenity.music_school" = "Музикално училище";
 
 "type.amenity.language_school" = "Езиково училище";

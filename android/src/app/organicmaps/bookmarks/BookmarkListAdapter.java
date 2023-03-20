@@ -100,8 +100,8 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
 
       mSectionsCount = 0;
       // Hide the category description
-      //if (hasDescription())
-      //  mDescriptionSectionIndex = mSectionsCount++;
+      if (hasDescription())
+       mDescriptionSectionIndex = mSectionsCount++;
       if (getCategory().getTracksCount() > 0)
         mTracksSectionIndex = mSectionsCount++;
       if (getCategory().getBookmarksCount() > 0)

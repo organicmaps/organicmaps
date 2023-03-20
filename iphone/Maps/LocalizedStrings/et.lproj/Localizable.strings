@@ -1338,6 +1338,8 @@
 
 "type.amenity.driving_school" = "Autokool";
 
+"type.amenity.money_transfer" = "Raha ülekanne";
+
 "type.amenity.music_school" = "Muusikakool";
 
 "type.amenity.language_school" = "Keeltekool";

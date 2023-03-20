@@ -715,6 +715,7 @@
 	<string name="type.amenity.doctors">Bác sĩ</string>
 	<string name="type.amenity.drinking_water">Nước uống</string>
 	<string name="type.amenity.driving_school">Trường lái xe</string>
+	<string name="type.amenity.money_transfer">Chuyển tiền</string>
 	<string name="type.amenity.music_school">Trường âm nhạc</string>
 	<string name="type.amenity.language_school">Ngôn ngữ Trường học</string>
 	<string name="type.office.diplomatic">Đại sứ quán</string>

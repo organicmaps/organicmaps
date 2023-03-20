@@ -1338,6 +1338,8 @@
 
 "type.amenity.driving_school" = "Driving School";
 
+"type.amenity.money_transfer" = "Uhamisho wa pesa";
+
 "type.amenity.music_school" = "Shule ya Muziki";
 
 "type.amenity.language_school" = "Shule ya Lugha";

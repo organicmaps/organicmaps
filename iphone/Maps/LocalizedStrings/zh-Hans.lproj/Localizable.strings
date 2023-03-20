@@ -1338,6 +1338,8 @@
 
 "type.amenity.driving_school" = "驾校";
 
+"type.amenity.money_transfer" = "汇款";
+
 "type.amenity.music_school" = "音乐学校";
 
 "type.amenity.language_school" = "语言学校";

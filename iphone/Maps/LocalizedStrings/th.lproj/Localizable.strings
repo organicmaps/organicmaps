@@ -1338,6 +1338,8 @@
 
 "type.amenity.driving_school" = "โรงเรียนสอนขับรถ";
 
+"type.amenity.money_transfer" = "การโอนเงิน";
+
 "type.amenity.music_school" = "โรงเรียนดนตรี";
 
 "type.amenity.language_school" = "โรงเรียนภาษา";

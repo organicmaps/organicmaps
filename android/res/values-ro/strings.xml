@@ -738,6 +738,7 @@
 	<string name="type.amenity.courthouse">Judecătorie</string>
 	<string name="type.amenity.drinking_water">Apă de băut</string>
 	<string name="type.amenity.driving_school">Școală de șoferi</string>
+	<string name="type.amenity.money_transfer">Transfer de bani</string>
 	<string name="type.amenity.music_school">Scoala de Muzica</string>
 	<string name="type.amenity.language_school">Școala de limbi străine</string>
 	<string name="type.office.diplomatic">Ambasadă</string>

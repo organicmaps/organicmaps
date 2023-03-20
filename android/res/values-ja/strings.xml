@@ -724,6 +724,7 @@
 	<string name="type.amenity.doctors">医院</string>
 	<string name="type.amenity.drinking_water">水飲み場</string>
 	<string name="type.amenity.driving_school">自動車教習所</string>
+	<string name="type.amenity.money_transfer">送金</string>
 	<string name="type.amenity.music_school">音楽学校</string>
 	<string name="type.amenity.language_school">語学学校</string>
 	<string name="type.office.diplomatic">大使館</string>

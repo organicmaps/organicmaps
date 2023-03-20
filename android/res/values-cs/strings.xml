@@ -728,6 +728,7 @@
 	<string name="type.amenity.doctors">Lékařská ordinace</string>
 	<string name="type.amenity.drinking_water">Pitná voda</string>
 	<string name="type.amenity.driving_school">Autoškola</string>
+	<string name="type.amenity.money_transfer">Převod peněz</string>
 	<string name="type.amenity.music_school">Hudební škola</string>
 	<string name="type.amenity.language_school">Jazyková škola</string>
 	<string name="type.office.diplomatic">Velvyslanectví</string>

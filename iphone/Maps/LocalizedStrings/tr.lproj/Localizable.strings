@@ -1338,6 +1338,8 @@
 
 "type.amenity.driving_school" = "Sürücü Kursu";
 
+"type.amenity.money_transfer" = "Para transferi";
+
 "type.amenity.music_school" = "Müzik Okulu";
 
 "type.amenity.language_school" = "Dil Okulu";

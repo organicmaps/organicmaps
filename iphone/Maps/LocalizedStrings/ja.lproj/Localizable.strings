@@ -1338,6 +1338,8 @@
 
 "type.amenity.driving_school" = "自動車教習所";
 
+"type.amenity.money_transfer" = "送金";
+
 "type.amenity.music_school" = "音楽学校";
 
 "type.amenity.language_school" = "語学学校";
