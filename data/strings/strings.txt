@@ -25383,3 +25383,26 @@
     it = https://organicmaps.app/it/
     ru = https://organicmaps.app/ru/
     tr = https://organicmaps.app/tr/
+
+  [osm_wiki_url]
+    comment = Link to OSM wiki for About Pange
+    tags = android
+    en = https://wiki.openstreetmap.org/wiki/About_OpenStreetMap
+    ca = https://wiki.openstreetmap.org/wiki/Ca:About
+    da = https://wiki.openstreetmap.org/wiki/Da:Om_OpenStreetMap
+    de = https://wiki.openstreetmap.org/wiki/DE:Über_OSM
+    el = https://wiki.openstreetmap.org/wiki/El:Getting_Involved
+    es = https://wiki.openstreetmap.org/wiki/ES:Acerca_de_OpenStreetMap
+    et = https://wiki.openstreetmap.org/wiki/Et:Sissejuhatus
+    fa = https://wiki.openstreetmap.org/wiki/Fa:Getting_Involved
+    fr = https://wiki.openstreetmap.org/wiki/FR:À_propos_d’OpenStreetMap
+    hu = https://wiki.openstreetmap.org/wiki/Hu:Névjegy
+    it = https://wiki.openstreetmap.org/wiki/IT:About
+    ja = https://wiki.openstreetmap.org/wiki/JA:参加する
+    nl = https://wiki.openstreetmap.org/wiki/NL:Wat_is_OpenStreetMap%3F
+    pl = https://wiki.openstreetmap.org/wiki/Pl:Wstęp
+    pt = https://wiki.openstreetmap.org/wiki/Pt:Sobre_o_OpenStreetMap
+    ru = https://wiki.openstreetmap.org/wiki/RU:Присоединяйтесь!
+    sv = https://wiki.openstreetmap.org/wiki/Sv:Getting_Involved
+    tr = https://wiki.openstreetmap.org/wiki/Tr:Getting_Involved
+    uk = https://wiki.openstreetmap.org/wiki/Uk:Долучайтесь
