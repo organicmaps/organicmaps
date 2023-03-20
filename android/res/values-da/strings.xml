@@ -680,6 +680,8 @@
 	<string name="enable_screen_sleep_description">Når den er aktiveret, får skærmen lov til at sove efter en periode med inaktivitet.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Kortdata fra OpenStreetMap</string>
+	<!-- Link to OSM wiki for About Pange -->
+	<string name="osm_wiki_url">https://wiki.openstreetmap.org/wiki/Da:Om_OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestation</string>

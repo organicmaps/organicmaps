@@ -760,6 +760,8 @@
 	<string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
 	<string name="translated_om_site_url">https://organicmaps.app/</string>
+	<!-- Link to OSM wiki for About Pange -->
+	<string name="osm_wiki_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Aerialway</string>

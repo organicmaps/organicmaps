@@ -672,6 +672,8 @@
 	<string name="enable_screen_sleep_description">Όταν είναι ενεργοποιημένη, η οθόνη θα αφεθεί να κοιμηθεί μετά από περίοδο αδράνειας.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Δεδομένα χάρτη από το OpenStreetMap</string>
+	<!-- Link to OSM wiki for About Pange -->
+	<string name="osm_wiki_url">https://wiki.openstreetmap.org/wiki/El:Getting_Involved</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Τελεφερίκ</string>

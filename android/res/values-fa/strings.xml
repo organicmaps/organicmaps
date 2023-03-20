@@ -680,6 +680,8 @@
 	<string name="splash_subtitle">OpenStreetMap داده‌های نقشه از</string>
 	<!-- Telegram group url for the "?" About page -->
 	<string name="telegram_url">https://t.me/OrganicMapsIR</string>
+	<!-- Link to OSM wiki for About Pange -->
+	<string name="osm_wiki_url">https://wiki.openstreetmap.org/wiki/Fa:Getting_Involved</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>
