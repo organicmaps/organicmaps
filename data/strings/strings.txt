@@ -19,6 +19,7 @@
     fi = Takaisin
     fr = Retour
     he = חזור
+    hi = पिछला
     hu = Vissza
     id = Kembali
     it = Indietro
@@ -60,6 +61,7 @@
     fi = Peruuta
     fr = Annuler
     he = בטל
+    hi = रद्द करें
     hu = Mégse
     id = Batalkan
     it = Annulla
@@ -101,6 +103,7 @@
     fi = Peruuta lataus
     fr = Annuler le téléchargement
     he = בטל  הורדת הקובץ
+    hi = डाउनलोड रद्द करें
     hu = Letöltés megszakítása
     id = Batalkan Pengunduhan
     it = Annulla il download
@@ -142,6 +145,7 @@
     fi = Poista
     fr = Supprimer
     he = מחק
+    hi = हटाना
     hu = Törlés
     id = Hapus
     it = Cancella
@@ -182,6 +186,7 @@
     fi = Lataa karttoja
     fr = Télécharger des cartes
     he = הורד קבצי מפות
+    hi = नक्शा डाउनलोड करें
     hu = Térképek letöltése
     id = Unduh Peta
     it = Scarica mappe
@@ -223,6 +228,7 @@
     fi = Lataus epäonnistui, yritä uudelleen koskettamalla
     fr = Échec lors du téléchargement. Toucher de nouveau pour un essai de plus.
     he = הורדת הקובץ נכשלה. לחץ שוב לניסיון נוסף
+    hi = डाउनलोड असफल रहा
     hu = Letöltés sikertelen. Kérjük próbálja újra!
     id = Pengunduhan gagal, sentuh untuk mencoba sekali lagi
     it = Download fallito. Riprova.
@@ -264,6 +270,7 @@
     fi = Ladataan…
     fr = Téléchargement…
     he = מוריד….
+    hi = डाउनलोड हो रहा है
     hu = Letöltés…
     id = Sedang mengunduh…
     it = Download in corso…
@@ -306,6 +313,7 @@
     fi = Kilometrit
     fr = kilomètres
     he = ק"מ
+    hi = किलोमीटर
     hu = Kilométer
     id = Kilometer
     it = Chilometri
@@ -347,6 +355,7 @@
     fi = Jätä arviointi
     fr = Laisser un commentaire
     he = הבע דעתך
+    hi = समीक्षा छोड़ें
     hu = Ajánlás írása
     id = Tulis Ulasan
     it = Lascia una recensione
@@ -416,6 +425,7 @@
     fi = Mailit
     fr = Miles
     he = מ"ב
+    hi = मील
     hu = Mérföld
     id = Mil
     it = Miglia
@@ -457,6 +467,7 @@
     fi = Sijaintini
     fr = Ma position
     he = מיקומי
+    hi = मेरा स्थान
     hu = Saját helyzet
     id = Posisi Saya
     it = La mia posizione
@@ -498,6 +509,7 @@
     fi = Myöhemmin
     fr = Plus tard
     he = מאוחר יותר
+    hi = बादमे
     hu = Később
     id = Nanti
     it = Più tardi
@@ -538,6 +550,7 @@
     fa = جست‌وجو
     fi = Haku
     fr = Recherche
+    hi = ढूंढे
     hu = Keresés
     id = Cari
     it = Cerca
@@ -579,6 +592,7 @@
     fi = Hae kartalta
     fr = Rechercher sur la carte
     he = חפש במפה
+    hi = खोज नक्शा
     hu = Keresés a térképen
     id = Cari Peta
     it = Cerca sulla mappa
@@ -620,6 +634,7 @@
     fi = Kyllä
     fr = Oui
     he = כן
+    hi = हाँ
     hu = Igen
     id = Ya
     it = Sì
@@ -701,6 +716,7 @@
     fa = بر روی نقشه نمایش بده
     fi = Näytä kartalla
     fr = Voir sur la carte
+    hi = नक्शे पर दिखाएं
     hu = Megjelenítés a térképen
     id = Tampilkan di peta
     it = Mostra sulla mappa
@@ -742,6 +758,7 @@
     fi = Lataa kartta
     fr = Téléchargez la carte
     he = הורידו מפה
+    hi = नक्शा डाउनलोड करे
     hu = Térkép letöltése
     id = Unduh Peta
     it = Scarica mappa
@@ -783,6 +800,7 @@
     fi = Lataus epäonnistui
     fr = Échec lors du téléchargement
     he = הורדנכשלה
+    hi = डाउनलोड असफल रहा
     hu = Letöltése sikertelen
     id = Sedang Mengunduh telah gagal
     it = Il download non è riuscito
@@ -824,6 +842,7 @@
     fi = Yritä uudelleen
     fr = Réessayer
     he = נסה שוב
+    hi = फिर से कोशिश करे
     hu = Újrapróbálkozás
     id = Coba Lagi
     it = Riprova
@@ -864,6 +883,7 @@
     fi = Tietoa Organic Maps:stä
     fr = À propos de Organic Maps
     he = Organic Maps אודות
+    hi = Organic Maps के बारे में
     hu = A Organic Maps programról
     id = Tentang Organic Maps
     it = Informazioni su Organic Maps
@@ -944,6 +964,7 @@
     fi = Sulje
     fr = Fermer
     he = סגור
+    hi = बंद
     hu = Bezár
     id = Tutup
     it = Chiudi
