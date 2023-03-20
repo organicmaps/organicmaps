@@ -647,7 +647,7 @@
     tags = android
     en = You currently have all Location Services for this device or application disabled. Please enable them in Settings.
     ar = التطبيق أو جميع خدمات تحديد المواقع معطلة لديك في الوقت الحالي. الرجاء تفعيلها في الإعدادات.
-    be = У вас выключана геалакацыя для гэтай прылады альбо дадатку. Калі ласка, уключыце яе ў Наладах.
+    be = У вас выключана геалакацыя для гэтай прылады альбо праграмы. Калі ласка, уключыце яе ў Наладах.
     bg = В момента всички услуги за местоположение за това устройство или приложение са деактивирани. Моля, разрешете ги в Настройки.
     ca = Teniu tots els serveis de geolocalització d'aquest aparell desactivats. Activeu-los a la configuració.
     cs = Aktuálně máte všechny možnosti pro určování polohy vypnuté. Prosím, povolte je v Nastavení.
@@ -850,7 +850,7 @@
     tags = android,ios
     en = About Organic Maps
     ar = حول Organic Maps
-    be = Аб дадатку Organic Maps
+    be = Аб праграме Organic Maps
     bg = Относно приложението
     ca = Quant a l'Organic Maps
     cs = O aplikaci Organic Maps
@@ -1244,7 +1244,7 @@
     tags = android
     en = Please disconnect USB cable or insert memory card to use Organic Maps
     ar = الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام Organic Maps.
-    be = Калі ласка, адлучыце USB кабель альбо ўстаўце карту памяці каб карыстацца Organic Maps
+    be = Калі ласка, адлучыце USB кабель альбо ўстаўце карту памяці, каб карыстацца Organic Maps
     bg = Моля, изключете USB кабела или поставете карта с памет.
     ca = Desconnecteu el cable USB o inseriu una targeta de memòria per a usar l'Organic Maps
     cs = Prosím, odpojte USB kabel nebo vložte paměťovou kartu pro použití s Organic Maps
@@ -1284,7 +1284,7 @@
     tags = android
     en = Please free up some space on the SD card/USB storage first in order to use the app
     ar = الرجاء إخلاء بعض المساحة في تخزين البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل أولا من أجل استخدام هذا التطبيق.
-    be = Калі ласка, спачатку вызваліце трохі месца на SD карце/USB сховішчы каб карыстацца дататкам
+    be = Калі ласка, спачатку вызваліце трохі месца на SD карце/USB сховішчы, каб карыстацца праграмай
     bg = Моля, първо освободете място на SD картата/USB паметта, за да можете да използвате приложението.
     ca = Allibereu espai en la targeta SD o emmagatzematge USB per a poder usar l'aplicació
     cs = Prosím, uvolněte nejprve místo na SD kartě/USB uložišti
@@ -3441,7 +3441,7 @@
     tags = android,ios
     en = Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!
     ar = مرحباً! ْ\n\n تم إرفاق إشاراتي المرجعية من تطبيق Organic Maps. الرجاء فتحهم إذا لديك تطبيق Organic Maps مثبتاً. أو، إذا لم يكن مثبتاً، قم بتنزيل التطبيق لنظام iOS أو أندرويد من خلال الضغط على هذا الرابط: https://omaps.app/get?kmz \n\nاستمتع بالسفر مع Organic Maps!
-    be = Вітаю!\n\nУ далучаным файле мае закладкі з дататка Organic Maps. Калі ласка, адчыніце іх калі ў вас усталяваны Organic Maps. Калі не, спампуйце дадатак для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!
+    be = Вітаю!\n\nУ далучаным файле мае закладкі з праграмы Organic Maps. Калі ласка, адчыніце іх, калі ў вас усталяваны Organic Maps. Калі не, спампуйце праграму для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!
     ca = Hola!\n\nAdjunto els meus marcadors de l'aplicació Organic Maps. Obriu-los si teniu l'Organic Maps instal·lat. O, si no teniu l'aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://omaps.app/get?kmz\n\nGaudiu viatjant amb l'Organic Maps!
     de = Hallo!\n\nIm Anhang sind meine Lesezeichen der Organic Maps App. Sie können sie mit Organic Maps öffnen. Wenn Sie die App nicht installiert haben, können Sie sie von https://omaps.app/get?kmz für iOS oder Android herunterladen.\n\nViel Spaß beim Reisen mit Organic Maps!
     es = Hola!\n\Adjunto mis marcadores de la aplicación Organic Maps. Por favor, ábralos si tiene instalado Organic Maps. O, si no lo tiene, descargue la aplicación para su dispositivo iOS o Android siguiendo este enlace: https://omaps.app/get?kmz\n¡Disfrute viajando con Organic Maps!
@@ -3871,7 +3871,7 @@
     tags = android
     en = Hi,\n\nI'm here now: %1$@. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
     ar = ًمرحبا،\n\nأنا هنا الآن: %1$@. انقر على هذا الرابط %2$@ أو ذلك الرابط %3$@ لمشاهدة المكان على الخريطة.\n\nشكراً.
-    be = Прывітанне,\n\nЯ зараз тут: %1$@. Перайдзі па гэтай %2$@ альбо гэтай %3$@ спасылцы каб убачыць месца на мапе.\n\nДзякуй.
+    be = Прывітанне,\n\nЯ зараз тут: %1$@. Перайдзі па гэтай %2$@ альбо гэтай %3$@ спасылцы, каб убачыць месца на мапе.\n\nДзякуй.
     bg = Здравей,\n\nСега съм тук: %1$@. Натисни върху тази връзка %2$@ или тази %3$@, за да видиш мястото на картата.\n\nБлагодаря.
     ca = Hola,\n\nSoc aquí: %1$@. Feu clic en aquest enllaç %2$@ o en aquest altre %3$@ per a veure el lloc en el mapa.\n\nGràcies.
     cs = Ahoj,\n\nPrávě jsem tady: %1$@. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.
@@ -5600,7 +5600,7 @@
     tags = android,ios
     en = Rate the app
     ar = قيّم التطبيق
-    be = Ацаніць дадатак
+    be = Ацаніць праграму
     bg = Оцени приложение
     ca = Puntua l'aplicació
     cs = Ohodnotit aplikaci
@@ -7948,7 +7948,7 @@
     tags = android,ios
     en = — Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.
     ar = — تحذير بشأن المسارات في المناطق الحدودية: المسارات التي تم إنشاؤها بواسطة تطبيقنا قد تعبر  أحياناً حدود الدول في أماكن غير مصرح بها;
-    be = — Будзьце ўважлівы з маршрутамі ў памежных зонах: маршруты пракладзеныя нашым дадаткам часамі могуць перасякаць мяжу ў недазволеных месцах.
+    be = — Будзьце ўважлівы з маршрутамі ў памежных зонах: маршруты, пракладзеныя нашай праграмай, часамі могуць перасякаць мяжу ў недазволеных месцах.
     bg = - Бъдете внимателни с маршрутите в гранични зони: маршрутите, създадени от нашето приложение, понякога могат да пресичат границите на страната на неразрешени места.
     ca = — Aneu am cura amb les rutes en zones frontereres: les rutes creades per la nostra aplicació de vegades creuen fronteres internacionals en zones no autoritzades.
     cs = — U tratí v hraničních zónách buďte opatrní: trasy vytvořené naší aplikací občas překračují hranice zemí na nepovolených místech;
@@ -8187,7 +8187,7 @@
     tags = android,ios
     en = Unable to locate current GPS coordinates. Enable location services to calculate route.
     ar = لم نستطع تحديد الإحداثيات الجغرافية الحالي. قم بتفعيل خدمات الموقع الجغرافي لحساب الطريق المناسب
-    be = Не атрымалася вызначыць каардынаты GPS. Уключыце геалакацыю каб пракласці маршрут.
+    be = Не атрымалася вызначыць каардынаты GPS. Уключыце геалакацыю, каб пракласці маршрут.
     bg = Не е възможно да се определят GPS координатите. Активирайте услугите за местоположение, за да изчислите маршрута.
     ca = No s'han pogut trobar les coordenaes GPS actuals. Activeu els serveis de geolocalització per a calcular la ruta.
     cs = Aktuální souřadnice GPS se nepodařilo zjistit. Pro výpočet trasy povolte služby určování polohy.
@@ -8267,7 +8267,7 @@
     tags = ios
     en = Download and update all map and routing information along the projected path to calculate route.
     ar = قم بتنزيل وتحديث كافة الخرائط ومعلومات التوجيه على طول الطريق المتوقع لحساب المسار.
-    be = Спампуйце і абнавіце усе мапы і дадзеныя навігацыі на планаваным шляху каб пракласці маршрут.
+    be = Спампуйце і абнавіце ўсе мапы і дадзеныя навігацыі на планаваным шляху, каб пракласці маршрут.
     bg = За да изчислите маршрут, изтеглете и актуализирайте всички карти и пътища по маршрута.
     ca = Baixeu i actualitzeu tots els mapes i informació de rutes del trajecte per a calcular-ne la ruta.
     cs = Stáhnout a aktualizovat všechny mapy a data tras pro výpočet trasy podél navrhované cesty.
@@ -8785,7 +8785,7 @@
     tags = android,ios
     en = Unable to create route due to an application error.
     ar = تعذر إنشاء مسار نتيجة وجود خطأ في التطبيق.
-    be = Не атрымалася пракласці маршрут з-за памылкі дадатка.
+    be = Не атрымалася пракласці маршрут з-за памылкі праграмы.
     bg = Не е възможно да се създаде маршрут поради грешка в приложението.
     ca = No s'ha pogut crear la ruta a causa d'un error de l'aplicació.
     cs = Trasu se nepodařilo vytvořit z důvodu chyby aplikace.
@@ -8945,7 +8945,7 @@
     tags = android,ios
     en = Download additional maps to create a better route that crosses the boundaries of this map.
     ar = تنزيل خرائط إضافية لإنشاء مسار أفضل يعبر حافة هذه الخريطة.
-    be = Спампаваць дадатковыя мапы, каб пракласці лепшы маршрут, каторы перасякае межы гэтай мапы.
+    be = Спампаваць дадатковыя мапы, каб пракласці лепшы маршрут, які перасякае межы гэтай мапы.
     bg = За да създадете по-добър маршрут с граничен преход, трябва да изтеглите картата.
     ca = Baixeu mapes addicionals per a crear una ruta millor que creua els límits d'aquest mapa.
     cs = Stáhnout mapu a vytvořit optimálnější trasu, která překračuje hranice této mapy.
@@ -9228,7 +9228,7 @@
     tags = ios
     en = Download and update all map along the projected path to calculate route.
     ar = لإنشاء مسار، يرجى تنزيل وتحديث جميع الخرائط على امتداد الطريق.
-    be = Спампуйце і абнавіце ўсе мапы на шляху каб пракласці маршрут.
+    be = Спампуйце і абнавіце ўсе мапы на шляху, каб пракласці маршрут.
     ca = Baixeu i actualitzeu tots els mapes del trajecte per a calcular-ne la ruta.
     cs = Pro vytvoření trasy si prosím stáhněte a aktualizujte všechny mapy podél očekávané cesty.
     da = For at oprette en rute skal du hente og opdatere alle kort langs ruten.
@@ -12741,7 +12741,7 @@
     tags = android,ios
     en = Drag the map to select the correct location of the object.
     ar = اسحب الخريطة لتحدد موقع الإضافة.
-    be = Перацягніце мапу каб выбраць правільнае месцазнаходжанне аб'екта.
+    be = Перацягніце мапу, каб выбраць правільнае месцазнаходжанне аб'екта.
     bg = Плъзнете картата, за да изберете правилното местоположение на обекта.
     ca = Arrossegueu el mapa per a indicar la ubicació correcta de l'objecte.
     cs = Táhněte mapu, abyste vybrali správné umístění objektu.
@@ -14469,7 +14469,7 @@
     tags = ios
     en = 3. Select While Using the App
     ar = 3. اختيار التفعيل أثناء استخدام التطبيق
-    be = 3. Выберыце "Падчас ужывання дадатку"
+    be = 3. Выберыце "Падчас ужывання праграмы"
     bg = 3. Избиране на Докато приложението се използва
     ca = 3. Trieu "Mentre s'usa l'aplicació"
     cs = 3. Vyberte při používání aplikace
@@ -16022,7 +16022,7 @@
     tags = ios
     en = Organic Maps uses your geoposition in the background for recording your recently traveled route.
     ar = يستخدم Organic Maps موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.
-    be = Organic Maps ужывае вашу геалакацыю ў фонавым рэжыме каб запісваць ваш нядаўна пройдзены маршрут.
+    be = Organic Maps ужывае вашу геалакацыю ў фонавым рэжыме, каб запісваць ваш нядаўна пройдзены маршрут.
     bg = Organic Maps използва геопозицията ви във фонов режим за записване на последния ви маршрут.
     ca = Organic Maps usa la vostra ubicaicó en segon pla per a enregistrar la ruta que heu fet recentment.
     cs = Organic Maps používají geopozici na pozadí, aby se zaznamenala vaše nedávno ujetá trasa.
@@ -16693,7 +16693,7 @@
     tags = ios
     en = To display traffic data, the application must be updated.
     ar = لعرض البيانات المرورية، يجب تحديث التطبيق.
-    be = Для паказу інфармацыі пра рух трэба абнавіць дадатак.
+    be = Для паказу інфармацыі пра рух трэба абнавіць праграмы.
     bg = За да се показват данни за трафика, приложението трябва да се актуализира.
     ca = Per a mostrar les dades de trànsit, cal que l'aplicació estigui actualitzada.
     cs = Ke zobrazení dat o provozu je nutné aplikaci aktualizovat.
@@ -16972,7 +16972,7 @@
     tags = android
     en = For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play, Galaxy Store, App Gallery, FDroid).\nOpen your device's settings → Language and input → Speech → Text to speech output.\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.
     ar = بالنسبة لبعض اللغات، ستحتاج إلى تنزيل تطبيق تحويل النص إلى كلام أو حزمة لغات إضافية من متجر التطبيقات(متجر Play، Galaxy Store، App Gallery، FDroid(.\nافتح إعدادات جهازك ثم اللغة والإدخال ثم تحويل النص إلى كلام.\nهنا يمكنك إدارة الإعدادات لأنظمة تحويل النص إلى كلا(على سبيل المثال، تنزيل حزمة اللغة للاستجدام دون اتصال انترنيت)
-    be = Для некаторых моў вам спатрэбіцца ўсталяваць сінтэзатар маўлення альбо дадатковы моўны пакет з крамы дадаткаў (Google Play, Galaxy Store, App Gallery, FDroid).\Зайдзіце на вашай прыладзе ў Налады → Мова і ўвод → Маўленне → Сінтэз маўлення.\nТут вы можаце задаць налады сінтэза маўлення (напрыклад, спампаваць моўны пакет для выкарыстання без падключэння да інтэрнэту) альбо выбраць іншы сінтэзатар маўлення.
+    be = Для некаторых моў вам спатрэбіцца ўсталяваць сінтэзатар маўлення альбо дадатковы моўны пакет з крамы праграм (Google Play, Galaxy Store, App Gallery, F-Droid).\Зайдзіце на вашай прыладзе ў Налады → Мова і ўвод → Маўленне → Сінтэз маўлення.\nТут вы можаце задаць налады сінтэза маўлення (напрыклад, спампаваць моўны пакет для выкарыстання без падключэння да інтэрнэту) альбо выбраць іншы сінтэзатар маўлення.
     bg = За някои езици може да се наложи да инсталирате допълнителен синтезатор на реч (TTS) от магазина за приложения (Google Play Магазин, Galaxy Store).\nЗа да настроите синтезатора на реч, отидете в Настройки → Езици и въвеждане → Синтезиран говор.\nТук можете да инсталирате допълнителни езикови пакети или да изберете синтезатор на реч.
     ca = Per a algunes llengües, haureu d'instal·lar un sintetizador de veu o un paquet de llengua addicional des de la botiga d'apliacions (Google Play, Galazy Store, FDroid).\nObriu la configuració de l'aparell → Idioma i entrada → Veu → Sortidda de text a veu.\nAquí podeu gestionar la configuració de la síntesi de veu (per exemple, baixar un paquet de llengua per a ús sense connexió) i triar un altre motor de síntesi de veu.
     cs = U některých jazyků je třeba nainstalovat jiný hlasový syntetizátor nebo další jazykové sady z obchodu s aplikacemi (Google Play, Galaxy Store, App Gallery, FDroid).\nOtevřete nastavení vašeho zařízení → Jazyky a zadávání → Hlasové zadávání → Převod textu na řeč. \nZde můžete spravovat nastavení pro syntézu řeči (například stáhnout jazykový balíček pro použití offline) a vybrat jiný modul převodu textu na řeč.
@@ -17176,7 +17176,7 @@
     tags = android,ios
     en = Add a starting point to plan a route
     ar = أضف نقطة البداية لتخطيط المسار
-    be = Дадайце пункт адпраўлення каб пракласці маршрут
+    be = Дадайце пункт адпраўлення, каб пракласці маршрут
     bg = Добавяне на начална точка за планиране на маршрут
     ca = Afegiu un punt inical per a planificar una ruta
     cs = Zadejte výchozí bod pro plánování trasy
@@ -17216,7 +17216,7 @@
     tags = android,ios
     en = Add a destination to plan a route
     ar = أضف النهاية لتخطيط المسار
-    be = Дадайце пункт прызначэння каб пракласці маршрут
+    be = Дадайце пункт прызначэння, каб пракласці маршрут
     bg = Добавяне на крайна точка за планиране на маршрут
     ca = Afegeiu la destinació per a planificar la ruta
     cs = Zadejte cílový bod pro plánování trasy
@@ -18192,7 +18192,7 @@
     tags = android,ios
     en = Unable to share due to an application error
     ar = تعذرت المشاركة بسبب خطأ في التطبيق
-    be = Не атрымалася падзяліцца з-за памылкі дадатка
+    be = Не атрымалася падзяліцца з-за памылкі праграмы
     bg = Не е възможно споделяне поради грешка в приложението
     ca = No s'ha pogut compartir a causa d'un error de l'aplicació
     cs = Nelze sdílet kvůli chybě aplikace
@@ -19331,7 +19331,7 @@
     tags = android
     en = We may use your data to improve Organic Maps experience. Changes will take effect after you restart the app.
     ar = قد نستخدم بياناتك لتحسين تجربة Organic Maps. سوف تكون التغييرات نافذة المفعول بعد إعادة تشغيل التطبيق.
-    be = Мы можам выкарыстоўваць вашы дадзеныя, каб палепшыць Organic Maps. Змены набудуць сілу пасля перапуску дататка.
+    be = Мы можам выкарыстоўваць вашы дадзеныя, каб палепшыць Organic Maps. Змены набудуць сілу пасля перапуску праграмы.
     bg = Можем да използваме данни ви, за да подобрим изживяването с Organic Maps. Промените ще влязат в сила, след рестартиране на приложението.
     ca = Podem usar les vostres dades per a millorar l'experiència d'Organic Maps. Els canvis seran efectius després de reinicieu l'aplicació.
     cs = Můžeme používat vaše údaje pro vývoj a zlepšení Organic Maps. Změny se projeví po restartování aplikace.
@@ -20545,7 +20545,7 @@
     tags = android,ios
     en = When automatic mode is selected the application starts to disable battery draining features depending on the current battery charge level
     ar = عندما يتم اختيار الوضع التلقائي، يبدأ التطبيق بتعطيل الخصائص التي تستهلك البطارية بناءً على مستوى شحن البطارية الحالي
-    be = Калі ўключаны рэжым захавання энергіі, дадатак пачынае выключаць энергазатратныя функцыі ў залежнасці ад зарада батарэі
+    be = Калі ўключаны рэжым захавання энергіі, праграма пачынае выключаць энергазатратныя функцыі ў залежнасці ад зарада батарэі
     bg = Ако е активиран режима пестене на енергия, приложението ще деактивира функциите, консумиращи енергия, в зависимост от текущия заряд на телефона.
     ca = Si està seleccionat el mode automàtic, l'aplicació desactivarà funcions que consumeixen energia, depenent del nivell de càrrega actual de la bateria
     cs = Pokud je zapnut automatický režim spořiče baterie, aplikace začne vypínat funkce vybíjející baterii, v závislosti na její momentální úrovni nabití.
@@ -20709,7 +20709,7 @@
     tags = android
     en = The option turns on logging for diagnostic purposes. It can be helpful for our team to troubleshoot issues with the app. Enable this option temporarily to record and send detailed logs about your issue to us.
     ar = هذا الخيار يقوم ببدأ تسجيل سجلات التطبيق لإغراض التشخيصة. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا لحل المشاكل التي تواجهكم داخل التطبيق. قم بتفعيل هذا الخيار بشكل مؤقت فقط في حالة طلب الدعم من Organic Maps.
-    be = Опцыя ўключае запіс журнала падзей для мэтаў дыягностыкі. Гэта можа дапамагчы нашай камандзе вырашаць праблемы з дадаткам. Уключайце гэтую опцыю часова каб запісаць і паслаць нам дэталёвую інфармацыю пра знойденую вамі праблему.
+    be = Опцыя ўключае запіс журнала падзей для мэтаў дыягностыкі. Гэта можа дапамагчы нашай камандзе вырашаць праблемы з праграмай. Уключайце гэтую опцыю часова, каб запісаць і паслаць нам дэталёвую інфармацыю, пра знойденую вамі праблему.
     bg = Тази настройка е разрешена, за да се записват действия за диагностични цели, които помагат на нашия екип да идентифицира проблеми с приложението. Временно активирайте тази настройка само за изпращане на подробна информация за проблема, който сте открили с приложението.
     ca = L'opció activa el registre amb finalitats de diagnòstic. Pot ser útil per al nostre equip per a identificar problemes amb l'aplicació. Activeu aquesta opció temporalment per a enregistgrar i enviar-nos informes detallats sobre el vostre problema.
     cs = Možnost zapne odesílání dat za diagnostickými účely. To nám pomáhá při řešení problémů s aplikací. Dočasně povolte pro nahrávání a odesílání logů našemu týmu o vašem problému.
@@ -22075,7 +22075,7 @@
     tags = ios
     en = An error occurred. Please restart the application
     ar = حدث خطأ. يرجى إعادة تشغيل التطبيق
-    be = Адбылася памылка. Калі ласка, перазапусціце дадатак
+    be = Адбылася памылка. Калі ласка, перазапусціце праграму
     ca = S'ha produït un error. Reinicieu l'aplicació
     cs = Vyskytla se chyba. Restartujte prosím aplikaci
     da = Der opstod en fejl. Genstart programmet
@@ -22556,7 +22556,7 @@
     tags = ios
     en = Please download maps in Organic Maps app on your device
     ar = يُرجى تحميل الخرائط في تطبيق Organic Maps على جهازك
-    be = Спампуйце мапы ў дадатку Organic Maps на вашай прыладзе
+    be = Спампуйце мапы ў праграме Organic Maps на вашай прыладзе
     ca = Baixeu els mapes en l'aplicació Organic Maps del vostre aparell
     cs = Stáhněte si prosím mapy do aplikace Organic Maps ve vašem zařízení
     da = Download kort i Organic Maps appen, på din enhed
@@ -25006,7 +25006,7 @@
     comment = Description in preferences
     en = When enabled, you don't need to unlock your device every time while the app is running.
     ar = عند التفعيل، لن تحتاج لفتح قفل جهازك كل مرة أثناء تشغيل التطبيق
-    be = Калі ўключана, вам не трэба разблакіраваць прыладу кожны раз падчас працы дадатку.
+    be = Калі ўключана, вам не трэба разблакіраваць прыладу кожны раз падчас працы праграмы.
     ca = Si està activa, no cal desblocar l'aparell cada vegada mentre l'aplicació està funcionant.
     cs = Pokud je funkce povolena, nemusíte pokaždé odemykat zařízení při spuštěné aplikaci.
     de = Wenn aktiviert, muss das Gerät nicht jedes Mal entsperrt werden, wenn die App ausgeführt wird.

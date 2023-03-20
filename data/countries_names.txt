@@ -1805,7 +1805,7 @@
   en = Vitebsk Region
   ru = Витебская область
   ar = فيتسبك أوبلاست
-  be = Віцебская вобласть
+  be = Віцебская вобласць
   ca = Regió de Vitebsk
   cs = Vitebská oblast
   da = Vitebsk
