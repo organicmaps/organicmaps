@@ -19,6 +19,7 @@ AboutDialog::AboutDialog(QWidget * parent)
 {
   QIcon icon(":/ui/logo.png");
   setWindowIcon(icon);
+  setGeometry(0, 0, 250, 250);
   setWindowTitle(QMenuBar::tr("About"));
 
   QLabel * labelIcon = new QLabel();

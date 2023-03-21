@@ -113,7 +113,7 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
     };
   }
 
-  int const width = m_screenshotMode ? static_cast<int>(screenshotParams->m_width) : 0;
+  int const width = 100; //m_screenshotMode ? static_cast<int>(screenshotParams->m_width) : 0;
   int const height = m_screenshotMode ? static_cast<int>(screenshotParams->m_height) : 0;
   m_pDrawWidget = new DrawWidget(framework, apiOpenGLES3, std::move(screenshotParams), this);
 
@@ -196,6 +196,10 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
     {
       InfoDialog welcomeDlg(QString("Welcome to ") + qAppName(), text.c_str(),
                             this, QStringList(tr("Download Maps")));
+                            
+      //This intro screen should be visible not going off the edge on phones or other less wide devices:
+      welcomeDlg.setMinimumWidth(250);
+
       if (welcomeDlg.exec() == QDialog::Rejected)
         bShowUpdateDialog = false;
     }
