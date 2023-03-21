@@ -110,7 +110,7 @@ ko:식료품들|음식|쇼핑
 mr:किराणा|मंडई|ग्रोसरी
 nb:Dagligvarer|Mat|Butikk
 pl:Produkty|Jedzenie|Sklep
-pt:Mercearias|Minimercados|Supermercados|Hipermercados|Comida|Alimentos|Loja
+pt:Mercearias|Comida|Alimentos|Loja
 pt-BR:Mercados|Alimentação|Loja
 ro:4Alimentare|Produse|Alimentație|Mâncare|Magazin
 es:Alimentación|Productos|Comer|Tienda
@@ -1041,9 +1041,9 @@ sw:Vipodozi
 fa:لوازم ارایشی بهداشتی
 
 shop-convenience|@food
-en:4Convenience Store|U+1F3EC|U+1F3EA|grocer|grocery store|supermarket|food store|food market
-ru:4Продуктовый магазин|продуктовая лавка|универмаг|универсам|гастроном|продмаг|супермаркет
-bg:4Магазин|4Продукти|супермаркет|хранителен магазин|пазар|лавка|Магазинче|пазарче
+en:4Convenience Store|U+1F3EC|U+1F3EA|grocer|grocery store|mini-mart|mini-market|food store|food market|corner store|superette
+ru:4Продуктовый магазин|продуктовая лавка|4гастроном|мини-маркет
+bg:4Магазин|4Продукти|хранителен магазин|пазар|лавка|Магазинче|пазарче
 ar:متجر صغير
 cs:Smíšené zboží|koloniál
 da:Døgnbutik|døgnkiosk|kiosk
@@ -1059,9 +1059,9 @@ ko:편의점|식료품점
 mr:किराणा|किरकोळ सामान|किराना|भाजी|बाजार|मार्केट|मंडई|सुपरमार्केट
 nb:Nærbutikk|nærbutikk
 pl:Sklep spożywczy
-pt:Loja de conveniência
+pt:Loja de conveniência|Minimercado
 pt-BR:Loja de conveniência|4mercadinho|compras
-ro:4Magazin mixt|minimarket|supermarket|magazin
+ro:4Magazin mixt|minimarket|magazin
 es:Tienda de barrio
 et:Lähipood
 eu:Auzoko denda
@@ -1759,7 +1759,7 @@ fa:فروشگاه لوازم ورزشی
 
 shop-supermarket|@food
 en:3Supermarket|U+1F3EA|U+1F3EC
-ru:3Супермаркет|3универсам|3гипермаркет
+ru:3Супермаркет|3универсам|3гипермаркет|4гастроном
 bg:3Супермаркет|Хипермаркет|Мегамаркет|Пазар
 ar:سوبر ماركت|بقالة|متجر
 cs:3Supermarket
