@@ -158,7 +158,7 @@ public:
 
 private:
   std::string m_name;
-  std::vector<drule::Key> m_drawRule;
+  std::vector<drule::Key> m_drawRules;
   std::vector<ClassifObject> m_objs;
   VisibleMask m_visibility;
 };

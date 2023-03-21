@@ -89,6 +89,4 @@ private:
 
 bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool buildings3d,
                  Stylist & s);
-
-double GetFeaturePriority(FeatureType & f, int const zoomLevel);
 }  // namespace df
