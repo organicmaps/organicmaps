@@ -541,7 +541,7 @@ string MatchCity(OsmElement const * p)
       {"tashkent", {69.12171, 41.163421, 69.476967, 41.398638}},
       {"tbilisi", {44.596922, 41.619315, 45.019694, 41.843421}},
       {"tehran", {50.6575, 35.353216, 52.007904, 35.974672}},
-      {"tianjin", {116.7022,38.555,118.0587,40.252}},
+      {"tianjin", {116.7022, 38.555, 118.0587, 40.252}},
       {"tokyo", {139.240722656, 35.2186974963, 140.498657227, 36.2575628263}},
       {"valencia", {-0.432551, 39.27845, -0.272521, 39.566609}},
       {"vienna", {16.0894775391, 48.0633965378, 16.6387939453, 48.3525987075}},
@@ -588,7 +588,7 @@ string DetermineSurface(OsmElement * p)
 
   // According to https://wiki.openstreetmap.org/wiki/Key:surface
   static base::StringIL pavedSurfaces = {
-      "asphalt",  "cobblestone", "chipseal", "concrete", "concrete:lanes", "concrete:plates",
+      "asphalt",  "cobblestone", "chipseal", "concrete",
       "metal", "paved", "paving_stones", "sett", "unhewn_cobblestone", "wood"
   };
 
@@ -606,7 +606,13 @@ string DetermineSurface(OsmElement * p)
 
   auto const Has = [](base::StringIL const & il, string const & v)
   {
-    return base::IsExist(il, v);
+    bool res = false;
+    strings::Tokenize(v, ";:/", [&il, &res](std::string_view sv)
+    {
+      if (!res)
+        res = base::IsExist(il, sv);
+    });
+    return res;
   };
 
   bool isGood = true;

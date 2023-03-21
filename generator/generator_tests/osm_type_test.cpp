@@ -749,6 +749,11 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Surface)
   TestSurfaceTypes("ground", "", "5", "unpaved_good");
   TestSurfaceTypes("unknown", "", "", "unpaved_good");
   TestSurfaceTypes("", "unknown", "", "unpaved_good");
+
+  TestSurfaceTypes("asphalt;concrete", "", "", "paved_good");
+  TestSurfaceTypes("concrete:plates", "", "", "paved_good");
+  TestSurfaceTypes("cobblestone:flattened", "", "", "paved_bad");
+  TestSurfaceTypes("dirt/sand", "", "", "unpaved_bad");
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
