@@ -36,6 +36,8 @@ import androidx.core.app.NavUtils;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import app.organicmaps.compat.Compat;
+import app.organicmaps.compat.CompatHelper;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -159,18 +161,10 @@ public class Utils
       showSnackbarAbove(view, viewAbove, message);
   }
 
-  @SuppressWarnings("deprecated")
-  private static @Nullable ResolveInfo resolveActivity(@NonNull PackageManager pm, @NonNull Intent intent, int flags)
-  {
-    return pm.resolveActivity(intent, flags);
-  }
-
   public static boolean isIntentSupported(@NonNull Context context, @NonNull Intent intent)
   {
     final PackageManager pm = context.getPackageManager();
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
-      return resolveActivity(pm, intent, 0) != null;
-    return pm.resolveActivity(intent, PackageManager.ResolveInfoFlags.of(0)) != null;
+    return CompatHelper.getInstance().resolveActivity(pm, intent, Compat.ResolveInfoFlags.of(0)) != null;
   }
 
   public static @Nullable Intent makeSystemLocationSettingIntent(@NonNull Context context)

@@ -39,6 +39,7 @@ import app.organicmaps.bookmarks.data.BookmarkInfo;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.bookmarks.data.Track;
+import app.organicmaps.compat.CompatHelper;
 import app.organicmaps.downloader.DownloaderActivity;
 import app.organicmaps.downloader.DownloaderFragment;
 import app.organicmaps.downloader.MapManager;
@@ -960,7 +961,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         intent.hasExtra(EXTRA_TASK) &&
         ((intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0))
     {
-      final MapTask mapTask = (MapTask) intent.getSerializableExtra(EXTRA_TASK);
+      final MapTask mapTask = CompatHelper.getCompat().getSerializableExtra(intent, EXTRA_TASK, MapTask.class);
       mTasks.add(mapTask);
       intent.removeExtra(EXTRA_TASK);
 

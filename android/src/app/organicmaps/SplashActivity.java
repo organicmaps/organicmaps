@@ -19,6 +19,7 @@ import androidx.core.app.ActivityCompat;
 
 import app.organicmaps.base.BaseActivity;
 import app.organicmaps.base.BaseActivityDelegate;
+import app.organicmaps.compat.CompatHelper;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.Counters;
@@ -185,7 +186,7 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
       if (input.hasExtra(EXTRA_ACTIVITY_TO_START))
       {
         result = new Intent(this,
-                            (Class<? extends Activity>) input.getSerializableExtra(EXTRA_ACTIVITY_TO_START));
+                            CompatHelper.getCompat().getSerializableExtra(input, EXTRA_ACTIVITY_TO_START, Activity.class.getClass()));
       }
 
       Intent initialIntent = input.hasExtra(EXTRA_INITIAL_INTENT) ?

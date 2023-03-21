@@ -13,7 +13,9 @@ public class CompatHelper
   private final Compat mCompat;
 
   private CompatHelper() {
-    if (sdkVersion() >= Build.VERSION_CODES.M) {
+    if (sdkVersion() >= Build.VERSION_CODES.TIRAMISU) {
+      mCompat = new CompatV33();
+    } else if (sdkVersion() >= Build.VERSION_CODES.M) {
       mCompat = new CompatV23();
     } else {
       mCompat = new CompatV21();
