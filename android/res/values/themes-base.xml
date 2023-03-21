@@ -45,6 +45,7 @@
 
     <item name="navNextTurnFrame">@drawable/bg_nav_next_turn</item>
     <item name="navNextNextTurnFrame">@drawable/bg_nav_next_next_turn</item>
+    <item name="navLanesCardBackgroundColor">@color/base_accent</item>
 
     <item name="buttonBackground">@drawable/button</item>
     <item name="buttonTextColor">@color/button_text</item>
@@ -179,6 +180,7 @@
 
     <item name="navNextTurnFrame">@drawable/bg_nav_next_turn_night</item>
     <item name="navNextNextTurnFrame">@drawable/bg_nav_next_next_turn_night</item>
+    <item name="navLanesCardBackgroundColor">@color/base_accent_night</item>
 
     <item name="buttonBackground">@drawable/button_night</item>
     <item name="buttonTextColor">@color/button_text_night</item>

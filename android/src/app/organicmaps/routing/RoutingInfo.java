@@ -133,27 +133,6 @@ public class RoutingInfo
     }
   }
 
-  /**
-   * IMPORTANT : Order of enum values MUST BE the same
-   * with native LaneWay enum (see routing/turns.hpp for details).
-   * Information for every lane is composed of some number values below.
-   * For example, a lane may have THROUGH and RIGHT values.
-   */
-  public enum LaneWay
-  {
-    NONE,
-    REVERSE,
-    SHARP_LEFT,
-    LEFT,
-    SLIGHT_LEFT,
-    MERGE_TO_RIGHT,
-    THROUGH,
-    MERGE_TO_LEFT,
-    SLIGHT_RIGHT,
-    RIGHT,
-    SHARP_RIGHT
-  }
-
   public RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix, String currentStreet, String nextStreet, double completionPercent,
                      int vehicleTurnOrdinal, int vehicleNextTurnOrdinal, int pedestrianTurnOrdinal, int exitNum,
                      int totalTime, SingleLaneInfo[] lanes, boolean speedLimitExceeded,
