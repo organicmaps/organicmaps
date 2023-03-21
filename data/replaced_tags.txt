@@ -37,8 +37,11 @@ sauna=yes : leisure=sauna
 shop=ice_cream : amenity=ice_cream
 shop=e-cigarette : shop=tobacco
 shop=food : shop=convenience
+shop=general : shop=convenience
 shop=haberdashery : shop=sewing
 shop=money_transfer : amenity=money_transfer
+shop=estate_agent : office=estate_agent
+shop=locksmith : craft=locksmith
 
 ford=boat : highway=ford
 ford=intermittent : highway=ford

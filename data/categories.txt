@@ -1001,6 +1001,9 @@ uk:4Магазин|Крамниця
 zh-Hans:商店
 zh-Hant:1購物|店鋪|商店|雜貨店|便利商店
 
+shop-cannabis
+en:Cannabis
+
 shop-cosmetics|@shopping
 en:4Cosmetics|4Beauty Care|makeup|U+1F3EC|U+1F3EA
 ru:4Косметика
@@ -9754,6 +9757,46 @@ vi:Nhà kim khí
 zh-Hans:金属制造工
 zh-Hant:鐵工
 
+craft-locksmith
+en:Locksmith
+ar:قفال
+be:Слесар
+bg:Ключар
+ca:Serraller
+cs:Zámečník
+da:Låsesmed
+de:Schlosser
+el:Κλειδαράς
+es:Cerrajero
+et:Lukksepp
+eu:Sarrailagilea
+fa:قفل ساز
+fi:Lukkoseppä
+fr:Serrurier
+he:פורץ מנעולים
+hu:Lakatos
+id:Tukang kunci
+it:Fabbro
+ja:錠前屋
+ko:자물쇠 제조공
+mr:लॉकस्मिथ
+nb:Låsesmed
+nl:Slotenmaker
+pl:Ślusarz
+pt:Serralheiro
+pt-BR:Serralheiro
+ro:Lăcătuș
+ru:Слесарь
+sk:Zámočník
+sv:Låssmed
+sw:Fundi wa kufuli
+th:ช่างกุญแจ
+tr:Çilingir
+uk:Слюсар
+vi:Thợ khóa
+zh-Hans:锁匠
+zh-Hant:鎖匠
+
 craft-painter
 en:Painter
 ar:رسام
@@ -13331,6 +13374,46 @@ zh-Hant:機車行
 fa:فروشگاه موتورسیکلت
 mr:दुचाकी विक्रेता|मोटरसायकलचे दुकान
 
+shop-motorcycle_repair
+en:4Motorcycle Repair
+ar:تصليح الدراجات النارية
+be:Рамонт матацыклаў
+bg:Ремонт на мотоциклети
+ca:Reparació de motos
+cs:Opravy motocyklů
+da:Motorcykel reparation
+de:Motorradwerkstatt
+el:Επισκευή μοτοσυκλετών
+es:Reparación de motos
+et:Mootorrataste remont
+eu:Motoen Konponketa
+fa:تعمیر موتور سیکلت
+fi:Moottoripyörän korjaus
+fr:Réparateur de moto
+he:תיקון אופנועים
+hu:Motorkerékpár javítás
+id:Bengkel Sepeda Motor
+it:Riparazione moto
+ja:オートバイの修理
+ko:오토바이 수리
+mr:मोटरसायकल दुरुस्ती
+nb:Motorsykkel reparasjon
+nl:Motorfiets Reparatie
+pl:Naprawa motocykli
+pt:Oficina de motos
+pt-BR:Oficina de motos
+ro:Reparatie motociclete
+ru:Ремонт мотоциклов
+sk:Oprava motocyklov
+sv:Motorcykel reparation
+sw:Ukarabati wa Pikipiki
+th:ซ่อมรถจักรยานยนต์
+tr:Motosiklet Tamiri
+uk:Ремонт мотоциклів
+vi:Sửa chữa xe máy
+zh-Hans:摩托车维修
+zh-Hant:摩托車維修
+
 shop-newsagent
 en:Newspaper Stand|4newspapers
 ru:Газетный киоск|3газеты
@@ -14816,7 +14899,7 @@ pt-BR:Pista para esportes não motorizados
 ru:Беговая дорожка
 tr:Pist
 uk:Бігова доріжка
-zh-Hans = 賽道
+zh-Hans:賽道
 
 power-plant
 en:Power Plant

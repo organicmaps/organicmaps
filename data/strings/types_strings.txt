@@ -5874,6 +5874,86 @@
     zh-Hans = 暖通工程师
     zh-Hant = 空調設備
 
+  [type.craft.key_cutter]
+    en = Key Cutting
+    ar = قطع المفاتيح
+    be = Выраб ключоў
+    bg = Рязане на ключове
+    ca = Tall de claus
+    cs = Řezání klíčů
+    da = Nøgleskæring
+    de = Schlüssel-Nachmachdienst
+    el = Κοπή κλειδιού
+    es = Copista de llaves
+    et = Võtme lõikamine
+    eu = Giltza-mozketa
+    fa = برش کلید
+    fi = Avaimen leikkaaminen
+    fr = Reproduction de clé
+    he = חיתוך מפתח
+    hu = Kulcsvágás
+    id = Pemotongan Kunci
+    it = Taglio chiave
+    ja = キーカット
+    ko = 키 커팅
+    mr = की कटिंग
+    nb = Key Cutting
+    nl = Sleutel snijden
+    pl = Cięcie kluczy
+    pt = Chaveiro
+    pt-BR = Chaveiro
+    ro = Tăierea cheilor
+    ru = Изготовление ключей
+    sk = Rezanie kľúčov
+    sv = Nyckelklippning
+    sw = Kukata Muhimu
+    th = ตัดกุญแจ
+    tr = Anahtar kesme
+    uk = Нарізка ключів
+    vi = Cắt chính
+    zh-Hans = 钥匙切割
+    zh-Hant = 鍵切割
+
+  [type.craft.locksmith]
+    en = Locksmith
+    ar = قفال
+    be = Слесар
+    bg = Ключар
+    ca = Serraller
+    cs = Zámečník
+    da = Låsesmed
+    de = Schlosser
+    el = Κλειδαράς
+    es = Cerrajero
+    et = Lukksepp
+    eu = Sarrailagilea
+    fa = قفل ساز
+    fi = Lukkoseppä
+    fr = Serrurier
+    he = פורץ מנעולים
+    hu = Lakatos
+    id = Tukang kunci
+    it = Fabbro
+    ja = 錠前屋
+    ko = 자물쇠 제조공
+    mr = लॉकस्मिथ
+    nb = Låsesmed
+    nl = Slotenmaker
+    pl = Ślusarz
+    pt = Serralheiro
+    pt-BR = Serralheiro
+    ro = Lăcătuș
+    ru = Слесарь
+    sk = Zámočník
+    sv = Låssmed
+    sw = Fundi wa kufuli
+    th = ช่างกุญแจ
+    tr = Çilingir
+    uk = Слюсар
+    vi = Thợ khóa
+    zh-Hans = 锁匠
+    zh-Hant = 鎖匠
+
   [type.craft.metal_construction]
     en = Metal Worker
     ar = عامل معادن
@@ -19962,6 +20042,46 @@
     zh-Hans = 烘培店
     zh-Hant = 麵包店
 
+  [type.shop.bathroom_furnishing]
+    en = Bathroom Furnishings
+    ar = أثاث الحمام
+    be = Мэбля для ванных пакояў
+    bg = Обзавеждане за баня
+    ca = Mobles de bany
+    cs = Vybavení koupelny
+    da = Badeværelsesindretning
+    de = Badezimmerausstattung
+    el = Έπιπλα μπάνιου
+    es = Equipamiento de baño
+    et = Vannitoa sisustus
+    eu = Bainugelako altzariak
+    fa = مبلمان حمام
+    fi = Kylpyhuoneen kalusteet
+    fr = Mobilier de salle de bain
+    he = ריהוט חדר רחצה
+    hu = Fürdőszoba berendezési tárgyak
+    id = Perabot Kamar Mandi
+    it = Arredo Bagno
+    ja = バスルームの備品
+    ko = 욕실 가구
+    mr = स्नानगृह सामान
+    nb = Baderomsmøbler
+    nl = Badkamerinrichting
+    pl = Meble łazienkowe
+    pt = Loja de móveis de casa de banho
+    pt-BR = Loja de móveis de banheiro
+    ro = Mobilier pentru baie
+    ru = Мебель для ванной
+    sk = Vybavenie kúpeľne
+    sv = Badrumsinredning
+    sw = Vyombo vya Bafuni
+    th = ตกแต่งห้องน้ำ
+    tr = Banyo Mobilyaları
+    uk = Меблі для ванної кімнати
+    vi = Nội thất phòng tắm
+    zh-Hans = 卫浴摆设
+    zh-Hant = 衛浴擺設
+
   [type.shop.beauty]
     en = Beauty Shop
     ar = صالون تجميل
@@ -20168,6 +20288,46 @@
     zh-Hans = 肉商
     zh-Hant = 肉商
 
+  [type.shop.cannabis]
+    en = Cannabis Store
+    ar = متجر القنب
+    be = Крама канабіса
+    bg = Магазин за канабис
+    ca = Botiga de cànnabis
+    cs = Obchod s konopím
+    da = Cannabis butik
+    de = Cannabis-Laden
+    el = Κατάστημα κάνναβης
+    es = Tienda de cánnabis
+    et = Kanepipood
+    eu = Cannabis denda
+    fa = فروشگاه شاهدانه
+    fi = Kannabiskauppa
+    fr = Magasin de cannabis
+    he = חנות קנאביס
+    hu = Cannabis Store
+    id = Toko ganja
+    it = Negozio di cannabis
+    ja = 大麻店
+    ko = 대마초 판매점
+    mr = गांजाचे दुकान
+    nb = Cannabisbutikk
+    nl = Cannabis Winkel
+    pl = Sklep z konopiami indyjskimi
+    pt = Loja de canábis
+    pt-BR = Loja de cannabis
+    ro = Magazin de canabis
+    ru = Магазин каннабиса
+    sk = Obchod s kanabisom
+    sv = Cannabisbutik
+    sw = Duka la Bangi
+    th = ร้านขายกัญชา
+    tr = Kenevir dükkanı
+    uk = Магазин конопель
+    vi = Cửa hàng cần sa
+    zh-Hans = 大麻商店
+    zh-Hant = 大麻商店
+
   [type.shop.car]
     en = Car Dealership
     ar = متجر سيارات
@@ -20319,6 +20479,46 @@
     ru = Продажа автодомов
     tr = Karavan Bayiliği
     uk = Продаж автобудинків
+
+  [type.shop.carpet]
+    en = Carpets
+    ar = السجاد
+    be = Дываны
+    bg = Килими
+    ca = Catifes
+    cs = Koberce
+    da = Tæpper
+    de = Teppichgeschäft
+    el = Χαλιά
+    es = Alfombras
+    et = Vaibad
+    eu = Alfonbrak
+    fa = فرش
+    fi = Matot
+    fr = Magasin de tapis
+    he = שטיחים
+    hu = Szőnyegek
+    id = Karpet
+    it = Tappeti
+    ja = カーペット
+    ko = 카펫
+    mr = कार्पेट्स
+    nb = Tepper
+    nl = Tapijten
+    pl = Dywany
+    pt = Loja de tapetes
+    pt-BR = Loja de tapetes
+    ro = Covoare
+    ru = Ковры
+    sk = Koberce
+    sv = Mattor
+    sw = Mazulia
+    th = พรม
+    tr = Halılar
+    uk = Килими
+    vi = Những cái thảm
+    zh-Hans = 地毯
+    zh-Hant = 地毯
 
   [type.shop.chemist]
     en = Chemist Shop
@@ -20637,6 +20837,46 @@
     zh-Hans = 化妝品店
     zh-Hant = 化妆品
 
+  [type.shop.curtain]
+    en = Curtains
+    ar = ستائر
+    be = Шторы
+    bg = Пердета
+    ca = Cortines
+    cs = Závěsy
+    da = Gardiner
+    de = Gardinengeschäft
+    el = Κουρτίνες
+    es = Cortinas
+    et = Kardinad
+    eu = Gortinak
+    fa = پرده ها
+    fi = Verhot
+    fr = Magasin de rideaux
+    he = וילונות
+    hu = Függönyök
+    id = Tirai
+    it = Tende
+    ja = カーテン
+    ko = 커튼
+    mr = पडदे
+    nb = Gardiner
+    nl = Gordijnen
+    pl = Zasłony
+    pt = Loja de cortinas
+    pt-BR = Loja de cortinas
+    ro = Perdele
+    ru = Шторы
+    sk = Záclony
+    sv = Gardiner
+    sw = Mapazia
+    th = ผ้าม่าน
+    tr = Perdeler
+    uk = Штори
+    vi = Rèm cửa
+    zh-Hans = 窗帘
+    zh-Hant = 窗簾
+
   [type.shop.deli]
     en = Delicatessen Shop
     ar = ﺔﺒﻠﻌﻤﻟﺍ ﺔﻤﻌﻃﻷﺍ ﻊﻴﺒﻟ ﻞﺤﻣ
@@ -20922,6 +21162,46 @@
     zh-Hans = 农场食品店
     zh-Hant = 農場食品店
 
+  [type.shop.fashion_accessories]
+    en = Fashion Accessories
+    ar = اكسسوارات الموضة
+    be = Модныя аксэсуары
+    bg = Модни аксесоари
+    ca = Complements de moda
+    cs = Módní doplňky
+    da = Mode tilbehør
+    de = Mode-Accessoires
+    el = Αξεσουάρ μόδας
+    es = Accesorios de moda
+    et = Moodsad aksessuaarid
+    eu = Moda Osagarriak
+    fa = لوازم جانبی مد
+    fi = Muoti tarvikkeet
+    fr = Boutique d'accessoires de mode
+    he = אביזרי אופנה
+    hu = Divat kiegészítők
+    id = Aksesoris Fashion
+    it = Accessori alla moda
+    ja = ファッションアクセサリー
+    ko = 패션 악세사리
+    mr = फॅशन अॅक्सेसरीज
+    nb = Motetilbehør
+    nl = Mode accessoires
+    pl = Akcesoria modowe
+    pt = Loja de acessórios de moda
+    pt-BR = Loja de acessórios de moda
+    ro = Acesorii de modă
+    ru = Модные аксессуары
+    sk = Módne doplnky
+    sv = Modeaccessoarer
+    sw = Vifaa vya Mtindo
+    th = เครื่องประดับแฟชั่น
+    tr = Moda Aksesuarları
+    uk = Модні аксесуари
+    vi = Phụ kiện thời trang
+    zh-Hans = 时尚配饰
+    zh-Hant = 時尚配飾
+
   [type.shop.florist]
     en = Florist’s
     ar = متجر زهور
@@ -21062,6 +21342,46 @@
     vi = Nhà trẻ
     zh-Hans = 幼儿园
     zh-Hant = 園藝店
+
+  [type.shop.gas]
+    en = Gas Store
+    ar = مخزن غاز
+    be = Газавая крама
+    bg = Магазин за газ
+    ca = Botiga de gas
+    cs = Obchod s plynem
+    da = Gas butik
+    de = Gasspeicher
+    el = Κατάστημα υγραερίου
+    es = Tienda de gasolina
+    et = Gaasipood
+    eu = Gas biltegia
+    fa = فروشگاه گاز
+    fi = Kaasukauppa
+    fr = Vente de gaz
+    he = חנות דלק
+    hu = Gázbolt
+    id = Toko gas
+    it = Deposito di gas
+    ja = ガス屋
+    ko = 주유소
+    mr = गॅसचे दुकान
+    nb = Gassbutikk
+    nl = Gas winkel
+    pl = Sklep gazowy
+    pt = Distribuidora de gás
+    pt-BR = Distribuidora de gás
+    ro = Magazin de gaze
+    ru = Газовый магазин
+    sk = Obchod s plynom
+    sv = Gasaffär
+    sw = Duka la gesi
+    th = ร้านแก๊ส
+    tr = Gaz deposu
+    uk = Газовий магазин
+    vi = Cửa hàng gas
+    zh-Hans = 燃气站
+    zh-Hant = 煤氣庫
 
   [type.shop.gift]
     en = Gift Shop
@@ -21270,6 +21590,86 @@
     vi = Cửa hàng thực phẩm sức khỏe
     zh-Hans = 保健食品店
     zh-Hant = 保健食品店
+
+  [type.shop.herbalist]
+    en = Herbs Store
+    ar = متجر أعشاب
+    be = Магазін траў
+    bg = Магазин за билки
+    ca = Botiga d'herbes
+    cs = Obchod s bylinkami
+    da = Urtebutik
+    de = Kräuterladen
+    el = Κατάστημα με βότανα
+    es = Tienda de hierbas
+    et = Maitsetaimede pood
+    eu = Belar denda
+    fa = فروشگاه گیاهان دارویی
+    fi = Yrttikauppa
+    fr = Herboristerie
+    he = חנות עשבי תיבול
+    hu = Gyógynövény bolt
+    id = Toko jamu
+    it = Negozio di erbe
+    ja = ハーブ店
+    ko = 허브 가게
+    mr = औषधी वनस्पतींचे दुकान
+    nb = Urtebutikk
+    nl = Kruiden winkel
+    pl = Sklep z ziołami
+    pt = Loja de ervas
+    pt-BR = Loja de ervas
+    ro = Magazin de ierburi
+    ru = Магазин трав
+    sk = Obchod s bylinkami
+    sv = Örter butik
+    sw = Duka la mimea
+    th = ร้านสมุนไพร
+    tr = Şifalı bitkiler mağazası
+    uk = Магазин трав
+    vi = Cửa hàng thảo mộc
+    zh-Hans = 草药店
+    zh-Hant = 香草店
+
+  [type.shop.hifi]
+    en = HiFi Audio
+    ar = صوت هاي فاي
+    be = HiFi аўдыё
+    bg = HiFi аудио
+    ca = Àudio HiFi
+    cs = HiFi audio
+    da = HiFi lyd
+    de = HiFi-Audio
+    el = Ήχος HiFi
+    es = Audio de alta fidelidad
+    et = HiFi heli
+    eu = HiFi Audioa
+    fa = صوتی HiFi
+    fi = HiFi Audio
+    fr = Matériel Hi-Fi
+    he = אודיו HiFi
+    hu = HiFi Audio
+    id = Audio HI FI
+    it = Audio ad alta fedeltà
+    ja = ハイファイオーディオ
+    ko = 하이파이 오디오
+    mr = हायफाय ऑडिओ
+    nb = HiFi lyd
+    nl = HiFi-audio
+    pl = Dźwięk Hi-Fi
+    pt = Loja de áudio Hi-Fi
+    pt-BR = Loja de áudio Hi-Fi
+    ro = Audio HiFi
+    ru = Hi-Fi аудио
+    sk = HiFi audio
+    sv = HiFi ljud
+    sw = Sauti ya HiFi
+    th = เครื่องเสียงไฮไฟ
+    tr = HiFi Ses
+    uk = HiFi Audio
+    vi = Âm thanh hifi
+    zh-Hans = HiFi
+    zh-Hant = 高保真音響
 
   [type.shop.houseware]
     ref = type.shop.doityourself
@@ -21621,6 +22021,46 @@
     zh-Hans = 摩托车商店
     zh-Hant = 機車行
 
+  [type.shop.motorcycle_repair]
+    en = Motorcycle Repair
+    ar = تصليح الدراجات النارية
+    be = Рамонт матацыклаў
+    bg = Ремонт на мотоциклети
+    ca = Reparació de motos
+    cs = Opravy motocyklů
+    da = Motorcykel reparation
+    de = Motorradwerkstatt
+    el = Επισκευή μοτοσυκλετών
+    es = Reparación de motos
+    et = Mootorrataste remont
+    eu = Motoen Konponketa
+    fa = تعمیر موتور سیکلت
+    fi = Moottoripyörän korjaus
+    fr = Réparateur de moto
+    he = תיקון אופנועים
+    hu = Motorkerékpár javítás
+    id = Bengkel Sepeda Motor
+    it = Riparazione moto
+    ja = オートバイの修理
+    ko = 오토바이 수리
+    mr = मोटरसायकल दुरुस्ती
+    nb = Motorsykkel reparasjon
+    nl = Motorfiets Reparatie
+    pl = Naprawa motocykli
+    pt = Oficina de motos
+    pt-BR = Oficina de motos
+    ro = Reparatie motociclete
+    ru = Ремонт мотоциклов
+    sk = Oprava motocyklov
+    sv = Motorcykel reparation
+    sw = Ukarabati wa Pikipiki
+    th = ซ่อมรถจักรยานยนต์
+    tr = Motosiklet Tamiri
+    uk = Ремонт мотоциклів
+    vi = Sửa chữa xe máy
+    zh-Hans = 摩托车维修
+    zh-Hant = 摩托車維修
+
   [type.shop.music]
     en = Record Store
     ar = متجر
@@ -21798,6 +22238,46 @@
     zh-Hans = 室外设备
     zh-Hant = 室外設備
 
+  [type.shop.outpost]
+    en = Pickup Point
+    ar = نقطة الالتقاط
+    be = Пункт самавывазу
+    bg = Точка на вземане
+    ca = Punt de recollida
+    cs = Místo vyzvednutí
+    da = Afhentningssted
+    de = Abholpunkt
+    el = Σημείο παραλαβής
+    es = Punto de recogida
+    et = Vastuvõtupunkt
+    eu = Jasotzeko puntua
+    fa = نقطه وانت
+    fi = Noutopiste
+    fr = Point de retrait
+    he = נקודת איסוף
+    hu = Felvevő pont
+    id = Titik penjemputan
+    it = Punto di raccolta
+    ja = 集荷場
+    ko = 픽업 장소
+    mr = पिकअप पॉइंट
+    nb = Hentested
+    nl = Ophaalpunt
+    pl = Punkt odbioru
+    pt = Ponto de coleta
+    pt-BR = Ponto de coleta
+    ro = Punct de ridicare
+    ru = Пункт выдачи заказов
+    sk = Miesto odberu
+    sv = Mötesplats
+    sw = Sehemu ya kuchukua
+    th = จุดรับของ
+    tr = Alım noktası
+    uk = Пункт самовивозу
+    vi = Điểm đón
+    zh-Hans = 自提点
+    zh-Hant = 接送的地點
+
   [type.shop.pastry]
     ref = type.shop.bakery
     en = Pastry
@@ -21871,7 +22351,7 @@
     zh-Hant = 當舖
 
   [type.shop.pet]
-    en = Petshop
+    en = Pet Store
     ar = متجر للحيوانات الأليفة
     cs = Zverimex
     da = Dyrehandel
@@ -21904,6 +22384,46 @@
     vi = Cửa Hàng Vật Nuôi
     zh-Hans = 宠物店
     zh-Hant = 寵物店
+
+  [type.shop.pet_grooming]
+    en = Pet Grooming
+    ar = العناية بالحيوانات الأليفة
+    be = Грумінг
+    bg = Грижа за домашни любимци
+    ca = Peluca de mascotes
+    cs = Péče o domácí mazlíčky
+    da = Kæledyrspleje
+    de = Haustierpflege
+    el = Περιποίηση κατοικίδιων ζώων
+    es = Aseo de mascotas
+    et = Lemmikloomade hooldamine
+    eu = Animalien apainketa
+    fa = نظافت حیوانات خانگی
+    fi = Lemmikkieläinten hoito
+    fr = Salon de toilettage
+    he = טיפוח חיות מחמד
+    hu = Kisállat ápolás
+    id = Perawatan Hewan Peliharaan
+    it = Toelettatura per animali domestici
+    ja = ペットグルーミング
+    ko = 애완동물 미용
+    mr = पाळीव प्राणी ग्रूमिंग
+    nb = Kjæledyrpleie
+    nl = Huisdierverzorging
+    pl = Pielęgnacja zwierząt
+    pt = Salão de banhos e tosquia
+    pt-BR = Banho e tosa
+    ro = Îngrijirea animalelor de companie
+    ru = Груминг
+    sk = Starostlivosť o domáce zvieratá
+    sv = Husdjursvård
+    sw = Utunzaji wa Kipenzi
+    th = กรูมมิ่งสัตว์เลี้ยง
+    tr = Evcil Hayvan Bakımı
+    uk = Грумінг
+    vi = Chải lông thú cưng
+    zh-Hans = 宠物美容
+    zh-Hant = 寵物美容
 
   [type.shop.photo]
     en = Photo Shop
@@ -22503,6 +23023,46 @@
     zh-Hans = 酒品商店
     zh-Hant = 販酒處
 
+  [type.shop.agrarian]
+    en = Agricultural Shop
+    ar = محل زراعي
+    be = Сельскагаспадарчы магазін
+    bg = Селскостопански магазин
+    ca = Botiga agrícola
+    cs = Zemědělský obchod
+    da = Landbrugsbutik
+    de = Landwirtschaftliches Geschäft
+    el = Αγροτικό κατάστημα
+    es = Tienda agrícola
+    et = Põllumajanduspood
+    eu = Nekazaritza denda
+    fa = مغازه کشاورزی
+    fi = Maatalouskauppa
+    fr = Magasin d'agriculture
+    he = חנות חקלאית
+    hu = Mezőgazdasági bolt
+    id = Toko pertanian
+    it = Negozio agricolo
+    ja = 農産物直売所
+    ko = 농산물 가게
+    mr = शेतीचे दुकान
+    nb = Landbruksbutikk
+    nl = Agrarische winkel
+    pl = Sklep rolniczy
+    pt = Loja agrícola
+    pt-BR = Loja agrícola
+    ro = Magazin agricol
+    ru = Сельскохозяйственный магазин
+    sk = Poľnohospodársky obchod
+    sv = Lantbruksbutik
+    sw = Duka la kilimo
+    th = ร้านเกษตร
+    tr = Tarım dükkanı
+    uk = Сільськогосподарський магазин
+    vi = Cửa hàng nông sản
+    zh-Hans = 农产品店
+    zh-Hant = 農產品店
+
   [type.shop.antiques]
     en = Antiques
     ar = ﻒﺤﺘﻟﺍ
@@ -22540,6 +23100,46 @@
     vi = Đồ cổ
     zh-Hans = 古董
     zh-Hant = 古董
+
+  [type.shop.appliance]
+    en = Appliances Shop
+    ar = متجر الأجهزة
+    be = Крама бытавой тэхнікі
+    bg = Магазин за техника
+    ca = Botiga d'electrodomèstics
+    cs = Obchod se spotřebiči
+    da = Hvidevarer butik
+    de = Laden für Haushaltsgeräte
+    el = Κατάστημα οικιακών συσκευών
+    es = Tienda de electrodomésticos
+    et = Tehnikapood
+    eu = Etxetresna elektrikoen denda
+    fa = فروشگاه لوازم خانگی
+    fi = Kodinkoneet kauppa
+    fr = Magasin d'électroménager
+    he = חנות מוצרי חשמל
+    hu = Készülék bolt
+    id = Toko peralatan
+    it = Negozio di elettrodomestici
+    ja = 家電店
+    ko = 가전제품 매장
+    mr = उपकरणांचे दुकान
+    nb = Hvitevarebutikk
+    nl = Apparaten winkel
+    pl = Sklep AGD
+    pt = Loja de eletrodomésticos
+    pt-BR = Loja de eletrodomésticos
+    ro = Magazin de electrocasnice
+    ru = Магазин бытовой техники
+    sk = Obchod so spotrebičmi
+    sv = Vitvarubutik
+    sw = Duka la vifaa
+    th = ร้านเครื่องใช้ไฟฟ้า
+    tr = Beyaz eşya dükkanı
+    uk = Магазин побутової техніки
+    vi = Cửa hàng đồ gia dụng
+    zh-Hans = 家电店
+    zh-Hant = 家電店
 
   [type.shop.art]
     en = Arts Shop
@@ -22654,6 +23254,46 @@
     vi = Cửa hàng túi xách
     zh-Hans = 箱包店
     zh-Hant = 箱包店
+
+  [type.shop.bed]
+    en = Beds Shop
+    ar = متجر الأسرة
+    be = Крама ложкаў
+    bg = Магазин за легла
+    ca = Botiga de llits
+    cs = Prodejna postelí
+    da = Senge butik
+    de = Bettengeschäft
+    el = Κατάστημα κρεβατιών
+    es = Tienda de camas
+    et = Voodipood
+    eu = Ohe denda
+    fa = فروشگاه تخت
+    fi = Sänkykauppa
+    fr = Magasin de literie
+    he = חנות מיטות
+    hu = Ágyak boltja
+    id = Toko tempat tidur
+    it = Negozio di letti
+    ja = ベッドショップ
+    ko = 침대 가게
+    mr = पलंगाचे दुकान
+    nb = Sengebutikk
+    nl = Bedden winkel
+    pl = Sklep z łóżkami
+    pt = Loja de camas
+    pt-BR = Loja de camas
+    ro = Magazin de paturi
+    ru = Магазин кроватей
+    sk = Obchod s posteľami
+    sv = Sängbutik
+    sw = Duka la vitanda
+    th = ร้านขายเตียง
+    tr = Yatak dükkanı
+    uk = Магазин ліжок
+    vi = Cửa hàng giường
+    zh-Hans = 寝具
+    zh-Hant = 床鋪
 
   [type.shop.boutique]
     en = Boutique
