@@ -367,24 +367,4 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
   return true;
 }
 
-double GetFeaturePriority(FeatureType & f, int const zoomLevel)
-{
-  feature::TypesHolder types(f);
-  drule::KeysT keys;
-  feature::GetDrawRule(types, zoomLevel, keys);
-
-  feature::FilterRulesByRuntimeSelector(f, zoomLevel, keys);
-
-  Aggregator aggregator(f, types.GetGeomType(), zoomLevel, keys.size());
-  aggregator.AggregateKeys(keys);
-
-  float maxPriority = kMinPriority;
-  for (auto const & rule : aggregator.m_rules)
-  {
-    if (rule.m_depth > maxPriority)
-      maxPriority = rule.m_depth;
-  }
-
-  return maxPriority;
-}
 }  // namespace df

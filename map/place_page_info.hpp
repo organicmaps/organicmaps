@@ -274,8 +274,6 @@ private:
   /// Feature status
   FeatureStatus m_featureStatus = FeatureStatus::Untouched;
 
-  feature::TypesHolder m_sortedTypes;
-
   std::optional<ftypes::IsHotelChecker::Type> m_hotelType;
 
   uint8_t m_popularity = 0;
