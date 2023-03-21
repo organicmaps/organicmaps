@@ -164,7 +164,7 @@ public class Utils
   public static boolean isIntentSupported(@NonNull Context context, @NonNull Intent intent)
   {
     final PackageManager pm = context.getPackageManager();
-    return CompatHelper.getInstance().resolveActivity(pm, intent, Compat.ResolveInfoFlags.of(0)) != null;
+    return CompatHelper.getCompat().resolveActivity(pm, intent, Compat.ResolveInfoFlags.of(0)) != null;
   }
 
   public static @Nullable Intent makeSystemLocationSettingIntent(@NonNull Context context)

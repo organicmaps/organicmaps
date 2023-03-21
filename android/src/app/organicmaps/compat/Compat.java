@@ -3,7 +3,10 @@ package app.organicmaps.compat;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.os.Bundle;
 import android.widget.TimePicker;
+
+import java.io.Serializable;
 
 public interface Compat
 {
@@ -12,6 +15,8 @@ public interface Compat
   int getMinute(TimePicker picker);
 
   ResolveInfo resolveActivity(PackageManager packageManager, Intent intent, ResolveInfoFlags flags);
+
+  <T extends Serializable> T getSerializableExtra(Intent intent, String name, Class<T> className);
 
   class ResolveInfoFlags
   {
