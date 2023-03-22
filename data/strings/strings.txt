@@ -1206,6 +1206,7 @@
     fi = Siirry karttaan
     fr = Aller sur la carte
     he = עבור למפה
+    hi = नक्शे पर जाओ
     hu = Térképhez ugrás
     id = Pergi ke Peta
     it = Vai alla mappa
@@ -1246,6 +1247,7 @@
     fi = Ladataan %@. Voit nyt jatkaa kartalle.
     fr = %@ en téléchargement. Vous pouvez\nmaintenant aller sur la carte.
     he = מוריד %@. תוכל עתה\nלהמשיך למפה.
+    hi = %@ डाउनलोड हो गया है।अब आप नक्शे पर जा सकते हो।
     hu = %@ letöltése. Mos továbbléphet\na térképhez.
     id = Sedang mengunduh %@. Sekarang Anda dapat melanjutkan ke peta.
     it = Sto scaricando %@. Puoi ora\nprocedere con la mappa.
@@ -1286,6 +1288,7 @@
     fi = Ladataanko %@?
     fr = Télécharger %@ ?
     he = להוריד %@?
+    hi = डाउनलोड %@?
     hu = Letöltsem %@-t?
     id = Unduh %@?
     it = Vuoi scaricare %@?
@@ -1326,6 +1329,7 @@
     fi = Päivitetäänkö %@?
     fr = Mettre %@ à jour ?
     he = לעדכן %@?
+    hi = अद्यतन %@?
     hu = Frissítsem %@-t?
     id = Perbarui %@?
     it = Vuoi aggiornare %@?
@@ -1367,6 +1371,7 @@
     fi = Pysäytä
     fr = Pause
     he = הפסק
+    hi = रुको
     hu = Szünet
     id = Jeda
     it = Pausa
@@ -1408,6 +1413,7 @@
     fi = Jatka
     fr = Continuer
     he = המשך
+    hi = जारी रखें
     hu = Folytatás
     id = Lanjutkan
     it = Continua
@@ -1449,6 +1455,7 @@
     fi = %@ lataus epäonnistui
     fr = %@, échec lors du téléchargement
     he = %@ ההורדה  נכשלה
+    hi = %@ डाउनलोड असफल रहा
     hu = %@ letöltése sikertelen
     id = %@ gagal diunduh
     it = Il download di %@ non è riuscito
@@ -1490,6 +1497,7 @@
     fi = Lisää uusi valikoima
     fr = Ajouter un nouveau groupe
     he = הוסף קבוצה חדשה
+    hi = नई सूची जोड़े
     hu = Új csoport létrehozása
     id = Tambahkan Set baru
     it = Aggiungi nuovo elenco
@@ -1532,6 +1540,7 @@
     fi = Kirjanmerkin väri
     fr = Couleur du signet
     he = צבע רשימת האתרים
+    hi = पृष्ठ स्मृति का रंग
     hu = Könyvjelző színe
     id = Warna Penanda
     it = Colore Luogo preferito
@@ -1572,6 +1581,7 @@
     fi = Kirjanmerkkivalikoiman nimi
     fr = Nom du groupe de signets
     he = שם רשימת האתרים
+    hi = पृष्ठ स्मृति की सूची का नाम
     hu = Könyvjelzőcsoport neve
     id = Nama Set Penanda
     it = Nome dell'elenco
@@ -1611,6 +1621,7 @@
     fi = Kirjanmerkkivalikoimat
     fr = Groupes de signets
     he = רשימות אתרים
+    hi = पृष्ठ स्मृति सूची
     hu = Könyvjelzőcsoportok
     id = Set Penanda
     it = Elenchi di luoghi preferiti
@@ -1652,6 +1663,7 @@
     fi = Kirjanmerkit
     fr = Signets
     he = רשימות אתרים
+    hi = पृष्ठ स्मृति
     hu = Könyvjelzők
     id = Penanda
     it = Luoghi preferiti
@@ -1693,6 +1705,7 @@
     fi = Paikkani
     fr = Mes endroits
     he = המקומות שלי
+    hi = मेरी जगाएं
     hu = Saját helyeim
     id = Tempat-tempat Saya
     it = I miei luoghi
@@ -1734,6 +1747,7 @@
     fi = Nimi
     fr = Nom
     he = שם
+    hi = नाम
     hu = Név
     id = Nama
     it = Nome
@@ -1775,6 +1789,7 @@
     fi = Osoite
     fr = Adresse
     he = כתובת
+    hi = पता
     hu = Cím
     id = Alamat
     it = Indirizzo
@@ -1816,6 +1831,7 @@
     fi = Luettelo
     fr = Liste
     he = קבוצה
+    hi = सूची
     hu = Lista
     id = Daftar
     it = Elenco
@@ -1857,6 +1873,7 @@
     fi = Asetukset
     fr = Paramètres
     he = הגדרות
+    hi = समायोजन
     hu = Beállítások
     id = Pengaturan
     it = Impostazioni
@@ -1897,6 +1914,7 @@
     fa = ذخیره نقشه ها در
     fi = Tallenna kartat kohteeseen
     fr = Enregistrer les cartes dans
+    hi = नक्शे जमा करें
     hu = Térképek mentése ide:
     id = Simpan peta di
     it = Salva mappe in
@@ -1980,6 +1998,7 @@
     fi = Kartat
     fr = Cartes téléchargées
     he = מפות
+    hi = नक्शे डाउनलोड करें
     hu = Térképek
     id = Peta
     it = Mappe
