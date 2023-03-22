@@ -410,6 +410,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     categoryBlock.setOnClickListener(this);
     // TODO show icon and fill it when core will implement that
     UiUtils.hide(categoryBlock.findViewById(R.id.icon));
+    UiUtils.hide(categoryBlock.findViewById(R.id.icon_up));
     mCategory = categoryBlock.findViewById(R.id.name);
     mCardName = view.findViewById(R.id.cv__name);
     mCardAddress = view.findViewById(R.id.cv__address);

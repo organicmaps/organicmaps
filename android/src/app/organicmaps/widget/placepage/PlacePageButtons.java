@@ -1,11 +1,15 @@
 package app.organicmaps.widget.placepage;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.AttrRes;
@@ -15,6 +19,7 @@ import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.UiUtils;
@@ -26,6 +31,8 @@ import java.util.List;
 public final class PlacePageButtons extends Fragment implements Observer<List<PlacePageButtons.ButtonType>>
 {
   public static final String PLACEPAGE_MORE_MENU_ID = "PLACEPAGE_MORE_MENU_BOTTOM_SHEET";
+  private static final String BUTTON_ROUTE_FINISH_OPTION = "button_route_finish_option";
+
   private int mMaxButtons;
 
   private PlacePageButtonClickListener mItemListener;
@@ -110,23 +117,92 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
   private View createButton(@NonNull final PlacePageButton current)
   {
     LayoutInflater inflater = LayoutInflater.from(requireContext());
-    View parent = inflater.inflate(R.layout.place_page_button, mButtonsContainer, false);
+    final View parent = inflater.inflate(R.layout.place_page_button, mButtonsContainer, false);
 
-    ImageView icon = parent.findViewById(R.id.icon);
-    TextView title = parent.findViewById(R.id.title);
+    boolean isMultiButton = current.getType() == ButtonType.ROUTE_TO_OR_CONTINUE;
 
-    title.setText(current.getTitle());
-    @AttrRes final int tint = current.getType() == ButtonType.BOOKMARK_DELETE
+    int actualTitle = current.getTitle();
+    int actualIcon = current.getIcon();
+    ButtonType actualType = current.getType();
+
+    if (isMultiButton)
+    {
+      // Read selected option
+      List<ButtonType> types = List.of(ButtonType.ROUTE_TO, ButtonType.ROUTE_CONTINUE);
+      int pickedButton = MwmApplication.prefs(requireContext()).getInt(BUTTON_ROUTE_FINISH_OPTION, 0);
+      if (pickedButton<0 || pickedButton>=types.size())
+        pickedButton = 0;
+      actualType = types.get(pickedButton);
+
+      PlacePageButton actualButton = PlacePageButtonFactory.createButton(actualType, requireContext());
+      actualTitle = actualButton.getTitle();
+      actualIcon = actualButton.getIcon();
+
+      // Show up arrow icon
+      ImageView iconUp = parent.findViewById(R.id.icon_up);
+      iconUp.setImageDrawable(Graphics.tint(getContext(), R.drawable.ic_triangle_up, R.attr.iconTint));
+      UiUtils.show(iconUp);
+
+      parent.setOnLongClickListener((v) -> {
+        showButtonsSelectMenu(parent, types, BUTTON_ROUTE_FINISH_OPTION);
+
+        return true;
+      });
+    }
+
+    setButtonType(parent, actualType, actualTitle, actualIcon);
+    return parent;
+  }
+
+  private void showButtonsSelectMenu(View buttonView, List<ButtonType> types, String prefsKey)
+  {
+    final PopupMenu popup = new PopupMenu(requireContext(), buttonView);
+    final Menu menu = popup.getMenu();
+
+    for (int i=0; i<types.size(); i++)
+    {
+      PlacePageButton buttonData = PlacePageButtonFactory.createButton(types.get(i), requireContext());
+      MenuItem item = menu.add(Menu.NONE, i, i, buttonData.getTitle());
+      item.setIcon(Graphics.tint(getContext(), buttonData.getIcon(), R.attr.iconTint));
+    }
+
+    popup.setOnMenuItemClickListener(item -> {
+      final int selectedFinishOption = item.getItemId();
+      MwmApplication.prefs(requireContext())
+          .edit()
+          .putInt(prefsKey, selectedFinishOption)
+          .apply();
+
+      final ButtonType selectedType = types.get(selectedFinishOption);
+      final PlacePageButton selectedButton = PlacePageButtonFactory.createButton(selectedType, requireContext());
+      setButtonType(buttonView, selectedType, selectedButton.getTitle(), selectedButton.getIcon());
+
+      return true;
+    });
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+      popup.setForceShowIcon(true);
+
+    popup.show();
+  }
+
+  private void setButtonType(@NonNull View buttonView, @NonNull ButtonType buttonType,
+                             int title, int icon) {
+    ImageView iconImg = buttonView.findViewById(R.id.icon);
+    TextView titleTv = buttonView.findViewById(R.id.title);
+
+    titleTv.setText(title);
+    @AttrRes final int tint = buttonType == ButtonType.BOOKMARK_DELETE
                               ? R.attr.iconTintActive
                               : R.attr.iconTint;
-    icon.setImageDrawable(Graphics.tint(getContext(), current.getIcon(), tint));
-    parent.setOnClickListener((view) -> {
-      if (current.getType() == ButtonType.MORE)
+    iconImg.setImageDrawable(Graphics.tint(getContext(), icon, tint));
+
+    buttonView.setOnClickListener((view) -> {
+      if (buttonType == ButtonType.MORE)
         showMoreBottomSheet();
       else
-        mItemListener.onPlacePageButtonClick(current.getType());
+        mItemListener.onPlacePageButtonClick(buttonType);
     });
-    return parent;
   }
 
   @Override
@@ -148,6 +224,7 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
     ROUTE_AVOID_FERRY,
     ROUTE_AVOID_UNPAVED,
     ROUTE_CONTINUE,
+    ROUTE_TO_OR_CONTINUE,
     SHARE,
     MORE
   }

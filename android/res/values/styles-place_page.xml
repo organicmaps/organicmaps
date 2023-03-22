@@ -20,6 +20,18 @@
     <item name="android:color">?iconTint</item>
   </style>
 
+  <style name="PlacePageButtonUpIcon">
+    <item name="android:layout_width">@dimen/margin_half_plus</item>
+    <item name="android:layout_height">@dimen/margin_half_plus</item>
+    <item name="android:layout_weight">0</item>
+    <item name="android:layout_marginBottom">@dimen/neg_margin_half_plus</item>
+    <item name="android:paddingTop">0dp</item>
+    <item name="android:paddingBottom">0dp</item>
+    <item name="android:layout_marginRight">@dimen/margin_half_double_plus</item>
+    <item name="android:scaleType">center</item>
+    <item name="android:color">?iconTint</item>
+  </style>
+
   <style name="PlacePageButton">
     <item name="android:layout_width">0dp</item>
     <item name="android:layout_height">@dimen/place_page_buttons_height</item>

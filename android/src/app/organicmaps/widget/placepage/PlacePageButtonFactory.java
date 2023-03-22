@@ -58,6 +58,7 @@ public class PlacePageButtonFactory
         iconId = R.drawable.ic_avoid_ferry;
         break;
       case ROUTE_CONTINUE:
+      case ROUTE_TO_OR_CONTINUE:
         titleId = R.string.next_button;
         iconId = R.drawable.ic_route_continue;
         break;

@@ -8,6 +8,13 @@
   tools:ignore="UseCompoundDrawables"
   tools:background="#40202020">
   <ImageView
+    android:id="@+id/icon_up"
+    style="@style/PlacePageButtonUpIcon"
+    android:contentDescription="@string/back"
+    tools:src="@drawable/ic_triangle_up"
+    android:layout_gravity="end"/>
+
+  <ImageView
     android:id="@+id/icon"
     style="@style/PlacePageButtonImage"
     android:contentDescription="@string/back"

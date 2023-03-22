@@ -471,17 +471,17 @@ public class PlacePageController implements Initializable<Activity>,
 
       if (needToShowRoutingButtons)
       {
-        buttons.add(PlacePageButtons.ButtonType.ROUTE_TO);
+        if (RoutingController.get().isPlanning() && RoutingController.get().hasEndPoint())
+          buttons.add(PlacePageButtons.ButtonType.ROUTE_TO_OR_CONTINUE);
+        else
+          buttons.add(PlacePageButtons.ButtonType.ROUTE_TO);
+
         if (RoutingController.get().isStopPointAllowed())
           buttons.add(mapObject.getMapObjectType() == MapObject.BOOKMARK
                       ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
                       : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
       }
 
-      if (RoutingController.get().isPlanning() && RoutingController.get().hasEndPoint() && showRoutingButton)
-      {
-        buttons.add(PlacePageButtons.ButtonType.ROUTE_CONTINUE);
-      }
       buttons.add(PlacePageButtons.ButtonType.SHARE);
     }
     mViewModel.setCurrentButtons(buttons);
