@@ -27,8 +27,8 @@ AboutDialog::AboutDialog(QWidget * parent)
   Platform & platform = GetPlatform();
 
   QVBoxLayout * versionBox = new QVBoxLayout();
-  versionBox->addWidget(new QLabel(qAppName()));
-  QLabel * versionLabel = new QLabel(QString("Version: ") + QString::fromStdString(platform.Version()));
+  versionBox->addWidget(new QLabel(QCoreApplication::applicationName()));
+  QLabel * versionLabel = new QLabel("Version: " + QString::fromStdString(platform.Version()));
   versionLabel->setTextInteractionFlags(Qt::TextSelectableByMouse);
   versionBox->addWidget(versionLabel);
   // TODO: insert maps data version.

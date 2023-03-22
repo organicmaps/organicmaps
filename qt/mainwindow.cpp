@@ -131,7 +131,8 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
   CreateNavigationBar();
   CreateSearchBarAndPanel();
 
-  QString caption = qAppName();
+  QString caption = QCoreApplication::applicationName();
+
 #ifdef BUILD_DESIGNER
   if (!m_mapcssFilePath.isEmpty())
     caption += QString(" - ") + m_mapcssFilePath;
@@ -194,7 +195,7 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
 
     if (!text.empty())
     {
-      InfoDialog welcomeDlg(QString("Welcome to ") + qAppName(), text.c_str(),
+      InfoDialog welcomeDlg(QString("Welcome to ") + caption, text.c_str(),
                             this, QStringList(tr("Download Maps")));
       if (welcomeDlg.exec() == QDialog::Rejected)
         bShowUpdateDialog = false;
@@ -634,7 +635,7 @@ void MainWindow::OnUploadEditsMenuItem()
   {
     auto & editor = osm::Editor::Instance();
     if (editor.HaveMapEditsOrNotesToUpload())
-      editor.UploadChanges(key, secret, {{"created_by", "OMaps " OMIM_OS_NAME}});
+      editor.UploadChanges(key, secret, {{"created_by", "Organic Maps " OMIM_OS_NAME}});
   }
 }
 

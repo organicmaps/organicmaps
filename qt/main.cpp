@@ -142,8 +142,14 @@ int main(int argc, char * argv[])
   QApplication app(argc, argv);
   // Pretty icons on HDPI displays.
   QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
-
   platform.SetupMeasurementSystem();
+  
+
+#ifdef BUILD_DESIGNER
+    QApplication::setApplicationName("Organic Maps Designer");
+#else
+    QApplication::setApplicationName("Organic Maps");
+#endif
 
   // Display EULA if needed.
   char const * settingsEULA = "EulaAccepted";
@@ -155,7 +161,7 @@ int main(int argc, char * argv[])
       ReaderPtr<Reader> reader = platform.GetReader("copyright.html");
       reader.ReadAsString(buffer);
     }
-    qt::InfoDialog eulaDialog(qAppName(), buffer.c_str(), nullptr, {"Accept", "Decline"});
+    qt::InfoDialog eulaDialog(QCoreApplication::applicationName(), buffer.c_str(), nullptr, {"Accept", "Decline"});
     eulaAccepted = (eulaDialog.exec() == 1);
     settings::Set(settingsEULA, eulaAccepted);
   }
@@ -270,6 +276,6 @@ int main(int argc, char * argv[])
   }
 #endif // BUILD_DESIGNER
 
-  LOG_SHORT(LINFO, ("OMaps finished with code", returnCode));
+  LOG_SHORT(LINFO, ("Organic Maps finished with code", returnCode));
   return returnCode;
 }
