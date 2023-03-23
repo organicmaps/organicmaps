@@ -881,7 +881,7 @@ mapswithme
 mapswithme
 *entrance
 *entrance|main
-mapswithme
+*shop|agrarian
 *tourism|artwork
 railway|subway|tunnel
 railway|subway|tunnel
@@ -956,7 +956,7 @@ mapswithme
 *craft|winery
 *waterway|waterfall
 *craft|electronics_repair
-mapswithme
+*shop|appliance
 *amenity|casino
 *amenity|brothel
 *place|neighbourhood
@@ -1218,9 +1218,9 @@ leisure|sports_centre
 *shop|sewing
 *railway|station|subway|warszawa
 *railway|subway_entrance|warszawa
-mapswithme
-mapswithme
-mapswithme
+*shop|bed
+*shop|outpost
+*shop|gas
 *natural|desert
 *natural|water|tunnel
 *place|square
@@ -1548,3 +1548,14 @@ mapswithme
 *railway|subway_entrance|yerevan
 *railway|subway_entrance|yokohama
 *railway|subway_entrance|bilbao
+*craft|key_cutter
+*craft|locksmith
+*shop|carpet
+*shop|motorcycle_repair
+*shop|pet_grooming
+*shop|hifi
+*shop|bathroom_furnishing
+*shop|curtain
+*shop|fashion_accessories
+*shop|cannabis
+*shop|herbalist
