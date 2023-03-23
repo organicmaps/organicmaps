@@ -94935,6 +94935,11 @@ cont {
   name: "shop-sewing"
   element {
     scale: 16
+    symbol {
+      name: "needle_and_thread-m"
+      priority: 16586
+      min_distance: 10
+    }
     caption {
       primary {
         height: 10
@@ -94946,11 +94951,17 @@ cont {
   }
   element {
     scale: 17
+    symbol {
+      name: "needle_and_thread-m"
+      priority: 16586
+      min_distance: 10
+    }
     caption {
       primary {
         height: 10
         color: 5592405
         offset_y: 1
+        is_optional: true
       }
       priority: 15586
     }
@@ -94958,7 +94969,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-m"
+      name: "needle_and_thread-m"
       priority: 16586
       min_distance: 10
     }
@@ -94967,6 +94978,7 @@ cont {
         height: 10
         color: 5592405
         offset_y: 1
+        is_optional: true
       }
       priority: 15586
     }
@@ -94974,7 +94986,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-m"
+      name: "needle_and_thread-m"
       priority: 16586
       min_distance: 10
     }
@@ -94983,6 +94995,7 @@ cont {
         height: 10
         color: 5592405
         offset_y: 1
+        is_optional: true
       }
       priority: 15586
     }
