@@ -111,10 +111,8 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSCameraUsageDescription</key>
-	<string>Unused by an application</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Unused by an application</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Determining your location is necessary for navigation and for saving your recently travelled track.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>FredokaOne-Regular.ttf</string>
