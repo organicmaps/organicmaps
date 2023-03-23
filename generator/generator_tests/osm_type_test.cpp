@@ -2077,6 +2077,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"shop", "photo"},
     {"shop", "seafood"},
     {"shop", "second_hand"},
+    {"shop", "sewing"},
     {"shop", "shoes"},
     {"shop", "sports"},
     {"shop", "stationery"},
