@@ -14574,7 +14574,7 @@ zh-Hans:香水
 zh-Hant:香水
 
 shop-sewing
-en:Sewing Supplies
+en:3Sewing Supplies|4Haberdashery
 ar:ﺔﻃﺎﻴﺨﻟﺍ ﺕﺍﺪﻌﻣ
 be:Швейныя прыналежнасці
 bg:Шивашки консумативи

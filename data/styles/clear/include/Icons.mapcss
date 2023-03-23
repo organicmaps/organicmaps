@@ -2449,6 +2449,9 @@ area|z16[shop=greengrocer]
 node|z16[shop=hairdresser],
 area|z16[shop=hairdresser]
 {icon-image: hairdresser-m.svg;}
+node|z16-[shop=sewing],
+area|z16-[shop=sewing]
+{icon-image: needle_and_thread-m.svg;}
 node|z16[shop=hardware],
 area|z16[shop=hardware],
 node|z16[shop=houseware],
@@ -2637,6 +2640,9 @@ area|z17-[shop=greengrocer]
 node|z17-[shop=hairdresser],
 area|z17-[shop=hairdresser]
 {icon-image: hairdresser-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=sewing],
+area|z17-[shop=sewing]
+{icon-image: needle_and_thread-m.svg;icon-min-distance 24;text-optional: true;}
 node|z17-[shop=hardware],
 area|z17-[shop=hardware],
 node|z17-[shop=houseware],
