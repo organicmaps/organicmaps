@@ -93,6 +93,10 @@ void SupportManager::Init(ref_ptr<GraphicsContext> context)
 //    settings::Set(kSupportedAntialiasing, m_isAntialiasingEnabledByDefault);
 //  }
 
+#ifdef OMIM_OS_DESKTOP
+     m_isAntialiasingEnabledByDefault = true;
+#endif
+
   m_isInitialized = true;
 }
 
