@@ -1660,6 +1660,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "냉난방기";
 
+"type.craft.key_cutter" = "키 커팅";
+
+"type.craft.locksmith" = "자물쇠 제조공";
+
 "type.craft.metal_construction" = "금속공";
 
 "type.craft.painter" = "페인트공";
@@ -3252,6 +3256,8 @@
 
 "type.shop.bakery" = "베이커리";
 
+"type.shop.bathroom_furnishing" = "욕실 가구";
+
 "type.shop.beauty" = "미용실";
 
 "type.shop.beverages" = "음료";
@@ -3264,6 +3270,8 @@
 
 "type.shop.butcher" = "정육점";
 
+"type.shop.cannabis" = "대마초 판매점";
+
 "type.shop.car" = "자동차 대리점";
 
 "type.shop.car_parts" = "차 부품 가게";
@@ -3273,6 +3281,8 @@
 "type.shop.car_repair.tyres" = "타이어수리점";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "카펫";
 
 "type.shop.chemist" = "화학물질 가게";
 
@@ -3292,6 +3302,8 @@
 
 "type.shop.cosmetics" = "화장품";
 
+"type.shop.curtain" = "커튼";
+
 "type.shop.deli" = "델리카트슨 숍";
 
 "type.shop.department_store" = "백화점";
@@ -3308,6 +3320,8 @@
 
 "type.shop.farm" = "\"농장 식품 가게\"";
 
+"type.shop.fashion_accessories" = "패션 악세사리";
+
 "type.shop.florist" = "꽃가게";
 
 "type.shop.funeral_directors" = "장의사";
@@ -3315,6 +3329,8 @@
 "type.shop.furniture" = "가구 상점";
 
 "type.shop.garden_centre" = "식물 상점";
+
+"type.shop.gas" = "주유소";
 
 "type.shop.gift" = "선물 가게";
 
@@ -3327,6 +3343,10 @@
 "type.shop.hardware" = "철물점";
 
 "type.shop.health_food" = "\"건강식품 가게\"";
+
+"type.shop.herbalist" = "허브 가게";
+
+"type.shop.hifi" = "하이파이 오디오";
 
 "type.shop.houseware" = "\"가정용품 가게\"";
 
@@ -3348,6 +3368,8 @@
 
 "type.shop.motorcycle" = "오토바이 가게";
 
+"type.shop.motorcycle_repair" = "오토바이 수리";
+
 "type.shop.music" = "가게";
 
 "type.shop.musical_instrument" = "가게";
@@ -3358,11 +3380,15 @@
 
 "type.shop.outdoor" = "아웃도어 장비";
 
+"type.shop.outpost" = "픽업 장소";
+
 "type.shop.pastry" = "패스트리";
 
 "type.shop.pawnbroker" = "전당포";
 
 "type.shop.pet" = "펫샵";
+
+"type.shop.pet_grooming" = "애완동물 미용";
 
 "type.shop.photo" = "사진 가게";
 
@@ -3398,13 +3424,19 @@
 
 "type.shop.wine" = "와인 샵";
 
+"type.shop.agrarian" = "농산물 가게";
+
 "type.shop.antiques" = "고물";
+
+"type.shop.appliance" = "가전제품 매장";
 
 "type.shop.art" = "아트샵";
 
 "type.shop.baby_goods" = "어린이 가게";
 
 "type.shop.bag" = "가방 판매점";
+
+"type.shop.bed" = "침대 가게";
 
 "type.shop.boutique" = "부티크";
 

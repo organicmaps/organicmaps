@@ -1660,6 +1660,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "ระบบปรับอากาศ";
 
+"type.craft.key_cutter" = "ตัดกุญแจ";
+
+"type.craft.locksmith" = "ช่างกุญแจ";
+
 "type.craft.metal_construction" = "ช่างเหล็ก";
 
 "type.craft.painter" = "ช่างทาสี";
@@ -3252,6 +3256,8 @@
 
 "type.shop.bakery" = "เบเกอรี่";
 
+"type.shop.bathroom_furnishing" = "ตกแต่งห้องน้ำ";
+
 "type.shop.beauty" = "ร้านเสริมสวย";
 
 "type.shop.beverages" = "เครื่องดื่ม";
@@ -3264,6 +3270,8 @@
 
 "type.shop.butcher" = "ร้านขายเนื้อ";
 
+"type.shop.cannabis" = "ร้านขายกัญชา";
+
 "type.shop.car" = "ร้านค้ารถยนต์";
 
 "type.shop.car_parts" = "อะไหล่รถยนต์";
@@ -3273,6 +3281,8 @@
 "type.shop.car_repair.tyres" = "ร้านปะยาง";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "พรม";
 
 "type.shop.chemist" = "ร้านเคมีภัณฑ์";
 
@@ -3292,6 +3302,8 @@
 
 "type.shop.cosmetics" = "เครื่องสำอาง";
 
+"type.shop.curtain" = "ผ้าม่าน";
+
 "type.shop.deli" = "ร้านขายอาหารสำเร็จรูป";
 
 "type.shop.department_store" = "ห้างสรรพสินค้า";
@@ -3308,6 +3320,8 @@
 
 "type.shop.farm" = "ฟาร์มฟู้ดช็อป";
 
+"type.shop.fashion_accessories" = "เครื่องประดับแฟชั่น";
+
 "type.shop.florist" = "ร้านดอกไม้";
 
 "type.shop.funeral_directors" = "สัปเหร่อ";
@@ -3315,6 +3329,8 @@
 "type.shop.furniture" = "ร้านเฟอร์นิเจอร์";
 
 "type.shop.garden_centre" = "สถานรับเลี้ยงเด็ก";
+
+"type.shop.gas" = "ร้านแก๊ส";
 
 "type.shop.gift" = "ร้านของขวัญ";
 
@@ -3327,6 +3343,10 @@
 "type.shop.hardware" = "ร้านฮาร์ดแวร์";
 
 "type.shop.health_food" = "ร้านอาหารเพื่อสุขภาพ";
+
+"type.shop.herbalist" = "ร้านสมุนไพร";
+
+"type.shop.hifi" = "เครื่องเสียงไฮไฟ";
 
 "type.shop.houseware" = "ร้านของใช้ในบ้าน";
 
@@ -3348,6 +3368,8 @@
 
 "type.shop.motorcycle" = "ร้านรถมอเตอร์ไซค์";
 
+"type.shop.motorcycle_repair" = "ซ่อมรถจักรยานยนต์";
+
 "type.shop.music" = "ร้านค้า";
 
 "type.shop.musical_instrument" = "ร้านค้า";
@@ -3358,11 +3380,15 @@
 
 "type.shop.outdoor" = "อุปกรณ์กลางแจ้ง";
 
+"type.shop.outpost" = "จุดรับของ";
+
 "type.shop.pastry" = "ขนมอบ";
 
 "type.shop.pawnbroker" = "ผู้รับจำนำ";
 
 "type.shop.pet" = "เพ็ทชอป";
+
+"type.shop.pet_grooming" = "กรูมมิ่งสัตว์เลี้ยง";
 
 "type.shop.photo" = "ร้านถ่ายภาพ";
 
@@ -3398,13 +3424,19 @@
 
 "type.shop.wine" = "ร้านขายไวน์";
 
+"type.shop.agrarian" = "ร้านเกษตร";
+
 "type.shop.antiques" = "ของเก่า";
+
+"type.shop.appliance" = "ร้านเครื่องใช้ไฟฟ้า";
 
 "type.shop.art" = "ร้านศิลปะ";
 
 "type.shop.baby_goods" = "ร้านขายของสำหรับเด็ก";
 
 "type.shop.bag" = "ร้านกระเป๋า";
+
+"type.shop.bed" = "ร้านขายเตียง";
 
 "type.shop.boutique" = "บูติก";
 

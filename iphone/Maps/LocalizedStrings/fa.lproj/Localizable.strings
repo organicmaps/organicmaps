@@ -1660,6 +1660,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "گرمایش و تهویه‌هوا";
 
+"type.craft.key_cutter" = "برش کلید";
+
+"type.craft.locksmith" = "قفل ساز";
+
 "type.craft.metal_construction" = "اهن کار";
 
 "type.craft.painter" = "نقاش";
@@ -3252,6 +3256,8 @@
 
 "type.shop.bakery" = "فروشگاه";
 
+"type.shop.bathroom_furnishing" = "مبلمان حمام";
+
 "type.shop.beauty" = "سالن زیبایی";
 
 "type.shop.beverages" = "فروشگاه";
@@ -3264,6 +3270,8 @@
 
 "type.shop.butcher" = "فروشگاه";
 
+"type.shop.cannabis" = "فروشگاه شاهدانه";
+
 "type.shop.car" = "فروشگاه";
 
 "type.shop.car_parts" = "فروشگاه";
@@ -3273,6 +3281,8 @@
 "type.shop.car_repair.tyres" = "اپاراتی";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "فرش";
 
 "type.shop.chemist" = "فروشگاه";
 
@@ -3292,6 +3302,8 @@
 
 "type.shop.cosmetics" = "فروشگاه";
 
+"type.shop.curtain" = "پرده ها";
+
 "type.shop.deli" = "ﯽﺷﻭﺮﻓ ﻪﯾﺬﻏﺍ ﻩﺎﮕﺷﻭﺮﻓ";
 
 "type.shop.department_store" = "مرکز خرید";
@@ -3308,6 +3320,8 @@
 
 "type.shop.farm" = "ﻪﻋﺭﺰﻣ ﯽﯾﺍﺬﻏ ﺩﺍﻮﻣ ﻩﺎﮕﺷﻭﺮﻓ";
 
+"type.shop.fashion_accessories" = "لوازم جانبی مد";
+
 "type.shop.florist" = "فروشگاه";
 
 "type.shop.funeral_directors" = "مسئول تشییع جنازه";
@@ -3315,6 +3329,8 @@
 "type.shop.furniture" = "فروشگاه";
 
 "type.shop.garden_centre" = "فروشگاه";
+
+"type.shop.gas" = "فروشگاه گاز";
 
 "type.shop.gift" = "فروشگاه";
 
@@ -3327,6 +3343,10 @@
 "type.shop.hardware" = "ﺭﺍﺰﻓﺍ ﺖﺨﺳ ﻩﺎﮕﺷﻭﺮﻓ";
 
 "type.shop.health_food" = "ﯽﺘﺷﺍﺪﻬﺑ ﯽﯾﺍﺬﻏ ﺩﺍﻮﻣ ﻩﺎﮕﺷﻭﺮﻓ";
+
+"type.shop.herbalist" = "فروشگاه گیاهان دارویی";
+
+"type.shop.hifi" = "صوتی HiFi";
 
 "type.shop.houseware" = "ﯽﮕﻧﺎﺧ ﻡﺯﺍﻮﻟ ﻩﺎﮕﺷﻭﺮﻓ";
 
@@ -3348,6 +3368,8 @@
 
 "type.shop.motorcycle" = "فروشگاه";
 
+"type.shop.motorcycle_repair" = "تعمیر موتور سیکلت";
+
 "type.shop.music" = "فروشگاه";
 
 "type.shop.musical_instrument" = "فروشگاه";
@@ -3358,11 +3380,15 @@
 
 "type.shop.outdoor" = "فروشگاه";
 
+"type.shop.outpost" = "نقطه وانت";
+
 "type.shop.pastry" = "ﯽﻨﯾﺮﯿﺷ";
 
 "type.shop.pawnbroker" = "عتیقه فروشی";
 
 "type.shop.pet" = "فروشگاه";
+
+"type.shop.pet_grooming" = "نظافت حیوانات خانگی";
 
 "type.shop.photo" = "فروشگاه";
 
@@ -3398,13 +3424,19 @@
 
 "type.shop.wine" = "فروشگاه";
 
+"type.shop.agrarian" = "مغازه کشاورزی";
+
 "type.shop.antiques" = "ﺕﺎﺟ ﻪﻘﯿﺘﻋ";
+
+"type.shop.appliance" = "فروشگاه لوازم خانگی";
 
 "type.shop.art" = "ﺮﻨﻫ ﻩﺎﮕﺷﻭﺮﻓ";
 
 "type.shop.baby_goods" = "ﻥﺎﮐﺩﻮﮐ ﻩﺎﮕﺷﻭﺮﻓ";
 
 "type.shop.bag" = "ﻒﯿﮐ ﻩﺎﮕﺷﻭﺮﻓ";
+
+"type.shop.bed" = "فروشگاه تخت";
 
 "type.shop.boutique" = "ﮏﯿﺗﻮﺑ";
 

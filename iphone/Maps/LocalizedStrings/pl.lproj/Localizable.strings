@@ -1660,6 +1660,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Klimatyzacja";
 
+"type.craft.key_cutter" = "Cięcie kluczy";
+
+"type.craft.locksmith" = "Ślusarz";
+
 "type.craft.metal_construction" = "Ślusarz, obrabiacz metalu";
 
 "type.craft.painter" = "Malarz";
@@ -3252,6 +3256,8 @@
 
 "type.shop.bakery" = "Piekarnia";
 
+"type.shop.bathroom_furnishing" = "Meble łazienkowe";
+
 "type.shop.beauty" = "Salon piękności";
 
 "type.shop.beverages" = "Sklep z napojami";
@@ -3264,6 +3270,8 @@
 
 "type.shop.butcher" = "Rzeźnik";
 
+"type.shop.cannabis" = "Sklep z konopiami indyjskimi";
+
 "type.shop.car" = "Salon samochodowy";
 
 "type.shop.car_parts" = "Części samochodowe";
@@ -3273,6 +3281,8 @@
 "type.shop.car_repair.tyres" = "Wulkanizacja";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "Dywany";
 
 "type.shop.chemist" = "Drogeria";
 
@@ -3292,6 +3302,8 @@
 
 "type.shop.cosmetics" = "Kosmetyki";
 
+"type.shop.curtain" = "Zasłony";
+
 "type.shop.deli" = "Sklep delikatesowy";
 
 "type.shop.department_store" = "Dom towarowy";
@@ -3308,6 +3320,8 @@
 
 "type.shop.farm" = "Sklep spożywczy dla gospodarstw rolnych";
 
+"type.shop.fashion_accessories" = "Akcesoria modowe";
+
 "type.shop.florist" = "Kwiaciarnia";
 
 "type.shop.funeral_directors" = "Celebranci pogrzebowi";
@@ -3315,6 +3329,8 @@
 "type.shop.furniture" = "Sklep meblowy";
 
 "type.shop.garden_centre" = "Sklep ogrodniczy";
+
+"type.shop.gas" = "Sklep gazowy";
 
 "type.shop.gift" = "Sklep z pamiątkami";
 
@@ -3327,6 +3343,10 @@
 "type.shop.hardware" = "Sklep z narzędziami";
 
 "type.shop.health_food" = "Sklep ze zdrową żywnością";
+
+"type.shop.herbalist" = "Sklep z ziołami";
+
+"type.shop.hifi" = "Dźwięk Hi-Fi";
 
 "type.shop.houseware" = "Sklep AGD";
 
@@ -3348,6 +3368,8 @@
 
 "type.shop.motorcycle" = "Salon motocyklowy";
 
+"type.shop.motorcycle_repair" = "Naprawa motocykli";
+
 "type.shop.music" = "Sklep muzyczny";
 
 "type.shop.musical_instrument" = "Sklep z instrumentami muzycznymi";
@@ -3358,11 +3380,15 @@
 
 "type.shop.outdoor" = "Sprzęt turystyczny";
 
+"type.shop.outpost" = "Punkt odbioru";
+
 "type.shop.pastry" = "Ciasto";
 
 "type.shop.pawnbroker" = "Lombard";
 
 "type.shop.pet" = "Sklep zoologiczny";
+
+"type.shop.pet_grooming" = "Pielęgnacja zwierząt";
 
 "type.shop.photo" = "Fotograf";
 
@@ -3398,13 +3424,19 @@
 
 "type.shop.wine" = "Sklep monopolowy";
 
+"type.shop.agrarian" = "Sklep rolniczy";
+
 "type.shop.antiques" = "Antyki";
+
+"type.shop.appliance" = "Sklep AGD";
 
 "type.shop.art" = "Sklep artystyczny";
 
 "type.shop.baby_goods" = "Sklep dla dzieci";
 
 "type.shop.bag" = "Sklep z torbami";
+
+"type.shop.bed" = "Sklep z łóżkami";
 
 "type.shop.boutique" = "Butik";
 
