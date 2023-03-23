@@ -1660,6 +1660,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "HVAC";
 
+"type.craft.key_cutter" = "Pemotongan Kunci";
+
+"type.craft.locksmith" = "Tukang kunci";
+
 "type.craft.metal_construction" = "Tukang besi";
 
 "type.craft.painter" = "Tukang cat";
@@ -3252,6 +3256,8 @@
 
 "type.shop.bakery" = "Toko roti";
 
+"type.shop.bathroom_furnishing" = "Perabot Kamar Mandi";
+
 "type.shop.beauty" = "Salon kecantikan";
 
 "type.shop.beverages" = "Minuman";
@@ -3264,6 +3270,8 @@
 
 "type.shop.butcher" = "Tukang daging";
 
+"type.shop.cannabis" = "Toko ganja";
+
 "type.shop.car" = "Toko mobil";
 
 "type.shop.car_parts" = "Bagian mobil";
@@ -3273,6 +3281,8 @@
 "type.shop.car_repair.tyres" = "Tambal ban";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "Karpet";
 
 "type.shop.chemist" = "Toko Bahan Kimia";
 
@@ -3292,6 +3302,8 @@
 
 "type.shop.cosmetics" = "Kosmetik";
 
+"type.shop.curtain" = "Tirai";
+
 "type.shop.deli" = "Toko Kue";
 
 "type.shop.department_store" = "Toko serba ada";
@@ -3308,6 +3320,8 @@
 
 "type.shop.farm" = "Toko Makanan Pertanian";
 
+"type.shop.fashion_accessories" = "Aksesoris Fashion";
+
 "type.shop.florist" = "Tukang bunga";
 
 "type.shop.funeral_directors" = "Direktur Pemakaman";
@@ -3315,6 +3329,8 @@
 "type.shop.furniture" = "Toko mebel";
 
 "type.shop.garden_centre" = "Penitipan anak";
+
+"type.shop.gas" = "Toko gas";
 
 "type.shop.gift" = "Toko hadiah";
 
@@ -3327,6 +3343,10 @@
 "type.shop.hardware" = "Toko perangkat keras";
 
 "type.shop.health_food" = "Toko Makanan Kesehatan";
+
+"type.shop.herbalist" = "Toko jamu";
+
+"type.shop.hifi" = "Audio HI FI";
 
 "type.shop.houseware" = "Toko Peralatan Rumah Tangga";
 
@@ -3348,6 +3368,8 @@
 
 "type.shop.motorcycle" = "Toko Sepeda Motor";
 
+"type.shop.motorcycle_repair" = "Bengkel Sepeda Motor";
+
 "type.shop.music" = "Toko";
 
 "type.shop.musical_instrument" = "Toko";
@@ -3358,11 +3380,15 @@
 
 "type.shop.outdoor" = "Peralatan Outdoor";
 
+"type.shop.outpost" = "Titik penjemputan";
+
 "type.shop.pastry" = "Kue-kue";
 
 "type.shop.pawnbroker" = "Rumah Gadai";
 
 "type.shop.pet" = "Toko hewan";
+
+"type.shop.pet_grooming" = "Perawatan Hewan Peliharaan";
 
 "type.shop.photo" = "Studio Foto";
 
@@ -3398,13 +3424,19 @@
 
 "type.shop.wine" = "Toko anggur";
 
+"type.shop.agrarian" = "Toko pertanian";
+
 "type.shop.antiques" = "Barang antik";
+
+"type.shop.appliance" = "Toko peralatan";
 
 "type.shop.art" = "Toko Seni";
 
 "type.shop.baby_goods" = "Toko anak-anak";
 
 "type.shop.bag" = "Toko Tas";
+
+"type.shop.bed" = "Toko tempat tidur";
 
 "type.shop.boutique" = "Butik";
 

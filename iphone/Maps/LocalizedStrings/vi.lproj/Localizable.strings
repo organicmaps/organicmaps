@@ -1660,6 +1660,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Điều hòa nhiệt độ";
 
+"type.craft.key_cutter" = "Cắt chính";
+
+"type.craft.locksmith" = "Thợ khóa";
+
 "type.craft.metal_construction" = "Nhà kim khí";
 
 "type.craft.painter" = "Họa sỹ";
@@ -3252,6 +3256,8 @@
 
 "type.shop.bakery" = "Hiệu bánh";
 
+"type.shop.bathroom_furnishing" = "Nội thất phòng tắm";
+
 "type.shop.beauty" = "Thẩm mỹ viện";
 
 "type.shop.beverages" = "Đồ uống";
@@ -3264,6 +3270,8 @@
 
 "type.shop.butcher" = "Cửa hàng thịt";
 
+"type.shop.cannabis" = "Cửa hàng cần sa";
+
 "type.shop.car" = "Cửa hàng xe";
 
 "type.shop.car_parts" = "Những bộ phận xe hơi";
@@ -3273,6 +3281,8 @@
 "type.shop.car_repair.tyres" = "Vá Lốp";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "Những cái thảm";
 
 "type.shop.chemist" = "Cửa hàng Hóa chất";
 
@@ -3292,6 +3302,8 @@
 
 "type.shop.cosmetics" = "Mỹ phẩm";
 
+"type.shop.curtain" = "Rèm cửa";
+
 "type.shop.deli" = "Cửa hàng đồ ăn ngon";
 
 "type.shop.department_store" = "Cửa hàng bách hóa";
@@ -3308,6 +3320,8 @@
 
 "type.shop.farm" = "Cửa hàng thực phẩm nông trại";
 
+"type.shop.fashion_accessories" = "Phụ kiện thời trang";
+
 "type.shop.florist" = "Cửa hàng hoa";
 
 "type.shop.funeral_directors" = "Tổ chức tang lễ";
@@ -3315,6 +3329,8 @@
 "type.shop.furniture" = "Cửa hàng nội thất";
 
 "type.shop.garden_centre" = "Nhà trẻ";
+
+"type.shop.gas" = "Cửa hàng gas";
 
 "type.shop.gift" = "Cửa hàng quà tặng";
 
@@ -3327,6 +3343,10 @@
 "type.shop.hardware" = "Cửa hàng phần cứng";
 
 "type.shop.health_food" = "Cửa hàng thực phẩm sức khỏe";
+
+"type.shop.herbalist" = "Cửa hàng thảo mộc";
+
+"type.shop.hifi" = "Âm thanh hifi";
 
 "type.shop.houseware" = "Cửa hàng đồ gia dụng";
 
@@ -3348,6 +3368,8 @@
 
 "type.shop.motorcycle" = "Cửa hàng xe máy";
 
+"type.shop.motorcycle_repair" = "Sửa chữa xe máy";
+
 "type.shop.music" = "Cửa hàng";
 
 "type.shop.musical_instrument" = "Cửa hàng";
@@ -3358,11 +3380,15 @@
 
 "type.shop.outdoor" = "Thiết bị Ngoài trời";
 
+"type.shop.outpost" = "Điểm đón";
+
 "type.shop.pastry" = "Bánh ngọt";
 
 "type.shop.pawnbroker" = "Cầm đồ";
 
 "type.shop.pet" = "Cửa Hàng Vật Nuôi";
+
+"type.shop.pet_grooming" = "Chải lông thú cưng";
 
 "type.shop.photo" = "Hiệu Ảnh";
 
@@ -3398,13 +3424,19 @@
 
 "type.shop.wine" = "Rượu";
 
+"type.shop.agrarian" = "Cửa hàng nông sản";
+
 "type.shop.antiques" = "Đồ cổ";
+
+"type.shop.appliance" = "Cửa hàng đồ gia dụng";
 
 "type.shop.art" = "Cửa hàng nghệ thuật";
 
 "type.shop.baby_goods" = "Cửa hàng trẻ em";
 
 "type.shop.bag" = "Cửa hàng túi xách";
+
+"type.shop.bed" = "Cửa hàng giường";
 
 "type.shop.boutique" = "Cửa hàng";
 

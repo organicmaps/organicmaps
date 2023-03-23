@@ -1660,6 +1660,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Kiyoyozi";
 
+"type.craft.key_cutter" = "Kukata Muhimu";
+
+"type.craft.locksmith" = "Fundi wa kufuli";
+
 "type.craft.metal_construction" = "Mfanyikazi wa chuma";
 
 "type.craft.painter" = "Mchoraji";
@@ -3252,6 +3256,8 @@
 
 "type.shop.bakery" = "Bakery";
 
+"type.shop.bathroom_furnishing" = "Vyombo vya Bafuni";
+
 "type.shop.beauty" = "Beauty Shop";
 
 "type.shop.beverages" = "Beverages";
@@ -3264,6 +3270,8 @@
 
 "type.shop.butcher" = "Butcher’s";
 
+"type.shop.cannabis" = "Duka la Bangi";
+
 "type.shop.car" = "Car Dealership";
 
 "type.shop.car_parts" = "Car Parts";
@@ -3273,6 +3281,8 @@
 "type.shop.car_repair.tyres" = "Tyre Repair";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "Mazulia";
 
 "type.shop.chemist" = "Chemist Shop";
 
@@ -3292,6 +3302,8 @@
 
 "type.shop.cosmetics" = "Cosmetics";
 
+"type.shop.curtain" = "Mapazia";
+
 "type.shop.deli" = "Duka la Delicatessen";
 
 "type.shop.department_store" = "Department Store";
@@ -3308,6 +3320,8 @@
 
 "type.shop.farm" = "Duka la Chakula cha shambani";
 
+"type.shop.fashion_accessories" = "Vifaa vya Mtindo";
+
 "type.shop.florist" = "Florist’s";
 
 "type.shop.funeral_directors" = "Funeral Directors";
@@ -3315,6 +3329,8 @@
 "type.shop.furniture" = "Furniture Store";
 
 "type.shop.garden_centre" = "Garden Store";
+
+"type.shop.gas" = "Duka la gesi";
 
 "type.shop.gift" = "Gift Shop";
 
@@ -3327,6 +3343,10 @@
 "type.shop.hardware" = "Duka la vifaa";
 
 "type.shop.health_food" = "Duka la Chakula cha Afya";
+
+"type.shop.herbalist" = "Duka la mimea";
+
+"type.shop.hifi" = "Sauti ya HiFi";
 
 "type.shop.houseware" = "Duka la Vifaa vya Nyumbani";
 
@@ -3348,6 +3368,8 @@
 
 "type.shop.motorcycle" = "Motorcycle Shop";
 
+"type.shop.motorcycle_repair" = "Ukarabati wa Pikipiki";
+
 "type.shop.music" = "Record Store";
 
 "type.shop.musical_instrument" = "Musical Instruments";
@@ -3358,11 +3380,15 @@
 
 "type.shop.outdoor" = "Outdoor Equipment";
 
+"type.shop.outpost" = "Sehemu ya kuchukua";
+
 "type.shop.pastry" = "Keki";
 
 "type.shop.pawnbroker" = "Pawnbroker";
 
-"type.shop.pet" = "Petshop";
+"type.shop.pet" = "Pet Store";
+
+"type.shop.pet_grooming" = "Utunzaji wa Kipenzi";
 
 "type.shop.photo" = "Photo Shop";
 
@@ -3398,13 +3424,19 @@
 
 "type.shop.wine" = "Wine Shop";
 
+"type.shop.agrarian" = "Duka la kilimo";
+
 "type.shop.antiques" = "Mambo ya kale";
+
+"type.shop.appliance" = "Duka la vifaa";
 
 "type.shop.art" = "Duka la Sanaa";
 
 "type.shop.baby_goods" = "Duka la watoto";
 
 "type.shop.bag" = "Hifadhi ya Mifuko";
+
+"type.shop.bed" = "Duka la vitanda";
 
 "type.shop.boutique" = "Boutique";
 

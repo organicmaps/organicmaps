@@ -1660,6 +1660,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Aire girotua";
 
+"type.craft.key_cutter" = "Giltza-mozketa";
+
+"type.craft.locksmith" = "Sarrailagilea";
+
 "type.craft.metal_construction" = "Metalgintzako langilea";
 
 "type.craft.painter" = "Margolaria";
@@ -3252,6 +3256,8 @@
 
 "type.shop.bakery" = "Okindegia";
 
+"type.shop.bathroom_furnishing" = "Bainugelako altzariak";
+
 "type.shop.beauty" = "Apaindegia";
 
 "type.shop.beverages" = "Edariak";
@@ -3264,6 +3270,8 @@
 
 "type.shop.butcher" = "Harategia";
 
+"type.shop.cannabis" = "Cannabis denda";
+
 "type.shop.car" = "Autoen salmenta";
 
 "type.shop.car_parts" = "Autoen piezak";
@@ -3273,6 +3281,8 @@
 "type.shop.car_repair.tyres" = "Pneumatikoen konponketa";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "Alfonbrak";
 
 "type.shop.chemist" = "Botika";
 
@@ -3292,6 +3302,8 @@
 
 "type.shop.cosmetics" = "Produktu kosmetikoak";
 
+"type.shop.curtain" = "Gortinak";
+
 "type.shop.deli" = "Delicatesen Denda";
 
 "type.shop.department_store" = "Denda handiak";
@@ -3308,6 +3320,8 @@
 
 "type.shop.farm" = "Baserriko Janari Denda";
 
+"type.shop.fashion_accessories" = "Moda Osagarriak";
+
 "type.shop.florist" = "Loradenda";
 
 "type.shop.funeral_directors" = "Tanatorioa";
@@ -3315,6 +3329,8 @@
 "type.shop.furniture" = "Altzari denda";
 
 "type.shop.garden_centre" = "Haurtzaindegia";
+
+"type.shop.gas" = "Gas biltegia";
 
 "type.shop.gift" = "Denda";
 
@@ -3327,6 +3343,10 @@
 "type.shop.hardware" = "Hardware denda";
 
 "type.shop.health_food" = "Osasuneko Elikagaien Denda";
+
+"type.shop.herbalist" = "Belar denda";
+
+"type.shop.hifi" = "HiFi Audioa";
 
 "type.shop.houseware" = "Etxeko tresneria denda";
 
@@ -3348,6 +3368,8 @@
 
 "type.shop.motorcycle" = "Moto denda";
 
+"type.shop.motorcycle_repair" = "Motoen Konponketa";
+
 "type.shop.music" = "Denda";
 
 "type.shop.musical_instrument" = "Denda";
@@ -3358,11 +3380,15 @@
 
 "type.shop.outdoor" = "Ekipamendua";
 
+"type.shop.outpost" = "Jasotzeko puntua";
+
 "type.shop.pastry" = "Gozogintza";
 
 "type.shop.pawnbroker" = "Peoia";
 
 "type.shop.pet" = "Animali denda";
+
+"type.shop.pet_grooming" = "Animalien apainketa";
 
 "type.shop.photo" = "Argazkilaritza artikuluak";
 
@@ -3398,13 +3424,19 @@
 
 "type.shop.wine" = "Ardo-denda";
 
+"type.shop.agrarian" = "Nekazaritza denda";
+
 "type.shop.antiques" = "Antigoalekoak";
+
+"type.shop.appliance" = "Etxetresna elektrikoen denda";
 
 "type.shop.art" = "Arte Denda";
 
 "type.shop.baby_goods" = "Haurrentzako denda";
 
 "type.shop.bag" = "Poltsen Denda";
+
+"type.shop.bed" = "Ohe denda";
 
 "type.shop.boutique" = "Boutique";
 

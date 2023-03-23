@@ -1660,6 +1660,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Hűtés-fűtés szerelő";
 
+"type.craft.key_cutter" = "Kulcsvágás";
+
+"type.craft.locksmith" = "Lakatos";
+
 "type.craft.metal_construction" = "Lakatos";
 
 "type.craft.painter" = "Festő";
@@ -3252,6 +3256,8 @@
 
 "type.shop.bakery" = "Pékség";
 
+"type.shop.bathroom_furnishing" = "Fürdőszoba berendezési tárgyak";
+
 "type.shop.beauty" = "Szépségszalon";
 
 "type.shop.beverages" = "Italok";
@@ -3264,6 +3270,8 @@
 
 "type.shop.butcher" = "Hentes";
 
+"type.shop.cannabis" = "Cannabis Store";
+
 "type.shop.car" = "Gépkocsi bolt";
 
 "type.shop.car_parts" = "Autó alkatrészek";
@@ -3273,6 +3281,8 @@
 "type.shop.car_repair.tyres" = "Gumiszerviz";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "Szőnyegek";
 
 "type.shop.chemist" = "Drogéria";
 
@@ -3292,6 +3302,8 @@
 
 "type.shop.cosmetics" = "Kozmetikum";
 
+"type.shop.curtain" = "Függönyök";
+
 "type.shop.deli" = "Csemegebolt";
 
 "type.shop.department_store" = "Áruház";
@@ -3308,6 +3320,8 @@
 
 "type.shop.farm" = "Farm Food Shop";
 
+"type.shop.fashion_accessories" = "Divat kiegészítők";
+
 "type.shop.florist" = "Virágos";
 
 "type.shop.funeral_directors" = "Temetkezési vállalkozó";
@@ -3315,6 +3329,8 @@
 "type.shop.furniture" = "Bútoráruház";
 
 "type.shop.garden_centre" = "Faiskola";
+
+"type.shop.gas" = "Gázbolt";
 
 "type.shop.gift" = "Ajándékbolt";
 
@@ -3327,6 +3343,10 @@
 "type.shop.hardware" = "Barkácsüzlet";
 
 "type.shop.health_food" = "Egészségügyi élelmiszerbolt";
+
+"type.shop.herbalist" = "Gyógynövény bolt";
+
+"type.shop.hifi" = "HiFi Audio";
 
 "type.shop.houseware" = "Háztartási bolt";
 
@@ -3348,6 +3368,8 @@
 
 "type.shop.motorcycle" = "Motorkerékpár üzlet";
 
+"type.shop.motorcycle_repair" = "Motorkerékpár javítás";
+
 "type.shop.music" = "Bolt";
 
 "type.shop.musical_instrument" = "Bolt";
@@ -3358,11 +3380,15 @@
 
 "type.shop.outdoor" = "Túrafelszerelés";
 
+"type.shop.outpost" = "Felvevő pont";
+
 "type.shop.pastry" = "Cukrászsütemény";
 
 "type.shop.pawnbroker" = "Zálogház";
 
 "type.shop.pet" = "Házikedvenc-üzlet";
+
+"type.shop.pet_grooming" = "Kisállat ápolás";
 
 "type.shop.photo" = "Fénykép üzlet";
 
@@ -3398,13 +3424,19 @@
 
 "type.shop.wine" = "Szeszesital-üzlet";
 
+"type.shop.agrarian" = "Mezőgazdasági bolt";
+
 "type.shop.antiques" = "Régiségek";
+
+"type.shop.appliance" = "Készülék bolt";
 
 "type.shop.art" = "Művészeti Bolt";
 
 "type.shop.baby_goods" = "Bababolt";
 
 "type.shop.bag" = "Táskák bolt";
+
+"type.shop.bed" = "Ágyak boltja";
 
 "type.shop.boutique" = "Butik";
 

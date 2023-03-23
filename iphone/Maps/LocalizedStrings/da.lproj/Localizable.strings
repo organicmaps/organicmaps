@@ -1660,6 +1660,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Blikkenslager";
 
+"type.craft.key_cutter" = "Nøgleskæring";
+
+"type.craft.locksmith" = "Låsesmed";
+
 "type.craft.metal_construction" = "Metalarbejder";
 
 "type.craft.painter" = "Maler";
@@ -3252,6 +3256,8 @@
 
 "type.shop.bakery" = "Bager";
 
+"type.shop.bathroom_furnishing" = "Badeværelsesindretning";
+
 "type.shop.beauty" = "Skønhedssalon";
 
 "type.shop.beverages" = "Drikkevarer";
@@ -3264,6 +3270,8 @@
 
 "type.shop.butcher" = "Slagter";
 
+"type.shop.cannabis" = "Cannabis butik";
+
 "type.shop.car" = "Bilforhandler";
 
 "type.shop.car_parts" = "Bildele";
@@ -3273,6 +3281,8 @@
 "type.shop.car_repair.tyres" = "Dækreparation";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "Tæpper";
 
 "type.shop.chemist" = "Materialist";
 
@@ -3292,6 +3302,8 @@
 
 "type.shop.cosmetics" = "Kosmetik";
 
+"type.shop.curtain" = "Gardiner";
+
 "type.shop.deli" = "Delikatessebutik";
 
 "type.shop.department_store" = "Stormagasin";
@@ -3308,6 +3320,8 @@
 
 "type.shop.farm" = "Farm Food Shop";
 
+"type.shop.fashion_accessories" = "Mode tilbehør";
+
 "type.shop.florist" = "Blomsterbutik";
 
 "type.shop.funeral_directors" = "Bedemand";
@@ -3315,6 +3329,8 @@
 "type.shop.furniture" = "Møbelbutik";
 
 "type.shop.garden_centre" = "Planteskole";
+
+"type.shop.gas" = "Gas butik";
 
 "type.shop.gift" = "Gavebutik";
 
@@ -3327,6 +3343,10 @@
 "type.shop.hardware" = "Isenkræmmer";
 
 "type.shop.health_food" = "Helsekostbutik";
+
+"type.shop.herbalist" = "Urtebutik";
+
+"type.shop.hifi" = "HiFi lyd";
 
 "type.shop.houseware" = "Husholdningsartikler butik";
 
@@ -3348,6 +3368,8 @@
 
 "type.shop.motorcycle" = "Motorcykelforhandler";
 
+"type.shop.motorcycle_repair" = "Motorcykel reparation";
+
 "type.shop.music" = "Butik";
 
 "type.shop.musical_instrument" = "Butik";
@@ -3358,11 +3380,15 @@
 
 "type.shop.outdoor" = "Fritidsudstyr";
 
+"type.shop.outpost" = "Afhentningssted";
+
 "type.shop.pastry" = "Bagværk";
 
 "type.shop.pawnbroker" = "Pantelåner";
 
 "type.shop.pet" = "Dyrehandel";
+
+"type.shop.pet_grooming" = "Kæledyrspleje";
 
 "type.shop.photo" = "Fotobutik";
 
@@ -3398,13 +3424,19 @@
 
 "type.shop.wine" = "Vinhandel";
 
+"type.shop.agrarian" = "Landbrugsbutik";
+
 "type.shop.antiques" = "Antikviteter";
+
+"type.shop.appliance" = "Hvidevarer butik";
 
 "type.shop.art" = "Kunstbutik";
 
 "type.shop.baby_goods" = "Børnebutik";
 
 "type.shop.bag" = "Tasker butik";
+
+"type.shop.bed" = "Senge butik";
 
 "type.shop.boutique" = "Boutique";
 

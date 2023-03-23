@@ -1660,6 +1660,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Ψυκτικός";
 
+"type.craft.key_cutter" = "Κοπή κλειδιού";
+
+"type.craft.locksmith" = "Κλειδαράς";
+
 "type.craft.metal_construction" = "Μεταλλουργός";
 
 "type.craft.painter" = "Μπογιατζής";
@@ -3252,6 +3256,8 @@
 
 "type.shop.bakery" = "Αρτοποιείο";
 
+"type.shop.bathroom_furnishing" = "Έπιπλα μπάνιου";
+
 "type.shop.beauty" = "Σαλόνι αισθητικής";
 
 "type.shop.beverages" = "Οινοπνευματώδη";
@@ -3264,6 +3270,8 @@
 
 "type.shop.butcher" = "Κρεοπωλείο";
 
+"type.shop.cannabis" = "Κατάστημα κάνναβης";
+
 "type.shop.car" = "Αντιπροσωπεία αυτοκινήτων";
 
 "type.shop.car_parts" = "Εξαρτήματα αυτοκινήτου";
@@ -3273,6 +3281,8 @@
 "type.shop.car_repair.tyres" = "Βουλκανιζατέρ";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "Χαλιά";
 
 "type.shop.chemist" = "Χημικά προϊόντα";
 
@@ -3292,6 +3302,8 @@
 
 "type.shop.cosmetics" = "Καλλυντικά";
 
+"type.shop.curtain" = "Κουρτίνες";
+
 "type.shop.deli" = "Κατάστημα Delicatessen";
 
 "type.shop.department_store" = "Πολυκατάστημα";
@@ -3308,6 +3320,8 @@
 
 "type.shop.farm" = "Κατάστημα Αγροτικών Τροφίμων";
 
+"type.shop.fashion_accessories" = "Αξεσουάρ μόδας";
+
 "type.shop.florist" = "Ανθοπωλείο";
 
 "type.shop.funeral_directors" = "Γραφεία τελετών";
@@ -3315,6 +3329,8 @@
 "type.shop.furniture" = "Κατάστημα επίπλων";
 
 "type.shop.garden_centre" = "Κατάστημα ειδών κήπου";
+
+"type.shop.gas" = "Κατάστημα υγραερίου";
 
 "type.shop.gift" = "Είδη δώρου";
 
@@ -3327,6 +3343,10 @@
 "type.shop.hardware" = "Κατάστημα υλικού";
 
 "type.shop.health_food" = "Κατάστημα υγιεινής διατροφής";
+
+"type.shop.herbalist" = "Κατάστημα με βότανα";
+
+"type.shop.hifi" = "Ήχος HiFi";
 
 "type.shop.houseware" = "Κατάστημα οικιακών ειδών";
 
@@ -3348,6 +3368,8 @@
 
 "type.shop.motorcycle" = "Κατάστημα μοτοσυκλετών";
 
+"type.shop.motorcycle_repair" = "Επισκευή μοτοσυκλετών";
+
 "type.shop.music" = "Κατάστημα";
 
 "type.shop.musical_instrument" = "Κατάστημα";
@@ -3358,11 +3380,15 @@
 
 "type.shop.outdoor" = "Εξοπλισμός υπαίθρου";
 
+"type.shop.outpost" = "Σημείο παραλαβής";
+
 "type.shop.pastry" = "Ζύμη";
 
 "type.shop.pawnbroker" = "Ενεχυροδανειστήριο";
 
 "type.shop.pet" = "Κατάστημα για κατοικίδια";
+
+"type.shop.pet_grooming" = "Περιποίηση κατοικίδιων ζώων";
 
 "type.shop.photo" = "Φωτογραφείο";
 
@@ -3398,13 +3424,19 @@
 
 "type.shop.wine" = "Οινοπωλείο";
 
+"type.shop.agrarian" = "Αγροτικό κατάστημα";
+
 "type.shop.antiques" = "Αντίκες";
+
+"type.shop.appliance" = "Κατάστημα οικιακών συσκευών";
 
 "type.shop.art" = "Κατάστημα Τεχνών";
 
 "type.shop.baby_goods" = "Παιδικό κατάστημα";
 
 "type.shop.bag" = "Κατάστημα τσαντών";
+
+"type.shop.bed" = "Κατάστημα κρεβατιών";
 
 "type.shop.boutique" = "Μπουτίκ";
 

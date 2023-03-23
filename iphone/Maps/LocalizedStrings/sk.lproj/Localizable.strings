@@ -1660,6 +1660,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Vzduchotechnika";
 
+"type.craft.key_cutter" = "Rezanie kľúčov";
+
+"type.craft.locksmith" = "Zámočník";
+
 "type.craft.metal_construction" = "Kovorobotník";
 
 "type.craft.painter" = "Maliar natierač";
@@ -3252,6 +3256,8 @@
 
 "type.shop.bakery" = "Pekáreň";
 
+"type.shop.bathroom_furnishing" = "Vybavenie kúpeľne";
+
 "type.shop.beauty" = "Kozmetický salón";
 
 "type.shop.beverages" = "Nápoje";
@@ -3264,6 +3270,8 @@
 
 "type.shop.butcher" = "Mäsiar";
 
+"type.shop.cannabis" = "Obchod s kanabisom";
+
 "type.shop.car" = "Predajňa áut";
 
 "type.shop.car_parts" = "Autodiely";
@@ -3273,6 +3281,8 @@
 "type.shop.car_repair.tyres" = "Pneuservis";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "Koberce";
 
 "type.shop.chemist" = "Drogéria";
 
@@ -3292,6 +3302,8 @@
 
 "type.shop.cosmetics" = "Kozmetika";
 
+"type.shop.curtain" = "Záclony";
+
 "type.shop.deli" = "Predajňa lahôdok";
 
 "type.shop.department_store" = "Obchodný dom";
@@ -3308,6 +3320,8 @@
 
 "type.shop.farm" = "Obchod s farmárskymi potravinami";
 
+"type.shop.fashion_accessories" = "Módne doplnky";
+
 "type.shop.florist" = "Kvety";
 
 "type.shop.funeral_directors" = "Pohrebníctvo";
@@ -3315,6 +3329,8 @@
 "type.shop.furniture" = "Nábytok";
 
 "type.shop.garden_centre" = "Škôlka";
+
+"type.shop.gas" = "Obchod s plynom";
 
 "type.shop.gift" = "Darčeky";
 
@@ -3327,6 +3343,10 @@
 "type.shop.hardware" = "Železiarstvo";
 
 "type.shop.health_food" = "Obchod so zdravou výživou";
+
+"type.shop.herbalist" = "Obchod s bylinkami";
+
+"type.shop.hifi" = "HiFi audio";
 
 "type.shop.houseware" = "Obchod s domácimi potrebami";
 
@@ -3348,6 +3368,8 @@
 
 "type.shop.motorcycle" = "Obchod s motocyklami";
 
+"type.shop.motorcycle_repair" = "Oprava motocyklov";
+
 "type.shop.music" = "Obchod";
 
 "type.shop.musical_instrument" = "Obchod";
@@ -3358,11 +3380,15 @@
 
 "type.shop.outdoor" = "Outdoorové vybavenie";
 
+"type.shop.outpost" = "Miesto odberu";
+
 "type.shop.pastry" = "Pečivo";
 
 "type.shop.pawnbroker" = "Záložňa";
 
 "type.shop.pet" = "Obchod zo zvieratami";
+
+"type.shop.pet_grooming" = "Starostlivosť o domáce zvieratá";
 
 "type.shop.photo" = "Fotografické služby";
 
@@ -3398,13 +3424,19 @@
 
 "type.shop.wine" = "Vinotéka";
 
+"type.shop.agrarian" = "Poľnohospodársky obchod";
+
 "type.shop.antiques" = "Starožitnosti";
+
+"type.shop.appliance" = "Obchod so spotrebičmi";
 
 "type.shop.art" = "Obchod s umením";
 
 "type.shop.baby_goods" = "Obchod pre deti";
 
 "type.shop.bag" = "Obchod s taškami";
+
+"type.shop.bed" = "Obchod s posteľami";
 
 "type.shop.boutique" = "Butik";
 

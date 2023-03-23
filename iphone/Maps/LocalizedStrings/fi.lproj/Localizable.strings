@@ -1660,6 +1660,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Ilmastointilaite";
 
+"type.craft.key_cutter" = "Avaimen leikkaaminen";
+
+"type.craft.locksmith" = "Lukkoseppä";
+
 "type.craft.metal_construction" = "Metallimies";
 
 "type.craft.painter" = "Maalari";
@@ -3252,6 +3256,8 @@
 
 "type.shop.bakery" = "Leipomo";
 
+"type.shop.bathroom_furnishing" = "Kylpyhuoneen kalusteet";
+
 "type.shop.beauty" = "Kauneushoitola";
 
 "type.shop.beverages" = "Juomat";
@@ -3264,6 +3270,8 @@
 
 "type.shop.butcher" = "Lihakauppias";
 
+"type.shop.cannabis" = "Kannabiskauppa";
+
 "type.shop.car" = "Autokauppa";
 
 "type.shop.car_parts" = "Auton osat";
@@ -3273,6 +3281,8 @@
 "type.shop.car_repair.tyres" = "Rengashuolto";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "Matot";
 
 "type.shop.chemist" = "Kosmetiikkamyymälä";
 
@@ -3292,6 +3302,8 @@
 
 "type.shop.cosmetics" = "Kosmetiikka";
 
+"type.shop.curtain" = "Verhot";
+
 "type.shop.deli" = "Herkkukauppa";
 
 "type.shop.department_store" = "Tavaratalo";
@@ -3308,6 +3320,8 @@
 
 "type.shop.farm" = "Maatilaruokakauppa";
 
+"type.shop.fashion_accessories" = "Muoti tarvikkeet";
+
 "type.shop.florist" = "Floristi";
 
 "type.shop.funeral_directors" = "Hautaustoimisto";
@@ -3315,6 +3329,8 @@
 "type.shop.furniture" = "Huonekalukauppa";
 
 "type.shop.garden_centre" = "Taimitarha";
+
+"type.shop.gas" = "Kaasukauppa";
 
 "type.shop.gift" = "Lahjatavaraliike";
 
@@ -3327,6 +3343,10 @@
 "type.shop.hardware" = "Rautakauppa";
 
 "type.shop.health_food" = "Terveysruokakauppa";
+
+"type.shop.herbalist" = "Yrttikauppa";
+
+"type.shop.hifi" = "HiFi Audio";
 
 "type.shop.houseware" = "Taloustavarakauppa";
 
@@ -3348,6 +3368,8 @@
 
 "type.shop.motorcycle" = "Moottoripyöräliike";
 
+"type.shop.motorcycle_repair" = "Moottoripyörän korjaus";
+
 "type.shop.music" = "Kauppa";
 
 "type.shop.musical_instrument" = "Kauppa";
@@ -3358,11 +3380,15 @@
 
 "type.shop.outdoor" = "Ulkoiluvarusteet";
 
+"type.shop.outpost" = "Noutopiste";
+
 "type.shop.pastry" = "Leivonnainen";
 
 "type.shop.pawnbroker" = "Panttilainaamo";
 
 "type.shop.pet" = "Eläinkauppa";
+
+"type.shop.pet_grooming" = "Lemmikkieläinten hoito";
 
 "type.shop.photo" = "Valokuvakauppa";
 
@@ -3398,13 +3424,19 @@
 
 "type.shop.wine" = "Alkoholimyymälä";
 
+"type.shop.agrarian" = "Maatalouskauppa";
+
 "type.shop.antiques" = "Antiikkia";
+
+"type.shop.appliance" = "Kodinkoneet kauppa";
 
 "type.shop.art" = "Taidekauppa";
 
 "type.shop.baby_goods" = "Lasten kauppa";
 
 "type.shop.bag" = "Laukkukauppa";
+
+"type.shop.bed" = "Sänkykauppa";
 
 "type.shop.boutique" = "Boutique";
 

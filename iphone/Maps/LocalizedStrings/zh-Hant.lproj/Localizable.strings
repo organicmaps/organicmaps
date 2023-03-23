@@ -1660,6 +1660,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "空調設備";
 
+"type.craft.key_cutter" = "鍵切割";
+
+"type.craft.locksmith" = "鎖匠";
+
 "type.craft.metal_construction" = "鐵工";
 
 "type.craft.painter" = "油漆工";
@@ -3252,6 +3256,8 @@
 
 "type.shop.bakery" = "麵包店";
 
+"type.shop.bathroom_furnishing" = "衛浴擺設";
+
 "type.shop.beauty" = "美容院";
 
 "type.shop.beverages" = "飲料";
@@ -3264,6 +3270,8 @@
 
 "type.shop.butcher" = "肉商";
 
+"type.shop.cannabis" = "大麻商店";
+
 "type.shop.car" = "買車";
 
 "type.shop.car_parts" = "汽車零件";
@@ -3273,6 +3281,8 @@
 "type.shop.car_repair.tyres" = "輪胎修補";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "地毯";
 
 "type.shop.chemist" = "藥妝店";
 
@@ -3292,6 +3302,8 @@
 
 "type.shop.cosmetics" = "化妆品";
 
+"type.shop.curtain" = "窗簾";
+
 "type.shop.deli" = "熟食店";
 
 "type.shop.department_store" = "百貨公司";
@@ -3308,6 +3320,8 @@
 
 "type.shop.farm" = "農場食品店";
 
+"type.shop.fashion_accessories" = "時尚配飾";
+
 "type.shop.florist" = "花店";
 
 "type.shop.funeral_directors" = "葬儀社";
@@ -3315,6 +3329,8 @@
 "type.shop.furniture" = "家具店";
 
 "type.shop.garden_centre" = "園藝店";
+
+"type.shop.gas" = "煤氣庫";
 
 "type.shop.gift" = "禮品店";
 
@@ -3327,6 +3343,10 @@
 "type.shop.hardware" = "五金店";
 
 "type.shop.health_food" = "保健食品店";
+
+"type.shop.herbalist" = "香草店";
+
+"type.shop.hifi" = "高保真音響";
 
 "type.shop.houseware" = "家居用品店";
 
@@ -3348,6 +3368,8 @@
 
 "type.shop.motorcycle" = "機車行";
 
+"type.shop.motorcycle_repair" = "摩托車維修";
+
 "type.shop.music" = "購物";
 
 "type.shop.musical_instrument" = "購物";
@@ -3358,11 +3380,15 @@
 
 "type.shop.outdoor" = "室外設備";
 
+"type.shop.outpost" = "接送的地點";
+
 "type.shop.pastry" = "糕點";
 
 "type.shop.pawnbroker" = "當舖";
 
 "type.shop.pet" = "寵物店";
+
+"type.shop.pet_grooming" = "寵物美容";
 
 "type.shop.photo" = "照片店";
 
@@ -3398,13 +3424,19 @@
 
 "type.shop.wine" = "販酒處";
 
+"type.shop.agrarian" = "農產品店";
+
 "type.shop.antiques" = "古董";
+
+"type.shop.appliance" = "家電店";
 
 "type.shop.art" = "藝術商店";
 
 "type.shop.baby_goods" = "兒童商店";
 
 "type.shop.bag" = "箱包店";
+
+"type.shop.bed" = "床鋪";
 
 "type.shop.boutique" = "精品店";
 
