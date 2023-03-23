@@ -100,8 +100,8 @@ cs:Potraviny|Jídlo|Obchod
 da:Dagligvarer|Mad|Butik
 nl:Boodschappen|Kruidenierswinkels|Eten|Winkel
 fi:Elintarvikkeet|Ruoka|Kauppa
-fr:Les courses|Nourriture|Magasin
-de:6Lebensmittel|Essen|Geschäft|Laden
+fr:4Epiceries|Nourriture|Magasin
+de:4Lebensmittel|Essen|Geschäft|Laden
 hu:Élelmiszer|Ennivaló|Bolt|Üzlet
 id:Toserba|Makanan|Toko
 it:4Alimentari|Cibo|Negozio
