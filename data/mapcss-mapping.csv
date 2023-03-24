@@ -255,7 +255,7 @@ waterway|ditch|tunnel;[waterway=ditch][tunnel?];;name;int_name;254;
 deprecated|deprecated;255;x
 piste:type|downhill|intermediate;[piste:type=downhill][piste:difficulty=intermediate];;name;int_name;256;
 railway|subway_entrance;257;
-deprecated|deprecated;258;x
+amenity|charging_station|bicycle;[amenity=charging_station][bicycle?];;name;int_name;258;
 man_made|pipeline;[man_made=pipeline][!location];;name;int_name;259;
 route|ferry;260;
 highway|trunk_link|bridge;[highway=trunk_link][bridge?];;name;int_name;261;
