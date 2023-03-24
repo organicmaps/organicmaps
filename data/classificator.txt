@@ -43,6 +43,7 @@ world  +
         car_wash  -
         casino  -
         charging_station  +
+            bicycle  -
             motorcar  -
             {}
         childcare  -

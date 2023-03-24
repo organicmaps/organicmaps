@@ -255,7 +255,7 @@ landuse|forest|deciduous
 mapswithme
 *piste:type|downhill|intermediate
 *railway|subway_entrance
-mapswithme
+*amenity|charging_station|bicycle
 *man_made|pipeline
 *route|ferry
 *highway|trunk_link|bridge
