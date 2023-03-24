@@ -73,6 +73,7 @@ SUPPORTED_LOCALIZATIONS="supportedLocalizations="$(sed -nEe "s/ +([a-zA-Z]{2}(-[
 # Chinese locales should correspond to Android codes.
 SUPPORTED_LOCALIZATIONS=${SUPPORTED_LOCALIZATIONS/zh_Hans/zh}
 SUPPORTED_LOCALIZATIONS=${SUPPORTED_LOCALIZATIONS/zh_Hant/zh_HK,zh_MO,zh_TW}
+SUPPORTED_LOCALIZATIONS=${SUPPORTED_LOCALIZATIONS/he/iw}
 GRADLE_PROPERTIES="$OMIM_PATH/android/gradle.properties"
 if [ "$SUPPORTED_LOCALIZATIONS" != "$(grep supportedLocalizations "$GRADLE_PROPERTIES")" ]; then
   sed -i .bak 's/supportedLocalizations.*/'"$SUPPORTED_LOCALIZATIONS"'/' "$GRADLE_PROPERTIES"
