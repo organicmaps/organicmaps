@@ -200,6 +200,9 @@ node|z9-11[place=city][capital!=2]::int_name,
 node|z12-[place=city][capital!=2][population<40000]::int_name
 {text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 1;text-halo-color: @label_halo_light;}
 
+node|z4-[place=city][capital=2][population>=0],
+{text-optional: false;}
+
 node|z4[place=city][capital!=2][population>=1000000],
 {font-size: 9;text-halo-opacity: 0.7;}
 node|z4[place=city][capital!=2][population>=1000000]::int_name
