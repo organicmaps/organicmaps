@@ -819,10 +819,10 @@ area|z17-[amenity=parcel_locker],
 
 node|z17-[amenity=post_office],
 area|z17-[amenity=post_office],
-{icon-image: mail-m.svg;text-optional: true;}
+{icon-image: mail-m.svg;}
 node|z18-[amenity=post_office],
 area|z18-[amenity=post_office],
-{font-size: 11;text-optional: true;}
+{font-size: 11;}
 
 /* 6. SHOP */
 
