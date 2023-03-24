@@ -142,17 +142,6 @@
                                     <variation key="heightClass=compact" constant="16"/>
                                 </constraint>
                             </constraints>
-                            <variation key="default">
-                                <mask key="subviews">
-                                    <exclude reference="15Q-ZN-NzE"/>
-                                </mask>
-                                <mask key="constraints">
-                                    <exclude reference="D1r-cA-jTR"/>
-                                    <exclude reference="WHK-N0-dCc"/>
-                                    <exclude reference="Wve-9m-8zL"/>
-                                    <exclude reference="my7-I5-Qu3"/>
-                                </mask>
-                            </variation>
                         </view>
                     </subviews>
                     <color key="backgroundColor" red="0.12156862745098039" green="0.59999999999999998" blue="0.32156862745098036" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

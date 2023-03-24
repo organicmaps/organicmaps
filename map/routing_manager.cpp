@@ -481,7 +481,8 @@ RouterType RoutingManager::GetLastUsedRouter() const
   {
   case RouterType::Pedestrian:
   case RouterType::Bicycle:
-  case RouterType::Transit: return routerType;
+  case RouterType::Transit:
+  case RouterType::Helicopter: return routerType;
   default: return RouterType::Vehicle;
   }
 }

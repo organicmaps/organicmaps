@@ -55,6 +55,7 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
   switch ([self type]) {
     case MWMRouterTypeVehicle:
     case MWMRouterTypePublicTransport:
+    case MWMRouterTypeHelicopter:
       return NO;
     case MWMRouterTypePedestrian:
     case MWMRouterTypeBicycle:
