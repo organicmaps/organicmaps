@@ -6749,7 +6749,7 @@
     fr = Services Google Play
     hi = Google Play सेवाएं
     hu = Google Play-szolgáltatások
-    in = Layanan Google Play
+    id = Layanan Google Play
     ja = Google Play 開発者サービス
     ko = Google Play 서비스
     mr = Google Play सेवा

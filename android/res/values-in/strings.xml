@@ -264,6 +264,8 @@
 	<string name="downloader_delete_map">Hapus Peta</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Perbarui Peta</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Layanan Google Play</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Gunakan Layanan Google Play untuk mendapatkan lokasi Anda saat ini</string>
 	<!-- Text for routing error dialog -->
