@@ -17,7 +17,8 @@ function BuildDrawingRules() {
   # Run script to build style
   python3 "$OMIM_PATH/tools/kothic/src/libkomwm.py" --txt \
     -s "$DATA_PATH/styles/$styleType/style-$styleName/style.mapcss" \
-    -o "$DATA_PATH/drules_proto$suffix"
+    -o "$DATA_PATH/drules_proto$suffix" \
+    -p "$DATA_PATH/styles/$styleType/include/"
 }
 
 # Cleanup
