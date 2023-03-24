@@ -232,6 +232,9 @@ node|z4[place=city][capital!=2][population>=1000000],
 node|z4[place=city][capital!=2][population>=1000000]::int_name
 {font-size: 8;text-halo-opacity: 0.7;}
 
+node|z4-[place=city][capital=2][population>=0],
+{text-optional: false;}
+
 node|z4[place=city][capital=2][population>=0],
 {icon-image: star-s.svg;text-offset: 1;font-size: 10;}
 node|z4[place=city][capital=2][population>=0]::int_name
