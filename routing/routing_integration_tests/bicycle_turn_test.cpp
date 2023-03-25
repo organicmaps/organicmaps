@@ -199,7 +199,7 @@ UNIT_TEST(TurnsNearAltufievskoeShosseLongFakeSegmentTest)
   integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnSlightLeft);
   integration::GetNthTurn(route, 4).TestValid().TestDirection(CarDirection::TurnLeft);
 
-  integration::TestRouteLength(route, 273.384);
+  integration::TestRouteLength(route, 268.783);
 }
 
 UNIT_TEST(TurnsNearMoscowRiverShortFakeSegmentTest)
