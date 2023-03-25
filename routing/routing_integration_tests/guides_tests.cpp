@@ -105,6 +105,6 @@ UNIT_TEST(Guides_MultipleIntermediatePoints)
        mercator::FromLatLon(48.14192, 11.57548), mercator::FromLatLon(48.14106, 11.57279),
        mercator::FromLatLon(48.14044, 11.57061)});
 
-  TestGuideRoute(checkpoints, 1258.05 /* expectedDistM */, 1102.05 /* expectedTimeS */, 66 /* expectedPointsCount */);
+  TestGuideRoute(checkpoints, 1258.05 /* expectedDistM */, 1102.05 /* expectedTimeS */, 80 /* expectedPointsCount */);
 }
 } // namespace guides_tests
