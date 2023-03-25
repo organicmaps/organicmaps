@@ -127,7 +127,7 @@ final class BaseRoutePreviewStatus: SolidTouchView {
                                     completion: { image, totalAscent, totalDescent in
                                     self.heightProfileImage.image = image
                                     if let totalAscent = totalAscent, let totalDescent = totalDescent {                                      
-                                      self.elevation = NSAttributedString(string: "▲ \(totalAscent) ▼ \(totalDescent)", attributes: BaseRoutePreviewStatus.elevationAttributes)
+                                      self.elevation = NSAttributedString(string: "↗ \(totalAscent) ↘ \(totalDescent)", attributes: BaseRoutePreviewStatus.elevationAttributes)
                                     }
       })
     } else {
