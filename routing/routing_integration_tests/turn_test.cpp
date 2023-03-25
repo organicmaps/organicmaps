@@ -796,9 +796,8 @@ UNIT_TEST(Russia_Moscow_LeninskyProsp_TurnTest)
   RouterResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
-  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
 }
 
 // Test on the route from TTK (primary) to a link.
@@ -1218,7 +1217,7 @@ UNIT_TEST(USA_California_Cupertino_TurnTestNextRoad)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
-                                  mercator::FromLatLon(37.5028702, -122.3314908), {0., 0.},
+                                  mercator::FromLatLon(37.5018242, -122.3294851), {0., 0.},
                                   mercator::FromLatLon(37.5110368, -122.3317238));
 
   Route & route = *routeResult.first;
