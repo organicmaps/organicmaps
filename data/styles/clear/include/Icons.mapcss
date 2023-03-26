@@ -2212,10 +2212,19 @@ node|z16-[man_made=survey_point]
 
 /* 6. SHOP */
 
-node|z16-[amenity=marketplace],
-area|z16-[amenity=marketplace],
 node|z15-[highway=services],
 area|z15-[highway=services],
+{text: name; text-color: @poi_label; text-offset: 1; font-size: 10; text-position: center;}
+
+node|z15[highway=services],
+area|z15[highway=services],
+{icon-image: car-repair-s.svg; icon-min-distance: 20;}
+node|z16-[highway=services],
+area|z16-[highway=services],
+{icon-image: car-repair-m.svg;}
+
+node|z16-[amenity=marketplace],
+area|z16-[amenity=marketplace],
 {text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
 
 node|z16[amenity=marketplace],
@@ -2379,6 +2388,12 @@ area|z14[shop=mall],
 node|z15-[shop=mall],
 area|z15-[shop=mall],
 {icon-image: shop-m.svg;font-size: 11;icon-min-distance: 16;}
+node|z15[shop=car_repair][service=tyres],
+area|z15[shop=car_repair][service=tyres],
+{icon-image: car-repair-s.svg; text-offset: 1; icon-min-distance: 20;}
+node|z16-[shop=car_repair][service=tyres],
+area|z16-[shop=car_repair][service=tyres],
+{icon-image: car-repair-m.svg;}
 node|z17-[shop=mall],
 area|z17-[shop=mall],
 {font-size: 11;icon-min-distance: 8;}
@@ -2389,17 +2404,6 @@ area|z16[shop=supermarket],
 node|z17-[shop=supermarket],
 area|z17-[shop=supermarket],
 {icon-image: grocery-m.svg;font-size: 11;icon-min-distance: 8;}
-
-node|z15[shop=car_repair][service=tyres],
-area|z15[shop=car_repair][service=tyres],
-node|z15[highway=services],
-area|z15[highway=services]
-{icon-image: car-repair-s.svg;text-offset: 1;-x-me-text-priority:15500;icon-min-distance: 20;}
-node|z16-[shop=car_repair][service=tyres],
-area|z16-[shop=car_repair][service=tyres],
-node|z16-[highway=services],
-area|z16-[highway=services]
-{icon-image: car-repair-m.svg;-x-me-text-priority:15500;}
 
 node|z16[shop=alcohol],
 area|z16[shop=alcohol]
