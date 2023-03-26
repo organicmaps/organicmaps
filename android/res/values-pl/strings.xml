@@ -762,7 +762,8 @@
 	<string name="type.amenity.car_wash">Myjnia samochodowa</string>
 	<string name="type.amenity.casino">Kasyno</string>
 	<string name="type.amenity.charging_station">Stacja ładowania</string>
-	<string name="type.amenity.charging_station.motorcar">Stacja ładowania</string>
+	<string name="type.amenity.charging_station.bicycle">Stacja ładowania rowerów</string>
+	<string name="type.amenity.charging_station.motorcar">Stacja ładowania samochodów</string>
 	<string name="type.amenity.childcare">Opieka nad dziećmi</string>
 	<string name="type.amenity.cinema">Kino</string>
 	<string name="type.leisure.bowling_alley">Kręgielnia</string>

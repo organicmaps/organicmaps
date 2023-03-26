@@ -712,7 +712,8 @@
 	<string name="type.amenity.car_wash">洗車場</string>
 	<string name="type.amenity.casino">カジノ</string>
 	<string name="type.amenity.charging_station">充電ステーション</string>
-	<string name="type.amenity.charging_station.motorcar">充電ステーション</string>
+	<string name="type.amenity.charging_station.bicycle">自転車充電ステーション</string>
+	<string name="type.amenity.charging_station.motorcar">自動車充電ステーション</string>
 	<string name="type.amenity.childcare">託児所</string>
 	<string name="type.amenity.cinema">映画館</string>
 	<string name="type.leisure.bowling_alley">ボーリング場</string>

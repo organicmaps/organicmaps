@@ -702,7 +702,8 @@
 	<string name="type.amenity.car_wash">Καθαρισμός αυτοκινήτων</string>
 	<string name="type.amenity.casino">Καζίνο</string>
 	<string name="type.amenity.charging_station">Σταθμός φόρτισης</string>
-	<string name="type.amenity.charging_station.motorcar">Σταθμός φόρτισης</string>
+	<string name="type.amenity.charging_station.bicycle">Σταθμός φόρτισης ποδηλάτων</string>
+	<string name="type.amenity.charging_station.motorcar">Σταθμός φόρτισης αυτοκινήτων</string>
 	<string name="type.amenity.childcare">Βρεφικός σταθμός</string>
 	<string name="type.amenity.cinema">Κινηματογράφος</string>
 	<string name="type.leisure.bowling_alley">Αίθουσα σφαιρίσεως</string>

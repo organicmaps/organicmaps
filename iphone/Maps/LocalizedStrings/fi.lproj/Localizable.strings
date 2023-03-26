@@ -1314,7 +1314,9 @@
 
 "type.amenity.charging_station" = "Latausasema";
 
-"type.amenity.charging_station.motorcar" = "Latausasema";
+"type.amenity.charging_station.bicycle" = "Polkupyörän latausasema";
+
+"type.amenity.charging_station.motorcar" = "Auton latausasema";
 
 "type.amenity.childcare" = "Päivähoito";
 

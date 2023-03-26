@@ -754,7 +754,8 @@
 	<string name="type.amenity.car_wash">Autopesula</string>
 	<string name="type.amenity.casino">Kasiino</string>
 	<string name="type.amenity.charging_station">Laadimisjaam</string>
-	<string name="type.amenity.charging_station.motorcar">Laadimisjaam</string>
+	<string name="type.amenity.charging_station.bicycle">Jalgratta laadimisjaam</string>
+	<string name="type.amenity.charging_station.motorcar">Autode laadimisjaam</string>
 	<string name="type.amenity.childcare">Lasteaed</string>
 	<string name="type.amenity.cinema">Kino</string>
 	<string name="type.leisure.bowling_alley">Bowlingusaal</string>

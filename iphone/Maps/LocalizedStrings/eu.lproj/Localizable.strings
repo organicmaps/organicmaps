@@ -1314,7 +1314,9 @@
 
 "type.amenity.charging_station" = "Kargatzeko geltokia";
 
-"type.amenity.charging_station.motorcar" = "Kargatzeko geltokia";
+"type.amenity.charging_station.bicycle" = "Bizikletak kargatzeko geltokia";
+
+"type.amenity.charging_station.motorcar" = "Autoak kargatzeko geltokia";
 
 "type.amenity.childcare" = "Haurtzaindegia";
 

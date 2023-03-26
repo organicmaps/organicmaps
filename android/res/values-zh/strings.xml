@@ -725,7 +725,8 @@
 	<string name="type.amenity.car_wash">洗车</string>
 	<string name="type.amenity.casino">赌场</string>
 	<string name="type.amenity.charging_station">充电站</string>
-	<string name="type.amenity.charging_station.motorcar">充电站</string>
+	<string name="type.amenity.charging_station.bicycle">自行车充电站</string>
+	<string name="type.amenity.charging_station.motorcar">汽车充电站</string>
 	<string name="type.amenity.childcare">托儿所</string>
 	<string name="type.amenity.cinema">电影院</string>
 	<string name="type.leisure.bowling_alley">保龄球馆</string>

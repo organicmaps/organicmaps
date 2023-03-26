@@ -1314,7 +1314,9 @@
 
 "type.amenity.charging_station" = "Σταθμός φόρτισης";
 
-"type.amenity.charging_station.motorcar" = "Σταθμός φόρτισης";
+"type.amenity.charging_station.bicycle" = "Σταθμός φόρτισης ποδηλάτων";
+
+"type.amenity.charging_station.motorcar" = "Σταθμός φόρτισης αυτοκινήτων";
 
 "type.amenity.childcare" = "Βρεφικός σταθμός";
 

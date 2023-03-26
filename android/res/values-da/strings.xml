@@ -703,7 +703,8 @@
 	<string name="type.amenity.car_wash">Bilvask</string>
 	<string name="type.amenity.casino">Kasino</string>
 	<string name="type.amenity.charging_station">Ladestation</string>
-	<string name="type.amenity.charging_station.motorcar">Ladestation</string>
+	<string name="type.amenity.charging_station.bicycle">Cykel ladestation</string>
+	<string name="type.amenity.charging_station.motorcar">Ladestation for biler</string>
 	<string name="type.amenity.childcare">Vuggestue</string>
 	<string name="type.amenity.cinema">Biograf</string>
 	<string name="type.leisure.bowling_alley">Bowling bane</string>

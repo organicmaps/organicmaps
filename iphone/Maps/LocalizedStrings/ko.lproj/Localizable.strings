@@ -1314,7 +1314,9 @@
 
 "type.amenity.charging_station" = "충전 역";
 
-"type.amenity.charging_station.motorcar" = "충전 역";
+"type.amenity.charging_station.bicycle" = "자전거 충전소";
+
+"type.amenity.charging_station.motorcar" = "자동차 충전소";
 
 "type.amenity.childcare" = "보육";
 

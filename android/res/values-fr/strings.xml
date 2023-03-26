@@ -763,7 +763,8 @@
 	<string name="type.amenity.car_wash">Station de lavage</string>
 	<string name="type.amenity.casino">Casino</string>
 	<string name="type.amenity.charging_station">Borne de recharge</string>
-	<string name="type.amenity.charging_station.motorcar">Borne de recharge</string>
+	<string name="type.amenity.charging_station.bicycle">Borne de recharge pour vélo</string>
+	<string name="type.amenity.charging_station.motorcar">Borne de recharge pour voiture</string>
 	<string name="type.amenity.childcare">Garderie</string>
 	<string name="type.amenity.cinema">Cinéma</string>
 	<string name="type.leisure.bowling_alley">Salle de bowling</string>

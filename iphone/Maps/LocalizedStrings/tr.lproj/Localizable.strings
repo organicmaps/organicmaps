@@ -1314,7 +1314,9 @@
 
 "type.amenity.charging_station" = "Şarj İstasyonu";
 
-"type.amenity.charging_station.motorcar" = "Şarj İstasyonu";
+"type.amenity.charging_station.bicycle" = "Bisiklet Şarj İstasyonu";
+
+"type.amenity.charging_station.motorcar" = "Otomobil Şarj İstasyonu";
 
 "type.amenity.childcare" = "Kreş";
 

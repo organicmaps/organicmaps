@@ -1314,7 +1314,9 @@
 
 "type.amenity.charging_station" = "Зарядна станція";
 
-"type.amenity.charging_station.motorcar" = "Зарядна станція";
+"type.amenity.charging_station.bicycle" = "Велосипедна зарядна станція";
+
+"type.amenity.charging_station.motorcar" = "Автомобільна зарядна станція";
 
 "type.amenity.childcare" = "Дитяча кімната";
 

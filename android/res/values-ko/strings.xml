@@ -702,7 +702,8 @@
 	<string name="type.amenity.car_wash">세차</string>
 	<string name="type.amenity.casino">카지노</string>
 	<string name="type.amenity.charging_station">충전 역</string>
-	<string name="type.amenity.charging_station.motorcar">충전 역</string>
+	<string name="type.amenity.charging_station.bicycle">자전거 충전소</string>
+	<string name="type.amenity.charging_station.motorcar">자동차 충전소</string>
 	<string name="type.amenity.childcare">보육</string>
 	<string name="type.amenity.cinema">영화관</string>
 	<string name="type.leisure.bowling_alley">볼링장</string>

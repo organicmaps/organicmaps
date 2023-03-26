@@ -753,7 +753,8 @@
 	<string name="type.amenity.car_wash">مغسلة سيارات</string>
 	<string name="type.amenity.casino">كازينو</string>
 	<string name="type.amenity.charging_station">محطة شحن</string>
-	<string name="type.amenity.charging_station.motorcar">محطة شحن</string>
+	<string name="type.amenity.charging_station.bicycle">محطة شحن الدراجات</string>
+	<string name="type.amenity.charging_station.motorcar">محطة شحن Motorcar</string>
 	<string name="type.amenity.childcare">حضانة</string>
 	<string name="type.amenity.cinema">سينما</string>
 	<string name="type.leisure.bowling_alley">صالة بولينج</string>
