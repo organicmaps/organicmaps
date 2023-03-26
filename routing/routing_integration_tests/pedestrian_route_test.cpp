@@ -663,3 +663,23 @@ UNIT_TEST(Italy_Rome_Altitude_Footway)
       mercator::FromLatLon(41.899384, 12.4980887), {0., 0.},
       mercator::FromLatLon(41.9007759, 12.4994956), 203.861);
 }
+
+UNIT_TEST(Romania_Mountains_ETA)
+{
+  using namespace integration;
+  using mercator::FromLatLon;
+
+  TRouteResult const routeResult = CalculateRoute(GetVehicleComponents(VehicleType::Pedestrian),
+      FromLatLon(45.5450, 25.2584), {0., 0.},
+      FromLatLon(45.5223, 25.2806));
+
+  TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
+  TEST(routeResult.first, ());
+  Route const & route = *routeResult.first;
+
+  /// @todo Current Tobler’s Hiking function works bad here.
+
+  TestRouteLength(route, 4671.33);
+  route.GetTotalTimeSec();
+  TEST_LESS(route.GetTotalTimeSec(), 2 * 3600, ());
+}
