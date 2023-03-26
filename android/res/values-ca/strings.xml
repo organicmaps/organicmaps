@@ -720,11 +720,15 @@
 	<string name="splash_subtitle">Dades del mapa de l\'OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.amenity.charging_station.bicycle">Estació de recàrrega de bicicletes</string>
+	<string name="type.amenity.charging_station.motorcar">Estació de recàrrega de cotxes</string>
 	<string name="type.leisure.bowling_alley">Bolera</string>
 	<string name="type.amenity.money_transfer">Transferència de diners</string>
 	<string name="type.amenity.loading_dock">Moll de càrrega</string>
 
 	<!-- SECTION: Types: Recycling -->
+	<string name="type.craft.key_cutter">Tall de claus</string>
+	<string name="type.craft.locksmith">Serraller</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Entrada principal</string>
 
@@ -743,4 +747,18 @@
 	<string name="type.power.plant.hydro">Central hidroelèctrica</string>
 	<string name="type.power.plant.solar">Central d\'energia solar</string>
 	<string name="type.power.plant.wind">Central eòlica</string>
+	<string name="type.shop.bathroom_furnishing">Mobles de bany</string>
+	<string name="type.shop.cannabis">Botiga de cànnabis</string>
+	<string name="type.shop.carpet">Catifes</string>
+	<string name="type.shop.curtain">Cortines</string>
+	<string name="type.shop.fashion_accessories">Complements de moda</string>
+	<string name="type.shop.gas">Botiga de gas</string>
+	<string name="type.shop.herbalist">Botiga d\'herbes</string>
+	<string name="type.shop.hifi">Àudio HiFi</string>
+	<string name="type.shop.motorcycle_repair">Reparació de motos</string>
+	<string name="type.shop.outpost">Punt de recollida</string>
+	<string name="type.shop.pet_grooming">Peluca de mascotes</string>
+	<string name="type.shop.agrarian">Botiga agrícola</string>
+	<string name="type.shop.appliance">Botiga d\'electrodomèstics</string>
+	<string name="type.shop.bed">Botiga de llits</string>
 </resources>

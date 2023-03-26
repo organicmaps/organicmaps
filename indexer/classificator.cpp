@@ -51,11 +51,11 @@ ClassifObject * ClassifObject::Find(string const & s)
 
 void ClassifObject::AddDrawRule(drule::Key const & k)
 {
-  auto i = lower_bound(m_drawRule.begin(), m_drawRule.end(), k.m_scale, less_scales());
-  for (; i != m_drawRule.end() && i->m_scale == k.m_scale; ++i)
+  auto i = lower_bound(m_drawRules.begin(), m_drawRules.end(), k.m_scale, less_scales());
+  for (; i != m_drawRules.end() && i->m_scale == k.m_scale; ++i)
     if (k == *i)
       return; // already exists
-  m_drawRule.insert(i, k);
+  m_drawRules.insert(i, k);
 }
 
 ClassifObjectPtr ClassifObject::BinaryFind(std::string_view const s) const
@@ -84,7 +84,7 @@ void ClassifObject::LoadPolicy::EndChilds()
 
 void ClassifObject::Sort()
 {
-  sort(m_drawRule.begin(), m_drawRule.end(), less_scales());
+  sort(m_drawRules.begin(), m_drawRules.end(), less_scales());
   sort(m_objs.begin(), m_objs.end(), LessName());
   for (auto & obj : m_objs)
     obj.Sort();
@@ -93,7 +93,7 @@ void ClassifObject::Sort()
 void ClassifObject::Swap(ClassifObject & r)
 {
   swap(m_name, r.m_name);
-  swap(m_drawRule, r.m_drawRule);
+  swap(m_drawRules, r.m_drawRules);
   swap(m_objs, r.m_objs);
   swap(m_visibility, r.m_visibility);
 }
@@ -237,6 +237,7 @@ namespace
     void add_rule(int ft, iter_t i)
     {
       static const int visible[3][drule::count_of_rules] = {
+        //{ line, area, symbol, caption, circle, pathtext, waymarker, shield }
         { 0, 0, 1, 1, 1, 0, 0, 0 },   // fpoint
         { 1, 0, 0, 0, 0, 1, 0, 1 },   // fline
         { 1, 1, 1, 1, 1, 0, 0, 0 }    // farea
@@ -270,7 +271,7 @@ void ClassifObject::GetSuitable(int scale, feature::GeomType gt, drule::KeysT & 
     return;
 
   // find rules for 'scale'
-  suitable_getter rulesGetter(m_drawRule, keys);
+  suitable_getter rulesGetter(m_drawRules, keys);
   rulesGetter.find(static_cast<int>(gt), scale);
 }
 
@@ -281,7 +282,7 @@ bool ClassifObject::IsDrawable(int scale) const
 
 bool ClassifObject::IsDrawableAny() const
 {
-  return (m_visibility != VisibleMask() && !m_drawRule.empty());
+  return (m_visibility != VisibleMask() && !m_drawRules.empty());
 }
 
 bool ClassifObject::IsDrawableLike(feature::GeomType gt, bool emptyName) const
@@ -293,12 +294,13 @@ bool ClassifObject::IsDrawableLike(feature::GeomType gt, bool emptyName) const
     return false;
 
   static const int visible[3][drule::count_of_rules] = {
+    //{ line, area, symbol, caption, circle, pathtext, waymarker, shield }
     {0, 0, 1, 1, 1, 0, 0, 0},   // fpoint
     {1, 0, 0, 0, 0, 1, 0, 1},   // fline
     {0, 1, 0, 0, 0, 0, 0, 0}    // farea (!!! key difference with GetSuitable !!!)
   };
 
-  for (auto const & k : m_drawRule)
+  for (auto const & k : m_drawRules)
   {
     ASSERT_LESS(k.m_type, drule::count_of_rules, ());
 

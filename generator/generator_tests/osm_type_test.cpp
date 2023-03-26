@@ -1553,6 +1553,35 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_MilitaryDanger)
   }
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_ChargingStation)
+{
+  {
+    Tags const tags = {
+      {"amenity", "charging_station"},
+      {"motorcar", "no"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "charging_station"})), (params));
+  }
+
+  {
+    Tags const tags = {
+      {"amenity", "charging_station"},
+      {"bicycle", "yes"},
+      {"motorcar", "yes"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "charging_station", "bicycle"})), (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "charging_station", "motorcar"})), (params));
+  }
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
 {
   Tags const oneTypes = {
@@ -2077,6 +2106,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"shop", "photo"},
     {"shop", "seafood"},
     {"shop", "second_hand"},
+    {"shop", "sewing"},
     {"shop", "shoes"},
     {"shop", "sports"},
     {"shop", "stationery"},

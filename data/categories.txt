@@ -100,8 +100,8 @@ cs:Potraviny|Jídlo|Obchod
 da:Dagligvarer|Mad|Butik
 nl:Boodschappen|Kruidenierswinkels|Eten|Winkel
 fi:Elintarvikkeet|Ruoka|Kauppa
-fr:Les courses|Nourriture|Magasin
-de:6Lebensmittel|Essen|Geschäft|Laden
+fr:4Epiceries|Nourriture|Magasin
+de:4Lebensmittel|Essen|Geschäft|Laden
 hu:Élelmiszer|Ennivaló|Bolt|Üzlet
 id:Toserba|Makanan|Toko
 it:4Alimentari|Cibo|Negozio
@@ -110,7 +110,7 @@ ko:식료품들|음식|쇼핑
 mr:किराणा|मंडई|ग्रोसरी
 nb:Dagligvarer|Mat|Butikk
 pl:Produkty|Jedzenie|Sklep
-pt:Mercearias|Minimercados|Supermercados|Hipermercados|Comida|Alimentos|Loja
+pt:Mercearias|Comida|Alimentos|Loja
 pt-BR:Mercados|Alimentação|Loja
 ro:4Alimentare|Produse|Alimentație|Mâncare|Magazin
 es:Alimentación|Productos|Comer|Tienda
@@ -1001,6 +1001,9 @@ uk:4Магазин|Крамниця
 zh-Hans:商店
 zh-Hant:1購物|店鋪|商店|雜貨店|便利商店
 
+shop-cannabis
+en:Cannabis
+
 shop-cosmetics|@shopping
 en:4Cosmetics|4Beauty Care|makeup|U+1F3EC|U+1F3EA
 ru:4Косметика
@@ -1041,9 +1044,9 @@ sw:Vipodozi
 fa:لوازم ارایشی بهداشتی
 
 shop-convenience|@food
-en:4Convenience Store|U+1F3EC|U+1F3EA|grocer|grocery store|supermarket|food store|food market
-ru:4Продуктовый магазин|продуктовая лавка|универмаг|универсам|гастроном|продмаг|супермаркет
-bg:4Магазин|4Продукти|супермаркет|хранителен магазин|пазар|лавка|Магазинче|пазарче
+en:4Convenience Store|U+1F3EC|U+1F3EA|grocer|grocery store|mini-mart|mini-market|food store|food market|corner store|superette
+ru:4Продуктовый магазин|продуктовая лавка|4гастроном|мини-маркет
+bg:4Магазин|4Продукти|хранителен магазин|пазар|лавка|Магазинче|пазарче
 ar:متجر صغير
 cs:Smíšené zboží|koloniál
 da:Døgnbutik|døgnkiosk|kiosk
@@ -1059,9 +1062,9 @@ ko:편의점|식료품점
 mr:किराणा|किरकोळ सामान|किराना|भाजी|बाजार|मार्केट|मंडई|सुपरमार्केट
 nb:Nærbutikk|nærbutikk
 pl:Sklep spożywczy
-pt:Loja de conveniência
+pt:Loja de conveniência|Minimercado
 pt-BR:Loja de conveniência|4mercadinho|compras
-ro:4Magazin mixt|minimarket|supermarket|magazin
+ro:4Magazin mixt|minimarket|magazin
 es:Tienda de barrio
 et:Lähipood
 eu:Auzoko denda
@@ -1759,7 +1762,7 @@ fa:فروشگاه لوازم ورزشی
 
 shop-supermarket|@food
 en:3Supermarket|U+1F3EA|U+1F3EC
-ru:3Супермаркет|3универсам|3гипермаркет
+ru:3Супермаркет|3универсам|3гипермаркет|4гастроном
 bg:3Супермаркет|Хипермаркет|Мегамаркет|Пазар
 ar:سوبر ماركت|بقالة|متجر
 cs:3Supermarket
@@ -9754,6 +9757,46 @@ vi:Nhà kim khí
 zh-Hans:金属制造工
 zh-Hant:鐵工
 
+craft-locksmith
+en:Locksmith
+ar:قفال
+be:Слесар
+bg:Ключар
+ca:Serraller
+cs:Zámečník
+da:Låsesmed
+de:Schlosser
+el:Κλειδαράς
+es:Cerrajero
+et:Lukksepp
+eu:Sarrailagilea
+fa:قفل ساز
+fi:Lukkoseppä
+fr:Serrurier
+he:פורץ מנעולים
+hu:Lakatos
+id:Tukang kunci
+it:Fabbro
+ja:錠前屋
+ko:자물쇠 제조공
+mr:लॉकस्मिथ
+nb:Låsesmed
+nl:Slotenmaker
+pl:Ślusarz
+pt:Serralheiro
+pt-BR:Serralheiro
+ro:Lăcătuș
+ru:Слесарь
+sk:Zámočník
+sv:Låssmed
+sw:Fundi wa kufuli
+th:ช่างกุญแจ
+tr:Çilingir
+uk:Слюсар
+vi:Thợ khóa
+zh-Hans:锁匠
+zh-Hant:鎖匠
+
 craft-painter
 en:Painter
 ar:رسام
@@ -10662,16 +10705,17 @@ sk:4Veterinár
 fa:دامپزشکی
 mr:पशुवैद्यकीय डॉक्टर|प्राण्यांचा डॉक्टर
 
-amenity-charging_station
+@charging_station
 en:4Charging Station|charging
-ru:4Зарядная станция|станция зарядки|зарядка
-bg:4Зарядна станция|зареждане|електричество|електромобил
+ru:4Зарядная станция|зарядка|электрозарядка|зарядить
+be:4Зарадная станцыя|зарадка|электразарадка|зарадзіць
+bg:4Зарядна станция|зареждане
 ar:محطة شحن|شحن
 cs:Nabíjecí stanice|nabíjení
 da:Ladestation|opladning
 nl:Oplaadstation|opladen
 fi:Latausasema|lataus
-fr:3Borne de recharge|4station de recharge|4voiture électrique|recharge
+fr:Borne de recharge|station de recharge|4voiture électrique|4recharge
 de:4Ladestation|aufladen
 hu:Töltőállomás|töltés
 id:Pusat Pengisian Daya|pengisian daya
@@ -10680,7 +10724,7 @@ ja:充電ステーション|充電
 ko:충전 역|전기 자동차 충전소|전기차 충전소
 nb:Ladestasjon|lading
 pl:Stacja ładowania|ładowanie
-pt:Posto de carregamento elétrico|Estação de carregamento elétrico|3Ponto de carregamento elétrico|carregamento elétrico
+pt:Posto de carregamento elétrico|Estação de carregamento elétrico|Ponto de carregamento elétrico|4carregamento elétrico
 pt-BR:Eletroposto|recarga|abastecimento
 ro:Stație încărcare|încărcare
 es:Estación de carga
@@ -10689,7 +10733,7 @@ eu:Kargatzeko geltokia
 sv:Laddstation|laddning
 th:สถานีชาร์จ|ชาร์จ
 tr:Şarj İstasyonu|şarj etme
-uk:4Зарядна станція
+uk:4Зарядна станція|зарядка|електрозарядка|зарядити
 vi:Trạm Sạc điện|sạc điện
 zh-Hans:充电站|充电
 zh-Hant:充電站|充電
@@ -10697,6 +10741,16 @@ el:Σταθμός φόρτισης|φόρτιση
 sk:Dobíjacia stanica|dobíjanie
 fa:ایستگاه شارژ
 mr:चार्जिंग स्टेशन|प्रभाराक केंद्र
+
+amenity-charging_station|@charging_station
+
+amenity-charging_station-bicycle|@charging_station
+en:4Bicycle Charging
+ru:4Велозарядка
+
+amenity-charging_station-motorcar|@charging_station
+en:4Motorcar Charging
+ru:4Автозарядка
 
 amenity-childcare
 en:Nursery|4Child Care|childcare
@@ -13331,6 +13385,46 @@ zh-Hant:機車行
 fa:فروشگاه موتورسیکلت
 mr:दुचाकी विक्रेता|मोटरसायकलचे दुकान
 
+shop-motorcycle_repair
+en:4Motorcycle Repair
+ar:تصليح الدراجات النارية
+be:Рамонт матацыклаў
+bg:Ремонт на мотоциклети
+ca:Reparació de motos
+cs:Opravy motocyklů
+da:Motorcykel reparation
+de:Motorradwerkstatt
+el:Επισκευή μοτοσυκλετών
+es:Reparación de motos
+et:Mootorrataste remont
+eu:Motoen Konponketa
+fa:تعمیر موتور سیکلت
+fi:Moottoripyörän korjaus
+fr:Réparateur de moto
+he:תיקון אופנועים
+hu:Motorkerékpár javítás
+id:Bengkel Sepeda Motor
+it:Riparazione moto
+ja:オートバイの修理
+ko:오토바이 수리
+mr:मोटरसायकल दुरुस्ती
+nb:Motorsykkel reparasjon
+nl:Motorfiets Reparatie
+pl:Naprawa motocykli
+pt:Oficina de motos
+pt-BR:Oficina de motos
+ro:Reparatie motociclete
+ru:Ремонт мотоциклов
+sk:Oprava motocyklov
+sv:Motorcykel reparation
+sw:Ukarabati wa Pikipiki
+th:ซ่อมรถจักรยานยนต์
+tr:Motosiklet Tamiri
+uk:Ремонт мотоциклів
+vi:Sửa chữa xe máy
+zh-Hans:摩托车维修
+zh-Hant:摩托車維修
+
 shop-newsagent
 en:Newspaper Stand|4newspapers
 ru:Газетный киоск|3газеты
@@ -14574,7 +14668,7 @@ zh-Hans:香水
 zh-Hant:香水
 
 shop-sewing
-en:Sewing Supplies
+en:3Sewing Supplies|4Haberdashery
 ar:ﺔﻃﺎﻴﺨﻟﺍ ﺕﺍﺪﻌﻣ
 be:Швейныя прыналежнасці
 bg:Шивашки консумативи
@@ -14816,7 +14910,7 @@ pt-BR:Pista para esportes não motorizados
 ru:Беговая дорожка
 tr:Pist
 uk:Бігова доріжка
-zh-Hans = 賽道
+zh-Hans:賽道
 
 power-plant
 en:Power Plant

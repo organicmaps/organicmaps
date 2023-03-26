@@ -1314,7 +1314,9 @@
 
 "type.amenity.charging_station" = "Oplaadstation";
 
-"type.amenity.charging_station.motorcar" = "Oplaadstation";
+"type.amenity.charging_station.bicycle" = "Oplaadstation voor fietsen";
+
+"type.amenity.charging_station.motorcar" = "Oplaadstation voor auto's";
 
 "type.amenity.childcare" = "Crèche";
 
@@ -1659,6 +1661,10 @@
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Airconditioning";
+
+"type.craft.key_cutter" = "Sleutel snijden";
+
+"type.craft.locksmith" = "Slotenmaker";
 
 "type.craft.metal_construction" = "Metaalarbeider";
 
@@ -3252,6 +3258,8 @@
 
 "type.shop.bakery" = "Bakkerij";
 
+"type.shop.bathroom_furnishing" = "Badkamerinrichting";
+
 "type.shop.beauty" = "Schoonheidssalon";
 
 "type.shop.beverages" = "Drank";
@@ -3264,6 +3272,8 @@
 
 "type.shop.butcher" = "Slager";
 
+"type.shop.cannabis" = "Cannabis Winkel";
+
 "type.shop.car" = "Autohandelaar";
 
 "type.shop.car_parts" = "Auto onderdelen";
@@ -3273,6 +3283,8 @@
 "type.shop.car_repair.tyres" = "Bandenreparatie";
 
 "type.shop.caravan" = "Caravan en camper verkoper";
+
+"type.shop.carpet" = "Tapijten";
 
 "type.shop.chemist" = "Drogisterij";
 
@@ -3292,6 +3304,8 @@
 
 "type.shop.cosmetics" = "Schoonheidsmiddelen";
 
+"type.shop.curtain" = "Gordijnen";
+
 "type.shop.deli" = "Delicatessenwinkel";
 
 "type.shop.department_store" = "Warenhuis";
@@ -3308,6 +3322,8 @@
 
 "type.shop.farm" = "Boerderijwinkel";
 
+"type.shop.fashion_accessories" = "Mode accessoires";
+
 "type.shop.florist" = "Bloemist";
 
 "type.shop.funeral_directors" = "Begrafenisondernemer";
@@ -3315,6 +3331,8 @@
 "type.shop.furniture" = "Meubelzaak";
 
 "type.shop.garden_centre" = "Tuincentrum";
+
+"type.shop.gas" = "Gas winkel";
 
 "type.shop.gift" = "Cadeauwinkel";
 
@@ -3327,6 +3345,10 @@
 "type.shop.hardware" = "IJzerwaren";
 
 "type.shop.health_food" = "Natuurvoedingswinkel";
+
+"type.shop.herbalist" = "Kruiden winkel";
+
+"type.shop.hifi" = "HiFi-audio";
 
 "type.shop.houseware" = "Huishoudelijke winkel";
 
@@ -3348,6 +3370,8 @@
 
 "type.shop.motorcycle" = "Motorzaak";
 
+"type.shop.motorcycle_repair" = "Motorfiets Reparatie";
+
 "type.shop.music" = "Muziekwinkel";
 
 "type.shop.musical_instrument" = "Muziekinstrumentenwinkel";
@@ -3358,11 +3382,15 @@
 
 "type.shop.outdoor" = "Outdooruitrusting";
 
+"type.shop.outpost" = "Ophaalpunt";
+
 "type.shop.pastry" = "Banketbakker";
 
 "type.shop.pawnbroker" = "Pandjesbaas";
 
 "type.shop.pet" = "Dierenwinkel";
+
+"type.shop.pet_grooming" = "Huisdierverzorging";
 
 "type.shop.photo" = "Fotowinkel";
 
@@ -3398,13 +3426,19 @@
 
 "type.shop.wine" = "Wijnhandel";
 
+"type.shop.agrarian" = "Agrarische winkel";
+
 "type.shop.antiques" = "Antiekhandel";
+
+"type.shop.appliance" = "Apparaten winkel";
 
 "type.shop.art" = "Kunstwinkel";
 
 "type.shop.baby_goods" = "Babyspullenwinkel";
 
 "type.shop.bag" = "Tassenwinkel";
+
+"type.shop.bed" = "Bedden winkel";
 
 "type.shop.boutique" = "Boetiek";
 

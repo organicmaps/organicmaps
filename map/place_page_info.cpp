@@ -49,8 +49,6 @@ void Info::SetFromFeatureType(FeatureType & ft)
                                true /* allowTranslit */} , out);
   }
 
-  m_sortedTypes = m_types;
-  m_sortedTypes.SortBySpec();
   m_primaryFeatureName = out.GetPrimary();
   if (IsBookmark())
   {

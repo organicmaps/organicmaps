@@ -1314,7 +1314,9 @@
 
 "type.amenity.charging_station" = "Şarj İstasyonu";
 
-"type.amenity.charging_station.motorcar" = "Şarj İstasyonu";
+"type.amenity.charging_station.bicycle" = "Bisiklet Şarj İstasyonu";
+
+"type.amenity.charging_station.motorcar" = "Otomobil Şarj İstasyonu";
 
 "type.amenity.childcare" = "Kreş";
 
@@ -1659,6 +1661,10 @@
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Klimacı";
+
+"type.craft.key_cutter" = "Anahtar kesme";
+
+"type.craft.locksmith" = "Çilingir";
 
 "type.craft.metal_construction" = "Dökümcü";
 
@@ -3252,6 +3258,8 @@
 
 "type.shop.bakery" = "Fırın";
 
+"type.shop.bathroom_furnishing" = "Banyo Mobilyaları";
+
 "type.shop.beauty" = "Güzellik Salonu";
 
 "type.shop.beverages" = "İçecekler";
@@ -3264,6 +3272,8 @@
 
 "type.shop.butcher" = "Kasap";
 
+"type.shop.cannabis" = "Kenevir dükkanı";
+
 "type.shop.car" = "Otomobil Mağazası";
 
 "type.shop.car_parts" = "Araba Parçaları";
@@ -3273,6 +3283,8 @@
 "type.shop.car_repair.tyres" = "Lastik Tamiri";
 
 "type.shop.caravan" = "Karavan Bayiliği";
+
+"type.shop.carpet" = "Halılar";
 
 "type.shop.chemist" = "Temizlik Ürünleri Mağazası";
 
@@ -3292,6 +3304,8 @@
 
 "type.shop.cosmetics" = "Bakım ürünleri";
 
+"type.shop.curtain" = "Perdeler";
+
 "type.shop.deli" = "Şarküteri Dükkanı";
 
 "type.shop.department_store" = "Büyük Mağaza";
@@ -3308,6 +3322,8 @@
 
 "type.shop.farm" = "Çiftlik Gıda Dükkanı";
 
+"type.shop.fashion_accessories" = "Moda Aksesuarları";
+
 "type.shop.florist" = "Çiçekçi";
 
 "type.shop.funeral_directors" = "Cenaze Levazımcısı";
@@ -3315,6 +3331,8 @@
 "type.shop.furniture" = "Mobilya Mağazası";
 
 "type.shop.garden_centre" = "Bahçe Mağazası";
+
+"type.shop.gas" = "Gaz deposu";
 
 "type.shop.gift" = "Hediyelik Eşya Mağazası";
 
@@ -3327,6 +3345,10 @@
 "type.shop.hardware" = "Donanım mağazası";
 
 "type.shop.health_food" = "Sağlık Gıda Mağazası";
+
+"type.shop.herbalist" = "Şifalı bitkiler mağazası";
+
+"type.shop.hifi" = "HiFi Ses";
 
 "type.shop.houseware" = "Ev Eşyaları Dükkanı";
 
@@ -3348,6 +3370,8 @@
 
 "type.shop.motorcycle" = "Motosiklet Dükkanı";
 
+"type.shop.motorcycle_repair" = "Motosiklet Tamiri";
+
 "type.shop.music" = "Mağaza";
 
 "type.shop.musical_instrument" = "Mağaza";
@@ -3358,11 +3382,15 @@
 
 "type.shop.outdoor" = "Dış Mekan Ekipmanları";
 
+"type.shop.outpost" = "Alım noktası";
+
 "type.shop.pastry" = "Hamur işi";
 
 "type.shop.pawnbroker" = "Tefeci";
 
 "type.shop.pet" = "Evcil Hayvan Mağazası";
+
+"type.shop.pet_grooming" = "Evcil Hayvan Bakımı";
 
 "type.shop.photo" = "Fotoğrafçı";
 
@@ -3398,13 +3426,19 @@
 
 "type.shop.wine" = "Şarap Mağazası";
 
+"type.shop.agrarian" = "Tarım dükkanı";
+
 "type.shop.antiques" = "Antikalar";
+
+"type.shop.appliance" = "Beyaz eşya dükkanı";
 
 "type.shop.art" = "Sanat Mağazası";
 
 "type.shop.baby_goods" = "Çocuk mağazası";
 
 "type.shop.bag" = "Çanta Mağazası";
+
+"type.shop.bed" = "Yatak dükkanı";
 
 "type.shop.boutique" = "Butik";
 

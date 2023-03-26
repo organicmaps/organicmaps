@@ -1314,7 +1314,9 @@
 
 "type.amenity.charging_station" = "Nabíjecí stanice";
 
-"type.amenity.charging_station.motorcar" = "Nabíjecí stanice";
+"type.amenity.charging_station.bicycle" = "Nabíjecí stanice pro jízdní kola";
+
+"type.amenity.charging_station.motorcar" = "Nabíjecí stanice pro automobily";
 
 "type.amenity.childcare" = "Jesle";
 
@@ -1659,6 +1661,10 @@
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "HVAC";
+
+"type.craft.key_cutter" = "Řezání klíčů";
+
+"type.craft.locksmith" = "Zámečník";
 
 "type.craft.metal_construction" = "Kovodílna";
 
@@ -3252,6 +3258,8 @@
 
 "type.shop.bakery" = "Pekárna";
 
+"type.shop.bathroom_furnishing" = "Vybavení koupelny";
+
 "type.shop.beauty" = "Kosmetický salon";
 
 "type.shop.beverages" = "Nápoje";
@@ -3264,6 +3272,8 @@
 
 "type.shop.butcher" = "Řeznictví";
 
+"type.shop.cannabis" = "Obchod s konopím";
+
 "type.shop.car" = "Obchod s auty";
 
 "type.shop.car_parts" = "Autodíly";
@@ -3273,6 +3283,8 @@
 "type.shop.car_repair.tyres" = "Pneuservis";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "Koberce";
 
 "type.shop.chemist" = "Drogerie";
 
@@ -3292,6 +3304,8 @@
 
 "type.shop.cosmetics" = "Kosmetika";
 
+"type.shop.curtain" = "Závěsy";
+
 "type.shop.deli" = "Prodejna lahůdek";
 
 "type.shop.department_store" = "Obchodní dům";
@@ -3308,6 +3322,8 @@
 
 "type.shop.farm" = "Prodejna farmářských potravin";
 
+"type.shop.fashion_accessories" = "Módní doplňky";
+
 "type.shop.florist" = "Květinářství";
 
 "type.shop.funeral_directors" = "Pohřební služba";
@@ -3315,6 +3331,8 @@
 "type.shop.furniture" = "Nábytek";
 
 "type.shop.garden_centre" = "Školka";
+
+"type.shop.gas" = "Obchod s plynem";
 
 "type.shop.gift" = "Obchod s dárkovým zbožím";
 
@@ -3327,6 +3345,10 @@
 "type.shop.hardware" = "Železářství";
 
 "type.shop.health_food" = "Prodejna zdravé výživy";
+
+"type.shop.herbalist" = "Obchod s bylinkami";
+
+"type.shop.hifi" = "HiFi audio";
 
 "type.shop.houseware" = "Obchod s domácími potřebami";
 
@@ -3348,6 +3370,8 @@
 
 "type.shop.motorcycle" = "Prodejna motocyklů";
 
+"type.shop.motorcycle_repair" = "Opravy motocyklů";
+
 "type.shop.music" = "Obchod";
 
 "type.shop.musical_instrument" = "Obchod";
@@ -3358,11 +3382,15 @@
 
 "type.shop.outdoor" = "Venkovní vybavení";
 
+"type.shop.outpost" = "Místo vyzvednutí";
+
 "type.shop.pastry" = "Pečivo";
 
 "type.shop.pawnbroker" = "Zastavárna";
 
 "type.shop.pet" = "Zverimex";
+
+"type.shop.pet_grooming" = "Péče o domácí mazlíčky";
 
 "type.shop.photo" = "Fotografický obchod";
 
@@ -3398,13 +3426,19 @@
 
 "type.shop.wine" = "Vinařství";
 
+"type.shop.agrarian" = "Zemědělský obchod";
+
 "type.shop.antiques" = "Starožitnosti";
+
+"type.shop.appliance" = "Obchod se spotřebiči";
 
 "type.shop.art" = "Obchod s uměním";
 
 "type.shop.baby_goods" = "Dětský obchod";
 
 "type.shop.bag" = "Obchod s taškami";
+
+"type.shop.bed" = "Prodejna postelí";
 
 "type.shop.boutique" = "Butik";
 

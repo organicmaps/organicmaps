@@ -1314,7 +1314,9 @@
 
 "type.amenity.charging_station" = "Ladestasjon";
 
-"type.amenity.charging_station.motorcar" = "Ladestasjon";
+"type.amenity.charging_station.bicycle" = "Ladestasjon for sykkel";
+
+"type.amenity.charging_station.motorcar" = "Ladestasjon for biler";
 
 "type.amenity.childcare" = "Daghjem";
 
@@ -1659,6 +1661,10 @@
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Klimaanlegg";
+
+"type.craft.key_cutter" = "Key Cutting";
+
+"type.craft.locksmith" = "Låsesmed";
 
 "type.craft.metal_construction" = "Metallarbeider";
 
@@ -3252,6 +3258,8 @@
 
 "type.shop.bakery" = "Bakeri";
 
+"type.shop.bathroom_furnishing" = "Baderomsmøbler";
+
 "type.shop.beauty" = "Skjønnhetssalong";
 
 "type.shop.beverages" = "Drinker";
@@ -3264,6 +3272,8 @@
 
 "type.shop.butcher" = "Slakter";
 
+"type.shop.cannabis" = "Cannabisbutikk";
+
 "type.shop.car" = "Bil butikk";
 
 "type.shop.car_parts" = "Bildeler";
@@ -3273,6 +3283,8 @@
 "type.shop.car_repair.tyres" = "Dekkreparasjon";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "Tepper";
 
 "type.shop.chemist" = "Husholdningsartikler";
 
@@ -3292,6 +3304,8 @@
 
 "type.shop.cosmetics" = "Kosmetikk";
 
+"type.shop.curtain" = "Gardiner";
+
 "type.shop.deli" = "Delikatessebutikk";
 
 "type.shop.department_store" = "Varehus";
@@ -3308,6 +3322,8 @@
 
 "type.shop.farm" = "Gårdsmatbutikk";
 
+"type.shop.fashion_accessories" = "Motetilbehør";
+
 "type.shop.florist" = "Blomsterhandler";
 
 "type.shop.funeral_directors" = "Begravelsebyrå";
@@ -3315,6 +3331,8 @@
 "type.shop.furniture" = "Møbelbutikk";
 
 "type.shop.garden_centre" = "Planteskole";
+
+"type.shop.gas" = "Gassbutikk";
 
 "type.shop.gift" = "Gavebutikk";
 
@@ -3327,6 +3345,10 @@
 "type.shop.hardware" = "Jernvareforretning";
 
 "type.shop.health_food" = "Helsekostbutikk";
+
+"type.shop.herbalist" = "Urtebutikk";
+
+"type.shop.hifi" = "HiFi lyd";
 
 "type.shop.houseware" = "Husholdningsbutikk";
 
@@ -3348,6 +3370,8 @@
 
 "type.shop.motorcycle" = "Motorsykkelforretning";
 
+"type.shop.motorcycle_repair" = "Motorsykkel reparasjon";
+
 "type.shop.music" = "Platebutikk";
 
 "type.shop.musical_instrument" = "Musikkinstrumenter";
@@ -3358,11 +3382,15 @@
 
 "type.shop.outdoor" = "Fritidsutstyr";
 
+"type.shop.outpost" = "Hentested";
+
 "type.shop.pastry" = "Bakverk";
 
 "type.shop.pawnbroker" = "Pantelåner";
 
 "type.shop.pet" = "Dyrebutikk";
+
+"type.shop.pet_grooming" = "Kjæledyrpleie";
 
 "type.shop.photo" = "Fotobutikk";
 
@@ -3398,13 +3426,19 @@
 
 "type.shop.wine" = "Alkoholutsalg";
 
+"type.shop.agrarian" = "Landbruksbutikk";
+
 "type.shop.antiques" = "Antikviteter";
+
+"type.shop.appliance" = "Hvitevarebutikk";
 
 "type.shop.art" = "Kunstbutikk";
 
 "type.shop.baby_goods" = "Barnebutikk";
 
 "type.shop.bag" = "Veskerbutikk";
+
+"type.shop.bed" = "Sengebutikk";
 
 "type.shop.boutique" = "Boutique";
 

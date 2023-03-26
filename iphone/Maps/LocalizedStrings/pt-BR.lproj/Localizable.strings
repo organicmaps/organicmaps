@@ -1314,6 +1314,8 @@
 
 "type.amenity.charging_station" = "Eletroposto";
 
+"type.amenity.charging_station.bicycle" = "Estação de carregamento de bicicletas";
+
 "type.amenity.charging_station.motorcar" = "Eletroposto";
 
 "type.amenity.childcare" = "Creche";
@@ -1659,6 +1661,10 @@
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Aquecimento, Ventilação e Ar Condicionado";
+
+"type.craft.key_cutter" = "Chaveiro";
+
+"type.craft.locksmith" = "Serralheiro";
 
 "type.craft.metal_construction" = "Serralheiro metálico";
 
@@ -3252,6 +3258,8 @@
 
 "type.shop.bakery" = "Padaria";
 
+"type.shop.bathroom_furnishing" = "Loja de móveis de banheiro";
+
 "type.shop.beauty" = "Salão de beleza";
 
 "type.shop.beverages" = "Loja de bebidas";
@@ -3264,6 +3272,8 @@
 
 "type.shop.butcher" = "Açougue";
 
+"type.shop.cannabis" = "Loja de cannabis";
+
 "type.shop.car" = "Loja de carros";
 
 "type.shop.car_parts" = "Peças de carro";
@@ -3273,6 +3283,8 @@
 "type.shop.car_repair.tyres" = "Borracheiro";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "Loja de tapetes";
 
 "type.shop.chemist" = "Drogaria";
 
@@ -3292,6 +3304,8 @@
 
 "type.shop.cosmetics" = "Loja de cosméticos";
 
+"type.shop.curtain" = "Loja de cortinas";
+
 "type.shop.deli" = "Loja Delicatessen";
 
 "type.shop.department_store" = "Loja de departamentos";
@@ -3308,6 +3322,8 @@
 
 "type.shop.farm" = "Loja de alimentos agrícolas";
 
+"type.shop.fashion_accessories" = "Loja de acessórios de moda";
+
 "type.shop.florist" = "Florista";
 
 "type.shop.funeral_directors" = "Funerária";
@@ -3315,6 +3331,8 @@
 "type.shop.furniture" = "Loja de móveis";
 
 "type.shop.garden_centre" = "Loja de jardinagem ou viveiro";
+
+"type.shop.gas" = "Distribuidora de gás";
 
 "type.shop.gift" = "Loja de presentes";
 
@@ -3327,6 +3345,10 @@
 "type.shop.hardware" = "Loja de ferragens";
 
 "type.shop.health_food" = "Loja de alimentos saudáveis";
+
+"type.shop.herbalist" = "Loja de ervas";
+
+"type.shop.hifi" = "Loja de áudio Hi-Fi";
 
 "type.shop.houseware" = "Loja de utilidades domésticas";
 
@@ -3348,6 +3370,8 @@
 
 "type.shop.motorcycle" = "Loja de motos";
 
+"type.shop.motorcycle_repair" = "Oficina de motos";
+
 "type.shop.music" = "Loja de música";
 
 "type.shop.musical_instrument" = "Loja de instrumentos musicais";
@@ -3358,11 +3382,15 @@
 
 "type.shop.outdoor" = "Artigos de atividades ao ar livre";
 
+"type.shop.outpost" = "Ponto de coleta";
+
 "type.shop.pastry" = "Confeitaria";
 
 "type.shop.pawnbroker" = "Casa de penhores";
 
 "type.shop.pet" = "Loja de animais de estimação";
+
+"type.shop.pet_grooming" = "Banho e tosa";
 
 "type.shop.photo" = "Loja de fotografia";
 
@@ -3398,13 +3426,19 @@
 
 "type.shop.wine" = "Loja de vinhos";
 
+"type.shop.agrarian" = "Loja agrícola";
+
 "type.shop.antiques" = "Antiguidades";
+
+"type.shop.appliance" = "Loja de eletrodomésticos";
 
 "type.shop.art" = "Loja de artes";
 
 "type.shop.baby_goods" = "Loja infantil";
 
 "type.shop.bag" = "Loja de bolsas";
+
+"type.shop.bed" = "Loja de camas";
 
 "type.shop.boutique" = "Boutique";
 

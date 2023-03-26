@@ -1314,7 +1314,9 @@
 
 "type.amenity.charging_station" = "Borne de recharge";
 
-"type.amenity.charging_station.motorcar" = "Borne de recharge";
+"type.amenity.charging_station.bicycle" = "Borne de recharge pour vélo";
+
+"type.amenity.charging_station.motorcar" = "Borne de recharge pour voiture";
 
 "type.amenity.childcare" = "Garderie";
 
@@ -1659,6 +1661,10 @@
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Chauffage, ventilation et climatisation";
+
+"type.craft.key_cutter" = "Reproduction de clé";
+
+"type.craft.locksmith" = "Serrurier";
 
 "type.craft.metal_construction" = "Métallo";
 
@@ -3252,6 +3258,8 @@
 
 "type.shop.bakery" = "Boulangerie";
 
+"type.shop.bathroom_furnishing" = "Mobilier de salle de bain";
+
 "type.shop.beauty" = "Salon de beauté";
 
 "type.shop.beverages" = "Boissons";
@@ -3264,6 +3272,8 @@
 
 "type.shop.butcher" = "Boucherie";
 
+"type.shop.cannabis" = "Magasin de cannabis";
+
 "type.shop.car" = "Concessionnaire automobile";
 
 "type.shop.car_parts" = "Pièces de voiture";
@@ -3273,6 +3283,8 @@
 "type.shop.car_repair.tyres" = "Réparation de pneus";
 
 "type.shop.caravan" = "Concessionnaire de caravanes et camping-cars";
+
+"type.shop.carpet" = "Magasin de tapis";
 
 "type.shop.chemist" = "Droguerie";
 
@@ -3292,6 +3304,8 @@
 
 "type.shop.cosmetics" = "Produits de beauté";
 
+"type.shop.curtain" = "Magasin de rideaux";
+
 "type.shop.deli" = "Épicerie fine";
 
 "type.shop.department_store" = "Grand magasin";
@@ -3308,6 +3322,8 @@
 
 "type.shop.farm" = "Magasin d'alimentation à la ferme";
 
+"type.shop.fashion_accessories" = "Boutique d'accessoires de mode";
+
 "type.shop.florist" = "Fleuriste";
 
 "type.shop.funeral_directors" = "Pompes funèbres";
@@ -3315,6 +3331,8 @@
 "type.shop.furniture" = "Magasin de meubles";
 
 "type.shop.garden_centre" = "Jardinerie";
+
+"type.shop.gas" = "Vente de gaz";
 
 "type.shop.gift" = "Boutique de souvenirs";
 
@@ -3327,6 +3345,10 @@
 "type.shop.hardware" = "Quincaillerie";
 
 "type.shop.health_food" = "Magasin d'alimentation diététique";
+
+"type.shop.herbalist" = "Herboristerie";
+
+"type.shop.hifi" = "Matériel Hi-Fi";
 
 "type.shop.houseware" = "Magasin d'articles ménagers";
 
@@ -3348,6 +3370,8 @@
 
 "type.shop.motorcycle" = "Magasin de motos";
 
+"type.shop.motorcycle_repair" = "Réparateur de moto";
+
 "type.shop.music" = "Disquaire";
 
 "type.shop.musical_instrument" = "Magasin d'instruments de musique";
@@ -3358,11 +3382,15 @@
 
 "type.shop.outdoor" = "Matériel de loisirs de plein air";
 
+"type.shop.outpost" = "Point de retrait";
+
 "type.shop.pastry" = "Pâtisserie";
 
 "type.shop.pawnbroker" = "Prêteur sur gages";
 
 "type.shop.pet" = "Animalerie";
+
+"type.shop.pet_grooming" = "Salon de toilettage";
 
 "type.shop.photo" = "Matériel de photographie";
 
@@ -3398,13 +3426,19 @@
 
 "type.shop.wine" = "Caviste";
 
+"type.shop.agrarian" = "Magasin d'agriculture";
+
 "type.shop.antiques" = "Antiquités";
+
+"type.shop.appliance" = "Magasin d'électroménager";
 
 "type.shop.art" = "Boutique d'art";
 
 "type.shop.baby_goods" = "Magasin de puériculture";
 
 "type.shop.bag" = "Magasin de sacs";
+
+"type.shop.bed" = "Magasin de literie";
 
 "type.shop.boutique" = "Boutique";
 

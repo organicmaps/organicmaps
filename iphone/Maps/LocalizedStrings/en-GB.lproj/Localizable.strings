@@ -1314,7 +1314,9 @@
 
 "type.amenity.charging_station" = "Charging Station";
 
-"type.amenity.charging_station.motorcar" = "Charging Station";
+"type.amenity.charging_station.bicycle" = "Bicycle Charging Station";
+
+"type.amenity.charging_station.motorcar" = "Motorcar Charging Station";
 
 "type.amenity.childcare" = "Nursery";
 
@@ -1659,6 +1661,10 @@
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "HVAC";
+
+"type.craft.key_cutter" = "Key Cutting";
+
+"type.craft.locksmith" = "Locksmith";
 
 "type.craft.metal_construction" = "Metal Worker";
 
@@ -3252,6 +3258,8 @@
 
 "type.shop.bakery" = "Bakery";
 
+"type.shop.bathroom_furnishing" = "Bathroom Furnishings";
+
 "type.shop.beauty" = "Beauty Shop";
 
 "type.shop.beverages" = "Beverages";
@@ -3264,6 +3272,8 @@
 
 "type.shop.butcher" = "Butcher’s";
 
+"type.shop.cannabis" = "Cannabis Store";
+
 "type.shop.car" = "Car Dealership";
 
 "type.shop.car_parts" = "Car Parts";
@@ -3273,6 +3283,8 @@
 "type.shop.car_repair.tyres" = "Tyre Repair";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "Carpets";
 
 "type.shop.chemist" = "Chemist Shop";
 
@@ -3292,6 +3304,8 @@
 
 "type.shop.cosmetics" = "Cosmetics";
 
+"type.shop.curtain" = "Curtains";
+
 "type.shop.deli" = "Delicatessen Shop";
 
 "type.shop.department_store" = "Department Store";
@@ -3308,6 +3322,8 @@
 
 "type.shop.farm" = "Farm Food Shop";
 
+"type.shop.fashion_accessories" = "Fashion Accessories";
+
 "type.shop.florist" = "Florist’s";
 
 "type.shop.funeral_directors" = "Funeral Directors";
@@ -3315,6 +3331,8 @@
 "type.shop.furniture" = "Furniture Store";
 
 "type.shop.garden_centre" = "Garden Store";
+
+"type.shop.gas" = "Gas Store";
 
 "type.shop.gift" = "Gift Shop";
 
@@ -3327,6 +3345,10 @@
 "type.shop.hardware" = "Hardware Store";
 
 "type.shop.health_food" = "Health Food Shop";
+
+"type.shop.herbalist" = "Herbs Store";
+
+"type.shop.hifi" = "HiFi Audio";
 
 "type.shop.houseware" = "Hardware Store";
 
@@ -3348,6 +3370,8 @@
 
 "type.shop.motorcycle" = "Motorcycle Shop";
 
+"type.shop.motorcycle_repair" = "Motorcycle Repair";
+
 "type.shop.music" = "Record Store";
 
 "type.shop.musical_instrument" = "Musical Instruments";
@@ -3358,11 +3382,15 @@
 
 "type.shop.outdoor" = "Outdoor Equipment";
 
+"type.shop.outpost" = "Pickup Point";
+
 "type.shop.pastry" = "Bakery";
 
 "type.shop.pawnbroker" = "Pawnbroker";
 
-"type.shop.pet" = "Petshop";
+"type.shop.pet" = "Pet Store";
+
+"type.shop.pet_grooming" = "Pet Grooming";
 
 "type.shop.photo" = "Photo Shop";
 
@@ -3398,13 +3426,19 @@
 
 "type.shop.wine" = "Wine Shop";
 
+"type.shop.agrarian" = "Agricultural Shop";
+
 "type.shop.antiques" = "Antiques";
+
+"type.shop.appliance" = "Appliances Shop";
 
 "type.shop.art" = "Arts Shop";
 
 "type.shop.baby_goods" = "Baby Goods";
 
 "type.shop.bag" = "Bags Store";
+
+"type.shop.bed" = "Beds Shop";
 
 "type.shop.boutique" = "Boutique";
 

@@ -940,6 +940,70 @@ cont {
   }
 }
 cont {
+  name: "amenity-charging_station-bicycle"
+  element {
+    scale: 16
+    symbol {
+      name: "charging-station-m"
+      priority: 16927
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 12
+        color: 6710886
+        offset_y: 1
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "charging-station-m"
+      priority: 16927
+    }
+    caption {
+      primary {
+        height: 13
+        color: 6710886
+        offset_y: 1
+      }
+      priority: 15927
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "charging-station-m"
+      priority: 16927
+    }
+    caption {
+      primary {
+        height: 14
+        color: 6710886
+        offset_y: 1
+      }
+      priority: 15927
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "charging-station-m"
+      priority: 16927
+    }
+    caption {
+      primary {
+        height: 14
+        color: 6710886
+        offset_y: 1
+      }
+      priority: 15927
+    }
+  }
+}
+cont {
   name: "amenity-charging_station-motorcar"
   element {
     scale: 14

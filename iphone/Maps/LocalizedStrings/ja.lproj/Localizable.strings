@@ -1314,7 +1314,9 @@
 
 "type.amenity.charging_station" = "充電ステーション";
 
-"type.amenity.charging_station.motorcar" = "充電ステーション";
+"type.amenity.charging_station.bicycle" = "自転車充電ステーション";
+
+"type.amenity.charging_station.motorcar" = "自動車充電ステーション";
 
 "type.amenity.childcare" = "託児所";
 
@@ -1659,6 +1661,10 @@
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "冷暖房空調";
+
+"type.craft.key_cutter" = "キーカット";
+
+"type.craft.locksmith" = "錠前屋";
 
 "type.craft.metal_construction" = "金属工";
 
@@ -3252,6 +3258,8 @@
 
 "type.shop.bakery" = "パン屋";
 
+"type.shop.bathroom_furnishing" = "バスルームの備品";
+
 "type.shop.beauty" = "ビューティーサロン";
 
 "type.shop.beverages" = "ドリンク";
@@ -3264,6 +3272,8 @@
 
 "type.shop.butcher" = "肉屋";
 
+"type.shop.cannabis" = "大麻店";
+
 "type.shop.car" = "カーディーラー";
 
 "type.shop.car_parts" = "車両部品";
@@ -3273,6 +3283,8 @@
 "type.shop.car_repair.tyres" = "タイヤ修理";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "カーペット";
 
 "type.shop.chemist" = "化学薬品店";
 
@@ -3292,6 +3304,8 @@
 
 "type.shop.cosmetics" = "化粧品";
 
+"type.shop.curtain" = "カーテン";
+
 "type.shop.deli" = "デリカテッセンショップ";
 
 "type.shop.department_store" = "デパート";
@@ -3308,6 +3322,8 @@
 
 "type.shop.farm" = "ファームフードショップ";
 
+"type.shop.fashion_accessories" = "ファッションアクセサリー";
+
 "type.shop.florist" = "フローリスト/花屋";
 
 "type.shop.funeral_directors" = "葬儀屋";
@@ -3315,6 +3331,8 @@
 "type.shop.furniture" = "家具店";
 
 "type.shop.garden_centre" = "ガーデンセンター";
+
+"type.shop.gas" = "ガス屋";
 
 "type.shop.gift" = "ギフトショップ";
 
@@ -3327,6 +3345,10 @@
 "type.shop.hardware" = "ホームセンター";
 
 "type.shop.health_food" = "健康食品店";
+
+"type.shop.herbalist" = "ハーブ店";
+
+"type.shop.hifi" = "ハイファイオーディオ";
 
 "type.shop.houseware" = "家庭用品店";
 
@@ -3348,6 +3370,8 @@
 
 "type.shop.motorcycle" = "バイクショップ";
 
+"type.shop.motorcycle_repair" = "オートバイの修理";
+
 "type.shop.music" = "CDショップ";
 
 "type.shop.musical_instrument" = "楽器店";
@@ -3358,11 +3382,15 @@
 
 "type.shop.outdoor" = "アウトドア用品店";
 
+"type.shop.outpost" = "集荷場";
+
 "type.shop.pastry" = "ペストリー";
 
 "type.shop.pawnbroker" = "質屋";
 
 "type.shop.pet" = "ペットショップ";
+
+"type.shop.pet_grooming" = "ペットグルーミング";
 
 "type.shop.photo" = "写真屋";
 
@@ -3398,13 +3426,19 @@
 
 "type.shop.wine" = "ワイン店";
 
+"type.shop.agrarian" = "農産物直売所";
+
 "type.shop.antiques" = "骨董品";
+
+"type.shop.appliance" = "家電店";
 
 "type.shop.art" = "アートショップ";
 
 "type.shop.baby_goods" = "キッズストア";
 
 "type.shop.bag" = "バッグストア";
+
+"type.shop.bed" = "ベッドショップ";
 
 "type.shop.boutique" = "ブティック";
 

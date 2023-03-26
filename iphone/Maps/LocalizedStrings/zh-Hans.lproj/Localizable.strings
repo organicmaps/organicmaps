@@ -1314,7 +1314,9 @@
 
 "type.amenity.charging_station" = "充电站";
 
-"type.amenity.charging_station.motorcar" = "充电站";
+"type.amenity.charging_station.bicycle" = "自行车充电站";
+
+"type.amenity.charging_station.motorcar" = "汽车充电站";
 
 "type.amenity.childcare" = "托儿所";
 
@@ -1659,6 +1661,10 @@
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "暖通工程师";
+
+"type.craft.key_cutter" = "钥匙切割";
+
+"type.craft.locksmith" = "锁匠";
 
 "type.craft.metal_construction" = "金属制造工";
 
@@ -3252,6 +3258,8 @@
 
 "type.shop.bakery" = "烘培店";
 
+"type.shop.bathroom_furnishing" = "卫浴摆设";
+
 "type.shop.beauty" = "美容店";
 
 "type.shop.beverages" = "饮料店";
@@ -3264,6 +3272,8 @@
 
 "type.shop.butcher" = "肉商";
 
+"type.shop.cannabis" = "大麻商店";
+
 "type.shop.car" = "车店";
 
 "type.shop.car_parts" = "汽车零件";
@@ -3273,6 +3283,8 @@
 "type.shop.car_repair.tyres" = "轮胎修理";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "地毯";
 
 "type.shop.chemist" = "药妆店";
 
@@ -3292,6 +3304,8 @@
 
 "type.shop.cosmetics" = "化妝品店";
 
+"type.shop.curtain" = "窗帘";
+
 "type.shop.deli" = "熟食店";
 
 "type.shop.department_store" = "百货商场";
@@ -3308,6 +3322,8 @@
 
 "type.shop.farm" = "农场食品店";
 
+"type.shop.fashion_accessories" = "时尚配饰";
+
 "type.shop.florist" = "花店";
 
 "type.shop.funeral_directors" = "殡仪馆";
@@ -3315,6 +3331,8 @@
 "type.shop.furniture" = "家具店";
 
 "type.shop.garden_centre" = "幼儿园";
+
+"type.shop.gas" = "燃气站";
 
 "type.shop.gift" = "礼品店";
 
@@ -3327,6 +3345,10 @@
 "type.shop.hardware" = "五金店";
 
 "type.shop.health_food" = "保健食品店";
+
+"type.shop.herbalist" = "草药店";
+
+"type.shop.hifi" = "HiFi";
 
 "type.shop.houseware" = "家居用品店";
 
@@ -3348,6 +3370,8 @@
 
 "type.shop.motorcycle" = "摩托车商店";
 
+"type.shop.motorcycle_repair" = "摩托车维修";
+
 "type.shop.music" = "商店";
 
 "type.shop.musical_instrument" = "商店";
@@ -3358,11 +3382,15 @@
 
 "type.shop.outdoor" = "室外设备";
 
+"type.shop.outpost" = "自提点";
+
 "type.shop.pastry" = "糕点";
 
 "type.shop.pawnbroker" = "典当商铺";
 
 "type.shop.pet" = "宠物店";
+
+"type.shop.pet_grooming" = "宠物美容";
 
 "type.shop.photo" = "照片店";
 
@@ -3398,13 +3426,19 @@
 
 "type.shop.wine" = "酒品商店";
 
+"type.shop.agrarian" = "农产品店";
+
 "type.shop.antiques" = "古董";
+
+"type.shop.appliance" = "家电店";
 
 "type.shop.art" = "艺术商店";
 
 "type.shop.baby_goods" = "儿童商店";
 
 "type.shop.bag" = "箱包店";
+
+"type.shop.bed" = "寝具";
 
 "type.shop.boutique" = "精品店";
 

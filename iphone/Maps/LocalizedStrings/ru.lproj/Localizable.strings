@@ -1314,7 +1314,9 @@
 
 "type.amenity.charging_station" = "Зарядная станция";
 
-"type.amenity.charging_station.motorcar" = "Зарядная станция";
+"type.amenity.charging_station.bicycle" = "Станция зарядки велосипедов";
+
+"type.amenity.charging_station.motorcar" = "Зарядная станция для автомобилей";
 
 "type.amenity.childcare" = "Детская комната";
 
@@ -1659,6 +1661,10 @@
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Отопление, вентиляция и кондиционирование";
+
+"type.craft.key_cutter" = "Изготовление ключей";
+
+"type.craft.locksmith" = "Слесарь";
 
 "type.craft.metal_construction" = "Металлоконструкции";
 
@@ -3252,6 +3258,8 @@
 
 "type.shop.bakery" = "Булочная";
 
+"type.shop.bathroom_furnishing" = "Мебель для ванной";
+
 "type.shop.beauty" = "Салон красоты";
 
 "type.shop.beverages" = "Напитки";
@@ -3264,6 +3272,8 @@
 
 "type.shop.butcher" = "Мясная лавка";
 
+"type.shop.cannabis" = "Магазин каннабиса";
+
 "type.shop.car" = "Автосалон";
 
 "type.shop.car_parts" = "Автомобильные запчасти";
@@ -3273,6 +3283,8 @@
 "type.shop.car_repair.tyres" = "Шиномонтаж";
 
 "type.shop.caravan" = "Продажа автодомов";
+
+"type.shop.carpet" = "Ковры";
 
 "type.shop.chemist" = "Бытовая химия";
 
@@ -3292,6 +3304,8 @@
 
 "type.shop.cosmetics" = "Косметика";
 
+"type.shop.curtain" = "Шторы";
+
 "type.shop.deli" = "Магазин деликатесов";
 
 "type.shop.department_store" = "Универмаг";
@@ -3308,6 +3322,8 @@
 
 "type.shop.farm" = "Фермерский магазин";
 
+"type.shop.fashion_accessories" = "Модные аксессуары";
+
 "type.shop.florist" = "Цветочный магазин";
 
 "type.shop.funeral_directors" = "Ритуальные услуги";
@@ -3315,6 +3331,8 @@
 "type.shop.furniture" = "Магазин мебели";
 
 "type.shop.garden_centre" = "Садовые товары";
+
+"type.shop.gas" = "Газовый магазин";
 
 "type.shop.gift" = "Магазин сувениров";
 
@@ -3327,6 +3345,10 @@
 "type.shop.hardware" = "Хозяйственный магазин";
 
 "type.shop.health_food" = "Магазин здоровой еды";
+
+"type.shop.herbalist" = "Магазин трав";
+
+"type.shop.hifi" = "Hi-Fi аудио";
 
 "type.shop.houseware" = "Магазин посуды";
 
@@ -3348,6 +3370,8 @@
 
 "type.shop.motorcycle" = "Магазин мотоциклов";
 
+"type.shop.motorcycle_repair" = "Ремонт мотоциклов";
+
 "type.shop.music" = "Музыкальный магазин";
 
 "type.shop.musical_instrument" = "Музыкальные инструменты";
@@ -3358,11 +3382,15 @@
 
 "type.shop.outdoor" = "Магазин снаряжения";
 
+"type.shop.outpost" = "Пункт выдачи заказов";
+
 "type.shop.pastry" = "Выпечка";
 
 "type.shop.pawnbroker" = "Ломбард";
 
 "type.shop.pet" = "Зоотовары";
+
+"type.shop.pet_grooming" = "Груминг";
 
 "type.shop.photo" = "Фототовары";
 
@@ -3398,13 +3426,19 @@
 
 "type.shop.wine" = "Винный магазин";
 
+"type.shop.agrarian" = "Сельскохозяйственный магазин";
+
 "type.shop.antiques" = "Антиквариат";
+
+"type.shop.appliance" = "Магазин бытовой техники";
 
 "type.shop.art" = "Художественный магазин";
 
 "type.shop.baby_goods" = "Детский магазин";
 
 "type.shop.bag" = "Магазин сумок";
+
+"type.shop.bed" = "Магазин кроватей";
 
 "type.shop.boutique" = "Бутик";
 

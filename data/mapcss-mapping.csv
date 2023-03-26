@@ -255,7 +255,7 @@ waterway|ditch|tunnel;[waterway=ditch][tunnel?];;name;int_name;254;
 deprecated|deprecated;255;x
 piste:type|downhill|intermediate;[piste:type=downhill][piste:difficulty=intermediate];;name;int_name;256;
 railway|subway_entrance;257;
-deprecated|deprecated;258;x
+amenity|charging_station|bicycle;[amenity=charging_station][bicycle?];;name;int_name;258;
 man_made|pipeline;[man_made=pipeline][!location];;name;int_name;259;
 route|ferry;260;
 highway|trunk_link|bridge;[highway=trunk_link][bridge?];;name;int_name;261;
@@ -881,6 +881,7 @@ area:highway|trunk;880;
 deprecated|deprecated;881;x
 entrance;[entrance];;ref;addr:flats;882;
 entrance|main;[entrance=main];;ref;addr:flats;883;
+shop|agrarian;884;
 tourism|artwork;885;
 railway|subway|red;[railway=subway][colour=red];x;name;int_name;886;railway|subway|tunnel
 railway|subway|blue;[railway=subway][colour=blue];x;name;int_name;887;railway|subway|tunnel
@@ -955,6 +956,7 @@ shop|furniture;955;
 craft|winery;956;
 waterway|waterfall;957;
 craft|electronics_repair;958;
+shop|appliance;959;
 amenity|casino;960;
 amenity|brothel;961;
 place|neighbourhood;[place=neighbourhood],[place=quarter];;name;int_name;962;
@@ -1216,9 +1218,9 @@ shop|craft;1217;
 shop|sewing;1218;
 railway|station|subway|warszawa;[railway=station][transport=subway][city=warszawa],[railway=station][station=subway][city=warszawa];;name;int_name;1219;
 railway|subway_entrance|warszawa;[railway=subway_entrance][city=warszawa];;name;int_name;1220;
-deprecated|deprecated;1221;x
-deprecated|deprecated;1222;x
-deprecated|deprecated;1223;x
+shop|bed;1221;
+shop|outpost;1222;
+shop|gas;1223;
 natural|desert;[natural=desert],[natural=sand][desert=erg];;name;int_name;1224;
 natural|water|tunnel;[natural=water][tunnel?];;name;int_name;1225;
 place|square;1226;
@@ -1546,3 +1548,14 @@ railway|subway_entrance|wuhan;[railway=subway_entrance][city=wuhan];;name;int_na
 railway|subway_entrance|yerevan;[railway=subway_entrance][city=yerevan];;name;int_name;1548;
 railway|subway_entrance|yokohama;[railway=subway_entrance][city=yokohama];;name;int_name;1549;
 railway|subway_entrance|bilbao;[railway=subway_entrance][city=bilbao];;name;int_name;1550;
+craft|key_cutter;1551;
+craft|locksmith;1552;
+shop|carpet;1553;
+shop|motorcycle_repair;1554;
+shop|pet_grooming;1555;
+shop|hifi;1556;
+shop|bathroom_furnishing;1557;
+shop|curtain;1558;
+shop|fashion_accessories;1559;
+shop|cannabis;1560;
+shop|herbalist;1561;
