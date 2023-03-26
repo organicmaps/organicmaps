@@ -731,6 +731,8 @@
 	<string name="instagram_url">https://www.instagram.com/organicmapstr</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
 	<string name="translated_om_site_url">https://organicmaps.app/tr/</string>
+	<!-- Link to OSM wiki for Editor, Profile and About pages -->
+	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Tr:About</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Teleferik</string>

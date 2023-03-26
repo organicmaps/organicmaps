@@ -726,6 +726,8 @@
 	<string name="enable_show_on_lock_screen_description">عند التفعيل، لن تحتاج لفتح قفل جهازك كل مرة أثناء تشغيل التطبيق</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">بيانات الخريطة من خريطة الشارع المفتوحة</string>
+	<!-- Link to OSM wiki for Editor, Profile and About pages -->
+	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Ar:About_OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.cable_car">تلفريك</string>

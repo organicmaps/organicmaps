@@ -693,6 +693,8 @@
 	<string name="enable_screen_sleep_description">Quando ativado, o ecrá poderá desligar-se após um período de inatividade.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Dados cartográficos do OpenStreetMap</string>
+	<!-- Link to OSM wiki for Editor, Profile and About pages -->
+	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Pt:Sobre_o_OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Transporte aéreo</string>

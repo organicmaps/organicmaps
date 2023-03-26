@@ -727,6 +727,8 @@
 	<string name="enable_show_on_lock_screen_description">Po włączeniu tej funkcji nie będziesz musieć odblokowywać urządzenia za każdym razem, gdy aplikacja jest uruchomiona.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Dane mapy z OpenStreetMap</string>
+	<!-- Link to OSM wiki for Editor, Profile and About pages -->
+	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Pl:Wstęp</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Transport linowy</string>

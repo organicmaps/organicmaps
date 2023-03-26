@@ -1239,6 +1239,9 @@
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/";
 
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/NL:Wat_is_OpenStreetMap%3F";
+
 
 /********** Types **********/
 
