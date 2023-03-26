@@ -779,6 +779,12 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
     TEST(params.IsTypeExist(GetType({"hwtag", "nocar"})), ());
   }
 
+  uint32_t const shuttleType = GetType({"route", "shuttle_train"});
+  /// @todo Strange, but they are processed by foot/bicycle=yes/no in VehicleModel.
+  //TEST(routing::PedestrianModel::AllLimitsInstance().IsRoadType(shuttleType), ());
+  //TEST(routing::BicycleModel::AllLimitsInstance().IsRoadType(shuttleType), ());
+  TEST(routing::CarModel::AllLimitsInstance().IsRoadType(shuttleType), ());
+
   {
     Tags const tags = {
       { "route", "shuttle_train" },
@@ -790,12 +796,35 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
     auto const params = GetFeatureBuilderParams(tags);
 
     TEST_EQUAL(params.m_types.size(), 4, (params));
-    uint32_t const type = GetType({"route", "shuttle_train"});
-    TEST(params.IsTypeExist(type), (params));
-    TEST(routing::CarModel::AllLimitsInstance().IsRoadType(type), ());
+    TEST(params.IsTypeExist(shuttleType), (params));
     TEST(params.IsTypeExist(yesBicycle), (params));
     TEST(params.IsTypeExist(noFoot), (params));
     TEST(params.IsTypeExist(yesCar), (params));
+  }
+
+  {
+    Tags const tags = {
+      { "route", "train" },
+      { "shuttle", "yes" },
+      { "motor_vehicle", "yes" },
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST(params.IsTypeExist(shuttleType), (params));
+    TEST(params.IsTypeExist(yesCar), (params));
+  }
+
+  {
+    Tags const tags = {
+      { "route", "train" },
+      { "shuttle", "no" },
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 0, (params));
   }
 
   {

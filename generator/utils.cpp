@@ -129,6 +129,8 @@ bool MapcssRule::Matches(std::vector<OsmElement::Tag> const & tags) const
       return false;
   }
 
+  /// @todo Should we also take into account "none", "false" here?
+
   for (auto const & key : m_mandatoryKeys)
   {
     if (!base::AnyOf(tags, [&](auto const & t) { return t.m_key == key && t.m_value != "no"; }))
