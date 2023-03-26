@@ -243,7 +243,7 @@ private:
 MainWindow::MainWindow(Framework & framework)
   : m_framework(framework)
 {
-  m_mapWidget = new MapWidget(m_framework, false /* apiOpenGLES3 */, this /* parent */);
+  m_mapWidget = new MapWidget(m_framework, this /* parent */);
 
   m_layout = new QHBoxLayout();
   m_layout->addWidget(m_mapWidget);

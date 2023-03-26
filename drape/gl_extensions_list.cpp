@@ -46,7 +46,7 @@ void GLExtensionsList::Init(dp::ApiVersion apiVersion)
     SetExtension(MapBuffer, true);
     SetExtension(MapBufferRange, true);
   }
-  else // OpenGLES3 branch
+  else // OpenGLES3 or any desktop OpenGL >=3
   {
     SetExtension(VertexArrayObject, true);
     SetExtension(MapBufferRange, true);

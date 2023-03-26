@@ -42,7 +42,7 @@ public Q_SLOTS:
   void ChoosePositionModeDisable();
 
 public:
-  DrawWidget(Framework & framework, bool apiOpenGLES3, std::unique_ptr<ScreenshotParams> && screenshotParams,
+  DrawWidget(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams,
              QWidget * parent);
   ~DrawWidget() override;
 
@@ -71,8 +71,6 @@ public:
   void OnRouteRecommendation(RoutingManager::Recommendation recommendation);
 
   void RefreshDrawingRules();
-
-  static void SetDefaultSurfaceFormat(bool apiOpenGLES3);
 
 protected:
   /// @name Overriden from MapWidget.

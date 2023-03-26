@@ -256,7 +256,8 @@ void GLFunctions::Init(dp::ApiVersion apiVersion)
 
 #elif defined(OMIM_OS_LINUX)
     void *libhandle = dlopen("libGL.so.1", RTLD_NOW);
-    ASSERT(libhandle, ("Failed to open libGL.so.1:", dlerror()));
+    if (!libhandle)
+      LOG(LCRITICAL, ("Failed to open libGL.so.1:", dlerror()));
     glGenVertexArraysFn = (TglGenVertexArraysFn)dlsym(libhandle,"glGenVertexArraysOES");
     glBindVertexArrayFn = (TglBindVertexArrayFn)dlsym(libhandle, "glBindVertexArrayOES");
     glDeleteVertexArrayFn = (TglDeleteVertexArrayFn)dlsym(libhandle,"glDeleteVertexArraysOES");

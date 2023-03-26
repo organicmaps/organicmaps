@@ -34,7 +34,7 @@ class MapWidget : public QOpenGLWidget
   Q_OBJECT
 
 public:
-  MapWidget(Framework & framework, bool apiOpenGLES3, bool isScreenshotMode, QWidget * parent);
+  MapWidget(Framework & framework, bool isScreenshotMode, QWidget * parent);
   ~MapWidget() override;
 
   void BindHotkeys(QWidget & parent);

@@ -79,9 +79,9 @@ void DrawMwmBorder(df::DrapeApi & drapeApi, std::string const & mwmName,
 }
 }  // namespace
 
-DrawWidget::DrawWidget(Framework & framework, bool apiOpenGLES3, std::unique_ptr<ScreenshotParams> && screenshotParams,
+DrawWidget::DrawWidget(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams,
                        QWidget * parent)
-  : TBase(framework, apiOpenGLES3, screenshotParams != nullptr, parent)
+  : TBase(framework, screenshotParams != nullptr, parent)
   , m_rubberBand(nullptr)
   , m_emulatingLocation(false)
 {
@@ -680,35 +680,6 @@ void DrawWidget::SetRuler(bool enabled)
 }
 
 // static
-void DrawWidget::SetDefaultSurfaceFormat(bool apiOpenGLES3)
-{
-  QSurfaceFormat fmt;
-  fmt.setAlphaBufferSize(8);
-  fmt.setBlueBufferSize(8);
-  fmt.setGreenBufferSize(8);
-  fmt.setRedBufferSize(8);
-  fmt.setStencilBufferSize(0);
-  fmt.setSamples(0);
-  fmt.setSwapBehavior(QSurfaceFormat::DoubleBuffer);
-  fmt.setSwapInterval(1);
-  fmt.setDepthBufferSize(16);
-#ifdef ENABLE_OPENGL_DIAGNOSTICS
-  fmt.setOption(QSurfaceFormat::DebugContext);
-#endif
-  if (apiOpenGLES3)
-  {
-    fmt.setProfile(QSurfaceFormat::CoreProfile);
-    fmt.setVersion(3, 2);
-  }
-  else
-  {
-    fmt.setProfile(QSurfaceFormat::CompatibilityProfile);
-    fmt.setVersion(2, 0);
-  }
-  //fmt.setOption(QSurfaceFormat::DebugContext);
-  QSurfaceFormat::setDefaultFormat(fmt);
-}
-
 void DrawWidget::RefreshDrawingRules()
 {
   SetMapStyle(MapStyleClear);
