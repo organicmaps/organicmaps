@@ -245,7 +245,7 @@ string GetVehicleTypeForAccessConditional(string const & accessConditionalTag)
 
 // RoadAccessTagProcessor --------------------------------------------------------------------------
 RoadAccessTagProcessor::RoadAccessTagProcessor(VehicleType vehicleType)
-    : m_vehicleType(vehicleType)
+  : m_vehicleType(vehicleType)
 {
   switch (vehicleType)
   {
@@ -332,7 +332,20 @@ void RoadAccessTagProcessor::Process(OsmElement const & elem)
     }
 
     if (elem.IsNode())
-      m_barriersWithAccessTag.Add(elem.m_id, {elem.m_lat, elem.m_lon}, op);
+    {
+      // OSM mapping workaround.
+      // https://github.com/organicmaps/organicmaps/issues/4837
+      if (op == RoadAccess::Type::No && m_vehicleType == VehicleType::Bicycle && elem.GetTag("highway") == "crossing")
+      {
+        // Skip this "barrier". It blocks cycling on main road via this kind of crossings.
+        // Example here: https://overpass-turbo.eu/s/1sSx
+
+        /// @todo I suppose that we should allow _main_ road, but block real _crossing_ Way via this Node.
+        /// But I have no idea how we can easily implement it right now ...
+      }
+      else
+        m_barriersWithAccessTag.Add(elem.m_id, {elem.m_lat, elem.m_lon}, op);
+    }
     else if (elem.IsWay())
       m_wayToAccess.Add(elem.m_id, op);
     return;
