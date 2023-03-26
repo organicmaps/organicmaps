@@ -10,6 +10,7 @@
 #include "geometry/point2d.hpp"
 
 #include "base/assert.hpp"
+#include "base/logging.hpp"
 
 #include <functional>
 #include <string>
@@ -29,10 +30,9 @@ namespace common
 {
 //#define ENABLE_AA_SWITCH
 
-MapWidget::MapWidget(Framework & framework, bool apiOpenGLES3, bool isScreenshotMode, QWidget * parent)
+MapWidget::MapWidget(Framework & framework, bool isScreenshotMode, QWidget * parent)
   : QOpenGLWidget(parent)
   , m_framework(framework)
-  , m_apiOpenGLES3(apiOpenGLES3)
   , m_screenshotMode(isScreenshotMode)
   , m_slider(nullptr)
   , m_sliderState(SliderState::Released)
@@ -344,6 +344,64 @@ void MapWidget::initializeGL()
   ASSERT(m_contextFactory == nullptr, ());
   if (!m_screenshotMode)
     m_ratio = devicePixelRatio();
+
+#if defined(OMIM_OS_MAC)
+  m_apiOpenGLES3 = false;
+#elif defined(OMIM_OS_LINUX)
+  {
+    QOpenGLFunctions * funcs = context()->functions();
+    const std::string vendor = QString::fromLatin1(
+      (const char*)funcs->glGetString(GL_VENDOR)).toStdString();
+    const std::string renderer = QString::fromLatin1(
+      (const char*)funcs->glGetString(GL_RENDERER)).toStdString();
+    const std::string version = QString::fromLatin1(
+      (const char*)funcs->glGetString(GL_VERSION)).toStdString();
+    const std::string glslVersion = QString::fromLatin1(
+      (const char*)funcs->glGetString(GL_SHADING_LANGUAGE_VERSION)).toStdString();
+    const std::string extensions = QString::fromLatin1(
+      (const char*)funcs->glGetString(GL_EXTENSIONS)).toStdString();
+
+    LOG(LINFO, ("Vendor:", vendor, "\nRenderer:", renderer,
+                "\nVersion:", version, "\nShading language version:\n", glslVersion,
+                "\nExtensions:", extensions));
+
+    if (context()->isOpenGLES())
+    {
+      LOG(LINFO, ("Context is LibGLES"));
+      // TODO: Fix the ES3 code path with ES3 compatible shader code.
+      m_apiOpenGLES3 = false;
+      constexpr const char* requiredExtensions[3] =
+        { "GL_EXT_map_buffer_range", "GL_OES_mapbuffer", "GL_OES_vertex_array_object" };
+      for (auto &requiredExtension: requiredExtensions)
+      {
+        if(context()->hasExtension(QByteArray::fromStdString(requiredExtension)))
+          LOG(LDEBUG, ("Found OpenGL ES 2.0 extension: ", requiredExtension));
+        else
+          LOG(LCRITICAL, ("A required OpenGL ES 2.0 extension is missing: ", requiredExtension));
+      }
+    }
+    else
+    {
+      LOG(LINFO, ("Contex is LibGL"));
+      // TODO: Separate apiOpenGL3 from apiOpenGLES3, and use that for the currend shader code.
+      m_apiOpenGLES3 = true;
+    }
+  }
+#endif
+  auto fmt = context()->format();
+  if (m_apiOpenGLES3)
+  {
+    fmt.setProfile(QSurfaceFormat::CoreProfile);
+    fmt.setVersion(3, 2);
+  }
+  else
+  {
+    fmt.setProfile(QSurfaceFormat::CompatibilityProfile);
+    fmt.setVersion(2, 1);
+  }
+  QSurfaceFormat::setDefaultFormat(fmt);
+
+
   m_contextFactory.reset(new QtOGLContextFactory(context()));
 
   emit BeforeEngineCreation();

@@ -24,7 +24,7 @@ public:
     TrafficMarkup
   };
 
-  MapWidget(Framework & framework, bool apiOpenGLES3, QWidget * parent);
+  MapWidget(Framework & framework, QWidget * parent);
   ~MapWidget() override = default;
 
   void SetMode(Mode const mode) { m_mode = mode; }

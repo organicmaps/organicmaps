@@ -22,9 +22,7 @@
 
 #include <QtCore/QDir>
 #include <QtGui/QScreen>
-#include <QtGui/QOffscreenSurface>
-#include <QtGui/QOpenGLContext>
-#include <QtGui/QOpenGLFunctions>
+#include <QtGui/QSurfaceFormat>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QFileDialog>
@@ -173,62 +171,7 @@ int main(int argc, char * argv[])
   int returnCode = -1;
   if (eulaAccepted)   // User has accepted EULA
   {
-    bool apiOpenGLES3 = false;
     std::unique_ptr<qt::ScreenshotParams> screenshotParams;
-
-#if defined(OMIM_OS_MAC)
-    apiOpenGLES3 = app.arguments().contains("es3", Qt::CaseInsensitive);
-#elif defined(OMIM_OS_LINUX)
-    { // Start of temporary scope for temporary surface
-      QOffscreenSurface temporarySurface;
-      temporarySurface.create();
-
-      QOpenGLContext ctx;
-      ctx.create();
-      ctx.makeCurrent(&temporarySurface);
-
-      const std::string vendor = QString::fromLatin1(
-        (const char*)ctx.functions()->glGetString(GL_VENDOR)).toStdString();
-      const std::string renderer = QString::fromLatin1(
-        (const char*)ctx.functions()->glGetString(GL_RENDERER)).toStdString();
-      const std::string version = QString::fromLatin1(
-        (const char*)ctx.functions()->glGetString(GL_VERSION)).toStdString();
-      const std::string glslVersion = QString::fromLatin1(
-        (const char*)ctx.functions()->glGetString(GL_SHADING_LANGUAGE_VERSION)).toStdString();
-      const std::string extensions = QString::fromLatin1(
-        (const char*)ctx.functions()->glGetString(GL_EXTENSIONS)).toStdString();
-
-      LOG(LINFO, ("Vendor:", vendor, "\nRenderer:", renderer,
-                  "\nVersion:", version, "\nShading language version:\n", glslVersion,
-                  "\nExtensions:", extensions));
-
-      if (ctx.isOpenGLES())
-      {
-        LOG(LINFO, ("Context is LibGLES"));
-        // TODO: Fix the ES3 code path with ES3 compatible shader code.
-        apiOpenGLES3 = false;
-        constexpr const char* requiredExtensions[3] =
-          { "GL_EXT_map_buffer_range", "GL_OES_mapbuffer", "GL_OES_vertex_array_object" };
-        for (auto &requiredExtension: requiredExtensions)
-        {
-          if(ctx.hasExtension(QByteArray::fromStdString(requiredExtension)))
-          {
-            LOG(LDEBUG, ("Found OpenGL ES 2.0 extension: ", requiredExtension));
-          }
-          else
-          {
-            LOG(LCRITICAL, ("A required OpenGL ES 2.0 extension is missing: ", requiredExtension));
-          }
-        }
-      }
-      else
-      {
-        LOG(LINFO, ("Contex is LibGL"));
-        // TODO: Separate apiOpenGL3 from apiOpenGLES3, and use that for the currend shader code.
-        apiOpenGLES3 = true;
-      }
-    }
-#endif
 
     if (!FLAGS_lang.empty())
       (void)::setenv("LANGUAGE", FLAGS_lang.c_str(), 1);
@@ -261,7 +204,21 @@ int main(int argc, char * argv[])
         screenshotParams->m_dpiScale = FLAGS_dpi_scale;
     }
 
-    qt::MainWindow::SetDefaultSurfaceFormat(apiOpenGLES3);
+
+    QSurfaceFormat fmt;
+    fmt.setAlphaBufferSize(8);
+    fmt.setBlueBufferSize(8);
+    fmt.setGreenBufferSize(8);
+    fmt.setRedBufferSize(8);
+    fmt.setStencilBufferSize(0);
+    fmt.setSamples(0);
+    fmt.setSwapBehavior(QSurfaceFormat::DoubleBuffer);
+    fmt.setSwapInterval(1);
+    fmt.setDepthBufferSize(16);
+#ifdef ENABLE_OPENGL_DIAGNOSTICS
+    fmt.setOption(QSurfaceFormat::DebugContext);
+#endif
+    QSurfaceFormat::setDefaultFormat(fmt);
 
     FrameworkParams frameworkParams;
 
@@ -295,7 +252,7 @@ int main(int argc, char * argv[])
 #endif // BUILD_DESIGNER
 
     Framework framework(frameworkParams);
-    qt::MainWindow w(framework, apiOpenGLES3, std::move(screenshotParams),
+    qt::MainWindow w(framework, std::move(screenshotParams),
                      app.primaryScreen()->geometry()
 #ifdef BUILD_DESIGNER
                      , mapcssFilePath
