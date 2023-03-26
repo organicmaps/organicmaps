@@ -97,7 +97,7 @@ public class ProfileFragment extends BaseMwmToolbarFragment
 
   private void openOsmAboutUrl()
   {
-    startActivity(new Intent((Intent.ACTION_VIEW), Uri.parse(Constants.Url.OSM_ABOUT)));
+    startActivity(new Intent((Intent.ACTION_VIEW), Uri.parse(getString(R.string.osm_wiki_about_url))));
   }
 
   private void openOsmHistoryUrl()

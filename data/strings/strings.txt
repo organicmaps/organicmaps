@@ -25383,3 +25383,26 @@
     it = https://organicmaps.app/it/
     ru = https://organicmaps.app/ru/
     tr = https://organicmaps.app/tr/
+
+  [osm_wiki_about_url]
+    comment = Link to OSM wiki for Editor, Profile and About pages
+    tags = android,ios
+    en = https://wiki.openstreetmap.org/wiki/About_OpenStreetMap
+    ar = https://wiki.openstreetmap.org/wiki/Ar:About_OpenStreetMap
+    ca = https://wiki.openstreetmap.org/wiki/Ca:About
+    da = https://wiki.openstreetmap.org/wiki/Da:Om_OpenStreetMap
+    de = https://wiki.openstreetmap.org/wiki/DE:Über_OSM
+    el = https://wiki.openstreetmap.org/wiki/El:About_OpenStreetMap
+    es = https://wiki.openstreetmap.org/wiki/ES:Acerca_de_OpenStreetMap
+    fa = https://wiki.openstreetmap.org/wiki/Fa:About_OpenStreetMap
+    fr = https://wiki.openstreetmap.org/wiki/FR:À_propos_d’OpenStreetMap
+    hu = https://wiki.openstreetmap.org/wiki/Hu:Névjegy
+    it = https://wiki.openstreetmap.org/wiki/IT:About
+    ja = https://wiki.openstreetmap.org/wiki/JA:参加する
+    ko = https://wiki.openstreetmap.org/wiki/Ko:OpenStreetMap_소개
+    nl = https://wiki.openstreetmap.org/wiki/NL:Wat_is_OpenStreetMap%3F
+    pl = https://wiki.openstreetmap.org/wiki/Pl:Wstęp
+    pt = https://wiki.openstreetmap.org/wiki/Pt:Sobre_o_OpenStreetMap
+    ru = https://wiki.openstreetmap.org/wiki/RU:О_проекте
+    tr = https://wiki.openstreetmap.org/wiki/Tr:About
+    uk = https://wiki.openstreetmap.org/wiki/Uk:Про_проект
