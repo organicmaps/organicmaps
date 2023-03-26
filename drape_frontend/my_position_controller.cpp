@@ -29,7 +29,7 @@ double const kGpsBearingLifetimeSec = 5.0;
 double const kMaxPendingLocationTimeSec = 60.0;
 double const kMaxTimeInBackgroundSec = 60.0 * 60 * 30;  // 30 hours before starting detecting position again
 double const kMaxNotFollowRoutingTimeSec = 20.0;
-double const kMaxUpdateLocationInvervalSec = 30.0;
+double const kMaxUpdateLocationInvervalSec = 10.0;  // It is important to see that GPS was lost ASAP.
 double const kMaxBlockAutoZoomTimeSec = 10.0;
 
 int const kZoomThreshold = 10;

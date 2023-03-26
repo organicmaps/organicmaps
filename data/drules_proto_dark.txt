@@ -103122,7 +103122,7 @@ colors {
   }
   value {
     name: "Arrow3DObsolete"
-    color: 1216522952
+    color: 1221990424
   }
   value {
     name: "Arrow3DOutline"

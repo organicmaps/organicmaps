@@ -51,7 +51,7 @@ colors
   RouteFake-color: #A8A8A8;
   RouteFakeOutline-color: #717171;
   Arrow3D-color: #50AAFF;
-  Arrow3DObsolete-color: #82AAC8;
+  Arrow3DObsolete-color: #E80C13;
   Arrow3DObsolete-opacity: 0.72;
   Arrow3DShadow-color: #3C3C3C;
   Arrow3DShadow-opacity: 0.24;
