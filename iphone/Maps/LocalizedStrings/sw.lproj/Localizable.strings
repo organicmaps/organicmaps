@@ -1314,7 +1314,9 @@
 
 "type.amenity.charging_station" = "Charging Station";
 
-"type.amenity.charging_station.motorcar" = "Charging Station";
+"type.amenity.charging_station.bicycle" = "Kituo cha Kuchaji Baiskeli";
+
+"type.amenity.charging_station.motorcar" = "Kituo cha Kuchaji Magari";
 
 "type.amenity.childcare" = "Nursery";
 

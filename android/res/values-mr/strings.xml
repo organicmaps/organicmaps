@@ -722,7 +722,8 @@
 	<string name="type.amenity.car_wash">कार धुणे</string>
 	<string name="type.amenity.casino">जुगारगृह</string>
 	<string name="type.amenity.charging_station">चार्जिंग केंद्र</string>
-	<string name="type.amenity.charging_station.motorcar">चार्जिंग केंद्र</string>
+	<string name="type.amenity.charging_station.bicycle">सायकल चार्जिंग स्टेशन</string>
+	<string name="type.amenity.charging_station.motorcar">मोटार कार चार्जिंग स्टेशन</string>
 	<string name="type.amenity.childcare">बालवाडी</string>
 	<string name="type.amenity.cinema">चित्रपटगृह</string>
 	<string name="type.leisure.bowling_alley">गोलंदाजी गल्ली</string>

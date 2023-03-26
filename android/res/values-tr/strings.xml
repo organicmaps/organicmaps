@@ -769,7 +769,8 @@
 	<string name="type.amenity.car_wash">Araba Yıkama</string>
 	<string name="type.amenity.casino">Kumarhane</string>
 	<string name="type.amenity.charging_station">Şarj İstasyonu</string>
-	<string name="type.amenity.charging_station.motorcar">Şarj İstasyonu</string>
+	<string name="type.amenity.charging_station.bicycle">Bisiklet Şarj İstasyonu</string>
+	<string name="type.amenity.charging_station.motorcar">Otomobil Şarj İstasyonu</string>
 	<string name="type.amenity.childcare">Kreş</string>
 	<string name="type.amenity.cinema">Sinema</string>
 	<string name="type.leisure.bowling_alley">Bowling pisti</string>

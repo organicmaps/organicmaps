@@ -1314,7 +1314,9 @@
 
 "type.amenity.charging_station" = "Nabíjecí stanice";
 
-"type.amenity.charging_station.motorcar" = "Nabíjecí stanice";
+"type.amenity.charging_station.bicycle" = "Nabíjecí stanice pro jízdní kola";
+
+"type.amenity.charging_station.motorcar" = "Nabíjecí stanice pro automobily";
 
 "type.amenity.childcare" = "Jesle";
 

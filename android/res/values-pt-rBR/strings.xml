@@ -750,6 +750,7 @@
 	<string name="type.amenity.car_wash">Lava-jato</string>
 	<string name="type.amenity.casino">Cassino</string>
 	<string name="type.amenity.charging_station">Eletroposto</string>
+	<string name="type.amenity.charging_station.bicycle">Estação de carregamento de bicicletas</string>
 	<string name="type.amenity.charging_station.motorcar">Eletroposto</string>
 	<string name="type.amenity.childcare">Creche</string>
 	<string name="type.amenity.cinema">Cinema</string>

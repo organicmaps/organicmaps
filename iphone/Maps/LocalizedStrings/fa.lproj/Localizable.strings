@@ -1314,7 +1314,9 @@
 
 "type.amenity.charging_station" = "ایستگاه شارژ";
 
-"type.amenity.charging_station.motorcar" = "ایستگاه شارژ";
+"type.amenity.charging_station.bicycle" = "ایستگاه شارژ دوچرخه";
+
+"type.amenity.charging_station.motorcar" = "ایستگاه شارژ موتور";
 
 "type.amenity.childcare" = "شیرخوارگاه";
 

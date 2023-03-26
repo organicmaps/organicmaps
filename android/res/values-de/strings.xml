@@ -759,7 +759,8 @@
 	<string name="type.amenity.car_wash">Autowäsche</string>
 	<string name="type.amenity.casino">Kasino</string>
 	<string name="type.amenity.charging_station">Ladestation</string>
-	<string name="type.amenity.charging_station.motorcar">Ladestation</string>
+	<string name="type.amenity.charging_station.bicycle">Fahrrad Ladestation</string>
+	<string name="type.amenity.charging_station.motorcar">Kfz-Ladestation</string>
 	<string name="type.amenity.childcare">Kindertagesstätte</string>
 	<string name="type.amenity.cinema">Kino</string>
 	<string name="type.leisure.bowling_alley">Bowlingbahn</string>

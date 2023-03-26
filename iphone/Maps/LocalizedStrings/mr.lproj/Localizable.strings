@@ -1314,7 +1314,9 @@
 
 "type.amenity.charging_station" = "चार्जिंग केंद्र";
 
-"type.amenity.charging_station.motorcar" = "चार्जिंग केंद्र";
+"type.amenity.charging_station.bicycle" = "सायकल चार्जिंग स्टेशन";
+
+"type.amenity.charging_station.motorcar" = "मोटार कार चार्जिंग स्टेशन";
 
 "type.amenity.childcare" = "बालवाडी";
 

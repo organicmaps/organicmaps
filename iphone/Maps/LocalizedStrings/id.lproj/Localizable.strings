@@ -1314,7 +1314,9 @@
 
 "type.amenity.charging_station" = "Pusat Pengisian Daya";
 
-"type.amenity.charging_station.motorcar" = "Pusat Pengisian Daya";
+"type.amenity.charging_station.bicycle" = "Stasiun Pengisian Sepeda";
+
+"type.amenity.charging_station.motorcar" = "Stasiun Pengisian Mobil";
 
 "type.amenity.childcare" = "Penitipan Anak";
 

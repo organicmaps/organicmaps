@@ -798,7 +798,8 @@
 	<string name="type.amenity.car_wash">Car Wash</string>
 	<string name="type.amenity.casino">Casino</string>
 	<string name="type.amenity.charging_station">Charging Station</string>
-	<string name="type.amenity.charging_station.motorcar">Charging Station</string>
+	<string name="type.amenity.charging_station.bicycle">Bicycle Charging Station</string>
+	<string name="type.amenity.charging_station.motorcar">Motorcar Charging Station</string>
 	<string name="type.amenity.childcare">Nursery</string>
 	<string name="type.amenity.cinema">Cinema</string>
 	<string name="type.leisure.bowling_alley">Bowling Alley</string>

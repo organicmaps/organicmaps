@@ -725,7 +725,8 @@
 	<string name="type.amenity.car_wash">Autopesula</string>
 	<string name="type.amenity.casino">Kasino</string>
 	<string name="type.amenity.charging_station">Latausasema</string>
-	<string name="type.amenity.charging_station.motorcar">Latausasema</string>
+	<string name="type.amenity.charging_station.bicycle">Polkupyörän latausasema</string>
+	<string name="type.amenity.charging_station.motorcar">Auton latausasema</string>
 	<string name="type.amenity.childcare">Päivähoito</string>
 	<string name="type.amenity.cinema">Elokuvateatteri</string>
 	<string name="type.leisure.bowling_alley">Keilarata</string>

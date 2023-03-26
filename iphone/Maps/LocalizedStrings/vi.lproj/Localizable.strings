@@ -1314,7 +1314,9 @@
 
 "type.amenity.charging_station" = "Trạm Sạc điện";
 
-"type.amenity.charging_station.motorcar" = "Trạm Sạc điện";
+"type.amenity.charging_station.bicycle" = "Trạm sạc xe đạp";
+
+"type.amenity.charging_station.motorcar" = "Trạm sạc xe máy";
 
 "type.amenity.childcare" = "Nhà trẻ";
 

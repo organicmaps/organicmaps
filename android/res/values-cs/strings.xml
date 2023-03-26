@@ -716,7 +716,8 @@
 	<string name="type.amenity.car_sharing">Sdílení aut</string>
 	<string name="type.amenity.car_wash">Myčka aut</string>
 	<string name="type.amenity.charging_station">Nabíjecí stanice</string>
-	<string name="type.amenity.charging_station.motorcar">Nabíjecí stanice</string>
+	<string name="type.amenity.charging_station.bicycle">Nabíjecí stanice pro jízdní kola</string>
+	<string name="type.amenity.charging_station.motorcar">Nabíjecí stanice pro automobily</string>
 	<string name="type.amenity.childcare">Jesle</string>
 	<string name="type.amenity.cinema">Kino</string>
 	<string name="type.leisure.bowling_alley">Bowlingová dráha</string>

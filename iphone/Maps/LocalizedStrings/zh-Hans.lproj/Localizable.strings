@@ -1314,7 +1314,9 @@
 
 "type.amenity.charging_station" = "充电站";
 
-"type.amenity.charging_station.motorcar" = "充电站";
+"type.amenity.charging_station.bicycle" = "自行车充电站";
+
+"type.amenity.charging_station.motorcar" = "汽车充电站";
 
 "type.amenity.childcare" = "托儿所";
 

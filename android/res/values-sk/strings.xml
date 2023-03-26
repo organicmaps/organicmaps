@@ -701,7 +701,8 @@
 	<string name="type.amenity.car_wash">Autoumývareň</string>
 	<string name="type.amenity.casino">Kasíno</string>
 	<string name="type.amenity.charging_station">Dobíjacia stanica</string>
-	<string name="type.amenity.charging_station.motorcar">Dobíjacia stanica</string>
+	<string name="type.amenity.charging_station.bicycle">Nabíjacia stanica pre bicykle</string>
+	<string name="type.amenity.charging_station.motorcar">Nabíjacia stanica pre motorové vozidlá</string>
 	<string name="type.amenity.childcare">Jasle</string>
 	<string name="type.amenity.cinema">Kino</string>
 	<string name="type.leisure.bowling_alley">Bowlingová dráha</string>

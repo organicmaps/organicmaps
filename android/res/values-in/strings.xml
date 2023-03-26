@@ -699,7 +699,8 @@
 	<string name="type.amenity.car_wash">Cuci Mobil</string>
 	<string name="type.amenity.casino">Hiburan</string>
 	<string name="type.amenity.charging_station">Pusat Pengisian Daya</string>
-	<string name="type.amenity.charging_station.motorcar">Pusat Pengisian Daya</string>
+	<string name="type.amenity.charging_station.bicycle">Stasiun Pengisian Sepeda</string>
+	<string name="type.amenity.charging_station.motorcar">Stasiun Pengisian Mobil</string>
 	<string name="type.amenity.childcare">Penitipan Anak</string>
 	<string name="type.amenity.cinema">Bioskop</string>
 	<string name="type.leisure.bowling_alley">Arena Bowling</string>

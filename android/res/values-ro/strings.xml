@@ -729,7 +729,8 @@
 	<string name="type.amenity.car_wash">Spălătorie auto</string>
 	<string name="type.amenity.casino">Divertisment</string>
 	<string name="type.amenity.charging_station">Stație încărcare</string>
-	<string name="type.amenity.charging_station.motorcar">Stație încărcare</string>
+	<string name="type.amenity.charging_station.bicycle">Stație de încărcare pentru biciclete</string>
+	<string name="type.amenity.charging_station.motorcar">Stație de încărcare autoturisme</string>
 	<string name="type.amenity.childcare">De îngrijire a copilului</string>
 	<string name="type.leisure.bowling_alley">Popicărie</string>
 	<string name="type.amenity.clinic">Clinică</string>

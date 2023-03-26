@@ -1314,7 +1314,9 @@
 
 "type.amenity.charging_station" = "Borne de recharge";
 
-"type.amenity.charging_station.motorcar" = "Borne de recharge";
+"type.amenity.charging_station.bicycle" = "Borne de recharge pour vélo";
+
+"type.amenity.charging_station.motorcar" = "Borne de recharge pour voiture";
 
 "type.amenity.childcare" = "Garderie";
 

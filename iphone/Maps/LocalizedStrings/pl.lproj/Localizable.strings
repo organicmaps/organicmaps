@@ -1314,7 +1314,9 @@
 
 "type.amenity.charging_station" = "Stacja ładowania";
 
-"type.amenity.charging_station.motorcar" = "Stacja ładowania";
+"type.amenity.charging_station.bicycle" = "Stacja ładowania rowerów";
+
+"type.amenity.charging_station.motorcar" = "Stacja ładowania samochodów";
 
 "type.amenity.childcare" = "Opieka nad dziećmi";
 
