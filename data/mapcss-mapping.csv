@@ -1075,7 +1075,7 @@ highway|speed_camera;991;
 shop|beauty;992;
 shop|sports;993;
 deprecated:route|ferry|motor_vehicle:09.2021;[route=ferry][motor_vehicle];x;name;int_name;994;route|ferry
-deprecated:railway|rail|motor_vehicle:06.2023;[railway=rail][motor_vehicle];x;name;int_name;995;railway|rail
+deprecated:railway|rail|motor_vehicle:06.2023;[railway=rail][motor_vehicle],[railway=rail][motorcar];x;name;int_name;995;railway|rail
 hwtag|nofoot;996;
 place|city|capital|2;[place=city][capital=2],[place=city][capital?][admin_level=2];;name;int_name;997;
 place|city|capital|3;[place=city][capital=3],[place=city][capital?][admin_level=3];;name;int_name;998;
@@ -1136,7 +1136,7 @@ man_made|water_tower;1051;
 highway|world_level;1052;
 highway|world_towns_level;1053;
 building|train_station;1054;
-route|shuttle_train;1055;
+route|shuttle_train;[route=shuttle_train],[route=train][shuttle];;;;1055;
 shop|copyshop;1056;
 shop|photo;1057;
 shop|travel_agency;[shop=travel_agency],[office=travel_agent];;name;int_name;1058;

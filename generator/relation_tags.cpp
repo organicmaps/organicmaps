@@ -93,7 +93,8 @@ void RelationTagsWay::Process(RelationElement const & e)
   /// @todo Review route relations in future. Actually, now they give a lot of dummy tags.
   if (type == "route")
   {
-    if (e.GetTagValue("route") == "road")
+    auto const route = e.GetTagValue("route");
+    if (route == "road")
     {
       /* Road ref format is
        *    8;e-road/E 67;ee:local/7841171
@@ -119,7 +120,11 @@ void RelationTagsWay::Process(RelationElement const & e)
         Base::AddCustomTag({"ref", std::move(ref)});
       }
     }
-    return;
+
+    // Pass this route Relation forward to fetch it's tags (like foot, bicycle, ...).
+    bool const fetchTags = (route == "ferry" || (route == "train" && !e.GetTagValue("shuttle").empty()));
+    if (!fetchTags)
+      return;
   }
 
   if (type == "building")
@@ -136,7 +141,12 @@ void RelationTagsWay::Process(RelationElement const & e)
   for (auto const & p : e.m_tags)
   {
     /// @todo Skip common key tags.
-    if (p.first == "type" || p.first == "route" || p.first == "area")
+    if (p.first == "type" || p.first == "area")
+      continue;
+
+    /// @todo We can't assign whole Relation's duration to the each Way. Split on Ways somehow?
+    /// Make separate route = ferry/train(shuttle) Relations processing with generating one Way (routing edge).
+    if (p.first == "duration")
       continue;
 
     // Convert associatedStreet relation name to addr:street tag if we don't have one.

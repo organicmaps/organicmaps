@@ -769,4 +769,27 @@ UNIT_CLASS_TEST(TestRawGenerator, Relation_Fence)
   TEST_EQUAL(count, 2, ());
 }
 
+// https://www.openstreetmap.org/changeset/133837637
+UNIT_CLASS_TEST(TestRawGenerator, Shuttle_Route)
+{
+  std::string const mwmName = "Shuttle";
+
+  BuildFB("./data/osm_test_data/shuttle_route.osm", mwmName);
+
+  uint32_t const railType = classif().GetTypeByPath({"railway", "rail"});
+  uint32_t const shuttleType = classif().GetTypeByPath({"route", "shuttle_train"});
+
+  size_t count = 0;
+  ForEachFB(mwmName, [&](feature::FeatureBuilder const & fb)
+  {
+    if (fb.GetGeomType() == feature::GeomType::Line && fb.HasType(railType, 2))
+    {
+      ++count;
+      TEST(fb.HasType(shuttleType), (fb.GetMostGenericOsmId()));
+    }
+  });
+
+  TEST_GREATER(count, 30, ());
+}
+
 } // namespace raw_generator_tests
