@@ -151,7 +151,12 @@ However, it is possible to use the WSL (Windows Subsystem for Linux) to run GUI 
 
 #### Windows 11 (WSL)
 
-Since Windows 11 Build 22000 running GUI apps from the WSL is supported [out-of-the box](https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps). After [building](#building-1) the app you should be able to [run](#running) it without any additional steps.
+To run Linux GUI apps, you'll need to [install a driver](https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps) matching your system. This enables a virtual GPU allowing hardware-accelerated OpenGL rendering.
+- [Intel GPU Driver](https://www.intel.com/content/www/us/en/download/19344/intel-graphics-windows-dch-drivers.html)
+- [AMD GPU Driver](https://www.amd.com/en/support)
+- [NVIDIA GPU DRIVER](https://www.nvidia.com/Download/index.aspx?lang=en-us)
+
+Once a GPU driver is installed and you have [built the app](#building-1) you should be able to [run](#running) it without any additional steps.
 
 #### Windows 10 (WSL)
 
