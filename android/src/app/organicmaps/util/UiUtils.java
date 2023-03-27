@@ -540,12 +540,6 @@ public final class UiUtils
   }
 
   @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3630
-  public static  void startActivityForResult(@NonNull AppCompatActivity activity, @NonNull Intent intent, int requestCode)
-  {
-    activity.startActivityForResult(intent, requestCode);
-  }
-
-  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3630
   public static void startActivityForResult(@NonNull Fragment fragment, @NonNull Intent intent, int requestCode)
   {
     fragment.startActivityForResult(intent, requestCode);
