@@ -1,9 +1,7 @@
 package app.organicmaps.widget.menu;
 
-import android.content.res.ColorStateList;
 import android.location.Location;
 import android.util.Pair;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,15 +10,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import app.organicmaps.R;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.routing.RoutingInfo;
 import app.organicmaps.sound.TtsPlayer;
-import app.organicmaps.widget.FlatProgressView;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.widget.FlatProgressView;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -42,14 +40,19 @@ public class NavMenu
   private final TextView mTimeHourUnits;
   private final TextView mTimeMinuteValue;
   private final TextView mTimeMinuteUnits;
+  private final TextView mTimeHourValue2;
+  private final TextView mTimeHourUnits2;
+  private final TextView mTimeMinuteValue2;
+  private final TextView mTimeMinuteUnits2;
   private final TextView mTimeEstimate;
+  private final TextView mTimeEstimate2;
   private final TextView mDistanceValue;
   private final TextView mDistanceUnits;
   private final FlatProgressView mRouteProgress;
-  private final LinearLayout mTimeValueContainer;
-
   private final AppCompatActivity mActivity;
   private final NavMenuListener mNavMenuListener;
+  private LinearLayout mTimeValueContainer;
+  private LinearLayout mTimeValueContainer2;
 
   private int currentPeekHeight = 0;
 
@@ -66,7 +69,6 @@ public class NavMenu
     mBottomSheetBackground.setOnClickListener(v -> collapseNavBottomSheet());
     mBottomSheetBackground.setVisibility(View.GONE);
     mBottomSheetBackground.setAlpha(0);
-    mTimeValueContainer = bottomFrame.findViewById(R.id.time_values_container);
     mNavBottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback()
     {
       @Override
@@ -97,10 +99,17 @@ public class NavMenu
     mTimeHourUnits = bottomFrame.findViewById(R.id.time_hour_dimen);
     mTimeMinuteValue = bottomFrame.findViewById(R.id.time_minute_value);
     mTimeMinuteUnits = bottomFrame.findViewById(R.id.time_minute_dimen);
+    mTimeHourValue2 = bottomFrame.findViewById(R.id.time_hour_value2);
+    mTimeHourUnits2 = bottomFrame.findViewById(R.id.time_hour_dimen2);
+    mTimeMinuteValue2 = bottomFrame.findViewById(R.id.time_minute_value2);
+    mTimeMinuteUnits2 = bottomFrame.findViewById(R.id.time_minute_dimen2);
     mTimeEstimate = bottomFrame.findViewById(R.id.time_estimate);
+    mTimeEstimate2 = bottomFrame.findViewById(R.id.time_estimate2);
     mDistanceValue = bottomFrame.findViewById(R.id.distance_value);
     mDistanceUnits = bottomFrame.findViewById(R.id.distance_dimen);
     mRouteProgress = bottomFrame.findViewById(R.id.navigation_progress);
+    mTimeValueContainer = bottomFrame.findViewById(R.id.time_values_container);
+    mTimeValueContainer2 = bottomFrame.findViewById(R.id.time_values_container2);
 
     // Bottom frame buttons
     ImageView mSettings = bottomFrame.findViewById(R.id.settings);
@@ -163,9 +172,9 @@ public class NavMenu
 
   public void refreshTts()
   {
-    mTts.setImageDrawable(TtsPlayer.isEnabled() ? Graphics.tint(mActivity, R.drawable.ic_voice_on,
-                                                                R.attr.colorAccent)
-                                                : Graphics.tint(mActivity, R.drawable.ic_voice_off));
+    mTts.setImageDrawable(TtsPlayer.isEnabled() ? Graphics.tint(mActivity,
+        R.drawable.ic_voice_on, R.attr.colorAccent)
+        : Graphics.tint(mActivity, R.drawable.ic_voice_off));
   }
 
 
@@ -180,47 +189,39 @@ public class NavMenu
     final long hours = TimeUnit.SECONDS.toHours(seconds);
     final long minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60;
     mTimeMinuteValue.setText(String.valueOf(minutes));
+    mTimeMinuteValue2.setText(String.valueOf(minutes));
     String min = mActivity.getResources().getString(R.string.minute);
     mTimeMinuteUnits.setText(min);
-    mTimeValueContainer.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        changeTimes();
-      }
-    });
+    mTimeMinuteUnits2.setText(min);
+    mTimeValueContainer.setOnClickListener(v -> changeTimes());
     if (hours == 0)
     {
       UiUtils.hide(mTimeHourUnits, mTimeHourValue);
+      UiUtils.hide(mTimeHourUnits2, mTimeHourValue2);
       return;
     }
     UiUtils.setTextAndShow(mTimeHourValue, String.valueOf(hours));
+    UiUtils.setTextAndShow(mTimeHourValue2, String.valueOf(hours));
     String hour = mActivity.getResources().getString(R.string.hour);
     UiUtils.setTextAndShow(mTimeHourUnits, hour);
+    UiUtils.setTextAndShow(mTimeHourUnits2, hour);
   }
 
-  private void changeTimes(){
-    float s1 = mTimeEstimate.getTextSize(), s2 = mTimeMinuteValue.getTextSize();
-    mTimeEstimate.setTextSize(TypedValue.COMPLEX_UNIT_PX, s2);
-    mTimeHourValue.setTextSize(TypedValue.COMPLEX_UNIT_PX, s1);
-    mTimeMinuteValue.setTextSize(TypedValue.COMPLEX_UNIT_PX, s1);
-    ColorStateList col = mTimeEstimate.getTextColors();
-    mTimeEstimate.setTextColor(mTimeMinuteValue.getTextColors());
-    mTimeMinuteUnits.setTextColor(col);
-    mTimeHourUnits.setTextColor(col);
-    mTimeMinuteValue.setTextColor(col);
-    mTimeHourValue.setTextColor(col);
-
-    if(mTimeValueContainer.getY() < mTimeEstimate.getY())
+  public void changeTimes()
+  {
+    if (mTimeValueContainer.getVisibility() == View.VISIBLE)
     {
-      mTimeValueContainer.setY(mSpeedUnits.getY());
-      mTimeEstimate.setY(mTimeEstimate.getY()/2);
+      UiUtils.hide(mTimeValueContainer);
+      UiUtils.show(mTimeValueContainer2);
+      UiUtils.hide(mTimeEstimate);
+      UiUtils.show(mTimeEstimate2);
     }
     else
     {
-      mTimeValueContainer.setY(mSpeedValue.getY());
-      mTimeEstimate.setY(mSpeedUnits.getY()/2);
+      UiUtils.show(mTimeValueContainer);
+      UiUtils.hide(mTimeValueContainer2);
+      UiUtils.show(mTimeEstimate);
+      UiUtils.hide(mTimeEstimate2);
     }
   }
 
@@ -234,18 +235,9 @@ public class NavMenu
     else
       timeFormat = new SimpleDateFormat("h:mm aa", Locale.getDefault());
     mTimeEstimate.setText(timeFormat.format(currentTime.getTime()));
-
-    mTimeEstimate.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        changeTimes();
-      }
-    });
+    mTimeEstimate2.setText(timeFormat.format(currentTime.getTime()));
+    mTimeEstimate2.setOnClickListener(v -> changeTimes());
   }
-
-
   private void updateSpeedView(@NonNull RoutingInfo info)
   {
     final Location last = LocationHelper.INSTANCE.getSavedLocation();
