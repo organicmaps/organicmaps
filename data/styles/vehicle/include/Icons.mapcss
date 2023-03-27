@@ -487,8 +487,8 @@ node|z17-[amenity=arts_centre],
 area|z17-[amenity=arts_centre]
 {icon-image: gallery-m.svg;text-offset: 1;icon-min-distance: 12;}
 
-node|z16-[amenity=theatre],
-area|z16-[amenity=theatre]
+node|z15-[amenity=theatre],
+area|z15-[amenity=theatre],
 {icon-image: theatre-m.svg;icon-min-distance: 10;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
 
 node|z15[tourism=zoo],
