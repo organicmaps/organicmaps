@@ -139,9 +139,6 @@
                                 <constraint firstItem="jDl-pu-eov" firstAttribute="top" secondItem="sXu-tl-a0m" secondAttribute="top" id="sf1-S5-kmZ"/>
                             </constraints>
                             <variation key="default">
-                                <mask key="subviews">
-                                    <exclude reference="f6i-lw-K3R"/>
-                                </mask>
                                 <mask key="constraints">
                                     <exclude reference="BWr-hr-pwo"/>
                                     <exclude reference="Cd3-ev-uFS"/>
@@ -459,7 +456,7 @@
                 <outlet property="drivingOptionsButton" destination="Opi-yT-xIZ" id="tMG-Af-HEo"/>
                 <outlet property="pedestrian" destination="VhE-hA-Leo" id="R3O-th-Jw0"/>
                 <outlet property="publicTransport" destination="Eu3-bT-Dom" id="XNh-uW-Kog"/>
-                <outlet property="taxi" destination="f6i-lw-K3R" id="s0G-le-Kbz"/>
+                <outlet property="helicopter" destination="f6i-lw-K3R" id="s0G-le-Kbz"/>
                 <outlet property="vehicle" destination="jDl-pu-eov" id="awM-KI-2xO"/>
             </connections>
             <point key="canvasLocation" x="448" y="573.46326836581716"/>

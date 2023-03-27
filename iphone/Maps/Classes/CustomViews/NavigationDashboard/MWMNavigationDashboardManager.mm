@@ -176,13 +176,19 @@ NSString *const kNavigationControlViewXibName = @"NavigationControlView";
   [self setRouteBuilderProgress:100.];
   [self updateGoButtonTitle];
   auto const isTransport = ([MWMRouter type] == MWMRouterTypePublicTransport);
+  auto const isHelicopter = ([MWMRouter type] == MWMRouterTypeHelicopter);
   if (isTransport)
     [self.transportRoutePreviewStatus showReady];
   else
     [self.baseRoutePreviewStatus showReady];
-  self.goButtonsContainer.hidden = isTransport;
+  self.goButtonsContainer.hidden = (isTransport || isHelicopter);
   for (MWMRouteStartButton *button in self.goButtons)
-    [button stateReady];
+  {
+    if (isHelicopter)
+      [button stateHidden];
+    else
+      [button stateReady];
+  }
 }
 
 - (void)onRouteStart {
