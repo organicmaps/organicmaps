@@ -337,8 +337,8 @@ void AsyncRouter::CalculateRoute()
 
   try
   {
-    LOG(LINFO, ("Calculating the route. checkpoints:", checkpoints, "startDirection:",
-                startDirection, "router name:", router->GetName()));
+    LOG(LINFO, ("Calculating the route of direct length", checkpoints.GetSummaryLengthBetweenPointsMeters(),
+                "m. checkpoints:", checkpoints, "startDirection:", startDirection, "router name:", router->GetName()));
 
     if (absentRegionsFinder)
       absentRegionsFinder->GenerateAbsentRegions(checkpoints, delegateProxy->GetDelegate());
