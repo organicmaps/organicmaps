@@ -228,4 +228,11 @@ UNIT_TEST(Spain_Madrid_ElevationsDetour)
   TEST_LESS(r1.first->GetTotalDistanceMeters() * 1.5, r2.first->GetTotalDistanceMeters(), ());
   TEST_GREATER(r1.first->GetTotalTimeSec(), r2.first->GetTotalTimeSec(), ());
 }
+
+UNIT_TEST(Spain_Zaragoza_Fancy_NoBicycle_Crossings)
+{
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
+      mercator::FromLatLon(41.6523561, -0.881151311), {0.0, 0.0},
+      mercator::FromLatLon(41.6476614, -0.885694674), 649.855 /* expectedRouteMeters */);
+}
 } // namespace bicycle_route_test
