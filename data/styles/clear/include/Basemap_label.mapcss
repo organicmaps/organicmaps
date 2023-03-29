@@ -463,11 +463,12 @@ area|z16-[leisure=garden][garden:type!=residential][name]::int_name
 /*
   If we define [name] styles, we should also define at least empty [!name] stub.
   ToDo: Looks strange, but needed for current styles generator.
+  Specify text: none here, because we have generic z17-[leisure] declaration above.
 */
 area|z14-[leisure=park][!name],
 area|z14-[landuse=forest][!name],
 area|z16-[leisure=garden][!name],
-{}
+{text: none}
 
 area|z14-[landuse=forest][name]
 {icon-image: nparkf-outline-s.svg;}
