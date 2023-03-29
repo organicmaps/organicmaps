@@ -791,6 +791,8 @@ node|z17-[railway=station][transport=subway][city=spb]::int_name
 {text: none;}
 
 /* Saint Petersburg Subway Station entrance */
+node|z15[railway=subway_entrance][city=spb]
+{icon-image: subway-spb-s.svg;}
 node|z16[railway=subway_entrance][city=spb]
 {icon-image: subway-spb-m.svg;text-offset: 1;font-size: 13;text-halo-opacity: 0.8;}
 node|z16[railway=subway_entrance][city=spb]::int_name
