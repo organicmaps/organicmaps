@@ -92,7 +92,7 @@ def grep_android():
 
 def grep_core():
     logging.info("Grepping core...")
-    grep = "grep -r -I --exclude-dir {0}/3party 'GetLocalizedString' {0}/*".format(
+    grep = "grep -wr -I --exclude-dir {0}/3party --exclude-dir {0}/.git --exclude-dir {0}/data 'GetLocalizedString' {0}/*".format(
         OMIM_ROOT)
     ret = android_grep_wrapper(grep, CORE_RE)
     logging.info("Found in core: {0}".format(len(ret)))
