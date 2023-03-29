@@ -711,12 +711,12 @@ area|z19-[man_made=water_well],
 node|z12-[railway=station][!transport],
 node|z13-[railway=halt],
 node|z14-[railway=station][transport=subway],
-node|z16-[railway=subway_entrance],
+node|z17-[railway=subway_entrance],
 {text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.6;text-halo-color: @label_halo_light;}
 node|z12-[railway=station][!transport]::int_name,
 node|z13-[railway=halt]::int_name,
 node|z14-[railway=station][transport=subway]::int_name,
-node|z16-[railway=subway_entrance]::int_name,
+node|z17-[railway=subway_entrance]::int_name,
 {text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.6;text-halo-color: @label_halo_light;}
 
 node|z17-[railway=tram_stop],
@@ -813,10 +813,12 @@ node|z17-[railway=station][transport=subway]
 node|z17-[railway=station][transport=subway]::int_name
 {text-offset: 1;font-size: 11;text-halo-opacity: 0.9;} /*check*/
 
-node|z17-[railway=subway_entrance]
-{icon-image: subway-entrance-m.svg;text-offset: 1;font-size: 13;text-halo-opacity: 0.9;}
-node|z17-[railway=subway_entrance]::int_name
-{text-offset: 1;font-size: 11;text-halo-opacity: 0.9;} /*check*/
+node|z16-[railway=subway_entrance],
+{icon-image: subway-entrance-m.svg;}
+node|z17-[railway=subway_entrance],
+{text-offset: 1; font-size: 13; text-halo-opacity: 0.9;}
+node|z17-[railway=subway_entrance]::int_name,
+{text-offset: 1; font-size: 11; text-halo-opacity: 0.9;}
 
 node|z17-[highway=elevator],
 area|z17-[highway=elevator],
