@@ -41,7 +41,7 @@
 
   [make_a_right_turn]
     en = Turn right.
-    ar = انعطف يمينا.
+    ar = انعطف يميناً.
     be = Павярніце направа.
     ca = Gireu a a dreta.
     cs = Odbočte vpravo.
@@ -119,7 +119,7 @@
 
   [enter_the_roundabout]
     en = Enter the roundabout.
-    ar = اتجه إلى الطريق الدوار.
+    ar = ادخل الدوار.
     be = Павярніце на круг.
     ca = Entreu a la rotonda.
     cs = Vjeďte na kruhový objezd.
@@ -236,7 +236,7 @@
 
   [make_a_left_turn]
     en = Turn left.
-    ar = انعطف يسارا.
+    ar = انعطف يساراً.
     be = Павярніце налева.
     ca = Gireu a l'esquerra.
     cs = Odbočte vlevo.
@@ -509,7 +509,7 @@
 
   [in_50_meters]
     en = In fifty meters
-    ar = بعد خمسين مترًا
+    ar = بعد خمسين متراً
     be = Праз пяцьдзесят метраў
     ca = A cinquanta metres
     cs = Za padesát metrů
@@ -626,7 +626,7 @@
 
   [in_250_meters]
     en = In two hundred and fifty meters
-    ar = بعد مئتين وخمسين مترًا
+    ar = بعد مئتين وخمسين متراً
     be = Праз дзвесце пяцьдзесят метраў
     ca = A dos-cents cinquanta metres
     cs = Za dvě stě padesát metrů
