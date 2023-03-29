@@ -208,7 +208,7 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     if (info.nextCarDirection.containsNextTurn())
       info.nextCarDirection.setNextTurnDrawable(mNextNextTurnImage);
 
-    if (info.lanes != null)
+    if (info.shouldShowLanes())
     {
       UiUtils.show(mLanesFrame);
       mLanesAdapter.setItems(Arrays.asList(info.lanes));

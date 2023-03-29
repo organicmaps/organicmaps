@@ -164,4 +164,17 @@ public class RoutingInfo
   {
     return shouldPlayWarningSignal;
   }
+
+  /// @todo Skip inactive lanes until fix https://github.com/organicmaps/organicmaps/issues/4873
+  public boolean shouldShowLanes()
+  {
+    if (lanes == null)
+      return false;
+
+    for (SingleLaneInfo li : lanes)
+      if (li.mIsActive)
+        return true;
+
+    return false;
+  }
 }
