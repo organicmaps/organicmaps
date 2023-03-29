@@ -494,18 +494,19 @@ Locales Processor::GetCategoryLocales() const
 template <typename ToDo>
 void Processor::ForEachCategoryType(StringSliceBase const & slice, ToDo && toDo) const
 {
-  ::search::ForEachCategoryType(slice, GetCategoryLocales(), m_categories, forward<ToDo>(toDo));
+  ::search::ForEachCategoryType(slice, GetCategoryLocales(), m_categories, toDo);
 }
 
 template <typename ToDo>
 void Processor::ForEachCategoryTypeFuzzy(StringSliceBase const & slice, ToDo && toDo) const
 {
-  ::search::ForEachCategoryTypeFuzzy(slice, GetCategoryLocales(), m_categories,
-                                     forward<ToDo>(toDo));
+  ::search::ForEachCategoryTypeFuzzy(slice, GetCategoryLocales(), m_categories, toDo);
 }
 
 void Processor::Search(SearchParams params)
 {
+  /// @DebugNote
+  // Comment this line to run search in a debugger.
   SetDeadline(chrono::steady_clock::now() + params.m_timeout);
 
   if (params.m_onStarted)
@@ -756,7 +757,6 @@ void Processor::InitParams(QueryParams & params) const
   }
   else
   {
-    // todo(@m, @y). Shall we match prefix tokens for categories?
     ForEachCategoryTypeFuzzy(tokenSlice, [&c, &params](size_t i, uint32_t t)
     {
       uint32_t const index = c.GetIndexForType(t);

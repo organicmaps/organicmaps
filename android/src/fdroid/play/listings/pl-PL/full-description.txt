@@ -1,16 +1,17 @@
-‣ Nasza darmowa aplikacja nie śledzi Cię i nie ma reklam, a finansowana jest przez Twoje darowizny.
-‣ Jest ona stale ulepszana przez nasz mały zespół, w naszym wolnym czasie, przy użyciu naszych własnych pieniędzy i darowizn/składek od naszych użytkowników.
+‣ Nasza darmowa aplikacja nie śledzi Cię, nie ma reklam i jest finansowana przez społeczność.
+‣ Jest ona stale ulepszana przez nasz mały zespół i współpracowników, w naszym wolnym czasie.
 ‣ Jeśli widzisz błąd lub czegoś brakuje na mapie, proszę naprawić to w <b>OpenStreetMap</b> i sprawdź swoje zmiany w przyszłej aktualizacji map.
 ‣ Jeśli nawigacja lub wyszukiwanie nie działa, napisz do nas. Odpowiadamy na <i>KAŻDY</i> email, i naprawimy to tak szybko jak to możliwe!
 
 <b>Wasze opinie i 5-gwiazdkowe recenzje to dla nas najlepsza motywacja! </b>.
 
 Główne cechy:
-• Darmowość, otwarte źródło, brak reklam, brak śledzenia
+
+• Za darmo, otwarte źródło, brak reklam, brak śledzenia
 • Szczegółowe mapy offline z miejscami, które nie istnieją na mapach Google, dzięki społeczności <b>OpenStreetMap</b>
 • Trasy rowerowe, szlaki turystyczne, ścieżki spacerowe
 • Linie konturowe, profile wysokościowe, szczyty i zbocza
-• Nawigacja piesza, rowerowa i samochodowa typu "turn-by-turn" ze wskazówkami głosowymi
+• Nawigacja piesza, rowerowa i samochodowa typu "skręt za skrętem" ze wskazówkami głosowymi
 • Szybkie wyszukiwanie w trybie offline
 • Eksport i import zakładek w formatach KML/KMZ (GPX już wkrótce)
 • Tryb ciemny, aby chronić Twoje oczy

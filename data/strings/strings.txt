@@ -178,7 +178,7 @@
     es = Descargar mapas
     et = Lae kaarte
     eu = Deskargatu mapak
-    fa = دانلود نقشه ها
+    fa = دانلود نقشه‌ها
     fi = Lataa karttoja
     fr = Télécharger des cartes
     he = הורד קבצי מפות
@@ -345,7 +345,7 @@
     eu = Idatzi iritzia
     fa = نظر خود را بیان کنید
     fi = Jätä arviointi
-    fr = Laisser une critique
+    fr = Laisser un commentaire
     he = הבע דעתך
     hu = Ajánlás írása
     id = Tulis Ulasan
@@ -647,7 +647,7 @@
     tags = android
     en = You currently have all Location Services for this device or application disabled. Please enable them in Settings.
     ar = التطبيق أو جميع خدمات تحديد المواقع معطلة لديك في الوقت الحالي. الرجاء تفعيلها في الإعدادات.
-    be = У вас выключана геалакацыя для гэтай прылады альбо дадатку. Калі ласка, уключыце яе ў Наладах.
+    be = У вас выключана геалакацыя для гэтай прылады альбо праграмы. Калі ласка, уключыце яе ў Наладах.
     bg = В момента всички услуги за местоположение за това устройство или приложение са деактивирани. Моля, разрешете ги в Настройки.
     ca = Teniu tots els serveis de geolocalització d'aquest aparell desactivats. Activeu-los a la configuració.
     cs = Aktuálně máte všechny možnosti pro určování polohy vypnuté. Prosím, povolte je v Nastavení.
@@ -657,7 +657,7 @@
     es = No se puede acceder a los servicios de localización en este dispositivo o aplicación. Por favor, actívelos en los ajustes.
     et = Seadme või rakenduse kõik asukohateenused on praegu välja lülitatud. Luba need Seadetes.
     eu = Ezin da kokapen-zerbitzuetara sartu. Mesedez, aktibatu ezarpenetan.
-    fa = سرویس موقعیت مکانی شما غیر فعال است .لطفا جهت کارکرد صحیح نرم افزار ان را فعال کنید.
+    fa = سرویس موقعیت مکانی شما غیر فعال است. لطفا جهت کارکرد صحیح نرم افزار آن را فعال کنید.
     fi = Laitteen tai sovelluksen kaikki sijaintipalvelut ovat tällä hetkellä poissa käytöstä. Ota ne käyttöön Asetukset-valikossa.
     fr = Tous les services de localisation de cet appareil sont désactivés, ou ils le sont pour cette application. Veuillez les activer dans les paramètres.
     he = שרותי המיקום של מכשיר או ישום זה זה כבויים. הכנס ל "הגדרות" Settings)) כדי להדליקם.
@@ -847,10 +847,10 @@
     zh-Hant = 再試一次
 
   [about_menu_title]
-    tags = ios
+    tags = android,ios
     en = About Organic Maps
     ar = حول Organic Maps
-    be = Аб дадатку Organic Maps
+    be = Аб праграме Organic Maps
     bg = Относно приложението
     ca = Quant a l'Organic Maps
     cs = O aplikaci Organic Maps
@@ -868,7 +868,7 @@
     id = Tentang Organic Maps
     it = Informazioni su Organic Maps
     ja = Organic Mapsについて
-    ko = 소개
+    ko = Organic Maps 정보
     mr = Organic Maps बद्दल
     nb = Om Organic Maps
     nl = Over Organic Maps
@@ -876,15 +876,208 @@
     pt = Sobre o Organic Maps
     pt-BR = Sobre o Organic Maps
     ro = Despre Organic Maps
-    ru = О программе
+    ru = Про Organic Maps
     sk = O aplikácii Organic Maps
     sv = Om Organic Maps
     th = เกี่ยวกับ Organic Maps
     tr = Organic Maps Hakkında
-    uk = Про програму
+    uk = Про Organic Maps
     vi = Giới thiệu về Organic Maps
     zh-Hans = 关于 Organic Maps
     zh-Hant = 關於 Organic Maps
+
+  [about_headline]
+    tags = android
+    comment = Text in About screen
+    en = Free for everyone, made with love
+    ar = مجاني للجميع ، مصنوع من الحب
+    be = Бескаштоўна для ўсіх, зроблена з любоўю
+    bg = Безплатно за всички, направени с любов
+    cs = Zdarma pro všechny, vyrobené s láskou
+    da = Gratis for alle, lavet med kærlighed
+    de = Kostenlos für alle, mit Liebe gemacht
+    el = Δωρεάν για όλους, φτιαγμένα με αγάπη
+    es = Gratis para todos, hecho con amor
+    fa = رایگان برای همه ، ساخته شده با عشق
+    fi = Ilmainen kaikille, tehty rakkaudella
+    fr = Gratuit pour tout le monde, fait avec amour
+    he = חינם לכולם, מיוצרים באהבה
+    hu = Ingyenes mindenkinek, szeretettel készítve
+    id = Gratis untuk semua orang, dibuat dengan cinta
+    it = Gratis per tutti, fatto con amore
+    ja = すべての人のために無料で、愛を込めて作られています
+    ko = 사랑으로 만든 모든 사람에게 무료
+    nb = Gratis for alle, laget med kjærlighet
+    nl = Gratis voor iedereen, met liefde gemaakt
+    pl = Darmowa dla wszystkich, wykonana z miłością
+    pt = Grátis para todos, feito com amor
+    pt-BR = Grátis para todos, feito com amor
+    ro = Gratuit pentru toată lumea, făcut cu dragoste
+    ru = Бесплатно для всех, сделано с любовью
+    sk = Zadarmo pre každého, vyrobený s láskou
+    sv = Gratis för alla, gjorda med kärlek
+    sw = Bure kwa kila mtu, iliyotengenezwa na upendo
+    th = ฟรีสำหรับทุกคนทำด้วยความรัก
+    tr = Sevgiyle yapılmış, herkes için ücretsiz harita
+    uk = Безкоштовно для всіх, зроблене з любов'ю
+    vi = Miễn phí cho mọi người, được làm bằng tình yêu
+    zh-Hans = 对每个人都免费，用爱制成
+    zh-Hant = 對每個人都免費，用愛製成
+
+  [about_proposition_1]
+    tags = android
+    comment = Text in About screen
+    en = • No ads, no tracking, no data collection
+    ar = • لا إعلانات ، لا تتبع ، لا جمع البيانات
+    be = • Ніякай рэкламы, без сачэння і збору вашых дадзеных
+    bg = • Без реклами, без проследяване, без събиране на данни
+    cs = • Žádné reklamy, žádné sledování, žádné sběr dat
+    da = • Ingen annoncer, ingen sporing, ingen dataindsamling
+    de = • Keine Werbung, kein Tracking, keine Datenerfassung
+    el = • Δεν υπάρχουν διαφημίσεις, χωρίς παρακολούθηση, χωρίς συλλογή δεδομένων
+    es = • Sin anuncios, sin seguimiento, sin recopilación de datos
+    fa = • بدون تبلیغات ، ردیابی ، جمع آوری داده ها
+    fi = • Ei mainoksia, ei seurantaa, ei tiedonkeruua
+    fr = • Pas d'annonces, pas de suivi, pas de collecte de données
+    he = • אין מודעות, ללא מעקב, ללא איסוף נתונים
+    hu = • Nincs hirdetés, nincs nyomon követés, nincs adatgyűjtés
+    id = • Tidak ada iklan, tidak ada pelacakan, tidak ada pengumpulan data
+    it = • Nessun annuncio, nessun tracciamento, nessuna raccolta di dati
+    ja = •広告、追跡なし、データ収集なし
+    ko = • 광고 없음, 추적 없음, 데이터 수집 없음
+    nb = • Ingen annonser, ingen sporing, ingen datainnsamling
+    nl = • Geen advertenties, geen tracking, geen gegevensverzameling
+    pl = • Bez reklam, bez śledzenia, bez gromadzenia danych
+    pt = • Sem anúncios, rastreamento ou coleta de dados
+    pt-BR = • Sem anúncios, rastreamento ou coleta de dados
+    ro = • Fără reclame, fără urmărire, fără colectare de date
+    ru = • Без рекламы, без трекинга, без слежки
+    sk = • Žiadne reklamy, žiadne sledovanie, žiadny zber údajov
+    sv = • Inga annonser, ingen spårning, ingen datainsamling
+    sw = • Hakuna matangazo, hakuna ufuatiliaji, hakuna mkusanyiko wa data
+    th = • ไม่มีโฆษณาไม่มีการติดตามไม่มีการรวบรวมข้อมูล
+    tr = • Reklam yok, takip yok, veri toplama yok
+    uk = • Без реклами, без трекінгу, без стеження
+    vi = • Không có quảng cáo, không theo dõi, không thu thập dữ liệu
+    zh-Hans = •没有广告，没有跟踪，没有数据收集
+    zh-Hant = •沒有廣告，沒有跟踪，沒有數據收集
+
+  [about_proposition_2]
+    tags = android
+    comment = Text in About screen
+    en = • No battery drain, no background data
+    ar = • يحفظ البطارية ، لا يستخدم بيانات الخلفية
+    be = • Эканоміць батарэю, не выкарыстоўвае фонавыя дадзеныя
+    bg = • Пести батерията, не използва фонови данни
+    ca = • Estalvia la bateria, no utilitza dades de fons
+    cs = • Šetří baterii, nevyužívá data na pozadí
+    da = • Sparer batteriet, bruger ikke baggrundsdata
+    de = • Schont den Akku, keine Hintergrunddaten
+    el = • Εξοικονομεί μπαταρία, δεν χρησιμοποιεί δεδομένα παρασκηνίου
+    es = • Sin drenaje de la batería, sin datos de fondo
+    et = • Säästab akut, ei kasuta taustaandmeid
+    eu = • Bateria aurrezten du, ez du atzeko planoko daturik erabiltzen
+    fa = • باتری را ذخیره می کند، از داده های پس زمینه استفاده نمی کند
+    fi = • Säästää akkua, ei käytä taustatietoja
+    fr = • Ne draine pas la batterie, ni les données mobile
+    he = • חוסך בסוללה, אינו משתמש בנתוני רקע
+    hu = • Kíméli az akkumulátort, nem használ háttéradatokat
+    id = • Menghemat baterai, tidak menggunakan data latar belakang
+    it = • Risparmia la batteria, non utilizza i dati in background
+    ja = • バッテリーを節約し、バックグラウンド データを使用しません
+    ko = • 배터리를 절약하고 백그라운드 데이터를 사용하지 않습니다.
+    mr = • बॅटरी वाचवते, पार्श्वभूमी डेटा वापरत नाही
+    nb = • Sparer batteriet, bruker ikke bakgrunnsdata
+    nl = • Spaart de batterij, gebruikt geen achtergrondgegevens
+    pl = • Bez drenażu baterii, brak danych w tle
+    pt = • Baixo consumo de bateria, sem atualização em segundo plano
+    pt-BR = • Baixo consumo de bateria, sem atualização em segundo plano
+    ro = • Economisește bateria, nu utilizează date de fundal
+    ru = • Экономит батарею, без фоновых данных
+    sk = • Šetrí batériu, nepoužíva dáta na pozadí
+    sv = • Sparar batteriet, använder inte bakgrundsdata
+    sw = • Huokoa betri, haitumii data ya usuli
+    th = • ประหยัดแบตเตอรี่ ไม่ใช้ข้อมูลพื้นหลัง
+    tr = • Pilinizi tüketmez, arka planda veri alıp göndermez
+    uk = • Економить акумулятор, не використовує фонові дані
+    vi = • Tiết kiệm pin, không sử dụng dữ liệu nền
+    zh-Hans = • 节省电池电量，不使用后台数据
+    zh-Hant = • 節省電池電量，不使用後台數據
+
+  [about_proposition_3]
+    tags = android
+    comment = Text in About screen
+    en = • Fast, minimalist, no software bloat
+    ar = • سريع ، الحد الأدنى ، لا خردة
+    be = • Хуткія, мінімалістычныя, без смецця
+    bg = • Бързи, минималистични, без боклуци
+    cs = • Rychlý, minimalistický, žádný haraburdí
+    da = • Hurtig, minimalistisk, intet skrammel
+    de = • Schnell, minimalistisch, keine Bloatware
+    el = • Γρήγορη, μινιμαλιστική, χωρίς σκουπίδια
+    es = • Rápido, minimalista, sin basura
+    fa = • سریع ، مینیمالیستی ، بدون آشغال
+    fi = • Nopea, minimalistinen, ei roskaa
+    fr = • Rapide, minimaliste, pas de superflu
+    he = • מהיר, מינימליסטי, ללא זבל
+    hu = • Gyors, minimalista, nincs szemét
+    id = • Cepat, minimalis, tidak ada sampah
+    it = • Veloce, minimalista, nessuna spazzatura
+    ja = •速く、ミニマルな、ジャンクなし
+    ko = • 빠르고 최소한의 정크가 없습니다
+    nb = • Rask, minimalistisk, ingen søppel
+    nl = • Snel, minimalistisch, geen junk
+    pl = • Szybka, minimalistyczna, bez śmieci
+    pt = • Rápido, minimalista e sem recursos desnecessários
+    pt-BR = • Rápido, minimalista e sem recursos desnecessários
+    ro = • Rapid, minimalist, fără gunoi
+    ru = • Быстрые, минималистичные, без мусора
+    sk = • Rýchle, minimalistické, žiadne nevyžiadané
+    sv = • Snabb, minimalistisk, inget skräp
+    sw = • Haraka, minimalistic, hakuna taka
+    th = •เร็วเรียบง่ายไม่มีขยะ
+    tr = • Hızlı, minimalist ve hafif
+    uk = • Швидкий, мінімалістичний, без зайвого сміття
+    vi = • Nhanh chóng, tối giản, không có rác
+    zh-Hans = •快速，简约，没有垃圾
+    zh-Hant = •快速，簡約，沒有垃圾
+
+  [about_developed_by_enthusiasts]
+    tags = android
+    comment = Text in About screen
+    en = Open-source application created by enthusiasts and volunteers.
+    ar = تطبيق مفتوح المصدر الذي أنشأه المتحمسون والمتطوعون.
+    be = Прыкладанне з адкрытым зыходным кодам, створанае энтузіястамі і валанцёрамі.
+    bg = Приложение с отворен код, създадено от ентусиасти и доброволци.
+    cs = Otevřená aplikace vytvořená nadšenci a dobrovolníky.
+    da = Open source-applikation oprettet af entusiaster og frivillige.
+    de = Open-Source-Anwendung von Enthusiasten und Freiwilligen.
+    el = Εφαρμογή ανοιχτού κώδικα που δημιουργήθηκε από ενθουσιώδες και εθελοντές.
+    es = Aplicación de código abierto creada por entusiastas y voluntarios.
+    fa = برنامه منبع باز ایجاد شده توسط علاقه مندان و داوطلبان.
+    fi = Harrastajien ja vapaaehtoisten luoma avoimen lähdekoodin sovellus.
+    fr = Application open source créée par des amateurs et des bénévoles.
+    he = יישום קוד פתוח שנוצר על ידי חובבים ומתנדבים.
+    hu = A rajongók és az önkéntesek által létrehozott nyílt forráskódú alkalmazás.
+    id = Aplikasi open-source yang dibuat oleh penggemar dan sukarelawan.
+    it = Applicazione open source creata da appassionati e volontari.
+    ja = 愛好家とボランティアによって作成されたオープンソースアプリケーション。
+    ko = 애호가와 자원 봉사자가 만든 오픈 소스 응용 프로그램.
+    nb = Open source-applikasjon opprettet av entusiaster og frivillige.
+    nl = Open-source applicatie gemaakt door enthousiastelingen en vrijwilligers.
+    pl = Aplikacja typu open source stworzona przez entuzjastów i wolontariuszy.
+    pt = Aplicativo de código aberto criado por entusiastas e voluntários.
+    ro = Aplicație open-source creată de entuziaști și voluntari.
+    ru = Приложение с открытым исходным кодом, созданное энтузиастами и волонтерами.
+    sk = Aplikácia s otvoreným zdrojovým kódom vytvorené nadšencami a dobrovoľníkmi.
+    sv = Open-källansökan skapad av entusiaster och frivilliga.
+    sw = Maombi ya chanzo-wazi iliyoundwa na wanaovutia na wanaojitolea.
+    th = แอปพลิเคชันโอเพนซอร์ซที่สร้างขึ้นโดยผู้ที่ชื่นชอบและอาสาสมัคร
+    tr = Teknoloji tutkunları ve gönüllüler tarafından oluşturulan açık kaynaklı bir uygulama.
+    uk = Програма з відкритим кодом, створена ентузіастами та волонтерами.
+    vi = Ứng dụng nguồn mở được tạo bởi những người đam mê và tình nguyện viên.
+    zh-Hans = 由爱好者和志愿者创建的开源应用程序。
+    zh-Hant = 由愛好者和志願者創建的開源應用程序。
 
   [connection_settings]
     tags = android
@@ -980,7 +1173,7 @@
     es = La aplicación requiere OpenGL acelerado por hardware. Lamentablemente, su dispositivo no es compatible.
     et = Rakendus vajab riistvaralist OpenGL tuge. Kahjuks Sinu seade ei ole toetatud.
     eu = Aplikazioak hardware-azeleratutako OpenGL behar du. Zoritxarrez, zure gailua ez da onartzen.
-    fa = نیازمند است. متاسفانه دستگاه شما از ان پشتیبانی نمی کندOpenGLبرنامه برای اجرا به
+    fa = نیازمند است. متاسفانه دستگاه شما از آن پشتیبانی نمی‌کندOpenGLبرنامه برای اجرا به
     fi = Laitteistokiihdytetty OpenGL vaaditaan. Valitettavasti laitteesi ei ole tuettu.
     fr = L'accélération OpenGL matérielle est exigée. Malheureusement, votre appareil n'est pas pris en charge.
     he = נדרש מאיץ חומרה OpenGL. לצערינו מכשיר זה אינו נתמך.
@@ -1051,7 +1244,7 @@
     tags = android
     en = Please disconnect USB cable or insert memory card to use Organic Maps
     ar = الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام Organic Maps.
-    be = Калі ласка, адлучыце USB кабель альбо ўстаўце карту памяці каб карыстацца Organic Maps
+    be = Калі ласка, адлучыце USB кабель альбо ўстаўце карту памяці, каб карыстацца Organic Maps
     bg = Моля, изключете USB кабела или поставете карта с памет.
     ca = Desconnecteu el cable USB o inseriu una targeta de memòria per a usar l'Organic Maps
     cs = Prosím, odpojte USB kabel nebo vložte paměťovou kartu pro použití s Organic Maps
@@ -1091,7 +1284,7 @@
     tags = android
     en = Please free up some space on the SD card/USB storage first in order to use the app
     ar = الرجاء إخلاء بعض المساحة في تخزين البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل أولا من أجل استخدام هذا التطبيق.
-    be = Калі ласка, спачатку вызваліце трохі месца на SD карце/USB сховішчы каб карыстацца дататкам
+    be = Калі ласка, спачатку вызваліце трохі месца на SD карце/USB сховішчы, каб карыстацца праграмай
     bg = Моля, първо освободете място на SD картата/USB паметта, за да можете да използвате приложението.
     ca = Allibereu espai en la targeta SD o emmagatzematge USB per a poder usar l'aplicació
     cs = Prosím, uvolněte nejprve místo na SD kartě/USB uložišti
@@ -1101,7 +1294,7 @@
     es = Por favor, libere primero espacio en la memoria SD/almacenamiento USB para usar la aplicación
     et = Rakenduse kasutamiseks palun vabasta kõigepealt piisavalt ruumi mälukaardil/USB salvestusseadmel
     eu = Mesedez, egin lekua SD memorian/USB biltegian aplikazioa erabiltzeko
-    fa = لطفا مقداری از فضای ذخیره سازی را آزاد نمایید
+    fa = لطفا مقداری از فضای ذخیره‌سازی را آزاد نمایید
     fi = Vapauta ensin tilaa SD-kortilta/USB-massamuistilta käyttääksesi sovellusta
     fr = Veuillez d'abord libérer de l'espace sur la carte SD/le stockage USB afin d'utiliser l'appli
     he = אנא פנה שטח אחסון על ה SD card/USB כדי להשתמש בישום
@@ -1301,7 +1494,7 @@
     es = ¿Actualizar %@?
     et = Värskendada %@?
     eu = %@ eguneratzeko?
-    fa = اپدیت %@?
+    fa = آپدیت %@?
     fi = Päivitetäänkö %@?
     fr = Mettre %@ à jour ?
     he = לעדכן %@?
@@ -1627,7 +1820,7 @@
     es = Marcadores
     et = Järjehoidjad
     eu = Markagailuak
-    fa = نشانه ها
+    fa = نشانه‌ها
     fi = Kirjanmerkit
     fr = Signets
     he = רשימות אתרים
@@ -1750,7 +1943,7 @@
     es = Dirección
     et = Aadress
     eu = Norabidea
-    fa = ادرس
+    fa = آدرس
     fi = Osoite
     fr = Adresse
     he = כתובת
@@ -1873,7 +2066,7 @@
     es = Guardar mapas en
     et = Salvesta kaardid asukohta
     eu = Mapak gordetzeko
-    fa = ذخیره نقشه ها در
+    fa = ذخیره نقشه‌ها در
     fi = Tallenna kartat kohteeseen
     fr = Enregistrer les cartes dans
     hu = Térképek mentése ide:
@@ -1914,7 +2107,7 @@
     es = Seleccione el lugar donde deben descargarse los mapas
     et = Vali asukoht, kuhu kaardid tuleks alla laadida
     eu = Hautatu mapak non deskargatu behar diren
-    fa = مسیری را که نقشه ها باید در ان دانلود شود را انتخاب کنید
+    fa = مسیری را که نقشه‌ها باید در آن دانلود شود را انتخاب کنید
     fi = Valitse karttojen latauskohde
     fr = Sélectionner l'emplacement où les cartes devraient être téléchargées
     he = בחר הכתובת במחשבך לשמירת המפות שתוריד
@@ -1955,7 +2148,7 @@
     es = Mapas descargados
     et = Kaardid
     eu = Mapak
-    fa = نقشه ها
+    fa = نقشه‌ها
     fi = Kartat
     fr = Cartes téléchargées
     he = מפות
@@ -1991,6 +2184,7 @@
     es = Almacenamiento interno privado
     et = Sisemine privaatne salvestusruum
     fr = Stockage interne privé
+    nb = Intern privat lagring
     nl = Intern persoonlijk geheugen
     pl = Wewnętrzna pamięć prywatna
     pt-BR = Armazenamento interno privado
@@ -2009,6 +2203,7 @@
     es = Almacenamiento interno compartido
     et = Sisemine jagatud salvestusruum
     fr = Stockage interne partagé
+    nb = Intern delt lagring
     nl = Intern gedeeld geheugen
     pl = Wewnętrzna pamięć współdzielona
     pt-BR = Armazenamento interno compartilhado
@@ -2027,6 +2222,7 @@
     es = Tarjeta SD
     et = SD-kaart
     fr = Carte SD
+    nb = SD-kort
     nl = SD-kaart
     pl = Karta SD
     pt-BR = Cartão SD
@@ -2045,6 +2241,7 @@
     es = Almacenamiento externo compartido
     et = Väline jagatud salvestusruum
     fr = Stockage externe partagé
+    nb = Ekstern delt lagring
     nl = Extern gedeeld geheugen
     pl = Zewnętrzna pamięć współdzielona
     pt-BR = Armazenamento externo compartilhado
@@ -2063,6 +2260,7 @@
     es = %1$@ libres de %2$@
     et = %1$@ vaba ruumist %2$@
     fr = %1$@ libres sur %2$@
+    nb = %1$@ ledig av %2$@
     nl = %1$@ beschikbaar van %2$@
     pl = %1$@ wolne z %2$@
     pt-BR = %1$@ livre de %2$@
@@ -2085,7 +2283,7 @@
     es = ¿Mover mapas?
     et = Teisaldada kaardid?
     eu = Mapak mugitu?
-    fa = ایا نقشه ها جابه جا شود؟
+    fa = آیا نقشه‌ها جابه‌جا شود؟
     fi = Siirrä karttoja?
     fr = Déplacer les cartes ?
     he = להעביר המפות?
@@ -2121,6 +2319,7 @@
     es = Error al mover los archivos de mapas
     et = Kaardipaanide teisaldamine ebaõnnestus
     fr = Erreur lors du déplacement des cartes
+    nb = Kunne ikke flytte kart
     nl = Fout bij het verplaatsen van kaartbestanden
     pl = Błąd przenoszenia plików map
     pt-BR = Erro ao mover arquivos de mapas
@@ -2183,7 +2382,7 @@
     es = Unidades de medida
     et = Mõõtühikud
     eu = Neurketa-unitateak
-    fa = واحد اندازه گیری
+    fa = واحد اندازه‌گیری
     fi = Mittayksiköt
     fr = Unités de mesure
     he = יחידות  מדידה
@@ -2311,7 +2510,7 @@
     eu = Janariak
     fa = عطاری
     fi = Elintarvikkeet
-    fr = Les courses
+    fr = Epiceries
     hu = Termékek
     id = Toserba
     it = Alimentari
@@ -2404,7 +2603,7 @@
     mr = पेट्रोल
     nb = Drivstoff
     nl = Benzine
-    pl = Stacja benzynowa
+    pl = Stacja paliw
     pt = Combustível
     pt-BR = Combustível
     ro = Benzinărie
@@ -2638,7 +2837,7 @@
     es = Cajero automático
     et = Pangaautomaat
     eu = Kutxazain automatikoa
-    fa = خود پرداز
+    fa = خود‌پرداز
     fi = Pankkiautomaatti
     fr = DAB
     he = כספומט
@@ -3089,7 +3288,7 @@
     es-MX = Agua
     et = Vesi
     eu = Ura
-    fa = اب
+    fa = آب
     fi = Vesi
     fr = Eau
     he = מים
@@ -3131,7 +3330,7 @@
     es = Caravanas
     et = Haagiselamud
     eu = Karabanak
-    fa = RV ﯼﺍﺮﺑ
+    fa = RV برای
     fi = RV tilat
     fr = Aménagements pour camping-car
     he = םינאוורק רובע
@@ -3172,7 +3371,7 @@
     es = Notas
     et = Märkmed
     eu = Notak
-    fa = یادداشت ها
+    fa = یادداشت‌ها
     fi = Muistiinpanot
     fr = Notes
     he = הערות
@@ -3242,7 +3441,7 @@
     tags = android,ios
     en = Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!
     ar = مرحباً! ْ\n\n تم إرفاق إشاراتي المرجعية من تطبيق Organic Maps. الرجاء فتحهم إذا لديك تطبيق Organic Maps مثبتاً. أو، إذا لم يكن مثبتاً، قم بتنزيل التطبيق لنظام iOS أو أندرويد من خلال الضغط على هذا الرابط: https://omaps.app/get?kmz \n\nاستمتع بالسفر مع Organic Maps!
-    be = Вітаю!\n\nУ далучаным файле мае закладкі з дататка Organic Maps. Калі ласка, адчыніце іх калі ў вас усталяваны Organic Maps. Калі не, спампуйце дадатак для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!
+    be = Вітаю!\n\nУ далучаным файле мае закладкі з праграмы Organic Maps. Калі ласка, адчыніце іх, калі ў вас усталяваны Organic Maps. Калі не, спампуйце праграму для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!
     ca = Hola!\n\nAdjunto els meus marcadors de l'aplicació Organic Maps. Obriu-los si teniu l'Organic Maps instal·lat. O, si no teniu l'aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://omaps.app/get?kmz\n\nGaudiu viatjant amb l'Organic Maps!
     de = Hallo!\n\nIm Anhang sind meine Lesezeichen der Organic Maps App. Sie können sie mit Organic Maps öffnen. Wenn Sie die App nicht installiert haben, können Sie sie von https://omaps.app/get?kmz für iOS oder Android herunterladen.\n\nViel Spaß beim Reisen mit Organic Maps!
     es = Hola!\n\Adjunto mis marcadores de la aplicación Organic Maps. Por favor, ábralos si tiene instalado Organic Maps. O, si no lo tiene, descargue la aplicación para su dispositivo iOS o Android siguiendo este enlace: https://omaps.app/get?kmz\n¡Disfrute viajando con Organic Maps!
@@ -3251,6 +3450,7 @@
     fr = Bonjour !\n\nVous trouverez ci-joint mes signets de l'appli Organic Maps. Veuillez les ouvrir si vous avez installé Organic Maps. Si vous ne l'avez pas, téléchargez l'application pour votre appareil iOS ou Android en suivant ce lien : https://omaps.app/get?kmz\n\nBon voyage avec Organic Maps!
     it = Ciao!\n\nIn allegato ci sono i miei luoghi preferiti. Aprili se hai installato Organic Maps. Oppure, se non ce l'hai, scarica l'app per iOS o Android seguendo questo link: https://omaps.app/\n\nDivertiti a viaggiare con Organic Maps!
     mr = नमस्कार!\n\nOrganic Maps ऍप मधील माझे खूणपत्रे संलग्न केले आहेत. तुम्ही Organic Maps इन्स्टॉल केले असल्यास हे खूणपत्रे उघडा. इन्स्टॉल केले नसल्यास, पुढील दुव्यावर जाऊन तुमच्या iOS किंवा अँड्रॉइड उपकरणावर हे डाउनलोड करा: https://omaps.app/get?kmz\n\nOrganic Maps सह प्रवासाचा आनंद घ्या!
+    nb = Hei!\n\nVedlagt er mine bokmerker fra Organic Maps-appen. Åpne de dersom du har Organic Maps installert. Har du ikke har det, last ned appen til iOS eller Android ved å trykke på denne linken: https://omaps.app/get?kmz\n\nNyt reisen med Organic Maps!
     nl = Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app voor je iOS- of Android-apparaat door deze link te volgen: https://omaps.app/get?kmz\n\nGeniet van het reizen met Organic Maps!
     pl = Cześć!\n\nZałączam moje zakładki z aplikacji Organic Maps. Proszę otwórz je jeżeli masz zaintalowane Organic Maps. Lub, jeżeli nie masz, pobierz aplikację na swoje urządzenie iOS/Android za pomocą tego linka: https://omaps.app/get?kmz\n\nMiłego podróżowania z Organic Maps!
     pt = Olá!\n\nSegue em anexo os meus favoritos da aplicação Organic Maps. Por favor abra-os se tiver o Organic Maps instalado. Caso não tenha, descarregue a aplicação para o seu dispositivo iOS ou Android com a hiperligação https://omaps.app/get?kmz\n\nDivirta-se a viajar com o Organic Maps!
@@ -3275,7 +3475,7 @@
     es = Cargando marcadores
     et = Järjehoidjate laadimine
     eu = Markatzaileak kargatzen
-    fa = در حال بارگیری نشانه ها
+    fa = در حال بارگیری نشانه‌ها
     fi = Ladataan kirjanmerkkejä
     fr = Chargement des signets
     he = טוען רשימות אתרים
@@ -3316,7 +3516,7 @@
     es = ¡Los marcadores se han cargado con éxito! Puede encontrarlos en el mapa o en la pantalla de Gestión de marcadores.
     et = Järjehoidjad edukalt laetud! Leiad need kaardil või järjehoidjate halduri ekraanil.
     eu = Gogokoak behar bezala kargatu dira! Mapan edo kudeatu gogokoak pantailan aurki ditzakezu.
-    fa = نشانه ها با موفقیت بارگذاری شد!شما می توانید ان ها را در نقشه یا بخش مدیریت نشانه ها بیابید
+    fa = نشانه‌ها با موفقیت بارگذاری شد!شما می توانید آنها را در نقشه یا بخش مدیریت نشانه‌ها بیابید
     fi = Kirjanmerkkien lataaminen onnistui! Löydät ne joko kartalta tai kirjanmerkkien hallinnasta.
     fr = Les signets ont été chargés avec succès ! Vous pouvez les trouver sur la carte ou sur l'écran du Gestionnaire de signets.
     he = רשימת האתרים הועלתה בהצלחה! תוכל למצוא אותה על המפה או במסך נהול רשימות האתרים.
@@ -3357,9 +3557,9 @@
     es = La carga de marcadores ha fallado. El archivo puede estar corrupto o ser defectuoso.
     et = Järjehoidjate laadimine ebaõnnestus. Fail võib olla vigane.
     eu = Ezin izan da gogokoak kargatu. Fitxategia hondatuta edo akastuna izan daiteke.
-    fa = بارگذاری نشانه ها با شکست مواجح شد.ممکن است فایل اسیب دیده یا معیوب باشد
+    fa = بارگذاری نشانه‌ها با شکست مواجه شد.ممکن است فایل آسیب دیده یا معیوب باشد
     fi = Kirjanmerkkien lähetys epäonnistui. Tiedosto saattaa olla vioittunut.
-    fr = Échec lors du téléversement des signets. Le fichier peut être corrompu ou défectueux.
+    fr = Échec lors du chargement des signets. Le fichier peut être corrompu ou défectueux.
     he = טעינת רשימת האתרים נכשלה. יתכן שהקובץ פגום.
     hu = Könyvjelzők feltöltése sikertelen. A fájl sérült lehet.
     id = Gagal mengunggah penanda lokasi. Berkas mungkin rusak.
@@ -3554,7 +3754,7 @@
     be = Гэй, глядзі дзе я зараз на мапе! %1$@ альбо %2$@ Няма офлайн-мапаў? Спампуй тут: https://omaps.app/get
     bg = Хей, виж текущото ми местоположение в Organic Maps! %1$@ или %2$@
     ca = Mira la meva ubicació en l'Organic Maps! %1$@ o %2$@ No teniu mapes sense connexió? Baixeu-los aquí: https://omaps.app/get
-    cs = Koukni kde jsem. Otevři odkaz: %1$@ nebo %2$@
+    cs = Ahoj, zkoukni mojí lokaci v Organic Maps! %1$@ nebo %2$@ Nemáš offline mapy? Stáhni tady: https://omaps.app/get
     da = Hey, tjek min nuværende lokation ud på Organic Maps! %1$@ or %2$@. Har du ikke offline kort? Download her: https://omaps.app/get
     de = Hey, sieh dir meinen aktuellen Standort auf Organic Maps an! %1$@ oder %2$@ Keine Offline-Karten installiert? Hier herunterladen: https://omaps.app/get
     el = Έλεγξε την τρέχουσα τοποθεσία μου στο Organic Maps! %1$@ ή %2$@ στην περίπτωση που δεν έχεις εγκαταστήσει χάρτες εκτός σύνδεσης, μπορείς να τους κατεβάσεις εδώ: https://omaps.app/get
@@ -3562,7 +3762,7 @@
     et = Hei, vaata minu hetkeasukohta Organic Maps kaardil! %1$@ või %2$@ Võrguühenduseta kaardid puuduvad? Lae siit: https://omaps.app/get
     eu = Ikusi nire uneko kokapena Organic Maps-en! %1$@ edo %2$@ Ez al duzu lineaz kanpoko maparik? Deskargatu hemen: https://omaps.app/get
     fi = Hei, katso sijaintini Organic Maps-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole vielä offline-karttoja? Lataa ne täältä: https://omaps.app/get
-    fr = Hé, regarde ma position actuelle sur Organic Maps ! %1$@ ou %2$@. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : https://omaps.app/get
+    fr = Hé, regardez ma position actuelle sur Organic Maps ! %1$@ ou %2$@. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : https://omaps.app/get
     he = . אין ברשותך מפות לא מקוונות? הורד Organic Maps! %1$@ or %2$@ הי, בדוק את מיקומי הנוכחי ב. https://omaps.app/get הורד אותן מ:
     hu = Nézd meg a Organic Maps helyzetemet! %1$@ vagy %2$@ A program letöltése: https://omaps.app/get
     id = Hei, lihat lokasiku saat ini di Organic Maps! %1$@ atau %2$@ belum memiliki peta offline? Unduh di sini: https://omaps.app/get
@@ -3602,7 +3802,7 @@
     et = Hei, vaata minu asukoha märget Organic Maps kaardil!
     eu = Begiratu nire markatzailea Map organikoak mapan!
     fi = Hei, katso merkintäni Organic Maps-kartalla
-    fr = Hé, regarde mon signet sur la carte Organic Maps !
+    fr = Hé, regardez mon signet sur la carte Organic Maps !
     he = הי, בדוק את הסיכה שלי במפה של Organic Maps!
     hu = Nézze meg a Organic Maps jelzőmet
     id = Hei, lihat pinku di peta Organic Maps
@@ -3642,7 +3842,7 @@
     et = Hei, vaata minu hetkeasukohta Organic Maps kaardil!
     eu = Ikusi nire uneko kokapena mapan Organic Maps-en!
     fi = Hei, kurkkaa tämänhetkinen sijaintini Organic Maps:n kartalla!
-    fr = Hé, regarde ma position actuelle sur la carte Organic Maps !
+    fr = Hé, regardez ma position actuelle sur la carte Organic Maps !
     he = היי, בדקו את המיקום הנוכחי שלי במפה של Organic Maps!
     hu = Nézze meg a helyzetemet a Organic Maps térképen!
     id = Hei, lihat lokasiku saat ini di peta Organic Maps!
@@ -3671,7 +3871,7 @@
     tags = android
     en = Hi,\n\nI'm here now: %1$@. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
     ar = ًمرحبا،\n\nأنا هنا الآن: %1$@. انقر على هذا الرابط %2$@ أو ذلك الرابط %3$@ لمشاهدة المكان على الخريطة.\n\nشكراً.
-    be = Прывітанне,\n\nЯ зараз тут: %1$@. Перайдзі па гэтай %2$@ альбо гэтай %3$@ спасылцы каб убачыць месца на мапе.\n\nДзякуй.
+    be = Прывітанне,\n\nЯ зараз тут: %1$@. Перайдзі па гэтай %2$@ альбо гэтай %3$@ спасылцы, каб убачыць месца на мапе.\n\nДзякуй.
     bg = Здравей,\n\nСега съм тук: %1$@. Натисни върху тази връзка %2$@ или тази %3$@, за да видиш мястото на картата.\n\nБлагодаря.
     ca = Hola,\n\nSoc aquí: %1$@. Feu clic en aquest enllaç %2$@ o en aquest altre %3$@ per a veure el lloc en el mapa.\n\nGràcies.
     cs = Ahoj,\n\nPrávě jsem tady: %1$@. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.
@@ -3682,7 +3882,7 @@
     et = Tere,\n\nOlen praegu siin: %1$@. Ava see link %2$@ või see %3$@, et näha seda kohta kaardil.\n\nAitäh.
     eu = Kaixo:\n\nOrain hemen nago: %1$@. Egin klik esteka honetan %2$@ edo %3$@ honetan mapan ikusteko.\n\nEskerrik asko.
     fi = Hei,n\nOlen nyt täällä: %1$@. Klikkaa linkkiä %2$@ tai %3$@ nähdäksesi paikan kartalla. Kiitos.
-    fr = Bonjour,\n\nJe suis actuellement ici : %1$@. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.
+    fr = Bonjour,\n\nJe suis actuellement ici : %1$@. Cliquez sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.
     he = הי, n\nI\ אני כאן: %1$@. הקש על הלינק %2$@ או על %3$@ כדי לראות את המקום על המפה. \n\n תודה.
     hu = Üdvözlöm!\n\nJelenleg itt vagyok: %1$@ Kattintson erre a hivatkozásra %2$@ vagy erre %3$@, hogy lássa a helyet a térképen.\n\nKöszönöm.
     id = Hai,\n\nSekarang saya ada di sini: %1$@. Klik tautan ini %2$@ atau yang ini %3$@ untuk melihat tempatnya di peta.\n\nTerima kasih.
@@ -3802,7 +4002,7 @@
     es = Copiado al portapapeles: %1$@
     et = Kopeeritud vahemällu: %1$@
     eu = Arbelean kopiatu da: %1$@
-    fa = کپی در کلیپ برد: %1$@
+    fa = کپی در کلیپ‌برد: %1$@
     fi = Kopioitu leikepöydälle: %1$@
     fr = Copié dans le presse-papiers : %1$@
     he = הועתקו לזכרון זמני %1$@
@@ -3967,9 +4167,9 @@
     es = Datos de OpenStreetMap: %@
     et = OpenStreetMap andmed: %@
     eu = OpenStreetMap datuak: %@
-    fa = OpenStreetMap: %@ ﯼﺎﻫ ﻩﺩﺍﺩ
+    fa = OpenStreetMap: %@ داده‌های
     fi = OpenStreetMap-tiedot: %@
-    fr = Données OpenStreetMap : %@
+    fr = Données OpenStreetMap : %@
     he = OpenStreetMap: %@ ינותנ
     hu = OpenStreetMap adatok: %@
     id = Data OpenStreetMap: %@
@@ -4175,6 +4375,7 @@
     fr = Paramètres généraux
     it = Opzioni generali
     mr = सर्वसामान्य सेटिंग
+    nb = Generelle instillinger
     nl = Algemene instellingen
     pl = Ustawienia ogólne
     pt = Configurações gerais
@@ -4203,6 +4404,7 @@
     fr = Information
     it = Informazioni
     mr = माहिती
+    nb = Informasjon
     nl = Informatie
     pl = Informacje
     pt = Informação
@@ -4266,7 +4468,7 @@
     es = Botones de zoom
     et = Zoomi nupud
     eu = Zoom botoiak
-    fa = دکمه های درشت نمایی
+    fa = دکمه‌های بزرگنمایی
     fi = Zoomauspainikkeet
     fr = Boutons de zoom
     he = כפתורי זום
@@ -4526,7 +4728,7 @@
     sk = Perspektívne zobrazenie
     sv = Perspektivvy
     th = มุมมองเพอร์สเปกทีฟ
-    tr = Perspektif görünüş
+    tr = Perspektif görünüm
     uk = Перспективний вид
     vi = Góc nhìn phối cảnh
     zh-Hans = 透视图
@@ -4547,7 +4749,7 @@
     es = Edificios en 3D
     et = 3D hooned
     eu = 3D eraikinak
-    fa = ساختمان های سه بعدی
+    fa = ساختمان‌های سه بعدی
     fi = 3D-rakennukset
     fr = Bâtiments en 3D
     hu = 3D-s épületek
@@ -4571,6 +4773,48 @@
     vi = Nhà cửa 3D
     zh-Hans = 3D 建筑
     zh-Hant = 3D 建築
+
+  [pref_map_3d_buildings_disabled_summary]
+    comment = A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled
+    tags = android,ios
+    en = 3D buildings are turned off in power saving mode
+    ar = يتم إيقاف تشغيل المباني ثلاثية الأبعاد في وضع توفير الطاقة
+    be = У рэжыме энергазберажэння 3D-будынкі выключаны
+    bg = 3D сградите са изключени в режим на пестене на енергия
+    ca = Els edificis en 3D es desactiven en mode d'estalvi d'energia
+    cs = 3D budovy jsou vypnuty v úsporném režimu
+    da = 3D-bygninger er slukket i strømbesparende tilstand
+    de = 3D-Gebäude werden im Energiesparmodus ausgeschaltet
+    el = Τα τρισδιάστατα κτίρια απενεργοποιούνται σε λειτουργία εξοικονόμησης ενέργειας
+    es = Los edificios 3D se apagan en el modo de ahorro de energía
+    et = 3D-hooned lülitatakse energiasäästurežiimis välja
+    eu = 3D eraikinak itzalita daude energia aurrezteko moduan
+    fa = ساختمان های سه بعدی در حالت صرفه جویی در مصرف برق خاموش می شوند
+    fi = 3D-rakennukset sammutetaan virransäästötilassa
+    fr = Les bâtiments 3D sont désactivés en mode d'économie d'énergie
+    he = מבנים תלת מימדיים כבויים במצב חיסכון בחשמל
+    hu = A 3D épületek energiatakarékos módban ki vannak kapcsolva
+    id = Bangunan 3D dimatikan dalam mode hemat daya
+    it = Gli edifici 3D sono disattivati in modalità di risparmio energetico
+    ja = 省電力モードで建物の 3D 表示がオフになっている
+    ko = 3D 빌딩은 절전 모드에서 꺼집니다.
+    mr = 3D इमारती वीज बचत मोडमध्ये बंद केल्या आहेत
+    nb = 3D-bygninger er slått av i strømsparingsmodus
+    nl = 3D-gebouwen worden uitgeschakeld in de energiebesparende modus
+    pl = Budynki 3D są wyłączone w trybie oszczędzania energii
+    pt = Os edifícios 3D são desativados no modo de poupança de energia
+    pt-BR = Os edifícios 3D são desativados no modo de economia de energia
+    ro = Clădirile 3D sunt oprite în modul de economisire a energiei
+    ru = 3D-здания отключаются в режиме энергосбережения
+    sk = 3D budovy sú vypnuté v režime úspory energie
+    sv = 3D-byggnader är avstängda i energisparläge
+    sw = Majengo ya 3D yamezimwa katika hali ya kuokoa nishati
+    th = สิ่งปลูกสร้าง 3 มิติจะปิดในโหมดประหยัดพลังงาน
+    tr = 3D binalar güç tasarrufu modunda kapatılır
+    uk = 3D будівлі вимкнені в режимі енергозбереження
+    vi = Tòa nhà 3D bị tắt ở chế độ tiết kiệm năng lượng
+    zh-Hans = 3D 建筑在省电模式下关闭
+    zh-Hant = 3D 建築在省電模式下關閉
 
   [pref_tts_enable_title]
     comment = Settings «Route» category: «Tts enabled» title
@@ -4786,7 +5030,7 @@
     es = Zoom automático
     et = Automaatne zoom
     eu = Zoom automatikoa
-    fa = بزرگ نمایی خودکار
+    fa = بزرگنمایی خودکار
     fi = Automaattinen zoomaus
     fr = Zoom automatique
     hu = Automatikus nagyítás
@@ -5059,7 +5303,7 @@
     es = Permite registrar el recorrido realizado durante un determinado periodo de tiempo y verlo en el mapa. Tenga en cuenta que la activación de esta función aumenta el consumo de la batería. El registro del recorrido se eliminará automáticamente del mapa una vez vencido dicho periodo de tiempo.
     et = See valik võimaldab salvestada läbitud tee teatud ajaks ja näha seda kaardil. Pange tähele: selle funktsiooni aktiveerimine suurendab aku kasutust. Rada eemaldatakse automaatselt kaardilt pärast ajaintervalli möödumist.
     eu = Denbora tarte jakin batean egindako ibilbidea erregistratu eta mapan ikusteko aukera ematen du. Kontuan izan funtzio hau aktibatzea bateriaren kontsumoa handitzen dela. Ibilbide-erregistroa automatikoki kenduko da mapatik denbora-tarte hori igaro ondoren.
-    fa = با این قابلیت شما می توانید مسیری که می پیمایید را در یک دوره مشخص ضبط نماید و ان را بر روی نقشه ببینید.لطفا توجه نمایید:فعال سازی این قابلیت باعث افزایش مصرف باتری موبایل شما می شود.مسیر به طور خودکار بعد از مدت مشخص شده حذف خواهد شد
+    fa = با این قابلیت شما می توانید مسیری که می پیمایید را در یک دوره مشخص ضبط نماید و آن را بر روی نقشه ببینید.لطفا توجه نمایید:فعال سازی این قابلیت باعث افزایش مصرف باتری موبایل شما می شود.مسیر به طور خودکار بعد از مدت مشخص شده حذف خواهد شد
     fi = Toiminnon avulla voit tallentaa kuljetun reitin tietyltä ajalta ja nähdä sen kartalla: Huomautus: tämän toiminnon aktivoiminen lisää akun käyttöä. Reitti poistetaan kartalta automaattisesti ajanjakson päätyttyä.
     fr = Ceci vous permet d’enregistrer le chemin emprunté pendant un certain temps et de le voir sur la carte. Veuillez noter : l’activation de cette fonction entraîne une grande utilisation de la batterie. La route sera supprimée automatiquement de la carte lorsque l’intervalle de temps sera arrivé à expiration.
     hu = Ez lehetővé teszi a bejárt útvonal rögzítését és megtekintését a térképen bizonyos időre. Kérjük, vegye figyelembe, hogy ezen funkció aktiválásával megnöveli az akkumulátor használatát. Az útvonal automatikusan törlődik a térképről az időtartam lejártával.
@@ -5169,6 +5413,8 @@
     en = Menu
     ca = Menú
     es = Menú
+    fr = Menu
+    nb = Meny
     pl = Menu
     ru = Меню
     uk = Меню
@@ -5221,13 +5467,13 @@
     be = Навіны
     bg = Новини
     ca = Notícies
-    cs = Zprávy
+    cs = Novinky
     da = Nyheder
     de = News
     el = Νέα
     es = Noticias
     et = Uudised
-    fa = ﺭﺎﺒﺧﺍ
+    fa = اخبار
     fi = Uutiset
     fr = Nouvelles
     he = תוֹשׁדָחֲ
@@ -5354,7 +5600,7 @@
     tags = android,ios
     en = Rate the app
     ar = قيّم التطبيق
-    be = Ацаніць дадатак
+    be = Ацаніць праграму
     bg = Оцени приложение
     ca = Puntua l'aplicació
     cs = Ohodnotit aplikaci
@@ -5446,7 +5692,7 @@
     es = Preguntas frecuentes
     et = Korduma kippuvad küsimused
     eu = Maiz galderak
-    fa = ﺦﺳﺎﭘ ﻭ ﺶﺳﺮﭘ
+    fa = پرسش‌های زیاد پرسیده شده
     fi = Kysymykset ja vastaukset
     fr = Foire aux questions
     he = תובושתו תולאש
@@ -5477,7 +5723,7 @@
     comment = Button in the main menu
     tags = android,ios
     en = Donate
-    ar = ﻉﺮﺒﺘﻳ
+    ar = تبرع
     be = Падтрымаць грашыма
     bg = Дарете
     ca = Donatiu
@@ -5488,7 +5734,7 @@
     es = Donar
     et = Anneta
     eu = Dohaintza eman
-    fa = ﺪﯿﻨﮐ ﺍﺪﻫﺍ
+    fa = حمایت مالی
     fi = Lahjoittaa
     fr = Faire un don
     he = םוֹרתְלִ
@@ -5517,43 +5763,44 @@
   [how_to_support_us]
     comment = Button in the main Help dialog
     tags = android,ios
-    en = How to support us?
-    ar = كيف يمكنك دعمنا؟
-    be = Як нас падтрымаць?
-    bg = Как да ни подкрепите?
-    ca = Com ajudar-nos?
-    cs = Jak nás podpořit?
-    da = Sådan støtter vi os?
-    de = Wie unterstützen Sie uns?
-    el = Πώς να μας υποστηρίξετε;
-    es = ¿Cómo apoyarnos?
-    et = Kuidas meid toetada?
-    eu = Nola lagundu diguzu?
-    fa = چگونه از ما حمایت کنیم؟
-    fi = Kuinka tukea meitä?
-    fr = Comment nous soutenir?
-    he = כיצד לתמוך בנו?
-    hu = Hogyan támogathatsz minket?
-    id = Bagaimana cara mendukung kami?
-    it = Come sostenerci?
-    ja = どのように私たちを支持する方法？
-    ko = 우리를 지원하는 방법?
-    mr = आम्हाला आधार कसा द्यायचा?
-    nb = Hvordan støtte oss?
-    nl = Hoe ons te steunen?
-    pl = Jak nas wspierać?
-    pt = Como nos apoiar?
-    ro = Cum să ne sprijiniți?
-    ru = Как наc поддержать?
-    sk = Ako nás podporiť?
-    sv = Hur stöder vi oss?
-    sw = Jinsi ya kutuunga mkono?
-    th = วิธีการสนับสนุนเรา
-    tr = Sizi nasıl destekleyebilirim?
-    uk = Як нас підтримати?
-    vi = Làm thế nào để hỗ trợ chúng tôi?
-    zh-Hans = 如何支持我们？
-    zh-Hant = 如何支持我們？
+    en = Support the project
+    ar = ﻉﻭﺮﺸﻤﻟﺍ ﻢﻋﺩ
+    be = Падтрымаць праект
+    bg = Подкрепете проекта
+    ca = Donar suport al projecte
+    cs = Podpořte projekt
+    da = Støt projektet
+    de = Unterstütze das Projekt
+    el = Υποστηρίξτε το έργο
+    es = Apoya el proyecto
+    et = Toetage projekti
+    eu = Proiektuari laguntza ematea
+    fa = ﺪﯿﻨﮐ ﺖﯾﺎﻤﺣ ﻩﮊﻭﺮﭘ ﺯﺍ
+    fi = Tue projektia
+    fr = Soutenir le projet
+    he = טקיורפב וכמת
+    hu = Támogassa a projektet
+    id = Mendukung proyek
+    it = Sostieni il progetto
+    ja = プロジェクトを支援する
+    ko = 프로젝트 지원
+    mr = प्रकल्पाला पाठठिंबा द्या
+    nb = Støtt prosjektet
+    nl = Steun het project
+    pl = Wesprzyj projekt
+    pt = Apoie o projeto
+    pt-BR = Apoie o projeto
+    ro = Susține proiectul
+    ru = Помочь проекту
+    sk = Podporte projekt
+    sv = Stöd projektet
+    sw = Saidia mradi
+    th = สนับสนุนโครงการ
+    tr = Bu projeyi destekle
+    uk = Підтримайте проект
+    vi = Hỗ trợ dự án
+    zh-Hans = 支持项目
+    zh-Hant = 支持項目
 
   [copyright]
     comment = Button in the main Help dialog
@@ -5652,7 +5899,7 @@
     es = No se ha configurado el cliente de correo electrónico. Por favor, configúrelo o utilice alguna otra forma de ponerse en contacto con nosotros en %@
     et = E-posti klienti ei ole seadistatud. Palun seadistage see või kasutage mõnda muud võimalust meiega ühenduse võtmiseks aadressil %@
     eu = Posta elektronikoko bezeroa ez da konfiguratu. Mesedez, konfigura ezazu edo erabili beste moduren bat gurekin harremanetan jartzeko %@ helbidean
-    fa = کلاینت ایمیل شما پیکربندی نشده است.لطفا ان را پیکربندی کنید یا از طریق دیگر با ما تماس بگیرید %@
+    fa = کلاینت ایمیل شما پیکربندی نشده است.لطفا آن را پیکربندی کنید یا از طریق دیگر با ما تماس بگیرید %@
     fi = Sähköpostisovellusta ei ole asetettu. Ole hyvä ja määritä sähköpostiasetukset tai ota meihin yhteyttä toista kautta osoitteessa %@
     fr = Le client de courriel n'a pas été configuré. Veuillez le faire ou employer tout autre moyen pour nous contacter à %@
     he = יישום הדוא"ל לא הוגדר. אנא קבעו את תצורתו או השתמשו בכל דרך אחרת על מנת ליצור עמנו קשר בכתובת %@
@@ -5734,7 +5981,7 @@
     es = Calibración de la brújula
     et = Kompassi kalibreerimine
     eu = Konpas kalibrazioa
-    fa = تنظیم کردن قظب نما
+    fa = تنظیم کردن قطب نما
     fi = Kompassin kalibrointi
     fr = Étalonnage de la boussole
     he = כיול המצפן
@@ -5775,7 +6022,7 @@
     es = Actualizar todos
     et = Värskenda kõik
     eu = Eguneratu guztiak
-    fa = اپدیت همه
+    fa = آپدیت همه
     fi = Päivitä kaikki
     fr = Tout mettre à jour
     hu = Mindegyik frissítése
@@ -6015,7 +6262,7 @@
     es = Mapas
     et = Kaardid
     eu = Mapak
-    fa = نقشه ها
+    fa = نقشه‌ها
     fi = Kartat
     fr = Cartes
     hu = Térképek
@@ -6056,7 +6303,7 @@
     eu = Deskargatu guztiak
     fa = دانلود همه
     fi = Lataa kaikki
-    fr = Télécharger tout
+    fr = Tout télécharger
     hu = Mindegyik letöltése
     id = Unduh semua
     it = Scarica tutte
@@ -6171,7 +6418,7 @@
     es = Actualizar
     et = Värskenda
     eu = Eguneratzeko
-    fa = به روز رسانی
+    fa = بروزرسانی
     fi = Päivitä
     fr = Mettre à jour
     he = לְעַדְכֵּן
@@ -6214,7 +6461,7 @@
     eu = Porrota
     fa = ناموفق
     fi = Epäonnistunut
-    fr = A échoué
+    fr = Echec
     he = נכשלה
     hu = Sikertelen
     id = Gagal
@@ -6253,7 +6500,7 @@
     es = Para eliminar el mapa, por favor, detenga la navegación.
     et = Kaardi kustutamiseks palun lõpeta navigeerimine.
     eu = Mapa kentzeko, utzi nabigazioa.
-    fa = برای حذف نقشه لطفا مسیر یابی را متوقف کنید
+    fa = برای حذف نقشه لطفا مسیر‌یابی را متوقف کنید
     fi = Pysäytä navigointi poistaaksesi kartan.
     fr = Veuillez interrompre la navigation pour supprimer la carte.
     hu = Kérjük, állítsa le a navigációt a térkép törléséhez.
@@ -6293,7 +6540,7 @@
     es = Sólo se pueden crear rutas que estén totalmente contenidas en un mapa de una sola región.
     et = Luua saab ainult täielikult ühe regiooni kaardi piiridesse jäävaid marsruute.
     eu = Eskualde bakarreko mapa batean guztiz bilduta dauden ibilbideak soilik sor daitezke.
-    fa = تنها مسیر هایی می توانند ایجاد شوند که به طور کامل در یک نقشه از یک منطقه واحد قرار داشته باشند.
+    fa = تنها مسیر‌هایی می توانند ایجاد شوند که به طور کامل در یک نقشه از یک منطقه واحد قرار داشته باشند.
     fi = Vain kokonaisuudessaan yhdelle kartalle mahtuvia reittejä voidaan luoda.
     fr = Les itinéraires ne peuvent être créés que s'ils sont entièrement contenus dans la carte d'une seule région.
     he = ניתן ליצור רק מסלולים שמוכלים במלואם בתוך מפה אחת.
@@ -6456,7 +6703,7 @@
     es = Actualizar mapa
     et = Värskenda kaart
     eu = Eguneratu mapa
-    fa = به روز رسانی نقشه
+    fa = بروزرسانی نقشه
     fi = Päivitä kartta
     fr = Mise à jour carte
     he = עדכן מפה
@@ -6499,15 +6746,14 @@
     eu = Google Play Zerbitzuak
     fa = خدمات Google Play
     fi = Google Play Palvelut
-    fr = Services Google Play
+    fr = Services Google Play
     hi = Google Play सेवाएं
     hu = Google Play-szolgáltatások
-    in = Layanan Google Play
+    id = Layanan Google Play
     ja = Google Play 開発者サービス
     ko = Google Play 서비스
     mr = Google Play सेवा
     nb = Google Play-tjenester
-    ne = Google Play सेवाहरू
     nl = Google Play-services
     pl = Usługi Google Play
     pt = Serviços do Google Play
@@ -6578,7 +6824,7 @@
     es = Descargue todos los mapas de su ruta
     et = Lae alla kõik kaardid oma marsruudil
     eu = Deskargatu zure ibilbidearen mapa guztiak
-    fa = دانلود تمامی نقشه ها در طول مسیر تان
+    fa = دانلود تمامی نقشه‌ها در طول مسیر‌تان
     fi = Lataa karttoja matkalla
     fr = Téléchargez toutes les cartes le long de votre itinéraire
     hu = Tölts le térképeket az útvonal mellett
@@ -6618,7 +6864,7 @@
     es = Para crear una ruta es necesario descargar y actualizar todos los mapas desde su ubicación a su destino.
     et = Marsruudi loomiseks on meil vaja alla laadida ja värskendada kõiki sinu lähte- ja sihtkoha vahele jäävaid kaarte.
     eu = Ibilbide bat sortzeko beharrezkoa da helmugako kokapenaren mapa guztiak deskargatu eta eguneratzea.
-    fa = به منظور ایجاد مسیر ما نیاز داریم تا تمامی نقشه های شما از مبدا تا مقصد را به روز رسانی کنیم.
+    fa = به منظور ایجاد مسیر ما نیاز داریم تا تمامی نقشه‌های شما از مبدا تا مقصد را بروزرسانی کنیم.
     fi = Reitin luominen vaatii karttojen lataamisen ja päivityksen oman sijaintisi ja kohteeen väliltä.
     fr = La création d'un itinéraire nécessite que toutes les cartes de votre localisation vers votre destination soient téléchargées et actualisées.
     hu = Útvonal tervezéséhez a kiindulási pont és a célútvonal összes térképét szükséges letölteni és frissíteni.
@@ -6697,7 +6943,7 @@
     es = marcador
     et = järjehoidja
     eu = Markatzailea
-    fa = نشانه ها
+    fa = نشانه‌ها
     fi = kirjanmerkki
     fr = signet
     he = סימניה
@@ -6978,7 +7224,7 @@
     es-MX = Azul
     et = Sinine
     eu = Urdina
-    fa = ابی
+    fa = آبی
     fi = Sininen
     fr = Bleu
     hu = Kék
@@ -7062,7 +7308,7 @@
     eu = Morea
     fa = بنفش
     fi = Violetti
-    fr = Pourpre
+    fr = Violet
     hu = Lila
     id = Tím
     it = Viola
@@ -7305,7 +7551,7 @@
     es-MX = Cian
     et = Siniroheline
     eu = Zian
-    fa = فیروزه ای
+    fa = فیروزه‌ای
     fi = Sinivihreä
     fr = Cyan
     hu = Cián
@@ -7387,7 +7633,7 @@
     es-MX = Lima
     et = Laimiroheline
     eu = Karea
-    fa = زرد لیویی
+    fa = زرد لیمویی
     fi = Limen värinen
     fr = Vert citron
     hu = Lime
@@ -7702,7 +7948,7 @@
     tags = android,ios
     en = — Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.
     ar = — تحذير بشأن المسارات في المناطق الحدودية: المسارات التي تم إنشاؤها بواسطة تطبيقنا قد تعبر  أحياناً حدود الدول في أماكن غير مصرح بها;
-    be = — Будзьце ўважлівы з маршрутамі ў памежных зонах: маршруты пракладзеныя нашым дадаткам часамі могуць перасякаць мяжу ў недазволеных месцах.
+    be = — Будзьце ўважлівы з маршрутамі ў памежных зонах: маршруты, пракладзеныя нашай праграмай, часамі могуць перасякаць мяжу ў недазволеных месцах.
     bg = - Бъдете внимателни с маршрутите в гранични зони: маршрутите, създадени от нашето приложение, понякога могат да пресичат границите на страната на неразрешени места.
     ca = — Aneu am cura amb les rutes en zones frontereres: les rutes creades per la nostra aplicació de vegades creuen fronteres internacionals en zones no autoritzades.
     cs = — U tratí v hraničních zónách buďte opatrní: trasy vytvořené naší aplikací občas překračují hranice zemí na nepovolených místech;
@@ -7712,7 +7958,7 @@
     es = — Actúe con cautela en las rutas con zonas fronterizas: las rutas creadas por nuestra aplicación en ocasiones pueden atravesar las fronteras de países en lugares no autorizados;
     et = - Olge piiritsoonides marsruutidega ettevaatlik: meie rakenduse loodud marsruudid võivad mõnikord ületada riigipiire volitamata kohtades.
     eu = — Kontuz ibili muga-eremuak dituzten ibilbideetan: gure aplikazioak sortutako ibilbideek batzuetan herrialdeen mugak zeharkatu ditzakete baimendu gabeko tokietan;
-    fa = —در مسیرهایی که از مناطق مرزی میگذرد احتیاط کنید:مسیر هایی که بوسیله اپلیکیشن ما ایجاد می شود گاهی اوقات ممکن است مرز های کشور ها را رد کند که این در بعضی مناطق غیر مجاز است.
+    fa = —در مسیرهایی که از مناطق مرزی میگذرد احتیاط کنید:مسیر‌هایی که بوسیله اپلیکیشن ما ایجاد می شود گاهی اوقات ممکن است مرز‌های کشور‌ها را رد کند که این در بعضی مناطق غیر مجاز است.
     fi = — Ole varovainen reittien suhteen raja-alueilla: sovelluksemme luomat reitit voivat toisinaan ylittää maiden rajoja luvattomissa paikoissa;
     fr = — Faites attention aux itinéraires traversant des zones frontalières : les itinéraires générés par l'application peuvent parfois franchir des frontières étatiques dans des zones interdites;
     hu = — A határmenti útvonalakon közlekedjen óvatosan: az alkalmazásunk által létrehozott útvonalak néha olyan helyeken szelhetik át az országhatárokat, amelyek nem engedélyezettek;
@@ -7871,7 +8117,7 @@
     es = Verifique la señal del GPS. Activar la Wi-Fi mejorará la precisión de su ubicación.
     et = Palun kontrolli GPS signaali. WiFi lubamine parandab asukoha täpsust.
     eu = Egiaztatu GPS seinalea. Wi-Fi konexioa aktibatuz gero, zure kokapenaren zehaztasuna hobetuko da.
-    fa = لطفا سیگنال GPS موبایتان راچک کنید.و WiFi موبایلتان را جهت دقت بیشتر در موقعیت یابی فعال کنید.
+    fa = لطفا سیگنال GPS موبایتان راچک کنید.و WiFi موبایلتان را جهت دقت بیشتر در موقعیت‌یابی فعال کنید.
     fi = Tarkista GPS-signaali. Wi-Fi-signaalin käyttöönotto parantaa sijainnin tarkkuutta.
     fr = Vérifiez le signal GPS. Activez le Wi-Fi pour améliorer la précision de votre localisation.
     he = בדוק את אות ה-GPS שלך. הפעלת ה-Wi-Fi תשפר את הדיוק בזיהוי המיקום שלך.
@@ -7941,7 +8187,7 @@
     tags = android,ios
     en = Unable to locate current GPS coordinates. Enable location services to calculate route.
     ar = لم نستطع تحديد الإحداثيات الجغرافية الحالي. قم بتفعيل خدمات الموقع الجغرافي لحساب الطريق المناسب
-    be = Не атрымалася вызначыць каардынаты GPS. Уключыце геалакацыю каб пракласці маршрут.
+    be = Не атрымалася вызначыць каардынаты GPS. Уключыце геалакацыю, каб пракласці маршрут.
     bg = Не е възможно да се определят GPS координатите. Активирайте услугите за местоположение, за да изчислите маршрута.
     ca = No s'han pogut trobar les coordenaes GPS actuals. Activeu els serveis de geolocalització per a calcular la ruta.
     cs = Aktuální souřadnice GPS se nepodařilo zjistit. Pro výpočet trasy povolte služby určování polohy.
@@ -7991,7 +8237,7 @@
     es = Descargar archivos requeridos
     et = Lae alla vajalikud failid
     eu = Deskargatu beharrezko fitxategiak
-    fa = دانلود فایل های مورد نیاز
+    fa = دانلود فایل‌های مورد نیاز
     fi = Lataa tarvittavat tiedostot
     fr = Téléchargez les fichiers requis
     he = הורד את הקבצים הדרושים
@@ -8021,7 +8267,7 @@
     tags = ios
     en = Download and update all map and routing information along the projected path to calculate route.
     ar = قم بتنزيل وتحديث كافة الخرائط ومعلومات التوجيه على طول الطريق المتوقع لحساب المسار.
-    be = Спампуйце і абнавіце усе мапы і дадзеныя навігацыі на планаваным шляху каб пракласці маршрут.
+    be = Спампуйце і абнавіце ўсе мапы і дадзеныя навігацыі на планаваным шляху, каб пракласці маршрут.
     bg = За да изчислите маршрут, изтеглете и актуализирайте всички карти и пътища по маршрута.
     ca = Baixeu i actualitzeu tots els mapes i informació de rutes del trajecte per a calcular-ne la ruta.
     cs = Stáhnout a aktualizovat všechny mapy a data tras pro výpočet trasy podél navrhované cesty.
@@ -8270,7 +8516,7 @@
     es = Seleccione un punto de inicio cercano a una carretera.
     et = Palun vali alguspunkt teele lähemal.
     eu = Hautatu errepide batetik gertu abiapuntua.
-    fa = لطفا نقطه شروع رانزدیک تر به جاده انتخاب کنید.
+    fa = لطفا نقطه شروع را نزدیک‌تر به جاده انتخاب کنید.
     fi = Valitse lähempänä tietä oleva aloituskohta.
     fr = Choisissez un point de départ à proximité d'une route.
     he = בחר נקודת התחלה הקרובה יותר לכביש כלשהו.
@@ -8312,7 +8558,7 @@
     eu = Helmuga ezarri
     fa = تنظیم مقصد
     fi = Muuta määränpäätä
-    fr = Modifiez la destination
+    fr = Ajustez la destination
     he = כוונן יעד
     hu = Pontosítsa célállomását
     id = Sesuaikan tujuan
@@ -8390,9 +8636,9 @@
     es = Seleccione un punto de destino cercano a una carretera.
     et = Palun vali sihtkoht teele lähemal.
     eu = Hautatu helmuga puntu bat errepide batetik gertu.
-    fa = لطفا مقصد تعیین شده را نزدیک تر به جاده انتخاب نمایید.
+    fa = لطفا مقصد تعیین شده را نزدیک‌تر به جاده انتخاب نمایید.
     fi = Valitse lähempänä tietä oleva määränpää.
-    fr = Choisissez une destination à proximité d'une route.
+    fr = Choisissez un lieu de destination à proximité d'une route.
     he = בחר נקודת יעד הקרובה יותר לכביש כלשהו.
     hu = Kérjük, válasszon egy úthoz közelebb eső célállomást.
     id = Pilih titik tujuan yang lebih dekat dengan jalan.
@@ -8539,7 +8785,7 @@
     tags = android,ios
     en = Unable to create route due to an application error.
     ar = تعذر إنشاء مسار نتيجة وجود خطأ في التطبيق.
-    be = Не атрымалася пракласці маршрут з-за памылкі дадатка.
+    be = Не атрымалася пракласці маршрут з-за памылкі праграмы.
     bg = Не е възможно да се създаде маршрут поради грешка в приложението.
     ca = No s'ha pogut crear la ruta a causa d'un error de l'aplicació.
     cs = Trasu se nepodařilo vytvořit z důvodu chyby aplikace.
@@ -8591,7 +8837,7 @@
     eu = Saiatu berriro
     fa = لطفا دوباره تلاش کنید
     fi = Yritä uudelleen
-    fr = Réessayer
+    fr = Veuillez réessayer
     he = נסה שוב
     hu = Kérjük, próbálja újra
     id = Mohon coba lagi
@@ -8669,7 +8915,7 @@
     es = ¿Desea descargar el mapa y crear una ruta mejor que abarque más de un mapa?
     et = Kas sooviksid kaardi alla laadida ja luua optimaalsema rohkem kui ühte kaarti hõlmava marsruudi?
     eu = Mapa deskargatu eta mapa bat baino gehiago hartzen duen ibilbide hobe bat sortu nahi duzu?
-    fa = ایا مایل به دانلود نقشه و ایجاد مسیر های بهینه بیشتری که نقشه های بیشتری را پوشش میدهد هستید؟
+    fa = ایا مایل به دانلود نقشه و ایجاد مسیر‌های بهینه بیشتری که نقشه‌های بیشتری را پوشش میدهد هستید؟
     fi = Haluatko ladata kartan ja luoda paremman reitin, joka ylettyy usealle kartalle?
     fr = Voulez-vous télécharger la carte et créer un itinéraire plus direct s'étendant sur plus d'une carte?
     he = האם ברצונך להוריד את המפה וליצור מסלול מיטבי יותר, הכולל יותר מאשר מפה אחת?
@@ -8699,7 +8945,7 @@
     tags = android,ios
     en = Download additional maps to create a better route that crosses the boundaries of this map.
     ar = تنزيل خرائط إضافية لإنشاء مسار أفضل يعبر حافة هذه الخريطة.
-    be = Спампаваць дадатковыя мапы, каб пракласці лепшы маршрут, каторы перасякае межы гэтай мапы.
+    be = Спампаваць дадатковыя мапы, каб пракласці лепшы маршрут, які перасякае межы гэтай мапы.
     bg = За да създадете по-добър маршрут с граничен преход, трябва да изтеглите картата.
     ca = Baixeu mapes addicionals per a crear una ruta millor que creua els límits d'aquest mapa.
     cs = Stáhnout mapu a vytvořit optimálnější trasu, která překračuje hranice této mapy.
@@ -8709,7 +8955,7 @@
     es = Descargue mapas adicionales para crear una ruta mejor que cruce los límites de este mapa.
     et = Lae alla täiendavad kaardid, et luua parem, selle kaardi piire ületav marsruut.
     eu = Deskargatu mapa osagarriak mapa honen mugak gainditzen dituen ibilbide hobea sortzeko.
-    fa = دانلود نقشه های اضافی برای ایجاد مسیری بهتر که حاشیه های این نقشه را رد می کند.
+    fa = دانلود نقشه‌های اضافی برای ایجاد مسیری بهتر که حاشیه‌های این نقشه را رد می کند.
     fi = Lataa kartta ja luo parempi reitti, joka ylittää tämän kartan reunan.
     fr = Téléchargez des cartes pour créer un itinéraire plus direct sortant des limites de cette carte.
     he = הורד את המפה כדי ליצור מסלול מיטבי יותר, החוצה את הגבול של מפה זו.
@@ -8751,7 +8997,7 @@
     es = Para empezar a buscar y crear rutas, descargue el mapa. Después de eso, ya no necesitará una conexión a Internet.
     et = Marsruutide otsimise ja loomise alustamiseks lae kaart alla. Pärast seda ei ole Interneti-ühendus enam vajalik.
     eu = Ibilbideak bilatzen eta sortzen hasteko, deskargatu mapa. Horren ondoren, ez duzu Interneterako konexiorik beharko.
-    fa = برای شروع جستوجو و مسیر یابی لطفا نقشه رادانلود کنید بعد از ان دیگر نیازی به اتصال به اینترنت ندارید و برنامه کاملا افلاین اجرا می شود.
+    fa = برای شروع جستجو و مسیر‌یابی لطفا نقشه رادانلود کنید بعد از آن دیگر نیازی به اتصال به اینترنت ندارید و برنامه کاملا آفلاین اجرا می شود.
     fi = Lataa kartta jotta voit käyttää hakua ja luoda reittejä. Tämän jälkeen et tarvitse enää Internet-yhteyttä.
     fr = Pour commencer à rechercher et à créer des itinéraires, veuillez télécharger la carte. Après cela, vous n'aurez plus besoin d'une connexion Internet.
     he = על מנת להתחיל לחפש וליצור מסלולים, הורידו בבקשה את המפה ולא תזדקקו יותר לחיבור לאינטרנט.
@@ -8982,7 +9228,7 @@
     tags = ios
     en = Download and update all map along the projected path to calculate route.
     ar = لإنشاء مسار، يرجى تنزيل وتحديث جميع الخرائط على امتداد الطريق.
-    be = Спампуйце і абнавіце ўсе мапы на шляху каб пракласці маршрут.
+    be = Спампуйце і абнавіце ўсе мапы на шляху, каб пракласці маршрут.
     ca = Baixeu i actualitzeu tots els mapes del trajecte per a calcular-ne la ruta.
     cs = Pro vytvoření trasy si prosím stáhněte a aktualizujte všechny mapy podél očekávané cesty.
     da = For at oprette en rute skal du hente og opdatere alle kort langs ruten.
@@ -9028,7 +9274,7 @@
     es = Categorías
     et = Kategooriad
     eu = Kategoriak
-    fa = دسته بندی ها
+    fa = دسته‌بندی‌ها
     fi = Luokat
     fr = Catégories
     hu = Kategóriák
@@ -9145,7 +9391,7 @@
     es = Por favor, pruebe con otra consulta.
     et = Proovi muuta otsingutingimusi.
     eu = Mesedez, saiatu beste kontsulta bat.
-    fa = با تغییر در معیار های جست و جو دوباره امتحان کنید
+    fa = با تغییر در معیار‌های جستجو دوباره امتحان کنید
     fi = Yritä jotain toista hakusanaa.
     fr = Veuillez essayer un autre mot-clé.
     hu = Próbáljon másik lekérdezést.
@@ -9184,7 +9430,7 @@
     es = Historial de búsquedas
     et = Otsinguajalugu
     eu = Bilaketa-historia
-    fa = سوابق جست وجو
+    fa = سوابق جستجو
     fi = Hakuhistoria
     fr = Historique de recherche
     hu = Előző keresések
@@ -9223,7 +9469,7 @@
     es = Ver búsquedas recientes.
     et = Vaata hiljutisi otsinguid.
     eu = Ikusi azken bilaketak.
-    fa = مشاهده جست وجو های اخیر
+    fa = مشاهده جستجو‌های اخیر
     fi = Siirry nopeasti aikaisempaan hakuun.
     fr = Accédez rapidement aux dernières recherches.
     hu = Aktuális keresés gyors elérése.
@@ -9262,7 +9508,7 @@
     es = Eliminar el historial de búsqueda
     et = Tühjenda otsinguajalugu
     eu = Ezabatu bilaketa-historia
-    fa = پاک کردن سابقه جست وجو ها
+    fa = پاک کردن سابقه جستجوها
     fi = Poista hakuhistoria
     fr = Effacer l'historique de recherche
     hu = A keresési előzmények törlése
@@ -9486,7 +9732,7 @@
     es = La navegación solo está disponible desde su ubicación actual.
     et = Navigeerimine on saadaval ainult Sinu praegusest asukohast.
     eu = Nabigazioa zure uneko kokapenetik soilik dago erabilgarri.
-    fa = مسیر یابی فقط از موقعیت کنونی شما قابل انجام است.
+    fa = مسیر‌یابی فقط از موقعیت کنونی شما قابل انجام است.
     fi = Navigointi onnistuu vain nykyisestä sijainnistasi.
     fr = La navigation est uniquement disponible à partir de votre emplacement actuel.
     hu = A navigáció csak a jelenlegi helyzetéből érhető el.
@@ -9525,7 +9771,7 @@
     es = ¿Quiere que planeemos un ruta desde su ubicación actual?
     et = Kas soovid, et planeeriksime marsruudi Sinu praegusest asukohast?
     eu = Zure uneko kokapenetik ibilbide bat antolatzea nahi duzu?
-    fa = ایا می خواهید یک مسیر را از موقعیت فعلیتان برنامه ریزی کنیم؟
+    fa = آیا می خواهید یک مسیر را از موقعیت فعلیتان برنامه ریزی کنیم؟
     fi = Haluatko valita vaihtoehtoisen reitin?
     fr = Souhaitez-vous que nous planifiions un itinéraire à partir de votre emplacement actuel ?
     hu = Szeretne útvonaltervet készíttetni a jelenlegi pozíciójától?
@@ -9919,7 +10165,7 @@
     eu = Modu erraza
     fa = حالت ساده
     fi = Yksinkertainen tila
-    fr = Mode simple
+    fr = Mode simplifié
     hu = Egyszerű mód
     id = Mode Sederhana
     it = Modalità semplice
@@ -10114,7 +10360,7 @@
     eu = Munduko mapa aldatu duzu. Ez ezazu zeuretzat gorde. Esan zure lagunei eta editatu elkarrekin.
     fa = شما نقشه جهان را تغییر دادید.این افتخار را پیش خود نگه ندارید!به دوستانتان درموردش بگویید و با یکدیگر ویرایش کنید.
     fi = Olet muuttanut maailmankarttaa. Älä piilota tätä! Kerro ystävillesi ja muokatkaa sitä yhdessä.
-    fr = Vous avez modifié la carte du monde ! Ne le cachez pas ! Dites-le à vos amis, et modifiez-le ensemble.
+    fr = Vous avez modifié la carte du monde ! Ne le cachez pas ! Dites-le à vos amis, et modifiez-la ensemble.
     hu = Megváltoztattad a világ térképét. Ne titkold el mások elől! Mondd el a barátaidnak, és szerkesszétek közösen!
     id = Anda telah mengubah peta dunia. Jangan menyembunyikan ini! Katakan kepada teman-teman Anda, dan edit bersama.
     it = Hai modificato la mappa del mondo. Non tenerlo per te! Dillo ai tuoi amici e modificatela insieme.
@@ -10190,7 +10436,7 @@
     es = Por favor, describa el problema en detalle para que la comunidad de OpenStreetMap pueda corregir el error.
     et = Palun kirjelda probleemi üksikasjalikult, et OpenStreetMap kommuun saaks selle parandada.
     eu = Mesedez, deskribatu arazoa xehetasunez, OpenStreetMap komunitateak akatsa konpondu dezan.
-    fa = لطفا مشکلتان را با جزئیات توضیح دهید بطوری که انجمن OSM بتوانند ان را برطرف کنند.
+    fa = لطفا مشکلتان را با جزئیات توضیح دهید بطوری که انجمن OSM بتوانند آن را برطرف کنند.
     fi = Kuvaile ongelmaa yksityiskohtaisesti, jotta OpenStreetMap-yhteisö voi korjata vian.
     fr = Veuillez décrire le problème en détail pour permettre à la communauté OpenStreetMap de réparer l'erreur.
     hu = Kérjük, írd le részletesen a problémát, hogy az OpenStreetMap csapata kijavíthassa.
@@ -10229,7 +10475,7 @@
     es = O hágalo usted mismo en https://www.openstreetmap.org/
     et = Või tee seda ise aadressil https://www.openstreetmap.org/
     eu = Edo egin ezazu zeure burua https://www.openstreetmap.org/ helbidean
-    fa = یا خودتان ان را انجام دهید در وبسایت https://www.openstreetmap.org/
+    fa = یا خودتان آن را انجام دهید در وبسایت https://www.openstreetmap.org/
     fi = Tai tee se itse osoitteessa https://www.openstreetmap.org/
     fr = Ou faites-le vous-même sur https://www.openstreetmap.org/
     hu = Vagy végezd el te magad a javítást itt: https://www.openstreetmap.org/
@@ -10385,7 +10631,7 @@
     es = Сerrado por mantenimiento
     et = Suletud hoolduseks
     eu = Mantentze-lanetarako itxita
-    fa = به علت تعمییرات بسته است
+    fa = به علت تعمیرات بسته است
     fi = Suljettu huoltoa varten
     fr = Fermé pour cause de maintenance
     hu = Karbantartás miatt nem elérhető
@@ -10426,7 +10672,7 @@
     eu = Toki bikoiztua
     fa = مکان تکراری
     fi = Paikan kaksoiskappale
-    fr = Lieu doublon
+    fr = Lieu en doublon
     hu = Duplikált hely
     id = Tempat ganda
     it = Luogo duplicato
@@ -10545,7 +10791,7 @@
     eu = Egunero
     fa = روزانه
     fi = Päivittäin
-    fr = Tous les jours
+    fr = Quotidien
     hu = Naponta
     id = Setiap Hari
     it = Tutti i giorni
@@ -10584,7 +10830,7 @@
     eu = 24/7
     fa = شبانه روزی
     fi = Päivin ja öin
-    fr = Jour et nuit
+    fr = 24/24 et 7/7
     he = יום ולילה
     hu = Nappal és éjszaka
     id = siang dan malam
@@ -10736,6 +10982,7 @@
     eu = Bihar %@ean irekiko da
     fr = Ouvre demain à %@
     it = Apre domani alle %@
+    nb = Åpner i morgen klokka %@
     nl = Opent morgen om %@
     pl = Otwarcie jutro o %@
     pt = Abre amanhã às %@
@@ -10754,6 +11001,7 @@
     eu = %1$@ean %2$@ean irekiko da
     fr = Ouvre le %1$@ à %2$@
     it = Apre %1$@ alle %2$@
+    nb = Åpner %1$@ klokka %2$@
     nl = Opent %1$@ om %2$@
     pl = Otwarcie %1$@ o %2$@
     pt = Abre %1$@ às %2$@
@@ -10772,6 +11020,7 @@
     eu = %@ean irekiko da
     fr = Ouvre à %@
     it = Apre alle %@
+    nb = Åpner klokka %@
     nl = Opent om %@
     pl = Otwarcie o %@
     pt = Abre às %@
@@ -10791,6 +11040,7 @@
     eu = %@ barru irekitzen da
     fr = Ouvert dans %@
     it = Apre tra %@
+    nb = Åpner om %@
     nl = Opent over %@
     pl = Otwarcie za %@
     pt-BR = Abre em %@
@@ -10809,6 +11059,7 @@
     eu = %@ean itxiko da
     fr = Ferme à %@
     it = Chiude alle %@
+    nb = Stenger %@
     nl = Sluit om %@
     pl = Zamknięcie o %@
     pt = Encerra às %@
@@ -10828,6 +11079,7 @@
     eu = %@ barru ixten da
     fr = Fermé dans %@
     it = Chiude tra %@
+    nb = Stenger om %@
     nl = Sluit over %@
     pl = Zamknięcie za %@
     pt-BR = Fecha em %@
@@ -10966,7 +11218,7 @@
     es = ¿No tiene cuenta en OpenStreetMap?
     et = Puudub OpenStreetMap konto?
     eu = Ez al duzu OpenStreetMap konturik?
-    fa = ایا حساب OpenStreetMap ندارید؟
+    fa = آیا حساب OpenStreetMap ندارید؟
     fi = Eikö sinulla ole OpenStreetMap tiliä?
     fr = Vous n'avez pas de compte sur OpenStreetMap?
     hu = Nem rendelkezel még OpenStreetMap-felhasználói fiókkal?
@@ -11160,7 +11412,7 @@
     es = Iniciar sesión en OpenStreetMap
     et = Logi sisse OpenStreetMap-i
     eu = Hasi saioa OpenStreetMap-en
-    fa = ﺪﯾﻮﺷ OpenStreetMap ﺩﺭﺍﻭ
+    fa = شوید OpenStreetMap وارد
     fi = Kirjaudu OpenStreetMapiin
     fr = Se connecter à OpenStreetMap
     he = OpenStreetMap-ל סנכיה
@@ -11359,7 +11611,7 @@
     eu = Azken karga
     fa = اخرین بروزرسانی
     fi = Viimeisin lisäys
-    fr = Dernier téléchargement
+    fr = Dernier envoi
     hu = Utolsó frissítés
     id = Pengunggahan terakhir
     it = Ultimo caricamento
@@ -11711,9 +11963,11 @@
     es = Ingrese un nombre de calle
     et = Palun sisesta tänava nimi
     eu = Sartu kale-izena
-    fa = ﺪﯿﻨﮐ ﺩﺭﺍﻭ ﺍﺭ ﻥﺎﺑﺎﯿﺧ ﻡﺎﻧ
+    fa = نام خیابان را وارد کنید
+    fr = Veuillez entrer un nom de rue
     it = Inserire il nome della via
     mr = कृपया रस्त्याचे नाव जोडा
+    nb = Legg til en gateadresse
     nl = Voer een straatnaam in a.u.b.
     pl = Proszę wpisz nazwę ulicy
     pt-BR = Por favor, digite o nome da rua
@@ -11852,7 +12106,7 @@
     es = Cocina
     et = Köök
     eu = Sukaldea
-    fa = غذا خوری
+    fa = غذا‌خوری
     fi = Ruokalaji
     fr = Cuisine
     hu = Konyha
@@ -12006,6 +12260,7 @@
     fr = Ajouter un numéro de téléphone
     it = Aggiungi numero
     mr = फोन जोडा
+    nb = Legg til telefon
     nl = Telefoonnummer toevoegen
     pl = Dodaj numer telefonu
     ro = Adaugă un număr
@@ -12106,7 +12361,7 @@
     es = Todos los cambios en los mapas se borrarán junto con el mapa.
     et = Kõik Sinu kaardimuudatused kustutatakse koos kaardiga.
     eu = Maparen aldaketa guztiak maparekin batera ezabatuko dira.
-    fa = تمام ویرایش های که بر روی نقشه انجام داده اید به همراه نقشه حذف شد.
+    fa = تمام ویرایش‌های که بر روی نقشه انجام داده اید به همراه نقشه حذف شد.
     fi = Kaikki karttaan tehdyt muutokset poistetaan kartan mukana.
     fr = Toutes vos modifications de la carte seront supprimées avec elle.
     hu = A térképekkel együtt minden rajtuk végzett módosítás is törlésre kerül.
@@ -12145,7 +12400,7 @@
     es = Autodescarga de mapas
     et = Värskenda kaarte
     eu = Mapak deskargatu automatikoki
-    fa = بروزرسانی نقشه ها
+    fa = بروزرسانی نقشه‌ها
     fi = Päivitä kartat
     fr = Mettre à jour les cartes
     hu = Térképek frissítése
@@ -12184,7 +12439,7 @@
     es = Para crear una ruta, es necesario actualizar todos los mapas y volver a planificar la ruta.
     et = Marsruudi loomiseks tuleb värskendada kõiki kaarte ja seejärel planeerida marsruuti uuesti.
     eu = Ibilbide bat sortzeko, beharrezkoa da mapa guztiak eguneratzea eta ibilbidea berriro planifikatzea.
-    fa = برای ایجاد مسیر شما نیازمند بروزرسانی تمامی  نقشه ها هستید سپس می توانید دوباره مسیرتان را برنامه ریزی کنید
+    fa = برای ایجاد مسیر شما نیازمند بروزرسانی تمامی  نقشه‌ها هستید سپس می توانید دوباره مسیرتان را برنامه ریزی کنید
     fi = Sinun täytyy päivittää kaikki kartat ja suunnitella reitti uudelleen luodaksesi uuden reitin.
     fr = Pour créer un itinéraire, vous devez mettre à jour toutes les cartes puis reprogrammer l'itinéraire.
     hu = Útvonal létrehozásához frissítsd az összes térképet, majd tervezd meg újra az útvonalat.
@@ -12379,7 +12634,7 @@
     es = Por favor, elimine los datos innecesarios
     et = Palun kustuta ebavajalikud andmed
     eu = Ezabatu beharrezkoak ez diren datuak
-    fa = لطفا داده های غیر ضروری را از دستگاه خود حذف کنید
+    fa = لطفا داده‌های غیر ضروری را از دستگاه خود حذف کنید
     fi = Poista tarpeeton data
     fr = Veuillez supprimer les données inutiles
     hu = Kérjük, töröld a szükségtelen adatokat
@@ -12486,7 +12741,7 @@
     tags = android,ios
     en = Drag the map to select the correct location of the object.
     ar = اسحب الخريطة لتحدد موقع الإضافة.
-    be = Перацягніце мапу каб выбраць правільнае месцазнаходжанне аб'екта.
+    be = Перацягніце мапу, каб выбраць правільнае месцазнаходжанне аб'екта.
     bg = Плъзнете картата, за да изберете правилното местоположение на обекта.
     ca = Arrossegueu el mapa per a indicar la ubicació correcta de l'objecte.
     cs = Táhněte mapu, abyste vybrali správné umístění objektu.
@@ -12613,7 +12868,7 @@
     es = Todas las categorías
     et = Kõik kategooriad
     eu = Kategoria guztiak
-    fa = همه دسته بندی ها
+    fa = همه دسته‌بندی‌ها
     fi = Kaikki kategoriat
     fr = Toutes les catégories
     hu = Minden kategória
@@ -12849,7 +13104,7 @@
     eu = Beste arazo bat
     fa = مشکلی دیگر
     fi = Eri ongelma
-    fr = Un problème différent
+    fr = Autre problème
     hu = Különböző problémaDifferent problem
     id = Masalah yang berbeda
     it = Un problema diverso
@@ -12888,7 +13143,7 @@
     eu = Negozioa gehitu
     fa = اضافه کردن یک تجارت
     fi = Lisää organisaatio
-    fr = Ajouter une organisation
+    fr = Ajouter une entreprise
     hu = Szervezet hozzáadása
     id = Tambahkan organisasi
     it = Aggiungi attività
@@ -12925,7 +13180,7 @@
     es = Añadir lugares nuevos al mapa y editar los lugares actuales directamente desde la aplicación.
     et = Lisa kaardile uusi kohti ja muuda olemasolevaid otse rakenduses.
     eu = Gehitu toki berriak mapan eta editatu uneko tokiak zuzenean aplikaziotik.
-    fa = اضافه کردن مکان به نقشه و ویرایش ان مستقیما از طریق این اپلیکیشن.
+    fa = اضافه کردن مکان به نقشه و ویرایش آن مستقیما از طریق این اپلیکیشن.
     fi = Lisää karttaan uusia paikkoja ja muokkaa sovelluksessa olevia karttoja suoraan sovelluksessa.
     fr = Ajoutez de nouveaux lieux sur la carte et modifiez les lieux existants directement depuis l'appli.
     hu = Adj hozzá új helyeket a térképhez, és szerkeszd a meglévőket közvetlenül az alkalmazásból.
@@ -13029,44 +13284,42 @@
     zh-Hant = 物件無法設置在這裡
 
   [osm_presentation]
+    comment = Text in About and OSM Login screens. %@ is replaced by a local, human readable date.
     tags = android
-    en = All map data comes from the OpenStreetMap project. It is like Wikipedia for maps where you can add or edit places, and they become available to millions of users all over the World.
-    ar = .ﻢﻟﺎﻌﻟﺍ ءﺎﺤﻧﺃ ﻊﻴﻤﺟ ﻲﻓ ﻦﻴﻣﺪﺨﺘﺴﻤﻟﺍ ﻦﻴﻳﻼﻤﻟ ﺔﺣﺎﺘﻣ ﺢﺒﺼﺗﻭ ، ﺎﻬﻠﻳﺪﻌﺗ ﻭﺃ ﻦﻛﺎﻣﻷﺍ ﺔﻓﺎﺿﺇ
-    be = Усе дадзеныя карты паходзяць з праекта OpenStreetMap. Гэта як Wikipedia для карт, дзе вы можаце дадаваць або рэдагаваць месцы, і яны становяцца даступнымі для мільёнаў карыстальнікаў па ўсім свеце.
-    bg = Всички картографски данни идват от проекта OpenStreetMap. Това е като Wikipedia за карти, където можете да добавяте или редактирате места и те стават достъпни за милиони потребители по целия свят.
-    ca = Totes les dades cartogràfiques provenen del projecte OpenStreetMap. És com la Viquipèdia per als mapes on podeu afegir o editar llocs, i estan disponibles per a milions d'usuaris de tot el món.
-    cs = Všechna mapová data pocházejí z projektu OpenStreetMap. Je to jako Wikipedie s mapami, kde můžete přidávat nebo upravovat místa a jsou dostupné milionům uživatelů po celém světě.
-    da = Alle kortdata kommer fra OpenStreetMap-projektet. Det er ligesom Wikipedia for kort, hvor du kan tilføje eller redigere steder, og de bliver tilgængelige for millioner af brugere over hele verden.
-    de = Alle Kartendaten stammen aus dem OpenStreetMap-Projekt. Es ist wie Wikipedia für Karten, wo Sie Orte hinzufügen oder bearbeiten können, und sie werden Millionen von Benutzern auf der ganzen Welt zur Verfügung gestellt.
-    el = Όλα τα δεδομένα χάρτη προέρχονται από το έργο OpenStreetMap. Μοιάζει με τη Wikipedia για χάρτες όπου μπορείτε να προσθέσετε ή να επεξεργαστείτε μέρη και γίνονται διαθέσιμα σε εκατομμύρια χρήστες σε όλο τον κόσμο.
-    es = Todos los datos del mapa provienen del proyecto OpenStreetMap. Es como Wikipedia para mapas donde puedes agregar o editar lugares, y están disponibles para millones de usuarios en todo el mundo.
-    et = Kõik kaardiandmed pärinevad OpenStreetMapi projektist. See on nagu Vikipeedia kaartide jaoks, kus saate kohti lisada või muuta ja need muutuvad kättesaadavaks miljonitele kasutajatele üle kogu maailma.
-    eu = Maparen datu guztiak OpenStreetMap proiektutik datoz. Tokiak gehitu edo edita ditzakezun mapetarako Wikipedia bezalakoa da, eta mundu osoko milioika erabiltzaileren eskura jartzen dira.
-    fa = .ﺪﻧﺮﯿﮔu200cﯽﻣ ﺭﺍﺮﻗ ﺱﺮﺘﺳﺩ ﺭﺩ ﻥﺎﻬﺟ ﺮﺳﺍﺮﺳ ﺭﺩ ﺮﺑﺭﺎﮐ ﺎﻫu200cﻥﻮﯿﻠﯿﻣ ﯼﺍﺮﺑ ﺎﻫu200cﻥﺁ ﻭ
-    fi = Kaikki karttatiedot tulevat OpenStreetMap-projektista. Se on kuin karttojen Wikipedia, jossa voit lisätä tai muokata paikkoja, ja ne ovat miljoonien käyttäjien saatavilla kaikkialla maailmassa.
-    fr = Toutes les données géographiques proviennent du projet OpenStreetMap. Le principe est similaire à Wikipedia: vous pouvez ajouter et modifier des lieux et ils deviendront accessibles à des millions d'utilisateurs partout dans le monde.
-    he = כל נתוני המפה מגיעים מפרויקט OpenStreetMap. זה כמו ויקיפדיה למפות, שבה אתה יכול להוסיף או לערוך מקומות, והם הופכים לזמינים למיליוני משתמשים בכל רחבי העולם.
-    hu = Minden térképadat az OpenStreetMap projektből származik. Olyan ez, mint a Wikipédia a térképekhez, ahol helyeket adhat hozzá vagy szerkeszthet, és a felhasználók milliói számára válnak elérhetővé szerte a világon.
-    id = Semua data peta berasal dari proyek OpenStreetMap. Ini seperti Wikipedia untuk peta tempat Anda dapat menambahkan atau mengedit tempat, dan peta tersebut tersedia bagi jutaan pengguna di seluruh Dunia.
-    it = Tutti i dati della mappa provengono dal progetto OpenStreetMap. È come Wikipedia per le mappe in cui puoi aggiungere o modificare luoghi e diventano disponibili per milioni di utenti in tutto il mondo.
-    ja = すべての地図データは、OpenStreetMap プロジェクトから取得されます。場所を追加または編集できる地図のウィキペディアのようなもので、世界中の何百万人ものユーザーが利用できるようになります。
-    ko = 모든 지도 데이터는 OpenStreetMap 프로젝트에서 가져옵니다. ""장소를 추가하거나 편집할 수 있는 지도용 Wikipedia와 같으며 전 세계 수백만 사용자가 사용할 수 있습니다.
-    nb = Alle kartdata kommer fra OpenStreetMap-prosjektet. Det er som Wikipedia for kart hvor du kan legge til eller redigere steder, og de blir tilgjengelige for millioner av brukere over hele verden.
-    nl = Alle kaartgegevens komen uit het OpenStreetMap-project. Het is als Wikipedia voor kaarten waar je plaatsen kunt toevoegen of bewerken, en ze worden beschikbaar voor miljoenen gebruikers over de hele wereld.
-    pl = Wszystkie dane mapy pochodzą z projektu OpenStreetMap. Jest jak Wikipedia, tylko dla map. Możesz dodawać lub edytować miejsca i staną się dostępne dla milionów użytkowników na całym świecie.
-    pt = Todos os dados cartográficos provêm do projecto OpenStreetMap. É como a Wikipedia para mapas onde se podem adicionar ou editar locais, e estes ficam disponíveis para milhões de utilizadores em todo o mundo.
-    pt-BR = Todos os dados do mapa são provenientes do projeto OpenStreetMap. É como a Wikipedia para mapas onde você pode adicionar ou editar lugares, e eles ficam disponíveis para milhões de usuários em todo o mundo.
-    ro = Toate datele hărții provin din proiectul OpenStreetMap. Este ca Wikipedia pentru hărți în care puteți adăuga sau edita locuri și acestea devin disponibile pentru milioane de utilizatori din întreaga lume.
-    ru = Все данные карты поступают из проекта OpenStreetMap. Это как Википедия для карт, где вы можете добавлять или редактировать места, и они становятся доступными для миллионов пользователей по всему миру.
-    sk = Všetky mapové podklady pochádzajú z projektu OpenStreetMap. Je to ako Wikipedia pre mapy, kde môžete pridávať alebo upravovať miesta a sú dostupné pre milióny používateľov na celom svete.
-    sv = All kartdata kommer från OpenStreetMap-projektet. Det är som Wikipedia för kartor där du kan lägga till eller redigera platser, och de blir tillgängliga för miljontals användare över hela världen.
-    sw = Data yote ya ramani inatoka kwa mradi wa OpenStreetMap. Ni kama Wikipedia ya ramani ambapo unaweza kuongeza au kuhariri maeneo, na yanapatikana kwa mamilioni ya watumiaji duniani kote.
-    th = ข้อมูลแผนที่ทั้งหมดมาจากโครงการ OpenStreetMap เหมือนกับวิกิพีเดียสำหรับแผนที่ที่คุณสามารถเพิ่มหรือแก้ไขสถานที่ได้ และพวกเขาพร้อมให้ผู้ใช้หลายล้านคนทั่วโลกใช้งานได้
-    tr = Tüm harita verileri OpenStreetMap projesinden geliyor. Bu proje Vikipedi'nin harita sürümü gibidir, yer ekleyerek veya düzenleyerek tüm dünyadaki milyonlarca kullanıcı gibi bu harita verilerinin gelişmesine katkıda bulunabilirsiniz.
-    uk = Усі картографічні дані надходять із проекту OpenStreetMap. Це як Wikipedia для карт, де ви можете додавати або редагувати місця, і вони стають доступними для мільйонів користувачів у всьому світі.
-    vi = Tất cả dữ liệu bản đồ đến từ dự án OpenStreetMap. Nó giống như Wikipedia dành cho bản đồ nơi bạn có thể thêm hoặc chỉnh sửa các địa điểm và chúng có sẵn cho hàng triệu người dùng trên khắp Thế giới.
-    zh-Hans = 所有地图数据均来自 OpenStreetMap 项目。它就像 Wikipedia 中的地图，您可以在其中添加或编辑地点，并且它们可供全球数百万用户使用。
-    zh-Hant = 所有地圖數據均來自 OpenStreetMap 項目。它就像 Wikipedia 中的地圖，您可以在其中添加或編輯地點，並且它們可供全球數百萬用戶使用。
+    en = Cartographic data from OpenStreetMap as of %@. OSM is like Wikipedia for maps, where you can add or edit places for all users around the world.
+    ar = بيانات رسم الخرائط من OpenStreetMap اعتبارًا من %@. إنه مثل ويكيبيديا حيث يمكنك إضافة أو تحرير أماكن لجميع المستخدمين في جميع أنحاء العالم.
+    be = Картаграфічныя дадзеныя OpenStreetMap па стане на %@. Гэта як Вікіпедыя, дзе вы можаце дадаць або рэдагаваць месцы для ўсіх карыстальнікаў па ўсім свеце.
+    bg = Картографски данни от OpenStreetMap към %@. Това е като Wikipedia, където можете да добавяте или редактирате места за всички потребители по света.
+    cs = Kartografické údaje z OpenStreetMap od roku %@. Je to jako Wikipedia, kde můžete přidat nebo upravovat místa pro všechny uživatele po celém světě.
+    da = Kartografiske data fra OpenStreetMap fra %@. Det er som Wikipedia, hvor du kan tilføje eller redigere steder for alle brugere over hele verden.
+    de = Kartografische Daten von OpenStreetMap vom %@. OSM ist wie Wikipedia für Karten, wo Sie Orte hinzufügen oder bearbeiten können.
+    el = Χαρτογραφικά δεδομένα από το OpenStreetMap από το %@. Είναι σαν τη Wikipedia όπου μπορείτε να προσθέσετε ή να επεξεργαστείτε θέσεις για όλους τους χρήστες του κόσμου.
+    es = Datos cartográficos del OpenStreetMap a partir de %@. Es como Wikipedia donde puede agregar o editar lugares para todos los usuarios del mundo.
+    fa = داده های نقشه برداری از OpenStreetMap از %@. این مانند ویکی پدیا است که می توانید مکانهایی را برای همه کاربران در سراسر جهان اضافه یا ویرایش کنید.
+    fi = Kartografiset tiedot OpenStreetMapista vuodesta %@. Se on kuin Wikipedia, johon voit lisätä tai muokata paikkoja kaikille käyttäjille ympäri maailmaa.
+    fr = Données cartographiques provenant d'OpenStreetMap en date du %@. OSM est comme Wikipedia pour les cartes, où vous pouvez ajouter ou modifier des lieux.
+    he = נתונים קרטוגרפיים מ- OpenStreetMap נכון לשנת %@. זה כמו Wikipedia בו תוכלו להוסיף או לערוך מקומות לכל המשתמשים ברחבי העולם.
+    hu = Kartográfiai adatok az OpenStreetMap-ból a %@-től. Olyan, mint a Wikipedia, ahol a világ minden felhasználójának helyét hozzáadhatja vagy szerkesztheti.
+    id = Data kartografi dari OpenStreetMap pada %@. Ini seperti Wikipedia di mana Anda dapat menambahkan atau mengedit tempat untuk semua pengguna di seluruh dunia.
+    it = Dati cartografici da OpenStreetMap a partire dal %@. È come Wikipedia dove è possibile aggiungere o modificare luoghi per tutti gli utenti del mondo.
+    ja = %@の時点でのOpenStreetMapからの地図作成データ。これは、世界中のすべてのユーザーの場所を追加または編集できるウィキペディアのようなものです。
+    ko = %@ 기준 OpenStreetMap의지도 제작 데이터. 전 세계 모든 사용자의 장소를 추가하거나 편집 할 수있는 Wikipedia와 같습니다.
+    nb = Kartografiske data fra OpenStreetMap fra %@. Det er som Wikipedia hvor du kan legge til eller redigere steder for alle brukere over hele verden.
+    nl = Cartografische gegevens van OpenStreetMap per %@. OSM is als Wikipedia voor kaarten, waar je plaatsen kunt toevoegen of bewerken voor alle gebruikers over de hele wereld.
+    pl = Dane kartograficzne z OpenStreetMap na dzień %@. To jest jak Wikipedia, gdzie możesz dodawać lub edytować miejsca dla wszystkich użytkowników na całym świecie.
+    pt = Os dados do mapa são provenientes do OpenStreetMap do dia %@. O OSM é como a Wikipédia dos mapas, onde você pode adicionar ou editar lugares para todos os usuários do mundo.
+    pt-BR = Os dados do mapa são provenientes do OpenStreetMap do dia %@. O OSM é como a Wikipédia dos mapas, onde você pode adicionar ou editar lugares para todos os usuários do mundo.
+    ro = Date cartografice de la OpenStreetMap din %@. Este ca Wikipedia unde puteți adăuga sau edita locuri pentru toți utilizatorii din lume.
+    ru = Картографические данные из OpenStreetMap по состоянию на %@. Это как Википедия, где вы можете добавить или редактировать места для всех пользователей по всему миру.
+    sk = Kartografické údaje z OpenStreetMap od %@. Je to ako Wikipedia, kde môžete pridať alebo upravovať miesta pre všetkých používateľov po celom svete.
+    sv = Kartografiska data från OpenStreetMap från och med %@. Det är som Wikipedia där du kan lägga till eller redigera platser för alla användare över hela världen.
+    sw = Takwimu za katuni kutoka kwa OpenStreetMap kama ya %@. Ni kama Wikipedia ambapo unaweza kuongeza au kuhariri maeneo kwa watumiaji wote ulimwenguni.
+    th = ข้อมูลการทำแผนที่จาก OpenStreetMap ณ ปี %@มันเป็นเหมือนวิกิพีเดียที่คุณสามารถเพิ่มหรือแก้ไขสถานที่สำหรับผู้ใช้ทุกคนทั่วโลก
+    tr = Harita verileri, %@ tarihine ait OpenStreetMap verilerinden alınmıştır. OpenStreetMap, Vikipedi'nin harita sürümü gibidir: dünyadaki tüm kullanıcılar için yer ekleyebilir veya düzenleyebilirsiniz.
+    uk = Картографічні дані з OpenStreetMap станом на %@. Це як Вікіпедія, де ви можете додавати або редагувати місця для всіх користувачів у всьому світі.
+    vi = Dữ liệu bản đồ từ OpenStreetMap kể từ %@. Nó giống như Wikipedia nơi bạn có thể thêm hoặc chỉnh sửa địa điểm cho tất cả người dùng trên toàn thế giới.
+    zh-Hans = 截至%@的OpenStreetMap的制图数据。就像Wikipedia一样，您可以为世界上所有用户添加或编辑位置。
+    zh-Hant = 截至%@的OpenStreetMap的製圖數據。就像Wikipedia一樣，您可以為世界上所有用戶添加或編輯位置。
 
   [login_to_make_edits_visible]
     tags = android,ios
@@ -13122,7 +13375,7 @@
     es = Necesita más espacio para descargar. Por favor, elimine los datos innecesarios.
     et = Alla laadimiseks vajad rohkem ruumi. Palun kustuta ebavajalikke andmeid.
     eu = Leku gehiago behar duzu deskargatzeko. Ezabatu beharrezkoak ez diren datuak.
-    fa = برای دانلود,شما نیازمند فضای ذخیره سازی بیشتری هستید.لطفا داده های غیر ضروری خود را حذف کنید.
+    fa = برای دانلود، شما نیازمند فضای ذخیره سازی بیشتری هستید.لطفا داده‌های غیر ضروری خود را حذف کنید.
     fi = Tarvitset lisää tilaa ladataksesi. Poista tarpeeton data.
     fr = Pour télécharger, vous avez besoin de plus d'espace. Veuillez supprimer les données non nécessaires.
     hu = A letöltéshez több szabad tárhelyre van szükség. Kérjük, töröld a szükségtelen adatokat.
@@ -13161,7 +13414,7 @@
     es = He mejorado los mapas de Organic Maps
     et = Parandasin Organic Maps kaarte
     eu = Organic Maps mapak hobetu ditut
-    fa = من نقشه های Organic Maps را بهبود بخشیدم
+    fa = من نقشه‌های Organic Maps را بهبود بخشیدم
     fi = Paransin Organic Maps-karttoja
     fr = J'ai amélioré les cartes de Organic Maps
     hu = Én fejlesztettem a Organic Maps térképeket
@@ -13249,6 +13502,7 @@
     ja = 携帯通信ネットワークで接続してダウンロードしますか？
     ko = 셀룰러 네트워크 접속을 사용하여 다운로드하시겠습니까?
     mr = मोबाईल डेटा वापरून डाउनलोड करायचे?
+    nb = Last ned med mobildata?
     nl = Downloaden via een mobiele gegevensverbinding?
     pl = Czy pobrać, używając połączenia z siecią komórkową?
     pt = Descarregar utilizando uma conexão de rede de telemóveis?
@@ -13278,7 +13532,7 @@
     es = Podría ser muy caro con ciertos planes o con itinerancia de datos.
     et = See võib mõningate lepingute või roamingu korral olla märgatavalt kallim.
     eu = Oso garestia izan daiteke plan batzuekin edo datu-ibiltaritzarekin.
-    fa = این کار می تواند برای شما در بعضی طرح ها و یا حالت رومینگ هزینه اضافی در بر داشته باشد.
+    fa = این کار می تواند برای شما در بعضی طرح‌ها و یا حالت رومینگ هزینه اضافی در بر داشته باشد.
     fi = Tämä vaihtoehto saattaa olla huomattavasti kalliimpi tietyillä sopimuksilla tai roaming-yhteydellä.
     fr = Cela pourrait être très cher avec certains abonnements ou si vous êtes en déplacement.
     hu = Ez jelentősen drága lehet némely előfizetés vagy roaming keretein belül.
@@ -13287,6 +13541,7 @@
     ja = プランによって、またはローミングしている場合、非常に高額になる可能性があります。
     ko = 이는 일부 플랜이나 로밍할 경우에 비싸다고 간주될 수 있습니다.
     mr = रोमिंग वर असल्यास हे बरेच महाग पडू शकते.
+    nb = Dette kan medføre store kostnader med enkelte dataplaner eller om du roamer.
     nl = Met sommige abonnementen of bij roaming kan dit behoorlijk duur zijn.
     pl = Może to być kosztowne przy niektórych planach taryfowych lub w roamingu.
     pt = Isto pode ser muito caro com alguns planos ou em roaming.
@@ -13381,48 +13636,49 @@
     zh-Hant = 樓層數（最大 %d）
 
   [error_enter_correct_storey_number]
-    comment = Error message in Editor when a user tries to set the number of floors for a building higher than 25
+    comment = Error message in Editor when a user tries to set the number of floors for a building higher than %d floors
     tags = android,ios
-    en = The number of floors must non exceed 25
-    ar = يجب ألا يتجاوز عدد طوابق المبنى 25
-    be = Колькасць паверхаў павінна быць не больш за 25
-    bg = Броят на етажите не трябва да надвишава 25
-    ca = El nombre de plantes no pot excedir de 25
-    cs = Opravte počet poschodí, max. 25
-    da = Rediger bygningen med maksimum 25 etager
-    de = Das Gebäude kann nicht mehr als 25 Etagen haben
-    el = Ο αριθμός των ορόφων δεν πρέπει να υπερβαίνει τους 25
-    es = El número de plantas no debe superar 25
-    et = Korruste arv ei või olla üle 25
-    eu = Landare kopurua ez da 25etik gorakoa izan behar
-    fa = تعداد طبقات نباید بیش از 25 باشد
-    fi = Muokkaa kerroksia, enintään 25 kerrosta
-    fr = Le nombre d'étages ne doit pas dépasser 25
-    hu = Legfeljebb 25 emeletes épület szerkesztése
-    id = Edit bangunan dengan maksimum 25 lantai
-    it = Il numero di piani non deve superare 25
-    ja = 最高25階までのビルを編集
-    ko = 최대 25층까지 입력하세요
-    mr = मजल्यांची संख्या २५ पेक्षा जास्त नसावी
-    nb = Rediger bygningen med maks. 25 etasjer
-    nl = Bewerk het gebouw met maximaal 25 verdiepingen
-    pl = Edytuj budynek z maksymalną liczbą 25 pięter
-    pt = Editar o edifício com um máximo de 25 pisos
-    pt-BR = O número de andares não pode ultrapassar 25
-    ro = Numărul de etaje nu trebuie să depășească 25
-    ru = Количество этажей не должно превышать 25
-    sk = Upraviť s maximálne 25 poschodiami
-    sv = Redigera byggnaden med max 25 våningar
-    th = แก้ไขอาคารที่มีจำนวนชั้นมากกว่า 25
-    tr = Kat sayısı 25'i geçmemelidir
-    uk = Редагуйте будівлі висотою максимум 25 поверхів
-    vi = Sửa tòa nhà có tối đa 25 tầng
-    zh-Hans = 编辑最多 25 层的建筑
-    zh-Hant = 編輯最多 25 層的建築
+    en = The number of floors must non exceed %d
+    ar = يجب ألا يتجاوز عدد طوابق المبنى %d
+    be = Колькасць паверхаў павінна быць не больш за %d
+    bg = Броят на етажите не трябва да надвишава %d
+    ca = El nombre de plantes no pot excedir de %d
+    cs = Opravte počet poschodí, max. %d
+    da = Rediger bygningen med maksimum %d etager
+    de = Das Gebäude kann nicht mehr als %d Etagen haben
+    el = Ο αριθμός των ορόφων δεν πρέπει να υπερβαίνει τους %d
+    es = El número de plantas no debe superar %d
+    et = Korruste arv ei või olla üle %d
+    eu = Landare kopurua ez da %detik gorakoa izan behar
+    fa = تعداد طبقات نباید بیش از %d باشد
+    fi = Muokkaa kerroksia, enintään %d kerrosta
+    fr = Le nombre d'étages ne doit pas dépasser %d
+    hu = Ez az épület legfeljebb %d emeletes lehet
+    id = Edit bangunan dengan maksimum %d lantai
+    it = Il numero di piani non deve superare %d
+    ja = 最高%d階までのビルを編集
+    ko = 최대 %d층까지 입력하세요
+    mr = मजल्यांची संख्या %d पेक्षा जास्त नसावी
+    nb = Rediger bygningen med maks. %d etasjer
+    nl = Het gebouw mag niet meer dan %d verdiepingen hebben
+    pl = Edytuj budynek z maksymalną liczbą %d pięter
+    pt = O número de pisos não pode ser maior que %d
+    pt-BR = O número de andares não pode ser maior que %d
+    ro = Numărul de etaje nu trebuie să depășească %d
+    ru = Количество этажей не должно превышать %d
+    sk = Upraviť s maximálne %d poschodiami
+    sv = Redigera byggnaden med max %d våningar
+    th = แก้ไขอาคารที่มีจำนวนชั้นมากกว่า %d
+    tr = Kat sayısı %d'i geçmemelidir
+    uk = Редагуйте будівлі висотою максимум %d поверхів
+    vi = Sửa tòa nhà có tối đa %d tầng
+    zh-Hans = 最多可编辑 %d 层的建筑
+    zh-Hant = 編輯最多 %d 層的建築
 
   [editor_zip_code]
     tags = android,ios
     en = ZIP Code
+    en-GB = Postcode
     ar = الرمز البريدي
     be = Паштовы індэкс
     bg = Пощенски код
@@ -13462,6 +13718,7 @@
   [error_enter_correct_zip_code]
     tags = android,ios
     en = Enter a valid ZIP code
+    en-GB = Enter a valid postcode
     ar = أدخل الرمز البريدي صالح
     be = Увядзіце паштовы індэкс правільна
     bg = Въведете валиден пощенски код
@@ -13473,9 +13730,9 @@
     es = Introduzca el código postal correcto
     et = Sisesta korrektne postiindeks
     eu = Mesedez, idatzi posta-kode zuzena
-    fa = یک کد پستی معتبر وارد کنید
+    fa = یک کد‌ پستی معتبر وارد کنید
     fi = Anna kelvollinen postinumero
-    fr = Entrer le code postal correct
+    fr = Entrer un code postal correct
     hu = Írja be a helyes irányítószámot
     id = Masukkan Kode Pos yang benar
     it = Inserire il codice postale corretto
@@ -13553,7 +13810,7 @@
     es-MX = Enviar nota a los editores de OSM
     et = Saada märkus OSM muutjatele
     eu = Bidali oharra OSM editoreei
-    fa = ارسال یادداشت به ویرایشکنندگان OSM
+    fa = ارسال یادداشت به ویرایش‌کنندگان OSM
     fi = Lähetä muistilapun OSM-toimittajille
     fr = Informer les éditeurs OSM
     hu = Küldjön jegyzetet az OSM editornak
@@ -13593,7 +13850,7 @@
     es = Comentario detallado
     et = Üksikasjalik kommentaar
     eu = Iruzkin zehatza
-    fa = اظهارنظر بیشتر
+    fa = اظهار نظر بیشتر
     fi = Yksityiskohtainen kommentti
     fr = Commentaire détaillé
     hu = Részletes megjegyzés
@@ -13788,7 +14045,7 @@
     es = Descargue mapas para encontrar la ubicación y navegar sin conexión.
     et = Lae alla kaardid asukoha otsimiseks ja võrguühenduseta navigeerimise kasutamiseks.
     eu = Deskargatu mapak kokapena aurkitzeko eta lineaz kanpo nabigatzeko.
-    fa = برای جست وجو یک مکان و استفاده از قابلیت ناوبری, نقشه ها را دانلود کنید.
+    fa = برای جست وجو یک مکان و استفاده از قابلیت ناوبری، نقشه‌ها را دانلود کنید.
     fi = Lataa kartattoja löytääksesi paikkoja ja navigoidaksesi offline-tilassa.
     fr = Téléchargez des cartes pour rechercher un lieu et utiliser la navigation hors ligne
     hu = Töltse le a szükséges térképeket, hogy megtalálja a helyet és internet nélkül is navigálhasson.
@@ -13828,7 +14085,7 @@
     es = ¿Continuar detectando su ubicación actual?
     et = Jätka oma hetkeasukoha määramist?
     eu = Zure uneko kokapena detektatzen jarraitu nahi duzu?
-    fa = ایا یافتن مکان تان را ادامه می دهید؟
+    fa = آیا یافتن مکان‌تان را ادامه می دهید؟
     fi = Jatketaanko nykyisen sijaintisi havaitsemista?
     fr = Continuer la détection de votre emplacement actuel ?
     hu = Folytatja tartózkodási helyének keresését?
@@ -14144,7 +14401,7 @@
     eu = 1. Ireki ezarpenak
     fa = 1. بازکردن تنظیمات
     fi = 1. Avaa asetukset
-    fr = 1. Ouvrir Paramètres
+    fr = 1. Ouvrir les paramètres
     he = 1. פתחו את "הגדרות" (Settings)
     hu = 1. Nyissa meg a Beállításokat
     id = 1. Buka Pengaturan
@@ -14212,7 +14469,7 @@
     tags = ios
     en = 3. Select While Using the App
     ar = 3. اختيار التفعيل أثناء استخدام التطبيق
-    be = 3. Выберыце "Падчас ужывання дадатку"
+    be = 3. Выберыце "Падчас ужывання праграмы"
     bg = 3. Избиране на Докато приложението се използва
     ca = 3. Trieu "Mentre s'usa l'aplicació"
     cs = 3. Vyberte při používání aplikace
@@ -14413,6 +14670,7 @@
     eu = oina
     fa = فوت
     fi = ft
+    fr = ft
     hu = ft
     id = kaki
     ja = フィート
@@ -14712,7 +14970,7 @@
     es = Editar marcador
     et = Muuda järjehoidjat
     eu = Editatu laster-marka
-    fa = ویرایش نشانه ها
+    fa = ویرایش نشانه‌ها
     fi = Muokkaa kirjanmerkkiä
     fr = Éditer le signet
     hu = Könyvjelző szerkesztése
@@ -14751,7 +15009,7 @@
     es = Nombre del marcador
     et = Järjehoidja nimi
     eu = Laster-markaren izena
-    fa = نام نشانه ها
+    fa = نام نشانه‌ها
     fi = Kirjanmerkin nimi
     fr = Nom du signet
     hu = Könyvjelző neve
@@ -14789,7 +15047,7 @@
     es = Notas personales
     et = Isiklikud märkmed
     eu = Ohar pertsonalak
-    fa = یاداشت های شخصی
+    fa = یاداشت‌های شخصی
     fi = Henkilökohtaiset merkinnät
     fr = Remarques personnelles
     hu = Jegyzet
@@ -14829,7 +15087,7 @@
     eu = Ezabatu laster-marka
     fa = حذف نشانه
     fi = Poista kirjanmerkki
-    fr = Supprimer signet
+    fr = Supprimer le signet
     hu = Könyvjelző törlése
     id = Hapus Bookmark
     it = Elimina luogo preferito
@@ -14944,7 +15202,7 @@
     es = ¿Restablecer todos los cambios locales?
     et = Loobu kõigist kohalikest muudatustest?
     eu = Tokiko aldaketa guztiak berrezarri nahi dituzu?
-    fa = ایا تغییرات محلی را نادیده می گیرید؟
+    fa = آیا تغییرات محلی را نادیده می گیرید؟
     fi = Nollataanko kaikki paikalliset muutokset?
     fr = Abandonner toutes les modifications locales ?
     hu = Elveti az összes helyi módosítást?
@@ -15022,7 +15280,7 @@
     es = ¿Eliminar el lugar añadido?
     et = Kustuta lisatud koht?
     eu = Gehitutako tokia ezabatu?
-    fa = ایا مکان ثبت شده حذف شود؟
+    fa = آیا مکان ثبت شده حذف شود؟
     fi = Poistetaanko lisätty paikka?
     fr = Supprimer le lieu ajouté ?
     hu = Eltávolít egy hozzáadott objektumot?
@@ -15135,8 +15393,10 @@
     de = Geben Sie bitte den Grund für die Löschung an
     es = Indique por favor la razón para eliminar el lugar
     et = Palun märgi põhjus koha kustutamiseks
+    fr = Veuillez indiquer la raison pour laquelle vous effacez cet endroit
     it = Indicare il motivo dell' eliminazione del luogo
     mr = कृपया ठिकाण हटवण्याचे कारण सूचित करा
+    nb = Forklar hvorfor stedet skal slettes
     nl = Graag de reden voor verwijdering aangeven
     pl = Proszę opisz powód usunięcia miejsca
     pt-BR = Por favor, explica o motivo pelo qual você está retirando o local
@@ -15161,7 +15421,7 @@
     eu = …gehi
     fa = بیشتر….
     fi = …Näytä
-    fr = …Afficher la suite
+    fr = …plus
     hu = …tovább
     id = …selebihnya
     it = …di più
@@ -15314,6 +15574,7 @@
     fr = Saisissez une adresse web, un compte ou un nom de page Facebook valide
     it = Inserisci un indirizzo web, un account o un nome di pagina Facebook valido
     mr = वैध Facebook वेब पत्ता, खाते किंवा पृष्ठ नाव प्रविष्ट करा
+    nb = Skriv inn en gyldig Facebook-adresse, -konto eller -side.
     nl = Voer een geldig Facebook-webadres, een accountnaam of een paginanaam in
     pl = Wprowadź poprawny link, nazwę konta lub nazwę strony na Facebooku
     ro = Introdu o adresă web, un cont sau un nume de pagină Facebook valabil
@@ -15334,6 +15595,7 @@
     fr = Saisissez une adresse web, un nom de compte Instagram valide
     it = Inserisci un indirizzo web o un nome di account Instagram valido
     mr = वैध Instagram वेब पत्ता किंवा खाते नाव प्रविष्ट करा
+    nb = Skriv inn en gyldig Instagram-adresse eller -kontonavn
     nl = Voer een geldig Instagram-webadres of een accountnaam in
     pl = Wprowadź poprawny link lub nazwę konta na Instagramie
     ro = Introdu o adresă web sau un nume de cont Instagram valabil
@@ -15354,6 +15616,7 @@
     fr = Saisissez une adresse web, un nom de compte Twitter valide
     it = Inserisci un indirizzo web o un nome utente Twitter valido
     mr = वैध Twitter वेब पत्ता किंवा वापरकर्तानाव प्रविष्ट करा
+    nb = Skriv inn en gyldig Twitter-adresse eller -brukernavn.
     nl = Voer een geldig Twitter-webadres of een gebruikersnaam in
     pl = Wprowadź poprawny adres lub nazwę konta na Twitterze
     ro = Introdu o adresă web sau un nume de utilizator Twitter valabil
@@ -15373,6 +15636,7 @@
     eu = Mesedez, idatzi baliozko web helbide bat edo VK kontuaren izena
     fr = Saisissez une adresse web, un nom de compte VK valide
     it = Inserisci un indirizzo web o un nome di account VK valido
+    nb = Skriv inn en gyldig VB-adresse eller -kontonavn
     nl = Voer een geldig VB webadres of een accountnaam in
     pl = Wprowadź poprawny adres lub nazwę konta na VK
     ro = Introdu o adresă web sau un nume de cont VK valabil
@@ -15390,7 +15654,9 @@
     de = Geben Sie eine gültige LINE-Webadresse oder LINE ID ein
     es = Introduzca una dirección web o ID de LINE válidos
     et = Sisesta kehtiv LINE veebiaadress või LINE ID
+    fr = Entrez une adresse web ou un ID de LINE valide
     it = Inserisca un indirizzo web LINE valido o un ID LINE
+    nb = Skriv inn en gyldig LINE-adresse eller -ID.
     nl = Voer een geldig LINE-webadres of een LINE ID in
     pl = Wpisz prawidłowy url LINE lub LINE ID
     ro = Introdu o adresă web LINE valabilă sau un ID LINE
@@ -15491,7 +15757,7 @@
     es = ¿Quiere enviarlo a todos los usuarios?
     et = Kas soovid saata selle kõigile kasutajatele?
     eu = Erabiltzaile guztiei bidali nahi diezu?
-    fa = ایا می خواهید ان را برای دیگر کاربران ارسال کنید؟
+    fa = آیا می خواهید آن را برای دیگر کاربران ارسال کنید؟
     fi = Haluatko lähettää sen kaikille käyttäjille?
     fr = Souhaitez-vous l’envoyer à tous les utilisateurs ?
     hu = Szeretnéd elküldeni az összes felhasználónak?
@@ -15533,7 +15799,7 @@
     eu = Ziurtatu ez duzula datu pertsonalik sartu.
     fa = مطمئن شوید که هیچ اطلاعات شخصی وارد نکرده باشد.
     fi = Varmistat, ettet syöttänyt henkilökohtaisia tietojasi.
-    fr = Assurez-vous de n’avoir saisi aucunes données personnelles.
+    fr = Assurez-vous de n’avoir pas saisi de données personnelles.
     hu = Győződj meg arról, hogy nem adsz meg semmilyen személyes információt.
     id = Pastikan Anda tidak memasukkan data pribadi apa pun.
     it = Assicurati di non aver inserito alcun dato personale.
@@ -15570,7 +15836,7 @@
     es = Los editores de OpenStreetMap comprobarán los cambios y se pondrán en contacto contigo si tienen alguna pregunta.
     et = OpenStreetMap muutjad kontrollivad muudatused üle ja võtavad küsimuste korral Sinuga ühendust.
     eu = OpenStreetMap editoreek aldaketak egiaztatuko dituzte eta zurekin harremanetan jarriko dira zalantzaren bat izanez gero.
-    fa = .ﺖﻓﺮﮔ ﺪﻨﻫﺍﻮﺧ ﺱﺎﻤﺗ ﺎﻤﺷ ﺎﺑ ﻝﺍﻮﺳ ﻪﻧﻮﮔﺮﻫ ﻦﺘﺷﺍﺩ ﺕﺭﻮﺻ ﺭﺩ ﻭ ﻩﺩﺮﮐ ﯽﺳﺭﺮﺑ ﺍﺭ ﺕﺍﺮﯿﯿﻐﺗ Ope
+    fa = ویرایشگران OpenStreetMap ﺗﻐﯿﯿﺮﺍﺕ ﺭﺍ ﺑﺮﺭﺳﯽ ﮐﺮﺩﻩ ﻭ ﺩﺭ ﺻﻮﺭﺕ ﺩﺍﺷﺘﻦ ﻫﺮﮔﻮﻧﻪ ﺳﻮﺍﻝ ﺑﺎ ﺷﻤﺎ ﺗﻤﺎﺱ ﺧﻮﺍﻫﻨﺪ ﮔﺮﻓﺖ.
     fi = OpenStreetMap-editorit tarkistavat muutokset ja ottavat sinuun yhteyttä, jos heillä on kysyttävää.
     fr = Les éditeurs d'OpenStreetMap vérifieront vos modifications et vous contacteront s'ils ont des questions.
     he = .ןהשלכ תולאש םהל שי םא רשק ךתיא ורציו םייונישה תא וקדבי OpenStreetMap יכרוע
@@ -15648,7 +15914,7 @@
     es = ¿Desactivar la grabación de su ruta recientemente recorrida?
     et = Keela oma hiljuti läbitud marsruudi salvestamine?
     eu = Bidaiatutako azken ibilbidearen grabaketa desaktibatu nahi duzu?
-    fa = غیرفعال سازی ذخیره مسیر اخیرا طی شده
+    fa = غیرفعال‌سازی ذخیره مسیر اخیرا طی شده
     fi = Poistetaanko viimeisen matkareitin tallennus?
     fr = Souhaitez-vous désactiver l'enregistrement de vos itinéraires récents ?
     hu = Megszakítod a legutóbb megtett utad rögzítését?
@@ -15756,7 +16022,7 @@
     tags = ios
     en = Organic Maps uses your geoposition in the background for recording your recently traveled route.
     ar = يستخدم Organic Maps موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.
-    be = Organic Maps ужывае вашу геалакацыю ў фонавым рэжыме каб запісваць ваш нядаўна пройдзены маршрут.
+    be = Organic Maps ужывае вашу геалакацыю ў фонавым рэжыме, каб запісваць ваш нядаўна пройдзены маршрут.
     bg = Organic Maps използва геопозицията ви във фонов режим за записване на последния ви маршрут.
     ca = Organic Maps usa la vostra ubicaicó en segon pla per a enregistrar la ruta que heu fet recentment.
     cs = Organic Maps používají geopozici na pozadí, aby se zaznamenala vaše nedávno ujetá trasa.
@@ -15766,7 +16032,7 @@
     es = Organic Maps usa tu geolocalización en segundo plano para registrar tu ruta recorrida recientemente.
     et = Organic Maps kasutab Sinu geograafilist asukohta taustal Sinu hiljuti läbitud teekonna salvestamiseks.
     eu = Organic Maps-ek zure geokokapena erabiltzen du atzeko planoan egindako azken ibilbidea erregistratzeko.
-    fa = Organic Maps  از اطلاعات موقعیت مکانی شما در پس ضمینه برای ذخیره مسیر هایی که اخیرا سفر کرده اید استفاده می کند.
+    fa = Organic Maps  از اطلاعات موقعیت مکانی شما در پس ضمینه برای ذخیره مسیر‌هایی که اخیرا سفر کرده اید استفاده می کند.
     fi = MAPS.SE käyttää taustalla geosijaintia sinun viimeisen matkareitin tallentamiseksi.
     fr = Organic Maps utilise votre géolocalisation en arrière-plan pour enregistrer vos itinéraires récents.
     hu = A Organic Maps a geopozíciód használatával a háttérben rögzíti a legutóbb megtett utad.
@@ -15799,7 +16065,7 @@
     be = Organic Maps — гэта хуткія і бясплатныя мапы без рэкламы, якія працуюць без Інтэрнэту і не шпіёняць за вамі. Усе картаграфічныя дадзеныя бяруцца з OpenStreetMap.org, там вы зможаце самастойна выпраўляць памылкі і дадаваць новыя аб'екты. Organic Maps — гэта праект з адкрытым зыходным кодам, які ствараецца энтузіястамі ў вольны час. Будзем рады вашай падтрымцы і зваротнай сувязі!
     bg = Organic Maps е безплатно приложение за офлайн карти с отворен код. Без реклами. Без проследяване. Ако видите грешка на картата, моля, поправете я в OpenStreetMap. Проектът е създаден от ентусиасти в свободното ни време, така че имаме нужда от вашата отзиви и подкрепа.
     ca = Organic Maps és una aplicació de mapes sense connexió, ràpida, de codi lliure, gratuïta, sense anuncis ni seguiment. Els mapes es basen en les dades col·laboratives d'OpenStreetMap. Podeu corregir errors del mapa i afegir-hi característiques. L'Organic Maps és un projecte de codi obert creat per entusiastes en el seu temps lliure. Els vostres comentaris i suport són molt apreciats!
-    cs = Organic Maps jsou bezplatná offline mapová aplikace s otevřeným zdrojovým kódem. Žádné reklamy. Žádné sledování. Pokud na mapě vidíte chybu, opravte ji v OpenStreetMap. Projekt vytvářejí nadšenci v našem volném čase, takže potřebujeme vaši zpětnou vazbu a podporu.
+    cs = Organic Maps je bezplatná offline mapová aplikace s otevřeným zdrojovým kódem. Žádné reklamy. Žádné sledování. Pokud na mapě uvidíte chybu, opravte ji v OpenStreetMap. Projekt vytvářejí nadšenci v našem volném čase, takže potřebujeme vaši zpětnou vazbu a podporu.
     da = Organic Maps er en gratis og open source offline kortapplikation. Ingen annoncer. Ingen sporing. Hvis du ser en fejl på kortet, skal du rette den i OpenStreetMap. Projektet er skabt af entusiaster i vores fritid, så vi har brug for din feedback og support.
     de = Organic Maps ist eine schnelle und kostenlose Offline-Karten-App ohne Werbung und Tracking. Die Karten basieren auf den Daten von OpenStreetMap.org, so dass Sie selbst Kartenfehler beheben und Orte hinzufügen können. Organic Maps ist ein Open-Source-Projekt, das von Enthusiasten in ihrer Freizeit entwickelt wird. Ihr Feedback und Ihre Unterstützung sind sehr willkommen!
     el = Οι Organic Maps είναι μια δωρεάν και ανοιχτού κώδικα εφαρμογή χαρτών εκτός σύνδεσης. Χωρίς διαφημίσεις. Χωρίς εντοπισμό. Εάν δείτε κάποιο σφάλμα στον χάρτη, διορθώστε το στο OpenStreetMap. Το έργο δημιουργείται από λάτρεις στον ελεύθερο χρόνο μας, επομένως χρειαζόμαστε τα σχόλια και την υποστήριξή σας.
@@ -16195,14 +16461,14 @@
     be = Мабільны інтэрнэт неабходны для апавяшчэнняў аб абнаўленні мапы і для адлюстравання падрабязнай інфармацыі аб месцах і закладках.
     bg = Мобилните данни са необходими за показване на подробна информация за местата, като например снимки, цени и отзиви.
     ca = Es necessita Internet mòbil per a les notifiacions d'actualitzacions del mapa i per a mostrar informació detallada dels llocs i marcadors.
-    cs = K zobrazení podrobných informací o místech, jako jsou fotografie, ceny, a recenze je třeba mobilní internet.
+    cs = K zobrazení podrobných informací o místech, jako jsou fotografie, ceny a recenze je třeba mobilní internet.
     da = Mobile internet er nødvendigt til visning af detaljerede oplysninger om steder, såsom fotos, priser og anmeldelser.
     de = Es wird mobiles Internet benötigt, um über Kartenaktualisierungen informiert zu werden und genauere Informationen über Orte anzuzeigen.
     el = Απαιτείται πρόσβαση στο Ίντερνετ μέσω δικτύου κινητής για την εμφάνιση αναλυτικών πληροφοριών για τις τοποθεσίες, όπως φωτογραφίες, τιμές και κριτικές.
     es = Se necesita Internet móvil para mostrar información detallada de los lugares, como fotografías, precios y reseñas.
     et = Mobiilne internet on vajalik kaardi värskendamise märguannete jaoks ning kohtade ja järjehoidjate üksikasjaliku teabe kuvamiseks.
     eu = Internet mugikorra behar da tokiei buruzko informazio zehatza bistaratzeko, hala nola argazkiak, prezioak eta iritziak.
-    fa = برای نمایش جزئیات مکان مانند تصاویر قیمت ها و بازخورد ها به اینترنت همراه نیاز است
+    fa = برای نمایش جزئیات مکان مانند تصاویر قیمت‌ها و بازخورد‌ها به اینترنت همراه نیاز است
     fi = Mobiili-internet vaaditaan paikkojen lisätietojen näyttämiseen, kuten valokuviin, hintoihin ja arvioihin.
     fr = L'Internet mobile est nécessaire pour afficher des informations détaillées sur les lieux, telles que les photos, les prix et les avis.
     hu = Mobil internetre van szükség helyszínekre vonatkozó részletes információ, mint például fotók, árak és szemlék megjelenítéséhez.
@@ -16319,7 +16585,7 @@
     es = Para mostrar los datos de tráfico, deben actualizarse los mapas.
     et = Liiklusinfo kuvamiseks tuleb kaardid värskendada.
     eu = Trafiko datuak bistaratzeko, mapak eguneratu behar dira.
-    fa = برای نمایش ترافیک,نقشه می بایستی بروزرسانی شود.
+    fa = برای نمایش ترافیک، نقشه می بایستی بروزرسانی شود.
     fi = Liikennetietojen näyttämiseksi kartat on päivitettävä.
     fr = Pour afficher les données de circulation, les cartes doivent être actualisées.
     hu = Forgalmi adatok megjelenítéséhez a térképeket frissíteni kell.
@@ -16427,7 +16693,7 @@
     tags = ios
     en = To display traffic data, the application must be updated.
     ar = لعرض البيانات المرورية، يجب تحديث التطبيق.
-    be = Для паказу інфармацыі пра рух трэба абнавіць дадатак.
+    be = Для паказу інфармацыі пра рух трэба абнавіць праграмы.
     bg = За да се показват данни за трафика, приложението трябва да се актуализира.
     ca = Per a mostrar les dades de trànsit, cal que l'aplicació estigui actualitzada.
     cs = Ke zobrazení dat o provozu je nutné aplikaci aktualizovat.
@@ -16676,7 +16942,7 @@
     es = Utilizamos el sistema TTS para las instrucciones de voz. Muchos dispositivos de Android usan Google TTS. Puede descargar o actualizarlo desde Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     et = Hääljuhiste jaoks kasutame TTS süsteemi. Paljud Android-seadmed kasutavad Google'i TTS-i, saate selle alla laadida või värskendada teenusest Google Play (https:play.google.comstoreappsdetails?id=com.google.android.tts)
     eu = TTS sistema erabiltzen dugu ahots-argibideetarako. Android gailu askok Google TTS erabiltzen dute. Google Play-tik deskargatu edo egunera dezakezu (https://play.google.com/store/apps/details?idu003dcom.google.android.tts)
-    fa = ما از TTS سیستم برای دستورالعمل های صوتی استفاده می کنیم. بسیاری از دستگاه های Android از Google TTS استفاده می کنند، شما می توانید آن را از Google Play دانلود کنید (https://play.google.com/store/apps/details؟id=com.google.android.tts)
+    fa = ما از TTS سیستم برای دستورالعمل‌های صوتی استفاده می کنیم. بسیاری از دستگاه‌های Android از Google TTS استفاده می کنند، شما می توانید آن را از Google Play دانلود کنید (https://play.google.com/store/apps/details؟id=com.google.android.tts)
     fi = Käytämme ääniohjeisiin tekstistä puheeksi -järjestelmää. Monet Android-laitteet käyttävät Googlen tekstistä puheeksi -sovellusta, jonka voit ladata tai päivittää Google Playssä (https://play.google.com/store/apps/details?id=com.google.android.tts)
     fr = Nous utilisons le système TTS pour les instructions vocales. De nombreux appareils Android utilisent Google TTS, vous pouvez le télécharger ou le mettre à jour depuis Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     hu = TTS rendszert használunk a hangnavigációhoz. Sok Android-os készülék használja a Google TTS-t; töltse le vagy frissítse a Google Play áruházból (https://play.google.com/store/apps/details?id=com.google.android.tts)
@@ -16706,17 +16972,17 @@
     tags = android
     en = For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play, Galaxy Store, App Gallery, FDroid).\nOpen your device's settings → Language and input → Speech → Text to speech output.\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.
     ar = بالنسبة لبعض اللغات، ستحتاج إلى تنزيل تطبيق تحويل النص إلى كلام أو حزمة لغات إضافية من متجر التطبيقات(متجر Play، Galaxy Store، App Gallery، FDroid(.\nافتح إعدادات جهازك ثم اللغة والإدخال ثم تحويل النص إلى كلام.\nهنا يمكنك إدارة الإعدادات لأنظمة تحويل النص إلى كلا(على سبيل المثال، تنزيل حزمة اللغة للاستجدام دون اتصال انترنيت)
-    be = Для некаторых моў вам спатрэбіцца ўсталяваць сінтэзатар маўлення альбо дадатковы моўны пакет з крамы дадаткаў (Google Play, Galaxy Store, App Gallery, FDroid).\Зайдзіце на вашай прыладзе ў Налады → Мова і ўвод → Маўленне → Сінтэз маўлення.\nТут вы можаце задаць налады сінтэза маўлення (напрыклад, спампаваць моўны пакет для выкарыстання без падключэння да інтэрнэту) альбо выбраць іншы сінтэзатар маўлення.
+    be = Для некаторых моў вам спатрэбіцца ўсталяваць сінтэзатар маўлення альбо дадатковы моўны пакет з крамы праграм (Google Play, Galaxy Store, App Gallery, F-Droid).\Зайдзіце на вашай прыладзе ў Налады → Мова і ўвод → Маўленне → Сінтэз маўлення.\nТут вы можаце задаць налады сінтэза маўлення (напрыклад, спампаваць моўны пакет для выкарыстання без падключэння да інтэрнэту) альбо выбраць іншы сінтэзатар маўлення.
     bg = За някои езици може да се наложи да инсталирате допълнителен синтезатор на реч (TTS) от магазина за приложения (Google Play Магазин, Galaxy Store).\nЗа да настроите синтезатора на реч, отидете в Настройки → Езици и въвеждане → Синтезиран говор.\nТук можете да инсталирате допълнителни езикови пакети или да изберете синтезатор на реч.
     ca = Per a algunes llengües, haureu d'instal·lar un sintetizador de veu o un paquet de llengua addicional des de la botiga d'apliacions (Google Play, Galazy Store, FDroid).\nObriu la configuració de l'aparell → Idioma i entrada → Veu → Sortidda de text a veu.\nAquí podeu gestionar la configuració de la síntesi de veu (per exemple, baixar un paquet de llengua per a ús sense connexió) i triar un altre motor de síntesi de veu.
-    cs = U některých jazyků je třeba nainstalovat jiný hlasový syntetizátor nebo další jazykové sady z obchodu s aplikacemi (Google Play, Galaxy Store, App Gallery, FDroid).\nOtevřete zařízení → Nastavení jazyka a zadávání → Hlasitost → Převod textu na řeč. \nZde můžete spravovat nastavení pro syntézu řeči (například stáhnout jazykový balíček pro použití offline) a vybrat jiný modul převodu textu na řeč.
+    cs = U některých jazyků je třeba nainstalovat jiný hlasový syntetizátor nebo další jazykové sady z obchodu s aplikacemi (Google Play, Galaxy Store, App Gallery, FDroid).\nOtevřete nastavení vašeho zařízení → Jazyky a zadávání → Hlasové zadávání → Převod textu na řeč. \nZde můžete spravovat nastavení pro syntézu řeči (například stáhnout jazykový balíček pro použití offline) a vybrat jiný modul převodu textu na řeč.
     da = For nogle sprog skal du installere en anden talesyntese eller en yderligere sprogpakke fra appbutiken (Google Play, Galaxy Store, App Gallery, FDroid).\nÅbn enhedens indstillinger → Sprog og input → Tale → Tekst til tale. Her kan du administrere indstillingerne for talesyntese (f. eks downloade en sprogpakke til brug offline) og vælge et andet tekst-til-tale program.
     de = Für einige Sprachen müssen Sie einen anderen Sprachgenerator oder ein zusätzliches Sprachpaket aus dem App Store installieren (Google Play, Galaxy Store, App Gallery, FDroid). \nÖffnen Sie die Einstellungen Ihres Gerätes → Sprache und Eingabe → Sprache → Text-to-Speech-Ausgabe. Hier können Sie die Einstellungen für Sprachsynthese verwalten (beispielsweise ein Sprachpaket für die Offline-Verwendung herunterladen) und ein anderes Sprachausgabeprogramm auswählen.
     el = Για μερικές γλώσσες θα χρειαστεί να εγκαταστήσετε συνθεσάιζερ ομιλίας ή συμπληρωματικό πακέτο γλώσσας από το app store (Google Play, Galaxy Store, App Gallery, FDroid).\nΑνοίξτε τις Ρυθμίσεις της συσκευής σας → Γλώσσα και εισαγωγή → Ομιλία → Μετατροπή κειμένου σε ομιλία.\nΕδώ μπορείτε να διαχειριστείτε τις ρυθμίσεις της σύνθεσης ομιλίας (για παράδειγμα, μπορείτε να κατεβάσετε πακέτο γλώσσας για χρήση εκτός σύνδεσης) και να επιλέξετε άλλη μηχανή μετατροπής κειμένου σε ομιλία.
     es = Para algunos idiomas, debe instalar otro sintetizador de voz o un paquete de idioma adicional desde la tienda de aplicaciones (Google Play, Galaxy Store, App Gallery, FDroid). Abra los Ajustes de su dispositivo → Idioma e introducción → Voz → Opciones texto a voz. Aquí puede administrar la configuración de síntesis de voz (por ejemplo, descargar un paquete de idioma para poder usarlo sin conexión) o seleccionar otro motor de texto a voz.
     et = Mõne keele puhul peate paigaldama kõnesüntesaatori või täiendava keelepaketi rakenduste poest (Google Play, Galaxy Store, App Gallery, FDroid).\nAvage oma seadme seaded → Keel ja sisend → Kõne → Tekst kõneks väljund.\nSiin saate hallata kõnesünteesi seadeid (näiteks alla laadida keelepaketti võrguühenduseta kasutamiseks) ja valida mõne muu teksti kõneks muutmise mootori.
     eu = Zenbait hizkuntzatan, beste ahots-sintetizadore bat edo hizkuntza-pakete gehigarri bat instalatu behar duzu aplikazio-dendatik (Google Play, Galaxy Store, App Gallery, FDroid). Ireki gailua Ezarpenak > Hizkuntza eta sarrera > Hizkera > Hizketarako testurako aukerak. Hemen ahots-sintesiaren ezarpenak kudea ditzakezu (adibidez, hizkuntza pakete bat deskargatu, konexiorik gabe erabiltzeko) edo testu-hizketarako beste motor bat hauta dezakezu.
-    fa = برای بعضی از زبان ها، شما باید speech synthesizer یا یک بسته زبان دیگر را از فروشگاه برنامه (بازار Google Play، Galaxy Store) نصب کنید. \n تنظیمات دستگاه خود را باز کنید. → زبان و ورودی → گفتار → خروجی متن به گفتار. می توانید تنظیمات برای ترکیب گفتار (به عنوان مثال، بسته های زبان را برای استفاده آفلاین دانلود کنید) را مدیریت کنید و یک موتور دیگر متن به گفتار را انتخاب کنید.
+    fa = برای بعضی از زبان‌ها، شما باید speech synthesizer یا یک بسته زبان دیگر را از فروشگاه برنامه (بازار Google Play، Galaxy Store) نصب کنید. \n تنظیمات دستگاه خود را باز کنید. → زبان و ورودی → گفتار → خروجی متن به گفتار. می توانید تنظیمات برای ترکیب گفتار (به عنوان مثال، بسته‌های زبان را برای استفاده آفلاین دانلود کنید) را مدیریت کنید و یک موتور دیگر متن به گفتار را انتخاب کنید.
     fi = Joidenkin kielien osalta sinun täytyy asentaa toinen puhesyntetisaattori tai lisäkielipaketti sovelluskaupasta (Google Play, Galaxy Store, App Gallery, FDroid). Avaa laitteen asetukset → Kieli ja syöttötapa → Puhe → Teksistä puheeksi -toisto. Täällä voit hallita puhesynteesin asetuksia (esimerkiksi ladata offline-tilassa käytettävän kielipaketin) ja valita toisen tekstistä puheeksi -moottorin.
     fr = Pour certaines langues, il vous faudra installer un autre logiciel de synthèse vocale ou un pack de langue supplémentaire depuis l’app store (Google Play, Galaxy Store, App Gallery, FDroid). Ouvrez les paramètres de votre appareil → Langue et saisie → Reconnaissance vocale → Saisie vocale. Ici, vous pouvez gérer les paramètres pour la synthèse vocale (par exemple, télécharger un pack de langue pour une utilisation en mode hors ligne) et sélectionner un autre moteur de saisie vocale.
     hu = Egyes nyelveknél másik beszédszintetizátort vagy további nyelvi csomagot kell telepítenie az alkalmazás-áruházból (Google Play, Galaxy Store, App Gallery, FDroid). Nyissa meg a készülék beállításait → Nyelv és bevitel → Beszéd → Szöveg-beszéd átalakító kimenet. Itt kezelheti a beszédszintézis beállításokat (például nyelvi csomag letöltése kapcsolat nélküli használatra) és másik szövegfelolvasót jelölhe tki.
@@ -16910,7 +17176,7 @@
     tags = android,ios
     en = Add a starting point to plan a route
     ar = أضف نقطة البداية لتخطيط المسار
-    be = Дадайце пункт адпраўлення каб пракласці маршрут
+    be = Дадайце пункт адпраўлення, каб пракласці маршрут
     bg = Добавяне на начална точка за планиране на маршрут
     ca = Afegiu un punt inical per a planificar una ruta
     cs = Zadejte výchozí bod pro plánování trasy
@@ -16950,7 +17216,7 @@
     tags = android,ios
     en = Add a destination to plan a route
     ar = أضف النهاية لتخطيط المسار
-    be = Дадайце пункт прызначэння каб пракласці маршрут
+    be = Дадайце пункт прызначэння, каб пракласці маршрут
     bg = Добавяне на крайна точка за планиране на маршрут
     ca = Afegeiu la destinació per a planificar la ruta
     cs = Zadejte cílový bod pro plánování trasy
@@ -17195,7 +17461,7 @@
     ca = Afegeix una parada
     cs = Přidat zastávku
     da = Tilføj stop
-    de = Zwischenstopp hinzufügen
+    de = Stopp einfügen
     el = Προσθήκη στάσης
     es = Añadir parada
     et = Lisa peatus
@@ -17320,7 +17586,7 @@
     es-MX = Problema de acceso al almacenamiento
     et = Salvestusruumi ligipääsu probleem
     eu = Biltegiratze sarbidearen arazoa
-    fa = مشکل دسترسی به ذخیره سازی
+    fa = مشکل دسترسی به ذخیره‌سازی
     fi = Ongelma tallennustilan käyttämisessä
     fr = Problème d'accès au stockage
     hu = Tároló hozzáférési hiba
@@ -17363,7 +17629,7 @@
     eu = Kanpoko biltegiratzea ez dago erabilgarri; Baliteke SD txartela kendu edo hondatuta egotea, edo fitxategi-sistema irakurtzeko soilik izatea. Mesedez, begiratu edo idatzi iezaguzu support@organicmaps.app helbidera
     fa = ذخیره سازی خارجی در دسترس نیست کارت SD ممکن است برداشته شده باشد، آسیب دیده باشد یا سیستم فایل فقط خواندنی باشد. لطفا کارت SD خود را بررسی کنید یا با ما در support@organicmaps.app تماس بگیرید
     fi = Ulkoinen tallennustila ei ole käytettävissä, SD-kortti on luultavasti poistettu tai vahingoittunut tai tiedostojärjestelmä on vain luku -tilassa. Tarkista ja ota yhteyttä osoitteeseen support@organicmaps.app
-    fr = Le stockage externe n'est pas disponible. La carte SD a probablement été enlevée, endommagée ou le système est en lecture seule. Veuillez vérifier et nous contacter via support@organicmaps.app
+    fr = Le stockage externe n'est pas disponible. La carte SD a probablement été enlevée, endommagée ou le système est en lecture seule. Veuillez vérifier votre carte SD ou nous contacter via support@organicmaps.app
     hu = Külső tároló nem áll rendelkezésre, valószínűleg az SD-kártyát eltávolították vagy sérült, vagy rendszerfájl csak olvasható. Ellenőrizze, és lépjen kapcsolatba velünk a support@organicmaps.app címen
     id = Penyimpanan eksternal tidak tersedia, mungkin Kartu SD sudah dilepaskan, rusak, atau sistem berkasnya hanya dapat dibaca. Silakan periksa dan beri tahu kami di alamat support@ maps.me
     it = Archivio esterno non disponibile, probabilmente la scheda SD è stata rimossa, è danneggiata o il file system è di sola lettura. Controllala o contattaci su support@organicmaps.app
@@ -17525,7 +17791,7 @@
     es-MX = Listas
     et = Loetelud
     eu = Zerrendak
-    fa = لیست ها
+    fa = لیست‌ها
     fi = Listat
     fr = Listes
     hu = List
@@ -17656,7 +17922,8 @@
     fa:one = %d نشانه
     fa:other = %d نشانه‌ها
     fi = %d kirjanmerkkiä
-    fr = %d signets
+    fr:one = %d signet
+    fr:other = %d signets
     hu = könyvjelzők %d
     id = %d markah
     it:one = %d preferito
@@ -17747,6 +18014,7 @@
     fr = Importer des signets
     it = Importa luoghi preferiti
     mr = खूणपत्रे आयात करा
+    nb = Importer bokmerker
     nl = Bladwijzers importeren
     pl = Import zakładek
     pt = Importar favoritos
@@ -17924,7 +18192,7 @@
     tags = android,ios
     en = Unable to share due to an application error
     ar = تعذرت المشاركة بسبب خطأ في التطبيق
-    be = Не атрымалася падзяліцца з-за памылкі дадатка
+    be = Не атрымалася падзяліцца з-за памылкі праграмы
     bg = Не е възможно споделяне поради грешка в приложението
     ca = No s'ha pogut compartir a causa d'un error de l'aplicació
     cs = Nelze sdílet kvůli chybě aplikace
@@ -18058,7 +18326,7 @@
     es-MX = El nombre no puede quedar vacío
     et = Nimi ei saa olla tühi
     eu = Izena ezin da hutsik egon
-    fa = نام نمیتواند خالی باشد
+    fa = نام نمی‌تواند خالی باشد
     fi = Nimi ei voinut olla tyhjä
     fr = Le nom ne peut pas être vide
     hu = A név nem lehet üres
@@ -18305,7 +18573,7 @@
     eu = Itxaron mesedez…
     fa = لطفا صبر کنید…
     fi = Odota…
-    fr = S'il vous plaît, attendez…
+    fr = Veuillez patienter…
     hu = Kérlek várj…
     id = Mohon tunggu…
     it = Attendere…
@@ -18479,7 +18747,6 @@
     fi:other = %d tiedostoa on löytynyt. Näet heidät muuntamisen jälkeen.
     fr:one = %d fichier a été trouvé. Vous le verrez après la conversion.
     fr:other = %d fichiers ont été trouvés. Vous les verrez après la conversion.
-    fr:zero = %d fichier a été trouvé. Vous le verrez après la conversion.
     hu:one = %d fájlt találtunk. Látni fogja őket a megtérés után.
     hu:other = %d fájl található. Látni fogja őket a megtérés után.
     id:one = %d file ditemukan. Anda akan melihatnya setelah mengonversi.
@@ -18835,7 +19102,8 @@
     fa:one = %d شیء
     fa:other = %d شیء
     fi = %d paikka
-    fr = lieu %d
+    fr:one = %d objet
+    fr:other = %d objets
     hu = %d hely
     id = tempat %d
     it:one = %d oggetto
@@ -19063,7 +19331,7 @@
     tags = android
     en = We may use your data to improve Organic Maps experience. Changes will take effect after you restart the app.
     ar = قد نستخدم بياناتك لتحسين تجربة Organic Maps. سوف تكون التغييرات نافذة المفعول بعد إعادة تشغيل التطبيق.
-    be = Мы можам выкарыстоўваць вашы дадзеныя, каб палепшыць Organic Maps. Змены набудуць сілу пасля перапуску дататка.
+    be = Мы можам выкарыстоўваць вашы дадзеныя, каб палепшыць Organic Maps. Змены набудуць сілу пасля перапуску праграмы.
     bg = Можем да използваме данни ви, за да подобрим изживяването с Organic Maps. Промените ще влязат в сила, след рестартиране на приложението.
     ca = Podem usar les vostres dades per a millorar l'experiència d'Organic Maps. Els canvis seran efectius després de reinicieu l'aplicació.
     cs = Můžeme používat vaše údaje pro vývoj a zlepšení Organic Maps. Změny se projeví po restartování aplikace.
@@ -19280,7 +19548,7 @@
     es-MX = Capas del mapa
     et = Kaardikihid
     eu = Mapa geruzak
-    fa = لایه های نقشه
+    fa = لایه‌های نقشه
     fi = Karttatasot
     fr = Couches de carte
     hu = Térképrétegek
@@ -19526,6 +19794,7 @@
     fr = Populaire
     it = Popolare
     mr = लोकप्रिय
+    nb = Populær
     nl = Populair
     pl = Popularne
     pt = Popular
@@ -19552,7 +19821,7 @@
     eu = Esportatu fitxategi gisa
     fa = ارسال فایل
     fi = Viedä tiedosto
-    fr = Exporter comme fichier
+    fr = Exporter le fichier
     hu = Fájl exportálása
     id = File ekspor
     it = Esportare il file
@@ -19583,7 +19852,7 @@
     be = Налады спіса
     bg = Настройки на списък
     ca = Configuració de la llista
-    cs = Nástroje seznamu
+    cs = Nastavení seznamu
     da = Listeindstillinger
     de = Listeneinstellungen
     el = Ρυθμίσεις Λίστας
@@ -19593,7 +19862,7 @@
     eu = Zerrenda konfiguratu
     fa = تنظیمات لیست
     fi = Listan asetukset
-    fr = Paramètres liste
+    fr = Paramètres de la liste
     hu = Lista beállításai
     id = Pengaturan Daftar
     it = Impostazioni elenco
@@ -19634,7 +19903,7 @@
     eu = Zerrenda ezabatu
     fa = حذف لیست
     fi = Poista lista
-    fr = Supprimer liste
+    fr = Supprimer la liste
     hu = Törölni a listát
     id = Hapus Daftar
     it = Cancella elenco
@@ -19674,7 +19943,7 @@
     eu = Ezkutatu mapan
     fa = پنهان کردن از نقشه
     fi = Piilota kartalta
-    fr = Masquer de la carte
+    fr = Masquer sur la carte
     hu = Lefedés a térképen
     id = Sembunyikan dari peta
     it = Nascondi sulla mappa
@@ -19838,7 +20107,7 @@
     eu = Pribatua
     fa = خصوصی
     fi = Henkilökohtainen
-    fr = Personnel
+    fr = Privé
     hu = Privát
     id = Pribadi
     it = Personale
@@ -19958,7 +20227,7 @@
     es-MX = Cámaras de velocidad
     et = Kiiruskaamerad
     eu = Abiadura kamerak
-    fa = دوربین های سرعت
+    fa = دوربین‌های سرعت
     fi = Nopeuskamerat
     fr = Radars de vitesse
     hu = Sebességmérő kamerák
@@ -20205,7 +20474,7 @@
     es-MX = Automático - Aviso de las cámaras de velocidad si existe el riesgo de exceder el límite de velocidad\nSiempre - Siempre dar aviso de las cámaras de velocidad\nNunca - Nunca dar aviso de las cámaras de velocidad
     et = Automaatne - kiiruskaamerate hoiatused, kui on oht ületada piirkiirust\nAlati - hoiata alati kiiruskaamerate eest\nMitte kunagi - ära kunagi hoiata kiiruskaamerate eest
     eu = Auto - abiadura-kamerei buruz ohartarazten du abiadura muga gainditzeko arriskua badago\nBeti - beti erne kamerei buruz\nInoiz - inoiz ez abisatu kamerari buruz
-    fa = خودکار- در صورتی که خطر تجاوز از سرعت مجاز وجود داشت، نسبت به دوربین های کنترل سرعت هشدار دهد\nهمیشه-همیشه درباره دوربین های کنترل سرعت هشدار دهد\nهرگز-هرگز درباره دوربین های کنترل سرعت هشدار ندهد
+    fa = خودکار- در صورتی که خطر تجاوز از سرعت مجاز وجود داشت، نسبت به دوربین‌های کنترل سرعت هشدار دهد\nهمیشه-همیشه درباره دوربین‌های کنترل سرعت هشدار دهد\nهرگز-هرگز درباره دوربین‌های کنترل سرعت هشدار ندهد
     fi = Auto - Varoita nopeuskameroista, jos tuntuu siltä, että nopeusrajan ylitys on mahdollista\nAina - Varoita kameroista aina\nEi koskaan - älä koskaan varoita kameroista
     fr = Auto - Alerte sur les radars en cas de risque de dépassement de la limite de vitesse\nToujours - Toujours avertir des radars\nJamais - Jamais avertir à propos des radars
     hu = Autó - Figyelmeztetés a sebesség kamerákról, ha van kockázat a sebesség korlátozás megsértéséről\nMindig - Mindig figyelmeztet a kamerákról\nSoha - Soha ne figyelmezet a kamerákról
@@ -20276,7 +20545,7 @@
     tags = android,ios
     en = When automatic mode is selected the application starts to disable battery draining features depending on the current battery charge level
     ar = عندما يتم اختيار الوضع التلقائي، يبدأ التطبيق بتعطيل الخصائص التي تستهلك البطارية بناءً على مستوى شحن البطارية الحالي
-    be = Калі ўключаны рэжым захавання энергіі, дадатак пачынае выключаць энергазатратныя функцыі ў залежнасці ад зарада батарэі
+    be = Калі ўключаны рэжым захавання энергіі, праграма пачынае выключаць энергазатратныя функцыі ў залежнасці ад зарада батарэі
     bg = Ако е активиран режима пестене на енергия, приложението ще деактивира функциите, консумиращи енергия, в зависимост от текущия заряд на телефона.
     ca = Si està seleccionat el mode automàtic, l'aplicació desactivarà funcions que consumeixen energia, depenent del nivell de càrrega actual de la bateria
     cs = Pokud je zapnut automatický režim spořiče baterie, aplikace začne vypínat funkce vybíjející baterii, v závislosti na její momentální úrovni nabití.
@@ -20440,10 +20709,10 @@
     tags = android
     en = The option turns on logging for diagnostic purposes. It can be helpful for our team to troubleshoot issues with the app. Enable this option temporarily to record and send detailed logs about your issue to us.
     ar = هذا الخيار يقوم ببدأ تسجيل سجلات التطبيق لإغراض التشخيصة. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا لحل المشاكل التي تواجهكم داخل التطبيق. قم بتفعيل هذا الخيار بشكل مؤقت فقط في حالة طلب الدعم من Organic Maps.
-    be = Опцыя ўключае запіс журнала падзей для мэтаў дыягностыкі. Гэта можа дапамагчы нашай камандзе вырашаць праблемы з дадаткам. Уключайце гэтую опцыю часова каб запісаць і паслаць нам дэталёвую інфармацыю пра знойденую вамі праблему.
+    be = Опцыя ўключае запіс журнала падзей для мэтаў дыягностыкі. Гэта можа дапамагчы нашай камандзе вырашаць праблемы з праграмай. Уключайце гэтую опцыю часова, каб запісаць і паслаць нам дэталёвую інфармацыю, пра знойденую вамі праблему.
     bg = Тази настройка е разрешена, за да се записват действия за диагностични цели, които помагат на нашия екип да идентифицира проблеми с приложението. Временно активирайте тази настройка само за изпращане на подробна информация за проблема, който сте открили с приложението.
     ca = L'opció activa el registre amb finalitats de diagnòstic. Pot ser útil per al nostre equip per a identificar problemes amb l'aplicació. Activeu aquesta opció temporalment per a enregistgrar i enviar-nos informes detallats sobre el vostre problema.
-    cs = Tato možnost zapne odesílání dat za účelem diagnostiky. To nám pomáhá při řešení problémů s aplikací. Zapněte tuto možnost pro dočasné nahrávání a odesílání logů našemu týmu o vašem problému.
+    cs = Možnost zapne odesílání dat za diagnostickými účely. To nám pomáhá při řešení problémů s aplikací. Dočasně povolte pro nahrávání a odesílání logů našemu týmu o vašem problému.
     da = Indstillingen aktiverer logning til diagnostiske formål. Det kan være nyttigt for vores supportere, der fejlfinder problemer med appen. Aktiver kun denne mulighed på anmodning fra Organic Maps support.
     de = Diese Option wird aktiviert, um Aktivitäten zwecks Diagnostik aufzuzeichnen. Das hilft unserem Team, Probleme mit der App zu erkennen. Aktivieren Sie diese Option nur auf Ersuchen des Organic Maps-Supports.
     el = Αυτή η λειτουργία είναι ενεργοποιημένη για την καταγραφή ενεργειών για διαγνωστικούς σκοπούς. Αυτό βοηθά την ομάδα να εντοπίζει προβλήματα με την εφαρμογή. Να ενεργοποιείτε τη λειτουργία μόνο κατόπιν αιτήματος της υποστήριξης του Organic Maps.
@@ -20533,7 +20802,7 @@
     es-MX = Ajustes de desvío
     et = Marsruutimise valikud
     eu = Birbidali ezarpenak
-    fa = گزینه های رانندگی
+    fa = گزینه‌های رانندگی
     fi = Kiertotien asetukset
     fr = Paramètres des itinéraires
     hu = Útvonaltervezési lehetőségek
@@ -20615,7 +20884,7 @@
     es-MX = Carreteras de peaje
     et = Tasulised teed
     eu = Ordainpeko errepideak
-    fa = جاده های دارای عوارض
+    fa = جاده‌های دارای عوارض
     fi = Maksulliset tiet
     fr = Routes à péage
     hu = Díjköteles utak
@@ -20656,7 +20925,7 @@
     es-MX = Caminos de tierra
     et = Katteta teed
     eu = Asfaltatu gabeko errepideak
-    fa = جاده های آسفالت نشده
+    fa = جاده‌های آسفالت نشده
     fi = Päällystämättömät tiet
     fr = Routes non revêtues
     hu = Burkolatlan utak
@@ -20697,7 +20966,7 @@
     es-MX = Cruces de ferri
     et = Praamiületused
     eu = Ferry pasabideak
-    fa = گذرگاه های جاده ای
+    fa = گذرگاه‌های جاده‌ای
     fi = Lauttaliikenne
     fr = Traversées en ferry
     hu = Kompátkelők
@@ -20738,7 +21007,7 @@
     es-MX = Autopistas
     et = Kiirteed
     eu = Autobideak
-    fa = بزرگراه ها
+    fa = بزرگراه‌ها
     fi = Valtatiet
     fr = Autoroutes
     hu = Autópályák
@@ -20820,7 +21089,7 @@
     es-MX = Desafortunadamente, no pudimos construir una ruta con las opciones seleccionadas. Cambie la configuración y vuelva a intentarlo
     et = Kahjuks ei leidnud me marsruuti tõenäoliselt teie valitud võimaluste tõttu. Muutke seadeid ja proovige uuesti.
     eu = Zoritxarrez, ezin izan dugu aukeratutako aukerekin ibilbiderik egin. Aldatu ezarpenak eta saiatu berriro
-    fa = متأسفانه، احتمالاً به دلیل گزینه های تعریف شده شما، مسیری پیدا نشد. لطفاً تنظیمات را تغییر داده و مجدد تلاش کنید
+    fa = متأسفانه، احتمالاً به دلیل گزینه‌های تعریف شده شما، مسیری پیدا نشد. لطفاً تنظیمات را تغییر داده و مجدد تلاش کنید
     fi = Valitettavasti emme voineet luoda reittiä valituilla vaihtoehdoilla. Vaihda asetuksia ja yritä uudelleen
     fr = Malheureusement, nous n'avons pas pu créer l'itinéraire avec les options sélectionnées. Modifiez les paramètres et réessayez
     hu = Sajnos nem találunk útvonalat, valószínűleg az általad meghatározott lehetőségek miatt. Kérjük változtass a beállításokon és próbáld újra
@@ -20861,7 +21130,7 @@
     es-MX = Configurar rutas de desvío
     et = Määra välditavad teed
     eu = Pertsonalizatu saihesbidearen ibilbidea
-    fa = جاده های لغو شده را تعریف نمایید
+    fa = جاده‌های لغو شده را تعریف نمایید
     fi = Muodosta kiertotietä
     fr = Définissez les routes à éviter
     hu = Elkerülendő utak meghatározása
@@ -20902,9 +21171,9 @@
     es-MX = Ajustes de desvío habilitados
     et = Marsruutimise valikud lubatud
     eu = Birbidaltze ezarpena aktibatuta dago
-    fa = گزینه های مسیریابی فعال شد
+    fa = گزینه‌های مسیریابی فعال شد
     fi = Kiertotien asetukset on päällä
-    fr = Paramètres d'itinéraire activées
+    fr = Paramètres d'itinéraire activés
     hu = Útvonaltervezési lehetőségek bekapcsolva
     id = Opsi perutean diaktifkan
     it = Opzioni di deviazione abilitate
@@ -21022,7 +21291,7 @@
     es-MX = Cruce de ferri
     et = Praamiületus
     eu = Ferry zeharkaldia
-    fa = گذرگاه جاده ای
+    fa = گذرگاه جاده‌ای
     fi = Lauttaliikenne
     fr = Traversées en ferry
     hu = Kompátkelők
@@ -21063,7 +21332,7 @@
     es-MX = Evitar las carreteras de peaje
     et = Väldi tasulisi teid
     eu = Saihestu ordainpeko errepideak
-    fa = اجتناب از جاده های دارای عوارض
+    fa = اجتناب از جاده‌های دارای عوارض
     fi = Vältä maksullisia teitä
     fr = Éviter les routes à péage
     hu = Díjköteles utak elkerülése
@@ -21104,7 +21373,7 @@
     es-MX = Evitar los caminos de tierra
     et = Väldi katteta teid
     eu = Saihestu asfaltatu gabeko errepideak
-    fa = اجتناب از جاده های آسفالت نشده
+    fa = اجتناب از جاده‌های آسفالت نشده
     fi = Vältä maanteitä
     fr = Éviter les routes non revêtues
     hu = Burkolatlan utak elkerülése
@@ -21145,7 +21414,7 @@
     es-MX = Evitar los trasbordadores de ferri
     et = Väldi praamiületusi
     eu = Ferryak saihestu
-    fa = اجتناب از گذرگاه های کشتی
+    fa = اجتناب از گذرگاه‌های کشتی
     fi = Vältä lautan käyttöä
     fr = Éviter les traversées en ferry
     hu = Kompátkelők elkerülése
@@ -21307,7 +21576,7 @@
     eu = Bilaketa-emaitzak
     fa = نتایج جستجو
     fi = Hakutulokset
-    fr = Résultats de recherche
+    fr = Résultats de la recherche
     hu = Keresési eredmények
     id = Hasil pencarian
     it = Risultati di ricerca
@@ -21504,6 +21773,7 @@
     es = sí
     et = jah
     fa = بلی
+    fr = oui
     he = כן
     nl = ja
     ru = Есть
@@ -21517,6 +21787,7 @@
     ca = no
     es = no
     et = ei
+    fr = non
     nl = nee
     tr = Yok
 
@@ -21774,7 +22045,7 @@
     es-MX = Al construir ruta, descargue los mapas ausentes en su dispositivo
     et = Marsruudi loomiseks lae puuduvad kaardid alla oma seadmesse
     eu = Ibilbide bat eraikitzeko, deskargatu falta diren mapak zure gailura
-    fa = برای ایجاد مسیر، نقشه های ناقص را روی دستگاه خود را دانلود کنید
+    fa = برای ایجاد مسیر، نقشه‌های ناقص را روی دستگاه خود را دانلود کنید
     fi = Luodaksesi reitin lataa puuttuvat kartat
     fr = Pour créer l'itinéraire, téléchargez les cartes manquantes sur votre appareil
     hu = Útvonal létrehozásához töltsd le a hiányzó térképeket az eszközre
@@ -21804,7 +22075,7 @@
     tags = ios
     en = An error occurred. Please restart the application
     ar = حدث خطأ. يرجى إعادة تشغيل التطبيق
-    be = Адбылася памылка. Калі ласка, перазапусціце дадатак
+    be = Адбылася памылка. Калі ласка, перазапусціце праграму
     ca = S'ha produït un error. Reinicieu l'aplicació
     cs = Vyskytla se chyba. Restartujte prosím aplikaci
     da = Der opstod en fejl. Genstart programmet
@@ -22017,7 +22288,7 @@
     eu = Saihestu asfaltatu gabekoa
     fa = پرهیز از خاکی
     fi = Vain päällyste
-    fr = Pas de route non revêtue
+    fr = Eviter les routes non revêtues
     hu = Földút kerülése
     id = Hindari tanah
     it = No sterrate
@@ -22257,7 +22528,7 @@
     eu = Abiadura alerta.
     fa = هشدارهای سرعت
     fi = Nopeuskamerat
-    fr = Infos radars de vitesse
+    fr = Avertissements radars de vitesse
     hu = Sebességjelzés
     id = Info kecepatan
     it = Info autovelox
@@ -22285,7 +22556,7 @@
     tags = ios
     en = Please download maps in Organic Maps app on your device
     ar = يُرجى تحميل الخرائط في تطبيق Organic Maps على جهازك
-    be = Спампуйце мапы ў дадатку Organic Maps на вашай прыладзе
+    be = Спампуйце мапы ў праграме Organic Maps на вашай прыладзе
     ca = Baixeu els mapes en l'aplicació Organic Maps del vostre aparell
     cs = Stáhněte si prosím mapy do aplikace Organic Maps ve vašem zařízení
     da = Download kort i Organic Maps appen, på din enhed
@@ -22295,7 +22566,7 @@
     es-MX = Descargue mapas en la aplicación Organic Maps en su dispositivo
     et = Palun lae alla kaardid oma seadme Organic Maps rakenduses
     eu = Deskargatu mapak zure gailuko Organic Maps aplikazioan
-    fa = لطفا نقشه ها را در نرم افزار Organic Maps روی دستگاه خود دانلود کنید
+    fa = لطفا نقشه‌ها را در نرم افزار Organic Maps روی دستگاه خود دانلود کنید
     fi = Lataa kartat laitteesi Organic Maps-sovelluksessa
     fr = Téléchargez des cartes dans l'application Organic Maps sur votre appareil
     hu = Kérjük, töltsd le a térképeket a Organic Maps alkalmazásban az eszközödre
@@ -22419,7 +22690,7 @@
     es-MX = Ordenar marcadores
     et = Sorteeri järjehoidjad
     eu = Ordenatu laster-markak
-    fa = مرتب سازی نشانهها
+    fa = مرتب سازی نشانه‌ها
     fi = Järjestä kirjanmerkit
     fr = Trier les signets
     hu = Könyvelzők rendezése
@@ -22582,7 +22853,7 @@
     eu = Dataren arabera ordenatzeko
     fa = مرتب سازی بر اساس تاریخ
     fi = Järjestä: päivämäärä
-    fr = Classer pa date
+    fr = Classer par date
     hu = Dátum szerint
     id = Urutkan per tanggal
     it = Ordina per data
@@ -23110,7 +23381,7 @@
     es-MX = Museos
     et = Muuseumid
     eu = Museoak
-    fa = موزهها
+    fa = موزه‌ها
     fi = Museot
     fr = Musées
     hu = Múzeumok
@@ -23882,7 +24153,7 @@
     eu = Erliebe-altuera erabiltzeko, eguneratu edo deskargatu nahi duzun eremuko mapa
     fa = برای فعال سازی و استفاده از لایه توپوگرافی نقشه منطقه را به روزرسانی یا دانلود کنید
     fi = Päivitä tai lataa haluamasi alueen kartta, voidaksesi käyttää korkeuskäyriä
-    fr = Pour utiliser les lignes d'altitude, mettez à jour ou téléchargez la carte de l'endroit désiré
+    fr = Pour activer et utiliser la couche topographique, mettez à jour ou téléchargez la carte de l'endroit désiré
     hu = A topográfiai réteg aktiválásához és használatához kérjük frissítse vagy töltse le az adott terület térképét
     id = Untuk mengaktifkan dan menggunakan lapisan topografi, silakan perbarui atau unduh peta area
     it = Per utilizzare la modalità topografica, aggiornate o scaricate la mappa dell'area interessata
@@ -24004,7 +24275,7 @@
     eu = Erraza
     fa = آسان
     fi = Helppo
-    fr = Faible
+    fr = Facile
     hu = Könnyű
     id = Mudah
     it = Facile
@@ -24084,7 +24355,7 @@
     eu = Gogorra
     fa = دشوار
     fi = Vaikea
-    fr = Haut
+    fr = Difficile
     hu = Nehéz
     id = Sulit
     it = Difficile
@@ -24531,6 +24802,7 @@
     fr = Télécharger la carte du monde
     it = Scarica la mappa del mondo
     mr = जगाचा नकाशा डाउनलोड करा
+    nb = Last ned verdenskart
     nl = Download de wereldkaart
     pl = Pobierz mapę świata
     pt = Descarregar o mapa mundial
@@ -24548,8 +24820,9 @@
     de = Ordner kann nicht erstellt und Dateien können nicht auf den Gerätespeicher oder die SD-Karte verschoben werden
     es = No se ha podido crear la carpeta y mover los ficheros en la memoria interna del dispositivo o en la tarjeta SD
     et = Seadme sisemällu või mälukaardile ei saa kausta luua ja faile teisaldada
-    fr = Impossible de créer un dossier et de déplacer des fichiers sur la mémoire interne de l'appareil ou sur la carte SD
+    fr = Impossible de créer un dossier et de déplacer les fichiers vers la mémoire interne de l'appareil ou la carte SD
     mr = उपकरणाच्या अंतर्गत मेमरी किंवा SD-card वर फोल्डर तयार करण्यात आणि फायली हलविण्यात अक्षम
+    nb = Klarte ikke opprette mappe og flytte filer i enhetens minne eller SD-kort
     nl = Het lukt niet om een map aan te maken en bestanden naar het interne geheugen of een SD-kaart te verplaatsen
     pl = Nie udało się stworzyć folderu i przenieść plików do pamięci wewnętrznej lub karty SD
     pt-BR = Não foi possível criar a pasta e mover os arquivos à memória interna ou sdcard do dispositivo
@@ -24565,7 +24838,9 @@
     de = Speicherfehler
     es = Error de disco
     et = Salvestusseadme viga
+    fr = Erreur disque
     mr = डिस्क त्रुटी
+    nb = Diskfeil
     nl = Schijffout
     pl = Błąd pamięci
     pt-BR = Erro do armazenamento
@@ -24588,6 +24863,7 @@
     fr = Erreur de connexion
     it = Errore di connessione
     mr = जोडणी अयशस्वी
+    nb = Tilkoblingsfeil
     nl = Verbindingsfout
     pl = Błąd połączenia
     pt = Falha na coneção
@@ -24611,6 +24887,7 @@
     fr = Déconnectez le câble USB
     it = Scollegare il cavo USB
     mr = USB केबल काढा
+    nb = Fjern USB-kabelen
     nl = USB-kabel losmaken
     pl = Odłącz kabel USB
     pt-BR = Desconecte o cabo USB
@@ -24635,7 +24912,7 @@
     eu = Utzi pantailari lo egiten
     fa = اجازه دهید صفحه نمایش بخوابد
     fi = Salli näytön lepotila
-    fr = Autoriser l'écran à dormir
+    fr = Autoriser l'écran à se mettre en veille
     he = אפשר למסך לישון
     hu = Hagyja aludni a képernyőt
     id = Izinkan layar untuk tidur
@@ -24676,7 +24953,7 @@
     eu = Gaituta dagoenean, pantailak lo egin ahal izango du jarduerarik gabe egon ondoren.
     fa = درصورت فعال بودن ، بعد از یک دوره عدم فعالیت به صفحه اجازه خواب داده می شود.
     fi = Kun tämä asetus on käytössä, näyttö menee lepotilaan käyttämättömyyden jälkeen.
-    fr = Lorsqu'il est activé, l'écran sera autorisé à s'éteindre après une période d'inactivité.
+    fr = Lorsque ce paramètre est activé, l'écran se mettra en veille après une période d'inactivité.
     he = כאשר מופעל המסך יורשה לישון לאחר תקופה של חוסר פעילות.
     hu = Ha engedélyezve van, akkor a képernyő inaktivitás után alszik.
     id = Jika diaktifkan, layar akan diizinkan untuk tidur setelah beberapa saat tidak aktif.
@@ -24715,6 +24992,7 @@
     hu = Megjelenítés a zárolt képernyőn
     it = Mostra sulla schermata di blocco
     mr = लॉक पटलावर (स्क्रीनवर) दाखवा
+    nb = Vis på låseskjerm
     nl = Toon op vergrendelscherm
     pl = Pokazuj na ekranie blokady
     pt-BR = Mostrar na tela de bloqueio
@@ -24728,16 +25006,17 @@
     comment = Description in preferences
     en = When enabled, you don't need to unlock your device every time while the app is running.
     ar = عند التفعيل، لن تحتاج لفتح قفل جهازك كل مرة أثناء تشغيل التطبيق
-    be = Калі ўключана, вам не трэба разблакіраваць прыладу кожны раз падчас працы дадатку.
+    be = Калі ўключана, вам не трэба разблакіраваць прыладу кожны раз падчас працы праграмы.
     ca = Si està activa, no cal desblocar l'aparell cada vegada mentre l'aplicació està funcionant.
-    cs = Pokud je funkce povolena, nemusíte při spuštěné aplikaci pokaždé odemykat zařízení.
+    cs = Pokud je funkce povolena, nemusíte pokaždé odemykat zařízení při spuštěné aplikaci.
     de = Wenn aktiviert, muss das Gerät nicht jedes Mal entsperrt werden, wenn die App ausgeführt wird.
     es = Cuando está habilitado, no tiene que desbloquear su dispositivo mientras la aplicación se está ejecutando.
     et = Kui lubatud, ei pea te seadet iga kord avama, kui rakendus töötab.
-    fr = Lorsqu'il est activé, vous n'avez pas besoin de déverrouiller votre appareil à chaque fois quand l'application fonctionne.
+    fr = Lorsqu'il est activé, vous n'avez pas besoin de déverrouiller votre appareil à chaque fois que l'application est en fonctionnement.
     hu = Ha engedélyezve van, nem kell minden alkalommal feloldanod a telefonod, amíg az alkalmazás fut.
     it = Quando è abilitata, non è necessario sbloccare il dispositivo ogni volta mentre l'app è in esecuzione.
     mr = चालू असल्यास, ऍप चालू असताना प्रत्येक वेळी तुम्हाला तुमचे उपकरण अनलॉक करण्याची आवश्यकता नाही.
+    nb = Når dette er aktivert trenger du ikke låse opp enheten hver gang når appen kjører.
     nl = Indien ingeschakeld, hoeft het scherm niet te worden ontgrendeld wanneer de app actief is.
     pl = Po włączeniu tej funkcji nie będziesz musieć odblokowywać urządzenia za każdym razem, gdy aplikacja jest uruchomiona.
     pt-BR = Quando ativado, você não precisará debloquear seu dispositivo toda vez que o aplicativo estiver funcionando
@@ -24762,7 +25041,7 @@
     es-MX = Debe actualizar sus mapas descargados
     et = Värskenda oma alla laetud kaarte
     eu = Eguneratu deskargatutako mapak
-    fa = نقشه های دانلود شده خود را به روز کنید
+    fa = نقشه‌های دانلود شده خود را به روز کنید
     fi = Päivitä ladatut kartat
     fr = Mettez à jour vos cartes téléchargées
     fr-CA = Mettez à jour vos cartes téléchargées
@@ -24807,7 +25086,7 @@
     es-MX = Actualizar los mapas mantiene actualizada también la información acerca de los objetos
     et = Kaartide värskendamine hoiab objektide info ajakohasena
     eu = Maparen freskatzeak objektuen informazioa eguneratuta mantentzen du
-    fa = به روز رسانی نقشه ها اطلاعات مربوط به اشیا را به روز نگه می دارد
+    fa = بروزرسانی نقشه‌ها اطلاعات مربوط به اشیا را به روز نگه می دارد
     fi = Karttojen päivittäminen pitää kohteita koskevat tiedot ajan tasalla
     fr = Actualiser les cartes permet d'actualiser également les informations sur les objets
     fr-CA = La mise à jour des cartes permet d'avoir des informations à jour sur les objets
@@ -24941,6 +25220,7 @@
     fr = Supprimer la route
     it = Elimina percorso
     mr = ट्रॅक पुसून टाका
+    nb = Slett rute
     nl = Verwijder traject
     pl = Usuń trasę
     pt-BR = Apagar rota
@@ -24964,6 +25244,7 @@
     fr = Nom de la route
     it = Nome percorso
     mr = ट्रॅकचे नाव
+    nb = Rutenavn
     nl = Trajectnaam
     pl = Nazwa trasy
     pt-BR = Nome da rota
@@ -24987,6 +25268,7 @@
     fr = Déplacer
     it = Sposta
     mr = हलवा
+    nb = Flytt
     nl = Verplaats
     pl = Przenieś
     pt-BR = Mover
@@ -25051,7 +25333,7 @@
     es = Datos de mapas de OpenStreetMap
     et = OpenStreetMap kaardiandmed
     eu = Maparen datuak OpenStreetMap-en
-    fa = OpenStreetMap ﺯﺍ ﻪﺸﻘﻧ ﯼﺎﻫ ﻩﺩﺍﺩ
+    fa = OpenStreetMap داده‌های نقشه از
     fi = OpenStreetMapin karttatiedot
     fr = Données cartographiques d'OpenStreetMap
     he = OpenStreetMap-מ הפמ ינותנ
@@ -25097,6 +25379,30 @@
     tags = android,ios
     en = https://organicmaps.app/
     be = https://organicmaps.app/ru/
+    cs = https://organicmaps.app/cs/
     it = https://organicmaps.app/it/
     ru = https://organicmaps.app/ru/
     tr = https://organicmaps.app/tr/
+
+  [osm_wiki_about_url]
+    comment = Link to OSM wiki for Editor, Profile and About pages
+    tags = android,ios
+    en = https://wiki.openstreetmap.org/wiki/About_OpenStreetMap
+    ar = https://wiki.openstreetmap.org/wiki/Ar:About_OpenStreetMap
+    ca = https://wiki.openstreetmap.org/wiki/Ca:About
+    da = https://wiki.openstreetmap.org/wiki/Da:Om_OpenStreetMap
+    de = https://wiki.openstreetmap.org/wiki/DE:Über_OSM
+    el = https://wiki.openstreetmap.org/wiki/El:About_OpenStreetMap
+    es = https://wiki.openstreetmap.org/wiki/ES:Acerca_de_OpenStreetMap
+    fa = https://wiki.openstreetmap.org/wiki/Fa:About_OpenStreetMap
+    fr = https://wiki.openstreetmap.org/wiki/FR:À_propos_d’OpenStreetMap
+    hu = https://wiki.openstreetmap.org/wiki/Hu:Névjegy
+    it = https://wiki.openstreetmap.org/wiki/IT:About
+    ja = https://wiki.openstreetmap.org/wiki/JA:参加する
+    ko = https://wiki.openstreetmap.org/wiki/Ko:OpenStreetMap_소개
+    nl = https://wiki.openstreetmap.org/wiki/NL:Wat_is_OpenStreetMap%3F
+    pl = https://wiki.openstreetmap.org/wiki/Pl:Wstęp
+    pt = https://wiki.openstreetmap.org/wiki/Pt:Sobre_o_OpenStreetMap
+    ru = https://wiki.openstreetmap.org/wiki/RU:О_проекте
+    tr = https://wiki.openstreetmap.org/wiki/Tr:About
+    uk = https://wiki.openstreetmap.org/wiki/Uk:Про_проект

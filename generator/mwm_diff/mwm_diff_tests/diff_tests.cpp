@@ -4,7 +4,6 @@
 
 #include "platform/platform.hpp"
 
-#include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
 
@@ -12,7 +11,6 @@
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 
-#include <cstdint>
 #include <vector>
 
 namespace generator::diff_tests
@@ -47,7 +45,7 @@ UNIT_TEST(IncrementalUpdates_Smoke)
 
   {
     // Alter the old mwm slightly.
-    vector<uint8_t> oldMwmContents = FileReader(oldMwmPath).ReadAsBytes();
+    vector<uint8_t> oldMwmContents = base::ReadFile(oldMwmPath);
     size_t const sz = oldMwmContents.size();
     for (size_t i = 3 * sz / 10; i < 4 * sz / 10; i++)
       oldMwmContents[i] += static_cast<uint8_t>(i);
@@ -69,7 +67,7 @@ UNIT_TEST(IncrementalUpdates_Smoke)
 
   {
     // Corrupt the diff file contents.
-    vector<uint8_t> diffContents = FileReader(diffPath).ReadAsBytes();
+    vector<uint8_t> diffContents = base::ReadFile(diffPath);
 
     // Leave the version bits intact.
     for (size_t i = 4; i < diffContents.size(); i += 2)

@@ -22,7 +22,7 @@
 #include <utility>
 #include <vector>
 
-#include "gflags/gflags.h"
+#include <gflags/gflags.h>
 #include "gflags/gflags_declare.h"
 
 // This tool is written to estimate quality of location extrapolation. To launch the benchmark

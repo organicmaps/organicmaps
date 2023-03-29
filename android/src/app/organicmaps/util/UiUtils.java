@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -11,10 +12,8 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
-import android.text.Html;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.TouchDelegate;
@@ -25,7 +24,6 @@ import android.view.Window;
 import android.view.WindowInsets;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.AnyRes;
 import androidx.annotation.AttrRes;
@@ -34,13 +32,19 @@ import androidx.annotation.DimenRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.textfield.TextInputLayout;
+
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 
@@ -65,7 +69,7 @@ public final class UiUtils
   {
     TextView policyView = view.findViewById(id);
     Resources rs = policyView.getResources();
-    policyView.setText(Html.fromHtml(rs.getString(stringId, link)));
+    policyView.setText(Utils.fromHtml(rs.getString(stringId, link)));
     policyView.setMovementMethod(LinkMovementMethod.getInstance());
   }
 
@@ -91,7 +95,7 @@ public final class UiUtils
 
   public static void waitLayout(final View view, @NonNull final ViewTreeObserver.OnGlobalLayoutListener callback) {
     view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-      @SuppressWarnings("deprecation")
+
       @Override
       public void onGlobalLayout() {
         // viewTreeObserver can be dead(isAlive() == false), we should get a new one here.
@@ -332,9 +336,15 @@ public final class UiUtils
 
   public static void setInputError(@NonNull TextInputLayout layout, @StringRes int error)
   {
-    layout.setError(error == 0 ? null : layout.getContext().getString(error));
-    layout.getEditText().setTextColor(error == 0 ? ThemeUtils.getColor(layout.getContext(), android.R.attr.textColorPrimary)
-                                                 : layout.getContext().getResources().getColor(R.color.base_red));
+    setInputError(layout, error == 0 ? null : layout.getContext().getString(error));
+  }
+  
+  public static void setInputError(@NonNull TextInputLayout layout, String error)
+  {
+    layout.getEditText().setError(error);
+    final Context ctx = layout.getContext();
+    layout.getEditText().setTextColor(error == null ? ThemeUtils.getColor(layout.getContext(), android.R.attr.textColorPrimary)
+                                                 : ContextCompat.getColor(layout.getContext(), R.color.base_red));
   }
 
   public static boolean isLandscape(@NonNull Context context)
@@ -401,47 +411,31 @@ public final class UiUtils
     }
   }
 
-  public static void extendViewWithStatusBar(@NonNull View view, WindowInsets windowInsets)
+  public static void setViewInsetsPadding(View view, WindowInsetsCompat windowInsets)
   {
-    final int height = windowInsets.getSystemWindowInsetTop();
-    final ViewGroup.LayoutParams lp = view.getLayoutParams();
-    // Extend the height only when necessary
-    if (lp.height != ViewGroup.LayoutParams.WRAP_CONTENT && view.getPaddingTop() < height)
-    {
-      lp.height += height;
-      view.setLayoutParams(lp);
-    }
-    setViewInsetsPaddingNoBottom(view, windowInsets);
+    final Insets systemInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+    view.setPadding(systemInsets.left, systemInsets.top,
+                    systemInsets.right, systemInsets.bottom);
   }
 
-  public static void setViewInsetsPadding(View view, WindowInsets windowInsets)
+  public static void setViewInsetsPaddingNoTop(View view, WindowInsetsCompat windowInsets)
   {
-    view.setPadding(windowInsets.getSystemWindowInsetLeft(), windowInsets.getSystemWindowInsetTop(),
-                    windowInsets.getSystemWindowInsetRight(), windowInsets.getSystemWindowInsetBottom());
+    final Insets systemInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+    view.setPadding(systemInsets.left, view.getPaddingTop(),
+                    systemInsets.right, systemInsets.bottom);
   }
-
-  public static void setViewInsetsPaddingNoTop(View view, WindowInsets windowInsets)
+  public static void setViewInsetsPaddingBottom(View view, WindowInsetsCompat windowInsets)
   {
-    view.setPadding(windowInsets.getSystemWindowInsetLeft(), view.getPaddingTop(),
-                    windowInsets.getSystemWindowInsetRight(), windowInsets.getSystemWindowInsetBottom());
-  }
-
-  public static void setViewInsetsPaddingSides(View view, WindowInsets windowInsets)
-  {
-    view.setPadding(windowInsets.getSystemWindowInsetLeft(), view.getPaddingTop(),
-                    windowInsets.getSystemWindowInsetRight(), view.getPaddingBottom());
-  }
-
-  public static void setViewInsetsPaddingBottom(View view, WindowInsets windowInsets)
-  {
+    final Insets systemInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
     view.setPadding(view.getPaddingLeft(), view.getPaddingTop(),
-                    view.getPaddingRight(), windowInsets.getSystemWindowInsetBottom());
+                    view.getPaddingRight(), systemInsets.bottom);
   }
 
-  public static void setViewInsetsPaddingNoBottom(View view, WindowInsets windowInsets)
+  public static void setViewInsetsPaddingNoBottom(View view, WindowInsetsCompat windowInsets)
   {
-    view.setPadding(windowInsets.getSystemWindowInsetLeft(), windowInsets.getSystemWindowInsetTop(),
-                    windowInsets.getSystemWindowInsetRight(), view.getPaddingBottom());
+    final Insets systemInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+    view.setPadding(systemInsets.left, systemInsets.top,
+                    systemInsets.right, view.getPaddingBottom());
   }
 
   public static void setupNavigationIcon(@NonNull Toolbar toolbar,
@@ -529,19 +523,6 @@ public final class UiUtils
                 });
   }
 
-  @ColorInt
-  public static int getNotificationColor(@NonNull Context context)
-  {
-    return context.getResources().getColor(R.color.notification);
-  }
-
-  public static void showToastAtTop(@NonNull Context context, @StringRes int stringId)
-  {
-    Toast toast = Toast.makeText(context, stringId, Toast.LENGTH_LONG);
-    toast.setGravity(Gravity.TOP, 0, 0);
-    toast.show();
-  }
-
   public static void showRecyclerItemView(boolean show, @NonNull View view)
   {
     if (show)
@@ -556,6 +537,12 @@ public final class UiUtils
       view.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
       UiUtils.hide(view);
     }
+  }
+
+  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3630
+  public static void startActivityForResult(@NonNull Fragment fragment, @NonNull Intent intent, int requestCode)
+  {
+    fragment.startActivityForResult(intent, requestCode);
   }
 
   // utility class

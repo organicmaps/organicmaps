@@ -38,6 +38,17 @@
 	<string name="country_status_download_failed">Помилка завантаження</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Спробуйте ще раз</string>
+	<string name="about_menu_title">Про Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Безкоштовно для всіх, зроблене з любов\'ю</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Без реклами, без трекінгу, без стеження</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Економить акумулятор, не використовує фонові дані</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Швидкий, мінімалістичний, без зайвого сміття</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Програма з відкритим кодом, створена ентузіастами та волонтерами.</string>
 	<string name="connection_settings">Налаштування підключення</string>
 	<string name="close">Закрити</string>
 	<string name="unsupported_phone">Для роботи програми необхідний апаратно прискорений OpenGL. На жаль, ваш пристрій не підтримується.</string>
@@ -203,6 +214,8 @@
 	<string name="pref_map_3d_title">Перспективний вид</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">Будівлі у 3D</string>
+	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+	<string name="pref_map_3d_buildings_disabled_summary">3D будівлі вимкнені в режимі енергозбереження</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Голосові інструкції</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -234,7 +247,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Підтримати грошима</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Як нас підтримати?</string>
+	<string name="how_to_support_us">Підтримайте проект</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Копірайт</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -442,7 +455,8 @@
 	<string name="editor_report_problem_other_title">Інші проблема</string>
 	<string name="placepage_add_business_button">Додати організацію</string>
 	<string name="message_invalid_feature_position">Об\'єкт не може перебувати в цьому місцезнаходженні</string>
-	<string name="osm_presentation">Усі картографічні дані надходять із проекту OpenStreetMap. Це як Wikipedia для карт, де ви можете додавати або редагувати місця, і вони стають доступними для мільйонів користувачів у всьому світі.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Картографічні дані з OpenStreetMap станом на %s. Це як Вікіпедія, де ви можете додавати або редагувати місця для всіх користувачів у всьому світі.</string>
 	<string name="login_to_make_edits_visible">Увійдіть у OpenStreetMap.org, щоб ваші зміни побачили інші користувачі.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d з %2$d</string>
@@ -450,8 +464,8 @@
 	<string name="download_over_mobile_message">Це може бути задорого за деякими планами або за умовами роумінгу.</string>
 	<string name="error_enter_correct_house_number">Введіть правильний номер будинку</string>
 	<string name="editor_storey_number">Кількість поверхів (максимум %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Редагуйте будівлі висотою максимум 25 поверхів</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Редагуйте будівлі висотою максимум %d поверхів</string>
 	<string name="editor_zip_code">Поштовий індекс</string>
 	<string name="error_enter_correct_zip_code">Введіть коректний поштовий індекс</string>
 	<!-- Place Page title for long tap -->
@@ -697,6 +711,8 @@
 	<string name="enable_show_on_lock_screen_description">Якщо ввімкнено, вам не потрібно щоразу розблоковувати пристрій під час роботи програми.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Картографічні дані з OpenStreetMap</string>
+	<!-- Link to OSM wiki for Editor, Profile and About pages -->
+	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Uk:Про_проект</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Канатна дорога</string>
@@ -735,7 +751,8 @@
 	<string name="type.amenity.car_wash">Автомийка</string>
 	<string name="type.amenity.casino">Казино</string>
 	<string name="type.amenity.charging_station">Зарядна станція</string>
-	<string name="type.amenity.charging_station.motorcar">Зарядна станція</string>
+	<string name="type.amenity.charging_station.bicycle">Велосипедна зарядна станція</string>
+	<string name="type.amenity.charging_station.motorcar">Автомобільна зарядна станція</string>
 	<string name="type.amenity.childcare">Дитяча кімната</string>
 	<string name="type.amenity.cinema">Кінотеатр</string>
 	<string name="type.leisure.bowling_alley">Боулінг</string>
@@ -747,6 +764,7 @@
 	<string name="type.amenity.doctors">Лікар</string>
 	<string name="type.amenity.drinking_water">Питна вода</string>
 	<string name="type.amenity.driving_school">Автошкола</string>
+	<string name="type.amenity.money_transfer">Грошовий переказ</string>
 	<string name="type.amenity.music_school">Музична школа ім</string>
 	<string name="type.amenity.language_school">Мовна школа</string>
 	<string name="type.office.diplomatic">Посольство</string>
@@ -766,6 +784,7 @@
 	<string name="type.amenity.internet_cafe">Інтернет-кафе</string>
 	<string name="type.amenity.kindergarten">Дитячий садок</string>
 	<string name="type.amenity.library">Бібліотека</string>
+	<string name="type.amenity.loading_dock">Завантажувальна платформа</string>
 	<string name="type.amenity.marketplace">Ринкова площа</string>
 	<string name="type.amenity.motorcycle_parking">Парковка для мотоциклів</string>
 	<string name="type.amenity.nightclub">Нічний клуб</string>
@@ -904,6 +923,8 @@
 	<string name="type.craft.handicraft">Народні художні промисли</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Опалення, вентиляція та кондиціювання повітря</string>
+	<string name="type.craft.key_cutter">Нарізка ключів</string>
+	<string name="type.craft.locksmith">Слюсар</string>
 	<string name="type.craft.metal_construction">Металоконструкції</string>
 	<string name="type.craft.painter">Маляр</string>
 	<string name="type.craft.photographer">Фотограф</string>
@@ -1001,9 +1022,20 @@
 	<string name="type.emergency.defibrillator">Дефібрилятор</string>
 	<string name="type.emergency.fire_hydrant">Пожежний гідрант</string>
 	<string name="type.emergency.phone">Аварійний телефон</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Вхід</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Головний вхід</string>
 	<string name="type.healthcare.laboratory">Медична лабораторія</string>
 	<string name="type.healthcare.physiotherapist">Фізіотерапевт</string>
+	<string name="type.healthcare.alternative">Альтернативна медицина</string>
+	<string name="type.healthcare.audiologist">Аудіологія</string>
+	<string name="type.healthcare.blood_donation">Центр донорства крові</string>
+	<string name="type.healthcare.optometrist">Оптометрія</string>
+	<string name="type.healthcare.podiatrist">Подологія</string>
+	<string name="type.healthcare.psychotherapist">Психотерапія</string>
+	<string name="type.healthcare.sample_collection">Збір аналізів</string>
+	<string name="type.healthcare.speech_therapist">Логопедія</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Дорога</string>
@@ -1013,6 +1045,7 @@
 	<string name="type.highway.bridleway.permissive">Кінна доріжка</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Тунель</string>
+	<string name="type.highway.busway">Виділена автобусна дорога</string>
 	<string name="type.highway.bus_stop">Зупинка</string>
 	<string name="type.highway.construction">Дорога, що будується</string>
 	<string name="type.highway.cycleway">Велодоріжка</string>
@@ -1300,6 +1333,7 @@
 	<string name="type.man_made.storage_tank">Резервуар</string>
 	<string name="type.man_made.surveillance">Камера спостереження</string>
 	<string name="type.man_made.tower">Вежа</string>
+	<string name="type.man_made.tower.communication">Вежа зв\'язку</string>
 	<string name="type.man_made.wastewater_plant">Очистні споруди</string>
 	<string name="type.man_made.water_tap">Водопровідний кран</string>
 	<string name="type.man_made.water_tower">Водонапірна вежа</string>
@@ -1393,9 +1427,19 @@
 	<string name="type.place.village">Село</string>
 	<string name="type.power">Енергія</string>
 	<string name="type.power.generator">Генератор</string>
+	<string name="type.power.generator.solar">Сонячний генератор</string>
+	<string name="type.power.generator.wind">Вітрогенератор</string>
+	<string name="type.power.generator.gas">Газотурбінна електростанція</string>
+	<string name="type.power.generator.hydro">Гідроелектростанція</string>
 	<string name="type.power.line">Лінія електропередач</string>
 	<string name="type.power.line.underground">Підземна лінія електропередач</string>
 	<string name="type.power.minor_line">Лінія електропередач низької напруги</string>
+	<string name="type.power.plant">Електростанція</string>
+	<string name="type.power.plant.coal">Вугільна електростанція</string>
+	<string name="type.power.plant.gas">Газотурбінна електростанція</string>
+	<string name="type.power.plant.hydro">Гідроелектростанція</string>
+	<string name="type.power.plant.solar">Сонячна електростанція</string>
+	<string name="type.power.plant.wind">Вітрова електростанція</string>
 	<string name="type.power.pole">Стовп ЛЕП</string>
 	<string name="type.power.station">Електростанція</string>
 	<string name="type.power.substation">Підстанція</string>
@@ -1453,6 +1497,7 @@
 	<string name="type.railway.station.subway.beijing">Метро</string>
 	<string name="type.railway.station.subway.bengalore">Метро</string>
 	<string name="type.railway.station.subway.berlin">Метро</string>
+	<string name="type.railway.station.subway.bilbao">Метро</string>
 	<string name="type.railway.station.subway.brasilia">Метро</string>
 	<string name="type.railway.station.subway.brescia">Метро</string>
 	<string name="type.railway.station.subway.brussels">Метро</string>
@@ -1565,6 +1610,7 @@
 	<string name="type.railway.subway_entrance.beijing">Вхід до метро</string>
 	<string name="type.railway.subway_entrance.bengalore">Вхід до метро</string>
 	<string name="type.railway.subway_entrance.berlin">Вхід до метро</string>
+	<string name="type.railway.subway_entrance.bilbao">Вхід до метро</string>
 	<string name="type.railway.subway_entrance.brasilia">Вхід до метро</string>
 	<string name="type.railway.subway_entrance.brescia">Вхід до метро</string>
 	<string name="type.railway.subway_entrance.brussels">Вхід до метро</string>
@@ -1673,17 +1719,20 @@
 	<string name="type.shop">Крамниця</string>
 	<string name="type.shop.alcohol">Винний магазин</string>
 	<string name="type.shop.bakery">Пекарня</string>
+	<string name="type.shop.bathroom_furnishing">Меблі для ванної кімнати</string>
 	<string name="type.shop.beauty">Салон краси</string>
 	<string name="type.shop.beverages">Напої</string>
 	<string name="type.shop.bicycle">Веломагазин</string>
 	<string name="type.shop.bookmaker">Букмекерська контора</string>
 	<string name="type.shop.books">Книгарня</string>
 	<string name="type.shop.butcher">М\'ясний магазин</string>
+	<string name="type.shop.cannabis">Магазин конопель</string>
 	<string name="type.shop.car">Автосалон</string>
 	<string name="type.shop.car_parts">Автозапчастини</string>
 	<string name="type.shop.car_repair">СТО</string>
 	<string name="type.shop.car_repair.tyres">Шиномонтаж</string>
 	<string name="type.shop.caravan">Продаж автобудинків</string>
+	<string name="type.shop.carpet">Килими</string>
 	<string name="type.shop.chemist">Магазин побутової хімії</string>
 	<string name="type.shop.chocolate">Крамниця</string>
 	<string name="type.shop.clothes">Магазин одягу</string>
@@ -1693,6 +1742,7 @@
 	<string name="type.shop.convenience">Міні-маркет</string>
 	<string name="type.shop.copyshop">Копіювальний центр</string>
 	<string name="type.shop.cosmetics">Косметика</string>
+	<string name="type.shop.curtain">Штори</string>
 	<string name="type.shop.deli">Делікатесний магазин</string>
 	<string name="type.shop.department_store">Універмаг</string>
 	<string name="type.shop.doityourself">Господарськi товари</string>
@@ -1701,16 +1751,20 @@
 	<string name="type.shop.erotic">Секс-шоп</string>
 	<string name="type.shop.fabric">Крамниця</string>
 	<string name="type.shop.farm">Магазин фермерських продуктів</string>
+	<string name="type.shop.fashion_accessories">Модні аксесуари</string>
 	<string name="type.shop.florist">Магазин квітів</string>
 	<string name="type.shop.funeral_directors">Ритуальні послуги</string>
 	<string name="type.shop.furniture">Магазин меблів</string>
 	<string name="type.shop.garden_centre">Товари для саду</string>
+	<string name="type.shop.gas">Газовий магазин</string>
 	<string name="type.shop.gift">Магазин сувенірів</string>
 	<string name="type.shop.greengrocer">Овочі та фрукти</string>
 	<string name="type.shop.grocery">Бакалія</string>
 	<string name="type.shop.hairdresser">Перукарня</string>
 	<string name="type.shop.hardware">Магазин побутової техніки</string>
 	<string name="type.shop.health_food">Магазин здорового харчування</string>
+	<string name="type.shop.herbalist">Магазин трав</string>
+	<string name="type.shop.hifi">HiFi Audio</string>
 	<string name="type.shop.houseware">Магазин посуду</string>
 	<string name="type.shop.jewelry">Ювелірний магазин</string>
 	<string name="type.shop.kiosk">Кіоск</string>
@@ -1721,14 +1775,17 @@
 	<string name="type.shop.mobile_phone">Мобільні телефони</string>
 	<string name="type.shop.money_lender">Крамниця</string>
 	<string name="type.shop.motorcycle">Магазин мотоциклів</string>
+	<string name="type.shop.motorcycle_repair">Ремонт мотоциклів</string>
 	<string name="type.shop.music">Крамниця</string>
 	<string name="type.shop.musical_instrument">Крамниця</string>
 	<string name="type.shop.newsagent">Газетний кіоск</string>
 	<string name="type.shop.optician">Оптика</string>
 	<string name="type.shop.outdoor">Спорядження</string>
+	<string name="type.shop.outpost">Пункт самовивозу</string>
 	<string name="type.shop.pastry">Тістечка</string>
 	<string name="type.shop.pawnbroker">Ломбард</string>
 	<string name="type.shop.pet">Зоотовари</string>
+	<string name="type.shop.pet_grooming">Грумінг</string>
 	<string name="type.shop.photo">Фототовари</string>
 	<string name="type.shop.seafood">Рибна лавка</string>
 	<string name="type.shop.second_hand">Магазин секонд-хенду</string>
@@ -1746,10 +1803,13 @@
 	<string name="type.shop.video">Магазин відео</string>
 	<string name="type.shop.video_games">Магазин відеоігор</string>
 	<string name="type.shop.wine">Винна крамниця</string>
+	<string name="type.shop.agrarian">Сільськогосподарський магазин</string>
 	<string name="type.shop.antiques">Антикваріат</string>
+	<string name="type.shop.appliance">Магазин побутової техніки</string>
 	<string name="type.shop.art">Магазин мистецтв</string>
 	<string name="type.shop.baby_goods">Дитячий магазин</string>
 	<string name="type.shop.bag">Магазин сумок</string>
+	<string name="type.shop.bed">Магазин ліжок</string>
 	<string name="type.shop.boutique">Бутік</string>
 	<string name="type.shop.charity">Магазин благодійності</string>
 	<string name="type.shop.cheese">Магазин сиру</string>

@@ -2,7 +2,7 @@
 
 #include "app/organicmaps/core/jni_helper.hpp"
 
-#include "app/organicmaps/platform/Platform.hpp"
+#include "app/organicmaps/platform/AndroidPlatform.hpp"
 
 #include "storage/storage_defines.hpp"
 
@@ -94,6 +94,12 @@ JNIEXPORT void JNICALL
 Java_app_organicmaps_Map_nativeResumeSurfaceRendering(JNIEnv *, jclass)
 {
   g_framework->ResumeSurfaceRendering();
+}
+
+JNIEXPORT void JNICALL
+Java_app_organicmaps_Map_nativeUpdateMyPositionRoutingOffset(JNIEnv * env, jclass clazz, int offsetY)
+{
+  g_framework->UpdateMyPositionRoutingOffset(offsetY);
 }
 
 JNIEXPORT void JNICALL

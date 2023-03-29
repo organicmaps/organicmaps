@@ -1,0 +1,13 @@
+• Nouvelles données OpenStreetMap au 27 février
+• Correction d'un bug sur l'iPad lorsqu'un clavier est connecté
+• Correction d'un double-clic inutile sur le bouton de l'itinéraire
+• Suppression des étages et des cellules de code postal dupliqués
+• Activation des notes de l'éditeur OpenStreetMap pour tous les lieux sélectionnés
+• Recherche corrigée et améliorée
+• Séparation des cuisines végétaliennes et végétariennes dans la recherche
+• Correction des styles de carte pour les aéroports, terrains, voies navigables et zones hachurées.
+• Ajout des spécialistes de soins de santé: alternative, audiologist, blood_donation, optometrist, podiatrist, psychotherapist, sample_collection, speech_therapist
+• Ajout des tours de communication, des générateurs solaires, éoliens, gaziers et hydroélectriques
+• Amélioration des traductions en arabe, norvégien, portugais et turc.
+
+Suivez nos actualités sur : omaps.app/news

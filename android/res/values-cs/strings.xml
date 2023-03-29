@@ -35,6 +35,17 @@
 	<string name="country_status_download_failed">Stahování selhalo</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Zkusit znovu</string>
+	<string name="about_menu_title">O aplikaci Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Zdarma pro všechny, vyrobené s láskou</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Žádné reklamy, žádné sledování, žádné sběr dat</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Šetří baterii, nevyužívá data na pozadí</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Rychlý, minimalistický, žádný haraburdí</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Otevřená aplikace vytvořená nadšenci a dobrovolníky.</string>
 	<string name="connection_settings">Nastavení připojení</string>
 	<string name="close">Zavřít</string>
 	<string name="unsupported_phone">Je vyžadována hardwarová akcelerace OpenGL. Bohužel, vaše zařízení není podporováno.</string>
@@ -151,7 +162,7 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Právě probíhá stahování země.</string>
 	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">Koukni kde jsem. Otevři odkaz: %1$s nebo %2$s</string>
+	<string name="my_position_share_sms">Ahoj, zkoukni mojí lokaci v Organic Maps! %1$s nebo %2$s Nemáš offline mapy? Stáhni tady: https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Koukni na moji značku na mapě v Organic Maps</string>
 	<!-- Subject for emailed position -->
@@ -194,6 +205,8 @@
 	<string name="pref_map_3d_title">Zobrazení perspektivy</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D budovy</string>
+	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+	<string name="pref_map_3d_buildings_disabled_summary">3D budovy jsou vypnuty v úsporném režimu</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Hlasové instrukce</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -211,7 +224,7 @@
 	<!-- Text in menu -->
 	<string name="website">Webové stránky</string>
 	<!-- Text in About menu, opens Organic Maps news website -->
-	<string name="news">Zprávy</string>
+	<string name="news">Novinky</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Zpětná vazba</string>
 	<!-- Text in menu -->
@@ -223,7 +236,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Darovat</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Jak nás podpořit?</string>
+	<string name="how_to_support_us">Podpořte projekt</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Autorská práva</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -427,7 +440,8 @@
 	<string name="editor_report_problem_other_title">Jiný problém</string>
 	<string name="placepage_add_business_button">Přidat organizaci</string>
 	<string name="message_invalid_feature_position">Objekt zde nemůže být umístěn</string>
-	<string name="osm_presentation">Všechna mapová data pocházejí z projektu OpenStreetMap. Je to jako Wikipedie s mapami, kde můžete přidávat nebo upravovat místa a jsou dostupné milionům uživatelů po celém světě.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Kartografické údaje z OpenStreetMap od roku %s. Je to jako Wikipedia, kde můžete přidat nebo upravovat místa pro všechny uživatele po celém světě.</string>
 	<string name="login_to_make_edits_visible">Přihlaste se, aby ostatní uživatelé mohli vidět změny, které jste provedli.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d z %2$d</string>
@@ -435,8 +449,8 @@
 	<string name="download_over_mobile_message">Toto by mohlo být s některými tarify nebo roamingem výrazně dražší.</string>
 	<string name="error_enter_correct_house_number">Zadejte správné číslo domu</string>
 	<string name="editor_storey_number">Počet poschodí (max. %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Opravte počet poschodí, max. 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Opravte počet poschodí, max. %d</string>
 	<string name="editor_zip_code">PSČ</string>
 	<string name="error_enter_correct_zip_code">Zadejte správné PSČ</string>
 	<!-- Place Page title for long tap -->
@@ -484,7 +498,7 @@
 	<string name="editor_share_to_all_dialog_message_1">Ujistěte se, že jste nezadali žádná osobní data.</string>
 	<string name="editor_share_to_all_dialog_message_2">Redaktoři OpenStreetMap zkontrolují změny a budou vás kontaktovat, pokud budou mít nějaké dotazy.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Organic Maps jsou bezplatná offline mapová aplikace s otevřeným zdrojovým kódem. Žádné reklamy. Žádné sledování. Pokud na mapě vidíte chybu, opravte ji v OpenStreetMap. Projekt vytvářejí nadšenci v našem volném čase, takže potřebujeme vaši zpětnou vazbu a podporu.</string>
+	<string name="about_description">Organic Maps je bezplatná offline mapová aplikace s otevřeným zdrojovým kódem. Žádné reklamy. Žádné sledování. Pokud na mapě uvidíte chybu, opravte ji v OpenStreetMap. Projekt vytvářejí nadšenci v našem volném čase, takže potřebujeme vaši zpětnou vazbu a podporu.</string>
 	<!-- For the first routing -->
 	<string name="accept">Přijmout</string>
 	<!-- For the first routing -->
@@ -495,7 +509,7 @@
 	<string name="mobile_data_option_not_today">Nepoužívat dnes</string>
 	<string name="mobile_data">Mobilní data</string>
 	<!-- NOTE to translators: please synchronize your translation with the English one. -->
-	<string name="mobile_data_description">K zobrazení podrobných informací o místech, jako jsou fotografie, ceny, a recenze je třeba mobilní internet.</string>
+	<string name="mobile_data_description">K zobrazení podrobných informací o místech, jako jsou fotografie, ceny a recenze je třeba mobilní internet.</string>
 	<string name="mobile_data_option_never">Nikdy nepoužívat</string>
 	<string name="mobile_data_option_ask">Vždy se zeptat</string>
 	<string name="traffic_update_maps_text">Ke zobrazení údajů o provozu musí být aktualizovány mapy.</string>
@@ -509,7 +523,7 @@
 	<string name="on">Zapnout</string>
 	<string name="off">Vypnout</string>
 	<string name="prefs_languages_information">Pro hlasové pokyny používáme systém TTS. Mnoho zařízení se systémem Android používá Google TTS, můžete si ho stáhnout nebo aktualizovat na Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">U některých jazyků je třeba nainstalovat jiný hlasový syntetizátor nebo další jazykové sady z obchodu s aplikacemi (Google Play, Galaxy Store, App Gallery, FDroid).\nOtevřete zařízení → Nastavení jazyka a zadávání → Hlasitost → Převod textu na řeč. \nZde můžete spravovat nastavení pro syntézu řeči (například stáhnout jazykový balíček pro použití offline) a vybrat jiný modul převodu textu na řeč.</string>
+	<string name="prefs_languages_information_off">U některých jazyků je třeba nainstalovat jiný hlasový syntetizátor nebo další jazykové sady z obchodu s aplikacemi (Google Play, Galaxy Store, App Gallery, FDroid).\nOtevřete nastavení vašeho zařízení → Jazyky a zadávání → Hlasové zadávání → Převod textu na řeč. \nZde můžete spravovat nastavení pro syntézu řeči (například stáhnout jazykový balíček pro použití offline) a vybrat jiný modul převodu textu na řeč.</string>
 	<string name="prefs_languages_information_off_link">Více informací najdete v tomto návodu.</string>
 	<string name="transliteration_title">Přepis do latinky</string>
 	<string name="learn_more">Zjistit více</string>
@@ -572,7 +586,7 @@
 	<string name="bookmarks_empty_list_message">Pro přidání nové značky klikněte na symbol hvězdičky na obrázku objektu</string>
 	<string name="category_desc_more">…ještě</string>
 	<string name="export_file">Exportovat soubor</string>
-	<string name="list_settings">Nástroje seznamu</string>
+	<string name="list_settings">Nastavení seznamu</string>
 	<string name="delete_list">Smazat seznam</string>
 	<string name="public_access">Veřejně přístupné</string>
 	<string name="limited_access">Soukromé</string>
@@ -590,7 +604,7 @@
 	<string name="power_managment_setting_never">Nikdy nepoužívat</string>
 	<string name="power_managment_setting_auto">Automatický</string>
 	<string name="power_managment_setting_manual_max">Maximální šetření baterií</string>
-	<string name="enable_logging_warning_message">Tato možnost zapne odesílání dat za účelem diagnostiky. To nám pomáhá při řešení problémů s aplikací. Zapněte tuto možnost pro dočasné nahrávání a odesílání logů našemu týmu o vašem problému.</string>
+	<string name="enable_logging_warning_message">Možnost zapne odesílání dat za diagnostickými účely. To nám pomáhá při řešení problémů s aplikací. Dočasně povolte pro nahrávání a odesílání logů našemu týmu o vašem problému.</string>
 	<string name="access_rules_author_only">Upravujte on-line</string>
 	<string name="driving_options_title">Možnosti trasy</string>
 	<string name="driving_options_subheader">Vyhněte se na každé trase</string>
@@ -674,9 +688,11 @@
 	<!-- A preference title; keep short! -->
 	<string name="enable_show_on_lock_screen">Zobrazit na uzamčené obrazovce</string>
 	<!-- Description in preferences -->
-	<string name="enable_show_on_lock_screen_description">Pokud je funkce povolena, nemusíte při spuštěné aplikaci pokaždé odemykat zařízení.</string>
+	<string name="enable_show_on_lock_screen_description">Pokud je funkce povolena, nemusíte pokaždé odemykat zařízení při spuštěné aplikaci.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Mapová data z OpenStreetMap</string>
+	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+	<string name="translated_om_site_url">https://organicmaps.app/cs/</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stanice lanové dráhy</string>
@@ -700,7 +716,8 @@
 	<string name="type.amenity.car_sharing">Sdílení aut</string>
 	<string name="type.amenity.car_wash">Myčka aut</string>
 	<string name="type.amenity.charging_station">Nabíjecí stanice</string>
-	<string name="type.amenity.charging_station.motorcar">Nabíjecí stanice</string>
+	<string name="type.amenity.charging_station.bicycle">Nabíjecí stanice pro jízdní kola</string>
+	<string name="type.amenity.charging_station.motorcar">Nabíjecí stanice pro automobily</string>
 	<string name="type.amenity.childcare">Jesle</string>
 	<string name="type.amenity.cinema">Kino</string>
 	<string name="type.leisure.bowling_alley">Bowlingová dráha</string>
@@ -712,6 +729,7 @@
 	<string name="type.amenity.doctors">Lékařská ordinace</string>
 	<string name="type.amenity.drinking_water">Pitná voda</string>
 	<string name="type.amenity.driving_school">Autoškola</string>
+	<string name="type.amenity.money_transfer">Převod peněz</string>
 	<string name="type.amenity.music_school">Hudební škola</string>
 	<string name="type.amenity.language_school">Jazyková škola</string>
 	<string name="type.office.diplomatic">Velvyslanectví</string>
@@ -730,6 +748,7 @@
 	<string name="type.amenity.internet_cafe">Internetová kavárna</string>
 	<string name="type.amenity.kindergarten">Školka</string>
 	<string name="type.amenity.library">Knihovna</string>
+	<string name="type.amenity.loading_dock">Nakládaci dok</string>
 	<string name="type.amenity.marketplace">Tržiště</string>
 	<string name="type.amenity.motorcycle_parking">Parkování pro motocykly</string>
 	<string name="type.amenity.nightclub">Noční klub</string>
@@ -826,6 +845,8 @@
 	<string name="type.craft.handicraft">Ruční práce</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">HVAC</string>
+	<string name="type.craft.key_cutter">Řezání klíčů</string>
+	<string name="type.craft.locksmith">Zámečník</string>
 	<string name="type.craft.metal_construction">Kovodílna</string>
 	<string name="type.craft.painter">Malíř</string>
 	<string name="type.craft.photographer">Fotograf</string>
@@ -922,15 +943,27 @@
 	<string name="type.emergency.defibrillator">Defibrilátor</string>
 	<string name="type.emergency.fire_hydrant">Požární hydrant</string>
 	<string name="type.emergency.phone">Tísňového volání</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Vchod</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Hlavní vchod</string>
 	<string name="type.healthcare.laboratory">Lékařská laboratoř</string>
 	<string name="type.healthcare.physiotherapist">Fyzioterapeut</string>
+	<string name="type.healthcare.alternative">Alternativní medicína</string>
+	<string name="type.healthcare.audiologist">Audiologie</string>
+	<string name="type.healthcare.blood_donation">Centrum dárcovství krve</string>
+	<string name="type.healthcare.optometrist">Optometrie</string>
+	<string name="type.healthcare.podiatrist">Podiatrie</string>
+	<string name="type.healthcare.psychotherapist">Psychoterapie</string>
+	<string name="type.healthcare.sample_collection">Odběr vzorků</string>
+	<string name="type.healthcare.speech_therapist">Logopedie</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">Most</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunel</string>
+	<string name="type.highway.busway">Vyhrazená autobusová silnice</string>
 	<string name="type.highway.bus_stop">Autobusová zastávka</string>
 	<string name="type.highway.construction">Silnice v rekonstrukci</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1165,6 +1198,7 @@
 	<string name="type.man_made.lighthouse">Maják</string>
 	<string name="type.man_made.surveillance">Bezpečnostní kamera</string>
 	<string name="type.man_made.tower">Věž</string>
+	<string name="type.man_made.tower.communication">Komunikační věž</string>
 	<string name="type.man_made.water_tap">Vodovodní kohoutek</string>
 	<string name="type.man_made.water_tower">Vodárna</string>
 	<string name="type.man_made.water_well">Studna</string>
@@ -1250,6 +1284,16 @@
 	<string name="type.place.suburb">Předměstí</string>
 	<string name="type.place.town">Město</string>
 	<string name="type.place.village">Vesnice</string>
+	<string name="type.power.generator.solar">Solární generátor</string>
+	<string name="type.power.generator.wind">Větrný generátor</string>
+	<string name="type.power.generator.gas">Elektrárna s plynovou turbínou</string>
+	<string name="type.power.generator.hydro">Vodní elektrárna</string>
+	<string name="type.power.plant">Elektrárna</string>
+	<string name="type.power.plant.coal">Uhelná elektrárna</string>
+	<string name="type.power.plant.gas">Elektrárna s plynovou turbínou</string>
+	<string name="type.power.plant.hydro">Vodní elektrárna</string>
+	<string name="type.power.plant.solar">Solární elektrárna</string>
+	<string name="type.power.plant.wind">Větrná elektrárna</string>
 	<string name="type.power.pole">Sloup elektrického vedení</string>
 	<string name="type.power.substation">Rozvodna</string>
 	<string name="type.power.tower">Sloup elektrického vedení</string>
@@ -1273,6 +1317,7 @@
 	<string name="type.railway.station.subway.beijing">Metro</string>
 	<string name="type.railway.station.subway.bengalore">Metro</string>
 	<string name="type.railway.station.subway.berlin">Metro</string>
+	<string name="type.railway.station.subway.bilbao">Metro</string>
 	<string name="type.railway.station.subway.brasilia">Metro</string>
 	<string name="type.railway.station.subway.brescia">Metro</string>
 	<string name="type.railway.station.subway.brussels">Metro</string>
@@ -1382,6 +1427,7 @@
 	<string name="type.railway.subway_entrance.beijing">Vchod do podchodu</string>
 	<string name="type.railway.subway_entrance.bengalore">Vchod do podchodu</string>
 	<string name="type.railway.subway_entrance.berlin">Vchod do podchodu</string>
+	<string name="type.railway.subway_entrance.bilbao">Vchod do podchodu</string>
 	<string name="type.railway.subway_entrance.brasilia">Vchod do podchodu</string>
 	<string name="type.railway.subway_entrance.brescia">Vchod do podchodu</string>
 	<string name="type.railway.subway_entrance.brussels">Vchod do podchodu</string>
@@ -1482,16 +1528,19 @@
 	<string name="type.shop">Obchod</string>
 	<string name="type.shop.alcohol">Obchod s alkoholem</string>
 	<string name="type.shop.bakery">Pekárna</string>
+	<string name="type.shop.bathroom_furnishing">Vybavení koupelny</string>
 	<string name="type.shop.beauty">Kosmetický salon</string>
 	<string name="type.shop.beverages">Nápoje</string>
 	<string name="type.shop.bicycle">Cyklistický obchod</string>
 	<string name="type.shop.bookmaker">Knihař</string>
 	<string name="type.shop.books">Knihkupectví</string>
 	<string name="type.shop.butcher">Řeznictví</string>
+	<string name="type.shop.cannabis">Obchod s konopím</string>
 	<string name="type.shop.car">Obchod s auty</string>
 	<string name="type.shop.car_parts">Autodíly</string>
 	<string name="type.shop.car_repair">Auto opravna</string>
 	<string name="type.shop.car_repair.tyres">Pneuservis</string>
+	<string name="type.shop.carpet">Koberce</string>
 	<string name="type.shop.chemist">Drogerie</string>
 	<string name="type.shop.chocolate">Obchod</string>
 	<string name="type.shop.clothes">Oblečení</string>
@@ -1501,6 +1550,7 @@
 	<string name="type.shop.convenience">Smíšené zboží</string>
 	<string name="type.shop.copyshop">Kopírovací obchod</string>
 	<string name="type.shop.cosmetics">Kosmetika</string>
+	<string name="type.shop.curtain">Závěsy</string>
 	<string name="type.shop.deli">Prodejna lahůdek</string>
 	<string name="type.shop.department_store">Obchodní dům</string>
 	<string name="type.shop.doityourself">Železářství</string>
@@ -1509,16 +1559,20 @@
 	<string name="type.shop.erotic">Obchod s erotickými pomůckami</string>
 	<string name="type.shop.fabric">Obchod</string>
 	<string name="type.shop.farm">Prodejna farmářských potravin</string>
+	<string name="type.shop.fashion_accessories">Módní doplňky</string>
 	<string name="type.shop.florist">Květinářství</string>
 	<string name="type.shop.funeral_directors">Pohřební služba</string>
 	<string name="type.shop.furniture">Nábytek</string>
 	<string name="type.shop.garden_centre">Školka</string>
+	<string name="type.shop.gas">Obchod s plynem</string>
 	<string name="type.shop.gift">Obchod s dárkovým zbožím</string>
 	<string name="type.shop.greengrocer">Ovoce a zelenina</string>
 	<string name="type.shop.grocery">Potraviny</string>
 	<string name="type.shop.hairdresser">Kadeřnictví</string>
 	<string name="type.shop.hardware">Železářství</string>
 	<string name="type.shop.health_food">Prodejna zdravé výživy</string>
+	<string name="type.shop.herbalist">Obchod s bylinkami</string>
+	<string name="type.shop.hifi">HiFi audio</string>
 	<string name="type.shop.houseware">Obchod s domácími potřebami</string>
 	<string name="type.shop.jewelry">Klenotnictví</string>
 	<string name="type.shop.kitchen">Prodejna kuchyní</string>
@@ -1528,14 +1582,17 @@
 	<string name="type.shop.mobile_phone">Mobily</string>
 	<string name="type.shop.money_lender">Obchod</string>
 	<string name="type.shop.motorcycle">Prodejna motocyklů</string>
+	<string name="type.shop.motorcycle_repair">Opravy motocyklů</string>
 	<string name="type.shop.music">Obchod</string>
 	<string name="type.shop.musical_instrument">Obchod</string>
 	<string name="type.shop.newsagent">Novinový stánek</string>
 	<string name="type.shop.optician">Optika</string>
 	<string name="type.shop.outdoor">Venkovní vybavení</string>
+	<string name="type.shop.outpost">Místo vyzvednutí</string>
 	<string name="type.shop.pastry">Pečivo</string>
 	<string name="type.shop.pawnbroker">Zastavárna</string>
 	<string name="type.shop.pet">Zverimex</string>
+	<string name="type.shop.pet_grooming">Péče o domácí mazlíčky</string>
 	<string name="type.shop.photo">Fotografický obchod</string>
 	<string name="type.shop.seafood">Prodej ryb</string>
 	<string name="type.shop.second_hand">Obchod z druhé ruky</string>
@@ -1552,10 +1609,13 @@
 	<string name="type.shop.video">Videopůjčovna</string>
 	<string name="type.shop.video_games">Obchod s videohrami</string>
 	<string name="type.shop.wine">Vinařství</string>
+	<string name="type.shop.agrarian">Zemědělský obchod</string>
 	<string name="type.shop.antiques">Starožitnosti</string>
+	<string name="type.shop.appliance">Obchod se spotřebiči</string>
 	<string name="type.shop.art">Obchod s uměním</string>
 	<string name="type.shop.baby_goods">Dětský obchod</string>
 	<string name="type.shop.bag">Obchod s taškami</string>
+	<string name="type.shop.bed">Prodejna postelí</string>
 	<string name="type.shop.boutique">Butik</string>
 	<string name="type.shop.charity">Charitativní obchod</string>
 	<string name="type.shop.cheese">Prodejna sýrů</string>

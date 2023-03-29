@@ -226,6 +226,9 @@
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D-s épületek";
 
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "A 3D épületek energiatakarékos módban ki vannak kapcsolva";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Hangutasítások";
 
@@ -304,7 +307,7 @@
 "donate" = "Adományozni";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Hogyan támogathatsz minket?";
+"how_to_support_us" = "Támogassa a projektet";
 
 /* Button in the main Help dialog */
 "copyright" = "Szerzői jog";
@@ -710,8 +713,8 @@
 
 "editor_storey_number" = "Az emeletek száma (legfeljebb %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "Legfeljebb 25 emeletes épület szerkesztése";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Ez az épület legfeljebb %d emeletes lehet";
 
 "editor_zip_code" = "Irányítószám";
 
@@ -1236,20 +1239,23 @@
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/";
 
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Hu:Névjegy";
+
 
 /********** Types **********/
 
 "type.aerialway" = "Aerialway";
 
-"type.aerialway.cable_car" = "Cable car";
+"type.aerialway.cable_car" = "Cable Car";
 
-"type.aerialway.chair_lift" = "Chair lift";
+"type.aerialway.chair_lift" = "Chair Lift";
 
-"type.aerialway.drag_lift" = "Drag lift";
+"type.aerialway.drag_lift" = "Drag Lift";
 
 "type.aerialway.gondola" = "Gondola";
 
-"type.aerialway.mixed_lift" = "Mixed lift";
+"type.aerialway.mixed_lift" = "Mixed Lift";
 
 "type.aerialway.station" = "Felvonóállomás";
 
@@ -1311,7 +1317,9 @@
 
 "type.amenity.charging_station" = "Töltő állomás";
 
-"type.amenity.charging_station.motorcar" = "Töltő állomás";
+"type.amenity.charging_station.bicycle" = "Kerékpártöltő állomás";
+
+"type.amenity.charging_station.motorcar" = "Autó töltőállomás";
 
 "type.amenity.childcare" = "Bölcsőde";
 
@@ -1334,6 +1342,8 @@
 "type.amenity.drinking_water" = "Ivóvíz";
 
 "type.amenity.driving_school" = "Autósiskola";
+
+"type.amenity.money_transfer" = "Pénz átutalás";
 
 "type.amenity.music_school" = "Zeneiskola";
 
@@ -1370,6 +1380,8 @@
 "type.amenity.kindergarten" = "Óvoda";
 
 "type.amenity.library" = "Könyvtár";
+
+"type.amenity.loading_dock" = "Rakodó";
 
 "type.amenity.marketplace" = "Piac";
 
@@ -1653,6 +1665,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Hűtés-fűtés szerelő";
 
+"type.craft.key_cutter" = "Kulcsvágás";
+
+"type.craft.locksmith" = "Lakatos";
+
 "type.craft.metal_construction" = "Lakatos";
 
 "type.craft.painter" = "Festő";
@@ -1849,11 +1865,31 @@
 
 "type.emergency.phone" = "Sürgősségi telefon";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Bejárat";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Főbejárat";
 
 "type.healthcare.laboratory" = "Orvosi laboratórium";
 
 "type.healthcare.physiotherapist" = "Fizioterapeuta";
+
+"type.healthcare.alternative" = "Alternatív gyógyászat";
+
+"type.healthcare.audiologist" = "Audiológia";
+
+"type.healthcare.blood_donation" = "Véradó központ";
+
+"type.healthcare.optometrist" = "Optometria";
+
+"type.healthcare.podiatrist" = "Podiatria";
+
+"type.healthcare.psychotherapist" = "Pszichoterápia";
+
+"type.healthcare.sample_collection" = "Mintavétel";
+
+"type.healthcare.speech_therapist" = "Logopédia";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1905,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Alagút";
+
+"type.highway.busway" = "Kijelölt buszút";
 
 "type.highway.bus_stop" = "Buszmegálló";
 
@@ -2305,7 +2343,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "Hulladéklerakó";
 
@@ -2323,9 +2361,9 @@
 
 "type.landuse.reservoir" = "Víz";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 
@@ -2430,6 +2468,8 @@
 "type.man_made.surveillance" = "Térfigyelő kamera";
 
 "type.man_made.tower" = "Torony";
+
+"type.man_made.tower.communication" = "Kommunikációs torony";
 
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
@@ -2623,11 +2663,31 @@
 
 "type.power.generator" = "Generator";
 
+"type.power.generator.solar" = "Napelemes generátor";
+
+"type.power.generator.wind" = "Szélgenerátor";
+
+"type.power.generator.gas" = "Gázturbinás erőmű";
+
+"type.power.generator.hydro" = "Vízerőmű";
+
 "type.power.line" = "Power Line";
 
 "type.power.line.underground" = "Underground Power Line";
 
 "type.power.minor_line" = "Minor Power Line";
+
+"type.power.plant" = "Erőmű";
+
+"type.power.plant.coal" = "Szénerőmű";
+
+"type.power.plant.gas" = "Gázturbinás erőmű";
+
+"type.power.plant.hydro" = "Vízerőmű";
+
+"type.power.plant.solar" = "Naperőmű";
+
+"type.power.plant.wind" = "Szélerőmű";
 
 "type.power.pole" = "Villanyoszlop";
 
@@ -2754,6 +2814,8 @@
 "type.railway.station.subway.bengalore" = "Földalatti";
 
 "type.railway.station.subway.berlin" = "Földalatti";
+
+"type.railway.station.subway.bilbao" = "Földalatti";
 
 "type.railway.station.subway.brasilia" = "Földalatti";
 
@@ -2979,6 +3041,8 @@
 
 "type.railway.subway_entrance.berlin" = "Földalatti bejárat";
 
+"type.railway.subway_entrance.bilbao" = "Földalatti bejárat";
+
 "type.railway.subway_entrance.brasilia" = "Földalatti bejárat";
 
 "type.railway.subway_entrance.brescia" = "Földalatti bejárat";
@@ -3197,6 +3261,8 @@
 
 "type.shop.bakery" = "Pékség";
 
+"type.shop.bathroom_furnishing" = "Fürdőszoba berendezési tárgyak";
+
 "type.shop.beauty" = "Szépségszalon";
 
 "type.shop.beverages" = "Italok";
@@ -3209,6 +3275,8 @@
 
 "type.shop.butcher" = "Hentes";
 
+"type.shop.cannabis" = "Cannabis Store";
+
 "type.shop.car" = "Gépkocsi bolt";
 
 "type.shop.car_parts" = "Autó alkatrészek";
@@ -3219,9 +3287,11 @@
 
 "type.shop.caravan" = "RV Dealership";
 
+"type.shop.carpet" = "Szőnyegek";
+
 "type.shop.chemist" = "Drogéria";
 
-"type.shop.chocolate" = "Bolt";
+"type.shop.chocolate" = "Csokoládébolt";
 
 "type.shop.clothes" = "Ruhabolt";
 
@@ -3236,6 +3306,8 @@
 "type.shop.copyshop" = "Fénymásoló üzlet";
 
 "type.shop.cosmetics" = "Kozmetikum";
+
+"type.shop.curtain" = "Függönyök";
 
 "type.shop.deli" = "Csemegebolt";
 
@@ -3253,6 +3325,8 @@
 
 "type.shop.farm" = "Farm Food Shop";
 
+"type.shop.fashion_accessories" = "Divat kiegészítők";
+
 "type.shop.florist" = "Virágos";
 
 "type.shop.funeral_directors" = "Temetkezési vállalkozó";
@@ -3260,6 +3334,8 @@
 "type.shop.furniture" = "Bútoráruház";
 
 "type.shop.garden_centre" = "Faiskola";
+
+"type.shop.gas" = "Gázbolt";
 
 "type.shop.gift" = "Ajándékbolt";
 
@@ -3272,6 +3348,10 @@
 "type.shop.hardware" = "Barkácsüzlet";
 
 "type.shop.health_food" = "Egészségügyi élelmiszerbolt";
+
+"type.shop.herbalist" = "Gyógynövény bolt";
+
+"type.shop.hifi" = "HiFi Audio";
 
 "type.shop.houseware" = "Háztartási bolt";
 
@@ -3293,6 +3373,8 @@
 
 "type.shop.motorcycle" = "Motorkerékpár üzlet";
 
+"type.shop.motorcycle_repair" = "Motorkerékpár javítás";
+
 "type.shop.music" = "Bolt";
 
 "type.shop.musical_instrument" = "Bolt";
@@ -3303,11 +3385,15 @@
 
 "type.shop.outdoor" = "Túrafelszerelés";
 
+"type.shop.outpost" = "Felvevő pont";
+
 "type.shop.pastry" = "Cukrászsütemény";
 
 "type.shop.pawnbroker" = "Zálogház";
 
 "type.shop.pet" = "Házikedvenc-üzlet";
+
+"type.shop.pet_grooming" = "Kisállat ápolás";
 
 "type.shop.photo" = "Fénykép üzlet";
 
@@ -3343,13 +3429,19 @@
 
 "type.shop.wine" = "Szeszesital-üzlet";
 
+"type.shop.agrarian" = "Mezőgazdasági bolt";
+
 "type.shop.antiques" = "Régiségek";
+
+"type.shop.appliance" = "Készülék bolt";
 
 "type.shop.art" = "Művészeti Bolt";
 
 "type.shop.baby_goods" = "Bababolt";
 
 "type.shop.bag" = "Táskák bolt";
+
+"type.shop.bed" = "Ágyak boltja";
 
 "type.shop.boutique" = "Butik";
 
@@ -3466,9 +3558,9 @@
 
 "type.tourism.artwork" = "Szobor";
 
-"type.tourism.artwork.architecture" = "Szobor";
+"type.tourism.artwork.architecture" = "Műalkotás";
 
-"type.tourism.artwork.painting" = "Szobor";
+"type.tourism.artwork.painting" = "Műalkotás";
 
 "type.tourism.artwork.sculpture" = "Szobor";
 

@@ -3,19 +3,28 @@
 # on the date of the last commit and a number of commits on that day.
 set -euo pipefail
 
-# Note: other ways to get date use the "when commit was rebased" date.
-# This approach counts a number of commits each day based on committer's commit date
-# instead of author's commit date, to avoid conflicts when old PRs are merged, but the
-# number of today's commits stays the same.
-# Force git with TZ variable and local dates to print the UTC date.
-COUNT_AND_DATE=( $(TZ=UTC0 git log --pretty=format:%cd --date=iso-local --since="30 days ago" | cut -d' ' -f 1 | sed 's/-/./g' | sort | uniq -c | tail -1) )
-if [ -z "$COUNT_AND_DATE" ]; then
-  # Fallback: use today's date if there were no commits since last month.
-  COUNT_AND_DATE=( 0 $(date +%Y.%m.%d) )
-fi
-DATE=${COUNT_AND_DATE[1]}
-COUNT=${COUNT_AND_DATE[0]}
 
+function init {
+  if ! type git >/dev/null 2>&1 || ! git rev-parse --is-inside-work-tree >/dev/null 2>&1 ; then
+    # Either git is not installed on the system or this is not a git work tree.
+    # Likely because the code is built from an archive.
+    # In any case determining commit count, date and hash won't be possible.
+    local COUNT_AND_DATE=( 0 $(date +%Y.%m.%d) )
+    GIT_HASH="00000000"
+  else
+    # Note: other ways to get date use the "when commit was rebased" date.
+    # This approach counts a number of commits each day based on committer's commit date
+    # instead of author's commit date, to avoid conflicts when old PRs are merged, but the
+    # number of a day's commits stays the same.
+    # Force git with TZ variable and local dates to print the UTC date.
+    local COUNT_AND_DATE=( $(TZ=UTC0 git log --max-count=128 --pretty=format:%cd --date=iso-local \
+                                       | cut -d' ' -f 1 | sed 's/-/./g' | sort | uniq -c | tail -1) )
+    GIT_HASH=$(git describe --match="" --always --abbrev=8 --dirty)
+  fi
+
+  DATE="${COUNT_AND_DATE[1]}"
+  COUNT="${COUNT_AND_DATE[0]}"
+}
 
 function ios_version {
   echo "$DATE"
@@ -52,7 +61,6 @@ function qt_int_version {
 }
 
 function qt_version {
-  local GIT_HASH=$(git describe --match="" --always --abbrev=8 --dirty)
   local OS_NAME=$(uname -s)
   echo "$DATE-$COUNT-$GIT_HASH-$OS_NAME"
 }
@@ -76,5 +84,6 @@ if [ -z ${1:-} ] || [[ ! $(type -t "$1") == function ]]; then
   usage
   exit 1
 else
+  init
   "$1"
 fi

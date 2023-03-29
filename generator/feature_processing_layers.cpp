@@ -103,7 +103,7 @@ void RepresentationLayer::Handle(FeatureBuilder & fb)
       // Areal object with types amenity=restaurant + wifi=yes + cuisine=* should be added as areal object with
       // these types and no extra linear/point objects.
       // We need extra line object only for case when object has type which is drawable like line:
-      // amenity=playground + barrier=fence shold be added as areal object with amenity=playground + linear object
+      // amenity=playground + barrier=fence should be added as area object with amenity=playground + linear object
       // with barrier=fence.
       if (CanBeLine(params))
       {

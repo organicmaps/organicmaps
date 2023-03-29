@@ -8,7 +8,6 @@ import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.location.Location;
 import android.location.LocationManager;
 
@@ -18,7 +17,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import app.organicmaps.Framework;
@@ -35,17 +33,11 @@ import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.NetworkPolicy;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.log.Logger;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public enum LocationHelper implements Initializable<Context>, AppBackgroundTracker.OnTransitionListener, BaseLocationProvider.Listener
 {
   INSTANCE;
-
-  // These constants should correspond to values defined in platform/location.hpp
-  // Leave 0-value as no any error.
-  //private static final int ERROR_UNKNOWN = 0;
-  //private static final int ERROR_NOT_SUPPORTED = 1;
-  private static final int ERROR_DENIED = 2;
-  private static final int ERROR_GPS_OFF = 3;
 
   private static final long INTERVAL_FOLLOW_AND_ROTATE_MS = 3000;
   private static final long INTERVAL_FOLLOW_MS = 1000;
@@ -169,6 +161,13 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     }
   }
 
+  public void closeLocationDialog()
+  {
+    if (mErrorDialog != null && mErrorDialog.isShowing())
+      mErrorDialog.dismiss();
+    mErrorDialog = null;
+  }
+
   void notifyCompassUpdated(double north)
   {
     mSavedNorth = north;
@@ -187,8 +186,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     if (mSavedLocation == null)
       throw new IllegalStateException("No saved location");
 
-    if (mErrorDialog != null && mErrorDialog.isShowing())
-      mErrorDialog.dismiss();
+    closeLocationDialog();
 
     for (LocationListener listener : mListeners)
       listener.onLocationUpdated(mSavedLocation);
@@ -203,7 +201,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
       return;
     }
 
-    nativeLocationUpdated(mSavedLocation.getTime(),
+    LocationState.nativeLocationUpdated(mSavedLocation.getTime(),
         mSavedLocation.getLatitude(),
         mSavedLocation.getLongitude(),
         mSavedLocation.getAccuracy(),
@@ -253,13 +251,12 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     {
       Logger.d(TAG, "Can't resolve location permissions because UI is not attached");
       stop();
-      nativeOnLocationError(ERROR_GPS_OFF);
+      LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
       return;
     }
 
     // Cancel our dialog in favor of system dialog.
-    if (mErrorDialog != null && mErrorDialog.isShowing())
-      mErrorDialog.dismiss();
+    closeLocationDialog();
 
     // Launch system permission resolution dialog.
     IntentSenderRequest intentSenderRequest = new IntentSenderRequest.Builder(pendingIntent.getIntentSender())
@@ -287,7 +284,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
         " settings = " + LocationUtils.areLocationServicesTurnedOn(mContext));
 
     stop();
-    nativeOnLocationError(ERROR_GPS_OFF);
+    LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
 
     if (mActivity == null)
     {
@@ -301,7 +298,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
       return;
     }
 
-    AlertDialog.Builder builder = new AlertDialog.Builder(mActivity, R.style.MwmTheme_AlertDialog)
+    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mActivity, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.enable_location_services)
         .setMessage(R.string.location_is_disabled_long_text)
         .setOnDismissListener(dialog -> mErrorDialog = null)
@@ -325,7 +322,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
         " settings = " + LocationUtils.areLocationServicesTurnedOn(mContext));
 
     stop();
-    nativeOnLocationError(ERROR_DENIED);
+    LocationState.nativeOnLocationError(LocationState.ERROR_DENIED);
 
     if (mActivity == null)
     {
@@ -339,7 +336,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
       return;
     }
 
-    mErrorDialog = new AlertDialog.Builder(mActivity, R.style.MwmTheme_AlertDialog)
+    mErrorDialog = new MaterialAlertDialogBuilder(mActivity, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.enable_location_services)
         .setMessage(R.string.location_is_disabled_long_text)
         .setOnDismissListener(dialog -> mErrorDialog = null)
@@ -376,14 +373,14 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     }
 
     final AppCompatActivity activity = mActivity;
-    mErrorDialog = new AlertDialog.Builder(activity, R.style.MwmTheme_AlertDialog)
+    mErrorDialog = new MaterialAlertDialogBuilder(activity, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.current_location_unknown_title)
         .setMessage(R.string.current_location_unknown_message)
         .setOnDismissListener(dialog -> mErrorDialog = null)
         .setNegativeButton(R.string.current_location_unknown_stop_button, (dialog, which) ->
         {
           Logger.w(TAG, "Disabled by user");
-          nativeOnLocationError(ERROR_GPS_OFF);
+          LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
           stop();
         })
         .setPositiveButton(R.string.current_location_unknown_continue_button, (dialog, which) ->
@@ -453,7 +450,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
       return;
     }
 
-    int mode = getMyPositionMode();
+    int mode = LocationState.nativeGetMode();
     switch (mode)
     {
       case LocationState.FOLLOW:
@@ -500,8 +497,8 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     if (!LocationUtils.isLocationGranted(mContext))
     {
       Logger.w(TAG, "Dynamic permissions ACCESS_COARSE_LOCATION and/or ACCESS_FINE_LOCATION are not granted");
-      Logger.d(TAG, "error mode = " + getMyPositionMode());
-      nativeOnLocationError(ERROR_DENIED);
+      Logger.d(TAG, "error mode = " + LocationState.nativeGetMode());
+      LocationState.nativeOnLocationError(LocationState.ERROR_DENIED);
 
       if (mPermissionRequest == null)
       {
@@ -575,7 +572,10 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     Logger.d(TAG, "activity = " + activity);
 
     if (mActivity != null)
-      throw new IllegalStateException("Another Activity is already attached");
+    {
+      Logger.e(TAG, "Another Activity = " + mActivity + " is already attached");
+      detach();
+    }
 
     mActivity = activity;
 
@@ -594,7 +594,10 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     Logger.d(TAG, "activity = " + mActivity);
 
     if (mActivity == null)
-      throw new IllegalStateException("Activity is not attached");
+    {
+      Logger.e(TAG, "Activity is not attached");
+      return;
+    }
 
     assert mPermissionRequest != null;
     mPermissionRequest.unregister();
@@ -629,7 +632,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     {
       Logger.w(TAG, "Resolution has not been granted");
       stop();
-      nativeOnLocationError(ERROR_GPS_OFF);
+      LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
       return;
     }
 
@@ -677,14 +680,4 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   {
     return mSavedNorth;
   }
-
-  @LocationState.Value
-  public int getMyPositionMode()
-  {
-    return LocationState.nativeGetMode();
-  }
-
-  private static native void nativeOnLocationError(int errorCode);
-  private static native void nativeLocationUpdated(long time, double lat, double lon, float accuracy,
-                                                   double altitude, float speed, float bearing);
 }

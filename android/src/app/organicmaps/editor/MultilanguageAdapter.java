@@ -108,7 +108,7 @@ public class MultilanguageAdapter extends RecyclerView.Adapter<MultilanguageAdap
           UiUtils.setInputError(inputLayout, Editor.nativeIsNameValid(s.toString()) ?
                                                                       Utils.INVALID_ID :
                                                                       R.string.error_enter_correct_name);
-          mNames.get(getAdapterPosition()).name = s.toString();
+          mNames.get(getBindingAdapterPosition()).name = s.toString();
         }
       });
 

@@ -22,8 +22,14 @@ namespace
 {
 /// The order is important. Starting with the most frequent tokens according to
 /// taginfo.openstreetmap.org we minimize the number of the comparisons in ParseSingleLane().
-array<pair<LaneWay, char const *>, static_cast<size_t>(LaneWay::Count)> const g_laneWayNames = {
-    {{LaneWay::Through, "through"},
+///
+/// A `none` lane can be represented either as "none" or as "". That means both "none" and ""
+/// should be considered names, even though they refer to the same thing. As a result,
+/// `LaneWay::None` appears twice in this array, which is one longer than the number of
+/// enum values.
+array<pair<LaneWay, char const *>, static_cast<size_t>(LaneWay::Count) + 1> const g_laneWayNames = {
+    {{LaneWay::None, ""},
+     {LaneWay::Through, "through"},
      {LaneWay::Left, "left"},
      {LaneWay::Right, "right"},
      {LaneWay::None, "none"},
@@ -34,7 +40,7 @@ array<pair<LaneWay, char const *>, static_cast<size_t>(LaneWay::Count)> const g_
      {LaneWay::SlightRight, "slight_right"},
      {LaneWay::SharpRight, "sharp_right"},
      {LaneWay::Reverse, "reverse"}}};
-static_assert(g_laneWayNames.size() == static_cast<size_t>(LaneWay::Count),
+static_assert(g_laneWayNames.size() == static_cast<size_t>(LaneWay::Count) + 1,
               "Check the size of g_laneWayNames");
 
 array<pair<CarDirection, char const *>, static_cast<size_t>(CarDirection::Count)> const
@@ -239,12 +245,14 @@ bool IsLaneWayConformedTurnDirection(LaneWay l, CarDirection t)
     case CarDirection::TurnSharpRight:
       return l == LaneWay::SharpRight;
     case CarDirection::TurnSlightRight:
+    case CarDirection::ExitHighwayToRight:
       return l == LaneWay::SlightRight;
     case CarDirection::TurnLeft:
       return l == LaneWay::Left;
     case CarDirection::TurnSharpLeft:
       return l == LaneWay::SharpLeft;
     case CarDirection::TurnSlightLeft:
+    case CarDirection::ExitHighwayToLeft:
       return l == LaneWay::SlightLeft;
     case CarDirection::UTurnLeft:
     case CarDirection::UTurnRight:
@@ -275,6 +283,10 @@ bool IsLaneWayConformedTurnDirectionApproximately(LaneWay l, CarDirection t)
     case CarDirection::UTurnLeft:
     case CarDirection::UTurnRight:
       return l == LaneWay::Reverse;
+    case CarDirection::ExitHighwayToLeft:
+      return l == LaneWay::SlightLeft || l == LaneWay::Left;
+    case CarDirection::ExitHighwayToRight:
+      return l == LaneWay::SlightRight || l == LaneWay::Right;
   }
 }
 
@@ -292,7 +304,13 @@ void SplitLanes(string const & lanesString, char delimiter, vector<string> & lan
 bool ParseSingleLane(string const & laneString, char delimiter, TSingleLane & lane)
 {
   lane.clear();
-  istringstream laneStream(laneString);
+  // When `laneString` ends with "" representing none, for example, in "right;",
+  // `getline` will not read any characters, so it exits the loop and does not
+  // handle the "". So, we add a delimiter to the end of `laneString`. Nonempty
+  // final tokens consume the delimiter and act as expected, and empty final tokens
+  // read a the delimiter, so `getline` sets `token` to the empty string rather than
+  // exiting the loop.
+  istringstream laneStream(laneString + delimiter);
   string token;
   while (getline(laneStream, token, delimiter))
   {

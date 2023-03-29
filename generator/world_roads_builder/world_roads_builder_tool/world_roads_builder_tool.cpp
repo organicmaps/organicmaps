@@ -20,7 +20,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include "gflags/gflags.h"
+#include <gflags/gflags.h>
 
 
 DEFINE_string(path_resources, "", "OMaps resources directory");

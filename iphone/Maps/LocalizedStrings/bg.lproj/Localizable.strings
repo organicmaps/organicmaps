@@ -226,6 +226,9 @@
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D сгради";
 
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "3D сградите са изключени в режим на пестене на енергия";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Гласови инструкции";
 
@@ -304,7 +307,7 @@
 "donate" = "Дарете";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Как да ни подкрепите?";
+"how_to_support_us" = "Подкрепете проекта";
 
 /* Button in the main Help dialog */
 "copyright" = "Авторски права";
@@ -710,8 +713,8 @@
 
 "editor_storey_number" = "Брой етажи (максимум %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "Броят на етажите не трябва да надвишава 25";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Броят на етажите не трябва да надвишава %d";
 
 "editor_zip_code" = "Пощенски код";
 
@@ -1236,20 +1239,23 @@
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/";
 
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
 
 /********** Types **********/
 
 "type.aerialway" = "Aerialway";
 
-"type.aerialway.cable_car" = "Cable car";
+"type.aerialway.cable_car" = "Cable Car";
 
-"type.aerialway.chair_lift" = "Chair lift";
+"type.aerialway.chair_lift" = "Chair Lift";
 
-"type.aerialway.drag_lift" = "Drag lift";
+"type.aerialway.drag_lift" = "Drag Lift";
 
 "type.aerialway.gondola" = "Gondola";
 
-"type.aerialway.mixed_lift" = "Mixed lift";
+"type.aerialway.mixed_lift" = "Mixed Lift";
 
 "type.aerialway.station" = "Aerialway Station";
 
@@ -1311,7 +1317,9 @@
 
 "type.amenity.charging_station" = "Charging Station";
 
-"type.amenity.charging_station.motorcar" = "Charging Station";
+"type.amenity.charging_station.bicycle" = "Станция за зареждане на велосипеди";
+
+"type.amenity.charging_station.motorcar" = "Станция за зареждане на автомобили";
 
 "type.amenity.childcare" = "Nursery";
 
@@ -1334,6 +1342,8 @@
 "type.amenity.drinking_water" = "Drinking Water";
 
 "type.amenity.driving_school" = "Автошкола";
+
+"type.amenity.money_transfer" = "Паричен превод";
 
 "type.amenity.music_school" = "Музикално училище";
 
@@ -1370,6 +1380,8 @@
 "type.amenity.kindergarten" = "Kindergarten";
 
 "type.amenity.library" = "Library";
+
+"type.amenity.loading_dock" = "Товарен док";
 
 "type.amenity.marketplace" = "Marketplace";
 
@@ -1653,6 +1665,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Отопление, вентилация и климатизация";
 
+"type.craft.key_cutter" = "Рязане на ключове";
+
+"type.craft.locksmith" = "Ключар";
+
 "type.craft.metal_construction" = "Метални конструкции";
 
 "type.craft.painter" = "Художник";
@@ -1849,11 +1865,31 @@
 
 "type.emergency.phone" = "Emergency Phone";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Entrance";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Главния вход";
 
 "type.healthcare.laboratory" = "Медицинска лаборатория";
 
 "type.healthcare.physiotherapist" = "Физиотерапевт";
+
+"type.healthcare.alternative" = "Алтернативна медицина";
+
+"type.healthcare.audiologist" = "Аудиология";
+
+"type.healthcare.blood_donation" = "Център за кръводаряване";
+
+"type.healthcare.optometrist" = "Оптометрия";
+
+"type.healthcare.podiatrist" = "Подиология";
+
+"type.healthcare.psychotherapist" = "Психотерапия";
+
+"type.healthcare.sample_collection" = "Вземане на проби";
+
+"type.healthcare.speech_therapist" = "Логопедия";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1905,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Тунел";
+
+"type.highway.busway" = "Обособен автобусен път";
 
 "type.highway.bus_stop" = "Bus Stop";
 
@@ -2305,7 +2343,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "Landfill";
 
@@ -2323,9 +2361,9 @@
 
 "type.landuse.reservoir" = "Water";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 
@@ -2337,7 +2375,7 @@
 
 "type.leisure.common" = "Public Land";
 
-"type.leisure.dog_park" = "Dog Area";
+"type.leisure.dog_park" = "Dog Park";
 
 "type.leisure.fitness_centre" = "Fitness Centre";
 
@@ -2430,6 +2468,8 @@
 "type.man_made.surveillance" = "Surveillance Camera";
 
 "type.man_made.tower" = "Tower";
+
+"type.man_made.tower.communication" = "Комуникационна кула";
 
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
@@ -2623,11 +2663,31 @@
 
 "type.power.generator" = "Generator";
 
+"type.power.generator.solar" = "Слънчев генератор";
+
+"type.power.generator.wind" = "Вятърен генератор";
+
+"type.power.generator.gas" = "Газотурбинна електроцентрала";
+
+"type.power.generator.hydro" = "Водноелектрическа централа";
+
 "type.power.line" = "Power Line";
 
 "type.power.line.underground" = "Underground Power Line";
 
 "type.power.minor_line" = "Minor Power Line";
+
+"type.power.plant" = "Електроцентрала";
+
+"type.power.plant.coal" = "Въглищна централа";
+
+"type.power.plant.gas" = "Газотурбинна електроцентрала";
+
+"type.power.plant.hydro" = "Водноелектрическа централа";
+
+"type.power.plant.solar" = "Слънчева електроцентрала";
+
+"type.power.plant.wind" = "Вятърна електроцентрала";
 
 "type.power.pole" = "Power Tower";
 
@@ -2754,6 +2814,8 @@
 "type.railway.station.subway.bengalore" = "Subway";
 
 "type.railway.station.subway.berlin" = "Subway";
+
+"type.railway.station.subway.bilbao" = "Subway";
 
 "type.railway.station.subway.brasilia" = "Subway";
 
@@ -2979,6 +3041,8 @@
 
 "type.railway.subway_entrance.berlin" = "Subway Entrance";
 
+"type.railway.subway_entrance.bilbao" = "Subway Entrance";
+
 "type.railway.subway_entrance.brasilia" = "Subway Entrance";
 
 "type.railway.subway_entrance.brescia" = "Subway Entrance";
@@ -3197,6 +3261,8 @@
 
 "type.shop.bakery" = "Bakery";
 
+"type.shop.bathroom_furnishing" = "Обзавеждане за баня";
+
 "type.shop.beauty" = "Beauty Shop";
 
 "type.shop.beverages" = "Beverages";
@@ -3209,6 +3275,8 @@
 
 "type.shop.butcher" = "Butcher’s";
 
+"type.shop.cannabis" = "Магазин за канабис";
+
 "type.shop.car" = "Car Dealership";
 
 "type.shop.car_parts" = "Car Parts";
@@ -3218,6 +3286,8 @@
 "type.shop.car_repair.tyres" = "Tyre Repair";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "Килими";
 
 "type.shop.chemist" = "Chemist Shop";
 
@@ -3237,6 +3307,8 @@
 
 "type.shop.cosmetics" = "Cosmetics";
 
+"type.shop.curtain" = "Пердета";
+
 "type.shop.deli" = "Магазин за деликатеси";
 
 "type.shop.department_store" = "Department Store";
@@ -3253,6 +3325,8 @@
 
 "type.shop.farm" = "Магазин за селскостопански храни";
 
+"type.shop.fashion_accessories" = "Модни аксесоари";
+
 "type.shop.florist" = "Florist’s";
 
 "type.shop.funeral_directors" = "Funeral Directors";
@@ -3261,9 +3335,11 @@
 
 "type.shop.garden_centre" = "Garden Store";
 
+"type.shop.gas" = "Магазин за газ";
+
 "type.shop.gift" = "Gift Shop";
 
-"type.shop.greengrocer" = "Greengrocer's";
+"type.shop.greengrocer" = "Greengrocer";
 
 "type.shop.grocery" = "Хранителни стоки";
 
@@ -3272,6 +3348,10 @@
 "type.shop.hardware" = "Магазин за хардуер";
 
 "type.shop.health_food" = "Магазин за здравословни храни";
+
+"type.shop.herbalist" = "Магазин за билки";
+
+"type.shop.hifi" = "HiFi аудио";
 
 "type.shop.houseware" = "Магазин за домакински принадлежности";
 
@@ -3293,6 +3373,8 @@
 
 "type.shop.motorcycle" = "Motorcycle Shop";
 
+"type.shop.motorcycle_repair" = "Ремонт на мотоциклети";
+
 "type.shop.music" = "Record Store";
 
 "type.shop.musical_instrument" = "Musical Instruments";
@@ -3303,11 +3385,15 @@
 
 "type.shop.outdoor" = "Outdoor Equipment";
 
+"type.shop.outpost" = "Точка на вземане";
+
 "type.shop.pastry" = "Тестени изделия";
 
 "type.shop.pawnbroker" = "Pawnbroker";
 
-"type.shop.pet" = "Petshop";
+"type.shop.pet" = "Pet Store";
+
+"type.shop.pet_grooming" = "Грижа за домашни любимци";
 
 "type.shop.photo" = "Photo Shop";
 
@@ -3343,13 +3429,19 @@
 
 "type.shop.wine" = "Wine Shop";
 
+"type.shop.agrarian" = "Селскостопански магазин";
+
 "type.shop.antiques" = "Антики";
+
+"type.shop.appliance" = "Магазин за техника";
 
 "type.shop.art" = "Магазин за изкуства";
 
 "type.shop.baby_goods" = "Детски магазин";
 
 "type.shop.bag" = "Магазин за чанти";
+
+"type.shop.bed" = "Магазин за легла";
 
 "type.shop.boutique" = "Бутик";
 

@@ -35,6 +35,17 @@
 	<string name="country_status_download_failed">Herunterladen fehlgeschlagen</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Erneut versuchen</string>
+	<string name="about_menu_title">Über Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Kostenlos für alle, mit Liebe gemacht</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Keine Werbung, kein Tracking, keine Datenerfassung</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Schont den Akku, keine Hintergrunddaten</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Schnell, minimalistisch, keine Bloatware</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Open-Source-Anwendung von Enthusiasten und Freiwilligen.</string>
 	<string name="connection_settings">Verbindungseinstellungen</string>
 	<string name="close">Schließen</string>
 	<string name="unsupported_phone">Das Programm benötigt OpenGL, um zu funktionieren. Leider wird Ihr Gerät nicht unterstützt.</string>
@@ -207,6 +218,8 @@
 	<string name="pref_map_3d_title">Perspektivische Ansicht</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D-Gebäude</string>
+	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+	<string name="pref_map_3d_buildings_disabled_summary">3D-Gebäude werden im Energiesparmodus ausgeschaltet</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Sprachführung</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -236,7 +249,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Spenden</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Wie unterstützen Sie uns?</string>
+	<string name="how_to_support_us">Unterstütze das Projekt</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Copyright</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -443,7 +456,8 @@
 	<string name="editor_report_problem_other_title">Ein anderes Problem</string>
 	<string name="placepage_add_business_button">Organisation hinzufügen</string>
 	<string name="message_invalid_feature_position">Ein Objekt kann hier nicht positioniert werden</string>
-	<string name="osm_presentation">Alle Kartendaten stammen aus dem OpenStreetMap-Projekt. Es ist wie Wikipedia für Karten, wo Sie Orte hinzufügen oder bearbeiten können, und sie werden Millionen von Benutzern auf der ganzen Welt zur Verfügung gestellt.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Kartografische Daten von OpenStreetMap vom %s. OSM ist wie Wikipedia für Karten, wo Sie Orte hinzufügen oder bearbeiten können.</string>
 	<string name="login_to_make_edits_visible">Melden Sie sich an, damit andere Benutzer Ihre Änderungen sehen können.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d von %2$d</string>
@@ -451,8 +465,8 @@
 	<string name="download_over_mobile_message">Das könnte mit einigen Tarifen oder beim Roaming sehr teuer werden.</string>
 	<string name="error_enter_correct_house_number">Richtige Hausnummer eingeben</string>
 	<string name="editor_storey_number">Anzahl der Etagen (maximal %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Das Gebäude kann nicht mehr als 25 Etagen haben</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Das Gebäude kann nicht mehr als %d Etagen haben</string>
 	<string name="editor_zip_code">Postleitzahl</string>
 	<string name="error_enter_correct_zip_code">Geben Sie die korrekte Postleitzahl ein</string>
 	<!-- Place Page title for long tap -->
@@ -542,7 +556,7 @@
 	<string name="routing_add_finish_point">Fügen Sie ein Ziel hinzu, um eine Route zu planen</string>
 	<string name="button_exit">Beenden</string>
 	<string name="placepage_remove_stop">Entfernen</string>
-	<string name="placepage_add_stop">Zwischenstopp hinzufügen</string>
+	<string name="placepage_add_stop">Stopp einfügen</string>
 	<string name="dialog_error_storage_title">Problem mit dem Zugreifen auf den Speicher</string>
 	<string name="dialog_error_storage_message">Der externe Speicher ist nicht verfügbar, möglicherweise wurde die SD-Karte entfernt oder sie ist beschädigt oder das Dateisystem ist schreibgeschützt. Überprüfen Sie das bitte oder kontaktieren Sie uns unter support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Fehlerhaften Speicher emulieren</string>
@@ -711,6 +725,8 @@
 	<string name="enable_show_on_lock_screen_description">Wenn aktiviert, muss das Gerät nicht jedes Mal entsperrt werden, wenn die App ausgeführt wird.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Kartendaten von OpenStreetMap</string>
+	<!-- Link to OSM wiki for Editor, Profile and About pages -->
+	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/DE:Über_OSM</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Seilbahn</string>
@@ -728,7 +744,7 @@
 	<string name="type.aeroway.runway">Start-/Landebahn</string>
 	<string name="type.aeroway.taxiway">Rollweg</string>
 	<string name="type.aeroway.terminal">Terminal</string>
-	<string name="type.amenity">Infrastrukturobjekte</string>
+	<string name="type.amenity">Infrastrukturobjekt</string>
 	<string name="type.amenity.arts_centre">Kunststätte</string>
 	<string name="type.amenity.atm">Geldautomat</string>
 	<string name="type.amenity.bbq">Grillplatz</string>
@@ -745,7 +761,8 @@
 	<string name="type.amenity.car_wash">Autowäsche</string>
 	<string name="type.amenity.casino">Kasino</string>
 	<string name="type.amenity.charging_station">Ladestation</string>
-	<string name="type.amenity.charging_station.motorcar">Ladestation</string>
+	<string name="type.amenity.charging_station.bicycle">Fahrrad Ladestation</string>
+	<string name="type.amenity.charging_station.motorcar">Kfz-Ladestation</string>
 	<string name="type.amenity.childcare">Kindertagesstätte</string>
 	<string name="type.amenity.cinema">Kino</string>
 	<string name="type.leisure.bowling_alley">Bowlingbahn</string>
@@ -757,6 +774,7 @@
 	<string name="type.amenity.doctors">Arztpraxis</string>
 	<string name="type.amenity.drinking_water">Trinkwasser</string>
 	<string name="type.amenity.driving_school">Fahrschule</string>
+	<string name="type.amenity.money_transfer">Geldtransfer</string>
 	<string name="type.amenity.music_school">Musikschule</string>
 	<string name="type.amenity.language_school">Sprachschule</string>
 	<string name="type.office.diplomatic">Botschaft</string>
@@ -774,6 +792,7 @@
 	<string name="type.amenity.ice_cream">Eisstand</string>
 	<string name="type.amenity.internet_cafe">Internetcafé</string>
 	<string name="type.amenity.library">Bibliothek</string>
+	<string name="type.amenity.loading_dock">Laderampe</string>
 	<string name="type.amenity.marketplace">Marktplatz</string>
 	<string name="type.amenity.motorcycle_parking">Motorrad-Parkplatz</string>
 	<string name="type.amenity.nightclub">Nachtclub</string>
@@ -903,6 +922,8 @@
 	<string name="type.craft.handicraft">Kunsthandwerk</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Heizung, Lüftung und Klimatisierung</string>
+	<string name="type.craft.key_cutter">Schlüssel-Nachmachdienst</string>
+	<string name="type.craft.locksmith">Schlosser</string>
 	<string name="type.craft.metal_construction">Schlosser</string>
 	<string name="type.craft.painter">Maler</string>
 	<string name="type.craft.photographer">Fotograf</string>
@@ -963,7 +984,7 @@
 	<string name="type.cuisine.korean">Koreanisch</string>
 	<string name="type.cuisine.lao">Laotisch</string>
 	<string name="type.cuisine.lebanese">Libanesisch</string>
-	<string name="type.cuisine.local">Regional</string>
+	<string name="type.cuisine.local">Lokale Küche</string>
 	<string name="type.cuisine.malagasy">Madegassisch</string>
 	<string name="type.cuisine.malaysian">Malaysisch</string>
 	<string name="type.cuisine.mediterranean">Mediterran</string>
@@ -979,7 +1000,7 @@
 	<string name="type.cuisine.polish">Polnisch</string>
 	<string name="type.cuisine.portuguese">Portugiesisch</string>
 	<string name="type.cuisine.ramen">Ramen</string>
-	<string name="type.cuisine.regional">Regional</string>
+	<string name="type.cuisine.regional">Regionale Küche</string>
 	<string name="type.cuisine.russian">Russisch</string>
 	<string name="type.cuisine.sandwich">Sandwich</string>
 	<string name="type.cuisine.sausage">Wurst</string>
@@ -1000,9 +1021,20 @@
 	<string name="type.emergency.defibrillator">Defibrillator</string>
 	<string name="type.emergency.fire_hydrant">Hydrant</string>
 	<string name="type.emergency.phone">Notruftelefon</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Eingang</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Haupteingang</string>
 	<string name="type.healthcare.laboratory">Medizinisches Labor</string>
-	<string name="type.healthcare.physiotherapist">Physiotherapeut</string>
+	<string name="type.healthcare.physiotherapist">Physiotherapie</string>
+	<string name="type.healthcare.alternative">Alternative Medizin</string>
+	<string name="type.healthcare.audiologist">Audiologie</string>
+	<string name="type.healthcare.blood_donation">Blutspendezentrum</string>
+	<string name="type.healthcare.optometrist">Optometrie</string>
+	<string name="type.healthcare.podiatrist">Podologie</string>
+	<string name="type.healthcare.psychotherapist">Psychotherapie</string>
+	<string name="type.healthcare.sample_collection">Probenahme</string>
+	<string name="type.healthcare.speech_therapist">Logopädie</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Straße</string>
@@ -1012,6 +1044,7 @@
 	<string name="type.highway.bridleway.permissive">Reitweg</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
+	<string name="type.highway.busway">Eigene Busstraße</string>
 	<string name="type.highway.bus_stop">Bushaltestelle</string>
 	<string name="type.highway.construction">Straße im Bau</string>
 	<string name="type.highway.cycleway">Radweg</string>
@@ -1209,6 +1242,7 @@
 	<string name="type.historic.tomb">Grabstätte</string>
 	<string name="type.historic.wayside_cross">Wegkreuz</string>
 	<string name="type.historic.wayside_shrine">Bildstock</string>
+	<string name="type.junction">Straßenknotenpunkt</string>
 	<string name="type.junction.roundabout">Kreisverkehr</string>
 	<string name="type.landuse">Landnutzung</string>
 	<string name="type.landuse.allotments">Kleingarten</string>
@@ -1283,12 +1317,14 @@
 	<string name="type.man_made.chimney">Fabrikschornstein</string>
 	<string name="type.man_made.cutline">Schneise</string>
 	<string name="type.man_made.survey_point">Vermessungspunkt</string>
+	<string name="type.man_made.flagpole">Fahnenmast</string>
 	<string name="type.man_made.lighthouse">Leuchtturm</string>
 	<string name="type.man_made.pier">Anlegestelle</string>
 	<string name="type.man_made.silo">Silo</string>
 	<string name="type.man_made.storage_tank">Speichertank</string>
 	<string name="type.man_made.surveillance">Überwachungskamera</string>
 	<string name="type.man_made.tower">Turm</string>
+	<string name="type.man_made.tower.communication">Kommunikationsturm</string>
 	<string name="type.man_made.wastewater_plant">Kläranlage</string>
 	<string name="type.man_made.water_tap">Wasserhahn</string>
 	<string name="type.man_made.water_tower">Wasserturm</string>
@@ -1342,7 +1378,7 @@
 	<string name="type.office">Büro</string>
 	<string name="type.office.company">Niederlassung</string>
 	<string name="type.office.estate_agent">Immobilienmakler</string>
-	<string name="type.office.government">Regierungsstelle</string>
+	<string name="type.office.government">Behörde</string>
 	<string name="type.office.insurance">Versicherungsbüro</string>
 	<string name="type.office.lawyer">Anwaltskanzlei</string>
 	<string name="type.office.ngo">Nichtregierungsorganisation</string>
@@ -1382,9 +1418,19 @@
 	<string name="type.place.village">Dorf</string>
 	<string name="type.power">Energie</string>
 	<string name="type.power.generator">Generator</string>
+	<string name="type.power.generator.solar">Solargenerator</string>
+	<string name="type.power.generator.wind">Windgenerator</string>
+	<string name="type.power.generator.gas">Gasturbinenkraftwerk</string>
+	<string name="type.power.generator.hydro">Wasserkraftwerk</string>
 	<string name="type.power.line">Hochspannungs-Freileitung</string>
 	<string name="type.power.line.underground">Unterirdische Hochpannungsleitung</string>
 	<string name="type.power.minor_line">Nieder-/Mittelspannungsfreileitung</string>
+	<string name="type.power.plant">Kraftwerk</string>
+	<string name="type.power.plant.coal">Kohlekraftwerk</string>
+	<string name="type.power.plant.gas">Gasturbinenkraftwerk</string>
+	<string name="type.power.plant.hydro">Wasserkraftwerk</string>
+	<string name="type.power.plant.solar">Solarkraftwerk</string>
+	<string name="type.power.plant.wind">Windkraftanlage</string>
 	<string name="type.power.pole">Nieder-/Mittelspannungsmast</string>
 	<string name="type.power.station">Umspannwerk</string>
 	<string name="type.power.substation">Umspannwerk</string>
@@ -1415,7 +1461,7 @@
 	<string name="type.railway.preserved">Museumsbahn</string>
 	<string name="type.railway.preserved.bridge">Museumsbahnbrücke</string>
 	<string name="type.railway.preserved.tunnel">Museumsbahntunnel</string>
-	<string name="type.railway.rail">S-Bahn</string>
+	<string name="type.railway.rail">Eisenbahn</string>
 	<string name="type.railway.rail.bridge">S-Bahn-Brücke</string>
 	<string name="type.railway.rail.motor_vehicle">S-Bahn</string>
 	<string name="type.railway.rail.tunnel">S-Bahn-Tunnel</string>
@@ -1429,115 +1475,116 @@
 	<string name="type.railway.station">Bahnhof</string>
 	<string name="type.railway.station.light_rail">Stadtbahnbahnhof</string>
 	<string name="type.railway.station.monorail">Bahnhof</string>
-	<string name="type.railway.station.subway">U-Bahnstation</string>
-	<string name="type.railway.station.subway.adana">U-Bahnstation</string>
-	<string name="type.railway.station.subway.algiers">U-Bahnstation</string>
-	<string name="type.railway.station.subway.almaty">U-Bahnstation</string>
-	<string name="type.railway.station.subway.amsterdam">U-Bahnstation</string>
-	<string name="type.railway.station.subway.ankara">U-Bahnstation</string>
-	<string name="type.railway.station.subway.athens">U-Bahnstation</string>
-	<string name="type.railway.station.subway.baku">U-Bahnstation</string>
-	<string name="type.railway.station.subway.bangkok">U-Bahnstation</string>
-	<string name="type.railway.station.subway.barcelona">U-Bahnstation</string>
-	<string name="type.railway.station.subway.beijing">U-Bahnstation</string>
-	<string name="type.railway.station.subway.bengalore">U-Bahnstation</string>
-	<string name="type.railway.station.subway.berlin">U-Bahnstation</string>
-	<string name="type.railway.station.subway.brasilia">U-Bahnstation</string>
-	<string name="type.railway.station.subway.brescia">U-Bahnstation</string>
-	<string name="type.railway.station.subway.brussels">U-Bahnstation</string>
-	<string name="type.railway.station.subway.bucharest">U-Bahnstation</string>
-	<string name="type.railway.station.subway.budapest">U-Bahnstation</string>
-	<string name="type.railway.station.subway.buenos_aires">U-Bahnstation</string>
-	<string name="type.railway.station.subway.bursa">U-Bahnstation</string>
-	<string name="type.railway.station.subway.cairo">U-Bahnstation</string>
-	<string name="type.railway.station.subway.caracas">U-Bahnstation</string>
-	<string name="type.railway.station.subway.catania">U-Bahnstation</string>
-	<string name="type.railway.station.subway.changchun">U-Bahnstation</string>
-	<string name="type.railway.station.subway.chengdu">U-Bahnstation</string>
-	<string name="type.railway.station.subway.chicago">U-Bahnstation</string>
-	<string name="type.railway.station.subway.chongqing">U-Bahnstation</string>
-	<string name="type.railway.station.subway.dalian">U-Bahnstation</string>
-	<string name="type.railway.station.subway.delhi">U-Bahnstation</string>
-	<string name="type.railway.station.subway.dnepro">U-Bahnstation</string>
-	<string name="type.railway.station.subway.dubai">U-Bahnstation</string>
-	<string name="type.railway.station.subway.ekb">U-Bahnstation</string>
-	<string name="type.railway.station.subway.fukuoka">U-Bahnstation</string>
-	<string name="type.railway.station.subway.glasgow">U-Bahnstation</string>
-	<string name="type.railway.station.subway.guangzhou">U-Bahnstation</string>
-	<string name="type.railway.station.subway.hamburg">U-Bahnstation</string>
-	<string name="type.railway.station.subway.helsinki">U-Bahnstation</string>
-	<string name="type.railway.station.subway.hiroshima">U-Bahnstation</string>
-	<string name="type.railway.station.subway.isfahan">U-Bahnstation</string>
-	<string name="type.railway.station.subway.istanbul">U-Bahnstation</string>
-	<string name="type.railway.station.subway.izmir">U-Bahnstation</string>
-	<string name="type.railway.station.subway.kazan">U-Bahnstation</string>
-	<string name="type.railway.station.subway.kharkiv">U-Bahnstation</string>
-	<string name="type.railway.station.subway.kiev">U-Bahnstation</string>
-	<string name="type.railway.station.subway.kobe">U-Bahnstation</string>
-	<string name="type.railway.station.subway.kolkata">U-Bahnstation</string>
-	<string name="type.railway.station.subway.kunming">U-Bahnstation</string>
-	<string name="type.railway.station.subway.kyoto">U-Bahnstation</string>
-	<string name="type.railway.station.subway.la">U-Bahnstation</string>
-	<string name="type.railway.station.subway.lausanne">U-Bahnstation</string>
-	<string name="type.railway.station.subway.lille">U-Bahnstation</string>
-	<string name="type.railway.station.subway.lima">U-Bahnstation</string>
-	<string name="type.railway.station.subway.lisboa">U-Bahnstation</string>
-	<string name="type.railway.station.subway.london">U-Bahnstation</string>
-	<string name="type.railway.station.subway.lyon">U-Bahnstation</string>
-	<string name="type.railway.station.subway.madrid">U-Bahnstation</string>
-	<string name="type.railway.station.subway.malaga">U-Bahnstation</string>
-	<string name="type.railway.station.subway.manila">U-Bahnstation</string>
-	<string name="type.railway.station.subway.maracaibo">U-Bahnstation</string>
-	<string name="type.railway.station.subway.mashhad">U-Bahnstation</string>
-	<string name="type.railway.station.subway.mecca">U-Bahnstation</string>
-	<string name="type.railway.station.subway.medellin">U-Bahnstation</string>
-	<string name="type.railway.station.subway.mexico">U-Bahnstation</string>
-	<string name="type.railway.station.subway.milan">U-Bahnstation</string>
-	<string name="type.railway.station.subway.minsk">U-Bahnstation</string>
-	<string name="type.railway.station.subway.montreal">U-Bahnstation</string>
-	<string name="type.railway.station.subway.moscow">U-Bahnstation</string>
-	<string name="type.railway.station.subway.munchen">U-Bahnstation</string>
-	<string name="type.railway.station.subway.nagoya">U-Bahnstation</string>
-	<string name="type.railway.station.subway.newyork">U-Bahnstation</string>
-	<string name="type.railway.station.subway.nnov">U-Bahnstation</string>
-	<string name="type.railway.station.subway.novosibirsk">U-Bahnstation</string>
-	<string name="type.railway.station.subway.osaka">U-Bahnstation</string>
-	<string name="type.railway.station.subway.oslo">U-Bahnstation</string>
-	<string name="type.railway.station.subway.palma">U-Bahnstation</string>
-	<string name="type.railway.station.subway.panama">U-Bahnstation</string>
-	<string name="type.railway.station.subway.paris">U-Bahnstation</string>
-	<string name="type.railway.station.subway.philadelphia">U-Bahnstation</string>
-	<string name="type.railway.station.subway.pyongyang">U-Bahnstation</string>
-	<string name="type.railway.station.subway.rennes">U-Bahnstation</string>
-	<string name="type.railway.station.subway.rio">U-Bahnstation</string>
-	<string name="type.railway.station.subway.roma">U-Bahnstation</string>
-	<string name="type.railway.station.subway.rotterdam">U-Bahnstation</string>
-	<string name="type.railway.station.subway.samara">U-Bahnstation</string>
-	<string name="type.railway.station.subway.santiago">U-Bahnstation</string>
-	<string name="type.railway.station.subway.santo_domingo">U-Bahnstation</string>
-	<string name="type.railway.station.subway.saopaulo">U-Bahnstation</string>
-	<string name="type.railway.station.subway.sapporo">U-Bahnstation</string>
-	<string name="type.railway.station.subway.sendai">U-Bahnstation</string>
-	<string name="type.railway.station.subway.sf">U-Bahnstation</string>
-	<string name="type.railway.station.subway.shanghai">U-Bahnstation</string>
-	<string name="type.railway.station.subway.shiraz">U-Bahnstation</string>
-	<string name="type.railway.station.subway.sofia">U-Bahnstation</string>
-	<string name="type.railway.station.subway.spb">U-Bahnstation</string>
-	<string name="type.railway.station.subway.stockholm">U-Bahnstation</string>
-	<string name="type.railway.station.subway.tabriz">U-Bahnstation</string>
-	<string name="type.railway.station.subway.taipei">U-Bahnstation</string>
-	<string name="type.railway.station.subway.taoyuan">U-Bahnstation</string>
-	<string name="type.railway.station.subway.tashkent">U-Bahnstation</string>
-	<string name="type.railway.station.subway.tbilisi">U-Bahnstation</string>
-	<string name="type.railway.station.subway.tianjin">U-Bahnstation</string>
-	<string name="type.railway.station.subway.tokyo">U-Bahnstation</string>
-	<string name="type.railway.station.subway.valencia">U-Bahnstation</string>
-	<string name="type.railway.station.subway.vienna">U-Bahnstation</string>
-	<string name="type.railway.station.subway.warszawa">U-Bahnstation</string>
-	<string name="type.railway.station.subway.washington">U-Bahnstation</string>
-	<string name="type.railway.station.subway.wuhan">U-Bahnstation</string>
-	<string name="type.railway.station.subway.yerevan">U-Bahnstation</string>
-	<string name="type.railway.station.subway.yokohama">U-Bahnstation</string>
+	<string name="type.railway.station.subway">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.adana">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.algiers">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.almaty">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.amsterdam">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.ankara">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.athens">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.baku">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.bangkok">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.barcelona">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.beijing">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.bengalore">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.berlin">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.bilbao">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.brasilia">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.brescia">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.brussels">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.bucharest">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.budapest">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.buenos_aires">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.bursa">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.cairo">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.caracas">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.catania">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.changchun">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.chengdu">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.chicago">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.chongqing">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.dalian">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.delhi">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.dnepro">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.dubai">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.ekb">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.fukuoka">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.glasgow">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.guangzhou">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.hamburg">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.helsinki">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.hiroshima">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.isfahan">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.istanbul">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.izmir">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.kazan">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.kharkiv">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.kiev">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.kobe">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.kolkata">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.kunming">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.kyoto">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.la">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.lausanne">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.lille">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.lima">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.lisboa">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.london">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.lyon">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.madrid">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.malaga">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.manila">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.maracaibo">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.mashhad">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.mecca">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.medellin">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.mexico">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.milan">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.minsk">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.montreal">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.moscow">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.munchen">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.nagoya">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.newyork">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.nnov">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.novosibirsk">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.osaka">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.oslo">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.palma">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.panama">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.paris">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.philadelphia">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.pyongyang">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.rennes">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.rio">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.roma">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.rotterdam">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.samara">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.santiago">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.santo_domingo">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.saopaulo">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.sapporo">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.sendai">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.sf">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.shanghai">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.shiraz">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.sofia">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.spb">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.stockholm">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.tabriz">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.taipei">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.taoyuan">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.tashkent">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.tbilisi">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.tianjin">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.tokyo">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.valencia">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.vienna">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.warszawa">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.washington">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.wuhan">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.yerevan">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.yokohama">U-Bahn-Station</string>
 	<string name="type.railway.subway">U-Bahn</string>
 	<string name="type.railway.subway.bridge">U-Bahn-Brücke</string>
 	<string name="type.railway.subway.tunnel">U-Bahn-Tunnel</string>
@@ -1554,6 +1601,7 @@
 	<string name="type.railway.subway_entrance.beijing">U-Bahn-Eingang</string>
 	<string name="type.railway.subway_entrance.bengalore">U-Bahn-Eingang</string>
 	<string name="type.railway.subway_entrance.berlin">U-Bahn-Eingang</string>
+	<string name="type.railway.subway_entrance.bilbao">U-Bahn-Eingang</string>
 	<string name="type.railway.subway_entrance.brasilia">U-Bahn-Eingang</string>
 	<string name="type.railway.subway_entrance.brescia">U-Bahn-Eingang</string>
 	<string name="type.railway.subway_entrance.brussels">U-Bahn-Eingang</string>
@@ -1663,17 +1711,20 @@
 	<string name="type.shop">Geschäft</string>
 	<string name="type.shop.alcohol">Spirituosengeschäft</string>
 	<string name="type.shop.bakery">Bäckerei</string>
+	<string name="type.shop.bathroom_furnishing">Badezimmerausstattung</string>
 	<string name="type.shop.beauty">Schönheitssalon</string>
 	<string name="type.shop.beverages">Getränkemarkt</string>
 	<string name="type.shop.bicycle">Fahrradladen</string>
 	<string name="type.shop.bookmaker">Wettbüro</string>
 	<string name="type.shop.books">Buchhandlung</string>
 	<string name="type.shop.butcher">Metzgerei</string>
+	<string name="type.shop.cannabis">Cannabis-Laden</string>
 	<string name="type.shop.car">Autohaus</string>
 	<string name="type.shop.car_parts">Autoteile</string>
 	<string name="type.shop.car_repair">Autowerkstatt</string>
 	<string name="type.shop.car_repair.tyres">Reifenservice</string>
 	<string name="type.shop.caravan">Wohnmobilhändler</string>
+	<string name="type.shop.carpet">Teppichgeschäft</string>
 	<string name="type.shop.chemist">Drogerie</string>
 	<string name="type.shop.chocolate">Schokoladengeschäft</string>
 	<string name="type.shop.clothes">Bekleidungsgeschäft</string>
@@ -1683,6 +1734,7 @@
 	<string name="type.shop.convenience">Gemischtwarenladen</string>
 	<string name="type.shop.copyshop">Kopierladen</string>
 	<string name="type.shop.cosmetics">Kosmetikgeschäft</string>
+	<string name="type.shop.curtain">Gardinengeschäft</string>
 	<string name="type.shop.deli">Feinkostladen</string>
 	<string name="type.shop.department_store">Kaufhaus</string>
 	<string name="type.shop.doityourself">Baumarkt</string>
@@ -1691,16 +1743,20 @@
 	<string name="type.shop.erotic">Erotikladen</string>
 	<string name="type.shop.fabric">Textilgeschäft</string>
 	<string name="type.shop.farm">Hofladen</string>
+	<string name="type.shop.fashion_accessories">Mode-Accessoires</string>
 	<string name="type.shop.florist">Florist</string>
 	<string name="type.shop.funeral_directors">Bestattungsinstitut</string>
 	<string name="type.shop.furniture">Möbelhaus</string>
 	<string name="type.shop.garden_centre">Gärtnerei</string>
+	<string name="type.shop.gas">Gasspeicher</string>
 	<string name="type.shop.gift">Geschenkeladen</string>
 	<string name="type.shop.greengrocer">Gemüseladen</string>
 	<string name="type.shop.grocery">Lebensmittelgeschäft</string>
 	<string name="type.shop.hairdresser">Friseur</string>
 	<string name="type.shop.hardware">Baumarkt</string>
 	<string name="type.shop.health_food">Reformhaus</string>
+	<string name="type.shop.herbalist">Kräuterladen</string>
+	<string name="type.shop.hifi">HiFi-Audio</string>
 	<string name="type.shop.houseware">Haushaltswarengeschäft</string>
 	<string name="type.shop.jewelry">Juwelier</string>
 	<string name="type.shop.kitchen">Küchengeschäft</string>
@@ -1710,14 +1766,17 @@
 	<string name="type.shop.mobile_phone">Handyladen</string>
 	<string name="type.shop.money_lender">Geldverleiher</string>
 	<string name="type.shop.motorcycle">Motorradladen</string>
+	<string name="type.shop.motorcycle_repair">Motorradwerkstatt</string>
 	<string name="type.shop.music">Musikgeschäft</string>
 	<string name="type.shop.musical_instrument">Musikinstrumenteladen</string>
 	<string name="type.shop.newsagent">Zeitungsstand</string>
 	<string name="type.shop.optician">Optiker</string>
 	<string name="type.shop.outdoor">Outdoor-Ausrüstung</string>
+	<string name="type.shop.outpost">Abholpunkt</string>
 	<string name="type.shop.pastry">Konditorei</string>
 	<string name="type.shop.pawnbroker">Pfandleihe</string>
 	<string name="type.shop.pet">Tierhandlung</string>
+	<string name="type.shop.pet_grooming">Haustierpflege</string>
 	<string name="type.shop.photo">Fotofachgeschäft</string>
 	<string name="type.shop.seafood">Fischhändler</string>
 	<string name="type.shop.second_hand">Second-Hand-Laden</string>
@@ -1735,10 +1794,13 @@
 	<string name="type.shop.video">Videothek</string>
 	<string name="type.shop.video_games">Gameshop</string>
 	<string name="type.shop.wine">Weinhandlung</string>
+	<string name="type.shop.agrarian">Landwirtschaftliches Geschäft</string>
 	<string name="type.shop.antiques">Antiquitäten</string>
+	<string name="type.shop.appliance">Laden für Haushaltsgeräte</string>
 	<string name="type.shop.art">Kunstgeschäft</string>
 	<string name="type.shop.baby_goods">Babybedarf</string>
 	<string name="type.shop.bag">Taschen Shop</string>
+	<string name="type.shop.bed">Bettengeschäft</string>
 	<string name="type.shop.boutique">Boutique</string>
 	<string name="type.shop.charity">Wohltätigkeitsladen</string>
 	<string name="type.shop.cheese">Käseladen</string>
@@ -1797,7 +1859,7 @@
 	<string name="type.tourism.alpine_hut">Berghütte</string>
 	<string name="type.tourism.apartment">Ferienwohnung</string>
 	<string name="type.tourism.artwork">Kunstwerk</string>
-	<string name="type.tourism.artwork.architecture">Kunstwerk</string>
+	<string name="type.tourism.artwork.architecture">Architektonisches Kunstwerk</string>
 	<string name="type.tourism.artwork.painting">Gemälde</string>
 	<string name="type.tourism.artwork.sculpture">Skulptur</string>
 	<string name="type.tourism.artwork.statue">Statue</string>

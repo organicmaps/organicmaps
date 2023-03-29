@@ -14,6 +14,7 @@ import app.organicmaps.R;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.routing.RoutingInfo;
 import app.organicmaps.sound.TtsPlayer;
+import app.organicmaps.util.log.Logger;
 import app.organicmaps.widget.FlatProgressView;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.StringUtils;
@@ -49,12 +50,21 @@ public class NavMenu
 
   private int currentPeekHeight = 0;
 
-  public NavMenu(AppCompatActivity activity, NavMenuListener navMenuListener)
+
+  public interface OnMenuSizeChangedListener
+  {
+    void OnMenuSizeChange();
+  }
+
+  private final OnMenuSizeChangedListener mOnMenuSizeChangedListener;
+
+  public NavMenu(AppCompatActivity activity, NavMenuListener navMenuListener, OnMenuSizeChangedListener onMenuSizeChangedListener)
   {
     mActivity = activity;
     mNavMenuListener = navMenuListener;
     final View bottomFrame = mActivity.findViewById(R.id.nav_bottom_frame);
     mHeaderFrame = bottomFrame.findViewById(R.id.line_frame);
+    mOnMenuSizeChangedListener = onMenuSizeChangedListener;
     mHeaderFrame.setOnClickListener(v -> toggleNavMenu());
     mHeaderFrame.addOnLayoutChangeListener((view, i, i1, i2, i3, i4, i5, i6, i7) -> setPeekHeight());
     mNavBottomSheetBehavior = BottomSheetBehavior.from(mActivity.findViewById(R.id.nav_bottom_sheet));
@@ -138,6 +148,7 @@ public class NavMenu
     {
       currentPeekHeight = headerHeight;
       mNavBottomSheetBehavior.setPeekHeight(currentPeekHeight);
+      mOnMenuSizeChangedListener.OnMenuSizeChange();
     }
   }
 

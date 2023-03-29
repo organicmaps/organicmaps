@@ -226,6 +226,9 @@
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D 建築";
 
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "3D 建築在省電模式下關閉";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "語音指示";
 
@@ -304,7 +307,7 @@
 "donate" = "捐";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "如何支持我們？";
+"how_to_support_us" = "支持項目";
 
 /* Button in the main Help dialog */
 "copyright" = "版權";
@@ -710,8 +713,8 @@
 
 "editor_storey_number" = "樓層數（最大 %d）";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "編輯最多 25 層的建築";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "編輯最多 %d 層的建築";
 
 "editor_zip_code" = "郵遞區號";
 
@@ -1236,6 +1239,9 @@
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/";
 
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
 
 /********** Types **********/
 
@@ -1243,7 +1249,7 @@
 
 "type.aerialway.cable_car" = "纜車";
 
-"type.aerialway.chair_lift" = "Chair lift";
+"type.aerialway.chair_lift" = "Chair Lift";
 
 "type.aerialway.drag_lift" = "纜車要素";
 
@@ -1311,7 +1317,9 @@
 
 "type.amenity.charging_station" = "充電站";
 
-"type.amenity.charging_station.motorcar" = "充電站";
+"type.amenity.charging_station.bicycle" = "自行車充電站";
+
+"type.amenity.charging_station.motorcar" = "汽車充電站";
 
 "type.amenity.childcare" = "保育";
 
@@ -1334,6 +1342,8 @@
 "type.amenity.drinking_water" = "飲用水";
 
 "type.amenity.driving_school" = "駕訓班";
+
+"type.amenity.money_transfer" = "匯款";
 
 "type.amenity.music_school" = "音樂學校";
 
@@ -1370,6 +1380,8 @@
 "type.amenity.kindergarten" = "幼兒園";
 
 "type.amenity.library" = "圖書館";
+
+"type.amenity.loading_dock" = "裝卸碼頭";
 
 "type.amenity.marketplace" = "市場";
 
@@ -1653,6 +1665,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "空調設備";
 
+"type.craft.key_cutter" = "鍵切割";
+
+"type.craft.locksmith" = "鎖匠";
+
 "type.craft.metal_construction" = "鐵工";
 
 "type.craft.painter" = "油漆工";
@@ -1849,11 +1865,31 @@
 
 "type.emergency.phone" = "緊急電話";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "入口";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "主要入口";
 
 "type.healthcare.laboratory" = "醫學實驗室";
 
 "type.healthcare.physiotherapist" = "物理治療師";
+
+"type.healthcare.alternative" = "替代藥物";
+
+"type.healthcare.audiologist" = "聽力學";
+
+"type.healthcare.blood_donation" = "捐血中心";
+
+"type.healthcare.optometrist" = "驗光";
+
+"type.healthcare.podiatrist" = "足病學";
+
+"type.healthcare.psychotherapist" = "心理治療";
+
+"type.healthcare.sample_collection" = "採樣";
+
+"type.healthcare.speech_therapist" = "言語治療";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1905,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "隧道";
+
+"type.highway.busway" = "巴士專用道";
 
 "type.highway.bus_stop" = "巴士站";
 
@@ -2305,7 +2343,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "堆積場";
 
@@ -2323,9 +2361,9 @@
 
 "type.landuse.reservoir" = "水庫";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 
@@ -2430,6 +2468,8 @@
 "type.man_made.surveillance" = "監控攝影機";
 
 "type.man_made.tower" = "塔";
+
+"type.man_made.tower.communication" = "通訊塔";
 
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
@@ -2623,11 +2663,31 @@
 
 "type.power.generator" = "Generator";
 
+"type.power.generator.solar" = "太陽能發電機";
+
+"type.power.generator.wind" = "風力發電機";
+
+"type.power.generator.gas" = "燃氣輪機發電廠";
+
+"type.power.generator.hydro" = "水力發電廠";
+
 "type.power.line" = "Power Line";
 
 "type.power.line.underground" = "Underground Power Line";
 
 "type.power.minor_line" = "Minor Power Line";
+
+"type.power.plant" = "發電廠";
+
+"type.power.plant.coal" = "燃煤電廠";
+
+"type.power.plant.gas" = "燃氣輪機發電廠";
+
+"type.power.plant.hydro" = "水力發電廠";
+
+"type.power.plant.solar" = "太陽能發電廠";
+
+"type.power.plant.wind" = "風力發電廠";
 
 "type.power.pole" = "電塔";
 
@@ -2754,6 +2814,8 @@
 "type.railway.station.subway.bengalore" = "捷運站";
 
 "type.railway.station.subway.berlin" = "捷運站";
+
+"type.railway.station.subway.bilbao" = "捷運站";
 
 "type.railway.station.subway.brasilia" = "捷運站";
 
@@ -2979,6 +3041,8 @@
 
 "type.railway.subway_entrance.berlin" = "地鐵入口";
 
+"type.railway.subway_entrance.bilbao" = "地鐵入口";
+
 "type.railway.subway_entrance.brasilia" = "地鐵入口";
 
 "type.railway.subway_entrance.brescia" = "地鐵入口";
@@ -3197,6 +3261,8 @@
 
 "type.shop.bakery" = "麵包店";
 
+"type.shop.bathroom_furnishing" = "衛浴擺設";
+
 "type.shop.beauty" = "美容院";
 
 "type.shop.beverages" = "飲料";
@@ -3209,6 +3275,8 @@
 
 "type.shop.butcher" = "肉商";
 
+"type.shop.cannabis" = "大麻商店";
+
 "type.shop.car" = "買車";
 
 "type.shop.car_parts" = "汽車零件";
@@ -3218,6 +3286,8 @@
 "type.shop.car_repair.tyres" = "輪胎修補";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "地毯";
 
 "type.shop.chemist" = "藥妝店";
 
@@ -3237,6 +3307,8 @@
 
 "type.shop.cosmetics" = "化妆品";
 
+"type.shop.curtain" = "窗簾";
+
 "type.shop.deli" = "熟食店";
 
 "type.shop.department_store" = "百貨公司";
@@ -3253,6 +3325,8 @@
 
 "type.shop.farm" = "農場食品店";
 
+"type.shop.fashion_accessories" = "時尚配飾";
+
 "type.shop.florist" = "花店";
 
 "type.shop.funeral_directors" = "葬儀社";
@@ -3260,6 +3334,8 @@
 "type.shop.furniture" = "家具店";
 
 "type.shop.garden_centre" = "園藝店";
+
+"type.shop.gas" = "煤氣庫";
 
 "type.shop.gift" = "禮品店";
 
@@ -3272,6 +3348,10 @@
 "type.shop.hardware" = "五金店";
 
 "type.shop.health_food" = "保健食品店";
+
+"type.shop.herbalist" = "香草店";
+
+"type.shop.hifi" = "高保真音響";
 
 "type.shop.houseware" = "家居用品店";
 
@@ -3293,6 +3373,8 @@
 
 "type.shop.motorcycle" = "機車行";
 
+"type.shop.motorcycle_repair" = "摩托車維修";
+
 "type.shop.music" = "購物";
 
 "type.shop.musical_instrument" = "購物";
@@ -3303,11 +3385,15 @@
 
 "type.shop.outdoor" = "室外設備";
 
+"type.shop.outpost" = "接送的地點";
+
 "type.shop.pastry" = "糕點";
 
 "type.shop.pawnbroker" = "當舖";
 
 "type.shop.pet" = "寵物店";
+
+"type.shop.pet_grooming" = "寵物美容";
 
 "type.shop.photo" = "照片店";
 
@@ -3343,13 +3429,19 @@
 
 "type.shop.wine" = "販酒處";
 
+"type.shop.agrarian" = "農產品店";
+
 "type.shop.antiques" = "古董";
+
+"type.shop.appliance" = "家電店";
 
 "type.shop.art" = "藝術商店";
 
 "type.shop.baby_goods" = "兒童商店";
 
 "type.shop.bag" = "箱包店";
+
+"type.shop.bed" = "床鋪";
 
 "type.shop.boutique" = "精品店";
 

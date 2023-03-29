@@ -16,7 +16,7 @@
 #include <limits>
 #include <vector>
 
-namespace
+namespace maxspeeds_test
 {
 using namespace measurement_utils;
 using namespace routing;
@@ -235,4 +235,4 @@ UNIT_TEST(Maxspeed_Smoke)
     TEST_EQUAL(maxspeed.GetSpeedKmPH(false /* forward */), 40, ());
   }
 }
-}  // namespace
+}  // namespace maxspeeds_test

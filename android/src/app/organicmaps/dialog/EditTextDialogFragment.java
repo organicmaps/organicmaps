@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmDialogFragment;
@@ -122,7 +123,7 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
       negativeButtonText = args.getString(ARG_NEGATIVE_BUTTON);
     }
 
-    AlertDialog editTextDialog = new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
+    AlertDialog editTextDialog = new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
         .setView(buildView())
         .setNegativeButton(negativeButtonText, null)
         .setPositiveButton(positiveButtonText, (dialog, which) -> {
@@ -156,7 +157,7 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
     {
       Option<String> maybeError = mInputValidator.validate(activity, input);
       mPositiveButton.setEnabled(!maybeError.hasValue());
-      mEtInputLayout.setError(maybeError.getOrElse(null));
+      mEtInputLayout.getEditText().setError(maybeError.getOrElse(null));
     }
   }
 

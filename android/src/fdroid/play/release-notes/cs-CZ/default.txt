@@ -1,10 +1,1 @@
-• Nová OpenStreetMap data z 16. prosince 2022
-• Vyřešen pád v režimu rozdělené obrazovky & při otočení obrazovky
-• Podpora KML 2.3 s několika stezkami z OpenTracks
-• Vyladěné směrovací velikosti pro všechny typy cest
-• Odstraněné otravné dialogy když je vypnuta lokace
-• Vylepšené ikonky v Tmavém režimu
-• Odstraněné duplikované názvy ze světové mapy
-• Upravené hranice měst ve výsledcích vyhledávání
-• TTS (Text-To-Speech) pro brazilštinu, mexickou španělštinu, a norštinu
-Více na omaps.app/news
+../../listings/cs-CZ/release-notes.txt

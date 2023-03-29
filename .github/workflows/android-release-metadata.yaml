@@ -23,15 +23,6 @@ jobs:
           ref: master
           path: screenshots
 
-      # This symlink is not stored in the repo because Linter checks fail for the FDroid build.
-      # Linter complains about an invalid symlink (we don't check out screenshots for FDroid).
-      - name: Create symlink for GP screenshots
-        shell: bash
-        run: |
-          for locale in en-US tr-TR; do
-             ln -sf ../../../../../../screenshots/android/${locale}/graphics android/src/google/play/listings/${locale}/graphics
-          done
-
       - name: Checkout private keys
         uses: actions/checkout@v3
         with:
@@ -48,6 +39,6 @@ jobs:
 
       - name: Upload
         shell: bash
-        run: ./gradlew publishGoogleReleaseListing
+        run: ./gradlew prepareGoogleReleaseListing publishGoogleReleaseListing
         working-directory: android
         timeout-minutes: 5

@@ -6,6 +6,7 @@
 <b>Vaše zpětná vazba a pětihvězdičková hodnocení jsou pro nás tou nejlepší motivací!</b>
 
 Klíčové funkce:
+
 • Zdarma, open-source, bez reklam, bez sledování.
 • Podrobné offline mapy s místy, která na mapách Google neexistují, díky komunitě <b>OpenStreetMap</b>.
 • Cyklistické trasy, turistické stezky a pěší trasy

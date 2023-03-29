@@ -55,7 +55,7 @@ static_assert(std::size(kNameScore) == static_cast<size_t>(NameScore::COUNT));
 double constexpr kType[] = {
   0,          // POI
   0,          // Complex POI
-  0.007,      // Building, to compensate max(kStreetType)
+  0.007,      // Building, to compensate max(kStreetType), see Arbat_Address test.
   0,          // Street
   0,          // Suburb
  -0.02,       // Unclassified
@@ -68,27 +68,29 @@ static_assert(std::size(kType) == static_cast<size_t>(Model::TYPE_COUNT));
 
 // 0-based factors from General.
 double constexpr kPoiType[] = {
-  0.0338794 /* TransportMajor */,
-  0.01 /* TransportLocal */,
-  0.01 /* Eat */,
-  0.01 /* Hotel */,
-  0.01 /* Shop */,
-  0.01 /* Attraction */,
- -0.01 /* Service */,
-  0 /* General */
+  0.03,       // TransportMajor
+  0.003,      // TransportLocal (0 < it < Residential st)
+  0.01,       // Eat
+  0.01,       // Hotel
+  0.01,       // Shop
+  0.01,       // Attraction
+ -0.01,       // Service
+  0,          // General
 };
 static_assert(std::size(kPoiType) == base::Underlying(PoiType::Count));
 
 double constexpr kStreetType[] = {
-  0 /* Default */,
-  0 /* Pedestrian */,
-  0 /* Cycleway */,
-  0 /* Outdoor */,
-  0.004 /* Residential */,
-  0.005 /* Regular */,
-  0.006 /* Motorway */,
+  0,          // Default
+  0,          // Pedestrian
+  0,          // Cycleway
+  0,          // Outdoor
+  0.004,      // Residential
+  0.005,      // Regular
+  0.006,      // Motorway
 };
 static_assert(std::size(kStreetType) == base::Underlying(StreetType::Count));
+
+static_assert(kType[Model::TYPE_BUILDING] > kStreetType[StreetType::Motorway]);
 
 // Coeffs sanity checks.
 static_assert(kHasName >= 0, "");
@@ -266,12 +268,12 @@ double RankingInfo::GetLinearModelRank() const
     result += kFalseCats * (m_falseCats ? 1 : 0);
 
     ASSERT(m_type < Model::TYPE_COUNT, ());
-    result += kType[m_type];
+    result += kType[GetTypeScore()];
 
     if (Model::IsPoi(m_type))
     {
       CHECK_LESS(m_classifType.poi, PoiType::Count, ());
-      result += kPoiType[base::Underlying(GetPoiType())];
+      result += kPoiType[base::Underlying(GetPoiTypeScore())];
     }
     else if (m_type == Model::TYPE_STREET)
     {
@@ -330,7 +332,12 @@ NameScore RankingInfo::GetNameScore() const
   return m_nameScore;
 }
 
-PoiType RankingInfo::GetPoiType() const
+Model::Type RankingInfo::GetTypeScore() const
+{
+  return (m_pureCats && m_type == Model::TYPE_BUILDING ? Model::TYPE_UNCLASSIFIED : m_type);
+}
+
+PoiType RankingInfo::GetPoiTypeScore() const
 {
   // Do not increment score for category-only-matched results or subways will be _always_ on top otherwise.
   return (m_pureCats ? PoiType::General : m_classifType.poi);

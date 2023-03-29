@@ -201,7 +201,7 @@ final class AboutController: MWMViewController, UITableViewDataSource, UITableVi
         case 6: self.openUrl("https://facebook.com/OrganicMaps", inSafari: true)
         case 7: self.openUrl("https://twitter.com/OrganicMapsApp", inSafari: true)
         case 8: self.openUrl(L("instagram_url"), inSafari: true)
-        case 9: self.openUrl("https://wiki.openstreetmap.org/wiki/About_OpenStreetMap", inSafari: true)
+        case 9: self.openUrl(L("osm_wiki_about_url"), inSafari: true)
         default: fatalError("Invalid cell1 \(indexPath)")
       }
       // Third section.

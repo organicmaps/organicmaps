@@ -35,6 +35,17 @@
 	<string name="country_status_download_failed">Downloading har misslyckats</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Försök igen</string>
+	<string name="about_menu_title">Om Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Gratis för alla, gjorda med kärlek</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Inga annonser, ingen spårning, ingen datainsamling</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Sparar batteriet, använder inte bakgrundsdata</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Snabb, minimalistisk, inget skräp</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Open-källansökan skapad av entusiaster och frivilliga.</string>
 	<string name="connection_settings">Anslutningsinställningar</string>
 	<string name="close">Stäng</string>
 	<string name="unsupported_phone">Hårdvaruaccelererad OpenGL krävs. Din enhet stöds tyvärr inte.</string>
@@ -188,6 +199,8 @@
 	<string name="pref_map_3d_title">Perspektivvy</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D-byggnader</string>
+	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+	<string name="pref_map_3d_buildings_disabled_summary">3D-byggnader är avstängda i energisparläge</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Röstinstruktioner</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -217,7 +230,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Donera</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Hur stöder vi oss?</string>
+	<string name="how_to_support_us">Stöd projektet</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Copyright</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -419,7 +432,8 @@
 	<string name="editor_report_problem_other_title">Ett annat problem</string>
 	<string name="placepage_add_business_button">Lägg till organisation</string>
 	<string name="message_invalid_feature_position">Ett objekt kan inte placeras här</string>
-	<string name="osm_presentation">All kartdata kommer från OpenStreetMap-projektet. Det är som Wikipedia för kartor där du kan lägga till eller redigera platser, och de blir tillgängliga för miljontals användare över hela världen.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Kartografiska data från OpenStreetMap från och med %s. Det är som Wikipedia där du kan lägga till eller redigera platser för alla användare över hela världen.</string>
 	<string name="login_to_make_edits_visible">Logga in så att andra användare kan se de ändringar du gjort.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d av %2$d</string>
@@ -427,8 +441,8 @@
 	<string name="download_over_mobile_message">Detta kan vara mycket dyrt med vissa abonnemang och vid roaming.</string>
 	<string name="error_enter_correct_house_number">Ange korrekt husnummer</string>
 	<string name="editor_storey_number">Antal våningar (max %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Redigera byggnaden med max 25 våningar</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Redigera byggnaden med max %d våningar</string>
 	<string name="editor_zip_code">Postnr</string>
 	<string name="error_enter_correct_zip_code">Ange korrekt postnr</string>
 	<!-- Place Page title for long tap -->
@@ -685,7 +699,8 @@
 	<string name="type.amenity.car_wash">Biltvätt</string>
 	<string name="type.amenity.casino">Kasino</string>
 	<string name="type.amenity.charging_station">Laddstation</string>
-	<string name="type.amenity.charging_station.motorcar">Laddstation</string>
+	<string name="type.amenity.charging_station.bicycle">Laddningsstation för cykel</string>
+	<string name="type.amenity.charging_station.motorcar">Laddningsstation för bilar</string>
 	<string name="type.amenity.childcare">Barnomsorg</string>
 	<string name="type.amenity.cinema">Bio</string>
 	<string name="type.leisure.bowling_alley">Bowlinghall</string>
@@ -697,6 +712,7 @@
 	<string name="type.amenity.doctors">Läkarmottagning</string>
 	<string name="type.amenity.drinking_water">Dricksvatten</string>
 	<string name="type.amenity.driving_school">Körskola</string>
+	<string name="type.amenity.money_transfer">Pengaöverföring</string>
 	<string name="type.amenity.music_school">Musikskola</string>
 	<string name="type.amenity.language_school">Språkskola</string>
 	<string name="type.office.diplomatic">Ambassad</string>
@@ -715,6 +731,7 @@
 	<string name="type.amenity.internet_cafe">Internetkafé</string>
 	<string name="type.amenity.kindergarten">Förskola</string>
 	<string name="type.amenity.library">Bibliotek</string>
+	<string name="type.amenity.loading_dock">Lastkaj</string>
 	<string name="type.amenity.marketplace">Marknadsplats</string>
 	<string name="type.amenity.motorcycle_parking">Motorcykelparkering</string>
 	<string name="type.amenity.nightclub">Nattklubb</string>
@@ -810,6 +827,8 @@
 	<string name="type.craft.handicraft">Konsthantverk</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Vvs</string>
+	<string name="type.craft.key_cutter">Nyckelklippning</string>
+	<string name="type.craft.locksmith">Låssmed</string>
 	<string name="type.craft.metal_construction">Metallarbetare</string>
 	<string name="type.craft.painter">Målare</string>
 	<string name="type.craft.photographer">Fotograf</string>
@@ -905,15 +924,27 @@
 	<string name="type.cuisine.vietnamese">Vietnamesisk mat</string>
 	<string name="type.emergency.fire_hydrant">Brandpost</string>
 	<string name="type.emergency.phone">Nödtelefon</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Entré</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Huvudentré</string>
 	<string name="type.healthcare.laboratory">Medicinskt laboratorium</string>
 	<string name="type.healthcare.physiotherapist">Fysioterapeut</string>
+	<string name="type.healthcare.alternative">Alternativ medicin</string>
+	<string name="type.healthcare.audiologist">Audiologi</string>
+	<string name="type.healthcare.blood_donation">Centrum för blodgivning</string>
+	<string name="type.healthcare.optometrist">Optometri</string>
+	<string name="type.healthcare.podiatrist">Fotvård</string>
+	<string name="type.healthcare.psychotherapist">Psykoterapi</string>
+	<string name="type.healthcare.sample_collection">Provtagning</string>
+	<string name="type.healthcare.speech_therapist">Logopedics</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">Bro</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
+	<string name="type.highway.busway">Dedikerad bussväg</string>
 	<string name="type.highway.bus_stop">Busshållplats</string>
 	<string name="type.highway.construction">Väg under uppförande</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1148,6 +1179,7 @@
 	<string name="type.man_made.lighthouse">Fyr</string>
 	<string name="type.man_made.surveillance">Övervakningskamera</string>
 	<string name="type.man_made.tower">Torn</string>
+	<string name="type.man_made.tower.communication">Kommunikationstorn</string>
 	<string name="type.man_made.water_tap">Vattenkran</string>
 	<string name="type.man_made.water_tower">Vattentorn</string>
 	<string name="type.man_made.water_well">Brunn</string>
@@ -1231,6 +1263,16 @@
 	<string name="type.place.suburb">Förort</string>
 	<string name="type.place.town">Stad</string>
 	<string name="type.place.village">By</string>
+	<string name="type.power.generator.solar">Solgenerator</string>
+	<string name="type.power.generator.wind">Vindgenerator</string>
+	<string name="type.power.generator.gas">Gasturbinkraftverk</string>
+	<string name="type.power.generator.hydro">Vattenkraftverk</string>
+	<string name="type.power.plant">Kraftverk</string>
+	<string name="type.power.plant.coal">Kolkraftverk</string>
+	<string name="type.power.plant.gas">Gasturbinkraftverk</string>
+	<string name="type.power.plant.hydro">Vattenkraftverk</string>
+	<string name="type.power.plant.solar">Solkraftverk</string>
+	<string name="type.power.plant.wind">Vindkraftverk</string>
 	<string name="type.power.pole">Elstolpe</string>
 	<string name="type.power.substation">Ställverk</string>
 	<string name="type.power.tower">Elstolpe</string>
@@ -1254,6 +1296,7 @@
 	<string name="type.railway.station.subway.beijing">Tunnelbana</string>
 	<string name="type.railway.station.subway.bengalore">Tunnelbana</string>
 	<string name="type.railway.station.subway.berlin">Tunnelbana</string>
+	<string name="type.railway.station.subway.bilbao">Tunnelbana</string>
 	<string name="type.railway.station.subway.brasilia">Tunnelbana</string>
 	<string name="type.railway.station.subway.brescia">Tunnelbana</string>
 	<string name="type.railway.station.subway.brussels">Tunnelbana</string>
@@ -1363,6 +1406,7 @@
 	<string name="type.railway.subway_entrance.beijing">Tunnelbana entré</string>
 	<string name="type.railway.subway_entrance.bengalore">Tunnelbana entré</string>
 	<string name="type.railway.subway_entrance.berlin">Tunnelbana entré</string>
+	<string name="type.railway.subway_entrance.bilbao">Tunnelbana entré</string>
 	<string name="type.railway.subway_entrance.brasilia">Tunnelbana entré</string>
 	<string name="type.railway.subway_entrance.brescia">Tunnelbana entré</string>
 	<string name="type.railway.subway_entrance.brussels">Tunnelbana entré</string>
@@ -1463,15 +1507,18 @@
 	<string name="type.shop">Butik</string>
 	<string name="type.shop.alcohol">Spritaffär</string>
 	<string name="type.shop.bakery">Bageri</string>
+	<string name="type.shop.bathroom_furnishing">Badrumsinredning</string>
 	<string name="type.shop.beauty">Skönhetssalong</string>
 	<string name="type.shop.beverages">Drinkar</string>
 	<string name="type.shop.bicycle">Cykelaffär</string>
 	<string name="type.shop.books">Bokaffär</string>
 	<string name="type.shop.butcher">Slaktare</string>
+	<string name="type.shop.cannabis">Cannabisbutik</string>
 	<string name="type.shop.car">Bilåterförsäljare</string>
 	<string name="type.shop.car_parts">Bildelar</string>
 	<string name="type.shop.car_repair">Bilreparatör</string>
 	<string name="type.shop.car_repair.tyres">Däckverkstad</string>
+	<string name="type.shop.carpet">Mattor</string>
 	<string name="type.shop.chemist">Hushållskemikalier</string>
 	<string name="type.shop.chocolate">Butik</string>
 	<string name="type.shop.clothes">Klädbutik</string>
@@ -1481,6 +1528,7 @@
 	<string name="type.shop.convenience">Närbutik</string>
 	<string name="type.shop.copyshop">Kopieringsbutik</string>
 	<string name="type.shop.cosmetics">Kosmetika</string>
+	<string name="type.shop.curtain">Gardiner</string>
 	<string name="type.shop.deli">Delikatessbutik</string>
 	<string name="type.shop.department_store">Varuhus</string>
 	<string name="type.shop.doityourself">Järnhandel</string>
@@ -1489,16 +1537,20 @@
 	<string name="type.shop.erotic">Erotisk butik</string>
 	<string name="type.shop.fabric">Butik</string>
 	<string name="type.shop.farm">Gårdsmataffär</string>
+	<string name="type.shop.fashion_accessories">Modeaccessoarer</string>
 	<string name="type.shop.florist">Blomsteraffär</string>
 	<string name="type.shop.funeral_directors">Begravningsentreprenörer</string>
 	<string name="type.shop.furniture">Möbelaffär</string>
 	<string name="type.shop.garden_centre">Plantskola</string>
+	<string name="type.shop.gas">Gasaffär</string>
 	<string name="type.shop.gift">Presentaffär</string>
 	<string name="type.shop.greengrocer">Grönsakshandlare</string>
 	<string name="type.shop.grocery">Livsmedel</string>
 	<string name="type.shop.hairdresser">Frisör</string>
 	<string name="type.shop.hardware">Järnaffär</string>
 	<string name="type.shop.health_food">Hälsokostbutik</string>
+	<string name="type.shop.herbalist">Örter butik</string>
+	<string name="type.shop.hifi">HiFi ljud</string>
 	<string name="type.shop.houseware">Husgerådsbutik</string>
 	<string name="type.shop.jewelry">Smycken</string>
 	<string name="type.shop.kitchen">Köksbutik</string>
@@ -1508,14 +1560,17 @@
 	<string name="type.shop.mobile_phone">Mobilbutik</string>
 	<string name="type.shop.money_lender">Butik</string>
 	<string name="type.shop.motorcycle">Motorcykelaffär</string>
+	<string name="type.shop.motorcycle_repair">Motorcykel reparation</string>
 	<string name="type.shop.music">Butik</string>
 	<string name="type.shop.musical_instrument">Butik</string>
 	<string name="type.shop.newsagent">Tidningsstånd</string>
 	<string name="type.shop.optician">Optiker</string>
 	<string name="type.shop.outdoor">Fritidsutrustning</string>
+	<string name="type.shop.outpost">Mötesplats</string>
 	<string name="type.shop.pastry">Bakverk</string>
 	<string name="type.shop.pawnbroker">Pantbank</string>
 	<string name="type.shop.pet">Djuraffär</string>
+	<string name="type.shop.pet_grooming">Husdjursvård</string>
 	<string name="type.shop.photo">Fotoaffär</string>
 	<string name="type.shop.seafood">Fiskhandlare</string>
 	<string name="type.shop.second_hand">Andrahandsaffär</string>
@@ -1533,10 +1588,13 @@
 	<string name="type.shop.video">Video butik</string>
 	<string name="type.shop.video_games">Videospel butik</string>
 	<string name="type.shop.wine">Vinhandel</string>
+	<string name="type.shop.agrarian">Lantbruksbutik</string>
 	<string name="type.shop.antiques">Antikviteter</string>
+	<string name="type.shop.appliance">Vitvarubutik</string>
 	<string name="type.shop.art">Konstaffär</string>
 	<string name="type.shop.baby_goods">Barnbutik</string>
 	<string name="type.shop.bag">Väskor butik</string>
+	<string name="type.shop.bed">Sängbutik</string>
 	<string name="type.shop.boutique">Boutique</string>
 	<string name="type.shop.charity">Välgörenhetsbutik</string>
 	<string name="type.shop.cheese">Ostaffär</string>

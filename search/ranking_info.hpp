@@ -81,7 +81,8 @@ struct RankingInfo : public StoredRankingInfo
   double GetErrorsMadePerToken() const;
 
   NameScore GetNameScore() const;
-  PoiType GetPoiType() const;
+  Model::Type GetTypeScore() const;
+  PoiType GetPoiTypeScore() const;
 
   // Matched parts of the query.
   // todo(@m) Using TokenType instead of ModelType here would

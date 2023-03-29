@@ -226,6 +226,9 @@
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D eraikinak";
 
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "3D eraikinak itzalita daude energia aurrezteko moduan";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Ahots argibideak";
 
@@ -304,7 +307,7 @@
 "donate" = "Dohaintza eman";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Nola lagundu diguzu?";
+"how_to_support_us" = "Proiektuari laguntza ematea";
 
 /* Button in the main Help dialog */
 "copyright" = "Copyright";
@@ -710,8 +713,8 @@
 
 "editor_storey_number" = "Solairu kopurua (gehienez %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "Landare kopurua ez da 25etik gorakoa izan behar";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Landare kopurua ez da %detik gorakoa izan behar";
 
 "editor_zip_code" = "Posta kodea";
 
@@ -1236,6 +1239,9 @@
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/";
 
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
 
 /********** Types **********/
 
@@ -1311,7 +1317,9 @@
 
 "type.amenity.charging_station" = "Kargatzeko geltokia";
 
-"type.amenity.charging_station.motorcar" = "Kargatzeko geltokia";
+"type.amenity.charging_station.bicycle" = "Bizikletak kargatzeko geltokia";
+
+"type.amenity.charging_station.motorcar" = "Autoak kargatzeko geltokia";
 
 "type.amenity.childcare" = "Haurtzaindegia";
 
@@ -1334,6 +1342,8 @@
 "type.amenity.drinking_water" = "Ur edangarria";
 
 "type.amenity.driving_school" = "Autoeskola";
+
+"type.amenity.money_transfer" = "Diru transferentzia";
 
 "type.amenity.music_school" = "Musika Eskola";
 
@@ -1370,6 +1380,8 @@
 "type.amenity.kindergarten" = "Haurtzaindegia";
 
 "type.amenity.library" = "Liburutegia";
+
+"type.amenity.loading_dock" = "Kargatzeko kaia";
 
 "type.amenity.marketplace" = "Merkatua";
 
@@ -1653,6 +1665,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Aire girotua";
 
+"type.craft.key_cutter" = "Giltza-mozketa";
+
+"type.craft.locksmith" = "Sarrailagilea";
+
 "type.craft.metal_construction" = "Metalgintzako langilea";
 
 "type.craft.painter" = "Margolaria";
@@ -1849,11 +1865,31 @@
 
 "type.emergency.phone" = "Larrialdi zenbakia";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Sarrera";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Sarrera Nagusia";
 
 "type.healthcare.laboratory" = "Medikuntza laborategia";
 
 "type.healthcare.physiotherapist" = "Fisioterapeuta";
+
+"type.healthcare.alternative" = "Medikuntza alternatiboa";
+
+"type.healthcare.audiologist" = "Audiologia";
+
+"type.healthcare.blood_donation" = "Odol Emate Zentroa";
+
+"type.healthcare.optometrist" = "Optometria";
+
+"type.healthcare.podiatrist" = "Podologia";
+
+"type.healthcare.psychotherapist" = "Psikoterapia";
+
+"type.healthcare.sample_collection" = "Laginketa";
+
+"type.healthcare.speech_therapist" = "Logopedia";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1905,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunel";
+
+"type.highway.busway" = "Autobus errepidea";
 
 "type.highway.bus_stop" = "Autobus geltokia";
 
@@ -2305,7 +2343,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "Iraulketa";
 
@@ -2323,9 +2361,9 @@
 
 "type.landuse.reservoir" = "Arroa";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 
@@ -2430,6 +2468,8 @@
 "type.man_made.surveillance" = "Zaintza Kamera";
 
 "type.man_made.tower" = "Dorrea";
+
+"type.man_made.tower.communication" = "Komunikazio Dorrea";
 
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
@@ -2623,11 +2663,31 @@
 
 "type.power.generator" = "Generator";
 
+"type.power.generator.solar" = "Eguzki-sorgailua";
+
+"type.power.generator.wind" = "Sorgailu eolikoa";
+
+"type.power.generator.gas" = "Gas-turbinetako zentral elektrikoa";
+
+"type.power.generator.hydro" = "Zentral hidroelektrikoa";
+
 "type.power.line" = "Power Line";
 
 "type.power.line.underground" = "Underground Power Line";
 
 "type.power.minor_line" = "Minor Power Line";
+
+"type.power.plant" = "Elektrizitate-parkea";
+
+"type.power.plant.coal" = "Ikatz zentrala";
+
+"type.power.plant.gas" = "Gas-turbinetako zentral elektrikoa";
+
+"type.power.plant.hydro" = "Zentral hidroelektrikoa";
+
+"type.power.plant.solar" = "Eguzki-zentrala";
+
+"type.power.plant.wind" = "Zentral eolikoa";
 
 "type.power.pole" = "Zutabe elektrikoa";
 
@@ -2754,6 +2814,8 @@
 "type.railway.station.subway.bengalore" = "Metroa";
 
 "type.railway.station.subway.berlin" = "Metroa";
+
+"type.railway.station.subway.bilbao" = "Metroa";
 
 "type.railway.station.subway.brasilia" = "Metroa";
 
@@ -2979,6 +3041,8 @@
 
 "type.railway.subway_entrance.berlin" = "Metroko sarrera";
 
+"type.railway.subway_entrance.bilbao" = "Metroko sarrera";
+
 "type.railway.subway_entrance.brasilia" = "Metroko sarrera";
 
 "type.railway.subway_entrance.brescia" = "Metroko sarrera";
@@ -3197,6 +3261,8 @@
 
 "type.shop.bakery" = "Okindegia";
 
+"type.shop.bathroom_furnishing" = "Bainugelako altzariak";
+
 "type.shop.beauty" = "Apaindegia";
 
 "type.shop.beverages" = "Edariak";
@@ -3209,6 +3275,8 @@
 
 "type.shop.butcher" = "Harategia";
 
+"type.shop.cannabis" = "Cannabis denda";
+
 "type.shop.car" = "Autoen salmenta";
 
 "type.shop.car_parts" = "Autoen piezak";
@@ -3218,6 +3286,8 @@
 "type.shop.car_repair.tyres" = "Pneumatikoen konponketa";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "Alfonbrak";
 
 "type.shop.chemist" = "Botika";
 
@@ -3237,6 +3307,8 @@
 
 "type.shop.cosmetics" = "Produktu kosmetikoak";
 
+"type.shop.curtain" = "Gortinak";
+
 "type.shop.deli" = "Delicatesen Denda";
 
 "type.shop.department_store" = "Denda handiak";
@@ -3253,6 +3325,8 @@
 
 "type.shop.farm" = "Baserriko Janari Denda";
 
+"type.shop.fashion_accessories" = "Moda Osagarriak";
+
 "type.shop.florist" = "Loradenda";
 
 "type.shop.funeral_directors" = "Tanatorioa";
@@ -3260,6 +3334,8 @@
 "type.shop.furniture" = "Altzari denda";
 
 "type.shop.garden_centre" = "Haurtzaindegia";
+
+"type.shop.gas" = "Gas biltegia";
 
 "type.shop.gift" = "Denda";
 
@@ -3272,6 +3348,10 @@
 "type.shop.hardware" = "Hardware denda";
 
 "type.shop.health_food" = "Osasuneko Elikagaien Denda";
+
+"type.shop.herbalist" = "Belar denda";
+
+"type.shop.hifi" = "HiFi Audioa";
 
 "type.shop.houseware" = "Etxeko tresneria denda";
 
@@ -3293,6 +3373,8 @@
 
 "type.shop.motorcycle" = "Moto denda";
 
+"type.shop.motorcycle_repair" = "Motoen Konponketa";
+
 "type.shop.music" = "Denda";
 
 "type.shop.musical_instrument" = "Denda";
@@ -3303,11 +3385,15 @@
 
 "type.shop.outdoor" = "Ekipamendua";
 
+"type.shop.outpost" = "Jasotzeko puntua";
+
 "type.shop.pastry" = "Gozogintza";
 
 "type.shop.pawnbroker" = "Peoia";
 
 "type.shop.pet" = "Animali denda";
+
+"type.shop.pet_grooming" = "Animalien apainketa";
 
 "type.shop.photo" = "Argazkilaritza artikuluak";
 
@@ -3343,13 +3429,19 @@
 
 "type.shop.wine" = "Ardo-denda";
 
+"type.shop.agrarian" = "Nekazaritza denda";
+
 "type.shop.antiques" = "Antigoalekoak";
+
+"type.shop.appliance" = "Etxetresna elektrikoen denda";
 
 "type.shop.art" = "Arte Denda";
 
 "type.shop.baby_goods" = "Haurrentzako denda";
 
 "type.shop.bag" = "Poltsen Denda";
+
+"type.shop.bed" = "Ohe denda";
 
 "type.shop.boutique" = "Boutique";
 

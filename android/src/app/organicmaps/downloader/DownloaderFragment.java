@@ -203,6 +203,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
   }
 
   @Override
+  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3630
   public void onActivityResult(int requestCode, int resultCode, Intent data)
   {
     super.onActivityResult(requestCode, resultCode, data);

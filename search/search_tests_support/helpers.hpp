@@ -35,7 +35,14 @@ public:
   bool ResultsMatch(std::string const & query, Rules const & rules,
                     std::string const & locale = "en",
                     Mode mode = Mode::Everywhere);
+
+  bool OrderedResultsMatch(std::string const & query, Rules const & rules,
+                           std::string const & locale = "en",
+                           Mode mode = Mode::Everywhere);
+
   bool ResultsMatch(std::vector<Result> const & results, Rules const & rules);
+  bool OrderedResultsMatch(std::vector<Result> const & results, Rules const & rules);
+
   bool ResultsMatch(SearchParams const & params, Rules const & rules);
 
   bool IsResultMatches(Result const & result, Rule const & rule);

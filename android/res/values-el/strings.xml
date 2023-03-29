@@ -36,6 +36,17 @@
 	<string name="country_status_download_failed">Η λήψη απέτυχε</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Δοκιμάστε ξανά</string>
+	<string name="about_menu_title">Σχετικά με το Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Δωρεάν για όλους, φτιαγμένα με αγάπη</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Δεν υπάρχουν διαφημίσεις, χωρίς παρακολούθηση, χωρίς συλλογή δεδομένων</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Εξοικονομεί μπαταρία, δεν χρησιμοποιεί δεδομένα παρασκηνίου</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Γρήγορη, μινιμαλιστική, χωρίς σκουπίδια</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Εφαρμογή ανοιχτού κώδικα που δημιουργήθηκε από ενθουσιώδες και εθελοντές.</string>
 	<string name="connection_settings">Ρυθμίσεις σύνδεσης</string>
 	<string name="close">Κλείσιμο</string>
 	<string name="unsupported_phone">Η εφαρμογή απαιτεί OpenGL με επιτάχυνση υλικού. Δυστυχώς, η συσκευή σας δεν το υποστηρίζει.</string>
@@ -191,6 +202,8 @@
 	<string name="pref_map_3d_title">Προβολή προοπτικής</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">Τρισδιάστατα κτίρια</string>
+	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+	<string name="pref_map_3d_buildings_disabled_summary">Τα τρισδιάστατα κτίρια απενεργοποιούνται σε λειτουργία εξοικονόμησης ενέργειας</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Φωνητικές οδηγίες</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -220,7 +233,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Προσφέρω</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Πώς να μας υποστηρίξετε;</string>
+	<string name="how_to_support_us">Υποστηρίξτε το έργο</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Πνευματικά δικαιώματα</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -425,7 +438,8 @@
 	<string name="editor_report_problem_other_title">Διαφορετικό πρόβλημα</string>
 	<string name="placepage_add_business_button">Προσθήκη επιχείρησης</string>
 	<string name="message_invalid_feature_position">Δε μπορεί να εντοπιστεί αντικείμενο εδώ</string>
-	<string name="osm_presentation">Όλα τα δεδομένα χάρτη προέρχονται από το έργο OpenStreetMap. Μοιάζει με τη Wikipedia για χάρτες όπου μπορείτε να προσθέσετε ή να επεξεργαστείτε μέρη και γίνονται διαθέσιμα σε εκατομμύρια χρήστες σε όλο τον κόσμο.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Χαρτογραφικά δεδομένα από το OpenStreetMap από το %s. Είναι σαν τη Wikipedia όπου μπορείτε να προσθέσετε ή να επεξεργαστείτε θέσεις για όλους τους χρήστες του κόσμου.</string>
 	<string name="login_to_make_edits_visible">Συνδεθείτε ώστε άλλοι χρήστες να μπορούν να δουν τις αλλαγές που έχετε κάνει</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d από %2$d</string>
@@ -433,8 +447,8 @@
 	<string name="download_over_mobile_message">Αυτό μπορεί να είναι σημαντικά πιο ακριβό για μερικά πακέτα ή στην περίπτωση περιαγωγής</string>
 	<string name="error_enter_correct_house_number">Εισαγάγετε έναν έγκυρο αριθμό κτιρίου</string>
 	<string name="editor_storey_number">Αριθμός ορόφων (μέγιστο %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Ο αριθμός των ορόφων δεν πρέπει να υπερβαίνει τους 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Ο αριθμός των ορόφων δεν πρέπει να υπερβαίνει τους %d</string>
 	<string name="editor_zip_code">Ταχυδρομικός κώδικας</string>
 	<string name="error_enter_correct_zip_code">Πληκτρολογήστε έναν έγκυρο ταχυδρομικό κώδικα</string>
 	<!-- Place Page title for long tap -->
@@ -658,6 +672,8 @@
 	<string name="enable_screen_sleep_description">Όταν είναι ενεργοποιημένη, η οθόνη θα αφεθεί να κοιμηθεί μετά από περίοδο αδράνειας.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Δεδομένα χάρτη από το OpenStreetMap</string>
+	<!-- Link to OSM wiki for Editor, Profile and About pages -->
+	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/El:About_OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Τελεφερίκ</string>
@@ -688,7 +704,8 @@
 	<string name="type.amenity.car_wash">Καθαρισμός αυτοκινήτων</string>
 	<string name="type.amenity.casino">Καζίνο</string>
 	<string name="type.amenity.charging_station">Σταθμός φόρτισης</string>
-	<string name="type.amenity.charging_station.motorcar">Σταθμός φόρτισης</string>
+	<string name="type.amenity.charging_station.bicycle">Σταθμός φόρτισης ποδηλάτων</string>
+	<string name="type.amenity.charging_station.motorcar">Σταθμός φόρτισης αυτοκινήτων</string>
 	<string name="type.amenity.childcare">Βρεφικός σταθμός</string>
 	<string name="type.amenity.cinema">Κινηματογράφος</string>
 	<string name="type.leisure.bowling_alley">Αίθουσα σφαιρίσεως</string>
@@ -700,6 +717,7 @@
 	<string name="type.amenity.doctors">Γιατροί</string>
 	<string name="type.amenity.drinking_water">Πόσιμο νερό</string>
 	<string name="type.amenity.driving_school">Σχολή οδήγησης</string>
+	<string name="type.amenity.money_transfer">Μεταφορά χρημάτων</string>
 	<string name="type.amenity.music_school">Μουσική Σχολή</string>
 	<string name="type.amenity.language_school">Σχολή Γλωσσών</string>
 	<string name="type.office.diplomatic">Πρεσβεία</string>
@@ -718,6 +736,7 @@
 	<string name="type.amenity.internet_cafe">Καφετέρια με Ίντερνετ</string>
 	<string name="type.amenity.kindergarten">Νηπιαγωγείο</string>
 	<string name="type.amenity.library">Βιβλιοθήκη</string>
+	<string name="type.amenity.loading_dock">Αποβάθρα φόρτωσης</string>
 	<string name="type.amenity.marketplace">Αγορά</string>
 	<string name="type.amenity.motorcycle_parking">Χώρος στάθμευσης μοτοσικλετών</string>
 	<string name="type.amenity.nightclub">Νυχτερινό κέντρο διασκέδασης</string>
@@ -815,6 +834,8 @@
 	<string name="type.craft.handicraft">Χειροτεχνία</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Ψυκτικός</string>
+	<string name="type.craft.key_cutter">Κοπή κλειδιού</string>
+	<string name="type.craft.locksmith">Κλειδαράς</string>
 	<string name="type.craft.metal_construction">Μεταλλουργός</string>
 	<string name="type.craft.painter">Μπογιατζής</string>
 	<string name="type.craft.photographer">Φωτογράφος</string>
@@ -911,15 +932,27 @@
 	<string name="type.emergency.defibrillator">Πρώτες βοήθειες</string>
 	<string name="type.emergency.fire_hydrant">Πυροσβεστικός κρουνός</string>
 	<string name="type.emergency.phone">Τηλέφωνο έκτακτης ανάγκης</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Είσοδος</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Κύρια είσοδος</string>
 	<string name="type.healthcare.laboratory">Ιατρικό Εργαστήριο</string>
 	<string name="type.healthcare.physiotherapist">Φυσικοθεραπευτής</string>
+	<string name="type.healthcare.alternative">Εναλλακτική ιατρική</string>
+	<string name="type.healthcare.audiologist">Ακοολογία</string>
+	<string name="type.healthcare.blood_donation">Κέντρο αιμοδοσίας</string>
+	<string name="type.healthcare.optometrist">Οπτομετρία</string>
+	<string name="type.healthcare.podiatrist">Ποδιατρική</string>
+	<string name="type.healthcare.psychotherapist">Ψυχοθεραπεία</string>
+	<string name="type.healthcare.sample_collection">Δειγματοληψία</string>
+	<string name="type.healthcare.speech_therapist">Λογοθεραπεία</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">Γέφυρα</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Σήραγγα</string>
+	<string name="type.highway.busway">Αφιερωμένος δρόμος λεωφορείων</string>
 	<string name="type.highway.bus_stop">Στάση λεωφορείου</string>
 	<string name="type.highway.construction">Οδός υπό κατασκευή</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1157,6 +1190,7 @@
 	<string name="type.man_made.lighthouse">Φάρος</string>
 	<string name="type.man_made.surveillance">Κάμερα παρακολούθησης</string>
 	<string name="type.man_made.tower">Πύργος</string>
+	<string name="type.man_made.tower.communication">Πύργος Επικοινωνιών</string>
 	<string name="type.man_made.water_tap">Βρύση νερού</string>
 	<string name="type.man_made.water_tower">Υδατόπυργος</string>
 	<string name="type.man_made.water_well">Πηγάδι νερού</string>
@@ -1242,6 +1276,16 @@
 	<string name="type.place.suburb">Προάστιο</string>
 	<string name="type.place.town">Κωμόπολη</string>
 	<string name="type.place.village">Χωριό</string>
+	<string name="type.power.generator.solar">Ηλιακή γεννήτρια</string>
+	<string name="type.power.generator.wind">Ανεμογεννήτρια</string>
+	<string name="type.power.generator.gas">Μονάδα παραγωγής ηλεκτρικής ενέργειας αεριοστροβίλου</string>
+	<string name="type.power.generator.hydro">Υδροηλεκτρικό εργοστάσιο</string>
+	<string name="type.power.plant">Εργοστάσιο ηλεκτρισμού</string>
+	<string name="type.power.plant.coal">Εργοστάσιο παραγωγής ενέργειας από άνθρακα</string>
+	<string name="type.power.plant.gas">Μονάδα παραγωγής ηλεκτρικής ενέργειας αεριοστροβίλου</string>
+	<string name="type.power.plant.hydro">Υδροηλεκτρικό εργοστάσιο</string>
+	<string name="type.power.plant.solar">Ηλιακός σταθμός παραγωγής ενέργειας</string>
+	<string name="type.power.plant.wind">Αιολική μονάδα παραγωγής ενέργειας</string>
 	<string name="type.power.pole">Πυλώνες μεταφοράς ρεύματος</string>
 	<string name="type.power.substation">Υποσταθμός</string>
 	<string name="type.power.tower">Πυλώνες μεταφοράς ρεύματος</string>
@@ -1265,6 +1309,7 @@
 	<string name="type.railway.station.subway.beijing">Μετρό</string>
 	<string name="type.railway.station.subway.bengalore">Μετρό</string>
 	<string name="type.railway.station.subway.berlin">Μετρό</string>
+	<string name="type.railway.station.subway.bilbao">Μετρό</string>
 	<string name="type.railway.station.subway.brasilia">Μετρό</string>
 	<string name="type.railway.station.subway.brescia">Μετρό</string>
 	<string name="type.railway.station.subway.brussels">Μετρό</string>
@@ -1374,6 +1419,7 @@
 	<string name="type.railway.subway_entrance.beijing">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.bengalore">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.berlin">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.bilbao">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.brasilia">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.brescia">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.brussels">Είσοδος μετρό</string>
@@ -1474,16 +1520,19 @@
 	<string name="type.shop">Κατάστημα</string>
 	<string name="type.shop.alcohol">Κάβα</string>
 	<string name="type.shop.bakery">Αρτοποιείο</string>
+	<string name="type.shop.bathroom_furnishing">Έπιπλα μπάνιου</string>
 	<string name="type.shop.beauty">Σαλόνι αισθητικής</string>
 	<string name="type.shop.beverages">Οινοπνευματώδη</string>
 	<string name="type.shop.bicycle">Κατάστημα ποδηλάτων</string>
 	<string name="type.shop.bookmaker">Πράκτορας στοιχημάτων</string>
 	<string name="type.shop.books">Βιβλιοπωλείο</string>
 	<string name="type.shop.butcher">Κρεοπωλείο</string>
+	<string name="type.shop.cannabis">Κατάστημα κάνναβης</string>
 	<string name="type.shop.car">Αντιπροσωπεία αυτοκινήτων</string>
 	<string name="type.shop.car_parts">Εξαρτήματα αυτοκινήτου</string>
 	<string name="type.shop.car_repair">Συνεργείο αυτοκινήτων</string>
 	<string name="type.shop.car_repair.tyres">Βουλκανιζατέρ</string>
+	<string name="type.shop.carpet">Χαλιά</string>
 	<string name="type.shop.chemist">Χημικά προϊόντα</string>
 	<string name="type.shop.chocolate">Κατάστημα</string>
 	<string name="type.shop.clothes">Κατάστημα ρούχων</string>
@@ -1493,6 +1542,7 @@
 	<string name="type.shop.convenience">Ψιλικατζίδικο</string>
 	<string name="type.shop.copyshop">Φωτοτυπείο</string>
 	<string name="type.shop.cosmetics">Καλλυντικά</string>
+	<string name="type.shop.curtain">Κουρτίνες</string>
 	<string name="type.shop.deli">Κατάστημα Delicatessen</string>
 	<string name="type.shop.department_store">Πολυκατάστημα</string>
 	<string name="type.shop.doityourself">Είδη κιγκαλερίας</string>
@@ -1501,16 +1551,20 @@
 	<string name="type.shop.erotic">Κατάστημα ερωτικών ειδών</string>
 	<string name="type.shop.fabric">Κατάστημα</string>
 	<string name="type.shop.farm">Κατάστημα Αγροτικών Τροφίμων</string>
+	<string name="type.shop.fashion_accessories">Αξεσουάρ μόδας</string>
 	<string name="type.shop.florist">Ανθοπωλείο</string>
 	<string name="type.shop.funeral_directors">Γραφεία τελετών</string>
 	<string name="type.shop.furniture">Κατάστημα επίπλων</string>
 	<string name="type.shop.garden_centre">Κατάστημα ειδών κήπου</string>
+	<string name="type.shop.gas">Κατάστημα υγραερίου</string>
 	<string name="type.shop.gift">Είδη δώρου</string>
 	<string name="type.shop.greengrocer">Μανάβικο</string>
 	<string name="type.shop.grocery">Παντοπωλείο</string>
 	<string name="type.shop.hairdresser">Κομμωτής</string>
 	<string name="type.shop.hardware">Κατάστημα υλικού</string>
 	<string name="type.shop.health_food">Κατάστημα υγιεινής διατροφής</string>
+	<string name="type.shop.herbalist">Κατάστημα με βότανα</string>
+	<string name="type.shop.hifi">Ήχος HiFi</string>
 	<string name="type.shop.houseware">Κατάστημα οικιακών ειδών</string>
 	<string name="type.shop.jewelry">Κοσμηματοπωλείο</string>
 	<string name="type.shop.kiosk">Περίπτερο</string>
@@ -1521,14 +1575,17 @@
 	<string name="type.shop.mobile_phone">Κινητή Τηλεφωνία</string>
 	<string name="type.shop.money_lender">Κατάστημα</string>
 	<string name="type.shop.motorcycle">Κατάστημα μοτοσυκλετών</string>
+	<string name="type.shop.motorcycle_repair">Επισκευή μοτοσυκλετών</string>
 	<string name="type.shop.music">Κατάστημα</string>
 	<string name="type.shop.musical_instrument">Κατάστημα</string>
 	<string name="type.shop.newsagent">Εφημεριδοπώλης</string>
 	<string name="type.shop.optician">Κατάστημα οπτικών</string>
 	<string name="type.shop.outdoor">Εξοπλισμός υπαίθρου</string>
+	<string name="type.shop.outpost">Σημείο παραλαβής</string>
 	<string name="type.shop.pastry">Ζύμη</string>
 	<string name="type.shop.pawnbroker">Ενεχυροδανειστήριο</string>
 	<string name="type.shop.pet">Κατάστημα για κατοικίδια</string>
+	<string name="type.shop.pet_grooming">Περιποίηση κατοικίδιων ζώων</string>
 	<string name="type.shop.photo">Φωτογραφείο</string>
 	<string name="type.shop.seafood">Κατάστημα με θαλασσινά</string>
 	<string name="type.shop.second_hand">Κατάστημα μεταχειρισμένων</string>
@@ -1546,10 +1603,13 @@
 	<string name="type.shop.video">Βίντεο Κλαμπ</string>
 	<string name="type.shop.video_games">Κατάστημα βιντεοπαιχνιδιών</string>
 	<string name="type.shop.wine">Οινοπωλείο</string>
+	<string name="type.shop.agrarian">Αγροτικό κατάστημα</string>
 	<string name="type.shop.antiques">Αντίκες</string>
+	<string name="type.shop.appliance">Κατάστημα οικιακών συσκευών</string>
 	<string name="type.shop.art">Κατάστημα Τεχνών</string>
 	<string name="type.shop.baby_goods">Παιδικό κατάστημα</string>
 	<string name="type.shop.bag">Κατάστημα τσαντών</string>
+	<string name="type.shop.bed">Κατάστημα κρεβατιών</string>
 	<string name="type.shop.boutique">Μπουτίκ</string>
 	<string name="type.shop.charity">Φιλανθρωπικό κατάστημα</string>
 	<string name="type.shop.cheese">Τυροκομείο</string>

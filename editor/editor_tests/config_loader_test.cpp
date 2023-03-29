@@ -7,7 +7,7 @@
 
 #include "base/atomic_shared_ptr.hpp"
 
-#include "3party/pugixml/pugixml/src/pugixml.hpp"
+#include <pugixml.hpp>
 
 namespace
 {
@@ -16,11 +16,11 @@ using platform::tests_support::ScopedFile;
 
 void CheckGeneralTags(pugi::xml_document const & doc)
 {
-  auto const types = doc.select_nodes("/mapsme/editor/types");
+  auto const types = doc.select_nodes("/omaps/editor/types");
   TEST(!types.empty(), ());
-  auto const fields = doc.select_nodes("/mapsme/editor/fields");
+  auto const fields = doc.select_nodes("/omaps/editor/fields");
   TEST(!fields.empty(), ());
-  auto const preferred_types = doc.select_nodes("/mapsme/editor/preferred_types");
+  auto const preferred_types = doc.select_nodes("/omaps/editor/preferred_types");
   TEST(!preferred_types.empty(), ());
 }
 

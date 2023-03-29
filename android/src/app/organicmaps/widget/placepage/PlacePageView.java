@@ -3,98 +3,79 @@ package app.organicmaps.widget.placepage;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.location.Location;
-import android.text.Html;
+import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
-import android.text.util.Linkify;
-import android.util.AttributeSet;
-import android.util.Base64;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.widget.NestedScrollViewClickFixed;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.api.Const;
 import app.organicmaps.api.ParsedMwmRequest;
-import app.organicmaps.bookmarks.data.Bookmark;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.bookmarks.data.Metadata;
-import app.organicmaps.bookmarks.data.RoadWarningMarkType;
 import app.organicmaps.downloader.CountryItem;
 import app.organicmaps.downloader.DownloaderStatusIcon;
 import app.organicmaps.downloader.MapManager;
 import app.organicmaps.editor.Editor;
-import app.organicmaps.editor.OpeningHours;
-import app.organicmaps.editor.data.TimeFormatUtils;
-import app.organicmaps.editor.data.Timespan;
-import app.organicmaps.editor.data.Timetable;
 import app.organicmaps.location.LocationHelper;
+import app.organicmaps.location.LocationListener;
 import app.organicmaps.routing.RoutingController;
-import app.organicmaps.search.Popularity;
 import app.organicmaps.settings.RoadType;
-import app.organicmaps.widget.ArrowView;
-import app.organicmaps.util.Graphics;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.StringUtils;
-import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
-import app.organicmaps.util.Utils;
-import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.util.concurrency.UiThread;
-import app.organicmaps.util.log.Logger;
+import app.organicmaps.widget.ArrowView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
 
-public class PlacePageView extends NestedScrollViewClickFixed
-    implements View.OnClickListener,
-               View.OnLongClickListener,
-               EditBookmarkFragment.EditBookmarkListener
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
+public class PlacePageView extends Fragment implements View.OnClickListener,
+                                                       View.OnLongClickListener,
+                                                       PlacePageButtons.PlacePageButtonClickListener,
+                                                       LocationListener,
+                                                       Observer<MapObject>
 
 {
-  private static final String TAG = PlacePageView.class.getSimpleName();
-
   private static final String PREF_COORDINATES_FORMAT = "coordinates_format";
+  private static final String BOOKMARK_FRAGMENT_TAG = "BOOKMARK_FRAGMENT_TAG";
+  private static final String WIKIPEDIA_FRAGMENT_TAG = "WIKIPEDIA_FRAGMENT_TAG";
+  private static final String PHONE_FRAGMENT_TAG = "PHONE_FRAGMENT_TAG";
+  private static final String OPENING_HOURS_FRAGMENT_TAG = "OPENING_HOURS_FRAGMENT_TAG";
+  private static final String LINKS_FRAGMENT_TAG = "LINKS_FRAGMENT_TAG";
+
   private static final List<CoordinatesFormat> visibleCoordsFormat =
       Arrays.asList(CoordinatesFormat.LatLonDMS,
                     CoordinatesFormat.LatLonDecimal,
                     CoordinatesFormat.OLCFull,
                     CoordinatesFormat.OSMLink);
-
-  private boolean mIsDocked;
-  private boolean mIsFloating;
-  private int mDescriptionMaxLength;
-
+  private View mFrame;
   // Preview.
   private ViewGroup mPreview;
   private Toolbar mToolbar;
@@ -104,97 +85,31 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private ArrowView mAvDirection;
   private TextView mTvDistance;
   private TextView mTvAddress;
-
   // Details.
-  private ViewGroup mDetails;
-  private RecyclerView mPhoneRecycler;
-  private PlacePhoneAdapter mPhoneAdapter;
-  private View mWebsite;
-  private TextView mTvWebsite;
   private TextView mTvLatlon;
-  //Social links
-  private View mFacebookPage;
-  private TextView mTvFacebookPage;
-  private View mInstagramPage;
-  private TextView mTvInstagramPage;
-  private View mTwitterPage;
-  private TextView mTvTwitterPage;
-  private View mVkPage;
-  private TextView mTvVkPage;
-  private View mLinePage;
-  private TextView mTvLinePage;
-
-  private View mOpeningHours;
-  private TextView mTodayLabel;
-  private TextView mTodayOpenTime;
-  private TextView mTodayNonBusinessTime;
-  private RecyclerView mFullWeekOpeningHours;
-  private PlaceOpeningHoursAdapter mOpeningHoursAdapter;
   private View mWifi;
   private TextView mTvWiFi;
-  private View mEmail;
-  private TextView mTvEmail;
-  private View mWikimedia;
-  private TextView mTvWikimedia;
   private View mOperator;
   private TextView mTvOperator;
   private View mLevel;
   private TextView mTvLevel;
   private View mCuisine;
   private TextView mTvCuisine;
-  private View mWiki;
   private View mEntrance;
   private TextView mTvEntrance;
   private View mEditPlace;
   private View mAddOrganisation;
   private View mAddPlace;
   private View mEditTopSpace;
-  // Bookmark
-  private View mBookmarkFrame;
-  private WebView mWvBookmarkNote;
-  private TextView mTvBookmarkNote;
-  private boolean mBookmarkSet;
-  // Place page buttons
-  private PlacePageButtons mButtons;
-  private ImageView mBookmarkButtonIcon;
-  @Nullable
-  private View mBookmarkButtonFrame;
-
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private View mPlaceDescriptionContainer;
-
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
-  private View mPlaceDescriptionHeaderContainer;
-
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private TextView mPlaceDescriptionView;
-
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private View mPlaceDescriptionMoreBtn;
-
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private View mPopularityView;
 
   // Data
-  @Nullable
-  private MapObject mMapObject;
   private CoordinatesFormat mCoordsFormat = CoordinatesFormat.LatLonDecimal;
-
   // Downloader`s stuff
   private DownloaderStatusIcon mDownloaderIcon;
   private TextView mDownloaderInfo;
   private int mStorageCallbackSlot;
   @Nullable
   private CountryItem mCurrentCountry;
-  private boolean mScrollable = true;
-
-  private OnPlacePageContentChangeListener mOnPlacePageContentChangeListener;
-
   private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
   {
     @Override
@@ -218,120 +133,67 @@ public class PlacePageView extends NestedScrollViewClickFixed
         updateDownloader();
     }
   };
+  private PlacePageViewListener mPlacePageViewListener;
 
-  private final Runnable mDownloaderDeferredDetachProc = new Runnable()
+  private PlacePageViewModel mViewModel;
+  private MapObject mMapObject;
+
+  private static void refreshMetadataOrHide(String metadata, View metaLayout, TextView metaTv)
   {
-    @Override
-    public void run()
+    if (!TextUtils.isEmpty(metadata))
     {
-      detachCountry();
+      metaLayout.setVisibility(VISIBLE);
+      if (metaTv != null)
+        metaTv.setText(metadata);
     }
-  };
-  @NonNull
-  private final EditBookmarkClickListener mEditBookmarkClickListener = new EditBookmarkClickListener();
-
-  @NonNull
-  private final OnClickListener mDownloadClickListener = new OnClickListener()
-  {
-    @Override
-    public void onClick(View v)
-    {
-      MapManager.warn3gAndDownload(requireActivity(), mCurrentCountry.id, null);
-    }
-  };
-
-  @NonNull
-  private final OnClickListener mCancelDownloadListener = new OnClickListener()
-  {
-    @Override
-    public void onClick(View v)
-    {
-      MapManager.nativeCancel(mCurrentCountry.id);
-    }
-  };
-
-  @Nullable
-  private Closable mClosable;
-
-  @Nullable
-  private PlacePageGestureListener mPlacePageGestureListener;
-
-  @Nullable
-  private RoutingModeListener mRoutingModeListener;
-
-  void setScrollable(boolean scrollable)
-  {
-    mScrollable = scrollable;
+    else
+      metaLayout.setVisibility(GONE);
   }
 
-  void addPlacePageGestureListener(@NonNull PlacePageGestureListener ppGestureListener)
+  private static boolean isInvalidDownloaderStatus(int status)
   {
-    mPlacePageGestureListener = ppGestureListener;
+    return (status != CountryItem.STATUS_DOWNLOADABLE &&
+            status != CountryItem.STATUS_ENQUEUED &&
+            status != CountryItem.STATUS_FAILED &&
+            status != CountryItem.STATUS_PARTLY &&
+            status != CountryItem.STATUS_PROGRESS &&
+            status != CountryItem.STATUS_APPLYING);
   }
 
-  void addClosable(@NonNull Closable closable)
+  @Nullable
+  @Override
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
-    mClosable = closable;
+    mViewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
+    return inflater.inflate(R.layout.place_page, container, false);
   }
 
   @Override
-  public boolean onTouchEvent(MotionEvent ev)
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
-    switch (ev.getAction())
-    {
-      case MotionEvent.ACTION_DOWN:
-        return mScrollable && super.onTouchEvent(ev);
-      default:
-        return super.onTouchEvent(ev);
-    }
-  }
+    super.onViewCreated(view, savedInstanceState);
+    mCoordsFormat = CoordinatesFormat.fromId(
+        MwmApplication.prefs(requireContext()).getInt(
+            PREF_COORDINATES_FORMAT, CoordinatesFormat.LatLonDecimal.getId()));
 
-  @Override
-  public boolean onInterceptTouchEvent(MotionEvent event)
-  {
-    return mScrollable && super.onInterceptTouchEvent(event);
-  }
+    mFrame = view;
+    mFrame.setOnClickListener((v) -> mPlacePageViewListener.onPlacePageRequestToggleState());
 
-  public interface SetMapObjectListener
-  {
-    void onSetMapObjectComplete(boolean isSameObject);
-  }
-
-  public PlacePageView(Context context)
-  {
-    this(context, null, 0);
-  }
-
-  public PlacePageView(Context context, AttributeSet attrs)
-  {
-    this(context, attrs, 0);
-  }
-
-  public PlacePageView(Context context, AttributeSet attrs, int defStyleAttr)
-  {
-    super(context, attrs);
-    mCoordsFormat = CoordinatesFormat.fromId(MwmApplication.prefs(context).getInt(PREF_COORDINATES_FORMAT, CoordinatesFormat.LatLonDecimal.getId()));
-    init(attrs, defStyleAttr);
-  }
-
-  @Override
-  protected void onFinishInflate()
-  {
-    super.onFinishInflate();
-    mPreview = findViewById(R.id.pp__preview);
-    mPreview.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+    mPreview = mFrame.findViewById(R.id.pp__preview);
+    mFrame.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
       final int oldHeight = oldBottom - oldTop;
       final int newHeight = bottom - top;
       if (oldHeight != newHeight)
-        mPreview.post(() -> mOnPlacePageContentChangeListener.OnPlacePageContentChange());
+        mPlacePageViewListener.onPlacePageContentChanged(mPreview.getHeight(), newHeight);
     });
+
     mTvTitle = mPreview.findViewById(R.id.tv__title);
     mTvTitle.setOnLongClickListener(this);
     mTvTitle.setOnClickListener(this);
     mTvSecondaryTitle = mPreview.findViewById(R.id.tv__secondary_title);
     mTvSecondaryTitle.setOnLongClickListener(this);
     mTvSecondaryTitle.setOnClickListener(this);
-    mToolbar = findViewById(R.id.toolbar);
+    mToolbar = mFrame.findViewById(R.id.toolbar);
     mTvSubtitle = mPreview.findViewById(R.id.tv__subtitle);
 
     View directionFrame = mPreview.findViewById(R.id.direction_frame);
@@ -345,226 +207,150 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mTvAddress.setOnLongClickListener(this);
     mTvAddress.setOnClickListener(this);
 
-    mDetails = findViewById(R.id.pp__details_frame);
-    RelativeLayout address = findViewById(R.id.ll__place_name);
-    mPhoneRecycler = findViewById(R.id.rw__phone);
-    mPhoneAdapter = new PlacePhoneAdapter();
-    mPhoneRecycler.setAdapter(mPhoneAdapter);
-    mWebsite = findViewById(R.id.ll__place_website);
-    mWebsite.setOnClickListener(this);
-    mTvWebsite = findViewById(R.id.tv__place_website);
-    // Wikimedia Commons link
-    mWikimedia = findViewById(R.id.ll__place_wikimedia);
-    mTvWikimedia = findViewById(R.id.tv__place_wikimedia);
-    mWikimedia.setOnClickListener(this);
-    //Social links
-    mFacebookPage = findViewById(R.id.ll__place_facebook);
-    mFacebookPage.setOnClickListener(this);
-    mFacebookPage.setOnLongClickListener(this);
-    mTvFacebookPage = findViewById(R.id.tv__place_facebook_page);
+    RelativeLayout address = mFrame.findViewById(R.id.ll__place_name);
 
-    mInstagramPage = findViewById(R.id.ll__place_instagram);
-    mInstagramPage.setOnClickListener(this);
-    mInstagramPage.setOnLongClickListener(this);
-    mTvInstagramPage = findViewById(R.id.tv__place_instagram_page);
-
-    mTwitterPage = findViewById(R.id.ll__place_twitter);
-    mTwitterPage.setOnClickListener(this);
-    mTwitterPage.setOnLongClickListener(this);
-    mTvTwitterPage = findViewById(R.id.tv__place_twitter_page);
-
-    mVkPage = findViewById(R.id.ll__place_vk);
-    mVkPage.setOnClickListener(this);
-    mVkPage.setOnLongClickListener(this);
-    mTvVkPage = findViewById(R.id.tv__place_vk_page);
-
-    mLinePage = findViewById(R.id.ll__place_line);
-    mLinePage.setOnClickListener(this);
-    mLinePage.setOnLongClickListener(this);
-    mTvLinePage = findViewById(R.id.tv__place_line_page);
-    LinearLayout latlon = findViewById(R.id.ll__place_latlon);
+    LinearLayout latlon = mFrame.findViewById(R.id.ll__place_latlon);
     latlon.setOnClickListener(this);
-    mTvLatlon = findViewById(R.id.tv__place_latlon);
-    mOpeningHours = findViewById(R.id.ll__place_schedule);
-    mTodayLabel = findViewById(R.id.oh_today_label);
-    mTodayOpenTime = findViewById(R.id.oh_today_open_time);
-    mTodayNonBusinessTime = findViewById(R.id.oh_nonbusiness_time);
-    mFullWeekOpeningHours = findViewById(R.id.rw__full_opening_hours);
-    mOpeningHoursAdapter = new PlaceOpeningHoursAdapter();
-    mFullWeekOpeningHours.setAdapter(mOpeningHoursAdapter);
-    mWifi = findViewById(R.id.ll__place_wifi);
-    mTvWiFi = findViewById(R.id.tv__place_wifi);
-    mEmail = findViewById(R.id.ll__place_email);
-    mEmail.setOnClickListener(this);
-    mTvEmail = findViewById(R.id.tv__place_email);
-    mOperator = findViewById(R.id.ll__place_operator);
+    mTvLatlon = mFrame.findViewById(R.id.tv__place_latlon);
+    mWifi = mFrame.findViewById(R.id.ll__place_wifi);
+    mTvWiFi = mFrame.findViewById(R.id.tv__place_wifi);
+    mOperator = mFrame.findViewById(R.id.ll__place_operator);
     mOperator.setOnClickListener(this);
-    mTvOperator = findViewById(R.id.tv__place_operator);
-    mLevel = findViewById(R.id.ll__place_level);
-    mTvLevel = findViewById(R.id.tv__place_level);
-    mCuisine = findViewById(R.id.ll__place_cuisine);
-    mTvCuisine = findViewById(R.id.tv__place_cuisine);
-    mWiki = findViewById(R.id.ll__place_wiki);
-    mWiki.setOnClickListener(this);
-    mEntrance = findViewById(R.id.ll__place_entrance);
+    mTvOperator = mFrame.findViewById(R.id.tv__place_operator);
+    mLevel = mFrame.findViewById(R.id.ll__place_level);
+    mTvLevel = mFrame.findViewById(R.id.tv__place_level);
+    mCuisine = mFrame.findViewById(R.id.ll__place_cuisine);
+    mTvCuisine = mFrame.findViewById(R.id.tv__place_cuisine);
+    mEntrance = mFrame.findViewById(R.id.ll__place_entrance);
     mTvEntrance = mEntrance.findViewById(R.id.tv__place_entrance);
-    mEditPlace = findViewById(R.id.ll__place_editor);
+    mEditPlace = mFrame.findViewById(R.id.ll__place_editor);
     mEditPlace.setOnClickListener(this);
-    mAddOrganisation = findViewById(R.id.ll__add_organisation);
+    mAddOrganisation = mFrame.findViewById(R.id.ll__add_organisation);
     mAddOrganisation.setOnClickListener(this);
-    mAddPlace = findViewById(R.id.ll__place_add);
+    mAddPlace = mFrame.findViewById(R.id.ll__place_add);
     mAddPlace.setOnClickListener(this);
-    mEditTopSpace = findViewById(R.id.edit_top_space);
+    mEditTopSpace = mFrame.findViewById(R.id.edit_top_space);
     latlon.setOnLongClickListener(this);
     address.setOnLongClickListener(this);
-    mWebsite.setOnLongClickListener(this);
-    mWikimedia.setOnLongClickListener(this);
-    mOpeningHours.setOnLongClickListener(this);
-    mEmail.setOnLongClickListener(this);
     mOperator.setOnLongClickListener(this);
     mLevel.setOnLongClickListener(this);
-    mWiki.setOnLongClickListener(this);
-
-    mBookmarkFrame = findViewById(R.id.bookmark_frame);
-    mWvBookmarkNote = mBookmarkFrame.findViewById(R.id.wv__bookmark_notes);
-    final WebSettings settings = mWvBookmarkNote.getSettings();
-    settings.setJavaScriptEnabled(false);
-    settings.setDefaultTextEncodingName("UTF-8");
-    mTvBookmarkNote = mBookmarkFrame.findViewById(R.id.tv__bookmark_notes);
-    mTvBookmarkNote.setOnLongClickListener(this);
-    initEditMapObjectBtn();
 
     mDownloaderIcon = new DownloaderStatusIcon(mPreview.findViewById(R.id.downloader_status_frame));
 
     mDownloaderInfo = mPreview.findViewById(R.id.tv__downloader_details);
 
-    setElevation(UiUtils.dimen(getContext(), R.dimen.placepage_elevation));
-
-    if (UiUtils.isLandscape(getContext()))
-      setBackgroundResource(0);
-
-    initPlaceDescriptionView();
+    mMapObject = mViewModel.getMapObject().getValue();
   }
 
-  public void initButtons(@NonNull ViewGroup buttons)
+  @Override
+  public void onAttach(@NonNull Context context)
   {
-    mButtons = new PlacePageButtons(this, buttons, new PlacePageButtons.ItemListener()
+    super.onAttach(context);
+    mPlacePageViewListener = (MwmActivity) context;
+  }
+
+  @Override
+  public void onResume()
+  {
+    super.onResume();
+    mViewModel.getMapObject().observe(requireActivity(), this);
+    LocationHelper.INSTANCE.addListener(this);
+  }
+
+  @Override
+  public void onPause()
+  {
+    super.onPause();
+    // Unsubscribe from events as soon as the fragment becomes inactive
+    // to prevent unwanted side effects
+    mViewModel.getMapObject().removeObserver(this);
+    LocationHelper.INSTANCE.removeListener(this);
+  }
+
+  @Override
+  public void onStop()
+  {
+    super.onStop();
+    // Safely detach the country once the fragment is hidden from the user
+    // It is safer to call this here than in onPause as the app could go from onPause to
+    // onResume without killing the fragment.
+    // In this case we would not want to detach the country.
+    detachCountry();
+  }
+
+  @Override
+  public void onPlacePageButtonClick(PlacePageButtons.ButtonType item)
+  {
+    switch (item)
     {
-      public void onPrepareVisibleView(@NonNull PlacePageButtons.PlacePageButton item,
-                                       @NonNull View frame, @NonNull ImageView icon,
-                                       @NonNull TextView title)
-      {
-        int color;
+      case BOOKMARK_SAVE:
+      case BOOKMARK_DELETE:
+        onBookmarkBtnClicked();
+        break;
 
-        switch (item.getType())
-        {
-          case BOOKMARK:
-            mBookmarkButtonIcon = icon;
-            mBookmarkButtonFrame = frame;
-            updateBookmarkButton();
-            color = ThemeUtils.getColor(getContext(), R.attr.iconTint);
-            break;
+      case SHARE:
+        onShareBtnClicked();
+        break;
 
-          default:
-            color = ThemeUtils.getColor(getContext(), R.attr.iconTint);
-            icon.setColorFilter(color);
-            break;
-        }
+      case BACK:
+        onBackBtnClicked();
+        break;
 
-        title.setTextColor(color);
-      }
+      case ROUTE_FROM:
+        onRouteFromBtnClicked();
+        break;
 
-      @Override
-      public void onItemClick(PlacePageButtons.PlacePageButton item)
-      {
-        switch (item.getType())
-        {
-          case BOOKMARK:
-            onBookmarkBtnClicked();
-            break;
+      case ROUTE_TO:
+        onRouteToBtnClicked();
+        break;
 
-          case SHARE:
-            onShareBtnClicked();
-            break;
+      case ROUTE_ADD:
+        onRouteAddBtnClicked();
+        break;
 
-          case BACK:
-            onBackBtnClicked();
-            break;
+      case ROUTE_REMOVE:
+        onRouteRemoveBtnClicked();
+        break;
 
-          case ROUTE_FROM:
-            onRouteFromBtnClicked();
-            break;
+      case ROUTE_AVOID_TOLL:
+        onAvoidTollBtnClicked();
+        break;
 
-          case ROUTE_TO:
-            onRouteToBtnClicked();
-            break;
+      case ROUTE_AVOID_UNPAVED:
+        onAvoidUnpavedBtnClicked();
+        break;
 
-          case ROUTE_ADD:
-            onRouteAddBtnClicked();
-            break;
-
-          case ROUTE_REMOVE:
-            onRouteRemoveBtnClicked();
-            break;
-
-          case ROUTE_AVOID_TOLL:
-            onAvoidTollBtnClicked();
-            break;
-
-          case ROUTE_AVOID_UNPAVED:
-            onAvoidUnpavedBtnClicked();
-            break;
-
-          case ROUTE_AVOID_FERRY:
-            onAvoidFerryBtnClicked();
-            break;
-
-          case CALL:
-            onCallBtnClicked(buttons);
-            break;
-        }
-      }
-    });
+      case ROUTE_AVOID_FERRY:
+        onAvoidFerryBtnClicked();
+        break;
+    }
   }
 
   private void onBookmarkBtnClicked()
   {
-    if (mMapObject == null)
-    {
-      Logger.e(TAG, "Bookmark cannot be managed, mMapObject is null!");
-      return;
-    }
-    toggleIsBookmark(mMapObject);
+    // No need to call setMapObject here as the native methods will reopen the place page
+    if (MapObject.isOfType(MapObject.BOOKMARK, mMapObject))
+      Framework.nativeDeleteBookmarkFromMapObject();
+    else
+      BookmarkManager.INSTANCE.addNewBookmark(mMapObject.getLat(), mMapObject.getLon());
   }
 
   private void onShareBtnClicked()
   {
-    if (mMapObject == null)
-    {
-      Logger.e(TAG, "A map object cannot be shared, it's null!");
-      return;
-    }
-    SharingUtils.shareMapObject(getContext(), mMapObject);
+    SharingUtils.shareMapObject(requireContext(), mMapObject);
   }
 
   private void onBackBtnClicked()
   {
-    if (mMapObject == null)
-    {
-      Logger.e(TAG, "A mwm request cannot be handled, mMapObject is null!");
-      requireActivity().finish();
-      return;
-    }
-
     final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
     if (request != null && request.isPickPointMode())
     {
       final Intent result = new Intent();
       result.putExtra(Const.EXTRA_POINT_LAT, mMapObject.getLat())
-          .putExtra(Const.EXTRA_POINT_LON, mMapObject.getLon())
-          .putExtra(Const.EXTRA_POINT_NAME, mMapObject.getTitle())
-          .putExtra(Const.EXTRA_POINT_ID, mMapObject.getApiId())
-          .putExtra(Const.EXTRA_ZOOM_LEVEL, Framework.nativeGetDrawScale());
+            .putExtra(Const.EXTRA_POINT_LON, mMapObject.getLon())
+            .putExtra(Const.EXTRA_POINT_NAME, mMapObject.getTitle())
+            .putExtra(Const.EXTRA_POINT_ID, mMapObject.getApiId())
+            .putExtra(Const.EXTRA_ZOOM_LEVEL, Framework.nativeGetDrawScale());
       requireActivity().setResult(Activity.RESULT_OK, result);
       ParsedMwmRequest.setCurrentRequest(null);
     }
@@ -577,11 +363,11 @@ public class PlacePageView extends NestedScrollViewClickFixed
     if (!controller.isPlanning())
     {
       controller.prepare(mMapObject, null);
-      close();
+      mPlacePageViewListener.onPlacePageRequestClose();
     }
     else if (controller.setStartPoint(mMapObject))
     {
-      close();
+      mPlacePageViewListener.onPlacePageRequestClose();
     }
   }
 
@@ -590,61 +376,22 @@ public class PlacePageView extends NestedScrollViewClickFixed
     if (RoutingController.get().isPlanning())
     {
       RoutingController.get().setEndPoint(mMapObject);
-      close();
+      mPlacePageViewListener.onPlacePageRequestClose();
     }
     else
     {
-      requireActivity().startLocationToPoint(getMapObject());
+      ((MwmActivity) requireActivity()).startLocationToPoint(mMapObject);
     }
   }
 
   private void onRouteAddBtnClicked()
   {
-    if (mMapObject != null)
-      RoutingController.get().addStop(mMapObject);
+    RoutingController.get().addStop(mMapObject);
   }
 
   private void onRouteRemoveBtnClicked()
   {
-    if (mMapObject != null)
-      RoutingController.get().removeStop(mMapObject);
-  }
-
-  private List<String> getAllPhones()
-  {
-    return mPhoneAdapter.getPhonesList();
-  }
-
-  private void onCallBtnClicked(View parentView)
-  {
-    final List<String> phones = getAllPhones();
-    if (phones.size() == 1)
-    {
-      Utils.callPhone(getContext(), phones.get(0));
-    }
-    else
-    {
-      // Show popup menu with all phones
-      final PopupMenu popup = new PopupMenu(getContext(), parentView);
-      final Menu menu = popup.getMenu();
-
-      for (int i = 0; i < phones.size(); i++)
-        menu.add(Menu.NONE, i, i, phones.get(i));
-
-      popup.setOnMenuItemClickListener(item -> {
-        final int id = item.getItemId();
-        final Context ctx = getContext();
-        Utils.callPhone(ctx, phones.get(id));
-        return true;
-      });
-
-      popup.show();
-    }
-  }
-
-  public void setRoutingModeListener(@Nullable RoutingModeListener routingModeListener)
-  {
-    mRoutingModeListener = routingModeListener;
+    RoutingController.get().removeStop(mMapObject);
   }
 
   private void onAvoidUnpavedBtnClicked()
@@ -664,102 +411,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
   private void onAvoidBtnClicked(@NonNull RoadType roadType)
   {
-    if (mRoutingModeListener == null)
-      return;
-
-    mRoutingModeListener.toggleRouteSettings(roadType);
-  }
-
-  private void initPlaceDescriptionView()
-  {
-    mPlaceDescriptionContainer = findViewById(R.id.poi_description_container);
-    mPlaceDescriptionView = findViewById(R.id.poi_description);
-    mPlaceDescriptionView.setOnLongClickListener(this);
-    mPlaceDescriptionHeaderContainer = findViewById(R.id.pp_description_header_container);
-    mPlaceDescriptionMoreBtn = findViewById(R.id.more_btn);
-    mPlaceDescriptionMoreBtn.setOnClickListener(v -> showDescriptionScreen());
-  }
-
-  private void showDescriptionScreen()
-  {
-    Context context = mPlaceDescriptionContainer.getContext();
-    String description = Objects.requireNonNull(mMapObject).getDescription();
-    PlaceDescriptionActivity.start(context, description);
-  }
-
-  private void initEditMapObjectBtn()
-  {
-    final View editBookmarkBtn = mBookmarkFrame.findViewById(R.id.tv__bookmark_edit);
-    editBookmarkBtn.setVisibility(View.VISIBLE);
-    editBookmarkBtn.setOnClickListener(mEditBookmarkClickListener);
-  }
-
-  private void init(AttributeSet attrs, int defStyleAttr)
-  {
-    LayoutInflater.from(getContext()).inflate(R.layout.place_page, this);
-
-    if (isInEditMode())
-      return;
-
-    final TypedArray attrArray = getContext().obtainStyledAttributes(attrs, R.styleable.PlacePageView, defStyleAttr, 0);
-    mIsDocked = attrArray.getBoolean(R.styleable.PlacePageView_docked, false);
-    mIsFloating = attrArray.getBoolean(R.styleable.PlacePageView_floating, false);
-    attrArray.recycle();
-    mDescriptionMaxLength = getResources().getInteger(R.integer.place_page_description_max_length);
-  }
-
-  public boolean isDocked()
-  {
-    return mIsDocked;
-  }
-
-  public boolean isFloating()
-  {
-    return mIsFloating;
-  }
-
-  @Nullable
-  public MapObject getMapObject()
-  {
-    return mMapObject;
-  }
-
-  /**
-   * @param mapObject new MapObject
-   * @param listener  listener
-   */
-  public void setMapObject(@Nullable MapObject mapObject, @Nullable final SetMapObjectListener listener)
-  {
-    if (MapObject.same(mMapObject, mapObject))
-    {
-      mMapObject = mapObject;
-      refreshViews();
-      if (listener != null)
-      {
-        listener.onSetMapObjectComplete(true);
-      }
-      if (mCurrentCountry == null)
-        setCurrentCountry();
-      return;
-    }
-
-    mMapObject = mapObject;
-
-    setMapObjectInternal();
-    if (listener != null)
-      listener.onSetMapObjectComplete(false);
-  }
-
-  private void setMapObjectInternal()
-  {
-    detachCountry();
-    if (mMapObject != null)
-    {
-      initEditMapObjectBtn();
-
-      setCurrentCountry();
-    }
-    refreshViews();
+    mPlacePageViewListener.onPlacePageRequestToggleRouteSettings(roadType);
   }
 
   private void setCurrentCountry()
@@ -771,91 +423,67 @@ public class PlacePageView extends NestedScrollViewClickFixed
       attachCountry(country);
   }
 
-  void refreshViews()
+  private void refreshViews()
   {
-    if (mMapObject == null)
-    {
-      Logger.e(TAG, "A place page views cannot be refreshed, mMapObject is null");
-      return;
-    }
-    refreshPreview(mMapObject);
-    refreshDetails(mMapObject);
-    refreshViewsInternal(mMapObject);
-  }
-
-  private void refreshViewsInternal(@NonNull MapObject mapObject)
-  {
+    refreshPreview();
+    refreshDetails();
     final Location loc = LocationHelper.INSTANCE.getSavedLocation();
-    switch (mapObject.getMapObjectType())
+    if (mMapObject.getMapObjectType() == MapObject.MY_POSITION)
+      refreshMyPosition(loc);
+    else
+      refreshDistanceToObject(loc);
+  }
+
+  private <T extends Fragment> void updateViewFragment(Class<T> controllerClass, String fragmentTag, @IdRes int containerId, boolean enabled)
+  {
+    final FragmentManager fm = getChildFragmentManager();
+    final Fragment fragment = fm.findFragmentByTag(fragmentTag);
+    if (enabled && fragment == null)
     {
-      case MapObject.BOOKMARK:
-        refreshDistanceToObject(mapObject, loc);
-        showBookmarkDetails(mapObject);
-        updateBookmarkButton();
-        setButtons(mapObject, false, true);
-        break;
-      case MapObject.POI:
-      case MapObject.SEARCH:
-        refreshDistanceToObject(mapObject, loc);
-        hideBookmarkDetails();
-        setButtons(mapObject, false, true);
-        setPlaceDescription(mapObject);
-        break;
-      case MapObject.API_POINT:
-        refreshDistanceToObject(mapObject, loc);
-        hideBookmarkDetails();
-        setButtons(mapObject, true, true);
-        break;
-      case MapObject.MY_POSITION:
-        refreshMyPosition(mapObject, loc);
-        hideBookmarkDetails();
-        setButtons(mapObject, false, false);
-        break;
+      fm.beginTransaction()
+        .setReorderingAllowed(true)
+        .add(containerId, controllerClass, null, fragmentTag)
+        .commit();
+    }
+    else if (!enabled && fragment != null)
+    {
+      fm.beginTransaction()
+        .setReorderingAllowed(true)
+        .remove(fragment)
+        .commitNow();
     }
   }
 
-  private Spanned getShortDescription(@NonNull MapObject mapObject)
+  private void updateLinksView()
   {
-    String htmlDescription = mapObject.getDescription();
-    final int paragraphStart = htmlDescription.indexOf("<p>");
-    final int paragraphEnd = htmlDescription.indexOf("</p>");
-    if (paragraphStart == 0 && paragraphEnd != -1)
-      htmlDescription = htmlDescription.substring(3, paragraphEnd);
-
-    Spanned description = Html.fromHtml(htmlDescription);
-    if (description.length() > mDescriptionMaxLength)
-    {
-      description = (Spanned) new SpannableStringBuilder(description)
-          .insert(mDescriptionMaxLength - 3, "...")
-          .subSequence(0, mDescriptionMaxLength);
-    }
-
-    return description;
+    final boolean hasLinkAvailable = PlacePageLinksFragment.hasLinkAvailable(mMapObject);
+    updateViewFragment(PlacePageLinksFragment.class, LINKS_FRAGMENT_TAG, R.id.place_page_links_fragment, hasLinkAvailable);
   }
 
-  private void setPlaceDescription(@NonNull MapObject mapObject)
+  private void updateOpeningHoursView()
   {
-    boolean isBookmark = MapObject.isOfType(MapObject.BOOKMARK, mapObject);
-    if (TextUtils.isEmpty(mapObject.getDescription()) && !isBookmark)
-    {
-      UiUtils.hide(mPlaceDescriptionContainer, mPlaceDescriptionHeaderContainer);
-      return;
-    }
-
-    if (isBookmark)
-    {
-      final Bookmark bmk = (Bookmark) mapObject;
-      UiUtils.showIf(!TextUtils.isEmpty(bmk.getBookmarkDescription()), mPlaceDescriptionHeaderContainer);
-      UiUtils.hide(mPlaceDescriptionContainer);
-      return;
-    }
-    UiUtils.show(mPlaceDescriptionContainer, mPlaceDescriptionHeaderContainer);
-    mPlaceDescriptionView.setText(getShortDescription(mapObject));
+    final String ohStr = mMapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
+    updateViewFragment(PlacePageOpeningHoursFragment.class, OPENING_HOURS_FRAGMENT_TAG, R.id.place_page_opening_hours_fragment, !ohStr.isEmpty());
   }
 
-  private void setTextAndColorizeSubtitle(@NonNull MapObject mapObject)
+  private void updatePhoneView()
   {
-    String text = mapObject.getSubtitle();
+    updateViewFragment(PlacePagePhoneFragment.class, PHONE_FRAGMENT_TAG, R.id.place_page_phone_fragment, mMapObject.hasPhoneNumber());
+  }
+
+  private void updateBookmarkView()
+  {
+    updateViewFragment(PlacePageBookmarkFragment.class, BOOKMARK_FRAGMENT_TAG, R.id.place_page_bookmark_fragment, mMapObject.getMapObjectType() == MapObject.BOOKMARK);
+  }
+
+  private void updateWikipediaView()
+  {
+    updateViewFragment(PlacePageWikipediaFragment.class, WIKIPEDIA_FRAGMENT_TAG, R.id.place_page_wikipedia_fragment, !TextUtils.isEmpty(mMapObject.getDescription()));
+  }
+
+  private void setTextAndColorizeSubtitle()
+  {
+    String text = mMapObject.getSubtitle();
     UiUtils.setTextAndHideIfEmpty(mTvSubtitle, text);
     if (!TextUtils.isEmpty(text))
     {
@@ -864,49 +492,34 @@ public class PlacePageView extends NestedScrollViewClickFixed
       int end = text.lastIndexOf("★") + 1;
       if (start > -1)
       {
-        sb.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.base_yellow)),
+        sb.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color.base_yellow)),
                    start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-
       }
       mTvSubtitle.setText(sb);
     }
   }
 
-  private void refreshPreview(@NonNull MapObject mapObject)
+  private void refreshPreview()
   {
-    UiUtils.setTextAndHideIfEmpty(mTvTitle, mapObject.getTitle());
-    UiUtils.setTextAndHideIfEmpty(mTvSecondaryTitle, mapObject.getSecondaryTitle());
-    boolean isPopular = mapObject.getPopularity().getType() == Popularity.Type.POPULAR;
-    if (mPopularityView != null)
-      UiUtils.showIf(isPopular, mPopularityView);
+    UiUtils.setTextAndHideIfEmpty(mTvTitle, mMapObject.getTitle());
+    UiUtils.setTextAndHideIfEmpty(mTvSecondaryTitle, mMapObject.getSecondaryTitle());
     if (mToolbar != null)
-      mToolbar.setTitle(mapObject.getTitle());
-    setTextAndColorizeSubtitle(mapObject);
-    UiUtils.setTextAndHideIfEmpty(mTvAddress, mapObject.getAddress());
+      mToolbar.setTitle(mMapObject.getTitle());
+    setTextAndColorizeSubtitle();
+    UiUtils.setTextAndHideIfEmpty(mTvAddress, mMapObject.getAddress());
   }
 
-  private void refreshDetails(@NonNull MapObject mapObject)
+  private void refreshDetails()
   {
-    refreshLatLon(mapObject);
+    refreshLatLon();
 
-    String website = mapObject.getMetadata(Metadata.MetadataType.FMD_WEBSITE);
-    String url = mapObject.getMetadata(Metadata.MetadataType.FMD_URL);
-    refreshMetadataOrHide(TextUtils.isEmpty(website) ? url : website, mWebsite, mTvWebsite);
-    String wikimedia_commons = mapObject.getMetadata(Metadata.MetadataType.FMD_WIKIMEDIA_COMMONS);
-    String wikimedia_commons_text =  TextUtils.isEmpty(wikimedia_commons) ? "" : getResources().getString(R.string.wikimedia_commons);
-    refreshMetadataOrHide(wikimedia_commons_text, mWikimedia, mTvWikimedia);
-    refreshPhoneNumberList(mapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER));
-    refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_EMAIL), mEmail, mTvEmail);
-    refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR), mOperator, mTvOperator);
+    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR), mOperator, mTvOperator);
     /// @todo I don't like it when we take all data from mapObject, but for cuisines, we should
     /// go into JNI Framework and rely on some "active object".
     refreshMetadataOrHide(Framework.nativeGetActiveObjectFormattedCuisine(), mCuisine, mTvCuisine);
-    refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA), mWiki, null);
-    refreshWiFi(mapObject);
-    refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
-    refreshOpeningHours(mapObject);
-    refreshSocialLinks(mapObject);
-    refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_LEVEL), mLevel, mTvLevel);
+    refreshWiFi();
+    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
+    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_LEVEL), mLevel, mTvLevel);
 
 //    showTaxiOffer(mapObject);
 
@@ -923,328 +536,27 @@ public class PlacePageView extends NestedScrollViewClickFixed
                      || UiUtils.isVisible(mAddOrganisation)
                      || UiUtils.isVisible(mAddPlace), mEditTopSpace);
     }
-    setPlaceDescription(mapObject);
+    updateLinksView();
+    updateOpeningHoursView();
+    updateWikipediaView();
+    updateBookmarkView();
+    updatePhoneView();
   }
 
-  private void refreshOpeningHours(@NonNull MapObject mapObject)
+  private void refreshWiFi()
   {
-    final String ohStr = mapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
-    final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
-    final boolean isEmptyTT = (timetables == null || timetables.length == 0);
-    final int color = ThemeUtils.getColor(getContext(), android.R.attr.textColorPrimary);
-
-    if (isEmptyTT)
-    {
-      // 'opening_hours' tag wasn't parsed either because it's empty or wrong format.
-      if (!ohStr.isEmpty())
-      {
-        UiUtils.show(mOpeningHours);
-        refreshTodayOpeningHours(ohStr, color);
-        UiUtils.hide(mTodayNonBusinessTime);
-        UiUtils.hide(mFullWeekOpeningHours);
-      }
-      else
-      {
-        UiUtils.hide(mOpeningHours);
-      }
-      return;
-    }
-
-    UiUtils.show(mOpeningHours);
-
-    final Resources resources = getResources();
-
-    if (timetables[0].isFullWeek())
-    {
-      final Timetable tt = timetables[0];
-      if (tt.isFullday)
-      {
-        refreshTodayOpeningHours(resources.getString(R.string.twentyfour_seven), color);
-        UiUtils.clearTextAndHide(mTodayNonBusinessTime);
-        UiUtils.hide(mTodayNonBusinessTime);
-      }
-      else
-      {
-        refreshTodayOpeningHours(resources.getString(R.string.daily), tt.workingTimespan.toWideString(), color);
-        refreshTodayNonBusinessTime(tt.closedTimespans);
-      }
-
-      UiUtils.hide(mFullWeekOpeningHours);
-      return;
-    }
-
-    // Show whole week time table.
-    int firstDayOfWeek = Calendar.getInstance(Locale.getDefault()).getFirstDayOfWeek();
-    mOpeningHoursAdapter.setTimetables(timetables, firstDayOfWeek);
-    UiUtils.show(mFullWeekOpeningHours);
-
-    // Show today's open time + non-business time.
-    boolean containsCurrentWeekday = false;
-    final int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-    for (Timetable tt : timetables)
-    {
-      if (tt.containsWeekday(currentDay))
-      {
-        containsCurrentWeekday = true;
-        String openTime;
-
-        if (tt.isFullday)
-        {
-          String allDay = resources.getString(R.string.editor_time_allday);
-          openTime = Utils.unCapitalize(allDay);
-        }
-        else
-        {
-          openTime = tt.workingTimespan.toWideString();
-        }
-
-        refreshTodayOpeningHours(resources.getString(R.string.today), openTime, color);
-        refreshTodayNonBusinessTime(tt.closedTimespans);
-
-        break;
-      }
-    }
-
-    // Show that place is closed today.
-    if (!containsCurrentWeekday)
-    {
-      refreshTodayOpeningHours(resources.getString(R.string.day_off_today), resources.getColor(R.color.base_red));
-      UiUtils.hide(mTodayNonBusinessTime);
-    }
-  }
-
-  private void refreshTodayNonBusinessTime(Timespan[] closedTimespans)
-  {
-    final String hoursClosedLabel = getResources().getString(R.string.editor_hours_closed);
-    if (closedTimespans==null || closedTimespans.length == 0)
-      UiUtils.clearTextAndHide(mTodayNonBusinessTime);
-    else
-      UiUtils.setTextAndShow(mTodayNonBusinessTime, TimeFormatUtils.formatNonBusinessTime(closedTimespans, hoursClosedLabel));
-  }
-
-  private void refreshWiFi(@NonNull MapObject mapObject)
-  {
-    final String inet = mapObject.getMetadata(Metadata.MetadataType.FMD_INTERNET);
+    final String inet = mMapObject.getMetadata(Metadata.MetadataType.FMD_INTERNET);
     if (!TextUtils.isEmpty(inet))
     {
-      mWifi.setVisibility(View.VISIBLE);
+      mWifi.setVisibility(VISIBLE);
       /// @todo Better (but harder) to wrap C++ osm::Internet into Java, instead of comparing with "no".
       mTvWiFi.setText(TextUtils.equals(inet, "no") ? R.string.no_available : R.string.yes_available);
     }
     else
-      mWifi.setVisibility(View.GONE);
+      mWifi.setVisibility(GONE);
   }
 
-  private void refreshSocialLinks(@NonNull MapObject mapObject)
-  {
-    final String facebookPageLink = mapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_FACEBOOK);
-    refreshSocialPageLink(mFacebookPage, mTvFacebookPage, facebookPageLink, "facebook.com");
-    final String instagramPageLink = mapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM);
-    refreshSocialPageLink(mInstagramPage, mTvInstagramPage, instagramPageLink, "instagram.com");
-    final String twitterPageLink = mapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_TWITTER);
-    refreshSocialPageLink(mTwitterPage, mTvTwitterPage, twitterPageLink, "twitter.com");
-    final String vkPageLink = mapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_VK);
-    refreshSocialPageLink(mVkPage, mTvVkPage, vkPageLink, "vk.com");
-    final String linePageLink = mapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_LINE);
-    refreshLinePageLink(mLinePage, mTvLinePage, linePageLink);
-  }
-
-  private void refreshSocialPageLink(View view, TextView tvSocialPage, String socialPage, String webDomain)
-  {
-    if (TextUtils.isEmpty(socialPage))
-    {
-      view.setVisibility(GONE);
-    }
-    else
-    {
-      view.setVisibility(VISIBLE);
-      if (socialPage.indexOf('/') >= 0)
-        tvSocialPage.setText("https://" + webDomain + "/" + socialPage);
-      else
-        tvSocialPage.setText("@" + socialPage);
-    }
-  }
-
-  // Tag `contact:line` could contain urls from domains: line.me, liff.line.me, page.line.me, etc.
-  // And `socialPage` should not be prepended with domain, but only with "https://" protocol.
-  private void refreshLinePageLink(View view, TextView tvSocialPage, String socialPage)
-  {
-    if (TextUtils.isEmpty(socialPage))
-    {
-      view.setVisibility(GONE);
-    }
-    else
-    {
-      view.setVisibility(VISIBLE);
-      if (socialPage.indexOf('/') >= 0)
-        tvSocialPage.setText("https://" + socialPage);
-      else
-        tvSocialPage.setText("@" + socialPage);
-    }
-  }
-
-  private void refreshTodayOpeningHours(String label, String openTime, @ColorInt int color)
-  {
-    UiUtils.setTextAndShow(mTodayLabel, label);
-    UiUtils.setTextAndShow(mTodayOpenTime, openTime);
-
-    mTodayLabel.setTextColor(color);
-    mTodayOpenTime.setTextColor(color);
-  }
-
-  private void refreshTodayOpeningHours(String label, @ColorInt int color)
-  {
-    UiUtils.setTextAndShow(mTodayLabel, label);
-    UiUtils.hide(mTodayOpenTime);
-
-    mTodayLabel.setTextColor(color);
-    mTodayOpenTime.setTextColor(color);
-  }
-
-  private void refreshPhoneNumberList(String phones)
-  {
-    mPhoneAdapter.refreshPhones(phones);
-  }
-
-  private void updateBookmarkButton()
-  {
-    if (mBookmarkButtonIcon == null || mBookmarkButtonFrame == null)
-      return;
-
-    if (mBookmarkSet)
-      mBookmarkButtonIcon.setImageDrawable(Graphics.tint(getContext(), R.drawable.ic_bookmarks_on, R.attr.iconTintActive));
-    else
-      mBookmarkButtonIcon.setImageDrawable(Graphics.tint(getContext(), R.drawable.ic_bookmarks_off, R.attr.iconTint));
-
-    mBookmarkButtonFrame.setEnabled(true);
-  }
-
-  private void hideBookmarkDetails()
-  {
-    mBookmarkSet = false;
-    UiUtils.hide(mBookmarkFrame);
-    updateBookmarkButton();
-  }
-
-  private void showBookmarkDetails(@NonNull MapObject mapObject)
-  {
-    mBookmarkSet = true;
-    UiUtils.show(mBookmarkFrame);
-
-    final String notes = ((Bookmark) mapObject).getBookmarkDescription();
-
-    if (TextUtils.isEmpty(notes))
-    {
-      UiUtils.hide(mTvBookmarkNote, mWvBookmarkNote);
-      return;
-    }
-
-    if (StringUtils.nativeIsHtml(notes))
-    {
-      // According to loadData documentation, HTML should be either base64 or percent encoded.
-      // Default UTF-8 encoding for all content is set above in WebSettings.
-      final String b64encoded = Base64.encodeToString(notes.getBytes(), Base64.DEFAULT);
-      mWvBookmarkNote.loadData(b64encoded, Utils.TEXT_HTML, "base64");
-      UiUtils.show(mWvBookmarkNote);
-      UiUtils.hide(mTvBookmarkNote);
-    }
-    else
-    {
-      mTvBookmarkNote.setText(notes);
-      Linkify.addLinks(mTvBookmarkNote, Linkify.ALL);
-      UiUtils.show(mTvBookmarkNote);
-      UiUtils.hide(mWvBookmarkNote);
-    }
-  }
-
-  @NonNull
-  private static PlacePageButtons.Item toPlacePageButton(@NonNull RoadWarningMarkType type)
-  {
-    switch (type)
-    {
-      case DIRTY:
-        return PlacePageButtons.Item.ROUTE_AVOID_UNPAVED;
-      case FERRY:
-        return PlacePageButtons.Item.ROUTE_AVOID_FERRY;
-      case TOLL:
-        return PlacePageButtons.Item.ROUTE_AVOID_TOLL;
-      default:
-        throw new AssertionError("Unsupported road warning type: " + type);
-    }
-  }
-
-  private void setButtons(@NonNull MapObject mapObject, boolean showBackButton, boolean showRoutingButton)
-  {
-    List<PlacePageButtons.PlacePageButton> buttons = new ArrayList<>();
-
-    if (mapObject.getRoadWarningMarkType() != RoadWarningMarkType.UNKNOWN)
-    {
-      RoadWarningMarkType markType = mapObject.getRoadWarningMarkType();
-      PlacePageButtons.Item roadType = toPlacePageButton(markType);
-      buttons.add(roadType);
-      mButtons.setItems(buttons);
-      return;
-    }
-
-    if (RoutingController.get().isRoutePoint(mapObject))
-    {
-      buttons.add(PlacePageButtons.Item.ROUTE_REMOVE);
-      mButtons.setItems(buttons);
-      return;
-    }
-
-    final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
-    if (showBackButton || (request != null && request.isPickPointMode()))
-      buttons.add(PlacePageButtons.Item.BACK);
-
-    final boolean hasNumber = mapObject.hasPhoneNumber();
-
-    if (hasNumber)
-    {
-      buttons.add(PlacePageButtons.Item.CALL);
-      mPhoneRecycler.setVisibility(VISIBLE);
-    }
-    else
-      mPhoneRecycler.setVisibility(GONE);
-
-    boolean needToShowRoutingButtons = RoutingController.get().isPlanning() || showRoutingButton;
-
-    if (needToShowRoutingButtons && !hasNumber)
-      buttons.add(PlacePageButtons.Item.ROUTE_FROM);
-
-    buttons.add(mapObject.getMapObjectType() == MapObject.BOOKMARK ? PlacePageButtons.Item.BOOKMARK_DELETE
-        : PlacePageButtons.Item.BOOKMARK_SAVE);
-
-    if (needToShowRoutingButtons)
-    {
-      buttons.add(PlacePageButtons.Item.ROUTE_TO);
-      if (hasNumber)
-        buttons.add(PlacePageButtons.Item.ROUTE_FROM);
-      if (RoutingController.get().isStopPointAllowed())
-        buttons.add(PlacePageButtons.Item.ROUTE_ADD);
-    }
-
-    buttons.add(PlacePageButtons.Item.SHARE);
-
-    mButtons.setItems(buttons);
-  }
-
-  public void refreshLocation(@NonNull Location l)
-  {
-    if (mMapObject == null)
-    {
-      // TODO: This method is constantly called even when nothing is selected on the map.
-      //Logger.e(TAG, "A location cannot be refreshed, mMapObject is null!");
-      return;
-    }
-
-    if (MapObject.isOfType(MapObject.MY_POSITION, mMapObject))
-      refreshMyPosition(mMapObject, l);
-    else
-      refreshDistanceToObject(mMapObject, l);
-  }
-
-  private void refreshMyPosition(@NonNull MapObject mapObject, Location l)
+  private void refreshMyPosition(Location l)
   {
     UiUtils.hide(mTvDistance);
     UiUtils.hide(mAvDirection);
@@ -1264,104 +576,57 @@ public class PlacePageView extends NestedScrollViewClickFixed
              .append(Framework.nativeFormatSpeed(l.getSpeed()));
     UiUtils.setTextAndHideIfEmpty(mTvSubtitle, builder.toString());
 
-    mapObject.setLat(l.getLatitude());
-    mapObject.setLon(l.getLongitude());
-    refreshLatLon(mapObject);
+    mMapObject.setLat(l.getLatitude());
+    mMapObject.setLon(l.getLongitude());
+    refreshLatLon();
   }
 
-  private void refreshDistanceToObject(@NonNull MapObject mapObject, Location l)
+  private void refreshDistanceToObject(Location l)
   {
     UiUtils.showIf(l != null, mTvDistance);
     if (l == null)
       return;
 
-    double lat = mapObject.getLat();
-    double lon = mapObject.getLon();
+    double lat = mMapObject.getLat();
+    double lon = mMapObject.getLon();
     DistanceAndAzimut distanceAndAzimuth =
         Framework.nativeGetDistanceAndAzimuthFromLatLon(lat, lon, l.getLatitude(), l.getLongitude(), 0.0);
     mTvDistance.setText(distanceAndAzimuth.getDistance());
   }
 
-  private void refreshLatLon(@NonNull MapObject mapObject)
+  private void refreshLatLon()
   {
-    final double lat = mapObject.getLat();
-    final double lon = mapObject.getLon();
+    final double lat = mMapObject.getLat();
+    final double lon = mMapObject.getLon();
     final String latLon = Framework.nativeFormatLatLon(lat, lon, mCoordsFormat.getId());
     mTvLatlon.setText(latLon);
   }
 
-  private static void refreshMetadataOrHide(String metadata, View metaLayout, TextView metaTv)
-  {
-    if (!TextUtils.isEmpty(metadata))
-    {
-      metaLayout.setVisibility(View.VISIBLE);
-      if (metaTv != null)
-        metaTv.setText(metadata);
-    }
-    else
-      metaLayout.setVisibility(View.GONE);
-  }
-
-  public void refreshAzimuth(double northAzimuth)
-  {
-    if (mMapObject == null || MapObject.isOfType(MapObject.MY_POSITION, mMapObject))
-      return;
-
-    final Location location = LocationHelper.INSTANCE.getSavedLocation();
-    if (location == null)
-    {
-      UiUtils.hide(mAvDirection);
-      return;
-    }
-
-    final double azimuth = Framework.nativeGetDistanceAndAzimuthFromLatLon(mMapObject.getLat(),
-                                                                           mMapObject.getLon(),
-                                                                           location.getLatitude(),
-                                                                           location.getLongitude(),
-                                                                           northAzimuth).getAzimuth();
-    UiUtils.showIf(azimuth >= 0, mAvDirection);
-    if (azimuth >= 0)
-    {
-      mAvDirection.setAzimuth(azimuth);
-    }
-  }
-
   private void addOrganisation()
   {
-    requireActivity().showPositionChooserForEditor(true, false);
+    ((MwmActivity) requireActivity()).showPositionChooserForEditor(true, false);
   }
 
   private void addPlace()
   {
-    requireActivity().showPositionChooserForEditor(false, true);
+    ((MwmActivity) requireActivity()).showPositionChooserForEditor(false, true);
   }
 
   /// @todo
   /// - Why ll__place_editor and ll__place_latlon check if (mMapObject == null)
-  /// - Unify urls processing: fb, twitter, instagram, .. add prefix here while
-  /// wiki, website, wikimedia, ... already have full url. Better to make it in the same way and in Core.
 
   @Override
   public void onClick(View v)
   {
+    final Context context = requireContext();
     final int id = v.getId();
     if (id == R.id.tv__title || id == R.id.tv__secondary_title || id == R.id.tv__address)
     {
       // A workaround to make single taps toggle the bottom sheet.
-      if (mPlacePageGestureListener != null)
-      {
-        mPlacePageGestureListener.onSingleTapConfirmed(null);
-      }
+      mPlacePageViewListener.onPlacePageRequestToggleState();
     }
     else if (id == R.id.ll__place_editor)
-    {
-      if (mMapObject == null)
-      {
-        Logger.e(TAG, "Cannot start editor, map object is null!");
-        return;
-      }
-      requireActivity().showEditor();
-    }
+      ((MwmActivity) requireActivity()).showEditor();
     else if (id == R.id.ll__add_organisation)
       addOrganisation();
     else if (id == R.id.ll__place_add)
@@ -1370,73 +635,24 @@ public class PlacePageView extends NestedScrollViewClickFixed
     {
       final int formatIndex = visibleCoordsFormat.indexOf(mCoordsFormat);
       mCoordsFormat = visibleCoordsFormat.get((formatIndex + 1) % visibleCoordsFormat.size());
-      MwmApplication.prefs(getContext()).edit().putInt(PREF_COORDINATES_FORMAT, mCoordsFormat.getId()).apply();
-      if (mMapObject == null)
-      {
-        Logger.e(TAG, "A LatLon cannot be refreshed, mMapObject is null");
-        return;
-      }
-      refreshLatLon(mMapObject);
+      MwmApplication.prefs(context)
+                    .edit()
+                    .putInt(PREF_COORDINATES_FORMAT, mCoordsFormat.getId())
+                    .apply();
+      refreshLatLon();
     }
-    else if (id == R.id.ll__place_website)
-      Utils.openUrl(getContext(), mTvWebsite.getText().toString());
-    else if (id == R.id.ll__place_wikimedia)
-      Utils.openUrl(getContext(), mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIMEDIA_COMMONS));
-    else if (id == R.id.ll__place_facebook)
-    {
-      final String facebookPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_FACEBOOK);
-      Utils.openUrl(getContext(), "https://m.facebook.com/" + facebookPage);
-    }
-    else if (id == R.id.ll__place_instagram)
-    {
-      final String instagramPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM);
-      Utils.openUrl(getContext(), "https://instagram.com/" + instagramPage);
-    }
-    else if (id == R.id.ll__place_twitter)
-    {
-      final String twitterPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_TWITTER);
-      Utils.openUrl(getContext(), "https://mobile.twitter.com/" + twitterPage);
-    }
-    else if (id == R.id.ll__place_vk)
-    {
-      final String vkPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_VK);
-      Utils.openUrl(getContext(), "https://vk.com/" + vkPage);
-    }
-    else if (id == R.id.ll__place_line)
-    {
-      final String linePage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_LINE);
-      if (linePage.indexOf('/') >= 0)
-        Utils.openUrl(getContext(), "https://" + linePage);
-      else
-        Utils.openUrl(getContext(), "https://line.me/R/ti/p/@" + linePage);
-    }
-    else if (id == R.id.ll__place_wiki)
-      Utils.openUrl(getContext(), mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
     else if (id == R.id.direction_frame)
       showBigDirection();
-    else if (id == R.id.ll__place_email)
-      Utils.sendTo(getContext(), mTvEmail.getText().toString());
-  }
-
-  private void toggleIsBookmark(@NonNull MapObject mapObject)
-  {
-    if (MapObject.isOfType(MapObject.BOOKMARK, mapObject))
-      setMapObject(Framework.nativeDeleteBookmarkFromMapObject(), null);
-    else
-      setMapObject(BookmarkManager.INSTANCE.addNewBookmark(mapObject.getLat(), mapObject.getLon()), null);
   }
 
   private void showBigDirection()
   {
     final FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
     final DirectionFragment fragment = (DirectionFragment) fragmentManager.getFragmentFactory()
-        .instantiate(getContext().getClassLoader(), DirectionFragment.class.getName());
+                                                                          .instantiate(requireContext().getClassLoader(), DirectionFragment.class.getName());
     fragment.setMapObject(mMapObject);
     fragment.show(fragmentManager, null);
   }
-
-  /// @todo Unify urls processing (fb, twitter, instagram, ...).
-  /// onLongClick behaviour differs even from onClick function several lines above.
 
   @Override
   public boolean onLongClick(View v)
@@ -1449,136 +665,25 @@ public class PlacePageView extends NestedScrollViewClickFixed
       items.add(mTvSecondaryTitle.getText().toString());
     else if (id == R.id.tv__address)
       items.add(mTvAddress.getText().toString());
-    else if (id == R.id.tv__bookmark_notes)
-      items.add(mTvBookmarkNote.getText().toString());
-    else if (id == R.id.poi_description)
-      items.add(mPlaceDescriptionView.getText().toString());
     else if (id == R.id.ll__place_latlon)
     {
-      if (mMapObject != null)
-      {
-        final double lat = mMapObject.getLat();
-        final double lon = mMapObject.getLon();
-        for (CoordinatesFormat format : visibleCoordsFormat)
-          items.add(Framework.nativeFormatLatLon(lat, lon, format.getId()));
-      }
-      else
-        Logger.e(TAG, "A long click tap on LatLon cannot be handled, mMapObject is null!");
-    }
-    else if (id == R.id.ll__place_website)
-      items.add(mTvWebsite.getText().toString());
-    else if (id == R.id.ll__place_wikimedia)
-      items.add(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIMEDIA_COMMONS));
-    else if (id == R.id.ll__place_facebook)
-    {
-      final String facebookPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_FACEBOOK);
-      if (facebookPage.indexOf('/') == -1)
-        items.add(facebookPage); // Show username along with URL.
-      items.add("https://m.facebook.com/" + facebookPage);
-    }
-    else if (id == R.id.ll__place_instagram)
-    {
-      final String instagramPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM);
-      if (instagramPage.indexOf('/') == -1)
-        items.add(instagramPage); // Show username along with URL.
-      items.add("https://instagram.com/" + instagramPage);
-    }
-    else if (id == R.id.ll__place_twitter)
-    {
-      final String twitterPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_TWITTER);
-      if (twitterPage.indexOf('/') == -1)
-        items.add(twitterPage); // Show username along with URL.
-      items.add("https://mobile.twitter.com/" + twitterPage);
-    }
-    else if (id == R.id.ll__place_vk)
-    {
-      final String vkPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_VK);
-      if (vkPage.indexOf('/') == -1)
-        items.add(vkPage); // Show username along with URL.
-      items.add("https://vk.com/" + vkPage);
-    }
-    else if (id == R.id.ll__place_line)
-    {
-      final String linePage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_LINE);
-      if (linePage.indexOf('/') >= 0)
-        items.add("https://" + linePage);
-      else
-      {
-        items.add(linePage); // Show username along with URL.
-        items.add("https://line.me/R/ti/p/@" + linePage);
-      }
-    }
-    else if (id == R.id.ll__place_email)
-      items.add(mTvEmail.getText().toString());
-    else if (id == R.id.ll__place_schedule)
-    {
-      final String ohStr = mMapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
-      final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
-      items.add(TimeFormatUtils.formatTimetables(getResources(), ohStr, timetables));
+      final double lat = mMapObject.getLat();
+      final double lon = mMapObject.getLon();
+      for (CoordinatesFormat format : visibleCoordsFormat)
+        items.add(Framework.nativeFormatLatLon(lat, lon, format.getId()));
     }
     else if (id == R.id.ll__place_operator)
       items.add(mTvOperator.getText().toString());
-    else if (id == R.id.ll__place_wiki)
-      items.add(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
     else if (id == R.id.ll__place_level)
       items.add(mTvLevel.getText().toString());
 
-    final Context ctx = getContext();
+    final Context context = requireContext();
     if (items.size() == 1)
-    {
-      Utils.copyTextToClipboard(ctx, items.get(0));
-      Utils.showSnackbarAbove(mDetails,
-          getRootView().findViewById(R.id.pp_buttons_layout),
-          ctx.getString(R.string.copied_to_clipboard, items.get(0)));
-    }
+      PlacePageUtils.copyToClipboard(context, mFrame, items.get(0));
     else
-    {
-      final PopupMenu popup = new PopupMenu(getContext(), v);
-      final Menu menu = popup.getMenu();
-      final String copyText = getResources().getString(android.R.string.copy);
-
-      for (int i = 0; i < items.size(); i++)
-        menu.add(Menu.NONE, i, i, String.format("%s %s", copyText, items.get(i)));
-
-      popup.setOnMenuItemClickListener(item -> {
-        final int itemId = item.getItemId();
-        Utils.copyTextToClipboard(ctx, items.get(itemId));
-        Utils.showSnackbarAbove(mDetails,
-            getRootView().findViewById(R.id.pp_buttons_layout),
-            ctx.getString(R.string.copied_to_clipboard, items.get(itemId)));
-        return true;
-      });
-      popup.show();
-    }
+      PlacePageUtils.showCopyPopup(context, v, mFrame, items);
 
     return true;
-  }
-
-  private void close()
-  {
-    if (mClosable != null)
-      mClosable.closePlacePage();
-  }
-
-  void reset()
-  {
-    resetScroll();
-    detachCountry();
-  }
-
-  void resetScroll()
-  {
-    scrollTo(0, 0);
-  }
-
-  private static boolean isInvalidDownloaderStatus(int status)
-  {
-    return (status != CountryItem.STATUS_DOWNLOADABLE &&
-            status != CountryItem.STATUS_ENQUEUED &&
-            status != CountryItem.STATUS_FAILED &&
-            status != CountryItem.STATUS_PARTLY &&
-            status != CountryItem.STATUS_PROGRESS &&
-            status != CountryItem.STATUS_APPLYING);
   }
 
   private void updateDownloader(CountryItem country)
@@ -1586,16 +691,16 @@ public class PlacePageView extends NestedScrollViewClickFixed
     if (isInvalidDownloaderStatus(country.status))
     {
       if (mStorageCallbackSlot != 0)
-        UiThread.runLater(mDownloaderDeferredDetachProc);
+        UiThread.runLater(this::detachCountry);
       return;
     }
 
     mDownloaderIcon.update(country);
 
-    StringBuilder sb = new StringBuilder(StringUtils.getFileSizeString(getContext(), country.totalSize));
+    StringBuilder sb = new StringBuilder(StringUtils.getFileSizeString(requireContext(), country.totalSize));
     if (country.isExpandable())
-      sb.append(StringUtils.formatUsingUsLocale("  •  %s: %d", getContext().getString(R.string.downloader_status_maps),
-          country.totalChildCount));
+      sb.append(StringUtils.formatUsingUsLocale("  •  %s: %d", requireContext().getString(R.string.downloader_status_maps),
+                                                country.totalChildCount));
 
     mDownloaderInfo.setText(sb.toString());
   }
@@ -1619,8 +724,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
     if (mStorageCallbackSlot == 0)
       mStorageCallbackSlot = MapManager.nativeSubscribe(mStorageCallback);
 
-    mDownloaderIcon.setOnIconClickListener(mDownloadClickListener)
-                   .setOnCancelClickListener(mCancelDownloadListener);
+    mDownloaderIcon.setOnIconClickListener((v) -> MapManager.warn3gAndDownload(requireActivity(), mCurrentCountry.id, null))
+                   .setOnCancelClickListener((v) -> MapManager.nativeCancel(mCurrentCountry.id));
     mDownloaderIcon.show(true);
     UiUtils.show(mDownloaderInfo);
     updateDownloader(mCurrentCountry);
@@ -1628,7 +733,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
   private void detachCountry()
   {
-    if (mStorageCallbackSlot == 0)
+    if (mStorageCallbackSlot == 0 || mCurrentCountry == null)
       return;
 
     MapManager.nativeUnsubscribe(mStorageCallbackSlot);
@@ -1640,60 +745,68 @@ public class PlacePageView extends NestedScrollViewClickFixed
     UiUtils.hide(mDownloaderInfo);
   }
 
-  MwmActivity requireActivity()
+  @Override
+  public void onChanged(MapObject mapObject)
   {
-    return (MwmActivity) getContext();
+    if (!mapObject.sameAs(mMapObject))
+    {
+      detachCountry();
+      setCurrentCountry();
+    }
+
+    mMapObject = mapObject;
+
+    refreshViews();
+    // In case the place page has already some data, make sure to call the onPlacePageContentChanged callback
+    // to catch cases where the new data has the exact same height as the previous one (eg 2 address nodes)
+    if (mFrame.getHeight() > 0)
+      mPlacePageViewListener.onPlacePageContentChanged(mPreview.getHeight(), mFrame.getHeight());
   }
 
   @Override
-  public void onBookmarkSaved(long bookmarkId, boolean movedFromCategory)
+  public void onLocationUpdated(@NonNull Location location)
   {
-    Bookmark updatedBookmark = BookmarkManager.INSTANCE.updateBookmarkPlacePage(bookmarkId);
-    if (updatedBookmark == null)
+    if (MapObject.isOfType(MapObject.MY_POSITION, mMapObject))
+      refreshMyPosition(location);
+    else
+      refreshDistanceToObject(location);
+  }
+
+  @Override
+  public void onCompassUpdated(double north)
+  {
+    if (MapObject.isOfType(MapObject.MY_POSITION, mMapObject))
       return;
 
-    setMapObject(updatedBookmark, null);
-    refreshViews();
-    mOnPlacePageContentChangeListener.OnPlacePageContentChange();
-  }
-
-  int getPreviewHeight()
-  {
-    return mPreview.getHeight();
-  }
-
-  @Nullable
-  public ArrayList<MenuBottomSheetItem> getMenuBottomSheetItems()
-  {
-    return mButtons.getMenuBottomSheetItems();
-  }
-
-  private class EditBookmarkClickListener implements OnClickListener
-  {
-    @Override
-    public void onClick(View v)
+    final Location location = LocationHelper.INSTANCE.getSavedLocation();
+    if (location == null)
     {
-      if (mMapObject == null)
-      {
-        Logger.e(TAG, "A bookmark cannot be edited, mMapObject is null!");
-        return;
-      }
-      Bookmark bookmark = (Bookmark) mMapObject;
-      EditBookmarkFragment.editBookmark(bookmark.getCategoryId(),
-                                        bookmark.getBookmarkId(),
-                                        requireActivity(),
-                                        requireActivity().getSupportFragmentManager(),
-                                        PlacePageView.this);
+      UiUtils.hide(mAvDirection);
+      return;
+    }
+
+    final double azimuth = Framework.nativeGetDistanceAndAzimuthFromLatLon(mMapObject.getLat(),
+                                                                           mMapObject.getLon(),
+                                                                           location.getLatitude(),
+                                                                           location.getLongitude(),
+                                                                           north)
+                                    .getAzimuth();
+    UiUtils.showIf(azimuth >= 0, mAvDirection);
+    if (azimuth >= 0)
+    {
+      mAvDirection.setAzimuth(azimuth);
     }
   }
 
-  public void setOnPlacePageContentChangeListener(OnPlacePageContentChangeListener onPlacePageContentChangeListener)
+  public interface PlacePageViewListener
   {
-    mOnPlacePageContentChangeListener = onPlacePageContentChangeListener;
-  }
+    // Called when the content has actually changed and we are ready to compute the peek height
+    void onPlacePageContentChanged(int previewHeight, int frameHeight);
 
-  interface OnPlacePageContentChangeListener
-  {
-    void OnPlacePageContentChange();
+    void onPlacePageRequestClose();
+
+    void onPlacePageRequestToggleState();
+
+    void onPlacePageRequestToggleRouteSettings(@NonNull RoadType roadType);
   }
 }

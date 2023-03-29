@@ -226,6 +226,9 @@
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "Bangunan 3D";
 
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "Bangunan 3D dimatikan dalam mode hemat daya";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Petunjuk Suara";
 
@@ -304,7 +307,7 @@
 "donate" = "Menyumbangkan";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Bagaimana cara mendukung kami?";
+"how_to_support_us" = "Mendukung proyek";
 
 /* Button in the main Help dialog */
 "copyright" = "Hak cipta";
@@ -710,8 +713,8 @@
 
 "editor_storey_number" = "Jumlah lantai (maksimum %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "Edit bangunan dengan maksimum 25 lantai";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Edit bangunan dengan maksimum %d lantai";
 
 "editor_zip_code" = "Kode Pos";
 
@@ -1236,20 +1239,23 @@
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/";
 
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
 
 /********** Types **********/
 
 "type.aerialway" = "Aerialway";
 
-"type.aerialway.cable_car" = "Cable car";
+"type.aerialway.cable_car" = "Cable Car";
 
-"type.aerialway.chair_lift" = "Chair lift";
+"type.aerialway.chair_lift" = "Chair Lift";
 
-"type.aerialway.drag_lift" = "Drag lift";
+"type.aerialway.drag_lift" = "Drag Lift";
 
 "type.aerialway.gondola" = "Gondola";
 
-"type.aerialway.mixed_lift" = "Mixed lift";
+"type.aerialway.mixed_lift" = "Mixed Lift";
 
 "type.aerialway.station" = "Stasiun kereta gantung";
 
@@ -1311,7 +1317,9 @@
 
 "type.amenity.charging_station" = "Pusat Pengisian Daya";
 
-"type.amenity.charging_station.motorcar" = "Pusat Pengisian Daya";
+"type.amenity.charging_station.bicycle" = "Stasiun Pengisian Sepeda";
+
+"type.amenity.charging_station.motorcar" = "Stasiun Pengisian Mobil";
 
 "type.amenity.childcare" = "Penitipan Anak";
 
@@ -1334,6 +1342,8 @@
 "type.amenity.drinking_water" = "Air minum";
 
 "type.amenity.driving_school" = "Sekolah Mengemudi";
+
+"type.amenity.money_transfer" = "Transfer uang";
 
 "type.amenity.music_school" = "Sekolah musik";
 
@@ -1370,6 +1380,8 @@
 "type.amenity.kindergarten" = "Taman kanak-kanak";
 
 "type.amenity.library" = "Perpustakaan";
+
+"type.amenity.loading_dock" = "Dok pemuatan";
 
 "type.amenity.marketplace" = "Toko";
 
@@ -1653,6 +1665,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "HVAC";
 
+"type.craft.key_cutter" = "Pemotongan Kunci";
+
+"type.craft.locksmith" = "Tukang kunci";
+
 "type.craft.metal_construction" = "Tukang besi";
 
 "type.craft.painter" = "Tukang cat";
@@ -1849,11 +1865,31 @@
 
 "type.emergency.phone" = "Telepon darurat";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Pintu masuk";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Pintu masuk utama";
 
 "type.healthcare.laboratory" = "Laboratorium medis";
 
 "type.healthcare.physiotherapist" = "Fisioterapis";
+
+"type.healthcare.alternative" = "Pengobatan alternatif";
+
+"type.healthcare.audiologist" = "Audiologi";
+
+"type.healthcare.blood_donation" = "Pusat Donor Darah";
+
+"type.healthcare.optometrist" = "Optometri";
+
+"type.healthcare.podiatrist" = "Podiatri";
+
+"type.healthcare.psychotherapist" = "Psikoterapi";
+
+"type.healthcare.sample_collection" = "Pengambilan sampel";
+
+"type.healthcare.speech_therapist" = "Logopedik";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1905,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Terowongan";
+
+"type.highway.busway" = "Jalan khusus bus";
 
 "type.highway.bus_stop" = "Halte bus";
 
@@ -2305,7 +2343,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "TPA";
 
@@ -2323,9 +2361,9 @@
 
 "type.landuse.reservoir" = "Air";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 
@@ -2430,6 +2468,8 @@
 "type.man_made.surveillance" = "Kamera Pengawas";
 
 "type.man_made.tower" = "Menara";
+
+"type.man_made.tower.communication" = "Menara Komunikasi";
 
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
@@ -2623,11 +2663,31 @@
 
 "type.power.generator" = "Generator";
 
+"type.power.generator.solar" = "Pembangkit surya";
+
+"type.power.generator.wind" = "Generator angin";
+
+"type.power.generator.gas" = "Pembangkit listrik turbin gas";
+
+"type.power.generator.hydro" = "Pembangkit listrik tenaga air";
+
 "type.power.line" = "Power Line";
 
 "type.power.line.underground" = "Underground Power Line";
 
 "type.power.minor_line" = "Minor Power Line";
+
+"type.power.plant" = "Pembangkit listrik";
+
+"type.power.plant.coal" = "Pembangkit listrik batubara";
+
+"type.power.plant.gas" = "Pembangkit listrik turbin gas";
+
+"type.power.plant.hydro" = "Pembangkit listrik tenaga air";
+
+"type.power.plant.solar" = "Pembangkit listrik tenaga surya";
+
+"type.power.plant.wind" = "Pembangkit listrik tenaga angin";
 
 "type.power.pole" = "Menara listrik";
 
@@ -2754,6 +2814,8 @@
 "type.railway.station.subway.bengalore" = "Stasiun bawah tanah";
 
 "type.railway.station.subway.berlin" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.bilbao" = "Stasiun bawah tanah";
 
 "type.railway.station.subway.brasilia" = "Stasiun bawah tanah";
 
@@ -2979,6 +3041,8 @@
 
 "type.railway.subway_entrance.berlin" = "Pintu masuk kereta bawah tanah";
 
+"type.railway.subway_entrance.bilbao" = "Pintu masuk kereta bawah tanah";
+
 "type.railway.subway_entrance.brasilia" = "Pintu masuk kereta bawah tanah";
 
 "type.railway.subway_entrance.brescia" = "Pintu masuk kereta bawah tanah";
@@ -3197,6 +3261,8 @@
 
 "type.shop.bakery" = "Toko roti";
 
+"type.shop.bathroom_furnishing" = "Perabot Kamar Mandi";
+
 "type.shop.beauty" = "Salon kecantikan";
 
 "type.shop.beverages" = "Minuman";
@@ -3209,6 +3275,8 @@
 
 "type.shop.butcher" = "Tukang daging";
 
+"type.shop.cannabis" = "Toko ganja";
+
 "type.shop.car" = "Toko mobil";
 
 "type.shop.car_parts" = "Bagian mobil";
@@ -3218,6 +3286,8 @@
 "type.shop.car_repair.tyres" = "Tambal ban";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "Karpet";
 
 "type.shop.chemist" = "Toko Bahan Kimia";
 
@@ -3237,6 +3307,8 @@
 
 "type.shop.cosmetics" = "Kosmetik";
 
+"type.shop.curtain" = "Tirai";
+
 "type.shop.deli" = "Toko Kue";
 
 "type.shop.department_store" = "Toko serba ada";
@@ -3253,6 +3325,8 @@
 
 "type.shop.farm" = "Toko Makanan Pertanian";
 
+"type.shop.fashion_accessories" = "Aksesoris Fashion";
+
 "type.shop.florist" = "Tukang bunga";
 
 "type.shop.funeral_directors" = "Direktur Pemakaman";
@@ -3260,6 +3334,8 @@
 "type.shop.furniture" = "Toko mebel";
 
 "type.shop.garden_centre" = "Penitipan anak";
+
+"type.shop.gas" = "Toko gas";
 
 "type.shop.gift" = "Toko hadiah";
 
@@ -3272,6 +3348,10 @@
 "type.shop.hardware" = "Toko perangkat keras";
 
 "type.shop.health_food" = "Toko Makanan Kesehatan";
+
+"type.shop.herbalist" = "Toko jamu";
+
+"type.shop.hifi" = "Audio HI FI";
 
 "type.shop.houseware" = "Toko Peralatan Rumah Tangga";
 
@@ -3293,6 +3373,8 @@
 
 "type.shop.motorcycle" = "Toko Sepeda Motor";
 
+"type.shop.motorcycle_repair" = "Bengkel Sepeda Motor";
+
 "type.shop.music" = "Toko";
 
 "type.shop.musical_instrument" = "Toko";
@@ -3303,11 +3385,15 @@
 
 "type.shop.outdoor" = "Peralatan Outdoor";
 
+"type.shop.outpost" = "Titik penjemputan";
+
 "type.shop.pastry" = "Kue-kue";
 
 "type.shop.pawnbroker" = "Rumah Gadai";
 
 "type.shop.pet" = "Toko hewan";
+
+"type.shop.pet_grooming" = "Perawatan Hewan Peliharaan";
 
 "type.shop.photo" = "Studio Foto";
 
@@ -3343,13 +3429,19 @@
 
 "type.shop.wine" = "Toko anggur";
 
+"type.shop.agrarian" = "Toko pertanian";
+
 "type.shop.antiques" = "Barang antik";
+
+"type.shop.appliance" = "Toko peralatan";
 
 "type.shop.art" = "Toko Seni";
 
 "type.shop.baby_goods" = "Toko anak-anak";
 
 "type.shop.bag" = "Toko Tas";
+
+"type.shop.bed" = "Toko tempat tidur";
 
 "type.shop.boutique" = "Butik";
 

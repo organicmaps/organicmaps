@@ -8,13 +8,13 @@
     android:id="@+id/toolbar_point_chooser"
     style="@style/MwmWidget.ToolbarStyle"
     android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
+    android:layout_height="wrap_content"
     android:gravity="end|center_vertical"
     android:theme="@style/MwmWidget.ToolbarTheme">
 
     <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="?attr/actionBarSize"
       android:orientation="horizontal"
       android:padding="@dimen/margin_half">
 

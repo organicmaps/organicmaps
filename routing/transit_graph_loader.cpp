@@ -20,14 +20,12 @@
 #include <unordered_map>
 #include <vector>
 
-using namespace std;
-
 namespace routing
 {
 class TransitGraphLoaderImpl : public TransitGraphLoader
 {
 public:
-  TransitGraphLoaderImpl(MwmDataSource & dataSource, shared_ptr<EdgeEstimator> estimator)
+  TransitGraphLoaderImpl(MwmDataSource & dataSource, std::shared_ptr<EdgeEstimator> estimator)
     : m_dataSource(dataSource), m_estimator(estimator)
   {
   }
@@ -46,7 +44,7 @@ public:
   void Clear() override { m_graphs.clear(); }
 
 private:
-  unique_ptr<TransitGraph> CreateTransitGraph(NumMwmId numMwmId, IndexGraph & indexGraph) const
+  std::unique_ptr<TransitGraph> CreateTransitGraph(NumMwmId numMwmId, IndexGraph & indexGraph) const
   {
     base::Timer timer;
 
@@ -54,17 +52,17 @@ private:
 
     // By default we return empty transit graph with version OnlySubway.
     if (!mwmValue.m_cont.IsExist(TRANSIT_FILE_TAG))
-      return make_unique<TransitGraph>(::transit::TransitVersion::OnlySubway, numMwmId, m_estimator);
+      return std::make_unique<TransitGraph>(::transit::TransitVersion::OnlySubway, numMwmId, m_estimator);
 
     try
     {
       FilesContainerR::TReader reader(mwmValue.m_cont.GetReader(TRANSIT_FILE_TAG));
       auto const transitHeaderVersion = ::transit::GetVersion(*reader.GetPtr());
 
-      unique_ptr<TransitGraph> graph;
+      std::unique_ptr<TransitGraph> graph;
       if (transitHeaderVersion == ::transit::TransitVersion::OnlySubway)
       {
-        graph = make_unique<TransitGraph>(::transit::TransitVersion::OnlySubway, numMwmId, m_estimator);
+        graph = std::make_unique<TransitGraph>(::transit::TransitVersion::OnlySubway, numMwmId, m_estimator);
 
         transit::GraphData transitData;
         transitData.DeserializeForRouting(*reader.GetPtr());
@@ -76,7 +74,7 @@ private:
       }
       else if (transitHeaderVersion == ::transit::TransitVersion::AllPublicTransport)
       {
-        graph = make_unique<TransitGraph>(::transit::TransitVersion::AllPublicTransport, numMwmId, m_estimator);
+        graph = std::make_unique<TransitGraph>(::transit::TransitVersion::AllPublicTransport, numMwmId, m_estimator);
 
         ::transit::experimental::TransitData transitData;
         transitData.DeserializeForRouting(*reader.GetPtr());
@@ -107,14 +105,14 @@ private:
   }
 
   MwmDataSource & m_dataSource;
-  shared_ptr<EdgeEstimator> m_estimator;
-  unordered_map<NumMwmId, unique_ptr<TransitGraph>> m_graphs;
+  std::shared_ptr<EdgeEstimator> m_estimator;
+  std::unordered_map<NumMwmId, std::unique_ptr<TransitGraph>> m_graphs;
 };
 
 // static
-unique_ptr<TransitGraphLoader> TransitGraphLoader::Create(MwmDataSource & dataSource, shared_ptr<EdgeEstimator> estimator)
+std::unique_ptr<TransitGraphLoader> TransitGraphLoader::Create(MwmDataSource & dataSource, std::shared_ptr<EdgeEstimator> estimator)
 {
-  return make_unique<TransitGraphLoaderImpl>(dataSource, estimator);
+  return std::make_unique<TransitGraphLoaderImpl>(dataSource, estimator);
 }
 
 }  // namespace routing

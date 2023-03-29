@@ -3,7 +3,6 @@
   <!-- Nav menu -->
   <dimen name="nav_menu_content_height">64dp</dimen>
   <dimen name="nav_progress">8dp</dimen>
-  <dimen name="nav_numbers_margin">32dp</dimen>
 
   <!-- Altitude chart -->
   <dimen name="altitude_chart_image_width">328dp</dimen>

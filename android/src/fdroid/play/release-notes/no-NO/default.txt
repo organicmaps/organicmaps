@@ -1,0 +1,1 @@
+../../listings/no-NO/release-notes.txt

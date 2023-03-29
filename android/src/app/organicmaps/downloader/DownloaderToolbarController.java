@@ -58,6 +58,7 @@ class DownloaderToolbarController extends SearchToolbarController
   }
 
   @Override
+  @SuppressWarnings("deprecated") // https://github.com/organicmaps/organicmaps/issues/3630
   protected void startVoiceRecognition(Intent intent, int code)
   {
     mFragment.startActivityForResult(intent, code);

@@ -13,7 +13,6 @@ import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import androidx.fragment.app.FragmentManager;
@@ -31,6 +30,7 @@ import app.organicmaps.widget.ToolbarController;
 import app.organicmaps.util.ConnectionState;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -301,16 +301,8 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
       {
       case OPENING_HOURS:
         final String timetables = ((TimetableContainerFragment) getChildFragmentManager().findFragmentByTag(TimetableContainerFragment.class.getName())).getTimetable();
-        if (OpeningHours.nativeIsTimetableStringValid(timetables))
-        {
-          Editor.nativeSetOpeningHours(timetables);
-          editMapObject();
-        }
-        else
-        {
-          // TODO (yunikkk) correct translation
-          showMistakeDialog(R.string.editor_correct_mistake);
-        }
+        Editor.nativeSetOpeningHours(timetables);
+        editMapObject();
         break;
       case STREET:
         setStreet(((StreetFragment) getChildFragmentManager().findFragmentByTag(StreetFragment.class.getName())).getStreet());
@@ -360,7 +352,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   private void processNoFeatures()
   {
-    new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
+    new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.downloader_no_space_title)
         .setPositiveButton(R.string.ok, null)
         .show();
@@ -395,7 +387,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   private void showMistakeDialog(@StringRes int resId)
   {
-    new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
+    new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
         .setMessage(resId)
         .setPositiveButton(R.string.ok, null)
         .show();
@@ -403,7 +395,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   private void showNoobDialog()
   {
-    new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
+    new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.editor_share_to_all_dialog_title)
         .setMessage(getString(R.string.editor_share_to_all_dialog_message_1)
             + " " + getString(R.string.editor_share_to_all_dialog_message_2))

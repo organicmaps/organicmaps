@@ -226,6 +226,9 @@
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D-gebouwen";
 
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "3D-gebouwen worden uitgeschakeld in de energiebesparende modus";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Gesproken instructies";
 
@@ -304,7 +307,7 @@
 "donate" = "Doneren";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Hoe ons te steunen?";
+"how_to_support_us" = "Steun het project";
 
 /* Button in the main Help dialog */
 "copyright" = "Auteursrechten";
@@ -710,8 +713,8 @@
 
 "editor_storey_number" = "Aantal verdiepingen (max. %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "Bewerk het gebouw met maximaal 25 verdiepingen";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Het gebouw mag niet meer dan %d verdiepingen hebben";
 
 "editor_zip_code" = "Postcode";
 
@@ -1236,6 +1239,9 @@
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/";
 
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/NL:Wat_is_OpenStreetMap%3F";
+
 
 /********** Types **********/
 
@@ -1311,7 +1317,9 @@
 
 "type.amenity.charging_station" = "Oplaadstation";
 
-"type.amenity.charging_station.motorcar" = "Oplaadstation";
+"type.amenity.charging_station.bicycle" = "Oplaadstation voor fietsen";
+
+"type.amenity.charging_station.motorcar" = "Oplaadstation voor auto's";
 
 "type.amenity.childcare" = "Crèche";
 
@@ -1334,6 +1342,8 @@
 "type.amenity.drinking_water" = "Drinkwater";
 
 "type.amenity.driving_school" = "Rijschool";
+
+"type.amenity.money_transfer" = "Overschrijving";
 
 "type.amenity.music_school" = "Muziekschool";
 
@@ -1370,6 +1380,8 @@
 "type.amenity.kindergarten" = "Kleuterschool";
 
 "type.amenity.library" = "Bibliotheek";
+
+"type.amenity.loading_dock" = "Laad-dock";
 
 "type.amenity.marketplace" = "Markt";
 
@@ -1653,6 +1665,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Airconditioning";
 
+"type.craft.key_cutter" = "Sleutel snijden";
+
+"type.craft.locksmith" = "Slotenmaker";
+
 "type.craft.metal_construction" = "Metaalarbeider";
 
 "type.craft.painter" = "Schilder";
@@ -1849,11 +1865,31 @@
 
 "type.emergency.phone" = "Praatpaal";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Ingang";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Hoofdingang";
 
 "type.healthcare.laboratory" = "Medisch laboratorium";
 
 "type.healthcare.physiotherapist" = "Fysiotherapeut";
+
+"type.healthcare.alternative" = "Alternatieve geneeskunde";
+
+"type.healthcare.audiologist" = "Audiologie";
+
+"type.healthcare.blood_donation" = "Bloeddonatiecentrum";
+
+"type.healthcare.optometrist" = "Optometrie";
+
+"type.healthcare.podiatrist" = "Podologie";
+
+"type.healthcare.psychotherapist" = "Psychotherapie";
+
+"type.healthcare.sample_collection" = "Bemonstering";
+
+"type.healthcare.speech_therapist" = "Logopedie";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1905,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunnel";
+
+"type.highway.busway" = "Speciale busweg";
 
 "type.highway.bus_stop" = "Bushalte";
 
@@ -2431,6 +2469,8 @@
 
 "type.man_made.tower" = "Toren";
 
+"type.man_made.tower.communication" = "Communicatie Toren";
+
 "type.man_made.wastewater_plant" = "Waterzuiveringsinstallatie";
 
 "type.man_made.water_tap" = "Waterkraan";
@@ -2623,11 +2663,31 @@
 
 "type.power.generator" = "Generator";
 
+"type.power.generator.solar" = "Zonne-generator";
+
+"type.power.generator.wind" = "Wind generator";
+
+"type.power.generator.gas" = "Gasturbine elektriciteitscentrale";
+
+"type.power.generator.hydro" = "Waterkrachtcentrale";
+
 "type.power.line" = "Hoogspanningsleiding";
 
 "type.power.line.underground" = "Ondergrondse hoogspanningsleiding";
 
 "type.power.minor_line" = "Laag-/middelspanningsleiding";
+
+"type.power.plant" = "Energiecentrale";
+
+"type.power.plant.coal" = "Kolen elektriciteitscentrale";
+
+"type.power.plant.gas" = "Gasturbine elektriciteitscentrale";
+
+"type.power.plant.hydro" = "Waterkrachtcentrale";
+
+"type.power.plant.solar" = "Zonne-energiecentrale";
+
+"type.power.plant.wind" = "Windkrachtcentrale";
 
 "type.power.pole" = "Elektriciteitspaal";
 
@@ -2754,6 +2814,8 @@
 "type.railway.station.subway.bengalore" = "Metrostation";
 
 "type.railway.station.subway.berlin" = "Metrostation";
+
+"type.railway.station.subway.bilbao" = "Metrostation";
 
 "type.railway.station.subway.brasilia" = "Metrostation";
 
@@ -2979,6 +3041,8 @@
 
 "type.railway.subway_entrance.berlin" = "Metro ingang";
 
+"type.railway.subway_entrance.bilbao" = "Metro ingang";
+
 "type.railway.subway_entrance.brasilia" = "Metro ingang";
 
 "type.railway.subway_entrance.brescia" = "Metro ingang";
@@ -3197,6 +3261,8 @@
 
 "type.shop.bakery" = "Bakkerij";
 
+"type.shop.bathroom_furnishing" = "Badkamerinrichting";
+
 "type.shop.beauty" = "Schoonheidssalon";
 
 "type.shop.beverages" = "Drank";
@@ -3209,6 +3275,8 @@
 
 "type.shop.butcher" = "Slager";
 
+"type.shop.cannabis" = "Cannabis Winkel";
+
 "type.shop.car" = "Autohandelaar";
 
 "type.shop.car_parts" = "Auto onderdelen";
@@ -3218,6 +3286,8 @@
 "type.shop.car_repair.tyres" = "Bandenreparatie";
 
 "type.shop.caravan" = "Caravan en camper verkoper";
+
+"type.shop.carpet" = "Tapijten";
 
 "type.shop.chemist" = "Drogisterij";
 
@@ -3237,6 +3307,8 @@
 
 "type.shop.cosmetics" = "Schoonheidsmiddelen";
 
+"type.shop.curtain" = "Gordijnen";
+
 "type.shop.deli" = "Delicatessenwinkel";
 
 "type.shop.department_store" = "Warenhuis";
@@ -3253,6 +3325,8 @@
 
 "type.shop.farm" = "Boerderijwinkel";
 
+"type.shop.fashion_accessories" = "Mode accessoires";
+
 "type.shop.florist" = "Bloemist";
 
 "type.shop.funeral_directors" = "Begrafenisondernemer";
@@ -3260,6 +3334,8 @@
 "type.shop.furniture" = "Meubelzaak";
 
 "type.shop.garden_centre" = "Tuincentrum";
+
+"type.shop.gas" = "Gas winkel";
 
 "type.shop.gift" = "Cadeauwinkel";
 
@@ -3272,6 +3348,10 @@
 "type.shop.hardware" = "IJzerwaren";
 
 "type.shop.health_food" = "Natuurvoedingswinkel";
+
+"type.shop.herbalist" = "Kruiden winkel";
+
+"type.shop.hifi" = "HiFi-audio";
 
 "type.shop.houseware" = "Huishoudelijke winkel";
 
@@ -3293,6 +3373,8 @@
 
 "type.shop.motorcycle" = "Motorzaak";
 
+"type.shop.motorcycle_repair" = "Motorfiets Reparatie";
+
 "type.shop.music" = "Muziekwinkel";
 
 "type.shop.musical_instrument" = "Muziekinstrumentenwinkel";
@@ -3303,11 +3385,15 @@
 
 "type.shop.outdoor" = "Outdooruitrusting";
 
+"type.shop.outpost" = "Ophaalpunt";
+
 "type.shop.pastry" = "Banketbakker";
 
 "type.shop.pawnbroker" = "Pandjesbaas";
 
 "type.shop.pet" = "Dierenwinkel";
+
+"type.shop.pet_grooming" = "Huisdierverzorging";
 
 "type.shop.photo" = "Fotowinkel";
 
@@ -3343,13 +3429,19 @@
 
 "type.shop.wine" = "Wijnhandel";
 
+"type.shop.agrarian" = "Agrarische winkel";
+
 "type.shop.antiques" = "Antiekhandel";
+
+"type.shop.appliance" = "Apparaten winkel";
 
 "type.shop.art" = "Kunstwinkel";
 
 "type.shop.baby_goods" = "Babyspullenwinkel";
 
 "type.shop.bag" = "Tassenwinkel";
+
+"type.shop.bed" = "Bedden winkel";
 
 "type.shop.boutique" = "Boetiek";
 

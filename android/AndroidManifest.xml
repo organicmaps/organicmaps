@@ -38,6 +38,12 @@
   //-->
   <uses-permission android:name="android.permission.WAKE_LOCK"/>
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+  <!--
+    Android 13 (API level 33) and higher supports a runtime permission for sending non-exempt (including Foreground
+    Services (FGS)) notifications from an app.
+  //-->
+  <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
 
   <queries>
     <intent>
@@ -551,7 +557,6 @@
         <data android:scheme="https"/>
 
         <!-- #map=$zoom/$lat/$lon -->
-        <data android:host="openstreetmap.org"/>
         <data android:host="www.openstreetmap.org"/>
         <data android:path="/"/>
         <data android:path="/search"/>
@@ -598,32 +603,28 @@
         <data android:host="*"/>
         <data android:mimeType="*/*"/>
         <!-- See http://stackoverflow.com/questions/3400072/pathpattern-to-match-file-extension-does-not-work-if-a-period-exists-elsewhere-i -->
-        <data android:pathPattern="*.kmz"/>
-        <data android:pathPattern=".*\\.kmz" />
-        <data android:pathPattern=".*\\..*\\.kmz" />
-        <data android:pathPattern=".*\\..*\\..*\\.kmz" />
-        <data android:pathPattern=".*\\..*\\..*\\..*\\.kmz" />
-        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.kmz" />
-        <data android:pathPattern="*.kml"/>
-        <data android:pathPattern=".*\\.kml" />
-        <data android:pathPattern=".*\\..*\\.kml" />
-        <data android:pathPattern=".*\\..*\\..*\\.kml" />
-        <data android:pathPattern=".*\\..*\\..*\\..*\\.kml" />
-        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.kml" />
+        <data android:pathPattern="/.*\\.kmz" />
+        <data android:pathPattern="/.*\\..*\\.kmz" />
+        <data android:pathPattern="/.*\\..*\\..*\\.kmz" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\.kmz" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.kmz" />
+        <data android:pathPattern="/.*\\.kml" />
+        <data android:pathPattern="/.*\\..*\\.kml" />
+        <data android:pathPattern="/.*\\..*\\..*\\.kml" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\.kml" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.kml" />
         <!-- Old MAPS.ME binary format //-->
-        <data android:pathPattern="*.kmb"/>
-        <data android:pathPattern=".*\\.kmb" />
-        <data android:pathPattern=".*\\..*\\.kmb" />
-        <data android:pathPattern=".*\\..*\\..*\\.kmb" />
-        <data android:pathPattern=".*\\..*\\..*\\..*\\.kmb" />
-        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.kmb" />
+        <data android:pathPattern="/.*\\.kmb" />
+        <data android:pathPattern="/.*\\..*\\.kmb" />
+        <data android:pathPattern="/.*\\..*\\..*\\.kmb" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\.kmb" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.kmb" />
       </intent-filter>
     </activity>
 
     <activity
         android:name="app.organicmaps.DownloadResourcesLegacyActivity"
-        android:configChanges="screenLayout|screenSize"
-        android:label="@string/app_name"/>
+        android:configChanges="orientation|screenLayout|screenSize"/>
 
     <activity-alias
       android:name="app.organicmaps.DownloadResourcesActivity"
@@ -663,8 +664,7 @@
 
     <activity
         android:name="app.organicmaps.help.HelpActivity"
-        android:configChanges="orientation|screenLayout|screenSize"
-        android:label="@string/help"
+        android:label="@string/about_menu_title"
         android:parentActivityName="app.organicmaps.MwmActivity"
         android:exported="false">
       <intent-filter>

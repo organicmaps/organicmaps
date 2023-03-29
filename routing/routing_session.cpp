@@ -14,13 +14,8 @@
 
 #include <utility>
 
-using namespace location;
-using namespace std;
-using namespace traffic;
-
 namespace
 {
-
 int constexpr kOnRouteMissedCount = 10;
 
 double constexpr kShowLanesMinDistInMeters = 500.0;
@@ -37,20 +32,23 @@ double constexpr kMinimumETASec = 60.0;
 
 namespace routing
 {
-void FormatDistance(double dist, string & value, string & suffix)
+using namespace location;
+using namespace traffic;
+
+void FormatDistance(double dist, std::string & value, std::string & suffix)
 {
   /// @todo Make better formatting of distance and units.
   value = measurement_utils::FormatDistance(dist);
 
   size_t const delim = value.find(' ');
-  ASSERT(delim != string::npos, ());
+  ASSERT(delim != std::string::npos, ());
   suffix = value.substr(delim + 1);
   value.erase(delim);
 }
 
 RoutingSession::RoutingSession()
   : m_router(nullptr)
-  , m_route(make_shared<Route>(string() /* router */, 0 /* route id */))
+  , m_route(std::make_shared<Route>(std::string{} /* router */, 0 /* route id */))
   , m_state(SessionState::NoValidRoute)
   , m_isFollowing(false)
   , m_speedCameraManager(m_turnNotificationsMgr)
@@ -67,7 +65,7 @@ void RoutingSession::Init(PointCheckCallback const & pointCheckCallback)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   CHECK(!m_router, ());
-  m_router = make_unique<AsyncRouter>(pointCheckCallback);
+  m_router = std::make_unique<AsyncRouter>(pointCheckCallback);
 }
 
 void RoutingSession::BuildRoute(Checkpoints const & checkpoints, uint32_t timeoutSec)
@@ -121,7 +119,7 @@ m2::PointD RoutingSession::GetEndPoint() const
   return m_checkpoints.GetFinish();
 }
 
-void RoutingSession::DoReadyCallback::operator()(shared_ptr<Route> const & route, RouterResultCode e)
+void RoutingSession::DoReadyCallback::operator()(std::shared_ptr<Route> const & route, RouterResultCode e)
 {
   ASSERT(m_rs.m_route, ());
   m_rs.AssignRoute(route, e);
@@ -136,7 +134,7 @@ void RoutingSession::RemoveRoute()
   m_moveAwayCounter = 0;
   m_turnNotificationsMgr.Reset();
 
-  m_route = make_shared<Route>(string() /* router */, 0 /* route id */);
+  m_route = std::make_shared<Route>(std::string{} /* router */, 0 /* route id */);
   m_speedCameraManager.Reset();
   m_speedCameraManager.SetRoute(m_route);
 }
@@ -345,7 +343,7 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
 // If no |target| - it will be replaced by |name| of next street.
 // If no |target:ref| - it will be replaced by |ref| of next road.
 // So if link has no info at all, "[ref] name" of next will be returned (as for next street).
-void GetFullRoadName(RouteSegment::RoadNameInfo & road, string & name)
+void GetFullRoadName(RouteSegment::RoadNameInfo & road, std::string & name)
 {
   if (auto const & sh = ftypes::GetRoadShields(road.m_ref); !sh.empty())
     road.m_ref = sh[0].m_name;
@@ -359,12 +357,12 @@ void GetFullRoadName(RouteSegment::RoadNameInfo & road, string & name)
       name = "[" + road.m_junction_ref + "]";
 
     if (!road.m_destination_ref.empty())
-      name += string(name.empty() ? "" : ": ") + "[" + road.m_destination_ref + "]";
+      name += std::string(name.empty() ? "" : ": ") + "[" + road.m_destination_ref + "]";
 
     if (!road.m_destination.empty())
-      name += string(name.empty() ? "" : " ") + "> " + road.m_destination;
+      name += std::string(name.empty() ? "" : " ") + "> " + road.m_destination;
     else if (!road.m_name.empty())
-      name += (road.m_destination_ref.empty() ? string(name.empty() ? "" : " ") : ": ") + road.m_name;
+      name += (road.m_destination_ref.empty() ? std::string(name.empty() ? "" : " ") : ": ") + road.m_name;
   }
   else
   {
@@ -392,7 +390,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   {
     info = FollowingInfo();
     FormatDistance(m_route->GetTotalDistanceMeters(), info.m_distToTarget, info.m_targetUnitsSuffix);
-    info.m_time = static_cast<int>(max(kMinimumETASec, m_route->GetCurrentTimeToEndSec()));
+    info.m_time = static_cast<int>(std::max(kMinimumETASec, m_route->GetCurrentTimeToEndSec()));
     return;
   }
 
@@ -420,7 +418,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     info.m_nextTurn = routing::turns::CarDirection::None;
 
   info.m_exitNum = turn.m_exitNum;
-  info.m_time = static_cast<int>(max(kMinimumETASec, m_route->GetCurrentTimeToEndSec()));
+  info.m_time = static_cast<int>(std::max(kMinimumETASec, m_route->GetCurrentTimeToEndSec()));
   RouteSegment::RoadNameInfo sourceRoadNameInfo, targetRoadNameInfo;
   m_route->GetCurrentStreetName(sourceRoadNameInfo);
   GetFullRoadName(sourceRoadNameInfo, info.m_sourceName);
@@ -487,7 +485,7 @@ void RoutingSession::PassCheckpoints()
   }
 }
 
-void RoutingSession::GenerateNotifications(vector<string> & notifications)
+void RoutingSession::GenerateNotifications(std::vector<std::string> & notifications)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   notifications.clear();
@@ -502,14 +500,14 @@ void RoutingSession::GenerateNotifications(vector<string> & notifications)
     return;
 
   // Generate turns notifications.
-  vector<turns::TurnItemDist> turns;
+  std::vector<turns::TurnItemDist> turns;
   if (m_route->GetNextTurns(turns))
     m_turnNotificationsMgr.GenerateTurnNotifications(turns, notifications);
 
   m_speedCameraManager.GenerateNotifications(notifications);
 }
 
-void RoutingSession::AssignRoute(shared_ptr<Route> const & route, RouterResultCode e)
+void RoutingSession::AssignRoute(std::shared_ptr<Route> const & route, RouterResultCode e)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
@@ -535,8 +533,8 @@ void RoutingSession::AssignRoute(shared_ptr<Route> const & route, RouterResultCo
   m_speedCameraManager.SetRoute(m_route);
 }
 
-void RoutingSession::SetRouter(unique_ptr<IRouter> && router,
-                               unique_ptr<AbsentRegionsFinder> && finder)
+void RoutingSession::SetRouter(std::unique_ptr<IRouter> && router,
+                               std::unique_ptr<AbsentRegionsFinder> && finder)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(m_router != nullptr, ());
@@ -739,14 +737,14 @@ void RoutingSession::SetTurnNotificationsUnits(measurement_utils::Units const un
   m_turnNotificationsMgr.SetLengthUnits(units);
 }
 
-void RoutingSession::SetTurnNotificationsLocale(string const & locale)
+void RoutingSession::SetTurnNotificationsLocale(std::string const & locale)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   LOG(LINFO, ("The language for turn notifications is", locale));
   m_turnNotificationsMgr.SetLocale(locale);
 }
 
-string RoutingSession::GetTurnNotificationsLocale() const
+std::string RoutingSession::GetTurnNotificationsLocale() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   return m_turnNotificationsMgr.GetLocale();
@@ -790,7 +788,7 @@ bool RoutingSession::IsRouteValid() const
   return m_route && m_route->IsValid();
 }
 
-bool RoutingSession::GetRouteAltitudesAndDistancesM(vector<double> & routeSegDistanceM,
+bool RoutingSession::GetRouteAltitudesAndDistancesM(std::vector<double> & routeSegDistanceM,
                                                     geometry::Altitudes & routeAltitudesM) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -820,7 +818,7 @@ void RoutingSession::OnTrafficInfoClear()
 void RoutingSession::OnTrafficInfoAdded(TrafficInfo && info)
 {
   TrafficInfo::Coloring const & fullColoring = info.GetColoring();
-  auto coloring = make_shared<TrafficInfo::Coloring>();
+  auto coloring = std::make_shared<TrafficInfo::Coloring>();
   for (auto const & kv : fullColoring)
   {
     ASSERT_NOT_EQUAL(kv.second, SpeedGroup::Unknown, ());
@@ -855,7 +853,7 @@ void RoutingSession::SetLocaleWithJsonForTesting(std::string const & json, std::
   m_turnNotificationsMgr.SetLocaleWithJsonForTesting(json, locale);
 }
 
-string DebugPrint(SessionState state)
+std::string DebugPrint(SessionState state)
 {
   switch (state)
   {

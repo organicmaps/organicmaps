@@ -27,8 +27,6 @@
 #include <limits>
 #include <memory>
 
-using namespace std;
-
 namespace
 {
 m2::PointD GetPointOnEdge(routing::Edge const & e, double posAlong)
@@ -43,17 +41,17 @@ m2::PointD GetPointOnEdge(routing::Edge const & e, double posAlong)
 }  // namespace
 
 RoutingTest::RoutingTest(routing::IRoadGraph::Mode mode, routing::VehicleType type,
-                         set<string> const & neededMaps)
-  : m_mode(mode), m_type(type), m_neededMaps(neededMaps), m_numMwmIds(make_unique<routing::NumMwmIds>())
+                         std::set<std::string> const & neededMaps)
+  : m_mode(mode), m_type(type), m_neededMaps(neededMaps), m_numMwmIds(std::make_unique<routing::NumMwmIds>())
 {
   classificator::Load();
 
   Platform & platform = GetPlatform();
   m_cig = storage::CountryInfoReader::CreateCountryInfoGetter(platform);
 
-  platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max(), m_localFiles);
+  platform::FindAllLocalMapsAndCleanup(std::numeric_limits<int64_t>::max(), m_localFiles);
 
-  set<string> registeredMaps;
+  std::set<std::string> registeredMaps;
   for (auto const & localFile : m_localFiles)
   {
     m_numMwmIds->RegisterFile(localFile.GetCountryFile());
@@ -107,11 +105,11 @@ void RoutingTest::TestRouters(m2::PointD const & startPos, m2::PointD const & fi
 
 void RoutingTest::TestTwoPointsOnFeature(m2::PointD const & startPos, m2::PointD const & finalPos)
 {
-  vector<pair<routing::Edge, geometry::PointWithAltitude>> startEdges;
+  std::vector<std::pair<routing::Edge, geometry::PointWithAltitude>> startEdges;
   GetNearestEdges(startPos, startEdges);
   TEST(!startEdges.empty(), ());
 
-  vector<pair<routing::Edge, geometry::PointWithAltitude>> finalEdges;
+  std::vector<std::pair<routing::Edge, geometry::PointWithAltitude>> finalEdges;
   GetNearestEdges(finalPos, finalEdges);
   TEST(!finalEdges.empty(), ());
 
@@ -123,9 +121,9 @@ void RoutingTest::TestTwoPointsOnFeature(m2::PointD const & startPos, m2::PointD
   TestRouters(startPosOnFeature, finalPosOnFeature);
 }
 
-unique_ptr<routing::IRouter> RoutingTest::CreateRouter(string const & name)
+std::unique_ptr<routing::IRouter> RoutingTest::CreateRouter(std::string const & name)
 {
-  vector<platform::LocalCountryFile> neededLocalFiles;
+  std::vector<platform::LocalCountryFile> neededLocalFiles;
   neededLocalFiles.reserve(m_neededMaps.size());
   for (auto const & file : m_localFiles)
   {
@@ -133,13 +131,13 @@ unique_ptr<routing::IRouter> RoutingTest::CreateRouter(string const & name)
       neededLocalFiles.push_back(file);
   }
 
-  unique_ptr<routing::IRouter> router = integration::CreateVehicleRouter(
+  std::unique_ptr<routing::IRouter> router = integration::CreateVehicleRouter(
       m_dataSource, *m_cig, m_trafficCache, neededLocalFiles, m_type);
   return router;
 }
 
 void RoutingTest::GetNearestEdges(m2::PointD const & pt,
-                                  vector<pair<routing::Edge, geometry::PointWithAltitude>> & edges)
+                                  std::vector<std::pair<routing::Edge, geometry::PointWithAltitude>> & edges)
 {
   routing::MwmDataSource dataSource(m_dataSource, nullptr /* numMwmIDs */);
   routing::FeaturesRoadGraph graph(dataSource, m_mode, CreateModelFactory());

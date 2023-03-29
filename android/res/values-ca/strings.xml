@@ -35,6 +35,9 @@
 	<string name="country_status_download_failed">La baixada ha fallat</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Torna-ho a intentar</string>
+	<string name="about_menu_title">Quant a l\'Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Estalvia la bateria, no utilitza dades de fons</string>
 	<string name="connection_settings">Paràmetres de connexió</string>
 	<string name="close">Tanca</string>
 	<string name="unsupported_phone">L\'aplicació requereix acceleració per maquinari OpenGL. Malauradament, el vostre aparell no ho suporta.</string>
@@ -207,6 +210,8 @@
 	<string name="pref_map_3d_title">Vista en perspectiva</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">Edificis en 3D</string>
+	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+	<string name="pref_map_3d_buildings_disabled_summary">Els edificis en 3D es desactiven en mode d\'estalvi d\'energia</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Instruccions de veu</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -238,7 +243,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Donatiu</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Com ajudar-nos?</string>
+	<string name="how_to_support_us">Donar suport al projecte</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Copyright</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -446,7 +451,6 @@
 	<string name="editor_report_problem_other_title">Un altre problema</string>
 	<string name="placepage_add_business_button">Afegeix un negoci</string>
 	<string name="message_invalid_feature_position">No s\'ha trobat cap objecte aquí</string>
-	<string name="osm_presentation">Totes les dades cartogràfiques provenen del projecte OpenStreetMap. És com la Viquipèdia per als mapes on podeu afegir o editar llocs, i estan disponibles per a milions d\'usuaris de tot el món.</string>
 	<string name="login_to_make_edits_visible">Inicieu sessió perquè altres usuaris puguin veure els canvis que heu fet</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d de %2$d</string>
@@ -454,8 +458,8 @@
 	<string name="download_over_mobile_message">Això podria ser força car amb algunes tarifes d\'itinerància de dades.</string>
 	<string name="error_enter_correct_house_number">Introduïu un número d\'edifici vàlid</string>
 	<string name="editor_storey_number">Nombre de plantes (màxim %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">El nombre de plantes no pot excedir de 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">El nombre de plantes no pot excedir de %d</string>
 	<string name="editor_zip_code">Codi postal</string>
 	<string name="error_enter_correct_zip_code">Introduïu un codi postal vàlid</string>
 	<!-- Place Page title for long tap -->
@@ -714,7 +718,49 @@
 	<string name="enable_show_on_lock_screen_description">Si està activa, no cal desblocar l\'aparell cada vegada mentre l\'aplicació està funcionant.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Dades del mapa de l\'OpenStreetMap</string>
+	<!-- Link to OSM wiki for Editor, Profile and About pages -->
+	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Ca:About</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.amenity.charging_station.bicycle">Estació de recàrrega de bicicletes</string>
+	<string name="type.amenity.charging_station.motorcar">Estació de recàrrega de cotxes</string>
 	<string name="type.leisure.bowling_alley">Bolera</string>
+	<string name="type.amenity.money_transfer">Transferència de diners</string>
+	<string name="type.amenity.loading_dock">Moll de càrrega</string>
+
+	<!-- SECTION: Types: Recycling -->
+	<string name="type.craft.key_cutter">Tall de claus</string>
+	<string name="type.craft.locksmith">Serraller</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Entrada principal</string>
+
+	<!-- SECTION: Types: Roads -->
+	<string name="type.highway.busway">Carretera dedicada a l\'autobús</string>
+
+	<!-- SECTION: Types: Historic -->
+	<string name="type.man_made.tower.communication">Torre de comunicacions</string>
+	<string name="type.power.generator.solar">Generador solar</string>
+	<string name="type.power.generator.wind">Generador eòlic</string>
+	<string name="type.power.generator.gas">Central elèctrica de turbina de gas</string>
+	<string name="type.power.generator.hydro">Central hidroelèctrica</string>
+	<string name="type.power.plant">Central elèctrica</string>
+	<string name="type.power.plant.coal">Central elèctrica de carbó</string>
+	<string name="type.power.plant.gas">Central elèctrica de turbina de gas</string>
+	<string name="type.power.plant.hydro">Central hidroelèctrica</string>
+	<string name="type.power.plant.solar">Central d\'energia solar</string>
+	<string name="type.power.plant.wind">Central eòlica</string>
+	<string name="type.shop.bathroom_furnishing">Mobles de bany</string>
+	<string name="type.shop.cannabis">Botiga de cànnabis</string>
+	<string name="type.shop.carpet">Catifes</string>
+	<string name="type.shop.curtain">Cortines</string>
+	<string name="type.shop.fashion_accessories">Complements de moda</string>
+	<string name="type.shop.gas">Botiga de gas</string>
+	<string name="type.shop.herbalist">Botiga d\'herbes</string>
+	<string name="type.shop.hifi">Àudio HiFi</string>
+	<string name="type.shop.motorcycle_repair">Reparació de motos</string>
+	<string name="type.shop.outpost">Punt de recollida</string>
+	<string name="type.shop.pet_grooming">Peluca de mascotes</string>
+	<string name="type.shop.agrarian">Botiga agrícola</string>
+	<string name="type.shop.appliance">Botiga d\'electrodomèstics</string>
+	<string name="type.shop.bed">Botiga de llits</string>
 </resources>

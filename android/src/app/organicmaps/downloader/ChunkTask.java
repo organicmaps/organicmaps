@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "deprecation"}) // https://github.com/organicmaps/organicmaps/issues/3632
 class ChunkTask extends AsyncTask<Void, byte[], Integer>
 {
   private static final String TAG = ChunkTask.class.getSimpleName();

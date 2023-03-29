@@ -226,6 +226,9 @@
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "Τρισδιάστατα κτίρια";
 
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "Τα τρισδιάστατα κτίρια απενεργοποιούνται σε λειτουργία εξοικονόμησης ενέργειας";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Φωνητικές οδηγίες";
 
@@ -304,7 +307,7 @@
 "donate" = "Προσφέρω";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Πώς να μας υποστηρίξετε;";
+"how_to_support_us" = "Υποστηρίξτε το έργο";
 
 /* Button in the main Help dialog */
 "copyright" = "Πνευματικά δικαιώματα";
@@ -710,8 +713,8 @@
 
 "editor_storey_number" = "Αριθμός ορόφων (μέγιστο %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "Ο αριθμός των ορόφων δεν πρέπει να υπερβαίνει τους 25";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Ο αριθμός των ορόφων δεν πρέπει να υπερβαίνει τους %d";
 
 "editor_zip_code" = "Ταχυδρομικός κώδικας";
 
@@ -1236,6 +1239,9 @@
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/";
 
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/El:About_OpenStreetMap";
+
 
 /********** Types **********/
 
@@ -1311,7 +1317,9 @@
 
 "type.amenity.charging_station" = "Σταθμός φόρτισης";
 
-"type.amenity.charging_station.motorcar" = "Σταθμός φόρτισης";
+"type.amenity.charging_station.bicycle" = "Σταθμός φόρτισης ποδηλάτων";
+
+"type.amenity.charging_station.motorcar" = "Σταθμός φόρτισης αυτοκινήτων";
 
 "type.amenity.childcare" = "Βρεφικός σταθμός";
 
@@ -1334,6 +1342,8 @@
 "type.amenity.drinking_water" = "Πόσιμο νερό";
 
 "type.amenity.driving_school" = "Σχολή οδήγησης";
+
+"type.amenity.money_transfer" = "Μεταφορά χρημάτων";
 
 "type.amenity.music_school" = "Μουσική Σχολή";
 
@@ -1370,6 +1380,8 @@
 "type.amenity.kindergarten" = "Νηπιαγωγείο";
 
 "type.amenity.library" = "Βιβλιοθήκη";
+
+"type.amenity.loading_dock" = "Αποβάθρα φόρτωσης";
 
 "type.amenity.marketplace" = "Αγορά";
 
@@ -1653,6 +1665,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Ψυκτικός";
 
+"type.craft.key_cutter" = "Κοπή κλειδιού";
+
+"type.craft.locksmith" = "Κλειδαράς";
+
 "type.craft.metal_construction" = "Μεταλλουργός";
 
 "type.craft.painter" = "Μπογιατζής";
@@ -1849,11 +1865,31 @@
 
 "type.emergency.phone" = "Τηλέφωνο έκτακτης ανάγκης";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Είσοδος";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Κύρια είσοδος";
 
 "type.healthcare.laboratory" = "Ιατρικό Εργαστήριο";
 
 "type.healthcare.physiotherapist" = "Φυσικοθεραπευτής";
+
+"type.healthcare.alternative" = "Εναλλακτική ιατρική";
+
+"type.healthcare.audiologist" = "Ακοολογία";
+
+"type.healthcare.blood_donation" = "Κέντρο αιμοδοσίας";
+
+"type.healthcare.optometrist" = "Οπτομετρία";
+
+"type.healthcare.podiatrist" = "Ποδιατρική";
+
+"type.healthcare.psychotherapist" = "Ψυχοθεραπεία";
+
+"type.healthcare.sample_collection" = "Δειγματοληψία";
+
+"type.healthcare.speech_therapist" = "Λογοθεραπεία";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1905,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Σήραγγα";
+
+"type.highway.busway" = "Αφιερωμένος δρόμος λεωφορείων";
 
 "type.highway.bus_stop" = "Στάση λεωφορείου";
 
@@ -2305,7 +2343,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "Σκουπιδότοπος";
 
@@ -2323,9 +2361,9 @@
 
 "type.landuse.reservoir" = "Νερό";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 
@@ -2430,6 +2468,8 @@
 "type.man_made.surveillance" = "Κάμερα παρακολούθησης";
 
 "type.man_made.tower" = "Πύργος";
+
+"type.man_made.tower.communication" = "Πύργος Επικοινωνιών";
 
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
@@ -2623,11 +2663,31 @@
 
 "type.power.generator" = "Generator";
 
+"type.power.generator.solar" = "Ηλιακή γεννήτρια";
+
+"type.power.generator.wind" = "Ανεμογεννήτρια";
+
+"type.power.generator.gas" = "Μονάδα παραγωγής ηλεκτρικής ενέργειας αεριοστροβίλου";
+
+"type.power.generator.hydro" = "Υδροηλεκτρικό εργοστάσιο";
+
 "type.power.line" = "Power Line";
 
 "type.power.line.underground" = "Underground Power Line";
 
 "type.power.minor_line" = "Minor Power Line";
+
+"type.power.plant" = "Εργοστάσιο ηλεκτρισμού";
+
+"type.power.plant.coal" = "Εργοστάσιο παραγωγής ενέργειας από άνθρακα";
+
+"type.power.plant.gas" = "Μονάδα παραγωγής ηλεκτρικής ενέργειας αεριοστροβίλου";
+
+"type.power.plant.hydro" = "Υδροηλεκτρικό εργοστάσιο";
+
+"type.power.plant.solar" = "Ηλιακός σταθμός παραγωγής ενέργειας";
+
+"type.power.plant.wind" = "Αιολική μονάδα παραγωγής ενέργειας";
 
 "type.power.pole" = "Πυλώνες μεταφοράς ρεύματος";
 
@@ -2754,6 +2814,8 @@
 "type.railway.station.subway.bengalore" = "Μετρό";
 
 "type.railway.station.subway.berlin" = "Μετρό";
+
+"type.railway.station.subway.bilbao" = "Μετρό";
 
 "type.railway.station.subway.brasilia" = "Μετρό";
 
@@ -2979,6 +3041,8 @@
 
 "type.railway.subway_entrance.berlin" = "Είσοδος μετρό";
 
+"type.railway.subway_entrance.bilbao" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.brasilia" = "Είσοδος μετρό";
 
 "type.railway.subway_entrance.brescia" = "Είσοδος μετρό";
@@ -3197,6 +3261,8 @@
 
 "type.shop.bakery" = "Αρτοποιείο";
 
+"type.shop.bathroom_furnishing" = "Έπιπλα μπάνιου";
+
 "type.shop.beauty" = "Σαλόνι αισθητικής";
 
 "type.shop.beverages" = "Οινοπνευματώδη";
@@ -3209,6 +3275,8 @@
 
 "type.shop.butcher" = "Κρεοπωλείο";
 
+"type.shop.cannabis" = "Κατάστημα κάνναβης";
+
 "type.shop.car" = "Αντιπροσωπεία αυτοκινήτων";
 
 "type.shop.car_parts" = "Εξαρτήματα αυτοκινήτου";
@@ -3218,6 +3286,8 @@
 "type.shop.car_repair.tyres" = "Βουλκανιζατέρ";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "Χαλιά";
 
 "type.shop.chemist" = "Χημικά προϊόντα";
 
@@ -3237,6 +3307,8 @@
 
 "type.shop.cosmetics" = "Καλλυντικά";
 
+"type.shop.curtain" = "Κουρτίνες";
+
 "type.shop.deli" = "Κατάστημα Delicatessen";
 
 "type.shop.department_store" = "Πολυκατάστημα";
@@ -3253,6 +3325,8 @@
 
 "type.shop.farm" = "Κατάστημα Αγροτικών Τροφίμων";
 
+"type.shop.fashion_accessories" = "Αξεσουάρ μόδας";
+
 "type.shop.florist" = "Ανθοπωλείο";
 
 "type.shop.funeral_directors" = "Γραφεία τελετών";
@@ -3260,6 +3334,8 @@
 "type.shop.furniture" = "Κατάστημα επίπλων";
 
 "type.shop.garden_centre" = "Κατάστημα ειδών κήπου";
+
+"type.shop.gas" = "Κατάστημα υγραερίου";
 
 "type.shop.gift" = "Είδη δώρου";
 
@@ -3272,6 +3348,10 @@
 "type.shop.hardware" = "Κατάστημα υλικού";
 
 "type.shop.health_food" = "Κατάστημα υγιεινής διατροφής";
+
+"type.shop.herbalist" = "Κατάστημα με βότανα";
+
+"type.shop.hifi" = "Ήχος HiFi";
 
 "type.shop.houseware" = "Κατάστημα οικιακών ειδών";
 
@@ -3293,6 +3373,8 @@
 
 "type.shop.motorcycle" = "Κατάστημα μοτοσυκλετών";
 
+"type.shop.motorcycle_repair" = "Επισκευή μοτοσυκλετών";
+
 "type.shop.music" = "Κατάστημα";
 
 "type.shop.musical_instrument" = "Κατάστημα";
@@ -3303,11 +3385,15 @@
 
 "type.shop.outdoor" = "Εξοπλισμός υπαίθρου";
 
+"type.shop.outpost" = "Σημείο παραλαβής";
+
 "type.shop.pastry" = "Ζύμη";
 
 "type.shop.pawnbroker" = "Ενεχυροδανειστήριο";
 
 "type.shop.pet" = "Κατάστημα για κατοικίδια";
+
+"type.shop.pet_grooming" = "Περιποίηση κατοικίδιων ζώων";
 
 "type.shop.photo" = "Φωτογραφείο";
 
@@ -3343,13 +3429,19 @@
 
 "type.shop.wine" = "Οινοπωλείο";
 
+"type.shop.agrarian" = "Αγροτικό κατάστημα";
+
 "type.shop.antiques" = "Αντίκες";
+
+"type.shop.appliance" = "Κατάστημα οικιακών συσκευών";
 
 "type.shop.art" = "Κατάστημα Τεχνών";
 
 "type.shop.baby_goods" = "Παιδικό κατάστημα";
 
 "type.shop.bag" = "Κατάστημα τσαντών";
+
+"type.shop.bed" = "Κατάστημα κρεβατιών";
 
 "type.shop.boutique" = "Μπουτίκ";
 

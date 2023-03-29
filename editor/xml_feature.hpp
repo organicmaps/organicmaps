@@ -12,7 +12,7 @@
 #include <iostream>
 #include <vector>
 
-#include "3party/pugixml/pugixml/src/pugixml.hpp"
+#include <pugixml.hpp>
 
 namespace osm
 {
@@ -141,7 +141,7 @@ public:
   void SetHouse(std::string const & house);
 
   std::string GetCuisine() const;
-  void SetCuisine(std::string const & cuisine);
+  void SetCuisine(std::string cuisine);
 
   /// Our and OSM modification time are equal.
   time_t GetModificationTime() const;
@@ -177,6 +177,7 @@ public:
 
   std::string GetTagValue(std::string_view key) const;
   void SetTagValue(std::string_view key, std::string_view value);
+  void RemoveTag(std::string_view key);
 
   std::string GetAttribute(std::string const & key) const;
   void SetAttribute(std::string const & key, std::string const & value);

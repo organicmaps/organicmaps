@@ -108,8 +108,6 @@ def step_preprocess(env: Env, **kwargs):
 
 
 def step_features(env: Env, **kwargs):
-    if env.production:
-        kwargs.update({"add_ads": True})
     if any(x not in WORLDS_NAMES for x in env.countries):
         kwargs.update({"generate_packed_borders": True})
     if any(x == WORLD_NAME for x in env.countries):

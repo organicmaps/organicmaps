@@ -33,6 +33,15 @@
 area[natural=coastline]
 {z-index: -10;}
 
+/* These are foreground areas with semi-transparent hardcoded hatching-style fills.
+   They are rendered over all other background areas only.
+   And we want lines to be rendered above them, hence minimum z-index.
+*/
+area[leisure=nature_reserve],
+area[boundary=national_park],
+area[landuse=military],
+{z-index: 0;}
+
 area[natural=land],
 area[place=islet]
 {z-index: 0;}
@@ -166,13 +175,6 @@ line[boundary=military]
 line[boundary=administrative]
 {z-index: 130;}
 
-area[leisure=nature_reserve],
-area[boundary=national_park],
-area[landuse=military],
-area[landuse=military][military=danger_area][wikipedia?],
-area[landuse=military][military=cordon][wikipedia?]
-{z-index: 140;}
-
 line[natural=cliff],
 line[natural=earth_bank],
 line[man_made=embankment],
@@ -271,7 +273,7 @@ area|z12-[natural=grassland],
 area|z12-[leisure=golf_course],
 area|z12-[natural=heath],
 area|z12-[landuse=allotments],
-area|z12-[natural=scrub],
+area|z14-[natural=scrub],
 area|z12-[natural=bare_rock],
 area|z12-[landuse=orchard],
 area|z12-[landuse=vineyard],
@@ -281,8 +283,21 @@ area|z12-[landuse=village_green],
 area|z12-[landuse=field],
 {fill-position: background; fill-opacity: 1;}
 
+
+area|z10-12[leisure=park],
+{fill-color: @green0;}
+area|z13-15[leisure=park],
+{fill-color: @green1;}
+area|z16-[leisure=park],
+area|z14-15[natural=scrub],
+{fill-color: @green2;}
+area|z16-[natural=scrub],
+{fill-color: @green3;}
+
+area|z14-15[landuse=grass],
+{fill-color: @green0;}
 area|z10[landuse=forest],
-area|z14-[landuse=grass],
+area|z16-[landuse=grass],
 area|z14-[natural=grassland],
 area|z14-[leisure=golf_course],
 area|z14-[natural=heath],
@@ -294,16 +309,21 @@ area|z14-[landuse=recreation_ground],
 area|z14-[landuse=village_green],
 area|z14-[landuse=field],
 {fill-color: @green1;}
-
 area|z11-12[landuse=forest],
-area|z10-12[leisure=park],
 area|z12[leisure=garden],
 {fill-color: @green2;}
-
 area|z13[landuse=forest],
-area|z13[leisure=park],
 area|z13[leisure=garden]
 {fill-color: @green3;}
+area|z14[landuse=forest],
+area|z14[leisure=garden],
+{fill-color: @green4;}
+area|z15[landuse=forest],
+area|z15[leisure=garden],
+{fill-color: @green5;}
+area|z16-[landuse=forest],
+area|z16-[leisure=garden],
+{fill-color: @forest;}
 
 area|z12-13[landuse=grass],
 area|z12-13[natural=grassland],
@@ -321,33 +341,14 @@ area|z12-13[landuse=field],
 /* Next types are hardcoded to have a hatching-style fill, see drape_frontend/stylist.cpp */
 area|z10-[leisure=nature_reserve],
 area|z10-[boundary=national_park],
-{fill-position: background; fill-opacity: 0.2; fill-color: @green6;}
+{fill-opacity: 0.2; fill-color: @green6;}
 
-area|z10-[landuse=military][military=danger_area][wikipedia?],
-area|z10-[landuse=military][military=cordon][wikipedia?],
-{fill-position: background; fill-opacity: 1.0; fill-color: @military;}
+area|z10-[landuse=military][military=danger_area],
+{fill-opacity: 1.0; fill-color: @military;}
 
 area|z12-[landuse=military]
-{fill-position: background; fill-opacity: 0.5; fill-color: @military;}
+{fill-opacity: 0.5; fill-color: @military;}
 /* End of hardcoded */
-
-area|z14[landuse=forest],
-area|z14[leisure=park],
-area|z14[leisure=garden],
-area|z14[natural=scrub]
-{fill-color: @green4;}
-
-area|z15[landuse=forest],
-area|z15[leisure=park],
-area|z15[leisure=garden],
-area|z15[natural=scrub]
-{fill-color: @green5;}
-
-area|z16-[landuse=forest],
-area|z16-[leisure=park],
-area|z16-[leisure=garden],
-area|z16-[natural=scrub]
-{fill-color: @forest;}
 
 area|z12-[natural=bare_rock],
 {fill-color: @barerock;}
@@ -390,7 +391,7 @@ line|z13-[waterway=stream],
 line|z13-[waterway=stream][intermittent=yes],
 line|z13-[waterway=canal],
 line|z13-[natural=strait],
-{opacity: 1;color: @river;-x-me-line-priority: -15600;}
+{opacity: 1; color: @river; -x-me-line-priority: 1005;}
 
 /* 6.1 Area water(lake,pond etc.) */
 
@@ -703,13 +704,10 @@ line|z16-[barrier=wall],
 {color: @fence; width: 1; opacity: 0.7;}
 line|z17[barrier=fence],
 line|z17[barrier=wall],
-{width: 1.3; opacity:0.8;}
-line|z18[barrier=fence],
-line|z18[barrier=wall],
-{width: 2; opacity: 1;}
-line|z19-[barrier=fence],
-line|z19-[barrier=wall],
-{width: 3; opacity: 1;}
+{width: 1.3; opacity: 0.8;}
+line|z18-[barrier=fence],
+line|z18-[barrier=wall],
+{width: 1.5; opacity: 1;}
 
 
 line|z16-[barrier=hedge],
@@ -775,20 +773,16 @@ line|z16-[barrier=retaining_wall],
 {color: @fence; width: 2.4; dashes: 2.8,1.4,1.4,1; opacity: 1;}
 line|z17[barrier=retaining_wall],
 {width: 3.2; dashes: 4,2,2,1.2;}
-line|z18[barrier=retaining_wall],
+line|z18-[barrier=retaining_wall],
 {width: 4.5; dashes: 6,3,3,1.5;}
-line|z19-[barrier=retaining_wall],
-{width: 6; dashes: 8,4,4,2;}
 
 
 line|z16-[man_made=embankment],
 {color: @building_dark; width: 3.5; dashes: 4,2,2,1.5; opacity: 1;}
 line|z17[man_made=embankment],
-{width: 5; dashes: 6,3,3,2; opacity: 1;}
-line|z18[man_made=embankment],
-{width: 7; dashes: 8,4,4,3; opacity: 1;}
-line|z19-[man_made=embankment],
-{width: 9; dashes: 10,5,5,4; opacity: 1;}
+{width: 5; dashes: 6,3,3,2;}
+line|z18-[man_made=embankment],
+{width: 7; dashes: 8,4,4,3;}
 
 
 /* 9. ISOLINES */

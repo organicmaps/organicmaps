@@ -1,7 +1,7 @@
 #include "androidoglcontextfactory.hpp"
 #include "android_gl_utils.hpp"
 
-#include "app/organicmaps/platform/Platform.hpp"
+#include "app/organicmaps/platform/AndroidPlatform.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"

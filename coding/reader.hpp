@@ -29,12 +29,6 @@ public:
   virtual std::unique_ptr<Reader> CreateSubReader(uint64_t pos, uint64_t size) const = 0;
 
   void ReadAsString(std::string & s) const;
-
-  // Reads the contents of this Reader to a vector of 8-bit bytes.
-  // Similar to ReadAsString but makes no assumptions about the char type.
-  std::vector<uint8_t> ReadAsBytes() const;
-
-  static bool IsEqual(std::string const & name1, std::string const & name2);
 };
 
 // Reader from memory.

@@ -1,1 +1,0 @@
-mapa,wędrówka,trasa,rower,openstreetmap,osm,nawigacja,metro,kolejka,wycieczki,kierunki,samochód

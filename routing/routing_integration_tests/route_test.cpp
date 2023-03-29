@@ -446,11 +446,11 @@ UNIT_TEST(GermanyWarningAboutSpeedCamerasTest)
 
 UNIT_TEST(Spain_RestirctionOnlyMany)
 {
-  // There is a relation https://www.openstreetmap.org/relation/7610329,
-  // but I don't see any contradictions here.
+  // This relation https://www.openstreetmap.org/relation/7610329
+  // See also Valhalla engine.
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
       FromLatLon(43.38234, -5.67648), {0.0, 0.0},
-      FromLatLon(43.38222, -5.69083), 1255.25);
+      FromLatLon(43.38222, -5.69083), 8289.15);
 }
 
 UNIT_TEST(Russia_Moscow_RestirctionOnlyMany)
@@ -776,8 +776,8 @@ UNIT_TEST(Turkey_AvoidMountainsSecondary)
                               FromLatLon(41.0027, 27.6752), {0., 0.},
                               FromLatLon(40.6119, 27.1136));
 
-  TestRouteLength(*res.first, 100329.0);
-  TestRouteTime(*res.first, 5342.23);
+  TestRouteLength(*res.first, 100386.0);
+  TestRouteTime(*res.first, 5096.9);
 }
 
 // https://github.com/organicmaps/organicmaps/issues/4110

@@ -35,6 +35,17 @@
 	<string name="country_status_download_failed">Download mislykket</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Prøv igen</string>
+	<string name="about_menu_title">Om Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Gratis for alle, lavet med kærlighed</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Ingen annoncer, ingen sporing, ingen dataindsamling</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Sparer batteriet, bruger ikke baggrundsdata</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Hurtig, minimalistisk, intet skrammel</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Open source-applikation oprettet af entusiaster og frivillige.</string>
 	<string name="connection_settings">Forbindelsesindstillinger</string>
 	<string name="close">Luk</string>
 	<string name="unsupported_phone">En hardware accelereret OpenGL er påkrævet. Din enhed er desværre ikke understøttet.</string>
@@ -190,6 +201,8 @@
 	<string name="pref_map_3d_title">Perspektivvisning</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D-bygninger</string>
+	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+	<string name="pref_map_3d_buildings_disabled_summary">3D-bygninger er slukket i strømbesparende tilstand</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Stemmeinstruktioner</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -219,7 +232,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Doner</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Sådan støtter vi os?</string>
+	<string name="how_to_support_us">Støt projektet</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Copyright</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -423,7 +436,8 @@
 	<string name="editor_report_problem_other_title">Et anderledes problem</string>
 	<string name="placepage_add_business_button">Tilføj organisationen</string>
 	<string name="message_invalid_feature_position">Et objekt kan ikke placeres her</string>
-	<string name="osm_presentation">Alle kortdata kommer fra OpenStreetMap-projektet. Det er ligesom Wikipedia for kort, hvor du kan tilføje eller redigere steder, og de bliver tilgængelige for millioner af brugere over hele verden.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Kartografiske data fra OpenStreetMap fra %s. Det er som Wikipedia, hvor du kan tilføje eller redigere steder for alle brugere over hele verden.</string>
 	<string name="login_to_make_edits_visible">Log på så andre brugere kan se ændringerne som du har foretaget.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d af %2$d</string>
@@ -431,8 +445,8 @@
 	<string name="download_over_mobile_message">Dette kan blive dyrt med nogle abonnementer eller hvis du er i roamingtilstand.</string>
 	<string name="error_enter_correct_house_number">Skriv det rigtige husnummer</string>
 	<string name="editor_storey_number">Antal etager (maks %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Rediger bygningen med maksimum 25 etager</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Rediger bygningen med maksimum %d etager</string>
 	<string name="editor_zip_code">Postnummer</string>
 	<string name="error_enter_correct_zip_code">Indtast det korrekte postnummer</string>
 	<!-- Place Page title for long tap -->
@@ -666,6 +680,8 @@
 	<string name="enable_screen_sleep_description">Når den er aktiveret, får skærmen lov til at sove efter en periode med inaktivitet.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Kortdata fra OpenStreetMap</string>
+	<!-- Link to OSM wiki for Editor, Profile and About pages -->
+	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Da:Om_OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestation</string>
@@ -689,7 +705,8 @@
 	<string name="type.amenity.car_wash">Bilvask</string>
 	<string name="type.amenity.casino">Kasino</string>
 	<string name="type.amenity.charging_station">Ladestation</string>
-	<string name="type.amenity.charging_station.motorcar">Ladestation</string>
+	<string name="type.amenity.charging_station.bicycle">Cykel ladestation</string>
+	<string name="type.amenity.charging_station.motorcar">Ladestation for biler</string>
 	<string name="type.amenity.childcare">Vuggestue</string>
 	<string name="type.amenity.cinema">Biograf</string>
 	<string name="type.leisure.bowling_alley">Bowling bane</string>
@@ -701,6 +718,7 @@
 	<string name="type.amenity.doctors">Lægekontor</string>
 	<string name="type.amenity.drinking_water">Vand</string>
 	<string name="type.amenity.driving_school">Køreskole</string>
+	<string name="type.amenity.money_transfer">Pengeoverførsel</string>
 	<string name="type.amenity.music_school">Musikskolen</string>
 	<string name="type.amenity.language_school">Sprogskole</string>
 	<string name="type.office.diplomatic">Ambassade</string>
@@ -718,6 +736,7 @@
 	<string name="type.amenity.internet_cafe">Internetcafe</string>
 	<string name="type.amenity.kindergarten">Børnehave</string>
 	<string name="type.amenity.library">Bibliotek</string>
+	<string name="type.amenity.loading_dock">Læsserampe</string>
 	<string name="type.amenity.marketplace">Markedsplads</string>
 	<string name="type.amenity.motorcycle_parking">Motorcykelparkering</string>
 	<string name="type.amenity.nightclub">Natklub</string>
@@ -810,6 +829,8 @@
 	<string name="type.craft.handicraft">Kunsthåndværk</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Blikkenslager</string>
+	<string name="type.craft.key_cutter">Nøgleskæring</string>
+	<string name="type.craft.locksmith">Låsesmed</string>
 	<string name="type.craft.metal_construction">Metalarbejder</string>
 	<string name="type.craft.painter">Maler</string>
 	<string name="type.craft.photographer">Fotograf</string>
@@ -906,15 +927,27 @@
 	<string name="type.emergency.defibrillator">Hjertestarter</string>
 	<string name="type.emergency.fire_hydrant">Brandhane</string>
 	<string name="type.emergency.phone">Nødtelefon</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Indgang</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Hovedindgang</string>
 	<string name="type.healthcare.laboratory">Medicinsk laboratorium</string>
 	<string name="type.healthcare.physiotherapist">Fysioterapeut</string>
+	<string name="type.healthcare.alternative">Alternativ medicin</string>
+	<string name="type.healthcare.audiologist">Audiologi</string>
+	<string name="type.healthcare.blood_donation">Center for bloddonation</string>
+	<string name="type.healthcare.optometrist">Optometri</string>
+	<string name="type.healthcare.podiatrist">Fodterapi</string>
+	<string name="type.healthcare.psychotherapist">Psykoterapi</string>
+	<string name="type.healthcare.sample_collection">Prøvetagning</string>
+	<string name="type.healthcare.speech_therapist">Tale terapi</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">Bro</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
+	<string name="type.highway.busway">Dedikeret busvej</string>
 	<string name="type.highway.bus_stop">Busstoppested</string>
 	<string name="type.highway.construction">Vej under opbygning</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1148,6 +1181,7 @@
 	<string name="type.man_made.lighthouse">Fyrtårn</string>
 	<string name="type.man_made.surveillance">Overvågningskamera</string>
 	<string name="type.man_made.tower">Tårn</string>
+	<string name="type.man_made.tower.communication">Kommunikationstårn</string>
 	<string name="type.man_made.water_tap">Vandhane</string>
 	<string name="type.man_made.water_tower">Vandtårn</string>
 	<string name="type.man_made.water_well">Brønd</string>
@@ -1232,6 +1266,16 @@
 	<string name="type.place.suburb">Forstad</string>
 	<string name="type.place.town">By</string>
 	<string name="type.place.village">Landsby</string>
+	<string name="type.power.generator.solar">Solar generator</string>
+	<string name="type.power.generator.wind">Vindgenerator</string>
+	<string name="type.power.generator.gas">Gasturbine kraftværk</string>
+	<string name="type.power.generator.hydro">Vandkraftværk</string>
+	<string name="type.power.plant">Kraftværk</string>
+	<string name="type.power.plant.coal">Kulkraftværk</string>
+	<string name="type.power.plant.gas">Gasturbine kraftværk</string>
+	<string name="type.power.plant.hydro">Vandkraftværk</string>
+	<string name="type.power.plant.solar">Solcelleanlæg</string>
+	<string name="type.power.plant.wind">Vindkraftværk</string>
 	<string name="type.power.pole">El-pol</string>
 	<string name="type.power.substation">Transformerstation</string>
 	<string name="type.power.tower">El-pol</string>
@@ -1255,6 +1299,7 @@
 	<string name="type.railway.station.subway.beijing">Metro</string>
 	<string name="type.railway.station.subway.bengalore">Metro</string>
 	<string name="type.railway.station.subway.berlin">Metro</string>
+	<string name="type.railway.station.subway.bilbao">Metro</string>
 	<string name="type.railway.station.subway.brasilia">Metro</string>
 	<string name="type.railway.station.subway.brescia">Metro</string>
 	<string name="type.railway.station.subway.brussels">Metro</string>
@@ -1364,6 +1409,7 @@
 	<string name="type.railway.subway_entrance.beijing">Indgang til undergrundsbane</string>
 	<string name="type.railway.subway_entrance.bengalore">Indgang til undergrundsbane</string>
 	<string name="type.railway.subway_entrance.berlin">Indgang til undergrundsbane</string>
+	<string name="type.railway.subway_entrance.bilbao">Indgang til undergrundsbane</string>
 	<string name="type.railway.subway_entrance.brasilia">Indgang til undergrundsbane</string>
 	<string name="type.railway.subway_entrance.brescia">Indgang til undergrundsbane</string>
 	<string name="type.railway.subway_entrance.brussels">Indgang til undergrundsbane</string>
@@ -1464,15 +1510,18 @@
 	<string name="type.shop">Butik</string>
 	<string name="type.shop.alcohol">Alkohol</string>
 	<string name="type.shop.bakery">Bager</string>
+	<string name="type.shop.bathroom_furnishing">Badeværelsesindretning</string>
 	<string name="type.shop.beauty">Skønhedssalon</string>
 	<string name="type.shop.beverages">Drikkevarer</string>
 	<string name="type.shop.bicycle">Cykelforretning</string>
 	<string name="type.shop.books">Boghandel</string>
 	<string name="type.shop.butcher">Slagter</string>
+	<string name="type.shop.cannabis">Cannabis butik</string>
 	<string name="type.shop.car">Bilforhandler</string>
 	<string name="type.shop.car_parts">Bildele</string>
 	<string name="type.shop.car_repair">Garage</string>
 	<string name="type.shop.car_repair.tyres">Dækreparation</string>
+	<string name="type.shop.carpet">Tæpper</string>
 	<string name="type.shop.chemist">Materialist</string>
 	<string name="type.shop.chocolate">Butik</string>
 	<string name="type.shop.clothes">Tøjbutik</string>
@@ -1482,6 +1531,7 @@
 	<string name="type.shop.convenience">Døgnbutik</string>
 	<string name="type.shop.copyshop">Kopieringsbutik</string>
 	<string name="type.shop.cosmetics">Kosmetik</string>
+	<string name="type.shop.curtain">Gardiner</string>
 	<string name="type.shop.deli">Delikatessebutik</string>
 	<string name="type.shop.department_store">Stormagasin</string>
 	<string name="type.shop.doityourself">Isenkræmmer</string>
@@ -1490,16 +1540,20 @@
 	<string name="type.shop.erotic">Erotisk butik</string>
 	<string name="type.shop.fabric">Butik</string>
 	<string name="type.shop.farm">Farm Food Shop</string>
+	<string name="type.shop.fashion_accessories">Mode tilbehør</string>
 	<string name="type.shop.florist">Blomsterbutik</string>
 	<string name="type.shop.funeral_directors">Bedemand</string>
 	<string name="type.shop.furniture">Møbelbutik</string>
 	<string name="type.shop.garden_centre">Planteskole</string>
+	<string name="type.shop.gas">Gas butik</string>
 	<string name="type.shop.gift">Gavebutik</string>
 	<string name="type.shop.greengrocer">Grønthandler</string>
 	<string name="type.shop.grocery">Købmand</string>
 	<string name="type.shop.hairdresser">Frisør</string>
 	<string name="type.shop.hardware">Isenkræmmer</string>
 	<string name="type.shop.health_food">Helsekostbutik</string>
+	<string name="type.shop.herbalist">Urtebutik</string>
+	<string name="type.shop.hifi">HiFi lyd</string>
 	<string name="type.shop.houseware">Husholdningsartikler butik</string>
 	<string name="type.shop.jewelry">Smykkebutik</string>
 	<string name="type.shop.kitchen">Køkkenforretning</string>
@@ -1509,14 +1563,17 @@
 	<string name="type.shop.mobile_phone">Mobiltelefonbutik</string>
 	<string name="type.shop.money_lender">Butik</string>
 	<string name="type.shop.motorcycle">Motorcykelforhandler</string>
+	<string name="type.shop.motorcycle_repair">Motorcykel reparation</string>
 	<string name="type.shop.music">Butik</string>
 	<string name="type.shop.musical_instrument">Butik</string>
 	<string name="type.shop.newsagent">Avis-kiosk</string>
 	<string name="type.shop.optician">Optiker</string>
 	<string name="type.shop.outdoor">Fritidsudstyr</string>
+	<string name="type.shop.outpost">Afhentningssted</string>
 	<string name="type.shop.pastry">Bagværk</string>
 	<string name="type.shop.pawnbroker">Pantelåner</string>
 	<string name="type.shop.pet">Dyrehandel</string>
+	<string name="type.shop.pet_grooming">Kæledyrspleje</string>
 	<string name="type.shop.photo">Fotobutik</string>
 	<string name="type.shop.seafood">Fiskehandler</string>
 	<string name="type.shop.second_hand">Genbrugsbutik</string>
@@ -1534,10 +1591,13 @@
 	<string name="type.shop.video">Videobutik</string>
 	<string name="type.shop.video_games">Computerspilbutik</string>
 	<string name="type.shop.wine">Vinhandel</string>
+	<string name="type.shop.agrarian">Landbrugsbutik</string>
 	<string name="type.shop.antiques">Antikviteter</string>
+	<string name="type.shop.appliance">Hvidevarer butik</string>
 	<string name="type.shop.art">Kunstbutik</string>
 	<string name="type.shop.baby_goods">Børnebutik</string>
 	<string name="type.shop.bag">Tasker butik</string>
+	<string name="type.shop.bed">Senge butik</string>
 	<string name="type.shop.boutique">Boutique</string>
 	<string name="type.shop.charity">Velgørenhedsbutik</string>
 	<string name="type.shop.cheese">Ostebutik</string>

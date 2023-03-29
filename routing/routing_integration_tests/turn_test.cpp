@@ -1235,7 +1235,7 @@ UNIT_TEST(USA_California_Cupertino_TurnTestNextRoad)
 
   RouteSegment::RoadNameInfo ri;
   route.GetNextTurnStreetName(ri);
-  TEST_EQUAL(ri.m_destination, "Half Moon Bay; San Mateo; Hayward; Ralston Avenue; Belmont", ());
+  TEST_EQUAL(ri.m_destination, "Half Moon Bay; San Mateo; Hayward", ());
   TEST_EQUAL(ri.m_destination_ref, "CA 92", ());
 
   location::GpsInfo info;
@@ -1245,7 +1245,7 @@ UNIT_TEST(USA_California_Cupertino_TurnTestNextRoad)
   route.MoveIterator(info);
 
   route.GetNextTurnStreetName(ri);
-  TEST_EQUAL(ri.m_destination, "San Mateo; Hayward; Belmont", ());
+  TEST_EQUAL(ri.m_destination, "San Mateo; Hayward", ());
   TEST_EQUAL(ri.m_destination_ref, "CA 92 East", ());
 }
 

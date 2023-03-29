@@ -38,6 +38,17 @@
 	<string name="country_status_download_failed">فشلت عملية تنزيل</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">محاولة مرة أخرى</string>
+	<string name="about_menu_title">حول Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">مجاني للجميع ، مصنوع من الحب</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• لا إعلانات ، لا تتبع ، لا جمع البيانات</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• يحفظ البطارية ، لا يستخدم بيانات الخلفية</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• سريع ، الحد الأدنى ، لا خردة</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">تطبيق مفتوح المصدر الذي أنشأه المتحمسون والمتطوعون.</string>
 	<string name="connection_settings">إعدادات الاتصال</string>
 	<string name="close">إغلاق</string>
 	<string name="unsupported_phone">أنت بحاجة الى OpenGL بأجهزة تسريع. لسوء الحظ جهازك لا يدعم هذه الخاصية.</string>
@@ -210,6 +221,8 @@
 	<string name="pref_map_3d_title">العرض المنظوري</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">مباني ثلاثية الأبعاد</string>
+	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+	<string name="pref_map_3d_buildings_disabled_summary">يتم إيقاف تشغيل المباني ثلاثية الأبعاد في وضع توفير الطاقة</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">تعليمات صوتية</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -239,9 +252,9 @@
 	<!-- Button in the main Help dialog -->
 	<string name="faq">اسئلة مكررة</string>
 	<!-- Button in the main menu -->
-	<string name="donate">ﻉﺮﺒﺘﻳ</string>
+	<string name="donate">تبرع</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">كيف يمكنك دعمنا؟</string>
+	<string name="how_to_support_us">ﻉﻭﺮﺸﻤﻟﺍ ﻢﻋﺩ</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">حقوق النشر</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -450,7 +463,8 @@
 	<string name="editor_report_problem_other_title">مشكلة أخرى</string>
 	<string name="placepage_add_business_button">إضافة مؤسسة</string>
 	<string name="message_invalid_feature_position">لا يمكن تحديد موقع الكائن هنا</string>
-	<string name="osm_presentation">.ﻢﻟﺎﻌﻟﺍ ءﺎﺤﻧﺃ ﻊﻴﻤﺟ ﻲﻓ ﻦﻴﻣﺪﺨﺘﺴﻤﻟﺍ ﻦﻴﻳﻼﻤﻟ ﺔﺣﺎﺘﻣ ﺢﺒﺼﺗﻭ ، ﺎﻬﻠﻳﺪﻌﺗ ﻭﺃ ﻦﻛﺎﻣﻷﺍ ﺔﻓﺎﺿﺇ</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">بيانات رسم الخرائط من OpenStreetMap اعتبارًا من %s. إنه مثل ويكيبيديا حيث يمكنك إضافة أو تحرير أماكن لجميع المستخدمين في جميع أنحاء العالم.</string>
 	<string name="login_to_make_edits_visible">قم بتسجيل الدخول حتى يتمكن باقي المستخدمين من رؤية التغييرات التي قمت بها.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d من%2$d</string>
@@ -458,8 +472,8 @@
 	<string name="download_over_mobile_message">قد يكون هذا مكلفاً جداً في بعض الاحيان أو عند التجوال.</string>
 	<string name="error_enter_correct_house_number">أدخل رقم بناء صحيح</string>
 	<string name="editor_storey_number">عدد الطوابق (بحد أقصى %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">يجب ألا يتجاوز عدد طوابق المبنى 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">يجب ألا يتجاوز عدد طوابق المبنى %d</string>
 	<string name="editor_zip_code">الرمز البريدي</string>
 	<string name="error_enter_correct_zip_code">أدخل الرمز البريدي صالح</string>
 	<!-- Place Page title for long tap -->
@@ -712,11 +726,14 @@
 	<string name="enable_show_on_lock_screen_description">عند التفعيل، لن تحتاج لفتح قفل جهازك كل مرة أثناء تشغيل التطبيق</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">بيانات الخريطة من خريطة الشارع المفتوحة</string>
+	<!-- Link to OSM wiki for Editor, Profile and About pages -->
+	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Ar:About_OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.aerialway.cable_car">تلفريك</string>
 	<string name="type.aerialway.station">محطة تلفريك</string>
 	<string name="type.aeroway.aerodrome">مطار</string>
-	<string name="type.aeroway.aerodrome.international">مطار</string>
+	<string name="type.aeroway.aerodrome.international">مطار دولي</string>
 	<string name="type.aeroway.helipad">مهبط مروحيات</string>
 	<string name="type.amenity">أثر</string>
 	<string name="type.amenity.arts_centre">مركز فن</string>
@@ -738,10 +755,11 @@
 	<string name="type.amenity.car_wash">مغسلة سيارات</string>
 	<string name="type.amenity.casino">كازينو</string>
 	<string name="type.amenity.charging_station">محطة شحن</string>
-	<string name="type.amenity.charging_station.motorcar">محطة شحن</string>
+	<string name="type.amenity.charging_station.bicycle">محطة شحن الدراجات</string>
+	<string name="type.amenity.charging_station.motorcar">محطة شحن Motorcar</string>
 	<string name="type.amenity.childcare">حضانة</string>
 	<string name="type.amenity.cinema">سينما</string>
-	<string name="type.leisure.bowling_alley">ﺞﻨﻴﻟﻮﺑ ﺔﻟﺎﺻ</string>
+	<string name="type.leisure.bowling_alley">صالة بولينج</string>
 	<string name="type.amenity.clinic">عيادة</string>
 	<string name="type.amenity.college">كلية</string>
 	<string name="type.amenity.community_centre">مركز اجتماعي</string>
@@ -750,44 +768,47 @@
 	<string name="type.amenity.doctors">طبيب</string>
 	<string name="type.amenity.drinking_water">مياه شرب</string>
 	<string name="type.amenity.driving_school">مدرسة قيادة</string>
-	<string name="type.amenity.music_school">ﻰﻘﻴﺳﻮﻣ ﺔﺳﺭﺪﻣ</string>
-	<string name="type.amenity.language_school">ﺔﻐﻟ ﺔﺳﺭﺪﻣ</string>
+	<string name="type.amenity.money_transfer">تحويل المال</string>
+	<string name="type.amenity.music_school">مدرسة موسيقى</string>
+	<string name="type.amenity.language_school">مدرسة لغة</string>
 	<string name="type.office.diplomatic">سفارة</string>
 	<string name="type.amenity.fast_food">وجبات سريعة</string>
 	<string name="type.amenity.ferry_terminal">محطة عبّارات</string>
 	<string name="type.amenity.fire_station">محطة إطفاء</string>
+	<string name="type.amenity.food_court">مكان تناول الطعام</string>
 	<string name="type.amenity.fountain">نافورة</string>
 	<string name="type.amenity.fuel">محطة وقود</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">مقبرة</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
-	<string name="type.amenity.grave_yard.christian">مقبرة</string>
+	<string name="type.amenity.grave_yard.christian">مقبرة مسيحية</string>
 	<string name="type.amenity.hospital">عيادة</string>
 	<string name="type.amenity.hunting_stand">منصة صيد</string>
 	<string name="type.amenity.ice_cream">كشك أيس كريم</string>
 	<string name="type.amenity.internet_cafe">مقهى إنترنت</string>
 	<string name="type.amenity.kindergarten">حضانة أطفال</string>
 	<string name="type.amenity.library">مكتبة</string>
+	<string name="type.amenity.loading_dock">رصيف التحميل</string>
 	<string name="type.amenity.marketplace">سوق</string>
 	<string name="type.amenity.motorcycle_parking">موقف دراجات نارية</string>
 	<string name="type.amenity.nightclub">نادي ليلي</string>
 	<string name="type.amenity.nursing_home">دار تمريض</string>
 	<string name="type.amenity.parking">موقف سيارات</string>
-	<string name="type.amenity.parking.fee">ﺮﺟﻷ﻿ﺍ ﺔﻋﻮﻓﺪﻣ ﺕﺍﺭﺎﻴﺳ ﻒﻗﺍﻮﻣ</string>
-	<string name="type.amenity.parking.multi.storey">ﻖﺑﺍﻮﻄﻟﺍ ﺓﺩﺪﻌﺘﻣ ﻒﻗﺍﻮﻣ</string>
-	<string name="type.amenity.parking.no.access">ﺹﺎﺧ ﻒﻗﻮﻣ</string>
-	<string name="type.amenity.parking.permissive">ﺹﺎﺧ ﻒﻗﻮﻣ</string>
-	<string name="type.amenity.parking.private">ﺹﺎﺧ ﻒﻗﻮﻣ</string>
+	<string name="type.amenity.parking.fee">موقف سيارات مدفوع</string>
+	<string name="type.amenity.parking.multi.storey">موقف سيارات متعدد الطوابق</string>
+	<string name="type.amenity.parking.no.access">موقف سيارات خاص</string>
+	<string name="type.amenity.parking.permissive">موقف سيارات خاص</string>
+	<string name="type.amenity.parking.private">موقف سيارات خاص</string>
 	<string name="type.amenity.parking.park_and_ride">موقف سيارات</string>
-	<string name="type.amenity.parking.underground">ﺽﺭﻻ﻿ﺍ ﺖﺤﺗ ﻒﻗﻮﻣ</string>
-	<string name="type.amenity.parking_entrance">ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻭ ﻞﺧﺪﻣ</string>
-	<string name="type.amenity.parking_entrance.private">ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻭ ﻞﺧﺪﻣ</string>
-	<string name="type.amenity.parking_entrance.permissive">ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻭ ﻞﺧﺪﻣ</string>
+	<string name="type.amenity.parking.underground">موقف سيارات تحت الأرض</string>
+	<string name="type.amenity.parking_entrance">مدخل موقف سيارات</string>
+	<string name="type.amenity.parking_entrance.private">مدخل موقف سيارات</string>
+	<string name="type.amenity.parking_entrance.permissive">مدخل موقف سيارات</string>
 	<string name="type.amenity.parking_space">مكان لوقوف السيارات</string>
 	<string name="type.amenity.parking_space.permissive">مكان لوقوف السيارات</string>
 	<string name="type.amenity.parking_space.private">مكان لوقوف السيارات</string>
 	<string name="type.amenity.parking_space.underground">مكان لوقوف السيارات</string>
-	<string name="type.amenity.parking_space.disabled">ﺔﺻﺎﺨﻟﺍ ﺕﺎﺟﺎﻴﺘﺣﻻ﻿ﺍ ﻱﻭﺬﻟ ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻮﻟ ﻦﻛﺎﻣﺃ</string>
+	<string name="type.amenity.parking_space.disabled">مكان لوقوف السيارات لذوي الاحتياجات الخاصة</string>
 	<string name="type.amenity.payment_terminal">محطة دفع</string>
 	<string name="type.amenity.pharmacy">متجر أدوية</string>
 	<string name="type.amenity.place_of_worship">مكان عبادة</string>
@@ -801,14 +822,15 @@
 	<string name="type.amenity.police">شرطة</string>
 	<string name="type.amenity.post_box">صندوق بريد</string>
 	<string name="type.amenity.post_office">مكتب بريد</string>
-	<string name="type.amenity.pub">بار</string>
+	<string name="type.amenity.prison">سجن</string>
+	<string name="type.amenity.pub">حانة</string>
 	<string name="type.amenity.public_bookcase">مكتبة، تبادل كتب</string>
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">مركز إعادة تدوير</string>
 	<string name="type.amenity.recycling">حاوية لإعادة التدوير</string>
 	<string name="type.amenity.recycling.container">حاوية لإعادة التدوير</string>
-	<string name="type.recycling.batteries">ﺕﺎﻳﺭﺎﻄﺑ</string>
+	<string name="type.recycling.batteries">بطاريات</string>
 	<string name="type.recycling.clothes">ملابس قديمة</string>
 	<string name="type.recycling.glass_bottles">زجاجات زجاجية</string>
 	<string name="type.recycling.paper">نفايات ورقية</string>
@@ -816,6 +838,11 @@
 	<string name="type.recycling.plastic_bottles">زجاجات بلاستيكية</string>
 	<string name="type.recycling.scrap_metal">نفايات معدنية</string>
 	<string name="type.recycling.small_appliances">نفايات الكترونية</string>
+	<string name="type.recycling.cardboard">ورق مقوى</string>
+	<string name="type.recycling.cans">علب</string>
+	<string name="type.recycling.shoes">أحذية</string>
+	<string name="type.recycling.green_waste">نفايات عضوية</string>
+	<string name="type.recycling.cartons">علب مشروبات</string>
 	<string name="type.amenity.restaurant">مطعم</string>
 	<string name="type.amenity.school">مدرسة</string>
 	<string name="type.amenity.shelter">ملجأ</string>
@@ -826,19 +853,28 @@
 	<string name="type.amenity.toilets">حمام</string>
 	<string name="type.amenity.townhall">مبنى البلدية</string>
 	<string name="type.amenity.university">جامعة</string>
+	<string name="type.amenity.vending_machine">ماكينة بيع</string>
 	<string name="type.amenity.vending_machine.cigarettes">ماكينة بيع سجائر</string>
+	<string name="type.amenity.vending_machine.coffee">ماكينة بيع قهوة</string>
 	<string name="type.amenity.vending_machine.drinks">ماكينة بيع مشروبات</string>
+	<string name="type.amenity.vending_machine.food">ماكينة بيع طعام</string>
 	<string name="type.amenity.vending_machine.parking_tickets">ماكينة دفع تذاكر الموقف</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">آلة بيع تذاكر النقل العام</string>
+	<string name="type.amenity.vending_machine.sweets">ماكينة بيع الحلويات</string>
+	<string name="type.amenity.vending_machine.excrement_bags">ماكينة بيع حقائب النفايات</string>
+	<string name="type.amenity.parcel_locker">خزانة الطرود</string>
+	<string name="type.amenity.vending_machine.fuel">ماكينة بيع الوقود</string>
 	<string name="type.amenity.veterinary">طبيب بيطري</string>
 	<string name="type.amenity.waste_basket">صندوق قمامة</string>
 	<string name="type.amenity.waste_disposal">قمامة</string>
+	<string name="type.amenity.waste_transfer_station">محطة نقل النفايات</string>
 	<string name="type.amenity.water_point">نقطة مائية</string>
+	<string name="type.barrier">حاجز</string>
 	<string name="type.barrier.block">حاجز</string>
 	<string name="type.barrier.bollard">عمود حاجز قصير</string>
 	<string name="type.barrier.border_control">أمن الحدود</string>
 	<string name="type.barrier.city_wall">جدار المدينة</string>
-	<string name="type.barrier.ditch">ﻕﺪﻨﺧ</string>
+	<string name="type.barrier.ditch">حفرة</string>
 	<string name="type.barrier.entrance">مدخل الحاجز</string>
 	<string name="type.barrier.gate">بوابة</string>
 	<string name="type.barrier.kissing_gate">بوابة</string>
@@ -846,13 +882,33 @@
 	<string name="type.barrier.stile">ممر عبور</string>
 	<string name="type.barrier.swing_gate">حاجز بوابة</string>
 	<string name="type.barrier.toll_booth">كشك رسوم عبور</string>
+	<string name="type.barrier.wall">جدار</string>
+	<string name="type.boundary">حدود</string>
+	<string name="type.boundary.administrative">حدود إدارية</string>
+	<string name="type.boundary.administrative.10">حدود إدارية</string>
+	<string name="type.boundary.administrative.11">حدود إدارية</string>
+	<string name="type.boundary.administrative.2">حدود دولية</string>
+	<string name="type.boundary.administrative.3">حدود إدارية</string>
+	<string name="type.boundary.administrative.4">حدود إدارية</string>
+	<string name="type.boundary.administrative.5">حدود إدارية</string>
+	<string name="type.boundary.administrative.6">حدود إدارية</string>
+	<string name="type.boundary.administrative.7">حدود إدارية</string>
+	<string name="type.boundary.administrative.8">حدود إدارية</string>
+	<string name="type.boundary.administrative.9">حدود إدارية</string>
+	<string name="type.boundary.administrative.city">حدود مدينة</string>
+	<string name="type.boundary.administrative.country">حدود دولية</string>
+	<string name="type.boundary.administrative.county">حدود مقاطعة</string>
+	<string name="type.boundary.administrative.municipality">حدود بلدية</string>
+	<string name="type.boundary.administrative.nation">حدود دولية</string>
+	<string name="type.boundary.administrative.region">حدود منطقة</string>
 	<string name="type.boundary.national_park">منتزه وطني</string>
 	<string name="type.building">مبنى</string>
 	<string name="type.building.address">مبنى</string>
 	<string name="type.building.garage">جراج</string>
 	<string name="type.building.has_parts">مبنى</string>
 	<string name="type.building.train_station">محطة سكك حديدية</string>
-	<string name="type.cemetery.grave">ﺮﻴﻄﺧ</string>
+	<string name="type.building.warehouse">مستودع</string>
+	<string name="type.cemetery.grave">قبر</string>
 	<string name="type.craft">حرفة</string>
 	<string name="type.craft.beekeeper">نحال</string>
 	<string name="type.craft.blacksmith">حداد</string>
@@ -861,14 +917,16 @@
 	<string name="type.craft.confectionery">حلواني</string>
 	<string name="type.craft.electrician">كهربائي</string>
 	<string name="type.craft.electronics_repair">إصلاح الإلكترونيات</string>
-	<string name="type.craft.gardener">مهندس مناظر</string>
+	<string name="type.craft.gardener">بستاني</string>
 	<string name="type.craft.handicraft">مشغولات يدوية</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">تكييف</string>
+	<string name="type.craft.key_cutter">قطع المفاتيح</string>
+	<string name="type.craft.locksmith">قفال</string>
 	<string name="type.craft.metal_construction">عامل معادن</string>
 	<string name="type.craft.painter">رسام</string>
 	<string name="type.craft.photographer">مصور فوتوغرافي</string>
-	<string name="type.craft.plumber">سمكري</string>
+	<string name="type.craft.plumber">سباك</string>
 	<string name="type.craft.sawmill">منشرة</string>
 	<string name="type.craft.shoemaker">تصليح الاحذية</string>
 	<string name="type.craft.winery">مصنع الخمرة</string>
@@ -962,9 +1020,20 @@
 	<string name="type.emergency.defibrillator">مزيل الرجفان</string>
 	<string name="type.emergency.fire_hydrant">صنبور الإطفاء</string>
 	<string name="type.emergency.phone">هاتف الطوارئ</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">مدخل</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">ﻲﺴﻴﺋﺮﻟﺍ ﻞﺧﺪﻤﻟﺍ</string>
 	<string name="type.healthcare.laboratory">مختبر طبي</string>
 	<string name="type.healthcare.physiotherapist">اخصائي علاج طبيعي</string>
+	<string name="type.healthcare.alternative">الطب البديل</string>
+	<string name="type.healthcare.audiologist">السمع</string>
+	<string name="type.healthcare.blood_donation">مركز التبرع بالدم</string>
+	<string name="type.healthcare.optometrist">قياس البصر</string>
+	<string name="type.healthcare.podiatrist">علاج الأرجل</string>
+	<string name="type.healthcare.psychotherapist">العلاج النفسي</string>
+	<string name="type.healthcare.sample_collection">أخذ العينات</string>
+	<string name="type.healthcare.speech_therapist">علاج النطق</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">طريق السريع</string>
@@ -972,6 +1041,7 @@
 	<string name="type.highway.bridleway.bridge">جسر</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">نفق</string>
+	<string name="type.highway.busway">ﺺﺼﺨﻣ ﺕﻼﻓﺎﺣ ﻖﻳﺮﻃ</string>
 	<string name="type.highway.bus_stop">موقف حافلة</string>
 	<string name="type.highway.construction">طريق تحت الإنشاء</string>
 	<string name="type.highway.cycleway">مسار للدراجات</string>
@@ -1176,7 +1246,7 @@
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">مقبرة</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
-	<string name="type.landuse.cemetery.christian">مقبرة</string>
+	<string name="type.landuse.cemetery.christian">مقبرة مسيحية</string>
 	<string name="type.landuse.churchyard">فناء الكنيسة</string>
 	<string name="type.landuse.commercial">منطقة تجارية</string>
 	<string name="type.landuse.construction">منطقة بناء</string>
@@ -1231,6 +1301,7 @@
 	<string name="type.man_made.silo">صومعة</string>
 	<string name="type.man_made.surveillance">كاميرا مراقبة</string>
 	<string name="type.man_made.tower">برج</string>
+	<string name="type.man_made.tower.communication">برج الاتصالات</string>
 	<string name="type.man_made.water_tap">حنفية مياه</string>
 	<string name="type.man_made.water_tower">برج مياه</string>
 	<string name="type.man_made.water_well">بئر ماء</string>
@@ -1317,6 +1388,16 @@
 	<string name="type.place.suburb">حي سكني</string>
 	<string name="type.place.town">بلدة</string>
 	<string name="type.place.village">قرية</string>
+	<string name="type.power.generator.solar">مولد للطاقة الشمسية</string>
+	<string name="type.power.generator.wind">مولد الرياح</string>
+	<string name="type.power.generator.gas">محطة توليد الكهرباء بالغاز</string>
+	<string name="type.power.generator.hydro">محطة توليد الطاقة الكهرمائية</string>
+	<string name="type.power.plant">محطة توليد الكهرباء</string>
+	<string name="type.power.plant.coal">محطة لتوليد الطاقه من الفحم</string>
+	<string name="type.power.plant.gas">محطة توليد الكهرباء بالغاز</string>
+	<string name="type.power.plant.hydro">محطة توليد الطاقة الكهرمائية</string>
+	<string name="type.power.plant.solar">محطة للطاقة الشمسية</string>
+	<string name="type.power.plant.wind">محطة طاقة الرياح</string>
 	<string name="type.power.pole">عمود كهرباء</string>
 	<string name="type.power.substation">محطة كهرباء فرعية</string>
 	<string name="type.power.tower">عمود كهرباء</string>
@@ -1340,6 +1421,7 @@
 	<string name="type.railway.station.subway.beijing">محطة مترو</string>
 	<string name="type.railway.station.subway.bengalore">محطة مترو</string>
 	<string name="type.railway.station.subway.berlin">محطة مترو</string>
+	<string name="type.railway.station.subway.bilbao">محطة مترو</string>
 	<string name="type.railway.station.subway.brasilia">محطة مترو</string>
 	<string name="type.railway.station.subway.brescia">محطة مترو</string>
 	<string name="type.railway.station.subway.brussels">محطة مترو</string>
@@ -1449,6 +1531,7 @@
 	<string name="type.railway.subway_entrance.beijing">مدخل المترو</string>
 	<string name="type.railway.subway_entrance.bengalore">مدخل المترو</string>
 	<string name="type.railway.subway_entrance.berlin">مدخل المترو</string>
+	<string name="type.railway.subway_entrance.bilbao">مدخل المترو</string>
 	<string name="type.railway.subway_entrance.brasilia">مدخل المترو</string>
 	<string name="type.railway.subway_entrance.brescia">مدخل المترو</string>
 	<string name="type.railway.subway_entrance.brussels">مدخل المترو</string>
@@ -1549,16 +1632,19 @@
 	<string name="type.shop">متجر</string>
 	<string name="type.shop.alcohol">متجر مشروبات كحولية</string>
 	<string name="type.shop.bakery">مخبز</string>
+	<string name="type.shop.bathroom_furnishing">أثاث الحمام</string>
 	<string name="type.shop.beauty">صالون تجميل</string>
 	<string name="type.shop.beverages">مشروبات</string>
 	<string name="type.shop.bicycle">متجر دراجات</string>
 	<string name="type.shop.bookmaker">ناشر</string>
 	<string name="type.shop.books">مكتبة لبيع الكتب</string>
 	<string name="type.shop.butcher">جزار</string>
+	<string name="type.shop.cannabis">متجر القنب</string>
 	<string name="type.shop.car">متجر سيارات</string>
 	<string name="type.shop.car_parts">ﺓﺭﺎﻴﺴﻟﺍ ءﺍﺰﺟﺃ</string>
 	<string name="type.shop.car_repair">محل صيانة السيارات</string>
 	<string name="type.shop.car_repair.tyres">إصلاح إطارات</string>
+	<string name="type.shop.carpet">السجاد</string>
 	<string name="type.shop.chemist">متجر كيماويات</string>
 	<string name="type.shop.chocolate">متجر</string>
 	<string name="type.shop.clothes">متجر ملابس</string>
@@ -1568,6 +1654,7 @@
 	<string name="type.shop.convenience">متجر صغير</string>
 	<string name="type.shop.copyshop">محل نسخ</string>
 	<string name="type.shop.cosmetics">مستحضرات تجميل</string>
+	<string name="type.shop.curtain">ستائر</string>
 	<string name="type.shop.deli">ﺔﺒﻠﻌﻤﻟﺍ ﺔﻤﻌﻃﻷﺍ ﻊﻴﺒﻟ ﻞﺤﻣ</string>
 	<string name="type.shop.department_store">متجر شامل</string>
 	<string name="type.shop.doityourself">متجر عدد وأدوات</string>
@@ -1576,16 +1663,20 @@
 	<string name="type.shop.erotic">متجر منتجات جنسية</string>
 	<string name="type.shop.fabric">متجر</string>
 	<string name="type.shop.farm">ﺔﻋﺭﺰﻤﻟﺍ ﺔﻳﺬﻏﺃ ﺮﺠﺘﻣ</string>
+	<string name="type.shop.fashion_accessories">اكسسوارات الموضة</string>
 	<string name="type.shop.florist">متجر زهور</string>
 	<string name="type.shop.funeral_directors">منظموا الجنازات</string>
 	<string name="type.shop.furniture">معرض أثاث</string>
 	<string name="type.shop.garden_centre">حضانة</string>
+	<string name="type.shop.gas">مخزن غاز</string>
 	<string name="type.shop.gift">متجر هدايا</string>
 	<string name="type.shop.greengrocer">متجر خضروات وفواكه</string>
 	<string name="type.shop.grocery">ﺕﺍﻭﺮﻀﺧ</string>
 	<string name="type.shop.hairdresser">مصفف شعر</string>
 	<string name="type.shop.hardware">ﺕﺍﺪﻌﻣ ﻞﺤﻣ</string>
 	<string name="type.shop.health_food">ﺔﻴﺤﺼﻟﺍ ﺔﻳﺬﻏﻼﻟ ﺮﺠﺘﻣ</string>
+	<string name="type.shop.herbalist">متجر أعشاب</string>
+	<string name="type.shop.hifi">صوت هاي فاي</string>
 	<string name="type.shop.houseware">ﺔﻴﻟﺰﻨﻣ ﺕﺍﻭﺩﺃ ﻞﺤﻣ</string>
 	<string name="type.shop.jewelry">مجوهرات</string>
 	<string name="type.shop.kiosk">كشك</string>
@@ -1596,14 +1687,17 @@
 	<string name="type.shop.mobile_phone">متجر هواتف محمولة</string>
 	<string name="type.shop.money_lender">متجر</string>
 	<string name="type.shop.motorcycle">متجر دراجات نارية</string>
+	<string name="type.shop.motorcycle_repair">تصليح الدراجات النارية</string>
 	<string name="type.shop.music">متجر</string>
 	<string name="type.shop.musical_instrument">متجر</string>
 	<string name="type.shop.newsagent">كشك الجرائد</string>
 	<string name="type.shop.optician">مركز بصريات</string>
 	<string name="type.shop.outdoor">معدات خارجية</string>
+	<string name="type.shop.outpost">نقطة الالتقاط</string>
 	<string name="type.shop.pastry">ﺕﺎﻨﺠﻌﻣ</string>
 	<string name="type.shop.pawnbroker">سمسار تسليف</string>
 	<string name="type.shop.pet">متجر للحيوانات الأليفة</string>
+	<string name="type.shop.pet_grooming">العناية بالحيوانات الأليفة</string>
 	<string name="type.shop.photo">محل صور</string>
 	<string name="type.shop.seafood">سماك</string>
 	<string name="type.shop.second_hand">ﺔﻠﻤﻌﺘﺴﻣ ﺕﺍﻭﺩﺍ ﺮﺠﺘﻣ</string>
@@ -1621,10 +1715,13 @@
 	<string name="type.shop.video">متجر فيديو</string>
 	<string name="type.shop.video_games">متجر ألعاب فيديو</string>
 	<string name="type.shop.wine">متجر مشروبات روحية</string>
+	<string name="type.shop.agrarian">محل زراعي</string>
 	<string name="type.shop.antiques">ﻒﺤﺘﻟﺍ</string>
+	<string name="type.shop.appliance">متجر الأجهزة</string>
 	<string name="type.shop.art">ﻥﻮﻨﻔﻟﺍ ﺮﺠﺘﻣ</string>
 	<string name="type.shop.baby_goods">ﻝﺎﻔﻃﻸﻟ ﺮﺠﺘﻣ</string>
 	<string name="type.shop.bag">ﺐﺋﺎﻘﺤﻟﺍ ﺮﺠﺘﻣ</string>
+	<string name="type.shop.bed">متجر الأسرة</string>
 	<string name="type.shop.boutique">ﺮﺠﺘﻣ</string>
 	<string name="type.shop.charity">ﻱﺮﻴﺧ ﺮﺠﺘﻣ</string>
 	<string name="type.shop.cheese">ﻦﺒﺠﻟﺍ ﺮﺠﺘﻣ</string>

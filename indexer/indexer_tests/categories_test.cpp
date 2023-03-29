@@ -315,7 +315,7 @@ UNIT_TEST(CategoriesIndex_AllCategories)
   index.AddAllCategoriesInAllLangs();
   // Consider deprecating this method if this bound rises as high as a million.
   LOG(LINFO, ("Number of nodes in the CategoriesIndex trie:", index.GetNumTrieNodes()));
-  TEST_LESS(index.GetNumTrieNodes(), 600000, ());
+  TEST_LESS(index.GetNumTrieNodes(), 650000, ());
 }
 
 // A check that this data structure is not too heavy.

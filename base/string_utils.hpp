@@ -597,6 +597,7 @@ bool StartsWith(std::string const & s1, std::string const & s2);
 
 bool EndsWith(UniString const & s1, UniString const & s2);
 bool EndsWith(std::string const & s1, char const * s2);
+bool EndsWith(std::string const & s1, std::string_view s2);
 bool EndsWith(std::string const & s, std::string::value_type c);
 bool EndsWith(std::string const & s1, std::string const & s2);
 
@@ -614,7 +615,8 @@ bool IsHTML(std::string const & utf8);
 bool AlmostEqual(std::string const & str1, std::string const & str2, size_t mismatchedCount);
 
 template <typename Iterator, typename Delimiter>
-typename Iterator::value_type JoinStrings(Iterator begin, Iterator end, Delimiter const & delimiter)
+typename std::iterator_traits<Iterator>::value_type
+JoinStrings(Iterator begin, Iterator end, Delimiter const & delimiter)
 {
   if (begin == end)
     return {};

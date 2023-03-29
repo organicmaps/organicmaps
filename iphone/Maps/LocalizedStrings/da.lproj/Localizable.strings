@@ -226,6 +226,9 @@
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D-bygninger";
 
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "3D-bygninger er slukket i strømbesparende tilstand";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Stemmeinstruktioner";
 
@@ -304,7 +307,7 @@
 "donate" = "Doner";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Sådan støtter vi os?";
+"how_to_support_us" = "Støt projektet";
 
 /* Button in the main Help dialog */
 "copyright" = "Copyright";
@@ -710,8 +713,8 @@
 
 "editor_storey_number" = "Antal etager (maks %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "Rediger bygningen med maksimum 25 etager";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Rediger bygningen med maksimum %d etager";
 
 "editor_zip_code" = "Postnummer";
 
@@ -1236,20 +1239,23 @@
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/";
 
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Da:Om_OpenStreetMap";
+
 
 /********** Types **********/
 
 "type.aerialway" = "Aerialway";
 
-"type.aerialway.cable_car" = "Cable car";
+"type.aerialway.cable_car" = "Cable Car";
 
-"type.aerialway.chair_lift" = "Chair lift";
+"type.aerialway.chair_lift" = "Chair Lift";
 
-"type.aerialway.drag_lift" = "Drag lift";
+"type.aerialway.drag_lift" = "Drag Lift";
 
 "type.aerialway.gondola" = "Gondola";
 
-"type.aerialway.mixed_lift" = "Mixed lift";
+"type.aerialway.mixed_lift" = "Mixed Lift";
 
 "type.aerialway.station" = "Kabelbanestation";
 
@@ -1311,7 +1317,9 @@
 
 "type.amenity.charging_station" = "Ladestation";
 
-"type.amenity.charging_station.motorcar" = "Ladestation";
+"type.amenity.charging_station.bicycle" = "Cykel ladestation";
+
+"type.amenity.charging_station.motorcar" = "Ladestation for biler";
 
 "type.amenity.childcare" = "Vuggestue";
 
@@ -1334,6 +1342,8 @@
 "type.amenity.drinking_water" = "Vand";
 
 "type.amenity.driving_school" = "Køreskole";
+
+"type.amenity.money_transfer" = "Pengeoverførsel";
 
 "type.amenity.music_school" = "Musikskolen";
 
@@ -1370,6 +1380,8 @@
 "type.amenity.kindergarten" = "Børnehave";
 
 "type.amenity.library" = "Bibliotek";
+
+"type.amenity.loading_dock" = "Læsserampe";
 
 "type.amenity.marketplace" = "Markedsplads";
 
@@ -1653,6 +1665,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Blikkenslager";
 
+"type.craft.key_cutter" = "Nøgleskæring";
+
+"type.craft.locksmith" = "Låsesmed";
+
 "type.craft.metal_construction" = "Metalarbejder";
 
 "type.craft.painter" = "Maler";
@@ -1849,11 +1865,31 @@
 
 "type.emergency.phone" = "Nødtelefon";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Indgang";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Hovedindgang";
 
 "type.healthcare.laboratory" = "Medicinsk laboratorium";
 
 "type.healthcare.physiotherapist" = "Fysioterapeut";
+
+"type.healthcare.alternative" = "Alternativ medicin";
+
+"type.healthcare.audiologist" = "Audiologi";
+
+"type.healthcare.blood_donation" = "Center for bloddonation";
+
+"type.healthcare.optometrist" = "Optometri";
+
+"type.healthcare.podiatrist" = "Fodterapi";
+
+"type.healthcare.psychotherapist" = "Psykoterapi";
+
+"type.healthcare.sample_collection" = "Prøvetagning";
+
+"type.healthcare.speech_therapist" = "Tale terapi";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1905,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunnel";
+
+"type.highway.busway" = "Dedikeret busvej";
 
 "type.highway.bus_stop" = "Busstoppested";
 
@@ -2305,7 +2343,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "Affaldsplads";
 
@@ -2323,9 +2361,9 @@
 
 "type.landuse.reservoir" = "Vand";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 
@@ -2430,6 +2468,8 @@
 "type.man_made.surveillance" = "Overvågningskamera";
 
 "type.man_made.tower" = "Tårn";
+
+"type.man_made.tower.communication" = "Kommunikationstårn";
 
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
@@ -2623,11 +2663,31 @@
 
 "type.power.generator" = "Generator";
 
+"type.power.generator.solar" = "Solar generator";
+
+"type.power.generator.wind" = "Vindgenerator";
+
+"type.power.generator.gas" = "Gasturbine kraftværk";
+
+"type.power.generator.hydro" = "Vandkraftværk";
+
 "type.power.line" = "Power Line";
 
 "type.power.line.underground" = "Underground Power Line";
 
 "type.power.minor_line" = "Minor Power Line";
+
+"type.power.plant" = "Kraftværk";
+
+"type.power.plant.coal" = "Kulkraftværk";
+
+"type.power.plant.gas" = "Gasturbine kraftværk";
+
+"type.power.plant.hydro" = "Vandkraftværk";
+
+"type.power.plant.solar" = "Solcelleanlæg";
+
+"type.power.plant.wind" = "Vindkraftværk";
 
 "type.power.pole" = "El-pol";
 
@@ -2754,6 +2814,8 @@
 "type.railway.station.subway.bengalore" = "Metro";
 
 "type.railway.station.subway.berlin" = "Metro";
+
+"type.railway.station.subway.bilbao" = "Metro";
 
 "type.railway.station.subway.brasilia" = "Metro";
 
@@ -2979,6 +3041,8 @@
 
 "type.railway.subway_entrance.berlin" = "Indgang til undergrundsbane";
 
+"type.railway.subway_entrance.bilbao" = "Indgang til undergrundsbane";
+
 "type.railway.subway_entrance.brasilia" = "Indgang til undergrundsbane";
 
 "type.railway.subway_entrance.brescia" = "Indgang til undergrundsbane";
@@ -3197,6 +3261,8 @@
 
 "type.shop.bakery" = "Bager";
 
+"type.shop.bathroom_furnishing" = "Badeværelsesindretning";
+
 "type.shop.beauty" = "Skønhedssalon";
 
 "type.shop.beverages" = "Drikkevarer";
@@ -3209,6 +3275,8 @@
 
 "type.shop.butcher" = "Slagter";
 
+"type.shop.cannabis" = "Cannabis butik";
+
 "type.shop.car" = "Bilforhandler";
 
 "type.shop.car_parts" = "Bildele";
@@ -3218,6 +3286,8 @@
 "type.shop.car_repair.tyres" = "Dækreparation";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "Tæpper";
 
 "type.shop.chemist" = "Materialist";
 
@@ -3237,6 +3307,8 @@
 
 "type.shop.cosmetics" = "Kosmetik";
 
+"type.shop.curtain" = "Gardiner";
+
 "type.shop.deli" = "Delikatessebutik";
 
 "type.shop.department_store" = "Stormagasin";
@@ -3253,6 +3325,8 @@
 
 "type.shop.farm" = "Farm Food Shop";
 
+"type.shop.fashion_accessories" = "Mode tilbehør";
+
 "type.shop.florist" = "Blomsterbutik";
 
 "type.shop.funeral_directors" = "Bedemand";
@@ -3260,6 +3334,8 @@
 "type.shop.furniture" = "Møbelbutik";
 
 "type.shop.garden_centre" = "Planteskole";
+
+"type.shop.gas" = "Gas butik";
 
 "type.shop.gift" = "Gavebutik";
 
@@ -3272,6 +3348,10 @@
 "type.shop.hardware" = "Isenkræmmer";
 
 "type.shop.health_food" = "Helsekostbutik";
+
+"type.shop.herbalist" = "Urtebutik";
+
+"type.shop.hifi" = "HiFi lyd";
 
 "type.shop.houseware" = "Husholdningsartikler butik";
 
@@ -3293,6 +3373,8 @@
 
 "type.shop.motorcycle" = "Motorcykelforhandler";
 
+"type.shop.motorcycle_repair" = "Motorcykel reparation";
+
 "type.shop.music" = "Butik";
 
 "type.shop.musical_instrument" = "Butik";
@@ -3303,11 +3385,15 @@
 
 "type.shop.outdoor" = "Fritidsudstyr";
 
+"type.shop.outpost" = "Afhentningssted";
+
 "type.shop.pastry" = "Bagværk";
 
 "type.shop.pawnbroker" = "Pantelåner";
 
 "type.shop.pet" = "Dyrehandel";
+
+"type.shop.pet_grooming" = "Kæledyrspleje";
 
 "type.shop.photo" = "Fotobutik";
 
@@ -3343,13 +3429,19 @@
 
 "type.shop.wine" = "Vinhandel";
 
+"type.shop.agrarian" = "Landbrugsbutik";
+
 "type.shop.antiques" = "Antikviteter";
+
+"type.shop.appliance" = "Hvidevarer butik";
 
 "type.shop.art" = "Kunstbutik";
 
 "type.shop.baby_goods" = "Børnebutik";
 
 "type.shop.bag" = "Tasker butik";
+
+"type.shop.bed" = "Senge butik";
 
 "type.shop.boutique" = "Boutique";
 

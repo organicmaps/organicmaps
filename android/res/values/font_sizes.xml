@@ -7,7 +7,7 @@
   <dimen name="text_size_display_2">40sp</dimen>
   <dimen name="text_size_display_1">36sp</dimen>
   <dimen name="text_size_display_0">34sp</dimen>
-  <dimen name="text_size_headline">28sp</dimen>
+  <dimen name="text_size_headline">20sp</dimen>
   <dimen name="text_size_title">24sp</dimen>
   <dimen name="text_size_toolbar">20sp</dimen>
   <dimen name="text_size_body_0">18sp</dimen>

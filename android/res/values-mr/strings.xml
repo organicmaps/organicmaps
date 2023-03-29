@@ -35,6 +35,9 @@
 	<string name="country_status_download_failed">डाउनलोड अयशस्वी</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">पुन्हा प्रयत्न करा</string>
+	<string name="about_menu_title">Organic Maps बद्दल</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• बॅटरी वाचवते, पार्श्वभूमी डेटा वापरत नाही</string>
 	<string name="connection_settings">जोडणी सेटिंग</string>
 	<string name="close">बंद</string>
 	<string name="unsupported_phone">ह्या ऍपला हार्डवेअर प्रवेगक OpenGL आवश्यक आहे. दुर्दैवाने, तुमच्या उपकरणाला ह्याचा आधार नाही.</string>
@@ -191,6 +194,8 @@
 	<string name="pref_map_3d_title">यथार्थ दृश्य</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">त्रिमिती (3D) इमारती</string>
+	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+	<string name="pref_map_3d_buildings_disabled_summary">3D इमारती वीज बचत मोडमध्ये बंद केल्या आहेत</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">ध्वनी सूचना</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -218,7 +223,7 @@
 	<!-- Button in the main Help dialog -->
 	<string name="faq">वारंवार विचारलेले प्रश्न</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">आम्हाला आधार कसा द्यायचा?</string>
+	<string name="how_to_support_us">प्रकल्पाला पाठठिंबा द्या</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">प्रकाशन अधिकार (कॉपीराईट)</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -431,8 +436,8 @@
 	<string name="download_over_mobile_message">रोमिंग वर असल्यास हे बरेच महाग पडू शकते.</string>
 	<string name="error_enter_correct_house_number">एक वैध बिल्डिंग क्रमांक प्रविष्ट करा</string>
 	<string name="editor_storey_number">मजल्यांची संख्या (कमाल %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">मजल्यांची संख्या २५ पेक्षा जास्त नसावी</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">मजल्यांची संख्या %d पेक्षा जास्त नसावी</string>
 	<string name="editor_zip_code">पिनकोड</string>
 	<string name="error_enter_correct_zip_code">वैध पिनकोड प्रविष्ट करा</string>
 	<!-- Place Page title for long tap -->
@@ -717,7 +722,8 @@
 	<string name="type.amenity.car_wash">कार धुणे</string>
 	<string name="type.amenity.casino">जुगारगृह</string>
 	<string name="type.amenity.charging_station">चार्जिंग केंद्र</string>
-	<string name="type.amenity.charging_station.motorcar">चार्जिंग केंद्र</string>
+	<string name="type.amenity.charging_station.bicycle">सायकल चार्जिंग स्टेशन</string>
+	<string name="type.amenity.charging_station.motorcar">मोटार कार चार्जिंग स्टेशन</string>
 	<string name="type.amenity.childcare">बालवाडी</string>
 	<string name="type.amenity.cinema">चित्रपटगृह</string>
 	<string name="type.leisure.bowling_alley">गोलंदाजी गल्ली</string>
@@ -729,6 +735,7 @@
 	<string name="type.amenity.doctors">डॉक्टर</string>
 	<string name="type.amenity.drinking_water">पिण्याचे पाणी</string>
 	<string name="type.amenity.driving_school">वाहनचालक शाळा</string>
+	<string name="type.amenity.money_transfer">पैसे हस्तांतरण</string>
 	<string name="type.office.diplomatic">दूतावास</string>
 	<string name="type.amenity.fast_food">फास्ट फूड</string>
 	<string name="type.amenity.ferry_terminal">होडी</string>
@@ -745,6 +752,7 @@
 	<string name="type.amenity.internet_cafe">इंटरनेट कॅफे</string>
 	<string name="type.amenity.kindergarten">बालवाडी</string>
 	<string name="type.amenity.library">ग्रंथालय</string>
+	<string name="type.amenity.loading_dock">डक लड करत आह</string>
 	<string name="type.amenity.marketplace">बाजारपेठ</string>
 	<string name="type.amenity.motorcycle_parking">दुचाकी वाहनतळ</string>
 	<string name="type.amenity.nightclub">नाईट क्लब</string>
@@ -868,6 +876,8 @@
 	<string name="type.craft.electronics_repair">इलेक्ट्रॉनिक्स दुरुस्ती</string>
 	<string name="type.craft.gardener">माळी</string>
 	<string name="type.craft.handicraft">हस्तकला</string>
+	<string name="type.craft.key_cutter">की कटिंग</string>
+	<string name="type.craft.locksmith">लॉकस्मिथ</string>
 	<string name="type.craft.metal_construction">धातू कामगार</string>
 	<string name="type.craft.painter">चित्रकार</string>
 	<string name="type.craft.photographer">छायाचित्रकार</string>
@@ -904,9 +914,20 @@
 	<string name="type.emergency.defibrillator">कंपनरोधक</string>
 	<string name="type.emergency.fire_hydrant">अग्निशामक नळ</string>
 	<string name="type.emergency.phone">संकटकालीन फोन</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">प्रवेशद्वार</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">मुख्य प्रवेशद्वार</string>
 	<string name="type.healthcare.laboratory">वैद्यकीय प्रयोगशाळा</string>
 	<string name="type.healthcare.physiotherapist">फिजिओथेरपिस्ट</string>
+	<string name="type.healthcare.alternative">पर्यायी औषध</string>
+	<string name="type.healthcare.audiologist">ऑडिओलॉजी</string>
+	<string name="type.healthcare.blood_donation">रक्तदान केंद्र</string>
+	<string name="type.healthcare.optometrist">ऑप्टोमेट्री</string>
+	<string name="type.healthcare.podiatrist">पोडियाट्री</string>
+	<string name="type.healthcare.psychotherapist">मानसोपचार</string>
+	<string name="type.healthcare.sample_collection">नमुना</string>
+	<string name="type.healthcare.speech_therapist">स्पीच थेरपी</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">महामार्ग</string>
@@ -914,6 +935,7 @@
 	<string name="type.highway.bridleway.bridge">पूल</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">बोगदा</string>
+	<string name="type.highway.busway">समर्पित बस रस्ता</string>
 	<string name="type.highway.bus_stop">बस थांबा</string>
 	<string name="type.highway.construction">बांधकामाधीन रस्ता</string>
 	<string name="type.highway.cycleway">सायकल वाट</string>
@@ -1189,6 +1211,7 @@
 	<string name="type.man_made.storage_tank">साठवण टाकी</string>
 	<string name="type.man_made.surveillance">संनिरीक्षण कॅमेरा</string>
 	<string name="type.man_made.tower">मनोरा</string>
+	<string name="type.man_made.tower.communication">कम्युनिकेशन टॉवर</string>
 	<string name="type.man_made.wastewater_plant">सांडपाणी संयंत्र(प्लांट)</string>
 	<string name="type.man_made.water_tap">पाण्याचा नळ</string>
 	<string name="type.man_made.water_tower">पाण्याचा मनोरा(टाकी)</string>
@@ -1282,9 +1305,19 @@
 	<string name="type.place.village">गाव</string>
 	<string name="type.power">शक्ती</string>
 	<string name="type.power.generator">जनित्र(जनरेटर)</string>
+	<string name="type.power.generator.solar">सौर जनरेटर</string>
+	<string name="type.power.generator.wind">वारा जनरेटर</string>
+	<string name="type.power.generator.gas">गॅस टर्बाइन पॉवर प्लांट</string>
+	<string name="type.power.generator.hydro">जलविद्युत प्रकल्प</string>
 	<string name="type.power.line">विद्युत तार</string>
 	<string name="type.power.line.underground">भूमिगत विद्युत तार</string>
 	<string name="type.power.minor_line">किरकोळ विद्युत तार</string>
+	<string name="type.power.plant">वीज प्रकल्प</string>
+	<string name="type.power.plant.coal">कोळसा ऊर्जा प्रकल्प</string>
+	<string name="type.power.plant.gas">गॅस टर्बाइन पॉवर प्लांट</string>
+	<string name="type.power.plant.hydro">जलविद्युत प्रकल्प</string>
+	<string name="type.power.plant.solar">सौर ऊर्जा संयंत्र</string>
+	<string name="type.power.plant.wind">पवन ऊर्जा संयंत्र</string>
 	<string name="type.power.pole">विद्युत मनोरा</string>
 	<string name="type.power.station">विद्युत घर</string>
 	<string name="type.power.substation">विद्युत सबस्टेशन</string>
@@ -1326,6 +1359,7 @@
 	<string name="type.railway.station.subway.beijing">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.bengalore">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.berlin">भुयारी मार्ग</string>
+	<string name="type.railway.station.subway.bilbao">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.brasilia">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.brescia">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.brussels">भुयारी मार्ग</string>
@@ -1438,6 +1472,7 @@
 	<string name="type.railway.subway_entrance.beijing">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.bengalore">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.berlin">भुयारी प्रवेशद्वार</string>
+	<string name="type.railway.subway_entrance.bilbao">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.brasilia">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.brescia">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.brussels">भुयारी प्रवेशद्वार</string>
@@ -1546,15 +1581,18 @@
 	<string name="type.shop">दुकान</string>
 	<string name="type.shop.alcohol">दारूचे दुकान</string>
 	<string name="type.shop.bakery">बेकरी</string>
+	<string name="type.shop.bathroom_furnishing">स्नानगृह सामान</string>
 	<string name="type.shop.beauty">सौंदर्य प्रसाधनगृह</string>
 	<string name="type.shop.beverages">शीतपेय</string>
 	<string name="type.shop.bicycle">सायकलचे दुकान</string>
 	<string name="type.shop.books">पुस्तकांचे दुकान</string>
 	<string name="type.shop.butcher">खाटीक</string>
+	<string name="type.shop.cannabis">गांजाचे दुकान</string>
 	<string name="type.shop.car">कार विक्रेता</string>
 	<string name="type.shop.car_parts">कारचे सुट्टे भाग</string>
 	<string name="type.shop.car_repair">कार दुरुस्तीचे दुकान</string>
 	<string name="type.shop.car_repair.tyres">टायर दुरुस्ती</string>
+	<string name="type.shop.carpet">कार्पेट्स</string>
 	<string name="type.shop.chemist">औषधालय</string>
 	<string name="type.shop.chocolate">दुकान</string>
 	<string name="type.shop.clothes">कपड्याचे दुकान</string>
@@ -1563,19 +1601,24 @@
 	<string name="type.shop.confectionery">मिठाई</string>
 	<string name="type.shop.convenience">सुविधा दुकान</string>
 	<string name="type.shop.cosmetics">सौंदर्य(कॉस्मेटिक)</string>
+	<string name="type.shop.curtain">पडदे</string>
 	<string name="type.shop.department_store">विभागीय भांडार</string>
 	<string name="type.shop.doityourself">हार्डवेअर दुकान</string>
 	<string name="type.shop.dry_cleaning">कोरडे धुलाईघर</string>
 	<string name="type.shop.electronics">इलेक्ट्रॉनिक्स</string>
 	<string name="type.shop.fabric">दुकान</string>
+	<string name="type.shop.fashion_accessories">फॅशन अॅक्सेसरीज</string>
 	<string name="type.shop.florist">फुलवाला</string>
 	<string name="type.shop.funeral_directors">अंत्यसंस्कार संचालक</string>
 	<string name="type.shop.furniture">फर्निचरचे दुकान</string>
 	<string name="type.shop.garden_centre">बागकामाचे दुकान</string>
+	<string name="type.shop.gas">गॅसचे दुकान</string>
 	<string name="type.shop.gift">भेटवस्तूंचे दुकान</string>
 	<string name="type.shop.greengrocer">भाजीवाला</string>
 	<string name="type.shop.hairdresser">न्हावी</string>
 	<string name="type.shop.hardware">हार्डवेअर दुकान</string>
+	<string name="type.shop.herbalist">औषधी वनस्पतींचे दुकान</string>
+	<string name="type.shop.hifi">हायफाय ऑडिओ</string>
 	<string name="type.shop.houseware">हार्डवेअर दुकान</string>
 	<string name="type.shop.jewelry">दागिने</string>
 	<string name="type.shop.kiosk">टपरी</string>
@@ -1585,13 +1628,16 @@
 	<string name="type.shop.mobile_phone">मोबाईल</string>
 	<string name="type.shop.money_lender">दुकान</string>
 	<string name="type.shop.motorcycle">दुचाकी विक्रेता</string>
+	<string name="type.shop.motorcycle_repair">मोटरसायकल दुरुस्ती</string>
 	<string name="type.shop.music">दुकान</string>
 	<string name="type.shop.musical_instrument">दुकान</string>
 	<string name="type.shop.newsagent">वृत्तपत्र विक्री</string>
 	<string name="type.shop.optician">चष्मेविक्रेता</string>
 	<string name="type.shop.outdoor">भटकंतीचे साहित्य</string>
+	<string name="type.shop.outpost">पिकअप पॉइंट</string>
 	<string name="type.shop.pastry">बेकरी</string>
 	<string name="type.shop.pet">पाळीव प्राण्यांचे दुकान</string>
+	<string name="type.shop.pet_grooming">पाळीव प्राणी ग्रूमिंग</string>
 	<string name="type.shop.photo">फोटोचे दुकान</string>
 	<string name="type.shop.seafood">मासळी उपहारगृह</string>
 	<string name="type.shop.shoes">चपलाचे दूकान</string>
@@ -1608,6 +1654,9 @@
 	<string name="type.shop.video">व्हिडिओ दुकान</string>
 	<string name="type.shop.video_games">व्हिडिओ गेम्स दुकान</string>
 	<string name="type.shop.wine">वाईन विक्रेता</string>
+	<string name="type.shop.agrarian">शेतीचे दुकान</string>
+	<string name="type.shop.appliance">उपकरणांचे दुकान</string>
+	<string name="type.shop.bed">पलंगाचे दुकान</string>
 	<string name="type.sport">क्रीडा</string>
 	<string name="type.sport.american_football">अमेरिकन फुटबॉल</string>
 	<string name="type.sport.archery">धनुर्विद्या</string>

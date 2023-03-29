@@ -28,9 +28,6 @@ namespace drule
   /// drawing type of rule - can be one of ...
   enum rule_type_t { line, area, symbol, caption, circle, pathtext, waymarker, shield, count_of_rules };
 
-  /// geo type of rule - can be one combined of ...
-  enum rule_geo_t { node = 1, way = 2 };
-
   /// text field type - can be one of ...
   enum text_type_t { text_type_name = 0, text_type_housename, text_type_housenumber };
 

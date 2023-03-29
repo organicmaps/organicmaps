@@ -50,3 +50,6 @@
 [submodule "3party/jansson/jansson"]
 	path = 3party/jansson/jansson
 	url = https://github.com/akheron/jansson.git
+[submodule "3party/gflags"]
+	path = 3party/gflags
+	url = https://github.com/gflags/gflags

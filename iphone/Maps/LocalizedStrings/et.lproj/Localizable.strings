@@ -226,6 +226,9 @@
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D hooned";
 
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "3D-hooned lülitatakse energiasäästurežiimis välja";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Hääljuhised";
 
@@ -304,7 +307,7 @@
 "donate" = "Anneta";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Kuidas meid toetada?";
+"how_to_support_us" = "Toetage projekti";
 
 /* Button in the main Help dialog */
 "copyright" = "Autoriõigused";
@@ -710,8 +713,8 @@
 
 "editor_storey_number" = "Korruste arv (maks. %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "Korruste arv ei või olla üle 25";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Korruste arv ei või olla üle %d";
 
 "editor_zip_code" = "Postiindeks";
 
@@ -1236,6 +1239,9 @@
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/";
 
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
 
 /********** Types **********/
 
@@ -1311,7 +1317,9 @@
 
 "type.amenity.charging_station" = "Laadimisjaam";
 
-"type.amenity.charging_station.motorcar" = "Laadimisjaam";
+"type.amenity.charging_station.bicycle" = "Jalgratta laadimisjaam";
+
+"type.amenity.charging_station.motorcar" = "Autode laadimisjaam";
 
 "type.amenity.childcare" = "Lasteaed";
 
@@ -1334,6 +1342,8 @@
 "type.amenity.drinking_water" = "Joogivesi";
 
 "type.amenity.driving_school" = "Autokool";
+
+"type.amenity.money_transfer" = "Raha ülekanne";
 
 "type.amenity.music_school" = "Muusikakool";
 
@@ -1370,6 +1380,8 @@
 "type.amenity.kindergarten" = "Lasteaed";
 
 "type.amenity.library" = "Raamatukogu";
+
+"type.amenity.loading_dock" = "Laadimisdokk";
 
 "type.amenity.marketplace" = "Turg";
 
@@ -1653,6 +1665,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Õhkkonditsioneer";
 
+"type.craft.key_cutter" = "Võtme lõikamine";
+
+"type.craft.locksmith" = "Lukksepp";
+
 "type.craft.metal_construction" = "Metallitööline";
 
 "type.craft.painter" = "Maaler";
@@ -1849,11 +1865,31 @@
 
 "type.emergency.phone" = "Hädaabi telefon";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Sissepääs";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Peasissekäik";
 
 "type.healthcare.laboratory" = "Meditsiinilabor";
 
 "type.healthcare.physiotherapist" = "Füsioterapeut";
+
+"type.healthcare.alternative" = "Alternatiivne meditsiin";
+
+"type.healthcare.audiologist" = "Audioloogia";
+
+"type.healthcare.blood_donation" = "Vereloovutuskeskus";
+
+"type.healthcare.optometrist" = "Optomeetria";
+
+"type.healthcare.podiatrist" = "Jalaravi";
+
+"type.healthcare.psychotherapist" = "Psühhoteraapia";
+
+"type.healthcare.sample_collection" = "Proovivõtmine";
+
+"type.healthcare.speech_therapist" = "Logopeedia";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1905,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunnel";
+
+"type.highway.busway" = "Spetsiaalne bussitee";
 
 "type.highway.bus_stop" = "Bussipeatus";
 
@@ -2431,6 +2469,8 @@
 
 "type.man_made.tower" = "Torn";
 
+"type.man_made.tower.communication" = "Sidetorn";
+
 "type.man_made.wastewater_plant" = "Reoveepuhasti";
 
 "type.man_made.water_tap" = "Veekraan";
@@ -2623,11 +2663,31 @@
 
 "type.power.generator" = "Generaator";
 
+"type.power.generator.solar" = "Päikese generaator";
+
+"type.power.generator.wind" = "Tuulegeneraator";
+
+"type.power.generator.gas" = "Gaasiturbiini elektrijaam";
+
+"type.power.generator.hydro" = "Hüdroelektrijaam";
+
 "type.power.line" = "Elektriliin";
 
 "type.power.line.underground" = "Maa-alune elektriliin";
 
 "type.power.minor_line" = "Madal-/Keskpinge elektriliin";
+
+"type.power.plant" = "Elektrijaam";
+
+"type.power.plant.coal" = "Söeelektrijaam";
+
+"type.power.plant.gas" = "Gaasiturbiini elektrijaam";
+
+"type.power.plant.hydro" = "Hüdroelektrijaam";
+
+"type.power.plant.solar" = "Päikeseelektrijaam";
+
+"type.power.plant.wind" = "Tuuleelektrijaam";
 
 "type.power.pole" = "Elektripost";
 
@@ -2754,6 +2814,8 @@
 "type.railway.station.subway.bengalore" = "Metroo";
 
 "type.railway.station.subway.berlin" = "Metroo";
+
+"type.railway.station.subway.bilbao" = "Metroo";
 
 "type.railway.station.subway.brasilia" = "Metroo";
 
@@ -2979,6 +3041,8 @@
 
 "type.railway.subway_entrance.berlin" = "Metroo sissepääs";
 
+"type.railway.subway_entrance.bilbao" = "Metroo sissepääs";
+
 "type.railway.subway_entrance.brasilia" = "Metroo sissepääs";
 
 "type.railway.subway_entrance.brescia" = "Metroo sissepääs";
@@ -3197,6 +3261,8 @@
 
 "type.shop.bakery" = "Pagar";
 
+"type.shop.bathroom_furnishing" = "Vannitoa sisustus";
+
 "type.shop.beauty" = "Ilupood";
 
 "type.shop.beverages" = "Joogid";
@@ -3209,6 +3275,8 @@
 
 "type.shop.butcher" = "Lihunik";
 
+"type.shop.cannabis" = "Kanepipood";
+
 "type.shop.car" = "Autopood";
 
 "type.shop.car_parts" = "Autovaruosad";
@@ -3218,6 +3286,8 @@
 "type.shop.car_repair.tyres" = "Rehviparandus";
 
 "type.shop.caravan" = "Haagiselamute müük";
+
+"type.shop.carpet" = "Vaibad";
 
 "type.shop.chemist" = "Apteegipood";
 
@@ -3237,6 +3307,8 @@
 
 "type.shop.cosmetics" = "Kosmeetika";
 
+"type.shop.curtain" = "Kardinad";
+
 "type.shop.deli" = "Delikatessipood";
 
 "type.shop.department_store" = "Kaubamaja";
@@ -3253,6 +3325,8 @@
 
 "type.shop.farm" = "Talutoitude pood";
 
+"type.shop.fashion_accessories" = "Moodsad aksessuaarid";
+
 "type.shop.florist" = "Lillepood";
 
 "type.shop.funeral_directors" = "Matusekorraldajad";
@@ -3260,6 +3334,8 @@
 "type.shop.furniture" = "Mööblipood";
 
 "type.shop.garden_centre" = "Aianduspood";
+
+"type.shop.gas" = "Gaasipood";
 
 "type.shop.gift" = "Kingipood";
 
@@ -3272,6 +3348,10 @@
 "type.shop.hardware" = "Isetegemise tööriistad";
 
 "type.shop.health_food" = "Tervisetoitude pood";
+
+"type.shop.herbalist" = "Maitsetaimede pood";
+
+"type.shop.hifi" = "HiFi heli";
 
 "type.shop.houseware" = "Majatarbed";
 
@@ -3293,6 +3373,8 @@
 
 "type.shop.motorcycle" = "Mootorrattapood";
 
+"type.shop.motorcycle_repair" = "Mootorrataste remont";
+
 "type.shop.music" = "Plaadipood";
 
 "type.shop.musical_instrument" = "Muusikariistad";
@@ -3303,11 +3385,15 @@
 
 "type.shop.outdoor" = "Välisvarustus";
 
+"type.shop.outpost" = "Vastuvõtupunkt";
+
 "type.shop.pastry" = "Pagar";
 
 "type.shop.pawnbroker" = "Pandimaja";
 
 "type.shop.pet" = "Lemmikloomapood";
+
+"type.shop.pet_grooming" = "Lemmikloomade hooldamine";
 
 "type.shop.photo" = "Fotopood";
 
@@ -3343,13 +3429,19 @@
 
 "type.shop.wine" = "Veinipood";
 
+"type.shop.agrarian" = "Põllumajanduspood";
+
 "type.shop.antiques" = "Antikvariaat";
+
+"type.shop.appliance" = "Tehnikapood";
 
 "type.shop.art" = "Kunstipood";
 
 "type.shop.baby_goods" = "Lastekaubad";
 
 "type.shop.bag" = "Kotipood";
+
+"type.shop.bed" = "Voodipood";
 
 "type.shop.boutique" = "Butiik";
 

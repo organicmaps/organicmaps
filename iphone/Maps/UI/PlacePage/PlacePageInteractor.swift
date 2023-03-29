@@ -57,6 +57,10 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
     MWMPlacePageManagerHelper.openVk(placePageData)
   }
   
+  func didPressLine() {
+    MWMPlacePageManagerHelper.openLine(placePageData)
+  }
+  
   func didPressEmail() {
     MWMPlacePageManagerHelper.openEmail(placePageData)
   }

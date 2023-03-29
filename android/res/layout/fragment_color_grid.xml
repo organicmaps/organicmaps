@@ -5,4 +5,9 @@
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/margin_half"
     android:gravity="center"
+    android:layoutDirection="ltr"
     android:numColumns="3"/>
+    <!--
+    GridView doesn't show up correctly in RTL Layout.
+    https://issuetracker.google.com/issues/36982185
+    -->

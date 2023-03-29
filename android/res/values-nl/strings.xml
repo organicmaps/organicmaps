@@ -35,6 +35,17 @@
 	<string name="country_status_download_failed">Downloaden is mislukt</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Opnieuw proberen</string>
+	<string name="about_menu_title">Over Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Gratis voor iedereen, met liefde gemaakt</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Geen advertenties, geen tracking, geen gegevensverzameling</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Spaart de batterij, gebruikt geen achtergrondgegevens</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Snel, minimalistisch, geen junk</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Open-source applicatie gemaakt door enthousiastelingen en vrijwilligers.</string>
 	<string name="connection_settings">Verbindingsinstellingen</string>
 	<string name="close">Sluiten</string>
 	<string name="unsupported_phone">Een hardware geaccellereerde OpenGL is nodig. Jammer genoeg wordt uw apparaat niet ondersteund.</string>
@@ -207,6 +218,8 @@
 	<string name="pref_map_3d_title">Perspectiefbeeld</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D-gebouwen</string>
+	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+	<string name="pref_map_3d_buildings_disabled_summary">3D-gebouwen worden uitgeschakeld in de energiebesparende modus</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Gesproken instructies</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -236,7 +249,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Doneren</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Hoe ons te steunen?</string>
+	<string name="how_to_support_us">Steun het project</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Auteursrechten</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -443,7 +456,8 @@
 	<string name="editor_report_problem_other_title">Een ander probleem</string>
 	<string name="placepage_add_business_button">Een organisatie toevoegen</string>
 	<string name="message_invalid_feature_position">Hier kan geen object worden geplaatst</string>
-	<string name="osm_presentation">Alle kaartgegevens komen uit het OpenStreetMap-project. Het is als Wikipedia voor kaarten waar je plaatsen kunt toevoegen of bewerken, en ze worden beschikbaar voor miljoenen gebruikers over de hele wereld.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Cartografische gegevens van OpenStreetMap per %s. OSM is als Wikipedia voor kaarten, waar je plaatsen kunt toevoegen of bewerken voor alle gebruikers over de hele wereld.</string>
 	<string name="login_to_make_edits_visible">Log in zodat andere gebruikers kunnen zien wat u hebt gewijzigd.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d van %2$d</string>
@@ -451,8 +465,8 @@
 	<string name="download_over_mobile_message">Met sommige abonnementen of bij roaming kan dit behoorlijk duur zijn.</string>
 	<string name="error_enter_correct_house_number">Een juist huisnummer invoeren</string>
 	<string name="editor_storey_number">Aantal verdiepingen (max. %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Bewerk het gebouw met maximaal 25 verdiepingen</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Het gebouw mag niet meer dan %d verdiepingen hebben</string>
 	<string name="editor_zip_code">Postcode</string>
 	<string name="error_enter_correct_zip_code">Voer de juiste postcode in</string>
 	<!-- Place Page title for long tap -->
@@ -708,6 +722,8 @@
 	<string name="enable_show_on_lock_screen_description">Indien ingeschakeld, hoeft het scherm niet te worden ontgrendeld wanneer de app actief is.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Kaartgegevens van OpenStreetMap</string>
+	<!-- Link to OSM wiki for Editor, Profile and About pages -->
+	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/NL:Wat_is_OpenStreetMap%3F</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Kabelbaan</string>
@@ -744,7 +760,8 @@
 	<string name="type.amenity.car_wash">Car Wash</string>
 	<string name="type.amenity.casino">Casino</string>
 	<string name="type.amenity.charging_station">Oplaadstation</string>
-	<string name="type.amenity.charging_station.motorcar">Oplaadstation</string>
+	<string name="type.amenity.charging_station.bicycle">Oplaadstation voor fietsen</string>
+	<string name="type.amenity.charging_station.motorcar">Oplaadstation voor auto\'s</string>
 	<string name="type.amenity.childcare">Crèche</string>
 	<string name="type.amenity.cinema">Bioscoop</string>
 	<string name="type.leisure.bowling_alley">Bowlingbaan</string>
@@ -756,6 +773,7 @@
 	<string name="type.amenity.doctors">Huisartsenpost</string>
 	<string name="type.amenity.drinking_water">Drinkwater</string>
 	<string name="type.amenity.driving_school">Rijschool</string>
+	<string name="type.amenity.money_transfer">Overschrijving</string>
 	<string name="type.amenity.music_school">Muziekschool</string>
 	<string name="type.amenity.language_school">Taalschool</string>
 	<string name="type.office.diplomatic">Ambassade</string>
@@ -774,6 +792,7 @@
 	<string name="type.amenity.internet_cafe">Internetcafé</string>
 	<string name="type.amenity.kindergarten">Kleuterschool</string>
 	<string name="type.amenity.library">Bibliotheek</string>
+	<string name="type.amenity.loading_dock">Laad-dock</string>
 	<string name="type.amenity.marketplace">Markt</string>
 	<string name="type.amenity.motorcycle_parking">Parking Motorfietsen</string>
 	<string name="type.amenity.nightclub">Nachtclub</string>
@@ -916,6 +935,8 @@
 	<string name="type.craft.handicraft">Handwerk</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Airconditioning</string>
+	<string name="type.craft.key_cutter">Sleutel snijden</string>
+	<string name="type.craft.locksmith">Slotenmaker</string>
 	<string name="type.craft.metal_construction">Metaalarbeider</string>
 	<string name="type.craft.painter">Schilder</string>
 	<string name="type.craft.photographer">Fotograaf</string>
@@ -1013,9 +1034,20 @@
 	<string name="type.emergency.defibrillator">Defibrillator (AED)</string>
 	<string name="type.emergency.fire_hydrant">Brandkraan</string>
 	<string name="type.emergency.phone">Praatpaal</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Ingang</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Hoofdingang</string>
 	<string name="type.healthcare.laboratory">Medisch laboratorium</string>
 	<string name="type.healthcare.physiotherapist">Fysiotherapeut</string>
+	<string name="type.healthcare.alternative">Alternatieve geneeskunde</string>
+	<string name="type.healthcare.audiologist">Audiologie</string>
+	<string name="type.healthcare.blood_donation">Bloeddonatiecentrum</string>
+	<string name="type.healthcare.optometrist">Optometrie</string>
+	<string name="type.healthcare.podiatrist">Podologie</string>
+	<string name="type.healthcare.psychotherapist">Psychotherapie</string>
+	<string name="type.healthcare.sample_collection">Bemonstering</string>
+	<string name="type.healthcare.speech_therapist">Logopedie</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Straat</string>
@@ -1025,6 +1057,7 @@
 	<string name="type.highway.bridleway.permissive">Ruiterpad</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
+	<string name="type.highway.busway">Speciale busweg</string>
 	<string name="type.highway.bus_stop">Bushalte</string>
 	<string name="type.highway.construction">Baan in aanbouw</string>
 	<string name="type.highway.cycleway">Fietspad</string>
@@ -1310,6 +1343,7 @@
 	<string name="type.man_made.storage_tank">Opslagtank</string>
 	<string name="type.man_made.surveillance">Bewakingscamera</string>
 	<string name="type.man_made.tower">Toren</string>
+	<string name="type.man_made.tower.communication">Communicatie Toren</string>
 	<string name="type.man_made.wastewater_plant">Waterzuiveringsinstallatie</string>
 	<string name="type.man_made.water_tap">Waterkraan</string>
 	<string name="type.man_made.water_tower">Watertoren</string>
@@ -1403,9 +1437,19 @@
 	<string name="type.place.town">Stad</string>
 	<string name="type.place.village">Dorp</string>
 	<string name="type.power">Electriciteit</string>
+	<string name="type.power.generator.solar">Zonne-generator</string>
+	<string name="type.power.generator.wind">Wind generator</string>
+	<string name="type.power.generator.gas">Gasturbine elektriciteitscentrale</string>
+	<string name="type.power.generator.hydro">Waterkrachtcentrale</string>
 	<string name="type.power.line">Hoogspanningsleiding</string>
 	<string name="type.power.line.underground">Ondergrondse hoogspanningsleiding</string>
 	<string name="type.power.minor_line">Laag-/middelspanningsleiding</string>
+	<string name="type.power.plant">Energiecentrale</string>
+	<string name="type.power.plant.coal">Kolen elektriciteitscentrale</string>
+	<string name="type.power.plant.gas">Gasturbine elektriciteitscentrale</string>
+	<string name="type.power.plant.hydro">Waterkrachtcentrale</string>
+	<string name="type.power.plant.solar">Zonne-energiecentrale</string>
+	<string name="type.power.plant.wind">Windkrachtcentrale</string>
 	<string name="type.power.pole">Elektriciteitspaal</string>
 	<string name="type.power.station">Transformatorstation</string>
 	<string name="type.power.substation">Transformatorstation</string>
@@ -1469,6 +1513,7 @@
 	<string name="type.railway.station.subway.beijing">Metrostation</string>
 	<string name="type.railway.station.subway.bengalore">Metrostation</string>
 	<string name="type.railway.station.subway.berlin">Metrostation</string>
+	<string name="type.railway.station.subway.bilbao">Metrostation</string>
 	<string name="type.railway.station.subway.brasilia">Metrostation</string>
 	<string name="type.railway.station.subway.brescia">Metrostation</string>
 	<string name="type.railway.station.subway.brussels">Metrostation</string>
@@ -1581,6 +1626,7 @@
 	<string name="type.railway.subway_entrance.beijing">Metro ingang</string>
 	<string name="type.railway.subway_entrance.bengalore">Metro ingang</string>
 	<string name="type.railway.subway_entrance.berlin">Metro ingang</string>
+	<string name="type.railway.subway_entrance.bilbao">Metro ingang</string>
 	<string name="type.railway.subway_entrance.brasilia">Metro ingang</string>
 	<string name="type.railway.subway_entrance.brescia">Metro ingang</string>
 	<string name="type.railway.subway_entrance.brussels">Metro ingang</string>
@@ -1689,17 +1735,20 @@
 	<string name="type.shop">Winkel</string>
 	<string name="type.shop.alcohol">Slijterij</string>
 	<string name="type.shop.bakery">Bakkerij</string>
+	<string name="type.shop.bathroom_furnishing">Badkamerinrichting</string>
 	<string name="type.shop.beauty">Schoonheidssalon</string>
 	<string name="type.shop.beverages">Drank</string>
 	<string name="type.shop.bicycle">Fietsenwinkel</string>
 	<string name="type.shop.bookmaker">Boekbinder</string>
 	<string name="type.shop.books">Boekenwinkel</string>
 	<string name="type.shop.butcher">Slager</string>
+	<string name="type.shop.cannabis">Cannabis Winkel</string>
 	<string name="type.shop.car">Autohandelaar</string>
 	<string name="type.shop.car_parts">Auto onderdelen</string>
 	<string name="type.shop.car_repair">Auto reparatie</string>
 	<string name="type.shop.car_repair.tyres">Bandenreparatie</string>
 	<string name="type.shop.caravan">Caravan en camper verkoper</string>
+	<string name="type.shop.carpet">Tapijten</string>
 	<string name="type.shop.chemist">Drogisterij</string>
 	<string name="type.shop.chocolate">Chocolaterie</string>
 	<string name="type.shop.clothes">Kledingwinkel</string>
@@ -1709,6 +1758,7 @@
 	<string name="type.shop.convenience">Buurtwinkel</string>
 	<string name="type.shop.copyshop">Kopieerwinkel</string>
 	<string name="type.shop.cosmetics">Schoonheidsmiddelen</string>
+	<string name="type.shop.curtain">Gordijnen</string>
 	<string name="type.shop.deli">Delicatessenwinkel</string>
 	<string name="type.shop.department_store">Warenhuis</string>
 	<string name="type.shop.doityourself">IJzerhandel</string>
@@ -1717,16 +1767,20 @@
 	<string name="type.shop.erotic">Erotiekwinkel</string>
 	<string name="type.shop.fabric">Stoffenwinkel</string>
 	<string name="type.shop.farm">Boerderijwinkel</string>
+	<string name="type.shop.fashion_accessories">Mode accessoires</string>
 	<string name="type.shop.florist">Bloemist</string>
 	<string name="type.shop.funeral_directors">Begrafenisondernemer</string>
 	<string name="type.shop.furniture">Meubelzaak</string>
 	<string name="type.shop.garden_centre">Tuincentrum</string>
+	<string name="type.shop.gas">Gas winkel</string>
 	<string name="type.shop.gift">Cadeauwinkel</string>
 	<string name="type.shop.greengrocer">Groentenwinkel</string>
 	<string name="type.shop.grocery">Boodschappen</string>
 	<string name="type.shop.hairdresser">Kapper</string>
 	<string name="type.shop.hardware">IJzerwaren</string>
 	<string name="type.shop.health_food">Natuurvoedingswinkel</string>
+	<string name="type.shop.herbalist">Kruiden winkel</string>
+	<string name="type.shop.hifi">HiFi-audio</string>
 	<string name="type.shop.houseware">Huishoudelijke winkel</string>
 	<string name="type.shop.jewelry">Juwelier</string>
 	<string name="type.shop.kitchen">Keukenwinkel</string>
@@ -1736,14 +1790,17 @@
 	<string name="type.shop.mobile_phone">Mobiele telefoonwinkel</string>
 	<string name="type.shop.money_lender">Winkel</string>
 	<string name="type.shop.motorcycle">Motorzaak</string>
+	<string name="type.shop.motorcycle_repair">Motorfiets Reparatie</string>
 	<string name="type.shop.music">Muziekwinkel</string>
 	<string name="type.shop.musical_instrument">Muziekinstrumentenwinkel</string>
 	<string name="type.shop.newsagent">Kiosk</string>
 	<string name="type.shop.optician">Opticien</string>
 	<string name="type.shop.outdoor">Outdooruitrusting</string>
+	<string name="type.shop.outpost">Ophaalpunt</string>
 	<string name="type.shop.pastry">Banketbakker</string>
 	<string name="type.shop.pawnbroker">Pandjesbaas</string>
 	<string name="type.shop.pet">Dierenwinkel</string>
+	<string name="type.shop.pet_grooming">Huisdierverzorging</string>
 	<string name="type.shop.photo">Fotowinkel</string>
 	<string name="type.shop.seafood">Visboer</string>
 	<string name="type.shop.second_hand">Tweedehandswinkel</string>
@@ -1761,10 +1818,13 @@
 	<string name="type.shop.video">Videowinkel</string>
 	<string name="type.shop.video_games">Winkel voor videogames</string>
 	<string name="type.shop.wine">Wijnhandel</string>
+	<string name="type.shop.agrarian">Agrarische winkel</string>
 	<string name="type.shop.antiques">Antiekhandel</string>
+	<string name="type.shop.appliance">Apparaten winkel</string>
 	<string name="type.shop.art">Kunstwinkel</string>
 	<string name="type.shop.baby_goods">Babyspullenwinkel</string>
 	<string name="type.shop.bag">Tassenwinkel</string>
+	<string name="type.shop.bed">Bedden winkel</string>
 	<string name="type.shop.boutique">Boetiek</string>
 	<string name="type.shop.charity">Kringloopwinkel</string>
 	<string name="type.shop.cheese">Kaaswinkel</string>

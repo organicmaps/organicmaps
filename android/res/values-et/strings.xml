@@ -35,6 +35,9 @@
 	<string name="country_status_download_failed">Allalaadimine ebaõnnestus</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Proovi uuesti</string>
+	<string name="about_menu_title">Organic Maps kohta</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Säästab akut, ei kasuta taustaandmeid</string>
 	<string name="connection_settings">Ühenduse seaded</string>
 	<string name="close">Sulge</string>
 	<string name="unsupported_phone">Rakendus vajab riistvaralist OpenGL tuge. Kahjuks Sinu seade ei ole toetatud.</string>
@@ -207,6 +210,8 @@
 	<string name="pref_map_3d_title">Perspektiivi vaade</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D hooned</string>
+	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+	<string name="pref_map_3d_buildings_disabled_summary">3D-hooned lülitatakse energiasäästurežiimis välja</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Hääljuhised</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -236,7 +241,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Anneta</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Kuidas meid toetada?</string>
+	<string name="how_to_support_us">Toetage projekti</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Autoriõigused</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -445,7 +450,6 @@
 	<string name="editor_report_problem_other_title">Erinev probleem</string>
 	<string name="placepage_add_business_button">Lisa ettevõte</string>
 	<string name="message_invalid_feature_position">Ükski objekt ei saa siin asuda</string>
-	<string name="osm_presentation">Kõik kaardiandmed pärinevad OpenStreetMapi projektist. See on nagu Vikipeedia kaartide jaoks, kus saate kohti lisada või muuta ja need muutuvad kättesaadavaks miljonitele kasutajatele üle kogu maailma.</string>
 	<string name="login_to_make_edits_visible">Logi sisse OpenStreetMap.org keskkonda, et teised kasutajad näeksid Sinu tehtud muudatusi.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>
@@ -453,8 +457,8 @@
 	<string name="download_over_mobile_message">See võib mõningate lepingute või roamingu korral olla märgatavalt kallim.</string>
 	<string name="error_enter_correct_house_number">Sisesta kehtiv majanumber</string>
 	<string name="editor_storey_number">Korruste arv (maks. %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Korruste arv ei või olla üle 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Korruste arv ei või olla üle %d</string>
 	<string name="editor_zip_code">Postiindeks</string>
 	<string name="error_enter_correct_zip_code">Sisesta korrektne postiindeks</string>
 	<!-- Place Page title for long tap -->
@@ -750,7 +754,8 @@
 	<string name="type.amenity.car_wash">Autopesula</string>
 	<string name="type.amenity.casino">Kasiino</string>
 	<string name="type.amenity.charging_station">Laadimisjaam</string>
-	<string name="type.amenity.charging_station.motorcar">Laadimisjaam</string>
+	<string name="type.amenity.charging_station.bicycle">Jalgratta laadimisjaam</string>
+	<string name="type.amenity.charging_station.motorcar">Autode laadimisjaam</string>
 	<string name="type.amenity.childcare">Lasteaed</string>
 	<string name="type.amenity.cinema">Kino</string>
 	<string name="type.leisure.bowling_alley">Bowlingusaal</string>
@@ -762,6 +767,7 @@
 	<string name="type.amenity.doctors">Arst</string>
 	<string name="type.amenity.drinking_water">Joogivesi</string>
 	<string name="type.amenity.driving_school">Autokool</string>
+	<string name="type.amenity.money_transfer">Raha ülekanne</string>
 	<string name="type.amenity.music_school">Muusikakool</string>
 	<string name="type.amenity.language_school">Keeltekool</string>
 	<string name="type.office.diplomatic">Saatkond</string>
@@ -781,6 +787,7 @@
 	<string name="type.amenity.internet_cafe">Internetikohvik</string>
 	<string name="type.amenity.kindergarten">Lasteaed</string>
 	<string name="type.amenity.library">Raamatukogu</string>
+	<string name="type.amenity.loading_dock">Laadimisdokk</string>
 	<string name="type.amenity.marketplace">Turg</string>
 	<string name="type.amenity.motorcycle_parking">Mootorrataste parkimine</string>
 	<string name="type.amenity.nightclub">Ööklubi</string>
@@ -923,6 +930,8 @@
 	<string name="type.craft.handicraft">Käsitöö</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Õhkkonditsioneer</string>
+	<string name="type.craft.key_cutter">Võtme lõikamine</string>
+	<string name="type.craft.locksmith">Lukksepp</string>
 	<string name="type.craft.metal_construction">Metallitööline</string>
 	<string name="type.craft.painter">Maaler</string>
 	<string name="type.craft.photographer">Fotograaf</string>
@@ -1021,9 +1030,20 @@
 	<string name="type.emergency.defibrillator">Defibrillaator</string>
 	<string name="type.emergency.fire_hydrant">Tuletõrjehüdrant</string>
 	<string name="type.emergency.phone">Hädaabi telefon</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Sissepääs</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Peasissekäik</string>
 	<string name="type.healthcare.laboratory">Meditsiinilabor</string>
 	<string name="type.healthcare.physiotherapist">Füsioterapeut</string>
+	<string name="type.healthcare.alternative">Alternatiivne meditsiin</string>
+	<string name="type.healthcare.audiologist">Audioloogia</string>
+	<string name="type.healthcare.blood_donation">Vereloovutuskeskus</string>
+	<string name="type.healthcare.optometrist">Optomeetria</string>
+	<string name="type.healthcare.podiatrist">Jalaravi</string>
+	<string name="type.healthcare.psychotherapist">Psühhoteraapia</string>
+	<string name="type.healthcare.sample_collection">Proovivõtmine</string>
+	<string name="type.healthcare.speech_therapist">Logopeedia</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Maantee</string>
@@ -1033,6 +1053,7 @@
 	<string name="type.highway.bridleway.permissive">Valjarada</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
+	<string name="type.highway.busway">Spetsiaalne bussitee</string>
 	<string name="type.highway.bus_stop">Bussipeatus</string>
 	<string name="type.highway.construction">Ehitusjärgus tee</string>
 	<string name="type.highway.cycleway">Jalgrattatee</string>
@@ -1321,6 +1342,7 @@
 	<string name="type.man_made.storage_tank">Mahuti</string>
 	<string name="type.man_made.surveillance">Jälgimiskaamera</string>
 	<string name="type.man_made.tower">Torn</string>
+	<string name="type.man_made.tower.communication">Sidetorn</string>
 	<string name="type.man_made.wastewater_plant">Reoveepuhasti</string>
 	<string name="type.man_made.water_tap">Veekraan</string>
 	<string name="type.man_made.water_tower">Veetorn</string>
@@ -1415,9 +1437,19 @@
 	<string name="type.place.village">Küla</string>
 	<string name="type.power">Energia</string>
 	<string name="type.power.generator">Generaator</string>
+	<string name="type.power.generator.solar">Päikese generaator</string>
+	<string name="type.power.generator.wind">Tuulegeneraator</string>
+	<string name="type.power.generator.gas">Gaasiturbiini elektrijaam</string>
+	<string name="type.power.generator.hydro">Hüdroelektrijaam</string>
 	<string name="type.power.line">Elektriliin</string>
 	<string name="type.power.line.underground">Maa-alune elektriliin</string>
 	<string name="type.power.minor_line">Madal-/Keskpinge elektriliin</string>
+	<string name="type.power.plant">Elektrijaam</string>
+	<string name="type.power.plant.coal">Söeelektrijaam</string>
+	<string name="type.power.plant.gas">Gaasiturbiini elektrijaam</string>
+	<string name="type.power.plant.hydro">Hüdroelektrijaam</string>
+	<string name="type.power.plant.solar">Päikeseelektrijaam</string>
+	<string name="type.power.plant.wind">Tuuleelektrijaam</string>
 	<string name="type.power.pole">Elektripost</string>
 	<string name="type.power.station">Elektrijaam</string>
 	<string name="type.power.substation">Alajaam</string>
@@ -1477,6 +1509,7 @@
 	<string name="type.railway.station.subway.beijing">Metroo</string>
 	<string name="type.railway.station.subway.bengalore">Metroo</string>
 	<string name="type.railway.station.subway.berlin">Metroo</string>
+	<string name="type.railway.station.subway.bilbao">Metroo</string>
 	<string name="type.railway.station.subway.brasilia">Metroo</string>
 	<string name="type.railway.station.subway.brescia">Metroo</string>
 	<string name="type.railway.station.subway.brussels">Metroo</string>
@@ -1589,6 +1622,7 @@
 	<string name="type.railway.subway_entrance.beijing">Metroo sissepääs</string>
 	<string name="type.railway.subway_entrance.bengalore">Metroo sissepääs</string>
 	<string name="type.railway.subway_entrance.berlin">Metroo sissepääs</string>
+	<string name="type.railway.subway_entrance.bilbao">Metroo sissepääs</string>
 	<string name="type.railway.subway_entrance.brasilia">Metroo sissepääs</string>
 	<string name="type.railway.subway_entrance.brescia">Metroo sissepääs</string>
 	<string name="type.railway.subway_entrance.brussels">Metroo sissepääs</string>
@@ -1698,17 +1732,20 @@
 	<string name="type.shop">Pood</string>
 	<string name="type.shop.alcohol">Alkoholipood</string>
 	<string name="type.shop.bakery">Pagar</string>
+	<string name="type.shop.bathroom_furnishing">Vannitoa sisustus</string>
 	<string name="type.shop.beauty">Ilupood</string>
 	<string name="type.shop.beverages">Joogid</string>
 	<string name="type.shop.bicycle">Jalgrattapood</string>
 	<string name="type.shop.bookmaker">Kihlveokontor</string>
 	<string name="type.shop.books">Raamatupood</string>
 	<string name="type.shop.butcher">Lihunik</string>
+	<string name="type.shop.cannabis">Kanepipood</string>
 	<string name="type.shop.car">Autopood</string>
 	<string name="type.shop.car_parts">Autovaruosad</string>
 	<string name="type.shop.car_repair">Autoremonditöökoda</string>
 	<string name="type.shop.car_repair.tyres">Rehviparandus</string>
 	<string name="type.shop.caravan">Haagiselamute müük</string>
+	<string name="type.shop.carpet">Vaibad</string>
 	<string name="type.shop.chemist">Apteegipood</string>
 	<string name="type.shop.chocolate">Šokolaadipood</string>
 	<string name="type.shop.clothes">Rõivapood</string>
@@ -1718,6 +1755,7 @@
 	<string name="type.shop.convenience">Lähikauplus</string>
 	<string name="type.shop.copyshop">Koopiapood</string>
 	<string name="type.shop.cosmetics">Kosmeetika</string>
+	<string name="type.shop.curtain">Kardinad</string>
 	<string name="type.shop.deli">Delikatessipood</string>
 	<string name="type.shop.department_store">Kaubamaja</string>
 	<string name="type.shop.doityourself">Tööriistapood</string>
@@ -1726,16 +1764,20 @@
 	<string name="type.shop.erotic">Erootikapood</string>
 	<string name="type.shop.fabric">Vabrikupood</string>
 	<string name="type.shop.farm">Talutoitude pood</string>
+	<string name="type.shop.fashion_accessories">Moodsad aksessuaarid</string>
 	<string name="type.shop.florist">Lillepood</string>
 	<string name="type.shop.funeral_directors">Matusekorraldajad</string>
 	<string name="type.shop.furniture">Mööblipood</string>
 	<string name="type.shop.garden_centre">Aianduspood</string>
+	<string name="type.shop.gas">Gaasipood</string>
 	<string name="type.shop.gift">Kingipood</string>
 	<string name="type.shop.greengrocer">Köögiviljapood</string>
 	<string name="type.shop.grocery">Toidukaubad</string>
 	<string name="type.shop.hairdresser">Juuksur</string>
 	<string name="type.shop.hardware">Isetegemise tööriistad</string>
 	<string name="type.shop.health_food">Tervisetoitude pood</string>
+	<string name="type.shop.herbalist">Maitsetaimede pood</string>
+	<string name="type.shop.hifi">HiFi heli</string>
 	<string name="type.shop.houseware">Majatarbed</string>
 	<string name="type.shop.jewelry">Ehted</string>
 	<string name="type.shop.kiosk">Kiosk</string>
@@ -1746,14 +1788,17 @@
 	<string name="type.shop.mobile_phone">Mobiiltelefonid</string>
 	<string name="type.shop.money_lender">Rahalaenutaja</string>
 	<string name="type.shop.motorcycle">Mootorrattapood</string>
+	<string name="type.shop.motorcycle_repair">Mootorrataste remont</string>
 	<string name="type.shop.music">Plaadipood</string>
 	<string name="type.shop.musical_instrument">Muusikariistad</string>
 	<string name="type.shop.newsagent">Ajalehe stend</string>
 	<string name="type.shop.optician">Optik</string>
 	<string name="type.shop.outdoor">Välisvarustus</string>
+	<string name="type.shop.outpost">Vastuvõtupunkt</string>
 	<string name="type.shop.pastry">Pagar</string>
 	<string name="type.shop.pawnbroker">Pandimaja</string>
 	<string name="type.shop.pet">Lemmikloomapood</string>
+	<string name="type.shop.pet_grooming">Lemmikloomade hooldamine</string>
 	<string name="type.shop.photo">Fotopood</string>
 	<string name="type.shop.seafood">Mereandide pood</string>
 	<string name="type.shop.second_hand">Taaskasutus</string>
@@ -1771,10 +1816,13 @@
 	<string name="type.shop.video">Videopood</string>
 	<string name="type.shop.video_games">Videomängude pood</string>
 	<string name="type.shop.wine">Veinipood</string>
+	<string name="type.shop.agrarian">Põllumajanduspood</string>
 	<string name="type.shop.antiques">Antikvariaat</string>
+	<string name="type.shop.appliance">Tehnikapood</string>
 	<string name="type.shop.art">Kunstipood</string>
 	<string name="type.shop.baby_goods">Lastekaubad</string>
 	<string name="type.shop.bag">Kotipood</string>
+	<string name="type.shop.bed">Voodipood</string>
 	<string name="type.shop.boutique">Butiik</string>
 	<string name="type.shop.charity">Heategevuspood</string>
 	<string name="type.shop.cheese">Juustupood</string>

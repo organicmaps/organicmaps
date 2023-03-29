@@ -62,7 +62,7 @@ public:
   struct TRuleWrapper
   {
     drule::BaseRule const * m_rule;
-    double m_depth;
+    float m_depth;
     bool m_hatching;
   };
 
@@ -89,6 +89,4 @@ private:
 
 bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool buildings3d,
                  Stylist & s);
-
-double GetFeaturePriority(FeatureType & f, int const zoomLevel);
 }  // namespace df

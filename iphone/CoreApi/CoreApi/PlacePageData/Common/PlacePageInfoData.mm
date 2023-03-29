@@ -4,6 +4,8 @@
 
 #import <CoreApi/StringUtils.h>
 
+#include "indexer/validate_and_format_contacts.hpp"
+
 #include "map/place_page_info.hpp"
 
 using namespace place_page;
@@ -56,6 +58,7 @@ using namespace osm;
         case MetadataID::FMD_CONTACT_INSTAGRAM: _instagram = ToNSString(value); break;
         case MetadataID::FMD_CONTACT_TWITTER: _twitter = ToNSString(value); break;
         case MetadataID::FMD_CONTACT_VK: _vk = ToNSString(value); break;
+        case MetadataID::FMD_CONTACT_LINE: _line = ToNSString(value); break;
         case MetadataID::FMD_OPERATOR: _ppOperator = ToNSString(value); break;
         case MetadataID::FMD_INTERNET:
           _wifiAvailable = (rawData.GetInternet() == osm::Internet::No)

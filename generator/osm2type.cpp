@@ -347,9 +347,9 @@ void MatchTypes(OsmElement * p, FeatureBuilderParams & params, function<bool(uin
 
 string MatchCity(OsmElement const * p)
 {
-  // Get approx boundaries from: https://boundingbox.klokantech.com/
+  // needs to be in format {minLon, minLat, maxLon, maxLat}
+  // Draw boundary around metro with http://bboxfinder.com (set to Lon/Lat)
   // City name should be equal with railway-station-subway-CITY classifier types.
-   // https://observablehq.com/@rdmurphy/u-s-county-bounding-boxes-by-state
   static std::map<string, m2::RectD> const cities = {
       {"adana", {35.216442,36.934693,35.425525,37.065481}},
       {"algiers", {2.949538, 36.676777, 3.256914, 36.826518}},
@@ -364,7 +364,7 @@ string MatchCity(OsmElement const * p)
       {"berlin", {13.0352783203, 52.3051199211, 13.7933349609, 52.6963610783}},
       {"boston", {-71.2676239014, 42.2117365893, -70.8879089355, 42.521711682}},
       {"bengalore", {77.393079,12.807501,77.806439,13.17014}},
-      {"bilbao", {-2.985981,43.213718,-2.880264,43.290105}},
+      {"bilbao", {-3.129730,43.202673,-2.859879,43.420011}},
       {"brasilia", {-48.334467, -16.036627, -47.358264, -15.50321}},
       {"brescia", {10.128068,45.478792,10.312432,45.595665}},
       {"brussels", {4.2448425293, 50.761653413, 4.52499389648, 50.9497757762}},

@@ -226,6 +226,9 @@
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D-byggnader";
 
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "3D-byggnader är avstängda i energisparläge";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Röstinstruktioner";
 
@@ -304,7 +307,7 @@
 "donate" = "Donera";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Hur stöder vi oss?";
+"how_to_support_us" = "Stöd projektet";
 
 /* Button in the main Help dialog */
 "copyright" = "Copyright";
@@ -710,8 +713,8 @@
 
 "editor_storey_number" = "Antal våningar (max %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "Redigera byggnaden med max 25 våningar";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Redigera byggnaden med max %d våningar";
 
 "editor_zip_code" = "Postnr";
 
@@ -1236,20 +1239,23 @@
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/";
 
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
 
 /********** Types **********/
 
 "type.aerialway" = "Aerialway";
 
-"type.aerialway.cable_car" = "Cable car";
+"type.aerialway.cable_car" = "Cable Car";
 
-"type.aerialway.chair_lift" = "Chair lift";
+"type.aerialway.chair_lift" = "Chair Lift";
 
-"type.aerialway.drag_lift" = "Drag lift";
+"type.aerialway.drag_lift" = "Drag Lift";
 
 "type.aerialway.gondola" = "Gondola";
 
-"type.aerialway.mixed_lift" = "Mixed lift";
+"type.aerialway.mixed_lift" = "Mixed Lift";
 
 "type.aerialway.station" = "Linbanestation";
 
@@ -1311,7 +1317,9 @@
 
 "type.amenity.charging_station" = "Laddstation";
 
-"type.amenity.charging_station.motorcar" = "Laddstation";
+"type.amenity.charging_station.bicycle" = "Laddningsstation för cykel";
+
+"type.amenity.charging_station.motorcar" = "Laddningsstation för bilar";
 
 "type.amenity.childcare" = "Barnomsorg";
 
@@ -1334,6 +1342,8 @@
 "type.amenity.drinking_water" = "Dricksvatten";
 
 "type.amenity.driving_school" = "Körskola";
+
+"type.amenity.money_transfer" = "Pengaöverföring";
 
 "type.amenity.music_school" = "Musikskola";
 
@@ -1370,6 +1380,8 @@
 "type.amenity.kindergarten" = "Förskola";
 
 "type.amenity.library" = "Bibliotek";
+
+"type.amenity.loading_dock" = "Lastkaj";
 
 "type.amenity.marketplace" = "Marknadsplats";
 
@@ -1653,6 +1665,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Vvs";
 
+"type.craft.key_cutter" = "Nyckelklippning";
+
+"type.craft.locksmith" = "Låssmed";
+
 "type.craft.metal_construction" = "Metallarbetare";
 
 "type.craft.painter" = "Målare";
@@ -1849,11 +1865,31 @@
 
 "type.emergency.phone" = "Nödtelefon";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Entré";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Huvudentré";
 
 "type.healthcare.laboratory" = "Medicinskt laboratorium";
 
 "type.healthcare.physiotherapist" = "Fysioterapeut";
+
+"type.healthcare.alternative" = "Alternativ medicin";
+
+"type.healthcare.audiologist" = "Audiologi";
+
+"type.healthcare.blood_donation" = "Centrum för blodgivning";
+
+"type.healthcare.optometrist" = "Optometri";
+
+"type.healthcare.podiatrist" = "Fotvård";
+
+"type.healthcare.psychotherapist" = "Psykoterapi";
+
+"type.healthcare.sample_collection" = "Provtagning";
+
+"type.healthcare.speech_therapist" = "Logopedics";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1905,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunnel";
+
+"type.highway.busway" = "Dedikerad bussväg";
 
 "type.highway.bus_stop" = "Busshållplats";
 
@@ -2305,7 +2343,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "Soptippen";
 
@@ -2323,9 +2361,9 @@
 
 "type.landuse.reservoir" = "Vatten";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 
@@ -2430,6 +2468,8 @@
 "type.man_made.surveillance" = "Övervakningskamera";
 
 "type.man_made.tower" = "Torn";
+
+"type.man_made.tower.communication" = "Kommunikationstorn";
 
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
@@ -2623,11 +2663,31 @@
 
 "type.power.generator" = "Generator";
 
+"type.power.generator.solar" = "Solgenerator";
+
+"type.power.generator.wind" = "Vindgenerator";
+
+"type.power.generator.gas" = "Gasturbinkraftverk";
+
+"type.power.generator.hydro" = "Vattenkraftverk";
+
 "type.power.line" = "Power Line";
 
 "type.power.line.underground" = "Underground Power Line";
 
 "type.power.minor_line" = "Minor Power Line";
+
+"type.power.plant" = "Kraftverk";
+
+"type.power.plant.coal" = "Kolkraftverk";
+
+"type.power.plant.gas" = "Gasturbinkraftverk";
+
+"type.power.plant.hydro" = "Vattenkraftverk";
+
+"type.power.plant.solar" = "Solkraftverk";
+
+"type.power.plant.wind" = "Vindkraftverk";
 
 "type.power.pole" = "Elstolpe";
 
@@ -2754,6 +2814,8 @@
 "type.railway.station.subway.bengalore" = "Tunnelbana";
 
 "type.railway.station.subway.berlin" = "Tunnelbana";
+
+"type.railway.station.subway.bilbao" = "Tunnelbana";
 
 "type.railway.station.subway.brasilia" = "Tunnelbana";
 
@@ -2979,6 +3041,8 @@
 
 "type.railway.subway_entrance.berlin" = "Tunnelbana entré";
 
+"type.railway.subway_entrance.bilbao" = "Tunnelbana entré";
+
 "type.railway.subway_entrance.brasilia" = "Tunnelbana entré";
 
 "type.railway.subway_entrance.brescia" = "Tunnelbana entré";
@@ -3197,6 +3261,8 @@
 
 "type.shop.bakery" = "Bageri";
 
+"type.shop.bathroom_furnishing" = "Badrumsinredning";
+
 "type.shop.beauty" = "Skönhetssalong";
 
 "type.shop.beverages" = "Drinkar";
@@ -3209,6 +3275,8 @@
 
 "type.shop.butcher" = "Slaktare";
 
+"type.shop.cannabis" = "Cannabisbutik";
+
 "type.shop.car" = "Bilåterförsäljare";
 
 "type.shop.car_parts" = "Bildelar";
@@ -3218,6 +3286,8 @@
 "type.shop.car_repair.tyres" = "Däckverkstad";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "Mattor";
 
 "type.shop.chemist" = "Hushållskemikalier";
 
@@ -3237,6 +3307,8 @@
 
 "type.shop.cosmetics" = "Kosmetika";
 
+"type.shop.curtain" = "Gardiner";
+
 "type.shop.deli" = "Delikatessbutik";
 
 "type.shop.department_store" = "Varuhus";
@@ -3253,6 +3325,8 @@
 
 "type.shop.farm" = "Gårdsmataffär";
 
+"type.shop.fashion_accessories" = "Modeaccessoarer";
+
 "type.shop.florist" = "Blomsteraffär";
 
 "type.shop.funeral_directors" = "Begravningsentreprenörer";
@@ -3260,6 +3334,8 @@
 "type.shop.furniture" = "Möbelaffär";
 
 "type.shop.garden_centre" = "Plantskola";
+
+"type.shop.gas" = "Gasaffär";
 
 "type.shop.gift" = "Presentaffär";
 
@@ -3272,6 +3348,10 @@
 "type.shop.hardware" = "Järnaffär";
 
 "type.shop.health_food" = "Hälsokostbutik";
+
+"type.shop.herbalist" = "Örter butik";
+
+"type.shop.hifi" = "HiFi ljud";
 
 "type.shop.houseware" = "Husgerådsbutik";
 
@@ -3293,6 +3373,8 @@
 
 "type.shop.motorcycle" = "Motorcykelaffär";
 
+"type.shop.motorcycle_repair" = "Motorcykel reparation";
+
 "type.shop.music" = "Butik";
 
 "type.shop.musical_instrument" = "Butik";
@@ -3303,11 +3385,15 @@
 
 "type.shop.outdoor" = "Fritidsutrustning";
 
+"type.shop.outpost" = "Mötesplats";
+
 "type.shop.pastry" = "Bakverk";
 
 "type.shop.pawnbroker" = "Pantbank";
 
 "type.shop.pet" = "Djuraffär";
+
+"type.shop.pet_grooming" = "Husdjursvård";
 
 "type.shop.photo" = "Fotoaffär";
 
@@ -3343,13 +3429,19 @@
 
 "type.shop.wine" = "Vinhandel";
 
+"type.shop.agrarian" = "Lantbruksbutik";
+
 "type.shop.antiques" = "Antikviteter";
+
+"type.shop.appliance" = "Vitvarubutik";
 
 "type.shop.art" = "Konstaffär";
 
 "type.shop.baby_goods" = "Barnbutik";
 
 "type.shop.bag" = "Väskor butik";
+
+"type.shop.bed" = "Sängbutik";
 
 "type.shop.boutique" = "Boutique";
 

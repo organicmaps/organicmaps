@@ -37,6 +37,17 @@
 	<string name="country_status_download_failed">การดาวน์โหลดล้มเหลว</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">ลองอีกครั้ง</string>
+	<string name="about_menu_title">เกี่ยวกับ Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">ฟรีสำหรับทุกคนทำด้วยความรัก</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• ไม่มีโฆษณาไม่มีการติดตามไม่มีการรวบรวมข้อมูล</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• ประหยัดแบตเตอรี่ ไม่ใช้ข้อมูลพื้นหลัง</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">•เร็วเรียบง่ายไม่มีขยะ</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">แอปพลิเคชันโอเพนซอร์ซที่สร้างขึ้นโดยผู้ที่ชื่นชอบและอาสาสมัคร</string>
 	<string name="connection_settings">การตั้งค่าการเชื่อมต่อ</string>
 	<string name="close">ปิด</string>
 	<string name="unsupported_phone">จำเป็นต้องใช้ฮาร์ดแวร์ที่เพิ่มความเร็ว OpenGL โชคไม่ดีที่อุปกรณ์ของคุณไม่รองรับ</string>
@@ -192,6 +203,8 @@
 	<string name="pref_map_3d_title">มุมมองเพอร์สเปกทีฟ</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">ตึก 3D</string>
+	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+	<string name="pref_map_3d_buildings_disabled_summary">สิ่งปลูกสร้าง 3 มิติจะปิดในโหมดประหยัดพลังงาน</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">คำแนะนำด้วยเสียง</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -221,7 +234,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">บริจาค</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">วิธีการสนับสนุนเรา</string>
+	<string name="how_to_support_us">สนับสนุนโครงการ</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">ลิขสิทธิ์</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -423,7 +436,8 @@
 	<string name="editor_report_problem_other_title">ปัญหาอีกอย่างหนึ่ง</string>
 	<string name="placepage_add_business_button">เพิ่มองค์กร</string>
 	<string name="message_invalid_feature_position">ไม่สามารถตั้งวัตถุได้ที่นี่</string>
-	<string name="osm_presentation">ข้อมูลแผนที่ทั้งหมดมาจากโครงการ OpenStreetMap เหมือนกับวิกิพีเดียสำหรับแผนที่ที่คุณสามารถเพิ่มหรือแก้ไขสถานที่ได้ และพวกเขาพร้อมให้ผู้ใช้หลายล้านคนทั่วโลกใช้งานได้</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">ข้อมูลการทำแผนที่จาก OpenStreetMap ณ ปี %sมันเป็นเหมือนวิกิพีเดียที่คุณสามารถเพิ่มหรือแก้ไขสถานที่สำหรับผู้ใช้ทุกคนทั่วโลก</string>
 	<string name="login_to_make_edits_visible">ล็อกอินเพื่อให้ผู้ใช้คนอื่นสามารถเห็นการเปลี่ยนแปลงของคุณได้</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d จาก %2$d</string>
@@ -431,8 +445,8 @@
 	<string name="download_over_mobile_message">มันอาจมีราคาสูงมากหากใช้แผนโทรศัพท์บางประเภทหรือหากทำการโรมมิ่ง</string>
 	<string name="error_enter_correct_house_number">กรอกบ้านเลขที่ให้ถูกต้อง</string>
 	<string name="editor_storey_number">จำนวนชั้น (มากสุด %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">แก้ไขอาคารที่มีจำนวนชั้นมากกว่า 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">แก้ไขอาคารที่มีจำนวนชั้นมากกว่า %d</string>
 	<string name="editor_zip_code">รหัสไปรษณีย์</string>
 	<string name="error_enter_correct_zip_code">กรุณาใส่รหัสไปรษณีย์ที่ถูกต้อง</string>
 	<!-- Place Page title for long tap -->
@@ -691,7 +705,8 @@
 	<string name="type.amenity.car_wash">ล้างรถ</string>
 	<string name="type.amenity.casino">คาสิโน</string>
 	<string name="type.amenity.charging_station">สถานีชาร์จ</string>
-	<string name="type.amenity.charging_station.motorcar">สถานีชาร์จ</string>
+	<string name="type.amenity.charging_station.bicycle">สถานีชาร์จจักรยาน</string>
+	<string name="type.amenity.charging_station.motorcar">สถานีชาร์จรถยนต์</string>
 	<string name="type.amenity.childcare">สถานรับเลี้ยงเด็ก</string>
 	<string name="type.amenity.cinema">โรงภาพยนตร์</string>
 	<string name="type.leisure.bowling_alley">ลานโบว์ลิ่ง</string>
@@ -703,6 +718,7 @@
 	<string name="type.amenity.doctors">ห้องแพทย์</string>
 	<string name="type.amenity.drinking_water">น้ำดื่ม</string>
 	<string name="type.amenity.driving_school">โรงเรียนสอนขับรถ</string>
+	<string name="type.amenity.money_transfer">การโอนเงิน</string>
 	<string name="type.amenity.music_school">โรงเรียนดนตรี</string>
 	<string name="type.amenity.language_school">โรงเรียนภาษา</string>
 	<string name="type.office.diplomatic">สถานทูต</string>
@@ -721,6 +737,7 @@
 	<string name="type.amenity.internet_cafe">อินเทอร์เน็ตคาเฟ่</string>
 	<string name="type.amenity.kindergarten">โรงเรียนอนุบาล</string>
 	<string name="type.amenity.library">ห้องสมุด</string>
+	<string name="type.amenity.loading_dock">แทนวางสนคา</string>
 	<string name="type.amenity.marketplace">ตลาดสินค้า</string>
 	<string name="type.amenity.motorcycle_parking">ที่จอดรถมอเตอร์ไซค์</string>
 	<string name="type.amenity.nightclub">ไนต์คลับ</string>
@@ -818,6 +835,8 @@
 	<string name="type.craft.handicraft">หัตถกรรม</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">ระบบปรับอากาศ</string>
+	<string name="type.craft.key_cutter">ตัดกุญแจ</string>
+	<string name="type.craft.locksmith">ช่างกุญแจ</string>
 	<string name="type.craft.metal_construction">ช่างเหล็ก</string>
 	<string name="type.craft.painter">ช่างทาสี</string>
 	<string name="type.craft.photographer">ช่างภาพ</string>
@@ -914,15 +933,27 @@
 	<string name="type.emergency.defibrillator">เครื่องกระตุ้นหัวใจ</string>
 	<string name="type.emergency.fire_hydrant">หัวจ่ายน้ำดับเพลิง</string>
 	<string name="type.emergency.phone">โทรศัพท์ฉุกเฉิน</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">ทางเข้า</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">ทางเข้าหลัก</string>
 	<string name="type.healthcare.laboratory">ห้องปฏิบัติการทางการแพทย์</string>
 	<string name="type.healthcare.physiotherapist">นักกายภาพบำบัด</string>
+	<string name="type.healthcare.alternative">การแพทย์ทางเลือก</string>
+	<string name="type.healthcare.audiologist">โสตวิทยา</string>
+	<string name="type.healthcare.blood_donation">ศูนย์รับบริจาคโลหิต</string>
+	<string name="type.healthcare.optometrist">ทัศนมาตรศาสตร์</string>
+	<string name="type.healthcare.podiatrist">แก้โรคเท้า</string>
+	<string name="type.healthcare.psychotherapist">จิตบำบัด</string>
+	<string name="type.healthcare.sample_collection">การสุ่มตัวอย่าง</string>
+	<string name="type.healthcare.speech_therapist">การบำบัดด้วยการพูด</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">สะพาน</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">อุโมงค์</string>
+	<string name="type.highway.busway">ถนนทางเดินรถโดยเฉพาะ</string>
 	<string name="type.highway.bus_stop">ป้ายรถเมล์</string>
 	<string name="type.highway.construction">ทางกำลังอยู่ในการก่อสร้าง</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1158,6 +1189,7 @@
 	<string name="type.man_made.lighthouse">ประภาคาร</string>
 	<string name="type.man_made.surveillance">กล้องวงจรปิด</string>
 	<string name="type.man_made.tower">หอคอย</string>
+	<string name="type.man_made.tower.communication">หอสื่อสาร</string>
 	<string name="type.man_made.water_tap">ก๊อกน้ำ</string>
 	<string name="type.man_made.water_tower">อ่างเก็บน้ำ</string>
 	<string name="type.man_made.water_well">บ่อน้ำ</string>
@@ -1242,6 +1274,16 @@
 	<string name="type.place.suburb">ชานเมือง</string>
 	<string name="type.place.town">เมือง</string>
 	<string name="type.place.village">หมู่บ้าน</string>
+	<string name="type.power.generator.solar">เครื่องกำเนิดพลังงานแสงอาทิตย์</string>
+	<string name="type.power.generator.wind">เครื่องกำเนิดลม</string>
+	<string name="type.power.generator.gas">โรงไฟฟ้ากังหันก๊าซ</string>
+	<string name="type.power.generator.hydro">โรงไฟฟ้าพลังน้ำ</string>
+	<string name="type.power.plant">โรงไฟฟ้า</string>
+	<string name="type.power.plant.coal">โรงไฟฟ้าถ่านหิน</string>
+	<string name="type.power.plant.gas">โรงไฟฟ้ากังหันก๊าซ</string>
+	<string name="type.power.plant.hydro">โรงไฟฟ้าพลังน้ำ</string>
+	<string name="type.power.plant.solar">โรงไฟฟ้าพลังงานแสงอาทิตย์</string>
+	<string name="type.power.plant.wind">โรงไฟฟ้าพลังงานลม</string>
 	<string name="type.power.pole">เสาไฟฟ้า</string>
 	<string name="type.power.substation">สถานีไฟฟ้า</string>
 	<string name="type.power.tower">เสาไฟฟ้า</string>
@@ -1265,6 +1307,7 @@
 	<string name="type.railway.station.subway.beijing">รถไฟ</string>
 	<string name="type.railway.station.subway.bengalore">รถไฟ</string>
 	<string name="type.railway.station.subway.berlin">รถไฟ</string>
+	<string name="type.railway.station.subway.bilbao">รถไฟ</string>
 	<string name="type.railway.station.subway.brasilia">รถไฟ</string>
 	<string name="type.railway.station.subway.brescia">รถไฟ</string>
 	<string name="type.railway.station.subway.brussels">รถไฟ</string>
@@ -1374,6 +1417,7 @@
 	<string name="type.railway.subway_entrance.beijing">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.subway_entrance.bengalore">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.subway_entrance.berlin">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.bilbao">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.subway_entrance.brasilia">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.subway_entrance.brescia">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.subway_entrance.brussels">ทางเข้ารถไฟใต้ดิน</string>
@@ -1474,16 +1518,19 @@
 	<string name="type.shop">ร้านค้า</string>
 	<string name="type.shop.alcohol">ร้านขายเหล้า</string>
 	<string name="type.shop.bakery">เบเกอรี่</string>
+	<string name="type.shop.bathroom_furnishing">ตกแต่งห้องน้ำ</string>
 	<string name="type.shop.beauty">ร้านเสริมสวย</string>
 	<string name="type.shop.beverages">เครื่องดื่ม</string>
 	<string name="type.shop.bicycle">จักรยาน</string>
 	<string name="type.shop.bookmaker">ร้านรับแทงพนัน</string>
 	<string name="type.shop.books">ร้านหนังสือ</string>
 	<string name="type.shop.butcher">ร้านขายเนื้อ</string>
+	<string name="type.shop.cannabis">ร้านขายกัญชา</string>
 	<string name="type.shop.car">ร้านค้ารถยนต์</string>
 	<string name="type.shop.car_parts">อะไหล่รถยนต์</string>
 	<string name="type.shop.car_repair">ร้านซ่อมรถยนต์</string>
 	<string name="type.shop.car_repair.tyres">ร้านปะยาง</string>
+	<string name="type.shop.carpet">พรม</string>
 	<string name="type.shop.chemist">ร้านเคมีภัณฑ์</string>
 	<string name="type.shop.chocolate">ร้านค้า</string>
 	<string name="type.shop.clothes">ร้านขายเสื้อผ้า</string>
@@ -1493,6 +1540,7 @@
 	<string name="type.shop.convenience">ร้านสะดวกซื้อ</string>
 	<string name="type.shop.copyshop">ร้านถ่ายเอกสาร</string>
 	<string name="type.shop.cosmetics">เครื่องสำอาง</string>
+	<string name="type.shop.curtain">ผ้าม่าน</string>
 	<string name="type.shop.deli">ร้านขายอาหารสำเร็จรูป</string>
 	<string name="type.shop.department_store">ห้างสรรพสินค้า</string>
 	<string name="type.shop.doityourself">ร้านขายฮาร์ดแวร์</string>
@@ -1501,16 +1549,20 @@
 	<string name="type.shop.erotic">ร้านเฉพาะผู้ใหญ่</string>
 	<string name="type.shop.fabric">ร้านค้า</string>
 	<string name="type.shop.farm">ฟาร์มฟู้ดช็อป</string>
+	<string name="type.shop.fashion_accessories">เครื่องประดับแฟชั่น</string>
 	<string name="type.shop.florist">ร้านดอกไม้</string>
 	<string name="type.shop.funeral_directors">สัปเหร่อ</string>
 	<string name="type.shop.furniture">ร้านเฟอร์นิเจอร์</string>
 	<string name="type.shop.garden_centre">สถานรับเลี้ยงเด็ก</string>
+	<string name="type.shop.gas">ร้านแก๊ส</string>
 	<string name="type.shop.gift">ร้านของขวัญ</string>
 	<string name="type.shop.greengrocer">ร้านขายผัด</string>
 	<string name="type.shop.grocery">ร้านขายของชำ</string>
 	<string name="type.shop.hairdresser">ช่างทำผม</string>
 	<string name="type.shop.hardware">ร้านฮาร์ดแวร์</string>
 	<string name="type.shop.health_food">ร้านอาหารเพื่อสุขภาพ</string>
+	<string name="type.shop.herbalist">ร้านสมุนไพร</string>
+	<string name="type.shop.hifi">เครื่องเสียงไฮไฟ</string>
 	<string name="type.shop.houseware">ร้านของใช้ในบ้าน</string>
 	<string name="type.shop.jewelry">ร้านขายเครื่องประดับ</string>
 	<string name="type.shop.kiosk">ร้าน</string>
@@ -1521,14 +1573,17 @@
 	<string name="type.shop.mobile_phone">ร้านขายโทรศัพท์มือถือ</string>
 	<string name="type.shop.money_lender">ร้านค้า</string>
 	<string name="type.shop.motorcycle">ร้านรถมอเตอร์ไซค์</string>
+	<string name="type.shop.motorcycle_repair">ซ่อมรถจักรยานยนต์</string>
 	<string name="type.shop.music">ร้านค้า</string>
 	<string name="type.shop.musical_instrument">ร้านค้า</string>
 	<string name="type.shop.newsagent">แผงขายหนังสือพิมพ์</string>
 	<string name="type.shop.optician">ร้านแว่น</string>
 	<string name="type.shop.outdoor">อุปกรณ์กลางแจ้ง</string>
+	<string name="type.shop.outpost">จุดรับของ</string>
 	<string name="type.shop.pastry">ขนมอบ</string>
 	<string name="type.shop.pawnbroker">ผู้รับจำนำ</string>
 	<string name="type.shop.pet">เพ็ทชอป</string>
+	<string name="type.shop.pet_grooming">กรูมมิ่งสัตว์เลี้ยง</string>
 	<string name="type.shop.photo">ร้านถ่ายภาพ</string>
 	<string name="type.shop.seafood">ร้านขายปลา</string>
 	<string name="type.shop.second_hand">ร้านขายของมือสอง</string>
@@ -1546,10 +1601,13 @@
 	<string name="type.shop.video">ร้านขายดีวีดี</string>
 	<string name="type.shop.video_games">ร้านขายวิดีโอเกม</string>
 	<string name="type.shop.wine">ร้านขายไวน์</string>
+	<string name="type.shop.agrarian">ร้านเกษตร</string>
 	<string name="type.shop.antiques">ของเก่า</string>
+	<string name="type.shop.appliance">ร้านเครื่องใช้ไฟฟ้า</string>
 	<string name="type.shop.art">ร้านศิลปะ</string>
 	<string name="type.shop.baby_goods">ร้านขายของสำหรับเด็ก</string>
 	<string name="type.shop.bag">ร้านกระเป๋า</string>
+	<string name="type.shop.bed">ร้านขายเตียง</string>
 	<string name="type.shop.boutique">บูติก</string>
 	<string name="type.shop.charity">ร้านการกุศล</string>
 	<string name="type.shop.cheese">ร้านชีส</string>

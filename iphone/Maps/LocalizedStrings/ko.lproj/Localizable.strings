@@ -50,7 +50,7 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "다운로드에 실패하였습니다";
 
-"about_menu_title" = "소개";
+"about_menu_title" = "Organic Maps 정보";
 
 "close" = "닫기";
 
@@ -226,6 +226,9 @@
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "주변 건물 3D";
 
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "3D 빌딩은 절전 모드에서 꺼집니다.";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "음성 지침";
 
@@ -304,7 +307,7 @@
 "donate" = "기부";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "우리를 지원하는 방법?";
+"how_to_support_us" = "프로젝트 지원";
 
 /* Button in the main Help dialog */
 "copyright" = "저작권";
@@ -710,8 +713,8 @@
 
 "editor_storey_number" = "층 수(최대 %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "최대 25층까지 입력하세요";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "최대 %d층까지 입력하세요";
 
 "editor_zip_code" = "우편번호";
 
@@ -1236,20 +1239,23 @@
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/";
 
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Ko:OpenStreetMap_소개";
+
 
 /********** Types **********/
 
 "type.aerialway" = "Aerialway";
 
-"type.aerialway.cable_car" = "Cable car";
+"type.aerialway.cable_car" = "Cable Car";
 
-"type.aerialway.chair_lift" = "Chair lift";
+"type.aerialway.chair_lift" = "Chair Lift";
 
-"type.aerialway.drag_lift" = "Drag lift";
+"type.aerialway.drag_lift" = "Drag Lift";
 
 "type.aerialway.gondola" = "Gondola";
 
-"type.aerialway.mixed_lift" = "Mixed lift";
+"type.aerialway.mixed_lift" = "Mixed Lift";
 
 "type.aerialway.station" = "케이블카 역";
 
@@ -1311,7 +1317,9 @@
 
 "type.amenity.charging_station" = "충전 역";
 
-"type.amenity.charging_station.motorcar" = "충전 역";
+"type.amenity.charging_station.bicycle" = "자전거 충전소";
+
+"type.amenity.charging_station.motorcar" = "자동차 충전소";
 
 "type.amenity.childcare" = "보육";
 
@@ -1334,6 +1342,8 @@
 "type.amenity.drinking_water" = "음수대";
 
 "type.amenity.driving_school" = "운전학원";
+
+"type.amenity.money_transfer" = "송금";
 
 "type.amenity.music_school" = "음악 학교";
 
@@ -1370,6 +1380,8 @@
 "type.amenity.kindergarten" = "유치원";
 
 "type.amenity.library" = "도서관";
+
+"type.amenity.loading_dock" = "하역장";
 
 "type.amenity.marketplace" = "시장";
 
@@ -1653,6 +1665,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "냉난방기";
 
+"type.craft.key_cutter" = "키 커팅";
+
+"type.craft.locksmith" = "자물쇠 제조공";
+
 "type.craft.metal_construction" = "금속공";
 
 "type.craft.painter" = "페인트공";
@@ -1849,11 +1865,31 @@
 
 "type.emergency.phone" = "긴급 전화";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "입구";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "정문";
 
 "type.healthcare.laboratory" = "의료 연구실";
 
 "type.healthcare.physiotherapist" = "물리치료사";
+
+"type.healthcare.alternative" = "대체 약품";
+
+"type.healthcare.audiologist" = "청력학";
+
+"type.healthcare.blood_donation" = "헌혈센터";
+
+"type.healthcare.optometrist" = "검안";
+
+"type.healthcare.podiatrist" = "발병학";
+
+"type.healthcare.psychotherapist" = "심리치료";
+
+"type.healthcare.sample_collection" = "견본 추출";
+
+"type.healthcare.speech_therapist" = "대화 요법";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1905,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "터널";
+
+"type.highway.busway" = "버스전용도로";
 
 "type.highway.bus_stop" = "버스 정류장";
 
@@ -2305,7 +2343,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "쓰레기 매립지";
 
@@ -2323,9 +2361,9 @@
 
 "type.landuse.reservoir" = "저수지";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 
@@ -2430,6 +2468,8 @@
 "type.man_made.surveillance" = "감시 카메라";
 
 "type.man_made.tower" = "타워";
+
+"type.man_made.tower.communication" = "커뮤니케이션 타워";
 
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
@@ -2623,11 +2663,31 @@
 
 "type.power.generator" = "Generator";
 
+"type.power.generator.solar" = "태양열 발전기";
+
+"type.power.generator.wind" = "풍력 발전기";
+
+"type.power.generator.gas" = "가스 터빈 발전소";
+
+"type.power.generator.hydro" = "수력 발전소";
+
 "type.power.line" = "Power Line";
 
 "type.power.line.underground" = "Underground Power Line";
 
 "type.power.minor_line" = "Minor Power Line";
+
+"type.power.plant" = "발전소";
+
+"type.power.plant.coal" = "석탄 발전소";
+
+"type.power.plant.gas" = "가스 터빈 발전소";
+
+"type.power.plant.hydro" = "수력 발전소";
+
+"type.power.plant.solar" = "태양광 발전소";
+
+"type.power.plant.wind" = "풍력 발전소";
 
 "type.power.pole" = "전봇대";
 
@@ -2754,6 +2814,8 @@
 "type.railway.station.subway.bengalore" = "지하철";
 
 "type.railway.station.subway.berlin" = "지하철";
+
+"type.railway.station.subway.bilbao" = "지하철";
 
 "type.railway.station.subway.brasilia" = "지하철";
 
@@ -2979,6 +3041,8 @@
 
 "type.railway.subway_entrance.berlin" = "지하철 입구";
 
+"type.railway.subway_entrance.bilbao" = "지하철 입구";
+
 "type.railway.subway_entrance.brasilia" = "지하철 입구";
 
 "type.railway.subway_entrance.brescia" = "지하철 입구";
@@ -3197,6 +3261,8 @@
 
 "type.shop.bakery" = "베이커리";
 
+"type.shop.bathroom_furnishing" = "욕실 가구";
+
 "type.shop.beauty" = "미용실";
 
 "type.shop.beverages" = "음료";
@@ -3209,6 +3275,8 @@
 
 "type.shop.butcher" = "정육점";
 
+"type.shop.cannabis" = "대마초 판매점";
+
 "type.shop.car" = "자동차 대리점";
 
 "type.shop.car_parts" = "차 부품 가게";
@@ -3218,6 +3286,8 @@
 "type.shop.car_repair.tyres" = "타이어수리점";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "카펫";
 
 "type.shop.chemist" = "화학물질 가게";
 
@@ -3237,6 +3307,8 @@
 
 "type.shop.cosmetics" = "화장품";
 
+"type.shop.curtain" = "커튼";
+
 "type.shop.deli" = "델리카트슨 숍";
 
 "type.shop.department_store" = "백화점";
@@ -3253,6 +3325,8 @@
 
 "type.shop.farm" = "\"농장 식품 가게\"";
 
+"type.shop.fashion_accessories" = "패션 악세사리";
+
 "type.shop.florist" = "꽃가게";
 
 "type.shop.funeral_directors" = "장의사";
@@ -3260,6 +3334,8 @@
 "type.shop.furniture" = "가구 상점";
 
 "type.shop.garden_centre" = "식물 상점";
+
+"type.shop.gas" = "주유소";
 
 "type.shop.gift" = "선물 가게";
 
@@ -3272,6 +3348,10 @@
 "type.shop.hardware" = "철물점";
 
 "type.shop.health_food" = "\"건강식품 가게\"";
+
+"type.shop.herbalist" = "허브 가게";
+
+"type.shop.hifi" = "하이파이 오디오";
 
 "type.shop.houseware" = "\"가정용품 가게\"";
 
@@ -3293,6 +3373,8 @@
 
 "type.shop.motorcycle" = "오토바이 가게";
 
+"type.shop.motorcycle_repair" = "오토바이 수리";
+
 "type.shop.music" = "가게";
 
 "type.shop.musical_instrument" = "가게";
@@ -3303,11 +3385,15 @@
 
 "type.shop.outdoor" = "아웃도어 장비";
 
+"type.shop.outpost" = "픽업 장소";
+
 "type.shop.pastry" = "패스트리";
 
 "type.shop.pawnbroker" = "전당포";
 
 "type.shop.pet" = "펫샵";
+
+"type.shop.pet_grooming" = "애완동물 미용";
 
 "type.shop.photo" = "사진 가게";
 
@@ -3343,13 +3429,19 @@
 
 "type.shop.wine" = "와인 샵";
 
+"type.shop.agrarian" = "농산물 가게";
+
 "type.shop.antiques" = "고물";
+
+"type.shop.appliance" = "가전제품 매장";
 
 "type.shop.art" = "아트샵";
 
 "type.shop.baby_goods" = "어린이 가게";
 
 "type.shop.bag" = "가방 판매점";
+
+"type.shop.bed" = "침대 가게";
 
 "type.shop.boutique" = "부티크";
 

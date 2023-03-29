@@ -46,6 +46,7 @@ public:
   void LoadMapEditsTest();
   void SaveEditedFeatureTest();
   void SaveTransactionTest();
+  void LoadExistingEditsXml();
 
 private:
   template <typename BuildFn>

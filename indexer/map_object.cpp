@@ -111,7 +111,7 @@ string MapObject::GetLocalizedType() const
   feature::TypesHolder copy(m_types);
   copy.SortBySpec();
 
-  return platform::GetLocalizedTypeName(classif().GetReadableObjectName(*copy.begin()));
+  return platform::GetLocalizedTypeName(classif().GetReadableObjectName(copy.GetBestType()));
 }
 
 std::string_view MapObject::GetMetadata(MetadataID type) const

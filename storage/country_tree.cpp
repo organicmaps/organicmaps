@@ -1,6 +1,5 @@
 #include "storage/country_tree.hpp"
 
-#include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
 
 #include "coding/reader.hpp"
@@ -9,17 +8,15 @@
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
 
-#include <algorithm>
-#include <cstdint>
-#include <utility>
-
 #include "cppjansson/cppjansson.hpp"
 
-using namespace std;
-using platform::CountryFile;
+#include <algorithm>
+
 
 namespace storage
 {
+using namespace std;
+
 // Mwm subtree attributes. They can be calculated based on information contained in countries.txt.
 // The first in the pair is number of mwms in a subtree. The second is sum of sizes of
 // all mwms in a subtree.
@@ -77,7 +74,7 @@ public:
   {
     Country country(id, parent);
     if (mapSize)
-      country.SetFile(CountryFile{id, mapSize, mapSha1});
+      country.SetFile(platform::CountryFile{id, mapSize, mapSha1});
     return &m_countries.AddAtDepth(depth, std::move(country));
   }
 
@@ -293,7 +290,7 @@ void CountryTree::Clear()
   m_countryTreeMap.clear();
 }
 
-void CountryTree::Find(CountryId const & key, vector<Node const *> & found) const
+void CountryTree::Find(CountryId const & key, NodesBufferT & found) const
 {
   found.clear();
   if (IsEmpty())
@@ -312,7 +309,7 @@ CountryTree::Node const * CountryTree::FindFirst(CountryId const & key) const
   if (IsEmpty())
     return nullptr;
 
-  vector<Node const *> found;
+  NodesBufferT found;
   Find(key, found);
   if (found.empty())
     return nullptr;
@@ -324,7 +321,7 @@ CountryTree::Node const * CountryTree::FindFirstLeaf(CountryId const & key) cons
   if (IsEmpty())
     return nullptr;
 
-  vector<Node const *> found;
+  NodesBufferT found;
   Find(key, found);
 
   for (auto node : found)

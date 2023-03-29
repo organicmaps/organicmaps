@@ -55,13 +55,7 @@ public class SearchHistoryFragment extends BaseMwmRecyclerFragment<SearchHistory
       }
     });
     updatePlaceholder();
-  }
 
-  @CallSuper
-  @Override
-  public void onActivityCreated(@Nullable Bundle savedInstanceState)
-  {
-    super.onActivityCreated(savedInstanceState);
     ((SearchFragment) getParentFragment()).setRecyclerScrollListener(getRecyclerView());
   }
 }

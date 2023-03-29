@@ -50,7 +50,7 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Спампоўка не атрымалася";
 
-"about_menu_title" = "Аб дадатку Organic Maps";
+"about_menu_title" = "Аб праграме Organic Maps";
 
 "close" = "Зачыніць";
 
@@ -155,7 +155,7 @@
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
 "rv" = "Для аўтадамоў";
 
-"share_bookmarks_email_body" = "Вітаю!\n\nУ далучаным файле мае закладкі з дататка Organic Maps. Калі ласка, адчыніце іх калі ў вас усталяваны Organic Maps. Калі не, спампуйце дадатак для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!";
+"share_bookmarks_email_body" = "Вітаю!\n\nУ далучаным файле мае закладкі з праграмы Organic Maps. Калі ласка, адчыніце іх, калі ў вас усталяваны Organic Maps. Калі не, спампуйце праграму для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Загрузка закладак";
@@ -226,6 +226,9 @@
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D будынкі";
 
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "У рэжыме энергазберажэння 3D-будынкі выключаны";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Галасавыя інструкцыі";
 
@@ -292,7 +295,7 @@
 "openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
-"rate_the_app" = "Ацаніць дадатак";
+"rate_the_app" = "Ацаніць праграму";
 
 /* Text in menu */
 "help" = "Дапамога";
@@ -304,7 +307,7 @@
 "donate" = "Падтрымаць грашыма";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Як нас падтрымаць?";
+"how_to_support_us" = "Падтрымаць праект";
 
 /* Button in the main Help dialog */
 "copyright" = "Капірайт";
@@ -437,7 +440,7 @@
 
 "dialog_routing_disclaimer_recommendations" = "— Прапанаваныя маршруты трэба ўспрымаць толькі як рэкамендацыі;";
 
-"dialog_routing_disclaimer_borders" = "— Будзьце ўважлівы з маршрутамі ў памежных зонах: маршруты пракладзеныя нашым дадаткам часамі могуць перасякаць мяжу ў недазволеных месцах.";
+"dialog_routing_disclaimer_borders" = "— Будзьце ўважлівы з маршрутамі ў памежных зонах: маршруты, пракладзеныя нашай праграмай, часамі могуць перасякаць мяжу ў недазволеных месцах.";
 
 "dialog_routing_disclaimer_beware" = "Будзьце пільнымі і паводзьце сябе бяспечна на дарозе!";
 
@@ -449,11 +452,11 @@
 
 "dialog_routing_location_turn_on" = "Уключыць геалагацыю";
 
-"dialog_routing_location_unknown_turn_on" = "Не атрымалася вызначыць каардынаты GPS. Уключыце геалакацыю каб пракласці маршрут.";
+"dialog_routing_location_unknown_turn_on" = "Не атрымалася вызначыць каардынаты GPS. Уключыце геалакацыю, каб пракласці маршрут.";
 
 "dialog_routing_download_files" = "Спампуйце неабходныя файлы";
 
-"dialog_routing_download_and_update_all" = "Спампуйце і абнавіце усе мапы і дадзеныя навігацыі на планаваным шляху каб пракласці маршрут.";
+"dialog_routing_download_and_update_all" = "Спампуйце і абнавіце ўсе мапы і дадзеныя навігацыі на планаваным шляху, каб пракласці маршрут.";
 
 "dialog_routing_unable_locate_route" = "Не атрымалася знайсці маршрут";
 
@@ -477,7 +480,7 @@
 
 "dialog_routing_system_error" = "Памылка сістэмы";
 
-"dialog_routing_application_error" = "Не атрымалася пракласці маршрут з-за памылкі дадатка.";
+"dialog_routing_application_error" = "Не атрымалася пракласці маршрут з-за памылкі праграмы.";
 
 "dialog_routing_try_again" = "Паспрабуйце зноў";
 
@@ -485,7 +488,7 @@
 
 "dialog_routing_download_and_build_cross_route" = "Спампаваць мапу і пракласці лепшы маршрут праз некалькі мапаў?";
 
-"dialog_routing_download_cross_route" = "Спампаваць дадатковыя мапы, каб пракласці лепшы маршрут, каторы перасякае межы гэтай мапы.";
+"dialog_routing_download_cross_route" = "Спампаваць дадатковыя мапы, каб пракласці лепшы маршрут, які перасякае межы гэтай мапы.";
 
 
 /********** Strings for downloading map from search **********/
@@ -503,7 +506,7 @@
 "routing_arrive" = "Прыбыццё а %s";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "Спампуйце і абнавіце ўсе мапы на шляху каб пракласці маршрут.";
+"dialog_routing_download_and_update_maps" = "Спампуйце і абнавіце ўсе мапы на шляху, каб пракласці маршрут.";
 
 "categories" = "Катэгорыі";
 
@@ -670,7 +673,7 @@
 
 "editor_profile_changes" = "Правераныя змены";
 
-"editor_focus_map_on_location" = "Перацягніце мапу каб выбраць правільнае месцазнаходжанне аб'екта.";
+"editor_focus_map_on_location" = "Перацягніце мапу, каб выбраць правільнае месцазнаходжанне аб'екта.";
 
 "editor_add_select_category" = "Выбраць катэгорыю";
 
@@ -710,8 +713,8 @@
 
 "editor_storey_number" = "Колькасць паверхаў (максімум %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "Колькасць паверхаў павінна быць не больш за 25";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Колькасць паверхаў павінна быць не больш за %d";
 
 "editor_zip_code" = "Паштовы індэкс";
 
@@ -757,7 +760,7 @@
 "location_services_disabled_2" = "2. Націсніце Геалакацыя";
 
 /* iOS Dialog for the case when the location permission is not granted */
-"location_services_disabled_3" = "3. Выберыце \"Падчас ужывання дадатку\"";
+"location_services_disabled_3" = "3. Выберыце \"Падчас ужывання праграмы\"";
 
 "meter" = "м";
 
@@ -837,7 +840,7 @@
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Паглядзі";
 
-"recent_track_background_dialog_message" = "Organic Maps ужывае вашу геалакацыю ў фонавым рэжыме каб запісваць ваш нядаўна пройдзены маршрут.";
+"recent_track_background_dialog_message" = "Organic Maps ужывае вашу геалакацыю ў фонавым рэжыме, каб запісваць ваш нядаўна пройдзены маршрут.";
 
 /* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
 "about_description" = "Organic Maps — гэта хуткія і бясплатныя мапы без рэкламы, якія працуюць без Інтэрнэту і не шпіёняць за вамі. Усе картаграфічныя дадзеныя бяруцца з OpenStreetMap.org, там вы зможаце самастойна выпраўляць памылкі і дадаваць новыя аб'екты. Organic Maps — гэта праект з адкрытым зыходным кодам, які ствараецца энтузіястамі ў вольны час. Будзем рады вашай падтрымцы і зваротнай сувязі!";
@@ -875,7 +878,7 @@
 "big_font" = "Павялічыць шрыфт мапы";
 
 /* "traffic" as in road congestion */
-"traffic_update_app_message" = "Для паказу інфармацыі пра рух трэба абнавіць дадатак.";
+"traffic_update_app_message" = "Для паказу інфармацыі пра рух трэба абнавіць праграмы.";
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Інфармацыі пра рух няма";
@@ -889,9 +892,9 @@
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Выхад";
 
-"routing_add_start_point" = "Дадайце пункт адпраўлення каб пракласці маршрут";
+"routing_add_start_point" = "Дадайце пункт адпраўлення, каб пракласці маршрут";
 
-"routing_add_finish_point" = "Дадайце пункт прызначэння каб пракласці маршрут";
+"routing_add_finish_point" = "Дадайце пункт прызначэння, каб пракласці маршрут";
 
 "planning_route_manage_route" = "Кіраваць маршрутам";
 
@@ -928,7 +931,7 @@
 
 "downloader_applying" = "Застасаванне %s…";
 
-"bookmarks_error_message_share_general" = "Не атрымалася падзяліцца з-за памылкі дадатка";
+"bookmarks_error_message_share_general" = "Не атрымалася падзяліцца з-за памылкі праграмы";
 
 "bookmarks_error_title_share_empty" = "Памылка пры спробе падзяліцца";
 
@@ -1000,7 +1003,7 @@
 
 "power_managment_title" = "Рэжым захавання энергіі";
 
-"power_managment_description" = "Калі ўключаны рэжым захавання энергіі, дадатак пачынае выключаць энергазатратныя функцыі ў залежнасці ад зарада батарэі";
+"power_managment_description" = "Калі ўключаны рэжым захавання энергіі, праграма пачынае выключаць энергазатратныя функцыі ў залежнасці ад зарада батарэі";
 
 "power_managment_setting_never" = "Ніколі";
 
@@ -1078,7 +1081,7 @@
 
 "dialog_routing_download_files_carplay" = "Каб пракласці маршрут, спампуйце мапы, каторых не хапае на вашай прыладзе";
 
-"dialog_routing_system_error_carplay" = "Адбылася памылка. Калі ласка, перазапусціце дадатак";
+"dialog_routing_system_error_carplay" = "Адбылася памылка. Калі ласка, перазапусціце праграму";
 
 "dialog_routing_rebuild_from_current_location_carplay" = "Маршрут будзе перапракладзены ад вашага цяперашняга месцазнаходжання";
 
@@ -1102,7 +1105,7 @@
 
 "speedcams_alert_title_carplay_2" = "Папяр. аб хуткасці";
 
-"download_map_carplay" = "Спампуйце мапы ў дадатку Organic Maps на вашай прыладзе";
+"download_map_carplay" = "Спампуйце мапы ў праграме Organic Maps на вашай прыладзе";
 
 "carplay_roundabout_exit" = "%s з'езд";
 
@@ -1236,20 +1239,23 @@
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/ru/";
 
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
 
 /********** Types **********/
 
 "type.aerialway" = "Aerialway";
 
-"type.aerialway.cable_car" = "Cable car";
+"type.aerialway.cable_car" = "Cable Car";
 
-"type.aerialway.chair_lift" = "Chair lift";
+"type.aerialway.chair_lift" = "Chair Lift";
 
-"type.aerialway.drag_lift" = "Drag lift";
+"type.aerialway.drag_lift" = "Drag Lift";
 
 "type.aerialway.gondola" = "Gondola";
 
-"type.aerialway.mixed_lift" = "Mixed lift";
+"type.aerialway.mixed_lift" = "Mixed Lift";
 
 "type.aerialway.station" = "Aerialway Station";
 
@@ -1311,7 +1317,9 @@
 
 "type.amenity.charging_station" = "Charging Station";
 
-"type.amenity.charging_station.motorcar" = "Charging Station";
+"type.amenity.charging_station.bicycle" = "Станцыя для зарадкі ровараў";
+
+"type.amenity.charging_station.motorcar" = "Аўтамабільная зарадная станцыя";
 
 "type.amenity.childcare" = "Nursery";
 
@@ -1334,6 +1342,8 @@
 "type.amenity.drinking_water" = "Drinking Water";
 
 "type.amenity.driving_school" = "Аўташкола";
+
+"type.amenity.money_transfer" = "Грашовыя пераводы";
 
 "type.amenity.music_school" = "Музычная школа";
 
@@ -1370,6 +1380,8 @@
 "type.amenity.kindergarten" = "Kindergarten";
 
 "type.amenity.library" = "Library";
+
+"type.amenity.loading_dock" = "Пагрузная платформа";
 
 "type.amenity.marketplace" = "Marketplace";
 
@@ -1653,6 +1665,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Ацяпленне, вентыляцыя і кандыцыянаванне";
 
+"type.craft.key_cutter" = "Выраб ключоў";
+
+"type.craft.locksmith" = "Слесар";
+
 "type.craft.metal_construction" = "Металаканструкцыі";
 
 "type.craft.painter" = "Мастак";
@@ -1849,11 +1865,31 @@
 
 "type.emergency.phone" = "Emergency Phone";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Entrance";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Галоўны ўваход";
 
 "type.healthcare.laboratory" = "Медыцынская лабараторыя";
 
 "type.healthcare.physiotherapist" = "Фізіятэрапеўт";
+
+"type.healthcare.alternative" = "Альтэрнатыўная медыцына";
+
+"type.healthcare.audiologist" = "Аўдыялогія";
+
+"type.healthcare.blood_donation" = "Цэнтр донарства крыві";
+
+"type.healthcare.optometrist" = "Оптаметрыя";
+
+"type.healthcare.podiatrist" = "Подологія";
+
+"type.healthcare.psychotherapist" = "Псіхатэрапія";
+
+"type.healthcare.sample_collection" = "Збор аналізаў";
+
+"type.healthcare.speech_therapist" = "лагапедыя";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1905,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Тунэль";
+
+"type.highway.busway" = "Выдзеленая аўтобусная дарога";
 
 "type.highway.bus_stop" = "Bus Stop";
 
@@ -2305,7 +2343,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "Landfill";
 
@@ -2323,9 +2361,9 @@
 
 "type.landuse.reservoir" = "Water";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 
@@ -2337,7 +2375,7 @@
 
 "type.leisure.common" = "Public Land";
 
-"type.leisure.dog_park" = "Dog Area";
+"type.leisure.dog_park" = "Dog Park";
 
 "type.leisure.fitness_centre" = "Fitness Centre";
 
@@ -2430,6 +2468,8 @@
 "type.man_made.surveillance" = "Surveillance Camera";
 
 "type.man_made.tower" = "Tower";
+
+"type.man_made.tower.communication" = "Вежа сувязі";
 
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
@@ -2623,11 +2663,31 @@
 
 "type.power.generator" = "Generator";
 
+"type.power.generator.solar" = "Сонечны генератар";
+
+"type.power.generator.wind" = "Ветрагенератар";
+
+"type.power.generator.gas" = "Газатурбінная электрастанцыя";
+
+"type.power.generator.hydro" = "Гідраэлектрастанцыя";
+
 "type.power.line" = "Power Line";
 
 "type.power.line.underground" = "Underground Power Line";
 
 "type.power.minor_line" = "Minor Power Line";
+
+"type.power.plant" = "Электрастанцыя";
+
+"type.power.plant.coal" = "Вугальная электрастанцыя";
+
+"type.power.plant.gas" = "Газатурбінная электрастанцыя";
+
+"type.power.plant.hydro" = "Гідраэлектрастанцыя";
+
+"type.power.plant.solar" = "Сонечная электрастанцыя";
+
+"type.power.plant.wind" = "Ветраэлектрастанцыя";
 
 "type.power.pole" = "Power Tower";
 
@@ -2754,6 +2814,8 @@
 "type.railway.station.subway.bengalore" = "Subway";
 
 "type.railway.station.subway.berlin" = "Subway";
+
+"type.railway.station.subway.bilbao" = "Subway";
 
 "type.railway.station.subway.brasilia" = "Subway";
 
@@ -2979,6 +3041,8 @@
 
 "type.railway.subway_entrance.berlin" = "Subway Entrance";
 
+"type.railway.subway_entrance.bilbao" = "Subway Entrance";
+
 "type.railway.subway_entrance.brasilia" = "Subway Entrance";
 
 "type.railway.subway_entrance.brescia" = "Subway Entrance";
@@ -3197,6 +3261,8 @@
 
 "type.shop.bakery" = "Bakery";
 
+"type.shop.bathroom_furnishing" = "Мэбля для ванных пакояў";
+
 "type.shop.beauty" = "Beauty Shop";
 
 "type.shop.beverages" = "Напоі";
@@ -3209,6 +3275,8 @@
 
 "type.shop.butcher" = "Butcher’s";
 
+"type.shop.cannabis" = "Крама канабіса";
+
 "type.shop.car" = "Car Dealership";
 
 "type.shop.car_parts" = "Car Parts";
@@ -3218,6 +3286,8 @@
 "type.shop.car_repair.tyres" = "Tyre Repair";
 
 "type.shop.caravan" = "Продаж аўтадамоў";
+
+"type.shop.carpet" = "Дываны";
 
 "type.shop.chemist" = "Chemist Shop";
 
@@ -3237,6 +3307,8 @@
 
 "type.shop.cosmetics" = "Касметыка";
 
+"type.shop.curtain" = "Шторы";
+
 "type.shop.deli" = "Дэлікатэсная крама";
 
 "type.shop.department_store" = "Department Store";
@@ -3253,6 +3325,8 @@
 
 "type.shop.farm" = "Сельскагаспадарчыя прадукты";
 
+"type.shop.fashion_accessories" = "Модныя аксэсуары";
+
 "type.shop.florist" = "Florist’s";
 
 "type.shop.funeral_directors" = "Рытуальныя паслугі";
@@ -3261,9 +3335,11 @@
 
 "type.shop.garden_centre" = "Garden Store";
 
+"type.shop.gas" = "Газавая крама";
+
 "type.shop.gift" = "Gift Shop";
 
-"type.shop.greengrocer" = "Greengrocer's";
+"type.shop.greengrocer" = "Greengrocer";
 
 "type.shop.grocery" = "Бакалея";
 
@@ -3272,6 +3348,10 @@
 "type.shop.hardware" = "Будаўнічы магазін";
 
 "type.shop.health_food" = "Крама здаровай ежы";
+
+"type.shop.herbalist" = "Магазін траў";
+
+"type.shop.hifi" = "HiFi аўдыё";
 
 "type.shop.houseware" = "Крама посуду";
 
@@ -3293,6 +3373,8 @@
 
 "type.shop.motorcycle" = "Motorcycle Shop";
 
+"type.shop.motorcycle_repair" = "Рамонт матацыклаў";
+
 "type.shop.music" = "Музычная крама";
 
 "type.shop.musical_instrument" = "Музычныя інструменты";
@@ -3303,11 +3385,15 @@
 
 "type.shop.outdoor" = "Outdoor Equipment";
 
+"type.shop.outpost" = "Пункт самавывазу";
+
 "type.shop.pastry" = "Кандытарскія вырабы";
 
 "type.shop.pawnbroker" = "Pawnbroker";
 
-"type.shop.pet" = "Petshop";
+"type.shop.pet" = "Pet Store";
+
+"type.shop.pet_grooming" = "Грумінг";
 
 "type.shop.photo" = "Photo Shop";
 
@@ -3343,13 +3429,19 @@
 
 "type.shop.wine" = "Wine Shop";
 
+"type.shop.agrarian" = "Сельскагаспадарчы магазін";
+
 "type.shop.antiques" = "Антыкварыят";
+
+"type.shop.appliance" = "Крама бытавой тэхнікі";
 
 "type.shop.art" = "Крама мастацтваў";
 
 "type.shop.baby_goods" = "Дзіцячая крама";
 
 "type.shop.bag" = "Крама сумак";
+
+"type.shop.bed" = "Крама ложкаў";
 
 "type.shop.boutique" = "Буцік";
 

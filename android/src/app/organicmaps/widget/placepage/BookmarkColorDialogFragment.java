@@ -1,5 +1,6 @@
 package app.organicmaps.widget.placepage;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,13 +9,13 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmDialogFragment;
 import app.organicmaps.bookmarks.IconsAdapter;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.Icon;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class BookmarkColorDialogFragment extends BaseMwmDialogFragment
     if (getArguments() != null)
       mIconColor = getArguments().getInt(ICON_TYPE);
 
-    return new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
+    return new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
         .setView(buildView())
         .setTitle(R.string.bookmark_color)
         .setNegativeButton(R.string.cancel, null)
@@ -58,6 +59,7 @@ public class BookmarkColorDialogFragment extends BaseMwmDialogFragment
     final IconsAdapter adapter = new IconsAdapter(requireActivity(), icons);
     adapter.chooseItem(mIconColor);
 
+    @SuppressLint("InflateParams")
     final GridView gView = (GridView) LayoutInflater.from(requireActivity()).inflate(R.layout.fragment_color_grid, null);
     gView.setAdapter(adapter);
     gView.setOnItemClickListener(new AdapterView.OnItemClickListener()

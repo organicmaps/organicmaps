@@ -38,6 +38,18 @@ jobs:
           ref: master
           path: screenshots
 
+      - name: Checkout keywords
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ secrets.KEYWORDS_REPO }}
+          ssh-key: ${{ secrets.KEYWORDS_SSH_KEY }}
+          ref: master
+          path: keywords
+
+      - name: Update metadata
+        shell: bash
+        run: ./tools/python/check_store_metadata.py ios
+
       # NOTE: a new iOS draft must be created before this step
       - name: Upload metadata
         shell: bash

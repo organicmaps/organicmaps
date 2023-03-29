@@ -200,17 +200,19 @@ void Extrapolator::RunTaskOnBackgroundThread(bool delayed)
 
   if (delayed)
   {
-    auto constexpr kExtrapolationPeriod = std::chrono::milliseconds(kExtrapolationPeriodMs);
-    GetPlatform().RunDelayedTask(Platform::Thread::Background, kExtrapolationPeriod,
-                                 [this, locationUpdateCounter] {
-                                   ExtrapolatedLocationUpdate(locationUpdateCounter);
-                                 });
-    return;
+    auto constexpr period = std::chrono::milliseconds(kExtrapolationPeriodMs);
+    GetPlatform().RunDelayedTask(Platform::Thread::Background, period, [this, locationUpdateCounter]
+    {
+      ExtrapolatedLocationUpdate(locationUpdateCounter);
+    });
   }
-
-  GetPlatform().RunTask(Platform::Thread::Background, [this, locationUpdateCounter] {
-    ExtrapolatedLocationUpdate(locationUpdateCounter);
-  });
+  else
+  {
+    GetPlatform().RunTask(Platform::Thread::Background, [this, locationUpdateCounter]
+    {
+      ExtrapolatedLocationUpdate(locationUpdateCounter);
+    });
+  }
 }
 
 bool Extrapolator::DoesExtrapolationWork() const

@@ -28,6 +28,11 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
+    # Cancels previous jobs if the same branch or PR was updated again.
+    concurrency:
+      group: ${{ github.workflow }}-${{ matrix.compiler.CC }}-${{ matrix.CMAKE_BUILD_TYPE }}-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
+
     steps:
       - name: Free disk space by removing .NET, Android and Haskell
         shell: bash

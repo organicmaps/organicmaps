@@ -13,13 +13,13 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
 import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.util.Utils;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.Objects;
 
@@ -115,7 +115,7 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
   {
     if (TextUtils.isEmpty(name))
     {
-      new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
+      new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
           .setTitle(R.string.bookmarks_error_title_empty_list_name)
           .setMessage(R.string.bookmarks_error_message_empty_list_name)
           .setPositiveButton(R.string.ok, null)
@@ -125,7 +125,7 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
 
     if (BookmarkManager.INSTANCE.isUsedCategoryName(name) && !TextUtils.equals(name, mCategory.getName()))
     {
-      new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
+      new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
           .setTitle(R.string.bookmarks_error_title_list_name_already_taken)
           .setMessage(R.string.bookmarks_error_message_list_name_already_taken)
           .setPositiveButton(R.string.ok, null)

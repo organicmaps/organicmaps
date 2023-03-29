@@ -22,12 +22,12 @@
 #include <string>
 #include <vector>
 
+namespace speed_camera_notifications_tests
+{
 using namespace routing;
 using namespace routing::turns;
 using namespace std;
 
-namespace
-{
 string const kCameraOnTheWay = "Speed camera on the way";
 
 location::GpsInfo MoveTo(ms::LatLon const & coords, double speed = -1)
@@ -483,4 +483,4 @@ UNIT_TEST(SpeedCameraNotification_CameraOnMiniRoundabout)
   ChangePosition({41.201998, 69.109587}, speedKmPH, routingSession);
   TEST(!NoCameraFound(routingSession), ());
 }
-}  // namespace
+}  // namespace speed_camera_notifications_tests

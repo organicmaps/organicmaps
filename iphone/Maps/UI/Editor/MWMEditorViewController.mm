@@ -26,6 +26,7 @@
 #import <CoreApi/StringUtils.h>
 
 #include "platform/localization.hpp"
+#include "indexer/validate_and_format_contacts.hpp"
 
 namespace
 {
@@ -37,8 +38,8 @@ NSString * const kCategoryEditorSegue = @"Editor2CategoryEditorSegue";
 
 NSString * const kUDEditorPersonalInfoWarninWasShown = @"PersonalInfoWarningAlertWasShown";
 
-CGFloat const kDefaultHeaderHeight = 28.;
-CGFloat const kDefaultFooterHeight = 32.;
+CGFloat constexpr kDefaultHeaderHeight = 28.;
+CGFloat constexpr kDefaultFooterHeight = 32.;
 
 typedef NS_ENUM(NSUInteger, MWMEditorSection) {
   MWMEditorSectionCategory,
@@ -57,8 +58,7 @@ std::vector<MWMEditorCellID> const kSectionAddressCellTypes {
 std::vector<MWMEditorCellID> const kSectionNoteCellTypes { MWMEditorCellTypeNote };
 std::vector<MWMEditorCellID> const kSectionButtonCellTypes { MWMEditorCellTypeReportButton };
 
-using MWMEditorCellTypeClassMap = std::map<MWMEditorCellID, Class>;
-MWMEditorCellTypeClassMap const kCellType2Class {
+std::map<MWMEditorCellID, Class> const kCellType2Class {
     {MWMEditorCellTypeCategory, [MWMEditorCategoryCell class]},
     {MWMEditorCellTypeAdditionalName, [MWMEditorAdditionalNameTableViewCell class]},
     {MWMEditorCellTypeAddAdditionalName, [MWMEditorAddAdditionalNameTableViewCell class]},
@@ -327,10 +327,14 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
   registerCellsForTableView(kSectionCategoryCellTypes, self.tableView);
   BOOL const isNameEditable = m_mapObject.IsNameEditable();
   BOOL const isAddressEditable = m_mapObject.IsAddressEditable();
-  BOOL const areEditablePropertiesEmpty = m_mapObject.GetEditableProperties().empty();
+  auto editableProperties = m_mapObject.GetEditableProperties();
+  // Remove fields that are already displayed in the Address section.
+  editableProperties.erase(std::remove_if(editableProperties.begin(), editableProperties.end(), [](osm::MapObject::MetadataID mid)
+  {
+    return mid == MetadataID::FMD_POSTCODE || mid == MetadataID::FMD_BUILDING_LEVELS;
+  }), editableProperties.end());
   BOOL const isCreating = self.isCreating;
-  BOOL const isThereNotes =
-      !isCreating && areEditablePropertiesEmpty && !isAddressEditable && !isNameEditable;
+  BOOL const showNotesToOSMEditors = !isCreating;
 
   if (isNameEditable)
   {
@@ -355,19 +359,15 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
     registerCellsForTableView(kSectionAddressCellTypes, self.tableView);
   }
 
-  if (!areEditablePropertiesEmpty)
+  if (!editableProperties.empty())
   {
-    auto const cells = m_mapObject.GetEditableProperties();
-    if (!cells.empty())
-    {
-      m_sections.push_back(MWMEditorSectionDetails);
-      auto & v = m_cells[MWMEditorSectionDetails];
-      v.assign(cells.begin(), cells.end());
-      registerCellsForTableView(v, self.tableView);
-    }
+    m_sections.push_back(MWMEditorSectionDetails);
+    auto & v = m_cells[MWMEditorSectionDetails];
+    v.assign(editableProperties.begin(), editableProperties.end());
+    registerCellsForTableView(v, self.tableView);
   }
 
-  if (isThereNotes)
+  if (showNotesToOSMEditors)
   {
     m_sections.push_back(MWMEditorSectionNote);
     m_cells[MWMEditorSectionNote] = kSectionNoteCellTypes;
@@ -417,10 +417,15 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
                       icon:(NSString * _Nonnull)icon
                placeholder:(NSString * _Nonnull)name
 {
+  MetadataID metaId = static_cast<MetadataID>(cellID);
+  NSString* value = ToNSString(m_mapObject.GetMetadata(metaId));
+  if (osm::isSocialContactTag(metaId) && [value containsString:@"/"])
+    value = ToNSString(osm::socialContactToURL(metaId, [value UTF8String]));
+
   MWMEditorTextTableViewCell * tCell = static_cast<MWMEditorTextTableViewCell *>(cell);
   [tCell configWithDelegate:self
                        icon:[UIImage imageNamed:icon]
-                       text:ToNSString(m_mapObject.GetMetadata(static_cast<MetadataID>(cellID)))
+                       text:value
                 placeholder:name
                keyboardType:UIKeyboardTypeDefault
              capitalization:UITextAutocapitalizationTypeSentences];
@@ -663,6 +668,14 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
                  placeholder:L(@"vk")];
     break;
   }
+  case MetadataID::FMD_CONTACT_LINE:
+  {
+    [self configTextViewCell:cell
+                      cellID:cellID
+                        icon:@"ic_placepage_line"
+                 placeholder:L(@"line")];
+    break;
+  }
   case MWMEditorCellTypeNote:
   {
     MWMNoteCell * tCell = static_cast<MWMNoteCell *>(cell);
@@ -792,7 +805,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-  return kDefaultHeaderHeight;
+  return m_sections[section] == MWMEditorSectionNote ? kDefaultHeaderHeight * 2 : kDefaultHeaderHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section

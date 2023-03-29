@@ -9,7 +9,7 @@
 
 #include <exception>
 
-#include "gflags/gflags.h"
+#include <gflags/gflags.h>
 
 DEFINE_string(borders_path, "", "Path to directory with *.poly files.");
 DEFINE_string(output_path, "", "Path to target directory where the output *.poly files will be placed.");

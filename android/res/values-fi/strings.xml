@@ -37,6 +37,17 @@
 	<string name="country_status_download_failed">Lataus epäonnistui</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Yritä uudelleen</string>
+	<string name="about_menu_title">Tietoa Organic Maps:stä</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Ilmainen kaikille, tehty rakkaudella</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Ei mainoksia, ei seurantaa, ei tiedonkeruua</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Säästää akkua, ei käytä taustatietoja</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Nopea, minimalistinen, ei roskaa</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Harrastajien ja vapaaehtoisten luoma avoimen lähdekoodin sovellus.</string>
 	<string name="connection_settings">Yhteysasetukset</string>
 	<string name="close">Sulje</string>
 	<string name="unsupported_phone">Laitteistokiihdytetty OpenGL vaaditaan. Valitettavasti laitteesi ei ole tuettu.</string>
@@ -196,6 +207,8 @@
 	<string name="pref_map_3d_title">Perspektiivinäkymä</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D-rakennukset</string>
+	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+	<string name="pref_map_3d_buildings_disabled_summary">3D-rakennukset sammutetaan virransäästötilassa</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Ääniohjeistukset</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -225,7 +238,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Lahjoittaa</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Kuinka tukea meitä?</string>
+	<string name="how_to_support_us">Tue projektia</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Tekijänoikeudet</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -427,7 +440,8 @@
 	<string name="editor_report_problem_other_title">Eri ongelma</string>
 	<string name="placepage_add_business_button">Lisää organisaatio</string>
 	<string name="message_invalid_feature_position">Kohdetta ei voida asettaa tänne</string>
-	<string name="osm_presentation">Kaikki karttatiedot tulevat OpenStreetMap-projektista. Se on kuin karttojen Wikipedia, jossa voit lisätä tai muokata paikkoja, ja ne ovat miljoonien käyttäjien saatavilla kaikkialla maailmassa.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Kartografiset tiedot OpenStreetMapista vuodesta %s. Se on kuin Wikipedia, johon voit lisätä tai muokata paikkoja kaikille käyttäjille ympäri maailmaa.</string>
 	<string name="login_to_make_edits_visible">Kirjaudu sisään jotta muut käyttäjät voivat nähdä tekemäsi muokkaukset.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>
@@ -435,8 +449,8 @@
 	<string name="download_over_mobile_message">Tämä vaihtoehto saattaa olla huomattavasti kalliimpi tietyillä sopimuksilla tai roaming-yhteydellä.</string>
 	<string name="error_enter_correct_house_number">Syötä oikea talon numero</string>
 	<string name="editor_storey_number">Kerrosten määrä (maks. %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Muokkaa kerroksia, enintään 25 kerrosta</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Muokkaa kerroksia, enintään %d kerrosta</string>
 	<string name="editor_zip_code">Postinumero</string>
 	<string name="error_enter_correct_zip_code">Anna kelvollinen postinumero</string>
 	<!-- Place Page title for long tap -->
@@ -711,7 +725,8 @@
 	<string name="type.amenity.car_wash">Autopesula</string>
 	<string name="type.amenity.casino">Kasino</string>
 	<string name="type.amenity.charging_station">Latausasema</string>
-	<string name="type.amenity.charging_station.motorcar">Latausasema</string>
+	<string name="type.amenity.charging_station.bicycle">Polkupyörän latausasema</string>
+	<string name="type.amenity.charging_station.motorcar">Auton latausasema</string>
 	<string name="type.amenity.childcare">Päivähoito</string>
 	<string name="type.amenity.cinema">Elokuvateatteri</string>
 	<string name="type.leisure.bowling_alley">Keilarata</string>
@@ -723,6 +738,7 @@
 	<string name="type.amenity.doctors">Lääkärin vastaanotto</string>
 	<string name="type.amenity.drinking_water">Juomavesi</string>
 	<string name="type.amenity.driving_school">Autokoulu</string>
+	<string name="type.amenity.money_transfer">Rahansiirto</string>
 	<string name="type.amenity.music_school">Musiikkikoulu</string>
 	<string name="type.amenity.language_school">Kielikoulu</string>
 	<string name="type.office.diplomatic">Suurlähetystö</string>
@@ -741,6 +757,7 @@
 	<string name="type.amenity.internet_cafe">Internetkahvila</string>
 	<string name="type.amenity.kindergarten">Päiväkoti</string>
 	<string name="type.amenity.library">Kirjasto</string>
+	<string name="type.amenity.loading_dock">Lastauslaituri</string>
 	<string name="type.amenity.marketplace">Kauppatori</string>
 	<string name="type.amenity.motorcycle_parking">Moottoripyörien pysäköinti</string>
 	<string name="type.amenity.nightclub">Yökerho</string>
@@ -870,6 +887,8 @@
 	<string name="type.craft.handicraft">Käsityö</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Ilmastointilaite</string>
+	<string name="type.craft.key_cutter">Avaimen leikkaaminen</string>
+	<string name="type.craft.locksmith">Lukkoseppä</string>
 	<string name="type.craft.metal_construction">Metallimies</string>
 	<string name="type.craft.painter">Maalari</string>
 	<string name="type.craft.photographer">Valokuvaaja</string>
@@ -966,15 +985,27 @@
 	<string name="type.emergency.defibrillator">Defibrillaattori</string>
 	<string name="type.emergency.fire_hydrant">Paloposti</string>
 	<string name="type.emergency.phone">Hätäpuhelin</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Sisäänkäynti</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Pääsisäänkäynti</string>
 	<string name="type.healthcare.laboratory">Lääketieteellinen laboratorio</string>
 	<string name="type.healthcare.physiotherapist">Fysioterapeutti</string>
+	<string name="type.healthcare.alternative">Vaihtoehtoinen lääketiede</string>
+	<string name="type.healthcare.audiologist">Audiologia</string>
+	<string name="type.healthcare.blood_donation">Verenluovutuskeskus</string>
+	<string name="type.healthcare.optometrist">Optometria</string>
+	<string name="type.healthcare.podiatrist">Jalkaterapia</string>
+	<string name="type.healthcare.psychotherapist">Psykoterapia</string>
+	<string name="type.healthcare.sample_collection">Näytteenotto</string>
+	<string name="type.healthcare.speech_therapist">Logopedia</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">Silta</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunneli</string>
+	<string name="type.highway.busway">Oma bussitie</string>
 	<string name="type.highway.bus_stop">Bussipysäkki</string>
 	<string name="type.highway.construction">Rakenteilla oleva tie</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1210,6 +1241,7 @@
 	<string name="type.man_made.lighthouse">Majakka</string>
 	<string name="type.man_made.surveillance">Valvontakamera</string>
 	<string name="type.man_made.tower">Torni</string>
+	<string name="type.man_made.tower.communication">Viestintätorni</string>
 	<string name="type.man_made.water_tap">Vesihana</string>
 	<string name="type.man_made.water_tower">Vesitorni</string>
 	<string name="type.man_made.water_well">Kaivo</string>
@@ -1295,6 +1327,16 @@
 	<string name="type.place.suburb">Esikaupunki</string>
 	<string name="type.place.town">Kaupunki</string>
 	<string name="type.place.village">Kylä</string>
+	<string name="type.power.generator.solar">Aurinkogeneraattori</string>
+	<string name="type.power.generator.wind">Tuuligeneraattori</string>
+	<string name="type.power.generator.gas">Kaasuturbiinivoimala</string>
+	<string name="type.power.generator.hydro">Vesivoimalaitos</string>
+	<string name="type.power.plant">Voimalaitos</string>
+	<string name="type.power.plant.coal">Hiilivoimala</string>
+	<string name="type.power.plant.gas">Kaasuturbiinivoimala</string>
+	<string name="type.power.plant.hydro">Vesivoimalaitos</string>
+	<string name="type.power.plant.solar">Aurinkovoimala</string>
+	<string name="type.power.plant.wind">Tuulivoimala</string>
 	<string name="type.power.pole">Sähköpylväs</string>
 	<string name="type.power.substation">Muuntoasema</string>
 	<string name="type.power.tower">Sähköpylväs</string>
@@ -1318,6 +1360,7 @@
 	<string name="type.railway.station.subway.beijing">Metro</string>
 	<string name="type.railway.station.subway.bengalore">Metro</string>
 	<string name="type.railway.station.subway.berlin">Metro</string>
+	<string name="type.railway.station.subway.bilbao">Metro</string>
 	<string name="type.railway.station.subway.brasilia">Metro</string>
 	<string name="type.railway.station.subway.brescia">Metro</string>
 	<string name="type.railway.station.subway.brussels">Metro</string>
@@ -1427,6 +1470,7 @@
 	<string name="type.railway.subway_entrance.beijing">Metron sisäänkäynti</string>
 	<string name="type.railway.subway_entrance.bengalore">Metron sisäänkäynti</string>
 	<string name="type.railway.subway_entrance.berlin">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.bilbao">Metron sisäänkäynti</string>
 	<string name="type.railway.subway_entrance.brasilia">Metron sisäänkäynti</string>
 	<string name="type.railway.subway_entrance.brescia">Metron sisäänkäynti</string>
 	<string name="type.railway.subway_entrance.brussels">Metron sisäänkäynti</string>
@@ -1527,16 +1571,19 @@
 	<string name="type.shop">Kauppa</string>
 	<string name="type.shop.alcohol">Alkoholikauppa</string>
 	<string name="type.shop.bakery">Leipomo</string>
+	<string name="type.shop.bathroom_furnishing">Kylpyhuoneen kalusteet</string>
 	<string name="type.shop.beauty">Kauneushoitola</string>
 	<string name="type.shop.beverages">Juomat</string>
 	<string name="type.shop.bicycle">Polkupyöräliike</string>
 	<string name="type.shop.bookmaker">Kustantaja</string>
 	<string name="type.shop.books">Kirjakauppa</string>
 	<string name="type.shop.butcher">Lihakauppias</string>
+	<string name="type.shop.cannabis">Kannabiskauppa</string>
 	<string name="type.shop.car">Autokauppa</string>
 	<string name="type.shop.car_parts">Auton osat</string>
 	<string name="type.shop.car_repair">Autokorjaamo</string>
 	<string name="type.shop.car_repair.tyres">Rengashuolto</string>
+	<string name="type.shop.carpet">Matot</string>
 	<string name="type.shop.chemist">Kosmetiikkamyymälä</string>
 	<string name="type.shop.chocolate">Kauppa</string>
 	<string name="type.shop.clothes">Vaatekauppa</string>
@@ -1546,6 +1593,7 @@
 	<string name="type.shop.convenience">Lähikauppa</string>
 	<string name="type.shop.copyshop">Painotalo</string>
 	<string name="type.shop.cosmetics">Kosmetiikka</string>
+	<string name="type.shop.curtain">Verhot</string>
 	<string name="type.shop.deli">Herkkukauppa</string>
 	<string name="type.shop.department_store">Tavaratalo</string>
 	<string name="type.shop.doityourself">Rautakauppa</string>
@@ -1554,16 +1602,20 @@
 	<string name="type.shop.erotic">Erotiikkaliike</string>
 	<string name="type.shop.fabric">Kauppa</string>
 	<string name="type.shop.farm">Maatilaruokakauppa</string>
+	<string name="type.shop.fashion_accessories">Muoti tarvikkeet</string>
 	<string name="type.shop.florist">Floristi</string>
 	<string name="type.shop.funeral_directors">Hautaustoimisto</string>
 	<string name="type.shop.furniture">Huonekalukauppa</string>
 	<string name="type.shop.garden_centre">Taimitarha</string>
+	<string name="type.shop.gas">Kaasukauppa</string>
 	<string name="type.shop.gift">Lahjatavaraliike</string>
 	<string name="type.shop.greengrocer">Vihanneskauppias</string>
 	<string name="type.shop.grocery">Päivittäistavarakauppa</string>
 	<string name="type.shop.hairdresser">Kampaamo</string>
 	<string name="type.shop.hardware">Rautakauppa</string>
 	<string name="type.shop.health_food">Terveysruokakauppa</string>
+	<string name="type.shop.herbalist">Yrttikauppa</string>
+	<string name="type.shop.hifi">HiFi Audio</string>
 	<string name="type.shop.houseware">Taloustavarakauppa</string>
 	<string name="type.shop.jewelry">Korukauppa</string>
 	<string name="type.shop.kiosk">Kioski</string>
@@ -1574,14 +1626,17 @@
 	<string name="type.shop.mobile_phone">Elektroniikkakauppa</string>
 	<string name="type.shop.money_lender">Kauppa</string>
 	<string name="type.shop.motorcycle">Moottoripyöräliike</string>
+	<string name="type.shop.motorcycle_repair">Moottoripyörän korjaus</string>
 	<string name="type.shop.music">Kauppa</string>
 	<string name="type.shop.musical_instrument">Kauppa</string>
 	<string name="type.shop.newsagent">Lehtikioski</string>
 	<string name="type.shop.optician">Optikko</string>
 	<string name="type.shop.outdoor">Ulkoiluvarusteet</string>
+	<string name="type.shop.outpost">Noutopiste</string>
 	<string name="type.shop.pastry">Leivonnainen</string>
 	<string name="type.shop.pawnbroker">Panttilainaamo</string>
 	<string name="type.shop.pet">Eläinkauppa</string>
+	<string name="type.shop.pet_grooming">Lemmikkieläinten hoito</string>
 	<string name="type.shop.photo">Valokuvakauppa</string>
 	<string name="type.shop.seafood">Kalakauppias</string>
 	<string name="type.shop.second_hand">Second Hand Store</string>
@@ -1599,10 +1654,13 @@
 	<string name="type.shop.video">Videokauppa</string>
 	<string name="type.shop.video_games">Videopelikauppa</string>
 	<string name="type.shop.wine">Alkoholimyymälä</string>
+	<string name="type.shop.agrarian">Maatalouskauppa</string>
 	<string name="type.shop.antiques">Antiikkia</string>
+	<string name="type.shop.appliance">Kodinkoneet kauppa</string>
 	<string name="type.shop.art">Taidekauppa</string>
 	<string name="type.shop.baby_goods">Lasten kauppa</string>
 	<string name="type.shop.bag">Laukkukauppa</string>
+	<string name="type.shop.bed">Sänkykauppa</string>
 	<string name="type.shop.boutique">Boutique</string>
 	<string name="type.shop.charity">Hyväntekeväisyysmyymälä</string>
 	<string name="type.shop.cheese">Juustokauppa</string>

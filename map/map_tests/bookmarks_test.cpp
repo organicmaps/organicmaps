@@ -18,6 +18,7 @@
 #include "base/scope_guard.hpp"
 
 #include <array>
+#include <cstring>    // strlen
 #include <map>
 #include <memory>
 #include <set>

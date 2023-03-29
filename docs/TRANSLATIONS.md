@@ -53,8 +53,11 @@ In some cases automatically translated strings are better than no translation at
 There is a script to automate given string's translation into multiple languages.
 Please [install Translate Shell](https://www.soimort.org/translate-shell/#installation) first to be able to run it.
 
-```
+```bash
+# This generates translations in categories.txt format
 tools/unix/translate_categories.sh "Route"
+# Translations in strings.txt format
+DELIM=" = " tools/unix/translate_categories.sh "Route"
 ```
 
 ## Technical details

@@ -16,6 +16,7 @@ import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import app.organicmaps.R;
@@ -234,12 +235,12 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
             final String string = resources.getString(R.string.closes_in, time);
 
             UiUtils.setTextAndShow(mOpen, string);
-            mOpen.setTextColor(resources.getColor(R.color.base_yellow));
+            mOpen.setTextColor(ContextCompat.getColor(mSearchFragment.getContext(), R.color.base_yellow));
           }
           else
           {
             UiUtils.setTextAndShow(mOpen, resources.getString(R.string.editor_time_open));
-            mOpen.setTextColor(resources.getColor(R.color.base_green));
+            mOpen.setTextColor(ContextCompat.getColor(mSearchFragment.getContext(), R.color.base_green));
           }
           break;
 
@@ -251,12 +252,12 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
             final String string = resources.getString(R.string.opens_in, time);
 
             UiUtils.setTextAndShow(mOpen, string);
-            mOpen.setTextColor(resources.getColor(R.color.base_red));
+            mOpen.setTextColor(ContextCompat.getColor(mSearchFragment.getContext(), R.color.base_red));
           }
           else
           {
             UiUtils.setTextAndShow(mOpen, resources.getString(R.string.closed));
-            mOpen.setTextColor(resources.getColor(R.color.base_red));
+            mOpen.setTextColor(ContextCompat.getColor(mSearchFragment.getContext(), R.color.base_red));
           }
           break;
 

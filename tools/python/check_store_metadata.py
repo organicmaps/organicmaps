@@ -6,6 +6,7 @@
 import os
 import sys
 import glob
+import shutil
 from urllib.parse import urlparse
 
 os.chdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", ".."))
@@ -133,12 +134,14 @@ def check_raw(path, max_length):
             ok = error(path, "too long: got={}, expected={}", cur_length, max_length)
         return ok, text
 
-def check_text(path, max):
+def check_text(path, max, optional=False):
     try:
         return done(path, check_raw(path, max)[0])
     except FileNotFoundError as e:
+        if optional:
+            return True,
         print("🚫", path)
-        return True,
+        return False,
 
 def check_url(path,):
     (ok, url) = check_raw(path, 500)
@@ -158,26 +161,51 @@ def check_exact(path, expected):
         ok = error(path, "invalid value: got={}, expected={}", value, expected)
     return done(path, ok)
 
+
 def check_android():
     ok = True
-    for flavor in glob.glob('android/src/*/play/'):
-        ok = check_url(flavor + "contact-website.txt") and ok
-        ok = check_email(flavor + "contact-email.txt") and ok
-        ok = check_exact(flavor + "default-language.txt", "en-US") and ok
-        maxTitle = 30 if 'google' in flavor else 50
-        for locale in glob.glob(flavor + 'listings/*/'):
-            if locale.split('/')[-2] not in GPLAY_LOCALES:
-                ok = error(locale, "unsupported locale") and ok
-                continue
-            ok = check_text(locale + "title.txt", maxTitle) and ok
-            ok = check_text(locale + "short-description.txt", 80) and ok
-            ok = check_text(locale + "full-description.txt", 4000) and ok
-        for locale in glob.glob(flavor + 'release-notes/??-??/'):
-            ok = check_text(locale + "default.txt", 500) and ok
+    flavor = 'android/src/fdroid/play/'
+    ok = check_url(flavor + 'contact-website.txt') and ok
+    ok = check_email(flavor + 'contact-email.txt') and ok
+    ok = check_exact(flavor + 'default-language.txt', 'en-US') and ok
+    for locale in glob.glob(flavor + 'listings/*/'):
+        if locale.split('/')[-2] not in GPLAY_LOCALES:
+            ok = error(locale, 'unsupported locale') and ok
+            continue
+        ok = check_text(locale + 'title.txt', 50) and ok
+        ok = check_text(locale + 'title-google.txt', 30) and ok
+        ok = check_text(locale + 'short-description.txt', 80) and ok
+        ok = check_text(locale + 'short-description-google.txt', 80, True) and ok
+        ok = check_text(locale + 'full-description.txt', 4000) and ok
+        ok = check_text(locale + 'full-description-google.txt', 4000, True) and ok
+        ok = check_text(locale + 'release-notes.txt', 499) and ok
+    for locale in glob.glob(flavor + 'release-notes/*/'):
+        if locale.split('/')[-2] not in GPLAY_LOCALES:
+            ok = error(locale, 'unsupported locale') and ok
+            continue
+        ok = check_text(locale + 'default.txt', 499) and ok
     return ok
+
 
 def check_ios():
     ok = True
+    for locale in APPSTORE_LOCALES:
+        locale_dir = os.path.join('iphone', 'metadata', locale)
+        english_dir = os.path.join('iphone', 'metadata', 'en-US')
+        overlay_dir = os.path.join('keywords', 'ios', locale)
+        if not os.path.isdir(locale_dir):
+            os.mkdir(locale_dir)
+        for name in ["name.txt", "subtitle.txt", "promotional_text.txt",
+                        "description.txt", "release_notes.txt", "keywords.txt",
+                        "support_url.txt", "marketing_url.txt", "privacy_url.txt"]:
+            overlay_path = os.path.join(overlay_dir, name)
+            english_path = os.path.join(english_dir, name)
+            target_path = os.path.join(locale_dir, name)
+            if os.path.exists(overlay_path):
+                shutil.copy(overlay_path, target_path)
+            elif os.path.exists(english_path) and not os.path.exists(target_path):
+                shutil.copy(english_path, target_path)
+
     for locale in glob.glob('iphone/metadata/*/'):
         if locale.split('/')[-2] not in APPSTORE_LOCALES:
             ok = error(locale, "unsupported locale") and ok
@@ -187,10 +215,14 @@ def check_ios():
         ok = check_text(locale + "promotional_text.txt", 170) and ok
         ok = check_text(locale + "description.txt", 4000) and ok
         ok = check_text(locale + "release_notes.txt", 4000) and ok
-        ok = check_text(locale + "keywords.txt", 100) and ok
+        ok = check_text(locale + "keywords.txt", 100, True) and ok
         ok = check_url(locale + "support_url.txt") and ok
         ok = check_url(locale + "marketing_url.txt") and ok
         ok = check_url(locale + "privacy_url.txt") and ok
+    for locale in glob.glob('keywords/ios/*/'):
+        if locale.split('/')[-2] not in APPSTORE_LOCALES:
+            ok = error(locale, "unsupported locale") and ok
+            continue
     return ok
 
 if __name__ == "__main__":

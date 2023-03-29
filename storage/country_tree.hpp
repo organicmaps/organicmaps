@@ -3,6 +3,8 @@
 #include "storage/country.hpp"
 #include "storage/storage_defines.hpp"
 
+#include "base/buffer_vector.hpp"
+
 #include <functional>
 #include <map>
 #include <memory>
@@ -96,10 +98,11 @@ public:
   /// Deletes all children and makes tree empty
   void Clear();
 
+  using NodesBufferT = buffer_vector<Node const *, 4>;
   /// \brief Checks all nodes in tree to find an equal one. If there're several equal nodes
   /// returns the first found.
   /// \returns a poiter item in the tree if found and nullptr otherwise.
-  void Find(CountryId const & key, std::vector<Node const *> & found) const;
+  void Find(CountryId const & key, NodesBufferT & found) const;
 
   Node const * FindFirst(CountryId const & key) const;
 

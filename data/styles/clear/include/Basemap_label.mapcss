@@ -51,9 +51,6 @@ node[cemetery=grave],
 area[cemetery=grave],
 {z-index: 800;}
 
-line[isoline],
-{z-index: 801;}
-
 node[place=continent]
 {z-index: 999;}
 
@@ -65,8 +62,6 @@ node[man_made=breakwater],
 line[waterway=dam],
 line[waterway=weir],
 node[waterway=weir],
-area[landuse=military],
-node[landuse=military]
 {z-index: 1000;}
 
 node[place=state]
@@ -236,6 +231,9 @@ node|z4[place=city][capital!=2][population>=1000000],
 {font-size: 9;text-halo-opacity: 0.7;}
 node|z4[place=city][capital!=2][population>=1000000]::int_name
 {font-size: 8;text-halo-opacity: 0.7;}
+
+node|z4-[place=city][capital=2][population>=0],
+{text-optional: false;}
 
 node|z4[place=city][capital=2][population>=0],
 {icon-image: star-s.svg;text-offset: 1;font-size: 10;}
@@ -668,7 +666,8 @@ node|z16-[building]::int_name,
 area|z16-[addr:housenumber][addr:street]::int_name,
 node|z16-[addr:housenumber][addr:street]::int_name
 {text:int_name;text-color: @building_label;text-position: center;}
-node|z18-[entrance],
+node|z19-[entrance],
+node|z18-[entrance=main],
 node|z18-[amenity=loading_dock],
 {text-color: @building_label;}
 
@@ -716,9 +715,11 @@ area|z18-[addr:housenumber][addr:street]::int_name,
 node|z18-[addr:housenumber][addr:street]::int_name
 {font-size: 10;}
 
-node|z18-[entrance],
+node|z19-[entrance],
 node|z18-[amenity=loading_dock],
 {icon-image: entrance-s.svg;font-size: 10;text: ref;text-offset-x: 1;}
+node|z18-[entrance=main],
+{icon-image: main_entrance-s.svg;font-size: 10;text: ref;text-offset-x: 1;}
 node|z19-[entrance]::flats
 {text: "addr:flats";font-size: 12;text-offset-y: 10;}
 

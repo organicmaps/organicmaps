@@ -1,10 +1,1 @@
-• Novos dados OSM de 16/12
-• Suporte ao KML 2.3 com múltiplas geometrias do OpenTracks
-• Renderização mais rápida de arquivos KML
-• Melhoria no roteamento
-• Correção das mensagens irritantes "Ativar localização"
-• Ícones aprimorados para o modo noturno
-• Nomes duplicados corrigidos no mapa-múndi
-• Correção dos ícones de metrô em algumas cidades
-• Adição de TTS para es-mx, nb e pt-br
-…mais: omaps.app/news
+../../listings/pt-BR/release-notes.txt

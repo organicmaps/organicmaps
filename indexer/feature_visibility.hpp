@@ -1,14 +1,9 @@
 #pragma once
 
 #include "indexer/drawing_rule_def.hpp"
-#include "indexer/feature.hpp"
 #include "indexer/feature_decl.hpp"
 
-#include "base/base.hpp"
-
-#include <cstdint>
 #include <initializer_list>
-#include <string>
 #include <utility>
 #include <vector>
 
@@ -21,15 +16,15 @@ namespace feature
   bool IsCategoryNondrawableType(uint32_t type);
   bool IsUsefulType(uint32_t type);
   bool IsDrawableForIndex(FeatureType & ft, int level);
-  bool IsDrawableForIndex(TypesHolder const & types, m2::RectD limitRect, int level);
+  bool IsDrawableForIndex(TypesHolder const & types, m2::RectD const & limitRect, int level);
 
   // The separation into ClassifOnly and GeometryOnly versions is needed to speed up
   // the geometrical index (see indexer/scale_index_builder.hpp).
   // Technically, the GeometryOnly version uses the classificator, but it only does
   // so when checking against coastlines.
-  bool IsDrawableForIndexClassifOnly(TypesHolder const & types, int level);
+  //bool IsDrawableForIndexClassifOnly(TypesHolder const & types, int level);
   bool IsDrawableForIndexGeometryOnly(FeatureType & ft, int level);
-  bool IsDrawableForIndexGeometryOnly(TypesHolder const & types, m2::RectD limitRect, int level);
+  //bool IsDrawableForIndexGeometryOnly(TypesHolder const & types, m2::RectD const & limitRect, int level);
 
   /// @name Generator check functions.
   /// @{
@@ -43,8 +38,8 @@ namespace feature
   /// @}
 
   int GetMinDrawableScale(FeatureType & ft);
-  int GetMinDrawableScale(TypesHolder const & types, m2::RectD limitRect);
-  int GetMinDrawableScaleGeometryOnly(TypesHolder const & types, m2::RectD limitRect);
+  int GetMinDrawableScale(TypesHolder const & types, m2::RectD const & limitRect);
+  //int GetMinDrawableScaleGeometryOnly(TypesHolder const & types, m2::RectD limitRect);
   int GetMinDrawableScaleClassifOnly(TypesHolder const & types);
 
   /// @return [-1, -1] if range is not drawable
@@ -66,7 +61,6 @@ namespace feature
   std::pair<int, int> GetDrawableScaleRangeForRules(TypesHolder const & types, int rules);
   //@}
 
-  /// @return (geometry type, is coastline)
   void GetDrawRule(TypesHolder const & types, int level, drule::KeysT & keys);
   void GetDrawRule(std::vector<uint32_t> const & types, int level, GeomType geomType, drule::KeysT & keys);
   void FilterRulesByRuntimeSelector(FeatureType & f, int zoomLevel, drule::KeysT & keys);
@@ -95,4 +89,4 @@ namespace feature
       return IsEqualR(v.begin(), v.end());
     }
   };
-}
+} // namespace feature

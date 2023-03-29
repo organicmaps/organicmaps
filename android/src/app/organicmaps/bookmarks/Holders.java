@@ -22,6 +22,7 @@ import app.organicmaps.bookmarks.data.BookmarkInfo;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.Track;
 import app.organicmaps.location.LocationHelper;
+import app.organicmaps.util.Utils;
 import app.organicmaps.widget.recycler.RecyclerClickListener;
 import app.organicmaps.widget.recycler.RecyclerLongClickListener;
 import app.organicmaps.util.Graphics;
@@ -306,7 +307,7 @@ public class Holders
     {
       mView.setOnClickListener(v -> {
         if (listener != null)
-          listener.onItemClick(v, getAdapterPosition());
+          listener.onItemClick(v, getBindingAdapterPosition());
       });
     }
 
@@ -314,7 +315,7 @@ public class Holders
     {
       mView.setOnLongClickListener(v -> {
         if (listener != null)
-          listener.onLongItemClick(v, getAdapterPosition());
+          listener.onLongItemClick(v, getBindingAdapterPosition());
         return true;
       });
     }
@@ -452,7 +453,7 @@ public class Holders
                       ? category.getDescription()
                       : category.getAnnotation();
 
-        Spanned spannedDesc = Html.fromHtml(desc);
+        Spanned spannedDesc = Utils.fromHtml(desc);
         mDescText.setText(spannedDesc);
       }
     }

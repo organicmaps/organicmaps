@@ -8,6 +8,7 @@ import androidx.core.app.JobIntentService;
 import app.organicmaps.util.CrashlyticsUtils;
 import app.organicmaps.util.log.Logger;
 
+@SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/4531
 public abstract class MwmJobIntentService extends JobIntentService
 {
   private static final String TAG = MwmJobIntentService.class.getSimpleName();

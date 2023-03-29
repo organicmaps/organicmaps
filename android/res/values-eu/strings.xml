@@ -35,6 +35,9 @@
 	<string name="country_status_download_failed">Errore bat deskargatzean</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Saiatu berriro</string>
+	<string name="about_menu_title">Organic Maps buruz</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Bateria aurrezten du, ez du atzeko planoko daturik erabiltzen</string>
 	<string name="connection_settings">Konexio ezarpenak</string>
 	<string name="close">Itxi</string>
 	<string name="unsupported_phone">Aplikazioak hardware-azeleratutako OpenGL behar du. Zoritxarrez, zure gailua ez da onartzen.</string>
@@ -195,6 +198,8 @@
 	<string name="pref_map_3d_title">Perspektiba ikuspegia</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D eraikinak</string>
+	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+	<string name="pref_map_3d_buildings_disabled_summary">3D eraikinak itzalita daude energia aurrezteko moduan</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Ahots argibideak</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -222,7 +227,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Dohaintza eman</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Nola lagundu diguzu?</string>
+	<string name="how_to_support_us">Proiektuari laguntza ematea</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Copyright</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -428,7 +433,6 @@
 	<string name="editor_report_problem_other_title">Beste arazo bat</string>
 	<string name="placepage_add_business_button">Negozioa gehitu</string>
 	<string name="message_invalid_feature_position">Hemen ezin da objekturik jarri</string>
-	<string name="osm_presentation">Maparen datu guztiak OpenStreetMap proiektutik datoz. Tokiak gehitu edo edita ditzakezun mapetarako Wikipedia bezalakoa da, eta mundu osoko milioika erabiltzaileren eskura jartzen dira.</string>
 	<string name="login_to_make_edits_visible">Hasi saioa beste erabiltzaileek zuk egindako aldaketak ikus ditzaten.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>
@@ -436,8 +440,8 @@
 	<string name="download_over_mobile_message">Oso garestia izan daiteke plan batzuekin edo datu-ibiltaritzarekin.</string>
 	<string name="error_enter_correct_house_number">Sartu etxe-zenbaki zuzena</string>
 	<string name="editor_storey_number">Solairu kopurua (gehienez %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Landare kopurua ez da 25etik gorakoa izan behar</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Landare kopurua ez da %detik gorakoa izan behar</string>
 	<string name="editor_zip_code">Posta kodea</string>
 	<string name="error_enter_correct_zip_code">Mesedez, idatzi posta-kode zuzena</string>
 	<!-- Place Page title for long tap -->
@@ -705,7 +709,8 @@
 	<string name="type.amenity.car_wash">Kotxe garbiketa</string>
 	<string name="type.amenity.casino">Kasinoa</string>
 	<string name="type.amenity.charging_station">Kargatzeko geltokia</string>
-	<string name="type.amenity.charging_station.motorcar">Kargatzeko geltokia</string>
+	<string name="type.amenity.charging_station.bicycle">Bizikletak kargatzeko geltokia</string>
+	<string name="type.amenity.charging_station.motorcar">Autoak kargatzeko geltokia</string>
 	<string name="type.amenity.childcare">Haurtzaindegia</string>
 	<string name="type.amenity.cinema">Filmak</string>
 	<string name="type.leisure.bowling_alley">Bolatokia</string>
@@ -717,6 +722,7 @@
 	<string name="type.amenity.doctors">Kontsulta medikoa</string>
 	<string name="type.amenity.drinking_water">Ur edangarria</string>
 	<string name="type.amenity.driving_school">Autoeskola</string>
+	<string name="type.amenity.money_transfer">Diru transferentzia</string>
 	<string name="type.amenity.music_school">Musika Eskola</string>
 	<string name="type.amenity.language_school">Hizkuntza Eskola</string>
 	<string name="type.office.diplomatic">Enbaxada</string>
@@ -736,6 +742,7 @@
 	<string name="type.amenity.internet_cafe">Cyberkafea</string>
 	<string name="type.amenity.kindergarten">Haurtzaindegia</string>
 	<string name="type.amenity.library">Liburutegia</string>
+	<string name="type.amenity.loading_dock">Kargatzeko kaia</string>
 	<string name="type.amenity.marketplace">Merkatua</string>
 	<string name="type.amenity.motorcycle_parking">Motoentzako aparkalekua</string>
 	<string name="type.amenity.nightclub">Diskoteka</string>
@@ -875,6 +882,8 @@
 	<string name="type.craft.handicraft">Eskulangintza</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Aire girotua</string>
+	<string name="type.craft.key_cutter">Giltza-mozketa</string>
+	<string name="type.craft.locksmith">Sarrailagilea</string>
 	<string name="type.craft.metal_construction">Metalgintzako langilea</string>
 	<string name="type.craft.painter">Margolaria</string>
 	<string name="type.craft.photographer">Argazkilaria</string>
@@ -972,15 +981,27 @@
 	<string name="type.emergency.defibrillator">Desfibriladorea</string>
 	<string name="type.emergency.fire_hydrant">Suteen hidrantea</string>
 	<string name="type.emergency.phone">Larrialdi zenbakia</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Sarrera</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Sarrera Nagusia</string>
 	<string name="type.healthcare.laboratory">Medikuntza laborategia</string>
 	<string name="type.healthcare.physiotherapist">Fisioterapeuta</string>
+	<string name="type.healthcare.alternative">Medikuntza alternatiboa</string>
+	<string name="type.healthcare.audiologist">Audiologia</string>
+	<string name="type.healthcare.blood_donation">Odol Emate Zentroa</string>
+	<string name="type.healthcare.optometrist">Optometria</string>
+	<string name="type.healthcare.podiatrist">Podologia</string>
+	<string name="type.healthcare.psychotherapist">Psikoterapia</string>
+	<string name="type.healthcare.sample_collection">Laginketa</string>
+	<string name="type.healthcare.speech_therapist">Logopedia</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">Zubia</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunel</string>
+	<string name="type.highway.busway">Autobus errepidea</string>
 	<string name="type.highway.bus_stop">Autobus geltokia</string>
 	<string name="type.highway.construction">Eraikitzen ari diren errepidea</string>
 	<string name="type.highway.cycleway">Bizikletabidea</string>
@@ -1220,6 +1241,7 @@
 	<string name="type.man_made.lighthouse">Itsasargia</string>
 	<string name="type.man_made.surveillance">Zaintza Kamera</string>
 	<string name="type.man_made.tower">Dorrea</string>
+	<string name="type.man_made.tower.communication">Komunikazio Dorrea</string>
 	<string name="type.man_made.water_tap">Ura hartzea</string>
 	<string name="type.man_made.water_tower">Ur depositua</string>
 	<string name="type.man_made.water_well">Ur putzua</string>
@@ -1307,6 +1329,16 @@
 	<string name="type.place.suburb">Auzoa</string>
 	<string name="type.place.town">Herria</string>
 	<string name="type.place.village">Herria</string>
+	<string name="type.power.generator.solar">Eguzki-sorgailua</string>
+	<string name="type.power.generator.wind">Sorgailu eolikoa</string>
+	<string name="type.power.generator.gas">Gas-turbinetako zentral elektrikoa</string>
+	<string name="type.power.generator.hydro">Zentral hidroelektrikoa</string>
+	<string name="type.power.plant">Elektrizitate-parkea</string>
+	<string name="type.power.plant.coal">Ikatz zentrala</string>
+	<string name="type.power.plant.gas">Gas-turbinetako zentral elektrikoa</string>
+	<string name="type.power.plant.hydro">Zentral hidroelektrikoa</string>
+	<string name="type.power.plant.solar">Eguzki-zentrala</string>
+	<string name="type.power.plant.wind">Zentral eolikoa</string>
 	<string name="type.power.pole">Zutabe elektrikoa</string>
 	<string name="type.power.substation">Azpiestazioa</string>
 	<string name="type.power.tower">Zutabe elektrikoa</string>
@@ -1331,6 +1363,7 @@
 	<string name="type.railway.station.subway.beijing">Metroa</string>
 	<string name="type.railway.station.subway.bengalore">Metroa</string>
 	<string name="type.railway.station.subway.berlin">Metroa</string>
+	<string name="type.railway.station.subway.bilbao">Metroa</string>
 	<string name="type.railway.station.subway.brasilia">Metroa</string>
 	<string name="type.railway.station.subway.brescia">Metroa</string>
 	<string name="type.railway.station.subway.brussels">Metroa</string>
@@ -1440,6 +1473,7 @@
 	<string name="type.railway.subway_entrance.beijing">Metroko sarrera</string>
 	<string name="type.railway.subway_entrance.bengalore">Metroko sarrera</string>
 	<string name="type.railway.subway_entrance.berlin">Metroko sarrera</string>
+	<string name="type.railway.subway_entrance.bilbao">Metroko sarrera</string>
 	<string name="type.railway.subway_entrance.brasilia">Metroko sarrera</string>
 	<string name="type.railway.subway_entrance.brescia">Metroko sarrera</string>
 	<string name="type.railway.subway_entrance.brussels">Metroko sarrera</string>
@@ -1540,16 +1574,19 @@
 	<string name="type.shop">Denda</string>
 	<string name="type.shop.alcohol">Likore-denda</string>
 	<string name="type.shop.bakery">Okindegia</string>
+	<string name="type.shop.bathroom_furnishing">Bainugelako altzariak</string>
 	<string name="type.shop.beauty">Apaindegia</string>
 	<string name="type.shop.beverages">Edariak</string>
 	<string name="type.shop.bicycle">Bizikleta denda</string>
 	<string name="type.shop.bookmaker">Apustu etxea</string>
 	<string name="type.shop.books">Liburudenda</string>
 	<string name="type.shop.butcher">Harategia</string>
+	<string name="type.shop.cannabis">Cannabis denda</string>
 	<string name="type.shop.car">Autoen salmenta</string>
 	<string name="type.shop.car_parts">Autoen piezak</string>
 	<string name="type.shop.car_repair">Tailerra</string>
 	<string name="type.shop.car_repair.tyres">Pneumatikoen konponketa</string>
+	<string name="type.shop.carpet">Alfonbrak</string>
 	<string name="type.shop.chemist">Botika</string>
 	<string name="type.shop.chocolate">Denda</string>
 	<string name="type.shop.clothes">Arropa denda</string>
@@ -1559,6 +1596,7 @@
 	<string name="type.shop.convenience">Auzoko denda</string>
 	<string name="type.shop.copyshop">Kopiatu zentroa</string>
 	<string name="type.shop.cosmetics">Produktu kosmetikoak</string>
+	<string name="type.shop.curtain">Gortinak</string>
 	<string name="type.shop.deli">Delicatesen Denda</string>
 	<string name="type.shop.department_store">Denda handiak</string>
 	<string name="type.shop.doityourself">Burdindegia</string>
@@ -1567,16 +1605,20 @@
 	<string name="type.shop.erotic">Sexu denda</string>
 	<string name="type.shop.fabric">Denda</string>
 	<string name="type.shop.farm">Baserriko Janari Denda</string>
+	<string name="type.shop.fashion_accessories">Moda Osagarriak</string>
 	<string name="type.shop.florist">Loradenda</string>
 	<string name="type.shop.funeral_directors">Tanatorioa</string>
 	<string name="type.shop.furniture">Altzari denda</string>
 	<string name="type.shop.garden_centre">Haurtzaindegia</string>
+	<string name="type.shop.gas">Gas biltegia</string>
 	<string name="type.shop.gift">Denda</string>
 	<string name="type.shop.greengrocer">Fruta denda</string>
 	<string name="type.shop.grocery">Janariak</string>
 	<string name="type.shop.hairdresser">Barber-denda</string>
 	<string name="type.shop.hardware">Hardware denda</string>
 	<string name="type.shop.health_food">Osasuneko Elikagaien Denda</string>
+	<string name="type.shop.herbalist">Belar denda</string>
+	<string name="type.shop.hifi">HiFi Audioa</string>
 	<string name="type.shop.houseware">Etxeko tresneria denda</string>
 	<string name="type.shop.jewelry">Bitxiak</string>
 	<string name="type.shop.kiosk">Kioskoa</string>
@@ -1587,14 +1629,17 @@
 	<string name="type.shop.mobile_phone">Mugikorra</string>
 	<string name="type.shop.money_lender">Denda</string>
 	<string name="type.shop.motorcycle">Moto denda</string>
+	<string name="type.shop.motorcycle_repair">Motoen Konponketa</string>
 	<string name="type.shop.music">Denda</string>
 	<string name="type.shop.musical_instrument">Denda</string>
 	<string name="type.shop.newsagent">Kioskoa</string>
 	<string name="type.shop.optician">Optika</string>
 	<string name="type.shop.outdoor">Ekipamendua</string>
+	<string name="type.shop.outpost">Jasotzeko puntua</string>
 	<string name="type.shop.pastry">Gozogintza</string>
 	<string name="type.shop.pawnbroker">Peoia</string>
 	<string name="type.shop.pet">Animali denda</string>
+	<string name="type.shop.pet_grooming">Animalien apainketa</string>
 	<string name="type.shop.photo">Argazkilaritza artikuluak</string>
 	<string name="type.shop.seafood">Arrain-denda</string>
 	<string name="type.shop.second_hand">Bigarren eskuko denda</string>
@@ -1612,10 +1657,13 @@
 	<string name="type.shop.video">Bideo-denda</string>
 	<string name="type.shop.video_games">Bideo-jokoen denda</string>
 	<string name="type.shop.wine">Ardo-denda</string>
+	<string name="type.shop.agrarian">Nekazaritza denda</string>
 	<string name="type.shop.antiques">Antigoalekoak</string>
+	<string name="type.shop.appliance">Etxetresna elektrikoen denda</string>
 	<string name="type.shop.art">Arte Denda</string>
 	<string name="type.shop.baby_goods">Haurrentzako denda</string>
 	<string name="type.shop.bag">Poltsen Denda</string>
+	<string name="type.shop.bed">Ohe denda</string>
 	<string name="type.shop.boutique">Boutique</string>
 	<string name="type.shop.charity">Ongintzazko Denda</string>
 	<string name="type.shop.cheese">Gazta Denda</string>

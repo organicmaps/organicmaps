@@ -1,5 +1,6 @@
 package app.organicmaps.help;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -38,13 +39,23 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
     mDonateUrl = Config.getDonateUrl();
+    if (TextUtils.isEmpty(mDonateUrl) && !BuildConfig.FLAVOR.equals("google") && !BuildConfig.FLAVOR.equals("huawei"))
+      mDonateUrl = getResources().getString(R.string.translated_om_site_url) + "donate/";
+
     View root = inflater.inflate(R.layout.about, container, false);
 
     ((TextView) root.findViewById(R.id.version))
         .setText(BuildConfig.VERSION_NAME);
 
-    ((TextView) root.findViewById(R.id.data_version))
-        .setText(getString(R.string.data_version, DateUtils.getLocalDate(Framework.nativeGetDataVersion())));
+    final boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+
+    final String dataVersion = DateUtils.getShortDateFormatter().format(Framework.getDataVersion());
+    final TextView dataVersionView = (TextView) root.findViewById(R.id.data_version);
+    if (dataVersionView != null)
+      dataVersionView.setText(getString(R.string.data_version, dataVersion));
+    final TextView osmPresentationView = (TextView) root.findViewById(R.id.osm_presentation);
+    if (osmPresentationView != null)
+      osmPresentationView.setText(getString(R.string.osm_presentation, dataVersion));
 
     setupItem(R.id.news, true, root);
     setupItem(R.id.web, true, root);
@@ -58,34 +69,25 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     setupItem(R.id.mastodon, false, root);
     setupItem(R.id.openstreetmap, true, root);
     setupItem(R.id.faq, true, root);
-    setupItem(R.id.report, true, root);
-    if (TextUtils.isEmpty(mDonateUrl))
-    {
-      final TextView donateView = root.findViewById(R.id.donate);
-      donateView.setVisibility(View.GONE);
-      if (BuildConfig.FLAVOR.equals("google"))
-      {
-        final TextView supportUsView = root.findViewById(R.id.support_us);
-        supportUsView.setVisibility(View.GONE);
-      }
-      else
-        setupItem(R.id.support_us, true, root);
-    }
+    setupItem(R.id.report, isLandscape, root);
+
+    final TextView supportUsView = root.findViewById(R.id.support_us);
+    if (BuildConfig.FLAVOR.equals("google") && !TextUtils.isEmpty(mDonateUrl))
+      supportUsView.setVisibility(View.GONE);
     else
-    {
-      if (Config.isNY())
-      {
-        final TextView textView = setupItem(R.id.donate, false, root);
-        textView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_christmas_tree, 0, R.drawable.ic_christmas_tree, 0);
-      }
-      else
-        setupItem(R.id.donate, true, root);
       setupItem(R.id.support_us, true, root);
-    }
+
+    final TextView donateView = root.findViewById(R.id.donate);
+    if (TextUtils.isEmpty(mDonateUrl))
+      donateView.setVisibility(View.GONE);
+    else
+      setupItem(R.id.donate, isLandscape, root);
+
     if (BuildConfig.REVIEW_URL.isEmpty())
       root.findViewById(R.id.rate).setVisibility(View.GONE);
     else
       setupItem(R.id.rate, true, root);
+
     setupItem(R.id.copyright, false, root);
     View termOfUseView = root.findViewById(R.id.term_of_use_link);
     View privacyPolicyView = root.findViewById(R.id.privacy_policy);
@@ -135,7 +137,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     else if (id == R.id.mastodon)
       openLink(Constants.Url.MASTODON);
     else if (id == R.id.openstreetmap)
-      openLink(Constants.Url.OSM_ABOUT);
+      openLink(getString(R.string.osm_wiki_about_url));
     else if (id == R.id.faq)
       ((HelpActivity) requireActivity()).stackFragment(FaqFragment.class, getString(R.string.faq), null);
     else if (id == R.id.report)

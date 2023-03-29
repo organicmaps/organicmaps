@@ -10,8 +10,11 @@
 #import "location_util.h"
 
 #import <CoreApi/CoreApi.h>
+#import <CoreApi/StringUtils.h>
 
 #include "platform/downloader_defines.hpp"
+
+#include "indexer/validate_and_format_contacts.hpp"
 
 using namespace storage;
 
@@ -238,19 +241,28 @@ using namespace storage;
 }
 
 - (void)openFacebook:(PlacePageData *)data {
-  [self.ownerViewController openUrl:[NSString stringWithFormat:@"https://m.facebook.com/%@", data.infoData.facebook]];
+  std::string const fullUrl = osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_FACEBOOK, [data.infoData.facebook UTF8String]);
+  [self.ownerViewController openUrl:ToNSString(fullUrl)];
 }
 
 - (void)openInstagram:(PlacePageData *)data {
-  [self.ownerViewController openUrl:[NSString stringWithFormat:@"https://instagram.com/%@", data.infoData.instagram]];
+  std::string const fullUrl = osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_INSTAGRAM, [data.infoData.instagram UTF8String]);
+  [self.ownerViewController openUrl:ToNSString(fullUrl)];
 }
 
 - (void)openTwitter:(PlacePageData *)data {
-  [self.ownerViewController openUrl:[NSString stringWithFormat:@"https://mobile.twitter.com/%@", data.infoData.twitter]];
+  std::string const fullUrl = osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_TWITTER, [data.infoData.twitter UTF8String]);
+  [self.ownerViewController openUrl:ToNSString(fullUrl)];
 }
 
 - (void)openVk:(PlacePageData *)data {
-  [self.ownerViewController openUrl:[NSString stringWithFormat:@"https://vk.com/%@", data.infoData.vk]];
+  std::string const fullUrl = osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_VK, [data.infoData.vk UTF8String]);
+  [self.ownerViewController openUrl:ToNSString(fullUrl)];
+}
+
+- (void)openLine:(PlacePageData *)data {
+  std::string const fullUrl = osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_LINE, [data.infoData.line UTF8String]);
+  [self.ownerViewController openUrl:ToNSString(fullUrl)];
 }
 
 - (void)openEmail:(PlacePageData *)data {

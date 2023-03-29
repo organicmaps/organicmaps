@@ -226,6 +226,9 @@
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3Dビルディング";
 
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "省電力モードで建物の 3D 表示がオフになっている";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "音声指示";
 
@@ -304,7 +307,7 @@
 "donate" = "寄付";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "どのように私たちを支持する方法？";
+"how_to_support_us" = "プロジェクトを支援する";
 
 /* Button in the main Help dialog */
 "copyright" = "著作権";
@@ -710,8 +713,8 @@
 
 "editor_storey_number" = "フロアの数（最大%d）";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "最高25階までのビルを編集";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "最高%d階までのビルを編集";
 
 "editor_zip_code" = "郵便番号";
 
@@ -1236,6 +1239,9 @@
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/";
 
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/JA:参加する";
+
 
 /********** Types **********/
 
@@ -1311,7 +1317,9 @@
 
 "type.amenity.charging_station" = "充電ステーション";
 
-"type.amenity.charging_station.motorcar" = "充電ステーション";
+"type.amenity.charging_station.bicycle" = "自転車充電ステーション";
+
+"type.amenity.charging_station.motorcar" = "自動車充電ステーション";
 
 "type.amenity.childcare" = "託児所";
 
@@ -1334,6 +1342,8 @@
 "type.amenity.drinking_water" = "水飲み場";
 
 "type.amenity.driving_school" = "自動車教習所";
+
+"type.amenity.money_transfer" = "送金";
 
 "type.amenity.music_school" = "音楽学校";
 
@@ -1370,6 +1380,8 @@
 "type.amenity.kindergarten" = "幼稚園";
 
 "type.amenity.library" = "図書館";
+
+"type.amenity.loading_dock" = "発送センター";
 
 "type.amenity.marketplace" = "市場";
 
@@ -1653,6 +1665,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "冷暖房空調";
 
+"type.craft.key_cutter" = "キーカット";
+
+"type.craft.locksmith" = "錠前屋";
+
 "type.craft.metal_construction" = "金属工";
 
 "type.craft.painter" = "塗装工";
@@ -1849,11 +1865,31 @@
 
 "type.emergency.phone" = "緊急電話";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "エントランス";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "正面玄関";
 
 "type.healthcare.laboratory" = "医療研究所";
 
 "type.healthcare.physiotherapist" = "理学療法士";
+
+"type.healthcare.alternative" = "代替医療";
+
+"type.healthcare.audiologist" = "オーディオロジー";
+
+"type.healthcare.blood_donation" = "献血センター";
+
+"type.healthcare.optometrist" = "オプトメトリー";
+
+"type.healthcare.podiatrist" = "足病学";
+
+"type.healthcare.psychotherapist" = "心理療法";
+
+"type.healthcare.sample_collection" = "サンプリング";
+
+"type.healthcare.speech_therapist" = "ロゴペディックス";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1905,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "馬道(トンネル)";
+
+"type.highway.busway" = "バス専用道路";
 
 "type.highway.bus_stop" = "バス停";
 
@@ -2431,6 +2469,8 @@
 
 "type.man_made.tower" = "タワー";
 
+"type.man_made.tower.communication" = "通信塔";
+
 "type.man_made.wastewater_plant" = "下水処理場";
 
 "type.man_made.water_tap" = "給水栓";
@@ -2623,11 +2663,31 @@
 
 "type.power.generator" = "発電機";
 
+"type.power.generator.solar" = "太陽光発電機";
+
+"type.power.generator.wind" = "風力発電機";
+
+"type.power.generator.gas" = "ガスタービン発電所";
+
+"type.power.generator.hydro" = "水力発電所";
+
 "type.power.line" = "電力線";
 
 "type.power.line.underground" = "地下電力線";
 
 "type.power.minor_line" = "低圧電力線";
+
+"type.power.plant" = "発電所";
+
+"type.power.plant.coal" = "石炭火力発電所";
+
+"type.power.plant.gas" = "ガスタービン発電所";
+
+"type.power.plant.hydro" = "水力発電所";
+
+"type.power.plant.solar" = "太陽光発電所";
+
+"type.power.plant.wind" = "風力発電所";
 
 "type.power.pole" = "電柱";
 
@@ -2754,6 +2814,8 @@
 "type.railway.station.subway.bengalore" = "地下鉄";
 
 "type.railway.station.subway.berlin" = "地下鉄";
+
+"type.railway.station.subway.bilbao" = "地下鉄";
 
 "type.railway.station.subway.brasilia" = "地下鉄";
 
@@ -2979,6 +3041,8 @@
 
 "type.railway.subway_entrance.berlin" = "地下鉄入り口";
 
+"type.railway.subway_entrance.bilbao" = "地下鉄入り口";
+
 "type.railway.subway_entrance.brasilia" = "地下鉄入り口";
 
 "type.railway.subway_entrance.brescia" = "地下鉄入り口";
@@ -3197,6 +3261,8 @@
 
 "type.shop.bakery" = "パン屋";
 
+"type.shop.bathroom_furnishing" = "バスルームの備品";
+
 "type.shop.beauty" = "ビューティーサロン";
 
 "type.shop.beverages" = "ドリンク";
@@ -3209,6 +3275,8 @@
 
 "type.shop.butcher" = "肉屋";
 
+"type.shop.cannabis" = "大麻店";
+
 "type.shop.car" = "カーディーラー";
 
 "type.shop.car_parts" = "車両部品";
@@ -3218,6 +3286,8 @@
 "type.shop.car_repair.tyres" = "タイヤ修理";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "カーペット";
 
 "type.shop.chemist" = "化学薬品店";
 
@@ -3237,6 +3307,8 @@
 
 "type.shop.cosmetics" = "化粧品";
 
+"type.shop.curtain" = "カーテン";
+
 "type.shop.deli" = "デリカテッセンショップ";
 
 "type.shop.department_store" = "デパート";
@@ -3253,6 +3325,8 @@
 
 "type.shop.farm" = "ファームフードショップ";
 
+"type.shop.fashion_accessories" = "ファッションアクセサリー";
+
 "type.shop.florist" = "フローリスト/花屋";
 
 "type.shop.funeral_directors" = "葬儀屋";
@@ -3260,6 +3334,8 @@
 "type.shop.furniture" = "家具店";
 
 "type.shop.garden_centre" = "ガーデンセンター";
+
+"type.shop.gas" = "ガス屋";
 
 "type.shop.gift" = "ギフトショップ";
 
@@ -3272,6 +3348,10 @@
 "type.shop.hardware" = "ホームセンター";
 
 "type.shop.health_food" = "健康食品店";
+
+"type.shop.herbalist" = "ハーブ店";
+
+"type.shop.hifi" = "ハイファイオーディオ";
 
 "type.shop.houseware" = "家庭用品店";
 
@@ -3293,6 +3373,8 @@
 
 "type.shop.motorcycle" = "バイクショップ";
 
+"type.shop.motorcycle_repair" = "オートバイの修理";
+
 "type.shop.music" = "CDショップ";
 
 "type.shop.musical_instrument" = "楽器店";
@@ -3303,11 +3385,15 @@
 
 "type.shop.outdoor" = "アウトドア用品店";
 
+"type.shop.outpost" = "集荷場";
+
 "type.shop.pastry" = "ペストリー";
 
 "type.shop.pawnbroker" = "質屋";
 
 "type.shop.pet" = "ペットショップ";
+
+"type.shop.pet_grooming" = "ペットグルーミング";
 
 "type.shop.photo" = "写真屋";
 
@@ -3343,13 +3429,19 @@
 
 "type.shop.wine" = "ワイン店";
 
+"type.shop.agrarian" = "農産物直売所";
+
 "type.shop.antiques" = "骨董品";
+
+"type.shop.appliance" = "家電店";
 
 "type.shop.art" = "アートショップ";
 
 "type.shop.baby_goods" = "キッズストア";
 
 "type.shop.bag" = "バッグストア";
+
+"type.shop.bed" = "ベッドショップ";
 
 "type.shop.boutique" = "ブティック";
 

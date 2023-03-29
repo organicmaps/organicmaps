@@ -15,7 +15,7 @@ set(SRC
   app/organicmaps/opengl/androidoglcontextfactory.hpp
   app/organicmaps/opengl/gl3stub.h
   app/organicmaps/platform/GuiThread.hpp
-  app/organicmaps/platform/Platform.hpp
+  app/organicmaps/platform/AndroidPlatform.hpp
   app/organicmaps/util/FeatureIdBuilder.hpp
   app/organicmaps/vulkan/android_vulkan_context_factory.hpp
 
@@ -30,7 +30,6 @@ set(SRC
   app/organicmaps/editor/OsmOAuth.cpp
   app/organicmaps/Framework.cpp
   app/organicmaps/isolines/IsolinesManager.cpp
-  app/organicmaps/LocationHelper.cpp
   app/organicmaps/LocationState.cpp
   app/organicmaps/Map.cpp
   app/organicmaps/MapManager.cpp
@@ -52,7 +51,7 @@ set(SRC
   app/organicmaps/platform/HttpThread.cpp
   app/organicmaps/platform/Language.cpp
   app/organicmaps/platform/Localization.cpp
-  app/organicmaps/platform/Platform.cpp
+  app/organicmaps/platform/AndroidPlatform.cpp
   app/organicmaps/platform/PThreadImpl.cpp
   app/organicmaps/platform/SecureStorage.cpp
   app/organicmaps/platform/SocketImpl.cpp

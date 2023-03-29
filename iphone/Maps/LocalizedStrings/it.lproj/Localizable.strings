@@ -226,6 +226,9 @@
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "Edifici 3D";
 
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "Gli edifici 3D sono disattivati in modalità di risparmio energetico";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Istruzioni vocali";
 
@@ -304,7 +307,7 @@
 "donate" = "Donare";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Come sostenerci?";
+"how_to_support_us" = "Sostieni il progetto";
 
 /* Button in the main Help dialog */
 "copyright" = "Copyright";
@@ -710,8 +713,8 @@
 
 "editor_storey_number" = "Numero di piani (massimo %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "Il numero di piani non deve superare 25";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Il numero di piani non deve superare %d";
 
 "editor_zip_code" = "Codice postale";
 
@@ -1236,6 +1239,9 @@
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/it/";
 
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/IT:About";
+
 
 /********** Types **********/
 
@@ -1311,7 +1317,9 @@
 
 "type.amenity.charging_station" = "Stazione di ricarica";
 
-"type.amenity.charging_station.motorcar" = "Stazione di ricarica";
+"type.amenity.charging_station.bicycle" = "Stazione di ricarica per biciclette";
+
+"type.amenity.charging_station.motorcar" = "Stazione di ricarica per autoveicoli";
 
 "type.amenity.childcare" = "Asilo";
 
@@ -1335,6 +1343,8 @@
 
 "type.amenity.driving_school" = "Scuola guida";
 
+"type.amenity.money_transfer" = "Trasferimento di denaro";
+
 "type.amenity.music_school" = "Scuola di Musica";
 
 "type.amenity.language_school" = "Scuola di lingue";
@@ -1345,7 +1355,7 @@
 
 "type.amenity.ferry_terminal" = "Traghetto";
 
-"type.amenity.fire_station" = "Scuadra antincendio";
+"type.amenity.fire_station" = "Squadra antincendio";
 
 "type.amenity.food_court" = "Area ristorazione";
 
@@ -1370,6 +1380,8 @@
 "type.amenity.kindergarten" = "Scuola materna";
 
 "type.amenity.library" = "Biblioteca";
+
+"type.amenity.loading_dock" = "Bacino di carico";
 
 "type.amenity.marketplace" = "Mercato";
 
@@ -1653,6 +1665,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Impianti HVAC";
 
+"type.craft.key_cutter" = "Taglio chiave";
+
+"type.craft.locksmith" = "Fabbro";
+
 "type.craft.metal_construction" = "Metalmeccanico";
 
 "type.craft.painter" = "Imbianchino";
@@ -1849,11 +1865,31 @@
 
 "type.emergency.phone" = "Telefono di emergenza";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Ingresso";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Entrata principale";
 
 "type.healthcare.laboratory" = "Laboratorio Medico";
 
 "type.healthcare.physiotherapist" = "Fisioterapista";
+
+"type.healthcare.alternative" = "Medicina alternativa";
+
+"type.healthcare.audiologist" = "Audiologia";
+
+"type.healthcare.blood_donation" = "Centro di donazione del sangue";
+
+"type.healthcare.optometrist" = "Optometria";
+
+"type.healthcare.podiatrist" = "Podologia";
+
+"type.healthcare.psychotherapist" = "Psicoterapia";
+
+"type.healthcare.sample_collection" = "Campionamento";
+
+"type.healthcare.speech_therapist" = "Logopedia";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1905,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunnel";
+
+"type.highway.busway" = "Strada dedicata agli autobus";
 
 "type.highway.bus_stop" = "Fermata dell'autobus";
 
@@ -2431,6 +2469,8 @@
 
 "type.man_made.tower" = "Torre";
 
+"type.man_made.tower.communication" = "Torre delle comunicazioni";
+
 "type.man_made.wastewater_plant" = "Impianto di trattamento delle acque reflue";
 
 "type.man_made.water_tap" = "Rubinetto dell'acqua";
@@ -2623,11 +2663,31 @@
 
 "type.power.generator" = "Generatore";
 
+"type.power.generator.solar" = "Generatore solare";
+
+"type.power.generator.wind" = "Generatore eolico";
+
+"type.power.generator.gas" = "Centrale elettrica a turbina a gas";
+
+"type.power.generator.hydro" = "Centrale idroelettrica";
+
 "type.power.line" = "Cavo elettrico";
 
 "type.power.line.underground" = "Underground Power Line";
 
 "type.power.minor_line" = "Cavo elettrico";
+
+"type.power.plant" = "Centrale elettrica";
+
+"type.power.plant.coal" = "Centrale elettrica a carbone";
+
+"type.power.plant.gas" = "Centrale elettrica a turbina a gas";
+
+"type.power.plant.hydro" = "Centrale idroelettrica";
+
+"type.power.plant.solar" = "Centrale solare";
+
+"type.power.plant.wind" = "Centrale eolica";
 
 "type.power.pole" = "Palo elettrico";
 
@@ -2754,6 +2814,8 @@
 "type.railway.station.subway.bengalore" = "Stazione della metrò";
 
 "type.railway.station.subway.berlin" = "Stazione della metrò";
+
+"type.railway.station.subway.bilbao" = "Stazione della metrò";
 
 "type.railway.station.subway.brasilia" = "Stazione della metrò";
 
@@ -2979,6 +3041,8 @@
 
 "type.railway.subway_entrance.berlin" = "Stazione metropolitana";
 
+"type.railway.subway_entrance.bilbao" = "Stazione metropolitana";
+
 "type.railway.subway_entrance.brasilia" = "Stazione metropolitana";
 
 "type.railway.subway_entrance.brescia" = "Stazione metropolitana";
@@ -3197,6 +3261,8 @@
 
 "type.shop.bakery" = "Panetteria";
 
+"type.shop.bathroom_furnishing" = "Arredo Bagno";
+
 "type.shop.beauty" = "Estetista";
 
 "type.shop.beverages" = "Bibite";
@@ -3209,6 +3275,8 @@
 
 "type.shop.butcher" = "Macellaio";
 
+"type.shop.cannabis" = "Negozio di cannabis";
+
 "type.shop.car" = "Concessionaria";
 
 "type.shop.car_parts" = "Ricambi auto";
@@ -3218,6 +3286,8 @@
 "type.shop.car_repair.tyres" = "Gommista";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "Tappeti";
 
 "type.shop.chemist" = "Negozio di detersivi";
 
@@ -3237,6 +3307,8 @@
 
 "type.shop.cosmetics" = "Cosmetici";
 
+"type.shop.curtain" = "Tende";
+
 "type.shop.deli" = "Negozio di specialità gastronomiche";
 
 "type.shop.department_store" = "Grandi magazzini";
@@ -3253,6 +3325,8 @@
 
 "type.shop.farm" = "Negozio di prodotti alimentari della fattoria";
 
+"type.shop.fashion_accessories" = "Accessori alla moda";
+
 "type.shop.florist" = "Fiorista";
 
 "type.shop.funeral_directors" = "Pompe funebri";
@@ -3260,6 +3334,8 @@
 "type.shop.furniture" = "Negozio di mobili";
 
 "type.shop.garden_centre" = "Vivaio";
+
+"type.shop.gas" = "Deposito di gas";
 
 "type.shop.gift" = "Negozio di regali";
 
@@ -3272,6 +3348,10 @@
 "type.shop.hardware" = "Ferramenta";
 
 "type.shop.health_food" = "Negozio di alimenti naturali";
+
+"type.shop.herbalist" = "Negozio di erbe";
+
+"type.shop.hifi" = "Audio ad alta fedeltà";
 
 "type.shop.houseware" = "Negozio di casalinghi";
 
@@ -3293,6 +3373,8 @@
 
 "type.shop.motorcycle" = "Negozio di moto";
 
+"type.shop.motorcycle_repair" = "Riparazione moto";
+
 "type.shop.music" = "Negozio di Dischi";
 
 "type.shop.musical_instrument" = "Negozio di strumenti";
@@ -3303,11 +3385,15 @@
 
 "type.shop.outdoor" = "Attrezzatura sportiva";
 
+"type.shop.outpost" = "Punto di raccolta";
+
 "type.shop.pastry" = "Pasticcino";
 
 "type.shop.pawnbroker" = "Pegni";
 
 "type.shop.pet" = "Negozio di animali";
+
+"type.shop.pet_grooming" = "Toelettatura per animali domestici";
 
 "type.shop.photo" = "Negozio di fotografia";
 
@@ -3343,13 +3429,19 @@
 
 "type.shop.wine" = "Enoteca";
 
+"type.shop.agrarian" = "Negozio agricolo";
+
 "type.shop.antiques" = "Oggetti d'antiquariato";
+
+"type.shop.appliance" = "Negozio di elettrodomestici";
 
 "type.shop.art" = "Negozio d'arte";
 
 "type.shop.baby_goods" = "Negozio per neonati";
 
 "type.shop.bag" = "Negozio di borse";
+
+"type.shop.bed" = "Negozio di letti";
 
 "type.shop.boutique" = "Boutique";
 

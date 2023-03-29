@@ -1,1 +1,0 @@
-mapes,offline,viatges,navegació,GPS,indicacions,ruta,caminada,bicicleta,ciclisme,openstreetmap,osm

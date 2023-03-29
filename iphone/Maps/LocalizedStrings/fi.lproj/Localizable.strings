@@ -226,6 +226,9 @@
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D-rakennukset";
 
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "3D-rakennukset sammutetaan virransäästötilassa";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Ääniohjeistukset";
 
@@ -304,7 +307,7 @@
 "donate" = "Lahjoittaa";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Kuinka tukea meitä?";
+"how_to_support_us" = "Tue projektia";
 
 /* Button in the main Help dialog */
 "copyright" = "Tekijänoikeudet";
@@ -710,8 +713,8 @@
 
 "editor_storey_number" = "Kerrosten määrä (maks. %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "Muokkaa kerroksia, enintään 25 kerrosta";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Muokkaa kerroksia, enintään %d kerrosta";
 
 "editor_zip_code" = "Postinumero";
 
@@ -1236,6 +1239,9 @@
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/";
 
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
 
 /********** Types **********/
 
@@ -1311,7 +1317,9 @@
 
 "type.amenity.charging_station" = "Latausasema";
 
-"type.amenity.charging_station.motorcar" = "Latausasema";
+"type.amenity.charging_station.bicycle" = "Polkupyörän latausasema";
+
+"type.amenity.charging_station.motorcar" = "Auton latausasema";
 
 "type.amenity.childcare" = "Päivähoito";
 
@@ -1334,6 +1342,8 @@
 "type.amenity.drinking_water" = "Juomavesi";
 
 "type.amenity.driving_school" = "Autokoulu";
+
+"type.amenity.money_transfer" = "Rahansiirto";
 
 "type.amenity.music_school" = "Musiikkikoulu";
 
@@ -1370,6 +1380,8 @@
 "type.amenity.kindergarten" = "Päiväkoti";
 
 "type.amenity.library" = "Kirjasto";
+
+"type.amenity.loading_dock" = "Lastauslaituri";
 
 "type.amenity.marketplace" = "Kauppatori";
 
@@ -1653,6 +1665,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Ilmastointilaite";
 
+"type.craft.key_cutter" = "Avaimen leikkaaminen";
+
+"type.craft.locksmith" = "Lukkoseppä";
+
 "type.craft.metal_construction" = "Metallimies";
 
 "type.craft.painter" = "Maalari";
@@ -1849,11 +1865,31 @@
 
 "type.emergency.phone" = "Hätäpuhelin";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Sisäänkäynti";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Pääsisäänkäynti";
 
 "type.healthcare.laboratory" = "Lääketieteellinen laboratorio";
 
 "type.healthcare.physiotherapist" = "Fysioterapeutti";
+
+"type.healthcare.alternative" = "Vaihtoehtoinen lääketiede";
+
+"type.healthcare.audiologist" = "Audiologia";
+
+"type.healthcare.blood_donation" = "Verenluovutuskeskus";
+
+"type.healthcare.optometrist" = "Optometria";
+
+"type.healthcare.podiatrist" = "Jalkaterapia";
+
+"type.healthcare.psychotherapist" = "Psykoterapia";
+
+"type.healthcare.sample_collection" = "Näytteenotto";
+
+"type.healthcare.speech_therapist" = "Logopedia";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1905,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunneli";
+
+"type.highway.busway" = "Oma bussitie";
 
 "type.highway.bus_stop" = "Bussipysäkki";
 
@@ -2305,7 +2343,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "Kaatopaikka";
 
@@ -2323,9 +2361,9 @@
 
 "type.landuse.reservoir" = "Vesi";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 
@@ -2430,6 +2468,8 @@
 "type.man_made.surveillance" = "Valvontakamera";
 
 "type.man_made.tower" = "Torni";
+
+"type.man_made.tower.communication" = "Viestintätorni";
 
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
@@ -2623,11 +2663,31 @@
 
 "type.power.generator" = "Generator";
 
+"type.power.generator.solar" = "Aurinkogeneraattori";
+
+"type.power.generator.wind" = "Tuuligeneraattori";
+
+"type.power.generator.gas" = "Kaasuturbiinivoimala";
+
+"type.power.generator.hydro" = "Vesivoimalaitos";
+
 "type.power.line" = "Power Line";
 
 "type.power.line.underground" = "Underground Power Line";
 
 "type.power.minor_line" = "Minor Power Line";
+
+"type.power.plant" = "Voimalaitos";
+
+"type.power.plant.coal" = "Hiilivoimala";
+
+"type.power.plant.gas" = "Kaasuturbiinivoimala";
+
+"type.power.plant.hydro" = "Vesivoimalaitos";
+
+"type.power.plant.solar" = "Aurinkovoimala";
+
+"type.power.plant.wind" = "Tuulivoimala";
 
 "type.power.pole" = "Sähköpylväs";
 
@@ -2754,6 +2814,8 @@
 "type.railway.station.subway.bengalore" = "Metro";
 
 "type.railway.station.subway.berlin" = "Metro";
+
+"type.railway.station.subway.bilbao" = "Metro";
 
 "type.railway.station.subway.brasilia" = "Metro";
 
@@ -2979,6 +3041,8 @@
 
 "type.railway.subway_entrance.berlin" = "Metron sisäänkäynti";
 
+"type.railway.subway_entrance.bilbao" = "Metron sisäänkäynti";
+
 "type.railway.subway_entrance.brasilia" = "Metron sisäänkäynti";
 
 "type.railway.subway_entrance.brescia" = "Metron sisäänkäynti";
@@ -3197,6 +3261,8 @@
 
 "type.shop.bakery" = "Leipomo";
 
+"type.shop.bathroom_furnishing" = "Kylpyhuoneen kalusteet";
+
 "type.shop.beauty" = "Kauneushoitola";
 
 "type.shop.beverages" = "Juomat";
@@ -3209,6 +3275,8 @@
 
 "type.shop.butcher" = "Lihakauppias";
 
+"type.shop.cannabis" = "Kannabiskauppa";
+
 "type.shop.car" = "Autokauppa";
 
 "type.shop.car_parts" = "Auton osat";
@@ -3218,6 +3286,8 @@
 "type.shop.car_repair.tyres" = "Rengashuolto";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "Matot";
 
 "type.shop.chemist" = "Kosmetiikkamyymälä";
 
@@ -3237,6 +3307,8 @@
 
 "type.shop.cosmetics" = "Kosmetiikka";
 
+"type.shop.curtain" = "Verhot";
+
 "type.shop.deli" = "Herkkukauppa";
 
 "type.shop.department_store" = "Tavaratalo";
@@ -3253,6 +3325,8 @@
 
 "type.shop.farm" = "Maatilaruokakauppa";
 
+"type.shop.fashion_accessories" = "Muoti tarvikkeet";
+
 "type.shop.florist" = "Floristi";
 
 "type.shop.funeral_directors" = "Hautaustoimisto";
@@ -3260,6 +3334,8 @@
 "type.shop.furniture" = "Huonekalukauppa";
 
 "type.shop.garden_centre" = "Taimitarha";
+
+"type.shop.gas" = "Kaasukauppa";
 
 "type.shop.gift" = "Lahjatavaraliike";
 
@@ -3272,6 +3348,10 @@
 "type.shop.hardware" = "Rautakauppa";
 
 "type.shop.health_food" = "Terveysruokakauppa";
+
+"type.shop.herbalist" = "Yrttikauppa";
+
+"type.shop.hifi" = "HiFi Audio";
 
 "type.shop.houseware" = "Taloustavarakauppa";
 
@@ -3293,6 +3373,8 @@
 
 "type.shop.motorcycle" = "Moottoripyöräliike";
 
+"type.shop.motorcycle_repair" = "Moottoripyörän korjaus";
+
 "type.shop.music" = "Kauppa";
 
 "type.shop.musical_instrument" = "Kauppa";
@@ -3303,11 +3385,15 @@
 
 "type.shop.outdoor" = "Ulkoiluvarusteet";
 
+"type.shop.outpost" = "Noutopiste";
+
 "type.shop.pastry" = "Leivonnainen";
 
 "type.shop.pawnbroker" = "Panttilainaamo";
 
 "type.shop.pet" = "Eläinkauppa";
+
+"type.shop.pet_grooming" = "Lemmikkieläinten hoito";
 
 "type.shop.photo" = "Valokuvakauppa";
 
@@ -3343,13 +3429,19 @@
 
 "type.shop.wine" = "Alkoholimyymälä";
 
+"type.shop.agrarian" = "Maatalouskauppa";
+
 "type.shop.antiques" = "Antiikkia";
+
+"type.shop.appliance" = "Kodinkoneet kauppa";
 
 "type.shop.art" = "Taidekauppa";
 
 "type.shop.baby_goods" = "Lasten kauppa";
 
 "type.shop.bag" = "Laukkukauppa";
+
+"type.shop.bed" = "Sänkykauppa";
 
 "type.shop.boutique" = "Boutique";
 

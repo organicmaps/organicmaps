@@ -191,7 +191,7 @@ namespace
     return base::IsExist(arrTypes, type);
   }
   /// @}
-}  // namespace
+} // namespace
 
 bool IsCategoryNondrawableType(uint32_t type)
 {
@@ -215,24 +215,9 @@ bool CanGenerateLike(vector<uint32_t> const & types, GeomType geomType)
   return false;
 }
 
-bool IsDrawableForIndex(FeatureType & ft, int level)
+namespace
 {
-  return IsDrawableForIndexGeometryOnly(ft, level) &&
-         IsDrawableForIndexClassifOnly(TypesHolder(ft), level);
-}
-
-bool IsDrawableForIndex(TypesHolder const & types, m2::RectD limitRect, int level)
-{
-  return IsDrawableForIndexGeometryOnly(types, limitRect, level) &&
-         IsDrawableForIndexClassifOnly(types, level);
-}
-
-bool IsDrawableForIndexGeometryOnly(FeatureType & ft, int level)
-{
-  return IsDrawableForIndexGeometryOnly(TypesHolder(ft),
-                                        ft.GetLimitRect(FeatureType::BEST_GEOMETRY), level);
-}
-bool IsDrawableForIndexGeometryOnly(TypesHolder const & types, m2::RectD limitRect, int level)
+bool IsDrawableForIndexGeometryOnly(TypesHolder const & types, m2::RectD const & limitRect, int level)
 {
   Classificator const & c = classif();
 
@@ -258,6 +243,24 @@ bool IsDrawableForIndexClassifOnly(TypesHolder const & types, int level)
   }
 
   return false;
+}
+} // namespace
+
+bool IsDrawableForIndex(FeatureType & ft, int level)
+{
+  return IsDrawableForIndexGeometryOnly(ft, level) &&
+         IsDrawableForIndexClassifOnly(TypesHolder(ft), level);
+}
+
+bool IsDrawableForIndex(TypesHolder const & types, m2::RectD const & limitRect, int level)
+{
+  return IsDrawableForIndexGeometryOnly(types, limitRect, level) &&
+         IsDrawableForIndexClassifOnly(types, level);
+}
+
+bool IsDrawableForIndexGeometryOnly(FeatureType & ft, int level)
+{
+  return IsDrawableForIndexGeometryOnly(TypesHolder(ft), ft.GetLimitRectChecked(), level);
 }
 
 bool IsUsefulType(uint32_t t, GeomType geomType, bool emptyName)
@@ -293,10 +296,10 @@ bool RemoveUselessTypes(vector<uint32_t> & types, GeomType geomType, bool emptyN
 
 int GetMinDrawableScale(FeatureType & ft)
 {
-  return GetMinDrawableScale(TypesHolder(ft), ft.GetLimitRect(FeatureType::BEST_GEOMETRY));
+  return GetMinDrawableScale(TypesHolder(ft), ft.GetLimitRectChecked());
 }
 
-int GetMinDrawableScale(TypesHolder const & types, m2::RectD limitRect)
+int GetMinDrawableScale(TypesHolder const & types, m2::RectD const & limitRect)
 {
   int const upBound = scales::GetUpperStyleScale();
 
@@ -309,7 +312,8 @@ int GetMinDrawableScale(TypesHolder const & types, m2::RectD limitRect)
   return -1;
 }
 
-int GetMinDrawableScaleGeometryOnly(TypesHolder const & types, m2::RectD limitRect)
+/*
+int GetMinDrawableScaleGeometryOnly(TypesHolder const & types, m2::RectD const & limitRect)
 {
   int const upBound = scales::GetUpperStyleScale();
 
@@ -321,6 +325,7 @@ int GetMinDrawableScaleGeometryOnly(TypesHolder const & types, m2::RectD limitRe
 
   return -1;
 }
+*/
 
 int GetMinDrawableScaleClassifOnly(TypesHolder const & types)
 {
@@ -445,4 +450,4 @@ bool TypeSetChecker::IsEqual(uint32_t type) const
   ftype::TruncValue(type, m_level);
   return (m_type == type);
 }
-}   // namespace feature
+} // namespace feature

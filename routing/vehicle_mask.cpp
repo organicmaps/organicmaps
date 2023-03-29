@@ -5,11 +5,9 @@
 
 #include "base/assert.hpp"
 
-using namespace std;
-
 namespace routing
 {
-string DebugPrint(VehicleType vehicleType)
+std::string DebugPrint(VehicleType vehicleType)
 {
   switch (vehicleType)
   {
@@ -22,9 +20,9 @@ string DebugPrint(VehicleType vehicleType)
   UNREACHABLE();
 }
 
-string ToString(VehicleType vehicleType) { return DebugPrint(vehicleType); }
+std::string ToString(VehicleType vehicleType) { return DebugPrint(vehicleType); }
 
-void FromString(string_view s, VehicleType & vehicleType)
+void FromString(std::string_view s, VehicleType & vehicleType)
 {
   if (s == "Pedestrian")
     vehicleType = VehicleType::Pedestrian;
@@ -41,9 +39,9 @@ void FromString(string_view s, VehicleType & vehicleType)
   }
 }
 
-string DebugPrint(VehicleMask vehicleMask)
+std::string DebugPrint(VehicleMask vehicleMask)
 {
-  ostringstream oss;
+  std::ostringstream oss;
   oss << "VehicleMask [";
   bool first = true;
   for (size_t i = 0; i < static_cast<size_t>(VehicleType::Count); ++i)

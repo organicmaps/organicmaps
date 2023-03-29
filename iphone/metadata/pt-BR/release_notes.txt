@@ -1,24 +1,12 @@
-• Novos dados OSM de 16 de dezembro
-• Melhoria no algoritmo de roteamento
-• Não há mais rotas usando highway=construction :)
-• Suporte à múltiplas geometrias em arquivos KML
-• Correção de importação de arquivo KML 2.3 do OpenTracks
-• Análise e renderização mais rápidas de trilhas KML complexas
-• Permitir adicionar algumas lojas, galerias e escolas de música no Editor
-• Melhoria nas fronteiras municipais nos resultados da busca
-• Cabeçalhos de configurações e opções de rotas agora estão visíveis no modo noturno
-• Correção na falha ao exibir o menu
+• Novos dados OSM de 27 de fevereiro
+• Correção de bug no iPad quando um teclado era conectado
+• Correção de duplo clique desnecessário no botão de rota
+• Remoção de campos de preenchimento duplicados de número de andares e CEP
+• Ativação do editor de notas OpenStreetMap para todos os lugares selecionados
+• Correção e melhoria na busca
+• Divisão de cozinha vegana e vegetariana na busca
+• Correção de estilos para aeroportos, usos de terra, vias navegáveis e áreas hachuradas
+• Adição de especialidades de saúde: alternativa, audiologista, coleta de amostras, doação de sangue, optometrista, podólogo, psicoterapeuta e terapeuta da fala
+• Adição de torres de comunicação e geradores solares, eólicos, a gás e hidrelétricos
 
-Estilos de mapa:
-• Ícones aprimorados e menos brilhantes no modo noturno
-• Correção dos ícones de metrô em algumas cidades
-• Exibição adequada das barreiras para as áreas e relações
-• Nomes duplicados corrigidos no mapa-múndi
-• Atualização dos ícones de boate, caverna, estádio, loja de música, navio histórico, passo de montanha, pico, sorvete, telefone de emergência, videogame e vulcão
-• Correção nas prioridades de leisure=pitch, historic, post office
-• Ícones redondos/preenchidos mais consistentes (redondo significa algum tipo de negócio/serviço)
-
-Traduções:
-• Adição e correção de conversão de texto em fala (TTS) para espanhol mexicano, norueguês e português brasileiro e europeu
-• Correção de buscas em alemão e húngaro
-• Traduções atualizadas para espanhol e checo
+Acompanhe nossas novidades em omaps.app/news

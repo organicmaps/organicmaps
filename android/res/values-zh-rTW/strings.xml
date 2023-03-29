@@ -35,6 +35,17 @@
 	<string name="country_status_download_failed">下載失敗</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">再試一次</string>
+	<string name="about_menu_title">關於 Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">對每個人都免費，用愛製成</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">•沒有廣告，沒有跟踪，沒有數據收集</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• 節省電池電量，不使用後台數據</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">•快速，簡約，沒有垃圾</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">由愛好者和志願者創建的開源應用程序。</string>
 	<string name="connection_settings">連線設定</string>
 	<string name="close">關閉</string>
 	<string name="unsupported_phone">需要 OpenGL 硬體加速功能的支援。但很不幸的，您的裝置並不支援此功能！</string>
@@ -195,6 +206,8 @@
 	<string name="pref_map_3d_title">透視圖</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D 建築</string>
+	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+	<string name="pref_map_3d_buildings_disabled_summary">3D 建築在省電模式下關閉</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">語音指示</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -230,7 +243,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">捐</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">如何支持我們？</string>
+	<string name="how_to_support_us">支持項目</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">版權</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -435,7 +448,8 @@
 	<string name="editor_report_problem_other_title">不同的問題</string>
 	<string name="placepage_add_business_button">添加組織</string>
 	<string name="message_invalid_feature_position">物件無法設置在這裡</string>
-	<string name="osm_presentation">所有地圖數據均來自 OpenStreetMap 項目。它就像 Wikipedia 中的地圖，您可以在其中添加或編輯地點，並且它們可供全球數百萬用戶使用。</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">截至%s的OpenStreetMap的製圖數據。就像Wikipedia一樣，您可以為世界上所有用戶添加或編輯位置。</string>
 	<string name="login_to_make_edits_visible">登入來讓其他使用者能看到您所作出的修改。</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d個/共%2$d個</string>
@@ -443,8 +457,8 @@
 	<string name="download_over_mobile_message">用某些方案或漫遊的話這可能相當昂貴。</string>
 	<string name="error_enter_correct_house_number">輸入正確的門牌號碼</string>
 	<string name="editor_storey_number">樓層數（最大 %d）</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">編輯最多 25 層的建築</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">編輯最多 %d 層的建築</string>
 	<string name="editor_zip_code">郵遞區號</string>
 	<string name="error_enter_correct_zip_code">輸入正確的郵遞區號</string>
 	<!-- Place Page title for long tap -->
@@ -722,7 +736,8 @@
 	<string name="type.amenity.car_wash">洗車</string>
 	<string name="type.amenity.casino">賭場</string>
 	<string name="type.amenity.charging_station">充電站</string>
-	<string name="type.amenity.charging_station.motorcar">充電站</string>
+	<string name="type.amenity.charging_station.bicycle">自行車充電站</string>
+	<string name="type.amenity.charging_station.motorcar">汽車充電站</string>
 	<string name="type.amenity.childcare">保育</string>
 	<string name="type.amenity.cinema">電影院</string>
 	<string name="type.leisure.bowling_alley">保齡球館</string>
@@ -734,6 +749,7 @@
 	<string name="type.amenity.doctors">醫師診間</string>
 	<string name="type.amenity.drinking_water">飲用水</string>
 	<string name="type.amenity.driving_school">駕訓班</string>
+	<string name="type.amenity.money_transfer">匯款</string>
 	<string name="type.amenity.music_school">音樂學校</string>
 	<string name="type.amenity.language_school">語言學校</string>
 	<string name="type.office.diplomatic">大使館</string>
@@ -752,6 +768,7 @@
 	<string name="type.amenity.internet_cafe">網路咖啡店</string>
 	<string name="type.amenity.kindergarten">幼兒園</string>
 	<string name="type.amenity.library">圖書館</string>
+	<string name="type.amenity.loading_dock">裝卸碼頭</string>
 	<string name="type.amenity.marketplace">市場</string>
 	<string name="type.amenity.motorcycle_parking">機車停車格</string>
 	<string name="type.amenity.nightclub">夜店</string>
@@ -850,6 +867,8 @@
 	<string name="type.craft.handicraft">手工藝</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">空調設備</string>
+	<string name="type.craft.key_cutter">鍵切割</string>
+	<string name="type.craft.locksmith">鎖匠</string>
 	<string name="type.craft.metal_construction">鐵工</string>
 	<string name="type.craft.painter">油漆工</string>
 	<string name="type.craft.photographer">攝影師</string>
@@ -946,15 +965,27 @@
 	<string name="type.emergency.defibrillator">心臟電擊器</string>
 	<string name="type.emergency.fire_hydrant">消防栓</string>
 	<string name="type.emergency.phone">緊急電話</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">入口</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">主要入口</string>
 	<string name="type.healthcare.laboratory">醫學實驗室</string>
 	<string name="type.healthcare.physiotherapist">物理治療師</string>
+	<string name="type.healthcare.alternative">替代藥物</string>
+	<string name="type.healthcare.audiologist">聽力學</string>
+	<string name="type.healthcare.blood_donation">捐血中心</string>
+	<string name="type.healthcare.optometrist">驗光</string>
+	<string name="type.healthcare.podiatrist">足病學</string>
+	<string name="type.healthcare.psychotherapist">心理治療</string>
+	<string name="type.healthcare.sample_collection">採樣</string>
+	<string name="type.healthcare.speech_therapist">言語治療</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">橋</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">隧道</string>
+	<string name="type.highway.busway">巴士專用道</string>
 	<string name="type.highway.bus_stop">巴士站</string>
 	<string name="type.highway.construction">在建道路</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1192,6 +1223,7 @@
 	<string name="type.man_made.lighthouse">燈塔</string>
 	<string name="type.man_made.surveillance">監控攝影機</string>
 	<string name="type.man_made.tower">塔</string>
+	<string name="type.man_made.tower.communication">通訊塔</string>
 	<string name="type.man_made.water_tap">水龍頭</string>
 	<string name="type.man_made.water_tower">水塔</string>
 	<string name="type.man_made.water_well">水井</string>
@@ -1276,6 +1308,16 @@
 	<string name="type.place.suburb">郊區</string>
 	<string name="type.place.town">鎮</string>
 	<string name="type.place.village">村莊</string>
+	<string name="type.power.generator.solar">太陽能發電機</string>
+	<string name="type.power.generator.wind">風力發電機</string>
+	<string name="type.power.generator.gas">燃氣輪機發電廠</string>
+	<string name="type.power.generator.hydro">水力發電廠</string>
+	<string name="type.power.plant">發電廠</string>
+	<string name="type.power.plant.coal">燃煤電廠</string>
+	<string name="type.power.plant.gas">燃氣輪機發電廠</string>
+	<string name="type.power.plant.hydro">水力發電廠</string>
+	<string name="type.power.plant.solar">太陽能發電廠</string>
+	<string name="type.power.plant.wind">風力發電廠</string>
 	<string name="type.power.pole">電塔</string>
 	<string name="type.power.substation">變電所</string>
 	<string name="type.power.tower">電塔</string>
@@ -1304,6 +1346,7 @@
 	<string name="type.railway.station.subway.beijing">捷運站</string>
 	<string name="type.railway.station.subway.bengalore">捷運站</string>
 	<string name="type.railway.station.subway.berlin">捷運站</string>
+	<string name="type.railway.station.subway.bilbao">捷運站</string>
 	<string name="type.railway.station.subway.brasilia">捷運站</string>
 	<string name="type.railway.station.subway.brescia">捷運站</string>
 	<string name="type.railway.station.subway.brussels">捷運站</string>
@@ -1413,6 +1456,7 @@
 	<string name="type.railway.subway_entrance.beijing">地鐵入口</string>
 	<string name="type.railway.subway_entrance.bengalore">地鐵入口</string>
 	<string name="type.railway.subway_entrance.berlin">地鐵入口</string>
+	<string name="type.railway.subway_entrance.bilbao">地鐵入口</string>
 	<string name="type.railway.subway_entrance.brasilia">地鐵入口</string>
 	<string name="type.railway.subway_entrance.brescia">地鐵入口</string>
 	<string name="type.railway.subway_entrance.brussels">地鐵入口</string>
@@ -1516,16 +1560,19 @@
 	<string name="type.shop">購物</string>
 	<string name="type.shop.alcohol">烈酒</string>
 	<string name="type.shop.bakery">麵包店</string>
+	<string name="type.shop.bathroom_furnishing">衛浴擺設</string>
 	<string name="type.shop.beauty">美容院</string>
 	<string name="type.shop.beverages">飲料</string>
 	<string name="type.shop.bicycle">自行車店</string>
 	<string name="type.shop.bookmaker">博彩公司</string>
 	<string name="type.shop.books">書店</string>
 	<string name="type.shop.butcher">肉商</string>
+	<string name="type.shop.cannabis">大麻商店</string>
 	<string name="type.shop.car">買車</string>
 	<string name="type.shop.car_parts">汽車零件</string>
 	<string name="type.shop.car_repair">汽車維修</string>
 	<string name="type.shop.car_repair.tyres">輪胎修補</string>
+	<string name="type.shop.carpet">地毯</string>
 	<string name="type.shop.chemist">藥妝店</string>
 	<string name="type.shop.chocolate">購物</string>
 	<string name="type.shop.clothes">買衣服</string>
@@ -1535,6 +1582,7 @@
 	<string name="type.shop.convenience">便利商店</string>
 	<string name="type.shop.copyshop">復印店</string>
 	<string name="type.shop.cosmetics">化妆品</string>
+	<string name="type.shop.curtain">窗簾</string>
 	<string name="type.shop.deli">熟食店</string>
 	<string name="type.shop.department_store">百貨公司</string>
 	<string name="type.shop.doityourself">五金行</string>
@@ -1543,16 +1591,20 @@
 	<string name="type.shop.erotic">情趣用品店</string>
 	<string name="type.shop.fabric">購物</string>
 	<string name="type.shop.farm">農場食品店</string>
+	<string name="type.shop.fashion_accessories">時尚配飾</string>
 	<string name="type.shop.florist">花店</string>
 	<string name="type.shop.funeral_directors">葬儀社</string>
 	<string name="type.shop.furniture">家具店</string>
 	<string name="type.shop.garden_centre">園藝店</string>
+	<string name="type.shop.gas">煤氣庫</string>
 	<string name="type.shop.gift">禮品店</string>
 	<string name="type.shop.greengrocer">蔬果零售店</string>
 	<string name="type.shop.grocery">雜貨店</string>
 	<string name="type.shop.hairdresser">理髮師</string>
 	<string name="type.shop.hardware">五金店</string>
 	<string name="type.shop.health_food">保健食品店</string>
+	<string name="type.shop.herbalist">香草店</string>
+	<string name="type.shop.hifi">高保真音響</string>
 	<string name="type.shop.houseware">家居用品店</string>
 	<string name="type.shop.jewelry">珠寶店</string>
 	<string name="type.shop.kiosk">小舖</string>
@@ -1563,14 +1615,17 @@
 	<string name="type.shop.mobile_phone">手機專賣店</string>
 	<string name="type.shop.money_lender">購物</string>
 	<string name="type.shop.motorcycle">機車行</string>
+	<string name="type.shop.motorcycle_repair">摩托車維修</string>
 	<string name="type.shop.music">購物</string>
 	<string name="type.shop.musical_instrument">購物</string>
 	<string name="type.shop.newsagent">報攤</string>
 	<string name="type.shop.optician">眼鏡店</string>
 	<string name="type.shop.outdoor">室外設備</string>
+	<string name="type.shop.outpost">接送的地點</string>
 	<string name="type.shop.pastry">糕點</string>
 	<string name="type.shop.pawnbroker">當舖</string>
 	<string name="type.shop.pet">寵物店</string>
+	<string name="type.shop.pet_grooming">寵物美容</string>
 	<string name="type.shop.photo">照片店</string>
 	<string name="type.shop.seafood">魚販</string>
 	<string name="type.shop.second_hand">二手店</string>
@@ -1588,10 +1643,13 @@
 	<string name="type.shop.video">視頻商城</string>
 	<string name="type.shop.video_games">電子遊戲商城</string>
 	<string name="type.shop.wine">販酒處</string>
+	<string name="type.shop.agrarian">農產品店</string>
 	<string name="type.shop.antiques">古董</string>
+	<string name="type.shop.appliance">家電店</string>
 	<string name="type.shop.art">藝術商店</string>
 	<string name="type.shop.baby_goods">兒童商店</string>
 	<string name="type.shop.bag">箱包店</string>
+	<string name="type.shop.bed">床鋪</string>
 	<string name="type.shop.boutique">精品店</string>
 	<string name="type.shop.charity">慈善商店</string>
 	<string name="type.shop.cheese">奶酪店c</string>

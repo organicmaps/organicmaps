@@ -35,6 +35,17 @@
 	<string name="country_status_download_failed">Tải xuống đã thất bại</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Thử lại</string>
+	<string name="about_menu_title">Giới thiệu về Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Miễn phí cho mọi người, được làm bằng tình yêu</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Không có quảng cáo, không theo dõi, không thu thập dữ liệu</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Tiết kiệm pin, không sử dụng dữ liệu nền</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Nhanh chóng, tối giản, không có rác</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Ứng dụng nguồn mở được tạo bởi những người đam mê và tình nguyện viên.</string>
 	<string name="connection_settings">Thiết lập Kết nối</string>
 	<string name="close">Đóng</string>
 	<string name="unsupported_phone">Cần có OpenGL được tăng tốc phần cứng. Thật không may, thiết bị của bạn không được hỗ trợ.</string>
@@ -190,6 +201,8 @@
 	<string name="pref_map_3d_title">Góc nhìn phối cảnh</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">Nhà cửa 3D</string>
+	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+	<string name="pref_map_3d_buildings_disabled_summary">Tòa nhà 3D bị tắt ở chế độ tiết kiệm năng lượng</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Hướng dẫn bằng Giọng nói</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -219,7 +232,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Quyên tặng</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Làm thế nào để hỗ trợ chúng tôi?</string>
+	<string name="how_to_support_us">Hỗ trợ dự án</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Bản quyền</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -421,7 +434,8 @@
 	<string name="editor_report_problem_other_title">Một vấn đề khác</string>
 	<string name="placepage_add_business_button">Thêm tổ chức</string>
 	<string name="message_invalid_feature_position">Một đối tượng không thể đặt được ở đây</string>
-	<string name="osm_presentation">Tất cả dữ liệu bản đồ đến từ dự án OpenStreetMap. Nó giống như Wikipedia dành cho bản đồ nơi bạn có thể thêm hoặc chỉnh sửa các địa điểm và chúng có sẵn cho hàng triệu người dùng trên khắp Thế giới.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Dữ liệu bản đồ từ OpenStreetMap kể từ %s. Nó giống như Wikipedia nơi bạn có thể thêm hoặc chỉnh sửa địa điểm cho tất cả người dùng trên toàn thế giới.</string>
 	<string name="login_to_make_edits_visible">Đăng nhập để người dùng khác có thể nhìn thấy những thay đổi bạn đã thực hiện.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d trên %2$d</string>
@@ -429,8 +443,8 @@
 	<string name="download_over_mobile_message">Như vậy sẽ rất đắt tiền với một số gói dữ liệu hoặc khi chuyển vùng.</string>
 	<string name="error_enter_correct_house_number">Nhập số nhà chính xác</string>
 	<string name="editor_storey_number">Số tầng (tối đa %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Sửa tòa nhà có tối đa 25 tầng</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Sửa tòa nhà có tối đa %d tầng</string>
 	<string name="editor_zip_code">Mã ZIP</string>
 	<string name="error_enter_correct_zip_code">Nhập Mã ZIP chính xác</string>
 	<!-- Place Page title for long tap -->
@@ -689,7 +703,8 @@
 	<string name="type.amenity.car_wash">Rửa Xe</string>
 	<string name="type.amenity.casino">Giải trí</string>
 	<string name="type.amenity.charging_station">Trạm Sạc điện</string>
-	<string name="type.amenity.charging_station.motorcar">Trạm Sạc điện</string>
+	<string name="type.amenity.charging_station.bicycle">Trạm sạc xe đạp</string>
+	<string name="type.amenity.charging_station.motorcar">Trạm sạc xe máy</string>
 	<string name="type.amenity.childcare">Nhà trẻ</string>
 	<string name="type.amenity.cinema">Rạp chiếu phim</string>
 	<string name="type.leisure.bowling_alley">Sân chơi bowling</string>
@@ -701,6 +716,7 @@
 	<string name="type.amenity.doctors">Bác sĩ</string>
 	<string name="type.amenity.drinking_water">Nước uống</string>
 	<string name="type.amenity.driving_school">Trường lái xe</string>
+	<string name="type.amenity.money_transfer">Chuyển tiền</string>
 	<string name="type.amenity.music_school">Trường âm nhạc</string>
 	<string name="type.amenity.language_school">Ngôn ngữ Trường học</string>
 	<string name="type.office.diplomatic">Đại sứ quán</string>
@@ -719,6 +735,7 @@
 	<string name="type.amenity.internet_cafe">Quán Internet</string>
 	<string name="type.amenity.kindergarten">Mẫu giáo</string>
 	<string name="type.amenity.library">Thư viện</string>
+	<string name="type.amenity.loading_dock">Bến tàu</string>
 	<string name="type.amenity.marketplace">Cửa hàng</string>
 	<string name="type.amenity.motorcycle_parking">Bãi đỗ xe máy</string>
 	<string name="type.amenity.nightclub">Câu lạc bộ đêm</string>
@@ -815,6 +832,8 @@
 	<string name="type.craft.handicraft">Thủ công mỹ nghệ</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Điều hòa nhiệt độ</string>
+	<string name="type.craft.key_cutter">Cắt chính</string>
+	<string name="type.craft.locksmith">Thợ khóa</string>
 	<string name="type.craft.metal_construction">Nhà kim khí</string>
 	<string name="type.craft.painter">Họa sỹ</string>
 	<string name="type.craft.photographer">Thợ chụp ảnh</string>
@@ -911,15 +930,27 @@
 	<string name="type.emergency.defibrillator">Máy khử rung tim</string>
 	<string name="type.emergency.fire_hydrant">Vòi chữa cháy</string>
 	<string name="type.emergency.phone">Điện thoại khẩn cấp</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Lối vào</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Lối vào chính</string>
 	<string name="type.healthcare.laboratory">Phòng thí nghiệm y tế</string>
 	<string name="type.healthcare.physiotherapist">Nhà vật lý trị liệu</string>
+	<string name="type.healthcare.alternative">Liều thuốc thay thế</string>
+	<string name="type.healthcare.audiologist">Thính học</string>
+	<string name="type.healthcare.blood_donation">Trung tâm hiến máu</string>
+	<string name="type.healthcare.optometrist">Khúc xạ nhãn khoa</string>
+	<string name="type.healthcare.podiatrist">khoa bàn chân</string>
+	<string name="type.healthcare.psychotherapist">Tâm lý trị liệu</string>
+	<string name="type.healthcare.sample_collection">lấy mẫu</string>
+	<string name="type.healthcare.speech_therapist">Ngôn ngữ trị liệu</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">Cầu</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Đường hầm</string>
+	<string name="type.highway.busway">Đường dành riêng cho xe buýt</string>
 	<string name="type.highway.bus_stop">Bến xe buýt</string>
 	<string name="type.highway.construction">Đường đang thi công</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1154,6 +1185,7 @@
 	<string name="type.man_made.lighthouse">Hải đăng</string>
 	<string name="type.man_made.surveillance">Camera giám sát</string>
 	<string name="type.man_made.tower">Tháp</string>
+	<string name="type.man_made.tower.communication">Tháp truyền thông</string>
 	<string name="type.man_made.water_tap">Vòi nước</string>
 	<string name="type.man_made.water_tower">Tháp Nước</string>
 	<string name="type.man_made.water_well">Giếng Nước</string>
@@ -1238,6 +1270,16 @@
 	<string name="type.place.suburb">Đảo</string>
 	<string name="type.place.town">Thành phố</string>
 	<string name="type.place.village">Xóm</string>
+	<string name="type.power.generator.solar">Máy phát điện năng lượng mặt trời</string>
+	<string name="type.power.generator.wind">Máy phát điện gió</string>
+	<string name="type.power.generator.gas">Nhà máy điện tua bin khí</string>
+	<string name="type.power.generator.hydro">Nhà máy thủy điện</string>
+	<string name="type.power.plant">Nhà máy điện</string>
+	<string name="type.power.plant.coal">Nhà máy điện than</string>
+	<string name="type.power.plant.gas">Nhà máy điện tua bin khí</string>
+	<string name="type.power.plant.hydro">Nhà máy thủy điện</string>
+	<string name="type.power.plant.solar">Nhà máy điện mặt trời</string>
+	<string name="type.power.plant.wind">Nhà máy điện gió</string>
 	<string name="type.power.pole">Trụ Điện</string>
 	<string name="type.power.substation">Trạm biến áp</string>
 	<string name="type.power.tower">Trụ Điện</string>
@@ -1261,6 +1303,7 @@
 	<string name="type.railway.station.subway.beijing">Ngầm</string>
 	<string name="type.railway.station.subway.bengalore">Ngầm</string>
 	<string name="type.railway.station.subway.berlin">Ngầm</string>
+	<string name="type.railway.station.subway.bilbao">Ngầm</string>
 	<string name="type.railway.station.subway.brasilia">Ngầm</string>
 	<string name="type.railway.station.subway.brescia">Ngầm</string>
 	<string name="type.railway.station.subway.brussels">Ngầm</string>
@@ -1370,6 +1413,7 @@
 	<string name="type.railway.subway_entrance.beijing">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.bengalore">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.berlin">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.bilbao">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.brasilia">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.brescia">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.brussels">Lỗi vào Metro</string>
@@ -1470,16 +1514,19 @@
 	<string name="type.shop">Cửa hàng</string>
 	<string name="type.shop.alcohol">Cửa hàng rượu</string>
 	<string name="type.shop.bakery">Hiệu bánh</string>
+	<string name="type.shop.bathroom_furnishing">Nội thất phòng tắm</string>
 	<string name="type.shop.beauty">Thẩm mỹ viện</string>
 	<string name="type.shop.beverages">Đồ uống</string>
 	<string name="type.shop.bicycle">Cửa hàng xe đạp</string>
 	<string name="type.shop.bookmaker">Người nhận cá cược</string>
 	<string name="type.shop.books">Hiệu sách</string>
 	<string name="type.shop.butcher">Cửa hàng thịt</string>
+	<string name="type.shop.cannabis">Cửa hàng cần sa</string>
 	<string name="type.shop.car">Cửa hàng xe</string>
 	<string name="type.shop.car_parts">Những bộ phận xe hơi</string>
 	<string name="type.shop.car_repair">Cửa hàng sửa chữa ô tô</string>
 	<string name="type.shop.car_repair.tyres">Vá Lốp</string>
+	<string name="type.shop.carpet">Những cái thảm</string>
 	<string name="type.shop.chemist">Cửa hàng Hóa chất</string>
 	<string name="type.shop.chocolate">Cửa hàng</string>
 	<string name="type.shop.clothes">Cửa hàng quần áo</string>
@@ -1489,6 +1536,7 @@
 	<string name="type.shop.convenience">Cửa hàng tạp hóa</string>
 	<string name="type.shop.copyshop">Cửa hàng Copy</string>
 	<string name="type.shop.cosmetics">Mỹ phẩm</string>
+	<string name="type.shop.curtain">Rèm cửa</string>
 	<string name="type.shop.deli">Cửa hàng đồ ăn ngon</string>
 	<string name="type.shop.department_store">Cửa hàng bách hóa</string>
 	<string name="type.shop.doityourself">Cửa hàng phần cứng</string>
@@ -1497,16 +1545,20 @@
 	<string name="type.shop.erotic">Cửa hàng người lớn</string>
 	<string name="type.shop.fabric">Cửa hàng</string>
 	<string name="type.shop.farm">Cửa hàng thực phẩm nông trại</string>
+	<string name="type.shop.fashion_accessories">Phụ kiện thời trang</string>
 	<string name="type.shop.florist">Cửa hàng hoa</string>
 	<string name="type.shop.funeral_directors">Tổ chức tang lễ</string>
 	<string name="type.shop.furniture">Cửa hàng nội thất</string>
 	<string name="type.shop.garden_centre">Nhà trẻ</string>
+	<string name="type.shop.gas">Cửa hàng gas</string>
 	<string name="type.shop.gift">Cửa hàng quà tặng</string>
 	<string name="type.shop.greengrocer">Cửa hàng rau củ</string>
 	<string name="type.shop.grocery">Cửa hàng tạp hóa</string>
 	<string name="type.shop.hairdresser">Tiệm làm tóc</string>
 	<string name="type.shop.hardware">Cửa hàng phần cứng</string>
 	<string name="type.shop.health_food">Cửa hàng thực phẩm sức khỏe</string>
+	<string name="type.shop.herbalist">Cửa hàng thảo mộc</string>
+	<string name="type.shop.hifi">Âm thanh hifi</string>
 	<string name="type.shop.houseware">Cửa hàng đồ gia dụng</string>
 	<string name="type.shop.jewelry">Đồ trang sức</string>
 	<string name="type.shop.kiosk">Cửa hàng</string>
@@ -1517,14 +1569,17 @@
 	<string name="type.shop.mobile_phone">Cửa hàng điện thoại di động</string>
 	<string name="type.shop.money_lender">Cửa hàng</string>
 	<string name="type.shop.motorcycle">Cửa hàng xe máy</string>
+	<string name="type.shop.motorcycle_repair">Sửa chữa xe máy</string>
 	<string name="type.shop.music">Cửa hàng</string>
 	<string name="type.shop.musical_instrument">Cửa hàng</string>
 	<string name="type.shop.newsagent">Quầy báo</string>
 	<string name="type.shop.optician">Cửa hàng mắt kính</string>
 	<string name="type.shop.outdoor">Thiết bị Ngoài trời</string>
+	<string name="type.shop.outpost">Điểm đón</string>
 	<string name="type.shop.pastry">Bánh ngọt</string>
 	<string name="type.shop.pawnbroker">Cầm đồ</string>
 	<string name="type.shop.pet">Cửa Hàng Vật Nuôi</string>
+	<string name="type.shop.pet_grooming">Chải lông thú cưng</string>
 	<string name="type.shop.photo">Hiệu Ảnh</string>
 	<string name="type.shop.seafood">Người bán cá</string>
 	<string name="type.shop.second_hand">Cửa hàng bán đồ đã qua sử dụng</string>
@@ -1542,10 +1597,13 @@
 	<string name="type.shop.video">Cửa hàng bán/cho thuê bằng đĩa</string>
 	<string name="type.shop.video_games">Cửa hàng bán trò chơi điện tử</string>
 	<string name="type.shop.wine">Rượu</string>
+	<string name="type.shop.agrarian">Cửa hàng nông sản</string>
 	<string name="type.shop.antiques">Đồ cổ</string>
+	<string name="type.shop.appliance">Cửa hàng đồ gia dụng</string>
 	<string name="type.shop.art">Cửa hàng nghệ thuật</string>
 	<string name="type.shop.baby_goods">Cửa hàng trẻ em</string>
 	<string name="type.shop.bag">Cửa hàng túi xách</string>
+	<string name="type.shop.bed">Cửa hàng giường</string>
 	<string name="type.shop.boutique">Cửa hàng</string>
 	<string name="type.shop.charity">Cửa hàng từ thiện</string>
 	<string name="type.shop.cheese">Cửa hàng pho mát</string>

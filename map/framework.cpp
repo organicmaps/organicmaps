@@ -1798,6 +1798,8 @@ bool Framework::ShowMapForURL(string const & url)
       }
 
       m_currentPlacePageInfo = BuildPlacePageInfo(info);
+      if (!name.empty())
+        m_currentPlacePageInfo->SetCustomName(name);
       ActivateMapSelection();
     }
 

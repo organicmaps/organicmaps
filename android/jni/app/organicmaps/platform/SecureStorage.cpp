@@ -1,6 +1,6 @@
 #include "platform/secure_storage.hpp"
 
-#include "Platform.hpp"
+#include "AndroidPlatform.hpp"
 
 namespace platform
 {

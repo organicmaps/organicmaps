@@ -24,7 +24,7 @@
 #       typed in a search query to make this synonym appear in the list of suggestions.
 #       Located immediately after the separating characters ':' or '|'. At most one
 #       digit per synonym is allowed.
-# Its possible to use emoji codes as search synonims, e.g. U+1F6B0 for Potable water.
+# Its possible to use emoji codes as search synonyms, e.g. U+1F6B0 for Potable water.
 # Each category must end with an empty line.
 #
 # Note: some features are not searchable unless they have a [name=] tag,
@@ -100,8 +100,8 @@ cs:Potraviny|Jídlo|Obchod
 da:Dagligvarer|Mad|Butik
 nl:Boodschappen|Kruidenierswinkels|Eten|Winkel
 fi:Elintarvikkeet|Ruoka|Kauppa
-fr:Les courses|Nourriture|Magasin
-de:6Lebensmittel|Essen|Geschäft|Laden
+fr:4Epiceries|Nourriture|Magasin
+de:4Lebensmittel|Essen|Geschäft|Laden
 hu:Élelmiszer|Ennivaló|Bolt|Üzlet
 id:Toserba|Makanan|Toko
 it:4Alimentari|Cibo|Negozio
@@ -110,7 +110,7 @@ ko:식료품들|음식|쇼핑
 mr:किराणा|मंडई|ग्रोसरी
 nb:Dagligvarer|Mat|Butikk
 pl:Produkty|Jedzenie|Sklep
-pt:Mercearias|Minimercados|Supermercados|Hipermercados|Comida|Alimentos|Loja
+pt:Mercearias|Comida|Alimentos|Loja
 pt-BR:Mercados|Alimentação|Loja
 ro:4Alimentare|Produse|Alimentație|Mâncare|Magazin
 es:Alimentación|Productos|Comer|Tienda
@@ -183,12 +183,12 @@ fr:3Stations-service|4Essence|4Carburant
 de:3Tankstelle|4Benzin|4Diesel|4Sprit
 hu:Benzinkút
 id:Bahan bakar
-it:4Benzinaio|3Stazione di rifornimento
+it:3Benzinaio
 ja:1ガソリンスタンド
 ko:연료|주유소
 mr:पेट्रोल|इंधन|डिझेल
 nb:Drivstoff
-pl:3Stacja benzynowa
+pl:3Benzyna|4Paliwo
 pt:3Combustível
 pt-BR:Combustível
 ro:4Benzinărie|Benzină|Gaz
@@ -251,7 +251,7 @@ fa:پارکینگ
 @shopping
 en:5Shopping|Shop
 ru:4Шоппинг|Магазин
-be:4Закупы|магазін
+be:4Закупы|магазін|крама
 bg:4Шопинг|Магазин
 ar:متجر|تسوق
 cs:Nákupy|Obchod
@@ -907,10 +907,11 @@ de:Tankstation|3Tankstelle
 et:3Tankla
 hu:3Benzinkút|benzin
 id:Pompa bensin
+it:3Stazione di rifornimento
 ja:ガスステーション|ガス|燃料|軽油|給油
 mr:पेट्रोल|इंधन|डिझेल|पेट्रोल पंप|पंप
 nb:3Bensinstasjon
-pl:3Benzyna|4paliwo
+pl:3Stacja paliw
 pt:3Posto de combustível|3Bomba de combustível|3gasolina|3gasóleo
 pt-BR:3Posto de combustível|3gasolina
 ro:3Benzinărie
@@ -1000,6 +1001,9 @@ uk:4Магазин|Крамниця
 zh-Hans:商店
 zh-Hant:1購物|店鋪|商店|雜貨店|便利商店
 
+shop-cannabis
+en:Cannabis
+
 shop-cosmetics|@shopping
 en:4Cosmetics|4Beauty Care|makeup|U+1F3EC|U+1F3EA
 ru:4Косметика
@@ -1040,9 +1044,9 @@ sw:Vipodozi
 fa:لوازم ارایشی بهداشتی
 
 shop-convenience|@food
-en:4Convenience Store|U+1F3EC|U+1F3EA|grocer|grocery store|supermarket|food store|food market
-ru:4Продуктовый магазин|продуктовая лавка|универмаг|универсам|гастроном|продмаг|супермаркет
-bg:4Магазин|4Продукти|супермаркет|хранителен магазин|пазар|лавка|Магазинче|пазарче
+en:4Convenience Store|U+1F3EC|U+1F3EA|grocer|grocery store|mini-mart|mini-market|food store|food market|corner store|superette
+ru:4Продуктовый магазин|продуктовая лавка|4гастроном|мини-маркет
+bg:4Магазин|4Продукти|хранителен магазин|пазар|лавка|Магазинче|пазарче
 ar:متجر صغير
 cs:Smíšené zboží|koloniál
 da:Døgnbutik|døgnkiosk|kiosk
@@ -1058,9 +1062,9 @@ ko:편의점|식료품점
 mr:किराणा|किरकोळ सामान|किराना|भाजी|बाजार|मार्केट|मंडई|सुपरमार्केट
 nb:Nærbutikk|nærbutikk
 pl:Sklep spożywczy
-pt:Loja de conveniência
+pt:Loja de conveniência|Minimercado
 pt-BR:Loja de conveniência|4mercadinho|compras
-ro:4Magazin mixt|minimarket|supermarket|magazin
+ro:4Magazin mixt|minimarket|magazin
 es:Tienda de barrio
 et:Lähipood
 eu:Auzoko denda
@@ -1427,10 +1431,11 @@ sk:Kníhkupectvo
 fa:کتاب فروشی
 
 shop-shoes|@shopping
-en:Shoe Store|U+1F461|U+1F460|U+1F462|U+1F45E|U+1F45F|3shoes|shoe shop|4footwear|footwear store
+en:Shoe Store|U+1F461|U+1F460|U+1F462|U+1F45E|U+1F45F|3shoes|4footwear
 ru:Магазин обуви|3обувь|обувной
-bg:3Обувки
 ar:متجر أحذية|متجر
+be:3Абутак|Крама абутку
+bg:3Обувки
 cs:3Obuv
 da:Skobutik
 nl:Schoenenwinkel|schoenwinkel
@@ -1757,7 +1762,7 @@ fa:فروشگاه لوازم ورزشی
 
 shop-supermarket|@food
 en:3Supermarket|U+1F3EA|U+1F3EC
-ru:3Супермаркет|3универсам|3гипермаркет
+ru:3Супермаркет|3универсам|3гипермаркет|4гастроном
 bg:3Супермаркет|Хипермаркет|Мегамаркет|Пазар
 ar:سوبر ماركت|بقالة|متجر
 cs:3Supermarket
@@ -2083,6 +2088,46 @@ sk:3Trhovisko|samoobsluha
 sw:Soko
 fa:بازار
 
+amenity-money_transfer
+en:Money Transfer
+ar:تحويل المال
+be:Грашовыя пераводы|Грошы
+bg:Паричен превод
+ca:Transferència de diners
+cs:Převod peněz
+da:Pengeoverførsel
+de:Geldtransfer
+el:Μεταφορά χρημάτων
+es:Transferencia de dinero
+et:Raha ülekanne
+eu:Diru transferentzia
+fa:انتقال پول
+fi:Rahansiirto
+fr:Transfert d'argent
+he:העברת כספים
+hu:Pénz átutalás
+id:Transfer uang
+it:Trasferimento di denaro
+ja:送金
+ko:송금
+mr:पैसे हस्तांतरण
+nb:Pengeoverføring
+nl:Overschrijving
+pl:Transfer pieniędzy
+pt:Transferência de dinheiro
+pt-BR:Transferência de dinheiro
+ro:Transfer de bani
+ru:Денежные переводы|Деньги
+sk:Prevod peňazí
+sv:Pengaöverföring
+sw:Uhamisho wa pesa
+th:การโอนเงิน
+tr:Para transferi
+uk:Грошовий переказ|Гроши
+vi:Chuyển tiền
+zh-Hans:汇款
+zh-Hant:匯款
+
 shop-clothes|@shopping
 en:Clothes Shop|3clothes|U+1F45A|U+1F457|U+1F456|U+1F455|clothing shop|clothing store|wear
 ru:Магазин одежды|3одежда
@@ -2289,7 +2334,7 @@ da:3Sporvogn|station
 nl:3Tramhalte
 fi:4Raitiovaunupysäkki
 fr:Arrêt de tramway|3tramway|tram|arrêt
-de:4Straßenbahnhaltestelle|4Tramhaltestelle|Haltestelle|Tram|ÖPNV
+de:4Straßenbahnhaltestelle|4Tramhaltestelle|3Haltestelle|Tram|ÖPNV
 hu:4Villamosmegálló|3villamos|megálló
 id:3Perhentian trem
 it:3Fermata|3tram
@@ -2584,7 +2629,7 @@ da:3Kunstværk
 nl:3Kunstwerk
 fi:Taideteos
 fr:3Œuvre|3oeuvre|3art
-de:3Kunstwerk
+de:3Kunstwerk|4Skulptur|4Gemälde|Statue
 hu:3Műalkotás
 id:3Pariwisata
 it:3Opere d'arte
@@ -3207,7 +3252,7 @@ be:Замак|Каструм|Крэпасць|Гарадзішча|Крэмль|
 bg:3Замък|4Дворец|4крепост|Каструм|Градище|Кремъл|Усадба
 cs:3Zámek|zajímavost|Hrad|Castrum|Pevnost|Hradiště|Kreml|Panský dům|Palác
 da:Slot|borg|Fæstningsværk|Voldsted|Kreml|Herregård|Palads
-de:Burg|Schloss|Festung|Palast|Wallburg|Kreml|Herrenhaus|Palais|Ruine
+de:3Burg|4Schloss|Festung|3Palast|Wallburg|Kreml|4Herrenhaus|Palais|3Ruine
 el:Κάστρο|θέαμα|τουρισμός|αξιοθέατα|Ρωμαϊκό κάστρο|Οχυρωμένη εκκλησία|Φρούριο|Κρεμλίνο|Αρχοντικό|Παλάτι
 es:4Castillo|Castrum|Iglesia fortificada|Fortaleza|Castro|Kremlin|Casa solariega|Palacio
 eu:4Gaztelua|Castrum|Eliza-gotorleku|Gotorlekua|Kastro|Kremlina|Jauregitxo|Jauregi
@@ -3283,7 +3328,7 @@ be:Гарадскі вал
 bg:Градска стена
 cs:Městská zeď
 da:Bymur
-de:Stadtmauer
+de:4Stadtmauer
 el:Τείχος της πόλης
 es:Muro de la ciudad
 et:Linnamüür
@@ -3396,7 +3441,7 @@ be:Мемарыял
 bg:4Паметник|4мемориал
 cs:4Pomník|památka|zajímavost
 da:Mindesmærke|mindesten
-de:Denkmal|Gedenkstätte
+de:4Denkmal|3Gedenkstätte
 el:Μνημείο|θέαμα|τουρισμός|αξιοθέατα
 es:4Memorial
 et:4Mälestusmärk|monument
@@ -4148,7 +4193,7 @@ sk:3Autopožičovňa|požičovňa áut
 sw:Kodi ya gari|gari|kodi
 fa:مکان اجاره ماشین
 
-amenity-cinema|@entertainment|@children
+amenity-cinema|@entertainment
 en:3Cinema|U+1F3A6|U+1F3AC
 ru:Кинотеатр|3кино
 bg:3Кино|кинотеатър|филм|прожекция
@@ -4420,7 +4465,7 @@ fr:Caserne de pompiers
 de:5Feuerwehr|Feuerwache
 hu:Tűzoltóság
 id:Kantor pemadam kebakaran
-it:Scuadra antincendio
+it:Squadra antincendio
 ja:1消防署
 ko:소방서
 mr:अग्निशमन केंद्र|फायर ब्रिगेड
@@ -4498,7 +4543,7 @@ it:Cimitero
 ja:1墓地|墓場|お墓|墓苑|霊場
 ko:묘지|묘소|공동묘지
 mr:स्मशानभूमी
-nb:Gravplass
+nb:Gravlund|Gravplass
 pl:3Cmentarz|pochówek
 pt:Sepultura|5Cemitério
 pt-BR:5Cemitério
@@ -4776,7 +4821,7 @@ be:Фізіятэрапеўт
 bg:Физиотерапевт
 cs:Fyzioterapeut
 da:Fysioterapeut
-de:Physiotherapeut
+de:4Physiotherapie|Physiotherapeut|Physiotherapeutin
 el:Φυσικοθεραπευτής
 es:Fisioterapeuta
 eu:Fisioterapeuta
@@ -4805,6 +4850,282 @@ uk:Фізіотерапевт
 vi:Nhà vật lý trị liệu
 zh-Hans:物理治疗师
 zh-Hant:物理治療師
+
+healthcare-alternative
+en:alternative medicine
+ar:الطب البديل
+be:Альтэрнатыўная медыцына
+bg:Алтернативна медицина
+cs:Alternativní medicína
+da:Alternativ medicin
+de:5Alternative Medizin
+el:Εναλλακτική ιατρική
+es:Medicina alternativa
+et:Alternatiivne meditsiin
+eu:Medikuntza alternatiboa
+fa:طب جایگزین
+fi:Vaihtoehtoinen lääketiede
+fr:Médecine alternative
+he:רפואה אלטרנטיבית
+hu:Alternatív gyógyászat
+id:Pengobatan alternatif
+it:Medicina alternativa
+ja:代替医療
+ko:대체 약품
+mr:पर्यायी औषध
+nb:Alternativ medisin
+nl:Alternatieve geneeskunde
+pl:Medycyna alternatywna
+pt:Medicina alternativa
+pt-BR:Medicina alternativa
+ro:Medicină alternativă
+ru:Альтернативная медицина
+sk:Alternatívna medicína
+sv:Alternativ medicin
+sw:Dawa mbadala
+th:การแพทย์ทางเลือก
+tr:Alternatif tıp
+uk:Альтернативна медицина
+vi:Liều thuốc thay thế
+zh-Hans:替代医学
+zh-Hant:替代藥物
+
+healthcare-audiologist
+en:Audiology|Audiologist
+ar:السمع|السمعيات
+be:Аўдыялогія|Аўдыёлаг
+bg:Аудиология|Аудиолог
+cs:Audiologie|Audiolog
+da:Audiologi|Audiolog
+de:4Audiologie|Audiologin|Audiologe
+el:Ακοολογία|Ακουολόγος
+es:Audiología|Audiólogo
+et:Audioloogia|Audioloog
+eu:Audiologia|Audiologoa
+fa:شنوایی شناس|شنوایی شناسی
+fi:Audiologia|Audiologi
+fr:Audiologie|Audiologiste
+he:אודיולוג|אודיולוגיה
+hu:Audiológia|Audiológus
+id:Audiologi|Audiologis
+it:Audiologia|Audiologo
+ja:オーディオロジー|オーディオロジスト
+ko:청력학|청력학자
+mr:ऑडिओलॉजी|ऑडिओलॉजिस्ट
+nb:Audiologi|Audiolog
+nl:Audiologie|Audioloog
+pl:Audiologia|Audiolog
+pt:Audiologia|Audiologista
+pt-BR:Fonoaudiologia|Fonoaudiólogo
+ro:Audiologie|Audiolog
+ru:Аудиология|Аудиолог
+sk:Audiológia|Audiológ
+sv:Audiologi|Audiolog
+sw:Mtaalamu wa kusikia|Audiology
+th:โสตวิทยา|นักโสตสัมผัสวิทยา
+tr:Odyoloji|Odyolog
+uk:Аудіологія|Аудіолог
+vi:Thính học
+zh-Hans:听力学家
+zh-Hant:聽力學|聽力學家
+
+healthcare-blood_donation
+en:Blood donation
+ar:مركز التبرع بالدم
+be:Донарства крыві
+de:4Blutspendezentrum|Blutspende
+el:Αιμοδοσία
+es:Donación de sangre
+et:Vereloovutuskeskus|Veredoonorlus
+eu:Odol ematea
+fa:مرکز اهدای خون
+fi:Verenluovutuskeskus|Verenluovutus
+fr:Don de sang
+he:מרכז תרומת דם
+hu:Véradás
+id:Donor darah
+it:Donazione di sangue
+ja:献血
+ko:헌혈
+mr:रक्तदान
+nb:Bloddonasjonssenter|Bloddonasjon
+nl:Bloeddonatiecentrum|Bloeddonatie
+pl:Oddawanie krwi
+pt:Doação de sangue
+pt-BR:Doação de sangue
+ro:Donarea de sânge
+ru:Донорство крови
+sk:Darovanie krvi
+sv:Blodgivning
+sw:Utoaji wa damu
+th:การบริจาคเลือด
+tr:Kan Bağışı
+uk:Донорство крові
+vi:Hiến máu
+zh-Hans:献血中心
+zh-Hant:捐血中心|獻血
+
+healthcare-optometrist
+en:Optometry|Optometrist
+ar:قياس البصر|طبيب العيون
+be:Оптаметрыя|Акуліст
+bg:Оптометрия|Оптометрист
+cs:Optometrie|Optometrista
+da:Optometri|Optometrist
+de:4Optometrie
+el:Οπτομετρία|Οπτομέτρης
+es:Optometría|Optometrista
+et:Optomeetria|Optometrist
+eu:Optometria|Optometrista
+fa:بینایی سنجی|اپتومتریست
+fi:Optometria|Optometristi
+fr:Optométrie|Optométriste
+he:אופטומטריה|אופטומטריסט
+hu:Optometria|Optometrista
+id:Optometri|Ahli kacamata
+it:Optometria|Optometrista
+ja:オプトメトリー|オプトメトリスト
+ko:검안|검안사
+mr:ऑप्टोमेट्री|ऑप्टोमेट्रिस्ट
+nb:Optometri|Optometrist
+nl:Optometrie|Optometrist
+pl:Optometria|Optometrysta
+pt:Optometria|Optometrista
+pt-BR:Optometria|Optometrista
+ro:Optometrie|Optometrist
+ru:Оптометрия|Оптометрист
+sk:Optometria|Optometrista
+sv:Optometri|Optometrist
+sw:Optometry|Daktari wa macho
+th:ทัศนมาตรศาสตร์|นักทัศนมาตร
+tr:Optometri|Optometrist
+uk:Оптометрія|Оптометрист
+vi:Khúc xạ nhãn khoa|bác sĩ nhãn khoa
+zh-Hans:验光师
+zh-Hant:驗光|驗光師
+
+healthcare-podiatrist
+en:Podiatry|Podiatrist
+ar:علاج الأرجل|طبيب الأرجل
+be:Подологія|Артапед
+bg:Подиология|Подиатрист
+cs:Podiatrie|Podiatr
+da:Fodterapi|Fodterapeut
+de:4Podologie|Podologe|Podologin
+el:Ποδιατρική|Ποδίατρος
+es:Podología|Podólogo
+et:Jalaravi
+eu:Podologia|Podologoa
+fa:پزشکی پا|متخصص پا
+fi:Jalkaterapia|Jalkaterapeutti
+fr:Podologie|Podologue
+he:פודיאטריה|פודיאטר
+hu:Podiatria|Podiatrist
+id:Podiatri|Ahli penyakit kaki
+it:Podologia|Podologo
+ja:足病学|足病医
+ko:발병학|발 전문의
+mr:पोडियाट्री|पोडियाट्रिस्ट
+nb:Fotterapi|Fotterapeut
+nl:Podologie|Podotherapeut
+pl:Podiatria|Podolog
+pt:Podiatria|Podiatra
+pt-BR:Podiatria|Podiatra
+ro:Podiatrie|Podiatru
+ru:Подиатрия|Ортопед
+sk:Podiatria|Podológ
+sv:Fotvård|Fotvårdare
+sw:Matibabu ya miguu|Daktari wa miguu
+th:แก้โรคเท้า|แพทย์โรคเท้า
+tr:Podiatri|Podiatrist
+uk:Подологія
+vi:khoa bàn chân|Bác sĩ chân
+zh-Hans:足疗师
+zh-Hant:足病學|足病醫生
+
+healthcare-psychotherapist
+en:Psychotherapy
+ar:العلاج النفسي|معالج نفسي
+be:Псіхатэрапія|Псіхатэрапеўт
+bg:Психотерапия|Психотерапевт
+cs:Psychoterapie|Psychoterapeut
+da:Psykoterapi|Psykoterapeut
+de:4Psychotherapie|Psychotherapeutin|Psychotherapeut
+el:Ψυχοθεραπεία|Ψυχοθεραπευτής
+es:Psicoterapia|Psicoterapeuta
+et:Psühhoteraapia|Psühhoterapeut
+eu:Psikoterapia|Psikoterapeuta
+fa:روان درمانی|روان درمانگر
+fi:Psykoterapia|Psykoterapeutti
+fr:Psychothérapie|Psychothérapeute
+he:פסיכותרפיה|פסיכותרפיסט
+hu:Pszichoterápia|Pszichoterapeuta
+id:Psikoterapi|Psikoterapis
+it:Psicoterapia|Psicoterapeuta
+ja:心理療法|サイコセラピスト
+ko:심리치료|심리 치료사
+mr:मानसोपचार|मानसोपचारतज्ज्ञ
+nb:Psykoterapi|Psykoterapeut
+nl:Psychotherapie|Psychotherapeut
+pl:Psychoterapia|Psychoterapeuta
+pt:Psicoterapia|Psicoterapeuta
+pt-BR:Psicoterapia|Psicoterapeuta
+ro:Psihoterapie|Psihoterapeut
+ru:Психотерапия|Психотерапевт
+sk:Psychoterapia|Psychoterapeut
+sv:Psykoterapi|Psykoterapeut
+sw:Tiba ya kisaikolojia|Mwanasaikolojia
+th:จิตบำบัด|นักจิตบำบัด
+tr:Psikoterapi|Psikoterapist
+uk:Психотерапія|Психотерапевт
+vi:Tâm lý trị liệu|nhà trị liệu tâm lý
+zh-Hans:心理治疗师
+zh-Hant:心理治療|心理治療師
+
+healthcare-sample_collection
+en:Sample collection
+be:Аналізы
+ru:Анализы
+uk:Аналізи
+
+healthcare-speech_therapist
+en:Logopedics|Speech therapist|Speech therapy
+ar:علاج النطق|معالج النطق
+be:лагапедыя|Лагапед
+bg:Логопедия|Логопед
+cs:Logopedie|Logoped
+da:Tale terapi|Talepædagog|Talerapi
+de:4Logopädie|Logopädin|Logopäde
+el:Λογοθεραπεία|Λογοθεραπευτής
+es:Logopedia|Logopeda
+et:Logopeedia|Logopeed
+eu:Logopedia|Logopeda
+fa:گفتار درمانی|متخصص گفتار درمانی
+fi:Logopedia|Puheterapeutti|Logopedit
+fr:Logopédie|Orthophoniste
+he:ריפוי בדיבור|קלינאי תקשורת
+hu:Logopédia|Logopédus
+id:Logopedik|Terapis bicara
+it:Logopedia|Logopedista
+ja:ロゴペディックス|スピーチセラピスト
+ko:대화 요법|언어 치료사
+mr:स्पीच थेरपी|स्पीच थेरपिस्ट
+nb:Snakketerapi|Taleterapeut
+nl:Logopedie|Logopedist|Spraaktherapie
+pl:Logopeda|Logopedia
+pt:Terapia da fala|Terapeuta da fala
+pt-BR:Terapia da fala|Terapeuta da fala
+ro:Logopedie|Terapeut de vorbire
+ru:Логопедия|Логопед
+sk:Logopédia|Logopéd
+sv:Logopedics|Logoped
+sw:Tiba ya hotuba|Mtaalamu wa hotuba
+th:การบำบัดด้วยการพูด|นักบำบัดการพูด
+tr:Logopedi|Konuşma terapisti
+uk:Логопедія|Логопед
+vi:Ngôn ngữ trị liệu|Trị liệu bằng lời nói
+zh-Hans:语言治疗师
+zh-Hant:言語治療|語言治療師
 
 amenity-hunting_stand
 en:Hunting Stand
@@ -4843,11 +5164,12 @@ sw:Uwanja wa mawindo
 fa:شکارگاه
 
 amenity-kindergarten
-en:5Kindergarten|U+1F476|U+1F37C|U+1F6BC|day care center|nursery school|nursery|play school|childcare center|preschool
+en:5Kindergarten|U+1F476|U+1F37C|U+1F6BC|nursery|4Child Care|childcare
 en-AU:Kindy
-ru:Детсад|ясли|4детский сад|дошкольное образование|детские ясли|садик
-bg:4Детска градина|деца|ясла
+ru:Детсад|ясли|4детский сад|садик
 ar:حضانة أطفال|روضة أطفال
+be:Дзіцячы садок|сад
+bg:4Детска градина|деца|ясла
 cs:Školka|mateřská škola|dětská školka|mateřská školka
 da:4Børnehave
 nl:Kleuterschool
@@ -6394,39 +6716,39 @@ fa:مسیر
 mr:मार्ग
 
 highway-pedestrian|highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-unclassified|highway-motorway_link|highway-motorway|highway-cycleway
-en:Street|st|str|ave|road|rd
-ru:Улица|переулок|проезд|тракт|проспект|ул
-bg:Улица|път|ул|бул|
-ar:شارع|طريق
-cs:Ulice|cesta|silnice|ul
-da:Gade|vej|stræde
-nl:Straat|st|str|laan|weg
+en:Street|Road|Drive|Lane|Avenue
+ru:Улица
+bg:Улица
+ar:شارع
+cs:Ulice
+da:Gade|Vej
+nl:Straat
 fi:Katu
-fr:Rue|avenue|av|boul|boulevard|route
-de:Straße|Boulevard|Avenue|Weg|Gasse|Schnellstraße|Spielstraße|Fußweg|Hauptstraße
-hu:Utca|út|u.
+fr:Rue
+de:Straße
+hu:Utca
 id:Jalan
-it:Via|strada|corso|vicolo
-ja:1ストリート|通り|道路|辻|筋
+it:Via|Strada
+ja:ストリート|通り|道路|辻|筋
 ko:거리
-nb:Gate|vei|gågate
-pl:3Ulica|droga
-pt:Rua|rodovia|estrada|avenida
-pt-BR:Rua|rodovia|estrada|avenida
-ro:Stradă
-es:Calle
+nb:Gate
+pl:Ulica
+pt:Rua|Avenida
+pt-BR:Rua|Avenida
+ro:Strada
+es:Calle|Avenida
 et:Tänav
 eu:Kalea
 sv:Gata|väg
 th:ถนน
-tr:Sokak|sk|sok|cadde|cad|cd
-uk:Вулиця|провулок|проїзд|проспект|бульвар|вул
+tr:Sokak|Sokağı
+uk:Вулиця
 vi:Phố
 zh-Hans:街头
 zh-Hant:路|街
-el:2Οδός|4Λεωφόρος|2δρόμος
-sk:Ulica|cesta|ul
-sw:Barabara|mtaa|barabara kuu
+el:δρόμος
+sk:Ulica
+sw:mtaani
 fa:جاده
 mr:रस्ता
 
@@ -8915,7 +9237,7 @@ da:Regeringskontor
 nl:Overheidskantoor|overheidspand|regeringskantoor
 fi:Viranomaistoimisto
 fr:Administration publique
-de:3Regierungsstelle|Amt|3Behörde
+de:3Regierungsstelle|Amt|3Behörde|4Verwaltung
 hu:Kormányzati iroda
 id:Kantor pemerintah
 it:Ufficio governativo|ufficio amministrativo
@@ -9434,6 +9756,46 @@ uk:5Металоконструкції|Кування металу|коваль�
 vi:Nhà kim khí
 zh-Hans:金属制造工
 zh-Hant:鐵工
+
+craft-locksmith
+en:Locksmith
+ar:قفال
+be:Слесар
+bg:Ключар
+ca:Serraller
+cs:Zámečník
+da:Låsesmed
+de:Schlosser
+el:Κλειδαράς
+es:Cerrajero
+et:Lukksepp
+eu:Sarrailagilea
+fa:قفل ساز
+fi:Lukkoseppä
+fr:Serrurier
+he:פורץ מנעולים
+hu:Lakatos
+id:Tukang kunci
+it:Fabbro
+ja:錠前屋
+ko:자물쇠 제조공
+mr:लॉकस्मिथ
+nb:Låsesmed
+nl:Slotenmaker
+pl:Ślusarz
+pt:Serralheiro
+pt-BR:Serralheiro
+ro:Lăcătuș
+ru:Слесарь
+sk:Zámočník
+sv:Låssmed
+sw:Fundi wa kufuli
+th:ช่างกุญแจ
+tr:Çilingir
+uk:Слюсар
+vi:Thợ khóa
+zh-Hans:锁匠
+zh-Hant:鎖匠
 
 craft-painter
 en:Painter
@@ -9977,6 +10339,46 @@ tr:4veri toplama istasyonu|4nirengi istasyonu|4jeodezik ölçüm noktası|4ölç
 uk:4Геодезичний пункт
 mr:सर्वेक्षण बिंदू|सर्व्हे पॉइंट
 
+man_made-tower-communication
+en:Communications Tower|cell tower|cellular tower
+ar:برج الاتصالات
+be:Вежа сувязі|вышка сувязі|сотавая вышка
+bg:Комуникационна кула
+ca:Torre de comunicacions
+cs:Komunikační věž
+da:Kommunikationstårn
+de:Kommunikationsturm
+el:Πύργος Επικοινωνιών
+es:Torre de comunicaciones
+et:Sidetorn
+eu:Komunikazio Dorrea
+fa:برج ارتباطات
+fi:Viestintätorni
+fr:Tour de communication
+he:מגדל תקשורת
+hu:Kommunikációs torony
+id:Menara Komunikasi
+it:Torre delle comunicazioni
+ja:通信塔
+ko:커뮤니케이션 타워
+mr:कम्युनिकेशन टॉवर
+nb:Kommunikasjonstårn
+nl:Communicatie Toren
+pl:Wieża komunikacyjna
+pt:Torre de Comunicações
+pt-BR:Torre de Comunicações
+ro:Turnul de comunicații
+ru:Вышка связи|cотовая вышка|башня связи
+sk:Komunikačná veža
+sv:Kommunikationstorn
+sw:Mnara wa Mawasiliano
+th:หอสื่อสาร
+tr:İletişim Kulesi
+uk:Вежа зв'язку|Стільникова вежа
+vi:Tháp truyền thông
+zh-Hans:通讯塔
+zh-Hant:通訊塔
+
 organic-only|organic-yes
 en:4organic|bio|biological|eco|ecological|healthy
 ar:بيولوجي|بيولوجي|صحي|بيولوجي|بيئي|طبيعي|عضوي
@@ -10303,16 +10705,17 @@ sk:4Veterinár
 fa:دامپزشکی
 mr:पशुवैद्यकीय डॉक्टर|प्राण्यांचा डॉक्टर
 
-amenity-charging_station
+@charging_station
 en:4Charging Station|charging
-ru:4Зарядная станция|станция зарядки|зарядка
-bg:4Зарядна станция|зареждане|електричество|електромобил
+ru:4Зарядная станция|зарядка|электрозарядка|зарядить
+be:4Зарадная станцыя|зарадка|электразарадка|зарадзіць
+bg:4Зарядна станция|зареждане
 ar:محطة شحن|شحن
 cs:Nabíjecí stanice|nabíjení
 da:Ladestation|opladning
 nl:Oplaadstation|opladen
 fi:Latausasema|lataus
-fr:3Borne de recharge|4station de recharge|4voiture électrique|recharge
+fr:Borne de recharge|station de recharge|4voiture électrique|4recharge
 de:4Ladestation|aufladen
 hu:Töltőállomás|töltés
 id:Pusat Pengisian Daya|pengisian daya
@@ -10321,7 +10724,7 @@ ja:充電ステーション|充電
 ko:충전 역|전기 자동차 충전소|전기차 충전소
 nb:Ladestasjon|lading
 pl:Stacja ładowania|ładowanie
-pt:Posto de carregamento elétrico|Estação de carregamento elétrico|3Ponto de carregamento elétrico|carregamento elétrico
+pt:Posto de carregamento elétrico|Estação de carregamento elétrico|Ponto de carregamento elétrico|4carregamento elétrico
 pt-BR:Eletroposto|recarga|abastecimento
 ro:Stație încărcare|încărcare
 es:Estación de carga
@@ -10330,7 +10733,7 @@ eu:Kargatzeko geltokia
 sv:Laddstation|laddning
 th:สถานีชาร์จ|ชาร์จ
 tr:Şarj İstasyonu|şarj etme
-uk:4Зарядна станція
+uk:4Зарядна станція|зарядка|електрозарядка|зарядити
 vi:Trạm Sạc điện|sạc điện
 zh-Hans:充电站|充电
 zh-Hant:充電站|充電
@@ -10339,11 +10742,22 @@ sk:Dobíjacia stanica|dobíjanie
 fa:ایستگاه شارژ
 mr:चार्जिंग स्टेशन|प्रभाराक केंद्र
 
+amenity-charging_station|@charging_station
+
+amenity-charging_station-bicycle|@charging_station
+en:4Bicycle Charging
+ru:4Велозарядка
+
+amenity-charging_station-motorcar|@charging_station
+en:4Motorcar Charging
+ru:4Автозарядка
+
 amenity-childcare
-en:Nursery|4Child Care
+en:Nursery|4Child Care|childcare
 ru:Детская комната|3ясли
-bg:3Ясла|деца
 ar:حضانة|رعاية أطفال
+be:Яслі
+bg:3Ясла|деца
 cs:4Jesle|Péče o děti
 da:Vuggestue|Børnehave
 nl:Crèche|kinderopvang|kinderzorg
@@ -12971,6 +13385,46 @@ zh-Hant:機車行
 fa:فروشگاه موتورسیکلت
 mr:दुचाकी विक्रेता|मोटरसायकलचे दुकान
 
+shop-motorcycle_repair
+en:4Motorcycle Repair
+ar:تصليح الدراجات النارية
+be:Рамонт матацыклаў
+bg:Ремонт на мотоциклети
+ca:Reparació de motos
+cs:Opravy motocyklů
+da:Motorcykel reparation
+de:Motorradwerkstatt
+el:Επισκευή μοτοσυκλετών
+es:Reparación de motos
+et:Mootorrataste remont
+eu:Motoen Konponketa
+fa:تعمیر موتور سیکلت
+fi:Moottoripyörän korjaus
+fr:Réparateur de moto
+he:תיקון אופנועים
+hu:Motorkerékpár javítás
+id:Bengkel Sepeda Motor
+it:Riparazione moto
+ja:オートバイの修理
+ko:오토바이 수리
+mr:मोटरसायकल दुरुस्ती
+nb:Motorsykkel reparasjon
+nl:Motorfiets Reparatie
+pl:Naprawa motocykli
+pt:Oficina de motos
+pt-BR:Oficina de motos
+ro:Reparatie motociclete
+ru:Ремонт мотоциклов
+sk:Oprava motocyklov
+sv:Motorcykel reparation
+sw:Ukarabati wa Pikipiki
+th:ซ่อมรถจักรยานยนต์
+tr:Motosiklet Tamiri
+uk:Ремонт мотоциклів
+vi:Sửa chữa xe máy
+zh-Hans:摩托车维修
+zh-Hant:摩托車維修
+
 shop-newsagent
 en:Newspaper Stand|4newspapers
 ru:Газетный киоск|3газеты
@@ -14214,7 +14668,7 @@ zh-Hans:香水
 zh-Hant:香水
 
 shop-sewing
-en:Sewing Supplies
+en:3Sewing Supplies|4Haberdashery
 ar:ﺔﻃﺎﻴﺨﻟﺍ ﺕﺍﺪﻌﻣ
 be:Швейныя прыналежнасці
 bg:Шивашки консумативи
@@ -14456,4 +14910,44 @@ pt-BR:Pista para esportes não motorizados
 ru:Беговая дорожка
 tr:Pist
 uk:Бігова доріжка
-zh-Hans = 賽道
+zh-Hans:賽道
+
+power-plant
+en:Power Plant
+ar:محطة توليد الكهرباء
+be:Электрастанцыя
+bg:Електроцентрала
+ca:Central elèctrica
+cs:Elektrárna
+da:Kraftværk
+de:Kraftwerk
+el:Εργοστάσιο ηλεκτρισμού
+es:Planta de energía
+et:Elektrijaam
+eu:Elektrizitate-parkea
+fa:نیروگاه
+fi:Voimalaitos
+fr:Centrale électrique
+he:תחנת כוח
+hu:Erőmű
+id:Pembangkit listrik
+it:Centrale elettrica
+ja:発電所
+ko:발전소
+mr:वीज प्रकल्प
+nb:Kraftverk
+nl:Energiecentrale
+pl:Elektrownia
+pt:Usina elétrica
+pt-BR:Usina elétrica
+ro:Centrală electrică
+ru:Электростанция
+sk:Elektráreň
+sv:Kraftverk
+sw:Kiwanda cha nguvu
+th:โรงไฟฟ้า
+tr:Enerji santrali
+uk:Електростанція
+vi:Nhà máy điện
+zh-Hans:发电厂
+zh-Hant:發電廠

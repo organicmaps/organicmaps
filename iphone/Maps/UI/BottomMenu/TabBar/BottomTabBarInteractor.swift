@@ -13,8 +13,6 @@ class BottomTabBarInteractor {
   private weak var controlsManager: MWMMapViewControlsManager?
   private weak var searchManager = MWMSearchManager.manager()
   
-  private var isPoint2PointSelected = false
-
   init(viewController: UIViewController, mapViewController: MapViewController, controlsManager: MWMMapViewControlsManager) {
     self.viewController = viewController
     self.mapViewController = mapViewController
@@ -32,13 +30,10 @@ extension BottomTabBarInteractor: BottomTabBarInteractorProtocol {
   }
 
   func openPoint2Point() {
-    isPoint2PointSelected.toggle()
     MWMRouter.enableAutoAddLastLocation(false)
-    if (isPoint2PointSelected) {
-      controlsManager?.onRoutePrepare()
-    } else {
-      MWMRouter.stopRouting()
-    }
+    // Is stopRouting really needed here?
+    MWMRouter.stopRouting()
+    controlsManager?.onRoutePrepare()
   }
   
   func openHelp() {

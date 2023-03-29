@@ -31,21 +31,32 @@
 	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Шукаць на мапе</string>
 	<!-- Location services are disabled by user alert - message -->
-	<string name="location_is_disabled_long_text">У вас выключана геалакацыя для гэтай прылады альбо дадатку. Калі ласка, уключыце яе ў Наладах.</string>
+	<string name="location_is_disabled_long_text">У вас выключана геалакацыя для гэтай прылады альбо праграмы. Калі ласка, уключыце яе ў Наладах.</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Паказаць на мапе</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">Спампоўка не атрымалася</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Паспрабаваць зноў</string>
+	<string name="about_menu_title">Аб праграме Organic Maps</string>
+	<!-- Text in About screen -->
+	<string name="about_headline">Бескаштоўна для ўсіх, зроблена з любоўю</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_1">• Ніякай рэкламы, без сачэння і збору вашых дадзеных</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Эканоміць батарэю, не выкарыстоўвае фонавыя дадзеныя</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Хуткія, мінімалістычныя, без смецця</string>
+	<!-- Text in About screen -->
+	<string name="about_developed_by_enthusiasts">Прыкладанне з адкрытым зыходным кодам, створанае энтузіястамі і валанцёрамі.</string>
 	<string name="connection_settings">Налады злучэння</string>
 	<string name="close">Зачыніць</string>
 	<string name="unsupported_phone">Дадатак патрабуе апаратна паскоранага OpenGL. Нажаль, ваша прылада не падтрымліваецца.</string>
 	<string name="download">Спампаваць</string>
 	<!-- Used in DownloadResources startup screen -->
-	<string name="disconnect_usb_cable">Калі ласка, адлучыце USB кабель альбо ўстаўце карту памяці каб карыстацца Organic Maps</string>
+	<string name="disconnect_usb_cable">Калі ласка, адлучыце USB кабель альбо ўстаўце карту памяці, каб карыстацца Organic Maps</string>
 	<!-- Used in DownloadResources startup screen -->
-	<string name="not_enough_free_space_on_sdcard">Калі ласка, спачатку вызваліце трохі месца на SD карце/USB сховішчы каб карыстацца дататкам</string>
+	<string name="not_enough_free_space_on_sdcard">Калі ласка, спачатку вызваліце трохі месца на SD карце/USB сховішчы, каб карыстацца праграмай</string>
 	<string name="download_resources">Перад пачаткам працы дазвольце нам спампаваць агульную мапу свету на вашу прыладу.\nГэта патрабуе %s дадзеных.</string>
 	<string name="download_resources_continue">Перайскі да мапы</string>
 	<string name="downloading_country_can_proceed">Спампоўваецца %s. Можаце зараз\nперайсці да мапы.</string>
@@ -149,7 +160,7 @@
 	<string name="description">Нататкі</string>
 	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">З вамі падзяліліся закладкамі Ogranic Maps</string>
-	<string name="share_bookmarks_email_body">Вітаю!\n\nУ далучаным файле мае закладкі з дататка Organic Maps. Калі ласка, адчыніце іх калі ў вас усталяваны Organic Maps. Калі не, спампуйце дадатак для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!</string>
+	<string name="share_bookmarks_email_body">Вітаю!\n\nУ далучаным файле мае закладкі з праграмы Organic Maps. Калі ласка, адчыніце іх, калі ў вас усталяваны Organic Maps. Калі не, спампуйце праграму для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Загрузка закладак</string>
 	<!-- Kmz file successful loading -->
@@ -171,7 +182,7 @@
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Гэй, глядзі дзе я зараз на мапе Organic Maps!</string>
 	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-	<string name="my_position_share_email">Прывітанне,\n\nЯ зараз тут: %1$s. Перайдзі па гэтай %2$s альбо гэтай %3$s спасылцы каб убачыць месца на мапе.\n\nДзякуй.</string>
+	<string name="my_position_share_email">Прывітанне,\n\nЯ зараз тут: %1$s. Перайдзі па гэтай %2$s альбо гэтай %3$s спасылцы, каб убачыць месца на мапе.\n\nДзякуй.</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">Падзяліцца</string>
 	<!-- Share by email button text, also used in editor and About. -->
@@ -208,6 +219,8 @@
 	<string name="pref_map_3d_title">Перспектыўны выгляд</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D будынкі</string>
+	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+	<string name="pref_map_3d_buildings_disabled_summary">У рэжыме энергазберажэння 3D-будынкі выключаны</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Галасавыя інструкцыі</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -229,7 +242,7 @@
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Водгук</string>
 	<!-- Text in menu -->
-	<string name="rate_the_app">Ацаніць дадатак</string>
+	<string name="rate_the_app">Ацаніць праграму</string>
 	<!-- Text in menu -->
 	<string name="help">Дапамога</string>
 	<!-- Button in the main Help dialog -->
@@ -237,7 +250,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Падтрымаць грашыма</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Як нас падтрымаць?</string>
+	<string name="how_to_support_us">Падтрымаць праект</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Капірайт</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -320,13 +333,13 @@
 	<string name="dialog_routing_disclaimer_priority">— Дарожныя абставіны, правілы дарожнага руху і дарожныя знакі заўсёды маюць прыярытэт над падказкамі навігацыі;</string>
 	<string name="dialog_routing_disclaimer_precision">— Мапа можа быць недакладнай, а прапанаваны маршрут не заўжды найлепшым;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— Прапанаваныя маршруты трэба ўспрымаць толькі як рэкамендацыі;</string>
-	<string name="dialog_routing_disclaimer_borders">— Будзьце ўважлівы з маршрутамі ў памежных зонах: маршруты пракладзеныя нашым дадаткам часамі могуць перасякаць мяжу ў недазволеных месцах.</string>
+	<string name="dialog_routing_disclaimer_borders">— Будзьце ўважлівы з маршрутамі ў памежных зонах: маршруты, пракладзеныя нашай праграмай, часамі могуць перасякаць мяжу ў недазволеных месцах.</string>
 	<string name="dialog_routing_disclaimer_beware">Будзьце пільнымі і паводзьце сябе бяспечна на дарозе!</string>
 	<string name="dialog_routing_check_gps">Праверце сігнал GPS</string>
 	<string name="dialog_routing_error_location_not_found">Не атрымалася пракласци маршрут. Каардынаты GPS не вызначаны.</string>
 	<string name="dialog_routing_location_turn_wifi">Калі ласка, праверце сігнал GPS. Для больш дакладнага вызначэння месцазнаходжання уключыце Wi-Fi.</string>
 	<string name="dialog_routing_location_turn_on">Уключыць геалагацыю</string>
-	<string name="dialog_routing_location_unknown_turn_on">Не атрымалася вызначыць каардынаты GPS. Уключыце геалакацыю каб пракласці маршрут.</string>
+	<string name="dialog_routing_location_unknown_turn_on">Не атрымалася вызначыць каардынаты GPS. Уключыце геалакацыю, каб пракласці маршрут.</string>
 	<string name="dialog_routing_unable_locate_route">Не атрымалася знайсці маршрут</string>
 	<string name="dialog_routing_cant_build_route">Не атрымалася пракласці маршрут.</string>
 	<string name="dialog_routing_change_start_or_end">Калі ласка, змяніце пункт адпраўлення альбо прызначэння.</string>
@@ -339,10 +352,10 @@
 	<string name="dialog_routing_change_intermediate">Не знойдзена прамежкавая кропка маршрута.</string>
 	<string name="dialog_routing_intermediate_not_determined">Змяніце прамежкавы пункт.</string>
 	<string name="dialog_routing_system_error">Памылка сістэмы</string>
-	<string name="dialog_routing_application_error">Не атрымалася пракласці маршрут з-за памылкі дадатка.</string>
+	<string name="dialog_routing_application_error">Не атрымалася пракласці маршрут з-за памылкі праграмы.</string>
 	<string name="dialog_routing_try_again">Паспрабуйце зноў</string>
 	<string name="dialog_routing_download_and_build_cross_route">Спампаваць мапу і пракласці лепшы маршрут праз некалькі мапаў?</string>
-	<string name="dialog_routing_download_cross_route">Спампаваць дадатковыя мапы, каб пракласці лепшы маршрут, каторы перасякае межы гэтай мапы.</string>
+	<string name="dialog_routing_download_cross_route">Спампаваць дадатковыя мапы, каб пракласці лепшы маршрут, які перасякае межы гэтай мапы.</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
 	<string name="search_without_internet_advertisement">Каб шукаць месцы і пракладваць маршруты, спампуйце карту. Пасля гэтага падключэнне да Інтэрнэту вам больш не спатрэбіцца.</string>
@@ -436,7 +449,7 @@
 	<string name="downloader_no_space_message">Выдаліце непатрэбныя дадзеныя</string>
 	<string name="editor_login_error_dialog">Памылка аўтарызацыі.</string>
 	<string name="editor_profile_changes">Правераныя змены</string>
-	<string name="editor_focus_map_on_location">Перацягніце мапу каб выбраць правільнае месцазнаходжанне аб\'екта.</string>
+	<string name="editor_focus_map_on_location">Перацягніце мапу, каб выбраць правільнае месцазнаходжанне аб\'екта.</string>
 	<string name="editor_edit_place_title">Праўка</string>
 	<string name="editor_add_place_title">Даданне</string>
 	<string name="editor_edit_place_name_hint">Назва месца</string>
@@ -445,7 +458,8 @@
 	<string name="editor_report_problem_other_title">Іншая праблема</string>
 	<string name="placepage_add_business_button">Дадаць установу</string>
 	<string name="message_invalid_feature_position">Аб\'ект не можа знаходзіцца тут</string>
-	<string name="osm_presentation">Усе дадзеныя карты паходзяць з праекта OpenStreetMap. Гэта як Wikipedia для карт, дзе вы можаце дадаваць або рэдагаваць месцы, і яны становяцца даступнымі для мільёнаў карыстальнікаў па ўсім свеце.</string>
+	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Картаграфічныя дадзеныя OpenStreetMap па стане на %s. Гэта як Вікіпедыя, дзе вы можаце дадаць або рэдагаваць месцы для ўсіх карыстальнікаў па ўсім свеце.</string>
 	<string name="login_to_make_edits_visible">Аўтарызуйцеся ў OpenStreetMap.org, каб іншыя карыстальнікі бачылі вашыя змены.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d з %2$d</string>
@@ -453,8 +467,8 @@
 	<string name="download_over_mobile_message">Гэта можа быць даволі дорага з некаторымі тарыфнымі планамі альбо ў роўмінгу.</string>
 	<string name="error_enter_correct_house_number">Увядзіце нумар дома правільна</string>
 	<string name="editor_storey_number">Колькасць паверхаў (максімум %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Колькасць паверхаў павінна быць не больш за 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Колькасць паверхаў павінна быць не больш за %d</string>
 	<string name="editor_zip_code">Паштовы індэкс</string>
 	<string name="error_enter_correct_zip_code">Увядзіце паштовы індэкс правільна</string>
 	<!-- Place Page title for long tap -->
@@ -530,14 +544,14 @@
 	<string name="on">Укл.</string>
 	<string name="off">Выкл.</string>
 	<string name="prefs_languages_information">Мы ужываем сістэмны сінтэзатар маўлення (TTS). Многія прылады на Android ужываюць Google TTS, вы можаце спампаваць альбо абнавіць яго праз Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Для некаторых моў вам спатрэбіцца ўсталяваць сінтэзатар маўлення альбо дадатковы моўны пакет з крамы дадаткаў (Google Play, Galaxy Store, App Gallery, FDroid).\Зайдзіце на вашай прыладзе ў Налады → Мова і ўвод → Маўленне → Сінтэз маўлення.\nТут вы можаце задаць налады сінтэза маўлення (напрыклад, спампаваць моўны пакет для выкарыстання без падключэння да інтэрнэту) альбо выбраць іншы сінтэзатар маўлення.</string>
+	<string name="prefs_languages_information_off">Для некаторых моў вам спатрэбіцца ўсталяваць сінтэзатар маўлення альбо дадатковы моўны пакет з крамы праграм (Google Play, Galaxy Store, App Gallery, F-Droid).\Зайдзіце на вашай прыладзе ў Налады → Мова і ўвод → Маўленне → Сінтэз маўлення.\nТут вы можаце задаць налады сінтэза маўлення (напрыклад, спампаваць моўны пакет для выкарыстання без падключэння да інтэрнэту) альбо выбраць іншы сінтэзатар маўлення.</string>
 	<string name="prefs_languages_information_off_link">Больш падрабязная інфармацыя знаходзіцца ў гэтым кіраўніцтве.</string>
 	<string name="transliteration_title">Транслітарацыя лацінкай</string>
 	<string name="learn_more">Даведацца больш</string>
 	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Выхад</string>
-	<string name="routing_add_start_point">Дадайце пункт адпраўлення каб пракласці маршрут</string>
-	<string name="routing_add_finish_point">Дадайце пункт прызначэння каб пракласці маршрут</string>
+	<string name="routing_add_start_point">Дадайце пункт адпраўлення, каб пракласці маршрут</string>
+	<string name="routing_add_finish_point">Дадайце пункт прызначэння, каб пракласці маршрут</string>
 	<string name="button_exit">Выхад</string>
 	<string name="placepage_remove_stop">Выдаліць</string>
 	<string name="placepage_add_stop">Дадаць прыпынак</string>
@@ -553,7 +567,7 @@
 	<string name="bookmarks_create_new_group">Стварыць новы спіс</string>
 	<!-- Bookmark categories screen -->
 	<string name="bookmarks_import">Імпартаваць закладкі</string>
-	<string name="bookmarks_error_message_share_general">Не атрымалася падзяліцца з-за памылкі дадатка</string>
+	<string name="bookmarks_error_message_share_general">Не атрымалася падзяліцца з-за памылкі праграмы</string>
 	<string name="bookmarks_error_title_share_empty">Памылка пры спробе падзяліцца</string>
 	<string name="bookmarks_error_message_share_empty">Нельга падзяліцца пустым спісам</string>
 	<string name="bookmarks_error_title_empty_list_name">Назва не можа быць пустой</string>
@@ -583,7 +597,7 @@
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Налады адсочвання</string>
 	<string name="crash_reports">Справаздача аб памылцы</string>
-	<string name="crash_reports_description">Мы можам выкарыстоўваць вашы дадзеныя, каб палепшыць Organic Maps. Змены набудуць сілу пасля перапуску дататка.</string>
+	<string name="crash_reports_description">Мы можам выкарыстоўваць вашы дадзеныя, каб палепшыць Organic Maps. Змены набудуць сілу пасля перапуску праграмы.</string>
 	<string name="privacy_policy">Палітыка прыватнасці</string>
 	<string name="terms_of_use">Умовы выкарыстання</string>
 	<string name="button_layer_traffic">Рух</string>
@@ -608,11 +622,11 @@
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Спампоўка мапаў</string>
 	<string name="power_managment_title">Рэжым захавання энергіі</string>
-	<string name="power_managment_description">Калі ўключаны рэжым захавання энергіі, дадатак пачынае выключаць энергазатратныя функцыі ў залежнасці ад зарада батарэі</string>
+	<string name="power_managment_description">Калі ўключаны рэжым захавання энергіі, праграма пачынае выключаць энергазатратныя функцыі ў залежнасці ад зарада батарэі</string>
 	<string name="power_managment_setting_never">Ніколі</string>
 	<string name="power_managment_setting_auto">Аўтаматычна</string>
 	<string name="power_managment_setting_manual_max">Максімальнае захаванне энергіі</string>
-	<string name="enable_logging_warning_message">Опцыя ўключае запіс журнала падзей для мэтаў дыягностыкі. Гэта можа дапамагчы нашай камандзе вырашаць праблемы з дадаткам. Уключайце гэтую опцыю часова каб запісаць і паслаць нам дэталёвую інфармацыю пра знойденую вамі праблему.</string>
+	<string name="enable_logging_warning_message">Опцыя ўключае запіс журнала падзей для мэтаў дыягностыкі. Гэта можа дапамагчы нашай камандзе вырашаць праблемы з праграмай. Уключайце гэтую опцыю часова, каб запісаць і паслаць нам дэталёвую інфармацыю, пра знойденую вамі праблему.</string>
 	<string name="access_rules_author_only">Рэдагаванне анлайн</string>
 	<string name="driving_options_title">Налады пракладкі маршрута</string>
 	<string name="driving_options_subheader">Пазбягаць на кожным маршруце</string>
@@ -701,7 +715,7 @@
 	<!-- A preference title; keep short! -->
 	<string name="enable_show_on_lock_screen">Паказваць на экране блакіроўкі</string>
 	<!-- Description in preferences -->
-	<string name="enable_show_on_lock_screen_description">Калі ўключана, вам не трэба разблакіраваць прыладу кожны раз падчас працы дадатку.</string>
+	<string name="enable_show_on_lock_screen_description">Калі ўключана, вам не трэба разблакіраваць прыладу кожны раз падчас працы праграмы.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Дадзеныя карты з OpenStreetMap</string>
 	<!-- Telegram group url for the "?" About page -->
@@ -711,8 +725,11 @@
 
 	<!-- SECTION: Types -->
 	<string name="type.amenity.bicycle_parking">Велапаркоўка</string>
+	<string name="type.amenity.charging_station.bicycle">Станцыя для зарадкі ровараў</string>
+	<string name="type.amenity.charging_station.motorcar">Аўтамабільная зарадная станцыя</string>
 	<string name="type.leisure.bowling_alley">Боўлінг</string>
 	<string name="type.amenity.driving_school">Аўташкола</string>
+	<string name="type.amenity.money_transfer">Грашовыя пераводы</string>
 	<string name="type.amenity.music_school">Музычная школа</string>
 	<string name="type.amenity.language_school">Моўная школа</string>
 	<string name="type.amenity.fire_station">Пажарная частка</string>
@@ -722,6 +739,7 @@
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">Хрысціянскія могілкі</string>
 	<string name="type.amenity.ice_cream">Марозіва</string>
+	<string name="type.amenity.loading_dock">Пагрузная платформа</string>
 	<string name="type.amenity.parking">Паркоўка</string>
 	<string name="type.amenity.parking.fee">Платная паркоўка</string>
 	<string name="type.amenity.parking.multi.storey">Шматпавярховая паркоўка</string>
@@ -786,6 +804,8 @@
 	<string name="type.craft.handicraft">Рамесніцтва</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Ацяпленне, вентыляцыя і кандыцыянаванне</string>
+	<string name="type.craft.key_cutter">Выраб ключоў</string>
+	<string name="type.craft.locksmith">Слесар</string>
 	<string name="type.craft.metal_construction">Металаканструкцыі</string>
 	<string name="type.craft.painter">Мастак</string>
 	<string name="type.craft.photographer">Фатограф</string>
@@ -798,14 +818,25 @@
 	<string name="type.cuisine.deli">Дэлікатэсы</string>
 	<string name="type.emergency.defibrillator">Дэфібрылятар</string>
 	<string name="type.emergency.fire_hydrant">Пажарны гідрант</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Галоўны ўваход</string>
 	<string name="type.healthcare.laboratory">Медыцынская лабараторыя</string>
 	<string name="type.healthcare.physiotherapist">Фізіятэрапеўт</string>
+	<string name="type.healthcare.alternative">Альтэрнатыўная медыцына</string>
+	<string name="type.healthcare.audiologist">Аўдыялогія</string>
+	<string name="type.healthcare.blood_donation">Цэнтр донарства крыві</string>
+	<string name="type.healthcare.optometrist">Оптаметрыя</string>
+	<string name="type.healthcare.podiatrist">Подологія</string>
+	<string name="type.healthcare.psychotherapist">Псіхатэрапія</string>
+	<string name="type.healthcare.sample_collection">Збор аналізаў</string>
+	<string name="type.healthcare.speech_therapist">лагапедыя</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Тунэль</string>
+	<string name="type.highway.busway">Выдзеленая аўтобусная дарога</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.cycleway.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -944,6 +975,7 @@
 	<string name="type.man_made.mast">Мачта/вышка</string>
 	<string name="type.man_made.silo">Сілас</string>
 	<string name="type.man_made.storage_tank">Рэзервуар</string>
+	<string name="type.man_made.tower.communication">Вежа сувязі</string>
 	<string name="type.mountain_pass">Перавал</string>
 	<string name="type.natural">Прырода</string>
 	<string name="type.natural.bare_rock">Голая скала</string>
@@ -1020,30 +1052,54 @@
 	<string name="type.place.suburb">Раён</string>
 	<string name="type.place.town">Мястэчка</string>
 	<string name="type.place.village">Вёска</string>
+	<string name="type.power.generator.solar">Сонечны генератар</string>
+	<string name="type.power.generator.wind">Ветрагенератар</string>
+	<string name="type.power.generator.gas">Газатурбінная электрастанцыя</string>
+	<string name="type.power.generator.hydro">Гідраэлектрастанцыя</string>
+	<string name="type.power.plant">Электрастанцыя</string>
+	<string name="type.power.plant.coal">Вугальная электрастанцыя</string>
+	<string name="type.power.plant.gas">Газатурбінная электрастанцыя</string>
+	<string name="type.power.plant.hydro">Гідраэлектрастанцыя</string>
+	<string name="type.power.plant.solar">Сонечная электрастанцыя</string>
+	<string name="type.power.plant.wind">Ветраэлектрастанцыя</string>
 	<string name="type.railway.platform">Чыгуначная платформа</string>
+	<string name="type.shop.bathroom_furnishing">Мэбля для ванных пакояў</string>
 	<string name="type.shop.beverages">Напоі</string>
+	<string name="type.shop.cannabis">Крама канабіса</string>
 	<string name="type.shop.caravan">Продаж аўтадамоў</string>
+	<string name="type.shop.carpet">Дываны</string>
 	<string name="type.shop.chocolate">Крама шакалада</string>
 	<string name="type.shop.coffee">Крама кавы</string>
 	<string name="type.shop.cosmetics">Касметыка</string>
+	<string name="type.shop.curtain">Шторы</string>
 	<string name="type.shop.deli">Дэлікатэсная крама</string>
 	<string name="type.shop.farm">Сельскагаспадарчыя прадукты</string>
+	<string name="type.shop.fashion_accessories">Модныя аксэсуары</string>
 	<string name="type.shop.funeral_directors">Рытуальныя паслугі</string>
+	<string name="type.shop.gas">Газавая крама</string>
 	<string name="type.shop.grocery">Бакалея</string>
 	<string name="type.shop.hardware">Будаўнічы магазін</string>
 	<string name="type.shop.health_food">Крама здаровай ежы</string>
+	<string name="type.shop.herbalist">Магазін траў</string>
+	<string name="type.shop.hifi">HiFi аўдыё</string>
 	<string name="type.shop.houseware">Крама посуду</string>
 	<string name="type.shop.kitchen">Крама для кухні</string>
 	<string name="type.shop.money_lender">Ліхвяр</string>
+	<string name="type.shop.motorcycle_repair">Рамонт матацыклаў</string>
 	<string name="type.shop.music">Музычная крама</string>
 	<string name="type.shop.musical_instrument">Музычныя інструменты</string>
+	<string name="type.shop.outpost">Пункт самавывазу</string>
 	<string name="type.shop.pastry">Кандытарскія вырабы</string>
+	<string name="type.shop.pet_grooming">Грумінг</string>
 	<string name="type.shop.second_hand">Крама сэканд-хэнд</string>
 	<string name="type.shop.tea">Крама гарбаты</string>
+	<string name="type.shop.agrarian">Сельскагаспадарчы магазін</string>
 	<string name="type.shop.antiques">Антыкварыят</string>
+	<string name="type.shop.appliance">Крама бытавой тэхнікі</string>
 	<string name="type.shop.art">Крама мастацтваў</string>
 	<string name="type.shop.baby_goods">Дзіцячая крама</string>
 	<string name="type.shop.bag">Крама сумак</string>
+	<string name="type.shop.bed">Крама ложкаў</string>
 	<string name="type.shop.boutique">Буцік</string>
 	<string name="type.shop.charity">Дабрачынная крама</string>
 	<string name="type.shop.cheese">Сырны магазін</string>

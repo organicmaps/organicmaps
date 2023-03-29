@@ -150,6 +150,8 @@ std::string DebugPrint(PreRankerResult const & r)
   ostringstream os;
   os << "PreRankerResult "
      << "{ FID: " << r.GetId().m_index    // index is enough here for debug purpose
+     << "; m_matchedTokensNumber: " << r.m_matchedTokensNumber
+     << "; m_isRelaxed: " << r.m_isRelaxed
      << "; " << DebugPrint(r.m_info)
      << " }";
   return os.str();

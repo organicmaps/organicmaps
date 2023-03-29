@@ -226,6 +226,9 @@
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "त्रिमिती (3D) इमारती";
 
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "3D इमारती वीज बचत मोडमध्ये बंद केल्या आहेत";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "ध्वनी सूचना";
 
@@ -304,7 +307,7 @@
 "donate" = "Donate";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "आम्हाला आधार कसा द्यायचा?";
+"how_to_support_us" = "प्रकल्पाला पाठठिंबा द्या";
 
 /* Button in the main Help dialog */
 "copyright" = "प्रकाशन अधिकार (कॉपीराईट)";
@@ -710,8 +713,8 @@
 
 "editor_storey_number" = "मजल्यांची संख्या (कमाल %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "मजल्यांची संख्या २५ पेक्षा जास्त नसावी";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "मजल्यांची संख्या %d पेक्षा जास्त नसावी";
 
 "editor_zip_code" = "पिनकोड";
 
@@ -1236,6 +1239,9 @@
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/";
 
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
 
 /********** Types **********/
 
@@ -1311,7 +1317,9 @@
 
 "type.amenity.charging_station" = "चार्जिंग केंद्र";
 
-"type.amenity.charging_station.motorcar" = "चार्जिंग केंद्र";
+"type.amenity.charging_station.bicycle" = "सायकल चार्जिंग स्टेशन";
+
+"type.amenity.charging_station.motorcar" = "मोटार कार चार्जिंग स्टेशन";
 
 "type.amenity.childcare" = "बालवाडी";
 
@@ -1334,6 +1342,8 @@
 "type.amenity.drinking_water" = "पिण्याचे पाणी";
 
 "type.amenity.driving_school" = "वाहनचालक शाळा";
+
+"type.amenity.money_transfer" = "पैसे हस्तांतरण";
 
 "type.amenity.music_school" = "Music School";
 
@@ -1370,6 +1380,8 @@
 "type.amenity.kindergarten" = "बालवाडी";
 
 "type.amenity.library" = "ग्रंथालय";
+
+"type.amenity.loading_dock" = "डक लड करत आह";
 
 "type.amenity.marketplace" = "बाजारपेठ";
 
@@ -1653,6 +1665,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "HVAC";
 
+"type.craft.key_cutter" = "की कटिंग";
+
+"type.craft.locksmith" = "लॉकस्मिथ";
+
 "type.craft.metal_construction" = "धातू कामगार";
 
 "type.craft.painter" = "चित्रकार";
@@ -1849,11 +1865,31 @@
 
 "type.emergency.phone" = "संकटकालीन फोन";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "प्रवेशद्वार";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "मुख्य प्रवेशद्वार";
 
 "type.healthcare.laboratory" = "वैद्यकीय प्रयोगशाळा";
 
 "type.healthcare.physiotherapist" = "फिजिओथेरपिस्ट";
+
+"type.healthcare.alternative" = "पर्यायी औषध";
+
+"type.healthcare.audiologist" = "ऑडिओलॉजी";
+
+"type.healthcare.blood_donation" = "रक्तदान केंद्र";
+
+"type.healthcare.optometrist" = "ऑप्टोमेट्री";
+
+"type.healthcare.podiatrist" = "पोडियाट्री";
+
+"type.healthcare.psychotherapist" = "मानसोपचार";
+
+"type.healthcare.sample_collection" = "नमुना";
+
+"type.healthcare.speech_therapist" = "स्पीच थेरपी";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1905,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "बोगदा";
+
+"type.highway.busway" = "समर्पित बस रस्ता";
 
 "type.highway.bus_stop" = "बस थांबा";
 
@@ -2431,6 +2469,8 @@
 
 "type.man_made.tower" = "मनोरा";
 
+"type.man_made.tower.communication" = "कम्युनिकेशन टॉवर";
+
 "type.man_made.wastewater_plant" = "सांडपाणी संयंत्र(प्लांट)";
 
 "type.man_made.water_tap" = "पाण्याचा नळ";
@@ -2623,11 +2663,31 @@
 
 "type.power.generator" = "जनित्र(जनरेटर)";
 
+"type.power.generator.solar" = "सौर जनरेटर";
+
+"type.power.generator.wind" = "वारा जनरेटर";
+
+"type.power.generator.gas" = "गॅस टर्बाइन पॉवर प्लांट";
+
+"type.power.generator.hydro" = "जलविद्युत प्रकल्प";
+
 "type.power.line" = "विद्युत तार";
 
 "type.power.line.underground" = "भूमिगत विद्युत तार";
 
 "type.power.minor_line" = "किरकोळ विद्युत तार";
+
+"type.power.plant" = "वीज प्रकल्प";
+
+"type.power.plant.coal" = "कोळसा ऊर्जा प्रकल्प";
+
+"type.power.plant.gas" = "गॅस टर्बाइन पॉवर प्लांट";
+
+"type.power.plant.hydro" = "जलविद्युत प्रकल्प";
+
+"type.power.plant.solar" = "सौर ऊर्जा संयंत्र";
+
+"type.power.plant.wind" = "पवन ऊर्जा संयंत्र";
 
 "type.power.pole" = "विद्युत मनोरा";
 
@@ -2754,6 +2814,8 @@
 "type.railway.station.subway.bengalore" = "भुयारी मार्ग";
 
 "type.railway.station.subway.berlin" = "भुयारी मार्ग";
+
+"type.railway.station.subway.bilbao" = "भुयारी मार्ग";
 
 "type.railway.station.subway.brasilia" = "भुयारी मार्ग";
 
@@ -2979,6 +3041,8 @@
 
 "type.railway.subway_entrance.berlin" = "भुयारी प्रवेशद्वार";
 
+"type.railway.subway_entrance.bilbao" = "भुयारी प्रवेशद्वार";
+
 "type.railway.subway_entrance.brasilia" = "भुयारी प्रवेशद्वार";
 
 "type.railway.subway_entrance.brescia" = "भुयारी प्रवेशद्वार";
@@ -3197,6 +3261,8 @@
 
 "type.shop.bakery" = "बेकरी";
 
+"type.shop.bathroom_furnishing" = "स्नानगृह सामान";
+
 "type.shop.beauty" = "सौंदर्य प्रसाधनगृह";
 
 "type.shop.beverages" = "शीतपेय";
@@ -3209,6 +3275,8 @@
 
 "type.shop.butcher" = "खाटीक";
 
+"type.shop.cannabis" = "गांजाचे दुकान";
+
 "type.shop.car" = "कार विक्रेता";
 
 "type.shop.car_parts" = "कारचे सुट्टे भाग";
@@ -3218,6 +3286,8 @@
 "type.shop.car_repair.tyres" = "टायर दुरुस्ती";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "कार्पेट्स";
 
 "type.shop.chemist" = "औषधालय";
 
@@ -3237,6 +3307,8 @@
 
 "type.shop.cosmetics" = "सौंदर्य(कॉस्मेटिक)";
 
+"type.shop.curtain" = "पडदे";
+
 "type.shop.deli" = "Delicatessen Shop";
 
 "type.shop.department_store" = "विभागीय भांडार";
@@ -3253,6 +3325,8 @@
 
 "type.shop.farm" = "Farm Food Shop";
 
+"type.shop.fashion_accessories" = "फॅशन अॅक्सेसरीज";
+
 "type.shop.florist" = "फुलवाला";
 
 "type.shop.funeral_directors" = "अंत्यसंस्कार संचालक";
@@ -3260,6 +3334,8 @@
 "type.shop.furniture" = "फर्निचरचे दुकान";
 
 "type.shop.garden_centre" = "बागकामाचे दुकान";
+
+"type.shop.gas" = "गॅसचे दुकान";
 
 "type.shop.gift" = "भेटवस्तूंचे दुकान";
 
@@ -3272,6 +3348,10 @@
 "type.shop.hardware" = "हार्डवेअर दुकान";
 
 "type.shop.health_food" = "Health Food Shop";
+
+"type.shop.herbalist" = "औषधी वनस्पतींचे दुकान";
+
+"type.shop.hifi" = "हायफाय ऑडिओ";
 
 "type.shop.houseware" = "हार्डवेअर दुकान";
 
@@ -3293,6 +3373,8 @@
 
 "type.shop.motorcycle" = "दुचाकी विक्रेता";
 
+"type.shop.motorcycle_repair" = "मोटरसायकल दुरुस्ती";
+
 "type.shop.music" = "दुकान";
 
 "type.shop.musical_instrument" = "दुकान";
@@ -3303,11 +3385,15 @@
 
 "type.shop.outdoor" = "भटकंतीचे साहित्य";
 
+"type.shop.outpost" = "पिकअप पॉइंट";
+
 "type.shop.pastry" = "बेकरी";
 
 "type.shop.pawnbroker" = "Pawnbroker";
 
 "type.shop.pet" = "पाळीव प्राण्यांचे दुकान";
+
+"type.shop.pet_grooming" = "पाळीव प्राणी ग्रूमिंग";
 
 "type.shop.photo" = "फोटोचे दुकान";
 
@@ -3343,13 +3429,19 @@
 
 "type.shop.wine" = "वाईन विक्रेता";
 
+"type.shop.agrarian" = "शेतीचे दुकान";
+
 "type.shop.antiques" = "Antiques";
+
+"type.shop.appliance" = "उपकरणांचे दुकान";
 
 "type.shop.art" = "Arts Shop";
 
 "type.shop.baby_goods" = "Baby Goods";
 
 "type.shop.bag" = "Bags Store";
+
+"type.shop.bed" = "पलंगाचे दुकान";
 
 "type.shop.boutique" = "Boutique";
 

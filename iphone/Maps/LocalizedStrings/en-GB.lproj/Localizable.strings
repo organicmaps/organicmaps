@@ -226,6 +226,9 @@
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D buildings";
 
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "3D buildings are turned off in power saving mode";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Voice Instructions";
 
@@ -304,7 +307,7 @@
 "donate" = "Donate";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "How to support us?";
+"how_to_support_us" = "Support the project";
 
 /* Button in the main Help dialog */
 "copyright" = "Copyright";
@@ -710,12 +713,12 @@
 
 "editor_storey_number" = "Number of floors (maximum of %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "The number of floors must non exceed 25";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "The number of floors must non exceed %d";
 
-"editor_zip_code" = "ZIP Code";
+"editor_zip_code" = "Postcode";
 
-"error_enter_correct_zip_code" = "Enter a valid ZIP code";
+"error_enter_correct_zip_code" = "Enter a valid postcode";
 
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Unknown Place";
@@ -1236,20 +1239,23 @@
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/";
 
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
 
 /********** Types **********/
 
 "type.aerialway" = "Aerialway";
 
-"type.aerialway.cable_car" = "Cable car";
+"type.aerialway.cable_car" = "Cable Car";
 
-"type.aerialway.chair_lift" = "Chair lift";
+"type.aerialway.chair_lift" = "Chair Lift";
 
-"type.aerialway.drag_lift" = "Drag lift";
+"type.aerialway.drag_lift" = "Drag Lift";
 
 "type.aerialway.gondola" = "Gondola";
 
-"type.aerialway.mixed_lift" = "Mixed lift";
+"type.aerialway.mixed_lift" = "Mixed Lift";
 
 "type.aerialway.station" = "Aerialway Station";
 
@@ -1311,7 +1317,9 @@
 
 "type.amenity.charging_station" = "Charging Station";
 
-"type.amenity.charging_station.motorcar" = "Charging Station";
+"type.amenity.charging_station.bicycle" = "Bicycle Charging Station";
+
+"type.amenity.charging_station.motorcar" = "Motorcar Charging Station";
 
 "type.amenity.childcare" = "Nursery";
 
@@ -1334,6 +1342,8 @@
 "type.amenity.drinking_water" = "Drinking Water";
 
 "type.amenity.driving_school" = "Driving School";
+
+"type.amenity.money_transfer" = "Money Transfer";
 
 "type.amenity.music_school" = "Music School";
 
@@ -1370,6 +1380,8 @@
 "type.amenity.kindergarten" = "Kindergarten";
 
 "type.amenity.library" = "Library";
+
+"type.amenity.loading_dock" = "Loading Dock";
 
 "type.amenity.marketplace" = "Marketplace";
 
@@ -1653,6 +1665,10 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "HVAC";
 
+"type.craft.key_cutter" = "Key Cutting";
+
+"type.craft.locksmith" = "Locksmith";
+
 "type.craft.metal_construction" = "Metal Worker";
 
 "type.craft.painter" = "Painter";
@@ -1849,11 +1865,31 @@
 
 "type.emergency.phone" = "Emergency Phone";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Entrance";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Main Entrance";
 
 "type.healthcare.laboratory" = "Medical Laboratory";
 
 "type.healthcare.physiotherapist" = "Physiotherapist";
+
+"type.healthcare.alternative" = "Alternative medicine";
+
+"type.healthcare.audiologist" = "Audiology";
+
+"type.healthcare.blood_donation" = "Blood donation center";
+
+"type.healthcare.optometrist" = "Optometry";
+
+"type.healthcare.podiatrist" = "Podiatry";
+
+"type.healthcare.psychotherapist" = "Psychotherapy";
+
+"type.healthcare.sample_collection" = "Sample collection";
+
+"type.healthcare.speech_therapist" = "Logopedics";
 
 
 /********** Types: Roads **********/
@@ -1869,6 +1905,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunnel";
+
+"type.highway.busway" = "Dedicated bus road";
 
 "type.highway.bus_stop" = "Bus Stop";
 
@@ -2305,7 +2343,7 @@
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrial Area";
 
 "type.landuse.landfill" = "Landfill";
 
@@ -2323,9 +2361,9 @@
 
 "type.landuse.reservoir" = "Water";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Residential Area";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Retail Area";
 
 "type.landuse.salt_pond" = "Pond";
 
@@ -2337,7 +2375,7 @@
 
 "type.leisure.common" = "Common Land";
 
-"type.leisure.dog_park" = "Dog Area";
+"type.leisure.dog_park" = "Dog Park";
 
 "type.leisure.fitness_centre" = "Fitness Centre";
 
@@ -2430,6 +2468,8 @@
 "type.man_made.surveillance" = "Surveillance Camera";
 
 "type.man_made.tower" = "Tower";
+
+"type.man_made.tower.communication" = "Communications Tower";
 
 "type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
@@ -2623,11 +2663,31 @@
 
 "type.power.generator" = "Generator";
 
+"type.power.generator.solar" = "Solar Generator";
+
+"type.power.generator.wind" = "Wind Generator";
+
+"type.power.generator.gas" = "Gas turbine Power Plant";
+
+"type.power.generator.hydro" = "Hydroelectric Power Plant";
+
 "type.power.line" = "Power Line";
 
 "type.power.line.underground" = "Underground Power Line";
 
 "type.power.minor_line" = "Minor Power Line";
+
+"type.power.plant" = "Power Plant";
+
+"type.power.plant.coal" = "Coal Power Plant";
+
+"type.power.plant.gas" = "Gas turbine Power Plant";
+
+"type.power.plant.hydro" = "Hydroelectric Power Plant";
+
+"type.power.plant.solar" = "Solar Power Plant";
+
+"type.power.plant.wind" = "Wind Power Plant";
 
 "type.power.pole" = "Power Tower";
 
@@ -2754,6 +2814,8 @@
 "type.railway.station.subway.bengalore" = "Metro";
 
 "type.railway.station.subway.berlin" = "Metro";
+
+"type.railway.station.subway.bilbao" = "Metro";
 
 "type.railway.station.subway.brasilia" = "Metro";
 
@@ -2979,6 +3041,8 @@
 
 "type.railway.subway_entrance.berlin" = "Metro Entrance";
 
+"type.railway.subway_entrance.bilbao" = "Metro Entrance";
+
 "type.railway.subway_entrance.brasilia" = "Metro Entrance";
 
 "type.railway.subway_entrance.brescia" = "Metro Entrance";
@@ -3197,6 +3261,8 @@
 
 "type.shop.bakery" = "Bakery";
 
+"type.shop.bathroom_furnishing" = "Bathroom Furnishings";
+
 "type.shop.beauty" = "Beauty Shop";
 
 "type.shop.beverages" = "Beverages";
@@ -3209,6 +3275,8 @@
 
 "type.shop.butcher" = "Butcher’s";
 
+"type.shop.cannabis" = "Cannabis Store";
+
 "type.shop.car" = "Car Dealership";
 
 "type.shop.car_parts" = "Car Parts";
@@ -3218,6 +3286,8 @@
 "type.shop.car_repair.tyres" = "Tyre Repair";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "Carpets";
 
 "type.shop.chemist" = "Chemist Shop";
 
@@ -3237,6 +3307,8 @@
 
 "type.shop.cosmetics" = "Cosmetics";
 
+"type.shop.curtain" = "Curtains";
+
 "type.shop.deli" = "Delicatessen Shop";
 
 "type.shop.department_store" = "Department Store";
@@ -3253,6 +3325,8 @@
 
 "type.shop.farm" = "Farm Food Shop";
 
+"type.shop.fashion_accessories" = "Fashion Accessories";
+
 "type.shop.florist" = "Florist’s";
 
 "type.shop.funeral_directors" = "Funeral Directors";
@@ -3261,9 +3335,11 @@
 
 "type.shop.garden_centre" = "Garden Store";
 
+"type.shop.gas" = "Gas Store";
+
 "type.shop.gift" = "Gift Shop";
 
-"type.shop.greengrocer" = "Greengrocer's";
+"type.shop.greengrocer" = "Greengrocer";
 
 "type.shop.grocery" = "Grocery";
 
@@ -3272,6 +3348,10 @@
 "type.shop.hardware" = "Hardware Store";
 
 "type.shop.health_food" = "Health Food Shop";
+
+"type.shop.herbalist" = "Herbs Store";
+
+"type.shop.hifi" = "HiFi Audio";
 
 "type.shop.houseware" = "Hardware Store";
 
@@ -3293,6 +3373,8 @@
 
 "type.shop.motorcycle" = "Motorcycle Shop";
 
+"type.shop.motorcycle_repair" = "Motorcycle Repair";
+
 "type.shop.music" = "Record Store";
 
 "type.shop.musical_instrument" = "Musical Instruments";
@@ -3303,11 +3385,15 @@
 
 "type.shop.outdoor" = "Outdoor Equipment";
 
+"type.shop.outpost" = "Pickup Point";
+
 "type.shop.pastry" = "Bakery";
 
 "type.shop.pawnbroker" = "Pawnbroker";
 
-"type.shop.pet" = "Petshop";
+"type.shop.pet" = "Pet Store";
+
+"type.shop.pet_grooming" = "Pet Grooming";
 
 "type.shop.photo" = "Photo Shop";
 
@@ -3343,13 +3429,19 @@
 
 "type.shop.wine" = "Wine Shop";
 
+"type.shop.agrarian" = "Agricultural Shop";
+
 "type.shop.antiques" = "Antiques";
+
+"type.shop.appliance" = "Appliances Shop";
 
 "type.shop.art" = "Arts Shop";
 
 "type.shop.baby_goods" = "Baby Goods";
 
 "type.shop.bag" = "Bags Store";
+
+"type.shop.bed" = "Beds Shop";
 
 "type.shop.boutique" = "Boutique";
 
