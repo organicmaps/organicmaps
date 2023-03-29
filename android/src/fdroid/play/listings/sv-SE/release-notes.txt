@@ -1,10 +1,11 @@
-• Nya OpenStreetMap-data från och med den 27 februari
-• Wikiartiklar är nu klickbara och synliga för bokmärken.
-• Flera krascher har rättats till.
-• Förbättrade dialogrutor för hjälp och valda POI
-• Rättade några komplexa öppettider som inte visades
-• Rättad och förbättrad sökning
-• Tillagd specialister inom hälso• och sjukvård
-• Kommunikationsmaster, sol-, vind-, gas• och vattenkraftsgeneratorer har lagts till.
-• Förbättrade översättningar av ar, nb, pt och tr
-...mer: omaps.app/news
+• New OpenStreetMap data as of March 29
+• Experimental Lane assistant
+• Fix wrong location arrow position during navigation
+• Fix bookmark's color chooser for Right-To-Left languages
+• Properly display speed and distance in navigation mode
+• Fix API to select a point on the map
+• Many new shop types
+• Add money transfer, bicycle charging stations, power plant
+• Made park, forest, and scrub colors different
+• Improved ar, be, de, hu, tr translations
+…more: omaps.app/news

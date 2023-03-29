@@ -1,11 +1,11 @@
-• 截至 2 月 27 日的新 OpenStreetMap 数据
-• 修复了几处崩溃
-• 修复了缺失的繁体中文翻译
-• 改进了帮助和选择POI的对话框
-• 修复一些无法显示的复杂opening_hours
-• Wiki 文章现在可以点击并显示为书签
-• 修复并改进了搜索
-• 添加了医疗保健专家类型
-• 添加了通讯塔、太阳能、风能、天然气和水力发电机
-• 改进了阿拉伯语、挪威语、葡萄牙语和土耳其语的翻译
-…更多：omaps.app/news
+• New OpenStreetMap data as of March 29
+• Experimental Lane assistant
+• Fix wrong location arrow position during navigation
+• Fix bookmark's color chooser for Right-To-Left languages
+• Properly display speed and distance in navigation mode
+• Fix API to select a point on the map
+• Many new shop types
+• Add money transfer, bicycle charging stations, power plant
+• Made park, forest, and scrub colors different
+• Improved ar, be, de, hu, tr translations
+…more: omaps.app/news

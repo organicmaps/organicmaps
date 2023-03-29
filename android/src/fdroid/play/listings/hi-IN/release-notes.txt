@@ -1,11 +1,11 @@
-• 27 फरवरी तक का नया "ओपन स्ट्रीट मैप" डेटा
-• कई ऐप क्रैश को ठीक किया गया
-• गायब ट्रेडीशनल चाइनीज लोकलाइज़ेशन को ठीक किया गया
-• मदद और चयनित POI डायलॉग को सुधारा गया
-• प्रदर्शित न होने वाले कुछ जटिल खुलने के घंटे ठीक किए गए
-• विकी लेख अब क्लिक करने योग्य हैं और बुकमार्क के लिए दृश्यमान हैं
-• खोज को सुधारा और बेहतर किया गया
-• जोड़ा गया स्वास्थ्य विशेषज्ञ
-• संचार टावर, सौर, पवन, गैस और जलविद्युत जनरेटर जोड़े गए
-• अरबी, र्बोकमाल, पुर्तगाली और तुर्की अनुवादों को सुधारा गया
-…अधिक: omaps.app/news
+• New OpenStreetMap data as of March 29
+• Experimental Lane assistant
+• Fix wrong location arrow position during navigation
+• Fix bookmark's color chooser for Right-To-Left languages
+• Properly display speed and distance in navigation mode
+• Fix API to select a point on the map
+• Many new shop types
+• Add money transfer, bicycle charging stations, power plant
+• Made park, forest, and scrub colors different
+• Improved ar, be, de, hu, tr translations
+…more: omaps.app/news

@@ -1,12 +1,25 @@
-• Novos dados OSM de 27 de fevereiro
-• Correção de bug no iPad quando um teclado era conectado
-• Correção de duplo clique desnecessário no botão de rota
-• Remoção de campos de preenchimento duplicados de número de pisos e código postal
-• Ativação do editor de notas OpenStreetMap para todos os lugares selecionados
-• Correção e melhoria na busca
-• Divisão de cozinha vegana e vegetariana na busca
-• Correção de estilos para aeroportos, usos de terra, vias navegáveis e áreas hachuradas
-• Adição de especialidades de saúde: alternativa, audiologista, coleta de amostras, doação de sangue, optometrista, podólogo, psicoterapeuta e terapeuta da fala
-• Adição de torres de comunicação e geradores solares, eólicos, a gás e hidrelétricos
+• Novos dados OSM de 29 de março
+• Adição de links localizados para a página da Wiki OSM
+• Substituição de ícones de subida e descida para setas melhores definidas
+• Importação correta de favoritos KML com dados de trilha
+• Desativação de edifícios 3D nas Configurações, se a poupança de energia estiver ativada
+• O editor agora permite adicionar lojas de música e instrumentos musicais
+• As lojas de costura e de miudezas são pesquisáveis e têm um ícone melhor
+• Procurar um "supermercado" não resulta mais em lojas de conveniência
+
+Estilos
+• Novos tipos de loja: agrícola, acessórios de moda, cama, canábis, chaveiro, cortina, eletrodomésticos, ervas, gás, levantamento de encomendas, móveis de casa de banho, oficinas de motos, pet-shops, serralheiro, som hi-fi e tapetes
+• Adição de estações de carregamento de bicicleta, transferência de dinheiro e usinas de energia
+• Legendas opcionais para a maioria dos ícones de pontos de interesse
+• Distinção das cores de arbustos, florestas e parques
+• Adição de ícones de construção de metal
+• Melhoria em caminhos aéreos, teleféricos, linhas de energia e cercas
+• Redução da visibilidade do metro de Barcelona
+• Correção de isolinhas que eram desenhadas por cima de edifícios, estradas etc.
+• Correção da renderização de elementos multi-tipos (ex. algumas legendas de pontos de interesse eram mostradas muito cedo)
+
+Traduções:
+• Melhoria nas traduções de alemão, bielorrusso, húngaro e turco
+• Melhoria nas instruções TTS de árabe
 
 Acompanhe nossas novidades em omaps.app/news

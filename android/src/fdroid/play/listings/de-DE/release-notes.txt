@@ -1,11 +1,11 @@
-• Neue OSM-Daten vom 27. Februar
-• Div. Abstürze behoben
-• Fehlende Lokalisierung für chin. Langzeichen behoben
-• Dialoge für Hilfe und ausgewählte POI verbessert
-• Fehler bei komplexeren Öffnungszeiten behoben
-• Wiki-Artikel sind nun klickbar und für Lesezeichen sichtbar
-• Suche korrigiert und verbessert
-• Spezialisten im Gesundheitswesen hinzugefügt
-• Funktürme, Solar-, Wind-, Gas- und Wassergeneratoren hinzugefügt
-• Verbesserte ar-, nb-, pt- und tr-Übersetzungen
-• ...mehr: omaps.app/news
+• New OpenStreetMap data as of March 29
+• Experimental Lane assistant
+• Fix wrong location arrow position during navigation
+• Fix bookmark's color chooser for Right-To-Left languages
+• Properly display speed and distance in navigation mode
+• Fix API to select a point on the map
+• Many new shop types
+• Add money transfer, bicycle charging stations, power plant
+• Made park, forest, and scrub colors different
+• Improved ar, be, de, hu, tr translations
+…more: omaps.app/news

@@ -1,13 +1,25 @@
-• New OpenStreetMap data as of February 27
-• Fixed freeze on iPad when a keyboard is connected
-• Fixed unnecessary double click on the route button
-• Removed duplicated floors and zip code cells
-• Enabled OpenStreetMap editor notes for all selected places
-• Fixed and improved search
-• Split vegan and vegetarian cuisines in search
-• Fixed styles for airports, landuses, waterways, and hatching fill areas
-• Added healthcare specialists: alternative, audiologist, blood_donation, optometrist, podiatrist, psychotherapist, sample_collection, speech_therapist
-• Added communication towers and solar, wind, gas, and hydropower generators
-• Improved Arabic, Norwegian, Portuguese, and Turkish translations
+• Nouvelles données OpenStreetMap du 29 Mars
+• Ajout de liens localisés pour la page wiki OpenStreetMap
+• Remplacement des icônes de montée et de descente par des flèches plus claires
+• Importation correcte des signets KML avec les données de la trace
+• Désactivation des préférences pour les bâtiments en 3D si l'économie d'énergie est activée
+• Les magasins de musique et d'instruments de musique peuvent être ajoutés à l'aide de l'éditeur
+• Les magasins de couture et les merceries peuvent être recherchés et ont une meilleure icône
+• La recherche d'un "supermarché" n'aboutit plus à des supérettes.
 
-Follow our news at omaps.app/news
+Styles
+
+• Nouveaux types de magasins : agricole, appareils électroménagers, literie, point de retrait, gaz, reproduction de clés, serrurier, tapis, réparation de motos, toilettage pour animaux, hi-fi, ameublement de salle de bain, rideaux, accessoires de mode, cannabis, herboristerie
+• Ajout du transfert d'argent, des stations de recharge de vélos, des centrales électriques
+• Légendes optionnelles pour la plupart des icônes de POI
+• Différenciation des couleurs des parcs, des forêts et des broussailles
+• Ajout d'icônes de construction en métal
+• Amélioration des voies aériennes, des téléphériques, des lignes électriques, des clôtures
+• Réduction de la visibilité du métro de Barcelone
+• Correction des courbes de niveaux dessinées sur les bâtiments, les routes, etc
+• Correction du rendu des éléments de type multiple (par exemple, certaines légendes de POI s'affichaient trop tôt)
+
+Traductions
+
+• Amélioration des traductions en allemand, turc, biélorusse et hongrois
+• Amélioration des instructions TTS en arabe

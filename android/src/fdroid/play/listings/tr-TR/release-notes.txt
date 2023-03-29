@@ -1,10 +1,11 @@
-• 27 Şubat tarihine ait yeni OpenStreetMap harita verileri
-• Birkaç çökme sorunu düzeltildi
-• "Yardım" ve "seçili POI" sayfaları iyileştirildi
-• Karmaşık çalışma saatlerinin gösterilmeme sorunu düzeltildi
-• Vikipedi makaleleri artık tıklanabilir ve yer imlerinde de görülebilir
-• Arama düzeltildi ve iyileştirildi
-• Sağlık alanında bazı uzmanlık kategorileri eklendi
-• Haberleşme kulesi ve güneş, rüzgar, gaz, hidroelektrik jeneratörleri eklendi
+Mutlu Ramazanlar!
+• 29 Mart tarihine ait yeni OpenStreetMap harita verileri
+• Deneysel şerit asistanı
+• Navigasyon sırasındaki konum okunun konumu düzeltildi
+• Artık navigasyon modundayken hız ve mesafe düzgün şekilde görüntüleniyor
+• API için haritadan nokta seçimi düzeltildi
+• Birçok yeni mağaza türü eklendi
+• Para transferi, bisiklet şarj istasyonu ve elektrik santrali kategorileri eklendi
+• Park, orman ve çalılık renkleri artık farklı
 • Çeviriler iyileştirildi
 …dahası: omaps.app/tr/news
