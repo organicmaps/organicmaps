@@ -1,13 +1,26 @@
-- Nová data OpenStreetMap k 27. únoru
-- Opraveno zamrzání na iPadu při připojení klávesnice
-- Opraveno zbytečné dvojité kliknutí na tlačítko trasy
-- Odstraněny duplicitní buňky s patry a poštovními směrovacími čísly
-- Povoleny poznámky editoru OpenStreetMap pro všechna vybraná místa
-- Opraveno a vylepšeno vyhledávání
-- Rozdělení veganské a vegetariánské kuchyně ve vyhledávání
-- Opraveny styly pro letiště, landusy, vodní cesty a šrafování výplní oblastí
-- Přidáni zdravotničtí specialisté: alternativní, audiolog, darování krve, optometrista, podiatr, psychoterapeut, odběr vzorků, logoped_terapeut
-- Přidány komunikační věže a generátory solární, větrné, plynové a vodní energie
-- Vylepšeny překlady do arabštiny, norštiny, portugalštiny a turečtiny
+• New OpenStreetMap data as of March 29
+• Navigation directions are now correctly displayed on iPad
+• Replaced uphill and downhill icons with more clear arrows
+• Correctly import KML bookmarks with track data
+• Disable 3D buildings preference if power saving is enabled
+• Music and music instruments shops can be added using Editor
+• Sewing shops and haberdasheries are searchable and have a better icon
+• Searching for a "supermarket" doesn't result in convenience stores anymore
+• Add localized links for the OSM wiki page
 
-Sledujte naše novinky na adrese omaps.app/news
+Styles
+• New shop types: agrarian, appliance, bed, outpost, gas, key cutter, locksmith, carpet, motorcycle repair, pet grooming, hi-fi, bathroom furnishing, curtain, fashion accessories, cannabis, herbalist
+• Added money transfer, bicycle charging stations, power plant
+• Made captions optional for most of POI icons
+• Made park, forest, and scrub colors different
+• Added metal construction icons
+• Improved aerial ways, cable cars, power lines, fences
+• Reduce Barcelona subway visibility
+• Fixed isolines that are drawn over buildings, roads, etc.
+• Fixed rendering of multiple-type features (e.g. some POI captions were displayed too early)
+
+Translations:
+• Improved German, Turkish, Belarusian, Hungarian translations
+• Improved Arabic TTS instructions
+
+Follow our news at omaps.app/news

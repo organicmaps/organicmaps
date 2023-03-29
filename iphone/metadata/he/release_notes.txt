@@ -1,13 +1,26 @@
-• New OpenStreetMap data as of February 27
-• Fixed freeze on iPad when a keyboard is connected
-• Fixed unnecessary double click on the route button
-• Removed duplicated floors and zip code cells
-• Enabled OpenStreetMap editor notes for all selected places
-• Fixed and improved search
-• Split vegan and vegetarian cuisines in search
-• Fixed styles for airports, landuses, waterways, and hatching fill areas
-• Added healthcare specialists: alternative, audiologist, blood_donation, optometrist, podiatrist, psychotherapist, sample_collection, speech_therapist
-• Added communication towers and solar, wind, gas, and hydropower generators
-• Improved Arabic, Norwegian, Portuguese, and Turkish translations
+• New OpenStreetMap data as of March 29
+• Navigation directions are now correctly displayed on iPad
+• Replaced uphill and downhill icons with more clear arrows
+• Correctly import KML bookmarks with track data
+• Disable 3D buildings preference if power saving is enabled
+• Music and music instruments shops can be added using Editor
+• Sewing shops and haberdasheries are searchable and have a better icon
+• Searching for a "supermarket" doesn't result in convenience stores anymore
+• Add localized links for the OSM wiki page
+
+Styles
+• New shop types: agrarian, appliance, bed, outpost, gas, key cutter, locksmith, carpet, motorcycle repair, pet grooming, hi-fi, bathroom furnishing, curtain, fashion accessories, cannabis, herbalist
+• Added money transfer, bicycle charging stations, power plant
+• Made captions optional for most of POI icons
+• Made park, forest, and scrub colors different
+• Added metal construction icons
+• Improved aerial ways, cable cars, power lines, fences
+• Reduce Barcelona subway visibility
+• Fixed isolines that are drawn over buildings, roads, etc.
+• Fixed rendering of multiple-type features (e.g. some POI captions were displayed too early)
+
+Translations:
+• Improved German, Turkish, Belarusian, Hungarian translations
+• Improved Arabic TTS instructions
 
 Follow our news at omaps.app/news

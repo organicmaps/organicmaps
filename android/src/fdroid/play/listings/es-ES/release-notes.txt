@@ -1,10 +1,8 @@
-• Datos nuevos de OpenStreetMap al 27 de febrero
-• Se pueden abrir artículos de wiki, que están visibles en marcadores
-• Varios cierres inesperados corregidos
-• Ya no falta la traducción al chino tradicional
-• Se mejoraron la ayuda y diálogos de PDI selectos
-• Búsqueda arreglada y mejorada
-• Se añadieron especialistas en atención sanitaria
-• Se añadieron torres de comunicación y generadores de energía solar, eólica, de gas e hídrica
-• Mejores traducciones
-… para más: omaps.app/news
+• Datos planetarios nuevos de OSM al 29 de marzo
+• Asistente de carril experimental
+• Arreglada la posición incorrecta de la flecha de ubicación al navegar
+• Arreglado el selector de colores para marcadores en lenguas escritas de derecha a izquierda
+• Se muestran adecuadamente las velocidades y las distancias en el modo de navegación
+• Muchos tipos de tienda nuevos
+• Añade transferencias monetarias, estaciones de carga de bicicletas y centrales de energía
+…para saber más: omaps.app/news
