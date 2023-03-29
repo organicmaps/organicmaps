@@ -909,7 +909,12 @@ Russia_Primorsky Krai	1091.039607
 Russia_Bryansk Oblast	1089.024201
 Italy_Lombardy_Como	1087.4186009999999
 Ukraine_Volyn Oblast	1084.5126600000003
-Madagascar	1067.3086999999998
+Madagascar_Antananarivo province
+Madagascar_Antsiranana province
+Madagascar_Fianarantsoa province
+Madagascar_Mahajanga province
+Madagascar_Toamasina province
+Madagascar_Toliara province
 Japan_Kyushu Region_Nagasaki	1055.596364
 Russia_Kabardino-Balkaria	1036.748651
 Greece_Decentralized Administration of Aegean	1020.214513

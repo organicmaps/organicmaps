@@ -189,7 +189,7 @@ def is_verified(name: AnyStr) -> bool:
 def copy_overwrite(from_path: AnyStr, to_path: AnyStr):
     if os.path.exists(to_path):
         shutil.rmtree(to_path)
-    shutil.copytree(from_path, to_path)
+    shutil.copy(from_path, to_path)
 
 
 def make_symlink(target: AnyStr, link_name: AnyStr):
