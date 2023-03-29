@@ -1,11 +1,8 @@
-• New OpenStreetMap data as of February 27
-• Wiki articles are now clickable and visible for bookmarks
-• Fixed several crashes
-• Fixed missing Traditional Chinese localization
-• Improved Help and selected POI dialogs
-• Fixed some not displayed complex opening hours
-• Fixed and improved search
-• Added healthcare specialists
-• Added communication towers, solar, wind, gas, and hydropower generators
-• Improved ar, nb, pt, and tr translations
-…more: omaps.app/news
+• Dades planetàries noves de l’OSM al 29 de març
+• Auxiliar de carrils experimental
+• Es corregeix la posició incorrecta de la fletxa d’ubicació durant la navegació
+• S’arregla el selector de colors de les adreces d’interès en llengües escrites de dreta a esquerra
+• Es mostra apropiadament la velocitat i la distància al mode de navegació
+• Molts tipus de botigues nous
+• Afegeix transferències de diners, estacions de càrrega de bicicletes i centrals d’energia
+…i més: omaps.app/news
