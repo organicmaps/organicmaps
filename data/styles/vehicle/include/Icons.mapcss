@@ -228,22 +228,21 @@ area|z12-[landuse=forest][!name],
 
 node|z13-[railway=station],
 node|z14-[railway=halt],
-node|z16-[railway=subway_entrance]
+node|z17-[railway=subway_entrance]
 {text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.6;text-halo-color: @label_halo_light;}
 node|z13-[railway=station]::int_name,
 node|z14-[railway=halt]::int_name,
-node|z16-[railway=subway_entrance]::int_name
+node|z17-[railway=subway_entrance]::int_name
 {text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.6;text-halo-color: @label_halo_light;}
 
-node|z12-[railway=station][transport=subway][city=moscow],
-node|z12-[railway=station][transport=subway][city=spb],
-node|z16-[railway=subway_entrance][city=moscow],
+node|z16-[railway=subway_entrance],
+{icon-image: subway-entrance-m.svg;}
+node|z17-[railway=subway_entrance],
+{text-offset: 1;}
+
 node|z17-[railway=tram_stop],
 area|z17-[railway=tram_stop]
 {text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 1;text-halo-color: @label_halo_light;}
-node|z12-[railway=station][transport=subway][city=moscow]::int_name,
-node|z12-[railway=station][transport=subway][city=spb]::int_name,
-node|z16-[railway=subway_entrance][city=moscow]::int_name,
 node|z17-[railway=tram_stop]::int_name,
 area|z17-[railway=tram_stop]::int_name
 {text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 1;text-halo-color: @label_halo_light;}
