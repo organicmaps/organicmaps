@@ -622,6 +622,26 @@ bool FixupLaneSet(CarDirection turn, vector<SingleLaneInfo> & lanes,
   return isLaneConformed;
 }
 
+template <typename It>
+bool SelectFirstUnrestrictedLane(It lanesBegin, It lanesEnd)
+{
+  const It firstUnrestricted = find_if(lanesBegin, lanesEnd, IsLaneUnrestricted);
+  if (firstUnrestricted == lanesEnd)
+    return false;
+  
+  firstUnrestricted->m_isRecommended = true;
+  return true;
+}
+
+bool SelectUnrestrictedLane(CarDirection turn, vector<SingleLaneInfo> & lanes)
+{
+  if (IsTurnMadeFromLeft(turn))
+    return SelectFirstUnrestrictedLane(lanes.begin(), lanes.end());
+  else if (IsTurnMadeFromRight(turn))
+    return SelectFirstUnrestrictedLane(lanes.rbegin(), lanes.rend());
+  return false;
+}
+
 void SelectRecommendedLanes(vector<RouteSegment> & routeSegments)
 {
   for (size_t idx = 0; idx < routeSegments.size(); ++idx)
@@ -636,7 +656,11 @@ void SelectRecommendedLanes(vector<RouteSegment> & routeSegments)
       continue;
     // If not checking if there are elements in lanes which corresponds with the turn
     // approximately. If so fixing up all these elements.
-    FixupLaneSet(t.m_turn, lanes, &IsLaneWayConformedTurnDirectionApproximately);
+    if (FixupLaneSet(t.m_turn, lanes, &IsLaneWayConformedTurnDirectionApproximately))
+      continue;
+    // If not, check if there is an unrestricted lane which could correspond to the
+    // turn. If so, fix up that lane.
+    SelectUnrestrictedLane(t.m_turn, lanes);
   }
 }
 

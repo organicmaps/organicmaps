@@ -221,6 +221,14 @@ bool IsLeftOrRightTurn(CarDirection t)
   return IsLeftTurn(t) || IsRightTurn(t);
 }
 
+bool IsTurnMadeFromLeft(CarDirection t) {
+  return IsLeftTurn(t) || t == CarDirection::UTurnLeft || t == CarDirection::ExitHighwayToLeft;
+}
+
+bool IsTurnMadeFromRight(CarDirection t) {
+  return IsRightTurn(t) || t == CarDirection::UTurnRight || t == CarDirection::ExitHighwayToRight;
+}
+
 bool IsStayOnRoad(CarDirection t)
 {
   return (t == CarDirection::GoStraight || t == CarDirection::StayOnRoundAbout);
@@ -288,6 +296,11 @@ bool IsLaneWayConformedTurnDirectionApproximately(LaneWay l, CarDirection t)
     case CarDirection::ExitHighwayToRight:
       return l == LaneWay::SlightRight || l == LaneWay::Right;
   }
+}
+
+bool IsLaneUnrestricted(const SingleLaneInfo & lane)
+{
+  return lane.m_lane.size() == 1 && lane.m_lane[0] == LaneWay::None;
 }
 
 void SplitLanes(string const & lanesString, char delimiter, vector<string> & lanes)
