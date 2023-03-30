@@ -623,22 +623,23 @@ bool FixupLaneSet(CarDirection turn, vector<SingleLaneInfo> & lanes,
 }
 
 template <typename It>
-bool SelectFirstUnrestrictedLane(It lanesBegin, It lanesEnd)
+bool SelectFirstUnrestrictedLane(LaneWay direction, It lanesBegin, It lanesEnd)
 {
   const It firstUnrestricted = find_if(lanesBegin, lanesEnd, IsLaneUnrestricted);
   if (firstUnrestricted == lanesEnd)
     return false;
   
   firstUnrestricted->m_isRecommended = true;
+  firstUnrestricted->m_lane.insert(firstUnrestricted->m_lane.begin(), direction);
   return true;
 }
 
 bool SelectUnrestrictedLane(CarDirection turn, vector<SingleLaneInfo> & lanes)
 {
   if (IsTurnMadeFromLeft(turn))
-    return SelectFirstUnrestrictedLane(lanes.begin(), lanes.end());
+    return SelectFirstUnrestrictedLane(LaneWay::Left, lanes.begin(), lanes.end());
   else if (IsTurnMadeFromRight(turn))
-    return SelectFirstUnrestrictedLane(lanes.rbegin(), lanes.rend());
+    return SelectFirstUnrestrictedLane(LaneWay::Right, lanes.rbegin(), lanes.rend());
   return false;
 }
 
