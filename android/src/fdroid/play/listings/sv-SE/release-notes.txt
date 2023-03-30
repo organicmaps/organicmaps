@@ -1,11 +1,11 @@
-• New OpenStreetMap data as of February 27
-• Wiki articles are now clickable and visible for bookmarks
-• Fixed several crashes
-• Fixed missing Traditional Chinese localization
-• Improved Help and selected POI dialogs
-• Fixed some not displayed complex opening hours
-• Fixed and improved search
-• Added healthcare specialists
-• Added communication towers, solar, wind, gas, and hydropower generators
-• Improved ar, nb, pt, and tr translations
-…more: omaps.app/news
+- Nya OpenStreetMap-data från och med den 27 februari
+- Wikiartiklar är nu klickbara och synliga för bokmärken.
+- Flera krascher har rättats till.
+- Rättade bristande lokalisering av traditionell kinesiska
+- Förbättrade dialogrutor för hjälp och valda POI
+- Rättade några komplexa öppettider som inte visades
+- Rättad och förbättrad sökning
+- Tillagd specialister inom hälso- och sjukvård
+- Kommunikationsmaster, sol-, vind-, gas- och vattenkraftsgeneratorer har lagts till.
+- Förbättrade översättningar av ar, nb, pt och tr
+...mer: omaps.app/news
