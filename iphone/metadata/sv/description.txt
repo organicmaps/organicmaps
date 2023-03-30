@@ -1,39 +1,39 @@
-• Detailed offline maps with places that don't exist on other maps
-• Cycling routes, hiking trails, and walking paths
-• Contour lines, elevation profiles, peaks, and slopes
-• Turn-by-turn walking, cycling, and car navigation with voice guidance
-• Fast offline search
-• Bookmark everything you need, import and share KML/KMZ (GPX is planned)
-• Dark mode to protect your eyes
-• … and many other features!
+- Detaljerade offline-kartor med platser som inte finns på andra kartor
+- Cykelvägar, vandringsleder och promenadvägar.
+- Konturlinjer, höjdprofiler, toppar och sluttningar.
+- Tur-för-tur-navigering för promenader, cykling och bilnavigering med röststyrning.
+- Snabb offline-sökning
+- Bokmärken för allt du behöver, importera och dela KML/KMZ (GPX planeras).
+- Mörkt läge för att skydda dina ögon
+- ... och många andra funktioner!
 
-Organic Maps is pure and organic, made with love:
+Organic Maps är rent och ekologiskt, gjort med kärlek:
 
-• Respects your privacy
-• Saves your battery
-• No unexpected mobile data charges
+- Respekterar din integritet
+- Sparar ditt batteri
+- Inga oväntade avgifter för mobildata
 
-Organic Maps is free from trackers and other bad stuff:
+Organic Maps är fritt från spårare och andra dåliga saker:
 
-• No ads
-• No tracking
-• No data collection
-• No phoning home
-• No annoying registration
+- Inga annonser
+- Ingen spårning
+- Ingen datainsamling
+- Ingen hemtelefoni
+- Ingen irriterande registrering
 • No mandatory tutorials
 • No noisy email spam
 • No push notifications
-• No crapware
-• No pesticides
+- Ingen skitprogramvara
+- Inga bekämpningsmedel
 
-At Organic Maps, we believe that privacy is a fundamental human right:
+På Organic Maps anser vi att integritet är en grundläggande mänsklig rättighet:
 
-• Organic Maps is an indie community-driven project
-• The code is open-sourced
-• The maps data is taken from OpenStreetMap, also community-driven project
-• We protect your privacy from Big Tech’s prying eyes
-• Stay safe no matter wherever you are
+- Organic Maps är ett indie-gemenskapsdrivet projekt.
+- Koden är öppen för användning
+- Kartdata kommer från OpenStreetMap, som också är ett gemenskapsdrivet projekt.
+- Vi skyddar din integritet från Big Tech:s nyfikna ögon.
+- Var säker oavsett var du befinner dig
 
-Reject surveillance, embrace your freedom, and support the community.
+Förkasta övervakning, omfamna din frihet och stöd gemenskapen.
 
-Give Organic Maps a try!
+Ge Organic Maps ett försök!

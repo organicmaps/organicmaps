@@ -1,13 +1,13 @@
-• New OpenStreetMap data as of February 27
-• Fixed freeze on iPad when a keyboard is connected
-• Fixed unnecessary double click on the route button
-• Removed duplicated floors and zip code cells
-• Enabled OpenStreetMap editor notes for all selected places
-• Fixed and improved search
-• Split vegan and vegetarian cuisines in search
-• Fixed styles for airports, landuses, waterways, and hatching fill areas
-• Added healthcare specialists: alternative, audiologist, blood_donation, optometrist, podiatrist, psychotherapist, sample_collection, speech_therapist
-• Added communication towers and solar, wind, gas, and hydropower generators
-• Improved Arabic, Norwegian, Portuguese, and Turkish translations
+- Nya data från OpenStreetMap från och med den 27 februari
+- Fastställande av frysning på iPad när ett tangentbord är anslutet
+- Rättad onödig dubbelklick på ruttknappen
+- Borttagna dubbla våningar och postnummerceller.
+- Aktiverade OpenStreetMap-redigeringsanteckningar för alla valda platser.
+- Rättad och förbättrad sökning
+- Dela upp veganska och vegetariska kök i sökningen
+- Fastställda stilar för flygplatser, landområden, vattenvägar och skrafferade fyllningsområden.
+- Tillagt vårdspecialister: alternativ, audiolog, blood_donation, optometrist, podiatrist, psykoterapeut, sample_collection, speech_therapist.
+- Lägg till kommunikationstorn och generatorer för sol-, vind-, gas- och vattenkraft.
+- Förbättrade översättningar till arabiska, norska, portugisiska och turkiska.
 
-Follow our news at omaps.app/news
+Följ våra nyheter på omaps.app/news
