@@ -645,12 +645,12 @@ bool SelectUnrestrictedLane(CarDirection turn, vector<SingleLaneInfo> & lanes)
 
 void SelectRecommendedLanes(vector<RouteSegment> & routeSegments)
 {
-  for (size_t idx = 0; idx < routeSegments.size(); ++idx)
+  for (auto & segment : routeSegments)
   {
-    auto & t = routeSegments[idx].GetTurn();
+    auto & t = segment.GetTurn();
     if (t.IsTurnNone() || t.m_lanes.empty())
       continue;
-    auto & lanes = routeSegments[idx].GetTurnLanes();
+    auto & lanes = segment.GetTurnLanes();
     // Checking if there are elements in lanes which correspond with the turn exactly.
     // If so fixing up all the elements in lanes which correspond with the turn.
     if (FixupLaneSet(t.m_turn, lanes, &IsLaneWayConformedTurnDirection))
@@ -661,7 +661,11 @@ void SelectRecommendedLanes(vector<RouteSegment> & routeSegments)
       continue;
     // If not, check if there is an unrestricted lane which could correspond to the
     // turn. If so, fix up that lane.
-    SelectUnrestrictedLane(t.m_turn, lanes);
+    if (SelectUnrestrictedLane(t.m_turn, lanes))
+      continue;
+    // Otherwise, we don't have lane recommendations for the user, so we don't
+    // want to send the lane data any further.
+    segment.ClearTurnLanes();
   }
 }
 
