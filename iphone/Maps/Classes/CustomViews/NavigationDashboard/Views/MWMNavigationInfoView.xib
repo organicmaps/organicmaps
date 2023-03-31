@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,7 +32,7 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="240" verticalHuggingPriority="240" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="OJ3-VB-hqA">
-                            <rect key="frame" x="0.0" y="0.0" width="951" height="48"/>
+                            <rect key="frame" x="0.0" y="0.0" width="971" height="48"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="48" id="oPW-KZ-iX3"/>
                             </constraints>
@@ -45,7 +47,7 @@
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pWX-NL-dy3">
-                            <rect key="frame" x="951" y="8" width="1" height="32"/>
+                            <rect key="frame" x="971" y="8" width="1" height="32"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="1" id="5sH-RH-vPb"/>
@@ -54,8 +56,8 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                             </userDefinedRuntimeAttributes>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="900" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="fh6-Nu-aYU">
-                            <rect key="frame" x="952" y="0.0" width="72" height="48"/>
+                        <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="900" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="fh6-Nu-aYU">
+                            <rect key="frame" x="972" y="0.0" width="52" height="48"/>
                             <accessibility key="accessibilityConfiguration" identifier="routePlaningButtomPanelUseLocation"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="48" id="1d3-V3-ab6"/>
@@ -94,18 +96,18 @@
                         <outlet property="separator" destination="pWX-NL-dy3" id="DC7-YE-KjK"/>
                     </connections>
                 </view>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YYv-pG-Wkw" userLabel="Street name" customClass="NavigationStreetNameView" customModule="OMaps" customModuleProvider="target">
-                    <rect key="frame" x="-100" y="0.0" width="1224" height="57.5"/>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YYv-pG-Wkw" userLabel="Street name" customClass="NavigationStreetNameView" customModule="Organic_Maps" customModuleProvider="target">
+                    <rect key="frame" x="-100" y="0.0" width="1224" height="65"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WID-Um-Va6" userLabel="BackgroundView">
-                            <rect key="frame" x="-100" y="-100" width="1424" height="157.5"/>
+                            <rect key="frame" x="-100" y="-100" width="1424" height="165"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="StreetNameBackgroundView"/>
                             </userDefinedRuntimeAttributes>
                         </view>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="600" verticalCompressionResistancePriority="600" text="Ленинградский проспект" textAlignment="center" lineBreakMode="truncatingTail" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" minimumScaleFactor="0.5" id="ShI-bz-5g8">
-                            <rect key="frame" x="204" y="24" width="900" height="21.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="600" verticalCompressionResistancePriority="600" text="Ленинградский проспект" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ShI-bz-5g8">
+                            <rect key="frame" x="204" y="24" width="900" height="29"/>
                             <accessibility key="accessibilityConfiguration">
                                 <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
                             </accessibility>
@@ -131,7 +133,7 @@
                         <constraint firstAttribute="bottom" secondItem="ShI-bz-5g8" secondAttribute="bottom" constant="12" id="w0r-Ip-f9E"/>
                     </constraints>
                 </view>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aa6-N8-acP" userLabel="Turns" customClass="NavigationTurnsView" customModule="OMaps" customModuleProvider="target">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aa6-N8-acP" userLabel="Turns" customClass="NavigationTurnsView" customModule="Organic_Maps" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="28" width="96" height="153"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wt8-EO-MKz" userLabel="First turn" customClass="SolidTouchView">
@@ -251,7 +253,7 @@
                     <rect key="frame" x="-72" y="615" width="200" height="200"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Bv-7H-IZt" userLabel="Gas" customClass="MWMButton">
-                            <rect key="frame" x="76" y="14" width="48" height="48"/>
+                            <rect key="frame" x="78" y="14" width="44" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="width" priority="750" constant="44" id="KKe-fH-h2n"/>
                                 <constraint firstAttribute="width" secondItem="2Bv-7H-IZt" secondAttribute="height" multiplier="1:1" id="mN1-Tu-Mon"/>
@@ -265,7 +267,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RP3-01-Pj7" userLabel="Parking" customClass="MWMButton">
-                            <rect key="frame" x="118" y="34" width="48" height="48"/>
+                            <rect key="frame" x="122" y="34" width="44" height="44"/>
                             <state key="normal" image="ic_routing_parking_on"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
@@ -275,7 +277,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GcK-FI-VXw" userLabel="Eat" customClass="MWMButton">
-                            <rect key="frame" x="138" y="76" width="48" height="48"/>
+                            <rect key="frame" x="142" y="78" width="44" height="44"/>
                             <state key="normal" image="ic_routing_eat_on"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
@@ -285,7 +287,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ggf-tc-U3R" userLabel="Food" customClass="MWMButton">
-                            <rect key="frame" x="118" y="118" width="48" height="48"/>
+                            <rect key="frame" x="122" y="122" width="44" height="44"/>
                             <state key="normal" image="ic_routing_food_on"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
@@ -295,7 +297,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoS-b2-FcN" userLabel="ATM" customClass="MWMButton">
-                            <rect key="frame" x="76" y="138" width="48" height="48"/>
+                            <rect key="frame" x="78" y="142" width="44" height="44"/>
                             <state key="normal" image="ic_routing_atm_on"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
@@ -356,6 +358,7 @@
                     </connections>
                 </button>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="2Hp-l9-4oj"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="YYv-pG-Wkw" secondAttribute="trailing" constant="-100" id="15D-kN-gda"/>
@@ -385,7 +388,6 @@
                 <constraint firstAttribute="bottom" secondItem="Tzc-l6-Vvt" secondAttribute="bottom" priority="760" id="yP1-ip-l24"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="2Hp-l9-4oj"/>
             <connections>
                 <outlet property="bookmarksButton" destination="XMv-au-OYf" id="g3E-jo-X2E"/>
                 <outlet property="distanceToNextTurnLabel" destination="KuR-1J-VI2" id="n0i-t9-Vj2"/>
