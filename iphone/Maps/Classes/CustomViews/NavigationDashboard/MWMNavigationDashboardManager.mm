@@ -171,6 +171,7 @@ NSString *const kNavigationControlViewXibName = @"NavigationControlView";
 }
 
 - (void)stateReady {
+  // TODO: Here assert sometimes fires with _state = MWMNavigationDashboardStateReady, if app was stopped while navigating and then restarted.
   NSAssert(_state == MWMNavigationDashboardStatePlanning, @"Invalid state change (ready)");
   [self setRouteBuilderProgress:100.];
   [self updateGoButtonTitle];
