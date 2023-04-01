@@ -409,6 +409,8 @@ public class Framework
    */
   public static native boolean nativeHasPlacePageInfo();
 
+  public static native void nativeMemoryWarning();
+
   public enum LocalAdsEventType
   {
     LOCAL_ADS_EVENT_SHOW_POINT,
