@@ -1857,4 +1857,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingOptions.addOption(roadType);
     rebuildLastRouteInternal();
   }
+
+  @Override
+  public void onTrimMemory(int level)
+  {
+    super.onTrimMemory(level);
+    Logger.d(TAG, "trim memory, level = " + level);
+    if (level >= TRIM_MEMORY_RUNNING_LOW)
+      Framework.nativeMemoryWarning();
+  }
 }

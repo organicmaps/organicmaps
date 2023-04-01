@@ -1835,4 +1835,11 @@ Java_app_organicmaps_Framework_nativeHasPlacePageInfo(JNIEnv *, jclass)
 {
   return static_cast<jboolean>(frm()->HasPlacePageInfo());
 }
+
+JNIEXPORT void JNICALL
+Java_app_organicmaps_Framework_nativeMemoryWarning(JNIEnv *, jclass)
+{
+  return frm()->MemoryWarning();
+}
+
 }  // extern "C"
