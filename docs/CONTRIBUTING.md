@@ -47,6 +47,8 @@ You will find a list of issues for new contributors [here](https://github.com/or
 
 **Please do not ask for permission to work on the issue or to assign an issue to you**. We do not assign issues to first-time contributors. Any such comment notifies our contributors and the development team, and creates unnecessary noise that distracts us from the work.
 
+Reading everything in the [docs folder](docs/) of the repository is recommended.
+
 ## Submitting your changes
 
 All contributions to Organic Maps repository should be submitted via
