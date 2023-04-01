@@ -145,7 +145,7 @@ int main(int argc, char * argv[])
   // Pretty icons on HDPI displays.
   QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
   platform.SetupMeasurementSystem();
-  
+
 
 #ifdef BUILD_DESIGNER
     QApplication::setApplicationName("Organic Maps Designer");
@@ -215,6 +215,17 @@ int main(int argc, char * argv[])
     fmt.setSwapBehavior(QSurfaceFormat::DoubleBuffer);
     fmt.setSwapInterval(1);
     fmt.setDepthBufferSize(16);
+#if defined(OMIM_OS_LINUX)
+    // This is a workaround for older distros, which rely on X.org and Mesa,
+    // where somehow the Mesa driver itself doesn't
+    // make all the otherwise supported GLSL versions available by default
+    // and such requests are somehow disregarded at later stages of execution.
+    // This setting here will be potentially overwritten and overruled anyway,
+    // and only needed to ensure that we have the needed GLSL compiler available
+    // later when we need it.
+    if (app.platformName() == QString("xcb"))
+      fmt.setVersion(3, 2);
+#endif
 #ifdef ENABLE_OPENGL_DIAGNOSTICS
     fmt.setOption(QSurfaceFormat::DebugContext);
 #endif
