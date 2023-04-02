@@ -16,7 +16,6 @@ import app.organicmaps.base.DataChangedListener;
 import app.organicmaps.base.Observable;
 import app.organicmaps.util.KeyValue;
 import app.organicmaps.util.StorageUtils;
-import app.organicmaps.util.UTM;
 import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
 
@@ -575,12 +574,6 @@ public enum BookmarkManager
     return nativeAreNotificationsEnabled();
   }
 
-  @NonNull
-  public String getCatalogFrontendUrl(@UTM.UTMType int utm)
-  {
-    return nativeGetCatalogFrontendUrl(utm);
-  }
-
   public void requestRouteTags()
   {
     nativeRequestCatalogTags();
@@ -838,14 +831,7 @@ public enum BookmarkManager
   private static native String nativeGetWebEditorUrl(@NonNull String serverId);
 
   @NonNull
-  private static native String nativeGetCatalogFrontendUrl(@UTM.UTMType int utm);
-
-  @NonNull
   private static native KeyValue[] nativeGetCatalogHeaders();
-
-  @NonNull
-  private static native String nativeInjectCatalogUTMContent(@NonNull String url,
-                                                             @UTM.UTMContentType int content);
 
   private static native void nativeRequestCatalogTags();
 
