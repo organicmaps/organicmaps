@@ -24,7 +24,7 @@
 "kilometres" = "킬로미터";
 
 /* Leave Review dialog - Review button */
-"leave_a_review" = "평 남기기";
+"leave_a_review" = "리뷰 남기기";
 
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "마일";
@@ -33,7 +33,7 @@
 "core_my_position" = "나의 위치";
 
 /* Update maps later/Buy pro version later button text */
-"later" = "후";
+"later" = "나중에";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
 "search" = "검색하기";
@@ -60,7 +60,7 @@
 "continue_download" = "계속";
 
 /* "Add new bookmark list" dialog title */
-"add_new_set" = "새로운 세트 추가";
+"add_new_set" = "새로운 목록 추가";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "색상 즐겨찾기에 추가";
