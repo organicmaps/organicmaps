@@ -14,7 +14,7 @@
 
     <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize"
+      android:layout_height="match_parent"
       android:orientation="horizontal"
       android:padding="@dimen/margin_half">
 
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:background="?selectableItemBackgroundBorderless"
         android:clickable="true"
-        android:padding="@dimen/margin_half"
+        android:layout_margin="@dimen/margin_half"
         android:text="@string/done"
         android:textAppearance="@style/MwmTextAppearance.Body1"/>
 
