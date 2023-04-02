@@ -227,7 +227,7 @@
     id = Pengunduhan gagal, sentuh untuk mencoba sekali lagi
     it = Download fallito. Riprova.
     ja = ダウンロードが失敗しました。もう一度試すには画面をタッチしてください。
-    ko = 다운로드에 실패하였습니다. 다시 두드려 시도하여 주십시요.
+    ko = 다운로드에 실패하였습니다. 다시 시도하려면 터치하세요.
     mr = डाउनलोड अयशस्वी झाले. पुन्हा प्रयत्न करण्यासाठी स्पर्श करा.
     nb = Nedlastingen mislyktes – trykk på nytt for å prøve en gang til
     nl = Downloaden is mislukt. Tik om het opnieuw te proberen.
@@ -351,7 +351,7 @@
     id = Tulis Ulasan
     it = Lascia una recensione
     ja = 評価する
-    ko = 평 남기기
+    ko = 리뷰 남기기
     mr = अभिप्राय द्या
     nb = Legg inn en vurdering
     nl = Laat een review achter
@@ -502,7 +502,7 @@
     id = Nanti
     it = Più tardi
     ja = 次の機会に
-    ko = 후
+    ko = 나중에
     mr = नंतर
     nb = Senere
     nl = Later
@@ -665,7 +665,7 @@
     id = Saat ini semua Layanan Lokasi untuk perangkat atau aplikasi ini non-aktif. Mohon aktifkan lewat Setelan.
     it = Attualmente tutti i servizi di localizzazione per questo dispositivo o applicazione sono disattivati. Si prega di abilitarli in Impostazioni.
     ja = 端末の位置情報サービスが無効になっているか、このアプリケーションからの位置情報利用が制限されています。端末の設定を有効化してください。
-    ko = 현재 이 장치나 애플리케이션을 위한 전 위치 서비스를 불능시키셨습니다. 설정에서 이를 작동시켜 주시기 바랍니다.
+    ko = 현재 이 기기 또는 애플리케이션에 대한 모든 위치 서비스가 비활성화되어 있습니다. 설정에서 활성화하십시오.
     mr = आपल्या उपकरणात किंवा ऍप मध्ये स्थानसेवा सध्या बंद आहेत. कृपया सेटिंग मधून त्यांना चालू  करा.
     nb = Du har for øyeblikket deaktivert alle posisjonstjenester for denne enheten eller applikasjonen. Slå dem på i «Innstillinger».
     nl = U heeft momenteel alle locatieservices voor dit apparaat of deze app uitgeschakeld. Schakel ze in bij Instellingen
@@ -1302,7 +1302,7 @@
     id = Mohon bebaskan sejumlah ruang pada kartu SD/penyimpanan USB terlebih dahulu untuk menggunakan aplikasi
     it = Libera prima dello spazio sulla scheda Sd/ memoria USB per usare l'app
     ja = アプリを起動するにはSDカード/USBストレージの空き容量を確保する必要があります
-    ko = 응용 프로그램을 사용하기 위해서는 첫째 SD 카드 / USB 저장 장치에 여유 공간을 확보하십시오
+    ko = 앱을 사용하려면 먼저 SD 카드/USB 저장소의 여유 공간을 확보하세요
     mr = कृपया ऍप वापरण्यासाठी प्रथम SD कार्ड/USB स्टोरेजवरील काही जागा मोकळी करा
     nb = Frigjør plass på SD-kortet/USB-enheten først for å bruke appen
     nl = Maak eerst ruimte vrij op de SD-kaart/USB-opslag om de app te gebruiken
@@ -1666,7 +1666,7 @@
     id = Tambahkan Set baru
     it = Aggiungi nuovo elenco
     ja = 新しいセットを作成
-    ko = 새로운 세트 추가
+    ko = 새로운 목록 추가
     mr = नवीन यादी जोडा
     nb = Legg til nytt sett
     nl = Voeg nieuwe groep toe
