@@ -304,14 +304,18 @@ UNIT_TEST(TestAddingActiveLaneInformation)
   vector<turns::TurnItem> turns =
       {{1, CarDirection::GoStraight},
        {2, CarDirection::TurnLeft},
-       {3, CarDirection::ReachedYourDestination}};
+       {3, CarDirection::TurnRight},
+       {4, CarDirection::ReachedYourDestination}};
 
   turns[0].m_lanes.push_back({LaneWay::Left, LaneWay::Through});
   turns[0].m_lanes.push_back({LaneWay::Right});
 
   turns[1].m_lanes.push_back({LaneWay::SlightLeft});
   turns[1].m_lanes.push_back({LaneWay::Through});
-  turns[1].m_lanes.push_back({LaneWay::Through});
+  turns[1].m_lanes.push_back({LaneWay::None});
+
+  turns[2].m_lanes.push_back({LaneWay::Left, LaneWay::SharpLeft});
+  turns[2].m_lanes.push_back({LaneWay::None});
 
   vector<RouteSegment> routeSegments;
   RouteSegmentsFrom({}, {}, turns, {}, routeSegments);
@@ -322,7 +326,10 @@ UNIT_TEST(TestAddingActiveLaneInformation)
 
   TEST(routeSegments[1].GetTurn().m_lanes[0].m_isRecommended, ());
   TEST(!routeSegments[1].GetTurn().m_lanes[1].m_isRecommended, ());
-  TEST(!routeSegments[1].GetTurn().m_lanes[1].m_isRecommended, ());
+  TEST(!routeSegments[1].GetTurn().m_lanes[2].m_isRecommended, ());
+
+  TEST(!routeSegments[2].GetTurn().m_lanes[0].m_isRecommended, ());
+  TEST(routeSegments[2].GetTurn().m_lanes[1].m_isRecommended, ());
 }
 
 UNIT_TEST(TestGetRoundaboutDirection)
