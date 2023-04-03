@@ -113,6 +113,11 @@ namespace
     if ((geomType == GeomType::Point || geomType == GeomType::Undefined) && type == region)
       return scales::GetUpperWorldScale();
 
+    ftype::TruncValue(type, 1);
+    static uint32_t const addr = cl.GetTypeByPath({"addr:interpolation"});
+    if ((geomType == GeomType::Line || geomType == GeomType::Undefined) && type == addr)
+      return scales::GetUpperScale();
+
     return -1;
   }
 
