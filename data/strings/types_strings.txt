@@ -1,5 +1,51 @@
 [[Types]]
 
+  [type.addr_interpolation]
+    en = Address/Block
+    ar = العنوان / البلوك
+    be = Адрас/Блок
+    bg = Адрес/Блок
+    ca = Adreça/Bloc
+    cs = Adresa/blok
+    da = Adresse/blok
+    de = Adresse/Block
+    el = Διεύθυνση/Μπλοκ
+    es = Dirección/Bloque
+    et = Aadress/plokk
+    eu = Helbidea/Blokea
+    fa = آدرس/بلاک
+    fi = Osoite/lohko
+    fr = Adresse/Bloc
+    he = כתובת/חסימה
+    hu = Cím/blokk
+    id = Alamat/Blokir
+    it = Indirizzo/Blocco
+    ja = アドレス/ブロック
+    ko = 주소/블록
+    mr = पत्ता/ब्लॉक
+    nb = Adresse/blokk
+    nl = Adres/blok
+    pl = Adres/Blok
+    pt = Endereço/Bloco
+    pt-BR = Endereço/Bloco
+    ro = Adresă/Bloc
+    ru = Адрес/Блок
+    sk = Adresa/blok
+    sv = Adress/Block
+    sw = Anwani/Zuia
+    th = ที่อยู่/บล็อค
+    tr = Adres/Blok
+    uk = Адреса/блок
+    vi = Địa chỉ/Khối
+    zh-Hans = 地址/区块
+    zh-Hant = 地址/區塊
+
+  [type.addr_interpolation.even]
+    ref = type.addr_interpolation
+
+  [type.addr_interpolation.odd]
+    ref = type.addr_interpolation
+
   [type.aerialway]
     en = Aerialway
     de = Seilbahn
