@@ -1,4 +1,8 @@
 world  +
+    addr:interpolation  +
+        even  -
+        odd  -
+        {}
     aerialway  +
         cable_car  -
         chair_lift  -
