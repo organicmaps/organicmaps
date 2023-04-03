@@ -38,9 +38,9 @@ mapswithme
 *landuse|farm
 *amenity|place_of_worship
 *highway|track|grade1
-mapswithme
+*addr:interpolation|odd
 *highway|service|driveway
-mapswithme
+*addr:interpolation|even
 *highway|motorway_link
 *waterway|stream|intermittent
 *highway|track|grade4
@@ -538,7 +538,7 @@ mapswithme
 mapswithme
 *railway|funicular|tunnel
 *barrier|cycle_barrier
-mapswithme
+*addr:interpolation
 highway|speed_camera
 *area:highway|track
 *area:highway|primary
