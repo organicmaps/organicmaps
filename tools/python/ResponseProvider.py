@@ -4,7 +4,7 @@ import jsons
 import logging
 import os
 
-
+# Should match size defined in platform/platform_tests/downloader_tests/downloader_test.cpp
 BIG_FILE_SIZE = 47684
 
 
@@ -13,15 +13,15 @@ class Payload:
         self.__response_code = response_code
         self.__message = message if type(message) is bytes else message.encode('utf8')
         self.__headers = headers
-        
-    
+
+
     def response_code(self):
         """
         Response code to send to the client.
         """
         return self.__response_code
-    
-    
+
+
     def message(self):
         """
         The message to send to the client.
@@ -50,11 +50,11 @@ class Payload:
 
 class ResponseProviderMixin:
     """
-A mixin (basically, an interface) that the web-server that we might use relies on. 
+A mixin (basically, an interface) that the web-server that we might use relies on.
 
 In this implementation, the job of the web-server is just to get the request
 (the url and the headers), and to send the response as it knows how. It isn't
-its job to decide how to respond to what request. It is the job of the 
+its job to decide how to respond to what request. It is the job of the
 ResponseProvider.
 
 In your web-server you should initialize the ResponseProvider, and ask it for
@@ -72,24 +72,24 @@ of servers send to check if other servers are currently serving.
 
 kill(self) - someone sent the kill request, which means that that someone
 no longer needs this server to serve. You might want to decrement the count of
-active users and/or stop the server. 
+active users and/or stop the server.
 """
-    
+
     def dispatch_response(self, payload):
         """
     Define this mehtod to dispatch the response received from the ResponseProvider
     """
         raise NotImplementedError()
-    
+
 
     def got_pinged(self):
         """
-    A ping request has been received. In most scenarios it means that the number of 
+    A ping request has been received. In most scenarios it means that the number of
     users of this server has increased by 1.
     """
         raise NotImplementedError()
-    
-        
+
+
     def kill(self):
         """
     Someone no longer needs this server. Decrement the number of users and stop
@@ -105,8 +105,8 @@ class ResponseProvider:
         self.byterange = None
         self.is_chunked = False
         self.response_code = 200
-   
-    
+
+
     def pong(self):
         self.delegate.got_pinged()
         return Payload("pong")
@@ -182,7 +182,7 @@ class ResponseProvider:
         size = len(init_message)
         self.check_byterange(size)
         headers = self.chunked_response_header(size)
-        
+
         return Payload(message, self.response_code, headers)
 
 
@@ -192,7 +192,7 @@ class ResponseProvider:
 
     def test_301(self):
         return Payload("", 301, {"Location" : "google.com"})
-    
+
 
     def check_byterange(self, size):
         if self.byterange is None:
@@ -203,8 +203,8 @@ class ResponseProvider:
             "Content-Range" : "bytes {start}-{end}/{out_of}".format(start=self.byterange[0],
             end=self.byterange[1], out_of=size)
         }
-        
-    
+
+
     def test_47_kb(self):
         self.check_byterange(BIG_FILE_SIZE)
         headers = self.chunked_response_header(BIG_FILE_SIZE)
@@ -212,7 +212,7 @@ class ResponseProvider:
 
         return Payload(message, self.response_code, headers)
 
-    
+
     def message_for_47kb_file(self):
         message = []
         for i in range(0, BIG_FILE_SIZE + 1):

@@ -80,7 +80,7 @@ class TestRunner:
         self.boost_tests = options.boost_tests
 
         if self.runlist:
-            logging.warn("-i or -b option found, the -e option will be ignored")
+            logging.warning("-i or -b option found, the -e option will be ignored")
 
         self.workspace_path = options.folder
         self.data_path = (f" --data_path={options.data_path}" if options.data_path else "")
