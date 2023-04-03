@@ -1638,6 +1638,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     // {"railway", "subway"},
     // {"traffic_calming", "bump"},
     // {"traffic_calming", "hump"},
+    {"addr:interpolation", "even"},
+    {"addr:interpolation", "odd"},
     {"aerialway", "cable_car"},
     {"aerialway", "chair_lift"},
     {"aerialway", "drag_lift"},
@@ -2236,6 +2238,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     //
     // Manually constructed type, not parsed from osm.
     // {{"building", "address"}, {{"addr:housenumber", "any_value"}, {"addr:street", "any_value"}}},
+    {{"addr:interpolation"}, {{"addr:interpolation", "all"}}},
     {{"aeroway", "aerodrome", "international"}, {{"aeroway", "aerodrome"}, {"aerodrome", "international"}}},
     {{"amenity", "grave_yard", "christian"}, {{"amenity", "grave_yard"}, {"religion", "christian"}}},
     {{"amenity", "parking", "fee"}, {{"amenity", "parking"}, {"fee", "any_value"}}},

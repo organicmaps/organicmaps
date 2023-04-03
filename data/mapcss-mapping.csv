@@ -38,9 +38,9 @@ highway|cycleway;37;
 landuse|farm;38;
 amenity|place_of_worship;39;
 highway|track|grade1;[highway=track][tracktype=grade1];;name;int_name;40;
-deprecated|deprecated;41;x
+addr:interpolation|odd;41;
 highway|service|driveway;[highway=service][service=driveway];;name;int_name;42;
-deprecated|deprecated;43;x
+addr:interpolation|even;43;
 highway|motorway_link;44;
 waterway|stream|intermittent;[waterway=stream][intermittent=yes];;name;int_name;45;
 highway|track|grade4;[highway=track][tracktype=grade4];;name;int_name;46;
@@ -538,7 +538,7 @@ deprecated|deprecated;537;x
 deprecated|deprecated;538;x
 railway|funicular|tunnel;[railway=funicular][tunnel?];;name;int_name;539;
 barrier|cycle_barrier;540;
-deprecated|deprecated;541;x
+addr:interpolation;[addr:interpolation];;addr:housenumber;name;541;
 amenity|speed_trap;542;highway|speed_camera
 area:highway|track;543;
 area:highway|primary;544;
