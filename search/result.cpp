@@ -54,13 +54,13 @@ bool Result::HasPoint() const
 
 FeatureID const & Result::GetFeatureID() const
 {
-  ASSERT_EQUAL(m_resultType, Type::Feature, (m_resultType));
+  ASSERT_EQUAL(m_resultType, Type::Feature, ());
   return m_id;
 }
 
 uint32_t Result::GetFeatureType() const
 {
-  ASSERT_EQUAL(m_resultType, Type::Feature, (m_resultType));
+  ASSERT_EQUAL(m_resultType, Type::Feature, ());
   return m_featureType;
 }
 
