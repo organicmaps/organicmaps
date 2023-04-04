@@ -456,9 +456,7 @@ public class PlacePageController implements Initializable<Activity>,
       boolean needToShowRoutingButtons = RoutingController.get().isPlanning() || showRoutingButton;
 
       if (needToShowRoutingButtons)
-      {
         buttons.add(PlacePageButtons.ButtonType.ROUTE_FROM);
-      }
 
       // If we can show the add route button, put it in the place of the bookmark button
       // And move the bookmark button at the end

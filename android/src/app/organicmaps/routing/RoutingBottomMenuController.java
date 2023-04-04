@@ -210,8 +210,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   void setStartButton(boolean show)
   {
-    if (show)
-    {
+    if (show) {
       mStart.setText(mContext.getText(R.string.p2p_start));
       mStart.setOnClickListener(v -> {
         if (mListener != null)
@@ -305,8 +304,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
     SpannableStringBuilder builder = new SpannableStringBuilder();
 
-    if (showTime)
-    {
+    if (showTime) {
       initTimeBuilderSequence(context, time, builder);
       String dot = "\u00A0• ";
       initDotBuilderSequence(context, dot, builder);
