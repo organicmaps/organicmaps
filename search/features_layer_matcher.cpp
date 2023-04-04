@@ -55,6 +55,8 @@ void FeaturesLayerMatcher::OnQueryFinished()
 
 uint32_t FeaturesLayerMatcher::GetMatchingStreet(uint32_t houseId)
 {
+  /// @todo But what if houseId was edited? Should we check it like in GetMatchingStreet(FeatureType) ?
+  /// I think, we should implement more robust logic with invalidating all caches when editor was invoked.
   auto entry = m_matchingStreetsCache.Get(houseId);
   if (!entry.second)
     return entry.first;
@@ -68,8 +70,6 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreet(uint32_t houseId)
 
 FeaturesLayerMatcher::Streets const & FeaturesLayerMatcher::GetNearbyStreets(FeatureType & feature)
 {
-  static FeaturesLayerMatcher::Streets const kEmptyStreets;
-
   auto entry = m_nearbyStreetsCache.Get(feature.GetID().m_index);
   if (!entry.second)
     return entry.first;
@@ -84,8 +84,7 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreet(FeatureType & houseFeature)
 {
   // Check if this feature is modified - the logic will be different.
   string streetName;
-  bool const edited =
-      osm::Editor::Instance().GetEditedFeatureStreet(houseFeature.GetID(), streetName);
+  bool const edited = osm::Editor::Instance().GetEditedFeatureStreet(houseFeature.GetID(), streetName);
 
   // Check the cached result value.
   auto entry = m_matchingStreetsCache.Get(houseFeature.GetID().m_index);
@@ -96,10 +95,7 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreet(FeatureType & houseFeature)
   result = kInvalidId;
 
   FeatureID streetId;
-  CHECK(m_context, ());
-  CHECK(m_context->m_handle.IsAlive(), (m_context->m_handle.GetId()));
-  CHECK(m_context->m_handle.GetId().IsAlive(), (m_context->m_handle.GetId()));
-  if (!edited && m_reverseGeocoder.GetStreetByHouse(houseFeature, streetId))
+  if (!edited && m_reverseGeocoder.GetOriginalStreetByHouse(houseFeature, streetId))
   {
     result = streetId.m_index;
     return result;

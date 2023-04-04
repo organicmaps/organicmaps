@@ -65,6 +65,7 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
   }
   ASSERT(!points.empty(), ());
 
+  /// @todo Can be optimized here. Do not aggregate rect, but aggregate covering intervals for each segment, instead.
   for (auto const & point : points)
     street.m_rect.Add(mercator::RectByCenterXYAndSizeInMeters(point, m_offsetMeters));
 
@@ -72,6 +73,6 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
   auto const & intervals = coveringGetter.Get<RectId::DEPTH_LEVELS>(m_scale);
   m_context->ForEachIndex(intervals, m_scale, base::MakeBackInsertFunctor(street.m_features));
 
-  street.m_calculator = std::make_unique<ProjectionOnStreetCalculator>(points);
+  //street.m_calculator = std::make_unique<ProjectionOnStreetCalculator>(points);
 }
 }  // namespace search
