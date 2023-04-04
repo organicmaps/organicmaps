@@ -101700,6 +101700,10 @@ colors {
     color: 7434609
   }
   value {
+    name: "RouteHelicopter"
+    color: 1301433013
+  }
+  value {
     name: "RouteMarkPrimaryText"
     color: 8947848
   }

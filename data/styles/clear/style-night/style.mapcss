@@ -36,6 +36,8 @@ colors
   RoutePedestrian-opacity: 0.7;
   RouteBicycle-color: #FF4B8C;
   RouteBicycle-opacity: 0.7;
+  RouteHelicopter-color: #924ab5;
+  RouteHelicopter-opacity: 0.7;
   RoutePreview-color: #FFFFFF;
   RoutePreview-opacity: 0.3;
   RouteMaskCar-color: #000000;

@@ -17,6 +17,7 @@ std::string const kRouteColor = "Route";
 std::string const kRouteOutlineColor = "RouteOutline";
 std::string const kRoutePedestrian = "RoutePedestrian";
 std::string const kRouteBicycle = "RouteBicycle";
+std::string const kRouteHelicopter = "RouteHelicopter";
 std::string const kRoutePreview = "RoutePreview";
 std::string const kRouteMaskCar = "RouteMaskCar";
 std::string const kRouteArrowsMaskCar = "RouteArrowsMaskCar";
