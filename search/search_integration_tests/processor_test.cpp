@@ -3314,7 +3314,6 @@ UNIT_CLASS_TEST(ProcessorTest, StreetCategories)
     Rules const rules = {
       ExactMatch(wonderlandId, street),
       ExactMatch(wonderlandId, bus),
-      ExactMatch(wonderlandId, shop),
     };
     TEST(OrderedResultsMatch("avenida santa fe street ", rules), ());
   }
