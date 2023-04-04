@@ -6,7 +6,6 @@
 
 #include <limits>
 
-using namespace std;
 
 namespace search
 {
@@ -17,16 +16,15 @@ ProjectionOnStreet::ProjectionOnStreet()
 }
 
 // ProjectionOnStreetCalculator --------------------------------------------------------------------
-ProjectionOnStreetCalculator::ProjectionOnStreetCalculator(vector<m2::PointD> const & points)
+ProjectionOnStreetCalculator::ProjectionOnStreetCalculator(std::vector<m2::PointD> const & points)
 {
   size_t const count = points.size();
   if (count < 2)
     return;
 
-  m_segments.clear();
   m_segments.reserve(count - 1);
-  for (size_t i = 0; i + 1 < count; ++i)
-    m_segments.emplace_back(points[i], points[i + 1]);
+  for (size_t i = 1; i < count; ++i)
+    m_segments.emplace_back(points[i - 1], points[i]);
 }
 
 bool ProjectionOnStreetCalculator::GetProjection(m2::PointD const & point,
@@ -34,7 +32,7 @@ bool ProjectionOnStreetCalculator::GetProjection(m2::PointD const & point,
 {
   size_t const kInvalidIndex = m_segments.size();
   proj.m_segIndex = kInvalidIndex;
-  proj.m_distMeters = numeric_limits<double>::max();
+  proj.m_distMeters = std::numeric_limits<double>::max();
 
   for (size_t index = 0; index < m_segments.size(); ++index)
   {
@@ -52,4 +50,4 @@ bool ProjectionOnStreetCalculator::GetProjection(m2::PointD const & point,
 
   return (proj.m_segIndex < kInvalidIndex);
 }
-}  // namespace search
+} // namespace search

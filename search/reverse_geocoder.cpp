@@ -200,11 +200,13 @@ string ReverseGeocoder::GetOriginalFeatureStreetName(FeatureID const & fid) cons
   return addr.m_street.m_name;
 }
 
-bool ReverseGeocoder::GetStreetByHouse(FeatureType & house, FeatureID & streetId) const
+bool ReverseGeocoder::GetOriginalStreetByHouse(FeatureType & house, FeatureID & streetId) const
 {
   Address addr;
   HouseTable table(m_dataSource);
-  if (GetNearbyAddress(table, FromFeature(house, 0.0 /* distMeters */), false /* ignoreEdits */, addr))
+
+  // Ignore edits here, because this function is called once with edits check before.
+  if (GetNearbyAddress(table, FromFeature(house, 0.0 /* distMeters */), true /* ignoreEdits */, addr))
   {
     streetId = addr.m_street.m_id;
     return true;

@@ -30,7 +30,7 @@ public:
   ParametrizedSegment(Point const & p0, Point const & p1) : m_p0(p0), m_p1(p1)
   {
     m_d = m_p1 - m_p0;
-    m_length = std::sqrt(m_d.SquaredLength());
+    m_length = m_d.Length();
     if (m_d.IsAlmostZero())
       m_d = Point::Zero();
     else
