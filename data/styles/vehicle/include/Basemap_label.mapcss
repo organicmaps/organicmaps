@@ -50,11 +50,6 @@ node[place=continent]
 {z-index: 999;}
 
 node[place=country],
-line[man_made=pier],
-line[man_made=breakwater],
-node[man_made=pier],
-node[man_made=breakwater],
-line[waterway=dam],
 line[waterway=weir],
 node[waterway=weir],
 area[landuse=military],
@@ -91,13 +86,6 @@ node[place=city][capital=2][population>=0]
 node[place=ocean],
 node[place=sea]
 {z-index: 3000;}
-
-line[waterway=river],
-line[waterway=riverbank],
-line[waterway=canal],
-line[natural=strait],
-line[waterway],
-{z-index: 4500;}
 
 /* 2.CONTINENTS */
 
@@ -446,6 +434,14 @@ node|z17-[natural=beach]
 {text: name;font-size: 10;text-color: @poi_label;}
 
 /* 6.WATER */
+
+[waterway=river],
+[waterway=riverbank],
+[waterway=stream],
+[waterway=canal],
+[natural=strait],
+[waterway=dam],
+{-x-me-text-priority: 16950;}
 
 node|z1-[place=ocean],
 node|z4-[place=sea],

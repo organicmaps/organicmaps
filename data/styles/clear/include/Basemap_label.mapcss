@@ -55,11 +55,6 @@ node[place=continent]
 {z-index: 999;}
 
 node[place=country],
-line[man_made=pier],
-line[man_made=breakwater],
-node[man_made=pier],
-node[man_made=breakwater],
-line[waterway=dam],
 line[waterway=weir],
 node[waterway=weir],
 {z-index: 1000;}
@@ -94,13 +89,6 @@ node[place=ocean],
 node[place=sea]
 {z-index: 3000;}
 
-line[waterway=river],
-line[waterway=riverbank],
-line[waterway=stream],
-line[waterway=canal],
-line[natural=strait],
-line[waterway],
-{z-index: 10000;}
 
 /* 2.CONTINENTS */
 
@@ -529,6 +517,14 @@ node|z15-[natural=beach],
 
 /* 6.WATER */
 
+[waterway=river],
+[waterway=riverbank],
+[waterway=stream],
+[waterway=canal],
+[natural=strait],
+[waterway=dam],
+{-x-me-text-priority: 16950;}
+
 node|z1-[place=ocean],
 node|z4-[place=sea],
 area|z10-[landuse=reservoir][bbox_area>=4000000],
@@ -541,7 +537,6 @@ line|z13-[natural=strait],
 node|z14-[natural=strait],
 node|z14-[natural=water],
 node|z14-[natural=bay],
-node|z14-[natural=strait],
 area|z14-[natural=water],
 node|z16-[natural=wetland],
 area|z16-[natural=wetland],
@@ -677,15 +672,13 @@ area|z15-[waterway=dam],
 line|z15-[waterway=dam],
 line|z15-[waterway=weir],
 node|z15-[waterway=weir]
-{text: name;font-size: 10;text-color:@poi_label;fill-opacity: 1;}
-
 area|z17-[man_made=pier],
 area|z17-[man_made=breakwater],
 line|z17-[man_made=pier],
 line|z17-[man_made=breakwater],
 node|z17-[man_made=pier],
 node|z17-[man_made=breakwater]
-{text: name;font-size: 10;text-color:@poi_label;fill-opacity: 1;-x-me-area-priority:16000;}
+{text: name;font-size: 10;text-color:@poi_label;fill-opacity: 1;}
 
 /*	8.2 Building */
 area|z16[building],
