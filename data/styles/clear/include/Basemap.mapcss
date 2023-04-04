@@ -33,6 +33,27 @@
 area[natural=coastline]
 {z-index: -10;}
 
+line[waterway=river],
+line[waterway=riverbank],
+line[waterway=stream],
+line[waterway=canal],
+line[waterway=ditch],
+line[waterway=drain],
+line[natural=strait],
+{z-index: 1;}
+
+/*
+  Foreground area water should be above linear water (e.g. rivers)
+  and below hatching fills, dams, piers.
+*/
+area[natural=water],
+area[waterway=dock],
+area[waterway=riverbank],
+area[landuse=salt_pond],
+area[landuse=basin],
+area[landuse=reservoir],
+{fill-position: foreground; z-index: 1;}
+
 /* These are foreground areas with semi-transparent hardcoded hatching-style fills.
    They are rendered over all other background areas only.
    And we want lines to be rendered above them, hence minimum z-index.
@@ -40,7 +61,17 @@ area[natural=coastline]
 area[leisure=nature_reserve],
 area[boundary=national_park],
 area[landuse=military],
-{z-index: 0;}
+{fill-position: foreground; z-index: 2;}
+
+/* Foreground areas which should be above water and hatching fills. */
+area[waterway=dam],
+line[waterway=dam],
+area[man_made=pier],
+area[man_made=breakwater],
+line[man_made=pier],
+line[man_made=breakwater],
+{fill-position: foreground; z-index: 3;}
+
 
 area[natural=land],
 area[place=islet]
@@ -110,7 +141,6 @@ line[isoline=zero],
 
 area[natural=wetland],
 area[leisure=marina],
-line[waterway=stream][intermittent=yes]
 {z-index: 43;}
 
 area[amenity=parking],
@@ -136,36 +166,16 @@ area[natural=heath]
 area[natural=scrub]
 {z-index: 47;}
 
-line[waterway=river],
-line[waterway=riverbank],
-line[waterway=stream],
-line[waterway=canal],
-line[natural=strait],
-line[waterway=ditch],
 line[barrier=ditch],
-line[waterway=drain],
 {z-index: 50;}
 
-area[natural=water],
-area[waterway=dock],
-area[waterway=riverbank],
-area[landuse=salt_pond],
-area[landuse=basin],
-area[landuse=reservoir],
 area[leisure=swimming_pool],
 area[amenity=fountain],
 {z-index: 100;}
 
-area[waterway=dam],
-line[waterway=dam],
-line[waterway=weir],
 node[waterway=lock_gate],
 {z-index: 110;}
 
-area[man_made=pier],
-area[man_made=breakwater],
-line[man_made=pier],
-line[man_made=breakwater],
 line[man_made=cutline]
 {z-index: 120;}
 
@@ -374,13 +384,15 @@ area|z0-[natural=desert],
 /* 6.WATER */
 
 area|z0-[natural=water],
-area|z0-[landuse=salt_pond],
 area|z0-[waterway=dock],
 area|z0-[waterway=riverbank],
-area|z11-[natural=wetland],
-area|z11-[leisure=marina],
+area|z0-[landuse=salt_pond],
 area|z12-[landuse=basin],
 area|z12-[landuse=reservoir],
+{fill-opacity: 1;}
+
+area|z11-[natural=wetland],
+area|z11-[leisure=marina],
 area|z13-[leisure=swimming_pool],
 area|z16-[amenity=fountain],
 {fill-position: background;	fill-opacity: 1;}
@@ -388,10 +400,11 @@ area|z16-[amenity=fountain],
 line|z10-[waterway=river],
 line|z10-[waterway=riverbank],
 line|z13-[waterway=stream],
-line|z13-[waterway=stream][intermittent=yes],
 line|z13-[waterway=canal],
+line|z17-[waterway=ditch],
+line|z17-[waterway=drain],
 line|z13-[natural=strait],
-{opacity: 1; color: @river; -x-me-line-priority: 1005;}
+{opacity: 1; color: @river;}
 
 /* 6.1 Area water(lake,pond etc.) */
 
@@ -606,7 +619,7 @@ area|z15-[amenity=parking]
 
 area|z12-[man_made=pier],
 area|z12-[man_made=breakwater],
-{fill-position: background; fill-opacity: 1; fill-color: @background;}
+{fill-opacity: 1; fill-color: @background;}
 
 line|z14-[man_made=pier],
 line|z14-[man_made=breakwater],
@@ -692,9 +705,6 @@ area|z18-[building:part],
 area|z18-[waterway=dam],
 area|z18-[landuse=garages],
 {fill-color: @building_dark;casing-width: 1;casing-color: @building_dark_border;}
-
-area|z14-[waterway=dam],
-{fill-position: background;}
 
 
 /* 8.3 Barriers, cliffs */
