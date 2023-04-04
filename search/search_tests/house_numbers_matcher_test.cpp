@@ -7,13 +7,13 @@
 
 #include "base/string_utils.hpp"
 
+
+namespace house_number_matcher_test
+{
 using namespace search::house_numbers;
-using namespace search;
 using namespace strings;
 using namespace std;
 
-namespace
-{
 bool HouseNumbersMatch(string const & houseNumber, string const & query, bool queryIsPrefix = false)
 {
   return search::house_numbers::HouseNumbersMatch(MakeUniString(houseNumber), MakeUniString(query),
@@ -65,9 +65,9 @@ bool CheckParser(string const & utf8s, string const & expected)
 
   return true;
 }
-}  // namespace
 
-UNIT_TEST(HouseNumberTokenizer_Smoke)
+
+UNIT_TEST(HouseNumber_Tokenizer_Smoke)
 {
   TEST(CheckTokenizer("123Б", {"123", "б"}), ());
   TEST(CheckTokenizer("123/Б", {"123", "/", "б"}), ());
@@ -77,7 +77,7 @@ UNIT_TEST(HouseNumberTokenizer_Smoke)
   TEST(CheckTokenizer("9 литер аб1", {"9", "литер", "аб", "1"}), ());
 }
 
-UNIT_TEST(HouseNumberParser_Smoke)
+UNIT_TEST(HouseNumber_Parser_Smoke)
 {
   TEST(CheckParser("123Б", "123 б"), ());
   TEST(CheckParser("123/4 Литер А", "123 4 а"), ());
@@ -89,7 +89,7 @@ UNIT_TEST(HouseNumberParser_Smoke)
   TEST(CheckParser("9 литер аб1", "9 1"), ());
 }
 
-UNIT_TEST(HouseNumbersMatcher_Smoke)
+UNIT_TEST(HouseNumbers_Matcher_Smoke)
 {
   TEST(HouseNumbersMatch("39с79", "39"), ());
   TEST(HouseNumbersMatch("39с79", "39 Строение 79"), ());
@@ -144,9 +144,16 @@ UNIT_TEST(HouseNumbersMatcher_Smoke)
   TEST(HouseNumbersMatch("16 к1", "16 к1"), ());
   TEST(HouseNumbersMatch("16 к1", "дом 16 к1"), ());
   TEST(HouseNumbersMatch("14 д 1", "дом 14 д1"), ());
+
+  TEST(HouseNumbersMatch("12;14", "12"), ());
+  TEST(HouseNumbersMatch("12;14", "14"), ());
+  TEST(!HouseNumbersMatch("12;14", "13"), ());
+  TEST(HouseNumbersMatch("12,14", "12"), ());
+  TEST(HouseNumbersMatch("12,14", "14"), ());
+  TEST(!HouseNumbersMatch("12,14", "13"), ());
 }
 
-UNIT_TEST(LooksLikeHouseNumber_Smoke)
+UNIT_TEST(HouseNumber_LooksLike_Smoke)
 {
   TEST(LooksLikeHouseNumber("1", false /* isPrefix */), ());
   TEST(LooksLikeHouseNumber("ev 10", false /* isPrefix */), ());
@@ -191,9 +198,11 @@ UNIT_TEST(LooksLikeHouseNumber_Smoke)
   TEST(LooksLikeHouseNumber("дом 16", false /* isPrefix */), ());
   TEST(LooksLikeHouseNumber("дом 14 д 1", false /* isPrefix */), ());
 
+  TEST(LooksLikeHouseNumber("12;14", false /* isPrefix */), ());
+  TEST(LooksLikeHouseNumber("12,14", true /* isPrefix */), ());
+
   TEST(!LooksLikeHouseNumber("улица", false /* isPrefix */), ());
-  /// @todo By VNG: Don't know is it supposed or not, but next tokens are _looks like house numbers_!
-  /// @see g_strings in house_numbers_matching.cpp
-  TEST(LooksLikeHouseNumber("avenida", false /* isPrefix */), ());
-  TEST(LooksLikeHouseNumber("street", false /* isPrefix */), ());
+  TEST(!LooksLikeHouseNumber("avenida", false /* isPrefix */), ());
+  TEST(!LooksLikeHouseNumber("street", false /* isPrefix */), ());
 }
+} // namespace house_number_matcher_test
