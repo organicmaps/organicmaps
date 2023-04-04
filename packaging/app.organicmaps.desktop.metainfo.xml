@@ -113,6 +113,36 @@
   </screenshots>
 
   <releases>
+   <release version="2023.04.02-7" date="2023-04-02">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OpenStreetMap data as of March 29</li>
+           <li>Correctly import KML bookmarks with track data</li>
+           <li>Allow adding music and musical_instruments in the Editor</li>
+           <li>Sewing shops and haberdasheries are searchable</li>
+           <li>Changed displayed name to Organic Maps</li>
+           <li>OM version is selectable in About</li>
+         </ul>
+       <p>Map Styles:</p>
+         <ul>
+           <li>Distinguish supermarkets and convenience stores</li>
+           <li>New shop types: agrarian, appliance, bed, outpost, gas, key cutter, locksmith, carpet, motorcycle repair, pet grooming, hi-fi, bathroom furnishing, curtain, fashion accessories, cannabis, herbalist</li>
+           <li>Added money transfer, bicycle charging stations, power plant</li>
+           <li>Made captions mandatory for capitals with a star icon</li>
+           <li>Made park, forest, and scrub colors different</li>
+           <li>Added metal construction icons</li>
+           <li>Improved aerial ways, cable cars, power lines, fences</li>
+           <li>Reduce Barcelona subway visibility</li>
+           <li>Fixed isolines that are drawn over buildings, roads, etc.</li>
+           <li>Fixed some POI captions displayed earlier than their icons</li>
+         </ul>
+       <p>Translations:</p>
+         <ul>
+           <li>Improved German, Turkish, Belarusian, Hungarian translations</li>
+         </ul>
+     </description>
+   </release>
    <release version="2023.03.02-2" date="2023-03-02">
      <description>
        <p>Highlights:</p>
