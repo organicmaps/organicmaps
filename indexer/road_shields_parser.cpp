@@ -17,13 +17,15 @@ namespace
 
 uint32_t constexpr kMaxRoadShieldBytesSize = 8;
 
-std::array<std::string, 3> const kFederalCode = {{"US", "SR", "FSR"}};
+std::array<std::string, 2> const kFederalCode = {{"US", "FSR"}};
 
-std::array<std::string, 60> const kStatesCode = {{
+std::array<std::string, 61> const kStatesCode = {{
     "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN",
     "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH",
     "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT",
     "VT", "VA", "WA", "WV", "WI", "WY", "AS", "GU", "MP", "PR", "VI", "UM", "FM", "MH", "PW",
+
+    "SR",   // common prefix for State Road
 }};
 
 std::array<std::string, 13> const kModifiers = {{"alt", "alternate", "bus", "business", "bypass",
