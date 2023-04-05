@@ -195,7 +195,7 @@ private:
 class TransitInfoWrapper final
 {
 public:
-  explicit TransitInfoWrapper(std::unique_ptr<TransitInfo> ptr) : m_ptr(move(ptr)) {}
+  explicit TransitInfoWrapper(std::unique_ptr<TransitInfo> ptr) : m_ptr(std::move(ptr)) {}
   explicit TransitInfoWrapper(TransitInfoWrapper && rhs) { swap(m_ptr, rhs.m_ptr); }
   explicit TransitInfoWrapper(TransitInfoWrapper const & rhs)
   {
@@ -228,7 +228,7 @@ public:
     return *m_ptr;
   }
 
-  void Set(std::unique_ptr<TransitInfo> ptr) { m_ptr = move(ptr); }
+  void Set(std::unique_ptr<TransitInfo> ptr) { m_ptr = std::move(ptr); }
 
 private:
   std::unique_ptr<TransitInfo> m_ptr;

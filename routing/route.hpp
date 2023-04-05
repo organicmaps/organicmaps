@@ -115,7 +115,7 @@ public:
 
   void SetTransitInfo(std::unique_ptr<TransitInfo> transitInfo)
   {
-    m_transitInfo.Set(move(transitInfo));
+    m_transitInfo.Set(std::move(transitInfo));
   }
 
   Segment const & GetSegment() const { return m_segment; }
