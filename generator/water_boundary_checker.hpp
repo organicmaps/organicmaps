@@ -49,7 +49,7 @@ public:
 
         std::vector<m2::PointD> points(numPoints);
         file.Read(points.data(), sizeof(m2::PointD) * numPoints);
-        m_tree.Add(m2::RegionD(move(points)));
+        m_tree.Add(m2::RegionD(std::move(points)));
       }
     }
     LOG_SHORT(LINFO, ("Load", total, "water geometries"));

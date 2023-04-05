@@ -2,6 +2,8 @@
 
 #include "base/logging.hpp"
 
+#include "std/target_os.hpp"
+
 #include <chrono>
 #include <exception>
 
@@ -62,7 +64,7 @@ bool Thread::Create(std::unique_ptr<IRoutine> && routine)
     m_routine.reset();
     return false;
   }
-  m_thread = move(routineThread);
+  m_thread = std::move(routineThread);
   return true;
 }
 
