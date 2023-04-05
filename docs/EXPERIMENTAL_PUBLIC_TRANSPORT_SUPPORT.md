@@ -10,10 +10,10 @@ At the moment our app does not have full support for public transport. What we h
 
 :bus: But you can turn on the experimental feature of [GTFS](https://developers.google.com/transit/gtfs/reference) public transport and use it inside the Organic Maps app. It includes all [transit types definded by GTFS specification:](https://developers.google.com/transit/gtfs/reference/extended-route-types) bus, train, ferry, aerial lifts of different kinds, trolleybus and much more. Let's call this version of transit data **GTFS transit** from now on.
 
-To mixin the experimental GTFS transit into the OSM transit data you should follow 2 steps:
+To mix in the experimental GTFS transit into the OSM transit data you should follow these steps:
 
-- Run the pipeline for downloading and preparing GTFS data about public transport.
-- Switch to the new version of the transit routing section in maps: build maps with the GTFS transit section with the help of special options for generator_tool.
+1. Run the pipeline for downloading and preparing GTFS data about public transport.
+2. Switch to the new version of the transit routing section in maps: build maps with the GTFS transit section with the help of special options for generator_tool.
 
 After completing these steps you will have maps with:
 
