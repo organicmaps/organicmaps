@@ -81,7 +81,7 @@ def find_in_taginfo(cur, kv, seen):
 
 
 def find_popular_taginfo(cur, seen):
-    """Finds popular keys that have not been seen."""
+    """Finds popular values that have not been seen, among some popular tags."""
     RE_VALID = re.compile(r'^[a-z_]+$')
     keys = ('amenity', 'shop', 'craft', 'emergency', 'office', 'highway', 'railway', 'tourism', 'historic', 'leisure', 'man_made')
     cur.execute("select key, value, count_all from tags where key in ({}) and count_all > 1000 order by count_all desc".
