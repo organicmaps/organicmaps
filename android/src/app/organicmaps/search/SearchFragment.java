@@ -178,6 +178,18 @@ public class SearchFragment extends BaseMwmFragment
       if (!TextUtils.isEmpty(getQuery()))
         mSearchAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void onLocationDisabled()
+    {
+
+    }
+
+    @Override
+    public void onLocationPermissionDenied()
+    {
+
+    }
   };
 
   private static boolean doShowDownloadSuggest()

@@ -131,6 +131,18 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
       LocationHelper.INSTANCE.removeListener(this);
     }
+
+    @Override
+    public void onLocationDisabled()
+    {
+
+    }
+
+    @Override
+    public void onLocationPermissionDenied()
+    {
+
+    }
   };
 
   private final Listener mResourcesDownloadListener = new Listener()

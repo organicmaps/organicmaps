@@ -279,6 +279,10 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @UiThread
   public void onLocationDisabled()
   {
+    for (LocationListener listener : mListeners)
+      listener.onLocationDisabled();
+    mListeners.finishIterate();
+
     Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() +
         " permissions = " + LocationUtils.isLocationGranted(mContext) +
         " settings = " + LocationUtils.areLocationServicesTurnedOn(mContext));
@@ -317,6 +321,10 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @UiThread
   private void onLocationDenied()
   {
+    for (LocationListener listener : mListeners)
+      listener.onLocationPermissionDenied();
+    mListeners.finishIterate();
+
     Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() +
         " permissions = " + LocationUtils.isLocationGranted(mContext) +
         " settings = " + LocationUtils.areLocationServicesTurnedOn(mContext));

@@ -137,4 +137,16 @@ public class DirectionFragment extends BaseMwmDialogFragment
     if (da.getAzimuth() >= 0)
       mAvDirection.setAzimuth(da.getAzimuth());
   }
+
+  @Override
+  public void onLocationDisabled()
+  {
+
+  }
+
+  @Override
+  public void onLocationPermissionDenied()
+  {
+
+  }
 }

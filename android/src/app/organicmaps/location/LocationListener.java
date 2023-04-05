@@ -12,4 +12,8 @@ public interface LocationListener
   {
     // No op.
   }
+
+  void onLocationDisabled();
+  void onLocationPermissionDenied();
+
 }

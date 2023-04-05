@@ -72,6 +72,18 @@ public class NavigationService extends Service
         updateNotification(routingInfo);
       }
     }
+
+    @Override
+    public void onLocationDisabled()
+    {
+
+    }
+
+    @Override
+    public void onLocationPermissionDenied()
+    {
+
+    }
   };
 
   public class LocalBinder extends Binder

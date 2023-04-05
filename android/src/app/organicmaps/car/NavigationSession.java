@@ -28,6 +28,7 @@ import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.location.LocationState;
 import app.organicmaps.routing.RoutingController;
+import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.log.Logger;
 
 import java.io.IOException;
@@ -69,6 +70,12 @@ public final class NavigationSession extends Session implements DefaultLifecycle
 
 
     if (mInitFailed)
+      return new ErrorScreen(getCarContext());
+
+    if(!LocationUtils.areLocationServicesTurnedOn(getCarContext()))
+      return new ErrorScreen(getCarContext());
+
+    if(!LocationUtils.isLocationGranted(getCarContext()))
       return new ErrorScreen(getCarContext());
 
     return new MapScreen(getCarContext(), mSurfaceRenderer);
@@ -145,6 +152,19 @@ public final class NavigationSession extends Session implements DefaultLifecycle
   public void onCompassUpdated(double north)
   {
     Map.onCompassUpdated(north, false);
+  }
+
+  @Override
+  public void onLocationDisabled()
+  {
+    // TODO: Create new screen for location disabled
+    ScreenManager screenManager = getCarContext().getCarService(ScreenManager.class);
+    screenManager.push(new ErrorScreen(getCarContext()));
+  }
+
+  @Override
+  public void onLocationPermissionDenied()
+  {
   }
 
   @Override

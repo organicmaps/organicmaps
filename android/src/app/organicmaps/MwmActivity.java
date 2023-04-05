@@ -1696,6 +1696,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
+  public void onLocationDisabled()
+  {
+
+  }
+
+  @Override
+  public void onLocationPermissionDenied()
+  {
+
+  }
+
+  @Override
   public void onUseMyPositionAsStart()
   {
     RoutingController.get().setStartPoint(LocationHelper.INSTANCE.getMyPosition());
