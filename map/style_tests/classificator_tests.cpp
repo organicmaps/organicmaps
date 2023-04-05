@@ -212,7 +212,7 @@ void CheckPriority(vector<base::StringIL> const & arrT, vector<size_t> const & a
 }  // namespace
 
 // Check area drawing priority according to the types order below (from downmost to upmost).
-// If someone is desagree with this order, please, refer to VNG :)
+// If someone disagrees with this order, please refer to VNG :)
 // natural-coastline
 // place-island = natural-land
 // natural-scrub,heath,grassland = landuse-grass,farm,farmland,forest
@@ -235,11 +235,15 @@ UNIT_TEST(Classificator_AreaPriority)
   }, {1, 2, 7, 4}, drule::area);
 
   CheckPriority({
-    // 0
-    {"natural", "water"}, {"landuse", "reservoir"},
-    // 1
+    // ? - linear waterways @todo: add ability to compare different drule types (areas vs lines)
+    //{"waterway", "river"}, {"waterway", "stream"}, {"natural", "strait"}, {"waterway", "ditch"},
+    // 0 - water areas
+    {"natural", "water"}, {"landuse", "reservoir"}, {"natural", "water", "river"}, {"waterway", "dock"},
+    // ? - hatching fills @todo: absent in vehicle style, need to test main style only
+    //{"leisure", "nature_reserve"}, {"boundary", "national_park"}, {"landuse", "military"},
+    // 1 - above-water features
     {"man_made", "pier"}, {"man_made", "breakwater"}, {"waterway", "dam"},
-  }, {2, 3}, drule::area);
+  }, {4, 3}, drule::area);
 
   CheckPriority({
     // 0
