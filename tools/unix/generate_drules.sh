@@ -44,3 +44,9 @@ echo "Merging default and vehicle styles"
 python3 "$OMIM_PATH/tools/python/stylesheet/drules_merge.py" \
   "$DATA_PATH/drules_proto_clear.bin" "$DATA_PATH/drules_proto_vehicle_clear.bin" \
   "$DATA_PATH/drules_proto.bin" "$DATA_PATH/drules_proto.txt" > /dev/null
+
+python3 "$OMIM_PATH/tools/python/stylesheet/dump_priorities.py" \
+  "$DATA_PATH/drules_proto_clear.bin" > "$DATA_PATH/drules_proto_clear.prios.txt"
+
+python3 "$OMIM_PATH/tools/python/stylesheet/dump_priorities.py" \
+  "$DATA_PATH/drules_proto_vehicle_clear.bin" > "$DATA_PATH/drules_proto_vehicle_clear.prios.txt"
