@@ -1,27 +1,15 @@
 #pragma once
 
-#include "generator/osm_element.hpp"
 #include "generator/routing_helpers.hpp"
 
-#include "routing/base/followed_polyline.hpp"
-#include "routing/routing_helpers.hpp"
 #include "routing/speed_camera_ser_des.hpp"
 
 #include "indexer/data_source.hpp"
-#include "indexer/feature_data.hpp"
-#include "indexer/feature_decl.hpp"
-#include "indexer/scales.hpp"
 
 #include "coding/file_writer.hpp"
-#include "coding/write_to_sink.hpp"
 
 #include "geometry/point2d.hpp"
-#include "geometry/segment2d.hpp"
 
-#include "base/geo_object_id.hpp"
-
-#include <cstdint>
-#include <map>
 #include <optional>
 #include <string>
 #include <utility>

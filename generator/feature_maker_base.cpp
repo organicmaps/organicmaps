@@ -50,11 +50,11 @@ bool FeatureMakerBase::GetNextFeature(FeatureBuilder & feature)
 
 void TransformToPoint(FeatureBuilder & feature)
 {
-  if (!feature.IsArea() && !feature.IsLine())
+  if (feature.IsPoint())
     return;
 
-  auto const center = feature.GetGeometryCenter();
-  feature.SetCenter(center);
+  feature.SetCenter(feature.GetGeometryCenter());
+
   auto & params = feature.GetParams();
   if (!params.house.IsEmpty())
     params.SetGeomTypePointEx();

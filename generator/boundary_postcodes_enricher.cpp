@@ -37,7 +37,7 @@ void BoundaryPostcodesEnricher::Enrich(feature::FeatureBuilder & fb) const
     return;
 
   auto const hasName = !fb.GetMultilangName().IsEmpty();
-  auto const hasHouseNumber = !fb.GetParams().house.Get().empty();
+  auto const hasHouseNumber = !fb.GetParams().house.IsEmpty();
 
   // We do not save postcodes for unnamed features without house number to reduce amount of data.
   // For example with this filter we have +100Kb for Turkey_Marmara Region_Istanbul.mwm, without

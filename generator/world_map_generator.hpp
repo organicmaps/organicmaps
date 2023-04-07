@@ -101,7 +101,7 @@ public:
       m_typesCorrector.SetDontNormalizeType(arr1[i]);
 
     if (popularPlacesFilename.empty())
-      LOG(LWARNING, ("popular_places_data option not set. Popular atractions will not be added to World.mwm"));
+      LOG(LWARNING, ("popular_places_data option not set. Popular attractions will not be added to World.mwm"));
 
     // Can be empty in tests.
     if (!coastGeomFilename.empty())
@@ -126,21 +126,21 @@ public:
       if (!PushFeature(fb) && forcePushToWorld)
       {
         // We push Point with all the same tags, names and center instead of Line/Area,
-      // because we do not need geometry for invisible features (just search index and placepage
-      // data) and want to avoid size checks applied to areas.
-      if (originalFeature.GetGeomType() != feature::GeomType::Point)
-        generator::TransformToPoint(originalFeature);
+        // because we do not need geometry for invisible features (just search index and placepage
+        // data) and want to avoid size checks applied to areas.
+        if (!originalFeature.IsPoint())
+          generator::TransformToPoint(originalFeature);
 
-      m_worldBucket.PushSure(originalFeature);
-    }
+        m_worldBucket.PushSure(originalFeature);
+      }
     }
     else
     {
-    std::vector<feature::FeatureBuilder> boundaryParts;
-    m_boundaryChecker.ProcessBoundary(fb, boundaryParts);
-    for (auto & f : boundaryParts)
-      PushFeature(f);
-  }
+      std::vector<feature::FeatureBuilder> boundaryParts;
+      m_boundaryChecker.ProcessBoundary(fb, boundaryParts);
+      for (auto & f : boundaryParts)
+        PushFeature(f);
+    }
   }
 
   bool PushFeature(feature::FeatureBuilder & fb)

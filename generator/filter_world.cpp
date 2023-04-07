@@ -13,7 +13,7 @@ FilterWorld::FilterWorld(std::string const & popularityFilename)
   : m_popularityFilename(popularityFilename)
 {
   if (popularityFilename.empty())
-    LOG(LWARNING, ("popular_places_data option not set. Popular atractions will not be added to World.mwm"));
+    LOG(LWARNING, ("popular_places_data option not set. Popular attractions will not be added to World.mwm"));
 }
 
 std::shared_ptr<FilterInterface> FilterWorld::Clone() const

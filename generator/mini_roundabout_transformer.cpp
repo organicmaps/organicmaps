@@ -10,7 +10,6 @@
 #include <algorithm>
 #include <cmath>
 #include <iterator>
-#include <limits>
 #include <unordered_map>
 
 namespace generator
@@ -132,6 +131,9 @@ feature::FeatureBuilder CreateFb(std::vector<m2::PointD> && way, uint64_t id,
                                  uint32_t roadType, bool isRoundabout = true,
                                  bool isLeftHandTraffic = false)
 {
+  /// @todo  We create linear FeatureBuilder with Way OSM id based on input Node OSM id (from highway=mini_roundabout).
+  /// This is wrong because new id will intersect with other *true* Way OSM id (and will inherit speed).
+
   feature::FeatureBuilder fb;
   fb.SetOsmId(base::MakeOsmWay(id));
   fb.SetLinear();
