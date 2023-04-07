@@ -69,10 +69,13 @@ UIImage *image(routing::turns::PedestrianDirection t) {
 }
 
 NSAttributedString *estimate(NSTimeInterval time, NSString *distance, NSString *distanceUnits,
-                             NSDictionary *primaryAttributes, NSDictionary *secondaryAttributes, BOOL isWalk) {
-  NSString *eta = [NSDateComponentsFormatter etaStringFrom:time];
-  auto result = [[NSMutableAttributedString alloc] initWithString:eta attributes:primaryAttributes];
-  [result appendAttributedString:MWMNavigationDashboardEntity.estimateDot];
+                             NSDictionary *primaryAttributes, NSDictionary *secondaryAttributes, BOOL isWalk, BOOL showEta) {
+  auto result = [[NSMutableAttributedString alloc] initWithString:@""];
+  if (showEta) {
+    NSString *eta = [NSDateComponentsFormatter etaStringFrom:time];
+    [result appendAttributedString:[[NSMutableAttributedString alloc] initWithString:eta attributes:primaryAttributes]];
+    [result appendAttributedString:MWMNavigationDashboardEntity.estimateDot];
+  }
 
   if (isWalk) {
     UIFont *font = primaryAttributes[NSFontAttributeName];
@@ -163,6 +166,8 @@ NSAttributedString *estimate(NSTimeInterval time, NSString *distance, NSString *
   }
 
   if (auto entity = self.entity) {
+    BOOL showEta = (type != MWMRouterTypeHelicopter);
+    
     entity.isValid = YES;
     entity.timeToTarget = info.m_time;
     entity.targetDistance = @(info.m_distToTarget.c_str());
@@ -174,7 +179,7 @@ NSAttributedString *estimate(NSTimeInterval time, NSString *distance, NSString *
     entity.speedLimitMps = info.m_speedLimitMps;
 
     entity.estimate = estimate(entity.timeToTarget, entity.targetDistance, entity.targetUnits,
-                               self.etaAttributes, self.etaSecondaryAttributes, NO);
+                               self.etaAttributes, self.etaSecondaryAttributes, NO, showEta);
 
     if (type == MWMRouterTypePedestrian) {
       entity.turnImage = image(info.m_pedestrianTurn);
@@ -200,7 +205,7 @@ NSAttributedString *estimate(NSTimeInterval time, NSString *distance, NSString *
     entity.isValid = YES;
     entity.estimate =
       estimate(info.m_totalTimeInSec, @(info.m_totalPedestrianDistanceStr.c_str()),
-               @(info.m_totalPedestrianUnitsSuffix.c_str()), self.etaAttributes, self.etaSecondaryAttributes, YES);
+               @(info.m_totalPedestrianUnitsSuffix.c_str()), self.etaAttributes, self.etaSecondaryAttributes, YES, YES);
     NSMutableArray<MWMRouterTransitStepInfo *> *transitSteps = [@[] mutableCopy];
     for (auto const &stepInfo : info.m_steps)
       [transitSteps addObject:[[MWMRouterTransitStepInfo alloc] initWithStepInfo:stepInfo]];
