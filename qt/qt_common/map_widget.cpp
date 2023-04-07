@@ -345,25 +345,16 @@ void MapWidget::initializeGL()
   if (!m_screenshotMode)
     m_ratio = devicePixelRatio();
 
-#if defined(OMIM_OS_MAC)
-  m_apiOpenGLES3 = false;
-#elif defined(OMIM_OS_LINUX)
+  m_apiOpenGLES3 = true;
+
+#if defined(OMIM_OS_LINUX)
   {
     QOpenGLFunctions * funcs = context()->functions();
-    const std::string vendor = QString::fromLatin1(
-      (const char*)funcs->glGetString(GL_VENDOR)).toStdString();
-    const std::string renderer = QString::fromLatin1(
-      (const char*)funcs->glGetString(GL_RENDERER)).toStdString();
-    const std::string version = QString::fromLatin1(
-      (const char*)funcs->glGetString(GL_VERSION)).toStdString();
-    const std::string glslVersion = QString::fromLatin1(
-      (const char*)funcs->glGetString(GL_SHADING_LANGUAGE_VERSION)).toStdString();
-    const std::string extensions = QString::fromLatin1(
-      (const char*)funcs->glGetString(GL_EXTENSIONS)).toStdString();
-
-    LOG(LINFO, ("Vendor:", vendor, "\nRenderer:", renderer,
-                "\nVersion:", version, "\nShading language version:\n", glslVersion,
-                "\nExtensions:", extensions));
+    LOG(LINFO, ("Vendor:", funcs->glGetString(GL_VENDOR),
+                "\nRenderer:", funcs->glGetString(GL_RENDERER),
+                "\nVersion:", funcs->glGetString(GL_VERSION),
+                "\nShading language version:\n",funcs->glGetString(GL_SHADING_LANGUAGE_VERSION),
+                "\nExtensions:", funcs->glGetString(GL_EXTENSIONS)));
 
     if (context()->isOpenGLES())
     {
@@ -372,12 +363,12 @@ void MapWidget::initializeGL()
       m_apiOpenGLES3 = false;
       constexpr const char* requiredExtensions[3] =
         { "GL_EXT_map_buffer_range", "GL_OES_mapbuffer", "GL_OES_vertex_array_object" };
-      for (auto &requiredExtension: requiredExtensions)
+      for (auto & requiredExtension : requiredExtensions)
       {
-        if(context()->hasExtension(QByteArray::fromStdString(requiredExtension)))
+        if (context()->hasExtension(QByteArray::fromStdString(requiredExtension)))
           LOG(LDEBUG, ("Found OpenGL ES 2.0 extension: ", requiredExtension));
         else
-          LOG(LCRITICAL, ("A required OpenGL ES 2.0 extension is missing: ", requiredExtension));
+          LOG(LCRITICAL, ("A required OpenGL ES 2.0 extension is missing:", requiredExtension));
       }
     }
     else
@@ -400,7 +391,6 @@ void MapWidget::initializeGL()
     fmt.setVersion(2, 1);
   }
   QSurfaceFormat::setDefaultFormat(fmt);
-
 
   m_contextFactory.reset(new QtOGLContextFactory(context()));
 

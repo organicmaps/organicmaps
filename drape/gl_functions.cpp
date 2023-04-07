@@ -255,7 +255,7 @@ void GLFunctions::Init(dp::ApiVersion apiVersion)
     glUnmapBufferFn = &::glUnmapBuffer;
 
 #elif defined(OMIM_OS_LINUX)
-    void *libhandle = dlopen("libGL.so.1", RTLD_NOW);
+    void *libhandle = dlopen("libGL.so.1", RTLD_LAZY);
     if (!libhandle)
       LOG(LCRITICAL, ("Failed to open libGL.so.1:", dlerror()));
     glGenVertexArraysFn = (TglGenVertexArraysFn)dlsym(libhandle,"glGenVertexArraysOES");
@@ -302,7 +302,7 @@ void GLFunctions::Init(dp::ApiVersion apiVersion)
   }
   else
   {
-    ASSERT(false, ("Unknown Graphics API"));
+    CHECK(false, ("Unknown Graphics API"));
   }
 
 #else  // OMIM_OS_WINDOWS
