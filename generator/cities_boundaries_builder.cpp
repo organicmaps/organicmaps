@@ -8,8 +8,6 @@
 #include "indexer/city_boundary.hpp"
 #include "indexer/mwm_set.hpp"
 
-#include "platform/local_country_file.hpp"
-
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/reader.hpp"
@@ -20,7 +18,6 @@
 
 #include <memory>
 #include <unordered_map>
-#include <utility>
 #include <vector>
 
 #include "defines.hpp"
@@ -56,7 +53,7 @@ bool BuildCitiesBoundaries(string const & dataPath, BoundariesTable & table, Map
 
   FilesContainerW container(dataPath, FileWriter::OP_WRITE_EXISTING);
   auto sink = container.GetWriter(CITIES_BOUNDARIES_FILE_TAG);
-  indexer::CitiesBoundariesSerDes::Serialize(*sink, all);
+  CitiesBoundariesSerDes::Serialize(*sink, all);
 
   return true;
 }
@@ -103,7 +100,7 @@ void SerializeBoundariesTable(std::string const & path, OsmIdToBoundariesTable &
   LOG(LINFO, ("Saved boundary clusters count =", allIds.size()));
 
   FileWriter sink(path);
-  indexer::CitiesBoundariesSerDes::Serialize(sink, allBoundaries);
+  CitiesBoundariesSerDes::Serialize(sink, allBoundaries);
   for (auto const & ids : allIds)
   {
     WriteToSink(sink, static_cast<uint64_t>(ids.size()));
@@ -124,7 +121,7 @@ bool DeserializeBoundariesTable(std::string const & path, OsmIdToBoundariesTable
     NonOwningReaderSource source(reader);
 
     double precision;
-    indexer::CitiesBoundariesSerDes::Deserialize(source, allBoundaries, precision);
+    CitiesBoundariesSerDes::Deserialize(source, allBoundaries, precision);
 
     count = allBoundaries.size();
     allIds.resize(count);

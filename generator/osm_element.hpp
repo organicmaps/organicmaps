@@ -5,13 +5,7 @@
 #include "base/assert.hpp"
 #include "base/geo_object_id.hpp"
 #include "base/math.hpp"
-#include "base/string_utils.hpp"
 
-#include <exception>
-#include <functional>
-#include <iomanip>
-#include <iostream>
-#include <map>
 #include <string>
 #include <vector>
 

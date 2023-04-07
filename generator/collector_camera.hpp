@@ -2,9 +2,6 @@
 
 #include "generator/collector_interface.hpp"
 
-#include <cstdint>
-#include <fstream>
-#include <functional>
 #include <memory>
 #include <optional>
 #include <string>
@@ -18,7 +15,6 @@ class ReaderSource;
 class FileReader;
 class FileWriter;
 
-// TODO (@gmoryes) move members of m_routingTagsProcessor to generator
 namespace routing_builder
 {
 class TestCameraCollector;
@@ -61,11 +57,11 @@ class CameraCollector : public generator::CollectorInterface
 public:
   CameraCollector(std::string const & filename, IDRInterfacePtr cache);
 
-  // generator::CollectorInterface overrides:
+  /// @name CollectorInterface overrides:
+  /// @{
   std::shared_ptr<CollectorInterface> Clone(IDRInterfacePtr const & cache = {}) const override;
-  // We will process all nodes before ways because of o5m format:
-  // all nodes are first, then all ways, then all relations.
   void CollectFeature(feature::FeatureBuilder const & feature, OsmElement const & element) override;
+  /// @}
 
   IMPLEMENT_COLLECTOR_IFACE(CameraCollector);
   void MergeInto(CameraCollector & collector) const;

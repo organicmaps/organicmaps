@@ -117,8 +117,7 @@ bool TestMwmBuilder::Add(FeatureBuilder & fb)
     CHECK(strings::to_uint(metadata.Get(Metadata::FMD_TEST_ID), testId), ());
     m_boundariesTable.Append(testId, indexer::CityBoundary(fb.GetOuterGeometry()));
 
-    auto const center = fb.GetGeometryCenter();
-    fb.SetCenter(center);
+    fb.SetCenter(fb.GetGeometryCenter());
   }
 
   if (!fb.RemoveInvalidTypes() || !fb.PreSerializeAndRemoveUselessNamesForIntermediate())

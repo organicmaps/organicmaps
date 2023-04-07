@@ -14,10 +14,8 @@
 #include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
 
-#include "coding/internal/file_data.hpp"
 #include "coding/point_coding.hpp"
 #include "coding/reader.hpp"
-#include "coding/reader_writer_ops.hpp"
 #include "coding/write_to_sink.hpp"
 #include "coding/writer.hpp"
 
@@ -25,14 +23,12 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
-#include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <iterator>
+
 
 namespace routing_builder
 {
-using namespace feature;
 
 std::optional<double> GetMaxSpeedKmPH(std::string const & maxSpeedString)
 {
@@ -172,7 +168,7 @@ std::shared_ptr<generator::CollectorInterface> CameraCollector::Clone(IDRInterfa
   return std::make_shared<CameraCollector>(GetFilename(), cache);
 }
 
-void CameraCollector::CollectFeature(FeatureBuilder const & fb, OsmElement const & element)
+void CameraCollector::CollectFeature(feature::FeatureBuilder const & fb, OsmElement const & element)
 {
   if (element.m_type == OsmElement::EntityType::Node)
   {

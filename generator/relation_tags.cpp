@@ -3,6 +3,7 @@
 #include "generator/osm_element.hpp"
 
 #include "base/stl_helpers.hpp"
+#include "base/string_utils.hpp"
 
 namespace generator
 {

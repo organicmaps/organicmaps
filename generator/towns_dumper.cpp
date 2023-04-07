@@ -6,6 +6,7 @@
 #include "geometry/tree4d.hpp"
 
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include <fstream>
 

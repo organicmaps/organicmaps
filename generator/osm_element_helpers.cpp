@@ -1,6 +1,7 @@
 #include "generator/osm_element_helpers.hpp"
 
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 namespace generator
 {

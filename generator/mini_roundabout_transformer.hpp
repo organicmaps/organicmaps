@@ -3,15 +3,8 @@
 #include "generator/affiliation.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/mini_roundabout_info.hpp"
-#include "generator/osm_element.hpp"
 
-#include "coding/point_coding.hpp"
-
-#include "geometry/latlon.hpp"
-#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
-
-#include "base/math.hpp"
 
 #include <string>
 #include <vector>
@@ -28,7 +21,7 @@ struct RoundaboutUnit
 class MiniRoundaboutData
 {
 public:
-  MiniRoundaboutData(std::vector<MiniRoundaboutInfo> && data);
+  explicit MiniRoundaboutData(std::vector<MiniRoundaboutInfo> && data);
 
   bool RoadExists(feature::FeatureBuilder const & fb) const;
   std::vector<MiniRoundaboutInfo> const & GetData() const;
@@ -44,11 +37,11 @@ MiniRoundaboutData ReadDataMiniRoundabout(std::string const & intermediateFilePa
 class MiniRoundaboutTransformer
 {
 public:
-  explicit MiniRoundaboutTransformer(std::vector<MiniRoundaboutInfo> const & data,
-                                     feature::AffiliationInterface const & affiliation);
-  explicit MiniRoundaboutTransformer(std::vector<MiniRoundaboutInfo> const & data,
-                                     feature::AffiliationInterface const & affiliation,
-                                     double radiusMeters);
+  MiniRoundaboutTransformer(std::vector<MiniRoundaboutInfo> const & data,
+                            feature::AffiliationInterface const & affiliation);
+  MiniRoundaboutTransformer(std::vector<MiniRoundaboutInfo> const & data,
+                            feature::AffiliationInterface const & affiliation,
+                            double radiusMeters);
 
   void AddRoad(feature::FeatureBuilder && road);
 
