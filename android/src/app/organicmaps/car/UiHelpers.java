@@ -3,7 +3,6 @@ package app.organicmaps.car;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.car.app.CarContext;
-import androidx.car.app.ScreenManager;
 import androidx.car.app.model.Action;
 import androidx.car.app.model.ActionStrip;
 import androidx.car.app.model.CarColor;
@@ -12,29 +11,20 @@ import androidx.car.app.navigation.model.MapController;
 import androidx.core.graphics.drawable.IconCompat;
 
 import app.organicmaps.R;
+import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.screens.settings.SettingsScreen;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationState;
-import app.organicmaps.routing.RoutingController;
 
 public final class UiHelpers
 {
-  public static ActionStrip createSettingsActionStrip(@NonNull CarContext context, @NonNull SurfaceRenderer surfaceRenderer)
+  @NonNull
+  public static ActionStrip createSettingsActionStrip(@NonNull BaseMapScreen mapScreen, @NonNull SurfaceRenderer surfaceRenderer)
   {
-    return new ActionStrip.Builder().addAction(createSettingsButton(context, surfaceRenderer)).build();
+    return new ActionStrip.Builder().addAction(createSettingsAction(mapScreen, surfaceRenderer)).build();
   }
 
-  public static ActionStrip createNavigationActionStrip(@NonNull CarContext context, @NonNull SurfaceRenderer surfaceRenderer)
-  {
-    Action.Builder stopButtonBuilder = new Action.Builder();
-    stopButtonBuilder.setTitle(context.getString(R.string.current_location_unknown_stop_button));
-    stopButtonBuilder.setOnClickListener(() -> {
-      RoutingController.get().cancel();
-      context.getCarService(ScreenManager.class).popToRoot();
-    });
-    return new ActionStrip.Builder().addAction(createSettingsButton(context, surfaceRenderer)).addAction(stopButtonBuilder.build()).build();
-  }
-
+  @NonNull
   public static ActionStrip createMapActionStrip(@NonNull CarContext context, @NonNull SurfaceRenderer surfaceRenderer)
   {
     final CarIcon iconPlus = new CarIcon.Builder(IconCompat.createWithResource(context, R.drawable.ic_plus)).build();
@@ -52,20 +42,30 @@ public final class UiHelpers
         .build();
   }
 
+  @NonNull
   public static MapController createMapController(@NonNull CarContext context, @NonNull SurfaceRenderer surfaceRenderer)
   {
     return new MapController.Builder().setMapActionStrip(createMapActionStrip(context, surfaceRenderer)).build();
   }
 
-  private static Action createSettingsButton(@NonNull CarContext context, @NonNull SurfaceRenderer surfaceRenderer)
+  @NonNull
+  public static Action createSettingsAction(@NonNull BaseMapScreen mapScreen, @NonNull SurfaceRenderer surfaceRenderer)
   {
+    final CarContext context = mapScreen.getCarContext();
     final CarIcon iconSettings = new CarIcon.Builder(IconCompat.createWithResource(context, R.drawable.ic_settings)).build();
 
     return new Action.Builder().setIcon(iconSettings).setOnClickListener(
-        () -> context.getCarService(ScreenManager.class).push(new SettingsScreen(context, surfaceRenderer))
+        () -> {
+          // Action.onClickListener for the Screen A maybe called even if the Screen B is shown now.
+          // We need to check it
+          if (mapScreen.getScreenManager().getTop() != mapScreen)
+            return;
+          mapScreen.getScreenManager().push(new SettingsScreen(context, surfaceRenderer));
+        }
     ).build();
   }
 
+  @NonNull
   private static Action createLocationButton(@NonNull CarContext context)
   {
     final Action.Builder builder = new Action.Builder();

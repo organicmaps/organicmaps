@@ -17,5 +17,5 @@ public interface NativeSearchListener
   /**
    * @param timestamp Timestamp of search request.
    */
-  void onResultsEnd(long timestamp);
+  default void onResultsEnd(long timestamp) {}
 }

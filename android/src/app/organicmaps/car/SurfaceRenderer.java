@@ -171,7 +171,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   public void onClick(float x, float y)
   {
     Logger.d(TAG, "x: " + x + ", y: " + y);
-//    Map.onClick(x, y);
+    Map.onClick(x, y);
   }
 
   public void disable()

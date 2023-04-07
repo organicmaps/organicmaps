@@ -15,6 +15,8 @@ import androidx.core.graphics.drawable.IconCompat;
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.UiHelpers;
+import app.organicmaps.car.screens.base.BaseMapScreen;
+import app.organicmaps.car.screens.search.SearchScreen;
 
 public class MapScreen extends BaseMapScreen
 {
@@ -27,10 +29,10 @@ public class MapScreen extends BaseMapScreen
   @Override
   public Template onGetTemplate()
   {
-    MapTemplate.Builder builder = new MapTemplate.Builder();
+    final MapTemplate.Builder builder = new MapTemplate.Builder();
     builder.setHeader(createHeader());
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
-    builder.setActionStrip(UiHelpers.createSettingsActionStrip(getCarContext(), getSurfaceRenderer()));
+    builder.setActionStrip(UiHelpers.createSettingsActionStrip(this, getSurfaceRenderer()));
     builder.setItemList(createList());
     return builder.build();
   }
@@ -38,7 +40,7 @@ public class MapScreen extends BaseMapScreen
   @NonNull
   private Header createHeader()
   {
-    Header.Builder builder = new Header.Builder();
+    final Header.Builder builder = new Header.Builder();
     builder.setStartHeaderAction(new Action.Builder(Action.APP_ICON).build());
     builder.setTitle(getCarContext().getString(R.string.app_name));
     return builder.build();
@@ -47,7 +49,7 @@ public class MapScreen extends BaseMapScreen
   @NonNull
   private ItemList createList()
   {
-    ItemList.Builder builder = new ItemList.Builder();
+    final ItemList.Builder builder = new ItemList.Builder();
     builder.addItem(createSearchItem());
     builder.addItem(createCategoriesItem());
     builder.addItem(createBookmarksItem());
@@ -59,7 +61,7 @@ public class MapScreen extends BaseMapScreen
   {
     final CarIcon iconSearch = new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_search)).build();
 
-    Row.Builder builder = new Row.Builder();
+    final Row.Builder builder = new Row.Builder();
     builder.setTitle(getCarContext().getString(R.string.search));
     builder.setImage(iconSearch);
     builder.setBrowsable(true);
@@ -70,7 +72,7 @@ public class MapScreen extends BaseMapScreen
   @NonNull
   private Item createCategoriesItem()
   {
-    Row.Builder builder = new Row.Builder();
+    final Row.Builder builder = new Row.Builder();
     builder.setTitle(getCarContext().getString(R.string.categories));
     builder.setBrowsable(true);
     builder.setOnClickListener(this::openCategories);
@@ -80,7 +82,7 @@ public class MapScreen extends BaseMapScreen
   @NonNull
   private Item createBookmarksItem()
   {
-    Row.Builder builder = new Row.Builder();
+    final Row.Builder builder = new Row.Builder();
     builder.setTitle(getCarContext().getString(R.string.bookmarks));
     builder.setBrowsable(true);
     builder.setOnClickListener(this::openBookmarks);
@@ -89,16 +91,22 @@ public class MapScreen extends BaseMapScreen
 
   private void openSearch()
   {
-    getScreenManager().push(new SearchScreen(getCarContext()));
+    if (getScreenManager().getTop() != this)
+      return;
+    getScreenManager().push(new SearchScreen.Builder(getCarContext(), getSurfaceRenderer()).build());
   }
 
   private void openCategories()
   {
+    if (getScreenManager().getTop() != this)
+      return;
     getScreenManager().push(new CategoriesScreen(getCarContext(), getSurfaceRenderer()));
   }
 
   private void openBookmarks()
   {
+    if (getScreenManager().getTop() != this)
+      return;
     getScreenManager().push(new BookmarksScreen(getCarContext(), getSurfaceRenderer()));
   }
 }

@@ -24,6 +24,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -293,7 +294,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void showHelp()
   {
-    Intent intent = new Intent(requireActivity(), HelpActivity.class);
+    Intent intent = new Intent(this, HelpActivity.class);
     startActivity(intent);
   }
 
@@ -1086,12 +1087,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onStart()
   {
     super.onStart();
-    Framework.nativePlacePageActivationListener(this);
     BookmarkManager.INSTANCE.addLoadingListener(this);
-    RoutingController.get().attach(this);
     IsolinesManager.from(getApplicationContext()).attach(this::onIsolinesStateChanged);
     if (mDisplayManager.isDeviceDisplayUsed())
     {
+      Logger.d(TAG, "Activate");
+      RoutingController.get().attach(this);
+      Framework.nativePlacePageActivationListener(this);
       LocationState.nativeSetListener(this);
       onMyPositionModeChanged(LocationState.nativeGetMode());
     }
@@ -1106,13 +1108,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onStop()
   {
     super.onStop();
-    Framework.nativeRemovePlacePageActivationListener();
     BookmarkManager.INSTANCE.removeLoadingListener(this);
     LocationHelper.INSTANCE.removeListener(this);
     if (mDisplayManager.isDeviceDisplayUsed())
+    {
+      Logger.d(TAG, "Deactivate");
+      Framework.nativeRemovePlacePageActivationListener();
       LocationState.nativeRemoveListener();
+      RoutingController.get().detach();
+    }
     LocationHelper.INSTANCE.detach();
-    RoutingController.get().detach();
     IsolinesManager.from(getApplicationContext()).detach();
     mSearchController.detach();
     Utils.keepScreenOn(false, getWindow());
@@ -1300,13 +1305,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mMapFragment.updateBottomWidgetsOffset(offsetX, offsetY);
     mMapFragment.updateMyPositionRoutingOffset(offsetY);
-  }
-
-  @Override
-  @NonNull
-  public AppCompatActivity requireActivity()
-  {
-    return this;
   }
 
   @Override
@@ -1659,6 +1657,52 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
+  public void onShowDisclaimer()
+  {
+    StringBuilder builder = new StringBuilder();
+    for (int resId : new int[] { R.string.dialog_routing_disclaimer_priority, R.string.dialog_routing_disclaimer_precision,
+        R.string.dialog_routing_disclaimer_recommendations, R.string.dialog_routing_disclaimer_borders,
+        R.string.dialog_routing_disclaimer_beware })
+      builder.append(MwmApplication.from(this).getString(resId)).append("\n\n");
+
+    new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.dialog_routing_disclaimer_title)
+        .setMessage(builder.toString())
+        .setCancelable(false)
+        .setNegativeButton(R.string.decline, null)
+        .setPositiveButton(R.string.accept, (dlg, which) -> {
+          Config.acceptRoutingDisclaimer();
+          RoutingController.get().prepare();
+        })
+        .show();
+  }
+
+  @Override
+  public void onSuggestRebuildRoute()
+  {
+    final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
+        .setMessage(R.string.p2p_reroute_from_current)
+        .setCancelable(false)
+        .setNegativeButton(R.string.cancel, null);
+
+    TextView titleView = (TextView)View.inflate(this, R.layout.dialog_suggest_reroute_title, null);
+    titleView.setText(R.string.p2p_only_from_current);
+    builder.setCustomTitle(titleView);
+
+    if (MapObject.isOfType(MapObject.MY_POSITION, RoutingController.get().getEndPoint()))
+      builder.setPositiveButton(R.string.ok, (dialog, which) -> RoutingController.get().swapPoints());
+    else
+    {
+      if (LocationHelper.INSTANCE.getMyPosition() == null)
+        builder.setMessage(null).setNegativeButton(null, null);
+
+      builder.setPositiveButton(R.string.ok, (dialog, which) -> RoutingController.get().setStartFromMyPosition());
+    }
+
+    builder.show();
+  }
+
+  @Override
   public void onMyPositionModeChanged(int newMode)
   {
     Logger.d(TAG, "location newMode = " + newMode);
@@ -1827,9 +1871,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void onSettingsOptionSelected()
   {
-    Intent intent = new Intent(requireActivity(), SettingsActivity.class);
+    Intent intent = new Intent(this, SettingsActivity.class);
     closeFloatingPanels();
-    requireActivity().startActivity(intent);
+    startActivity(intent);
   }
 
   public void onShareLocationOptionSelected()
@@ -1927,18 +1971,23 @@ public class MwmActivity extends BaseMwmFragmentActivity
     initNavigationButtons(MapButtonsController.LayoutMode.regular, true /* force */);
     if (mMapButtonsController != null)
       mMapButtonsController.showMapButtons(false);
-    mPlacePageController.close(true);
+    mPlacePageController.close(false);
     mMainMenu.show(false);
     mNavigationController.show(false);
     mRoutingPlanInplaceController.show(false);
     closeFloatingToolbarsAndPanels(false);
-    Framework.nativeDeactivatePopup();
+    Logger.d(TAG, "Deactivate");
+    Framework.nativeRemovePlacePageActivationListener();
     if (mOnmapDownloader != null)
       mOnmapDownloader.onPause();
+    RoutingController.get().onSaveState();
+    RoutingController.get().detach();
   }
 
   private void enableControls()
   {
+    RoutingController.get().attach(this);
+    RoutingController.get().restore();
     if (RoutingController.get().isNavigating())
     {
       showNavigation(true);
@@ -1946,15 +1995,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
     else if (RoutingController.get().isPlanning())
     {
-      mMainMenu.show(true);
       mRoutingPlanInplaceController.show(true);
       initNavigationButtons(MapButtonsController.LayoutMode.planning, true /* force */);
     }
     else
+    {
       initNavigationButtons(MapButtonsController.LayoutMode.regular, true /* force */);
-    if (mMapButtonsController != null)
-      mMapButtonsController.showMapButtons(true);
+      if (mMapButtonsController != null)
+        mMapButtonsController.showMapButtons(true);
+    }
     LocationState.nativeSetListener(this);
+    Logger.d(TAG, "Activate");
+    Framework.nativePlacePageActivationListener(this);
     onMyPositionModeChanged(LocationState.nativeGetMode());
     updateViewsInsets();
     if (mOnmapDownloader != null)

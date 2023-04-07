@@ -287,7 +287,7 @@ extern "C"
 
   JNIEXPORT void JNICALL Java_app_organicmaps_search_SearchEngine_nativeRunInteractiveSearch(
       JNIEnv * env, jclass clazz, jbyteArray bytes, jboolean isCategory,
-      jstring lang, jlong timestamp, jboolean isMapAndTable)
+      jstring lang, jlong timestamp, jboolean isMapAndTable, jboolean hasPosition, jdouble lat, jdouble lon)
   {
     search::ViewportSearchParams vparams{
         jni::ToNativeString(env, bytes),
@@ -295,7 +295,7 @@ extern "C"
         {},  // Default timeout
         static_cast<bool>(isCategory),
         {},  // Empty m_onStarted callback
-        {},  // Empty m_onCompleted callback
+        bind(&OnResults, _1, std::vector<search::ProductInfo>{}, timestamp, isMapAndTable, hasPosition, lat, lon),  // Empty m_onCompleted callback
     };
 
     // TODO (@alexzatsepin): set up vparams.m_onCompleted here and use
@@ -303,20 +303,19 @@ extern "C"
     // Don't move vparams here, because it's used below.
     g_framework->NativeFramework()->GetSearchAPI().SearchInViewport(vparams);
 
-    if (isMapAndTable)
-    {
-      search::EverywhereSearchParams eparams{
-          std::move(vparams.m_query),
-          std::move(vparams.m_inputLocale),
-          {},   // default timeout
-          static_cast<bool>(isCategory),
-          bind(&OnResults, _1, _2, timestamp, isMapAndTable,
-                false /* hasPosition */, 0.0 /* lat */, 0.0 /* lon */)
-      };
-
-      if (g_framework->NativeFramework()->GetSearchAPI().SearchEverywhere(std::move(eparams)))
-        g_queryTimestamp = timestamp;
-    }
+//    if (isMapAndTable)
+//    {
+//      search::EverywhereSearchParams eparams{
+//          std::move(vparams.m_query),
+//          std::move(vparams.m_inputLocale),
+//          {},   // default timeout
+//          static_cast<bool>(isCategory),
+//          bind(&OnResults, _1, _2, timestamp, isMapAndTable, hasPosition, lat, lon)
+//      };
+//
+//      if (g_framework->NativeFramework()->GetSearchAPI().SearchEverywhere(std::move(eparams)))
+//        g_queryTimestamp = timestamp;
+//    }
   }
 
   JNIEXPORT void JNICALL Java_app_organicmaps_search_SearchEngine_nativeRunSearchMaps(

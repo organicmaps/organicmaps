@@ -64,34 +64,10 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     {
       mResult = result;
       mOrder = order;
-      TextView titleView = getTitleView();
-
-      String title = mResult.name;
-      if (TextUtils.isEmpty(title))
-      {
-        SearchResult.Description description = mResult.description;
-        title = description != null
-                ? Utils.getLocalizedFeatureType(titleView.getContext(), description.featureType)
-                : "";
-      }
-
-      SpannableStringBuilder builder = new SpannableStringBuilder(title);
-      if (mResult.highlightRanges != null)
-      {
-        final int size = mResult.highlightRanges.length / 2;
-        int index = 0;
-
-        for (int i = 0; i < size; i++)
-        {
-          final int start = mResult.highlightRanges[index++];
-          final int len = mResult.highlightRanges[index++];
-
-          builder.setSpan(new StyleSpan(Typeface.BOLD), start, start + len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        }
-      }
+      final TextView titleView = getTitleView();
 
       if (titleView != null)
-        titleView.setText(builder);
+        titleView.setText(mResult.getFormattedTitle(titleView.getContext()));
     }
 
     @AttrRes int getTintAttr()
@@ -145,44 +121,6 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
       return 0;
     }
 
-    // FIXME: Better format based on result type
-    private CharSequence formatDescription(SearchResult result)
-    {
-      String localizedType = Utils.getLocalizedFeatureType(mFrame.getContext(),
-                                                           result.description.featureType);
-      final SpannableStringBuilder res = new SpannableStringBuilder(localizedType);
-      final SpannableStringBuilder tail = new SpannableStringBuilder();
-
-      if (!TextUtils.isEmpty(result.description.airportIata))
-      {
-        tail.append(" • ").append(result.description.airportIata);
-      }
-      else if (!TextUtils.isEmpty(result.description.roadShields))
-      {
-        tail.append(" • ").append(result.description.roadShields);
-      }
-      else
-      {
-        if (!TextUtils.isEmpty(result.description.brand))
-        {
-          tail.append(" • ").append(Utils.getLocalizedBrand(mFrame.getContext(), result.description.brand));
-        }
-        if (!TextUtils.isEmpty(result.description.cuisine))
-        {
-          tail.append(" • ").append(result.description.cuisine);
-        }
-      }
-
-      if (result.isHotel && result.stars != 0)
-      {
-        tail.append(" • ").append("★★★★★★★".substring(0, Math.min(7, result.stars)));
-      }
-
-      res.append(tail);
-
-      return res;
-    }
-
     @NonNull
     private CharSequence colorizeString(@NonNull String str, @ColorInt int color)
     {
@@ -216,7 +154,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
       setBackground();
 
       formatOpeningHours(mResult);
-      UiUtils.setTextAndHideIfEmpty(mDescription, formatDescription(mResult));
+      UiUtils.setTextAndHideIfEmpty(mDescription, mResult.getFormattedDescription(mFrame.getContext()));
       UiUtils.setTextAndHideIfEmpty(mRegion, mResult.description.region);
       UiUtils.setTextAndHideIfEmpty(mDistance, mResult.description.distance);
     }

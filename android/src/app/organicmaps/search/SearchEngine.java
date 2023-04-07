@@ -130,10 +130,17 @@ public enum SearchEngine implements NativeSearchListener,
 
   @MainThread
   public void searchInteractive(@NonNull String query, boolean isCategory, @NonNull String locale,
-                                long timestamp, boolean isMapAndTable)
+                                long timestamp, boolean isMapAndTable, boolean hasLocation, double lat, double lon)
   {
     nativeRunInteractiveSearch(query.getBytes(StandardCharsets.UTF_8), isCategory,
-            locale, timestamp, isMapAndTable);
+            locale, timestamp, isMapAndTable, hasLocation, lat, lon);
+  }
+
+  @MainThread
+  public void searchInteractive(@NonNull String query, boolean isCategory, @NonNull String locale,
+                                long timestamp, boolean isMapAndTable)
+  {
+    searchInteractive(query, isCategory, locale, timestamp, isMapAndTable, false, 0, 0);
   }
 
   @MainThread
@@ -141,6 +148,13 @@ public enum SearchEngine implements NativeSearchListener,
                                 long timestamp, boolean isMapAndTable)
   {
     searchInteractive(query, isCategory, Language.getKeyboardLocale(context), timestamp, isMapAndTable);
+  }
+
+  @MainThread
+  public void searchInteractive(@NonNull Context context, @NonNull String query, boolean isCategory,
+                                long timestamp, boolean isMapAndTable, boolean hasLocation, double lat, double lon)
+  {
+    searchInteractive(query, isCategory, Language.getKeyboardLocale(context), timestamp, isMapAndTable, hasLocation, lat, lon);
   }
 
   @MainThread
@@ -227,7 +241,8 @@ public enum SearchEngine implements NativeSearchListener,
    */
   private static native void nativeRunInteractiveSearch(byte[] bytes, boolean isCategory,
                                                         String language, long timestamp,
-                                                        boolean isMapAndTable);
+                                                        boolean isMapAndTable, boolean hasLocation,
+                                                        double lat, double lon);
 
   /**
    * @param bytes utf-8 formatted query bytes

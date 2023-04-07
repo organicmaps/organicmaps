@@ -15,7 +15,7 @@ import androidx.core.graphics.drawable.IconCompat;
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.UiHelpers;
-import app.organicmaps.car.screens.BaseMapScreen;
+import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.routing.RoutingOptions;
 import app.organicmaps.settings.RoadType;
 
@@ -37,7 +37,7 @@ public class DrivingOptionsScreen extends BaseMapScreen
   @Override
   public Template onGetTemplate()
   {
-    MapTemplate.Builder builder = new MapTemplate.Builder();
+    final MapTemplate.Builder builder = new MapTemplate.Builder();
     builder.setHeader(createHeader());
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
     builder.setItemList(createDrivingOptionsList());
@@ -47,7 +47,7 @@ public class DrivingOptionsScreen extends BaseMapScreen
   @NonNull
   private Header createHeader()
   {
-    Header.Builder builder = new Header.Builder();
+    final Header.Builder builder = new Header.Builder();
     builder.setStartHeaderAction(Action.BACK);
     builder.setTitle(getCarContext().getString(R.string.driving_options_subheader));
     return builder.build();
@@ -56,7 +56,7 @@ public class DrivingOptionsScreen extends BaseMapScreen
   @NonNull
   private ItemList createDrivingOptionsList()
   {
-    ItemList.Builder builder = new ItemList.Builder();
+    final ItemList.Builder builder = new ItemList.Builder();
     builder.addItem(createDrivingOptionCheckbox(RoadType.Toll, R.string.avoid_tolls));
     builder.addItem(createDrivingOptionCheckbox(RoadType.Dirty, R.string.avoid_unpaved));
     builder.addItem(createDrivingOptionCheckbox(RoadType.Ferry, R.string.avoid_ferry));
@@ -67,14 +67,14 @@ public class DrivingOptionsScreen extends BaseMapScreen
   @NonNull
   private Row createDrivingOptionCheckbox(RoadType roadType, @StringRes int titleRes)
   {
-    Row.Builder builder = new Row.Builder();
+    final Row.Builder builder = new Row.Builder();
     builder.setTitle(getCarContext().getString(titleRes));
     builder.setOnClickListener(() -> {
       if (RoutingOptions.hasOption(roadType))
         RoutingOptions.removeOption(roadType);
       else
         RoutingOptions.addOption(roadType);
-      DrivingOptionsScreen.this.invalidate();
+      invalidate();
     });
     builder.setImage(RoutingOptions.hasOption(roadType) ? mCheckboxSelectedIcon : mCheckboxIcon);
     return builder.build();
