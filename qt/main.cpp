@@ -47,7 +47,6 @@ DEFINE_int32(height, 0, "Screenshot height.");
 DEFINE_double(dpi_scale, 0.0, "Screenshot dpi scale (mdpi = 1.0, hdpi = 1.5, "
               "xhdpiScale = 2.0, 6plus = 2.4, xxhdpi = 3.0, xxxhdpi = 3.5).");
 
-
 using namespace std;
 
 namespace
