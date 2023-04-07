@@ -130,7 +130,7 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
       // Read selected option
       List<ButtonType> types = List.of(ButtonType.ROUTE_TO, ButtonType.ROUTE_CONTINUE);
       int pickedButton = MwmApplication.prefs(requireContext()).getInt(BUTTON_ROUTE_FINISH_OPTION, 0);
-      if (pickedButton<0 || pickedButton>=types.size())
+      if (pickedButton < 0 || pickedButton>=types.size())
         pickedButton = 0;
       actualType = types.get(pickedButton);
 
@@ -159,7 +159,7 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
     final PopupMenu popup = new PopupMenu(requireContext(), buttonView);
     final Menu menu = popup.getMenu();
 
-    for (int i=0; i<types.size(); i++)
+    for (int i=0; i < types.size(); i++)
     {
       PlacePageButton buttonData = PlacePageButtonFactory.createButton(types.get(i), requireContext());
       MenuItem item = menu.add(Menu.NONE, i, i, buttonData.getTitle());

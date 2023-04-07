@@ -8,7 +8,7 @@ namespace routing
 
 class HelicopterRouter : public IRouter
 {
-  std::string GetName() const override { return std::string("helicopter-router"); }
+  std::string GetName() const override { return {"helicopter-router"}; }
   void ClearState() override;
   void SetGuides(GuidesTracks && guides) override;
   RouterResultCode CalculateRoute(Checkpoints const & checkpoints,
@@ -20,4 +20,4 @@ class HelicopterRouter : public IRouter
   // Do we need guides in this router?
   //GuidesConnections m_guides;
 };
-}// namespace routing
+}  // namespace routing

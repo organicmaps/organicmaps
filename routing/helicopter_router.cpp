@@ -16,18 +16,19 @@ RouterResultCode HelicopterRouter::CalculateRoute(Checkpoints const & checkpoint
                                              bool adjustToPrevRoute,
                                              RouterDelegate const & delegate, Route & route)
 {
-  vector<m2::PointD> points = checkpoints.GetPoints();
+  vector<m2::PointD> const & points = checkpoints.GetPoints();
   geometry::Altitude const mockAltitude = 0;
 
   vector<RouteSegment> routeSegments;
-  for(size_t i=1; i<points.size(); i++) {
-    Segment segment(kFakeNumMwmId, 0, 0, false);
+  Segment const segment(kFakeNumMwmId, 0, 0, false);
+  for (size_t i = 1; i < points.size(); ++i)
+  {
     turns::TurnItem turn;
     turn.m_index = i;
-    if (i == points.size()-1)
+    if (i == points.size() - 1)
       turn.m_pedestrianTurn = turns::PedestrianDirection::ReachedYourDestination;
-    geometry::PointWithAltitude junction(points[i], mockAltitude);
-    RouteSegment::RoadNameInfo roadNameInfo;
+    geometry::PointWithAltitude const junction(points[i], mockAltitude);
+    RouteSegment::RoadNameInfo const roadNameInfo;
 
     auto routeSegment = RouteSegment(segment, turn, junction, roadNameInfo);
     routeSegments.push_back(move(routeSegment));
@@ -35,9 +36,10 @@ RouterResultCode HelicopterRouter::CalculateRoute(Checkpoints const & checkpoint
   route.SetRouteSegments(move(routeSegments));
 
   vector<Route::SubrouteAttrs> subroutes;
-  for(size_t i=1; i<points.size(); i++) {
-    auto subrt = Route::SubrouteAttrs(geometry::PointWithAltitude(points[i-1], mockAltitude),
-                                      geometry::PointWithAltitude(points[i], mockAltitude), i-1, i);
+  for(size_t i = 1; i < points.size(); ++i)
+  {
+    auto subrt = Route::SubrouteAttrs(geometry::PointWithAltitude(points[i - 1], mockAltitude),
+                                      geometry::PointWithAltitude(points[i], mockAltitude), i - 1, i);
     subroutes.push_back(move(subrt));
   }
   route.SetCurrentSubrouteIdx(checkpoints.GetPassedIdx());
@@ -61,4 +63,4 @@ bool HelicopterRouter::FindClosestProjectionToRoad(m2::PointD const & point,
   return false;
 }
 
-}// namespace routing
+}  // namespace routing

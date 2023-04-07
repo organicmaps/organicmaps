@@ -856,8 +856,10 @@ public class RoutingController implements Initializable<Void>
                                          0 /* intermediateIndex */, MapObject.isOfType(MapObject.MY_POSITION, point),
                                          point.getLat(), point.getLon());
 
-    if (point.sameAs(startPoint)) {
-      if (endPoint == null) {
+    if (point.sameAs(startPoint))
+    {
+      if (endPoint == null)
+      {
         Logger.d(TAG, "setEndPoint: skip because end point is empty");
         return false;
       }

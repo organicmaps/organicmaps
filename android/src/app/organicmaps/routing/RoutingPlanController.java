@@ -236,7 +236,7 @@ public class RoutingPlanController extends ToolbarController
       progressView = mProgressHelicopter;
       break;
     default:
-        throw new IllegalArgumentException("unknown router: "+router);
+        throw new IllegalArgumentException("unknown router: " + router);
     }
 
     RoutingToolbarButton button = mRouterTypes

@@ -714,7 +714,7 @@ bool RoutingManager::InsertRoute(Route const & route)
         {
           subroute->m_routeType = df::RouteType::Helicopter;
           subroute->m_headFakeDistance = -1.0f;
-          subroute->m_tailFakeDistance = 90.0f; //Assuming that Helicopter line is shorter that 90°. Otherwise line tail would have gray color.
+          subroute->m_tailFakeDistance = 90.0f; //Assuming that Helicopter line is shorter than 90°. Otherwise line tail would have a gray color.
           subroute->AddStyle(df::SubrouteStyle(df::kRouteHelicopter, df::RoutePattern(16.0, 2.0)));
           break;
         }
@@ -860,7 +860,7 @@ void RoutingManager::ContinueRouteToPoint(RouteMarkData && markData)
   ASSERT(markData.m_pointType == RouteMarkType::Finish, ("New route point should have type RouteMarkType::Finish"));
   RoutePointsLayout routePoints(*m_bmManager);
 
-  //Finish point is now Intermidiate point
+  // Finish point is now Intermediate point
   RouteMarkPoint * finishMarkData = routePoints.GetRoutePointForEdit(RouteMarkType::Finish);
   finishMarkData->SetRoutePointType(RouteMarkType::Intermediate);
   finishMarkData->SetIntermediateIndex(routePoints.GetRoutePointsCount()-1);
@@ -868,7 +868,7 @@ void RoutingManager::ContinueRouteToPoint(RouteMarkData && markData)
   if (markData.m_isMyPosition)
   {
     RouteMarkPoint const * mark = routePoints.GetMyPositionPoint();
-    if (mark != nullptr)
+    if (mark)
       routePoints.RemoveRoutePoint(mark->GetRoutePointType(), mark->GetIntermediateIndex());
   }
 
