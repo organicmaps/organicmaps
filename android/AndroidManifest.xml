@@ -719,7 +719,6 @@
     <activity
       android:name="app.organicmaps.settings.DrivingOptionsActivity"
       android:label="@string/driving_options_title"/>
-   
 
     <!-- Catches app upgraded intent -->
     <receiver

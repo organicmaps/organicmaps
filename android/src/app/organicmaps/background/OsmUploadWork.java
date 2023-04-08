@@ -36,11 +36,9 @@ public class OsmUploadWork extends Worker
   {
     if (Editor.nativeHasSomethingToUpload() && OsmOAuth.isAuthorized(context))
     {
-
       final Constraints constraints = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED)
                                                                .setRequiresCharging(true)
                                                                .build();
-
       final WorkRequest workReq = new OneTimeWorkRequest.Builder(OsmUploadWork.class).setConstraints(constraints)
                                                                                      .build();
       WorkManager.getInstance(context).enqueue(workReq);
