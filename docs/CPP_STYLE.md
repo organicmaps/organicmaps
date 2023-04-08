@@ -4,20 +4,20 @@ In general, [Google's coding standard](https://google.github.io/styleguide/cppgu
 
 Below are our specific (but not all!) exceptions to the Google's coding standard:
 
-- All code should conform to the C++14 standard (not C++17 or higher).
+- All C++ code should conform to the C++17 standard.
 - We use `.cpp` and `.hpp` files, not `.cc` and `.h` (`.c` and `.h` are used for C code), in UTF-8 encoding.
 - File names are lowercase with underscores, like `file_reader.cpp`.
 - We use `#pragma once` instead of the `#define` Guard in header files.
 - Includes are sorted and grouped by directory, there should be newlines between different directories.
 - Order of directories in includes: "current_dir/current_file.hpp", includes from other dirs sorted by dependencies (e.g. indexer, then coding, then base), "defines.hpp", C++ standard library headers, boost headers, 3party.
 - We ARE using C++ exceptions.
-- We are using all features of C++11 (the only known exception is thread_local which is not fully supported on all platforms).
-- We try to limit the usage of boost libraries which require linking (and prefer C++11 types over their boost counterparts).
+- We are using all features of C++17 except the filesystem which is not fully supported on all platforms.
+- We try to limit the usage of boost libraries which require linking (and prefer C++17 types over their boost counterparts).
 
 Naming and formatting
 
 - We ALWAYS use two spaces indent and don't use tabs.
-- We don't have strict limits on line width, but keep it reasonable to fit on the screen. The advised width is that written in the .clang-format file (currently 100).
+- We don't have strict limits on line width, but keep it reasonable to fit on the screen. The advised width is that written in the [.clang-format](./.clang-format) file (currently 100).
 - Doxygen-style comments can be used.
 - Underscores are allowed only in prefixes for member variables and namespace names, like `int m_countriesCount; namespace utf_parser`.
 - Use right-to-left order for variables/params: `string const & s` (reference to the const string).
@@ -27,7 +27,7 @@ Naming and formatting
 - Space after double dash.
 - We use `using` keyword instead of `typedef`.
 - We do not use the Systems Hungarian Notation: do not add the "p" suffix to your pointer variable names and the "T" prefix or suffix to your type names.
-- Compile-time constants must be named in camelCase, starting with a lower-case `k`, e.g. `kCompileTimeConstant` and marked as `constexpr` when possible.
+- Compile-time constants must be named in CamelCase, starting with a lower-case `k`, e.g. `kCompileTimeConstant` and marked as `constexpr` when possible.
 - Values of enum classes must be named in CamelCase, e.g. `enum class Color { Red, Green, LightBlue };`.
 - Macros and C-style enums must be named in UPPER_CASE, and enum values must be prefixed with a capitalized enum name.
 
@@ -193,10 +193,10 @@ v = w * (x + z);
 
 ## Tips and Hints
 
-- If you see outdated code which can be improved, DO IT NOW (but in a separate pull request)!
+- If you see outdated code which can be improved, DO IT NOW (but in a separate pull request or commit)!
 - Your code should work at least on [mac|linux|android][x86|x86_64], [ios|android][x86|armv7|arm64] architectures
-- Your code should compile with gcc 6.0+ and clang 5.0+
-- Try to avoid using any new 3party library if it is not fully tested and supported on all our platforms
+- Your code should compile with C++17 compiler
+- Avoid using any new 3party library if it is not fully tested and supported on all our platforms
 - Cover your code with unit tests. See examples for existing libraries
 - Check Base and Coding libraries for most of the basic functions
 - Ask your team if you have any questions
