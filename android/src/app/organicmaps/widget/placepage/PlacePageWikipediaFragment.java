@@ -3,6 +3,7 @@ package app.organicmaps.widget.placepage;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +18,13 @@ import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.bookmarks.data.Metadata;
 import app.organicmaps.util.Utils;
+import app.organicmaps.util.UiUtils;
 
 public class PlacePageWikipediaFragment extends Fragment implements Observer<MapObject>
 {
   private View mFrame;
   private View mWiki;
+  private View mPlaceDescriptionViewContainer;
 
   private TextView mPlaceDescriptionView;
 
@@ -49,6 +52,7 @@ public class PlacePageWikipediaFragment extends Fragment implements Observer<Map
 
     mPlaceDescriptionView = view.findViewById(R.id.poi_description);
     View placeDescriptionMoreBtn = view.findViewById(R.id.more_btn);
+    mPlaceDescriptionViewContainer = view.findViewById(R.id.poi_description_container);
     placeDescriptionMoreBtn.setOnClickListener(v -> showDescriptionScreen());
     mPlaceDescriptionView.setOnClickListener(v -> showDescriptionScreen());
     mWiki = view.findViewById(R.id.ll__place_wiki);
@@ -80,12 +84,22 @@ public class PlacePageWikipediaFragment extends Fragment implements Observer<Map
 
   private void updateViews()
   {
-    mPlaceDescriptionView.setText(getShortDescription());
-    mPlaceDescriptionView.setOnLongClickListener((v) -> {
-      PlacePageUtils.copyToClipboard(requireContext(), mFrame, mPlaceDescriptionView.getText()
-                                                                                    .toString());
-      return true;
-    });
+
+    // There are two sources of wiki info in OrganicMaps:
+    // wiki links from OpenStreetMaps, and wiki pages explicitly parsed into OrganicMaps.
+    // This part hides the DescriptionView if the wiki page has not been parsed.
+    if (TextUtils.isEmpty(mMapObject.getDescription()))
+      UiUtils.hide(mPlaceDescriptionViewContainer);
+    else
+    {
+      mPlaceDescriptionView.setText(getShortDescription());
+      final String descriptionString = mPlaceDescriptionView.getText().toString();
+      mPlaceDescriptionView.setOnLongClickListener((v) -> {
+          PlacePageUtils.copyToClipboard(requireContext(), mFrame, descriptionString);
+          return true;
+      });
+    }
+
     final String wikipediaLink = mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA);
     mWiki.setOnClickListener((v) -> Utils.openUrl(requireContext(), wikipediaLink));
     mWiki.setOnLongClickListener((v) -> {

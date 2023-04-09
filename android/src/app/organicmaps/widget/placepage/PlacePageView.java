@@ -476,9 +476,16 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     updateViewFragment(PlacePageBookmarkFragment.class, BOOKMARK_FRAGMENT_TAG, R.id.place_page_bookmark_fragment, mMapObject.getMapObjectType() == MapObject.BOOKMARK);
   }
 
+  private boolean hasWikipediaEntry()
+  {
+    final String wikipediaLink = mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA);
+    final String description = mMapObject.getDescription();
+    return !TextUtils.isEmpty(wikipediaLink) || !TextUtils.isEmpty(description);
+  }
+
   private void updateWikipediaView()
   {
-    updateViewFragment(PlacePageWikipediaFragment.class, WIKIPEDIA_FRAGMENT_TAG, R.id.place_page_wikipedia_fragment, !TextUtils.isEmpty(mMapObject.getDescription()));
+    updateViewFragment(PlacePageWikipediaFragment.class, WIKIPEDIA_FRAGMENT_TAG, R.id.place_page_wikipedia_fragment, hasWikipediaEntry());
   }
 
   private void setTextAndColorizeSubtitle()
