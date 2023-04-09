@@ -92,7 +92,8 @@ inline std::string GetFileDownloadPath(int64_t version, std::string const & mwmN
 
 std::unique_ptr<ModelReader> GetCountryReader(LocalCountryFile const & file, MapFileType type);
 
-// An API for managing country indexes.
+/// An API for managing country indexes.
+/// Not used now (except tests), but will be usefull for the Terrain index in future.
 class CountryIndexes
 {
 public:
@@ -103,8 +104,7 @@ public:
     Offsets
   };
 
-  /// Prepares (if necessary) directory for country indexes. Local file
-  /// should point to existing local country files.
+  /// Prepares (if necessary) directory for country indexes.
   /// @throw FileSystemException if any file system error occured.
   static void PreparePlaceOnDisk(LocalCountryFile const & localFile);
 

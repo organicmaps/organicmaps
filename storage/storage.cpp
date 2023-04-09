@@ -2,7 +2,7 @@
 
 #include "storage/country_tree_helpers.hpp"
 #include "storage/diff_scheme/apply_diff.hpp"
-//#include "storage/diff_scheme/diff_scheme_loader.hpp"
+#include "storage/diff_scheme/diff_scheme_loader.hpp"
 #include "storage/downloader.hpp"
 #include "storage/map_files_downloader.hpp"
 #include "storage/storage_helpers.hpp"
@@ -313,16 +313,7 @@ void Storage::RegisterAllLocalMaps(bool enableDiffs /* = false */)
       ++j;
     }
 
-    LocalCountryFile const & localFile = *i;
-    string const & name = localFile.GetCountryName();
-    CountryId countryId = FindCountryIdByFile(name);
-    if (IsLeaf(countryId))
-      RegisterCountryFiles(countryId, localFile.GetDirectory(), localFile.GetVersion());
-    else
-      RegisterFakeCountryFiles(localFile);  // Also called for Worlds from resources.
-
-    LOG(LINFO, ("Found file:", name, "in directory:", localFile.GetDirectory()));
-
+    RegisterLocalFile(*i);
     i = j;
   }
 
@@ -798,6 +789,7 @@ void Storage::RegisterDownloadedFiles(CountryId const & countryId, MapFileType t
     ApplyDiff(countryId, fn);
     return;
   }
+  ASSERT_EQUAL(type, MapFileType::Map, ());
 
   CountryFile const countryFile = GetCountryFile(countryId);
   LocalFilePtr localFile = GetLocalFile(countryId, m_currentVersion);
@@ -812,15 +804,15 @@ void Storage::RegisterDownloadedFiles(CountryId const & countryId, MapFileType t
 
   if (!localFile)
   {
-    LOG(LERROR, ("Local file data structure can't be prepared for downloaded file(", countryFile,
-                 type, ")."));
-    fn(false /* isSuccess */);
+    LOG(LERROR, ("Can't prepare LocalCountryFile for", countryFile, "in folder", m_dataDir));
+    fn(false);
     return;
   }
 
   string const path = GetFileDownloadPath(countryId, type);
   if (!base::RenameFileX(path, localFile->GetPath(type)))
   {
+    /// @todo If localFile already exists (valid), remove it from disk and return false?
     localFile->DeleteFromDisk(type);
     fn(false);
     return;
@@ -939,26 +931,34 @@ void Storage::RegisterCountryFiles(LocalFilePtr localFile)
     m_localFiles[countryId].push_front(localFile);
 }
 
-void Storage::RegisterCountryFiles(CountryId const & countryId, string const & directory,
-                                   int64_t version)
+void Storage::RegisterLocalFile(platform::LocalCountryFile const & localFile)
 {
-  LocalFilePtr localFile = GetLocalFile(countryId, version);
-  if (localFile)
-    return;
+  LocalFilePtr ptr;
+
+  CountryId const & countryId = FindCountryId(localFile);
+  if (IsLeaf(countryId))
+  {
+    ptr = GetLocalFile(countryId, localFile.GetVersion());
+    if (!ptr)
+    {
+      ptr = make_shared<LocalCountryFile>(localFile);
+      RegisterCountryFiles(ptr);
+    }
+  }
+  else
+  {
     ptr = make_shared<LocalCountryFile>(localFile);
     ptr->SyncWithDisk();
     m_localFilesForFakeCountries[ptr->GetCountryFile()] = ptr;
+  }
 
-  CountryFile const & countryFile = GetCountryFile(countryId);
-  localFile = make_shared<LocalCountryFile>(directory, countryFile, version);
-  RegisterCountryFiles(localFile);
-}
+  uint64_t const size = ptr->GetSize(MapFileType::Map);
+  LOG(LINFO, ("Found file:", countryId, "in directory:", ptr->GetDirectory(), "with size:", size));
 
-void Storage::RegisterFakeCountryFiles(platform::LocalCountryFile const & localFile)
-{
-  LocalFilePtr fakeCountryLocalFile = make_shared<LocalCountryFile>(localFile);
-  fakeCountryLocalFile->SyncWithDisk();
-  m_localFilesForFakeCountries[fakeCountryLocalFile->GetCountryFile()] = fakeCountryLocalFile;
+  /// Funny, but ptr->GetCountryFile() has valid name only. Size and sha1 are not initialized.
+  /// @todo Store only name (CountryId) in LocalCountryFile instead of CountryFile?
+  if (m_currentVersion == ptr->GetVersion() && size != GetCountryFile(countryId).GetRemoteSize())
+    LOG(LERROR, ("Inconsistent MWM and version for", *ptr));
 }
 
 void Storage::DeleteCountryFiles(CountryId const & countryId, MapFileType type, bool deferredDelete)
@@ -1409,9 +1409,9 @@ void Storage::ApplyDiff(CountryId const & countryId, function<void(bool isSucces
   LocalFilePtr & diffFile = params.m_diffFile;
   diffs::ApplyDiff(
       move(params), *emplaceResult.first->second,
-      [this, fn, countryId, diffFile](DiffApplicationResult result) {
+      [this, fn, countryId, diffFile](DiffApplicationResult result)
+      {
         CHECK_THREAD_CHECKER(m_threadChecker, ());
-        static string const kSourceKey = "diff";
         if (result == DiffApplicationResult::Ok && m_integrityValidationEnabled &&
             !diffFile->ValidateIntegrity())
         {
@@ -1637,11 +1637,11 @@ void Storage::GetNodeAttrs(CountryId const & countryId, NodeAttrs & nodeAttrs) c
   nodeAttrs.m_downloadingMwmCounter = 0;
   nodeAttrs.m_downloadingMwmSize = 0;
   CountriesSet visitedLocalNodes;
-  node->ForEachInSubtree([this, &nodeAttrs, &visitedLocalNodes](CountryTree::Node const & d) {
-    CountryId const countryId = d.Value().Name();
-    if (visitedLocalNodes.count(countryId) != 0)
+  node->ForEachInSubtree([this, &nodeAttrs, &visitedLocalNodes](CountryTree::Node const & d)
+  {
+    CountryId const & countryId = d.Value().Name();
+    if (!visitedLocalNodes.insert(countryId).second)
       return;
-    visitedLocalNodes.insert(countryId);
 
     // Downloading mwm information.
     StatusAndError const statusAndErr = GetNodeStatus(d);

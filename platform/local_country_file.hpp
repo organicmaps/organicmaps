@@ -22,15 +22,11 @@ namespace platform
 // SyncWithDisk()/DeleteFromDisk()/GetPath()/GetSize() will return
 // incorrect results.
 //
-// TODO (@gorshenin): fix this hack somehow
-// (https://trello.com/c/qcveFw3M/27-world-worldcoasts-mwm-localcountryfile)
-//
 // In any case, when you're going to read a file LocalCountryFile points to,
-// use GetCountryReader().
+// use platform::GetCountryReader().
 class LocalCountryFile
 {
 public:
-  // Creates empty instance.
   LocalCountryFile();
 
   // Creates an instance holding a path to countryFile's in a
@@ -49,21 +45,21 @@ public:
   // it was found by a previous SyncWithDisk() call.
   void DeleteFromDisk(MapFileType type) const;
 
-  // Returns path to a file. Return value may be empty until
-  // SyncWithDisk() is called.
+  // Returns path to a file.
+  // Return value may be empty until SyncWithDisk() is called.
   std::string GetPath(MapFileType type) const;
   std::string GetFileName(MapFileType type) const;
 
-  // Returns size of a file. Return value may be zero until
-  // SyncWithDisk() is called.
+  // Returns size of a file.
+  // Return value may be zero until SyncWithDisk() is called.
   uint64_t GetSize(MapFileType type) const;
 
   // Returns true when some files are found during SyncWithDisk.
   // Return value is false until SyncWithDisk() is called.
   bool HasFiles() const;
 
-  // Checks whether files specified in filesMask are on disk. Return
-  // value will be false until SyncWithDisk() is called.
+  // Checks whether files specified in filesMask are on disk.
+  // Return value will be false until SyncWithDisk() is called.
   bool OnDisk(MapFileType type) const;
 
   bool IsInBundle() const { return m_directory.empty(); }
@@ -71,7 +67,6 @@ public:
   std::string const & GetCountryName() const { return m_countryFile.GetName(); }
   int64_t GetVersion() const { return m_version; }
   CountryFile const & GetCountryFile() const { return m_countryFile; }
-  CountryFile & GetCountryFile() { return m_countryFile; }
 
   bool operator<(LocalCountryFile const & rhs) const;
   bool operator==(LocalCountryFile const & rhs) const;
@@ -80,18 +75,16 @@ public:
   bool ValidateIntegrity() const;
 
   // Creates LocalCountryFile for test purposes, for a country region
-  // with countryFileName (without any extensions). Automatically
-  // performs sync with disk.
+  // with countryFileName (without any extensions). Automatically performs sync with disk.
   static LocalCountryFile MakeForTesting(std::string countryFileName, int64_t version = 0);
 
-  /// @todo The easiest solution for now. Need to be removed in future.
-  /// @param fullPath Full path to the mwm file.
+  // Used in generator only to simplify getting instance from path.
   static LocalCountryFile MakeTemporary(std::string const & fullPath);
 
 private:
   friend std::string DebugPrint(LocalCountryFile const &);
-  friend void FindAllLocalMapsAndCleanup(int64_t latestVersion,
-                                         std::string const & dataDir, std::vector<LocalCountryFile> & localFiles);
+  friend void FindAllLocalMapsAndCleanup(int64_t latestVersion, std::string const & dataDir,
+                                         std::vector<LocalCountryFile> & localFiles);
 
   /// Can be bundled (empty directory) or path to the file.
   std::string m_directory;

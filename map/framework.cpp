@@ -137,9 +137,17 @@ bool ParseSetGpsTrackMinAccuracyCommand(string const & query)
 }
 }  // namespace
 
-pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(LocalCountryFile const & localFile)
+pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(LocalCountryFile const & file)
 {
-  return m_featuresFetcher.RegisterMap(localFile);
+  auto res = m_featuresFetcher.RegisterMap(file);
+  if (res.second == MwmSet::RegResult::Success)
+  {
+    auto const & id = res.first;
+    ASSERT(id.IsAlive(), ());
+    LOG(LINFO, ("Loaded", file.GetCountryName(), "map, of version", id.GetInfo()->GetVersion()));
+  }
+
+  return res;
 }
 
 void Framework::OnLocationError(TLocationError /*error*/)
@@ -414,7 +422,7 @@ void Framework::ShowNode(storage::CountryId const & countryId)
   ShowRect(CalcLimitRect(countryId, GetStorage(), GetCountryInfoGetter()));
 }
 
-void Framework::OnCountryFileDownloaded(storage::CountryId const & countryId,
+void Framework::OnCountryFileDownloaded(storage::CountryId const &,
                                         storage::LocalFilePtr const localFile)
 {
   // Soft reset to signal that mwm file may be out of date in routing caches.
@@ -424,9 +432,8 @@ void Framework::OnCountryFileDownloaded(storage::CountryId const & countryId,
 
   if (localFile && localFile->OnDisk(MapFileType::Map))
   {
-    // Add downloaded map.
-    auto p = m_featuresFetcher.RegisterMap(*localFile);
-    MwmSet::MwmId const & id = p.first;
+    auto const res = RegisterMap(*localFile);
+    MwmSet::MwmId const & id = res.first;
     if (id.IsAlive())
       rect = id.GetInfo()->m_bordersRect;
   }
@@ -510,16 +517,7 @@ void Framework::RegisterAllMaps()
   vector<shared_ptr<LocalCountryFile>> maps;
   m_storage.GetLocalMaps(maps);
   for (auto const & localFile : maps)
-  {
-    auto p = RegisterMap(*localFile);
-    if (p.second != MwmSet::RegResult::Success)
-      continue;
-
-    MwmSet::MwmId const & id = p.first;
-    ASSERT(id.IsAlive(), ());
-
-    LOG(LINFO, ("Loaded", localFile->GetCountryName(), "map, of version", id.GetInfo()->GetVersion()));
-  }
+    UNUSED_VALUE(RegisterMap(*localFile));
 }
 
 void Framework::DeregisterAllMaps()
@@ -3180,8 +3178,10 @@ void Framework::OnRouteFollow(routing::RouterType type)
 // RoutingManager::Delegate
 void Framework::RegisterCountryFilesOnRoute(shared_ptr<routing::NumMwmIds> ptr) const
 {
-  m_storage.ForEachCountryFile(
-      [&ptr](platform::CountryFile const & file) { ptr->RegisterFile(file); });
+  m_storage.ForEachCountry([&ptr](storage::Country const & country)
+  {
+    ptr->RegisterFile(country.GetFile());
+  });
 }
 
 void Framework::SetPlacePageLocation(place_page::Info & info)
