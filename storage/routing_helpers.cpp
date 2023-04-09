@@ -1,14 +1,13 @@
 #include "storage/routing_helpers.hpp"
 
-namespace routing
-{
+#include <memory>
 
 std::unique_ptr<m4::Tree<routing::NumMwmId>> MakeNumMwmTree(
-    NumMwmIds const & numMwmIds, storage::CountryInfoGetter const & countryInfoGetter)
+    routing::NumMwmIds const & numMwmIds, storage::CountryInfoGetter const & countryInfoGetter)
 {
-  auto tree = std::make_unique<m4::Tree<NumMwmId>>();
+  auto tree = std::make_unique<m4::Tree<routing::NumMwmId>>();
 
-  numMwmIds.ForEachId([&](NumMwmId numMwmId) {
+  numMwmIds.ForEachId([&](routing::NumMwmId numMwmId) {
     auto const & countryName = numMwmIds.GetFile(numMwmId).GetName();
     tree->Add(numMwmId, countryInfoGetter.GetLimitRectForLeaf(countryName));
   });
@@ -19,11 +18,7 @@ std::unique_ptr<m4::Tree<routing::NumMwmId>> MakeNumMwmTree(
 std::shared_ptr<routing::NumMwmIds> CreateNumMwmIds(storage::Storage const & storage)
 {
   auto numMwmIds = std::make_shared<routing::NumMwmIds>();
-  storage.ForEachCountry([&](storage::Country const & country)
-  {
-    numMwmIds->RegisterFile(country.GetFile());
-  });
+  storage.ForEachCountryFile(
+      [&](platform::CountryFile const & file) { numMwmIds->RegisterFile(file); });
   return numMwmIds;
 }
-
-} // namespace routing

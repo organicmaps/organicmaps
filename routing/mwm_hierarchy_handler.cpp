@@ -34,7 +34,7 @@ std::string GetCountryByMwmName(std::string const & mwmName, CountryParentNameGe
       break;
 
     auto parent = fn(country);
-    if (parent == COUNTRIES_ROOT)
+    if (parent == "Countries")
       break;
     else
       country = std::move(parent);

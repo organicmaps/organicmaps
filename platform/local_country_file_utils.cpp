@@ -33,6 +33,8 @@ char constexpr kBitsExt[] = ".bftsegbits";
 char constexpr kNodesExt[] = ".bftsegnodes";
 char constexpr kOffsetsExt[] = ".offsets";
 
+size_t constexpr kMaxTimestampLength = 18;
+
 string GetAdditionalWorldScope()
 {
   return "r";
@@ -56,8 +58,8 @@ bool IsDiffFile(string const & name)
 bool DirectoryHasIndexesOnly(string const & directory)
 {
   Platform::TFilesWithType fwts;
-  Platform::GetFilesByType(directory, Platform::FILE_TYPE_REGULAR | Platform::FILE_TYPE_DIRECTORY, fwts);
-
+  Platform::GetFilesByType(directory, Platform::FILE_TYPE_REGULAR | Platform::FILE_TYPE_DIRECTORY,
+                           fwts);
   for (auto const & fwt : fwts)
   {
     auto const & name = fwt.first;
@@ -66,11 +68,11 @@ bool DirectoryHasIndexesOnly(string const & directory)
     {
       if (!IsSpecialName(name))
         return false;
+      continue;
     }
-    else if (!CountryIndexes::IsIndexFile(name))
+    if (!CountryIndexes::IsIndexFile(name))
       return false;
   }
-
   return true;
 }
 */
@@ -183,13 +185,14 @@ size_t FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t v
     if (fwt.second != Platform::FILE_TYPE_DIRECTORY)
       continue;
 
-    string const & name = fwt.first;
+    string name = fwt.first;
     if (IsSpecialName(name))
       continue;
 
     if (names.count(name) == 0 && DirectoryHasIndexesOnly(base::JoinPath(directory, name)))
     {
-      // Directory which looks like a directory with indexes for absent country. It's OK to remove it.
+      // Directory which looks like a directory with indexes for absent country. It's OK to remove
+      // it.
       LocalCountryFile absentCountry(directory, CountryFile(name), version);
       CountryIndexes::DeleteFromDisk(absentCountry);
     }
@@ -274,7 +277,7 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir,
     {
       if (i == localFiles.end())
       {
-        // This warning is possible on android devices without bundled Worlds.
+        // This warning is possible on android devices without pre-downloaded Worlds/fonts files.
         LOG(LWARNING, ("Can't find any:", file, "Reason:", ex.Msg()));
       }
     }
@@ -289,8 +292,7 @@ void CleanupMapsDirectory(int64_t latestVersion)
 
 bool ParseVersion(string const & s, int64_t & version)
 {
-  // Folder version format is 211122. Unit tests use simple "1", "2" versions.
-  if (s.empty() || s.size() > 6)
+  if (s.empty() || s.size() > kMaxTimestampLength)
     return false;
 
   int64_t v = 0;

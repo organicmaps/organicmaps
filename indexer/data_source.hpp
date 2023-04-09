@@ -17,6 +17,8 @@ public:
   using FeatureIdCallback = std::function<void(FeatureID const &)>;
   using StopSearchCallback = std::function<bool(void)>;
 
+  ~DataSource() override = default;
+
   /// Registers a new map.
   std::pair<MwmId, RegResult> RegisterMap(platform::LocalCountryFile const & localFile);
 
