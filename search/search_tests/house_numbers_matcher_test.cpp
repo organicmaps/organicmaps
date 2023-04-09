@@ -2,10 +2,10 @@
 
 #include "search/house_numbers_matcher.hpp"
 
+#include "base/string_utils.hpp"
+
 #include <string>
 #include <vector>
-
-#include "base/string_utils.hpp"
 
 
 namespace house_number_matcher_test
@@ -16,8 +16,16 @@ using namespace std;
 
 bool HouseNumbersMatch(string const & houseNumber, string const & query, bool queryIsPrefix = false)
 {
-  return search::house_numbers::HouseNumbersMatch(MakeUniString(houseNumber), MakeUniString(query),
-                                                  queryIsPrefix);
+  vector<Token> queryParse;
+  ParseQuery(MakeUniString(query), queryIsPrefix, queryParse);
+  return search::house_numbers::HouseNumbersMatch(MakeUniString(houseNumber), queryParse);
+}
+
+bool HouseNumbersMatchRange(string_view const & hnRange, string const & query, feature::InterpolType interpol)
+{
+  vector<Token> queryParse;
+  ParseQuery(MakeUniString(query), false /* isPrefix */, queryParse);
+  return search::house_numbers::HouseNumbersMatchRange(hnRange, queryParse, interpol);
 }
 
 bool CheckTokenizer(string const & utf8s, vector<string> const & expected)
@@ -66,8 +74,12 @@ bool CheckParser(string const & utf8s, string const & expected)
   return true;
 }
 
+UNIT_TEST(HouseNumber_ToUInt)
+{
+  TEST_EQUAL(ToUInt(MakeUniString("1234987650")), 1234987650ULL, ());
+}
 
-UNIT_TEST(HouseNumber_Tokenizer_Smoke)
+UNIT_TEST(HouseNumber_Tokenizer)
 {
   TEST(CheckTokenizer("123Б", {"123", "б"}), ());
   TEST(CheckTokenizer("123/Б", {"123", "/", "б"}), ());
@@ -77,7 +89,7 @@ UNIT_TEST(HouseNumber_Tokenizer_Smoke)
   TEST(CheckTokenizer("9 литер аб1", {"9", "литер", "аб", "1"}), ());
 }
 
-UNIT_TEST(HouseNumber_Parser_Smoke)
+UNIT_TEST(HouseNumber_Parser)
 {
   TEST(CheckParser("123Б", "123 б"), ());
   TEST(CheckParser("123/4 Литер А", "123 4 а"), ());
@@ -87,14 +99,16 @@ UNIT_TEST(HouseNumber_Parser_Smoke)
   TEST(CheckParser("9 литер А корпус 2", "9 2 а"), ());
   TEST(CheckParser("39с79", "39 79"), ());
   TEST(CheckParser("9 литер аб1", "9 1"), ());
+  TEST(CheckParser("1-100", "1 100"), ());
 }
 
-UNIT_TEST(HouseNumbers_Matcher_Smoke)
+UNIT_TEST(HouseNumber_Matcher)
 {
   TEST(HouseNumbersMatch("39с79", "39"), ());
   TEST(HouseNumbersMatch("39с79", "39 Строение 79"), ());
   TEST(HouseNumbersMatch("39с79", "39 к. 79"), ());
   TEST(HouseNumbersMatch("39 - 79", "39 строение 79"), ());
+  TEST(!HouseNumbersMatch("39-79", "49"), ());
   TEST(HouseNumbersMatch("39/79", "39 строение 79"), ());
   TEST(HouseNumbersMatch("127а корпус 2", "127а"), ());
   TEST(HouseNumbersMatch("127а корпус 2", "127а кор. 2"), ());
@@ -153,7 +167,22 @@ UNIT_TEST(HouseNumbers_Matcher_Smoke)
   TEST(!HouseNumbersMatch("12,14", "13"), ());
 }
 
-UNIT_TEST(HouseNumber_LooksLike_Smoke)
+UNIT_TEST(HouseNumber_Matcher_Range)
+{
+  using IType = feature::InterpolType;
+
+  TEST(HouseNumbersMatchRange("3000:3100", "3088", IType::Even), ());
+  TEST(!HouseNumbersMatchRange("3000:3100", "3088", IType::Odd), ());
+  TEST(!HouseNumbersMatchRange("3000:3100", "3000", IType::Any), ());
+  TEST(!HouseNumbersMatchRange("3000:3100", "3100", IType::Any), ());
+  TEST(HouseNumbersMatchRange("2:40", "32A", IType::Even), ());
+  TEST(!HouseNumbersMatchRange("2:40", "33B", IType::Even), ());
+
+  /// @todo Maybe some day ..
+  TEST(!HouseNumbersMatchRange("30A:30D", "30B", IType::Any), ());
+}
+
+UNIT_TEST(HouseNumber_LooksLike)
 {
   TEST(LooksLikeHouseNumber("1", false /* isPrefix */), ());
   TEST(LooksLikeHouseNumber("ev 10", false /* isPrefix */), ());
@@ -204,5 +233,7 @@ UNIT_TEST(HouseNumber_LooksLike_Smoke)
   TEST(!LooksLikeHouseNumber("улица", false /* isPrefix */), ());
   TEST(!LooksLikeHouseNumber("avenida", false /* isPrefix */), ());
   TEST(!LooksLikeHouseNumber("street", false /* isPrefix */), ());
+
+  TEST(LooksLikeHouseNumber("2:40", false /* isPrefix */), ());
 }
 } // namespace house_number_matcher_test

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "indexer/feature_data.hpp"
+#include "indexer/feature_utils.hpp"
 
 #include "base/small_map.hpp"
 #include "base/stl_helpers.hpp"
@@ -586,6 +587,18 @@ class IsRailwaySubwayEntranceChecker : public BaseChecker
 
 public:
   DECLARE_CHECKER_INSTANCE(IsRailwaySubwayEntranceChecker);
+};
+
+class IsAddressInterpolChecker : public BaseChecker
+{
+  IsAddressInterpolChecker();
+
+  uint32_t m_odd, m_even;
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsAddressInterpolChecker);
+
+  feature::InterpolType GetInterpolType(FeatureType & ft) const;
 };
 
 

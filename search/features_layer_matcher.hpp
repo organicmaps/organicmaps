@@ -111,6 +111,15 @@ public:
 private:
   void BailIfCancelled() { ::search::BailIfCancelled(m_cancellable); }
 
+  static bool HouseNumbersMatch(FeatureType & feature, std::vector<house_numbers::Token> const & queryParse)
+  {
+    auto const interpol = ftypes::IsAddressInterpolChecker::Instance().GetInterpolType(feature);
+    if (interpol != feature::InterpolType::None)
+      return house_numbers::HouseNumbersMatchRange(feature.GetRoadNumber(), queryParse, interpol);
+    else
+      return house_numbers::HouseNumbersMatch(strings::MakeUniString(feature.GetHouseNumber()), queryParse);
+  }
+
   template <typename Fn>
   void MatchPOIsWithParent(FeaturesLayer const & child, FeaturesLayer const & parent, Fn && fn)
   {
@@ -208,8 +217,7 @@ private:
             {
               return;
             }
-            if (house_numbers::HouseNumbersMatch(strings::MakeUniString(ft.GetHouseNumber()),
-                                                 queryParse))
+            if (HouseNumbersMatch(ft, queryParse))
             {
               double const distanceM =
                   mercator::DistanceOnEarth(feature::GetCenter(ft), poiCenters[i].m_point);
@@ -350,8 +358,7 @@ private:
       if (!child.m_hasDelayedFeatures)
         return false;
 
-      strings::UniString const houseNumber(strings::MakeUniString(feature->GetHouseNumber()));
-      return house_numbers::HouseNumbersMatch(houseNumber, queryParse);
+      return HouseNumbersMatch(*feature, queryParse);
     };
 
     /// @todo We can't make FeatureType robust cache now, but good to have some FeatureCached class.

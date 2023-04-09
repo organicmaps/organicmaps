@@ -204,7 +204,7 @@ public:
   // true).
   bool LooksGood(UniString const & s, bool isPrefix) const
   {
-    vector<Token> parse;
+    TokensT parse;
     Tokenize(s, isPrefix, parse);
 
     size_t i = 0;
@@ -304,7 +304,7 @@ bool IsLiteralType(Token::Type type)
 // * when there is at least one number, drops all tokens until the
 //   number and sorts the rest
 // * when there are no numbers at all, sorts tokens
-void SimplifyParse(vector<Token> & tokens)
+void SimplifyParse(TokensT & tokens)
 {
   if (!tokens.empty() && tokens.back().m_prefix)
     tokens.pop_back();
@@ -364,7 +364,7 @@ bool IsShortBuildingSynonym(UniString const & t)
 }
 
 template <typename Fn>
-void ForEachGroup(vector<Token> const & ts, Fn && fn)
+void ForEachGroup(TokensT const & ts, Fn && fn)
 {
   size_t i = 0;
   while (i < ts.size())
@@ -392,7 +392,7 @@ void TransformString(UniString && token, Fn && fn)
 
   if (IsBuildingPartSynonym(token))
   {
-    fn(move(token), Token::TYPE_BUILDING_PART);
+    fn(std::move(token), Token::TYPE_BUILDING_PART);
   }
   else if (size == 4 && StartsWith(token, kLiter))
   {
@@ -404,34 +404,51 @@ void TransformString(UniString && token, Fn && fn)
     UniString firstLetter(token.begin(), token.begin() + 1);
     if (IsShortBuildingSynonym(firstLetter))
     {
-      fn(move(firstLetter), Token::TYPE_BUILDING_PART);
+      fn(std::move(firstLetter), Token::TYPE_BUILDING_PART);
       fn(UniString(token.begin() + 1, token.end()), Token::TYPE_LETTER);
     }
     else
     {
-      fn(move(token), Token::TYPE_STRING);
+      fn(std::move(token), Token::TYPE_STRING);
     }
   }
   else if (size == 1)
   {
     if (IsShortBuildingSynonym(token))
-      fn(move(token), Token::TYPE_BUILDING_PART_OR_LETTER);
+      fn(std::move(token), Token::TYPE_BUILDING_PART_OR_LETTER);
     else
-      fn(move(token), Token::TYPE_LETTER);
+      fn(std::move(token), Token::TYPE_LETTER);
   }
   else
   {
-    fn(move(token), Token::TYPE_STRING);
+    fn(std::move(token), Token::TYPE_STRING);
   }
 }
 }  // namespace
 
-void Tokenize(UniString s, bool isPrefix, vector<Token> & ts)
+uint64_t ToUInt(UniString const & s)
+{
+  uint64_t res = 0;
+  uint64_t pow = 1;
+
+  int i = int(s.size()) - 1;
+  ASSERT(i >= 0 && i <= 10, (i));
+  for (; i >= 0; --i)
+  {
+    ASSERT(IsASCIIDigit(s[i]), (s[i]));
+
+    res += (s[i] - '0') * pow;
+    pow *= 10;
+  }
+  return res;
+}
+
+void Tokenize(UniString s, bool isPrefix, TokensT & ts)
 {
   MakeLowerCaseInplace(s);
   auto addToken = [&ts](UniString && value, Token::Type type)
   {
-    ts.emplace_back(move(value), type);
+    ts.emplace_back(std::move(value), type);
   };
 
   size_t i = 0;
@@ -450,21 +467,21 @@ void Tokenize(UniString s, bool isPrefix, vector<Token> & ts)
       {
         if (j != s.size() || !isPrefix)
         {
-          TransformString(move(token), addToken);
+          TransformString(std::move(token), addToken);
         }
         else if (i + 1 == j)
         {
-          ts.emplace_back(move(token), Token::TYPE_LETTER);
+          ts.emplace_back(std::move(token), Token::TYPE_LETTER);
         }
         else
         {
-          ts.emplace_back(move(token), Token::TYPE_STRING);
+          ts.emplace_back(std::move(token), Token::TYPE_STRING);
           ts.back().m_prefix = true;
         }
       }
       else
       {
-        addToken(move(token), type);
+        addToken(std::move(token), type);
       }
     }
 
@@ -483,9 +500,9 @@ void Tokenize(UniString s, bool isPrefix, vector<Token> & ts)
   }
 }
 
-void ParseHouseNumber(strings::UniString const & s, vector<vector<Token>> & parses)
+void ParseHouseNumber(strings::UniString const & s, vector<TokensT> & parses)
 {
-  vector<Token> tokens;
+  TokensT tokens;
   Tokenize(s, false /* isPrefix */, tokens);
 
   bool numbersSequence = true;
@@ -513,50 +530,37 @@ void ParseHouseNumber(strings::UniString const & s, vector<vector<Token>> & pars
                    parses.emplace_back();
                    auto & parse = parses.back();
                    for (size_t k = i; k < j; ++k)
-                     parse.emplace_back(move(tokens[k]));
+                     parse.emplace_back(std::move(tokens[k]));
                  });
   }
   else
   {
-    parses.emplace_back(move(tokens));
+    parses.emplace_back(std::move(tokens));
   }
 
   for (size_t i = oldSize; i < parses.size(); ++i)
     SimplifyParse(parses[i]);
 }
 
-void ParseQuery(strings::UniString const & query, bool queryIsPrefix, vector<Token> & parse)
+void ParseQuery(strings::UniString const & query, bool queryIsPrefix, TokensT & parse)
 {
   Tokenize(query, queryIsPrefix, parse);
   SimplifyParse(parse);
 }
 
-bool HouseNumbersMatch(strings::UniString const & houseNumber, strings::UniString const & query,
-                       bool queryIsPrefix)
-{
-  if (houseNumber == query)
-    return true;
-
-  vector<Token> queryParse;
-  ParseQuery(query, queryIsPrefix, queryParse);
-
-  return HouseNumbersMatch(houseNumber, queryParse);
-}
-
-bool HouseNumbersMatch(strings::UniString const & houseNumber, vector<Token> const & queryParse)
+bool HouseNumbersMatch(strings::UniString const & houseNumber, TokensT const & queryParse)
 {
   if (houseNumber.empty() || queryParse.empty())
     return false;
 
-  // Fast pre-check, helps to early exit without complex house number
-  // parsing.
+  // Fast pre-check, helps to early exit without complex house number parsing.
   if (IsASCIIDigit(houseNumber[0]) && IsASCIIDigit(queryParse[0].m_value[0]) &&
       houseNumber[0] != queryParse[0].m_value[0])
   {
     return false;
   }
 
-  vector<vector<Token>> houseNumberParses;
+  vector<TokensT> houseNumberParses;
   ParseHouseNumber(houseNumber, houseNumberParses);
 
   for (auto & parse : houseNumberParses)
@@ -571,6 +575,32 @@ bool HouseNumbersMatch(strings::UniString const & houseNumber, vector<Token> con
     }
   }
   return false;
+}
+
+bool HouseNumbersMatchRange(std::string_view const & hnRange, TokensT const & queryParse, feature::InterpolType interpol)
+{
+  ASSERT(interpol != feature::InterpolType::None, ());
+
+  if (queryParse[0].m_type != Token::TYPE_NUMBER)
+    return false;
+
+  uint64_t const val = ToUInt(queryParse[0].m_value);
+  if (interpol == feature::InterpolType::Odd && val % 2 == 0)
+    return false;
+  if (interpol == feature::InterpolType::Even && val % 2 == 1)
+    return false;
+
+  /// @todo Put ASSERT/CHECK here and below?
+  size_t const i = hnRange.find(':');
+  if (i == std::string_view::npos)
+    return false;
+
+  uint64_t left, right;
+  if (!strings::to_uint(hnRange.substr(0, i), left) ||
+      !strings::to_uint(hnRange.substr(i + 1), right))
+    return false;
+
+  return left < val && val < right;
 }
 
 bool LooksLikeHouseNumber(strings::UniString const & s, bool isPrefix)
