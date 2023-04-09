@@ -1197,7 +1197,6 @@ string Framework::GetCountryName(m2::PointD const & pt) const
   return info.m_name;
 }
 
-/*
 Framework::DoAfterUpdate Framework::ToDoAfterUpdate() const
 {
   auto const connectionStatus = Platform::ConnectionStatus();
@@ -1221,7 +1220,6 @@ Framework::DoAfterUpdate Framework::ToDoAfterUpdate() const
 
   return DoAfterUpdate::AskForUpdateMaps;
 }
-*/
 
 SearchAPI & Framework::GetSearchAPI()
 {

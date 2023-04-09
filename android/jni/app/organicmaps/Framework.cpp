@@ -588,7 +588,6 @@ void Framework::DeactivatePopup()
   m_work.DeactivateMapSelection(false);
 }
 
-/*
 string Framework::GetOutdatedCountriesString()
 {
   vector<Country const *> countries;
@@ -610,7 +609,6 @@ string Framework::GetOutdatedCountriesString()
 
   return res;
 }
-*/
 
 void Framework::SetTrafficStateListener(TrafficManager::TrafficStateChangedFn const & fn)
 {
@@ -712,12 +710,10 @@ void Framework::EnableDownloadOn3g()
   m_work.GetDownloadingPolicy().EnableCellularDownload(true);
 }
 
-/*
 int Framework::ToDoAfterUpdate() const
 {
   return (int) m_work.ToDoAfterUpdate();
 }
-*/
 
 void Framework::OnPowerFacilityChanged(power_management::Facility const facility, bool enabled)
 {
@@ -978,7 +974,6 @@ Java_app_organicmaps_Framework_nativeFormatSpeed(JNIEnv * env, jclass, jdouble s
                                 platform::GetLocalizedSpeedUnits(units));
 }
 
-/*
 JNIEXPORT jobject JNICALL
 Java_app_organicmaps_Framework_nativeGetOutdatedCountriesString(JNIEnv * env, jclass)
 {
@@ -1016,7 +1011,6 @@ Java_app_organicmaps_Framework_nativeUpdateSavedDataVersion(JNIEnv * env, jclass
 {
   frm()->UpdateSavedDataVersion();
 }
-*/
 
 JNIEXPORT jlong JNICALL
 Java_app_organicmaps_Framework_nativeGetDataVersion(JNIEnv * env, jclass)

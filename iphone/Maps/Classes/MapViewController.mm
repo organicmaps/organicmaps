@@ -126,7 +126,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   if (!PlacePageData.hasData) {
     return;
   }
-  
+
   self.controlsManager.trafficButtonHidden = YES;
   [self showRegularPlacePage];
 }
@@ -338,12 +338,11 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   if ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden)
     self.controlsManager.menuState = self.controlsManager.menuRestoreState;
 
-  /// @todo: Uncomment update dialog when will be ready to handle big traffic bursts.
-  /*
   if (!DeepLinkHandler.shared.isLaunchedByDeeplink)
   {
     auto const todo = GetFramework().ToDoAfterUpdate();
-    switch (todo) {
+    switch (todo)
+    {
       case Framework::DoAfterUpdate::Migrate:
       case Framework::DoAfterUpdate::Nothing:
         break;
@@ -353,7 +352,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
         break;
     }
   }
-  */
 }
 
 - (void)viewDidAppear:(BOOL)animated {

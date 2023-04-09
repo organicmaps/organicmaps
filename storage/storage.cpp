@@ -318,9 +318,8 @@ void Storage::RegisterAllLocalMaps(bool enableDiffs /* = false */)
   }
 
   FindAllDiffs(m_dataDir, m_notAppliedDiffs);
-  //if (enableDiffs)
-  //  LoadDiffScheme();
-
+  if (enableDiffs)
+    LoadDiffScheme();
   // Note: call order is important, diffs loading must be called first.
   // Since diffs info downloading and servers list downloading
   // are working on network thread, consecutive executing is guaranteed.
@@ -845,7 +844,6 @@ void Storage::OnMapDownloadFinished(CountryId const & countryId, DownloadStatus 
   RegisterDownloadedFiles(countryId, type);
 }
 
-/*
 void Storage::GetOutdatedCountries(vector<Country const *> & countries) const
 {
   for (auto const & p : m_localFiles)
@@ -856,7 +854,6 @@ void Storage::GetOutdatedCountries(vector<Country const *> & countries) const
       countries.push_back(&CountryLeafByCountryId(countryId));
   }
 }
-*/
 
 bool Storage::IsCountryInQueue(CountryId const & countryId) const
 {
@@ -1136,7 +1133,7 @@ void Storage::ApplyCountries(std::string const & countriesBuffer, Storage & stor
 
   LOG(LDEBUG, ("Version", m_currentVersion, "is applied"));
 
-  //LoadDiffScheme();
+  LoadDiffScheme();
 
   /// @todo Start World and WorldCoasts download ?!
 }
@@ -1164,7 +1161,6 @@ void Storage::GetChildren(CountryId const & parent, CountriesVec & childIds) con
     childIds.emplace_back(parentNode->Child(i).Value().Name());
 }
 
-/*
 void Storage::GetLocalRealMaps(CountriesVec & localMaps) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -1175,7 +1171,6 @@ void Storage::GetLocalRealMaps(CountriesVec & localMaps) const
   for (auto const & keyValue : m_localFiles)
     localMaps.push_back(keyValue.first);
 }
-*/
 
 void Storage::GetChildrenInGroups(CountryId const & parent, CountriesVec & downloadedChildren,
                                   CountriesVec & availChildren, bool keepAvailableChildren) const
@@ -1354,7 +1349,6 @@ bool Storage::IsWorldCountryID(CountryId const & country)
   return strings::StartsWith(country, WORLD_FILE_NAME);
 }
 
-/*
 void Storage::LoadDiffScheme()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -1384,7 +1378,6 @@ void Storage::LoadDiffScheme()
     OnDiffStatusReceived(move(diffs));
   });
 }
-*/
 
 void Storage::ApplyDiff(CountryId const & countryId, function<void(bool isSuccess)> const & fn)
 {
@@ -1480,7 +1473,6 @@ void Storage::AbortDiffScheme()
   m_diffsDataSource->AbortDiffScheme();
 }
 
-/*
 bool Storage::IsPossibleToAutoupdate() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -1502,7 +1494,6 @@ bool Storage::IsPossibleToAutoupdate() const
 
   return true;
 }
-*/
 
 void Storage::SetStartDownloadingCallback(StartDownloadingCallback const & cb)
 {

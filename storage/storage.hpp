@@ -468,7 +468,7 @@ public:
 
   /// \returns real (not fake) local maps contained in countries.txt.
   /// So this method does not return custom user local maps and World and WorldCoasts country id.
-  //void GetLocalRealMaps(CountriesVec & localMaps) const;
+  void GetLocalRealMaps(CountriesVec & localMaps) const;
 
   /// Do we have downloaded countries
   bool HaveDownloadedCountries() const;
@@ -560,7 +560,7 @@ public:
   bool IsDownloadInProgress() const;
 
   /// @param[out] res Populated with oudated countries.
-  //void GetOutdatedCountries(std::vector<Country const *> & countries) const;
+  void GetOutdatedCountries(std::vector<Country const *> & countries) const;
 
   /// Sets and gets locale, which is used to get localized counries names
   void SetLocale(std::string const & locale) { m_countryNameGetter.SetLocale(locale); }
@@ -574,7 +574,7 @@ public:
   void SetLocaleForTesting(std::string const & jsonBuffer, std::string const & locale);
 
   /// Returns true if the diff scheme is available and all local outdated maps can be updated via diffs.
-  //bool IsPossibleToAutoupdate() const;
+  bool IsPossibleToAutoupdate() const;
 
   void SetStartDownloadingCallback(StartDownloadingCallback const & cb);
 
@@ -650,7 +650,7 @@ private:
 
   void OnMapDownloadFailed(CountryId const & countryId);
 
-  //void LoadDiffScheme();
+  void LoadDiffScheme();
   void ApplyDiff(CountryId const & countryId, std::function<void(bool isSuccess)> const & fn);
 
   using IsDiffAbsentForCountry = std::function<bool(CountryId const & id)>;
