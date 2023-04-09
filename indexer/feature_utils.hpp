@@ -1,9 +1,5 @@
 #pragma once
 
-#include "geometry/rect2d.hpp"
-
-#include "base/base.hpp"
-
 #include <string>
 #include <vector>
 
@@ -12,6 +8,9 @@ class StringUtf8Multilang;
 
 namespace feature
 {
+  // Address house numbers interpolation.
+  enum class InterpolType { None, Odd, Even, Any };
+
   class TypesHolder;
   class RegionData;
 

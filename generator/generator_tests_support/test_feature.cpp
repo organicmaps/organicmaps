@@ -59,6 +59,7 @@ TestFeature::TestFeature(string const & name, string const & lang)
 TestFeature::TestFeature(StringUtf8Multilang const & name)
   : m_id(GenUniqueId()), m_center(0, 0), m_type(Type::Unknown), m_names(name)
 {
+  Init();
 }
 
 TestFeature::TestFeature(m2::PointD const & center, string const & name, string const & lang)
@@ -78,6 +79,7 @@ TestFeature::TestFeature(m2::PointD const & center, StringUtf8Multilang const & 
 TestFeature::TestFeature(m2::RectD const & boundary, string const & name, string const & lang)
   : TestFeature(MakePoly(boundary), name, lang)
 {
+  Init();
 }
 
 TestFeature::TestFeature(vector<m2::PointD> const & boundary, string const & name, string const & lang)

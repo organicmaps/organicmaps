@@ -873,6 +873,32 @@ IsRailwaySubwayEntranceChecker::IsRailwaySubwayEntranceChecker()
   m_types.push_back(c.GetTypeByPath({"railway", "subway_entrance"}));
 }
 
+IsAddressInterpolChecker::IsAddressInterpolChecker() : BaseChecker(1 /* level */)
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"addr:interpolation"}));
+  m_odd = c.GetTypeByPath({"addr:interpolation", "odd"});
+  m_even = c.GetTypeByPath({"addr:interpolation", "even"});
+}
+
+feature::InterpolType IsAddressInterpolChecker::GetInterpolType(FeatureType & ft) const
+{
+  for (uint32_t t : feature::TypesHolder(ft))
+  {
+    if (t == m_odd)
+      return feature::InterpolType::Odd;
+    if (t == m_even)
+      return feature::InterpolType::Even;
+
+    ftype::TruncValue(t, 1);
+    if (t == m_types[0])
+      return feature::InterpolType::Any;
+  }
+
+  return feature::InterpolType::None;
+}
+
+
 uint64_t GetPopulation(FeatureType & ft)
 {
   uint64_t population = ft.GetPopulation();
