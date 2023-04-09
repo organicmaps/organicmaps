@@ -105,9 +105,71 @@ private:
   string m_brand;
 };
 
-class ProcessorTest : public SearchTest
+class TestAddrInterpol : public TestStreet
 {
+public:
+  TestAddrInterpol(vector<m2::PointD> const & points, feature::InterpolType interpol,
+                   string const & hnBeg, string const & hnEnd, string_view const & street = {})
+    : TestStreet(points, {}), m_street(street)
+  {
+    SetRoadNumber(hnBeg + ":" + hnEnd); // assigned as ref
+    switch (interpol)
+    {
+    case feature::InterpolType::Odd: SetType({"addr:interpolation", "odd"}); break;
+    case feature::InterpolType::Even: SetType({"addr:interpolation", "even"}); break;
+    default: SetType({"addr:interpolation"}); break;
+    }
+  }
+
+  // TestStreet overrides:
+  void Serialize(FeatureBuilder & fb) const override
+  {
+    TestStreet::Serialize(fb);
+
+    if (!m_street.empty())
+      fb.GetParams().AddStreet(m_street);
+  }
+
+private:
+  string m_street;
 };
+
+using ProcessorTest = SearchTest;
+
+
+UNIT_CLASS_TEST(ProcessorTest, AddressSmoke)
+{
+  string const countryName = "Address";
+  string const lang = "default";
+  double constexpr coord = 0.01;
+  string const streetName = "1st street";
+
+  TestStreet street({{-coord, -coord}, {0, 0}, {coord, coord}}, streetName, lang);
+
+  m2::PointD p1{-coord/2, -coord/2};
+  m2::PointD p2{coord/2, coord/2};
+
+  TestBuilding withRef(p1, {}/* name */, "20", streetName, lang);
+  TestBuilding withoutRef(p2, {}/* name */, "40", lang);
+
+  TestAddrInterpol even({p1, p2}, feature::InterpolType::Even, "20", "40", streetName);
+  TestAddrInterpol odd({p1, p2}, feature::InterpolType::Odd, "21", "41");
+
+  auto const wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
+  {
+    builder.Add(street);
+    builder.Add(withRef);
+    builder.Add(withoutRef);
+    builder.Add(even);
+    builder.Add(odd);
+  });
+
+  SetViewport(m2::RectD(-coord, -coord, coord, coord));
+  TEST(ResultsMatch("20 1st", {ExactMatch(wonderlandId, withRef)}), ());
+  TEST(ResultsMatch("40 1st", {ExactMatch(wonderlandId, withoutRef)}), ());
+  TEST(ResultsMatch("36 1st", {ExactMatch(wonderlandId, even)}), ());
+  TEST(ResultsMatch("35 1st", {ExactMatch(wonderlandId, odd)}), ());
+}
 
 UNIT_CLASS_TEST(ProcessorTest, Smoke)
 {

@@ -239,8 +239,8 @@ bool FeatureBuilder::PreSerialize()
 
   case GeomType::Line:
   {
-    // We need refs for road's numbers.
-    if (!routing::IsRoad(GetTypes()))
+    // Ref is used for road's number or house number's range.
+    if (!routing::IsRoad(GetTypes()) && !ftypes::IsAddressInterpolChecker::Instance()(GetTypes()))
       m_params.ref.clear();
 
     m_params.rank = 0;
@@ -387,7 +387,7 @@ void FeatureBuilder::SerializeForIntermediate(Buffer & data) const
   Buffer tmp(data);
   FeatureBuilder fb;
   fb.DeserializeFromIntermediate(tmp);
-  ASSERT ( fb == *this, ("Source feature: ", *this, "Deserialized feature: ", fb) );
+  ASSERT(fb == *this, ("Source feature: ", *this, "Deserialized feature: ", fb));
 #endif
 }
 

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "indexer/feature_utils.hpp"
+
 #include "base/string_utils.hpp"
 
 #include <string>
@@ -52,23 +54,26 @@ struct Token
   bool m_prefix = false;
 };
 
+using TokensT = std::vector<Token>;
+
+// Used to convert Token::Type::TYPE_NUMBER into int value.
+uint64_t ToUInt(strings::UniString const & s);
+
 // Tokenizes |s| that may be a house number.
-void Tokenize(strings::UniString s, bool isPrefix, std::vector<Token> & ts);
+void Tokenize(strings::UniString s, bool isPrefix, TokensT & ts);
 
 // Parses a string that can be one or more house numbers. This method
 // can be used to parse addr:housenumber fields.
-void ParseHouseNumber(strings::UniString const & s, std::vector<std::vector<Token>> & parses);
+void ParseHouseNumber(strings::UniString const & s, std::vector<TokensT> & parses);
 
 // Parses a part of search query that can be a house number.
-void ParseQuery(strings::UniString const & query, bool queryIsPrefix, std::vector<Token> & parse);
+void ParseQuery(strings::UniString const & query, bool queryIsPrefix, TokensT & parse);
 
-// Returns true if house number matches to a given query.
-bool HouseNumbersMatch(strings::UniString const & houseNumber, strings::UniString const & query,
-                       bool queryIsPrefix);
-
-// Returns true if house number matches to a given parsed query.
-bool HouseNumbersMatch(strings::UniString const & houseNumber,
-                       std::vector<Token> const & queryParse);
+/// @return true if house number matches to a given parsed query.
+/// @{
+bool HouseNumbersMatch(strings::UniString const & houseNumber, TokensT const & queryParse);
+bool HouseNumbersMatchRange(std::string_view const & hnRange, TokensT const & queryParse, feature::InterpolType interpol);
+/// @}
 
 // Returns true if |s| looks like a house number.
 bool LooksLikeHouseNumber(strings::UniString const & s, bool isPrefix);

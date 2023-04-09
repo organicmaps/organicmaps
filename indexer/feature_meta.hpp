@@ -182,7 +182,7 @@ public:
 
   void Add(Type type, std::string const & s)
   {
-    /// @todo Probably, we need to add separator here and store multiple values.
+    // Store single value only.
     MetadataBase::Set(base::Underlying(type), s);
   }
 
