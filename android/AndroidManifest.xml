@@ -603,6 +603,10 @@
         <data android:host="*"/>
         <data android:mimeType="*/*"/>
         <data android:pathPattern=".*\\.gpx" />
+        <data android:pathPattern=".*\\..*\\.gpx" />
+        <data android:pathPattern=".*\\..*\\..*\\.gpx" />
+        <data android:pathPattern=".*\\..*\\..*\\..*\\.gpx" />
+        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.gpx" />
       </intent-filter>
 
       <intent-filter>
