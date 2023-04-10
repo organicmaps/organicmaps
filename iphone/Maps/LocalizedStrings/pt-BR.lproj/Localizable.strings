@@ -1245,6 +1245,12 @@
 
 /********** Types **********/
 
+"type.addr_interpolation" = "Endereço/Bloco";
+
+"type.addr_interpolation.even" = "Endereço/Bloco";
+
+"type.addr_interpolation.odd" = "Endereço/Bloco";
+
 "type.aerialway" = "Transporte aéreo";
 
 "type.aerialway.cable_car" = "Teleférico";
@@ -1558,7 +1564,7 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "Muralha";
+"type.barrier.city_wall" = "City Wall";
 
 "type.barrier.cycle_barrier" = "Barreira de bicicletas";
 

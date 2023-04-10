@@ -1245,6 +1245,12 @@
 
 /********** Types **********/
 
+"type.addr_interpolation" = "Adress/Block";
+
+"type.addr_interpolation.even" = "Adress/Block";
+
+"type.addr_interpolation.odd" = "Adress/Block";
+
 "type.aerialway" = "Aerialway";
 
 "type.aerialway.cable_car" = "Cable Car";

@@ -726,6 +726,9 @@
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/NL:Wat_is_OpenStreetMap%3F</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">Adres/blok</string>
+	<string name="type.addr_interpolation.even">Adres/blok</string>
+	<string name="type.addr_interpolation.odd">Adres/blok</string>
 	<string name="type.aerialway">Kabelbaan</string>
 	<string name="type.aerialway.cable_car">Cabinelift</string>
 	<string name="type.aerialway.chair_lift">Stoeltjeslift</string>

@@ -731,6 +731,9 @@
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Pl:Wstęp</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">Adres/Blok</string>
+	<string name="type.addr_interpolation.even">Adres/Blok</string>
+	<string name="type.addr_interpolation.odd">Adres/Blok</string>
 	<string name="type.aerialway">Transport linowy</string>
 	<string name="type.aerialway.cable_car">Kolej linowa</string>
 	<string name="type.aerialway.chair_lift">Wyciąg krzesełkowy</string>

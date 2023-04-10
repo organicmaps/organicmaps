@@ -679,6 +679,9 @@
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/JA:参加する</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">アドレス/ブロック</string>
+	<string name="type.addr_interpolation.even">アドレス/ブロック</string>
+	<string name="type.addr_interpolation.odd">アドレス/ブロック</string>
 	<string name="type.aerialway">索道</string>
 	<string name="type.aerialway.cable_car">ロープウェイ</string>
 	<string name="type.aerialway.chair_lift">チェアリフト</string>

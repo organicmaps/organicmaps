@@ -242,6 +242,9 @@
 	<string name="splash_subtitle">Data ya ramani kutoka OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">Anwani/Zuia</string>
+	<string name="type.addr_interpolation.even">Anwani/Zuia</string>
+	<string name="type.addr_interpolation.odd">Anwani/Zuia</string>
 	<string name="type.amenity">Kistawishi</string>
 	<string name="type.amenity.arts_centre">Kituo cha sanaa</string>
 	<string name="type.amenity.bicycle_repair_station">Cykelreparationsstation</string>

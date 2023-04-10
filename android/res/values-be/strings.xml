@@ -724,6 +724,9 @@
 	<string name="translated_om_site_url">https://organicmaps.app/ru/</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">Адрас/Блок</string>
+	<string name="type.addr_interpolation.even">Адрас/Блок</string>
+	<string name="type.addr_interpolation.odd">Адрас/Блок</string>
 	<string name="type.amenity.bicycle_parking">Велапаркоўка</string>
 	<string name="type.amenity.charging_station.bicycle">Станцыя для зарадкі ровараў</string>
 	<string name="type.amenity.charging_station.motorcar">Аўтамабільная зарадная станцыя</string>

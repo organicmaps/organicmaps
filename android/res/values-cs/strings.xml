@@ -695,6 +695,9 @@
 	<string name="translated_om_site_url">https://organicmaps.app/cs/</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">Adresa/blok</string>
+	<string name="type.addr_interpolation.even">Adresa/blok</string>
+	<string name="type.addr_interpolation.odd">Adresa/blok</string>
 	<string name="type.aerialway.station">Stanice lanové dráhy</string>
 	<string name="type.aeroway.aerodrome">Letiště</string>
 	<string name="type.aeroway.aerodrome.international">Letiště</string>

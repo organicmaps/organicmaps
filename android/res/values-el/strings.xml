@@ -676,6 +676,9 @@
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/El:About_OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">Διεύθυνση/Μπλοκ</string>
+	<string name="type.addr_interpolation.even">Διεύθυνση/Μπλοκ</string>
+	<string name="type.addr_interpolation.odd">Διεύθυνση/Μπλοκ</string>
 	<string name="type.aerialway">Τελεφερίκ</string>
 	<string name="type.aerialway.cable_car">Τελεφερίκ</string>
 	<string name="type.aerialway.chair_lift">Τελεφερίκ</string>

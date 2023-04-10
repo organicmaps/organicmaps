@@ -680,6 +680,9 @@
 	<string name="splash_subtitle">Dữ liệu bản đồ từ OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">Địa chỉ/Khối</string>
+	<string name="type.addr_interpolation.even">Địa chỉ/Khối</string>
+	<string name="type.addr_interpolation.odd">Địa chỉ/Khối</string>
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>
 	<string name="type.aeroway.aerodrome">Sân bay</string>
 	<string name="type.aeroway.aerodrome.international">Sân bay</string>

@@ -729,6 +729,9 @@
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/DE:Über_OSM</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">Adresse/Block</string>
+	<string name="type.addr_interpolation.even">Adresse/Block</string>
+	<string name="type.addr_interpolation.odd">Adresse/Block</string>
 	<string name="type.aerialway">Seilbahn</string>
 	<string name="type.aerialway.cable_car">Pendelbahn</string>
 	<string name="type.aerialway.chair_lift">Sessellift</string>

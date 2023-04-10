@@ -681,6 +681,9 @@
 	<string name="splash_subtitle">ข้อมูลแผนที่จาก OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">ที่อยู่/บล็อค</string>
+	<string name="type.addr_interpolation.even">ที่อยู่/บล็อค</string>
+	<string name="type.addr_interpolation.odd">ที่อยู่/บล็อค</string>
 	<string name="type.aerialway.station">สถานีกระเช้าลอยฟ้า</string>
 	<string name="type.aeroway.aerodrome">สนามบิน</string>
 	<string name="type.aeroway.aerodrome.international">สนามบิน</string>

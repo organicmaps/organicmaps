@@ -733,6 +733,9 @@
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/ES:Acerca_de_OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">Dirección/Bloque</string>
+	<string name="type.addr_interpolation.even">Dirección/Bloque</string>
+	<string name="type.addr_interpolation.odd">Dirección/Bloque</string>
 	<string name="type.aerialway">Transporte aéreo</string>
 	<string name="type.aerialway.cable_car">Teleférico</string>
 	<string name="type.aerialway.chair_lift">Telesilla</string>

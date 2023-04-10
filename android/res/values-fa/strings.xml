@@ -684,6 +684,9 @@
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Fa:About_OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">آدرس/بلاک</string>
+	<string name="type.addr_interpolation.even">آدرس/بلاک</string>
+	<string name="type.addr_interpolation.odd">آدرس/بلاک</string>
 	<string name="type.aeroway.aerodrome">فرودگاه</string>
 	<string name="type.aeroway.aerodrome.international">فرودگاه</string>
 	<string name="type.aeroway.helipad">پد فرود بالگرد</string>

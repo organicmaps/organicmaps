@@ -691,6 +691,9 @@
 	<string name="enable_show_on_lock_screen_description">चालू असल्यास, ऍप चालू असताना प्रत्येक वेळी तुम्हाला तुमचे उपकरण अनलॉक करण्याची आवश्यकता नाही.</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">पत्ता/ब्लॉक</string>
+	<string name="type.addr_interpolation.even">पत्ता/ब्लॉक</string>
+	<string name="type.addr_interpolation.odd">पत्ता/ब्लॉक</string>
 	<string name="type.aerialway">हवाई मार्ग</string>
 	<string name="type.aerialway.cable_car">हवाई मार्ग</string>
 	<string name="type.aerialway.chair_lift">हवाई मार्ग</string>

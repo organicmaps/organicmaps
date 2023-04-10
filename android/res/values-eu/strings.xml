@@ -675,6 +675,9 @@
 	<string name="splash_subtitle">Maparen datuak OpenStreetMap-en</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">Helbidea/Blokea</string>
+	<string name="type.addr_interpolation.even">Helbidea/Blokea</string>
+	<string name="type.addr_interpolation.odd">Helbidea/Blokea</string>
 	<string name="type.aerialway">Aire Garraioa</string>
 	<string name="type.aerialway.cable_car">Teleferikoa</string>
 	<string name="type.aerialway.chair_lift">Teleaulkia</string>

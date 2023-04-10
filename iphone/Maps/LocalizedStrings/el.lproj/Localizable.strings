@@ -1245,6 +1245,12 @@
 
 /********** Types **********/
 
+"type.addr_interpolation" = "Διεύθυνση/Μπλοκ";
+
+"type.addr_interpolation.even" = "Διεύθυνση/Μπλοκ";
+
+"type.addr_interpolation.odd" = "Διεύθυνση/Μπλοκ";
+
 "type.aerialway" = "Τελεφερίκ";
 
 "type.aerialway.cable_car" = "Τελεφερίκ";

@@ -656,6 +656,9 @@
 	<string name="splash_subtitle">Картографски данни от OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">Адрес/Блок</string>
+	<string name="type.addr_interpolation.even">Адрес/Блок</string>
+	<string name="type.addr_interpolation.odd">Адрес/Блок</string>
 	<string name="type.amenity.charging_station.bicycle">Станция за зареждане на велосипеди</string>
 	<string name="type.amenity.charging_station.motorcar">Станция за зареждане на автомобили</string>
 	<string name="type.leisure.bowling_alley">Боулинг писта</string>
