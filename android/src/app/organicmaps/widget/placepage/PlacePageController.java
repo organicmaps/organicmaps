@@ -458,14 +458,9 @@ public class PlacePageController implements Initializable<Activity>,
       if (needToShowRoutingButtons)
         buttons.add(PlacePageButtons.ButtonType.ROUTE_FROM);
 
-      // If we can show the add route button, put it in the place of the bookmark button
-      // And move the bookmark button at the end
-      if (needToShowRoutingButtons && RoutingController.get().isStopPointAllowed())
-        buttons.add(PlacePageButtons.ButtonType.ROUTE_ADD);
-      else
-        buttons.add(mapObject.getMapObjectType() == MapObject.BOOKMARK
-                    ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
-                    : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
+      buttons.add(mapObject.getMapObjectType() == MapObject.BOOKMARK
+                  ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
+                  : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
 
       if (needToShowRoutingButtons)
       {
@@ -475,9 +470,7 @@ public class PlacePageController implements Initializable<Activity>,
           buttons.add(PlacePageButtons.ButtonType.ROUTE_TO);
 
         if (RoutingController.get().isStopPointAllowed())
-          buttons.add(mapObject.getMapObjectType() == MapObject.BOOKMARK
-                      ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
-                      : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
+          buttons.add(PlacePageButtons.ButtonType.ROUTE_ADD);
       }
 
       buttons.add(PlacePageButtons.ButtonType.SHARE);
