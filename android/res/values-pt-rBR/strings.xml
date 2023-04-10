@@ -714,6 +714,9 @@
 	<string name="splash_subtitle">Dados do mapa do OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">Endereço/Bloco</string>
+	<string name="type.addr_interpolation.even">Endereço/Bloco</string>
+	<string name="type.addr_interpolation.odd">Endereço/Bloco</string>
 	<string name="type.aerialway">Transporte aéreo</string>
 	<string name="type.aerialway.cable_car">Teleférico</string>
 	<string name="type.aerialway.chair_lift">Telecadeira</string>

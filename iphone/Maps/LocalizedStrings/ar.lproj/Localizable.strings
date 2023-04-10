@@ -1245,6 +1245,12 @@
 
 /********** Types **********/
 
+"type.addr_interpolation" = "العنوان / البلوك";
+
+"type.addr_interpolation.even" = "العنوان / البلوك";
+
+"type.addr_interpolation.odd" = "العنوان / البلوك";
+
 "type.aerialway" = "Aerialway";
 
 "type.aerialway.cable_car" = "تلفريك";

@@ -712,6 +712,9 @@
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/IT:About</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">Indirizzo/Blocco</string>
+	<string name="type.addr_interpolation.even">Indirizzo/Blocco</string>
+	<string name="type.addr_interpolation.odd">Indirizzo/Blocco</string>
 	<string name="type.aerialway">Impianto a fune</string>
 	<string name="type.aerialway.cable_car">Teleferica</string>
 	<string name="type.aerialway.chair_lift">Seggiovia</string>

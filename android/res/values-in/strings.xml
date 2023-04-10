@@ -682,6 +682,9 @@
 	<string name="splash_subtitle">Data peta dari OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">Alamat/Blokir</string>
+	<string name="type.addr_interpolation.even">Alamat/Blokir</string>
+	<string name="type.addr_interpolation.odd">Alamat/Blokir</string>
 	<string name="type.aerialway.station">Stasiun kereta gantung</string>
 	<string name="type.aeroway.aerodrome">Bandar udara</string>
 	<string name="type.aeroway.aerodrome.international">Bandar udara</string>

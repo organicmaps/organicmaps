@@ -1245,6 +1245,12 @@
 
 /********** Types **********/
 
+"type.addr_interpolation" = "Địa chỉ/Khối";
+
+"type.addr_interpolation.even" = "Địa chỉ/Khối";
+
+"type.addr_interpolation.odd" = "Địa chỉ/Khối";
+
 "type.aerialway" = "Aerialway";
 
 "type.aerialway.cable_car" = "Cable Car";

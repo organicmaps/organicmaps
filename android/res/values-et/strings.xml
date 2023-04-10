@@ -718,6 +718,9 @@
 	<string name="splash_subtitle">OpenStreetMap kaardiandmed</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">Aadress/plokk</string>
+	<string name="type.addr_interpolation.even">Aadress/plokk</string>
+	<string name="type.addr_interpolation.odd">Aadress/plokk</string>
 	<string name="type.aerialway">Õhutee</string>
 	<string name="type.aerialway.cable_car">Tramm</string>
 	<string name="type.aerialway.chair_lift">Tooltõstuk</string>
