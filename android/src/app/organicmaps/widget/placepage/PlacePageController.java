@@ -464,10 +464,9 @@ public class PlacePageController implements Initializable<Activity>,
 
       if (needToShowRoutingButtons)
       {
+        buttons.add(PlacePageButtons.ButtonType.ROUTE_TO);
         if (RoutingController.get().isPlanning() && RoutingController.get().hasEndPoint())
-          buttons.add(PlacePageButtons.ButtonType.ROUTE_TO_OR_CONTINUE);
-        else
-          buttons.add(PlacePageButtons.ButtonType.ROUTE_TO);
+          buttons.add(PlacePageButtons.ButtonType.ROUTE_CONTINUE);
 
         if (RoutingController.get().isStopPointAllowed())
           buttons.add(PlacePageButtons.ButtonType.ROUTE_ADD);
