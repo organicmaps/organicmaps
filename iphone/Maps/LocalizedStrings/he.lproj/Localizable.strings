@@ -1245,6 +1245,12 @@
 
 /********** Types **********/
 
+"type.addr_interpolation" = "כתובת/חסימה";
+
+"type.addr_interpolation.even" = "כתובת/חסימה";
+
+"type.addr_interpolation.odd" = "כתובת/חסימה";
+
 "type.aerialway" = "Aerialway";
 
 "type.aerialway.cable_car" = "Cable Car";

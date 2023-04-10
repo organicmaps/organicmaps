@@ -764,6 +764,9 @@
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">Address/Block</string>
+	<string name="type.addr_interpolation.even">Address/Block</string>
+	<string name="type.addr_interpolation.odd">Address/Block</string>
 	<string name="type.aerialway">Aerialway</string>
 	<string name="type.aerialway.cable_car">Cable Car</string>
 	<string name="type.aerialway.chair_lift">Chair Lift</string>

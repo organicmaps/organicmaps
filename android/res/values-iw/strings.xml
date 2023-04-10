@@ -247,6 +247,9 @@
 	<string name="splash_subtitle">OpenStreetMap-מ הפמ ינותנ</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">כתובת/חסימה</string>
+	<string name="type.addr_interpolation.even">כתובת/חסימה</string>
+	<string name="type.addr_interpolation.odd">כתובת/חסימה</string>
 	<string name="type.amenity.charging_station.bicycle">תחנת טעינה לאופניים</string>
 	<string name="type.amenity.charging_station.motorcar">תחנת טעינה למכוניות</string>
 	<string name="type.leisure.bowling_alley">גנילואב םלוא</string>

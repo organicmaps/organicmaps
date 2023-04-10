@@ -708,6 +708,9 @@
 	<string name="splash_subtitle">Date cartografice din OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">Adresă/Bloc</string>
+	<string name="type.addr_interpolation.even">Adresă/Bloc</string>
+	<string name="type.addr_interpolation.odd">Adresă/Bloc</string>
 	<string name="type.aerialway.station">Stație de teleferic</string>
 	<string name="type.aeroway.aerodrome">Aeroport</string>
 	<string name="type.aeroway.aerodrome.international">Aeroport</string>

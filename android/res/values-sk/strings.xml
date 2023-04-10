@@ -679,6 +679,9 @@
 	<string name="splash_subtitle">Mapové údaje z OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">Adresa/blok</string>
+	<string name="type.addr_interpolation.even">Adresa/blok</string>
+	<string name="type.addr_interpolation.odd">Adresa/blok</string>
 	<string name="type.aerialway.station">Lanovka</string>
 	<string name="type.aeroway.aerodrome">Letisko</string>
 	<string name="type.aeroway.aerodrome.international">Letisko</string>

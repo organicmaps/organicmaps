@@ -730,6 +730,9 @@
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Ar:About_OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">العنوان / البلوك</string>
+	<string name="type.addr_interpolation.even">العنوان / البلوك</string>
+	<string name="type.addr_interpolation.odd">العنوان / البلوك</string>
 	<string name="type.aerialway.cable_car">تلفريك</string>
 	<string name="type.aerialway.station">محطة تلفريك</string>
 	<string name="type.aeroway.aerodrome">مطار</string>

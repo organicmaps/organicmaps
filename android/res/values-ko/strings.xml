@@ -681,6 +681,9 @@
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Ko:OpenStreetMap_소개</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">주소/블록</string>
+	<string name="type.addr_interpolation.even">주소/블록</string>
+	<string name="type.addr_interpolation.odd">주소/블록</string>
 	<string name="type.aerialway.station">케이블카 역</string>
 	<string name="type.aeroway.aerodrome">공항</string>
 	<string name="type.aeroway.aerodrome.international">공항</string>

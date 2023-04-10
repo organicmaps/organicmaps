@@ -715,6 +715,9 @@
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Uk:Про_проект</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">Адреса/блок</string>
+	<string name="type.addr_interpolation.even">Адреса/блок</string>
+	<string name="type.addr_interpolation.odd">Адреса/блок</string>
 	<string name="type.aerialway">Канатна дорога</string>
 	<string name="type.aerialway.cable_car">Канатна дорога</string>
 	<string name="type.aerialway.chair_lift">Канатна дорога</string>

@@ -678,6 +678,9 @@
 	<string name="splash_subtitle">Kartdata från OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">Adress/Block</string>
+	<string name="type.addr_interpolation.even">Adress/Block</string>
+	<string name="type.addr_interpolation.odd">Adress/Block</string>
 	<string name="type.aerialway.station">Linbanestation</string>
 	<string name="type.aeroway.aerodrome">Flygplats</string>
 	<string name="type.aeroway.aerodrome.international">Flygplats</string>

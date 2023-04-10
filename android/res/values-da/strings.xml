@@ -684,6 +684,9 @@
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Da:Om_OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.addr_interpolation">Adresse/blok</string>
+	<string name="type.addr_interpolation.even">Adresse/blok</string>
+	<string name="type.addr_interpolation.odd">Adresse/blok</string>
 	<string name="type.aerialway.station">Kabelbanestation</string>
 	<string name="type.aeroway.aerodrome">Lufthavn</string>
 	<string name="type.aeroway.aerodrome.international">Lufthavn</string>
