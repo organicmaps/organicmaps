@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/ll__place_email"
   style="@style/PlacePageItemFrame"
@@ -11,7 +12,8 @@
   <ImageView
     android:id="@+id/iv__place_email"
     style="@style/PlacePageMetadataIcon"
-    android:src="@drawable/ic_email" />
+    android:src="@drawable/ic_email"
+    app:tint="?colorAccent" />
 
   <TextView
     android:id="@+id/tv__place_email"
