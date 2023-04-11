@@ -16,6 +16,8 @@ import androidx.lifecycle.LifecycleOwner;
 
 import app.organicmaps.Map;
 import app.organicmaps.car.screens.NavigationScreen;
+import app.organicmaps.car.screens.PermissionDeniedScreen;
+import app.organicmaps.car.screens.PermissionDisabledScreen;
 import app.organicmaps.display.DisplayChangedListener;
 import app.organicmaps.display.DisplayManager;
 import app.organicmaps.display.DisplayType;
@@ -157,14 +159,15 @@ public final class NavigationSession extends Session implements DefaultLifecycle
   @Override
   public void onLocationDisabled()
   {
-    // TODO: Create new screen for location disabled
     ScreenManager screenManager = getCarContext().getCarService(ScreenManager.class);
-    screenManager.push(new ErrorScreen(getCarContext()));
+    screenManager.push(new PermissionDisabledScreen(getCarContext()));
   }
 
   @Override
   public void onLocationPermissionDenied()
   {
+    ScreenManager screenManager = getCarContext().getCarService(ScreenManager.class);
+    screenManager.push(new PermissionDeniedScreen(getCarContext()));
   }
 
   @Override

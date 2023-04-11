@@ -772,6 +772,14 @@
 	<string name="aa_continue_on_phone">Continue on phone</string>
 	<!-- Button to show maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
 	<string name="aa_continue_in_car">Continue in car</string>
+	<!-- TODO: Add comment here -->
+	<string name="aa_location_permission_denied_title">Permission Denied</string>
+	<!-- TODO: Add comment here -->
+	<string name="aa_location_permission_disabled_title">Permission Disabled</string>
+	<!-- TODO: Add comment here -->
+	<string name="aa_location_permission_disabled">Please enable location permission to use Android Auto</string>
+	<!-- TODO: Add comment here -->
+	<string name="aa_location_permission_denied">To keep using organic maps please grant location permission</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Aerialway</string>
