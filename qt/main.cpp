@@ -203,7 +203,6 @@ int main(int argc, char * argv[])
         screenshotParams->m_dpiScale = FLAGS_dpi_scale;
     }
 
-
     QSurfaceFormat fmt;
     fmt.setAlphaBufferSize(8);
     fmt.setBlueBufferSize(8);
@@ -214,17 +213,8 @@ int main(int argc, char * argv[])
     fmt.setSwapBehavior(QSurfaceFormat::DoubleBuffer);
     fmt.setSwapInterval(1);
     fmt.setDepthBufferSize(16);
-#if defined(OMIM_OS_LINUX)
-    // This is a workaround for older distros, which rely on X.org and Mesa,
-    // where somehow the Mesa driver itself doesn't
-    // make all the otherwise supported GLSL versions available by default
-    // and such requests are somehow disregarded at later stages of execution.
-    // This setting here will be potentially overwritten and overruled anyway,
-    // and only needed to ensure that we have the needed GLSL compiler available
-    // later when we need it.
-    if (app.platformName() == QString("xcb"))
-      fmt.setVersion(3, 2);
-#endif
+    fmt.setProfile(QSurfaceFormat::CoreProfile);
+    fmt.setVersion(3, 2);
 #ifdef ENABLE_OPENGL_DIAGNOSTICS
     fmt.setOption(QSurfaceFormat::DebugContext);
 #endif

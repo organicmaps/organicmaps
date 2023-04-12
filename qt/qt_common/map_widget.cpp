@@ -379,18 +379,14 @@ void MapWidget::initializeGL()
     }
   }
 #endif
-  auto fmt = context()->format();
-  if (m_apiOpenGLES3)
+
+  if (!m_apiOpenGLES3)
   {
-    fmt.setProfile(QSurfaceFormat::CoreProfile);
-    fmt.setVersion(3, 2);
-  }
-  else
-  {
+    auto fmt = context()->format();
     fmt.setProfile(QSurfaceFormat::CompatibilityProfile);
     fmt.setVersion(2, 1);
+    QSurfaceFormat::setDefaultFormat(fmt);
   }
-  QSurfaceFormat::setDefaultFormat(fmt);
 
   m_contextFactory.reset(new QtOGLContextFactory(context()));
 
