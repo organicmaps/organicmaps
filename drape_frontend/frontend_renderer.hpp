@@ -398,7 +398,6 @@ private:
   bool m_forceUpdateScene;
   bool m_forceUpdateUserMarks;
 
-  bool m_isAntialiasingEnabled = false;
   drape_ptr<PostprocessRenderer> m_postprocessRenderer;
   std::vector<PostprocessRenderer::Effect> m_enabledOnStartEffects;
 
