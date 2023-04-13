@@ -115,6 +115,12 @@ if __name__ == '__main__':
     if len(sys.argv) < 2:
         print('Calculates tag usage and categories stats, suggesting new types.')
         print('Usage: {} <path_to_taginfo.db> [<path_to_omim_data>]'.format(sys.argv[0]))
+        print('To obtain taginfo files visit https://taginfo.openstreetmap.org/download')
+        print('On Linux you can obtain this files by following operations')
+        print('wget https://taginfo.openstreetmap.org/download/taginfo-db.db.bz2')
+        print('wget https://taginfo.openstreetmap.org/download/taginfo-wiki.db.bz2')
+        print('bzip2 -dk taginfo-wiki.db.bz2')
+        print('bzip2 -dk taginfo-db.db.bz2')
         sys.exit(1)
 
     data_path = sys.argv[2] if len(sys.argv) >= 3 else os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', 'data')
