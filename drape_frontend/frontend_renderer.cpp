@@ -868,11 +868,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<EnableTransitSchemeMessage > msg = message;
       m_transitSchemeEnabled = msg->IsEnabled();
-#ifndef OMIM_OS_IPHONE_SIMULATOR
-      CHECK(m_context != nullptr, ());
-      m_postprocessRenderer->SetEffectEnabled(m_context, PostprocessRenderer::Effect::Antialiasing,
-                                              msg->IsEnabled() || m_isAntialiasingEnabled);
-#endif
+      // Enabling anti aliasing destroys performance on some Android devices
+      // Jagged lines on subway lines are only visible on low density screens
+      // so we don't enable it here
       if (!msg->IsEnabled())
         m_transitSchemeRenderer->ClearContextDependentResources(make_ref(m_overlayTree));
       break;
@@ -980,8 +978,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::SetPosteffectEnabled:
     {
       ref_ptr<SetPosteffectEnabledMessage> msg = message;
-      if (msg->GetEffect() == PostprocessRenderer::Effect::Antialiasing)
-        m_isAntialiasingEnabled = msg->IsEnabled();
+      // Enabling anti aliasing destroys performance on some Android devices
 #ifndef OMIM_OS_IPHONE_SIMULATOR
       CHECK(m_context != nullptr, ());
       m_postprocessRenderer->SetEffectEnabled(m_context, msg->GetEffect(), msg->IsEnabled());
