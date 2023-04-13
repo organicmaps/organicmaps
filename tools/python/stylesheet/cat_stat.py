@@ -161,7 +161,7 @@ if __name__ == '__main__':
 
     # Iterate over know classificator types
     w = csv.writer(sys.stdout)
-    w.writerow(('type', 'is editable', 'can add', 'drawn', 'icon', 'area', 'name drawn', 'usages in osm'))
+    w.writerow(('type', 'is editable', 'can add', 'drawn', 'icon', 'area', 'name drawn', 'usage count in osm', 'source'))
     no_editor = EditStat()
     no_drawn = DruleStat()
     seen = set()
