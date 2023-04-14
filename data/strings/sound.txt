@@ -36,6 +36,8 @@
     tr = Sağdan devam edin.
     uk = Тримайтеся правіше.
     vi = Đi về phía phải.
+    yue = 靠右。
+    yue-HK = 靠右。
     zh-Hans = 向右走。
     zh-Hant = 向右走。
 
@@ -75,6 +77,8 @@
     tr = Sağa dönün.
     uk = Поверніть праворуч.
     vi = Rẽ phải.
+    yue = 轉右。
+    yue-HK = 轉右。
     zh-Hans = 右转。
     zh-Hant = 右轉。
 
@@ -114,6 +118,8 @@
     tr = Tam sağa dönün.
     uk = Різко вправо.
     vi = Rẽ ngoặt bên phải.
+    yue = 向右轉急彎。
+    yue-HK = 向右轉急彎。
     zh-Hans = 向右急转。
     zh-Hant = 向右急轉。
 
@@ -153,6 +159,8 @@
     tr = Kavşağa girin.
     uk = В'їзд на кільцеву транспортну розв'язку.
     vi = Đi vào vòng xoay.
+    yue = 入迴旋處。
+    yue-HK = 入迴旋處。
     zh-Hans = 进入环岛。
     zh-Hant = 進入環島。
 
@@ -192,6 +200,8 @@
     tr = Kavşaktan çıkın.
     uk = З'їзд з кільцевої транспортної розв'язки.
     vi = Ra khỏi vòng xoay.
+    yue = 出迴旋處。
+    yue-HK = 出迴旋處。
     zh-Hans = 退出环岛。
     zh-Hant = 退出環島。
 
@@ -231,6 +241,8 @@
     tr = Soldan devam edin.
     uk = Тримайтеся лівіше.
     vi = Đi về phía trái.
+    yue = 靠左。
+    yue-HK = 靠左。
     zh-Hans = 向左走。
     zh-Hant = 向左走。
 
@@ -270,6 +282,8 @@
     tr = Sola dönün.
     uk = Поверніть ліворуч.
     vi = Rẽ trái.
+    yue = 轉左。
+    yue-HK = 轉左。
     zh-Hans = 左转。
     zh-Hant = 左轉。
 
@@ -309,6 +323,8 @@
     tr = Tam sola dönün.
     uk = Різкий поворот наліво.
     vi = Rẽ ngoặt bên trái.
+    yue = 向左轉急彎。
+    yue-HK = 向左轉急彎。
     zh-Hans = 向左急转。
     zh-Hant = 向左急轉。
 
@@ -348,6 +364,8 @@
     tr = U dönüşü yapın.
     uk = Зробіть розворот.
     vi = Quay đầu.
+    yue = 調頭。
+    yue-HK = 調頭。
     zh-Hans = 掉头。
     zh-Hant = 掉頭。
 
@@ -387,6 +405,8 @@
     tr = Düz ilerleyin.
     uk = Їдьте прямо.
     vi = Đi thẳng.
+    yue = 直去。
+    yue-HK = 直去。
     zh-Hans = 直行。
     zh-Hant = 直行。
 
@@ -426,6 +446,8 @@
     tr = çıkın.
     uk = З'їзд.
     vi = Lối thoát.
+    yue = 出口。
+    yue-HK = 出口。
     zh-Hans = 出口.
     zh-Hant = 出口.
 
@@ -465,6 +487,8 @@
     tr = Varacaksınız.
     uk = Ви прибудете.
     vi = Bạn sẽ đến.
+    yue = 您就到目的地。
+    yue-HK = 您就到目的地。
     zh-Hans = 您将到达目的地。
     zh-Hant = 您將到達目的地。
 
@@ -504,6 +528,8 @@
     tr = Hedef noktasına vardınız.
     uk = Ви прибули.
     vi = Bạn đã đến.
+    yue = 您已經到咗目的地。
+    yue-HK = 您已經到咗目的地。
     zh-Hans = 您已到达目的地。
     zh-Hant = 你已到達目的地。
 
@@ -543,6 +569,8 @@
     tr = Elli metre sonra
     uk = Через п'ятдесят метрів
     vi = Trong năm mươi mét nữa
+    yue = 五十米前面
+    yue-HK = 五十米前面
     zh-Hans = 前方五十米
     zh-Hant = 前方五十米
 
@@ -582,6 +610,8 @@
     tr = Yüz metre sonra
     uk = Через сто метрів
     vi = Trong một trăm mét nữa
+    yue = 一百米前面
+    yue-HK = 一百米前面
     zh-Hans = 前方一百米
     zh-Hant = 前方一百米
 
@@ -621,6 +651,8 @@
     tr = İki yüz metre sonra
     uk = Через двісті метрів
     vi = Trong hai trăm mét nữa
+    yue = 二百米前面
+    yue-HK = 二百米前面
     zh-Hans = 前方两百米
     zh-Hant = 前方二百米
 
@@ -660,6 +692,8 @@
     tr = İki yüz elli metre sonra
     uk = Через двісті п'ятдесят метрів
     vi = Trong hai trăm năm mươi mét
+    yue = 二百五十米前面
+    yue-HK = 二百五十米前面
     zh-Hans = 前方两百五十米
     zh-Hant = 前方二百五十米
 
@@ -699,6 +733,8 @@
     tr = Üç yüz metre sonra
     uk = Через триста метрів
     vi = Trong ba trăm mét nữa
+    yue = 三百米前面
+    yue-HK = 三百米前面
     zh-Hans = 前方三百米
     zh-Hant = 前方三百米
 
@@ -738,6 +774,8 @@
     tr = Dört yüz metre sonra
     uk = Через чотириста метрів
     vi = Trong bốn trăm mét nữa
+    yue = 四百米前面
+    yue-HK = 四百米前面
     zh-Hans = 前方四百米
     zh-Hant = 前方四百米
 
@@ -777,6 +815,8 @@
     tr = Beş yüz metre sonra
     uk = Через п’ятсот метрів
     vi = Trong năm trăm mét nữa
+    yue = 五百米前面
+    yue-HK = 五百米前面
     zh-Hans = 前方五百米
     zh-Hant = 前方五百米
 
@@ -816,6 +856,8 @@
     tr = Altı yüz metre sonra
     uk = Через шістсот метрів
     vi = Trong sáu trăm mét nữa
+    yue = 六百米前面
+    yue-HK = 六百米前面
     zh-Hans = 前方六百米
     zh-Hant = 前方六百米
 
@@ -855,6 +897,8 @@
     tr = Yedi yüz metre sonra
     uk = Через сімсот метрів
     vi = Trong bảy trăm mét nữa
+    yue = 七百米前面
+    yue-HK = 七百米前面
     zh-Hans = 前方七百米
     zh-Hant = 前方七百米
 
@@ -894,6 +938,8 @@
     tr = Yedi yüz elli metre sonra
     uk = Через сімсот п'ятьдесят метрів
     vi = Trong bảy trăm năm mươi mét nữa
+    yue = 七百五十米前面
+    yue-HK = 七百五十米前面
     zh-Hans = 前方七百五十米
     zh-Hant = 前方七百五十米
 
@@ -933,6 +979,8 @@
     tr = Sekiz yüz metre sonra
     uk = Через вісімсот метрів
     vi = Trong tám trăm mét nữa
+    yue = 八百米前面
+    yue-HK = 八百米前面
     zh-Hans = 前方八百米
     zh-Hant = 前方八百米
 
@@ -972,6 +1020,8 @@
     tr = Dokuz yüz metre sonra
     uk = Через дев'ятсот метрів
     vi = Trong chín trăm mét nữa
+    yue = 九百米前面
+    yue-HK = 九百米前面
     zh-Hans = 前方九百米
     zh-Hant = 前方九百米
 
@@ -1011,6 +1061,8 @@
     tr = Bir kilometre sonra
     uk = Через однин кілометр
     vi = Trong một kilômét nữa
+    yue = 一公里前面
+    yue-HK = 一公里前面
     zh-Hans = 前方一千米
     zh-Hant = 前方一千米
 
@@ -1050,6 +1102,8 @@
     tr = Bir buçuk kilometre sonra
     uk = Через півтора кілометра
     vi = Trong một kilômét rưỡi nữa
+    yue = 一點五公里前面
+    yue-HK = 一點五公里前面
     zh-Hans = 前方一点五千米
     zh-Hant = 前方一千五百米
 
@@ -1089,6 +1143,8 @@
     tr = İki kilometre sonra
     uk = Через два кілометри
     vi = Trong hai kilômét nữa
+    yue = 兩公里前面
+    yue-HK = 兩公里前面
     zh-Hans = 前方两千米
     zh-Hant = 前方二千米
 
@@ -1128,6 +1184,8 @@
     tr = İki buçuk kilometre sonra
     uk = Через два з половиною кілометра
     vi = Trong hai kilômét rưỡi nữa
+    yue = 二點五公里前面
+    yue-HK = 二點五公里前面
     zh-Hans = 前方两点五千米
     zh-Hant = 前方二千五百米
 
@@ -1167,6 +1225,8 @@
     tr = Üç kilometre sonra
     uk = Через три кілометри
     vi = Trong ba kilômét nữa
+    yue = 三公里前面
+    yue-HK = 三公里前面
     zh-Hans = 前方三千米
     zh-Hant = 前方三千米
 
@@ -1206,6 +1266,8 @@
     tr = Ardından
     uk = Потім
     vi = Sau đó
+    yue = 然後
+    yue-HK = 然後
     zh-Hans = 然后
     zh-Hant = 然後
 
@@ -1245,6 +1307,8 @@
     tr = Birinci çıkıştan çıkın.
     uk = Рухайтесь через перший з'їзд.
     vi = Đi theo lối ra đầu tiên.
+    yue = 喺第一個出口出
+    yue-HK = 喺第一個出口出
     zh-Hans = 取道第一个出口。
     zh-Hant = 取道第一個出口。
 
@@ -1284,6 +1348,8 @@
     tr = İkinci çıkıştan çıkın.
     uk = Рухайтесь через другий з'їзд.
     vi = Đi theo lối ra thứ hai.
+    yue = 喺第二個出口出
+    yue-HK = 喺第二個出口出
     zh-Hans = 取道第二个出口。
     zh-Hant = 取道第二個出口。
 
@@ -1323,6 +1389,8 @@
     tr = Üçüncü çıkıştan çıkın.
     uk = Рухайтесь через третій з'їзд.
     vi = Đi theo lối ra thứ ba.
+    yue = 喺第三個出口出
+    yue-HK = 喺第三個出口出
     zh-Hans = 取道第三个出口。
     zh-Hant = 取道第三個出口。
 
@@ -1362,6 +1430,8 @@
     tr = Dördüncü çıkıştan çıkın.
     uk = Рухайтесь через четвертий з'їзд.
     vi = Đi theo lối ra thứ tư.
+    yue = 喺第四個出口出
+    yue-HK = 喺第四個出口出
     zh-Hans = 取道第四个出口。
     zh-Hant = 取道第四個出口。
 
@@ -1401,6 +1471,8 @@
     tr = Beşinci çıkıştan çıkın.
     uk = Рухайтесь через п'ятий з'їзд.
     vi = Đi theo lối ra thứ năm.
+    yue = 喺第五個出口出
+    yue-HK = 喺第五個出口出
     zh-Hans = 取道第五个出口。
     zh-Hant = 取道第五個出口。
 
@@ -1440,6 +1512,8 @@
     tr = Altıncı çıkıştan çıkın.
     uk = Рухайтесь через шостий з'їзд.
     vi = Đi theo lối ra thứ sáu.
+    yue = 喺第六個出口出
+    yue-HK = 喺第六個出口出
     zh-Hans = 取道第六个出口。
     zh-Hant = 取道第六個出口。
 
@@ -1479,6 +1553,8 @@
     tr = Yedinci çıkıştan çıkın.
     uk = Рухайтесь через сьомий з'їзд.
     vi = Đi theo lối ra thứ bảy.
+    yue = 喺第七個出口出
+    yue-HK = 喺第七個出口出
     zh-Hans = 取道第七个出口。
     zh-Hant = 取道第七個出口。
 
@@ -1518,6 +1594,8 @@
     tr = Sekizinci çıkıştan çıkın.
     uk = Рухайтесь через восьмий з'їзд.
     vi = Đi theo lối ra thứ tám.
+    yue = 喺第八個出口出
+    yue-HK = 喺第八個出口出
     zh-Hans = 取道第八个出口。
     zh-Hant = 取道第八個出口。
 
@@ -1557,6 +1635,8 @@
     tr = Dokuzuncu çıkıştan çıkın.
     uk = Рухайтесь через дев'ятий з'їзд.
     vi = Đi theo lối ra thứ chín.
+    yue = 喺第九個出口出
+    yue-HK = 喺第九個出口出
     zh-Hans = 取道第九个出口。
     zh-Hant = 取道第九個出口。
 
@@ -1596,6 +1676,8 @@
     tr = Onuncu çıkıştan çıkın.
     uk = Рухайтесь через десятий з'їзд.
     vi = Đi theo lối ra thứ mười.
+    yue = 喺第十個出口出
+    yue-HK = 喺第十個出口出
     zh-Hans = 取道第十个出口。
     zh-Hant = 取道第十個出口。
 
@@ -1635,6 +1717,8 @@
     tr = On birinci çıkıştan çıkın.
     uk = Рухайтесь через одинадцятий з'їзд.
     vi = Đi theo lối ra thứ mười một.
+    yue = 喺第十一個出口出
+    yue-HK = 喺第十一個出口出
     zh-Hans = 取道第十一个出口。
     zh-Hant = 取道第十一個出口。
 
@@ -1674,6 +1758,8 @@
     tr = Elli fit sonra
     uk = Через п'ятдесят футів
     vi = Trong năm mươi feet nữa
+    yue = 五十尺前面
+    yue-HK = 五十尺前面
     zh-Hans = 前方五十英尺
     zh-Hant = 前方五十英尺
 
@@ -1713,6 +1799,8 @@
     tr = Yüz fit sonra
     uk = Через сто футів
     vi = Trong một trăm feet nữa
+    yue = 一百尺前面
+    yue-HK = 一百尺前面
     zh-Hans = 前方一百英尺
     zh-Hant = 前方一百英尺
 
@@ -1752,6 +1840,8 @@
     tr = İki yüz fit sonra
     uk = Через двісті футів
     vi = Trong hai trăm feet nữa
+    yue = 二百尺前面
+    yue-HK = 二百尺前面
     zh-Hans = 前方两百英尺
     zh-Hant = 前方二百英尺
 
@@ -1791,6 +1881,8 @@
     tr = Üç yüz fit sonra
     uk = Через триста футів
     vi = Trong ba trăm feet nữa
+    yue = 三百尺前面
+    yue-HK = 三百尺前面
     zh-Hans = 前方三百英尺
     zh-Hant = 前方三百英尺
 
@@ -1830,6 +1922,8 @@
     tr = Dört yüz fit sonra
     uk = Через чотириста футів
     vi = Trong bốn trăm feet nữa
+    yue = 四百尺前面
+    yue-HK = 四百尺前面
     zh-Hans = 前方四百英尺
     zh-Hant = 前方四百英尺
 
@@ -1869,6 +1963,8 @@
     tr = Beş yüz fit sonra
     uk = Через п'ятсот футів
     vi = Trong năm trăm feet nữa
+    yue = 五百尺前面
+    yue-HK = 五百尺前面
     zh-Hans = 前方五百英尺
     zh-Hant = 前方五百英尺
 
@@ -1908,6 +2004,8 @@
     tr = Altı yüz fit sonra
     uk = Через шістсот футів
     vi = Trong sáu trăm feet nữa
+    yue = 六百尺前面
+    yue-HK = 六百尺前面
     zh-Hans = 前方六百英尺
     zh-Hant = 前方六百英尺
 
@@ -1947,6 +2045,8 @@
     tr = Yedi yüz fit sonra
     uk = Через сімсот футів
     vi = Trong bảy trăm feet nữa
+    yue = 七百尺前面
+    yue-HK = 七百尺前面
     zh-Hans = 前方七百英尺
     zh-Hant = 前方七百英尺
 
@@ -1986,6 +2086,8 @@
     tr = Sekiz yüz fit sonra
     uk = Через вісімсот футів
     vi = Trong tám trăm feet nữa
+    yue = 八百尺前面
+    yue-HK = 八百尺前面
     zh-Hans = 前方八百英尺
     zh-Hant = 前方八百英尺
 
@@ -2025,6 +2127,8 @@
     tr = Dokuz yüz fit sonra
     uk = Через дев'ятсот футів
     vi = Trong chín trăm feet nữa
+    yue = 九百尺前面
+    yue-HK = 九百尺前面
     zh-Hans = 前方九百英尺
     zh-Hant = 前方九百英尺
 
@@ -2064,6 +2168,8 @@
     tr = Bin fit sonra
     uk = Через тисячу футів
     vi = Trong một ngàn feet nữa
+    yue = 一百尺前面
+    yue-HK = 一百尺前面
     zh-Hans = 前方一千英尺
     zh-Hant = 前方一千英尺
 
@@ -2103,6 +2209,8 @@
     tr = Bin beş yüz fit sonra
     uk = Через півтори тисячі футів
     vi = Trong một ngàn năm trăm feet nữa
+    yue = 一千五百尺前面
+    yue-HK = 一千五百尺前面
     zh-Hans = 前方一千五百英尺
     zh-Hant = 前方一千五百英尺
 
@@ -2142,6 +2250,8 @@
     tr = İki bin fit sonra
     uk = Через дві тисячі футів
     vi = Trong hai ngàn feet nữa
+    yue = 二千尺前面
+    yue-HK = 二千尺前面
     zh-Hans = 前方两千英尺
     zh-Hant = 前方二千英尺
 
@@ -2181,6 +2291,8 @@
     tr = İki bin beş yüz fit sonra
     uk = Через дві з половиною тисячі футів
     vi = Trong hai ngàn năm trăm feet nữa
+    yue = 二千五百尺前面
+    yue-HK = 二千五百尺前面
     zh-Hans = 前方两千五百英尺
     zh-Hant = 前方二千五百英尺
 
@@ -2220,6 +2332,8 @@
     tr = Üç bin fit sonra
     uk = Через три тисячі футів
     vi = Trong ba ngàn feet nữa
+    yue = 三千百尺前面
+    yue-HK = 三千百尺前面
     zh-Hans = 前方三千英尺
     zh-Hant = 前方三千英尺
 
@@ -2259,6 +2373,8 @@
     tr = Üç bin beş yüz fit sonra
     uk = Через три з половиною тисячі футів
     vi = Trong ba ngàn năm trăm feet nữa
+    yue = 三千五百尺前面
+    yue-HK = 三千五百尺前面
     zh-Hans = 前方三千五百英尺
     zh-Hant = 前方三千五百英尺
 
@@ -2298,6 +2414,8 @@
     tr = Dört bin fit sonra
     uk = Через чотири тисячі футів
     vi = Trong bốn ngàn feet nữa
+    yue = 四千尺前面
+    yue-HK = 四千尺前面
     zh-Hans = 前方四千英尺
     zh-Hant = 前方四千英尺
 
@@ -2337,6 +2455,8 @@
     tr = Dört bin beş yüz fit sonra
     uk = Через чотири з половиною тисячі футів
     vi = Trong bốn ngàn năm trăm feet nữa
+    yue = 四千五百尺前面
+    yue-HK = 四千五百尺前面
     zh-Hans = 前方四千五百英尺
     zh-Hant = 前方四千五百英尺
 
@@ -2376,6 +2496,8 @@
     tr = Beş bin fit sonra
     uk = Через п'ять тисяч футів
     vi = Trong năm ngàn feet nữa
+    yue = 五千尺前面
+    yue-HK = 五千尺前面
     zh-Hans = 前方五千英尺
     zh-Hant = 前方五千英尺
 
@@ -2415,6 +2537,8 @@
     tr = Bir mil sonra
     uk = Через одну милю
     vi = Trong một dặm nữa
+    yue = 一英里前面
+    yue-HK = 一英里前面
     zh-Hans = 前方一英里
     zh-Hant = 前方一英里
 
@@ -2454,6 +2578,8 @@
     tr = Bir buçuk mil sonra
     uk = Через півтори милі
     vi = Trong một dặm rưỡi nữa
+    yue = 一點英里前面
+    yue-HK = 一點五英里前面
     zh-Hans = 前方一点五英里
     zh-Hant = 前方一點五英里
 
@@ -2493,6 +2619,8 @@
     tr = İki mil sonra
     uk = Через дві милі
     vi = Trong hai dặm nữa
+    yue = 兩英里前面
+    yue-HK = 兩英里前面
     zh-Hans = 前方两英里
     zh-Hant = 前方兩英里
 
@@ -2531,5 +2659,7 @@
     tr = İleride kamera var
     uk = Попереду камера
     vi = Máy ảnh phía trước
+    yue = 前面有快相機
+    yue-HK = 前面有快相機
     zh-Hans = 在摄像头前
     zh-Hant = 在攝像頭前
