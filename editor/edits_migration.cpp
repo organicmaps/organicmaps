@@ -62,12 +62,14 @@ FeatureID MigrateWayOrRelatonFeatureIndex(
   // This can be any point on a feature.
   auto const someFeaturePoint = geometry[0];
 
-  forEach(
-      [&fid, &geometry, &count, &bestScore](FeatureType & ft) {
+  forEach([&fid, &geometry, &count, &bestScore](FeatureType & ft)
+      {
         if (ft.GetGeomType() != feature::GeomType::Area)
           return;
         ++count;
-        auto ftGeometry = ft.GetTrianglesAsPoints(FeatureType::BEST_GEOMETRY);
+
+        std::vector<m2::PointD> ftGeometry;
+        assign_range(ftGeometry, ft.GetTrianglesAsPoints(FeatureType::BEST_GEOMETRY));
 
         double score = 0.0;
         try

@@ -473,3 +473,8 @@ typename buffer_vector<T, N>::const_iterator end(buffer_vector<T, N> const & v)
   return v.end();
 }
 }  // namespace std
+
+template <class Dest, class Src> void assign_range(Dest & dest, Src const & src)
+{
+  dest.assign(std::begin(src), std::end(src));
+}

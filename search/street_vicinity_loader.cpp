@@ -54,15 +54,9 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
   if (!isStreet && !isSquareOrSuburb)
     return;
 
-  std::vector<m2::PointD> points;
-  if (feature->GetGeomType() == feature::GeomType::Area)
-  {
-    points = feature->GetTrianglesAsPoints(FeatureType::BEST_GEOMETRY);
-  }
-  else
-  {
-    feature->ForEachPoint(base::MakeBackInsertFunctor(points), FeatureType::BEST_GEOMETRY);
-  }
+  auto const & points = (feature->GetGeomType() == feature::GeomType::Area) ?
+    feature->GetTrianglesAsPoints(FeatureType::BEST_GEOMETRY) :
+    feature->GetPoints(FeatureType::BEST_GEOMETRY);
   ASSERT(!points.empty(), ());
 
   /// @todo Can be optimized here. Do not aggregate rect, but aggregate covering intervals for each segment, instead.

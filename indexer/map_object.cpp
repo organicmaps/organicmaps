@@ -61,17 +61,11 @@ void MapObject::SetFromFeatureType(FeatureType & ft)
   m_roadNumber = ft.GetRoadNumber();
   m_featureID = ft.GetID();
   m_geomType = ft.GetGeomType();
+
   if (m_geomType == feature::GeomType::Area)
-  {
-    m_triangles = ft.GetTrianglesAsPoints(FeatureType::BEST_GEOMETRY);
-  }
+    assign_range(m_triangles, ft.GetTrianglesAsPoints(FeatureType::BEST_GEOMETRY));
   else if (m_geomType == feature::GeomType::Line)
-  {
-    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-    m_points.reserve(ft.GetPointsCount());
-    ft.ForEachPoint([this](m2::PointD const & p) { m_points.push_back(p); },
-                    FeatureType::BEST_GEOMETRY);
-  }
+    assign_range(m_points, ft.GetPoints(FeatureType::BEST_GEOMETRY));
 
 #ifdef DEBUG
   if (ftypes::IsWifiChecker::Instance()(ft))
