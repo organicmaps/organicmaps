@@ -187,7 +187,7 @@ if __name__ == '__main__':
     for row in find_popular_taginfo(cursor, seen):
         r = ['{}={}'.format(row[0], row[1])] + ['']*6 + [row[2]]
         if wcur is not None:
-            wcur.execute("select description from wikipages where key=? and value=? and lang in ('en', 'ru') order by lang desc", (row[0], row[1]))
+            wcur.execute("select description from wikipages where key=? and value=? and lang in ('en') order by lang asc", (row[0], row[1]))
             wrow = wcur.fetchone()
             r.append('' if wrow is None or wrow[0] is None else wrow[0].encode('utf-8'))
         w.writerow(r)
