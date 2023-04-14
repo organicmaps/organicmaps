@@ -4,7 +4,7 @@
 
 ### Upload metadata to AppStore
 
-Use [GitHub Actions](../.github/workflows/ios-release-metadata.yaml).
+Use [GitHub Actions](../.github/workflows/ios-release.yaml).
 
 ### Upload screenshots to AppStore
 
@@ -12,7 +12,7 @@ Use [GitHub Actions](../.github/workflows/ios-release-screenshots.yaml).
 
 ### Checking metadata
 
-Use [GitHub Actions](../.github/workflows/ios-check.yaml).
+Use [GitHub Actions](../.github/workflows/ios-check-metadata.yaml).
 
 Local check:
 
