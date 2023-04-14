@@ -396,12 +396,12 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s,
       if (find(classes.begin(), classes.end(), highwayClass) != classes.end() &&
           zoomLevel >= checkers[i].m_zoomLevel)
       {
-        std::vector<m2::PointD> points;
-        points.reserve(f.GetPointsCount());
+        // Need reset, because (possible) simplified geometry was cached before.
         f.ResetGeometry();
-        f.ForEachPoint([&points](m2::PointD const & p) { points.emplace_back(p); },
-                       FeatureType::BEST_GEOMETRY);
-        ExtractTrafficGeometry(f, checkers[i].m_roadClass, m2::PolylineD(points), oneWay,
+        std::vector<m2::PointD> points;
+        assign_range(points, f.GetPoints(FeatureType::BEST_GEOMETRY));
+
+        ExtractTrafficGeometry(f, checkers[i].m_roadClass, m2::PolylineD(std::move(points)), oneWay,
                                zoomLevel, m_trafficScalePtoG, m_trafficGeometry);
         break;
       }
