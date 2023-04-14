@@ -1,4 +1,6 @@
 #include "indexer/data_source.hpp"
+
+#include "indexer/map_style_reader.hpp"
 #include "indexer/scale_index.hpp"
 #include "indexer/unique_index.hpp"
 
@@ -44,6 +46,10 @@ public:
       feature::DataHeader const & header = mwmValue->GetHeader();
       CheckUniqueIndexes checkUnique;
 
+      // Read 3 additional scale indices to allow visibility changes
+      // for style designers and for custom style users.
+      if (GetStyleReader().IsVisibilityOverrideEnabled())
+        scale += 3;
       // In case of WorldCoasts we should pass correct scale in ForEachInIntervalAndScale.
       auto const lastScale = header.GetLastScale();
       if (scale > lastScale)

@@ -279,6 +279,7 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
   {
     double const heightInMeters = GetBuildingHeightInMeters(f);
     double const minHeightInMeters = GetBuildingMinHeightInMeters(f);
+    // Loads geometry of the feature.
     featureCenter = feature::GetCenter(f, zoomLevel);
     double const lon = mercator::XToLon(featureCenter.x);
     double const lat = mercator::YToLat(featureCenter.y);
@@ -294,12 +295,18 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
   if (applyPointStyle)
   {
     if (!is3dBuilding)
+    {
+      // Loads geometry of the feature.
       featureCenter = feature::GetCenter(f, zoomLevel);
+    }
     applyPointStyle = m_globalRect.IsPointInside(featureCenter);
   }
 
   if (applyPointStyle || is3dBuilding)
+  {
+    // At this point a proper geometry is loaded already.
     minVisibleScale = feature::GetMinDrawableScale(f);
+  }
 
   ApplyAreaFeature apply(m_context->GetTileKey(), insertShape, f.GetID(),
                          m_currentScaleGtoP, isBuilding,

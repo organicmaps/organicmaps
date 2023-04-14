@@ -61,6 +61,9 @@ void MapObject::SetFromFeatureType(FeatureType & ft)
   m_roadNumber = ft.GetRoadNumber();
   m_featureID = ft.GetID();
   m_geomType = ft.GetGeomType();
+  // TODO: BEST_GEOMETRY is likely needed for some special cases only,
+  // i.e. matching an edited OSM feature, in other cases like opening
+  // a place page WORST_GEOMETRY is going to be enough?
   if (m_geomType == feature::GeomType::Area)
   {
     m_triangles = ft.GetTrianglesAsPoints(FeatureType::BEST_GEOMETRY);

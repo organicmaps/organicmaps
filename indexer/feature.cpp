@@ -2,9 +2,13 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature_algo.hpp"
+#include "indexer/feature_data.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_utils.hpp"
+#include "indexer/feature_visibility.hpp"
 #include "indexer/map_object.hpp"
+#include "indexer/map_style_reader.hpp"
+#include "indexer/scales.hpp"
 #include "indexer/shared_load_info.hpp"
 
 #include "geometry/mercator.hpp"
@@ -36,21 +40,22 @@ int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale)
 {
   int const count = loadInfo.GetScalesCount();
 
-  // In case of WorldCoasts we should get correct last geometry.
-  int const lastScale = loadInfo.GetLastScale();
-  if (scale > lastScale)
-    scale = lastScale;
-
   switch (scale)
   {
   case FeatureType::WORST_GEOMETRY: return 0;
   case FeatureType::BEST_GEOMETRY: return count - 1;
   default:
+    // In case of WorldCoasts we should get correct last geometry.
+    int const lastScale = loadInfo.GetLastScale();
+    if (scale > lastScale)
+      scale = lastScale;
+
     for (int i = 0; i < count; ++i)
     {
       if (scale <= loadInfo.GetScale(i))
         return i;
     }
+    ASSERT(false, ("No suitable scale range in the map file."));
     return -1;
   }
 }
@@ -58,14 +63,10 @@ int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale)
 int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale,
                   FeatureType::GeometryOffsets const & offsets)
 {
-  int ind = -1;
-  int const count = static_cast<int>(offsets.size());
+  ASSERT_EQUAL(loadInfo.GetScalesCount(), static_cast<int>(offsets.size()), ());
+  int const count = loadInfo.GetScalesCount();
 
-  // In case of WorldCoasts we should get correct last geometry.
-  int const lastScale = loadInfo.GetLastScale();
-  if (scale > lastScale)
-    scale = lastScale;
-
+  int ind = 0;
   switch (scale)
   {
   case FeatureType::BEST_GEOMETRY:
@@ -73,30 +74,48 @@ int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale,
     ind = count - 1;
     while (ind >= 0 && offsets[ind] == kInvalidOffset)
       --ind;
+    if (ind >= 0)
+      return ind;
     break;
 
   case FeatureType::WORST_GEOMETRY:
     // Choose the worst existing geometry for the first visible scale.
-    ind = 0;
     while (ind < count && offsets[ind] == kInvalidOffset)
       ++ind;
+    if (ind < count)
+      return ind;
     break;
 
   default:
   {
-    int const n = loadInfo.GetScalesCount();
-    for (int i = 0; i < n; ++i)
+    // In case of WorldCoasts we should get correct last geometry.
+    int const lastScale = loadInfo.GetLastScale();
+    if (scale > lastScale)
+      scale = lastScale;
+
+    if (!GetStyleReader().IsVisibilityOverrideEnabled())
     {
-      if (scale <= loadInfo.GetScale(i))
-        return (offsets[i] != kInvalidOffset ? i : -1);
+      while (ind < count && scale > loadInfo.GetScale(ind))
+        ++ind;
+      ASSERT_LESS(ind, count, ("No suitable scale range in the map file."));
+      return (offsets[ind] != kInvalidOffset ? ind : -1);
+    }
+    else
+    {
+      // If there is no geometry for the requested scale
+      // fallback to the next more detailed one.
+      // TODO: if there is need we can remove excess line points by a primitive filter
+      // similar to the one used in apply_feature_functors.cpp::ApplyLineFeatureGeometry::operator()
+      while (ind < count && (scale > loadInfo.GetScale(ind) || offsets[ind] == kInvalidOffset))
+        ++ind;
+      // Some WorldCoasts features have idx == 0 geometry only,
+      // so its possible there is no fallback geometry.
+      return (ind < count ? ind : -1);
     }
   }
   }
 
-  if (ind >= 0 && ind < count)
-    return ind;
-
-  ASSERT(false, ("Feature should have any geometry ..."));
+  ASSERT(false, ("A feature doesn't have any geometry."));
   return -1;
 }
 
@@ -339,6 +358,7 @@ void FeatureType::ParseHeader2()
   if (headerGeomType == HeaderGeomType::Line)
   {
     ptsCount = bitSource.Read(4);
+    // If a mask of outer geometry is present.
     if (ptsCount == 0)
       ptsMask = bitSource.Read(4);
     else
@@ -358,6 +378,7 @@ void FeatureType::ParseHeader2()
   {
     if (ptsCount > 0)
     {
+      // Inner geometry.
       int const count = ((ptsCount - 2) + 4 - 1) / 4;
       ASSERT_LESS(count, 4, ());
 
@@ -374,6 +395,7 @@ void FeatureType::ParseHeader2()
     }
     else
     {
+      // Outer geometry: first point is stored in the header (coding params).
       m_points.emplace_back(serial::LoadPoint(src, cp));
       ReadOffsets(*m_loadInfo, src, ptsMask, m_offsets.m_pts);
     }
@@ -382,6 +404,7 @@ void FeatureType::ParseHeader2()
   {
     if (trgCount > 0)
     {
+      // Inner geometry (strips).
       trgCount += 2;
 
       auto const * start = src.PtrUint8();
@@ -390,6 +413,7 @@ void FeatureType::ParseHeader2()
     }
     else
     {
+      // Outer geometry.
       ReadOffsets(*m_loadInfo, src, trgMask, m_offsets.m_trg);
     }
   }
@@ -431,7 +455,7 @@ void FeatureType::ParseGeometry(int scale)
       {
         ASSERT_EQUAL(pointsCount, 1, ());
 
-        // outer geometry
+        // Outer geometry.
         int const ind = GetScaleIndex(*m_loadInfo, scale, m_offsets.m_pts);
         if (ind != -1)
         {
@@ -445,20 +469,31 @@ void FeatureType::ParseGeometry(int scale)
       }
       else
       {
-        // filter inner geometry
-
+        // Filter inner geometry.
         FeatureType::Points points;
         points.reserve(pointsCount);
 
-        int const scaleIndex = GetScaleIndex(*m_loadInfo, scale);
-        ASSERT_LESS(scaleIndex, m_loadInfo->GetScalesCount(), ());
-
+        int const ind = GetScaleIndex(*m_loadInfo, scale);
         points.emplace_back(m_points.front());
+        int fallbackInd = m_loadInfo->GetScalesCount() - 1;
+        int pointInd = 0;
         for (size_t i = 1; i + 1 < pointsCount; ++i)
         {
-          // check for point visibility in needed scaleIndex
-          if (static_cast<int>((m_ptsSimpMask >> (2 * (i - 1))) & 0x3) <= scaleIndex)
+          // Check for point visibility in needed scale index.
+          pointInd = static_cast<int>((m_ptsSimpMask >> (2 * (i - 1))) & 0x3);
+          if (pointInd <= ind)
             points.emplace_back(m_points[i]);
+          else if (points.size() == 1 && fallbackInd > pointInd)
+            fallbackInd = pointInd;
+        }
+        // Fallback to a closest more detailed geometry.
+        if (GetStyleReader().IsVisibilityOverrideEnabled() && points.size() == 1)
+        {
+          for (size_t i = 1; i + 1 < pointsCount; ++i)
+          {
+            if (static_cast<int>((m_ptsSimpMask >> (2 * (i - 1))) & 0x3) == fallbackInd)
+              points.emplace_back(m_points[i]);
+          }
         }
         points.emplace_back(m_points.back());
 
@@ -533,7 +568,7 @@ void FeatureType::ParseTriangles(int scale)
     {
       if (m_triangles.empty())
       {
-        auto const ind = GetScaleIndex(*m_loadInfo, scale, m_offsets.m_trg);
+        int const ind = GetScaleIndex(*m_loadInfo, scale, m_offsets.m_trg);
         if (ind != -1)
         {
           ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetTrianglesReader(ind));
@@ -545,6 +580,17 @@ void FeatureType::ParseTriangles(int scale)
       CalcRect(m_triangles, m_limitRect);
     }
     m_parsed.m_triangles = true;
+    // After scanning extra visibility/scale indices some too small
+    // area features (that were initially excluded from the index
+    // because of their small size) appear again - filter them out.
+    if (GetStyleReader().IsVisibilityOverrideEnabled()
+        && headerGeomType == HeaderGeomType::Area
+        && scale >= 0 && scale < m_loadInfo->GetLastScale()
+        && !IsDrawableForIndexGeometryOnly(*this, scale))
+    {
+      m_triangles.clear();
+      m_limitRect = m2::RectD();
+    }
   }
 }
 
