@@ -22,7 +22,7 @@ import app.organicmaps.display.DisplayType;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.car.screens.ErrorScreen;
 import app.organicmaps.car.screens.MapPlaceholderScreen;
-import app.organicmaps.car.screens.BaseMapScreen;
+import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.screens.MapScreen;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;

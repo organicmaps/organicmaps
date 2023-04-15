@@ -1,8 +1,7 @@
-package app.organicmaps.car.screens;
+package app.organicmaps.car.screens.search;
 
 import androidx.annotation.NonNull;
 import androidx.car.app.CarContext;
-import androidx.car.app.Screen;
 import androidx.car.app.constraints.ConstraintManager;
 import androidx.car.app.model.Action;
 import androidx.car.app.model.CarIcon;
@@ -13,9 +12,10 @@ import androidx.car.app.model.Template;
 import androidx.core.graphics.drawable.IconCompat;
 
 import app.organicmaps.R;
+import app.organicmaps.car.screens.base.BaseScreen;
 import app.organicmaps.search.SearchRecents;
 
-public class SearchScreen extends Screen implements SearchTemplate.SearchCallback
+public class SearchScreen extends BaseScreen implements SearchTemplate.SearchCallback
 {
   private final int MAX_RESULTS_SIZE;
   private ItemList mResults;
@@ -32,7 +32,7 @@ public class SearchScreen extends Screen implements SearchTemplate.SearchCallbac
   @Override
   public Template onGetTemplate()
   {
-    SearchTemplate.Builder builder = new SearchTemplate.Builder(this);
+    final SearchTemplate.Builder builder = new SearchTemplate.Builder(this);
     builder.setHeaderAction(Action.BACK);
     builder.setShowKeyboardByDefault(false);
     if (mSearchText.isEmpty() || mResults == null)
@@ -46,13 +46,13 @@ public class SearchScreen extends Screen implements SearchTemplate.SearchCallbac
   {
     final CarIcon iconRecent = new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_search_recent)).build();
 
-    ItemList.Builder builder = new ItemList.Builder();
+    final ItemList.Builder builder = new ItemList.Builder();
     builder.setNoItemsMessage(getCarContext().getString(R.string.search_history_text));
     SearchRecents.refresh();
-    int recentsSize = Math.min(SearchRecents.getSize(), MAX_RESULTS_SIZE);
+    final int recentsSize = Math.min(SearchRecents.getSize(), MAX_RESULTS_SIZE);
     for (int i = 0; i < recentsSize; ++i)
     {
-      Row.Builder itemBuilder = new Row.Builder();
+      final Row.Builder itemBuilder = new Row.Builder();
       itemBuilder.setTitle(SearchRecents.get(i));
       itemBuilder.setImage(iconRecent);
       builder.addItem(itemBuilder.build());
