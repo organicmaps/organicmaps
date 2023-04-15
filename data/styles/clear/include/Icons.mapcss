@@ -274,6 +274,8 @@ node[shop=charity],
 area[shop=charity],
 node[shop=second_hand],
 area[shop=second_hand],
+node[shop=antiques],
+area[shop=antiques],
 {z-index: 2500;}
 
 node[amenity=fuel],
@@ -2258,6 +2260,8 @@ node|z16-[shop=charity],
 area|z16-[shop=charity],
 node|z16-[shop=second_hand],
 area|z16-[shop=second_hand],
+node|z16-[shop=antiques],
+area|z16-[shop=antiques],
 node|z16-[shop=bookmaker],
 area|z16-[shop=bookmaker],
 node|z16-[shop=bakery],
@@ -2432,6 +2436,9 @@ area|z16[shop=charity]
 node|z16[shop=second_hand],
 area|z16[shop=second_hand]
 {icon-image: second_hand_shop-m.svg;}
+node|z16[shop=antiques],
+area|z16[shop=antiques]
+{icon-image: antiques-m.svg;}
 node|z16[shop=bookmaker],
 area|z16[shop=bookmaker]
 {icon-image: bookmaker-m.svg;}
@@ -2632,6 +2639,9 @@ area|z17-[shop=charity]
 node|z17-[shop=second_hand],
 area|z17-[shop=second_hand]
 {icon-image: second_hand_shop-m.svg;icon-min-distance: 24;}
+node|z17-[shop=antiques],
+area|z17-[shop=antiques]
+{icon-image: antiques-m.svg;icon-min-distance: 24;}
 node|z17-[shop=bookmaker],
 area|z17-[shop=bookmaker]
 {icon-image: bookmaker-m.svg;icon-min-distance: 24;}
