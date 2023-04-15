@@ -2322,6 +2322,8 @@ node|z16-[shop=copyshop],
 area|z16-[shop=copyshop],
 node|z16-[shop=photo],
 area|z16-[shop=photo],
+node|z16-[shop=camera],
+area|z16-[shop=camera],
 node|z16-[shop=pet],
 area|z16-[shop=pet],
 node|z16-[shop=department_store],
@@ -2525,6 +2527,9 @@ area|z16[shop=health_food],
 node|z16[shop=copyshop],
 area|z16[shop=copyshop]
 {icon-image: copyshop-m.svg;}
+node|z16[shop=camera],
+area|z16[shop=camera]
+{icon-image: photo-shop-m.svg;}
 node|z16[shop=photo],
 area|z16[shop=photo]
 {icon-image: photo-shop-m.svg;}
@@ -2731,6 +2736,9 @@ area|z17-[shop=health_food],
 node|z17-[shop=copyshop],
 area|z17-[shop=copyshop]
 {icon-image: copyshop-m.svg;icon-min-distance: 24;}
+node|z17-[shop=camera],
+area|z17-[shop=camera]
+{icon-image: photo-shop-m.svg;icon-min-distance: 24;}
 node|z17-[shop=photo],
 area|z17-[shop=photo]
 {icon-image: photo-shop-m.svg;icon-min-distance: 24;}

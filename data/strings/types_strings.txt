@@ -6148,6 +6148,46 @@
     zh-Hans = 摄影棚
     zh-Hant = 攝影師
 
+  [type.shop.camera]
+    en = Camera Shop
+    ar = متجر الكاميرا
+    be = Крама фотаапаратаў
+    bg = Магазин за фотоапарати
+    ca = Botiga de càmeres
+    cs = Obchod s fotoaparáty
+    da = Kamera butik
+    de = Kamerageschäft
+    el = Κατάστημα φωτογραφικών μηχανών
+    es = Tienda de cámaras
+    et = Kaamerapood
+    eu = Kamera Denda
+    fa = فروشگاه دوربین
+    fi = Kamerakauppa
+    fr = Boutique d'appareils photo
+    he = חנות מצלמות
+    hu = Fényképezőgép bolt
+    id = Toko Kamera
+    it = Negozio di macchine fotografiche
+    ja = カメラショップ
+    ko = 카메라 샵
+    mr = कॅमेरा शॉप
+    nb = Kamerabutikk
+    nl = Camerawinkel
+    pl = Sklep z aparatami
+    pt = Loja de câmeras
+    pt-BR = Loja de câmeras
+    ro = Magazin de aparate foto
+    ru = Магазин фотоаппаратов
+    sk = Obchod s fotoaparátmi
+    sv = Kameraaffär
+    sw = Duka la Kamera
+    th = ร้านกล้อง
+    tr = Kamera Dükkanı
+    uk = Магазин фотоапаратів
+    vi = Cửa hàng máy ảnh
+    zh-Hans = 相机店
+    zh-Hant = 相機店
+
   [type.craft.plumber]
     en = Plumber
     ar = سباك
