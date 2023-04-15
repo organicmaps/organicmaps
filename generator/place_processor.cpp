@@ -93,6 +93,10 @@ bool IsWorsePlace(FeaturePlace const & left, FeaturePlace const & right)
     if (type == ftypes::LocalityType::City)
       return area > 1e10;
 
+    /// @todo By VNG: It doesn't work with updated heuristic when collecting boundaries.
+    /// Should connect (by name) Node and Way places to select best boundary (like with Relations).
+    /// @see Relation_Wiki test.
+    /*
     // ~14*14 km
     if (type == ftypes::LocalityType::Town)
       return area > 2e8;
@@ -100,6 +104,7 @@ bool IsWorsePlace(FeaturePlace const & left, FeaturePlace const & right)
     // 10*10 km
     if (type == ftypes::LocalityType::Village)
       return area > 1e8;
+    */
 
     return false;
   };

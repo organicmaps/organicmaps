@@ -415,36 +415,53 @@ UNIT_CLASS_TEST(TestRawGenerator, Postcode_Relations)
   TEST_EQUAL(count, 2, ());
 }
 
-UNIT_CLASS_TEST(TestRawGenerator, Relation_Wiki)
+// https://github.com/organicmaps/organicmaps/issues/4974
+UNIT_TEST(Relation_Wiki)
 {
   std::string const mwmName = "Relation";
 
-  BuildFB("./data/osm_test_data/village_relation.osm", mwmName);
+  std::string const arrFiles[] = {
+    "./data/osm_test_data/village_relation.osm",
+    "./data/osm_test_data/novenkoe_village.osm",
+    "./data/osm_test_data/nikolaevka_village.osm",
+  };
 
-  uint32_t const villageType = classif().GetTypeByPath({"place", "village"});
+  std::string const arrWiki[] = {
+    "fr:Charmois-l'Orgueilleux",
+    "ru:Новенькое (Локтевский район)",
+    "ru:Николаевка (Локтевский район)",
+  };
 
-  size_t count = 0;
-  ForEachFB(mwmName, [&](feature::FeatureBuilder const & fb)
+  for (size_t i = 0; i < std::size(arrFiles); ++i)
   {
-    switch (fb.GetGeomType())
-    {
-    case feature::GeomType::Point:
-    {
-      TEST(fb.HasType(villageType), ());
-      ++count;
-      TEST_EQUAL(fb.GetMetadata().Get(feature::Metadata::FMD_WIKIPEDIA),
-                 "fr:Charmois-l'Orgueilleux", ());
-      break;
-    }
-    case feature::GeomType::Line:
-    {
-      TEST(fb.GetMetadata().Get(feature::Metadata::FMD_WIKIPEDIA).empty(), ());
-      break;
-    }
-    }
-  });
+    TestRawGenerator generator;
 
-  TEST_EQUAL(count, 1, ());
+    uint32_t const villageType = classif().GetTypeByPath({"place", "village"});
+
+    generator.BuildFB(arrFiles[i], mwmName);
+
+    size_t count = 0;
+    generator.ForEachFB(mwmName, [&](feature::FeatureBuilder const & fb)
+    {
+      switch (fb.GetGeomType())
+      {
+      case feature::GeomType::Point:
+      {
+        TEST(fb.HasType(villageType), ());
+        ++count;
+        TEST_EQUAL(fb.GetMetadata().Get(feature::Metadata::FMD_WIKIPEDIA), arrWiki[i], ());
+        break;
+      }
+      case feature::GeomType::Line:
+      {
+        TEST(fb.GetMetadata().Get(feature::Metadata::FMD_WIKIPEDIA).empty(), ());
+        break;
+      }
+      }
+    });
+
+    TEST_EQUAL(count, 1, ());
+  }
 }
 
 UNIT_CLASS_TEST(TestRawGenerator, AssociatedStreet_Wiki)
