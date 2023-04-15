@@ -1128,6 +1128,7 @@ world  +
         books  -
         boutique  -
         butcher  -
+        camera  -
         cannabis  -
         car  -
         car_parts  -
