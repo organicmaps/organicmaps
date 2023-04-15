@@ -834,6 +834,7 @@
 	<string name="type.craft.metal_construction">Tukang besi</string>
 	<string name="type.craft.painter">Tukang cat</string>
 	<string name="type.craft.photographer">Juru foto</string>
+	<string name="type.shop.camera">Toko Kamera</string>
 	<string name="type.craft.plumber">Tukang pipa</string>
 	<string name="type.craft.sawmill">Penggergajian kayu</string>
 	<string name="type.craft.shoemaker">Tukang sepatu</string>

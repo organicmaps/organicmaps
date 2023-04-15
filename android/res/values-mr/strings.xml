@@ -881,6 +881,7 @@
 	<string name="type.craft.metal_construction">धातू कामगार</string>
 	<string name="type.craft.painter">चित्रकार</string>
 	<string name="type.craft.photographer">छायाचित्रकार</string>
+	<string name="type.shop.camera">कॅमेरा शॉप</string>
 	<string name="type.craft.plumber">नळकामगार</string>
 	<string name="type.craft.sawmill">सुमेल</string>
 	<string name="type.craft.shoemaker">चांभार</string>

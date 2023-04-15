@@ -1675,6 +1675,8 @@
 
 "type.craft.photographer" = "Studio fotograficzne";
 
+"type.shop.camera" = "Sklep z aparatami";
+
 "type.craft.plumber" = "Hydraulik";
 
 "type.craft.sawmill" = "Tartak";

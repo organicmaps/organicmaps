@@ -839,6 +839,7 @@
 	<string name="type.craft.metal_construction">금속공</string>
 	<string name="type.craft.painter">페인트공</string>
 	<string name="type.craft.photographer">사진작가</string>
+	<string name="type.shop.camera">카메라 샵</string>
 	<string name="type.craft.plumber">배관공</string>
 	<string name="type.craft.sawmill">제재소</string>
 	<string name="type.craft.shoemaker">구두수선</string>

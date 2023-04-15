@@ -1675,6 +1675,8 @@
 
 "type.craft.photographer" = "Fotoğraf Stüdyosu";
 
+"type.shop.camera" = "Kamera Dükkanı";
+
 "type.craft.plumber" = "Tesisatçı";
 
 "type.craft.sawmill" = "Kereste Fabrikası";

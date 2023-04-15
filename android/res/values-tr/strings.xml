@@ -947,6 +947,7 @@
 	<string name="type.craft.metal_construction">Dökümcü</string>
 	<string name="type.craft.painter">Boyacı</string>
 	<string name="type.craft.photographer">Fotoğraf Stüdyosu</string>
+	<string name="type.shop.camera">Kamera Dükkanı</string>
 	<string name="type.craft.plumber">Tesisatçı</string>
 	<string name="type.craft.sawmill">Kereste Fabrikası</string>
 	<string name="type.craft.shoemaker">Ayakkabı Tamircisi</string>

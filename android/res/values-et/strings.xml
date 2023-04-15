@@ -935,6 +935,7 @@
 	<string name="type.craft.metal_construction">Metallitööline</string>
 	<string name="type.craft.painter">Maaler</string>
 	<string name="type.craft.photographer">Fotograaf</string>
+	<string name="type.shop.camera">Kaamerapood</string>
 	<string name="type.craft.plumber">Santehnik</string>
 	<string name="type.craft.sawmill">Saeveski</string>
 	<string name="type.craft.shoemaker">Kingsepp</string>

@@ -892,6 +892,7 @@
 	<string name="type.craft.metal_construction">Metallimies</string>
 	<string name="type.craft.painter">Maalari</string>
 	<string name="type.craft.photographer">Valokuvaaja</string>
+	<string name="type.shop.camera">Kamerakauppa</string>
 	<string name="type.craft.plumber">Putkimies</string>
 	<string name="type.craft.sawmill">Saha</string>
 	<string name="type.craft.shoemaker">Suutari</string>

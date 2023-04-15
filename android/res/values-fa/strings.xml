@@ -840,6 +840,7 @@
 	<string name="type.craft.metal_construction">اهن کار</string>
 	<string name="type.craft.painter">نقاش</string>
 	<string name="type.craft.photographer">عکاس</string>
+	<string name="type.shop.camera">فروشگاه دوربین</string>
 	<string name="type.craft.plumber">لوله کش</string>
 	<string name="type.craft.sawmill">کارخانه چوب‌بری</string>
 	<string name="type.craft.shoemaker">کفاش</string>

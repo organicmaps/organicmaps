@@ -961,6 +961,7 @@
 	<string name="type.craft.metal_construction">Металлоконструкции</string>
 	<string name="type.craft.painter">Маляр</string>
 	<string name="type.craft.photographer">Фотограф</string>
+	<string name="type.shop.camera">Магазин фотоаппаратов</string>
 	<string name="type.craft.plumber">Сантехник</string>
 	<string name="type.craft.sawmill">Лесопилка</string>
 	<string name="type.craft.shoemaker">Ремонт обуви</string>

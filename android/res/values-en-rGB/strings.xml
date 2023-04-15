@@ -27,13 +27,19 @@
 	<string name="dialog_pedestrian_route_is_long_message">Please choose a start or end point closer to a metro station</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.amenity.arts_centre">Art Centre</string>
 	<string name="type.amenity.fuel">Petrol Station</string>
+
+	<!-- SECTION: Types: Recycling -->
+	<string name="type.amenity.recycling.centre">Recycling Centre</string>
+	<string name="type.amenity.waste_basket">Rubbish Bin</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.elevator">Lift</string>
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.leisure.common">Common Land</string>
+	<string name="type.leisure.sports_centre">Sports Centre</string>
 	<string name="type.railway.station.subway">Metro</string>
 	<string name="type.railway.station.subway.adana">Metro</string>
 	<string name="type.railway.station.subway.algiers">Metro</string>
@@ -257,5 +263,10 @@
 	<string name="type.railway.subway_entrance.wuhan">Metro Entrance</string>
 	<string name="type.railway.subway_entrance.yerevan">Metro Entrance</string>
 	<string name="type.railway.subway_entrance.yokohama">Metro Entrance</string>
+	<string name="type.shop.books">Bookshop</string>
+	<string name="type.shop.mall">Shopping Centre</string>
 	<string name="type.shop.mobile_phone">Mobile Phones</string>
+	<string name="type.shop.toys">Toy Shop</string>
+	<string name="type.sport.soccer">Football</string>
+	<string name="type.tourism.apartment">Flats</string>
 </resources>

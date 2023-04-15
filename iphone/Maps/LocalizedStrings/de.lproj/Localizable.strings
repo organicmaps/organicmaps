@@ -1675,6 +1675,8 @@
 
 "type.craft.photographer" = "Fotograf";
 
+"type.shop.camera" = "Kamerageschäft";
+
 "type.craft.plumber" = "Installateur";
 
 "type.craft.sawmill" = "Sägewerk";

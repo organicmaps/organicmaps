@@ -929,6 +929,7 @@
 	<string name="type.craft.metal_construction">Ślusarz, obrabiacz metalu</string>
 	<string name="type.craft.painter">Malarz</string>
 	<string name="type.craft.photographer">Studio fotograficzne</string>
+	<string name="type.shop.camera">Sklep z aparatami</string>
 	<string name="type.craft.plumber">Hydraulik</string>
 	<string name="type.craft.sawmill">Tartak</string>
 	<string name="type.craft.shoemaker">Szewc</string>

@@ -950,6 +950,7 @@
 	<string name="type.craft.metal_construction">Trabajador del metal</string>
 	<string name="type.craft.painter">Pintor</string>
 	<string name="type.craft.photographer">Fotógrafo</string>
+	<string name="type.shop.camera">Tienda de cámaras</string>
 	<string name="type.craft.plumber">Fontanero</string>
 	<string name="type.craft.sawmill">Serrería</string>
 	<string name="type.craft.shoemaker">Zapatero</string>

@@ -940,6 +940,7 @@
 	<string name="type.craft.metal_construction">Metaalarbeider</string>
 	<string name="type.craft.painter">Schilder</string>
 	<string name="type.craft.photographer">Fotograaf</string>
+	<string name="type.shop.camera">Camerawinkel</string>
 	<string name="type.craft.plumber">Loodgieter</string>
 	<string name="type.craft.sawmill">Zagerij</string>
 	<string name="type.craft.shoemaker">Schoenmaker</string>

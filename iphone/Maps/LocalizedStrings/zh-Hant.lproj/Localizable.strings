@@ -1675,6 +1675,8 @@
 
 "type.craft.photographer" = "攝影師";
 
+"type.shop.camera" = "相機店";
+
 "type.craft.plumber" = "水管工人";
 
 "type.craft.sawmill" = "鋸木廠";
@@ -2365,7 +2367,7 @@
 
 "type.landuse.retail" = "Retail Area";
 
-"type.landuse.salt_pond" = "Pond";
+"type.landuse.salt_pond" = "Salt Pond";
 
 "type.landuse.village_green" = "Land";
 

@@ -839,6 +839,7 @@
 	<string name="type.craft.metal_construction">Μεταλλουργός</string>
 	<string name="type.craft.painter">Μπογιατζής</string>
 	<string name="type.craft.photographer">Φωτογράφος</string>
+	<string name="type.shop.camera">Κατάστημα φωτογραφικών μηχανών</string>
 	<string name="type.craft.plumber">Υδραυλικός</string>
 	<string name="type.craft.sawmill">Πριστήριο</string>
 	<string name="type.craft.shoemaker">Υποδηματοποιός</string>

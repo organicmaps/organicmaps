@@ -1675,6 +1675,8 @@
 
 "type.craft.photographer" = "छायाचित्रकार";
 
+"type.shop.camera" = "कॅमेरा शॉप";
+
 "type.craft.plumber" = "नळकामगार";
 
 "type.craft.sawmill" = "सुमेल";
@@ -3309,7 +3311,7 @@
 
 "type.shop.curtain" = "पडदे";
 
-"type.shop.deli" = "Delicatessen Shop";
+"type.shop.deli" = "Delicatessen";
 
 "type.shop.department_store" = "विभागीय भांडार";
 
@@ -3399,7 +3401,7 @@
 
 "type.shop.seafood" = "मासळी उपहारगृह";
 
-"type.shop.second_hand" = "Second Hand";
+"type.shop.second_hand" = "Second Hand Shop";
 
 "type.shop.shoes" = "चपलाचे दूकान";
 
@@ -3431,7 +3433,7 @@
 
 "type.shop.agrarian" = "शेतीचे दुकान";
 
-"type.shop.antiques" = "Antiques";
+"type.shop.antiques" = "Antiques Shop";
 
 "type.shop.appliance" = "उपकरणांचे दुकान";
 
@@ -3439,7 +3441,7 @@
 
 "type.shop.baby_goods" = "Baby Goods";
 
-"type.shop.bag" = "Bags Store";
+"type.shop.bag" = "Bag Shop";
 
 "type.shop.bed" = "पलंगाचे दुकान";
 
@@ -3447,7 +3449,7 @@
 
 "type.shop.charity" = "Charity Shop";
 
-"type.shop.cheese" = "Cheese Store";
+"type.shop.cheese" = "Cheese Shop";
 
 "type.shop.craft" = "Arts and Crafts";
 
@@ -3465,7 +3467,7 @@
 
 "type.shop.nutrition_supplements" = "Nutrition Supplements";
 
-"type.shop.paint" = "Paints";
+"type.shop.paint" = "Paint Shop";
 
 "type.shop.perfumery" = "Perfumery";
 

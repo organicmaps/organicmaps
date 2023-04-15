@@ -1675,6 +1675,8 @@
 
 "type.craft.photographer" = "Fotograf";
 
+"type.shop.camera" = "Magazin de aparate foto";
+
 "type.craft.plumber" = "Instalator";
 
 "type.craft.sawmill" = "Fabrica de cherestea";
@@ -2365,7 +2367,7 @@
 
 "type.landuse.retail" = "Retail Area";
 
-"type.landuse.salt_pond" = "Pond";
+"type.landuse.salt_pond" = "Salt Pond";
 
 "type.landuse.village_green" = "Land";
 
@@ -3572,7 +3574,7 @@
 
 "type.tourism.attraction.specified" = "Punct de atracție";
 
-"type.tourism.camp_site" = "Camping";
+"type.tourism.camp_site" = "Camp Site";
 
 "type.tourism.caravan_site" = "Teren pentru campare";
 
@@ -3622,7 +3624,7 @@
 
 "type.waterway.canal" = "Canal";
 
-"type.waterway.canal.tunnel" = "Canal";
+"type.waterway.canal.tunnel" = "Canal Tunnel";
 
 "type.waterway.dam" = "Dam";
 
