@@ -28,8 +28,6 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
 
   @NonNull
   private Rect mVisibleArea = new Rect();
-  @NonNull
-  private Rect mStableArea = new Rect();
 
   private boolean mIsRunning;
 
@@ -67,10 +65,9 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   public void onStableAreaChanged(@NonNull Rect stableArea)
   {
     Logger.d(TAG, "Stable area changed. stableArea: " + stableArea);
-    mStableArea = stableArea;
 
-    if (!mStableArea.isEmpty())
-      Framework.nativeSetVisibleRect(mStableArea.left, mStableArea.top, mStableArea.right, mStableArea.bottom);
+    if (!stableArea.isEmpty())
+      Framework.nativeSetVisibleRect(stableArea.left, stableArea.top, stableArea.right, stableArea.bottom);
     else if (!mVisibleArea.isEmpty())
       Framework.nativeSetVisibleRect(mVisibleArea.left, mVisibleArea.top, mVisibleArea.right, mVisibleArea.bottom);
   }
@@ -85,10 +82,10 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   @Override
   public void onCreate(@NonNull LifecycleOwner owner)
   {
-    Logger.d(TAG, "onCreate");
+    Logger.d(TAG);
     mCarContext.getCarService(AppManager.class).setSurfaceCallback(this);
 
-    // TODO: Properly process deep links from other apps on AA.
+    // TODO (AndrewShkrob): Properly process deep links from other apps on AA.
     boolean launchByDeepLink = false;
     mMap.onCreate(launchByDeepLink);
   }
@@ -96,7 +93,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   @Override
   public void onStart(@NonNull LifecycleOwner owner)
   {
-    Logger.d(TAG, "onStart");
+    Logger.d(TAG);
     mMap.onStart();
     mMap.setCallbackUnsupported(this::reportUnsupported);
   }
@@ -104,7 +101,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   @Override
   public void onStop(@NonNull LifecycleOwner owner)
   {
-    Logger.d(TAG, "onStop");
+    Logger.d(TAG);
     mMap.onStop();
     mMap.setCallbackUnsupported(null);
   }
@@ -112,14 +109,14 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   @Override
   public void onPause(@NonNull LifecycleOwner owner)
   {
-    Logger.d(TAG, "onPause");
+    Logger.d(TAG);
     mMap.onPause(mCarContext);
   }
 
   @Override
   public void onResume(@NonNull LifecycleOwner owner)
   {
-    Logger.d(TAG, "onResume");
+    Logger.d(TAG);
     mMap.onResume();
   }
 
@@ -171,7 +168,8 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   public void onClick(float x, float y)
   {
     Logger.d(TAG, "x: " + x + ", y: " + y);
-//    Map.onClick(x, y);
+    // TODO (AndrewShkrob): Will be implemented together with PlaceScreen
+    // Map.onClick(x, y);
   }
 
   public void disable()

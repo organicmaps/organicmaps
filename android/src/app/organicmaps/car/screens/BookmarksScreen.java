@@ -20,7 +20,8 @@ import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.bookmarks.data.BookmarkInfo;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.car.SurfaceRenderer;
-import app.organicmaps.car.UiHelpers;
+import app.organicmaps.car.util.UiHelpers;
+import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.util.Graphics;
 
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public class BookmarksScreen extends BaseMapScreen
   @Override
   public Template onGetTemplate()
   {
-    MapTemplate.Builder builder = new MapTemplate.Builder();
+    final MapTemplate.Builder builder = new MapTemplate.Builder();
     builder.setHeader(createHeader());
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
     builder.setActionStrip(UiHelpers.createSettingsActionStrip(getCarContext(), getSurfaceRenderer()));
@@ -61,7 +62,7 @@ public class BookmarksScreen extends BaseMapScreen
   @NonNull
   private Header createHeader()
   {
-    Header.Builder builder = new Header.Builder();
+    final Header.Builder builder = new Header.Builder();
     builder.setStartHeaderAction(Action.BACK);
     builder.setTitle(mBookmarkCategory == null ? getCarContext().getString(R.string.bookmarks) : mBookmarkCategory.getName());
     return builder.build();
@@ -91,6 +92,7 @@ public class BookmarksScreen extends BaseMapScreen
   @NonNull
   private ItemList createBookmarksList()
   {
+    assert mBookmarkCategory != null;
     final long bookmarkCategoryId = mBookmarkCategory.getId();
     final int bookmarkCategoriesSize = Math.min(mBookmarkCategory.getBookmarksCount(), MAX_CATEGORIES_SIZE);
 
@@ -112,6 +114,7 @@ public class BookmarksScreen extends BaseMapScreen
           R.dimen.bookmark_icon_size,
           getCarContext());
       itemBuilder.setImage(new CarIcon.Builder(IconCompat.createWithBitmap(Graphics.drawableToBitmap(icon))).build());
+      itemBuilder.setOnClickListener(() -> { /* TODO (AndrewShkrob): Will be implemented together with PlaceScreen */ });
       builder.addItem(itemBuilder.build());
     }
     return builder.build();
@@ -123,9 +126,9 @@ public class BookmarksScreen extends BaseMapScreen
     final List<BookmarkCategory> bookmarkCategories = new ArrayList<>(BookmarkManager.INSTANCE.getCategories());
 
     final List<BookmarkCategory> toRemove = new ArrayList<>();
-    for (BookmarkCategory bookmarkCategory : bookmarkCategories)
+    for (final BookmarkCategory bookmarkCategory : bookmarkCategories)
     {
-      if (bookmarkCategory.getBookmarksCount() == 0)
+      if (bookmarkCategory.getBookmarksCount() == 0 || !bookmarkCategory.isVisible())
         toRemove.add(bookmarkCategory);
     }
     bookmarkCategories.removeAll(toRemove);

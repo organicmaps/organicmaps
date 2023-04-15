@@ -15,8 +15,8 @@ import androidx.core.graphics.drawable.IconCompat;
 
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
-import app.organicmaps.car.UiHelpers;
-import app.organicmaps.car.screens.BaseMapScreen;
+import app.organicmaps.car.util.UiHelpers;
+import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.util.Config;
 
 public class SettingsScreen extends BaseMapScreen
@@ -47,7 +47,7 @@ public class SettingsScreen extends BaseMapScreen
   @Override
   public Template onGetTemplate()
   {
-    MapTemplate.Builder builder = new MapTemplate.Builder();
+    final MapTemplate.Builder builder = new MapTemplate.Builder();
     builder.setHeader(createHeader());
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
     builder.setItemList(createSettingsList());
@@ -57,7 +57,7 @@ public class SettingsScreen extends BaseMapScreen
   @NonNull
   private Header createHeader()
   {
-    Header.Builder builder = new Header.Builder();
+    final Header.Builder builder = new Header.Builder();
     builder.setStartHeaderAction(Action.BACK);
     builder.setTitle(getCarContext().getString(R.string.settings));
     return builder.build();
@@ -66,7 +66,7 @@ public class SettingsScreen extends BaseMapScreen
   @NonNull
   private ItemList createSettingsList()
   {
-    ItemList.Builder builder = new ItemList.Builder();
+    final ItemList.Builder builder = new ItemList.Builder();
     builder.addItem(createRoutingOptionsItem());
     builder.addItem(createSharedPrefsCheckbox(R.string.big_font, Config::isLargeFontsSize, Config::setLargeFontsSize));
     builder.addItem(createSharedPrefsCheckbox(R.string.transliteration_title, Config::isTransliteration, Config::setTransliteration));
@@ -77,7 +77,7 @@ public class SettingsScreen extends BaseMapScreen
   @NonNull
   private Item createRoutingOptionsItem()
   {
-    Row.Builder builder = new Row.Builder();
+    final Row.Builder builder = new Row.Builder();
     builder.setTitle(getCarContext().getString(R.string.driving_options_title));
     builder.setOnClickListener(() -> getScreenManager().push(new DrivingOptionsScreen(getCarContext(), getSurfaceRenderer())));
     builder.setBrowsable(true);
@@ -87,7 +87,7 @@ public class SettingsScreen extends BaseMapScreen
   @NonNull
   private Item createHelpItem()
   {
-    Row.Builder builder = new Row.Builder();
+    final Row.Builder builder = new Row.Builder();
     builder.setTitle(getCarContext().getString(R.string.help));
     builder.setOnClickListener(() -> getScreenManager().push(new HelpScreen(getCarContext(), getSurfaceRenderer())));
     builder.setBrowsable(true);
@@ -99,11 +99,11 @@ public class SettingsScreen extends BaseMapScreen
   {
     final boolean getterValue = getter.get();
 
-    Row.Builder builder = new Row.Builder();
+    final Row.Builder builder = new Row.Builder();
     builder.setTitle(getCarContext().getString(titleRes));
     builder.setOnClickListener(() -> {
       setter.set(!getterValue);
-      SettingsScreen.this.invalidate();
+      invalidate();
     });
     builder.setImage(getterValue ? mCheckboxSelectedIcon : mCheckboxIcon);
     return builder.build();
