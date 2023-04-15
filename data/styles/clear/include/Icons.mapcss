@@ -2248,6 +2248,8 @@ node|z16-[shop=cheese],
 area|z16-[shop=cheese],
 node|z16-[shop=alcohol],
 area|z16-[shop=alcohol],
+node|z16-[shop=art],
+area|z16-[shop=art],
 node|z16-[shop=wine],
 area|z16-[shop=wine],
 node|z16-[shop=books],
@@ -2415,6 +2417,9 @@ area|z16[shop=cheese]
 node|z16[shop=alcohol],
 area|z16[shop=alcohol]
 {icon-image: alcohol-m.svg;}
+node|z16[shop=art],
+area|z16[shop=art]
+{icon-image: art-m.svg;}
 node|z16[shop=wine],
 area|z16[shop=wine]
 {icon-image: alcohol-m.svg;}
@@ -2612,6 +2617,9 @@ area|z17-[shop=cheese]
 node|z17-[shop=alcohol],
 area|z17-[shop=alcohol]
 {icon-image: alcohol-m.svg;icon-min-distance: 24;}
+node|z17-[shop=art],
+area|z17-[shop=art]
+{icon-image: art-m.svg;icon-min-distance: 24;}
 node|z17-[shop=wine],
 area|z17-[shop=wine]
 {icon-image: alcohol-m.svg;icon-min-distance: 24;}
