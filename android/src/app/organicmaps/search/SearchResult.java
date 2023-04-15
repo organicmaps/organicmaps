@@ -1,8 +1,17 @@
 package app.organicmaps.search;
 
+import android.content.Context;
+import android.graphics.Typeface;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.TextUtils;
+import android.text.style.StyleSpan;
+
 import androidx.annotation.NonNull;
 
 import app.organicmaps.bookmarks.data.FeatureId;
+import app.organicmaps.util.Utils;
 
 /**
  * Class instances are created from native code.
@@ -111,5 +120,70 @@ public class SearchResult implements PopularityProvider
   public Popularity getPopularity()
   {
     return mPopularity;
+  }
+
+  @NonNull
+  public String getTitle(@NonNull Context context)
+  {
+    String title = name;
+    if (TextUtils.isEmpty(title))
+    {
+      title = description != null
+          ? Utils.getLocalizedFeatureType(context, description.featureType)
+          : "";
+    }
+
+    return title;
+  }
+
+  @NonNull
+  public Spannable getFormattedTitle(@NonNull Context context)
+  {
+    final String title = getTitle(context);
+    final SpannableStringBuilder builder = new SpannableStringBuilder(title);
+
+    if (highlightRanges != null)
+    {
+      final int size = highlightRanges.length / 2;
+      int index = 0;
+
+      for (int i = 0; i < size; i++)
+      {
+        final int start = highlightRanges[index++];
+        final int len = highlightRanges[index++];
+
+        builder.setSpan(new StyleSpan(Typeface.BOLD), start, start + len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      }
+    }
+
+    return builder;
+  }
+
+  // FIXME: Better format based on result type
+  @NonNull
+  public CharSequence getFormattedDescription(@NonNull Context context)
+  {
+    final String localizedType = Utils.getLocalizedFeatureType(context, description.featureType);
+    final SpannableStringBuilder res = new SpannableStringBuilder(localizedType);
+    final SpannableStringBuilder tail = new SpannableStringBuilder();
+
+    if (!TextUtils.isEmpty(description.airportIata))
+      tail.append(" • ").append(description.airportIata);
+    else if (!TextUtils.isEmpty(description.roadShields))
+      tail.append(" • ").append(description.roadShields);
+    else
+    {
+      if (!TextUtils.isEmpty(description.brand))
+        tail.append(" • ").append(Utils.getLocalizedBrand(context, description.brand));
+      if (!TextUtils.isEmpty(description.cuisine))
+        tail.append(" • ").append(description.cuisine);
+    }
+
+    if (isHotel && stars != 0)
+      tail.append(" • ").append("★★★★★★★".substring(0, Math.min(7, stars)));
+
+    res.append(tail);
+
+    return res;
   }
 }

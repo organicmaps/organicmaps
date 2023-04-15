@@ -287,7 +287,7 @@ extern "C"
 
   JNIEXPORT void JNICALL Java_app_organicmaps_search_SearchEngine_nativeRunInteractiveSearch(
       JNIEnv * env, jclass clazz, jbyteArray bytes, jboolean isCategory,
-      jstring lang, jlong timestamp, jboolean isMapAndTable)
+      jstring lang, jlong timestamp, jboolean isMapAndTable, jboolean hasPosition, jdouble lat, jdouble lon)
   {
     search::ViewportSearchParams vparams{
         jni::ToNativeString(env, bytes),
@@ -310,8 +310,7 @@ extern "C"
           std::move(vparams.m_inputLocale),
           {},   // default timeout
           static_cast<bool>(isCategory),
-          bind(&OnResults, _1, _2, timestamp, isMapAndTable,
-                false /* hasPosition */, 0.0 /* lat */, 0.0 /* lon */)
+          bind(&OnResults, _1, _2, timestamp, isMapAndTable, hasPosition, lat, lon)
       };
 
       if (g_framework->NativeFramework()->GetSearchAPI().SearchEverywhere(std::move(eparams)))

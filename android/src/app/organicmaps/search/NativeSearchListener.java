@@ -12,10 +12,10 @@ public interface NativeSearchListener
    * @param results Search results.
    * @param timestamp Timestamp of search request.
    */
-  void onResultsUpdate(@NonNull SearchResult[] results, long timestamp);
+  default void onResultsUpdate(@NonNull SearchResult[] results, long timestamp) {}
 
   /**
    * @param timestamp Timestamp of search request.
    */
-  void onResultsEnd(long timestamp);
+  default void onResultsEnd(long timestamp) {}
 }
