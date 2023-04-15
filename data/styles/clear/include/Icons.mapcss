@@ -2326,6 +2326,8 @@ node|z16-[shop=pet],
 area|z16-[shop=pet],
 node|z16-[shop=department_store],
 area|z16-[shop=department_store],
+node|z16-[shop=interior_decoration],
+area|z16-[shop=interior_decoration],
 node|z16-[shop=doityourself],
 area|z16-[shop=doityourself],
 node|z16-[shop=electronics],
@@ -2532,6 +2534,9 @@ area|z16[shop=pet]
 node|z16[shop=department_store],
 area|z16[shop=department_store]
 {icon-image: department_store-m.svg;}
+node|z16[shop=interior_decoration],
+area|z16[shop=interior_decoration]
+{icon-image: interior_decoration-m.svg;}
 node|z16[shop=doityourself],
 area|z16[shop=doityourself]
 {icon-image: doityourself-m.svg;}
@@ -2735,6 +2740,9 @@ area|z17-[shop=pet]
 node|z17-[shop=department_store],
 area|z17-[shop=department_store]
 {icon-image: department_store-m.svg;icon-min-distance: 24;}
+node|z17-[shop=interior_decoration],
+area|z17-[shop=interior_decoration]
+{icon-image: interior_decoration-m.svg;icon-min-distance: 24;}
 node|z17-[shop=doityourself],
 area|z17-[shop=doityourself]
 {icon-image: doityourself-m.svg;icon-min-distance: 24;}
