@@ -5988,7 +5988,7 @@ fa:پناهگاه
 mr:निवारा
 
 amenity-telephone
-en:2Phone|U+260E|U+1F4DE
+en:2Phone|U+260E|U+1F4DE|5Telephone
 ru:3Телефон|4таксофон
 bg:3Телефон|мобифон|обаждане
 ar:هاتف

@@ -425,6 +425,7 @@
 
   [type.amenity.arts_centre]
     en = Art Center
+    en-GB = Art Centre
     ar = مركز فن
     cs = Umělecké centrum
     da = Kunsthus
@@ -3303,6 +3304,7 @@
 
   [type.amenity.recycling.centre]
     en = Recycling Center
+    en-GB = Recycling Centre
     ar = مركز إعادة تدوير
     be = Прыём другсыравіны
     cs = Recyklační středisko
@@ -4437,6 +4439,7 @@
 
   [type.amenity.waste_basket]
     en = Trash Bin
+    en-GB = Rubbish Bin
     ar = صندوق قمامة
     cs = Odpadkový koš
     da = Skraldespand
@@ -10129,7 +10132,7 @@
 
   [type.highway.footway.area]
     ref = type.highway.footway
-    en = Pedestrian Zone
+    en = Pedestrian Area
     ar = منطقة مشاة
     es = Zona peatonal
     et = Jalakäijate ala
@@ -10550,7 +10553,7 @@
 
   [type.highway.pedestrian.area]
     ref = type.highway.pedestrian
-    en = Pedestrian Zone
+    en = Pedestrian Area
     es = Zona peatonal
     et = Jalakäijate ala
     it = Area pedonale
@@ -13259,7 +13262,7 @@
     zh-Hans = 车库用地
 
   [type.landuse.grass]
-    en = Lawn
+    en = Grass
     ar = عشب
     cs = Trávník
     da = Græsplæne
@@ -13513,7 +13516,7 @@
     zh-Hans = 康体场地
 
   [type.landuse.reservoir]
-    en = Water
+    en = Reservoir
     ar = مياه
     cs = Voda
     da = Vand
@@ -13585,7 +13588,7 @@
     zh-Hans = 零售用地
 
   [type.landuse.salt_pond]
-    en = Pond
+    en = Salt Pond
     ar = مستنقع
     de = Saline
     es = Estanque
@@ -14166,7 +14169,7 @@
     zh-Hant = 野餐桌
 
   [type.leisure.pitch]
-    en = Sports Ground
+    en = Sport Pitch
     ar = ملعب رياضي
     cs = Sportovní hřiště
     da = Sportsplads
@@ -14303,6 +14306,7 @@
 
   [type.leisure.sports_centre]
     en = Sports Center
+    en-GB = Sports Centre
     ar = مركز رياضي
     cs = Sportovní centrum
     da = Idrætscenter
@@ -16557,7 +16561,7 @@
     zh-Hant = 火山
 
   [type.natural.water]
-    en = Waterbody
+    en = Water
     ar = مسطح مائي
     be = Вадаём
     bg = Воден басейн
@@ -20050,7 +20054,7 @@
     zh-Hant = 購物
 
   [type.shop.alcohol]
-    en = Liquor Store
+    en = Liquor Shop
     ar = متجر مشروبات كحولية
     cs = Obchod s alkoholem
     da = Alkohol
@@ -20297,6 +20301,7 @@
 
   [type.shop.books]
     en = Bookstore
+    en-GB = Bookshop
     ar = مكتبة لبيع الكتب
     cs = Knihkupectví
     da = Boghandel
@@ -20331,7 +20336,7 @@
     zh-Hant = 書店
 
   [type.shop.butcher]
-    en = Butcher’s
+    en = Butcher
     ar = جزار
     cs = Řeznictví
     da = Slagter
@@ -20558,7 +20563,7 @@
     uk = Продаж автобудинків
 
   [type.shop.carpet]
-    en = Carpets
+    en = Carpet Shop
     ar = السجاد
     be = Дываны
     bg = Килими
@@ -20598,7 +20603,7 @@
     zh-Hant = 地毯
 
   [type.shop.chemist]
-    en = Chemist Shop
+    en = Chemist
     ar = متجر كيماويات
     cs = Drogerie
     da = Materialist
@@ -20704,7 +20709,7 @@
     zh-Hant = 買衣服
 
   [type.shop.coffee]
-    en = Coffee Store
+    en = Coffee Shop
     ar = متجر
     be = Крама кавы
     cs = Obchod
@@ -20775,7 +20780,7 @@
     zh-Hant = 電腦商店
 
   [type.shop.confectionery]
-    en = Sweets
+    en = Sweet Shop
     ar = متجر حلويات
     cs = Cukrárna
     da = Slikbutik
@@ -20915,7 +20920,7 @@
     zh-Hant = 化妆品
 
   [type.shop.curtain]
-    en = Curtains
+    en = Curtain Shop
     ar = ستائر
     be = Шторы
     bg = Пердета
@@ -20955,7 +20960,7 @@
     zh-Hant = 窗簾
 
   [type.shop.deli]
-    en = Delicatessen Shop
+    en = Delicatessen
     ar = ﺔﺒﻠﻌﻤﻟﺍ ﺔﻤﻌﻃﻷﺍ ﻊﻴﺒﻟ ﻞﺤﻣ
     be = Дэлікатэсная крама
     bg = Магазин за деликатеси
@@ -21098,7 +21103,7 @@
     zh-Hant = 乾洗
 
   [type.shop.electronics]
-    en = Electronics
+    en = Electronics Shop
     ar = متجر إلكترونيات
     cs = Elektronika
     da = Elektronikbutik
@@ -21280,7 +21285,7 @@
     zh-Hant = 時尚配飾
 
   [type.shop.florist]
-    en = Florist’s
+    en = Florist
     ar = متجر زهور
     cs = Květinářství
     da = Blomsterbutik
@@ -21669,7 +21674,7 @@
     zh-Hant = 保健食品店
 
   [type.shop.herbalist]
-    en = Herbs Store
+    en = Herbalist
     ar = متجر أعشاب
     be = Магазін траў
     bg = Магазин за билки
@@ -21787,7 +21792,7 @@
     zh-Hant = 家居用品店
 
   [type.shop.jewelry]
-    en = Jewelry
+    en = Jewelry Shop
     ar = مجوهرات
     cs = Klenotnictví
     da = Smykkebutik
@@ -21924,6 +21929,7 @@
 
   [type.shop.mall]
     en = Mall
+    en-GB = Shopping Centre
     ar = مركز تسوق
     cs = Obchoďák
     da = Indkøbscenter
@@ -22175,7 +22181,7 @@
     zh-Hant = 購物
 
   [type.shop.musical_instrument]
-    en = Musical Instruments
+    en = Musical Instrument Shop
     ar = متجر
     be = Музычныя інструменты
     cs = Obchod
@@ -22246,7 +22252,7 @@
     zh-Hant = 報攤
 
   [type.shop.optician]
-    en = Optician’s
+    en = Optician
     ar = مركز بصريات
     cs = Optika
     da = Optiker
@@ -22357,7 +22363,7 @@
 
   [type.shop.pastry]
     ref = type.shop.bakery
-    en = Pastry
+    en = Pastry Shop
     ar = ﺕﺎﻨﺠﻌﻣ
     be = Кандытарскія вырабы
     bg = Тестени изделия
@@ -22573,7 +22579,7 @@
     zh-Hant = 魚販
 
   [type.shop.second_hand]
-    en = Second Hand
+    en = Second Hand Shop
     ar = ﺔﻠﻤﻌﺘﺴﻣ ﺕﺍﻭﺩﺍ ﺮﺠﺘﻣ
     be = Крама сэканд-хэнд
     bg = Магазин втора употреба
@@ -22611,7 +22617,7 @@
     zh-Hant = 二手店
 
   [type.shop.shoes]
-    en = Shoe Store
+    en = Shoe Shop
     ar = متجر أحذية
     cs = Obuv
     da = Skobutik
@@ -22646,7 +22652,7 @@
     zh-Hant = 鞋店
 
   [type.shop.sports]
-    en = Sports Goods
+    en = Sports Shop
     ar = أدوات رياضية
     cs = Sportovní zboží
     da = Sportsudstyr
@@ -22781,7 +22787,7 @@
     zh-Hant = 刺青店
 
   [type.shop.tea]
-    en = Tea Store
+    en = Tea Shop
     ar = متجر
     be = Крама гарбаты
     cs = Obchod
@@ -22853,6 +22859,7 @@
 
   [type.shop.toys]
     en = Toy Store
+    en-GB = Toy Shop
     ar = متجر ألعاب
     cs = Hračkářství
     da = Legetøjsbutik
@@ -23141,7 +23148,7 @@
     zh-Hant = 農產品店
 
   [type.shop.antiques]
-    en = Antiques
+    en = Antiques Shop
     ar = ﻒﺤﺘﻟﺍ
     be = Антыкварыят
     bg = Антики
@@ -23295,7 +23302,7 @@
     zh-Hant = 兒童商店
 
   [type.shop.bag]
-    en = Bags Store
+    en = Bag Shop
     ar = ﺐﺋﺎﻘﺤﻟﺍ ﺮﺠﺘﻣ
     be = Крама сумак
     bg = Магазин за чанти
@@ -23449,7 +23456,7 @@
     zh-Hant = 慈善商店
 
   [type.shop.cheese]
-    en = Cheese Store
+    en = Cheese Shop
     ar = ﻦﺒﺠﻟﺍ ﺮﺠﺘﻣ
     be = Сырны магазін
     bg = Магазин за сирене
@@ -23791,7 +23798,7 @@
     zh-Hant = 營養補充劑
 
   [type.shop.paint]
-    en = Paints
+    en = Paint Shop
     ar = ﺕﺎﻧﺎﻫﺪﻟﺍ
     be = Фарбы
     bg = Бои
@@ -24879,6 +24886,7 @@
 
   [type.sport.soccer]
     en = Soccer
+    en-GB = Football
     ar = كرة القدم
     be = Футбол
     cs = Fotbal
@@ -25389,6 +25397,7 @@
 
   [type.tourism.apartment]
     en = Apartments
+    en-GB = Flats
     ar = شُقَق
     cs = Byty
     da = Lejligheder
@@ -25458,7 +25467,7 @@
     zh-Hant = 藝術品
 
   [type.tourism.artwork.architecture]
-    en = Artwork
+    en = Architectural Artwork
     ar = عمل فني
     cs = Umělecké dílo
     da = Kunstværk
@@ -25493,7 +25502,7 @@
     zh-Hant = 藝術品
 
   [type.tourism.artwork.painting]
-    en = Artwork
+    en = Painting
     ar = عمل فني
     cs = Umělecké dílo
     da = Kunstværk
@@ -25528,7 +25537,7 @@
     zh-Hant = 藝術品
 
   [type.tourism.artwork.sculpture]
-    en = Artwork
+    en = Sculpture
     ar = عمل فني
     cs = Umělecké dílo
     da = Kunstværk
@@ -25563,7 +25572,7 @@
     zh-Hant = 藝術品
 
   [type.tourism.artwork.statue]
-    en = Artwork
+    en = Statue
     ar = عمل فني
     cs = Umělecké dílo
     da = Kunstværk
@@ -25645,7 +25654,7 @@
     ref = type.tourism.attraction
 
   [type.tourism.camp_site]
-    en = Camping
+    en = Camp Site
     ar = تخييم
     cs = Kempování
     de = Zeltplatz
@@ -26414,7 +26423,7 @@
     zh-Hant = 運河
 
   [type.waterway.canal.tunnel]
-    en = Canal
+    en = Canal Tunnel
     ar = قناة
     cs = Kanál
     da = Kanal
@@ -26631,7 +26640,7 @@
     zh-Hant = 河流
 
   [type.waterway.stream]
-    en = River
+    en = Stream
     ar = نهر
     be = Рака
     cs = Řeka
@@ -26667,7 +26676,7 @@
     zh-Hant = 溪
 
   [type.waterway.stream.ephemeral]
-    en = River
+    en = Ephemeral Stream
     ar = نهر
     be = Рака
     cs = Řeka
@@ -26703,7 +26712,7 @@
     zh-Hant = 溪
 
   [type.waterway.stream.intermittent]
-    en = River
+    en = Intermittent Stream
     ar = نهر
     be = Рака
     cs = Řeka
