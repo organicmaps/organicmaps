@@ -869,6 +869,7 @@
 	<string name="type.craft.metal_construction">金属工</string>
 	<string name="type.craft.painter">塗装工</string>
 	<string name="type.craft.photographer">写真家</string>
+	<string name="type.shop.camera">カメラショップ</string>
 	<string name="type.craft.plumber">配管工</string>
 	<string name="type.craft.sawmill">製材所</string>
 	<string name="type.craft.shoemaker">靴修理</string>

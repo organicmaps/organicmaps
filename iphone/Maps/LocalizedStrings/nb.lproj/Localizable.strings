@@ -1675,6 +1675,8 @@
 
 "type.craft.photographer" = "Fotograf";
 
+"type.shop.camera" = "Kamerabutikk";
+
 "type.craft.plumber" = "Rørlegger";
 
 "type.craft.sawmill" = "Sagbruk";
@@ -2365,7 +2367,7 @@
 
 "type.landuse.retail" = "Retail Area";
 
-"type.landuse.salt_pond" = "Pond";
+"type.landuse.salt_pond" = "Salt Pond";
 
 "type.landuse.village_green" = "Land";
 

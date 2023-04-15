@@ -850,6 +850,7 @@
 	<string name="type.craft.metal_construction">Kovodílna</string>
 	<string name="type.craft.painter">Malíř</string>
 	<string name="type.craft.photographer">Fotograf</string>
+	<string name="type.shop.camera">Obchod s fotoaparáty</string>
 	<string name="type.craft.plumber">Instalatér</string>
 	<string name="type.craft.sawmill">Pila</string>
 	<string name="type.craft.shoemaker">Opravna obuvi</string>

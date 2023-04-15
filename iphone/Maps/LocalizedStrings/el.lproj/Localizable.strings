@@ -1675,6 +1675,8 @@
 
 "type.craft.photographer" = "Φωτογράφος";
 
+"type.shop.camera" = "Κατάστημα φωτογραφικών μηχανών";
+
 "type.craft.plumber" = "Υδραυλικός";
 
 "type.craft.sawmill" = "Πριστήριο";
@@ -2365,7 +2367,7 @@
 
 "type.landuse.retail" = "Retail Area";
 
-"type.landuse.salt_pond" = "Pond";
+"type.landuse.salt_pond" = "Salt Pond";
 
 "type.landuse.village_green" = "Land";
 

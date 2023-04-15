@@ -1558,7 +1558,7 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "Muralha";
+"type.barrier.city_wall" = "City Wall";
 
 "type.barrier.cycle_barrier" = "Barreira de bicicletas";
 
@@ -1674,6 +1674,8 @@
 "type.craft.painter" = "Pintor";
 
 "type.craft.photographer" = "Fotógrafo";
+
+"type.shop.camera" = "Loja de câmeras";
 
 "type.craft.plumber" = "Encanador";
 

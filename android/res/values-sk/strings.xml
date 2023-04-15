@@ -835,6 +835,7 @@
 	<string name="type.craft.metal_construction">Kovorobotník</string>
 	<string name="type.craft.painter">Maliar natierač</string>
 	<string name="type.craft.photographer">Fotograf</string>
+	<string name="type.shop.camera">Obchod s fotoaparátmi</string>
 	<string name="type.craft.plumber">Klampiarstvo</string>
 	<string name="type.craft.sawmill">Píla</string>
 	<string name="type.craft.shoemaker">Oprava obuvy</string>

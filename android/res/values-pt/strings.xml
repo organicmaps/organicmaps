@@ -899,6 +899,7 @@
 	<string name="type.craft.metal_construction">Serralheiro metálico</string>
 	<string name="type.craft.painter">Pintor</string>
 	<string name="type.craft.photographer">Fotógrafo</string>
+	<string name="type.shop.camera">Loja de câmeras</string>
 	<string name="type.craft.plumber">Picheleiro</string>
 	<string name="type.craft.sawmill">Serraria</string>
 	<string name="type.craft.shoemaker">Sapateiro</string>

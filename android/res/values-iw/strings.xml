@@ -288,6 +288,7 @@
 	<string name="type.craft.metal_construction">עובד מתכת</string>
 	<string name="type.craft.painter">צייר</string>
 	<string name="type.craft.photographer">צלם</string>
+	<string name="type.shop.camera">חנות מצלמות</string>
 	<string name="type.craft.plumber">שרברב</string>
 	<string name="type.craft.sawmill">מנסרה</string>
 	<string name="type.craft.shoemaker">סנדלר</string>

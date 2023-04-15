@@ -927,6 +927,7 @@
 	<string name="type.craft.metal_construction">Schlosser</string>
 	<string name="type.craft.painter">Maler</string>
 	<string name="type.craft.photographer">Fotograf</string>
+	<string name="type.shop.camera">Kamerageschäft</string>
 	<string name="type.craft.plumber">Installateur</string>
 	<string name="type.craft.sawmill">Sägewerk</string>
 	<string name="type.craft.shoemaker">Schuhmacher</string>

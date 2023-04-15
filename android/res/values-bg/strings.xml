@@ -698,6 +698,7 @@
 	<string name="type.craft.metal_construction">Метални конструкции</string>
 	<string name="type.craft.painter">Художник</string>
 	<string name="type.craft.photographer">Фотограф</string>
+	<string name="type.shop.camera">Магазин за фотоапарати</string>
 	<string name="type.craft.plumber">Водопроводчик</string>
 	<string name="type.craft.sawmill">Дъскорезница</string>
 	<string name="type.craft.shoemaker">Обущар</string>

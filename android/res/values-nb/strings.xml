@@ -890,6 +890,7 @@
 	<string name="type.craft.metal_construction">Metallarbeider</string>
 	<string name="type.craft.painter">Maler</string>
 	<string name="type.craft.photographer">Fotograf</string>
+	<string name="type.shop.camera">Kamerabutikk</string>
 	<string name="type.craft.plumber">Rørlegger</string>
 	<string name="type.craft.sawmill">Sagbruk</string>
 	<string name="type.craft.shoemaker">Skoreparasjon</string>

@@ -933,6 +933,7 @@
 	<string name="type.craft.metal_construction">Métallo</string>
 	<string name="type.craft.painter">Peintre</string>
 	<string name="type.craft.photographer">Photographe</string>
+	<string name="type.shop.camera">Boutique d\'appareils photo</string>
 	<string name="type.craft.plumber">Plombier</string>
 	<string name="type.craft.sawmill">Scierie</string>
 	<string name="type.craft.shoemaker">Cordonnier</string>

@@ -926,6 +926,7 @@
 	<string name="type.craft.metal_construction">عامل معادن</string>
 	<string name="type.craft.painter">رسام</string>
 	<string name="type.craft.photographer">مصور فوتوغرافي</string>
+	<string name="type.shop.camera">متجر الكاميرا</string>
 	<string name="type.craft.plumber">سباك</string>
 	<string name="type.craft.sawmill">منشرة</string>
 	<string name="type.craft.shoemaker">تصليح الاحذية</string>

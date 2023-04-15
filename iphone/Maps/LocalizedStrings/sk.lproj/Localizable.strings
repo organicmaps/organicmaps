@@ -1675,6 +1675,8 @@
 
 "type.craft.photographer" = "Fotograf";
 
+"type.shop.camera" = "Obchod s fotoaparátmi";
+
 "type.craft.plumber" = "Klampiarstvo";
 
 "type.craft.sawmill" = "Píla";
@@ -2365,7 +2367,7 @@
 
 "type.landuse.retail" = "Retail Area";
 
-"type.landuse.salt_pond" = "Pond";
+"type.landuse.salt_pond" = "Salt Pond";
 
 "type.landuse.village_green" = "Land";
 
@@ -3572,7 +3574,7 @@
 
 "type.tourism.attraction.specified" = "Atrakcia";
 
-"type.tourism.camp_site" = "Camping";
+"type.tourism.camp_site" = "Camp Site";
 
 "type.tourism.caravan_site" = "Kemp pre karavany";
 

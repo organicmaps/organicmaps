@@ -872,6 +872,7 @@
 	<string name="type.craft.metal_construction">鐵工</string>
 	<string name="type.craft.painter">油漆工</string>
 	<string name="type.craft.photographer">攝影師</string>
+	<string name="type.shop.camera">相機店</string>
 	<string name="type.craft.plumber">水管工人</string>
 	<string name="type.craft.sawmill">鋸木廠</string>
 	<string name="type.craft.shoemaker">修鞋工</string>

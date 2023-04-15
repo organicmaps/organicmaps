@@ -293,6 +293,7 @@
 	<string name="type.craft.metal_construction">Mfanyikazi wa chuma</string>
 	<string name="type.craft.painter">Mchoraji</string>
 	<string name="type.craft.photographer">Mpiga picha</string>
+	<string name="type.shop.camera">Duka la Kamera</string>
 	<string name="type.craft.plumber">Fundi bomba</string>
 	<string name="type.craft.sawmill">Sumel</string>
 	<string name="type.craft.shoemaker">Mtengeneza viatu</string>

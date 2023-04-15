@@ -837,6 +837,7 @@
 	<string name="type.craft.metal_construction">Nhà kim khí</string>
 	<string name="type.craft.painter">Họa sỹ</string>
 	<string name="type.craft.photographer">Thợ chụp ảnh</string>
+	<string name="type.shop.camera">Cửa hàng máy ảnh</string>
 	<string name="type.craft.plumber">Thợ đường ống</string>
 	<string name="type.craft.sawmill">Sumel</string>
 	<string name="type.craft.shoemaker">Sửa giày</string>

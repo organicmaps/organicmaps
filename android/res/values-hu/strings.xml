@@ -843,6 +843,7 @@
 	<string name="type.craft.metal_construction">Lakatos</string>
 	<string name="type.craft.painter">Festő</string>
 	<string name="type.craft.photographer">Fényképész</string>
+	<string name="type.shop.camera">Fényképezőgép bolt</string>
 	<string name="type.craft.plumber">Vízvezeték-szerelő</string>
 	<string name="type.craft.sawmill">Fűrészmalom</string>
 	<string name="type.craft.shoemaker">Cipész</string>

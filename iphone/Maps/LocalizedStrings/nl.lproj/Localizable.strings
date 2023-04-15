@@ -1675,6 +1675,8 @@
 
 "type.craft.photographer" = "Fotograaf";
 
+"type.shop.camera" = "Camerawinkel";
+
 "type.craft.plumber" = "Loodgieter";
 
 "type.craft.sawmill" = "Zagerij";
@@ -2359,7 +2361,7 @@
 
 "type.landuse.recreation_ground" = "Recreatiezone";
 
-"type.landuse.reservoir" = "Water";
+"type.landuse.reservoir" = "Reservoir";
 
 "type.landuse.residential" = "Woonwijk";
 

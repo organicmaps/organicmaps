@@ -1675,6 +1675,8 @@
 
 "type.craft.photographer" = "Juru foto";
 
+"type.shop.camera" = "Toko Kamera";
+
 "type.craft.plumber" = "Tukang pipa";
 
 "type.craft.sawmill" = "Penggergajian kayu";
@@ -2365,7 +2367,7 @@
 
 "type.landuse.retail" = "Retail Area";
 
-"type.landuse.salt_pond" = "Pond";
+"type.landuse.salt_pond" = "Salt Pond";
 
 "type.landuse.village_green" = "Land";
 

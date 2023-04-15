@@ -840,6 +840,7 @@
 	<string name="type.craft.metal_construction">ช่างเหล็ก</string>
 	<string name="type.craft.painter">ช่างทาสี</string>
 	<string name="type.craft.photographer">ช่างภาพ</string>
+	<string name="type.shop.camera">ร้านกล้อง</string>
 	<string name="type.craft.plumber">ช่างประปา</string>
 	<string name="type.craft.sawmill">ซูเมล</string>
 	<string name="type.craft.shoemaker">ช่างซ่อมรองเท้า</string>

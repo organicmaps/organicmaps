@@ -903,6 +903,7 @@
 	<string name="type.craft.hvac">Aquecimento, Ventilação e Ar Condicionado</string>
 	<string name="type.craft.key_cutter">Chaveiro</string>
 	<string name="type.craft.locksmith">Serralheiro</string>
+	<string name="type.shop.camera">Loja de câmeras</string>
 	<string name="type.craft.plumber">Encanador</string>
 	<string name="type.craft.winery">Vinícola</string>
 	<string name="type.cuisine.african">Cozinha africana</string>

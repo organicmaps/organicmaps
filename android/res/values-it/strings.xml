@@ -917,6 +917,7 @@
 	<string name="type.craft.metal_construction">Metalmeccanico</string>
 	<string name="type.craft.painter">Imbianchino</string>
 	<string name="type.craft.photographer">Fotografo</string>
+	<string name="type.shop.camera">Negozio di macchine fotografiche</string>
 	<string name="type.craft.plumber">Idraulico</string>
 	<string name="type.craft.sawmill">Segheria</string>
 	<string name="type.craft.shoemaker">Calzolaio</string>

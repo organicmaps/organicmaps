@@ -809,6 +809,7 @@
 	<string name="type.craft.metal_construction">Металаканструкцыі</string>
 	<string name="type.craft.painter">Мастак</string>
 	<string name="type.craft.photographer">Фатограф</string>
+	<string name="type.shop.camera">Крама фотаапаратаў</string>
 	<string name="type.craft.plumber">Вадаправодчык</string>
 	<string name="type.craft.sawmill">Лесапільня</string>
 	<string name="type.craft.shoemaker">Шавец</string>

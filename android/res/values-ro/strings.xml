@@ -857,6 +857,7 @@
 	<string name="type.craft.metal_construction">Metalurgist</string>
 	<string name="type.craft.painter">Pictor</string>
 	<string name="type.craft.photographer">Fotograf</string>
+	<string name="type.shop.camera">Magazin de aparate foto</string>
 	<string name="type.craft.plumber">Instalator</string>
 	<string name="type.craft.sawmill">Fabrica de cherestea</string>
 	<string name="type.craft.shoemaker">Reparații încălțăminte</string>

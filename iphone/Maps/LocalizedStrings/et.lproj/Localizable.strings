@@ -1675,6 +1675,8 @@
 
 "type.craft.photographer" = "Fotograaf";
 
+"type.shop.camera" = "Kaamerapood";
+
 "type.craft.plumber" = "Santehnik";
 
 "type.craft.sawmill" = "Saeveski";

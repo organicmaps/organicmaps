@@ -1675,6 +1675,8 @@
 
 "type.craft.photographer" = "Photographe";
 
+"type.shop.camera" = "Boutique d'appareils photo";
+
 "type.craft.plumber" = "Plombier";
 
 "type.craft.sawmill" = "Scierie";
@@ -3572,7 +3574,7 @@
 
 "type.tourism.attraction.specified" = "Attraction";
 
-"type.tourism.camp_site" = "Camping";
+"type.tourism.camp_site" = "Camp Site";
 
 "type.tourism.caravan_site" = "Aire de camping-car";
 
@@ -3622,7 +3624,7 @@
 
 "type.waterway.canal" = "Canal";
 
-"type.waterway.canal.tunnel" = "Canal";
+"type.waterway.canal.tunnel" = "Canal Tunnel";
 
 "type.waterway.dam" = "Barrage";
 

@@ -834,6 +834,7 @@
 	<string name="type.craft.metal_construction">Metalarbejder</string>
 	<string name="type.craft.painter">Maler</string>
 	<string name="type.craft.photographer">Fotograf</string>
+	<string name="type.shop.camera">Kamera butik</string>
 	<string name="type.craft.plumber">VVS-mand</string>
 	<string name="type.craft.sawmill">Savværk</string>
 	<string name="type.craft.shoemaker">Skomager</string>

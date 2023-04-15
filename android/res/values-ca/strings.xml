@@ -731,6 +731,7 @@
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.craft.key_cutter">Tall de claus</string>
 	<string name="type.craft.locksmith">Serraller</string>
+	<string name="type.shop.camera">Botiga de càmeres</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Entrada principal</string>
 

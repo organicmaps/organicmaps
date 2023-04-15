@@ -1675,6 +1675,8 @@
 
 "type.craft.photographer" = "Фотограф";
 
+"type.shop.camera" = "Магазин фотоаппаратов";
+
 "type.craft.plumber" = "Сантехник";
 
 "type.craft.sawmill" = "Лесопилка";

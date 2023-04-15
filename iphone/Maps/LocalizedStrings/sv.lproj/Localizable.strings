@@ -1675,6 +1675,8 @@
 
 "type.craft.photographer" = "Fotograf";
 
+"type.shop.camera" = "Kameraaffär";
+
 "type.craft.plumber" = "Vvs-montör";
 
 "type.craft.sawmill" = "Sågverk";
@@ -2365,7 +2367,7 @@
 
 "type.landuse.retail" = "Retail Area";
 
-"type.landuse.salt_pond" = "Pond";
+"type.landuse.salt_pond" = "Salt Pond";
 
 "type.landuse.village_green" = "Land";
 
@@ -3572,7 +3574,7 @@
 
 "type.tourism.attraction.specified" = "Attraktion";
 
-"type.tourism.camp_site" = "Camping";
+"type.tourism.camp_site" = "Camp Site";
 
 "type.tourism.caravan_site" = "Husvagnsplats";
 
