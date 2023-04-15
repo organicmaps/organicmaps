@@ -14,8 +14,8 @@ import app.organicmaps.BuildConfig;
 import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
-import app.organicmaps.car.UiHelpers;
-import app.organicmaps.car.screens.BaseMapScreen;
+import app.organicmaps.car.util.UiHelpers;
+import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.util.DateUtils;
 
 public class HelpScreen extends BaseMapScreen
@@ -29,7 +29,7 @@ public class HelpScreen extends BaseMapScreen
   @Override
   public Template onGetTemplate()
   {
-    MapTemplate.Builder builder = new MapTemplate.Builder();
+    final MapTemplate.Builder builder = new MapTemplate.Builder();
     builder.setHeader(createHeader());
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
     builder.setItemList(createSettingsList());
@@ -39,7 +39,7 @@ public class HelpScreen extends BaseMapScreen
   @NonNull
   private Header createHeader()
   {
-    Header.Builder builder = new Header.Builder();
+    final Header.Builder builder = new Header.Builder();
     builder.setStartHeaderAction(Action.BACK);
     builder.setTitle(getCarContext().getString(R.string.help));
     return builder.build();
@@ -48,7 +48,7 @@ public class HelpScreen extends BaseMapScreen
   @NonNull
   private ItemList createSettingsList()
   {
-    ItemList.Builder builder = new ItemList.Builder();
+    final ItemList.Builder builder = new ItemList.Builder();
     builder.addItem(createVersionInfo());
     builder.addItem(createDataVersionInfo());
     return builder.build();
