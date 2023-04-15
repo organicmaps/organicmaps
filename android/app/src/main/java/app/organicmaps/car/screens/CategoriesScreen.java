@@ -16,7 +16,8 @@ import androidx.core.graphics.drawable.IconCompat;
 
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
-import app.organicmaps.car.UiHelpers;
+import app.organicmaps.car.util.UiHelpers;
+import app.organicmaps.car.screens.base.BaseMapScreen;
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,6 +39,7 @@ public class CategoriesScreen extends BaseMapScreen
     }
   }
 
+  // TODO (AndrewShkrob): discuss categories and their priority for this list
   private static final List<CategoryData> CATEGORIES = Arrays.asList(
       new CategoryData(R.string.fuel, R.drawable.ic_category_fuel),
       new CategoryData(R.string.parking, R.drawable.ic_category_parking),
@@ -61,7 +63,7 @@ public class CategoriesScreen extends BaseMapScreen
   @Override
   public Template onGetTemplate()
   {
-    MapTemplate.Builder builder = new MapTemplate.Builder();
+    final MapTemplate.Builder builder = new MapTemplate.Builder();
     builder.setHeader(createHeader());
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
     builder.setActionStrip(UiHelpers.createSettingsActionStrip(getCarContext(), getSurfaceRenderer()));
@@ -72,7 +74,7 @@ public class CategoriesScreen extends BaseMapScreen
   @NonNull
   private Header createHeader()
   {
-    Header.Builder builder = new Header.Builder();
+    final Header.Builder builder = new Header.Builder();
     builder.setStartHeaderAction(Action.BACK);
     builder.setTitle(getCarContext().getString(R.string.categories));
     return builder.build();
@@ -81,13 +83,15 @@ public class CategoriesScreen extends BaseMapScreen
   @NonNull
   private ItemList createCategoriesList()
   {
-    ItemList.Builder builder = new ItemList.Builder();
-    int categoriesSize = Math.min(CATEGORIES.size(), MAX_CATEGORIES_SIZE);
+    final ItemList.Builder builder = new ItemList.Builder();
+    final int categoriesSize = Math.min(CATEGORIES.size(), MAX_CATEGORIES_SIZE);
     for (int i = 0; i < categoriesSize; ++i)
     {
-      Row.Builder itemBuilder = new Row.Builder();
-      itemBuilder.setTitle(getCarContext().getString(CATEGORIES.get(i).nameResId));
+      final Row.Builder itemBuilder = new Row.Builder();
+      final String title = getCarContext().getString(CATEGORIES.get(i).nameResId);
+      itemBuilder.setTitle(title);
       itemBuilder.setImage(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), CATEGORIES.get(i).iconResId)).build());
+      itemBuilder.setOnClickListener(() -> { /* TODO (AndrewShkrob): Will be implemented together with SearchScreen */ });
       builder.addItem(itemBuilder.build());
     }
     return builder.build();
