@@ -1559,3 +1559,4 @@ mapswithme
 *shop|fashion_accessories
 *shop|cannabis
 *shop|herbalist
+*shop|camera

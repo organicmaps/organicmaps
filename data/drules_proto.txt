@@ -89189,10 +89189,10 @@ cont {
 cont {
   name: "shop-antiques"
   element {
-    scale: 18
+    scale: 16
     symbol {
-      name: "shop-m"
-      priority: 16592
+      name: "antiques-m"
+      priority: 16631
       min_distance: 10
     }
     caption {
@@ -89202,15 +89202,49 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15592
+      priority: 15631
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "antiques-m"
+      priority: 16631
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15631
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "antiques-m"
+      priority: 16631
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15631
     }
   }
   element {
     scale: 19
     symbol {
-      name: "shop-m"
-      priority: 16592
-      min_distance: 10
+      name: "antiques-m"
+      priority: 16631
+      min_distance: 24
     }
     caption {
       primary {
@@ -89219,7 +89253,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15592
+      priority: 15631
     }
   }
 }
@@ -89263,9 +89297,9 @@ cont {
 cont {
   name: "shop-art"
   element {
-    scale: 18
+    scale: 16
     symbol {
-      name: "shop-m"
+      name: "art-m"
       priority: 16592
       min_distance: 10
     }
@@ -89280,11 +89314,45 @@ cont {
     }
   }
   element {
+    scale: 17
+    symbol {
+      name: "art-m"
+      priority: 16592
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15592
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "art-m"
+      priority: 16592
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15592
+    }
+  }
+  element {
     scale: 19
     symbol {
-      name: "shop-m"
+      name: "art-m"
       priority: 16592
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -89980,6 +90048,77 @@ cont {
   }
 }
 cont {
+  name: "shop-camera"
+  element {
+    scale: 16
+    symbol {
+      name: "photo-shop-m"
+      priority: 16592
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15592
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "photo-shop-m"
+      priority: 16592
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15592
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "photo-shop-m"
+      priority: 16592
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15592
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "photo-shop-m"
+      priority: 16592
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15592
+    }
+  }
+}
+cont {
   name: "shop-cannabis"
   element {
     scale: 18
@@ -90499,9 +90638,9 @@ cont {
 cont {
   name: "shop-cheese"
   element {
-    scale: 18
+    scale: 16
     symbol {
-      name: "shop-m"
+      name: "cheese-m"
       priority: 16592
       min_distance: 10
     }
@@ -90516,11 +90655,45 @@ cont {
     }
   }
   element {
+    scale: 17
+    symbol {
+      name: "cheese-m"
+      priority: 16592
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15592
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "cheese-m"
+      priority: 16592
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15592
+    }
+  }
+  element {
     scale: 19
     symbol {
-      name: "shop-m"
+      name: "cheese-m"
       priority: 16592
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -92823,9 +92996,9 @@ cont {
 cont {
   name: "shop-interior_decoration"
   element {
-    scale: 18
+    scale: 16
     symbol {
-      name: "shop-m"
+      name: "interior_decoration-m"
       priority: 16592
       min_distance: 10
     }
@@ -92840,11 +93013,45 @@ cont {
     }
   }
   element {
+    scale: 17
+    symbol {
+      name: "interior_decoration-m"
+      priority: 16592
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15592
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "interior_decoration-m"
+      priority: 16592
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15592
+    }
+  }
+  element {
     scale: 19
     symbol {
-      name: "shop-m"
+      name: "interior_decoration-m"
       priority: 16592
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
