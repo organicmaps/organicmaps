@@ -2,15 +2,15 @@
 
 #include "generator/osm_element.hpp"
 
-#include "coding/file_writer.hpp"
 #include "coding/read_write_utils.hpp"
 #include "coding/reader.hpp"
 #include "coding/write_to_sink.hpp"
 
 #include "geometry/latlon.hpp"
 
-#include <tuple>
 #include <vector>
+
+namespace feature { class FeatureBuilder; }
 
 namespace generator
 {
@@ -18,22 +18,30 @@ struct MiniRoundaboutInfo
 {
   MiniRoundaboutInfo() = default;
   explicit MiniRoundaboutInfo(OsmElement const & element);
-  explicit MiniRoundaboutInfo(uint64_t id, ms::LatLon const & coord, std::vector<uint64_t> && ways);
 
-  friend bool operator<(MiniRoundaboutInfo const & lhs, MiniRoundaboutInfo const & rhs)
-  {
-    return std::tie(lhs.m_id, lhs.m_coord, lhs.m_ways) <
-           std::tie(rhs.m_id, rhs.m_coord, rhs.m_ways);
-  }
+  bool Normalize();
 
-  void Normalize();
+  static bool IsProcessRoad(feature::FeatureBuilder const & fb);
 
   uint64_t m_id = 0;
   ms::LatLon m_coord;
   std::vector<uint64_t> m_ways;
 };
 
-std::vector<MiniRoundaboutInfo> ReadMiniRoundabouts(std::string const & filePath);
+class MiniRoundaboutData
+{
+public:
+  MiniRoundaboutData(std::vector<MiniRoundaboutInfo> && data);
+
+  bool IsRoadExists(feature::FeatureBuilder const & fb) const;
+  std::vector<MiniRoundaboutInfo> const & GetData() const { return m_data; }
+
+private:
+  std::vector<MiniRoundaboutInfo> m_data;
+  std::vector<uint64_t> m_ways;
+};
+
+MiniRoundaboutData ReadMiniRoundabouts(std::string const & filePath);
 
 template <typename Src>
 MiniRoundaboutInfo ReadMiniRoundabout(Src & src)
@@ -49,8 +57,6 @@ MiniRoundaboutInfo ReadMiniRoundabout(Src & src)
 template <typename Dst>
 void WriteMiniRoundabout(Dst & dst, MiniRoundaboutInfo const & rb)
 {
-  if (rb.m_ways.empty())
-    return;
   WriteToSink(dst, rb.m_id);
   dst.Write(&rb.m_coord.m_lat, sizeof(rb.m_coord.m_lat));
   dst.Write(&rb.m_coord.m_lon, sizeof(rb.m_coord.m_lon));

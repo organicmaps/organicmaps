@@ -2,19 +2,10 @@
 
 #include "generator/collector_interface.hpp"
 #include "generator/mini_roundabout_info.hpp"
-#include "generator/osm_element.hpp"
 #include "generator/way_nodes_mapper.hpp"
 
-#include <memory>
-#include <set>
-#include <string>
 #include <unordered_map>
-#include <vector>
-
-namespace feature
-{
-class FeatureBuilder;
-}  // namespace feature
+#include <unordered_set>
 
 namespace generator
 {
@@ -51,6 +42,6 @@ private:
 
   WaysIDHolder m_roads;
   std::unordered_map<uint64_t, MiniRoundaboutInfo> m_miniRoundabouts;
-  std::set<uint64_t> m_miniRoundaboutsExceptions;
+  std::unordered_set<uint64_t> m_miniRoundaboutsExceptions;
 };
 }  // namespace generator
