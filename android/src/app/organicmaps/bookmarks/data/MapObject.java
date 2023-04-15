@@ -265,7 +265,7 @@ public class MapObject implements PopularityProvider, PlacePageData
 
   public boolean hasMetadata()
   {
-    return !mMetadata.isEmpty();
+    return mMetadata != null && !mMetadata.isEmpty();
   }
 
   @MapObjectType

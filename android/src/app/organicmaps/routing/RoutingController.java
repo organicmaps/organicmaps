@@ -1,23 +1,17 @@
 package app.organicmaps.routing;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.DimenRes;
 import androidx.annotation.IntRange;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.util.Pair;
-import androidx.fragment.app.FragmentActivity;
 
 import app.organicmaps.Framework;
-import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.base.Initializable;
 import app.organicmaps.bookmarks.data.FeatureId;
@@ -29,7 +23,6 @@ import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
@@ -47,7 +40,7 @@ public class RoutingController implements Initializable<Void>
     NAVIGATION
   }
 
-  enum BuildState
+  public enum BuildState
   {
     NONE,
     BUILDING,
@@ -57,30 +50,31 @@ public class RoutingController implements Initializable<Void>
 
   public interface Container
   {
-    FragmentActivity requireActivity();
-    void showSearch();
-    void showRoutePlan(boolean show, @Nullable Runnable completionListener);
-    void showNavigation(boolean show);
-    void showDownloader(boolean openDownloaded);
-    void updateMenu();
-    void onNavigationCancelled();
-    void onNavigationStarted();
-    void onPlanningCancelled();
-    void onPlanningStarted();
-    void onAddedStop();
-    void onRemovedStop();
-    void onResetToPlanningState();
-    void onBuiltRoute();
-    void onDrivingOptionsWarning();
-    boolean isSubwayEnabled();
-    void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps);
-    void onDrivingOptionsBuildError();
+    default void showSearch() {}
+    default void showRoutePlan(boolean show, @Nullable Runnable completionListener) {}
+    default void showNavigation(boolean show) {}
+    default void showDownloader(boolean openDownloaded) {}
+    default void updateMenu() {}
+    default void onNavigationCancelled() {}
+    default void onNavigationStarted() {}
+    default void onPlanningCancelled() {}
+    default void onPlanningStarted() {}
+    default void onAddedStop() {}
+    default void onRemovedStop() {}
+    default void onResetToPlanningState() {}
+    default void onBuiltRoute() {}
+    default void onDrivingOptionsWarning() {}
+    default boolean isSubwayEnabled() { return false; }
+    default void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps) {}
+    default void onDrivingOptionsBuildError() {}
+    default void onShowDisclaimer() {}
+    default void onSuggestRebuildRoute() {}
 
     /**
      * @param progress progress to be displayed.
      * */
-    void updateBuildProgress(@IntRange(from = 0, to = 100) int progress, @Framework.RouterType int router);
-    void onStartRouteBuilding();
+    default void updateBuildProgress(@IntRange(from = 0, to = 100) int progress, @Framework.RouterType int router) {}
+    default void onStartRouteBuilding() {}
   }
 
   private static final int NO_WAITING_POI_PICK = -1;
@@ -170,7 +164,7 @@ public class RoutingController implements Initializable<Void>
   private final Framework.RoutingLoadPointsListener mRoutingLoadPointsListener =
     success -> {
       if (success)
-        prepare(getStartPoint(), getEndPoint());
+        prepare();
     };
 
   public static RoutingController get()
@@ -331,31 +325,6 @@ public class RoutingController implements Initializable<Void>
     Framework.nativeBuildRoute();
   }
 
-  private void showDisclaimer(final MapObject startPoint, final MapObject endPoint,
-                              final boolean fromApi)
-  {
-    if (mContainer == null)
-      return;
-
-    FragmentActivity activity = mContainer.requireActivity();
-    StringBuilder builder = new StringBuilder();
-    for (int resId : new int[] { R.string.dialog_routing_disclaimer_priority, R.string.dialog_routing_disclaimer_precision,
-                                 R.string.dialog_routing_disclaimer_recommendations, R.string.dialog_routing_disclaimer_borders,
-                                 R.string.dialog_routing_disclaimer_beware })
-      builder.append(MwmApplication.from(activity.getApplicationContext()).getString(resId)).append("\n\n");
-
-    new MaterialAlertDialogBuilder(activity, R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.dialog_routing_disclaimer_title)
-        .setMessage(builder.toString())
-        .setCancelable(false)
-        .setNegativeButton(R.string.decline, null)
-        .setPositiveButton(R.string.accept, (dlg, which) -> {
-          Config.acceptRoutingDisclaimer();
-          prepare(startPoint, endPoint, fromApi);
-        })
-        .show();
-  }
-
   public void restoreRoute()
   {
     Framework.nativeLoadRoutePoints();
@@ -384,6 +353,11 @@ public class RoutingController implements Initializable<Void>
     prepare(getStartPoint(), getEndPoint(), false);
   }
 
+  public void prepare()
+  {
+    prepare(getStartPoint(), getEndPoint());
+  }
+
   public void prepare(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
   {
     prepare(startPoint, endPoint, false);
@@ -395,12 +369,13 @@ public class RoutingController implements Initializable<Void>
 
     if (!Config.isRoutingDisclaimerAccepted())
     {
-      showDisclaimer(startPoint, endPoint, fromApi);
+      if (mContainer != null)
+        mContainer.onShowDisclaimer();
       return;
     }
 
     initLastRouteType(startPoint, endPoint, fromApi);
-    prepare(startPoint, endPoint, mLastRouterType, fromApi);
+    prepare(startPoint, endPoint, mLastRouterType);
   }
 
   private void initLastRouteType(@Nullable MapObject startPoint, @Nullable MapObject endPoint,
@@ -424,12 +399,6 @@ public class RoutingController implements Initializable<Void>
 
   public void prepare(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint,
                       @Framework.RouterType int routerType)
-  {
-    prepare(startPoint, endPoint, routerType, false);
-  }
-
-  public void prepare(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint,
-                      @Framework.RouterType int routerType, boolean fromApi)
   {
     cancel();
     setState(State.PREPARE);
@@ -455,7 +424,8 @@ public class RoutingController implements Initializable<Void>
 
     if (my == null || !MapObject.isOfType(MapObject.MY_POSITION, getStartPoint()))
     {
-      suggestRebuildRoute();
+      if (mContainer != null)
+        mContainer.onSuggestRebuildRoute();
       return;
     }
 
@@ -511,11 +481,6 @@ public class RoutingController implements Initializable<Void>
     return false;
   }
 
-  private void removeIntermediatePoints()
-  {
-    Framework.nativeRemoveIntermediateRoutePoints();
-  }
-
   @NonNull
   private MapObject toMapObject(@NonNull RouteMarkData point)
   {
@@ -532,49 +497,6 @@ public class RoutingController implements Initializable<Void>
   public boolean isRoutePoint(@NonNull MapObject mapObject)
   {
     return mapObject.getRoutePointInfo() != null;
-  }
-
-  private void suggestRebuildRoute()
-  {
-    if (mContainer == null)
-      return;
-
-    final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mContainer.requireActivity())
-        .setMessage(R.string.p2p_reroute_from_current)
-        .setCancelable(false)
-        .setNegativeButton(R.string.cancel, null);
-
-    TextView titleView = (TextView)View.inflate(mContainer.requireActivity(), R.layout.dialog_suggest_reroute_title, null);
-    titleView.setText(R.string.p2p_only_from_current);
-    builder.setCustomTitle(titleView);
-
-    if (MapObject.isOfType(MapObject.MY_POSITION, getEndPoint()))
-    {
-      builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
-      {
-        @Override
-        public void onClick(DialogInterface dialog, int which)
-        {
-          swapPoints();
-        }
-      });
-    }
-    else
-    {
-      if (LocationHelper.INSTANCE.getMyPosition() == null)
-        builder.setMessage(null).setNegativeButton(null, null);
-
-      builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
-      {
-        @Override
-        public void onClick(DialogInterface dialog, int which)
-        {
-          setStartFromMyPosition();
-        }
-      });
-    }
-
-    builder.show();
   }
 
   private void updatePlan()
@@ -676,12 +598,12 @@ public class RoutingController implements Initializable<Void>
     return mState == State.PREPARE;
   }
 
-  boolean isTransitType()
+  public boolean isTransitType()
   {
     return mLastRouterType == Framework.ROUTER_TYPE_TRANSIT;
   }
 
-  boolean isVehicleRouterType()
+  public boolean isVehicleRouterType()
   {
     return mLastRouterType == Framework.ROUTER_TYPE_VEHICLE;
   }
@@ -720,7 +642,7 @@ public class RoutingController implements Initializable<Void>
     return mWaitingPoiPickType != NO_WAITING_POI_PICK;
   }
 
-  BuildState getBuildState()
+  public BuildState getBuildState()
   {
     return mBuildState;
   }
@@ -771,13 +693,13 @@ public class RoutingController implements Initializable<Void>
   }
 
   @Nullable
-  RoutingInfo getCachedRoutingInfo()
+  public RoutingInfo getCachedRoutingInfo()
   {
     return mCachedRoutingInfo;
   }
 
   @Nullable
-  TransitRouteInfo getCachedTransitInfo()
+  public TransitRouteInfo getCachedTransitInfo()
   {
     return mCachedTransitRouteInfo;
   }
@@ -801,7 +723,7 @@ public class RoutingController implements Initializable<Void>
       mContainer.updateMenu();
   }
 
-  void checkAndBuildRoute()
+  public void checkAndBuildRoute()
   {
     if (isWaitingPoiPick())
       showRoutePlan();
@@ -810,7 +732,7 @@ public class RoutingController implements Initializable<Void>
       build();
   }
 
-  private boolean setStartFromMyPosition()
+  public boolean setStartFromMyPosition()
   {
     Logger.d(TAG, "setStartFromMyPosition");
 
@@ -958,7 +880,7 @@ public class RoutingController implements Initializable<Void>
     return new Pair<>(title, subtitle);
   }
 
-  private void swapPoints()
+  public void swapPoints()
   {
     Logger.d(TAG, "swapPoints");
 

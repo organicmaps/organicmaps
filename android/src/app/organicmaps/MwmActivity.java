@@ -19,7 +19,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -275,11 +274,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPanelAnimator.show(fragmentClass, args, completionListener);
   }
 
-  public boolean containsFragment(@NonNull Class<? extends Fragment> fragmentClass)
-  {
-    return mIsTabletLayout && getFragment(fragmentClass) != null;
-  }
-
   private void showBookmarks()
   {
     BookmarkCategoriesActivity.start(this);
@@ -287,7 +281,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void showHelp()
   {
-    Intent intent = new Intent(requireActivity(), HelpActivity.class);
+    Intent intent = new Intent(this, HelpActivity.class);
     startActivity(intent);
   }
 
@@ -605,12 +599,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  public boolean isMapAttached()
-  {
-    return mMapFragment != null && mMapFragment.isAdded();
-  }
-
-
   private void initNavigationButtons()
   {
     initNavigationButtons(mCurrentLayoutMode);
@@ -889,12 +877,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (resultCode != Activity.RESULT_OK)
       return;
 
-    switch (requestCode)
-    {
-      case REQ_CODE_DRIVING_OPTIONS:
-        rebuildLastRoute();
-        break;
-    }
+    if (requestCode == REQ_CODE_DRIVING_OPTIONS)
+      rebuildLastRoute();
   }
 
   private void rebuildLastRoute()
@@ -1248,13 +1232,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  @NonNull
-  public AppCompatActivity requireActivity()
-  {
-    return this;
-  }
-
-  @Override
   public void showSearch()
   {
     showSearch("");
@@ -1468,7 +1445,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void showNavigation(boolean show)
   {
     // TODO:
-//    mPlacePage.refreshViews();
+    // mPlacePage.refreshViews();
     mNavigationController.show(show);
     if (mOnmapDownloader != null)
       mOnmapDownloader.updateState(false);
@@ -1601,6 +1578,52 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .setPositiveButton(R.string.settings, (dialog, which) -> DrivingOptionsActivity.start(this))
         .setNegativeButton(R.string.cancel, null)
         .show();
+  }
+
+  @Override
+  public void onShowDisclaimer()
+  {
+    final StringBuilder builder = new StringBuilder();
+    for (int resId : new int[] { R.string.dialog_routing_disclaimer_priority, R.string.dialog_routing_disclaimer_precision,
+        R.string.dialog_routing_disclaimer_recommendations, R.string.dialog_routing_disclaimer_borders,
+        R.string.dialog_routing_disclaimer_beware })
+      builder.append(MwmApplication.from(this).getString(resId)).append("\n\n");
+
+    new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.dialog_routing_disclaimer_title)
+        .setMessage(builder.toString())
+        .setCancelable(false)
+        .setNegativeButton(R.string.decline, null)
+        .setPositiveButton(R.string.accept, (dlg, which) -> {
+          Config.acceptRoutingDisclaimer();
+          RoutingController.get().prepare();
+        })
+        .show();
+  }
+
+  @Override
+  public void onSuggestRebuildRoute()
+  {
+    final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
+        .setMessage(R.string.p2p_reroute_from_current)
+        .setCancelable(false)
+        .setNegativeButton(R.string.cancel, null);
+
+    final TextView titleView = (TextView)View.inflate(this, R.layout.dialog_suggest_reroute_title, null);
+    titleView.setText(R.string.p2p_only_from_current);
+    builder.setCustomTitle(titleView);
+
+    if (MapObject.isOfType(MapObject.MY_POSITION, RoutingController.get().getEndPoint()))
+      builder.setPositiveButton(R.string.ok, (dialog, which) -> RoutingController.get().swapPoints());
+    else
+    {
+      if (LocationHelper.INSTANCE.getMyPosition() == null)
+        builder.setMessage(null).setNegativeButton(null, null);
+
+      builder.setPositiveButton(R.string.ok, (dialog, which) -> RoutingController.get().setStartFromMyPosition());
+    }
+
+    builder.show();
   }
 
   @Override
@@ -1772,9 +1795,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void onSettingsOptionSelected()
   {
-    Intent intent = new Intent(requireActivity(), SettingsActivity.class);
+    Intent intent = new Intent(this, SettingsActivity.class);
     closeFloatingPanels();
-    requireActivity().startActivity(intent);
+    startActivity(intent);
   }
 
   public void onShareLocationOptionSelected()
