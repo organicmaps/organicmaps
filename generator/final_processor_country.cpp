@@ -10,7 +10,6 @@
 #include "generator/osm2type.hpp"
 #include "generator/region_meta.hpp"
 
-#include "routing/routing_helpers.hpp"
 #include "routing/speed_camera_prohibition.hpp"
 
 #include "indexer/classificator.hpp"
@@ -99,7 +98,8 @@ void CountryFinalProcessor::Order()
 
 void CountryFinalProcessor::ProcessRoundabouts()
 {
-  auto roundabouts = ReadDataMiniRoundabout(m_miniRoundaboutsFilename);
+  auto const roundabouts = ReadMiniRoundabouts(m_miniRoundaboutsFilename);
+
   ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & name, auto const & path)
   {
     if (!IsCountry(name))
@@ -108,14 +108,13 @@ void CountryFinalProcessor::ProcessRoundabouts()
     MiniRoundaboutTransformer transformer(roundabouts.GetData(), *m_affiliations);
 
     RegionData data;
-
     if (ReadRegionData(name, data))
       transformer.SetLeftHandTraffic(data.Get(RegionData::Type::RD_DRIVING) == "l");
 
     FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
     ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](FeatureBuilder && fb, uint64_t)
     {
-      if (routing::IsRoad(fb.GetTypes()) && roundabouts.RoadExists(fb))
+      if (roundabouts.IsRoadExists(fb))
         transformer.AddRoad(std::move(fb));
       else
         writer.Write(fb);
@@ -123,8 +122,10 @@ void CountryFinalProcessor::ProcessRoundabouts()
 
     // Adds new way features generated from mini-roundabout nodes with those nodes ids.
     // Transforms points on roads to connect them with these new roundabout junctions.
-    for (auto const & fb : transformer.ProcessRoundabouts())
+    transformer.ProcessRoundabouts([&writer](FeatureBuilder const & fb)
+    {
       writer.Write(fb);
+    });
   }, m_threadsCount);
 }
 

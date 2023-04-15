@@ -1,12 +1,5 @@
 #include "generator/collector_mini_roundabout.hpp"
 
-#include "generator/feature_builder.hpp"
-#include "generator/intermediate_data.hpp"
-
-#include "routing/routing_helpers.hpp"
-
-#include "platform/platform.hpp"
-
 #include "base/assert.hpp"
 
 #include <algorithm>
@@ -49,12 +42,15 @@ void MiniRoundaboutCollector::Collect(OsmElement const & element)
 void MiniRoundaboutCollector::CollectFeature(FeatureBuilder const & feature,
                                              OsmElement const & element)
 {
-  if (feature.IsLine() && routing::IsCarRoad(feature.GetTypes()))
+  if (MiniRoundaboutInfo::IsProcessRoad(feature))
     m_roads.AddWay(element);
 }
 
 void MiniRoundaboutCollector::Save()
 {
+  /// @todo We assign only car roads here into MiniRoundaboutInfo.m_ways.
+  /// Should also collect other highways (like path or pedestrian) in very general case.
+  /// https://www.openstreetmap.org/way/220672898
   m_roads.ForEachWay([this](uint64_t id, std::vector<uint64_t> const & nodes)
   {
     for (uint64_t node : nodes)
@@ -68,8 +64,8 @@ void MiniRoundaboutCollector::Save()
   FileWriter writer(GetFilename());
   ForEachMiniRoundabout([&writer](MiniRoundaboutInfo & miniRoundabout)
   {
-    miniRoundabout.Normalize();
-    WriteMiniRoundabout(writer, miniRoundabout);
+    if (miniRoundabout.Normalize())
+      WriteMiniRoundabout(writer, miniRoundabout);
   });
 }
 

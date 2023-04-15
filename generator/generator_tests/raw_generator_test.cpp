@@ -809,4 +809,77 @@ UNIT_CLASS_TEST(TestRawGenerator, Shuttle_Route)
   TEST_GREATER(count, 30, ());
 }
 
+// https://github.com/organicmaps/organicmaps/issues/4924
+UNIT_TEST(MiniRoundabout_Connectivity)
+{
+  std::string const mwmName = "MiniRoundabout";
+
+  std::string const arrFiles[] = {
+    "./data/osm_test_data/mini_roundabout_1.osm",
+    "./data/osm_test_data/mini_roundabout_2.osm",
+    "./data/osm_test_data/mini_roundabout_3.osm",
+  };
+
+  for (auto const & fileName : arrFiles)
+  {
+    TestRawGenerator generator;
+
+    uint32_t const roundaboutType = classif().GetTypeByPath({"junction", "roundabout"});
+    uint32_t const tertiaryType = classif().GetTypeByPath({"highway", "tertiary"});
+    uint32_t const residentialType = classif().GetTypeByPath({"highway", "residential"});
+
+    generator.BuildFB(fileName, mwmName, false /* makeWorld */);
+    generator.BuildFeatures(mwmName);
+
+    FrozenDataSource dataSource;
+    auto const res = dataSource.RegisterMap(platform::LocalCountryFile::MakeTemporary(generator.GetMwmPath(mwmName)));
+    TEST_EQUAL(res.second, MwmSet::RegResult::Success, ());
+
+    FeaturesLoaderGuard guard(dataSource, res.first);
+
+    FeatureType::PointsBufferT roundabout;
+    auto const IsPointInRoundabout = [&roundabout](m2::PointD const & pt)
+    {
+      for (auto const & p : roundabout)
+      {
+        if (m2::AlmostEqualAbs(p, pt, kMwmPointAccuracy))
+          return true;
+      }
+      return false;
+    };
+
+    size_t const numFeatures = guard.GetNumFeatures();
+    for (size_t id = 0; id < numFeatures; ++id)
+    {
+      auto ft = guard.GetFeatureByIndex(id);
+      feature::TypesHolder types(*ft);
+      if (types.Has(roundaboutType))
+      {
+        TEST_EQUAL(ft->GetGeomType(), feature::GeomType::Line, ());
+        TEST(roundabout.empty(), ());
+        roundabout = ft->GetPoints(FeatureType::BEST_GEOMETRY);
+      }
+    }
+
+    TEST(!roundabout.empty(), ());
+
+    size_t count = 0;
+    for (size_t id = 0; id < numFeatures; ++id)
+    {
+      auto ft = guard.GetFeatureByIndex(id);
+      feature::TypesHolder types(*ft);
+      if (types.Has(tertiaryType) || types.Has(residentialType))
+      {
+        TEST_EQUAL(ft->GetGeomType(), feature::GeomType::Line, ());
+        auto const & pts = ft->GetPoints(FeatureType::BEST_GEOMETRY);
+        TEST(IsPointInRoundabout(pts.front()) || IsPointInRoundabout(pts.back()), ());
+
+        ++count;
+      }
+    }
+
+    TEST_GREATER(count, 1, ());
+  }
+}
+
 } // namespace raw_generator_tests
