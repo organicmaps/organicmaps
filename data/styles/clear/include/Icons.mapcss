@@ -2244,6 +2244,8 @@ node|z15-[shop=car_repair][service=tyres],
 area|z15-[shop=car_repair][service=tyres],
 node|z16-[shop=supermarket],
 area|z16-[shop=supermarket],
+node|z16-[shop=cheese],
+area|z16-[shop=cheese],
 node|z16-[shop=alcohol],
 area|z16-[shop=alcohol],
 node|z16-[shop=wine],
@@ -2407,6 +2409,9 @@ node|z17-[shop=supermarket],
 area|z17-[shop=supermarket],
 {icon-image: grocery-m.svg;font-size: 11;icon-min-distance: 8;}
 
+node|z16[shop=cheese],
+area|z16[shop=cheese]
+{icon-image: cheese-m.svg;}
 node|z16[shop=alcohol],
 area|z16[shop=alcohol]
 {icon-image: alcohol-m.svg;}
@@ -2601,6 +2606,9 @@ node|z16[shop=fabric],
 area|z16[shop=fabric]
 {icon-image: shop-m.svg;}
 
+node|z17-[shop=cheese],
+area|z17-[shop=cheese]
+{icon-image: cheese-m.svg;icon-min-distance: 24;}
 node|z17-[shop=alcohol],
 area|z17-[shop=alcohol]
 {icon-image: alcohol-m.svg;icon-min-distance: 24;}
