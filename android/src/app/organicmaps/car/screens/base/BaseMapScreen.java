@@ -1,12 +1,11 @@
-package app.organicmaps.car.screens;
+package app.organicmaps.car.screens.base;
 
 import androidx.annotation.NonNull;
 import androidx.car.app.CarContext;
-import androidx.car.app.Screen;
 
 import app.organicmaps.car.SurfaceRenderer;
 
-public abstract class BaseMapScreen extends Screen
+public abstract class BaseMapScreen extends BaseScreen
 {
   @NonNull
   private final SurfaceRenderer mSurfaceRenderer;
@@ -18,7 +17,7 @@ public abstract class BaseMapScreen extends Screen
   }
 
   @NonNull
-  public SurfaceRenderer getSurfaceRenderer()
+  protected SurfaceRenderer getSurfaceRenderer()
   {
     return mSurfaceRenderer;
   }
