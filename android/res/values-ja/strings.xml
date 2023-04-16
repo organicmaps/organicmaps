@@ -463,9 +463,13 @@
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">キロメートル毎時</string>
-	<string name="mile">マイル</string>
+	<plurals name="mile">
+	  <item quantity="other">マイル</item>
+	</plurals>
 	<!-- A unit of measure -->
-	<string name="foot">フィート</string>
+	<plurals name="foot">
+	  <item quantity="other">フィート</item>
+	</plurals>
 	<string name="miles_per_hour">マイル毎時</string>
 	<string name="hour">時間</string>
 	<string name="minute">分</string>

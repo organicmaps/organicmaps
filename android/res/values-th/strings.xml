@@ -467,9 +467,13 @@
 	<string name="meter">ม.</string>
 	<string name="kilometer">กม.</string>
 	<string name="kilometers_per_hour">กม./ชม.</string>
-	<string name="mile">ไมล์</string>
+	<plurals name="mile">
+	  <item quantity="other">ไมล์</item>
+	</plurals>
 	<!-- A unit of measure -->
-	<string name="foot">ฟุต</string>
+	<plurals name="foot">
+	  <item quantity="other">ฟุต</item>
+	</plurals>
 	<string name="miles_per_hour">ไมล์/ชม.</string>
 	<string name="hour">ชม.</string>
 	<string name="minute">น.</string>

@@ -462,9 +462,13 @@
 	<string name="meter">متر</string>
 	<string name="kilometer">کیلومتر</string>
 	<string name="kilometers_per_hour">کیلومتربرساعت (km/h)</string>
-	<string name="mile">مایل</string>
+	<plurals name="mile">
+	  <item quantity="other">مایل</item>
+	</plurals>
 	<!-- A unit of measure -->
-	<string name="foot">فوت</string>
+	<plurals name="foot">
+	  <item quantity="other">فوت</item>
+	</plurals>
 	<string name="miles_per_hour">مایل بر ساعت (mph)</string>
 	<string name="hour">ساعت</string>
 	<string name="minute">دقیقه</string>

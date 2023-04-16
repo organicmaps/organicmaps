@@ -475,9 +475,13 @@
 	<string name="meter">米</string>
 	<string name="kilometer">公里</string>
 	<string name="kilometers_per_hour">公里每小时</string>
-	<string name="mile">英里</string>
+	<plurals name="mile">
+	  <item quantity="other">英里</item>
+	</plurals>
 	<!-- A unit of measure -->
-	<string name="foot">英尺</string>
+	<plurals name="foot">
+	  <item quantity="other">英尺</item>
+	</plurals>
 	<string name="miles_per_hour">英里每小时</string>
 	<string name="hour">小時</string>
 	<string name="minute">分鐘</string>

@@ -768,11 +768,6 @@
 
 "kilometers_per_hour" = "km/h";
 
-"mile" = "mi";
-
-/* A unit of measure */
-"foot" = "ft";
-
 "miles_per_hour" = "mph";
 
 "hour" = "godz";

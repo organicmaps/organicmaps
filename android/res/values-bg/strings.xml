@@ -457,9 +457,13 @@
 	<string name="current_location_unknown_stop_button">Стоп</string>
 	<string name="meter">м</string>
 	<string name="kilometer">км</string>
-	<string name="mile">ми</string>
+	<plurals name="mile">
+	  <item quantity="other">ми</item>
+	</plurals>
 	<!-- A unit of measure -->
-	<string name="foot">фут</string>
+	<plurals name="foot">
+	  <item quantity="other">фут</item>
+	</plurals>
 	<string name="hour">ч</string>
 	<string name="minute">мин</string>
 	<string name="placepage_place_description">Описание</string>

@@ -494,9 +494,13 @@
 	<string name="meter">متر</string>
 	<string name="kilometer">كم</string>
 	<string name="kilometers_per_hour">كم/ساعة</string>
-	<string name="mile">ميل</string>
+	<plurals name="mile">
+	  <item quantity="other">ميل</item>
+	</plurals>
 	<!-- A unit of measure -->
-	<string name="foot">قدم</string>
+	<plurals name="foot">
+	  <item quantity="other">قدم</item>
+	</plurals>
 	<string name="miles_per_hour">ميل/ساعة</string>
 	<string name="hour">س</string>
 	<string name="minute">د</string>

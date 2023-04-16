@@ -768,11 +768,6 @@
 
 "kilometers_per_hour" = "กม./ชม.";
 
-"mile" = "ไมล์";
-
-/* A unit of measure */
-"foot" = "ฟุต";
-
 "miles_per_hour" = "ไมล์/ชม.";
 
 "hour" = "ชม.";

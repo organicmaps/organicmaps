@@ -489,9 +489,17 @@
 	<string name="meter">м</string>
 	<string name="kilometer">км</string>
 	<string name="kilometers_per_hour">км/г</string>
-	<string name="mile">міля</string>
+	<plurals name="mile">
+	  <item quantity="few">мілі</item>
+	  <item quantity="one">міля</item>
+	  <item quantity="other">міляў</item>
+	</plurals>
 	<!-- A unit of measure -->
-	<string name="foot">фут</string>
+	<plurals name="foot">
+	  <item quantity="few">фута</item>
+	  <item quantity="one">фут</item>
+	  <item quantity="other">футаў</item>
+	</plurals>
 	<string name="miles_per_hour">міль/г</string>
 	<string name="hour">г</string>
 	<string name="minute">хв</string>

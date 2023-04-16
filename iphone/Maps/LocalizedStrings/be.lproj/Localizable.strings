@@ -768,11 +768,6 @@
 
 "kilometers_per_hour" = "км/г";
 
-"mile" = "міля";
-
-/* A unit of measure */
-"foot" = "фут";
-
 "miles_per_hour" = "міль/г";
 
 "hour" = "г";

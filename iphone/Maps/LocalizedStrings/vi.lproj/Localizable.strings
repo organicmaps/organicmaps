@@ -768,11 +768,6 @@
 
 "kilometers_per_hour" = "km/giờ";
 
-"mile" = "dặm";
-
-/* A unit of measure */
-"foot" = "ft";
-
 "miles_per_hour" = "mph";
 
 "hour" = "giờ";

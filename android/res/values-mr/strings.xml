@@ -458,9 +458,13 @@
 	<string name="meter">m</string>
 	<string name="kilometer">किमी</string>
 	<string name="kilometers_per_hour">km/h</string>
-	<string name="mile">mi</string>
+	<plurals name="mile">
+	  <item quantity="other">mi</item>
+	</plurals>
 	<!-- A unit of measure -->
-	<string name="foot">फूट</string>
+	<plurals name="foot">
+	  <item quantity="other">फूट</item>
+	</plurals>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">तास</string>
 	<string name="minute">मिनिट</string>
