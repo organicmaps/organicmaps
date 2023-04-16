@@ -15,7 +15,7 @@ public:
   // TranslatorInterface overrides:
   std::shared_ptr<TranslatorInterface> Clone() const override;
 
-  void Emit(OsmElement /* const */ & element) override;
+  void Emit(OsmElement const & element) override;
 
   void Finish() override;
   bool Save() override;

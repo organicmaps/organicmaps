@@ -14,13 +14,10 @@ std::shared_ptr<TranslatorInterface> TranslatorCollection::Clone() const
   return p;
 }
 
-void TranslatorCollection::Emit(OsmElement /* const */ & element)
+void TranslatorCollection::Emit(OsmElement const & element)
 {
   for (auto & t : m_collection)
-  {
-    OsmElement copy = element;
-    t->Emit(copy);
-  }
+    t->Emit(element);
 }
 
 void TranslatorCollection::Finish()

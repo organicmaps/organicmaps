@@ -90,6 +90,7 @@
 #define METALINES_FILENAME "metalines.bin"
 #define CAMERAS_TO_WAYS_FILENAME "cameras_to_ways.bin"
 #define MINI_ROUNDABOUTS_FILENAME "mini_roundabouts.bin"
+#define ADDR_INTERPOL_FILENAME "addr_interpol.bin"
 #define MAXSPEEDS_FILENAME "maxspeeds.csv"
 #define BOUNDARY_POSTCODES_FILENAME "boundary_postcodes.bin"
 #define CITY_BOUNDARIES_COLLECTOR_FILENAME "city_boundaries_collector.bin"

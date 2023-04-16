@@ -18,6 +18,7 @@ public:
                      std::string const & worldCoastsFilename);
   void SetFakeNodes(std::string const & filename);
   void SetMiniRoundabouts(std::string const & filename);
+  void SetAddrInterpolation(std::string const & filename);
   void SetIsolinesDir(std::string const & dir);
 
   void SetCityBoundariesFiles(std::string const & collectorFile)
@@ -51,6 +52,7 @@ private:
   std::string m_worldCoastsFilename;
   std::string m_fakeNodesFilename;
   std::string m_miniRoundaboutsFilename;
+  std::string m_addrInterpolFilename;
 
   std::string m_hierarchySrcFilename;
 

@@ -1,5 +1,6 @@
 #include "generator/translator_country.hpp"
 
+#include "generator/addresses_collector.hpp"
 #include "generator/collector_boundary_postcode.hpp"
 #include "generator/collector_camera.hpp"
 #include "generator/collector_collection.hpp"
@@ -17,7 +18,7 @@
 #include "generator/intermediate_data.hpp"
 #include "generator/maxspeeds_collector.hpp"
 #include "generator/metalines_builder.hpp"
-#include "generator/node_mixer.hpp"
+//#include "generator/node_mixer.hpp"
 #include "generator/restriction_writer.hpp"
 #include "generator/road_access_generator.hpp"
 
@@ -25,11 +26,6 @@
 
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
-
-#include <cctype>
-#include <cstdint>
-#include <memory>
-#include <string>
 
 #include "defines.hpp"
 
@@ -122,6 +118,7 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> 
       info.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME), cache->GetCache()));
   collectors->Append(std::make_shared<MiniRoundaboutCollector>(
       info.GetIntermediateFileName(MINI_ROUNDABOUTS_FILENAME), cache->GetCache()));
+  collectors->Append(std::make_shared<AddressesCollector>(info.GetIntermediateFileName(ADDR_INTERPOL_FILENAME)));
 
   if (affiliation)
     collectors->Append(std::make_shared<CrossMwmOsmWaysCollector>(info.m_intermediateDir, affiliation));
