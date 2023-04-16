@@ -1,145 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:gravity="center_vertical"
   android:background="?ppBackground"
+  android:orientation="vertical"
   android:paddingBottom="@dimen/margin_quarter">
-
   <include
     android:id="@+id/pull_icon_container"
     layout="@layout/bottom_sheet_handle" />
-
-  <include
-    android:id="@+id/downloader_status_frame"
-    android:layout_below="@id/pull_icon_container"
-    layout="@layout/downloader_status"
-    android:layout_width="@dimen/downloader_status_size"
-    android:layout_height="@dimen/downloader_status_size"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_marginTop="@dimen/margin_base_plus"
-    android:visibility="gone"
-    tools:visibility="visible"/>
-
   <LinearLayout
-    android:id="@+id/title_container"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_alignWithParentIfMissing="true"
-    android:layout_below="@id/pull_icon_container"
-    android:layout_marginTop="@dimen/margin_base"
-    android:layout_marginEnd="@dimen/margin_base"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_toEndOf="@id/downloader_status_frame"
-    android:layout_toStartOf="@id/direction_frame">
-    <TextView
-      android:id="@+id/tv__title"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:ellipsize="end"
-      android:fontFamily="@string/robotoMedium"
-      android:maxLines="@integer/pp_title_lines"
-      android:textAppearance="@style/MwmTextAppearance.Title"
-      tools:background="#C0800000"
-      tools:ignore="UnusedAttribute"
-      tools:text="Title"/>
-
-    <TextView
-      android:id="@+id/tv__secondary_title"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/margin_quarter"
-      android:ellipsize="end"
-      android:fontFamily="@string/robotoMedium"
-      android:maxLines="@integer/pp_title_lines"
-      android:textAppearance="@style/MwmTextAppearance.Body1"
-      tools:background="#C0800000"
-      tools:ignore="UnusedAttribute"
-      tools:text="Secondary Title"/>
-
-    <TextView
-      android:id="@+id/tv__subtitle"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/margin_quarter"
-      android:maxLines="2"
-      android:textAppearance="@style/MwmTextAppearance.Body3"
-      android:ellipsize="end"
-      tools:background="#300000F0"
-      tools:text="Subtitle, very very very very very very very long"/>
-
-    <TextView
-      android:id="@+id/tv__downloader_details"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/margin_quarter"
-      android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
+    android:baselineAligned="false"
+    android:orientation="horizontal">
+    <include
+      android:id="@+id/downloader_status_frame"
+      layout="@layout/downloader_status"
+      android:layout_width="@dimen/downloader_status_size"
+      android:layout_height="@dimen/downloader_status_size"
+      android:layout_marginStart="@dimen/margin_base"
+      android:layout_marginTop="@dimen/margin_half"
       android:visibility="gone"
-      tools:background="#8000F000"
-      tools:text="2.4 GB  •  Maps: 1"
-      tools:visibility="visible"/>
-  </LinearLayout>
-  <LinearLayout
-    android:id="@+id/direction_frame"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginEnd="@dimen/margin_base"
-    android:paddingEnd="@dimen/margin_quarter"
-    android:paddingStart="@dimen/margin_quarter"
-    android:layout_alignParentEnd="true"
-    android:layout_alignWithParentIfMissing="true"
-    android:layout_alignBottom="@id/title_container"
-    android:background="?selectableItemBackground"
-    android:layout_below="@id/pull_icon_container"
-    android:gravity="center"
-    android:orientation="vertical"
-    tools:background="#111111F0">
-
-    <app.organicmaps.widget.ArrowView
-      android:id="@+id/av__direction"
+      tools:visibility="visible" />
+    <LinearLayout
+      android:id="@+id/title_container"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/margin_base"
+      android:layout_marginEnd="@dimen/margin_base"
+      android:layout_weight="1"
+      android:orientation="vertical">
+      <TextView
+        android:id="@+id/tv__title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@string/robotoMedium"
+        android:maxLines="@integer/pp_title_lines"
+        android:textAppearance="@style/MwmTextAppearance.Title"
+        tools:background="#C0800000"
+        tools:ignore="UnusedAttribute"
+        tools:text="Title" />
+      <TextView
+        android:id="@+id/tv__secondary_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_quarter"
+        android:ellipsize="end"
+        android:fontFamily="@string/robotoMedium"
+        android:maxLines="@integer/pp_title_lines"
+        android:textAppearance="@style/MwmTextAppearance.Body1"
+        tools:background="#C0800000"
+        tools:ignore="UnusedAttribute"
+        tools:text="Secondary Title" />
+      <TextView
+        android:id="@+id/tv__subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_quarter"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textAppearance="@style/MwmTextAppearance.Body3"
+        tools:background="#300000F0"
+        tools:text="Subtitle, very very very very very very very long" />
+      <TextView
+        android:id="@+id/tv__address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_quarter"
+        android:textAppearance="@style/MwmTextAppearance.Body3"
+        tools:background="#60000000"
+        tools:text="Lenina str, 10" />
+      <TextView
+        android:id="@+id/tv__downloader_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_quarter"
+        android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
+        android:visibility="gone"
+        tools:background="#8000F000"
+        tools:text="2.4 GB  •  Maps: 1"
+        tools:visibility="visible" />
+    </LinearLayout>
+    <LinearLayout
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      app:tint="?colorAccent"
-      android:scaleType="center"
-      android:src="@drawable/ic_direction_pagepreview"/>
-
-    <TextView
-      android:id="@+id/tv__straight_distance"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
-      android:textSize="@dimen/text_size_body_3"
-      tools:text="2000 km"/>
+      android:layout_marginEnd="@dimen/margin_half"
+      android:gravity="end"
+      android:orientation="vertical">
+      <LinearLayout
+        android:id="@+id/buttons_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/share_button"
+          style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+          android:layout_width="@dimen/place_page_top_button"
+          android:layout_height="@dimen/place_page_top_button"
+          android:background="?attr/selectableItemBackgroundBorderless"
+          android:contentDescription="@string/share"
+          android:insetLeft="0dp"
+          android:insetTop="0dp"
+          android:insetRight="0dp"
+          android:insetBottom="0dp"
+          android:padding="0dp"
+          app:icon="@drawable/ic_share"
+          app:iconGravity="textStart"
+          app:iconPadding="0dp"
+          app:iconSize="20dp"
+          app:iconTint="?iconTint"
+          app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Button.Round" />
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/close_button"
+          style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+          android:layout_width="@dimen/place_page_top_button"
+          android:layout_height="@dimen/place_page_top_button"
+          android:layout_marginStart="@dimen/margin_quarter"
+          android:background="?attr/selectableItemBackgroundBorderless"
+          android:contentDescription="@string/close"
+          android:insetLeft="0dp"
+          android:insetTop="0dp"
+          android:insetRight="0dp"
+          android:insetBottom="0dp"
+          android:padding="0dp"
+          app:icon="@drawable/ic_close"
+          app:iconGravity="textStart"
+          app:iconPadding="0dp"
+          app:iconSize="24dp"
+          app:iconTint="?iconTint"
+          app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Button.Round" />
+      </LinearLayout>
+      <LinearLayout
+        android:id="@+id/direction_frame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_half_plus"
+        android:layout_marginBottom="@dimen/margin_quarter"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/margin_quarter"
+        android:paddingEnd="@dimen/margin_half">
+        <app.organicmaps.widget.ArrowView
+          android:id="@+id/av__direction"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:scaleType="center"
+          android:src="@drawable/ic_direction_pagepreview"
+          app:tint="?colorAccent" />
+        <TextView
+          android:id="@+id/tv__straight_distance"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
+          android:textSize="@dimen/text_size_body_3"
+          tools:text="2000 km" />
+      </LinearLayout>
+    </LinearLayout>
   </LinearLayout>
-
-  <TextView
-    android:id="@+id/tv__address"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignWithParentIfMissing="true"
-    android:layout_below="@id/direction_frame"
-    android:layout_marginTop="@dimen/margin_quarter"
-    android:layout_marginEnd="@dimen/margin_base"
-    android:layout_marginStart="@dimen/margin_base"
-    android:textAppearance="@style/MwmTextAppearance.Body3"
-    tools:background="#60000000"
-    tools:text="Lenina str, 10"/>
-
-  <FrameLayout
-    android:id="@+id/banner_container"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignWithParentIfMissing="true"
-    android:layout_below="@id/tv__address"
-    android:layout_marginStart="@dimen/margin_quarter"
-    android:layout_marginTop="@dimen/margin_half_plus"
-    android:layout_marginEnd="@dimen/margin_quarter"
-    android:visibility="gone"
-    tools:visibility="visible" />
-</RelativeLayout>
+</LinearLayout>

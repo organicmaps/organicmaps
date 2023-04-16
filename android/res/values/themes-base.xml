@@ -29,6 +29,7 @@
     <item name="colorPrimary">@color/bg_primary</item>
     <item name="colorControlNormal">?secondary</item>
     <item name="colorAccent">@color/base_accent</item>
+    <item name="colorAccentTransparent">@color/base_accent_transparent</item>
     <item name="colorBtnHighlight">@color/white_38</item>
     <item name="panel">@color/bg_panel</item>
     <item name="colorLogo">@color/bg_primary</item>
@@ -164,6 +165,7 @@
     <item name="colorPrimary">@color/bg_primary_night</item>
     <item name="colorControlNormal">?secondary</item>
     <item name="colorAccent">@color/base_accent_night</item>
+    <item name="colorAccentTransparent">@color/base_accent_transparent</item>
     <item name="colorBtnHighlight">@color/white_24</item>
     <item name="panel">@color/bg_panel_night</item>
     <item name="colorLogo">@color/white_primary</item>
