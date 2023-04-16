@@ -353,6 +353,12 @@ public class PlacePageController extends Fragment implements
   }
 
   @Override
+  public void onPlacePageRequestClose()
+  {
+    mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+  }
+
+  @Override
   public void onPlacePageButtonClick(PlacePageButtons.ButtonType item)
   {
     switch (item)
@@ -360,10 +366,6 @@ public class PlacePageController extends Fragment implements
       case BOOKMARK_SAVE:
       case BOOKMARK_DELETE:
         onBookmarkBtnClicked();
-        break;
-
-      case SHARE:
-        onShareBtnClicked();
         break;
 
       case BACK:
@@ -411,12 +413,6 @@ public class PlacePageController extends Fragment implements
       Framework.nativeDeleteBookmarkFromMapObject();
     else
       BookmarkManager.INSTANCE.addNewBookmark(mMapObject.getLat(), mMapObject.getLon());
-  }
-
-  private void onShareBtnClicked()
-  {
-    if (mMapObject != null)
-      SharingUtils.shareMapObject(requireContext(), mMapObject);
   }
 
   private void onBackBtnClicked()
@@ -581,7 +577,6 @@ public class PlacePageController extends Fragment implements
                       ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
                       : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
       }
-      buttons.add(PlacePageButtons.ButtonType.SHARE);
     }
     mViewModel.setCurrentButtons(buttons);
   }

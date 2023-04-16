@@ -37,6 +37,7 @@ import app.organicmaps.editor.Editor;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.routing.RoutingController;
+import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.concurrency.UiThread;
@@ -46,6 +47,7 @@ import app.organicmaps.widget.placepage.sections.PlacePageLinksFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageOpeningHoursFragment;
 import app.organicmaps.widget.placepage.sections.PlacePagePhoneFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageWikipediaFragment;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -209,6 +211,12 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mTvAddress = mPreview.findViewById(R.id.tv__address);
     mTvAddress.setOnLongClickListener(this);
     mTvAddress.setOnClickListener(this);
+
+    MaterialButton shareButton = mPreview.findViewById(R.id.share_button);
+    shareButton.setOnClickListener((v) -> SharingUtils.shareMapObject(requireContext(), mMapObject));
+
+    final MaterialButton closeButton = mPreview.findViewById(R.id.close_button);
+    closeButton.setOnClickListener((v) -> mPlacePageViewListener.onPlacePageRequestClose());
 
     RelativeLayout address = mFrame.findViewById(R.id.ll__place_name);
 
@@ -671,5 +679,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     void onPlacePageContentChanged(int previewHeight, int frameHeight);
 
     void onPlacePageRequestToggleState();
+    void onPlacePageRequestClose();
   }
 }

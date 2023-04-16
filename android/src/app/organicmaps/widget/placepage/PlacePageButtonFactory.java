@@ -57,10 +57,6 @@ public class PlacePageButtonFactory
         titleId = R.string.avoid_ferry_crossing_placepage;
         iconId = R.drawable.ic_avoid_ferry;
         break;
-      case SHARE:
-        titleId = R.string.share;
-        iconId = R.drawable.ic_share;
-        break;
       case MORE:
         titleId = R.string.placepage_more_button;
         iconId = R.drawable.ic_more;

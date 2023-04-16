@@ -112,6 +112,12 @@
     <item name="android:elevation">@dimen/appbar_elevation</item>
   </style>
 
+  <style name="ShapeAppearanceOverlay.Button.Round" parent="">
+    <item name="cornerFamily">rounded</item>
+    <item name="cornerSize">50%</item>
+  </style>
+
+
   <style name="MwmWidget.PlacePage.EditText" parent="Widget.AppCompat.EditText">
     <item name="android:imeOptions">actionDone</item>
     <item name="android:textAppearance">@style/MwmTextAppearance.PlacePage</item>
