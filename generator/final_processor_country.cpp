@@ -1,5 +1,6 @@
 #include "generator/final_processor_country.hpp"
 
+#include "generator/addresses_collector.hpp"
 #include "generator/affiliation.hpp"
 #include "generator/coastlines_generator.hpp"
 #include "generator/feature_builder.hpp"
@@ -54,6 +55,11 @@ void CountryFinalProcessor::SetMiniRoundabouts(std::string const & filename)
   m_miniRoundaboutsFilename = filename;
 }
 
+void CountryFinalProcessor::SetAddrInterpolation(std::string const & filename)
+{
+  m_addrInterpolFilename = filename;
+}
+
 void CountryFinalProcessor::SetIsolinesDir(std::string const & dir) { m_isolinesPath = dir; }
 
 void CountryFinalProcessor::Process()
@@ -64,8 +70,12 @@ void CountryFinalProcessor::Process()
 
   if (!m_coastlineGeomFilename.empty())
     ProcessCoastline();
-  if (!m_miniRoundaboutsFilename.empty())
+
+  // Add here all "straight-way" processing. There is no need to make many functions and
+  // many read-write FeatureBuilder ops here.
+  if (!m_miniRoundaboutsFilename.empty() || !m_addrInterpolFilename.empty())
     ProcessRoundabouts();
+
   if (!m_fakeNodesFilename.empty())
     AddFakeNodes();
   if (!m_isolinesPath.empty())
@@ -100,6 +110,9 @@ void CountryFinalProcessor::ProcessRoundabouts()
 {
   auto const roundabouts = ReadMiniRoundabouts(m_miniRoundaboutsFilename);
 
+  AddressesHolder addresses;
+  addresses.Deserialize(m_addrInterpolFilename);
+
   ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & name, auto const & path)
   {
     if (!IsCountry(name))
@@ -117,7 +130,21 @@ void CountryFinalProcessor::ProcessRoundabouts()
       if (roundabouts.IsRoadExists(fb))
         transformer.AddRoad(std::move(fb));
       else
+      {
+        auto const & checker = ftypes::IsAddressInterpolChecker::Instance();
+        if (fb.IsLine() && checker(fb.GetTypes()))
+        {
+          if (!addresses.Update(fb))
+          {
+            // Not only invalid interpolation ways, but fancy buildings with interpolation type like here:
+            // https://www.openstreetmap.org/#map=18/39.45672/-77.97516
+            if (fb.RemoveTypesIf(checker))
+              return;
+          }
+        }
+
         writer.Write(fb);
+      }
     });
 
     // Adds new way features generated from mini-roundabout nodes with those nodes ids.

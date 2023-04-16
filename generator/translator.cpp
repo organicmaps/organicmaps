@@ -4,7 +4,6 @@
 #include "generator/filter_collection.hpp"
 #include "generator/osm_element.hpp"
 
-#include "base/assert.hpp"
 
 namespace generator
 {
@@ -38,8 +37,11 @@ void Translator::SetCollector(std::shared_ptr<CollectorInterface> const & collec
 
 void Translator::SetFilter(std::shared_ptr<FilterInterface> const & filter) { m_filter = filter; }
 
-void Translator::Emit(OsmElement & element)
+void Translator::Emit(OsmElement const & src)
 {
+  // Make a copy because it will be modified below.
+  OsmElement element(src);
+
   Preprocess(element); // Might use replaced_tags.txt via a TagReplacer.
   if (!m_filter->IsAccepted(element))
     return;
@@ -53,7 +55,8 @@ void Translator::Emit(OsmElement & element)
     if (!m_filter->IsAccepted(feature))
       continue;
 
-    m_collector->CollectFeature(feature, element);
+    // Pass non-modified source element.
+    m_collector->CollectFeature(feature, src);
     m_processor->Process(feature);
   }
 }

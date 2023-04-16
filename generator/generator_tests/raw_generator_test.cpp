@@ -882,4 +882,26 @@ UNIT_TEST(MiniRoundabout_Connectivity)
   }
 }
 
+UNIT_CLASS_TEST(TestRawGenerator, Addr_Interpolation)
+{
+  std::string const mwmName = "Address";
+
+  BuildFB("./data/osm_test_data/addr_interpol.osm", mwmName);
+
+  uint32_t const addrType = classif().GetTypeByPath({"addr:interpolation", "even"});
+
+  size_t count = 0;
+  ForEachFB(mwmName, [&](feature::FeatureBuilder const & fb)
+  {
+    if (fb.GetGeomType() == feature::GeomType::Line && fb.HasType(addrType))
+    {
+      ++count;
+      TEST_EQUAL(fb.GetParams().ref, "3602:3800", ());
+      TEST_EQUAL(fb.GetAddressData().Get(feature::AddressData::Type::Street), "Juncal", ());
+    }
+  });
+
+  TEST_EQUAL(count, 1, ());
+}
+
 } // namespace raw_generator_tests

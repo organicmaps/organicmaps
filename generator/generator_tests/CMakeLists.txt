@@ -1,6 +1,7 @@
 project(generator_tests)
 
 set(SRC
+  addresses_tests.cpp
   affiliation_tests.cpp
   altitude_test.cpp
   brands_loader_test.cpp

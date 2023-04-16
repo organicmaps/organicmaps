@@ -1,6 +1,8 @@
 project(generator)
 
 set(SRC
+  addresses_collector.cpp
+  addresses_collector.hpp
   affiliation.cpp
   affiliation.hpp
   altitude_generator.cpp

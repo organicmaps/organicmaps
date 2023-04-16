@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <node id='92616224' timestamp='2019-08-09T04:15:36Z' uid='331218' user='AgusQui' visible='true' version='10' changeset='73177218' lat='-34.5834882' lon='-58.4133745'>
+    <tag k='highway' v='traffic_signals' />
+  </node>
+  <node id='107931444' timestamp='2019-08-09T04:15:36Z' uid='331218' user='AgusQui' visible='true' version='5' changeset='73177218' lat='-34.5824229' lon='-58.4148338' />
+  <node id='177127912' timestamp='2018-11-28T02:27:59Z' uid='9008001' user='GazEddyr' visible='true' version='7' changeset='64956420' lat='-34.5829438' lon='-58.414118' />
+  <node id='4140695260' timestamp='2016-04-22T12:26:13Z' uid='3837224' user='MatiasJ' visible='true' version='1' changeset='38784302' lat='-34.5834977' lon='-58.4135312'>
+    <tag k='addr:housenumber' v='3602' />
+    <tag k='addr:street' v='Juncal' />
+  </node>
+  <node id='4140695268' timestamp='2016-12-25T02:02:53Z' uid='331218' user='AgusQui' visible='true' version='2' changeset='44654908' lat='-34.5830567' lon='-58.4141004'>
+    <tag k='addr:housenumber' v='3700' />
+    <tag k='addr:street' v='Juncal' />
+  </node>
+  <node id='4140695280' timestamp='2016-04-22T12:26:14Z' uid='3837224' user='MatiasJ' visible='true' version='1' changeset='38784302' lat='-34.5825555' lon='-58.4147838'>
+    <tag k='addr:housenumber' v='3800' />
+    <tag k='addr:street' v='Juncal' />
+  </node>
+  <way id='11975202' timestamp='2021-01-26T18:53:10Z' uid='72347' user='Hernan' visible='true' version='14' changeset='98179749'>
+    <nd ref='107931444' />
+    <nd ref='177127912' />
+    <tag k='highway' v='residential' />
+    <tag k='lanes' v='2' />
+    <tag k='lit' v='yes' />
+    <tag k='maxspeed' v='40' />
+    <tag k='name' v='Juncal' />
+    <tag k='oneway' v='no' />
+    <tag k='surface' v='asphalt' />
+  </way>
+  <way id='38590671' timestamp='2021-02-14T20:56:14Z' uid='72347' user='Hernan' visible='true' version='8' changeset='99266720'>
+    <nd ref='177127912' />
+    <nd ref='92616224' />
+    <tag k='highway' v='residential' />
+    <tag k='lane_markings' v='no' />
+    <tag k='lit' v='yes' />
+    <tag k='maxspeed' v='40' />
+    <tag k='name' v='Juncal' />
+    <tag k='oneway' v='yes' />
+    <tag k='sidewalk' v='both' />
+    <tag k='surface' v='asphalt' />
+  </way>
+  <way id='412717282' timestamp='2019-08-09T04:15:36Z' uid='331218' user='AgusQui' visible='true' version='2' changeset='73177218'>
+    <nd ref='4140695260' />
+    <nd ref='4140695268' />
+    <nd ref='4140695280' />
+    <tag k='addr:inclusion' v='actual' />
+    <tag k='addr:interpolation' v='even' />
+  </way>
+</osm>

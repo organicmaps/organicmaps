@@ -21,7 +21,7 @@ void TranslatorsPool::Emit(std::vector<OsmElement> && elements)
   m_translators.WaitAndPop(translator);
   m_threadPool.SubmitWork([&, translator, elements = std::move(elements)]() mutable
   {
-    for (auto & element : elements)
+    for (auto const & element : elements)
       translator->Emit(element);
 
     m_translators.Push(translator);
