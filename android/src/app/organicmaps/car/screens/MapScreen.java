@@ -91,7 +91,7 @@ public class MapScreen extends BaseMapScreen
 
   private void openSearch()
   {
-    getScreenManager().push(new SearchScreen(getCarContext()));
+    getScreenManager().push(new SearchScreen.Builder(getCarContext(), getSurfaceRenderer()).build());
   }
 
   private void openCategories()

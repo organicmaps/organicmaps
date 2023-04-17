@@ -16,6 +16,7 @@ import androidx.core.graphics.drawable.IconCompat;
 
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
+import app.organicmaps.car.screens.search.SearchOnMapScreen;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 
@@ -91,7 +92,7 @@ public class CategoriesScreen extends BaseMapScreen
       final String title = getCarContext().getString(CATEGORIES.get(i).nameResId);
       itemBuilder.setTitle(title);
       itemBuilder.setImage(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), CATEGORIES.get(i).iconResId)).build());
-      itemBuilder.setOnClickListener(() -> { /* TODO (AndrewShkrob): Will be implemented together with SearchScreen */ });
+      itemBuilder.setOnClickListener(() -> getScreenManager().push(new SearchOnMapScreen.Builder(getCarContext(), getSurfaceRenderer()).setCategory(title).build()));
       builder.addItem(itemBuilder.build());
     }
     return builder.build();
