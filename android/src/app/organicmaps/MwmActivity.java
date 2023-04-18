@@ -1581,7 +1581,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onShowDisclaimer()
+  public void onShowDisclaimer(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
   {
     final StringBuilder builder = new StringBuilder();
     for (int resId : new int[] { R.string.dialog_routing_disclaimer_priority, R.string.dialog_routing_disclaimer_precision,
@@ -1596,7 +1596,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .setNegativeButton(R.string.decline, null)
         .setPositiveButton(R.string.accept, (dlg, which) -> {
           Config.acceptRoutingDisclaimer();
-          RoutingController.get().prepare();
+          RoutingController.get().prepare(startPoint, endPoint);
         })
         .show();
   }
