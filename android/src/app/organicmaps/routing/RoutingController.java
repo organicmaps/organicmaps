@@ -67,7 +67,7 @@ public class RoutingController implements Initializable<Void>
     default boolean isSubwayEnabled() { return false; }
     default void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps) {}
     default void onDrivingOptionsBuildError() {}
-    default void onShowDisclaimer() {}
+    default void onShowDisclaimer(@Nullable MapObject startPoint, @Nullable MapObject endPoint) {}
     default void onSuggestRebuildRoute() {}
 
     /**
@@ -164,7 +164,7 @@ public class RoutingController implements Initializable<Void>
   private final Framework.RoutingLoadPointsListener mRoutingLoadPointsListener =
     success -> {
       if (success)
-        prepare();
+        prepare(getStartPoint(), getEndPoint());
     };
 
   public static RoutingController get()
@@ -353,11 +353,6 @@ public class RoutingController implements Initializable<Void>
     prepare(getStartPoint(), getEndPoint(), false);
   }
 
-  public void prepare()
-  {
-    prepare(getStartPoint(), getEndPoint());
-  }
-
   public void prepare(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
   {
     prepare(startPoint, endPoint, false);
@@ -370,7 +365,7 @@ public class RoutingController implements Initializable<Void>
     if (!Config.isRoutingDisclaimerAccepted())
     {
       if (mContainer != null)
-        mContainer.onShowDisclaimer();
+        mContainer.onShowDisclaimer(startPoint, endPoint);
       return;
     }
 
