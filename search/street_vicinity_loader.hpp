@@ -27,9 +27,6 @@ class StreetVicinityLoader
 public:
   struct Street
   {
-    Street() = default;
-    Street(Street && street) = default;
-
     inline bool IsEmpty() const { return m_rect.IsEmptyInterior(); }
 
     std::vector<uint32_t> m_features;
@@ -38,8 +35,6 @@ public:
 
     /// @todo Cache GetProjection results for features here, because
     /// feature::GetCenter and ProjectionOnStreetCalculator::GetProjection are not so fast.
-
-    DISALLOW_COPY(Street);
   };
 
   StreetVicinityLoader(int scale, double offsetMeters);

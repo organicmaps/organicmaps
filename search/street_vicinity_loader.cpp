@@ -54,14 +54,24 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
   if (!isStreet && !isSquareOrSuburb)
     return;
 
-  auto const & points = (feature->GetGeomType() == feature::GeomType::Area) ?
-    feature->GetTrianglesAsPoints(FeatureType::BEST_GEOMETRY) :
-    feature->GetPoints(FeatureType::BEST_GEOMETRY);
-  ASSERT(!points.empty(), ());
-
   /// @todo Can be optimized here. Do not aggregate rect, but aggregate covering intervals for each segment, instead.
-  for (auto const & point : points)
-    street.m_rect.Add(mercator::RectByCenterXYAndSizeInMeters(point, m_offsetMeters));
+  auto const sumRect = [&street, this](m2::PointD const & pt)
+  {
+    street.m_rect.Add(mercator::RectByCenterXYAndSizeInMeters(pt, m_offsetMeters));
+  };
+
+  if (feature->GetGeomType() == feature::GeomType::Area)
+  {
+    feature->ForEachTriangle([&sumRect](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
+                             {
+                               sumRect(p1);
+                               sumRect(p2);
+                               sumRect(p3);
+                             }, FeatureType::BEST_GEOMETRY);
+  }
+  else
+    feature->ForEachPoint(sumRect, FeatureType::BEST_GEOMETRY);
+  ASSERT(street.m_rect.IsValid(), ());
 
   covering::CoveringGetter coveringGetter(street.m_rect, covering::ViewportWithLowLevels);
   auto const & intervals = coveringGetter.Get<RectId::DEPTH_LEVELS>(m_scale);
