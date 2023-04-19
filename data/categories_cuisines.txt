@@ -2089,39 +2089,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # he:מטבח איטלקי
 # sk:Talianska kuchyňa
 
-# cuisine-italian_pizza
-# en:Italian Pizza
-# ru:Итальянская пиццерия
-# bg:Италянска пицария
-# ar:مطبخ إيطالي؛بيتزا
-# cs:Italská, pizza
-# da:Italiensk, pizza
-# nl:Italiaans, pizza
-# fi:Italialainen, pizza
-# fr:Italien, pizza
-# de:Italienische Pizza
-# hu:Olasz konyha, pizza
-# id:Italia, pizza
-# it:Cucina italiana, pizza
-# ja:イタリア料理；ピザ
-# ko:이탈리아식, 피자
-# nb:Italiensk mat;pizza
-# pl:Włoska, pizza
-# pt:Piza italiana|pizza italiana
-# pt-BR:Pizza italiana|Piza italiana
-# ro:Italian, pizza
-# es:Cocina italiana, pizzas
-# eu:Italiako sukaldaritza, pizzak
-# sv:Italiensk, pizza
-# th:อาหารอิตาเลียน; พิซซ่า
-# tr:Italyan, pizza
-# uk:Італійська кухня, піцерія
-# vi:Ẩm thực ý, bánh pizza
-# zh-Hans:意大利菜；匹萨
-# zh-Hant:義大利料理；披薩
-# el:Ιταλική Πίτσα
-# he:מטבח איטלקי;פיצה
-# sk:Talianska kuchyňa; pizza
+
 
 # cuisine-japanese
 # en:Japanese cuisine
