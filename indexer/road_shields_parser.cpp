@@ -189,7 +189,7 @@ public:
     {
       additionalInfo = shieldParts[2];
       // Process cases like "US Loop 16".
-      if (!strings::is_number(shieldParts[1]) && strings::is_number(shieldParts[2]))
+      if (!strings::IsASCIINumeric(shieldParts[1]) && strings::IsASCIINumeric(shieldParts[2]))
       {
         roadNumber = shieldParts[2];
         additionalInfo = shieldParts[1];
@@ -561,7 +561,7 @@ public:
     if (shieldParts.size() >= 3)
     {
       additionalInfo = shieldParts[2];
-      if (!strings::is_number(shieldParts[1]) && strings::is_number(shieldParts[2]))
+      if (!strings::IsASCIINumeric(shieldParts[1]) && strings::IsASCIINumeric(shieldParts[2]))
       {
         roadNumber = shieldParts[2];
         additionalInfo = shieldParts[1];
@@ -569,7 +569,7 @@ public:
     }
 
     // Remove possible leading zero.
-    if (strings::is_number(roadNumber) && roadNumber[0] == '0')
+    if (strings::IsASCIINumeric(roadNumber) && roadNumber[0] == '0')
       roadNumber.erase(0);
 
     if (shieldParts[0] == "MEX")
