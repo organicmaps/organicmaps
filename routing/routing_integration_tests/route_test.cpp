@@ -811,4 +811,22 @@ UNIT_TEST(Turkey_Salarialaca_Sanliurfa)
   TestRouteLength(route, 656891);
   TestRouteTime(route, 21138);  // should be less than 6 hours (6 * 3600)
 }
+
+// https://github.com/organicmaps/organicmaps/issues/4924
+// https://github.com/organicmaps/organicmaps/issues/4996
+UNIT_TEST(UK_MiniRoundabout)
+{
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
+                FromLatLon(50.4155631, -4.17201038), {0., 0.},
+                FromLatLon(50.4161337, -4.17226314), 114.957);
+
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
+                FromLatLon(50.4173675, -4.14913092), {0., 0.},
+                FromLatLon(50.4170013, -4.1471226), 153.223);
+
+  /// @todo Fancy case, changing start/end point a little and the route is OK. Also check m_exitNum.
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
+                FromLatLon(51.5686491, -0.00590868183), {0., 0.},
+                FromLatLon(51.5684408, -0.00596725822), 40);
+}
 } // namespace route_test
