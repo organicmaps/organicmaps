@@ -311,7 +311,7 @@ bool FeatureParams::AddHouseName(string const & s)
 
   // If we got a clear number, replace the house number with it.
   // Example: housename=16th Street, housenumber=34
-  if (strings::is_number(s))
+  if (strings::IsASCIINumeric(s))
   {
     string housename(house.Get());
     if (AddHouseNumber(s))

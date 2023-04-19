@@ -467,12 +467,6 @@ bool ToInteger(char const * start, T & result, int base = 10)
 [[nodiscard]] bool to_double(char const * s, double & d);
 [[nodiscard]] bool is_finite(double d);
 
-[[nodiscard]] inline bool is_number(std::string const & s)
-{
-  uint64_t dummy;
-  return to_uint64(s.c_str(), dummy);
-}
-
 [[nodiscard]] inline bool to_int(std::string const & s, int & i, int base = 10)
 {
   return to_int(s.c_str(), i, base);
@@ -534,12 +528,6 @@ inline bool to_double(std::string_view sv, double & d)
 {
   /// @todo std::from_chars still not implemented?
   return to_double(std::string(sv), d);
-}
-
-inline bool is_number(std::string_view s)
-{
-  uint64_t i;
-  return impl::from_sv(s, i);
 }
 //@}
 
