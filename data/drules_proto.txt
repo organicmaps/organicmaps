@@ -2360,7 +2360,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "gate-m"
+      name: "airport_gate-m"
       priority: 16582
     }
     caption {
@@ -2376,7 +2376,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "gate-m"
+      name: "airport_gate-m"
       priority: 16980
     }
     caption {
@@ -2392,7 +2392,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "gate-m"
+      name: "airport_gate-m"
       priority: 16980
     }
     caption {
@@ -10886,7 +10886,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "dot-m"
+      name: "gate-s"
       priority: 16000
     }
     caption {
@@ -10902,7 +10902,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "dot-m"
+      name: "gate-s"
       priority: 16000
     }
     caption {
@@ -10918,7 +10918,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "dot-m"
+      name: "gate-s"
       priority: 16000
     }
     caption {
@@ -10934,7 +10934,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "dot-m"
+      name: "gate-s"
       priority: 16000
     }
     caption {
@@ -10988,7 +10988,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "dot-m"
+      name: "gate-s"
       priority: 16000
     }
     caption {
@@ -11004,7 +11004,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "dot-m"
+      name: "gate-s"
       priority: 16000
     }
     caption {
@@ -11020,7 +11020,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "dot-m"
+      name: "gate-s"
       priority: 16000
     }
     caption {
@@ -11036,7 +11036,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "dot-m"
+      name: "gate-s"
       priority: 16000
     }
     caption {
@@ -11090,7 +11090,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "dot-m"
+      name: "gate-s"
       priority: 16000
     }
     caption {
@@ -11106,7 +11106,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "dot-m"
+      name: "gate-s"
       priority: 16000
     }
     caption {
@@ -11122,7 +11122,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "dot-m"
+      name: "gate-s"
       priority: 16000
     }
     caption {
@@ -11138,7 +11138,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "dot-m"
+      name: "gate-s"
       priority: 16000
     }
     caption {
