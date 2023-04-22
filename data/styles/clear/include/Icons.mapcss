@@ -1982,11 +1982,13 @@ node|z15-[barrier=border_control]
 node|z16-[barrier=block],
 node|z16-[barrier=bollard],
 node|z16-[barrier=chain],
+node|z16-[barrier=stile],
+{icon-image: dot-m.svg;font-size: 11;}
+
 node|z16-[barrier=entrance],
 node|z16-[barrier=gate],
 node|z16-[barrier=kissing_gate],
-node|z16-[barrier=stile],
-{icon-image: dot-m.svg;font-size: 11;}
+{icon-image: gate-s.svg;font-size: 11;}
 
 node|z16-[highway=ford],
 /* ToDo: Make separate tower icon? Because of a good landmark */
@@ -2156,10 +2158,10 @@ area|z18-[amenity=vending_machine][vending=fuel]
 
 node|z17-[aeroway=gate],
 area|z17-[aeroway=gate]
-{icon-image: gate-m.svg;font-size: 11;}
+{icon-image: airport_gate-m.svg;font-size: 11;}
 node|z18-[aeroway=gate],
 area|z18-[aeroway=gate]
-{icon-image: gate-m.svg;font-size: 11;z-index: 24200;}/*check*/
+{icon-image: airport_gate-m.svg;font-size: 11;z-index: 24200;}/*check*/
 
 area|z17-[amenity=bureau_de_change],
 node|z17-[amenity=bureau_de_change],
