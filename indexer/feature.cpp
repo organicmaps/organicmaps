@@ -823,7 +823,7 @@ uint8_t FeatureType::GetRank()
 
 uint64_t FeatureType::GetPopulation() { return feature::RankToPopulation(GetRank()); }
 
-string const & FeatureType::GetRoadNumber()
+string const & FeatureType::GetRef()
 {
   ParseCommon();
   return m_params.ref;

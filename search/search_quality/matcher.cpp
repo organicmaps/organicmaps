@@ -5,6 +5,7 @@
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
+#include "indexer/road_shields_parser.hpp"
 #include "indexer/search_string_utils.hpp"
 
 #include "base/control_flow.hpp"
@@ -166,7 +167,14 @@ bool Matcher::Matches(strings::UniString const & query, Sample::Result const & g
   {
     if (ft.GetGeomType() == feature::GeomType::Line)
     {
-      nameMatches = StreetMatches(ft.GetRoadNumber(), queryTokens);
+      for (auto const & name : ftypes::GetRoadShieldsNames(ft))
+      {
+        if (StreetMatches(name, queryTokens))
+        {
+          nameMatches = true;
+          break;
+        }
+      }
     }
     else
     {

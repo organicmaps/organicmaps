@@ -115,7 +115,7 @@ private:
   {
     auto const interpol = ftypes::IsAddressInterpolChecker::Instance().GetInterpolType(feature);
     if (interpol != feature::InterpolType::None)
-      return house_numbers::HouseNumbersMatchRange(feature.GetRoadNumber(), queryParse, interpol);
+      return house_numbers::HouseNumbersMatchRange(feature.GetRef(), queryParse, interpol);
     else
       return house_numbers::HouseNumbersMatch(strings::MakeUniString(feature.GetHouseNumber()), queryParse);
   }
