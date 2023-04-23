@@ -87,7 +87,6 @@ public:
   /// @returns translated and formatted cuisines.
   std::string FormatCuisines() const;
 
-  std::vector<std::string> GetRoadShields() const;
   std::string FormatRoadShields() const;
 
   std::string_view GetOpeningHours() const;
@@ -119,7 +118,7 @@ protected:
 
   StringUtf8Multilang m_name;
   std::string m_houseNumber;
-  std::string m_roadNumber;
+  std::vector<std::string> m_roadShields;
   feature::TypesHolder m_types;
   feature::Metadata m_metadata;
 

@@ -1,6 +1,7 @@
 #include "indexer/road_shields_parser.hpp"
 
 #include "indexer/feature.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "base/string_utils.hpp"
 
@@ -582,8 +583,8 @@ public:
 
 RoadShieldsSetT GetRoadShields(FeatureType & f)
 {
-  std::string const roadNumber = f.GetRoadNumber();
-  if (roadNumber.empty())
+  auto const & ref = f.GetRef();
+  if (ref.empty())
     return {};
 
   // Find out country name.
@@ -596,7 +597,7 @@ RoadShieldsSetT GetRoadShields(FeatureType & f)
   if (underlinePos != std::string::npos)
     mwmName = mwmName.substr(0, underlinePos);
 
-  return GetRoadShields(mwmName, roadNumber);
+  return GetRoadShields(mwmName, ref);
 }
 
 RoadShieldsSetT GetRoadShields(std::string const & mwmName, std::string const & roadNumber)
@@ -640,8 +641,19 @@ RoadShieldsSetT GetRoadShields(std::string const & rawRoadNumber)
   if (rawRoadNumber.empty())
     return {};
 
-  return SimpleRoadShieldParser(rawRoadNumber, SimpleRoadShieldParser::ShieldTypes())
-      .GetRoadShields();
+  return SimpleRoadShieldParser(rawRoadNumber, SimpleRoadShieldParser::ShieldTypes()).GetRoadShields();
+}
+
+std::vector<std::string> GetRoadShieldsNames(FeatureType & ft)
+{
+  std::vector<std::string> names;
+  auto const & ref = ft.GetRef();
+  if (!ref.empty() && IsStreetOrSquareChecker::Instance()(ft))
+  {
+    for (auto && shield : GetRoadShields(ref))
+      names.push_back(std::move(shield.m_name));
+  }
+  return names;
 }
 
 std::string DebugPrint(RoadShieldType shieldType)

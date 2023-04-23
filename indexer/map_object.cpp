@@ -4,6 +4,7 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/road_shields_parser.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -58,7 +59,7 @@ void MapObject::SetFromFeatureType(FeatureType & ft)
 
   m_metadata = ft.GetMetadata();
   m_houseNumber = ft.GetHouseNumber();
-  m_roadNumber = ft.GetRoadNumber();
+  m_roadShields = ftypes::GetRoadShieldsNames(ft);
   m_featureID = ft.GetID();
   m_geomType = ft.GetGeomType();
 
@@ -159,14 +160,9 @@ string MapObject::FormatCuisines() const
   return strings::JoinStrings(GetLocalizedCuisines(), kFieldsSeparator);
 }
 
-vector<string> MapObject::GetRoadShields() const
-{
-  return feature::GetRoadShieldsNames(m_roadNumber);
-}
-
 string MapObject::FormatRoadShields() const
 {
-  return strings::JoinStrings(GetRoadShields(), kFieldsSeparator);
+  return strings::JoinStrings(m_roadShields, kFieldsSeparator);
 }
 
 int MapObject::GetStars() const

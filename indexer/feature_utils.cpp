@@ -436,12 +436,4 @@ vector<string> GetLocalizedRecyclingTypes(TypesHolder const & types)
   auto const & isRecyclingType = ftypes::IsRecyclingTypeChecker::Instance();
   return GetLocalizedTypes(isRecyclingType, types);
 }
-
-vector<string> GetRoadShieldsNames(string const & rawRoadNumber)
-{
-  vector<string> names;
-  for (auto && shield : ftypes::GetRoadShields(rawRoadNumber))
-    names.push_back(std::move(shield.m_name));
-  return names;
-}
 } // namespace feature
