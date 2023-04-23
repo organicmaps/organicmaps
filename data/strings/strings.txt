@@ -661,7 +661,7 @@
     fi = Laitteen tai sovelluksen kaikki sijaintipalvelut ovat tällä hetkellä poissa käytöstä. Ota ne käyttöön Asetukset-valikossa.
     fr = Tous les services de localisation de cet appareil sont désactivés, ou ils le sont pour cette application. Veuillez les activer dans les paramètres.
     he = שרותי המיקום של מכשיר או ישום זה זה כבויים. הכנס ל "הגדרות" Settings)) כדי להדליקם.
-    hu = Ezen az eszközön jelenleg minden helyzetmeghatározó szolgáltatás ki van kapcsolva. Kérjük kapcsolja be ezeket a Beállítások között.
+    hu = Jelenleg az eszköz vagy alkalmazás helymeghatározási szolgáltatásai le vannak tiltva. Kérjük, engedélyezze őket a Beállításokban.
     id = Saat ini semua Layanan Lokasi untuk perangkat atau aplikasi ini non-aktif. Mohon aktifkan lewat Setelan.
     it = Attualmente tutti i servizi di localizzazione per questo dispositivo o applicazione sono disattivati. Si prega di abilitarli in Impostazioni.
     ja = 端末の位置情報サービスが無効になっているか、このアプリケーションからの位置情報利用が制限されています。端末の設定を有効化してください。
@@ -864,7 +864,7 @@
     fi = Tietoa Organic Maps:stä
     fr = À propos de Organic Maps
     he = Organic Maps אודות
-    hu = A Organic Maps programról
+    hu = Az Organic Mapsről
     id = Tentang Organic Maps
     it = Informazioni su Organic Maps
     ja = Organic Mapsについて
@@ -1097,7 +1097,7 @@
     fi = Yhteysasetukset
     fr = Paramètres de connexion
     he = הגדרות תקשורת
-    hu = Kapcsolat beállítások
+    hu = Helymeghatározási beállítások
     id = Pengaturan Koneksi
     it = Impostazioni di connessione
     ja = 接続設定
@@ -2069,7 +2069,7 @@
     fa = ذخیره نقشه‌ها در
     fi = Tallenna kartat kohteeseen
     fr = Enregistrer les cartes dans
-    hu = Térképek mentése ide:
+    hu = Térképek mentési helye
     id = Simpan peta di
     it = Salva mappe in
     ja = 地図の保存先
@@ -2152,7 +2152,7 @@
     fi = Kartat
     fr = Cartes téléchargées
     he = מפות
-    hu = Térképek
+    hu = Letöltött térképek
     id = Peta
     it = Mappe
     ja = マップ
@@ -2184,6 +2184,7 @@
     es = Almacenamiento interno privado
     et = Sisemine privaatne salvestusruum
     fr = Stockage interne privé
+    hu = Belső privát tárhely
     nb = Intern privat lagring
     nl = Intern persoonlijk geheugen
     pl = Wewnętrzna pamięć prywatna
@@ -2203,6 +2204,7 @@
     es = Almacenamiento interno compartido
     et = Sisemine jagatud salvestusruum
     fr = Stockage interne partagé
+    hu = Belső közös tárhely
     nb = Intern delt lagring
     nl = Intern gedeeld geheugen
     pl = Wewnętrzna pamięć współdzielona
@@ -2222,6 +2224,7 @@
     es = Tarjeta SD
     et = SD-kaart
     fr = Carte SD
+    hu = SD-kártya
     nb = SD-kort
     nl = SD-kaart
     pl = Karta SD
@@ -2241,6 +2244,7 @@
     es = Almacenamiento externo compartido
     et = Väline jagatud salvestusruum
     fr = Stockage externe partagé
+    hu = Külső közös tárhely
     nb = Ekstern delt lagring
     nl = Extern gedeeld geheugen
     pl = Zewnętrzna pamięć współdzielona
@@ -2260,6 +2264,7 @@
     es = %1$@ libres de %2$@
     et = %1$@ vaba ruumist %2$@
     fr = %1$@ libres sur %2$@
+    hu = %1$@ szabad %2$@-ból
     nb = %1$@ ledig av %2$@
     nl = %1$@ beschikbaar van %2$@
     pl = %1$@ wolne z %2$@
@@ -2287,7 +2292,7 @@
     fi = Siirrä karttoja?
     fr = Déplacer les cartes ?
     he = להעביר המפות?
-    hu = Áthelyezzük a térképeket?
+    hu = Áthelyezzük a térképfájlokat?
     id = Pindahkan peta?
     it = Vuoi spostare le mappe?
     ja = マップを移動させますか？
@@ -2319,6 +2324,7 @@
     es = Error al mover los archivos de mapas
     et = Kaardipaanide teisaldamine ebaõnnestus
     fr = Erreur lors du déplacement des cartes
+    hu = Hiba történt a térképfájlok áthelyezése közben
     nb = Kunne ikke flytte kart
     nl = Fout bij het verplaatsen van kaartbestanden
     pl = Błąd przenoszenia plików map
@@ -2511,7 +2517,7 @@
     fa = عطاری
     fi = Elintarvikkeet
     fr = Epiceries
-    hu = Termékek
+    hu = Élelmiszerek
     id = Toserba
     it = Alimentari
     ja = 食料雑貨
@@ -2553,7 +2559,7 @@
     fi = Liikenne
     fr = Transport
     he = תחבורה
-    hu = Közlekedés
+    hu = Tömegközlekedés
     id = Transportasi
     it = Trasporto
     ja = 交通機関
@@ -2759,7 +2765,7 @@
     fi = Nähtävyydet
     fr = Sites touristiques
     he = נקודות עיניין
-    hu = Látnivaló
+    hu = Látnivalók
     id = Pemandangan
     it = Luoghi turistici
     ja = 観光
@@ -2922,7 +2928,7 @@
     fa = تعطیلات خانوادگی
     fi = Vapaa-aikaa lasten kanssa
     fr = Vacances en famille
-    hu = Pihenés a gyerekekkel
+    hu = Családi kiruccanás
     id = Liburan keluarga
     it = Divertimento in famiglia
     ja = 家族の休日
@@ -4402,6 +4408,7 @@
     fa = اطلاعات
     fi = Tietoja
     fr = Information
+    hu = Információk
     it = Informazioni
     mr = माहिती
     nb = Informasjon
@@ -5477,7 +5484,7 @@
     fi = Uutiset
     fr = Nouvelles
     he = תוֹשׁדָחֲ
-    hu = Hírek
+    hu = Újdonságok
     id = Berita
     it = Notizia
     ja = ニュース
@@ -5696,7 +5703,7 @@
     fi = Kysymykset ja vastaukset
     fr = Foire aux questions
     he = תובושתו תולאש
-    hu = Kérdések és válaszok
+    hu = Gyakran Ismételt Kérdések
     id = Pertanyaan dan jawaban
     it = Domande frequenti
     ja = 質問と回答
@@ -7026,7 +7033,7 @@
     fa = ذخیره
     fi = Tallenna
     fr = Sauvegarder
-    hu = Simpan
+    hu = Mentés
     id = Simpan
     it = Salva
     ja = 保存
@@ -9657,7 +9664,7 @@
     fa = مسیر از
     fi = Lähtöpaikka
     fr = Depuis
-    hu = Innen
+    hu = Kiindulópont
     id = Dari
     it = Da
     ja = 出発地
@@ -9696,7 +9703,7 @@
     fa = مسیر به
     fi = Reitin loppupiste
     fr = Itinéraire vers
-    hu = Ide
+    hu = Célpont
     id = Rute ke
     it = A
     ja = 目的地
@@ -16471,7 +16478,7 @@
     fa = برای نمایش جزئیات مکان مانند تصاویر قیمت‌ها و بازخورد‌ها به اینترنت همراه نیاز است
     fi = Mobiili-internet vaaditaan paikkojen lisätietojen näyttämiseen, kuten valokuviin, hintoihin ja arvioihin.
     fr = L'Internet mobile est nécessaire pour afficher des informations détaillées sur les lieux, telles que les photos, les prix et les avis.
-    hu = Mobil internetre van szükség helyszínekre vonatkozó részletes információ, mint például fotók, árak és szemlék megjelenítéséhez.
+    hu = Mobilinternet szükséges a térképfrissítési értesítésekhez, valamint a helyszínekre és könyvjelzőkre vonatkozó részletes információk megjelenítéséhez.
     id = Internet seluler diperlukan untuk menampilkan informasi terperinci tentang tempat, seperti foto, harga, dan ulasan.
     it = L'Internet mobile è necessario per visualizzare informazioni dettagliate sulle località, ad esempio foto, prezzi e recensioni.
     ja = モバイルインターネットは場所、写真、価格やレビューのような詳細情報を表示するのに必要です。
@@ -17508,7 +17515,7 @@
     fa = شروع از
     fi = Aloita kohdasta
     fr = Commencer à partir de
-    hu = Elkezdi innen:
+    hu = Kiindulás innen:
     id = Mulai dari
     it = Parti da
     ja = 開始位置
@@ -17794,7 +17801,7 @@
     fa = لیست‌ها
     fi = Listat
     fr = Listes
-    hu = List
+    hu = Listák
     id = Daftar
     it = Elenchi
     ja = リスト
@@ -18012,6 +18019,7 @@
     eu = Inportatu laster-markak
     fi = Tuo kirjamerkit
     fr = Importer des signets
+    hu = Könyvjelzők importálása
     it = Importa luoghi preferiti
     mr = खूणपत्रे आयात करा
     nb = Importer bokmerker
@@ -19944,7 +19952,7 @@
     fa = پنهان کردن از نقشه
     fi = Piilota kartalta
     fr = Masquer sur la carte
-    hu = Lefedés a térképen
+    hu = Elrejtés a térképről
     id = Sembunyikan dari peta
     it = Nascondi sulla mappa
     ja = マップから隠す
@@ -20271,7 +20279,7 @@
     fa = خودکار
     fi = Auto
     fr = Auto
-    hu = Autó
+    hu = Automatikus
     id = Auto
     it = Auto
     ja = 自動
@@ -20477,7 +20485,7 @@
     fa = خودکار- در صورتی که خطر تجاوز از سرعت مجاز وجود داشت، نسبت به دوربین‌های کنترل سرعت هشدار دهد\nهمیشه-همیشه درباره دوربین‌های کنترل سرعت هشدار دهد\nهرگز-هرگز درباره دوربین‌های کنترل سرعت هشدار ندهد
     fi = Auto - Varoita nopeuskameroista, jos tuntuu siltä, että nopeusrajan ylitys on mahdollista\nAina - Varoita kameroista aina\nEi koskaan - älä koskaan varoita kameroista
     fr = Auto - Alerte sur les radars en cas de risque de dépassement de la limite de vitesse\nToujours - Toujours avertir des radars\nJamais - Jamais avertir à propos des radars
-    hu = Autó - Figyelmeztetés a sebesség kamerákról, ha van kockázat a sebesség korlátozás megsértéséről\nMindig - Mindig figyelmeztet a kamerákról\nSoha - Soha ne figyelmezet a kamerákról
+    hu = Automatikus - Figyelmeztetés a sebesség kamerákról, ha van kockázat a sebesség korlátozás megsértéséről\nMindig - Mindig figyelmeztet a kamerákról\nSoha - Soha ne figyelmezet a kamerákról
     id = Auto - Peringatkan tentang kamera kecepatan saat terdapat risiko melebihi batas kecepatan\nSelalu - Selalu peringatkan tentang kamera kecepatan\nTidak pernah - Jangan pernah peringatkan tentang kamera kecepatan
     it = Auto - Avvisare di autovelox in caso di rischio eccesso velocità\nSempre - Avvisare sempre di autovelox\nMai - Non avvisare mai di autovelox
     ja = 自動－速度制限超過の危険性がある場合には、自動速度違反取締装置について警告します\n常時－自動速度違反取締装置について常に警告します\n無効－自動速度違反取締装置を警告しません
@@ -24113,7 +24121,7 @@
     fa = ایزومپ
     fi = Maasto
     fr = Terrain
-    hu = Terep
+    hu = Domborzat
     id = Isometrik
     it = Terreno
     ja = 地形

@@ -16826,7 +16826,7 @@
     fa = اداره
     fi = Toimisto
     fr = Bureau
-    hu = Hivatal
+    hu = Iroda
     id = Kantor
     it = Ufficio
     ja = オフィス
