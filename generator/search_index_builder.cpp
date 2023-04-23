@@ -14,11 +14,11 @@
 #include "indexer/classificator.hpp"
 #include "indexer/data_source.hpp"
 #include "indexer/feature_algo.hpp"
-#include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/postcodes_matcher.hpp"
+#include "indexer/road_shields_parser.hpp"
 #include "indexer/scales_patch.hpp"
 #include "indexer/search_string_utils.hpp"
 #include "indexer/trie_builder.hpp"
@@ -314,7 +314,7 @@ public:
     // Road number.
     if (hasStreetType)
     {
-      for (auto const & shield : feature::GetRoadShieldsNames(f.GetRoadNumber()))
+      for (auto const & shield : ftypes::GetRoadShieldsNames(f))
         inserter(StringUtf8Multilang::kDefaultCode, shield);
     }
 

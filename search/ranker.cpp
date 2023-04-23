@@ -15,8 +15,8 @@
 #include "indexer/data_source.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_data.hpp"
-#include "indexer/feature_utils.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/road_shields_parser.hpp"
 #include "indexer/search_string_utils.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
@@ -170,7 +170,7 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
 
   if (type == Model::TYPE_STREET)
   {
-    for (auto const & shield : feature::GetRoadShieldsNames(ft.GetRoadNumber()))
+    for (auto const & shield : ftypes::GetRoadShieldsNames(ft))
       UpdateNameScores(shield, StringUtf8Multilang::kDefaultCode, sliceNoCategories, bestScores);
   }
 

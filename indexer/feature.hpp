@@ -157,7 +157,7 @@ public:
 
   uint8_t GetRank();
   uint64_t GetPopulation();
-  std::string const & GetRoadNumber();
+  std::string const & GetRef();
 
   feature::Metadata const & GetMetadata();
 

@@ -11,6 +11,7 @@
 #include "indexer/feature_utils.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/map_object.hpp"
+#include "indexer/road_shields_parser.hpp"
 
 #include "platform/measurement_utils.hpp"
 
@@ -292,7 +293,7 @@ void FillDetails(FeatureType & ft, Result::Details & details)
   auto const cuisines = feature::GetLocalizedCuisines(feature::TypesHolder(ft));
   details.m_cuisine = strings::JoinStrings(cuisines, osm::MapObject::kFieldsSeparator);
 
-  auto const roadShields = feature::GetRoadShieldsNames(ft.GetRoadNumber());
+  auto const roadShields = ftypes::GetRoadShieldsNames(ft);
   details.m_roadShields = strings::JoinStrings(roadShields, osm::MapObject::kFieldsSeparator);
 
   details.m_isInitialized = true;

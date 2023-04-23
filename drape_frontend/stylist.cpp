@@ -51,8 +51,6 @@ inline drule::rule_type_t Convert(Type t)
   }
 }
 
-float constexpr kMinPriority = std::numeric_limits<float>::lowest();
-
 inline bool IsTypeOf(drule::Key const & key, int flags)
 {
   int currentFlag = Line;
@@ -213,7 +211,6 @@ void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int const zoom
   if (m_mainText.size() > kMaxTextSize)
     m_mainText = m_mainText.substr(0, kMaxTextSize) + "...";
 
-  m_roadNumber = f.GetRoadNumber();
   m_houseNumber = f.GetHouseNumber();
 
   ProcessZoomLevel(zoomLevel);
@@ -228,11 +225,6 @@ std::string const & CaptionDescription::GetMainText() const
 std::string const & CaptionDescription::GetAuxText() const
 {
   return m_auxText;
-}
-
-std::string const & CaptionDescription::GetRoadNumber() const
-{
-  return m_roadNumber;
 }
 
 bool CaptionDescription::IsNameExists() const
