@@ -68,7 +68,6 @@ public class RoutingController implements Initializable<Void>
     default void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps) {}
     default void onDrivingOptionsBuildError() {}
     default void onShowDisclaimer(@Nullable MapObject startPoint, @Nullable MapObject endPoint) {}
-    default void onSuggestRebuildRoute() {}
 
     /**
      * @param progress progress to be displayed.
@@ -414,15 +413,6 @@ public class RoutingController implements Initializable<Void>
     // This saving is needed just for situation when the user starts navigation
     // and then app crashes. So, the previous route will be restored on the next app launch.
     saveRoute();
-
-    MapObject my = LocationHelper.INSTANCE.getMyPosition();
-
-    if (my == null || !MapObject.isOfType(MapObject.MY_POSITION, getStartPoint()))
-    {
-      if (mContainer != null)
-        mContainer.onSuggestRebuildRoute();
-      return;
-    }
 
     setState(State.NAVIGATION);
 

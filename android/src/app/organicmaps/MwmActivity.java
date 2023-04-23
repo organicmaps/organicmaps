@@ -1602,31 +1602,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onSuggestRebuildRoute()
-  {
-    final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
-        .setMessage(R.string.p2p_reroute_from_current)
-        .setCancelable(false)
-        .setNegativeButton(R.string.cancel, null);
-
-    final TextView titleView = (TextView)View.inflate(this, R.layout.dialog_suggest_reroute_title, null);
-    titleView.setText(R.string.p2p_only_from_current);
-    builder.setCustomTitle(titleView);
-
-    if (MapObject.isOfType(MapObject.MY_POSITION, RoutingController.get().getEndPoint()))
-      builder.setPositiveButton(R.string.ok, (dialog, which) -> RoutingController.get().swapPoints());
-    else
-    {
-      if (LocationHelper.INSTANCE.getMyPosition() == null)
-        builder.setMessage(null).setNegativeButton(null, null);
-
-      builder.setPositiveButton(R.string.ok, (dialog, which) -> RoutingController.get().setStartFromMyPosition());
-    }
-
-    builder.show();
-  }
-
-  @Override
   public void onMyPositionModeChanged(int newMode)
   {
     Logger.d(TAG, "location newMode = " + newMode);
