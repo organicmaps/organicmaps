@@ -1,39 +1,52 @@
-• Detailed offline maps with places that don't exist on other maps
-• Cycling routes, hiking trails, and walking paths
-• Contour lines, elevation profiles, peaks, and slopes
-• Turn-by-turn walking, cycling, and car navigation with voice guidance
-• Fast offline search
-• Bookmark everything you need, import and share KML/KMZ (GPX is planned)
-• Dark mode to protect your eyes
-• … and many other features!
+•详细的离线地图，其中包含其他地图上不存在的地方
 
-Organic Maps is pure and organic, made with love:
+•自行车路线、远足小径和步行道
 
-• Respects your privacy
-• Saves your battery
-• No unexpected mobile data charges
+•轮廓线、海拔剖面、山峰和斜坡
 
-Organic Maps is free from trackers and other bad stuff:
+•带语音引导的逐向步行、骑自行车和汽车导航
 
-• No ads
-• No tracking
-• No data collection
-• No phoning home
-• No annoying registration
-• No mandatory tutorials
-• No noisy email spam
-• No push notifications
-• No crapware
-• No pesticides
+•快速离线搜索
 
-At Organic Maps, we believe that privacy is a fundamental human right:
+•将您需要的所有内容添加为书签，导入并共享KML/KMZ（计划GPX）
 
-• Organic Maps is an indie community-driven project
-• The code is open-sourced
-• The maps data is taken from OpenStreetMap, also community-driven project
-• We protect your privacy from Big Tech’s prying eyes
-• Stay safe no matter wherever you are
+•深色模式来保护你的眼睛
 
-Reject surveillance, embrace your freedom, and support the community.
+• ...和许多其他功能！
 
-Give Organic Maps a try!
+有机地图是纯有机的，用爱制作：
+
+• 尊重您的隐私
+
+•节省您的电池
+
+•没有意外的移动数据费用
+
+有机地图没有跟踪器和其他坏东西：
+
+•无广告
+
+•没有跟踪
+
+•没有数据收集
+
+•不打电话回家
+
+•没有烦人的注册
+
+•没有强制性教程
+
+•没有噪音的电子邮件垃圾邮件
+
+•无推送通知
+
+•没有垃圾软件
+•无杀虫剂
+在有机地图，我们认为隐私是一项基本人权：
+•有机地图是一个独立社区驱动的项目
+•代码是开源的
+•地图数据取自OpenStreetMap，也是社区驱动的项目
+•我们保护您的隐私免受大科技公司的窥探
+•无论你身在何处，都要保持安全
+拒绝监视，拥抱你的自由，并支持社区。
+试试有机地图！
