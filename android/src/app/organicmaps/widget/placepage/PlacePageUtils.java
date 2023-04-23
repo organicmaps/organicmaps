@@ -17,21 +17,6 @@ import java.util.List;
 
 class PlacePageUtils
 {
-  static void moveViewportUp(@NonNull View placePageView, int viewportMinHeight)
-  {
-    placePageView.post(() -> {
-      final View coordinatorLayout = (ViewGroup) placePageView.getParent();
-      final int viewPortWidth = coordinatorLayout.getWidth();
-      int viewPortHeight = coordinatorLayout.getHeight();
-      Rect sheetRect = new Rect();
-      placePageView.getGlobalVisibleRect(sheetRect);
-
-      viewPortHeight -= sheetRect.height();
-      if (viewPortHeight >= viewportMinHeight)
-        Framework.nativeSetVisibleRect(0, 0, viewPortWidth, viewPortHeight);
-    });
-  }
-
   static boolean isSettlingState(@BottomSheetBehavior.State int state)
   {
     return state == BottomSheetBehavior.STATE_SETTLING;

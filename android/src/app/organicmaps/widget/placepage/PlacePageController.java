@@ -95,8 +95,6 @@ public class PlacePageController implements Initializable<Activity>,
       if (PlacePageUtils.isSettlingState(newState) || PlacePageUtils.isDraggingState(newState))
         return;
 
-      PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
-
       if (PlacePageUtils.isHiddenState(newState))
         onHiddenInternal();
     }
@@ -184,7 +182,6 @@ public class PlacePageController implements Initializable<Activity>,
     if (mDeactivateMapSelection)
       Framework.nativeDeactivatePopup();
     mDeactivateMapSelection = true;
-    PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
     resetPlacePageHeightBounds();
     removePlacePageFragments();
   }
@@ -302,7 +299,6 @@ public class PlacePageController implements Initializable<Activity>,
       mSlideListener.onPlacePageSlide(mDistanceToTop);
       if (value == peekHeight)
       {
-        PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
         setPlacePageHeightBounds();
       }
     });
