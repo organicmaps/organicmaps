@@ -50,7 +50,7 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Letöltése sikertelen";
 
-"about_menu_title" = "A Organic Maps programról";
+"about_menu_title" = "Az Organic Mapsről";
 
 "close" = "Bezár";
 
@@ -93,10 +93,10 @@
 "eat" = "Hol lehet enni valamit";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Termékek";
+"food" = "Élelmiszerek";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "Közlekedés";
+"transport" = "Tömegközlekedés";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
 "fuel" = "Benzinkút";
@@ -111,7 +111,7 @@
 "hotel" = "Szálloda";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Látnivaló";
+"tourism" = "Látnivalók";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
 "entertainment" = "Szórakozás";
@@ -123,7 +123,7 @@
 "nightlife" = "Éjjeli élet";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Pihenés a gyerekekkel";
+"children" = "Családi kiruccanás";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
 "bank" = "Bank";
@@ -265,7 +265,7 @@
 "website" = "Honlap";
 
 /* Text in About menu, opens Organic Maps news website */
-"news" = "Hírek";
+"news" = "Újdonságok";
 
 /* Text in menu */
 "github" = "GitHub";
@@ -301,7 +301,7 @@
 "help" = "Segítség";
 
 /* Button in the main Help dialog */
-"faq" = "Kérdések és válaszok";
+"faq" = "Gyakran Ismételt Kérdések";
 
 /* Button in the main menu */
 "donate" = "Adományozni";
@@ -377,7 +377,7 @@
 /* bookmark button text */
 "bookmark" = "könyvjelző";
 
-"save" = "Simpan";
+"save" = "Mentés";
 
 "create" = "létrehoz";
 
@@ -532,9 +532,9 @@
 
 "p2p_start" = "Indítás";
 
-"p2p_from_here" = "Innen";
+"p2p_from_here" = "Kiindulópont";
 
-"p2p_to_here" = "Ide";
+"p2p_to_here" = "Célpont";
 
 "p2p_only_from_current" = "A navigáció csak a jelenlegi helyzetéből érhető el.";
 
@@ -867,7 +867,7 @@
 "mobile_data" = "Mobil Internet";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
-"mobile_data_description" = "Mobil internetre van szükség helyszínekre vonatkozó részletes információ, mint például fotók, árak és szemlék megjelenítéséhez.";
+"mobile_data_description" = "Mobilinternet szükséges a térképfrissítési értesítésekhez, valamint a helyszínekre és könyvjelzőkre vonatkozó részletes információk megjelenítéséhez.";
 
 "mobile_data_option_never" = "Soha se használja";
 
@@ -906,7 +906,7 @@
 
 "placepage_add_stop" = "Hozzáad megállót";
 
-"start_from_my_position" = "Elkezdi innen:";
+"start_from_my_position" = "Kiindulás innen:";
 
 "profile_authorization_error" = "Hoppá, volt egy hiba. Próbáljon meg újra bejelentkezni.";
 
@@ -914,7 +914,7 @@
 
 "error_enter_correct_name" = "Kérjük adja meg a helyes nevet";
 
-"bookmark_lists" = "List";
+"bookmark_lists" = "Listák";
 
 /* Do not display all bookmark lists on the map */
 "bookmark_lists_hide_all" = "Összes elrejtése";
@@ -981,7 +981,7 @@
 
 "delete_list" = "Törölni a listát";
 
-"hide_from_map" = "Lefedés a térképen";
+"hide_from_map" = "Elrejtés a térképről";
 
 "bookmark_list_description_hint" = "Leírás hozzáadása (szöveg vagy html)";
 
@@ -991,7 +991,7 @@
 
 "speedcams_alert_title" = "Sebességmérő kamerák";
 
-"speedcam_option_auto" = "Autó";
+"speedcam_option_auto" = "Automatikus";
 
 "speedcam_option_always" = "Mindig";
 
@@ -999,7 +999,7 @@
 
 "place_description_title" = "A hely ismertetése";
 
-"speedcams_notice_message" = "Autó - Figyelmeztetés a sebesség kamerákról, ha van kockázat a sebesség korlátozás megsértéséről\nMindig - Mindig figyelmeztet a kamerákról\nSoha - Soha ne figyelmezet a kamerákról";
+"speedcams_notice_message" = "Automatikus - Figyelmeztetés a sebesség kamerákról, ha van kockázat a sebesség korlátozás megsértéséről\nMindig - Mindig figyelmeztet a kamerákról\nSoha - Soha ne figyelmezet a kamerákról";
 
 "power_managment_title" = "Energiatakarékos mód";
 
@@ -1174,7 +1174,7 @@
 
 "dialog_pedestrian_route_is_long_message" = "Válasszon indulási vagy végpontot közelebb a metróállomáshoz";
 
-"button_layer_isolines" = "Terep";
+"button_layer_isolines" = "Domborzat";
 
 "isolines_activation_error_dialog" = "A topográfiai réteg aktiválásához és használatához kérjük frissítse vagy töltse le az adott terület térképét";
 
@@ -2585,7 +2585,7 @@
 
 "type.noexit" = "Dead End";
 
-"type.office" = "Hivatal";
+"type.office" = "Iroda";
 
 "type.office.company" = "Vállalati iroda";
 
