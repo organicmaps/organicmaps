@@ -77,6 +77,20 @@ string Join(string const & s, Args &&... args)
     return s;
   return s + ", " + tail;
 }
+
+ReverseGeocoder::Building FromFeatureImpl(FeatureType & ft, std::string hn, double distMeters)
+{
+  return { ft.GetID(), distMeters, std::move(hn), feature::GetCenter(ft) };
+}
+
+std::string GetHouseNumber(FeatureType & ft)
+{
+  std::string hn = ft.GetHouseNumber();
+  if (hn.empty() && ftypes::IsAddressInterpolChecker::Instance()(ft))
+    hn = ft.GetRef();
+  return hn;
+}
+
 }  // namespace
 
 ReverseGeocoder::ReverseGeocoder(DataSource const & dataSource) : m_dataSource(dataSource) {}
@@ -217,11 +231,10 @@ bool ReverseGeocoder::GetOriginalStreetByHouse(FeatureType & house, FeatureID & 
 
 void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center, Address & addr) const
 {
-  return GetNearbyAddress(center, kLookupRadiusM, addr);
+  GetNearbyAddress(center, kLookupRadiusM, addr);
 }
 
-void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center, double maxDistanceM,
-                                       Address & addr) const
+void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center, double maxDistanceM, Address & addr) const
 {
   vector<Building> buildings;
   GetNearbyBuildings(center, maxDistanceM, buildings);
@@ -241,11 +254,12 @@ void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center, double maxDist
 
 bool ReverseGeocoder::GetExactAddress(FeatureType & ft, Address & addr) const
 {
-  if (ft.GetHouseNumber().empty())
+  std::string hn = GetHouseNumber(ft);
+  if (hn.empty())
     return false;
+
   HouseTable table(m_dataSource);
-  return GetNearbyAddress(table, FromFeature(ft, 0.0 /* distMeters */), false /* ignoreEdits */,
-                          addr);
+  return GetNearbyAddress(table, FromFeatureImpl(ft, std::move(hn), 0.0 /* distMeters */), false /* ignoreEdits */, addr);
 }
 
 bool ReverseGeocoder::GetExactAddress(FeatureID const & fid, Address & addr) const
@@ -311,10 +325,15 @@ bool ReverseGeocoder::GetNearbyAddress(HouseTable & table, Building const & bld,
 void ReverseGeocoder::GetNearbyBuildings(m2::PointD const & center, double radius,
                                          vector<Building> & buildings) const
 {
-  auto const addBuilding = [&](FeatureType & ft) {
+  auto const addBuilding = [&](FeatureType & ft)
+  {
+    std::string hn = GetHouseNumber(ft);
+    if (hn.empty())
+      return;
+
     auto const distance = feature::GetMinDistanceMeters(ft, center);
-    if (!ft.GetHouseNumber().empty() && distance <= radius)
-      buildings.push_back(FromFeature(ft, distance));
+    if (distance <= radius)
+      buildings.push_back(FromFeatureImpl(ft, std::move(hn), distance));
   };
 
   auto const stop = [&]() { return buildings.size() >= kMaxNumTriesToApproxAddress; };
@@ -371,7 +390,7 @@ string ReverseGeocoder::GetLocalizedRegionAddress(RegionAddress const & addr,
 // static
 ReverseGeocoder::Building ReverseGeocoder::FromFeature(FeatureType & ft, double distMeters)
 {
-  return { ft.GetID(), distMeters, ft.GetHouseNumber(), feature::GetCenter(ft) };
+  return FromFeatureImpl(ft, ft.GetHouseNumber(), distMeters);
 }
 
 std::optional<HouseToStreetTable::Result> ReverseGeocoder::HouseTable::Get(FeatureID const & fid)
