@@ -416,7 +416,7 @@
     nl = Verlaat.
     pl = Zjazd.
     pt = Saia.
-    pt-BR = Saia.
+    pt-BR = Pegue a saída.
     ro = Ieșire.
     ru = Съезд.
     sk = Výjazd.
@@ -1235,7 +1235,7 @@
     nl = Neem de eerste afslag.
     pl = Zjedź pierwszym zjazdem.
     pt = Saia na primeira saída.
-    pt-BR = Saia na primeira saída.
+    pt-BR = Pegue a primeira saída.
     ro = Folosiți prima ieșire.
     ru = Сверните на первый съезд.
     sk = Opustite kruhový objazd na prvom výjazde.
@@ -1274,7 +1274,7 @@
     nl = Neem de tweede afslag.
     pl = Zjedź drugim zjazdem.
     pt = Saia na segunda saída.
-    pt-BR = Saia na segunda saída.
+    pt-BR = Pegue a segunda saída.
     ro = Folosiți a doua ieșire.
     ru = Сверните на второй съезд.
     sk = Opustite kruhový objazd na druhom výjazde.
@@ -1313,7 +1313,7 @@
     nl = Neem de derde afslag.
     pl = Zjedź trzecim zjazdem.
     pt = Saia na terceira saída.
-    pt-BR = Saia na terceira saída.
+    pt-BR = Pegue a terceira saída.
     ro = Folosiți a treia ieșire.
     ru = Сверните на третий съезд.
     sk = Opustite kruhový objazd na treťom výjazde.
@@ -1352,7 +1352,7 @@
     nl = Neem de vierde afslag.
     pl = Zjedź czwartym zjazdem.
     pt = Saia na quarta saída.
-    pt-BR = Saia na quarta saída.
+    pt-BR = Pegue a quarta saída.
     ro = Folosiți a patra ieșire.
     ru = Сверните на четвертый съезд.
     sk = Opustite kruhový objazd na štvrtom výjazde.
@@ -1391,7 +1391,7 @@
     nl = Neem de vijfde afslag.
     pl = Zjedź piątym zjazdem.
     pt = Saia na quinta saída.
-    pt-BR = Saia na quinta saída.
+    pt-BR = Pegue a quinta saída.
     ro = Folosiți a cincea ieșire.
     ru = Сверните на пятый съезд.
     sk = Opustite kruhový objazd na piatom výjazde.
@@ -1430,7 +1430,7 @@
     nl = Neem de zesde afslag.
     pl = Zjedź szóstym zjazdem.
     pt = Saia na sexta saída.
-    pt-BR = Saia na sexta saída.
+    pt-BR = Pegue a sexta saída.
     ro = Folosiți a șasea ieșire.
     ru = Сверните на шестой съезд.
     sk = Opustite kruhový objazd na šiestom výjazde.
@@ -1469,7 +1469,7 @@
     nl = Neem de zevende afslag.
     pl = Zjedź siódmym zjazdem.
     pt = Saia na sétima saída.
-    pt-BR = Saia na sétima saída.
+    pt-BR = Pegue a sétima saída.
     ro = Folosiți a șaptea ieșire.
     ru = Сверните на седьмой съезд.
     sk = Opustite kruhový objazd na siedmom výjazde.
@@ -1508,7 +1508,7 @@
     nl = Neem de achtste afslag.
     pl = Zjedź ósmym zjazdem.
     pt = Saia na oitava saída.
-    pt-BR = Saia na oitava saída.
+    pt-BR = Pegue a oitava saída.
     ro = Folosiți a opta ieșire.
     ru = Сверните на восьмой съезд.
     sk = Opustite kruhový objazd na ôsmom výjazde.
@@ -1547,7 +1547,7 @@
     nl = Neem de negende afslag.
     pl = Zjedź dziewiątym zjazdem.
     pt = Saia na nona saída.
-    pt-BR = Saia na nona saída.
+    pt-BR = Pegue a nona saída.
     ro = Folosiți a noua ieșire.
     ru = Сверните на девятый съезд.
     sk = Opustite kruhový objazd na deviatom výjazde.
@@ -1586,7 +1586,7 @@
     nl = Neem de tiende afslag.
     pl = Zjedź dziesiątym zjazdem.
     pt = Saia na décima saída.
-    pt-BR = Saia na décima saída.
+    pt-BR = Pegue a décima saída.
     ro = Folosiți a zecea ieșire.
     ru = Сверните на десятый съезд.
     sk = Opustite kruhový objazd na desiatom výjazde.
@@ -1625,7 +1625,7 @@
     nl = Neem de elfde afslag.
     pl = Zjedź jedenastym zjazdem.
     pt = Saia na décima primeira saída.
-    pt-BR = Saia na décima primeira saída.
+    pt-BR = Pegue a décima primeira saída.
     ro = Folosiți a unsprezecea ieșire.
     ru = Сверните на одиннадцатый съезд.
     sk = Opustite kruhový objazd na jedenástom výjazde.
