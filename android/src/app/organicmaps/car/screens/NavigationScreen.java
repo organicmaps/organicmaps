@@ -41,7 +41,7 @@ public class NavigationScreen extends BaseMapScreen
     stopActionBuilder.setTitle(getCarContext().getString(R.string.current_location_unknown_stop_button));
     stopActionBuilder.setOnClickListener(this::stop);
     final ActionStrip.Builder builder = new ActionStrip.Builder();
-    builder.addAction(UiHelpers.createSettingsAction(getCarContext(), getSurfaceRenderer()));
+    builder.addAction(UiHelpers.createSettingsAction(this, getSurfaceRenderer()));
     builder.addAction(stopActionBuilder.build());
     return builder.build();
   }
