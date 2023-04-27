@@ -3051,8 +3051,8 @@ void BookmarkManager::MarksChangesTracker::OnDeleteGroup(kml::MarkGroupId groupI
   auto const it = m_createdGroups.find(groupId);
   if (it != m_createdGroups.end())
     m_createdGroups.erase(it);
-  else
-    m_removedGroups.insert(groupId);
+
+  m_removedGroups.insert(groupId);
 }
 
 void BookmarkManager::MarksChangesTracker::OnUpdateGroup(kml::MarkGroupId groupId)
