@@ -3,7 +3,6 @@ package app.organicmaps.car;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.location.Location;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,8 +13,12 @@ import androidx.car.app.SessionInfo;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 
+import app.organicmaps.Framework;
 import app.organicmaps.Map;
+import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.car.screens.NavigationScreen;
+import app.organicmaps.car.screens.PlaceScreen;
+import app.organicmaps.car.screens.hacks.PopToRootHack;
 import app.organicmaps.display.DisplayChangedListener;
 import app.organicmaps.display.DisplayManager;
 import app.organicmaps.display.DisplayType;
@@ -29,10 +32,11 @@ import app.organicmaps.location.LocationListener;
 import app.organicmaps.location.LocationState;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.util.log.Logger;
+import app.organicmaps.widget.placepage.PlacePageData;
 
 import java.io.IOException;
 
-public final class NavigationSession extends Session implements DefaultLifecycleObserver, LocationListener, LocationState.ModeChangeListener, DisplayChangedListener
+public final class NavigationSession extends Session implements DefaultLifecycleObserver, LocationListener, LocationState.ModeChangeListener, DisplayChangedListener, Framework.PlacePageActivationListener
 {
   private static final String TAG = NavigationSession.class.getSimpleName();
 
@@ -67,27 +71,10 @@ public final class NavigationSession extends Session implements DefaultLifecycle
     Logger.d(TAG, "Host info: " + getCarContext().getHostInfo());
     Logger.d(TAG, "Car configuration: " + getCarContext().getResources().getConfiguration());
 
-
     if (mInitFailed)
       return new ErrorScreen(getCarContext());
 
     return new MapScreen(getCarContext(), mSurfaceRenderer);
-  }
-
-  @Override
-  public void onStart(@NonNull LifecycleOwner owner)
-  {
-    LocationState.nativeSetListener(this);
-    LocationHelper.INSTANCE.addListener(this);
-    onMyPositionModeChanged(LocationState.nativeGetMode());
-  }
-
-  @Override
-  public void onStop(@NonNull LifecycleOwner owner)
-  {
-    Logger.d(TAG);
-    LocationHelper.INSTANCE.removeListener(this);
-    LocationState.nativeRemoveListener();
   }
 
   @Override
@@ -101,6 +88,19 @@ public final class NavigationSession extends Session implements DefaultLifecycle
   }
 
   @Override
+  public void onStart(@NonNull LifecycleOwner owner)
+  {
+    Logger.d(TAG);
+    if (DisplayManager.from(getCarContext()).isCarDisplayUsed())
+    {
+      LocationState.nativeSetListener(this);
+      onMyPositionModeChanged(LocationState.nativeGetMode());
+      Framework.nativePlacePageActivationListener(this);
+    }
+    LocationHelper.INSTANCE.addListener(this);
+  }
+
+  @Override
   public void onResume(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
@@ -108,9 +108,15 @@ public final class NavigationSession extends Session implements DefaultLifecycle
   }
 
   @Override
-  public void onDestroy(@NonNull LifecycleOwner owner)
+  public void onStop(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
+    LocationHelper.INSTANCE.removeListener(this);
+    if (DisplayManager.from(getCarContext()).isCarDisplayUsed())
+    {
+      LocationState.nativeRemoveListener();
+      Framework.nativeRemovePlacePageActivationListener(this);
+    }
   }
 
   private void init()
@@ -122,7 +128,7 @@ public final class NavigationSession extends Session implements DefaultLifecycle
     } catch (IOException e)
     {
       mInitFailed = true;
-      Log.e(TAG, "Failed to initialize the app.");
+      Logger.e(TAG, "Failed to initialize the app.");
     }
   }
 
@@ -151,19 +157,52 @@ public final class NavigationSession extends Session implements DefaultLifecycle
     Logger.d(TAG);
     final ScreenManager screenManager = getCarContext().getCarService(ScreenManager.class);
     final boolean isUsedOnDeviceScreenShown = screenManager.getTop() instanceof MapPlaceholderScreen;
-    if (newDisplayType == DisplayType.Car && isUsedOnDeviceScreenShown)
+    if (newDisplayType == DisplayType.Car)
     {
       LocationState.nativeSetListener(this);
       onMyPositionModeChanged(LocationState.nativeGetMode());
       screenManager.popToRoot();
       if (RoutingController.get().isNavigating())
         screenManager.push(new NavigationScreen(getCarContext(), mSurfaceRenderer));
+      else if (RoutingController.get().isPlanning() && RoutingController.get().getEndPoint() != null)
+        screenManager.push(new PlaceScreen.Builder(getCarContext(), mSurfaceRenderer).setMapObject(RoutingController.get().getEndPoint()).build());
       mSurfaceRenderer.enable();
+      Framework.nativePlacePageActivationListener(this);
     }
     else if (newDisplayType == DisplayType.Device && !isUsedOnDeviceScreenShown)
     {
+      Framework.nativeRemovePlacePageActivationListener(this);
       mSurfaceRenderer.disable();
-      screenManager.push(new MapPlaceholderScreen(getCarContext()));
+      final PopToRootHack hack = new PopToRootHack.Builder(getCarContext()).setScreenToPush(new MapPlaceholderScreen(getCarContext())).build();
+      screenManager.push(hack);
     }
+  }
+
+  @Override
+  public void onPlacePageActivated(@NonNull PlacePageData data)
+  {
+    Logger.d(TAG);
+    final MapObject mapObject = (MapObject) data;
+    final ScreenManager screenManager = getCarContext().getCarService(ScreenManager.class);
+    if (screenManager.getTop() instanceof PlaceScreen)
+    {
+      final PlaceScreen screen = (PlaceScreen) screenManager.getTop();
+      if (screen.getMapObject().getFeatureId().equals(mapObject.getFeatureId()))
+      {
+        screen.updateMapObject(mapObject);
+        return;
+      }
+    }
+    final PlaceScreen placeScreen = new PlaceScreen.Builder(getCarContext(), mSurfaceRenderer).setMapObject(mapObject).build();
+    final PopToRootHack hack = new PopToRootHack.Builder(getCarContext()).setScreenToPush(placeScreen).build();
+    screenManager.push(hack);
+  }
+
+  @Override
+  public void onPlacePageDeactivated(boolean switchFullScreenMode)
+  {
+    final ScreenManager screenManager = getCarContext().getCarService(ScreenManager.class);
+    if (screenManager.getTop() instanceof PlaceScreen)
+      screenManager.popToRoot();
   }
 }
