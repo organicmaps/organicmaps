@@ -81,7 +81,7 @@ public class PlacePageController extends Fragment implements
       if (PlacePageUtils.isSettlingState(newState) || PlacePageUtils.isDraggingState(newState))
         return;
 
-      PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
+      PlacePageUtils.updateMapViewport(mCoordinator, mDistanceToTop, mViewportMinHeight);
 
       if (PlacePageUtils.isHiddenState(newState))
         onHiddenInternal();
@@ -165,7 +165,7 @@ public class PlacePageController extends Fragment implements
   private void onHiddenInternal()
   {
     Framework.nativeDeactivatePopup();
-    PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
+    PlacePageUtils.updateMapViewport(mCoordinator, mDistanceToTop, mViewportMinHeight);
     resetPlacePageHeightBounds();
     removePlacePageFragments();
   }
@@ -281,7 +281,7 @@ public class PlacePageController extends Fragment implements
       mViewModel.setPlacePageDistanceToTop(mDistanceToTop);
       if (value == peekHeight)
       {
-        PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
+        PlacePageUtils.updateMapViewport(mCoordinator, mDistanceToTop, mViewportMinHeight);
         setPlacePageHeightBounds();
       }
     });
