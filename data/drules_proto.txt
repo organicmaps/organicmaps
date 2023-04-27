@@ -99354,7 +99354,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "information-m"
+      name: "guidepost"
       priority: 16582
       min_distance: 10
     }
@@ -99371,7 +99371,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "information-m"
+      name: "guidepost"
       priority: 16582
       min_distance: 10
     }
@@ -99388,7 +99388,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "information-m"
+      name: "guidepost"
       priority: 16592
       min_distance: 10
     }
@@ -99405,7 +99405,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "information-m"
+      name: "guidepost"
       priority: 16592
       min_distance: 10
     }
@@ -99638,7 +99638,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "information-m"
+      name: "guidepost"
       priority: 16582
       min_distance: 10
     }
@@ -99655,7 +99655,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "information-m"
+      name: "guidepost"
       priority: 16582
       min_distance: 10
     }
@@ -99672,7 +99672,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "information-m"
+      name: "guidepost"
       priority: 16592
       min_distance: 10
     }
@@ -99689,7 +99689,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "information-m"
+      name: "guidepost"
       priority: 16592
       min_distance: 10
     }
