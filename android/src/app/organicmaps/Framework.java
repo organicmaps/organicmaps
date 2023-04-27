@@ -182,7 +182,7 @@ public class Framework
 
   public static native void nativePlacePageActivationListener(@NonNull PlacePageActivationListener listener);
 
-  public static native void nativeRemovePlacePageActivationListener();
+  public static native void nativeRemovePlacePageActivationListener(@NonNull PlacePageActivationListener listener);
 
 //  @UiThread
 //  public static native String nativeGetOutdatedCountriesString();

@@ -67,7 +67,6 @@ public class CategoriesScreen extends BaseMapScreen
     final MapTemplate.Builder builder = new MapTemplate.Builder();
     builder.setHeader(createHeader());
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
-    builder.setActionStrip(UiHelpers.createSettingsActionStrip(getCarContext(), getSurfaceRenderer()));
     builder.setItemList(createCategoriesList());
     return builder.build();
   }
