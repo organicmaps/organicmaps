@@ -2,27 +2,36 @@ package app.organicmaps.car.util;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
-import androidx.car.app.ScreenManager;
 import androidx.car.app.model.Action;
 import androidx.car.app.model.ActionStrip;
 import androidx.car.app.model.CarColor;
 import androidx.car.app.model.CarIcon;
+import androidx.car.app.model.Row;
 import androidx.car.app.navigation.model.MapController;
 import androidx.core.graphics.drawable.IconCompat;
 
 import app.organicmaps.R;
+import app.organicmaps.bookmarks.data.MapObject;
+import app.organicmaps.bookmarks.data.Metadata;
 import app.organicmaps.car.SurfaceRenderer;
+import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.screens.settings.SettingsScreen;
+import app.organicmaps.editor.OpeningHours;
+import app.organicmaps.editor.data.Timetable;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationState;
+import app.organicmaps.util.Utils;
+
+import java.util.Calendar;
 
 public final class UiHelpers
 {
   @NonNull
-  public static ActionStrip createSettingsActionStrip(@NonNull CarContext context, @NonNull SurfaceRenderer surfaceRenderer)
+  public static ActionStrip createSettingsActionStrip(@NonNull BaseMapScreen mapScreen, @NonNull SurfaceRenderer surfaceRenderer)
   {
-    return new ActionStrip.Builder().addAction(createSettingsAction(context, surfaceRenderer)).build();
+    return new ActionStrip.Builder().addAction(createSettingsAction(mapScreen, surfaceRenderer)).build();
   }
 
   @NonNull
@@ -50,13 +59,79 @@ public final class UiHelpers
   }
 
   @NonNull
-  public static Action createSettingsAction(@NonNull CarContext context, @NonNull SurfaceRenderer surfaceRenderer)
+  public static Action createSettingsAction(@NonNull BaseMapScreen mapScreen, @NonNull SurfaceRenderer surfaceRenderer)
   {
+    final CarContext context = mapScreen.getCarContext();
     final CarIcon iconSettings = new CarIcon.Builder(IconCompat.createWithResource(context, R.drawable.ic_settings)).build();
 
-    return new Action.Builder().setIcon(iconSettings).setOnClickListener(
-        () -> context.getCarService(ScreenManager.class).push(new SettingsScreen(context, surfaceRenderer))
-    ).build();
+    return new Action.Builder().setIcon(iconSettings).setOnClickListener(() -> {
+      // Action.onClickListener for the Screen A maybe called even if the Screen B is shown now.
+      // We need to check it
+      // This may happen when we use PopToRootHack:
+      //   * ScreenManager.popToRoot()
+      //   * The root screen (A) is shown for a while
+      //   * User clicks on some action
+      //   * ScreenManager.push(new Screen())
+      //   * New screen (B) is displayed now
+      //   * Action.onClickListener is called for action from root screen (A)
+      if (mapScreen.getScreenManager().getTop() != mapScreen)
+        return;
+      mapScreen.getScreenManager().push(new SettingsScreen(context, surfaceRenderer));
+    }).build();
+  }
+
+  @Nullable
+  public static Row getPlaceOpeningHoursRow(@NonNull MapObject place, @NonNull CarContext context)
+  {
+    if (!place.hasMetadata())
+      return null;
+
+    final String ohStr = place.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
+    final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
+    final boolean isEmptyTT = (timetables == null || timetables.length == 0);
+
+    if (ohStr.isEmpty() && isEmptyTT)
+      return null;
+
+    final Row.Builder builder = new Row.Builder();
+    builder.setImage(new CarIcon.Builder(IconCompat.createWithResource(context, R.drawable.ic_operating_hours)).build());
+
+    if (isEmptyTT)
+      builder.setTitle(ohStr);
+    else if (timetables[0].isFullWeek())
+    {
+      if (timetables[0].isFullday)
+        builder.setTitle(context.getString(R.string.twentyfour_seven));
+      else
+        builder.setTitle(timetables[0].workingTimespan.toWideString());
+    }
+    else
+    {
+      boolean containsCurrentWeekday = false;
+      final int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+      for (final Timetable tt : timetables)
+      {
+        if (tt.containsWeekday(currentDay))
+        {
+          containsCurrentWeekday = true;
+          String openTime;
+
+          if (tt.isFullday)
+            openTime = Utils.unCapitalize(context.getString(R.string.editor_time_allday));
+          else
+            openTime = tt.workingTimespan.toWideString();
+
+          builder.setTitle(openTime);
+
+          break;
+        }
+      }
+      // Show that place is closed today.
+      if (!containsCurrentWeekday)
+        builder.setTitle(context.getString(R.string.day_off_today));
+    }
+
+    return builder.build();
   }
 
   @NonNull
