@@ -32,7 +32,7 @@ public class MapScreen extends BaseMapScreen
     final MapTemplate.Builder builder = new MapTemplate.Builder();
     builder.setHeader(createHeader());
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
-    builder.setActionStrip(UiHelpers.createSettingsActionStrip(getCarContext(), getSurfaceRenderer()));
+    builder.setActionStrip(UiHelpers.createSettingsActionStrip(this, getSurfaceRenderer()));
     builder.setItemList(createList());
     return builder.build();
   }
@@ -91,16 +91,25 @@ public class MapScreen extends BaseMapScreen
 
   private void openSearch()
   {
+    // Details in UiHelpers.createSettingsAction()
+    if (getScreenManager().getTop() != this)
+      return;
     getScreenManager().push(new SearchScreen.Builder(getCarContext(), getSurfaceRenderer()).build());
   }
 
   private void openCategories()
   {
+    // Details in UiHelpers.createSettingsAction()
+    if (getScreenManager().getTop() != this)
+      return;
     getScreenManager().push(new CategoriesScreen(getCarContext(), getSurfaceRenderer()));
   }
 
   private void openBookmarks()
   {
+    // Details in UiHelpers.createSettingsAction()
+    if (getScreenManager().getTop() != this)
+      return;
     getScreenManager().push(new BookmarksScreen(getCarContext(), getSurfaceRenderer()));
   }
 }

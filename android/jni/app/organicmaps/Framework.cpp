@@ -908,9 +908,12 @@ Java_app_organicmaps_Framework_nativePlacePageActivationListener(JNIEnv *env, jc
 }
 
 JNIEXPORT void JNICALL
-Java_app_organicmaps_Framework_nativeRemovePlacePageActivationListener(JNIEnv *env, jclass)
+Java_app_organicmaps_Framework_nativeRemovePlacePageActivationListener(JNIEnv *env, jclass, jobject jListener)
 {
   if (g_placePageActivationListener == nullptr)
+    return;
+
+  if (!env->IsSameObject(g_placePageActivationListener, jListener))
     return;
 
   frm()->SetPlacePageListeners({} /* onOpen */, {} /* onClose */, {} /* onUpdate */);

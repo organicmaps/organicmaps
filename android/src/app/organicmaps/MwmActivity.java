@@ -1054,7 +1054,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onStart()
   {
     super.onStart();
-    Framework.nativePlacePageActivationListener(this);
     BookmarkManager.INSTANCE.addLoadingListener(this);
     RoutingController.get().attach(this);
     IsolinesManager.from(getApplicationContext()).attach(this::onIsolinesStateChanged);
@@ -1062,6 +1061,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       LocationState.nativeSetListener(this);
       onMyPositionModeChanged(LocationState.nativeGetMode());
+      Framework.nativePlacePageActivationListener(this);
     }
     LocationHelper.INSTANCE.attach(this);
     LocationHelper.INSTANCE.addListener(this);
@@ -1074,11 +1074,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onStop()
   {
     super.onStop();
-    Framework.nativeRemovePlacePageActivationListener();
     BookmarkManager.INSTANCE.removeLoadingListener(this);
     LocationHelper.INSTANCE.removeListener(this);
     if (mDisplayManager.isDeviceDisplayUsed())
+    {
+      Framework.nativeRemovePlacePageActivationListener(this);
       LocationState.nativeRemoveListener();
+    }
     LocationHelper.INSTANCE.detach();
     RoutingController.get().detach();
     IsolinesManager.from(getApplicationContext()).detach();
@@ -1915,7 +1917,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mNavigationController.show(false);
     mRoutingPlanInplaceController.show(false);
     closeFloatingToolbarsAndPanels(false);
-    Framework.nativeDeactivatePopup();
+    Framework.nativeRemovePlacePageActivationListener(this);
     if (mOnmapDownloader != null)
       mOnmapDownloader.onPause();
   }
@@ -1934,9 +1936,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
       initNavigationButtons(MapButtonsController.LayoutMode.planning, true /* force */);
     }
     else
+    {
       initNavigationButtons(MapButtonsController.LayoutMode.regular, true /* force */);
-    mMapButtonsViewModel.setButtonsHidden(false);
+      mMapButtonsViewModel.setButtonsHidden(false);
+    }
     LocationState.nativeSetListener(this);
+    Framework.nativePlacePageActivationListener(this);
     onMyPositionModeChanged(LocationState.nativeGetMode());
     updateViewsInsets();
     if (mOnmapDownloader != null)
