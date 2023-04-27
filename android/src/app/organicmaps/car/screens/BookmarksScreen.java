@@ -1,5 +1,7 @@
 package app.organicmaps.car.screens;
 
+import static java.util.Objects.requireNonNull;
+
 import android.graphics.drawable.Drawable;
 
 import androidx.annotation.NonNull;
@@ -54,7 +56,6 @@ public class BookmarksScreen extends BaseMapScreen
     final MapTemplate.Builder builder = new MapTemplate.Builder();
     builder.setHeader(createHeader());
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
-    builder.setActionStrip(UiHelpers.createSettingsActionStrip(getCarContext(), getSurfaceRenderer()));
     builder.setItemList(mBookmarkCategory == null ? createBookmarkCategoriesList() : createBookmarksList());
     return builder.build();
   }
@@ -92,8 +93,7 @@ public class BookmarksScreen extends BaseMapScreen
   @NonNull
   private ItemList createBookmarksList()
   {
-    assert mBookmarkCategory != null;
-    final long bookmarkCategoryId = mBookmarkCategory.getId();
+    final long bookmarkCategoryId = requireNonNull(mBookmarkCategory).getId();
     final int bookmarkCategoriesSize = Math.min(mBookmarkCategory.getBookmarksCount(), MAX_CATEGORIES_SIZE);
 
     ItemList.Builder builder = new ItemList.Builder();
@@ -114,7 +114,7 @@ public class BookmarksScreen extends BaseMapScreen
           R.dimen.bookmark_icon_size,
           getCarContext());
       itemBuilder.setImage(new CarIcon.Builder(IconCompat.createWithBitmap(Graphics.drawableToBitmap(icon))).build());
-      itemBuilder.setOnClickListener(() -> { /* TODO (AndrewShkrob): Will be implemented together with PlaceScreen */ });
+      itemBuilder.setOnClickListener(() -> BookmarkManager.INSTANCE.showBookmarkOnMap(bookmarkId));
       builder.addItem(itemBuilder.build());
     }
     return builder.build();
