@@ -1,10 +1,8 @@
 package app.organicmaps.widget.placepage;
 
 import android.content.Context;
-import android.graphics.Rect;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
@@ -17,18 +15,12 @@ import java.util.List;
 
 public class PlacePageUtils
 {
-  static void moveViewportUp(@NonNull View placePageView, int viewportMinHeight)
+  static void updateMapViewport(@NonNull View parent, int placePageDistanceToTop, int viewportMinHeight)
   {
-    placePageView.post(() -> {
-      final View coordinatorLayout = (ViewGroup) placePageView.getParent();
-      final int viewPortWidth = coordinatorLayout.getWidth();
-      int viewPortHeight = coordinatorLayout.getHeight();
-      Rect sheetRect = new Rect();
-      placePageView.getGlobalVisibleRect(sheetRect);
-
-      viewPortHeight -= sheetRect.height();
-      if (viewPortHeight >= viewportMinHeight)
-        Framework.nativeSetVisibleRect(0, 0, viewPortWidth, viewPortHeight);
+    parent.post(() -> {
+      final int screenWidth = parent.getWidth();
+      if (placePageDistanceToTop >= viewportMinHeight)
+        Framework.nativeSetVisibleRect(0, 0, screenWidth, placePageDistanceToTop);
     });
   }
 
