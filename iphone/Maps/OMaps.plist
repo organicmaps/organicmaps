@@ -131,7 +131,7 @@
 			<key>UIApplicationShortcutItemIconFile</key>
 			<string>ic_3dtouch_bookmarks</string>
 			<key>UIApplicationShortcutItemTitle</key>
-			<string>bookmarks</string>
+			<string>bookmarks_and_tracks</string>
 			<key>UIApplicationShortcutItemType</key>
 			<string>app.organicmaps.3daction.bookmarks</string>
 		</dict>

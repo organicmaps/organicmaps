@@ -47,7 +47,7 @@ import UIKit
       guard let bookmarksControllers = bookmarksControllers else {
         // Instead of BookmarksTabViewController
         let bookmarks = BMCViewController(coordinator: self)
-        bookmarks.title = L("bookmarks")
+        bookmarks.title = L("bookmarks_and_tracks")
         navigationController.pushViewController(bookmarks, animated: true)
         return
       }

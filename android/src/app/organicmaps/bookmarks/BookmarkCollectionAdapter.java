@@ -177,18 +177,12 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     Holders.CollectionViewHolder collectionViewHolder = (Holders.CollectionViewHolder) holder;
     collectionViewHolder.setEntity(category);
     collectionViewHolder.setName(category.getName());
-    bindSize(collectionViewHolder, category);
+    collectionViewHolder.setSize();
     collectionViewHolder.setVisibilityState(category.isVisible());
     collectionViewHolder.setOnClickListener(mClickListener);
     ToggleVisibilityClickListener listener = new ToggleVisibilityClickListener(collectionViewHolder);
     collectionViewHolder.setVisibilityListener(listener);
     updateVisibility(collectionViewHolder.itemView);
-  }
-
-  private void bindSize(Holders.CollectionViewHolder holder, BookmarkCategory category)
-  {
-    BookmarkCategory.CountAndPlurals template = category.getPluralsCountTemplate();
-    holder.setSize(template.getPlurals(), template.getCount());
   }
 
   private void bindHeaderHolder(@NonNull RecyclerView.ViewHolder holder, int nextSectionPosition)

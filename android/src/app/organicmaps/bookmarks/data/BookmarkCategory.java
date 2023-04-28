@@ -99,42 +99,6 @@ public class BookmarkCategory implements Parcelable
     return mDescription;
   }
 
-  @NonNull
-  public CountAndPlurals getPluralsCountTemplate()
-  {
-    if (size() == 0)
-      return new CountAndPlurals(0, R.plurals.objects);
-
-    if (getBookmarksCount() == 0)
-      return new CountAndPlurals(getTracksCount(), R.plurals.tracks);
-
-    if (getTracksCount() == 0)
-      return new CountAndPlurals(getBookmarksCount(), R.plurals.places);
-
-    return new CountAndPlurals(size(), R.plurals.objects);
-  }
-
-  public static class CountAndPlurals {
-    private final int mCount;
-    @PluralsRes
-    private final int mPlurals;
-
-    public CountAndPlurals(int count, int plurals)
-    {
-      mCount = count;
-      mPlurals = plurals;
-    }
-
-    public int getCount()
-    {
-      return mCount;
-    }
-
-    public int getPlurals()
-    {
-      return mPlurals;
-    }
-  }
   @Override
   public String toString()
   {

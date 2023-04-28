@@ -1856,7 +1856,7 @@
     zh-Hant = 收藏夾
 
   [bookmarks]
-    comment = "Bookmarks" dialog title, please also edit it in iphone/plist.txt
+    comment = Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied.
     tags = android,ios
     en = Bookmarks
     ar = الإشارات المرجعية
@@ -1896,6 +1896,47 @@
     vi = Đánh dấu
     zh-Hans = 书签
     zh-Hant = 書籤
+
+  [bookmarks_and_tracks]
+    comment = "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt
+    tags = android,ios
+    en = Bookmarks and Tracks
+    ar = الإشارات المرجعية والمسارات
+    be = Закладкі i cцежкі
+    bg = Отметки и пътеки
+    ca = Marcadors i traces
+    cs = Záložky a stopy
+    da = Bogmærker og ruter
+    de = Lesezeichen und Strecken
+    el = Αγαπημένα και διαδρομές
+    es = Marcadores y rutas
+    et = Järjehoidjad ja rajad
+    eu = Markagailuak eta ibilbideak
+    fa = نشانه‌ها و مسیر
+    fi = Kirjanmerkit ja reitit
+    fr = Signets et parcours
+    he = רשימות אתרים ונתיבים
+    hu = Könyvjelzők és nyomvonalak
+    id = Penanda dan jalur
+    it = Luoghi preferiti e percorsi
+    ja = ブックマークとトラック
+    ko = 북마크 및 트랙
+    mr = खूणपत्रे आणि ट्रॅक
+    nb = Bokmerker og ruter
+    nl = Bladwijzers en tracks
+    pl = Zakładki i trasy
+    pt = Favoritos e trilhas
+    pt-BR = Favoritos e trilhas
+    ro = Locuri preferate și trasee
+    ru = Метки и треки
+    sk = Záložky a stopy
+    sv = Bokmärken och rutter
+    th = บุ๊กมาร์กและการติดตาม
+    tr = Yer İmleri ve kayıtlar
+    uk = Мітки та маршрути
+    vi = Đánh dấu và dấu vết
+    zh-Hans = 书签和轨迹
+    zh-Hant = 書籤和軌跡
 
   [core_my_places]
     comment = Default bookmark list name
@@ -19902,7 +19943,7 @@
     fa:one = %d رد
     fa:other = %d رد
     fi = %d radat
-    fr = pistes %d
+    fr = %d pistes
     hu = %d út
     id = trek %d
     it:one = %d percorso
@@ -19911,7 +19952,7 @@
     ko = %d 추적
     mr = %d ट्रॅक
     nb = %d stier
-    nl = %d routes
+    nl = %d tracks
     pl = %d tras
     pt-BR:one = %d percurso
     pt-BR:other = %d percursos
@@ -26271,3 +26312,8 @@
     ru = https://wiki.openstreetmap.org/wiki/RU:О_проекте
     tr = https://wiki.openstreetmap.org/wiki/Tr:About
     uk = https://wiki.openstreetmap.org/wiki/Uk:Про_проект
+
+  [comma_separated_pair]
+    comment = A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks
+    tags = android
+    en = %s, %s
