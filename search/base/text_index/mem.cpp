@@ -29,6 +29,6 @@ void MemTextIndex::BuildDictionary()
   tokens.reserve(m_postingsByToken.size());
   for (auto const & entry : m_postingsByToken)
     tokens.emplace_back(entry.first);
-  m_dictionary.SetTokens(move(tokens));
+  m_dictionary.SetTokens(std::move(tokens));
 }
 }  // namespace search_base

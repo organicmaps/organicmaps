@@ -454,7 +454,7 @@ void ParseCSVRow(std::string const & s, char const delimiter, std::vector<std::s
   {
     std::string column(*it);
     strings::Trim(column);
-    target.push_back(move(column));
+    target.push_back(std::move(column));
   }
 
   // Special case: if the string is empty, return an empty array instead of {""}.

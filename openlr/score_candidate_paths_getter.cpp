@@ -176,7 +176,7 @@ void ScoreCandidatePathsGetter::GetAllSuitablePaths(ScoreEdgeVec const & startLi
 
     if (u->m_distanceM + currentEdgeLen >= bearDistM)
     {
-      allPaths.emplace_back(move(u));
+      allPaths.emplace_back(std::move(u));
       continue;
     }
 
@@ -281,7 +281,7 @@ void ScoreCandidatePathsGetter::GetBestCandidatePaths(vector<shared_ptr<Link>> c
     if (!isLastPoint)
       reverse(edges.begin(), edges.end());
 
-    candidates.emplace_back(path.GetScore(), move(edges));
+    candidates.emplace_back(path.GetScore(), std::move(edges));
   }
 }
 

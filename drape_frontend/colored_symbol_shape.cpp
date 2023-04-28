@@ -306,7 +306,7 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::
 
   dp::AttributeProvider provider(1, static_cast<uint32_t>(buffer.size()));
   provider.InitStream(0, gpu::ColoredSymbolVertex::GetBindingInfo(), make_ref(buffer.data()));
-  batcher->InsertTriangleList(context, state, make_ref(&provider), move(handle));
+  batcher->InsertTriangleList(context, state, make_ref(&provider), std::move(handle));
 }
 
 uint64_t ColoredSymbolShape::GetOverlayPriority() const

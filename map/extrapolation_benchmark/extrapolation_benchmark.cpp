@@ -158,7 +158,7 @@ bool Parse(string const & pathToCsv, Tracks & tracks)
         return false;
       track.emplace_back(static_cast<double>(timestamp), lat, lon);
     }
-    tracks.push_back(move(track));
+    tracks.push_back(std::move(track));
   }
   csvStream.close();
   return true;

@@ -37,7 +37,7 @@ ThreadPool::~ThreadPool()
 
 TaskLoop::PushResult ThreadPool::Push(Task && t)
 {
-  return AddImmediate(move(t));
+  return AddImmediate(std::move(t));
 }
 
 TaskLoop::PushResult ThreadPool::Push(Task const & t)
@@ -47,7 +47,7 @@ TaskLoop::PushResult ThreadPool::Push(Task const & t)
 
 TaskLoop::PushResult ThreadPool::PushDelayed(Duration const & delay, Task && t)
 {
-  return AddDelayed(delay, move(t));
+  return AddDelayed(delay, std::move(t));
 }
 
 TaskLoop::PushResult ThreadPool::PushDelayed(Duration const & delay, Task const & t)
@@ -146,13 +146,13 @@ void ThreadPool::ProcessTasks()
 
       if (canExecImmediate)
       {
-        tasks[QUEUE_TYPE_IMMEDIATE] = move(m_immediate.Front());
+        tasks[QUEUE_TYPE_IMMEDIATE] = std::move(m_immediate.Front());
         m_immediate.PopFront();
       }
 
       if (canExecDelayed)
       {
-        tasks[QUEUE_TYPE_DELAYED] = move(m_delayed.GetFirstValue()->m_task);
+        tasks[QUEUE_TYPE_DELAYED] = std::move(m_delayed.GetFirstValue()->m_task);
         m_delayed.RemoveValue(m_delayed.GetFirstValue());
       }
     }

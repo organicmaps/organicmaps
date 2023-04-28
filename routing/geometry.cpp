@@ -281,7 +281,7 @@ double RoadGeometry::GetRoadLengthM() const
 
 // Geometry ----------------------------------------------------------------------------------------
 Geometry::Geometry(unique_ptr<GeometryLoader> loader, size_t roadsCacheSize)
-  : m_loader(move(loader))
+  : m_loader(std::move(loader))
 {
   CHECK(m_loader, ());
 

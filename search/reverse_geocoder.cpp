@@ -158,7 +158,7 @@ void ReverseGeocoder::GetNearbyStreets(MwmSet::MwmId const & id, m2::PointD cons
   MwmSet::MwmHandle mwmHandle = m_dataSource.GetMwmHandleById(id);
   if (mwmHandle.IsAlive())
   {
-    search::MwmContext context(move(mwmHandle));
+    search::MwmContext context(std::move(mwmHandle));
     GetNearbyStreets(context, center, true /* includeSquaresAndSuburbs */, streets);
   }
 }
@@ -175,7 +175,7 @@ void ReverseGeocoder::GetNearbyStreetsWaysOnly(MwmSet::MwmId const & id, m2::Poi
   MwmSet::MwmHandle mwmHandle = m_dataSource.GetMwmHandleById(id);
   if (mwmHandle.IsAlive())
   {
-    search::MwmContext context(move(mwmHandle));
+    search::MwmContext context(std::move(mwmHandle));
     GetNearbyStreets(context, center, false /* includeSquaresAndSuburbs */, streets);
   }
 }

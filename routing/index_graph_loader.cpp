@@ -37,8 +37,8 @@ public:
     : m_vehicleType(vehicleType)
     , m_loadAltitudes(loadAltitudes)
     , m_dataSource(dataSource)
-    , m_vehicleModelFactory(move(vehicleModelFactory))
-    , m_estimator(move(estimator))
+    , m_vehicleModelFactory(std::move(vehicleModelFactory))
+    , m_estimator(std::move(estimator))
     , m_avoidRoutingOptions(routingOptions)
   {
     CHECK(m_vehicleModelFactory, ());
@@ -250,7 +250,7 @@ void DeserializeIndexGraph(MwmValue const & mwmValue, VehicleType vehicleType, I
 
   RoadAccess roadAccess;
   if (ReadRoadAccessFromMwm(mwmValue, vehicleType, roadAccess))
-    graph.SetRoadAccess(move(roadAccess));
+    graph.SetRoadAccess(std::move(roadAccess));
 }
 
 uint32_t DeserializeIndexGraphNumRoads(MwmValue const & mwmValue, VehicleType vehicleType)

@@ -14,7 +14,7 @@ namespace tracking
 {
 Connection::Connection(std::unique_ptr<platform::Socket> socket, std::string const & host,
                        uint16_t port, bool isHistorical)
-  : m_socket(move(socket)), m_host(host), m_port(port)
+  : m_socket(std::move(socket)), m_host(host), m_port(port)
 {
   if (!m_socket)
     return;

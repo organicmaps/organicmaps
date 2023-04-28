@@ -145,7 +145,7 @@ ThreadPool::ThreadPool(size_t reserve) { m_pool.reserve(reserve); }
 void ThreadPool::Add(std::unique_ptr<threads::IRoutine> && routine)
 {
   m_pool.emplace_back(new threads::Thread());
-  m_pool.back()->Create(move(routine));
+  m_pool.back()->Create(std::move(routine));
 }
 
 void ThreadPool::Join()

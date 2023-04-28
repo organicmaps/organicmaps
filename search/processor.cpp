@@ -918,8 +918,8 @@ void Processor::EmitFeaturesByIndexFromAllMwms(vector<shared_ptr<MwmInfo>> const
     // Distance needed for sorting.
     auto const center = feature::GetCenter(*ft, FeatureType::WORST_GEOMETRY);
     double const dist = center.SquaredLength(m_viewport.Center());
-    results.emplace_back(dist, guard->GetCountryFileName(), move(ft));
-    guards.push_back(move(guard));
+    results.emplace_back(dist, guard->GetCountryFileName(), std::move(ft));
+    guards.push_back(std::move(guard));
   }
 
   sort(results.begin(), results.end());

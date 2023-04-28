@@ -55,7 +55,7 @@ public:
   void AddSubtree(Char const & c, std::unique_ptr<Subtree> subtree)
   {
     ASSERT(!GetSubtree(c), ());
-    m_subtrees.emplace(c, move(subtree));
+    m_subtrees.emplace(c, std::move(subtree));
   }
 
   void EraseSubtree(Char const & c) { m_subtrees.erase(c); }

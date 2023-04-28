@@ -261,7 +261,7 @@ optional<Track> ParseTrackArchiveData(string const & content, TemporaryFile & tm
   if (unzip::Close(zipReader) != unzip::Code::Ok)
     LOG(LERROR, ("Unable to close temporary zip archive"));
 
-  return result ? optional<Track>(move(trackData)) : nullopt;
+  return result ? optional<Track>(std::move(trackData)) : nullopt;
 }
 
 optional<UserTrackInfo> ParseLogRecord(string const & record, TemporaryFile & tmpArchiveFile)
@@ -278,7 +278,7 @@ optional<UserTrackInfo> ParseLogRecord(string const & record, TemporaryFile & tm
   optional<Track> track = ParseTrackArchiveData(items[kTrackRecordDataIndex], tmpArchiveFile);
 
   if (track)
-    return optional<UserTrackInfo>({items[kTrackRecordUserIdIndex], move(*track)});
+    return optional<UserTrackInfo>({items[kTrackRecordUserIdIndex], std::move(*track)});
 
   return nullopt;
 }

@@ -50,7 +50,7 @@ public:
   void OnUpdate(vector<pair<size_t, location::GpsTrackInfo>> && toAdd,
                 pair<size_t, size_t> const & toRemove)
   {
-    m_toAdd = move(toAdd);
+    m_toAdd = std::move(toAdd);
     m_toRemove = toRemove;
 
     lock_guard<mutex> lg(m_mutex);

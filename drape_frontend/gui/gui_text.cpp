@@ -583,7 +583,7 @@ m2::PointF MutableLabelDrawer::Draw(ref_ptr<dp::GraphicsContext> context, Params
     batcher.SetBatcherHash(static_cast<uint64_t>(df::BatcherBucket::Default));
     dp::SessionGuard guard(context, batcher, flushFn);
     batcher.InsertListOfStrip(context, staticData.m_state, make_ref(&provider),
-                              move(handle), dp::Batcher::VertexPerQuad);
+                              std::move(handle), dp::Batcher::VertexPerQuad);
   }
 
   return staticData.m_maxPixelSize;

@@ -350,7 +350,7 @@ bool UserEventStream::OnSetScale(ref_ptr<ScaleEvent> scaleEvent)
         m_listener->OnAnimatedScaleEnded();
     });
 
-    m_animationSystem.CombineAnimation(move(anim));
+    m_animationSystem.CombineAnimation(std::move(anim));
     return false;
   }
 
@@ -534,12 +534,12 @@ bool UserEventStream::SetScreen(ScreenBase const & endScreen, bool isAnim,
         drape_ptr<ParallelAnimation> parallelAnim = make_unique_dp<ParallelAnimation>();
         parallelAnim->SetCustomType(kParallelLinearAnim);
         parallelAnim->AddAnimation(parallelAnimCreator(nullptr /* syncAnim */));
-        parallelAnim->AddAnimation(move(anim));
-        m_animationSystem.CombineAnimation(move(parallelAnim));
+        parallelAnim->AddAnimation(std::move(anim));
+        m_animationSystem.CombineAnimation(std::move(parallelAnim));
       }
       else
       {
-        m_animationSystem.CombineAnimation(move(anim));
+        m_animationSystem.CombineAnimation(std::move(anim));
       }
       return false;
     }
@@ -629,12 +629,12 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
       parallelAnim->SetCustomType(kParallelFollowAnim);
       parallelAnim->AddAnimation(parallelAnimCreator(anim->GetType() == Animation::Type::MapFollow ? make_ref(anim)
                                                                                                    : nullptr));
-      parallelAnim->AddAnimation(move(anim));
-      m_animationSystem.CombineAnimation(move(parallelAnim));
+      parallelAnim->AddAnimation(std::move(anim));
+      m_animationSystem.CombineAnimation(std::move(parallelAnim));
     }
     else
     {
-      m_animationSystem.CombineAnimation(move(anim));
+      m_animationSystem.CombineAnimation(std::move(anim));
     }
     return false;
   }
@@ -1054,7 +1054,7 @@ bool UserEventStream::EndDrag(Touch const & t, bool cancelled)
   {
     drape_ptr<Animation> anim = m_scroller.CreateKineticAnimation(m_navigator.Screen());
     if (anim != nullptr)
-      m_animationSystem.CombineAnimation(move(anim));
+      m_animationSystem.CombineAnimation(std::move(anim));
     return false;
   }
 

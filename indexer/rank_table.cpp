@@ -71,7 +71,7 @@ unique_ptr<CopiedMemoryRegion> GetMemoryRegionForTag(FilesContainerR const & rco
   FilesContainerR::TReader reader = rcont.GetReader(tag);
   vector<uint8_t> buffer(static_cast<size_t>(reader.Size()));
   reader.Read(0, buffer.data(), buffer.size());
-  return make_unique<CopiedMemoryRegion>(move(buffer));
+  return make_unique<CopiedMemoryRegion>(std::move(buffer));
 }
 
 unique_ptr<MappedMemoryRegion> GetMemoryRegionForTag(FilesMappingContainer const & mcont,
@@ -80,7 +80,7 @@ unique_ptr<MappedMemoryRegion> GetMemoryRegionForTag(FilesMappingContainer const
   if (!mcont.IsExist(tag))
     return unique_ptr<MappedMemoryRegion>();
   FilesMappingContainer::Handle handle = mcont.Map(tag);
-  return make_unique<MappedMemoryRegion>(move(handle));
+  return make_unique<MappedMemoryRegion>(std::move(handle));
 }
 
 // RankTable version 1, uses simple dense coding to store and access
@@ -133,7 +133,7 @@ public:
 
     auto table = make_unique<RankTableV0>();
     coding::Map(table->m_coding, region->ImmutableData() + kHeaderSize, "SimpleDenseCoding");
-    table->m_region = move(region);
+    table->m_region = std::move(region);
     return table;
   }
 
@@ -153,12 +153,12 @@ public:
     case CheckResult::EndiannessMismatch:
       table.reset(new RankTableV0());
       coding::ReverseMap(table->m_coding, region->MutableData() + kHeaderSize, "SimpleDenseCoding");
-      table->m_region = move(region);
+      table->m_region = std::move(region);
       break;
     case CheckResult::EndiannessMatch:
       table.reset(new RankTableV0());
       coding::Map(table->m_coding, region->ImmutableData() + kHeaderSize, "SimpleDenseCoding");
-      table->m_region = move(region);
+      table->m_region = std::move(region);
       break;
     }
     return table;
@@ -211,7 +211,7 @@ unique_ptr<RankTable> LoadRankTable(unique_ptr<TRegion> && region)
 
   RankTable::Version const version = static_cast<RankTable::Version>(region->ImmutableData()[kVersionOffset]);
   if (version == RankTable::V0)
-    return RankTableV0::Load(move(region));
+    return RankTableV0::Load(std::move(region));
 
   LOG(LERROR, ("Wrong rank table version."));
   return {};
@@ -267,7 +267,7 @@ unique_ptr<RankTable> CreateSearchRankTableIfNotExists(FilesContainerR & rcont)
       // Try to copy whole serialized data and instantiate table via
       // reverse mapping.
       auto region = GetMemoryRegionForTag(rcont, SEARCH_RANKS_FILE_TAG);
-      table = LoadRankTable(move(region));
+      table = LoadRankTable(std::move(region));
       break;
     }
     case CheckResult::EndiannessMatch:

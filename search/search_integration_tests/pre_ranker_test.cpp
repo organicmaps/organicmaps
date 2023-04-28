@@ -63,7 +63,7 @@ public:
   void AddPreRankerResults(vector<PreRankerResult> && preRankerResults) override
   {
     CHECK(!Finished(), ());
-    move(preRankerResults.begin(), preRankerResults.end(), back_inserter(m_results));
+    std::move(preRankerResults.begin(), preRankerResults.end(), back_inserter(m_results));
     preRankerResults.clear();
   }
 

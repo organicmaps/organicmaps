@@ -26,7 +26,7 @@ void LoadAndMap(size_t dataSize, ReaderSource<FilesContainerR::TReader> & src, T
 {
   std::vector<uint8_t> data(dataSize);
   src.Read(data.data(), data.size());
-  region = std::make_unique<CopiedMemoryRegion>(move(data));
+  region = std::make_unique<CopiedMemoryRegion>(std::move(data));
   coding::MapVisitor visitor(region->ImmutableData());
   cont.map(visitor);
 }

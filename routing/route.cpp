@@ -323,11 +323,11 @@ bool Route::GetNextTurns(vector<TurnItemDist> & turns) const
   GetNearestTurn(currentTurn.m_distMeters, currentTurn.m_turnItem);
 
   turns.clear();
-  turns.emplace_back(move(currentTurn));
+  turns.emplace_back(std::move(currentTurn));
 
   TurnItemDist nextTurn;
   if (GetNextTurn(nextTurn.m_distMeters, nextTurn.m_turnItem))
-    turns.emplace_back(move(nextTurn));
+    turns.emplace_back(std::move(nextTurn));
   return true;
 }
 
@@ -339,7 +339,7 @@ void Route::GetCurrentDirectionPoint(m2::PointD & pt) const
 void Route::SetRouteSegments(vector<RouteSegment> && routeSegments)
 {
   vector<size_t> fakeSegmentIndexes;
-  m_routeSegments = move(routeSegments);
+  m_routeSegments = std::move(routeSegments);
   m_haveAltitudes = true;
   for (size_t i = 0; i < m_routeSegments.size(); ++i)
   {
@@ -353,7 +353,7 @@ void Route::SetRouteSegments(vector<RouteSegment> && routeSegments)
       fakeSegmentIndexes.push_back(i);
   }
 
-  m_poly.SetFakeSegmentIndexes(move(fakeSegmentIndexes));
+  m_poly.SetFakeSegmentIndexes(std::move(fakeSegmentIndexes));
 }
 
 bool Route::MoveIterator(location::GpsInfo const & info)
@@ -497,7 +497,7 @@ double Route::GetSegLenMeters(size_t segIdx) const
 
 void Route::SetMwmsPartlyProhibitedForSpeedCams(vector<platform::CountryFile> && mwms)
 {
-  m_speedCamPartlyProhibitedMwms = move(mwms);
+  m_speedCamPartlyProhibitedMwms = std::move(mwms);
 }
 
 bool Route::CrossMwmsPartlyProhibitedForSpeedCams() const

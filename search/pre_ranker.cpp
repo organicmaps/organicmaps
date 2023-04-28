@@ -47,7 +47,7 @@ void SweepNearbyResults(m2::PointD const & eps, unordered_set<FeatureID> const &
   filtered.reserve(results.size());
   sweeper.Sweep([&filtered, &results](size_t i)
   {
-    filtered.push_back(move(results[i]));
+    filtered.push_back(std::move(results[i]));
   });
 
   results.swap(filtered);
@@ -223,7 +223,7 @@ void PreRanker::UpdateResults(bool lastUpdate)
   FillMissingFieldsInPreResults();
   Filter(m_params.m_viewportSearch);
   m_numSentResults += m_results.size();
-  m_ranker.AddPreRankerResults(move(m_results));
+  m_ranker.AddPreRankerResults(std::move(m_results));
   m_results.clear();
   m_ranker.UpdateResults(lastUpdate);
 

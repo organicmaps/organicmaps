@@ -54,7 +54,7 @@ bool CitiesBoundariesTable::Load()
   if (handle.GetId() == m_mwmId)
     return true;
 
-  MwmContext context(move(handle));
+  MwmContext context(std::move(handle));
   base::Cancellable const cancellable;
   auto const localities = CategoriesCache(LocalitiesSource{}, cancellable).Get(context);
 

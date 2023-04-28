@@ -99,8 +99,8 @@ UNIT_CLASS_TEST(RankerTest, UniteSameResults)
       fastfoodRules.push_back(ExactMatch(id, f));
 
     TEST(ResultsMatch(results,
-                      {AlternativesMatch(move(barRules)), AlternativesMatch(move(cafeRules)),
-                       AlternativesMatch(move(fastfoodRules))}),
+                      {AlternativesMatch(std::move(barRules)), AlternativesMatch(std::move(cafeRules)),
+                       AlternativesMatch(std::move(fastfoodRules))}),
          ());
   }
 }

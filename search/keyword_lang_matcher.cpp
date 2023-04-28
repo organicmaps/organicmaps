@@ -50,7 +50,7 @@ KeywordLangMatcher::KeywordLangMatcher(size_t maxLanguageTiers)
 void KeywordLangMatcher::SetLanguages(size_t tier, std::vector<int8_t> && languages)
 {
   ASSERT_LESS(tier, m_languagePriorities.size(), ());
-  m_languagePriorities[tier] = move(languages);
+  m_languagePriorities[tier] = std::move(languages);
 }
 
 int KeywordLangMatcher::CalcLangScore(int8_t lang) const

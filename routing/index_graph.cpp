@@ -35,8 +35,8 @@ bool IsBoarding(bool prevIsFerry, bool nextIsFerry)
 
 IndexGraph::IndexGraph(shared_ptr<Geometry> geometry, shared_ptr<EdgeEstimator> estimator,
                        RoutingOptions routingOptions)
-  : m_geometry(move(geometry)),
-    m_estimator(move(estimator)),
+  : m_geometry(std::move(geometry)),
+    m_estimator(std::move(estimator)),
     m_avoidRoutingOptions(routingOptions)
 {
   CHECK(m_geometry, ());
@@ -240,7 +240,7 @@ void IndexGraph::SetUTurnRestrictions(vector<RestrictionUTurn> && noUTurnRestric
 
 void IndexGraph::SetRoadAccess(RoadAccess && roadAccess)
 {
-  m_roadAccess = move(roadAccess);
+  m_roadAccess = std::move(roadAccess);
   m_roadAccess.SetCurrentTimeGetter(m_currentTimeGetter);
 }
 

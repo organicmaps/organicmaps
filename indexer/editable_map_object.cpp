@@ -409,7 +409,7 @@ void EditableMapObject::SetStreet(LocalizedStreet const & st) { m_street = st; }
 
 void EditableMapObject::SetNearbyStreets(vector<LocalizedStreet> && streets)
 {
-  m_nearbyStreets = move(streets);
+  m_nearbyStreets = std::move(streets);
 }
 
 void EditableMapObject::SetHouseNumber(string const & houseNumber)

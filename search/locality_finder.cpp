@@ -267,7 +267,7 @@ void LocalityFinder::LoadVicinity(m2::PointD const & p, bool loadCities, bool lo
       if (!m_ranks)
         m_ranks = make_unique<DummyRankTable>();
 
-      MwmContext ctx(move(handle));
+      MwmContext ctx(std::move(handle));
       ctx.ForEachIndex(crect, LocalitiesLoader(ctx, m_boundariesTable, CityFilter(*m_ranks),
                                                m_cities, m_loadedIds));
     }
@@ -284,7 +284,7 @@ void LocalityFinder::LoadVicinity(m2::PointD const & p, bool loadCities, bool lo
         return;
 
       static int const scale = GetVillagesScale();
-      MwmContext ctx(move(handle));
+      MwmContext ctx(std::move(handle));
       ctx.ForEachIndex(vrect, scale,
                        LocalitiesLoader(ctx, m_boundariesTable, VillageFilter(ctx, m_villagesCache),
                                         m_villages, m_loadedIds));

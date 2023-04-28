@@ -49,7 +49,7 @@ bool TranslatorsPool::Finish()
     std::future<TranslatorPtr> right;
     queue.WaitAndPop(left);
     queue.WaitAndPop(right);
-    queue.Push(pool.Submit([left{move(left)}, right{move(right)}]() mutable {
+    queue.Push(pool.Submit([left{std::move(left)}, right{std::move(right)}]() mutable {
       auto leftTranslator = left.get();
       auto rigthTranslator = right.get();
       rigthTranslator->Finish();

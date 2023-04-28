@@ -9,7 +9,7 @@ namespace routing
 using namespace std;
 
 TrafficStash::TrafficStash(traffic::TrafficCache const & source, shared_ptr<NumMwmIds> numMwmIds)
-  : m_source(source), m_numMwmIds(move(numMwmIds))
+  : m_source(source), m_numMwmIds(std::move(numMwmIds))
 {
   CHECK(m_numMwmIds, ());
 }

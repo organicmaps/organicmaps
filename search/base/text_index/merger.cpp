@@ -93,7 +93,7 @@ TextIndexDictionary MergeDictionaries(TextIndexDictionary const & dict1,
   commonTokens.erase(unique(commonTokens.begin(), commonTokens.end()), commonTokens.end());
 
   TextIndexDictionary dict;
-  dict.SetTokens(move(commonTokens));
+  dict.SetTokens(std::move(commonTokens));
   return dict;
 }
 }  // namespace

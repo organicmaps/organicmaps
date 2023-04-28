@@ -35,7 +35,7 @@ void AddGraph(unordered_map<NumMwmId, unique_ptr<Graph>> & graphs, NumMwmId mwmI
 {
   auto it = graphs.find(mwmId);
   CHECK(it == graphs.end(), ("Already contains graph for mwm", mwmId));
-  graphs[mwmId] = move(graph);
+  graphs[mwmId] = std::move(graph);
 }
 
 // RestrictionTest ---------------------------------------------------------------------------------
@@ -47,30 +47,30 @@ void RestrictionTest::SetStarter(FakeEnding const & start, FakeEnding const & fi
 
 void RestrictionTest::SetRestrictions(RestrictionVec && restrictions)
 {
-  m_graph->GetIndexGraphForTests(kTestNumMwmId).SetRestrictions(move(restrictions));
+  m_graph->GetIndexGraphForTests(kTestNumMwmId).SetRestrictions(std::move(restrictions));
 }
 
 void RestrictionTest::SetUTurnRestrictions(vector<RestrictionUTurn> && restrictions)
 {
-  m_graph->GetIndexGraphForTests(kTestNumMwmId).SetUTurnRestrictions(move(restrictions));
+  m_graph->GetIndexGraphForTests(kTestNumMwmId).SetUTurnRestrictions(std::move(restrictions));
 }
 
 // NoUTurnRestrictionTest --------------------------------------------------------------------------
 void NoUTurnRestrictionTest::Init(unique_ptr<SingleVehicleWorldGraph> graph)
 {
-  m_graph = make_unique<WorldGraphForAStar>(move(graph));
+  m_graph = make_unique<WorldGraphForAStar>(std::move(graph));
 }
 
 void NoUTurnRestrictionTest::SetRestrictions(RestrictionVec && restrictions)
 {
   auto & indexGraph = m_graph->GetWorldGraph().GetIndexGraph(kTestNumMwmId);
-  indexGraph.SetRestrictions(move(restrictions));
+  indexGraph.SetRestrictions(std::move(restrictions));
 }
 
 void NoUTurnRestrictionTest::SetNoUTurnRestrictions(vector<RestrictionUTurn> && restrictions)
 {
   auto & indexGraph = m_graph->GetWorldGraph().GetIndexGraph(kTestNumMwmId);
-  indexGraph.SetUTurnRestrictions(move(restrictions));
+  indexGraph.SetUTurnRestrictions(std::move(restrictions));
 }
 
 void NoUTurnRestrictionTest::TestRouteGeom(Segment const & start, Segment const & finish,
@@ -119,7 +119,7 @@ void TestIndexGraphLoader::Clear() { m_graphs.clear(); }
 
 void TestIndexGraphLoader::AddGraph(NumMwmId mwmId, unique_ptr<IndexGraph> graph)
 {
-  routing_test::AddGraph(m_graphs, mwmId, move(graph));
+  routing_test::AddGraph(m_graphs, mwmId, std::move(graph));
 }
 
 // TestTransitGraphLoader ----------------------------------------------------------------------------
@@ -132,7 +132,7 @@ void TestTransitGraphLoader::Clear() { m_graphs.clear(); }
 
 void TestTransitGraphLoader::AddGraph(NumMwmId mwmId, unique_ptr<TransitGraph> graph)
 {
-  routing_test::AddGraph(m_graphs, mwmId, move(graph));
+  routing_test::AddGraph(m_graphs, mwmId, std::move(graph));
 }
 
 // WeightedEdgeEstimator --------------------------------------------------------------
@@ -178,7 +178,7 @@ void TestIndexGraphTopology::SetEdgeAccessConditional(Vertex from, Vertex to, Ro
     {
       osmoh::OpeningHours openingHours(condition);
       CHECK(openingHours.IsValid(), (condition));
-      r.m_accessConditionalType.Insert(type, move(openingHours));
+      r.m_accessConditionalType.Insert(type, std::move(openingHours));
       return;
     }
   }
@@ -218,12 +218,12 @@ void TestIndexGraphTopology::SetVertexAccessConditional(Vertex v, RoadAccess::Ty
   {
     if (r.m_from == v)
     {
-      r.m_fromAccessConditionalType.Insert(type, move(openingHours));
+      r.m_fromAccessConditionalType.Insert(type, std::move(openingHours));
       found = true;
     }
     else if (r.m_to == v)
     {
-      r.m_toAccessConditionalType.Insert(type, move(openingHours));
+      r.m_toAccessConditionalType.Insert(type, std::move(openingHours));
       found = true;
     }
 
@@ -271,7 +271,7 @@ bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & path
 
   AlgorithmForWorldGraph algorithm;
 
-  WorldGraphForAStar graphForAStar(move(worldGraph));
+  WorldGraphForAStar graphForAStar(std::move(worldGraph));
 
   AlgorithmForWorldGraph::ParamsForTests<> params(graphForAStar, startSegment, finishSegment);
   RoutingResult<Segment, RouteWeight> routingResult;
@@ -331,11 +331,11 @@ unique_ptr<SingleVehicleWorldGraph> TestIndexGraphTopology::Builder::PrepareInde
 
   BuildJoints();
 
-  auto worldGraph = BuildWorldGraph(move(loader), estimator, m_joints);
+  auto worldGraph = BuildWorldGraph(std::move(loader), estimator, m_joints);
   auto & indexGraph = worldGraph->GetIndexGraphForTests(kTestNumMwmId);
   if (m_currentTimeGetter)
     indexGraph.SetCurrentTimeGetter(m_currentTimeGetter);
-  indexGraph.SetRoadAccess(move(m_roadAccess));
+  indexGraph.SetRoadAccess(std::move(m_roadAccess));
   return worldGraph;
 }
 
@@ -389,8 +389,8 @@ void TestIndexGraphTopology::Builder::BuildGraphFromRequests(vector<EdgeRequest>
     }
   }
 
-  m_roadAccess.SetAccess(move(wayToAccess), move(pointToAccess));
-  m_roadAccess.SetAccessConditional(move(wayToAccessConditional), move(pointToAccessConditional));
+  m_roadAccess.SetAccess(std::move(wayToAccess), std::move(pointToAccess));
+  m_roadAccess.SetAccessConditional(std::move(wayToAccessConditional), std::move(pointToAccessConditional));
   if (m_currentTimeGetter)
     m_roadAccess.SetCurrentTimeGetter(m_currentTimeGetter);
 }
@@ -415,11 +415,11 @@ unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoade
                                                     shared_ptr<EdgeEstimator> estimator,
                                                     vector<Joint> const & joints)
 {
-  auto graph = make_unique<IndexGraph>(make_shared<Geometry>(move(geometryLoader)), estimator);
+  auto graph = make_unique<IndexGraph>(make_shared<Geometry>(std::move(geometryLoader)), estimator);
   graph->Import(joints);
   auto indexLoader = make_unique<TestIndexGraphLoader>();
-  indexLoader->AddGraph(kTestNumMwmId, move(graph));
-  return make_unique<SingleVehicleWorldGraph>(nullptr /* crossMwmGraph */, move(indexLoader),
+  indexLoader->AddGraph(kTestNumMwmId, std::move(graph));
+  return make_unique<SingleVehicleWorldGraph>(nullptr /* crossMwmGraph */, std::move(indexLoader),
                                               estimator, MwmHierarchyHandler());
 }
 
@@ -427,7 +427,7 @@ unique_ptr<IndexGraph> BuildIndexGraph(unique_ptr<TestGeometryLoader> geometryLo
                                        shared_ptr<EdgeEstimator> estimator,
                                        vector<Joint> const & joints)
 {
-  auto graph = make_unique<IndexGraph>(make_shared<Geometry>(move(geometryLoader)), estimator);
+  auto graph = make_unique<IndexGraph>(make_shared<Geometry>(std::move(geometryLoader)), estimator);
   graph->Import(joints);
   return graph;
 }
@@ -436,12 +436,12 @@ unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(unique_ptr<ZeroGeometryLoade
                                                     shared_ptr<EdgeEstimator> estimator,
                                                     vector<Joint> const & joints)
 {
-  auto graph = make_unique<IndexGraph>(make_shared<Geometry>(move(geometryLoader)), estimator);
+  auto graph = make_unique<IndexGraph>(make_shared<Geometry>(std::move(geometryLoader)), estimator);
 
   graph->Import(joints);
   auto indexLoader = make_unique<TestIndexGraphLoader>();
-  indexLoader->AddGraph(kTestNumMwmId, move(graph));
-  return make_unique<SingleVehicleWorldGraph>(nullptr /* crossMwmGraph */, move(indexLoader),
+  indexLoader->AddGraph(kTestNumMwmId, std::move(graph));
+  return make_unique<SingleVehicleWorldGraph>(nullptr /* crossMwmGraph */, std::move(indexLoader),
                                               estimator, MwmHierarchyHandler());
 }
 
@@ -450,7 +450,7 @@ unique_ptr<TransitWorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoader> geo
                                               vector<Joint> const & joints,
                                               routing::transit::GraphData const & transitData)
 {
-  auto indexGraph = make_unique<IndexGraph>(make_shared<Geometry>(move(geometryLoader)), estimator);
+  auto indexGraph = make_unique<IndexGraph>(make_shared<Geometry>(std::move(geometryLoader)), estimator);
   indexGraph->Import(joints);
 
   auto transitGraph =
@@ -460,13 +460,13 @@ unique_ptr<TransitWorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoader> geo
   transitGraph->Fill(transitData, gateEndings);
 
   auto indexLoader = make_unique<TestIndexGraphLoader>();
-  indexLoader->AddGraph(kTestNumMwmId, move(indexGraph));
+  indexLoader->AddGraph(kTestNumMwmId, std::move(indexGraph));
 
   auto transitLoader = make_unique<TestTransitGraphLoader>();
-  transitLoader->AddGraph(kTestNumMwmId, move(transitGraph));
+  transitLoader->AddGraph(kTestNumMwmId, std::move(transitGraph));
 
-  return make_unique<TransitWorldGraph>(nullptr /* crossMwmGraph */, move(indexLoader),
-                                        move(transitLoader), estimator);
+  return make_unique<TransitWorldGraph>(nullptr /* crossMwmGraph */, std::move(indexLoader),
+                                        std::move(transitLoader), estimator);
 }
 
 AlgorithmForWorldGraph::Result CalculateRoute(IndexGraphStarter & starter, vector<Segment> & roadPoints,
@@ -544,7 +544,7 @@ void TestRestrictions(vector<m2::PointD> const & expectedRouteGeom,
                       RestrictionVec && restrictions,
                       RestrictionTest & restrictionTest)
 {
-  restrictionTest.SetRestrictions(move(restrictions));
+  restrictionTest.SetRestrictions(std::move(restrictions));
   restrictionTest.SetStarter(start, finish);
 
   TestRouteGeometry(*restrictionTest.m_starter, expectedRouteResult, expectedRouteGeom);
@@ -557,8 +557,8 @@ void TestRestrictions(vector<m2::PointD> const & expectedRouteGeom,
                       vector<RestrictionUTurn> && restrictionsNoUTurn,
                       RestrictionTest & restrictionTest)
 {
-  restrictionTest.SetRestrictions(move(restrictions));
-  restrictionTest.SetUTurnRestrictions(move(restrictionsNoUTurn));
+  restrictionTest.SetRestrictions(std::move(restrictions));
+  restrictionTest.SetUTurnRestrictions(std::move(restrictionsNoUTurn));
 
   restrictionTest.SetStarter(start, finish);
   TestRouteGeometry(*restrictionTest.m_starter, expectedRouteResult, expectedRouteGeom);
@@ -568,7 +568,7 @@ void TestRestrictions(double expectedLength,
                       FakeEnding const & start, FakeEnding const & finish,
                       RestrictionVec && restrictions, RestrictionTest & restrictionTest)
 {
-  restrictionTest.SetRestrictions(move(restrictions));
+  restrictionTest.SetRestrictions(std::move(restrictions));
   restrictionTest.SetStarter(start, finish);
 
   auto & starter = *restrictionTest.m_starter;

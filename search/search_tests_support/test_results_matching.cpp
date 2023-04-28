@@ -35,7 +35,7 @@ string ExactMatchingRule::ToString() const
 }
 
 AlternativesMatchingRule::AlternativesMatchingRule(vector<shared_ptr<MatchingRule>> && rules)
-  : m_rules(move(rules))
+  : m_rules(std::move(rules))
 {
 }
 

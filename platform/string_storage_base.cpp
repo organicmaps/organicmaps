@@ -93,7 +93,7 @@ void StringStorageBase::SetValue(string const & key, string && value)
 {
   lock_guard<mutex> guard(m_mutex);
 
-  m_values[key] = move(value);
+  m_values[key] = std::move(value);
   Save();
 }
 

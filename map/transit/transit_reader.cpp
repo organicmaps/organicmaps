@@ -50,7 +50,7 @@ void ReadTransitTask::Init(uint64_t id, MwmSet::MwmId const & mwmId,
   else
   {
     m_loadSubset = true;
-    m_transitInfo = move(transitInfo);
+    m_transitInfo = std::move(transitInfo);
   }
   m_success = false;
 }
@@ -191,7 +191,7 @@ void ReadTransitTask::Reset()
 
 unique_ptr<TransitDisplayInfo> && ReadTransitTask::GetTransitInfo()
 {
-  return move(m_transitInfo);
+  return std::move(m_transitInfo);
 }
 
 void ReadTransitTask::FillLinesAndRoutes(::transit::experimental::TransitData const & transitData)
@@ -462,8 +462,8 @@ bool TransitReadManager::GetTransitDisplayInfo(TransitDisplayInfos & transitDisp
   {
     auto const & mwmId = mwmTransitPair.first;
     auto task = make_unique<ReadTransitTask>(m_dataSource, m_readFeaturesFn);
-    task->Init(groupId, mwmId, move(mwmTransitPair.second));
-    transitTasks[mwmId] = move(task);
+    task->Init(groupId, mwmId, std::move(mwmTransitPair.second));
+    transitTasks[mwmId] = std::move(task);
   }
 
   lock.lock();
