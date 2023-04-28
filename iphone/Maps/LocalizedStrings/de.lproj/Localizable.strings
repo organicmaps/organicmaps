@@ -1017,7 +1017,7 @@
 
 "avoid_tolls" = "Mautstraßen";
 
-"avoid_unpaved" = "Erdwege";
+"avoid_unpaved" = "Unbefestigte Straßen";
 
 "avoid_ferry" = "Fährstellen";
 
