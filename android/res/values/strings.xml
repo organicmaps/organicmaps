@@ -74,8 +74,10 @@
 	<string name="bookmark_color">Bookmark Color</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Bookmark List Name</string>
-	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
+	<!-- "Bookmarks" dialog title (kept for compatibility, please also edit it in iphone/plist.txt) -->
 	<string name="bookmarks">Bookmarks</string>
+	<!-- "Bookmarks and Tracks" dialog title -->
+	<string name="bookmarks_and_tracks">Bookmarks and Tracks</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">My Places</string>
 	<!-- Add bookmark dialog - bookmark name -->
@@ -762,6 +764,8 @@
 	<string name="translated_om_site_url">https://organicmaps.app/</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
+	<!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+	<string name="comma_separated_pair">%1$s, %2$s</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Address/Block</string>

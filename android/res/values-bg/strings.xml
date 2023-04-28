@@ -74,8 +74,10 @@
 	<string name="bookmark_color">Цвят на отметка</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Име на група</string>
-	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
+	<!-- "Bookmarks" dialog title (kept for compatibility, please also edit it in iphone/plist.txt) -->
 	<string name="bookmarks">Отметки</string>
+	<!-- "Bookmarks and Tracks" dialog title -->
+	<string name="bookmarks_and_tracks">Отметки и пътеки</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">Мои места</string>
 	<!-- Add bookmark dialog - bookmark name -->

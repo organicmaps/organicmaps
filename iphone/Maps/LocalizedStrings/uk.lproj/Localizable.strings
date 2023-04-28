@@ -71,8 +71,11 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Списки мiток";
 
-/* "Bookmarks" dialog title, please also edit it in iphone/plist.txt */
+/* "Bookmarks" dialog title (kept for compatibility, please also edit it in iphone/plist.txt) */
 "bookmarks" = "Мітки";
+
+/* "Bookmarks and Tracks" dialog title */
+"bookmarks_and_tracks" = "Мітки та маршрути";
 
 /* Default bookmark list name */
 "core_my_places" = "Мої Мітки";

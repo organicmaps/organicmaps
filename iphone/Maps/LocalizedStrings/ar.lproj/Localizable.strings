@@ -71,8 +71,11 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "قائمة الإشارات المرجعية";
 
-/* "Bookmarks" dialog title, please also edit it in iphone/plist.txt */
+/* "Bookmarks" dialog title (kept for compatibility, please also edit it in iphone/plist.txt) */
 "bookmarks" = "الإشارات المرجعية";
+
+/* "Bookmarks and Tracks" dialog title */
+"bookmarks_and_tracks" = "الإشارات المرجعية والمسارات";
 
 /* Default bookmark list name */
 "core_my_places" = "أماكني";

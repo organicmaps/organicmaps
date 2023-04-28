@@ -71,8 +71,11 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Könyvjelzőcsoportok";
 
-/* "Bookmarks" dialog title, please also edit it in iphone/plist.txt */
+/* "Bookmarks" dialog title (kept for compatibility, please also edit it in iphone/plist.txt) */
 "bookmarks" = "Könyvjelzők";
+
+/* "Bookmarks and Tracks" dialog title */
+"bookmarks_and_tracks" = "Könyvjelzők és nyomvonalak";
 
 /* Default bookmark list name */
 "core_my_places" = "Saját helyeim";

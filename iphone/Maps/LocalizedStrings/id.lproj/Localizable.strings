@@ -71,8 +71,11 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Set Penanda";
 
-/* "Bookmarks" dialog title, please also edit it in iphone/plist.txt */
+/* "Bookmarks" dialog title (kept for compatibility, please also edit it in iphone/plist.txt) */
 "bookmarks" = "Penanda";
+
+/* "Bookmarks and Tracks" dialog title */
+"bookmarks_and_tracks" = "Penanda dan jalur";
 
 /* Default bookmark list name */
 "core_my_places" = "Tempat-tempat Saya";

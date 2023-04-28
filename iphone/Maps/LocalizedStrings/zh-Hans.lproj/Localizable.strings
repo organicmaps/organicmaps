@@ -71,8 +71,11 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "书签集";
 
-/* "Bookmarks" dialog title, please also edit it in iphone/plist.txt */
+/* "Bookmarks" dialog title (kept for compatibility, please also edit it in iphone/plist.txt) */
 "bookmarks" = "书签";
+
+/* "Bookmarks and Tracks" dialog title */
+"bookmarks_and_tracks" = "书签和轨迹";
 
 /* Default bookmark list name */
 "core_my_places" = "我的位置";

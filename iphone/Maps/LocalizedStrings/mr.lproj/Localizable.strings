@@ -71,8 +71,11 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "खूणपत्र याद्या";
 
-/* "Bookmarks" dialog title, please also edit it in iphone/plist.txt */
+/* "Bookmarks" dialog title (kept for compatibility, please also edit it in iphone/plist.txt) */
 "bookmarks" = "खूणपत्रे";
+
+/* "Bookmarks and Tracks" dialog title */
+"bookmarks_and_tracks" = "खूणपत्रे आणि ट्रॅक";
 
 /* Default bookmark list name */
 "core_my_places" = "माझी ठिकाणे";

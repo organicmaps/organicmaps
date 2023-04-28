@@ -73,8 +73,10 @@
 	<string name="bookmark_color">Couleur du signet</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Nom du groupe de signets</string>
-	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
+	<!-- "Bookmarks" dialog title (kept for compatibility, please also edit it in iphone/plist.txt) -->
 	<string name="bookmarks">Signets</string>
+	<!-- "Bookmarks and Tracks" dialog title -->
+	<string name="bookmarks_and_tracks">Signets et parcours</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">Mes endroits</string>
 	<!-- Add bookmark dialog - bookmark name -->

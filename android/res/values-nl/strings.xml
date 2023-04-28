@@ -71,8 +71,10 @@
 	<string name="bookmark_color">Bladwijzer-kleur</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Naam van bladwijzergroep</string>
-	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
+	<!-- "Bookmarks" dialog title (kept for compatibility, please also edit it in iphone/plist.txt) -->
 	<string name="bookmarks">Bladwijzers</string>
+	<!-- "Bookmarks and Tracks" dialog title -->
+	<string name="bookmarks_and_tracks">Bladwijzers en tracks</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">Mijn plaatsen</string>
 	<!-- Add bookmark dialog - bookmark name -->
@@ -592,7 +594,7 @@
 	  <item quantity="other">%d plaatsen</item>
 	</plurals>
 	<plurals name="tracks">
-	  <item quantity="other">%d routes</item>
+	  <item quantity="other">%d tracks</item>
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Tracking-instellingen</string>

@@ -74,8 +74,10 @@
 	<string name="bookmark_color">لون الإشارة المرجعية</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">اسم قائمة الإشارات المرجعية</string>
-	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
+	<!-- "Bookmarks" dialog title (kept for compatibility, please also edit it in iphone/plist.txt) -->
 	<string name="bookmarks">الإشارات المرجعية</string>
+	<!-- "Bookmarks and Tracks" dialog title -->
+	<string name="bookmarks_and_tracks">الإشارات المرجعية والمسارات</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">أماكني</string>
 	<!-- Add bookmark dialog - bookmark name -->

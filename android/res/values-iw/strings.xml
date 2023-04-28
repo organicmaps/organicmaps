@@ -67,8 +67,10 @@
 	<string name="bookmark_color">צבע רשימת האתרים</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">שם רשימת האתרים</string>
-	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
+	<!-- "Bookmarks" dialog title (kept for compatibility, please also edit it in iphone/plist.txt) -->
 	<string name="bookmarks">רשימות אתרים</string>
+	<!-- "Bookmarks and Tracks" dialog title -->
+	<string name="bookmarks_and_tracks">רשימות אתרים ונתיבים</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">המקומות שלי</string>
 	<!-- Add bookmark dialog - bookmark name -->

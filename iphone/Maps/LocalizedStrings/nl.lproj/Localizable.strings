@@ -71,8 +71,11 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Bladwijzergroepen";
 
-/* "Bookmarks" dialog title, please also edit it in iphone/plist.txt */
+/* "Bookmarks" dialog title (kept for compatibility, please also edit it in iphone/plist.txt) */
 "bookmarks" = "Bladwijzers";
+
+/* "Bookmarks and Tracks" dialog title */
+"bookmarks_and_tracks" = "Bladwijzers en tracks";
 
 /* Default bookmark list name */
 "core_my_places" = "Mijn plaatsen";

@@ -71,8 +71,10 @@
 	<string name="bookmark_color">Culoare loc preferat</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Denumirea listei</string>
-	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
+	<!-- "Bookmarks" dialog title (kept for compatibility, please also edit it in iphone/plist.txt) -->
 	<string name="bookmarks">Locuri preferate</string>
+	<!-- "Bookmarks and Tracks" dialog title -->
+	<string name="bookmarks_and_tracks">Locuri preferate și trasee</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">Locurile mele</string>
 	<!-- Add bookmark dialog - bookmark name -->

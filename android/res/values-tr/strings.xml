@@ -73,8 +73,10 @@
 	<string name="bookmark_color">Yer İmi Rengi</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Yer İmi Listesi Adı</string>
-	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
+	<!-- "Bookmarks" dialog title (kept for compatibility, please also edit it in iphone/plist.txt) -->
 	<string name="bookmarks">Yer İmleri</string>
+	<!-- "Bookmarks and Tracks" dialog title -->
+	<string name="bookmarks_and_tracks">Yer İmleri ve kayıtlar</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">Yerlerim</string>
 	<!-- Add bookmark dialog - bookmark name -->

@@ -71,8 +71,11 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "세트를 즐겨찾기에 추가";
 
-/* "Bookmarks" dialog title, please also edit it in iphone/plist.txt */
+/* "Bookmarks" dialog title (kept for compatibility, please also edit it in iphone/plist.txt) */
 "bookmarks" = "북마크";
+
+/* "Bookmarks and Tracks" dialog title */
+"bookmarks_and_tracks" = "북마크 및 트랙";
 
 /* Default bookmark list name */
 "core_my_places" = "내 장소";

@@ -63,8 +63,10 @@
 	<string name="bookmark_color">Color del marcador</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Nom de la llista de marcadors</string>
-	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
+	<!-- "Bookmarks" dialog title (kept for compatibility, please also edit it in iphone/plist.txt) -->
 	<string name="bookmarks">Marcadors</string>
+	<!-- "Bookmarks and Tracks" dialog title -->
+	<string name="bookmarks_and_tracks">Marcadors i traces</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">Els meus llocs</string>
 	<!-- Add bookmark dialog - bookmark name -->

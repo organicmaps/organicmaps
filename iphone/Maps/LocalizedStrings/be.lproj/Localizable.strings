@@ -71,8 +71,11 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Спісы закладак";
 
-/* "Bookmarks" dialog title, please also edit it in iphone/plist.txt */
+/* "Bookmarks" dialog title (kept for compatibility, please also edit it in iphone/plist.txt) */
 "bookmarks" = "Закладкі";
+
+/* "Bookmarks and Tracks" dialog title */
+"bookmarks_and_tracks" = "Закладкі i cцежкі";
 
 /* Default bookmark list name */
 "core_my_places" = "Мае месцы";

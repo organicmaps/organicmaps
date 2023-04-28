@@ -71,8 +71,10 @@
 	<string name="bookmark_color">색상 즐겨찾기에 추가</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">집합 이름을 즐겨찾기에 추가</string>
-	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
+	<!-- "Bookmarks" dialog title (kept for compatibility, please also edit it in iphone/plist.txt) -->
 	<string name="bookmarks">북마크</string>
+	<!-- "Bookmarks and Tracks" dialog title -->
+	<string name="bookmarks_and_tracks">북마크 및 트랙</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">내 장소</string>
 	<!-- Add bookmark dialog - bookmark name -->
