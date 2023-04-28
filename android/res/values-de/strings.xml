@@ -634,7 +634,7 @@
 	<string name="driving_options_title">Routenbeschränkungen</string>
 	<string name="driving_options_subheader">In jeder Reiseroute vermeiden</string>
 	<string name="avoid_tolls">Mautstraßen</string>
-	<string name="avoid_unpaved">Erdwege</string>
+	<string name="avoid_unpaved">Unbefestigte Straßen</string>
 	<string name="avoid_ferry">Fährstellen</string>
 	<string name="avoid_motorways">Autobahnen</string>
 	<string name="unable_to_calc_alert_title">Route kann nicht berechnet werden</string>
