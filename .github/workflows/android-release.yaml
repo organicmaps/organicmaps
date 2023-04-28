@@ -5,6 +5,7 @@ on:
 env:
   RELEASE_NOTES: android/src/google/play/release-notes/en-US/default.txt
   FDROID_VERSION: android/src/fdroid/play/version.yaml
+  JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64  # Java 17 is required for Android Gradle 8 plugin
 
 jobs:
   tag:
