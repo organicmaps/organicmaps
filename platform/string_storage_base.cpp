@@ -10,35 +10,33 @@
 
 #include <istream>
 
-using namespace std;
-
-namespace
-{
-constexpr char kDelimChar = '=';
-}  // namespace
-
 namespace platform
 {
-StringStorageBase::StringStorageBase(string const & path) : m_path(path)
+namespace
+{
+constexpr char kKeyValueDelimChar = '=';
+}  // namespace
+
+StringStorageBase::StringStorageBase(std::string const & path) : m_path(path)
 {
   try
   {
     LOG(LINFO, ("Settings path:", m_path));
-    ReaderStreamBuf buffer(make_unique<FileReader>(m_path));
-    istream stream(&buffer);
+    ReaderStreamBuf buffer(std::make_unique<FileReader>(m_path));
+    std::istream stream(&buffer);
 
-    string line;
+    std::string line;
     while (getline(stream, line))
     {
       if (line.empty())
         continue;
 
-      size_t const delimPos = line.find(kDelimChar);
-      if (delimPos == string::npos)
+      size_t const delimPos = line.find(kKeyValueDelimChar);
+      if (delimPos == std::string::npos)
         continue;
 
-      string const key = line.substr(0, delimPos);
-      string const value = line.substr(delimPos + 1);
+      std::string const key = line.substr(0, delimPos);
+      std::string const value = line.substr(delimPos + 1);
       if (!key.empty() && !value.empty())
         m_values[key] = value;
     }
@@ -56,8 +54,8 @@ void StringStorageBase::Save() const
     FileWriter file(m_path);
     for (auto const & value : m_values)
     {
-      string line(value.first);
-      line += kDelimChar;
+      std::string line(value.first);
+      line += kKeyValueDelimChar;
       line += value.second;
       line += '\n';
       file.Write(line.data(), line.size());
@@ -72,14 +70,14 @@ void StringStorageBase::Save() const
 
 void StringStorageBase::Clear()
 {
-  lock_guard<mutex> guard(m_mutex);
+  std::lock_guard guard(m_mutex);
   m_values.clear();
   Save();
 }
 
-bool StringStorageBase::GetValue(string const & key, string & outValue) const
+bool StringStorageBase::GetValue(std::string const & key, std::string & outValue) const
 {
-  lock_guard<mutex> guard(m_mutex);
+  std::lock_guard guard(m_mutex);
 
   auto const found = m_values.find(key);
   if (found == m_values.end())
@@ -89,9 +87,9 @@ bool StringStorageBase::GetValue(string const & key, string & outValue) const
   return true;
 }
 
-void StringStorageBase::SetValue(string const & key, string && value)
+void StringStorageBase::SetValue(std::string const & key, std::string && value)
 {
-  lock_guard<mutex> guard(m_mutex);
+  std::lock_guard guard(m_mutex);
 
   m_values[key] = std::move(value);
   Save();
@@ -99,9 +97,9 @@ void StringStorageBase::SetValue(string const & key, string && value)
 
 void StringStorageBase::Update(std::map<std::string, std::string> const & values)
 {
-  lock_guard<mutex> guard(m_mutex);
+  std::lock_guard guard(m_mutex);
 
-  for (const auto & pair: values)
+  for (const auto & pair : values)
   {
     if (pair.second.empty())
       m_values.erase(pair.first);
@@ -112,9 +110,9 @@ void StringStorageBase::Update(std::map<std::string, std::string> const & values
   Save();
 }
 
-void StringStorageBase::DeleteKeyAndValue(string const & key)
+void StringStorageBase::DeleteKeyAndValue(std::string const & key)
 {
-  lock_guard<mutex> guard(m_mutex);
+  std::lock_guard guard(m_mutex);
 
   auto const found = m_values.find(key);
   if (found != m_values.end())

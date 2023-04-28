@@ -1,6 +1,5 @@
 #pragma once
 
-#include "base/base.hpp"
 #include "base/macros.hpp"
 
 #include <functional>
@@ -12,9 +11,7 @@ class IRoutine;
 class Thread;
 }  // namespace threads
 
-namespace base
-{
-namespace thread_pool
+namespace base::thread_pool
 {
 namespace routine
 {
@@ -51,10 +48,9 @@ public:
   threads::IRoutine * GetRoutine(size_t i) const;
 
 private:
-    std::vector<std::unique_ptr<threads::Thread>> m_pool;
+  std::vector<std::unique_ptr<threads::Thread>> m_pool;
 
-    DISALLOW_COPY(ThreadPool);
+  DISALLOW_COPY(ThreadPool);
 };
 }  // namespace routine_simple
-}  // namespace thread_pool
-}  // namespace base
+}  // namespace base::thread_pool
