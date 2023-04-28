@@ -141,13 +141,13 @@ class PlacePageInfoViewController: UIViewController {
       }
     }
     
-    if let wikipedia = placePageInfoData.wikipedia {
+    if placePageInfoData.wikipedia != nil {
       wikipediaView = createInfoItem(L("read_in_wikipedia"), icon: UIImage(named: "ic_placepage_wiki"), style: .link) { [weak self] in
         self?.delegate?.didPressWikipedia()
       }
     }
     
-    if let wikimediaCommons = placePageInfoData.wikimediaCommons {
+    if placePageInfoData.wikimediaCommons != nil {
       wikimediaCommonsView = createInfoItem(L("wikimedia_commons"), icon: UIImage(named: "ic_placepage_wikimedia_commons"), style: .link) { [weak self] in
         self?.delegate?.didPressWikimediaCommons()
       }

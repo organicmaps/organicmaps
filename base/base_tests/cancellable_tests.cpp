@@ -55,7 +55,7 @@ UNIT_TEST(Cancellable_Deadline)
   double x = 0.123;
 
   auto const fn = [&] {
-    for (size_t it = 0;; it++)
+    while (true)
     {
       if (cancellable.IsCancelled())
         break;
