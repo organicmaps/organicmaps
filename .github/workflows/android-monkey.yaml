@@ -4,6 +4,9 @@ on:
   schedule:
     - cron:  '0 5 * * *' # Once per day at 05:00 UTC
 
+env:
+  JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64  # Java 17 is required for Android Gradle 8 plugin
+
 jobs:
   precondition:
     runs-on: ubuntu-latest

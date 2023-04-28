@@ -2,6 +2,9 @@ name: Android Release Metadata
 on:
   workflow_dispatch: # Manual trigger
 
+env:
+  JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64  # Java 17 is required for Android Gradle 8 plugin
+
 jobs:
   android-release-metadata:
     name: Upload Google Play metadata
