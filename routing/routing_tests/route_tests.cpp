@@ -111,7 +111,7 @@ UNIT_TEST(FinshRouteOnSomeDistanceToTheFinishPointTest)
       vector<RouteSegment> routeSegments;
       RouteSegmentsFrom(segments, kTestGeometry, kTestTurns, {}, routeSegments);
       FillSegmentInfo(kTestTimes, routeSegments);
-      route.SetRouteSegments(move(routeSegments));
+      route.SetRouteSegments(std::move(routeSegments));
 
       route.SetGeometry(kTestGeometry.begin(), kTestGeometry.end());
       route.SetSubroteAttrs(vector<Route::SubrouteAttrs>(
@@ -153,7 +153,7 @@ UNIT_TEST(DistanceAndTimeToCurrentTurnTest)
   route.SetGeometry(kTestGeometry.begin(), kTestGeometry.end());
   vector<turns::TurnItem> turns(kTestTurns);
 
-  route.SetRouteSegments(move(routeSegments));
+  route.SetRouteSegments(std::move(routeSegments));
 
   double distance;
   turns::TurnItem turn;
@@ -236,7 +236,7 @@ UNIT_TEST(NextTurnTest)
   Route route("TestRouter", 0 /* route id */);
   vector<RouteSegment> routeSegments;
   GetTestRouteSegments(kTestGeometry, kTestTurns, {}, {}, routeSegments);
-  route.SetRouteSegments(move(routeSegments));
+  route.SetRouteSegments(std::move(routeSegments));
   route.SetGeometry(kTestGeometry.begin(), kTestGeometry.end());
 
   double distance, nextDistance;
@@ -286,7 +286,7 @@ UNIT_TEST(NextTurnsTest)
   route.SetGeometry(kTestGeometry.begin(), kTestGeometry.end());
   vector<RouteSegment> routeSegments;
   GetTestRouteSegments(kTestGeometry, kTestTurns, {}, {}, routeSegments);
-  route.SetRouteSegments(move(routeSegments));
+  route.SetRouteSegments(std::move(routeSegments));
 
   vector<turns::TurnItem> turns(kTestTurns);
   vector<turns::TurnItemDist> turnsDist;
@@ -380,7 +380,7 @@ UNIT_TEST(SelfIntersectedRouteMatchingTest)
 
   vector<RouteSegment> routeSegments;
   GetTestRouteSegments(kRouteGeometry, {}, {}, {}, routeSegments);
-  route.SetRouteSegments(move(routeSegments));
+  route.SetRouteSegments(std::move(routeSegments));
 
   auto const testMachedPos = [&](location::GpsInfo const & pos,
                                  location::GpsInfo const & expectedMatchingPos,
@@ -431,7 +431,7 @@ UNIT_TEST(RouteNameTest)
   route.SetGeometry(kTestGeometry.begin(), kTestGeometry.end());
   vector<RouteSegment> routeSegments;
   GetTestRouteSegments(kTestGeometry, kTestTurns, kTestNames, {}, routeSegments);
-  route.SetRouteSegments(move(routeSegments));
+  route.SetRouteSegments(std::move(routeSegments));
 
   RouteSegment::RoadNameInfo roadNameInfo;
   route.GetCurrentStreetName(roadNameInfo);

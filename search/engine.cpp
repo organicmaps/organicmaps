@@ -93,7 +93,7 @@ Engine::Engine(DataSource & dataSource, CategoriesHolder const & categories,
   {
     auto processor = make_unique<Processor>(dataSource, categories, m_suggests, infoGetter);
     processor->SetPreferredLocale(params.m_locale);
-    m_contexts[i].m_processor = move(processor);
+    m_contexts[i].m_processor = std::move(processor);
   }
 
   m_threads.reserve(params.m_numThreads);
@@ -253,7 +253,7 @@ void Engine::MainLoop(Context & context)
       // next free search thread.
       if (!m_messages.empty())
       {
-        context.m_messages.push(move(m_messages.front()));
+        context.m_messages.push(std::move(m_messages.front()));
         m_messages.pop();
       }
 

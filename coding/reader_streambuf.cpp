@@ -7,7 +7,7 @@
 using namespace std;
 
 ReaderStreamBuf::ReaderStreamBuf(unique_ptr<Reader> && p)
-  : m_p(move(p)), m_pos(0), m_size(m_p->Size())
+  : m_p(std::move(p)), m_pos(0), m_size(m_p->Size())
 {
 }
 

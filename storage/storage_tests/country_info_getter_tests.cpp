@@ -287,7 +287,7 @@ BENCHMARK_TEST(CountryInfoGetter_RegionsByRect)
   {
     vector<m2::RegionD> regions;
     reader->LoadRegionsFromDisk(i, regions);
-    allRegions.emplace_back(move(regions));
+    allRegions.emplace_back(std::move(regions));
   }
 
   size_t totalPoints = 0;

@@ -97,7 +97,7 @@ NameDiffInfoMap DeserializeResponse(string const & response, LocalMapsInfo::Name
     }
 
     DiffInfo info(size, nameVersionMap.at(name));
-    diffs.emplace(move(name), move(info));
+    diffs.emplace(std::move(name), std::move(info));
   }
 
   return diffs;
@@ -137,11 +137,11 @@ namespace diffs
 // static
 void Loader::Load(LocalMapsInfo && info, DiffsReceivedCallback && callback)
 {
-  GetPlatform().RunTask(Platform::Thread::Network, [info = move(info), callback = move(callback)]() {
+  GetPlatform().RunTask(Platform::Thread::Network, [info = std::move(info), callback = std::move(callback)]() {
     auto result = ::Load(info);
     GetPlatform().RunTask(Platform::Thread::Gui,
-                          [result = move(result), callback = move(callback)]() mutable {
-                            callback(move(result));
+                          [result = std::move(result), callback = std::move(callback)]() mutable {
+                            callback(std::move(result));
                           });
   });
 }

@@ -25,7 +25,7 @@ public:
 
   void Add(unique_ptr<ISelector> && selector)
   {
-    m_selectors.emplace_back(move(selector));
+    m_selectors.emplace_back(std::move(selector));
   }
 
   // ISelector overrides:
@@ -223,7 +223,7 @@ unique_ptr<ISelector> ParseSelector(vector<string> const & strs)
       LOG(LDEBUG, ("Invalid composite selector:", str));
       return unique_ptr<ISelector>();
     }
-    cs->Add(move(s));
+    cs->Add(std::move(s));
   }
 
   return unique_ptr<ISelector>(cs.release());

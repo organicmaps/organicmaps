@@ -139,7 +139,7 @@ TrafficInfo::TrafficInfo(MwmSet::MwmId const & mwmId, int64_t currentDataVersion
 TrafficInfo TrafficInfo::BuildForTesting(Coloring && coloring)
 {
   TrafficInfo info;
-  info.m_coloring = move(coloring);
+  info.m_coloring = std::move(coloring);
   return info;
 }
 

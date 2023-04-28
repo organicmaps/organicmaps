@@ -38,7 +38,7 @@ UNIT_TEST(CountriesNamesTest)
 
   auto & value = *handle.GetValue();
   TEST(value.HasSearchIndex(), ());
-  search::MwmContext const mwmContext(move(handle));
+  search::MwmContext const mwmContext(std::move(handle));
   base::Cancellable const cancellable;
   search::CategoriesCache cache(ftypes::IsLocalityChecker::Instance(), cancellable);
 

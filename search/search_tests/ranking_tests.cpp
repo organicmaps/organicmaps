@@ -183,7 +183,7 @@ class MwmIdWrapper
 {
   FeatureID m_id;
 public:
-  MwmIdWrapper(MwmSet::MwmId id) : m_id(move(id), 0) {}
+  MwmIdWrapper(MwmSet::MwmId id) : m_id(std::move(id), 0) {}
   FeatureID const & GetId() const { return m_id; }
 };
 

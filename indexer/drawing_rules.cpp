@@ -104,7 +104,7 @@ bool BaseRule::TestFeature(FeatureType & ft, int /* zoom */) const
 
 void BaseRule::SetSelector(unique_ptr<ISelector> && selector)
 {
-  m_selector = move(selector);
+  m_selector = std::move(selector);
 }
 
 RulesHolder::RulesHolder()
@@ -381,7 +381,7 @@ namespace
       }
 
       BaseRule * obj = new TRule(rule);
-      obj->SetSelector(move(selector));
+      obj->SetSelector(std::move(selector));
       Key k = m_holder.AddRule(scale, type, obj);
       p->SetVisibilityOnScale(true, scale);
       k.SetPriority(rule.priority());

@@ -1202,7 +1202,7 @@ void FrontendRenderer::AddToRenderGroup(dp::RenderState const & state,
   drape_ptr<TRenderGroup> group = make_unique_dp<TRenderGroup>(state, newTile);
   group->AddBucket(std::move(renderBucket));
 
-  layer.m_renderGroups.push_back(move(group));
+  layer.m_renderGroups.push_back(std::move(group));
   layer.m_isDirty = true;
 }
 

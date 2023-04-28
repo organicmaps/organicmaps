@@ -177,7 +177,7 @@ bool ScorePathsConnector::FindBestPath(vector<LocationReferencePoint> const & po
 
         auto const score = pathLenScore + GetScoreForUniformity(path) +
                            fromCandidates[fromInd].m_score + toCandidates[toInd].m_score;
-        result.emplace_back(score, move(path));
+        result.emplace_back(score, std::move(path));
       }
     }
 

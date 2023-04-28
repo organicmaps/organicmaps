@@ -137,7 +137,7 @@ bool Sample::DeserializeFromJSONLines(string const & lines, vector<Sample> & sam
     Sample sample;
     if (!sample.DeserializeFromJSON(line))
       return false;
-    result.emplace_back(move(sample));
+    result.emplace_back(std::move(sample));
   }
 
   samples.insert(samples.end(), result.begin(), result.end());

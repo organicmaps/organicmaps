@@ -64,7 +64,7 @@ public:
     ASSERT_GREATER(m_points.size(), 1, ());
   }
 
-  explicit Polyline(std::vector<Point<T>> && points) : m_points(move(points))
+  explicit Polyline(std::vector<Point<T>> && points) : m_points(std::move(points))
   {
     ASSERT_GREATER(m_points.size(), 1, ());
   }

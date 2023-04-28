@@ -154,7 +154,7 @@ TRouteResult CalculateRoute(IRouterComponents const & routerComponents,
 {
   RouterDelegate delegate;
   shared_ptr<Route> route = make_shared<Route>("mapsme", 0 /* route id */);
-  routerComponents.GetRouter().SetGuides(move(guides));
+  routerComponents.GetRouter().SetGuides(std::move(guides));
   RouterResultCode result = routerComponents.GetRouter().CalculateRoute(
       checkpoints, m2::PointD::Zero() /* startDirection */, false /* adjust */, delegate, *route);
   ASSERT(route, ());

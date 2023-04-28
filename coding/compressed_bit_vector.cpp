@@ -25,7 +25,7 @@ struct IntersectOp
     vector<uint64_t> resGroups(min(sizeA, sizeB));
     for (size_t i = 0; i < resGroups.size(); ++i)
       resGroups[i] = a.GetBitGroup(i) & b.GetBitGroup(i);
-    return coding::CompressedBitVectorBuilder::FromBitGroups(move(resGroups));
+    return coding::CompressedBitVectorBuilder::FromBitGroups(std::move(resGroups));
   }
 
   // The intersection of dense and sparse is always sparse.
@@ -39,7 +39,7 @@ struct IntersectOp
       if (a.GetBit(pos))
         resPos.push_back(pos);
     }
-    return make_unique<coding::SparseCBV>(move(resPos));
+    return make_unique<coding::SparseCBV>(std::move(resPos));
   }
 
   unique_ptr<coding::CompressedBitVector> operator()(coding::SparseCBV const & a,
@@ -53,7 +53,7 @@ struct IntersectOp
   {
     vector<uint64_t> resPos;
     set_intersection(a.Begin(), a.End(), b.Begin(), b.End(), back_inserter(resPos));
-    return make_unique<coding::SparseCBV>(move(resPos));
+    return make_unique<coding::SparseCBV>(std::move(resPos));
   }
 };
 
@@ -69,7 +69,7 @@ struct SubtractOp
     vector<uint64_t> resGroups(min(sizeA, sizeB));
     for (size_t i = 0; i < resGroups.size(); ++i)
       resGroups[i] = a.GetBitGroup(i) & ~b.GetBitGroup(i);
-    return CompressedBitVectorBuilder::FromBitGroups(move(resGroups));
+    return CompressedBitVectorBuilder::FromBitGroups(std::move(resGroups));
   }
 
   unique_ptr<coding::CompressedBitVector> operator()(coding::DenseCBV const & a,
@@ -97,7 +97,7 @@ struct SubtractOp
     for (; i < resGroups.size(); ++i)
       resGroups[i] = a.GetBitGroup(i);
 
-    return CompressedBitVectorBuilder::FromBitGroups(move(resGroups));
+    return CompressedBitVectorBuilder::FromBitGroups(std::move(resGroups));
   }
 
   unique_ptr<coding::CompressedBitVector> operator()(coding::SparseCBV const & a,
@@ -108,7 +108,7 @@ struct SubtractOp
             {
               return !b.GetBit(bit);
             });
-    return CompressedBitVectorBuilder::FromBitPositions(move(resPos));
+    return CompressedBitVectorBuilder::FromBitPositions(std::move(resPos));
   }
 
   unique_ptr<coding::CompressedBitVector> operator()(coding::SparseCBV const & a,
@@ -116,7 +116,7 @@ struct SubtractOp
   {
     vector<uint64_t> resPos;
     set_difference(a.Begin(), a.End(), b.Begin(), b.End(), back_inserter(resPos));
-    return CompressedBitVectorBuilder::FromBitPositions(move(resPos));
+    return CompressedBitVectorBuilder::FromBitPositions(std::move(resPos));
   }
 };
 
@@ -145,7 +145,7 @@ struct UnionOp
       for (size_t i = commonSize; i < resultSize; ++i)
         resGroups[i] = b.GetBitGroup(i);
     }
-    return CompressedBitVectorBuilder::FromBitGroups(move(resGroups));
+    return CompressedBitVectorBuilder::FromBitGroups(std::move(resGroups));
   }
 
   unique_ptr<coding::CompressedBitVector> operator()(coding::DenseCBV const & a,
@@ -173,7 +173,7 @@ struct UnionOp
       a.ForEach(merge);
       for (; j < b.End(); ++j)
         resPos.push_back(*j);
-      return CompressedBitVectorBuilder::FromBitPositions(move(resPos));
+      return CompressedBitVectorBuilder::FromBitPositions(std::move(resPos));
     }
 
     vector<uint64_t> resGroups(sizeA);
@@ -195,7 +195,7 @@ struct UnionOp
       resGroups[i] = mask;
     }
 
-    return CompressedBitVectorBuilder::FromBitGroups(move(resGroups));
+    return CompressedBitVectorBuilder::FromBitGroups(std::move(resGroups));
   }
 
   unique_ptr<coding::CompressedBitVector> operator()(coding::SparseCBV const & a,
@@ -209,7 +209,7 @@ struct UnionOp
   {
     vector<uint64_t> resPos;
     set_union(a.Begin(), a.End(), b.Begin(), b.End(), back_inserter(resPos));
-    return CompressedBitVectorBuilder::FromBitPositions(move(resPos));
+    return CompressedBitVectorBuilder::FromBitPositions(std::move(resPos));
   }
 };
 
@@ -300,7 +300,7 @@ unique_ptr<DenseCBV> DenseCBV::BuildFromBitGroups(vector<uint64_t> && bitGroups)
   cbv->m_popCount = 0;
   for (size_t i = 0; i < bitGroups.size(); ++i)
     cbv->m_popCount += bits::PopCount(bitGroups[i]);
-  cbv->m_bitGroups = move(bitGroups);
+  cbv->m_bitGroups = std::move(bitGroups);
   return cbv;
 }
 
@@ -344,7 +344,7 @@ unique_ptr<CompressedBitVector> DenseCBV::LeaveFirstSetNBits(uint64_t n) const
       groups.push_back(part);
     }
   }
-  return CompressedBitVectorBuilder::FromBitGroups(move(groups));
+  return CompressedBitVectorBuilder::FromBitGroups(std::move(groups));
 }
 
 CompressedBitVector::StorageStrategy DenseCBV::GetStorageStrategy() const
@@ -372,7 +372,7 @@ SparseCBV::SparseCBV(vector<uint64_t> const & setBits) : m_positions(setBits)
   ASSERT(is_sorted(m_positions.begin(), m_positions.end()), ());
 }
 
-SparseCBV::SparseCBV(vector<uint64_t> && setBits) : m_positions(move(setBits))
+SparseCBV::SparseCBV(vector<uint64_t> && setBits) : m_positions(std::move(setBits))
 {
   ASSERT(is_sorted(m_positions.begin(), m_positions.end()), ());
 }
@@ -395,7 +395,7 @@ unique_ptr<CompressedBitVector> SparseCBV::LeaveFirstSetNBits(uint64_t n) const
   if (PopCount() <= n)
     return Clone();
   vector<uint64_t> positions(m_positions.begin(), m_positions.begin() + static_cast<size_t>(n));
-  return CompressedBitVectorBuilder::FromBitPositions(move(positions));
+  return CompressedBitVectorBuilder::FromBitPositions(std::move(positions));
 }
 
 CompressedBitVector::StorageStrategy SparseCBV::GetStorageStrategy() const
@@ -428,7 +428,7 @@ unique_ptr<CompressedBitVector> CompressedBitVectorBuilder::FromBitPositions(
 unique_ptr<CompressedBitVector> CompressedBitVectorBuilder::FromBitPositions(
     vector<uint64_t> && setBits)
 {
-  return BuildFromBitPositions(move(setBits));
+  return BuildFromBitPositions(std::move(setBits));
 }
 
 // static
@@ -440,7 +440,7 @@ unique_ptr<CompressedBitVector> CompressedBitVectorBuilder::FromBitGroups(
   while (!bitGroups.empty() && bitGroups.back() == 0)
     bitGroups.pop_back();
   if (bitGroups.empty())
-    return make_unique<SparseCBV>(move(bitGroups));
+    return make_unique<SparseCBV>(std::move(bitGroups));
 
   uint64_t const maxBit = kBlockSize * (bitGroups.size() - 1) + bits::FloorLog(bitGroups.back());
   uint64_t popCount = 0;
@@ -448,7 +448,7 @@ unique_ptr<CompressedBitVector> CompressedBitVectorBuilder::FromBitGroups(
     popCount += bits::PopCount(bitGroups[i]);
 
   if (DenseEnough(popCount, maxBit))
-    return DenseCBV::BuildFromBitGroups(move(bitGroups));
+    return DenseCBV::BuildFromBitGroups(std::move(bitGroups));
 
   vector<uint64_t> setBits;
   for (size_t i = 0; i < bitGroups.size(); ++i)

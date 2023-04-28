@@ -539,7 +539,7 @@ void RoutingSession::SetRouter(std::unique_ptr<IRouter> && router,
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(m_router != nullptr, ());
   Reset();
-  m_router->SetRouter(move(router), move(finder));
+  m_router->SetRouter(std::move(router), std::move(finder));
 }
 
 void RoutingSession::MatchLocationToRoadGraph(location::GpsInfo & location)

@@ -54,12 +54,12 @@ MwmSet::MwmHandle::MwmHandle() : m_mwmSet(nullptr), m_value(nullptr) {}
 
 MwmSet::MwmHandle::MwmHandle(MwmSet & mwmSet, MwmId const & mwmId,
                              unique_ptr<MwmValue> && value)
-  : m_mwmId(mwmId), m_mwmSet(&mwmSet), m_value(move(value))
+  : m_mwmId(mwmId), m_mwmSet(&mwmSet), m_value(std::move(value))
 {
 }
 
 MwmSet::MwmHandle::MwmHandle(MwmHandle && handle)
-  : m_mwmId(std::move(handle.m_mwmId)), m_mwmSet(handle.m_mwmSet), m_value(move(handle.m_value))
+  : m_mwmId(std::move(handle.m_mwmId)), m_mwmSet(handle.m_mwmSet), m_value(std::move(handle.m_value))
 {
   handle.m_mwmSet = nullptr;
   handle.m_mwmId.Reset();
@@ -69,7 +69,7 @@ MwmSet::MwmHandle::MwmHandle(MwmHandle && handle)
 MwmSet::MwmHandle::~MwmHandle()
 {
   if (m_mwmSet && m_value)
-    m_mwmSet->UnlockValue(m_mwmId, move(m_value));
+    m_mwmSet->UnlockValue(m_mwmId, std::move(m_value));
 }
 
 shared_ptr<MwmInfo> const & MwmSet::MwmHandle::GetInfo() const
@@ -284,7 +284,7 @@ unique_ptr<MwmValue> MwmSet::LockValueImpl(MwmId const & id, EventList & events)
   {
     if (it->first == id)
     {
-      unique_ptr<MwmValue> result = move(it->second);
+      unique_ptr<MwmValue> result = std::move(it->second);
       m_cache.erase(it);
       return result;
     }
@@ -314,7 +314,7 @@ void MwmSet::UnlockValue(MwmId const & id, unique_ptr<MwmValue> p)
 {
   WithEventLog([&](EventList & events)
                {
-                 UnlockValueImpl(id, move(p), events);
+                 UnlockValueImpl(id, std::move(p), events);
                });
 }
 
@@ -336,7 +336,7 @@ void MwmSet::UnlockValueImpl(MwmId const & id, unique_ptr<MwmValue> p, EventList
     /// @todo Probably, it's better to store only "unique by id" free caches here.
     /// But it's no obvious if we have many threads working with the single mwm.
 
-    m_cache.push_back(make_pair(id, move(p)));
+    m_cache.push_back(make_pair(id, std::move(p)));
     if (m_cache.size() > m_cacheSize)
     {
       LOG(LDEBUG, ("MwmValue max cache size reached! Added", id, "removed", m_cache.front().first));
@@ -390,7 +390,7 @@ MwmSet::MwmHandle MwmSet::GetMwmHandleByIdImpl(MwmId const & id, EventList & eve
   unique_ptr<MwmValue> value;
   if (id.IsAlive())
     value = LockValueImpl(id, events);
-  return MwmHandle(*this, id, move(value));
+  return MwmHandle(*this, id, std::move(value));
 }
 
 void MwmSet::ClearCacheImpl(Cache::iterator beg, Cache::iterator end) { m_cache.erase(beg, end); }

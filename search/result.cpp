@@ -26,18 +26,18 @@ void Result::FromFeature(FeatureID const & id, uint32_t featureType, Details con
 }
 
 Result::Result(string str, string && suggest)
-  : m_resultType(Type::PureSuggest), m_str(move(str)), m_suggestionStr(move(suggest))
+  : m_resultType(Type::PureSuggest), m_str(std::move(str)), m_suggestionStr(std::move(suggest))
 {
 }
 
 Result::Result(Result && res, string && suggest)
-  : m_id(move(res.m_id))
+  : m_id(std::move(res.m_id))
   , m_center(res.m_center)
-  , m_str(move(res.m_str))
-  , m_address(move(res.m_address))
+  , m_str(std::move(res.m_str))
+  , m_address(std::move(res.m_address))
   , m_featureType(res.m_featureType)
-  , m_suggestionStr(move(suggest))
-  , m_hightlightRanges(move(res.m_hightlightRanges))
+  , m_suggestionStr(std::move(suggest))
+  , m_hightlightRanges(std::move(res.m_hightlightRanges))
 {
   m_resultType = m_id.IsValid() ? Type::SuggestFromFeature : Type::PureSuggest;
 }
@@ -198,7 +198,7 @@ bool Results::AddResult(Result && result)
       if (result.IsEqualSuggest(*i))
         return false;
     }
-    InsertResult(it, move(result));
+    InsertResult(it, std::move(result));
   }
   else
   {
@@ -207,7 +207,7 @@ bool Results::AddResult(Result && result)
       if (result.IsEqualFeature(*it))
         return false;
     }
-    InsertResult(m_results.end(), move(result));
+    InsertResult(m_results.end(), std::move(result));
   }
 
   return true;
@@ -215,7 +215,7 @@ bool Results::AddResult(Result && result)
 
 void Results::AddResultNoChecks(Result && result)
 {
-  InsertResult(m_results.end(), move(result));
+  InsertResult(m_results.end(), std::move(result));
 }
 
 void Results::AddResultsNoChecks(ConstIter first, ConstIter last)
@@ -223,7 +223,7 @@ void Results::AddResultsNoChecks(ConstIter first, ConstIter last)
   while (first != last)
   {
     auto resultCopy = *first++;
-    AddResultNoChecks(move(resultCopy));
+    AddResultNoChecks(std::move(resultCopy));
   }
 }
 
@@ -267,7 +267,7 @@ void Results::InsertResult(vector<Result>::iterator where, Result && result)
   }
 
   result.SetPositionInResults(static_cast<int32_t>(distance(m_results.begin(), where)));
-  m_results.insert(where, move(result));
+  m_results.insert(where, std::move(result));
 }
 
 string DebugPrint(search::Results const & results)

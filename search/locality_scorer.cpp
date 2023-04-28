@@ -295,7 +295,7 @@ void LocalityScorer::GroupBySimilarityAndOther(vector<ExLocality> & els) const
     for (auto it = range.first; it != range.second; ++it)
     {
       if (it != closest)
-        tmp.emplace_back(move(*it));
+        tmp.emplace_back(std::move(*it));
     }
     begin = range.second;
   }

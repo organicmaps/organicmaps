@@ -523,7 +523,7 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
 
       auto builder = std::make_unique<SimpleSolidLineBuilder>(p, m_spline->GetPath().size(), lineWidth);
       Construct<SimpleSolidLineBuilder>(*builder);
-      m_lineShapeInfo = move(builder);
+      m_lineShapeInfo = std::move(builder);
     }
     else
     {
@@ -532,7 +532,7 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
 
       auto builder = std::make_unique<SolidLineBuilder>(p, m_spline->GetPath().size());
       Construct<SolidLineBuilder>(*builder);
-      m_lineShapeInfo = move(builder);
+      m_lineShapeInfo = std::move(builder);
     }
   }
   else
@@ -548,7 +548,7 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
 
     auto builder = std::make_unique<DashedLineBuilder>(p, m_spline->GetPath().size());
     Construct<DashedLineBuilder>(*builder);
-    m_lineShapeInfo = move(builder);
+    m_lineShapeInfo = std::move(builder);
   }
 }
 

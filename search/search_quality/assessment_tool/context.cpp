@@ -76,7 +76,7 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
 
     auto result = m_sample.m_results[i];
     result.m_relevance = *foundEntries[j].m_currRelevance;
-    outResults.push_back(move(result));
+    outResults.push_back(std::move(result));
   }
 
   // Iterates over results retrieved during assessment.

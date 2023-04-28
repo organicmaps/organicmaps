@@ -245,9 +245,9 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   m_work.SetMyPositionModeListener(bind(&Framework::MyPositionModeChanged, this, _1, _2));
 
   if (m_vulkanContextFactory)
-    m_work.CreateDrapeEngine(make_ref(m_vulkanContextFactory), move(p));
+    m_work.CreateDrapeEngine(make_ref(m_vulkanContextFactory), std::move(p));
   else
-    m_work.CreateDrapeEngine(make_ref(m_oglContextFactory), move(p));
+    m_work.CreateDrapeEngine(make_ref(m_oglContextFactory), std::move(p));
   m_work.EnterForeground();
 
   return true;
@@ -679,7 +679,7 @@ void Framework::ApplyWidgets()
   for (auto const & widget : m_guiPositions)
     layout[widget.first] = widget.second.m_pixelPivot;
 
-  m_work.SetWidgetLayout(move(layout));
+  m_work.SetWidgetLayout(std::move(layout));
 }
 
 void Framework::CleanWidgets()

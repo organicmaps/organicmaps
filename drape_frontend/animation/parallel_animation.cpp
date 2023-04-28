@@ -143,7 +143,7 @@ void ParallelAnimation::AddAnimation(drape_ptr<Animation> && animation)
   SetCouldBeBlended(CouldBeBlended() && animation->CouldBeBlended());
   SetCouldBeRewinded(CouldBeRewinded() && animation->CouldBeRewinded());
 
-  m_animations.emplace_back(move(animation));
+  m_animations.emplace_back(std::move(animation));
   ObtainObjectProperties();
 }
 

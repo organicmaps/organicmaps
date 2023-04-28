@@ -61,7 +61,7 @@ private:
 void RoadGraphMockSource::AddRoad(RoadInfo && ri)
 {
   CHECK_GREATER_OR_EQUAL(ri.m_junctions.size(), 2, ("Empty road"));
-  m_roads.push_back(move(ri));
+  m_roads.push_back(std::move(ri));
 }
 
 IRoadGraph::RoadInfo RoadGraphMockSource::GetRoadInfo(FeatureID const & featureId,
@@ -148,10 +148,10 @@ void InitRoadGraphMockSourceWithTest1(RoadGraphMockSource & src)
   ri3.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(15, 5)));
   ri3.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(20, 0)));
 
-  src.AddRoad(move(ri0));
-  src.AddRoad(move(ri1));
-  src.AddRoad(move(ri2));
-  src.AddRoad(move(ri3));
+  src.AddRoad(std::move(ri0));
+  src.AddRoad(std::move(ri1));
+  src.AddRoad(std::move(ri2));
+  src.AddRoad(std::move(ri3));
 }
 
 void InitRoadGraphMockSourceWithTest2(RoadGraphMockSource & graph)
@@ -226,15 +226,15 @@ void InitRoadGraphMockSourceWithTest2(RoadGraphMockSource & graph)
   ri8.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(12, 25)));
   ri8.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(5, 40)));
 
-  graph.AddRoad(move(ri0));
-  graph.AddRoad(move(ri1));
-  graph.AddRoad(move(ri2));
-  graph.AddRoad(move(ri3));
-  graph.AddRoad(move(ri4));
-  graph.AddRoad(move(ri5));
-  graph.AddRoad(move(ri6));
-  graph.AddRoad(move(ri7));
-  graph.AddRoad(move(ri8));
+  graph.AddRoad(std::move(ri0));
+  graph.AddRoad(std::move(ri1));
+  graph.AddRoad(std::move(ri2));
+  graph.AddRoad(std::move(ri3));
+  graph.AddRoad(std::move(ri4));
+  graph.AddRoad(std::move(ri5));
+  graph.AddRoad(std::move(ri6));
+  graph.AddRoad(std::move(ri7));
+  graph.AddRoad(std::move(ri8));
 }
 
 }  // namespace routing_test

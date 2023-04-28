@@ -102,8 +102,8 @@ TrafficMode::TrafficMode(std::string const & dataFileName, DataSource const & da
                          QObject * parent)
   : QAbstractTableModel(parent)
   , m_dataSource(dataSource)
-  , m_drawerDelegate(move(drawerDelegate))
-  , m_pointsDelegate(move(pointsDelegate))
+  , m_drawerDelegate(std::move(drawerDelegate))
+  , m_pointsDelegate(std::move(pointsDelegate))
 {
   // TODO(mgsergio): Collect stat how many segments of each kind were parsed.
   pugi::xml_document doc;

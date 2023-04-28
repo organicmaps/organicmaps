@@ -24,7 +24,7 @@ void ReadCommon(std::unique_ptr<Reader> classificator,
 
   {
     //LOG(LINFO, ("Reading classificator"));
-    ReaderStreamBuf buffer(move(classificator));
+    ReaderStreamBuf buffer(std::move(classificator));
 
     std::istream s(&buffer);
     c.ReadClassificator(s);
@@ -32,7 +32,7 @@ void ReadCommon(std::unique_ptr<Reader> classificator,
 
   {
     //LOG(LINFO, ("Reading types mapping"));
-    ReaderStreamBuf buffer(move(types));
+    ReaderStreamBuf buffer(std::move(types));
 
     std::istream s(&buffer);
     c.ReadTypesMapping(s);

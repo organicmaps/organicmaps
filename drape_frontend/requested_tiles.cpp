@@ -6,7 +6,7 @@ void RequestedTiles::Set(ScreenBase const & screen, bool have3dBuildings, bool f
                          bool forceUserMarksRequest, TTilesCollection && tiles)
 {
   std::lock_guard<std::mutex> lock(m_mutex);
-  m_tiles = move(tiles);
+  m_tiles = std::move(tiles);
   m_screen = screen;
   m_have3dBuildings = have3dBuildings;
   m_forceRequest = forceRequest;

@@ -178,7 +178,7 @@ vector<RouteMarkData> DeserializeRoutePoints(string const & data)
       if (point.m_position.EqualDxDy(m2::PointD::Zero(), mercator::kPointEqualityEps))
         continue;
 
-      result.push_back(move(point));
+      result.push_back(std::move(point));
     }
 
     if (result.size() < 2)
@@ -298,7 +298,7 @@ drape_ptr<df::Subroute> CreateDrapeSubroute(vector<RouteSegment> const & segment
 }  // namespace
 
 RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
-  : m_callbacks(move(callbacks))
+  : m_callbacks(std::move(callbacks))
   , m_delegate(delegate)
   , m_extrapolator(
         [this](location::GpsInfo const & gpsInfo) { this->OnExtrapolatedLocationUpdate(gpsInfo); })
@@ -523,7 +523,7 @@ void RoutingManager::SetRouterImpl(RouterType type)
                                          m_routingSession, dataSource);
 
   m_routingSession.SetRoutingSettings(GetRoutingSettings(vehicleType));
-  m_routingSession.SetRouter(move(router), move(regionsFinder));
+  m_routingSession.SetRouter(std::move(router), std::move(regionsFinder));
   m_currentRouterType = type;
 }
 
@@ -613,7 +613,7 @@ void RoutingManager::CreateRoadWarningMarks(RoadWarningsCollection && roadWarnin
   if (roadWarnings.empty())
     return;
 
-  GetPlatform().RunTask(Platform::Thread::Gui, [this, roadWarnings = move(roadWarnings)]()
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, roadWarnings = std::move(roadWarnings)]()
   {
     auto es = m_bmManager->GetEditSession();
     for (auto const & typeInfo : roadWarnings)
@@ -723,7 +723,7 @@ bool RoutingManager::InsertRoute(Route const & route)
 
   if (isTransitRoute)
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, [transitRouteDisplay = move(transitRouteDisplay)]()
+    GetPlatform().RunTask(Platform::Thread::Gui, [transitRouteDisplay = std::move(transitRouteDisplay)]()
     {
       transitRouteDisplay->CreateTransitMarks();
     });
@@ -731,7 +731,7 @@ bool RoutingManager::InsertRoute(Route const & route)
 
   bool const hasWarnings = !roadWarnings.empty();
   if (hasWarnings && m_currentRouterType == RouterType::Vehicle)
-    CreateRoadWarningMarks(move(roadWarnings));
+    CreateRoadWarningMarks(std::move(roadWarnings));
 
   return hasWarnings;
 }
@@ -834,7 +834,7 @@ void RoutingManager::AddRoutePoint(RouteMarkData && markData)
   }
 
   markData.m_isVisible = !markData.m_isMyPosition;
-  routePoints.AddRoutePoint(move(markData));
+  routePoints.AddRoutePoint(std::move(markData));
   ReorderIntermediatePoints();
 }
 
@@ -1013,7 +1013,7 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   for (auto const & point : routePoints)
     points.push_back(point.m_position);
 
-  m_routingSession.BuildRoute(Checkpoints(move(points)), timeoutSec);
+  m_routingSession.BuildRoute(Checkpoints(std::move(points)), timeoutSec);
 }
 
 void RoutingManager::SetUserCurrentPosition(m2::PointD const & position)
@@ -1116,9 +1116,9 @@ void RoutingManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAl
   m_drapeEngine.SafeCall(&df::DrapeEngine::RequestSymbolsSize, symbols,
                          [this, is3dAllowed](map<string, m2::PointF> && sizes)
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, is3dAllowed, sizes = move(sizes)]() mutable
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, is3dAllowed, sizes = std::move(sizes)]() mutable
     {
-      m_transitSymbolSizes = move(sizes);
+      m_transitSymbolSizes = std::move(sizes);
 
       // In case of the engine reinitialization recover route.
       if (IsRoutingActive())
@@ -1301,7 +1301,7 @@ void RoutingManager::CancelRoutePointsTransaction(uint32_t transactionId)
   editSession.ClearGroup(UserMark::Type::ROUTING);
   RoutePointsLayout routePoints(*m_bmManager);
   for (auto & markData : routeMarks)
-    routePoints.AddRoutePoint(move(markData));
+    routePoints.AddRoutePoint(std::move(markData));
 }
 
 bool RoutingManager::HasSavedRoutePoints() const
@@ -1346,7 +1346,7 @@ void RoutingManager::LoadRoutePoints(LoadRouteHandler const & handler)
     }
 
     GetPlatform().RunTask(Platform::Thread::Gui,
-                          [this, handler, points = move(points)]() mutable
+                          [this, handler, points = std::move(points)]() mutable
     {
       ASSERT(m_bmManager != nullptr, ());
       // If we have found my position, we use my position as start point.
@@ -1361,11 +1361,11 @@ void RoutingManager::LoadRoutePoints(LoadRouteHandler const & handler)
           startPt.m_pointType = RouteMarkType::Start;
           startPt.m_isMyPosition = true;
           startPt.m_position = myPosMark.GetPivot();
-          AddRoutePoint(move(startPt));
+          AddRoutePoint(std::move(startPt));
         }
         else
         {
-          AddRoutePoint(move(p));
+          AddRoutePoint(std::move(p));
         }
       }
 
@@ -1389,7 +1389,7 @@ void RoutingManager::SaveRoutePoints()
     return;
   }
 
-  GetPlatform().RunTask(Platform::Thread::File, [points = move(points)]()
+  GetPlatform().RunTask(Platform::Thread::File, [points = std::move(points)]()
   {
     try
     {

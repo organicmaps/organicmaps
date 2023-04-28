@@ -776,10 +776,10 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
   if (!m_isUploadingNow)
   {
     m_isUploadingNow = true;
-    GetPlatform().RunTask(Platform::Thread::Network, [upload = move(upload), key, secret,
-                                                      tags = move(tags), callback = move(callback)]()
+    GetPlatform().RunTask(Platform::Thread::Network, [upload = std::move(upload), key, secret,
+                                                      tags = std::move(tags), callback = std::move(callback)]()
     {
-      upload(move(key), move(secret), move(tags), move(callback));
+      upload(std::move(key), std::move(secret), std::move(tags), std::move(callback));
     });
   }
 }
@@ -1108,7 +1108,7 @@ void Editor::ForEachFeatureAtPoint(FeatureTypeFn && fn, m2::PointD const & point
     LOG(LERROR, ("Can't load features in point's vicinity, delegate is not set."));
     return;
   }
-  m_delegate->ForEachFeatureAtPoint(move(fn), point);
+  m_delegate->ForEachFeatureAtPoint(std::move(fn), point);
 }
 
 FeatureID Editor::GetFeatureIdByXmlFeature(FeaturesContainer const & features,
@@ -1116,7 +1116,7 @@ FeatureID Editor::GetFeatureIdByXmlFeature(FeaturesContainer const & features,
                                            FeatureStatus status, bool needMigrate) const
 {
   ForEachFeaturesNearByFn forEach = [this](FeatureTypeFn && fn, m2::PointD const & point) {
-    return ForEachFeatureAtPoint(move(fn), point);
+    return ForEachFeatureAtPoint(std::move(fn), point);
   };
 
   // TODO(mgsergio): Deleted features are not properly handled yet.
@@ -1156,7 +1156,7 @@ void Editor::LoadMwmEdits(FeaturesContainer & loadedFeatures, xml_node const & m
 
         logHelper.OnStatus(section.m_status);
 
-        loadedFeatures[fid.m_mwmId].emplace(fid.m_index, move(fti));
+        loadedFeatures[fid.m_mwmId].emplace(fid.m_index, std::move(fti));
       }
       catch (editor::XMLFeatureError const & ex)
       {

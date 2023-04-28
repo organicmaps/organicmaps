@@ -84,7 +84,7 @@
     }
     layout[w] = pivot;
   });
-  GetFramework().SetWidgetLayout(move(layout));
+  GetFramework().SetWidgetLayout(std::move(layout));
 }
 
 @end

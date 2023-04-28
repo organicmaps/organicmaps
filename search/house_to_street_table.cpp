@@ -29,7 +29,7 @@ class EliasFanoMap : public HouseToStreetTable
 public:
   using Map = MapUint32ToValue<uint32_t>;
 
-  explicit EliasFanoMap(unique_ptr<Reader> && reader) : m_reader(move(reader))
+  explicit EliasFanoMap(unique_ptr<Reader> && reader) : m_reader(std::move(reader))
   {
     ASSERT(m_reader, ());
     auto readBlockCallback = [](auto & source, uint32_t blockSize, vector<uint32_t> & values)
@@ -89,7 +89,7 @@ unique_ptr<HouseToStreetTable> LoadHouseToStreetTable(MwmValue const & value)
 
     auto subreader = reader.GetPtr()->CreateSubReader(header.m_tableOffset, header.m_tableSize);
     CHECK(subreader, ());
-    result = make_unique<EliasFanoMap>(move(subreader));
+    result = make_unique<EliasFanoMap>(std::move(subreader));
   }
   catch (Reader::OpenException const & ex)
   {

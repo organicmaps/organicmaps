@@ -752,7 +752,7 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress, b
   res.SetRankingInfo(rankerResult.m_dbgInfo);
 
 #ifdef SEARCH_USE_PROVENANCE
-  res.SetProvenance(move(rankerResult.m_provenance));
+  res.SetProvenance(std::move(rankerResult.m_provenance));
 #endif
 
   return res;
@@ -831,12 +831,12 @@ void Ranker::UpdateResults(bool lastUpdate)
 
     if (m_params.m_viewportSearch)
     {
-      m_emitter.AddResultNoChecks(move(result));
+      m_emitter.AddResultNoChecks(std::move(result));
       ++count;
     }
     else
     {
-      if (m_emitter.AddResult(move(result)))
+      if (m_emitter.AddResult(std::move(result)))
         ++count;
     }
   }
@@ -876,7 +876,7 @@ void Ranker::MakeRankerResults()
 
     /// @todo Is it ok to make duplication check for O(N) here? Especially when we make RemoveDuplicatingLinear later.
     if (isViewportMode || !ResultExists(*p, m_tentativeResults, m_params.m_minDistanceBetweenResultsM))
-      m_tentativeResults.push_back(move(*p));
+      m_tentativeResults.push_back(std::move(*p));
   };
 
   m_preRankerResults.clear();
@@ -948,7 +948,7 @@ void Ranker::MatchForSuggestions(strings::UniString const & token, int8_t locale
       string const utf8Str = strings::ToUtf8(s);
       Result r(utf8Str, prologue + utf8Str + " ");
       HighlightResult(m_params.m_tokens, m_params.m_prefix, r);
-      m_emitter.AddResult(move(r));
+      m_emitter.AddResult(std::move(r));
     }
   }
 }
@@ -972,7 +972,7 @@ void Ranker::ProcessSuggestions(vector<RankerResult> const & vec) const
       {
         // todo(@m) RankingInfo is lost here. Should it be?
         if (m_emitter.AddResult(Result(MakeResult(r, false /* needAddress */, true /* needHighlighting */),
-                                       move(suggestion))))
+                                       std::move(suggestion))))
         {
           ++added;
         }
