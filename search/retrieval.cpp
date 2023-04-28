@@ -325,7 +325,7 @@ struct RetrieveAddressFeaturesAdaptor
   template <typename... Args>
   Retrieval::ExtendedFeatures operator()(Args &&... args)
   {
-    return RetrieveAddressFeaturesImpl<T>(forward<Args>(args)...);
+    return RetrieveAddressFeaturesImpl<T>(std::forward<Args>(args)...);
   }
 };
 
@@ -335,7 +335,7 @@ struct RetrievePostcodeFeaturesAdaptor
   template <typename... Args>
   Retrieval::ExtendedFeatures operator()(Args &&... args)
   {
-    return RetrievePostcodeFeaturesImpl<T>(forward<Args>(args)...);
+    return RetrievePostcodeFeaturesImpl<T>(std::forward<Args>(args)...);
   }
 };
 
@@ -414,6 +414,6 @@ Retrieval::ExtendedFeatures Retrieval::Retrieve(Args &&... args) const
 {
   R<Uint64IndexValue> r;
   ASSERT(m_root, ());
-  return r(*m_root, m_context, m_cancellable, forward<Args>(args)...);
+  return r(*m_root, m_context, m_cancellable, std::forward<Args>(args)...);
 }
 }  // namespace search

@@ -60,7 +60,7 @@ TaskLoop::PushResult ThreadPool::AddImmediate(T && task)
 {
   return AddTask([&]() {
     auto const newId = MakeNextId(m_immediateLastId, kImmediateMinId, kImmediateMaxId);
-    VERIFY(m_immediate.Emplace(newId, forward<T>(task)), ());
+    VERIFY(m_immediate.Emplace(newId, std::forward<T>(task)), ());
     m_immediateLastId = newId;
     return newId;
   });
@@ -72,7 +72,7 @@ TaskLoop::PushResult ThreadPool::AddDelayed(Duration const & delay, T && task)
   auto const when = Now() + delay;
   return AddTask([&]() {
     auto const newId = MakeNextId(m_delayedLastId, kDelayedMinId, kDelayedMaxId);
-    m_delayed.Add(newId, make_shared<DelayedTask>(newId, when, forward<T>(task)));
+    m_delayed.Add(newId, make_shared<DelayedTask>(newId, when, std::forward<T>(task)));
     m_delayedLastId = newId;
     return newId;
   });

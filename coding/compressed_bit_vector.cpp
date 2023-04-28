@@ -263,13 +263,13 @@ template <typename TBitPositions>
 unique_ptr<CompressedBitVector> BuildFromBitPositions(TBitPositions && setBits)
 {
   if (setBits.empty())
-    return make_unique<SparseCBV>(forward<TBitPositions>(setBits));
+    return make_unique<SparseCBV>(std::forward<TBitPositions>(setBits));
   uint64_t const maxBit = *max_element(setBits.begin(), setBits.end());
 
   if (DenseEnough(setBits.size(), maxBit))
-    return make_unique<DenseCBV>(forward<TBitPositions>(setBits));
+    return make_unique<DenseCBV>(std::forward<TBitPositions>(setBits));
 
-  return make_unique<SparseCBV>(forward<TBitPositions>(setBits));
+  return make_unique<SparseCBV>(std::forward<TBitPositions>(setBits));
 }
 }  // namespace
 
