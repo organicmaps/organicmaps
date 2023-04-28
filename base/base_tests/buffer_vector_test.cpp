@@ -316,10 +316,10 @@ struct CopyCtorChecker
   }
 };
 
-void swap(CopyCtorChecker & r1, CopyCtorChecker & r2)
-{
-  r1.m_s.swap(r2.m_s);
-}
+// void swap(CopyCtorChecker & r1, CopyCtorChecker & r2)
+// {
+//   r1.m_s.swap(r2.m_s);
+// }
 
 typedef buffer_vector<CopyCtorChecker, 2> VectorT;
 

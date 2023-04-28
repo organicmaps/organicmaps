@@ -51,8 +51,6 @@ inline drule::rule_type_t Convert(Type t)
   }
 }
 
-float constexpr kMinPriority = std::numeric_limits<float>::lowest();
-
 inline bool IsTypeOf(drule::Key const & key, int flags)
 {
   int currentFlag = Line;
