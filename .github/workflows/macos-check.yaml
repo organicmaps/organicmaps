@@ -25,7 +25,7 @@ on:
 jobs:
   macos-matrix:
     name: macOS builds and tests
-    runs-on: macos-12
+    runs-on: macos-12-xl
     env:
       HOMEBREW_NO_ANALYTICS: 1
       HOMEBREW_NO_INSTALL_CLEANUP: 1

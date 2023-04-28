@@ -28,7 +28,7 @@ on:
 jobs:
   ios-beta:
     name: Apple TestFlight
-    runs-on: macos-12
+    runs-on: macos-12-xl
     env:
       LANG: en_US.UTF-8  # Fastlane complains that the terminal is using ASCII.
       LANGUAGE: en_US.UTF-8
