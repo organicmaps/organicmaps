@@ -26,7 +26,7 @@ buildscript {
   ext.googleFirebaseServicesEnabled = project.hasProperty('firebase') ?: googleFirebaseServicesDefault
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:7.4.2'
+    classpath 'com.android.tools.build:gradle:8.0.1'
 
     if (googleMobileServicesEnabled) {
       println("Building with Google Mobile Services")
@@ -159,8 +159,7 @@ android {
     buildConfigField 'String', 'SUPPORT_MAIL', '"android@organicmaps.app"'
     // Should be customized in flavors.
     buildConfigField 'String', 'REVIEW_URL', '""'
-    
-    resConfigs project.ext.supportedLocalizations
+    resourceConfigurations += [project.ext.supportedLocalizations]
 
     multiDexEnabled true
     multiDexKeepFile file('multidex-config.txt')
