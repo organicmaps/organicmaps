@@ -275,7 +275,7 @@ template <typename... Args>
 void Engine::PostMessage(Args &&... args)
 {
   lock_guard<mutex> lock(m_mu);
-  m_messages.emplace(forward<Args>(args)...);
+  m_messages.emplace(std::forward<Args>(args)...);
   m_cv.notify_one();
 }
 
