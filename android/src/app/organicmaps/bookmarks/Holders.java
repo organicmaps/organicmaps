@@ -1,8 +1,8 @@
 package app.organicmaps.bookmarks;
 
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
-import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.View;
@@ -161,7 +161,75 @@ public class Holders
     }
   }
 
-  static class CollectionViewHolder extends RecyclerView.ViewHolder
+  static class CategoryViewHolderBase extends RecyclerView.ViewHolder
+  {
+    @Nullable
+    protected BookmarkCategory mEntity;
+
+    @NonNull
+    protected final TextView mSize;
+
+    public CategoryViewHolderBase(@NonNull View root)
+    {
+      super(root);
+      mSize = root.findViewById(R.id.size);
+    }
+
+    protected void setSize()
+    {
+      if (mEntity == null)
+        return;
+
+      mSize.setText(getSizeString());
+    }
+
+    private String getSizeString()
+    {
+      final Resources resources = mSize.getResources();
+      final int bookmarksCount = mEntity.getBookmarksCount();
+      final int tracksCount = mEntity.getTracksCount();
+
+      if (mEntity.size() == 0)
+      {
+        return getQuantified(resources, R.plurals.objects, 0);
+      }
+
+      if (bookmarksCount > 0 && tracksCount > 0)
+      {
+        final String bookmarks = getQuantified(resources, R.plurals.places, bookmarksCount);
+        final String tracks = getQuantified(resources, R.plurals.tracks, bookmarksCount);
+        final String template = resources.getString(R.string.comma_separated_pair);
+        return String.format(template, bookmarks, tracks);
+      }
+
+      if (bookmarksCount > 0)
+      {
+        return getQuantified(resources, R.plurals.places, bookmarksCount);
+      }
+
+      return getQuantified(resources, R.plurals.tracks, tracksCount);
+    }
+
+    void setEntity(@NonNull BookmarkCategory entity)
+    {
+      mEntity = entity;
+    }
+
+    @NonNull
+    public BookmarkCategory getEntity()
+    {
+      if (mEntity == null)
+        throw new AssertionError("BookmarkCategory is null");
+      return mEntity;
+    }
+
+    private String getQuantified(Resources resources, @PluralsRes int plural, int size)
+    {
+      return resources.getQuantityString(plural, size, size);
+    }
+
+  }
+  static class CollectionViewHolder extends CategoryViewHolderBase
   {
     @NonNull
     private final View mView;
@@ -169,10 +237,6 @@ public class Holders
     private final TextView mName;
     @NonNull
     private final CheckBox mVisibilityMarker;
-    @NonNull
-    private final TextView mSize;
-    @Nullable
-    private BookmarkCategory mEntity;
 
     CollectionViewHolder(@NonNull View root)
     {
@@ -180,7 +244,6 @@ public class Holders
       mView = root;
       mName = root.findViewById(R.id.name);
       mVisibilityMarker = root.findViewById(R.id.checkbox);
-      mSize = root.findViewById(R.id.size);
     }
 
     void setOnClickListener(@Nullable OnItemClickListener<BookmarkCategory> listener)
@@ -205,27 +268,9 @@ public class Holders
     {
       mName.setText(name);
     }
-
-    void setSize(@PluralsRes int phrase, int size)
-    {
-      mSize.setText(mSize.getResources().getQuantityString(phrase, size, size));
-    }
-
-    void setEntity(@NonNull BookmarkCategory entity)
-    {
-      mEntity = entity;
-    }
-
-    @NonNull
-    public BookmarkCategory getEntity()
-    {
-      if (mEntity == null)
-        throw new AssertionError("BookmarkCategory is null");
-      return mEntity;
-    }
   }
 
-  static class CategoryViewHolder extends RecyclerView.ViewHolder
+  static class CategoryViewHolder extends CategoryViewHolderBase
   {
     @NonNull
     private final TextView mName;
@@ -233,10 +278,6 @@ public class Holders
     CheckBox mVisibilityMarker;
     @NonNull
     ImageView mMoreButton;
-    @NonNull
-    TextView mSize;
-    @Nullable
-    private BookmarkCategory mEntity;
 
     CategoryViewHolder(@NonNull View root)
     {
@@ -247,7 +288,6 @@ public class Holders
       int left = root.getResources().getDimensionPixelOffset(R.dimen.margin_half_plus);
       int right = root.getResources().getDimensionPixelOffset(R.dimen.margin_base_plus);
       UiUtils.expandTouchAreaForView(mVisibilityMarker, 0, left, 0, right);
-      mSize = root.findViewById(R.id.size);
     }
 
     void setVisibilityState(boolean visible)
@@ -268,24 +308,6 @@ public class Holders
     void setName(@NonNull String name)
     {
       mName.setText(name);
-    }
-
-    void setSize(@PluralsRes int phrase, int size)
-    {
-      mSize.setText(mSize.getResources().getQuantityString(phrase, size, size));
-    }
-
-    void setCategory(@NonNull BookmarkCategory entity)
-    {
-      mEntity = entity;
-    }
-
-    @NonNull
-    public BookmarkCategory getEntity()
-    {
-      if (mEntity == null)
-        throw new AssertionError("BookmarkCategory is null");
-      return mEntity;
     }
   }
 

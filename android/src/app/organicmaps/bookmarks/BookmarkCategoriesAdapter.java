@@ -122,9 +122,9 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     {
       final BookmarkCategory category = getCategoryByPosition(toCategoryPosition(position));
       CategoryViewHolder categoryHolder = (CategoryViewHolder) holder;
-      categoryHolder.setCategory(category);
+      categoryHolder.setEntity(category);
       categoryHolder.setName(category.getName());
-      bindSize(categoryHolder, category);
+      categoryHolder.setSize();
       categoryHolder.setVisibilityState(category.isVisible());
       ToggleVisibilityClickListener visibilityListener = new ToggleVisibilityClickListener(categoryHolder);
       categoryHolder.setVisibilityListener(visibilityListener);
@@ -149,13 +149,6 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     default:
       throw new AssertionError("Invalid item type: " + type);
     }
-  }
-
-  private void bindSize(@NonNull CategoryViewHolder categoryHolder,
-                        @NonNull BookmarkCategory category)
-  {
-    BookmarkCategory.CountAndPlurals template = category.getPluralsCountTemplate();
-    categoryHolder.setSize(template.getPlurals(), template.getCount());
   }
 
   @Override

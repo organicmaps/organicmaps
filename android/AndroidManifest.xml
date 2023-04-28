@@ -676,7 +676,7 @@
     <activity
         android:name="app.organicmaps.bookmarks.BookmarkCategoriesActivity"
         android:configChanges="orientation|screenLayout|screenSize"
-        android:label="@string/bookmarks"
+        android:label="@string/bookmarks_and_tracks"
         android:parentActivityName="app.organicmaps.MwmActivity"
         android:windowSoftInputMode="adjustResize" />
 
