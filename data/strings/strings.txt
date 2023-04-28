@@ -20927,7 +20927,7 @@
     ca = Vies sense pavimentar
     cs = Nezpevněná silnice
     da = Grusveje
-    de = Erdwege
+    de = Unbefestigte Straßen
     el = Χωματόδρομοι
     es = Caminos sin pavimento
     es-MX = Caminos de tierra
