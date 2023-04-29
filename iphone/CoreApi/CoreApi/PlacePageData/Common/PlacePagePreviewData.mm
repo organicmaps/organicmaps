@@ -91,7 +91,7 @@ static PlacePageDataHotelType convertHotelType(std::optional<ftypes::IsHotelChec
     _title = rawData.GetTitle().empty() ? nil : @(rawData.GetTitle().c_str());
     _secondaryTitle = rawData.GetSecondaryTitle().empty() ? nil : @(rawData.GetSecondaryTitle().c_str());
     _subtitle = rawData.GetSubtitle().empty() ? nil : @(rawData.GetSubtitle().c_str());
-    _coordinates = rawData.GetFormattedCoordinate(true).empty() ? nil : @(rawData.GetFormattedCoordinate(true).c_str());
+    _coordinates = @(rawData.GetFormattedCoordinate(true).c_str());
     _address = rawData.GetAddress().empty() ? nil : @(rawData.GetAddress().c_str());
     _isMyPosition = rawData.IsMyPosition();
     _isPopular = rawData.GetPopularity() > 0;

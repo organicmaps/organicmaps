@@ -3,7 +3,6 @@
 #include "map/api_mark_point.hpp"
 #include "map/bookmark.hpp"
 #include "map/bookmark_manager.hpp"
-#include "map/caching_address_getter.hpp"
 #include "map/features_fetcher.hpp"
 #include "map/isolines_manager.hpp"
 #include "map/mwm_url.hpp"
@@ -598,8 +597,7 @@ private:
   void FillDescription(FeatureType & ft, place_page::Info & info) const;
 
 public:
-  search::ReverseGeocoder::Address GetAddressAtPoint(m2::PointD const & pt,
-                                                     double distanceThresholdMeters = 0.5) const;
+  search::ReverseGeocoder::Address GetAddressAtPoint(m2::PointD const & pt) const;
 
   /// Get "best for the user" feature at given point even if it's invisible on the screen.
   /// Ignores coastlines and prefers buildings over other area features.
@@ -714,7 +712,6 @@ public:
                   std::string const & note);
 
 private:
-  CachingAddressGetter m_addressGetter;
   settings::UsageStats m_usageStats;
 
 public:

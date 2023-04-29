@@ -152,10 +152,6 @@ bool Matcher::Matches(strings::UniString const & query, Sample::Result const & g
 bool Matcher::Matches(strings::UniString const & query, Sample::Result const & golden,
                       FeatureType & ft)
 {
-  static double constexpr kToleranceMeters = 50;
-
-  auto const houseNumber = ft.GetHouseNumber();
-
   auto const queryTokens = NormalizeAndTokenizeAsUtf8(ToUtf8(query));
 
   bool nameMatches = false;
@@ -203,10 +199,11 @@ bool Matcher::Matches(strings::UniString const & query, Sample::Result const & g
   });
 
   bool houseNumberMatches = true;
-  if (!golden.m_houseNumber.empty() && !houseNumber.empty())
-    houseNumberMatches = golden.m_houseNumber == houseNumber;
+  std::string const & hn = ft.GetHouseNumber();
+  if (!golden.m_houseNumber.empty() && !hn.empty())
+    houseNumberMatches = golden.m_houseNumber == hn;
 
-  return (nameMatches && houseNumberMatches &&
-          feature::GetMinDistanceMeters(ft, golden.m_pos) < kToleranceMeters);
+  /// @todo Where are 50 meters came from?
+  return (nameMatches && houseNumberMatches && feature::GetMinDistanceMeters(ft, golden.m_pos) < 50.0);
 }
 }  // namespace search

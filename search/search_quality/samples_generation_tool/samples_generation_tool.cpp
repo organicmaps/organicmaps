@@ -215,12 +215,9 @@ m2::RectD GenerateNearbyViewport(m2::PointD const & point)
 
 bool GetBuildingInfo(FeatureType & ft, search::ReverseGeocoder const & coder, string & street)
 {
-  auto const houseNumber = ft.GetHouseNumber();
-  if (houseNumber.empty() ||
-      !search::house_numbers::LooksLikeHouseNumber(houseNumber, false /* prefix */))
-  {
+  std::string const & hn = ft.GetHouseNumber();
+  if (hn.empty() || !search::house_numbers::LooksLikeHouseNumber(hn, false /* prefix */))
     return false;
-  }
 
   street = coder.GetFeatureStreetName(ft);
   if (street.empty())
@@ -323,9 +320,8 @@ optional<Sample> GenerateRequest(
   }
   }
 
-  auto const house = ft.GetHouseNumber();
   auto const featureCenter = feature::GetCenter(ft);
-  auto const address = ModifyAddress(street, house, lang);
+  auto const address = ModifyAddress(std::move(street), ft.GetHouseNumber(), lang);
   auto query = address;
   if (!cafeStr.empty())
     query = FLAGS_add_cafe_address ? CombineRandomly(cafeStr, address) : cafeStr;

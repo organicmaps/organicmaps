@@ -4,7 +4,6 @@
 
 #include "base/assert.hpp"
 
-#include <cstring>
 #include <string>
 
 namespace strings { class UniString; }
@@ -20,8 +19,6 @@ inline std::string GetTagForIndex(std::string const & prefix, size_t ind)
   ASSERT(ind < std::size(g_arrWorldScales) && ind < std::size(g_arrCountryScales), (ind));
   return prefix + char('0' + ind);
 }
-
-bool IsHouseNumber(std::string const & s);
 
 uint8_t PopulationToRank(uint64_t p);
 uint64_t RankToPopulation(uint8_t r);

@@ -1,11 +1,9 @@
 #include "indexer/feature_utils.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/feature.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/road_shields_parser.hpp"
 #include "indexer/scales.hpp"
 
 #include "platform/localization.hpp"
@@ -13,7 +11,6 @@
 #include "coding/string_utf8_multilang.hpp"
 #include "coding/transliteration.hpp"
 
-#include "base/base.hpp"
 #include "base/control_flow.hpp"
 
 #include <unordered_map>
@@ -128,6 +125,10 @@ vector<int8_t> MakeLanguagesPriorityList(int8_t deviceLang, bool preferDefault)
   vector<int8_t> langPriority = {deviceLang};
   if (preferDefault)
     langPriority.push_back(StrUtf8::kDefaultCode);
+
+  /// @DebugNote
+  // Add ru lang for descriptions/rendering tests.
+  //langPriority.push_back(StrUtf8::GetLangIndex("ru"));
 
   auto const similarLangs = GetSimilarLanguages(deviceLang);
   langPriority.insert(langPriority.cend(), similarLangs.cbegin(), similarLangs.cend());
