@@ -480,7 +480,7 @@
     zh-Hant = 我的位置
 
   [later]
-    comment = Update maps later/Buy pro version later button text
+    comment = Update maps later button text
     tags = android,ios
     en = Later
     ar = ًلاحقا
@@ -1326,7 +1326,7 @@
 
   [download_resources]
     tags = android
-    en = Before you start using the app, allow us to download the general world map to your device.\nIt will use %@ of storage.
+    en = Before you start using the app, please download the general world map to your device.\nIt will use %@ of storage.
     ar = قبل أن تبدأ باستخدام التطبيق، سنقوم بتنزيل خريطة العالم العامة على جهازك.\nستحتاج إلى %@ من البيانات.
     be = Перад пачаткам працы дазвольце нам спампаваць агульную мапу свету на вашу прыладу.\nГэта патрабуе %@ дадзеных.
     bg = Преди да започнете да използвате приложението, позволете ни да изтеглим общата карта на света на вашето устройство.\nТова ще използва %@ от паметта.
@@ -1650,7 +1650,7 @@
   [add_new_set]
     comment = "Add new bookmark list" dialog title
     tags = android,ios
-    en = Add New List
+    en = Add a New List
     ar = إضافة قائمة جديدة
     be = Дадаць новы спіс
     bg = Добавяне на нова група
@@ -2099,7 +2099,7 @@
   [maps_storage_summary]
     comment = Detailed description of Maps Storage settings button
     tags = android
-    en = Select the place where maps should be downloaded to
+    en = Select the folder to download maps to.
     ar = اختر المكان الذي ينبغي تنزيل الخرائط إليه.
     be = Выберыце месца, дзе захоўваць запампаваныя мапы
     bg = Изберете мястото, където картите трябва да се изтеглят
@@ -3455,7 +3455,7 @@
 
   [share_bookmarks_email_body]
     tags = android,ios
-    en = Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!
+    en = Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!
     ar = مرحباً! ْ\n\n تم إرفاق إشاراتي المرجعية من تطبيق Organic Maps. الرجاء فتحهم إذا لديك تطبيق Organic Maps مثبتاً. أو، إذا لم يكن مثبتاً، قم بتنزيل التطبيق لنظام iOS أو أندرويد من خلال الضغط على هذا الرابط: https://omaps.app/get?kmz \n\nاستمتع بالسفر مع Organic Maps!
     be = Вітаю!\n\nУ далучаным файле мае закладкі з праграмы Organic Maps. Калі ласка, адчыніце іх, калі ў вас усталяваны Organic Maps. Калі не, спампуйце праграму для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!
     ca = Hola!\n\nAdjunto els meus marcadors de l'aplicació Organic Maps. Obriu-los si teniu l'Organic Maps instal·lat. O, si no teniu l'aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://omaps.app/get?kmz\n\nGaudiu viatjant amb l'Organic Maps!
@@ -3765,7 +3765,7 @@
   [my_position_share_sms]
     comment = Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140.
     tags = android
-    en = Hey, check out my current location in Organic Maps! %1$@ or %2$@ Don't have offline maps? Download here: https://omaps.app/get
+    en = Check out my current location in Organic Maps! %1$@ or %2$@ Don't have offline maps? Download here: https://omaps.app/get
     ar = مرحباً، تفقد الموقع الخاص بي على Organic Maps! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: https://omaps.app/get
     be = Гэй, глядзі дзе я зараз на мапе! %1$@ альбо %2$@ Няма офлайн-мапаў? Спампуй тут: https://omaps.app/get
     bg = Хей, виж текущото ми местоположение в Organic Maps! %1$@ или %2$@
@@ -4794,7 +4794,7 @@
   [pref_map_3d_buildings_disabled_summary]
     comment = A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled
     tags = android,ios
-    en = 3D buildings are turned off in power saving mode
+    en = 3D buildings are disabled in power saving mode
     ar = يتم إيقاف تشغيل المباني ثلاثية الأبعاد في وضع توفير الطاقة
     be = У рэжыме энергазберажэння 3D-будынкі выключаны
     bg = 3D сградите са изключени в режим на пестене на енергия
@@ -5531,7 +5531,7 @@
   [matrix]
     comment = Text in menu
     tags = android,ios
-    en = [matrix]
+    en = [Matrix]
 
   [mastodon]
     comment = Text in menu
@@ -5906,7 +5906,7 @@
   [email_error_body]
     comment = Alert text
     tags = ios
-    en = The email client has not been set up. Please configure it or use any other way to contact us at %@
+    en = The email client has not been set up. Please configure it or contact us at %@
     ar = لم يتم تنصيب البريد الإلكتروني. يرجى تفعيله أو استخدام أي وسيلة أخرى للاتصال بنا على %@
     be = Паштовы кліент не наладжаны. Наладзьце яго альбо звяжыцеся з намі па адрасе %@ іншым чынам.
     bg = Имейл клиентът не е настроен. Моля, конфигурирайте го или използвайте друг начин, за да се свържете с нас на %@
@@ -5947,7 +5947,7 @@
   [email_error_title]
     comment = Alert title
     tags = ios
-    en = Mail sending error
+    en = Error sending email
     ar = حذث خطأ في إرسال البريد الإلكتروني
     be = Памылка адпраўкі пошты
     bg = Грешка при изпращане на поща
@@ -7723,6 +7723,7 @@
     comment = gray color
     tags = android,ios
     en = Gray
+    en-GB = Grey
     ar = رمادي
     be = Шэры
     ca = Gris
@@ -7764,6 +7765,7 @@
     comment = blue gray color
     tags = android,ios
     en = Blue Gray
+    en-GB = Blue Grey
     ar = رمادي أزرق
     be = Блакітна-шэры
     ca = Gris blavós
@@ -7966,6 +7968,7 @@
   [dialog_routing_disclaimer_borders]
     tags = android,ios
     en = — Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.
+    en-GB = — Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorised places.
     ar = — تحذير بشأن المسارات في المناطق الحدودية: المسارات التي تم إنشاؤها بواسطة تطبيقنا قد تعبر  أحياناً حدود الدول في أماكن غير مصرح بها;
     be = — Будзьце ўважлівы з маршрутамі ў памежных зонах: маршруты, пракладзеныя нашай праграмай, часамі могуць перасякаць мяжу ў недазволеных месцах.
     bg = - Бъдете внимателни с маршрутите в гранични зони: маршрутите, създадени от нашето приложение, понякога могат да пресичат границите на страната на неразрешени места.
@@ -8284,7 +8287,7 @@
 
   [dialog_routing_download_and_update_all]
     tags = ios
-    en = Download and update all map and routing information along the projected path to calculate route.
+    en = Download or update all maps along the projected path to calculate a route.
     ar = قم بتنزيل وتحديث كافة الخرائط ومعلومات التوجيه على طول الطريق المتوقع لحساب المسار.
     be = Спампуйце і абнавіце ўсе мапы і дадзеныя навігацыі на планаваным шляху, каб пракласці маршрут.
     bg = За да изчислите маршрут, изтеглете и актуализирайте всички карти и пътища по маршрута.
@@ -8403,7 +8406,7 @@
 
   [dialog_routing_change_start_or_end]
     tags = android,ios
-    en = Please adjust your starting point or your destination.
+    en = Please adjust your starting point or destination.
     ar = الرجاء تعديل نقطة بدء أو تعديل وجهتك.
     be = Калі ласка, змяніце пункт адпраўлення альбо прызначэння.
     bg = Моля, коригирайте началната точка или дестинацията си.
@@ -9476,7 +9479,7 @@
 
   [search_history_text]
     tags = android,ios
-    en = View recent searches.
+    en = View your recent searches.
     ar = عرض عمليات البحث الأخيرة.
     be = Праглядзець нядаўныя пошукі.
     bg = Преглед на последните търсения.
@@ -9739,7 +9742,7 @@
 
   [p2p_only_from_current]
     tags = android,ios
-    en = Navigation is available only from your current location.
+    en = Navigation is only available from your current location.
     ar = تتوفر الملاحة من خلال موقعك الحالي فقط.
     be = Навігацыя магчыма толькі ад цяперашняга месцазнаходжання.
     bg = Навигацията е възможна само от текущото ви местоположение.
@@ -9778,7 +9781,7 @@
 
   [p2p_reroute_from_current]
     tags = android,ios
-    en = Do you want us to plan a route from your current location?
+    en = Do you want to plan a route from your current location?
     ar = هل ترغب في أن نرسم مسار لك من موقعك الحالي؟
     be = Хочаце перапракласці маршрут ад цяперашняга месцазнаходжання?
     bg = Искате ли да планираме маршрут от текущото ви местоположение?
@@ -10445,7 +10448,7 @@
 
   [editor_done_dialog_1]
     tags = ios
-    en = You’ve changed the world map. Do not keep it to yourself! Tell your friends, and edit it together.
+    en = You’ve changed the world map! Don't keep it to yourself; tell your friends and edit it together.
     ar = لقد ساهمت بتحسين خريطة العالم. لا تخفي ذلك! أخبر أصدقائك، وحسنوها معاً.
     be = Вы змянілі мапу свету. Не прыхоўвайце гэта! Расскажыце сябрам і праўце разам.
     bg = Променили сте картата на света. Не го крийте, кажете на приятелите си и редактирайте заедно.
@@ -10523,7 +10526,7 @@
 
   [editor_report_problem_desription_1]
     tags = android
-    en = Please describe the problem in detail so that the OpenStreetMap community can fix the error.
+    en = Please describe the problem in detail so that the OpenStreetMap community can fix it.
     ar = يرجى وصف المشكلة بالتفاصيل حتى يتسنى لفريق خريطة الشارع المفتوح إصلاح الخطأ.
     be = Калі ласка, падрабязна апішыце праблему, каб супольнасць OpenStreetMap магла выправіць памылку.
     bg = Моля, опишете подробно проблема, за да може общността на OpenStreetMap да отстрани грешката.
@@ -10679,7 +10682,7 @@
 
   [editor_report_problem_no_place_title]
     tags = android
-    en = The place does not exist
+    en = This place does not exist
     ar = المكان غير موجود
     be = Месца не існуе
     bg = Мястото не съществува
@@ -10757,7 +10760,7 @@
 
   [editor_report_problem_duplicate_place_title]
     tags = android
-    en = Duplicated place
+    en = Duplicate place
     ar = مكان مكرر
     be = Паўтараючаеся месца
     bg = Дубликат
@@ -10796,7 +10799,7 @@
 
   [autodownload]
     tags = android,ios
-    en = Auto-download
+    en = Auto-download maps
     ar = التنزيل التلقائي
     be = Аўтаматычная спампоўка
     bg = Автоматично изтегляне
@@ -11461,7 +11464,7 @@
 
   [login]
     tags = android,ios
-    en = Log In
+    en = OpenStreetMap Login
     ar = تسجيل الدخول
     be = Увайсці
     bg = Вход
@@ -12449,7 +12452,7 @@
 
   [downloader_delete_map_dialog]
     tags = android,ios
-    en = All of your map edits will be deleted together with the map.
+    en = All of your map edits will be deleted with the map.
     ar = سيتم حذف جميع التغييرات بالخريطة بالإضافة إلى حذف الخريطة نفسها.
     be = Усе вашы праўкі мапы будуць выдаленыя разам з мапай.
     bg = Всички ваши редакции на картата ще бъдат изтрити заедно с нея.
@@ -12644,7 +12647,7 @@
 
   [common_check_internet_connection_dialog]
     tags = android,ios
-    en = Please check your settings and make sure your device is connected to the Internet.
+    en = Please make sure your device is connected to the Internet.
     ar = يرجى التحقق من الإعدادات والتأكد من اتصال جهازك بالإنترنت.
     be = Праверце налады і ўпэўніцеся, што прылада падключана да інтэрнэту.
     bg = Моля, проверете настройките си и се уверете, че устройството ви е свързано с интернет.
@@ -13386,7 +13389,7 @@
   [osm_presentation]
     comment = Text in About and OSM Login screens. %@ is replaced by a local, human readable date.
     tags = android
-    en = Cartographic data from OpenStreetMap as of %@. OSM is like Wikipedia for maps, where you can add or edit places for all users around the world.
+    en = Cartographic data from OpenStreetMap as of %@. OSM is like Wikipedia for maps, where you can add and edit places for users around the world.
     ar = بيانات رسم الخرائط من OpenStreetMap اعتبارًا من %@. إنه مثل ويكيبيديا حيث يمكنك إضافة أو تحرير أماكن لجميع المستخدمين في جميع أنحاء العالم.
     be = Картаграфічныя дадзеныя OpenStreetMap па стане на %@. Гэта як Вікіпедыя, дзе вы можаце дадаць або рэдагаваць месцы для ўсіх карыстальнікаў па ўсім свеце.
     bg = Картографски данни от OpenStreetMap към %@. Това е като Wikipedia, където можете да добавяте или редактирате места за всички потребители по света.
@@ -13424,7 +13427,7 @@
 
   [login_to_make_edits_visible]
     tags = android,ios
-    en = Log in to OpenStreetMap.org so other users can see the changes you have made.
+    en = Log in to openstreetmap.org to publish your changes to the world.
     ar = قم بتسجيل الدخول حتى يتمكن باقي المستخدمين من رؤية التغييرات التي قمت بها.
     be = Аўтарызуйцеся ў OpenStreetMap.org, каб іншыя карыстальнікі бачылі вашыя змены.
     bg = Влезте в системата, за да могат другите потребители да видят направените от вас промени
@@ -13978,7 +13981,7 @@
 
   [editor_detailed_description]
     tags = android,ios
-    en = Your suggested map changes will be sent to the OpenStreetMap community. Describe any additional details that cannot be edited in Organic Maps.
+    en = Your suggested map changes will be sent to the OpenStreetMap community. Please describe any additional details that cannot be edited in Organic Maps.
     ar = سيتم إرسال التغييرات التي اقترحتها إلى مجتمع خريطة الشارع المفتوحة. اذكر التفاصيل التي لا يمكن تحريرها في Organic Maps
     be = Запрапанаваныя вамі змены будуць дасланыя суполцы OpenStreetMap. Апішыце любыя іншыя падрабязнасці, каторыя нельга паправіць у Organic Maps.
     bg = Предложените от вас промени по картата ще бъдат изпратени до общността на OpenStreetMap. Опишете всички допълнителни подробности, които не могат да бъдат въведени в Organic Maps.
@@ -14134,7 +14137,7 @@
 
   [downloader_no_downloaded_maps_message]
     tags = android,ios
-    en = Download maps to search for a location and use navigation offline.
+    en = Download maps to search and navigate offline.
     ar = قم بتنزيل خرائط للبحث عن مكان واستخدام الملاحة بدون اتصال بالإنترنت.
     be = Спампуйце мапы, каб шукаць месцы і карыстацца навігацыяй без інтэрнэту.
     bg = Изтеглете картите, от които се нуждаете, за да намирате места и да навигирате без интернет.
@@ -14174,7 +14177,7 @@
   [current_location_unknown_title]
     comment = Error title that appears after certain time without location.
     tags = android,ios
-    en = Continue detecting your current location?
+    en = Continue detecting your location?
     ar = هل تريد متابعة اكتشاف موقعك الحالي؟
     be = Працягнуць вызначэнне месцазнаходжання?
     bg = Да продължаваме ли да ви засичаме местоположението?
@@ -14214,7 +14217,7 @@
   [current_location_unknown_message]
     comment = Error that appears after certain time without location.
     tags = android,ios
-    en = Current location is unknown. Maybe you are in a building or in a tunnel.
+    en = Current location is unknown. You may be in a building or tunnel.
     ar = الموقع الحالي غير معروف. ربما تتواجد داخل مبنى أو نفق.
     be = Месцазнаходжанне невядома. Магчыма вы ў будынку альбо ў танэлі.
     bg = Настоящото местоположение е неизвестно. Може би се намирате в сграда или тунел.
@@ -14369,7 +14372,7 @@
 
   [current_location_unknown_error_message]
     tags = ios
-    en = An error occurred while searching for your location. Check that your device is working properly and try again later.
+    en = An error occurred while determining your location. Check that your device is working properly and try again later.
     ar = حدث خطأ أثناء البحث عن موقعك. تأكد من أن جهازك يعمل بشكل صحيح وأعد المحاولة لاحقًا.
     be = Адбылася памылка пры пошуку месцазнаходжання. Праверце, што ваша прылада працуе як трэба, і паспрабуйце зноў.
     bg = Възникна грешка при търсенето на вашето местоположение. Проверете дали устройството ви работи правилно и опитайте отново по-късно.
@@ -15687,7 +15690,7 @@
 
   [error_enter_correct_instagram_page]
     tags = android
-    en = Enter a valid Instagram web address or account name
+    en = Enter a valid Instagram username or web address
     ar = أدخل اسم حساب أو عنوان ويب خاص بإنستغرام صالح
     ca = Introduïu una adreça web d'Instagram o un nom de compte vàlids
     de = Geben Sie eine gültige Instagram-Webadresse oder einen Kontonamen ein
@@ -15708,7 +15711,7 @@
 
   [error_enter_correct_twitter_page]
     tags = android
-    en = Enter a valid Twitter web address or username
+    en = Enter a valid Twitter username or web address
     ar = أدخل اسم مستخدم او موقع ويب خاص بتويتر صالح
     ca = Introduïu una adreça web de Twitter o un nom d'usuari vàlids
     de = Geben Sie eine gültige Twitter-Webadresse oder einen Benutzernamen ein
@@ -15729,7 +15732,7 @@
 
   [error_enter_correct_vk_page]
     tags = android
-    en = Enter a valid VK web address or account name
+    en = Enter a valid VK username or web address
     ar = أدخل اسم حساب أو عنوان ويب خاص بموقع VK صالح
     ca = Introduïu una adreça web de VK o un nom de compte vàlids
     de = Geben Sie eine gültige VK-Webadresse oder einen Kontonamen ein
@@ -15749,7 +15752,7 @@
 
   [error_enter_correct_line_page]
     tags = android
-    en = Enter a valid LINE web address or LINE ID
+    en = Enter a valid LINE ID or web address
     ar = أدخل رقم تعريفي خاص بتطبيق LINE أو موقع ويب خاص بتطيق LINE صالح
     be = Упішыце вэб-адрас LINE старонкі або LINE ID
     ca = Introduïu una adreça web de LINE o un ID LINE vàlids
@@ -15888,7 +15891,7 @@
   [editor_share_to_all_dialog_message_1]
     comment = Dialog before publishing the modifications to the public map.
     tags = android,ios
-    en = Make sure you did not enter any personal data.
+    en = Make sure you did not enter any private or personal data.
     ar = تأكد من أنك لم تقم بإدخال أية بيانات شخصية.
     be = Упэўніцеся, што вы не ўвялі ніякіх асабістых дадзеных.
     bg = Уверете се, че не сте въвели никакви лични данни.
@@ -15927,7 +15930,7 @@
 
   [editor_share_to_all_dialog_message_2]
     tags = android,ios
-    en = OpenStreetMap editors will check the changes and get in contact with you if they have any questions.
+    en = OpenStreetMap editors will check the changes and contact you if they have any questions.
     ar = .ﺔﻠﺌﺳﺃ ﻱﺃ ﻢﻬﻳﺪﻟ ﻥﺎﻛ ﺍﺫﺇ ﻚﻌﻣ ﻥﻮﻠﺻﺍﻮﺘﻳﻭ ﺕﺍﺮﻴﻴﻐﺘﻟﺍ ﻦﻣ OpenStreetMap ﻭﺭﺮﺤﻣ ﻖﻘﺤﺘﻴﺳ
     be = Рэдактары OpenStreetMap правераць змены і звяжуцца з вамі, калі ў іх узнікнуць пытанні.
     bg = Редакторите на OpenStreetMap ще проверят промените и ще се свържат с вас, ако имат въпроси.
@@ -16005,7 +16008,7 @@
   [recent_track_background_dialog_title]
     tags = ios
     comment = iOS dialog for the case when recent track recording is on and the app comes back from background
-    en = Disable recording of your recently traveled route?
+    en = Disable recording of your recently travelled route?
     ar = هل تريد تعطيل تسجيل مسارات سفرك؟
     be = Выключыць запіс вашага нядаўна пройдзенага маршрута?
     bg = Деактивиране на записването на последния ви маршрут?
@@ -16123,7 +16126,7 @@
 
   [recent_track_background_dialog_message]
     tags = ios
-    en = Organic Maps uses your geoposition in the background for recording your recently traveled route.
+    en = Organic Maps uses your location in the background to record your recently travelled route.
     ar = يستخدم Organic Maps موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.
     be = Organic Maps ужывае вашу геалакацыю ў фонавым рэжыме, каб запісваць ваш нядаўна пройдзены маршрут.
     bg = Organic Maps използва геопозицията ви във фонов режим за записване на последния ви маршрут.
@@ -16559,7 +16562,7 @@
   [mobile_data_description]
     comment = NOTE to translators: please synchronize your translation with the English one.
     tags = android,ios
-    en = Mobile internet is required for map update notifications and for displaying detailed information about places and bookmarks.
+    en = Mobile internet is required for map update notifications and uploading edits.
     ar = إننا نحتاج بيانات الجوال لعرض معلومات تفصيلية عن الأماكن والإشارات المرجعية.
     be = Мабільны інтэрнэт неабходны для апавяшчэнняў аб абнаўленні мапы і для адлюстравання падрабязнай інфармацыі аб месцах і закладках.
     bg = Мобилните данни са необходими за показване на подробна информация за местата, като например снимки, цени и отзиви.
@@ -16715,7 +16718,7 @@
 
   [big_font]
     tags = android,ios
-    en = Increase font size on the map
+    en = Increase size for map labels
     ar = زيادة حجم الخط على الخريطة
     be = Павялічыць шрыфт мапы
     bg = Увеличаване на размера на шрифта в картата
@@ -17152,7 +17155,7 @@
 
   [transliteration_title]
     tags = android,ios
-    en = Transliteration into Latin
+    en = Transliteration into Latin alphabet
     ar = كتابة جميع الاسماء بالحروف اللاتينية بشكل حرفي
     be = Транслітарацыя лацінкай
     bg = Латинска транслитерация
@@ -17636,7 +17639,7 @@
 
   [profile_authorization_error]
     tags = ios
-    en = Oops, there was an error. Try to sign in again.
+    en = Oops, there was an error. Try signing in again.
     ar = عفوًا، كان هناك خطأ. حاول تسجيل الدخول مرة اخرى.
     be = Ой-ёй, здарылася памылка. Паспрабуйце аўтарызавацца зноў.
     bg = За съжаление има грешка. Опитайте да влезете отново.
@@ -17840,7 +17843,7 @@
 
   [error_enter_correct_name]
     tags = android,ios
-    en = Please, enter a correct name
+    en = Please enter a correct name
     ar = الرجاء إدخال اسم صحيح
     be = Калі ласка, увядзіце назву правільна
     bg = Моля, въведете правилно име
@@ -18061,7 +18064,7 @@
 
   [bookmarks_create_new_group]
     tags = android,ios
-    en = Create new list
+    en = Create a new list
     ar = إنشاء قائمة جديدة
     be = Стварыць новы спіс
     bg = Създаване на нов списък
@@ -18417,7 +18420,7 @@
 
   [bookmarks_error_title_empty_list_name]
     tags = android
-    en = The name couldn't be empty
+    en = The name can't be empty
     ar = لا يمكن للاسم أن يكون فارغًا
     be = Назва не можа быць пустой
     bg = Името не може да бъде празно
@@ -19441,7 +19444,7 @@
 
   [crash_reports_description]
     tags = android
-    en = We may use your data to improve Organic Maps experience. Changes will take effect after you restart the app.
+    en = We may use your crash reports to improve Organic Maps. Changes will take effect after you restart the app.
     ar = قد نستخدم بياناتك لتحسين تجربة Organic Maps. سوف تكون التغييرات نافذة المفعول بعد إعادة تشغيل التطبيق.
     be = Мы можам выкарыстоўваць вашы дадзеныя, каб палепшыць Organic Maps. Змены набудуць сілу пасля перапуску праграмы.
     bg = Можем да използваме данни ви, за да подобрим изживяването с Organic Maps. Промените ще влязат в сила, след рестартиране на приложението.
@@ -20164,7 +20167,7 @@
 
   [bookmark_list_description_hint]
     tags = android,ios
-    en = Type a description (text or html)
+    en = Enter a description (text or html)
     ar = اكتب وصفًا (نص أو html)
     be = Дабаўце апісанне (тэкст альбо html)
     bg = Добавяне на описание (текст или html)
@@ -20656,7 +20659,7 @@
 
   [power_managment_description]
     tags = android,ios
-    en = When automatic mode is selected the application starts to disable battery draining features depending on the current battery charge level
+    en = Try to reduce power usage at the expense of some functionality.
     ar = عندما يتم اختيار الوضع التلقائي، يبدأ التطبيق بتعطيل الخصائص التي تستهلك البطارية بناءً على مستوى شحن البطارية الحالي
     be = Калі ўключаны рэжым захавання энергіі, праграма пачынае выключаць энергазатратныя функцыі ў залежнасці ад зарада батарэі
     bg = Ако е активиран режима пестене на енергия, приложението ще деактивира функциите, консумиращи енергия, в зависимост от текущия заряд на телефона.
@@ -20738,7 +20741,7 @@
 
   [power_managment_setting_auto]
     tags = android,ios
-    en = Automatic
+    en = When battery is low
     ar = تلقائي
     be = Аўтаматычна
     bg = Автоматично
@@ -20779,7 +20782,7 @@
 
   [power_managment_setting_manual_max]
     tags = android,ios
-    en = Maximum power saving
+    en = Always
     ar = توفير الطاقة الأقصى
     be = Максімальнае захаванне энергіі
     bg = Максимално пестене на енергия
@@ -20820,7 +20823,7 @@
 
   [enable_logging_warning_message]
     tags = android
-    en = The option turns on logging for diagnostic purposes. It can be helpful for our team to troubleshoot issues with the app. Enable this option temporarily to record and send detailed logs about your issue to us.
+    en = Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using "Report a bug" in the Help dialog. Logs may include location info.
     ar = هذا الخيار يقوم ببدأ تسجيل سجلات التطبيق لإغراض التشخيصة. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا لحل المشاكل التي تواجهكم داخل التطبيق. قم بتفعيل هذا الخيار بشكل مؤقت فقط في حالة طلب الدعم من Organic Maps.
     be = Опцыя ўключае запіс журнала падзей для мэтаў дыягностыкі. Гэта можа дапамагчы нашай камандзе вырашаць праблемы з праграмай. Уключайце гэтую опцыю часова, каб запісаць і паслаць нам дэталёвую інфармацыю, пра знойденую вамі праблему.
     bg = Тази настройка е разрешена, за да се записват действия за диагностични цели, които помагат на нашия екип да идентифицира проблеми с приложението. Временно активирайте тази настройка само за изпращане на подробна информация за проблема, който сте открили с приложението.
@@ -21189,7 +21192,7 @@
 
   [unable_to_calc_alert_subtitle]
     tags = android,ios
-    en = Unfortunately, we couldn't find a route, probably due to the options you have chosen. Please change the settings and try again.
+    en = A route could not be found. This may be caused by your routing options or incomplete OpenStreetMap data. Please change your routing options and retry.
     ar = نأسف، لم نعثر على الطريق ربما بسبب الخيارات التي قمت بتحديدها. يرجى تغيير الإعدادات والمحاولة مجددًا
     be = Нажаль, мы не змаглі пракласці маршрут, магчыма з-за абраных вамі налад. Змяніце налады і паспрабуйце зноў.
     bg = За съжаление не успяхме да намерим маршрут, вероятно поради избраните от вас параметри. Моля, променете настройките и опитайте отново.
@@ -21636,6 +21639,7 @@
   [follow_my_position]
     tags = ios
     en = Re-center
+    en-GB = Re-centre
     ar = العودة إلى الوسط
     be = Па цэнтры
     ca = Centra
@@ -22028,7 +22032,7 @@
 
   [dialog_routing_change_end_carplay]
     tags = ios
-    en = Unable to build a route to your destination. Please choose another point
+    en = Unable to find a route to your destination. Please choose another end point
     ar = لا يمكن رسم طريق لجهة الوصول. يرجي اختيار مكان آخر
     be = Не атрымалася пракласці маршрут да вашага пункту прызначэння. Выберыце іншы пункт прызначэння.
     ca = No es pot calcular cap ruta a la vostra destinació. Trieu un altre punt
@@ -22669,7 +22673,7 @@
 
   [download_map_carplay]
     tags = ios
-    en = Please download maps in Organic Maps app on your device
+    en = Please download maps in the app on your mobile device
     ar = يُرجى تحميل الخرائط في تطبيق Organic Maps على جهازك
     be = Спампуйце мапы ў праграме Organic Maps на вашай прыладзе
     ca = Baixeu els mapes en l'aplicació Organic Maps del vostre aparell
@@ -23885,6 +23889,7 @@
   [fuel_places]
     tags = android,ios
     en = Gas stations
+    en-GB = Petrol Stations
     ar = محطات وقود
     be = Запраўкі
     ca = Gasolineres
@@ -24212,7 +24217,7 @@
 
   [button_layer_isolines]
     tags = android,ios
-    en = Terrain
+    en = Contour Lines
     ar = تضاريس
     be = Рэльеф
     bg = Терен
@@ -24253,7 +24258,7 @@
 
   [isolines_activation_error_dialog]
     tags = android,ios
-    en = To activate and use the topographic layer please update or download the map of the area
+    en = Activating contour lines requires downloading map data for this area
     ar = لتفعيل الطبقة الطبوغرافية واستخدامها ، يرجى تحديث أو تنزيل خريطة المنطقة
     be = Каб карыстацца мапай рэльефа, абнавіце альбо спампуйце мапу патрэбнай мясцовасці
     bg = За да активирате и използвате топографския слой, моля, актуализирайте или изтеглете картата на района
@@ -24294,7 +24299,7 @@
 
   [isolines_location_error_dialog]
     tags = android,ios
-    en = The topographic layer is not yet available in this area
+    en = Contour lines are not yet available in this area
     ar = الطبقة الطبوغرافية ليست متاحة بعد في هذه المنطقة
     be = Мапы рэльефа для гэтай мясцовасці пакуль што няма
     bg = Топографският слой все още не е наличен в тази област
@@ -25015,7 +25020,7 @@
 
   [enable_screen_sleep]
     tags = android
-    en = Allow screen to sleep
+    en = Allow the screen to sleep
     ar = اسمح للشاشة بالنوم
     be = Дазволіць экрану засынаць
     bg = Позволяване на екрана да заспи
@@ -25056,7 +25061,7 @@
   [enable_screen_sleep_description]
     comment = Description in preferences
     tags = android
-    en = When enabled the screen will be allowed to sleep after a period of inactivity.
+    en = When enabled, the screen will be allowed to sleep after a period of inactivity.
     ar = عند التفعيل ، سيتم السماح للشاشة بالنوم بعد فترة من عدم النشاط.
     be = Дазваляе экрану засынаць пасля перыяда бездзеяння.
     bg = Когато е разрешено, екранът ще бъде оставен да заспи след определен период на неактивност.
@@ -25122,7 +25127,7 @@
   [enable_show_on_lock_screen_description]
     tags = android
     comment = Description in preferences
-    en = When enabled, you don't need to unlock your device every time while the app is running.
+    en = When enabled, the app will work on the lockscreen even when the device is locked.
     ar = عند التفعيل، لن تحتاج لفتح قفل جهازك كل مرة أثناء تشغيل التطبيق
     be = Калі ўключана, вам не трэба разблакіраваць прыладу кожны раз падчас працы праграмы.
     ca = Si està activa, no cal desblocar l'aparell cada vegada mentre l'aplicació està funcionant.
@@ -25147,7 +25152,7 @@
   [whats_new_auto_update_title]
     comment = Autoupdate dialog on start
     tags = ios
-    en = Update your downloaded maps
+    en = Update downloaded maps
     ar = قم بتحديث الخرائط المُنزلة
     be = Абнавіце спампаваныя мапы
     bg = Актуализиране на изтеглените карти

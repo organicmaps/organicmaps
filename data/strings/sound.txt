@@ -157,7 +157,7 @@
     zh-Hant = 進入環島。
 
   [leave_the_roundabout]
-    en = Exit from the roundabout.
+    en = Exit the roundabout.
     ar = اخرج من الدوار.
     be = Збочце з круга.
     ca = Sortiu de la rotonda.
