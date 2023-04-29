@@ -470,8 +470,8 @@
     zh-Hant = 設施
 
   [type.amenity.arts_centre]
-    en = Art Center
-    en-GB = Art Centre
+    en = Arts Center
+    en-GB = Arts Centre
     ar = مركز فن
     cs = Umělecké centrum
     da = Kunsthus
@@ -1138,7 +1138,7 @@
     zh-Hant = 自行車充電站
 
   [type.amenity.charging_station.motorcar]
-    en = Motorcar Charging Station
+    en = Car Charging Station
     ar = محطة شحن Motorcar
     be = Аўтамабільная зарадная станцыя
     bg = Станция за зареждане на автомобили
@@ -2177,6 +2177,7 @@
 
   [type.amenity.loading_dock]
     en = Loading Dock
+    en-GB = Loading Bay
     ar = رصيف التحميل
     be = Пагрузная платформа
     bg = Товарен док
@@ -2514,7 +2515,7 @@
     zh-Hant = 私人停車場
 
   [type.amenity.parking.park_and_ride]
-    en = Parking
+    en = Park And Ride Parking
     ar = موقف سيارات
     cs = Parkoviště
     da = Parkering
@@ -2586,7 +2587,7 @@
     zh-Hant = 地下停車場
 
   [type.amenity.parking_entrance]
-    en = Parking entrance
+    en = Parking Entrance
     ar = مدخل موقف سيارات
     be = Уваход на паркоўку
     bg = Вход за паркинг
@@ -2665,112 +2666,13 @@
     zh-Hant = 停車地點
 
   [type.amenity.parking_space.permissive]
-    en = Parking Space
-    ar = مكان لوقوف السيارات
-    cs = Prostor pro parkování
-    da = Parkeringsplads
-    de = Parkplatz
-    el = Χώρος στάθμευσης
-    es = Plaza de aparcamiento
-    es-MX = Plaza de aparcamiento
-    et = Parkimiskoht
-    eu = Aparkaleku
-    fa = جای پارک
-    fi = Parkkipaikka
-    fr = Place de stationnement
-    hu = Parkolóhely
-    id = Tempat parkir
-    it = Parcheggio
-    ja = 駐車スペース
-    ko = 주차장
-    mr = पार्किंगची जागा
-    nb = Parkeringsplass
-    nl = Parkeerplek
-    pl = Miejsce parkingowe
-    pt = Lugar de estacionamento
-    ro = Loc de parcare
-    ru = Парковочное место
-    sk = Parkovacie miesto
-    sv = Parkeringsplats
-    sw = Sehemu ya maegesho
-    th = พื้นที่จอดรถ
-    tr = Park Alanı
-    uk = Паркувальне місце
-    vi = Chỗ để xe
-    zh-Hans = 停车位
-    zh-Hant = 停車地點
+    ref = type.amenity.parking_space
 
   [type.amenity.parking_space.private]
-    en = Parking Space
-    ar = مكان لوقوف السيارات
-    cs = Prostor pro parkování
-    da = Parkeringsplads
-    de = Parkplatz
-    el = Χώρος στάθμευσης
-    es = Plaza de aparcamiento
-    es-MX = Plaza de aparcamiento
-    et = Parkimiskoht
-    eu = Aparkaleku
-    fa = جای پارک
-    fi = Parkkipaikka
-    fr = Place de stationnement
-    hu = Parkolóhely
-    id = Tempat parkir
-    it = Parcheggio
-    ja = 駐車スペース
-    ko = 주차장
-    mr = पार्किंगची जागा
-    nb = Parkeringsplass
-    nl = Privé parkeerplek
-    pl = Miejsce parkingowe
-    pt = Lugar de estacionamento privado
-    ro = Loc de parcare
-    ru = Парковочное место
-    sk = Parkovacie miesto
-    sv = Parkeringsplats
-    sw = Sehemu ya maegesho
-    th = พื้นที่จอดรถ
-    tr = Park Alanı
-    uk = Паркувальне місце
-    vi = Chỗ để xe
-    zh-Hans = 停车位
-    zh-Hant = 停車地點
+    ref = type.amenity.parking_space
 
   [type.amenity.parking_space.underground]
-    en = Parking Space
-    ar = مكان لوقوف السيارات
-    cs = Prostor pro parkování
-    da = Parkeringsplads
-    de = Parkplatz
-    el = Χώρος στάθμευσης
-    es = Plaza de aparcamiento
-    es-MX = Plaza de aparcamiento
-    et = Parkimiskoht
-    eu = Aparkaleku
-    fa = جای پارک
-    fi = Parkkipaikka
-    fr = Place de stationnement
-    hu = Parkolóhely
-    id = Tempat parkir
-    it = Parcheggio
-    ja = 駐車スペース
-    ko = 주차장
-    mr = पार्किंगची जागा
-    nb = Parkeringsplass
-    nl = Ondergrondse parkeerplek
-    pl = Miejsce parkingowe
-    pt = Lugar de estacionamento subterrâneo
-    ro = Loc de parcare
-    ru = Парковочное место
-    sk = Parkovacie miesto
-    sv = Parkeringsplats
-    sw = Sehemu ya maegesho
-    th = พื้นที่จอดรถ
-    tr = Park Alanı
-    uk = Паркувальне місце
-    vi = Chỗ để xe
-    zh-Hans = 停车位
-    zh-Hant = 停車地點
+    ref = type.amenity.parking_space
 
   [type.amenity.parking_space.disabled]
     en = Disabled Parking Space
@@ -2915,7 +2817,7 @@
     zh-Hant = 寺廟
 
   [type.amenity.place_of_worship.buddhist]
-    en = Temple
+    en = Buddhist Temple
     ar = معبد بوذي
     cs = Chrám
     da = Tempel
@@ -2984,7 +2886,7 @@
     zh-Hant = 基督教堂
 
   [type.amenity.place_of_worship.hindu]
-    en = Temple
+    en = Hindu Temple
     ar = معبد هندوسي
     cs = Chrám
     da = Tempel
@@ -3087,7 +2989,7 @@
     zh-Hant = 清真寺
 
   [type.amenity.place_of_worship.shinto]
-    en = Shrine
+    en = Shinto Shrine
     ar = معبد شنتو
     cs = Posvátné místo
     da = Helligdom
@@ -3122,7 +3024,7 @@
     zh-Hant = 聖殿
 
   [type.amenity.place_of_worship.taoist]
-    en = Temple
+    en = Taoist Temple
     ar = معبد طاوي
     cs = Chrám
     da = Tempel
@@ -3190,7 +3092,8 @@
     zh-Hant = 警察局
 
   [type.amenity.post_box]
-    en = Post Box
+    en = Mailbox
+    en-GB = Postbox
     ar = صندوق بريد
     be = Паштовая скрыня
     cs = Poštovní schránka
@@ -3425,7 +3328,7 @@
     ref = type.amenity.recycling
 
   [type.recycling.batteries]
-    en = Household Batteries
+    en = Batteries
     ar = بطاريات
     be = Батарэйкі
     bg = Батерии
@@ -3784,7 +3687,7 @@
     uk = Органіка / Харчові відходи
 
   [type.recycling.cartons]
-    en = Beverage Cartons
+    en = Cartons
     ar = علب مشروبات
     be = Тэтрапак і аналагі
     de = Getränkekarton
@@ -4293,7 +4196,7 @@
     uk = Автомат з їжею
 
   [type.amenity.vending_machine.newspapers]
-    en = Newspapers Dispenser
+    en = Newspaper Dispenser
     be = Газетны аўтамат
     de = Zeitungsautomat
     es = Máquina expendedora de periódicos
@@ -4309,7 +4212,7 @@
     uk = Газетний автомат
 
   [type.amenity.vending_machine.parking_tickets]
-    en = Parking Tickets
+    en = Parking Meter
     ar = ماكينة دفع تذاكر الموقف
     be = Паркамат
     cs = Parkovací automat
@@ -4434,7 +4337,7 @@
     uk = Поштомат
 
   [type.amenity.vending_machine.fuel]
-    en = Fuel Dispenser
+    en = Fuel Pump
     ar = ماكينة بيع الوقود
     be = Паліўная калонка
     de = Tankautomat
@@ -4571,7 +4474,7 @@
     uk = Станція передачі сміття
 
   [type.amenity.water_point]
-    en = RV Water Point
+    en = Water Tank Refill Point
     ar = نقطة مائية
     be = Вада для аўтадомаў
     cs = Vodní zdroj
@@ -4662,7 +4565,7 @@
     zh-Hant = 街區
 
   [type.barrier.bollard]
-    en = Pillar
+    en = Bollard
     ar = عمود حاجز قصير
     cs = Pilíř
     da = Søjle
@@ -5389,39 +5292,13 @@
     zh-Hant = 建築物
 
   [type.building.address]
-    en = Building
-    ar = مبنى
-    cs = Stavba
-    da = Bygning
-    de = Gebäude
-    el = Κτίριο
-    es = Edificio
-    et = Hoone
-    eu = Eraikin
-    fa = ساختمان
-    fi = Rakennus
-    fr = Bâtiment
-    hu = Épület
-    id = Gedung
-    it = Edificio
-    ja = 建物
-    ko = 건물
-    mr = इमारत
-    nb = Bygning
-    nl = Gebouw
-    pl = Adres
-    pt = Edifício
-    pt-BR = Edifício
-    ro = Clădire
-    ru = Здание
-    sk = Budova
-    sv = Byggnad
-    th = อาคาร
-    tr = Bina
-    uk = Будівля
-    vi = Tòa nhà
-    zh-Hans = 建筑物
-    zh-Hant = 建築物
+    ref = type.building
+
+  [type.building.has_parts]
+    ref = type.building
+
+  [type.building_part]
+    ref = type.building
 
   [type.building.garage]
     en = Garage
@@ -5453,41 +5330,6 @@
     vi = Gara
     zh-Hans = 独立1车库
     zh-Hant = 車庫
-
-  [type.building.has_parts]
-    en = Building
-    ar = مبنى
-    cs = Stavba
-    da = Bygning
-    de = Gebäude
-    el = Κτίριο
-    es = Edificio
-    et = Hoone
-    eu = Eraikin
-    fa = ساختمان
-    fi = Rakennus
-    fr = Bâtiment
-    hu = Épület
-    id = Gedung
-    it = Edificio
-    ja = 建物
-    ko = 건물
-    mr = इमारत
-    nb = Bygning
-    nl = Gebouw
-    pl = Część budynku
-    pt = Edifício
-    pt-BR = Edifício
-    ro = Clădire
-    ru = Здание
-    sk = Budova
-    sv = Byggnad
-    th = อาคาร
-    tr = Bina
-    uk = Будівля
-    vi = Tòa nhà
-    zh-Hans = 建筑物
-    zh-Hant = 建築物
 
   [type.building.train_station]
     en = Train Station
@@ -5771,7 +5613,7 @@
     zh-Hant = 木工
 
   [type.craft.confectionery]
-    en = Confectionery
+    en = Confectioner
     ar = حلواني
     be = Кандытар
     bg = Сладкарски изделия
@@ -5963,7 +5805,7 @@
 
   [type.craft.hvac]
     comment = Heating, Ventilation, and Air Conditioning
-    en = HVAC
+    en = HVAC Shop
     ar = تكييف
     be = Ацяпленне, вентыляцыя і кандыцыянаванне
     bg = Отопление, вентилация и климатизация
@@ -7299,6 +7141,7 @@
 
   [type.cuisine.donut]
     en = Donut
+    en-GB = Doughnut
     ar = الكعك المحلاة
     cs = Kobliha
     da = Donuts
@@ -7472,26 +7315,19 @@
     en = Fish and Chips
     ar = سمك ورقائق البطاطا
     cs = Ryba a hranolky
-    da = Fish and chips
-    de = Fish and Chips
     el = Ψάρια και πατάτες
     es = Pescado rebozado con patatas
     et = Kala ja krõpsud
     eu = Arrain arrautza patatekin
-    fi = Fish & chips
-    fr = Fish and chips
     he = פיש אנד צ'יפס
     hu = Hal és sültkrumpli
     id = Ikan dan kentang goreng
-    it = Fish and chips
     ja = フィッシュ・アンド・チップス
     ko = 피쉬 앤 칩스
     nb = Fisk og pommes frites
-    nl = Fish and chips
     pl = Ryba i frytki
     pt = Peixe e batatas fritas
     pt-BR = Peixe e batatas fritas
-    ro = Restaurant fish and chips
     ru = Рыба и картофель фри
     sk = Ryba s hranolkami
     sv = Friterad fisk och pommes frites
@@ -8462,7 +8298,7 @@
     zh-Hant = 麵食
 
   [type.cuisine.oriental]
-    en = Far Eastern
+    en = East Asian
     ar = مطبخ شرقي
     cs = Orientální kuchyně
     da = Orientalsk
@@ -8909,6 +8745,7 @@
 
   [type.cuisine.savory_pancakes]
     en = Savory Pancakes
+    en-GB = Savoury Pancakes
     ar = بان كيك السافوري
     cs = Pikantní palačinky
     da = Madpandekager
@@ -9631,7 +9468,7 @@
     zh-Hant = 物理治療師
 
   [type.healthcare.alternative]
-    en = Alternative medicine
+    en = Alternative Medicine
     ar = الطب البديل
     be = Альтэрнатыўная медыцына
     bg = Алтернативна медицина
@@ -9670,7 +9507,7 @@
     zh-Hant = 替代藥物
 
   [type.healthcare.audiologist]
-    en = Audiology
+    en = Audiologist
     ar = السمع
     be = Аўдыялогія
     bg = Аудиология
@@ -9709,7 +9546,8 @@
     zh-Hant = 聽力學
 
   [type.healthcare.blood_donation]
-    en = Blood donation center
+    en = Blood Donation Center
+    en-GB = Blood Donation Centre
     ar = مركز التبرع بالدم
     be = Цэнтр донарства крыві
     bg = Център за кръводаряване
@@ -9748,7 +9586,7 @@
     zh-Hant = 捐血中心
 
   [type.healthcare.optometrist]
-    en = Optometry
+    en = Optometrist
     ar = قياس البصر
     be = Оптаметрыя
     bg = Оптометрия
@@ -9787,7 +9625,7 @@
     zh-Hant = 驗光
 
   [type.healthcare.podiatrist]
-    en = Podiatry
+    en = Podiatrist
     ar = علاج الأرجل
     be = Подологія
     bg = Подиология
@@ -9826,7 +9664,7 @@
     zh-Hant = 足病學
 
   [type.healthcare.psychotherapist]
-    en = Psychotherapy
+    en = Psychotherapist
     ar = العلاج النفسي
     be = Псіхатэрапія
     bg = Психотерапия
@@ -9865,7 +9703,7 @@
     zh-Hant = 心理治療
 
   [type.healthcare.sample_collection]
-    en = Sample collection
+    en = Sample Collection Centre
     ar = أخذ العينات
     be = Збор аналізаў
     bg = Вземане на проби
@@ -9998,7 +9836,7 @@
     pt-BR = Túnel para cavaleiros
 
   [type.highway.busway]
-    en = Dedicated bus road
+    en = Dedicated Bus Road
     ar = ﺺﺼﺨﻣ ﺕﻼﻓﺎﺣ ﻖﻳﺮﻃ
     be = Выдзеленая аўтобусная дарога
     bg = Обособен автобусен път
@@ -10770,7 +10608,7 @@
     zh-Hant = 跑道
 
   [type.highway.residential]
-    en = Street
+    en = Residential Street
     ar = شارع
     cs = Ulice
     da = Gade
@@ -11549,7 +11387,7 @@
 [[Types: Historic]]
 
   [type.historic]
-    en = Historic object
+    en = Historic Object
     ar = مكان تاريخي
     be = Гістарычны аб'ект
     bg = Исторически обект
@@ -11625,7 +11463,7 @@
     zh-Hant = 考古遺址
 
   [type.historic.battlefield]
-    en = Battlefield
+    en = Historic Battlefield
     ar = ساحة معركة تاريخية
     be = Поле бітвы
     bg = Бойно поле
@@ -11739,7 +11577,7 @@
     zh-Hant = 城堡
 
   [type.historic.castle.castrum]
-    en = Roman fort
+    en = Roman Fort
     ar = كاسترا
     be = Каструм
     bg = Каструм
@@ -11777,7 +11615,7 @@
     zh-Hant = 古羅馬兵營
 
   [type.historic.castle.defensive]
-    en = Castle
+    en = Stronghold Castle
     ar = قلعة
     be = Замак
     bg = Замък
@@ -11815,7 +11653,7 @@
     zh-Hant = 城堡
 
   [type.historic.castle.fortified_church]
-    en = Fortified church
+    en = Fortified Church
     ar = الكنيسة المحصنة
     be = Абарончы храм
     bg = Укрепена църква
@@ -11967,7 +11805,7 @@
     zh-Hant = 克里姆林
 
   [type.historic.castle.manor]
-    en = Manor house
+    en = Manor House
     ar = قصر مالك العزبة
     be = Сядзіба
     bg = Усадба
@@ -12043,7 +11881,7 @@
     zh-Hant = 宮殿
 
   [type.historic.castle.shiro]
-    en = Japanese castle
+    en = Japanese Castle
     ar = قلعة يابانية
     be = Японскі замак
     bg = Японски замък
@@ -12081,7 +11919,7 @@
     zh-Hant = 城
 
   [type.historic.castle.stately]
-    en = Castle
+    en = Stately Castle
     ar = شاتو
     be = Замак
     bg = Замък
@@ -12119,7 +11957,7 @@
     zh-Hant = 法式城堡
 
   [type.historic.city_gate]
-    en = City gate
+    en = City Gate
     ar = بوابة مدينة
     be = Гарадская брама
     bg = Градска порта
@@ -12309,7 +12147,7 @@
     zh-Hant = 紀念館
 
   [type.historic.memorial.cross]
-    en = Memorial cross
+    en = Memorial Cross
     ar = الصليب التذكاري
     be = Памятны крыж
     bg = Мемориален кръст
@@ -12348,7 +12186,7 @@
     zh-Hant = 紀念十字架
 
   [type.historic.memorial.plaque]
-    en = Commemorative plaque
+    en = Commemorative Plaque
     ar = لوحة تذكارية
     be = Памятная дошка
     bg = Паметна плоча
@@ -12500,7 +12338,7 @@
     zh-Hant = 絆腳石
 
   [type.historic.memorial.war_memorial]
-    en = War memorial
+    en = War Memorial
     ar = نصب حرب
     be = Ваенны мемарыял
     bg = Военен паметник
@@ -12613,7 +12451,7 @@
     zh-Hant = 刑柱
 
   [type.historic.ruins]
-    en = Ruins
+    en = Historic Ruins
     ar = آثار
     be = Руіны
     bg = Развалина
@@ -12727,7 +12565,7 @@
     zh-Hant = 陵墓
 
   [type.historic.wayside_cross]
-    en = Wayside cross
+    en = Wayside Cross
     ar = صليب مسيحي
     be = Прыдарожны крыж
     bg = Крайпътен кръст
@@ -12765,7 +12603,7 @@
     zh-Hant = 路旁十字架
 
   [type.historic.wayside_shrine]
-    en = Wayside shrine
+    en = Wayside Shrine
     ar = ضريح
     be = Прыдарожная святыня
     bg = Крайпътно светилище
@@ -13070,7 +12908,7 @@
     zh-Hans = 商务办公用地
 
   [type.landuse.construction]
-    en = Construction
+    en = Construction Area
     ar = منطقة بناء
     de = Baustelle
     es = Construcción
@@ -13089,7 +12927,7 @@
     zh-Hans = 建设区域
 
   [type.landuse.education]
-    en = Educational Facilities
+    en = Educational Facility
     ar = مؤسسات تعليمية
     be = Адукацыйныя ўстановы
     es = Instalaciones educativas
@@ -13296,7 +13134,7 @@
     zh-Hant = 樹林
 
   [type.landuse.forest.mixed]
-    en = Mixed Forest
+    en = Mixed-Leaf Forest
     ar = غابة مختلطة
     cs = Les
     da = Skov
@@ -14105,115 +13943,15 @@
     zh-Hant = 公園
 
   [type.leisure.park.no.access]
-    en = Park
-    ar = موقف سيارات
-    cs = Park
-    da = Park
-    de = Park
-    el = Πάρκο
-    es = Parque
-    es-MX = Parque
-    et = Park
-    eu = Parkea
-    fa = پارک
-    fi = Puisto
-    fr = Parc
-    hu = Park
-    id = Taman
-    it = Parco
-    ja = 公園
-    ko = 공원
-    mr = उद्यान
-    nb = Park
-    nl = Ontoegankelijk park
-    pl = Park
-    pt = Parque urbano
-    pt-BR = Parque
-    ro = Parc
-    ru = Парк
-    sk = Park
-    sv = Parken
-    sw = Hifadhi
-    th = สวนสาธารณะ
-    tr = Park
-    uk = Парк
-    vi = Công viên
-    zh-Hans = 公园
-    zh-Hant = 公園
+    ref = type.leisure.park
+    en = Private Park
 
   [type.leisure.park.permissive]
-    en = Park
-    ar = موقف سيارات
-    cs = Park
-    da = Park
-    de = Park
-    el = Πάρκο
-    es = Parque
-    es-MX = Parque
-    et = Park
-    eu = Parkea
-    fa = پارک
-    fi = Puisto
-    fr = Parc
-    hu = Park
-    id = Taman
-    it = Parco
-    ja = 公園
-    ko = 공원
-    mr = उद्यान
-    nb = Park
-    nl = Park
-    pl = Park
-    pt = Parque urbano
-    pt-BR = Parque
-    ro = Parc
-    ru = Парк
-    sk = Park
-    sv = Parken
-    sw = Hifadhi
-    th = สวนสาธารณะ
-    tr = Park
-    uk = Парк
-    vi = Công viên
-    zh-Hans = 公园
-    zh-Hant = 公園
+    ref = type.leisure.park
 
   [type.leisure.park.private]
-    en = Park
-    ar = موقف سيارات خاص
-    cs = Park
-    da = Park
-    de = Park
-    el = Πάρκο
-    es = Parque
-    es-MX = Parque
-    et = Park
-    eu = Parkea
-    fa = پارک
-    fi = Puisto
-    fr = Parc
-    hu = Park
-    id = Taman
-    it = Parco privato
-    ja = 公園
-    ko = 공원
-    mr = उद्यान
-    nb = Park
-    nl = Privé park
-    pl = Park
-    pt = Parque urbano privado
-    pt-BR = Parque
-    ro = Parc
-    ru = Парк
-    sk = Park
-    sv = Parken
-    sw = Hifadhi
-    th = สวนสาธารณะ
-    tr = Park
-    uk = Парк
-    vi = Công viên
-    zh-Hans = 公园
-    zh-Hant = 公園
+    ref = type.leisure.park
+    en = Private Park
 
   [type.leisure.picnic_table]
     en = Picnic Table
@@ -14690,7 +14428,7 @@
     uk = Тур
 
   [type.man_made.chimney]
-    en = Factory Chimney
+    en = Chimney
     ar = مدخنة مصنع
     cs = Tovární komín
     da = Fabriksskorsten
@@ -15006,7 +14744,7 @@
     zh-Hant = 通訊塔
 
   [type.man_made.wastewater_plant]
-    en = Wastewater treatment plant
+    en = Wastewater Treatment Plant
     de = Kläranlage
     es = Planta de tratamiento de aguas residuales
     et = Reoveepuhasti
@@ -15397,7 +15135,7 @@
     zh-Hant = 海灘
 
   [type.natural.beach.sand]
-    en = Sand Beach
+    en = Sandy Beach
     ar = شاطئ رملي
     be = Пяшчаны пляж
     bg = Пясъчен плаж
@@ -15511,7 +15249,7 @@
     zh-Hant = 海角
 
   [type.natural.cave_entrance]
-    en = Cave
+    en = Cave Entrance
     ar = كهف
     be = Пячора
     bg = Пещера
@@ -16418,7 +16156,7 @@
     zh-Hant = 叢林
 
   [type.natural.spring]
-    en = Spring
+    en = Natural Spring
     ar = ينبوع
     be = Крыніца
     bg = Извор
@@ -16920,6 +16658,7 @@
 
   [type.office.government]
     en = Government Office
+    en-GB = Governmental Office
     ar = مكتب حكومي
     cs = Úřad vlády
     da = Regeringskontor
@@ -17451,7 +17190,7 @@
     zh-Hant = 島
 
   [type.place.islet]
-    en = Island
+    en = Islet
     ar = جزيرة
     be = Астравок
     bg = Острови
@@ -17963,7 +17702,7 @@
     zh-Hans = 电力要素
 
   [type.power.generator]
-    en = Generator
+    en = Power Generator
     de = Generator
     es = Generador
     et = Generaator
@@ -18058,7 +17797,7 @@
     zh-Hant = 風力發電機
 
   [type.power.generator.gas]
-    en = Gas turbine Power Plant
+    en = Gas Turbine Power Plant
     ar = محطة توليد الكهرباء بالغاز
     be = Газатурбінная электрастанцыя
     bg = Газотурбинна електроцентрала
@@ -18354,7 +18093,7 @@
     zh-Hant = 風力發電廠
 
   [type.power.pole]
-    en = Power Tower
+    en = Power Pole
     ar = عمود كهرباء
     cs = Sloup elektrického vedení
     da = El-pol
@@ -18627,7 +18366,7 @@
     uk = Пішохідний перехід
 
   [type.railway.disused]
-    en = Disused railway
+    en = Disused Railway
     de = Stillgelegte Bahnstrecke
     es = Vía férrea en desuso
     et = Kasutamata raudtee
@@ -18689,6 +18428,7 @@
 
   [type.railway.halt]
     ref = type.railway.station
+    en = Rail Halt
     de = Haltepunkt
     es = Punto de parada
     et = Murdepunkt
@@ -19150,18 +18890,20 @@
 
   [type.railway.station.light_rail]
     ref = type.railway.station
+    en = Light Rail Station
     de = Stadtbahnbahnhof
     zh-Hans = 轻轨车站
     zh-Hant = 輕軌車站
 
   [type.railway.station.monorail]
     ref = type.railway.station
+    en = Monorail Station
     zh-Hans = 单轨车站
     zh-Hant = 單軌車站
 
   [type.railway.station.subway]
-    en = Subway
-    en-GB = Metro
+    en = Subway Station
+    en-GB = Metro Station
     ar = محطة مترو
     cs = Metro
     da = Metro
@@ -20063,7 +19805,7 @@
     zh-Hans = 铁路货场
 
   [type.route]
-    en = route
+    en = Route
     de = Route
     es = Ruta
     et = Tee
@@ -20457,7 +20199,7 @@
     zh-Hant = 肉商
 
   [type.shop.cannabis]
-    en = Cannabis Store
+    en = Cannabis Shop
     ar = متجر القنب
     be = Крама канабіса
     bg = Магазин за канабис
@@ -20532,7 +20274,7 @@
     zh-Hant = 買車
 
   [type.shop.car_parts]
-    en = Car Parts
+    en = Car Parts Shop
     ar = ﺓﺭﺎﻴﺴﻟﺍ ءﺍﺰﺟﺃ
     cs = Autodíly
     da = Bildele
@@ -20567,7 +20309,8 @@
     zh-Hant = 汽車零件
 
   [type.shop.car_repair]
-    en = Car Repair Shop
+    en = Car Repair Workshop
+    en-GB = Car Repair Garage
     ar = محل صيانة السيارات
     cs = Auto opravna
     da = Garage
@@ -20638,6 +20381,7 @@
 
   [type.shop.caravan]
     en = RV Dealership
+    en-GB = Caravan Dealership
     be = Продаж аўтадамоў
     de = Wohnmobilhändler
     es = Concesionario de caravanas
@@ -20832,6 +20576,7 @@
 
   [type.shop.computer]
     en = Computer Store
+    en-GB = Computer Shop
     ar = متجر كمبيوتر
     cs = Obchod s počítači
     da = Computerforretning
@@ -20866,7 +20611,8 @@
     zh-Hant = 電腦商店
 
   [type.shop.confectionery]
-    en = Sweet Shop
+    en = Candy Shop
+    en-GB = Sweet Shop
     ar = متجر حلويات
     cs = Cukrárna
     da = Slikbutik
@@ -20902,6 +20648,7 @@
 
   [type.shop.convenience]
     en = Convenience Store
+    en-GB = Convenience Shop
     ar = متجر صغير
     cs = Smíšené zboží
     da = Døgnbutik
@@ -20936,7 +20683,7 @@
     zh-Hant = 便利商店
 
   [type.shop.copyshop]
-    en = Copy Shop
+    en = Copyshop
     ar = محل نسخ
     cs = Kopírovací obchod
     da = Kopieringsbutik
@@ -20970,7 +20717,7 @@
     zh-Hant = 復印店
 
   [type.shop.cosmetics]
-    en = Cosmetics
+    en = Cosmetics Shop
     ar = مستحضرات تجميل
     be = Касметыка
     cs = Kosmetika
@@ -21119,7 +20866,8 @@
     zh-Hant = 百貨公司
 
   [type.shop.doityourself]
-    en = Hardware Store
+    en = Home Improvement Store
+    en-GB = DIY Shop
     ar = متجر عدد وأدوات
     cs = Železářství
     da = Isenkræmmer
@@ -21154,7 +20902,7 @@
     zh-Hant = 五金行
 
   [type.shop.dry_cleaning]
-    en = Dry Cleaning
+    en = Dry Cleaner
     ar = غسيل جاف
     cs = Chemické čištění
     da = Renseri
@@ -21443,6 +21191,7 @@
 
   [type.shop.furniture]
     en = Furniture Store
+    en-GB = Furniture Shop
     ar = معرض أثاث
     cs = Nábytek
     da = Møbelbutik
@@ -21477,7 +21226,8 @@
     zh-Hant = 家具店
 
   [type.shop.garden_centre]
-    en = Garden Store
+    en = Garden Center
+    en-GB = Garden Centre
     ar = حضانة
     cs = Školka
     da = Planteskole
@@ -21622,7 +21372,8 @@
     zh-Hant = 蔬果零售店
 
   [type.shop.grocery]
-    en = Grocery
+    en = Grocery Store
+    en-GB = Grocery Shop
     ar = ﺕﺍﻭﺮﻀﺧ
     be = Бакалея
     bg = Хранителни стоки
@@ -21695,7 +21446,8 @@
     zh-Hant = 理髮師
 
   [type.shop.hardware]
-    ref = type.shop.doityourself
+    en = Hardware Store
+    en-GB = Ironmongers
     ar = ﺕﺍﺪﻌﻣ ﻞﺤﻣ
     be = Будаўнічы магазін
     bg = Магазин за хардуер
@@ -21800,7 +21552,7 @@
     zh-Hant = 香草店
 
   [type.shop.hifi]
-    en = HiFi Audio
+    en = HiFi Audio Shop
     ar = صوت هاي فاي
     be = HiFi аўдыё
     bg = HiFi аудио
@@ -21841,7 +21593,8 @@
 
   [type.shop.houseware]
     ref = type.shop.doityourself
-    en = Houseware
+    en = Housewares Store
+    en-GB = Housewares Shop
     ar = ﺔﻴﻟﺰﻨﻣ ﺕﺍﻭﺩﺃ ﻞﺤﻣ
     be = Крама посуду
     bg = Магазин за домакински принадлежности
@@ -21878,7 +21631,8 @@
     zh-Hant = 家居用品店
 
   [type.shop.jewelry]
-    en = Jewelry Shop
+    en = Jewelry Store
+    en-GB = Jewellery Shop
     ar = مجوهرات
     cs = Klenotnictví
     da = Smykkebutik
@@ -21942,6 +21696,7 @@
 
   [type.shop.kitchen]
     en = Kitchen Store
+    en-GB = Kitchen Shop
     ar = ﺦﺒﻄﻤﻟﺍ ﺮﺠﺘﻣ
     be = Крама для кухні
     bg = Магазин за кухня
@@ -21980,6 +21735,7 @@
 
   [type.shop.laundry]
     en = Laundry
+    en-GB = Launderette
     ar = مغسلة ملابس
     cs = Prádelna
     da = Vaskeri
@@ -22084,8 +21840,8 @@
     zh-Hant = 按摩館
 
   [type.shop.mobile_phone]
-    en = Cell Phones
-    en-GB = Mobile Phones
+    en = Cell Phone Store
+    en-GB = Mobile Phone Shop
     ar = متجر هواتف محمولة
     cs = Mobily
     da = Mobiltelefonbutik
@@ -22232,6 +21988,7 @@
 
   [type.shop.music]
     en = Record Store
+    en-GB = Record Shop
     ar = متجر
     be = Музычная крама
     cs = Obchod
@@ -22373,7 +22130,7 @@
     zh-Hant = 眼鏡店
 
   [type.shop.outdoor]
-    en = Outdoor Equipment
+    en = Outdoor Equipment Shop
     ar = معدات خارجية
     cs = Venkovní vybavení
     da = Fritidsudstyr
@@ -22521,6 +22278,7 @@
 
   [type.shop.pet]
     en = Pet Store
+    en-GB = Pet Shop
     ar = متجر للحيوانات الأليفة
     cs = Zverimex
     da = Dyrehandel
@@ -22630,7 +22388,7 @@
     zh-Hant = 照片店
 
   [type.shop.seafood]
-    en = Seafood Shop
+    en = Fishmonger
     ar = سماك
     cs = Prodej ryb
     da = Fiskehandler
@@ -23051,6 +22809,7 @@
 
   [type.shop.variety_store]
     en = Variety Store
+    en-GB = Variety Shop
     ar = متجر متنوع\n
     cs = Smíšené zboží
     da = Småtingsbutik
@@ -23122,7 +22881,7 @@
     zh-Hant = 視頻商城
 
   [type.shop.video_games]
-    en = Video Games Shop
+    en = Video Game Shop
     ar = متجر ألعاب فيديو
     cs = Obchod s videohrami
     da = Computerspilbutik
@@ -23272,7 +23031,7 @@
     zh-Hant = 古董
 
   [type.shop.appliance]
-    en = Appliances Shop
+    en = Appliance Shop
     ar = متجر الأجهزة
     be = Крама бытавой тэхнікі
     bg = Магазин за техника
@@ -23312,7 +23071,8 @@
     zh-Hant = 家電店
 
   [type.shop.art]
-    en = Arts Shop
+    comment = maybe change to Art Gallery for en-US when supported
+    en = Artwork Shop
     ar = ﻥﻮﻨﻔﻟﺍ ﺮﺠﺘﻣ
     be = Крама мастацтваў
     bg = Магазин за изкуства
@@ -23350,7 +23110,7 @@
     zh-Hant = 藝術商店
 
   [type.shop.baby_goods]
-    en = Baby Goods
+    en = Baby Goods Shop
     ar = ﻝﺎﻔﻃﻸﻟ ﺮﺠﺘﻣ
     be = Дзіцячая крама
     bg = Детски магазин
@@ -23426,7 +23186,7 @@
     zh-Hant = 箱包店
 
   [type.shop.bed]
-    en = Beds Shop
+    en = Bed Shop
     ar = متجر الأسرة
     be = Крама ложкаў
     bg = Магазин за легла
@@ -23580,7 +23340,8 @@
     zh-Hant = 奶酪店c
 
   [type.shop.craft]
-    en = Arts and Crafts
+    en = Craft Supplies Store
+    en-GB = Arts and Crafts Shop
     ar = ﺔﻳﻭﺪﻴﻟﺍ ﻑﺮﺤﻟﺍﻭ ﻥﻮﻨﻔﻟﺍ
     be = Мастацтва і рамёствы
     bg = Изкуства и занаяти
@@ -23618,7 +23379,7 @@
     zh-Hant = 美術和工藝
 
   [type.shop.dairy]
-    en = Dairy Products
+    en = Dairy Shop
     ar = ﻥﺎﺒﻟﻷﺍ ﺕﺎﺠﺘﻨﻣ
     be = Малочныя прадукты
     bg = Млечни продукти
@@ -23656,7 +23417,8 @@
     zh-Hant = 乳製品
 
   [type.shop.electrical]
-    en = Electrical Store
+    en = Electrical Supplies Store
+    en-GB = Electrical Supplies Shop
     ar = ﺔﻴﺋﺎﺑﺮﻬﻜﻟﺍ ﺕﺍﻭﺩﻷﺍ ﺮﺠﺘﻣ
     be = Крама электратэхнікі
     bg = Електрически магазин
@@ -23695,6 +23457,7 @@
 
   [type.shop.fishing]
     en = Fishing Store
+    en-GB = Fishing Shop
     ar = ﺪﻴﺻ ﺮﺠﺘﻣ
     be = Рыбалоўны магазін
     bg = Риболовен магазин
@@ -23732,7 +23495,8 @@
     zh-Hant = 釣魚店
 
   [type.shop.interior_decoration]
-    en = Interior Decorations
+    en = Interior Decorations Store
+    en-GB = Interior Decorations Shop
     ar = ﺔﻴﻠﺧﺍﺩ ﺕﺍﺭﻮﻜﻳﺩ
     be = Ўпрыгажэнні інтэр'еру
     bg = Вътрешни декорации
@@ -23808,7 +23572,8 @@
     zh-Hant = 彩票
 
   [type.shop.medical_supply]
-    en = Medical Supplies
+    en = Medical Supplies Store
+    en-GB = Medical Supplies Shop
     ar = ﺔﻴﺒﻄﻟﺍ ﺕﺍﺩﺍﺪﻣﻹﺍ
     be = Медыцынскія прыналежнасці
     bg = Медицински изделия
@@ -23846,7 +23611,8 @@
     zh-Hant = 醫療用品
 
   [type.shop.nutrition_supplements]
-    en = Nutrition Supplements
+    en = Nutrition Supplement Store
+    en-GB = Nutrition Supplement Shop
     ar = ﺔﻴﺋﺍﺬﻏ ﺕﻼﻤﻜﻣ
     be = Харчовыя дабаўкі
     bg = Хранителни добавки
@@ -23922,7 +23688,7 @@
     zh-Hant = 油漆
 
   [type.shop.perfumery]
-    en = Perfumery
+    en = Perfume Shop
     ar = ﺭﻮﻄﻌﻟﺍ
     be = Парфумерыя
     bg = Парфюмерия
@@ -23960,7 +23726,7 @@
     zh-Hant = 香水
 
   [type.shop.sewing]
-    en = Sewing Supplies
+    en = Sewing Supplies Shop
     ar = ﺔﻃﺎﻴﺨﻟﺍ ﺕﺍﺪﻌﻣ
     be = Швейныя прыналежнасці
     bg = Шивашки консумативи
@@ -24036,7 +23802,8 @@
     zh-Hant = 存儲租賃
 
   [type.shop.tobacco]
-    en = Tobacco
+    en = Smoke Shop
+    en-GB = Tobacco Shop
     ar = ﻎﺒﺗ
     be = Тытунь
     bg = Тютюн
@@ -24074,7 +23841,7 @@
     zh-Hant = 煙草
 
   [type.shop.trade]
-    en = Trades Supplies
+    en = Trade Supplies
     ar = ﺔﻳﺭﺎﺠﺘﻟﺍ ﺕﺍﺪﻳﺭﻮﺘﻟﺍ
     be = Гандлёвая прыналежнасць
     bg = Търговия с консумативи
@@ -24112,7 +23879,8 @@
     zh-Hant = 貿易用品
 
   [type.shop.watches]
-    en = Watches
+    en = Watch Store
+    en-GB = Watch Shop
     ar = ﺕﺎﻋﺎﺳ
     be = Гадзіннік
     bg = Часовници
@@ -24151,6 +23919,7 @@
 
   [type.shop.wholesale]
     en = Wholesale Store
+    en-GB = Wholesale Shop
     ar = ﺔﻠﻤﺠﻟﺎﺑ ﺔﻴﺋﺍﺬﻐﻟﺍ ﺩﺍﻮﻤﻟﺍ ﺓﺭﺎﺠﺗ
     be = Аптовая крама
     bg = Магазин на едро
@@ -24453,7 +24222,7 @@
     zh-Hant = 籃球
 
   [type.sport.beachvolleyball]
-    en = Beach volleyball
+    en = Beach Volleyball
     ar = كرة طائرة شاطئية
     be = Пляжны валейбол
     bg = Плажен волейбол
@@ -24819,7 +24588,7 @@
 
   [type.sport.scuba_diving]
     comment = Used to tag a scuba diving site.
-    en = Scuba diving site
+    en = Scuba Diving Site
     ar = الغوص
     be = Месца для дайвінга
     cs = Potápění
@@ -25049,7 +24818,7 @@
     zh-Hant = 游泳
 
   [type.sport.table_tennis]
-    en = Table tennis
+    en = Table Tennis
     ar = كرة الطاولة
     be = Настольны тэніс
     bg = Тенис на маса
@@ -25392,7 +25161,7 @@
     zh-Hant = 羽毛球
 
   [type.sport.pelota]
-    en = Basque pelota
+    en = Basque Pelota
     ar = ﻚﺳﺎﺒﻟﺍ ﺎﺗﻮﻠﻴﺑ
     be = Баскская пелота
     bg = Баска пелота
@@ -25449,7 +25218,7 @@
     zh-Hans = 旅游要素
 
   [type.tourism.alpine_hut]
-    en = Mountains Lodging
+    en = Alpine Lodging
     ar = مساكن جبلية
     cs = Ubytování v horách
     da = Bjerg logi
@@ -25482,8 +25251,7 @@
     zh-Hant = 山上住宿
 
   [type.tourism.apartment]
-    en = Apartments
-    en-GB = Flats
+    en = Holiday Apartment
     ar = شُقَق
     cs = Byty
     da = Lejligheder
@@ -25728,7 +25496,7 @@
 
   [type.tourism.attraction.animal]
     ref = type.tourism.attraction
-    en = Animal enclosure
+    en = Animal Enclosure
     et = Loomade aedik
     it = Recinto
     ja = 動物
@@ -25740,7 +25508,8 @@
     ref = type.tourism.attraction
 
   [type.tourism.camp_site]
-    en = Camp Site
+    en = Campground
+    en-GB = Campsite 
     ar = تخييم
     cs = Kempování
     de = Zeltplatz
@@ -25771,6 +25540,7 @@
 
   [type.tourism.caravan_site]
     en = RV Park
+    en-GB = Caravan Park
     ar = موقع البيت المتنقل
     be = Кемпінг для аўтадамоў
     cs = Kemp pro obytné přívěsy
@@ -25835,7 +25605,7 @@
     zh-Hant = 木屋
 
   [type.tourism.gallery]
-    en = Gallery
+    en = Art Gallery
     ar = سياحة
     cs = Pamětihodnost
     da = Turisme
@@ -27109,6 +26879,7 @@
 
   [type.piste_type.downhill.advanced]
     ref = type.piste_type.downhill
+    en = Advanced Downhill Ski Run
     de = Schwierige Abfahrt
     et = Raske laskumine
     nl = Moeilijke afdaling
@@ -27120,6 +26891,7 @@
 
   [type.piste_type.downhill.easy]
     ref = type.piste_type.downhill
+    en = Easy Downhill Ski Run
     de = Leichte Abfahrt
     et = Kerge laskumine
     nl = Makkelijke afdaling
@@ -27131,6 +26903,7 @@
 
   [type.piste_type.downhill.expert]
     ref = type.piste_type.downhill
+    en = Expert Downhill Ski Run
     de = Profi Abfahrt
     et = Professionaalne laskumine
     nl = Afdaling voor experts
@@ -27151,6 +26924,7 @@
 
   [type.piste_type.downhill.intermediate]
     ref = type.piste_type.downhill
+    en = Intermediate Downhill Ski Run
     de = Mittelschwere Abfahrt
     et = Keskmise raskusastmega laskumine
     nl = Gemiddelde afdaling
@@ -27162,6 +26936,7 @@
 
   [type.piste_type.downhill.novice]
     ref = type.piste_type.downhill
+    en = Novice Downhill Ski Run
     de = Anfängerfreundliche Abfahrt
     et = Algajasõbralik laskumine
     nl = Beginnersafdaling
@@ -27199,41 +26974,6 @@
     ru = Трасса для саней
     tr = Kızak Pisti
     uk = Траса для санок
-
-  [type.building_part]
-    en = Building
-    ar = مبنى
-    cs = Stavba
-    da = Bygning
-    de = Gebäude
-    el = Κτίριο
-    es = Edificio
-    et = Hoone
-    eu = Eraikin
-    fa = ساختما
-    fi = Rakennus
-    fr = Bâtiment
-    hu = Épület
-    id = Gedung
-    it = Edificio
-    ja = 建物
-    ko = 건물
-    mr = इमारत
-    nb = Bygning
-    nl = Gebouw
-    pl = Część budynku
-    pt = Parte de edifício
-    pt-BR = Parte de edifício
-    ro = Clădire
-    ru = Здание
-    sk = Budova
-    sv = Byggnad
-    th = อาคาร
-    tr = Bina
-    uk = Будівля
-    vi = Tòa nhà
-    zh-Hans = 建筑部分
-    zh-Hant = 建築物
 
   [type.amenity.events_venue]
     en = Events Venue
