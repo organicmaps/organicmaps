@@ -1,10 +1,5 @@
 #include "house_detector.hpp"
 
-#include "search/algos.hpp"
-#include "search/common.hpp"
-
-#include "indexer/classificator.hpp"
-#include "indexer/feature_impl.hpp"
 #include "indexer/search_string_utils.hpp"
 
 #include "platform/platform.hpp"
@@ -12,7 +7,6 @@
 #include "coding/string_utf8_multilang.hpp"
 
 #include "geometry/angles.hpp"
-#include "geometry/parametrized_segment.hpp"
 
 #include "base/limited_priority_queue.hpp"
 #include "base/logging.hpp"
@@ -30,13 +24,14 @@
 
 #include <boost/iterator/transform_iterator.hpp>
 
+
+namespace search
+{
 using namespace std;
 using namespace std::placeholders;
 
 using boost::make_transform_iterator;
 
-namespace search
-{
 namespace
 {
 #if 0
@@ -1092,38 +1087,36 @@ HouseProjection const * MergedStreet::GetHousePivot(bool isOdd, bool & sign) con
 template <typename ProjectionCalculator>
 void HouseDetector::ReadHouse(FeatureType & f, Street * st, ProjectionCalculator & calc)
 {
-  string const houseNumber = f.GetHouseNumber();
+  string const & hn = f.GetHouseNumber();
+  if (hn.empty() || !ftypes::IsBuildingChecker::Instance()(f))
+    return;
 
-  /// @todo After new data generation we can skip IsHouseNumber check here.
-  if (ftypes::IsBuildingChecker::Instance()(f) && feature::IsHouseNumber(houseNumber))
+  auto const it = m_id2house.find(f.GetID());
+  bool const isNew = it == m_id2house.end();
+
+  m2::PointD const pt =
+      isNew ? f.GetLimitRect(FeatureType::BEST_GEOMETRY).Center() : it->second->GetPosition();
+
+  HouseProjection pr;
+  if (calc.GetProjection(pt, pr) && pr.m_distMeters <= m_houseOffsetM)
   {
-    auto const it = m_id2house.find(f.GetID());
-    bool const isNew = it == m_id2house.end();
+    pr.m_streetDistance =
+        st->GetPrefixLength(pr.m_segIndex) + st->m_points[pr.m_segIndex].Length(pr.m_proj);
 
-    m2::PointD const pt =
-        isNew ? f.GetLimitRect(FeatureType::BEST_GEOMETRY).Center() : it->second->GetPosition();
-
-    HouseProjection pr;
-    if (calc.GetProjection(pt, pr) && pr.m_distMeters <= m_houseOffsetM)
+    House * p;
+    if (isNew)
     {
-      pr.m_streetDistance =
-          st->GetPrefixLength(pr.m_segIndex) + st->m_points[pr.m_segIndex].Length(pr.m_proj);
-
-      House * p;
-      if (isNew)
-      {
-        p = new House(houseNumber, pt);
-        m_id2house[f.GetID()] = p;
-      }
-      else
-      {
-        p = it->second;
-        ASSERT(p != 0, ());
-      }
-
-      pr.m_house = p;
-      st->m_houses.push_back(pr);
+      p = new House(hn, pt);
+      m_id2house[f.GetID()] = p;
     }
+    else
+    {
+      p = it->second;
+      ASSERT(p != 0, ());
+    }
+
+    pr.m_house = p;
+    st->m_houses.push_back(pr);
   }
 }
 
