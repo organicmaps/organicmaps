@@ -278,7 +278,8 @@ string FormatStreetAndHouse(ReverseGeocoder::Address const & addr)
 // TODO: Share common formatting code for search results and place page.
 string FormatFullAddress(ReverseGeocoder::Address const & addr, string const & region)
 {
-  // TODO: Print "near" for not exact addresses.
+  /// @todo Print "near" for not exact addresses.
+  /// Add some threshold for addr:interpolation or refactor ReverseGeocoder?
   if (addr.GetDistance() != 0)
     return region;
 
@@ -305,47 +306,6 @@ bool ResultExists(RankerResult const & p, vector<RankerResult> const & results,
   return find_if(results.begin(), results.end(), equalCmp) != results.cend();
 }
 
-class LazyAddressGetter
-{
-public:
-  LazyAddressGetter(ReverseGeocoder const & reverseGeocoder, m2::PointD const & center)
-    : m_reverseGeocoder(reverseGeocoder), m_center(center)
-  {
-  }
-
-  ReverseGeocoder::Address const & GetNearbyAddress()
-  {
-    if (m_computedNearby)
-      return m_address;
-    m_reverseGeocoder.GetNearbyAddress(m_center, m_address);
-    m_computedNearby = true;
-    return m_address;
-  }
-
-  bool GetExactAddress(ReverseGeocoder::Address & address)
-  {
-    if (m_computedExact)
-    {
-      address = m_address;
-      return true;
-    }
-    m_reverseGeocoder.GetNearbyAddress(m_center, 0.0, m_address);
-    if (m_address.IsValid())
-    {
-      m_computedExact = true;
-      m_computedNearby = true;
-      address = m_address;
-    }
-    return m_computedExact;
-  }
-
-private:
-  ReverseGeocoder const & m_reverseGeocoder;
-  m2::PointD const m_center;
-  ReverseGeocoder::Address m_address;
-  bool m_computedExact = false;
-  bool m_computedNearby = false;
-};
 }  // namespace
 
 class RankerResultMaker
@@ -453,6 +413,15 @@ private:
     return ft;
   }
 
+  bool GetExactAddress(FeatureType & ft, m2::PointD const & center, ReverseGeocoder::Address & addr) const
+  {
+    if (m_reverseGeocoder.GetExactAddress(ft, addr))
+      return true;
+
+    m_reverseGeocoder.GetNearbyAddress(center, 0.0 /* maxDistanceM */, addr);
+    return addr.IsValid();
+  }
+
   // For the best performance, incoming ids should be sorted by id.first (mwm file id).
   unique_ptr<FeatureType> LoadFeature(FeatureID const & id, m2::PointD & center, string & name,
                                       string & country)
@@ -475,7 +444,7 @@ private:
     if (name.empty())
     {
       ReverseGeocoder::Address addr;
-      if (LazyAddressGetter(m_reverseGeocoder, center).GetExactAddress(addr))
+      if (GetExactAddress(*ft, center, addr))
       {
         unique_ptr<FeatureType> streetFeature;
 
@@ -721,7 +690,13 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress, b
 
     // Format full address only for suitable results.
     if (ftypes::IsAddressObjectChecker::Instance()(rankerResult.GetTypes()))
-      address = FormatFullAddress(LazyAddressGetter(m_reverseGeocoder, rankerResult.GetCenter()).GetNearbyAddress(), address);
+    {
+      ReverseGeocoder::Address addr;
+      if (!(rankerResult.GetID().IsValid() && m_reverseGeocoder.GetExactAddress(rankerResult.GetID(), addr)))
+        m_reverseGeocoder.GetNearbyAddress(rankerResult.GetCenter(), addr);
+
+      address = FormatFullAddress(addr, address);
+    }
 
     res.SetAddress(std::move(address));
   }
@@ -991,4 +966,5 @@ string Ranker::GetLocalizedRegionInfoForResult(RankerResult const & result) cons
 
   return m_regionInfoGetter.GetLocalizedFullName(id);
 }
+
 }  // namespace search
