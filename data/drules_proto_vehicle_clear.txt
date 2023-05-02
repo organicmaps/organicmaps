@@ -73882,6 +73882,14 @@ colors {
     color: 7434609
   }
   value {
+    name: "RouteFirstSegmentArrowsMaskBicycle"
+    color: 4288423856
+  }
+  value {
+    name: "RouteFirstSegmentArrowsMaskCar"
+    color: 4278401920
+  }
+  value {
     name: "RouteMarkPrimaryText"
   }
   value {
