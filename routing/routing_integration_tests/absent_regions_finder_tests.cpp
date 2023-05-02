@@ -1,12 +1,7 @@
-#include "routing/routing_integration_tests/routing_test_tools.hpp"
-
 #include "testing/testing.hpp"
 
 #include "map/framework.hpp"
 #include "map/routing_manager.hpp"
-
-#include "routing/routing_callbacks.hpp"
-#include "routing/routing_options.hpp"
 
 #include "storage/routing_helpers.hpp"
 #include "storage/storage.hpp"
@@ -138,7 +133,7 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, Kingston_DC)
 }
 
 // From "US_Colorado_Aspen" to "Canada_Saskatchewan_Saskatoon".
-// https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=39.9578%2C-106.8238%3B49.9167%2C-106.9606#map=5/46.284/-101.609
+// https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=39.95763%2C-106.79994%3B49.92034%2C-106.99302
 UNIT_CLASS_TEST(TestAbsentRegionsFinder, Colorado_Saskatchewan)
 {
   Checkpoints const checkpoints{mercator::FromLatLon(39.95763, -106.79994),
@@ -150,9 +145,6 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, Colorado_Saskatchewan)
   TestRegions(checkpoints, planRegions);
 }
 
-/// @todo OSRM/GraphHopper route differs from Organic (check the links below). The difference is not significant,
-/// OM prefers major road E40 vs GraphHopper with E314.
-/// @{
 // From "Belgium_Flemish Brabant" to "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen".
 // https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=50.87763%2C4.44676%3B50.76935%2C6.42488
 UNIT_CLASS_TEST(TestAbsentRegionsFinder, Belgium_Germany)
@@ -160,6 +152,9 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, Belgium_Germany)
   Checkpoints const checkpoints{mercator::FromLatLon(50.87763, 4.44676),
                                 mercator::FromLatLon(50.76935, 6.42488)};
 
+  // OSRM, Valhalla prefers major road E40 vs GraphHopper with E314 (the difference is 5 minutes).
+  // "Belgium_Liege" should present for E40 and not present for E314.
+  /// @todo OM usually takes E40, but sometimes E314 :)
   std::set<std::string> const planRegions = {
     "Belgium_Flemish Brabant", "Belgium_Liege", "Belgium_Limburg",
     "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen",
@@ -183,7 +178,6 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, Germany_Belgium)
 
   TestRegions(checkpoints, planRegions);
 }
-/// @}
 
 // From "Kazakhstan_South" to "Mongolia".
 UNIT_CLASS_TEST(TestAbsentRegionsFinder, Kazakhstan_Mongolia)

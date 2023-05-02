@@ -1458,7 +1458,9 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
                                                  RoutesCalculator & calculator,
                                                  RoutingResultT & result)
 {
-  CHECK_GREATER_OR_EQUAL(input.size(), 4, ());
+  // { fake, mwmId1, mwmId2, mwmId2, mwmId3, .. pairs of ids .. , fake }.
+  ASSERT_GREATER_OR_EQUAL(input.size(), 4, ());
+  ASSERT(input.size() % 2 == 0, ());
 
   WorldGraph & worldGraph = starter.GetGraph();
 
@@ -1471,43 +1473,33 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
   // then we have small unneeded leap in other mwm which returns us to start mwm, then we have leap in start mwm
   // to the correct start mwm exit and then we have normal route.
   // |input| mwm ids for such case look like
-  // { fake, startId, otherId, otherId, startId, startId, .. pairs of ids for other leaps .. , finishId, fake}.
-  // To avoid this behavior we collapse all leaps from start to  last occurrence of startId to one leap and
-  // use WorldGraph with NoLeaps mode to proccess these leap. Unlike SingleMwm mode used to process ordinary leaps
-  // NoLeaps allows to use all mwms so if we really need to visit other mwm we will.
+  // { fake, startId, otherId, otherId, startId, startId, .. pairs of ids for other leaps .. , finishId, fake }.
 
-  /// @todo By VNG: Have a feeling that this routine can be simplified.
-  // Stable solution here is to calculate all (max = 4) routes with and without loops, and choose the best one.
+  // Stable solution here is to calculate all routes with and without loops, and choose the best one.
   // https://github.com/organicmaps/organicmaps/issues/821
   // https://github.com/organicmaps/organicmaps/issues/2085
+  // https://github.com/organicmaps/organicmaps/issues/5069
 
-  buffer_vector<std::pair<size_t, size_t>, 4> arrBegEnd;
-  arrBegEnd.emplace_back(1, input.size() - 2);
+  buffer_vector<size_t, 4> arrBeg, arrEnd;
+  size_t const begIdx = 1;
+  size_t const endIdx = input.size() - 2;
+
+  auto const firstMwmId = input[begIdx].GetMwmId();
+  for (size_t i = begIdx; i < endIdx; ++i)
+    if (input[i].GetMwmId() == firstMwmId && (i % 2 == 1))
+      arrBeg.push_back(i);
+
+  auto const lastMwmId = input[endIdx].GetMwmId();
+  for (size_t i = endIdx; i > begIdx; --i)
+    if (input[i].GetMwmId() == lastMwmId && (i % 2 == 0))
+      arrEnd.push_back(i);
+
+  size_t const variantsCount = arrBeg.size() * arrEnd.size();
+  ASSERT(variantsCount > 0, ());
+
+  for (size_t startLeapEnd : arrBeg)
+  for (size_t finishLeapStart : arrEnd)
   {
-    auto const firstMwmId = input[1].GetMwmId();
-    auto const startLeapEndReverseIt = find_if(input.rbegin() + 2, input.rend(),
-                                               [firstMwmId](Segment const & s) { return s.GetMwmId() == firstMwmId; });
-    auto const startLeapEndIt = startLeapEndReverseIt.base() - 1;
-    auto const startLeapEnd = static_cast<size_t>(distance(input.begin(), startLeapEndIt));
-    if (startLeapEnd != arrBegEnd[0].first)
-      arrBegEnd.emplace_back(startLeapEnd, arrBegEnd[0].second);
-
-    // The last leap processed the same way. See the comment above.
-    auto const lastMwmId = input[input.size() - 2].GetMwmId();
-    auto const finishLeapStartIt = find_if(startLeapEndIt, input.end(),
-                                           [lastMwmId](Segment const & s) { return s.GetMwmId() == lastMwmId; });
-    auto const finishLeapStart = static_cast<size_t>(distance(input.begin(), finishLeapStartIt));
-    if (finishLeapStart != arrBegEnd[0].second)
-      arrBegEnd.emplace_back(arrBegEnd[0].first, finishLeapStart);
-
-    if (arrBegEnd.size() == 3)
-      arrBegEnd.emplace_back(startLeapEnd, finishLeapStart);
-  }
-
-  for (auto const & eBegEnd : arrBegEnd)
-  {
-    size_t const startLeapEnd = eBegEnd.first;
-    size_t const finishLeapStart = eBegEnd.second;
     size_t maxStart = 0;
 
     auto const runAStarAlgorithm = [&](size_t start, size_t end, WorldGraphMode mode)
@@ -1516,7 +1508,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
       ASSERT_LESS(end, input.size(), ());
 
       maxStart = max(maxStart, start);
-      auto const contribCoef = static_cast<double>(end - maxStart + 1) / input.size() / arrBegEnd.size();
+      auto const contribCoef = static_cast<double>(end - maxStart + 1) / input.size() / variantsCount;
 
       // VNG: I don't like this strategy with clearing previous caches, taking into account
       // that all MWMs were quite likely already loaded before in calculating Leaps path.

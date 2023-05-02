@@ -829,4 +829,21 @@ UNIT_TEST(UK_MiniRoundabout)
                 FromLatLon(51.5686491, -0.00590868183), {0., 0.},
                 FromLatLon(51.5684408, -0.00596725822), 40);
 }
+
+// https://github.com/organicmaps/organicmaps/issues/5069
+UNIT_TEST(Germany_Netherlands_AvoidLoops)
+{
+  TRouteResult const routeResult = CalculateRoute(GetVehicleComponents(VehicleType::Car),
+                                                  FromLatLon(51.6823791, 10.2197113), {0., 0.},
+                                                  FromLatLon(51.9187916, 5.8452563));
+
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+  TEST(routeResult.first, ());
+  Route const & route = *routeResult.first;
+  TestRouteLength(route, 405159);
+  TestRouteTime(route, 13768.9);
+}
+
 } // namespace route_test
