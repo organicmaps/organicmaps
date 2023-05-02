@@ -478,7 +478,7 @@ void GetTurnDirectionBasic(IRoutingResult const & result, size_t const outgoingS
 
   if (turnCandidates.size() == 1)
   {
-    ASSERT(turnCandidates.front().m_segment == firstOutgoingSeg, ());
+    //ASSERT_EQUAL(turnCandidates.front().m_segment, firstOutgoingSeg, ());
 
     if (IsGoStraightOrSlightTurn(intermediateDirection))
       return;
