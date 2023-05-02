@@ -40,10 +40,14 @@ colors
   RoutePreview-opacity: 0.3;
   RouteMaskCar-color: #000000;
   RouteMaskCar-opacity: 0.3;
+  RouteFirstSegmentArrowsMaskCar-color: #033B80;
+  RouteFirstSegmentArrowsMaskCar-opacity: 0.0;
   RouteArrowsMaskCar-color: #033B80;
   RouteArrowsMaskCar-opacity: 0.2;
   RouteMaskBicycle-color: #000000;
   RouteMaskBicycle-opacity: 0.5;
+  RouteFirstSegmentArrowsMaskBicycle-color: #9C27B0;
+  RouteFirstSegmentArrowsMaskBicycle-opacity: 0.0;
   RouteArrowsMaskBicycle-color: #9C27B0;
   RouteArrowsMaskBicycle-opacity: 0.2;
   RouteMaskPedestrian-color: #000000;
