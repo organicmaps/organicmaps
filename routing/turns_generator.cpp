@@ -1,7 +1,6 @@
 #include "routing/turns_generator.hpp"
 
 #include "routing/turns_generator_utils.hpp"
-#include "routing/router.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 
@@ -272,15 +271,19 @@ void CorrectCandidatesSegmentByOutgoing(TurnInfo const & turnInfo, Segment const
                                         TurnCandidates & nodes)
 {
   double const turnAngle = CalcOneSegmentTurnAngle(turnInfo);
-  auto IsFirstOutgoingSeg = [&firstOutgoingSeg](TurnCandidate const & turnCandidate) { return turnCandidate.m_segment == firstOutgoingSeg; };
+  auto const IsFirstOutgoingSeg = [&firstOutgoingSeg](TurnCandidate const & turnCandidate)
+  {
+    return turnCandidate.m_segment == firstOutgoingSeg;
+  };
   auto & candidates = nodes.candidates;
   auto it = find_if(candidates.begin(), candidates.end(), IsFirstOutgoingSeg);
   if (it == candidates.end())
   {
     // firstOutgoingSeg not found. Try to match by angle.
-    auto DoesAngleMatch = [&turnAngle](TurnCandidate const & candidate)
+    auto const DoesAngleMatch = [&turnAngle](TurnCandidate const & candidate)
     {
-      return base::AlmostEqualAbs(candidate.m_angle, turnAngle, 0.001) || abs(candidate.m_angle) + abs(turnAngle) > 359.999;
+      return (base::AlmostEqualAbs(candidate.m_angle, turnAngle, 0.001) ||
+              fabs(candidate.m_angle) + fabs(turnAngle) > 359.999);
     };
     auto it = find_if(candidates.begin(), candidates.end(), DoesAngleMatch);
     if (it != candidates.end())
@@ -292,18 +295,21 @@ void CorrectCandidatesSegmentByOutgoing(TurnInfo const & turnInfo, Segment const
       it->m_segment = firstOutgoingSeg;
     }
     else if (nodes.isCandidatesAngleValid)
+    {
       // Typically all candidates are from one mwm, and missed one (firstOutgoingSegment) from another.
       LOG(LWARNING, ("Can't match any candidate with firstOutgoingSegment but isCandidatesAngleValid == true."));
+    }
     else
     {
       LOG(LWARNING, ("Can't match any candidate with firstOutgoingSegment and isCandidatesAngleValid == false"));
       if (candidates.size() == 1)
       {
-        ASSERT(candidates.front().m_segment.GetMwmId() != firstOutgoingSeg.GetMwmId(), ());
-        ASSERT(candidates.front().m_segment.GetSegmentIdx() == firstOutgoingSeg.GetSegmentIdx(), ());
-        ASSERT(candidates.front().m_segment.IsForward() == firstOutgoingSeg.IsForward(), ());
-        candidates.front().m_segment = firstOutgoingSeg;
-        candidates.front().m_angle = turnAngle;
+        auto & c = candidates.front();
+        ASSERT(c.m_segment.GetMwmId() != firstOutgoingSeg.GetMwmId(), ());
+        ASSERT(c.m_segment.GetSegmentIdx() == firstOutgoingSeg.GetSegmentIdx(), ());
+        ASSERT(c.m_segment.IsForward() == firstOutgoingSeg.IsForward(), ());
+        c.m_segment = firstOutgoingSeg;
+        c.m_angle = turnAngle;
         nodes.isCandidatesAngleValid = true;
         LOG(LWARNING, ("but since candidates.size() == 1, this was fixed."));
       }
