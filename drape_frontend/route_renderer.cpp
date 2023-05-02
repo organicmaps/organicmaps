@@ -19,8 +19,10 @@ std::string const kRoutePedestrian = "RoutePedestrian";
 std::string const kRouteBicycle = "RouteBicycle";
 std::string const kRoutePreview = "RoutePreview";
 std::string const kRouteMaskCar = "RouteMaskCar";
+std::string const kRouteFirstSegmentArrowsMaskCar = "RouteFirstSegmentArrowsMaskCar";
 std::string const kRouteArrowsMaskCar = "RouteArrowsMaskCar";
 std::string const kRouteMaskBicycle = "RouteMaskBicycle";
+std::string const kRouteFirstSegmentArrowsMaskBicycle = "RouteFirstSegmentArrowsMaskBicycle";
 std::string const kRouteArrowsMaskBicycle = "RouteArrowsMaskBicycle";
 std::string const kRouteMaskPedestrian = "RouteMaskPedestrian";
 std::string const kTransitStopInnerMarkerColor = "TransitStopInnerMarker";
@@ -383,19 +385,43 @@ CirclesPackHandle * RouteRenderer::GetPreviewHandle(size_t & index)
   return nullptr;
 }
 
-dp::Color RouteRenderer::GetMaskColor(RouteType routeType, double baseDistance,
-                                      bool arrows) const
+// Route mask is used to adjust line color for subroutes after the first stop. So subroute to the first stop
+// point has default color, while subsequent subroutes color is adjusted with RouteArrowsMaskCar,
+// RouteArrowsMaskBicycle and RouteMaskPedestrian properties.
+dp::Color RouteRenderer::GetRouteMaskColor(RouteType routeType, double baseDistance) const
 {
   if (baseDistance != 0.0 && m_distanceFromBegin < baseDistance)
   {
     if (routeType == RouteType::Car)
-      return GetColorConstant(arrows ? kRouteArrowsMaskCar : kRouteMaskCar);
+      return GetColorConstant(kRouteMaskCar);
     if (routeType == RouteType::Bicycle)
-      return GetColorConstant(arrows ? kRouteArrowsMaskBicycle : kRouteMaskBicycle);
+      return GetColorConstant(kRouteMaskBicycle);
     if (routeType == RouteType::Pedestrian)
       return GetColorConstant(kRouteMaskPedestrian);
   }
-  return {0, 0, 0, 0};
+  return dp::Color::Transparent();
+}
+
+// Arrow mask is used to adjust route arrow color. First subroute arrows color is defined
+// by RouteFirstSegmentArrowsMaskCar and RouteFirstSegmentArrowsMaskBicycle properties.
+// All following subroutes have arrow color defined by RouteArrowsMaskCar, RouteArrowsMaskBicycle.
+dp::Color RouteRenderer::GetArrowMaskColor(RouteType routeType, double baseDistance) const
+{
+  if (baseDistance == 0.0)
+  {
+    if (routeType == RouteType::Car)
+      return GetColorConstant(kRouteFirstSegmentArrowsMaskCar);
+    if (routeType == RouteType::Bicycle)
+      return GetColorConstant(kRouteFirstSegmentArrowsMaskBicycle);
+  }
+  else if (m_distanceFromBegin < baseDistance)
+  {
+    if (routeType == RouteType::Car)
+      return GetColorConstant(kRouteArrowsMaskCar);
+    if (routeType == RouteType::Bicycle)
+      return GetColorConstant(kRouteArrowsMaskBicycle);
+  }
+  return dp::Color::Transparent();
 }
 
 void RouteRenderer::RenderSubroute(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
@@ -433,9 +459,11 @@ void RouteRenderer::RenderSubroute(ref_ptr<dp::GraphicsContext> context, ref_ptr
   params.m_modelView = glsl::make_mat4(mv.m_data);
   params.m_color = glsl::ToVec4(df::GetColorConstant(style.m_color));
   params.m_routeParams = glsl::vec4(currentHalfWidth, screenHalfWidth, dist, trafficShown ? 1.0f : 0.0f);
-  params.m_maskColor = glsl::ToVec4(GetMaskColor(subrouteData->m_subroute->m_routeType,
-                                                 subrouteData->m_subroute->m_baseDistance,
-                                                 false /* arrows */));
+
+  // Adjust line color depending on route type and subroute distance. After the first stop point
+  // route color is adjusted according to RouteMaskCar, RouteMaskBicycle or RouteMaskPedestrian properties.
+  params.m_maskColor = glsl::ToVec4(GetRouteMaskColor(subrouteData->m_subroute->m_routeType,
+                                                      subrouteData->m_subroute->m_baseDistance));
   if (style.m_pattern.m_isDashed)
   {
     params.m_pattern = glsl::vec2(static_cast<float>(screenHalfWidth * style.m_pattern.m_dashLength),
@@ -490,9 +518,9 @@ void RouteRenderer::RenderSubrouteArrows(ref_ptr<dp::GraphicsContext> context, r
   auto const arrowHalfWidth = static_cast<float>(currentHalfWidth * kArrowHeightFactor);
   params.m_arrowHalfWidth = arrowHalfWidth;
 
-  params.m_maskColor = glsl::ToVec4(GetMaskColor(subrouteInfo.m_subroute->m_routeType,
-                                                 subrouteInfo.m_subroute->m_baseDistance,
-                                                 true /* arrows */));
+  // Adjust arrow color depending on route type and subroute distance
+  params.m_maskColor = glsl::ToVec4(GetArrowMaskColor(subrouteInfo.m_subroute->m_routeType,
+                                                      subrouteInfo.m_subroute->m_baseDistance));
 
   ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::Program::RouteArrow);
   prg->Bind();
@@ -537,9 +565,10 @@ void RouteRenderer::RenderSubrouteMarkers(ref_ptr<dp::GraphicsContext> context, 
   params.m_angleCosSin = glsl::vec2(static_cast<float>(cos(screen.GetAngle())),
                                     static_cast<float>(sin(screen.GetAngle())));
 
-  params.m_maskColor = glsl::ToVec4(GetMaskColor(subrouteInfo.m_subroute->m_routeType,
-                                                 subrouteInfo.m_subroute->m_baseDistance,
-                                                 false /* arrows */));
+  // Adjust color depending on route type and subroute distance. After the first stop point
+  // marker color is adjusted according to RouteMaskCar, RouteMaskBicycle or RouteMaskPedestrian properties.
+  params.m_maskColor = glsl::ToVec4(GetRouteMaskColor(subrouteInfo.m_subroute->m_routeType,
+                                                      subrouteInfo.m_subroute->m_baseDistance));
 
   ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::Program::RouteMarker);
   prg->Bind();
