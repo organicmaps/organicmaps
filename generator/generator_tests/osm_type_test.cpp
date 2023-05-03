@@ -196,8 +196,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Address)
     TEST_EQUAL(params.house.Get(), "42", ());
   }
 
-  using AddrType = feature::AddressData::Type;
-
   {
     Tags const tags = {
       { "addr:conscriptionnumber", "223" },
@@ -215,8 +213,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Address)
     TEST(params.IsTypeExist(addrType), ());
 
     TEST_EQUAL(params.house.Get(), "223/5", ());
-    TEST_EQUAL(params.GetAddressData().Get(AddrType::Street), "Řetězová", ());
-    TEST_EQUAL(params.GetAddressData().Get(AddrType::Postcode), "11000", ());
+    TEST_EQUAL(params.GetStreet(), "Řetězová", ());
+    TEST_EQUAL(params.GetPostcode(), "11000", ());
   }
 
   {
@@ -240,8 +238,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Address)
     TEST(params.IsTypeExist(GetType({"internet_access", "wlan"})), ());
 
     TEST_EQUAL(params.house.Get(), "41", ());
-    TEST_EQUAL(params.GetAddressData().Get(AddrType::Street), "Leutschenbachstrasse", ());
-    TEST_EQUAL(params.GetAddressData().Get(AddrType::Postcode), "8050", ());
+    TEST_EQUAL(params.GetStreet(), "Leutschenbachstrasse", ());
+    TEST_EQUAL(params.GetPostcode(), "8050", ());
   }
 
   {
@@ -261,8 +259,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Address)
     TEST(params.IsTypeExist(addrType), ());
 
     TEST_EQUAL(params.house.Get(), "Rozemnieki", ());
-    TEST(params.GetAddressData().Get(AddrType::Street).empty(), ());
-    TEST_EQUAL(params.GetAddressData().Get(AddrType::Postcode), "LV-5695", ());
+    TEST(params.GetStreet().empty(), ());
+    TEST_EQUAL(params.GetPostcode(), "LV-5695", ());
   }
 }
 

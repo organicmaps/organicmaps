@@ -7,15 +7,10 @@
 #include "coding/string_utf8_multilang.hpp"
 #include "coding/value_opt_string.hpp"
 
-#include "geometry/point2d.hpp"
-
 #include <algorithm>
 #include <array>
-#include <cstdint>
-#include <iterator>
 #include <optional>
 #include <string>
-#include <utility>
 #include <vector>
 
 struct FeatureParamsBase;
@@ -301,6 +296,8 @@ public:
   /// @todo Make protected and update EditableMapObject code.
   Types m_types;
 
+  friend std::string DebugPrint(FeatureParams const & p);
+
 private:
   using Base = FeatureParamsBase;
 
@@ -326,16 +323,22 @@ public:
     m_reversedGeometry = rhs.m_reversedGeometry;
   }
 
-  /// Used to store address to temporary TEMP_ADDR_FILE_TAG section.
-  void AddStreet(std::string s);
-  void AddPostcode(std::string const & s);
+  /// @name Used to store address to temporary TEMP_ADDR_FILE_TAG section.
+  /// @{
+  void SetStreet(std::string s);
+  std::string_view GetStreet() const;
 
-  feature::AddressData const & GetAddressData() const { return m_addrTags; }
+  template <class TSink> void SerializeAddress(TSink & sink) const
+  {
+    m_addrTags.SerializeForMwmTmp(sink);
+  }
+  /// @}
+
+  void SetPostcode(std::string const & s);
+  std::string_view GetPostcode() const;
+
   feature::Metadata const & GetMetadata() const { return m_metadata; }
   feature::Metadata & GetMetadata() { return m_metadata; }
-
-  void SetMetadata(feature::Metadata && metadata) { m_metadata = std::move(metadata); }
-  void ClearMetadata() { SetMetadata({}); }
 
   template <class Sink>
   void Write(Sink & sink) const
@@ -359,11 +362,10 @@ public:
   /// @return true If any inconsistency was found here.
   bool RemoveInconsistentTypes();
 
+  friend std::string DebugPrint(FeatureBuilderParams const & p);
+
 private:
   bool m_reversedGeometry = false;
   feature::Metadata m_metadata;
   feature::AddressData m_addrTags;
 };
-
-std::string DebugPrint(FeatureParams const & p);
-std::string DebugPrint(FeatureBuilderParams const & p);

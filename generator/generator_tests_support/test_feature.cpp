@@ -141,7 +141,7 @@ void TestFeature::Serialize(FeatureBuilder & fb) const
   });
 
   if (!m_postcode.empty())
-    fb.SetPostcode(m_postcode);
+    fb.GetParams().SetPostcode(m_postcode);
 }
 
 // TestPlace -------------------------------------------------------------------------------------
@@ -309,7 +309,7 @@ void TestPOI::Serialize(FeatureBuilder & fb) const
     params.AddHouseNumber(m_houseNumber);
 
   if (!m_streetName.empty())
-    params.AddStreet(m_streetName);
+    params.SetStreet(m_streetName);
 }
 
 string TestPOI::ToDebugString() const
@@ -398,7 +398,7 @@ void TestBuilding::Serialize(FeatureBuilder & fb) const
   if (!m_houseNumber.empty())
     params.AddHouseNumber(m_houseNumber);
   if (!m_streetName.empty())
-    params.AddStreet(m_streetName);
+    params.SetStreet(m_streetName);
 
   if (m_type == 0)
     fb.AddType(classif().GetTypeByPath({"building"}));

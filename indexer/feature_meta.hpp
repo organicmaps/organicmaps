@@ -179,12 +179,11 @@ public:
   enum class Type : uint8_t
   {
     Street,
-    Postcode
   };
 
-  void Add(Type type, std::string const & s)
+  // Store single value only.
+  void Set(Type type, std::string const & s)
   {
-    // Store single value only.
     MetadataBase::Set(base::Underlying(type), s);
   }
 

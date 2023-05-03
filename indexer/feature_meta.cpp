@@ -95,11 +95,9 @@ bool Metadata::TypeFromString(string_view k, Metadata::EType & outType)
     outType = Metadata::FMD_TURN_LANES_BACKWARD;
   else if (k == "email" || k == "contact:email")
     outType = Metadata::FMD_EMAIL;
-
-  // https://wiki.openstreetmap.org/wiki/Key:postal_code
-  else if (k == "addr:postcode" || k == "postal_code")
+  // Process only _main_ tag here, needed for editor ser/des. Actual postcode parsing happens in GetNameAndType.
+  else if (k == "addr:postcode")
     outType = Metadata::FMD_POSTCODE;
-
   else if (k == "wikipedia")
     outType = Metadata::FMD_WIKIPEDIA;
   else if (k == "wikimedia_commons")
@@ -259,10 +257,8 @@ string DebugPrint(Metadata const & metadata)
   return res;
 }
 
-string DebugPrint(feature::AddressData const & addressData)
+string DebugPrint(AddressData const & addressData)
 {
-  return std::string("AddressData [")
-          .append("Street = \"").append(addressData.Get(AddressData::Type::Street)).append("\"; ")
-          .append("Postcode = \"").append(addressData.Get(AddressData::Type::Postcode)).append("\"]");
+  return string("AddressData { Street = \"").append(addressData.Get(AddressData::Type::Street)) + "\" }";
 }
 }  // namespace feature

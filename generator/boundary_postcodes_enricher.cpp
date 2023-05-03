@@ -33,11 +33,12 @@ BoundaryPostcodesEnricher::BoundaryPostcodesEnricher(std::string const & boundar
 
 void BoundaryPostcodesEnricher::Enrich(feature::FeatureBuilder & fb) const
 {
-  if (fb.HasPostcode() || !ftypes::IsAddressObjectChecker::Instance()(fb.GetTypes()))
+  auto & params = fb.GetParams();
+  if (!params.GetPostcode().empty() || !ftypes::IsAddressObjectChecker::Instance()(fb.GetTypes()))
     return;
 
   auto const hasName = !fb.GetMultilangName().IsEmpty();
-  auto const hasHouseNumber = !fb.GetParams().house.IsEmpty();
+  auto const hasHouseNumber = !params.house.IsEmpty();
 
   // We do not save postcodes for unnamed features without house number to reduce amount of data.
   // For example with this filter we have +100Kb for Turkey_Marmara Region_Istanbul.mwm, without
@@ -52,7 +53,7 @@ void BoundaryPostcodesEnricher::Enrich(feature::FeatureBuilder & fb) const
     if (!m_boundaryPostcodes[i].second.Contains(center))
       return false;
 
-    fb.SetPostcode(m_boundaryPostcodes[i].first);
+    params.SetPostcode(m_boundaryPostcodes[i].first);
     return true;
   });
 }

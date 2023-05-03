@@ -523,17 +523,31 @@ uint32_t FeatureParams::GetTypeForIndex(uint32_t i)
   return classif().GetTypeForIndex(i);
 }
 
-void FeatureBuilderParams::AddStreet(string s)
+void FeatureBuilderParams::SetStreet(string s)
 {
+  if (s.empty())
+    return;
+
   // Replace \n with spaces because we write addresses to txt file.
   replace(s.begin(), s.end(), '\n', ' ');
 
-  m_addrTags.Add(AddressData::Type::Street, s);
+  m_addrTags.Set(AddressData::Type::Street, s);
 }
 
-void FeatureBuilderParams::AddPostcode(string const & s)
+std::string_view FeatureBuilderParams::GetStreet() const
 {
-  m_addrTags.Add(AddressData::Type::Postcode, s);
+  return m_addrTags.Get(AddressData::Type::Street);
+}
+
+void FeatureBuilderParams::SetPostcode(string const & s)
+{
+  if (!s.empty())
+    m_metadata.Set(Metadata::FMD_POSTCODE, s);
+}
+
+std::string_view FeatureBuilderParams::GetPostcode() const
+{
+  return m_metadata.Get(Metadata::FMD_POSTCODE);
 }
 
 namespace
@@ -607,8 +621,8 @@ string DebugPrint(FeatureBuilderParams const & p)
 {
   ostringstream oss;
   oss << "ReversedGeometry: " << (p.GetReversedGeometry() ? "true" : "false") << "; ";
-  oss << DebugPrint(p.GetMetadata()) << "; ";
-  oss << DebugPrint(p.GetAddressData()) << "; ";
+  oss << DebugPrint(p.m_metadata) << "; ";
+  oss << DebugPrint(p.m_addrTags) << "; ";
   oss << DebugPrint(static_cast<FeatureParams const &>(p));
   return oss.str();
 }

@@ -127,7 +127,7 @@ public:
     TestStreet::Serialize(fb);
 
     if (!m_street.empty())
-      fb.GetParams().AddStreet(m_street);
+      fb.GetParams().SetStreet(m_street);
   }
 
 private:
