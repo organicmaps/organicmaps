@@ -1,11 +1,13 @@
-• New OpenStreetMap data as of March 29
-• Experimental Lane assistant
-• Fix wrong location arrow position during navigation
-• Fix bookmark's color chooser for Right-To-Left languages
-• Properly display speed and distance in navigation mode
-• Fix API to select a point on the map
-• Many new shop types
-• Add money transfer, bicycle charging stations, power plant
-• Made park, forest, and scrub colors different
-• Improved ar, be, de, hu, tr translations
-…more: omaps.app/news
+• New OpenStreetMap data as of May 3
+• Fix search for interporlated odd/even house numbers
+• Fix zoom buttons setting
+• Faster rendering of subway layer
+• Fix wrong postcodes in Paris
+• Fix missing Wikipedia links
+• Fix car routing via roundabouts
+• Enable TTS for Portuguese/Brazil, Español/México
+• Fix location detection over a network on some devices
+• Change gates and Lyon subway icon
+• Fix US road shields
+• Add camera, interior_decoration, antiques, art, cheese shops
+…more: omaps.org/news

@@ -1,26 +1,15 @@
-• New OpenStreetMap data as of March 29
-• Navigation directions are now correctly displayed on iPad
-• Replaced uphill and downhill icons with more clear arrows
-• Correctly import KML bookmarks with track data
-• Disable 3D buildings preference if power saving is enabled
-• Music and music instruments shops can be added using Editor
-• Sewing shops and haberdasheries are searchable and have a better icon
-• Searching for a "supermarket" doesn't result in convenience stores anymore
-• Add localized links for the OSM wiki page
+• New OpenStreetMap data as of May 3
+• Implemented search for interporlated odd/even house numbers
+• Faster rendering of subway layer
+• Fixed wrong postcodes in Paris
+• Fixed missing Wikipedia links
+• Fixed car routing via roundabouts
+• Improved English, German, and Brazil translations
+• Enabled TTS for Basque, Marathi, Norwegian, Portuguese (Brazil), Spanish (México)
+• Added camera shop, interior_decoration, antiques, art, cheese shop
+• Changed gate icon
+• Changed the Lyon subway icon
+• Fixed US road shields
+• Fixed priority of water areas
 
-Styles
-• New shop types: agrarian, appliance, bed, outpost, gas, key cutter, locksmith, carpet, motorcycle repair, pet grooming, hi-fi, bathroom furnishing, curtain, fashion accessories, cannabis, herbalist
-• Added money transfer, bicycle charging stations, power plant
-• Made captions optional for most of POI icons
-• Made park, forest, and scrub colors different
-• Added metal construction icons
-• Improved aerial ways, cable cars, power lines, fences
-• Reduce Barcelona subway visibility
-• Fixed isolines that are drawn over buildings, roads, etc.
-• Fixed rendering of multiple-type features (e.g. some POI captions were displayed too early)
-
-Translations:
-• Improved German, Turkish, Belarusian, Hungarian translations
-• Improved Arabic TTS instructions
-
-Follow our news at omaps.app/news
+Follow our news at omaps.org/news

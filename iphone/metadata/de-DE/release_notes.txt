@@ -1,24 +1,15 @@
-• Neue OSM Kartendaten vom 29. März
-• Links zum OSM Wiki werden in der richtigen Sprache geöffnet
-• Bergauf und Bergab Symbole wurden durch eindeutigere Pfeile ersetzt
-• KML Lesezeichen mit Pfaddaten werden korrekt importiert
-• Die 3D Darstellung von Gebäuden wird im Energiesparmodus ausgeschaltet
-• [editor] Orte mit den Tags "music" und "musical_instruments können bearbeitet werden
-• Nähgeschäfte und  and Kurzwarengeschäfte sind mit der Suche auffindbar
-• Zwischen Supermarkt und kleineren Lebensmittelläden wird unterschieden
+• New OpenStreetMap data as of May 3
+• Implemented search for interporlated odd/even house numbers
+• Faster rendering of subway layer
+• Fixed wrong postcodes in Paris
+• Fixed missing Wikipedia links
+• Fixed car routing via roundabouts
+• Improved English, German, and Brazil translations
+• Enabled TTS for Basque, Marathi, Norwegian, Portuguese (Brazil), Spanish (México)
+• Added camera shop, interior_decoration, antiques, art, cheese shop
+• Changed gate icon
+• Changed the Lyon subway icon
+• Fixed US road shields
+• Fixed priority of water areas
 
-Aussehen
-• Neue Geschäftstypen: landwirtschaftliche Produkte, Weiße Ware (Kühlschränke, Waschmaschinen...), Bettengeschäft, Click&Collect, Gas, Schlüsseldienst Schlosser, Teppichladen, Motorradwerkstatt, Haustierpflege, Hi-Fi, Badezimmereinrichtung, Gardinengeschäft, Modeaccessoires (Bekleidungszubehör) Cannabis, Kräuterladen
-• Neu hinzugefügte Objekte: Geldtransfer, Fahrradladestationen, Kraftwerk
-• Beschriftungen für Hauptstädte mit einem Sternsymbol wurden obligatorisch gemacht
-• Die Farben von Parks, Wäldern und Buschland sind jetzt unterschiedlich
-• Symbole für Standorte an denen Metall verarbeitet wird wurden hinzugefügt
-• Verbesserte Darstellung von: Lifts, Seilbahnen, Stromleitungen, Zäunen
-• Barcelonas U-Bahn Sichtbarkeit wurde verringert
-• Höhenlinen werden nicht mehr über Gebäude, Straßen etc. gezeichnet
-
-Übersetzung:
-• Verbesserung der deutschen, türkischen, belarussischen und ungarischen Übersetzung
-• Verbesserung der arabischen TTS Ausgabe
-
-Bleib auf dem aktuellsten Stand unter: omaps.app/news
+Follow our news at omaps.org/news

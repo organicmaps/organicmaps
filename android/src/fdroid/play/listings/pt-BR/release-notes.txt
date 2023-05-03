@@ -1,10 +1,12 @@
-• Novos dados OSM de 29/03
-• Assistente de faixas (beta)
-• Correção da posição de seta de localização durante navegação
-• Correção do selecionador de cores dos favoritos para escritas RTL
-• Exibição correta da velocidade e distância no modo de navegação
-• Correção da API para selecionar um ponto no mapa
-• Muitos novos tipos de lojas
-• Adição de carregamento de bicicleta, transferência de dinheiro e usinas
-• Distinção de arbustos, florestas e parques
-…mais: omaps.app/news
+• Novos dados OSM de 03/05
+• Busca suporta endereços interpolados
+• Renderização mais rápida do metrô
+• Correção de links ausentes da Wikipédia
+• Melhor roteamento nas rotatórias
+• Ativação de TTS para ES-MX e PT-BR
+• Correção de detecção de localização via rede em alguns dispositivos
+• Alteração de ícone de portão e do metrô de Lyon
+• Correção de placas de estradas dos EUA
+• Adição de loja de antiguidades, arte, câmeras, interiores e queijos
+
+…mais: omaps.org/news
