@@ -292,7 +292,7 @@ public:
       m_boundaryPostcodesEnricher.Enrich(fb);
 
       // 2. Write address to a file (with possible updated postcode above).
-      fb.GetAddressData().SerializeForMwmTmp(*m_addrFile);
+      fb.GetParams().SerializeAddress(*m_addrFile);
 
       // 3. Save metadata.
       if (!fb.GetMetadata().Empty())

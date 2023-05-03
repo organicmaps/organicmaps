@@ -22,12 +22,8 @@ uint64_t GetOsmID(FeatureBuilder const & fb)
 
 AddressesHolder::AddressInfo FromFB(FeatureBuilder const & fb)
 {
-  return {
-    fb.GetParams().house.Get(),
-    std::string(fb.GetAddressData().Get(AddressData::Type::Street)),
-    std::string(fb.GetAddressData().Get(AddressData::Type::Postcode)),
-    {}
-  };
+  auto const & params = fb.GetParams();
+  return { params.house.Get(), std::string(params.GetStreet()), std::string(params.GetPostcode()), {} };
 }
 
 void LogWarning(std::string const & msg, uint64_t id)
@@ -114,7 +110,7 @@ bool AddressesHolder::Update(feature::FeatureBuilder & fb) const
     if (!info.m_street.empty())
       LogWarning("Different streets", id);
     else
-      params.AddStreet(i->second.m_street);
+      params.SetStreet(i->second.m_street);
   }
 
   if (!i->second.m_postcode.empty() && i->second.m_postcode != info.m_postcode)
@@ -122,7 +118,7 @@ bool AddressesHolder::Update(feature::FeatureBuilder & fb) const
     if (!info.m_postcode.empty())
       LogWarning("Different postcodes", id);
     else
-      params.AddPostcode(i->second.m_postcode);
+      params.SetPostcode(i->second.m_postcode);
   }
 
   return true;

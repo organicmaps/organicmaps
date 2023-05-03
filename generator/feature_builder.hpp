@@ -157,13 +157,9 @@ public:
   std::string_view GetName(int8_t lang = StringUtf8Multilang::kDefaultCode) const;
   StringUtf8Multilang const & GetMultilangName() const { return m_params.name; }
   uint8_t GetRank() const { return m_params.rank; }
-  AddressData const & GetAddressData() const { return m_params.GetAddressData(); }
 
   Metadata const & GetMetadata() const { return m_params.GetMetadata(); }
   Metadata & GetMetadata() { return m_params.GetMetadata(); }
-
-  bool HasPostcode() const;
-  void SetPostcode(std::string const & postcode);
 
   // To work with types and names based on drawing.
   // Check classificator types for their compatibility with feature geometry type.

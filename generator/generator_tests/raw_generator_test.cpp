@@ -4,6 +4,7 @@
 #include "generator/descriptions_section_builder.hpp"
 
 #include "search/cities_boundaries_table.hpp"
+#include "search/house_to_street_table.hpp"
 
 #include "routing/index_graph_loader.hpp"
 #include "routing/maxspeeds.hpp"
@@ -413,6 +414,59 @@ UNIT_CLASS_TEST(TestRawGenerator, Postcode_Relations)
   });
 
   TEST_EQUAL(count, 2, ());
+}
+
+UNIT_CLASS_TEST(TestRawGenerator, Building_Address)
+{
+  std::string const mwmName = "Address";
+  BuildFB("./data/osm_test_data/building_address.osm", mwmName, false /* makeWorld */);
+
+  size_t count = 0;
+  ForEachFB(mwmName, [&](feature::FeatureBuilder const & fb)
+  {
+    if (ftypes::IsBuildingChecker::Instance()(fb.GetTypes()))
+    {
+      auto const & params = fb.GetParams();
+      TEST_EQUAL(params.GetStreet(), "Airport Boulevard", ());
+      TEST_EQUAL(params.GetPostcode(), "819666", ());
+      ++count;
+    }
+  });
+  TEST_EQUAL(count, 1, ());
+
+  BuildFeatures(mwmName);
+  BuildSearch(mwmName);
+
+  FrozenDataSource dataSource;
+  auto const res = dataSource.RegisterMap(platform::LocalCountryFile::MakeTemporary(GetMwmPath(mwmName)));
+  CHECK_EQUAL(res.second, MwmSet::RegResult::Success, ());
+
+  FeaturesLoaderGuard guard(dataSource, res.first);
+
+  count = 0;
+  size_t const numFeatures = guard.GetNumFeatures();
+  for (size_t id = 0; id < numFeatures; ++id)
+  {
+    auto ft = guard.GetFeatureByIndex(id);
+    if (ftypes::IsBuildingChecker::Instance()(*ft))
+    {
+      TEST_EQUAL(ft->GetHouseNumber(), "78", ());
+      TEST_EQUAL(GetPostcode(*ft), "819666", ());
+      ++count;
+
+      auto value = guard.GetHandle().GetValue();
+      if (!value->m_house2street)
+        value->m_house2street = search::LoadHouseToStreetTable(*value);
+
+      auto res = value->m_house2street->Get(id);
+      TEST(res, ());
+
+      auto street = guard.GetFeatureByIndex(res->m_streetId);
+      TEST_EQUAL(street->GetName(StringUtf8Multilang::kDefaultCode), "Airport Boulevard", ());
+    }
+  }
+
+  TEST_EQUAL(count, 1, ());
 }
 
 // https://github.com/organicmaps/organicmaps/issues/4974
@@ -896,8 +950,9 @@ UNIT_CLASS_TEST(TestRawGenerator, Addr_Interpolation)
     if (fb.GetGeomType() == feature::GeomType::Line && fb.HasType(addrType))
     {
       ++count;
-      TEST_EQUAL(fb.GetParams().ref, "3602:3800", ());
-      TEST_EQUAL(fb.GetAddressData().Get(feature::AddressData::Type::Street), "Juncal", ());
+      auto const & params = fb.GetParams();
+      TEST_EQUAL(params.ref, "3602:3800", ());
+      TEST_EQUAL(params.GetStreet(), "Juncal", ());
     }
   });
 
@@ -919,14 +974,15 @@ UNIT_CLASS_TEST(TestRawGenerator, NamedAddress)
     TEST_EQUAL(fb.GetGeomType(), feature::GeomType::Point, ());
     TEST(fb.HasType(addrType), ());
 
-    TEST(fb.GetParams().house.IsEmpty() != fb.GetName().empty(), ());
-    if (fb.GetParams().house.IsEmpty())
+    auto const & params = fb.GetParams();
+    TEST(params.house.IsEmpty() != fb.GetName().empty(), ());
+    if (params.house.IsEmpty())
       ++withName;
     else
       ++withNumber;
 
-    TEST(fb.GetAddressData().Get(feature::AddressData::Type::Street).empty(), ());
-    TEST_EQUAL(fb.GetAddressData().Get(feature::AddressData::Type::Postcode), "LV-5695", ());
+    TEST(params.GetStreet().empty(), ());
+    TEST_EQUAL(params.GetPostcode(), "LV-5695", ());
   });
 
   TEST_EQUAL(withName, 3, ());
