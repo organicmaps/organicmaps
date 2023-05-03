@@ -92,6 +92,12 @@ public:
 
   static Languages const & GetSupportedLanguages();
 
+  // These names require separate search/street processing.
+  static bool IsAltOrOldName(int8_t langCode)
+  {
+    return langCode == kAltNameCode || langCode == kOldNameCode;
+  }
+
   /// @returns kUnsupportedLanguageCode if language is not recognized.
   static int8_t GetLangIndex(std::string_view lang);
   /// @returns empty string if langCode is invalid.

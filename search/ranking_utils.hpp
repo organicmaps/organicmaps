@@ -273,8 +273,7 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t
         // Update the match quality
         totalErrorsMade += errorsMade;
         matchedLength += slice.Get(i).GetOriginal().size();
-        isAltOrOldName =
-            lang == StringUtf8Multilang::kAltNameCode || lang == StringUtf8Multilang::kOldNameCode;
+        isAltOrOldName = StringUtf8Multilang::IsAltOrOldName(lang);
       }
       else
       {

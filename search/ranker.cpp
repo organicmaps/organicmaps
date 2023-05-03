@@ -37,7 +37,7 @@ namespace
 template <typename Slice>
 void UpdateNameScores(string_view name, uint8_t lang, Slice const & slice, NameScores & bestScores)
 {
-  if (lang == StringUtf8Multilang::kAltNameCode || lang == StringUtf8Multilang::kOldNameCode)
+  if (StringUtf8Multilang::IsAltOrOldName(lang))
   {
     strings::Tokenize(name, ";", [&](string_view n)
     {
@@ -129,7 +129,7 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
       }
     };
 
-    if (lang == StringUtf8Multilang::kAltNameCode || lang == StringUtf8Multilang::kOldNameCode)
+    if (StringUtf8Multilang::IsAltOrOldName(lang))
     {
       strings::Tokenize(name, ";", [&updateScore](string_view n)
       {
@@ -875,7 +875,7 @@ void Ranker::GetBestMatchName(FeatureType & f, string & name) const
 
   auto bestNameFinder = [&](int8_t lang, string_view s)
   {
-    if (lang == StringUtf8Multilang::kAltNameCode || lang == StringUtf8Multilang::kOldNameCode)
+    if (StringUtf8Multilang::IsAltOrOldName(lang))
     {
       strings::Tokenize(s, ";", [lang, &updateScore](std::string_view n)
       {
@@ -899,8 +899,7 @@ void Ranker::GetBestMatchName(FeatureType & f, string & name) const
   };
   UNUSED_VALUE(f.ForEachName(bestNameFinder));
 
-  if (bestLang == StringUtf8Multilang::kAltNameCode ||
-      bestLang == StringUtf8Multilang::kOldNameCode)
+  if (StringUtf8Multilang::IsAltOrOldName(bestLang))
   {
     string_view const readableName = f.GetReadableName();
     // Do nothing if alt/old name is the only name we have.
