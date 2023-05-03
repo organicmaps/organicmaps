@@ -143,13 +143,12 @@ char const * StringUtf8Multilang::GetLangNameByCode(int8_t langCode)
 }
 
 // static
-vector<string> const & StringUtf8Multilang::GetTransliteratorsIdsByCode(int8_t langCode)
+vector<string> const * StringUtf8Multilang::GetTransliteratorsIdsByCode(int8_t langCode)
 {
-  static const vector<string> empty;
   if (!IsSupportedLangCode(langCode))
-    return empty;
+    return nullptr;
 
-  return kLanguages[langCode].m_transliteratorsIds;
+  return &kLanguages[langCode].m_transliteratorsIds;
 }
 
 size_t StringUtf8Multilang::GetNextIndex(size_t i) const

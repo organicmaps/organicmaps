@@ -142,12 +142,12 @@ bool Transliteration::Transliterate(std::string_view sv, int8_t langCode,
   if (sv.empty() || strings::IsASCIIString(sv))
     return false;
 
-  auto const & transliteratorsIds = StringUtf8Multilang::GetTransliteratorsIdsByCode(langCode);
-  if (transliteratorsIds.empty())
+  auto const * transliteratorsIds = StringUtf8Multilang::GetTransliteratorsIdsByCode(langCode);
+  if (transliteratorsIds == nullptr || transliteratorsIds->empty())
     return false;
 
   icu::UnicodeString ustr(sv.data(), static_cast<int32_t>(sv.size()));
-  for (auto const & id : transliteratorsIds)
+  for (auto const & id : *transliteratorsIds)
     Transliterate(id, ustr);
 
   if (ustr.isEmpty())
