@@ -1,8 +1,13 @@
-• Dades planetàries noves de l’OSM al 29 de març
-• Auxiliar de carrils experimental
-• Es corregeix la posició incorrecta de la fletxa d’ubicació durant la navegació
-• S’arregla el selector de colors de les adreces d’interès en llengües escrites de dreta a esquerra
-• Es mostra apropiadament la velocitat i la distància al mode de navegació
-• Molts tipus de botigues nous
-• Afegeix transferències de diners, estacions de càrrega de bicicletes i centrals d’energia
-…i més: omaps.app/news
+• New OpenStreetMap data as of May 3
+• Fix search for interporlated odd/even house numbers
+• Fix zoom buttons setting
+• Faster rendering of subway layer
+• Fix wrong postcodes in Paris
+• Fix missing Wikipedia links
+• Fix car routing via roundabouts
+• Enable TTS for Portuguese/Brazil, Español/México
+• Fix location detection over a network on some devices
+• Change gates and Lyon subway icon
+• Fix US road shields
+• Add camera, interior_decoration, antiques, art, cheese shops
+…more: omaps.org/news

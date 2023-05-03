@@ -1,11 +1,11 @@
-Mutlu Ramazanlar!
-• 29 Mart tarihine ait yeni OpenStreetMap harita verileri
-• Deneysel şerit asistanı
-• Navigasyon sırasındaki konum okunun konumu düzeltildi
-• Artık navigasyon modundayken hız ve mesafe düzgün şekilde görüntüleniyor
-• API için haritadan nokta seçimi düzeltildi
-• Birçok yeni mağaza türü eklendi
-• Para transferi, bisiklet şarj istasyonu ve elektrik santrali kategorileri eklendi
-• Park, orman ve çalılık renkleri artık farklı
-• Çeviriler iyileştirildi
-…dahası: omaps.app/tr/news
+• 3 Mayıs tarihine ait yeni OpenStreetMap verileri
+• addr:interpolation adresleri artık aranabilir
+• Metro katmanı artık daha hızlı açılıyor 
+• Eksik Vikipedi bağlantıları düzeltildi 
+• Döner kavşaklardan geçen araç rotalarında bazı düzeltmeler yapıldı
+• Bazı cihazlarda ağ üzerinden konum algılama düzeltildi 
+• Geçit simgesi değiştirildi
+• Fotoğraf makinesi mağazası, iç dekorasyon, antika, sanat, peynirci kategorileri eklendi 
+
+ …dahası: omaps.org/tr/news
+ 

@@ -1,22 +1,11 @@
-Mutlu, Sağlıklı ve Huzur Dolu bir Ramazan dileriz.
+• 3 Mayıs tarihine ait yeni OpenStreetMap verileri
+• addr:interpolation adresleri artık aranabilir
+• Metro katmanı artık daha hızlı açılıyor
+• Eksik Vikipedi bağlantıları düzeltildi
+• Döner kavşaklardan geçen araç rotalarında bazı düzeltmeler yapıldı
+• Bazı cihazlarda ağ üzerinden konum algılama düzeltildi
+• Geçit simgesi değiştirildi
+• Fotoğraf makinesi mağazası, iç dekorasyon, antika, sanat, peynirci kategorileri eklendi
+• Su alanlarının önceliği düzeltildi
 
-• 29 Mart tarihine ait yeni OpenStreetMap harita verileri
-• OpenStreetMap wiki bağlantıları artık Türkçe sayfalara yönlendiriyor
-• Yokuş yukarı ve aşağı simgeleri daha net oklarla değiştirildi
-• KML yer işaretleri artık yol kaydı verileriyle doğru bir şekilde içe aktarılıyor
-• Güç tasarrufu modundayken artık 3D yapılar devre dışı bırakılıyor
-• Müzik ve enstrüman kategorileri editör aracılığıyla haritaya eklenebilir
-• Dikiş dükkanları ve tuhafiyeler artık aranabilir
-• Süpermarket ve marketler birbirinden ayrıldı
-• Türkçe çeviriler iyileştirildi
-
-Stiller
-• Anahtarcı, çilingir, halıcı, motosiklet tamircisi, evcil hayvan bakımı, banyo mobilyası, perdeci, moda aksesuarları ve aktar gibi birçok yeni mağaza türleri eklendi
-• Para transferi, bisiklet şarj istasyonu ve enerji santrali kategorileri eklendi
-• Yıldız simgesi olan başkentler için başlık zorunlu hale getirildi
-• Park, orman ve çalılık renkleri artık farklı
-• Metal konstrüksiyon simgeleri eklendi
-• Hava yolları, teleferikler, elektrik hatları ve çitler iyileştirildi
-• Bina, yol vb. nesnelerin üzerinden geçen eş yükselti çizgileri (izohipsler) düzeltildi
-
-Gelişmelerimizi omaps.app/tr/news adresinden takip edebilirsiniz
+Gelişmelerimizi omaps.org/tr/news adresinden takip edebilirsiniz

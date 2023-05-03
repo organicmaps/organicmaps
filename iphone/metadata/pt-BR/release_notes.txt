@@ -1,25 +1,15 @@
-• Novos dados OSM de 29 de março
-• Adição de links localizados para a página da Wiki OSM
-• Substituição de ícones de subida e descida para setas melhores definidas
-• Importação correta de favoritos KML com dados de trilha
-• Desativação de edifícios 3D nas Configurações, se a economia de energia estiver ativada
-• O editor agora permite adicionar lojas de música e instrumentos musicais
-• As lojas de costura e de miudezas são pesquisáveis e têm um ícone melhor
-• Procurar um "supermercado" não resulta mais em lojas de conveniência
+• Novos dados OSM de 3 de maio
+• A busca oferece suporte a endereços interpolados
+• Renderização mais rápida da camada de metrô
+• Correção de CEPs incorretos em Paris
+• Correção de links ausentes da Wikipédia
+• Correção de roteamento de carros nas rotatórias
+• Melhoria de traduções para alemão, inglês e português (Brasil)
+• Ativação de TTS para basco, espanhol (México), marata, norueguês e português (Brasil)
+• Adição de loja de antiguidades, arte, câmeras, decoração de interiores e queijos
+• Alteração de ícone de portão
+• Atualização do ícone do metrô de Lyon
+• Correção de placas de identificação de estradas dos EUA
+• Correção na exibição de corpos d'água
 
-Estilos
-• Novos tipos de loja: agrícola, acessórios de moda, cama, cannabis, chaveiro, cortina, eletrodomésticos, ervas, gás, móveis de banheiro, oficinas de motos, pet-shops, recolha de encomendas, serralheiro, som hi-fi e tapetes
-• Adição de estações de carregamento de bicicleta, transferência de dinheiro e usinas de energia
-• Legendas opcionais para a maioria dos ícones de pontos de interesse
-• Distinção das cores de arbustos, florestas e parques
-• Adição de ícones de construção de metal
-• Melhoria em caminhos aéreos, teleféricos, linhas de energia e cercas
-• Redução da visibilidade do metrô de Barcelona
-• Correção de isolinhas que eram desenhadas por cima de edifícios, estradas etc.
-• Correção da renderização de elementos multi-tipos (ex. algumas legendas de pontos de interesse eram mostradas muito cedo)
-
-Traduções:
-• Melhoria nas traduções de alemão, bielorrusso, húngaro e turco
-• Melhoria nas instruções TTS de árabe
-
-Acompanhe nossas novidades em omaps.app/news
+Acompanhe nossas novidades em omaps.org/new
