@@ -1069,7 +1069,7 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
   namesExtractor.Finish();
 
   // Stage3: Process base feature tags.
-  std::string houseName, houseNumber, addrPostcode;
+  std::string houseName, houseNumber, addrStreet, addrPostcode;
   TagProcessor(p).ApplyRules<void(string &, string &)>(
   {
       {"addr:housenumber", "*",
@@ -1078,18 +1078,32 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
          k.clear();
          v.clear();
        }},
+      {"contact:housenumber", "*", [&houseNumber](string & k, string & v)
+      {
+        if (houseNumber.empty())
+          houseNumber = std::move(v);
+        k.clear();
+        v.clear();
+      }},
       {"addr:housename", "*",
        [&houseName](string & k, string & v) {
          houseName = std::move(v);
          k.clear();
          v.clear();
        }},
-      {"addr:street", "*",
-       [&params](string & k, string & v) {
-         params.SetStreet(std::move(v));
-         k.clear();
-         v.clear();
-       }},
+      {"addr:street", "*", [&addrStreet](string & k, string & v)
+      {
+        addrStreet = std::move(v);
+        k.clear();
+        v.clear();
+      }},
+      {"contact:street", "*", [&addrStreet](string & k, string & v)
+      {
+        if (addrStreet.empty())
+          addrStreet = std::move(v);
+        k.clear();
+        v.clear();
+      }},
       {"addr:postcode", "*", [&addrPostcode](string & k, string & v)
       {
         addrPostcode = std::move(v);
@@ -1099,6 +1113,13 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
       {"postal_code", "*", [&addrPostcode](string & k, string & v)
       {
         addrPostcode = std::move(v);
+        k.clear();
+        v.clear();
+      }},
+      {"contact:postcode", "*", [&addrPostcode](string & k, string & v)
+      {
+        if (addrPostcode.empty())
+          addrPostcode = std::move(v);
         k.clear();
         v.clear();
       }},
@@ -1129,6 +1150,7 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
        }},
   });
 
+  params.SetStreet(std::move(addrStreet));
   params.SetPostcode(addrPostcode);
   params.SetHouseNumberAndHouseName(std::move(houseNumber), std::move(houseName));
 

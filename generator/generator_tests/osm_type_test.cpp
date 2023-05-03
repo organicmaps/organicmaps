@@ -262,6 +262,31 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Address)
     TEST(params.GetStreet().empty(), ());
     TEST_EQUAL(params.GetPostcode(), "LV-5695", ());
   }
+
+  {
+    Tags const tags = {
+      {"building", "yes"},
+      {"contact:city", "Paris"},
+      {"contact:housenumber", "13"},
+      {"contact:phone", "+33 1 44 77 60 60"},
+      {"contact:postcode", "75001"},
+      {"contact:street", "Place Vendôme"},
+      {"contact:website", "https://www.justice.gouv.fr/"},
+      {"government", "ministry"},
+      {"historic", "manor"},
+      {"layer", "1"},
+      {"name", "Ministère de la Justice"},
+      {"office", "government"},
+      {"wikidata", "Q3145763"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+    TEST_EQUAL(params.m_types.size(), 3, (params));
+
+    TEST_EQUAL(params.house.Get(), "13", ());
+    TEST_EQUAL(params.GetStreet(), "Place Vendôme", ());
+    TEST_EQUAL(params.GetPostcode(), "75001", ());
+  }
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_PlaceState)
