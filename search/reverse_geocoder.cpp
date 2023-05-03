@@ -109,15 +109,17 @@ optional<uint32_t> ReverseGeocoder::GetMatchedStreetIndex(string_view keyName,
     for (auto const & street : streets)
     {
       bool fullMatchFound = false;
-      street.m_multilangName.ForEach([&](int8_t /* langCode */, string_view name)
+      street.m_multilangName.ForEach([&](int8_t lang, string_view name)
       {
         if (fullMatchFound)
           return;
 
-        strings::UniString const actual = GetStreetNameAsKey(name, ignoreStreetSynonyms);
+        // Skip _non-language_ names for street<->address matching.
+        if (StringUtf8Multilang::IsAltOrOldName(lang))
+          return;
 
-        size_t const editDistance =
-            strings::EditDistance(key.begin(), key.end(), actual.begin(), actual.end());
+        strings::UniString const actual = GetStreetNameAsKey(name, ignoreStreetSynonyms);
+        size_t const editDistance = strings::EditDistance(key.begin(), key.end(), actual.begin(), actual.end());
 
         if (editDistance == 0)
         {
