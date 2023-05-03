@@ -113,6 +113,32 @@
   </screenshots>
 
   <releases>
+   <release version="2023.05.08-7" date="2023-05-08">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OpenStreetMap data as of May 3</li>
+           <li>Fixed OpenGL issues on some devices</li>
+           <li>Search supports addr:interpolation addresses</li>
+           <li>Faster rendering of subway layer</li>
+           <li>Fixed wrong postcodes in Paris</li>
+           <li>Fixed missing Wikipedia links</li>
+           <li>Fixed car routing via roundabouts</li>
+         </ul>
+       <p>Map Styles:</p>
+         <ul>
+           <li>Changed gate icon</li>
+           <li>Changed Lyon subway icon</li>
+           <li>Fixed US road shields</li>
+           <li>Fixed priority of water areas</li>
+           <li>Added camera shop, interior_decoration, antiques, art, cheese shop</li>
+         </ul>
+       <p>Translations:</p>
+         <ul>
+           <li>Improved English, German, Brazilian Portuguese translations</li>
+         </ul>
+     </description>
+   </release>
    <release version="2023.04.02-7" date="2023-04-02">
      <description>
        <p>Highlights:</p>
