@@ -14991,3 +14991,178 @@ uk:Електростанція
 vi:Nhà máy điện
 zh-Hans:发电厂
 zh-Hant:發電廠
+
+Generator|@generator
+en : Generator
+de : Generator
+es : Generador
+et : Generaator
+it : Generatore
+ja : 発電機
+mr : जनित्र(जनरेटर)|उत्पादक|
+pt : Gerador de energia
+pt-BR : Gerador de energia
+ru : Генератор
+tr : Jeneratör
+uk : Генератор
+zh-Hans : 发电机
+
+generator-solar power
+en : Solar Generator
+ar : مولد للطاقة الشمسية
+be : Сонечны генератар
+bg : Слънчев генератор
+ca : Generador solar
+cs : Solární generátor
+da : Solar generator
+de : Solargenerator
+el : Ηλιακή γεννήτρια
+es : Generador solar
+et : Päikese generaator
+eu : Eguzki-sorgailua
+fa : ژنراتور خورشیدی
+fi : Aurinkogeneraattori
+fr : Générateur solaire
+he : גנרטור סולארי
+hu : Napelemes generátor
+id : Pembangkit surya
+it : Generatore solare
+ja : 太陽光発電機
+ko : 태양열 발전기
+mr : सौर जनरेटर|सौर ऊर्जा उत्पादक
+nb : Solenergi generator
+nl : Zonne-generator
+pl : Generator słoneczny
+pt : Gerador solar
+pt-BR : Gerador solar
+ro : Generator solar
+ru : Солнечный генератор
+sk : Solárny generátor
+sv : Solgenerator
+sw : Jenereta ya jua
+th : เครื่องกำเนิดพลังงานแสงอาทิตย์
+tr : Güneş jeneratörü
+uk : Сонячний генератор
+vi : Máy phát điện năng lượng mặt trời
+zh-Hans : 太阳能发电机
+zh-Hant : 太陽能發電機
+
+generator-wind power
+en : Wind Generator
+ar : مولد الرياح
+be : Ветрагенератар
+bg : Вятърен генератор
+ca : Generador eòlic
+cs : Větrný generátor
+da : Vindgenerator
+de : Windgenerator
+el : Ανεμογεννήτρια
+es : Generador de viento
+et : Tuulegeneraator
+eu : Sorgailu eolikoa
+fa : مولد باد
+fi : Tuuligeneraattori
+fr : Générateur de vent
+he : מחולל רוח
+hu : Szélgenerátor
+id : Generator angin
+it : Generatore eolico
+ja : 風力発電機
+ko : 풍력 발전기
+mr : वारा जनरेटर|पवन जनरेटर 
+nb : Vindgenerator
+nl : Wind generator
+pl : Generator wiatru
+pt : Gerador eólico
+pt-BR : Gerador eólico
+ro : Generator eolian
+ru : Ветрогенератор
+sk : Veterný generátor
+sv : Vindgenerator
+sw : Jenereta ya upepo
+th : เครื่องกำเนิดลม
+tr : Rüzgar jeneratörü
+uk : Вітрогенератор
+vi : Máy phát điện gió
+zh-Hans : 风力发电机
+zh-Hant : 風力發電機
+
+generator-gas power
+en : Gas turbine Power Plant
+ar : محطة توليد الكهرباء بالغاز
+be : Газатурбінная электрастанцыя
+bg : Газотурбинна електроцентрала
+ca : Central elèctrica de turbina de gas
+cs : Elektrárna s plynovou turbínou
+da : Gasturbine kraftværk
+de : Gasturbinenkraftwerk
+el : Μονάδα παραγωγής ηλεκτρικής ενέργειας αεριοστροβίλου
+es : Planta de energía de turbina de gas
+et : Gaasiturbiini elektrijaam
+eu : Gas-turbinetako zentral elektrikoa
+fa : نیروگاه توربین گاز
+fi : Kaasuturbiinivoimala
+fr : Centrale à turbine à gaz
+he : תחנת כוח לטורבינת גז
+hu : Gázturbinás erőmű
+id : Pembangkit listrik turbin gas
+it : Centrale elettrica a turbina a gas
+ja : ガスタービン発電所
+ko : 가스 터빈 발전소
+mr : गॅस टर्बाइन पॉवर प्लांट|गैस टरबाइन ऊर्जा संयंत्र
+nb : Gassturbinkraftverk
+nl : Gasturbine elektriciteitscentrale
+pl : Elektrownia z turbiną gazową
+pt : Usina de turbina a gás
+pt-BR : Usina de turbina a gás
+ro : Centrala electrica cu turbina cu gaz
+ru : Газотурбинная электростанция
+sk : Elektráreň s plynovou turbínou
+sv : Gasturbinkraftverk
+sw : Kiwanda cha nguvu cha turbine ya gesi
+th : โรงไฟฟ้ากังหันก๊าซ
+tr : Gaz türbini santrali
+uk : Газотурбінна електростанція
+vi : Nhà máy điện tua bin khí
+zh-Hans : 燃气轮机发电厂
+zh-Hant : 燃氣輪機發電廠
+
+generator-hydro power
+en : Hydroelectric Power Plant
+ar : محطة توليد الطاقة الكهرمائية
+be : Гідраэлектрастанцыя
+bg : Водноелектрическа централа
+ca : Central hidroelèctrica
+cs : Vodní elektrárna
+da : Vandkraftværk
+de : Wasserkraftwerk
+el : Υδροηλεκτρικό εργοστάσιο
+es : Planta de energía hidroeléctrica
+et : Hüdroelektrijaam
+eu : Zentral hidroelektrikoa
+fa : نیروگاه برق آبی
+fi : Vesivoimalaitos
+fr : Centrale hydroélectrique
+he : תחנת כוח הידרואלקטרית
+hu : Vízerőmű
+id : Pembangkit listrik tenaga air
+it : Centrale idroelettrica
+ja : 水力発電所                                                                                   
+ko : 수력 발전소
+mr : जलविद्युत प्रकल्प|जलविद्युत ऊर्जा|जल आधारित ऊर्जा
+nb : Vannkraftverk
+nl : Waterkrachtcentrale
+pl : Elektrownia wodna
+pt : Usina hidrelétrica
+pt-BR : Usina hidrelétrica
+ro : Centrală hidroelectrică
+ru : Гидроэлектростанция
+sk : Vodná elektráreň
+sv : Vattenkraftverk
+sw : Kiwanda cha umeme wa maji
+th : โรงไฟฟ้าพลังน้ำ
+tr : Hidroelektrik santral
+uk : Гідроелектростанція
+vi : Nhà máy thủy điện
+zh-Hans : 水力发电厂
+zh-Hant : 水力發電廠
