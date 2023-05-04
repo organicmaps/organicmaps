@@ -602,7 +602,7 @@
 	  <item quantity="other">%d lieux</item>
 	</plurals>
 	<plurals name="tracks">
-	  <item quantity="other">pistes %d</item>
+	  <item quantity="other">%d pistes</item>
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Paramètres de suivi</string>
