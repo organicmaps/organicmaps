@@ -197,7 +197,7 @@ public class Holders
       if (bookmarksCount > 0 && tracksCount > 0)
       {
         final String bookmarks = getQuantified(resources, R.plurals.places, bookmarksCount);
-        final String tracks = getQuantified(resources, R.plurals.tracks, bookmarksCount);
+        final String tracks = getQuantified(resources, R.plurals.tracks, tracksCount);
         final String template = resources.getString(R.string.comma_separated_pair);
         return String.format(template, bookmarks, tracks);
       }
