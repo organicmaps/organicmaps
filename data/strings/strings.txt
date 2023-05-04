@@ -19263,7 +19263,7 @@
     fa:one = %d رد
     fa:other = %d رد
     fi = %d radat
-    fr = pistes %d
+    fr = %d pistes
     hu = %d út
     id = trek %d
     it:one = %d percorso
@@ -25460,4 +25460,3 @@
     comment = A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks
     tags = android
     en = %s, %s
-
