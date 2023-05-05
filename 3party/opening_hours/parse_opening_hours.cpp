@@ -90,8 +90,8 @@ namespace parsing
          [bind(&RuleSequence::SetModifier, _r1, Modifier::Unknown)] >>
          -(comment [bind(&RuleSequence::SetModifierComment, _r1, _1)]))
 
-      | comment    [bind(&RuleSequence::SetModifier, _r1, Modifier::Comment),
-                    bind(&RuleSequence::SetModifierComment, _r1, _1)]
+      | comment    [(bind(&RuleSequence::SetModifier, _r1, Modifier::Comment),
+                     bind(&RuleSequence::SetModifierComment, _r1, _1))]
       ;
 
       rule_sequence =

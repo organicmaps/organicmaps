@@ -45,7 +45,7 @@ UNIT_TEST(IsCastValid)
     TEST(base::IsCastValid<uint64_t>(value), ());
   }
   {
-    uint64_t value = 9223372036854775808;
+    uint64_t value = 9223372036854775808ULL;
     TEST(!base::IsCastValid<int8_t>(value), ());
     TEST(!base::IsCastValid<int16_t>(value), ());
     TEST(!base::IsCastValid<int32_t>(value), ());
@@ -57,7 +57,7 @@ UNIT_TEST(IsCastValid)
     TEST(base::IsCastValid<uint64_t>(value), ());
   }
   {
-    int64_t value = -9223372036854775808;
+    int64_t value = -9223372036854775807LL;
     TEST(!base::IsCastValid<int8_t>(value), ());
     TEST(!base::IsCastValid<int16_t>(value), ());
     TEST(!base::IsCastValid<int32_t>(value), ());

@@ -286,7 +286,7 @@ void MainView::InitMenuBar()
 
   {
     m_initiateBackgroundSearch = new QAction(tr("Initiate background search"), this /* parent */);
-    m_initiateBackgroundSearch->setShortcut(Qt::CTRL | Qt::Key_I);
+    m_initiateBackgroundSearch->setShortcut(static_cast<int>(Qt::CTRL) | static_cast<int>(Qt::Key_I));
     m_initiateBackgroundSearch->setStatusTip(
         tr("Search in the background for the queries from a selected range"));
     m_initiateBackgroundSearch->setEnabled(false);

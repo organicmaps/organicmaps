@@ -27,8 +27,8 @@ namespace osmoh
       | ushort_(4) [_val = NthWeekdayOfTheMonthEntry::NthDayOfTheMonth::Fourth]
       | ushort_(5) [_val = NthWeekdayOfTheMonthEntry::NthDayOfTheMonth::Fifth];
 
-      nth_entry = (nth >> dash >> nth) [bind(&NthWeekdayOfTheMonthEntry::SetStart, _val, _1),
-                                        bind(&NthWeekdayOfTheMonthEntry::SetEnd, _val, _2)]
+      nth_entry = (nth >> dash >> nth) [(bind(&NthWeekdayOfTheMonthEntry::SetStart, _val, _1),
+                                         bind(&NthWeekdayOfTheMonthEntry::SetEnd, _val, _2))]
       | (lit('-') >> nth)          [bind(&NthWeekdayOfTheMonthEntry::SetEnd, _val, _1)]
       | nth [bind(&NthWeekdayOfTheMonthEntry::SetStart, _val, _1)]
       ;
@@ -50,8 +50,8 @@ namespace osmoh
       ( charset::no_case[wdays]  [bind(&WeekdayRange::SetStart, _val, _1)] >>
        '[' >> (nth_entry        [bind(&WeekdayRange::AddNth, _val, _1)]) % ',') >> ']' >>
       -(day_offset             [bind(&WeekdayRange::SetOffset, _val, _1)])
-      | charset::no_case[(wdays >> dash >> wdays)]  [bind(&WeekdayRange::SetStart, _val, _1),
-                                                     bind(&WeekdayRange::SetEnd, _val, _2)]
+      | charset::no_case[(wdays >> dash >> wdays)]  [(bind(&WeekdayRange::SetStart, _val, _1),
+                                                      bind(&WeekdayRange::SetEnd, _val, _2))]
       | charset::no_case[wdays]  [bind(&WeekdayRange::SetStart, _val, _1)]
       ;
 
@@ -59,8 +59,8 @@ namespace osmoh
       ;
 
       main = (holiday_sequence >> -lit(',') >> weekday_sequence)
-      [bind(&Weekdays::SetHolidays, _val, _1),
-       bind(&Weekdays::SetWeekdayRanges, _val, _2)]
+      [(bind(&Weekdays::SetHolidays, _val, _1),
+        bind(&Weekdays::SetWeekdayRanges, _val, _2))]
       | holiday_sequence [bind(&Weekdays::SetHolidays, _val, _1)]
       | weekday_sequence [bind(&Weekdays::SetWeekdayRanges, _val, _1)]
       ;

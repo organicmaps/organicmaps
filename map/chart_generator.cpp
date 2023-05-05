@@ -74,6 +74,7 @@ agg::rgba8 GetCurveColor(MapStyle mapStyle)
   {
   case MapStyleCount:
     LOG(LERROR, ("Wrong map style param."));
+    [[fallthrough]];
     // No need break or return here.
   case MapStyleDark:
   case MapStyleVehicleDark:

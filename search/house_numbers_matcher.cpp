@@ -222,18 +222,18 @@ public:
       {
         if (IsStopWord(token.m_value, token.m_prefix))
           break;
-        if (!m_matcher.Has(token.m_value, token.m_prefix))  // fallthrough
+        if (!m_matcher.Has(token.m_value, token.m_prefix))
           return false;
-        // fallthrough
+        [[fallthrough]];
       }
       case Token::TYPE_LETTER:
       {
-        if (j == 0 && IsStopWord(token.m_value, token.m_prefix))  // fallthrough
+        if (j == 0 && IsStopWord(token.m_value, token.m_prefix))
           break;
-        // fallthrough
+        [[fallthrough]];
       }
-      case Token::TYPE_NUMBER:         // fallthrough
-      case Token::TYPE_BUILDING_PART:  // fallthrough
+      case Token::TYPE_NUMBER:
+      case Token::TYPE_BUILDING_PART:
       case Token::TYPE_BUILDING_PART_OR_LETTER:
         parse[i] = std::move(parse[j]);
         ASSERT(!parse[i].m_value.empty(), ());

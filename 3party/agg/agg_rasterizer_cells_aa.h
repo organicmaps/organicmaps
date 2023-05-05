@@ -659,7 +659,7 @@ namespace agg
         while(nb)
         {
             cell_ptr = *block_ptr++;
-            i = (nb > cell_block_size) ? cell_block_size : nb;
+            i = (nb > unsigned(cell_block_size)) ? unsigned(cell_block_size) : nb;
             nb -= i;
             while(i--) 
             {
@@ -683,7 +683,7 @@ namespace agg
         while(nb)
         {
             cell_ptr = *block_ptr++;
-            i = (nb > cell_block_size) ? cell_block_size : nb;
+            i = (nb > unsigned(cell_block_size)) ? unsigned(cell_block_size) : nb;
             nb -= i;
             while(i--)
             {

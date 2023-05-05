@@ -9,14 +9,7 @@
 #include <cmath>
 #include <functional>
 
-#ifdef __clang__
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wcomma"
-#endif  // #ifdef __clang__
-#include <boost/geometry.hpp>
-#ifdef __clang__
-#pragma clang diagnostic pop
-#endif  // #ifdef __clang__
+#include "std/boost_geometry.hpp"
 #include <boost/geometry/geometries/register/ring.hpp>
 #include <boost/geometry/geometries/register/point.hpp>
 

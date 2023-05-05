@@ -135,7 +135,7 @@ public:
 
 private:
   template <typename Fn>
-  std::result_of_t<Fn()> WithObserver(Update const & update, Fn && fn)
+  std::invoke_result_t<Fn> WithObserver(Update const & update, Fn && fn)
   {
     SCOPE_GUARD(obsCall, ([this, &update]() {
                   if (m_onUpdate)

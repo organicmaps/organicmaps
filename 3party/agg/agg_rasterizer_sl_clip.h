@@ -35,7 +35,7 @@ namespace agg
         }
         static int xi(int v) { return v; }
         static int yi(int v) { return v; }
-        static int upscale(double v) { return iround(v * poly_subpixel_scale); }
+        static int upscale(double v) { return iround(v * double(poly_subpixel_scale)); }
         static int downscale(int v)  { return v; }
     };
 
@@ -51,7 +51,7 @@ namespace agg
         static int yi(int v) { return v; }
         static int upscale(double v) 
         { 
-            return saturation<poly_max_coord>::iround(v * poly_subpixel_scale); 
+            return saturation<poly_max_coord>::iround(v * double(poly_subpixel_scale));
         }
         static int downscale(int v) { return v; }
     };
@@ -66,7 +66,7 @@ namespace agg
         }
         static int xi(int v) { return v * 3; }
         static int yi(int v) { return v; }
-        static int upscale(double v) { return iround(v * poly_subpixel_scale); }
+        static int upscale(double v) { return iround(v * double(poly_subpixel_scale)); }
         static int downscale(int v)  { return v; }
     };
 
@@ -78,8 +78,8 @@ namespace agg
         {
             return a * b / c;
         }
-        static int xi(double v) { return iround(v * poly_subpixel_scale); }
-        static int yi(double v) { return iround(v * poly_subpixel_scale); }
+        static int xi(double v) { return iround(v * double(poly_subpixel_scale)); }
+        static int yi(double v) { return iround(v * double(poly_subpixel_scale)); }
         static double upscale(double v) { return v; }
         static double downscale(int v)  { return v / double(poly_subpixel_scale); }
     };
@@ -92,8 +92,8 @@ namespace agg
         {
             return a * b / c;
         }
-        static int xi(double v) { return iround(v * poly_subpixel_scale * 3); }
-        static int yi(double v) { return iround(v * poly_subpixel_scale); }
+        static int xi(double v) { return iround(v * double(poly_subpixel_scale) * 3); }
+        static int yi(double v) { return iround(v * double(poly_subpixel_scale)); }
         static double upscale(double v) { return v; }
         static double downscale(int v)  { return v / double(poly_subpixel_scale); }
     };

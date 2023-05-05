@@ -3,6 +3,8 @@ project(base)
 set(SRC
   # Our code will be recompiled on modification of these headers.
   ../std/boost_container_hash.hpp
+  ../std/boost_geometry.hpp
+  ../std/glm_gtx_rotate_vector.hpp
   ../std/target_os.hpp
   ../std/windows.hpp
   array_adapters.hpp

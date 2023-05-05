@@ -25,7 +25,7 @@ public:
   }
 
   template <typename... Args>
-  std::enable_if_t<std::is_same<std::result_of_t<Fn(Args...)>, base::ControlFlow>::value,
+  std::enable_if_t<std::is_same<std::invoke_result_t<Fn, Args...>, base::ControlFlow>::value,
                    base::ControlFlow>
   operator()(Args &&... args)
   {
@@ -33,7 +33,7 @@ public:
   }
 
   template <typename... Args>
-  std::enable_if_t<std::is_same<std::result_of_t<Fn(Args...)>, void>::value, base::ControlFlow>
+  std::enable_if_t<std::is_same<std::invoke_result_t<Fn, Args...>, void>::value, base::ControlFlow>
   operator()(Args &&... args)
   {
     m_fn(std::forward<Args>(args)...);

@@ -32,8 +32,6 @@ inline std::string DebugPrint(DownloadStatus status)
 
 struct Progress
 {
-  Progress() = default;
-
   static int64_t constexpr kUnknownTotalSize = -1;
 
   static Progress constexpr Unknown()
