@@ -203,7 +203,6 @@ int main(int argc, char * argv[])
         screenshotParams->m_dpiScale = FLAGS_dpi_scale;
     }
 
-
     QSurfaceFormat fmt;
     fmt.setAlphaBufferSize(8);
     fmt.setBlueBufferSize(8);
@@ -215,20 +214,15 @@ int main(int argc, char * argv[])
     fmt.setSwapInterval(1);
     fmt.setDepthBufferSize(16);
 
-    // This is a workaround for some systems,
-    // including MacOs and older Linux distros, which rely on X.org and Mesa.
-    // Where somehow the driver itself doesn't
-    // make all the otherwise supported GLSL versions available by default
-    // and such requests are somehow disregarded at later stages of execution.
-    // This setting here will be potentially overwritten and overruled anyway,
-    // and only needed to ensure that we have the needed GLSL compiler available
-    // later when we need it.
-    if (app.platformName() == QString("xcb") ||
-        app.platformName() == QString("cocoa"))
+    // Set proper OGL version now (needed for "cocoa" or "xcb"), but have troubles with "wayland" devices.
+    // It will be resolved later in MapWidget::initializeGL when OGL context is available.
+    if (app.platformName() != QString("wayland"))
     {
+      LOG(LINFO, ("Set default OGL version to 3.2"));
       fmt.setProfile(QSurfaceFormat::CoreProfile);
       fmt.setVersion(3, 2);
     }
+
 #ifdef ENABLE_OPENGL_DIAGNOSTICS
     fmt.setOption(QSurfaceFormat::DebugContext);
 #endif

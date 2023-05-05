@@ -377,20 +377,22 @@ void MapWidget::initializeGL()
       // TODO: Separate apiOpenGL3 from apiOpenGLES3, and use that for the currend shader code.
       m_apiOpenGLES3 = true;
     }
+
+    auto fmt = context()->format();
+    if (m_apiOpenGLES3)
+    {
+      fmt.setProfile(QSurfaceFormat::CoreProfile);
+      fmt.setVersion(3, 2);
+    }
+    else
+    {
+      fmt.setProfile(QSurfaceFormat::CompatibilityProfile);
+      fmt.setVersion(2, 1);
+    }
+
+    QSurfaceFormat::setDefaultFormat(fmt);
   }
 #endif
-  auto fmt = context()->format();
-  if (m_apiOpenGLES3)
-  {
-    fmt.setProfile(QSurfaceFormat::CoreProfile);
-    fmt.setVersion(3, 2);
-  }
-  else
-  {
-    fmt.setProfile(QSurfaceFormat::CompatibilityProfile);
-    fmt.setVersion(2, 1);
-  }
-  QSurfaceFormat::setDefaultFormat(fmt);
 
   m_contextFactory.reset(new QtOGLContextFactory(context()));
 
