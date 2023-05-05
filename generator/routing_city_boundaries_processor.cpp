@@ -15,7 +15,7 @@
 
 #include "base/logging.hpp"
 
-#include <boost/geometry.hpp>
+#include "std/boost_geometry.hpp"
 #include <boost/geometry/geometries/point_xy.hpp>
 #include <boost/geometry/geometries/polygon.hpp>
 

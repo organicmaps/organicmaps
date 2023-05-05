@@ -202,7 +202,9 @@ void TrafficInfo::CombineColorings(vector<TrafficInfo::RoadSegmentId> const & ke
   result.clear();
   size_t numKnown = 0;
   size_t numUnknown = 0;
+#ifdef DEBUG
   size_t numUnexpectedKeys = knownColors.size();
+#endif
   for (auto const & key : keys)
   {
     auto it = knownColors.find(key);
@@ -214,8 +216,7 @@ void TrafficInfo::CombineColorings(vector<TrafficInfo::RoadSegmentId> const & ke
     else
     {
       result[key] = it->second;
-      ASSERT_GREATER(numUnexpectedKeys, 0, ());
-      --numUnexpectedKeys;
+      ASSERT_GREATER(numUnexpectedKeys--, 0, ());
       ++numKnown;
     }
   }

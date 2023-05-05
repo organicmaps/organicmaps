@@ -212,7 +212,7 @@ public:
   explicit IgnoreFirstArgument(Gn && gn) : m_fn(std::forward<Gn>(gn)) {}
 
   template <typename Arg, typename... Args>
-  std::result_of_t<Fn(Args &&...)> operator()(Arg &&, Args &&... args)
+  std::invoke_result_t<Fn, Args&&...> operator()(Arg &&, Args &&... args)
   {
     return m_fn(std::forward<Args>(args)...);
   }
@@ -334,23 +334,6 @@ template <typename Iter>
 bool IsSortedAndUnique(Iter beg, Iter end)
 {
   return IsSortedAndUnique(beg, end, std::less<typename std::iterator_traits<Iter>::value_type>());
-}
-
-// See std::includes() C++20.
-template <typename Iter1, typename Iter2>
-bool Includes(Iter1 first1, Iter1 last1, Iter2 first2, Iter2 last2)
-{
-  assert(std::is_sorted(first1, last1));
-  assert(std::is_sorted(first2, last2));
-
-  for (; first2 != last2; ++first1)
-  {
-    if (first1 == last1 || *first2 < *first1)
-      return false;
-    if (!(*first1 < *first2))
-      ++first2;
-  }
-  return true;
 }
 
 struct DeleteFunctor

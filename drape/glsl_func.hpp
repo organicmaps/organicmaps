@@ -3,7 +3,7 @@
 #include <glm/geometric.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #define GLM_ENABLE_EXPERIMENTAL  // TODO: Remove this line after upgrading glm to the latest version.
-#include <glm/gtx/rotate_vector.hpp>
+#include "std/glm_gtx_rotate_vector.hpp"
 
 namespace glsl
 {

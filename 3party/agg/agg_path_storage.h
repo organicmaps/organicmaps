@@ -398,7 +398,7 @@ namespace agg
             if(m_closed && !m_stop)
             {
                 m_stop = true;
-                return path_cmd_end_poly | path_flags_close;
+                return unsigned(path_cmd_end_poly) | path_flags_close;
             }
             return path_cmd_stop;
         }
@@ -463,7 +463,7 @@ namespace agg
             if(m_closed && !m_stop)
             {
                 m_stop = true;
-                return path_cmd_end_poly | path_flags_close;
+                return unsigned(path_cmd_end_poly) | path_flags_close;
             }
             return path_cmd_stop;
         }
@@ -525,7 +525,7 @@ namespace agg
             if(m_closed && !m_stop)
             {
                 m_stop = true;
-                return path_cmd_end_poly | path_flags_close;
+                return unsigned(path_cmd_end_poly) | path_flags_close;
             }
             return path_cmd_stop;
         }

@@ -31,17 +31,17 @@ namespace osmoh
 
       date_offset = ((lit('+')[_a = true] | lit('-')[_a = false])
                      >> charset::no_case[wdays] >> day_offset)
-      [bind(&DateOffset::SetWDayOffset, _val, _1),
-       bind(&DateOffset::SetOffset, _val, _2),
-       bind(&DateOffset::SetWDayOffsetPositive, _val, _a)]
+      [(bind(&DateOffset::SetWDayOffset, _val, _1),
+        bind(&DateOffset::SetOffset, _val, _2),
+        bind(&DateOffset::SetWDayOffsetPositive, _val, _a))]
       | ((lit('+')[_a = true] | lit('-') [_a = false]) >> charset::no_case[wdays])
-      [bind(&DateOffset::SetWDayOffset, _val, _1),
-       bind(&DateOffset::SetWDayOffsetPositive, _val, _a)]
+      [(bind(&DateOffset::SetWDayOffset, _val, _1),
+        bind(&DateOffset::SetWDayOffsetPositive, _val, _a))]
       | day_offset [bind(&DateOffset::SetOffset, _val, _1)]
       ;
 
-      date_left = (year >> charset::no_case[month]) [bind(&MonthDay::SetYear, _val, _1),
-                                                     bind(&MonthDay::SetMonth, _val, _2)]
+      date_left = (year >> charset::no_case[month]) [(bind(&MonthDay::SetYear, _val, _1),
+                                                      bind(&MonthDay::SetMonth, _val, _2))]
 
       | charset::no_case[month]                 [bind(&MonthDay::SetMonth, _val, _1)]
       ;
@@ -50,10 +50,10 @@ namespace osmoh
       ;
 
       date_from = (date_left >> (daynum >> !(lit(':') >> qi::digit)))
-      [_val = _1, bind(&MonthDay::SetDayNum, _val, _2)]
-      | (year >> charset::no_case[lit("easter")]) [bind(&MonthDay::SetYear, _val, _1),
-                                                   bind(&MonthDay::SetVariableDate, _val,
-                                                        MonthDay::VariableDate::Easter)]
+      [(_val = _1, bind(&MonthDay::SetDayNum, _val, _2))]
+      | (year >> charset::no_case[lit("easter")]) [(bind(&MonthDay::SetYear, _val, _1),
+                                                    bind(&MonthDay::SetVariableDate, _val,
+                                                        MonthDay::VariableDate::Easter))]
       | charset::no_case[lit("easter")]           [bind(&MonthDay::SetVariableDate, _val,
                                                         MonthDay::VariableDate::Easter)]
       ;
@@ -63,26 +63,26 @@ namespace osmoh
       ;
 
       date_from_with_offset = (date_from >> date_offset)
-      [_val = _1, bind(&MonthDay::SetOffset, _val, _2)]
+      [(_val = _1, bind(&MonthDay::SetOffset, _val, _2))]
       | date_from         [_val = _1]
       ;
 
       date_to_with_offset = (date_to >> date_offset)
-      [_val = _1, bind(&MonthDay::SetOffset, _val, _2)]
+      [(_val = _1, bind(&MonthDay::SetOffset, _val, _2))]
       | date_to         [_val = _1]
       ;
 
       monthday_range = (date_from_with_offset >> dash >> date_to_with_offset)
-      [bind(&MonthdayRange::SetStart, _val, _1),
-       bind(&MonthdayRange::SetEnd, _val, _2)]
-      | (date_from_with_offset >> '+') [bind(&MonthdayRange::SetStart, _val, _1),
-                                        bind(&MonthdayRange::SetPlus, _val, true)]
+      [(bind(&MonthdayRange::SetStart, _val, _1),
+        bind(&MonthdayRange::SetEnd, _val, _2))]
+      | (date_from_with_offset >> '+') [(bind(&MonthdayRange::SetStart, _val, _1),
+                                         bind(&MonthdayRange::SetPlus, _val, true))]
       | (date_left >> dash >> date_right >> '/' >> uint_)
-      [bind(&MonthdayRange::SetStart, _val, _1),
-       bind(&MonthdayRange::SetEnd, _val, _2),
-       bind(&MonthdayRange::SetPeriod, _val, _3)]
-      | (date_left >> lit("-") >> date_right) [bind(&MonthdayRange::SetStart, _val, _1),
-                                               bind(&MonthdayRange::SetEnd, _val, _2)]
+      [(bind(&MonthdayRange::SetStart, _val, _1),
+        bind(&MonthdayRange::SetEnd, _val, _2),
+        bind(&MonthdayRange::SetPeriod, _val, _3))]
+      | (date_left >> lit("-") >> date_right) [(bind(&MonthdayRange::SetStart, _val, _1),
+                                                bind(&MonthdayRange::SetEnd, _val, _2))]
       | date_from [bind(&MonthdayRange::SetStart, _val, _1)]
       | date_left [bind(&MonthdayRange::SetStart, _val, _1)]
       ;

@@ -105,6 +105,8 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
     case PropID::FMD_WIKIMEDIA_COMMONS:
       isLink = true;
       break;
+    default:
+      break;
     }
 
     addEntry(DebugPrint(id), value, isLink);

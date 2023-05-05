@@ -18,11 +18,11 @@ namespace osmoh
       using qi::_val;
       using osmoh::WeekRange;
 
-      week = (weeknum >> dash >> weeknum >> '/' >> uint_) [bind(&WeekRange::SetStart, _val, _1),
-                                                           bind(&WeekRange::SetEnd, _val, _2),
-                                                           bind(&WeekRange::SetPeriod, _val, _3)]
-      | (weeknum >> dash >> weeknum) [bind(&WeekRange::SetStart, _val, _1),
-                                      bind(&WeekRange::SetEnd, _val, _2)]
+      week = (weeknum >> dash >> weeknum >> '/' >> uint_) [(bind(&WeekRange::SetStart, _val, _1),
+                                                            bind(&WeekRange::SetEnd, _val, _2),
+                                                            bind(&WeekRange::SetPeriod, _val, _3))]
+      | (weeknum >> dash >> weeknum) [(bind(&WeekRange::SetStart, _val, _1),
+                                       bind(&WeekRange::SetEnd, _val, _2))]
       | weeknum                      [bind(&WeekRange::SetStart, _val, _1)]
       ;
 

@@ -20,13 +20,13 @@ namespace osmoh
 
       static const qi::int_parser<unsigned, 10, 4, 4> year = {};
 
-      year_range = (year >> dash >> year >> '/' >> uint_) [bind(&YearRange::SetStart, _val, _1),
-                                                           bind(&YearRange::SetEnd, _val, _2),
-                                                           bind(&YearRange::SetPeriod, _val, _3)]
-      | (year >> dash >> year) [bind(&YearRange::SetStart, _val, _1),
-                                bind(&YearRange::SetEnd, _val, _2)]
-      | (year >> lit('+'))     [bind(&YearRange::SetStart, _val, _1),
-                                bind(&YearRange::SetPlus, _val, true)]
+      year_range = (year >> dash >> year >> '/' >> uint_) [(bind(&YearRange::SetStart, _val, _1),
+                                                            bind(&YearRange::SetEnd, _val, _2),
+                                                            bind(&YearRange::SetPeriod, _val, _3))]
+      | (year >> dash >> year) [(bind(&YearRange::SetStart, _val, _1),
+                                 bind(&YearRange::SetEnd, _val, _2))]
+      | (year >> lit('+'))     [(bind(&YearRange::SetStart, _val, _1),
+                                 bind(&YearRange::SetPlus, _val, true))]
       ;
 
       main %= (year_range % ',');

@@ -152,7 +152,7 @@ protected:
   bool IsCloseEnough(size_t id, m2::PointD const & pt, double distance) const override;
 
   template <typename Fn>
-  std::result_of_t<Fn(std::vector<m2::RegionD>)> WithRegion(size_t id, Fn && fn) const;
+  std::invoke_result_t<Fn, std::vector<m2::RegionD>> WithRegion(size_t id, Fn && fn) const;
 
   FilesContainerR m_reader;
   mutable base::Cache<uint32_t, std::vector<m2::RegionD>> m_cache;
