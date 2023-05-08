@@ -1,5 +1,5 @@
 • New OpenStreetMap data as of May 3
-• Fix search for interporlated odd/even house numbers
+• Fix search for interpolated odd/even house numbers
 • Fix zoom buttons setting
 • Faster rendering of subway layer
 • Fix wrong postcodes in Paris
