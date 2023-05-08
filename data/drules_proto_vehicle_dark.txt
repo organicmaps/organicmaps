@@ -1628,7 +1628,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "mail-m"
+      name: "parcel_locker-m"
       priority: 16000
       min_distance: 20
     }
@@ -1645,7 +1645,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "mail-m"
+      name: "parcel_locker-m"
       priority: 16000
       min_distance: 20
     }
@@ -1662,7 +1662,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "mail-m"
+      name: "parcel_locker-m"
       priority: 16000
       min_distance: 20
     }
