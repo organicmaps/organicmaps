@@ -2147,7 +2147,7 @@ area|z17-[amenity=vending_machine][vending=parking_tickets]
 {icon-image: parking-meter-m.svg;font-size: 11;}
 node|z17-[amenity=parcel_locker],
 area|z17-[amenity=parcel_locker],
-{icon-image: mail-m.svg;icon-min-distance: 20;}
+{icon-image: parcel_locker-m.svg;icon-min-distance: 20;}
 
 node|z17[amenity=vending_machine][vending=fuel],
 area|z17[amenity=vending_machine][vending=fuel]
