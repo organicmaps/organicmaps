@@ -846,4 +846,11 @@ UNIT_TEST(Germany_Netherlands_AvoidLoops)
   TestRouteTime(route, 13768.9);
 }
 
+UNIT_TEST(Germany_Cologne_Croatia_Zagreb)
+{
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
+                                   FromLatLon(50.924, 6.943), {0., 0.},
+                                   FromLatLon(45.806, 15.963), 1074730);
+}
+
 } // namespace route_test
