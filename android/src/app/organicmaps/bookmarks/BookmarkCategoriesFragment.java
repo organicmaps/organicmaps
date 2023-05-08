@@ -34,6 +34,7 @@ import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.util.concurrency.ThreadPool;
 import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
+import app.organicmaps.util.Utils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -208,7 +209,9 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   @Override
   public void onBookmarksFileLoaded(boolean success)
   {
-    // Do nothing here.
+    View view = getActivity().findViewById(R.id.fragment_container);
+    if (view != null)
+      Utils.showSnackbar(requireActivity(), view, null, success ? R.string.load_kmz_successful : R.string.load_kmz_failed);
   }
 
   @Override
