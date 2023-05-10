@@ -25387,10 +25387,24 @@
     tags = android,ios
     en = https://organicmaps.app/
     be = https://organicmaps.app/ru/
+    ca = https://organicmaps.app/ca/
     cs = https://organicmaps.app/cs/
+    de = https://organicmaps.app/de/
+    es = https://organicmaps.app/es/
+    eu = https://organicmaps.app/eu/
+    fr = https://organicmaps.app/fr/
+    hi = https://organicmaps.app/hi/
+    hu = https://organicmaps.app/hu/
+    id = https://organicmaps.app/id/
     it = https://organicmaps.app/it/
+    mr = https://organicmaps.app/mr/
+    nl = https://organicmaps.app/nl/
+    pl = https://organicmaps.app/pl/
+    pt-BR = https://organicmaps.app/pt-BR/
     ru = https://organicmaps.app/ru/
+    sv = https://organicmaps.app/sv/
     tr = https://organicmaps.app/tr/
+    uk = https://organicmaps.app/uk/
 
   [osm_wiki_about_url]
     comment = Link to OSM wiki for Editor, Profile and About pages
