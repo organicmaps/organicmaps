@@ -1,5 +1,6 @@
 package app.organicmaps.widget.menu;
 
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.util.Pair;
 import android.view.View;
@@ -9,22 +10,24 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import app.organicmaps.R;
-import app.organicmaps.location.LocationHelper;
-import app.organicmaps.routing.RoutingInfo;
-import app.organicmaps.sound.TtsPlayer;
-import app.organicmaps.util.log.Logger;
-import app.organicmaps.widget.FlatProgressView;
-import app.organicmaps.util.Graphics;
-import app.organicmaps.util.StringUtils;
-import app.organicmaps.util.UiUtils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+
+import app.organicmaps.Framework;
+import app.organicmaps.R;
+import app.organicmaps.location.LocationHelper;
+import app.organicmaps.routing.RoutingInfo;
+import app.organicmaps.sound.TtsPlayer;
+import app.organicmaps.util.Graphics;
+import app.organicmaps.util.StringUtils;
+import app.organicmaps.util.UiUtils;
+import app.organicmaps.widget.FlatProgressView;
 
 public class NavMenu
 {
@@ -33,6 +36,7 @@ public class NavMenu
   private final View mHeaderFrame;
 
   private final ImageView mTts;
+  private final ImageView mRoutingChart;
   private final View mSpeedViewContainer;
   private final TextView mSpeedValue;
   private final TextView mSpeedUnits;
@@ -108,6 +112,7 @@ public class NavMenu
     mRouteProgress = bottomFrame.findViewById(R.id.navigation_progress);
 
     // Bottom frame buttons
+    mRoutingChart = bottomFrame.findViewById(R.id.nav_routing_chart);
     ImageView mSettings = bottomFrame.findViewById(R.id.settings);
     mSettings.setOnClickListener(v -> onSettingsClicked());
     mTts = bottomFrame.findViewById(R.id.tts_volume);
@@ -154,11 +159,13 @@ public class NavMenu
 
   public void collapseNavBottomSheet()
   {
+    updateRouteAltitudeChart(BottomSheetBehavior.STATE_COLLAPSED);
     mNavBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
   }
 
   public void expandNavBottomSheet()
   {
+    updateRouteAltitudeChart(BottomSheetBehavior.STATE_EXPANDED);
     mNavBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
   }
 
@@ -238,5 +245,23 @@ public class NavMenu
     void onStopClicked();
 
     void onSettingsClicked();
+  }
+
+  private void updateRouteAltitudeChart(int state)
+  {
+    if (state == BottomSheetBehavior.STATE_COLLAPSED) {
+      mRoutingChart.setVisibility(View.GONE);
+    } else {
+      mRoutingChart.setVisibility(View.VISIBLE);
+      final int chartWidth = ((View) mRoutingChart.getParent()).getWidth();
+      final int chartHeight = UiUtils.dimen(mActivity, R.dimen.altitude_chart_image_height);
+      final Framework.RouteAltitudeLimits limits = new Framework.RouteAltitudeLimits();
+      final Bitmap bm = Framework.generateRouteAltitudeChart(chartWidth, chartHeight, limits);
+      if (bm != null) {
+        mRoutingChart.setImageBitmap(bm);
+      } else {
+        mRoutingChart.setVisibility(View.GONE);
+      }
+    }
   }
 }
