@@ -177,7 +177,7 @@ UNIT_TEST(GetHighwayClassTest)
 
   feature::TypesHolder types4;
   types4.Add(c.GetTypeByPath({"highway"}));
-  TEST_EQUAL(ftypes::GetHighwayClass(types4), ftypes::HighwayClass::Error, ());
+  TEST_EQUAL(ftypes::GetHighwayClass(types4), ftypes::HighwayClass::Undefined, ());
 }
 
 UNIT_TEST(IsPoiChecker)
