@@ -31,6 +31,8 @@ public:
     auto const & c = classif();
     m_map[c.GetTypeByPath({"route", "ferry"})] = ftypes::HighwayClass::Transported;
     m_map[c.GetTypeByPath({"route", "shuttle_train"})] = ftypes::HighwayClass::Transported;
+    /// @todo Wow, actual highway type is railway-rail-motor_vehicle.
+    /// Should be carefull with GetHighwayClass function.
     m_map[c.GetTypeByPath({"railway", "rail"})] = ftypes::HighwayClass::Transported;
 
     m_map[c.GetTypeByPath({"highway", "motorway"})] = ftypes::HighwayClass::Trunk;
@@ -70,7 +72,7 @@ public:
   {
     auto const it = m_map.find(t);
     if (it == m_map.cend())
-      return ftypes::HighwayClass::Error;
+      return ftypes::HighwayClass::Undefined;
     return it->second;
   }
 };
@@ -80,7 +82,6 @@ char const * HighwayClassToString(ftypes::HighwayClass const cls)
   switch (cls)
   {
   case ftypes::HighwayClass::Undefined: return "Undefined";
-  case ftypes::HighwayClass::Error: return "Error";
   case ftypes::HighwayClass::Transported: return "Transported";
   case ftypes::HighwayClass::Trunk: return "Trunk";
   case ftypes::HighwayClass::Primary: return "Primary";
@@ -120,18 +121,17 @@ string DebugPrint(LocalityType const localityType)
 
 HighwayClass GetHighwayClass(feature::TypesHolder const & types)
 {
-  uint8_t constexpr kTruncLevel = 2;
   static HighwayClasses highwayClasses;
 
   for (auto t : types)
   {
-    ftype::TruncValue(t, kTruncLevel);
+    ftype::TruncValue(t, 2);
     HighwayClass const hc = highwayClasses.Get(t);
-    if (hc != HighwayClass::Error)
+    if (hc != HighwayClass::Undefined)
       return hc;
   }
 
-  return HighwayClass::Error;
+  return HighwayClass::Undefined;
 }
 
 uint32_t BaseChecker::PrepareToMatch(uint32_t type, uint8_t level)

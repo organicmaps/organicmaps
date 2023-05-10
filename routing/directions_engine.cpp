@@ -78,8 +78,7 @@ void DirectionsEngine::LoadPathAttributes(FeatureID const & featureId,
   LoadLanes(pathSegment, *ft, isForward);
 
   pathSegment.m_highwayClass = GetHighwayClass(types);
-  ASSERT_NOT_EQUAL(pathSegment.m_highwayClass, HighwayClass::Error, ());
-  ASSERT_NOT_EQUAL(pathSegment.m_highwayClass, HighwayClass::Undefined, ());
+  ASSERT(pathSegment.m_highwayClass != HighwayClass::Undefined, (featureId));
 
   pathSegment.m_isLink = m_linkChecker(types);
   pathSegment.m_onRoundabout = m_roundAboutChecker(types);
@@ -120,8 +119,7 @@ void DirectionsEngine::GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeListT con
     feature::TypesHolder types(*ft);
 
     auto const highwayClass = GetHighwayClass(types);
-    ASSERT_NOT_EQUAL(highwayClass, HighwayClass::Error, (edge.PrintLatLon()));
-    ASSERT_NOT_EQUAL(highwayClass, HighwayClass::Undefined, (edge.PrintLatLon()));
+    ASSERT(highwayClass != HighwayClass::Undefined, (edge.PrintLatLon()));
 
     double angle = 0;
 

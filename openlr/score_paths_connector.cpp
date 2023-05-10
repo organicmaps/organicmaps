@@ -46,6 +46,8 @@ public:
     }
     else
     {
+      CHECK(hwClass != ftypes::HighwayClass::Undefined, (edge));
+
       m_minHwClass = static_cast<ftypes::HighwayClass>(
           min(base::Underlying(m_minHwClass), base::Underlying(hwClass)));
       m_maxHwClass = static_cast<ftypes::HighwayClass>(

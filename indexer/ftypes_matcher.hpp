@@ -622,7 +622,6 @@ bool IsTypeConformed(uint32_t type, base::StringIL const & path);
 enum class HighwayClass
 {
   Undefined = 0,  // There has not been any attempt of calculating HighwayClass.
-  Error,          // There was an attempt of calculating HighwayClass but it was not successful.
   Trunk,
   Primary,
   Secondary,
