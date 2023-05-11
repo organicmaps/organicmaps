@@ -179,14 +179,9 @@ namespace ftype
     set_value(type, cl+1, 1);
   }
 
-  bool GetValue(uint32_t type, uint8_t level, uint8_t & value)
+  uint8_t GetValue(uint32_t type, uint8_t level)
   {
-    if (level < get_control_level(type))
-    {
-      value = get_value(type, level);
-      return true;
-    }
-    return false;
+    return get_value(type, level);
   }
 
   void PopValue(uint32_t & type)
@@ -420,13 +415,10 @@ void Classificator::Clear()
 template <class ToDo> void Classificator::ForEachPathObject(uint32_t type, ToDo && toDo) const
 {
   ClassifObject const * p = &m_root;
-  uint8_t i = 0;
-
-  uint8_t v;
-  while (ftype::GetValue(type, i, v))
+  uint8_t const level = ftype::GetLevel(type);
+  for (uint8_t i = 0; i < level; ++i)
   {
-    ++i;
-    p = p->GetObject(v);
+    p = p->GetObject(ftype::GetValue(type, i));
     toDo(p);
   }
 }

@@ -336,22 +336,13 @@ public:
   DECLARE_CHECKER_INSTANCE(IsPlaceChecker);
 };
 
-class IsBridgeChecker : public BaseChecker
+class IsBridgeOrTunnelChecker : public BaseChecker
 {
   virtual bool IsMatched(uint32_t type) const override;
 
-  IsBridgeChecker();
+  IsBridgeOrTunnelChecker();
 public:
-  DECLARE_CHECKER_INSTANCE(IsBridgeChecker);
-};
-
-class IsTunnelChecker : public BaseChecker
-{
-  virtual bool IsMatched(uint32_t type) const override;
-
-  IsTunnelChecker();
-public:
-  DECLARE_CHECKER_INSTANCE(IsTunnelChecker);
+  DECLARE_CHECKER_INSTANCE(IsBridgeOrTunnelChecker);
 };
 
 class IsIslandChecker : public BaseChecker
@@ -610,12 +601,6 @@ double GetRadiusByPopulation(uint64_t p);
 double GetRadiusByPopulationForRouting(uint64_t p, LocalityType localityType);
 uint64_t GetPopulationByRadius(double r);
 //@}
-
-/// Check if type conforms the path. Strings in the path can be
-/// feature types like "highway", "living_street", "bridge" and so on
-///  or *. * means any class.
-/// The root name ("world") is ignored
-bool IsTypeConformed(uint32_t type, base::StringIL const & path);
 
 // Highway class. The order is important.
 // The enum values follow from the biggest roads (Trunk) to the smallest ones (Service).

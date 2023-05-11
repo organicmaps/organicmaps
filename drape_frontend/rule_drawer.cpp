@@ -263,7 +263,7 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
     // Looks like nonsense, but there are some osm objects with types
     // highway-path-bridge and building (sic!) at the same time (pedestrian crossing).
     isBuilding = (isPart || IsBuildingChecker::Instance()(types)) &&
-                  !IsBridgeChecker::Instance()(types) && !IsTunnelChecker::Instance()(types);
+                  !IsBridgeOrTunnelChecker::Instance()(types);
 
     isBuildingOutline = isBuilding && hasParts && !isPart;
     is3dBuilding = m_context->Is3dBuildingsEnabled() && (isBuilding && !isBuildingOutline);

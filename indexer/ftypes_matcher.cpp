@@ -564,18 +564,20 @@ IsPlaceChecker::IsPlaceChecker() : BaseChecker(1 /* level */)
   m_types.push_back(classif().GetTypeByPath({"place"}));
 }
 
-IsBridgeChecker::IsBridgeChecker() : BaseChecker(3 /* level */) {}
+IsBridgeOrTunnelChecker::IsBridgeOrTunnelChecker() : BaseChecker(3 /* level */) {}
 
-bool IsBridgeChecker::IsMatched(uint32_t type) const
+bool IsBridgeOrTunnelChecker::IsMatched(uint32_t type) const
 {
-  return IsTypeConformed(type, {"highway", "*", "bridge"});
-}
+  if (ftype::GetLevel(type) != 3)
+    return false;
 
-IsTunnelChecker::IsTunnelChecker() : BaseChecker(3 /* level */) {}
+  ClassifObject const * p = classif().GetRoot()->GetObject(ftype::GetValue(type, 0));
+  if (p->GetName() != "highway")
+    return false;
 
-bool IsTunnelChecker::IsMatched(uint32_t type) const
-{
-  return IsTypeConformed(type, {"highway", "*", "tunnel"});
+  p = p->GetObject(ftype::GetValue(type, 1));
+  p = p->GetObject(ftype::GetValue(type, 2));
+  return (p->GetName() == "bridge" || p->GetName() == "tunnel");
 }
 
 IsHotelChecker::IsHotelChecker()
@@ -948,26 +950,4 @@ uint64_t GetPopulationByRadius(double r)
   return base::SignedRound(pow(r / 550.0, 3.6));
 }
 
-bool IsTypeConformed(uint32_t type, base::StringIL const & path)
-{
-  ClassifObject const * p = classif().GetRoot();
-  ASSERT(p, ());
-
-  uint8_t val = 0, i = 0;
-  for (char const * s : path)
-  {
-    if (!ftype::GetValue(type, i, val))
-      return false;
-
-    p = p->GetObject(val);
-    if (p == 0)
-      return false;
-
-    if (p->GetName() != s && strcmp(s, "*") != 0)
-      return false;
-
-    ++i;
-  }
-  return true;
-}
 }  // namespace ftypes
