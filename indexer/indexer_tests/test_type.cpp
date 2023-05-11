@@ -7,30 +7,21 @@ namespace
   void check_values_array(uint8_t values[], uint8_t count)
   {
     uint32_t type = ftype::GetEmptyValue();
-    uint8_t value;
-    bool res = ftype::GetValue(type, 0, value);
-    TEST_EQUAL(res, false, ());
-    res = ftype::GetValue(type, 4, value);
-    TEST_EQUAL(res, false, ());
 
     for (uint8_t i = 0; i < count; ++i)
       ftype::PushValue(type, values[i]);
 
     for (uint8_t i = 0; i < count; ++i)
-    {
-      res = ftype::GetValue(type, i, value);
-      TEST_EQUAL(res, true, ());
-      TEST_EQUAL(value, values[i], (value, values[i]));
-    }
+      TEST_EQUAL(ftype::GetValue(type, i), values[i], ());
 
-    for (char i = count-1; i >= 0; --i)
+    while (count > 0)
     {
+      TEST_EQUAL(ftype::GetLevel(type), count, ());
       ftype::PopValue(type);
-
-      res = ftype::GetValue(type, i, value);
-      TEST_EQUAL(res, false, ());
+      --count;
     }
 
+    TEST_EQUAL(ftype::GetLevel(type), 0, ());
     TEST_EQUAL(type, ftype::GetEmptyValue(), (type));
   }
 }

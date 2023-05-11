@@ -22,7 +22,8 @@ namespace ftype
   inline uint32_t GetEmptyValue() { return 1; }
 
   void PushValue(uint32_t & type, uint8_t value);
-  bool GetValue(uint32_t type, uint8_t level, uint8_t & value);
+  /// @pre level < GetLevel(type).
+  uint8_t GetValue(uint32_t type, uint8_t level);
   void PopValue(uint32_t & type);
   void TruncValue(uint32_t & type, uint8_t level);
   uint8_t GetLevel(uint32_t type);

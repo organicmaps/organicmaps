@@ -2,15 +2,9 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
-#include "indexer/data_source.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
-#include "base/logging.hpp"
-
-#include <cstddef>
-#include <cstdint>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace checker_test
@@ -61,36 +55,6 @@ vector<uint32_t> GetLinkTypes()
   return GetTypes(arr, ARRAY_SIZE(arr));
 }
 
-vector<uint32_t> GetBridgeTypes()
-{
-  char const * arr[][roadArrColumnCount] =
-  {
-    { "highway", "trunk", "bridge" },
-    { "highway", "tertiary", "bridge" }
-  };
-  return GetTypes(arr, ARRAY_SIZE(arr));
-}
-
-vector<uint32_t> GetTunnelTypes()
-{
-  char const * arr[][roadArrColumnCount] =
-  {
-    { "highway", "trunk", "tunnel" },
-    { "highway", "motorway_link", "tunnel" }
-  };
-  return GetTypes(arr, ARRAY_SIZE(arr));
-}
-
-vector<uint32_t> GetBridgeAndTunnelTypes()
-{
-  char const * arr[][roadArrColumnCount] =
-  {
-    { "highway", "trunk", "bridge" },
-    { "highway", "motorway_link", "tunnel" }
-  };
-  return GetTypes(arr, ARRAY_SIZE(arr));
-}
-
 uint32_t GetMotorwayJunctionType()
 {
   Classificator const & c = classif();
@@ -99,23 +63,26 @@ uint32_t GetMotorwayJunctionType()
 
 }  // namespace
 
-UNIT_TEST(IsTypeConformed)
+UNIT_TEST(IsBridgeOrTunnelChecker)
 {
   classificator::Load();
+  auto const & c = classif();
 
-  char const * arr[][roadArrColumnCount] =
+  base::StringIL arrYes[] =
   {
     {"highway", "trunk", "bridge"},
-    {"highway", "motorway_link", "tunnel"}
+    {"highway", "motorway_link", "tunnel"},
   };
-  vector<uint32_t> types = GetTypes(arr, ARRAY_SIZE(arr));
-  TEST(ftypes::IsTypeConformed(types[0], {"highway", "trunk", "bridge"}), ());
-  TEST(ftypes::IsTypeConformed(types[0], {"highway", "trunk"}), ());
-  TEST(ftypes::IsTypeConformed(types[1], {"highway", "*", "tunnel"}), ());
-  TEST(!ftypes::IsTypeConformed(types[0], {"highway", "trunk", "tunnel"}), ());
-  TEST(!ftypes::IsTypeConformed(types[0], {"highway", "abcd", "tunnel"}), ());
-  TEST(!ftypes::IsTypeConformed(types[1], {"highway", "efgh", "*"}), ());
-  TEST(!ftypes::IsTypeConformed(types[1], {"*", "building", "*"}), ());
+  for (auto const & e : arrYes)
+    TEST(ftypes::IsBridgeOrTunnelChecker::Instance()(c.GetTypeByPath(e)), ());
+
+  base::StringIL arrNo[] =
+  {
+    {"highway", "motorway_junction"},
+    {"highway", "service", "busway"},
+  };
+  for (auto const & e : arrNo)
+    TEST(!ftypes::IsBridgeOrTunnelChecker::Instance()(c.GetTypeByPath(e)), ());
 }
 
 UNIT_TEST(IsWayChecker)
@@ -137,24 +104,6 @@ UNIT_TEST(IsLinkChecker)
 
   TEST(ftypes::IsLinkChecker::Instance()(GetLinkTypes()), ());
   TEST(!ftypes::IsLinkChecker::Instance()(GetStreetTypes()), ());
-}
-
-UNIT_TEST(IsBridgeChecker)
-{
-  classificator::Load();
-
-  TEST(ftypes::IsBridgeChecker::Instance()(GetBridgeTypes()), ());
-  TEST(ftypes::IsBridgeChecker::Instance()(GetBridgeAndTunnelTypes()), ());
-  TEST(!ftypes::IsBridgeChecker::Instance()(GetTunnelTypes()), ());
-}
-
-UNIT_TEST(IsTunnelChecker)
-{
-  classificator::Load();
-
-  TEST(ftypes::IsTunnelChecker::Instance()(GetTunnelTypes()), ());
-  TEST(ftypes::IsTunnelChecker::Instance()(GetBridgeAndTunnelTypes()), ());
-  TEST(!ftypes::IsTunnelChecker::Instance()(GetBridgeTypes()), ());
 }
 
 UNIT_TEST(GetHighwayClassTest)
