@@ -7,10 +7,10 @@
 /********** Strings **********/
 
 /* Button text (should be short) */
-"cancel" = "Адмяніць";
+"cancel" = "Скасаваць";
 
 /* Button which interrupts country download */
-"cancel_download" = "Адмяніць спампоўку";
+"cancel_download" = "Скасаваць спампоўванне";
 
 /* Button which deletes downloaded country */
 "delete" = "Выдаліць";
@@ -18,7 +18,7 @@
 "download_maps" = "Спампаваць мапы";
 
 /* Settings/Downloader - info for country which started downloading */
-"downloading" = "Спампоўваецца…";
+"downloading" = "Спампоўванне…";
 
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "Кіламетры";
@@ -33,7 +33,7 @@
 "core_my_position" = "Маё месцазнаходжанне";
 
 /* Update maps later/Buy pro version later button text */
-"later" = "Потым";
+"later" = "Пазней";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
 "search" = "Шукаць";
@@ -48,11 +48,11 @@
 "country_status_download_without_size" = "Спампаваць мапу";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Спампоўка не атрымалася";
+"country_status_download_failed" = "Збой спаўмпоўкі";
 
 "about_menu_title" = "Аб праграме Organic Maps";
 
-"close" = "Зачыніць";
+"close" = "Закрыць";
 
 "download" = "Спампаваць";
 
@@ -105,7 +105,7 @@
 "parking" = "Паркоўка";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Закупы";
+"shopping" = "Пакупкі";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "Гатэль";
@@ -132,7 +132,7 @@
 "pharmacy" = "Аптэка";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "Лякарня";
+"hospital" = "Бальніца";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
 "toilet" = "Прыбіральня";
@@ -155,7 +155,7 @@
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
 "rv" = "Для аўтадамоў";
 
-"share_bookmarks_email_body" = "Вітаю!\n\nУ далучаным файле мае закладкі з праграмы Organic Maps. Калі ласка, адчыніце іх, калі ў вас усталяваны Organic Maps. Калі не, спампуйце праграму для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!";
+"share_bookmarks_email_body" = "Вітаю!\n\nУ далучаным файле мае закладкі з праграмы Organic Maps. Калі ласка, адкройце іх, калі ў вас усталяваны Organic Maps. Калі не, спампуйце праграму для вашай прылады iOS або Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Загрузка закладак";
@@ -164,22 +164,22 @@
 "load_kmz_successful" = "Закладкі паспяхова загружаны! Вы можаце іх убачыць на мапе альбо ў захаваных закладках.";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Не атрамалася запампаваць закладкі. Файл можа быць пашкоджаны альбо дэфектыўны.";
+"load_kmz_failed" = "Не ўдалося загрузіць закладкі. Магчыма, файл пашкоджаны або няспраўны.";
 
 /* resource for context menu */
-"edit" = "Правіць";
+"edit" = "Рэдагаваць";
 
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Ваша месцазнаходжанне пакуль не вызначана";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Гэй, глядзі маю метку на Organic Maps!";
+"bookmark_share_email_subject" = "Глядзі маю метку на карце Organic Maps";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Гэй, глядзі дзе я зараз на мапе Organic Maps!";
+"my_position_share_email_subject" = "Паглядзі на карце Organic Maps, дзе я зараз знаходжуся";
 
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
-"share" = "Падзяліцца";
+"share" = "Абагуліць";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "Электронная пошта";
@@ -194,7 +194,7 @@
 "version" = "Версія: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "Дадзеныя OpenStreetMap: %@";
+"data_version" = "Даныя OpenStreetMap: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Сцежкі";
@@ -239,7 +239,7 @@
 "pref_tts_other_section_title" = "Іншы";
 
 /* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Нядаўняя сцежка";
+"pref_track_record_title" = "Апошні трэк";
 
 "pref_map_auto_zoom" = "Аўтаматычны маштаб";
 
@@ -255,7 +255,7 @@
 
 "duration_1_day" = "1 дзень";
 
-"recent_track_help_text" = "Гэтая функцыя дазваляе запісваць сцежку за некаторы прамежак часу і бачыць яе на мапе. Увага: уключэнне гэтай функцыі павялічвае выкарыстанне батарэі. Сцежка будзе аўтаматычка выдалена з мапы калі прамежак часу скончыцца.";
+"recent_track_help_text" = "Гэтая функцыя дазваляе запісаць пройдзены шлях за пэўны перыяд і бачыць яго на мапе. Увага: уключэнне гэтай функцыі павялічвае выкарыстанне батарэі. Запісаны трэк будзе выдалены з карты па заканчэнні гэтага тэрміна.";
 
 "placepage_distance" = "Адлегласць";
 
@@ -310,13 +310,13 @@
 "how_to_support_us" = "Падтрымаць праект";
 
 /* Button in the main Help dialog */
-"copyright" = "Капірайт";
+"copyright" = "Аўтарскае права";
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Паведаміць аб памылцы";
 
 /* Alert text */
-"email_error_body" = "Паштовы кліент не наладжаны. Наладзьце яго альбо звяжыцеся з намі па адрасе %@ іншым чынам.";
+"email_error_body" = "Паштовы кліент не наладжаны. Наладзьце яго альбо звяжыцеся з намі па адрасе %@ любым іншым спосабам.";
 
 /* Alert title */
 "email_error_title" = "Памылка адпраўкі пошты";
@@ -331,7 +331,7 @@
 "downloader_downloaded_subtitle" = "Спампаваныя";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Дасягальныя";
+"downloader_available_maps" = "Даступныя";
 
 /* Country queued for download */
 "downloader_queued" = "У чарзе";
@@ -343,7 +343,7 @@
 
 "downloader_download_all_button" = "Спампаваць усё";
 
-"downloader_downloading" = "Спампоўваецца:";
+"downloader_downloading" = "Спампоўванне:";
 
 "downloader_search_results" = "Знойдзена";
 
@@ -351,7 +351,7 @@
 "downloader_status_outdated" = "Абнавіць";
 
 /* Status of failed country in the list */
-"downloader_status_failed" = "Не атрымалася";
+"downloader_status_failed" = "Збой";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
 "downloader_delete_map_while_routing_dialog" = "Каб выдаліць мапу, спыніце навігацыю.";
@@ -363,16 +363,16 @@
 "downloader_download_map" = "Спампаваць мапу";
 
 /* Item status in downloader. */
-"downloader_retry" = "Паспрабаваць зноў";
+"downloader_retry" = "Паўтарыць";
 
 /* Item in context menu. */
 "downloader_delete_map" = "Выдаліць мапу";
 
 /* Text for routing error dialog */
-"routing_download_maps_along" = "Спампаваць усе мапы на вашым шляху";
+"routing_download_maps_along" = "Спампуйце ўсе карты па сваім маршруце";
 
 /* Text for routing error dialog */
-"routing_requires_all_map" = "Каб пракласці маршрут, трэба спампаваць і абнавіць усе мапы на на вашым шляху.";
+"routing_requires_all_map" = "Каб пракласці маршрут, трэба спампаваць і абнавіць усе мапы ад вашага месцазнаходжання да месца прызначэння.";
 
 /* bookmark button text */
 "bookmark" = "закладка";
@@ -456,7 +456,7 @@
 
 "dialog_routing_download_files" = "Спампуйце неабходныя файлы";
 
-"dialog_routing_download_and_update_all" = "Спампуйце і абнавіце ўсе мапы і дадзеныя навігацыі на планаваным шляху, каб пракласці маршрут.";
+"dialog_routing_download_and_update_all" = "Спампуйце і абнавіце ўсе мапы і даныя навігацыі на планаваным шляху, каб пракласці маршрут.";
 
 "dialog_routing_unable_locate_route" = "Не атрымалася знайсці маршрут";
 
@@ -500,10 +500,10 @@
 "hide" = "Схаваць";
 
 /* Failed planning route message in navigation view */
-"routing_planning_error" = "Памылка пракладання маршрута";
+"routing_planning_error" = "Не ўдалося спланаваць маршрут";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Прыбыццё а %s";
+"routing_arrive" = "Прыбыццё ў %s";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Спампуйце і абнавіце ўсе мапы на шляху, каб пракласці маршрут.";
@@ -547,11 +547,11 @@
 /* Text for allday switch. */
 "editor_time_allday" = "Цэлы дзень (24 гадзіны)";
 
-"editor_time_open" = "Адчынена";
+"editor_time_open" = "Адкрыта";
 
-"editor_time_close" = "Зачынена";
+"editor_time_close" = "Закрыта";
 
-"editor_time_add_closed" = "Дадаць час, калі зачынена";
+"editor_time_add_closed" = "Дадаць час, калі закрыта";
 
 "editor_time_title" = "Час працы";
 
@@ -559,47 +559,47 @@
 
 "editor_time_simple" = "Просты рэжым";
 
-"editor_hours_closed" = "Час, калі зачынена";
+"editor_hours_closed" = "Час, калі закрыта";
 
 "editor_example_values" = "Прыклады значэнняў";
 
 "editor_add_select_location" = "Месцазнаходжанне";
 
-"editor_done_dialog_1" = "Вы змянілі мапу свету. Не прыхоўвайце гэта! Расскажыце сябрам і праўце разам.";
+"editor_done_dialog_1" = "Вы змянілі мапу свету. Не хавайце гэта, расскажыце сябрам і праўце разам.";
 
-"share_with_friends" = "Падзяліцца з сябрамі";
+"share_with_friends" = "Абагуліць з сябрамі";
 
 "editor_report_problem_send_button" = "Адправіць";
 
-"autodownload" = "Аўтаматычная спампоўка";
+"autodownload" = "Аўтаматычнае спампоўванне";
 
 /* Place Page opening hours text */
-"closed_now" = "Зараз зачынена";
+"closed_now" = "Зараз закрыта";
 
 /* Place Page opening hours text */
 "daily" = "Штодзённа";
 
 "twentyfour_seven" = "24/7";
 
-"day_off_today" = "Сёння зачынена";
+"day_off_today" = "Сёння закрыта";
 
-"day_off" = "Зачынена";
+"day_off" = "Закрыта";
 
 "today" = "Сёння";
 
-"opens_tomorrow_at" = "Адкрыццё заўтра ў %@";
+"opens_tomorrow_at" = "Адкрыецца заўтра ў %@";
 
-"opens_dayoftheweek_at" = "Адкрыццё ў %1$@ у %2$@";
+"opens_dayoftheweek_at" = "Адкрываецца ў %1$@ у %2$@";
 
-"opens_at" = "Адкрыццё ў %@";
+"opens_at" = "Адкрываецца ў %@";
 
-"opens_in" = "Адчыняецца праз %@";
+"opens_in" = "Адкрываецца праз %@";
 
-"closes_at" = "Зачыняецца ў %@";
+"closes_at" = "Закрываецца ў %@";
 
-"closes_in" = "Зачыняецца праз %@";
+"closes_in" = "Закрываецца праз %@";
 
-"closed" = "Зачынена";
+"closed" = "Закрыта";
 
 "add_opening_hours" = "Дадаць часы працы";
 
@@ -624,7 +624,7 @@
 
 "thank_you" = "Дзякуй";
 
-"edit_place" = "Правіць месца";
+"edit_place" = "Рэдагаваць месца";
 
 "place_name" = "Назва месца";
 
@@ -649,7 +649,7 @@
 "select_cuisine" = "Выбраць кухню";
 
 /* login text field */
-"email_or_username" = "Email альбо імя карыстальніка";
+"email_or_username" = "Эл. пошта або імя карыстальніка";
 
 "phone" = "Тэлефон";
 
@@ -669,7 +669,7 @@
 
 "downloader_no_space_title" = "Не хапае месца";
 
-"downloader_no_space_message" = "Выдаліце непатрэбныя дадзеныя";
+"downloader_no_space_message" = "Выдаліце непатрэбныя даныя";
 
 "editor_profile_changes" = "Правераныя змены";
 
@@ -681,7 +681,7 @@
 
 "editor_add_select_category_all_subtitle" = "Усе катэгорыі";
 
-"editor_edit_place_title" = "Праўка";
+"editor_edit_place_title" = "Рэдагаванне";
 
 "editor_add_place_title" = "Даданне";
 
@@ -689,7 +689,7 @@
 
 "editor_edit_place_category_title" = "Катэгорыя";
 
-"whatsnew_editor_message_1" = "Стварайце на мапе новыя месцы і праўце існуючыя прама ў дататку.";
+"whatsnew_editor_message_1" = "Стварайце на мапе новыя месцы і праўце існуючыя прама ў праграме.";
 
 "dialog_incorrect_feature_position" = "Змяніце месцазнаходжанне";
 
@@ -698,7 +698,7 @@
 "login_to_make_edits_visible" = "Аўтарызуйцеся ў OpenStreetMap.org, каб іншыя карыстальнікі бачылі вашыя змены.";
 
 /* Error dialog no space */
-"migration_no_space_message" = "Каб спампаваць, трэба больш месца. Выдаліце непатрэбныя дадзеныя.";
+"migration_no_space_message" = "Каб спампаваць, трэба больш месца. Выдаліце непатрэбныя даныя.";
 
 "editor_sharing_title" = "Я палепшыў мапы Organic Maps";
 
@@ -755,7 +755,7 @@
 
 "location_services_disabled_message" = "Уключыце доступ да геалакацыі у наладах прылады.";
 
-"location_services_disabled_1" = "1. Адчыніце Налады";
+"location_services_disabled_1" = "1. Адкрыйце Налады";
 
 "location_services_disabled_2" = "2. Націсніце Геалакацыя";
 
@@ -797,7 +797,7 @@
 
 "editor_edits_sent_message" = "Запрапанаваныя вамі змены адпраўлены";
 
-"editor_comment_hint" = "Каментар…";
+"editor_comment_hint" = "Каментарый…";
 
 "editor_reset_edits_message" = "Скінуць усе лакальныя змены?";
 
@@ -826,7 +826,7 @@
 "editor_share_to_all_dialog_title" = "Хочаце адправіць усім карыстальнікам?";
 
 /* Dialog before publishing the modifications to the public map. */
-"editor_share_to_all_dialog_message_1" = "Упэўніцеся, што вы не ўвялі ніякіх асабістых дадзеных.";
+"editor_share_to_all_dialog_message_1" = "Упэўніцеся, што вы не ўвялі ніякіх асабістых даных.";
 
 "editor_share_to_all_dialog_message_2" = "Рэдактары OpenStreetMap правераць змены і звяжуцца з вамі, калі ў іх узнікнуць пытанні.";
 
@@ -843,7 +843,7 @@
 "recent_track_background_dialog_message" = "Organic Maps ужывае вашу геалакацыю ў фонавым рэжыме, каб запісваць ваш нядаўна пройдзены маршрут.";
 
 /* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps — гэта хуткія і бясплатныя мапы без рэкламы, якія працуюць без Інтэрнэту і не шпіёняць за вамі. Усе картаграфічныя дадзеныя бяруцца з OpenStreetMap.org, там вы зможаце самастойна выпраўляць памылкі і дадаваць новыя аб'екты. Organic Maps — гэта праект з адкрытым зыходным кодам, які ствараецца энтузіястамі ў вольны час. Будзем рады вашай падтрымцы і зваротнай сувязі!";
+"about_description" = "Organic Maps — гэта хуткія і бясплатныя мапы без рэкламы, якія працуюць без Інтэрнэту і не шпіёняць за вамі. Усе картаграфічныя даныя бяруцца з OpenStreetMap.org, там вы зможаце самастойна выпраўляць памылкі і дадаваць новыя аб'екты. Organic Maps — гэта праект з адкрытым зыходным кодам, які ствараецца энтузіястамі ў вольны час. Будзем рады вашай падтрымцы і зваротнай сувязі!";
 
 "general_settings" = "Агульныя налады";
 
@@ -912,7 +912,7 @@
 
 "core_entrance" = "Уваход";
 
-"error_enter_correct_name" = "Калі ласка, увядзіце назву правільна";
+"error_enter_correct_name" = "Увядзіце правільную назву";
 
 "bookmark_lists" = "Спісы";
 
@@ -927,9 +927,9 @@
 
 "downloader_percent" = "%s (%s з %s)";
 
-"downloader_process" = "Спампоўка %s…";
+"downloader_process" = "Спампоўванне %s…";
 
-"downloader_applying" = "Застасаванне %s…";
+"downloader_applying" = "Прымяненне %s…";
 
 "bookmarks_error_message_share_general" = "Не атрымалася падзяліцца з-за памылкі праграмы";
 
@@ -953,11 +953,11 @@
 
 "bookmarks_convert_error_message" = "Некаторыя файлы не ператварыліся.";
 
-"bookmarks_restore_title" = "Узнавіць гэтую версію?";
+"bookmarks_restore_title" = "Аднавіць гэту версію?";
 
 "error_system_message" = "Адбылася невядомая памылка";
 
-"restore" = "Узнавіць";
+"restore" = "Аднавіць";
 
 "privacy_policy" = "Палітыка прыватнасці";
 
@@ -967,7 +967,7 @@
 
 "button_layer_subway" = "Метро";
 
-"layers_title" = "Слаі карты";
+"layers_title" = "Слаі мапы";
 
 "subway_data_unavailable" = "Мапа метро недасягальная";
 
@@ -1228,7 +1228,7 @@
 "move" = "Перамясціць";
 
 /* edit track screen title */
-"track_title" = "Сцежка";
+"track_title" = "Трэк";
 
 /* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsRu";
@@ -1259,7 +1259,7 @@
 
 "type.aerialway.drag_lift" = "Drag Lift";
 
-"type.aerialway.gondola" = "Gondola";
+"type.aerialway.gondola" = "Гандола";
 
 "type.aerialway.mixed_lift" = "Mixed Lift";
 
@@ -1267,21 +1267,21 @@
 
 "type.aeroway" = "Airspace Infrastructure";
 
-"type.aeroway.aerodrome" = "Airport";
+"type.aeroway.aerodrome" = "Аэрапорт";
 
-"type.aeroway.aerodrome.international" = "International Airport";
+"type.aeroway.aerodrome.international" = "Міжнародны аэрапорт";
 
-"type.aeroway.apron" = "Apron";
+"type.aeroway.apron" = "Перон";
 
-"type.aeroway.gate" = "Gate";
+"type.aeroway.gate" = "Выхад на пасадку";
 
-"type.aeroway.helipad" = "Helipad";
+"type.aeroway.helipad" = "Верталётная пляцоўка";
 
-"type.aeroway.runway" = "Runway";
+"type.aeroway.runway" = "Узлётна-пасадачная паласа";
 
-"type.aeroway.taxiway" = "Taxiway";
+"type.aeroway.taxiway" = "Рулежная дарожка";
 
-"type.aeroway.terminal" = "Terminal";
+"type.aeroway.terminal" = "Тэрмінал";
 
 "type.amenity" = "Amenity";
 
