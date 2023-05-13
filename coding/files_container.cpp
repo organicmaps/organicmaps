@@ -24,8 +24,6 @@
 
 #include <errno.h>
 
-using namespace std;
-
 template <typename Source, typename Info>
 void Read(Source & src, Info & i)
 {
@@ -44,9 +42,9 @@ void Write(Sink & sink, Info const & i)
   WriteVarUint(sink, i.m_size);
 }
 
-string DebugPrint(FilesContainerBase::TagInfo const & info)
+std::string DebugPrint(FilesContainerBase::TagInfo const & info)
 {
-  ostringstream ss;
+  std::ostringstream ss;
   ss << "{ " << info.m_tag << ", " << info.m_offset << ", " << info.m_size << " }";
   return ss.str();
 }
@@ -70,10 +68,10 @@ void FilesContainerBase::ReadInfo(Reader & reader)
 // FilesContainerR
 /////////////////////////////////////////////////////////////////////////////
 
-FilesContainerR::FilesContainerR(string const & filePath,
+FilesContainerR::FilesContainerR(std::string const & filePath,
                                  uint32_t logPageSize,
                                  uint32_t logPageCount)
-  : m_source(make_unique<FileReader>(filePath, logPageSize, logPageCount))
+  : m_source(std::make_unique<FileReader>(filePath, logPageSize, logPageCount))
 {
   ReadInfo(m_source);
 }
@@ -92,7 +90,7 @@ FilesContainerR::TReader FilesContainerR::GetReader(Tag const & tag) const
   return m_source.SubReader(p->m_offset, p->m_size);
 }
 
-pair<uint64_t, uint64_t> FilesContainerR::GetAbsoluteOffsetAndSize(Tag const & tag) const
+std::pair<uint64_t, uint64_t> FilesContainerR::GetAbsoluteOffsetAndSize(Tag const & tag) const
 {
   TagInfo const * p = GetInfo(tag);
   if (!p)
@@ -100,7 +98,7 @@ pair<uint64_t, uint64_t> FilesContainerR::GetAbsoluteOffsetAndSize(Tag const & t
 
   auto reader = dynamic_cast<FileReader const *>(m_source.GetPtr());
   uint64_t const offset = reader ? reader->GetOffset() : 0;
-  return make_pair(offset + p->m_offset, p->m_size);
+  return std::make_pair(offset + p->m_offset, p->m_size);
 }
 
 FilesContainerBase::TagInfo const * FilesContainerBase::GetInfo(Tag const & tag) const
@@ -117,7 +115,7 @@ namespace detail
 /////////////////////////////////////////////////////////////////////////////
 // MappedFile
 /////////////////////////////////////////////////////////////////////////////
-void MappedFile::Open(string const & fName)
+void MappedFile::Open(std::string const & fName)
 {
   Close();
 
@@ -167,7 +165,7 @@ void MappedFile::Close()
 #endif
 }
 
-MappedFile::Handle MappedFile::Map(uint64_t offset, uint64_t size, string const & tag) const
+MappedFile::Handle MappedFile::Map(uint64_t offset, uint64_t size, std::string const & tag) const
 {
 #ifdef OMIM_OS_WINDOWS
   SYSTEM_INFO sysInfo;
@@ -205,7 +203,7 @@ MappedFile::Handle MappedFile::Map(uint64_t offset, uint64_t size, string const 
 // FilesMappingContainer
 /////////////////////////////////////////////////////////////////////////////
 
-FilesMappingContainer::FilesMappingContainer(string const & fName)
+FilesMappingContainer::FilesMappingContainer(std::string const & fName)
 {
   Open(fName);
 }
@@ -215,7 +213,7 @@ FilesMappingContainer::~FilesMappingContainer()
   Close();
 }
 
-void FilesMappingContainer::Open(string const & fName)
+void FilesMappingContainer::Open(std::string const & fName)
 {
   {
     FileReader reader(fName);
@@ -296,7 +294,7 @@ void FilesMappingContainer::Handle::Reset()
 // FilesContainerW
 /////////////////////////////////////////////////////////////////////////////
 
-FilesContainerW::FilesContainerW(string const & fName, FileWriter::Op op)
+FilesContainerW::FilesContainerW(std::string const & fName, FileWriter::Op op)
   : m_name(fName), m_finished(false)
 {
   Open(op);
@@ -414,7 +412,7 @@ std::unique_ptr<FilesContainerWriter> FilesContainerW::GetWriter(Tag const & tag
     ASSERT(!m_info.empty(), ());
 
     uint64_t const curr = m_info.back().m_offset + m_info.back().m_size;
-    auto writer = make_unique<TruncatingFileWriter>(m_name);
+    auto writer = std::make_unique<TruncatingFileWriter>(m_name);
     writer->Seek(curr);
     writer->WritePaddingByPos(kSectionAlignment);
 
@@ -426,7 +424,7 @@ std::unique_ptr<FilesContainerWriter> FilesContainerW::GetWriter(Tag const & tag
   {
     SaveCurrentSize();
 
-    auto writer = make_unique<FilesContainerWriter>(m_name, FileWriter::OP_APPEND);
+    auto writer = std::make_unique<FilesContainerWriter>(m_name, FileWriter::OP_APPEND);
     writer->WritePaddingByPos(kSectionAlignment);
 
     m_info.emplace_back(tag, writer->Pos());
@@ -435,9 +433,9 @@ std::unique_ptr<FilesContainerWriter> FilesContainerW::GetWriter(Tag const & tag
   }
 }
 
-void FilesContainerW::Write(string const & fPath, Tag const & tag)
+void FilesContainerW::Write(std::string const & fPath, Tag const & tag)
 {
-  Write(ModelReaderPtr(make_unique<FileReader>(fPath)), tag);
+  Write(ModelReaderPtr(std::make_unique<FileReader>(fPath)), tag);
 }
 
 void FilesContainerW::Write(ModelReaderPtr reader, Tag const & tag)
@@ -454,12 +452,12 @@ void FilesContainerW::Write(void const * buffer, size_t size, Tag const & tag)
     GetWriter(tag)->Write(buffer, size);
 }
 
-void FilesContainerW::Write(vector<char> const & buffer, Tag const & tag)
+void FilesContainerW::Write(std::vector<char> const & buffer, Tag const & tag)
 {
   Write(buffer.data(), buffer.size(), tag);
 }
 
-void FilesContainerW::Write(vector<uint8_t> const & buffer, Tag const & tag)
+void FilesContainerW::Write(std::vector<uint8_t> const & buffer, Tag const & tag)
 {
   Write(buffer.data(), buffer.size(), tag);
 }

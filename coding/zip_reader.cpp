@@ -9,15 +9,13 @@
 
 #include "3party/minizip/minizip.hpp"
 
-using namespace std;
-
 namespace
 {
 class UnzipFileDelegate : public ZipFileReader::Delegate
 {
 public:
-  explicit UnzipFileDelegate(string const & path)
-    : m_file(make_unique<FileWriter>(path)), m_path(path), m_completed(false)
+  explicit UnzipFileDelegate(std::string const & path)
+    : m_file(std::make_unique<FileWriter>(path)), m_path(path), m_completed(false)
   {
   }
 
@@ -36,13 +34,13 @@ public:
   void OnCompleted() override { m_completed = true; }
 
 private:
-  unique_ptr<FileWriter> m_file;
-  string const m_path;
+  std::unique_ptr<FileWriter> m_file;
+  std::string const m_path;
   bool m_completed;
 };
 }  // namespace
 
-ZipFileReader::ZipFileReader(string const & container, string const & file, uint32_t logPageSize,
+ZipFileReader::ZipFileReader(std::string const & container, std::string const & file, uint32_t logPageSize,
                              uint32_t logPageCount)
   : FileReader(container, logPageSize, logPageCount), m_uncompressedFileSize(0)
 {
@@ -50,7 +48,7 @@ ZipFileReader::ZipFileReader(string const & container, string const & file, uint
   if (!zip)
     MYTHROW(OpenZipException, ("Can't get zip file handle", container));
 
-  SCOPE_GUARD(zipGuard, bind(&unzClose, zip));
+  SCOPE_GUARD(zipGuard, std::bind(&unzClose, zip));
 
   if (unzip::Code::Ok != unzip::GoToFile(zip, file.c_str()))
     MYTHROW(LocateZipException, ("Can't locate file inside zip", file));
@@ -72,13 +70,13 @@ ZipFileReader::ZipFileReader(string const & container, string const & file, uint
   m_uncompressedFileSize = fileInfo.m_info.uncompressed_size;
 }
 
-void ZipFileReader::FilesList(string const & zipContainer, FileList & filesList)
+void ZipFileReader::FilesList(std::string const & zipContainer, FileList & filesList)
 {
   auto const zip = unzip::Open(zipContainer.c_str());
   if (!zip)
     MYTHROW(OpenZipException, ("Can't get zip file handle", zipContainer));
 
-  SCOPE_GUARD(zipGuard, bind(&unzip::Close, zip));
+  SCOPE_GUARD(zipGuard, std::bind(&unzip::Close, zip));
 
   if (unzip::Code::Ok != unzip::GoToFirstFile(zip))
     MYTHROW(LocateZipException, ("Can't find first file inside zip", zipContainer));
@@ -94,7 +92,7 @@ void ZipFileReader::FilesList(string const & zipContainer, FileList & filesList)
   } while (unzip::Code::Ok == unzip::GoToNextFile(zip));
 }
 
-bool ZipFileReader::IsZip(string const & zipContainer)
+bool ZipFileReader::IsZip(std::string const & zipContainer)
 {
   auto zip = unzip::Open(zipContainer);
   if (!zip)
@@ -104,20 +102,20 @@ bool ZipFileReader::IsZip(string const & zipContainer)
 }
 
 // static
-void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileInZip,
+void ZipFileReader::UnzipFile(std::string const & zipContainer, std::string const & fileInZip,
                               Delegate & delegate)
 {
   auto zip = unzip::Open(zipContainer);
   if (!zip)
     MYTHROW(OpenZipException, ("Can't get zip file handle", zipContainer));
-  SCOPE_GUARD(zipGuard, bind(&unzip::Close, zip));
+  SCOPE_GUARD(zipGuard, std::bind(&unzip::Close, zip));
 
   if (unzip::Code::Ok != unzip::GoToFile(zip, fileInZip))
     MYTHROW(LocateZipException, ("Can't locate file inside zip", fileInZip));
 
   if (unzip::Code::Ok != unzip::OpenCurrentFile(zip))
     MYTHROW(LocateZipException, ("Can't open file inside zip", fileInZip));
-  SCOPE_GUARD(currentFileGuard, bind(&unzip::CloseCurrentFile, zip));
+  SCOPE_GUARD(currentFileGuard, std::bind(&unzip::CloseCurrentFile, zip));
 
   unzip::FileInfo fileInfo;
   if (unzip::Code::Ok != unzip::GetCurrentFileInfo(zip, fileInfo))
@@ -142,8 +140,8 @@ void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileIn
 }
 
 // static
-void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileInZip,
-                              string const & outPath)
+void ZipFileReader::UnzipFile(std::string const & zipContainer, std::string const & fileInZip,
+                              std::string const & outPath)
 {
   UnzipFileDelegate delegate(outPath);
   UnzipFile(zipContainer, fileInZip, delegate);

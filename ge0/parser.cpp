@@ -13,8 +13,6 @@
 #include <algorithm>
 #include <sstream>
 
-using namespace std;
-
 namespace ge0
 {
 Ge0Parser::Ge0Parser()
@@ -28,7 +26,7 @@ Ge0Parser::Ge0Parser()
   }
 }
 
-bool Ge0Parser::Parse(string const & url, Result & result)
+bool Ge0Parser::Parse(std::string const & url, Result & result)
 {
   // Original URL format:
   //
@@ -52,7 +50,7 @@ bool Ge0Parser::Parse(string const & url, Result & result)
   return false;
 }
 
-bool Ge0Parser::ParseAfterPrefix(string const & url, size_t from, Result & result)
+bool Ge0Parser::ParseAfterPrefix(std::string const & url, size_t from, Result & result)
 {
   size_t const kEncodedZoomAndCoordinatesLength = 10;
   if (url.size() < from + kEncodedZoomAndCoordinatesLength)
@@ -81,7 +79,7 @@ bool Ge0Parser::ParseAfterPrefix(string const & url, size_t from, Result & resul
     CHECK_GREATER(posName, 0, ());
     if (url[posName - 1] != '/')
       return false;
-    result.m_name = DecodeName(url.substr(posName, min(url.size() - posName, kMaxNameLength)));
+    result.m_name = DecodeName(url.substr(posName, std::min(url.size() - posName, kMaxNameLength)));
   }
 
   return true;
@@ -98,7 +96,7 @@ double Ge0Parser::DecodeZoom(uint8_t const zoomByte)
   return static_cast<double>(zoomByte) / 4 + 4;
 }
 
-bool Ge0Parser::DecodeLatLon(string const & s, double & lat, double & lon)
+bool Ge0Parser::DecodeLatLon(std::string const & s, double & lat, double & lon)
 {
   int latInt = 0;
   int lonInt = 0;
@@ -110,7 +108,7 @@ bool Ge0Parser::DecodeLatLon(string const & s, double & lat, double & lon)
   return true;
 }
 
-bool Ge0Parser::DecodeLatLonToInt(string const & s, int & lat, int & lon)
+bool Ge0Parser::DecodeLatLonToInt(std::string const & s, int & lat, int & lon)
 {
   int shift = kMaxCoordBits - 3;
   for (size_t i = 0; i < s.size(); ++i, shift -= 3)
@@ -140,7 +138,7 @@ double Ge0Parser::DecodeLonFromInt(int const lon, int const maxValue)
   return static_cast<double>(lon) / (maxValue + 1.0) * 360.0 - 180;
 }
 
-string Ge0Parser::DecodeName(string name)
+std::string Ge0Parser::DecodeName(std::string name)
 {
   ValidateName(name);
   name = url::UrlDecode(name);
@@ -148,7 +146,7 @@ string Ge0Parser::DecodeName(string name)
   return name;
 }
 
-void Ge0Parser::SpacesToUnderscore(string & name)
+void Ge0Parser::SpacesToUnderscore(std::string & name)
 {
   for (size_t i = 0; i < name.size(); ++i)
   {
@@ -159,7 +157,7 @@ void Ge0Parser::SpacesToUnderscore(string & name)
   }
 }
 
-void Ge0Parser::ValidateName(string & name)
+void Ge0Parser::ValidateName(std::string & name)
 {
   if (name.empty())
     return;
@@ -182,9 +180,9 @@ bool Ge0Parser::IsHexChar(char const a)
   return ((a >= '0' && a <= '9') || (a >= 'A' && a <= 'F') || (a >= 'a' && a <= 'f'));
 }
 
-string DebugPrint(Ge0Parser::Result const & r)
+std::string DebugPrint(Ge0Parser::Result const & r)
 {
-  ostringstream oss;
+  std::ostringstream oss;
   oss << "ParseResult [";
   oss << "zoom=" << r.m_zoomLevel << ", ";
   oss << "lat=" << r.m_lat << ", ";

@@ -7,10 +7,10 @@
 
 #include <algorithm>
 
-using namespace std;
-
 namespace coding
 {
+using std::make_unique, std::max, std::min, std::unique_ptr, std::vector;
+
 namespace
 {
 struct IntersectOp
@@ -462,7 +462,7 @@ unique_ptr<CompressedBitVector> CompressedBitVectorBuilder::FromBitGroups(
   return make_unique<SparseCBV>(setBits);
 }
 
-string DebugPrint(CompressedBitVector::StorageStrategy strat)
+std::string DebugPrint(CompressedBitVector::StorageStrategy strat)
 {
   switch (strat)
   {
