@@ -14,6 +14,7 @@ GOOGLE_TARGET_LANGUAGES = [
   'ar',
   'be',
   'ca',
+  'es-MX',
   'eu',
   'fa',
   'he',
@@ -123,6 +124,11 @@ if __name__ == '__main__':
   translations = deepl_translate(text_to_translate)
   google_translations = google_translate(text_to_translate)
   translations.update(google_translations)
+  # Remove duplicates for regional variations.
+  for regional in ['en-GB', 'es-MX', 'pt-BR']:
+    main = regional.split('-')[0]  # 'en', 'es', 'pt'...
+    if translations[regional] == translations[main]:
+      translations.pop(regional)
 
   print('\nMerged Deepl and Google translations:')
   en = translations.pop('en')
