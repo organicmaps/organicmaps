@@ -82,7 +82,7 @@ static_assert(
     "With current encoding we are limited to 64 languages max. And we need kLanguages.size()"
     " to be exactly 64 for backward compatibility.");
 
-bool IsSupportedLangCode(int8_t langCode)
+constexpr bool IsSupportedLangCode(int8_t langCode)
 {
   return langCode >= 0 && langCode < static_cast<int8_t>(kLanguages.size()) &&
          kLanguages[langCode].m_code != StringUtf8Multilang::kReservedLang;
@@ -93,11 +93,11 @@ bool IsSupportedLangCode(int8_t langCode)
 StringUtf8Multilang::Languages const & StringUtf8Multilang::GetSupportedLanguages()
 {
   // Asserts for generic class constants.
-  ASSERT_EQUAL(kLanguages[kDefaultCode].m_code, std::string("default"), ());
-  ASSERT_EQUAL(kLanguages[kInternationalCode].m_code, std::string("int_name"), ());
-  ASSERT_EQUAL(kLanguages[kAltNameCode].m_code, std::string("alt_name"), ());
-  ASSERT_EQUAL(kLanguages[kOldNameCode].m_code, std::string("old_name"), ());
-  ASSERT_EQUAL(kLanguages[kEnglishCode].m_code, std::string("en"), ());
+  ASSERT_EQUAL(kLanguages[kDefaultCode].m_code, std::string_view{"default"}, ());
+  ASSERT_EQUAL(kLanguages[kInternationalCode].m_code, std::string_view{"int_name"}, ());
+  ASSERT_EQUAL(kLanguages[kAltNameCode].m_code, std::string_view{"alt_name"}, ());
+  ASSERT_EQUAL(kLanguages[kOldNameCode].m_code, std::string_view{"old_name"}, ());
+  ASSERT_EQUAL(kLanguages[kEnglishCode].m_code, std::string_view{"en"}, ());
   static StringUtf8Multilang::Languages languages;
   if (languages.empty())
   {
@@ -123,25 +123,25 @@ int8_t StringUtf8Multilang::GetLangIndex(std::string_view const lang)
 }
 
 // static
-char const * StringUtf8Multilang::GetLangByCode(int8_t langCode)
+std::string_view StringUtf8Multilang::GetLangByCode(int8_t langCode)
 {
   if (!IsSupportedLangCode(langCode))
-    return "";
+    return {};
 
-  return kLanguages[langCode].m_code.c_str();
+  return kLanguages[langCode].m_code;
 }
 
 // static
-char const * StringUtf8Multilang::GetLangNameByCode(int8_t langCode)
+std::string_view StringUtf8Multilang::GetLangNameByCode(int8_t langCode)
 {
   if (!IsSupportedLangCode(langCode))
-    return "";
+    return {};
 
-  return kLanguages[langCode].m_name.c_str();
+  return kLanguages[langCode].m_name;
 }
 
 // static
-std::vector<std::string> const * StringUtf8Multilang::GetTransliteratorsIdsByCode(int8_t langCode)
+std::vector<std::string_view> const * StringUtf8Multilang::GetTransliteratorsIdsByCode(int8_t langCode)
 {
   if (!IsSupportedLangCode(langCode))
     return nullptr;

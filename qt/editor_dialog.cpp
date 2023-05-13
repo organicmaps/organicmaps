@@ -56,10 +56,11 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
     int namesRow = 0;
     for (auto const & ln : emo.GetNamesDataSource().names)
     {
-      namesGrid->addWidget(new QLabel(ln.m_lang), namesRow, 0);
+      namesGrid->addWidget(new QLabel(QString::fromUtf8(ln.m_lang.data(), ln.m_lang.size())), namesRow, 0);
       QLineEdit * lineEditName = new QLineEdit(QString::fromStdString(ln.m_name));
       lineEditName->setReadOnly(!emo.IsNameEditable());
-      lineEditName->setObjectName(StringUtf8Multilang::GetLangByCode(ln.m_code));
+      std::string_view const code = StringUtf8Multilang::GetLangByCode(ln.m_code);
+      lineEditName->setObjectName(QString::fromUtf8(code.data(), code.size()));
       namesGrid->addWidget(lineEditName, namesRow++, 1);
     }
 
@@ -171,7 +172,8 @@ void EditorDialog::OnSave()
     for (int8_t langCode = StringUtf8Multilang::kDefaultCode;
          langCode < StringUtf8Multilang::kMaxSupportedLanguages; ++langCode)
     {
-      QLineEdit * le = findChild<QLineEdit *>(StringUtf8Multilang::GetLangByCode(langCode));
+      std::string_view const lang = StringUtf8Multilang::GetLangByCode(langCode);
+      QLineEdit * le = findChild<QLineEdit *>(QString::fromUtf8(lang.data(), lang.size()));
       if (!le)
         continue;
 

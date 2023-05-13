@@ -34,7 +34,7 @@ additionalSkipLanguageCodes:(std::vector<NSInteger>)additionalSkipLanguageCodes
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  auto const getIndex = [](std::string const & lang) { return StringUtf8Multilang::GetLangIndex(lang); };
+  auto const getIndex = [](std::string_view lang) { return StringUtf8Multilang::GetLangIndex(lang); };
   StringUtf8Multilang::Languages const & supportedLanguages = StringUtf8Multilang::GetSupportedLanguages();
   m_languages.clear();
 
@@ -61,13 +61,16 @@ additionalSkipLanguageCodes:(std::vector<NSInteger>)additionalSkipLanguageCodes
        });
 }
 
+// Defined in MWMEditorViewController.mm
+NSString * fromStringView(std::string_view sv);
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   MWMTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"ListCellIdentifier"];
   NSInteger const index = indexPath.row;
   StringUtf8Multilang::Lang const & language = m_languages[index];
-  cell.textLabel.text = @(language.m_name.c_str());
-  cell.detailTextLabel.text = @(language.m_code.c_str());
+  cell.textLabel.text = fromStringView(language.m_name);
+  cell.detailTextLabel.text = fromStringView(language.m_code);
   cell.accessoryType = UITableViewCellAccessoryNone;
   return cell;
 }

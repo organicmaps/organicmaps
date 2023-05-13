@@ -25,7 +25,7 @@ public:
     explicit WriterWrapper(Writer & writer)
       : m_writer(writer)
     {}
-    WriterWrapper & operator<<(std::string const & str);
+    WriterWrapper & operator<<(std::string_view str);
   private:
     Writer & m_writer;
   };

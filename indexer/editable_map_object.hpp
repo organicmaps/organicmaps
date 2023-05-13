@@ -40,8 +40,8 @@ struct LocalizedName
   /// m_code, m_lang and m_langName are defined in StringUtf8Multilang.
   int8_t const m_code;
   /// Non-owning pointers to internal static char const * array.
-  char const * const m_lang;
-  char const * const m_langName;
+  std::string_view const m_lang;
+  std::string_view const m_langName;
   std::string const m_name;
 };
 

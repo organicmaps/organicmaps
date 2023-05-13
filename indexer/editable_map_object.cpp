@@ -276,7 +276,7 @@ void EditableMapObject::ForEachMetadataItem(function<void(string_view tag, strin
         if (code == StringUtf8Multilang::kDefaultCode)
           fn("description", v);
         else
-          fn(string("description:") + StringUtf8Multilang::GetLangByCode(code), v);
+          fn(string("description:").append(StringUtf8Multilang::GetLangByCode(code)), v);
       });
     }
     else

@@ -30,15 +30,15 @@ DECLARE_EXCEPTION(NoHeader, XMLFeatureError);
 
 class XMLFeature
 {
-  static constexpr char const * kDefaultName = "name";
-  static constexpr char const * kLocalName = "name:";
-  static constexpr char const * kIntlName = "int_name";
-  static constexpr char const * kAltName = "alt_name";
-  static constexpr char const * kOldName = "old_name";
-  static constexpr char const * kDefaultLang = "default";
-  static constexpr char const * kIntlLang = kIntlName;
-  static constexpr char const * kAltLang = kAltName;
-  static constexpr char const * kOldLang = kOldName;
+  static constexpr std::string_view kDefaultName = "name";
+  static constexpr std::string_view kLocalName = "name:";
+  static constexpr std::string_view kIntlName = "int_name";
+  static constexpr std::string_view kAltName = "alt_name";
+  static constexpr std::string_view kOldName = "old_name";
+  static constexpr std::string_view kDefaultLang = "default";
+  static constexpr std::string_view kIntlLang = kIntlName;
+  static constexpr std::string_view kAltLang = kAltName;
+  static constexpr std::string_view kOldLang = kOldName;
 
 public:
   // Used in point to string serialization.
@@ -108,13 +108,13 @@ public:
     SetGeometry(begin(geometry), end(geometry));
   }
 
-  std::string GetName(std::string const & lang) const;
+  std::string GetName(std::string_view lang) const;
   std::string GetName(uint8_t const langCode = StringUtf8Multilang::kDefaultCode) const;
 
   template <typename Fn>
   void ForEachName(Fn && func) const
   {
-    size_t const kPrefixLen = strlen(kLocalName);
+    size_t const kPrefixLen = kLocalName.size();
 
     for (auto const & tag : GetRootNode().select_nodes("tag"))
     {

@@ -431,6 +431,11 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
              capitalization:UITextAutocapitalizationTypeSentences];
 }
 
+NSString * fromStringView(std::string_view sv)
+{
+  return [[NSString alloc] initWithBytes:sv.data() length:sv.size() encoding:NSUTF8StringEncoding];
+}
+
 - (void)fillCell:(UITableViewCell * _Nonnull)cell atIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
   BOOL const isValid = ![self.invalidCells containsObject:indexPath];
@@ -525,7 +530,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
       osm::LocalizedName const & name = localizedNames[indexPath.row];
       [tCell configWithDelegate:self
                        langCode:name.m_code
-                       langName:@(name.m_langName)
+                       langName:fromStringView(name.m_langName)
                            name:@(name.m_name.c_str())
                    errorMessage:L(@"error_enter_correct_name")
                         isValid:isValid
@@ -544,9 +549,10 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
         m_mapObject.EnableNamesAdvancedMode();
       }
 
+      std::string_view const svLangName = StringUtf8Multilang::GetLangNameByCode(langCode);
       [tCell configWithDelegate:self
                        langCode:langCode
-                       langName:@(StringUtf8Multilang::GetLangNameByCode(langCode))
+                       langName:fromStringView(svLangName)
                            name:@(name.c_str())
                    errorMessage:L(@"error_enter_correct_name")
                         isValid:isValid
