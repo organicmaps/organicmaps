@@ -227,6 +227,9 @@
 	<!-- SECTION: Strings for downloading map from search -->
 	<string name="search_without_internet_advertisement">על מנת להתחיל לחפש וליצור מסלולים, הורידו בבקשה את המפה ולא תזדקקו יותר לחיבור לאינטרנט.</string>
 	<string name="search_select_map">בחרו את המפה</string>
+	<!-- Tab title in the time picker -->
+	<string name="editor_time_from">משעה</string>
+	<string name="editor_time_to">עד</string>
 	<string name="twentyfour_seven">יום ולילה</string>
 	<string name="login_osm">OpenStreetMap-ל סנכיה</string>
 	<string name="level">קוֹמָה</string>

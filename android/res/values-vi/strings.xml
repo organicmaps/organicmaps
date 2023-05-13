@@ -363,6 +363,9 @@
 	<string name="p2p_reroute_from_current">Bạn có muốn chúng tôi vạch đường từ vị trí hiện tại của bạn không?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Tiếp theo</string>
+	<!-- Tab title in the time picker -->
+	<string name="editor_time_from">Từ</string>
+	<string name="editor_time_to">Đến</string>
 	<string name="editor_time_add">Thêm lịch biểu</string>
 	<string name="editor_time_delete">Xóa lịch biểu</string>
 	<!-- Text for allday switch. -->

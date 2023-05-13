@@ -9867,7 +9867,7 @@
     it = Dalle
     ja = から
     ko = 부터
-    mr = ते 
+    mr = ते
     nb = Fra
     nl = Van
     pl = Od

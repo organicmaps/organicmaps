@@ -384,6 +384,9 @@
 	<string name="p2p_reroute_from_current">Vil du vi skal planlegge en rute fra din nåværende posisjon?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Neste</string>
+	<!-- Tab title in the time picker -->
+	<string name="editor_time_from">Fra</string>
+	<string name="editor_time_to">Til</string>
 	<string name="editor_time_add">Legg til tidsrom</string>
 	<string name="editor_time_delete">Slett tidsrom</string>
 	<!-- Text for allday switch. -->

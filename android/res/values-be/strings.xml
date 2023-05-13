@@ -383,6 +383,9 @@
 	<string name="p2p_reroute_from_current">Хочаце перапракласці маршрут ад цяперашняга месцазнаходжання?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Далей</string>
+	<!-- Tab title in the time picker -->
+	<string name="editor_time_from">З</string>
+	<string name="editor_time_to">Да</string>
 	<string name="editor_time_add">Дадаць расклад</string>
 	<string name="editor_time_delete">Выдаліць расклад</string>
 	<!-- Text for allday switch. -->

@@ -384,6 +384,9 @@
 	<string name="p2p_reroute_from_current">¿Quiere que planeemos un ruta desde su ubicación actual?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Siguiente</string>
+	<!-- Tab title in the time picker -->
+	<string name="editor_time_from">De</string>
+	<string name="editor_time_to">A</string>
 	<string name="editor_time_add">Añadir horario</string>
 	<string name="editor_time_delete">Eliminar horario</string>
 	<!-- Text for allday switch. -->
