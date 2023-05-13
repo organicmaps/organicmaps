@@ -8,8 +8,6 @@
 #include <limits>
 #include <vector>
 
-using namespace std;
-
 namespace
 {
 size_t const kNumBytes = 256;
@@ -51,10 +49,10 @@ public:
       return kEOS;
 
     --i;
-    auto it = upper_bound(m_starts.begin(), m_starts.end(), i);
+    auto it = std::upper_bound(m_starts.begin(), m_starts.end(), i);
     ASSERT(it != m_starts.begin(), ());
     --it;
-    return static_cast<uint32_t>(distance(m_starts.begin(), it));
+    return static_cast<uint32_t>(std::distance(m_starts.begin(), it));
   }
 
   // Returns the rank of the i-th symbol among symbols with the same
@@ -66,7 +64,7 @@ public:
       return 0;
 
     --i;
-    auto it = upper_bound(m_starts.begin(), m_starts.end(), i);
+    auto it = std::upper_bound(m_starts.begin(), m_starts.end(), i);
     if (it == m_starts.begin())
       return i;
     --it;
@@ -75,7 +73,7 @@ public:
 
 private:
   size_t const m_n;
-  array<size_t, kNumBytes> m_starts;
+  std::array<size_t, kNumBytes> m_starts;
 };
 
 // LastColumn represents the last column in the BWT matrix. As during
@@ -131,7 +129,7 @@ private:
   size_t const m_n;
   size_t const m_start;
   uint8_t const * const m_s;
-  array<vector<size_t>, kNumBytes> m_table;
+  std::array<std::vector<size_t>, kNumBytes> m_table;
 };
 }  // namespace
 
@@ -139,7 +137,7 @@ namespace coding
 {
 size_t BWT(size_t n, uint8_t const * s, uint8_t * r)
 {
-  vector<size_t> sa(n);
+  std::vector<size_t> sa(n);
   base::Skew(n, s, sa.data());
 
   size_t result = 0;
@@ -158,7 +156,7 @@ size_t BWT(size_t n, uint8_t const * s, uint8_t * r)
   return result;
 }
 
-size_t BWT(string const & s, string & r)
+size_t BWT(std::string const & s, std::string & r)
 {
   auto const n = s.size();
   r.assign(n, '\0');
@@ -186,7 +184,7 @@ void RevBWT(size_t n, size_t start, uint8_t const * s, uint8_t * r)
   ASSERT_EQUAL(first[curr], kEOS, ());
 }
 
-void RevBWT(size_t start, string const & s, string & r)
+void RevBWT(size_t start, std::string const & s, std::string & r)
 {
   auto const n = s.size();
   r.assign(n, '\0');

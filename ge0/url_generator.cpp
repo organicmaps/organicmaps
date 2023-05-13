@@ -4,14 +4,12 @@
 
 #include <cmath>
 
-using namespace std;
-
 namespace
 {
 // Replaces ' ' with '_' and vice versa.
-string TransformName(string const & s)
+std::string TransformName(std::string const & s)
 {
-  string result = s;
+  std::string result = s;
   for (auto & c : result)
   {
     if (c == ' ')
@@ -27,9 +25,9 @@ string TransformName(string const & s)
 // See rfc3986, rfc1738, rfc2396.
 //
 // Not compatible with the url encode function from coding/.
-string UrlEncodeString(string const & s)
+std::string UrlEncodeString(std::string const & s)
 {
-  string result;
+  std::string result;
   result.reserve(s.size() * 3 + 1);
   for (size_t i = 0; i < s.size(); ++i)
   {
@@ -83,10 +81,10 @@ string UrlEncodeString(string const & s)
 
 namespace ge0
 {
-string GenerateShortShowMapUrl(double lat, double lon, double zoom, string const & name)
+std::string GenerateShortShowMapUrl(double lat, double lon, double zoom, std::string const & name)
 {
   size_t constexpr schemaLength = 5;  // strlen("om://")
-  string urlSample = "om://ZCoordba64";
+  std::string urlSample = "om://ZCoordba64";
 
   int const zoomI = (zoom <= 4 ? 0 : (zoom >= 19.75 ? 63 : static_cast<int>((zoom - 4) * 4)));
   urlSample[schemaLength] = Base64Char(zoomI);
