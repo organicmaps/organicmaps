@@ -19,13 +19,13 @@ namespace kml
 {
 namespace
 {
-std::string_view const kPlacemark = "Placemark";
-std::string_view const kStyle = "Style";
-std::string_view const kDocument = "Document";
-std::string_view const kStyleMap = "StyleMap";
-std::string_view const kStyleUrl = "styleUrl";
-std::string_view const kPair = "Pair";
-std::string_view const kExtendedData = "ExtendedData";
+std::string_view constexpr kPlacemark = "Placemark";
+std::string_view constexpr kStyle = "Style";
+std::string_view constexpr kDocument = "Document";
+std::string_view constexpr kStyleMap = "StyleMap";
+std::string_view constexpr kStyleUrl = "styleUrl";
+std::string_view constexpr kPair = "Pair";
+std::string_view constexpr kExtendedData = "ExtendedData";
 std::string const kCompilation = "mwm:compilation";
 
 std::string_view const kCoordinates = "coordinates";
@@ -258,8 +258,9 @@ void SaveLocalizableString(KmlWriter::WriterWrapper & writer, LocalizableString 
   writer << offsetStr << "</mwm:" << tagName << ">\n";
 }
 
+template <class StringViewLike>
 void SaveStringsArray(KmlWriter::WriterWrapper & writer,
-                      std::vector<std::string> const & stringsArray,
+                      std::vector<StringViewLike> const & stringsArray,
                       std::string const & tagName, std::string const & offsetStr)
 {
   if (stringsArray.empty())
@@ -269,7 +270,11 @@ void SaveStringsArray(KmlWriter::WriterWrapper & writer,
   for (auto const & s : stringsArray)
   {
     writer << offsetStr << kIndent2 << "<mwm:value>";
-    SaveStringWithCDATA(writer, s);
+    // Constants from our code do not need any additional checks or escaping.
+    if constexpr (std::is_same_v<StringViewLike, std::string_view>)
+      writer << s;
+    else
+      SaveStringWithCDATA(writer, s);
     writer << "</mwm:value>\n";
   }
   writer << offsetStr << "</mwm:" << tagName << ">\n";
@@ -362,14 +367,12 @@ void SaveCategoryExtendedData(KmlWriter::WriterWrapper & writer, CategoryData co
 
   SaveStringsArray(writer, categoryData.m_toponyms, "toponyms", indent);
 
-  std::vector<std::string> languageCodes;
+  std::vector<std::string_view> languageCodes;
   languageCodes.reserve(categoryData.m_languageCodes.size());
   for (auto const & lang : categoryData.m_languageCodes)
-  {
-    std::string str = StringUtf8Multilang::GetLangByCode(lang);
-    if (!str.empty())
-      languageCodes.push_back(std::move(str));
-  }
+    if (auto const str = StringUtf8Multilang::GetLangByCode(lang); !str.empty())
+      languageCodes.push_back(str);
+
   SaveStringsArray(writer, languageCodes, "languageCodes", indent);
 
   SaveStringsMap(writer, categoryData.m_properties, "properties", indent);
@@ -495,7 +498,7 @@ void SaveBookmarkData(KmlWriter::WriterWrapper & writer, BookmarkData const & bo
 {
   writer << kIndent2 << "<Placemark>\n";
   writer << kIndent4 << "<name>";
-  std::string const defaultLang = StringUtf8Multilang::GetLangByCode(kDefaultLangCode);
+  auto const defaultLang = StringUtf8Multilang::GetLangByCode(kDefaultLangCode);
   SaveStringWithCDATA(writer, GetPreferredBookmarkName(bookmarkData, defaultLang));
   writer << "</name>\n";
 
@@ -674,7 +677,7 @@ bool ParsePointWithAltitude(std::string_view s, char const * delim,
 }
 }  // namespace
 
-KmlWriter::WriterWrapper & KmlWriter::WriterWrapper::operator<<(std::string const & str)
+KmlWriter::WriterWrapper & KmlWriter::WriterWrapper::operator<<(std::string_view str)
 {
   m_writer.Write(str.data(), str.length());
   return *this;

@@ -43,10 +43,10 @@ private:
 
   Transliteration();
 
-  bool Transliterate(std::string const & transID, icu::UnicodeString & ustr) const;
+  bool Transliterate(std::string_view transID, icu::UnicodeString & ustr) const;
 
   std::mutex m_initializationMutex;
   std::atomic<bool> m_inited;
   std::atomic<Mode> m_mode;
-  std::map<std::string, std::unique_ptr<TransliteratorInfo>> m_transliterators;
+  std::map<std::string_view, std::unique_ptr<TransliteratorInfo>> m_transliterators;
 };

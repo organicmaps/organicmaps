@@ -43,6 +43,7 @@ constexpr char const * kNodeType = "node";
 constexpr char const * kWayType = "way";
 constexpr char const * kRelationType = "relation";
 
+string_view constexpr kColon = ":";
 
 pugi::xml_node FindTag(pugi::xml_document const & document, string_view k)
 {
@@ -244,26 +245,22 @@ std::vector<m2::PointD> XMLFeature::GetGeometry() const
   return geometry;
 }
 
-string XMLFeature::GetName(string const & lang) const
+string XMLFeature::GetName(std::string_view lang) const
 {
-  using std::string;
-  ASSERT_EQUAL(string(kDefaultLang),
-               string(StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode)), ());
-  ASSERT_EQUAL(string(kIntlLang),
-               string(StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kInternationalCode)),
-               ());
-  ASSERT_EQUAL(string(kAltLang),
-               string(StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kAltNameCode)), ());
-  ASSERT_EQUAL(string(kOldLang),
-               string(StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kOldNameCode)), ());
+  ASSERT_EQUAL(kDefaultLang, StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode), ());
+  ASSERT_EQUAL(kIntlLang, StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kInternationalCode), ());
+  ASSERT_EQUAL(kAltLang, StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kAltNameCode), ());
+  ASSERT_EQUAL(kOldLang, StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kOldNameCode), ());
   if (lang == kIntlLang)
     return GetTagValue(kIntlName);
   if (lang == kAltLang)
     return GetTagValue(kAltName);
   if (lang == kOldLang)
     return GetTagValue(kOldName);
-  auto const suffix = (lang == kDefaultLang || lang.empty()) ? "" : ":" + lang;
-  return GetTagValue(kDefaultName + suffix);
+  if (lang == kDefaultLang || lang.empty())
+    return GetTagValue(kDefaultName);
+  return GetTagValue(std::string{kDefaultName}.append(kColon).append(lang));
+  //return GetTagValue(suffix.insert(0, kDefaultName));
 }
 
 string XMLFeature::GetName(uint8_t const langCode) const
@@ -293,8 +290,8 @@ void XMLFeature::SetName(string_view lang, string_view name)
   }
   else
   {
-    string key = kDefaultName;
-    key.append(":").append(lang);
+    std::string key = string{kDefaultName};
+    key.append(kColon).append(lang);
     SetTagValue(key, name);
   }
 }
