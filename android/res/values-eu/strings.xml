@@ -358,6 +358,9 @@
 	<string name="p2p_reroute_from_current">Zure uneko kokapenetik ibilbide bat antolatzea nahi duzu?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Jarraian</string>
+	<!-- Tab title in the time picker -->
+	<string name="editor_time_from">etatik</string>
+	<string name="editor_time_to">Etara</string>
 	<string name="editor_time_add">Gehitu ordutegia</string>
 	<string name="editor_time_delete">Ezabatu ordutegia</string>
 	<!-- Text for allday switch. -->

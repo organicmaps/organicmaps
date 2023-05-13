@@ -361,6 +361,9 @@
 	<string name="p2p_reroute_from_current">Vill du att vi planerar en färdväg från din nuvarande plats?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Nästa</string>
+	<!-- Tab title in the time picker -->
+	<string name="editor_time_from">Från</string>
+	<string name="editor_time_to">Till</string>
 	<string name="editor_time_add">Lägg till schema</string>
 	<string name="editor_time_delete">Ta bort schema</string>
 	<!-- Text for allday switch. -->

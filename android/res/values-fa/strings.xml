@@ -358,6 +358,9 @@
 	<string name="p2p_reroute_from_current">آیا می خواهید یک مسیر را از موقعیت فعلیتان برنامه ریزی کنیم؟</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">بعدی</string>
+	<!-- Tab title in the time picker -->
+	<string name="editor_time_from">از ساعت</string>
+	<string name="editor_time_to">الی</string>
 	<string name="editor_time_add">اضافه کردن برنامه ریزی</string>
 	<string name="editor_time_delete">حذف کردن برنامه ریزی</string>
 	<!-- Text for allday switch. -->

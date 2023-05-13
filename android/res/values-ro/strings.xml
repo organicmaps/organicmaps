@@ -370,6 +370,9 @@
 	<string name="p2p_reroute_from_current">Vrei să planifici un traseu din poziția ta actuală?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Următorul</string>
+	<!-- Tab title in the time picker -->
+	<string name="editor_time_from">De la</string>
+	<string name="editor_time_to">La</string>
 	<string name="editor_time_add">Adaugă planificare</string>
 	<string name="editor_time_delete">Elimină planificarea</string>
 	<!-- Text for allday switch. -->

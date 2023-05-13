@@ -354,6 +354,9 @@
 	<string name="p2p_reroute_from_current">Искате ли да планираме маршрут от текущото ви местоположение?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Напред</string>
+	<!-- Tab title in the time picker -->
+	<string name="editor_time_from">От</string>
+	<string name="editor_time_to">До</string>
 	<string name="editor_time_add">Добавяне на график</string>
 	<string name="editor_time_delete">Изтриване на график</string>
 	<!-- Text for allday switch. -->

@@ -369,6 +369,9 @@
 	<string name="p2p_reroute_from_current">Haluatko valita vaihtoehtoisen reitin?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Seuraava</string>
+	<!-- Tab title in the time picker -->
+	<string name="editor_time_from">alkaen</string>
+	<string name="editor_time_to">Asti</string>
 	<string name="editor_time_add">Lisää aikataulu</string>
 	<string name="editor_time_delete">Poista aikataulu</string>
 	<!-- Text for allday switch. -->

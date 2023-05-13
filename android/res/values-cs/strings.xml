@@ -367,6 +367,9 @@
 	<string name="p2p_reroute_from_current">Máme naplánovat trasu z vašeho současného umístění?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Další</string>
+	<!-- Tab title in the time picker -->
+	<string name="editor_time_from">Od</string>
+	<string name="editor_time_to">Do</string>
 	<string name="editor_time_add">Přidat rozvrh</string>
 	<string name="editor_time_delete">Smazat rozvrh</string>
 	<!-- Text for allday switch. -->
