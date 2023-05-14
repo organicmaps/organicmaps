@@ -61,16 +61,17 @@ additionalSkipLanguageCodes:(std::vector<NSInteger>)additionalSkipLanguageCodes
        });
 }
 
-// Defined in MWMEditorViewController.mm
-NSString * fromStringView(std::string_view sv);
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   MWMTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"ListCellIdentifier"];
   NSInteger const index = indexPath.row;
-  StringUtf8Multilang::Lang const & language = m_languages[index];
-  cell.textLabel.text = fromStringView(language.m_name);
-  cell.detailTextLabel.text = fromStringView(language.m_code);
+  StringUtf8Multilang::Lang const & lang = m_languages[index];
+  cell.textLabel.text = [[NSString alloc] initWithBytes:lang.m_name.data()
+                                                 length:lang.m_name.size()
+                                               encoding:NSUTF8StringEncoding];
+  cell.detailTextLabel.text = [[NSString alloc] initWithBytes:lang.m_code.data()
+                                                       length:lang.m_code.size()
+                                                     encoding:NSUTF8StringEncoding];
   cell.accessoryType = UITableViewCellAccessoryNone;
   return cell;
 }

@@ -431,11 +431,6 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
              capitalization:UITextAutocapitalizationTypeSentences];
 }
 
-NSString * fromStringView(std::string_view sv)
-{
-  return [[NSString alloc] initWithBytes:sv.data() length:sv.size() encoding:NSUTF8StringEncoding];
-}
-
 - (void)fillCell:(UITableViewCell * _Nonnull)cell atIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
   BOOL const isValid = ![self.invalidCells containsObject:indexPath];
@@ -528,9 +523,12 @@ NSString * fromStringView(std::string_view sv)
     if (indexPath.row < localizedNames.size())
     {
       osm::LocalizedName const & name = localizedNames[indexPath.row];
+      NSString * langName = [[NSString alloc] initWithBytes:name.m_langName.data()
+                                                     length:name.m_langName.size()
+                                                   encoding:NSUTF8StringEncoding];
       [tCell configWithDelegate:self
                        langCode:name.m_code
-                       langName:fromStringView(name.m_langName)
+                       langName:langName
                            name:@(name.m_name.c_str())
                    errorMessage:L(@"error_enter_correct_name")
                         isValid:isValid
@@ -550,9 +548,12 @@ NSString * fromStringView(std::string_view sv)
       }
 
       std::string_view const svLangName = StringUtf8Multilang::GetLangNameByCode(langCode);
+      NSString * langName = [[NSString alloc] initWithBytes:svLangName.data()
+                                                     length:svLangName.size()
+                                                   encoding:NSUTF8StringEncoding];
       [tCell configWithDelegate:self
                        langCode:langCode
-                       langName:fromStringView(svLangName)
+                       langName:langName
                            name:@(name.c_str())
                    errorMessage:L(@"error_enter_correct_name")
                         isValid:isValid
