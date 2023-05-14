@@ -10,10 +10,10 @@
 "cancel" = "Utzi";
 
 /* Button which interrupts country download */
-"cancel_download" = "Utzi deskargatzea";
+"cancel_download" = "Utzi deskarga";
 
 /* Button which deletes downloaded country */
-"delete" = "Kendu";
+"delete" = "Ezabatu";
 
 "download_maps" = "Deskargatu mapak";
 
@@ -21,7 +21,7 @@
 "downloading" = "Deskargatzen…";
 
 /* Choose measurement on first launch alert - choose metric system button */
-"kilometres" = "Kilometroak";
+"kilometres" = "Kilometro";
 
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Idatzi iritzia";
@@ -30,7 +30,7 @@
 "miles" = "Milia";
 
 /* A text for current gps location point/arrow selected on the map */
-"core_my_position" = "Nire posizioa";
+"core_my_position" = "Nire kokapena";
 
 /* Update maps later/Buy pro version later button text */
 "later" = "Geroago";
@@ -42,15 +42,15 @@
 "use_cellular_data" = "Bai";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Mapan erakutsi";
+"zoom_to_country" = "Erakutsi mapan";
 
 /* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
 "country_status_download_without_size" = "Deskargatu mapa";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Errore bat deskargatzean";
+"country_status_download_failed" = "Deskargak huts egin du";
 
-"about_menu_title" = "Organic Maps buruz";
+"about_menu_title" = "Organic Maps-i buruz";
 
 "close" = "Itxi";
 
@@ -60,16 +60,16 @@
 "continue_download" = "Jarraitu";
 
 /* "Add new bookmark list" dialog title */
-"add_new_set" = "Gehitu talde berri bat";
+"add_new_set" = "Gehitu zerrenda berri bat";
 
 /* Bookmark Color dialog title */
-"bookmark_color" = "Markatzailearen kolorea";
+"bookmark_color" = "Markagailuaren kolorea";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
-"bookmark_set_name" = "Markatzaile taldearen izena";
+"bookmark_set_name" = "Markagailuen zerrendaren izena";
 
 /* "Bookmark Lists" dialog title */
-"bookmark_sets" = "Markagailu taldeak";
+"bookmark_sets" = "Markagailuen zerrenda";
 
 /* "Bookmarks" dialog title, please also edit it in iphone/plist.txt */
 "bookmarks" = "Markagailuak";
@@ -78,13 +78,13 @@
 "core_my_places" = "Nire tokiak";
 
 /* Editor title above street and house number */
-"address" = "Norabidea";
+"address" = "Helbidea";
 
 /* Settings button in system menu */
 "settings" = "Ezarpenak";
 
 /* Measurement units title in settings activity */
-"measurement_units" = "Neurketa-unitateak";
+"measurement_units" = "Neurketa unitateak";
 
 
 /********** Search categories **********/
@@ -93,13 +93,13 @@
 "eat" = "Non jan";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Janariak";
+"food" = "Janari-denda";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
 "transport" = "Garraioa";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Erregai-geltokia";
+"fuel" = "Gasolindegia";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
 "parking" = "Aparkalekua";
@@ -120,7 +120,7 @@
 "atm" = "Kutxazain automatikoa";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "Gaueko bizitza";
+"nightlife" = "Gaueko giroa";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
 "children" = "Familiako jarduerak";
@@ -135,7 +135,7 @@
 "hospital" = "Ospitalea";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "Komunak";
+"toilet" = "Komuna";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
 "post" = "Posta bulegoa";
@@ -155,16 +155,16 @@
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
 "rv" = "Karabanak";
 
-"share_bookmarks_email_body" = "Kaixo!\nNire markatzaileak Mapak organikoak aplikaziotik erantsi ditut. Mesedez, ireki itzazu Organic Maps instalatuta baduzu. Edo, ez baduzu, deskargatu aplikazioa zure iOS edo Android gailurako esteka hau jarraituz: https://omaps.app/get?kmz\n\nGozatu bidaiatzen Organic Maps-ekin!";
+"share_bookmarks_email_body" = "Kaixo!\nNire markagailuak Organic Maps aplikazioan erantsi ditut. Mesedez, ireki itzazu Organic Maps instalatuta baduzu. Edo, ez baduzu, deskargatu aplikazioa zure iOS edo Android gailurako esteka hau jarraituz: https://omaps.app/get?kmz\n\nGozatu bidaiatzen Organic Maps-ekin!";
 
 /* message title of loading file */
-"load_kmz_title" = "Markatzaileak kargatzen";
+"load_kmz_title" = "Markagailuak kargatzen";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Gogokoak behar bezala kargatu dira! Mapan edo kudeatu gogokoak pantailan aurki ditzakezu.";
+"load_kmz_successful" = "Markagailuak behar bezala kargatu dira! Mapan edo markagailuak kudeatzeko pantailan aurki ditzakezu.";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Ezin izan da gogokoak kargatu. Fitxategia hondatuta edo akastuna izan daiteke.";
+"load_kmz_failed" = "Ezin izan dira markagailuak kargatu. Fitxategia hondatuta edo akastuna izan daiteke.";
 
 /* resource for context menu */
 "edit" = "Editatu";
@@ -173,16 +173,16 @@
 "unknown_current_position" = "Zure kokapena ez da oraindik zehaztu";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Begiratu nire markatzailea Map organikoak mapan!";
+"bookmark_share_email_subject" = "Begiratu nire markagailua Organic Maps mapan!";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Ikusi nire uneko kokapena mapan Organic Maps-en!";
+"my_position_share_email_subject" = "Ikusi nire uneko kokapena Organic Maps mapan!";
 
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Partekatu";
 
 /* Share by email button text, also used in editor and About. */
-"email" = "Email";
+"email" = "Posta elektronikoa";
 
 /* place preview title */
 "info" = "Informazioa";
@@ -197,7 +197,7 @@
 "data_version" = "OpenStreetMap datuak: %@";
 
 /* Title for tracks category in bookmarks manager */
-"tracks_title" = "Ibilbideak";
+"tracks_title" = "Arrastoak";
 
 /* Length of track in cell that describes route */
 "length" = "Luzera";
@@ -227,7 +227,7 @@
 "pref_map_3d_buildings_title" = "3D eraikinak";
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
-"pref_map_3d_buildings_disabled_summary" = "3D eraikinak itzalita daude energia aurrezteko moduan";
+"pref_map_3d_buildings_disabled_summary" = "3D eraikinak desgaituta daude energia aurrezteko moduan";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Ahots argibideak";
@@ -239,13 +239,13 @@
 "pref_tts_other_section_title" = "Beste batzuk";
 
 /* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Azken bidaia";
+"pref_track_record_title" = "Azken arrastoa";
 
 "pref_map_auto_zoom" = "Zoom automatikoa";
 
 "duration_disabled" = "Desaktibatuta";
 
-"duration_1_hour" = "1 ordu";
+"duration_1_hour" = "ordu 1";
 
 "duration_2_hours" = "2 ordu";
 
@@ -253,9 +253,9 @@
 
 "duration_12_hours" = "12 ordu";
 
-"duration_1_day" = "1 egun";
+"duration_1_day" = "egun 1";
 
-"recent_track_help_text" = "Denbora tarte jakin batean egindako ibilbidea erregistratu eta mapan ikusteko aukera ematen du. Kontuan izan funtzio hau aktibatzea bateriaren kontsumoa handitzen dela. Ibilbide-erregistroa automatikoki kenduko da mapatik denbora-tarte hori igaro ondoren.";
+"recent_track_help_text" = "Denbora tarte jakin batean egindako arrastoa erregistratu eta mapan ikusteko aukera ematen du. Kontuan izan funtzio hau aktibatzea bateriaren kontsumoa handitzen dela. Ibilbide-erregistroa automatikoki kenduko da mapatik denbora-tarte hori igaro ondoren.";
 
 "placepage_distance" = "Distantzia";
 
@@ -265,7 +265,7 @@
 "website" = "Webgunea";
 
 /* Text in About menu, opens Organic Maps news website */
-"news" = "News";
+"news" = "Albisteak";
 
 /* Text in menu */
 "github" = "GitHub";
@@ -301,19 +301,19 @@
 "help" = "Laguntza";
 
 /* Button in the main Help dialog */
-"faq" = "Maiz galderak";
+"faq" = "Ohiko galderak";
 
 /* Button in the main menu */
 "donate" = "Dohaintza eman";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Proiektuari laguntza ematea";
+"how_to_support_us" = "Proiektuari laguntza eman";
 
 /* Button in the main Help dialog */
-"copyright" = "Copyright";
+"copyright" = "Egile eskubideak";
 
 /* Text in menu + Button in the main Help dialog */
-"report_a_bug" = "Errore bat dago";
+"report_a_bug" = "Errore baten berri eman";
 
 /* Alert text */
 "email_error_body" = "Posta elektronikoko bezeroa ez da konfiguratu. Mesedez, konfigura ezazu edo erabili beste moduren bat gurekin harremanetan jartzeko %@ helbidean";
@@ -322,16 +322,16 @@
 "email_error_title" = "Errore bat mezua bidaltzean";
 
 /* Settings item title */
-"pref_calibration_title" = "Konpas kalibrazioa";
+"pref_calibration_title" = "Iparrorratzaren kalibrazioa";
 
 /* Update all button text */
 "downloader_update_all_button" = "Eguneratu guztiak";
 
 /* Downloaded maps list header */
-"downloader_downloaded_subtitle" = "Alta";
+"downloader_downloaded_subtitle" = "Deskargatuta";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Eskuragarri";
+"downloader_available_maps" = "Eskuragarria";
 
 /* Country queued for download */
 "downloader_queued" = "Ilaran";
@@ -348,16 +348,16 @@
 "downloader_search_results" = "Aurkituta";
 
 /* Status of outdated country in the list */
-"downloader_status_outdated" = "Eguneratzeko";
+"downloader_status_outdated" = "Eguneratu";
 
 /* Status of failed country in the list */
-"downloader_status_failed" = "Porrota";
+"downloader_status_failed" = "Huts eginda";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
-"downloader_delete_map_while_routing_dialog" = "Mapa kentzeko, utzi nabigazioa.";
+"downloader_delete_map_while_routing_dialog" = "Mapa ezabatzeko, gelditu nabigazioa.";
 
 /* PointsInDifferentMWM */
-"routing_failed_cross_mwm_building" = "Eskualde bakarreko mapa batean guztiz bilduta dauden ibilbideak soilik sor daitezke.";
+"routing_failed_cross_mwm_building" = "Eskualde bakarreko mapa batean guztiz bilduta dauden arrastoak soilik sor daitezke.";
 
 /* Context menu item for downloader. */
 "downloader_download_map" = "Deskargatu mapa";
@@ -366,16 +366,16 @@
 "downloader_retry" = "Saiatu berriro";
 
 /* Item in context menu. */
-"downloader_delete_map" = "Mapa ezabatu";
+"downloader_delete_map" = "Ezabatu mapa";
 
 /* Text for routing error dialog */
-"routing_download_maps_along" = "Deskargatu zure ibilbidearen mapa guztiak";
+"routing_download_maps_along" = "Deskargatu zure arrastoaren mapa guztiak";
 
 /* Text for routing error dialog */
-"routing_requires_all_map" = "Ibilbide bat sortzeko beharrezkoa da helmugako kokapenaren mapa guztiak deskargatu eta eguneratzea.";
+"routing_requires_all_map" = "Arrasto bat sortzeko beharrezkoa da helmugako kokapenaren mapa guztiak deskargatzea eta eguneratzea.";
 
 /* bookmark button text */
-"bookmark" = "Markatzailea";
+"bookmark" = "Markagailua";
 
 "save" = "Gorde";
 
@@ -412,13 +412,13 @@
 "light_blue" = "Urdin argia";
 
 /* cyan color */
-"cyan" = "Zian";
+"cyan" = "Ziana";
 
 /* teal color */
 "teal" = "Berde urdinxka";
 
 /* lime color */
-"lime" = "Karea";
+"lime" = "Lima";
 
 /* deep orange color */
 "deep_orange" = "Laranja iluna";
@@ -432,13 +432,13 @@
 
 /********** Routing dialogs strings **********/
 
-"dialog_routing_disclaimer_title" = "Ibilbidea jarraitzean, kontuan izan:";
+"dialog_routing_disclaimer_title" = "Arrastoa jarraitzean, kontuan izan:";
 
-"dialog_routing_disclaimer_priority" = "— Ibilbideen baldintzek, zirkulazio arauek eta bide seinaleek lehentasuna dute beti nabigazio-iradokizunen gainetik;";
+"dialog_routing_disclaimer_priority" = "— Bidearen egoera, zirkulazio arauek eta bide seinaleek lehentasuna dute beti nabigazio-iradokizunen gainetik;";
 
-"dialog_routing_disclaimer_precision" = "— Mapa zehaztugabea izan daiteke eta helmugara iristeko biderik onena ez den ibilbide bat iradoki dezake;";
+"dialog_routing_disclaimer_precision" = "— Mapa zehazgabea izan daiteke eta helmugara iristeko biderik onena ez den ibilbide bat iradoki dezake;";
 
-"dialog_routing_disclaimer_recommendations" = "— Iradokitako ibilbideak gomendio gisa soilik ulertu behar dira;";
+"dialog_routing_disclaimer_recommendations" = "— Iradokitako ibilbideak gomendio gisa soilik hartu behar dira;";
 
 "dialog_routing_disclaimer_borders" = "— Kontuz ibili muga-eremuak dituzten ibilbideetan: gure aplikazioak sortutako ibilbideek batzuetan herrialdeen mugak zeharkatu ditzakete baimendu gabeko tokietan;";
 
@@ -448,15 +448,15 @@
 
 "dialog_routing_error_location_not_found" = "Ezin da ibilbidea sortu. Ezin izan dira uneko GPS koordenatuak identifikatu.";
 
-"dialog_routing_location_turn_wifi" = "Egiaztatu GPS seinalea. Wi-Fi konexioa aktibatuz gero, zure kokapenaren zehaztasuna hobetuko da.";
+"dialog_routing_location_turn_wifi" = "Egiaztatu GPS seinalea. WiFi konexioa aktibatuz gero, zure kokapenaren zehaztasuna hobetuko da.";
 
 "dialog_routing_location_turn_on" = "Aktibatu kokapen zerbitzuak";
 
-"dialog_routing_location_unknown_turn_on" = "Ezin dira GPS koordenatuak aurkitu. Aktibatu kokapen zerbitzuak ibilbidea kalkulatzeko.";
+"dialog_routing_location_unknown_turn_on" = "Ezin dira GPS koordenatuak aurkitu. Aktibatu kokapen zerbitzuak arrastoa kalkulatzeko.";
 
 "dialog_routing_download_files" = "Deskargatu beharrezko fitxategiak";
 
-"dialog_routing_download_and_update_all" = "Deskargatu eta eguneratu mapa eta ibilbideen informazio guztia aurreikusitako ibilbidearekin batera ibilbidea kalkulatzeko.";
+"dialog_routing_download_and_update_all" = "Deskargatu eta eguneratu mapa eta ibilbideen informazio guztia aurreikusitako ibilbidearekin batera arrastoa kalkulatzeko.";
 
 "dialog_routing_unable_locate_route" = "Ezin da ibilbiderik aurkitu";
 
@@ -466,17 +466,17 @@
 
 "dialog_routing_start_not_determined" = "Ibilbidea ez da sortu. Abiapuntua ezin izan da aurkitu.";
 
-"dialog_routing_select_closer_start" = "Hautatu errepide batetik gertu abiapuntua.";
+"dialog_routing_select_closer_start" = "Hautatu errepide batetik gertuko abiapuntua.";
 
-"dialog_routing_change_end" = "Helmuga ezarri";
+"dialog_routing_change_end" = "Zehaztu helmuga";
 
 "dialog_routing_end_not_determined" = "Ibilbidea ez da sortu. Ezin izan da helmuga aurkitu.";
 
 "dialog_routing_select_closer_end" = "Hautatu helmuga puntu bat errepide batetik gertu.";
 
-"dialog_routing_change_intermediate" = "Ezin izan da tarteko geralekua kokatu.";
+"dialog_routing_change_intermediate" = "Ezin izan da tarteko puntua kokatu.";
 
-"dialog_routing_intermediate_not_determined" = "Mesedez, egokitu tarteko geldialdia.";
+"dialog_routing_intermediate_not_determined" = "Mesedez, zehaztu tarteko puntua.";
 
 "dialog_routing_system_error" = "Sistemaren errorea";
 
@@ -503,24 +503,24 @@
 "routing_planning_error" = "Ibilbidea planifikatzeko errorea";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Iritsiera: %s";
+"routing_arrive" = "Iristeko unea: %s";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Deskargatu eta eguneratu proiektatutako bideko mapa guztiak ibilbidea kalkulatzeko.";
 
 "categories" = "Kategoriak";
 
-"history" = "Grabatu";
+"history" = "Historiala";
 
 "search_not_found" = "Barkatu, ez dut ezer aurkitu.";
 
-"search_not_found_query" = "Mesedez, saiatu beste kontsulta bat.";
+"search_not_found_query" = "Saiatu bilaketa-irizpideak aldatzen.";
 
-"search_history_title" = "Bilaketa-historia";
+"search_history_title" = "Bilaketa historia";
 
 "search_history_text" = "Ikusi azken bilaketak.";
 
-"clear_search" = "Ezabatu bilaketa-historia";
+"clear_search" = "Garbitu bilaketa historia";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
@@ -553,7 +553,7 @@
 
 "editor_time_add_closed" = "Gehitu ixteko ordutegia";
 
-"editor_time_title" = "Ordutegiak";
+"editor_time_title" = "Irekitzeko ordutegia";
 
 "editor_time_advanced" = "Modu aurreratua";
 
@@ -561,7 +561,7 @@
 
 "editor_hours_closed" = "Ixteko orduak";
 
-"editor_example_values" = "Adibide-balioak";
+"editor_example_values" = "Adibide balioak";
 
 "editor_add_select_location" = "Kokapena";
 
@@ -583,21 +583,21 @@
 
 "day_off_today" = "Gaur atseden eguna";
 
-"day_off" = "Egun librea";
+"day_off" = "Itxita";
 
 "today" = "Gaur";
 
 "opens_tomorrow_at" = "Bihar %@ean irekiko da";
 
-"opens_dayoftheweek_at" = "%1$@ean %2$@ean irekiko da";
+"opens_dayoftheweek_at" = "%1$@ean %2$@etan irekiko da";
 
-"opens_at" = "%@ean irekiko da";
+"opens_at" = "%@etan irekiko da";
 
-"opens_in" = "%@ barru irekitzen da";
+"opens_in" = "%@ barru irekiko da";
 
-"closes_at" = "%@ean itxiko da";
+"closes_at" = "%@etan itxiko da";
 
-"closes_in" = "%@ barru ixten da";
+"closes_in" = "%@ barru itxiko da";
 
 "closed" = "Itxita";
 
@@ -605,15 +605,15 @@
 
 "no_osm_account" = "Ez al duzu OpenStreetMap konturik?";
 
-"register_at_openstreetmap" = "Eman izena OpenStreetMap";
+"register_at_openstreetmap" = "Eman izena OpenStreetMap-en";
 
 "password_8_chars_min" = "Pasahitza (gutxienez 8 karaktere)";
 
-"invalid_username_or_password" = "Erabiltzaile-izena edo pasahitza okerra.";
+"invalid_username_or_password" = "Erabiltzaile izena edo pasahitza baliogabea.";
 
 "login" = "Saioa hasi";
 
-"forgot_password" = "Pasahitza ahaztu al duzu?";
+"forgot_password" = "Pasahitza ahaztu duzu?";
 
 "osm_account" = "OSM kontua";
 
@@ -631,16 +631,16 @@
 "add_language" = "Gehitu hizkuntza bat";
 
 /* Editable House Number text field (in address block). */
-"house_number" = "Etxe zenbakia";
+"house_number" = "Etxeko zenbakia";
 
 "details" = "Xehetasunak";
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Gehitu kale bat";
 
-"choose_language" = "Hizkuntza bat aukeratu";
+"choose_language" = "Aukeratu hizkuntza bat";
 
-"choose_street" = "Kale bat aukeratu";
+"choose_street" = "Aukeratu kale bat";
 
 "postal_code" = "Posta kodea";
 
@@ -659,15 +659,15 @@
 
 "downloader_delete_map_dialog" = "Maparen aldaketa guztiak maparekin batera ezabatuko dira.";
 
-"downloader_update_maps" = "Mapak deskargatu automatikoki";
+"downloader_update_maps" = "Eguneratu mapak";
 
-"downloader_search_field_hint" = "Bilatu mapan";
+"downloader_search_field_hint" = "Bilatu mapa";
 
-"migration_download_error_dialog" = "Deskargatzeko errorea";
+"migration_download_error_dialog" = "Deskargaren errorea";
 
 "common_check_internet_connection_dialog" = "Mesedez, egiaztatu ezarpenak eta ziurtatu zure gailua Internetera konektatuta dagoela.";
 
-"downloader_no_space_title" = "Leku nahikoa ez";
+"downloader_no_space_title" = "Leku nahikorik ez";
 
 "downloader_no_space_message" = "Ezabatu beharrezkoak ez diren datuak";
 
@@ -677,13 +677,13 @@
 
 "editor_add_select_category" = "Hautatu kategoria";
 
-"editor_add_select_category_popular_subtitle" = "Herrikoia";
+"editor_add_select_category_popular_subtitle" = "Ospetsua";
 
 "editor_add_select_category_all_subtitle" = "Kategoria guztiak";
 
-"editor_edit_place_title" = "Editatu";
+"editor_edit_place_title" = "Editatzen";
 
-"editor_add_place_title" = "Gehitu";
+"editor_add_place_title" = "Gehitzen";
 
 "editor_edit_place_name_hint" = "Tokiaren izena";
 
@@ -695,7 +695,7 @@
 
 "message_invalid_feature_position" = "Hemen ezin da objekturik jarri";
 
-"login_to_make_edits_visible" = "Hasi saioa beste erabiltzaileek zuk egindako aldaketak ikus ditzaten.";
+"login_to_make_edits_visible" = "Hasi saioa OpenStreetMapen beste erabiltzaileek zuk egindako aldaketak ikus ditzaten.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Leku gehiago behar duzu deskargatzeko. Ezabatu beharrezkoak ez diren datuak.";
@@ -707,18 +707,18 @@
 
 "download_over_mobile_header" = "Deskargatu sare mugikorreko konexioarekin?";
 
-"download_over_mobile_message" = "Oso garestia izan daiteke plan batzuekin edo datu-ibiltaritzarekin.";
+"download_over_mobile_message" = "Oso garestia izan daiteke roaming plan batzuekin edo datu-ibiltaritzarekin.";
 
-"error_enter_correct_house_number" = "Sartu etxe-zenbaki zuzena";
+"error_enter_correct_house_number" = "Sartu etxeko zenbaki baliozkoa";
 
 "editor_storey_number" = "Solairu kopurua (gehienez %d)";
 
 /* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
-"error_enter_correct_storey_number" = "Landare kopurua ez da %detik gorakoa izan behar";
+"error_enter_correct_storey_number" = "Solairu kopurua ez da %d-tik gorakoa izan behar";
 
 "editor_zip_code" = "Posta kodea";
 
-"error_enter_correct_zip_code" = "Mesedez, idatzi posta-kode zuzena";
+"error_enter_correct_zip_code" = "Sartu baliozko posta-kodea";
 
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Toki ezezaguna";
@@ -741,7 +741,7 @@
 "current_location_unknown_title" = "Zure uneko kokapena detektatzen jarraitu nahi duzu?";
 
 /* Error that appears after certain time without location. */
-"current_location_unknown_message" = "Uneko kokapena ezezaguna da. Eraikin batean edo tunel batean egon daiteke.";
+"current_location_unknown_message" = "Uneko kokapena ezezaguna da. Agian eraikin batean edo tunel batean zaudelako.";
 
 "current_location_unknown_continue_button" = "Jarraitu";
 
@@ -751,7 +751,7 @@
 
 "current_location_unknown_error_message" = "Errore bat gertatu da zure kokapena bilatzean. Egiaztatu gailua behar bezala dabilela eta saiatu berriro geroago.";
 
-"location_services_disabled_header" = "Kokapenaren identifikazioa desaktibatuta dago";
+"location_services_disabled_header" = "Kokapen zerbitzuak desaktibatuta daude";
 
 "location_services_disabled_message" = "Aktibatu geokokapenerako sarbidea gailuaren ezarpenetan";
 
@@ -768,10 +768,10 @@
 
 "kilometers_per_hour" = "km/h";
 
-"mile" = "ni";
+"mile" = "mi";
 
 /* A unit of measure */
-"foot" = "oina";
+"foot" = "oin";
 
 "miles_per_hour" = "mph";
 
@@ -781,19 +781,19 @@
 
 "placepage_place_description" = "Deskribapena";
 
-"placepage_more_button" = "Gainera";
+"placepage_more_button" = "Gehiago";
 
 "book_button" = "Erreserba";
 
-"placepage_call_button" = "Deitzeko";
+"placepage_call_button" = "Deitu";
 
-"placepage_edit_bookmark_button" = "Editatu laster-marka";
+"placepage_edit_bookmark_button" = "Editatu markagailua";
 
-"placepage_bookmark_name_hint" = "Laster-markaren izena";
+"placepage_bookmark_name_hint" = "Markagailuaren izena";
 
 "placepage_personal_notes_hint" = "Ohar pertsonalak";
 
-"placepage_delete_bookmark_button" = "Ezabatu laster-marka";
+"placepage_delete_bookmark_button" = "Ezabatu markagailua";
 
 "editor_edits_sent_message" = "Iradokitako aldaketak bidali dira";
 
@@ -805,20 +805,20 @@
 
 "editor_remove_place_message" = "Gehitutako tokia ezabatu?";
 
-"editor_remove_place_button" = "Kendu";
+"editor_remove_place_button" = "Ezabatu";
 
 "editor_place_doesnt_exist" = "Tokia ez da existitzen";
 
-"text_more_button" = "…gehi";
+"text_more_button" = "…gehiago";
 
 /* Phone number error message */
-"error_enter_correct_phone" = "Mesedez, idatzi telefono-zenbaki zuzena";
+"error_enter_correct_phone" = "Idatzi baliozko telefono zenbaki bat";
 
-"error_enter_correct_web" = "Mesedez, sartu baliozko web-helbide bat";
+"error_enter_correct_web" = "Sartu baliozko web helbide bat";
 
 "error_enter_correct_email" = "Sartu baliozko posta elektroniko bat";
 
-"refresh" = "Eguneratzeko";
+"refresh" = "Eguneratu";
 
 "placepage_add_place_button" = "Gehitu toki bat mapan";
 
@@ -835,7 +835,7 @@
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Bidaiatutako azken ibilbidearen grabaketa desaktibatu nahi duzu?";
 
-"off_recent_track_background_button" = "Desgaitzeko";
+"off_recent_track_background_button" = "Desgaitu";
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Egiaztatu";
@@ -843,22 +843,22 @@
 "recent_track_background_dialog_message" = "Organic Maps-ek zure geokokapena erabiltzen du atzeko planoan egindako azken ibilbidea erregistratzeko.";
 
 /* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps lineaz kanpoko mapa aplikazio doako eta irekia da. Iragarkirik ez. Ez dago jarraipenik. Mapan errore bat ikusten baduzu, konpondu OpenStreetMap-en. Proiektua zaleek sortu dute gure aisialdian, beraz, zure iritzia eta laguntza behar dugu.";
+"about_description" = "Organic Maps lineaz kanpoko mapa aplikazio doako eta irekia da. Iragarkirik ez. Ez dago jarraipenik. Mapan errore bat ikusten baduzu, konpondu OpenStreetMap-en. Proiektua zaleek sortu dute haien aisialdian, beraz, zure iritzia eta laguntza behar dugu.";
 
-"general_settings" = "Doikuntza orokorrak";
-
-/* For the first routing */
-"accept" = "Onartzeko";
+"general_settings" = "Ezarpen orokorrak";
 
 /* For the first routing */
-"decline" = "Gainbehera";
+"accept" = "Onartu";
+
+/* For the first routing */
+"decline" = "Ukatu";
 
 /* A noun - a button name used to show search results in list form */
-"search_in_table" = "Prest";
+"search_in_table" = "Zerrenda";
 
 "mobile_data_dialog" = "Internet mugikorra erabili informazio zehatza bistaratzeko?";
 
-"mobile_data_option_always" = "Beti erabili";
+"mobile_data_option_always" = "Erabili beti";
 
 "mobile_data_option_today" = "Gaur bakarrik";
 
@@ -869,13 +869,13 @@
 /* NOTE to translators: please synchronize your translation with the English one. */
 "mobile_data_description" = "Internet mugikorra behar da tokiei buruzko informazio zehatza bistaratzeko, hala nola argazkiak, prezioak eta iritziak.";
 
-"mobile_data_option_never" = "Inoiz erabili";
+"mobile_data_option_never" = "Ez erabili inoiz";
 
-"mobile_data_option_ask" = "Beti galdetu";
+"mobile_data_option_ask" = "Galdetu beti";
 
 "traffic_update_maps_text" = "Trafiko datuak bistaratzeko, mapak eguneratu behar dira.";
 
-"big_font" = "Handitu letra-tamaina mapan";
+"big_font" = "Handitu letra tamaina mapan";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Trafiko datuak bistaratzeko, aplikazioa eguneratu behar duzu.";
@@ -883,47 +883,47 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Trafiko datuak ez daude eskuragarri";
 
-"on" = "Ekin.";
+"on" = "Martxan";
 
-"off" = "Itzali";
+"off" = "Itzalita";
 
 "transliteration_title" = "Latinezko transliterazioa";
 
 /* Subway exits for public transport marks on the map */
-"core_exit" = "Irteera";
+"core_exit" = "Irten";
 
-"routing_add_start_point" = "Bilatu ibilbide-planaren iturria";
+"routing_add_start_point" = "Gehitu abiapuntu bat ibilbide bat antolatzeko";
 
-"routing_add_finish_point" = "Bilatu ibilbide-planaren helmuga";
+"routing_add_finish_point" = "Gehitu helmuga bat ibilbide bat antolatzeko";
 
-"planning_route_manage_route" = "Ibilbidea kudeatu";
+"planning_route_manage_route" = "Kudeatu ibilbidea";
 
-"button_plan" = "Planifikatzeko";
+"button_plan" = "Planifikatu";
 
 "placepage_remove_stop" = "Kendu";
 
 "planning_route_remove_title" = "Arrastatu hona kentzeko";
 
-"placepage_add_stop" = "Gehitu stop";
+"placepage_add_stop" = "Gehitu geldiunea";
 
-"start_from_my_position" = "Hasi";
+"start_from_my_position" = "Hasi hemendik";
 
-"profile_authorization_error" = "Errore bat gertatu da. Mesedez, saiatu berriro saioa hasten.";
+"profile_authorization_error" = "Errore bat gertatu da. Saiatu berriro saioa hasten.";
 
 "core_entrance" = "Sarrera";
 
-"error_enter_correct_name" = "Mesedez, idatzi izen zuzena";
+"error_enter_correct_name" = "Mesedez, idatzi baliozko izen bat";
 
 "bookmark_lists" = "Zerrendak";
 
 /* Do not display all bookmark lists on the map */
 "bookmark_lists_hide_all" = "Ezkutatu guztiak";
 
-"bookmark_lists_show_all" = "Erakutsi dena";
+"bookmark_lists_show_all" = "Erakutsi guztiak";
 
 "bookmarks_create_new_group" = "Sortu zerrenda berria";
 
-"downloader_hide_screen" = "Pantaila ezkutatu";
+"downloader_hide_screen" = "Ezkutatu pantaila";
 
 "downloader_percent" = "%s (%s/%s)";
 
@@ -937,7 +937,7 @@
 
 "bookmarks_error_message_share_empty" = "Ezin da partekatu zerrenda hutsik";
 
-"bookmarks_error_message_empty_list_name" = "Mesedez, idatzi zerrendaren izena";
+"bookmarks_error_message_empty_list_name" = "Idatzi zerrendaren izena";
 
 "bookmarks_error_title_list_name_already_taken" = "Izen hau dagoeneko hartua da";
 
@@ -959,7 +959,7 @@
 
 "restore" = "Berreskuratu";
 
-"privacy_policy" = "Pribatutasun-politika";
+"privacy_policy" = "Pribatutasun politika";
 
 "terms_of_use" = "Erabilera baldintzak";
 
@@ -967,19 +967,19 @@
 
 "button_layer_subway" = "Metroa";
 
-"layers_title" = "Mapa geruzak";
+"layers_title" = "Mapako geruzak";
 
 "subway_data_unavailable" = "Metroaren mapa ez dago erabilgarri";
 
 "title_error_downloading_bookmarks" = "Akats bat gertatu da";
 
-"popular_place" = "Popular";
+"popular_place" = "Ospetsua";
 
-"export_file" = "Esportatu fitxategi gisa";
+"export_file" = "Esportatu fitxategia";
 
-"list_settings" = "Zerrenda konfiguratu";
+"list_settings" = "Zerrendaren ezarpenak";
 
-"delete_list" = "Zerrenda ezabatu";
+"delete_list" = "Ezabatu zerrenda";
 
 "hide_from_map" = "Ezkutatu mapan";
 
@@ -991,7 +991,7 @@
 
 "speedcams_alert_title" = "Abiadura kamerak";
 
-"speedcam_option_auto" = "Kotxea";
+"speedcam_option_auto" = "Automatikoa";
 
 "speedcam_option_always" = "Beti";
 
@@ -999,7 +999,7 @@
 
 "place_description_title" = "Tokiaren deskribapena";
 
-"speedcams_notice_message" = "Auto - abiadura-kamerei buruz ohartarazten du abiadura muga gainditzeko arriskua badago\nBeti - beti erne kamerei buruz\nInoiz - inoiz ez abisatu kamerari buruz";
+"speedcams_notice_message" = "Automatikoa - abiadura-kamerei buruz ohartarazten du abiadura muga gainditzeko arriskua badago\nBeti - beti abisatu kamerei buruz\nInoiz - inoiz ez abisatu kamerei buruz";
 
 "power_managment_title" = "Energia aurrezteko modua";
 
@@ -1009,9 +1009,9 @@
 
 "power_managment_setting_auto" = "Automatikoa";
 
-"power_managment_setting_manual_max" = "Energia-aurrezpen handiena";
+"power_managment_setting_manual_max" = "Energia aurrezpen handiena";
 
-"driving_options_title" = "Birbidali ezarpenak";
+"driving_options_title" = "Bideratzeko aukerak";
 
 "driving_options_subheader" = "Ibilbide guztietan saihestu";
 
@@ -1023,15 +1023,15 @@
 
 "avoid_motorways" = "Autobideak";
 
-"unable_to_calc_alert_title" = "Ezin da ibilbiderik eraiki";
+"unable_to_calc_alert_title" = "Ezin da ibilbidea proposatu";
 
-"unable_to_calc_alert_subtitle" = "Zoritxarrez, ezin izan dugu aukeratutako aukerekin ibilbiderik egin. Aldatu ezarpenak eta saiatu berriro";
+"unable_to_calc_alert_subtitle" = "Zoritxarrez, ezin izan dugu aukeratutako aukerekin ibilbiderik proposatu. Aldatu ezarpenak eta saiatu berriro";
 
-"define_to_avoid_btn" = "Pertsonalizatu saihesbidearen ibilbidea";
+"define_to_avoid_btn" = "Zehaztu saihestu beharreko bideak";
 
-"change_driving_options_btn" = "Birbidaltze ezarpena aktibatuta dago";
+"change_driving_options_btn" = "Bideratze aukerak gaituta";
 
-"toll_road" = "Bidesaria";
+"toll_road" = "Ordainpeko errepidea";
 
 "unpaved_road" = "Asfaltatu gabeko errepidea";
 
@@ -1043,13 +1043,13 @@
 
 "avoid_ferry_crossing_placepage" = "Ferryak saihestu";
 
-"trip_start" = "Zoaz";
+"trip_start" = "Goazen";
 
-"pick_destination" = "Helburua";
+"pick_destination" = "Helmuga";
 
-"follow_my_position" = "Zentroa";
+"follow_my_position" = "Berriz zentratu";
 
-"search_results" = "Bilaketa-emaitzak";
+"search_results" = "Bilaketa emaitzak";
 
 "then_turn" = "Gero";
 
@@ -1062,10 +1062,10 @@
 "no" = "Ez";
 
 /* E.g. "WiFi:Yes" */
-"yes_available" = "Bai";
+"yes_available" = "bai";
 
 /* E.g. "WiFi:No" */
-"no_available" = "Ez";
+"no_available" = "ez";
 
 "trip_finished" = "Iritsi zara!";
 
@@ -1073,7 +1073,7 @@
 
 "dialog_routing_change_start_carplay" = "Ezin da ibilbidea eraiki uneko kokapenetik";
 
-"dialog_routing_change_end_carplay" = "Ezin da sortu amaiera punturako ibilbidea. aukeratu beste bat";
+"dialog_routing_change_end_carplay" = "Ezin da sortu helmugarako ibilbidea. Aukeratu beste bat";
 
 "dialog_routing_check_gps_carplay" = "Ez dago GPS seinalerik. Joan eremu ireki batera";
 
@@ -1083,11 +1083,11 @@
 
 "dialog_routing_system_error_carplay" = "Akats bat gertatu da. Berrabiarazi aplikazioa";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "Ibilbidea zure uneko kokapenetik berregin egingo da";
+"dialog_routing_rebuild_from_current_location_carplay" = "Ibilbidea zure uneko kokapenetik birkalkulatuko da";
 
-"dialog_routing_rebuild_for_vehicle_carplay" = "Ibilbidea autoz aldatuko da";
+"dialog_routing_rebuild_for_vehicle_carplay" = "Ibilbidea auto modura aldatuko da";
 
-"ok" = "Ok";
+"ok" = "Ados";
 
 "avoid_unpaved_carplay_1" = "Lurrezko biderik ez";
 
@@ -1097,29 +1097,29 @@
 
 "avoid_ferry_carplay_2" = "Ferryrik ez";
 
-"avoid_tolls_carplay_1" = "Bidesaria ez";
+"avoid_tolls_carplay_1" = "Bidesaririk ez";
 
-"avoid_tolls_carplay_2" = "Bidesaria ez";
+"avoid_tolls_carplay_2" = "Bidesaririk ez";
 
-"speedcams_alert_title_carplay_1" = "Abiadura kamera.";
+"speedcams_alert_title_carplay_1" = "Abiadura kamerak.";
 
-"speedcams_alert_title_carplay_2" = "Abiadura alerta.";
+"speedcams_alert_title_carplay_2" = "Abiadura alertak.";
 
 "download_map_carplay" = "Deskargatu mapak zure gailuko Organic Maps aplikazioan";
 
-"carplay_roundabout_exit" = "%s desbideratzea";
+"carplay_roundabout_exit" = "%s irteera";
 
 /* max. 10 symbols, both iOS and Android */
-"sort" = "Agindu…";
+"sort" = "Ordenatu…";
 
 /* iOS */
 "sort_default" = "Ordenatu lehenespenez";
 
-"sort_type" = "Motaren arabera ordenatu";
+"sort_type" = "Ordenatu motaren arabera";
 
 "sort_distance" = "Ordenatu distantziaren arabera";
 
-"sort_date" = "Dataren arabera ordenatzeko";
+"sort_date" = "Ordenatu dataren arabera";
 
 "week_ago_sorttype" = "Duela aste bat";
 
@@ -1136,7 +1136,7 @@
 
 /********** Bookmark types used for sorting **********/
 
-"food_places" = "Janari";
+"food_places" = "Janariak";
 
 "tourist_places" = "Toki interesgarriak";
 
@@ -1144,7 +1144,7 @@
 
 "parks" = "Parkeak";
 
-"swim_places" = "Igeriketa";
+"swim_places" = "Igerilekua";
 
 "mountains" = "Mendiak";
 
@@ -1158,25 +1158,25 @@
 
 "shops" = "Dendak";
 
-"parkings" = "Aparkaleku";
+"parkings" = "Aparkalekuak";
 
-"fuel_places" = "Erregai-geltokia";
+"fuel_places" = "Gasolindegiak";
 
 "medicine" = "Medikuntza";
 
 "search_in_the_list" = "Bilatu zerrendan";
 
-"religious_places" = "Erlijio-guneak";
+"religious_places" = "Erlijio guneak";
 
-"transit_not_found" = "Metro-nabigazioa oraindik ez dago erabilgarri eskualde honetan";
+"transit_not_found" = "Metroko nabigazioa oraindik ez dago erabilgarri eskualde honetan";
 
-"dialog_pedestrian_route_is_long_header" = "Ez da aurkitu metroko ibilbidea";
+"dialog_pedestrian_route_is_long_header" = "Ez da aurkitu metroko ibilbiderik";
 
 "dialog_pedestrian_route_is_long_message" = "Aukeratu metrotik hurbilen dagoen ibilbidearen hasiera edo amaiera puntua";
 
-"button_layer_isolines" = "Altuerak";
+"button_layer_isolines" = "Sestra kurbak";
 
-"isolines_activation_error_dialog" = "Erliebe-altuera erabiltzeko, eguneratu edo deskargatu nahi duzun eremuko mapa";
+"isolines_activation_error_dialog" = "Sestra kurbak erabiltzeko, eguneratu edo deskargatu nahi duzun eremuko mapa";
 
 "isolines_location_error_dialog" = "Erliebearen altitudea oraindik ez dago eskuragarri eskualde honetan";
 
@@ -1186,11 +1186,11 @@
 
 "elevation_profile_diff_level_moderate" = "Moderatua";
 
-"elevation_profile_diff_level_hard" = "Gogorra";
+"elevation_profile_diff_level_hard" = "Zaila";
 
-"elevation_profile_ascent" = "Igoera";
+"elevation_profile_ascent" = "Maldan gora";
 
-"elevation_profile_descent" = "Gainbehera";
+"elevation_profile_descent" = "Maldan behera";
 
 "elevation_profile_minaltitude" = "Gutxieneko altuera";
 
@@ -1198,13 +1198,13 @@
 
 "elevation_profile_difficulty" = "Zailtasuna";
 
-"elevation_profile_time" = "Hutsunea:";
+"elevation_profile_time" = "Denbora:";
 
-"isolines_toast_zooms_1_10" = "Handitu mapa isolineak ikusteko";
+"isolines_toast_zooms_1_10" = "Handitu mapa sestra kurbak ikusteko";
 
-"downloader_updating_ios" = "Eguneratu";
+"downloader_updating_ios" = "Eguneratzen";
 
-"downloader_loading_ios" = "Kargatzen";
+"downloader_loading_ios" = "Deskargatzen";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_title" = "Eguneratu deskargatutako mapak";
@@ -1219,16 +1219,16 @@
 "whats_new_auto_update_button_later" = "Eguneratu geroago eskuz";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Ibilbide garbia";
+"placepage_delete_track_button" = "Ezabatu arrastoa";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Bide-izena";
+"placepage_track_name_hint" = "Arrastoaren izena";
 
 /* move track or bookmark from the list button text */
 "move" = "Mugitu";
 
 /* edit track screen title */
-"track_title" = "Ibilbidea";
+"track_title" = "Arrastoa";
 
 /* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsApp";
