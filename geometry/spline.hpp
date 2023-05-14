@@ -96,7 +96,7 @@ public:
 
   bool IsNull() const;
   void Reset(Spline * spline);
-  void Reset(std::vector<PointD> const & path);
+  //void Reset(std::vector<PointD> const & path);
 
   Spline::iterator CreateIterator() const;
 

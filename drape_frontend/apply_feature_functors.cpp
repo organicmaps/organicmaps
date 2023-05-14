@@ -842,16 +842,12 @@ void ApplyLineFeatureGeometry::ProcessLineRule(Stylist::TRuleWrapper const & rul
     if (clippedPaths.empty())
       return;
 
-    size_t const kExtraPointsPerSegment = 4;
-    m2::SmoothPaths(guidePointsForSmooth, kExtraPointsPerSegment, m2::kCentripetalAlpha,
-                    clippedPaths);
+    m2::SmoothPaths(guidePointsForSmooth, 4 /* newPointsPerSegmentCount */, m2::kCentripetalAlpha, clippedPaths);
 
     m_clippedSplines.clear();
-    for (auto const & path : clippedPaths)
-    {
-      auto splines = m2::ClipPathByRect(m_tileRect, path);
-      std::move(splines.begin(), splines.end(), std::back_inserter(m_clippedSplines));
-    }
+    std::function<void (m2::SharedSpline &&)> inserter = base::MakeBackInsertFunctor(m_clippedSplines);
+    for (auto & path : clippedPaths)
+      m2::ClipPathByRect(m_tileRect, std::move(path), inserter);
   }
 
   if (m_clippedSplines.empty())
