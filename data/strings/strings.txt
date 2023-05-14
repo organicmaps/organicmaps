@@ -218,7 +218,7 @@
     el = Η λήψη απέτυχε. Αγγίξτε για να προσπαθήσετε ξανά.
     es = Error durante la descarga. Pulse para intentarlo de nuevo.
     et = Allalaadimine ebaõnnestus. Puuduta uuesti proovimiseks.
-    eu = Errore bat gertatu da deskargatzean, hasi berriro
+    eu = Errore bat gertatu da deskargatzean, hasi berriro.
     fa = دانلود ناموفق بود. برای تلاش مجدد لمس کنید
     fi = Lataus epäonnistui, yritä uudelleen koskettamalla
     fr = Échec lors du téléchargement. Toucher de nouveau pour un essai de plus.
