@@ -106,7 +106,7 @@ double Spline::GetLength() const
 template <typename T>
 void Spline::Init(T && path)
 {
-  ASSERT(path.size() > 1, ("Wrong path size!"));
+  ASSERT_GREATER(path.size(), 1, ());
   m_position = std::forward<T>(path);
   size_t cnt = m_position.size() - 1;
   m_direction = std::vector<PointD>(cnt);
@@ -243,7 +243,7 @@ SharedSpline::SharedSpline(std::vector<PointD> && path)
 
 bool SharedSpline::IsNull() const
 {
-  return m_spline == NULL;
+  return m_spline == nullptr;
 }
 
 void SharedSpline::Reset(Spline * spline)
@@ -251,10 +251,10 @@ void SharedSpline::Reset(Spline * spline)
   m_spline.reset(spline);
 }
 
-void SharedSpline::Reset(std::vector<PointD> const & path)
-{
-  m_spline.reset(new Spline(path));
-}
+//void SharedSpline::Reset(std::vector<PointD> const & path)
+//{
+//  m_spline.reset(new Spline(path));
+//}
 
 Spline::iterator SharedSpline::CreateIterator() const
 {

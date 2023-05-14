@@ -1,6 +1,9 @@
 #include "geometry/clipping.hpp"
 
 #include "geometry/rect_intersect.hpp"
+#include "geometry/triangle2d.hpp"
+
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 
@@ -131,49 +134,46 @@ void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::Point
     resultIterator(polygon[0], polygon[i + 1], polygon[i + 2]);
 }
 
-std::vector<m2::SharedSpline> ClipPathByRectImpl(m2::RectD const & rect,
-                                                 std::vector<m2::PointD> const & path)
+template <class FnT>
+void ClipPathByRectImpl(m2::RectD const & rect, std::vector<m2::PointD> const & path, FnT && fn)
 {
-  std::vector<m2::SharedSpline> result;
-
-  if (path.size() < 2)
-    return result;
+  size_t const sz = path.size();
+  if (sz < 2)
+    return;
 
   // Divide spline into parts.
-  result.reserve(2);
   m2::PointD p1, p2;
   int code1 = 0;
   int code2 = 0;
   m2::SharedSpline s;
-  s.Reset(new m2::Spline(path.size()));
+  s.Reset(new m2::Spline(sz));
 
-  for (size_t i = 0; i < path.size() - 1; i++)
+  for (size_t i = 0; i < sz - 1; i++)
   {
     p1 = path[i];
     p2 = path[i + 1];
     if (m2::Intersect(rect, p1, p2, code1, code2))
     {
       if (s.IsNull())
-        s.Reset(new m2::Spline(path.size() - i));
+        s.Reset(new m2::Spline(sz - i));
 
       s->AddPoint(p1);
       s->AddPoint(p2);
 
-      if (code2 != 0 || i + 2 == path.size())
+      if (code2 != 0 || i + 2 == sz)
       {
         if (s->GetSize() > 1)
-          result.push_back(s);
+            fn(std::move(s));
         s.Reset(nullptr);
       }
     }
     else if (!s.IsNull() && !s->IsEmpty())
     {
       if (s->GetSize() > 1)
-        result.push_back(s);
+        fn(std::move(s));
       s.Reset(nullptr);
     }
   }
-  return result;
 }
 
 enum class RectCase
@@ -204,23 +204,27 @@ std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::Share
   {
   case RectCase::Inside: return {spline};
   case RectCase::Outside: return {};
-  case RectCase::Intersect: return ClipPathByRectImpl(rect, spline->GetPath());
+  case RectCase::Intersect:
+  {
+    std::vector<m2::SharedSpline> res;
+    res.reserve(2); // keep previous behavior, but not sure that its actually needed
+    ClipPathByRectImpl(rect, spline->GetPath(), base::MakeBackInsertFunctor(res));
+    return res;
+  }
   }
   CHECK(false, ("Unreachable"));
   return {};
 }
 
-std::vector<m2::SharedSpline> ClipPathByRect(m2::RectD const & rect,
-                                             std::vector<m2::PointD> const & path)
+void ClipPathByRect(m2::RectD const & rect, std::vector<m2::PointD> && path,
+                    std::function<void (m2::SharedSpline &&)> const & fn)
 {
   switch (GetRectCase(rect, path))
   {
-  case RectCase::Inside: return {m2::SharedSpline(path)};
-  case RectCase::Outside: return {};
-  case RectCase::Intersect: return ClipPathByRectImpl(rect, path);
+  case RectCase::Inside: fn(m2::SharedSpline(std::move(path))); break;
+  case RectCase::Outside: break;
+  case RectCase::Intersect: ClipPathByRectImpl(rect, path, fn); break;
   }
-  CHECK(false, ("Unreachable"));
-  return {};
 }
 
 void ClipPathByRectBeforeSmooth(m2::RectD const & rect, std::vector<m2::PointD> const & path,
