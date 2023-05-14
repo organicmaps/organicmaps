@@ -69,7 +69,7 @@ std::string GetLocalizedFeatureType(std::vector<uint32_t> const & types)
 
 std::string GetPreferredBookmarkName(BookmarkData const & bmData, std::string_view languageOrig)
 {
-  auto const languageNorm = languages::Normalize(std::string{languageOrig});
+  auto const languageNorm = languages::Normalize(languageOrig);
   std::string name = GetPreferredBookmarkStr(bmData.m_customName, languageNorm);
   if (name.empty())
     name = GetPreferredBookmarkStr(bmData.m_name, languageNorm);
