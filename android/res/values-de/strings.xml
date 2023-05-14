@@ -380,8 +380,9 @@
 	<string name="p2p_reroute_from_current">Soll eine Route von Ihrem aktuellen Standort aus berechnet werden?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Weiter</string>
-	<!-- Tab title in the time picker -->
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_from">Von</string>
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_to">Bis</string>
 	<string name="editor_time_add">Zeitplan hinzufügen</string>
 	<string name="editor_time_delete">Zeitplan löschen</string>

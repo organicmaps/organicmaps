@@ -376,8 +376,9 @@
 	<string name="p2p_reroute_from_current">你是否想要規劃目前位置的路線？</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">下一頁</string>
-	<!-- Tab title in the time picker -->
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_from">從</string>
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_to">到</string>
 	<string name="editor_time_add">新增排程</string>
 	<string name="editor_time_delete">刪除排程</string>

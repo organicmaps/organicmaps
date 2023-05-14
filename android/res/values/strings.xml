@@ -409,8 +409,9 @@
 	<string name="p2p_reroute_from_current">Do you want us to plan a route from your current location?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Next</string>
-	<!-- Tab title in the time picker -->
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_from">From</string>
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_to">To</string>
 	<string name="editor_time_add">Add Schedule</string>
 	<string name="editor_time_delete">Delete Schedule</string>

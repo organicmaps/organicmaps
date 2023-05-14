@@ -361,8 +361,9 @@
 	<string name="p2p_reroute_from_current">現在位置からのルートを作成しますか？</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">次へ</string>
-	<!-- Tab title in the time picker -->
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_from">から</string>
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_to">まで</string>
 	<string name="editor_time_add">スケジュール追加</string>
 	<string name="editor_time_delete">スケジュール削除</string>

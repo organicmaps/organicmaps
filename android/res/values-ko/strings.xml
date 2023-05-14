@@ -363,8 +363,9 @@
 	<string name="p2p_reroute_from_current">현재 위치에서 경로를 계획하시겠습니까?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">다음</string>
-	<!-- Tab title in the time picker -->
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_from">부터</string>
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_to">까지</string>
 	<string name="editor_time_add">스케줄 추가</string>
 	<string name="editor_time_delete">스케줄 삭제</string>

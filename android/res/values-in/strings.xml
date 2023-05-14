@@ -365,8 +365,9 @@
 	<string name="p2p_reroute_from_current">Apakah Anda ingin kami merencanakan sebuah rute dari lokasi Anda saat ini?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Berikut</string>
-	<!-- Tab title in the time picker -->
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_from">Dari pukul</string>
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_to">Hingga</string>
 	<string name="editor_time_add">Tambah Jadwal</string>
 	<string name="editor_time_delete">Hapus Jadwal</string>

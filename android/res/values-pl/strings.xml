@@ -384,8 +384,9 @@
 	<string name="p2p_reroute_from_current">Czy chcesz, byśmy zaplanowali trasę z Twojej bieżącej lokalizacji?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Dalej</string>
-	<!-- Tab title in the time picker -->
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_from">Od</string>
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_to">Do</string>
 	<string name="editor_time_add">Dodaj harmonogram</string>
 	<string name="editor_time_delete">Usuń harmonogram</string>

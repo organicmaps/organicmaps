@@ -363,8 +363,9 @@
 	<string name="p2p_reroute_from_current">Ønsker du, at vi planlægger en rute fra din nuværende placering?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Næste</string>
-	<!-- Tab title in the time picker -->
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_from">Fra</string>
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_to">Til</string>
 	<string name="editor_time_add">Tilføj tidsplan</string>
 	<string name="editor_time_delete">Slet tidsplan</string>

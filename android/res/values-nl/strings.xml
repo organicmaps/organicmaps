@@ -380,8 +380,9 @@
 	<string name="p2p_reroute_from_current">Wilt u dat wij een route plannen vanaf uw huidige locatie?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Volgende</string>
-	<!-- Tab title in the time picker -->
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_from">Van</string>
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_to">Tot</string>
 	<string name="editor_time_add">Schema toevoegen</string>
 	<string name="editor_time_delete">Schema verwijderen</string>

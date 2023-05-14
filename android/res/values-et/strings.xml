@@ -374,8 +374,9 @@
 	<string name="p2p_reroute_from_current">Kas soovid, et planeeriksime marsruudi Sinu praegusest asukohast?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Järgmine</string>
-	<!-- Tab title in the time picker -->
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_from">Kell</string>
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_to">Kuni</string>
 	<string name="editor_time_add">Lisa ajakava</string>
 	<string name="editor_time_delete">Kustuta ajakava</string>

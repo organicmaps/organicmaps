@@ -366,8 +366,9 @@
 	<string name="p2p_reroute_from_current">Θέλετε να σχεδιάσουμε μια διαδρομή από την τρέχουσα θέση σας;</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Επόμενη</string>
-	<!-- Tab title in the time picker -->
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_from">Από τις</string>
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_to">Έως Τις</string>
 	<string name="editor_time_add">Προσθέσετε χρονοδιάγραμμα</string>
 	<string name="editor_time_delete">Διαγραφή χρονοδιαγράμματος</string>

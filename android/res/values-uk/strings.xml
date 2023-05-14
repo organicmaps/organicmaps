@@ -380,8 +380,9 @@
 	<string name="p2p_reroute_from_current">Хочете спланувати маршрут із поточного місцезнаходження?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Далі</string>
-	<!-- Tab title in the time picker -->
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_from">З</string>
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_to">До</string>
 	<string name="editor_time_add">Додати розклад</string>
 	<string name="editor_time_delete">Видалити розклад</string>

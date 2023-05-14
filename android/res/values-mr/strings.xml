@@ -356,8 +356,9 @@
 	<string name="p2p_reroute_from_current">तुमच्या वर्तमान स्थानापासून मार्ग नियोजन करायचे का?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">पुढे</string>
-	<!-- Tab title in the time picker -->
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_from">ते</string>
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_to">पर्यंत</string>
 	<string name="editor_time_add">वेळापत्रक जोडा</string>
 	<string name="editor_time_delete">वेळापत्रक मिटवा</string>

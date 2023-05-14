@@ -365,8 +365,9 @@
 	<string name="p2p_reroute_from_current">คุณต้องการให้เราาวงแผนเส้นทางจากสถานที่ตั้งปัจจุบันของคุณหรือไม่?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">ถัดไป</string>
-	<!-- Tab title in the time picker -->
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_from">เวลา</string>
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_to">น</string>
 	<string name="editor_time_add">เพิ่มวัน</string>
 	<string name="editor_time_delete">ลบวัน</string>

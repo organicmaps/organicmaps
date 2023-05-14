@@ -361,8 +361,9 @@
 	<string name="p2p_reroute_from_current">Doriți să vă planificăm o rută având ca punct de pornire locația actuală?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Nasledujúca</string>
-	<!-- Tab title in the time picker -->
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_from">Od</string>
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_to">Do</string>
 	<string name="editor_time_add">Pridať rozvrh</string>
 	<string name="editor_time_delete">Zmazať rozvrh</string>

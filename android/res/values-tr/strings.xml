@@ -384,8 +384,9 @@
 	<string name="p2p_reroute_from_current">Mevcut konumunuzdan bir rota planlamamızı ister misiniz?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Sonraki</string>
-	<!-- Tab title in the time picker -->
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_from">Den itibaren</string>
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_to">A</string>
 	<string name="editor_time_add">Plan Ekle</string>
 	<string name="editor_time_delete">Planı Sil</string>

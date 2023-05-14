@@ -376,8 +376,9 @@
 	<string name="p2p_reroute_from_current">Voleu que planifiquem una ruta des de la vostra ubicació actual?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Següent</string>
-	<!-- Tab title in the time picker -->
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_from">De</string>
+	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_to">A</string>
 	<string name="editor_time_add">Afegeix un horari</string>
 	<string name="editor_time_delete">Esborra l\'horari</string>
