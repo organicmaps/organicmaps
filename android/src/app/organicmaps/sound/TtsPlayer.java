@@ -43,7 +43,7 @@ public enum TtsPlayer implements Initializable<Context>
 
   private static final String TAG = TtsPlayer.class.getSimpleName();
   private static final Locale DEFAULT_LOCALE = Locale.US;
-  private static final float SPEECH_RATE = 1.2f;
+  private static final float SPEECH_RATE = 1.0f;
   private static final int TTS_SPEAK_DELAY_MILLIS = 50;
 
   private TextToSpeech mTts;
