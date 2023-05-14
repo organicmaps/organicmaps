@@ -547,7 +547,7 @@ void MutableLabelHandle::SetContent(std::string const & content)
 
 m2::PointF MutableLabelDrawer::Draw(ref_ptr<dp::GraphicsContext> context, Params const & params,
                                     ref_ptr<dp::TextureManager> mng,
-                                    dp::Batcher::TFlushFn const & flushFn)
+                                    dp::Batcher::TFlushFn && flushFn)
 {
   uint32_t vertexCount = dp::Batcher::VertexPerQuad * params.m_maxLength;
   uint32_t indexCount = dp::Batcher::IndexPerQuad * params.m_maxLength;
@@ -579,7 +579,7 @@ m2::PointF MutableLabelDrawer::Draw(ref_ptr<dp::GraphicsContext> context, Params
   {
     dp::Batcher batcher(indexCount, vertexCount);
     batcher.SetBatcherHash(static_cast<uint64_t>(df::BatcherBucket::Default));
-    dp::SessionGuard guard(context, batcher, flushFn);
+    dp::SessionGuard guard(context, batcher, std::move(flushFn));
     batcher.InsertListOfStrip(context, staticData.m_state, make_ref(&provider),
                               std::move(handle), dp::Batcher::VertexPerQuad);
   }
