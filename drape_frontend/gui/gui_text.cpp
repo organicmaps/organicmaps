@@ -306,9 +306,7 @@ ref_ptr<dp::Texture> MutableLabel::SetAlphabet(std::string const & alphabet,
                                                ref_ptr<dp::TextureManager> mng)
 {
   strings::UniString str = strings::MakeUniString(alphabet + ".");
-  std::sort(str.begin(), str.end());
-  strings::UniString::iterator it = std::unique(str.begin(), str.end());
-  str.resize(std::distance(str.begin(), it));
+  base::SortUnique(str);
 
   dp::TextureManager::TGlyphsBuffer buffer;
   mng->GetGlyphRegions(str, dp::GlyphManager::kDynamicGlyphSize, buffer);

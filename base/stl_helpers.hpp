@@ -116,11 +116,17 @@ void SortUnique(Cont & c)
 
 /// @name Use std::ref to pass functors into std, since all algorithm functions here get forwarding reference.
 /// @{
+template <typename Cont, typename Equals>
+void Unique(Cont & c, Equals && equals)
+{
+  c.erase(std::unique(c.begin(), c.end(), std::ref(equals)), c.end());
+}
+
 template <typename Cont, typename Less, typename Equals>
 void SortUnique(Cont & c, Less && less, Equals && equals)
 {
   std::sort(c.begin(), c.end(), std::ref(less));
-  c.erase(std::unique(c.begin(), c.end(), std::ref(equals)), c.end());
+  Unique(c, equals);
 }
 
 template <typename Cont, typename Fn>
