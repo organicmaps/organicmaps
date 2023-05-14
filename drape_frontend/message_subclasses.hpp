@@ -1198,7 +1198,7 @@ public:
 
   Type GetType() const override { return Type::DrapeApiAddLines; }
 
-  DrapeApi::TLines const & GetLines() const { return m_lines; }
+  DrapeApi::TLines & GetLines() { return m_lines; }
 
 private:
   DrapeApi::TLines m_lines;

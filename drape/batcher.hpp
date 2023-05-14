@@ -67,7 +67,7 @@ public:
                              drape_ptr<OverlayHandle> && handle);
 
   using TFlushFn = std::function<void (RenderState const &, drape_ptr<RenderBucket> &&)>;
-  void StartSession(TFlushFn const & flusher);
+  void StartSession(TFlushFn && flusher);
   void EndSession(ref_ptr<GraphicsContext> context);
   void ResetSession();
 
@@ -121,7 +121,7 @@ class SessionGuard
 {
 public:
   SessionGuard(ref_ptr<GraphicsContext> context, Batcher & batcher,
-               Batcher::TFlushFn const & flusher);
+               Batcher::TFlushFn && flusher);
   ~SessionGuard();
 
 private:

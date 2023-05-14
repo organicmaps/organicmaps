@@ -34,7 +34,7 @@ void BuildText(ref_ptr<dp::GraphicsContext> context, std::string const & str,
 namespace df
 {
 void DrapeApiBuilder::BuildLines(ref_ptr<dp::GraphicsContext> context,
-                                 DrapeApi::TLines const & lines, ref_ptr<dp::TextureManager> textures,
+                                 DrapeApi::TLines & lines, ref_ptr<dp::TextureManager> textures,
                                  std::vector<drape_ptr<DrapeApiRenderProperty>> & properties)
 {
   properties.reserve(lines.size());
@@ -43,10 +43,16 @@ void DrapeApiBuilder::BuildLines(ref_ptr<dp::GraphicsContext> context,
   uint32_t constexpr kFontSize = 14;
   FeatureID fakeFeature;
 
-  for (auto const & line : lines)
+  for (auto & line : lines)
   {
-    std::string id = line.first;
-    DrapeApiLineData const & data = line.second;
+    std::string const & id = line.first;
+
+    DrapeApiLineData & data = line.second;
+    base::Unique(data.m_points, [](m2::PointD const & p1, m2::PointD const & p2)
+    {
+      return p1.EqualDxDy(p2, kMwmPointAccuracy);
+    });
+
     m2::RectD rect;
     for (auto const & p : data.m_points)
       rect.Add(p);
@@ -56,8 +62,8 @@ void DrapeApiBuilder::BuildLines(ref_ptr<dp::GraphicsContext> context,
     auto property = make_unique_dp<DrapeApiRenderProperty>();
     property->m_center = rect.Center();
     {
-      dp::SessionGuard guard(context, batcher, [&property, id](dp::RenderState const & state,
-                                                               drape_ptr<dp::RenderBucket> && b)
+      dp::SessionGuard guard(context, batcher, [&property, &id](dp::RenderState const & state,
+                                                                drape_ptr<dp::RenderBucket> && b)
       {
         property->m_id = id;
         property->m_buckets.emplace_back(state, std::move(b));
