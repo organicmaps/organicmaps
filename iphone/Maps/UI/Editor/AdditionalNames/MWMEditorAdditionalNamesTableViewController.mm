@@ -1,6 +1,8 @@
 #import "MWMEditorAdditionalNamesTableViewController.h"
 #import "MWMTableViewCell.h"
 
+#import <CoreApi/StringUtils.h>
+
 @interface MWMEditorAdditionalNamesTableViewController ()
 
 @property (weak, nonatomic) id<MWMEditorAdditionalNamesProtocol> delegate;
@@ -66,12 +68,8 @@ additionalSkipLanguageCodes:(std::vector<NSInteger>)additionalSkipLanguageCodes
   MWMTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"ListCellIdentifier"];
   NSInteger const index = indexPath.row;
   StringUtf8Multilang::Lang const & lang = m_languages[index];
-  cell.textLabel.text = [[NSString alloc] initWithBytes:lang.m_name.data()
-                                                 length:lang.m_name.size()
-                                               encoding:NSUTF8StringEncoding];
-  cell.detailTextLabel.text = [[NSString alloc] initWithBytes:lang.m_code.data()
-                                                       length:lang.m_code.size()
-                                                     encoding:NSUTF8StringEncoding];
+  cell.textLabel.text = ToNSString(lang.m_name);
+  cell.detailTextLabel.text = ToNSString(lang.m_code);
   cell.accessoryType = UITableViewCellAccessoryNone;
   return cell;
 }

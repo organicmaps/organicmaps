@@ -273,7 +273,7 @@ void SaveStringsArray(KmlWriter::WriterWrapper & writer,
     // Constants from our code do not need any additional checks or escaping.
     if constexpr (std::is_same_v<StringViewLike, std::string_view>)
     {
-      ASSERT_NOT_EQUAL(s.find_first_of("<&"), std::string_view::npos, ("Use std::string overload"));
+      ASSERT_EQUAL(s.find_first_of("<&"), std::string_view::npos, ("Use std::string overload for", s));
       writer << s;
     }
     else
