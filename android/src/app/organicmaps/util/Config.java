@@ -10,6 +10,7 @@ import static app.organicmaps.util.Counters.KEY_MISC_FIRST_START_DIALOG_SEEN;
 import static app.organicmaps.util.Counters.KEY_MISC_NEWS_LAST_VERSION;
 
 import android.content.Context;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
 
@@ -198,7 +199,12 @@ public final class Config
 
   public static boolean isShowOnLockScreenEnabled()
   {
-    return getBool(KEY_MISC_SHOW_ON_LOCK_SCREEN, true);
+    // Disabled by default on Android 7.1 and earlier devices.
+    // See links below for details:
+    // https://github.com/organicmaps/organicmaps/issues/2857
+    // https://github.com/organicmaps/organicmaps/issues/3967
+    final boolean defaultValue = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
+    return getBool(KEY_MISC_SHOW_ON_LOCK_SCREEN, defaultValue);
   }
 
   public static void setShowOnLockScreenEnabled(boolean enabled)
