@@ -290,9 +290,7 @@ void XMLFeature::SetName(string_view lang, string_view name)
   }
   else
   {
-    std::string key = string{kDefaultName};
-    key.append(kColon).append(lang);
-    SetTagValue(key, name);
+    SetTagValue(std::string{kDefaultName}.append(kColon).append(lang), name);
   }
 }
 

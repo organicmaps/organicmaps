@@ -152,9 +152,9 @@ std::string GetCurrentOrig()
     return arr[0];
 }
 
-std::string Normalize(std::string const & lang)
+std::string Normalize(std::string_view lang)
 {
-  return lang.substr(0, lang.find_first_of("-_ "));
+  return std::string{lang.substr(0, lang.find_first_of("-_ "))};
 }
 
 std::string GetCurrentNorm()

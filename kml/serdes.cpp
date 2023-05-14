@@ -272,7 +272,10 @@ void SaveStringsArray(KmlWriter::WriterWrapper & writer,
     writer << offsetStr << kIndent2 << "<mwm:value>";
     // Constants from our code do not need any additional checks or escaping.
     if constexpr (std::is_same_v<StringViewLike, std::string_view>)
+    {
+      ASSERT_NOT_EQUAL(s.find_first_of("<&"), std::string_view::npos, ("Use std::string overload"));
       writer << s;
+    }
     else
       SaveStringWithCDATA(writer, s);
     writer << "</mwm:value>\n";

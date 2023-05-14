@@ -86,7 +86,7 @@ public:
   // "10".
   static int8_t constexpr kLangCodeMask = 0x3F;
   static_assert(kMaxSupportedLanguages == kLangCodeMask + 1);
-  static char constexpr kReservedLang[] = "reserved";
+  static std::string_view constexpr kReservedLang = "reserved";
 
   using Languages = buffer_vector<Lang, kMaxSupportedLanguages>;
 
