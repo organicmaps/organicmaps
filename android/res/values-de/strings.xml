@@ -21,7 +21,7 @@
 	<string name="miles">Meilen</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Mein Standort</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">Später</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Suche</string>
@@ -917,6 +917,7 @@
 	<string name="type.building">Gebäude</string>
 	<string name="type.building.address">Gebäude</string>
 	<string name="type.building.has_parts">Gebäude</string>
+	<string name="type.building_part">Gebäude</string>
 	<string name="type.building.train_station">Bahnhof</string>
 	<string name="type.cemetery.grave">Grab</string>
 	<string name="type.craft">Handwerk</string>
@@ -972,7 +973,6 @@
 	<string name="type.cuisine.filipino">Philippinisch</string>
 	<string name="type.cuisine.fine_dining">Gehoben</string>
 	<string name="type.cuisine.fish">Fisch</string>
-	<string name="type.cuisine.fish_and_chips">Fish and Chips</string>
 	<string name="type.cuisine.french">Französisch</string>
 	<string name="type.cuisine.friture">Pommes</string>
 	<string name="type.cuisine.georgian">Georgisch</string>
@@ -1763,7 +1763,6 @@
 	<string name="type.shop.greengrocer">Gemüseladen</string>
 	<string name="type.shop.grocery">Lebensmittelgeschäft</string>
 	<string name="type.shop.hairdresser">Friseur</string>
-	<string name="type.shop.hardware">Baumarkt</string>
 	<string name="type.shop.health_food">Reformhaus</string>
 	<string name="type.shop.herbalist">Kräuterladen</string>
 	<string name="type.shop.hifi">HiFi-Audio</string>
@@ -1807,6 +1806,7 @@
 	<string name="type.shop.agrarian">Landwirtschaftliches Geschäft</string>
 	<string name="type.shop.antiques">Antiquitäten</string>
 	<string name="type.shop.appliance">Laden für Haushaltsgeräte</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">Kunstgeschäft</string>
 	<string name="type.shop.baby_goods">Babybedarf</string>
 	<string name="type.shop.bag">Taschen Shop</string>
@@ -1937,6 +1937,5 @@
 	<string name="type.piste_type.downhill.novice">Anfängerfreundliche Abfahrt</string>
 	<string name="type.piste_type.nordic">Langlaufloipe</string>
 	<string name="type.piste_type.sled">Rodelbahn</string>
-	<string name="type.building_part">Gebäude</string>
 	<string name="type.amenity.events_venue">Veranstaltungszentrum</string>
 </resources>

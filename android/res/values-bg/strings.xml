@@ -24,7 +24,7 @@
 	<string name="miles">Мили</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Мое местоположение</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">По-късно</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Търсене</string>
@@ -964,6 +964,7 @@
 	<string name="type.shop.agrarian">Селскостопански магазин</string>
 	<string name="type.shop.antiques">Антики</string>
 	<string name="type.shop.appliance">Магазин за техника</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">Магазин за изкуства</string>
 	<string name="type.shop.baby_goods">Детски магазин</string>
 	<string name="type.shop.bag">Магазин за чанти</string>

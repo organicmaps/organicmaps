@@ -24,7 +24,7 @@
 	<string name="miles">مایل</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">مکان من</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">بعداً</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">جست‌وجو</string>
@@ -826,8 +826,9 @@
 	<string name="type.boundary.national_park">پارک ملی</string>
 	<string name="type.building">ساختمان</string>
 	<string name="type.building.address">ساختمان</string>
-	<string name="type.building.garage">گاراژ</string>
 	<string name="type.building.has_parts">ساختمان</string>
+	<string name="type.building_part">ساختمان</string>
+	<string name="type.building.garage">گاراژ</string>
 	<string name="type.building.train_station">ایستگاه قطار</string>
 	<string name="type.cemetery.grave">ﺮﺒﻗ</string>
 	<string name="type.craft">صنعت‌گری</string>
@@ -1525,6 +1526,7 @@
 	<string name="type.shop.agrarian">مغازه کشاورزی</string>
 	<string name="type.shop.antiques">ﺕﺎﺟ ﻪﻘﯿﺘﻋ</string>
 	<string name="type.shop.appliance">فروشگاه لوازم خانگی</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">ﺮﻨﻫ ﻩﺎﮕﺷﻭﺮﻓ</string>
 	<string name="type.shop.baby_goods">ﻥﺎﮐﺩﻮﮐ ﻩﺎﮕﺷﻭﺮﻓ</string>
 	<string name="type.shop.bag">ﻒﯿﮐ ﻩﺎﮕﺷﻭﺮﻓ</string>
@@ -1624,6 +1626,5 @@
 	<string name="type.wheelchair.limited">دسترسی محدود با صندلی چرخ دار</string>
 	<string name="type.wheelchair.no">بدون دسترسی با صندلی چرخ دار</string>
 	<string name="type.wheelchair.yes">دسترسی کامل با صندلی چرخ دار</string>
-	<string name="type.building_part">ساختما</string>
 	<string name="type.amenity.events_venue">محل برگزاری رویدادها</string>
 </resources>

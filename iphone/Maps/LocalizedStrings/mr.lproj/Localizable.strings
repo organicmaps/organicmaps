@@ -32,7 +32,7 @@
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "माझे स्थान";
 
-/* Update maps later/Buy pro version later button text */
+/* Update maps later button text */
 "later" = "नंतर";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
@@ -274,7 +274,7 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
-"matrix" = "[matrix]";
+"matrix" = "[Matrix]";
 
 /* Text in menu */
 "mastodon" = "Mastodon";
@@ -828,7 +828,7 @@
 /* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "आपण कोणतीही वैयक्तिक माहिती प्रविष्ट केला नाही याची खात्री करा.";
 
-"editor_share_to_all_dialog_message_2" = "OpenStreetMap editors will check the changes and get in contact with you if they have any questions.";
+"editor_share_to_all_dialog_message_2" = "OpenStreetMap editors will check the changes and contact you if they have any questions.";
 
 "navigation_stop_button" = "थांबा";
 
@@ -1413,11 +1413,11 @@
 
 "type.amenity.parking.underground" = "Underground Parking";
 
-"type.amenity.parking_entrance" = "Parking entrance";
+"type.amenity.parking_entrance" = "Parking Entrance";
 
-"type.amenity.parking_entrance.private" = "Parking entrance";
+"type.amenity.parking_entrance.private" = "Parking Entrance";
 
-"type.amenity.parking_entrance.permissive" = "Parking entrance";
+"type.amenity.parking_entrance.permissive" = "Parking Entrance";
 
 "type.amenity.parking_space" = "पार्किंगची जागा";
 
@@ -1552,7 +1552,7 @@
 
 "type.amenity.waste_transfer_station" = "कचरा हस्तांतरण केंद्र";
 
-"type.amenity.water_point" = "RV Water Point";
+"type.amenity.water_point" = "Water Tank Refill Point";
 
 "type.barrier" = "अडथळा";
 
@@ -1638,9 +1638,11 @@
 
 "type.building.address" = "इमारत";
 
-"type.building.garage" = "गराज";
-
 "type.building.has_parts" = "इमारत";
+
+"type.building_part" = "इमारत";
+
+"type.building.garage" = "गराज";
 
 "type.building.train_station" = "रेल्वे स्थानक";
 
@@ -1669,7 +1671,7 @@
 "type.craft.handicraft" = "हस्तकला";
 
 /* Heating, Ventilation, and Air Conditioning */
-"type.craft.hvac" = "HVAC";
+"type.craft.hvac" = "HVAC Shop";
 
 "type.craft.key_cutter" = "की कटिंग";
 
@@ -1813,7 +1815,7 @@
 
 "type.cuisine.noodles" = "नूडल्स";
 
-"type.cuisine.oriental" = "Far Eastern";
+"type.cuisine.oriental" = "East Asian";
 
 "type.cuisine.pancake" = "Pancake";
 
@@ -2731,7 +2733,7 @@
 
 "type.railway.crossing" = "रेल्वे ओलांडणी";
 
-"type.railway.disused" = "Disused railway";
+"type.railway.disused" = "Disused Railway";
 
 "type.railway.funicular" = "हवाई रज्जुमार्ग";
 
@@ -3311,7 +3313,7 @@
 
 "type.shop.convenience" = "सुविधा दुकान";
 
-"type.shop.copyshop" = "Copy Shop";
+"type.shop.copyshop" = "Copyshop";
 
 "type.shop.cosmetics" = "सौंदर्य(कॉस्मेटिक)";
 
@@ -3349,11 +3351,11 @@
 
 "type.shop.greengrocer" = "भाजीवाला";
 
-"type.shop.grocery" = "Grocery";
+"type.shop.grocery" = "Grocery Store";
 
 "type.shop.hairdresser" = "न्हावी";
 
-"type.shop.hardware" = "हार्डवेअर दुकान";
+"type.shop.hardware" = "Hardware Store";
 
 "type.shop.health_food" = "Health Food Shop";
 
@@ -3443,9 +3445,10 @@
 
 "type.shop.appliance" = "उपकरणांचे दुकान";
 
-"type.shop.art" = "Arts Shop";
+/* maybe change to Art Gallery for en-US when supported */
+"type.shop.art" = "Artwork Shop";
 
-"type.shop.baby_goods" = "Baby Goods";
+"type.shop.baby_goods" = "Baby Goods Shop";
 
 "type.shop.bag" = "Bag Shop";
 
@@ -3457,35 +3460,35 @@
 
 "type.shop.cheese" = "Cheese Shop";
 
-"type.shop.craft" = "Arts and Crafts";
+"type.shop.craft" = "Craft Supplies Store";
 
-"type.shop.dairy" = "Dairy Products";
+"type.shop.dairy" = "Dairy Shop";
 
-"type.shop.electrical" = "Electrical Store";
+"type.shop.electrical" = "Electrical Supplies Store";
 
 "type.shop.fishing" = "Fishing Store";
 
-"type.shop.interior_decoration" = "Interior Decorations";
+"type.shop.interior_decoration" = "Interior Decorations Store";
 
 "type.shop.lottery" = "Lottery Tickets";
 
-"type.shop.medical_supply" = "Medical Supplies";
+"type.shop.medical_supply" = "Medical Supplies Store";
 
-"type.shop.nutrition_supplements" = "Nutrition Supplements";
+"type.shop.nutrition_supplements" = "Nutrition Supplement Store";
 
 "type.shop.paint" = "Paint Shop";
 
-"type.shop.perfumery" = "Perfumery";
+"type.shop.perfumery" = "Perfume Shop";
 
-"type.shop.sewing" = "Sewing Supplies";
+"type.shop.sewing" = "Sewing Supplies Shop";
 
 "type.shop.storage_rental" = "Storage Rental";
 
-"type.shop.tobacco" = "Tobacco";
+"type.shop.tobacco" = "Smoke Shop";
 
-"type.shop.trade" = "Trades Supplies";
+"type.shop.trade" = "Trade Supplies";
 
-"type.shop.watches" = "Watches";
+"type.shop.watches" = "Watch Store";
 
 "type.shop.wholesale" = "Wholesale Store";
 
@@ -3556,11 +3559,11 @@
 
 "type.sport.badminton" = "Badminton";
 
-"type.sport.pelota" = "Basque pelota";
+"type.sport.pelota" = "Basque Pelota";
 
 "type.tourism" = "पर्यटन";
 
-"type.tourism.alpine_hut" = "Mountains Lodging";
+"type.tourism.alpine_hut" = "Alpine Lodging";
 
 "type.tourism.apartment" = "सदनिका";
 
@@ -3701,7 +3704,5 @@
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
 "type.piste_type.sled" = "Sledding Piste";
-
-"type.building_part" = "इमारत";
 
 "type.amenity.events_venue" = "कार्यक्रमाचे ठिकाण";

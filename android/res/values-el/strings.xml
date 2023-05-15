@@ -22,7 +22,7 @@
 	<string name="miles">Μίλια</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Η θέση μου</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">Αργότερα</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Αναζήτηση</string>
@@ -825,8 +825,9 @@
 	<string name="type.boundary.national_park">Εθνικό πάρκο</string>
 	<string name="type.building">Κτίριο</string>
 	<string name="type.building.address">Κτίριο</string>
-	<string name="type.building.garage">Γκαράζ</string>
 	<string name="type.building.has_parts">Κτίριο</string>
+	<string name="type.building_part">Κτίριο</string>
+	<string name="type.building.garage">Γκαράζ</string>
 	<string name="type.building.train_station">Σιδηροδρομικός σταθμός</string>
 	<string name="type.cemetery.grave">Τάφος</string>
 	<string name="type.craft">Τεχνική</string>
@@ -1614,6 +1615,7 @@
 	<string name="type.shop.agrarian">Αγροτικό κατάστημα</string>
 	<string name="type.shop.antiques">Αντίκες</string>
 	<string name="type.shop.appliance">Κατάστημα οικιακών συσκευών</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">Κατάστημα Τεχνών</string>
 	<string name="type.shop.baby_goods">Παιδικό κατάστημα</string>
 	<string name="type.shop.bag">Κατάστημα τσαντών</string>
@@ -1714,6 +1716,5 @@
 	<string name="type.wheelchair.limited">Μερικώς εξοπλισμένο για άτομα με ειδικές ανάγκες</string>
 	<string name="type.wheelchair.no">Δεν υπάρχει πρόβλεψη για άτομα με ειδικές ανάγκες</string>
 	<string name="type.wheelchair.yes">Εξοπλισμένο για άτομα με ειδικές ανάγκες</string>
-	<string name="type.building_part">Κτίριο</string>
 	<string name="type.amenity.events_venue">Κέντρο εκδηλώσεων</string>
 </resources>

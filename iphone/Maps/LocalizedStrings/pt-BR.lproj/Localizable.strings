@@ -32,7 +32,7 @@
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Minha posição";
 
-/* Update maps later/Buy pro version later button text */
+/* Update maps later button text */
 "later" = "Mais tarde";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
@@ -274,7 +274,7 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
-"matrix" = "[matrix]";
+"matrix" = "[Matrix]";
 
 /* Text in menu */
 "mastodon" = "Mastodon";
@@ -1423,9 +1423,9 @@
 
 "type.amenity.parking_space.permissive" = "Lugar de estacionamento";
 
-"type.amenity.parking_space.private" = "Lugar de estacionamento privado";
+"type.amenity.parking_space.private" = "Lugar de estacionamento";
 
-"type.amenity.parking_space.underground" = "Lugar de estacionamento subterrâneo";
+"type.amenity.parking_space.underground" = "Lugar de estacionamento";
 
 "type.amenity.parking_space.disabled" = "Estacionamento para deficientes";
 
@@ -1638,9 +1638,11 @@
 
 "type.building.address" = "Edifício";
 
-"type.building.garage" = "Garagem";
-
 "type.building.has_parts" = "Edifício";
+
+"type.building_part" = "Edifício";
+
+"type.building.garage" = "Garagem";
 
 "type.building.train_station" = "Estação de trem";
 
@@ -3443,6 +3445,7 @@
 
 "type.shop.appliance" = "Loja de eletrodomésticos";
 
+/* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "Loja de artes";
 
 "type.shop.baby_goods" = "Loja infantil";
@@ -3701,7 +3704,5 @@
 "type.piste_type.nordic" = "Pista tipo nórdico";
 
 "type.piste_type.sled" = "Pista para trenós";
-
-"type.building_part" = "Parte de edifício";
 
 "type.amenity.events_venue" = "Local do evento";

@@ -21,7 +21,7 @@
 	<string name="miles">מ\"ב</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">מיקומי</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">מאוחר יותר</string>
 	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">חפש במפה</string>
@@ -633,6 +633,7 @@
 	<string name="type.shop.agrarian">חנות חקלאית</string>
 	<string name="type.shop.antiques">תוֹקיתִעַ</string>
 	<string name="type.shop.appliance">חנות מוצרי חשמל</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">תויונמוא תונח</string>
 	<string name="type.shop.baby_goods">םידליל תונח</string>
 	<string name="type.shop.bag">םיקית תונח</string>

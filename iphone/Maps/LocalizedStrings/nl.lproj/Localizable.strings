@@ -32,7 +32,7 @@
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Mijn locatie";
 
-/* Update maps later/Buy pro version later button text */
+/* Update maps later button text */
 "later" = "Later";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
@@ -274,7 +274,7 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
-"matrix" = "[matrix]";
+"matrix" = "[Matrix]";
 
 /* Text in menu */
 "mastodon" = "Mastodon";
@@ -1423,9 +1423,9 @@
 
 "type.amenity.parking_space.permissive" = "Parkeerplek";
 
-"type.amenity.parking_space.private" = "Privé parkeerplek";
+"type.amenity.parking_space.private" = "Parkeerplek";
 
-"type.amenity.parking_space.underground" = "Ondergrondse parkeerplek";
+"type.amenity.parking_space.underground" = "Parkeerplek";
 
 "type.amenity.parking_space.disabled" = "Invalide parkeerplaats";
 
@@ -1638,9 +1638,11 @@
 
 "type.building.address" = "Gebouw";
 
-"type.building.garage" = "Garage";
-
 "type.building.has_parts" = "Gebouw";
+
+"type.building_part" = "Gebouw";
+
+"type.building.garage" = "Garage";
 
 "type.building.train_station" = "Treinstation";
 
@@ -1755,7 +1757,7 @@
 
 "type.cuisine.fish" = "Vis";
 
-"type.cuisine.fish_and_chips" = "Fish and chips";
+"type.cuisine.fish_and_chips" = "Fish and Chips";
 
 "type.cuisine.french" = "Frans";
 
@@ -2407,11 +2409,11 @@
 
 "type.leisure.park" = "Park";
 
-"type.leisure.park.no.access" = "Ontoegankelijk park";
+"type.leisure.park.no.access" = "Park";
 
 "type.leisure.park.permissive" = "Park";
 
-"type.leisure.park.private" = "Privé park";
+"type.leisure.park.private" = "Park";
 
 "type.leisure.picnic_table" = "Picknicktafel";
 
@@ -2669,7 +2671,7 @@
 
 "type.power" = "Electriciteit";
 
-"type.power.generator" = "Generator";
+"type.power.generator" = "Power Generator";
 
 "type.power.generator.solar" = "Zonne-generator";
 
@@ -3257,7 +3259,7 @@
 
 "type.railway.yard.tunnel" = "Rangeerterrein tunnel";
 
-"type.route" = "route";
+"type.route" = "Route";
 
 "type.route.ferry" = "Veerboot";
 
@@ -3443,6 +3445,7 @@
 
 "type.shop.appliance" = "Apparaten winkel";
 
+/* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "Kunstwinkel";
 
 "type.shop.baby_goods" = "Babyspullenwinkel";
@@ -3701,7 +3704,5 @@
 "type.piste_type.nordic" = "Langlaufroute";
 
 "type.piste_type.sled" = "Sleebaan";
-
-"type.building_part" = "Gebouw";
 
 "type.amenity.events_venue" = "Evenementenlocatie";

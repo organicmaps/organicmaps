@@ -21,7 +21,7 @@
 	<string name="miles">Mil</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Min position</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">Senere</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Søg</string>
@@ -822,6 +822,7 @@
 	<string name="type.building">Bygning</string>
 	<string name="type.building.address">Bygning</string>
 	<string name="type.building.has_parts">Bygning</string>
+	<string name="type.building_part">Bygning</string>
 	<string name="type.building.train_station">Togstation</string>
 	<string name="type.cemetery.grave">Grav</string>
 	<string name="type.craft">Håndværk</string>
@@ -877,7 +878,6 @@
 	<string name="type.cuisine.filipino">Filippinsk</string>
 	<string name="type.cuisine.fine_dining">Eksklusiv</string>
 	<string name="type.cuisine.fish">Fisk</string>
-	<string name="type.cuisine.fish_and_chips">Fish and chips</string>
 	<string name="type.cuisine.french">Fransk</string>
 	<string name="type.cuisine.friture">Friture</string>
 	<string name="type.cuisine.georgian">Georgisk</string>
@@ -1558,7 +1558,6 @@
 	<string name="type.shop.greengrocer">Grønthandler</string>
 	<string name="type.shop.grocery">Købmand</string>
 	<string name="type.shop.hairdresser">Frisør</string>
-	<string name="type.shop.hardware">Isenkræmmer</string>
 	<string name="type.shop.health_food">Helsekostbutik</string>
 	<string name="type.shop.herbalist">Urtebutik</string>
 	<string name="type.shop.hifi">HiFi lyd</string>
@@ -1602,6 +1601,7 @@
 	<string name="type.shop.agrarian">Landbrugsbutik</string>
 	<string name="type.shop.antiques">Antikviteter</string>
 	<string name="type.shop.appliance">Hvidevarer butik</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">Kunstbutik</string>
 	<string name="type.shop.baby_goods">Børnebutik</string>
 	<string name="type.shop.bag">Tasker butik</string>
@@ -1695,6 +1695,5 @@
 	<string name="type.wheelchair.limited">Begrænset tilgængelighed for kørestol</string>
 	<string name="type.wheelchair.no">Ingen tilgængelighed for kørestol</string>
 	<string name="type.wheelchair.yes">Fuld tilgængelighed for kørestol</string>
-	<string name="type.building_part">Bygning</string>
 	<string name="type.amenity.events_venue">Sted for arrangementer</string>
 </resources>

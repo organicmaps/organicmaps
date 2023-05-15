@@ -21,7 +21,7 @@
 	<string name="miles">Míle</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Moja poloha</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">Neskôr</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Hľadať</string>
@@ -821,8 +821,9 @@
 	<string name="type.boundary.national_park">Národný park</string>
 	<string name="type.building">Budova</string>
 	<string name="type.building.address">Budova</string>
-	<string name="type.building.garage">Garáž</string>
 	<string name="type.building.has_parts">Budova</string>
+	<string name="type.building_part">Budova</string>
+	<string name="type.building.garage">Garáž</string>
 	<string name="type.building.train_station">Železničná stanica</string>
 	<string name="type.cemetery.grave">Hrob</string>
 	<string name="type.craft">Remeslo</string>
@@ -1560,7 +1561,6 @@
 	<string name="type.shop.greengrocer">Zelovoc</string>
 	<string name="type.shop.grocery">Potraviny</string>
 	<string name="type.shop.hairdresser">Kaderníctvo</string>
-	<string name="type.shop.hardware">Železiarstvo</string>
 	<string name="type.shop.health_food">Obchod so zdravou výživou</string>
 	<string name="type.shop.herbalist">Obchod s bylinkami</string>
 	<string name="type.shop.hifi">HiFi audio</string>
@@ -1603,6 +1603,7 @@
 	<string name="type.shop.agrarian">Poľnohospodársky obchod</string>
 	<string name="type.shop.antiques">Starožitnosti</string>
 	<string name="type.shop.appliance">Obchod so spotrebičmi</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">Obchod s umením</string>
 	<string name="type.shop.baby_goods">Obchod pre deti</string>
 	<string name="type.shop.bag">Obchod s taškami</string>
@@ -1698,6 +1699,5 @@
 	<string name="type.wheelchair.limited">Obmedzený bezbariérový prístup</string>
 	<string name="type.wheelchair.no">Žiaden bezbariérový prístup</string>
 	<string name="type.wheelchair.yes">Úplný bezbariérový prístup</string>
-	<string name="type.building_part">Budova</string>
 	<string name="type.amenity.events_venue">Miesto konania podujatí</string>
 </resources>

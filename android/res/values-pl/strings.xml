@@ -21,7 +21,7 @@
 	<string name="miles">Mile</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Moje położenie</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">Później</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Wyszukaj</string>
@@ -916,9 +916,10 @@
 	<string name="type.boundary.administrative.suburb">Granica przedmieść</string>
 	<string name="type.boundary.national_park">Park narodowy</string>
 	<string name="type.building">Budynek</string>
-	<string name="type.building.address">Adres</string>
+	<string name="type.building.address">Budynek</string>
+	<string name="type.building.has_parts">Budynek</string>
+	<string name="type.building_part">Budynek</string>
 	<string name="type.building.garage">Garaż</string>
-	<string name="type.building.has_parts">Część budynku</string>
 	<string name="type.building.train_station">Dworzec kolejowy</string>
 	<string name="type.cemetery.grave">Mogiła</string>
 	<string name="type.craft">Rzemiosło</string>
@@ -1755,6 +1756,7 @@
 	<string name="type.shop.agrarian">Sklep rolniczy</string>
 	<string name="type.shop.antiques">Antyki</string>
 	<string name="type.shop.appliance">Sklep AGD</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">Sklep artystyczny</string>
 	<string name="type.shop.baby_goods">Sklep dla dzieci</string>
 	<string name="type.shop.bag">Sklep z torbami</string>
@@ -1858,6 +1860,5 @@
 	<string name="type.wheelchair.limited">Częściowo wyposażono dla osób niepełnosprawnych</string>
 	<string name="type.wheelchair.no">Nie wyposażono dla osób niepełnosprawnych</string>
 	<string name="type.wheelchair.yes">Wyposażono dla osób niepełnosprawnych</string>
-	<string name="type.building_part">Część budynku</string>
 	<string name="type.amenity.events_venue">Miejsce wydarzeń</string>
 </resources>

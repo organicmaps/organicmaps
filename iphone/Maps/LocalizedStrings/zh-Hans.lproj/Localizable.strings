@@ -32,7 +32,7 @@
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "我的位置";
 
-/* Update maps later/Buy pro version later button text */
+/* Update maps later button text */
 "later" = "稍后";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
@@ -155,7 +155,7 @@
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
 "rv" = "房车用";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "加载书签";
@@ -274,7 +274,7 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
-"matrix" = "[matrix]";
+"matrix" = "[Matrix]";
 
 /* Text in menu */
 "mastodon" = "Mastodon";
@@ -1494,7 +1494,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Beverage Cartons";
+"type.recycling.cartons" = "Cartons";
 
 "type.amenity.restaurant" = "餐馆";
 
@@ -1530,7 +1530,7 @@
 
 "type.amenity.vending_machine.food" = "Food Dispenser";
 
-"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
+"type.amenity.vending_machine.newspapers" = "Newspaper Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "停车缴费机";
 
@@ -1542,7 +1542,7 @@
 
 "type.amenity.parcel_locker" = "Parcel Locker";
 
-"type.amenity.vending_machine.fuel" = "Fuel Dispenser";
+"type.amenity.vending_machine.fuel" = "Fuel Pump";
 
 "type.amenity.veterinary" = "兽医";
 
@@ -1638,9 +1638,11 @@
 
 "type.building.address" = "建筑物";
 
-"type.building.garage" = "独立1车库";
-
 "type.building.has_parts" = "建筑物";
+
+"type.building_part" = "建筑物";
+
+"type.building.garage" = "独立1车库";
 
 "type.building.train_station" = "火车站建筑";
 
@@ -2325,7 +2327,7 @@
 
 "type.landuse.construction" = "建设区域";
 
-"type.landuse.education" = "Educational Facilities";
+"type.landuse.education" = "Educational Facility";
 
 "type.landuse.farm" = "农田";
 
@@ -3443,6 +3445,7 @@
 
 "type.shop.appliance" = "家电店";
 
+/* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "艺术商店";
 
 "type.shop.baby_goods" = "儿童商店";
@@ -3701,7 +3704,5 @@
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
 "type.piste_type.sled" = "Sledding Piste";
-
-"type.building_part" = "建筑部分";
 
 "type.amenity.events_venue" = "活动场所";

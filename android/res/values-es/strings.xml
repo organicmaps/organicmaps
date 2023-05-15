@@ -21,7 +21,7 @@
 	<string name="miles">Millas</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Mi posición</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">Luego</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Buscar</string>
@@ -937,8 +937,9 @@
 	<string name="type.boundary.national_park">Parque nacional</string>
 	<string name="type.building">Edificio</string>
 	<string name="type.building.address">Edificio</string>
-	<string name="type.building.garage">Garaje</string>
 	<string name="type.building.has_parts">Edificio</string>
+	<string name="type.building_part">Edificio</string>
+	<string name="type.building.garage">Garaje</string>
 	<string name="type.building.train_station">Estación de tren</string>
 	<string name="type.building.warehouse">Almacén</string>
 	<string name="type.cemetery.grave">Tumba</string>
@@ -1756,7 +1757,6 @@
 	<string name="type.shop.greengrocer">Frutería</string>
 	<string name="type.shop.grocery">Tienda de comestibles</string>
 	<string name="type.shop.hairdresser">Peluquería</string>
-	<string name="type.shop.hardware">Ferretería</string>
 	<string name="type.shop.health_food">Tienda de comida saludable</string>
 	<string name="type.shop.herbalist">Tienda de hierbas</string>
 	<string name="type.shop.hifi">Audio de alta fidelidad</string>
@@ -1801,6 +1801,7 @@
 	<string name="type.shop.agrarian">Tienda agrícola</string>
 	<string name="type.shop.antiques">Antigüedades</string>
 	<string name="type.shop.appliance">Tienda de electrodomésticos</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">Tienda de arte</string>
 	<string name="type.shop.baby_goods">Tienda de niños</string>
 	<string name="type.shop.bag">Tienda de bolsos</string>
@@ -1931,6 +1932,5 @@
 	<string name="type.piste_type.downhill.novice">Pista de esquí alpino</string>
 	<string name="type.piste_type.nordic">Pista de esquí nórdico</string>
 	<string name="type.piste_type.sled">Pista para trineos</string>
-	<string name="type.building_part">Edificio</string>
 	<string name="type.amenity.events_venue">Lugar para eventos</string>
 </resources>

@@ -21,7 +21,7 @@
 	<string name="miles">英里</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">我的位置</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">稍后</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">搜索</string>
@@ -874,8 +874,9 @@
 	<string name="type.boundary.national_park">国家公园</string>
 	<string name="type.building">建筑物</string>
 	<string name="type.building.address">建筑物</string>
-	<string name="type.building.garage">独立1车库</string>
 	<string name="type.building.has_parts">建筑物</string>
+	<string name="type.building_part">建筑物</string>
+	<string name="type.building.garage">独立1车库</string>
 	<string name="type.building.train_station">火车站建筑</string>
 	<string name="type.building.warehouse">仓库</string>
 	<string name="type.cemetery.grave">墓穴</string>
@@ -1743,6 +1744,7 @@
 	<string name="type.shop.agrarian">农产品店</string>
 	<string name="type.shop.antiques">古董</string>
 	<string name="type.shop.appliance">家电店</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">艺术商店</string>
 	<string name="type.shop.baby_goods">儿童商店</string>
 	<string name="type.shop.bag">箱包店</string>
@@ -1855,6 +1857,5 @@
 	<string name="type.wheelchair.limited">部分配备为残疾人专用</string>
 	<string name="type.wheelchair.no">未配备残疾人专用</string>
 	<string name="type.wheelchair.yes">配备残疾人专用</string>
-	<string name="type.building_part">建筑部分</string>
 	<string name="type.amenity.events_venue">活动场所</string>
 </resources>

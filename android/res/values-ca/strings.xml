@@ -21,7 +21,7 @@
 	<string name="miles">Milles</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">La meva posició</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">Més tard</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Cerca</string>

@@ -32,7 +32,7 @@
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "مکان من";
 
-/* Update maps later/Buy pro version later button text */
+/* Update maps later button text */
 "later" = "بعداً";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
@@ -155,7 +155,7 @@
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
 "rv" = "RV برای";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "در حال بارگیری نشانه‌ها";
@@ -274,7 +274,7 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
-"matrix" = "[matrix]";
+"matrix" = "[Matrix]";
 
 /* Text in menu */
 "mastodon" = "Mastodon";
@@ -456,7 +456,7 @@
 
 "dialog_routing_download_files" = "دانلود فایل‌های مورد نیاز";
 
-"dialog_routing_download_and_update_all" = "Download and update all map and routing information along the projected path to calculate route.";
+"dialog_routing_download_and_update_all" = "Download or update all maps along the projected path to calculate a route.";
 
 "dialog_routing_unable_locate_route" = "ناتوان در تعیین مسیر";
 
@@ -1494,7 +1494,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Beverage Cartons";
+"type.recycling.cartons" = "Cartons";
 
 "type.amenity.restaurant" = "غذا";
 
@@ -1530,7 +1530,7 @@
 
 "type.amenity.vending_machine.food" = "Food Dispenser";
 
-"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
+"type.amenity.vending_machine.newspapers" = "Newspaper Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "پارکو متر";
 
@@ -1542,7 +1542,7 @@
 
 "type.amenity.parcel_locker" = "Parcel Locker";
 
-"type.amenity.vending_machine.fuel" = "Fuel Dispenser";
+"type.amenity.vending_machine.fuel" = "Fuel Pump";
 
 "type.amenity.veterinary" = "دامپزشکی";
 
@@ -1638,9 +1638,11 @@
 
 "type.building.address" = "ساختمان";
 
-"type.building.garage" = "گاراژ";
-
 "type.building.has_parts" = "ساختمان";
+
+"type.building_part" = "ساختمان";
+
+"type.building.garage" = "گاراژ";
 
 "type.building.train_station" = "ایستگاه قطار";
 
@@ -1813,7 +1815,7 @@
 
 "type.cuisine.noodles" = "Noodles";
 
-"type.cuisine.oriental" = "Far Eastern";
+"type.cuisine.oriental" = "East Asian";
 
 "type.cuisine.pancake" = "Pancake";
 
@@ -2323,9 +2325,9 @@
 
 "type.landuse.commercial" = "Commercial Area";
 
-"type.landuse.construction" = "Construction";
+"type.landuse.construction" = "Construction Area";
 
-"type.landuse.education" = "Educational Facilities";
+"type.landuse.education" = "Educational Facility";
 
 "type.landuse.farm" = "Farm";
 
@@ -2451,7 +2453,7 @@
 
 "type.man_made.cairn" = "Cairn";
 
-"type.man_made.chimney" = "Factory Chimney";
+"type.man_made.chimney" = "Chimney";
 
 "type.man_made.cutline" = "Cutline";
 
@@ -2479,7 +2481,7 @@
 
 "type.man_made.tower.communication" = "برج ارتباطات";
 
-"type.man_made.wastewater_plant" = "Wastewater treatment plant";
+"type.man_made.wastewater_plant" = "Wastewater Treatment Plant";
 
 "type.man_made.water_tap" = "شیراب";
 
@@ -2669,7 +2671,7 @@
 
 "type.power" = "Power";
 
-"type.power.generator" = "Generator";
+"type.power.generator" = "Power Generator";
 
 "type.power.generator.solar" = "ژنراتور خورشیدی";
 
@@ -2731,7 +2733,7 @@
 
 "type.railway.crossing" = "Railway Crossing";
 
-"type.railway.disused" = "Disused railway";
+"type.railway.disused" = "Disused Railway";
 
 "type.railway.funicular" = "Funicular";
 
@@ -3257,7 +3259,7 @@
 
 "type.railway.yard.tunnel" = "Railway Yard Tunnel";
 
-"type.route" = "route";
+"type.route" = "Route";
 
 "type.route.ferry" = "Ferry";
 
@@ -3443,6 +3445,7 @@
 
 "type.shop.appliance" = "فروشگاه لوازم خانگی";
 
+/* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "ﺮﻨﻫ ﻩﺎﮕﺷﻭﺮﻓ";
 
 "type.shop.baby_goods" = "ﻥﺎﮐﺩﻮﮐ ﻩﺎﮕﺷﻭﺮﻓ";
@@ -3560,7 +3563,7 @@
 
 "type.tourism" = "Tourism";
 
-"type.tourism.alpine_hut" = "Mountains Lodging";
+"type.tourism.alpine_hut" = "Alpine Lodging";
 
 "type.tourism.apartment" = "اپارتمان";
 
@@ -3701,7 +3704,5 @@
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
 "type.piste_type.sled" = "Sledding Piste";
-
-"type.building_part" = "ساختما";
 
 "type.amenity.events_venue" = "محل برگزاری رویدادها";

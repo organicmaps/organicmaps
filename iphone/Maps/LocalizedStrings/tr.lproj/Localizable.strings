@@ -32,7 +32,7 @@
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Konumum";
 
-/* Update maps later/Buy pro version later button text */
+/* Update maps later button text */
 "later" = "Daha sonra";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
@@ -274,7 +274,7 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
-"matrix" = "[matrix]";
+"matrix" = "[Matrix]";
 
 /* Text in menu */
 "mastodon" = "Mastodon";
@@ -1530,7 +1530,7 @@
 
 "type.amenity.vending_machine.food" = "Food Dispenser";
 
-"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
+"type.amenity.vending_machine.newspapers" = "Newspaper Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "Otopark Fişi";
 
@@ -1638,9 +1638,11 @@
 
 "type.building.address" = "Bina";
 
-"type.building.garage" = "Garaj";
-
 "type.building.has_parts" = "Bina";
+
+"type.building_part" = "Bina";
+
+"type.building.garage" = "Garaj";
 
 "type.building.train_station" = "Tren İstasyonu";
 
@@ -2325,7 +2327,7 @@
 
 "type.landuse.construction" = "Yapı";
 
-"type.landuse.education" = "Educational Facilities";
+"type.landuse.education" = "Educational Facility";
 
 "type.landuse.farm" = "Çiftlik";
 
@@ -3443,6 +3445,7 @@
 
 "type.shop.appliance" = "Beyaz eşya dükkanı";
 
+/* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "Sanat Mağazası";
 
 "type.shop.baby_goods" = "Çocuk mağazası";
@@ -3701,7 +3704,5 @@
 "type.piste_type.nordic" = "İskandinav Kayak Pisti";
 
 "type.piste_type.sled" = "Kızak Pisti";
-
-"type.building_part" = "Bina";
 
 "type.amenity.events_venue" = "Etkinlik mekanı";

@@ -32,7 +32,7 @@
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Mi posición";
 
-/* Update maps later/Buy pro version later button text */
+/* Update maps later button text */
 "later" = "Luego";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
@@ -274,7 +274,7 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
-"matrix" = "[matrix]";
+"matrix" = "[Matrix]";
 
 /* Text in menu */
 "mastodon" = "Mastodon";
@@ -1638,9 +1638,11 @@
 
 "type.building.address" = "Edificio";
 
-"type.building.garage" = "Garaje";
-
 "type.building.has_parts" = "Edificio";
+
+"type.building_part" = "Edificio";
+
+"type.building.garage" = "Garaje";
 
 "type.building.train_station" = "Estación de tren";
 
@@ -3353,7 +3355,7 @@
 
 "type.shop.hairdresser" = "Peluquería";
 
-"type.shop.hardware" = "Ferretería";
+"type.shop.hardware" = "Hardware Store";
 
 "type.shop.health_food" = "Tienda de comida saludable";
 
@@ -3443,6 +3445,7 @@
 
 "type.shop.appliance" = "Tienda de electrodomésticos";
 
+/* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "Tienda de arte";
 
 "type.shop.baby_goods" = "Tienda de niños";
@@ -3701,7 +3704,5 @@
 "type.piste_type.nordic" = "Pista de esquí nórdico";
 
 "type.piste_type.sled" = "Pista para trineos";
-
-"type.building_part" = "Edificio";
 
 "type.amenity.events_venue" = "Lugar para eventos";

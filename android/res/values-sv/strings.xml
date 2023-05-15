@@ -21,7 +21,7 @@
 	<string name="miles">Mil</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Min position</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">Senare</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Sök</string>
@@ -822,6 +822,7 @@
 	<string name="type.building">Byggnad</string>
 	<string name="type.building.address">Byggnad</string>
 	<string name="type.building.has_parts">Byggnad</string>
+	<string name="type.building_part">Byggnad</string>
 	<string name="type.building.train_station">Tågstation</string>
 	<string name="type.cemetery.grave">Grav</string>
 	<string name="type.craft">Hantverk</string>
@@ -1601,6 +1602,7 @@
 	<string name="type.shop.agrarian">Lantbruksbutik</string>
 	<string name="type.shop.antiques">Antikviteter</string>
 	<string name="type.shop.appliance">Vitvarubutik</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">Konstaffär</string>
 	<string name="type.shop.baby_goods">Barnbutik</string>
 	<string name="type.shop.bag">Väskor butik</string>
@@ -1698,6 +1700,5 @@
 	<string name="type.wheelchair.limited">Delvis utrustad för handikappade</string>
 	<string name="type.wheelchair.no">Ej utrustad för handikappade</string>
 	<string name="type.wheelchair.yes">Utrustad för handikappade</string>
-	<string name="type.building_part">Byggnad</string>
 	<string name="type.amenity.events_venue">Evenemangslokal</string>
 </resources>

@@ -23,7 +23,7 @@
 	<string name="miles">Miles</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Min posisjon</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">Senere</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Søk</string>
@@ -876,8 +876,9 @@
 	<string name="type.boundary.national_park">Nasjonalpark</string>
 	<string name="type.building">Bygning</string>
 	<string name="type.building.address">Bygning</string>
-	<string name="type.building.garage">Garasje</string>
 	<string name="type.building.has_parts">Bygning</string>
+	<string name="type.building_part">Bygning</string>
+	<string name="type.building.garage">Garasje</string>
 	<string name="type.building.train_station">Togstasjon</string>
 	<string name="type.cemetery.grave">Grav</string>
 	<string name="type.craft">Håndverk</string>
@@ -1624,7 +1625,6 @@
 	<string name="type.shop.greengrocer">Frukt- og grønnsakshandler</string>
 	<string name="type.shop.grocery">Dagligvare</string>
 	<string name="type.shop.hairdresser">Frisør</string>
-	<string name="type.shop.hardware">Jernvareforretning</string>
 	<string name="type.shop.health_food">Helsekostbutikk</string>
 	<string name="type.shop.herbalist">Urtebutikk</string>
 	<string name="type.shop.hifi">HiFi lyd</string>
@@ -1669,6 +1669,7 @@
 	<string name="type.shop.agrarian">Landbruksbutikk</string>
 	<string name="type.shop.antiques">Antikviteter</string>
 	<string name="type.shop.appliance">Hvitevarebutikk</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">Kunstbutikk</string>
 	<string name="type.shop.baby_goods">Barnebutikk</string>
 	<string name="type.shop.bag">Veskerbutikk</string>
@@ -1770,6 +1771,5 @@
 	<string name="type.wheelchair.limited">Begrenset tilgang for rullestol</string>
 	<string name="type.wheelchair.no">Ingen tilgang for rullestol</string>
 	<string name="type.wheelchair.yes">Full tilgang for rullestol</string>
-	<string name="type.building_part">Bygning</string>
 	<string name="type.amenity.events_venue">Arrangementssted</string>
 </resources>
