@@ -4,6 +4,7 @@
     comment = Button text (should be short)
     tags = android
     en = Back
+    lt = Atgal
     ar = رجوع
     be = Назад
     bg = Назад
@@ -45,6 +46,7 @@
     comment = Button text (should be short)
     tags = android,ios
     en = Cancel
+    lt = Atšaukti
     ar = إلغاء
     be = Адмяніць
     bg = Отмяна
@@ -86,6 +88,7 @@
     comment = Button which interrupts country download
     tags = ios
     en = Cancel Download
+    lt = Atšaukti atsisiuntimą
     ar = إلغاء التنزيل
     be = Адмяніць спампоўку
     bg = Отмяна на изтегляне
@@ -127,6 +130,7 @@
     comment = Button which deletes downloaded country
     tags = android,ios
     en = Delete
+    lt = Naikinti
     ar = حذف
     be = Выдаліць
     bg = Изтриване
@@ -167,6 +171,7 @@
   [download_maps]
     tags = android,ios
     en = Download Maps
+    lt = Atsisiųsti žemėlapius
     ar = تنزيل الخرائط
     be = Спампаваць мапы
     bg = Изтегляне на карти
@@ -208,6 +213,7 @@
     comment = Settings/Downloader - info for country when download fails
     tags = android
     en = Download has failed. Touch to try again.
+    lt = Atsisiuntimas nepavyko. Bakstelėkite, kad bandytumėte iš naujo.
     ar = فشلت عملية التنزيل، انقر لإعادة المحاولة
     be = Не атрымалася спампаваць. Націсніце, каб паспрабаваць зноў.
     bg = Изтеглянето се провали. Натиснете, за да опитате отново.
@@ -249,6 +255,7 @@
     comment = Settings/Downloader - info for country which started downloading
     tags = android,ios
     en = Downloading…
+    lt = Atsisiunčiama…
     ar = جاري التنزيل…
     be = Спампоўваецца…
     bg = Теглене…
@@ -290,6 +297,7 @@
     comment = Choose measurement on first launch alert - choose metric system button
     tags = android,ios
     en = Kilometers
+    lt = Kilometrai
     en-GB = Kilometres
     ar = الكيلومترات
     be = Кіламетры
@@ -332,6 +340,7 @@
     comment = Leave Review dialog - Review button
     tags = ios
     en = Leave a Review
+    lt = Palikite atsiliepimą
     ar = اترك تعليقاً
     be = Напісаць водгук
     bg = Напишете отзив
@@ -373,6 +382,7 @@
     comment = Settings/Downloader - size string, only strings different from English should be translated
     tags = android
     en = MB
+    lt = MB
     ar = ميغابايت
     be = МБ
     bg = МБ
@@ -389,6 +399,7 @@
   [gb]
     tags = android
     en = GB
+    lt = GB
     ar = غيغابايت
     be = ГБ
     bg = ГБ
@@ -401,6 +412,7 @@
     comment = Choose measurement on first launch alert - choose imperial system button
     tags = android,ios
     en = Miles
+    lt = Mylios
     ar = الأميال
     be = Мілі
     bg = Мили
@@ -442,6 +454,7 @@
     comment = A text for current gps location point/arrow selected on the map
     tags = android,ios
     en = My Position
+    lt = Mano vieta
     ar = موقعي
     be = Маё месцазнаходжанне
     bg = Мое местоположение
@@ -483,6 +496,7 @@
     comment = Update maps later/Buy pro version later button text
     tags = android,ios
     en = Later
+    lt = Vėliau
     ar = ًلاحقا
     be = Потым
     bg = По-късно
@@ -524,6 +538,7 @@
     comment = View and button titles for accessibility, please also edit it in iphone/plist.txt
     tags = android,ios
     en = Search
+    lt = Ieškoti
     ar = البحث
     be = Шукаць
     bg = Търсене
@@ -564,6 +579,7 @@
     comment = Search box placeholder text; Used when searching on the map itself, not when searching for a map
     tags = android
     en = Search Map
+    lt = Ieškoti žemėlapio
     ar = ابحث في الخريطة
     be = Шукаць на мапе
     bg = Търсене в карта
@@ -605,6 +621,7 @@
     comment = Settings/Downloader - 3G download warning dialog confirm button
     tags = ios
     en = Yes
+    lt = Taip
     ar = نعم
     be = Так
     bg = Да
@@ -646,6 +663,7 @@
     comment = Location services are disabled by user alert - message
     tags = android
     en = You currently have all Location Services for this device or application disabled. Please enable them in Settings.
+    lt = Šiuo metu jūsų įrenginio ar programėlės visos vietovės tarnybos yra išjungtos. Įjunkite jas nustatymuose.
     ar = التطبيق أو جميع خدمات تحديد المواقع معطلة لديك في الوقت الحالي. الرجاء تفعيلها في الإعدادات.
     be = У вас выключана геалакацыя для гэтай прылады альбо праграмы. Калі ласка, уключыце яе ў Наладах.
     bg = В момента всички услуги за местоположение за това устройство или приложение са деактивирани. Моля, разрешете ги в Настройки.
@@ -687,6 +705,7 @@
     comment = View and button titles for accessibility
     tags = android,ios
     en = Show on the map
+    lt = Rodyti žemėlapyje
     ar = عرض على الخريطة
     be = Паказаць на мапе
     bg = Показване на картата
@@ -727,6 +746,7 @@
     comment = Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown
     tags = ios
     en = Download Map
+    lt = Atsisiųsti žemėlapį
     ar = تنزيل الخريطة
     be = Спампаваць мапу
     bg = Изтегляне на карта
@@ -768,6 +788,7 @@
     comment = Message to display at the center of the screen when the country download has failed
     tags = android,ios
     en = Download has failed
+    lt = Atsisiuntimas nepavyko
     ar = فشلت عملية تنزيل
     be = Спампоўка не атрымалася
     bg = Изтеглянето се провали
@@ -809,6 +830,7 @@
     comment = Button text for the button under the country_status_download_failed message
     tags = android
     en = Try Again
+    lt = Bandyti dar kartą
     ar = محاولة مرة أخرى
     be = Паспрабаваць зноў
     bg = Опитайте отново
@@ -849,6 +871,7 @@
   [about_menu_title]
     tags = android,ios
     en = About Organic Maps
+    lt = Apie Organic Maps
     ar = حول Organic Maps
     be = Аб праграме Organic Maps
     bg = Относно приложението
@@ -890,6 +913,7 @@
     tags = android
     comment = Text in About screen
     en = Free for everyone, made with love
+    lt = Nemokama visiems, sukurta su meile
     ar = مجاني للجميع ، مصنوع من الحب
     be = Бескаштоўна для ўсіх, зроблена з любоўю
     bg = Безплатно за всички, направени с любов
@@ -928,6 +952,7 @@
     tags = android
     comment = Text in About screen
     en = • No ads, no tracking, no data collection
+    lt = • Nėra reklamų, sekimo, duomenų rinkimo
     ar = • لا إعلانات ، لا تتبع ، لا جمع البيانات
     be = • Ніякай рэкламы, без сачэння і збору вашых дадзеных
     bg = • Без реклами, без проследяване, без събиране на данни
@@ -966,6 +991,7 @@
     tags = android
     comment = Text in About screen
     en = • No battery drain, no background data
+    lt = • Nėra akumuliatoriaus eikvojimo, foninių duomenų
     ar = • يحفظ البطارية ، لا يستخدم بيانات الخلفية
     be = • Эканоміць батарэю, не выкарыстоўвае фонавыя дадзеныя
     bg = • Пести батерията, не използва фонови данни
@@ -1008,6 +1034,7 @@
     tags = android
     comment = Text in About screen
     en = • Fast, minimalist, no software bloat
+    lt = • Greitas, minimalistinis, be nereikalingos programinės įrangos
     ar = • سريع ، الحد الأدنى ، لا خردة
     be = • Хуткія, мінімалістычныя, без смецця
     bg = • Бързи, минималистични, без боклуци
@@ -1046,6 +1073,7 @@
     tags = android
     comment = Text in About screen
     en = Open-source application created by enthusiasts and volunteers.
+    lt = Atvirojo kodo programėlė, sukurta entuziastų ir savanorių.
     ar = تطبيق مفتوح المصدر الذي أنشأه المتحمسون والمتطوعون.
     be = Прыкладанне з адкрытым зыходным кодам, створанае энтузіястамі і валанцёрамі.
     bg = Приложение с отворен код, създадено от ентусиасти и доброволци.
@@ -1082,6 +1110,7 @@
   [connection_settings]
     tags = android
     en = Connection Settings
+    lt = Tinklo nustatymai
     ar = إعدادات الاتصال
     be = Налады злучэння
     bg = Настройки за свързване
@@ -1122,6 +1151,7 @@
   [close]
     tags = android,ios
     en = Close
+    lt = Uždaryti
     ar = إغلاق
     be = Зачыніць
     bg = Затваряне
@@ -1162,6 +1192,7 @@
   [unsupported_phone]
     tags = android
     en = The app requires hardware accelerated OpenGL. Unfortunately, your device is not supported.
+    lt = Programėlei reikia aparatinės įrangos spartinamos OpenGL. Deja, jūsų įrenginys nepalaikomas.
     ar = أنت بحاجة الى OpenGL بأجهزة تسريع. لسوء الحظ جهازك لا يدعم هذه الخاصية.
     be = Дадатак патрабуе апаратна паскоранага OpenGL. Нажаль, ваша прылада не падтрымліваецца.
     bg = Приложението изисква хардуерно ускорение на OpenGL. За съжаление вашето устройство не се поддържа.
@@ -1202,6 +1233,7 @@
   [download]
     tags = android,ios
     en = Download
+    lt = Atsisiųsti
     ar = تنزيل
     be = Спампаваць
     bg = Изтегляне
@@ -1243,6 +1275,7 @@
     comment = Used in DownloadResources startup screen
     tags = android
     en = Please disconnect USB cable or insert memory card to use Organic Maps
+    lt = Atjunkite USB laidą arba įdėkite atminties kortelę, kad naudotumėte Organic Maps
     ar = الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام Organic Maps.
     be = Калі ласка, адлучыце USB кабель альбо ўстаўце карту памяці, каб карыстацца Organic Maps
     bg = Моля, изключете USB кабела или поставете карта с памет.
@@ -1283,6 +1316,7 @@
     comment = Used in DownloadResources startup screen
     tags = android
     en = Please free up some space on the SD card/USB storage first in order to use the app
+    lt = Atlaisvinkite vietos jūsų saugykloje, kad galėtumėte naudotis programėle
     ar = الرجاء إخلاء بعض المساحة في تخزين البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل أولا من أجل استخدام هذا التطبيق.
     be = Калі ласка, спачатку вызваліце трохі месца на SD карце/USB сховішчы, каб карыстацца праграмай
     bg = Моля, първо освободете място на SD картата/USB паметта, за да можете да използвате приложението.
@@ -1323,6 +1357,7 @@
   [download_resources]
     tags = android
     en = Before you start using the app, allow us to download the general world map to your device.\nIt will use %@ of storage.
+    lt = Leiskite mums atsisiųsti bendrąjį pasaulio žemėlapį į jūsų įrenginį prieš pradėdami naudotis programėle.\nTai užims %@ saugyklos.
     ar = قبل أن تبدأ باستخدام التطبيق، سنقوم بتنزيل خريطة العالم العامة على جهازك.\nستحتاج إلى %@ من البيانات.
     be = Перад пачаткам працы дазвольце нам спампаваць агульную мапу свету на вашу прыладу.\nГэта патрабуе %@ дадзеных.
     bg = Преди да започнете да използвате приложението, позволете ни да изтеглим общата карта на света на вашето устройство.\nТова ще използва %@ от паметта.
@@ -1363,6 +1398,7 @@
   [download_resources_continue]
     tags = android
     en = Go to Map
+    lt = Eiti į žemėlapį
     ar = الذهاب الى الخريطة
     be = Перайскі да мапы
     bg = Към картата
@@ -1403,6 +1439,7 @@
   [downloading_country_can_proceed]
     tags = android
     en = Downloading %@. You can now\nproceed to the map.
+    lt = Atsisiunčiama %@. Dabar galite\neiti į žemėlapį.
     ar = تنزيل %@. يمكنك الآن\nالمتابعة الى الخريطة.
     be = Спампоўваецца %@. Можаце зараз\nперайсці да мапы.
     bg = Изтегляне на %@. Вече можете да преминете към картата.
@@ -1443,6 +1480,7 @@
   [download_country_ask]
     tags = android
     en = Download %@?
+    lt = Atsisiųsti %@?
     ar = هل تريد تنزيل %@؟
     be = Спампаваць %@?
     bg = Изтегляне на %@?
@@ -1483,6 +1521,7 @@
   [update_country_ask]
     tags = android
     en = Update %@?
+    lt = Naujinti %@?
     ar = هل تريد تحديث %@ ؟
     be = Абнавіць %@?
     bg = Обновяване на %@?
@@ -1524,6 +1563,7 @@
     comment = REMOVE THIS STRING AFTER REFACTORING
     tags = android
     en = Pause
+    lt = Pristabdyti
     ar = توقيف مؤقت
     be = Прыпыніць
     bg = Пауза
@@ -1565,6 +1605,7 @@
     comment = REMOVE THIS STRING AFTER REFACTORING
     tags = android,ios
     en = Continue
+    lt = Tęsti
     ar = استمرار
     be = Працягнуць
     bg = Възобновяване
@@ -1606,6 +1647,7 @@
     comment = Show popup notification on top of the map when country download has failed.
     tags = android
     en = %@ download has failed
+    lt = %@ atsisiuntimas nepavyko
     ar = فشلت عملية تنزيل %@
     be = Спампаваць %@ не ўдалося
     bg = Изтеглянето на %@ се провали
@@ -1647,6 +1689,7 @@
     comment = "Add new bookmark list" dialog title
     tags = android,ios
     en = Add New List
+    lt = Pridėti naują sąrašą
     ar = إضافة قائمة جديدة
     be = Дадаць новы спіс
     bg = Добавяне на нова група
@@ -1688,6 +1731,7 @@
     comment = Bookmark Color dialog title
     tags = android,ios
     en = Bookmark Color
+    lt = Adresyno spalva
     en-GB = Bookmark Colour
     ar = لون الإشارة المرجعية
     be = Колер закладкі
@@ -1730,6 +1774,7 @@
     comment = Add Bookmark list dialog - hint when the list name is empty
     tags = android,ios
     en = Bookmark List Name
+    lt = Adresyno sąrašo pavadinimas
     ar = اسم قائمة الإشارات المرجعية
     be = Назва спісу закладак
     bg = Име на група
@@ -1770,6 +1815,7 @@
     comment = "Bookmark Lists" dialog title
     tags = ios
     en = Bookmark Lists
+    lt = Adresyno sąrašai
     ar = قائمة الإشارات المرجعية
     be = Спісы закладак
     ca = Llistes de marcadors
@@ -1809,6 +1855,7 @@
     comment = "Bookmarks" dialog title, please also edit it in iphone/plist.txt
     tags = android,ios
     en = Bookmarks
+    lt = Adresynas
     ar = الإشارات المرجعية
     be = Закладкі
     bg = Отметки
@@ -1850,6 +1897,7 @@
     comment = Default bookmark list name
     tags = android,ios
     en = My Places
+    lt = Mano vietos
     ar = أماكني
     be = Мае месцы
     bg = Мои места
@@ -1891,6 +1939,7 @@
     comment = Add bookmark dialog - bookmark name
     tags = android
     en = Name
+    lt = Pavadinimas
     ar = الاسم
     be = Назва
     bg = Име
@@ -1932,6 +1981,7 @@
     comment = Editor title above street and house number
     tags = android,ios
     en = Address
+    lt = Adresas
     ar = العنوان
     be = Адрас
     bg = Адрес
@@ -1973,6 +2023,7 @@
     comment = Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell.
     tags = android
     en = List
+    lt = Sąrašas
     ar = قائمة
     be = Спіс
     bg = Списък
@@ -2014,6 +2065,7 @@
     comment = Settings button in system menu
     tags = android,ios
     en = Settings
+    lt = Nustatymai
     ar = الإعدادات
     be = Налады
     bg = Настройки
@@ -2055,6 +2107,7 @@
     comment = Header of settings activity where user defines storage path
     tags = android
     en = Save maps to
+    lt = Išsaugoti žemėlapius į
     ar = مكان تخزين الخرائط
     be = Захаваць мапы ў
     bg = Запаметяване на карти в
@@ -2096,6 +2149,7 @@
     comment = Detailed description of Maps Storage settings button
     tags = android
     en = Select the place where maps should be downloaded to
+    lt = Pasirinkite vietą, kurioje bus patalpinti atsisiųsti žemėlapiai
     ar = اختر المكان الذي ينبغي تنزيل الخرائط إليه.
     be = Выберыце месца, дзе захоўваць запампаваныя мапы
     bg = Изберете мястото, където картите трябва да се изтеглят
@@ -2137,6 +2191,7 @@
     comment = E.g. "Downloaded maps: 500Mb" in Maps Storage settings
     tags = android
     en = Downloaded maps
+    lt = Atsisiųsti žemėlapiai
     ar = الخرائط المنزلة
     be = Мапы
     bg = Карти
@@ -2177,6 +2232,7 @@
     comment = Internal storage type in Maps Storage settings (not accessible by the user)
     tags = android
     en = Internal private storage
+    lt = Vidinė privati saugykla
     ar = وحدة التخزين الداخلية الخاصة
     be = Унутранае прыватнае сховішча
     ca = Emmagatzematge privat intern
@@ -2197,6 +2253,7 @@
     comment = Shared storage type in Maps Storage settings (a primary storage usually)
     tags = android
     en = Internal shared storage
+    lt = Vidinė bendra saugykla
     ar = وحدة التخزين الداخلية المشتركة
     be = Унутранае абагуленае сховішча
     ca = Emmagatzematge compartit intern
@@ -2217,6 +2274,7 @@
     comment = Removable external storage type in Maps Storage settings, e.g. an SD card
     tags = android
     en = SD card
+    lt = SD kortelė
     ar = بطاقة الذاكرة
     be = SD-карта
     ca = Targeta SD
@@ -2237,6 +2295,7 @@
     comment = Generic external storage type in Maps Storage settings
     tags = android
     en = External shared storage
+    lt = Išorinė bendra saugykla
     ar = وحدة تخزين خارجية مشتركة
     be = Знешняе абагульнае сховішча
     ca = Emmagatzematge compartit extern
@@ -2257,6 +2316,7 @@
     comment = Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB"
     tags = android
     en = %1$@ free of %2$@
+    lt = %1$@ laisva iš %2$@
     ar = %1$@ فارغ من %2$@
     be = %1$@ вольна з %2$@
     ca = %1$@ lliures de %2$@
@@ -2277,6 +2337,7 @@
     comment = Question dialog for transferring maps from one storage to another
     tags = android
     en = Move maps?
+    lt = Perkelti žemėlapius?
     ar = هل تريد نقل الخرائط؟
     be = Перамясціць мапы?
     bg = Преместване на карти?
@@ -2318,6 +2379,7 @@
     comment = Error moving map files from one storage to another
     tags = android
     en = Error moving map files
+    lt = Klaida perkeliant žemėlapio failus
     ar = فشلت عملية نقل ملفات الخرائط
     ca = S'ha produït un error en moure els fitxers de mapes
     de = Fehler beim Verschieben der Karten
@@ -2336,6 +2398,7 @@
     comment = Ask to wait user several minutes (some long process in modal dialog).
     tags = android
     en = This can take several minutes.\nPlease wait…
+    lt = Tai gali užtrukti kelias minutes.\nLuktelėkite…
     ar = يمكن أن تستغرق هذه العملية عدة دقائق.\nالرجاء الانتظار…
     be = Гэта можа заняць некальмі хвілін.\nКалі ласка, пачакайце…
     bg = Това може да отнеме няколко минути.\nМоля изчакайте…
@@ -2377,6 +2440,7 @@
     comment = Measurement units title in settings activity
     tags = android,ios
     en = Measurement units
+    lt = Matavimo vienetai
     ar = وحدات القياس
     be = Адзінкі вымярэння
     bg = Мерни единици
@@ -2418,6 +2482,7 @@
     comment = Detailed description of Measurement Units settings button
     tags = android
     en = Choose between miles and kilometers
+    lt = Pasirinkite tarp mylių ir kilometrų
     en-GB = Choose between miles and kilometres
     ar = اختر من بين الأميال و الكيلومترات.
     be = Ужываць кіламетры альбо мілі
@@ -2462,6 +2527,7 @@
     comment = Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat!
     tags = android,ios
     en = Where to eat
+    lt = Kur valgyti
     ar = أمكان لتناول الطعام
     be = Дзе паесці
     bg = Места за хапване
@@ -2503,6 +2569,7 @@
     comment = Search category for grocery stores; any changes should be duplicated in categories.txt @food!
     tags = android,ios
     en = Groceries
+    lt = Bakalėjos
     ar = بقالية
     be = Прадукты
     bg = Продукти
@@ -2544,6 +2611,7 @@
     comment = Search category for public transport; any changes should be duplicated in categories.txt @transport!
     tags = android,ios
     en = Transport
+    lt = Transportas
     ar = مواصلات
     be = Транспарт
     bg = Транспорт
@@ -2585,6 +2653,7 @@
     comment = Search category for fuel stations; any changes should be duplicated in categories.txt @fuel!
     tags = android,ios
     en = Gas
+    lt = Degalai
     en-GB = Petrol
     ar = وقود الحافلات
     be = Запраўка
@@ -2627,6 +2696,7 @@
     comment = Search category for parking lots; any changes should be duplicated in categories.txt @parking!
     tags = android,ios
     en = Parking
+    lt = Parkingas
     ar = مرافق ركن السيارات
     be = Паркоўка
     bg = Паркинг
@@ -2668,6 +2738,7 @@
     comment = Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping!
     tags = android,ios
     en = Shopping
+    lt = Apsipirkimas
     ar = تسوق
     be = Закупы
     bg = Шопинг
@@ -2709,6 +2780,7 @@
     comment = Search category for places to stay; any changes should be duplicated in categories.txt @hotel!
     tags = android,ios
     en = Hotel
+    lt = Viešbutis
     ar = فندق
     be = Гатэль
     bg = Хотел
@@ -2750,6 +2822,7 @@
     comment = Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism!
     tags = android,ios
     en = Sights
+    lt = Įžymybės
     ar = سياحة
     be = Славутасці
     bg = Забележителности
@@ -2791,6 +2864,7 @@
     comment = Search category for entertainment; any changes should be duplicated in categories.txt @entertainment!
     tags = android,ios
     en = Entertainment
+    lt = Pramogos
     ar = تسلية
     be = Забавы
     bg = Развлечения
@@ -2832,6 +2906,7 @@
     comment = Search category for ATMs; any changes should be duplicated in categories.txt @atm!
     tags = android,ios
     en = ATM
+    lt = Bankomatas
     ar = صراف آلي
     be = Банкамат
     bg = Банкомат
@@ -2873,6 +2948,7 @@
     comment = Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife!
     tags = android,ios
     en = Nightlife
+    lt = Naktinis gyvenimas
     ar = أنشطة ترفيه ليلية
     be = Начное жыццё
     bg = Нощен живот
@@ -2914,6 +2990,7 @@
     comment = Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children!
     tags = android,ios
     en = Family holiday
+    lt = Šeimos atostogos
     ar = عطلة عائلية
     be = Сямейны адпачынак
     bg = Семейна почивка
@@ -2955,6 +3032,7 @@
     comment = Search category for banks; any changes should be duplicated in categories.txt @bank!
     tags = android,ios
     en = Bank
+    lt = Bankas
     ar = بنك
     be = Банк
     bg = Банка
@@ -2996,6 +3074,7 @@
     comment = Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy!
     tags = android,ios
     en = Pharmacy
+    lt = Vaistinė
     ar = صيدلية
     be = Аптэка
     bg = Аптека
@@ -3037,6 +3116,7 @@
     comment = Search category for hospitals; any changes should be duplicated in categories.txt @hospital!
     tags = android,ios
     en = Hospital
+    lt = Ligoninė
     ar = مستشفى
     be = Лякарня
     bg = Болница
@@ -3079,6 +3159,7 @@
     comment = Search category for toilets; any changes should be duplicated in categories.txt @toilet!
     tags = android,ios
     en = Toilet
+    lt = Tualetas
     ar = مرحاض
     be = Прыбіральня
     bg = Тоалетна
@@ -3120,6 +3201,7 @@
     comment = Search category for post offices; any changes should be duplicated in categories.txt @post!
     tags = android,ios
     en = Post
+    lt = Paštas
     ar = بريد
     be = Пошта
     bg = Поща
@@ -3161,6 +3243,7 @@
     comment = Search category for police; any changes should be duplicated in categories.txt @police!
     tags = android,ios
     en = Police
+    lt = Policija
     ar = شرطة
     be = Паліцыя
     bg = Полиция
@@ -3202,6 +3285,7 @@
     comment = Search category for WiFi access; any changes should be duplicated in categories.txt @wifi!
     tags = android,ios
     en = WiFi
+    lt = WiFi
     ar = إنترنت لا سلكي
     be = WiFi
     bg = WiFi
@@ -3241,6 +3325,7 @@
     comment = Search category for recycling; any changes should be duplicated in categories.txt @recycling!
     tags = android,ios
     en = Recycling
+    lt = Perdirbimas
     ar = إعادة تدوير
     be = Перапрацоўка
     bg = Рециклиране
@@ -3282,6 +3367,7 @@
     comment = Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type
     tags = android,ios
     en = Water
+    lt = Vanduo
     ar = ماء
     be = Вада
     bg = Вода
@@ -3325,6 +3411,7 @@
     comment = Search category for RV facilities; any changes should be duplicated in categories.txt @rv!
     tags = android,ios
     en = RV Facilities
+    lt = Rekreacinio transporto aikštelės
     ar = منشآت للمنازل المتنقلة
     be = Для аўтадамоў
     bg = За RV
@@ -3366,6 +3453,7 @@
     comment = Notes field in Bookmarks view
     tags = android
     en = Notes
+    lt = Užrašai
     ar = ملاحظات
     be = Нататкі
     bg = Бележки
@@ -3407,6 +3495,7 @@
     comment = Email Subject when sharing bookmark list
     tags = android
     en = Organic Maps bookmarks were shared with you
+    lt = Su jumis bendrinamas Organic Maps adresynas
     ar = تم مشاركة إشارات Organic Maps المرجعية معك
     be = З вамі падзяліліся закладкамі Ogranic Maps
     bg = Споделени са с вас отметки за Organic Maps
@@ -3446,6 +3535,7 @@
   [share_bookmarks_email_body]
     tags = android,ios
     en = Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!
+    lt = Labas!\n\nČia prisegtas mano adresynas iš Organic Maps programėlės. Atidaryk jį, jei esi įdiegęs Organic Maps, arba atsisiųsk programėlę savo iOS arba Android įrenginyje su šią nuorodą: https://omaps.app/get?kmz\n\Mėgaukis keliavimu su Organic Maps!
     ar = مرحباً! ْ\n\n تم إرفاق إشاراتي المرجعية من تطبيق Organic Maps. الرجاء فتحهم إذا لديك تطبيق Organic Maps مثبتاً. أو، إذا لم يكن مثبتاً، قم بتنزيل التطبيق لنظام iOS أو أندرويد من خلال الضغط على هذا الرابط: https://omaps.app/get?kmz \n\nاستمتع بالسفر مع Organic Maps!
     be = Вітаю!\n\nУ далучаным файле мае закладкі з праграмы Organic Maps. Калі ласка, адчыніце іх, калі ў вас усталяваны Organic Maps. Калі не, спампуйце праграму для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!
     ca = Hola!\n\nAdjunto els meus marcadors de l'aplicació Organic Maps. Obriu-los si teniu l'Organic Maps instal·lat. O, si no teniu l'aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://omaps.app/get?kmz\n\nGaudiu viatjant amb l'Organic Maps!
@@ -3470,6 +3560,7 @@
     comment = message title of loading file
     tags = android,ios
     en = Loading Bookmarks
+    lt = Įkeliamas adresynas
     ar = يتم تحميل الإشارات المرجعية
     be = Загрузка закладак
     bg = Зареждане на отметки
@@ -3511,6 +3602,7 @@
     comment = Kmz file successful loading
     tags = android,ios
     en = Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.
+    lt = Adresynas įkeltas! Galite rasti jį žemėlapyje arba adresyno tvarkytuvės ekrane.
     ar = تم تحميل الإشارات المرجعية بنجاح! يمكنك العثور عليها على الخريطة أو على شاشة إدارة الإشارات المرجعية.
     be = Закладкі паспяхова загружаны! Вы можаце іх убачыць на мапе альбо ў захаваных закладках.
     bg = Отметките са заредени успешно! Можете да ги откриете на картата или при секцията с отметки.
@@ -3552,6 +3644,7 @@
     comment = Kml file loading failed
     tags = android,ios
     en = Failed to load bookmarks. The file may be corrupted or defective.
+    lt = Nepavyko įkelti adresyno. Failas gali būti pažeistas.
     ar = فشلت عملية تحميل الإشارات المرجعية. قد يكون الملف تالف أو غير صالح.
     be = Не атрамалася запампаваць закладкі. Файл можа быць пашкоджаны альбо дэфектыўны.
     bg = Качването на отметките се провали. Файлът може да бъде повреден или дефектен.
@@ -3593,6 +3686,7 @@
     comment = resource for context menu
     tags = android,ios
     en = Edit
+    lt = Redaguoti
     ar = تعديل
     be = Правіць
     bg = Редакция
@@ -3633,6 +3727,7 @@
     comment = Warning message when doing search around current position
     tags = android,ios
     en = Your location hasn't been determined yet
+    lt = Jūsų vieta dar nenustatyta
     ar = لم يتم تحديد موقعك بعد.
     be = Ваша месцазнаходжанне пакуль не вызначана
     bg = Местоположението ви още не е определено
@@ -3674,6 +3769,7 @@
     comment = Alert message that we can't run Map Storage settings due to some reasons.
     tags = android
     en = Sorry, Map Storage settings are currently disabled.
+    lt = Atsiprašome, šiuo metu žemėlapio saugyklos nustatymai yra išjungti.
     ar = نأسف، اعدادات تخزين الخرائط معطلة حالياً.
     be = Прабачце, налады сховішча мапаў зараз недасягальныя.
     bg = Съжаляваме, но настройките за съхранение на карти в момента са деактивирани.
@@ -3715,6 +3811,7 @@
     comment = Alert message that downloading is in progress.
     tags = android
     en = Map download is in progress now.
+    lt = Vyksta žemėlapio atsisiuntimas.
     ar = جاري الآن تنزيل الخريطة
     be = Мапы спампоўваюцца.
     bg = Изтеглянето на картата вече е в ход.
@@ -3756,6 +3853,7 @@
     comment = Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140.
     tags = android
     en = Hey, check out my current location in Organic Maps! %1$@ or %2$@ Don't have offline maps? Download here: https://omaps.app/get
+    lt = Labas, pažvelk į mano dabartinę vietą Organic Maps! %1$@ arba %2$@ Neturi atjungtinių žemėlapių? Atsisiųsk čia: https://omaps.app/get
     ar = مرحباً، تفقد الموقع الخاص بي على Organic Maps! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: https://omaps.app/get
     be = Гэй, глядзі дзе я зараз на мапе! %1$@ альбо %2$@ Няма офлайн-мапаў? Спампуй тут: https://omaps.app/get
     bg = Хей, виж текущото ми местоположение в Organic Maps! %1$@ или %2$@
@@ -3796,6 +3894,7 @@
     comment = Subject for emailed bookmark
     tags = android,ios
     en = Hey, check out my pin in Organic Maps!
+    lt = Labas, pažvelk, ką aš prisegiau Organic Maps!
     ar = مرحباً، تفقد الدبوس الخاص بي على خريطة Organic Maps!
     be = Гэй, глядзі маю метку на Organic Maps!
     bg = Хей, виж какво съм отбелязал в Organic Maps!
@@ -3836,6 +3935,7 @@
     comment = Subject for emailed position
     tags = android,ios
     en = Hey, check out my current location on the Organic Maps map!
+    lt = Labas, pažvelk į mano dabartinę vietą Organic Maps žemėlapyje!
     ar = مرحباً، تحقق من موقعي الحالي على خريطة Organic Maps!
     be = Гэй, глядзі дзе я зараз на мапе Organic Maps!
     bg = Хей, виж текущото ми местоположение на картата в Organic Maps!
@@ -3876,6 +3976,7 @@
     comment = Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME
     tags = android
     en = Hi,\n\nI'm here now: %1$@. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
+    lt = Labas,\nŠiuo metu esu čia: %1$@. Spustelėk ant %2$@ arba %3$@, kad pamatytum mano vietą žemėlapyje.\n\nAčiū.
     ar = ًمرحبا،\n\nأنا هنا الآن: %1$@. انقر على هذا الرابط %2$@ أو ذلك الرابط %3$@ لمشاهدة المكان على الخريطة.\n\nشكراً.
     be = Прывітанне,\n\nЯ зараз тут: %1$@. Перайдзі па гэтай %2$@ альбо гэтай %3$@ спасылцы, каб убачыць месца на мапе.\n\nДзякуй.
     bg = Здравей,\n\nСега съм тук: %1$@. Натисни върху тази връзка %2$@ или тази %3$@, за да видиш мястото на картата.\n\nБлагодаря.
@@ -3916,6 +4017,7 @@
     comment = Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.
     tags = android,ios
     en = Share
+    lt = Bendrinti
     ar = مشاركة
     be = Падзяліцца
     bg = Споделяне
@@ -3957,6 +4059,7 @@
     comment = Share by email button text, also used in editor and About.
     tags = android,ios
     en = Email
+    lt = El. paštas
     ar = البريد الالكتروني
     be = Электронная пошта
     bg = Имейл
@@ -3997,6 +4100,7 @@
     comment = Text for message when used successfully copied something
     tags = android
     en = Copied to clipboard: %1$@
+    lt = Nukopijuota į iškarpinę: %1$@
     ar = تم النسخ الى الحافظة: %1$@
     be = Скапіравана ў буфер абмена: %1$@
     bg = Копирано в клипборда: %1$@
@@ -4038,6 +4142,7 @@
     comment = place preview title
     tags = ios
     en = Info
+    lt = Informacija
     ar = المعلومات
     be = Інфармацыя
     bg = Информация
@@ -4079,6 +4184,7 @@
     comment = Used for bookmark editing
     tags = android,ios
     en = Done
+    lt = Baigta
     ar = تم
     be = Гатова
     bg = Готово
@@ -4120,6 +4226,7 @@
     comment = Prints version number in About dialog
     tags = ios
     en = Version: %@
+    lt = Versija: %@
     ar = الاصدار: %@
     be = Версія: %@
     bg = Версия: %@
@@ -4162,6 +4269,7 @@
     comment = Data version in «About» screen, %@ is replaced by a local, human readable date.
     tags = android,ios
     en = OpenStreetMap data: %@
+    lt = OpenStreetMap duomenys: %@
     ar = بيانات خريطة الشارع المفتوحة: %@
     be = Дадзеныя OpenStreetMap: %@
     bg = Данни на OpenStreetMap: %@
@@ -4204,6 +4312,7 @@
     comment = Confirmation in downloading countries dialog
     tags = android
     en = Are you sure you want to continue?
+    lt = Tikrai norite tęsti?
     ar = هل أنت واثق أنك تريد الاستمرار؟
     be = Сапраўды хочаце працягнуць?
     bg = Сигурни ли сте, че искате да продължите?
@@ -4245,6 +4354,7 @@
     comment = Title for tracks category in bookmarks manager
     tags = android,ios
     en = Tracks
+    lt = Takai
     ar = المسارات
     be = Сцежкі
     bg = Пътеки
@@ -4286,6 +4396,7 @@
     comment = Length of track in cell that describes route
     tags = android,ios
     en = Length
+    lt = Ilgis
     ar = الطول
     be = Даўжыня
     bg = Дължина
@@ -4326,6 +4437,7 @@
   [share_my_location]
     tags = android,ios
     en = Share My Location
+    lt = Bendrinti mano vietą
     ar = مشاركة موقعي
     be = Падзяліцца месцазнаходжаннем
     bg = Споделяне на местоположение
@@ -4367,6 +4479,7 @@
     comment = Settings general group in settings screen
     tags = android
     en = General settings
+    lt = Bendrieji nustatymai
     ar = الإعدادات العامة
     be = Агульныя налады
     bg = Общи настройки
@@ -4396,6 +4509,7 @@
     comment = Settings information group in settings screen
     tags = android
     en = Information
+    lt = Informacija
     ar = معلومات
     be = Інфармацыя
     bg = Информация
@@ -4425,6 +4539,7 @@
   [prefs_group_route]
     tags = android,ios
     en = Navigation
+    lt = Navigacija
     ar = الملاحة
     be = Навігацыя
     bg = Навигация
@@ -4464,6 +4579,7 @@
   [pref_zoom_title]
     tags = android,ios
     en = Zoom buttons
+    lt = Mastelio mygtukai
     ar = أزرار التكبير والتصغير
     be = Кнопкі маштаба
     bg = Мащабни бутони
@@ -4504,6 +4620,7 @@
   [pref_zoom_summary]
     tags = android
     en = Display on the map
+    lt = Rodyti žemėlapyje
     ar = عرض على الشاشة
     be = Паказаць на мапе
     bg = Показване на картата
@@ -4545,6 +4662,7 @@
     comment = Settings «Map» category: «Night style» title
     tags = android,ios
     en = Night Mode
+    lt = Nakties režimas
     ar = الوضع الليلي
     be = Начны рэжым
     bg = Нощен режим
@@ -4585,6 +4703,7 @@
     comment = «Map style» entry value
     tags = android,ios
     en = Off
+    lt = Išjungtas
     ar = تعطيل
     be = Выключаны
     bg = Изключен
@@ -4625,6 +4744,7 @@
     comment = «Map style» entry value
     tags = android,ios
     en = On
+    lt = Įjungtas
     ar = تشغيل
     be = Уключаны
     bg = Включен
@@ -4665,6 +4785,7 @@
     comment = «Map style» entry value
     tags = android,ios
     en = Auto
+    lt = Automatinis
     ar = تلقائي
     be = Аўтаматычна
     bg = Автоматично
@@ -4705,6 +4826,7 @@
     comment = Settings «Map» category: «Perspective view» title
     tags = android,ios
     en = Perspective view
+    lt = Perspektyvinė peržiūra
     ar = العرض المنظوري
     be = Перспектыўны выгляд
     bg = Перспективен изглед
@@ -4745,6 +4867,7 @@
     comment = Settings «Map» category: «3D buildings» title
     tags = android,ios
     en = 3D buildings
+    lt = 3D pastatai
     ar = مباني ثلاثية الأبعاد
     be = 3D будынкі
     bg = 3D сгради
@@ -4785,6 +4908,7 @@
     comment = A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled
     tags = android,ios
     en = 3D buildings are turned off in power saving mode
+    lt = 3D pastatai yra išjungti energijos taupymo režime
     ar = يتم إيقاف تشغيل المباني ثلاثية الأبعاد في وضع توفير الطاقة
     be = У рэжыме энергазберажэння 3D-будынкі выключаны
     bg = 3D сградите са изключени в режим на пестене на енергия
@@ -4827,6 +4951,7 @@
     comment = Settings «Route» category: «Tts enabled» title
     tags = android,ios
     en = Voice Instructions
+    lt = Balso instrukcijos
     ar = تعليمات صوتية
     be = Галасавыя інструкцыі
     bg = Гласови инструкции
@@ -4867,6 +4992,7 @@
     comment = Settings «Route» category: «Tts language» title
     tags = android,ios
     en = Voice Language
+    lt = Balso kalba
     ar = لغة الصوت
     be = Мова агучвання
     bg = Език на инструкциите
@@ -4907,6 +5033,7 @@
     comment = Settings «Route» category: «Tts unavailable» subtitle
     tags = android
     en = Not Available
+    lt = Neprieinama
     ar = غير متاح
     be = Не дасягальна
     bg = Не е налично
@@ -4947,6 +5074,7 @@
     comment = Title for "Other" section in TTS settings.
     tags = ios
     en = Other
+    lt = Kita
     ar = آخر
     be = Іншы
     bg = Друго
@@ -4987,6 +5115,7 @@
     comment = Settings «Map» category: «Record track» title
     tags = ios
     en = Recent track
+    lt = Pastaras takas
     ar = المسار الأخير
     be = Нядаўняя сцежка
     bg = Скорошна пътека
@@ -5026,6 +5155,7 @@
   [pref_map_auto_zoom]
     tags = android,ios
     en = Auto zoom
+    lt = Automatinis mastelis
     ar = تكبير تلقائي
     be = Аўтаматычны маштаб
     bg = Автоматично мащабиране
@@ -5065,6 +5195,7 @@
   [duration_disabled]
     tags = android,ios
     en = Off
+    lt = Išjungtas
     ar = لا يعمل
     be = Выключана
     bg = Изключено
@@ -5104,6 +5235,7 @@
   [duration_1_hour]
     tags = android,ios
     en = 1 hour
+    lt = 1 valanda
     ar = 1 ساعة
     be = 1 гадзіна
     bg = 1 час
@@ -5143,6 +5275,7 @@
   [duration_2_hours]
     tags = android,ios
     en = 2 hours
+    lt = 2 valandos
     ar = 2 ساعة
     be = 2 гадзіны
     bg = 2 часа
@@ -5182,6 +5315,7 @@
   [duration_6_hours]
     tags = android,ios
     en = 6 hours
+    lt = 6 valandos
     ar = 6 ساعات
     be = 6 гадзін
     bg = 6 часа
@@ -5221,6 +5355,7 @@
   [duration_12_hours]
     tags = android,ios
     en = 12 hours
+    lt = 12 valandų
     ar = 12 ساعة
     be = 12 гадзін
     bg = 12 часа
@@ -5260,6 +5395,7 @@
   [duration_1_day]
     tags = android,ios
     en = 1 day
+    lt = 1 diena
     ar = 1 يوم
     be = 1 дзень
     bg = 1 ден
@@ -5299,6 +5435,7 @@
   [recent_track_help_text]
     tags = ios
     en = This option allows you to record traveled path for a certain period and see it on the map. Please note: activation of this function causes increased battery usage. The track will be removed automatically from the map after the time interval will expire.
+    lt = Ši parinktis leidžia jums įrašyti nukeliautą kelią tam tikrame laikotarpyje ir jį pamayti žemėlapyje. Įsidėmėkite: šios funkcijos įjungimas padidins akumuliatoriaus naudojimą. Takas bus automatiškai pašalintas iš žemėlapio po laiko intervalo galiojimo baigimo.
     ar = يتيح لك هذا الخيار تسجيل مسار السفر لفترة معينة وعرضه على الخريطة. الرجاء ملاحظة: يؤدي تنشيط هذه الوظيفة إلى زيادة استهلاك البطارية. سوف تتم إزالة المسار تلقائيًا من الخريطة بعد انتهاء الفاصل الزمني.
     be = Гэтая функцыя дазваляе запісваць сцежку за некаторы прамежак часу і бачыць яе на мапе. Увага: уключэнне гэтай функцыі павялічвае выкарыстанне батарэі. Сцежка будзе аўтаматычка выдалена з мапы калі прамежак часу скончыцца.
     bg = Тази опция ви позволява да запишете изминатия път за определен период и да го видите на картата. Моля, обърнете внимание: активирането на тази функция води до повишено използване на батерията.
@@ -5339,6 +5476,7 @@
   [placepage_distance]
     tags = ios
     en = Distance
+    lt = Atstumas
     ar = المسافة
     be = Адлегласць
     ca = Distància
@@ -5377,6 +5515,7 @@
   [search_show_on_map]
     tags = android,ios
     en = View on map
+    lt = Rodyti žemėlapyje
     ar = مشاهدة على الخريطة
     be = Паглядзець на мапе
     bg = Преглед на картата
@@ -5418,6 +5557,7 @@
     comment = Menu button
     tags = android
     en = Menu
+    lt = Meniu
     ca = Menú
     es = Menú
     fr = Menu
@@ -5430,6 +5570,7 @@
     comment = Text in menu
     tags = android,ios
     en = Website
+    lt = Svetainė
     ar = الموقع الإلكتروني
     be = Вэб-сайт
     bg = Уебсайт
@@ -5470,6 +5611,7 @@
     comment = Text in About menu, opens Organic Maps news website
     tags = android,ios
     en = News
+    lt = Naujienos
     ar = أخبار
     be = Навіны
     bg = Новини
@@ -5510,26 +5652,31 @@
     comment = Text in menu
     tags = android,ios
     en = GitHub
+    lt = GitHub
 
   [telegram]
     comment = Text in menu
     tags = android,ios
     en = Telegram
+    lt = Telegram
 
   [matrix]
     comment = Text in menu
     tags = android,ios
     en = [matrix]
+    lt = [matrix]
 
   [mastodon]
     comment = Text in menu
     tags = android,ios
     en = Mastodon
+    lt = Mastodon
 
   [facebook]
     comment = Text in menu
     tags = android,ios
     en = Facebook
+    lt = Facebook
     zh-Hans = 脸书
     zh-Hant = 臉書
 
@@ -5537,6 +5684,7 @@
     comment = Text in menu
     tags = android,ios
     en = Twitter
+    lt = Twitter
     zh-Hans = 推特
     zh-Hant = 推特
 
@@ -5544,21 +5692,25 @@
     comment = Text in menu
     tags = android,ios
     en = Instagram
+    lt = Instagram
 
   [vk]
     comment = Text in the editor
     tags = android,ios
     en = VK
+    lt = VK
 
   [editor_line_social_network]
     comment = Text in the editor
     tags = android
     en = LINE
+    lt = LINE
 
   [openstreetmap]
     comment = Text in menu
     tags = android,ios
     en = OpenStreetMap
+    lt = OpenStreetMap
     ar = خريطة الشارع المفتوحة
     zh-Hant = 開放街圖
 
@@ -5566,6 +5718,7 @@
     comment = Settings: Send feedback button and dialog title
     tags = android
     en = Feedback
+    lt = Atsiliepimas
     ar = إرسال التعليقات
     be = Водгук
     bg = Обратна връзка
@@ -5606,6 +5759,7 @@
     comment = Text in menu
     tags = android,ios
     en = Rate the app
+    lt = Įvertinkite programėlę
     ar = قيّم التطبيق
     be = Ацаніць праграму
     bg = Оцени приложение
@@ -5647,6 +5801,7 @@
     comment = Text in menu
     tags = android,ios
     en = Help
+    lt = Pagalba
     ar = مساعدة
     be = Дапамога
     bg = Помощ
@@ -5688,6 +5843,7 @@
     comment = Button in the main Help dialog
     tags = android,ios
     en = Frequently Asked Questions
+    lt = Dažniausiai užduodami klausimai
     ar = اسئلة مكررة
     be = Пытанні і адказы
     bg = Въпроси и отговори
@@ -5730,6 +5886,7 @@
     comment = Button in the main menu
     tags = android,ios
     en = Donate
+    lt = Aukoti
     ar = تبرع
     be = Падтрымаць грашыма
     bg = Дарете
@@ -5771,6 +5928,7 @@
     comment = Button in the main Help dialog
     tags = android,ios
     en = Support the project
+    lt = Palaikykite projektą
     ar = ﻉﻭﺮﺸﻤﻟﺍ ﻢﻋﺩ
     be = Падтрымаць праект
     bg = Подкрепете проекта
@@ -5813,6 +5971,7 @@
     comment = Button in the main Help dialog
     tags = android,ios
     en = Copyright
+    lt = Autoriaus teisės
     ar = حقوق النشر
     be = Капірайт
     bg = Авторски права
@@ -5854,6 +6013,7 @@
     comment = Text in menu + Button in the main Help dialog
     tags = android,ios
     en = Report a bug
+    lt = Pranešti klaidą
     ar = الإبلاغ عن خطأ
     be = Паведаміць аб памылцы
     bg = Докладване на проблем
@@ -5895,6 +6055,7 @@
     comment = Alert text
     tags = ios
     en = The email client has not been set up. Please configure it or use any other way to contact us at %@
+    lt = El. pašto paskyra nenustatyta. Ją sukonfigūruokite arba susisiekite kitu būdu: %@
     ar = لم يتم تنصيب البريد الإلكتروني. يرجى تفعيله أو استخدام أي وسيلة أخرى للاتصال بنا على %@
     be = Паштовы кліент не наладжаны. Наладзьце яго альбо звяжыцеся з намі па адрасе %@ іншым чынам.
     bg = Имейл клиентът не е настроен. Моля, конфигурирайте го или използвайте друг начин, за да се свържете с нас на %@
@@ -5936,6 +6097,7 @@
     comment = Alert title
     tags = ios
     en = Mail sending error
+    lt = Klaida siunčiant laišką
     ar = حذث خطأ في إرسال البريد الإلكتروني
     be = Памылка адпраўкі пошты
     bg = Грешка при изпращане на поща
@@ -5977,6 +6139,7 @@
     comment = Settings item title
     tags = ios
     en = Compass calibration
+    lt = Kompaso kalibravimas
     ar = معايرة البوصلة
     be = Каліброўка компаса
     bg = Калибриране на компас
@@ -6018,6 +6181,7 @@
     comment = Update all button text
     tags = android,ios
     en = Update All
+    lt = Naujinti viską
     ar = تحديث الكل
     be = Абнавіць усё
     bg = Обновяване на всичко
@@ -6058,6 +6222,7 @@
     comment = Cancel all button text
     tags = android
     en = Cancel All
+    lt = Atšaukti viską
     ar = إلغاء الكل
     be = Адмяніць усё
     bg = Отмяна на всичко
@@ -6099,6 +6264,7 @@
     comment = Downloaded maps list header
     tags = android,ios
     en = Downloaded
+    lt = Atsisiųsta
     ar = التي تم تنزيلها
     be = Спампаваныя
     bg = Изтеглено
@@ -6139,6 +6305,7 @@
     comment = Downloaded maps category
     tags = ios
     en = Available
+    lt = Prieinama
     ar = متوفر
     be = Дасягальныя
     ca = Disponibles
@@ -6178,6 +6345,7 @@
     comment = Country queued for download
     tags = android,ios
     en = Queued
+    lt = Eilėje
     ar = مَصْفوف
     be = У чарзе
     bg = На опашка
@@ -6218,6 +6386,7 @@
   [downloader_near_me_subtitle]
     tags = android,ios
     en = Near me
+    lt = Arti manęs
     ar = قريب مني
     be = Каля мяне
     bg = Близо до мен
@@ -6258,6 +6427,7 @@
     comment = In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10"
     tags = android,ios
     en = Maps
+    lt = Žemėlapiai
     ar = الخرائط
     be = Мапы
     bg = Карти
@@ -6297,6 +6467,7 @@
   [downloader_download_all_button]
     tags = android,ios
     en = Download All
+    lt = Atsisiųsti viską
     ar = تنزيل الكل
     be = Спампаваць усё
     bg = Изтегляне на всичко
@@ -6336,6 +6507,7 @@
   [downloader_downloading]
     tags = android,ios
     en = Downloading:
+    lt = Atsisiunčiama:
     ar = يتم التنزيل:
     be = Спампоўваецца:
     bg = Теглене:
@@ -6375,6 +6547,7 @@
   [downloader_search_results]
     tags = ios
     en = Found
+    lt = Rasta
     ar = تم العثور على
     be = Знойдзена
     ca = Trobat
@@ -6414,6 +6587,7 @@
     comment = Status of outdated country in the list
     tags = ios
     en = Update
+    lt = Naujinti
     ar = تحديث
     be = Абнавіць
     bg = Обновление
@@ -6455,6 +6629,7 @@
     comment = Status of failed country in the list
     tags = ios
     en = Failed
+    lt = Nepavyko
     ar = فشل
     be = Не атрымалася
     bg = Провал
@@ -6496,6 +6671,7 @@
     comment = Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode
     tags = android,ios
     en = To delete map, please stop navigation.
+    lt = Sustabdykite navigaciją, kad panaikintumėte žemėlapį.
     ar = لحذف الخريطة يرجى إيقاف الملاحة.
     be = Каб выдаліць мапу, спыніце навігацыю.
     bg = За да изтриете карта, моля спрете навигирането.
@@ -6536,6 +6712,7 @@
     comment = PointsInDifferentMWM
     tags = android,ios
     en = Routes can only be created that are fully contained within a map of a single region.
+    lt = Maršrutai gali būti sukurti, jei jie yra vieno regiono žemėlapio ribose.
     ar = يمكن فقط إنشاء المسارات التي توجد بشكل كامل ضمن خريطة دولة واحدة.
     be = Маршруты могуць быць пракладзены толькі ў межах карты аднаго рэгіёна.
     bg = Могат да се създават само маршрути, които са изцяло в рамките на картата на един регион.
@@ -6577,6 +6754,7 @@
     comment = Context menu item for downloader.
     tags = android,ios
     en = Download map
+    lt = Atsisiųsti žemėlapį
     ar = تنزيل الخريطة
     be = Спампаваць мапу
     bg = Изтегляне на карта
@@ -6618,6 +6796,7 @@
     comment = Item status in downloader.
     tags = android,ios
     en = Retry
+    lt = Bandyti dar kartą
     ar = المحاولة مجدداً
     be = Паспрабаваць зноў
     bg = Повторно
@@ -6658,6 +6837,7 @@
     comment = Item in context menu.
     tags = android,ios
     en = Delete Map
+    lt = Naikinti žemėlapį
     ar = حذف الخريطة
     be = Выдаліць мапу
     bg = Изтриване на карта
@@ -6699,6 +6879,7 @@
     comment = Item in context menu.
     tags = android
     en = Update Map
+    lt = Naujinti žemėlapį
     ar = تحديث الخريطة
     be = Абнавіць мапу
     bg = Обнояване на карта
@@ -6740,6 +6921,7 @@
     comment = Preference title
     tags = android
     en = Google Play Services
+    lt = Google Play paslaugos
     ar = خدمات Google Play
     be = Сэрвісы Google Play
     bg = Услуги за Google Play
@@ -6780,6 +6962,7 @@
     comment = Preference text
     tags = android
     en = Use Google Play Services to determine your current location
+    lt = Naudoti Google Play paslaugas dabartinės vietos nustatymui
     ar = استخدام خدمات Google Play لتحديد موقعك الحالي
     be = Ужываць службы Google Play для вызначэння месцазнаходжання
     bg = Използвайте услугите на Google Play, за да определите текущото си местоположение
@@ -6820,6 +7003,7 @@
     comment = Text for routing error dialog
     tags = android,ios
     en = Download all of the maps along your route
+    lt = Atsisųsti visus žemėlapius palei jūsų maršrutą
     ar = تنزيل الخرائط على طول طريقك
     be = Спампаваць усе мапы на вашым шляху
     bg = Изтегляне на всички карти по вашия маршрут
@@ -6860,6 +7044,7 @@
     comment = Text for routing error dialog
     tags = android,ios
     en = In order to create a route, we need to download and update all the maps from your location to your destination.
+    lt = Jei norite sukurti maršrutą, jums reikės atsisiųsti ir atnaujinti visus žemėlapius iš jūsų vietos ir tikslo.
     ar = من أجل تعيين الطريق، نحتاج إلى تنزيل أو تحديث جميع الخرائط التي تغطي المنطقة من موقعك إلى وجهتك
     be = Каб пракласці маршрут, трэба спампаваць і абнавіць усе мапы на на вашым шляху.
     bg = За да създадем маршрут, трябва да изтеглим и актуализираме всички карти от местоположението ви до вашата дестинация.
@@ -6899,6 +7084,7 @@
     comment = Text for routing error dialog
     tags = android
     en = Not enough space
+    lt = Nepakanka vietos
     ar = لا يوجد مساحة كافية
     be = Не хапае месца
     bg = Недостатъчно място
@@ -6939,6 +7125,7 @@
     comment = bookmark button text
     tags = ios
     en = bookmark
+    lt = adresynas
     ar = إشارة مرجعية
     be = закладка
     bg = отметка
@@ -6980,6 +7167,7 @@
     comment = location service disabled
     tags = android
     en = Please enable Location Services
+    lt = Įjunkite vietovės tarnybas
     ar = الرجاء تفعيل خدمة تحديد الموقع الجغرافي
     be = Калі ласка, ўключыце геалакацыю
     bg = Моля, разрешете услугите за местоположение
@@ -7019,6 +7207,7 @@
   [save]
     tags = android,ios
     en = Save
+    lt = Išsaugoti
     ar = حفظ
     be = Захаваць
     bg = Запазване
@@ -7058,6 +7247,7 @@
   [edit_description_hint]
     tags = android
     en = Your descriptions (text or html)
+    lt = Jūsų aprašymai (tekstas arba HTML)
     ar = الوصف (استعمل نص أو html(
     be = Ваша апісанне (тэкст альбо html)
     bg = Ваши описания (текст или html)
@@ -7097,6 +7287,7 @@
   [create]
     tags = android,ios
     en = create
+    lt = kurti
     ar = إنشاء
     be = стварыць
     bg = създаване
@@ -7137,6 +7328,7 @@
     comment = red color
     tags = android,ios
     en = Red
+    lt = Raudonas
     ar = أحمر
     be = Чырвоны
     bg = Червено
@@ -7178,6 +7370,7 @@
     comment = yellow color
     tags = android,ios
     en = Yellow
+    lt = Geltonas
     ar = أصفر
     be = Жоўты
     bg = Жълто
@@ -7219,6 +7412,7 @@
     comment = blue color
     tags = android,ios
     en = Blue
+    lt = Mėlynas
     ar = أزرق
     be = Сіні
     bg = Синьо
@@ -7260,6 +7454,7 @@
     comment = green color
     tags = android,ios
     en = Green
+    lt = Žalias
     ar = أخضر
     be = Зялёны
     bg = Зелено
@@ -7301,6 +7496,7 @@
     comment = purple color
     tags = android,ios
     en = Purple
+    lt = Violetinis
     ar = أرجواني
     be = Пурпурны
     bg = Лилаво
@@ -7342,6 +7538,7 @@
     comment = orange color
     tags = android,ios
     en = Orange
+    lt = Oranžinis
     ar = برتقالي
     be = Аранжавы
     bg = Оранжево
@@ -7383,6 +7580,7 @@
     comment = brown color
     tags = android,ios
     en = Brown
+    lt = Rudas
     ar = بني
     be = Карычневы
     bg = Кафяво
@@ -7424,6 +7622,7 @@
     comment = pink color
     tags = android,ios
     en = Pink
+    lt = Rožinis
     ar = زهري
     be = Ружовы
     bg = Розово
@@ -7465,6 +7664,7 @@
     comment = deep purple color
     tags = android,ios
     en = Deep Purple
+    lt = Tamsiai violetinis
     ar = أرجواني داكن
     be = Цёмна-пурпурны
     ca = Porpra fosc
@@ -7506,6 +7706,7 @@
     comment = light blue color
     tags = android,ios
     en = Light Blue
+    lt = Šviesiai mėlynas
     ar = أزرق فاتح
     be = Блакітны
     ca = Blau clar
@@ -7547,6 +7748,7 @@
     comment = cyan color
     tags = android,ios
     en = Cyan
+    lt = Žydras
     ar = أزرق سماوي
     be = Сіне-зялёны
     ca = Cian
@@ -7588,6 +7790,7 @@
     comment = teal color
     tags = android,ios
     en = Teal
+    lt = Tamsiai žydras
     ar = أخضر فاتح
     be = Смарагдавы
     ca = Jade
@@ -7629,6 +7832,7 @@
     comment = lime color
     tags = android,ios
     en = Lime
+    lt = Citrininis
     ar = ليموني
     be = Лайм
     ca = Llima
@@ -7670,6 +7874,7 @@
     comment = deep orange color
     tags = android,ios
     en = Deep Orange
+    lt = Tamsiai oranžinis
     ar = برتقالي داكن
     be = Цёмна-аранжавы
     ca = Taronja fosc
@@ -7711,6 +7916,7 @@
     comment = gray color
     tags = android,ios
     en = Gray
+    lt = Pilkas
     ar = رمادي
     be = Шэры
     ca = Gris
@@ -7752,6 +7958,7 @@
     comment = blue gray color
     tags = android,ios
     en = Blue Gray
+    lt = Mėlynai pilkas
     ar = رمادي أزرق
     be = Блакітна-шэры
     ca = Gris blavós
@@ -7794,6 +8001,7 @@
   [dialog_routing_disclaimer_title]
     tags = android,ios
     en = When following the route, please keep in mind:
+    lt = Keliaudami maršrutu įsidėmėkite:
     ar = عند اتباع المسار، يُرجى الانتباه إلى ما يلي:
     be = Рухаючыся па маршруце, майце на ўвазе:
     bg = Когато следвате маршрута, моля, имайте предвид:
@@ -7834,6 +8042,7 @@
   [dialog_routing_disclaimer_priority]
     tags = android,ios
     en = — Road conditions, traffic laws, and road signs always take priority over the navigation hints;
+    lt = — Kelių kokybė, eismo taisyklės ir kelio ženklai turi aukštesnį prioritetą už navigacijos užuominas;
     ar = — إن ظروف الطريق وقوانين وإشارات المرور لها الأولوية على المشورة الملاحية دائماً;
     be = — Дарожныя абставіны, правілы дарожнага руху і дарожныя знакі заўсёды маюць прыярытэт над падказкамі навігацыі;
     bg = - Пътната обстановка, законите за движение по пътищата и че пътните знаци винаги имат приоритет пред навигационните подсказки;
@@ -7874,6 +8083,7 @@
   [dialog_routing_disclaimer_precision]
     tags = android,ios
     en = — The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination;
+    lt = — Žemėlapis gali būti klaidingas ir patariamas maršrutas ne visada bus optimalus būdas pasiekti tikslą;
     ar = —  قد تكون الخريطة غير دقيقة وقد لا يكون المسار المقترح هو المسار الأمثل دائمًا للوصول إلى الوجهة.;
     be = — Мапа можа быць недакладнай, а прапанаваны маршрут не заўжды найлепшым;
     bg = - Картата може да е неточна, а предложеният маршрут невинаги е най-оптималният начин за достигане до дестинацията;
@@ -7914,6 +8124,7 @@
   [dialog_routing_disclaimer_recommendations]
     tags = android,ios
     en = — Suggested routes should only be understood as recommendations;
+    lt = — Patariami maršrutai turi būti suprasti kaip rekomendacijos;
     ar = — يجب التعامل مع المسارات المقترحة كتوصيات فقط;
     be = — Прапанаваныя маршруты трэба ўспрымаць толькі як рэкамендацыі;
     bg = - Предложените маршрути са само препоръки;
@@ -7954,6 +8165,7 @@
   [dialog_routing_disclaimer_borders]
     tags = android,ios
     en = — Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.
+    lt = — Būkite atsargūs su maršrutais šalia sienų ribų: maršrutai, sukurti mūsų programėlės, kartais pereina valstybių sienas neleistinose vietose.
     ar = — تحذير بشأن المسارات في المناطق الحدودية: المسارات التي تم إنشاؤها بواسطة تطبيقنا قد تعبر  أحياناً حدود الدول في أماكن غير مصرح بها;
     be = — Будзьце ўважлівы з маршрутамі ў памежных зонах: маршруты, пракладзеныя нашай праграмай, часамі могуць перасякаць мяжу ў недазволеных месцах.
     bg = - Бъдете внимателни с маршрутите в гранични зони: маршрутите, създадени от нашето приложение, понякога могат да пресичат границите на страната на неразрешени места.
@@ -7993,6 +8205,7 @@
   [dialog_routing_disclaimer_beware]
     tags = android,ios
     en = Please stay alert and safe on the roads!
+    lt = Būkite budrūs ir saugūs keliuose!
     ar = يجب أن تظل يقظًا وآمنًا على الطريق!
     be = Будзьце пільнымі і паводзьце сябе бяспечна на дарозе!
     bg = Моля, бъдете бдителни и безопасни по пътищата!
@@ -8033,6 +8246,7 @@
   [dialog_routing_check_gps]
     tags = android,ios
     en = Check GPS signal
+    lt = Tikrinti GPS signalą
     ar = تحقق من إشارة نظام تحديد الموقع الجغرافي
     be = Праверце сігнал GPS
     bg = Приверете GPS сигнала
@@ -8073,6 +8287,7 @@
   [dialog_routing_error_location_not_found]
     tags = android,ios
     en = Unable to create route. Current GPS coordinates could not be identified.
+    lt = Nepavyko sukurti maršruto. Nepavyko nustatyti dabartinių GPS koordinačių.
     ar = تعذر إنشاء مسار. لم نستطع تحديد الإحداثيات الجغرافية الحالية.
     be = Не атрымалася пракласци маршрут. Каардынаты GPS не вызначаны.
     bg = Не е възможно да се създаде маршрут. Текущите GPS координати не могат да бъдат идентифицирани.
@@ -8113,6 +8328,7 @@
   [dialog_routing_location_turn_wifi]
     tags = android,ios
     en = Please check your GPS signal. Enabling Wi-Fi will improve your location accuracy.
+    lt = Patikrinkite GPS signalą. Wi-Fi įjungimas pagerins vietos tikslumą.
     ar = الرجاء التحقق من إشارة نظام تحديد الموقع. إن تفعيل الWi-Fi سيحسب دقة الموقع.
     be = Калі ласка, праверце сігнал GPS. Для больш дакладнага вызначэння месцазнаходжання уключыце Wi-Fi.
     bg = Моля, проверете GPS сигнала. Включването на Wi-Fi ще подобри точността на местоположението ви.
@@ -8153,6 +8369,7 @@
   [dialog_routing_location_turn_on]
     tags = android,ios
     en = Enable location services
+    lt = Įjungti vietovės tarnybas
     ar = تفعيل خدمات الموقع الجغرافي
     be = Уключыць геалагацыю
     bg = Активиране на услугите за местоположение
@@ -8193,6 +8410,7 @@
   [dialog_routing_location_unknown_turn_on]
     tags = android,ios
     en = Unable to locate current GPS coordinates. Enable location services to calculate route.
+    lt = Įjunkite, kad nustatytumėte dabartines GPS koordinates. Įjunkite vietovės tarnybas, kad apskaičiuotumėte maršrutą.
     ar = لم نستطع تحديد الإحداثيات الجغرافية الحالي. قم بتفعيل خدمات الموقع الجغرافي لحساب الطريق المناسب
     be = Не атрымалася вызначыць каардынаты GPS. Уключыце геалакацыю, каб пракласці маршрут.
     bg = Не е възможно да се определят GPS координатите. Активирайте услугите за местоположение, за да изчислите маршрута.
@@ -8233,6 +8451,7 @@
   [dialog_routing_download_files]
     tags = ios
     en = Download required files
+    lt = Atsisiųsti reikalingus failus
     ar = تنزيل الملفات المطلوبة
     be = Спампуйце неабходныя файлы
     bg = Изтегляне на необходимите файлове
@@ -8273,6 +8492,7 @@
   [dialog_routing_download_and_update_all]
     tags = ios
     en = Download and update all map and routing information along the projected path to calculate route.
+    lt = Atsisiųsti ir atnaujinti visus žemėlapius ir maršrutų informaciją palei planuojamą kelią, kad apskaičiuotumėte maršrutą.
     ar = قم بتنزيل وتحديث كافة الخرائط ومعلومات التوجيه على طول الطريق المتوقع لحساب المسار.
     be = Спампуйце і абнавіце ўсе мапы і дадзеныя навігацыі на планаваным шляху, каб пракласці маршрут.
     bg = За да изчислите маршрут, изтеглете и актуализирайте всички карти и пътища по маршрута.
@@ -8312,6 +8532,7 @@
   [dialog_routing_unable_locate_route]
     tags = android,ios
     en = Unable to locate route
+    lt = Nepavyko nustatyti maršruto
     ar = تعذر إيجاد المسار
     be = Не атрымалася знайсці маршрут
     bg = Не е намерен маршрут
@@ -8352,6 +8573,7 @@
   [dialog_routing_cant_build_route]
     tags = android
     en = Unable to create route.
+    lt = Nepavyko sukurti maršruto.
     ar = تعذر إنشاء مسار.
     be = Не атрымалася пракласці маршрут.
     bg = Не е възможно да се създаде маршрут.
@@ -8392,6 +8614,7 @@
   [dialog_routing_change_start_or_end]
     tags = android,ios
     en = Please adjust your starting point or your destination.
+    lt = Suderinkite jūsų pradžios tašką arba tikslą.
     ar = الرجاء تعديل نقطة بدء أو تعديل وجهتك.
     be = Калі ласка, змяніце пункт адпраўлення альбо прызначэння.
     bg = Моля, коригирайте началната точка или дестинацията си.
@@ -8432,6 +8655,7 @@
   [dialog_routing_change_start]
     tags = android,ios
     en = Adjust starting point
+    lt = Derinti pradžios tašką
     ar = تعديل نقطة البدء
     be = Змяніце пункт адпраўлення
     bg = Регулиране на началната точка
@@ -8472,6 +8696,7 @@
   [dialog_routing_start_not_determined]
     tags = android,ios
     en = Route was not created. Unable to locate starting point.
+    lt = Maršrutas nesukurtas. Nepavyko nustatyti pradžios taško.
     ar = لم يتم إنشاء المسار. تعذر تحديد موقع نقطة البدء.
     be = Маршрут не пракладзены. Не знойдзены пункт адпраўлення.
     bg = Маршрутът не е създаден. Не може да се намери начална точка.
@@ -8512,6 +8737,7 @@
   [dialog_routing_select_closer_start]
     tags = android,ios
     en = Please select a starting point closer to a road.
+    lt = Pasirinkite pradžios tašką, kuo artesnį prie kelio.
     ar = يُرجى تحديد نقطة بدء أكثر قربًا للطريق.
     be = Выберыце пункт адпраўлення бліжэй да дарогі.
     bg = Моля, изберете начална точка, която е по-близо до път.
@@ -8552,6 +8778,7 @@
   [dialog_routing_change_end]
     tags = android,ios
     en = Adjust destination
+    lt = Derinti tikslą
     ar = تعديل الوجهة
     be = Змяніце пункт прызначэння
     bg = Регулиране на дестинацията
@@ -8592,6 +8819,7 @@
   [dialog_routing_end_not_determined]
     tags = android,ios
     en = Route was not created. Unable to locate the destination.
+    lt = Maršrutas nesukurtas. Nepavyko nustatyti tikslo.
     ar = لم يتم إنشاء المسار. تعذر تحديد موقع الوجهة.
     be = Маршрут не пракладзены. Не знойдзены пункт прызначэння.
     bg = Маршрутът не е създаден. Не е възможно да се открие дестинацията.
@@ -8632,6 +8860,7 @@
   [dialog_routing_select_closer_end]
     tags = android,ios
     en = Please select a destination point located closer to a road.
+    lt = Pasirinkite tikslo tašką, kuo artesnį prie kelio.
     ar = يُرجى تحديد نقطة وجهة تقع أكثر قربًا من الطريق.
     be = Выберыце пункт прызначэння бліжэй да дарогі.
     bg = Моля, изберете крайна точка, разположена по-близо до път.
@@ -8672,6 +8901,7 @@
   [dialog_routing_change_intermediate]
     tags = android,ios
     en = Unable to locate the intermediate point.
+    lt = Nepavyko nustatyti tarpinio taško.
     ar = تعذر تحديد مكان النقطة الوسيطة.
     be = Не знойдзена прамежкавая кропка маршрута.
     bg = Не може да се открие междинната точка на маршрута.
@@ -8711,6 +8941,7 @@
   [dialog_routing_intermediate_not_determined]
     tags = android,ios
     en = Please adjust your intermediate point.
+    lt = Suderinkite tarpinį tašką.
     ar = الرجاء ضبط النقطة الوسيطة الخاصة بك.
     be = Змяніце прамежкавы пункт.
     bg = Моля, коригирайте междинната си точка на маршрута.
@@ -8751,6 +8982,7 @@
   [dialog_routing_system_error]
     tags = android,ios
     en = System error
+    lt = Sistemos klaida
     ar = خطأ في النظام
     be = Памылка сістэмы
     bg = Грешка в системата
@@ -8791,6 +9023,7 @@
   [dialog_routing_application_error]
     tags = android,ios
     en = Unable to create route due to an application error.
+    lt = Nepavyko sukurti maršruto dėl programėlės klaidos.
     ar = تعذر إنشاء مسار نتيجة وجود خطأ في التطبيق.
     be = Не атрымалася пракласці маршрут з-за памылкі праграмы.
     bg = Не е възможно да се създаде маршрут поради грешка в приложението.
@@ -8831,6 +9064,7 @@
   [dialog_routing_try_again]
     tags = android,ios
     en = Please try again
+    lt = Bandykite iš naujo
     ar = الرجاء إعادة المحاولة
     be = Паспрабуйце зноў
     bg = Моля, опитайте отново
@@ -8871,6 +9105,7 @@
   [not_now]
     tags = ios
     en = Not Now
+    lt = Ne dabar
     ar = ليس الآن
     be = Не зараз
     bg = Не сега
@@ -8911,6 +9146,7 @@
   [dialog_routing_download_and_build_cross_route]
     tags = android,ios
     en = Would you like to download the map and create a more optimal route spanning more than one map?
+    lt = Norėtumėte atsisiųsti žemėlapį, kad sukurtumėte labiau optimalų maršrutą, apimantį daugiau nei vieną žemėlapį?
     ar = هل ترغب في تنزيل الخريطة وإنشاء مسار أفضل يمتد عبر أكثر من خريطة؟
     be = Спампаваць мапу і пракласці лепшы маршрут праз некалькі мапаў?
     bg = Бихте ли искали да изтеглите картата и да създадете по-оптимален маршрут, обхващащ повече от една карта?
@@ -8951,6 +9187,7 @@
   [dialog_routing_download_cross_route]
     tags = android,ios
     en = Download additional maps to create a better route that crosses the boundaries of this map.
+    lt = Atsisiųsti papildomų žemėlapių, kad sukurtumėte geresnį maršrutą, pereinantį šio žemėlapio ribas.
     ar = تنزيل خرائط إضافية لإنشاء مسار أفضل يعبر حافة هذه الخريطة.
     be = Спампаваць дадатковыя мапы, каб пракласці лепшы маршрут, які перасякае межы гэтай мапы.
     bg = За да създадете по-добър маршрут с граничен преход, трябва да изтеглите картата.
@@ -8993,6 +9230,7 @@
   [search_without_internet_advertisement]
     tags = android
     en = To start searching and creating routes, please download the map. After that you will no longer need an Internet connection.
+    lt = Atsisiųskite žemėlapį, kad pradėtumėte ieškoti ir kurti maršrutus. Paskui jums nebereikės prisijungimo prie tinklo.
     ar = لبدء البحث وإنشاء الطرق، يرجى تنزيل الخريطة،  ولن تحتاج إلى اتصال بالإنترنت بعد ذلك.
     be = Каб шукаць месцы і пракладваць маршруты, спампуйце карту. Пасля гэтага падключэнне да Інтэрнэту вам больш не спатрэбіцца.
     bg = За да започнете да търсите и създавате маршрути, изтеглете картата. Това ще ви позволи да пътувате без интернет връзка.
@@ -9033,6 +9271,7 @@
   [search_select_map]
     tags = android
     en = Select Map
+    lt = Pasirinkti žemėlapį
     ar = اختيار الخريطة
     be = Выбраці мапу
     bg = Избор на карта
@@ -9074,6 +9313,7 @@
     comment = «Show» context menu
     tags = android,ios
     en = Show
+    lt = Rodyti
     ar = عرض
     be = Паказаць
     bg = Показване
@@ -9114,6 +9354,7 @@
     comment = «Hide» context menu
     tags = android,ios
     en = Hide
+    lt = Slėpti
     ar = إخفاء
     be = Схаваць
     bg = Скриване
@@ -9154,6 +9395,7 @@
     comment = Failed planning route message in navigation view
     tags = ios
     en = Route Planning Failed
+    lt = Maršruto planavimas nepavyko
     ar = فشل في تخطيط المسار
     be = Памылка пракладання маршрута
     bg = Неуспешно планиране на маршрут
@@ -9194,6 +9436,7 @@
     comment = Arrive routing message in navigation view
     tags = android,ios
     en = Arrival at %s
+    lt = Atvykimas %s
     ar = وقت الوصول: %s
     be = Прыбыццё а %s
     bg = Пристигане в %s
@@ -9234,6 +9477,7 @@
     comment = Text for routing::RouterResultCode::FileTooOld dialog.
     tags = ios
     en = Download and update all map along the projected path to calculate route.
+    lt = Atsisiųsti ir atnaujinti visus žemėlapius ir maršrutų informaciją palei planuojamą kelią, kad apskaičiuotumėte maršrutą.
     ar = لإنشاء مسار، يرجى تنزيل وتحديث جميع الخرائط على امتداد الطريق.
     be = Спампуйце і абнавіце ўсе мапы на шляху, каб пракласці маршрут.
     ca = Baixeu i actualitzeu tots els mapes del trajecte per a calcular-ne la ruta.
@@ -9270,6 +9514,7 @@
   [categories]
     tags = android,ios
     en = Categories
+    lt = Kategorijos
     ar = التصنيفات
     be = Катэгорыі
     bg = Категории
@@ -9309,6 +9554,7 @@
   [history]
     tags = android,ios
     en = History
+    lt = Istorija
     ar = سجل البحث
     be = Гісторыя
     bg = История
@@ -9348,6 +9594,7 @@
   [search_not_found]
     tags = android,ios
     en = Oops, no results found.
+    lt = Ai! Nerasta rezultatų.
     ar = المعذرة، لم أعثر على أية نتائج.
     be = Нічога не знойдзена.
     bg = За съжаление не са намерени резултати.
@@ -9387,6 +9634,7 @@
   [search_not_found_query]
     tags = android,ios
     en = Try changing your search criteria.
+    lt = Pabandykite pakeisti jūsų paieškos kriterijų.
     ar = يرجى تجربة معاير بحث أخرى.
     be = Паспрабуйце змяніць умовы пошуку.
     bg = Опитайте да промените критериите за търсене.
@@ -9426,6 +9674,7 @@
   [search_history_title]
     tags = android,ios
     en = Search History
+    lt = Istorija
     ar = سجل البحث
     be = Гісторыя пошуку
     bg = История на търсенията
@@ -9465,6 +9714,7 @@
   [search_history_text]
     tags = android,ios
     en = View recent searches.
+    lt = Rodyti paskiausias paieškas.
     ar = عرض عمليات البحث الأخيرة.
     be = Праглядзець нядаўныя пошукі.
     bg = Преглед на последните търсения.
@@ -9504,6 +9754,7 @@
   [clear_search]
     tags = android,ios
     en = Clear Search History
+    lt = Valyti istoriją
     ar = مسح سجل البحث
     be = Ачысціць гісторыю пошуку
     bg = Изчистване на историята на търсенията
@@ -9544,6 +9795,7 @@
     comment = Place Page link to Wikipedia article (if map object has it).
     tags = android,ios
     en = Wikipedia
+    lt = Vikipedija
     ar = ويكيبيديا
     be = Вікіпедыя
     ca = Viquipèdia
@@ -9568,10 +9820,12 @@
     comment = Place Page link to Wikimedia Commons.
     tags = android,ios
     en = Wikimedia Commons
+    lt = Vikiteka
 
   [p2p_your_location]
     tags = android,ios
     en = Your Location
+    lt = Jūsų vieta
     ar = موقعك
     be = Ваша месцазнаходжанне
     bg = Вашето местоположение
@@ -9611,6 +9865,7 @@
   [p2p_start]
     tags = android,ios
     en = Start
+    lt = Pradėti
     ar = ابدأ
     be = Пачаць
     bg = Начало
@@ -9650,6 +9905,7 @@
   [p2p_from_here]
     tags = android,ios
     en = Route from
+    lt = Maršrutas iš
     ar = الطريق من هنا
     be = Адсюль
     bg = Маршрут от
@@ -9689,6 +9945,7 @@
   [p2p_to_here]
     tags = android,ios
     en = Route to
+    lt = Maršrutas į
     ar = الطريق إلى
     be = Дасюль
     bg = Маршрут към
@@ -9728,6 +9985,7 @@
   [p2p_only_from_current]
     tags = android,ios
     en = Navigation is available only from your current location.
+    lt = Navigacija yra prieinama tik iš jūsų dabartinės vietos.
     ar = تتوفر الملاحة من خلال موقعك الحالي فقط.
     be = Навігацыя магчыма толькі ад цяперашняга месцазнаходжання.
     bg = Навигацията е възможна само от текущото ви местоположение.
@@ -9767,6 +10025,7 @@
   [p2p_reroute_from_current]
     tags = android,ios
     en = Do you want us to plan a route from your current location?
+    lt = Norite, kad mes suplanuotumėme maršrutą iš jūsų dabartinės vietos?
     ar = هل ترغب في أن نرسم مسار لك من موقعك الحالي؟
     be = Хочаце перапракласці маршрут ад цяперашняга месцазнаходжання?
     bg = Искате ли да планираме маршрут от текущото ви местоположение?
@@ -9807,6 +10066,7 @@
     comment = Edit open hours/set time and minutes dialog
     tags = android
     en = Next
+    lt = Toliau
     ar = التالي
     be = Далей
     bg = Напред
@@ -9847,6 +10107,7 @@
     comment = Tab title in the Edit Opening Hours time picker
     tags = android
     en = From
+    lt = Iš
     ar = من الساعة
     be = З
     bg = От
@@ -9887,6 +10148,7 @@
     comment = Tab title in the Edit Opening Hours time picker
     tags = android
     en = To
+    lt = Į
     ar = إلى
     be = Да
     bg = До
@@ -9926,6 +10188,7 @@
   [editor_time_add]
     tags = android,ios
     en = Add Schedule
+    lt = Planas
     ar = إضافة جدول
     be = Дадаць расклад
     bg = Добавяне на график
@@ -9965,6 +10228,7 @@
   [editor_time_delete]
     tags = android,ios
     en = Delete Schedule
+    lt = Naikinti planą
     ar = حذف جدول
     be = Выдаліць расклад
     bg = Изтриване на график
@@ -10005,6 +10269,7 @@
     comment = Text for allday switch.
     tags = android,ios
     en = All Day (24 hours)
+    lt = Visą dieną (24 valandos)
     ar = طوال اليوم (٢٤ ساعة)
     be = Цэлы дзень (24 гадзіны)
     bg = Цял ден (24 часа)
@@ -10044,6 +10309,7 @@
   [editor_time_open]
     tags = android,ios
     en = Open
+    lt = Atidaryta
     ar = يفتح
     be = Адчынена
     bg = Отворено
@@ -10083,6 +10349,7 @@
   [editor_time_close]
     tags = android,ios
     en = Closed
+    lt = Uždaryta
     ar = يغلق
     be = Зачынена
     bg = Затворено
@@ -10122,6 +10389,7 @@
   [editor_time_add_closed]
     tags = android,ios
     en = Add Non-Business Hours
+    lt = Add Non-Business Hours
     ar = إضافة ساعات راحة
     be = Дадаць час, калі зачынена
     bg = Добавяне на почивка
@@ -10161,6 +10429,7 @@
   [editor_time_title]
     tags = android,ios
     en = Business Hours
+    lt = Business Hours
     ar = ساعات العمل
     be = Час працы
     bg = Работно време
@@ -10200,6 +10469,7 @@
   [editor_time_advanced]
     tags = android,ios
     en = Advanced Mode
+    lt = Išplėstinis režimas
     ar = الوضع المتقدم
     be = Расшыраны рэжым
     bg = Подробен режим
@@ -10239,6 +10509,7 @@
   [editor_time_simple]
     tags = android,ios
     en = Simple Mode
+    lt = Paprastas režimas
     ar = الوضع البسيط
     be = Просты рэжым
     bg = Сбит режим
@@ -10278,6 +10549,7 @@
   [editor_hours_closed]
     tags = android,ios
     en = Non-Business Hours
+    lt = Non-Business Hours
     ar = ساعات الراحة
     be = Час, калі зачынена
     bg = Почивка
@@ -10317,6 +10589,7 @@
   [editor_example_values]
     tags = android,ios
     en = Example Values
+    lt = Example Values
     ar = أمثلة على القيم
     be = Прыклады значэнняў
     bg = Примерни стойности
@@ -10356,6 +10629,7 @@
   [editor_correct_mistake]
     tags = android
     en = Correct mistake
+    lt = Taisyti klaidą
     ar = تصحيح الخطأ
     be = Выправіць памылку
     bg = Поправяне на грешка
@@ -10395,6 +10669,7 @@
   [editor_add_select_location]
     tags = android,ios
     en = Location
+    lt = Vieta
     ar = الموقع
     be = Месцазнаходжанне
     bg = Местоположение
@@ -10434,6 +10709,7 @@
   [editor_done_dialog_1]
     tags = ios
     en = You’ve changed the world map. Do not keep it to yourself! Tell your friends, and edit it together.
+    lt = Pakeitėte pasaulio žemėlapį. Nelaikykite jo sau! Pasakykite savo draugams ir redaguokite jį kartu.
     ar = لقد ساهمت بتحسين خريطة العالم. لا تخفي ذلك! أخبر أصدقائك، وحسنوها معاً.
     be = Вы змянілі мапу свету. Не прыхоўвайце гэта! Расскажыце сябрам і праўце разам.
     bg = Променили сте картата на света. Не го крийте, кажете на приятелите си и редактирайте заедно.
@@ -10473,6 +10749,7 @@
   [share_with_friends]
     tags = ios
     en = Share with friends
+    lt = Bendrinti su draugais
     ar = شارك مع الأصدقاء
     be = Падзяліцца з сябрамі
     bg = Споделяне с приятели
@@ -10512,6 +10789,7 @@
   [editor_report_problem_desription_1]
     tags = android
     en = Please describe the problem in detail so that the OpenStreetMap community can fix the error.
+    lt = Išsamiai aprašykite problemą, kad OpenStreetMap bendruomenę galėtų ištaisyti klaidą.
     ar = يرجى وصف المشكلة بالتفاصيل حتى يتسنى لفريق خريطة الشارع المفتوح إصلاح الخطأ.
     be = Калі ласка, падрабязна апішыце праблему, каб супольнасць OpenStreetMap магла выправіць памылку.
     bg = Моля, опишете подробно проблема, за да може общността на OpenStreetMap да отстрани грешката.
@@ -10551,6 +10829,7 @@
   [editor_report_problem_desription_2]
     tags = android
     en = Or do it yourself at https://www.openstreetmap.org/
+    lt = Arba padarykite tai patys: https://www.openstreetmap.org/
     ar = أو افعل ذلك بنفسك من خلال الموقع https://www.openstreetmap.org/
     be = Альбо зрабіце гэта самі на https://www.openstreetmap.org/
     bg = Или го направете сами на https://www.openstreetmap.org/
@@ -10590,6 +10869,7 @@
   [editor_report_problem_send_button]
     tags = android,ios
     en = Send
+    lt = Siųsti
     ar = إرسال
     be = Адправіць
     bg = Изпращане
@@ -10629,6 +10909,7 @@
   [editor_report_problem_title]
     tags = android
     en = Issue
+    lt = Problema
     ar = مشكلة
     be = Праблема
     bg = Проблем
@@ -10668,6 +10949,7 @@
   [editor_report_problem_no_place_title]
     tags = android
     en = The place does not exist
+    lt = Vieta neegzistuoja
     ar = المكان غير موجود
     be = Месца не існуе
     bg = Мястото не съществува
@@ -10707,6 +10989,7 @@
   [editor_report_problem_under_construction_title]
     tags = android
     en = Сlosed for maintenance
+    lt = Uždaryta tvarkymui
     ar = مغلق للصيانة
     be = Зачынена на рамонт
     bg = Затворено за ремонт
@@ -10746,6 +11029,7 @@
   [editor_report_problem_duplicate_place_title]
     tags = android
     en = Duplicated place
+    lt = Dubliuota vieta
     ar = مكان مكرر
     be = Паўтараючаеся месца
     bg = Дубликат
@@ -10785,6 +11069,7 @@
   [autodownload]
     tags = android,ios
     en = Auto-download
+    lt = Automatinis atsisiuntimas
     ar = التنزيل التلقائي
     be = Аўтаматычная спампоўка
     bg = Автоматично изтегляне
@@ -10825,6 +11110,7 @@
     comment = Place Page opening hours text
     tags = ios
     en = Closed now
+    lt = Dabar uždaryta
     ar = مغلق الآن
     be = Зараз зачынена
     bg = Затворено сега
@@ -10865,6 +11151,7 @@
     comment = Place Page opening hours text
     tags = android,ios
     en = Daily
+    lt = Kasdien
     ar = يومياً
     be = Штодзённа
     bg = Ежедневно
@@ -10904,6 +11191,7 @@
   [twentyfour_seven]
     tags = android,ios
     en = 24/7
+    lt = 24/7
     ar = ٢٤/٧(ليلاً ونهاراً)
     be = 24/7
     bg = 24 часа
@@ -10944,6 +11232,7 @@
   [day_off_today]
     tags = android,ios
     en = Closed today
+    lt = Šiandien uždaryta
     ar = مغلق اليوم
     be = Сёння зачынена
     bg = Затворено днес
@@ -10983,6 +11272,7 @@
   [day_off]
     tags = android,ios
     en = Closed
+    lt = Uždaryta
     ar = مغلق
     be = Зачынена
     bg = Затворено
@@ -11022,6 +11312,7 @@
   [today]
     tags = android,ios
     en = Today
+    lt = Šiandien
     ar = اليوم
     be = Сёння
     bg = Днес
@@ -11061,6 +11352,7 @@
   [opens_tomorrow_at]
     tags = ios
     en = Opens tomorrow at %@
+    lt = Atsidaro rytoj %@
     be = Адкрыццё заўтра ў %@
     ca = Obre demà a les %@
     de = Öffnet morgen um %@
@@ -11080,6 +11372,7 @@
   [opens_dayoftheweek_at]
     tags = ios
     en = Opens %1$@ at %2$@
+    lt = Atsidaro %1$@ %2$@
     be = Адкрыццё ў %1$@ у %2$@
     ca = Obre el %1$@ a les %2$@
     de = Öffnet %1$@ um %2$@
@@ -11099,6 +11392,7 @@
   [opens_at]
     tags = ios
     en = Opens at %@
+    lt = Atsidaro %@
     be = Адкрыццё ў %@
     ca = Obre a les %@
     de = Öffnet um %@
@@ -11118,6 +11412,7 @@
   [opens_in]
     tags = android,ios
     en = Opens in %@
+    lt = Atsidaro už %@
     ar = يفتح بعد %@
     be = Адчыняецца праз %@
     ca = Obre en %@
@@ -11138,6 +11433,7 @@
   [closes_at]
     tags = ios
     en = Closes at %@
+    lt = Užsidaro %@
     be = Зачыняецца ў %@
     ca = Tanca a les %@
     de = Schließt um %@
@@ -11157,6 +11453,7 @@
   [closes_in]
     tags = android,ios
     en = Closes in %@
+    lt = Užsidaro už %@
     ar = يغلق في غضون %@
     be = Зачыняецца праз %@
     ca = Tanca en %@
@@ -11177,6 +11474,7 @@
   [closed]
     tags = android,ios
     en = Closed
+    lt = Uždaryta
     ar = مغلق
     be = Зачынена
     bg = Затворено
@@ -11216,6 +11514,7 @@
   [add_opening_hours]
     tags = ios
     en = Add opening hours
+    lt = Pridėti darbo valandas
     ar = أضف ساعات العمل
     be = Дадаць часы працы
     bg = Добавяне на работно време
@@ -11255,6 +11554,7 @@
   [edit_opening_hours]
     tags = android
     en = Edit business hours
+    lt = Redaguoti darbo valandas
     ar = حرر ساعات العمل
     be = Правіць часы працы
     bg = Редакция на работното време
@@ -11294,6 +11594,7 @@
   [no_osm_account]
     tags = android,ios
     en = Don't have an OpenStreetMap account?
+    lt = Neturite OpenStreetMap paskyros?
     ar = ليس لديك حساب في خريطة الشارع المفتوحة؟
     be = Не зарэгістраваныя на OpenStreetMap?
     bg = Нямате акаунт в OpenStreetMap?
@@ -11333,6 +11634,7 @@
   [register_at_openstreetmap]
     tags = android,ios
     en = Register at OpenStreetMap
+    lt = Registruokitės OpenStreetMap
     ar = التسجيل في حريطة الشارع المفتوحة
     be = Зарэгістравацца на OpenStreetMap
     bg = Регистриране в OpenStreetMap
@@ -11372,6 +11674,7 @@
   [password_8_chars_min]
     tags = ios
     en = Password (8 characters minimum)
+    lt = Slaptažodis (bent 8 simboliai)
     ar = كلمة المرور (٨ أحرف بحد أدنى)
     be = Пароль (мінімум 8 сімвалаў)
     bg = Парола (поне 8 символа)
@@ -11411,6 +11714,7 @@
   [invalid_username_or_password]
     tags = ios
     en = Invalid username or password.
+    lt = Netinkamas naudotojo vardas arba slaptažodis.
     ar = اسم المستخدم أو كلمة المرور غير صالحة.
     be = Няправільныя імя карыстальніка альбо пароль.
     bg = Невалидно потребителско име или парола.
@@ -11450,6 +11754,7 @@
   [login]
     tags = android,ios
     en = Log In
+    lt = Prisijungti
     ar = تسجيل الدخول
     be = Увайсці
     bg = Вход
@@ -11489,6 +11794,7 @@
   [login_osm]
     tags = android
     en = Login to OpenStreetMap
+    lt = Prisijungti OpenStreetMap
     ar = OpenStreetMap ﻰﻟﺇ ﻝﻮﺧﺪﻟﺍ ﻞﻴﺠﺴﺗ
     be = Увайсці ў OpenStreetMap
     bg = Влезте в OpenStreetMap
@@ -11528,6 +11834,7 @@
   [password]
     tags = android
     en = Password
+    lt = Slaptažodis
     ar = كلمة المرور
     be = Пароль
     bg = Парола
@@ -11567,6 +11874,7 @@
   [forgot_password]
     tags = android,ios
     en = Forgot your password?
+    lt = Pamiršote slaptažodį?
     ar = هل نسيت كلمة المرور؟
     be = Забылі пароль?
     bg = Забравили сте паролата си?
@@ -11606,6 +11914,7 @@
   [osm_account]
     tags = ios
     en = OSM Account
+    lt = OSM paskyra
     ar = حساب على خريطة الشارع المفتوحة
     be = Акаунт OSM
     bg = OSM Акаунт
@@ -11645,6 +11954,7 @@
   [logout]
     tags = android,ios
     en = Log Out
+    lt = Atsijungti
     ar = تسجيل الخروج
     be = Выйсці
     bg = Изход
@@ -11685,6 +11995,7 @@
     comment = Information text: "Last upload 11.01.2016"
     tags = ios
     en = Last upload
+    lt = Paskutinis įkėlimas
     ar = آخر تعديل
     be = Апошняя запампоўка
     bg = Последно качване
@@ -11724,6 +12035,7 @@
   [thank_you]
     tags = ios
     en = Thank You
+    lt = Ačiū
     ar = شكراً لك
     be = Дзякуй
     bg = Благодаря
@@ -11763,6 +12075,7 @@
   [edit_place]
     tags = android,ios
     en = Edit Place
+    lt = Redaguoti vietą
     ar = تعديل المكان
     be = Правіць месца
     bg = Редакция на място
@@ -11802,6 +12115,7 @@
   [place_name]
     tags = ios
     en = Place Name
+    lt = Vietos pavadinimas
     ar = اسم المكان
     be = Назва месца
     bg = Име на място
@@ -11841,6 +12155,7 @@
   [add_language]
     tags = android,ios
     en = Add a language
+    lt = Pridėti kalbą
     ar = إضافة لغة
     be = Дадаць мову
     bg = Добавяне на език
@@ -11880,6 +12195,7 @@
   [street]
     tags = android
     en = Street
+    lt = Gatvė
     ar = الشارع
     be = Вуліца
     bg = Улица
@@ -11920,6 +12236,7 @@
     comment = Editable House Number text field (in address block).
     tags = android,ios
     en = Building number
+    lt = Pastato numeris
     ar = رقم المنزل
     be = Нумар будынка
     bg = Номер на сграда
@@ -11959,6 +12276,7 @@
   [details]
     tags = android,ios
     en = Details
+    lt = Išamiau
     ar = التفاصيل
     be = Падрабязнасці
     bg = Подробности
@@ -11999,6 +12317,7 @@
     comment = Text field to enter non-existing street name, below list of known streets around
     tags = android,ios
     en = Add a street
+    lt = Pridėti gatvę
     ar = إضافة شارع
     be = Дадаць вуліцу
     bg = Добавяне на улица
@@ -12039,6 +12358,7 @@
     comment = Error to display when a new street name is not entered in the New street dialog
     tags = android
     en = Please enter a street name
+    lt = Įveskite gatvės pavadinimą
     ar = الرجاء إدخال اسم الشارع
     be = Увядзіце назву вуліцы
     bg = Въведете име на улица
@@ -12066,6 +12386,7 @@
   [choose_language]
     tags = android,ios
     en = Choose a language
+    lt = Pasirinkite kalbą
     ar = اختر اللغة
     be = Выбраць мову
     bg = Избор на език
@@ -12105,6 +12426,7 @@
   [choose_street]
     tags = android,ios
     en = Choose a street
+    lt = Pasirinkite gatvę
     ar = اختر الشارع
     be = Выбраць вуліцу
     bg = Избор на улица
@@ -12144,6 +12466,7 @@
   [postal_code]
     tags = android,ios
     en = Postal Code
+    lt = Pašto kodas
     ar = الرمز البريدي
     be = Паштовы індэкс
     bg = Пощенски код
@@ -12182,6 +12505,7 @@
   [cuisine]
     tags = android,ios
     en = Cuisine
+    lt = Virtuvė
     ar = المطبخ
     be = Кухня
     bg = Кухня
@@ -12221,6 +12545,7 @@
   [select_cuisine]
     tags = android,ios
     en = Select cuisine
+    lt = Pasirinkti virtuvę
     ar = اختر المطبخ
     be = Выбраць кухню
     bg = Избор на кухня
@@ -12261,6 +12586,7 @@
     comment = login text field
     tags = android,ios
     en = Email or username
+    lt = El. paštas arba naudotojo vardas
     ar = البريد الإلكتروني أو اسم المستخدم
     be = Email альбо імя карыстальніка
     bg = Имейл или потребителско име
@@ -12300,6 +12626,7 @@
   [phone]
     tags = ios
     en = Phone
+    lt = Telefonas
     ar = رقم الهاتف
     be = Тэлефон
     bg = Телефон
@@ -12339,6 +12666,7 @@
   [editor_add_phone]
     tags = android
     en = Add Phone
+    lt = Pridėti telefoną
     ar = إضافة رقم هاتف
     ca = Afegeix un telèfon
     de = Telefon hinzufügen
@@ -12358,6 +12686,7 @@
   [level]
     tags = android,ios
     en = Floor
+    lt = Aukštas
     ar = طابق
     be = Паверх
     bg = Етаж
@@ -12398,6 +12727,7 @@
   [please_note]
     tags = ios
     en = Please note
+    lt = Atkreipkite dėmesį
     ar = يرجى العلم أنه،
     be = Звярніце ўвагу
     bg = Моля, имайте предвид
@@ -12437,6 +12767,7 @@
   [downloader_delete_map_dialog]
     tags = android,ios
     en = All of your map edits will be deleted together with the map.
+    lt = Visi jūsų žemėlapio pakeitimai bus panaikinti kartu su žemėlapiu.
     ar = سيتم حذف جميع التغييرات بالخريطة بالإضافة إلى حذف الخريطة نفسها.
     be = Усе вашы праўкі мапы будуць выдаленыя разам з мапай.
     bg = Всички ваши редакции на картата ще бъдат изтрити заедно с нея.
@@ -12476,6 +12807,7 @@
   [downloader_update_maps]
     tags = android,ios
     en = Update Maps
+    lt = Naujinti žemėlapius
     ar = تحديث الخرائط
     be = Абнавіць мапы
     bg = Обновяване на карти
@@ -12515,6 +12847,7 @@
   [downloader_mwm_migration_dialog]
     tags = android
     en = To create a route, you need to update all maps and then plan the route again.
+    lt = Jums reikia atnaujinti visus žemėlapius ir planuoti maršrutą dar kartą, kad jį sukurtumėte.
     ar = لإنشاء مسار، فأنت تحتاج إلى تحديث كافة الخرائط ثم إعادة تخطيط المسار مرة أخرى.
     be = Каб стварыць маршрут, вам трэба абнавіць усе мапы і потым пракласці маршрут зноў.
     bg = За да създадете маршрут, трябва да актуализирате всички карти и след това да планирате маршрута отново.
@@ -12554,6 +12887,7 @@
   [downloader_search_field_hint]
     tags = android,ios
     en = Find map
+    lt = Rasti žemėlapį
     ar = ابحث عن خريطة
     be = Знайсці мапу
     bg = Намиране на карта
@@ -12593,6 +12927,7 @@
   [migration_download_error_dialog]
     tags = ios
     en = Download error
+    lt = Atsisiuntimo klaida
     ar = خطأ بالتنزيل
     be = Памылка спампоўкі
     bg = Грешка при изтегляне
@@ -12632,6 +12967,7 @@
   [common_check_internet_connection_dialog]
     tags = android,ios
     en = Please check your settings and make sure your device is connected to the Internet.
+    lt = Patikrinkite nustatymus ir įsitikinkite, kad jūsų įrenginys turi prieigą prie interneto.
     ar = يرجى التحقق من الإعدادات والتأكد من اتصال جهازك بالإنترنت.
     be = Праверце налады і ўпэўніцеся, што прылада падключана да інтэрнэту.
     bg = Моля, проверете настройките си и се уверете, че устройството ви е свързано с интернет.
@@ -12671,6 +13007,7 @@
   [downloader_no_space_title]
     tags = android,ios
     en = Not enough space
+    lt = Nepakanka vietos
     ar = لا تتوفر مساحة كافية
     be = Не хапае месца
     bg = Няма достатъчно място
@@ -12710,6 +13047,7 @@
   [downloader_no_space_message]
     tags = android,ios
     en = Please delete any unnecessary data
+    lt = Panaikinkite nereikalingus duomenis
     ar = من فضلك، قم بإزالة البيانات غير الضرورية
     be = Выдаліце непатрэбныя дадзеныя
     bg = Моля, изтрийте всички ненужни данни.
@@ -12749,6 +13087,7 @@
   [editor_login_error_dialog]
     tags = android
     en = Login error.
+    lt = Prisijungimo klaida.
     ar = خطأ في تسجيل الدخول.
     be = Памылка аўтарызацыі.
     bg = Грешка при вход.
@@ -12788,6 +13127,7 @@
   [editor_profile_changes]
     tags = android,ios
     en = Verified Changes
+    lt = Patvirtinti pakeitimai
     ar = التعديلات التي تم التحقق منها
     be = Правераныя змены
     bg = Потвърдени промени
@@ -12827,6 +13167,7 @@
   [editor_focus_map_on_location]
     tags = android,ios
     en = Drag the map to select the correct location of the object.
+    lt = Vilkite žemėlapį, kad pasirinktumėte teisingą objekto vietą.
     ar = اسحب الخريطة لتحدد موقع الإضافة.
     be = Перацягніце мапу, каб выбраць правільнае месцазнаходжанне аб'екта.
     bg = Плъзнете картата, за да изберете правилното местоположение на обекта.
@@ -12866,6 +13207,7 @@
   [editor_add_select_category]
     tags = ios
     en = Select category
+    lt = Pasirinkti kategoriją
     ar = اختر الفئة
     be = Выбраць катэгорыю
     bg = Избор на категория
@@ -12905,6 +13247,7 @@
   [editor_add_select_category_popular_subtitle]
     tags = ios
     en = Popular
+    lt = Populiarios
     ar = رائج
     be = Папулярныя
     bg = Популярно
@@ -12944,6 +13287,7 @@
   [editor_add_select_category_all_subtitle]
     tags = ios
     en = All Categories
+    lt = Visos kategorijos
     ar = جميع الفئات
     be = Усе катэгорыі
     bg = Всички категории
@@ -12983,6 +13327,7 @@
   [editor_edit_place_title]
     tags = android,ios
     en = Editing
+    lt = Redaguojama
     ar = يتم التعديل
     be = Праўка
     bg = Редактиране
@@ -13022,6 +13367,7 @@
   [editor_add_place_title]
     tags = android,ios
     en = Adding
+    lt = Pridedama
     ar = يتم الإٍضافة
     be = Даданне
     bg = Добавяне
@@ -13061,6 +13407,7 @@
   [editor_edit_place_name_hint]
     tags = android,ios
     en = Name of the place
+    lt = Vietos pavadinimas
     ar = اسم المكان
     be = Назва месца
     bg = Име на мястото
@@ -13100,6 +13447,7 @@
   [editor_edit_place_category_title]
     tags = android,ios
     en = Category
+    lt = Kategorija
     ar = الفئة
     be = Катэгорыя
     bg = Категория
@@ -13139,6 +13487,7 @@
   [detailed_problem_description]
     tags = android
     en = Detailed description of the issue
+    lt = Išsamus problemos aprašymas
     ar = وصف مفصّل للمشكلة
     be = Падрабязнае апісанне праблемы
     bg = Подробно описание на проблема
@@ -13178,6 +13527,7 @@
   [editor_report_problem_other_title]
     tags = android
     en = Different problem
+    lt = Kita problema
     ar = مشكلة أخرى
     be = Іншая праблема
     bg = Друг проблем
@@ -13217,6 +13567,7 @@
   [placepage_add_business_button]
     tags = android
     en = Add business
+    lt = Pridėti verslą
     ar = إضافة مؤسسة
     be = Дадаць установу
     bg = Добавяне на бизнес
@@ -13256,6 +13607,7 @@
   [whatsnew_editor_message_1]
     tags = ios
     en = Add new places to the map, and edit existing ones directly from the app.
+    lt = Pridėkite naujų vietų į žemėlapį ir redaguokite esamas tiesiai iš programėlės.
     ar = قم بإضافة أماكن جديدة للخريطة، وعدل أماكن حالية مباشرة من التطبيق.
     be = Стварайце на мапе новыя месцы і праўце існуючыя прама ў дататку.
     bg = Добавяне на нови места в картата и редакция на съществуващите директно от приложението.
@@ -13295,6 +13647,7 @@
   [dialog_incorrect_feature_position]
     tags = ios
     en = Change location
+    lt = Keisti vietą
     ar = تغيير الموقع
     be = Змяніце месцазнаходжанне
     bg = Смяна на местоположение
@@ -13334,6 +13687,7 @@
   [message_invalid_feature_position]
     tags = android,ios
     en = No object can be located here
+    lt = Nerasta objektų
     ar = لا يمكن تحديد موقع الكائن هنا
     be = Аб'ект не можа знаходзіцца тут
     bg = Тук не може да бъде намерен обект
@@ -13374,6 +13728,7 @@
     comment = Text in About and OSM Login screens. %@ is replaced by a local, human readable date.
     tags = android
     en = Cartographic data from OpenStreetMap as of %@. OSM is like Wikipedia for maps, where you can add or edit places for all users around the world.
+    lt = Kartografiniai duomenys iš OpenStreetMap nuo %@. OSM yra kaip vikipedija žemėlapiams, kurioje jūs galite pridėti arba redaguoti vietas visiems naudotojams aplink pasaulį.
     ar = بيانات رسم الخرائط من OpenStreetMap اعتبارًا من %@. إنه مثل ويكيبيديا حيث يمكنك إضافة أو تحرير أماكن لجميع المستخدمين في جميع أنحاء العالم.
     be = Картаграфічныя дадзеныя OpenStreetMap па стане на %@. Гэта як Вікіпедыя, дзе вы можаце дадаць або рэдагаваць месцы для ўсіх карыстальнікаў па ўсім свеце.
     bg = Картографски данни от OpenStreetMap към %@. Това е като Wikipedia, където можете да добавяте или редактирате места за всички потребители по света.
@@ -13411,6 +13766,7 @@
   [login_to_make_edits_visible]
     tags = android,ios
     en = Log in to OpenStreetMap.org so other users can see the changes you have made.
+    lt = Prisijungti prie OpenStreetMap.org, kad kiti naudotojai galėtų matyti jūsų padarytus pakeitimus.
     ar = قم بتسجيل الدخول حتى يتمكن باقي المستخدمين من رؤية التغييرات التي قمت بها.
     be = Аўтарызуйцеся ў OpenStreetMap.org, каб іншыя карыстальнікі бачылі вашыя змены.
     bg = Влезте в системата, за да могат другите потребители да видят направените от вас промени
@@ -13451,6 +13807,7 @@
     comment = Error dialog no space
     tags = ios
     en = To download, you need more space. Please delete any unnecessary data.
+    lt = Jei norite atsisiųsti, reikia daugiau vietos. Panaikinkite nereikalingus duomenis.
     ar = للتنزيل، فأنت تحتاج إلى توفير مساحة أكبر. من فضلك، الرجاء قم بحذف البيانات غير الضرورية.
     be = Каб спампаваць, трэба больш месца. Выдаліце непатрэбныя дадзеныя.
     bg = За изтегляне ви е необходимо повече място. Моля, изтрийте всички ненужни данни.
@@ -13490,6 +13847,7 @@
   [editor_sharing_title]
     tags = ios
     en = I improved the Organic Maps maps
+    lt = Patobulinau Organic Maps žemėlapius
     ar = لقد قمت بتحسين خرائط تطبيق Organic Maps
     be = Я палепшыў мапы Organic Maps
     bg = Подобрих картите на Organic Maps
@@ -13530,6 +13888,7 @@
     comment = Downloaded 10 **of** 20 <- it is that "of"
     tags = android,ios
     en = %1$d of %2$d
+    lt = %1$d iš %2$d
     ar = %1$d من%2$d
     be = %1$d з %2$d
     bg = %1$d от %2$d
@@ -13569,6 +13928,7 @@
   [download_over_mobile_header]
     tags = android,ios
     en = Download over a cellular network connection?
+    lt = Atsisiųsti naudojant korinį tinklą?
     ar = تنزيل باستخدام بيانات الجوال؟
     be = Спампаваць праз мабільны інтэрнэт?
     bg = Изтегляне чрез мобилни данни?
@@ -13608,6 +13968,7 @@
   [download_over_mobile_message]
     tags = android,ios
     en = This could be considerably expensive with some plans or if roaming.
+    lt = Tai gali būti itin brangu su kai kuriais planais arba jei yra tarptinklinis ryšys.
     ar = قد يكون هذا مكلفاً جداً في بعض الاحيان أو عند التجوال.
     be = Гэта можа быць даволі дорага з некаторымі тарыфнымі планамі альбо ў роўмінгу.
     bg = Това може да бъде значително скъпо при някои планове или при роуминг.
@@ -13647,6 +14008,7 @@
   [error_enter_correct_house_number]
     tags = android,ios
     en = Enter a valid building number
+    lt = Įveskite pastato numerį
     ar = أدخل رقم بناء صحيح
     be = Увядзіце нумар дома правільна
     bg = Въведете валиден номер на сграда
@@ -13686,6 +14048,7 @@
   [editor_storey_number]
     tags = android,ios
     en = Number of floors (maximum of %d)
+    lt = Aukštų skaičius (daugiausia %d)
     ar = عدد الطوابق (بحد أقصى %d)
     be = Колькасць паверхаў (максімум %d)
     bg = Брой етажи (максимум %d)
@@ -13726,6 +14089,7 @@
     comment = Error message in Editor when a user tries to set the number of floors for a building higher than %d floors
     tags = android,ios
     en = The number of floors must non exceed %d
+    lt = Aukštų skaičius negali viršyti %d
     ar = يجب ألا يتجاوز عدد طوابق المبنى %d
     be = Колькасць паверхаў павінна быць не больш за %d
     bg = Броят на етажите не трябва да надвишава %d
@@ -13765,6 +14129,7 @@
   [editor_zip_code]
     tags = android,ios
     en = ZIP Code
+    lt = ZIP kodas
     en-GB = Postcode
     ar = الرمز البريدي
     be = Паштовы індэкс
@@ -13805,6 +14170,7 @@
   [error_enter_correct_zip_code]
     tags = android,ios
     en = Enter a valid ZIP code
+    lt = Įveskite ZIP kodą
     en-GB = Enter a valid postcode
     ar = أدخل الرمز البريدي صالح
     be = Увядзіце паштовы індэкс правільна
@@ -13846,6 +14212,7 @@
     comment = Place Page title for long tap
     tags = android,ios
     en = Unknown Place
+    lt = Nežinoma vieta
     ar = مكان غير معروف
     be = Невядомае месца
     bg = Неизвестно място
@@ -13885,6 +14252,7 @@
   [editor_other_info]
     tags = android,ios
     en = Send a note to OSM editors
+    lt = Siųsti pastabą OSM redaktoriams
     ar = ارسل ملاحظة إلى محرري خريطة الشارع المفتوحة
     be = Адправіць нататку рэдактарам OSM
     bg = Изпращане на бележка до редакторите на OSM
@@ -13926,6 +14294,7 @@
   [editor_detailed_description_hint]
     tags = android,ios
     en = Detailed comment
+    lt = Išsamus komentaras
     ar = تعليق مفصّل
     be = Падрабязны каментар
     bg = Подробен коментар
@@ -13965,6 +14334,7 @@
   [editor_detailed_description]
     tags = android,ios
     en = Your suggested map changes will be sent to the OpenStreetMap community. Describe any additional details that cannot be edited in Organic Maps.
+    lt = Jūsų pasiūlyti žemėlapio pakeitimas bus išsiųsti OpenStreetMap bendruomenei. Aprašykite papildomą informaciją, kuri negali būti redaguojama Organic Maps.
     ar = سيتم إرسال التغييرات التي اقترحتها إلى مجتمع خريطة الشارع المفتوحة. اذكر التفاصيل التي لا يمكن تحريرها في Organic Maps
     be = Запрапанаваныя вамі змены будуць дасланыя суполцы OpenStreetMap. Апішыце любыя іншыя падрабязнасці, каторыя нельга паправіць у Organic Maps.
     bg = Предложените от вас промени по картата ще бъдат изпратени до общността на OpenStreetMap. Опишете всички допълнителни подробности, които не могат да бъдат въведени в Organic Maps.
@@ -14004,6 +14374,7 @@
   [editor_more_about_osm]
     tags = android,ios
     en = More about OpenStreetMap
+    lt = Daugiau apie OpenStreetMap
     ar = المزيد عن خريطة الشارع المفتوحة
     be = Падрабязней пра OpenStreetMap
     bg = Повече за OpenStreetMap
@@ -14043,6 +14414,7 @@
   [editor_operator]
     tags = android,ios
     en = Owner
+    lt = Savininkas
     ar = المالك
     be = Уладальнік
     bg = Собственик
@@ -14082,6 +14454,7 @@
   [downloader_no_downloaded_maps_title]
     tags = android,ios
     en = You haven't downloaded any maps
+    lt = Neatsisiuntėte jokių žemėlapių
     ar = لم تقم بتنزيل أية خرائط
     be = Вы не спампавалі ніводнай мапы
     bg = Не сте изтеглили никакви карти
@@ -14121,6 +14494,7 @@
   [downloader_no_downloaded_maps_message]
     tags = android,ios
     en = Download maps to search for a location and use navigation offline.
+    lt = Atsisiųskite žemėlapius, kad ieškotumėte vietos ir keliautumėte neprisijungę prie tinklo.
     ar = قم بتنزيل خرائط للبحث عن مكان واستخدام الملاحة بدون اتصال بالإنترنت.
     be = Спампуйце мапы, каб шукаць месцы і карыстацца навігацыяй без інтэрнэту.
     bg = Изтеглете картите, от които се нуждаете, за да намирате места и да навигирате без интернет.
@@ -14161,6 +14535,7 @@
     comment = Error title that appears after certain time without location.
     tags = android,ios
     en = Continue detecting your current location?
+    lt = Tęsti dabartinės vietos aptikimą?
     ar = هل تريد متابعة اكتشاف موقعك الحالي؟
     be = Працягнуць вызначэнне месцазнаходжання?
     bg = Да продължаваме ли да ви засичаме местоположението?
@@ -14201,6 +14576,7 @@
     comment = Error that appears after certain time without location.
     tags = android,ios
     en = Current location is unknown. Maybe you are in a building or in a tunnel.
+    lt = Dabartinė vieta yra nežinoma. Galbūt esate pastate ar tunelyje.
     ar = الموقع الحالي غير معروف. ربما تتواجد داخل مبنى أو نفق.
     be = Месцазнаходжанне невядома. Магчыма вы ў будынку альбо ў танэлі.
     bg = Настоящото местоположение е неизвестно. Може би се намирате в сграда или тунел.
@@ -14240,6 +14616,7 @@
   [current_location_unknown_continue_button]
     tags = android,ios
     en = Continue
+    lt = Tęsti
     ar = الاستمرار
     be = Працягнуць
     bg = Продължаване
@@ -14279,6 +14656,7 @@
   [current_location_unknown_stop_button]
     tags = android,ios
     en = Stop
+    lt = Stabdyti
     ar = إيقاف
     be = Спыніць
     bg = Стоп
@@ -14318,6 +14696,7 @@
   [current_location_unknown_error_title]
     tags = ios
     en = Current location is unknown.
+    lt = Dabartinė vieta yra nežinoma.
     ar = الموقع الحالي غير معروف.
     be = Месцазнаходжанне невядома.
     bg = Настоящото местоположение е неизвестно.
@@ -14356,6 +14735,7 @@
   [current_location_unknown_error_message]
     tags = ios
     en = An error occurred while searching for your location. Check that your device is working properly and try again later.
+    lt = Įvyko klaida ieškant jūsų vietos. Įsitikinkite,kad jūsų įrenginys veikia tinkamai ir bandykite iš naujo.
     ar = حدث خطأ أثناء البحث عن موقعك. تأكد من أن جهازك يعمل بشكل صحيح وأعد المحاولة لاحقًا.
     be = Адбылася памылка пры пошуку месцазнаходжання. Праверце, што ваша прылада працуе як трэба, і паспрабуйце зноў.
     bg = Възникна грешка при търсенето на вашето местоположение. Проверете дали устройството ви работи правилно и опитайте отново по-късно.
@@ -14395,6 +14775,7 @@
   [location_services_disabled_header]
     tags = ios
     en = Location services are disabled
+    lt = Vietovės tarnybos yra išjungtos
     ar = تم تعطيل خدمات تحديد الموقع الجغرافي
     be = Геалакацыя выключана
     bg = Услугите за местоположение са деактивирани
@@ -14435,6 +14816,7 @@
   [location_services_disabled_message]
     tags = ios
     en = Enable access to geolocation in the device settings
+    lt = Įjungti Enable access to geolocation in the device settings
     ar = قم بإعطاء التطبيق السماحية بالوصول إلى الموقع الجغرافي في إعدادات الجهاز
     be = Уключыце доступ да геалакацыі у наладах прылады.
     bg = Разрешаване на достъпа до геолокация в настройките на устройството
@@ -14475,6 +14857,7 @@
   [location_services_disabled_1]
     tags = ios
     en = 1. Open Settings
+    lt = 1. Atidarykite nustatymus
     ar = 1. افتح الإعدادات
     be = 1. Адчыніце Налады
     bg = 1. Отваряне на Настройки
@@ -14515,6 +14898,7 @@
   [location_services_disabled_2]
     tags = ios
     en = 2. Tap Location
+    lt = 2. Bakstelėkite „Vietovė“
     ar = 2. انقر على الموقع
     be = 2. Націсніце Геалакацыя
     bg = 2. Натискане на Местоположение
@@ -14555,6 +14939,7 @@
     comment = iOS Dialog for the case when the location permission is not granted
     tags = ios
     en = 3. Select While Using the App
+    lt = 3. Pasirinkite Naudojant programėlę
     ar = 3. اختيار التفعيل أثناء استخدام التطبيق
     be = 3. Выберыце "Падчас ужывання праграмы"
     bg = 3. Избиране на Докато приложението се използва
@@ -14593,6 +14978,7 @@
   [meter]
     tags = android,ios
     en = m
+    lt = m
     ar = متر
     be = м
     bg = м
@@ -14631,6 +15017,7 @@
   [kilometer]
     tags = android,ios
     en = km
+    lt = km
     ar = كم
     be = км
     bg = км
@@ -14669,6 +15056,7 @@
   [kilometers_per_hour]
     tags = android,ios
     en = km/h
+    lt = km/h
     ar = كم/ساعة
     be = км/г
     ca = km/h
@@ -14706,6 +15094,7 @@
   [mile]
     tags = android,ios
     en = mi
+    lt = mi
     ar = ميل
     be = міля
     bg = ми
@@ -14745,6 +15134,7 @@
     comment = A unit of measure
     tags = android,ios
     en = ft
+    lt = ft
     ar = قدم
     be = фут
     bg = фут
@@ -14781,6 +15171,7 @@
   [miles_per_hour]
     tags = android,ios
     en = mph
+    lt = mph
     ar = ميل/ساعة
     be = міль/г
     ca = mph
@@ -14818,6 +15209,7 @@
   [hour]
     tags = android,ios
     en = h
+    lt = h
     ar = س
     be = г
     bg = ч
@@ -14854,6 +15246,7 @@
   [minute]
     tags = android,ios
     en = min
+    lt = min
     ar = د
     be = хв
     bg = мин
@@ -14892,6 +15285,7 @@
   [placepage_place_description]
     tags = android,ios
     en = Description
+    lt = Aprašymas
     ar = الوصف
     be = Апісанне
     bg = Описание
@@ -14930,6 +15324,7 @@
   [placepage_more_button]
     tags = android,ios
     en = More
+    lt = Daugiau
     ar = المزيد
     be = Яшчэ
     bg = Още
@@ -14969,6 +15364,7 @@
   [book_button]
     tags = ios
     en = Book
+    lt = Knyga
     ar = حجز
     be = Забраніраваць
     bg = Резервиране
@@ -15007,6 +15403,7 @@
   [placepage_call_button]
     tags = android,ios
     en = Call
+    lt = Skambinti
     ar = اتصال
     be = Патэлефанаваць
     bg = Обаждане
@@ -15046,6 +15443,7 @@
   [placepage_edit_bookmark_button]
     tags = android,ios
     en = Edit Bookmark
+    lt = Redaguoti adresyną
     ar = تحرير العلامة المرجعية
     be = Правіць закладку
     bg = Редакция на отметка
@@ -15085,6 +15483,7 @@
   [placepage_bookmark_name_hint]
     tags = ios
     en = Bookmark Name
+    lt = Adresyno pavadinimas
     ar = اسم العلامة المرجعية
     be = Назва закладкі
     bg = Име на отметка
@@ -15124,6 +15523,7 @@
   [placepage_personal_notes_hint]
     tags = ios
     en = Personal notes
+    lt = Asmeniniai užrašai
     ar = ملاحظات شخصية
     be = Асабістыя нататкі
     ca = Notes personals
@@ -15162,6 +15562,7 @@
   [placepage_delete_bookmark_button]
     tags = ios
     en = Delete Bookmark
+    lt = Naikinti adresyną
     ar = حذف العلامة المرجعية
     be = Выдаліць закладку
     ca = Esborra el marcador
@@ -15200,6 +15601,7 @@
   [editor_edits_sent_message]
     tags = ios
     en = Your suggested changes have been sent
+    lt = Jūsų pasiūlyti pakeitimas išsiųsti
     ar = لقد تم إرسال التغييرات التي اقترحتها
     be = Запрапанаваныя вамі змены адпраўлены
     bg = Предложените от вас промени са изпратени
@@ -15239,6 +15641,7 @@
   [editor_comment_hint]
     tags = android,ios
     en = Comment…
+    lt = Komentaras…
     ar = تعليق…
     be = Каментар…
     bg = Коментиране…
@@ -15278,6 +15681,7 @@
   [editor_reset_edits_message]
     tags = android,ios
     en = Discard all local changes?
+    lt = Anuliuoti visus vietinius pakeitimus?
     ar = هل تريد مسح كافة التغييرات المحلية؟
     be = Скінуць усе лакальныя змены?
     bg = Отхвърляне на всички локални промени?
@@ -15317,6 +15721,7 @@
   [editor_reset_edits_button]
     tags = android,ios
     en = Discard
+    lt = Anuliuoti
     ar = مسح
     be = Скінуць
     bg = Отхвърляне
@@ -15356,6 +15761,7 @@
   [editor_remove_place_message]
     tags = android,ios
     en = Delete added place?
+    lt = Naikinti pridėtą vietą?
     ar = إزالة مكان الذي تمت إضافته؟
     be = Выдаліць даданае месца?
     bg = Изтриване на добавеното място?
@@ -15395,6 +15801,7 @@
   [editor_remove_place_button]
     tags = android,ios
     en = Delete
+    lt = Naikinti
     ar = إزالة
     be = Выдаліць
     bg = Изтриване
@@ -15434,6 +15841,7 @@
   [editor_place_doesnt_exist]
     tags = android,ios
     en = Place does not exist
+    lt = Vieta neegzistuoja
     ar = المكان غير موجود
     be = Месца не існуе
     bg = Мястото не съществува
@@ -15474,6 +15882,7 @@
     comment = Error message for "Place doesn't exist" dialog when comment is empty
     tags = android
     en = Please indicate the reason for deleting the place
+    lt = Nurodykite vietos panaikinimo priežastį
     ar = الرجاء توضيح سبب مسح هذا المكان
     be = Калі ласка, укажыце прычыну выдалення
     ca = Indiqueu per què esborreu el lloc
@@ -15495,6 +15904,7 @@
   [text_more_button]
     tags = ios
     en = …more
+    lt = …daugiau
     ar = …المزيد
     be = …яшчэ
     bg = …още
@@ -15535,6 +15945,7 @@
     comment = Phone number error message
     tags = android,ios
     en = Enter a valid phone number
+    lt = Įveskite telefono numerį
     ar = أدخل رقم هاتف صالح
     be = Увядзіце нумар тэлефона правільна
     bg = Въведете валиден телефонен номер
@@ -15574,6 +15985,7 @@
   [error_enter_correct_web]
     tags = android,ios
     en = Enter a valid web address
+    lt = Įveskite saityno adresą
     ar = أدخل عنوان ويب صالح
     be = Увядзіце web-адрас правільна
     bg = Въведете валиден уеб адрес
@@ -15613,6 +16025,7 @@
   [error_enter_correct_email]
     tags = android,ios
     en = Enter a valid email
+    lt = Įveskite el. paštą
     ar = أدخل بريداً إلكترونياً صالحاً
     be = Увядзіце email правільна
     bg = Въведете валиден имейл
@@ -15652,6 +16065,7 @@
   [error_enter_correct_facebook_page]
     tags = android
     en = Enter a valid Facebook web address, account, or page name
+    lt = Įveskite Facebook saityno adresą, paskyrą arba puslapio pavadinimą
     ar = أدخل اسم صفحة أو حساب أو عنوان ويب خاص بفيسبوك صالح
     ca = Introduïu una adreça web de Facebook, un compte o un nom de pàgina vàlids
     de = Geben Sie eine gültige Facebook-Webadresse, ein Konto oder einen Seitennamen ein
@@ -15673,6 +16087,7 @@
   [error_enter_correct_instagram_page]
     tags = android
     en = Enter a valid Instagram web address or account name
+    lt = Įveskite Instagram saityno adresą arba paskyros pavadinimą
     ar = أدخل اسم حساب أو عنوان ويب خاص بإنستغرام صالح
     ca = Introduïu una adreça web d'Instagram o un nom de compte vàlids
     de = Geben Sie eine gültige Instagram-Webadresse oder einen Kontonamen ein
@@ -15694,6 +16109,7 @@
   [error_enter_correct_twitter_page]
     tags = android
     en = Enter a valid Twitter web address or username
+    lt = Įveskite Twitter saityno adresą arba naudotojo vardą
     ar = أدخل اسم مستخدم او موقع ويب خاص بتويتر صالح
     ca = Introduïu una adreça web de Twitter o un nom d'usuari vàlids
     de = Geben Sie eine gültige Twitter-Webadresse oder einen Benutzernamen ein
@@ -15715,6 +16131,7 @@
   [error_enter_correct_vk_page]
     tags = android
     en = Enter a valid VK web address or account name
+    lt = Įveskite VK saityno adresą arba paskyros pavadinimą
     ar = أدخل اسم حساب أو عنوان ويب خاص بموقع VK صالح
     ca = Introduïu una adreça web de VK o un nom de compte vàlids
     de = Geben Sie eine gültige VK-Webadresse oder einen Kontonamen ein
@@ -15735,6 +16152,7 @@
   [error_enter_correct_line_page]
     tags = android
     en = Enter a valid LINE web address or LINE ID
+    lt = Įveskite LINE saityno adresą arba LINE ID
     ar = أدخل رقم تعريفي خاص بتطبيق LINE أو موقع ويب خاص بتطيق LINE صالح
     be = Упішыце вэб-адрас LINE старонкі або LINE ID
     ca = Introduïu una adreça web de LINE o un ID LINE vàlids
@@ -15754,6 +16172,7 @@
   [refresh]
     tags = ios
     en = Update
+    lt = Naujinti
     ar = تحديث
     be = Абнавіць
     bg = Обновление
@@ -15793,6 +16212,7 @@
   [placepage_add_place_button]
     tags = android,ios
     en = Add a place to the map
+    lt = Pridėti vietą į žemėlapį
     ar = إضافة مكان ما للخريطة
     be = Дадаць месца на мапу
     bg = Добавяне на място в картата
@@ -15833,6 +16253,7 @@
     comment = Displayed when saving some edits to the map to warn against publishing personal data
     tags = android,ios
     en = Do you want to send it to all users?
+    lt = Tikrai norite tai išsiųsti visiems naudotojams?
     ar = هل ترغب في إرساله لجميع المستخدمين؟
     be = Хочаце адправіць усім карыстальнікам?
     bg = Искате ли да го изпратите на всички потребители?
@@ -15873,6 +16294,7 @@
     comment = Dialog before publishing the modifications to the public map.
     tags = android,ios
     en = Make sure you did not enter any personal data.
+    lt = Įsitikinkite, kad neįvedėte asmeninių duomenų.
     ar = تأكد من أنك لم تقم بإدخال أية بيانات شخصية.
     be = Упэўніцеся, што вы не ўвялі ніякіх асабістых дадзеных.
     bg = Уверете се, че не сте въвели никакви лични данни.
@@ -15912,6 +16334,7 @@
   [editor_share_to_all_dialog_message_2]
     tags = android,ios
     en = OpenStreetMap editors will check the changes and get in contact with you if they have any questions.
+    lt = OpenStreetMap redaktoriai peržiūrės pakeitimus ir su jumis susisieks, jei kils klausimų.
     ar = .ﺔﻠﺌﺳﺃ ﻱﺃ ﻢﻬﻳﺪﻟ ﻥﺎﻛ ﺍﺫﺇ ﻚﻌﻣ ﻥﻮﻠﺻﺍﻮﺘﻳﻭ ﺕﺍﺮﻴﻴﻐﺘﻟﺍ ﻦﻣ OpenStreetMap ﻭﺭﺮﺤﻣ ﻖﻘﺤﺘﻴﺳ
     be = Рэдактары OpenStreetMap правераць змены і звяжуцца з вамі, калі ў іх узнікнуць пытанні.
     bg = Редакторите на OpenStreetMap ще проверят промените и ще се свържат с вас, ако имат въпроси.
@@ -15952,6 +16375,7 @@
   [navigation_stop_button]
     tags = ios
     en = stop
+    lt = stabdyti
     ar = توقف
     be = спыніць
     ca = atura't
@@ -15990,6 +16414,7 @@
     tags = ios
     comment = iOS dialog for the case when recent track recording is on and the app comes back from background
     en = Disable recording of your recently traveled route?
+    lt = Išjungti paskiausiai nukeliautų maršrutų įrašymą?
     ar = هل تريد تعطيل تسجيل مسارات سفرك؟
     be = Выключыць запіс вашага нядаўна пройдзенага маршрута?
     bg = Деактивиране на записването на последния ви маршрут?
@@ -16029,6 +16454,7 @@
   [off_recent_track_background_button]
     tags = ios
     en = Disable
+    lt = Išjungti
     ar = تعطيل
     be = Выключыць
     bg = Деактивиране
@@ -16069,6 +16495,7 @@
     comment = For sharing via SMS and so on
     tags = ios
     en = Check out
+    lt = Check out
     ar = اتطلع على
     be = Паглядзі
     bg = Виж
@@ -16108,6 +16535,7 @@
   [recent_track_background_dialog_message]
     tags = ios
     en = Organic Maps uses your geoposition in the background for recording your recently traveled route.
+    lt = Organic Maps naudota jūsų geografinę vietą fone, kad įrašytų jūsų paskiausiai nukeliautus maršrutus.
     ar = يستخدم Organic Maps موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.
     be = Organic Maps ужывае вашу геалакацыю ў фонавым рэжыме, каб запісваць ваш нядаўна пройдзены маршрут.
     bg = Organic Maps използва геопозицията ви във фонов режим за записване на последния ви маршрут.
@@ -16148,6 +16576,7 @@
     comment = Text under the version number in the Help dialog. TODO: Synchronize other translations with English.
     tags = android,ios
     en = Organic Maps is a fast and free offline maps app without ads and tracking. Maps are based on crowd-sourced OpenStreetMap.org data, so you can fix mapping errors and add features there yourself. Organic Maps is an open-source project created by enthusiasts in their spare time. Your feedback and support are much appreciated!
+    lt = Organic Maps yra greitas ir nemokamas atjungties žemėlapis be reklamų ir sekimo. Žemėlapiai yra iš savanorių remiamo OpenStreetMap.org duomenų, todėl patys galite taisyti klaidas ir pridėti funkcijų. Organic Maps yra atvirojo kodo projektas, sukurtas entuziastų. Jūsų atsiliepimas ir parama itin vertinama!
     ar = Organic Maps هو تطبيق سريع ومجاني للوصول إلى الخرائط بدون اتصال بالانترنت، وهو بدون إعلانات ومتتبعات. إن الخرائط هي مصدرها بيانات خريطة الشارع المفتوحة التي يستطيع الجميع تعديلها، لذلك يمكنك إصلاح أخطاء الخريطة وإضافة الميزات بنفسك. Organic Maps هو مشروع مفتوح المصدر أُنشأ من قبل مجموعة من الهواة في وقت فراغهم. نقدّر جداً مساهماتك ودعمك.
     be = Organic Maps — гэта хуткія і бясплатныя мапы без рэкламы, якія працуюць без Інтэрнэту і не шпіёняць за вамі. Усе картаграфічныя дадзеныя бяруцца з OpenStreetMap.org, там вы зможаце самастойна выпраўляць памылкі і дадаваць новыя аб'екты. Organic Maps — гэта праект з адкрытым зыходным кодам, які ствараецца энтузіястамі ў вольны час. Будзем рады вашай падтрымцы і зваротнай сувязі!
     bg = Organic Maps е безплатно приложение за офлайн карти с отворен код. Без реклами. Без проследяване. Ако видите грешка на картата, моля, поправете я в OpenStreetMap. Проектът е създаден от ентусиасти в свободното ни време, така че имаме нужда от вашата отзиви и подкрепа.
@@ -16189,6 +16618,7 @@
   [general_settings]
     tags = ios
     en = General settings
+    lt = Bendrieji nustatymai
     ar = الإعدادات العامة
     be = Агульныя налады
     bg = Общи настройки
@@ -16229,6 +16659,7 @@
     comment = For the first routing
     tags = android,ios
     en = Accept
+    lt = Priimti
     ar = قبول
     be = Прыняць
     bg = Приемане
@@ -16269,6 +16700,7 @@
     comment = For the first routing
     tags = android,ios
     en = Decline
+    lt = Atmesti
     ar = رفض
     be = Адхіліць
     bg = Отказване
@@ -16309,6 +16741,7 @@
     comment = A noun - a button name used to show search results in list form
     tags = ios
     en = List
+    lt = Sąrašas
     ar = قائمة
     be = Спіс
     bg = Списък
@@ -16348,6 +16781,7 @@
   [mobile_data_dialog]
     tags = android,ios
     en = Use mobile internet to show detailed information?
+    lt = Naudoti mobilųjų internetą, kad parodytumėme išsamią informaciją?
     ar = استخدام بيانات الجوال لإظهار المعلومات التفصيلية؟
     be = Ужываць мабільны інтэрнэт для паказу больш падрабязнай інфармацыі?
     bg = Използване на мобилни данни за подробна информация?
@@ -16387,6 +16821,7 @@
   [mobile_data_option_always]
     tags = android,ios
     en = Use Always
+    lt = Visada naudoti
     ar = استخدام دائمًا
     be = Заўсёды
     bg = Винаги
@@ -16426,6 +16861,7 @@
   [mobile_data_option_today]
     tags = android,ios
     en = Only Today
+    lt = Tik šiandien
     ar = اليوم فقط
     be = Толькі сёння
     bg = Само днес
@@ -16465,6 +16901,7 @@
   [mobile_data_option_not_today]
     tags = android,ios
     en = Do not Use Today
+    lt = Šiandien nenaudoti
     ar = عدم الاستخدام اليوم
     be = Не сёння
     bg = Без днес
@@ -16504,6 +16941,7 @@
   [mobile_data]
     tags = android,ios
     en = Mobile Internet
+    lt = Mobilusis internetas
     ar = بيانات الجوال
     be = Мабільны інтэрнэт
     bg = Мобилни данни
@@ -16544,6 +16982,7 @@
     comment = NOTE to translators: please synchronize your translation with the English one.
     tags = android,ios
     en = Mobile internet is required for map update notifications and for displaying detailed information about places and bookmarks.
+    lt = Mobilusis internetas yra reikalingas, kad gautumėte žemėlapių naujinimo pranešimus, ir vietų bei adresyno išsamios informacijos rodymui.
     ar = إننا نحتاج بيانات الجوال لعرض معلومات تفصيلية عن الأماكن والإشارات المرجعية.
     be = Мабільны інтэрнэт неабходны для апавяшчэнняў аб абнаўленні мапы і для адлюстравання падрабязнай інфармацыі аб месцах і закладках.
     bg = Мобилните данни са необходими за показване на подробна информация за местата, като например снимки, цени и отзиви.
@@ -16583,6 +17022,7 @@
   [mobile_data_option_never]
     tags = android,ios
     en = Never Use
+    lt = Niekada nenaudoti
     ar = عدم الاستخدام مطلقًا
     be = Ніколі не ужываць
     bg = Никога
@@ -16622,6 +17062,7 @@
   [mobile_data_option_ask]
     tags = android,ios
     en = Always Ask
+    lt = Visada klausti
     ar = السؤال دوماً
     be = Заўсёды пытаць
     bg = Винаги питай
@@ -16661,6 +17102,7 @@
   [traffic_update_maps_text]
     tags = android,ios
     en = To display traffic data, maps must be updated.
+    lt = Žemėlapiai turi būti atnaujinti, kad parodytumėme eismo duomenis.
     ar = لعرض البيانات المرورية، يجب تحديث الخرائط.
     be = Для паказу інфармацыі пра рух, трэба абнавіць мапы.
     bg = За да се показват данни за трафика, картите трябва да са актуализирани.
@@ -16700,6 +17142,7 @@
   [big_font]
     tags = android,ios
     en = Increase font size on the map
+    lt = Padidinti šrifto dydi žemėlapyje
     ar = زيادة حجم الخط على الخريطة
     be = Павялічыць шрыфт мапы
     bg = Увеличаване на размера на шрифта в картата
@@ -16739,6 +17182,7 @@
   [traffic_update_app]
     tags = android
     en = Please update Organic Maps
+    lt = Atnaujinkite Organic Maps
     ar = الرجاء تحديث Organic Maps
     be = Абнавіце Organic Maps
     bg = Моля, актуализирайте Organic Maps
@@ -16779,6 +17223,7 @@
     comment = "traffic" as in road congestion
     tags = ios
     en = To display traffic data, the application must be updated.
+    lt = Programėlė turi būti atnaujinti, kad parodytumėme eismo duomenis.
     ar = لعرض البيانات المرورية، يجب تحديث التطبيق.
     be = Для паказу інфармацыі пра рух трэба абнавіць праграмы.
     bg = За да се показват данни за трафика, приложението трябва да се актуализира.
@@ -16819,6 +17264,7 @@
     comment = "traffic" as in "road congestion"
     tags = android,ios
     en = Traffic data is not available
+    lt = Eismo duomenis neprieinami
     ar = البيانات المرورية غير متاحة
     be = Інфармацыі пра рух няма
     bg = Няма налични данни за трафика
@@ -16858,6 +17304,7 @@
   [enable_logging]
     tags = android
     en = Enable logging
+    lt = Įjungti duomenų įrašymą
     ar = تفعيل التسجيل
     be = Уключыць вядзенне журналу
     bg = Активиране на запис на дневник
@@ -16898,6 +17345,7 @@
     comment = Settings: "Send general feedback" button
     tags = android
     en = General Feedback
+    lt = Bendrasis atsiliepimas
     ar = تعقيب عام
     be = Агульны водгук
     bg = Обща обратна връзка
@@ -16938,6 +17386,7 @@
   [on]
     tags = android,ios
     en = On
+    lt = Įjungtas
     ar = تشغيل
     be = Укл.
     bg = Вкл.
@@ -16978,6 +17427,7 @@
   [off]
     tags = android,ios
     en = Off
+    lt = Išjungtas
     ar = إيقاف
     be = Выкл.
     bg = Изкл.
@@ -17018,6 +17468,7 @@
   [prefs_languages_information]
     tags = android
     en = We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    lt = Naudojame sistemos TTS balso instrukcijoms. Dauguma Android įrenginių naudoja Google TTS, galite aisisiųsti arba atnaujinti jį iš Play parduotuvės (https://play.google.com/store/apps/details?id=com.google.android.tts)
     ar = نحن نستخدم نظام تحويل النص إلى كلام (TTS) للتعليمات الصوتية. تستخدم العديد من أجهزة أندرويد نظام Google TTS، يمكنك تنزيله من أو تحديثه من متجر Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     be = Мы ужываем сістэмны сінтэзатар маўлення (TTS). Многія прылады на Android ужываюць Google TTS, вы можаце спампаваць альбо абнавіць яго праз Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     bg = Навигирането се озвучава от системен синтезатор на реч (TTS). Много устройства използват Google TTS, който може да бъде изтеглен или актуализиран от Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts).
@@ -17058,6 +17509,7 @@
   [prefs_languages_information_off]
     tags = android
     en = For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play, Galaxy Store, App Gallery, FDroid).\nOpen your device's settings → Language and input → Speech → Text to speech output.\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.
+    lt = Kai kurioms kalboms jums reikės įdiegti šnekos sintezatorių arba papildomą kalbos paketą iš programėlių parduotuvės (Play parduotuvė, Galaxy parduotuvė, Programėlių galerija, FDroid).\nAtidarykite įrenginio nustatymus → Kalbos ir įvestis → Kalba → Teksto į kalbą išvestis.\nČia galite tvarkyti nustatymus šnekos sintezatoriui (pavyzdžiui, atsisiųsti kalbos paketą) ir pasirinkti kitą teksto į kalbą variklį.
     ar = بالنسبة لبعض اللغات، ستحتاج إلى تنزيل تطبيق تحويل النص إلى كلام أو حزمة لغات إضافية من متجر التطبيقات(متجر Play، Galaxy Store، App Gallery، FDroid(.\nافتح إعدادات جهازك ثم اللغة والإدخال ثم تحويل النص إلى كلام.\nهنا يمكنك إدارة الإعدادات لأنظمة تحويل النص إلى كلا(على سبيل المثال، تنزيل حزمة اللغة للاستجدام دون اتصال انترنيت)
     be = Для некаторых моў вам спатрэбіцца ўсталяваць сінтэзатар маўлення альбо дадатковы моўны пакет з крамы праграм (Google Play, Galaxy Store, App Gallery, F-Droid).\Зайдзіце на вашай прыладзе ў Налады → Мова і ўвод → Маўленне → Сінтэз маўлення.\nТут вы можаце задаць налады сінтэза маўлення (напрыклад, спампаваць моўны пакет для выкарыстання без падключэння да інтэрнэту) альбо выбраць іншы сінтэзатар маўлення.
     bg = За някои езици може да се наложи да инсталирате допълнителен синтезатор на реч (TTS) от магазина за приложения (Google Play Магазин, Galaxy Store).\nЗа да настроите синтезатора на реч, отидете в Настройки → Езици и въвеждане → Синтезиран говор.\nТук можете да инсталирате допълнителни езикови пакети или да изберете синтезатор на реч.
@@ -17097,6 +17549,7 @@
   [prefs_languages_information_off_link]
     tags = android
     en = For more information please check this guide.
+    lt = Jei norite išsamesnės informacijos, pažvelkite į šią instrukciją
     ar = لمزيد من المعلومات الرجاء مراجعة هذا الدليل.
     be = Больш падрабязная інфармацыя знаходзіцца ў гэтым кіраўніцтве.
     bg = За повече информация вижте това ръководство.
@@ -17137,6 +17590,7 @@
   [transliteration_title]
     tags = android,ios
     en = Transliteration into Latin
+    lt = Transliteracija į lotynų
     ar = كتابة جميع الاسماء بالحروف اللاتينية بشكل حرفي
     be = Транслітарацыя лацінкай
     bg = Латинска транслитерация
@@ -17181,6 +17635,7 @@
   [learn_more]
     tags = android
     en = Learn more
+    lt = Sužinokite daugiau
     ar = معرفة المزيد
     be = Даведацца больш
     bg = Научете повече
@@ -17222,6 +17677,7 @@
     comment = Subway exits for public transport marks on the map
     tags = android,ios
     en = Exit
+    lt = Išeiti
     ar = خروج
     be = Выхад
     bg = Изход
@@ -17262,6 +17718,7 @@
   [routing_add_start_point]
     tags = android,ios
     en = Add a starting point to plan a route
+    lt = Pridėkite pradžios tašką, kad planuotumėte maršrutą
     ar = أضف نقطة البداية لتخطيط المسار
     be = Дадайце пункт адпраўлення, каб пракласці маршрут
     bg = Добавяне на начална точка за планиране на маршрут
@@ -17302,6 +17759,7 @@
   [routing_add_finish_point]
     tags = android,ios
     en = Add a destination to plan a route
+    lt = Pridėkite tikslo tašką, kad planuotumėte maršrutą
     ar = أضف النهاية لتخطيط المسار
     be = Дадайце пункт прызначэння, каб пракласці маршрут
     bg = Добавяне на крайна точка за планиране на маршрут
@@ -17342,6 +17800,7 @@
   [button_exit]
     tags = android
     en = Exit
+    lt = Išeiti
     ar = خروج
     be = Выхад
     bg = Изход
@@ -17382,6 +17841,7 @@
   [planning_route_manage_route]
     tags = ios
     en = Manage Route
+    lt = Tvarkyti maršrutą
     ar = إدارة المسار
     be = Кіраваць маршрутам
     bg = Управление на маршрут
@@ -17422,6 +17882,7 @@
   [button_plan]
     tags = ios
     en = Plan
+    lt = Planas
     ar = خطة
     be = Пракласці
     bg = Планиране
@@ -17462,6 +17923,7 @@
   [placepage_remove_stop]
     tags = android,ios
     en = Remove
+    lt = Šalinti
     ar = إزالة
     be = Выдаліць
     bg = Премахване
@@ -17502,6 +17964,7 @@
   [planning_route_remove_title]
     tags = ios
     en = Drag here to remove
+    lt = Vilkite čia, kad pašalintumėte
     ar = اسحب هنا للإزالة
     be = Перацягніце сюды, каб выдаліць
     bg = Плъзнете тук, за да премахнете
@@ -17542,6 +18005,7 @@
   [placepage_add_stop]
     tags = android,ios
     en = Add Stop
+    lt = Pridėti sustojimą
     ar = إضافة نقطة توقف
     be = Дадаць прыпынак
     bg = Добавяне на спирка
@@ -17582,6 +18046,7 @@
   [start_from_my_position]
     tags = ios
     en = Start from
+    lt = Pradėti iš
     ar = بدء من
     be = Пачаць ад
     ca = Comença des de
@@ -17621,6 +18086,7 @@
   [profile_authorization_error]
     tags = ios
     en = Oops, there was an error. Try to sign in again.
+    lt = Ai! Įvyko klaida. Pabandykite prisijungti dar kartą.
     ar = عفوًا، كان هناك خطأ. حاول تسجيل الدخول مرة اخرى.
     be = Ой-ёй, здарылася памылка. Паспрабуйце аўтарызавацца зноў.
     bg = За съжаление има грешка. Опитайте да влезете отново.
@@ -17661,6 +18127,7 @@
   [dialog_error_storage_title]
     tags = android
     en = Storage access problem
+    lt = Saugyklos prieigos problema
     ar = مشكلة الوصول للتخزين
     be = Праблема з доступам да сховішча
     bg = Проблем с достъпа до хранилището
@@ -17702,6 +18169,7 @@
   [dialog_error_storage_message]
     tags = android
     en = External storage is not accessible. The SD Card may have been removed, damaged, or the file system is read-only. Please, check your SD Card or contact us at support@organicmaps.app
+    lt = Išorinė saugykla yra neprieinama. SD kortelė galimai yra pašalinti, pažeista arba failų sistema yra nustatyti tik skaitymui. Patikrinkite SD kortelę arba susisiekite su mumis support@organicmaps.app
     ar = التخزين الخارجي غير متوفر، ربما تمت إزالة بطاقة SD، أو أنها تالفة أو نظام الملفات للقراءة فقط. افحصه أو راسلنا على support@organicmaps.app
     be = Знешняе сховішча недасягальнае. SD-карта можа быць вынутая, пашкоджаная, альбо файлавая сістэма даступная толькі для чытання. Праверце вашу SD-карту альбо зважыцеся за намі па адрасе support@organicmaps.app
     bg = Външната памет на устройството не е налична, SD картата може да е била извадена, повредена или файловата система е само за четене. Проверете това и се свържете с нас support@organicmaps.app
@@ -17743,6 +18211,7 @@
   [setting_emulate_bad_storage]
     tags = android
     en = Emulate bad storage
+    lt = Emuliuoti blogą saugyklą
     ar = محاكاة التخزين السيء
     be = Эмуляваць дрэннае сховішча
     bg = Емулация на грешки с външна памет
@@ -17784,6 +18253,7 @@
   [core_entrance]
     tags = android,ios
     en = Entrance
+    lt = Įėjimas
     ar = المدخل
     be = Уваход
     bg = Вход
@@ -17825,6 +18295,7 @@
   [error_enter_correct_name]
     tags = android,ios
     en = Please, enter a correct name
+    lt = Įveskite teisingą pavadinimą
     ar = الرجاء إدخال اسم صحيح
     be = Калі ласка, увядзіце назву правільна
     bg = Моля, въведете правилно име
@@ -17866,6 +18337,7 @@
   [bookmark_lists]
     tags = android,ios
     en = Lists
+    lt = Sąrašai
     ar = قوائم
     be = Спісы
     bg = Списъци
@@ -17908,6 +18380,7 @@
     comment = Do not display all bookmark lists on the map
     tags = android,ios
     en = Hide all
+    lt = Slėpti visus
     ar = إخفاء الكل
     be = Схаваць усе
     bg = Скриване на всичко
@@ -17949,6 +18422,7 @@
   [bookmark_lists_show_all]
     tags = android,ios
     en = Show all
+    lt = Rodyti visus
     ar = إظهار الكل
     be = Паказаць усе
     bg = Показване на всичко
@@ -18046,6 +18520,7 @@
   [bookmarks_create_new_group]
     tags = android,ios
     en = Create new list
+    lt = Kurti naują sąrašą
     ar = إنشاء قائمة جديدة
     be = Стварыць новы спіс
     bg = Създаване на нов списък
@@ -18088,6 +18563,7 @@
     tags = android
     comment = Bookmark categories screen
     en = Import bookmarks
+    lt = Importtuoti adresyną
     ar = إضافة الإشارات المرجعية من ملفات الجهاز
     be = Імпартаваць закладкі
     bg = Импортиране на отметки
@@ -18115,6 +18591,7 @@
   [downloader_hide_screen]
     tags = ios
     en = Hide Screen
+    lt = Slėpti ekraną
     ar = إخفاء الشاشة
     be = Схаваць экран
     bg = Скриване на екрана
@@ -18156,6 +18633,7 @@
   [downloader_percent]
     tags = ios
     en = %s (%s of %s)
+    lt = %s (%s iš %s)
     ar = %s (%s من %s)
     be = %s (%s з %s)
     bg = %s (%s от %s)
@@ -18197,6 +18675,7 @@
   [downloader_process]
     tags = ios
     en = Downloading %s…
+    lt = Atsisiunčiama %s…
     ar = جاري التنزيل %s…
     be = Спампоўка %s…
     bg = Теглене %s…
@@ -18238,6 +18717,7 @@
   [downloader_applying]
     tags = ios
     en = Applying %s…
+    lt = Taikoma %s…
     ar = جاري التطبيق %s…
     be = Застасаванне %s…
     bg = Прилагане %s…
@@ -18279,6 +18759,7 @@
   [bookmarks_error_message_share_general]
     tags = android,ios
     en = Unable to share due to an application error
+    lt = Napvyko bendrinti dėl programėlės klaidos
     ar = تعذرت المشاركة بسبب خطأ في التطبيق
     be = Не атрымалася падзяліцца з-за памылкі праграмы
     bg = Не е възможно споделяне поради грешка в приложението
@@ -18320,6 +18801,7 @@
   [bookmarks_error_title_share_empty]
     tags = android,ios
     en = Sharing error
+    lt = Bendrinimo klaida
     ar = خطأ في المشاركة
     be = Памылка пры спробе падзяліцца
     bg = Грешка при споделяне
@@ -18361,6 +18843,7 @@
   [bookmarks_error_message_share_empty]
     tags = android,ios
     en = Cannot share an empty list
+    lt = Negalima bendrinti tuščio sąrašo
     ar = لا يمكن مشاركة قائمة فارغة
     be = Нельга падзяліцца пустым спісам
     bg = Не може да се споделя празен списък
@@ -18402,6 +18885,7 @@
   [bookmarks_error_title_empty_list_name]
     tags = android
     en = The name couldn't be empty
+    lt = Pavadinimas negali būti tuščias
     ar = لا يمكن للاسم أن يكون فارغًا
     be = Назва не можа быць пустой
     bg = Името не може да бъде празно
@@ -18443,6 +18927,7 @@
   [bookmarks_error_message_empty_list_name]
     tags = android,ios
     en = Please enter the list name
+    lt = Įveskite sąrašo pavadinimą
     ar = يرجى إدخال اسم القائمة
     be = Увядзіце назву спіса
     bg = Моля, въведете името на списъка
@@ -18484,6 +18969,7 @@
   [bookmarks_new_list_hint]
     tags = android
     en = New list
+    lt = Naujas sąrašas
     ar = قائمة جديدة
     be = Новы спіс
     bg = Нов списък
@@ -18525,6 +19011,7 @@
   [bookmarks_error_title_list_name_already_taken]
     tags = android,ios
     en = This name is already taken
+    lt = Pavadinimas jau egzistuoja
     ar = هذا الاسم موجود سابقا
     be = Гэтая назва ўжо занятая
     bg = Това име вече е заето
@@ -18566,6 +19053,7 @@
   [bookmarks_error_message_list_name_already_taken]
     tags = android
     en = Please choose another name
+    lt = Pasirinkite kitą pavadinimą
     ar = يرجى اختيار اسم آخر
     be = Выберыце іншую назву
     bg = Моля, изберете друго име
@@ -18607,6 +19095,7 @@
   [bookmarks_error_title_list_name_too_long]
     tags = ios
     en = This name is too long
+    lt = Pavadinimas per ilgas
     ar = هذا الاسم طويل جداً
     be = Гэтая назва надта доўгая
     ca = Aquest nom és massa llarg
@@ -18647,6 +19136,7 @@
   [please_wait]
     tags = android
     en = Please wait…
+    lt = Luktelėkite…
     ar = أرجو الإنتظار…
     be = Калі ласка, пачакайце…
     bg = Моля, изчакайте…
@@ -18688,6 +19178,7 @@
   [phone_number]
     tags = android
     en = Phone number
+    lt = Telefono numeris
     ar = رقم الهاتف
     be = Нумар тэлефона
     ca = Número de telèfon
@@ -18728,6 +19219,7 @@
   [profile]
     tags = android,ios
     en = OpenStreetMap profile
+    lt = OpenStreetMap profilis
     ar = ملف الشخصي على خريطة الشارع المفتوحة
     be = Профіль OpenStreetMap
     bg = Профил в OpenStreetMap
@@ -18767,6 +19259,7 @@
   [bookmarks_detect_title]
     tags = ios
     en = New files detected
+    lt = Aptikti nauji failai
     ar = تم اكتشاف ملفات جديدة
     be = Знойдзены новыя файлы
     bg = Открити са нови файлове
@@ -18881,6 +19374,7 @@
   [button_convert]
     tags = ios
     en = Convert
+    lt = Konvertuoti
     ar = تحول
     be = Ператварыць
     bg = Конвертиране
@@ -18922,6 +19416,7 @@
   [bookmarks_convert_error_title]
     tags = ios
     en = Error
+    lt = Klaida
     ar = خطأ
     be = Памылка
     bg = Грешка
@@ -18963,6 +19458,7 @@
   [bookmarks_convert_error_message]
     tags = ios
     en = Some files were not converted.
+    lt = Kai kurie failai nebuvo konvertuoti.
     ar = لم يتم تحويل بعض الملفات.
     be = Некаторыя файлы не ператварыліся.
     bg = Някои файлове не са конвертирани.
@@ -19004,6 +19500,7 @@
   [bookmarks_restore_title]
     tags = ios
     en = Restore this version?
+    lt = Atkurti šią versiją?
     ar = استعادة هذا النسخة؟
     be = Узнавіць гэтую версію?
     bg = Възстановяване на тази версия?
@@ -19045,6 +19542,7 @@
   [common_check_internet_connection_dialog_title]
     tags = android
     en = No internet connection
+    lt = Nėra interneto ryšio
     ar = لا يوجد اتصال بالإنترنت
     be = Няма падлучэння да інтэрнэту
     bg = Няма интернет връзка
@@ -19086,6 +19584,7 @@
   [error_system_message]
     tags = ios
     en = An unknown error occurred
+    lt = Įvyko nežinoma klaida
     ar = حدث خطأ غير معروف
     be = Адбылася невядомая памылка
     bg = Възникна неизвестна грешка
@@ -19127,6 +19626,7 @@
   [restore]
     tags = ios
     en = Restore
+    lt = Atkurti
     ar = استعادة
     be = Узнавіць
     bg = Възстановяване
@@ -19336,6 +19836,7 @@
     comment = used to choose between the Google and Android location services
     tags = android
     en = Tracking settings
+    lt = Sekimo nustatymai
     ar = إعدادات التتبع
     be = Налады адсочвання
     bg = Настройки за проследяване
@@ -19377,6 +19878,7 @@
   [crash_reports]
     tags = android
     en = Crash report
+    lt = Strigčio ataskaita
     ar = تقرير الخاص بتعطل التطبيق
     be = Справаздача аб памылцы
     bg = Доклад за срив
@@ -19418,6 +19920,7 @@
   [crash_reports_description]
     tags = android
     en = We may use your data to improve Organic Maps experience. Changes will take effect after you restart the app.
+    lt = Galime naudotis jūsų duomenimis, kad tobulintumėme Organic Maps patirtį. Pakeitimas įsigalios po programėlės paleidimo iš naujo.
     ar = قد نستخدم بياناتك لتحسين تجربة Organic Maps. سوف تكون التغييرات نافذة المفعول بعد إعادة تشغيل التطبيق.
     be = Мы можам выкарыстоўваць вашы дадзеныя, каб палепшыць Organic Maps. Змены набудуць сілу пасля перапуску праграмы.
     bg = Можем да използваме данни ви, за да подобрим изживяването с Organic Maps. Промените ще влязат в сила, след рестартиране на приложението.
@@ -19459,6 +19962,7 @@
   [privacy_policy]
     tags = android,ios
     en = Privacy policy
+    lt = Privatumo politika
     ar = سياسة الخصوصية
     be = Палітыка прыватнасці
     bg = Политика за поверителност
@@ -19500,6 +20004,7 @@
   [terms_of_use]
     tags = android,ios
     en = Terms of use
+    lt = Naudojimo sąlygos
     ar = شروط الاستخدام
     be = Умовы выкарыстання
     bg = Условия за ползване
@@ -19541,6 +20046,7 @@
   [button_layer_traffic]
     tags = android,ios
     en = Traffic
+    lt = Eismas
     ar = حركة مرور
     be = Рух
     bg = Трафик
@@ -19582,6 +20088,7 @@
   [button_layer_subway]
     tags = android,ios
     en = Subway
+    lt = Metro
     en-GB = Metro
     ar = مترو الانفاق
     be = Метро
@@ -19624,6 +20131,7 @@
   [layers_title]
     tags = android,ios
     en = Map layers
+    lt = Žemėlapio sluoksniai
     ar = طبقات الخريطة
     be = Слаі карты
     bg = Слоеве на картата
@@ -19665,6 +20173,7 @@
   [subway_data_unavailable]
     tags = android,ios
     en = Subway map is unavailable
+    lt = Metro žemėlapis neprieinamas
     en-GB = Metro map is unavailable
     ar = خريطة مترو الانفاق غير متوفرة
     be = Мапа метро недасягальная
@@ -19707,6 +20216,7 @@
   [bookmarks_empty_list_title]
     tags = android
     en = This list is empty
+    lt = Sąrašas tuščias
     ar = هذه اللائحة فارغة
     be = Гэты спіс пусты
     bg = Този списък е празен
@@ -19748,6 +20258,7 @@
   [bookmarks_empty_list_message]
     tags = android
     en = To add a bookmark, tap a place on the map and then tap the star icon
+    lt = Bakstelėkite ant vietos žemėlapyje ir bakstelėkite ant žvaigždutės piktogramos, kad pridėtumėte adresyną
     ar = لإضافة إشارة مرجعية ، اضغط على مكان على الخريطة ثم انقر على رمز النجمة
     be = Каб дадаць закладку, націсніце на месца на мапе і потым на іконку з зорачкай
     bg = За да добавите отметка, докоснете място на картата, след което докоснете звездообразната икона.
@@ -19789,6 +20300,7 @@
   [category_desc_more]
     tags = android
     en = …more
+    lt = …daugiau
     ar = …المزيد
     be = …яшчэ
     bg = …още
@@ -19830,6 +20342,7 @@
   [title_error_downloading_bookmarks]
     tags = ios
     en = An error occurred
+    lt = Įvyko klaida
     ar = حدث خطأ
     be = Адбылася памылка
     bg = Възникна грешка
@@ -19871,6 +20384,7 @@
   [popular_place]
     tags = ios
     en = Popular
+    lt = Populiarūs
     ar = رائج
     be = Папулярнае
     bg = Популярно
@@ -19895,6 +20409,7 @@
   [export_file]
     tags = android,ios
     en = Export file
+    lt = Eksporuoti failą
     ar = ملف التصدير
     be = Экспартаваць файл
     bg = Експортиране на файл
@@ -19936,6 +20451,7 @@
   [list_settings]
     tags = android,ios
     en = List Settings
+    lt = Sąrašo nustatymai
     ar = إعدادات القائمة
     be = Налады спіса
     bg = Настройки на списък
@@ -19977,6 +20493,7 @@
   [delete_list]
     tags = android,ios
     en = Delete list
+    lt = Naikinti sąrašą
     ar = حذف القائمة
     be = Выдаліць спіс
     bg = Изтриване на списък
@@ -20018,6 +20535,7 @@
   [hide_from_map]
     tags = ios
     en = Hide from map
+    lt = Slėpti nuo žemėlapio
     ar = إخفاء من الخريطة
     be = Схаваць з мапы
     ca = Amaga-ho en el mapa
@@ -20058,6 +20576,7 @@
   [public_access]
     tags = android
     en = Public access
+    lt = Vieša prieiga
     ar = مسموح الوصول لعامة الشعب
     be = Публічны доступ
     bg = Публичен достъп
@@ -20099,6 +20618,7 @@
   [limited_access]
     tags = android
     en = Limited access
+    lt = Ribota prieiga
     ar = مسموح الوصول بشكل محدود
     be = Абмежаваны доступ
     bg = Ограничен достъп
@@ -20140,6 +20660,7 @@
   [bookmark_list_description_hint]
     tags = android,ios
     en = Type a description (text or html)
+    lt = Įveskite aprašymą(tekstas arba html)
     ar = اكتب وصفًا (نص أو html)
     be = Дабаўце апісанне (тэкст альбо html)
     bg = Добавяне на описание (текст или html)
@@ -20181,6 +20702,7 @@
   [not_shared]
     tags = android
     en = Private
+    lt = Privatus
     ar = خاص
     be = Прыватны
     bg = Лично
@@ -20222,6 +20744,7 @@
   [tags_loading_error_subtitle]
     tags = ios
     en = An error occurred while loading tags, please try again
+    lt = Įvyko klaida įkeliant žymes, bandykite iš naujo
     ar = حدث خطأ أثناء تحميل العلامات ، يرجى المحاولة مرة أخرى
     be = Адбылася памылка падчас загрузкі метак, калі ласка паспрабуйце зноў
     bg = Възникна грешка при зареждането на таговете, моля, опитайте отново
@@ -20263,6 +20786,7 @@
   [download_button]
     tags = ios
     en = Download
+    lt = Atsisiųsti
     ar = تنزيل
     be = Спампаваць
     ca = Baixa
@@ -20303,6 +20827,7 @@
   [speedcams_alert_title]
     tags = android,ios
     en = Speed cameras
+    lt = Greičio matuokliai
     ar = تحذيرات كاميرات السرعة
     be = Камеры хуткасці
     bg = Камери за скорост
@@ -20344,6 +20869,7 @@
   [speedcam_option_auto]
     tags = android,ios
     en = Auto
+    lt = Automatiškai
     ar = تلفائياً
     be = Аўтаматычна
     bg = Автоматично
@@ -20385,6 +20911,7 @@
   [speedcam_option_always]
     tags = android,ios
     en = Always
+    lt = Visada
     ar = مفعل دائماً
     be = Заўсёды
     bg = Винаги
@@ -20426,6 +20953,7 @@
   [speedcam_option_never]
     tags = android,ios
     en = Never
+    lt = Niekada
     ar = معطل دائماً
     be = Ніколі
     bg = Никога
@@ -20467,6 +20995,7 @@
   [place_description_title]
     tags = android,ios
     en = Place Description
+    lt = Vietos aprašymas
     ar = وصف المكان
     be = Апісанне месца
     bg = Описание на мястото
@@ -20509,6 +21038,7 @@
     comment = this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected.
     tags = android
     en = Map downloader
+    lt = Žemėlapių atsisiuntėjas
     ar = مُنزّل الخريطة
     be = Спампоўка мапаў
     bg = Изтегляне на карти
@@ -20550,6 +21080,7 @@
   [speedcams_notice_message]
     tags = ios
     en = Auto - Warn about speedcams if there is a risk of exceeding the speed limit\nAlways - Always warn about speedcams\nNever - Never warn about speedcams
+    lt = Automatiškai - įspėti apie greičio matuoklius, jei yra greičio viršijimo rizika\nVisada - visada įspėti apie greičio matuoklius\nNiekada - neįspėti apie greičio matuoklius
     ar = تلقائياً - حذرني عن كاميرات السرعة إذا هناك احتمالية تجاوز الحد الأقصى للسرعة\nمفعل دائماً - حذرني دائما من كاميرات السرعة \n معطل دائماً - لا تحذرني من كاميرات السرعة أبداً
     be = Аўтаматычна - Папярэджваць пра камеры хуткасці, калі ёсць рызыка перавышэння дазволенай хуткасці.\nЗаўсёды - Заўсёды папярэджваць пра камеры\nНіколі - Ніколі не папярэджваць пра камеры
     bg = Автоматично - Предупреждава се при камери за скорост, ако има риск от превишаване на ограничението на скоростта\nВинаги - Винаги се продупреждава при камери за скорост\nНикога - Никога не се предупреждава при камери за скорост
@@ -20591,6 +21122,7 @@
   [power_managment_title]
     tags = android,ios
     en = Power saving mode
+    lt = Energijos taupymo režimas
     ar = وضع توفير الطاقة
     be = Рэжым захавання энергіі
     bg = Режим пестене на енергия
@@ -20632,6 +21164,7 @@
   [power_managment_description]
     tags = android,ios
     en = When automatic mode is selected the application starts to disable battery draining features depending on the current battery charge level
+    lt = Jei pasirinktas automatinis režimas, programėlė išjungia akumuliatorių eikvojančias funkcijas, atsižvelgiant į dabartinį įkrovos lygį
     ar = عندما يتم اختيار الوضع التلقائي، يبدأ التطبيق بتعطيل الخصائص التي تستهلك البطارية بناءً على مستوى شحن البطارية الحالي
     be = Калі ўключаны рэжым захавання энергіі, праграма пачынае выключаць энергазатратныя функцыі ў залежнасці ад зарада батарэі
     bg = Ако е активиран режима пестене на енергия, приложението ще деактивира функциите, консумиращи енергия, в зависимост от текущия заряд на телефона.
@@ -20673,6 +21206,7 @@
   [power_managment_setting_never]
     tags = android,ios
     en = Never
+    lt = Niekada
     ar = أبدًا
     be = Ніколі
     bg = Никога
@@ -20714,6 +21248,7 @@
   [power_managment_setting_auto]
     tags = android,ios
     en = Automatic
+    lt = Automatinis
     ar = تلقائي
     be = Аўтаматычна
     bg = Автоматично
@@ -20755,6 +21290,7 @@
   [power_managment_setting_manual_max]
     tags = android,ios
     en = Maximum power saving
+    lt = Maksimalus taupymas
     ar = توفير الطاقة الأقصى
     be = Максімальнае захаванне энергіі
     bg = Максимално пестене на енергия
@@ -20796,6 +21332,7 @@
   [enable_logging_warning_message]
     tags = android
     en = The option turns on logging for diagnostic purposes. It can be helpful for our team to troubleshoot issues with the app. Enable this option temporarily to record and send detailed logs about your issue to us.
+    lt = Ši parinktis įjungia duomenų įrašymą diagnostiniams tikslams. Jis gali praversti mūsų komandai problemų aptikimui. Laikinai įjunkite šią parinktį, kad įrašytumėte ir mums išsiųstumėte išsamų klaidų žurnalą.
     ar = هذا الخيار يقوم ببدأ تسجيل سجلات التطبيق لإغراض التشخيصة. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا لحل المشاكل التي تواجهكم داخل التطبيق. قم بتفعيل هذا الخيار بشكل مؤقت فقط في حالة طلب الدعم من Organic Maps.
     be = Опцыя ўключае запіс журнала падзей для мэтаў дыягностыкі. Гэта можа дапамагчы нашай камандзе вырашаць праблемы з праграмай. Уключайце гэтую опцыю часова, каб запісаць і паслаць нам дэталёвую інфармацыю, пра знойденую вамі праблему.
     bg = Тази настройка е разрешена, за да се записват действия за диагностични цели, които помагат на нашия екип да идентифицира проблеми с приложението. Временно активирайте тази настройка само за изпращане на подробна информация за проблема, който сте открили с приложението.
@@ -20837,6 +21374,7 @@
   [access_rules_author_only]
     tags = android
     en = Online editing
+    lt = Intertetinis redagavimas
     ar = التعديل باستخدام الإنترنت
     be = Рэдагаванне анлайн
     bg = Онлайн редактиране
@@ -20878,6 +21416,7 @@
   [driving_options_title]
     tags = android,ios
     en = Routing options
+    lt = Maršruto pasirinkimo parinktis
     ar = خيارات رسم المسار
     be = Налады пракладкі маршрута
     bg = Опции за маршрутизация
@@ -20919,6 +21458,7 @@
   [driving_options_subheader]
     tags = android,ios
     en = Avoid on every route
+    lt = Vengti kiekviename maršrute
     ar = تجنبها على جميع الطرق
     be = Пазбягаць на кожным маршруце
     bg = Избягване при всеки маршрут
@@ -20960,6 +21500,7 @@
   [avoid_tolls]
     tags = android,ios
     en = Toll roads
+    lt = Mokami keliai
     ar = الطرق ذات الرسوم
     be = Платныя дарогі
     bg = Платени пътища
@@ -21001,6 +21542,7 @@
   [avoid_unpaved]
     tags = android,ios
     en = Unpaved roads
+    lt = Neasfaltuoti keliai
     ar = الطرق غير المعبدة
     be = Грунтовыя дарогі
     bg = Неасфалтирани пътища
@@ -21042,6 +21584,7 @@
   [avoid_ferry]
     tags = android,ios
     en = Ferry crossings
+    lt = Kelionė keltu
     ar = استخدام العبّارات
     be = Паромныя пераправы
     bg = Преходи с ферибот
@@ -21083,6 +21626,7 @@
   [avoid_motorways]
     tags = android,ios
     en = Motorways
+    lt = Automagistralės
     ar = الطرق السريعة
     be = Аўтамагістралі
     bg = Магистрали
@@ -21124,6 +21668,7 @@
   [unable_to_calc_alert_title]
     tags = android,ios
     en = Unable to calculate route
+    lt = Nepavyko apskaičiuoti maršruto
     ar = لا يمكن حساب الطريق
     be = Не атрымалася пракласці маршрут
     bg = Не е възможнос изчисляване на маршрут
@@ -21165,6 +21710,7 @@
   [unable_to_calc_alert_subtitle]
     tags = android,ios
     en = Unfortunately, we couldn't find a route, probably due to the options you have chosen. Please change the settings and try again.
+    lt = Deja, mums nepavyko rasti maršruto tikriausiai dėl jūsų pasirinktų parinkčių. Pakeiskite jas ir bandykite dar kartą.
     ar = نأسف، لم نعثر على الطريق ربما بسبب الخيارات التي قمت بتحديدها. يرجى تغيير الإعدادات والمحاولة مجددًا
     be = Нажаль, мы не змаглі пракласці маршрут, магчыма з-за абраных вамі налад. Змяніце налады і паспрабуйце зноў.
     bg = За съжаление не успяхме да намерим маршрут, вероятно поради избраните от вас параметри. Моля, променете настройките и опитайте отново.
@@ -21206,6 +21752,7 @@
   [define_to_avoid_btn]
     tags = android,ios
     en = Define roads to avoid
+    lt = Apibrėžti vengiamus kelius
     ar = حدد الطرق التي يجب تجنبها
     be = Задаць дарогі, якіх пазбягаць
     bg = Определяне пътищата, които да се избягват
@@ -21247,6 +21794,7 @@
   [change_driving_options_btn]
     tags = android,ios
     en = Routing options enabled
+    lt = Maršruto pasirinkimo parinktys įjungtos
     ar = تم تفعيل خيارات رسم الطريق
     be = Налады пракладкі маршрута ўключаны
     bg = Разрешени опции за маршрутизиране
@@ -21288,6 +21836,7 @@
   [toll_road]
     tags = android,ios
     en = Toll road
+    lt = Mokamas kelias
     ar = طريق برسوم مرور
     be = Платная дарога
     ca = Via de peatge
@@ -21328,6 +21877,7 @@
   [unpaved_road]
     tags = android,ios
     en = Unpaved road
+    lt = Neasfaltuoas kelias
     ar = طريق غير معبد
     be = Грунтовая дарога
     ca = Via sense pavimentar
@@ -21368,6 +21918,7 @@
   [ferry_crossing]
     tags = android,ios
     en = Ferry crossing
+    lt = Kelionė keltu
     ar = استخدام عبّارة
     be = Паромная пераправа
     ca = Ferris
@@ -21408,6 +21959,7 @@
   [avoid_toll_roads_placepage]
     tags = android,ios
     en = Avoid toll roads
+    lt = Vengti mokamų kelių
     ar = تجنب الطرق ذات الرسوم
     be = Пазбягаць платных дарог
     bg = Избягване на платени пътища
@@ -21449,6 +22001,7 @@
   [avoid_unpaved_roads_placepage]
     tags = android,ios
     en = Avoid unpaved roads
+    lt = Vengti neasfaltuotų kelių
     ar = تجنب الطرق الغير معبدة
     be = Пазбягаць грунтовых дарог
     bg = Избягвайте неасфалтирани пътища
@@ -21490,6 +22043,7 @@
   [avoid_ferry_crossing_placepage]
     tags = android,ios
     en = Avoid ferry crossings
+    lt = Vengti kelionių keltu
     ar = تجنب استخدام العبّارات
     be = Пазбягаць паромных перапраў
     bg = Избягване на преходи с ферибот
@@ -21531,6 +22085,7 @@
   [trip_start]
     tags = ios
     en = Let's go
+    lt = Pirmyn
     ar = هيا بنا
     be = Паехалі
     ca = Som-hi
@@ -21571,6 +22126,7 @@
   [pick_destination]
     tags = ios
     en = Destination
+    lt = Tikslas
     ar = جهة الوصول
     be = Пункт прызначэння
     ca = Destinació
@@ -21611,6 +22167,7 @@
   [follow_my_position]
     tags = ios
     en = Re-center
+    lt = Centruoti
     ar = العودة إلى الوسط
     be = Па цэнтры
     ca = Centra
@@ -21651,6 +22208,7 @@
   [search_results]
     tags = ios
     en = Search results
+    lt = Paieškos rezultatai
     ar = نتائج البحث
     be = Вынікі пошуку
     ca = Resultats de cerca
@@ -21691,6 +22249,7 @@
   [then_turn]
     tags = ios
     en = Then
+    lt = Then
     ar = ثم
     be = Потым
     ca = Després
@@ -21731,6 +22290,7 @@
   [redirect_route_alert]
     tags = ios
     en = Do you want to rebuild the route?
+    lt = Norite perkurti maršrutą?
     ar = هل تريد إعادة رسم الطريق?
     be = Хочаце перапракласці маршрут?
     ca = Voleu tornar a calcular la ruta?
@@ -21772,6 +22332,7 @@
     comment = A generic "Yes" button in dialogs
     tags = android,ios
     en = Yes
+    lt = Taip
     ar = نعم
     be = Так
     bg = Да
@@ -21814,6 +22375,7 @@
     comment = A generic "No" button in dialogs
     tags = android,ios
     en = No
+    lt = Ne
     ar = لا
     be = Не
     bg = Не
@@ -21882,6 +22444,7 @@
   [trip_finished]
     tags = ios
     en = You have arrived!
+    lt = Atvykote!
     ar = لقد وصلت!
     be = Вы прыбылі!
     ca = Heu arribat!
@@ -21922,6 +22485,7 @@
   [keyboard_availability_alert]
     tags = ios
     en = Keyboard is not available while driving
+    lt = Klaviatūra nėra prieinama už vairo
     ar = لوحة الكتابة غير متاحة أثناء القيادة
     be = Клавіятура недасягальная падчас язды
     ca = El teclat no és disponible mentre conduïu
@@ -21962,6 +22526,7 @@
   [dialog_routing_change_start_carplay]
     tags = ios
     en = Unable to build a route from your current location
+    lt = Nepavyko sukurti maršruto iš jūsų dabartinės vietos
     ar = لا يمكن رسم طريق من موقعك الحالي
     be = Не атрымалася пракласці маршрут ад вашага цяперашняга месцазнаходжання
     ca = No es pot calcular cap ruta des de la vostra ubicació actual
@@ -22002,6 +22567,7 @@
   [dialog_routing_change_end_carplay]
     tags = ios
     en = Unable to build a route to your destination. Please choose another point
+    lt = Nepavyko sukurti maršruto iki jūsų tikslo. Pasirinkite kitą tašką
     ar = لا يمكن رسم طريق لجهة الوصول. يرجي اختيار مكان آخر
     be = Не атрымалася пракласці маршрут да вашага пункту прызначэння. Выберыце іншы пункт прызначэння.
     ca = No es pot calcular cap ruta a la vostra destinació. Trieu un altre punt
@@ -22042,6 +22608,7 @@
   [dialog_routing_check_gps_carplay]
     tags = ios
     en = No GPS signal. Please move to an open area
+    lt = Nėra GPS signalo. Pereikite prie atviros vietos
     ar = لا يوجد إشارة نظام تحديد المواقع الجغرافية. يرجى الانتقال لمنطقة مفتوح
     be = Няма сігналу GPS. Перамясціцеся на адкрытую прастору
     ca = No hi ha senyal GPS. Aneu a un àrea oberta
@@ -22082,6 +22649,7 @@
   [dialog_routing_unable_locate_route_carplay]
     tags = ios
     en = Unable to build a route. Please specify other route points
+    lt = Nepavyko sukurti maršruto. Nurodykite kitus maršruto taškus
     ar = لا يمكن رسم طريق. يرجى تحديد أماكن أخرى على الطريق
     be = Не атрымалася пракласці маршрут. Выберыце іншыя кропкі маршрута.
     ca = No es pot calcular cap ruta. Indiqueu uns punts de ruta diferents.
@@ -22122,6 +22690,7 @@
   [dialog_routing_download_files_carplay]
     tags = ios
     en = To create a route, download missing maps on your device
+    lt = Atsisiųskite trūkstamus žemėlapius, kad sukurtumėte maršrutą
     ar = كي تُنشئ مساراً، يجب أن تحمل الخرائط المفقودة على جهازك
     be = Каб пракласці маршрут, спампуйце мапы, каторых не хапае на вашай прыладзе
     ca = Per a crear una ruta, baixeu les mapes que manquen en el vostre aparell
@@ -22162,6 +22731,7 @@
   [dialog_routing_system_error_carplay]
     tags = ios
     en = An error occurred. Please restart the application
+    lt = Įvyko klaida. Iš naujo paleiskite programėlę
     ar = حدث خطأ. يرجى إعادة تشغيل التطبيق
     be = Адбылася памылка. Калі ласка, перазапусціце праграму
     ca = S'ha produït un error. Reinicieu l'aplicació
@@ -22202,6 +22772,7 @@
   [dialog_routing_rebuild_from_current_location_carplay]
     tags = ios
     en = The route will be rebuilt from your current location
+    lt = Maršrutas bus perkurtas iš jūsų dabartinės vietos
     ar = سيتم إعادة رسم الطريق من موقعك الحالي
     be = Маршрут будзе перапракладзены ад вашага цяперашняга месцазнаходжання
     ca = Es tornarà a calcular la ruta des de la ubicació actual
@@ -22242,6 +22813,7 @@
   [dialog_routing_rebuild_for_vehicle_carplay]
     tags = ios
     en = The route will be converted into an automobile one
+    lt = Maršrutas bus konvertuotas automobilinį
     ar = سيتم تعديل الطريق ليكون خاص بالسيارة
     be = Маршрут будзе ператвораны ў аўтамабільны
     ca = La ruta es convertira a una d'automòbil
@@ -22282,6 +22854,7 @@
   [ok]
     tags = android,ios
     en = OK
+    lt = Gerai
     ar = موافق
     be = Ок
     bg = Ок
@@ -22323,6 +22896,7 @@
   [avoid_unpaved_carplay_1]
     tags = ios
     en = No dirt road
+    lt = Be gruntkelių
     ar = بدون طرق ترابية
     be = Без грунт.
     ca = Sense vies no pavimentades
@@ -22363,6 +22937,7 @@
   [avoid_unpaved_carplay_2]
     tags = ios
     en = Avoid unpaved
+    lt = Vengti neasfaltuotų
     ar = تجنب الطرق غير المعبدة
     be = Пазбягаць грунтовак
     ca = Evita vies sense pavimentar
@@ -22403,6 +22978,7 @@
   [avoid_ferry_carplay_1]
     tags = ios
     en = No ferries
+    lt = Be keltų
     ar = بدون عبََارة
     be = Без паромаў
     ca = Sense ferris
@@ -22443,6 +23019,7 @@
   [avoid_ferry_carplay_2]
     tags = ios
     en = Avoid ferries
+    lt = Vengti keltų
     ar = تجنب العبََارة
     be = Пазбягаць паромаў
     ca = Evita els ferris
@@ -22483,6 +23060,7 @@
   [avoid_tolls_carplay_1]
     tags = ios
     en = No toll road
+    lt = Be mokamų kelių
     ar = بدون طرق ذات رسوم
     be = Без платных
     ca = Sense vies de peatge
@@ -22523,6 +23101,7 @@
   [avoid_tolls_carplay_2]
     tags = ios
     en = Avoid toll road
+    lt = Vengti mokamų kelių
     ar = تجنب الطريق ذات الرسوم
     be = Пазбягаць платных
     ca = Evita les vies de peatge
@@ -22563,6 +23142,7 @@
   [speedcams_alert_title_carplay_1]
     tags = ios
     en = Speedсams
+    lt = Greičio matuokliai
     ar = كاميرات السرعة
     be = Камеры
     ca = Radars
@@ -22603,6 +23183,7 @@
   [speedcams_alert_title_carplay_2]
     tags = ios
     en = Speed warnings
+    lt = Greičio įspėjimas
     ar = تحذير بشأن السرعة
     be = Папяр. аб хуткасці
     ca = Avisos de radars
@@ -22643,6 +23224,7 @@
   [download_map_carplay]
     tags = ios
     en = Please download maps in Organic Maps app on your device
+    lt = Atsisiųskite žemėlapius Organic Maps programėlėje
     ar = يُرجى تحميل الخرائط في تطبيق Organic Maps على جهازك
     be = Спампуйце мапы ў праграме Organic Maps на вашай прыладзе
     ca = Baixeu els mapes en l'aplicació Organic Maps del vostre aparell
@@ -22683,6 +23265,7 @@
   [carplay_roundabout_exit]
     tags = ios
     en = %s exit
+    lt = %s išeiti
     ar = المخرج رقم %s
     be = %s з'езд
     ca = %s sortida
@@ -22724,6 +23307,7 @@
     comment = max. 10 symbols, both iOS and Android
     tags = android,ios
     en = Sort…
+    lt = Rikiuoti…
     ar = ترتيب…
     be = Сартаваць…
     bg = Сортиране…
@@ -22766,6 +23350,7 @@
     comment = Android, title, max 20-22 symbols
     tags = android
     en = Sort bookmarks
+    lt = Rikiuoti adresyną
     ar = رتّب العلامات المرجعية
     be = Сартаваць закладкі
     bg = Сортиране на отметки
@@ -22808,6 +23393,7 @@
     comment = iOS
     tags = ios
     en = Sort by default
+    lt = Rikiuoti numatytai
     ar = ترتيب افتراضي
     be = Сартаваць па змаўчанні
     ca = Ordenació predeterminada
@@ -22848,6 +23434,7 @@
   [sort_type]
     tags = ios
     en = Sort by type
+    lt = Rikiuoti pagal rūšį
     ar = رتّب حسب النوع
     be = Сартаваць па тыпу
     ca = Ordena per tipus
@@ -22888,6 +23475,7 @@
   [sort_distance]
     tags = ios
     en = Sort by distance
+    lt = Rikiuoti pagal atstumą
     ar = رتّب حسب المسافة
     be = Сартаваць па адлегласці
     ca = Ordena per distància
@@ -22928,6 +23516,7 @@
   [sort_date]
     tags = ios
     en = Sort by date
+    lt = Rikiuoti pagal datą
     ar = رتّب حسب التاريخ
     be = Сартаваць па даце
     ca = Ordena per data
@@ -22969,6 +23558,7 @@
     comment = Android
     tags = android
     en = By default
+    lt = Numatytai
     ar = بشكل افتراضي
     be = Па змоўчанні
     bg = По подразбиране
@@ -23011,6 +23601,7 @@
     comment = Android
     tags = android
     en = By type
+    lt = Pagal rūšį
     ar = حسب النوع
     be = Па тыпу
     bg = По тип
@@ -23053,6 +23644,7 @@
     comment = Android
     tags = android
     en = By distance
+    lt = Pagal atstumą
     ar = حسب المسافة
     be = Па адлегласці
     bg = По разстояние
@@ -23095,6 +23687,7 @@
     comment = Android
     tags = android
     en = By date
+    lt = Pagal datą
     ar = حسب التاريخ
     be = Па даце
     bg = По дата
@@ -23136,6 +23729,7 @@
   [week_ago_sorttype]
     tags = android,ios
     en = A week ago
+    lt = Prieš savaitę
     ar = منذ أسبوع
     be = Тыдзень таму
     ca = Fa una setmana
@@ -23176,6 +23770,7 @@
   [month_ago_sorttype]
     tags = android,ios
     en = A month ago
+    lt = Prieš mėnesį
     ar = منذ شهر
     be = Месяц таму
     ca = Fa un mes
@@ -23216,6 +23811,7 @@
   [moremonth_ago_sorttype]
     tags = android,ios
     en = More than a month ago
+    lt = Daugiau nei prieš mėnesį
     ar = منذ أكثر من شهر
     be = Больш за месяц таму
     ca = Fa més d'un mes
@@ -23256,6 +23852,7 @@
   [moreyear_ago_sorttype]
     tags = android,ios
     en = More than a year ago
+    lt = Daugiau nei prieš metus
     ar = منذ أكثر من سنة
     be = Больш за год таму
     ca = Fa més d'un any
@@ -23296,6 +23893,7 @@
   [near_me_sorttype]
     tags = android,ios
     en = Near me
+    lt = Arti manęs
     ar = قريب مني
     be = Каля мяне
     ca = Prop meu
@@ -23336,6 +23934,7 @@
   [others_sorttype]
     tags = android,ios
     en = Others
+    lt = Kita
     ar = أخرى
     be = Іншыя
     ca = Altres
@@ -23378,6 +23977,7 @@
   [food_places]
     tags = android,ios
     en = Food
+    lt = Maistas
     ar = طعام
     be = Ежа
     ca = Menjar
@@ -23418,6 +24018,7 @@
   [tourist_places]
     tags = android,ios
     en = Sights
+    lt = Įžymybės
     ar = أماكن سياحية
     be = Славутасці
     ca = Llocs d'interès
@@ -23458,6 +24059,7 @@
   [museums]
     tags = android,ios
     en = Museums
+    lt = Muziejai
     ar = متاحف
     be = Музеі
     ca = Museus
@@ -23498,6 +24100,7 @@
   [parks]
     tags = android,ios
     en = Parks
+    lt = Parkai
     ar = حدائق
     be = Паркі
     ca = Parcs
@@ -23538,6 +24141,7 @@
   [swim_places]
     tags = android,ios
     en = Swim
+    lt = Plaukimas
     ar = سباحة
     be = Плаванне
     ca = Natació
@@ -23578,6 +24182,7 @@
   [mountains]
     tags = android,ios
     en = Mountains
+    lt = Kalnai
     ar = جبال
     be = Горы
     ca = Muntanyes
@@ -23618,6 +24223,7 @@
   [animals]
     tags = android,ios
     en = Animals
+    lt = Gyvūnai
     ar = حيوانات
     be = Жывёлы
     ca = Animals
@@ -23658,6 +24264,7 @@
   [hotels]
     tags = android,ios
     en = Hotels
+    lt = Viešbučiai
     ar = فنادق
     be = Гатэлі
     ca = Hotels
@@ -23698,6 +24305,7 @@
   [buildings]
     tags = android,ios
     en = Buildings
+    lt = Pastatai
     ar = أبنية
     be = Будынкі
     ca = Edificis
@@ -23738,6 +24346,7 @@
   [money]
     tags = android,ios
     en = Money
+    lt = Pinigai
     ar = نقود
     be = Грошы
     ca = Diners
@@ -23778,6 +24387,7 @@
   [shops]
     tags = android,ios
     en = Shops
+    lt = Parduotuvės
     ar = متاجر
     be = Крамы
     ca = Botigues
@@ -23818,6 +24428,7 @@
   [parkings]
     tags = android,ios
     en = Parkings
+    lt = Parkingai
     ar = مواقف سيارات
     be = Паркоўкі
     ca = Aparcaments
@@ -23858,6 +24469,7 @@
   [fuel_places]
     tags = android,ios
     en = Gas stations
+    lt = Degalinės
     ar = محطات وقود
     be = Запраўкі
     ca = Gasolineres
@@ -23898,6 +24510,7 @@
   [medicine]
     tags = android,ios
     en = Medicine
+    lt = Medicina
     ar = دواء
     be = Медыцына
     ca = Medicina
@@ -23938,6 +24551,7 @@
   [search_in_the_list]
     tags = android,ios
     en = Search in the list
+    lt = Ieškoti sąraše
     ar = ابحث في القائمة
     be = Шукаць у спісе
     bg = Търсене в списъка
@@ -23979,6 +24593,7 @@
   [religious_places]
     tags = android,ios
     en = Religious places
+    lt = Religinės vietos
     ar = أماكن دينية
     be = Святыя месцы
     ca = Llocs de culte
@@ -24019,6 +24634,7 @@
   [select_list]
     tags = android
     en = Select list
+    lt = Pasirinkti sąrašą
     ar = اختر القائمة
     be = Выбраць спіс
     bg = Избор на списък
@@ -24060,6 +24676,7 @@
   [transit_not_found]
     tags = android,ios
     en = Subway navigation in this region is not available yet
+    lt = Metro navigacija šiame regione yra neprieinama
     en-GB = Metro navigation in this region is not available yet
     ar = التنقل باستخدام مترو الأنفاق في هذه المنطقة غير متاح حتى الآن
     be = Навігацыі па метро для гэтага рэгіёна пакуль няма
@@ -24102,6 +24719,7 @@
   [dialog_pedestrian_route_is_long_header]
     tags = android,ios
     en = Subway route is not found
+    lt = Metro maršrutas nerastas
     en-GB = Metro route is not found
     ar = لم يتم العثور على مترو الانفاق
     be = Маршрут на метро не знойдзены
@@ -24144,6 +24762,7 @@
   [dialog_pedestrian_route_is_long_message]
     tags = android,ios
     en = Please choose a start or end point closer to a subway station
+    lt = Pasirinkite pradžios ir pabaigos tašką, arčiausią metros stoties
     en-GB = Please choose a start or end point closer to a metro station
     ar = يرجى اختيار نقطة بداية أو نهاية أقرب لمحطة مترو الأنفاق
     be = Выберыце пункт адпраўлення альбо прызначэння бліжэй да станцыі метро
@@ -24186,6 +24805,7 @@
   [button_layer_isolines]
     tags = android,ios
     en = Terrain
+    lt = Reljefas
     ar = تضاريس
     be = Рэльеф
     bg = Терен
@@ -24227,6 +24847,7 @@
   [isolines_activation_error_dialog]
     tags = android,ios
     en = To activate and use the topographic layer please update or download the map of the area
+    lt = Atsisiųskite vietovės žemėlapį, jei norite aktyvinti ir naudoti topografinį sluoksnį
     ar = لتفعيل الطبقة الطبوغرافية واستخدامها ، يرجى تحديث أو تنزيل خريطة المنطقة
     be = Каб карыстацца мапай рэльефа, абнавіце альбо спампуйце мапу патрэбнай мясцовасці
     bg = За да активирате и използвате топографския слой, моля, актуализирайте или изтеглете картата на района
@@ -24268,6 +24889,7 @@
   [isolines_location_error_dialog]
     tags = android,ios
     en = The topographic layer is not yet available in this area
+    lt = Topografinis sluoksnis šiai vietovei yra neprieinamas
     ar = الطبقة الطبوغرافية ليست متاحة بعد في هذه المنطقة
     be = Мапы рэльефа для гэтай мясцовасці пакуль што няма
     bg = Топографският слой все още не е наличен в тази област
@@ -24309,6 +24931,7 @@
   [elevation_profile_diff_level]
     tags = ios
     en = Difficulty level
+    lt = Sudėtingumo lygis
     ar = مستوى الصعوبة
     be = Узровень складанасці
     bg = Степен на трудност
@@ -24350,6 +24973,7 @@
   [elevation_profile_diff_level_easy]
     tags = ios
     en = Easy
+    lt = Lengvas
     ar = سهل
     be = Лёгкі
     ca = Fàcil
@@ -24390,6 +25014,7 @@
   [elevation_profile_diff_level_moderate]
     tags = ios
     en = Moderate
+    lt = Normalus
     ar = معتدل
     be = Сярэдні
     ca = Moderat
@@ -24430,6 +25055,7 @@
   [elevation_profile_diff_level_hard]
     tags = ios
     en = Hard
+    lt = Sunkus
     ar = صعب
     be = Цяжкі
     ca = Difícil
@@ -24470,6 +25096,7 @@
   [elevation_profile_ascent]
     tags = android,ios
     en = Ascent
+    lt = Pakilimas
     ar = تصاعدي
     be = Пад'ём
     bg = Изкачване
@@ -24511,6 +25138,7 @@
   [elevation_profile_descent]
     tags = android,ios
     en = Descent
+    lt = Nusileidimas
     ar = تنازلي
     be = Спуск
     bg = Спускане
@@ -24552,6 +25180,7 @@
   [elevation_profile_minaltitude]
     tags = android,ios
     en = Min. altitude
+    lt = Maž. aukštis
     ar = الحد الأدنى للارتفاع
     be = Мін. вышыня
     bg = Мин. надморска височина
@@ -24593,6 +25222,7 @@
   [elevation_profile_maxaltitude]
     tags = android,ios
     en = Max. altitude
+    lt = Didž. aukštis
     ar = الحد الأقصى للارتفاع
     be = Макс. вышыня
     bg = Макс. надморска височина
@@ -24634,6 +25264,7 @@
   [elevation_profile_difficulty]
     tags = android,ios
     en = Difficulty
+    lt = Sudėtingumas
     ar = درجة الصعوبة
     be = Складанасць
     bg = Трудност
@@ -24675,6 +25306,7 @@
   [elevation_profile_distance]
     tags = android
     en = Dist.:
+    lt = Atstumas:
     ar = المسافة:
     be = Адл.:
     bg = Разст.:
@@ -24716,6 +25348,7 @@
   [elevation_profile_time]
     tags = android,ios
     en = Time:
+    lt = Laikas:
     ar = المدة:
     be = Час:
     bg = Време:
@@ -24757,6 +25390,7 @@
   [isolines_toast_zooms_1_10]
     tags = android,ios
     en = Zoom in to explore isolines
+    lt = Priartinkite, kad tyrinėtumėte izolinijas
     ar = قم بالتقريب لتكتشف خطوط الكنتور
     be = Павялічце маштаб, каб пабачыць рэльеф
     bg = Увеличете мащаба, за да разгледате изолиниите
@@ -24798,6 +25432,7 @@
   [downloader_updating_ios]
     tags = ios
     en = Updating
+    lt = Naujinama
     ar = جاري التحديث
     be = Абнаўленне
     ca = S'està actualitzant
@@ -24838,6 +25473,7 @@
   [downloader_loading_ios]
     tags = ios
     en = Downloading
+    lt = Atsisiųsti
     ar = جاري التنزيل
     be = Спампоўка
     ca = Està baixant
@@ -24878,6 +25514,7 @@
   [download_map_title]
     tags = android
     en = Download the world map
+    lt = Atsisiųsti pasaulio žemėlapį
     ar = تنزيل خريطة العالم
     be = Спампаваць мапу света
     bg = Изтегляне на картата на света
@@ -24903,6 +25540,7 @@
     tags = android
     comment = Used in DownloadResources startup screen
     en = Unable to create folder and move files on internal device's memory or sdcard
+    lt = Nepavyko sukurti aplanko ir perkelti failus į įrenginio vidinę atmintį ar SD kortelę
     ar = تعذر إنشاء المجلد ونقل الملفات على الذاكرة الداخلية للجهاز أو على بطاقة SD
     ca = No s'ha pogut crear la carpeta ni moure els fitxers a la memòria interna de l'aparell o targeta SD
     de = Ordner kann nicht erstellt und Dateien können nicht auf den Gerätespeicher oder die SD-Karte verschoben werden
@@ -24921,6 +25559,7 @@
     tags = android
     comment = Used in DownloadResources startup screen
     en = Disk error
+    lt = Disko klaida
     ar = حدث خطأ في التخزين
     ca = Error de disc
     de = Speicherfehler
@@ -24939,6 +25578,7 @@
     comment = Used in DownloadResources startup screen
     tags = android
     en = Connection failure
+    lt = Tinklo klaida
     ar = فشل الاتصال
     be = Памылка падлучэння
     bg = Неуспешно свързване
@@ -24964,6 +25604,7 @@
     comment = Used in DownloadResources startup screen
     tags = android
     en = Disconnect USB cable
+    lt = Atjungti USB laidą
     be = Адлучыце USB кабель
     bg = Изключване на USB кабел
     ca = Desconnecteu el cable USB
@@ -24987,6 +25628,7 @@
   [enable_screen_sleep]
     tags = android
     en = Allow screen to sleep
+    lt = Leisti ekranui užmigti
     ar = اسمح للشاشة بالنوم
     be = Дазволіць экрану засынаць
     bg = Позволяване на екрана да заспи
@@ -25028,6 +25670,7 @@
     comment = Description in preferences
     tags = android
     en = When enabled the screen will be allowed to sleep after a period of inactivity.
+    lt = Jei įjungta, ekranui bus leidžiama užmigti po tam tikro neveikimo laikotarpio.
     ar = عند التفعيل ، سيتم السماح للشاشة بالنوم بعد فترة من عدم النشاط.
     be = Дазваляе экрану засынаць пасля перыяда бездзеяння.
     bg = Когато е разрешено, екранът ще бъде оставен да заспи след определен период на неактивност.
@@ -25069,6 +25712,7 @@
     tags = android
     comment = A preference title; keep short!
     en = Show on the lock screen
+    lt = Rodyti užrakinimo ekrane
     ar = إظهار  التطبيق فوق شاشة القفل
     be = Паказваць на экране блакіроўкі
     ca = Mostra en la pantalla de bloqueig
@@ -25093,6 +25737,7 @@
     tags = android
     comment = Description in preferences
     en = When enabled, you don't need to unlock your device every time while the app is running.
+    lt = Jei įjungta, jums nereikės kiekvieną kartą atrakinti įrenginio, kol veikia programėlė.
     ar = عند التفعيل، لن تحتاج لفتح قفل جهازك كل مرة أثناء تشغيل التطبيق
     be = Калі ўключана, вам не трэба разблакіраваць прыладу кожны раз падчас працы праграмы.
     ca = Si està activa, no cal desblocar l'aparell cada vegada mentre l'aplicació està funcionant.
@@ -25117,6 +25762,7 @@
     comment = Autoupdate dialog on start
     tags = ios
     en = Update your downloaded maps
+    lt = Naujinti atsisiųstus žemėlapius
     ar = قم بتحديث الخرائط المُنزلة
     be = Абнавіце спампаваныя мапы
     bg = Актуализиране на изтеглените карти
@@ -25162,6 +25808,7 @@
     comment = Autoupdate dialog on start
     tags = ios
     en = Updating maps keeps the information about objects up to date
+    lt = Žemėlapių atnaujinimas suteikia naujausią informaciją apie objektus
     ar = تحديث الخرائط والاحتفاظ بالمعلومات حول الكائنات محدثة
     be = Абнаўленне мапаў падтрымлівае актуальнасць звестак пра аб’екты
     bg = Актуализирането на картите поддържа актуална информацията за обектите
@@ -25207,6 +25854,7 @@
     comment = Autoupdate dialog on start
     tags = ios
     en = Update (%s)
+    lt = Naujinti (%s)
     ar = تحديث (%s)
     be = Абнавіць (%s)
     bg = Актуализация (%s)
@@ -25252,6 +25900,7 @@
     comment = Autoupdate dialog on start
     tags = ios
     en = Manually update later
+    lt = Atnaujinsiu vėliau
     ar = تحديث يدوياً في وقت لاحق
     be = Абнавіць пазней уручную
     bg = Ръчно актуализиране по-късно
@@ -25297,6 +25946,7 @@
     comment = Delete track button on track edit screen
     tags = ios
     en = Delete Track
+    lt = Naikinta taką
     ar = حذف المسار
     be = Выдаліць сцежку
     ca = Esborra la traça
@@ -25321,6 +25971,7 @@
     comment = Placeholder for track name input on track edit screen
     tags = ios
     en = Track Name
+    lt = Tako pavadinimas
     ar = اسم المسار
     be = Назва сцежкі
     ca = Nom de la traça
@@ -25345,6 +25996,7 @@
     comment = move track or bookmark from the list button text
     tags = ios
     en = Move
+    lt = Perkelti
     ar = نقل
     be = Перамясціць
     ca = Mou
@@ -25369,6 +26021,7 @@
     comment = edit track screen title
     tags = ios
     en = Track
+    lt = Takas
     ar = مسار
     be = Сцежка
     bg = Пътека
@@ -25410,6 +26063,7 @@
     comment = OpenStreetMap text on splash screen
     tags = android
     en = Map data from OpenStreetMap
+    lt = Žemėlapio duomenys iš OpenStreetMap
     ar = بيانات الخريطة من خريطة الشارع المفتوحة
     be = Дадзеныя карты з OpenStreetMap
     bg = Картографски данни от OpenStreetMap
