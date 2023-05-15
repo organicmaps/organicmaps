@@ -306,7 +306,12 @@ public class PlacePageController extends Fragment implements
     mPlacePage.post(() -> {
       setPeekHeight();
       if (mShouldCollapse && !PlacePageUtils.isCollapsedState(mPlacePageBehavior.getState()))
+      {
         mPlacePageBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        // Make sure to reset the scroll position when opening the place page
+        if (mPlacePage.getScrollY() != 0)
+          mPlacePage.setScrollY(0);
+      }
       mShouldCollapse = false;
     });
   }
