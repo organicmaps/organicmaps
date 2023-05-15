@@ -584,6 +584,8 @@
         <data android:host="*"/>
         <data android:mimeType="application/vnd.google-earth.kml+xml"/>
         <data android:mimeType="application/vnd.google-earth.kmz"/>
+        <data android:mimeType="application/gpx"/>
+        <data android:mimeType="application/gpx+xml"/>
       </intent-filter>
 
       <intent-filter>
@@ -591,22 +593,8 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <data android:mimeType="application/vnd.google-earth.kml+xml"/>
         <data android:mimeType="application/vnd.google-earth.kmz"/>
-      </intent-filter>
-
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
-        <data android:scheme="content"/>
-        <data android:scheme="file"/>
-        <data android:scheme="data"/>
-        <data android:host="*"/>
-        <data android:mimeType="*/*"/>
-        <data android:pathPattern=".*\\.gpx" />
-        <data android:pathPattern=".*\\..*\\.gpx" />
-        <data android:pathPattern=".*\\..*\\..*\\.gpx" />
-        <data android:pathPattern=".*\\..*\\..*\\..*\\.gpx" />
-        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.gpx" />
+        <data android:mimeType="application/gpx"/>
+        <data android:mimeType="application/gpx+xml"/>
       </intent-filter>
 
       <intent-filter>
@@ -635,6 +623,11 @@
         <data android:pathPattern="/.*\\..*\\..*\\.kmb" />
         <data android:pathPattern="/.*\\..*\\..*\\..*\\.kmb" />
         <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.kmb" />
+        <data android:pathPattern="/.*\\.gpx" />
+        <data android:pathPattern="/.*\\..*\\.gpx" />
+        <data android:pathPattern="/.*\\..*\\..*\\.gpx" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\.gpx" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.gpx" />
       </intent-filter>
     </activity>
 
