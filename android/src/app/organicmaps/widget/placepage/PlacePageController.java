@@ -189,14 +189,6 @@ public class PlacePageController extends Fragment implements
     return items;
   }
 
-  private void open()
-  {
-    // Only collapse the place page if the data is different from the one already available
-    mShouldCollapse = PlacePageUtils.isHiddenState(mPlacePageBehavior.getState()) || !MapObject.same(mPreviousMapObject, mMapObject);
-    mPreviousMapObject = mMapObject;
-    // Place page will automatically open when the bottom sheet content is loaded so we can compute the peek height
-  }
-
   private void close()
   {
     mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
@@ -563,7 +555,10 @@ public class PlacePageController extends Fragment implements
     mMapObject = mapObject;
     if (mapObject != null)
     {
-      open();
+      // Only collapse the place page if the data is different from the one already available
+      mShouldCollapse = PlacePageUtils.isHiddenState(mPlacePageBehavior.getState()) || !MapObject.same(mPreviousMapObject, mMapObject);
+      mPreviousMapObject = mMapObject;
+      // Place page will automatically open when the bottom sheet content is loaded so we can compute the peek height
       createPlacePageFragments();
       updateButtons(
           mapObject,
