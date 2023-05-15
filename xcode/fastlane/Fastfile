@@ -9,6 +9,11 @@ platform :ios do
         env_vars: ['APPSTORE_CERTIFICATE_PASSWORD']
       )
       import_certificate(
+        certificate_path: 'keys/AppleWDRCA.cer',
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
+      )
+      import_certificate(
         certificate_path: 'keys/CertificatesDev.p12',
         certificate_password: ENV['APPSTORE_CERTIFICATE_PASSWORD'],
         keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
