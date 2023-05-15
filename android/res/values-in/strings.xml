@@ -23,7 +23,7 @@
 	<string name="miles">Mil</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Posisi Saya</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">Nanti</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Cari</string>
@@ -822,8 +822,9 @@
 	<string name="type.boundary.national_park">Taman Nasional</string>
 	<string name="type.building">Gedung</string>
 	<string name="type.building.address">Gedung</string>
-	<string name="type.building.garage">Garasi</string>
 	<string name="type.building.has_parts">Gedung</string>
+	<string name="type.building_part">Gedung</string>
+	<string name="type.building.garage">Garasi</string>
 	<string name="type.building.train_station">Rel kereta api</string>
 	<string name="type.cemetery.grave">Kuburan</string>
 	<string name="type.craft">Kerajinan</string>
@@ -1562,7 +1563,6 @@
 	<string name="type.shop.greengrocer">Penjual sayuran</string>
 	<string name="type.shop.grocery">Kebutuhan sehari-hari</string>
 	<string name="type.shop.hairdresser">Penata rambut</string>
-	<string name="type.shop.hardware">Toko perangkat keras</string>
 	<string name="type.shop.health_food">Toko Makanan Kesehatan</string>
 	<string name="type.shop.herbalist">Toko jamu</string>
 	<string name="type.shop.hifi">Audio HI FI</string>
@@ -1605,6 +1605,7 @@
 	<string name="type.shop.agrarian">Toko pertanian</string>
 	<string name="type.shop.antiques">Barang antik</string>
 	<string name="type.shop.appliance">Toko peralatan</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">Toko Seni</string>
 	<string name="type.shop.baby_goods">Toko anak-anak</string>
 	<string name="type.shop.bag">Toko Tas</string>
@@ -1702,6 +1703,5 @@
 	<string name="type.wheelchair.limited">Akses kursi roda terbatas</string>
 	<string name="type.wheelchair.no">Tidak ada akses kursi roda</string>
 	<string name="type.wheelchair.yes">Akses penuh kursi roda</string>
-	<string name="type.building_part">Gedung</string>
 	<string name="type.amenity.events_venue">Tempat acara</string>
 </resources>

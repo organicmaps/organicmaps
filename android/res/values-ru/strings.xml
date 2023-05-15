@@ -24,7 +24,7 @@
 	<string name="miles">Мили</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Мое местоположение</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">Не сейчас</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Поиск</string>
@@ -946,8 +946,9 @@
 	<string name="type.boundary.national_park">Национальный парк</string>
 	<string name="type.building">Здание</string>
 	<string name="type.building.address">Здание</string>
-	<string name="type.building.garage">Гараж</string>
 	<string name="type.building.has_parts">Здание</string>
+	<string name="type.building_part">Здание</string>
+	<string name="type.building.garage">Гараж</string>
 	<string name="type.building.train_station">Ж/д вокзал</string>
 	<string name="type.building.warehouse">Склад</string>
 	<string name="type.cemetery.grave">Могила</string>
@@ -1857,6 +1858,7 @@
 	<string name="type.shop.agrarian">Сельскохозяйственный магазин</string>
 	<string name="type.shop.antiques">Антиквариат</string>
 	<string name="type.shop.appliance">Магазин бытовой техники</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">Художественный магазин</string>
 	<string name="type.shop.baby_goods">Детский магазин</string>
 	<string name="type.shop.bag">Магазин сумок</string>
@@ -1987,6 +1989,5 @@
 	<string name="type.piste_type.downhill.novice">Горнолыжная трасса для новичков</string>
 	<string name="type.piste_type.nordic">Лыжня</string>
 	<string name="type.piste_type.sled">Трасса для саней</string>
-	<string name="type.building_part">Здание</string>
 	<string name="type.amenity.events_venue">Место проведения мероприятий</string>
 </resources>

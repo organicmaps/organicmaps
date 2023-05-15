@@ -32,7 +32,7 @@
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Mi posición";
 
-/* Update maps later/Buy pro version later button text */
+/* Update maps later button text */
 "later" = "Luego";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
@@ -274,7 +274,7 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
-"matrix" = "[matrix]";
+"matrix" = "[Matrix]";
 
 /* Text in menu */
 "mastodon" = "Mastodon";
@@ -1564,7 +1564,7 @@
 
 "type.barrier.chain" = "Cadena";
 
-"type.barrier.city_wall" = "Muro de la ciudad";
+"type.barrier.city_wall" = "City Wall";
 
 "type.barrier.cycle_barrier" = "Barrera para bicicletas";
 
@@ -1638,9 +1638,11 @@
 
 "type.building.address" = "Edificio";
 
-"type.building.garage" = "Garaje";
-
 "type.building.has_parts" = "Edificio";
+
+"type.building_part" = "Edificio";
+
+"type.building.garage" = "Garaje";
 
 "type.building.train_station" = "Estación de tren";
 
@@ -1941,15 +1943,15 @@
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Puente";
 
-"type.highway.footway.demanding_alpine_hiking" = "Camino";
+"type.highway.footway.demanding_alpine_hiking" = "Path";
 
-"type.highway.footway.demanding_mountain_hiking" = "Camino";
+"type.highway.footway.demanding_mountain_hiking" = "Path";
 
-"type.highway.footway.difficult_alpine_hiking" = "Camino";
+"type.highway.footway.difficult_alpine_hiking" = "Path";
 
 "type.highway.footway.hiking" = "Sendero";
 
-"type.highway.footway.mountain_hiking" = "Camino";
+"type.highway.footway.mountain_hiking" = "Path";
 
 "type.highway.footway.permissive" = "Camino";
 
@@ -3353,7 +3355,7 @@
 
 "type.shop.hairdresser" = "Peluquería";
 
-"type.shop.hardware" = "Ferretería";
+"type.shop.hardware" = "Hardware Store";
 
 "type.shop.health_food" = "Tienda de comida saludable";
 
@@ -3443,6 +3445,7 @@
 
 "type.shop.appliance" = "Tienda de electrodomésticos";
 
+/* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "Tienda de arte";
 
 "type.shop.baby_goods" = "Tienda de niños";
@@ -3701,7 +3704,5 @@
 "type.piste_type.nordic" = "Pista de esquí nórdico";
 
 "type.piste_type.sled" = "Pista para trineos";
-
-"type.building_part" = "Edificio";
 
 "type.amenity.events_venue" = "Lugar para eventos";

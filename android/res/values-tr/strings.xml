@@ -23,7 +23,7 @@
 	<string name="miles">Mil</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Konumum</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">Daha sonra</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Ara</string>
@@ -932,8 +932,9 @@
 	<string name="type.boundary.national_park">Ulusal Park</string>
 	<string name="type.building">Bina</string>
 	<string name="type.building.address">Bina</string>
-	<string name="type.building.garage">Garaj</string>
 	<string name="type.building.has_parts">Bina</string>
+	<string name="type.building_part">Bina</string>
+	<string name="type.building.garage">Garaj</string>
 	<string name="type.building.train_station">Tren İstasyonu</string>
 	<string name="type.building.warehouse">Depo</string>
 	<string name="type.cemetery.grave">Mezar</string>
@@ -1832,6 +1833,7 @@
 	<string name="type.shop.agrarian">Tarım dükkanı</string>
 	<string name="type.shop.antiques">Antikalar</string>
 	<string name="type.shop.appliance">Beyaz eşya dükkanı</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">Sanat Mağazası</string>
 	<string name="type.shop.baby_goods">Çocuk mağazası</string>
 	<string name="type.shop.bag">Çanta Mağazası</string>
@@ -1962,6 +1964,5 @@
 	<string name="type.piste_type.downhill.novice">Yeni başlayanlar için kayak pisti</string>
 	<string name="type.piste_type.nordic">İskandinav Kayak Pisti</string>
 	<string name="type.piste_type.sled">Kızak Pisti</string>
-	<string name="type.building_part">Bina</string>
 	<string name="type.amenity.events_venue">Etkinlik mekanı</string>
 </resources>

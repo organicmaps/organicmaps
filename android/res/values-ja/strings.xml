@@ -21,7 +21,7 @@
 	<string name="miles">マイル</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">現在地</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">次の機会に</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">検索</string>
@@ -855,8 +855,9 @@
 	<string name="type.boundary.national_park">国立公園</string>
 	<string name="type.building">建物</string>
 	<string name="type.building.address">建物</string>
-	<string name="type.building.garage">車庫</string>
 	<string name="type.building.has_parts">建物</string>
+	<string name="type.building_part">建物</string>
+	<string name="type.building.garage">車庫</string>
 	<string name="type.building.train_station">鉄道駅</string>
 	<string name="type.cemetery.grave">墓</string>
 	<string name="type.craft">工房</string>
@@ -1741,6 +1742,7 @@
 	<string name="type.shop.agrarian">農産物直売所</string>
 	<string name="type.shop.antiques">骨董品</string>
 	<string name="type.shop.appliance">家電店</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">アートショップ</string>
 	<string name="type.shop.baby_goods">キッズストア</string>
 	<string name="type.shop.bag">バッグストア</string>
@@ -1856,6 +1858,5 @@
 	<string name="type.wheelchair.limited">車椅子でのアクセス制限</string>
 	<string name="type.wheelchair.no">車椅子でのアクセスなし</string>
 	<string name="type.wheelchair.yes">車椅子でのアクセスあり</string>
-	<string name="type.building_part">建物</string>
 	<string name="type.amenity.events_venue">イベント会場</string>
 </resources>

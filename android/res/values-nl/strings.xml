@@ -21,7 +21,7 @@
 	<string name="miles">Mijlen</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Mijn locatie</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">Later</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Zoeken</string>
@@ -819,8 +819,8 @@
 	<string name="type.amenity.parking_entrance.permissive">Parkeeringang</string>
 	<string name="type.amenity.parking_space">Parkeerplek</string>
 	<string name="type.amenity.parking_space.permissive">Parkeerplek</string>
-	<string name="type.amenity.parking_space.private">Privé parkeerplek</string>
-	<string name="type.amenity.parking_space.underground">Ondergrondse parkeerplek</string>
+	<string name="type.amenity.parking_space.private">Parkeerplek</string>
+	<string name="type.amenity.parking_space.underground">Parkeerplek</string>
 	<string name="type.amenity.parking_space.disabled">Invalide parkeerplaats</string>
 	<string name="type.amenity.payment_terminal">Betaalautomaat</string>
 	<string name="type.amenity.pharmacy">Apotheek</string>
@@ -927,8 +927,9 @@
 	<string name="type.boundary.national_park">Nationaal park</string>
 	<string name="type.building">Gebouw</string>
 	<string name="type.building.address">Gebouw</string>
-	<string name="type.building.garage">Garage</string>
 	<string name="type.building.has_parts">Gebouw</string>
+	<string name="type.building_part">Gebouw</string>
+	<string name="type.building.garage">Garage</string>
 	<string name="type.building.train_station">Treinstation</string>
 	<string name="type.building.warehouse">Magazijn</string>
 	<string name="type.cemetery.grave">Graf</string>
@@ -985,7 +986,6 @@
 	<string name="type.cuisine.filipino">Filipijns</string>
 	<string name="type.cuisine.fine_dining">Gastronomisch</string>
 	<string name="type.cuisine.fish">Vis</string>
-	<string name="type.cuisine.fish_and_chips">Fish and chips</string>
 	<string name="type.cuisine.french">Frans</string>
 	<string name="type.cuisine.friture">Frituur</string>
 	<string name="type.cuisine.georgian">Georgisch</string>
@@ -1318,9 +1318,9 @@
 	<string name="type.leisure.marina">Jachthaven</string>
 	<string name="type.leisure.nature_reserve">Natuurreservaat</string>
 	<string name="type.leisure.park">Park</string>
-	<string name="type.leisure.park.no.access">Ontoegankelijk park</string>
+	<string name="type.leisure.park.no.access">Park</string>
 	<string name="type.leisure.park.permissive">Park</string>
-	<string name="type.leisure.park.private">Privé park</string>
+	<string name="type.leisure.park.private">Park</string>
 	<string name="type.leisure.picnic_table">Picknicktafel</string>
 	<string name="type.leisure.pitch">Sportveld</string>
 	<string name="type.leisure.playground">Speeltuin</string>
@@ -1831,6 +1831,7 @@
 	<string name="type.shop.agrarian">Agrarische winkel</string>
 	<string name="type.shop.antiques">Antiekhandel</string>
 	<string name="type.shop.appliance">Apparaten winkel</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">Kunstwinkel</string>
 	<string name="type.shop.baby_goods">Babyspullenwinkel</string>
 	<string name="type.shop.bag">Tassenwinkel</string>
@@ -1960,6 +1961,5 @@
 	<string name="type.piste_type.downhill.novice">Beginnersafdaling</string>
 	<string name="type.piste_type.nordic">Langlaufroute</string>
 	<string name="type.piste_type.sled">Sleebaan</string>
-	<string name="type.building_part">Gebouw</string>
 	<string name="type.amenity.events_venue">Evenementenlocatie</string>
 </resources>

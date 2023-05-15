@@ -32,7 +32,7 @@
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Min posisjon";
 
-/* Update maps later/Buy pro version later button text */
+/* Update maps later button text */
 "later" = "Senere";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
@@ -274,7 +274,7 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
-"matrix" = "[matrix]";
+"matrix" = "[Matrix]";
 
 /* Text in menu */
 "mastodon" = "Mastodon";
@@ -1494,7 +1494,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Beverage Cartons";
+"type.recycling.cartons" = "Cartons";
 
 "type.amenity.restaurant" = "Restaurant";
 
@@ -1530,7 +1530,7 @@
 
 "type.amenity.vending_machine.food" = "Food Dispenser";
 
-"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
+"type.amenity.vending_machine.newspapers" = "Newspaper Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "Parkeringsautomat";
 
@@ -1542,7 +1542,7 @@
 
 "type.amenity.parcel_locker" = "Parcel Locker";
 
-"type.amenity.vending_machine.fuel" = "Fuel Dispenser";
+"type.amenity.vending_machine.fuel" = "Fuel Pump";
 
 "type.amenity.veterinary" = "Veterinær";
 
@@ -1638,9 +1638,11 @@
 
 "type.building.address" = "Bygning";
 
-"type.building.garage" = "Garasje";
-
 "type.building.has_parts" = "Bygning";
+
+"type.building_part" = "Bygning";
+
+"type.building.garage" = "Garasje";
 
 "type.building.train_station" = "Togstasjon";
 
@@ -2323,9 +2325,9 @@
 
 "type.landuse.commercial" = "Commercial Area";
 
-"type.landuse.construction" = "Construction";
+"type.landuse.construction" = "Construction Area";
 
-"type.landuse.education" = "Educational Facilities";
+"type.landuse.education" = "Educational Facility";
 
 "type.landuse.farm" = "Farm";
 
@@ -2479,7 +2481,7 @@
 
 "type.man_made.tower.communication" = "Kommunikasjonstårn";
 
-"type.man_made.wastewater_plant" = "Wastewater treatment plant";
+"type.man_made.wastewater_plant" = "Wastewater Treatment Plant";
 
 "type.man_made.water_tap" = "Vannkran";
 
@@ -2669,7 +2671,7 @@
 
 "type.power" = "Power";
 
-"type.power.generator" = "Generator";
+"type.power.generator" = "Power Generator";
 
 "type.power.generator.solar" = "Solenergi generator";
 
@@ -2731,7 +2733,7 @@
 
 "type.railway.crossing" = "Railway Crossing";
 
-"type.railway.disused" = "Disused railway";
+"type.railway.disused" = "Disused Railway";
 
 "type.railway.funicular" = "Funicular";
 
@@ -3257,7 +3259,7 @@
 
 "type.railway.yard.tunnel" = "Railway Yard Tunnel";
 
-"type.route" = "route";
+"type.route" = "Route";
 
 "type.route.ferry" = "Ferry";
 
@@ -3353,7 +3355,7 @@
 
 "type.shop.hairdresser" = "Frisør";
 
-"type.shop.hardware" = "Jernvareforretning";
+"type.shop.hardware" = "Hardware Store";
 
 "type.shop.health_food" = "Helsekostbutikk";
 
@@ -3443,6 +3445,7 @@
 
 "type.shop.appliance" = "Hvitevarebutikk";
 
+/* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "Kunstbutikk";
 
 "type.shop.baby_goods" = "Barnebutikk";
@@ -3701,7 +3704,5 @@
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
 "type.piste_type.sled" = "Sledding Piste";
-
-"type.building_part" = "Bygning";
 
 "type.amenity.events_venue" = "Arrangementssted";

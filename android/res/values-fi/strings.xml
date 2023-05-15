@@ -23,7 +23,7 @@
 	<string name="miles">Mailit</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Sijaintini</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">Myöhemmin</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Haku</string>
@@ -877,8 +877,9 @@
 	<string name="type.boundary.national_park">Kansallispuisto</string>
 	<string name="type.building">Rakennus</string>
 	<string name="type.building.address">Rakennus</string>
-	<string name="type.building.garage">Autotalli</string>
 	<string name="type.building.has_parts">Rakennus</string>
+	<string name="type.building_part">Rakennus</string>
+	<string name="type.building.garage">Autotalli</string>
 	<string name="type.building.train_station">Rautatieasema</string>
 	<string name="type.building.warehouse">Varasto</string>
 	<string name="type.cemetery.grave">Hauta</string>
@@ -935,7 +936,6 @@
 	<string name="type.cuisine.filipino">Filippiiniläinen keittiö</string>
 	<string name="type.cuisine.fine_dining">Hieno ravintola</string>
 	<string name="type.cuisine.fish">Kala</string>
-	<string name="type.cuisine.fish_and_chips">Fish &amp; chips</string>
 	<string name="type.cuisine.french">Ranskalainen keittiö</string>
 	<string name="type.cuisine.friture">Uppopaistettu</string>
 	<string name="type.cuisine.georgian">Georgialainen keittiö</string>
@@ -1620,7 +1620,6 @@
 	<string name="type.shop.greengrocer">Vihanneskauppias</string>
 	<string name="type.shop.grocery">Päivittäistavarakauppa</string>
 	<string name="type.shop.hairdresser">Kampaamo</string>
-	<string name="type.shop.hardware">Rautakauppa</string>
 	<string name="type.shop.health_food">Terveysruokakauppa</string>
 	<string name="type.shop.herbalist">Yrttikauppa</string>
 	<string name="type.shop.hifi">HiFi Audio</string>
@@ -1665,6 +1664,7 @@
 	<string name="type.shop.agrarian">Maatalouskauppa</string>
 	<string name="type.shop.antiques">Antiikkia</string>
 	<string name="type.shop.appliance">Kodinkoneet kauppa</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">Taidekauppa</string>
 	<string name="type.shop.baby_goods">Lasten kauppa</string>
 	<string name="type.shop.bag">Laukkukauppa</string>
@@ -1787,6 +1787,5 @@
 	<string name="type.piste_type.downhill.novice">Laskettelurinne</string>
 	<string name="type.piste_type.nordic">Latu</string>
 	<string name="type.piste_type.sled">Kelkkarata</string>
-	<string name="type.building_part">Rakennus</string>
 	<string name="type.amenity.events_venue">Tapahtumapaikka</string>
 </resources>

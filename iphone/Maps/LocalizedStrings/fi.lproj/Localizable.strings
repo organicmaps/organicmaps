@@ -32,7 +32,7 @@
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Sijaintini";
 
-/* Update maps later/Buy pro version later button text */
+/* Update maps later button text */
 "later" = "Myöhemmin";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
@@ -155,7 +155,7 @@
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
 "rv" = "RV tilat";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Ladataan kirjanmerkkejä";
@@ -274,7 +274,7 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
-"matrix" = "[matrix]";
+"matrix" = "[Matrix]";
 
 /* Text in menu */
 "mastodon" = "Mastodon";
@@ -1494,7 +1494,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Beverage Cartons";
+"type.recycling.cartons" = "Cartons";
 
 "type.amenity.restaurant" = "Ravintola";
 
@@ -1638,9 +1638,11 @@
 
 "type.building.address" = "Rakennus";
 
-"type.building.garage" = "Autotalli";
-
 "type.building.has_parts" = "Rakennus";
+
+"type.building_part" = "Rakennus";
+
+"type.building.garage" = "Autotalli";
 
 "type.building.train_station" = "Rautatieasema";
 
@@ -1755,7 +1757,7 @@
 
 "type.cuisine.fish" = "Kala";
 
-"type.cuisine.fish_and_chips" = "Fish & chips";
+"type.cuisine.fish_and_chips" = "Fish and Chips";
 
 "type.cuisine.french" = "Ranskalainen keittiö";
 
@@ -2323,9 +2325,9 @@
 
 "type.landuse.commercial" = "Commercial Area";
 
-"type.landuse.construction" = "Construction";
+"type.landuse.construction" = "Construction Area";
 
-"type.landuse.education" = "Educational Facilities";
+"type.landuse.education" = "Educational Facility";
 
 "type.landuse.farm" = "Farm";
 
@@ -2479,7 +2481,7 @@
 
 "type.man_made.tower.communication" = "Viestintätorni";
 
-"type.man_made.wastewater_plant" = "Wastewater treatment plant";
+"type.man_made.wastewater_plant" = "Wastewater Treatment Plant";
 
 "type.man_made.water_tap" = "Vesihana";
 
@@ -2669,7 +2671,7 @@
 
 "type.power" = "Power";
 
-"type.power.generator" = "Generator";
+"type.power.generator" = "Power Generator";
 
 "type.power.generator.solar" = "Aurinkogeneraattori";
 
@@ -2731,7 +2733,7 @@
 
 "type.railway.crossing" = "Railway Crossing";
 
-"type.railway.disused" = "Disused railway";
+"type.railway.disused" = "Disused Railway";
 
 "type.railway.funicular" = "Funicular";
 
@@ -3257,7 +3259,7 @@
 
 "type.railway.yard.tunnel" = "Railway Yard Tunnel";
 
-"type.route" = "route";
+"type.route" = "Route";
 
 "type.route.ferry" = "Ferry";
 
@@ -3353,7 +3355,7 @@
 
 "type.shop.hairdresser" = "Kampaamo";
 
-"type.shop.hardware" = "Rautakauppa";
+"type.shop.hardware" = "Hardware Store";
 
 "type.shop.health_food" = "Terveysruokakauppa";
 
@@ -3443,6 +3445,7 @@
 
 "type.shop.appliance" = "Kodinkoneet kauppa";
 
+/* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "Taidekauppa";
 
 "type.shop.baby_goods" = "Lasten kauppa";
@@ -3701,7 +3704,5 @@
 "type.piste_type.nordic" = "Latu";
 
 "type.piste_type.sled" = "Kelkkarata";
-
-"type.building_part" = "Rakennus";
 
 "type.amenity.events_venue" = "Tapahtumapaikka";

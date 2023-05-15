@@ -21,7 +21,7 @@
 	<string name="miles">Milhas</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Minha posição</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">Mais tarde</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Buscar</string>
@@ -898,8 +898,9 @@
 	<string name="type.boundary.national_park">Parque nacional</string>
 	<string name="type.building">Edifício</string>
 	<string name="type.building.address">Edifício</string>
-	<string name="type.building.garage">Garagem</string>
 	<string name="type.building.has_parts">Edifício</string>
+	<string name="type.building_part">Edifício</string>
+	<string name="type.building.garage">Garagem</string>
 	<string name="type.building.train_station">Estação de trem</string>
 	<string name="type.building.warehouse">Armazém</string>
 	<string name="type.cemetery.grave">Túmulo</string>
@@ -1685,6 +1686,7 @@
 	<string name="type.shop.agrarian">Loja agrícola</string>
 	<string name="type.shop.antiques">Antiguidades</string>
 	<string name="type.shop.appliance">Loja de eletrodomésticos</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">Loja de artes</string>
 	<string name="type.shop.baby_goods">Loja infantil</string>
 	<string name="type.shop.bag">Loja de bolsas</string>
@@ -1793,6 +1795,5 @@
 	<string name="type.piste_type.downhill.novice">Esqui alpino iniciante</string>
 	<string name="type.piste_type.nordic">Pista tipo nórdico</string>
 	<string name="type.piste_type.sled">Pista para trenós</string>
-	<string name="type.building_part">Parte de edifício</string>
 	<string name="type.amenity.events_venue">Local do evento</string>
 </resources>

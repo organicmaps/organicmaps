@@ -23,7 +23,7 @@
 	<string name="miles">ไมล์</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">ตำแหน่งของฉัน</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">ภายหลัง</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">ค้นหา</string>
@@ -826,8 +826,9 @@
 	<string name="type.boundary.national_park">อุทยานแห่งชาติ</string>
 	<string name="type.building">อาคาร</string>
 	<string name="type.building.address">อาคาร</string>
-	<string name="type.building.garage">อาคารจอดรถ</string>
 	<string name="type.building.has_parts">อาคาร</string>
+	<string name="type.building_part">อาคาร</string>
+	<string name="type.building.garage">อาคารจอดรถ</string>
 	<string name="type.building.train_station">สถานีรถไฟ</string>
 	<string name="type.cemetery.grave">หลุมฝังศพ</string>
 	<string name="type.craft">งานฝีมือ</string>
@@ -1612,6 +1613,7 @@
 	<string name="type.shop.agrarian">ร้านเกษตร</string>
 	<string name="type.shop.antiques">ของเก่า</string>
 	<string name="type.shop.appliance">ร้านเครื่องใช้ไฟฟ้า</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">ร้านศิลปะ</string>
 	<string name="type.shop.baby_goods">ร้านขายของสำหรับเด็ก</string>
 	<string name="type.shop.bag">ร้านกระเป๋า</string>
@@ -1711,6 +1713,5 @@
 	<string name="type.wheelchair.limited">พื้นที่จำกัดการใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุ</string>
 	<string name="type.wheelchair.no">พื้นที่ไม่สามารถใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุ</string>
 	<string name="type.wheelchair.yes">พื้นใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุได้</string>
-	<string name="type.building_part">อาคาร</string>
 	<string name="type.amenity.events_venue">สถานที่จัดงาน</string>
 </resources>

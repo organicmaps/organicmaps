@@ -32,7 +32,7 @@
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Ma position";
 
-/* Update maps later/Buy pro version later button text */
+/* Update maps later button text */
 "later" = "Plus tard";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
@@ -274,7 +274,7 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
-"matrix" = "[matrix]";
+"matrix" = "[Matrix]";
 
 /* Text in menu */
 "mastodon" = "Mastodon";
@@ -1435,11 +1435,11 @@
 
 "type.amenity.place_of_worship" = "Lieu de culte";
 
-"type.amenity.place_of_worship.buddhist" = "Temple";
+"type.amenity.place_of_worship.buddhist" = "Buddhist Temple";
 
 "type.amenity.place_of_worship.christian" = "Église";
 
-"type.amenity.place_of_worship.hindu" = "Temple";
+"type.amenity.place_of_worship.hindu" = "Hindu Temple";
 
 "type.amenity.place_of_worship.jewish" = "Synagogue";
 
@@ -1447,7 +1447,7 @@
 
 "type.amenity.place_of_worship.shinto" = "Sanctuaire";
 
-"type.amenity.place_of_worship.taoist" = "Temple";
+"type.amenity.place_of_worship.taoist" = "Taoist Temple";
 
 "type.amenity.police" = "Police";
 
@@ -1542,7 +1542,7 @@
 
 "type.amenity.parcel_locker" = "Consigne automatique pour colis";
 
-"type.amenity.vending_machine.fuel" = "Fuel Dispenser";
+"type.amenity.vending_machine.fuel" = "Fuel Pump";
 
 "type.amenity.veterinary" = "Docteur vétérinaire";
 
@@ -1638,9 +1638,11 @@
 
 "type.building.address" = "Bâtiment";
 
-"type.building.garage" = "Garage";
-
 "type.building.has_parts" = "Bâtiment";
+
+"type.building_part" = "Bâtiment";
+
+"type.building.garage" = "Garage";
 
 "type.building.train_station" = "Gare";
 
@@ -1755,7 +1757,7 @@
 
 "type.cuisine.fish" = "Poisson";
 
-"type.cuisine.fish_and_chips" = "Fish and chips";
+"type.cuisine.fish_and_chips" = "Fish and Chips";
 
 "type.cuisine.french" = "Cuisine française";
 
@@ -2669,7 +2671,7 @@
 
 "type.power" = "Power";
 
-"type.power.generator" = "Generator";
+"type.power.generator" = "Power Generator";
 
 "type.power.generator.solar" = "Générateur solaire";
 
@@ -3257,7 +3259,7 @@
 
 "type.railway.yard.tunnel" = "Railway Yard Tunnel";
 
-"type.route" = "route";
+"type.route" = "Route";
 
 "type.route.ferry" = "Trajet de ferry";
 
@@ -3443,6 +3445,7 @@
 
 "type.shop.appliance" = "Magasin d'électroménager";
 
+/* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "Boutique d'art";
 
 "type.shop.baby_goods" = "Magasin de puériculture";
@@ -3580,7 +3583,7 @@
 
 "type.tourism.attraction.specified" = "Attraction";
 
-"type.tourism.camp_site" = "Camp Site";
+"type.tourism.camp_site" = "Campground";
 
 "type.tourism.caravan_site" = "Aire de camping-car";
 
@@ -3701,7 +3704,5 @@
 "type.piste_type.nordic" = "Piste de ski de fond";
 
 "type.piste_type.sled" = "Piste de luge";
-
-"type.building_part" = "Bâtiment";
 
 "type.amenity.events_venue" = "Lieu des événements";

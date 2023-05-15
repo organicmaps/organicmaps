@@ -677,6 +677,7 @@
 	<string name="type.shop.agrarian">Duka la kilimo</string>
 	<string name="type.shop.antiques">Mambo ya kale</string>
 	<string name="type.shop.appliance">Duka la vifaa</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">Duka la Sanaa</string>
 	<string name="type.shop.baby_goods">Duka la watoto</string>
 	<string name="type.shop.bag">Hifadhi ya Mifuko</string>

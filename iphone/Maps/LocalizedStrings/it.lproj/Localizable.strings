@@ -32,7 +32,7 @@
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "La mia posizione";
 
-/* Update maps later/Buy pro version later button text */
+/* Update maps later button text */
 "later" = "Più tardi";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
@@ -274,7 +274,7 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
-"matrix" = "[matrix]";
+"matrix" = "[Matrix]";
 
 /* Text in menu */
 "mastodon" = "Mastodon";
@@ -1494,7 +1494,7 @@
 
 "type.recycling.green_waste" = "Umido";
 
-"type.recycling.cartons" = "Beverage Cartons";
+"type.recycling.cartons" = "Cartons";
 
 "type.amenity.restaurant" = "Ristorante";
 
@@ -1542,7 +1542,7 @@
 
 "type.amenity.parcel_locker" = "Punto di ritiro";
 
-"type.amenity.vending_machine.fuel" = "Fuel Dispenser";
+"type.amenity.vending_machine.fuel" = "Fuel Pump";
 
 "type.amenity.veterinary" = "Veterinario";
 
@@ -1638,9 +1638,11 @@
 
 "type.building.address" = "Edificio";
 
-"type.building.garage" = "Garage";
-
 "type.building.has_parts" = "Edificio";
+
+"type.building_part" = "Edificio";
+
+"type.building.garage" = "Garage";
 
 "type.building.train_station" = "Stazione ferroviaria";
 
@@ -1755,7 +1757,7 @@
 
 "type.cuisine.fish" = "Pesce";
 
-"type.cuisine.fish_and_chips" = "Fish and chips";
+"type.cuisine.fish_and_chips" = "Fish and Chips";
 
 "type.cuisine.french" = "Cucina francese";
 
@@ -2411,7 +2413,7 @@
 
 "type.leisure.park.permissive" = "Parco";
 
-"type.leisure.park.private" = "Parco privato";
+"type.leisure.park.private" = "Parco";
 
 "type.leisure.picnic_table" = "Tavolo da picnic";
 
@@ -2731,7 +2733,7 @@
 
 "type.railway.crossing" = "Railway Crossing";
 
-"type.railway.disused" = "Disused railway";
+"type.railway.disused" = "Disused Railway";
 
 "type.railway.funicular" = "Funicular";
 
@@ -3353,7 +3355,7 @@
 
 "type.shop.hairdresser" = "Parrucchiera";
 
-"type.shop.hardware" = "Ferramenta";
+"type.shop.hardware" = "Hardware Store";
 
 "type.shop.health_food" = "Negozio di alimenti naturali";
 
@@ -3443,6 +3445,7 @@
 
 "type.shop.appliance" = "Negozio di elettrodomestici";
 
+/* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "Negozio d'arte";
 
 "type.shop.baby_goods" = "Negozio per neonati";
@@ -3701,7 +3704,5 @@
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
 "type.piste_type.sled" = "Pista per slitte";
-
-"type.building_part" = "Edificio";
 
 "type.amenity.events_venue" = "Sede degli eventi";

@@ -25509,7 +25509,7 @@
 
   [type.tourism.camp_site]
     en = Campground
-    en-GB = Campsite 
+    en-GB = Campsite
     ar = تخييم
     cs = Kempování
     de = Zeltplatz

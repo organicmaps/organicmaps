@@ -21,7 +21,7 @@
 	<string name="miles">Mérföld</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Saját helyzet</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">Később</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Keresés</string>
@@ -847,8 +847,9 @@
 	<string name="type.boundary.national_park">Nemzeti park</string>
 	<string name="type.building">Épület</string>
 	<string name="type.building.address">Épület</string>
-	<string name="type.building.garage">Garázs</string>
 	<string name="type.building.has_parts">Épület</string>
+	<string name="type.building_part">Épület</string>
+	<string name="type.building.garage">Garázs</string>
 	<string name="type.building.train_station">Vonatmegálló</string>
 	<string name="type.cemetery.grave">Sír</string>
 	<string name="type.craft">Kézművesség</string>
@@ -1632,6 +1633,7 @@
 	<string name="type.shop.agrarian">Mezőgazdasági bolt</string>
 	<string name="type.shop.antiques">Régiségek</string>
 	<string name="type.shop.appliance">Készülék bolt</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">Művészeti Bolt</string>
 	<string name="type.shop.baby_goods">Bababolt</string>
 	<string name="type.shop.bag">Táskák bolt</string>
@@ -1731,6 +1733,5 @@
 	<string name="type.wheelchair.limited">Korlátozottan akadálymentesített</string>
 	<string name="type.wheelchair.no">Nem akadálymentesített</string>
 	<string name="type.wheelchair.yes">Teljesen akadálymentesített</string>
-	<string name="type.building_part">Épület</string>
 	<string name="type.amenity.events_venue">Rendezvények helyszíne</string>
 </resources>

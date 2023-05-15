@@ -23,7 +23,7 @@
 	<string name="miles">Miles</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Ma position</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">Plus tard</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Recherche</string>
@@ -922,6 +922,7 @@
 	<string name="type.building">Bâtiment</string>
 	<string name="type.building.address">Bâtiment</string>
 	<string name="type.building.has_parts">Bâtiment</string>
+	<string name="type.building_part">Bâtiment</string>
 	<string name="type.building.train_station">Gare</string>
 	<string name="type.building.warehouse">Entrepôt</string>
 	<string name="type.cemetery.grave">Tombe</string>
@@ -978,7 +979,6 @@
 	<string name="type.cuisine.filipino">Cuisine philippine</string>
 	<string name="type.cuisine.fine_dining">Restaurant gastronomique</string>
 	<string name="type.cuisine.fish">Poisson</string>
-	<string name="type.cuisine.fish_and_chips">Fish and chips</string>
 	<string name="type.cuisine.french">Cuisine française</string>
 	<string name="type.cuisine.friture">Friterie</string>
 	<string name="type.cuisine.georgian">Cuisine géorgienne</string>
@@ -1771,6 +1771,7 @@
 	<string name="type.shop.agrarian">Magasin d\'agriculture</string>
 	<string name="type.shop.antiques">Antiquités</string>
 	<string name="type.shop.appliance">Magasin d\'électroménager</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">Boutique d\'art</string>
 	<string name="type.shop.baby_goods">Magasin de puériculture</string>
 	<string name="type.shop.bag">Magasin de sacs</string>
@@ -1883,6 +1884,5 @@
 	<string name="type.piste_type.downhill.novice">Piste de ski alpin</string>
 	<string name="type.piste_type.nordic">Piste de ski de fond</string>
 	<string name="type.piste_type.sled">Piste de luge</string>
-	<string name="type.building_part">Bâtiment</string>
 	<string name="type.amenity.events_venue">Lieu des événements</string>
 </resources>

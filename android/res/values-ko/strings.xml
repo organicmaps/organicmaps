@@ -21,7 +21,7 @@
 	<string name="miles">마일</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">나의 위치</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">나중에</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">검색하기</string>
@@ -825,8 +825,9 @@
 	<string name="type.boundary.national_park">국립 공원</string>
 	<string name="type.building">건물</string>
 	<string name="type.building.address">건물</string>
-	<string name="type.building.garage">차고</string>
 	<string name="type.building.has_parts">건물</string>
+	<string name="type.building_part">건물</string>
+	<string name="type.building.garage">차고</string>
 	<string name="type.building.train_station">기차역</string>
 	<string name="type.cemetery.grave">무덤</string>
 	<string name="type.craft">공예</string>
@@ -1567,7 +1568,6 @@
 	<string name="type.shop.greengrocer">청과상</string>
 	<string name="type.shop.grocery">\"식료품점\"</string>
 	<string name="type.shop.hairdresser">이발사</string>
-	<string name="type.shop.hardware">철물점</string>
 	<string name="type.shop.health_food">\"건강식품 가게\"</string>
 	<string name="type.shop.herbalist">허브 가게</string>
 	<string name="type.shop.hifi">하이파이 오디오</string>
@@ -1612,6 +1612,7 @@
 	<string name="type.shop.agrarian">농산물 가게</string>
 	<string name="type.shop.antiques">고물</string>
 	<string name="type.shop.appliance">가전제품 매장</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">아트샵</string>
 	<string name="type.shop.baby_goods">어린이 가게</string>
 	<string name="type.shop.bag">가방 판매점</string>
@@ -1714,6 +1715,5 @@
 	<string name="type.wheelchair.limited">휠체어 접근 제한</string>
 	<string name="type.wheelchair.no">휠체어 접근 금지</string>
 	<string name="type.wheelchair.yes">휠체어 접근 가능</string>
-	<string name="type.building_part">건물</string>
 	<string name="type.amenity.events_venue">행사장</string>
 </resources>

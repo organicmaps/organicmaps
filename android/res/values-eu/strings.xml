@@ -21,7 +21,7 @@
 	<string name="miles">Milia</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Nire kokapena</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">Geroago</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Bilatu</string>
@@ -928,8 +928,9 @@
 	<string name="type.boundary.national_park">Parke Nazionala</string>
 	<string name="type.building">Eraikin</string>
 	<string name="type.building.address">Eraikin</string>
-	<string name="type.building.garage">Garajea</string>
 	<string name="type.building.has_parts">Eraikin</string>
+	<string name="type.building_part">Eraikin</string>
+	<string name="type.building.garage">Garajea</string>
 	<string name="type.building.train_station">Tren geltokian</string>
 	<string name="type.building.warehouse">Denda</string>
 	<string name="type.cemetery.grave">Hilobia</string>
@@ -1724,6 +1725,7 @@
 	<string name="type.shop.agrarian">Nekazaritza denda</string>
 	<string name="type.shop.antiques">Antigoalekoak</string>
 	<string name="type.shop.appliance">Etxetresna elektrikoen denda</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">Arte Denda</string>
 	<string name="type.shop.baby_goods">Haurrentzako denda</string>
 	<string name="type.shop.bag">Poltsen Denda</string>
@@ -1821,6 +1823,5 @@
 	<string name="type.wheelchair.limited">Ezinduentzako partzialki hornitua</string>
 	<string name="type.wheelchair.no">Ezinduentzako ekipatuta ez dago</string>
 	<string name="type.wheelchair.yes">Ezinduentzako hornitua</string>
-	<string name="type.building_part">Eraikin</string>
 	<string name="type.amenity.events_venue">Ekitaldien Lekua</string>
 </resources>

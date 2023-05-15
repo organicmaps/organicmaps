@@ -21,7 +21,7 @@
 	<string name="miles">मैल</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">माझे स्थान</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">नंतर</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">शोधा</string>
@@ -871,8 +871,9 @@
 	<string name="type.boundary.national_park">राष्ट्रीय उद्यान</string>
 	<string name="type.building">इमारत</string>
 	<string name="type.building.address">इमारत</string>
-	<string name="type.building.garage">गराज</string>
 	<string name="type.building.has_parts">इमारत</string>
+	<string name="type.building_part">इमारत</string>
+	<string name="type.building.garage">गराज</string>
 	<string name="type.building.train_station">रेल्वे स्थानक</string>
 	<string name="type.building.warehouse">वखार</string>
 	<string name="type.craft">हस्तकला</string>
@@ -1626,7 +1627,6 @@
 	<string name="type.shop.gift">भेटवस्तूंचे दुकान</string>
 	<string name="type.shop.greengrocer">भाजीवाला</string>
 	<string name="type.shop.hairdresser">न्हावी</string>
-	<string name="type.shop.hardware">हार्डवेअर दुकान</string>
 	<string name="type.shop.herbalist">औषधी वनस्पतींचे दुकान</string>
 	<string name="type.shop.hifi">हायफाय ऑडिओ</string>
 	<string name="type.shop.houseware">हार्डवेअर दुकान</string>
@@ -1746,6 +1746,5 @@
 	<string name="type.wheelchair.limited">चाकखुर्चीसाठी मर्यादित प्रवेश</string>
 	<string name="type.wheelchair.no">चाकखुर्चीसाठी प्रवेश नाही</string>
 	<string name="type.wheelchair.yes">चाकखुर्चीसाठी प्रवेश</string>
-	<string name="type.building_part">इमारत</string>
 	<string name="type.amenity.events_venue">कार्यक्रमाचे ठिकाण</string>
 </resources>

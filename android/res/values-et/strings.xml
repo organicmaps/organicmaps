@@ -21,7 +21,7 @@
 	<string name="miles">Miilid</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Minu asukoht</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">Hiljem</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Otsi</string>
@@ -920,8 +920,9 @@
 	<string name="type.boundary.national_park">Rahvuspark</string>
 	<string name="type.building">Hoone</string>
 	<string name="type.building.address">Hoone</string>
-	<string name="type.building.garage">Garaaž</string>
 	<string name="type.building.has_parts">Hoone</string>
+	<string name="type.building_part">Hoone</string>
+	<string name="type.building.garage">Garaaž</string>
 	<string name="type.building.train_station">Rongijaam</string>
 	<string name="type.building.warehouse">Ladu</string>
 	<string name="type.cemetery.grave">Haud</string>
@@ -1827,6 +1828,7 @@
 	<string name="type.shop.agrarian">Põllumajanduspood</string>
 	<string name="type.shop.antiques">Antikvariaat</string>
 	<string name="type.shop.appliance">Tehnikapood</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">Kunstipood</string>
 	<string name="type.shop.baby_goods">Lastekaubad</string>
 	<string name="type.shop.bag">Kotipood</string>
@@ -1957,6 +1959,5 @@
 	<string name="type.piste_type.downhill.novice">Algajasõbralik laskumine</string>
 	<string name="type.piste_type.nordic">Murdmaa suusarada</string>
 	<string name="type.piste_type.sled">Kelgurada</string>
-	<string name="type.building_part">Hoone</string>
 	<string name="type.amenity.events_venue">Ürituste toimumiskoht</string>
 </resources>

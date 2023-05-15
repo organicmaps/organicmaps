@@ -21,7 +21,7 @@
 	<string name="miles">Dặm</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Vị trí của Tôi</string>
-	<!-- Update maps later/Buy pro version later button text -->
+	<!-- Update maps later button text -->
 	<string name="later">Để sau</string>
 	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Tìm kiếm</string>
@@ -823,8 +823,9 @@
 	<string name="type.boundary.national_park">Công viên quốc gia</string>
 	<string name="type.building">Tòa nhà</string>
 	<string name="type.building.address">Tòa nhà</string>
-	<string name="type.building.garage">Gara</string>
 	<string name="type.building.has_parts">Tòa nhà</string>
+	<string name="type.building_part">Tòa nhà</string>
+	<string name="type.building.garage">Gara</string>
 	<string name="type.building.train_station">Đường tàu hỏa</string>
 	<string name="type.cemetery.grave">Phần mộ</string>
 	<string name="type.craft">Thủ công</string>
@@ -1563,7 +1564,6 @@
 	<string name="type.shop.greengrocer">Cửa hàng rau củ</string>
 	<string name="type.shop.grocery">Cửa hàng tạp hóa</string>
 	<string name="type.shop.hairdresser">Tiệm làm tóc</string>
-	<string name="type.shop.hardware">Cửa hàng phần cứng</string>
 	<string name="type.shop.health_food">Cửa hàng thực phẩm sức khỏe</string>
 	<string name="type.shop.herbalist">Cửa hàng thảo mộc</string>
 	<string name="type.shop.hifi">Âm thanh hifi</string>
@@ -1608,6 +1608,7 @@
 	<string name="type.shop.agrarian">Cửa hàng nông sản</string>
 	<string name="type.shop.antiques">Đồ cổ</string>
 	<string name="type.shop.appliance">Cửa hàng đồ gia dụng</string>
+	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">Cửa hàng nghệ thuật</string>
 	<string name="type.shop.baby_goods">Cửa hàng trẻ em</string>
 	<string name="type.shop.bag">Cửa hàng túi xách</string>
@@ -1709,6 +1710,5 @@
 	<string name="type.wheelchair.limited">Được trang bị một phần cho người khuyết tật</string>
 	<string name="type.wheelchair.no">Không trang bị cho người khuyết tật</string>
 	<string name="type.wheelchair.yes">Được trang bị cho người khuyết tật</string>
-	<string name="type.building_part">Tòa nhà</string>
 	<string name="type.amenity.events_venue">Địa điểm tổ chức sự kiện</string>
 </resources>
