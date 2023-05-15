@@ -246,7 +246,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     super.onStart();
     mViewModel.getMapObject().observe(requireActivity(), this);
     LocationHelper.INSTANCE.addListener(this);
-    setCurrentCountry();
   }
 
   @Override
@@ -260,7 +259,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
   private void setCurrentCountry()
   {
-    if (mCurrentCountry != null || mMapObject == null)
+    if (mCurrentCountry != null)
       return;
     String country = MapManager.nativeGetSelectedCountry();
     if (country != null && !RoutingController.get().isNavigating())
@@ -601,11 +600,11 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   {
     if (mapObject == null)
       return;
+    // Starting the download will fire this callback but the object will be the same
+    // Detaching the country in that case will crash the app
     if (!mapObject.sameAs(mMapObject))
-    {
       detachCountry();
-      setCurrentCountry();
-    }
+    setCurrentCountry();
 
     mMapObject = mapObject;
 
