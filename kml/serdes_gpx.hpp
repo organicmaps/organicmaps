@@ -64,7 +64,7 @@ private:
   std::map<std::string, uint32_t> m_styleUrl2Color;
   std::map<std::string, double> m_styleUrl2Width;
   std::map<std::string, std::string> m_mapStyle2Style;
-  
+
   int8_t m_attrCode;
   std::string m_attrId;
   std::string m_attrKey;
@@ -74,15 +74,11 @@ private:
   PredefinedColor m_predefinedColor;
   Timestamp m_timestamp;
   m2::PointD m_org;
-  
-  
-  
+
   double m_lat;
   double m_lon;
-  
+
   MultiGeometry::LineT m_line;
-  
-  
   uint8_t m_viewportScale;
   std::vector<uint32_t> m_featureTypes;
   LocalizableString m_customName;
@@ -114,12 +110,12 @@ public:
     GpxParser parser(m_fileData);
     if (!ParseXML(src, parser, true))
     {
-      // Print corrupted KML file for debug and restore purposes.
-      std::string kmlText;
-      reader.ReadAsString(kmlText);
-      if (!kmlText.empty() && kmlText[0] == '<')
-        LOG(LWARNING, (kmlText));
-      MYTHROW(DeserializeException, ("Could not parse KML."));
+      // Print corrupted GPX file for debug and restore purposes.
+      std::string gpxText;
+      reader.ReadAsString(gpxText);
+      if (!gpxText.empty() && gpxText[0] == '<')
+        LOG(LWARNING, (gpxText));
+      MYTHROW(DeserializeException, ("Could not parse GPX."));
     }
   }
   

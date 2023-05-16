@@ -106,13 +106,9 @@ bool GpxParser::Push(std::string const & tag)
 {
   m_tags.push_back(tag);
   if (GetTagFromEnd(0) == "wpt")
-  {
     m_geometryType = GEOMETRY_TYPE_POINT;
-  }
   else if (GetTagFromEnd(0) == "trkpt")
-  {
     m_geometryType = GEOMETRY_TYPE_LINE;
-  }
   return true;
 }
 
@@ -124,24 +120,16 @@ void GpxParser::AddAttr(std::string const & attr, std::string const & value)
   if (GetTagFromEnd(0) == "wpt")
   {
     if (attr == "lat")
-    {
       m_lat = stod(value);
-    }
     else if (attr == "lon")
-    {
       m_lon = stod(value);
-    }
   }
   else if (GetTagFromEnd(0) == "trkpt" && GetTagFromEnd(1) == "trkseg")
   {
     if (attr == "lat")
-    {
       m_lat = stod(value);
-    }
     else if (attr == "lon")
-    {
       m_lon = stod(value);
-    }
   }
   
 }
@@ -159,10 +147,8 @@ void GpxParser::Pop(std::string const & tag)
   if (tag == "trkpt")
   {
     m2::Point p = mercator::FromLatLon(m_lat, m_lon);
-    
     if (m_line.empty() || !AlmostEqualAbs(m_line.back().GetPoint(), p, kMwmPointAccuracy))
       m_line.emplace_back(p);
-    
   }
   else if (tag == "trkseg")
   {
@@ -203,7 +189,7 @@ void GpxParser::Pop(std::string const & tag)
         {
           data.m_customName = data.m_name;
         }
-        
+
         m_data.m_bookmarksData.push_back(std::move(data));
       }
       else if (GEOMETRY_TYPE_LINE == m_geometryType)
@@ -242,24 +228,16 @@ void GpxParser::CharData(std::string value)
     if (prevTag == "wpt")
     {
       if (currTag == "name")
-      {
         m_name[gpx::kDefaultLang] = value;
-      }
       else if (currTag == "desc")
-      {
         m_description[gpx::kDefaultLang] = value;
-      }
     }
     else if (prevTag == "trk")
     {
       if (currTag == "name")
-      {
         m_categoryData->m_name[gpx::kDefaultLang] = value;
-      }
       else if (currTag == "desc")
-      {
         m_categoryData->m_description[gpx::kDefaultLang] = value;
-      }
     }
   }
 }

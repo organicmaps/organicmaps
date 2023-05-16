@@ -6,10 +6,11 @@
 
 #include "geometry/mercator.hpp"
 
+auto const kDefaultCode = StringUtf8Multilang::kDefaultCode;
+
 UNIT_TEST(Gpx_Test_Point)
 {
-  char const * input =
-      R"(<?xml version="1.0" encoding="UTF-8"?>
+  char const * input = R"(<?xml version="1.0" encoding="UTF-8"?>
 <gpx version="1.0">
  <wpt lat="42.81025" lon="-1.65727">
   <time>2022-09-05T08:39:39.3700Z</time>
@@ -31,9 +32,9 @@ UNIT_TEST(Gpx_Test_Point)
 
   kml::FileData data;
   kml::BookmarkData bookmarkData;
-  bookmarkData.m_name[kDefaultLang] = "Waypoint 1";
+  bookmarkData.m_name[kDefaultCode] = "Waypoint 1";
   bookmarkData.m_point = mercator::FromLatLon(42.81025, -1.65727);
-  bookmarkData.m_customName[kDefaultLang] = "Waypoint 1";
+  bookmarkData.m_customName[kDefaultCode] = "Waypoint 1";
   bookmarkData.m_color = {kml::PredefinedColor::Red, 0};
   data.m_bookmarksData.emplace_back(std::move(bookmarkData));
 
@@ -41,11 +42,9 @@ UNIT_TEST(Gpx_Test_Point)
 }
 
 
-
 UNIT_TEST(Gpx_Test_Route)
 {
-  char const * input =
-      R"(<?xml version="1.0" encoding="UTF-8"?>
+  char const * input = R"(<?xml version="1.0" encoding="UTF-8"?>
 <gpx version="1.0">
 <trk>
     <name>new</name>
