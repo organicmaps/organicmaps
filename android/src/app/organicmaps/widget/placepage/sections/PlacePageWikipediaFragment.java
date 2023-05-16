@@ -95,6 +95,7 @@ public class PlacePageWikipediaFragment extends Fragment implements Observer<Map
       UiUtils.hide(mPlaceDescriptionViewContainer);
     else
     {
+      UiUtils.show(mPlaceDescriptionViewContainer);
       mPlaceDescriptionView.setText(getShortDescription());
       final String descriptionString = mPlaceDescriptionView.getText().toString();
       mPlaceDescriptionView.setOnLongClickListener((v) -> {
