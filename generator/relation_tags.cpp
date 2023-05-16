@@ -91,11 +91,15 @@ void RelationTagsWay::Process(RelationElement const & e)
   if (Base::IsSkipRelation(type))
     return;
 
+  bool const isHighway = Base::IsKeyTagExists("highway");
+
   /// @todo Review route relations in future. Actually, now they give a lot of dummy tags.
   if (type == "route")
   {
     auto const route = e.GetTagValue("route");
-    if (route == "road")
+    bool fetchTags = (isHighway && route == "road");
+
+    if (fetchTags)
     {
       /* Road ref format is
        *    8;e-road/E 67;ee:local/7841171
@@ -121,9 +125,20 @@ void RelationTagsWay::Process(RelationElement const & e)
         Base::AddCustomTag({"ref", std::move(ref)});
       }
     }
+    else
+    {
+      // Pass this route Relation forward to fetch it's tags (like foot, bicycle, ..., wikipedia).
+      fetchTags = (route == "ferry" || (route == "train" && !e.GetTagValue("shuttle").empty()));
+    }
 
-    // Pass this route Relation forward to fetch it's tags (like foot, bicycle, ...).
-    bool const fetchTags = (route == "ferry" || (route == "train" && !e.GetTagValue("shuttle").empty()));
+    if (isHighway)
+    {
+      if (route == "bicycle")
+        Base::AddCustomTag({"bicycle", "yes"});
+      else if (route == "foot" || route == "hiking")
+        Base::AddCustomTag({"foot", "yes"});
+    }
+
     if (!fetchTags)
       return;
   }
@@ -137,7 +152,6 @@ void RelationTagsWay::Process(RelationElement const & e)
   bool const processAssociatedStreet = isAssociatedStreet &&
                                        Base::IsKeyTagExists("addr:housenumber") &&
                                        !Base::IsKeyTagExists("addr:street");
-  bool const isHighway = Base::IsKeyTagExists("highway");
 
   for (auto const & p : e.m_tags)
   {
