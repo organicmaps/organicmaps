@@ -1,12 +1,35 @@
 #include "testing/testing.hpp"
-
+#include "map/bookmark_helpers.hpp"
 #include "kml/serdes_gpx.hpp"
-
 #include "coding/string_utf8_multilang.hpp"
-
 #include "geometry/mercator.hpp"
+#include "platform/platform.hpp"
 
 auto const kDefaultCode = StringUtf8Multilang::kDefaultCode;
+
+kml::FileData loadGpxFromString(const std::string& content) {
+  kml::FileData dataFromText;
+  try
+  {
+    const char * input = content.c_str();
+    kml::DeserializerGpx des(dataFromText);
+    MemReader reader(input, strlen(input));
+    des.Deserialize(reader);
+    return dataFromText;
+  }
+  catch (kml::DeserializerGpx::DeserializeException const & exc)
+  {
+    TEST(false, ("Exception raised", exc.what()));
+  }
+}
+
+kml::FileData loadGpxFromFile(std::string file) {
+  auto fileName = GetPlatform().TestsDataPathForFile(file);
+  std::ifstream t(fileName);
+  std::stringstream buffer;
+  buffer << t.rdbuf();
+  return loadGpxFromString(buffer.str());
+}
 
 UNIT_TEST(Gpx_Test_Point)
 {
@@ -18,17 +41,7 @@ UNIT_TEST(Gpx_Test_Point)
  </wpt>
 )";
 
-  kml::FileData dataFromText;
-  try
-  {
-    kml::DeserializerGpx des(dataFromText);
-    MemReader reader(input, strlen(input));
-    des.Deserialize(reader);
-  }
-  catch (kml::DeserializerGpx::DeserializeException const & exc)
-  {
-    TEST(false, ("Exception raised", exc.what()));
-  }
+  kml::FileData dataFromText = loadGpxFromString(input);
 
   kml::FileData data;
   kml::BookmarkData bookmarkData;
@@ -64,19 +77,36 @@ UNIT_TEST(Gpx_Test_Route)
 </gpx>
 )";
 
-  kml::FileData dataFromText;
-  try
-  {
-    kml::DeserializerGpx des(dataFromText);
-    MemReader reader(input, strlen(input));
-    des.Deserialize(reader);
-  }
-  catch (kml::DeserializerGpx::DeserializeException const & exc)
-  {
-    TEST(false, ("Exception raised", exc.what()));
-  }
-
+  kml::FileData dataFromText = loadGpxFromString(input);
   auto line = dataFromText.m_tracksData[0].m_geometry.m_lines[0];
   TEST_EQUAL(line.size(), 3, ());
   TEST_EQUAL(line[0], mercator::FromLatLon(54.23955053156179, 24.114990234375004), ());
+}
+
+UNIT_TEST(GoMap)
+{
+  kml::FileData dataFromFile = loadGpxFromFile("gpx_test_data/go_map.gpx");
+  auto line = dataFromFile.m_tracksData[0].m_geometry.m_lines[0];
+  TEST_EQUAL(line.size(), 101, ());
+}
+
+UNIT_TEST(GpxStudio)
+{
+  kml::FileData dataFromFile = loadGpxFromFile("gpx_test_data/gpx_studio.gpx");
+  auto line = dataFromFile.m_tracksData[0].m_geometry.m_lines[0];
+  TEST_EQUAL(line.size(), 328, ());
+}
+
+UNIT_TEST(OsmTrack)
+{
+  kml::FileData dataFromFile = loadGpxFromFile("gpx_test_data/osm_track.gpx");
+  auto line = dataFromFile.m_tracksData[0].m_geometry.m_lines[0];
+  TEST_EQUAL(line.size(), 182, ());
+}
+
+UNIT_TEST(TowerCollector)
+{
+  kml::FileData dataFromFile = loadGpxFromFile("gpx_test_data/tower_collector.gpx");
+  auto line = dataFromFile.m_tracksData[0].m_geometry.m_lines[0];
+  TEST_EQUAL(line.size(), 35, ());
 }

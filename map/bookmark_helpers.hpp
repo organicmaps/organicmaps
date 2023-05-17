@@ -74,8 +74,8 @@ extern std::string const kDefaultBookmarksFileName;
 enum class KmlFileType
 {
   Text,
-  Gpx,
-  Binary
+  Binary,
+  Gpx
 };
 
 inline std::string DebugPrint(KmlFileType fileType)
@@ -84,6 +84,7 @@ inline std::string DebugPrint(KmlFileType fileType)
   {
   case KmlFileType::Text: return "Text";
   case KmlFileType::Binary: return "Binary";
+  case KmlFileType::Gpx: return "GPX";
   }
   UNREACHABLE();
 }

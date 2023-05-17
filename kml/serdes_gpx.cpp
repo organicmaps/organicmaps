@@ -1,7 +1,5 @@
 #include "kml/serdes_gpx.hpp"
 
-#include "indexer/classificator.hpp"
-
 #include "coding/hex.hpp"
 #include "coding/point_coding.hpp"
 #include "coding/string_utf8_multilang.hpp"
@@ -9,18 +7,18 @@
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
-#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
-#include "base/timer.hpp"
 
 #include <sstream>
 
-using namespace std::string_literals;
 
 namespace kml
 {
 namespace gpx
 {
+
+using namespace std::string_literals;
+
 auto const kDefaultLang = StringUtf8Multilang::kDefaultCode;
 
 auto const kDefaultTrackWidth = 5.0;
