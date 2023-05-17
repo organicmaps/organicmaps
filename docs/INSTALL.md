@@ -480,13 +480,13 @@ Building Organic Maps for iOS requires a Mac.
 
 Ensure that you have at least 20GB of free space.
 
-Install Command Line Tools:
+After [getting all sources](#getting-sources), please make sure that Command Line Tools are installed:
 
-- Launch Terminal application on your Mac.
-- Type `git` in the command line.
-- Follow the instructions in GUI.
+```bash
+xcode-select --install
+```
 
-Install [Xcode](https://apps.apple.com/ru/app/xcode/id497799835?mt=12) from AppStore.
+Then, install [Xcode](https://apps.apple.com/app/xcode/id497799835?mt=12) from AppStore.
 
 Enroll in the [Apple Developer Program](https://developer.apple.com/programs/) (you can run Organic Maps in Simulator without this step).
 
@@ -494,7 +494,7 @@ Enroll in the [Apple Developer Program](https://developer.apple.com/programs/) (
 
 Set up your developer account and add certificates:
 
-- Run Xcode.
+- Open Xcode.
 - Click "Xcode" → "Preferences".
 - Open "Account" tab.
 - Enter account credentials from the previous step.
