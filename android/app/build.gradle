@@ -24,6 +24,10 @@ buildscript {
   // Add a parameter to force Firebase.
   ext.googleFirebaseServicesEnabled = project.hasProperty('firebase') ?: googleFirebaseServicesDefault
 
+  // See https://developer.android.com/jetpack/androidx/releases/compose-kotlin
+  // to see which kotlin version is compatible with compose
+  ext.kotlin_version = '1.8.21'
+
   dependencies {
     classpath 'com.android.tools.build:gradle:8.1.0'
 
@@ -44,6 +48,8 @@ buildscript {
 
     classpath('com.github.triplet.gradle:play-publisher:3.8.3')
     classpath('ru.cian:huawei-publish-gradle-plugin:1.4.0')
+
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
   }
 }
 
@@ -64,6 +70,7 @@ if (googleFirebaseServicesEnabled) {
 }
 apply plugin: 'com.github.triplet.play'
 apply plugin: 'ru.cian.huawei-publish-gradle-plugin'
+apply plugin: 'kotlin-android'
 
 dependencies {
   // Google Mobile Services
@@ -81,10 +88,30 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics-ndk'
   }
 
-  // This line is added as a workaround for duplicate classes error caused by some outdated dependency:
-  // > A failure occurred while executing com.android.build.gradle.internal.tasks.CheckDuplicatesRunnable
-  // We don't use Kotlin, but some dependencies are actively using it.
-  implementation(platform('org.jetbrains.kotlin:kotlin-bom:1.8.21'))
+
+  // Kotlin
+  implementation 'androidx.core:core-ktx:1.10.1'
+  implementation(platform("org.jetbrains.kotlin:kotlin-bom:$kotlin_version"))
+
+  // Dependencies for Jetpack Compose
+  // See https://developer.android.com/jetpack/compose/setup#setup-compose
+  def composeBom = platform('androidx.compose:compose-bom:2023.04.01')
+  implementation composeBom
+  androidTestImplementation composeBom
+  // Material Design 2
+  implementation 'androidx.compose.material:material'
+  // Android Studio Preview support
+  implementation 'androidx.compose.ui:ui-tooling-preview'
+  debugImplementation 'androidx.compose.ui:ui-tooling'
+  // Optional - Integration with activities
+  implementation 'androidx.activity:activity-compose:1.7.1'
+  // Optional - Integration with ViewModels
+  implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1'
+  // Optional - Integration with LiveData
+  implementation 'androidx.compose.runtime:runtime-livedata'
+  // Optional - Allows controlling status bar and navigation bar
+  implementation "com.google.accompanist:accompanist-systemuicontroller:0.31.2-alpha"
+
   implementation 'androidx.annotation:annotation:1.6.0'
   implementation 'androidx.appcompat:appcompat:1.6.1'
   implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -138,6 +165,15 @@ android {
 
   buildFeatures {
     dataBinding = true
+    compose true
+  }
+
+  kotlinOptions {
+    jvmTarget = JavaVersion.VERSION_11
+  }
+
+  composeOptions {
+    kotlinCompilerExtensionVersion = "1.4.7"
   }
   // All properties are read from gradle.properties file
   compileSdkVersion propCompileSdkVersion.toInteger()
