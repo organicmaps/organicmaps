@@ -288,7 +288,8 @@ UNIT_TEST(RussiaSmolenskRussiaMoscowTimeTest)
 
   TEST(routeResult.first, ());
   Route const & route = *routeResult.first;
-  TestRouteTime(route, 18045.9);
+  TestRouteLength(route, 391659);
+  TestRouteTime(route, 18374.9);
 }
 
 UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22TimeTest)
@@ -301,7 +302,8 @@ UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22TimeTest)
 
   TEST(routeResult.first, ());
   Route const & route = *routeResult.first;
-  TestRouteTime(route, 1044.42);
+  TestRouteLength(route, 14276.3);
+  TestRouteTime(route, 1113.86);
 }
 
 UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22SubrouteTest)
@@ -378,9 +380,10 @@ UNIT_TEST(GermanyBerlinMunichTimeTest)
   TEST(routeResult.first, ());
   Route const & route = *routeResult.first;
 
-  // New time is closer to GraphHopper timing:
+  /// @todo New time is closer to GraphHopper timing, but still very optimistic. Compare maxspeed=none defaults.
   // https://www.openstreetmap.org/directions?engine=graphhopper_car&route=52.51172%2C13.39468%3B48.13294%2C11.60352
-  TestRouteTime(route, 19321.7);
+  TestRouteLength(route, 584960);
+  TestRouteTime(route, 19173.3);
 }
 
 // Test on roads with tag route=shuttle_train. This train has defined maxspeed=100.
@@ -408,7 +411,9 @@ UNIT_TEST(TolyattiFeatureThatCrossSeveralMwmsTest)
   TEST(routeResult.first, ());
   Route const & route = *routeResult.first;
 
-  TestRouteTime(route, 8102.0);
+  // GraphHopper and Valhalla agree here, but OSRM makes a short route via Syzran.
+  TestRouteLength(route, 166157);
+  TestRouteTime(route, 8151.04);
 }
 
 // Test on removing speed cameras from the route for maps from Jan 2019,
@@ -758,6 +763,12 @@ UNIT_TEST(Germany_Italy_Malcesine)
       GetVehicleComponents(VehicleType::Car),
       FromLatLon(45.7662964, 10.8111554), {0., 0.},
       FromLatLon(48.4101446, 11.5892265), 431341);
+
+  /// @todo Again strange detour (near finish) on a long route.
+  CalculateRouteAndTestRouteLength(
+      GetVehicleComponents(VehicleType::Car),
+      FromLatLon(50.8499365, 12.4662169), {0., 0.},
+      FromLatLon(45.7662964, 10.8111554), 776000);
 }
 
 // https://github.com/organicmaps/organicmaps/issues/3363
@@ -776,8 +787,8 @@ UNIT_TEST(Turkey_AvoidMountainsSecondary)
                               FromLatLon(41.0027, 27.6752), {0., 0.},
                               FromLatLon(40.6119, 27.1136));
 
-  TestRouteLength(*res.first, 100386.0);
-  TestRouteTime(*res.first, 5096.9);
+  TestRouteLength(*res.first, 100399);
+  TestRouteTime(*res.first, 5319.01);
 }
 
 // https://github.com/organicmaps/organicmaps/issues/4110
@@ -851,6 +862,21 @@ UNIT_TEST(Germany_Cologne_Croatia_Zagreb)
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
                                    FromLatLon(50.924, 6.943), {0., 0.},
                                    FromLatLon(45.806, 15.963), 1074730);
+}
+
+UNIT_TEST(Finland_Avoid_CompactedUnclassified)
+{
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
+                                   FromLatLon(61.4677, 24.0025), {0., 0.},
+                                   FromLatLon(61.4577, 24.035), 3128.31);
+}
+
+// https://github.com/orgs/organicmaps/discussions/5158#discussioncomment-5938807
+UNIT_TEST(Greece_Crete_Use_EO94)
+{
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
+                                   FromLatLon(35.5170594, 24.0938699), {0., 0.},
+                                   FromLatLon(35.5446109, 24.1312439), 6333.82);
 }
 
 } // namespace route_test

@@ -1185,6 +1185,8 @@ UNIT_TEST(Russia_Moscow_OnlyUTurnTest1_TurnTest)
   RouterResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
+  integration::TestRouteLength(route, 2496.61);
+
   integration::TestTurnCount(route, 5 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnLeft);
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);

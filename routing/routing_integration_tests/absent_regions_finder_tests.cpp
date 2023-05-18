@@ -283,9 +283,19 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, Germany_Cologne_Croatia_Zagreb)
   Checkpoints const checkpoints{mercator::FromLatLon(50.924, 6.943),
                                 mercator::FromLatLon(45.806, 15.963)};
 
-  /// @todo Well, optimal route should include Graz-Maribor-Zagreb.
+  /// @todo Optimal route should include Graz-Maribor-Zagreb.
   auto const & rgns = GetRegions(checkpoints);
   TEST(rgns.count("Austria_Styria_Graz") > 0, ());
+}
+
+UNIT_CLASS_TEST(TestAbsentRegionsFinder, Russia_SPB_Pechory)
+{
+  Checkpoints const checkpoints{mercator::FromLatLon(59.9387323, 30.3162295),
+                                mercator::FromLatLon(57.8133044, 27.6081855)};
+
+  /// @todo Optimal should not include Estonia.
+  for (auto const & rgn : GetRegions(checkpoints))
+    TEST(!strings::StartsWith(rgn, "Estonia"), ());
 }
 
 } // namespace absent_regions_finder_tests
