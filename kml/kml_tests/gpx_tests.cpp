@@ -110,3 +110,15 @@ UNIT_TEST(TowerCollector)
   auto line = dataFromFile.m_tracksData[0].m_geometry.m_lines[0];
   TEST_EQUAL(line.size(), 35, ());
 }
+
+UNIT_TEST(PointsOnly)
+{
+  kml::FileData dataFromFile = loadGpxFromFile("gpx_test_data/points.gpx");
+  auto bookmarks = dataFromFile.m_bookmarksData;
+  TEST_EQUAL(bookmarks.size(), 3, ());
+  TEST_EQUAL("Point 1", bookmarks[0].m_name[kDefaultCode], ());
+  TEST_EQUAL(bookmarks[0].m_point, mercator::FromLatLon(48.20984622935899, 16.376023292541507), ());
+}
+
+
+
