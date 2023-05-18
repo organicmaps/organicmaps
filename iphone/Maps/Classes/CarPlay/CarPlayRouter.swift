@@ -261,7 +261,7 @@ extension CarPlayRouter {
     if routeInfo.roundExitNumber != 0 {
       let ordinalExitNumber = NumberFormatter.localizedString(from: NSNumber(value: routeInfo.roundExitNumber),
                                                               number: .ordinal)
-      let exitNumber = String(coreFormat: L("carplay_roundabout_exit"),
+      let exitNumber = String(format: L("carplay_roundabout_exit"),
                               arguments: [ordinalExitNumber])
       instructionVariant = instructionVariant.isEmpty ? exitNumber : (exitNumber + ", " + instructionVariant)
     }

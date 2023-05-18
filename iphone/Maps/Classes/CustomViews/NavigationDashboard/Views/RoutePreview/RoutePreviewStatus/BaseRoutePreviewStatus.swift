@@ -152,7 +152,7 @@ final class BaseRoutePreviewStatus: SolidTouchView {
   @objc func onNavigationInfoUpdated(_ info: MWMNavigationDashboardEntity) {
     navigationInfo = info
     updateResultsLabel()
-    arriveLabel?.text = String(coreFormat: L("routing_arrive"), arguments: [info.arrival])
+    arriveLabel?.text = String(format: L("routing_arrive"), arguments: [info.arrival])
   }
 
   override var sideButtonsAreaAffectDirections: MWMAvailableAreaAffectDirections {
