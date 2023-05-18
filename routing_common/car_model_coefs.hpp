@@ -48,8 +48,7 @@ HighwayBasedSpeeds const kHighwayBasedSpeeds = {
     {HighwayType::HighwaySecondary, InOutCitySpeedKMpH(60.00 /* in city */, 70.00 /* out city */)},
     {HighwayType::HighwaySecondaryLink, InOutCitySpeedKMpH(48.00 /* in city */, 56.00 /* out city */)},
     {HighwayType::HighwayService, InOutCitySpeedKMpH({15.00, 15.00} /* in city */, {15.00, 15.00} /* out city */)},
-    /// @todo Why tertiary is the only road with inCity speed _bigger_ than outCity?
-    {HighwayType::HighwayTertiary, InOutCitySpeedKMpH(60.00 /* in city */, 50.00 /* out city */)},
+    {HighwayType::HighwayTertiary, InOutCitySpeedKMpH(50.00 /* in city */, 50.00 /* out city */)},
     {HighwayType::HighwayTertiaryLink, InOutCitySpeedKMpH({40.95, 34.97} /* in city */, {45.45, 39.73} /* out city */)},
     {HighwayType::HighwayTrack, InOutCitySpeedKMpH({5.00, 5.00} /* in city */, {5.00, 5.00} /* out city */)},
     {HighwayType::HighwayTrunk, InOutCitySpeedKMpH(90.00 /* in city */, 103.00 /* out city */)},
