@@ -6,8 +6,9 @@
 
 #include "geometry/mercator.hpp"
 
-#include <vector>
 
+namespace pedestrian_route_test
+{
 using namespace routing;
 using namespace routing::turns;
 
@@ -683,3 +684,14 @@ UNIT_TEST(Romania_Mountains_ETA)
   route.GetTotalTimeSec();
   TEST_LESS(route.GetTotalTimeSec(), 2 * 3600, ());
 }
+
+// Check piligrim routes here: www santiago.nl/downloads/
+UNIT_TEST(Spain_N634_Piligrim_Road)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetVehicleComponents(VehicleType::Pedestrian),
+      mercator::FromLatLon(43.5488528, -6.4696861), {0., 0.},
+      mercator::FromLatLon(43.5435194, -6.5340694), 7217.93);
+}
+
+} // namespace pedestrian_route_test

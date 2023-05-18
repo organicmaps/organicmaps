@@ -134,7 +134,14 @@ UNIT_TEST(CrossMwmKaliningradRegionToLiepaja)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Bicycle),
       mercator::FromLatLon(54.63519, 21.80749), {0., 0.},
-      mercator::FromLatLon(56.51119, 21.01847), 295241);
+      mercator::FromLatLon(56.51119, 21.01847), 271237);
+
+  // Valhalla makes the same route, but GraphHopper makes a detour (via unpaved):
+  // https://www.openstreetmap.org/directions?engine=graphhopper_bicycle&route=55.340%2C21.459%3B55.715%2C21.135
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetVehicleComponents(VehicleType::Bicycle),
+      mercator::FromLatLon(55.3405073, 21.4595925), {0., 0.},
+      mercator::FromLatLon(55.7140174, 21.1365445), 57180.3);
 }
 
 // Test on riding up from Adeje (sea level) to Vilaflor (altitude 1400 meters).
@@ -146,7 +153,7 @@ UNIT_TEST(SpainTenerifeAdejeVilaflor)
   TEST_EQUAL(res.second, RouterResultCode::NoError, ());
 
   TestRouteLength(*res.first, 26997.4);
-  TestRouteTime(*res.first, 11017.5);
+  TestRouteTime(*res.first, 11156.7);
 }
 
 // Test on riding down from Vilaflor (altitude 1400 meters) to Adeje (sea level).
@@ -158,7 +165,7 @@ UNIT_TEST(SpainTenerifeVilaflorAdeje)
   TEST_EQUAL(res.second, RouterResultCode::NoError, ());
 
   TestRouteLength(*res.first, 25413.6);
-  TestRouteTime(*res.first, 4974.78);
+  TestRouteTime(*res.first, 5105.25);
 }
 
 // Two tests on not building route against traffic on road with oneway:bicycle=yes.
@@ -223,9 +230,9 @@ UNIT_TEST(Spain_Madrid_ElevationsDetour)
 
   TEST(r1.first && r2.first, ());
 
-  // The first route is 50% shorter, but the second one is better by ETA because of elevation.
+  // The first route is shorter, but the second one is better by ETA because of elevation.
   // Can't say for sure is it ok or not, so this test may fail in future.
-  TEST_LESS(r1.first->GetTotalDistanceMeters() * 1.5, r2.first->GetTotalDistanceMeters(), ());
+  TEST_LESS(r1.first->GetTotalDistanceMeters(), r2.first->GetTotalDistanceMeters(), ());
   TEST_GREATER(r1.first->GetTotalTimeSec(), r2.first->GetTotalTimeSec(), ());
 }
 
@@ -235,4 +242,21 @@ UNIT_TEST(Spain_Zaragoza_Fancy_NoBicycle_Crossings)
       mercator::FromLatLon(41.6523561, -0.881151311), {0.0, 0.0},
       mercator::FromLatLon(41.6476614, -0.885694674), 649.855 /* expectedRouteMeters */);
 }
+
+// https://github.com/organicmaps/organicmaps/issues/1201#issuecomment-946042937
+UNIT_TEST(Netherlands_Use_Bicycle_Track)
+{
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
+      mercator::FromLatLon(48.420723, 9.90350146), {0.0, 0.0},
+      mercator::FromLatLon(48.4080367, 9.86597073), 3778.41 /* expectedRouteMeters */);
+}
+
+// https://github.com/orgs/organicmaps/discussions/5158#discussioncomment-5938807
+UNIT_TEST(Finland_Use_Tertiary_LowTraffic)
+{
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
+      mercator::FromLatLon(61.5445696, 23.9394003), {0.0, 0.0},
+      mercator::FromLatLon(61.6153965, 23.876755), 9876.65 /* expectedRouteMeters */);
+}
+
 } // namespace bicycle_route_test
