@@ -290,69 +290,13 @@ if (USE_PCH)
     ${OMIM_PCH_TARGET_NAME}
   )
 endif()
+
 # Include 3party dependencies.
-
-if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
-  # Configure expat library.
-  # Suppress "Policy CMP0077 is not set: option() honors normal variables"
-  # for the expat options below.
-  set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
-  set(EXPAT_BUILD_TOOLS OFF)
-  set(EXPAT_BUILD_EXAMPLES OFF)
-  set(EXPAT_BUILD_TESTS OFF)
-  set(EXPAT_BUILD_DOCS OFF)
-  set(EXPAT_BUILD_PKGCONFIG OFF)
-  set(EXPAT_ENABLE_INSTALL OFF)
-  set(EXPAT_SHARED_LIBS OFF)
-  add_subdirectory(3party/expat/expat)
-
-  # Configure Jansson library.
-  set(JANSSON_BUILD_DOCS OFF)
-  set(JANSSON_BUILD_MAN OFF)
-  set(JANSSON_EXAMPLES OFF)
-  set(JANSSON_INSTALL OFF)
-  set(JANSSON_WITHOUT_TESTS ON)
-  add_subdirectory(3party/jansson/jansson/)
-  target_include_directories(jansson INTERFACE "${PROJECT_BINARY_DIR}/3party/jansson/jansson/include")
-
-  # Add gflags library.
-  add_subdirectory(3party/gflags)
-  target_compile_options(gflags_nothreads_static PRIVATE $<$<CXX_COMPILER_ID:GNU>:-Wno-subobject-linkage>)
-  # Not needed for the usual build process, but it fixes QtCreator editor,
-  # that doesn't see gflags/gflags.h in binary dir (gflags has tricky cmake configuration).
-  if (PLATFORM_DESKTOP)
-    include_directories("${PROJECT_BINARY_DIR}/3party/gflags/include")
-  endif()
-
-  # Add pugixml library.
-  add_subdirectory(3party/pugixml)
-
-  # Add protobuf library.
-  add_subdirectory(${OMIM_ROOT}/3party/protobuf)
-endif()
-
-add_subdirectory(3party/agg)
-add_subdirectory(3party/bsdiff-courgette)
+add_subdirectory(3party)
 
 if (LINUX_DETECTED)
   find_package(ICU COMPONENTS uc i18n data REQUIRED)
   find_package(Freetype REQUIRED)
-else()
-  add_subdirectory(3party/freetype)
-  add_subdirectory(3party/icu)
-endif()
-
-add_subdirectory(3party/liboauthcpp)
-add_subdirectory(3party/minizip)
-add_subdirectory(3party/opening_hours)
-add_subdirectory(3party/sdf_image)
-add_subdirectory(3party/stb_image)
-add_subdirectory(3party/succinct)
-add_subdirectory(3party/open-location-code)
-add_subdirectory(3party/vulkan_wrapper)
-
-if (PLATFORM_DESKTOP)
-  add_subdirectory(3party/libtess2)
 endif()
 
 find_package(Python3 COMPONENTS Interpreter)
