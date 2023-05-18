@@ -105,7 +105,7 @@ bool GpxParser::Push(std::string const & tag)
   m_tags.push_back(tag);
   if (GetTagFromEnd(0) == "wpt")
     m_geometryType = GEOMETRY_TYPE_POINT;
-  else if (GetTagFromEnd(0) == "trkpt")
+  else if (GetTagFromEnd(0) == "trkpt" || GetTagFromEnd(0) == "rtept")
     m_geometryType = GEOMETRY_TYPE_LINE;
   return true;
 }
@@ -122,7 +122,8 @@ void GpxParser::AddAttr(std::string const & attr, std::string const & value)
     else if (attr == "lon")
       m_lon = stod(value);
   }
-  else if (GetTagFromEnd(0) == "trkpt" && GetTagFromEnd(1) == "trkseg")
+  else if ((GetTagFromEnd(0) == "trkpt" && GetTagFromEnd(1) == "trkseg") ||
+           (GetTagFromEnd(0) == "rtept" && GetTagFromEnd(1) == "rte"))
   {
     if (attr == "lat")
       m_lat = stod(value);
@@ -142,13 +143,13 @@ void GpxParser::Pop(std::string const & tag)
 {
   ASSERT_EQUAL(m_tags.back(), tag, ());
   
-  if (tag == "trkpt")
+  if (tag == "trkpt" || tag == "rtept")
   {
     m2::Point p = mercator::FromLatLon(m_lat, m_lon);
     if (m_line.empty() || !AlmostEqualAbs(m_line.back().GetPoint(), p, kMwmPointAccuracy))
       m_line.emplace_back(p);
   }
-  else if (tag == "trkseg")
+  else if (tag == "trkseg" || tag == "rte")
   {
     m_geometry.m_lines.push_back(std::move(m_line));
   }
@@ -157,7 +158,7 @@ void GpxParser::Pop(std::string const & tag)
     m_org = mercator::FromLatLon(m_lat, m_lon);
   }
   
-  if (tag == "trkseg" || tag == "wpt")
+  if (tag == "rte" || tag == "trkseg" || tag == "wpt")
   {
     if (MakeValid())
     {
@@ -227,7 +228,7 @@ void GpxParser::CharData(std::string value)
       else if (currTag == "desc")
         m_description[gpx::kDefaultLang] = value;
     }
-    else if (prevTag == "trk")
+    else if (prevTag == "trk" || prevTag == "rte")
     {
       if (currTag == "name")
         m_categoryData->m_name[gpx::kDefaultLang] = value;

@@ -120,5 +120,15 @@ UNIT_TEST(PointsOnly)
   TEST_EQUAL(bookmarks[0].m_point, mercator::FromLatLon(48.20984622935899, 16.376023292541507), ());
 }
 
+UNIT_TEST(Route)
+{
+  kml::FileData dataFromFile = loadGpxFromFile("gpx_test_data/route.gpx");
+  auto line = dataFromFile.m_tracksData[0].m_geometry.m_lines[0];
+  TEST_EQUAL(line.size(), 2, ());
+  TEST_EQUAL(dataFromFile.m_categoryData.m_name[kDefaultCode], "Some random route", ());
+  TEST_EQUAL(line[0], mercator::FromLatLon(48.20984622935899, 16.376023292541507), ());
+  TEST_EQUAL(line[1], mercator::FromLatLon(48.209503040543545, 16.381065845489506), ());
+}
+
 
 
