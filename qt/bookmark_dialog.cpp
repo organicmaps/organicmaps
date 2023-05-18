@@ -289,7 +289,6 @@ void BookmarkDialog::FillTree()
                                                  true /* withComma */);
         }
         auto bookmarkItem = CreateTreeItem(name + " (Bookmark)", categoryItem);
-        bookmarkItem->setForeground(0, Qt::blue);
         m_bookmarks[bookmarkItem] = bookmarkId;
       }
 
