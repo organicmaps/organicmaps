@@ -503,7 +503,7 @@
 "routing_planning_error" = "Памылка пракладання маршрута";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Прыбыццё а %s";
+"routing_arrive" = "Прыбыццё а %@";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Спампуйце і абнавіце ўсе мапы на шляху, каб пракласці маршрут.";
@@ -925,11 +925,11 @@
 
 "downloader_hide_screen" = "Схаваць экран";
 
-"downloader_percent" = "%s (%s з %s)";
+"downloader_percent" = "%@ (%@ з %@)";
 
-"downloader_process" = "Спампоўка %s…";
+"downloader_process" = "Спампоўка %@…";
 
-"downloader_applying" = "Застасаванне %s…";
+"downloader_applying" = "Застасаванне %@…";
 
 "bookmarks_error_message_share_general" = "Не атрымалася падзяліцца з-за памылкі праграмы";
 
@@ -1107,7 +1107,7 @@
 
 "download_map_carplay" = "Спампуйце мапы ў праграме Organic Maps на вашай прыладзе";
 
-"carplay_roundabout_exit" = "%s з'езд";
+"carplay_roundabout_exit" = "%@ з'езд";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Сартаваць…";
@@ -1213,7 +1213,7 @@
 "whats_new_auto_update_message" = "Абнаўленне мапаў падтрымлівае актуальнасць звестак пра аб’екты";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_button_size" = "Абнавіць (%s)";
+"whats_new_auto_update_button_size" = "Абнавіць (%@)";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "Абнавіць пазней уручную";

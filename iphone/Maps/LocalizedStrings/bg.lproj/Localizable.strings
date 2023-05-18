@@ -503,7 +503,7 @@
 "routing_planning_error" = "Неуспешно планиране на маршрут";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Пристигане в %s";
+"routing_arrive" = "Пристигане в %@";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Download and update all map along the projected path to calculate route.";
@@ -925,11 +925,11 @@
 
 "downloader_hide_screen" = "Скриване на екрана";
 
-"downloader_percent" = "%s (%s от %s)";
+"downloader_percent" = "%@ (%@ от %@)";
 
-"downloader_process" = "Теглене %s…";
+"downloader_process" = "Теглене %@…";
 
-"downloader_applying" = "Прилагане %s…";
+"downloader_applying" = "Прилагане %@…";
 
 "bookmarks_error_message_share_general" = "Не е възможно споделяне поради грешка в приложението";
 
@@ -1107,7 +1107,7 @@
 
 "download_map_carplay" = "Please download maps in the app on your mobile device";
 
-"carplay_roundabout_exit" = "%s exit";
+"carplay_roundabout_exit" = "%@ exit";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Сортиране…";
@@ -1213,7 +1213,7 @@
 "whats_new_auto_update_message" = "Актуализирането на картите поддържа актуална информацията за обектите";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_button_size" = "Актуализация (%s)";
+"whats_new_auto_update_button_size" = "Актуализация (%@)";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "Ръчно актуализиране по-късно";

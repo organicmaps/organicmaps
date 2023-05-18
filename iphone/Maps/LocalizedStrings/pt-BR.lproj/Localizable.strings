@@ -503,7 +503,7 @@
 "routing_planning_error" = "Falha no planejamento da rota";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Chegada: %s";
+"routing_arrive" = "Chegada: %@";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Para criar uma rota, por favor, baixe e atualize todos os mapas ao longo do trajeto.";
@@ -925,11 +925,11 @@
 
 "downloader_hide_screen" = "Ocultar tela";
 
-"downloader_percent" = "%s (%s de %s)";
+"downloader_percent" = "%@ (%@ de %@)";
 
-"downloader_process" = "Baixando %s…";
+"downloader_process" = "Baixando %@…";
 
-"downloader_applying" = "Aplicando %s…";
+"downloader_applying" = "Aplicando %@…";
 
 "bookmarks_error_message_share_general" = "Impossível compartilhar devido a um erro do aplicativo";
 
@@ -1107,7 +1107,7 @@
 
 "download_map_carplay" = "Por favor, baixe mapas no app Organic Maps em seu dispositivo";
 
-"carplay_roundabout_exit" = "%s saída";
+"carplay_roundabout_exit" = "%@ saída";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Ordenar…";
@@ -1213,7 +1213,7 @@
 "whats_new_auto_update_message" = "A atualização de mapas mantém as informações sobre objetos atualizadas";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_button_size" = "Atualizar (%s)";
+"whats_new_auto_update_button_size" = "Atualizar (%@)";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "Atualizar manualmente mais tarde";

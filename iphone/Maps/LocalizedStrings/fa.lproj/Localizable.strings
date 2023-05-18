@@ -503,7 +503,7 @@
 "routing_planning_error" = "برنامه ریزی مسیر ناموفق";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "ورود به: %s";
+"routing_arrive" = "ورود به: %@";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Download and update all map along the projected path to calculate route.";
@@ -925,11 +925,11 @@
 
 "downloader_hide_screen" = "پنهان کردن صفحه";
 
-"downloader_percent" = "%s (%s از %s)";
+"downloader_percent" = "%@ (%@ از %@)";
 
-"downloader_process" = "در حال دانلود %s…";
+"downloader_process" = "در حال دانلود %@…";
 
-"downloader_applying" = "اعمال %s…";
+"downloader_applying" = "اعمال %@…";
 
 "bookmarks_error_message_share_general" = "با توجه به خطای برنامه، امکان اشتراک گذاری وجود ندارد";
 
@@ -1107,7 +1107,7 @@
 
 "download_map_carplay" = "لطفا نقشه‌ها را در نرم افزار Organic Maps روی دستگاه خود دانلود کنید";
 
-"carplay_roundabout_exit" = "خروجی %s";
+"carplay_roundabout_exit" = "خروجی %@";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "مرتب سازی…";
@@ -1213,7 +1213,7 @@
 "whats_new_auto_update_message" = "بروزرسانی نقشه‌ها اطلاعات مربوط به اشیا را به روز نگه می دارد";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_button_size" = "بروزرسانی (%s)";
+"whats_new_auto_update_button_size" = "بروزرسانی (%@)";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "بعدا به صورت دستی به روزرسانی کنید";

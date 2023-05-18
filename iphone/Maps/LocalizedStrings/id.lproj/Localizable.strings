@@ -503,7 +503,7 @@
 "routing_planning_error" = "Sudah sampai di tujuan";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Kedatangan: %s";
+"routing_arrive" = "Kedatangan: %@";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Untuk membuat rute, silakan unduh dan perbarui semua peta sepanjang rute.";
@@ -925,11 +925,11 @@
 
 "downloader_hide_screen" = "Sembunyikan Layar";
 
-"downloader_percent" = "%s (%s dari %s)";
+"downloader_percent" = "%@ (%@ dari %@)";
 
-"downloader_process" = "Mengunduh %s…";
+"downloader_process" = "Mengunduh %@…";
 
-"downloader_applying" = "Menerapkan %s…";
+"downloader_applying" = "Menerapkan %@…";
 
 "bookmarks_error_message_share_general" = "Tidak dapat berbagi karena kesalahan aplikasi";
 
@@ -1107,7 +1107,7 @@
 
 "download_map_carplay" = "Silakan unduh peta di apl Organic Maps pada perangkat Anda";
 
-"carplay_roundabout_exit" = "Jalan keluar ke %s";
+"carplay_roundabout_exit" = "Jalan keluar ke %@";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Urutkan…";
@@ -1213,7 +1213,7 @@
 "whats_new_auto_update_message" = "Memperbarui peta membuat informasi tentang objek tetap terkini";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_button_size" = "Pembaruan (%s)";
+"whats_new_auto_update_button_size" = "Pembaruan (%@)";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "Perbarui secara manual nanti";

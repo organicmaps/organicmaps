@@ -503,7 +503,7 @@
 "routing_planning_error" = "मार्ग नियोजन अयशस्वी";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "%s वाजता आगमन";
+"routing_arrive" = "%@ वाजता आगमन";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "मार्गाची गणना करण्यासाठी प्रक्षेपित वाटेवरील सर्व नकाशा डाउनलोड आणि अद्ययावत करा.";
@@ -925,11 +925,11 @@
 
 "downloader_hide_screen" = "पटल (स्क्रीन) लपवा";
 
-"downloader_percent" = "%s (%s पैकी %s)";
+"downloader_percent" = "%@ (%@ पैकी %@)";
 
-"downloader_process" = "%s डाउनलोड करत आहे…";
+"downloader_process" = "%@ डाउनलोड करत आहे…";
 
-"downloader_applying" = "%s लागू करत आहे…";
+"downloader_applying" = "%@ लागू करत आहे…";
 
 "bookmarks_error_message_share_general" = "ऍप त्रुटीमुळे सामायिक करण्यात अक्षम";
 
@@ -1107,7 +1107,7 @@
 
 "download_map_carplay" = "कृपया तुमच्या उपकरणावर Organic Maps ऍप मध्ये नकाशे डाउनलोड करा";
 
-"carplay_roundabout_exit" = "%s बाहेर पडा";
+"carplay_roundabout_exit" = "%@ बाहेर पडा";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "क्रमाने लावा…";
@@ -1213,7 +1213,7 @@
 "whats_new_auto_update_message" = "नकाशे अद्ययावत केल्याने वस्तूंची माहिती अद्यतनित राहते";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_button_size" = "अद्ययावत करा (%s)";
+"whats_new_auto_update_button_size" = "अद्ययावत करा (%@)";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "नंतर स्वतः अद्ययावत करा";
