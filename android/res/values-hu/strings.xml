@@ -489,9 +489,7 @@
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">ó</string>
 	<string name="minute">p</string>
-	<string name="placepage_place_description">Leírás</string>
 	<string name="placepage_more_button">Még</string>
-	<string name="placepage_call_button">Hívás</string>
 	<string name="placepage_edit_bookmark_button">Könyvjelző szerkesztése</string>
 	<string name="editor_comment_hint">Megjegyzés…</string>
 	<string name="editor_reset_edits_message">Elveti az összes helyi módosítást?</string>

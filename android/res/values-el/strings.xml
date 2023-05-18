@@ -471,7 +471,6 @@
 	<string name="current_location_unknown_continue_button">Συνέχεια</string>
 	<string name="current_location_unknown_stop_button">Στοπ</string>
 	<string name="placepage_more_button">Περισσότερα</string>
-	<string name="placepage_call_button">Κλήση</string>
 	<string name="placepage_edit_bookmark_button">Επεξεργασία αγαπημένου</string>
 	<string name="editor_comment_hint">Σχόλιο…</string>
 	<string name="editor_reset_edits_message">Απόρριψη όλων των τοπικών αλλαγών;</string>

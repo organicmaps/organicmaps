@@ -473,9 +473,7 @@
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">hod</string>
 	<string name="minute">min</string>
-	<string name="placepage_place_description">Popis</string>
 	<string name="placepage_more_button">Viac</string>
-	<string name="placepage_call_button">Zavolať</string>
 	<string name="placepage_edit_bookmark_button">Upraviť záložku</string>
 	<string name="editor_comment_hint">Poznámka…</string>
 	<string name="editor_reset_edits_message">Resetovať všetky miestne časy?</string>

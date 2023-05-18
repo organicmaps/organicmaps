@@ -481,9 +481,7 @@
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">t</string>
 	<string name="minute">min</string>
-	<string name="placepage_place_description">Kuvaus</string>
 	<string name="placepage_more_button">Lisää</string>
-	<string name="placepage_call_button">Soita</string>
 	<string name="placepage_edit_bookmark_button">Muokkaa kirjanmerkkiä</string>
 	<string name="editor_comment_hint">Kommentti…</string>
 	<string name="editor_reset_edits_message">Nollataanko kaikki paikalliset muutokset?</string>

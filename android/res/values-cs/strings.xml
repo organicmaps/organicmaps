@@ -481,9 +481,7 @@
 	<string name="miles_per_hour">mil/h</string>
 	<string name="hour">hod</string>
 	<string name="minute">min</string>
-	<string name="placepage_place_description">Popis</string>
 	<string name="placepage_more_button">Více</string>
-	<string name="placepage_call_button">Volat</string>
 	<string name="placepage_edit_bookmark_button">Upravit záložku</string>
 	<string name="editor_comment_hint">Poznámka…</string>
 	<string name="editor_reset_edits_message">Vymazat všechny místní změny?</string>

@@ -475,9 +475,7 @@
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">t</string>
 	<string name="minute">min</string>
-	<string name="placepage_place_description">설명</string>
 	<string name="placepage_more_button">자세히</string>
-	<string name="placepage_call_button">전화</string>
 	<string name="placepage_edit_bookmark_button">즐겨찾기 편집</string>
 	<string name="editor_comment_hint">설명…</string>
 	<string name="editor_reset_edits_message">지역 변경 사항을 재설정하시겠습니까?</string>

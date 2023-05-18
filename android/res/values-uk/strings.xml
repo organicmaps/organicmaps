@@ -496,9 +496,7 @@
 	<string name="miles_per_hour">ми/год</string>
 	<string name="hour">год</string>
 	<string name="minute">хв</string>
-	<string name="placepage_place_description">Опис</string>
 	<string name="placepage_more_button">Ще</string>
-	<string name="placepage_call_button">Подзвонити</string>
 	<string name="placepage_edit_bookmark_button">Редагувати мiтку</string>
 	<string name="editor_comment_hint">Коментар…</string>
 	<string name="editor_reset_edits_message">Скинути всі локальні виправлення?</string>

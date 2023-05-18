@@ -482,9 +482,7 @@
 	<string name="mile">mi</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="minute">min</string>
-	<string name="placepage_place_description">Descrizione</string>
 	<string name="placepage_more_button">Di più</string>
-	<string name="placepage_call_button">Chiama</string>
 	<string name="placepage_edit_bookmark_button">Modifica luogo preferito</string>
 	<string name="editor_comment_hint">Commento…</string>
 	<string name="editor_reset_edits_message">Cancellare tutte le modifiche locali?</string>

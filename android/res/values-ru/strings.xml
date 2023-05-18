@@ -504,9 +504,7 @@
 	<string name="miles_per_hour">ми/ч</string>
 	<string name="hour">ч</string>
 	<string name="minute">мин</string>
-	<string name="placepage_place_description">Описание</string>
 	<string name="placepage_more_button">Ещё</string>
-	<string name="placepage_call_button">Позвонить</string>
 	<string name="placepage_edit_bookmark_button">Редактировать метку</string>
 	<string name="editor_comment_hint">Коментарий…</string>
 	<string name="editor_reset_edits_message">Сбросить все локальные правки?</string>

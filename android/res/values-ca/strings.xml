@@ -490,9 +490,7 @@
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">h</string>
 	<string name="minute">min</string>
-	<string name="placepage_place_description">Descripció</string>
 	<string name="placepage_more_button">Més</string>
-	<string name="placepage_call_button">Truca-hi</string>
 	<string name="placepage_edit_bookmark_button">Edita el marcador</string>
 	<string name="editor_comment_hint">Comentari…</string>
 	<string name="editor_reset_edits_message">Voleu descartar tots els canvis locals?</string>

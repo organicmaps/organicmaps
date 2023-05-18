@@ -503,9 +503,7 @@
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">h</string>
 	<string name="minute">min</string>
-	<string name="placepage_place_description">Description</string>
 	<string name="placepage_more_button">Plus</string>
-	<string name="placepage_call_button">Appeler</string>
 	<string name="placepage_edit_bookmark_button">Éditer le signet</string>
 	<string name="editor_comment_hint">Commentaire…</string>
 	<string name="editor_reset_edits_message">Abandonner toutes les modifications locales ?</string>

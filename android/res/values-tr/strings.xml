@@ -501,9 +501,7 @@
 	<string name="miles_per_hour">saatte mil</string>
 	<string name="hour">sa</string>
 	<string name="minute">dk</string>
-	<string name="placepage_place_description">Açıklama</string>
 	<string name="placepage_more_button">Diğer</string>
-	<string name="placepage_call_button">Ara</string>
 	<string name="placepage_edit_bookmark_button">Yer İmini Düzenle</string>
 	<string name="editor_comment_hint">Yorum…</string>
 	<string name="editor_reset_edits_message">Tüm yerel değişiklikler sıfırlansın mı?</string>

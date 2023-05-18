@@ -477,9 +477,7 @@
 	<string name="miles_per_hour">mpj</string>
 	<string name="hour">j</string>
 	<string name="minute">mnt</string>
-	<string name="placepage_place_description">Deskripsi</string>
 	<string name="placepage_more_button">Lainnya</string>
-	<string name="placepage_call_button">Hubungi</string>
 	<string name="placepage_edit_bookmark_button">Edit Bookmark</string>
 	<string name="editor_comment_hint">Komentar…</string>
 	<string name="editor_reset_edits_message">Atur ulang perubahan lokal?</string>

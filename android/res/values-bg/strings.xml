@@ -466,9 +466,7 @@
 	<string name="foot">фут</string>
 	<string name="hour">ч</string>
 	<string name="minute">мин</string>
-	<string name="placepage_place_description">Описание</string>
 	<string name="placepage_more_button">Още</string>
-	<string name="placepage_call_button">Обаждане</string>
 	<string name="placepage_edit_bookmark_button">Редакция на отметка</string>
 	<string name="editor_comment_hint">Коментиране…</string>
 	<string name="editor_reset_edits_message">Отхвърляне на всички локални промени?</string>

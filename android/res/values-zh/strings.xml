@@ -485,9 +485,7 @@
 	<string name="miles_per_hour">英里每小时</string>
 	<string name="hour">小時</string>
 	<string name="minute">分鐘</string>
-	<string name="placepage_place_description">说明</string>
 	<string name="placepage_more_button">更多</string>
-	<string name="placepage_call_button">呼叫</string>
 	<string name="placepage_edit_bookmark_button">编辑书签</string>
 	<string name="editor_comment_hint">备注…</string>
 	<string name="editor_reset_edits_message">重置所有本地更改？</string>

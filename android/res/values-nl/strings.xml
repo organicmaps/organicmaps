@@ -497,9 +497,7 @@
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">u</string>
 	<string name="minute">min</string>
-	<string name="placepage_place_description">Beschrijving</string>
 	<string name="placepage_more_button">Meer</string>
-	<string name="placepage_call_button">Bellen</string>
 	<string name="placepage_edit_bookmark_button">Bladwijzer bewerken</string>
 	<string name="editor_comment_hint">Reactie…</string>
 	<string name="editor_reset_edits_message">Alle lokale wijzigingen herstellen?</string>

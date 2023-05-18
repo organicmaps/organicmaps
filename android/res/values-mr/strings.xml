@@ -468,9 +468,7 @@
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">तास</string>
 	<string name="minute">मिनिट</string>
-	<string name="placepage_place_description">वर्णन</string>
 	<string name="placepage_more_button">अधिक</string>
-	<string name="placepage_call_button">फोन करा</string>
 	<string name="placepage_edit_bookmark_button">खूणपत्र संपादित करा</string>
 	<string name="editor_comment_hint">टिप्पणी</string>
 	<string name="editor_reset_edits_message">सर्व स्थानिक बदल टाकून द्यायचे?</string>

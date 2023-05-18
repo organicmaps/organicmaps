@@ -489,9 +489,7 @@
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">h</string>
 	<string name="minute">min</string>
-	<string name="placepage_place_description">Kirjeldus</string>
 	<string name="placepage_more_button">Veel</string>
-	<string name="placepage_call_button">Helista</string>
 	<string name="placepage_edit_bookmark_button">Muuda järjehoidjat</string>
 	<string name="editor_comment_hint">Kommenteeri…</string>
 	<string name="editor_reset_edits_message">Loobu kõigist kohalikest muudatustest?</string>

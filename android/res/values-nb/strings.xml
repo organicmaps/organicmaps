@@ -501,9 +501,7 @@
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">t</string>
 	<string name="minute">min</string>
-	<string name="placepage_place_description">Beskrivelse</string>
 	<string name="placepage_more_button">Mer</string>
-	<string name="placepage_call_button">Ring</string>
 	<string name="placepage_edit_bookmark_button">Rediger bokmerke</string>
 	<string name="editor_comment_hint">Kommentar…</string>
 	<string name="editor_reset_edits_message">Nullstille alle lokale endringer?</string>
