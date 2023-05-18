@@ -125,10 +125,9 @@ void VehicleModel::GetAdditionalRoadSpeed(uint32_t type, bool isCityRoad,
   auto const * s = m_addRoadTypes.Find(type);
   if (s)
   {
-    auto const & res = isCityRoad ? s->m_inCity : s->m_outCity;
-    // Take max, because combination of highway=footway + bicycle=yes should emit best bicycle speed
-    // even if highway=footway is prohibited for cycling and has small dismount speed.
-    speed = speed ? Pick<max>(*speed, res) : res;
+    // Now we have only 1 additional type "yes" for all models.
+    ASSERT(!speed, ());
+    speed = isCityRoad ? s->m_inCity : s->m_outCity;
   }
 }
 
@@ -159,25 +158,30 @@ SpeedKMpH VehicleModel::GetTypeSpeedImpl(feature::TypesHolder const & types, Spe
       ASSERT(s != kInvalidSpeed, (*hwType, params.m_forward, params.m_maxspeed));
       speed = {static_cast<double>(s)};
     }
-    else if (!isCar && additionalRoadSpeed)
-    {
-      // Take additional speed for bicycle and pedestrian only. Car should take highway speed first.
-      speed = *additionalRoadSpeed;
-    }
     else
     {
       auto const * s = m_highwayBasedInfo.m_speeds.Find(*hwType);
       ASSERT(s, ("Key:", *hwType, "is not found."));
       speed = s->GetSpeed(isCityRoad);
 
-      // Override the global default speed with the MWM's saved default speed if they are not significantly differ (2x),
-      // to avoid anomaly peaks (especially for tracks).
-      if (isCar && params.m_defSpeedKmPH != kInvalidSpeed &&
-          fabs(speed.m_weight - params.m_defSpeedKmPH) / speed.m_weight < 1.0)
+      if (isCar)
       {
-        double const factor = speed.m_eta / speed.m_weight;
-        speed.m_weight = params.m_defSpeedKmPH;
-        speed.m_eta = speed.m_weight * factor;
+        // Override the global default speed with the MWM's saved default speed if they are not significantly differ (2x),
+        // to avoid anomaly peaks (especially for tracks).
+        /// @todo MWM saved speeds should be validated in generator.
+        if (params.m_defSpeedKmPH != kInvalidSpeed &&
+            fabs(speed.m_weight - params.m_defSpeedKmPH) / speed.m_weight < 1.0)
+        {
+          double const factor = speed.m_eta / speed.m_weight;
+          speed.m_weight = params.m_defSpeedKmPH;
+          speed.m_eta = speed.m_weight * factor;
+        }
+      }
+      else
+      {
+        // Take additional speed for bicycle and pedestrian only.
+        if (additionalRoadSpeed)
+          speed = Pick<max>(speed, *additionalRoadSpeed);
       }
     }
 
@@ -190,6 +194,7 @@ SpeedKMpH VehicleModel::GetTypeSpeedImpl(feature::TypesHolder const & types, Spe
   }
   else
   {
+    // In case if we have highway=footway + motorcar=yes :)
     ASSERT(additionalRoadSpeed, ());
     if (additionalRoadSpeed)
       speed = *additionalRoadSpeed;
