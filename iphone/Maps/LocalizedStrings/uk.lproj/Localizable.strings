@@ -503,7 +503,7 @@
 "routing_planning_error" = "Збій планування маршруту";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Прибуття в %s";
+"routing_arrive" = "Прибуття в %@";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Для створення маршруту, будь ласка, скачайте та обновіть всі карти за ним.";
@@ -925,11 +925,11 @@
 
 "downloader_hide_screen" = "Приховати екран";
 
-"downloader_percent" = "%s (%s з %s)";
+"downloader_percent" = "%@ (%@ з %@)";
 
-"downloader_process" = "Завантаження %s…";
+"downloader_process" = "Завантаження %@…";
 
-"downloader_applying" = "Застосування %s…";
+"downloader_applying" = "Застосування %@…";
 
 "bookmarks_error_message_share_general" = "Неможливо поділитися через помилку програми";
 
@@ -1107,7 +1107,7 @@
 
 "download_map_carplay" = "Завантажте карти в додатку Organic Maps на своєму пристрої";
 
-"carplay_roundabout_exit" = "%s з’їзд";
+"carplay_roundabout_exit" = "%@ з’їзд";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Сортувати";
@@ -1213,7 +1213,7 @@
 "whats_new_auto_update_message" = "Оновлення мап дозволяє підтримувати інформацію про об'єкти в актуальному стані";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_button_size" = "Оновити (%s)";
+"whats_new_auto_update_button_size" = "Оновити (%@)";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "Оновити вручну пізніше";

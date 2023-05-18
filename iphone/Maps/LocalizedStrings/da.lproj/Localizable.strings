@@ -503,7 +503,7 @@
 "routing_planning_error" = "Ruteplanlægning mislykkedes";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Ankomst: %s";
+"routing_arrive" = "Ankomst: %@";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "For at oprette en rute skal du hente og opdatere alle kort langs ruten.";
@@ -925,11 +925,11 @@
 
 "downloader_hide_screen" = "Skjul skærm";
 
-"downloader_percent" = "%s (%s af %s)";
+"downloader_percent" = "%@ (%@ af %@)";
 
-"downloader_process" = "Downloader %s…";
+"downloader_process" = "Downloader %@…";
 
-"downloader_applying" = "Anvender %s…";
+"downloader_applying" = "Anvender %@…";
 
 "bookmarks_error_message_share_general" = "Ikke i stand til at dele på grund af en programfejl";
 
@@ -1107,7 +1107,7 @@
 
 "download_map_carplay" = "Download kort i Organic Maps appen, på din enhed";
 
-"carplay_roundabout_exit" = "%s exit";
+"carplay_roundabout_exit" = "%@ exit";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Sort…";
@@ -1213,7 +1213,7 @@
 "whats_new_auto_update_message" = "Opdatering af kort sikrer, at oplysningerne om objekter er aktuel";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_button_size" = "Opdater (%s)";
+"whats_new_auto_update_button_size" = "Opdater (%@)";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "Opdater manuelt senere";

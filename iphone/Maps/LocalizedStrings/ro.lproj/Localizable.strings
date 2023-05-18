@@ -503,7 +503,7 @@
 "routing_planning_error" = "Planificarea traseului a eșuat";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Sosire la %s";
+"routing_arrive" = "Sosire la %@";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Pentru a crea un traseu, descarcă și actualizează toate hărțile de pe parcursul traseului.";
@@ -925,11 +925,11 @@
 
 "downloader_hide_screen" = "Ascunde pagina";
 
-"downloader_percent" = "%s (%s din %s)";
+"downloader_percent" = "%@ (%@ din %@)";
 
-"downloader_process" = "Se descarcă %s…";
+"downloader_process" = "Se descarcă %@…";
 
-"downloader_applying" = "Se aplică %s…";
+"downloader_applying" = "Se aplică %@…";
 
 "bookmarks_error_message_share_general" = "Nu poate fi trimis din cauza unei erori a aplicației";
 
@@ -1107,7 +1107,7 @@
 
 "download_map_carplay" = "Descarcă hărțile în aplicația Organic Maps din dispozitivul tău";
 
-"carplay_roundabout_exit" = "%s ieșire";
+"carplay_roundabout_exit" = "%@ ieșire";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Sortare…";
@@ -1213,7 +1213,7 @@
 "whats_new_auto_update_message" = "Actualizarea hărților menține actualizate informațiile despre obiecte";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_button_size" = "Actualizează (%s)";
+"whats_new_auto_update_button_size" = "Actualizează (%@)";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "Actualizează manual mai târziu";

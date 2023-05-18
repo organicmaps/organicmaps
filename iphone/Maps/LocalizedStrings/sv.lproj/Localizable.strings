@@ -503,7 +503,7 @@
 "routing_planning_error" = "Ruttplanering misslyckades";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Ankomst: %s";
+"routing_arrive" = "Ankomst: %@";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "För att skapa en rutt, ladda ner och uppdatera alla kartor längs rutten.";
@@ -925,11 +925,11 @@
 
 "downloader_hide_screen" = "Dölj skärm";
 
-"downloader_percent" = "%s (%s av %s)";
+"downloader_percent" = "%@ (%@ av %@)";
 
-"downloader_process" = "Ladda ned %s…";
+"downloader_process" = "Ladda ned %@…";
 
-"downloader_applying" = "Tillämpar %s…";
+"downloader_applying" = "Tillämpar %@…";
 
 "bookmarks_error_message_share_general" = "Kunde inte delas på grund av ett applikationsfel";
 
@@ -1107,7 +1107,7 @@
 
 "download_map_carplay" = "Ladda ner kartor i applikation Organic Maps på din enhet";
 
-"carplay_roundabout_exit" = "%s utgången";
+"carplay_roundabout_exit" = "%@ utgången";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Sortera…";
@@ -1213,7 +1213,7 @@
 "whats_new_auto_update_message" = "Uppdatering av kartor håller information om objekt uppdaterade";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_button_size" = "Uppdatera (%s)";
+"whats_new_auto_update_button_size" = "Uppdatera (%@)";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "Uppdatera senare manuellt";

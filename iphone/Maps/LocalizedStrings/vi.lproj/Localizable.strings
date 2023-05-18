@@ -503,7 +503,7 @@
 "routing_planning_error" = "Không thể Lập Lộ trình";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Đến: %s";
+"routing_arrive" = "Đến: %@";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Để tạo đường đi, vui lòng tải về và cập nhật tất cả bản đồ dọc theo tuyến đường.";
@@ -925,11 +925,11 @@
 
 "downloader_hide_screen" = "Ẩn Màn hình";
 
-"downloader_percent" = "%s (%s / %s)";
+"downloader_percent" = "%@ (%@ / %@)";
 
-"downloader_process" = "Tải về %s…";
+"downloader_process" = "Tải về %@…";
 
-"downloader_applying" = "Áp dụng %s…";
+"downloader_applying" = "Áp dụng %@…";
 
 "bookmarks_error_message_share_general" = "Không thể chia sẻ do lỗi ứng dụng";
 
@@ -1107,7 +1107,7 @@
 
 "download_map_carplay" = "Vui lòng tải xuống bản đồ trong ứng dụng Organic Maps trên thiết bị của bạn";
 
-"carplay_roundabout_exit" = "Lối ra %s của vòng xuyến";
+"carplay_roundabout_exit" = "Lối ra %@ của vòng xuyến";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Sắp xếp…";
@@ -1213,7 +1213,7 @@
 "whats_new_auto_update_message" = "Cập nhật bản đồ để cập nhật thông tin về các đối tượng trên đó";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_button_size" = "Cập nhật (%s)";
+"whats_new_auto_update_button_size" = "Cập nhật (%@)";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "Cập nhật thủ công sau";

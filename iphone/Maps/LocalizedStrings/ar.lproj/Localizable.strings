@@ -503,7 +503,7 @@
 "routing_planning_error" = "فشل في تخطيط المسار";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "وقت الوصول: %s";
+"routing_arrive" = "وقت الوصول: %@";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "لإنشاء مسار، يرجى تنزيل وتحديث جميع الخرائط على امتداد الطريق.";
@@ -925,11 +925,11 @@
 
 "downloader_hide_screen" = "إخفاء الشاشة";
 
-"downloader_percent" = "%s (%s من %s)";
+"downloader_percent" = "%@ (%@ من %@)";
 
-"downloader_process" = "جاري التنزيل %s…";
+"downloader_process" = "جاري التنزيل %@…";
 
-"downloader_applying" = "جاري التطبيق %s…";
+"downloader_applying" = "جاري التطبيق %@…";
 
 "bookmarks_error_message_share_general" = "تعذرت المشاركة بسبب خطأ في التطبيق";
 
@@ -1107,7 +1107,7 @@
 
 "download_map_carplay" = "يُرجى تحميل الخرائط في تطبيق Organic Maps على جهازك";
 
-"carplay_roundabout_exit" = "المخرج رقم %s";
+"carplay_roundabout_exit" = "المخرج رقم %@";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "ترتيب…";
@@ -1213,7 +1213,7 @@
 "whats_new_auto_update_message" = "تحديث الخرائط والاحتفاظ بالمعلومات حول الكائنات محدثة";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_button_size" = "تحديث (%s)";
+"whats_new_auto_update_button_size" = "تحديث (%@)";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "تحديث يدوياً في وقت لاحق";
