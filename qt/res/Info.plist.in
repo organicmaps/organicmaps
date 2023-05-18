@@ -24,7 +24,7 @@
     <string>@BUNDLE_EXECUTABLE@</string>
 
     <key>CFBundleIdentifier</key>
-    <string>com.mapswithme.mactestapp</string>
+    <string>app.organicmaps.desktop</string>
 
     <key>NSPrincipalClass</key>
     <string>NSApplication</string>
@@ -45,7 +45,7 @@
           <key>NSIncludesSubdomains</key>
           <true/>
         </dict>
-        <key>mapswithme.com</key>
+        <key>organicmaps.app</key>
         <dict>
           <key>NSExceptionAllowsInsecureHTTPLoads</key>
           <true/>
