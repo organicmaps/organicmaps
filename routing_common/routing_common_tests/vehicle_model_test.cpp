@@ -1,9 +1,11 @@
 #include "testing/testing.hpp"
 
+#include "routing_common/bicycle_model.hpp"
+#include "routing_common/car_model.hpp"
 #include "routing_common/car_model_coefs.hpp"
 #include "routing_common/maxspeed_conversion.hpp"
+#include "routing_common/pedestrian_model.hpp"
 #include "routing_common/vehicle_model.hpp"
-#include "routing_common/car_model.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
@@ -12,6 +14,7 @@
 #include "platform/measurement_utils.hpp"
 
 #include "base/math.hpp"
+
 
 namespace vehicle_model_test
 {
@@ -76,6 +79,8 @@ public:
 
   uint32_t primary, secondary, secondaryTunnel, secondaryBridge, residential;
   uint32_t oneway, pavedGood, pavedBad, unpavedGood, unpavedBad;
+
+  static SpeedParams DefaultParams() { return {{}, kInvalidSpeed, false /* inCity */}; }
 };
 
 class VehicleModelStub : public VehicleModel
@@ -241,7 +246,8 @@ namespace
 bool LessSpeed(SpeedKMpH const & l, SpeedKMpH const & r)
 {
   TEST(l.IsValid() && r.IsValid(), (l, r));
-  return l.m_weight < r.m_weight && l.m_eta < r.m_eta;
+  // Weight should be strict less, ETA may be equal.
+  return l.m_weight < r.m_weight && l.m_eta <= r.m_eta;
 }
 
 #define TEST_LESS_SPEED(l, r) TEST(LessSpeed(l, r), (l, r))
@@ -250,8 +256,9 @@ bool LessSpeed(SpeedKMpH const & l, SpeedKMpH const & r)
 UNIT_CLASS_TEST(VehicleModelTest, CarModel_TrackVsGravelTertiary)
 {
   auto const & model = CarModel::AllLimitsInstance();
-
   auto const & c = classif();
+  auto const p = DefaultParams();
+
   feature::TypesHolder h1;
   h1.Add(c.GetTypeByPath({"highway", "track"}));
 
@@ -263,15 +270,84 @@ UNIT_CLASS_TEST(VehicleModelTest, CarModel_TrackVsGravelTertiary)
   // Obvious that gravel tertiary (moreover with maxspeed=60kmh) should be better than track.
 
   {
-    SpeedParams p1({}, kInvalidSpeed, false /* inCity */);
     SpeedParams p2({measurement_utils::Units::Metric, 60, 60}, kInvalidSpeed, false /* inCity */);
-    TEST_LESS_SPEED(model.GetTypeSpeed(h1, p1), model.GetTypeSpeed(h2, p2));
+    TEST_LESS_SPEED(model.GetTypeSpeed(h1, p), model.GetTypeSpeed(h2, p2));
   }
 
   {
-    SpeedParams p({}, kInvalidSpeed, false /* inCity */);
     TEST_LESS_SPEED(model.GetTypeSpeed(h1, p), model.GetTypeSpeed(h2, p));
   }
+}
+
+UNIT_CLASS_TEST(VehicleModelTest, CarModel_Smoke)
+{
+  auto const & model = CarModel::AllLimitsInstance();
+  auto const & c = classif();
+  auto const p = DefaultParams();
+
+  feature::TypesHolder h1;
+  h1.Add(secondary);
+
+  feature::TypesHolder h2;
+  h2.Add(secondary);
+  h2.Add(c.GetTypeByPath({"hwtag", "yescar"}));
+
+  feature::TypesHolder h3;
+  h3.Add(c.GetTypeByPath({"highway", "tertiary"}));
+
+  TEST_EQUAL(model.GetTypeSpeed(h1, p), model.GetTypeSpeed(h2, p), ());
+  TEST_LESS_SPEED(model.GetTypeSpeed(h3, p), model.GetTypeSpeed(h2, p));
+}
+
+UNIT_CLASS_TEST(VehicleModelTest, BicycleModel_Smoke)
+{
+  auto const & model = BicycleModel::AllLimitsInstance();
+  auto const & c = classif();
+  auto const p = DefaultParams();
+
+  feature::TypesHolder h1;
+  h1.Add(c.GetTypeByPath({"highway", "cycleway"}));
+  h1.Add(c.GetTypeByPath({"hwtag", "yesbicycle"}));
+
+  feature::TypesHolder h2;
+  h2.Add(c.GetTypeByPath({"highway", "cycleway"}));
+
+  feature::TypesHolder h3;
+  h3.Add(secondary);
+  h3.Add(c.GetTypeByPath({"hwtag", "yesbicycle"}));
+
+  feature::TypesHolder h4;
+  h4.Add(secondary);
+
+  feature::TypesHolder h5;
+  h5.Add(secondary);
+  h5.Add(c.GetTypeByPath({"hwtag", "nocycleway"}));
+
+  TEST_EQUAL(model.GetTypeSpeed(h1, p), model.GetTypeSpeed(h2, p), ());
+  TEST_LESS_SPEED(model.GetTypeSpeed(h3, p), model.GetTypeSpeed(h2, p));
+  TEST_LESS_SPEED(model.GetTypeSpeed(h4, p), model.GetTypeSpeed(h3, p));
+  TEST_LESS_SPEED(model.GetTypeSpeed(h5, p), model.GetTypeSpeed(h4, p));
+}
+
+UNIT_CLASS_TEST(VehicleModelTest, PedestrianModel_Smoke)
+{
+  auto const & model = PedestrianModel::AllLimitsInstance();
+  auto const & c = classif();
+  auto const p = DefaultParams();
+
+  feature::TypesHolder h1;
+  h1.Add(residential);
+  h1.Add(c.GetTypeByPath({"hwtag", "yesfoot"}));
+
+  feature::TypesHolder h2;
+  h2.Add(residential);
+
+  feature::TypesHolder h3;
+  h3.Add(residential);
+  h3.Add(c.GetTypeByPath({"hwtag", "nosidewalk"}));
+
+  TEST_LESS_SPEED(model.GetTypeSpeed(h2, p), model.GetTypeSpeed(h1, p));
+  TEST_LESS_SPEED(model.GetTypeSpeed(h3, p), model.GetTypeSpeed(h2, p));
 }
 
 #undef TEST_LESS_SPEED
