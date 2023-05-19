@@ -678,9 +678,10 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
 
     auto const params = GetFeatureBuilderParams(tags);
 
-    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST_EQUAL(params.m_types.size(), 3, (params));
     TEST(params.IsTypeExist(GetType({"highway", "primary"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "nofoot"})), ());
+    TEST(params.IsTypeExist(GetType({"hwtag", "nocycleway"})), ());
     // No cycleway doesn't mean that bicycle is not allowed.
     //TEST(params.IsTypeExist(GetType({"hwtag", "nobicycle"})), ());
   }
@@ -745,6 +746,21 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
     TEST_EQUAL(params.m_types.size(), 3, (params));
     TEST(params.IsTypeExist(GetType({"highway", "path", "bicycle"})), (params));
     TEST(params.IsTypeExist(GetType({"hwtag", "yesfoot"})), ());
+    TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), ());
+  }
+
+  {
+    Tags const tags = {
+        {"sidewalk:both", "no"},
+        {"bicycle_road", "yes"},
+        {"highway", "residential"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 3, (params));
+    TEST(params.IsTypeExist(GetType({"highway", "residential"})), (params));
+    TEST(params.IsTypeExist(GetType({"hwtag", "nosidewalk"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), ());
   }
 }

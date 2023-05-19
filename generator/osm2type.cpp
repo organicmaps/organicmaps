@@ -247,8 +247,10 @@ public:
     Lit,
     NoFoot,
     YesFoot,
+    NoSidewalk,   // no dedicated sidewalk, doesn't mean that foot is not allowed, just lower weight
     NoBicycle,
     YesBicycle,
+    NoCycleway,   // no dedicated cycleway, doesn't mean that bicycle is not allowed, just lower weight
     BicycleBidir,
     SurfacePavedGood,
     SurfacePavedBad,
@@ -284,8 +286,10 @@ public:
         {Lit,                {"hwtag", "lit"}},
         {NoFoot,             {"hwtag", "nofoot"}},
         {YesFoot,            {"hwtag", "yesfoot"}},
+        {NoSidewalk,         {"hwtag", "nosidewalk"}},
         {NoBicycle,          {"hwtag", "nobicycle"}},
         {YesBicycle,         {"hwtag", "yesbicycle"}},
+        {NoCycleway,         {"hwtag", "nocycleway"}},
         {BicycleBidir,       {"hwtag", "bidir_bicycle"}},
         {SurfacePavedGood,   {"psurface", "paved_good"}},
         {SurfacePavedBad,    {"psurface", "paved_bad"}},
@@ -927,17 +931,23 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
 
           {"foot", "!r", [&flags] { flags[Flags::Foot] = -1; }},
           {"foot", "~r", [&flags] { flags[Flags::Foot] = 1; }},
-          // No sidewalk doesn't mean that foot is not allowed
+          {"sidewalk", "!r", [&flags] { flags[Flags::Sidewalk] = -1; }},
           {"sidewalk", "~r", [&flags] { flags[Flags::Sidewalk] = 1; }},
+          {"sidewalk:both", "!r", [&flags] { flags[Flags::Sidewalk] = -1; }},
+          {"sidewalk:both", "~r", [&flags] { flags[Flags::Sidewalk] = 1; }},
+          /// @todo Process left && right == no ?
           {"sidewalk:left", "~r", [&flags] { flags[Flags::Sidewalk] = 1; }},
           {"sidewalk:right", "~r", [&flags] { flags[Flags::Sidewalk] = 1; }},
-          {"sidewalk:both", "~r", [&flags] { flags[Flags::Sidewalk] = 1; }},
 
           {"bicycle", "!r", [&flags] { flags[Flags::Bicycle] = -1; }},
           {"bicycle", "~r", [&flags] { flags[Flags::Bicycle] = 1; }},
-          // No cycleway doesn't mean that bicycle is not allowed
+          {"bicycle_road", "~r", [&flags] { flags[Flags::Bicycle] = 1; }},
+          {"cyclestreet", "~r", [&flags] { flags[Flags::Bicycle] = 1; }},
+          {"cycleway", "!r", [&flags] { flags[Flags::Cycleway] = -1; }},
           {"cycleway", "~r", [&flags] { flags[Flags::Cycleway] = 1; }},
+          {"cycleway:both", "!r", [&flags] { flags[Flags::Cycleway] = -1; }},
           {"cycleway:both", "~r", [&flags] { flags[Flags::Cycleway] = 1; }},
+          /// @todo Process left && right == no ?
           {"cycleway:left", "~r", [&flags] { flags[Flags::Cycleway] = 1; }},
           {"cycleway:right", "~r", [&flags] { flags[Flags::Cycleway] = 1; }},
           {"oneway:bicycle", "!", [&AddParam] { AddParam(CachedTypes::BicycleBidir); }},
@@ -958,16 +968,17 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
       if (addOneway && !noOneway)
         params.AddType(types.Get(CachedTypes::OneWay));
 
-      auto const ApplyFlag = [&flags, &AddParam](Flags::Type f, CachedTypes::Type yes, CachedTypes::Type no)
+      auto const ApplyFlag = [&flags, &AddParam](Flags::Type f, CachedTypes::Type yes,
+                                                 CachedTypes::Type no0, CachedTypes::Type no1)
       {
         if (flags[f] != 0)
-          AddParam(flags[f] == 1 ? yes : no);
+          AddParam(flags[f] == 1 ? yes : no0);
         else if (flags[int(f) + 1] != 0)
-          AddParam(flags[int(f) + 1] == 1 ? yes : no);
+          AddParam(flags[int(f) + 1] == 1 ? yes : no1);
       };
-      ApplyFlag(Flags::Foot, CachedTypes::YesFoot, CachedTypes::NoFoot);
-      ApplyFlag(Flags::Bicycle, CachedTypes::YesBicycle, CachedTypes::NoBicycle);
-      ApplyFlag(Flags::MotorCar, CachedTypes::YesCar, CachedTypes::NoCar);
+      ApplyFlag(Flags::Foot, CachedTypes::YesFoot, CachedTypes::NoFoot, CachedTypes::NoSidewalk);
+      ApplyFlag(Flags::Bicycle, CachedTypes::YesBicycle, CachedTypes::NoBicycle, CachedTypes::NoCycleway);
+      ApplyFlag(Flags::MotorCar, CachedTypes::YesCar, CachedTypes::NoCar, CachedTypes::NoCar);
 
       highwayDone = true;
     }
