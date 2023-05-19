@@ -166,11 +166,13 @@ VehicleModel::LimitsInitList UkraineOptions()
 }
 
 VehicleModel::SurfaceInitList const kBicycleSurface = {
-  // {{surfaceType, surfaceType}, {weightFactor, etaFactor}}
+  // {{surfaceType}, {weightFactor, etaFactor}}
   {{"psurface", "paved_good"}, {1.0, 1.0}},
   {{"psurface", "paved_bad"}, {0.8, 0.8}},
   {{"psurface", "unpaved_good"}, {1.0, 1.0}},
-  {{"psurface", "unpaved_bad"}, {0.3, 0.3}}
+  {{"psurface", "unpaved_bad"}, {0.3, 0.3}},
+  // no dedicated cycleway, doesn't mean that bicycle is not allowed, just lower weight
+  {{"hwtag", "nocycleway"}, {0.8, 0.8}},
 };
 }  // namespace bicycle_model
 
