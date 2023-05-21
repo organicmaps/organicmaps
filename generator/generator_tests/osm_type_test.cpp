@@ -53,9 +53,12 @@ void TestSurfaceTypes(std::string const & surface, std::string const & smoothnes
         "Got:", psurface));
 }
 
-FeatureBuilderParams GetFeatureBuilderParams(Tags const & tags)
+FeatureBuilderParams GetFeatureBuilderParams(
+    Tags const & tags,
+    OsmElement::EntityType type = OsmElement::EntityType::Unknown)
 {
   OsmElement e;
+  e.m_type = type;
   FillXmlElement(tags, &e);
   FeatureBuilderParams params;
 
@@ -1116,6 +1119,35 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Subway)
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"railway", "station", "subway", "minsk"})), (params));
+  }
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_PublicTransport)
+{
+  {
+    Tags const tags = {
+      { "name", "Платонава" },
+      { "public_transport", "stop_position" },
+      { "tram", "yes" },
+    };
+
+    auto const params = GetFeatureBuilderParams(tags, OsmElement::EntityType::Node);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"railway", "tram_stop"})), (params));
+  }
+
+  {
+    Tags const tags = {
+      { "funicular", "yes" },
+      { "name", "Gare Pfaffenthal-Kirchberg" },
+      { "public_transport", "stop_position" },
+    };
+
+    auto const params = GetFeatureBuilderParams(tags, OsmElement::EntityType::Node);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"railway", "station", "funicular"})), (params));
   }
 }
 

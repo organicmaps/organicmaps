@@ -659,6 +659,7 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
   bool isStopPosition = false;
   bool isBus = false;
   bool isTram = false;
+  bool isFunicular = false;
 
   bool isCapital = false;
 
@@ -677,6 +678,7 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
       {"bus", "yes", [&isBus] { isBus = true; }},
       {"trolleybus", "yes", [&isBus] { isBus = true; }},
       {"tram", "yes", [&isTram] { isTram = true; }},
+      {"funicular", "yes", [&isFunicular] { isFunicular = true; }},
 
       /// @todo Unfortunately, it's not working in many cases (route=subway, transport=subway).
       /// Actually, it's better to process subways after feature types assignment.
@@ -704,8 +706,16 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
     // Convert public_transport tags to the older schema.
     if (isPlatform && isBus)
       p->AddTag("highway", "bus_stop");
-    if (isStopPosition && isTram)
-      p->AddTag("railway", "tram_stop");
+    if (isStopPosition)
+    {
+      if (isTram)
+        p->AddTag("railway", "tram_stop");
+      if (isFunicular)
+      {
+        p->AddTag("railway", "station");
+        p->AddTag("station", "funicular");
+      }
+    }
   }
   else if (p->m_type == OsmElement::EntityType::Relation && isMultipolygon)
   {
