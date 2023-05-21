@@ -22,12 +22,12 @@ class GpxParser
 {
 public:
   explicit GpxParser(FileData & data);
-  bool Push(std::string const & name);
+  bool Push(std::string_view const & name);
   void AddAttr(std::string const & attr, std::string const & value);
   bool IsValidAttribute(std::string const & type, std::string const & value,
                         std::string const & attrInLowerCase) const;
-  std::string const & GetTagFromEnd(size_t n) const;
-  void Pop(std::string const & tag);
+  std::string_view const & GetTagFromEnd(size_t n) const;
+  void Pop(std::string_view const & tag);
   void CharData(std::string value);
   
   static kml::TrackLayer GetDefaultTrackLayer();
@@ -53,7 +53,7 @@ private:
   CategoryData m_compilationData;
   CategoryData * m_categoryData;  // never null
   
-  std::vector<std::string> m_tags;
+  std::vector<std::string_view> m_tags;
   GeometryType m_geometryType;
   MultiGeometry m_geometry;
   uint32_t m_color;

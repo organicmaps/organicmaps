@@ -17,11 +17,20 @@ namespace kml
 namespace gpx
 {
 
-using namespace std::string_literals;
+using namespace std::string_view_literals;
 
 auto const kDefaultLang = StringUtf8Multilang::kDefaultCode;
-
 auto const kDefaultTrackWidth = 5.0;
+std::string_view const kTrk = "trk";
+std::string_view const kTrkSeg = "trkseg";
+std::string_view const kRte = "rte";
+std::string_view const kTrkPt = "trkpt";
+std::string_view const kWpt = "wpt";
+std::string_view const kRtePt = "rtept";
+std::string_view const kName = "name";
+std::string_view const kDesc = "desc";
+
+
 
 std::string PointToString(m2::PointD const & org)
 {
@@ -100,12 +109,12 @@ bool GpxParser::MakeValid()
   return false;
 }
 
-bool GpxParser::Push(std::string const & tag)
+bool GpxParser::Push(std::string_view const & tag)
 {
   m_tags.push_back(tag);
-  if (GetTagFromEnd(0) == "wpt")
+  if (GetTagFromEnd(0) == gpx::kWpt)
     m_geometryType = GEOMETRY_TYPE_POINT;
-  else if (GetTagFromEnd(0) == "trkpt" || GetTagFromEnd(0) == "rtept")
+  else if (GetTagFromEnd(0) == gpx::kTrkPt || GetTagFromEnd(0) == gpx::kRtePt)
     m_geometryType = GEOMETRY_TYPE_LINE;
   return true;
 }
@@ -115,15 +124,15 @@ void GpxParser::AddAttr(std::string const & attr, std::string const & value)
   std::string attrInLowerCase = attr;
   strings::AsciiToLower(attrInLowerCase);
   
-  if (GetTagFromEnd(0) == "wpt")
+  if (GetTagFromEnd(0) == gpx::kWpt)
   {
     if (attr == "lat")
       m_lat = stod(value);
     else if (attr == "lon")
       m_lon = stod(value);
   }
-  else if ((GetTagFromEnd(0) == "trkpt" && GetTagFromEnd(1) == "trkseg") ||
-           (GetTagFromEnd(0) == "rtept" && GetTagFromEnd(1) == "rte"))
+  else if ((GetTagFromEnd(0) == gpx::kTrkPt && GetTagFromEnd(1) == gpx::kTrkSeg) ||
+           (GetTagFromEnd(0) == gpx::kRtePt && GetTagFromEnd(1) == gpx::kRte))
   {
     if (attr == "lat")
       m_lat = stod(value);
@@ -133,32 +142,32 @@ void GpxParser::AddAttr(std::string const & attr, std::string const & value)
   
 }
 
-std::string const & GpxParser::GetTagFromEnd(size_t n) const
+std::string_view const & GpxParser::GetTagFromEnd(size_t n) const
 {
   ASSERT_LESS(n, m_tags.size(), ());
   return m_tags[m_tags.size() - n - 1];
 }
 
-void GpxParser::Pop(std::string const & tag)
+void GpxParser::Pop(std::string_view const & tag)
 {
   ASSERT_EQUAL(m_tags.back(), tag, ());
   
-  if (tag == "trkpt" || tag == "rtept")
+  if (tag == gpx::kTrkPt || tag == gpx::kRtePt)
   {
     m2::Point p = mercator::FromLatLon(m_lat, m_lon);
     if (m_line.empty() || !AlmostEqualAbs(m_line.back().GetPoint(), p, kMwmPointAccuracy))
       m_line.emplace_back(p);
   }
-  else if (tag == "trkseg" || tag == "rte")
+  else if (tag == gpx::kTrkSeg || tag == gpx::kRte)
   {
     m_geometry.m_lines.push_back(std::move(m_line));
   }
-  else if (tag == "wpt")
+  else if (tag == gpx::kWpt)
   {
     m_org = mercator::FromLatLon(m_lat, m_lon);
   }
   
-  if (tag == "rte" || tag == "trkseg" || tag == "wpt")
+  if (tag == gpx::kRte || tag == gpx::kTrkSeg || tag == gpx::kWpt)
   {
     if (MakeValid())
     {
@@ -218,21 +227,21 @@ void GpxParser::CharData(std::string value)
   size_t const count = m_tags.size();
   if (count > 1 && !value.empty())
   {
-    std::string const & currTag = m_tags[count - 1];
-    std::string const & prevTag = m_tags[count - 2];
+    std::string_view const & currTag = m_tags[count - 1];
+    std::string_view const & prevTag = m_tags[count - 2];
 
-    if (prevTag == "wpt")
+    if (prevTag == gpx::kWpt)
     {
-      if (currTag == "name")
+      if (currTag == gpx::kName)
         m_name[gpx::kDefaultLang] = value;
-      else if (currTag == "desc")
+      else if (currTag == gpx::kDesc)
         m_description[gpx::kDefaultLang] = value;
     }
-    else if (prevTag == "trk" || prevTag == "rte")
+    else if (prevTag == gpx::kTrk || prevTag == gpx::kRte)
     {
-      if (currTag == "name")
+      if (currTag == gpx::kName)
         m_categoryData->m_name[gpx::kDefaultLang] = value;
-      else if (currTag == "desc")
+      else if (currTag == gpx::kDesc)
         m_categoryData->m_description[gpx::kDefaultLang] = value;
     }
   }
