@@ -36,7 +36,7 @@ def file_uri_to_path(url : AnyStr) -> AnyStr:
     if file_uri.netloc == '~':
         file_path = f'~{file_uri.path}'
         return os.path.expanduser(file_path)
-    
+
     return file_path
 
 def is_executable(fpath: AnyStr) -> bool:
@@ -65,7 +65,7 @@ def download_file(url: AnyStr, name: AnyStr, download_if_exists: bool = True):
 
     if is_file_uri(url):
         # url uses 'file://' scheme
-        copy_overwrite(file_uri_to_path(url), name)
+        shutil.copy2(file_uri_to_path(url), name)
         logger.info(f"File {name} was copied from {url}.")
         return
 
@@ -184,12 +184,6 @@ def is_exists_file_and_md5(name: AnyStr) -> bool:
 
 def is_verified(name: AnyStr) -> bool:
     return is_exists_file_and_md5(name) and check_md5(name, md5_ext(name))
-
-
-def copy_overwrite(from_path: AnyStr, to_path: AnyStr):
-    if os.path.exists(to_path):
-        shutil.rmtree(to_path)
-    shutil.copytree(from_path, to_path)
 
 
 def make_symlink(target: AnyStr, link_name: AnyStr):
