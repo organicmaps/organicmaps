@@ -348,6 +348,10 @@ StraightTextLayout::StraightTextLayout(strings::UniString const & text, float fo
                                        bool forceNoWrap)
 {
   strings::UniString visibleText = bidi::log2vis(text);
+  // Possible if name has strange symbols only.
+  if (visibleText.empty())
+    return;
+
   buffer_vector<size_t, 2> delimIndexes;
   if (visibleText == text && !forceNoWrap)
     SplitText(visibleText, delimIndexes);
