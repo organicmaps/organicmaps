@@ -5,11 +5,15 @@
 
 import os
 import subprocess
+import platform
 import requests
-import json
+import shutil
 import sys
 
+TRANS_CMD = 'trans'
+
 # Use DeepL when possible with a fall back to Google.
+# List of Google Translate target languages: https://cloud.google.com/translate/docs/languages
 GOOGLE_TARGET_LANGUAGES = [
   'ar',
   'be',
@@ -19,11 +23,13 @@ GOOGLE_TARGET_LANGUAGES = [
   'fa',
   'he',
   'mr',
+  'sw',
   'th',
   'vi',
   'zh-TW',  # zh-Hant in OM
 ]
 
+# See https://www.deepl.com/docs-api/translate-text/translate-text/ for target languages.
 DEEPL_TARGET_LANGUAGES = [
     'bg',
     'cs',
@@ -41,7 +47,7 @@ DEEPL_TARGET_LANGUAGES = [
     'it',
     'ja',
     'ko',
-#    'lt',
+    'lt',
 #    'lv',
     'nb',
     'nl',
@@ -74,7 +80,7 @@ def google_translate(text):
     fromTo += lang + '+'
   # Remove last +
   fromTo = fromTo[:-1]
-  res = subprocess.run(['trans', '-b', '-no-bidi', fromTo, text], text=True, capture_output=True)
+  res = subprocess.run([TRANS_CMD, '-b', '-no-bidi', fromTo, text], text=True, capture_output=True)
   if res.returncode != 0:
     print('Error running trans program:')
     print(res.stderr)
@@ -87,7 +93,7 @@ def google_translate(text):
     lang = GOOGLE_TARGET_LANGUAGES[i]
     if lang == 'zh-TW':
       lang = 'zh-Hant'
-    translations[lang] = line
+    translations[lang] = line.capitalize()
     i = i + 1
     print(lang + ' = ' + line)
   return translations
@@ -114,12 +120,30 @@ def deepl_translate(text):
       lang = 'zh-Hans'
     elif lang == 'en-US':
       lang = 'en'
-    translations[lang] = translation
+    translations[lang] = translation.capitalize()
     print(lang + ' = ' + translation)
   return translations
 
+def usage():
+  print('Usage:', sys.argv[0], 'Some English text to translate')
+  if shutil.which(TRANS_CMD) == None:
+    print(TRANS_CMD, ' program for Google Translate is not installed.')
+    if platform.system() == 'Darwin':
+      print('Install it using `brew install translate-shell`')
+    else:
+      print('See https://www.soimort.org/translate-shell/ for installation instructions')
+
 if __name__ == '__main__':
-  text_to_translate = sys.argv[1]
+  if len(sys.argv) < 2:
+    usage()
+    exit(1)
+
+  if not 'DEEPL_FREE_API_KEY' in os.environ and not 'DEEPL_API_KEY' in os.environ:
+    print('Error: neither DEEPL_FREE_API_KEY nor DEEPL_API_KEY environment variables are set.')
+    print('DeepL translations are not available.')
+    exit(1)
+
+  text_to_translate = ' '.join(sys.argv[1:])
 
   translations = deepl_translate(text_to_translate)
   google_translations = google_translate(text_to_translate)
@@ -134,6 +158,13 @@ if __name__ == '__main__':
   en = translations.pop('en')
   langs = list(translations.keys())
   langs.sort()
-  print('en =', en)
+
+  print('============ strings.txt format ============')
+  print('    en =', en)
   for lang in langs:
-    print(lang, '=', translations[lang])
+    print('   ', lang, '=', translations[lang])
+
+  print('============ categories.txt format ============')
+  print('en:' + en)
+  for lang in langs:
+    print(lang + ':' + translations[lang])
