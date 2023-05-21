@@ -252,7 +252,7 @@ amenity|grave_yard;251;
 waterway|canal|tunnel;[waterway=canal][tunnel?];;name;int_name;252;
 piste:type|downhill|easy;[piste:type=downhill][piste:difficulty=easy];;name;int_name;253;
 waterway|ditch|tunnel;[waterway=ditch][tunnel?];;name;int_name;254;
-deprecated|deprecated;255;x
+hwtag|nosidewalk;255;
 piste:type|downhill|intermediate;[piste:type=downhill][piste:difficulty=intermediate];;name;int_name;256;
 railway|subway_entrance;257;
 amenity|charging_station|bicycle;[amenity=charging_station][bicycle?];;name;int_name;258;
@@ -316,7 +316,7 @@ aeroway|gate;315;
 railway|preserved;316;
 highway|path|horse;[highway=path][horse?];;name;int_name;317;
 landuse|field;318;
-deprecated|deprecated;319;x
+hwtag|nocycleway;319;
 leisure|water_park;320;
 natural|wetland|bog;[natural=wetland][wetland=bog];;name;int_name;321;
 man_made|windmill;322;
