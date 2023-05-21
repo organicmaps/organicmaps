@@ -31,7 +31,6 @@ std::string_view const kName = "name";
 std::string_view const kDesc = "desc";
 
 
-
 std::string PointToString(m2::PointD const & org)
 {
   double const lon = mercator::XToLon(org.x);
@@ -48,7 +47,6 @@ std::string PointToString(m2::PointD const & org)
 GpxParser::GpxParser(FileData & data)
 : m_data(data)
 , m_categoryData(&m_data.m_categoryData)
-, m_attrCode(StringUtf8Multilang::kUnsupportedLanguageCode)
 {
   ResetPoint();
 }
@@ -59,26 +57,9 @@ void GpxParser::ResetPoint()
   m_description.clear();
   m_org = {};
   m_predefinedColor = PredefinedColor::None;
-  m_viewportScale = 0;
-  m_timestamp = {};
-  
   m_color = 0;
-  m_styleId.clear();
-  m_mapStyleId.clear();
-  m_styleUrlKey.clear();
-  
-  m_featureTypes.clear();
   m_customName.clear();
-  m_boundTracks.clear();
-  m_visible = true;
-  m_nearestToponym.clear();
-  m_nearestToponyms.clear();
-  m_properties.clear();
-  m_localId = 0;
   m_trackLayers.clear();
-  m_trackWidth = gpx::kDefaultTrackWidth;
-  m_icon = BookmarkIcon::None;
-  
   m_geometry.Clear();
   m_geometryType = GEOMETRY_TYPE_UNKNOWN;
 }
@@ -90,7 +71,7 @@ bool GpxParser::MakeValid()
     if (mercator::ValidX(m_org.x) && mercator::ValidY(m_org.y))
     {
       // Set default name.
-      if (m_name.empty() && m_featureTypes.empty())
+      if (m_name.empty())
         m_name[gpx::kDefaultLang] = gpx::PointToString(m_org);
       
       // Set default pin.
@@ -178,22 +159,12 @@ void GpxParser::Pop(std::string_view const & tag)
         data.m_description = std::move(m_description);
         data.m_color.m_predefinedColor = m_predefinedColor;
         data.m_color.m_rgba = m_color;
-        data.m_icon = m_icon;
-        data.m_viewportScale = m_viewportScale;
-        data.m_timestamp = m_timestamp;
         data.m_point = m_org;
-        data.m_featureTypes = std::move(m_featureTypes);
         data.m_customName = std::move(m_customName);
-        data.m_boundTracks = std::move(m_boundTracks);
-        data.m_visible = m_visible;
-        data.m_nearestToponym = std::move(m_nearestToponym);
-        data.m_minZoom = m_minZoom;
-        data.m_properties = std::move(m_properties);
-        data.m_compilations = std::move(m_compilations);
-        
+
         // Here we set custom name from 'name' field for KML-files exported from 3rd-party services.
         if (data.m_name.size() == 1 && data.m_name.begin()->first == kDefaultLangCode &&
-            data.m_customName.empty() && data.m_featureTypes.empty())
+            data.m_customName.empty())
         {
           data.m_customName = data.m_name;
         }
@@ -203,15 +174,10 @@ void GpxParser::Pop(std::string_view const & tag)
       else if (GEOMETRY_TYPE_LINE == m_geometryType)
       {
         TrackData data;
-        data.m_localId = m_localId;
         data.m_name = std::move(m_name);
         data.m_description = std::move(m_description);
         data.m_layers = std::move(m_trackLayers);
-        data.m_timestamp = m_timestamp;
         data.m_geometry = std::move(m_geometry);
-        data.m_visible = m_visible;
-        data.m_nearestToponyms = std::move(m_nearestToponyms);
-        data.m_properties = std::move(m_properties);
         m_data.m_tracksData.push_back(std::move(data));
       }
     }
