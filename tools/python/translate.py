@@ -140,7 +140,9 @@ if __name__ == '__main__':
 
   if not 'DEEPL_FREE_API_KEY' in os.environ and not 'DEEPL_API_KEY' in os.environ:
     print('Error: neither DEEPL_FREE_API_KEY nor DEEPL_API_KEY environment variables are set.')
-    print('DeepL translations are not available.')
+    print('DeepL translations are not available. Register for a free Developer API account here:')
+    print('https://www.deepl.com/pro#developer')
+    print('and get the API key here: https://www.deepl.com/account/summary')
     exit(1)
 
   text_to_translate = ' '.join(sys.argv[1:])
