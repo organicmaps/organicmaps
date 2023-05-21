@@ -942,6 +942,11 @@ node|z17-[aerialway=station],
 node|z17-[railway=level_crossing]
 {icon-image: railway-crossing-m.svg;}
 
+node|z15-[railway=station][station=funicular],
+{icon-image: funicular-m.svg;text-offset: 1;font-size: 10;}
+node|z17-[aerialway=station],
+{font-size: 12;}
+
 /* 4.TOURISM */
 
 /* 4.1 Main POI */

@@ -574,7 +574,7 @@ deprecated|deprecated;573;x
 deprecated|deprecated;574;x
 aerialway|rope_tow;575;
 natural|pond;576;natural|water|pond
-deprecated|deprecated;577;x
+railway|station|funicular;[railway=station][station=funicular];;name;int_name;577;
 highway|secondary_link|tunnel;[highway=secondary_link][tunnel?];;name;int_name;578;
 deprecated|deprecated;579;x
 deprecated|deprecated;580;x
