@@ -18382,19 +18382,43 @@
 
   [type.railway.funicular]
     en = Funicular
+    ar = حبلي
+    be = Фунікулёр
+    bg = Фуникуляр
+    ca = Funicular
+    cs = Lanovka
+    da = Funicular
     de = Standseilbahn
+    el = Μονωτικό τρενάκι
     es = Funicular
-    et = Funikulöör
+    et = Funicular
+    eu = Funikularra
+    fa = فونیکولور
+    fi = Köysirata
     fr = Funiculaire
-    ja = ケーブルカー
-    mr = हवाई रज्जुमार्ग
-    nl = Kabelspoorweg
+    he = רַכֶּבֶל
+    hu = Funicular
+    id = Kereta gantung
+    it = Funicolare
+    ja = フニクラ
+    ko = 케이블카
+    lt = Funikulierius
+    mr = फ्युनिक्युलर
+    nb = Kabelbane
+    nl = Tunnel
+    pl = Kolejka linowa
     pt = Funicular
-    pt-BR = Funicular
+    ro = Funicular
     ru = Фуникулер
+    sk = Lanovka
+    sv = Linbana
+    sw = Funicular
+    th = รถกระเช้าไฟฟ้า
     tr = Füniküler
     uk = Фунікулер
-    zh-Hans = 缆索铁路轨道
+    vi = Đường sắt leo núi
+    zh-Hans = 缆车
+    zh-Hant = 纜車
 
   [type.railway.funicular.bridge]
     en = Funicular Bridge
@@ -18887,6 +18911,9 @@
     vi = Đường tàu hỏa
     zh-Hans = 火车站
     zh-Hant = 火車站
+
+  [type.railway.station.funicular]
+    ref = type.railway.funicular
 
   [type.railway.station.light_rail]
     ref = type.railway.station
