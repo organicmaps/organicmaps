@@ -3635,6 +3635,8 @@
 
 "type.waterway.canal.tunnel" = "运河";
 
+"type.waterway.fish_pass" = "Fish Pass";
+
 "type.waterway.dam" = "水坝";
 
 "type.waterway.ditch" = "水沟";

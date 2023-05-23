@@ -1989,6 +1989,7 @@
 	<string name="type.waterway">Waterway</string>
 	<string name="type.waterway.canal">Canal</string>
 	<string name="type.waterway.canal.tunnel">Canal Tunnel</string>
+	<string name="type.waterway.fish_pass">Fish Pass</string>
 	<string name="type.waterway.dam">Dam</string>
 	<string name="type.waterway.ditch">Ditch</string>
 	<string name="type.waterway.ditch.tunnel">Ditch</string>

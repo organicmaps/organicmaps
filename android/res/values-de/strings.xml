@@ -1900,6 +1900,7 @@
 	<string name="type.waterway">Wasserweg</string>
 	<string name="type.waterway.canal">Kanal</string>
 	<string name="type.waterway.canal.tunnel">Kanal</string>
+	<string name="type.waterway.fish_pass">Fischtreppe</string>
 	<string name="type.waterway.dam">Staudamm</string>
 	<string name="type.waterway.ditch">Graben</string>
 	<string name="type.waterway.ditch.tunnel">Graben</string>

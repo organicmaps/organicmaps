@@ -1564,7 +1564,7 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.city_wall" = "Muralha";
 
 "type.barrier.cycle_barrier" = "Barreira de bicicletas";
 
@@ -3634,6 +3634,8 @@
 "type.waterway.canal" = "Canal";
 
 "type.waterway.canal.tunnel" = "Canal";
+
+"type.waterway.fish_pass" = "Fish Pass";
 
 "type.waterway.dam" = "Usina";
 

@@ -3635,6 +3635,8 @@
 
 "type.waterway.canal.tunnel" = "Canal";
 
+"type.waterway.fish_pass" = "Fish Pass";
+
 "type.waterway.dam" = "Barragem";
 
 "type.waterway.ditch" = "Vala";
