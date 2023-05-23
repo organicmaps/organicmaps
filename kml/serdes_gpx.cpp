@@ -28,6 +28,7 @@ std::string_view const kRtePt = "rtept";
 std::string_view const kName = "name";
 std::string_view const kColor = "color";
 std::string_view const kDesc = "desc";
+std::string_view const kMetadata = "metadata";
 
 
 std::string PointToString(m2::PointD const & org)
@@ -218,6 +219,19 @@ void GpxParser::CharData(std::string value)
         m_description[kml::kDefaultLang] = value;
     }
     else if (prevTag == gpx::kTrk || prevTag == gpx::kRte)
+    {
+      if (currTag == gpx::kName)
+      {
+        m_name[kml::kDefaultLang] = value;
+        if (m_categoryData->m_name[kml::kDefaultLang].empty())
+          m_categoryData->m_name[kml::kDefaultLang] = value;
+      } else if (currTag == gpx::kDesc) {
+        m_description[kml::kDefaultLang] = value;
+        if (m_categoryData->m_description[kml::kDefaultLang].empty())
+          m_categoryData->m_description[kml::kDefaultLang] = value;
+      }
+    }
+    else if (prevTag == gpx::kMetadata)
     {
       if (currTag == gpx::kName)
         m_categoryData->m_name[kml::kDefaultLang] = value;

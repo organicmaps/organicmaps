@@ -137,5 +137,15 @@ UNIT_TEST(Color)
   TEST_EQUAL(65535, dataFromFile.m_tracksData[1].m_layers[0].m_color.m_rgba, ());
 }
 
+UNIT_TEST(MultiTrackNames)
+{
+  kml::FileData dataFromFile = loadGpxFromFile("gpx_test_data/color.gpx");
+  TEST_EQUAL("new", dataFromFile.m_categoryData.m_name[kml::kDefaultLang], ());
+  TEST_EQUAL("Short description", dataFromFile.m_categoryData.m_description[kml::kDefaultLang], ());
+  TEST_EQUAL("new red", dataFromFile.m_tracksData[0].m_name[kml::kDefaultLang], ());
+  TEST_EQUAL("description 1", dataFromFile.m_tracksData[0].m_description[kml::kDefaultLang], ());
+  TEST_EQUAL("new blue", dataFromFile.m_tracksData[1].m_name[kml::kDefaultLang], ());
+  TEST_EQUAL("description 2", dataFromFile.m_tracksData[1].m_description[kml::kDefaultLang], ());
+}
 
 

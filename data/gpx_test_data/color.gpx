@@ -6,9 +6,11 @@
         <name>gpx.studio</name>
         <link href="https://gpx.studio"></link>
     </author>
+    <desc>Short description</desc>
 </metadata>
 <trk>
     <name>new red</name>
+    <desc>description 1</desc>
     <type>Running</type>
     <extensions>
         <gpx_style:line>
@@ -43,6 +45,7 @@
 
 <trk>
     <name>new blue</name>
+    <desc>description 2</desc>
     <type>Running</type>
     <extensions>
         <gpx_style:line>
