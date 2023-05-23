@@ -1319,6 +1319,9 @@ world  +
         drain  +
             tunnel  -
             {}
+        fish_pass  +
+            tunnel  -
+            {}
         lock_gate  -
         river  +
             tunnel  -

@@ -100455,6 +100455,117 @@ cont {
   }
 }
 cont {
+  name: "waterway-fish_pass"
+  element {
+    scale: 13
+    lines {
+      width: 0.7
+      color: 401446
+      priority: 1009
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 19033
+      }
+      priority: 16950
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.0
+      color: 401446
+      priority: 1009
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 19033
+      }
+      priority: 16950
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.6
+      color: 401446
+      priority: 1009
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 19033
+      }
+      priority: 16950
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 1.6
+      color: 401446
+      priority: 1009
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 19033
+      }
+      priority: 16950
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 1.6
+      color: 401446
+      priority: 1009
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 19033
+      }
+      priority: 16950
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 1.6
+      color: 401446
+      priority: 1009
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 19033
+      }
+      priority: 16950
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 1.6
+      color: 401446
+      priority: 1009
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 19033
+      }
+      priority: 16950
+    }
+  }
+}
+cont {
   name: "waterway-lock_gate"
   element {
     scale: 16

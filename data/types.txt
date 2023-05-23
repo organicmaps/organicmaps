@@ -493,8 +493,8 @@ mapswithme
 *highway|tertiary_link|bridge
 mapswithme
 *amenity|parking|park_and_ride
-mapswithme
-mapswithme
+*waterway|fish_pass
+*waterway|fish_pass|tunnel
 *natural|water|lock
 waterway|canal
 mapswithme
