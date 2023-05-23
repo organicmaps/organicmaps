@@ -11,6 +11,7 @@ import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapTemplate;
 import androidx.core.graphics.drawable.IconCompat;
+import androidx.lifecycle.LifecycleOwner;
 
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
@@ -19,18 +20,47 @@ import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.routing.RoutingOptions;
 import app.organicmaps.settings.RoadType;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class DrivingOptionsScreen extends BaseMapScreen
 {
+  private static class DrivingOption
+  {
+    public RoadType roadType;
+
+    @StringRes
+    public int text;
+
+    public DrivingOption(RoadType roadType, @StringRes int text)
+    {
+      this.roadType = roadType;
+      this.text = text;
+    }
+  }
+
+  private final DrivingOption[] mDrivingOptions = {
+      new DrivingOption(RoadType.Toll, R.string.avoid_tolls),
+      new DrivingOption(RoadType.Dirty, R.string.avoid_unpaved),
+      new DrivingOption(RoadType.Ferry, R.string.avoid_ferry),
+      new DrivingOption(RoadType.Motorway, R.string.avoid_motorways)
+  };
+
   @NonNull
   private final CarIcon mCheckboxIcon;
   @NonNull
   private final CarIcon mCheckboxSelectedIcon;
+
+  @NonNull
+  private final Map<RoadType, Boolean> mInitialDrivingOptionsState = new HashMap<>();
 
   public DrivingOptionsScreen(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer)
   {
     super(carContext, surfaceRenderer);
     mCheckboxIcon = new CarIcon.Builder(IconCompat.createWithResource(carContext, R.drawable.ic_check_box)).build();
     mCheckboxSelectedIcon = new CarIcon.Builder(IconCompat.createWithResource(carContext, R.drawable.ic_check_box_checked)).build();
+
+    initDrivingOptionsState();
   }
 
   @NonNull
@@ -42,6 +72,19 @@ public class DrivingOptionsScreen extends BaseMapScreen
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
     builder.setItemList(createDrivingOptionsList());
     return builder.build();
+  }
+
+  @Override
+  public void onStop(@NonNull LifecycleOwner owner)
+  {
+    for (final DrivingOption drivingOption : mDrivingOptions)
+    {
+      if (Boolean.TRUE.equals(mInitialDrivingOptionsState.get(drivingOption.roadType)) != RoutingOptions.hasOption(drivingOption.roadType))
+      {
+        setResult(true);
+        return;
+      }
+    }
   }
 
   @NonNull
@@ -57,10 +100,8 @@ public class DrivingOptionsScreen extends BaseMapScreen
   private ItemList createDrivingOptionsList()
   {
     final ItemList.Builder builder = new ItemList.Builder();
-    builder.addItem(createDrivingOptionCheckbox(RoadType.Toll, R.string.avoid_tolls));
-    builder.addItem(createDrivingOptionCheckbox(RoadType.Dirty, R.string.avoid_unpaved));
-    builder.addItem(createDrivingOptionCheckbox(RoadType.Ferry, R.string.avoid_ferry));
-    builder.addItem(createDrivingOptionCheckbox(RoadType.Motorway, R.string.avoid_motorways));
+    for (final DrivingOption drivingOption : mDrivingOptions)
+      builder.addItem(createDrivingOptionCheckbox(drivingOption.roadType, drivingOption.text));
     return builder.build();
   }
 
@@ -78,5 +119,11 @@ public class DrivingOptionsScreen extends BaseMapScreen
     });
     builder.setImage(RoutingOptions.hasOption(roadType) ? mCheckboxSelectedIcon : mCheckboxIcon);
     return builder.build();
+  }
+
+  private void initDrivingOptionsState()
+  {
+    for (final DrivingOption drivingOption : mDrivingOptions)
+      mInitialDrivingOptionsState.put(drivingOption.roadType, RoutingOptions.hasOption(drivingOption.roadType));
   }
 }

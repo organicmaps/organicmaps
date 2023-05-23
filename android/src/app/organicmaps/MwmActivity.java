@@ -1056,12 +1056,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onStart();
     BookmarkManager.INSTANCE.addLoadingListener(this);
-    RoutingController.get().attach(this);
     IsolinesManager.from(getApplicationContext()).attach(this::onIsolinesStateChanged);
     if (mDisplayManager.isDeviceDisplayUsed())
     {
       LocationState.nativeSetListener(this);
       onMyPositionModeChanged(LocationState.nativeGetMode());
+      RoutingController.get().attach(this);
       Framework.nativePlacePageActivationListener(this);
     }
     LocationHelper.INSTANCE.attach(this);
@@ -1081,9 +1081,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       Framework.nativeRemovePlacePageActivationListener(this);
       LocationState.nativeRemoveListener();
+      RoutingController.get().detach();
     }
     LocationHelper.INSTANCE.detach();
-    RoutingController.get().detach();
     IsolinesManager.from(getApplicationContext()).detach();
     mSearchController.detach();
     Utils.keepScreenOn(false, getWindow());
@@ -1921,10 +1921,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Framework.nativeRemovePlacePageActivationListener(this);
     if (mOnmapDownloader != null)
       mOnmapDownloader.onPause();
+    RoutingController.get().onSaveState();
+    RoutingController.get().detach();
   }
 
   private void enableControls()
   {
+    RoutingController.get().attach(this);
+    RoutingController.get().restore();
     if (RoutingController.get().isNavigating())
     {
       showNavigation(true);
