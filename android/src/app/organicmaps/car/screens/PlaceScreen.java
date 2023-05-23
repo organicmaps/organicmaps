@@ -1,22 +1,29 @@
 package app.organicmaps.car.screens;
 
+import static android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE;
+import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
 import static java.util.Objects.requireNonNull;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.text.SpannableString;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
+import androidx.car.app.CarToast;
 import androidx.car.app.model.Action;
 import androidx.car.app.model.CarColor;
 import androidx.car.app.model.CarIcon;
+import androidx.car.app.model.DurationSpan;
+import androidx.car.app.model.ForegroundCarColorSpan;
 import androidx.car.app.model.Header;
 import androidx.car.app.model.Pane;
 import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapTemplate;
 import androidx.core.graphics.drawable.IconCompat;
+import androidx.lifecycle.LifecycleOwner;
 
 import app.organicmaps.Framework;
 import app.organicmaps.R;
@@ -24,17 +31,25 @@ import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.bookmarks.data.Metadata;
 import app.organicmaps.car.SurfaceRenderer;
+import app.organicmaps.car.screens.settings.DrivingOptionsScreen;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.util.OnBackPressedCallback;
+import app.organicmaps.location.LocationHelper;
+import app.organicmaps.routing.RoutingController;
+import app.organicmaps.routing.RoutingInfo;
+import app.organicmaps.util.Config;
 import app.organicmaps.util.log.Logger;
 
-public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.Callback
+public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.Callback, RoutingController.Container
 {
   private static final String TAG = PlaceScreen.class.getSimpleName();
 
   @NonNull
   private MapObject mMapObject;
+
+  @NonNull
+  private final RoutingController mRoutingController;
 
   @NonNull
   private final OnBackPressedCallback mOnBackPressedCallback;
@@ -43,6 +58,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   {
     super(builder.mCarContext, builder.mSurfaceRenderer);
     mMapObject = requireNonNull(builder.mMapObject);
+    mRoutingController = RoutingController.get();
     mOnBackPressedCallback = new OnBackPressedCallback(getCarContext(), this);
   }
 
@@ -71,7 +87,10 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     final Header.Builder builder = new Header.Builder();
     builder.setStartHeaderAction(Action.BACK);
     getCarContext().getOnBackPressedDispatcher().addCallback(this, mOnBackPressedCallback);
-    builder.addEndHeaderAction(createBookmarkAction());
+    if (!mRoutingController.isBuilding() && !mRoutingController.isBuilt())
+      builder.addEndHeaderAction(createBookmarkAction());
+    if (mRoutingController.isBuilt())
+      builder.addEndHeaderAction(createDrivingOptionsAction());
 
     return builder.build();
   }
@@ -81,7 +100,15 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   {
     final Pane.Builder builder = new Pane.Builder();
 
+    if (mRoutingController.isBuilding())
+    {
+      builder.setLoading(true);
+      return builder.build();
+    }
+
     builder.addRow(getPlaceDescription());
+    if (mRoutingController.isBuilt())
+      builder.addRow(getPlaceRouteInfo());
 
     final Row placeOpeningHours = UiHelpers.getPlaceOpeningHoursRow(mMapObject, getCarContext());
     if (placeOpeningHours != null)
@@ -107,6 +134,25 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     return builder.build();
   }
 
+  @NonNull
+  private Row getPlaceRouteInfo()
+  {
+    final RoutingInfo routingInfo = RoutingController.get().getCachedRoutingInfo();
+    if (routingInfo == null)
+      throw new IllegalStateException("routingInfo == null");
+
+    final Row.Builder builder = new Row.Builder();
+
+    builder.setTitle(routingInfo.distToTarget + " " + routingInfo.targetUnits);
+
+    final SpannableString time = new SpannableString(" ");
+    time.setSpan(DurationSpan.create(routingInfo.totalTimeInSeconds), 0, 1, SPAN_INCLUSIVE_INCLUSIVE);
+    time.setSpan(ForegroundCarColorSpan.create(CarColor.BLUE), 0, 1, SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.addText(time);
+
+    return builder.build();
+  }
+
   private void createPaneActions(@NonNull Pane.Builder builder)
   {
     final String phoneNumber = getFirstPhoneNumber(mMapObject);
@@ -120,12 +166,35 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
 
     final Action.Builder startRouteBuilder = new Action.Builder();
     startRouteBuilder.setBackgroundColor(CarColor.GREEN);
-    startRouteBuilder.setFlags(Action.FLAG_PRIMARY);
-    startRouteBuilder.setTitle(getCarContext().getString(R.string.p2p_to_here));
-    startRouteBuilder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_route_to)).build());
-    startRouteBuilder.setOnClickListener(() -> {
-      /* TODO (AndrewShkrob): Will be implemented with route planning */
-    });
+
+    if (mRoutingController.isNavigating())
+    {
+      startRouteBuilder.setFlags(Action.FLAG_PRIMARY);
+      startRouteBuilder.setTitle(getCarContext().getString(R.string.placepage_add_stop));
+      startRouteBuilder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_route_via)).build());
+      startRouteBuilder.setOnClickListener(() -> mRoutingController.addStop(mMapObject));
+    }
+    else if (mRoutingController.isBuilt())
+    {
+      startRouteBuilder.setFlags(Action.FLAG_DEFAULT);
+      startRouteBuilder.setTitle(getCarContext().getString(R.string.p2p_start));
+      startRouteBuilder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_follow_and_rotate)).build());
+      startRouteBuilder.setOnClickListener(() -> {
+        getScreenManager().push(new NavigationScreen(getCarContext(), getSurfaceRenderer()));
+      });
+    }
+    else
+    {
+      startRouteBuilder.setFlags(Action.FLAG_DEFAULT);
+      startRouteBuilder.setTitle(getCarContext().getString(R.string.p2p_to_here));
+      startRouteBuilder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_route_to)).build());
+      startRouteBuilder.setOnClickListener(() -> {
+        mRoutingController.setRouterType(Framework.ROUTER_TYPE_VEHICLE);
+        mRoutingController.prepare(LocationHelper.INSTANCE.getMyPosition(), mMapObject);
+        Framework.nativeDeactivatePopup();
+      });
+    }
+
     builder.addAction(startRouteBuilder.build());
   }
 
@@ -138,12 +207,31 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
       iconBuilder.setTint(CarColor.YELLOW);
     builder.setIcon(iconBuilder.build());
     builder.setOnClickListener(() -> {
+      // TODO(AndrewShkrob): Bookmarks not working while mRoutingController.isPlanning()
       if (MapObject.isOfType(MapObject.BOOKMARK, mMapObject))
         Framework.nativeDeleteBookmarkFromMapObject();
       else
         BookmarkManager.INSTANCE.addNewBookmark(mMapObject.getLat(), mMapObject.getLon());
     });
     return builder.build();
+  }
+
+  @NonNull
+  private Action createDrivingOptionsAction()
+  {
+    return new Action.Builder()
+        .setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_settings)).build())
+        .setOnClickListener(() -> getScreenManager().pushForResult(new DrivingOptionsScreen(getCarContext(), getSurfaceRenderer()), this::onDrivingOptionsResult))
+        .build();
+  }
+
+  private void onDrivingOptionsResult(@Nullable Object result)
+  {
+    if (result == null)
+      return;
+
+    // Driving Options changed. Let's rebuild the route
+    mRoutingController.rebuildLastRoute();
   }
 
   @NonNull
@@ -157,8 +245,79 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   }
 
   @Override
+  public void onBuiltRoute()
+  {
+    invalidate();
+  }
+
+  @Override
+  public void onPlanningStarted()
+  {
+    invalidate();
+  }
+
+  @Override
+  public void onPlanningCancelled()
+  {
+    invalidate();
+  }
+
+  @Override
+  public void showRoutePlan(boolean show, @Nullable Runnable completionListener)
+  {
+    if (completionListener != null)
+      completionListener.run();
+  }
+
+  @Override
+  public void onShowDisclaimer(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
+  {
+    // TODO(AndrewShkrob): show disclaimer screen or not?
+    Config.acceptRoutingDisclaimer();
+    mRoutingController.prepare(startPoint, endPoint);
+  }
+
+  @Override
+  public void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps)
+  {
+    // TODO(AndrewShkrob): show download maps request
+    Logger.e(TAG, "lastResultCode: " + lastResultCode + ", lastMissingMaps: " + String.join(", ", lastMissingMaps));
+    CarToast.makeText(getCarContext(), R.string.unable_to_calc_alert_title, CarToast.LENGTH_LONG).show();
+    mRoutingController.cancel();
+    Framework.nativeShowFeature(mMapObject.getFeatureId());
+  }
+
+  @Override
+  public void onDrivingOptionsBuildError()
+  {
+    Logger.e(TAG, "");
+    CarToast.makeText(getCarContext(), R.string.unable_to_calc_alert_title, CarToast.LENGTH_LONG).show();
+    mRoutingController.cancel();
+    Framework.nativeShowFeature(mMapObject.getFeatureId());
+  }
+
+  @Override
+  public void onCreate(@NonNull LifecycleOwner owner)
+  {
+    mRoutingController.attach(this);
+    if (mRoutingController.isPlanning() && mRoutingController.getLastRouterType() != Framework.ROUTER_TYPE_VEHICLE)
+    {
+      mRoutingController.setRouterType(Framework.ROUTER_TYPE_VEHICLE);
+      mRoutingController.rebuildLastRoute();
+    }
+  }
+
+  @Override
+  public void onDestroy(@NonNull LifecycleOwner owner)
+  {
+    mRoutingController.detach();
+  }
+
+  @Override
   public void onBackPressed()
   {
+    if (!mRoutingController.isNavigating())
+      mRoutingController.cancel();
     Framework.nativeDeactivatePopup();
   }
 
