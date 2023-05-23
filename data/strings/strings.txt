@@ -47,7 +47,7 @@
     tags = android,ios
     en = Cancel
     ar = إلغاء
-    be = Адмяніць
+    be = Скасаваць
     bg = Отмяна
     ca = Cancel·la
     cs = Zrušit
@@ -89,7 +89,7 @@
     tags = ios
     en = Cancel Download
     ar = إلغاء التنزيل
-    be = Адмяніць спампоўку
+    be = Скасаваць спампоўку
     bg = Отмяна на изтегляне
     ca = Cancel·la la baixada
     cs = Zrušit stahování
@@ -256,7 +256,7 @@
     tags = android,ios
     en = Downloading…
     ar = جاري التنزيل…
-    be = Спампоўваецца…
+    be = Спампоўванне…
     bg = Теглене…
     ca = S'està baixant…
     cs = Stahování…
@@ -664,7 +664,7 @@
     tags = android
     en = You currently have all Location Services for this device or application disabled. Please enable them in Settings.
     ar = التطبيق أو جميع خدمات تحديد المواقع معطلة لديك في الوقت الحالي. الرجاء تفعيلها في الإعدادات.
-    be = У вас выключана геалакацыя для гэтай прылады альбо праграмы. Калі ласка, уключыце яе ў Наладах.
+    be = Служба геалакацыі адклычана для гэтай прылады або праграмы. Калі ласка, уключыце яе ў Наладах.
     bg = В момента всички услуги за местоположение за това устройство или приложение са деактивирани. Моля, разрешете ги в Настройки.
     ca = Teniu tots els serveis de geolocalització d'aquest aparell desactivats. Activeu-los a la configuració.
     cs = Aktuálně máte všechny možnosti pro určování polohy vypnuté. Prosím, povolte je v Nastavení.
@@ -789,7 +789,7 @@
     tags = android,ios
     en = Download has failed
     ar = فشلت عملية تنزيل
-    be = Спампоўка не атрымалася
+    be = Не ўдалося спампаваць
     bg = Изтеглянето се провали
     ca = La baixada ha fallat
     cs = Stahování selhalo
@@ -914,7 +914,7 @@
     comment = Text in About screen
     en = Free for everyone, made with love
     ar = مجاني للجميع ، مصنوع من الحب
-    be = Бескаштоўна для ўсіх, зроблена з любоўю
+    be = Бесплатна для ўсіх, зроблена з любоўю
     bg = Безплатно за всички, направени с любов
     cs = Zdarma pro všechny, vyrobené s láskou
     da = Gratis for alle, lavet med kærlighed
@@ -954,7 +954,7 @@
     comment = Text in About screen
     en = • No ads, no tracking, no data collection
     ar = • لا إعلانات ، لا تتبع ، لا جمع البيانات
-    be = • Ніякай рэкламы, без сачэння і збору вашых дадзеных
+    be = • Без рэкламы, без трэкінгу, без збору вашых даных
     bg = • Без реклами, без проследяване, без събиране на данни
     cs = • Žádné reklamy, žádné sledování, žádné sběr dat
     da = • Ingen annoncer, ingen sporing, ingen dataindsamling
@@ -994,7 +994,7 @@
     comment = Text in About screen
     en = • No battery drain, no background data
     ar = • يحفظ البطارية ، لا يستخدم بيانات الخلفية
-    be = • Эканоміць батарэю, не выкарыстоўвае фонавыя дадзеныя
+    be = • Эканоміць батарэю, не выкарыстоўвае фонавыя даныя
     bg = • Пести батерията, не използва фонови данни
     ca = • Estalvia la bateria, no utilitza dades de fons
     cs = • Šetří baterii, nevyužívá data na pozadí
@@ -1077,7 +1077,7 @@
     comment = Text in About screen
     en = Open-source application created by enthusiasts and volunteers.
     ar = تطبيق مفتوح المصدر الذي أنشأه المتحمسون والمتطوعون.
-    be = Прыкладанне з адкрытым зыходным кодам, створанае энтузіястамі і валанцёрамі.
+    be = Праграма з адкрытым зыходным кодам, створаная энтузіястамі і валанцёрамі.
     bg = Приложение с отворен код, създадено от ентусиасти и доброволци.
     cs = Otevřená aplikace vytvořená nadšenci a dobrovolníky.
     da = Open source-applikation oprettet af entusiaster og frivillige.
@@ -1115,7 +1115,7 @@
     tags = android
     en = Connection Settings
     ar = إعدادات الاتصال
-    be = Налады злучэння
+    be = Налады падключэння
     bg = Настройки за свързване
     ca = Paràmetres de connexió
     cs = Nastavení připojení
@@ -1156,7 +1156,7 @@
     tags = android,ios
     en = Close
     ar = إغلاق
-    be = Зачыніць
+    be = Закрыць
     bg = Затваряне
     ca = Tanca
     cs = Zavřít
@@ -1197,7 +1197,7 @@
     tags = android
     en = The app requires hardware accelerated OpenGL. Unfortunately, your device is not supported.
     ar = أنت بحاجة الى OpenGL بأجهزة تسريع. لسوء الحظ جهازك لا يدعم هذه الخاصية.
-    be = Дадатак патрабуе апаратна паскоранага OpenGL. Нажаль, ваша прылада не падтрымліваецца.
+    be = Для працы праграмы неабходны апаратна паскораны OpenGL. Нажаль, ваша прылада не падтрымліваецца.
     bg = Приложението изисква хардуерно ускорение на OpenGL. За съжаление вашето устройство не се поддържа.
     ca = L'aplicació requereix acceleració per maquinari OpenGL. Malauradament, el vostre aparell no ho suporta.
     cs = Je vyžadována hardwarová akcelerace OpenGL. Bohužel, vaše zařízení není podporováno.
@@ -1280,7 +1280,7 @@
     tags = android
     en = Please disconnect USB cable or insert memory card to use Organic Maps
     ar = الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام Organic Maps.
-    be = Калі ласка, адлучыце USB кабель альбо ўстаўце карту памяці, каб карыстацца Organic Maps
+    be = Адключыце USB кабель або ўстаўце карту памяці, каб карыстацца Organic Maps
     bg = Моля, изключете USB кабела или поставете карта с памет.
     ca = Desconnecteu el cable USB o inseriu una targeta de memòria per a usar l'Organic Maps
     cs = Prosím, odpojte USB kabel nebo vložte paměťovou kartu pro použití s Organic Maps
@@ -1321,7 +1321,7 @@
     tags = android
     en = Please free up some space on the SD card/USB storage first in order to use the app
     ar = الرجاء إخلاء بعض المساحة في تخزين البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل أولا من أجل استخدام هذا التطبيق.
-    be = Калі ласка, спачатку вызваліце трохі месца на SD карце/USB сховішчы, каб карыстацца праграмай
+    be = Вызваліце месца на SD-карце/USB-сховішчы, каб карыстацца праграмай
     bg = Моля, първо освободете място на SD картата/USB паметта, за да можете да използвате приложението.
     ca = Allibereu espai en la targeta SD o emmagatzematge USB per a poder usar l'aplicació
     cs = Prosím, uvolněte nejprve místo na SD kartě/USB uložišti
@@ -1362,7 +1362,7 @@
     tags = android
     en = Before you start using the app, please download the general world map to your device.\nIt will use %@ of storage.
     ar = قبل أن تبدأ باستخدام التطبيق، سنقوم بتنزيل خريطة العالم العامة على جهازك.\nستحتاج إلى %@ من البيانات.
-    be = Перад пачаткам працы дазвольце нам спампаваць агульную мапу свету на вашу прыладу.\nГэта патрабуе %@ дадзеных.
+    be = Перад пачаткам працы дазвольце нам спампаваць агульную мапу свету на вашу прыладу.\nГэта патрабуе %@ сховішча.
     bg = Преди да започнете да използвате приложението, позволете ни да изтеглим общата карта на света на вашето устройство.\nТова ще използва %@ от паметта.
     ca = Abans d'usar l'aplicació, autoritzeu que baixem el mapa del món general al vostre aparell.\nUsarà %@ d'emmagatzematge.
     cs = Ještě než začnete, bude třeba stáhnout obecnou mapu světa.\nZabere to %@.
@@ -1403,7 +1403,7 @@
     tags = android
     en = Go to Map
     ar = الذهاب الى الخريطة
-    be = Перайскі да мапы
+    be = Перайсці да мапы
     bg = Към картата
     ca = Ves al mapa
     cs = Přejít na mapu
@@ -1444,7 +1444,7 @@
     tags = android
     en = Downloading %@. You can now\nproceed to the map.
     ar = تنزيل %@. يمكنك الآن\nالمتابعة الى الخريطة.
-    be = Спампоўваецца %@. Можаце зараз\nперайсці да мапы.
+    be = Спампоўванне %@. Цяпер вы можаце\nперайсці да мапы.
     bg = Изтегляне на %@. Вече можете да преминете към картата.
     ca = S'està baixant %@. Mentrestant, podeu\nanar al mapa.
     cs = Stahování %@. Nyní můžete\npřejít na mapu.
@@ -1652,7 +1652,7 @@
     tags = android
     en = %@ download has failed
     ar = فشلت عملية تنزيل %@
-    be = Спампаваць %@ не ўдалося
+    be = Не ўдалося спампаваць %@
     bg = Изтеглянето на %@ се провали
     ca = La baixada de %@ ha fallat
     cs = Stahování selhalo: %@
@@ -1694,7 +1694,7 @@
     tags = android,ios
     en = Add a New List
     ar = إضافة قائمة جديدة
-    be = Дадаць новы спіс
+    be = Дадаць спіс
     bg = Добавяне на нова група
     ca = Afegeix una llista nova
     cs = Přidat novou skupinu záložek
@@ -2154,7 +2154,7 @@
     tags = android
     en = Select the folder to download maps to.
     ar = اختر المكان الذي ينبغي تنزيل الخرائط إليه.
-    be = Выберыце месца, дзе захоўваць запампаваныя мапы
+    be = Выберыце папку для захоўвання спампаваных мап.
     bg = Изберете мястото, където картите трябва да се изтеглят
     ca = Indiqueu la ubicació on s'han de desar els mapes
     cs = Vyberte místo, kam by měly být mapy stahovány
@@ -2195,7 +2195,7 @@
     tags = android
     en = Downloaded maps
     ar = الخرائط المنزلة
-    be = Мапы
+    be = Спампаваныя карты
     bg = Карти
     ca = Mapes baixats
     cs = Mapy
@@ -2258,7 +2258,7 @@
     tags = android
     en = Internal shared storage
     ar = وحدة التخزين الداخلية المشتركة
-    be = Унутранае абагуленае сховішча
+    be = Унутранае агульнае сховішча
     ca = Emmagatzematge compartit intern
     de = Interner gemeinsamer Speicher
     es = Almacenamiento interno compartido
@@ -2302,7 +2302,7 @@
     tags = android
     en = External shared storage
     ar = وحدة تخزين خارجية مشتركة
-    be = Знешняе абагульнае сховішча
+    be = Знешняе агульнае сховішча
     ca = Emmagatzematge compartit extern
     de = Externer gemeinsamer Speicher
     es = Almacenamiento externo compartido
@@ -2493,7 +2493,7 @@
     en = Choose between miles and kilometers
     en-GB = Choose between miles and kilometres
     ar = اختر من بين الأميال و الكيلومترات.
-    be = Ужываць кіламетры альбо мілі
+    be = Выкарыстоўваць кіламетры або мілі
     bg = Изберете между километри или мили
     ca = Trieu entre milles i quilòmetres
     cs = Vyberte si míle nebo kilometry
@@ -2664,7 +2664,7 @@
     en = Gas
     en-GB = Petrol
     ar = وقود الحافلات
-    be = Запраўка
+    be = АЗС
     bg = Гориво
     ca = Gasolinera
     cs = Čerpací stanice
@@ -2748,7 +2748,7 @@
     tags = android,ios
     en = Shopping
     ar = تسوق
-    be = Закупы
+    be = Шопінг
     bg = Шопинг
     ca = Compres
     cs = Nákupy
@@ -2790,7 +2790,7 @@
     tags = android,ios
     en = Hotel
     ar = فندق
-    be = Гатэль
+    be = Гасцініца
     bg = Хотел
     ca = Hotel
     cs = Hotel
@@ -3126,7 +3126,7 @@
     tags = android,ios
     en = Hospital
     ar = مستشفى
-    be = Лякарня
+    be = Бальніца
     bg = Болница
     ca = Hospital
     cs = Nemocnice
@@ -3335,7 +3335,7 @@
     tags = android,ios
     en = Recycling
     ar = إعادة تدوير
-    be = Перапрацоўка
+    be = Перапрацоўка адходаў
     bg = Рециклиране
     ca = Reciclatge
     cs = Recyklace
@@ -3545,7 +3545,7 @@
     tags = android,ios
     en = Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!
     ar = مرحباً! ْ\n\n تم إرفاق إشاراتي المرجعية من تطبيق Organic Maps. الرجاء فتحهم إذا لديك تطبيق Organic Maps مثبتاً. أو، إذا لم يكن مثبتاً، قم بتنزيل التطبيق لنظام iOS أو أندرويد من خلال الضغط على هذا الرابط: https://omaps.app/get?kmz \n\nاستمتع بالسفر مع Organic Maps!
-    be = Вітаю!\n\nУ далучаным файле мае закладкі з праграмы Organic Maps. Калі ласка, адчыніце іх, калі ў вас усталяваны Organic Maps. Калі не, спампуйце праграму для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!
+    be = Вітаю!\n\nУ далучаным файле мае закладкі з праграмы Organic Maps. Калі ласка, адкрыйце іх, калі ў вас усталяваны Organic Maps. Калі не, спампуйце праграму для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!
     ca = Hola!\n\nAdjunto els meus marcadors de l'aplicació Organic Maps. Obriu-los si teniu l'Organic Maps instal·lat. O, si no teniu l'aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://omaps.app/get?kmz\n\nGaudiu viatjant amb l'Organic Maps!
     de = Hallo!\n\nIm Anhang sind meine Lesezeichen der Organic Maps App. Sie können sie mit Organic Maps öffnen. Wenn Sie die App nicht installiert haben, können Sie sie von https://omaps.app/get?kmz für iOS oder Android herunterladen.\n\nViel Spaß beim Reisen mit Organic Maps!
     es = Hola!\n\Adjunto mis marcadores de la aplicación Organic Maps. Por favor, ábralos si tiene instalado Organic Maps. O, si no lo tiene, descargue la aplicación para su dispositivo iOS o Android siguiendo este enlace: https://omaps.app/get?kmz\n¡Disfrute viajando con Organic Maps!
@@ -3612,7 +3612,7 @@
     tags = android,ios
     en = Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.
     ar = تم تحميل الإشارات المرجعية بنجاح! يمكنك العثور عليها على الخريطة أو على شاشة إدارة الإشارات المرجعية.
-    be = Закладкі паспяхова загружаны! Вы можаце іх убачыць на мапе альбо ў захаваных закладках.
+    be = Закладкі паспяхова загружаны! Вы можаце іх убачыць на мапе або ў захаваных закладках.
     bg = Отметките са заредени успешно! Можете да ги откриете на картата или при секцията с отметки.
     ca = Els marcadors s'han carregat correctament! Podeu trobar-los en el mapa o en la pantalla de gestió de marcadors.
     cs = Záložky byly úspěšně nahrány! Naleznete je na mapě nebo ve správci záložek.
@@ -3654,7 +3654,7 @@
     tags = android,ios
     en = Failed to load bookmarks. The file may be corrupted or defective.
     ar = فشلت عملية تحميل الإشارات المرجعية. قد يكون الملف تالف أو غير صالح.
-    be = Не атрамалася запампаваць закладкі. Файл можа быць пашкоджаны альбо дэфектыўны.
+    be = Не ўдалося загрузіць закладкі. Файл можа быць пашкоджаны або няспраўны.
     bg = Качването на отметките се провали. Файлът може да бъде повреден или дефектен.
     ca = No s'ha pogut carregar els marcadors. El fitxer pot ser malmès o defectuós.
     cs = Nahrávání záložek se nezdařilo. Soubor může být poškozený nebo vadný.
@@ -3696,7 +3696,7 @@
     tags = android,ios
     en = Edit
     ar = تعديل
-    be = Правіць
+    be = Рэдагаваць
     bg = Редакция
     ca = Edita
     cs = Upravit
@@ -3779,7 +3779,7 @@
     tags = android
     en = Sorry, Map Storage settings are currently disabled.
     ar = نأسف، اعدادات تخزين الخرائط معطلة حالياً.
-    be = Прабачце, налады сховішча мапаў зараз недасягальныя.
+    be = На жаль, налады сховішча мапы зараз адключаны.
     bg = Съжаляваме, но настройките за съхранение на карти в момента са деактивирани.
     ca = La configuració de l'emmagatzematge del mapes està desactivada.
     cs = Omlouváme se, nastavení uložení map je dočasně nedostupné.
@@ -3821,7 +3821,7 @@
     tags = android
     en = Map download is in progress now.
     ar = جاري الآن تنزيل الخريطة
-    be = Мапы спампоўваюцца.
+    be = Ідзе спампоўванне мапы.
     bg = Изтеглянето на картата вече е в ход.
     ca = La baixada del mapa és en curs.
     cs = Právě probíhá stahování země.
@@ -3863,7 +3863,7 @@
     tags = android
     en = Check out my current location in Organic Maps! %1$@ or %2$@ Don't have offline maps? Download here: https://omaps.app/get
     ar = مرحباً، تفقد الموقع الخاص بي على Organic Maps! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: https://omaps.app/get
-    be = Гэй, глядзі дзе я зараз на мапе! %1$@ альбо %2$@ Няма офлайн-мапаў? Спампуй тут: https://omaps.app/get
+    be = Гэй, глядзі дзе я зараз на мапе! %1$@ альбо %2$@ Няма афлайн-мап? Спампуй тут: https://omaps.app/get
     bg = Хей, виж текущото ми местоположение в Organic Maps! %1$@ или %2$@
     ca = Mira la meva ubicació en l'Organic Maps! %1$@ o %2$@ No teniu mapes sense connexió? Baixeu-los aquí: https://omaps.app/get
     cs = Ahoj, zkoukni mojí lokaci v Organic Maps! %1$@ nebo %2$@ Nemáš offline mapy? Stáhni tady: https://omaps.app/get
@@ -3986,7 +3986,7 @@
     tags = android
     en = Hi,\n\nI'm here now: %1$@. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
     ar = ًمرحبا،\n\nأنا هنا الآن: %1$@. انقر على هذا الرابط %2$@ أو ذلك الرابط %3$@ لمشاهدة المكان على الخريطة.\n\nشكراً.
-    be = Прывітанне,\n\nЯ зараз тут: %1$@. Перайдзі па гэтай %2$@ альбо гэтай %3$@ спасылцы, каб убачыць месца на мапе.\n\nДзякуй.
+    be = Прывітанне,\n\nЯ зараз тут: %1$@. Перайдзі па гэтай %2$@ або гэтай %3$@ спасылцы, каб убачыць месца на мапе.\n\nДзякуй.
     bg = Здравей,\n\nСега съм тук: %1$@. Натисни върху тази връзка %2$@ или тази %3$@, за да видиш мястото на картата.\n\nБлагодаря.
     ca = Hola,\n\nSoc aquí: %1$@. Feu clic en aquest enllaç %2$@ o en aquest altre %3$@ per a veure el lloc en el mapa.\n\nGràcies.
     cs = Ahoj,\n\nPrávě jsem tady: %1$@. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.
@@ -4027,7 +4027,7 @@
     tags = android,ios
     en = Share
     ar = مشاركة
-    be = Падзяліцца
+    be = Абагуліць
     bg = Споделяне
     ca = Comparteix
     cs = Sdílet
@@ -4110,7 +4110,7 @@
     tags = android
     en = Copied to clipboard: %1$@
     ar = تم النسخ الى الحافظة: %1$@
-    be = Скапіравана ў буфер абмена: %1$@
+    be = Скапіравана ў буфер абмену: %1$@
     bg = Копирано в клипборда: %1$@
     ca = S'ha copiat al porta-retalls: %1$@
     cs = Zkopírováno do schránky: %1$@
@@ -4279,7 +4279,7 @@
     tags = android,ios
     en = OpenStreetMap data: %@
     ar = بيانات خريطة الشارع المفتوحة: %@
-    be = Дадзеныя OpenStreetMap: %@
+    be = Даныя OpenStreetMap: %@
     bg = Данни на OpenStreetMap: %@
     ca = Dades de l'OpenStreetMap: %@
     cs = Data OpenStreetMap: %@
@@ -4322,7 +4322,7 @@
     tags = android
     en = Are you sure you want to continue?
     ar = هل أنت واثق أنك تريد الاستمرار؟
-    be = Сапраўды хочаце працягнуць?
+    be = Вы сапраўды хочаце працягнуць?
     bg = Сигурни ли сте, че искате да продължите?
     ca = Segur que voleu continuar?
     cs = Opravdu chcete pokračovat?
@@ -4364,7 +4364,7 @@
     tags = android,ios
     en = Tracks
     ar = المسارات
-    be = Сцежкі
+    be = Маршруты
     bg = Пътеки
     ca = Traces
     cs = Stopy
@@ -4447,7 +4447,7 @@
     tags = android,ios
     en = Share My Location
     ar = مشاركة موقعي
-    be = Падзяліцца месцазнаходжаннем
+    be = Абагуліць маё месцазнаходжанне
     bg = Споделяне на местоположение
     ca = Comparteix la meva ubicacio
     cs = Sdílet mé umístění
@@ -4589,7 +4589,7 @@
     tags = android,ios
     en = Zoom buttons
     ar = أزرار التكبير والتصغير
-    be = Кнопкі маштаба
+    be = Кнопкі маштабавання
     bg = Мащабни бутони
     ca = Botons de zoom
     cs = Tlačítka přiblížení/oddálení
@@ -4918,7 +4918,7 @@
     tags = android,ios
     en = 3D buildings are disabled in power saving mode
     ar = يتم إيقاف تشغيل المباني ثلاثية الأبعاد في وضع توفير الطاقة
-    be = У рэжыме энергазберажэння 3D-будынкі выключаны
+    be = У рэжыме энергазберажэння 3D-будынкі адключаны
     bg = 3D сградите са изключени в режим на пестене на енергия
     ca = Els edificis en 3D es desactiven en mode d'estalvi d'energia
     cs = 3D budovy jsou vypnuty v úsporném režimu
@@ -5043,7 +5043,7 @@
     tags = android
     en = Not Available
     ar = غير متاح
-    be = Не дасягальна
+    be = Не даступны
     bg = Не е налично
     ca = No disponible
     cs = Není dostupná
@@ -5125,7 +5125,7 @@
     tags = ios
     en = Recent track
     ar = المسار الأخير
-    be = Нядаўняя сцежка
+    be = Нядаўні маршрут
     bg = Скорошна пътека
     ca = Traces recents
     cs = Historie polohy
@@ -5445,7 +5445,7 @@
     tags = ios
     en = This option allows you to record traveled path for a certain period and see it on the map. Please note: activation of this function causes increased battery usage. The track will be removed automatically from the map after the time interval will expire.
     ar = يتيح لك هذا الخيار تسجيل مسار السفر لفترة معينة وعرضه على الخريطة. الرجاء ملاحظة: يؤدي تنشيط هذه الوظيفة إلى زيادة استهلاك البطارية. سوف تتم إزالة المسار تلقائيًا من الخريطة بعد انتهاء الفاصل الزمني.
-    be = Гэтая функцыя дазваляе запісваць сцежку за некаторы прамежак часу і бачыць яе на мапе. Увага: уключэнне гэтай функцыі павялічвае выкарыстанне батарэі. Сцежка будзе аўтаматычка выдалена з мапы калі прамежак часу скончыцца.
+    be = Гэтая функцыя дазваляе запісваць пройдзены шлях за пэўны перыяд і бачыць яго на мапе. Увага: уключэнне гэтай функцыі павялічвае выкарыстанне батарэі. Запісаны маршрут будзе выдалены з карты па заканчэнні гэтага тэрміна.
     bg = Тази опция ви позволява да запишете изминатия път за определен период и да го видите на картата. Моля, обърнете внимание: активирането на тази функция води до повишено използване на батерията.
     ca = Aquesta opció et permet registrar el recorregut recorregut durant un període determinat i veure'l al mapa. Tingues en compte: l'activació d'aquesta funció provoca un augment de l'ús de la bateria. La pista s'eliminarà automàticament del mapa un cop expiri l'interval de temps.
     cs = To vám umožňuje zaznamenávat ujetou cestu po určitou dobu a vidět ji na mapě. Poznámka: aktivace této funkce způsobuje zvýšenou spotřebu baterie. Trať bude automaticky odebrána z mapy poté, co vyprší časový interval.
@@ -6099,7 +6099,7 @@
     tags = ios
     en = Error sending email
     ar = حذث خطأ في إرسال البريد الإلكتروني
-    be = Памылка адпраўкі пошты
+    be = Памылка пры адпраўцы пошты
     bg = Грешка при изпращане на поща
     ca = S'ha produït un error en enviar el correu
     cs = Chyba při odesílání emailu
@@ -6224,7 +6224,7 @@
     tags = android
     en = Cancel All
     ar = إلغاء الكل
-    be = Адмяніць усё
+    be = Скасаваць усё
     bg = Отмяна на всичко
     ca = Cancel·la-ho tot
     cs = Zrušit vše
@@ -6307,7 +6307,7 @@
     tags = ios
     en = Available
     ar = متوفر
-    be = Дасягальныя
+    be = Даступныя
     ca = Disponibles
     cs = Dostupné
     da = Tilgængelige
@@ -6509,7 +6509,7 @@
     tags = android,ios
     en = Downloading:
     ar = يتم التنزيل:
-    be = Спампоўваецца:
+    be = Спампоўванне:
     bg = Теглене:
     ca = Baixant:
     cs = Probíhá stahování:
@@ -6631,7 +6631,7 @@
     tags = ios
     en = Failed
     ar = فشل
-    be = Не атрымалася
+    be = Не ўдалося
     bg = Провал
     ca = Fallit
     cs = Selhalo
@@ -6964,7 +6964,7 @@
     tags = android
     en = Use Google Play Services to determine your current location
     ar = استخدام خدمات Google Play لتحديد موقعك الحالي
-    be = Ужываць службы Google Play для вызначэння месцазнаходжання
+    be = Выкарыстоўваць сэрвісы Google Play для вызначэння месцазнаходжання
     bg = Използвайте услугите на Google Play, за да определите текущото си местоположение
     ca = Usa els serveis de Google Play per a obtenir la ubicació actual
     cs = Používat Služby Google Play pro získání aktuální polohy
@@ -7005,7 +7005,7 @@
     tags = android,ios
     en = Download all of the maps along your route
     ar = تنزيل الخرائط على طول طريقك
-    be = Спампаваць усе мапы на вашым шляху
+    be = Спампаваць усе мапы на вашым маршруце
     bg = Изтегляне на всички карти по вашия маршрут
     ca = Baixeu tots els mapes de la ruta
     cs = Stahovat mapy podél cesty
@@ -7169,7 +7169,7 @@
     tags = android
     en = Please enable Location Services
     ar = الرجاء تفعيل خدمة تحديد الموقع الجغرافي
-    be = Калі ласка, ўключыце геалакацыю
+    be = Калі ласка, уключыце геалакацыю
     bg = Моля, разрешете услугите за местоположение
     ca = Activeu els serveis de geolocalització
     cs = Prosím, povolte Služby určování polohy
@@ -7249,7 +7249,7 @@
     tags = android
     en = Your descriptions (text or html)
     ar = الوصف (استعمل نص أو html(
-    be = Ваша апісанне (тэкст альбо html)
+    be = Ваша апісанне (тэкст або html)
     bg = Ваши описания (текст или html)
     ca = Les vostres descripcions (text o html)
     cs = Popis (HTML nebo text)
@@ -8005,7 +8005,7 @@
     tags = android,ios
     en = When following the route, please keep in mind:
     ar = عند اتباع المسار، يُرجى الانتباه إلى ما يلي:
-    be = Рухаючыся па маршруце, майце на ўвазе:
+    be = Падчас руху па маршруце памятайце:
     bg = Когато следвате маршрута, моля, имайте предвид:
     ca = Quan seguiu la ruta, tingueu present:
     cs = Při navigaci podle trasy mějte na paměti následující:
@@ -8170,7 +8170,7 @@
     en = — Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.
     en-GB = — Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorised places.
     ar = — تحذير بشأن المسارات في المناطق الحدودية: المسارات التي تم إنشاؤها بواسطة تطبيقنا قد تعبر  أحياناً حدود الدول في أماكن غير مصرح بها;
-    be = — Будзьце ўважлівы з маршрутамі ў памежных зонах: маршруты, пракладзеныя нашай праграмай, часамі могуць перасякаць мяжу ў недазволеных месцах.
+    be = — Будзьце ўважлівы з маршрутамі ў памежных зонах: маршруты, пракладзеныя нашай праграмай, часам могуць перасякаць мяжу ў недазволеных месцах.
     bg = - Бъдете внимателни с маршрутите в гранични зони: маршрутите, създадени от нашето приложение, понякога могат да пресичат границите на страната на неразрешени места.
     ca = — Aneu am cura amb les rutes en zones frontereres: les rutes creades per la nostra aplicació de vegades creuen fronteres internacionals en zones no autoritzades.
     cs = — U tratí v hraničních zónách buďte opatrní: trasy vytvořené naší aplikací občas překračují hranice zemí na nepovolených místech;
@@ -8292,7 +8292,7 @@
     tags = android,ios
     en = Unable to create route. Current GPS coordinates could not be identified.
     ar = تعذر إنشاء مسار. لم نستطع تحديد الإحداثيات الجغرافية الحالية.
-    be = Не атрымалася пракласци маршрут. Каардынаты GPS не вызначаны.
+    be = Не ўдалося пракласці маршрут. Каардынаты GPS не вызначаны.
     bg = Не е възможно да се създаде маршрут. Текущите GPS координати не могат да бъдат идентифицирани.
     ca = No s'ha pogut crear la ruta. No s'ha pogut identificar les coordenades GPS atuals.
     cs = Trasu se nepodařilo vytvořit. Nelze zjistit aktuální souřadnice GPS.
@@ -8333,7 +8333,7 @@
     tags = android,ios
     en = Please check your GPS signal. Enabling Wi-Fi will improve your location accuracy.
     ar = الرجاء التحقق من إشارة نظام تحديد الموقع. إن تفعيل الWi-Fi سيحسب دقة الموقع.
-    be = Калі ласка, праверце сігнал GPS. Для больш дакладнага вызначэння месцазнаходжання уключыце Wi-Fi.
+    be = Калі ласка, праверце сігнал GPS. Для больш дакладнага вызначэння месцазнаходжання ўключыце Wi-Fi.
     bg = Моля, проверете GPS сигнала. Включването на Wi-Fi ще подобри точността на местоположението ви.
     ca = Comproveu el senya GPS. L'activació del senya Wi-Fi millorarà la precisió de la ubicació.
     cs = Zkontrolujte signál GPS. Povolením připojení WiFi zpřesníte určení vaší polohy.
@@ -8497,7 +8497,7 @@
     tags = ios
     en = Download or update all maps along the projected path to calculate a route.
     ar = قم بتنزيل وتحديث كافة الخرائط ومعلومات التوجيه على طول الطريق المتوقع لحساب المسار.
-    be = Спампуйце і абнавіце ўсе мапы і дадзеныя навігацыі на планаваным шляху, каб пракласці маршрут.
+    be = Спампуйце і абнавіце ўсе мапы і даныя навігацыі на шляху руху, каб пракласці маршрут.
     bg = За да изчислите маршрут, изтеглете и актуализирайте всички карти и пътища по маршрута.
     ca = Baixeu i actualitzeu tots els mapes i informació de rutes del trajecte per a calcular-ne la ruta.
     cs = Stáhnout a aktualizovat všechny mapy a data tras pro výpočet trasy podél navrhované cesty.
@@ -8537,7 +8537,7 @@
     tags = android,ios
     en = Unable to locate route
     ar = تعذر إيجاد المسار
-    be = Не атрымалася знайсці маршрут
+    be = Не ўдалося знайсці маршрут
     bg = Не е намерен маршрут
     ca = No s'ha pogut trobar cap ruta
     cs = Trasu se nepodařilo zjistit
@@ -8578,7 +8578,7 @@
     tags = android
     en = Unable to create route.
     ar = تعذر إنشاء مسار.
-    be = Не атрымалася пракласці маршрут.
+    be = Не ўдалося пракласці маршрут.
     bg = Не е възможно да се създаде маршрут.
     ca = No s'ha pogut crear la ruta.
     cs = Trasu se nepodařilo vytvořit.
@@ -8619,7 +8619,7 @@
     tags = android,ios
     en = Please adjust your starting point or destination.
     ar = الرجاء تعديل نقطة بدء أو تعديل وجهتك.
-    be = Калі ласка, змяніце пункт адпраўлення альбо прызначэння.
+    be = Калі ласка, змяніце пункт адпраўлення або прызначэння.
     bg = Моля, коригирайте началната точка или дестинацията си.
     ca = Ajusteu el punt inicial o la destinació.
     cs = Upravte výchozí nebo cílový bod.
@@ -9028,7 +9028,7 @@
     tags = android,ios
     en = Unable to create route due to an application error.
     ar = تعذر إنشاء مسار نتيجة وجود خطأ في التطبيق.
-    be = Не атрымалася пракласці маршрут з-за памылкі праграмы.
+    be = Не ўдалося пракласці маршрут з-за памылкі праграмы.
     bg = Не е възможно да се създаде маршрут поради грешка в приложението.
     ca = No s'ha pogut crear la ruta a causa d'un error de l'aplicació.
     cs = Trasu se nepodařilo vytvořit z důvodu chyby aplikace.
@@ -9151,7 +9151,7 @@
     tags = android,ios
     en = Would you like to download the map and create a more optimal route spanning more than one map?
     ar = هل ترغب في تنزيل الخريطة وإنشاء مسار أفضل يمتد عبر أكثر من خريطة؟
-    be = Спампаваць мапу і пракласці лепшы маршрут праз некалькі мапаў?
+    be = Спампаваць мапу і пракласці лепшы маршрут праз некалькі мап?
     bg = Бихте ли искали да изтеглите картата и да създадете по-оптимален маршрут, обхващащ повече от една карта?
     ca = Voleu baixar el mapa i crar una ruta més òptima que travessi més d'un mapa?
     cs = Chcete mapu stáhnout a vytvořit optimálnější trasu, která vede přes více než jednu mapu?
@@ -9235,7 +9235,7 @@
     tags = android
     en = To start searching and creating routes, please download the map. After that you will no longer need an Internet connection.
     ar = لبدء البحث وإنشاء الطرق، يرجى تنزيل الخريطة،  ولن تحتاج إلى اتصال بالإنترنت بعد ذلك.
-    be = Каб шукаць месцы і пракладваць маршруты, спампуйце карту. Пасля гэтага падключэнне да Інтэрнэту вам больш не спатрэбіцца.
+    be = Каб шукаць месцы і пракладваць маршруты, спампуйце карту. Пасля гэтага падключэнне да інтэрнэту вам больш не спатрэбіцца.
     bg = За да започнете да търсите и създавате маршрути, изтеглете картата. Това ще ви позволи да пътувате без интернет връзка.
     ca = Per a començar a cercar i crear rutes, baixeu el mapa. Després ja no us caldrà connexio a Internet.
     cs = Chcete-li začít hledat a vytvářet trasy, pak si prosím stáhněte mapu a nebudete již potřebovat připojení.
@@ -9276,7 +9276,7 @@
     tags = android
     en = Select Map
     ar = اختيار الخريطة
-    be = Выбраці мапу
+    be = Выбраць мапу
     bg = Избор на карта
     ca = Seleccioneu un mapa
     cs = Vybrat mapu
@@ -9441,7 +9441,7 @@
     tags = android,ios
     en = Arrival at %@
     ar = وقت الوصول: %@
-    be = Прыбыццё а %@
+    be = Прыбыццё ў %@
     bg = Пристигане в %@
     ca = Arribada: %@
     cs = Příjezd: %@
@@ -9639,7 +9639,7 @@
     tags = android,ios
     en = Try changing your search criteria.
     ar = يرجى تجربة معاير بحث أخرى.
-    be = Паспрабуйце змяніць умовы пошуку.
+    be = Паспрабуйце змяніць крытэрыі пошуку.
     bg = Опитайте да промените критериите за търсене.
     ca = Proveu de canviar els criteris de cerca.
     cs = Zkuste zadat jiný hledaný výraz.
@@ -9719,7 +9719,7 @@
     tags = android,ios
     en = View your recent searches.
     ar = عرض عمليات البحث الأخيرة.
-    be = Праглядзець нядаўныя пошукі.
+    be = Праглядзець свае апошнія пошукі.
     bg = Преглед на последните търсения.
     ca = Mostra les cerques recents.
     cs = Získejte rychlý přístup k hledaným výrazům.
@@ -10314,7 +10314,7 @@
     tags = android,ios
     en = Open
     ar = يفتح
-    be = Адчынена
+    be = Адкрыта
     bg = Отворено
     ca = Obert
     cs = Otevřeno
@@ -10354,7 +10354,7 @@
     tags = android,ios
     en = Closed
     ar = يغلق
-    be = Зачынена
+    be = Закрыта
     bg = Затворено
     ca = Tancat
     cs = Zavřeno
@@ -10394,7 +10394,7 @@
     tags = android,ios
     en = Add Non-Business Hours
     ar = إضافة ساعات راحة
-    be = Дадаць час, калі зачынена
+    be = Дадаць час, калі закрыта
     bg = Добавяне на почивка
     ca = Afegeix les hores de tancament
     cs = Přidat dobu, kdy je zavřeno
@@ -10474,7 +10474,7 @@
     tags = android,ios
     en = Advanced Mode
     ar = الوضع المتقدم
-    be = Расшыраны рэжым
+    be = Пашыраны рэжым
     bg = Подробен режим
     ca = Mode avançat
     cs = Pokročilý režim
@@ -10554,7 +10554,7 @@
     tags = android,ios
     en = Non-Business Hours
     ar = ساعات الراحة
-    be = Час, калі зачынена
+    be = Час, калі закрыта
     bg = Почивка
     ca = Horari de tancament
     cs = Doba, kdy je zavřeno
@@ -10714,7 +10714,7 @@
     tags = ios
     en = You’ve changed the world map! Don't keep it to yourself; tell your friends and edit it together.
     ar = لقد ساهمت بتحسين خريطة العالم. لا تخفي ذلك! أخبر أصدقائك، وحسنوها معاً.
-    be = Вы змянілі мапу свету. Не прыхоўвайце гэта! Расскажыце сябрам і праўце разам.
+    be = Вы змянілі мапу свету. Не хавайце гэта! Расскажыце сябрам і рэдагуйце разам.
     bg = Променили сте картата на света. Не го крийте, кажете на приятелите си и редактирайте заедно.
     ca = Heu canviat el mapa mundial. No ho guardeu en secret! Expliqueu-ho als amics, i editeu-lo junts.
     cs = Změnili jste světovou mapu. Neskrývejte to! Řekněte o tom svým kamarádům a upravujte ji společně.
@@ -10754,7 +10754,7 @@
     tags = ios
     en = Share with friends
     ar = شارك مع الأصدقاء
-    be = Падзяліцца з сябрамі
+    be = Абагуліць з сябрамі
     bg = Споделяне с приятели
     ca = Comparteix amb amics
     cs = Sdílejte s kamarády
@@ -10834,7 +10834,7 @@
     tags = android
     en = Or do it yourself at https://www.openstreetmap.org/
     ar = أو افعل ذلك بنفسك من خلال الموقع https://www.openstreetmap.org/
-    be = Альбо зрабіце гэта самі на https://www.openstreetmap.org/
+    be = Або зрабіце гэта самі на https://www.openstreetmap.org/
     bg = Или го направете сами на https://www.openstreetmap.org/
     ca = O feu-ho vós mateix a https://www.openstreetmap.org/
     cs = Nebo to udělejte sami na https://www.openstreetmap.org/
@@ -10994,7 +10994,7 @@
     tags = android
     en = Сlosed for maintenance
     ar = مغلق للصيانة
-    be = Зачынена на рамонт
+    be = Закрыта на рамонт
     bg = Затворено за ремонт
     ca = Tancat per manteniment
     cs = Zavřeno kvůli údržbě
@@ -11074,7 +11074,7 @@
     tags = android,ios
     en = Auto-download maps
     ar = التنزيل التلقائي
-    be = Аўтаматычная спампоўка
+    be = Аўтаматычнае спампоўванне
     bg = Автоматично изтегляне
     ca = Baixada automàtica
     cs = Automaticky stahovat
@@ -11115,7 +11115,7 @@
     tags = ios
     en = Closed now
     ar = مغلق الآن
-    be = Зараз зачынена
+    be = Зараз закрыта
     bg = Затворено сега
     ca = Ara és tancat
     cs = Nyní je zavřeno
@@ -11237,7 +11237,7 @@
     tags = android,ios
     en = Closed today
     ar = مغلق اليوم
-    be = Сёння зачынена
+    be = Сёння закрыта
     bg = Затворено днес
     ca = Avui és tancat
     cs = Dnes zavřeno
@@ -11277,7 +11277,7 @@
     tags = android,ios
     en = Closed
     ar = مغلق
-    be = Зачынена
+    be = Закрыта
     bg = Затворено
     ca = Tancat
     cs = Zavřeno
@@ -11356,7 +11356,7 @@
   [opens_tomorrow_at]
     tags = ios
     en = Opens tomorrow at %@
-    be = Адкрыццё заўтра ў %@
+    be = Адкрыецца заўтра ў %@
     ca = Obre demà a les %@
     de = Öffnet morgen um %@
     es = Abre mañana a las %@
@@ -11376,7 +11376,7 @@
   [opens_dayoftheweek_at]
     tags = ios
     en = Opens %1$@ at %2$@
-    be = Адкрыццё ў %1$@ у %2$@
+    be = Адкрываецца ў %1$@ у %2$@
     ca = Obre el %1$@ a les %2$@
     de = Öffnet %1$@ um %2$@
     es = Abre el %1$@ a las %2$@
@@ -11396,7 +11396,7 @@
   [opens_at]
     tags = ios
     en = Opens at %@
-    be = Адкрыццё ў %@
+    be = Адкрываецца ў %@
     ca = Obre a les %@
     de = Öffnet um %@
     es = Abre a las %@
@@ -11417,7 +11417,7 @@
     tags = android,ios
     en = Opens in %@
     ar = يفتح بعد %@
-    be = Адчыняецца праз %@
+    be = Адкрываецца праз %@
     ca = Obre en %@
     de = Öffnet in %@
     es = Abre en %@
@@ -11437,7 +11437,7 @@
   [closes_at]
     tags = ios
     en = Closes at %@
-    be = Зачыняецца ў %@
+    be = Закрываецца ў %@
     ca = Tanca a les %@
     de = Schließt um %@
     es = Cierra a las %@
@@ -11458,7 +11458,7 @@
     tags = android,ios
     en = Closes in %@
     ar = يغلق في غضون %@
-    be = Зачыняецца праз %@
+    be = Закрываецца праз %@
     ca = Tanca en %@
     de = Schließt in %@
     es = Cierra en %@
@@ -11479,7 +11479,7 @@
     tags = android,ios
     en = Closed
     ar = مغلق
-    be = Зачынена
+    be = Закрыта
     bg = Затворено
     ca = Tancat
     cs = Zavřeno
@@ -12591,7 +12591,7 @@
     tags = android,ios
     en = Email or username
     ar = البريد الإلكتروني أو اسم المستخدم
-    be = Email альбо імя карыстальніка
+    be = Email або імя карыстальніка
     bg = Имейл или потребителско име
     ca = Adreça electrònica o nom d'usuari
     cs = Email nebo uživatelské jméno
@@ -13053,7 +13053,7 @@
     tags = android,ios
     en = Please delete any unnecessary data
     ar = من فضلك، قم بإزالة البيانات غير الضرورية
-    be = Выдаліце непатрэбныя дадзеныя
+    be = Выдаліце непатрэбныя даныя
     bg = Моля, изтрийте всички ненужни данни.
     ca = Esborreu les dades no necessàries
     cs = Odstraňte prosím nepotřebná data
@@ -13333,7 +13333,7 @@
     tags = android,ios
     en = Editing
     ar = يتم التعديل
-    be = Праўка
+    be = Рэдагаванне
     bg = Редактиране
     ca = Edició
     cs = Probíhají úpravy
@@ -13613,7 +13613,7 @@
     tags = ios
     en = Add new places to the map, and edit existing ones directly from the app.
     ar = قم بإضافة أماكن جديدة للخريطة، وعدل أماكن حالية مباشرة من التطبيق.
-    be = Стварайце на мапе новыя месцы і праўце існуючыя прама ў дататку.
+    be = Стварайце на мапе новыя месцы і рэдагуйце існуючыя прама ў праграме.
     bg = Добавяне на нови места в картата и редакция на съществуващите директно от приложението.
     ca = Afegiu llocs al mapa, i editeu-ne els existents directament des de l'aplicació.
     cs = Přidejte na mapu nová místa a upravte existující místa přímo z aplikace.
@@ -13734,7 +13734,7 @@
     tags = android
     en = Cartographic data from OpenStreetMap as of %@. OSM is like Wikipedia for maps, where you can add and edit places for users around the world.
     ar = بيانات رسم الخرائط من OpenStreetMap اعتبارًا من %@. إنه مثل ويكيبيديا حيث يمكنك إضافة أو تحرير أماكن لجميع المستخدمين في جميع أنحاء العالم.
-    be = Картаграфічныя дадзеныя OpenStreetMap па стане на %@. Гэта як Вікіпедыя, дзе вы можаце дадаць або рэдагаваць месцы для ўсіх карыстальнікаў па ўсім свеце.
+    be = Картаграфічныя даныя OpenStreetMap па стане на %@. Гэта як Вікіпедыя, дзе вы можаце дадаць або рэдагаваць месцы для ўсіх карыстальнікаў па ўсім свеце.
     bg = Картографски данни от OpenStreetMap към %@. Това е като Wikipedia, където можете да добавяте или редактирате места за всички потребители по света.
     cs = Kartografické údaje z OpenStreetMap od roku %@. Je to jako Wikipedia, kde můžete přidat nebo upravovat místa pro všechny uživatele po celém světě.
     da = Kartografiske data fra OpenStreetMap fra %@. Det er som Wikipedia, hvor du kan tilføje eller redigere steder for alle brugere over hele verden.
@@ -13814,7 +13814,7 @@
     tags = ios
     en = To download, you need more space. Please delete any unnecessary data.
     ar = للتنزيل، فأنت تحتاج إلى توفير مساحة أكبر. من فضلك، الرجاء قم بحذف البيانات غير الضرورية.
-    be = Каб спампаваць, трэба больш месца. Выдаліце непатрэбныя дадзеныя.
+    be = Каб спампаваць, трэба больш месца. Выдаліце непатрэбныя даныя.
     bg = За изтегляне ви е необходимо повече място. Моля, изтрийте всички ненужни данни.
     ca = Per a la baixada, us cal més espai. Esborreu les dades no necessàries.
     cs = Ke stažení potřebujete více volného místa. Odstraňte prosím nepotřebná data.
@@ -13975,7 +13975,7 @@
     tags = android,ios
     en = This could be considerably expensive with some plans or if roaming.
     ar = قد يكون هذا مكلفاً جداً في بعض الاحيان أو عند التجوال.
-    be = Гэта можа быць даволі дорага з некаторымі тарыфнымі планамі альбо ў роўмінгу.
+    be = Гэта можа быць даволі дорага з некаторымі тарыфнымі планамі або ў роўмінгу.
     bg = Това може да бъде значително скъпо при някои планове или при роуминг.
     ca = Això podria ser força car amb algunes tarifes d'itinerància de dades.
     cs = Toto by mohlo být s některými tarify nebo roamingem výrazně dražší.
@@ -14015,7 +14015,7 @@
     tags = android,ios
     en = Enter a valid building number
     ar = أدخل رقم بناء صحيح
-    be = Увядзіце нумар дома правільна
+    be = Увядзіце правільны нумар дома
     bg = Въведете валиден номер на сграда
     ca = Introduïu un número d'edifici vàlid
     cs = Zadejte správné číslo domu
@@ -14178,7 +14178,7 @@
     en = Enter a valid ZIP code
     en-GB = Enter a valid postcode
     ar = أدخل الرمز البريدي صالح
-    be = Увядзіце паштовы індэкс правільна
+    be = Увядзіце правільны паштовы індэкс
     bg = Въведете валиден пощенски код
     ca = Introduïu un codi postal vàlid
     cs = Zadejte správné PSČ
@@ -14301,7 +14301,7 @@
     tags = android,ios
     en = Detailed comment
     ar = تعليق مفصّل
-    be = Падрабязны каментар
+    be = Падрабязны каментарый
     bg = Подробен коментар
     ca = Comentari detallat
     cs = Podrobný komentář
@@ -14341,7 +14341,7 @@
     tags = android,ios
     en = Your suggested map changes will be sent to the OpenStreetMap community. Please describe any additional details that cannot be edited in Organic Maps.
     ar = سيتم إرسال التغييرات التي اقترحتها إلى مجتمع خريطة الشارع المفتوحة. اذكر التفاصيل التي لا يمكن تحريرها في Organic Maps
-    be = Запрапанаваныя вамі змены будуць дасланыя суполцы OpenStreetMap. Апішыце любыя іншыя падрабязнасці, каторыя нельга паправіць у Organic Maps.
+    be = Прапанаваныя вамі змены будуць дасланы суполцы OpenStreetMap. Апішыце любыя дадатковыя дэталі, якія нельга рэдагаваць у Organic Maps.
     bg = Предложените от вас промени по картата ще бъдат изпратени до общността на OpenStreetMap. Опишете всички допълнителни подробности, които не могат да бъдат въведени в Organic Maps.
     ca = Heu suggerit canvis en el mapa que s'enviaran a la comunitat d'OpenStreetMap. Descriviu qualsevol detall addicional que no es pot editar en l'Organic Maps.
     cs = Vámi navržené změny odešleme do komunity OpenStreetMap. Popište podrobnosti, které nelze upravit v Organic Maps.
@@ -14583,7 +14583,7 @@
     tags = android,ios
     en = Current location is unknown. You may be in a building or tunnel.
     ar = الموقع الحالي غير معروف. ربما تتواجد داخل مبنى أو نفق.
-    be = Месцазнаходжанне невядома. Магчыма вы ў будынку альбо ў танэлі.
+    be = Месцазнаходжанне невядома. Магчыма вы ў будынку або ў танэлі.
     bg = Настоящото местоположение е неизвестно. Може би се намирате в сграда или тунел.
     ca = Es desconeix la ubicació actual. Potser sou en un edifici o en un túnel.
     cs = Nezjistili jsme vaši současnou polohu. Možná jste v budově nebo tunelu.
@@ -14782,7 +14782,7 @@
     tags = ios
     en = Location services are disabled
     ar = تم تعطيل خدمات تحديد الموقع الجغرافي
-    be = Геалакацыя выключана
+    be = Геалакацыя адключана
     bg = Услугите за местоположение са деактивирани
     ca = Els serveis de geolocalització estan desactivats
     cs = Určení polohy je zakázáno
@@ -14864,7 +14864,7 @@
     tags = ios
     en = 1. Open Settings
     ar = 1. افتح الإعدادات
-    be = 1. Адчыніце Налады
+    be = 1. Адкрыйце Налады
     bg = 1. Отваряне на Настройки
     ca = 1. Obriu la configuració
     cs = 1. Otevřete Nastavení
@@ -14946,7 +14946,7 @@
     tags = ios
     en = 3. Select While Using the App
     ar = 3. اختيار التفعيل أثناء استخدام التطبيق
-    be = 3. Выберыце "Падчас ужывання праграмы"
+    be = 3. Выберыце "Падчас выкарыстання праграмы"
     bg = 3. Избиране на Докато приложението се използва
     ca = 3. Trieu "Mentre s'usa l'aplicació"
     cs = 3. Vyberte při používání aplikace
@@ -15450,7 +15450,7 @@
     tags = android,ios
     en = Edit Bookmark
     ar = تحرير العلامة المرجعية
-    be = Правіць закладку
+    be = Рэдагаваць закладку
     bg = Редакция на отметка
     ca = Edita el marcador
     cs = Upravit záložku
@@ -15608,7 +15608,7 @@
     tags = ios
     en = Your suggested changes have been sent
     ar = لقد تم إرسال التغييرات التي اقترحتها
-    be = Запрапанаваныя вамі змены адпраўлены
+    be = Прапанаваныя вамі змены былі адпраўлены
     bg = Предложените от вас промени са изпратени
     ca = S'han enviat els canvis que heu suggerit
     cs = Odeslali jsme Vámi navržené změny
@@ -15648,7 +15648,7 @@
     tags = android,ios
     en = Comment…
     ar = تعليق…
-    be = Каментар…
+    be = Каментарый…
     bg = Коментиране…
     ca = Comentari…
     cs = Poznámka…
@@ -15688,7 +15688,7 @@
     tags = android,ios
     en = Discard all local changes?
     ar = هل تريد مسح كافة التغييرات المحلية؟
-    be = Скінуць усе лакальныя змены?
+    be = Адмовіцца ад усіх лакальных змен?
     bg = Отхвърляне на всички локални промени?
     ca = Voleu descartar tots els canvis locals?
     cs = Vymazat všechny místní změny?
@@ -15728,7 +15728,7 @@
     tags = android,ios
     en = Discard
     ar = مسح
-    be = Скінуць
+    be = Адмовіцца
     bg = Отхвърляне
     ca = Descarta
     cs = Vymazat
@@ -15953,7 +15953,7 @@
     tags = android,ios
     en = Enter a valid phone number
     ar = أدخل رقم هاتف صالح
-    be = Увядзіце нумар тэлефона правільна
+    be = Увядзіце правільны нумар тэлефона
     bg = Въведете валиден телефонен номер
     ca = Introduïu un número de telèfon vàlid
     cs = Zadejte správné telefonní číslo
@@ -15993,7 +15993,7 @@
     tags = android,ios
     en = Enter a valid web address
     ar = أدخل عنوان ويب صالح
-    be = Увядзіце web-адрас правільна
+    be = Увядзіце правільны вэб-адрас
     bg = Въведете валиден уеб адрес
     ca = Introduïu una adreça web vàlida
     cs = Zadat platnou webovou adresu
@@ -16033,7 +16033,7 @@
     tags = android,ios
     en = Enter a valid email
     ar = أدخل بريداً إلكترونياً صالحاً
-    be = Увядзіце email правільна
+    be = Увядзіце правільны адрас электронный пошты
     bg = Въведете валиден имейл
     ca = Introduïu una adreça electrònica vàlida
     cs = Zadat platný email
@@ -16160,7 +16160,7 @@
     tags = android
     en = Enter a valid LINE ID or web address
     ar = أدخل رقم تعريفي خاص بتطبيق LINE أو موقع ويب خاص بتطيق LINE صالح
-    be = Упішыце вэб-адрас LINE старонкі або LINE ID
+    be = Увядзіце сапраўдны LINE ID або вэб-адрас
     ca = Introduïu una adreça web de LINE o un ID LINE vàlids
     de = Geben Sie eine gültige LINE-Webadresse oder LINE ID ein
     es = Introduzca una dirección web o ID de LINE válidos
@@ -16303,7 +16303,7 @@
     tags = android,ios
     en = Make sure you did not enter any private or personal data.
     ar = تأكد من أنك لم تقم بإدخال أية بيانات شخصية.
-    be = Упэўніцеся, што вы не ўвялі ніякіх асабістых дадзеных.
+    be = Упэўніцеся, што вы не ўвялі ніякіх асабістых даных.
     bg = Уверете се, че не сте въвели никакви лични данни.
     ca = Assegureu-vos que no heu introduït cap dada personal.
     cs = Ujistěte se, že jste nezadali žádná osobní data.
@@ -16463,7 +16463,7 @@
     tags = ios
     en = Disable
     ar = تعطيل
-    be = Выключыць
+    be = Адключыць
     bg = Деактивиране
     ca = Desactiva
     cs = Zakázat
@@ -16544,7 +16544,7 @@
     tags = ios
     en = Organic Maps uses your location in the background to record your recently travelled route.
     ar = يستخدم Organic Maps موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.
-    be = Organic Maps ужывае вашу геалакацыю ў фонавым рэжыме, каб запісваць ваш нядаўна пройдзены маршрут.
+    be = Organic Maps выкарыстоўвае вашу геалакацыю ў фонавым рэжыме, каб запісваць ваш нядаўна пройдзены маршрут.
     bg = Organic Maps използва геопозицията ви във фонов режим за записване на последния ви маршрут.
     ca = Organic Maps usa la vostra ubicaicó en segon pla per a enregistrar la ruta que heu fet recentment.
     cs = Organic Maps používají geopozici na pozadí, aby se zaznamenala vaše nedávno ujetá trasa.
@@ -16585,7 +16585,7 @@
     tags = android,ios
     en = Organic Maps is a fast and free offline maps app without ads and tracking. Maps are based on crowd-sourced OpenStreetMap.org data, so you can fix mapping errors and add features there yourself. Organic Maps is an open-source project created by enthusiasts in their spare time. Your feedback and support are much appreciated!
     ar = Organic Maps هو تطبيق سريع ومجاني للوصول إلى الخرائط بدون اتصال بالانترنت، وهو بدون إعلانات ومتتبعات. إن الخرائط هي مصدرها بيانات خريطة الشارع المفتوحة التي يستطيع الجميع تعديلها، لذلك يمكنك إصلاح أخطاء الخريطة وإضافة الميزات بنفسك. Organic Maps هو مشروع مفتوح المصدر أُنشأ من قبل مجموعة من الهواة في وقت فراغهم. نقدّر جداً مساهماتك ودعمك.
-    be = Organic Maps — гэта хуткія і бясплатныя мапы без рэкламы, якія працуюць без Інтэрнэту і не шпіёняць за вамі. Усе картаграфічныя дадзеныя бяруцца з OpenStreetMap.org, там вы зможаце самастойна выпраўляць памылкі і дадаваць новыя аб'екты. Organic Maps — гэта праект з адкрытым зыходным кодам, які ствараецца энтузіястамі ў вольны час. Будзем рады вашай падтрымцы і зваротнай сувязі!
+    be = Organic Maps — гэта хуткія і бясплатныя мапы без рэкламы, якія працуюць без інтэрнэту і не шпіёняць за вамі. Усе картаграфічныя даныя бяруцца з OpenStreetMap.org, там вы зможаце самастойна выпраўляць памылкі і дадаваць новыя аб'екты. Organic Maps — гэта праект з адкрытым зыходным кодам, які ствараецца энтузіястамі ў вольны час. Будзем рады вашай падтрымцы і зваротнай сувязі!
     bg = Organic Maps е безплатно приложение за офлайн карти с отворен код. Без реклами. Без проследяване. Ако видите грешка на картата, моля, поправете я в OpenStreetMap. Проектът е създаден от ентусиасти в свободното ни време, така че имаме нужда от вашата отзиви и подкрепа.
     ca = Organic Maps és una aplicació de mapes sense connexió, ràpida, de codi lliure, gratuïta, sense anuncis ni seguiment. Els mapes es basen en les dades col·laboratives d'OpenStreetMap. Podeu corregir errors del mapa i afegir-hi característiques. L'Organic Maps és un projecte de codi obert creat per entusiastes en el seu temps lliure. Els vostres comentaris i suport són molt apreciats!
     cs = Organic Maps je bezplatná offline mapová aplikace s otevřeným zdrojovým kódem. Žádné reklamy. Žádné sledování. Pokud na mapě uvidíte chybu, opravte ji v OpenStreetMap. Projekt vytvářejí nadšenci v našem volném čase, takže potřebujeme vaši zpětnou vazbu a podporu.
@@ -16790,7 +16790,7 @@
     tags = android,ios
     en = Use mobile internet to show detailed information?
     ar = استخدام بيانات الجوال لإظهار المعلومات التفصيلية؟
-    be = Ужываць мабільны інтэрнэт для паказу больш падрабязнай інфармацыі?
+    be = Выкарыстоўваць мабільны інтэрнэт для паказу больш падрабязнай інфармацыі?
     bg = Използване на мобилни данни за подробна информация?
     ca = Voleu usar Internet mòbil per a mostrar informació detallada?
     cs = Použít mobilní data k zobrazení podrobnějších informací?
@@ -17477,7 +17477,7 @@
     tags = android
     en = We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     ar = نحن نستخدم نظام تحويل النص إلى كلام (TTS) للتعليمات الصوتية. تستخدم العديد من أجهزة أندرويد نظام Google TTS، يمكنك تنزيله من أو تحديثه من متجر Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
-    be = Мы ужываем сістэмны сінтэзатар маўлення (TTS). Многія прылады на Android ужываюць Google TTS, вы можаце спампаваць альбо абнавіць яго праз Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    be = Мы ужываем сістэмны сінтэзатар маўлення (TTS). Многія прылады на Android ужываюць Google TTS, вы можаце спампаваць або абнавіць яго праз Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     bg = Навигирането се озвучава от системен синтезатор на реч (TTS). Много устройства използват Google TTS, който може да бъде изтеглен или актуализиран от Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts).
     ca = Usem el sistema de síntesi de veu per a les instruccions de veu. Molts aparells Android use el motor de síntesi de veu de Google, podeu baixar o actualitzar-lo des del Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     cs = Pro hlasové pokyny používáme systém TTS. Mnoho zařízení se systémem Android používá Google TTS, můžete si ho stáhnout nebo aktualizovat na Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
@@ -17518,7 +17518,7 @@
     tags = android
     en = For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play, Galaxy Store, App Gallery, FDroid).\nOpen your device's settings → Language and input → Speech → Text to speech output.\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.
     ar = بالنسبة لبعض اللغات، ستحتاج إلى تنزيل تطبيق تحويل النص إلى كلام أو حزمة لغات إضافية من متجر التطبيقات(متجر Play، Galaxy Store، App Gallery، FDroid(.\nافتح إعدادات جهازك ثم اللغة والإدخال ثم تحويل النص إلى كلام.\nهنا يمكنك إدارة الإعدادات لأنظمة تحويل النص إلى كلا(على سبيل المثال، تنزيل حزمة اللغة للاستجدام دون اتصال انترنيت)
-    be = Для некаторых моў вам спатрэбіцца ўсталяваць сінтэзатар маўлення альбо дадатковы моўны пакет з крамы праграм (Google Play, Galaxy Store, App Gallery, F-Droid).\Зайдзіце на вашай прыладзе ў Налады → Мова і ўвод → Маўленне → Сінтэз маўлення.\nТут вы можаце задаць налады сінтэза маўлення (напрыклад, спампаваць моўны пакет для выкарыстання без падключэння да інтэрнэту) альбо выбраць іншы сінтэзатар маўлення.
+    be = Для некаторых моў вам спатрэбіцца ўсталяваць сінтэзатар маўлення або дадатковы моўны пакет з крамы праграм (Google Play, Galaxy Store, App Gallery, F-Droid).\Зайдзіце на вашай прыладзе ў Налады → Мова і ўвод → Маўленне → Сінтэз маўлення.\nТут вы можаце задаць налады сінтэза маўлення (напрыклад, спампаваць моўны пакет для выкарыстання без падключэння да інтэрнэту) або выбраць іншы сінтэзатар маўлення.
     bg = За някои езици може да се наложи да инсталирате допълнителен синтезатор на реч (TTS) от магазина за приложения (Google Play Магазин, Galaxy Store).\nЗа да настроите синтезатора на реч, отидете в Настройки → Езици и въвеждане → Синтезиран говор.\nТук можете да инсталирате допълнителни езикови пакети или да изберете синтезатор на реч.
     ca = Per a algunes llengües, haureu d'instal·lar un sintetizador de veu o un paquet de llengua addicional des de la botiga d'apliacions (Google Play, Galazy Store, FDroid).\nObriu la configuració de l'aparell → Idioma i entrada → Veu → Sortidda de text a veu.\nAquí podeu gestionar la configuració de la síntesi de veu (per exemple, baixar un paquet de llengua per a ús sense connexió) i triar un altre motor de síntesi de veu.
     cs = U některých jazyků je třeba nainstalovat jiný hlasový syntetizátor nebo další jazykové sady z obchodu s aplikacemi (Google Play, Galaxy Store, App Gallery, FDroid).\nOtevřete nastavení vašeho zařízení → Jazyky a zadávání → Hlasové zadávání → Převod textu na řeč. \nZde můžete spravovat nastavení pro syntézu řeči (například stáhnout jazykový balíček pro použití offline) a vybrat jiný modul převodu textu na řeč.
@@ -18304,7 +18304,7 @@
     tags = android,ios
     en = Please enter a correct name
     ar = الرجاء إدخال اسم صحيح
-    be = Калі ласка, увядзіце назву правільна
+    be = Калі ласка, увядзіце правільну назву
     bg = Моля, въведете правилно име
     ca = Introduïu un nom correcte
     cs = Zadejte prosím správný název
@@ -18684,7 +18684,7 @@
     tags = ios
     en = Downloading %@…
     ar = جاري التنزيل %@…
-    be = Спампоўка %@…
+    be = Спампоўванне %@…
     bg = Теглене %@…
     ca = S'està baixant %@…
     cs = Stahování %@…
@@ -18726,7 +18726,7 @@
     tags = ios
     en = Applying %@…
     ar = جاري التطبيق %@…
-    be = Застасаванне %@…
+    be = Прымяненне %@…
     bg = Прилагане %@…
     ca = S'està aplicant %@…
     cs = Aplikuji %@…
@@ -18744,8 +18744,8 @@
     id = Menerapkan %@…
     it = Applicazione di %@…
     ja = %@ を適用中です…
-    ko = %@ 적용 중…
-    lt = Taikoma %@…
+    ko = %@ 적용 중
+    lt = Taikoma %@……
     mr = %@ लागू करत आहे…
     nb = Bruker %@ …
     nl = %@ toepassen…
@@ -18768,7 +18768,7 @@
     tags = android,ios
     en = Unable to share due to an application error
     ar = تعذرت المشاركة بسبب خطأ في التطبيق
-    be = Не атрымалася падзяліцца з-за памылкі праграмы
+    be = Не атрымалася абагуліць з-за памылкі праграмы
     bg = Не е възможно споделяне поради грешка в приложението
     ca = No s'ha pogut compartir a causa d'un error de l'aplicació
     cs = Nelze sdílet kvůli chybě aplikace
@@ -18810,7 +18810,7 @@
     tags = android,ios
     en = Sharing error
     ar = خطأ في المشاركة
-    be = Памылка пры спробе падзяліцца
+    be = Памылка пры спробе абагульвання
     bg = Грешка при споделяне
     ca = Error al compartir
     cs = Chyba sdílení
@@ -18852,7 +18852,7 @@
     tags = android,ios
     en = Cannot share an empty list
     ar = لا يمكن مشاركة قائمة فارغة
-    be = Нельга падзяліцца пустым спісам
+    be = Нельга абагуліць пусты спіс
     bg = Не може да се споделя празен списък
     ca = No es pot compartir una llista buida
     cs = Nelze sdílet s prázdným seznamem
@@ -19145,7 +19145,7 @@
     tags = android
     en = Please wait…
     ar = أرجو الإنتظار…
-    be = Калі ласка, пачакайце…
+    be = Пачакайце…
     bg = Моля, изчакайте…
     ca = Espereu…
     cs = Prosím, čekejte…
@@ -19511,7 +19511,7 @@
     tags = ios
     en = Restore this version?
     ar = استعادة هذا النسخة؟
-    be = Узнавіць гэтую версію?
+    be = Аднавіць гэтую версію?
     bg = Възстановяване на тази версия?
     ca = Voleu recuperar aquesta versió?
     cs = Obnovit tuto verzi?
@@ -19553,7 +19553,7 @@
     tags = android
     en = No internet connection
     ar = لا يوجد اتصال بالإنترنت
-    be = Няма падлучэння да інтэрнэту
+    be = Няма падключэння да інтэрнэту
     bg = Няма интернет връзка
     ca = No hi ha connexió a Internet
     cs = Žádné internetové připojení
@@ -19637,7 +19637,7 @@
     tags = ios
     en = Restore
     ar = استعادة
-    be = Узнавіць
+    be = Аднавіць
     bg = Възстановяване
     ca = Restaura
     cs = Obnovit
@@ -19937,7 +19937,7 @@
     tags = android
     en = We may use your crash reports to improve Organic Maps. Changes will take effect after you restart the app.
     ar = قد نستخدم بياناتك لتحسين تجربة Organic Maps. سوف تكون التغييرات نافذة المفعول بعد إعادة تشغيل التطبيق.
-    be = Мы можам выкарыстоўваць вашы дадзеныя, каб палепшыць Organic Maps. Змены набудуць сілу пасля перапуску праграмы.
+    be = Мы можам выкарыстоўваць вашы даныя, каб палепшыць Organic Maps. Змены набудуць сілу пасля перазапуску праграмы.
     bg = Можем да използваме данни ви, за да подобрим изживяването с Organic Maps. Промените ще влязат в сила, след рестартиране на приложението.
     ca = Podem usar les vostres dades per a millorar l'experiència d'Organic Maps. Els canvis seran efectius després de reinicieu l'aplicació.
     cs = Můžeme používat vaše údaje pro vývoj a zlepšení Organic Maps. Změny se projeví po restartování aplikace.
@@ -20191,7 +20191,7 @@
     en = Subway map is unavailable
     en-GB = Metro map is unavailable
     ar = خريطة مترو الانفاق غير متوفرة
-    be = Мапа метро недасягальная
+    be = Мапа метро недаступная
     bg = Картата на метрото не е налична
     ca = El mapa del metro no és disponible
     cs = Mapa metra není dostupná
