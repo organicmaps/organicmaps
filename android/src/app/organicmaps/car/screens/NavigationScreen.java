@@ -6,14 +6,16 @@ import androidx.car.app.model.Action;
 import androidx.car.app.model.ActionStrip;
 import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.NavigationTemplate;
+import androidx.lifecycle.LifecycleOwner;
 
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.routing.RoutingController;
+import app.organicmaps.util.ThemeSwitcher;
 
-public class NavigationScreen extends BaseMapScreen
+public class NavigationScreen extends BaseMapScreen implements RoutingController.Container
 {
   @NonNull
   private final RoutingController mRoutingController;
@@ -32,6 +34,33 @@ public class NavigationScreen extends BaseMapScreen
     builder.setActionStrip(createActionStrip());
     builder.setMapActionStrip(UiHelpers.createMapActionStrip(getCarContext(), getSurfaceRenderer()));
     return builder.build();
+  }
+
+  @Override
+  public void onResume(@NonNull LifecycleOwner owner)
+  {
+    mRoutingController.attach(this);
+    mRoutingController.restore();
+    if (mRoutingController.isPlanning())
+      mRoutingController.start();
+  }
+
+  @Override
+  public void onPause(@NonNull LifecycleOwner owner)
+  {
+    mRoutingController.detach();
+  }
+
+  @Override
+  public void onNavigationStarted()
+  {
+    ThemeSwitcher.INSTANCE.restart(true);
+  }
+
+  @Override
+  public void onNavigationCancelled()
+  {
+    ThemeSwitcher.INSTANCE.restart(true);
   }
 
   @NonNull
