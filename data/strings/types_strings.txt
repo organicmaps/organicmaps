@@ -26310,6 +26310,10 @@
     zh-Hans = 运河
     zh-Hant = 運河
 
+  [type.waterway.fish_pass]
+    en = Fish Pass
+    de = Fischtreppe
+
   [type.waterway.dam]
     en = Dam
     de = Staudamm

@@ -493,8 +493,8 @@ deprecated|deprecated;492;x
 highway|tertiary_link|bridge;[highway=tertiary_link][bridge?];;name;int_name;493;
 deprecated|deprecated;494;x
 amenity|parking|park_and_ride;[amenity=parking][parking=park_and_ride];;name;int_name;495;
-deprecated|deprecated;496;x
-deprecated|deprecated;497;x
+waterway|fish_pass;496;
+waterway|fish_pass|tunnel;[waterway=fish_pass][tunnel?];;name;int_name;497;
 natural|water|lock;[natural=water][water=lock];;name;int_name;498;
 waterway|lock;499;waterway|canal
 deprecated|deprecated;500;x
