@@ -521,6 +521,7 @@ node|z15-[natural=beach],
 [waterway=riverbank],
 [waterway=stream],
 [waterway=canal],
+[waterway=fish_pass],
 [natural=strait],
 [waterway=dam],
 {-x-me-text-priority: 16950;}
@@ -533,6 +534,7 @@ line|z11-[waterway=river],
 line|z11-[waterway=riverbank],
 line|z13-[waterway=stream],
 line|z13-[waterway=canal],
+line|z13-[waterway=fish_pass],
 line|z13-[natural=strait],
 node|z14-[natural=strait],
 node|z14-[natural=water],
@@ -581,17 +583,20 @@ area|z10-[natural=water][bbox_area<4000000],
 line|z11-14[waterway=river],
 line|z11-14[waterway=riverbank],
 line|z13-14[waterway=stream],
-line|z13-14[waterway=canal]
-line|z13-14[natural=strait]
+line|z13-14[waterway=canal],
+line|z13-14[waterway=fish_pass],
+line|z13-14[natural=strait],
 {font-size: 10;text:name;text-color: @water_label;}
 line|z15-17[waterway=stream],
 line|z15-17[waterway=canal],
+line|z15-17[waterway=fish_pass],
 line|z15-17[natural=strait],
 {font-size: 11;text:name;text-color: @water_label;}
 line|z15-[waterway=river],
 line|z15-[waterway=riverbank],
 line|z18-[waterway=stream],
 line|z18-[waterway=canal],
+line|z18-[waterway=fish_pass],
 line|z18-[natural=strait],
 {font-size: 12;text:name;text-color: @water_label;}
 
