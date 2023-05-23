@@ -157,15 +157,17 @@ public final class NavigationSession extends Session implements DefaultLifecycle
     Logger.d(TAG);
     final ScreenManager screenManager = getCarContext().getCarService(ScreenManager.class);
     final boolean isUsedOnDeviceScreenShown = screenManager.getTop() instanceof MapPlaceholderScreen;
+    final RoutingController routingController = RoutingController.get();
     if (newDisplayType == DisplayType.Car)
     {
       LocationState.nativeSetListener(this);
       onMyPositionModeChanged(LocationState.nativeGetMode());
       screenManager.popToRoot();
-      if (RoutingController.get().isNavigating())
+      routingController.restore();
+      if (routingController.isNavigating())
         screenManager.push(new NavigationScreen(getCarContext(), mSurfaceRenderer));
-      else if (RoutingController.get().isPlanning() && RoutingController.get().getEndPoint() != null)
-        screenManager.push(new PlaceScreen.Builder(getCarContext(), mSurfaceRenderer).setMapObject(RoutingController.get().getEndPoint()).build());
+      else if (routingController.isPlanning() && routingController.getEndPoint() != null)
+        screenManager.push(new PlaceScreen.Builder(getCarContext(), mSurfaceRenderer).setMapObject(routingController.getEndPoint()).build());
       mSurfaceRenderer.enable();
       Framework.nativePlacePageActivationListener(this);
     }
@@ -175,6 +177,7 @@ public final class NavigationSession extends Session implements DefaultLifecycle
       mSurfaceRenderer.disable();
       final PopToRootHack hack = new PopToRootHack.Builder(getCarContext()).setScreenToPush(new MapPlaceholderScreen(getCarContext())).build();
       screenManager.push(hack);
+      routingController.onSaveState();
     }
   }
 
@@ -194,8 +197,13 @@ public final class NavigationSession extends Session implements DefaultLifecycle
       }
     }
     final PlaceScreen placeScreen = new PlaceScreen.Builder(getCarContext(), mSurfaceRenderer).setMapObject(mapObject).build();
-    final PopToRootHack hack = new PopToRootHack.Builder(getCarContext()).setScreenToPush(placeScreen).build();
-    screenManager.push(hack);
+    if (RoutingController.get().isNavigating())
+      screenManager.push(placeScreen);
+    else
+    {
+      final PopToRootHack hack = new PopToRootHack.Builder(getCarContext()).setScreenToPush(placeScreen).build();
+      screenManager.push(hack);
+    }
   }
 
   @Override
