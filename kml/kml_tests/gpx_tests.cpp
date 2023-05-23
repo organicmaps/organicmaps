@@ -130,5 +130,12 @@ UNIT_TEST(Route)
   TEST_EQUAL(line[1], mercator::FromLatLon(48.209503040543545, 16.381065845489506), ());
 }
 
+UNIT_TEST(Color)
+{
+  kml::FileData dataFromFile = loadGpxFromFile("gpx_test_data/color.gpx");
+  TEST_EQUAL(4278190335, dataFromFile.m_tracksData[0].m_layers[0].m_color.m_rgba, ());
+  TEST_EQUAL(65535, dataFromFile.m_tracksData[1].m_layers[0].m_color.m_rgba, ());
+}
+
 
 

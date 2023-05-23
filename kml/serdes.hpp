@@ -1,6 +1,7 @@
 #pragma once
 
 #include "kml/types.hpp"
+#include "kml/serdes_common.hpp"
 
 #include "coding/parse_xml.hpp"
 #include "coding/reader.hpp"

@@ -19,8 +19,6 @@ namespace gpx
 
 using namespace std::string_view_literals;
 
-auto const kDefaultLang = StringUtf8Multilang::kDefaultCode;
-auto const kDefaultTrackWidth = 5.0;
 std::string_view const kTrk = "trk";
 std::string_view const kTrkSeg = "trkseg";
 std::string_view const kRte = "rte";
@@ -28,6 +26,7 @@ std::string_view const kTrkPt = "trkpt";
 std::string_view const kWpt = "wpt";
 std::string_view const kRtePt = "rtept";
 std::string_view const kName = "name";
+std::string_view const kColor = "color";
 std::string_view const kDesc = "desc";
 
 
@@ -72,7 +71,7 @@ bool GpxParser::MakeValid()
     {
       // Set default name.
       if (m_name.empty())
-        m_name[gpx::kDefaultLang] = gpx::PointToString(m_org);
+        m_name[kml::kDefaultLang] = gpx::PointToString(m_org);
       
       // Set default pin.
       if (m_predefinedColor == PredefinedColor::None)
@@ -129,6 +128,17 @@ std::string_view const & GpxParser::GetTagFromEnd(size_t n) const
   return m_tags[m_tags.size() - n - 1];
 }
 
+void GpxParser::ParseColor(std::string const & value)
+{
+  auto const colorBytes = FromHex(value);
+  if (colorBytes.size() != 3)
+  {
+    LOG(LWARNING, ("Invalid color value", value));
+    return;
+  }
+  m_color = kml::ToRGBA(colorBytes[0], colorBytes[1], colorBytes[2], (char)255);
+}
+
 void GpxParser::Pop(std::string_view const & tag)
 {
   ASSERT_EQUAL(m_tags.back(), tag, ());
@@ -161,7 +171,6 @@ void GpxParser::Pop(std::string_view const & tag)
         data.m_color.m_rgba = m_color;
         data.m_point = m_org;
         data.m_customName = std::move(m_customName);
-
         // Here we set custom name from 'name' field for KML-files exported from 3rd-party services.
         if (data.m_name.size() == 1 && data.m_name.begin()->first == kDefaultLangCode &&
             data.m_customName.empty())
@@ -173,6 +182,11 @@ void GpxParser::Pop(std::string_view const & tag)
       }
       else if (GEOMETRY_TYPE_LINE == m_geometryType)
       {
+        TrackLayer layer;
+        layer.m_lineWidth = kml::kDefaultTrackWidth;
+        layer.m_color.m_rgba = (m_color != 0 ? m_color : kml::kDefaultTrackColor);
+        m_trackLayers.push_back(std::move(layer));
+
         TrackData data;
         data.m_name = std::move(m_name);
         data.m_description = std::move(m_description);
@@ -199,17 +213,19 @@ void GpxParser::CharData(std::string value)
     if (prevTag == gpx::kWpt)
     {
       if (currTag == gpx::kName)
-        m_name[gpx::kDefaultLang] = value;
+        m_name[kml::kDefaultLang] = value;
       else if (currTag == gpx::kDesc)
-        m_description[gpx::kDefaultLang] = value;
+        m_description[kml::kDefaultLang] = value;
     }
     else if (prevTag == gpx::kTrk || prevTag == gpx::kRte)
     {
       if (currTag == gpx::kName)
-        m_categoryData->m_name[gpx::kDefaultLang] = value;
+        m_categoryData->m_name[kml::kDefaultLang] = value;
       else if (currTag == gpx::kDesc)
-        m_categoryData->m_description[gpx::kDefaultLang] = value;
+        m_categoryData->m_description[kml::kDefaultLang] = value;
     }
+    if (currTag == gpx::kColor)
+      ParseColor(value);
   }
 }
 
