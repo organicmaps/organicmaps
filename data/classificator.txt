@@ -542,7 +542,9 @@ world  +
         lit  -
         nobicycle  -
         nocar  -
+        nocycleway  -
         nofoot  -
+        nosidewalk  -
         onedir_bicycle  -
         oneway  -
         private  -
@@ -856,6 +858,7 @@ world  +
             tunnel  -
             {}
         station  +
+            funicular  -
             light_rail  -
             monorail  -
             subway  +
@@ -1317,6 +1320,9 @@ world  +
             {}
         dock  -
         drain  +
+            tunnel  -
+            {}
+        fish_pass  +
             tunnel  -
             {}
         lock_gate  -
