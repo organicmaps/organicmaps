@@ -1531,6 +1531,7 @@
 	<string name="type.railway.spur.bridge">Подъездная Ж/Д</string>
 	<string name="type.railway.spur.tunnel">Подъездная Ж/Д</string>
 	<string name="type.railway.station">Ж/д станция</string>
+	<string name="type.railway.station.funicular">Фуникулер</string>
 	<string name="type.railway.station.light_rail">Ж/д станция</string>
 	<string name="type.railway.station.monorail">Ж/д станция</string>
 	<string name="type.railway.station.subway">Метро</string>

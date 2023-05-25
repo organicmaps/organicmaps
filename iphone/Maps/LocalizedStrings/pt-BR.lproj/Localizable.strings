@@ -2795,6 +2795,8 @@
 
 "type.railway.station" = "Estação de trem";
 
+"type.railway.station.funicular" = "Funicular";
+
 "type.railway.station.light_rail" = "Estação de trem";
 
 "type.railway.station.monorail" = "Estação de trem";
@@ -3634,6 +3636,8 @@
 "type.waterway.canal" = "Canal";
 
 "type.waterway.canal.tunnel" = "Canal";
+
+"type.waterway.fish_pass" = "Fish Pass";
 
 "type.waterway.dam" = "Usina";
 

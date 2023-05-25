@@ -1336,7 +1336,7 @@
 	<string name="type.railway">रेल्वे</string>
 	<string name="type.railway.construction">रेल्वेचे बांधकाम</string>
 	<string name="type.railway.crossing">रेल्वे ओलांडणी</string>
-	<string name="type.railway.funicular">हवाई रज्जुमार्ग</string>
+	<string name="type.railway.funicular">फ्युनिक्युलर</string>
 	<string name="type.railway.funicular.bridge">हवाई रज्जुमार्ग</string>
 	<string name="type.railway.funicular.tunnel">हवाई रज्जुमार्ग</string>
 	<string name="type.railway.halt">रेल्वे स्थानक</string>
@@ -1353,6 +1353,7 @@
 	<string name="type.railway.rail.motor_vehicle">रेल्वे</string>
 	<string name="type.railway.rail.tunnel">रेल्वे</string>
 	<string name="type.railway.station">रेल्वे स्थानक</string>
+	<string name="type.railway.station.funicular">फ्युनिक्युलर</string>
 	<string name="type.railway.station.light_rail">रेल्वे स्थानक</string>
 	<string name="type.railway.station.monorail">रेल्वे स्थानक</string>
 	<string name="type.railway.station.subway">भुयारी मार्ग</string>

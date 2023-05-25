@@ -1285,11 +1285,13 @@
 	<string name="type.power.pole">Elstolpe</string>
 	<string name="type.power.substation">Ställverk</string>
 	<string name="type.power.tower">Elstolpe</string>
+	<string name="type.railway.funicular">Linbana</string>
 	<string name="type.railway.halt">Tågstation</string>
 	<string name="type.railway.level_crossing">Järnvägskorsning</string>
 	<string name="type.railway.monorail">Monorail</string>
 	<string name="type.railway.rail">Järnväg</string>
 	<string name="type.railway.station">Tågstation</string>
+	<string name="type.railway.station.funicular">Linbana</string>
 	<string name="type.railway.station.light_rail">Tågstation</string>
 	<string name="type.railway.station.monorail">Tågstation</string>
 	<string name="type.railway.station.subway">Tunnelbana</string>

@@ -1390,7 +1390,7 @@
 	<string name="type.railway.construction">建設中の鉄道</string>
 	<string name="type.railway.crossing">歩行者用踏切</string>
 	<string name="type.railway.disused">休止線</string>
-	<string name="type.railway.funicular">ケーブルカー</string>
+	<string name="type.railway.funicular">フニクラ</string>
 	<string name="type.railway.funicular.bridge">ケーブルカー(橋)</string>
 	<string name="type.railway.funicular.tunnel">ケーブルカー(トンネル)</string>
 	<string name="type.railway.halt">鉄道駅</string>
@@ -1420,6 +1420,7 @@
 	<string name="type.railway.spur.bridge">引き込み線(橋)</string>
 	<string name="type.railway.spur.tunnel">引き込み線(トンネル)</string>
 	<string name="type.railway.station">鉄道駅</string>
+	<string name="type.railway.station.funicular">フニクラ</string>
 	<string name="type.railway.station.light_rail">鉄道駅</string>
 	<string name="type.railway.station.monorail">鉄道駅</string>
 	<string name="type.railway.station.subway">地下鉄</string>

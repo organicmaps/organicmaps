@@ -2735,7 +2735,7 @@
 
 "type.railway.disused" = "Disused Railway";
 
-"type.railway.funicular" = "Funicular";
+"type.railway.funicular" = "Funicolare";
 
 "type.railway.funicular.bridge" = "Funicular Bridge";
 
@@ -2794,6 +2794,8 @@
 "type.railway.spur.tunnel" = "Spur Rail Tunnel";
 
 "type.railway.station" = "Stazione ferroviaria";
+
+"type.railway.station.funicular" = "Funicolare";
 
 "type.railway.station.light_rail" = "Stazione ferroviaria";
 
@@ -3634,6 +3636,8 @@
 "type.waterway.canal" = "Canale";
 
 "type.waterway.canal.tunnel" = "Canale";
+
+"type.waterway.fish_pass" = "Fish Pass";
 
 "type.waterway.dam" = "Diga";
 

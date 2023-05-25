@@ -1304,11 +1304,13 @@
 	<string name="type.power.pole">Sloup elektrického vedení</string>
 	<string name="type.power.substation">Rozvodna</string>
 	<string name="type.power.tower">Sloup elektrického vedení</string>
+	<string name="type.railway.funicular">Lanovka</string>
 	<string name="type.railway.halt">Železniční stanice</string>
 	<string name="type.railway.level_crossing">Přejezd</string>
 	<string name="type.railway.monorail">Jednokolejná železnice</string>
 	<string name="type.railway.rail">Železnice</string>
 	<string name="type.railway.station">Železniční stanice</string>
+	<string name="type.railway.station.funicular">Lanovka</string>
 	<string name="type.railway.station.light_rail">Železniční stanice</string>
 	<string name="type.railway.station.monorail">Železniční stanice</string>
 	<string name="type.railway.station.subway">Metro</string>

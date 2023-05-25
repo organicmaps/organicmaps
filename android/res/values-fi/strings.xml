@@ -1346,11 +1346,13 @@
 	<string name="type.power.pole">Sähköpylväs</string>
 	<string name="type.power.substation">Muuntoasema</string>
 	<string name="type.power.tower">Sähköpylväs</string>
+	<string name="type.railway.funicular">Köysirata</string>
 	<string name="type.railway.halt">Rautatieasema</string>
 	<string name="type.railway.level_crossing">Rautatien tasoristeys</string>
 	<string name="type.railway.monorail">Monorail (kohorata)</string>
 	<string name="type.railway.rail">Rautatie</string>
 	<string name="type.railway.station">Rautatieasema</string>
+	<string name="type.railway.station.funicular">Köysirata</string>
 	<string name="type.railway.station.light_rail">Rautatieasema</string>
 	<string name="type.railway.station.monorail">Rautatieasema</string>
 	<string name="type.railway.station.subway">Metro</string>

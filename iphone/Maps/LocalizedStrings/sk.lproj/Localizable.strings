@@ -2735,7 +2735,7 @@
 
 "type.railway.disused" = "Disused Railway";
 
-"type.railway.funicular" = "Funicular";
+"type.railway.funicular" = "Lanovka";
 
 "type.railway.funicular.bridge" = "Funicular Bridge";
 
@@ -2794,6 +2794,8 @@
 "type.railway.spur.tunnel" = "Spur Rail Tunnel";
 
 "type.railway.station" = "Železničná stanica";
+
+"type.railway.station.funicular" = "Lanovka";
 
 "type.railway.station.light_rail" = "Železničná stanica";
 
@@ -3634,6 +3636,8 @@
 "type.waterway.canal" = "Kanál";
 
 "type.waterway.canal.tunnel" = "Kanál";
+
+"type.waterway.fish_pass" = "Fish Pass";
 
 "type.waterway.dam" = "Dam";
 

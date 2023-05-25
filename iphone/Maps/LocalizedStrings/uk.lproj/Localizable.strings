@@ -2795,6 +2795,8 @@
 
 "type.railway.station" = "Залізничний вокзал";
 
+"type.railway.station.funicular" = "Фунікулер";
+
 "type.railway.station.light_rail" = "Залізничний вокзал";
 
 "type.railway.station.monorail" = "Залізничний вокзал";
@@ -3634,6 +3636,8 @@
 "type.waterway.canal" = "Канал";
 
 "type.waterway.canal.tunnel" = "Канал";
+
+"type.waterway.fish_pass" = "Fish Pass";
 
 "type.waterway.dam" = "Дамба";
 

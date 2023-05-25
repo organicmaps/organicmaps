@@ -2735,7 +2735,7 @@
 
 "type.railway.disused" = "Disused Railway";
 
-"type.railway.funicular" = "हवाई रज्जुमार्ग";
+"type.railway.funicular" = "फ्युनिक्युलर";
 
 "type.railway.funicular.bridge" = "हवाई रज्जुमार्ग";
 
@@ -2794,6 +2794,8 @@
 "type.railway.spur.tunnel" = "Spur Rail Tunnel";
 
 "type.railway.station" = "रेल्वे स्थानक";
+
+"type.railway.station.funicular" = "फ्युनिक्युलर";
 
 "type.railway.station.light_rail" = "रेल्वे स्थानक";
 
@@ -3634,6 +3636,8 @@
 "type.waterway.canal" = "कालवा";
 
 "type.waterway.canal.tunnel" = "कालवा";
+
+"type.waterway.fish_pass" = "Fish Pass";
 
 "type.waterway.dam" = "धरण";
 

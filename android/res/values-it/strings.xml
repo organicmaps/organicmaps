@@ -1423,12 +1423,14 @@
 	<string name="type.public_transport">Trasporto pubblico</string>
 	<string name="type.railway">Ferrovia</string>
 	<string name="type.railway.construction">Binari in costruzione</string>
+	<string name="type.railway.funicular">Funicolare</string>
 	<string name="type.railway.halt">Stazione ferroviaria</string>
 	<string name="type.railway.level_crossing">Passaggio a livello</string>
 	<string name="type.railway.light_rail">Metropolitana</string>
 	<string name="type.railway.monorail">Monorotaia</string>
 	<string name="type.railway.rail">Binari</string>
 	<string name="type.railway.station">Stazione ferroviaria</string>
+	<string name="type.railway.station.funicular">Funicolare</string>
 	<string name="type.railway.station.light_rail">Stazione ferroviaria</string>
 	<string name="type.railway.station.monorail">Stazione ferroviaria</string>
 	<string name="type.railway.station.subway">Stazione della metrò</string>

@@ -1207,11 +1207,13 @@
 	<string name="type.power.plant.wind">نیروگاه بادی</string>
 	<string name="type.power.pole">برج قدرت</string>
 	<string name="type.power.tower">برج قدرت</string>
+	<string name="type.railway.funicular">فونیکولور</string>
 	<string name="type.railway.halt">ایستگاه قطار</string>
 	<string name="type.railway.level_crossing">تقاطع راه آهن</string>
 	<string name="type.railway.monorail">مونوریل</string>
 	<string name="type.railway.rail">راه آهن</string>
 	<string name="type.railway.station">ایستگاه قطار</string>
+	<string name="type.railway.station.funicular">فونیکولور</string>
 	<string name="type.railway.station.light_rail">ایستگاه قطار</string>
 	<string name="type.railway.station.monorail">ایستگاه قطار</string>
 	<string name="type.railway.station.subway">حمل و نقل</string>

@@ -1439,11 +1439,13 @@
 	<string name="type.public_transport">Transport publiczny</string>
 	<string name="type.public_transport.platform">Przystanek transportu publicznego</string>
 	<string name="type.railway">Kolej</string>
+	<string name="type.railway.funicular">Kolejka linowa</string>
 	<string name="type.railway.halt">Przystanek kolejowy</string>
 	<string name="type.railway.level_crossing">Przejazd kolejowy</string>
 	<string name="type.railway.monorail">Kolej jednoszynowa</string>
 	<string name="type.railway.rail">Kolej</string>
 	<string name="type.railway.station">Dworzec kolejowy</string>
+	<string name="type.railway.station.funicular">Kolejka linowa</string>
 	<string name="type.railway.station.light_rail">Dworzec kolejowy</string>
 	<string name="type.railway.station.monorail">Dworzec kolejowy</string>
 	<string name="type.railway.station.subway">Metro</string>

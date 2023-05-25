@@ -2735,7 +2735,7 @@
 
 "type.railway.disused" = "废弃铁路";
 
-"type.railway.funicular" = "缆索铁路轨道";
+"type.railway.funicular" = "缆车";
 
 "type.railway.funicular.bridge" = "缆索铁路轨道";
 
@@ -2794,6 +2794,8 @@
 "type.railway.spur.tunnel" = "Spur Rail Tunnel";
 
 "type.railway.station" = "火车站";
+
+"type.railway.station.funicular" = "缆车";
 
 "type.railway.station.light_rail" = "轻轨车站";
 
@@ -3634,6 +3636,8 @@
 "type.waterway.canal" = "运河";
 
 "type.waterway.canal.tunnel" = "运河";
+
+"type.waterway.fish_pass" = "Fish Pass";
 
 "type.waterway.dam" = "水坝";
 

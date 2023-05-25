@@ -2795,6 +2795,8 @@
 
 "type.railway.station" = "Vonatmegálló";
 
+"type.railway.station.funicular" = "Funicular";
+
 "type.railway.station.light_rail" = "Vonatmegálló";
 
 "type.railway.station.monorail" = "Vonatmegálló";
@@ -3634,6 +3636,8 @@
 "type.waterway.canal" = "Csatorna";
 
 "type.waterway.canal.tunnel" = "Csatorna";
+
+"type.waterway.fish_pass" = "Fish Pass";
 
 "type.waterway.dam" = "Dam";
 

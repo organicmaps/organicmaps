@@ -1290,11 +1290,13 @@
 	<string name="type.power.pole">Trụ Điện</string>
 	<string name="type.power.substation">Trạm biến áp</string>
 	<string name="type.power.tower">Trụ Điện</string>
+	<string name="type.railway.funicular">Đường sắt leo núi</string>
 	<string name="type.railway.halt">Đường tàu hỏa</string>
 	<string name="type.railway.level_crossing">Chỗ qua đường sắt</string>
 	<string name="type.railway.monorail">Đường sắt một chiều</string>
 	<string name="type.railway.rail">Đường sắt</string>
 	<string name="type.railway.station">Đường tàu hỏa</string>
+	<string name="type.railway.station.funicular">Đường sắt leo núi</string>
 	<string name="type.railway.station.light_rail">Đường tàu hỏa</string>
 	<string name="type.railway.station.monorail">Đường tàu hỏa</string>
 	<string name="type.railway.station.subway">Ngầm</string>

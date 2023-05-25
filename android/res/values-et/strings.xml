@@ -1471,7 +1471,7 @@
 	<string name="type.railway.construction">Raudtee ehitus</string>
 	<string name="type.railway.crossing">Raudtee ülesõit</string>
 	<string name="type.railway.disused">Kasutamata raudtee</string>
-	<string name="type.railway.funicular">Funikulöör</string>
+	<string name="type.railway.funicular">Funicular</string>
 	<string name="type.railway.funicular.bridge">Funikulöör</string>
 	<string name="type.railway.funicular.tunnel">Funikulöör</string>
 	<string name="type.railway.halt">Murdepunkt</string>
@@ -1501,6 +1501,7 @@
 	<string name="type.railway.spur.bridge">Rööbastee sild</string>
 	<string name="type.railway.spur.tunnel">Rööbastee tunnel</string>
 	<string name="type.railway.station">Raudtee jaam</string>
+	<string name="type.railway.station.funicular">Funicular</string>
 	<string name="type.railway.station.light_rail">Raudtee jaam</string>
 	<string name="type.railway.station.monorail">Raudtee jaam</string>
 	<string name="type.railway.station.subway">Metroo</string>

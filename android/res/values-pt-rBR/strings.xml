@@ -1330,7 +1330,6 @@
 	<string name="type.railway.construction">Ferrovia em construção</string>
 	<string name="type.railway.crossing">Passagem pedestre</string>
 	<string name="type.railway.disused">Ferrovia em desuso</string>
-	<string name="type.railway.funicular">Funicular</string>
 	<string name="type.railway.funicular.bridge">Funicular</string>
 	<string name="type.railway.funicular.tunnel">Funicular</string>
 	<string name="type.railway.halt">Ponto de parada</string>

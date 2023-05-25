@@ -1294,11 +1294,13 @@
 	<string name="type.power.pole">전봇대</string>
 	<string name="type.power.substation">변전소</string>
 	<string name="type.power.tower">전봇대</string>
+	<string name="type.railway.funicular">케이블카</string>
 	<string name="type.railway.halt">기차역</string>
 	<string name="type.railway.level_crossing">철도 건널목</string>
 	<string name="type.railway.monorail">모노레일</string>
 	<string name="type.railway.rail">철로</string>
 	<string name="type.railway.station">기차역</string>
+	<string name="type.railway.station.funicular">케이블카</string>
 	<string name="type.railway.station.light_rail">기차역</string>
 	<string name="type.railway.station.monorail">기차역</string>
 	<string name="type.railway.station.subway">지하철</string>

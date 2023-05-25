@@ -1297,11 +1297,13 @@
 	<string name="type.power.pole">Πυλώνες μεταφοράς ρεύματος</string>
 	<string name="type.power.substation">Υποσταθμός</string>
 	<string name="type.power.tower">Πυλώνες μεταφοράς ρεύματος</string>
+	<string name="type.railway.funicular">Μονωτικό τρενάκι</string>
 	<string name="type.railway.halt">Σιδηροδρομικός σταθμός</string>
 	<string name="type.railway.level_crossing">Σιδηροδρομική διέλευση</string>
 	<string name="type.railway.monorail">Μονοαξονικός σιδηρόδρομος</string>
 	<string name="type.railway.rail">Σιδηρόδρομος</string>
 	<string name="type.railway.station">Σιδηροδρομικός σταθμός</string>
+	<string name="type.railway.station.funicular">Μονωτικό τρενάκι</string>
 	<string name="type.railway.station.light_rail">Σιδηροδρομικός σταθμός</string>
 	<string name="type.railway.station.monorail">Σιδηροδρομικός σταθμός</string>
 	<string name="type.railway.station.subway">Μετρό</string>

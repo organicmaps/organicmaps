@@ -1289,11 +1289,13 @@
 	<string name="type.power.pole">Menara listrik</string>
 	<string name="type.power.substation">Stasiun bawah tanah</string>
 	<string name="type.power.tower">Menara listrik</string>
+	<string name="type.railway.funicular">Kereta gantung</string>
 	<string name="type.railway.halt">Rel kereta api</string>
 	<string name="type.railway.level_crossing">Perlintasan Kereta Api</string>
 	<string name="type.railway.monorail">Monorel</string>
 	<string name="type.railway.rail">Kereta api</string>
 	<string name="type.railway.station">Rel kereta api</string>
+	<string name="type.railway.station.funicular">Kereta gantung</string>
 	<string name="type.railway.station.light_rail">Rel kereta api</string>
 	<string name="type.railway.station.monorail">Rel kereta api</string>
 	<string name="type.railway.station.subway">Stasiun bawah tanah</string>

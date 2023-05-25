@@ -539,9 +539,11 @@
 	<string name="type.power.plant.hydro">Kiwanda cha umeme wa maji</string>
 	<string name="type.power.plant.solar">Kiwanda cha nishati ya jua</string>
 	<string name="type.power.plant.wind">Kiwanda cha nguvu cha upepo</string>
+	<string name="type.railway.funicular">Funicular</string>
 	<string name="type.railway.level_crossing">Tambuka Reli</string>
 	<string name="type.railway.monorail">Mfumo wa reli moja</string>
 	<string name="type.railway.rail">Njia ya Reli</string>
+	<string name="type.railway.station.funicular">Funicular</string>
 	<string name="type.railway.subway_entrance">Lango la kuingilia stesheni ya reli</string>
 	<string name="type.railway.subway_entrance.adana">Lango la kuingilia stesheni ya reli</string>
 	<string name="type.railway.subway_entrance.algiers">Lango la kuingilia stesheni ya reli</string>
