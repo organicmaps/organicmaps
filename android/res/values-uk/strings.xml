@@ -1491,6 +1491,7 @@
 	<string name="type.railway.spur.bridge">Під\'їздна залізниця</string>
 	<string name="type.railway.spur.tunnel">Під\'їздна залізниця</string>
 	<string name="type.railway.station">Залізничний вокзал</string>
+	<string name="type.railway.station.funicular">Фунікулер</string>
 	<string name="type.railway.station.light_rail">Залізничний вокзал</string>
 	<string name="type.railway.station.monorail">Залізничний вокзал</string>
 	<string name="type.railway.station.subway">Метро</string>

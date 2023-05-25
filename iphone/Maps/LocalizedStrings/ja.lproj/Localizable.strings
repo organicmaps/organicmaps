@@ -2735,7 +2735,7 @@
 
 "type.railway.disused" = "休止線";
 
-"type.railway.funicular" = "ケーブルカー";
+"type.railway.funicular" = "フニクラ";
 
 "type.railway.funicular.bridge" = "ケーブルカー(橋)";
 
@@ -2794,6 +2794,8 @@
 "type.railway.spur.tunnel" = "引き込み線(トンネル)";
 
 "type.railway.station" = "鉄道駅";
+
+"type.railway.station.funicular" = "フニクラ";
 
 "type.railway.station.light_rail" = "鉄道駅";
 
@@ -3634,6 +3636,8 @@
 "type.waterway.canal" = "運河";
 
 "type.waterway.canal.tunnel" = "運河";
+
+"type.waterway.fish_pass" = "Fish Pass";
 
 "type.waterway.dam" = "ダム";
 

@@ -1287,11 +1287,13 @@
 	<string name="type.power.pole">Stĺp elektrického vedenia</string>
 	<string name="type.power.substation">Rozvodňa</string>
 	<string name="type.power.tower">Stĺp elektrického vedenia</string>
+	<string name="type.railway.funicular">Lanovka</string>
 	<string name="type.railway.halt">Železničná stanica</string>
 	<string name="type.railway.level_crossing">Križovanie úrovní</string>
 	<string name="type.railway.monorail">Jednokoľajnicová dráha</string>
 	<string name="type.railway.rail">Železnica</string>
 	<string name="type.railway.station">Železničná stanica</string>
+	<string name="type.railway.station.funicular">Lanovka</string>
 	<string name="type.railway.station.light_rail">Železničná stanica</string>
 	<string name="type.railway.station.monorail">Železničná stanica</string>
 	<string name="type.railway.station.subway">Metro</string>

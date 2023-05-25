@@ -1406,11 +1406,13 @@
 	<string name="type.power.substation">Azpiestazioa</string>
 	<string name="type.power.tower">Zutabe elektrikoa</string>
 	<string name="type.public_transport">Garraio publikoa</string>
+	<string name="type.railway.funicular">Funikularra</string>
 	<string name="type.railway.halt">Tren geltokian</string>
 	<string name="type.railway.level_crossing">Trenbide-pasagunea</string>
 	<string name="type.railway.monorail">Tren monoraila</string>
 	<string name="type.railway.rail">Trenbidea</string>
 	<string name="type.railway.station">Tren geltokian</string>
+	<string name="type.railway.station.funicular">Funikularra</string>
 	<string name="type.railway.station.light_rail">Tren geltokian</string>
 	<string name="type.railway.station.monorail">Tren geltokian</string>
 	<string name="type.railway.station.subway">Metroa</string>

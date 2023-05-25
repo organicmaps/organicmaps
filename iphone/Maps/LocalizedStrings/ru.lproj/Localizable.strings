@@ -2795,6 +2795,8 @@
 
 "type.railway.station" = "Ж/д станция";
 
+"type.railway.station.funicular" = "Фуникулер";
+
 "type.railway.station.light_rail" = "Ж/д станция";
 
 "type.railway.station.monorail" = "Ж/д станция";
@@ -3634,6 +3636,8 @@
 "type.waterway.canal" = "Канал";
 
 "type.waterway.canal.tunnel" = "Канал";
+
+"type.waterway.fish_pass" = "Fish Pass";
 
 "type.waterway.dam" = "Дамба";
 

@@ -1481,6 +1481,7 @@
 	<string name="type.railway.spur.bridge">Anschlussgleis</string>
 	<string name="type.railway.spur.tunnel">Anschlussgleis</string>
 	<string name="type.railway.station">Bahnhof</string>
+	<string name="type.railway.station.funicular">Standseilbahn</string>
 	<string name="type.railway.station.light_rail">Stadtbahnbahnhof</string>
 	<string name="type.railway.station.monorail">Bahnhof</string>
 	<string name="type.railway.station.subway">U-Bahn-Station</string>
@@ -1900,6 +1901,7 @@
 	<string name="type.waterway">Wasserweg</string>
 	<string name="type.waterway.canal">Kanal</string>
 	<string name="type.waterway.canal.tunnel">Kanal</string>
+	<string name="type.waterway.fish_pass">Fischtreppe</string>
 	<string name="type.waterway.dam">Staudamm</string>
 	<string name="type.waterway.ditch">Graben</string>
 	<string name="type.waterway.ditch.tunnel">Graben</string>

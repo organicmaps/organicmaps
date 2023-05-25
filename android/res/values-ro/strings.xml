@@ -1309,11 +1309,13 @@
 	<string name="type.power.pole">Stâlp de electricitate</string>
 	<string name="type.power.substation">Stație subterană</string>
 	<string name="type.power.tower">Stâlp de electricitate</string>
+	<string name="type.railway.funicular">Funicular</string>
 	<string name="type.railway.halt">Feroviar</string>
 	<string name="type.railway.level_crossing">Trecere feroviară</string>
 	<string name="type.railway.monorail">Cale ferată monoșină</string>
 	<string name="type.railway.rail">Cale ferată</string>
 	<string name="type.railway.station">Feroviar</string>
+	<string name="type.railway.station.funicular">Funicular</string>
 	<string name="type.railway.station.light_rail">Feroviar</string>
 	<string name="type.railway.station.monorail">Feroviar</string>
 	<string name="type.railway.station.subway">Metrou</string>

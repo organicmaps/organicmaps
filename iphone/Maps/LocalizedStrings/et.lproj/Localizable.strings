@@ -2735,7 +2735,7 @@
 
 "type.railway.disused" = "Kasutamata raudtee";
 
-"type.railway.funicular" = "Funikulöör";
+"type.railway.funicular" = "Funicular";
 
 "type.railway.funicular.bridge" = "Funikulöör";
 
@@ -2794,6 +2794,8 @@
 "type.railway.spur.tunnel" = "Rööbastee tunnel";
 
 "type.railway.station" = "Raudtee jaam";
+
+"type.railway.station.funicular" = "Funicular";
 
 "type.railway.station.light_rail" = "Raudtee jaam";
 
@@ -3634,6 +3636,8 @@
 "type.waterway.canal" = "Kanal";
 
 "type.waterway.canal.tunnel" = "Kanal";
+
+"type.waterway.fish_pass" = "Fish Pass";
 
 "type.waterway.dam" = "Tamm";
 

@@ -1402,7 +1402,7 @@
 	<string name="type.railway.abandoned.tunnel">铁路遗迹</string>
 	<string name="type.railway.construction">在建铁路</string>
 	<string name="type.railway.disused">废弃铁路</string>
-	<string name="type.railway.funicular">缆索铁路轨道</string>
+	<string name="type.railway.funicular">缆车</string>
 	<string name="type.railway.funicular.bridge">缆索铁路轨道</string>
 	<string name="type.railway.funicular.tunnel">缆索铁路轨道</string>
 	<string name="type.railway.halt">小站</string>
@@ -1422,6 +1422,7 @@
 	<string name="type.railway.rail.motor_vehicle">铁路轨道</string>
 	<string name="type.railway.rail.tunnel">铁路轨道</string>
 	<string name="type.railway.station">火车站</string>
+	<string name="type.railway.station.funicular">缆车</string>
 	<string name="type.railway.station.light_rail">轻轨车站</string>
 	<string name="type.railway.station.monorail">单轨车站</string>
 	<string name="type.railway.station.subway">地铁车站</string>

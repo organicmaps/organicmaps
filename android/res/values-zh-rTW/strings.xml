@@ -1328,6 +1328,7 @@
 	<string name="type.power.pole">電塔</string>
 	<string name="type.power.substation">變電所</string>
 	<string name="type.power.tower">電塔</string>
+	<string name="type.railway.funicular">纜車</string>
 	<string name="type.railway.halt">小站</string>
 	<string name="type.railway.level_crossing">鐵路道口</string>
 	<string name="type.railway.monorail">單軌軌道</string>
@@ -1338,6 +1339,7 @@
 	<string name="type.railway.rail.motor_vehicle">鐵路軌道</string>
 	<string name="type.railway.rail.tunnel">鐵路軌道</string>
 	<string name="type.railway.station">火車站</string>
+	<string name="type.railway.station.funicular">纜車</string>
 	<string name="type.railway.station.light_rail">輕軌車站</string>
 	<string name="type.railway.station.monorail">單軌車站</string>
 	<string name="type.railway.station.subway">捷運站</string>

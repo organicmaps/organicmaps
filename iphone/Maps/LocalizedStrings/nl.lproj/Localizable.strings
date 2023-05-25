@@ -2735,7 +2735,7 @@
 
 "type.railway.disused" = "Ongebruikt spoor";
 
-"type.railway.funicular" = "Kabelspoorweg";
+"type.railway.funicular" = "Tunnel";
 
 "type.railway.funicular.bridge" = "Kabelspoorbuur";
 
@@ -2794,6 +2794,8 @@
 "type.railway.spur.tunnel" = "Zijspoor-tunnel";
 
 "type.railway.station" = "Station";
+
+"type.railway.station.funicular" = "Tunnel";
 
 "type.railway.station.light_rail" = "Station";
 
@@ -3634,6 +3636,8 @@
 "type.waterway.canal" = "Kanaal";
 
 "type.waterway.canal.tunnel" = "Kanaal";
+
+"type.waterway.fish_pass" = "Fish Pass";
 
 "type.waterway.dam" = "Dam";
 

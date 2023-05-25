@@ -1450,6 +1450,7 @@
 	<string name="type.railway.rail.bridge">Chemin de fer</string>
 	<string name="type.railway.rail.tunnel">Chemin de fer</string>
 	<string name="type.railway.station">Gare</string>
+	<string name="type.railway.station.funicular">Funiculaire</string>
 	<string name="type.railway.station.light_rail">Gare</string>
 	<string name="type.railway.station.monorail">Gare</string>
 	<string name="type.railway.station.subway">Station de métro</string>

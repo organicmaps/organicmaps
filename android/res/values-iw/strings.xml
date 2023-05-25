@@ -610,6 +610,8 @@
 	<string name="type.power.plant.hydro">תחנת כוח הידרואלקטרית</string>
 	<string name="type.power.plant.solar">תחנת כוח סולארית</string>
 	<string name="type.power.plant.wind">תחנת כוח רוח</string>
+	<string name="type.railway.funicular">רַכֶּבֶל</string>
+	<string name="type.railway.station.funicular">רַכֶּבֶל</string>
 	<string name="type.shop.bathroom_furnishing">ריהוט חדר רחצה</string>
 	<string name="type.shop.cannabis">חנות קנאביס</string>
 	<string name="type.shop.carpet">שטיחים</string>

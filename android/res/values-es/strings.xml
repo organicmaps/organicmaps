@@ -1483,6 +1483,7 @@
 	<string name="type.railway.platform">Plataforma de vía férrea</string>
 	<string name="type.railway.rail">Ferrocarril</string>
 	<string name="type.railway.station">Estación de tren</string>
+	<string name="type.railway.station.funicular">Funicular</string>
 	<string name="type.railway.station.light_rail">Estación de tren</string>
 	<string name="type.railway.station.monorail">Estación de tren</string>
 	<string name="type.railway.station.subway">Metro</string>

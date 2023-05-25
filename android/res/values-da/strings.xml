@@ -1285,11 +1285,13 @@
 	<string name="type.power.pole">El-pol</string>
 	<string name="type.power.substation">Transformerstation</string>
 	<string name="type.power.tower">El-pol</string>
+	<string name="type.railway.funicular">Funicular</string>
 	<string name="type.railway.halt">Togstation</string>
 	<string name="type.railway.level_crossing">Niveauskæring</string>
 	<string name="type.railway.monorail">Monorail</string>
 	<string name="type.railway.rail">Jernbane</string>
 	<string name="type.railway.station">Togstation</string>
+	<string name="type.railway.station.funicular">Funicular</string>
 	<string name="type.railway.station.light_rail">Togstation</string>
 	<string name="type.railway.station.monorail">Togstation</string>
 	<string name="type.railway.station.subway">Metro</string>

@@ -1349,6 +1349,7 @@
 	<string name="type.power.tower">Strømmast</string>
 	<string name="type.public_transport">Offentlig transport</string>
 	<string name="type.railway">Jernbane</string>
+	<string name="type.railway.funicular">Kabelbane</string>
 	<string name="type.railway.halt">Togstasjon</string>
 	<string name="type.railway.level_crossing">Planovergang</string>
 	<string name="type.railway.monorail">Monorail</string>
@@ -1357,6 +1358,7 @@
 	<string name="type.railway.preserved">Museumsjernbane</string>
 	<string name="type.railway.rail">Toglinje</string>
 	<string name="type.railway.station">Togstasjon</string>
+	<string name="type.railway.station.funicular">Kabelbane</string>
 	<string name="type.railway.station.light_rail">Togstasjon</string>
 	<string name="type.railway.station.monorail">Togstasjon</string>
 	<string name="type.railway.station.subway">T-bane</string>

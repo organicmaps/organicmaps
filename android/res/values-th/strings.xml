@@ -1294,11 +1294,13 @@
 	<string name="type.power.pole">เสาไฟฟ้า</string>
 	<string name="type.power.substation">สถานีไฟฟ้า</string>
 	<string name="type.power.tower">เสาไฟฟ้า</string>
+	<string name="type.railway.funicular">รถกระเช้าไฟฟ้า</string>
 	<string name="type.railway.halt">สถานีรถไฟ</string>
 	<string name="type.railway.level_crossing">ทางรถไฟตัดผ่านถนน</string>
 	<string name="type.railway.monorail">รางรถไฟรางเดี่ยว</string>
 	<string name="type.railway.rail">รถไฟ</string>
 	<string name="type.railway.station">สถานีรถไฟ</string>
+	<string name="type.railway.station.funicular">รถกระเช้าไฟฟ้า</string>
 	<string name="type.railway.station.light_rail">สถานีรถไฟ</string>
 	<string name="type.railway.station.monorail">สถานีรถไฟ</string>
 	<string name="type.railway.station.subway">รถไฟ</string>

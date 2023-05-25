@@ -939,6 +939,8 @@
 	<string name="type.power.plant.hydro">Водноелектрическа централа</string>
 	<string name="type.power.plant.solar">Слънчева електроцентрала</string>
 	<string name="type.power.plant.wind">Вятърна електроцентрала</string>
+	<string name="type.railway.funicular">Фуникуляр</string>
+	<string name="type.railway.station.funicular">Фуникуляр</string>
 	<string name="type.shop.bathroom_furnishing">Обзавеждане за баня</string>
 	<string name="type.shop.cannabis">Магазин за канабис</string>
 	<string name="type.shop.carpet">Килими</string>

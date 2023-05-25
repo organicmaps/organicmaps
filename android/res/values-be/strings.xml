@@ -1068,7 +1068,9 @@
 	<string name="type.power.plant.hydro">Гідраэлектрастанцыя</string>
 	<string name="type.power.plant.solar">Сонечная электрастанцыя</string>
 	<string name="type.power.plant.wind">Ветраэлектрастанцыя</string>
+	<string name="type.railway.funicular">Фунікулёр</string>
 	<string name="type.railway.platform">Чыгуначная платформа</string>
+	<string name="type.railway.station.funicular">Фунікулёр</string>
 	<string name="type.shop.bathroom_furnishing">Мэбля для ванных пакояў</string>
 	<string name="type.shop.beverages">Напоі</string>
 	<string name="type.shop.cannabis">Крама канабіса</string>
