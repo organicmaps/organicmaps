@@ -252,7 +252,7 @@ landuse|forest|deciduous
 *waterway|canal|tunnel
 *piste:type|downhill|easy
 *waterway|ditch|tunnel
-mapswithme
+*hwtag|nosidewalk
 *piste:type|downhill|intermediate
 *railway|subway_entrance
 *amenity|charging_station|bicycle
@@ -316,7 +316,7 @@ man_made|pipeline
 *railway|preserved
 *highway|path|horse
 *landuse|field
-mapswithme
+*hwtag|nocycleway
 *leisure|water_park
 *natural|wetland|bog
 *man_made|windmill
@@ -493,8 +493,8 @@ mapswithme
 *highway|tertiary_link|bridge
 mapswithme
 *amenity|parking|park_and_ride
-mapswithme
-mapswithme
+*waterway|fish_pass
+*waterway|fish_pass|tunnel
 *natural|water|lock
 waterway|canal
 mapswithme
@@ -574,7 +574,7 @@ mapswithme
 mapswithme
 *aerialway|rope_tow
 natural|water|pond
-mapswithme
+*railway|station|funicular
 *highway|secondary_link|tunnel
 mapswithme
 mapswithme
