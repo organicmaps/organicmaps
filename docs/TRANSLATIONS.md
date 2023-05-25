@@ -50,11 +50,28 @@ There are many more other options, e.g. print various translation statistics, va
 Check `tools/python/strings_utils.py -h` to see all of them.
 
 In some cases automatically translated strings are better than no translation at all.
-There is a script to automate given string's translation into multiple languages.
-Please [install Translate Shell](https://www.soimort.org/translate-shell/#installation) first to be able to run it.
+There are two scripts to automate given string's translation into multiple languages.
+Please [install Translate Shell](https://www.soimort.org/translate-shell/#installation) first to be able to run them.
+
+### DeepL + Google Translate fallback
+
+The first one uses free DeepL API where possible and provides a significantly better quality translations.
+It requires registering a [DeepL account](https://www.deepl.com/pro#developer) and [getting API key](https://www.deepl.com/account/summary).
+You may be asked for a credit card for verification, but it won't be charged.
 
 ```bash
-# This generates translations in categories.txt format
+export DEEPL_FREE_API_KEY=<your DeepL API key here>
+# Generates translations in both categories.txt and strings.txt formats at the same time.
+tools/python/translate.py English text to translate here
+```
+
+### Google Translate only
+
+The second one is not recommended, it uses Google API and sometimes translations are incorrect.
+Also it does not support European Portuguese (pt or pt-PT), and always generates Brazil Portuguese.
+
+```bash
+# Generates translations in categories.txt format
 tools/unix/translate_categories.sh "Route"
 # Translations in strings.txt format
 DELIM=" = " tools/unix/translate_categories.sh "Route"

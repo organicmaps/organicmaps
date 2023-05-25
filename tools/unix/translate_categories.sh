@@ -9,6 +9,10 @@
 
 set -euo pipefail
 
+echo "!!! This script is outdated, please use a better quality DeepL translations script"
+echo "!!! tools/python/translate.py"
+echo ""
+
 DELIM=${DELIM:-:}
 
 case $# in
@@ -27,7 +31,7 @@ esac
 
 # Note: default Google engine doesn't properly support European Portuguese (pt-PT)
 # and always produces Brazilian translations. Need to use Deepl.
-LANGUAGES=( en ar be bg ca cs da de el es et eu fa 'fi' fr he hu id it ja ko mr nb nl pl pt pt-BR ro ru sk sv sw th tr uk vi zh-CN zh-TW )
+LANGUAGES=( en ar be bg ca cs da de el es et eu fa 'fi' fr he hu id it ja ko lt mr nb nl pl pt pt-BR ro ru sk sv sw th tr uk vi zh-CN zh-TW )
 
 for lang in "${LANGUAGES[@]}"; do
   # -no-bidi fixes wrong characters order for RTL languages.
