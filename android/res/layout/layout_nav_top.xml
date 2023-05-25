@@ -15,6 +15,7 @@
     android:layout_height="wrap_content"
     android:elevation="@dimen/nav_elevation"
     app:layout_constraintTop_toTopOf="parent"
+    android:clickable="true"
     android:background="?cardBackground">
     <RelativeLayout
       android:layout_width="match_parent"
@@ -40,6 +41,7 @@
     app:layout_constraintTop_toBottomOf="@id/street_frame"
     app:layout_constraintLeft_toLeftOf="parent"
     android:layout_marginTop="-40dp"
+    android:clickable="true"
     android:elevation="@dimen/nav_elevation">
     <LinearLayout
       android:id="@+id/nav_next_turn_frame"
