@@ -14,6 +14,7 @@
 #include "search/search_index_values.hpp"
 #include "search/search_params.hpp"
 #include "search/utils.hpp"
+#include "search/utm_mgrs_coords_match.hpp"
 
 #include "storage/country_info_getter.hpp"
 #include "storage/storage_defines.hpp"
@@ -613,6 +614,26 @@ bool Processor::SearchCoordinates()
     double lat;
     double lon;
     if (MatchLatLonDegree(m_query, lat, lon))
+    {
+      coords_found = true;
+      results.emplace_back(lat, lon);
+    }
+  }
+
+  {
+    double lat;
+    double lon;
+    if (MatchUTMCoords(m_query, lat, lon))
+    {
+      coords_found = true;
+      results.emplace_back(lat, lon);
+    }
+  }
+
+  {
+    double lat;
+    double lon;
+    if (MatchMGRSCoords(m_query, lat, lon))
     {
       coords_found = true;
       results.emplace_back(lat, lon);
