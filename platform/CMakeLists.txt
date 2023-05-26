@@ -54,6 +54,8 @@ set(SRC
   socket.hpp
   string_storage_base.cpp
   string_storage_base.hpp
+  utm_mgrs_utils.cpp
+  utm_mgrs_utils.hpp
 )
 
 if(${PLATFORM_IPHONE})
