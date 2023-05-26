@@ -4,6 +4,7 @@
 
 #include <string>
 #include <iostream>
+#include <cmath>
 
 namespace utm_mgrs_utils
 {
