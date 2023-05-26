@@ -256,6 +256,10 @@
 	<string name="copyright">Egile eskubideak</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Errore baten berri eman</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_recommended">Hobetu geziaren norabidea telefonoa zortzi irudiko mugimenduan mugituz iparrorratza kalibratzeko.</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_required">Mugitu telefonoa zortzi irudiko mugimenduan iparrorratza kalibratzeko eta geziaren norabidea mapan finkatzeko.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Eguneratu guztiak</string>
 	<!-- Cancel all button text -->

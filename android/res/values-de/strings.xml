@@ -254,6 +254,10 @@
 	<string name="copyright">Copyright</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Fehler melden</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_recommended">Verbessern Sie die Pfeilrichtung, indem Sie das Telefon in einer Achterbewegung bewegen, um den Kompass zu kalibrieren.</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_required">Bewegen Sie das Telefon in einer Achterbewegung, um den Kompass zu kalibrieren und die Pfeilrichtung auf der Karte festzulegen.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Alle aktualisieren</string>
 	<!-- Cancel all button text -->

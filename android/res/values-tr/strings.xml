@@ -256,6 +256,10 @@
 	<string name="copyright">Telif hakkı</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Hata bildir</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_recommended">Pusulayı kalibre etmek için telefonu sekiz şeklinde hareket ettirerek ok yönünü iyileştirin.</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_required">Pusulayı kalibre etmek ve haritadaki ok yönünü sabitlemek için telefonu sekiz şeklinde hareket ettirin.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Tümünü güncelle</string>
 	<!-- Cancel all button text -->

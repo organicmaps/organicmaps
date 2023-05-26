@@ -250,6 +250,10 @@
 	<string name="copyright">Direitos autorais</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Relatar um problema</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_recommended">Melhore a direção da seta movendo o telefone em um movimento em forma de oito para calibrar a bússola.</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_required">Mova o telefone em um movimento em forma de oito para calibrar a bússola e fixar a direção da seta no mapa.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Atualizar tudo</string>
 	<!-- Cancel all button text -->

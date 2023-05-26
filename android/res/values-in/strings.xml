@@ -239,6 +239,10 @@
 	<string name="copyright">Hak cipta</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Laporkan gangguan</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_recommended">Perbaiki arah panah dengan menggerakkan ponsel dalam gerakan angka delapan untuk mengkalibrasi kompas.</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_required">Gerakkan ponsel dengan gerakan angka delapan untuk mengkalibrasi kompas dan memperbaiki arah panah pada peta.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Perbarui semua</string>
 	<!-- Cancel all button text -->

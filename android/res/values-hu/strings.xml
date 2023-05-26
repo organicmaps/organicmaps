@@ -251,6 +251,10 @@
 	<string name="copyright">Szerzői jog</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Hiba jelentése</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_recommended">Javítsa a nyíl irányát a telefon nyolcas mozgatásával az iránytű kalibrálásához.</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_required">Mozgassa a telefont egy nyolcas mozdulattal az iránytű kalibrálásához és a nyíl irányának rögzítéséhez a térképen.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Mindegyik frissítése</string>
 	<!-- Cancel all button text -->

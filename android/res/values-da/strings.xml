@@ -237,6 +237,10 @@
 	<string name="copyright">Copyright</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Rapportér fejl</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_recommended">Forbedre pilens retning ved at bevæge telefonen i en ottetalsbevægelse for at kalibrere kompasset.</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_required">Bevæg telefonen i en ottetalsbevægelse for at kalibrere kompasset og fastgøre pilens retning på kortet.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Opdatér alle</string>
 	<!-- Cancel all button text -->

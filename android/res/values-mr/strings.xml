@@ -228,6 +228,10 @@
 	<string name="copyright">प्रकाशन अधिकार (कॉपीराईट)</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">त्रुटी कळवा</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_recommended">कंपास कॅलिब्रेट करण्यासाठी फोनला आकृती-आठ मोशनमध्ये हलवून बाणाची दिशा सुधारा.</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_required">होकायंत्र कॅलिब्रेट करण्यासाठी आणि नकाशावर बाणाची दिशा निश्चित करण्यासाठी फोनला आकृती-आठ मोशनमध्ये हलवा.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">सर्व अद्ययावत</string>
 	<!-- Cancel all button text -->

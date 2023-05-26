@@ -246,6 +246,10 @@
 	<string name="copyright">Autoriõigused</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Teata veast</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_recommended">Parandage noole suunda, liigutades telefoni kaheksakäigulise liigutusega, et kalibreerida kompass.</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_required">Liigutage telefoni kaheksakandilise liigutusega, et kalibreerida kompass ja määrata noole suund kaardil.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Värskenda kõik</string>
 	<!-- Cancel all button text -->

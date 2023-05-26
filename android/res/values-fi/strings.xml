@@ -243,6 +243,10 @@
 	<string name="copyright">Tekijänoikeudet</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Ilmoita virheestä</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_recommended">Paranna nuolien suuntaa liikuttamalla puhelinta kahdeksikon suuntaisesti kompassin kalibroimiseksi.</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_required">Liikuta puhelinta kahdeksikon suuntaisella liikkeellä kompassin kalibroimiseksi ja nuolen suunnan määrittämiseksi kartalla.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Päivitä kaikki</string>
 	<!-- Cancel all button text -->

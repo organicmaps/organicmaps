@@ -279,6 +279,10 @@
 	<string name="copyright">Copyright</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Report a bug</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_recommended">Improve arrow direction by moving the phone in a figure-eight motion to calibrate the compass.</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_required">Move the phone in a figure-eight motion to calibrate the compass and fix the arrow direction on the map.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Update All</string>
 	<!-- Cancel all button text -->

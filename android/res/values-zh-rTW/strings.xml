@@ -248,6 +248,10 @@
 	<string name="copyright">版權</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">報告錯誤</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_recommended">通過以八字形移動手機來校準指南針來改善箭頭方向</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_required">以 8 字形移動手機以校準指南針並固定地圖上的箭頭方向</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">更新全部</string>
 	<!-- Cancel all button text -->

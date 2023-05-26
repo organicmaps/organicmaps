@@ -237,6 +237,10 @@
 	<string name="copyright">Bản quyền</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Báo cáo lỗi</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_recommended">Cải thiện hướng mũi tên bằng cách di chuyển điện thoại theo chuyển động hình số tám để hiệu chỉnh la bàn.</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_required">Di chuyển điện thoại theo chuyển động hình số tám để hiệu chỉnh la bàn và cố định hướng mũi tên trên bản đồ.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Cập nhật tất cả</string>
 	<!-- Cancel all button text -->

@@ -256,6 +256,10 @@
 	<string name="copyright">Prawa autorskie</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Zgłoś błąd</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_recommended">Popraw kierunek strzałki, poruszając telefonem w ruchu w kształcie ósemki, aby skalibrować kompas.</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_required">Przesuń telefon ruchem w kształcie ósemki, aby skalibrować kompas i ustalić kierunek strzałki na mapie.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Aktualizuj wszystkie</string>
 	<!-- Cancel all button text -->

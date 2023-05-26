@@ -237,6 +237,10 @@
 	<string name="copyright">저작권</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">오류 신고</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_recommended">나침반을 보정하기 위해 휴대폰을 8자 모양으로 움직여 화살표 방향을 개선하세요.</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_required">휴대폰을 8자 모양으로 움직여 나침반을 보정하고 지도에서 화살표 방향을 수정합니다.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">모두 업데이트</string>
 	<!-- Cancel all button text -->

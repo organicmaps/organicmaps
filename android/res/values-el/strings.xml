@@ -238,6 +238,10 @@
 	<string name="copyright">Πνευματικά δικαιώματα</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Αναφορά σφάλματος</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_recommended">Βελτιώστε την κατεύθυνση των βελών μετακινώντας το τηλέφωνο με μια κίνηση σχήματος οκτώ για να βαθμονομήσετε την πυξίδα.</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_required">Μετακινήστε το τηλέφωνο με μια κίνηση σχήματος οκτώ για να βαθμονομήσετε την πυξίδα και να καθορίσετε την κατεύθυνση του βέλους στο χάρτη.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Ενημέρωση όλων</string>
 	<!-- Cancel all button text -->
