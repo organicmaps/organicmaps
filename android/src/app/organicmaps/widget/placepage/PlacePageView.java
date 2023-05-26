@@ -71,6 +71,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       Arrays.asList(CoordinatesFormat.LatLonDMS,
                     CoordinatesFormat.LatLonDecimal,
                     CoordinatesFormat.OLCFull,
+                    CoordinatesFormat.UTM,
+                    CoordinatesFormat.MGRS,
                     CoordinatesFormat.OSMLink);
   private View mFrame;
   // Preview.
@@ -449,7 +451,10 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     final double lat = mMapObject.getLat();
     final double lon = mMapObject.getLon();
     final String latLon = Framework.nativeFormatLatLon(lat, lon, mCoordsFormat.getId());
-    mTvLatlon.setText(latLon);
+    if (mCoordsFormat.getShowLabel())
+      mTvLatlon.setText(mCoordsFormat.getLabel() + ": " + latLon);
+    else
+      mTvLatlon.setText(latLon);
   }
 
   private void addOrganisation()

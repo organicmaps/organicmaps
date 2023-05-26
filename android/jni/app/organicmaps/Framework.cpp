@@ -39,12 +39,13 @@
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/location.hpp"
+#include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/network_policy.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
-#include "platform/localization.hpp"
+#include "platform/utm_mgrs_utils.hpp"
 
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
@@ -960,6 +961,10 @@ Java_app_organicmaps_Framework_nativeFormatLatLon(JNIEnv * env, jclass, jdouble 
       return jni::ToJavaString(env, openlocationcode::Encode({lat, lon}));
     case android::CoordinatesFormat::OSMLink: // Link to osm.org
       return jni::ToJavaString(env, measurement_utils::FormatOsmLink(lat, lon, 14));
+    case android::CoordinatesFormat::UTM:  // Universal Transverse Mercator
+      return jni::ToJavaString(env, utm_mgrs_utils::FormatUTM(lat, lon));
+    case android::CoordinatesFormat::MGRS: // Military Grid Reference System
+      return jni::ToJavaString(env, utm_mgrs_utils::FormatMGRS(lat, lon, 5));
   }
 }
 
