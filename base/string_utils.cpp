@@ -408,6 +408,33 @@ std::string to_string_dac(double d, int dac)
   return ss.str();
 }
 
+std::string to_string_prec(long l, int prec)
+{
+  long absL = abs(l);
+  int digs = 0;
+  while (absL > 0L)
+  {
+    absL /= 10;
+    ++digs;
+  }
+  if (digs == 0)
+      digs = 1;
+
+  std::ostringstream ss;
+  if (l<0)
+      ss << '-';
+
+  while(prec > digs)
+  {
+      ss << '0';
+      --prec;
+  }
+
+  ss << l;
+
+  return ss.str();
+}
+
 bool IsHTML(std::string const & utf8)
 {
   std::string::const_iterator it = utf8.begin();
