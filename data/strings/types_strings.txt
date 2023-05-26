@@ -26339,7 +26339,45 @@
 
   [type.waterway.fish_pass]
     en = Fish Pass
+    ar = سلم سمك
+    be = Рыбаход
+    bg = Стълба за риба
+    ca = Pas de peix
+    cs = Žebřík pro ryby
+    da = Fiskestige
     de = Fischtreppe
+    el = Σκάλα ψαριών
+    es = Escalera de peces
+    es-MX = Escalera de pescado
+    et = Kala redel
+    eu = Arrainen eskailera
+    fa = نردبان ماهی
+    fi = Kalatikkaat
+    fr = Échelle à poissons
+    he = סולם דגים
+    hu = Hal létra
+    id = Tangga ikan
+    it = Passaggio per pesci
+    ja = 魚道
+    ko = 물고기 사다리
+    lt = Žuvitakis
+    mr = मासे शिडी
+    nb = Fiskestige
+    nl = Vistrap
+    pl = Przepławka
+    pt = Escada de peixes
+    pt-BR = Escada de peixes
+    ro = Scară de pește
+    ru = Рыбоход
+    sk = Rebrík pre ryby
+    sv = Fiskstege
+    sw = Ngazi ya samaki
+    th = บันไดปลา
+    tr = Balık merdiveni
+    uk = Рибохід
+    vi = Thang cá
+    zh-Hans = 鱼梯
+    zh-Hant = 魚梯
 
   [type.waterway.dam]
     en = Dam
