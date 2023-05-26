@@ -259,6 +259,10 @@
 	<string name="copyright">حقوق النشر</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">الإبلاغ عن خطأ</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_recommended">قم بتحسين اتجاه السهم عن طريق تحريك الهاتف في حركة على شكل ثمانية لمعايرة البوصلة.</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_required">حرك الهاتف في حركة على شكل ثمانية لمعايرة البوصلة وإصلاح اتجاه السهم على الخريطة.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">تحديث الكل</string>
 	<!-- Cancel all button text -->

@@ -242,6 +242,10 @@
 	<string name="copyright">Copyright</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Segnala un errore</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_recommended">Migliorare la direzione della freccia muovendo il telefono con un movimento a otto per calibrare la bussola.</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_required">Muovere il telefono con un movimento a otto per calibrare la bussola e fissare la direzione della freccia sulla mappa.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Aggiorna tutte</string>
 	<!-- Cancel all button text -->

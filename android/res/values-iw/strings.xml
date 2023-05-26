@@ -185,6 +185,10 @@
 	<string name="copyright">זכויות יוצרים</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">דווחו על באג</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_recommended">שפר את כיוון החץ על ידי הזזת הטלפון בתנועה של שמונה כדי לכייל את המצפן.</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_required">הזז את הטלפון בתנועה של דמות שמונה כדי לכייל את המצפן ולתקן את כיוון החץ במפה.</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">בטל הכול</string>
 	<!-- Country queued for download -->

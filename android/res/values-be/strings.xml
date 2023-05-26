@@ -255,6 +255,10 @@
 	<string name="copyright">Капірайт</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Паведаміць аб памылцы</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_recommended">Палепшыце кірунак стрэлкі, перамяшчаючы тэлефон у выглядзе васьмёркі, каб адкалібраваць компас.</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_required">Перамяшчайце тэлефон у выглядзе васьмёркі, каб адкалібраваць компас і зафіксаваць кірунак стрэлкі на карце.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Абнавіць усё</string>
 	<!-- Cancel all button text -->

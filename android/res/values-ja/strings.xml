@@ -235,6 +235,10 @@
 	<string name="copyright">著作権</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">バグを報告</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_recommended">携帯電話を8の字に動かしてコンパスを較正することで、矢印の方向を改善します。</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_required">携帯電話を8の字に動かしてコンパスを校正し、地図上の矢印の方向を固定します。</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">全てをアップデート</string>
 	<!-- Cancel all button text -->

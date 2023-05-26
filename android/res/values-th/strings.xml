@@ -239,6 +239,10 @@
 	<string name="copyright">ลิขสิทธิ์</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">แจ้งข้อผิดพลาด</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_recommended">ปรับปรุงทิศทางลูกศรโดยขยับโทรศัพท์เป็นเลขแปดเพื่อปรับเทียบเข็มทิศ</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_required">ขยับโทรศัพท์เป็นเลขแปดเพื่อปรับเทียบเข็มทิศและกำหนดทิศทางลูกศรบนแผนที่</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">อัปเดตทั้งหมด</string>
 	<!-- Cancel all button text -->

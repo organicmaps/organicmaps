@@ -237,6 +237,10 @@
 	<string name="copyright">Autorské práva</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Nahlásiť chybu</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_recommended">Zlepšite smer šípok pohybom telefónu v tvare osmičky, aby ste kalibrovali kompas.</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_required">Pohybom telefónu v tvare osmičky kalibrujte kompas a zafixujte smer šípky na mape.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Aktualizovať všetko</string>
 	<!-- Cancel all button text -->

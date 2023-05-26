@@ -244,6 +244,10 @@
 	<string name="copyright">Авторски права</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Докладване на проблем</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_recommended">Подобрете посоката на стрелката, като движите телефона с движение тип \"осмица\", за да калибрирате компаса.</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_required">Преместете телефона с движение тип \"осмица\", за да калибрирате компаса и да фиксирате посоката на стрелката върху картата.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Обновяване на всичко</string>
 	<!-- Cancel all button text -->

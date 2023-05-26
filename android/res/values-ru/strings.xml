@@ -259,6 +259,10 @@
 	<string name="copyright">Копирайт</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Сообщить о проблеме</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_recommended">Улучшите направление стрелки, перемещая телефон восьмеркой, чтобы откалибровать компас.</string>
+	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+	<string name="compass_calibration_required">Двигайте телефон восьмеркой, чтобы откалибровать компас и зафиксировать направление стрелки на карте.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Обновить все</string>
 	<!-- Cancel all button text -->
