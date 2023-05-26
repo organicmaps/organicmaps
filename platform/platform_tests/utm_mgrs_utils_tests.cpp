@@ -38,6 +38,7 @@ UNIT_TEST(FormatMGRS)
 
   TEST_EQUAL(FormatMGRS(84.644103, 3.000009, 5), "Latitude limit exceeded", ()); // Some converters generate string "Z AB 31142 05767"
   TEST_EQUAL(FormatMGRS(-81.016469, 8.745519, 5), "Latitude limit exceeded", ()); // Some converters generate string "B BX 51947 87732"
+  TEST_EQUAL(FormatMGRS(12.016469, 188.0, 2), "Longitude limit exceeded", ());
 
   // Test data from https://s3.amazonaws.com/mgrs.io/mgrsToGeo_WE.txt
   TEST_EQUAL(FormatMGRS(0.000005, -0.592324, 5), "30N YF 67993 00000", ());

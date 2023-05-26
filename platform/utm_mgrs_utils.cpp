@@ -85,6 +85,11 @@ string FormatMGRS(double lat, double lon, int precision)
     else if (precision < 1)
         precision = 1;
 
+    if (lat <= -80 || lat > 84)
+        return "Latitude limit exceeded";
+    if (lon <= -180 || lon > 180)
+        return "Longitude limit exceeded";
+
     UTMPoint mgrsp = latlon_to_utm(lat, lon);
 
     // Need to add this to set the right letter for the latitude.
@@ -95,6 +100,11 @@ string FormatMGRS(double lat, double lon, int precision)
 // Convert lat,lon for WSG 84 ellipsoid to UTM string.
 string FormatUTM(double lat, double lon)
 {
+    if (lat <= -80 || lat > 84)
+        return "Latitude limit exceeded";
+    if (lon <= -180 || lon > 180)
+        return "Longitude limit exceeded";
+
     UTMPoint utm = latlon_to_utm(lat, lon);
     return utm_to_str(utm);
 }
