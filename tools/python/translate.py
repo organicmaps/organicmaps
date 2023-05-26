@@ -103,7 +103,9 @@ def deepl_translate_one(text, target_language):
   payload = {
       'auth_key': get_api_key(),
       'text': text,
+      'source_lang': 'EN',
       'target_lang': target_language,
+      'formality': 'prefer_less',
   }
   headers = {'Content-Type': 'application/x-www-form-urlencoded'}
   response = requests.request('POST', url, headers=headers, data=payload)
@@ -157,7 +159,7 @@ if __name__ == '__main__':
       translations.pop(regional)
 
   print('\nMerged Deepl and Google translations:')
-  en = translations.pop('en')
+  en = translations.pop('en').title()  # Historically, English is always in Title Case
   langs = list(translations.keys())
   langs.sort()
 
