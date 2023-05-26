@@ -430,7 +430,7 @@ std::string to_string_prec(long l, int prec)
       --prec;
   }
 
-  ss << l;
+  ss << abs(l);
 
   return ss.str();
 }
