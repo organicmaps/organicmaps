@@ -1727,6 +1727,7 @@
 	<string name="type.tourism.zoo">Állatkert</string>
 	<string name="type.waterway.canal">Csatorna</string>
 	<string name="type.waterway.canal.tunnel">Csatorna</string>
+	<string name="type.waterway.fish_pass">Hal létra</string>
 	<string name="type.waterway.lock_gate">Zsilip</string>
 	<string name="type.waterway.river">Folyó</string>
 	<string name="type.waterway.river.tunnel">Folyó</string>

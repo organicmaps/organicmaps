@@ -1689,6 +1689,7 @@
 	<string name="type.tourism.wilderness_hut">Vildmarkshytte</string>
 	<string name="type.waterway.canal">Kanal</string>
 	<string name="type.waterway.canal.tunnel">Kanal</string>
+	<string name="type.waterway.fish_pass">Fiskestige</string>
 	<string name="type.waterway.lock_gate">Låseport</string>
 	<string name="type.waterway.river">Flod</string>
 	<string name="type.waterway.river.tunnel">Flod</string>

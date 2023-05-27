@@ -1716,6 +1716,7 @@
 	<string name="type.tourism.viewpoint">Punct de vedere</string>
 	<string name="type.tourism.wilderness_hut">Cabană în pădure</string>
 	<string name="type.tourism.zoo">Grădină zoologică</string>
+	<string name="type.waterway.fish_pass">Scară de pește</string>
 	<string name="type.waterway.lock_gate">Ecluză</string>
 	<string name="type.waterway.river">Râu</string>
 	<string name="type.waterway.river.tunnel">Râu</string>

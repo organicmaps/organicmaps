@@ -1731,6 +1731,7 @@
 	<string name="type.waterway">जलमार्ग</string>
 	<string name="type.waterway.canal">कालवा</string>
 	<string name="type.waterway.canal.tunnel">कालवा</string>
+	<string name="type.waterway.fish_pass">मासे शिडी</string>
 	<string name="type.waterway.dam">धरण</string>
 	<string name="type.waterway.ditch">खंदक</string>
 	<string name="type.waterway.ditch.tunnel">खंदक</string>

@@ -1959,6 +1959,7 @@
 	<string name="type.waterway">Водный путь</string>
 	<string name="type.waterway.canal">Канал</string>
 	<string name="type.waterway.canal.tunnel">Канал</string>
+	<string name="type.waterway.fish_pass">Рыбоход</string>
 	<string name="type.waterway.dam">Дамба</string>
 	<string name="type.waterway.ditch">Канава</string>
 	<string name="type.waterway.ditch.tunnel">Канава</string>

@@ -1929,6 +1929,7 @@
 	<string name="type.waterway">Veetee</string>
 	<string name="type.waterway.canal">Kanal</string>
 	<string name="type.waterway.canal.tunnel">Kanal</string>
+	<string name="type.waterway.fish_pass">Kala redel</string>
 	<string name="type.waterway.dam">Tamm</string>
 	<string name="type.waterway.ditch">Kraav</string>
 	<string name="type.waterway.ditch.tunnel">Kraav</string>

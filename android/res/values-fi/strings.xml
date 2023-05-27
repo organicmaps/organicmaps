@@ -1764,6 +1764,7 @@
 	<string name="type.waterway">Vesiväylä</string>
 	<string name="type.waterway.canal">Kanaali</string>
 	<string name="type.waterway.canal.tunnel">Kanaali</string>
+	<string name="type.waterway.fish_pass">Kalatikkaat</string>
 	<string name="type.waterway.dam">Pato</string>
 	<string name="type.waterway.ditch">Oja</string>
 	<string name="type.waterway.ditch.tunnel">Oja</string>

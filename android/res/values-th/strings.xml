@@ -1707,6 +1707,7 @@
 	<string name="type.tourism.zoo">สวนสัตว์</string>
 	<string name="type.waterway.canal">คลอง</string>
 	<string name="type.waterway.canal.tunnel">คลอง</string>
+	<string name="type.waterway.fish_pass">บันไดปลา</string>
 	<string name="type.waterway.lock_gate">ประตูระบายน้ำ</string>
 	<string name="type.waterway.river">แม่น้ำ</string>
 	<string name="type.waterway.river.tunnel">แม่น้ำ</string>

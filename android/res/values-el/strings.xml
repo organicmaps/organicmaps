@@ -1711,6 +1711,7 @@
 	<string name="type.tourism.zoo">Ζωολογικός κήπος</string>
 	<string name="type.waterway.canal">Κανάλι</string>
 	<string name="type.waterway.canal.tunnel">Κανάλι</string>
+	<string name="type.waterway.fish_pass">Σκάλα ψαριών</string>
 	<string name="type.waterway.lock_gate">Φράγμα</string>
 	<string name="type.waterway.river">Ποταμός</string>
 	<string name="type.waterway.river.tunnel">Ποταμός</string>

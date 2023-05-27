@@ -1712,6 +1712,7 @@
 	<string name="type.tourism.zoo">zoologická zahrada</string>
 	<string name="type.waterway.canal">Kanál</string>
 	<string name="type.waterway.canal.tunnel">Kanál</string>
+	<string name="type.waterway.fish_pass">Žebřík pro ryby</string>
 	<string name="type.waterway.lock_gate">Stavidlo</string>
 	<string name="type.waterway.river">Řeka</string>
 	<string name="type.waterway.river.tunnel">Řeka</string>

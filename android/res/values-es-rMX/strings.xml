@@ -457,6 +457,7 @@
 	<string name="type.sport.skiing">Esquí</string>
 	<string name="type.sport.soccer">Fútbol</string>
 	<string name="type.sport.tennis">Cancha de tenis</string>
+	<string name="type.waterway.fish_pass">Escalera de pescado</string>
 	<string name="type.wheelchair.limited">Parcialmente equipado para discapacitados</string>
 	<string name="type.wheelchair.no">No equipado para discapacitados</string>
 	<string name="type.wheelchair.yes">Equipado para discapacitados</string>

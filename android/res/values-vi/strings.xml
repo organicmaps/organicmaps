@@ -1704,6 +1704,7 @@
 	<string name="type.tourism.zoo">Vườn bách thú</string>
 	<string name="type.waterway.canal">Kênh</string>
 	<string name="type.waterway.canal.tunnel">Kênh</string>
+	<string name="type.waterway.fish_pass">Thang cá</string>
 	<string name="type.waterway.lock_gate">Cổng Khóa</string>
 	<string name="type.waterway.river">Sông</string>
 	<string name="type.waterway.river.tunnel">Sông</string>

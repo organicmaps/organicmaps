@@ -1694,6 +1694,7 @@
 	<string name="type.tourism.wilderness_hut">Vildmarksstuga</string>
 	<string name="type.waterway.canal">Kanal</string>
 	<string name="type.waterway.canal.tunnel">Kanal</string>
+	<string name="type.waterway.fish_pass">Fiskstege</string>
 	<string name="type.waterway.lock_gate">Slussport</string>
 	<string name="type.waterway.river">Flod</string>
 	<string name="type.waterway.river.tunnel">Flod</string>

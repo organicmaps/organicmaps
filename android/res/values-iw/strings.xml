@@ -701,5 +701,6 @@
 	<string name="type.tourism.information.guidepost">מנחה</string>
 	<string name="type.tourism.information.map">מפת תיירות</string>
 	<string name="type.tourism.information.office">משרד תיירות</string>
+	<string name="type.waterway.fish_pass">סולם דגים</string>
 	<string name="type.amenity.events_venue">מקום אירועים</string>
 </resources>

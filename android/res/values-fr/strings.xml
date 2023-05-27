@@ -1861,6 +1861,7 @@
 	<string name="type.tourism.wilderness_hut">Refuge non gardé</string>
 	<string name="type.traffic_calming.bump">Ralentisseur</string>
 	<string name="type.traffic_calming.hump">Ralentisseur</string>
+	<string name="type.waterway.fish_pass">Échelle à poissons</string>
 	<string name="type.waterway.dam">Barrage</string>
 	<string name="type.waterway.ditch">Fossé</string>
 	<string name="type.waterway.ditch.tunnel">Fossé</string>

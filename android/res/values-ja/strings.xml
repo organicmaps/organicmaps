@@ -1843,6 +1843,7 @@
 	<string name="type.waterway">水域</string>
 	<string name="type.waterway.canal">運河</string>
 	<string name="type.waterway.canal.tunnel">運河</string>
+	<string name="type.waterway.fish_pass">魚道</string>
 	<string name="type.waterway.dam">ダム</string>
 	<string name="type.waterway.ditch">排水路</string>
 	<string name="type.waterway.ditch.tunnel">排水路</string>
