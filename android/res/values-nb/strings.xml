@@ -1763,6 +1763,7 @@
 	<string name="type.tourism.zoo">Dyrehage</string>
 	<string name="type.waterway.canal">Kanal</string>
 	<string name="type.waterway.canal.tunnel">Kanal</string>
+	<string name="type.waterway.fish_pass">Fiskestige</string>
 	<string name="type.waterway.lock_gate">Sluseport</string>
 	<string name="type.waterway.river">Elv</string>
 	<string name="type.waterway.river.tunnel">Elv</string>

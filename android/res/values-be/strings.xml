@@ -1171,6 +1171,7 @@
 	<string name="type.tourism.information.guidepost">Даведнік</string>
 	<string name="type.tourism.information.map">Карта</string>
 	<string name="type.tourism.information.office">Турыстычны офіс</string>
+	<string name="type.waterway.fish_pass">Рыбаход</string>
 	<string name="type.waterway.river">Рака</string>
 	<string name="type.waterway.river.tunnel">Рака</string>
 	<string name="type.waterway.riverbank">Рака</string>

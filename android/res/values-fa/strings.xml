@@ -1619,6 +1619,7 @@
 	<string name="type.tourism.zoo">گردشگری</string>
 	<string name="type.waterway.canal">کانال اب</string>
 	<string name="type.waterway.canal.tunnel">کانال اب</string>
+	<string name="type.waterway.fish_pass">نردبان ماهی</string>
 	<string name="type.waterway.river">رودخانه</string>
 	<string name="type.waterway.river.tunnel">رودخانه</string>
 	<string name="type.waterway.riverbank">رودخانه</string>

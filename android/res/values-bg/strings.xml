@@ -1018,5 +1018,6 @@
 	<string name="type.tourism.information.guidepost">Пътеводител</string>
 	<string name="type.tourism.information.map">Карта</string>
 	<string name="type.tourism.information.office">Туристически офис</string>
+	<string name="type.waterway.fish_pass">Стълба за риба</string>
 	<string name="type.amenity.events_venue">Място за провеждане на събития</string>
 </resources>

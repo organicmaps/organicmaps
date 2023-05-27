@@ -1929,6 +1929,7 @@
 	<string name="type.waterway">Waterweg</string>
 	<string name="type.waterway.canal">Kanaal</string>
 	<string name="type.waterway.canal.tunnel">Kanaal</string>
+	<string name="type.waterway.fish_pass">Vistrap</string>
 	<string name="type.waterway.dam">Dam</string>
 	<string name="type.waterway.ditch">Sloot</string>
 	<string name="type.waterway.ditch.tunnel">Sloot</string>

@@ -1695,6 +1695,7 @@
 	<string name="type.tourism.zoo">Kebun binatang</string>
 	<string name="type.waterway.canal">Kanal</string>
 	<string name="type.waterway.canal.tunnel">Kanal</string>
+	<string name="type.waterway.fish_pass">Tangga ikan</string>
 	<string name="type.waterway.lock_gate">Gerbang pengunci</string>
 	<string name="type.waterway.river">Sungai</string>
 	<string name="type.waterway.river.tunnel">Sungai</string>

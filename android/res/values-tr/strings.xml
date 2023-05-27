@@ -1932,6 +1932,7 @@
 	<string name="type.waterway">Su Yolu</string>
 	<string name="type.waterway.canal">Kanal</string>
 	<string name="type.waterway.canal.tunnel">Kanal</string>
+	<string name="type.waterway.fish_pass">Balık merdiveni</string>
 	<string name="type.waterway.dam">Baraj</string>
 	<string name="type.waterway.ditch">Hendek</string>
 	<string name="type.waterway.ditch.tunnel">Hendek</string>

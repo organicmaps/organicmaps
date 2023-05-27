@@ -1845,6 +1845,7 @@
 	<string name="type.traffic_calming.hump">Dosso</string>
 	<string name="type.waterway.canal">Canale</string>
 	<string name="type.waterway.canal.tunnel">Canale</string>
+	<string name="type.waterway.fish_pass">Passaggio per pesci</string>
 	<string name="type.waterway.dam">Diga</string>
 	<string name="type.waterway.ditch">Fosso</string>
 	<string name="type.waterway.ditch.tunnel">Fosso</string>

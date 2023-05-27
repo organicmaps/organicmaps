@@ -1814,6 +1814,7 @@
 	<string name="type.tourism.theme_park">Parke tematiko</string>
 	<string name="type.tourism.viewpoint">Bista panoramikoa</string>
 	<string name="type.tourism.wilderness_hut">Kabina</string>
+	<string name="type.waterway.fish_pass">Arrainen eskailera</string>
 	<string name="type.waterway.lock_gate">Atea</string>
 	<string name="type.waterway.river">Ibai</string>
 	<string name="type.waterway.river.tunnel">Ibai</string>

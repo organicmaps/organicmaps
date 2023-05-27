@@ -1750,6 +1750,7 @@
 	<string name="type.tourism.zoo">動物園</string>
 	<string name="type.waterway.canal">運河</string>
 	<string name="type.waterway.canal.tunnel">運河</string>
+	<string name="type.waterway.fish_pass">魚梯</string>
 	<string name="type.waterway.lock_gate">閘門</string>
 	<string name="type.waterway.river">河流</string>
 	<string name="type.waterway.river.tunnel">河流</string>

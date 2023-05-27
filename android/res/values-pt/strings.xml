@@ -1879,6 +1879,7 @@
 	<string name="type.waterway">Curso de água</string>
 	<string name="type.waterway.canal">Canal</string>
 	<string name="type.waterway.canal.tunnel">Canal</string>
+	<string name="type.waterway.fish_pass">Escada de peixes</string>
 	<string name="type.waterway.dam">Barragem</string>
 	<string name="type.waterway.ditch">Vala</string>
 	<string name="type.waterway.ditch.tunnel">Vala</string>

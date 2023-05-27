@@ -777,4 +777,5 @@
 	<string name="type.shop.agrarian">Botiga agrícola</string>
 	<string name="type.shop.appliance">Botiga d\'electrodomèstics</string>
 	<string name="type.shop.bed">Botiga de llits</string>
+	<string name="type.waterway.fish_pass">Pas de peix</string>
 </resources>

@@ -1900,6 +1900,7 @@
 	<string name="type.waterway">Curso de agua</string>
 	<string name="type.waterway.canal">Canal</string>
 	<string name="type.waterway.canal.tunnel">Canal</string>
+	<string name="type.waterway.fish_pass">Escalera de peces</string>
 	<string name="type.waterway.dam">Presa</string>
 	<string name="type.waterway.ditch">Zanja</string>
 	<string name="type.waterway.ditch.tunnel">Zanja</string>

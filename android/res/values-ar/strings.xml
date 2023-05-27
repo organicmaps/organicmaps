@@ -1822,6 +1822,7 @@
 	<string name="type.tourism.zoo">حديقة حيوان</string>
 	<string name="type.waterway.canal">قناة</string>
 	<string name="type.waterway.canal.tunnel">قناة</string>
+	<string name="type.waterway.fish_pass">سلم سمك</string>
 	<string name="type.waterway.lock_gate">بوابة هويس</string>
 	<string name="type.waterway.river">نهر</string>
 	<string name="type.waterway.river.tunnel">نهر</string>

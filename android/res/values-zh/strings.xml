@@ -1840,6 +1840,7 @@
 	<string name="type.waterway">航道要素</string>
 	<string name="type.waterway.canal">运河</string>
 	<string name="type.waterway.canal.tunnel">运河</string>
+	<string name="type.waterway.fish_pass">鱼梯</string>
 	<string name="type.waterway.dam">水坝</string>
 	<string name="type.waterway.ditch">水沟</string>
 	<string name="type.waterway.ditch.tunnel">水沟</string>

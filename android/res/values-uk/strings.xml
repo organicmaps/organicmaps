@@ -1916,6 +1916,7 @@
 	<string name="type.waterway">Водяний шлях</string>
 	<string name="type.waterway.canal">Канал</string>
 	<string name="type.waterway.canal.tunnel">Канал</string>
+	<string name="type.waterway.fish_pass">Рибохід</string>
 	<string name="type.waterway.dam">Дамба</string>
 	<string name="type.waterway.ditch">Канава</string>
 	<string name="type.waterway.ditch.tunnel">Канава</string>

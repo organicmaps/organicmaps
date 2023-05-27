@@ -1707,6 +1707,7 @@
 	<string name="type.tourism.zoo">동물원</string>
 	<string name="type.waterway.canal">운하</string>
 	<string name="type.waterway.canal.tunnel">운하</string>
+	<string name="type.waterway.fish_pass">물고기 사다리</string>
 	<string name="type.waterway.lock_gate">수문</string>
 	<string name="type.waterway.river">강</string>
 	<string name="type.waterway.river.tunnel">강</string>
