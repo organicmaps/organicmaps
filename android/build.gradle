@@ -26,7 +26,7 @@ buildscript {
   ext.googleFirebaseServicesEnabled = project.hasProperty('firebase') ?: googleFirebaseServicesDefault
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:8.0.1'
+    classpath 'com.android.tools.build:gradle:8.0.2'
 
     if (googleMobileServicesEnabled) {
       println('Building with Google Mobile Services')
@@ -43,7 +43,7 @@ buildscript {
       println('Building without Google Firebase Services')
     }
 
-    classpath('com.github.triplet.gradle:play-publisher:3.8.2')
+    classpath('com.github.triplet.gradle:play-publisher:3.8.3')
     classpath('ru.cian:huawei-publish-gradle-plugin:1.4.0')
   }
 }
@@ -75,7 +75,7 @@ dependencies {
   // Google Firebase Services
   if (googleFirebaseServicesEnabled) {
     // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:32.0.0')
+    implementation platform('com.google.firebase:firebase-bom:32.1.0')
     // Add the dependencies for the Crashlytics and Analytics libraries
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-crashlytics'
