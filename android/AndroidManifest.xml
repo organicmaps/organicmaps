@@ -612,11 +612,17 @@
         <data android:pathPattern="/.*\\..*\\..*\\.kmz" />
         <data android:pathPattern="/.*\\..*\\..*\\..*\\.kmz" />
         <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.kmz" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\.kmz" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\.kmz" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.kmz" />
         <data android:pathPattern="/.*\\.kml" />
         <data android:pathPattern="/.*\\..*\\.kml" />
         <data android:pathPattern="/.*\\..*\\..*\\.kml" />
         <data android:pathPattern="/.*\\..*\\..*\\..*\\.kml" />
         <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.kml" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\.kml" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\.kml" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.kml" />
         <!-- Old MAPS.ME binary format //-->
         <data android:pathPattern="/.*\\.kmb" />
         <data android:pathPattern="/.*\\..*\\.kmb" />
@@ -628,6 +634,9 @@
         <data android:pathPattern="/.*\\..*\\..*\\.gpx" />
         <data android:pathPattern="/.*\\..*\\..*\\..*\\.gpx" />
         <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.gpx" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\.gpx" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\.gpx" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.gpx" />
       </intent-filter>
     </activity>
 

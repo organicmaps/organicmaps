@@ -461,6 +461,8 @@ public enum BookmarkManager
         else if (type.equalsIgnoreCase("kml+xml"))
           return filename + ".kml";
       }
+      if (mime.endsWith("gpx+xml") || mime.endsWith("gpx")) // match application/gpx, application/gpx+xml
+        return filename + ".gpx";
     }
 
     return null;

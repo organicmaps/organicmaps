@@ -25,14 +25,10 @@ public:
   explicit GpxParser(FileData & data);
   bool Push(std::string_view const & name);
   void AddAttr(std::string const & attr, std::string const & value);
-  bool IsValidAttribute(std::string const & type, std::string const & value,
-                        std::string const & attrInLowerCase) const;
-  std::string_view const & GetTagFromEnd(size_t n) const;
-  void Pop(std::string_view const & tag);
+  std::string_view GetTagFromEnd(size_t n) const;
+  void Pop(std::string_view tag);
   void CharData(std::string value);
-  
-  static kml::TrackLayer GetDefaultTrackLayer();
-  
+
 private:
   enum GeometryType
   {
@@ -42,14 +38,9 @@ private:
   };
   
   void ResetPoint();
-  void SetOrigin(std::string const & s);
-  void ParseLineCoordinates(std::string const & s, char const * blockSeparator,
-                            char const * coordSeparator);
   bool MakeValid();
   void ParseColor(std::string const &value);
-  bool GetColorForStyle(std::string const & styleUrl, uint32_t & color) const;
-  double GetTrackWidthForStyle(std::string const & styleUrl) const;
-  
+
   FileData & m_data;
   CategoryData m_compilationData;
   CategoryData * m_categoryData;  // never null

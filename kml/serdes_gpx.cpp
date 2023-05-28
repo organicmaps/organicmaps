@@ -123,7 +123,7 @@ void GpxParser::AddAttr(std::string const & attr, std::string const & value)
   
 }
 
-std::string_view const & GpxParser::GetTagFromEnd(size_t n) const
+std::string_view GpxParser::GetTagFromEnd(size_t n) const
 {
   ASSERT_LESS(n, m_tags.size(), ());
   return m_tags[m_tags.size() - n - 1];
@@ -140,7 +140,7 @@ void GpxParser::ParseColor(std::string const & value)
   m_color = kml::ToRGBA(colorBytes[0], colorBytes[1], colorBytes[2], (char)255);
 }
 
-void GpxParser::Pop(std::string_view const & tag)
+void GpxParser::Pop(std::string_view tag)
 {
   ASSERT_EQUAL(m_tags.back(), tag, ());
   
@@ -148,7 +148,7 @@ void GpxParser::Pop(std::string_view const & tag)
   {
     m2::Point p = mercator::FromLatLon(m_lat, m_lon);
     if (m_line.empty() || !AlmostEqualAbs(m_line.back().GetPoint(), p, kMwmPointAccuracy))
-      m_line.emplace_back(p);
+      m_line.emplace_back(std::move(p));
   }
   else if (tag == gpx::kTrkSeg || tag == gpx::kRte)
   {
@@ -173,11 +173,8 @@ void GpxParser::Pop(std::string_view const & tag)
         data.m_point = m_org;
         data.m_customName = std::move(m_customName);
         // Here we set custom name from 'name' field for KML-files exported from 3rd-party services.
-        if (data.m_name.size() == 1 && data.m_name.begin()->first == kDefaultLangCode &&
-            data.m_customName.empty())
-        {
+        if (data.m_name.size() == 1 && data.m_name.begin()->first == kDefaultLangCode && data.m_customName.empty())
           data.m_customName = data.m_name;
-        }
 
         m_data.m_bookmarksData.push_back(std::move(data));
       }
