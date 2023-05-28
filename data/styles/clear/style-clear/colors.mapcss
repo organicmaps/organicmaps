@@ -148,6 +148,7 @@
 @powerline: #969586;
 @tram: #7A7A7A;
 @ferry: #4499Bb;
+@train_stop_position: #2F6499;
 
 /* 6.LABELS COLORS */
 /* 6.1 Main labels */
