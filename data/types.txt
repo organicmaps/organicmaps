@@ -447,7 +447,7 @@ mapswithme
 *railway|yard
 mapswithme
 landuse|meadow
-mapswithme
+*public_transport|stop_position
 *railway|razed
 *highway|footway|demanding_mountain_hiking
 mapswithme
