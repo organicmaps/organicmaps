@@ -57226,6 +57226,33 @@ cont {
   }
 }
 cont {
+  name: "public_transport-stop_position"
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 12
+        color: 3105945
+        stroke_color: 437326080
+        text: "ref"
+      }
+      priority: 15592
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 12
+        color: 3105945
+        stroke_color: 437326080
+        text: "ref"
+      }
+      priority: 15592
+    }
+  }
+}
+cont {
   name: "railway-abandoned"
   element {
     scale: 16

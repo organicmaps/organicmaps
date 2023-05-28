@@ -447,7 +447,7 @@ deprecated|deprecated;446;x
 railway|yard;447;
 deprecated|deprecated;448;x
 natural|meadow;449;landuse|meadow
-deprecated|deprecated;450;x
+public_transport|stop_position;[public_transport=stop_position];;ref;name;450;
 railway|razed;451;
 highway|footway|demanding_mountain_hiking;[highway=footway][sac_scale=demanding_mountain_hiking];;name;int_name;452;
 deprecated|deprecated;453;x

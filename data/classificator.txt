@@ -811,6 +811,7 @@ world  +
         {}
     public_transport  +
         platform  -
+        stop_position  -
         {}
     railway  +
         abandoned  +

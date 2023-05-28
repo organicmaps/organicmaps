@@ -156,7 +156,8 @@ area|z18-[craft],
 node[amenity=bbq],
 area[amenity=bbq],
 node[amenity=toilets],
-area[amenity=toilets]
+area[amenity=toilets],
+node[public_transport=stop_position]
 {z-index: 2400;}
 
 /* Bigger than leisure=playground, sports_centre, pitch */
@@ -721,6 +722,9 @@ node|z14-[railway=station][transport=subway]::int_name,
 node|z17-[railway=subway_entrance]::int_name,
 {text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.6;text-halo-color: @label_halo_light;}
 
+node|z18-[public_transport=stop_position],
+{text: ref;text-color: @train_stop_position;text-halo-radius: 1;text-halo-opacity: 0.9;text-halo-color: @label_halo_light;}
+
 node|z17-[railway=tram_stop],
 area|z17-[railway=tram_stop]
 {text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 1;text-halo-color: @label_halo_light;}
@@ -793,6 +797,9 @@ node|z17-[railway=halt],
 node|z17-[railway=station]::int_name,
 node|z17-[railway=halt]::int_name,
 {text-offset: 1;font-size: 12;text-halo-opacity: 0.9;}
+
+node|z18-[public_transport=stop_position],
+{text-offset: 0;font-size: 12;}
 
 /* 3.2 Subway Station */
 
