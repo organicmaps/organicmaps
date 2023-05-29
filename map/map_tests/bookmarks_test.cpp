@@ -1121,6 +1121,23 @@ UNIT_CLASS_TEST(Runner, TrackParsingTest_1)
   }
 }
 
+UNIT_CLASS_TEST(Runner, FillEmptyTrackNames)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  string const kmlFile1 = GetPlatform().TestsDataPathForFile("gpx_test_data/empty_names1.gpx");
+  auto fileData1 = LoadKmlFile(kmlFile1, KmlFileType::Gpx);
+  TEST_EQUAL(fileData1->m_categoryData.m_name[kml::kDefaultLangCode], "empty_names1", ());
+  TEST_EQUAL(fileData1->m_tracksData[0].m_name[kml::kDefaultLangCode], "empty_names1 1", ());
+  TEST_EQUAL(fileData1->m_tracksData[1].m_name[kml::kDefaultLangCode], "empty_names1 2", ());
+
+  string const kmlFile2 = GetPlatform().TestsDataPathForFile("gpx_test_data/empty_names2.gpx");
+  auto fileData2 = LoadKmlFile(kmlFile2, KmlFileType::Gpx);
+  TEST_EQUAL(fileData2->m_categoryData.m_name[kml::kDefaultLangCode], "empty_names2", ());
+  TEST_EQUAL(fileData2->m_tracksData[0].m_name[kml::kDefaultLangCode], "empty_names2", ());
+}
+
 UNIT_CLASS_TEST(Runner, TrackParsingTest_2)
 {
   string const kmlFile = GetPlatform().TestsDataPathForFile("kml_test_data/track-from-google-earth.kml");

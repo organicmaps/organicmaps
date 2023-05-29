@@ -273,12 +273,55 @@ std::string const kKmbExtension = ".kmb";
 std::string const kGpxExtension = ".gpx";
 std::string const kDefaultBookmarksFileName = "Bookmarks";
 
+// Populate empty category & track names based on file name: assign file name to category name,
+// if there is only one unnamed track - assign file name to it, otherwise add numbers 1, 2, 3...
+// to file name to build names for all unnamed tracks
+void FillEmptyNames(std::unique_ptr<kml::FileData> & kmlData, const std::string & file)
+{
+  auto start = file.find_last_of('/') + 1;
+  auto end = file.find_last_of('.');
+  if (end == std::string::npos)
+    end = file.size();
+  auto name = file.substr(start, end - start);
+
+  if (kmlData->m_categoryData.m_name.empty())
+    kmlData->m_categoryData.m_name[kml::kDefaultLang] = name;
+
+  if (kmlData->m_tracksData.empty())
+    return;
+
+  auto emptyNames = std::count_if(kmlData->m_tracksData.begin(), kmlData->m_tracksData.end(),
+                                  [](const kml::TrackData & t) { return t.m_name.empty(); });
+  if (emptyNames == 0)
+    return;
+
+  auto emptyTrackNum = 1;
+  for (auto & track : kmlData->m_tracksData)
+  {
+    if (track.m_name.empty())
+    {
+      if (emptyNames == 1)
+      {
+        track.m_name[kml::kDefaultLang] = name;
+        return;
+      }
+      else
+      {
+        track.m_name[kml::kDefaultLang] = name + " " + std::to_string(emptyTrackNum);
+        emptyTrackNum++;
+      }
+    }
+  }
+}
+
 std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType fileType)
 {
   std::unique_ptr<kml::FileData> kmlData;
   try
   {
     kmlData = LoadKmlData(FileReader(file), fileType);
+    if (kmlData != nullptr)
+      FillEmptyNames(kmlData, file);
   }
   catch (std::exception const & e)
   {
