@@ -664,7 +664,7 @@
     tags = android
     en = You currently have all Location Services for this device or application disabled. Please enable them in Settings.
     ar = التطبيق أو جميع خدمات تحديد المواقع معطلة لديك في الوقت الحالي. الرجاء تفعيلها في الإعدادات.
-    be = Служба геалакацыі адклычана для гэтай прылады або праграмы. Калі ласка, уключыце яе ў Наладах.
+    be = Служба геалакацыі адключана для гэтай прылады або праграмы. Калі ласка, уключыце яе ў Наладах.
     bg = В момента всички услуги за местоположение за това устройство или приложение са деактивирани. Моля, разрешете ги в Настройки.
     ca = Teniu tots els serveis de geolocalització d'aquest aparell desactivats. Activeu-los a la configuració.
     cs = Aktuálně máte všechny možnosti pro určování polohy vypnuté. Prosím, povolte je v Nastavení.
@@ -789,7 +789,7 @@
     tags = android,ios
     en = Download has failed
     ar = فشلت عملية تنزيل
-    be = Не ўдалося спампаваць
+    be = Памылка спампоўкі
     bg = Изтеглянето се провали
     ca = La baixada ha fallat
     cs = Stahování selhalo
@@ -914,7 +914,7 @@
     comment = Text in About screen
     en = Free for everyone, made with love
     ar = مجاني للجميع ، مصنوع من الحب
-    be = Бесплатна для ўсіх, зроблена з любоўю
+    be = Бясплатна для ўсіх, зроблена з любоўю
     bg = Безплатно за всички, направени с любов
     cs = Zdarma pro všechny, vyrobené s láskou
     da = Gratis for alle, lavet med kærlighed
@@ -2195,7 +2195,7 @@
     tags = android
     en = Downloaded maps
     ar = الخرائط المنزلة
-    be = Спампаваныя карты
+    be = Спампаваныя мапы
     bg = Карти
     ca = Mapes baixats
     cs = Mapy
@@ -2790,7 +2790,7 @@
     tags = android,ios
     en = Hotel
     ar = فندق
-    be = Гасцініца
+    be = Гатэль
     bg = Хотел
     ca = Hotel
     cs = Hotel
