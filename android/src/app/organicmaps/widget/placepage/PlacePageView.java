@@ -451,7 +451,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     final double lat = mMapObject.getLat();
     final double lon = mMapObject.getLon();
     final String latLon = Framework.nativeFormatLatLon(lat, lon, mCoordsFormat.getId());
-    if (mCoordsFormat.getShowLabel())
+    if (mCoordsFormat.showLabel())
       mTvLatlon.setText(mCoordsFormat.getLabel() + ": " + latLon);
     else
       mTvLatlon.setText(latLon);

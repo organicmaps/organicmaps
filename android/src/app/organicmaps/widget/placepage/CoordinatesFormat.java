@@ -30,7 +30,7 @@ public enum CoordinatesFormat
     return label;
   }
 
-  public boolean getShowLabel()
+  public boolean showLabel()
   {
     return showLabel;
   }
