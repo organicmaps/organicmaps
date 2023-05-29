@@ -408,30 +408,12 @@ std::string to_string_dac(double d, int dac)
   return ss.str();
 }
 
-std::string to_string_prec(long l, int prec)
+std::string to_string_width(long l, int width)
 {
-  long absL = abs(l);
-  int digs = 0;
-  while (absL > 0L)
-  {
-    absL /= 10;
-    ++digs;
-  }
-  if (digs == 0)
-      digs = 1;
-
   std::ostringstream ss;
   if (l<0)
-      ss << '-';
-
-  while(prec > digs)
-  {
-      ss << '0';
-      --prec;
-  }
-
-  ss << abs(l);
-
+    ss << '-';
+  ss << std::setfill('0') << std::setw(width) << abs(l);
   return ss.str();
 }
 

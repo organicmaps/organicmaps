@@ -609,35 +609,24 @@ bool Processor::SearchCoordinates()
 {
   bool coords_found = false;
   buffer_vector<ms::LatLon, 3> results;
+  double lat, lon;
 
+  if (MatchLatLonDegree(m_query, lat, lon))
   {
-    double lat;
-    double lon;
-    if (MatchLatLonDegree(m_query, lat, lon))
-    {
-      coords_found = true;
-      results.emplace_back(lat, lon);
-    }
+    coords_found = true;
+    results.emplace_back(lat, lon);
   }
 
+  if (MatchUTMCoords(m_query, lat, lon))
   {
-    double lat;
-    double lon;
-    if (MatchUTMCoords(m_query, lat, lon))
-    {
-      coords_found = true;
-      results.emplace_back(lat, lon);
-    }
+    coords_found = true;
+    results.emplace_back(lat, lon);
   }
 
+  if (MatchMGRSCoords(m_query, lat, lon))
   {
-    double lat;
-    double lon;
-    if (MatchMGRSCoords(m_query, lat, lon))
-    {
-      coords_found = true;
-      results.emplace_back(lat, lon);
-    }
+    coords_found = true;
+    results.emplace_back(lat, lon);
   }
 
   istringstream iss(m_query);

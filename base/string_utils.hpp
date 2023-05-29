@@ -566,8 +566,8 @@ inline std::string to_string(uint64_t i) { return std::to_string(i); }
 std::string to_string_dac(double d, int dac);
 //@}
 
-// Get string with fixed count of digits. Extra '0' are added at the begining to fit size.
-std::string to_string_prec(long l, int prec);
+// Get string with fixed width. Extra '0' are added at the begining to fit size.
+std::string to_string_width(long l, int width);
 
 template <typename IterT1, typename IterT2>
 bool StartsWith(IterT1 beg, IterT1 end, IterT2 begPrefix, IterT2 endPrefix)

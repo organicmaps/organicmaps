@@ -678,14 +678,14 @@ UNIT_TEST(to_string_dac)
   TEST_EQUAL(strings::to_string_dac(1.0 + 1.0E-14, 15), "1.00000000000001", ());
 }
 
-UNIT_TEST(to_string_prec)
+UNIT_TEST(to_string_width)
 {
-  TEST_EQUAL(strings::to_string_prec(123, 5), "00123", ());
-  TEST_EQUAL(strings::to_string_prec(99, 3), "099", ());
-  TEST_EQUAL(strings::to_string_prec(0, 4), "0000", ());
-  TEST_EQUAL(strings::to_string_prec(-10, 4), "-0010", ());
-  TEST_EQUAL(strings::to_string_prec(545, 1), "545", ());
-  TEST_EQUAL(strings::to_string_prec(1073741824, 0), "1073741824", ());
+  TEST_EQUAL(strings::to_string_width(123, 5), "00123", ());
+  TEST_EQUAL(strings::to_string_width(99, 3), "099", ());
+  TEST_EQUAL(strings::to_string_width(0, 4), "0000", ());
+  TEST_EQUAL(strings::to_string_width(-10, 4), "-0010", ());
+  TEST_EQUAL(strings::to_string_width(545, 1), "545", ());
+  TEST_EQUAL(strings::to_string_width(1073741824, 0), "1073741824", ());
 }
 
 
