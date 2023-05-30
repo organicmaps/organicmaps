@@ -4,7 +4,6 @@
 #include "base/math.hpp"
 
 #include <string>
-#include <iostream>
 #include <cmath>
 
 namespace utm_mgrs_utils
@@ -47,7 +46,7 @@ constexpr double P3 = (21.0 / 16.0 * _E2 - 55.0 / 32.0 * _E4);
 constexpr double P4 = (151.0 / 96.0 * _E3 - 417.0 / 128.0 * _E5);
 constexpr double P5 = (1097.0 / 512.0 * _E4);
 
-constexpr double kInvalidNorthing = -1.0;
+constexpr int kInvalidEastingNorthing = -1;
 
 const string ZONE_LETTERS = "CDEFGHJKLMNPQRSTUVWXX";
 
@@ -235,23 +234,23 @@ string utm_to_mgrs_str(UTMPoint point, int precision)
 // Convert UTM parameters to lat,lon for WSG 84 ellipsoid.
 // If UTM parameters are valid lat and lon references are used to output calculated coordinates.
 // Otherwise function returns 'false'.
-std::optional<ms::LatLon> UTMtoLatLon(double easting, double northing, int zone_number, char zone_letter)
+std::optional<ms::LatLon> UTMtoLatLon(int easting, int northing, int zone_number, char zone_letter)
 {
   if (zone_number < 1 || zone_number > 60)
     return nullopt;
 
-  if (easting < 100000.0 || easting >= 1000000.0)
+  if (easting < 100000 || easting >= 1000000)
     return nullopt;
 
-  if (northing < 0.0 || northing > 10000000.0)
+  if (northing < 0 || northing > 10000000)
     return nullopt;
 
   if (zone_letter<'C' || zone_letter>'X' || zone_letter == 'I' || zone_letter == 'O')
     return nullopt;
 
   bool northern = (zone_letter >= 'N');
-  double x = easting - 500000.0;
-  double y = northing;
+  double x = (double)easting - 500000.0;
+  double y = (double)northing;
 
   if (!northern)
     y -= 10000000.0;
@@ -299,7 +298,7 @@ std::optional<ms::LatLon> UTMtoLatLon(double easting, double northing, int zone_
                       d3 / 6.0 * (1.0 + 2.0 * p_tan2 + c) +
                       d5 / 120.0 * (5.0 - 2.0 * c + 28.0 * p_tan2 - 3.0 * c2 + 8.0 * E_P2 + 24.0 * p_tan4)) / p_cos;
 
-  longitude = mod_angle(longitude + DegToRad(zone_number_to_central_longitude(zone_number)));
+  longitude = mod_angle(longitude + DegToRad((double)zone_number_to_central_longitude(zone_number)));
 
   return LatLon(RadToDeg(latitude), RadToDeg(longitude));
 }
@@ -308,9 +307,9 @@ std::optional<ms::LatLon> UTMtoLatLon(double easting, double northing, int zone_
 /* Given the first letter from a two-letter MGRS 100k zone, and given the
  * MGRS table set for the zone number, figure out the easting value that
  * should be added to the other, secondary easting value.*/
-double square_char_to_easting(char e, int set) {
+int square_char_to_easting(char e, int set) {
   int curCol = SET_ORIGIN_COLUMN_LETTERS[set];
-  double eastingValue = 100000.0;
+  int eastingValue = 100000;
   bool rewindMarker = false;
 
   while (curCol != e)
@@ -323,11 +322,11 @@ double square_char_to_easting(char e, int set) {
     if (curCol > 'Z')
     {
       if (rewindMarker)
-        return kInvalidNorthing;
+        return kInvalidEastingNorthing;
       curCol = 'A';
       rewindMarker = true;
     }
-    eastingValue += 100000.0;
+    eastingValue += 100000;
   }
 
   return eastingValue;
@@ -341,20 +340,14 @@ double square_char_to_easting(char e, int set) {
  * cycle of letters mean a 2000000 additional northing meters. This happens
  * approx. every 18 degrees of latitude. This method does *NOT* count any
  * additional northings. You have to figure out how many 2000000 meters need
- * to be added for the zone letter of the MGRS coordinate.
- *
- * @param n
- *      second letter of the MGRS 100k zone
- * @param set
- *      the MGRS table set number, which is dependent on the UTM zone
- *      number. */
-double square_char_to_northing(char n, int set)
+ * to be added for the zone letter of the MGRS coordinate. */
+int square_char_to_northing(char n, int set)
 {
   if (n > 'V')
-    return kInvalidNorthing;
+    return kInvalidEastingNorthing;
 
   int curRow = SET_ORIGIN_ROW_LETTERS[set];
-  double northingValue = 0.0;
+  int northingValue = 0;
   bool rewindMarker = false;
 
   while (curRow != n)
@@ -367,11 +360,11 @@ double square_char_to_northing(char n, int set)
     if (curRow > 'V')
     {
       if (rewindMarker) // Making sure that this loop ends even if n has invalid value.
-        return kInvalidNorthing;
+        return kInvalidEastingNorthing;
       curRow = 'A';
       rewindMarker = true;
     }
-    northingValue += 100000.0;
+    northingValue += 100000;
   }
 
   return northingValue;
@@ -379,80 +372,80 @@ double square_char_to_northing(char n, int set)
 
 
 // Get minimum northing value of a MGRS zone.
-double zone_to_min_northing(char zoneLetter)
+int zone_to_min_northing(char zoneLetter)
 {
-  double northing;
+  int northing;
   switch (zoneLetter)
   {
     case 'C':
-      northing = 1100000.0;
+      northing = 1100000;
       break;
     case 'D':
-      northing = 2000000.0;
+      northing = 2000000;
       break;
     case 'E':
-      northing = 2800000.0;
+      northing = 2800000;
       break;
     case 'F':
-      northing = 3700000.0;
+      northing = 3700000;
       break;
     case 'G':
-      northing = 4600000.0;
+      northing = 4600000;
       break;
     case 'H':
-      northing = 5500000.0;
+      northing = 5500000;
       break;
     case 'J':
-      northing = 6400000.0;
+      northing = 6400000;
       break;
     case 'K':
-      northing = 7300000.0;
+      northing = 7300000;
       break;
     case 'L':
-      northing = 8200000.0;
+      northing = 8200000;
       break;
     case 'M':
-      northing = 9100000.0;
+      northing = 9100000;
       break;
     case 'N':
-      northing = 0.0;
+      northing = 0;
       break;
     case 'P':
-      northing = 800000.0;
+      northing = 800000;
       break;
     case 'Q':
-      northing = 1700000.0;
+      northing = 1700000;
       break;
     case 'R':
-      northing = 2600000.0;
+      northing = 2600000;
       break;
     case 'S':
-      northing = 3500000.0;
+      northing = 3500000;
       break;
     case 'T':
-      northing = 4400000.0;
+      northing = 4400000;
       break;
     case 'U':
-      northing = 5300000.0;
+      northing = 5300000;
       break;
     case 'V':
-      northing = 6200000.0;
+      northing = 6200000;
       break;
     case 'W':
-      northing = 7000000.0;
+      northing = 7000000;
       break;
     case 'X':
-      northing = 7900000.0;
+      northing = 7900000;
       break;
     default:
-      northing = kInvalidNorthing;
+      northing = kInvalidEastingNorthing;
   }
 
   return northing;
 }
 
 // Convert MGRS parameters to UTM parameters and then use UTM to lat,lon conversion.
-std::optional<ms::LatLon> MGRStoLatLon(double easting, double northing, int zone_code, char zone_letter, char square_code[2])
+std::optional<ms::LatLon> MGRStoLatLon(int easting, int northing, int zone_code, char zone_letter, char square_code[2])
 {
   // Convert easting and northing according to zone_code and square_code
   if (zone_code < 1 || zone_code > 60)
@@ -469,20 +462,20 @@ std::optional<ms::LatLon> MGRStoLatLon(double easting, double northing, int zone
   if (char1 < 'A' || char2 < 'A' || char1 > 'Z' || char2 > 'Z' || char1 == 'I' || char2 == 'I' || char1 == 'O' || char2 == 'O')
     return nullopt;
 
-  float east100k = square_char_to_easting(char1, set);
-  if (east100k == kInvalidNorthing)
+  int east100k = square_char_to_easting(char1, set);
+  if (east100k == kInvalidEastingNorthing)
     return nullopt;
 
-  float north100k = square_char_to_northing(char2, set);
-  if (north100k == kInvalidNorthing)
+  int north100k = square_char_to_northing(char2, set);
+  if (north100k == kInvalidEastingNorthing)
     return nullopt;
 
-  double minNorthing = zone_to_min_northing(zone_letter);
-  if (minNorthing == kInvalidNorthing)
+  int minNorthing = zone_to_min_northing(zone_letter);
+  if (minNorthing == kInvalidEastingNorthing)
     return nullopt;
 
   while (north100k < minNorthing)
-    north100k += 2000000.0;
+    north100k += 2000000;
 
   easting  += east100k;
   northing += north100k;

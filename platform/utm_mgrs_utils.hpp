@@ -20,9 +20,9 @@ std::optional<std::string> FormatUTM(double lat, double lon);
 std::optional<std::string> FormatMGRS(double lat, double lon, int prec);
 
 // Covevrt UTM coordinates to Lat Lon. If UTM parameters are invalid function returns false
-std::optional<ms::LatLon> UTMtoLatLon(double easting, double northing, int zone_code, char zone_letter);
+std::optional<ms::LatLon> UTMtoLatLon(int easting, int northing, int zone_code, char zone_letter);
 
 // Covevrt MGRS coordinates to Lat Lon. If parameters are invalid function returns false
-std::optional<ms::LatLon> MGRStoLatLon(double easting, double northing, int zone_code, char zone_letter, char square_code[2]);
+std::optional<ms::LatLon> MGRStoLatLon(int easting, int northing, int zone_code, char zone_letter, char square_code[2]);
 
 }  // namespace utm_mgrs_utils

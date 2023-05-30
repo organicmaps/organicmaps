@@ -21,16 +21,16 @@ string const kSpaceChars = " \t\r";
 
 size_t MatchZoneCode(string const & query, int &zone_code);
 size_t MatchZoneLetter(string const & query, char &zone_letter, size_t startPos);
-size_t MatchLong(string const & query, long &value, size_t startPos);
+size_t MatchInt(string const & query, int &value, size_t startPos);
 
 // Parse UTM format "(\d\d)\s?(\W)\s+(\d+)\s+(\d+)" and converts it to lat,lon.
 // Return true if parsed successfully or false otherwise.
 // See utm_mgrs_coords_match_test.cpp for sample UTM strings
 std::optional<ms::LatLon> MatchUTMCoords(string const & query)
 {
-  int zone_code;
+  int  easting, northing;
+  int  zone_code;
   char zone_letter;
-  long easting, northing;
 
   size_t pos = MatchZoneCode(query, zone_code);
   if (pos == string::npos)
@@ -40,15 +40,15 @@ std::optional<ms::LatLon> MatchUTMCoords(string const & query)
   if (pos == string::npos)
     return nullopt;
 
-  pos = MatchLong(query, easting, pos);
+  pos = MatchInt(query, easting, pos);
   if (pos == string::npos)
     return nullopt;
 
-  pos = MatchLong(query, northing, pos);
+  pos = MatchInt(query, northing, pos);
   if (pos == string::npos)
     return nullopt;
 
-  return utm_mgrs_utils::UTMtoLatLon((double)easting, (double)northing, zone_code, zone_letter);
+  return utm_mgrs_utils::UTMtoLatLon(easting, northing, zone_code, zone_letter);
 }
 
 // Matches 2 digits zone code. Returns end position of matched chars or string::npos if no match.
@@ -84,19 +84,19 @@ size_t MatchZoneLetter(string const & query, char &zone_letter, size_t startPos)
 }
 
 // Matches long number ignoring spaces. Returns end position of matched chars or string::npos if no match.
-size_t MatchLong(string const & query, long &value, size_t startPos)
+size_t MatchInt(string const & query, int &value, size_t startPos)
 {
   auto pos = query.find_first_not_of(kSpaceChars, startPos);
   if (query.size() == pos)
     return string::npos;
 
-  long n = 0;
+  int n = 0;
   while(pos < query.size())
   {
     char ch = query[pos];
     if (ch >= '0' && ch <= '9')
     {
-      n = n*10 + (ch-'0');
+      n = n * 10 + (ch - '0');
       pos ++;
     }
     else if (kSpaceChars.find(ch) != string::npos) // Found space char matching end of the number
@@ -119,8 +119,8 @@ std::optional<ms::LatLon> MatchMGRSCoords(std::string const & query)
   char square_code[2];
   string eastingStr;
   string northingStr;
-  int64_t easting;
-  int64_t northing;
+  int32_t easting;
+  int32_t northing;
 
   strings::SimpleTokenizer it(query, " \t\r");
   if (!it)
@@ -194,23 +194,23 @@ std::optional<ms::LatLon> MatchMGRSCoords(std::string const & query)
   if (eastingStr.size() != northingStr.size() || eastingStr.size()>5 || northingStr.size()>5)
     return nullopt;
 
-  if (!strings::to_int64(eastingStr, easting))
+  if (!strings::to_int32(eastingStr, easting))
     return nullopt;
   if (eastingStr.size() < 5)
   {
     int decShift = 5 - eastingStr.size();
-    easting *= base::PowUint(10L, decShift);
+    easting *= base::PowUint(10, decShift);
   }
 
-  if (!strings::to_int64(northingStr, northing))
+  if (!strings::to_int32(northingStr, northing))
     return nullopt;
   if (northingStr.size() < 5)
   {
     int decShift = 5 - northingStr.size();
-    northing *= base::PowUint(10L, decShift);
+    northing *= base::PowUint(10, decShift);
   }
 
-  return utm_mgrs_utils::MGRStoLatLon((double)easting, (double)northing, zone_code, zone_letter, square_code);
+  return utm_mgrs_utils::MGRStoLatLon(easting, northing, zone_code, zone_letter, square_code);
 }
 
 }

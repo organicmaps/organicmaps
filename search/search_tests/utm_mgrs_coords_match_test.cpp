@@ -40,8 +40,6 @@ UNIT_TEST(MatchUTMCoords)
 
 UNIT_TEST(MatchUTMCoords_False)
 {
-  double lat, lon;
-
   TEST(!MatchUTMCoords("2 1st").has_value(), ());
   TEST(!MatchUTMCoords("15N5000004649776").has_value(), ());
 
@@ -74,8 +72,6 @@ UNIT_TEST(MatchUTMCoords_False)
 
 UNIT_TEST(MatchMGRSCoords_parsing)
 {
-  double lat, lon;
-
   TEST(MatchMGRSCoords("30N YF 67993 00000").has_value(), ());
   TEST(MatchMGRSCoords("30N YF 67993 00000 ").has_value(), ());
   TEST(MatchMGRSCoords("30N YF 67993  00000 ").has_value(), ());
