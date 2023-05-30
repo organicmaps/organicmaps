@@ -408,15 +408,6 @@ std::string to_string_dac(double d, int dac)
   return ss.str();
 }
 
-std::string to_string_width(long l, int width)
-{
-  std::ostringstream ss;
-  if (l<0)
-    ss << '-';
-  ss << std::setfill('0') << std::setw(width) << abs(l);
-  return ss.str();
-}
-
 bool IsHTML(std::string const & utf8)
 {
   std::string::const_iterator it = utf8.begin();

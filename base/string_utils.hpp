@@ -9,6 +9,7 @@
 #include <cerrno>
 #include <cstdint>
 #include <cstdlib>
+#include <iomanip>
 #include <iterator>
 #include <limits>
 #include <regex>
@@ -567,7 +568,15 @@ std::string to_string_dac(double d, int dac);
 //@}
 
 // Get string with fixed width. Extra '0' are added at the begining to fit size.
-std::string to_string_width(long l, int width);
+template <typename T, typename = std::enable_if_t<std::is_integral<T>::value>>
+std::string to_string_width(T l, int width)
+{
+  std::ostringstream ss;
+  if (l < 0)
+    ss << '-';
+  ss << std::setfill('0') << std::setw(width) << abs(l);
+  return ss.str();
+}
 
 template <typename IterT1, typename IterT2>
 bool StartsWith(IterT1 beg, IterT1 end, IterT2 begPrefix, IterT2 endPrefix)
