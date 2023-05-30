@@ -2,9 +2,11 @@
 
 #include <string>
 
+#include "geometry/latlon.hpp"
+
 namespace search
 {
 // Parses input query for UTM and MGRS coordinate formats.
-bool MatchUTMCoords(std::string const & query, double & lat, double & lon);
-bool MatchMGRSCoords(std::string const & query, double & lat, double & lon);
+std::optional<ms::LatLon> MatchUTMCoords(std::string const & query);
+std::optional<ms::LatLon> MatchMGRSCoords(std::string const & query);
 }  // namespace search

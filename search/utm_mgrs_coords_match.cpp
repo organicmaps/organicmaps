@@ -26,7 +26,7 @@ size_t MatchLong(string const & query, long &value, size_t startPos);
 // Parse UTM format "(\d\d)\s?(\W)\s+(\d+)\s+(\d+)" and converts it to lat,lon.
 // Return true if parsed successfully or false otherwise.
 // See utm_mgrs_coords_match_test.cpp for sample UTM strings
-bool MatchUTMCoords(string const & query, double & lat, double & lon)
+std::optional<ms::LatLon> MatchUTMCoords(string const & query)
 {
   int zone_code;
   char zone_letter;
@@ -34,21 +34,21 @@ bool MatchUTMCoords(string const & query, double & lat, double & lon)
 
   size_t pos = MatchZoneCode(query, zone_code);
   if (pos == string::npos)
-    return false;
+    return nullopt;
 
   pos = MatchZoneLetter(query, zone_letter, pos);
   if (pos == string::npos)
-    return false;
+    return nullopt;
 
   pos = MatchLong(query, easting, pos);
   if (pos == string::npos)
-    return false;
+    return nullopt;
 
   pos = MatchLong(query, northing, pos);
   if (pos == string::npos)
-    return false;
+    return nullopt;
 
-  return utm_mgrs_utils::UTMtoLatLon((double)easting, (double)northing, zone_code, zone_letter, lat, lon);
+  return utm_mgrs_utils::UTMtoLatLon((double)easting, (double)northing, zone_code, zone_letter);
 }
 
 // Matches 2 digits zone code. Returns end position of matched chars or string::npos if no match.
@@ -112,7 +112,7 @@ size_t MatchLong(string const & query, long &value, size_t startPos)
 // Parse MGRS format "(\d\d\W)\s*(\W\W)\s*(\d+)\s*(\d+)" and converts it to lat,lon.
 // Returns true if parsed successfully or false otherwise.
 // See utm_mgrs_coords_match_test.cpp for sample MGRS strings
-bool MatchMGRSCoords(std::string const & query, double & lat, double & lon)
+std::optional<ms::LatLon> MatchMGRSCoords(std::string const & query)
 {
   long zone_code;
   char zone_letter;
@@ -124,7 +124,7 @@ bool MatchMGRSCoords(std::string const & query, double & lat, double & lon)
 
   strings::SimpleTokenizer it(query, " \t\r");
   if (!it)
-    return false;
+    return nullopt;
 
   auto token = std::string(*it);
   // Parse 2 digit zone code and 1 char zone letter
@@ -133,24 +133,24 @@ bool MatchMGRSCoords(std::string const & query, double & lat, double & lon)
     char dig1 = token[0];
     char dig2 = token[1];
     if (dig1 < '0' || dig1 > '9' || dig2 < '0' || dig2 > '9')
-      return false;
+      return nullopt;
 
     zone_code = (dig1 - '0') * 10 + (dig2 - '0');
     if (zone_code<1 || zone_code > 60)
-      return false;
+      return nullopt;
 
     zone_letter = token[2];
     token = token.substr(3);
   }
   else
-    return false;
+    return nullopt;
 
   // Read next token if needed.
   if (token.size() == 0)
   {
     ++it;
     if (!it)
-      return false;
+      return nullopt;
     token = std::string(*it);
   }
 
@@ -167,7 +167,7 @@ bool MatchMGRSCoords(std::string const & query, double & lat, double & lon)
   {
     ++it;
     if (!it)
-      return false;
+      return nullopt;
     token = std::string(*it);
   }
 
@@ -184,7 +184,7 @@ bool MatchMGRSCoords(std::string const & query, double & lat, double & lon)
   {
     // eastingStr contains both easting and northing. Let's split
     if (eastingStr.size()%2 != 0)
-      return false;
+      return nullopt;
 
     int eastingSize = eastingStr.size()/2;
     northingStr = eastingStr.substr(eastingSize);
@@ -192,10 +192,10 @@ bool MatchMGRSCoords(std::string const & query, double & lat, double & lon)
   }
 
   if (eastingStr.size() != northingStr.size() || eastingStr.size()>5 || northingStr.size()>5)
-    return false;
+    return nullopt;
 
   if (!strings::to_int64(eastingStr, easting))
-    return false;
+    return nullopt;
   if (eastingStr.size() < 5)
   {
     int decShift = 5 - eastingStr.size();
@@ -203,14 +203,14 @@ bool MatchMGRSCoords(std::string const & query, double & lat, double & lon)
   }
 
   if (!strings::to_int64(northingStr, northing))
-    return false;
+    return nullopt;
   if (northingStr.size() < 5)
   {
     int decShift = 5 - northingStr.size();
     northing *= base::PowUint(10L, decShift);
   }
 
-  return utm_mgrs_utils::MGRStoLatLon((double)easting, (double)northing, zone_code, zone_letter, square_code, lat, lon);
+  return utm_mgrs_utils::MGRStoLatLon((double)easting, (double)northing, zone_code, zone_letter, square_code);
 }
 
 }
