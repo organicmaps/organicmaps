@@ -55,7 +55,7 @@ const int SET_ORIGIN_COLUMN_LETTERS[] = { 'S', 'A', 'J', 'S', 'A', 'J' };
 const int SET_ORIGIN_ROW_LETTERS[] = { 'F', 'A', 'F', 'A', 'F', 'A' };
 
 // Returns angle in radians to be between -π and π.
-double mod_angle(double value)
+double NormalizeAngle(double value)
 {
   if (value < -pi)
     value += - 2 * pi * ((int)(value - pi) / (2 * pi));
@@ -64,7 +64,7 @@ double mod_angle(double value)
   return value;
 }
 
-int latlon_to_zone_number(double lat, double lon)
+int LatLonToZoneNumber(double lat, double lon)
 {
   if (56.0 <= lat && lat < 64.0 && 3.0 <= lon && lon < 12.0)
     return 32;
@@ -84,7 +84,7 @@ int latlon_to_zone_number(double lat, double lon)
   return int((lon + 180.0) / 6.0) + 1;
 }
 
-optional<char> latitude_to_zone_letter(double lat)
+optional<char> LatitudeToZoneLetter(double lat)
 {
   if (-80.0 <= lat && lat <= 84.0)
     return ZONE_LETTERS[int(lat + 80.0) >> 3];
@@ -92,13 +92,13 @@ optional<char> latitude_to_zone_letter(double lat)
     return nullopt;
 }
 
-int zone_number_to_central_longitude(int zone_number)
+int ZoneNumberToCentralLon(int zone_number)
 {
   return (zone_number - 1) * 6 - 180 + 3;
 }
 
 // Main algorithm. Formulars source: https://github.com/Turbo87/utm
-UTMPoint latlon_to_utm(double lat, double lon)
+UTMPoint LatLonToUtm(double lat, double lon)
 {
   double const lat_rad = DegToRad(lat);
   double const lat_sin = sin(lat_rad);
@@ -108,17 +108,17 @@ UTMPoint latlon_to_utm(double lat, double lon)
   double const lat_tan2 = lat_tan * lat_tan;
   double const lat_tan4 = lat_tan2 * lat_tan2;
 
-  int const zone_number = latlon_to_zone_number(lat, lon);
+  int const zone_number = LatLonToZoneNumber(lat, lon);
   char const zone_letter = (lat >= 0.0) ? 'N' : 'S';
 
   double const lon_rad = DegToRad(lon);
-  double const central_lon = zone_number_to_central_longitude(zone_number);
+  double const central_lon = ZoneNumberToCentralLon(zone_number);
   double const central_lon_rad = DegToRad(central_lon);
 
   double const n = R / sqrt(1 - E * lat_sin * lat_sin);
   double const c = E_P2 * lat_cos * lat_cos;
 
-  double const a = lat_cos * mod_angle(lon_rad - central_lon_rad);
+  double const a = lat_cos * NormalizeAngle(lon_rad - central_lon_rad);
   double const a2 = a * a;
   double const a3 = a2 * a;
   double const a4 = a3 * a;
@@ -144,7 +144,7 @@ UTMPoint latlon_to_utm(double lat, double lon)
 }
 
 // Generate UTM string from UTM point parameters.
-string utm_to_str(UTMPoint point)
+string UTMtoStr(UTMPoint point)
 {
   return to_string(point.zone_number) + string(1, point.zone_letter) + " " + \
          to_string(int(round(point.easting))) + " " + \
@@ -212,7 +212,7 @@ string get_100k_id(double easting, double northing, int zone_number)
 
 // Convert UTM point parameters to MGRS parameters. Additional 2 char code is deducted.
 // Easting and northing parameters are reduced to 5 digits.
-string utm_to_mgrs_str(UTMPoint point, int precision)
+string UTMtoMgrsStr(UTMPoint point, int precision)
 {
   if (point.zone_letter == 'Z')
     return "Latitude limit exceeded";
@@ -298,7 +298,7 @@ std::optional<ms::LatLon> UTMtoLatLon(int easting, int northing, int zone_number
                       d3 / 6.0 * (1.0 + 2.0 * p_tan2 + c) +
                       d5 / 120.0 * (5.0 - 2.0 * c + 28.0 * p_tan2 - 3.0 * c2 + 8.0 * E_P2 + 24.0 * p_tan4)) / p_cos;
 
-  longitude = mod_angle(longitude + DegToRad((double)zone_number_to_central_longitude(zone_number)));
+  longitude = NormalizeAngle(longitude + DegToRad((double)ZoneNumberToCentralLon(zone_number)));
 
   return LatLon(RadToDeg(latitude), RadToDeg(longitude));
 }
@@ -307,7 +307,7 @@ std::optional<ms::LatLon> UTMtoLatLon(int easting, int northing, int zone_number
 /* Given the first letter from a two-letter MGRS 100k zone, and given the
  * MGRS table set for the zone number, figure out the easting value that
  * should be added to the other, secondary easting value.*/
-int square_char_to_easting(char e, int set) {
+int SquareCharToEasting(char e, int set) {
   int curCol = SET_ORIGIN_COLUMN_LETTERS[set];
   int eastingValue = 100000;
   bool rewindMarker = false;
@@ -341,7 +341,7 @@ int square_char_to_easting(char e, int set) {
  * approx. every 18 degrees of latitude. This method does *NOT* count any
  * additional northings. You have to figure out how many 2000000 meters need
  * to be added for the zone letter of the MGRS coordinate. */
-int square_char_to_northing(char n, int set)
+int SquareCharToNorthing(char n, int set)
 {
   if (n > 'V')
     return kInvalidEastingNorthing;
@@ -372,7 +372,7 @@ int square_char_to_northing(char n, int set)
 
 
 // Get minimum northing value of a MGRS zone.
-int zone_to_min_northing(char zoneLetter)
+int ZoneToMinNorthing(char zoneLetter)
 {
   int northing;
   switch (zoneLetter)
@@ -462,15 +462,15 @@ std::optional<ms::LatLon> MGRStoLatLon(int easting, int northing, int zone_code,
   if (char1 < 'A' || char2 < 'A' || char1 > 'Z' || char2 > 'Z' || char1 == 'I' || char2 == 'I' || char1 == 'O' || char2 == 'O')
     return nullopt;
 
-  int east100k = square_char_to_easting(char1, set);
+  int east100k = SquareCharToEasting(char1, set);
   if (east100k == kInvalidEastingNorthing)
     return nullopt;
 
-  int north100k = square_char_to_northing(char2, set);
+  int north100k = SquareCharToNorthing(char2, set);
   if (north100k == kInvalidEastingNorthing)
     return nullopt;
 
-  int minNorthing = zone_to_min_northing(zone_letter);
+  int minNorthing = ZoneToMinNorthing(zone_letter);
   if (minNorthing == kInvalidEastingNorthing)
     return nullopt;
 
@@ -496,14 +496,14 @@ optional<string> FormatMGRS(double lat, double lon, int precision)
   if (lon <= -180 || lon > 180)
     return nullopt; // Longitude limit exceeded.
 
-  UTMPoint mgrsp = latlon_to_utm(lat, lon);
+  UTMPoint mgrsp = LatLonToUtm(lat, lon);
 
   // Need to set the right letter for the latitude.
-  auto maybeZone = latitude_to_zone_letter(lat);
+  auto maybeZone = LatitudeToZoneLetter(lat);
   if (maybeZone)
   {
     mgrsp.zone_letter = maybeZone.value();
-    return utm_to_mgrs_str(mgrsp, precision);
+    return UTMtoMgrsStr(mgrsp, precision);
   }
 
   return nullopt;
@@ -517,8 +517,8 @@ optional<string> FormatUTM(double lat, double lon)
   if (lon <= -180 || lon > 180)
     return nullopt; // Longitude limit exceeded.
 
-  UTMPoint utm = latlon_to_utm(lat, lon);
-  return utm_to_str(utm);
+  UTMPoint utm = LatLonToUtm(lat, lon);
+  return UTMtoStr(utm);
 }
 
 

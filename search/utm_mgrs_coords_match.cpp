@@ -19,9 +19,64 @@ using namespace std;
 
 string const kSpaceChars = " \t\r";
 
-size_t MatchZoneCode(string const & query, int &zone_code);
-size_t MatchZoneLetter(string const & query, char &zone_letter, size_t startPos);
-size_t MatchInt(string const & query, int &value, size_t startPos);
+
+// Matches 2 digits zone code. Returns end position of matched chars or string::npos if no match.
+size_t MatchZoneCode(string const & query, int & zone_code)
+{
+  auto const pos = query.find_first_not_of(kSpaceChars);
+  if (query.size() - pos < 2)
+    return string::npos;
+
+  char const dig1 = query[pos];
+  char const dig2 = query[pos+1];
+  if (dig1 < '0' || dig1 > '9' || dig2 < '0' || dig2 > '9')
+    return string::npos;
+
+  zone_code = (dig1 - '0') * 10 + (dig2 - '0');
+  return pos + 2;
+}
+
+
+// Matches zone letter ignoring spaces. Returns end position of matched chars or string::npos if no match.
+size_t MatchZoneLetter(string const & query, char & zone_letter, size_t startPos)
+{
+  auto const pos = query.find_first_not_of(kSpaceChars, startPos);
+  if (query.size() == pos)
+    return string::npos;
+
+  char const l = query[pos];
+  if (l < 'A' || l > 'Z')
+    return string::npos;
+
+  zone_letter = l;
+  return pos + 1;
+}
+
+// Matches long number ignoring spaces. Returns end position of matched chars or string::npos if no match.
+size_t MatchInt(string const & query, int & value, size_t startPos)
+{
+  auto pos = query.find_first_not_of(kSpaceChars, startPos);
+  if (query.size() == pos)
+    return string::npos;
+
+  int n = 0;
+  while (pos < query.size())
+  {
+    char ch = query[pos];
+    if (ch >= '0' && ch <= '9') // Found digit
+    {
+      n = n * 10 + (ch - '0');
+      pos ++;
+    }
+    else if (kSpaceChars.find(ch) != string::npos) // Found space char matching end of the number
+      break;
+    else // Found invalid char
+      return string::npos;
+  }
+
+  value = n;
+  return pos;
+}
 
 // Parse UTM format "(\d\d)\s?(\W)\s+(\d+)\s+(\d+)" and converts it to lat,lon.
 // Return true if parsed successfully or false otherwise.
@@ -49,64 +104,6 @@ std::optional<ms::LatLon> MatchUTMCoords(string const & query)
     return nullopt;
 
   return utm_mgrs_utils::UTMtoLatLon(easting, northing, zone_code, zone_letter);
-}
-
-// Matches 2 digits zone code. Returns end position of matched chars or string::npos if no match.
-size_t MatchZoneCode(string const & query, int &zone_code)
-{
-  auto pos = query.find_first_not_of(kSpaceChars);
-  if (query.size()-pos < 2)
-    return string::npos;
-
-  char dig1 = query[pos];
-  char dig2 = query[pos+1];
-  if (dig1 < '0' || dig1 > '9' || dig2 < '0' || dig2 > '9')
-    return string::npos;
-
-  zone_code = (dig1 - '0') * 10 + (dig2 - '0');
-  return pos + 2;
-}
-
-
-// Matches zone letter ignoring spaces. Returns end position of matched chars or string::npos if no match.
-size_t MatchZoneLetter(string const & query, char &zone_letter, size_t startPos)
-{
-  auto pos = query.find_first_not_of(kSpaceChars, startPos);
-  if (query.size() == pos)
-    return string::npos;
-
-  char l = query[pos];
-  if (l < 'A' || l > 'Z')
-    return string::npos;
-
-  zone_letter = l;
-  return pos + 1;
-}
-
-// Matches long number ignoring spaces. Returns end position of matched chars or string::npos if no match.
-size_t MatchInt(string const & query, int &value, size_t startPos)
-{
-  auto pos = query.find_first_not_of(kSpaceChars, startPos);
-  if (query.size() == pos)
-    return string::npos;
-
-  int n = 0;
-  while(pos < query.size())
-  {
-    char ch = query[pos];
-    if (ch >= '0' && ch <= '9')
-    {
-      n = n * 10 + (ch - '0');
-      pos ++;
-    }
-    else if (kSpaceChars.find(ch) != string::npos) // Found space char matching end of the number
-      break;
-    else
-      return string::npos;
-  }
-
-  value = n;
-  return pos;
 }
 
 // Parse MGRS format "(\d\d\W)\s*(\W\W)\s*(\d+)\s*(\d+)" and converts it to lat,lon.
