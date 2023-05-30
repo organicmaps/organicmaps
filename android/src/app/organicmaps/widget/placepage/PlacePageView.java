@@ -450,7 +450,10 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   {
     final double lat = mMapObject.getLat();
     final double lon = mMapObject.getLon();
-    final String latLon = Framework.nativeFormatLatLon(lat, lon, mCoordsFormat.getId());
+    String latLon = Framework.nativeFormatLatLon(lat, lon, mCoordsFormat.getId());
+    if (latLon == null) // Some coordinates couldn't be converted to UTM and MGRS
+      latLon = "N/A";
+
     if (mCoordsFormat.showLabel())
       mTvLatlon.setText(mCoordsFormat.getLabel() + ": " + latLon);
     else
@@ -525,7 +528,11 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       final double lat = mMapObject.getLat();
       final double lon = mMapObject.getLon();
       for (CoordinatesFormat format : visibleCoordsFormat)
-        items.add(Framework.nativeFormatLatLon(lat, lon, format.getId()));
+      {
+        String formatted = Framework.nativeFormatLatLon(lat, lon, format.getId());
+        if (formatted != null)
+          items.add(formatted);
+      }
     }
     else if (id == R.id.ll__place_operator)
       items.add(mTvOperator.getText().toString());

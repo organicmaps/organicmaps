@@ -962,9 +962,21 @@ Java_app_organicmaps_Framework_nativeFormatLatLon(JNIEnv * env, jclass, jdouble 
     case android::CoordinatesFormat::OSMLink: // Link to osm.org
       return jni::ToJavaString(env, measurement_utils::FormatOsmLink(lat, lon, 14));
     case android::CoordinatesFormat::UTM:  // Universal Transverse Mercator
-      return jni::ToJavaString(env, utm_mgrs_utils::FormatUTM(lat, lon).value_or(nullptr));
+    {
+      optional<string> utmFormat = utm_mgrs_utils::FormatUTM(lat, lon);
+      if (utmFormat)
+        return jni::ToJavaString(env, utmFormat.value());
+      else
+        return nullptr;
+    }
     case android::CoordinatesFormat::MGRS: // Military Grid Reference System
-      return jni::ToJavaString(env, utm_mgrs_utils::FormatMGRS(lat, lon, 5).value_or(nullptr));
+    {
+      optional<string> mgrsFormat = utm_mgrs_utils::FormatMGRS(lat, lon, 5);
+      if (mgrsFormat)
+         return jni::ToJavaString(env, mgrsFormat.value());
+      else
+         return nullptr;
+    }
   }
 }
 
