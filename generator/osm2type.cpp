@@ -570,8 +570,9 @@ string DetermineSurface(OsmElement * p)
 {
   string surface;
   string smoothness;
-  string surface_grade;
-  bool isHighway = false;
+  double surfaceGrade = 2; // default is "normal"
+  string highway;
+  string trackGrade;
 
   for (auto const & tag : p->m_tags)
   {
@@ -580,14 +581,16 @@ string DetermineSurface(OsmElement * p)
     else if (tag.m_key == "smoothness")
       smoothness = tag.m_value;
     else if (tag.m_key == "surface:grade")
-      surface_grade = tag.m_value;
+      (void)strings::to_double(tag.m_value, surfaceGrade);
+    else if (tag.m_key == "tracktype")
+      trackGrade = tag.m_value;
     else if (tag.m_key == "highway")
-      isHighway = true;
+      highway = tag.m_value;
     else if (tag.m_key == "4wd_only" && (tag.m_value == "yes" || tag.m_value == "recommended"))
       return "unpaved_bad";
   }
 
-  if (!isHighway || (surface.empty() && smoothness.empty()))
+  if (highway.empty() || (surface.empty() && smoothness.empty()))
     return {};
 
   // According to https://wiki.openstreetmap.org/wiki/Key:surface
@@ -597,16 +600,23 @@ string DetermineSurface(OsmElement * p)
   };
 
   static base::StringIL badSurfaces = {
-      "cobblestone", "dirt", "earth", "grass", "gravel", "ground", "metal", "mud", "unpaved",
-      "pebblestone", "sand", "sett", "snow", "unhewn_cobblestone", "wood", "woodchips"
+      "cobblestone", "dirt", "earth", "grass", "gravel", "ground", "metal", "mud", "rock", "unpaved",
+      "pebblestone", "sand", "sett", "snow", "stepping_stones", "unhewn_cobblestone", "wood", "woodchips"
   };
 
-  static base::StringIL badSmoothness = {
-      "bad",           "very_bad",       "horrible",        "very_horrible", "impassable",
+  static base::StringIL veryBadSurfaces = {
+      "dirt", "earth", "grass", "ground", "mud", "rock", "sand", "snow",
+      "stepping_stones", "woodchips"
+  };
+
+  static base::StringIL veryBadSmoothness = {
+      "very_bad",       "horrible",        "very_horrible", "impassable",
       "robust_wheels", "high_clearance", "off_road_wheels", "rough"
   };
 
-  static base::StringIL goodSmoothness = { "excellent", "good" };
+  static base::StringIL midSmoothness = {
+      "unknown", "intermediate"
+  };
 
   auto const Has = [](base::StringIL const & il, string const & v)
   {
@@ -620,28 +630,48 @@ string DetermineSurface(OsmElement * p)
   };
 
   bool isGood = true;
-  bool isPaved;
+  bool isPaved = true;
 
-  if (!surface.empty())
-    isPaved = Has(pavedSurfaces, surface);
+  // Check surface.
+  if (surface.empty())
+  {
+    CHECK(!smoothness.empty(), ());
+    // Extremely bad case.
+    if (Has(veryBadSmoothness, smoothness))
+      return "unpaved_bad";
+
+    // Tracks already have low speed for cars, but this is mostly for bicycle or pedestrian.
+    // If a track has mapped smoothness, obviously it is unpaved :)
+    if (highway == "track" && trackGrade != "grade1")
+      isPaved = false;
+  }
   else
-    isPaved = !smoothness.empty() && Has(goodSmoothness, smoothness);
+    isPaved = Has(pavedSurfaces, surface);
 
+  // Check smoothness.
   if (!smoothness.empty())
   {
-    if (smoothness == "intermediate" && !surface.empty())
-      isGood = !Has(badSurfaces, surface);
+    // Middle case has some heuristics.
+    /// @todo Actually, should implement separate surface and smoothness types.
+    if (Has(midSmoothness, smoothness))
+    {
+      if (isPaved)
+      {
+        if (highway == "motorway" || highway == "trunk")
+          return {};
+        else
+          isGood = false;
+      }
+      else
+        isGood = !Has(badSurfaces, surface);
+    }
     else
-      isGood = !Has(badSmoothness, smoothness);
-
-    /// @todo Hm, looks like some hack, but will not change it now ..
-    if (smoothness == "bad" && !isPaved)
-      isGood = true;
+      isGood = (smoothness != "bad") && !Has(veryBadSmoothness, smoothness);
   }
-  else if (surface_grade == "0" || surface_grade == "1")
+  else if (surfaceGrade < 2)
     isGood = false;
-  else if (surface_grade.empty() || surface_grade == "2")
-    isGood = surface.empty() || !Has(badSurfaces, surface);
+  else if (!surface.empty() && surfaceGrade < 3)
+    isGood = isPaved ? !Has(badSurfaces, surface) : !Has(veryBadSurfaces, surface);
 
   string psurface = isPaved ? "paved_" : "unpaved_";
   psurface += isGood ? "good" : "bad";
