@@ -770,53 +770,122 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Surface)
 {
+  TestSurfaceTypes("asphalt", "excellent", "", "paved_good");
   TestSurfaceTypes("asphalt", "", "", "paved_good");
+  TestSurfaceTypes("asphalt", "intermediate", "", "paved_bad");
   TestSurfaceTypes("asphalt", "bad", "", "paved_bad");
   TestSurfaceTypes("asphalt", "", "0", "paved_bad");
 
   TestSurfaceTypes("cobblestone", "good", "", "paved_good");
   TestSurfaceTypes("cobblestone", "", "", "paved_bad");
   TestSurfaceTypes("cobblestone", "intermediate", "", "paved_bad");
+  TestSurfaceTypes("cobblestone", "very_bad", "", "paved_bad");
 
+  TestSurfaceTypes("compacted", "good", "", "unpaved_good");
   TestSurfaceTypes("compacted", "", "", "unpaved_good");
   TestSurfaceTypes("fine_gravel", "", "", "unpaved_good");
   TestSurfaceTypes("fine_gravel", "intermediate", "", "unpaved_good");
-  TestSurfaceTypes("pebblestone", "bad", "", "unpaved_good");      // Hack in DetermineSurface.
+  TestSurfaceTypes("pebblestone", "bad", "", "unpaved_bad");
   TestSurfaceTypes("pebblestone", "horrible", "", "unpaved_bad");
 
-  // We definitely should store more than 4 surface options.
-  // Gravel (widely used tag) always goes to unpaved_bad which is strange sometimes.
-  // At the same time, we can't definitely say that it's unpaved_good :)
   TestSurfaceTypes("gravel", "excellent", "", "unpaved_good");
-  TestSurfaceTypes("gravel", "", "", "unpaved_bad");
+  TestSurfaceTypes("gravel", "good", "", "unpaved_good");
+  TestSurfaceTypes("gravel", "", "", "unpaved_good");
+  TestSurfaceTypes("gravel", "", "1.5", "unpaved_bad");
   TestSurfaceTypes("gravel", "intermediate", "", "unpaved_bad");
+  TestSurfaceTypes("gravel", "bad", "", "unpaved_bad");
+  TestSurfaceTypes("gravel", "very_bad", "", "unpaved_bad");
 
-  TestSurfaceTypes("paved", "intermediate", "", "paved_good");
-  TestSurfaceTypes("", "intermediate", "", "unpaved_good");
-
+  TestSurfaceTypes("paved", "", "", "paved_good");
   TestSurfaceTypes("paved", "", "2", "paved_good");
+  TestSurfaceTypes("paved", "intermediate", "", "paved_bad");
   TestSurfaceTypes("", "excellent", "", "paved_good");
-  TestSurfaceTypes("wood", "", "", "paved_bad");
+  TestSurfaceTypes("", "intermediate", "", "paved_bad");
   TestSurfaceTypes("wood", "good", "", "paved_good");
   TestSurfaceTypes("wood", "", "3", "paved_good");
+  TestSurfaceTypes("wood", "", "", "paved_bad");
+
   TestSurfaceTypes("pebblestone", "", "4", "unpaved_good");
-  TestSurfaceTypes("unpaved", "", "", "unpaved_bad");
+  TestSurfaceTypes("pebblestone", "", "", "unpaved_good");
+  TestSurfaceTypes("unpaved", "", "2", "unpaved_good");
+  TestSurfaceTypes("unpaved", "", "", "unpaved_good");
+  TestSurfaceTypes("unpaved", "intermediate", "", "unpaved_bad");
+  TestSurfaceTypes("unpaved", "bad", "", "unpaved_bad");
+
+  TestSurfaceTypes("ground", "good", "2", "unpaved_good");
+  TestSurfaceTypes("ground", "", "5", "unpaved_good");
+  TestSurfaceTypes("ground", "", "3", "unpaved_good");
+  TestSurfaceTypes("ground", "", "2.5", "unpaved_bad");
+  TestSurfaceTypes("ground", "", "", "unpaved_bad");
+  TestSurfaceTypes("ground", "", "1", "unpaved_bad");
+  TestSurfaceTypes("ground", "intermediate", "", "unpaved_bad");
+  TestSurfaceTypes("ground", "bad", "", "unpaved_bad");
+  TestSurfaceTypes("mud", "good", "1", "unpaved_good");
+  TestSurfaceTypes("mud", "", "3", "unpaved_good");
   TestSurfaceTypes("mud", "", "", "unpaved_bad");
 
-  /// @todo Is it better paved_bad?
-  TestSurfaceTypes("", "bad", "", "unpaved_good");
-
+  TestSurfaceTypes("", "bad", "", "paved_bad");
+  TestSurfaceTypes("", "unknown", "", "paved_bad");
   TestSurfaceTypes("", "horrible", "", "unpaved_bad");
-  TestSurfaceTypes("ground", "", "1", "unpaved_bad");
-  TestSurfaceTypes("mud", "", "3", "unpaved_good");
-  TestSurfaceTypes("ground", "", "5", "unpaved_good");
   TestSurfaceTypes("unknown", "", "", "unpaved_good");
-  TestSurfaceTypes("", "unknown", "", "unpaved_good");
+  TestSurfaceTypes("unknown", "unknown", "", "unpaved_good");
 
   TestSurfaceTypes("asphalt;concrete", "", "", "paved_good");
   TestSurfaceTypes("concrete:plates", "", "", "paved_good");
   TestSurfaceTypes("cobblestone:flattened", "", "", "paved_bad");
   TestSurfaceTypes("dirt/sand", "", "", "unpaved_bad");
+
+  {
+    Tags const tags = {
+        {"highway", "trunk"},
+        {"smoothness", "intermediate"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"highway", "trunk"})), (params));
+  }
+
+  {
+    Tags const tags = {
+        {"highway", "motorway"},
+        {"smoothness", "intermediate"},
+        {"surface", "asphalt"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"highway", "motorway"})), (params));
+  }
+
+  {
+    Tags const tags = {
+        {"highway", "track"},
+        {"smoothness", "bad"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST(params.IsTypeExist(GetType({"highway", "track"})), (params));
+    TEST(params.IsTypeExist(GetType({"psurface", "unpaved_bad"})), (params));
+  }
+
+  {
+    Tags const tags = {
+      {"highway", "track"},
+      {"tracktype", "grade1"},
+      {"smoothness", "intermediate"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST(params.IsTypeExist(GetType({"highway", "track", "grade1"})), (params));
+    TEST(params.IsTypeExist(GetType({"psurface", "paved_bad"})), (params));
+  }
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
