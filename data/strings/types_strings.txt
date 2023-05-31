@@ -3086,7 +3086,7 @@
     sv = Polis
     th = ตำรวจ
     tr = Polis
-    uk = Міліція
+    uk = Поліція
     vi = Cảnh sát
     zh-Hans = 警察局
     zh-Hant = 警察局
