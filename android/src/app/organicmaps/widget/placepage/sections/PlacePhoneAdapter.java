@@ -97,7 +97,7 @@ public class PlacePhoneAdapter extends RecyclerView.Adapter<PlacePhoneAdapter.Vi
       final String phoneNumber = mPhone.getText().toString();
       final Context ctx = view.getContext();
       Utils.copyTextToClipboard(ctx, phoneNumber);
-      Utils.showSnackbarAbove(view, view.getRootView().findViewById(R.id.pp_buttons_layout),
+      Utils.showSnackbarAbove(view.getRootView().findViewById(R.id.pp_buttons_layout), view,
                               ctx.getString(R.string.copied_to_clipboard, phoneNumber));
       return true;
     }

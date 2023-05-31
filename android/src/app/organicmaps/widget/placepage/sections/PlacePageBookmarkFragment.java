@@ -136,8 +136,7 @@ public class PlacePageBookmarkFragment extends Fragment implements View.OnClickL
 
     final Context ctx = requireContext();
     Utils.copyTextToClipboard(ctx, notes);
-    Utils.showSnackbarAbove(mFrame,
-                            mFrame.getRootView().findViewById(R.id.pp_buttons_layout),
+    Utils.showSnackbarAbove(mFrame.getRootView().findViewById(R.id.pp_buttons_layout), mFrame,
                             ctx.getString(R.string.copied_to_clipboard, notes));
     return true;
   }
