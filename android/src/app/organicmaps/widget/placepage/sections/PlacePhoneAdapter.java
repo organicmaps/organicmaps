@@ -19,23 +19,20 @@ import java.util.List;
 public class PlacePhoneAdapter extends RecyclerView.Adapter<PlacePhoneAdapter.ViewHolder>
 {
 
-  private List<String> mPhoneData = Collections.emptyList();
+  private ArrayList<String> mPhoneData = new ArrayList<>();
 
   public PlacePhoneAdapter() {}
-
-  public PlacePhoneAdapter(String phones) {
-    refreshPhones(phones);
-  }
 
   public void refreshPhones(String phones) {
     if (TextUtils.isEmpty(phones))
       return;
 
-    mPhoneData = new ArrayList<>();
+    mPhoneData.clear();
     for (String p : phones.split(";"))
     {
       p = p.trim();
-      if (TextUtils.isEmpty(p)) continue;
+      if (TextUtils.isEmpty(p))
+        continue;
       mPhoneData.add(p);
     }
 
@@ -47,7 +44,7 @@ public class PlacePhoneAdapter extends RecyclerView.Adapter<PlacePhoneAdapter.Vi
   public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
   {
     return new ViewHolder(LayoutInflater.from(parent.getContext())
-                                        .inflate(R.layout.place_page_phone_item, parent, false));
+        .inflate(R.layout.place_page_phone_item, parent, false));
   }
 
   @Override
@@ -62,12 +59,7 @@ public class PlacePhoneAdapter extends RecyclerView.Adapter<PlacePhoneAdapter.Vi
     return mPhoneData.size();
   }
 
-  public List<String> getPhonesList()
-  {
-    return new ArrayList<>(mPhoneData);
-  }
-
-  public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener
+  public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener
   {
     private final TextView mPhone;
 

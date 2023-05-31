@@ -39,11 +39,6 @@ public class PlacePageUtils
     return state == BottomSheetBehavior.STATE_COLLAPSED;
   }
 
-  static boolean isHalfExpandedState(@BottomSheetBehavior.State int state)
-  {
-    return state == BottomSheetBehavior.STATE_HALF_EXPANDED;
-  }
-
   static boolean isExpandedState(@BottomSheetBehavior.State int state)
   {
     return state == BottomSheetBehavior.STATE_EXPANDED;

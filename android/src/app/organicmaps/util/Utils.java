@@ -74,11 +74,6 @@ public class Utils
   {
   }
 
-  public static boolean isMarshmallowOrLater()
-  {
-    return isTargetOrLater(Build.VERSION_CODES.M);
-  }
-
   public static boolean isNougatOrLater()
   {
     return isTargetOrLater(Build.VERSION_CODES.N);
@@ -106,7 +101,6 @@ public class Utils
       w.clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
   }
 
-  @SuppressWarnings("deprecation")
   private static void showOnLockScreenOld(boolean enable, Activity activity)
   {
     if (enable)
