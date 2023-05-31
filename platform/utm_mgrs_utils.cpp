@@ -13,14 +13,14 @@ using namespace math; // To use constexpr math::pi
 using namespace base; // To use base::DegToRad and base::RadToDeg
 using namespace ms; // To use ms::LatLon
 
-typedef struct UTMPoint_Value
+struct UTMPoint
 {
   double easting;
   double northing;
   int zone_number;
   char zone_letter;
 
-} UTMPoint;
+};
 
 constexpr double K0 = 0.9996; // The scale factor at the central meridian.
 constexpr double E = 0.00669438; // The square of the eccentricity for the WGS84 ellipsoid.
@@ -484,7 +484,7 @@ std::optional<ms::LatLon> MGRStoLatLon(int easting, int northing, int zone_code,
 }
 
 // Convert lat,lon for WGS84 ellipsoid to MGRS string.
-optional<string> FormatMGRS(double lat, double lon, int precision)
+string FormatMGRS(double lat, double lon, int precision)
 {
   if (precision > 5)
     precision = 5;
@@ -492,9 +492,9 @@ optional<string> FormatMGRS(double lat, double lon, int precision)
     precision = 1;
 
   if (lat <= -80 || lat > 84)
-    return nullopt; // Latitude limit exceeded.
+    return {}; // Latitude limit exceeded.
   if (lon <= -180 || lon > 180)
-    return nullopt; // Longitude limit exceeded.
+    return {}; // Longitude limit exceeded.
 
   UTMPoint mgrsp = LatLonToUtm(lat, lon);
 
@@ -506,16 +506,16 @@ optional<string> FormatMGRS(double lat, double lon, int precision)
     return UTMtoMgrsStr(mgrsp, precision);
   }
 
-  return nullopt;
+  return {};
 }
 
 // Convert lat,lon for WGS84 ellipsoid to UTM string.
-optional<string> FormatUTM(double lat, double lon)
+string FormatUTM(double lat, double lon)
 {
   if (lat <= -80 || lat > 84)
-    return nullopt; // Latitude limit exceeded.
+    return {}; // Latitude limit exceeded.
   if (lon <= -180 || lon > 180)
-    return nullopt; // Longitude limit exceeded.
+    return {}; // Longitude limit exceeded.
 
   UTMPoint utm = LatLonToUtm(lat, lon);
   return UTMtoStr(utm);

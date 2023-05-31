@@ -963,17 +963,17 @@ Java_app_organicmaps_Framework_nativeFormatLatLon(JNIEnv * env, jclass, jdouble 
       return jni::ToJavaString(env, measurement_utils::FormatOsmLink(lat, lon, 14));
     case android::CoordinatesFormat::UTM:  // Universal Transverse Mercator
     {
-      optional<string> utmFormat = utm_mgrs_utils::FormatUTM(lat, lon);
-      if (utmFormat)
-        return jni::ToJavaString(env, utmFormat.value());
+      string utmFormat = utm_mgrs_utils::FormatUTM(lat, lon);
+      if (utmFormat.empty())
+        return jni::ToJavaString(env, utmFormat);
       else
         return nullptr;
     }
     case android::CoordinatesFormat::MGRS: // Military Grid Reference System
     {
-      optional<string> mgrsFormat = utm_mgrs_utils::FormatMGRS(lat, lon, 5);
-      if (mgrsFormat)
-         return jni::ToJavaString(env, mgrsFormat.value());
+      string mgrsFormat = utm_mgrs_utils::FormatMGRS(lat, lon, 5);
+      if (mgrsFormat.empty())
+         return jni::ToJavaString(env, mgrsFormat);
       else
          return nullptr;
     }
