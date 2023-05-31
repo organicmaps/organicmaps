@@ -185,7 +185,7 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
     if (items.size() == 1)
       PlacePageUtils.copyToClipboard(requireContext(), mFrame, items.get(0));
     else
-      PlacePageUtils.showCopyPopup(requireContext(), view, mFrame, items);
+      PlacePageUtils.showCopyPopup(requireContext(), view, items);
     return true;
   }
 

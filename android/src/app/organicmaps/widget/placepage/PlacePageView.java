@@ -543,7 +543,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     if (items.size() == 1)
       PlacePageUtils.copyToClipboard(context, mFrame, items.get(0));
     else
-      PlacePageUtils.showCopyPopup(context, v, mFrame, items);
+      PlacePageUtils.showCopyPopup(context, v, items);
 
     return true;
   }

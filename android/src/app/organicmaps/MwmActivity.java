@@ -1686,7 +1686,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onBookmarksFileLoaded(boolean success)
   {
-    Utils.showSnackbar(this, findViewById(R.id.coordinator), null,
+    Utils.showSnackbar(this, findViewById(R.id.coordinator),
                         success ? R.string.load_kmz_successful : R.string.load_kmz_failed);
   }
 
