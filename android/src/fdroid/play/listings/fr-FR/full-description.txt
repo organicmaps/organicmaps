@@ -6,6 +6,7 @@
 <b>Vos commentaires et vos notes à 5 étoiles sont les meilleures sources de motivation pour nous !</b>
 
 Fonctionnalités principales :
+
 • Gratuit, open-source, pas de pubs, pas de tracking
 • Des cartes hors ligne détaillées avec des lieux qui n'existent pas sur les cartes Google, grâce à la communauté <b>OpenStreetMap</b>.
 • Pistes cyclables, sentiers de randonnée et chemins de promenade.
