@@ -44,9 +44,11 @@
     return (url.queryItems?.first(where: { $0.name == "backurl" })?.value ?? nil)
   }
 
-  func handleDeepLink() -> Bool {
+  func handleDeepLinkAndReset() -> Bool {
     if let url = self.url {
-      return handleDeepLink(url: url)
+      let result = handleDeepLink(url: url)
+      reset()
+      return result
     }
     LOG(.error, "handleDeepLink is called with nil URL")
     return false
