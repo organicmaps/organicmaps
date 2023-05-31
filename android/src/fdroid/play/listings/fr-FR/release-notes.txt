@@ -1,12 +1,10 @@
-• Nouvelles données Openstreetmap du 3 Mai
+• Nouvelles données OpenStreetMap du 3 Mai
 • Recherche d'adresses améliorée
+• Correction de la configuration des boutons de zoom
 • Rendu de la couche métro plus rapide
 • Correction des codes postaux incorrects à Paris
 • Correction des liens Wikipédia manquants
-• Amélioration du routage
-• Amélioration de la localisation GPS sur certains appareils
+• Amélioration du routage via les ronds-points
 • Mise à jour de l'icône des portes et l'icône du métro de Lyon
-• Correction de l'affichage des noms des routes sur la carte aux États-Unis
-• Ajout de nouveau type de boutiques
-
-…Plus: omaps.org/fr/news
+• Ajout de nouveau type de boutiques (magasin d'appareils photo, magasin de décoration...)
+...et plus sur : omaps.org/fr/news
