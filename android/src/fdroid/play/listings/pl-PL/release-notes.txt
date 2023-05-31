@@ -1,13 +1,13 @@
-• New OpenStreetMap data as of May 3
-• Fix search for interpolated odd/even house numbers
-• Fix zoom buttons setting
-• Faster rendering of subway layer
-• Fix wrong postcodes in Paris
-• Fix missing Wikipedia links
-• Fix car routing via roundabouts
-• Enable TTS for Portuguese/Brazil, Español/México
-• Fix location detection over a network on some devices
-• Change gates and Lyon subway icon
-• Fix US road shields
-• Add camera, interior_decoration, antiques, art, cheese shops
-…more: omaps.org/news
+- Nowe dane OpenStreetMap - stan na 3 maja
+- Naprawiono wyszukiwanie interpolowanych nieparzystych/parzystych numerów domów
+- Poprawiono ustawienie przycisków powiększenia
+- Szybsze renderowanie warstwy metra
+- Naprawiono błędne kody pocztowe w Paryżu
+- Naprawiono brakujące odnośniki do Wikipedii
+- Naprawiono wyznaczanie trasy dla samochodów przez ronda
+- Włączenie TTS dla języka portugalskiego/Brazylia, hiszpańskiego/Meksyk
+- Naprawiono wykrywanie na niektórych urządzeniach lokalizacji przez sieć
+- Zmiana ikon bram i metra w Lyonie
+- Naprawiono amerykańskie znaczniki (tarcze) drogowe
+- Dodanie oznaczeń kamery, dekoracji wnętrz, antyków, miejsc sztuki, sklepów z serami
+...więcej: omaps.org/news
