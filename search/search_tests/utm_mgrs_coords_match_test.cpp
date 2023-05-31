@@ -17,10 +17,10 @@ void TestAlmostEqual(std::optional<ms::LatLon> maybeLatLon, double expectedLat, 
 {
   TEST(maybeLatLon.has_value(), ());
 
-  auto const actualLat = maybeLatLon.value().m_lat;
+  auto const actualLat = maybeLatLon->m_lat;
   TEST(base::AlmostEqualAbsOrRel(actualLat, expectedLat, kEps), ("Lat is not close", actualLat, expectedLat));
 
-  auto const actualLon = maybeLatLon.value().m_lon;
+  auto const actualLon = maybeLatLon->m_lon;
   TEST(base::AlmostEqualAbsOrRel(actualLon, expectedLon, kEps), ("Lon is not close", actualLon, expectedLon));
 }
 

@@ -617,20 +617,18 @@ bool Processor::SearchCoordinates()
     results.emplace_back(lat, lon);
   }
 
-  optional<ms::LatLon> maybeLatLon = MatchUTMCoords(m_query);
-  if (maybeLatLon)
+  auto ll = MatchUTMCoords(m_query);
+  if (ll)
   {
     coords_found = true;
-    auto latLon = maybeLatLon.value();
-    results.emplace_back(latLon.m_lat, latLon.m_lon);
+    results.emplace_back(ll->m_lat, ll->m_lon);
   }
 
-  maybeLatLon = MatchMGRSCoords(m_query);
-  if (maybeLatLon)
+  ll = MatchMGRSCoords(m_query);
+  if (ll)
   {
     coords_found = true;
-    auto latLon = maybeLatLon.value();
-    results.emplace_back(latLon.m_lat, latLon.m_lon);
+    results.emplace_back(ll->m_lat, ll->m_lon);
   }
 
   istringstream iss(m_query);
