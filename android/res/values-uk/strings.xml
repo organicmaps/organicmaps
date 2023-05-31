@@ -826,7 +826,7 @@
 	<string name="type.amenity.place_of_worship.muslim">Мечеть</string>
 	<string name="type.amenity.place_of_worship.shinto">Святиня</string>
 	<string name="type.amenity.place_of_worship.taoist">Храм</string>
-	<string name="type.amenity.police">Міліція</string>
+	<string name="type.amenity.police">Поліція</string>
 	<string name="type.amenity.post_box">Поштова скринька</string>
 	<string name="type.amenity.post_office">Пошта</string>
 	<string name="type.amenity.prison">В\'язниця</string>
