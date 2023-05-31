@@ -964,7 +964,7 @@ Java_app_organicmaps_Framework_nativeFormatLatLon(JNIEnv * env, jclass, jdouble 
     case android::CoordinatesFormat::UTM:  // Universal Transverse Mercator
     {
       string utmFormat = utm_mgrs_utils::FormatUTM(lat, lon);
-      if (utmFormat.empty())
+      if (!utmFormat.empty())
         return jni::ToJavaString(env, utmFormat);
       else
         return nullptr;
@@ -972,7 +972,7 @@ Java_app_organicmaps_Framework_nativeFormatLatLon(JNIEnv * env, jclass, jdouble 
     case android::CoordinatesFormat::MGRS: // Military Grid Reference System
     {
       string mgrsFormat = utm_mgrs_utils::FormatMGRS(lat, lon, 5);
-      if (mgrsFormat.empty())
+      if (!mgrsFormat.empty())
          return jni::ToJavaString(env, mgrsFormat);
       else
          return nullptr;
