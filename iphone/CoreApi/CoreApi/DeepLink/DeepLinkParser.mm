@@ -24,7 +24,8 @@
 }
 
 + (void)addBookmarksFile:(NSURL *)url {
-  GetFramework().AddBookmarksFile(url.relativePath.UTF8String, false /* isTemporaryFile */);
+  // iOS doesn't create temporary files on import at least in Safari and Files.
+  GetFramework().AddBookmarksFile(url.path.UTF8String, false /* isTemporaryFile */);
 }
 
 @end
