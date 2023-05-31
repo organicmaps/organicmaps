@@ -81,6 +81,7 @@ size_t MatchInt(string const & query, int & value, size_t startPos)
 // Parse UTM format "(\d\d)\s?(\W)\s+(\d+)\s+(\d+)" and converts it to lat,lon.
 // Return true if parsed successfully or false otherwise.
 // See utm_mgrs_coords_match_test.cpp for sample UTM strings
+// TODO: Add support of Polar regions. E.g. "A 1492875 2040624"
 std::optional<ms::LatLon> MatchUTMCoords(string const & query)
 {
   int  easting, northing;
@@ -109,6 +110,7 @@ std::optional<ms::LatLon> MatchUTMCoords(string const & query)
 // Parse MGRS format "(\d\d\W)\s*(\W\W)\s*(\d+)\s*(\d+)" and converts it to lat,lon.
 // Returns true if parsed successfully or false otherwise.
 // See utm_mgrs_coords_match_test.cpp for sample MGRS strings
+// TODO: Add support of Polar regions. E.g. "A SN 92875 40624"
 std::optional<ms::LatLon> MatchMGRSCoords(std::string const & query)
 {
   long zone_code;

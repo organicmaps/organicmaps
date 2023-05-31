@@ -146,6 +146,10 @@ UTMPoint LatLonToUtm(double lat, double lon)
 // Generate UTM string from UTM point parameters.
 string UTMtoStr(UTMPoint point)
 {
+  // Easting and northing are rounded to nearest integer. Because of that in some cases
+  // last 5 digits of UTM and MGRS coordinates could differ (inaccuracy is no more then 1 meter).
+  // Some UTM converters truncate easting and northing instead of rounding. Consider this option.
+
   return to_string(point.zone_number) + string(1, point.zone_letter) + " " + \
          to_string(int(round(point.easting))) + " " + \
          to_string(int(round(point.northing)));
