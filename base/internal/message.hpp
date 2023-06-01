@@ -11,6 +11,7 @@
 #include <list>
 #include <map>
 #include <memory>
+#include <optional>
 #include <set>
 #include <sstream>
 #include <string>
@@ -97,6 +98,24 @@ std::string DebugPrintSequence(IterT beg, IterT end)
     out << " " << DebugPrint(*beg);
   out << " ]";
   return out.str();
+}
+
+template <typename T>
+std::string DebugPrint(std::optional<T> const & p)
+{
+  if (p)
+  {
+    std::ostringstream out;
+    out << "optional(" << DebugPrint(p.value()) << ")";
+    return out.str();
+  }
+  else
+    return "nullopt";
+}
+
+std::string inline DebugPrint(std::nullopt_t const & p)
+{
+  return "nullopt";
 }
 
 template <typename T, size_t N> inline std::string DebugPrint(T (&arr) [N])

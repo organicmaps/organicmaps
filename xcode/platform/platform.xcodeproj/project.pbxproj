@@ -31,6 +31,10 @@
 		3DF528EB238BFFC1000ED0D5 /* downloader_defines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DF528EA238BFFC1000ED0D5 /* downloader_defines.hpp */; };
 		3DFACF312432421C00A29A94 /* background_downloader_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3DFACF2F2432421C00A29A94 /* background_downloader_ios.mm */; };
 		3DFACF322432421C00A29A94 /* background_downloader_ios.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DFACF302432421C00A29A94 /* background_downloader_ios.h */; };
+		44486DC42A1F9AC800A5DD6C /* utm_mgrs_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44DC51072A1F91EA00B6562E /* utm_mgrs_utils.cpp */; };
+		44CAB5F62A1F926800819330 /* utm_mgrs_utils_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44CAB5F52A1F926800819330 /* utm_mgrs_utils_tests.cpp */; };
+		44DC510A2A1F91EA00B6562E /* utm_mgrs_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44DC51072A1F91EA00B6562E /* utm_mgrs_utils.cpp */; };
+		44DC510C2A1F91EA00B6562E /* utm_mgrs_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 44DC51082A1F91EA00B6562E /* utm_mgrs_utils.hpp */; };
 		451E32A01F73A8B000964C9F /* secure_storage_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 451E329D1F73A8B000964C9F /* secure_storage_ios.mm */; };
 		451E32A11F73A8B000964C9F /* secure_storage_qt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451E329E1F73A8B000964C9F /* secure_storage_qt.cpp */; };
 		451E32A21F73A8B000964C9F /* secure_storage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 451E329F1F73A8B000964C9F /* secure_storage.hpp */; };
@@ -156,6 +160,9 @@
 		3DFACF2F2432421C00A29A94 /* background_downloader_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = background_downloader_ios.mm; sourceTree = "<group>"; };
 		3DFACF302432421C00A29A94 /* background_downloader_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = background_downloader_ios.h; sourceTree = "<group>"; };
 		40D4697623FAB8D00030476C /* helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = helpers.hpp; sourceTree = "<group>"; };
+		44CAB5F52A1F926800819330 /* utm_mgrs_utils_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utm_mgrs_utils_tests.cpp; sourceTree = "<group>"; };
+		44DC51072A1F91EA00B6562E /* utm_mgrs_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utm_mgrs_utils.cpp; sourceTree = "<group>"; };
+		44DC51082A1F91EA00B6562E /* utm_mgrs_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = utm_mgrs_utils.hpp; sourceTree = "<group>"; };
 		451E329D1F73A8B000964C9F /* secure_storage_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = secure_storage_ios.mm; sourceTree = "<group>"; };
 		451E329E1F73A8B000964C9F /* secure_storage_qt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = secure_storage_qt.cpp; sourceTree = "<group>"; };
 		451E329F1F73A8B000964C9F /* secure_storage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = secure_storage.hpp; sourceTree = "<group>"; };
@@ -310,6 +317,7 @@
 				675341071C58C4C9002CF0D9 /* measurement_tests.cpp */,
 				675341081C58C4C9002CF0D9 /* platform_test.cpp */,
 				675341141C58C4D8002CF0D9 /* testingmain.cpp */,
+				44CAB5F52A1F926800819330 /* utm_mgrs_utils_tests.cpp */,
 			);
 			name = platform_tests;
 			path = ../../platform/platform_tests;
@@ -446,6 +454,8 @@
 				34C624BC1DABCCD100510300 /* socket.hpp */,
 				F6DF73561EC9EAE700D8BA0B /* string_storage_base.cpp */,
 				F6DF73571EC9EAE700D8BA0B /* string_storage_base.hpp */,
+				44DC51072A1F91EA00B6562E /* utm_mgrs_utils.cpp */,
+				44DC51082A1F91EA00B6562E /* utm_mgrs_utils.hpp */,
 			);
 			name = platform;
 			path = ../../platform;
@@ -475,6 +485,7 @@
 				5661A5CC20DD57DA00C6B1D1 /* async_gui_thread.hpp in Headers */,
 				675341281C58C61D002CF0D9 /* scoped_mwm.hpp in Headers */,
 				F6DF735C1EC9EAE700D8BA0B /* string_storage_base.hpp in Headers */,
+				44DC510C2A1F91EA00B6562E /* utm_mgrs_utils.hpp in Headers */,
 				FAA8388F26BB484C002E54C6 /* writable_dir_changer.hpp in Headers */,
 				FAA8388B26BB4832002E54C6 /* helpers.hpp in Headers */,
 				675341261C58C616002CF0D9 /* scoped_file.hpp in Headers */,
@@ -641,6 +652,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44DC510A2A1F91EA00B6562E /* utm_mgrs_utils.cpp in Sources */,
 				675341251C58C60F002CF0D9 /* scoped_mwm.cpp in Sources */,
 				FAA8388C26BB483D002E54C6 /* test_socket.cpp in Sources */,
 				FAA8388E26BB4849002E54C6 /* writable_dir_changer.cpp in Sources */,
@@ -654,6 +666,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44486DC42A1F9AC800A5DD6C /* utm_mgrs_utils.cpp in Sources */,
 				3DEE1AE721F7091100054A91 /* battery_tracker.cpp in Sources */,
 				675343D11A3F5D5A00A0A8C3 /* servers_list.cpp in Sources */,
 				675343C91A3F5D5A00A0A8C3 /* platform_unix_impl.cpp in Sources */,
@@ -711,6 +724,7 @@
 				6783389D1C6DE59200FD6263 /* measurement_tests.cpp in Sources */,
 				678338971C6DE59200FD6263 /* country_file_tests.cpp in Sources */,
 				678338951C6DE59200FD6263 /* testingmain.cpp in Sources */,
+				44CAB5F62A1F926800819330 /* utm_mgrs_utils_tests.cpp in Sources */,
 				F6DF735A1EC9EAE700D8BA0B /* string_storage_base.cpp in Sources */,
 				6783389B1C6DE59200FD6263 /* local_country_file_tests.cpp in Sources */,
 			);
