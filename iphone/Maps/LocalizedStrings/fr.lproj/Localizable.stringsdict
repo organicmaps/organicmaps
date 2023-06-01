@@ -71,7 +71,7 @@
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
       <key>other</key>
-      <string>pistes %d</string>
+      <string>%d pistes</string>
     </dict>
   </dict>
 </dict>

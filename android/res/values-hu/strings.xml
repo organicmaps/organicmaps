@@ -71,8 +71,10 @@
 	<string name="bookmark_color">Könyvjelző színe</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Könyvjelzőcsoport neve</string>
-	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
+	<!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
 	<string name="bookmarks">Könyvjelzők</string>
+	<!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+	<string name="bookmarks_and_tracks">Könyvjelzők és nyomvonalak</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">Saját helyeim</string>
 	<!-- Add bookmark dialog - bookmark name -->

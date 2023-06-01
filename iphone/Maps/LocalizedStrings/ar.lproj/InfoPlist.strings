@@ -10,7 +10,7 @@
 "search" = "البحث";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "الإشارات المرجعية";
+"bookmarks_and_tracks" = "الإشارات المرجعية والمسارات";
 
 /* Used in home screen quick actions. */
 "route" = "المسار";

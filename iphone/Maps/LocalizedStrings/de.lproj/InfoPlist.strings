@@ -10,7 +10,7 @@
 "search" = "Suche";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "Lesezeichen";
+"bookmarks_and_tracks" = "Lesezeichen und Strecken";
 
 /* Used in home screen quick actions. */
 "route" = "Route";

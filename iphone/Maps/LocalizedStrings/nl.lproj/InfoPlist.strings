@@ -10,7 +10,7 @@
 "search" = "Zoeken";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "Bladwijzers";
+"bookmarks_and_tracks" = "Bladwijzers en tracks";
 
 /* Used in home screen quick actions. */
 "route" = "Route";

@@ -10,7 +10,7 @@
 "search" = "Ara";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "Yer İmleri";
+"bookmarks_and_tracks" = "Yer İmleri ve kayıtlar";
 
 /* Used in home screen quick actions. */
 "route" = "Rota";

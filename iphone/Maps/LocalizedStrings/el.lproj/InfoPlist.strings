@@ -10,7 +10,7 @@
 "search" = "Search";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "Αγαπημένα";
+"bookmarks_and_tracks" = "Αγαπημένα και διαδρομές";
 
 /* Used in home screen quick actions. */
 "route" = "Διαδρομή";
