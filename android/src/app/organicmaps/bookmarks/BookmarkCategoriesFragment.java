@@ -26,6 +26,7 @@ import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.BookmarkSharingResult;
 import app.organicmaps.dialog.EditTextDialogFragment;
+import app.organicmaps.util.Utils;
 import app.organicmaps.widget.PlaceholderView;
 import app.organicmaps.widget.recycler.DividerItemDecorationWithPadding;
 import app.organicmaps.util.StorageUtils;
@@ -208,7 +209,15 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   @Override
   public void onBookmarksFileLoaded(boolean success)
   {
-    // Do nothing here.
+    // TODO: Is there a way to display several failure notifications?
+    // TODO: It would be helpful to see the file name that failed to import.
+    if (!success)
+    {
+      final View view = getView();
+      // TODO: how to get import button view to show snackbar above it?
+      if (view != null)
+        Utils.showSnackbar(requireActivity(), view, R.string.load_kmz_failed);
+    }
   }
 
   @Override
