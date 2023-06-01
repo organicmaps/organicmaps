@@ -19,16 +19,16 @@ namespace gpx
 
 using namespace std::string_view_literals;
 
-std::string_view const kTrk = "trk";
-std::string_view const kTrkSeg = "trkseg";
-std::string_view const kRte = "rte";
-std::string_view const kTrkPt = "trkpt";
-std::string_view const kWpt = "wpt";
-std::string_view const kRtePt = "rtept";
-std::string_view const kName = "name";
-std::string_view const kColor = "color";
-std::string_view const kDesc = "desc";
-std::string_view const kMetadata = "metadata";
+std::string_view constexpr kTrk = "trk";
+std::string_view constexpr kTrkSeg = "trkseg";
+std::string_view constexpr kRte = "rte";
+std::string_view constexpr kTrkPt = "trkpt";
+std::string_view constexpr kWpt = "wpt";
+std::string_view constexpr kRtePt = "rtept";
+std::string_view constexpr kName = "name";
+std::string_view constexpr kColor = "color";
+std::string_view constexpr kDesc = "desc";
+std::string_view constexpr kMetadata = "metadata";
 
 
 std::string PointToString(m2::PointD const & org)
@@ -41,7 +41,6 @@ std::string PointToString(m2::PointD const & org)
 
   ss << lon << "," << lat;
   return ss.str();
-}
 }
 
 GpxParser::GpxParser(FileData & data)
@@ -90,7 +89,7 @@ bool GpxParser::MakeValid()
   return false;
 }
 
-bool GpxParser::Push(std::string_view const & tag)
+bool GpxParser::Push(std::string_view tag)
 {
   m_tags.push_back(tag);
   if (GetTagFromEnd(0) == gpx::kWpt)
@@ -104,7 +103,7 @@ void GpxParser::AddAttr(std::string const & attr, std::string const & value)
 {
   std::string attrInLowerCase = attr;
   strings::AsciiToLower(attrInLowerCase);
-  
+
   if (GetTagFromEnd(0) == gpx::kWpt)
   {
     if (attr == "lat")
@@ -120,7 +119,7 @@ void GpxParser::AddAttr(std::string const & attr, std::string const & value)
     else if (attr == "lon")
       m_lon = stod(value);
   }
-  
+
 }
 
 std::string_view GpxParser::GetTagFromEnd(size_t n) const
@@ -222,7 +221,9 @@ void GpxParser::CharData(std::string value)
         m_name[kml::kDefaultLang] = value;
         if (m_categoryData->m_name[kml::kDefaultLang].empty())
           m_categoryData->m_name[kml::kDefaultLang] = value;
-      } else if (currTag == gpx::kDesc) {
+      }
+      else if (currTag == gpx::kDesc)
+      {
         m_description[kml::kDefaultLang] = value;
         if (m_categoryData->m_description[kml::kDefaultLang].empty())
           m_categoryData->m_description[kml::kDefaultLang] = value;
@@ -239,6 +240,7 @@ void GpxParser::CharData(std::string value)
       ParseColor(value);
   }
 }
+}  // namespace gpx
 
 DeserializerGpx::DeserializerGpx(FileData & fileData)
 : m_fileData(fileData)
@@ -246,4 +248,4 @@ DeserializerGpx::DeserializerGpx(FileData & fileData)
   m_fileData = {};
 }
 
-} // namespace kml
+}  // namespace kml

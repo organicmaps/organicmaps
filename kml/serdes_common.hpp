@@ -4,9 +4,9 @@
 
 namespace kml
 {
-auto const kDefaultLang = StringUtf8Multilang::kDefaultCode;
-auto const kDefaultTrackWidth = 5.0;
-auto const kDefaultTrackColor = 0x006ec7ff;
+auto constexpr kDefaultLang = StringUtf8Multilang::kDefaultCode;
+auto constexpr kDefaultTrackWidth = 5.0;
+auto constexpr kDefaultTrackColor = 0x006ec7ff;
 
 template <typename Channel>
 uint32_t ToRGBA(Channel red, Channel green, Channel blue, Channel alpha)
@@ -15,4 +15,4 @@ uint32_t ToRGBA(Channel red, Channel green, Channel blue, Channel alpha)
          static_cast<uint8_t>(blue) << 8 | static_cast<uint8_t>(alpha);
 }
 
-}
+}  // namespace kml

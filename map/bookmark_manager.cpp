@@ -1873,10 +1873,14 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
     {
       auto const ext = base::GetFileExtension(filePath);
       std::unique_ptr<kml::FileData> kmlData;
-      if (ext == ".gpx")
-        kmlData = LoadKmlFile(fileSavePath, KmlFileType::Gpx);
-      else
+      if (ext == ".kml" || ext == ".kmz")
         kmlData = LoadKmlFile(fileSavePath, KmlFileType::Text);
+      else if (ext == ".gpx")
+        kmlData = LoadKmlFile(fileSavePath, KmlFileType::Gpx);
+      else if (ext == ".kmb")
+        kmlData = LoadKmlFile(fileSavePath, KmlFileType::Binary);
+      else
+        ASSERT(false, ("Unsupported bookmarks extension", ext));
 
       if (m_needTeardown)
         return;

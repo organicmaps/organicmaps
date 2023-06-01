@@ -18,12 +18,13 @@
 
 namespace kml
 {
-
+namespace gpx
+{
 class GpxParser
 {
 public:
   explicit GpxParser(FileData & data);
-  bool Push(std::string_view const & name);
+  bool Push(std::string_view name);
   void AddAttr(std::string const & attr, std::string const & value);
   std::string_view GetTagFromEnd(size_t n) const;
   void Pop(std::string_view tag);
@@ -36,15 +37,15 @@ private:
     GEOMETRY_TYPE_POINT,
     GEOMETRY_TYPE_LINE
   };
-  
+
   void ResetPoint();
   bool MakeValid();
-  void ParseColor(std::string const &value);
+  void ParseColor(std::string const & value);
 
   FileData & m_data;
   CategoryData m_compilationData;
   CategoryData * m_categoryData;  // never null
-  
+
   std::vector<std::string_view> m_tags;
   GeometryType m_geometryType;
   MultiGeometry m_geometry;
@@ -62,6 +63,7 @@ private:
   LocalizableString m_customName;
   std::vector<TrackLayer> m_trackLayers;
 };
+}  // namespace gpx
 
 class DeserializerGpx
 {
@@ -75,7 +77,7 @@ public:
   {
     NonOwningReaderSource src(reader);
     
-    GpxParser parser(m_fileData);
+    gpx::GpxParser parser(m_fileData);
     if (!ParseXML(src, parser, true))
     {
       // Print corrupted GPX file for debug and restore purposes.
@@ -90,4 +92,4 @@ public:
 private:
   FileData & m_fileData;
 };
-} // namespace kml
+}  // namespace kml
