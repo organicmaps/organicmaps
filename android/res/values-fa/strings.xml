@@ -70,8 +70,10 @@
 	<string name="add_new_set">اضافه کردن مجموعه جدید</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">رنگ نشانه</string>
-	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
+	<!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
 	<string name="bookmarks">نشانه‌ها</string>
+	<!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+	<string name="bookmarks_and_tracks">نشانه‌ها و مسیر</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">مکان من</string>
 	<!-- Add bookmark dialog - bookmark name -->

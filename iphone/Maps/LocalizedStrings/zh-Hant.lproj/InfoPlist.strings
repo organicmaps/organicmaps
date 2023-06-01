@@ -10,7 +10,7 @@
 "search" = "搜尋";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "書籤";
+"bookmarks_and_tracks" = "書籤和軌跡";
 
 /* Used in home screen quick actions. */
 "route" = "路線";

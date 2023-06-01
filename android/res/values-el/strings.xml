@@ -72,8 +72,10 @@
 	<string name="bookmark_color">Χρώμα αγαπημένου</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Όνομα συνόλου αγαπημένων</string>
-	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
+	<!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
 	<string name="bookmarks">Αγαπημένα</string>
+	<!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+	<string name="bookmarks_and_tracks">Αγαπημένα και διαδρομές</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">Οι τοποθεσίες μου</string>
 	<!-- Add bookmark dialog - bookmark name -->

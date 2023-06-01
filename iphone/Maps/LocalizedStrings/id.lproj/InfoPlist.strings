@@ -10,7 +10,7 @@
 "search" = "Cari";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "Penanda";
+"bookmarks_and_tracks" = "Penanda dan jalur";
 
 /* Used in home screen quick actions. */
 "route" = "Rute";

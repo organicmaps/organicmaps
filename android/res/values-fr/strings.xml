@@ -73,8 +73,10 @@
 	<string name="bookmark_color">Couleur du signet</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Nom du groupe de signets</string>
-	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
+	<!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
 	<string name="bookmarks">Signets</string>
+	<!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+	<string name="bookmarks_and_tracks">Signets et parcours</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">Mes endroits</string>
 	<!-- Add bookmark dialog - bookmark name -->
@@ -606,7 +608,7 @@
 	  <item quantity="other">%d lieux</item>
 	</plurals>
 	<plurals name="tracks">
-	  <item quantity="other">pistes %d</item>
+	  <item quantity="other">%d pistes</item>
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Paramètres de suivi</string>

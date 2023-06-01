@@ -10,7 +10,7 @@
 "search" = "Поиск";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "Метки";
+"bookmarks_and_tracks" = "Метки и треки";
 
 /* Used in home screen quick actions. */
 "route" = "Маршрут";

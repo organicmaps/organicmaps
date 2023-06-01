@@ -10,7 +10,7 @@
 "search" = "Căutare";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "Locuri preferate";
+"bookmarks_and_tracks" = "Locuri preferate și trasee";
 
 /* Used in home screen quick actions. */
 "route" = "Traseu";
