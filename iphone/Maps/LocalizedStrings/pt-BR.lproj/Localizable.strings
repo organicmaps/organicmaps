@@ -1567,7 +1567,7 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "Muralha";
+"type.barrier.city_wall" = "Muro da cidade";
 
 "type.barrier.cycle_barrier" = "Barreira de bicicletas";
 
@@ -2242,7 +2242,7 @@
 
 "type.historic.city_gate" = "Portas da cidade";
 
-"type.historic.citywalls" = "Muralha";
+"type.historic.citywalls" = "Muro da cidade";
 
 "type.historic.fort" = "Forte";
 

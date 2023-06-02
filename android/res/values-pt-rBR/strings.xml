@@ -867,6 +867,7 @@
 	<string name="type.barrier.block">Bloco</string>
 	<string name="type.barrier.bollard">Pilarete</string>
 	<string name="type.barrier.border_control">Controle de fronteira</string>
+	<string name="type.barrier.city_wall">Muro da cidade</string>
 	<string name="type.barrier.cycle_barrier">Barreira de bicicletas</string>
 	<string name="type.barrier.entrance">Entrada</string>
 	<string name="type.barrier.fence">Cerca</string>
@@ -1193,6 +1194,7 @@
 	<string name="type.area_highway.unclassified">Estrada sem classificação</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic.citywalls">Muro da cidade</string>
 	<string name="type.historic.gallows">Galo</string>
 	<string name="type.historic.memorial.cross">Cruz de memorial</string>
 	<string name="type.internet_access">Internet</string>
