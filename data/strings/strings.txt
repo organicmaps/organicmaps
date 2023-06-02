@@ -21983,7 +21983,7 @@
     ca = Via sense pavimentar
     cs = Nezpevněná silnice
     da = Grusvej
-    de = Erdweg
+    de = Unbefestigte Straße
     el = Χωματόδρομος
     es = Camino sin pavimento
     es-MX = Camino de tierra
@@ -22108,7 +22108,7 @@
     ca = Evita vies sense pavimentar
     cs = Vyhnout se nezpevněným silnicím
     da = Undgå grusveje
-    de = Erdwege vermeiden
+    de = Unbefestigte Straßen vermeiden
     el = Αποφυγή των χωματόδρομων
     es = Evitar los caminos sin pavimento
     es-MX = Evitar los caminos de tierra
