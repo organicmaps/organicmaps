@@ -64,3 +64,10 @@ jobs:
         env:
           APPSTORE_CERTIFICATE_PASSWORD: '${{ secrets.APPSTORE_CERTIFICATE_PASSWORD }}'
         working-directory: xcode
+
+      - name: Upload ipa and DSYMs artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ipa and DSYM archive
+          path: xcode/build/*
+          if-no-files-found: error
