@@ -648,10 +648,10 @@
 	<string name="define_to_avoid_btn">Umwege einstellen</string>
 	<string name="change_driving_options_btn">Routenbeschränkungen aktiv</string>
 	<string name="toll_road">Mautstraße</string>
-	<string name="unpaved_road">Erdweg</string>
+	<string name="unpaved_road">Unbefestigte Straße</string>
 	<string name="ferry_crossing">Fährstelle</string>
 	<string name="avoid_toll_roads_placepage">Mautstraßen vermeiden</string>
-	<string name="avoid_unpaved_roads_placepage">Erdwege vermeiden</string>
+	<string name="avoid_unpaved_roads_placepage">Unbefestigte Straßen vermeiden</string>
 	<string name="avoid_ferry_crossing_placepage">Fährstellen vermeiden</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Ja</string>
