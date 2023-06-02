@@ -36,15 +36,33 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
   private boolean mSearchRunning;
 
   private int mSubscriberSlot;
+  
+  private FloatingActionButton mFab;
 
   private final RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
     @Override
-    public void onScrollStateChanged(RecyclerView recyclerView, int newState)
-    {
-      if (newState == RecyclerView.SCROLL_STATE_DRAGGING)
+    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+      if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
         mToolbarController.deactivate();
+        // User started scrolling, hide the FAB
+        hideFab();
+      } else if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+        // User stopped scrolling, show the FAB
+        showFab();
+      }
     }
   };
+    private void hideFab() {
+    if (mFab != null) {
+      mFab.hide();
+    }
+  }
+
+  private void showFab() {
+    if (mFab != null) {
+      mFab.show();
+    }
+  }
 
   private final NativeMapSearchListener mSearchListener = new NativeMapSearchListener()
   {
@@ -164,6 +182,10 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
     }
 
     SearchEngine.INSTANCE.removeMapListener(mSearchListener);
+    
+    if (getRecyclerView() != null) {
+      getRecyclerView().removeOnScrollListener(mScrollListener);
+    }
   }
 
   @Override
