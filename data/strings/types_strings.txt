@@ -12020,6 +12020,7 @@
     nl = Stadsmuur
     pl = Mur miejski
     pt = Muralha
+    pt-BR = Muro da cidade
     ro = Zidurile orașului
     ru = Городская стена
     sk = Mestský múr
