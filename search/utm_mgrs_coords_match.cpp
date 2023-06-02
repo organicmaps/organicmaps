@@ -113,7 +113,7 @@ std::optional<ms::LatLon> MatchUTMCoords(string const & query)
 // TODO: Add support of Polar regions. E.g. "A SN 92875 40624"
 std::optional<ms::LatLon> MatchMGRSCoords(std::string const & query)
 {
-  long zone_code;
+  int zone_code;
   char zone_letter;
   char square_code[2];
   string eastingStr;
@@ -135,7 +135,7 @@ std::optional<ms::LatLon> MatchMGRSCoords(std::string const & query)
       return nullopt;
 
     zone_code = (dig1 - '0') * 10 + (dig2 - '0');
-    if (zone_code<1 || zone_code > 60)
+    if (zone_code < 1 || zone_code > 60)
       return nullopt;
 
     zone_letter = token[2];
@@ -182,22 +182,22 @@ std::optional<ms::LatLon> MatchMGRSCoords(std::string const & query)
   if (northingStr.empty())
   {
     // eastingStr contains both easting and northing. Let's split
-    if (eastingStr.size()%2 != 0)
+    if (eastingStr.size() % 2 != 0)
       return nullopt;
 
-    int eastingSize = eastingStr.size()/2;
+    size_t const eastingSize = eastingStr.size() / 2;
     northingStr = eastingStr.substr(eastingSize);
     eastingStr = eastingStr.substr(0, eastingSize);
   }
 
-  if (eastingStr.size() != northingStr.size() || eastingStr.size()>5 || northingStr.size()>5)
+  if (eastingStr.size() != northingStr.size() || eastingStr.size() > 5 || northingStr.size() > 5)
     return nullopt;
 
   if (!strings::to_int32(eastingStr, easting))
     return nullopt;
   if (eastingStr.size() < 5)
   {
-    int decShift = 5 - eastingStr.size();
+    uint64_t const decShift = 5 - eastingStr.size();
     easting *= base::PowUint(10, decShift);
   }
 
@@ -205,7 +205,7 @@ std::optional<ms::LatLon> MatchMGRSCoords(std::string const & query)
     return nullopt;
   if (northingStr.size() < 5)
   {
-    int decShift = 5 - northingStr.size();
+    uint64_t const decShift = 5 - northingStr.size();
     northing *= base::PowUint(10, decShift);
   }
 
