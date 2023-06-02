@@ -1033,13 +1033,13 @@
 
 "toll_road" = "Mautstraße";
 
-"unpaved_road" = "Erdweg";
+"unpaved_road" = "Unbefestigte Straße";
 
 "ferry_crossing" = "Fährstelle";
 
 "avoid_toll_roads_placepage" = "Mautstraßen vermeiden";
 
-"avoid_unpaved_roads_placepage" = "Erdwege vermeiden";
+"avoid_unpaved_roads_placepage" = "Unbefestigte Straßen vermeiden";
 
 "avoid_ferry_crossing_placepage" = "Fährstellen vermeiden";
 
