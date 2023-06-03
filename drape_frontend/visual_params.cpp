@@ -162,7 +162,7 @@ uint32_t VisualParams::GetTileSize() const
 uint32_t VisualParams::GetTouchRectRadius() const
 {
   ASSERT_INITED;
-  float const kRadiusInPixels = 20.0f;
+  float const kRadiusInPixels = 30.0f;
   return static_cast<uint32_t>(kRadiusInPixels * GetVisualScale());
 }
 
