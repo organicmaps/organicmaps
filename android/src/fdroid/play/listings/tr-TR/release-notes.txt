@@ -1,11 +1,13 @@
-• 3 Mayıs tarihine ait yeni OpenStreetMap verileri
-• addr:interpolation adresleri artık aranabilir
-• Metro katmanı artık daha hızlı açılıyor 
-• Eksik Vikipedi bağlantıları düzeltildi 
-• Döner kavşaklardan geçen araç rotalarında bazı düzeltmeler yapıldı
-• Bazı cihazlarda ağ üzerinden konum algılama düzeltildi 
-• Geçit simgesi değiştirildi
-• Fotoğraf makinesi mağazası, iç dekorasyon, antika, sanat, peynirci kategorileri eklendi 
+• GPX import support
+• New OpenStreetMap data as of June 2
+• UTM and MRGS coordinates support (tap on coordinates to change)
+• Improved car and bicycle routing
+• Fixed bug that prevented upload of OSM edits when on battery power
+• Now compass works on devices without gyroscope
+• Fixed missing Wiki descriptions
+• Decreased TTS (Text-To-Speech) voice speed
+• Added Fish Pass
+• Fixed funicular and parcel locker icons
+• Corrected be, eu, en, en-GB, and uk translations
 
- …dahası: omaps.org/tr/news
- 
+…more: omaps.org/news

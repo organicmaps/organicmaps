@@ -1,15 +1,17 @@
-• Novos dados OSM de 3 de maio
-• A busca oferece suporte a endereços interpolados
-• Renderização mais rápida da camada de metrô
-• Correção de CEPs incorretos em Paris
-• Correção de links ausentes da Wikipédia
-• Correção de roteamento de carros nas rotatórias
-• Melhoria de traduções para alemão, inglês e português (Brasil)
-• Ativação de TTS para basco, espanhol (México), marata, norueguês e português (Brasil)
-• Adição de loja de antiguidades, arte, câmeras, decoração de interiores e queijos
-• Alteração de ícone de portão
-• Atualização do ícone do metrô de Lyon
-• Correção de placas de identificação de estradas dos EUA
-• Correção na exibição de corpos d'água
+• GPX import support
+• New OpenStreetMap data as of June 2, 2023
+• Fixed disappearing bookmark lists when wrong characters were saved in a bookmark name or description
+• Improved car and bicycle routing
+• Fixed non-working Portuguese (Brazil) and Spanish (Mexico) voice directions languages
+• Fixed crash when importing KML/KMZ/GPX file
+• Fixed repeated imports of the same file
+• Corrected Basque, Belarusian, British, English, and Ukrainian translations
 
-Acompanhe nossas novidades em omaps.org/new
+Styles:
+• Fixed funicular icon
+• Changed desert color in the dark mode
+• Added Fish Pass
+• New Icon for Parcel Locker
+• Fixed icon for northernmost Munich underground station
+
+Follow our news at https://omaps.org/news

@@ -1,15 +1,17 @@
-• Новые картографические данные OpenStreetMap за 3 мая
-• Реализован поиск чередующихся четных/нечетных номеров домов
-• Слой метро рисуется быстрее
-• Исправлены неправильные почтовые индексы в Париже
-• Появились некоторые отсутствующие ранее ссылки на Википедию
-• Исправлены автомаршруты через перекрестки с круговым движением
-• Улучшены переводы на английский, немецкий и бразильский языки
-• Включены голосовые инструкции для баскского, маратхи, норвежского, португальского (Бразилия), испанского (Мексика) языков
-• Добавлены магазины камер, интерьер-декора, антиквариата, искусства и сыра
-• Изменена иконка ворот
-• Изменена иконка метро Лиона
-• Исправлены иконки некоторых дорог между штатами
-• Исправлен приоритет водных зон
+• GPX import support
+• New OpenStreetMap data as of June 2, 2023
+• Fixed disappearing bookmark lists when wrong characters were saved in a bookmark name or description
+• Improved car and bicycle routing
+• Fixed non-working Portuguese (Brazil) and Spanish (Mexico) voice directions languages
+• Fixed crash when importing KML/KMZ/GPX file
+• Fixed repeated imports of the same file
+• Corrected Basque, Belarusian, British, English, and Ukrainian translations
 
-Следите за нашими новостями на omaps.org/ru/news
+Styles:
+• Fixed funicular icon
+• Changed desert color in the dark mode
+• Added Fish Pass
+• New Icon for Parcel Locker
+• Fixed icon for northernmost Munich underground station
+
+Follow our news at https://omaps.org/news

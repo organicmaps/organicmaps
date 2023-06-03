@@ -1,11 +1,13 @@
-• Нові дані OpenStreetMap станом на 3 травня
-• Пошук тепер знаходить парні та непарні інтерполовані адреси
-• Пришвидшення малювання схеми метро
-• Виправлення зниклих посилань до Wikipedia
-• Виправлена навігації через кільце
-• Виправлено визначення місцеположення за допомогою мережі на деяких пристроях
-• Нові іконки воріт та станцій метро у Ліоні
-• Виправлення щитів доріг у США
-• Додані магазини фототехніки, декору, антикваріату, мистецтва та сиру
+• GPX import support
+• New OpenStreetMap data as of June 2
+• UTM and MRGS coordinates support (tap on coordinates to change)
+• Improved car and bicycle routing
+• Fixed bug that prevented upload of OSM edits when on battery power
+• Now compass works on devices without gyroscope
+• Fixed missing Wiki descriptions
+• Decreased TTS (Text-To-Speech) voice speed
+• Added Fish Pass
+• Fixed funicular and parcel locker icons
+• Corrected be, eu, en, en-GB, and uk translations
 
-…більше: omaps.org/news
+…more: omaps.org/news

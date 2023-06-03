@@ -1,12 +1,13 @@
-• Novos dados OSM de 03/05
-• Busca suporta moradas interpoladas
-• Renderização mais rápida do metro
-• Correção de links ausentes da Wikipédia
-• Melhor roteamento nas rotundas
-• Ativação de TTS para ES-MX e PT-BR
-• Correção de deteção de localização via rede em alguns dispositivos
-• Alteração de ícone de portão e do metro de Lyon
-• Correção de placas de estradas dos EUA
-• Adição de loja de antiguidades, arte, câmeras, interiores e queijos
+• GPX import support
+• New OpenStreetMap data as of June 2
+• UTM and MRGS coordinates support (tap on coordinates to change)
+• Improved car and bicycle routing
+• Fixed bug that prevented upload of OSM edits when on battery power
+• Now compass works on devices without gyroscope
+• Fixed missing Wiki descriptions
+• Decreased TTS (Text-To-Speech) voice speed
+• Added Fish Pass
+• Fixed funicular and parcel locker icons
+• Corrected be, eu, en, en-GB, and uk translations
 
-…mais: omaps.org/news
+…more: omaps.org/news

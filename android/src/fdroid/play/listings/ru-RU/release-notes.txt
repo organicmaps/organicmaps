@@ -1,11 +1,13 @@
-• Новые данные OpenStreetMap за 3 мая
-• Поиск чередующихся чётных/нечётных адресов
-• Быстрая прорисовка слоя метро
-• Исправлены неверные почтовые индексы в Париже
-• Исправлены недостающие ссылки Википедии
-• Исправлена автомобильная навигация через круговые развязки
-• Исправлено определение местоположения через интернет на некоторых устройствах
-• Изменены иконки ворот и метро Лиона
-• Добавлены магазины камер, дизайнера интерьеров, антиквариата, искусства, сыра
+• GPX import support
+• New OpenStreetMap data as of June 2
+• UTM and MRGS coordinates support (tap on coordinates to change)
+• Improved car and bicycle routing
+• Fixed bug that prevented upload of OSM edits when on battery power
+• Now compass works on devices without gyroscope
+• Fixed missing Wiki descriptions
+• Decreased TTS (Text-To-Speech) voice speed
+• Added Fish Pass
+• Fixed funicular and parcel locker icons
+• Corrected be, eu, en, en-GB, and uk translations
 
-…подробнее: omaps.org/ru/news
+…more: omaps.org/news

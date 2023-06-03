@@ -1,12 +1,13 @@
-• Nouvelles données Openstreetmap du 3 Mai
-• Recherche d'adresses améliorée
-• Rendu de la couche métro plus rapide
-• Correction des codes postaux incorrects à Paris
-• Correction des liens Wikipédia manquants
-• Amélioration du routage
-• Amélioration de la localisation GPS sur certains appareils
-• Mise à jour de l'icône des portes et l'icône du métro de Lyon
-• Correction de l'affichage des noms des routes sur la carte aux États-Unis
-• Ajout de nouveau type de boutiques
+• GPX import support
+• New OpenStreetMap data as of June 2
+• UTM and MRGS coordinates support (tap on coordinates to change)
+• Improved car and bicycle routing
+• Fixed bug that prevented upload of OSM edits when on battery power
+• Now compass works on devices without gyroscope
+• Fixed missing Wiki descriptions
+• Decreased TTS (Text-To-Speech) voice speed
+• Added Fish Pass
+• Fixed funicular and parcel locker icons
+• Corrected be, eu, en, en-GB, and uk translations
 
-…Plus: omaps.org/fr/news
+…more: omaps.org/news
