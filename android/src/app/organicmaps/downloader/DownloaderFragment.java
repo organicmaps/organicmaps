@@ -54,17 +54,22 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
       }
     }
   };
-    private void hideFab() {
+   private boolean shouldShowFab() {
+    // Determine whether the FAB should be shown on the current screen
+    return mAdapter != null && mAdapter.getItemCount() > 0;
+  }
+  private void showFab() {
+    if (mFab != null && shouldShowFab()) {
+      mFab.show();
+    }
+  }
+
+  private void hideFab() {
     if (mFab != null) {
       mFab.hide();
     }
   }
 
-  private void showFab() {
-    if (mFab != null) {
-      mFab.show();
-    }
-  }
 
   private final NativeMapSearchListener mSearchListener = new NativeMapSearchListener()
   {
@@ -128,6 +133,13 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
   {
     mToolbarController.update();
     mBottomPanel.update();
+    
+    boolean showFab = shouldShowFab();
+    if (showFab) {
+      showFab();
+    } else {
+      hideFab();
+    }
   }
 
   @CallSuper
@@ -190,6 +202,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
     if (getRecyclerView() != null) {
       getRecyclerView().removeOnScrollListener(mScrollListener);
     }
+    mFab = null;
   }
 
   @Override
@@ -255,10 +268,14 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
     if (placeholder == null)
       return;
 
-    if (mAdapter != null && mAdapter.isSearchResultsMode())
+    if (mAdapter != null && mAdapter.isSearchResultsMode()){
       placeholder.setContent(R.string.search_not_found, R.string.search_not_found_query);
-    else
+      showFabButton(false);
+    }else{
       placeholder.setContent(R.string.downloader_no_downloaded_maps_title, R.string.downloader_no_downloaded_maps_message);
+      showFabButton(false);
+      }
+      
   }
 
   @Override
