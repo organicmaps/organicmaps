@@ -69,16 +69,19 @@ void DrapeApiBuilder::BuildLines(ref_ptr<dp::GraphicsContext> context,
         property->m_buckets.emplace_back(state, std::move(b));
       });
 
-      m2::SharedSpline spline(data.m_points);
-      LineViewParams lvp;
-      lvp.m_tileCenter = property->m_center;
-      lvp.m_depthTestEnabled = false;
-      lvp.m_minVisibleScale = 1;
-      lvp.m_cap = dp::RoundCap;
-      lvp.m_color = data.m_color;
-      lvp.m_width = data.m_width;
-      lvp.m_join = dp::RoundJoin;
-      LineShape(spline, lvp).Draw(context, make_ref(&batcher), textures);
+      if (data.m_points.size() > 1)
+      {
+        m2::SharedSpline spline(data.m_points);
+        LineViewParams lvp;
+        lvp.m_tileCenter = property->m_center;
+        lvp.m_depthTestEnabled = false;
+        lvp.m_minVisibleScale = 1;
+        lvp.m_cap = dp::RoundCap;
+        lvp.m_color = data.m_color;
+        lvp.m_width = data.m_width;
+        lvp.m_join = dp::RoundJoin;
+        LineShape(spline, lvp).Draw(context, make_ref(&batcher), textures);
+      }
 
       if (data.m_showPoints)
       {
