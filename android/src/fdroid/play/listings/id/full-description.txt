@@ -13,7 +13,7 @@ Fitur utama:
 • Garis kontur, profil ketinggian, puncak, dan lereng
 • Jalan kaki belokan demi belokan, bersepeda, dan navigasi mobil EKSPERIMENTAL dengan panduan suara
 • Pencarian luring cepat
-• Ekspor dan impor markah dalam format KML/KMZ (GPX akan segera hadir)
+• Ekspor dan impor markah dalam format KML/KMZ/GPX
 • Mode gelap untuk melindungi mata Anda
 
 <i>Belum ada</i> Android Auto, transportasi umum, peta satelit, dan fitur keren lainnya di Organic Maps. Namun dengan <i>bantuan dan dukungan Anda</i>, kami dapat membuat dunia ini lebih baik selangkah demi selangkah.

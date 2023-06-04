@@ -3,7 +3,7 @@
 • Contour lines, elevation profiles, peaks, and slopes
 • Turn-by-turn walking, cycling, and car navigation with voice guidance
 • Fast offline search
-• Bookmark everything you need, import and share KML/KMZ (GPX is planned)
+• Bookmark everything you need, import and share KML/KMZ/GPX
 • Dark mode to protect your eyes
 • … and many other features!
 

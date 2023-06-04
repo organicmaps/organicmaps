@@ -12,7 +12,7 @@ Caratteristiche principali:
 • Curve di livello, profili altimetrici, cime e pendii
 • Navigazione turn-by-turn a piedi, in bicicletta e in auto con guida vocale
 • Veloce ricerca offline
-• Esportazione e importazione di segnalibri nei formati KML/KMZ (GPX in arrivo)
+• Esportazione e importazione di segnalibri nei formati KML/KMZ/GPX
 • Modalità scura per proteggere i tuoi occhi
 
 Non c'è Android Auto, trasporto pubblico, mappe satellitari, e altre caratteristiche interessanti <i>ancora</i> in Organic Maps. Ma con <i>il tuo aiuto e supporto</i>, possiamo rendere questo mondo migliore passo dopo passo.

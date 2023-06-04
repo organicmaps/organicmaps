@@ -3,7 +3,7 @@
 • Konturlinjer, höjdprofiler, toppar och sluttningar.
 • Tur-för-tur-navigering för promenader, cykling och bilnavigering med röststyrning.
 • Snabb offline-sökning
-• Bokmärken för allt du behöver, importera och dela KML/KMZ (GPX planeras).
+• Bokmärken för allt du behöver, importera och dela KML/KMZ/GPX
 • Mörkt läge för att skydda dina ögon
 • ... och många andra funktioner!
 

@@ -12,7 +12,7 @@
 • Eş yükselti çizgileri, yükseklik profilleri, tepeler ve eğimler
 • Sesli yönergelerle adım adım yürüyüş, bisiklet ve DENEYSEL araç navigasyonu
 • Hızlı çevrimdışı arama
-• Yer imlerini KML/KMZ formatlarında dışa ve içe aktarma (GPX yakında geliyor)
+• Yer imlerini KML/KMZ/GPX formatlarında dışa ve içe aktarma
 • Gözlerinizi korumak için karanlık mod
 
 Organic Maps'te <i>henüz</i> Android Auto, toplu taşıma, uydu haritaları ve diğer harika özellikler yok. Ancak <i>sizin yardımınız ve desteğinizle</i> bu dünyayı adım adım daha iyi hale getirebiliriz.

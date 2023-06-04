@@ -13,7 +13,7 @@ Główne cechy:
 • Linie konturowe, profile wysokościowe, szczyty i zbocza
 • Nawigacja piesza, rowerowa i samochodowa typu "skręt za skrętem" ze wskazówkami głosowymi
 • Szybkie wyszukiwanie w trybie offline
-• Eksport i import zakładek w formatach KML/KMZ (GPX już wkrótce)
+• Eksport i import zakładek w formatach KML/KMZ/GPX
 • Tryb ciemny, aby chronić Twoje oczy
 
 W Organic Maps nie ma <i>jeszcze</i> Android Auto, transportu publicznego, map satelitarnych i innych fajnych funkcji. Ale z <i>Twoją pomocą i wsparciem</i> możemy krok po kroku ulepszać ten świat.

@@ -12,7 +12,7 @@ Característiques clau:
 • Corbes de nivell, perfils d'elevació, cims i pendents
 • Passeig, bicicleta i navegació EXPERIMENTAL en cotxe amb guia de veu
 • Cerca ràpida fora de línia
-• Exportació i importació d'adreces d'interès en formats KML/KMZ (GPX estarà disponible aviat)
+• Exportació i importació d'adreces d'interès en formats KML/KMZ/GPX
 • Mode fosc per protegir els ulls
 
 No hi ha Android Auto, transport públic, mapes per satèl·lit i altres funcions interessants <i>encara</i> a Organic Maps. Però amb <i>la vostra ajuda i suport</i>, podem millorar aquest món pas a pas.

@@ -3,7 +3,7 @@
 • Szintvonalak, magassági profilok, csúcsok és lejtők
 • Részletes gyalogos, kerékpáros és autós navigáció hangutasítással
 • Gyors offline keresés
-• Minden szükséges hely könyvjelzőbe helyezése, KML/KMZ importálása és megosztása (GPX tervben)
+• Minden szükséges hely könyvjelzőbe helyezése, KML/KMZ/GPX importálása és megosztása
 • Éjszakai üzemmód szemünk védelméért
 
 Az Organic Maps tiszta és organikus, szeretettel készült:

@@ -12,7 +12,7 @@ Ezaugarri nagusiak:
 • Sestra-lerroak, kota-profilak, gailurrak eta maldak
 • Pausoz pauso oinez, bizikletaz eta autoen nabigazio ESPERIMENTALA, ahots bidezko gidaritzapean
 • Lineaz kanpoko bilaketa azkarra
-• Laster-markak esportatu eta inportatu KML/KMZ formatuetan (GPX laster egongo da)
+• Laster-markak esportatu eta inportatu KML/KMZ/GPX formatuetan
 • Modu iluna begiak babesteko
 
 <i>Oraindik</i> ez daude Android Auto, garraio publikoa, satelite bidezko mapak eta beste eginbide polit batzuk Organic Mapsen. Baina <i>zure laguntzarekin</i>, urratsez urrats hobetu dezakegu.

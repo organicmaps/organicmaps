@@ -37,7 +37,7 @@ BookmarkDialog::BookmarkDialog(QWidget * parent, Framework & framework)
   QPushButton * deleteButton = new QPushButton(tr("Delete"), this);
   connect(deleteButton, &QAbstractButton::clicked, this, &BookmarkDialog::OnDeleteClick);
 
-  QPushButton * importButton = new QPushButton(tr("Import KML/KMZ"), this);
+  QPushButton * importButton = new QPushButton(tr("Import KML/KMZ/GPX"), this);
   connect(importButton, &QAbstractButton::clicked, this, &BookmarkDialog::OnImportClick);
 
   QPushButton * exportButton = new QPushButton(tr("Export KMZ"), this);
@@ -131,8 +131,8 @@ void BookmarkDialog::OnCloseClick()
 
 void BookmarkDialog::OnImportClick()
 {
-  auto const files = QFileDialog::getOpenFileNames(this /* parent */, tr("Open KML/KMZ..."),
-                                                   QString() /* dir */, "KML/KMZ files (*.kml *.KML *.kmz *.KMZ)");
+  auto const files = QFileDialog::getOpenFileNames(this /* parent */, tr("Open KML/KMZ/GPX..."),
+                                                   QString() /* dir */, "KML/KMZ/GPX files (*.kml *.KML *.kmz *.KMZ, *.gpx *.GPX)");
 
   for (auto const & name : files)
   {
