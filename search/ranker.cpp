@@ -374,8 +374,8 @@ public:
       }, Delimiters());
 
       // Factor is a number of the rest, not common matched tokens in Feature' name. Bigger is worse.
-      info.m_commonTokensFactor = min(3, count - int(info.m_tokenRanges[info.m_type].Size()));
-      ASSERT_GREATER_OR_EQUAL(info.m_commonTokensFactor, 0, ());
+      // Example when count == 0: UTH airport has empty name, but "ut" is a _common_ token.
+      info.m_commonTokensFactor = min(3, std::max(0, count - int(info.m_tokenRanges[info.m_type].Size())));
     }
 
     res.SetRankingInfo(info);
