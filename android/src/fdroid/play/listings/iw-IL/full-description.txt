@@ -13,7 +13,7 @@ Key features:
 • Contour lines, elevation profiles, peaks, and slopes
 • Turn-by-turn walking, cycling, and EXPERIMENTAL car navigation with voice guidance
 • Fast offline search
-• Bookmarks export and import in KML/KMZ formats (GPX is coming soon)
+• Bookmarks and tracks export and import in KML, KMZ, GPX formats
 • Dark mode to protect your eyes
 
 There is no Android Auto, public transport, satellite maps, and other cool features <i>yet</i> in Organic Maps. But with <i>your help and support</i>, we can make this world better step by step.

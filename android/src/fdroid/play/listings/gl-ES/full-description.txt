@@ -13,7 +13,7 @@ Funcións principais:
 • Curvas de nivel, perfís de altura, cumes montañosos e ladeiras
 • Navegación paso a paso para peóns, ciclistas e coches con guía de voz
 • Busca rápida sen conexión
-• Exportación e importación de marcadores en formato KML/KMZ (GPX está previsto)
+• Exportación e importación de marcadores en formato KML, KMZ, GPX
 • Modo escuro para protexer os ollos
 
 Android Auto, o transporte público e os mapas por satélite <i>aínda</i> non son compatibles. Pero coa <i>a túa axuda e apoio</i> podemos mellorar este mundo e os nosos mapas, paso a paso.

@@ -12,7 +12,7 @@ Főbb jellemzők:
 • Szintvonalak, magassági profilok, csúcsok és lejtők.
 • Részletes gyalogos, kerékpáros és KÍSÉRLETI autós navigáció hangutasítással
 • Gyors offline keresés
-• Könyvjelzők exportálása és importálása KML/KMZ formátumban (hamarosan GPX formátumban is).
+• Könyvjelzők exportálása és importálása KML, KMZ, GPX formátumban
 • Sötét üzemmód a szem védelméért.
 
 Az Organic Mapsben <i>még</i> nincsenek olyan menő funkciók, mint az Android Auto, tömegközlekedés és műholdas térkép. De az Ön <i>segítségével és támogatásával</i>, lépésről lépésre jobbá tehetjük a világot.

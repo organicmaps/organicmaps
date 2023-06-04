@@ -12,7 +12,7 @@ Fonctionnalités principales :
 • Courbes de niveau, profils d'élévation, sommets et pentes
 • Navigation virage par virage à pied, à vélo et navigation en voiture EXPERIMENTALE avec guidage vocal
 • Recherche rapide hors ligne
-• Exportation et importation de signets aux formats KML/KMZ (GPX bientôt disponible).
+• Exportation et importation de signets aux formats KML, KMZ, GPX.
 • Mode sombre pour protéger vos yeux
 
 Il n'y a pas <i>encore</i> Android Auto, les transports publics, les cartes satellites et d'autres fonctions sympas dans Organic Maps. Mais avec <i>votre aide et votre soutien</i>, nous pouvons rendre ce monde meilleur, étape par étape.
