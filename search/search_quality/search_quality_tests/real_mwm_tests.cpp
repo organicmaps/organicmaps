@@ -530,4 +530,33 @@ UNIT_CLASS_TEST(MwmTestsFixture, Generic_Buildings_Rank)
     TEST_LESS(SortedByDistance(range, center), 1000.0, ());
   }
 }
+
+UNIT_CLASS_TEST(MwmTestsFixture, UTH_Airport)
+{
+  auto const aeroportType = classif().GetTypeByPath({"aeroway", "aerodrome", "international"});
+
+  // Under UTH airport.
+  ms::LatLon const center(17.3867863, 102.7775625);
+  SetViewportAndLoadMaps(center);
+
+  // "ut" query is _common_
+  auto request = MakeRequest("ut", "en");
+  auto const & results = request->Results();
+
+  bool found = false;
+  // The first 5 will be cities suggestions.
+  for (size_t i = 0; i < 10; ++i)
+  {
+    auto const & r = results[i];
+    if (r.GetResultType() == search::Result::Type::Feature &&
+        EqualClassifType(r.GetFeatureType(), aeroportType))
+    {
+      found = true;
+      break;
+    }
+  }
+
+  TEST(found, (results));
+}
+
 } // namespace real_mwm_tests
