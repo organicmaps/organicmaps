@@ -17772,7 +17772,7 @@
     eu = Sorgailu eolikoa
     fa = مولد باد
     fi = Tuuligeneraattori
-    fr = Èolienne génératrice
+    fr = Éolienne génératrice
     he = מחולל רוח
     hu = Szélgenerátor
     id = Generator angin
