@@ -284,3 +284,4 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
     return mAdapter != null ? mAdapter.getMenuItems() : null;
   }
 }
+Signed-off-by: Zhu Pengming <zhup@kean.edu>
