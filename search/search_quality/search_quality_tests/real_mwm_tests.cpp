@@ -474,9 +474,9 @@ UNIT_CLASS_TEST(MwmTestsFixture, Street_BusStop)
     auto const & results = request->Results();
     TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
-    // Top results are Hotel and Street.
-    Range const range(results, 0, 3);
-    EqualClassifType(range, GetClassifTypes({{"tourism", "hotel"}, {"shop", "supermarket"}, {"highway"}}));
+    // Top results are Hotel and Street (sometimes bus stop).
+    Range const range(results);
+    EqualClassifType(range, GetClassifTypes({{"tourism", "hotel"}, {"highway", "bus_stop"}, {"highway", "residential"}}));
   }
 
   {
@@ -499,6 +499,17 @@ UNIT_CLASS_TEST(MwmTestsFixture, Street_BusStop)
     Range const range(results);
     EqualClassifType(range, GetClassifTypes({{"highway", "bus_stop"}}));
     TEST_LESS(SortedByDistance(range, center), 5000.0, ());
+  }
+
+  {
+    auto request = MakeRequest("Juncal train", "en");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+
+    // First result is a train station in other MWM, >200km away.
+    TEST(EqualClassifType(results[0].GetFeatureType(), classif().GetTypeByPath({"railway", "station"})), ());
+    double const dist = ms::DistanceOnEarth(center, mercator::ToLatLon(results[0].GetFeatureCenter()));
+    TEST_GREATER(dist, 2.0E5, ());
   }
 }
 

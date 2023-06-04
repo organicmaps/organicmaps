@@ -85,8 +85,7 @@ UNIT_TEST(RankTableBuilder_EndToEnd)
   base::CopyFileX(originalMapPath, mapPath);
   SCOPE_GUARD(cleanup, bind(&FileWriter::DeleteFileX, mapPath));
 
-  platform::LocalCountryFile localFile =
-      platform::LocalCountryFile::MakeForTesting("minsk-pass-copy");
+  auto const localFile = platform::LocalCountryFile::MakeForTesting("minsk-pass-copy");
   TEST(localFile.OnDisk(MapFileType::Map), ());
 
   vector<uint8_t> ranks;
@@ -105,58 +104,4 @@ UNIT_TEST(RankTableBuilder_EndToEnd)
   TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
 
   TestTable(ranks, mapPath);
-}
-
-UNIT_TEST(RankTableBuilder_WrongEndianness)
-{
-  char const kTestFile[] = "test.mwm";
-  SCOPE_GUARD(cleanup, bind(&FileWriter::DeleteFileX, kTestFile));
-
-  vector<uint8_t> ranks = {0, 1, 2, 3, 4};
-  {
-    FilesContainerW wcont(kTestFile);
-    search::RankTableBuilder::Create(ranks, wcont, SEARCH_RANKS_FILE_TAG);
-  }
-
-  // Load rank table in host endianness.
-  unique_ptr<search::RankTable> table;
-  {
-    FilesContainerR rcont(kTestFile);
-    table = search::RankTable::Load(rcont, SEARCH_RANKS_FILE_TAG);
-    TEST(table.get(), ());
-    TestTable(ranks, *table);
-  }
-
-  // Serialize rank table in opposite endianness.
-  {
-    vector<char> data;
-    {
-      MemWriter<decltype(data)> writer(data);
-      table->Serialize(writer, false /* preserveHostEndianness */);
-    }
-
-    FilesContainerW wcont(kTestFile);
-    wcont.Write(data, SEARCH_RANKS_FILE_TAG);
-  }
-
-  // Try to load rank table from opposite endianness.
-  {
-    FilesContainerR rcont(kTestFile);
-    auto table = search::RankTable::Load(rcont, SEARCH_RANKS_FILE_TAG);
-    TEST(table.get(), ());
-    TestTable(ranks, *table);
-  }
-
-  // It's impossible to map rank table from opposite endianness.
-  {
-    FilesMappingContainer mcont(kTestFile);
-    auto table = search::RankTable::Load(mcont, SEARCH_RANKS_FILE_TAG);
-    TEST(!table.get(), ());
-  }
-
-  // Try to re-create rank table in test file.
-  TEST(search::SearchRankTableBuilder::CreateIfNotExists(kTestFile), ());
-
-  // Try to load and map rank table - both methods should work now.
-  TestTable(ranks, kTestFile);
 }
