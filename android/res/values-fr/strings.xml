@@ -1423,7 +1423,7 @@
 	<string name="type.place.town">Ville</string>
 	<string name="type.place.village">Village</string>
 	<string name="type.power.generator.solar">Générateur solaire</string>
-	<string name="type.power.generator.wind">Générateur de vent</string>
+	<string name="type.power.generator.wind">Èolienne génératrice</string>
 	<string name="type.power.generator.gas">Centrale à turbine à gaz</string>
 	<string name="type.power.generator.hydro">Centrale hydroélectrique</string>
 	<string name="type.power.plant">Centrale électrique</string>
