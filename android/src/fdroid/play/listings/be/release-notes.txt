@@ -1,13 +1,11 @@
-• New OpenStreetMap data as of May 3
-• Fix search for interpolated odd/even house numbers
-• Fix zoom buttons setting
-• Faster rendering of subway layer
-• Fix wrong postcodes in Paris
-• Fix missing Wikipedia links
-• Fix car routing via roundabouts
-• Enable TTS for Portuguese/Brazil, Español/México
-• Fix location detection over a network on some devices
-• Change gates and Lyon subway icon
-• Fix US road shields
-• Add camera, interior_decoration, antiques, art, cheese shops
-…more: omaps.org/news
+• Падтрымка імпарту GPX
+• Новыя дадзеныя OpenStreetMap па стане на 2 чэрвеня
+• Падтрымка каардынатаў MRGS і UTM (націсніце на каардынаты, каб змяніць)
+• Паляпшаны аўтамабільныя і веласіпедныя маршруты
+• Выпраўленая памылка, якая перашкаджала загрузцы правак OSM
+• Цяпер компас працуе на прыладах без гіраскопа
+• Выпраўлены адсутныя апісанні Wikipedia
+• Зніжэнне хуткасці перадачы голасу TTS (ператварэнне тэксту ў маўленне).
+• Дададзены Fish Pass
+
+…больш: omaps.org/news

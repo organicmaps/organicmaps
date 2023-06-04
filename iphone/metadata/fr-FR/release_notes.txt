@@ -1,14 +1,17 @@
-• Nouvelles données Openstreetmap du 3 Mai
-• Recherche d'adresses améliorée
-• Rendu de la couche métro plus rapide
-• Correction des codes postaux incorrects à Paris
-• Correction des liens Wikipédia manquants
-• Amélioration du routage
-• Traductions anglaises, allemandes, et brésiliennes améliorées
-• Ajout du guidage vocal pour le basque, marathi, norvégien et l'espagnol (Mexique)
-• Ajout de nouveau type de boutiques (magasin d'appareils photo, magasin de décoration d'intérieur, magasin d'antiquités et d'arts et fromagerie)
-• Mise à jour de l'icône des portes et l'icône du métro de Lyon
-• Correction de l'affichage des noms des routes sur la carte aux États-Unis
-• Amélioration de l'affichage des cours d'eau sur la carte
+• Support de l'import GPX
+• Nouvelles données OpenStreetMap au 2 juin 2023
+• Correction de la disparition de la liste des marque pages lorsque des caractères invalides étaient utilisées dans le nom ou la description
+• Amélioration des itinéraires pour voiture et vélo
+• Correction des instructions vocales de navigation qui ne fonctionnaient pas en Portugais (Brésilien) et Espagnole (Mexicain)
+• Correction d'un plantage lors de l'import des fichiers KML/KMZ/GPX
+• Correction de l'importation répétée d'un même fichier
+• Correction des traductions en basque, biélorusse, anglais, britannique et ukrainien
 
-Suivez nos actualités sur : omaps.org/fr/news
+Styles :
+• Correction de l'icône pour les funiculaires
+• Changement de la couleur du désert en thème sombre
+• Ajout des échelles à poissons
+• Nouvelle icône pour les consignes à colis
+• Correction de l'icône pour la station de métro la plus au nord de Munich
+
+Suivez notre actualité sur https://omaps.org/fr/news/

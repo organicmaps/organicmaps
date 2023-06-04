@@ -1,12 +1,10 @@
-• Nouvelles données Openstreetmap du 3 Mai
-• Recherche d'adresses améliorée
-• Rendu de la couche métro plus rapide
-• Correction des codes postaux incorrects à Paris
-• Correction des liens Wikipédia manquants
-• Amélioration du routage
-• Amélioration de la localisation GPS sur certains appareils
-• Mise à jour de l'icône des portes et l'icône du métro de Lyon
-• Correction de l'affichage des noms des routes sur la carte aux États-Unis
-• Ajout de nouveau type de boutiques
+• Support de l'import GPX
+• Nouvelles données OpenStreetMap au 2 juin 2023
+• Support des coordonnées UTM et MRGS
+• Amélioration des itinéraires pour voiture et vélo
+• Correction d'un bug qui prévenait l'envoi des modifications vers OSM lorsque l'appareil était alimenté sur batterie
+• La boussole fonctionne désormais sur les appareils dépourvus de gyroscope
+• Correction de descriptions Wiki manquantes
+• Réduction de la vitesse d'élocution de la synthèse vocale
 
 …Plus: omaps.org/fr/news

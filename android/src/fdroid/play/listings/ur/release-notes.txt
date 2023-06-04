@@ -1,13 +1,13 @@
-• New OpenStreetMap data as of May 3
-• Fix search for interpolated odd/even house numbers
-• Fix zoom buttons setting
-• Faster rendering of subway layer
-• Fix wrong postcodes in Paris
-• Fix missing Wikipedia links
-• Fix car routing via roundabouts
-• Enable TTS for Portuguese/Brazil, Español/México
-• Fix location detection over a network on some devices
-• Change gates and Lyon subway icon
-• Fix US road shields
-• Add camera, interior_decoration, antiques, art, cheese shops
+• GPX import support
+• New OpenStreetMap data as of June 2
+• MRGS and UTM coordinates support (tap on coordinates to change)
+• Improved car and bicycle routing
+• Fixed bug that prevented upload of OSM edits when on battery power
+• Now compass works on devices without gyroscope
+• Fixed missing Wiki descriptions
+• Decreased TTS (Text-To-Speech) voice speed
+• Added Fish Pass
+• Fixed funicular and parcel locker icons
+• Corrected be, eu, en, en-GB, and uk translations
+
 …more: omaps.org/news

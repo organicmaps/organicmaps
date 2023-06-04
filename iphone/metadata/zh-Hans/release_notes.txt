@@ -1,15 +1,17 @@
-• New OpenStreetMap data as of May 3
-• Implemented search for interpolated odd/even house numbers
-• Faster rendering of subway layer
-• Fixed wrong postcodes in Paris
-• Fixed missing Wikipedia links
-• Fixed car routing via roundabouts
-• Improved English, German, and Brazil translations
-• Enabled TTS for Basque, Marathi, Norwegian, Portuguese (Brazil), Spanish (México)
-• Added camera shop, interior_decoration, antiques, art, cheese shop
-• Changed gate icon
-• Changed the Lyon subway icon
-• Fixed US road shields
-• Fixed priority of water areas
+• GPX import support
+• New OpenStreetMap data as of June 2, 2023
+• Fixed disappearing bookmark lists when wrong characters were saved in a bookmark name or description
+• Improved car and bicycle routing
+• Fixed non-working Portuguese (Brazil) and Spanish (Mexico) voice directions languages
+• Fixed crash when importing KML/KMZ/GPX file
+• Fixed repeated imports of the same file
+• Corrected Basque, Belarusian, British, English, and Ukrainian translations
 
-Follow our news at omaps.org/news
+Styles:
+• Fixed funicular icon
+• Changed desert color in the dark mode
+• Added Fish Pass
+• New Icon for Parcel Locker
+• Fixed icon for northernmost Munich underground station
+
+Follow our news at https://omaps.org/news
