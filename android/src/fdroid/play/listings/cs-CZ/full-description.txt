@@ -13,7 +13,7 @@ Klíčové funkce:
 • Obrysové linie, výškové profily, vrcholy a svahy
 • Pěší, cyklistická a EXPERIMENTÁLNÍ automobilová navigace turn-by-turn s hlasovým naváděním
 • Rychlé offline vyhledávání
-• Export a import záložek ve formátech KML/KMZ/GPX.
+• Export a import záložek ve formátech KML, KMZ, GPX.
 • Tmavý režim pro ochranu vašich očí
 
 V Organic Maps <i>zatím</i> není k dispozici Android Auto, veřejná doprava, satelitní mapy a další skvělé funkce. Ale s <i>vaší pomocí a podporou</i> můžeme tento svět krok za krokem vylepšovat.

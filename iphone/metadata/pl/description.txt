@@ -3,7 +3,7 @@
 • Linie konturowe, profile wysokościowe, szczyty i zbocza
 • Nawigacja piesza, rowerowa i samochodowa typu "turn-by-turn" ze wskazówkami głosowymi
 • Szybkie wyszukiwanie w trybie offline
-• Zapisz wszystko czego potrzebujesz, importuj i udostępniaj KML/KMZ/GPX
+• Zapisz wszystko czego potrzebujesz, importuj i udostępniaj KML, KMZ, GPX
 • Tryb ciemny, aby chronić Twoje oczy
 
 Organic Maps jest czyste i organiczne, wykonane z miłością:

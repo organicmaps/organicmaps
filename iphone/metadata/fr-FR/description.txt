@@ -3,7 +3,7 @@
 • Courbes de niveau, profils d'élévation, sommets et pentes
 • Navigation virage par virage à pied, à vélo et navigation en voiture avec guidage vocal
 • Recherche rapide hors ligne
-• Créez des signets pour tout ce dont vous avez besoin, importez et partagez des fichiers KML/KMZ/GPX
+• Créez des signets pour tout ce dont vous avez besoin, importez et partagez des fichiers KML, KMZ, GPX
 • Mode sombre pour protéger vos yeux
 • ... et bien d'autres fonctionnalités !
 

@@ -13,7 +13,7 @@ Wichtigste Funktionen:
 • Höhenlinien, Höhenprofile, Bergspitzen und Steigungen
 • Schritt-für-Schritt-Navigation für Fußgänger, Radfahrer und Autos mit Sprachführung
 • Schnelle Offlinesuche
-• Export und Import von Lesezeichen im KML/KMZ/GPX-Format
+• Export und Import von Lesezeichen im KML, KMZ, GPX-Format
 • Dunkler Modus zum Schutz deiner Augen
 
 Android Auto, ebenso wie öffentlichen Verkehrsmittel und Satellitenbildkarten werden <i>noch</i> nicht unterstützt. Aber mit <i>deiner Hilfe und Unterstützung</i> können wir diese Welt und unsere Karten Schritt für Schritt besser machen.
