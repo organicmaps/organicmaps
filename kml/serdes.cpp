@@ -52,11 +52,6 @@ std::string const kExtendedDataFooter =
 
 std::string const kCompilationFooter = "</" + kCompilation + ">\n";
 
-auto const kDefaultLang = StringUtf8Multilang::kDefaultCode;
-
-auto const kDefaultTrackWidth = 5.0;
-auto const kDefaultTrackColor = 0x006ec7ff;
-
 std::string Indent(size_t count)
 {
   return std::string(count, ' ');
@@ -171,13 +166,6 @@ BookmarkIcon GetIcon(std::string const & iconName)
       return icon;
   }
   return BookmarkIcon::None;
-}
-
-template <typename Channel>
-uint32_t ToRGBA(Channel red, Channel green, Channel blue, Channel alpha)
-{
-  return static_cast<uint8_t>(red) << 24 | static_cast<uint8_t>(green) << 16 |
-         static_cast<uint8_t>(blue) << 8 | static_cast<uint8_t>(alpha);
 }
 
 void SaveStringWithCDATA(KmlWriter::WriterWrapper & writer, std::string s)

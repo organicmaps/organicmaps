@@ -68,12 +68,14 @@ enum class BookmarkBaseType : uint16_t
 extern std::string const kKmzExtension;
 extern std::string const kKmlExtension;
 extern std::string const kKmbExtension;
+extern std::string const kGpxExtension;
 extern std::string const kDefaultBookmarksFileName;
 
 enum class KmlFileType
 {
   Text,
-  Binary
+  Binary,
+  Gpx
 };
 
 inline std::string DebugPrint(KmlFileType fileType)
@@ -82,6 +84,7 @@ inline std::string DebugPrint(KmlFileType fileType)
   {
   case KmlFileType::Text: return "Text";
   case KmlFileType::Binary: return "Binary";
+  case KmlFileType::Gpx: return "GPX";
   }
   UNREACHABLE();
 }
