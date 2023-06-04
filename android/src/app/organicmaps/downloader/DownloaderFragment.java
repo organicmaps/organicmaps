@@ -270,12 +270,11 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
 
     if (mAdapter != null && mAdapter.isSearchResultsMode()){
       placeholder.setContent(R.string.search_not_found, R.string.search_not_found_query);
-      showFabButton(false);
+      hideFab();
     }else{
       placeholder.setContent(R.string.downloader_no_downloaded_maps_title, R.string.downloader_no_downloaded_maps_message);
-      showFabButton(false);
-      }
-      
+      showFab();
+    }
   }
 
   @Override
