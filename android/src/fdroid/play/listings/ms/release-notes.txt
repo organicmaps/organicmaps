@@ -1,6 +1,6 @@
 • GPX import support
 • New OpenStreetMap data as of June 2
-• UTM and MRGS coordinates support (tap on coordinates to change)
+• MRGS and UTM coordinates support (tap on coordinates to change)
 • Improved car and bicycle routing
 • Fixed bug that prevented upload of OSM edits when on battery power
 • Now compass works on devices without gyroscope

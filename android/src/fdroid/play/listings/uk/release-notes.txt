@@ -1,13 +1,12 @@
-• GPX import support
-• New OpenStreetMap data as of June 2
-• UTM and MRGS coordinates support (tap on coordinates to change)
-• Improved car and bicycle routing
-• Fixed bug that prevented upload of OSM edits when on battery power
-• Now compass works on devices without gyroscope
-• Fixed missing Wiki descriptions
-• Decreased TTS (Text-To-Speech) voice speed
-• Added Fish Pass
-• Fixed funicular and parcel locker icons
-• Corrected be, eu, en, en-GB, and uk translations
+• Підтримка імпорту GPX треків
+• Нові дані OSM станом на 2 червня
+• Підтримка MGRS та UTM координат
+• Покращено побудову автомобільних та велосипедних маршрутів
+• Виправлено помилку, яка перешкоджала завантаженню змін до OSM при роботі від акумулятора
+• Тепер компас працює на пристроях без гіроскопу
+• Виправлено відсутні описи Вікіпедії
+• Зменшили швидкість голосових підказок
+• Додали на мапу рибоходи
+• Нові іконки для фунікулерів та поштоматів
 
-…more: omaps.org/news
+omaps.org/news

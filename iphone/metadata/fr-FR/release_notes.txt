@@ -1,17 +1,17 @@
-• GPX import support
-• New OpenStreetMap data as of June 2, 2023
-• Fixed disappearing bookmark lists when wrong characters were saved in a bookmark name or description
-• Improved car and bicycle routing
-• Fixed non-working Portuguese (Brazil) and Spanish (Mexico) voice directions languages
-• Fixed crash when importing KML/KMZ/GPX file
-• Fixed repeated imports of the same file
-• Corrected Basque, Belarusian, British, English, and Ukrainian translations
+• Support de l'import GPX
+• Nouvelles données OpenStreetMap au 2 juin 2023
+• Correction de la disparition de la liste des marque pages lorsque des caractères invalides étaient utilisées dans le nom ou la description
+• Amélioration des itinéraires pour voiture et vélo
+• Correction des instructions vocales de navigation qui ne fonctionnaient pas en Portugais (Brésilien) et Espagnole (Mexicain)
+• Correction d'un plantage lors de l'import des fichiers KML/KMZ/GPX
+• Correction de l'importation répétée d'un même fichier
+• Correction des traductions en basque, biélorusse, anglais, britannique et ukrainien
 
-Styles:
-• Fixed funicular icon
-• Changed desert color in the dark mode
-• Added Fish Pass
-• New Icon for Parcel Locker
-• Fixed icon for northernmost Munich underground station
+Styles :
+• Correction de l'icône pour les funiculaires
+• Changement de la couleur du désert en thème sombre
+• Ajout des échelles à poissons
+• Nouvelle icône pour les consignes à colis
+• Correction de l'icône pour la station de métro la plus au nord de Munich
 
-Follow our news at https://omaps.org/news
+Suivez notre actualité sur https://omaps.org/fr/news/
