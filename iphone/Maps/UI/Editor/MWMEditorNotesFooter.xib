@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="IBb-39-rly" customClass="MWMEditorNotesFooter" propertyAccessControl="none">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="144"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xcv-fG-OmU">
+                    <rect key="frame" x="0.0" y="-14.5" width="320" height="173"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="vxr-iR-qGP">
+                            <rect key="frame" x="16" y="0.0" width="288" height="143"/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="q02-z4-K9S"/>
+                            </constraints>
+                            <string key="text">Предложенные вами изменения на карте будут отправлены в OpenStreetMap. Если у вас есть дополнительные сведения об объекте, которые OMaps не может позволить отредактировать, напишите о них.</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_detailed_description"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="60F-c7-enR">
+                            <rect key="frame" x="16" y="151" width="288" height="16"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="16" id="lB5-ya-sBr"/>
+                            </constraints>
+                            <state key="normal" title="Button"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_more_about_osm"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MoreButton:regular14"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="osmTap" destination="IBb-39-rly" eventType="touchUpInside" id="EjN-0s-Ycy"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailingMargin" secondItem="60F-c7-enR" secondAttribute="trailing" constant="8" id="dTB-mL-e3M"/>
+                        <constraint firstItem="vxr-iR-qGP" firstAttribute="leading" secondItem="xcv-fG-OmU" secondAttribute="leadingMargin" constant="8" id="g35-I7-Ct4"/>
+                        <constraint firstItem="60F-c7-enR" firstAttribute="leading" secondItem="xcv-fG-OmU" secondAttribute="leadingMargin" constant="8" id="iiZ-Je-sn7"/>
+                        <constraint firstItem="60F-c7-enR" firstAttribute="top" secondItem="vxr-iR-qGP" secondAttribute="bottom" constant="8" id="r8W-qV-Dd0"/>
+                        <constraint firstItem="vxr-iR-qGP" firstAttribute="top" secondItem="xcv-fG-OmU" secondAttribute="top" id="tP9-HJ-DDm"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="vxr-iR-qGP" secondAttribute="trailing" constant="8" id="wPA-fe-5a9"/>
+                        <constraint firstAttribute="bottom" secondItem="60F-c7-enR" secondAttribute="bottom" constant="6" id="ylg-M3-Ejt"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="xcv-fG-OmU" firstAttribute="centerY" secondItem="IBb-39-rly" secondAttribute="centerY" id="FeQ-eT-FSb"/>
+                <constraint firstItem="xcv-fG-OmU" firstAttribute="centerX" secondItem="IBb-39-rly" secondAttribute="centerX" id="HR2-4M-jr2"/>
+                <constraint firstItem="xcv-fG-OmU" firstAttribute="width" secondItem="IBb-39-rly" secondAttribute="width" id="das-TJ-zih"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="655.07246376811599" y="311.38392857142856"/>
+        </view>
+    </objects>
+</document>

@@ -1,0 +1,9 @@
+# Build (by)products
+build/CMakeCache.txt
+build/CMakeFiles
+build/Makefile
+build/cmake_install.cmake
+build/liboauthcpp.a
+build/simple_auth
+build/simple_request
+build/tests

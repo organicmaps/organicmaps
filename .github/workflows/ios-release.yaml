@@ -1,0 +1,64 @@
+name: iOS Release
+on:
+  workflow_dispatch: # Manual trigger
+
+jobs:
+  ios-release:
+    name: iOS Release
+    runs-on: macos-12
+    env:
+      LANG: en_US.UTF-8  # Fastlane complains that the terminal is using ASCII.
+      LANGUAGE: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Checkout private keys
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ secrets.PRIVATE_REPO }}
+          ssh-key: ${{ secrets.PRIVATE_SSH_KEY }}
+          ref: master
+          path: ./private.git
+
+      - name: Configure repo with private keys
+        shell: bash
+        run: |
+          mkdir -p xcode/keys/
+          cp -p ./private.git/xcode/keys/appstore.json xcode/keys/
+          rm -rf ./private.git
+
+      - name: Checkout screenshots
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ secrets.SCREENSHOTS_REPO }}
+          ssh-key: ${{ secrets.SCREENSHOTS_SSH_KEY }}
+          ref: master
+          path: screenshots
+
+      - name: Checkout keywords
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ secrets.KEYWORDS_REPO }}
+          ssh-key: ${{ secrets.KEYWORDS_SSH_KEY }}
+          ref: master
+          path: keywords
+
+      - name: Update metadata
+        shell: bash
+        run: ./tools/python/check_store_metadata.py ios
+
+      # NOTE: a new iOS draft must be created before this step
+      - name: Upload metadata
+        shell: bash
+        run: ./fastlane.sh upload_metadata
+        working-directory: xcode
+        timeout-minutes: 5
+
+      - name: Upload screenshots
+        shell: bash
+        run: ./fastlane.sh upload_screenshots
+        working-directory: xcode
+        timeout-minutes: 10

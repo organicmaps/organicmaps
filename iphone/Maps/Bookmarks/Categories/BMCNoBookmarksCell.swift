@@ -1,0 +1,2 @@
+final class BMCEmtyDescriptionCell: UITableViewCell {
+}

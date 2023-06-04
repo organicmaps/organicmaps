@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="?cardBackground">
+  <app.organicmaps.widget.HeightLimitedFrameLayout
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_above="@id/button_container"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:orientation="vertical">
+      <TextView
+        android:id="@+id/head_message"
+        style="?fontHeadline6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_base_plus"
+        android:gravity="center"
+        android:text="@string/download_map_title" />
+      <TextView
+        android:id="@+id/download_message"
+        style="?fontBody2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_base"
+        android:layout_marginTop="@dimen/margin_base"
+        android:layout_marginEnd="@dimen/margin_base"
+        android:gravity="center"
+        android:textColor="?android:textColorSecondary"
+        tools:text="@string/download_resources" />
+    </LinearLayout>
+  </app.organicmaps.widget.HeightLimitedFrameLayout>
+  <include
+    android:id="@+id/button_container"
+    layout="@layout/button_with_progress"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true" />
+</RelativeLayout>
+

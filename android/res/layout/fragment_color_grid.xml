@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/margin_half"
+    android:gravity="center"
+    android:layoutDirection="ltr"
+    android:numColumns="3"/>
+    <!--
+    GridView doesn't show up correctly in RTL Layout.
+    https://issuetracker.google.com/issues/36982185
+    -->

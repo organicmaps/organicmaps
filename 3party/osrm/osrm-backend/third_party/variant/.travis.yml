@@ -1,0 +1,22 @@
+language: cpp
+
+# http://docs.travis-ci.com/user/multi-os/
+os:
+  - linux
+  - osx
+
+compiler:
+ - clang
+ - gcc
+
+before_install:
+ - true
+
+install:
+ - true
+
+before_script:
+ - true
+
+script:
+ - source "scripts/${TRAVIS_OS_NAME}.sh"

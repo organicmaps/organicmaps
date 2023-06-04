@@ -1,0 +1,15 @@
+• Novos dados OSM de 3 de maio
+• A busca oferece suporte à moradas interpoladas
+• Renderização mais rápida da camada de metro
+• Correção de códigos postais incorretos em Paris
+• Correção de links ausentes da Wikipédia
+• Correção de roteamento de carros nas rotundas
+• Melhoria de traduções para alemão, inglês e português (Brasil)
+• Ativação de TTS para basco, espanhol (México), marata, norueguês e português (Brasil)
+• Adição de loja de antiguidades, arte, câmeras, decoração de interiores e queijos
+• Alteração de ícone de portão
+• Atualização do ícone do metro de Lyon
+• Correção de placas de identificação de estradas dos EUA
+• Correção na exibição de corpos d'água
+
+Acompanhe nossas novidades em omaps.org/new

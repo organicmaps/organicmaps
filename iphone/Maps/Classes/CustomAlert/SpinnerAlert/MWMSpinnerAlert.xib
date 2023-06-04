@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="zbk-bu-cTT" customClass="MWMSpinnerAlert" propertyAccessControl="none">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fZW-Y8-F8A" userLabel="ContainerView">
+                    <rect key="frame" x="47.5" y="264.5" width="280" height="138.5"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ik-Gs-Yc7" userLabel="button1">
+                            <rect key="frame" x="0.0" y="94.5" width="280" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="ejP-Qr-J5O"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <state key="normal" title="cancel">
+                                <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <state key="highlighted" backgroundImage="dialog_btn_press"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="cancel"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="bold17:linkBlueText"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="tap" destination="zbk-bu-cTT" eventType="touchUpInside" id="a2c-ED-0jy"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lX1-uE-UHN" userLabel="hDivider1">
+                            <rect key="frame" x="0.0" y="93.5" width="280" height="1"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="f9v-KZ-u2L"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kq1-MC-Bth">
+                            <rect key="frame" x="124" y="16" width="32" height="32"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="32" id="BsB-R0-OVr"/>
+                                <constraint firstAttribute="width" constant="32" id="ElH-YQ-cGZ"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JHp-iN-vQc" userLabel="Title">
+                            <rect key="frame" x="20" y="56" width="240" height="21.5"/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="57O-O2-CsM"/>
+                                <constraint firstAttribute="width" constant="240" id="M8o-cf-xqy"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium18:blackPrimaryText"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.88" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="6Ik-Gs-Yc7" firstAttribute="top" secondItem="lX1-uE-UHN" secondAttribute="bottom" id="04f-3J-sOv"/>
+                        <constraint firstItem="kq1-MC-Bth" firstAttribute="centerX" secondItem="fZW-Y8-F8A" secondAttribute="centerX" id="1bI-tg-lK9"/>
+                        <constraint firstAttribute="width" constant="280" id="7A5-aI-a0x"/>
+                        <constraint firstAttribute="centerX" secondItem="lX1-uE-UHN" secondAttribute="centerX" id="DKt-je-czo"/>
+                        <constraint firstItem="kq1-MC-Bth" firstAttribute="top" secondItem="fZW-Y8-F8A" secondAttribute="top" constant="16" id="Ft7-Dd-lYK"/>
+                        <constraint firstAttribute="width" secondItem="lX1-uE-UHN" secondAttribute="width" id="Qpr-nH-Na5"/>
+                        <constraint firstAttribute="bottom" secondItem="6Ik-Gs-Yc7" secondAttribute="bottom" id="Tqv-1O-YVs"/>
+                        <constraint firstItem="lX1-uE-UHN" firstAttribute="top" secondItem="JHp-iN-vQc" secondAttribute="bottom" constant="16" id="b0T-2G-xsF"/>
+                        <constraint firstItem="6Ik-Gs-Yc7" firstAttribute="trailing" secondItem="lX1-uE-UHN" secondAttribute="trailing" id="tYJ-fJ-ov9"/>
+                        <constraint firstItem="6Ik-Gs-Yc7" firstAttribute="leading" secondItem="lX1-uE-UHN" secondAttribute="leading" id="vDN-x9-Sw8"/>
+                        <constraint firstAttribute="centerX" secondItem="JHp-iN-vQc" secondAttribute="centerX" id="wwC-8B-KBV"/>
+                        <constraint firstItem="JHp-iN-vQc" firstAttribute="top" secondItem="kq1-MC-Bth" secondAttribute="bottom" constant="8" id="yW9-DY-uxC"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AlertView"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="centerX" secondItem="fZW-Y8-F8A" secondAttribute="centerX" id="Ll6-go-lGy"/>
+                <constraint firstAttribute="centerY" secondItem="fZW-Y8-F8A" secondAttribute="centerY" id="Sz5-hL-nLu"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fPw-k5-Wbc"/>
+            <connections>
+                <outlet property="cancelButton" destination="6Ik-Gs-Yc7" id="PcZ-Qo-ycv"/>
+                <outlet property="cancelHeight" destination="ejP-Qr-J5O" id="sxx-S8-gDN"/>
+                <outlet property="divider" destination="lX1-uE-UHN" id="BGf-W6-2UF"/>
+                <outlet property="progressView" destination="kq1-MC-Bth" id="FK3-oI-lWX"/>
+                <outlet property="title" destination="JHp-iN-vQc" id="6lQ-ps-HJD"/>
+            </connections>
+            <point key="canvasLocation" x="304.5" y="171.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="dialog_btn_press" width="280" height="44"/>
+    </resources>
+</document>

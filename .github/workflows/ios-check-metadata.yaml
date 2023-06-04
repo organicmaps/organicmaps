@@ -1,0 +1,19 @@
+name: iOS Check metadata
+on:
+  workflow_dispatch: # Manual trigger
+  pull_request:
+    paths:
+      - .github/workflows/ios-check-metadata.yaml  # Run check on self change
+      - iphone/metadata/**
+      - tools/python/check_store_metadata.py
+
+jobs:
+  ios-check-metadata:
+    name: Check app metadata
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Check metadata
+        run: ./tools/python/check_store_metadata.py ios

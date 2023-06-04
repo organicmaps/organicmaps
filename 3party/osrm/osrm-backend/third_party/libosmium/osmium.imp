@@ -1,0 +1,11 @@
+#-----------------------------------------------------------------------------
+#
+#  Configuration for Include-What-You-Use tool
+#
+#  https://code.google.com/p/include-what-you-use/
+#
+#-----------------------------------------------------------------------------
+[
+    { "include": ["<bits/fcntl-linux.h>", "private", "<fcntl.h>", "public"] },
+    { "include": ["<sys/types.h>", "public", "<cstdint>", "public"] }
+]

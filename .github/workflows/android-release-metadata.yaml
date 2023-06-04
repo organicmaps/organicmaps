@@ -1,0 +1,47 @@
+name: Android Release Metadata
+on:
+  workflow_dispatch: # Manual trigger
+
+env:
+  JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64  # Java 17 is required for Android Gradle 8 plugin
+
+jobs:
+  android-release-metadata:
+    name: Upload Google Play metadata
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v3
+
+      - name: Parallel submodules checkout
+        shell: bash
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
+
+      - name: Checkout screenshots
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ secrets.SCREENSHOTS_REPO }}
+          ssh-key: ${{ secrets.SCREENSHOTS_SSH_KEY }}
+          ref: master
+          path: screenshots
+
+      - name: Checkout private keys
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ secrets.PRIVATE_REPO }}
+          ssh-key: ${{ secrets.PRIVATE_SSH_KEY }}
+          ref: master
+          path: private.git
+
+      - name: Configure repo with private keys
+        shell: bash
+        run: |
+          ./configure.sh ./private.git
+          rm -rf ./private.git
+
+      - name: Upload
+        shell: bash
+        run: ./gradlew prepareGoogleReleaseListing publishGoogleReleaseListing
+        working-directory: android
+        timeout-minutes: 5

@@ -1,0 +1,10 @@
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>office-m</title>
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity="1">
+  <g id="office-m" fill-rule="nonzero">
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#000" opacity=".6"/>
+   <circle id="Oval" cx="12" cy="12" r="11" fill="#717065"/>
+   <path id="Shape" d="m10.6 15.1v-0.7h-4.893l-7e-3 2.8c0 0.777 0.623 1.4 1.4 1.4h9.8c0.777 0 1.4-0.623 1.4-1.4v-2.8h-4.9v0.7h-2.8zm7-6.3h-2.807v-1.4l-1.4-1.4h-2.8l-1.4 1.4v1.4h-2.793c-0.77 0-1.4 0.63-1.4 1.4v2.1c0 0.777 0.623 1.4 1.4 1.4h4.2v-1.4h2.8v1.4h4.2c0.77 0 1.4-0.63 1.4-1.4v-2.1c0-0.77-0.63-1.4-1.4-1.4zm-4.2 0h-2.8v-1.4h2.8v1.4z" fill="#000"/>
+  </g>
+ </g>
+</svg>

@@ -1,0 +1,13 @@
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>atm-m</title>
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity="1">
+  <g id="atm-m" fill-rule="nonzero">
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#000" opacity=".6"/>
+   <circle id="Oval" cx="12" cy="12" r="11" fill="#717065"/>
+   <g id="bx-credit-card" transform="translate(7 8)" fill="#000">
+    <path id="Shape" d="m9 0h-8c-0.5515 0-1 0.4485-1 1v6c0 0.5515 0.4485 1 1 1h8c0.5515 0 1-0.4485 1-1v-6c0-0.5515-0.4485-1-1-1zm-8 1h8v1h-8v-1zm0 6v-3h8.0005l5e-4 3h-8.001z"/>
+    <polygon id="Path" points="2 5 5 5 5 6 2 6"/>
+   </g>
+  </g>
+ </g>
+</svg>

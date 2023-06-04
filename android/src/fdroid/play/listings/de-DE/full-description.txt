@@ -1,0 +1,53 @@
+‣ Unsere kostenlose App trackt niemanden, enthält keine Werbung und braucht deine Unterstützung.
+‣ Sie wird ständig von Mitwirkenden und unserem kleinen Team verbessert, in unserer Freizeit.
+‣ Wenn etwas auf der Karte falsch ist oder fehlt, dann korrigiere es bitte in <b>OpenStreetMap</b> und sieh deine Änderungen in der zukünftigen Kartenaktualisierung.
+‣ Sollte die Navigation oder die Suche nicht funktionieren, sende uns bitte eine E-Mail. Wir antworten auf <i>JEDE</i> E-Mail und werden das Problem so schnell wie möglich beheben!
+
+<b>Dein Feedback und deine 5-Sterne-Bewertungen sind die beste Motivation für uns!</b>
+
+Wichtigste Funktionen:
+
+• Kostenlos, Open-Source, keine Werbung, kein Tracking
+• Detaillierte Offline-Karten mit Orten, die es auf anderen Karten nicht gibt, dank an die <b>OpenStreetMap</b> Community
+• Rad-, Wander- und Spazierwege
+• Höhenlinien, Höhenprofile, Bergspitzen und Steigungen
+• Schritt-für-Schritt-Navigation für Fußgänger, Radfahrer und Autos mit Sprachführung
+• Schnelle Offlinesuche
+• Export und Import von Lesezeichen im KML/KMZ-Format (GPX ist geplant)
+• Dunkler Modus zum Schutz deiner Augen
+
+Android Auto, ebenso wie öffentlichen Verkehrsmittel und Satellitenbildkarten werden <i>noch</i> nicht unterstützt. Aber mit <i>deiner Hilfe und Unterstützung</i> können wir diese Welt und unsere Karten Schritt für Schritt besser machen.
+
+Organic Maps ist <b>rein, organisch und mit Liebe gemacht</b>:
+
+• Rasend schnelle Offline-Erfahrung
+• Respektiert deine Privatsphäre
+• Schont deinen Akku
+• Keine unerwarteten Gebühren für mobile Daten
+• Einfach zu bedienen, nur die wichtigsten Funktionen integriert
+
+Frei von Trackern und schlechten Dingen:
+
+• Keine Werbung
+• Kein Tracking
+• Keine Datenerfassung
+• Kein Telefonieren nach Hause
+• Keine lästige Registrierung
+• Keine obligatorischen Tutorials
+• Kein lästiger E-Mail-Spam
+• Keine Push-Benachrichtigungen
+• Keine Crapware
+• -K̶e̶i̶n̶e̶ ̶P̶e̶s̶t̶i̶z̶i̶d̶e̶ Rein organisch
+
+Wir bei Organic Maps glauben, dass <b>Privatsphäre ein grundlegendes Menschenrecht</b> ist:
+
+• Organic Maps ist ein von einer unabhängigen Gemeinschaft betriebenes Open-Source-Projekt
+• Wir schützen deine Privatsphäre vor den neugierigen Augen der großen Technologiekonzerne
+• Bleib sicher, egal wo du bist
+
+Keine Tracker und nur minimal erforderliche Berechtigungen sind laut dem Exodus-Datenschutzbericht vorhanden.
+
+Bitte besuche <b><i>organicmaps.app</i></b> Webseite für weitere Details und ein FAQ. Oder kontaktiere uns direkt unter @OrganicMapsApp in Telegram.
+
+Lehne Überwachung ab - lebe deine Freiheit.
+<b>Teste Organic Maps!</b>

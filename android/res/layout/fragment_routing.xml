@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  style="@style/MwmWidget.Floating"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  android:clickable="true">
+  <include layout="@layout/routing_plan"/>
+
+  <include
+    layout="@layout/altitude_chart_panel"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+
+  <include
+    layout="@layout/routing_bottom_panel_transit"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+
+  <include
+    android:id="@+id/routing_action_frame"
+    layout="@layout/routing_action_panel"
+    android:visibility="gone"/>
+
+  <TextView
+    android:id="@+id/error"
+    android:paddingStart="@dimen/margin_base"
+    android:paddingEnd="@dimen/margin_base"
+    android:paddingTop="@dimen/margin_half_plus"
+    android:paddingBottom="@dimen/margin_half_plus"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="gone"/>
+
+  <Space
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"/>
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="?dividerHorizontal"/>
+
+  <include
+    layout="@layout/start_button"
+    android:visibility="gone"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"/>
+</LinearLayout>

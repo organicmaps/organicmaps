@@ -1,0 +1,43 @@
+<RCC>
+    <qresource prefix="/navig64">
+        <file>search.png</file>
+        <file>up.png</file>
+        <file>down.png</file>
+        <file>left.png</file>
+        <file>right.png</file>
+        <file>world.png</file>
+        <file>download.png</file>
+        <file>location-search.png</file>
+        <file>location.png</file>
+        <file>select.png</file>
+        <file>selectmode.png</file>
+        <file>clear.png</file>
+        <file>traffic.png</file>
+        <file>city_boundaries.png</file>
+        <file>city_roads.png</file>
+        <file>point-finish.png</file>
+        <file>point-intermediate.png</file>
+        <file>point-start.png</file>
+        <file>clear-route.png</file>
+        <file>routing.png</file>
+        <file>run.png</file>
+        <file>bug.png</file>
+        <file>chart.png</file>
+        <file>test.png</file>
+        <file>geom.png</file>
+        <file>phonepack.png</file>
+        <file>bookmark.png</file>
+        <file>ruler.png</file>
+        <file>layers.png</file>
+        <file>subway.png</file>
+        <file>isolines.png</file>
+        <file>guides.png</file>
+        <file>settings-routing.png</file>
+        <file>borders_selection.png</file>
+    </qresource>
+    <qresource prefix="/ui">
+        <file>logo.png</file>
+        <file>busy.png</file>
+        <file>x.png</file>
+    </qresource>
+</RCC>

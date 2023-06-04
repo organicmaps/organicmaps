@@ -1,0 +1,10 @@
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>kiosk-m</title>
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity="1">
+  <g id="kiosk-m" fill-rule="nonzero">
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#000" opacity=".6"/>
+   <circle id="Oval" cx="12" cy="12" r="11" fill="#8C5F93"/>
+   <path id="Shape" d="m5 6v1.8462h14v-1.8462h-14zm1.8667 12h10.267v-8.3077h-10.267v8.3077zm5.6-6.4615h2.8v4.6154h-2.8v-4.6154zm-3.7333 0h2.8v4.6154h-2.8v-4.6154z" fill="#000"/>
+  </g>
+ </g>
+</svg>

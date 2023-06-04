@@ -1,0 +1,223 @@
+default|Native for the country
+en|English
+ja|日本語
+fr|Français
+ko_rm|한국어(Rm)
+ar|العربية
+de|Deutsch
+int_name|International (Latin)
+ru|Русский
+sv|Svenska
+zh|中文
+fi|Suomi
+be|Беларуская
+ka|ქართული
+ko|한국어
+he|עברית
+nl|Nederlands
+ga|Gaeilge
+ja_rm|日本語(Rm)
+el|Ελληνικά
+it|Italiano
+es|Español
+zh_pinyin|中文（拼音）
+th|ไทย
+cy|Cymraeg
+sr|Српски
+uk|Українська
+ca|Català
+hu|Magyar
+hsb|Upper Sorbian
+eu|Euskara
+fa|فارسی
+br|Breton
+pl|Polski
+hy|Հայերէն
+kn|ಕನ್ನಡ
+sl|Slovenščina
+ro|Română
+sq|Shqipe
+am|አማርኛ
+fy|Western Frisian
+cs|Čeština
+gd|Scottish Gaelic
+sk|Slovenčina
+af|Afrikaans
+ja_kana|日本語(カタカナ)
+lb|Luxembourgish
+pt|Português
+hr|Hrvatski
+fur|Friulian
+vi|Tiếng Việt
+tr|Türkçe
+bg|Български
+eo|Esperanto
+lt|Lietuvių
+la|Latin
+kk|Қазақ
+gsw|Schwiizertüütsch
+et|Eesti
+ku|Kurdish
+mn|Mongolian
+mk|Македонски
+lv|Latviešu
+hi|हिन्दी
+gl|Galego
+no|Norsk
+is|Íslenska
+cv|Chuvash
+mdf|Moksha
+myv|Erzya
+da|Dansk
+ast|Asturian
+az|Azərbaycanca
+gv|Gaelg
+ba|Bashkir
+scn|Sicilian
+dsb|Lower Sorbian
+ur|اردو
+oc|Occitan
+tt|Tatar
+zh_py|中文（巴拉圭）
+tg|Tajik
+ta|தமிழ்
+nds|Low German
+id|Bahasa Indonesia
+ml|മലയാളം
+mr|मराठी
+tl|Tagalog
+se|Northern Sami
+my|ဗမာ
+lo_rm|Lao (Rm)
+uz|Ўзбек
+haw|ʻŌlelo Hawaiʻi
+ky|Kirghiz
+mt|Malti
+rm|Rumantsch
+bn|বাংলা
+li|Limburgish
+te|తెలుగు
+nn|Nynorsk
+ht|Haitian
+wa|Walloon
+ne|नेपाली
+os|Ossetic
+zh-py|中文（巴拉圭）
+bo|པོད་སྐད་
+ug|Uighur
+sw|Kiswahili
+kw|Kernewek
+lo|Lao
+sr_lat|Српски (Lat)
+yi|Yiddish
+jv|Javanese
+zh_pyt|中文（Pyt）
+bm|Bamanakan
+an|Aragonese
+pa|ਪੰਜਾਬੀ
+bs|Bosanski
+ak|Akan
+kv|Komi
+grc|Ancient Greek
+ms|Bahasa Melayu
+qu|Quechua
+csb|Kashubian
+arc|Aramaic
+km|ភាសាខ្មែរ
+sh|Srpskohrvatski
+nv|Navajo
+zh-min-nan|中文（Min、Nan）
+lad|Ladino
+ab|Abkhazian
+ce|Chechen
+ee|Eʋegbe
+sa|Sanskrit
+so|Soomaali
+ln|Lingala
+crh|Crimean Turkish
+io|Ido
+ps|پښتو
+wo|Wolof
+sme|Northern Sami
+nah|Nahuatl
+sah|Yakut
+vo|Volapük
+ang|Old English
+be-x-old|Беларуская (X=Old)
+ie|Interlingue
+el_latin|Ελληνικά (Latin)
+udm|Udmurt
+ia|Interlingua
+bua|Buriat
+pam|Pampanga
+bat-smg|Baltic Language (Smg)
+war|Waray
+fo|Føroyskt
+ceb|Cebuano
+new|Newari
+mi|Maori
+ksh|Colognian
+syc|Classical Syriac
+gu|ગુજરાતી
+frr|Northern Frisian
+dv|Divehi
+nb|Norsk Bokmål
+sc|Sardinian
+mg|Malagasy
+tk|Turkmen
+ilo|Iloko
+sco|Scots
+zh-yue|中文（Yue）
+si|සිංහල
+fiu-vro|Finno-Ugrian Language (Vro)
+iu|Inuktitut
+yo|Èdè Yorùbá
+ch|Chamorro
+gn|Guarani
+ale|Aleut
+jbo|Lojban
+kab|Taqbaylit
+nap|Neapolitan
+tpi|Tok Pisin
+co|Corsican
+na|Nauru
+as|অসমীয়া
+dz|Dzongkha
+kg|Kongo
+ti|ትግርኛ
+es-ar|Español (Argentina)
+nds-nl|Low German (Netherlands)
+tet|Tetum
+ks|Kashmiri
+zh-classical|中文（Classical）
+cu|Church Slavic
+su|Sundanese
+ik|Inupiaq
+sm|Samoan
+ace|Achinese
+pap|Papiamento
+xal|Kalmyk
+ja_furigana|日本語(Furigana)
+kl|Kalaallisut
+ja-rm|日本語(Rm)
+roa-rup|Romance Language (Rup)
+av|Avaric
+chm|Mari
+lat|Latin
+srn|Sranan Tongo
+tn|Tswana
+ber|Berber
+xh|Xhosa
+zu|Isizulu
+chr|ᏣᎳᎩ
+roa|Romance Language
+sma|Southern Sami
+kr|Kanuri
+krl|Karelian
+en_rm|English (Rm)
+cr|Cree
+ha|Hausa
+ts|Tsonga
+za|Zhuang
+fry|Western Frisian
+mus|Creek

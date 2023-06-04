@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <integer name="pp_title_lines">5</integer>
+  <integer name="pp_buttons_max">4</integer>
+  <integer name="place_page_description_max_length">500</integer>
+</resources>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="wrap_content"
+  android:layout_height="match_parent"
+  android:layout_marginTop="@dimen/margin_direction_big"
+  android:orientation="vertical">
+
+  <FrameLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <ImageButton
+      android:id="@+id/btn"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_margin="@dimen/margin_quarter"
+      android:background="@null"
+      android:minWidth="@dimen/margin_double_plus"
+      android:minHeight="@dimen/margin_double_plus"
+      tools:background="?attr/subwayMenuDisabled" />
+
+    <View
+      android:id="@+id/marker"
+      android:layout_width="@dimen/margin_half_plus_eight"
+      android:layout_height="@dimen/margin_half_plus_eight"
+      android:layout_gravity="end"
+      android:layout_marginEnd="@dimen/margin_half_plus"
+      android:background="@drawable/counter"
+      android:visibility="gone"
+      tools:visibility="visible" />
+  </FrameLayout>
+
+  <TextView
+    android:id="@+id/name"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginTop="@dimen/margin_quarter"
+    android:ellipsize="end"
+    android:gravity="center"
+    android:maxLines="2"
+    android:textAppearance="@style/MwmTextAppearance.Body5"
+    android:textColor="?attr/accentColorSelector"
+    tools:text="Layer Name" />
+</LinearLayout>

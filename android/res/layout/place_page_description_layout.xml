@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/poi_description_container"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  android:visibility="visible"
+  tools:visibility="visible">
+
+  <TextView
+    android:id="@+id/poi_description"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_marginStart="@dimen/margin_base"
+    android:maxLength="@integer/place_page_description_max_length"
+    android:fontFamily="@string/robotoRegular"
+    android:textStyle="normal"
+    android:lineSpacingExtra="@dimen/line_spacing_extra_2"
+    android:textColor="?android:attr/textColorPrimary"
+    android:textAppearance="?android:attr/textAppearance"
+    tools:text="asdasdadadasdasdasdasdasdasdasdadas"
+    tools:ignore="UnusedAttribute"/>
+
+  <TextView
+    android:id="@+id/more_btn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="start|bottom"
+    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_marginStart="@dimen/margin_base"
+    android:textAppearance="?android:attr/textAppearance"
+    android:gravity="start|top"
+    android:textColor="?attr/colorAccent"
+    android:text="@string/category_desc_more"
+    android:background="@android:color/transparent"/>
+  <include
+    layout="@layout/divider_horizontal"/>
+</LinearLayout>

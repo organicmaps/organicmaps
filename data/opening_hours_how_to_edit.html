@@ -1,0 +1,9 @@
+<p>The opening hours field specifies when the amenity is open. Use <b>24/7</b> for facilities working non-stop. Examples of more specific intervals:</p>
+<ul>
+<li><b>Mo-Fr 10:00-21:00</b><br>A single interval is list of weekdates ("-" for a range, "," to add another range), then a space and a time range. A single "Mo-Su" can be omitted, e.g. <b>11:00-20:00</b>.</li>
+<li><b>Mo-We,Fr 09:00-13:30,14:00-18:30</b><br>Use commas to add ranges, e.g. when the amenity has a lunch break, or is open on non-consecutive weekdays. Do not insert extra spaces.</li>
+<li><b>Mo-Fr 09:00-20:00; Sa-Su 10:00-19:00</b><br>A semicolon separates different definitions for different weekdates. Note the "09": you must always use two digits for hours.</li>
+<li><b>Mo-Su 10:00-19:00; Jun off; Dec 25 off</b><br>You can exclude days or even months with an "off" word.</li>
+<li><b>Mo-Fr 17:00-03:00, Sa-Su 18:00+</b><br>Time intervals can span midnight, and it is safer to use comma instead of a semicolon in such cases. The plus sign means closing time is unspecified.
+</ul>
+<p>More examples, rules, syntax and specifications can be found on a <a href="https://wiki.openstreetmap.org/wiki/Key:opening_hours">wiki page for the key</a>.</p>

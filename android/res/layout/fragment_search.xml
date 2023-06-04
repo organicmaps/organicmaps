@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+  xmlns:tools="http://schemas.android.com/tools"
+  style="@style/MwmWidget.Floating"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:id="@+id/coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <com.google.android.material.appbar.AppBarLayout
+      android:id="@+id/app_bar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="?attr/colorPrimary"
+      android:elevation="@dimen/dp_0"
+      app:elevation="@dimen/dp_0">
+        <include
+          android:id="@+id/toolbar"
+          layout="@layout/toolbar_with_search_no_elevation"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:layout_scrollFlags="scroll|enterAlways"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior">
+      <!-- Tabs -->
+      <LinearLayout
+        android:id="@+id/tab_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <com.google.android.material.tabs.TabLayout
+          android:id="@+id/tabs"
+          style="@style/MwmWidget.TabLayout"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/tabs_height"
+          android:elevation="@dimen/appbar_elevation"/>
+
+        <View
+          android:id="@+id/tabs_divider"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="?dividerHorizontal"/>
+
+        <androidx.viewpager.widget.ViewPager
+          android:id="@+id/pages"
+          style="@style/MwmWidget.Floating"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"/>
+      </LinearLayout>
+
+      <!-- Results -->
+      <FrameLayout
+        android:id="@+id/results_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?cardBackground">
+        <include layout="@layout/recycler_with_fab"/>
+
+        <app.organicmaps.widget.PlaceholderView
+          android:id="@+id/placeholder"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="center_horizontal"
+          android:paddingStart="@dimen/margin_double_and_half"
+          android:paddingEnd="@dimen/margin_double_and_half"
+          android:paddingTop="@dimen/placeholder_margin_top"
+          android:visibility="gone"
+          tools:visibility="visible"/>
+      </FrameLayout>
+
+      <!-- Country download suggest fragment -->
+      <FrameLayout
+        android:id="@+id/download_suggest_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    </FrameLayout>
+
+    <include
+      layout="@layout/show_on_map_fab"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom|end"
+      android:layout_margin="@dimen/margin_base"/>
+
+
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</FrameLayout>
+

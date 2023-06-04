@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="MwmTheme" parent="MwmTheme.Base"/>
+  <style name="MwmTheme.Night" parent="MwmTheme.Night.Base"/>
+
+  <style name="MwmTheme.Splash">
+    <item name="android:windowBackground">@color/bg_primary</item>
+    <item name="android:textColorPrimary">@color/white_primary</item>
+    <item name="android:navigationBarColor">@color/bg_primary</item>
+    <item name="android:statusBarColor">@color/bg_primary</item>
+  </style>
+
+  <style name="MwmTheme.Night.Splash">
+    <item name="android:windowBackground">@color/bg_primary_night</item>
+    <item name="android:textColorPrimary">@color/white_primary</item>
+    <item name="android:navigationBarColor">@color/bg_primary_night</item>
+    <item name="android:statusBarColor">@color/bg_primary_night</item>
+  </style>
+
+  <!-- Theme is overridden in v27 folder to handle cutouts -->
+  <style name="MwmTheme.MainActivity">
+    <item name="android:colorPrimaryDark">@android:color/black</item>
+    <item name="android:windowBackground">@null</item>
+    <item name="android:windowTranslucentNavigation">true</item>
+  </style>
+
+  <!-- Theme is overridden in v27 folder to handle cutouts -->
+  <style name="MwmTheme.Night.MainActivity">
+    <item name="android:colorPrimaryDark">@android:color/black</item>
+    <item name="android:windowBackground">@null</item>
+    <item name="android:windowTranslucentNavigation">true</item>
+  </style>
+
+  <style name="MwmTheme.DownloadResourcesLegacy">
+    <item name="android:statusBarColor">@android:color/black</item>
+  </style>
+
+  <style name="MwmTheme.CardBg">
+    <item name="android:windowBackground">@color/bg_cards</item>
+  </style>
+
+  <style name="MwmTheme.Night.CardBg">
+    <item name="android:windowBackground">@color/bg_cards_night</item>
+  </style>
+
+  <style name="MwmTheme.WindowBg">
+    <item name="android:windowBackground">@color/bg_window</item>
+  </style>
+
+  <style name="MwmTheme.Night.WindowBg">
+    <item name="android:windowBackground">@color/bg_window_night</item>
+  </style>
+
+  <style name="MwmTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <item name="colorAccent">?buttonDialogTextColor</item>
+    <item name="android:background">?cardBackground</item>
+    <item name="android:textColorPrimary">?textDialogTheme</item>
+    <item name="android:textSize">@dimen/text_size_body_1</item>
+    <item name="android:windowTitleStyle">@style/MwmTheme.DialogTitleStyle.Light</item>
+  </style>
+
+  <style name="MwmTheme.DialogTitleBase">
+    <item name="android:textSize">@dimen/text_size_alert_dialog_title</item>
+    <item name="android:fontFamily">@string/robotoMedium</item>
+  </style>
+
+  <style name="MwmTheme.DialogTitleStyle.Light" parent="MwmTheme.DialogTitleBase">
+    <item name="android:textColor">?titleDialogTheme</item>
+  </style>
+
+  <style name="MwmTheme.Night.AlertDialog" parent="Theme.AppCompat.Dialog.Alert">
+    <item name="colorAccent">?buttonDialogTextColor</item>
+    <item name="android:background">?cardBackground</item>
+    <!-- Used for the message in the dialog -->
+    <item name="android:textColorPrimary">?textDialogTheme</item>
+    <item name="android:textSize">@dimen/text_size_body_1</item>
+    <!-- Used for the title in the dialog -->
+    <item name="android:windowTitleStyle">@style/MwmTheme.DialogTitleStyle.Night</item>
+  </style>
+
+  <style name="MwmTheme.DialogTitleStyle.Night" parent="MwmTheme.DialogTitleBase">
+    <item name="android:textColor">?titleDialogTheme</item>
+  </style>
+
+  <style name="MwmTheme.DialogFragment.TitleStyle" parent="Base.DialogWindowTitle.AppCompat">
+    <item name="android:textAppearance">@style/MwmTextAppearance.Title</item>
+    <item name="android:fontFamily">@string/robotoMedium</item>
+  </style>
+
+  <style name="MwmTheme.DialogFragment.Fullscreen" parent="Theme.AppCompat.Light">
+    <item name="colorPrimary">@color/bg_primary</item>
+    <item name="android:colorPrimaryDark">?statusBar</item>
+    <item name="colorAccent">@color/base_accent</item>
+    <item name="clickableBackground">?selectableItemBackground</item>
+    <item name="colorControlNormal">@color/text_light_hint</item>
+    <item name="android:windowIsFloating">false</item>
+    <item name="android:textColorHint">@color/text_dark_hint</item>
+    <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
+    <item name="android:colorBackgroundCacheHint">@null</item>
+    <item name="android:fontFamily">@string/robotoRegular</item>
+    <item name="android:windowTranslucentStatus">true</item>
+    <item name="android:statusBarColor">@android:color/transparent</item>
+  </style>
+
+  <style name="MwmTheme.DialogFragment.NoFullscreen" parent="MwmTheme.DialogFragment.Fullscreen">
+    <item name="android:windowTranslucentStatus">false</item>
+    <item name="android:statusBarColor">@color/bg_dialog_translucent</item>
+  </style>
+
+  <style name="MwmTheme.DialogFragment.Fullscreen.Night" parent="Theme.AppCompat">
+    <item name="colorPrimary">@color/bg_primary_night</item>
+    <item name="android:colorPrimaryDark">?statusBar</item>
+    <item name="colorAccent">@color/base_accent_night</item>
+    <item name="clickableBackground">?selectableItemBackground</item>
+    <item name="colorControlNormal">@color/text_dark_hint</item>
+    <item name="android:windowIsFloating">false</item>
+    <item name="android:textColorHint">@color/text_light_hint</item>
+    <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
+    <item name="android:colorBackgroundCacheHint">@null</item>
+    <item name="android:fontFamily">@string/robotoRegular</item>
+    <item name="android:windowTranslucentStatus">true</item>
+    <item name="android:statusBarColor">@android:color/transparent</item>
+  </style>
+
+  <style name="MwmTheme.DialogFragment.NoFullscreen.Night" parent="MwmTheme.DialogFragment.Fullscreen.Night">
+    <item name="android:windowTranslucentStatus">false</item>
+    <item name="android:statusBarColor">@color/bg_dialog_translucent</item>
+  </style>
+
+  <style name="MwmTheme.DialogFragment.Fullscreen.Translucent">
+    <item name="android:colorPrimaryDark">@android:color/black</item>
+    <item name="android:windowBackground">@color/bg_dialog_translucent</item>
+    <item name="android:windowIsTranslucent">true</item>
+  </style>
+
+  <style name="MwmMain.DialogFragment.TimePicker" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <item name="colorAccent">@color/base_accent</item>
+    <item name="android:fontFamily">@string/robotoMedium</item>
+    <item name="android:windowBackground">@color/bg_cards</item>
+    <item name="android:background">@color/bg_cards</item>
+  </style>
+
+  <style name="MwmMain.DialogFragment.TimePicker.Night" parent="Theme.AppCompat.Dialog.Alert">
+    <item name="colorAccent">@color/base_accent_night</item>
+    <item name="android:fontFamily">@string/robotoMedium</item>
+    <item name="android:windowBackground">@color/bg_cards_night</item>
+    <item name="android:background">@color/bg_cards_night</item>
+  </style>
+
+  <style name="MwmTheme.Downloader">
+    <item name="status_done">@drawable/ic_downloader_done</item>
+    <item name="status_downloadable">@drawable/ic_downloader_download</item>
+    <item name="status_failed">@drawable/downloader_failed</item>
+    <item name="status_updatable">@drawable/downloader_update</item>
+    <item name="status_folder">@drawable/ic_downloader_folder</item>
+    <item name="status_folder_done">@drawable/ic_downloader_folder_done</item>
+  </style>
+
+  <style name="MwmTheme.Downloader.Night">
+    <item name="status_done">@drawable/ic_downloader_done_night</item>
+    <item name="status_downloadable">@drawable/ic_downloader_download_night</item>
+    <item name="status_folder">@drawable/ic_downloader_folder_night</item>
+    <item name="status_folder_done">@drawable/ic_downloader_folder_done_night</item>
+  </style>
+
+  <style name="MwmTheme.NavButtonsRound">
+    <item name="searchLayoutBackground">@drawable/bg_search_wheel_background_round</item>
+  </style>
+
+  <style name="MwmTheme.NavButtonsRound.Night" parent="MwmTheme.Night">
+    <item name="searchLayoutBackground">@drawable/bg_search_wheel_background_round_night</item>
+  </style>
+
+  <style name="MwmTheme.NavButtonsRect">
+    <item name="searchLayoutBackground">@drawable/bg_search_wheel_background_rect</item>
+  </style>
+
+  <style name="MwmTheme.NavButtonsRect.Night" parent="MwmTheme.Night">
+    <item name="searchLayoutBackground">@drawable/bg_search_wheel_background_rect_night</item>
+  </style>
+
+  <style name="MwmTheme.Navigation">
+    <item name="iconTint">@color/white_primary</item>
+  </style>
+
+  <style name="MwmTheme.Navigation.Night" parent="MwmTheme.Night">
+    <item name="iconTint">@color/black_primary</item>
+  </style>
+
+  <style name="PopupMenu" parent="ThemeOverlay.AppCompat">
+    <item name="android:popupBackground">?windowBackgroundForced</item>
+  </style>
+
+  <style name="PopupMenu.Dark" parent="ThemeOverlay.AppCompat.Dark">
+    <item name="android:popupBackground">?windowBackgroundForced</item>
+  </style>
+</resources>

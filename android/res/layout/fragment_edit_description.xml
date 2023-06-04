@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+  <androidx.appcompat.widget.Toolbar
+    android:id="@+id/toolbar"
+    style="@style/MwmWidget.ToolbarStyle"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:theme="@style/MwmWidget.ToolbarTheme">
+    <TextView
+      android:id="@+id/tv__save"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_gravity="end"
+      android:background="?attr/selectableItemBackgroundBorderless"
+      android:clickable="true"
+      android:gravity="center_vertical"
+      android:padding="@dimen/margin_half"
+      android:text="@string/save"
+      android:textAppearance="@style/MwmTextAppearance.Toolbar.Title.Button" />
+  </androidx.appcompat.widget.Toolbar>
+  <FrameLayout
+    style="@style/MwmWidget.FrameLayout.Elevation"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/toolbar"
+    android:paddingStart="@dimen/margin_base"
+    android:paddingEnd="@dimen/margin_base">
+    <EditText
+      android:id="@+id/et__description"
+      style="@style/MwmWidget.PlacePage.EditText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/edit_description_hint"
+      android:includeFontPadding="false"
+      android:inputType="textMultiLine"
+      android:textColorHint="?android:textColorSecondary" />
+  </FrameLayout>
+</RelativeLayout>

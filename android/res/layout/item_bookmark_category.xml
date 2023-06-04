@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="?clickableBackground"
+  android:gravity="center_vertical">
+  <CheckBox
+    android:id="@+id/checkbox"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:layout_marginStart="@dimen/margin_half_plus"
+    android:layout_marginEnd="0dp"
+    android:minWidth="@dimen/bookmark_category_checkbox_width" />
+  <TextView
+    android:id="@+id/name"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_base"
+    android:layout_toStartOf="@id/more"
+    android:layout_toEndOf="@id/checkbox"
+    android:ellipsize="middle"
+    android:singleLine="true"
+    android:textAppearance="?fontBody1"
+    tools:text="Bookmark name looooooooooooooooooongasdasdasd" />
+  <LinearLayout
+    android:id="@+id/bottom_line_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/name"
+    android:layout_alignStart="@id/name"
+    android:layout_marginBottom="@dimen/margin_half_plus"
+    android:layout_toStartOf="@id/more"
+    android:orientation="horizontal">
+    <TextView
+      android:id="@+id/size"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:ellipsize="end"
+      android:singleLine="true"
+      android:textAppearance="@style/MwmTextAppearance.Body3"
+      tools:text="42000000" />
+  </LinearLayout>
+  <ImageView
+    android:id="@+id/more"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:background="?selectableItemBackgroundBorderless"
+    android:minHeight="@dimen/height_item_edit_bookmark"
+    android:paddingStart="@dimen/margin_quarter"
+    android:paddingEnd="@dimen/margin_half"
+    android:src="@drawable/ic_more"
+    app:tint="?secondary" />
+</RelativeLayout>

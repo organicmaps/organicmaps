@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMTrafficButtonViewController">
+            <connections>
+                <outlet property="view" destination="WVx-0E-RoH" id="0Ev-19-Sxq"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WVx-0E-RoH" customClass="MWMButton" propertyAccessControl="all">
+            <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
+            <accessibility key="accessibilityConfiguration" identifier="layers_button"/>
+            <constraints>
+                <constraint firstAttribute="height" constant="56" id="24f-V4-Vuf"/>
+                <constraint firstAttribute="width" constant="56" id="hko-xz-hRz"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="iUc-A7-STp"/>
+            <state key="normal" image="btn_traffic_on_light"/>
+            <connections>
+                <action selector="buttonTouchUpInside" destination="-1" eventType="touchUpInside" id="fKZ-g8-4ML"/>
+            </connections>
+            <point key="canvasLocation" x="0.0" y="0.0"/>
+        </button>
+    </objects>
+    <resources>
+        <image name="btn_traffic_on_light" width="56" height="56"/>
+    </resources>
+</document>

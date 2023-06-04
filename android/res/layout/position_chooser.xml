@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
+
+  <androidx.appcompat.widget.Toolbar
+    android:id="@+id/toolbar_point_chooser"
+    style="@style/MwmWidget.ToolbarStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="end|center_vertical"
+    android:theme="@style/MwmWidget.ToolbarTheme">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="horizontal"
+      android:padding="@dimen/margin_half">
+
+      <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/editor_add_select_location"
+        android:textAppearance="@style/MwmTextAppearance.Toolbar.Title"/>
+
+      <TextView
+        android:id="@+id/done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:layout_margin="@dimen/margin_half"
+        android:text="@string/done"
+        android:textAppearance="@style/MwmTextAppearance.Body1"/>
+
+    </LinearLayout>
+
+  </androidx.appcompat.widget.Toolbar>
+
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?panel"
+    android:padding="@dimen/margin_base"
+    android:text="@string/editor_focus_map_on_location"/>
+
+</LinearLayout>

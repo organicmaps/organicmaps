@@ -1,0 +1,207 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6753443E1A3F654E00A0A8C3 /* gflags_nc.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6753443C1A3F654E00A0A8C3 /* gflags_nc.cc */; };
+		6753443F1A3F654E00A0A8C3 /* gflags.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6753443D1A3F654E00A0A8C3 /* gflags.cc */; };
+		675344851A3F67CE00A0A8C3 /* gflags_reporting.cc in Sources */ = {isa = PBXBuildFile; fileRef = 675344841A3F67CE00A0A8C3 /* gflags_reporting.cc */; };
+		675344871A3F681800A0A8C3 /* gflags_completions.cc in Sources */ = {isa = PBXBuildFile; fileRef = 675344861A3F681800A0A8C3 /* gflags_completions.cc */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		34F558601DBF434600A4FC11 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		34F558611DBF434600A4FC11 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		6753442D1A3F64E400A0A8C3 /* libgflags.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libgflags.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6753443C1A3F654E00A0A8C3 /* gflags_nc.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gflags_nc.cc; path = src/gflags_nc.cc; sourceTree = "<group>"; };
+		6753443D1A3F654E00A0A8C3 /* gflags.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gflags.cc; path = src/gflags.cc; sourceTree = "<group>"; };
+		675344841A3F67CE00A0A8C3 /* gflags_reporting.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gflags_reporting.cc; path = src/gflags_reporting.cc; sourceTree = "<group>"; };
+		675344861A3F681800A0A8C3 /* gflags_completions.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gflags_completions.cc; path = src/gflags_completions.cc; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6753442A1A3F64E400A0A8C3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		675344241A3F64E400A0A8C3 = {
+			isa = PBXGroup;
+			children = (
+				34F558601DBF434600A4FC11 /* common-debug.xcconfig */,
+				34F558611DBF434600A4FC11 /* common-release.xcconfig */,
+				6753442F1A3F64E400A0A8C3 /* gflags */,
+				6753442E1A3F64E400A0A8C3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6753442E1A3F64E400A0A8C3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6753442D1A3F64E400A0A8C3 /* libgflags.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6753442F1A3F64E400A0A8C3 /* gflags */ = {
+			isa = PBXGroup;
+			children = (
+				675344861A3F681800A0A8C3 /* gflags_completions.cc */,
+				6753443C1A3F654E00A0A8C3 /* gflags_nc.cc */,
+				675344841A3F67CE00A0A8C3 /* gflags_reporting.cc */,
+				6753443D1A3F654E00A0A8C3 /* gflags.cc */,
+			);
+			name = gflags;
+			path = ../../3party/gflags;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		6753442B1A3F64E400A0A8C3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		6753442C1A3F64E400A0A8C3 /* gflags */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 675344381A3F64E400A0A8C3 /* Build configuration list for PBXNativeTarget "gflags" */;
+			buildPhases = (
+				675344291A3F64E400A0A8C3 /* Sources */,
+				6753442A1A3F64E400A0A8C3 /* Frameworks */,
+				6753442B1A3F64E400A0A8C3 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = gflags;
+			productName = gflags;
+			productReference = 6753442D1A3F64E400A0A8C3 /* libgflags.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		675344251A3F64E400A0A8C3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1410;
+				TargetAttributes = {
+					6753442C1A3F64E400A0A8C3 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+				};
+			};
+			buildConfigurationList = 675344281A3F64E400A0A8C3 /* Build configuration list for PBXProject "gflags" */;
+			compatibilityVersion = "Xcode 12.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 675344241A3F64E400A0A8C3;
+			productRefGroup = 6753442E1A3F64E400A0A8C3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6753442C1A3F64E400A0A8C3 /* gflags */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		675344291A3F64E400A0A8C3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				675344851A3F67CE00A0A8C3 /* gflags_reporting.cc in Sources */,
+				675344871A3F681800A0A8C3 /* gflags_completions.cc in Sources */,
+				6753443E1A3F654E00A0A8C3 /* gflags_nc.cc in Sources */,
+				6753443F1A3F654E00A0A8C3 /* gflags.cc in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		675344361A3F64E400A0A8C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34F558601DBF434600A4FC11 /* common-debug.xcconfig */;
+			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/gflags/src",
+				);
+			};
+			name = Debug;
+		};
+		675344371A3F64E400A0A8C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34F558611DBF434600A4FC11 /* common-release.xcconfig */;
+			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/gflags/src",
+				);
+			};
+			name = Release;
+		};
+		675344391A3F64E400A0A8C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6753443A1A3F64E400A0A8C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		675344281A3F64E400A0A8C3 /* Build configuration list for PBXProject "gflags" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				675344361A3F64E400A0A8C3 /* Debug */,
+				675344371A3F64E400A0A8C3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		675344381A3F64E400A0A8C3 /* Build configuration list for PBXNativeTarget "gflags" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				675344391A3F64E400A0A8C3 /* Debug */,
+				6753443A1A3F64E400A0A8C3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 675344251A3F64E400A0A8C3 /* Project object */;
+}

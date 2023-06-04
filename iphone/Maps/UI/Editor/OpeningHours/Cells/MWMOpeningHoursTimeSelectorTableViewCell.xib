@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="180" id="KGk-i7-Jjw" customClass="MWMOpeningHoursTimeSelectorTableViewCell" propertyAccessControl="none">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="5" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="GQP-ns-cE1">
+                        <rect key="frame" x="16" y="0.0" width="128" height="180"/>
+                        <locale key="locale" localeIdentifier="ru"/>
+                        <connections>
+                            <action selector="openValueChanged" destination="KGk-i7-Jjw" eventType="valueChanged" id="abn-DQ-iYH"/>
+                        </connections>
+                    </datePicker>
+                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="5" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="w7f-Rh-vzg">
+                        <rect key="frame" x="176" y="0.0" width="128" height="180"/>
+                        <locale key="locale" localeIdentifier="ru"/>
+                        <connections>
+                            <action selector="closeValueChanged" destination="KGk-i7-Jjw" eventType="valueChanged" id="dwu-wx-oRQ"/>
+                        </connections>
+                    </datePicker>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=":" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="8" translatesAutoresizingMaskIntoConstraints="NO" id="6b2-fN-HrU">
+                        <rect key="frame" x="72" y="79.5" width="8" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="CFL-td-w0X"/>
+                            <constraint firstAttribute="width" constant="8" id="YVE-JC-Z8n"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="—" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="24" translatesAutoresizingMaskIntoConstraints="NO" id="ArA-iX-w8F">
+                        <rect key="frame" x="148" y="79.5" width="24" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="24" id="CeN-3u-tRz"/>
+                            <constraint firstAttribute="height" constant="21" id="oBr-Rr-mKP"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=":" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="8" translatesAutoresizingMaskIntoConstraints="NO" id="MQr-gL-ImO">
+                        <rect key="frame" x="232" y="79.5" width="8" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="8" id="KIB-6H-1UD"/>
+                            <constraint firstAttribute="height" constant="21" id="Xad-ok-Mz7"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" translatesAutoresizingMaskIntoConstraints="NO" id="rOS-aO-0gb">
+                        <rect key="frame" x="0.0" y="179.5" width="320" height="1"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="etc-9t-7gU"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMSeparator"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="MQr-gL-ImO" firstAttribute="centerX" secondItem="w7f-Rh-vzg" secondAttribute="centerX" constant="-4" id="1aM-UN-taw"/>
+                    <constraint firstAttribute="bottom" secondItem="rOS-aO-0gb" secondAttribute="bottom" constant="-0.5" id="48x-fh-WrH"/>
+                    <constraint firstItem="6b2-fN-HrU" firstAttribute="centerY" secondItem="GQP-ns-cE1" secondAttribute="centerY" id="CFO-NC-K5i"/>
+                    <constraint firstItem="MQr-gL-ImO" firstAttribute="centerY" secondItem="w7f-Rh-vzg" secondAttribute="centerY" id="IAa-cP-AKa"/>
+                    <constraint firstItem="ArA-iX-w8F" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Jwt-Hj-rB5"/>
+                    <constraint firstAttribute="bottom" secondItem="GQP-ns-cE1" secondAttribute="bottom" id="MD6-2s-qbb"/>
+                    <constraint firstItem="GQP-ns-cE1" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" multiplier="1:2" id="TAR-AD-a1X"/>
+                    <constraint firstItem="GQP-ns-cE1" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.4" id="TeT-Yf-UeO"/>
+                    <constraint firstAttribute="trailing" secondItem="rOS-aO-0gb" secondAttribute="trailing" id="W3v-cq-ONy"/>
+                    <constraint firstItem="w7f-Rh-vzg" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.4" id="fYI-wR-woS"/>
+                    <constraint firstAttribute="bottom" secondItem="w7f-Rh-vzg" secondAttribute="bottom" id="hf6-7a-fuy"/>
+                    <constraint firstItem="GQP-ns-cE1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="jAC-6F-GVz"/>
+                    <constraint firstItem="w7f-Rh-vzg" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" multiplier="3:2" id="kaE-sT-Ycx"/>
+                    <constraint firstItem="w7f-Rh-vzg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ke4-wU-x0k"/>
+                    <constraint firstItem="6b2-fN-HrU" firstAttribute="centerX" secondItem="GQP-ns-cE1" secondAttribute="centerX" constant="-4" id="nzt-Rr-b0u"/>
+                    <constraint firstItem="rOS-aO-0gb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="t8r-sp-fRg"/>
+                    <constraint firstItem="ArA-iX-w8F" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="zKO-lN-XyI"/>
+                </constraints>
+                <userDefinedRuntimeAttributes>
+                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
+                </userDefinedRuntimeAttributes>
+            </tableViewCellContentView>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="closeTimePicker" destination="w7f-Rh-vzg" id="jdP-dK-pwF"/>
+                <outlet property="openTimePicker" destination="GQP-ns-cE1" id="qnP-We-WvA"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="155"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="separator_image" width="1" height="1"/>
+    </resources>
+</document>

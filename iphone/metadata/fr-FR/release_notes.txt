@@ -1,0 +1,14 @@
+• Nouvelles données Openstreetmap du 3 Mai
+• Recherche d'adresses améliorée
+• Rendu de la couche métro plus rapide
+• Correction des codes postaux incorrects à Paris
+• Correction des liens Wikipédia manquants
+• Amélioration du routage
+• Traductions anglaises, allemandes, et brésiliennes améliorées
+• Ajout du guidage vocal pour le basque, marathi, norvégien et l'espagnol (Mexique)
+• Ajout de nouveau type de boutiques (magasin d'appareils photo, magasin de décoration d'intérieur, magasin d'antiquités et d'arts et fromagerie)
+• Mise à jour de l'icône des portes et l'icône du métro de Lyon
+• Correction de l'affichage des noms des routes sur la carte aux États-Unis
+• Amélioration de l'affichage des cours d'eau sur la carte
+
+Suivez nos actualités sur : omaps.org/fr/news

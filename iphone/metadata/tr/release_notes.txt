@@ -1,0 +1,11 @@
+• 3 Mayıs tarihine ait yeni OpenStreetMap verileri
+• addr:interpolation adresleri artık aranabilir
+• Metro katmanı artık daha hızlı açılıyor
+• Eksik Vikipedi bağlantıları düzeltildi
+• Döner kavşaklardan geçen araç rotalarında bazı düzeltmeler yapıldı
+• Bazı cihazlarda ağ üzerinden konum algılama düzeltildi
+• Geçit simgesi değiştirildi
+• Fotoğraf makinesi mağazası, iç dekorasyon, antika, sanat, peynirci kategorileri eklendi
+• Su alanlarının önceliği düzeltildi
+
+Gelişmelerimizi omaps.org/tr/news adresinden takip edebilirsiniz

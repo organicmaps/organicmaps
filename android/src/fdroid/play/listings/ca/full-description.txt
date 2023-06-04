@@ -1,0 +1,52 @@
+‣ La nostra aplicació gratuïta no et fa un seguiment i no té anuncis.
+‣ El nostre petit equip està millorant constantment, en el nostre temps lliure, utilitzant els nostres propis diners i les donacions/aportacions dels nostres usuaris.
+‣ Si hi ha alguna cosa malament o falta al mapa, si us plau, arregleu-ho a <b>OpenStreetMap</b> i vegeu els vostres canvis en la futura actualització de mapes.
+‣ Si la navegació o la cerca no funciona, envieu-nos un correu electrònic. Responem al correu electrònic <i>TOT</i> i ho solucionarem el més aviat possible.
+
+<b>Els vostres comentaris i comentaris de 5 estrelles són els millors motivadors per a nosaltres!</b>
+
+Característiques clau:
+• Gratuït, de codi obert, sense anuncis, sense seguiment
+• Mapes detallats fora de línia amb llocs que no existeixen a Google Maps, gràcies a la comunitat <b>OpenStreetMap</b>
+• Rutes amb bicicleta, rutes de senderisme i senders
+• Corbes de nivell, perfils d'elevació, cims i pendents
+• Passeig, bicicleta i navegació EXPERIMENTAL en cotxe amb guia de veu
+• Cerca ràpida fora de línia
+• Exportació i importació d'adreces d'interès en formats KML/KMZ (GPX estarà disponible aviat)
+• Mode fosc per protegir els ulls
+
+No hi ha Android Auto, transport públic, mapes per satèl·lit i altres funcions interessants <i>encara</i> a Organic Maps. Però amb <i>la vostra ajuda i suport</i>, podem millorar aquest món pas a pas.
+
+Organic Maps és <b>pur i orgànic, fet amb amor</b>:
+
+• Experiència fora de línia ràpida i brillant
+• Respecta la teva privadesa
+• Estalvia la bateria
+• Sense càrrecs inesperats de dades mòbils
+• Fàcil d'utilitzar, amb només les funcions més importants incloses
+
+Lliure de rastrejadors i altres coses dolentes:
+
+• Sense anuncis
+• Sense seguiment
+• Sense recollida de dades
+• No trucar a casa
+• Sense registre molest
+• No hi ha tutories obligatòries
+• Sense correu brossa sorollós
+• Sense notificacions push
+• Sense crapware
+• N̶o̶ ̶p̶e̶s̶t̶i̶c̶i̶d̶e̶s̶ Purament orgànic
+
+A Organic Maps, creiem que la privadesa <b> és un dret humà fonamental</b>:
+
+• Organic Maps és un projecte de codi obert impulsat per la comunitat independent
+• Protegim la privadesa de les mirades indiscretes de Big Tech
+• Estigueu segurs siguis on siguis
+
+Segons l'informe de privadesa d'Exodus, es troben zero rastrejadors i només els permisos mínims necessaris.
+
+Visiteu el lloc web <b><i>organicmaps.app</i></b> per obtenir més informació i preguntes freqüents, i contacteu amb nosaltres directament a @OrganicMapsApp a Telegram.
+
+Rebutja la vigilància: accepta la teva llibertat.
+<b>Proveu els mapes orgànics!</b>

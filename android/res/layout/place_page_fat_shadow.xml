@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  tools:showIn="@layout/place_page_ugc">
+  <android.widget.Space
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/margin_half"/>
+  <ImageView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:src="@drawable/shadow_card"
+    android:scaleType="fitXY"/>
+</FrameLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/bottom_sheet_menu_item"
+  android:layout_width="match_parent"
+  android:layout_height="@dimen/menu_list_item_height"
+  android:paddingStart="@dimen/margin_base"
+  android:paddingEnd="@dimen/margin_base"
+  android:gravity="center_vertical"
+  android:background="?clickableBackground"
+  android:orientation="horizontal">
+
+  <ImageView
+    android:id="@+id/bottom_sheet_menu_item_icon"
+    android:layout_width="@dimen/bookmark_icon_size"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
+    tools:src="@drawable/ic_menu_download"
+    app:tint="?android:textColorSecondary"/>
+  <TextView
+    android:id="@+id/bottom_sheet_menu_item_text"
+    android:textAppearance="@style/MwmTextAppearance.Body1"
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="match_parent"
+    android:paddingStart="@dimen/margin_base"
+    android:paddingEnd="@dimen/margin_base"
+    android:gravity="center_vertical"
+    android:singleLine="true"
+    tools:text="Menu Item" />
+  <TextView
+    android:id="@+id/bottom_sheet_menu_item_badge"
+    style="@style/MwmWidget.Counter"
+    android:layout_gravity="end|center_vertical"
+    android:visibility="gone"
+    tools:text="9999"
+    tools:visibility="visible" />
+</LinearLayout>

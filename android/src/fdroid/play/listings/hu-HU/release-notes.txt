@@ -1,0 +1,10 @@
+• Új OpenStreetMap adatok (május 3)
+• A keresés most váltakozó páratlan és páros címeket talál
+• A metró réteg gyorsabb lett
+• Kijavítottuk a hiányzó Wikipedia linkeket
+• Javítottuk az autók körforgalmakon keresztüli navigációját
+• Javítottuk a helymeghatározás funkciót a hálózaton keresztül egyes eszközökön
+• Megváltozott a kapuk és a lyoni metró ikonja
+• Javítottuk az amerikai autópálya jelölő ikonokat
+• Kamerabolt, belső dekor, régiségek, művészetek, sajtbolt hozzáadása
+…infó: omaps.org/news

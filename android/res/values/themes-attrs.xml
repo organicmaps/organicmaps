@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <declare-styleable name="ThemeAttrs">
+    <attr name="fullscreenDialogTheme" format="reference" />
+    <attr name="titleDialogTheme" format="reference" />
+    <attr name="textDialogTheme" format="reference" />
+    <attr name="windowBackgroundForced" format="reference|color" />
+    <attr name="cardBackground" format="reference" />
+    <attr name="clickableBackground" format="reference" />
+    <attr name="statusBar" format="color" />
+    <attr name="secondary" format="color" />
+    <attr name="panel" format="color" />
+    <attr name="colorLogo" format="color" />
+    <attr name="iconTint" format="color" />
+    <attr name="iconTintDisabled" format="color" />
+    <attr name="iconTintActive" format="color" />
+    <attr name="iconTintLight" format="color" />
+    <attr name="ppBackground" format="color" />
+    <attr name="ppButtonsBackground" format="color" />
+    <attr name="navNextTurnFrame" format="reference" />
+    <attr name="navNextNextTurnFrame" format="reference" />
+    <attr name="navLanesCardBackgroundColor" format="reference" />
+    <attr name="buttonBackground" format="reference" />
+    <attr name="buttonTextColor" format="color" />
+    <attr name="buttonTextColorDisabled" format="color" />
+    <attr name="buttonDialogTextColor" format="color" />
+    <attr name="accentButtonBackground" format="reference" />
+    <attr name="accentButtonTextColor" format="color" />
+    <attr name="accentButtonTextColorDisabled" format="color" />
+    <attr name="redButtonBackground" format="reference" />
+    <attr name="redButtonTextColor" format="color" />
+    <attr name="redButtonTextColorDisabled" format="color" />
+    <attr name="primaryButtonBackground" format="reference" />
+    <attr name="menuBackground" format="color" />
+    <attr name="myPositionButtonAnimation" format="reference" />
+    <attr name="wheelPendingAnimation" format="reference" />
+    <attr name="trafficLoadingAnimation" format="reference" />
+    <attr name="navButtonsThemeRect" format="reference" />
+    <attr name="navButtonsThemeRound" format="reference" />
+    <attr name="downloaderTheme" format="reference" />
+    <attr name="navigationTheme" format="reference" />
+    <attr name="routingButtonHint" format="color" />
+    <attr name="drivingOptionsViewBg" format="color" />
+    <attr name="transitPedestrianBackground" format="color" />
+    <attr name="colorBtnHighlight" format="color" />
+    <attr name="transitStepDivider" format="reference" />
+  </declare-styleable>
+  <declare-styleable name="ThemeAttrs.Downloader">
+    <attr name="status_done" format="reference" />
+    <attr name="status_downloadable" format="reference" />
+    <attr name="status_failed" format="reference" />
+    <attr name="status_updatable" format="reference" />
+    <attr name="status_folder" format="reference" />
+    <attr name="status_folder_done" format="reference" />
+  </declare-styleable>
+  <declare-styleable name="ThemeAttrs.Navigation">
+    <attr name="searchLayoutBackground" format="reference" />
+  </declare-styleable>
+  <declare-styleable name="ThemeAttrs.ElevationProfile">
+    <attr name="elevationProfileColor" format="color" />
+    <attr name="elevationProfilePropertyBg" format="reference" />
+    <attr name="elevationProfilePropIconTint" format="color" />
+    <attr name="altitudeBg" format="reference" />
+    <attr name="elevationProfileAxisLabelColor" format="color" />
+    <attr name="elevationProfileYourLocationPinBg" format="reference" />
+    <attr name="elevationProfileSelectedPointBg" format="reference" />
+    <attr name="elevationProfileSelectedPointTriangle" format="reference" />
+    <attr name="elevationProfileFloatingTriangle" format="reference" />
+  </declare-styleable>
+  <declare-styleable name="ThemeAttrs.Fonts">
+    <attr name="fontHeadline1" format="reference" />
+    <attr name="fontHeadline2" format="reference" />
+    <attr name="fontHeadline3" format="reference" />
+    <attr name="fontHeadline4" format="reference" />
+    <attr name="fontHeadline5" format="reference" />
+    <attr name="fontHeadline6" format="reference" />
+    <attr name="fontSubtitle1" format="reference" />
+    <attr name="fontSubtitle2" format="reference" />
+    <attr name="fontBody1" format="reference" />
+    <attr name="fontBody2" format="reference" />
+    <attr name="fontButton" format="reference" />
+    <attr name="fontCaption" format="reference" />
+    <attr name="fontOverline" format="reference" />
+  </declare-styleable>
+</resources>

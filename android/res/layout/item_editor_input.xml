@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  style="@style/MwmWidget.Editor.MetadataBlock">
+  <ImageView
+    android:id="@+id/icon"
+    style="@style/MwmWidget.Editor.MetadataIcon"
+    tools:ignore="ContentDescription"
+    tools:src="@drawable/ic_phone" />
+  <com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/custom_input"
+    style="@style/MwmWidget.Editor.CustomTextInput"
+    android:layout_centerVertical="true"
+    android:layout_marginStart="54dp"
+    android:textColorHint="?android:textColorSecondary">
+    <EditText
+      android:id="@+id/input"
+      style="@style/MwmWidget.Editor.FieldLayout.EditText"
+      tools:hint="Hint"
+      tools:text="Input" />
+  </com.google.android.material.textfield.TextInputLayout>
+</RelativeLayout>

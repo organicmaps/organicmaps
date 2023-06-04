@@ -1,0 +1,52 @@
+‣ Gure doako aplikazioak ez dizu jarraipenik egiten eta ez du iragarkirik, zure dohaintzek bultzatzen dute.
+‣ Gure talde txikia etengabe hobetzen ari da, gure denbora librean, gure dirua eta gure erabiltzaileen dohaintzak/ekarpenak erabiliz.
+‣ Mapan zerbait gaizki badago edo falta bada, mesedez konpondu <b>OpenStreetMap</b> atalean eta ikusi zure aldaketak etorkizuneko mapen eguneraketan.
+‣ Nabigazioak edo bilaketak ez badu funtzionatzen, bidali mezu elektronikoa. <i></i> mezu elektroniko GUZTIEI erantzuten diogu eta lehenbailehen konponduko dugu!
+
+<b>Zure iritzia eta 5 izarreko iruzkinak dira guretzat motibazio handiena!</b>
+
+Ezaugarri nagusiak:
+• Doakoa, kode irekikoa, iragarkirik gabe, jarraipenik gabe
+• Lineaz kanpoko mapa zehatzak Google maps-en ez dauden tokiekin, <b>OpenStreetMap</b> komunitateari esker.
+• Bizikleta-ibilbideak, mendi-ibilbideak eta oinezkoentzako bideak
+• Sestra-lerroak, kota-profilak, gailurrak eta maldak
+• Pausoz pauso oinez, bizikletaz eta autoen nabigazio ESPERIMENTALA, ahots bidezko gidaritzapean
+• Lineaz kanpoko bilaketa azkarra
+• Laster-markak esportatu eta inportatu KML/KMZ formatuetan (GPX laster egongo da)
+• Modu iluna begiak babesteko
+
+<i>Oraindik</i> ez daude Android Auto, garraio publikoa, satelite bidezko mapak eta beste eginbide polit batzuk Organic Mapsen. Baina <i>zure laguntzarekin</i>, urratsez urrats hobetu dezakegu.
+
+Organic Maps <b>maitasunez egina</b> dago:
+
+• Konexioz kanpoko esperientzia izugarria
+• Zure pribatutasuna errespetatzen du
+• Bateria aurrezten du
+• Ez dago ustekabeko datu mugikorren xahutzerik
+• Erabiltzeko erraza
+
+Arakatzailerik eta beste gauza txarrik gabe:
+
+• Iragarkirik ez
+• Arakatzerik ez
+• Ez dago datu bilketarik
+• Etxera deitu gabe
+• Erregistro gogaikarririk ez
+• Derrigorrezko tutoretzarik ez
+• Ez dago posta elektronikoko spamik
+• Ez dago push jakinarazpenik
+• Crapwarerik ez
+• Pestizidarik ez. Guztiz organikoa
+
+Organic Maps-en, <b>pribatutasuna oinarrizko giza eskubide bat dela uste dugu</b>:
+
+• Organic Maps komunitate independenteek gidatutako kode irekiko proiektu bat da
+• Pribatutasuna, enpresa teknologiko handiengandik babesten zaitugu
+• Egon seguru zauden lekuan zaudela ere
+
+Zero arakatzaile eta gutxieneko baimenak soilik eskatzen dira Exodus Pribatutasun Txostenaren arabera.
+
+Mesedez, bisitatu <b><i>organicmaps.app</i></b> webgunea xehetasun gehiagorako eta ohiko galderetarako, edo jar zaitez zuzenean gurekin harremanetan @OrganicMapsApp Telegram-en.
+
+Baztertu jarraipena - hautatu askatasuna.
+<b>Probatu Organic Maps!</b>

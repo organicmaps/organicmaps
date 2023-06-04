@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ElevationDetailsViewController">
+            <connections>
+                <outlet property="difficultyDescriptionLabel" destination="7Ed-wc-w74" id="9Bw-DB-bu8"/>
+                <outlet property="difficultyLabel" destination="kDg-1H-1c1" id="azu-cC-qCf"/>
+                <outlet property="difficultyView" destination="sd4-IT-eto" id="eB9-Dr-I51"/>
+                <outlet property="extendedDifficultyGradeLabel" destination="Dke-As-9Jm" id="Tcj-7G-nQ6"/>
+                <outlet property="headerTitle" destination="AUN-AX-DfY" id="taz-UO-a7n"/>
+                <outlet property="view" destination="iN0-l3-epB" id="qok-Te-Q7Q"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SolidTouchView">
+            <rect key="frame" x="0.0" y="0.0" width="312" height="484"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Difficulty" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUN-AX-DfY">
+                    <rect key="frame" x="16" y="68" width="280" height="21"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="elevation_profile_diff_level"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="semibold18:blackPrimaryText"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sd4-IT-eto" customClass="DifficultyView" customModule="OMaps" customModuleProvider="target">
+                    <rect key="frame" x="16" y="105" width="40" height="10"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="Nq9-uQ-GCS"/>
+                        <constraint firstAttribute="height" constant="10" id="gSS-Bl-tXK"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moderate difficulty" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kDg-1H-1c1">
+                    <rect key="frame" x="16" y="125" width="280" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dke-As-9Jm" customClass="InsetsLabel" customModule="OMaps" customModuleProvider="target">
+                    <rect key="frame" x="16" y="158" width="15.5" height="17"/>
+                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="ElevationProfileExtendedDifficulty"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ed-wc-w74">
+                    <rect key="frame" x="16" y="183" width="280" height="221"/>
+                    <string key="text">Vivamus eu mattis lectus. Phasellus eu ex risus. Quisque ornare augue lectus, eget dignissim turpis ultrices quis. In sit amet sapien laoreet, gravida lorem eget, pharetra ipsum. Morbi ut massa dui. Aenean placerat libero ac ante finibus semper. Nullam semper nibh eget mauris vestibulum, eu cursus nunc finibus. Aliquam fringilla fermentum libero fringilla dictum. Donec eu semper ipsum. Sed in purus neque.</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vDr-Ie-c5L">
+                    <rect key="frame" x="16" y="420" width="280" height="48"/>
+                    <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="DsE-3h-I1o"/>
+                        <constraint firstAttribute="width" constant="280" id="JhA-fQ-QGN"/>
+                    </constraints>
+                    <state key="normal" title="Button">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="ok"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalButton"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="onOkButtonPressed:" destination="-1" eventType="touchUpInside" id="V2n-kF-R7p"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="vDr-Ie-c5L" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="03I-DI-Xet"/>
+                <constraint firstItem="sd4-IT-eto" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="4Fs-jA-Nr5"/>
+                <constraint firstItem="kDg-1H-1c1" firstAttribute="top" secondItem="sd4-IT-eto" secondAttribute="bottom" constant="10" id="590-Gb-F57"/>
+                <constraint firstItem="AUN-AX-DfY" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="24" id="5Df-xg-87e"/>
+                <constraint firstItem="7Ed-wc-w74" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="6RJ-WV-Wku"/>
+                <constraint firstItem="vDr-Ie-c5L" firstAttribute="top" secondItem="7Ed-wc-w74" secondAttribute="bottom" constant="16" id="6ma-Oj-SbC"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="vDr-Ie-c5L" secondAttribute="bottom" constant="16" id="93T-wX-CAW"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="vDr-Ie-c5L" secondAttribute="trailing" constant="16" id="KPu-Wp-KPH"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="7Ed-wc-w74" secondAttribute="trailing" constant="16" id="NxM-48-Xf1"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="kDg-1H-1c1" secondAttribute="trailing" constant="16" id="PrX-vn-5lX"/>
+                <constraint firstItem="Dke-As-9Jm" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="TA1-c3-FjG"/>
+                <constraint firstItem="Dke-As-9Jm" firstAttribute="top" secondItem="kDg-1H-1c1" secondAttribute="bottom" constant="16" id="fIj-xm-f9G"/>
+                <constraint firstItem="kDg-1H-1c1" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="fuT-eE-uMX"/>
+                <constraint firstItem="sd4-IT-eto" firstAttribute="top" secondItem="AUN-AX-DfY" secondAttribute="bottom" constant="16" id="heF-rz-x1k"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="AUN-AX-DfY" secondAttribute="trailing" constant="16" id="kmB-vg-oQY"/>
+                <constraint firstItem="7Ed-wc-w74" firstAttribute="top" secondItem="Dke-As-9Jm" secondAttribute="bottom" constant="8" id="mRe-aS-Zva"/>
+                <constraint firstItem="AUN-AX-DfY" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="wm3-Eh-4No"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="131.8840579710145" y="291.29464285714283"/>
+        </view>
+    </objects>
+</document>

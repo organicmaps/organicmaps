@@ -1,0 +1,1308 @@
+World
+WorldCoasts
+Abkhazia;Q23334;;ab,ru
+Afghanistan;Q889;af;ps
+Albania;Q222;al;sq
+Algeria;Q262;dz;ar
+ Algeria_Central;Q262-Centre
+ Algeria_Coast;Q262-North
+Andorra;Q228;ad;ca
+Angola;Q916;ao;pt
+Anguilla;Q25228;ai;en
+Antigua and Barbuda;Q781;ag;en
+Barbados;Q244;bb;en
+British Virgin Islands;Q25305;vg
+Caribisch Nederland;Q27561
+Dominica;Q784;dm;en
+Grenada;Q769;gd;en
+Guadeloupe;Q17012;gp
+Martinique;Q17054;mq
+Montserrat;Q13353;ms;en
+Saint Barthelemy;Q25362;bl;fr
+Saint Kitts and Nevis;Q763;kn;en
+Saint Lucia;Q760;lc;en
+Saint Martin;Q126125;sx
+Saint Vincent and the Grenadines;Q757;vc;en
+Trinidad and Tobago;Q754;tt;en
+United States Virgin Islands;Q11703;vi;en
+Argentina;Q414;ar;es
+ Campo de Hielo Sur;Q1031467
+ Argentina_Buenos Aires_Buenos Aires;Q1486
+ Argentina_Buenos Aires_North;Q44754-North
+ Argentina_Buenos Aires_South;Q44754-South
+ Argentina_Patagonia;Q1507
+ Argentina_Cuyo;Q1146743
+ Argentina_Mesopotamia;Q1056116
+ Argentina_Northwest;Q1437320
+ Argentina_Pampas;Q184382
+ Argentina_Santa Fe;Q44823
+Armenia;Q399;am;hy
+Austria;Q40;at;de
+ Austria_Burgenland;Q43210
+ Austria_Carinthia;Q37985
+ Austria_Lower Austria_Wien;Q1741
+ Austria_Styria_Graz;Q41358-Q13298
+ Austria_Styria_Leoben;Q41358-Q485294
+ Austria_Upper Austria_Linz;Q41967-Q41329
+ Austria_Upper Austria_Wels;Q41967-Q178582
+ Austria_Lower Austria_West;Q42497-West
+ Austria_Tyrol;Q42880
+ Austria_Salzburg;Q43325
+ Austria_Vorarlberg;Q38981
+Australia;Q408;au;en
+ Willis Island;Q3179368
+ Australia_Melbourne;Q3141
+ Australia_New South Wales;Q3224
+ Australia_Northern Territory;Q3235
+ Australia_Queensland;Q36074
+ Australia_South Australia;Q35715
+ Australia_Tasmania;Q34366
+ Australia_Victoria;Q36687
+ Australia_Western Australia;Q3206
+ Australia_Brisbane;Q34932
+ Australia_Sydney;Q3130
+Azerbaijan Region;Q227;az;az
+ Nagorno-Karabakh;Q44302
+ Azerbaijan;Q227;;az
+Bahrain;Q398;bh;ar
+Bangladesh;Q902;bd;bn
+Belarus;Q184;by;ru
+ Belarus_Vitebsk Region;Q185700
+ Belarus_Hrodna Region;Q191061
+ Belarus_Brest Region;Q173822
+ Belarus_Homiel Region;Q188732
+ Belarus_Maglieu Region;Q189822
+ Belarus_Minsk Region;Q192959
+Belgium;Q31;be;fr,de,nl
+ Belgium_West Flanders;Q1113
+ Belgium_Antwerp;Q1116
+ Belgium_East Flanders;Q1114
+ Belgium_Hainaut;Q1129
+ Belgium_Walloon Brabant;Q1122
+ Belgium_Namur;Q1125
+ Belgium_Limburg;Q1095;;nl
+ Belgium_Luxembourg;Q1126
+ Belgium_Flemish Brabant;Q1118
+ Belgium_Liege;Q1127
+Belize;Q242;bz;en
+Benin;Q962;bj;fr
+Bermuda;Q23635;bm;en
+Bhutan;Q917;bt;dz
+Bolivia;Q750;bo;es,ay,qu,gn
+ Bolivia_North;Q750-North
+ Bolivia_South;Q750-South
+Bosnia and Herzegovina;Q225;ba;sr
+ Bosnia and Herzegovina_Entity Federation of Bosnia and Herzegovina;Q11198;;hr,sr,bs
+ Bosnia and Herzegovina_Brcko district of Bosnia and Herzegowina;Q194483
+ Bosnia and Herzegovina_Republic of Srpska;Q11196
+Botswana;Q963;bw;en,tn
+Brazil;Q155;br;pt
+ Brazil_Bahia;Q40430
+ Brazil_Goias_North;Q41587-North
+ Brazil_Goias_Brasilia;Q41587-Q2844
+ Brazil_Mato Grosso Do Sul;Q43319
+ Brazil_Mato Grosso;Q42824
+ Brazil_North Region_East;Q478465-East
+ Brazil_North Region_West;Q478465-West
+ Brazil_Northeast Region_East;Q1136194-East
+ Brazil_Northeast Region_West;Q1136194-West
+ Brazil_Paraiba;Q38088
+ Brazil_Parana_East;Q15499-East
+ Brazil_Parana_West;Q15499-West
+ Brazil_Rio Grande do Norte;Q43255
+ Brazil_Santa Catarina;Q41115
+ Brazil_South Region_East;Q1060042-East
+ Brazil_South Region_West;Q1060042-West
+ Brazil_Southeast Region_Espirito Santo;Q43233
+ Brazil_Southeast Region_Minas Gerais_Contagem;Q39109-Q271333
+ Brazil_Southeast Region_Minas Gerais_North;Q39109-North
+ Brazil_Southeast Region_Rio de Janeiro;Q41428
+ Brazil_Southeast Region_Sao Paulo_Campinas;Q175-Q171617
+ Brazil_Southeast Region_Sao Paulo_City;Q175-Q81882
+ Brazil_Southeast Region_Sao Paulo_West;Q175-Q188892
+Brunei;Q921;bn;ms
+Bulgaria;Q219;bg;bg
+ Bulgaria_East;Q219-East
+ Bulgaria_West;Q219-West
+Burkina Faso;Q965;bf;fr
+Burundi;Q967;bi;fr,rn
+Cambodia;Q424;kh;km
+Cameroon;Q1009;cm;fr,en
+ Cameroon_Central;Q1009-Centre
+ Cameroon_West;Q1009-West
+Canada;Q16;ca;fr,en
+ Canada_Alberta;Q1951
+  Canada_Alberta_Edmonton;Q2096
+  Canada_Alberta_North;Q1951-North
+  Canada_Alberta_South;Q1951-South
+ Canada_British Columbia;Q1974
+  Canada_British Columbia_Central;Q1974-Centre
+  Canada_British Columbia_Far_North;Q1974-East
+  Canada_British Columbia_Islands;Q170479
+  Canada_British Columbia_North;Q1974-West
+  Canada_British Columbia_Northeast;Q1974-North
+  Canada_British Columbia_Southeast;Q232226
+  Canada_British Columbia_Vancouver;Q24639
+ Canada_Labrador;Q380307
+  Canada_Labrador_North;Q380307-North
+  Canada_Labrador_South;Q380307-South
+  Canada_Labrador_West;Q380307-West
+ Canada_Manitoba;Q1948
+  Canada_Manitoba_Northeast;Q1948-North
+  Canada_Manitoba_Northwest;Q1948-West
+  Canada_Manitoba_South;Q61432
+  Canada_Manitoba_Winnipeg;Q2135
+ Canada_New Brunswick;Q1965
+ Canada_Newfoundland;Q48335
+  Canada_Newfoundland_East;Q48335-East
+  Canada_Newfoundland_North;Q48335-North
+  Canada_Newfoundland_South;Q48335-South
+  Canada_Newfoundland_West;Q48335-West
+ Canada_Northwest Territories;Q2007
+  Canada_Northwest Territories_East;Q2007-East
+  Canada_Northwest Territories_North;Q2007-North
+  Canada_Northwest Territories_Yellowknife;Q2061
+ Canada_Nova Scotia;Q1952
+  Canada_Nova Scotia_Halifax;Q2141
+  Canada_Nova Scotia_Sydney;Q932261
+ Canada_Nunavut;Q2023
+  Canada_Nunavut_North;Q2023-North
+  Canada_Nunavut_South;Q2023-South
+ Canada_Ontario;Q1904
+  Canada_Ontario_Bame;Q34183
+  Canada_Ontario_Kingston;Q202973
+  Canada_Ontario_London;Q92561
+  Canada_Ontario_Northeastern_Central;Q991310
+  Canada_Ontario_Northeastern_North;Q3031892
+  Canada_Ontario_Northeastern_S;Q383434
+  Canada_Ontario_Northeastern_SE;Q912253
+  Canada_Ontario_Northeastern_SW;Q463165
+  Canada_Ontario_Northeastern_Wawa;Q1284782
+  Canada_Ontario_Northern;Q34116
+  Canada_Ontario_Northwestern;Q1904-North
+  Canada_Ontario_Toronto;Q172
+ Canada_Prince Edward Island;Q1979
+ Canada_Quebec;Q176;;fr
+  Canada_Quebec_Quebec;Q2145
+  Canada_Quebek_Far North;Q176-North
+  Canada_Quebek_Montreal;Q340
+  Canada_Quebek_Lachute;Q142250
+  Canada_Quebek_North;Q141699
+  Canada_Quebek_Southeast_Rimouski;Q1336
+  Canada_Quebek_Southeast_Saguenay;Q139229
+  Canada_Quebek_West_Chibougamau;Q141918
+  Canada_Quebek_West_Rouyn-Noranda;Q141804
+ Canada_Saskatchewan;Q1989
+  Canada_Saskatchewan_North;Q1989-North
+  Canada_Saskatchewan_Saskatoon;Q10566
+  Canada_Saskatchewan_Regina;Q2123
+ Canada_Yukon;Q2009
+  Canada_Yukon_North;Q2009-North
+  Canada_Yukon_Whitehorse;Q2058
+Cape Verde;Q1011;cv;pt
+Cayman Islands;Q5785;ky;en
+Central African Republic;Q929;cf;fr,sg
+Chad;Q657;td;fr,ar
+Colombia;Q739;co;es
+ Colombia_North;Q739-North
+ Colombia_West;Q739-West
+ Colombia_East;Q739-East
+Comoros;Q970;km;fr,ar
+Congo-Brazzaville;Q971;cg;fr
+Congo-Kinshasa;Q974;cd;fr
+ Congo-Kinshasa_West;Q974-West
+ Congo-Kinshasa_Kivu;Q1743993
+Cook Islands;Q26988;ck;en
+Costa Rica;Q800;cr;es
+Croatia;Q224;hr;hr
+ Croatia_Central;Q224-Centre
+ Croatia_West;Q224-West
+Cuba;Q241;cu;es
+Cyprus;Q229;cy;tr
+Czech Republic;Q213;cz;cs
+ Czech_Praha;Q1085
+ Czech_Severovychod_Pardubicky kraj;Q193317
+ Czech_Karlovasky kraj;Q191091
+ Czech_Ustecky kraj;Q192702
+ Czech_Jihozapad_Plzensky kraj;Q46070
+ Czech_Severovychod_Kralovehradecky kraj;Q193295
+ Czech_Olomoucky kraj;Q193307
+ Czech_Zlinsky Kraj;Q192536
+ Czech_Stredni Cechy_East;Q188399-East
+ Czech_Jihozapad_Jihocesky kraj;Q188373
+ Czech_Jihovychod_Kraj Vysocina;Q190930
+ Czech_Severovychod_Liberecky kraj;Q193266
+ Czech_Stredni Cechy_West;Q188399-West
+ Czech_Moravskoslezsko;Q190550
+ Czech_Jihovychod_Jihomoravsky kraj;Q192697
+Cote dIvoire;Q1008;ci;fr
+Denmark;Q35;dk;da
+ Denmark_North Denmark Region;Q26067
+ Denmark_Central Denmark Region;Q26586
+ Denmark_Capital Region of Denmark;Q26073
+ Denmark_Region Zealand;Q26589
+ Denmark_Region of Southern Denmark;Q26061
+Djibouti;Q977;dj;fr,ar
+Dominican Republic;Q786;do;es
+East Timor;Q574;tl;pt
+Chile;Q298;cl;es
+ Campo de Hielo Sur;Q1031467
+ Chile_Central;Q298-Centre
+ Chile_North;Q298-North
+ Chile_South;Q298-South
+Ecuador;Q736;ec;es
+ Ecuador_East;Q736-East
+ Ecuador_West;Q736-West
+Egypt;Q79;eg;ar
+El Salvador;Q792;sv;es
+Equatorial Guinea;Q983;gq
+Eritrea;Q986;er;en,ar,ti
+Estonia;Q191;ee;et
+ Estonia_West;Q191-West
+ Estonia_East;Q191-East
+Ethiopia;Q115;et;am
+Faroe Islands;Q4628;fo;da,fo
+Federated States of Micronesia;Q702;fm
+Fiji;Q712;fj;en,fj
+Finland;Q33;fi;fi,sv
+ Finland_Western Finland_Jyvaskyla;Q192759-Q134620
+ Finland_Western Finland_Tampere;Q192759-Q40840
+ Finland_Northern Finland;Q3745730
+ Finland_Eastern Finland_North;Q194073-North
+ Finland_Eastern Finland_South;Q194073-South
+ Finland_Southern Finland_West;Q5712
+ Finland_Southern Finland_Helsinki;Q188752-Q1757
+ Finland_Southern Finland_Lappeenranta;Q188752-Q181854
+France;Q142;fr;fr
+ France_Alsace;Q1142
+  France_Alsace_Bas-Rhin;Q12717
+  France_Alsace_Haut-Rhin;Q12722
+ France_Aquitaine;Q1179
+  France_Aquitaine_Dordogne;Q3357
+  France_Aquitaine_Gironde;Q12526
+  France_Aquitaine_Landes;Q12563
+  France_Aquitaine_Lot-et-Garonne;Q12578
+  France_Aquitaine_Pyrenees-Atlantiques;Q12703
+ France_Auvergne;Q1152
+  France_Auvergne_Allier;Q3113
+  France_Auvergne_Cantal;Q3259
+  France_Auvergne_Haute-Loire;Q12572
+  France_Auvergne_Puy-de-Dome;Q12694
+ France_Brittany;Q12130
+  France_Brittany_Cotes-dArmor;Q3349
+  France_Brittany_Finistere;Q3389
+  France_Brittany_Ille-et-Vilaine;Q12549
+  France_Brittany_Morbihan;Q12642
+ France_Burgundy;Q1173
+  France_Burgundy_Cote-dOr;Q3342
+  France_Burgundy_Nievre;Q12657
+  France_Burgundy_Saone-et-Loire;Q12736
+  France_Burgundy_Yonne;Q12816
+ France_Centre-Val de Loire;Q13947
+  France_Centre-Val de Loire_Cher;Q3286
+  France_Centre-Val de Loire_Eure-et-Loir;Q3377
+  France_Centre-Val de Loire_Indre;Q12553
+  France_Centre-Val de Loire_Indre-et-Loire;Q12556
+  France_Centre-Val de Loire_Loir-et-Cher;Q12564
+  France_Centre-Val de Loire_Loiret;Q12574
+ France_Champagne-Ardenne;Q14103
+ France_Corsica;Q14112
+ France_Free County_North;Q16394-North
+ France_Free County_South;Q16394-South
+ France_French Guiana;Q3769;;fr
+ France_Ile-de-France;Q13917
+  France_Ile-de-France_Essonne;Q3368
+  France_Ile-de-France_Hauts-de-Seine;Q12543
+  France_Ile-de-France_Paris;Q90
+  France_Ile-de-France_Seine-Saint-Denis;Q12761
+  France_Ile-de-France_Seine-et-Marne;Q12753
+  France_Ile-de-France_Val-dOise;Q12784
+  France_Ile-de-France_Val-de-Marne;Q12788
+  France_Ile-de-France_Yvelines;Q12820
+ France_Languedoc-Roussillon;Q17005
+  France_Languedoc-Roussillon_Aude;Q3207
+  France_Languedoc-Roussillon_Gard;Q12515
+  France_Languedoc-Roussillon_Herault;Q12545
+  France_Languedoc-Roussillon_Lozere;Q12580
+  France_Languedoc-Roussillon_Pyrenees-Orientales;Q12709
+ France_Limousin;Q1190
+ France_Lorraine;Q1137
+  France_Lorraine_Meurthe-et-Moselle;Q12626
+  France_Lorraine_Meuse;Q12631
+  France_Lorraine_Moselle;Q12652
+  France_Lorraine_Vosges;Q3105
+ France_Lower Normandy;Q16954
+  France_Lower Normandy_Calvados;Q3249
+  France_Lower Normandy_Manche;Q12589
+  France_Lower Normandy_Orne;Q12679
+ France_Midi-Pyrenees;Q16393
+  France_Midi-Pyrenees_Ariege;Q3184
+  France_Midi-Pyrenees_Aveyron;Q3216
+  France_Midi-Pyrenees_Gers;Q12517
+  France_Midi-Pyrenees_Haute-Garonne;Q12538
+  France_Midi-Pyrenees_Hautes-Pyrenees;Q12700
+  France_Midi-Pyrenees_Lot;Q12576
+  France_Midi-Pyrenees_Tarn;Q12772
+  France_Midi-Pyrenees_Tarn-et-Garonne;Q12779
+ France_New Caledonia;Q33788
+ France_Nord-Pas-de-Calais;Q16987
+  France_Nord-Pas-de-Calais_Nord;Q12661
+  France_Nord-Pas-de-Calais_Lille;Q648
+  France_Nord-Pas-de-Calais_Pas-de-Calais;Q12689
+ France_Pays de la Loire;Q16994
+  France_Pays de la Loire_Loire-Atlantique_Nantes;Q3068-Q12191
+  France_Pays de la Loire_Loire-Atlantique_Saint-Nazaire;Q3068-Q152027
+  France_Pays de la Loire_Maine-et-Loire;Q12584
+  France_Pays de la Loire_Mayenne;Q12620
+  France_Pays de la Loire_Sarthe;Q12740
+  France_Pays de la Loire_Vendee;Q12798
+ France_Picardy;Q13950
+  France_Picardy_Aisne;Q3093
+  France_Picardy_Oise;Q12675
+  France_Picardy_Somme;Q12770
+ France_Poitou-Charentes;Q17009
+  France_Poitou-Charentes_Charente;Q3266
+  France_Poitou-Charentes_Charente-Maritime;Q3278
+  France_Poitou-Charentes_Deux-Sevres;Q12765
+  France_Poitou-Charentes_Vienne;Q12804
+ France_Provence-Alpes-Cote dAzur;Q15104
+  France_Provence-Alpes-Cote dAzur_Alpes-de-Haute-Provence;Q3131
+  France_Provence-Alpes-Cote dAzur_Bouches-du-Rhone;Q3240
+  France_Provence-Alpes-Cote dAzur_Hautes-Alpes;Q3125
+  France_Provence-Alpes-Cote dAzur_Maritime Alps;Q3139
+  France_Provence-Alpes-Cote dAzur_Var;Q12789
+  France_Provence-Alpes-Cote dAzur_Vaucluse;Q12792
+ France_Rhone-Alpes;Q463
+  France_Rhone-Alpes_Ain;Q3083
+  France_Rhone-Alpes_Ardeche;Q3148
+  France_Rhone-Alpes_Drome;Q3364
+  France_Rhone-Alpes_Haute-Savoie;Q12751
+  France_Rhone-Alpes_Isere;Q12559
+  France_Rhone-Alpes_Loire;Q12569
+  France_Rhone-Alpes_Rhone;Q46130
+  France_Rhone-Alpes_Savoie;Q12745
+ France_Southern Islands;Q129003
+ France_Upper Normandy;Q16961
+ French Polynesia;Q30971;;fr
+ Wallis and Futuna;Q35555
+Gabon;Q1000;ga;fr
+Georgia Region;Q230;ge;ka
+ Georgia;Q230;ge;ka
+ Abkhazia;Q23334;;ab,ru
+ South Ossetia;Q23427;;ru,ka,os
+Germany;Q183;de;de
+ Germany_Baden-Wurttemberg;Q985
+  Germany_Baden-Wurttemberg_Regierungsbezirk Freiburg;Q2833
+  Germany_Baden-Wurttemberg_Regierungsbezirk Karlsruhe;Q8165
+  Germany_Baden-Wurttemberg_Regierungsbezirk Stuttgart_Heilbronn;Q8172-Q715
+  Germany_Baden-Wurttemberg_Regierungsbezirk Stuttgart_Stuttgart;Q8172-Q1022
+  Germany_Baden-Wurttemberg_Regierungsbezirk Tubingen;Q8170
+ Germany_Berlin;Q64
+ Germany_Brandenburg_North;Q1208-North
+ Germany_Brandenburg_South;Q1208-South
+ Germany_Free State of Bavaria;Q980
+  Germany_Free State of Bavaria_Lower Bavaria;Q10559
+  Germany_Free State of Bavaria_Lower Franconia;Q10547
+  Germany_Free State of Bavaria_Middle Franconia;Q10551
+  Germany_Free State of Bavaria_Swabia;Q10557
+  Germany_Free State of Bavaria_Upper Bavaria_East;Q10562-East
+  Germany_Free State of Bavaria_Upper Bavaria_Ingolstadt;Q10562-Q3004
+  Germany_Free State of Bavaria_Upper Bavaria_Munchen;Q10562-Q1726
+  Germany_Free State of Bavaria_Upper Bavaria_South;Q10562-South
+  Germany_Free State of Bavaria_Upper Franconia;Q10554
+  Germany_Free State of Bavaria_Upper Palatinate;Q10555
+ Germany_Hamburg_main;Q1055
+ Germany_Hesse;Q1199
+  Germany_Hesse_Regierungsbezirk Darmstadt;Q7932
+  Germany_Hesse_Regierungsbezirk Giessen;Q7931
+  Germany_Hesse_Regierungsbezirk Kassel;Q7928
+ Germany_Lower Saxony;Q1197
+  Germany_Lower Saxony_Bremen_Bremen;Q1209
+  Germany_Lower Saxony_Bremen_Munster;Q3920
+  Germany_Lower Saxony_Hannover;Q1715
+  Germany_Lower Saxony_Braunschweig;Q2773
+  Germany_Lower Saxony_Oldenburg;Q2936
+ Germany_Mecklenburg-Vorpommern;Q1196
+ Germany_North Rhine-Westphalia;Q1198
+  Germany_North Rhine-Westphalia_Regierungsbezirk Arnsberg_Arnsberg;Q7924-Q3912
+  Germany_North Rhine-Westphalia_Regierungsbezirk Arnsberg_Dortmund;Q7924-Q1295
+  Germany_North Rhine-Westphalia_Regierungsbezirk Detmold;Q7923
+  Germany_North Rhine-Westphalia_Regierungsbezirk Dusseldorf_Dusseldorf;Q7926-Q1718
+  Germany_North Rhine-Westphalia_Regierungsbezirk Dusseldorf_Mulheim;Q7926-Q2899
+  Germany_North Rhine-Westphalia_Regierungsbezirk Dusseldorf_Wesel;Q7926-Q4011
+  Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen;Q7927-Q1017
+  Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Koln;Q7927-Q365
+  Germany_North Rhine-Westphalia_Regierungsbezirk Munster_Munster;Q7920-Q2742
+  Germany_North Rhine-Westphalia_Regierungsbezirk Munster_Recklinghausen;Q7920-Q3050
+ Germany_Rhineland-Palatinate_Koblenz;Q1200-Q3104
+ Germany_Rhineland-Palatinate_South;Q1200-Q1720
+ Germany_Saarland;Q1201
+ Germany_Saxony-Anhalt_Magdeburg;Q1206-Q1733
+ Germany_Saxony-Anhalt_Halle;Q1206-Q2814
+ Germany_Saxony_Dresden;Q1202-Q1731
+ Germany_Saxony_Leipzig;Q1202-Q2079
+ Germany_Schleswig-Holstein_Kiel;Q1194-Q1707
+ Germany_Schleswig-Holstein_Flensburg;Q1194-Q3798
+ Germany_Thuringia;Q1205
+Ghana;Q117;gh;en
+Gibraltar;Q1410;gi;en
+Greece;Q41;gr;el
+ Greece_Decentralized Administration of Crete;Q11748141
+ Greece_Decentralized Administration of West Greece;Q11815506
+ Greece_Decentralized Administration of Aegean;Q9380366
+ Greece_Decentralized Administration of Epirus - Western Macedonia;Q9254348
+ Greece_Decentralized Administration of Macedonia and Thrace;Q5249082
+ Greece_Decentralized Administration of Thessaly - Central Greece;Q11836920
+ Greece_Decentralized Administration of Attica;Q9161823
+Greenland;Q223;gl;kl
+Guatemala;Q774;gt;es
+Guernsey;Q25230;gg;fr,en
+Guinea;Q1006;gn;fr
+Guinea-Bissau;Q1007;gw;pt
+Guyana;Q734;gy;en
+Haiti;Q790;ht;fr,ht
+Honduras;Q783;hn;es
+Hungary;Q28;hu;hu
+ Hungary_Northern Great Plain;Q28-East
+ Hungary_Transdanubia;Q28-West
+ Hungary_Kozep-Magyarorszag;Q852742
+Iceland;Q189;is;is
+India;Q668;in;hi,mr,en,gu,ta,te,bn,as,kn,ml,pa
+ India_Andaman and Nicobar Islands;Q40888
+ India_Lakshadweep;Q26927
+ India_Andhra Pradesh;Q1159
+ India_Gujarat;Q1061
+ India_Kerala;Q1186;;en,ml
+ India_Madhya Pradesh;Q1188
+ India_Rajasthan;Q1437;;hi
+ India_Tamil Nadu;Q1445;;ta
+ India_Haryana;Q1174;;hi
+ India_Goa;Q1171
+ India_Karnataka_North;Q1185-North
+ India_Karnataka_South;Q1185-South
+ India_Maharashtra;Q1191;;mr
+ India_Telangana;Q677037
+ India_Delhi;Q1353;;hi,ur,en,pa
+ India_Uttar Pradesh;Q1498;;hi,ur
+ India_Odisha;Q22048
+ India_Chhattisgarh;Q1168;;hi
+ India_Jharkhand;Q1184
+ India_Bihar;Q1165
+ India_Tripura;Q1363
+ India_West Bengal;Q1356
+ India_Sikkim;Q1505
+ India_Uttarakhand;Q1499
+ India_Mizoram;Q1502
+ India_Meghalaya;Q1195
+ India_Manipur;Q1193
+ India_Nagaland;Q1599
+ India_Assam;Q1164
+ India_Arunachal Pradesh;Q1162
+ India_Himachal Pradesh;Q1177
+ India_Jammu and Kashmir;Q1180
+ India_Chandigarh;Q43433
+ India_Punjab;Q22424;;pa
+Indonesia;Q252;id;id
+ Indonesia_Central;Q3812,Q3795
+ Indonesia_West;Q3492
+ Indonesia_Jawa Tengah;Q3557
+ Indonesia_Jawa Barat;Q3724
+ Indonesia_Nusa Tenggara;Q3803
+ Indonesia_Jawa Timur;Q3586
+ Indonesia_East;Q252-East
+Iran;Q794;ir;fa
+ Iran_East;Q794-East
+ Iran_South;Q794-South
+ Iran_North;Q794-North
+Iraq;Q796;iq;ar,ku
+ Iraq_North;Q796-North
+ Iraq_South;Q796-South
+Isle of Man;Q9676;im;en,gv
+Israel Region;Q801;il;he
+ Jerusalem;Q1218
+ Israel;Q801;;he
+Italy;Q38;it;it
+ Italy_Abruzzo;Q1284
+ Italy_Aosta Valley;Q1222
+ Italy_Apulia;Q1447
+ Italy_Basilicata;Q1452
+ Italy_Calabria;Q1458
+ Italy_Campania;Q1438
+ Italy_Emilia;Q1263
+  Italy_Emilia-Romagna_Bologna;Q16139
+  Italy_Emilia-Romagna_Ferrara;Q16168
+  Italy_Emilia-Romagna_Forli-Cesena;Q16180
+  Italy_Emilia-Romagna_Modena;Q16209
+  Italy_Emilia-Romagna_Parma;Q16228
+  Italy_Emilia-Romagna_Piacenza;Q16243
+  Italy_Emilia-Romagna_Ravenna;Q16252
+  Italy_Emilia-Romagna_Reggio Emilia;Q16254
+  Italy_Emilia-Romagna_Rimini;Q16268
+ Italy_Friuli;Q1250
+  Italy_Friuli-Venezia Giulia_Gorizia;Q16184
+  Italy_Friuli-Venezia Giulia_Pordenone;Q16247
+  Italy_Friuli-Venezia Giulia_Trieste;Q16293
+  Italy_Friuli-Venezia Giulia_Udine;Q16294
+ Italy_Lazio;Q1282
+ Italy_Liguria;Q1256
+ Italy_Lombardy;Q1210
+  Italy_Lombardy_Bergamo;Q16137
+  Italy_Lombardy_Brescia;Q16144
+  Italy_Lombardy_Como;Q16161
+  Italy_Lombardy_Cremona;Q16163
+  Italy_Lombardy_Lecco;Q16199
+  Italy_Lombardy_Lodi;Q16201
+  Italy_Lombardy_Mantua;Q16204
+  Italy_Lombardy_Milan;Q15121
+  Italy_Lombardy_Monza and Brianza;Q16210
+  Italy_Lombardy_Pavia;Q16231
+  Italy_Lombardy_Sondrio;Q16282
+  Italy_Lombardy_Varese;Q16299
+ Italy_Marche;Q1279
+ Italy_Molise;Q1443
+ Italy_Piemont;Q1216
+  Italy_Piemont_Alessandria;Q15097
+  Italy_Piemont_Asti;Q15099
+  Italy_Piemont_Biella;Q15094
+  Italy_Piemont_Cuneo;Q15091
+  Italy_Piemont_Novara;Q16216
+  Italy_Piemont_Torino;Q16287
+  Italy_Piemont_Verbano-Cusio-Ossola;Q16312
+  Italy_Piemont_Vercelli;Q15096
+ Italy_Sardinia;Q1462
+ Italy_Sicily;Q1460
+ Italy_Trentino-Alto Adige Sudtirol;Q1237
+ Italy_Tuscany_Grosseto;Q1273-Q16185
+ Italy_Tuscany_Massa e Carrara;Q1273-Q16205
+ Italy_Umbria;Q1280
+ Italy_Veneto;Q1243
+  Italy_Veneto_Belluno;Q16126
+  Italy_Veneto_Padova;Q16226
+  Italy_Veneto_Rovigo;Q16270
+  Italy_Veneto_Treviso;Q16292
+  Italy_Veneto_Venezia;Q16310
+  Italy_Veneto_Verona;Q16314
+  Italy_Veneto_Vicenza;Q16316
+Jamaica;Q766;jm;en
+Japan;Q17;jp;ja
+ Japan_Chubu Region;Q134638
+  Japan_Chubu Region_Aichi_Nagoya;Q80434-Q11751
+  Japan_Chubu Region_Aichi_Toyohashi;Q80434-Q336431
+  Japan_Chubu Region_Fukui;Q133879
+  Japan_Chubu Region_Gifu;Q131277
+  Japan_Chubu Region_Ishikawa;Q131281
+  Japan_Chubu Region_Nagano;Q127877
+  Japan_Chubu Region_Niigata;Q132705
+  Japan_Chubu Region_Shizuoka;Q131320
+  Japan_Chubu Region_Toyama;Q132929
+  Japan_Chubu Region_Yamanashi;Q132720
+ Japan_Chugoku Region;Q127864
+  Japan_Chugoku Region_Hiroshima;Q617375
+  Japan_Chugoku Region_Okayama;Q132936
+  Japan_Chugoku Region_Shimane;Q132751
+  Japan_Chugoku Region_Tottori;Q133935
+  Japan_Chugoku Region_Yamaguchi;Q127264
+ Japan_Hokkaido Region;Q35581
+  Japan_Hokkaido Region_East;Q35581-East
+  Japan_Hokkaido Region_North;Q35581-North
+  Japan_Hokkaido Region_West;Q35581-West
+  Japan_Hokkaido Region_Sapporo;Q37951
+ Japan_Kanto;Q132480
+  Japan_Kanto_Chiba;Q80011
+  Japan_Kanto_Gunma;Q129499
+  Japan_Kanto_Ibaraki;Q83273
+  Japan_Kanto_Kanagawa;Q127513
+  Japan_Kanto_Saitama;Q128186
+  Japan_Kanto_Tochigi;Q44843
+  Japan_Kanto_Tokyo;Q1490
+ Japan_Kinki Region;Q164256
+  Japan_Shikoku Region_Kyoto;Q120730
+  Japan_Kinki Region_Mie;Q128196
+  Japan_Kinki Region_Nara;Q131287
+  Japan_Kinki Region_Osaka_Osaka;Q35765
+  Japan_Kinki Region_Osaka_West;Q122723-West
+  Japan_Kinki Region_Wakayama;Q131314
+ Japan_Kyushu Region;Q13987
+  Japan_Kyushu Region_Fukuoka;Q123258
+  Japan_Kyushu Region_Kagoshima;Q15701
+  Japan_Kyushu Region_Kumamoto;Q130308
+  Japan_Kyushu Region_Miyazaki;Q130300
+  Japan_Kyushu Region_Nagasaki;Q169376
+  Japan_Kyushu Region_Oita;Q133924
+  Japan_Kyushu Region_Okinawa;Q766445
+  Japan_Kyushu Region_Saga;Q160420
+ Japan_Shikoku Region;Q13991
+  Japan_Shikoku Region_Ehime;Q123376
+  Japan_Shikoku Region_Kagawa;Q161454
+  Japan_Shikoku Region_Kochi;Q134093
+  Japan_Shikoku Region_Tokushima;Q160734
+ Japan_Tohoku;Q129465
+  Japan_Tohoku_Akita;Q81863
+  Japan_Tohoku_Aomori;Q71699
+  Japan_Tohoku_Fukushima;Q71707
+  Japan_Tohoku_Iwate;Q48326
+  Japan_Tohoku_Miyagi;Q47896
+  Japan_Tohoku_Yamagata;Q125863
+Jersey;Q785;je;fr,en
+Jordan;Q810;jo;ar
+Kazakhstan;Q232;kz;kk
+ Kazakhstan_North;Q232-North
+ Kazakhstan_South;Q232-South
+Kenya;Q114;ke;en,sw
+Kingdom of Lesotho;Q1013;;en,st
+Kiribati;Q710;ki;en
+Kuwait;Q817;kw;ar
+Kyrgyzstan;Q813;kg;ru,ky
+Laos;Q819;la;lo
+Latvia;Q211;lv;lv
+Lebanon;Q822;lb;ar
+Liberia;Q1014;lr;en
+Libya;Q1016;ly;ar
+Liechtenstein;Q347;li;de
+Lithuania;Q37;lt;lt
+ Lithuania_East;Q37-East
+ Lithuania_West;Q37-West
+Luxembourg;Q32;lu;fr
+Macedonia;Q221;mk;mk
+Madagascar;Q1019;mg
+Malawi;Q1020;mw;en,ny
+Malaysia;Q833;my;en
+Maldives;Q826;mv;dv
+Mali;Q912;ml;fr
+Malta;Q233;mt;en,mt
+Marshall Islands;Q709;mh;en,mh
+Mauritania;Q1025;mr
+Mauritius;Q1027;mu
+Mexico;Q96;mx;es
+ Mexico_California;Q58731
+ Mexico_Central_East;Q15282
+ Mexico_Central_West;Q79920
+ Mexico_East;Q96-East
+ Mexico_Mexico;Q1489
+ Mexico_Chihuahua;Q655
+ Mexico_Sonora;Q46422
+ Mexico_South;Q96-South
+Moldova;Q217;md;ro
+Monaco;Q235;mc;fr
+Mongolia;Q711;mn;mn
+Montenegro;Q236;me
+Morocco;Q1028;ma;ar
+ Morocco_Western Sahara;Q6250
+ Morocco_Southern;Q1028-South
+ Morocco_Doukkala-Abda;Q390366
+ Morocco_Rabat-Sale-Zemmour-Zaer;Q477961
+Mozambique;Q1029;mz;pt
+Myanmar;Q836;;my
+Namibia;Q1030;na;en
+Nauru;Q697;nr;na
+Nepal;Q837;np;ne
+ Nepal_West;Q28462
+ Nepal_Kathmandu;Q3037
+ Nepal_Madhyamanchal;Q28579
+ Nepal_Purwanchal;Q28576
+Nicaragua;Q811;ni;es
+Niger;Q1032;ne;fr
+Nigeria;Q1033;ng;en
+ Nigeria_South;Q1033-South
+ Nigeria_North;Q1033-North
+Niue;Q34020;nu;en
+North Korea;Q423;kp;ko
+Norway;Q20;no;no
+ Norway_Northern;Q214041
+ Norway_Hordaland;Q50625
+ Norway_Nordland;Q50630
+ Norway_Svalbard;Q25231
+ Norway_Oppland;Q50617
+ Norway_Rogaland;Q50624
+ Norway_Hedmark;Q50616
+ Norway_Jan Mayen;Q14056
+ Norway_North Trondelag;Q50629
+ Norway_South Trondelag;Q50628
+ Norway_Southern;Q648851
+ Norway_Western;Q127598
+ Norway_Central;Q585
+ Norway_Bouvet Island;Q23408
+Oman;Q842;om;ar
+Pakistan;Q843;pk;ur,en
+Palau;Q695;pw;en
+Panama;Q804;pa
+Papua New Guinea;Q691;pg;en,ho
+Paraguay;Q733;py;es,gn
+People's Republic of China;Q148;cn;zh
+ China_Anhui;Q40956
+ China_Chongqing;Q11725
+ China_Fujian;Q41705
+ China_Gansu;Q42392
+ China_Guangdong;Q15175
+ China_Guangxi;Q15176
+ China_Guizhou;Q47097
+ China_Hebei;Q21208
+ China_Heilongjiang;Q19206
+ China_Henan;Q43684
+ China_Hubei;Q46862
+ China_Hunan;Q45761
+ China_Inner Mongolia;Q41079
+ China_Jiangsu;Q16963
+ China_Jiangxi;Q57052
+ China_Jilin;Q45208
+ China_Liaoning;Q43934
+ China_Ningxia Hui;Q57448
+ China_Qinghai;Q45833
+ China_Shaanxi;Q47974
+ China_Shandong;Q43407
+ China_Shanghai;Q8686
+ China_Shanxi;Q46913
+ China_Sichuan;Q19770
+ China_Tibet Autonomous Region;Q17269
+ China_Xinjiang;Q34800
+ China_Yunnan;Q43194
+ China_Zhejiang;Q16967
+Taiwan;Q865
+ Taiwan_North;Q865-North
+ Taiwan_South;Q865-South
+Peru;Q419;pe
+ Peru_North;Q419-North
+ Peru_Lima;Q2868
+ Peru_South;Q419-South
+Philippines;Q928;ph;en
+ Philippines_Mindanao;Q124873
+ Philippines_Visayas;Q211436
+ Philippines_Luzon_South;Q125384-South
+ Philippines_Luzon_Manila;Q13580
+ Philippines_Luzon_North;Q125384-North
+Pitcairn Islands;Q35672;pn
+Poland;Q36;pl;pl
+ Poland_West Pomeranian Voivodeship;Q54188
+ Poland_Pomeranian Voivodeship;Q54180
+ Poland_Podlaskie Voivodeship;Q54177
+ Poland_Masovian Voivodeship;Q54169
+ Poland_Lubusz Voivodeship;Q54157
+ Poland_Lublin Voivodeship;Q54155
+ Poland_Lower Silesian Voivodeship;Q54150
+ Poland_Warmian-Masurian Voivodeship;Q54184
+ Poland_Lodz Voivodeship;Q54158
+ Poland_Subcarpathian Voivodeship;Q54175
+ Poland_Lesser Poland Voivodeship;Q54159
+ Poland_Silesian Voivodeship;Q54181
+ Poland_Kuyavian-Pomeranian Voivodeship;Q54153
+ Poland_Greater Poland Voivodeship;Q54187
+ Poland_Opole Voivodeship;Q54171
+ Poland_Swietokrzyskie Voivodeship;Q54183
+Portugal;Q45;pt;pt
+ Portugal_Porto;Q36433
+ Portugal_South;Q45-South
+ Portugal_Islands;Q7213935
+ Portugal_Viseu;Q117676
+Qatar;Q846;qa;ar
+Republic of Kosovo;Q1246;xk;sq,sr
+Romania;Q218;ro;ro
+ Romania_South_East;Q649864
+ Romania_Centre;Q250330
+ Romania_West;Q1083742
+ Romania_North_West;Q602335
+ Romania_South_West;Q634271
+ Romania_North_East;Q12220026
+ Romania_South;Q2572675
+Russian Federation;Q159;ru;ru
+ Crimea;Q7835
+ Russia_Altai Krai;Q5942
+ Russia_Altai Republic;Q5971;;ru
+ Russia_Amur Oblast;Q6886
+ Russia_Arkhangelsk Oblast_Central;Q1875-Centre
+ Russia_Arkhangelsk Oblast_North;Q1875-North
+ Russia_Astrakhan Oblast;Q3941
+ Russia_Bashkortostan;Q5710;;ru,ba
+ Russia_Belgorod Oblast;Q3329
+ Russia_Bryansk Oblast;Q2810
+ Russia_Buryatia;Q6809;;ru
+ Russia_Chechen Republic;Q5187;;ru,ce
+ Russia_Chelyabinsk Oblast;Q5714
+ Russia_Chukotka Autonomous Okrug;Q7984
+ Russia_Chuvashia;Q5466;;ru,cv
+ Russia_Ingushetia;Q5219
+ Russia_Irkutsk Oblast;Q6585
+ Russia_Ivanovo Oblast;Q2654
+ Russia_Jewish Autonomous Oblast;Q7730
+ Russia_Kabardino-Balkaria;Q5267;;ru
+ Russia_Kaliningrad Oblast;Q1749
+ Russia_Kaluga Oblast;Q2842
+ Russia_Kamchatka Krai;Q7948
+ Russia_Karachay-Cherkessia;Q5328;;ru
+ Russia_Kemerov Oblast;Q6076
+ Russia_Khabarovsk Krai;Q7788
+ Russia_Khakassia;Q6543;;ru
+ Russia_Kirov Oblast;Q5387
+ Russia_Komi Republic;Q2073;;ru,kv
+ Russia_Kostroma Oblast;Q2596
+ Russia_Krasnodar Krai;Q3680-North
+ Russia_Krasnodar Krai_Adygeya;Q3680,Q3734
+ Russia_Krasnoyarsk Krai_North;Q6563-North
+ Russia_Krasnoyarsk Krai_South;Q6563-South
+ Russia_Kurgan Oblast;Q5741
+ Russia_Kursk Oblast;Q3178
+ Russia_Leningradskaya Oblast_Karelsky;Q2191-North
+ Russia_Leningradskaya Oblast_Southeast;Q2191-South
+ Russia_Lipetsk Oblast;Q3510
+ Russia_Magadan Oblast;Q7971
+ Russia_Mari El;Q5446;;ru
+ Russia_Moscow Oblast_East;Q1697-East
+ Russia_Moscow Oblast_West;Q1697-West
+ Russia_Moscow;Q649
+ Russia_Murmansk Oblast;Q1759
+ Russia_Nenets Autonomous Okrug;Q2164
+ Russia_Nizhny Novgorod Oblast;Q2246
+ Russia_North Ossetia-Alania;Q5237;;ru,os
+ Russia_Novgorod Oblast;Q2240
+ Russia_Novosibirsk Oblast;Q5851
+ Russia_Omsk Oblast;Q5835
+ Russia_Orenburg Oblast;Q5338
+ Russia_Oryol Oblast;Q3129
+ Russia_Penza Oblast;Q5545
+ Russia_Perm Krai_North;Q5400-North
+ Russia_Perm Krai_South;Q5400-South
+ Russia_Primorsky Krai;Q4341
+ Russia_Pskov Oblast;Q2218
+ Russia_Republic of Dagestan;Q5118;;ru,az,av,ce
+ Russia_Republic of Kalmykia;Q3953;;ru
+ Russia_Republic of Karelia_North;Q1914-North
+ Russia_Republic of Karelia_South;Q1914-South
+ Russia_Republic of Mordovia;Q5340;;ru
+ Russia_Rostov Oblast;Q3573
+ Russia_Ryazan Oblast;Q2753
+ Russia_Saint Petersburg;Q656
+ Russia_Sakha Republic;Q6605;;ru
+ Russia_Sakhalin Oblast;Q7797
+ Russia_Samara Oblast;Q1727
+ Russia_Saratov Oblast;Q5334
+ Russia_Smolensk Oblast;Q2347
+ Russia_Stavropol Krai;Q5207
+ Russia_Sverdlovsk Oblast_Ekaterinburg;Q5462-Q887
+ Russia_Sverdlovsk Oblast_North;Q5462-North
+ Russia_Tambov Oblast;Q3550
+ Russia_Tatarstan;Q5481;;ru,tt
+ Russia_Tomsk Oblast;Q5884
+ Russia_Tula Oblast;Q2792
+ Russia_Tuva;Q960;;ru
+ Russia_Tver Oblast;Q2292
+ Russia_Tyumen Oblast;Q5824
+ Russia_Udmurt Republic;Q5422;;ru
+ Russia_Ulyanovsk Oblast;Q5634
+ Russia_Vladimir Oblast;Q2702
+ Russia_Volgograd Oblast;Q3819
+ Russia_Vologda Oblast;Q2015
+ Russia_Voronezh Oblast;Q3447
+ Russia_Yamalo-Nenets Autonomous Okrug;Q6407
+ Russia_Yaroslavl Oblast;Q2448
+ Russia_Yugra_Khanty;Q6320-Q6329
+ Russia_Yugra_Surgut;Q6320-Q183002
+ Russia_Zabaykalsky Krai;Q6838
+Rwanda;Q1037;rw;fr,en,rw
+Sahrawi Arab Democratic Republic;Q40362;eh
+Saint Helena Ascension and Tristan da Cunha;Q192184;sh
+Samoa;Q683;ws;en,sm
+San Marino;Q238;;it
+Saudi Arabia;Q851;sa;ar
+ Saudi Arabia_South;Q851-South
+ Saudi Arabia_North;Q851-North
+Senegal;Q1041;sn;fr
+Serbia;Q403;rs;sr
+Seychelles;Q1042;sc;fr,en
+Sierra Leone;Q1044;sl;en
+Singapore;Q334;sg;en,ta,ms
+Slovakia;Q214;sk;sk
+ Slovakia_Region of Presov;Q189001
+ Slovakia_Region of Kosice;Q186295
+ Slovakia_Region of Banska Bystrica;Q183640
+ Slovakia_Region of Trnava;Q181342
+ Slovakia_Region of Trencin;Q183139
+ Slovakia_Region of Nitra;Q184548
+ Slovakia_Region of Bratislava;Q183498
+ Slovakia_Region of Zilina;Q184228
+Slovenia;Q215;si;sl
+ Slovenia_East;Q215-East
+ Slovenia_West;Q215-West
+Solomon Islands;Q685;sb;en
+Somalia;Q1045;so;so,ar
+South Africa;Q258;za;en,zu,xh,af,ve,ss,tn,ts,st,nr
+ South Africa_Western Cape;Q127167;;en,xh,af
+ South Africa_Gauteng;Q133083
+ South Africa_North West;Q165956
+ South Africa_Free State;Q160284
+ South Africa_Eastern Cape;Q130840
+ South Africa_Northern Cape;Q132418
+ South Africa_Mpumalanga;Q132410
+ South Africa_Limpopo;Q134907
+ South Africa_KwaZulu-Natal;Q81725
+South Georgia and the South Sandwich Islands;Q35086;gs;en
+South Ossetia;Q23427;;ru,ka,os
+South Sudan;Q958;ss;en
+Spain;Q29;es;es
+ Spain_Andalusia_Granada;Q5783-Q8810
+ Spain_Andalusia_Sevilla;Q5783-Q8717
+ Spain_Aragon;Q4040
+ Spain_Balearic Islands;Q5765;;es,ca
+ Spain_Basque Country;Q3995
+ Spain_Canary Islands;Q5813
+ Spain_Cantabria;Q3946
+ Spain_Castile and Leon_West;Q5739-West
+ Spain_Castile and Leon_East;Q5739-East
+ Spain_Castile-La Mancha;Q5748
+ Spain_Catalonia_Provincia de Barcelona;Q81949;;es,ca
+ Spain_Catalonia_Provincia de Girona;Q7194;;es,ca
+ Spain_Catalonia_Provincia de Lleida;Q13904;;es,ca
+ Spain_Catalonia_Provincia de Tarragona;Q98392;;es,ca
+ Spain_Ceuta;Q5823
+ Spain_Community of Madrid;Q5756
+ Spain_Comunidad Foral de Navarra;Q4018;;es,eu
+ Spain_Extremadura;Q5777
+ Spain_Galicia_North;Q3908-North
+ Spain_Galicia_South;Q3908-South
+ Spain_La Rioja;Q5727
+ Spain_Melilla;Q5831
+ Spain_Principado de Asturias;Q3934
+ Spain_Region de Murcia;Q5772
+ Spain_Valencian Community;Q5720;;es,ca
+Palestine Region;Q219060;ps;ar
+ Jerusalem;Q1218
+ Palestine;Q219060;;ar
+Sri Lanka;Q854;lk;ta,si
+Sudan;Q1049;sd;en,ar
+ Sudan_East;Q1049-East
+ Sudan_West;Q1049-West
+Suriname;Q730;sr;nl
+Swaziland;Q1050;sz;en,ss
+Sweden;Q34;se;fi,yi,sv
+ Sweden_Malardalen;Capital Region
+ Sweden_Stockholm;Q1754
+ Sweden_Ostra Gotaland;Eastern Götaland
+ Sweden_Norra Sverige;Northern Sweden
+ Sweden_Mellannorrland;Mellannorrland
+ Sweden_Bergslagen;Bergslagen
+ Sweden_Vastra Gotaland;Western Götaland
+ Sweden_Sodra Gotaland;Southern Götaland
+Switzerland;Q39;ch;fr,de,it,rm
+ Switzerland_Eastern;Q31003
+ Switzerland_Central;Q30978
+ Switzerland_Espace Mittelland_Bern;Q30983-Q70
+ Switzerland_Espace Mittelland_East;Q30983-East
+ Switzerland_Ticino;Q12724;;it
+ Switzerland_Northwestern;Q676537
+ Switzerland_Lake Geneva region;Q27714
+ Switzerland_Zurich;Q690149
+Syria;Q858;sy;ar
+Sao Tome and Principe;Q1039;st;pt
+Tajikistan;Q863;tj;ru,tg
+Tanzania;Q924;tz;en,sw
+Thailand;Q869;th;th
+ Thailand_North;Q869-North
+ Thailand_Central;Q869-Centre
+ Thailand_South;Q869-South
+The Bahamas;Q778;bs;en
+The Gambia;Q1005;gm;en
+Netherlands;Q55;nl;nl
+ Netherlands_Drenthe;Q772
+ Netherlands_Flevoland;Q707
+ Netherlands_Friesland;Q770;;nl,fy
+ Netherlands_Gelderland_Nijmegen;Q775-Q47887
+ Netherlands_Gelderland_North;Q775-Q101918
+ Netherlands_Gelderland_Zutphen;Q775-Q109535
+ Netherlands_Groningen;Q752
+ Netherlands_Limburg;Q1093
+ Netherlands_North Brabant_Eindhoven;Q1101-Q9832
+ Netherlands_North Brabant_Roosendaal;Q1101-Q6903267
+ Netherlands_North Brabant_Tiburg;Q1101-Q26430
+ Netherlands_North Brabant_Uden;Q1101-Q9872
+ Netherlands_North Holland_Alkmaar;Q701-Q972
+ Netherlands_North Holland_Amsterdam;Q701-Q727
+ Netherlands_North Holland_Zaandam;Q701-Q9978
+ Netherlands_Overijssel_Enschede;Q773-Q10002
+ Netherlands_Overijssel_Zwolle;Q773-Q793
+ Netherlands_South Holland_Brielle;Q694-Q462663
+ Netherlands_South Holland_Den Haag;Q694-Q36600
+ Netherlands_South Holland_Leiden;Q694-Q43631
+ Netherlands_South Holland_Rotterdam;Q694-Q34370
+ Netherlands_Utrecht_Amersfoort;Q776-Q992
+ Netherlands_Utrecht_Utrecht;Q776-Q803
+ Netherlands_Zeeland;Q705
+Togo;Q945;tg;fr
+Tonga;Q678;to;en,to
+Tunisia;Q948;tn;ar
+Turkey;Q43;tr;tr
+ Turkey_Mediterranean Region;Q155552
+ Turkey_Southeastern Anatolia Region;Q155638
+ Turkey_Marmara Region_Istanbul;Q155583-Q406
+ Turkey_Marmara Region_Bursa;Q155583-Q40738
+ Turkey_Eastern Anatolia Region;Q155542
+ Turkey_Black Sea Region;Q155533
+ Turkey_Central Anatolia Region_Ankara;Q155526-Q3640
+ Turkey_Central Anatolia Region_Kayseri;Q155526-Q48338
+ Turkey_Aegean Region;Q155564
+Turkmenistan;Q874;tm;tk
+Turks and Caicos Islands;Q18221;tc
+Tuvalu;Q672;tv;en
+Uganda;Q1036;ug;en,sw
+Ukraine;Q212;ua;uk
+ Ukraine_Cherkasy Oblast;Q161808
+ Ukraine_Chernihiv Oblast;Q167874
+ Ukraine_Chernivtsi Oblast;Q168856
+ Ukraine_Dnipropetrovsk Oblast;Q170672
+ Ukraine_Donetsk Oblast;Q2012050
+ Ukraine_Ivano-Frankivsk Oblast;Q178269
+ Ukraine_Kharkiv Oblast;Q170666
+ Ukraine_Kherson Oblast;Q163271
+ Ukraine_Khmelnytskyi Oblast;Q171331
+ Ukraine_Kirovohrad Oblast;Q180981
+ Ukraine_Kyiv Oblast;Q170036
+ Ukraine_Luhansk Oblast;Q171965
+ Ukraine_Lviv Oblast;Q164193
+ Ukraine_Mykolaiv Oblast;Q181633
+ Ukraine_Odessa Oblast;Q171852
+ Ukraine_Poltava Oblast;Q169501
+ Ukraine_Rivne Oblast;Q174187
+ Ukraine_Sumy Oblast;Q170446
+ Ukraine_Ternopil Oblast;Q173407
+ Ukraine_Vinnytsia Oblast;Q166709
+ Ukraine_Volyn Oblast;Q167859
+ Ukraine_Zakarpattia Oblast;Q170213
+ Ukraine_Zaporizhia Oblast;Q171334
+ Ukraine_Zhytomyr Oblast;Q40637
+ Crimea;Q7835
+United Arab Emirates;Q878;ae;ar
+Falkland Islands;Q9648
+United Kingdom;Q145;gb;en
+ British Indian Ocean Territory;Q43448
+ UK_England_East Midlands;Q47994
+ UK_England_East of England_Essex;Q48006-Q23240
+ UK_England_East of England_Norfolk;Q48006-Q23109
+ UK_England_Greater London;Q23306
+ UK_England_North East England;Q47983
+ UK_England_North West England_Manchester;Q47967-Q18125
+ UK_England_North West England_Lancaster;Q47967-Q205905
+ UK_England_South East_Brighton;Q48015-Q131491
+ UK_England_South East_Oxford;Q48015-Q34217
+ UK_England_South West England_Bristol;Q48026-Q23154
+ UK_England_South West England_Cornwall;Q48026-Q23148
+ UK_England_West Midlands;Q48038
+ UK_England_Yorkshire and the Humber;Q48063
+ UK_Northern Ireland;Q26
+ UK_Scotland_North;Q22-North
+ UK_Scotland_South;Q22-South
+ UK_Wales;Q25;;en,cy
+Ireland;Q27;ie;en,ga
+ Ireland_Connacht;Q164421
+ Ireland_Leinster;Q159736
+ Ireland_Munster;Q131438
+ Ireland_Northern Counties;Q93195
+United States of America;Q30;us
+ Alabama;Q173;;en
+  US_Alabama_Birmingham;Q79867
+  US_Alabama_Montgomery;Q29364
+ US_Alaska;Q797;;en
+ Arizona;Q816;;en
+  US_Arizona_Flagstaff;Q79842
+  US_Arizona_Phoenix;Q16556
+  US_Arizona_Tucson;Q18575
+ US_Arkansas;Q1612;;en
+  US_Arkansas_North;Q1612-North
+  US_Arkansas_South;Q1612-South
+ California;Q99;;en
+  US_California_Chico;Q432152
+  US_California_Bakersfield_Bakersfield;Q49256
+  US_California_Bakersfield_Lancaster;Q494711
+  US_California_LA;Q65
+  US_California_LA North;Q65-North
+  US_California_Redding;Q495361
+  US_California_Sacramento_Sacramento;Q18013
+  US_California_Sacramento_Fresno;Q43301
+  US_California_Sacramento_Stockton;Q49240
+  US_California_San Diego;Q16552
+  US_California_Santa_Clara_Santa Cruz;Q159232
+  US_California_Santa_Clara_Palo Alto;Q62
+ Colorado;Q1261;;en
+  US_Colorado_Aspen;Q205842
+  US_Colorado_Denver;Q16554
+  US_Colorado_South;Q1261-South
+ US_Connecticut;Q779
+ US_Delaware;Q1393
+ Florida;Q812;;en
+  US_Florida_Jacksonville;Q16568
+  US_Florida_Miami;Q8652
+  US_Florida_Orlando;Q49233
+  US_Florida_Tampa;Q49255
+  US_Florida_Gainesville;Q487999
+ US_Georgia;Q1428;;en
+  US_Georgia_Atlanta;Q23556
+  US_Georgia_Macon;Q219656
+  US_Georgia_North;Q1428-North
+  US_Georgia_South;Q1428-South
+ US_Guam;Q16635;;en,ch
+ US_Hawaii;Q782;;en
+ US_Idaho;Q1221;;en
+  US_Idaho_North;Q1221-North
+  US_Idaho_South;Q1221-South
+ Illinois;Q1204;;en
+  US_Illinois_South;Q1204-South
+  US_Illinois_Chickago;Q1297
+  US_Illinois_Elgin;Q499887
+  US_Illinois_Rockford;Q233892
+  US_Illinois_Springfield;Q28515
+ Indiana;Q1415;;en
+  US_Indiana_North;Q1415-North
+  US_Indiana_Evansville;Q486459
+  US_Indiana_Indianapolis;Q6346
+ Iowa;Q1546;;en
+  US_Iowa_Des Moines;Q39709
+  US_Iowa_Waterloo;Q496381
+  US_Iowa_West;Q1546-West
+ Kansas;Q1558;;en
+  US_Kansas_East;Q1558-East
+  US_Kansas_West;Q1558-West
+  US_Kansas_Wichita;Q49266
+ Kentucky;Q1603;;en
+  US_Kentucky_East;Q1603-East
+  US_Kentucky_West;Q1603-West
+  US_Kentucky_Louisville;Q43668
+ Louisiana;Q1588
+  US_Louisiana_Central;Q1588-West
+  US_Louisiana_New Orleans;Q34404
+ US_Maine;Q724
+ Maryland;Q1391
+  US_Maryland_Baltimore;Q5092
+  US_Maryland_and_DC;West,Q61
+ Massachusetts;Q771
+  US_Massachusetts_Boston;Q100
+  US_Massachusetts_Central;Q49179
+  US_Massachusetts_Plymouth;Q326295
+  US_Massachusetts_Southeastern;Q808535
+  US_Massachusetts_West;Q49158
+ Michigan;Q1166
+  US_Michigan_Detroit;Q12439
+  US_Michigan_North;Q1166-North
+  US_Michigan_Grand Rapids;Q184587
+  US_Michigan_Lansing;Q28237
+ Minnesota;Q1527
+  US_Minnesota_Rochester;Q486479
+  US_Minnesota_Minneapolis;Q36091
+  US_Minnesota_North;Q1527-North
+  US_Minnesota_Saint Cloud;Q736834
+ US_Mississippi;Q1494;;en
+  US_Mississippi_Gulfport;Q490587
+  US_Mississippi_North;Q1494-North
+ Missouri;Q1581
+  US_Missouri_East;Q1581-East
+  US_Missouri_Springfield;Q135615
+  US_Missouri_Kansas;Q41819
+  US_Missouri_St Louis;Q38022
+ US_Montana;Q1212;;en
+  US_Montana_East;Q1212-East
+  US_Montana_West;Q1212-West
+ US_Nebraska;Q1553;;en
+  US_Nebraska_East;Q1553-East
+  US_Nebraska_West;Q1553-West
+ US_Nevada;Q1227
+ US_New Hampshire;Q759;;en
+ New Jersey;Q1408;;en
+  US_New Jersey_North;Q1408-North
+  US_New Jersey_South;Q1408-South
+ US_New Mexico;Q1522
+  US_New Mexico_Albuquerque;Q34804
+  US_New Mexico_Roswell;Q33561
+ New York;Q1384
+  US_New York_East;Q1384-East
+  US_New York_New York;Q1384-Q60
+  US_New York_North;Q1384-North
+  US_New York_West;Q1384-West
+ North Carolina;Q1454;;en
+  US_North Carolina_Wilson;Q595348
+  US_North Carolina_Asheville;Q648501
+  US_North Carolina_Charlotte;Q16565
+  US_North Carolina_Greensboro;Q49238
+  US_North Carolina_Raleigh;Q41087
+  US_North Carolina_Wilmington;Q659400
+ North Dakota;Q1207;;en
+  US_North Dakota_Bismarck;Q37066
+  US_North Dakota_East;Q34109
+  US_North Dakota_Minot;Q487201
+ Ohio;Q1397
+  US_Ohio_Cleveland;Q37320
+  US_Ohio_Cincinnati;Q43196
+  US_Ohio_Columbus;Q16567
+  US_Ohio_Toledo;Q49239
+ Oklahoma;Q1649;;en
+  US_Oklahoma_East;Q1649-East
+  US_Oklahoma_West;Q1649-West
+  US_Oklahoma_Tulsa;Q44989
+  US_Oklahoma_Oklahoma;Q34863
+ Oregon;Q824
+  US_Oregon_Eugene;Q171224
+  US_Oregon_Portland;Q6106
+  US_Oregon_West;Q824-West
+ Pennsylvania;Q1400
+  US_Pennsylvania_Central;Q444210
+  US_Pennsylvania_Pittsburgh;Q1342
+  US_Pennsylvania_Reading;Q237896
+  US_Pennsylvania_Scranton;Q271395
+ US_Puerto Rico;Q1183;;es,en
+ US_Rhode Island;Q1387
+ South Carolina;Q1456;;en
+  US_South Carolina_Charleston;Q47716
+  US_South Carolina_Columbia;Q38453
+  US_South Carolina_Florence;Q597842
+ US_South Dakota;Q1211;;en
+ Tennessee;Q1509;;en
+  US_Tennessee_East;Q1509-East
+  US_Tennessee_West;Q1509-West
+ Texas;Q1439
+  US_Texas_Austin;Q16559
+  US_Texas_Victoria;Q784496
+  US_Texas_Dallas;Q16557
+  US_Texas_Houston;Q16555
+  US_Texas_Amarillo;Q51691
+  US_Texas_Lubbock;Q49273
+  US_Texas_San Antonio;Q975
+  US_Texas_Southwest;Q16868
+  US_Texas_Tyler;Q499169
+  US_Texas_Wako;Q128244
+  US_Texas_West;Q128361
+ US_United States Minor Outlying Islands;Q16645
+ US_Utah;Q829;;en
+  US_Utah_South;Q829-South
+  US_Utah_North;Q829-North
+ US_Vermont;Q16551
+ Virginia;Q1370;;en
+  US_Virginia_Roanoke;Q501796
+  US_Virginia_Norfolk;Q49231
+  US_Virginia_Lynchburg;Q844012
+  US_Virginia_Richmond;Q43421
+  US_Virginia_Alexandria;Q88
+ Washington;Q1223
+  US_Washington_Coast;Q199797
+  US_Washington_Seattle;Q5083
+  US_Washington_Yakima;Q499203
+ US_West Virginia;Q1371
+ Wisconsin;Q1537
+  US_Wisconsin_Milwaukee;Q37836
+  US_Wisconsin_North;Q122563
+  US_Wisconsin_Madison;Q43788
+  US_Wisconsin_Eau Claire;Q122563
+ US_Wyoming;Q1214;;en
+Uruguay;Q77;uy;es
+Uzbekistan;Q265;uz;uz,ru
+Vanuatu;Q686;vu;fr,en,bi
+Venezuela;Q717;ve;es
+ Venezuela_North;Q717-North
+ Venezuela_South;Q717-South
+Vietnam;Q881;vn;vi
+Yemen;Q805;ye;ar
+Zambia;Q953;zm;en
+Zimbabwe;Q954;zw;en,sn,nd
+Antarctica;Q51
+New Zealand;Q664;nz;en,mi
+ Tokelau;Q36823
+ New Zealand North_Auckland;North-Q37100
+ New Zealand North_Wellington;North-Q23661
+ New Zealand South_Canterbury;South-Q657004
+ New Zealand South_Southland;South-Q864971
+South Korea;Q884;kr;ko
+ South Korea_North;Q884-North
+ South Korea_South;Q884-South

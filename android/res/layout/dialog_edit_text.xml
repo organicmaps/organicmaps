@@ -1,0 +1,30 @@
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:minWidth="@dimen/width_dialog_base"
+  android:orientation="vertical"
+  android:padding="@dimen/margin_base_plus">
+  <TextView
+    android:id="@+id/tv__title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_base"
+    android:textAppearance="@style/MwmTextAppearance.Title" />
+  <com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/et__input_layout"
+    style="?fontBody1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:hintEnabled="false">
+    <EditText
+      android:id="@+id/et__input"
+      style="@style/MwmWidget.PlacePage.EditText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:inputType="text|textCapSentences"
+      android:maxLength="100"
+      android:singleLine="true" />
+  </com.google.android.material.textfield.TextInputLayout>
+</LinearLayout>

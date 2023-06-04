@@ -1,0 +1,23 @@
+*~
+libsuccinct.*
+
+test_bit_vector
+test_bp_vector
+test_bp_vector_rmq
+test_elias_fano
+test_mapper
+test_rs_bit_vector
+test_darray
+test_elias_fano_compressed_list
+test_gamma_bit_vector
+test_gamma_vector
+test_cartesian_tree
+test_topk_vector
+
+
+# cmake
+Makefile
+CMakeCache.txt
+*.cmake
+Testing/
+CMakeFiles/

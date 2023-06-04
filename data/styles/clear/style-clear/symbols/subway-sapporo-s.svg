@@ -1,0 +1,14 @@
+<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+ <g fill="none">
+  <g fill="#FFF">
+   <path d="m10.2 0c-5.3 0-9.6 4.3-9.6 9.6s4.3 9.6 9.6 9.6 9.6-4.3 9.6-9.6-4.3-9.6-9.6-9.6z" opacity=".6"/>
+   <circle cx="10.2" cy="9.6" r="8.6"/>
+  </g>
+  <g transform="translate(4 4)">
+   <path d="m0 10.2 0.4-1.2s3.9-0.8 3.9-2l0.8-0.8c0 0.1 2.4 2.8-5.1 4zm4.7-4.3-0.8 0.8-1.2-0.8h2z" fill="#1E5DE5"/>
+   <path d="m2.7 5.6s0-2 3.5-2.7l-0.7 1.6-2.8 1.1z" fill="#F5007F"/>
+   <polygon points="6.9 2.8 6.9 4 12 1.8 12 0.7" fill="#2E7D32"/>
+   <polygon points="7 7.2 8.2 6.8 9 3.3 7.8 4.1" fill="#F4511E"/>
+  </g>
+ </g>
+</svg>

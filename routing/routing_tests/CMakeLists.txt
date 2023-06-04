@@ -1,0 +1,55 @@
+project(routing_tests)
+
+set(SRC
+  applying_traffic_test.cpp
+  astar_algorithm_test.cpp
+  astar_progress_test.cpp
+  astar_router_test.cpp
+  async_router_test.cpp
+  bfs_tests.cpp
+  checkpoint_predictor_test.cpp
+  coding_test.cpp
+  cross_border_graph_tests.cpp
+  cross_mwm_connector_test.cpp
+  cumulative_restriction_test.cpp
+  edge_estimator_tests.cpp
+  fake_graph_test.cpp
+  followed_polyline_test.cpp
+  guides_tests.cpp
+  index_graph_test.cpp
+  index_graph_tools.cpp
+  index_graph_tools.hpp
+  maxspeeds_tests.cpp
+  mwm_hierarchy_test.cpp
+  nearest_edge_finder_tests.cpp
+  opening_hours_serdes_tests.cpp
+  position_accumulator_tests.cpp
+  restriction_test.cpp
+  road_access_test.cpp
+  road_graph_builder.cpp
+  road_graph_builder.hpp
+  road_graph_nearest_edges_test.cpp
+  route_tests.cpp
+  routing_algorithm.cpp
+  routing_algorithm.hpp
+  routing_helpers_tests.cpp
+  routing_options_tests.cpp
+  routing_session_test.cpp
+  speed_cameras_tests.cpp
+  tools.cpp
+  tools.hpp
+  turns_generator_test.cpp
+  turns_sound_test.cpp
+  turns_tts_text_tests.cpp
+  uturn_restriction_tests.cpp
+  world_graph_builder.cpp
+)
+
+omim_add_test(${PROJECT_NAME} ${SRC})
+
+target_link_libraries(${PROJECT_NAME}
+  platform_tests_support
+  generator_tests_support
+  routing
+  storage
+)

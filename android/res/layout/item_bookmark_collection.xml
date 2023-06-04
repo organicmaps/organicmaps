@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="?clickableBackground"
+  android:gravity="center_vertical"
+  android:orientation="horizontal">
+  <CheckBox
+    android:id="@+id/checkbox"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/margin_half_plus"
+    android:layout_marginEnd="@dimen/margin_base_plus" />
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+      android:id="@+id/name"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_base"
+      android:layout_marginEnd="@dimen/bookmark_collection_item_end_margin"
+      android:ellipsize="middle"
+      android:singleLine="true"
+      android:textAppearance="?fontBody1"
+      tools:text="Bookmark name looooooooooooooooooongasdasdasd" />
+    <TextView
+      android:id="@+id/size"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:layout_marginEnd="@dimen/bookmark_collection_item_end_margin"
+      android:layout_marginBottom="@dimen/margin_half_plus"
+      android:ellipsize="end"
+      android:singleLine="true"
+      android:textColor="?android:textColorSecondary"
+      style="?fontBody2"
+      tools:text="42000000" />
+  </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,199 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		341F09771C20063000F18AC5 /* pugiconfig.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 341F09741C20063000F18AC5 /* pugiconfig.hpp */; };
+		341F09781C20063000F18AC5 /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 341F09751C20063000F18AC5 /* pugixml.cpp */; };
+		341F09791C20063000F18AC5 /* pugixml.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 341F09761C20063000F18AC5 /* pugixml.hpp */; };
+		FA22267D2806D1DE006BDF9B /* utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FA22267C2806D1DE006BDF9B /* utils.hpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		340DF9DC1C1FF16000B5C7EC /* libpugixml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpugixml.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		341F09741C20063000F18AC5 /* pugiconfig.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = pugiconfig.hpp; path = pugixml/src/pugiconfig.hpp; sourceTree = "<group>"; };
+		341F09751C20063000F18AC5 /* pugixml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pugixml.cpp; path = pugixml/src/pugixml.cpp; sourceTree = "<group>"; };
+		341F09761C20063000F18AC5 /* pugixml.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = pugixml.hpp; path = pugixml/src/pugixml.hpp; sourceTree = "<group>"; };
+		34EBB4801DBF533D005BE9B8 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		34EBB4811DBF533D005BE9B8 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		FA22267C2806D1DE006BDF9B /* utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = utils.hpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		340DF9D91C1FF16000B5C7EC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		340DF9D31C1FF16000B5C7EC = {
+			isa = PBXGroup;
+			children = (
+				34EBB4801DBF533D005BE9B8 /* common-debug.xcconfig */,
+				34EBB4811DBF533D005BE9B8 /* common-release.xcconfig */,
+				340DF9E31C1FF1F000B5C7EC /* pugixml */,
+				340DF9DD1C1FF16000B5C7EC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		340DF9DD1C1FF16000B5C7EC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				340DF9DC1C1FF16000B5C7EC /* libpugixml.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		340DF9E31C1FF1F000B5C7EC /* pugixml */ = {
+			isa = PBXGroup;
+			children = (
+				341F09741C20063000F18AC5 /* pugiconfig.hpp */,
+				341F09751C20063000F18AC5 /* pugixml.cpp */,
+				341F09761C20063000F18AC5 /* pugixml.hpp */,
+				FA22267C2806D1DE006BDF9B /* utils.hpp */,
+			);
+			name = pugixml;
+			path = ../../3party/pugixml;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		340DF9DA1C1FF16000B5C7EC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA22267D2806D1DE006BDF9B /* utils.hpp in Headers */,
+				341F09771C20063000F18AC5 /* pugiconfig.hpp in Headers */,
+				341F09791C20063000F18AC5 /* pugixml.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		340DF9DB1C1FF16000B5C7EC /* pugixml */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 340DF9E01C1FF16000B5C7EC /* Build configuration list for PBXNativeTarget "pugixml" */;
+			buildPhases = (
+				340DF9D81C1FF16000B5C7EC /* Sources */,
+				340DF9D91C1FF16000B5C7EC /* Frameworks */,
+				340DF9DA1C1FF16000B5C7EC /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = pugixml;
+			productName = pugixml;
+			productReference = 340DF9DC1C1FF16000B5C7EC /* libpugixml.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		340DF9D41C1FF16000B5C7EC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1410;
+				TargetAttributes = {
+					340DF9DB1C1FF16000B5C7EC = {
+						CreatedOnToolsVersion = 7.2;
+					};
+				};
+			};
+			buildConfigurationList = 340DF9D71C1FF16000B5C7EC /* Build configuration list for PBXProject "pugixml" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 340DF9D31C1FF16000B5C7EC;
+			productRefGroup = 340DF9DD1C1FF16000B5C7EC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				340DF9DB1C1FF16000B5C7EC /* pugixml */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		340DF9D81C1FF16000B5C7EC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				341F09781C20063000F18AC5 /* pugixml.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		340DF9DE1C1FF16000B5C7EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34EBB4801DBF533D005BE9B8 /* common-debug.xcconfig */;
+			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+			};
+			name = Debug;
+		};
+		340DF9DF1C1FF16000B5C7EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34EBB4811DBF533D005BE9B8 /* common-release.xcconfig */;
+			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+			};
+			name = Release;
+		};
+		340DF9E11C1FF16000B5C7EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		340DF9E21C1FF16000B5C7EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		340DF9D71C1FF16000B5C7EC /* Build configuration list for PBXProject "pugixml" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				340DF9DE1C1FF16000B5C7EC /* Debug */,
+				340DF9DF1C1FF16000B5C7EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		340DF9E01C1FF16000B5C7EC /* Build configuration list for PBXNativeTarget "pugixml" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				340DF9E11C1FF16000B5C7EC /* Debug */,
+				340DF9E21C1FF16000B5C7EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 340DF9D41C1FF16000B5C7EC /* Project object */;
+}

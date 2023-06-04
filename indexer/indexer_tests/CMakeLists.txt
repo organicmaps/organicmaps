@@ -1,0 +1,52 @@
+project(indexer_tests)
+
+set(SRC
+  bounds.hpp
+  brands_tests.cpp
+  categories_test.cpp
+  cell_coverer_test.cpp
+  cell_id_test.cpp
+  centers_table_test.cpp
+  checker_test.cpp
+  cities_boundaries_serdes_tests.cpp
+  classificator_tests.cpp
+  complex_serdes_tests.cpp
+  complex_serdes_utils_tests.cpp
+  data_source_test.cpp
+  drules_selector_parser_test.cpp
+  editable_map_object_test.cpp
+  feature_metadata_test.cpp
+  feature_names_test.cpp
+  feature_to_osm_tests.cpp
+  feature_types_test.cpp
+  features_offsets_table_test.cpp
+  features_vector_test.cpp
+  index_builder_test.cpp
+  interval_index_test.cpp
+  metadata_serdes_tests.cpp
+  mwm_set_test.cpp
+  postcodes_matcher_tests.cpp
+  rank_table_test.cpp
+  read_features_tests.cpp
+  road_shields_parser_tests.cpp
+  scale_index_reading_tests.cpp
+  search_string_utils_test.cpp
+  sort_and_merge_intervals_test.cpp
+  string_slice_tests.cpp
+  succinct_trie_test.cpp
+  test_mwm_set.hpp
+  test_type.cpp
+  tree_node_tests.cpp
+  trie_test.cpp
+  validate_and_format_contacts_test.cpp
+  visibility_test.cpp
+  wheelchair_tests.cpp
+)
+
+omim_add_test(${PROJECT_NAME} ${SRC})
+
+target_link_libraries(${PROJECT_NAME}
+  generator_tests_support
+  platform_tests_support
+  indexer
+)

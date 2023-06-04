@@ -1,0 +1,84 @@
+{
+    "data_format": 1,
+    "data_url": "https://raw.githubusercontent.com/Project-OSRM/osrm-backend/develop/taginfo.json",
+    "project": {
+        "name": "Open Source Routing Machine (car profile)",
+        "description": "High-performance routing engine for shortest paths in road networks.",
+        "project_url": "http://project-osrm.org",
+        "icon_url": "http://project-osrm.org/images/osrm_icon.png",
+        "contact_name": "Dennis Luxen",
+        "contact_email": "info@project-osrm.org"
+    },
+    "tags": [
+        {
+            "key": "highway",
+            "description": "Type of road.",
+            "object_types": [ "way" ]
+        },
+        {
+            "key": "service",
+            "value": "parking_aisle",
+            "object_types": [ "way" ]
+        },
+        {
+            "key": "oneway",
+            "object_types": [ "way" ]
+        },
+        {
+            "key": "area",
+            "value": "yes",
+            "object_types": [ "way" ],
+            "description": "Roads with area=yes are ignored by default."
+        },
+        {
+            "key": "impassable",
+            "description": "This is used by HOT."
+        },
+        {
+            "key": "status",
+            "description": "This is used by HOT."
+        },
+        {
+            "key": "access",
+            "object_types": [ "way" ]
+        },
+        {
+            "key": "barrier"
+        },
+        {
+            "key": "maxspeed",
+            "object_types": [ "way" ]
+        },
+        {
+            "key": "maxspeed:forward",
+            "object_types": [ "way" ]
+        },
+        {
+            "key": "maxspeed:backward",
+            "object_types": [ "way" ]
+        },
+        {
+            "key": "duration"
+        },
+        {
+            "key": "name",
+            "object_types": [ "way" ],
+            "description": "Name of road for navigation instructions."
+        },
+        {
+            "key": "ref",
+            "object_types": [ "way" ],
+            "description": "Ref of road for navigation instructions, overrides name."
+        },
+        {
+            "key": "junction",
+            "object_types": [ "way" ],
+            "value": "roundabout"
+        },
+        {
+            "key": "type",
+            "value": "restriction",
+            "object_types": [ "relation" ]
+        }
+    ]
+}

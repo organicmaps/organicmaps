@@ -1,0 +1,5 @@
+1. Refactoring osm_translator.cpp/hpp.
+2. Refactoring using std in hpp and cpp.
+3. Get rid of new, replace on make_unique, make_shared.
+4. Fixed hack on EmitterRegion::operator()(FeatureBuilder1 & fb).
+5. Fixed enum naming.
