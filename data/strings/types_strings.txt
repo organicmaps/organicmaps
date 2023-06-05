@@ -1171,7 +1171,7 @@
     sv = Laddningsstation för bilar
     sw = Kituo cha Kuchaji Magari
     th = สถานีชาร์จรถยนต์
-    tr = Otomobil Şarj İstasyonu
+    tr = Araç Şarj İstasyonu
     uk = Автомобільна зарядна станція
     vi = Trạm sạc xe máy
     zh-Hans = 汽车充电站
@@ -1600,7 +1600,7 @@
     sv = Pengaöverföring
     sw = Uhamisho wa pesa
     th = การโอนเงิน
-    tr = Para transferi
+    tr = Para Aktarımı
     uk = Грошовий переказ
     vi = Chuyển tiền
     zh-Hans = 汇款
@@ -2210,7 +2210,7 @@
     sv = Lastkaj
     sw = Inapakia kituo
     th = แทนวางสนคา
-    tr = Yükleme alanı
+    tr = Yükleme Alanı
     uk = Завантажувальна платформа
     vi = Bến tàu
     zh-Hans = 装卸码头
@@ -5876,7 +5876,7 @@
     sv = Nyckelklippning
     sw = Kukata Muhimu
     th = ตัดกุญแจ
-    tr = Anahtar kesme
+    tr = Anahtar Kopyalama
     uk = Нарізка ключів
     vi = Cắt chính
     zh-Hans = 钥匙切割
@@ -6070,7 +6070,7 @@
     sv = Kameraaffär
     sw = Duka la Kamera
     th = ร้านกล้อง
-    tr = Kamera Dükkanı
+    tr = Kamera Mağazası
     uk = Магазин фотоапаратів
     vi = Cửa hàng máy ảnh
     zh-Hans = 相机店
@@ -17751,7 +17751,7 @@
     sv = Solgenerator
     sw = Jenereta ya jua
     th = เครื่องกำเนิดพลังงานแสงอาทิตย์
-    tr = Güneş jeneratörü
+    tr = Güneş Paneli
     uk = Сонячний генератор
     vi = Máy phát điện năng lượng mặt trời
     zh-Hans = 太阳能发电机
@@ -17791,7 +17791,7 @@
     sv = Vindgenerator
     sw = Jenereta ya upepo
     th = เครื่องกำเนิดลม
-    tr = Rüzgar jeneratörü
+    tr = Rüzgar Türbini
     uk = Вітрогенератор
     vi = Máy phát điện gió
     zh-Hans = 风力发电机
@@ -17831,7 +17831,7 @@
     sv = Gasturbinkraftverk
     sw = Kiwanda cha nguvu cha turbine ya gesi
     th = โรงไฟฟ้ากังหันก๊าซ
-    tr = Gaz türbini santrali
+    tr = Gaz Türbini Santrali
     uk = Газотурбінна електростанція
     vi = Nhà máy điện tua bin khí
     zh-Hans = 燃气轮机发电厂
@@ -17871,7 +17871,7 @@
     sv = Vattenkraftverk
     sw = Kiwanda cha umeme wa maji
     th = โรงไฟฟ้าพลังน้ำ
-    tr = Hidroelektrik santral
+    tr = Hidroelektrik Santrali
     uk = Гідроелектростанція
     vi = Nhà máy thủy điện
     zh-Hans = 水力发电厂
@@ -17961,7 +17961,7 @@
     sv = Kraftverk
     sw = Kiwanda cha nguvu
     th = โรงไฟฟ้า
-    tr = Enerji santrali
+    tr = Elektrik Santrali
     uk = Електростанція
     vi = Nhà máy điện
     zh-Hans = 发电厂
@@ -18001,7 +18001,7 @@
     sv = Kolkraftverk
     sw = Kiwanda cha nguvu cha makaa ya mawe
     th = โรงไฟฟ้าถ่านหิน
-    tr = Kömür santrali
+    tr = Kömür Santrali
     uk = Вугільна електростанція
     vi = Nhà máy điện than
     zh-Hans = 燃煤电厂
@@ -18012,6 +18012,7 @@
 
   [type.power.plant.hydro]
     ref = type.power.generator.hydro
+    tr = Hidroelektrik Santrali
 
   [type.power.plant.solar]
     en = Solar Power Plant
@@ -18047,7 +18048,7 @@
     sv = Solkraftverk
     sw = Kiwanda cha nishati ya jua
     th = โรงไฟฟ้าพลังงานแสงอาทิตย์
-    tr = Güneş enerjili elektrik santrali
+    tr = Güneş Enerjisi Santrali
     uk = Сонячна електростанція
     vi = Nhà máy điện mặt trời
     zh-Hans = 太阳能发电厂
@@ -18087,7 +18088,7 @@
     sv = Vindkraftverk
     sw = Kiwanda cha nguvu cha upepo
     th = โรงไฟฟ้าพลังงานลม
-    tr = Rüzgar santrali
+    tr = Rüzgar Santrali
     uk = Вітрова електростанція
     vi = Nhà máy điện gió
     zh-Hans = 风力发电厂
@@ -18122,7 +18123,7 @@
     sk = Stĺp elektrického vedenia
     sv = Elstolpe
     th = เสาไฟฟ้า
-    tr = Elektrik Kulesi
+    tr = Elektrik Direği
     uk = Стовп ЛЕП
     vi = Trụ Điện
     zh-Hans = 电线杆
@@ -18140,7 +18141,7 @@
     pt = Subestação elétrica
     pt-BR = Subestação elétrica
     ru = Электростанция
-    tr = Elektrik İstasyonu
+    tr = Elektrik Santrali
     uk = Електростанція
 
   [type.power.substation]
@@ -20013,7 +20014,7 @@
     sv = Badrumsinredning
     sw = Vyombo vya Bafuni
     th = ตกแต่งห้องน้ำ
-    tr = Banyo Mobilyaları
+    tr = Banyo Mobilya Mağazası
     uk = Меблі для ванної кімнати
     vi = Nội thất phòng tắm
     zh-Hans = 卫浴摆设
@@ -20260,7 +20261,7 @@
     sv = Cannabisbutik
     sw = Duka la Bangi
     th = ร้านขายกัญชา
-    tr = Kenevir dükkanı
+    tr = Kenevir Mağazası
     uk = Магазин конопель
     vi = Cửa hàng cần sa
     zh-Hans = 大麻商店
@@ -20454,7 +20455,7 @@
     sv = Mattor
     sw = Mazulia
     th = พรม
-    tr = Halılar
+    tr = Halıcı
     uk = Килими
     vi = Những cái thảm
     zh-Hans = 地毯
@@ -20814,7 +20815,7 @@
     sv = Gardiner
     sw = Mapazia
     th = ผ้าม่าน
-    tr = Perdeler
+    tr = Perdeci
     uk = Штори
     vi = Rèm cửa
     zh-Hans = 窗帘
@@ -21323,7 +21324,7 @@
     sv = Gasaffär
     sw = Duka la gesi
     th = ร้านแก๊ส
-    tr = Gaz deposu
+    tr = Gaz İstasyonu
     uk = Газовий магазин
     vi = Cửa hàng gas
     zh-Hans = 燃气站
@@ -21573,7 +21574,7 @@
     sv = Örter butik
     sw = Duka la mimea
     th = ร้านสมุนไพร
-    tr = Şifalı bitkiler mağazası
+    tr = Aktar
     uk = Магазин трав
     vi = Cửa hàng thảo mộc
     zh-Hans = 草药店
@@ -21613,7 +21614,7 @@
     sv = HiFi ljud
     sw = Sauti ya HiFi
     th = เครื่องเสียงไฮไฟ
-    tr = HiFi Ses
+    tr = Plakçı
     uk = HiFi Audio
     vi = Âm thanh hifi
     zh-Hans = HiFi
@@ -22008,7 +22009,7 @@
     sv = Motorcykel reparation
     sw = Ukarabati wa Pikipiki
     th = ซ่อมรถจักรยานยนต์
-    tr = Motosiklet Tamiri
+    tr = Motosiklet Tamircisi
     uk = Ремонт мотоциклів
     vi = Sửa chữa xe máy
     zh-Hans = 摩托车维修
@@ -22226,7 +22227,7 @@
     sv = Mötesplats
     sw = Sehemu ya kuchukua
     th = จุดรับของ
-    tr = Alım noktası
+    tr = Alım Noktası
     uk = Пункт самовивозу
     vi = Điểm đón
     zh-Hans = 自提点
@@ -22374,7 +22375,7 @@
     sv = Husdjursvård
     sw = Utunzaji wa Kipenzi
     th = กรูมมิ่งสัตว์เลี้ยง
-    tr = Evcil Hayvan Bakımı
+    tr = Evcil Hayvan Bakıcısı
     uk = Грумінг
     vi = Chải lông thú cưng
     zh-Hans = 宠物美容
@@ -23014,7 +23015,7 @@
     sv = Lantbruksbutik
     sw = Duka la kilimo
     th = ร้านเกษตร
-    tr = Tarım dükkanı
+    tr = Zirai Ürünler Mağazası
     uk = Сільськогосподарський магазин
     vi = Cửa hàng nông sản
     zh-Hans = 农产品店
@@ -23092,7 +23093,7 @@
     sv = Vitvarubutik
     sw = Duka la vifaa
     th = ร้านเครื่องใช้ไฟฟ้า
-    tr = Beyaz eşya dükkanı
+    tr = Beyaz Eşya Mağazası
     uk = Магазин побутової техніки
     vi = Cửa hàng đồ gia dụng
     zh-Hans = 家电店
@@ -23247,7 +23248,7 @@
     sv = Sängbutik
     sw = Duka la vitanda
     th = ร้านขายเตียง
-    tr = Yatak dükkanı
+    tr = Yatak Mağazası
     uk = Магазин ліжок
     vi = Cửa hàng giường
     zh-Hans = 寝具
@@ -26374,7 +26375,7 @@
     sv = Fiskstege
     sw = Ngazi ya samaki
     th = บันไดปลา
-    tr = Balık merdiveni
+    tr = Balık Geçidi
     uk = Рибохід
     vi = Thang cá
     zh-Hans = 鱼梯
