@@ -19,6 +19,7 @@ import app.organicmaps.widget.PlaceholderView;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
   private int mSubscriberSlot;
   
   private FloatingActionButton mFab;
+  private RecyclerView mRecyclerView;
 
   private final RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
     @Override
@@ -68,6 +70,15 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
     if (mFab != null) {
       mFab.hide();
     }
+  }
+  private boolean isRecyclerViewAtBottom() {
+    if (mRecyclerView != null) {
+      int visibleItemCount = mRecyclerView.getChildCount();
+      int totalItemCount = mRecyclerView.getLayoutManager().getItemCount();
+      int pastVisibleItems = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+      return (visibleItemCount + pastVisibleItems) >= totalItemCount;
+    }
+    return false;
   }
 
 
@@ -154,6 +165,18 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
   {
     super.onViewCreated(view, savedInstanceState);
     mFab = view.findViewById(R.id.fab);
+    getRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener() {
+      @Override
+      public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+        if (dy > 0) {
+          // Scrolling up
+          hideFab();
+        } else if (dy < 0) {
+          // Scrolling down
+          showFab();
+        }
+      }
+    });
     
     mSubscriberSlot = MapManager.nativeSubscribe(new MapManager.StorageCallback()
     {
@@ -284,4 +307,3 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
     return mAdapter != null ? mAdapter.getMenuItems() : null;
   }
 }
-Signed-off-by: Zhu Pengming <TomABdh@users.noreply.github.com>
