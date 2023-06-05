@@ -51,8 +51,10 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
-      <key>other</key>
+      <key>one</key>
       <string>%d plats</string>
+      <key>other</key>
+      <string>%d platser</string>
     </dict>
   </dict>
 
