@@ -113,6 +113,25 @@
   </screenshots>
 
   <releases>
+   <release version="2023.06.04-13" date="2023-06-04">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>GPX import support</li>
+           <li>New OpenStreetMap data as of June 2</li>
+           <li>MRGS and UTM coordinates support</li>
+         </ul>
+       <p>Map Styles:</p>
+         <ul>
+           <li>Added Fish Pass</li>
+           <li>Fixed funicular and parcel locker icons</li>
+         </ul>
+       <p>Translations:</p>
+         <ul>
+           <li>Corrected be, eu, en, en-GB, and uk translations</li>
+         </ul>
+     </description>
+   </release>
    <release version="2023.05.08-7" date="2023-05-08">
      <description>
        <p>Highlights:</p>
