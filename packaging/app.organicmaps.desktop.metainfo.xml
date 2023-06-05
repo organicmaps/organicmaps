@@ -113,6 +113,30 @@
   </screenshots>
 
   <releases>
+   <release version="2023.06.04-13" date="2023-06-04">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OpenStreetMap data as of June 2, 2023</li>
+           <li>GPX import support</li>
+           <li>Fixed disappearing bookmark lists when wrong characters were saved in a bookmark name or description</li>
+           <li>Improved car and bicycle routing</li>
+           <li>Fixed bookmarks dialog color in the dark mode</li>
+         </ul>
+       <p>Map Styles:</p>
+         <ul>
+           <li>Fixed funicular icon</li>
+           <li>Changed desert color in the dark mode</li>
+           <li>Added Fish Pass</li>
+           <li>New Icon for Parcel Locker</li>
+           <li>Fixed icon for northernmost Munich underground station</li>
+         </ul>
+       <p>Translations:</p>
+         <ul>
+           <li>Corrected Basque, Belarusian, British, English, and Ukrainian translations</li>
+         </ul>
+     </description>
+   </release>
    <release version="2023.05.08-7" date="2023-05-08">
      <description>
        <p>Highlights:</p>
