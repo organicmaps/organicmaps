@@ -1932,7 +1932,7 @@
     sk = Záložky a stopy
     sv = Bokmärken och rutter
     th = บุ๊กมาร์กและการติดตาม
-    tr = Yer İmleri ve kayıtlar
+    tr = Yer İmleri ve Kayıtlar
     uk = Мітки та маршрути
     vi = Đánh dấu và dấu vết
     zh-Hans = 书签和轨迹
@@ -4436,7 +4436,7 @@
     sk = Stopy
     sv = Rutter
     th = การติดตาม
-    tr = Kayıtlar
+    tr = Yol Kayıtları
     uk = Маршрути
     vi = Dấu vết
     zh-Hans = 轨迹
@@ -6129,7 +6129,7 @@
     sk = Emailový klient nebol nastavený. Nakonfigurujte ho prosím alebo použite iný spôsob k tomu, abyste nás kontaktovali na %@
     sv = Emailklienten har inte konfigurerats. Konfigurera den eller använd ett annat sätt att kontakta oss på %@
     th = อีเมลลูกค้ายังไม่ได้รับการจัดตั้งขึ้น กรุณาตั้งค่าหรือใช้วิธีอื่นที่จะติดต่อเราที่ %@
-    tr = E-posta istemcisi henüz kurulmamış. Lütfen e-posta istemcisini yapılandırın ya da bize %@ adresinden ulaşmak için başka bir yöntem deneyin
+    tr = E-posta istemcisi henüz kurulmamış. Lütfen e-posta istemcisini yapılandırın veya bize %@ adresinden ulaşmak için başka bir yöntem deneyin
     uk = Поштовий клієнт не налаштований. Налаштуйте його або скористайтеся іншими способами зв'язку. Наша адреса – %@.
     vi = Trình khách email này chưa được thiết lập. Bạn vui lòng cấu hình nó hoặc sử dụng một cách khác để liên hệ với chúng tôi tại %@
     zh-Hans = 电子邮件客户端尚未建立。请配置或使用任何其他方式与我们联系%@
@@ -6171,7 +6171,7 @@
     sk = Chyba pri odosielaní emailu
     sv = Fel när mailet skulle skickas
     th = จดหมายที่ส่งเกิดความผิดพลาด
-    tr = Posta gönderme hatası
+    tr = E-Posta gönderme hatası
     uk = Помилка при відправленні листа
     vi = Lỗi gửi thư
     zh-Hans = 电子邮件发送错误
@@ -6297,7 +6297,7 @@
     sk = Pohybom telefónu v tvare osmičky kalibrujte kompas a zafixujte smer šípky na mape.
     sv = Flytta telefonen i en åttarörelse för att kalibrera kompassen och fastställa pilens riktning på kartan.
     th = ขยับโทรศัพท์เป็นเลขแปดเพื่อปรับเทียบเข็มทิศและกำหนดทิศทางลูกศรบนแผนที่
-    tr = Pusulayı kalibre etmek ve haritadaki ok yönünü sabitlemek için telefonu sekiz şeklinde hareket ettirin.
+    tr = Pusulayı kalibre etmek ve haritadaki ok yönünü düzeltmek için telefonu sekiz şeklinde hareket ettirin.
     uk = Рухайте телефон вісімкою, щоб відкалібрувати компас і зафіксувати напрямок стрілки на карті.
     vi = Di chuyển điện thoại theo chuyển động hình số tám để hiệu chỉnh la bàn và cố định hướng mũi tên trên bản đồ.
     zh-Hans = 以八字动作移动手机，校准罗盘，并在地图上固定箭头方向。
@@ -10267,7 +10267,7 @@
     sk = Od
     sv = Från
     th = เวลา
-    tr = Den itibaren
+    tr = Açılış
     uk = З
     vi = Từ
     zh-Hans = 从
@@ -10308,7 +10308,7 @@
     sk = Do
     sv = Till
     th = น
-    tr = A
+    tr = Kapanış
     uk = До
     vi = Đến
     zh-Hans = 到
@@ -26139,7 +26139,7 @@
     pt-BR = Nome da rota
     ro = Numele traseului
     ru = Название трека
-    tr = Kayıt Adı
+    tr = Yol Kaydı Adı
     zh-Hant = 路徑名稱
 
   [move]
@@ -26203,7 +26203,7 @@
     sk = Šľapaj Stopy
     sv = Rutt
     th = ติดตาม
-    tr = Kayıt
+    tr = Yol Kaydı
     uk = Маршрут
     vi = Dấu chân
     zh-Hans = 追踪
