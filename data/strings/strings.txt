@@ -19849,7 +19849,8 @@
     ru:one = %d объект
     ru:other = %d объектов
     sk = %d miesto
-    sv = %d plats
+    sv:one = %d plats
+    sv:other = %d platser
     sw = Eneo %d
     th = %d สถานที่
     tr = %d obje
@@ -19908,7 +19909,8 @@
     ru:one = %d место
     ru:other = %d мест
     sk = %d miesta
-    sv = %d platser
+    sv:one = %d plats
+    sv:other = %d platser
     sw = Maeneo %d
     th = %d สถานที่ต่าง ๆ
     tr = %d yer
