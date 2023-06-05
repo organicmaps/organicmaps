@@ -561,9 +561,11 @@
 	</plurals>
 	<string name="common_check_internet_connection_dialog_title">Ingen internetanslutning</string>
 	<plurals name="objects">
-	  <item quantity="other">%d plats</item>
+	  <item quantity="one">%d plats</item>
+	  <item quantity="other">%d platser</item>
 	</plurals>
 	<plurals name="places">
+	  <item quantity="one">%d plats</item>
 	  <item quantity="other">%d platser</item>
 	</plurals>
 	<plurals name="tracks">
