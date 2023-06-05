@@ -1003,6 +1003,7 @@ zh-Hant:1購物|店鋪|商店|雜貨店|便利商店
 
 shop-cannabis
 en:Cannabis
+tr:4Kenevir|4Esrar
 
 shop-cosmetics|@shopping
 en:4Cosmetics|4Beauty Care|makeup|U+1F3EC|U+1F3EA
@@ -2122,7 +2123,7 @@ sk:Prevod peňazí
 sv:Pengaöverföring
 sw:Uhamisho wa pesa
 th:การโอนเงิน
-tr:Para transferi
+tr:Para Transferi|Para Aktarma
 uk:Грошовий переказ|Гроши
 vi:Chuyển tiền
 zh-Hans:汇款
@@ -10562,7 +10563,7 @@ sk:Obchod s fotoaparátmi
 sv:Kameraaffär
 sw:Duka la Kamera
 th:ร้านกล้อง
-tr:Kamera Dükkanı
+tr:Kamera Mağazası
 uk:Магазин фотоапаратів
 vi:Cửa hàng máy ảnh
 zh-Hans:相机店
@@ -10826,10 +10827,12 @@ amenity-charging_station|@charging_station
 amenity-charging_station-bicycle|@charging_station
 en:4Bicycle Charging
 ru:4Велозарядка
+tr:4Bisiklet Şarj Etme
 
 amenity-charging_station-motorcar|@charging_station
 en:4Motorcar Charging
 ru:4Автозарядка
+tr:4Otomobil Şarj Cihazı|4Araba Şarj Cihazı|4Araç Şarj Cihazı|3Trugo|4TOGG Şarj
 
 amenity-childcare
 en:Nursery|4Child Care|childcare
@@ -13498,7 +13501,7 @@ sk:Oprava motocyklov
 sv:Motorcykel reparation
 sw:Ukarabati wa Pikipiki
 th:ซ่อมรถจักรยานยนต์
-tr:Motosiklet Tamiri
+tr:Motosiklet Tamircisi
 uk:Ремонт мотоциклів
 vi:Sửa chữa xe máy
 zh-Hans:摩托车维修
@@ -15025,7 +15028,7 @@ sk:Elektráreň
 sv:Kraftverk
 sw:Kiwanda cha nguvu
 th:โรงไฟฟ้า
-tr:Enerji santrali
+tr:Enerji santrali|Elektrik santrali
 uk:Електростанція
 vi:Nhà máy điện
 zh-Hans:发电厂
