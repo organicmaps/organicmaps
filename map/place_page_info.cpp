@@ -11,11 +11,13 @@
 #include "indexer/feature_utils.hpp"
 #include "indexer/road_shields_parser.hpp"
 
+#include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/preferred_languages.hpp"
-#include "platform/localization.hpp"
 
 #include "base/assert.hpp"
+
+#include "3party/open-location-code/openlocationcode.h"
 
 #include <sstream>
 
@@ -284,11 +286,39 @@ std::string Info::FormatStars() const
   return stars;
 }
 
-std::string Info::GetFormattedCoordinate(bool isDMS) const
+std::string Info::GetFormattedCoordinate(CoordinatesFormat coordsFormat) const
 {
   auto const & ll = GetLatLon();
-  return isDMS ? measurement_utils::FormatLatLon(ll.m_lat, ll.m_lon, true)
-               : measurement_utils::FormatLatLonAsDMS(ll.m_lat, ll.m_lon, false, 2);
+  auto const lat = ll.m_lat;
+  auto const lon = ll.m_lon;
+  switch (coordsFormat)
+  {
+    default:
+    case CoordinatesFormat::LatLonDMS: // DMS, comma separated
+      return measurement_utils::FormatLatLonAsDMS(lat, lon, false /*withComma*/, 2);
+    case CoordinatesFormat::LatLonDecimal: // Decimal, comma separated
+      return measurement_utils::FormatLatLon(lat, lon, true /* withComma */);
+    case CoordinatesFormat::OLCFull: // Open location code, long format
+      return openlocationcode::Encode({lat, lon});
+    case CoordinatesFormat::OSMLink: // Link to osm.org
+      return measurement_utils::FormatOsmLink(lat, lon, 14);
+    case CoordinatesFormat::UTM:  // Universal Transverse Mercator
+    {
+      std::string utmCoords = utm_mgrs_utils::FormatUTM(lat, lon);
+      if (utmCoords.empty())
+        return "UTM: N/A";
+      else
+        return "UTM: " + utmCoords;
+    }
+    case CoordinatesFormat::MGRS: // Military Grid Reference System
+    {
+      std::string mgrsCoords = utm_mgrs_utils::FormatMGRS(lat, lon, 5);
+      if (mgrsCoords.empty())
+        return "MGRS: N/A";
+      else
+        return "MGRS: " + mgrsCoords;
+    }
+  }
 }
 
 void Info::SetRoadType(RoadWarningMarkType type, std::string const & localizedType, std::string const & distance)
