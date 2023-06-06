@@ -71,8 +71,12 @@ using namespace osm;
     });
 
     _address = rawData.GetAddress().empty() ? nil : @(rawData.GetAddress().c_str());
-    _rawCoordinates = @(rawData.GetFormattedCoordinate(true).c_str());
-    _formattedCoordinates = @(rawData.GetFormattedCoordinate(false).c_str());
+    _coordFormats = @[@(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::LatLonDMS).c_str()),
+                      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::LatLonDecimal).c_str()),
+                      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::OLCFull).c_str()),
+                      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::OSMLink).c_str()),
+                      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::UTM).c_str()),
+                      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::MGRS).c_str())];
   }
   return self;
 }

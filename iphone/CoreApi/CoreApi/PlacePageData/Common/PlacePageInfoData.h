@@ -23,8 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) NSString *cuisine;
 @property(nonatomic, readonly, nullable) NSString *ppOperator;
 @property(nonatomic, readonly, nullable) NSString *address;
-@property(nonatomic, readonly, nullable) NSString *rawCoordinates;
-@property(nonatomic, readonly, nullable) NSString *formattedCoordinates;
+@property(nonatomic, readonly, nullable) NSArray *coordFormats;
 @property(nonatomic, readonly, nullable) NSString *wifiAvailable;
 @property(nonatomic, readonly, nullable) NSString *level;
 
