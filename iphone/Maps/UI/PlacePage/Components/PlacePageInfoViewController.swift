@@ -64,7 +64,7 @@ protocol PlacePageInfoViewControllerDelegate: AnyObject {
 
 class PlacePageInfoViewController: UIViewController {
   private struct Const {
-    static let coordinatesKey = "PlacePageInfoViewController_coordinatesKey"
+    static let coordFormatIdKey = "PlacePageInfoViewController_coordFormatIdKey"
   }
   private typealias TapHandler = InfoItemViewController.TapHandler
   private typealias Style = InfoItemViewController.Style
@@ -95,15 +95,15 @@ class PlacePageInfoViewController: UIViewController {
 
   var placePageInfoData: PlacePageInfoData!
   weak var delegate: PlacePageInfoViewControllerDelegate?
-  var showFormattedCoordinates: Bool {
+  var coordinatesFormatId: Int {
     get {
-      UserDefaults.standard.bool(forKey: Const.coordinatesKey)
+      UserDefaults.standard.integer(forKey: Const.coordFormatIdKey)
     }
     set {
-      UserDefaults.standard.set(newValue, forKey: Const.coordinatesKey)
+      UserDefaults.standard.set(newValue, forKey: Const.coordFormatIdKey)
     }
   }
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -202,24 +202,24 @@ class PlacePageInfoViewController: UIViewController {
       addressView?.canShowMenu = true
     }
 
-    if let formattedCoordinates = placePageInfoData.formattedCoordinates,
-      let rawCoordinates = placePageInfoData.rawCoordinates {
-      let coordinates = showFormattedCoordinates ? formattedCoordinates : rawCoordinates
-      coordinatesView = createInfoItem(coordinates, icon: UIImage(named: "ic_placepage_coordinate")) {
+    var formatId = self.coordinatesFormatId
+    if let coordFormats = self.placePageInfoData.coordFormats as? Array<String> {
+      if formatId >= coordFormats.count {
+        formatId = 0
+      }
+      
+      coordinatesView = createInfoItem(coordFormats[formatId], icon: UIImage(named: "ic_placepage_coordinate")) {
         [unowned self] in
-        self.showFormattedCoordinates = !self.showFormattedCoordinates
-        let coordinates = self.showFormattedCoordinates ? formattedCoordinates : rawCoordinates
+        let formatId = (self.coordinatesFormatId + 1) % coordFormats.count
+        self.coordinatesFormatId = formatId
+        let coordinates:String = coordFormats[formatId]
         self.coordinatesView?.infoLabel.text = coordinates
       }
-    } else if let formattedCoordinates = placePageInfoData.formattedCoordinates {
-      coordinatesView = createInfoItem(formattedCoordinates, icon: UIImage(named: "ic_placepage_coordinate"))
-    } else if let rawCoordinates = placePageInfoData.rawCoordinates {
-      coordinatesView = createInfoItem(rawCoordinates, icon: UIImage(named: "ic_placepage_coordinate"))
-    }
 
-    coordinatesView?.accessoryImage.image = UIImage(named: "ic_placepage_change")
-    coordinatesView?.accessoryImage.isHidden = false
-    coordinatesView?.canShowMenu = true
+      coordinatesView?.accessoryImage.image = UIImage(named: "ic_placepage_change")
+      coordinatesView?.accessoryImage.isHidden = false
+      coordinatesView?.canShowMenu = true
+    }
   }
 
   // MARK: private

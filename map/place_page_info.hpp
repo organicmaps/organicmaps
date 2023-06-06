@@ -16,6 +16,8 @@
 
 #include "geometry/point2d.hpp"
 
+#include "platform/utm_mgrs_utils.hpp"
+
 #include <memory>
 #include <optional>
 #include <string>
@@ -30,6 +32,16 @@ enum class OpeningMode
   PreviewPlus,
   Details,
   Full
+};
+
+enum class CoordinatesFormat
+{
+  LatLonDMS = 0, // DMS, comma separated
+  LatLonDecimal, // Decimal, comma separated
+  OLCFull, // Open location code, long format
+  OSMLink, // Link to osm.org
+  UTM, // Universal Transverse Mercator
+  MGRS // Military Grid Reference System
 };
 
 struct BuildInfo
@@ -129,7 +141,7 @@ public:
   std::string const & GetAddress() const { return m_uiAddress; }
   std::string const & GetDescription() const { return m_description; }
   /// @returns coordinate in DMS format if isDMS is true
-  std::string GetFormattedCoordinate(bool isDMS) const;
+  std::string GetFormattedCoordinate(CoordinatesFormat format) const;
 
   /// UI setters
   void SetCustomName(std::string const & name);
