@@ -749,6 +749,36 @@ FeatureID Framework::BuildFeatureId(JNIEnv * env, jobject featureId)
  *             \/
  */
 
+namespace
+{
+jobject ToJavaDistance(JNIEnv * env, platform::Distance const & distance)
+{
+  static jclass const distanceClass = jni::GetGlobalClassRef(env, "app/organicmaps/util/Distance");
+  static jclass const unitsEnumClass = jni::GetGlobalClassRef(env, "app/organicmaps/util/Distance$Units");
+
+  static jmethodID const distanceConstructor = jni::GetConstructorID(env, distanceClass, "(DLjava/lang/String;Lapp/organicmaps/util/Distance$Units;)V");
+
+  std::string desiredUnits;
+  switch(distance.GetUnits())
+  {
+  case platform::Distance::Units::Meters: desiredUnits = "Meters"; break;
+  case platform::Distance::Units::Kilometers: desiredUnits = "Kilometers"; break;
+  case platform::Distance::Units::Feet: desiredUnits = "Feet"; break;
+  case platform::Distance::Units::Miles: desiredUnits = "Miles"; break;
+  default: UNREACHABLE();
+  }
+
+  jfieldID desiredUnitsField = env->GetStaticFieldID(unitsEnumClass, desiredUnits.c_str(), "Lapp/organicmaps/util/Distance$Units;");
+  jobject desiredUnitsObject = env->GetStaticObjectField(unitsEnumClass, desiredUnitsField);
+
+  jobject distanceObject = env->NewObject(
+      distanceClass, distanceConstructor,
+      distance.GetDistance(), jni::ToJavaString(env, distance.GetDistanceString()), desiredUnitsObject);
+
+  return distanceObject;
+}
+}
+
 extern "C"
 {
 void CallRoutingListener(shared_ptr<jobject> listener, int errorCode,
@@ -1208,15 +1238,14 @@ Java_app_organicmaps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass)
     return nullptr;
 
   static jclass const klass = jni::GetGlobalClassRef(env, "app/organicmaps/routing/RoutingInfo");
-  // Java signature : RoutingInfo(String distToTarget, String units, String distTurn, String
-  //                              turnSuffix, String currentStreet, String nextStreet,
+  // Java signature : RoutingInfo(Distance distToTarget, Distance distToTurn,
+  //                              String currentStreet, String nextStreet,
   //                              double completionPercent, int vehicleTurnOrdinal, int
   //                              vehicleNextTurnOrdinal, int pedestrianTurnOrdinal, int exitNum,
   //                              int totalTime, SingleLaneInfo[] lanes)
   static jmethodID const ctorRouteInfoID =
       jni::GetConstructorID(env, klass,
-                            "(Ljava/lang/String;Ljava/lang/String;"
-                            "Ljava/lang/String;Ljava/lang/String;"
+                            "(Lapp/organicmaps/util/Distance;Lapp/organicmaps/util/Distance;"
                             "Ljava/lang/String;Ljava/lang/String;DIIIII"
                             "[Lapp/organicmaps/routing/SingleLaneInfo;ZZ)V");
 
@@ -1249,9 +1278,8 @@ Java_app_organicmaps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass)
   auto const isSpeedCamLimitExceeded = rm.IsRoutingActive() ? rm.IsSpeedCamLimitExceeded() : false;
   auto const shouldPlaySignal = frm()->GetRoutingManager().GetSpeedCamManager().ShouldPlayBeepSignal();
   jobject const result = env->NewObject(
-      klass, ctorRouteInfoID, jni::ToJavaString(env, info.m_distToTarget),
-      jni::ToJavaString(env, info.m_targetUnitsSuffix), jni::ToJavaString(env, info.m_distToTurn),
-      jni::ToJavaString(env, info.m_turnUnitsSuffix), jni::ToJavaString(env, info.m_sourceName),
+      klass, ctorRouteInfoID, ToJavaDistance(env, info.m_distToTarget),
+      ToJavaDistance(env, info.m_distToTurn), jni::ToJavaString(env, info.m_sourceName),
       jni::ToJavaString(env, info.m_displayedStreetName), info.m_completionPercent, info.m_turn,
       info.m_nextTurn, info.m_pedestrianTurn, info.m_exitNum, info.m_time, jLanes,
       static_cast<jboolean>(isSpeedCamLimitExceeded), static_cast<jboolean>(shouldPlaySignal));

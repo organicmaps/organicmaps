@@ -2,6 +2,8 @@
 
 #include "geometry/latlon.hpp"
 
+#include "platform/distance.hpp"
+
 #include "routing/turns.hpp"
 #include "routing/turns_sound_settings.hpp"
 
@@ -44,18 +46,14 @@ public:
     }
   };
 
-  bool IsValid() const { return !m_distToTarget.empty(); }
+  bool IsValid() const { return m_distToTarget.IsValid(); }
 
-  /// @name Formatted covered distance with measurement units suffix.
-  //@{
-  std::string m_distToTarget;
-  std::string m_targetUnitsSuffix;
-  //@}
+  /// @name Formatted covered distance.
+  platform::Distance m_distToTarget;
 
   /// @name Formated distance to next turn with measurement unit suffix
   //@{
-  std::string m_distToTurn;
-  std::string m_turnUnitsSuffix;
+  platform::Distance m_distToTurn;
   turns::CarDirection m_turn;
   /// Turn after m_turn. Returns NoTurn if there is no turns after.
   turns::CarDirection m_nextTurn;

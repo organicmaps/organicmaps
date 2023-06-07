@@ -165,11 +165,11 @@ NSAttributedString *estimate(NSTimeInterval time, NSString *distance, NSString *
   if (auto entity = self.entity) {
     entity.isValid = YES;
     entity.timeToTarget = info.m_time;
-    entity.targetDistance = @(info.m_distToTarget.c_str());
-    entity.targetUnits = [self localizedUnitLength:@(info.m_targetUnitsSuffix.c_str())];
+    entity.targetDistance = @(info.m_distToTarget.GetDistanceString().c_str());
+    entity.targetUnits = [self localizedUnitLength:@(info.m_distToTarget.GetUnitsString().c_str())];
     entity.progress = info.m_completionPercent;
-    entity.distanceToTurn = @(info.m_distToTurn.c_str());
-    entity.turnUnits = [self localizedUnitLength:@(info.m_turnUnitsSuffix.c_str())];
+    entity.distanceToTurn = @(info.m_distToTurn.GetDistanceString().c_str());
+    entity.turnUnits = [self localizedUnitLength:@(info.m_distToTurn.GetUnitsString().c_str())];
     entity.streetName = @(info.m_displayedStreetName.c_str());
     entity.speedLimitMps = info.m_speedLimitMps;
 

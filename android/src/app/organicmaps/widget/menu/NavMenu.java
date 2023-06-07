@@ -228,8 +228,8 @@ public class NavMenu
   {
     updateSpeedView(info);
     updateTime(info.totalTimeInSeconds);
-    mDistanceValue.setText(info.distToTarget);
-    mDistanceUnits.setText(info.targetUnits);
+    mDistanceValue.setText(info.distToTarget.mDistanceStr);
+    mDistanceUnits.setText(info.distToTarget.getUnitsStr(mActivity.getApplicationContext()));
     mRouteProgress.setProgress((int) info.completionPercent);
   }
 

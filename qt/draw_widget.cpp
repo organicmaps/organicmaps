@@ -490,9 +490,9 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
     routingManager.GetRouteFollowingInfo(loc);
     if (routingManager.GetCurrentRouterType() == routing::RouterType::Pedestrian)
     {
-      LOG(LDEBUG, ("Distance:", loc.m_distToTarget + loc.m_targetUnitsSuffix, "Time:", loc.m_time,
+      LOG(LDEBUG, ("Distance:", loc.m_distToTarget.ToString(), "Time:", loc.m_time,
                    DebugPrint(loc.m_pedestrianTurn),
-                   "in", loc.m_distToTurn + loc.m_turnUnitsSuffix,
+                   "in", loc.m_distToTurn.ToString(),
                    loc.m_targetName.empty() ? "" : "to " + loc.m_targetName ));
     }
     else
@@ -501,9 +501,9 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
       if (loc.m_speedLimitMps > 0)
         speed = "SpeedLimit: " + measurement_utils::FormatSpeedNumeric(loc.m_speedLimitMps, measurement_utils::Units::Metric);
 
-      LOG(LDEBUG, ("Distance:", loc.m_distToTarget + loc.m_targetUnitsSuffix, "Time:", loc.m_time, speed,
+      LOG(LDEBUG, ("Distance:", loc.m_distToTarget.ToString(), "Time:", loc.m_time, speed,
                    GetTurnString(loc.m_turn), (loc.m_exitNum != 0 ? ":" + std::to_string(loc.m_exitNum) : ""),
-                   "in", loc.m_distToTurn + loc.m_turnUnitsSuffix,
+                   "in", loc.m_distToTurn.ToString(),
                    loc.m_targetName.empty() ? "" : "to " + loc.m_targetName ));
     }
   }

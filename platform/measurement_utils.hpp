@@ -21,6 +21,7 @@ Units GetMeasurementUnits();
 
 inline double MetersToMiles(double m) { return m * 0.000621371192; }
 inline double MilesToMeters(double mi) { return mi * 1609.344; }
+inline double MilesToFeet(double mi) { return mi * 5280.0; }
 inline double MiphToKmph(double miph) { return MilesToMeters(miph) / 1000.0; }
 inline double KmphToMiph(double kmph) { return MetersToMiles(kmph * 1000.0); }
 inline double MpsToKmph(double mps) { return mps * 3.6; }
