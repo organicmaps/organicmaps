@@ -27,6 +27,13 @@ For more information, please see the source code at [`Framework::ParseSearchQuer
 - `?isolines`: Enable the isolines layer.
 - `?no-isolines`: Disable the isolines layer.
 
+### 3D mode (for the Qt desktop app only)
+- `?3d`: Enable 3D (perspective) mode.
+- `?b3d`: Enable 3D buildings.
+- `?2d`: Disable 3D mode and buildings.
+
+The source code is at [`SearchPanel::Try3dModeCmd`](../qt/search_panel.cpp).
+
 ### Information
 
 - `?debug-info`: Show renderer version, zoom scale and FPS counter in the top left corner of the map.
