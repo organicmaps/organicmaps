@@ -956,7 +956,7 @@
     ar = • لا إعلانات ، لا تتبع ، لا جمع البيانات
     be = • Без рэкламы, без трэкінгу, без збору вашых даных
     bg = • Без реклами, без проследяване, без събиране на данни
-    cs = • Žádné reklamy, žádné sledování, žádné sběr dat
+    cs = • Žádné reklamy, žádné sledování, žádný sběr dat
     da = • Ingen annoncer, ingen sporing, ingen dataindsamling
     de = • Keine Werbung, kein Tracking, keine Datenerfassung
     el = • Δεν υπάρχουν διαφημίσεις, χωρίς παρακολούθηση, χωρίς συλλογή δεδομένων
@@ -1039,7 +1039,7 @@
     ar = • سريع ، الحد الأدنى ، لا خردة
     be = • Хуткія, мінімалістычныя, без смецця
     bg = • Бързи, минималистични, без боклуци
-    cs = • Rychlý, minimalistický, žádný haraburdí
+    cs = • Rychlé, minimalistické, žádný bloatware
     da = • Hurtig, minimalistisk, intet skrammel
     de = • Schnell, minimalistisch, keine Bloatware
     el = • Γρήγορη, μινιμαλιστική, χωρίς σκουπίδια
@@ -13861,7 +13861,7 @@
     ar = بيانات رسم الخرائط من OpenStreetMap اعتبارًا من %@. إنه مثل ويكيبيديا حيث يمكنك إضافة أو تحرير أماكن لجميع المستخدمين في جميع أنحاء العالم.
     be = Картаграфічныя даныя OpenStreetMap па стане на %@. Гэта як Вікіпедыя, дзе вы можаце дадаць або рэдагаваць месцы для ўсіх карыстальнікаў па ўсім свеце.
     bg = Картографски данни от OpenStreetMap към %@. Това е като Wikipedia, където можете да добавяте или редактирате места за всички потребители по света.
-    cs = Kartografické údaje z OpenStreetMap od roku %@. Je to jako Wikipedia, kde můžete přidat nebo upravovat místa pro všechny uživatele po celém světě.
+    cs = Kartografická data z OpenStreetMap z %@. OSM je jako Wikipedie pro mapy, kde můžete přidat nebo upravovat místa pro uživatele po celém světě.
     da = Kartografiske data fra OpenStreetMap fra %@. Det er som Wikipedia, hvor du kan tilføje eller redigere steder for alle brugere over hele verden.
     de = Kartografische Daten von OpenStreetMap vom %@. OSM ist wie Wikipedia für Karten, wo Sie Orte hinzufügen oder bearbeiten können.
     el = Χαρτογραφικά δεδομένα από το OpenStreetMap από το %@. Είναι σαν τη Wikipedia όπου μπορείτε να προσθέσετε ή να επεξεργαστείτε θέσεις για όλους τους χρήστες του κόσμου.
