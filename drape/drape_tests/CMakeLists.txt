@@ -40,6 +40,4 @@ target_link_libraries(${PROJECT_NAME}
   indexer  # For StyleReader in static_texture_tests
   drape
   gmock
-  gtest
-  Qt5::Core
 )

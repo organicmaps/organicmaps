@@ -26,7 +26,6 @@
 #include <QtGui/QIntValidator>
 #include <QtGui/QKeySequence>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QDesktopWidget>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QDockWidget>

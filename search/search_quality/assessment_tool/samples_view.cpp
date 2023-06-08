@@ -9,7 +9,7 @@
 
 #include <QtGui/QContextMenuEvent>
 #include <QtGui/QStandardItem>
-#include <QtWidgets/QAction>
+#include <QtGui/QAction>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMenu>
 

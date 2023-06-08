@@ -6,7 +6,6 @@
 #include <string>
 #include <utility>
 
-class QStringList;
 class QProcessEnvironment;
 
 // Returns stdout output of the program, throws std::runtime_error in case of non-zero exit code.

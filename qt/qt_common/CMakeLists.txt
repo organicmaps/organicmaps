@@ -1,6 +1,6 @@
 project(qt_common)
 
-QT5_ADD_RESOURCES(RESOURCES res/resources_common.qrc)
+QT6_ADD_RESOURCES(RESOURCES res/resources_common.qrc)
 
 set_property(SOURCE qrc_resources_common.cpp PROPERTY SKIP_AUTOGEN ON)
 
@@ -33,6 +33,8 @@ target_compile_options(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
   map
-  Qt5::Gui
-  Qt5::Widgets
+  Qt6::Gui
+  Qt6::Widgets
+  Qt6::OpenGL
+  Qt6::OpenGLWidgets
 )

@@ -114,7 +114,7 @@ endfunction()
 function(omim_add_test_with_qt_event_loop executable)
   omim_add_test_impl(NO ${executable} ${ARGN})
   target_compile_definitions(${executable} PRIVATE OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP)
-  target_link_libraries(${executable} Qt5::Widgets)
+  target_link_libraries(${executable} Qt6::Widgets)
 endfunction()
 
 function(omim_add_test_no_platform_init executable)

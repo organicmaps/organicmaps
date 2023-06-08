@@ -49,7 +49,7 @@ jobs:
       - name: Install build tools and dependencies
         shell: bash
         run: |
-          brew install ninja qt@5
+          brew install ninja qt@6
 
       - name: Configure
         shell: bash

@@ -170,8 +170,8 @@ endif()
 target_link_libraries(${PROJECT_NAME}
   geometry  # mercator::YToLat
   coding
-  $<$<BOOL:${PLATFORM_DESKTOP}>:Qt5::Core>
-  $<$<BOOL:${PLATFORM_LINUX}>:Qt5::Network>
+  $<$<BOOL:${PLATFORM_DESKTOP}>:Qt6::Core>
+  $<$<BOOL:${PLATFORM_LINUX}>:Qt6::Network>
   $<$<BOOL:${PLATFORM_MAC}>:-framework\ Foundation -framework\ SystemConfiguration -framework\ CoreLocation -framework\ CFNetwork>
 )
 
