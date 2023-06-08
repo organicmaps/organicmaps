@@ -1,6 +1,6 @@
 project(desktop)
 
-QT5_ADD_RESOURCES(RES_SOURCES res/resources.qrc)
+QT6_ADD_RESOURCES(RES_SOURCES res/resources.qrc)
 
 set(SRC
   about.cpp

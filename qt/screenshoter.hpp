@@ -6,7 +6,7 @@
 
 #include "geometry/rect2d.hpp"
 
-#include <QtWidgets/QOpenGLWidget>
+#include <QOpenGLWidget>
 
 #include <list>
 #include <string>

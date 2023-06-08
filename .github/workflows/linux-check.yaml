@@ -54,8 +54,10 @@ jobs:
           sudo apt update -y
           sudo apt install -y \
               ninja-build \
-              qtbase5-dev \
-              libqt5svg5-dev
+              libgl1-mesa-dev \
+              libglvnd-dev \
+              qt6-base-dev \
+              libqt6svg6-dev
 
       - name: Configure
         shell: bash
@@ -105,8 +107,10 @@ jobs:
               g++-12 \
               gcc-12 \
               ninja-build \
-              qtbase5-dev \
-              libqt5svg5-dev
+              libgl1-mesa-dev \
+              libglvnd-dev \
+              qt6-base-dev \
+              libqt6svg6-dev
 
       - name: Configure
         shell: bash

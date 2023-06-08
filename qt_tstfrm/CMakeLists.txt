@@ -14,6 +14,6 @@ target_compile_options(${PROJECT_NAME}
 )
 
 target_link_libraries(${PROJECT_NAME}
-  Qt5::Core
-  Qt5::Widgets
+  Qt6::Core
+  Qt6::Widgets
 )

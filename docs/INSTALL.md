@@ -97,12 +97,13 @@ sudo apt update && sudo apt install -y \
     clang \
     ninja-build \
     python3 \
-    qtbase5-dev \
+    qt6-base-dev \
     libc++-dev \
     libfreetype-dev \
-    libglu1-mesa-dev \
+    libglvnd-dev \
+    libgl1-mesa-dev \
     libicu-dev \
-    libqt5svg5-dev \
+    libqt6svg6-dev \
     libsqlite3-dev \
     zlib1g-dev
 ```
@@ -129,8 +130,10 @@ sudo dnf install -y \
     freetype-devel \
     libicu-devel \
     libstdc++-devel \
-    qt5-qtbase-devel \
-    qt5-qtsvg-devel \
+    libgl1-mesa-devel \
+    libglvnd-devel \
+    qt6-qtbase-devel \
+    qt6-qtsvg-devel \
     sqlite-devel
 ```
 

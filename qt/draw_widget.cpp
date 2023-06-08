@@ -36,7 +36,6 @@
 #include <QtGui/QGuiApplication>
 #include <QtGui/QMouseEvent>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QDesktopWidget>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QMenu>
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QtWidgets/QAction>
+#include <QtGui/QAction>
 #include <QtWidgets/QToolButton>
 
 #include <vector>

@@ -241,8 +241,8 @@ bool SkinGenerator::WriteToFileNewStyle(std::string const &skinName)
   if (!file.open(QIODevice::ReadWrite | QIODevice::Truncate))
     return false;
   QTextStream ts(&file);
-  ts.setCodec("UTF-8");
+  ts.setEncoding(QStringConverter::Utf8);
   ts << doc.toString();
   return true;
 }
-}
+} // namespace tools
