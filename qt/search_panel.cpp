@@ -141,14 +141,14 @@ void SearchPanel::OnEverywhereSearchResults(uint64_t timestamp, search::Results 
     for (size_t r = 0; r < res.GetHighlightRangesCount(); ++r)
     {
       std::pair<uint16_t, uint16_t> const & range = res.GetHighlightRange(r);
-      strHigh.append(name.midRef(pos, range.first - pos));
+      strHigh.append(name.mid(pos, range.first - pos));
       strHigh.append("<font color=\"green\">");
-      strHigh.append(name.midRef(range.first, range.second));
+      strHigh.append(name.mid(range.first, range.second));
       strHigh.append("</font>");
 
       pos = range.first + range.second;
     }
-    strHigh.append(name.midRef(pos));
+    strHigh.append(name.mid(pos));
 
     int const rowCount = m_pTable->rowCount();
     m_pTable->insertRow(rowCount);

@@ -273,8 +273,8 @@ QVariant TrafficMode::headerData(int section, Qt::Orientation orientation,
 
 void TrafficMode::OnItemSelected(QItemSelection const & selected, QItemSelection const &)
 {
-  CHECK(!selected.empty(), ("The selection should not be empty. RTFM for qt5."));
-  CHECK(!m_segments.empty(), ("No segments are loaded, can't select."));
+  ASSERT(!selected.empty(), ());
+  ASSERT(!m_segments.empty(), ());
 
   auto const row = selected.front().top();
 

@@ -15,7 +15,7 @@
 #include <vector>
 
 #include <QtCore/QString>
-#include <QtWidgets/QAction>
+#include <QtGui/QAction>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 

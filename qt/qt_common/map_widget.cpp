@@ -15,14 +15,14 @@
 #include <functional>
 #include <string>
 
+#include <QOpenGLShaderProgram>
+#include <QOpenGLBuffer>
+#include <QOpenGLVertexArrayObject>
+
 #include <QtGui/QMouseEvent>
 #include <QtGui/QOpenGLFunctions>
-#include <QtGui/QOpenGLShaderProgram>
-#include <QtWidgets/QAction>
+#include <QtGui/QAction>
 #include <QtWidgets/QMenu>
-
-#include <QtGui/QOpenGLBuffer>
-#include <QtGui/QOpenGLVertexArrayObject>
 
 namespace qt
 {
@@ -506,7 +506,12 @@ void MapWidget::wheelEvent(QWheelEvent * e)
     return;
 
   QOpenGLWidget::wheelEvent(e);
-  m_framework.Scale(exp(e->delta() / 360.0), m2::PointD(L2D(e->x()), L2D(e->y())), false);
+
+  QPointF const pos = e->position();
+
+  // https://doc-snapshots.qt.io/qt6-dev/qwheelevent.html#angleDelta, angleDelta() returns in eighths of a degree.
+  /// @todo Here you can tune the speed of zooming.
+  m_framework.Scale(exp(e->angleDelta().y() / 3.0 / 360.0), m2::PointD(L2D(pos.x()), L2D(pos.y())), false);
 }
 
 search::ReverseGeocoder::Address GetFeatureAddressInfo(Framework const & framework,
