@@ -497,7 +497,7 @@ fileprivate struct BookmarksListMenuItem: IBookmarksListMenuItem {
   }
 }
 
-fileprivate struct BookmarksListInfo: IBookmakrsListInfoViewModel {
+fileprivate struct BookmarksListInfo: IBookmarksListInfoViewModel {
   let title: String
   let description: String
   let hasDescription: Bool

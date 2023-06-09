@@ -4,7 +4,7 @@ protocol BookmarksListInfoViewControllerDelegate: AnyObject {
 }
 
 final class BookmarksListInfoViewController: UIViewController {
-  var info: IBookmakrsListInfoViewModel? {
+  var info: IBookmarksListInfoViewModel? {
     didSet {
       guard isViewLoaded, let info = info else { return }
       updateInfo(info)
@@ -32,7 +32,7 @@ final class BookmarksListInfoViewController: UIViewController {
     updateInfo(info)
   }
 
-  private func updateInfo(_ info: IBookmakrsListInfoViewModel) {
+  private func updateInfo(_ info: IBookmarksListInfoViewModel) {
     titleLabel.text = info.title
     descriptionButton.isHidden = !info.hasDescription
     descriptionButton.isEnabled = info.isHtmlDescription

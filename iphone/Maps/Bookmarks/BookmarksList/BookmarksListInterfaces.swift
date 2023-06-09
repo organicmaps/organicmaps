@@ -53,7 +53,7 @@ protocol IBookmarksListMenuItem {
 
 protocol IBookmarksListView: AnyObject {
   func setTitle(_ title: String)
-  func setInfo(_ info: IBookmakrsListInfoViewModel)
+  func setInfo(_ info: IBookmarksListInfoViewModel)
   func setSections(_ sections: [IBookmarksListSectionViewModel])
   func setMoreItemTitle(_ itemTitle: String)
   func showMenu(_ items: [IBookmarksListMenuItem])
@@ -125,7 +125,7 @@ protocol IBookmarksListRouter {
   func editTrack(trackId: MWMTrackID, completion: @escaping (Bool) -> Void)
 }
 
-protocol IBookmakrsListInfoViewModel {
+protocol IBookmarksListInfoViewModel {
   var title: String { get }
   var description: String { get }
   var hasDescription: Bool { get }
