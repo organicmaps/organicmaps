@@ -127,6 +127,8 @@ protocol IBookmarksListRouter {
 
 protocol IBookmakrsListInfoViewModel {
   var title: String { get }
+  var description: String { get }
   var hasDescription: Bool { get }
+  var isHtmlDescription: Bool { get }
   var imageUrl: URL? { get }
 }

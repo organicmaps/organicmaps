@@ -287,6 +287,11 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
   return !data.m_description.empty() || !data.m_annotation.empty();
 }
 
+- (BOOL)isHtmlDescription:(MWMMarkGroupID)groupId {
+    auto description = GetPreferredBookmarkStr(self.bm.GetCategoryData(groupId).m_description);
+    return strings::IsHTML(description);
+}
+
 - (MWMMarkGroupID)createCategoryWithName:(NSString *)name
 {
   auto groupId = self.bm.CreateBookmarkCategory(name.UTF8String);

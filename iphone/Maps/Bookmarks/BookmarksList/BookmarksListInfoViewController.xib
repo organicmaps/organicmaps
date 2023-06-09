@@ -60,7 +60,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="TFR-Qj-pUF" secondAttribute="bottom" id="j5w-Th-flQ"/>
                                             </constraints>
                                         </view>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cxc-pt-qei">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cxc-pt-qei">
                                             <rect key="frame" x="0.0" y="48" width="343" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="g6j-hs-K1V"/>
