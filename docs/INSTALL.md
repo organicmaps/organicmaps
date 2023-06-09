@@ -85,7 +85,7 @@ You need a Linux or a Mac machine to build a desktop version of Organic Maps. [W
 
 Ensure that you have at least 20GB of free space.
 
-Install Cmake (**3.22.1** minimum), Boost, Qt 5 and other dependencies.
+Install Cmake (**3.22.1** minimum), Boost, Qt 6 and other dependencies.
 
 Installing *ccache* can speed up active development.
 
@@ -140,7 +140,7 @@ sudo dnf install -y \
 _macOS:_
 
 ```bash
-brew install cmake ninja qt@5
+brew install cmake ninja qt@6
 ```
 
 ### Windows
@@ -148,7 +148,7 @@ brew install cmake ninja qt@5
 We haven't compiled Organic Maps on Windows *natively* in a long time, though it is possible.
 Some files should be updated. There is a work in progress on [windows](https://github.com/organicmaps/organicmaps/tree/windows) branch.
 Please contribute if you have time.
-You'll need to have python3, cmake, ninja, and QT5 in the PATH, and Visual Studio 2022 or Visual Studio 2022 Build Tools installed. Use [Visual Studio Developer Command Prompt](https://learn.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022) or generate Visual Studio project files with CMake to build the project.
+You'll need to have python3, cmake, ninja, and QT6 in the PATH, and Visual Studio 2022 or Visual Studio 2022 Build Tools installed. Use [Visual Studio Developer Command Prompt](https://learn.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022) or generate Visual Studio project files with CMake to build the project.
 
 However, it is possible to use the WSL (Windows Subsystem for Linux) to run GUI applications. 
 
