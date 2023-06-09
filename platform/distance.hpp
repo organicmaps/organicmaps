@@ -9,16 +9,17 @@ namespace platform
 class Distance
 {
 public:
+  /*!
+   * \warning The order of values below shall not be changed.
+   * \warning The values of Units shall be synchronized with values of Distance.Units enum in
+   * java (see app.organicmaps.util.Distance for details).
+   */
   enum class Units
   {
-    Meters = 1,
-    Kilometers = 2,
-    Feet = 3,
-    Miles = 4,
-
-    // OSM-only
-    NauticalMiles = 5,
-    Inches = 6
+    Meters = 0,
+    Kilometers = 1,
+    Feet = 2,
+    Miles = 3
   };
 
   Distance();
@@ -27,26 +28,26 @@ public:
 
   explicit Distance(double distance, Units units);
 
-  [[nodiscard]] static Distance CreateFormatted(double distanceInMeters);
+  static Distance CreateFormatted(double distanceInMeters);
 
   bool IsValid() const;
 
-  [[nodiscard]] Distance To(Units units) const;
-  [[nodiscard]] Distance ToPlatformUnitsFormatted() const;
+  Distance To(Units units) const;
+  Distance ToPlatformUnitsFormatted() const;
 
   double GetDistance() const;
   Units GetUnits() const;
 
-  [[nodiscard]] std::string GetDistanceString() const;
-  [[nodiscard]] std::string GetUnitsString() const;
+  std::string GetDistanceString() const;
+  std::string GetUnitsString() const;
 
   /// Formats distance in the following way:
   /// * rounds distances over 100 units to 10 units, e.g. 112 -> 110, 998 -> 1000
   /// * for distances of 10.0 high units and over rounds to a whole number, e.g. 9.98 -> 10, 10.9 -> 11
   /// * use high units for distances of 1000 units and over, e.g. 1000m -> 1.0km, 1290m -> 1.3km, 1000ft -> 0.2mi
-  [[nodiscard]] Distance GetFormattedDistance() const;
+  Distance GetFormattedDistance() const;
 
-  [[nodiscard]] std::string ToString() const;
+  std::string ToString() const;
 
 private:
   double m_distance;

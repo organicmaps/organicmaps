@@ -4,6 +4,7 @@
 #include "app/organicmaps/UserMarkHelper.hpp"
 #include "app/organicmaps/opengl/androidoglcontextfactory.hpp"
 #include "app/organicmaps/platform/AndroidPlatform.hpp"
+#include "app/organicmaps/util/Distance.hpp"
 #include "app/organicmaps/util/FeatureIdBuilder.hpp"
 #include "app/organicmaps/util/NetworkPolicy.hpp"
 #include "app/organicmaps/vulkan/android_vulkan_context_factory.hpp"
@@ -748,36 +749,6 @@ FeatureID Framework::BuildFeatureId(JNIEnv * env, jobject featureId)
  *            \\//
  *             \/
  */
-
-namespace
-{
-jobject ToJavaDistance(JNIEnv * env, platform::Distance const & distance)
-{
-  static jclass const distanceClass = jni::GetGlobalClassRef(env, "app/organicmaps/util/Distance");
-  static jclass const unitsEnumClass = jni::GetGlobalClassRef(env, "app/organicmaps/util/Distance$Units");
-
-  static jmethodID const distanceConstructor = jni::GetConstructorID(env, distanceClass, "(DLjava/lang/String;Lapp/organicmaps/util/Distance$Units;)V");
-
-  std::string desiredUnits;
-  switch(distance.GetUnits())
-  {
-  case platform::Distance::Units::Meters: desiredUnits = "Meters"; break;
-  case platform::Distance::Units::Kilometers: desiredUnits = "Kilometers"; break;
-  case platform::Distance::Units::Feet: desiredUnits = "Feet"; break;
-  case platform::Distance::Units::Miles: desiredUnits = "Miles"; break;
-  default: UNREACHABLE();
-  }
-
-  jfieldID desiredUnitsField = env->GetStaticFieldID(unitsEnumClass, desiredUnits.c_str(), "Lapp/organicmaps/util/Distance$Units;");
-  jobject desiredUnitsObject = env->GetStaticObjectField(unitsEnumClass, desiredUnitsField);
-
-  jobject distanceObject = env->NewObject(
-      distanceClass, distanceConstructor,
-      distance.GetDistance(), jni::ToJavaString(env, distance.GetDistanceString()), desiredUnitsObject);
-
-  return distanceObject;
-}
-}
 
 extern "C"
 {

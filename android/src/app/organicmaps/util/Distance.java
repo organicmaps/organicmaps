@@ -9,8 +9,12 @@ import app.organicmaps.R;
 
 import java.util.Objects;
 
-public class Distance
+public final class Distance
 {
+  /**
+   * IMPORTANT : Order of enum values MUST BE the same
+   * with native LaneWay enum (see platform/distance.hpp for details).
+   */
   public enum Units
   {
     Meters(R.string.meter),
@@ -28,14 +32,15 @@ public class Distance
   }
 
   public final double mDistance;
+  @NonNull
   public final String mDistanceStr;
   public final Units mUnits;
 
-  public Distance(double distance, String distanceStr, Units units)
+  public Distance(double distance, @NonNull String distanceStr, byte unitsIndex)
   {
     mDistance = distance;
     mDistanceStr = distanceStr;
-    mUnits = units;
+    mUnits = Units.values()[unitsIndex];
   }
 
   public boolean isValid()
@@ -54,6 +59,7 @@ public class Distance
   @NonNull
   public String toString(@NonNull final Context context)
   {
-    return mDistanceStr + " " + getUnitsStr(context);
+    final char nonBreakingSpace = '\u00A0';
+    return mDistanceStr + nonBreakingSpace + getUnitsStr(context);
   }
 }

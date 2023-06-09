@@ -27,10 +27,6 @@ public class StringUtils
   public static native Pair<String, String> nativeFormatSpeedAndUnits(double metersPerSecond);
   public static native String nativeFormatDistance(double meters);
   @NonNull
-  public static native String nativeFormatDistanceWithLocalization(double meters,
-                                                                   @NonNull String high,
-                                                                   @NonNull String low);
-  @NonNull
   public static native Pair<String, String> nativeGetLocalizedDistanceUnits();
   @NonNull
   public static native Pair<String, String> nativeGetLocalizedAltitudeUnits();

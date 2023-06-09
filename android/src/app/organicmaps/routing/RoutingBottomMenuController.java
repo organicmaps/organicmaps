@@ -307,8 +307,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     String dot = "\u00A0• ";
     initDotBuilderSequence(context, dot, builder);
 
-    String dist = routingInfo.distToTarget.mDistanceStr + "\u00A0" + routingInfo.distToTarget.getUnitsStr(context);
-    initDistanceBuilderSequence(context, dist, builder);
+    initDistanceBuilderSequence(context, routingInfo.distToTarget.toString(context), builder);
 
     return builder;
   }

@@ -51,7 +51,7 @@ public:
   /// @name Formatted covered distance.
   platform::Distance m_distToTarget;
 
-  /// @name Formated distance to next turn with measurement unit suffix
+  /// @name Formatted distance to the next turn.
   //@{
   platform::Distance m_distToTurn;
   turns::CarDirection m_turn;

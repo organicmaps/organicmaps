@@ -69,17 +69,6 @@ Java_app_organicmaps_util_StringUtils_nativeFormatDistance(JNIEnv * env, jclass 
                                                                                   localizedUnits.m_low));
 }
 
-JNIEXPORT jstring JNICALL
-Java_app_organicmaps_util_StringUtils_nativeFormatDistanceWithLocalization(JNIEnv * env, jclass,
-                                                                          jdouble distanceInMeters,
-                                                                          jstring high,
-                                                                          jstring low)
-{
-  auto const distance = measurement_utils::FormatDistanceWithLocalization(
-      distanceInMeters, jni::ToNativeString(env, high), jni::ToNativeString(env, low));
-  return jni::ToJavaString(env, distance);
-}
-
 JNIEXPORT jobject JNICALL
 Java_app_organicmaps_util_StringUtils_nativeGetLocalizedDistanceUnits(JNIEnv * env, jclass)
 {

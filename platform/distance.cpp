@@ -55,33 +55,11 @@ Distance MilesTo(double distance, Distance::Units units)
   }
 }
 
-Distance NauticalMilesTo(double distance, Distance::Units units)
-{
-  switch (units)
-  {
-  case Distance::Units::Meters:
-    return Distance(measurement_utils::NauticalMilesToMeters(distance), Distance::Units::Meters);
-  default: UNREACHABLE();
-  }
-}
-
-Distance InchesTo(double distance, Distance::Units units)
-{
-  switch (units)
-  {
-  case Distance::Units::Meters:
-    return Distance(measurement_utils::InchesToMeters(distance), Distance::Units::Meters);
-  default: UNREACHABLE();
-  }
-}
-
 double WithPrecision(double value, uint8_t precision)
 {
-  std::ostringstream ss;
-  ss << std::setprecision(precision) << std::fixed << value;
-  return std::atof(ss.str().c_str());
+  double const factor = std::pow(10, precision);
+  return std::round(value * factor) / factor;
 }
-
 }  // namespace
 
 Distance::Distance() : Distance(0.0) {}
@@ -111,8 +89,6 @@ Distance Distance::To(Distance::Units units) const
   case Units::Kilometers: return KilometersTo(m_distance, units);
   case Units::Feet: return FeetTo(m_distance, units);
   case Units::Miles: return MilesTo(m_distance, units);
-  case Units::NauticalMiles: return NauticalMilesTo(m_distance, units);
-  case Units::Inches: return InchesTo(m_distance, units);
   default: UNREACHABLE();
   }
 }
@@ -136,13 +112,10 @@ std::string Distance::GetDistanceString() const
   return os.str();
 }
 
-// LocalizedStrings are supported only on iOS (Android is broken)
+// LocalizedStrings for this case are supported only on iOS
 #if defined(OMIM_OS_IPHONE)
 std::string Distance::GetUnitsString() const
 {
-  ASSERT_NOT_EQUAL(m_units, Units::NauticalMiles, ("OSM-only units are not supported"));
-  ASSERT_NOT_EQUAL(m_units, Units::Inches, ("OSM-only units are not supported"));
-
   switch (m_units)
   {
   case Units::Meters: return GetLocalizedString("meter");
@@ -155,9 +128,6 @@ std::string Distance::GetUnitsString() const
 #else
 std::string Distance::GetUnitsString() const
 {
-  ASSERT_NOT_EQUAL(m_units, Units::NauticalMiles, ("OSM-only units are not supported"));
-  ASSERT_NOT_EQUAL(m_units, Units::Inches, ("OSM-only units are not supported"));
-
   switch (m_units)
   {
   case Units::Meters: return "m";
@@ -171,9 +141,6 @@ std::string Distance::GetUnitsString() const
 
 Distance Distance::GetFormattedDistance() const
 {
-  ASSERT_NOT_EQUAL(m_units, Units::NauticalMiles, ("OSM-only units are not supported"));
-  ASSERT_NOT_EQUAL(m_units, Units::Inches, ("OSM-only units are not supported"));
-
   double constexpr roundingThreshold = 100.0;
   double constexpr highUnitThreshold = 1000.0;
 
@@ -238,8 +205,6 @@ std::string DebugPrint(Distance::Units units)
   case Distance::Units::Kilometers: return "Distance::Units::Kilometers";
   case Distance::Units::Feet: return "Distance::Units::Feet";
   case Distance::Units::Miles: return "Distance::Units::Miles";
-  case Distance::Units::NauticalMiles: return "Distance::Units::NauticalMiles";
-  case Distance::Units::Inches: return "Distance::Units::Inches";
   default: UNREACHABLE();
   }
 }

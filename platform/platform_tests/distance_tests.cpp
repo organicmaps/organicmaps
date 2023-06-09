@@ -2,15 +2,13 @@
 
 #include "platform/distance.hpp"
 
-using namespace std;
-
 namespace platform
 {
 UNIT_TEST(Distance_IsValid)
 {
   TEST_EQUAL(Distance(0.0).IsValid(), false, ());
   TEST_EQUAL(Distance(-1).IsValid(), false, ());
-  TEST_EQUAL(Distance(numeric_limits<double>::epsilon()).IsValid(), false, ());
+  TEST_EQUAL(Distance(std::numeric_limits<double>::epsilon()).IsValid(), false, ());
   TEST_EQUAL(Distance(1).IsValid(), true, ());
   TEST_EQUAL(Distance(1243.2, Distance::Units::Feet).IsValid(), true, ());
 }
@@ -27,9 +25,6 @@ UNIT_TEST(Distance_GetUnits)
              ());
   TEST_EQUAL(Distance(1234, Distance::Units::Feet).GetUnits(), Distance::Units::Feet, ());
   TEST_EQUAL(Distance(1234, Distance::Units::Miles).GetUnits(), Distance::Units::Miles, ());
-  TEST_EQUAL(Distance(1234, Distance::Units::NauticalMiles).GetUnits(),
-             Distance::Units::NauticalMiles, ());
-  TEST_EQUAL(Distance(1234, Distance::Units::Inches).GetUnits(), Distance::Units::Inches, ());
 }
 
 UNIT_TEST(Distance_GetUnitsString)
