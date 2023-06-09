@@ -428,7 +428,14 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
         break;
       case TYPE_DESC:
         View desc = inflater.inflate(R.layout.item_category_description, parent, false);
+        TextView moreBtn = desc.findViewById(R.id.more_btn);
+        TextView text = desc.findViewById(R.id.text);
         holder = new Holders.DescriptionViewHolder(desc, mSectionsDataSource.getCategory());
+        setMoreButtonVisibility(text, moreBtn);
+        moreBtn.setOnClickListener((v ->
+        {
+          onMoreButtonClicked(moreBtn, text);
+        }));
         break;
     }
 
@@ -511,6 +518,32 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
       if (info == null)
         throw new RuntimeException("Bookmark no longer exists " + bookmarkId);
       return info;
+    }
+  }
+
+  private void setMoreButtonVisibility(TextView text, TextView moreBtn){
+    text.post(() -> {
+      int lineCount = text.getLineCount();
+      if(lineCount > 2)
+      {
+        text.setMaxLines(2);
+        moreBtn.setVisibility(View.VISIBLE);
+      }
+      else
+        moreBtn.setVisibility(View.GONE);
+    });
+  }
+
+  private void onMoreButtonClicked(TextView moreBtn, TextView text){
+    if(text.getMaxLines() == 2)
+    {
+      text.setMaxLines(Integer.MAX_VALUE);
+      moreBtn.setText(R.string.category_desc_less);
+    }
+    else
+    {
+      text.setMaxLines(2);
+      moreBtn.setText(R.string.category_desc_more);
     }
   }
 }
