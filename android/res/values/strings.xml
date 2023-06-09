@@ -648,7 +648,8 @@
 	<string name="subway_data_unavailable">Subway map is unavailable</string>
 	<string name="bookmarks_empty_list_title">This list is empty</string>
 	<string name="bookmarks_empty_list_message">To add a bookmark, tap a place on the map and then tap the star icon</string>
-	<string name="category_desc_more">…more</string>
+	<string name="category_desc_more">…More</string>
+	<string name="category_desc_less">Less</string>
 	<string name="export_file">Export file</string>
 	<string name="list_settings">List Settings</string>
 	<string name="delete_list">Delete list</string>
