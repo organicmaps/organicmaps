@@ -603,7 +603,7 @@ private:
   void LoadBookmarkRoutine(std::string const & filePath, bool isTemporaryFile);
 
   using BookmarksChecker = std::function<bool(kml::FileData const &)>;
-  KMLDataCollectionPtr LoadBookmarks(std::string const & dir, std::string const & ext,
+  KMLDataCollectionPtr LoadBookmarks(std::string const & dir, std::string_view const ext,
                                      KmlFileType fileType, BookmarksChecker const & checker);
 
   void GetDirtyGroups(kml::GroupIdSet & dirtyGroups) const;

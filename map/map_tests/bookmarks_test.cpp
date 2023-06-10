@@ -494,7 +494,7 @@ UNIT_TEST(Bookmarks_UniqueFileName)
 {
   string const BASE = "SomeUniqueFileName";
   string const FILEBASE = "./" + BASE;
-  string const FILENAME = FILEBASE + kKmlExtension;
+  string const FILENAME = FILEBASE + std::string(kKmlExtension);
 
   {
     FileWriter file(FILENAME);
