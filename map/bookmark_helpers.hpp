@@ -65,10 +65,10 @@ enum class BookmarkBaseType : uint16_t
   Count
 };
 
-extern std::string_view const kKmzExtension;
-extern std::string_view const kKmlExtension;
-extern std::string_view const kKmbExtension;
-extern std::string_view const kGpxExtension;
+std::string_view constexpr kKmzExtension = ".kmz";
+std::string_view constexpr kKmlExtension = ".kml";
+std::string_view constexpr kKmbExtension = ".kmb";
+std::string_view constexpr kGpxExtension = ".gpx";
 extern std::string const kDefaultBookmarksFileName;
 
 enum class KmlFileType

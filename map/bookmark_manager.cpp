@@ -1798,7 +1798,7 @@ void BookmarkManager::ClearCategories()
 }
 
 BookmarkManager::KMLDataCollectionPtr BookmarkManager::LoadBookmarks(
-    std::string const & dir, std::string_view const ext, KmlFileType fileType,
+    std::string const & dir, std::string_view ext, KmlFileType fileType,
     BookmarksChecker const & checker)
 {
   Platform::FilesList files;
@@ -2588,7 +2588,7 @@ BookmarkManager::KMLDataCollectionPtr BookmarkManager::PrepareToSaveBookmarks(
       if (name.empty())
         name = kDefaultBookmarksFileName;
 
-      file = GenerateUniqueFileName(fileDir, std::move(name));
+      file = GenerateUniqueFileName(fileDir, std::move(name), kKmlExtension);
       group->SetFileName(file);
     }
 
