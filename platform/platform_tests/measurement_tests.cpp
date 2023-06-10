@@ -1,113 +1,13 @@
 #include "testing/testing.hpp"
 
 #include "platform/measurement_utils.hpp"
-#include "platform/settings.hpp"
 
 #include "base/math.hpp"
 
 #include <string>
-#include <utility>
 
 using namespace measurement_utils;
-using namespace settings;
 
-struct ScopedSettings
-{
-  ScopedSettings() { m_wasSet = Get(kMeasurementUnits, m_oldUnits); }
-
-  /// Saves/restores previous units and sets new units for a scope.
-  explicit ScopedSettings(Units newUnits) : ScopedSettings()
-  {
-    Set(kMeasurementUnits, newUnits);
-  }
-
-  ~ScopedSettings()
-  {
-    if (m_wasSet)
-      Set(kMeasurementUnits, m_oldUnits);
-    else
-      Delete(kMeasurementUnits);
-  }
-
-  bool m_wasSet;
-  Units m_oldUnits;
-};
-
-UNIT_TEST(Measurement_Smoke)
-{
-  {
-    ScopedSettings guard(Units::Metric);
-
-    using Pair = std::pair<double, char const *>;
-
-    Pair arr[] = {
-      {0.3, "0 m"},
-      {0.9, "1 m"},
-      {10.0, "10 m"},
-      {10.4, "10 m"},
-      {10.5, "11 m"},
-      {10.51, "11 m"},
-      {99.0, "99 m"},
-      {100.0, "100 m"},
-      {101.0, "100 m"},
-      {109.0, "110 m"},
-      {991.0, "990 m"},
-      {999.0, "1.0 km"},
-      {1000.0, "1.0 km"},
-      {1001.0, "1.0 km"},
-      {1100.0, "1.1 km"},
-      {1140.0, "1.1 km"},
-      {1151.0, "1.2 km"},
-      {1500.0, "1.5 km"},
-      {1549.9, "1.5 km"},
-      {1550.0, "1.6 km"},
-      {1551.0, "1.6 km"},
-      {9949.0, "9.9 km"},
-      {9992.0, "10 km"},
-      {10000.0, "10 km"},
-      {10499.9, "10 km"},
-      {10501.0, "11 km"}
-    };
-
-    for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
-      TEST_EQUAL(FormatDistance(arr[i].first), arr[i].second, (arr[i]));
-  }
-
-  {
-    ScopedSettings guard(Units::Imperial);
-
-    using Pair = std::pair<double, char const *>;
-
-    Pair arr[] = {
-      {0.1, "0 ft"},
-      {0.3, "1 ft"},
-      {0.3048, "1 ft"},
-      {0.4573, "2 ft"},
-      {0.9, "3 ft"},
-      {3.0, "10 ft"},
-      {30.17, "99 ft"},
-      {30.33, "100 ft"},
-      {30.49, "100 ft"},
-      {33.5, "110 ft"},
-      {302.0, "990 ft"},
-      {304.7, "0.2 mi"},
-      {304.8, "0.2 mi"},
-      {402.3, "0.2 mi"},
-      {402.4, "0.3 mi"},
-      {482.8, "0.3 mi"},
-      {1609.3, "1.0 mi"},
-      {1610.0, "1.0 mi"},
-      {1770.0, "1.1 mi"},
-      {15933, "9.9 mi"},
-      {16093.0, "10 mi"},
-      {16093.5, "10 mi"},
-      {16898.113, "11 mi"}
-    };
-
-    for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
-      TEST_EQUAL(FormatDistance(arr[i].first), arr[i].second, (arr[i]));
-  }
-}
 
 UNIT_TEST(LatLonToDMS_Origin)
 {
@@ -150,15 +50,6 @@ UNIT_TEST(FormatOsmLink)
   TEST(link == "https://osm.org/go/AAAAAA?m=" || link == "https://osm.org/go/~~~~~~?m=", (link));
   link = FormatOsmLink(90, 180, 10);
   TEST(link == "https://osm.org/go/AAAAAA?m=" || link == "https://osm.org/go/~~~~~~?m=", (link));
-}
-
-UNIT_TEST(FormatAltitude)
-{
-  ScopedSettings guard;
-  settings::Set(settings::kMeasurementUnits, Units::Imperial);
-  TEST_EQUAL(FormatAltitude(10000), "32808 ft", ());
-  settings::Set(settings::kMeasurementUnits, Units::Metric);
-  TEST_EQUAL(FormatAltitude(5), "5 m", ());
 }
 
 UNIT_TEST(FormatSpeedNumeric)

@@ -13,6 +13,8 @@ public:
    * \warning The order of values below shall not be changed.
    * \warning The values of Units shall be synchronized with values of Distance.Units enum in
    * java (see app.organicmaps.util.Distance for details).
+   * \warning The values of Units shall be synchronized with values of unitLength func in
+   * swift (see iphone/Maps/Classes/CarPlay/Templates Data/RouteInfo.swift for details).
    */
   enum class Units
   {
@@ -26,11 +28,17 @@ public:
 
   explicit Distance(double distanceInMeters);
 
-  explicit Distance(double distance, Units units);
+  Distance(double distance, Units units);
 
   static Distance CreateFormatted(double distanceInMeters);
+  /// Creates formatted distance in low units.
+  /// \example CreateAltitudeFormatted(10000) -> 32808 ft
+  /// \warning GetFormattedDistance() will transform it to the high units
+  static Distance CreateAltitudeFormatted(double meters);
 
   bool IsValid() const;
+  bool IsLowUnits() const;
+  bool IsHighUnits() const;
 
   Distance To(Units units) const;
   Distance ToPlatformUnitsFormatted() const;
@@ -48,6 +56,8 @@ public:
   Distance GetFormattedDistance() const;
 
   std::string ToString() const;
+
+  friend std::string DebugPrint(Distance const & d) { return d.ToString(); }
 
 private:
   double m_distance;

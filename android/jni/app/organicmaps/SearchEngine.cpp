@@ -1,6 +1,7 @@
 #include "app/organicmaps/Framework.hpp"
 #include "app/organicmaps/UserMarkHelper.hpp"
 #include "app/organicmaps/platform/AndroidPlatform.hpp"
+#include "app/organicmaps/util/Distance.hpp"
 
 #include "map/bookmarks_search_params.hpp"
 #include "map/everywhere_search_params.hpp"
@@ -92,12 +93,12 @@ jobject ToJavaResult(Result const & result, search::ProductInfo const & productI
     return env->NewObject(g_resultClass, g_suggestConstructor, name.get(), suggest.get(), ll.m_lat, ll.m_lon, ranges.get());
   }
 
-  string distance;
+  platform::Distance distance;
   double distanceInMeters = 0.0;
   if (result.HasPoint() && hasPosition)
   {
     distanceInMeters = ms::DistanceOnEarth(lat, lon, ll.m_lat, ll.m_lon);
-    distance = measurement_utils::FormatDistance(distanceInMeters);
+    distance = platform::Distance::CreateFormatted(distanceInMeters);
   }
 
   bool const popularityHasHigherPriority = PopularityHasHigherPriority(hasPosition, distanceInMeters);
@@ -109,7 +110,7 @@ jobject ToJavaResult(Result const & result, search::ProductInfo const & productI
 
   jni::TScopedLocalRef featureType(env, jni::ToJavaString(env, readableType));
   jni::TScopedLocalRef address(env, jni::ToJavaString(env, result.GetAddress()));
-  jni::TScopedLocalRef dist(env, jni::ToJavaString(env, distance));
+  jni::TScopedLocalRef dist(env, ToJavaDistance(env, distance));
   jni::TScopedLocalRef cuisine(env, jni::ToJavaString(env, result.GetCuisine()));
   jni::TScopedLocalRef brand(env, jni::ToJavaString(env, result.GetBrand()));
   jni::TScopedLocalRef airportIata(env, jni::ToJavaString(env, result.GetAirportIata()));
@@ -243,14 +244,14 @@ extern "C"
     g_suggestConstructor = jni::GetConstructorID(env, g_resultClass, "(Ljava/lang/String;Ljava/lang/String;DD[I)V");
     g_descriptionClass = jni::GetGlobalClassRef(env, "app/organicmaps/search/SearchResult$Description");
     /*
-        Description(FeatureId featureId, String featureType, String region, String distance,
+        Description(FeatureId featureId, String featureType, String region, Distance distance,
                     String cuisine, String brand, String airportIata, String roadShields,
                     int openNow, int minutesUntilOpen, int minutesUntilClosed, 
                     boolean hasPopularityHigherPriority)
     */
     g_descriptionConstructor = jni::GetConstructorID(env, g_descriptionClass,
                                                      "(Lapp/organicmaps/bookmarks/data/FeatureId;"
-                                                     "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
+                                                     "Ljava/lang/String;Ljava/lang/String;Lapp/organicmaps/util/Distance;"
                                                      "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
                                                      "Ljava/lang/String;IIIZ)V");
 

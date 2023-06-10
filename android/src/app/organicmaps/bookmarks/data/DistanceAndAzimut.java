@@ -1,11 +1,13 @@
 package app.organicmaps.bookmarks.data;
 
+import app.organicmaps.util.Distance;
+
 public class DistanceAndAzimut
 {
-  private final String mDistance;
+  private final Distance mDistance;
   private final double mAzimuth;
 
-  public String getDistance()
+  public Distance getDistance()
   {
     return mDistance;
   }
@@ -15,7 +17,7 @@ public class DistanceAndAzimut
     return mAzimuth;
   }
 
-  public DistanceAndAzimut(String distance, double azimuth)
+  public DistanceAndAzimut(Distance distance, double azimuth)
   {
     mDistance = distance;
     mAzimuth = azimuth;

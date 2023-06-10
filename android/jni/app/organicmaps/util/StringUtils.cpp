@@ -1,4 +1,5 @@
 #include "app/organicmaps/core/jni_helper.hpp"
+#include "app/organicmaps/util/Distance.hpp"
 
 #include "indexer/search_string_utils.hpp"
 
@@ -59,14 +60,11 @@ JNIEXPORT jobject JNICALL Java_app_organicmaps_util_StringUtils_nativeFormatSpee
                       platform::GetLocalizedSpeedUnits(units));
 }
 
-JNIEXPORT jstring JNICALL
-Java_app_organicmaps_util_StringUtils_nativeFormatDistance(JNIEnv * env, jclass thiz,
-                                                          jdouble distanceInMeters)
+JNIEXPORT jobject JNICALL
+Java_app_organicmaps_util_StringUtils_nativeFormatDistance(JNIEnv * env, jclass,
+                                                           jdouble distanceInMeters)
 {
-  auto const localizedUnits = platform::GetLocalizedDistanceUnits();
-  return jni::ToJavaString(env, measurement_utils::FormatDistanceWithLocalization(distanceInMeters,
-                                                                                  localizedUnits.m_high,
-                                                                                  localizedUnits.m_low));
+  return ToJavaDistance(env, platform::Distance::CreateFormatted(distanceInMeters));
 }
 
 JNIEXPORT jobject JNICALL

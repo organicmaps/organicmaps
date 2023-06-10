@@ -6,6 +6,7 @@
 #include "platform/location.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
+#include "platform/distance.hpp"
 
 #include "geometry/angles.hpp"
 #include "geometry/mercator.hpp"
@@ -37,13 +38,9 @@ using namespace traffic;
 
 void FormatDistance(double dist, std::string & value, std::string & suffix)
 {
-  /// @todo Make better formatting of distance and units.
-  value = measurement_utils::FormatDistance(dist);
-
-  size_t const delim = value.find(' ');
-  ASSERT(delim != std::string::npos, ());
-  suffix = value.substr(delim + 1);
-  value.erase(delim);
+  platform::Distance d = platform::Distance::CreateFormatted(dist);
+  value = d.GetDistanceString();
+  suffix = d.GetUnitsString();
 }
 
 RoutingSession::RoutingSession()

@@ -27,7 +27,7 @@ inline double KmphToMiph(double kmph) { return MetersToMiles(kmph * 1000.0); }
 inline double MpsToKmph(double mps) { return mps * 3.6; }
 inline double MetersToFeet(double m) { return m * 3.2808399; }
 inline double FeetToMeters(double ft) { return ft * 0.3048; }
-inline double FeetToMiles(double ft) { return ft * 5280; }
+inline double FeetToMiles(double ft) { return ft * 0.00018939; }
 inline double InchesToMeters(double in) { return in / 39.370; }
 inline double NauticalMilesToMeters(double nmi) { return nmi * 1852; }
 inline double constexpr KmphToMps(double kmph) { return kmph * 1000 / 3600; }
@@ -35,16 +35,6 @@ inline double constexpr KmphToMps(double kmph) { return kmph * 1000 / 3600; }
 double ToSpeedKmPH(double speed, Units units);
 double MpsToUnits(double mps, Units units);
 
-/// Takes into an account user settings [metric, imperial]
-/// @param[in] m meters
-/// @param[out] res formatted std::string for search
-/// @return should be direction arrow drawed? false if distance is to small (< 1.0)
-std::string FormatDistance(double distanceInMeters);
-std::string FormatDistanceWithLocalization(double m, OptionalStringRef high, OptionalStringRef low);
-
-/// @return Localized meters or feets string for altitude, depending on current measurement units.
-std::string FormatAltitude(double altitudeInMeters);
-std::string FormatAltitudeWithLocalization(double altitudeInMeters, OptionalStringRef localizedUnits);
 /// @return Speed value string (without suffix) in km/h for Metric and in mph for Imperial.
 std::string FormatSpeedNumeric(double metersPerSecond, Units units);
 

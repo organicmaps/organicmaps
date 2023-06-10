@@ -17,6 +17,7 @@
 
 #include "platform/local_country_file_utils.hpp"
 #include "platform/localization.hpp"
+#include "platform/distance.hpp"
 
 using namespace routing;
 
@@ -390,10 +391,8 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
       altitudes->CalculateAscentDescent(totalAscentM, totalDescentM);
 
       auto const localizedUnits = platform::GetLocalizedAltitudeUnits();
-      router.totalAscent = 
-        @(measurement_utils::FormatAltitudeWithLocalization(totalAscentM, localizedUnits.m_low).c_str());
-      router.totalDescent = 
-        @(measurement_utils::FormatAltitudeWithLocalization(totalDescentM, localizedUnits.m_low).c_str());
+      router.totalAscent = @(platform::Distance::CreateAltitudeFormatted(totalAscentM).ToString().c_str());
+      router.totalDescent = @(platform::Distance::CreateAltitudeFormatted(totalDescentM).ToString().c_str());
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{

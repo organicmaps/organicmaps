@@ -30,38 +30,6 @@ string ToStringPrecision(double d, int pr)
   ss << setprecision(pr) << fixed << d;
   return ss.str();
 }
-
-string FormatDistanceImpl(Units units, double m, string const & low, string const & high)
-{
-  double highF, lowF;
-  switch (units)
-  {
-  case Units::Imperial: highF = 1609.344; lowF = 0.3048; break;
-  case Units::Metric: highF = 1000.0; lowF = 1.0; break;
-  }
-
-  double lowV = round(m / lowF);
-  // Round distances over 100 units to 10 units, e.g. 112 -> 110, 998 -> 1000
-  lowV = lowV <= 100.0 ? lowV : round(lowV / 10) * 10;
-
-  // Use high units for distances of 1000 units and over,
-  // e.g. 1000m -> 1.0km, 1290m -> 1.3km, 1000ft -> 0.2mi
-  if (lowV >= 1000.0)
-  {
-    double const highV = m / highF;
-    // For distances of 10.0 high units and over round to a whole number, e.g. 9.98 -> 10, 10.9 -> 11
-    return ToStringPrecision(highV, round(highV * 10) / 10 >= 10.0 ? 0 : 1) + " " + high;
-  }
-
-  return ToStringPrecision(lowV, 0) + " " + low;
-}
-
-string FormatAltitudeImpl(Units units, double altitude, string const & localizedUnits)
-{
-  ostringstream ss;
-  ss << fixed << setprecision(0) << altitude << " " << localizedUnits;
-  return ss.str();
-}
 }  // namespace
 
 std::string DebugPrint(Units units)
@@ -90,23 +58,6 @@ double ToSpeedKmPH(double speed, Units units)
   }
   UNREACHABLE();
 }
-
-std::string FormatDistanceWithLocalization(double m, OptionalStringRef high, OptionalStringRef low)
-{
-  Units const units = GetMeasurementUnits();
-  switch (units)
-  {
-  case Units::Imperial: return FormatDistanceImpl(units, m, low ? *low : "ft", high ? *high : "mi");
-  case Units::Metric: return FormatDistanceImpl(units, m, low ? *low : "m", high ? *high : "km");
-  }
-  UNREACHABLE();
-}
-
-std::string FormatDistance(double m)
-{
-  return FormatDistanceWithLocalization(m, {} /* high */, {} /* low */);
-}
-
 
 string FormatLatLonAsDMSImpl(double value, char positive, char negative, int dac)
 {
@@ -200,24 +151,6 @@ void FormatMercator(m2::PointD const & mercator, string & lat, string & lon, int
 {
   lat = to_string_dac(mercator::YToLat(mercator.y), dac);
   lon = to_string_dac(mercator::XToLon(mercator.x), dac);
-}
-
-string FormatAltitude(double altitudeInMeters)
-{
-  return FormatAltitudeWithLocalization(altitudeInMeters, {} /* localizedUnits */);
-}
-
-string FormatAltitudeWithLocalization(double altitudeInMeters, OptionalStringRef localizedUnits)
-{
-  Units const units = GetMeasurementUnits();
-  switch (units)
-  {
-  case Units::Imperial:
-    return FormatAltitudeImpl(units, MetersToFeet(altitudeInMeters), localizedUnits ? *localizedUnits : "ft");
-  case Units::Metric:
-    return FormatAltitudeImpl(units, altitudeInMeters, localizedUnits ? *localizedUnits : "m");
-  }
-  UNREACHABLE();
 }
 
 double MpsToUnits(double metersPerSecond, Units units)

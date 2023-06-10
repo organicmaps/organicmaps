@@ -1401,7 +1401,7 @@ void Framework::FillSearchResultsMarks(SearchResultsIterT beg, SearchResultsIter
 
 bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
                                      double lat, double lon, double north,
-                                     string & distance, double & azimut)
+                                     platform::Distance & distance, double & azimut)
 {
 #ifdef FIXED_LOCATION
   m_fixedPos.GetLat(lat);
@@ -1412,7 +1412,7 @@ bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
   double const d = ms::DistanceOnEarth(lat, lon, mercator::YToLat(point.y), mercator::XToLon(point.x));
 
   // Distance may be less than 1.0
-  distance = measurement_utils::FormatDistance(d);
+  distance = platform::Distance::CreateFormatted(d);
 
   // We calculate azimuth even when distance is very short (d ~ 0),
   // because return value has 2 states (near me or far from me).

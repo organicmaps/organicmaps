@@ -18,6 +18,7 @@ import app.organicmaps.routing.RoutePointInfo;
 import app.organicmaps.routing.RoutingInfo;
 import app.organicmaps.routing.TransitRouteInfo;
 import app.organicmaps.settings.SettingsPrefsFragment;
+import app.organicmaps.util.Distance;
 import app.organicmaps.widget.placepage.PlacePageData;
 import app.organicmaps.util.Constants;
 
@@ -171,7 +172,7 @@ public class Framework
 
   public static native String nativeFormatLatLon(double lat, double lon, int coordFormat);
 
-  public static native String nativeFormatAltitude(double alt);
+  public static native Distance nativeFormatAltitude(double alt);
 
   public static native String nativeFormatSpeed(double speed);
 

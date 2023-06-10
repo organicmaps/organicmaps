@@ -8,7 +8,7 @@
 #include "geometry/mercator.hpp"
 
 #include "platform/localization.hpp"
-#include "platform/measurement_utils.hpp"
+#include "platform/distance.hpp"
 
 
 @interface MWMSearchCommonCell ()
@@ -69,12 +69,9 @@
   {
     if (result.HasPoint())
     {
-      auto const localizedUnits = platform::GetLocalizedDistanceUnits();
       distanceInMeters =
           mercator::DistanceOnEarth(lastLocation.mercator, result.GetFeatureCenter());
-      std::string distanceStr = measurement_utils::FormatDistanceWithLocalization(distanceInMeters,
-                                                                                  localizedUnits.m_high,
-                                                                                  localizedUnits.m_low);
+      std::string distanceStr = platform::Distance::CreateFormatted(distanceInMeters).ToString();
       self.distanceLabel.text = @(distanceStr.c_str());
     }
   }

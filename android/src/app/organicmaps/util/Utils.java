@@ -367,7 +367,7 @@ public class Utils
   @NonNull
   public static SpannableStringBuilder formatDistance(Context context, @NonNull Distance distance)
   {
-    final SpannableStringBuilder res = new SpannableStringBuilder(distance.mDistanceStr).append("\u00A0").append(distance.getUnitsStr(context));
+    final SpannableStringBuilder res = new SpannableStringBuilder(distance.toString(context));
     res.setSpan(
         new AbsoluteSizeSpan(UiUtils.dimen(context, R.dimen.text_size_nav_number), false),
         0, distance.mDistanceStr.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

@@ -425,7 +425,7 @@ void DrawWidget::keyReleaseEvent(QKeyEvent * e)
 
 std::string DrawWidget::GetDistance(search::Result const & res) const
 {
-  std::string dist;
+  platform::Distance dist;
   if (auto const position = m_framework.GetCurrentPosition())
   {
     auto const ll = mercator::ToLatLon(*position);
@@ -433,7 +433,7 @@ std::string DrawWidget::GetDistance(search::Result const & res) const
     (void)m_framework.GetDistanceAndAzimut(res.GetFeatureCenter(), ll.m_lat, ll.m_lon, -1.0, dist,
                                            dummy);
   }
-  return dist;
+  return dist.ToString();
 }
 
 void DrawWidget::CreateFeature()
@@ -490,7 +490,7 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
     routingManager.GetRouteFollowingInfo(loc);
     if (routingManager.GetCurrentRouterType() == routing::RouterType::Pedestrian)
     {
-      LOG(LDEBUG, ("Distance:", loc.m_distToTarget.ToString(), "Time:", loc.m_time,
+      LOG(LDEBUG, ("Distance:", loc.m_distToTarget, "Time:", loc.m_time,
                    DebugPrint(loc.m_pedestrianTurn),
                    "in", loc.m_distToTurn.ToString(),
                    loc.m_targetName.empty() ? "" : "to " + loc.m_targetName ));
@@ -501,7 +501,7 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
       if (loc.m_speedLimitMps > 0)
         speed = "SpeedLimit: " + measurement_utils::FormatSpeedNumeric(loc.m_speedLimitMps, measurement_utils::Units::Metric);
 
-      LOG(LDEBUG, ("Distance:", loc.m_distToTarget.ToString(), "Time:", loc.m_time, speed,
+      LOG(LDEBUG, ("Distance:", loc.m_distToTarget, "Time:", loc.m_time, speed,
                    GetTurnString(loc.m_turn), (loc.m_exitNum != 0 ? ":" + std::to_string(loc.m_exitNum) : ""),
                    "in", loc.m_distToTurn.ToString(),
                    loc.m_targetName.empty() ? "" : "to " + loc.m_targetName ));

@@ -13,11 +13,14 @@ Distance MetersTo(double distance, Distance::Units units)
 {
   switch (units)
   {
-  case Distance::Units::Kilometers: return Distance(distance / 1000, Distance::Units::Kilometers);
+  case Distance::Units::Meters:
+    return Distance(distance);
+  case Distance::Units::Kilometers:
+    return {distance / 1000, Distance::Units::Kilometers};
   case Distance::Units::Feet:
-    return Distance(measurement_utils::MetersToFeet(distance), Distance::Units::Feet);
+    return {measurement_utils::MetersToFeet(distance), Distance::Units::Feet};
   case Distance::Units::Miles:
-    return Distance(measurement_utils::MetersToMiles(distance), Distance::Units::Miles);
+    return {measurement_utils::MetersToMiles(distance), Distance::Units::Miles};
   default: UNREACHABLE();
   }
 }
@@ -32,11 +35,11 @@ Distance FeetTo(double distance, Distance::Units units)
   switch (units)
   {
   case Distance::Units::Meters:
-    return Distance(measurement_utils::FeetToMeters(distance), Distance::Units::Meters);
+    return {measurement_utils::FeetToMeters(distance), Distance::Units::Meters};
   case Distance::Units::Kilometers:
-    return Distance(measurement_utils::FeetToMeters(distance) / 1000, Distance::Units::Kilometers);
+    return {measurement_utils::FeetToMeters(distance) / 1000, Distance::Units::Kilometers};
   case Distance::Units::Miles:
-    return Distance(measurement_utils::FeetToMiles(distance), Distance::Units::Miles);
+    return {measurement_utils::FeetToMiles(distance), Distance::Units::Miles};
   default: UNREACHABLE();
   }
 }
@@ -46,11 +49,11 @@ Distance MilesTo(double distance, Distance::Units units)
   switch (units)
   {
   case Distance::Units::Meters:
-    return Distance(measurement_utils::MilesToMeters(distance), Distance::Units::Meters);
+    return {measurement_utils::MilesToMeters(distance), Distance::Units::Meters};
   case Distance::Units::Kilometers:
-    return Distance(measurement_utils::MilesToMeters(distance) / 1000, Distance::Units::Kilometers);
+    return {measurement_utils::MilesToMeters(distance) / 1000, Distance::Units::Kilometers};
   case Distance::Units::Feet:
-    return Distance(measurement_utils::MilesToFeet(distance), Distance::Units::Feet);
+    return {measurement_utils::MilesToFeet(distance), Distance::Units::Feet};
   default: UNREACHABLE();
   }
 }
@@ -76,7 +79,21 @@ Distance Distance::CreateFormatted(double distanceInMeters)
   return Distance(distanceInMeters).ToPlatformUnitsFormatted();
 }
 
-bool Distance::IsValid() const { return m_distance > std::numeric_limits<double>::epsilon(); }
+Distance Distance::CreateAltitudeFormatted(double meters)
+{
+  Distance elevation = Distance(meters).To(
+      measurement_utils::GetMeasurementUnits() == measurement_utils::Units::Metric ? Units::Meters
+                                                                                   : Units::Feet);
+  if (elevation.IsLowUnits())
+    elevation.m_distance = WithPrecision(elevation.m_distance, 0);
+  return elevation;
+}
+
+bool Distance::IsValid() const { return m_distance >= 0.0; }
+
+bool Distance::IsLowUnits() const { return m_units == Units::Meters || m_units == Units::Feet; }
+
+bool Distance::IsHighUnits() const { return !IsLowUnits(); }
 
 Distance Distance::To(Distance::Units units) const
 {
@@ -112,8 +129,7 @@ std::string Distance::GetDistanceString() const
   return os.str();
 }
 
-// LocalizedStrings for this case are supported only on iOS
-#if defined(OMIM_OS_IPHONE)
+#if defined(OMIM_OS_IPHONE) || defined(OMIM_OS_ANDROID)
 std::string Distance::GetUnitsString() const
 {
   switch (m_units)
@@ -141,61 +157,51 @@ std::string Distance::GetUnitsString() const
 
 Distance Distance::GetFormattedDistance() const
 {
-  double constexpr roundingThreshold = 100.0;
-  double constexpr highUnitThreshold = 1000.0;
-
-  double newDistance = m_distance;
-  Units newUnits = m_units;
+  Distance newDistance = *this;
   int precision = 0;
 
-  if (newUnits == Units::Meters || newUnits == Units::Feet)
+  if (newDistance.m_units == Units::Kilometers)
+    newDistance = newDistance.To(Units::Meters);
+  else if (newDistance.m_units == Units::Miles)
+    newDistance = newDistance.To(Units::Feet);
+
+  double lowValue = round(newDistance.m_distance);
+  // Round distances over 100 units to 10 units, e.g. 112 -> 110, 998 -> 1000
+  if (lowValue > 100)
+    lowValue = round(lowValue / 10) * 10;
+
+  // Use high units for distances of 1000 units and over,
+  // e.g. 1000m -> 1.0km, 1290m -> 1.3km, 1000ft -> 0.2mi
+  if (lowValue >= 1000.0)
   {
-    // Round distances over roundingThreshold units to roundingThreshold units, e.g. 112 -> 110,
-    // 998 -> 1000
-    if (newDistance > roundingThreshold)
-      newDistance = round(newDistance / 10) * 10;
-
-    if (newDistance >= highUnitThreshold)
-    {
-      switch (m_units)
-      {
-      case Units::Meters:
-        newUnits = Units::Kilometers;
-        newDistance /= 1000.0;
-        break;
-      case Units::Feet:
-        newUnits = Units::Miles;
-        newDistance /= 5280.0;
-        break;
-      default: UNREACHABLE();
-      }
-    }
-    else
-      precision = 1;
-
-    // For distances of 10.0 high units and over round to a whole number, e.g. 9.98 -> 10,
-    // 10.9 -> 11
-    if (newDistance >= 10.0)
-    {
-      newDistance = round(newDistance);
-      precision = 0;
-    }
+    double highFactor = newDistance.m_units == Units::Meters ? 1000 : 5280;
+    double highValue = newDistance.m_distance / highFactor;
+    newDistance.m_distance = highValue;
+    newDistance.m_units = newDistance.m_units == Units::Meters ? Units::Kilometers : Units::Miles;
+    precision = round(highValue * 10) / 10 >= 10.0 ? 0 : 1;
   }
+  else
+    newDistance.m_distance = lowValue;
 
-  if (newUnits == Units::Kilometers || newUnits == Units::Miles)
-  {
-    // Round distances over roundingThreshold units to roundingThreshold units, e.g. 112 -> 110,
-    // 998 -> 1000
-    if (newDistance > roundingThreshold)
-      newDistance = round(newDistance / 10) * 10;
+  if (IsHighUnits() && newDistance.GetUnits() != m_units)
+    newDistance = *this;
 
-    precision = newDistance > 10.0 ? 0 : 1;
-  }
+  if (newDistance.m_distance > 100)
+    newDistance.m_distance = round(newDistance.m_distance / 10) * 10;
 
-  return Distance(WithPrecision(newDistance, precision), newUnits);
+  if (IsHighUnits() && newDistance.m_distance < 10)
+    precision = 1;
+
+  return {WithPrecision(newDistance.m_distance, precision), newDistance.m_units};
 }
 
-std::string Distance::ToString() const { return GetDistanceString() + " " + GetUnitsString(); }
+std::string Distance::ToString() const
+{
+  if (!IsValid())
+    return "";
+
+  return GetDistanceString() + " " + GetUnitsString();
+}
 
 std::string DebugPrint(Distance::Units units)
 {

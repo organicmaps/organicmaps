@@ -926,16 +926,16 @@ JNIEXPORT jobject JNICALL
 Java_app_organicmaps_Framework_nativeGetDistanceAndAzimuth(
     JNIEnv * env, jclass, jdouble merX, jdouble merY, jdouble cLat, jdouble cLon, jdouble north)
 {
-  string distance;
+  platform::Distance distance;
   double azimut = -1.0;
   frm()->GetDistanceAndAzimut(m2::PointD(merX, merY), cLat, cLon, north, distance, azimut);
 
   static jclass const daClazz = jni::GetGlobalClassRef(env, "app/organicmaps/bookmarks/data/DistanceAndAzimut");
-  // Java signature : DistanceAndAzimut(String distance, double azimuth)
-  static jmethodID const methodID = jni::GetConstructorID(env, daClazz, "(Ljava/lang/String;D)V");
+  // Java signature : DistanceAndAzimut(Distance distance, double azimuth)
+  static jmethodID const methodID = jni::GetConstructorID(env, daClazz, "(Lapp/organicmaps/util/Distance;D)V");
 
   return env->NewObject(daClazz, methodID,
-                        jni::ToJavaString(env, distance.c_str()),
+                        ToJavaDistance(env, distance),
                         static_cast<jdouble>(azimut));
 }
 
@@ -981,11 +981,10 @@ Java_app_organicmaps_Framework_nativeFormatLatLon(JNIEnv * env, jclass, jdouble 
   }
 }
 
-JNIEXPORT jstring JNICALL
+JNIEXPORT jobject JNICALL
 Java_app_organicmaps_Framework_nativeFormatAltitude(JNIEnv * env, jclass, jdouble alt)
 {
-  auto const localizedUnits = platform::GetLocalizedAltitudeUnits();
-  return jni::ToJavaString(env, measurement_utils::FormatAltitudeWithLocalization(alt, localizedUnits.m_low));
+  return ToJavaDistance(env, platform::Distance::CreateAltitudeFormatted(alt));
 }
 
 JNIEXPORT jstring JNICALL

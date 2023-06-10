@@ -7,7 +7,6 @@
 inline jobject ToJavaDistance(JNIEnv * env, platform::Distance const & distance)
 {
   static jclass const distanceClass = jni::GetGlobalClassRef(env, "app/organicmaps/util/Distance");
-  static jclass const unitsEnumClass = jni::GetGlobalClassRef(env, "app/organicmaps/util/Distance$Units");
 
   static jmethodID const distanceConstructor = jni::GetConstructorID(env, distanceClass, "(DLjava/lang/String;B)V");
 

@@ -7,8 +7,6 @@ import androidx.annotation.StringRes;
 
 import app.organicmaps.R;
 
-import java.util.Objects;
-
 public final class Distance
 {
   /**
@@ -31,6 +29,8 @@ public final class Distance
     }
   }
 
+  private static final char NON_BREAKING_SPACE = '\u00A0';
+
   public final double mDistance;
   @NonNull
   public final String mDistanceStr;
@@ -45,21 +45,31 @@ public final class Distance
 
   public boolean isValid()
   {
-    final double EPS = 1e-5;
-    return mDistance > EPS;
+    return mDistance >= 0.0;
   }
 
   @NonNull
   public String getUnitsStr(@NonNull final Context context)
   {
-    Objects.requireNonNull(context);
     return context.getString(mUnits.mStringRes);
   }
 
   @NonNull
   public String toString(@NonNull final Context context)
   {
-    final char nonBreakingSpace = '\u00A0';
-    return mDistanceStr + nonBreakingSpace + getUnitsStr(context);
+    if (!isValid())
+      return "";
+
+    return mDistanceStr + NON_BREAKING_SPACE + getUnitsStr(context);
+  }
+
+  @NonNull
+  @Override
+  public String toString()
+  {
+    if (!isValid())
+      return "";
+
+    return mDistanceStr + NON_BREAKING_SPACE + mUnits.toString();
   }
 }

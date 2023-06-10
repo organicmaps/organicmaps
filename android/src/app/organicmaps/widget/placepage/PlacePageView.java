@@ -50,6 +50,7 @@ import app.organicmaps.widget.placepage.sections.PlacePageWikipediaFragment;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -421,7 +422,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     {
       double altitude = l.getAltitude();
       builder.append(altitude >= 0 ? "▲" : "▼");
-      builder.append(Framework.nativeFormatAltitude(altitude));
+      builder.append(Framework.nativeFormatAltitude(altitude).toString(requireContext()));
     }
     if (l.hasSpeed())
       builder.append("   ")
@@ -443,7 +444,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     double lon = mMapObject.getLon();
     DistanceAndAzimut distanceAndAzimuth =
         Framework.nativeGetDistanceAndAzimuthFromLatLon(lat, lon, l.getLatitude(), l.getLongitude(), 0.0);
-    mTvDistance.setText(distanceAndAzimuth.getDistance());
+    mTvDistance.setText(distanceAndAzimuth.getDistance().toString(requireContext()));
   }
 
   private void refreshLatLon()
