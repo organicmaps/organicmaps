@@ -222,6 +222,7 @@ public:
     Pedestrian,
     Cycleway,
     Outdoor,
+    Minors,
     Residential,
     Regular,
     Motorway,

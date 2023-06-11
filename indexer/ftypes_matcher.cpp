@@ -346,16 +346,16 @@ IsWayChecker::IsWayChecker()
       {"primary",       Regular},
       {"primary_link",  Regular},
       {"residential",   Residential},
-      {"road",          Outdoor},
+      {"road",          Minors},
       {"secondary",     Regular},
       {"secondary_link",Regular},
-      {"service",       Residential},
+      {"service",       Minors},
       {"tertiary",      Regular},
       {"tertiary_link", Regular},
       {"track",         Outdoor},
       {"trunk",         Motorway},
       {"trunk_link",    Motorway},
-      {"unclassified",  Outdoor},
+      {"unclassified",  Minors},
   };
 
   m_ranks.Reserve(std::size(types));

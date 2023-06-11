@@ -533,7 +533,6 @@ UNIT_CLASS_TEST(MwmTestsFixture, Generic_Buildings_Rank)
   {
     auto request = MakeRequest("dia ", "en");
     auto const & results = request->Results();
-    LOG(LINFO, (results));
     TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
     Range const range(results);
@@ -568,6 +567,23 @@ UNIT_CLASS_TEST(MwmTestsFixture, UTH_Airport)
   }
 
   TEST(found, (results));
+}
+
+// https://github.com/organicmaps/organicmaps/issues/5186
+UNIT_CLASS_TEST(MwmTestsFixture, Milan_Streets)
+{
+  // Milan
+  ms::LatLon const center(45.46411, 9.19045);
+  SetViewportAndLoadMaps(center);
+
+  auto request = MakeRequest("Via Domenichino", "it");
+  auto const & results = request->Results();
+
+  size_t constexpr kResultsCount = 2;
+  TEST_GREATER(results.size(), kResultsCount, ());
+
+  Range const range(results, 0, kResultsCount);
+  TEST_LESS(SortedByDistance(range, center), 20000.0, ());
 }
 
 } // namespace real_mwm_tests
