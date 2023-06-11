@@ -521,8 +521,10 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     }
   }
 
-  private void setMoreButtonVisibility(TextView text, TextView moreBtn){
-    text.post(() -> {
+  private void setMoreButtonVisibility(TextView text, TextView moreBtn)
+  {
+    text.post(() ->
+    {
       int lineCount = text.getLineCount();
       if(lineCount > 2)
       {
@@ -534,7 +536,8 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     });
   }
 
-  private void onMoreButtonClicked(TextView moreBtn, TextView text){
+  private void onMoreButtonClicked(TextView moreBtn, TextView text)
+  {
     if(text.getMaxLines() == 2)
     {
       text.setMaxLines(Integer.MAX_VALUE);
