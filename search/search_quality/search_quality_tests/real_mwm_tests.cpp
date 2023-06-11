@@ -586,4 +586,21 @@ UNIT_CLASS_TEST(MwmTestsFixture, Milan_Streets)
   TEST_LESS(SortedByDistance(range, center), 20000.0, ());
 }
 
+// https://github.com/organicmaps/organicmaps/issues/5150
+UNIT_CLASS_TEST(MwmTestsFixture, London_RedLion)
+{
+  // Milan
+  ms::LatLon const center(51.49263, -0.12877);
+  SetViewportAndLoadMaps(center);
+
+  auto request = MakeRequest("Red Lion", "en");
+  auto const & results = request->Results();
+
+  TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+
+  // Top first results "The Red Lion" in 5 km.
+  Range const range(results);
+  TEST_LESS(SortedByDistance(range, center), 5000.0, ());
+}
+
 } // namespace real_mwm_tests
