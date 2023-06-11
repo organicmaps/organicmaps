@@ -1296,6 +1296,20 @@ UNIT_TEST(Cyprus_A1_A5_TurnTestNextRoad)
   TEST_EQUAL(ri.m_destination_ref, "A5", ());
 }
 
+UNIT_TEST(Zurich_UseMainTurn)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                  mercator::FromLatLon(47.364832, 8.5656975), {0., 0.},
+                                  mercator::FromLatLon(47.3640678, 8.56567312));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+  integration::TestTurnCount(route, 1);
+  integration::TestRouteLength(route, 135.573);
+}
+
 namespace
 {
 template <class ContT> void TestNoTurns(ContT const & cont)
