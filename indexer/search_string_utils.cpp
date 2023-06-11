@@ -30,6 +30,9 @@ std::vector<UniString> const kAllowedMisprints = {
     MakeUniString("ао"),
     MakeUniString("еиэ"),
     MakeUniString("шщ"),
+    // Spanish
+    MakeUniString("jh"),  // "Jose" <-> "Hose"
+    MakeUniString("fh"),  // "Hernández" <-> "Fernández"
 };
 
 std::pair<UniString, UniString> const kPreprocessReplacements[] = {
