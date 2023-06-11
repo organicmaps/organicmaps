@@ -35,8 +35,8 @@ HighwayBasedFactors const kHighwayBasedFactors = {
     // By VNG: Changed 0.3 -> 0.95 for Road and 0.3 -> 1.0 for Track.
     // They are already have very small speeds (10, 5 respectively).
     // There are no (99%) traffic lights or pedestrian crossings on this kind of roads.
-    {HighwayType::HighwayService, InOutCityFactor(0.80)},
-    {HighwayType::HighwayRoad, InOutCityFactor(0.95)},
+    {HighwayType::HighwayService, InOutCityFactor(0.70)},
+    {HighwayType::HighwayRoad, InOutCityFactor(0.90)},
     {HighwayType::HighwayTrack, InOutCityFactor(1.0)},
     {HighwayType::ManMadePier, InOutCityFactor(0.90)},
 
