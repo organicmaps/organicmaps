@@ -84,6 +84,7 @@ double constexpr kStreetType[] = {
   0,          // Pedestrian
   0,          // Cycleway
   0,          // Outdoor
+  0.004,      // Minors
   0.004,      // Residential
   0.005,      // Regular
   0.006,      // Motorway
@@ -404,6 +405,7 @@ std::string DebugPrint(StreetType type)
   case StreetType::Pedestrian: return "Pedestrian";
   case StreetType::Cycleway: return "Cycleway";
   case StreetType::Outdoor: return "Outdoor";
+  case StreetType::Minors: return "Minors";
   case StreetType::Residential: return "Residential";
   case StreetType::Regular: return "Regular";
   case StreetType::Motorway: return "Motorway";
