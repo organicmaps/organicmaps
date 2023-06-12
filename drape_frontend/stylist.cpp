@@ -16,10 +16,47 @@ namespace df
 {
 namespace
 {
-// Minimum possible log2() value for the float (== -126).
-double const kMinLog2 = std::log2(std::numeric_limits<float>::min());
-// Minimum priority/depth value for lines and foreground areas. Should be same as in kothic.
-static double constexpr kMinLinesDepth = 999.0f;
+/* 
+* The overall rendering depth range [dp::kMinDepth;dp::kMaxDepth] is divided
+* into following specific depth ranges:
+* FG - foreground lines and areas (buildings..), rendered on top of other geometry always,
+*      even if a fg feature is layer=-10 (e.g. tunnels should be visibile over landcover and water).
+* BG-top - rendered just on top of BG-by-size range, because ordering by size
+*      doesn't always work with e.g. water mapped over a forest,
+*      so water should be on top of other landcover always,
+*      but linear waterways should be hidden beneath it.
+* BG-by-size - landcover areas rendered in bbox size order, smaller areas are above larger ones.
+* Still, a BG-top water area with layer=-1 should go below other landcover,
+* and a layer=1 landcover area should be displayed above water,
+* so BG-top and BG-by-size should share the same "layer" space.
+*/
+
+// Priority values coming from style files are expected to be separated into following ranges.
+static double constexpr kBasePriorityFg = 0,
+                        kBasePriorityBgTop = -1000,
+                        kBasePriorityBgBySize = -2000;
+
+// Define depth ranges boundaries to accomodate for all possible layer=* values.
+// One layer space is df::kLayerDepthRange (1000). So each +1/-1 layer value shifts
+// depth of the drule by -1000/+1000.
+
+                        // FG depth range: [0;1000).
+static double constexpr kBaseDepthFg = 0,
+                        // layer=-10/10 gives an overall FG range of [-10000;11000).
+                        kMaxLayeredDepthFg = kBaseDepthFg + (1 + feature::LAYER_HIGH) * df::kLayerDepthRange,
+                        kMinLayeredDepthFg = kBaseDepthFg + feature::LAYER_LOW * df::kLayerDepthRange,
+                        // Split the background layer space as 100 for BG-top and 900 for BG-by-size.
+                        kBgTopRangeFraction = 0.1,
+                        kDepthRangeBgTop = kBgTopRangeFraction * df::kLayerDepthRange,
+                        kDepthRangeBgBySize = df::kLayerDepthRange - kDepthRangeBgTop,
+                        // So the BG-top range is [-10100,-10000).
+                        kBaseDepthBgTop = kMinLayeredDepthFg - kDepthRangeBgTop,
+                        // And BG-by-size range is [-11000,-11000).
+                        kBaseDepthBgBySize = kBaseDepthBgTop - kDepthRangeBgBySize,
+                        // Minimum BG depth for layer=-10 is -21000.
+                        kMinLayeredDepthBg = kBaseDepthBgBySize + feature::LAYER_LOW * df::kLayerDepthRange;
+
+static_assert(dp::kMinDepth <= kMinLayeredDepthBg && kMaxLayeredDepthFg <= dp::kMaxDepth);
 
 enum Type
 {
@@ -110,31 +147,32 @@ private:
   {
     double depth = key.m_priority;
 
-    // Prioritize background areas by their sizes instead of style-set priorities.
-    // Foreground areas continue to use priorities to be orderable inbetween lines.
-    if (depth <= kMinLinesDepth && IsTypeOf(key, Area))
-      depth = m_areaDepth;
-
-    if (m_featureLayer != feature::LAYER_EMPTY)
+    if (IsTypeOf(key, Area | Line))
     {
-      // @todo layers are applicable relative to intersecting features only
-      // (atm layer correction changes feature's priority against ALL other features);
-      // and the current implementation is dependent on a stable priorities range.
-      if (IsTypeOf(key, Line))
+      if (depth < kBasePriorityBgTop)
       {
-        double const layerPart = m_featureLayer * drule::layer_base_priority;
-        double const depthPart = fmod(depth, drule::layer_base_priority);
-        depth = layerPart + depthPart;
+        ASSERT(IsTypeOf(key, Area), (m_f.GetID()));
+        ASSERT_GREATER_OR_EQUAL(depth, kBasePriorityBgBySize, (m_f.GetID()));
+        // Prioritize BG-by-size areas by their bbox sizes instead of style-set priorities.
+        depth = m_areaDepth;
       }
-      else if (IsTypeOf(key, Area))
+      else if (depth < kBasePriorityFg)
       {
-        // Background areas have big negative priorities (-13000, -8000), so just add layer correction.
-        depth += m_featureLayer * drule::layer_base_priority;
+        // Adjust BG-top features depth range so that it sits just above the BG-by-size range.
+        depth = kBaseDepthBgTop + (depth - kBasePriorityBgTop) * kBgTopRangeFraction;
       }
-      else
+
+      // Shift the depth according to layer=* value.
+      // Note we don't adjust priorities of "point-styles" according to layer=*,
+      // because their priorities are used for displacement logic only.
+      /// @todo we might want to hide e.g. a trash bin under man_made=bridge or a bench on underground railway station?
+      if (m_featureLayer != feature::LAYER_EMPTY)
       {
-        /// @todo Take into account depth-layer for "point-styles". Like priority in OverlayHandle?
+        depth += m_featureLayer * df::kLayerDepthRange;
       }
+
+      // Check no features are clipped by the depth range constraints.
+      ASSERT(dp::kMinDepth <= depth && depth <= dp::kMaxDepth, (depth, m_f.GetID(), m_featureLayer));
     }
 
     drule::BaseRule const * const dRule = drule::rules().Find(key);
@@ -158,20 +196,23 @@ private:
   void Init()
   {
     m_featureLayer = m_f.GetLayer();
+
     if (m_geomType == feature::GeomType::Area)
     {
-      // Calculate depth based on areas' sizes instead of style-set priorities.
+      // Calculate depth based on areas' bbox sizes instead of style-set priorities.
       m2::RectD const r = m_f.GetLimitRect(m_zoomLevel);
-      // Raw areas' size range of about (1e-10, 3000) is too big, have to shrink it.
+      // Raw areas' size range is about (1e-11, 3000).
       double const areaSize = r.SizeX() * r.SizeY();
-      // log2() of numbers <1.0 is negative, adjust it to be positive.
-      double const areaSizeCompact = std::log2(areaSize) - kMinLog2;
-      // Should be well below lines and foreground areas for the layering logic to work correctly,
-      // produces a depth range of about (-13000, -8000).
-      m_areaDepth = kMinLinesDepth - areaSizeCompact * 100.0f;
+      // Use log2() to have more precision distinguishing smaller areas.
+      double const areaSizeCompact = std::log2(areaSize);
+      // Compacted range is approx (-37;13).
+      double constexpr minSize = -37,
+                       maxSize = 13,
+                       stretchFactor = kDepthRangeBgBySize / (maxSize - minSize);
+      // Adjust the range to fit into [kBaseDepthBgBySize;kBaseDepthBgTop).
+      m_areaDepth = kBaseDepthBgBySize + (maxSize - areaSizeCompact) * stretchFactor;
 
-      // There are depth limits out of which areas won't render.
-      ASSERT(dp::kMinDepth < m_areaDepth && m_areaDepth < dp::kMaxDepth, (m_areaDepth));
+      ASSERT(kBaseDepthBgBySize <= m_areaDepth && m_areaDepth < kBaseDepthBgTop, (m_areaDepth, areaSize, areaSizeCompact, m_f.GetID()));
     }
   }
 

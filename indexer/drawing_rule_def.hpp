@@ -31,8 +31,6 @@ namespace drule
   /// text field type - can be one of ...
   enum text_type_t { text_type_name = 0, text_type_housename, text_type_housenumber };
 
-  double const layer_base_priority = 2000;
-
   typedef buffer_vector<Key, 16> KeysT;
   void MakeUnique(KeysT & keys);
 }

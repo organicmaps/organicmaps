@@ -318,7 +318,7 @@ m2::PointD FeatureType::GetCenter()
 int8_t FeatureType::GetLayer()
 {
   if ((m_header & feature::HEADER_MASK_HAS_LAYER) == 0)
-    return 0;
+    return feature::LAYER_EMPTY;
 
   ParseCommon();
   return m_params.layer;
