@@ -143,8 +143,17 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
   }
 
   if (type == Model::TYPE_BUILDING)
-    UpdateNameScores(ft.GetHouseNumber(), StringUtf8Multilang::kDefaultCode, sliceNoCategories,
-                     bestScores);
+  {
+    if (ft.GetGeomType() == feature::GeomType::Line)
+    {
+      // Separate case for addr:interpolation (Building + Line).
+      ASSERT(!ft.GetRef().empty(), ());
+      // Just assign SUBSTRING with no errors (was checked in HouseNumbersMatch).
+      bestScores.UpdateIfBetter(NameScores(NameScore::SUBSTRING, ErrorsMade(0), false, 4));
+    }
+    else
+      UpdateNameScores(ft.GetHouseNumber(), StringUtf8Multilang::kDefaultCode, sliceNoCategories, bestScores);
+  }
 
   if (ftypes::IsAirportChecker::Instance()(ft))
   {

@@ -16,12 +16,18 @@ struct IntersectionResult
 
   void Set(Model::Type type, uint32_t id);
 
-  // Returns the first valid feature among the [SUBPOI, COMPLEX_POI, BUILDING,
-  // STREET].
+  // Returns the first valid feature among the [SUBPOI, COMPLEX_POI, BUILDING, STREET].
   uint32_t InnermostResult() const;
 
   // Returns true when at least one valid feature exists.
   inline bool IsValid() const { return InnermostResult() != kInvalidId; }
+
+  // Building == Streets means that we have actual street result, but got here
+  // via _fake_ TYPE_BUILDING layer (see MatchPOIsAndBuildings).
+  inline bool IsFakeBuildingButStreet() const
+  {
+    return m_building != kInvalidId && m_building == m_street;
+  }
 
   // Clears all fields to an invalid state.
   void Clear();
