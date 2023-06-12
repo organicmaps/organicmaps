@@ -28,25 +28,25 @@
 
 /* 1.Z-INDEX BASE MAP */
 
-area[natural=coastline]
-{z-index: -10;}
-
+/* Linear and areal water features are put into the "bg-top" layer
+   above landcover/background areas and below lines and foreground areas.
+*/
 line[waterway=river],
 line[waterway=riverbank],
 line[waterway=stream],
 line[waterway=canal],
+line[waterway=fish_pass],
 line[waterway=ditch],
 line[waterway=drain],
 line[natural=strait],
-{z-index: 1;}
+{fill-position: background-top; z-index: 1;}
 
 /* man_made=bridge is always layer>=1 and other l=1 features should be drawn above it, hence a low base priority. */
 area[man_made=bridge],
 {fill-position: foreground; z-index: 1;}
 
 /*
-  Foreground area water should be above linear water (e.g. rivers)
-  and below dams, piers.
+  Areal water should be above linear water (e.g. rivers).
 */
 area[natural=water],
 area[waterway=dock],
@@ -54,7 +54,8 @@ area[waterway=riverbank],
 area[landuse=salt_pond],
 area[landuse=basin],
 area[landuse=reservoir],
-{fill-position: foreground; z-index: 1;}
+{fill-position: background-top; z-index: 2;}
+
 
 /* Foreground areas which should be above water. */
 area[waterway=dam],
@@ -65,6 +66,9 @@ line[man_made=pier],
 line[man_made=breakwater],
 {fill-position: foreground; z-index: 3;}
 
+
+area[natural=coastline]
+{z-index: -10;}
 
 area[natural=land],
 area[place=islet]

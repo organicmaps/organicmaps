@@ -4,6 +4,9 @@
 #include "software_renderer/glyph_cache.hpp"
 #include "software_renderer/geometry_processors.hpp"
 
+#include "drape_frontend/stylist.hpp"
+#include "drape/utils/projection.hpp"
+
 #include "indexer/drawing_rules.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_data.hpp"
@@ -38,7 +41,7 @@ namespace software_renderer
 {
 DrawRule::DrawRule(drule::BaseRule const * p, double depth)
   : m_rule(p)
-  , m_depth(base::Clamp(depth, static_cast<double>(minDepth), static_cast<double>(maxDepth)))
+  , m_depth(base::Clamp(depth, static_cast<double>(dp::kMinDepth), static_cast<double>(dp::kMaxDepth)))
 {
 }
 
@@ -156,12 +159,12 @@ FeatureStyler::FeatureStyler(FeatureType & f,
     if (layer != 0 && depth < 19000)
     {
       if (keys[i].m_type == drule::line || keys[i].m_type == drule::waymarker)
-        depth = (layer * drule::layer_base_priority) + fmod(depth, drule::layer_base_priority);
+        depth = (layer * df::kLayerDepthRange) + fmod(depth, df::kLayerDepthRange);
       else if (keys[i].m_type == drule::area)
       {
         // Use raw depth adding in area feature layers
         // (avoid overlap linear objects in case of "fmod").
-        depth += layer * drule::layer_base_priority;
+        depth += layer * df::kLayerDepthRange;
       }
     }
 
