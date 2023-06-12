@@ -210,7 +210,7 @@ public class Factory
         if (intent != null)
           intent.putExtra(MwmActivity.EXTRA_BACK_URL, backUrl);
       }
-      
+
       // TODO: Kernel recognizes "mapsme://", "mwm://" and "mapswithme://" schemas only!!!
       if (result.getUrlType() == ParsingResult.TYPE_INCORRECT)
         return Map.showMapForUrl(getUrl());
