@@ -603,4 +603,21 @@ UNIT_CLASS_TEST(MwmTestsFixture, London_RedLion)
   TEST_LESS(SortedByDistance(range, center), 5000.0, ());
 }
 
+UNIT_CLASS_TEST(MwmTestsFixture, AddrInterpolation_Rank)
+{
+  // Buenos Aires (Palermo)
+  ms::LatLon const center(-34.57852, -58.42567);
+  SetViewportAndLoadMaps(center);
+
+  auto request = MakeRequest("Sante Fe 1176", "en");
+  auto const & results = request->Results();
+
+  TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+
+  // Top first address results in 50 km.
+  Range const range(results);
+  EqualClassifType(range, GetClassifTypes({{"addr:interpolation"}}));
+  TEST_LESS(SortedByDistance(range, center), 50000.0, ());
+}
+
 } // namespace real_mwm_tests

@@ -111,7 +111,13 @@ public:
 
   bool operator()(FeatureType & ft) const
   {
-    return !ft.GetHouseNumber().empty() || IsBuildingChecker::Instance()(ft);
+    if (!ft.GetHouseNumber().empty())
+      return true;
+
+    if (ft.GetGeomType() == feature::GeomType::Line)
+      return IsAddressInterpolChecker::Instance()(ft);
+    else
+      return IsBuildingChecker::Instance()(ft);
   }
 };
 }  // namespace
