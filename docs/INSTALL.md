@@ -130,7 +130,7 @@ sudo dnf install -y \
     freetype-devel \
     libicu-devel \
     libstdc++-devel \
-    libgl1-mesa-devel \
+    mesa-libGL-devel \
     libglvnd-devel \
     qt6-qtbase-devel \
     qt6-qtsvg-devel \
