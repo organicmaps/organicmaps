@@ -268,7 +268,7 @@ To switch themes you can enter this commands:
 - `?vlight` - Day theme for vehicle navigation
 - `?vdark` - Night theme for vehicle navigation
 
-There are also other commands for turning on/off isolines, antialiasing, etc. Check [the code](https://github.com/organicmaps/organicmaps/blob/6ae19b40c2b7a515338eb128547df05da13bdb78/map/framework.cpp#L2570-L2671) to learn about them.
+There are also other commands for turning on/off isolines, antialiasing, etc. Check [DEBUG_COMMANDS.md](DEBUG_COMMANDS.md) to learn about them.
 
 ### More options
 
