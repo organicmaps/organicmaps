@@ -21,6 +21,9 @@ extension BookmarksListRouter: IBookmarksListRouter {
 
   func showDescription(_ bookmarkGroup: BookmarkGroup) {
     var description = bookmarkGroup.detailedAnnotation
+    if !bookmarkGroup.isHtmlDescription {
+      description = description.replacingOccurrences(of: "\n", with: "<br>")
+    }
     if !description.contains("<body>") {
       description = "<body>" + description
     }

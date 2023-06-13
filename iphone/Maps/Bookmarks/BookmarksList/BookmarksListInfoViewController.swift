@@ -27,6 +27,7 @@ final class BookmarksListInfoViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     separatorsConstraints.forEach { $0.constant = 1 / UIScreen.main.scale }
+    descriptionButton.titleLabel?.numberOfLines = 2
 
     guard let info = info else { return }
     updateInfo(info)
@@ -35,12 +36,11 @@ final class BookmarksListInfoViewController: UIViewController {
   private func updateInfo(_ info: IBookmarksListInfoViewModel) {
     titleLabel.text = info.title
     descriptionButton.isHidden = !info.hasDescription
-    descriptionButton.isEnabled = info.isHtmlDescription
     if info.hasDescription {
-      var description = info.isHtmlDescription
-      ? BookmarksListInfoViewController.getPlainText(info.description)
-      : info.description
-      descriptionButton.setTitle(description?.uppercased(), for: .normal)
+      let description = info.isHtmlDescription
+        ? BookmarksListInfoViewController.getPlainText(info.description)
+        : info.description
+      descriptionButton.setTitle(description, for: .normal)
     }
     
     titleImageView.isHidden = true

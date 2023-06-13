@@ -288,7 +288,7 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 }
 
 - (BOOL)isHtmlDescription:(MWMMarkGroupID)groupId {
-    auto description = GetPreferredBookmarkStr(self.bm.GetCategoryData(groupId).m_description);
+    auto const description = GetPreferredBookmarkStr(self.bm.GetCategoryData(groupId).m_description);
     return strings::IsHTML(description);
 }
 
