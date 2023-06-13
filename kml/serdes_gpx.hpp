@@ -46,7 +46,7 @@ private:
   CategoryData m_compilationData;
   CategoryData * m_categoryData;  // never null
 
-  std::vector<std::string_view> m_tags;
+  std::vector<std::string> m_tags;
   GeometryType m_geometryType;
   MultiGeometry m_geometry;
   uint32_t m_color;

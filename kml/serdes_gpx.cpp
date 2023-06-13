@@ -91,7 +91,7 @@ bool GpxParser::MakeValid()
 
 bool GpxParser::Push(std::string_view tag)
 {
-  m_tags.push_back(tag);
+  m_tags.push_back(std::string{tag});
   if (GetTagFromEnd(0) == gpx::kWpt)
     m_geometryType = GEOMETRY_TYPE_POINT;
   else if (GetTagFromEnd(0) == gpx::kTrkPt || GetTagFromEnd(0) == gpx::kRtePt)
