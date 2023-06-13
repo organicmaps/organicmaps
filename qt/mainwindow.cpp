@@ -447,6 +447,8 @@ Framework & MainWindow::GetFramework() const
 
 void MainWindow::CreateCountryStatusControls()
 {
+  setStyleSheet("QPushButton { color: black; } QLabel { color: black; }");
+
   QHBoxLayout * mainLayout = new QHBoxLayout();
   m_downloadButton = new QPushButton("Download");
   mainLayout->addWidget(m_downloadButton, 0, Qt::AlignHCenter);
