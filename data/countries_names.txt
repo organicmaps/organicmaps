@@ -467,7 +467,7 @@
   da = Provincia de Buenos Aires — Nord
   nl = Buenos Aires — Noord
   fi = Buenos Airesin maakunta — Pohjoinen
-  fr = province de Buenos Aires — Nord
+  fr = Province de Buenos Aires — Nord
   de = Provinz Buenos Aires — Norden
   hu = Buenos Aires tartomány — Észak
   id = Provinsi Buenos Aires — Utara
@@ -501,7 +501,7 @@
   da = Provincia de Buenos Aires — Syd
   nl = Buenos Aires — Zuid
   fi = Buenos Airesin maakunta — Etelä
-  fr = province de Buenos Aires — Sud
+  fr = Province de Buenos Aires — Sud
   de = Provinz Buenos Aires — Süden
   hu = Buenos Aires tartomány — Dél
   id = Provinsi Buenos Aires — Selatan
@@ -1675,7 +1675,7 @@
   da = Homel voblast
   nl = Oblast Homel
   fi = Homelin alue
-  fr = voblast de Homiel
+  fr = Voblast de Homiel
   de = Woblast Homel
   hu = Homeli terület
   id = Provinsi Homiel
@@ -10004,7 +10004,7 @@
   da = Côtes-d'Armor
   nl = Côtes-d'Armor
   fi = Côtes-d'Armor
-  fr = Côtes-d'Armor‎
+  fr = Côtes-d'Armor
   de = Département Côtes-d’Armor
   hu = Côtes-d’Armor
   id = Côtes-d'Armor
@@ -10072,7 +10072,7 @@
   da = Ille-et-Vilaine
   nl = Ille-et-Vilaine
   fi = Ille-et-Vilaine
-  fr = Ille-et-Vilaine‎
+  fr = Ille-et-Vilaine
   de = Département Ille-et-Vilaine
   hu = Ille-et-Vilaine
   id = Ille-et-Vilaine
@@ -10174,7 +10174,7 @@
   da = Côte-d'Or
   nl = Côte-d'Or
   fi = Côte-d'Or
-  fr = Côte-d'Or‎
+  fr = Côte-d'Or
   de = Département Côte-d’Or
   hu = Côte-d’Or
   id = Côte-d'Or
@@ -10242,7 +10242,7 @@
   da = Saône-et-Loire
   nl = Saône-et-Loire
   fi = Saône-et-Loire
-  fr = Saône-et-Loire‎
+  fr = Saône-et-Loire
   de = Département Saône-et-Loire
   hu = Saône-et-Loire
   id = Saône-et-Loire
@@ -10276,7 +10276,7 @@
   da = Yonne
   nl = Yonne
   fi = Yonne
-  fr = Yonne‎
+  fr = Yonne
   de = Département Yonne
   hu = Yonne
   id = Yonne
@@ -10378,7 +10378,7 @@
   da = Eure-et-Loir
   nl = Eure-et-Loir
   fi = Eure-et-Loir
-  fr = Eure-et-Loir‎
+  fr = Eure-et-Loir
   de = Département Eure-et-Loir
   hu = Eure-et-Loir
   id = Eure-et-Loir
@@ -10446,7 +10446,7 @@
   da = Indre-et-Loire
   nl = Indre-et-Loire
   fi = Indre-et-Loire
-  fr = Indre-et-Loire‎
+  fr = Indre-et-Loire
   de = Département Indre-et-Loire
   hu = Indre-et-Loire
   id = Indre-et-Loire
@@ -10480,7 +10480,7 @@
   da = Loir-et-Cher
   nl = Loir-et-Cher
   fi = Loir-et-Cher
-  fr = Loir-et-Cher‎
+  fr = Loir-et-Cher
   de = Département Loir-et-Cher
   hu = Loir-et-Cher
   id = Loir-et-Cher
@@ -10752,7 +10752,7 @@
   da = Hauts-de-Seine
   nl = Hauts-de-Seine
   fi = Hauts-de-Seine
-  fr = Hauts-de-Seine‎
+  fr = Hauts-de-Seine
   de = Département Hauts-de-Seine
   hu = Hauts-de-Seine
   id = Hauts-de-Seine
@@ -10820,7 +10820,7 @@
   da = Seine-Saint-Denis
   nl = Seine-Saint-Denis
   fi = Seine-Saint-Denis
-  fr = Seine-Saint-Denis‎
+  fr = Seine-Saint-Denis
   de = Département Seine-Saint-Denis
   hu = Seine-Saint-Denis
   id = Seine-Saint-Denis
@@ -10854,7 +10854,7 @@
   da = Seine-et-Marne
   nl = Seine-et-Marne
   fi = Seine-et-Marne
-  fr = Seine-et-Marne‎
+  fr = Seine-et-Marne
   de = Département Seine-et-Marne
   hu = Seine-et-Marne
   id = Seine-et-Marne
@@ -10888,7 +10888,7 @@
   da = Val-d'Oise
   nl = Val-d'Oise
   fi = Val-d'Oise
-  fr = Val-d'Oise‎
+  fr = Val-d'Oise
   de = Département Val-d’Oise
   hu = Val-d’Oise
   id = Val-d'Oise
@@ -10922,7 +10922,7 @@
   da = Val-de-Marne
   nl = Val-de-Marne
   fi = Val-de-Marne
-  fr = Val-de-Marne‎
+  fr = Val-de-Marne
   de = Département Val-de-Marne
   hu = Val-de-Marne
   id = Val-de-Marne
@@ -11092,7 +11092,7 @@
   da = Hérault
   nl = Hérault
   fi = Hérault
-  fr = Hérault‎
+  fr = Hérault
   de = Département Hérault
   hu = Hérault
   id = Hérault
@@ -11262,7 +11262,7 @@
   da = Meurthe-et-Moselle
   nl = Meurthe-et-Moselle
   fi = Meurthe-et-Moselle
-  fr = Meurthe-et-Moselle‎
+  fr = Meurthe-et-Moselle
   de = Département Meurthe-et-Moselle
   hu = Meurthe-et-Moselle
   id = Meurthe-et-Moselle
@@ -11602,7 +11602,7 @@
   da = Aveyron
   nl = Aveyron
   fi = Aveyron
-  fr = Aveyron‎
+  fr = Aveyron
   de = Département Aveyron
   hu = Aveyron
   id = Aveyron
@@ -11704,7 +11704,7 @@
   da = Hautes-Pyrénées
   nl = Hautes-Pyrénées
   fi = Hautes-Pyrénées
-  fr = Hautes-Pyrénées‎
+  fr = Hautes-Pyrénées
   de = Département Hautes-Pyrénées
   hu = Hautes-Pyrénées
   id = Hautes-Pyrénées
@@ -11806,7 +11806,7 @@
   da = Tarn-et-Garonne
   nl = Tarn-et-Garonne
   fi = Tarn-et-Garonne
-  fr = Tarn-et-Garonne‎
+  fr = Tarn-et-Garonne
   de = Département Tarn-et-Garonne
   hu = Tarn-et-Garonne
   id = Tarn-et-Garonne
@@ -12146,7 +12146,7 @@
   da = Sarthe
   nl = Sarthe
   fi = Sarthe
-  fr = Sarthe‎
+  fr = Sarthe
   de = Département Sarthe
   hu = Sarthe
   id = Sarthe
@@ -12418,7 +12418,7 @@
   da = Charente-Maritime
   nl = Charente-Maritime
   fi = Charente-Maritime
-  fr = Charente-Maritime‎
+  fr = Charente-Maritime
   de = Département Charente-Maritime
   hu = Charente-Maritime
   id = Charente-Maritime
@@ -12452,7 +12452,7 @@
   da = Deux-Sèvres
   nl = Deux-Sèvres
   fi = Deux-Sèvres
-  fr = Deux-Sèvres‎
+  fr = Deux-Sèvres
   de = Département Deux-Sèvres
   hu = Deux-Sèvres
   id = Deux-Sèvres
@@ -12554,7 +12554,7 @@
   da = Alpes-de-Haute-Provence
   nl = Alpes-de-Haute-Provence
   fi = Alpes-de-Haute-Provence
-  fr = Alpes-de-Haute-Provence‎
+  fr = Alpes-de-Haute-Provence
   de = Alpes-de-Haute-Provence
   hu = Alpes-de-Haute-Provence
   id = Alpes-de-Haute-Provence
@@ -12894,7 +12894,7 @@
   da = Haute-Savoie
   nl = Haute-Savoie
   fi = Haute-Savoie
-  fr = Haute-Savoie‎
+  fr = Haute-Savoie
   de = Département Haute-Savoie
   hu = Haute-Savoie
   id = Haute-Savoie
@@ -48832,7 +48832,6 @@
   ar = ستراسبورغ, هاغويناو
   cs = Štrasburk
   nl = Straatsburg
-  fr = Strasbourg, Haguenau
   de = Straßburg, Hagenau
   hu = Strasbourg
   it = Strasburgo
@@ -48860,21 +48859,19 @@
   he = קולמר
 
 [France_Aquitaine_Dordogne Description]
-  en = Périgueux, Bergerac, Sarlat-la-Canéda
-  ru = Перигё, Бержерак, Сарла-ла-Канеда
-  fr = Périgueux, Bergerac, Sarlat-la-Canéda
-  ja = ペリグー, ベルジュラック, サルラ＝ラ＝カネダ
+  en = Périgueux, Bergerac, Boulazac Isle Manoire
+  ru = Перигё, Бержерак
+  ja = ペリグー, ベルジュラック
   th = เปรีเกอ, ซาร์ลา-ลา-กาเนดา
-  uk = Періге, Бержерак, Сарла-ла-Канеда
+  uk = Періге, Бержерак
   zh-Hant = 萨拉拉卡内达
-  el = Περιζό, Μπερζεράκ, Σαρλά-λα-Κανέντα
+  el = Περιζό, Μπερζεράκ
   he = פריגו
 
 [France_Aquitaine_Gironde Description]
   en = Bordeaux, Mérignac, Pessac
   ru = Бордо, Мериньяк, Пессак
   ar = بوردو
-  fr = Bordeaux, Mérignac, Pessac
   ja = ボルドー, メリニャック, ペサック
   ko = 보르도
   pt = Bordéus
@@ -48898,7 +48895,6 @@
 [France_Aquitaine_Pyrenees-Atlantiques Description]
   en = Pau, Bayonne, Anglet
   ru = По, Байонна, Англет
-  fr = Bayonne, Anglet
   de = Bayonne
   hu = Pau
   ja = ポー
@@ -48930,7 +48926,6 @@
   en = Clermont-Ferrand, Cournon-d'Auvergne, Riom
   ru = Клермон-Ферран
   ar = كليرمون-فيران
-  fr = Clermont-Ferrand
   hu = Clermont-Ferrand
   ja = クレルモン＝フェラン
   ko = 클레르몽페랑
@@ -48940,29 +48935,26 @@
   he = קלרמון-פראן
 
 [France_Brittany_Cotes-dArmor Description]
-  en = Saint-Brieuc, Kerbrézellic, Lannion
+  en = Saint-Brieuc, Lannion, Lamballe-Armor
   ru = Сен-Бриё
-  fr = Saint-Brieuc, Lannion
   ja = サン＝ブリユー
-  el = Σεν Μπριέ, Κερμπεζελίκ, Λανιόν
+  el = Σεν Μπριέ, Λανιόν
 
 [France_Brittany_Finistere Description]
-  en = Brest, Quimper, Le Relecq-Kerhuon
+  en = Brest, Quimper, Concarneau
   ru = Брест, Кемпер
   ar = بريست, كامبار
-  fr = Brest, Quimper
   ja = ブレスト, カンペール
   ko = 브레스트, 캥페르
   th = แบร็สต์
   uk = Брест, Кемпер
-  el = Μπρεστ, Κιμπέρ, Λε Ρελέκ Κερόν
+  el = Μπρεστ, Κιμπέρ
   he = ברסט
 
 [France_Brittany_Ille-et-Vilaine Description]
   en = Rennes, Saint-Malo, Fougères
   ru = Ренн, Фужер
   ar = رين
-  fr = Rennes, Saint-Malo, Fougères
   hu = Rennes
   ja = レンヌ, フージェール
   ko = 렌, 푸제르
@@ -48975,14 +48967,12 @@
 [France_Brittany_Morbihan Description]
   en = Lorient, Vannes, Lanester
   ru = Ванн
-  fr = Lorient, Vannes, Lanester
   ja = ロリアン, ヴァンヌ
   el = Λοριάν, Βαν, Λενεστέρ
 
 [France_Burgundy_Cote-dOr Description]
   en = Dijon, Beaune, Chenôve
   ru = Дижон
-  fr = Dijon
   hu = Dijon
   ja = ディジョン
   uk = Діжон
@@ -48991,7 +48981,6 @@
 [France_Burgundy_Nievre Description]
   en = Nevers, Cosne-Cours-sur-Loire, Varennes-Vauzelles
   ru = Невер, Кон-Кур-сюр-Луар
-  fr = Nevers, Cosne-Cours-sur-Loire
   ja = ヌヴェール, コーヌ＝クール＝シュル＝ロワール
   ko = 느베르
   th = เนอแวร์
@@ -49007,7 +48996,6 @@
   en = Auxerre, Sens, Joigny
   ru = Осер, Санс
   ar = أوكسار
-  fr = Auxerre, Sens
   ja = オセール, サンス
   ko = 오세르
   th = โอแซร์, ซ็องส์
@@ -49016,18 +49004,16 @@
   he = אוסר
 
 [France_Centre-Val de Loire_Cher Description]
-  en = Bourges, Vierzon, Saint-Amand-Montrond
+  en = Bourges, Vierzon, Saint-Doulchard
   ru = Бурж, Вьерзон
-  fr = Bourges, Vierzon
   ja = ブールジュ, ヴィエルゾン
   ko = 부르주
   uk = Бурж, В’єрзон
-  el = Μπουρζ, Βιερζόν, Σεν Αμάν Μοντγόν
+  el = Μπουρζ, Βιερζόν
 
 [France_Centre-Val de Loire_Eure-et-Loir Description]
   en = Chartres, Dreux, Lucé
   ru = Шартр, Дрё
-  fr = Chartres, Dreux
   ja = シャルトル, ドルー
   ko = 샤르트르
   uk = Шартр, Дре
@@ -49037,7 +49023,6 @@
 [France_Centre-Val de Loire_Indre Description]
   en = Châteauroux, Issoudun, Déols
   ru = Шатору
-  fr = Châteauroux, Issoudun
   ja = シャトールー
   ko = 샤토루
   uk = Шатору
@@ -49058,7 +49043,7 @@
   el = Μπλουά, Ρομογοντάν, Λαντέ Βεντόμ
 
 [France_Centre-Val de Loire_Loiret Description]
-  en = Orléans, Fleury-les-Aubrais, Olivet
+  en = Orléans, Olivet, Saint-Jean-de-Braye
   ru = Орлеан
   hu = Orléans
   ja = オルレアン
@@ -49066,7 +49051,7 @@
   pt = Orleães
   es = Orleans
   uk = Orleans
-  el = Ορλεάν, Φλέρυ Λε Ωμπγέ, Ολιβέ
+  el = Ορλεάν, Ολιβέ, Σαν-Ζαν-ντε-Μπρε
   he = אורליאן
 
 [France_Champagne-Ardenne Description]
@@ -49074,7 +49059,6 @@
   ru = Реймс, Труа, Шарлевиль-Мезьер
   ar = ريمس, تروا
   cs = Remeš
-  fr = Reims, Troyes, Charleville-Mézières
   hu = Reims, Troyes
   ja = ランス, トロワ, シャルルヴィル＝メジエール
   ko = 랭스, 트루아, 샤를르빌메지에르
@@ -49088,7 +49072,6 @@
   en = Ajaccio, Bastia, Porto-Vecchio
   ru = Аяччо, Бастия
   ar = باستيا
-  fr = Bastia, Porto-Vecchio
   ja = アジャクシオ, バスティア
   ko = 바스티아
   uk = Аяччо, Бастія
@@ -49098,7 +49081,6 @@
   en = Besançon, Belfort, Montbéliard
   ru = Безансон, Бельфор, Монбельяр
   ar = بيزنسون, بلفور, مونتبليار
-  fr = Besançon, Belfort, Montbéliard
   de = Montbéliard
   hu = Besançon
   ja = ブザンソン, ベルフォール, モンベリアル
@@ -49112,7 +49094,6 @@
 [France_Free County_South Description]
   en = Pontarlier, Lons-le-Saunier, Saint-Claude
   ru = Понтарлье, Лонс-ле-Сонье
-  fr = Pontarlier, Lons-le-Saunier
   ja = ポンタルリエ
   uk = Понтарльє
   el = Πονταλιέ, Λονσ λε Σονιέ, Σεν Κλωντ
@@ -49121,7 +49102,6 @@
   en = Cayenne, Saint-Laurent-du-Maroni, Matoury
   ru = Кайенна
   ar = كايين
-  fr = Cayenne
   it = Caienna
   ja = カイエンヌ
   ko = 카옌
@@ -49143,7 +49123,6 @@
 [France_Ile-de-France_Hauts-de-Seine Description]
   en = Boulogne-Billancourt, Nanterre, Courbevoie
   ru = Булонь-Бийанкур, Нантер, Курбевуа
-  fr = Boulogne-Billancourt, Nanterre, Courbevoie
   ja = ブローニュ＝ビヤンクール, ナンテール郡, クールブヴォア
   uk = Булонь-Біянкур
   el = Μπυλόν Μπιλανκούρ, Ναντέρ, Κουρμπεβουά
@@ -49173,47 +49152,46 @@
   sk = Paríž
 
 [France_Ile-de-France_Seine-Saint-Denis Description]
-  en = Saint-Denis, Montreuil, Aulnay-sous-Bois
-  fr = Saint-Denis
+  en = Saint-Denis, Montreuil, Aubervilliers
   ja = サン＝ドニ, オルネー＝スー＝ボワ
   uk = Сен-Дені, Монтрей
-  el = Σεν Ντενί, Μοντρέιγ, Ωλνέ-σου-Μπουά
+  el = Σεν Ντενί, Μοντρέιγ, Ωμπερβιλιέ
 
 [France_Ile-de-France_Seine-et-Marne Description]
-  en = Chelles, Meaux, Jouarre
+  en = Meaux, Chelles, Melun
   ja = シェル
-  el = Σελ, Μου, Ζουάρ
+  el = Μου, Σελ, Μελέν
 
 [France_Ile-de-France_Val-dOise Description]
-  en = Argenteuil, Sarcelles, Cergy
+  en = Argenteuil, Cergy, Sarcelles
   ru = Аржантёй, Сержи
-  ja = アルジャントゥイユ, サルセル, セルジー
-  el = Αρζαντέλ, Σαρσέλ, Σαρζί
+  ja = アルジャントゥイユ, セルジー, サルセル
+  el = Αρζαντέιγ, Σερζί, Σαρσέλ
 
 [France_Ile-de-France_Val-de-Marne Description]
-  en = Créteil, Vitry-sur-Seine, Champigny-sur-Marne
-  ru = Кретей, Витри-сюр-Сен
+  en = Vitry-sur-Seine, Créteil , Champigny-sur-Marne
+  ru = Витри-сюр-Сен, Кретей
   ar = كريتيل
-  ja = クレテイユ, ヴィトリー＝シュル＝セーヌ, シャンピニー＝シュル＝マルヌ
+  ja = ヴィトリー＝シュル＝セーヌ, クレテイユ, シャンピニー＝シュル＝マルヌ
   uk = Кретей
-  el = Κρετέιγ, Βιτρύ-συρ-Σεν, Σαμπινί-συρ-Μαρν
+  el = Βιτρύ-συρ-Σεν, Κρετέιγ, Σαμπινί-συρ-Μαρν
   he = קרטיי
 
 [France_Ile-de-France_Yvelines Description]
-  en = Versailles, Sartrouville, Mantes-la-Jolie
+  en = Versailles, Sartrouville, Saint-Germain-en-Laye
   ru = Версаль
   ja = ヴェルサイユ
   pl = Wersal
   pt = Versalhes
   es = Versalles
-  el = Βερσαλλίες, Σατροβίλ, Μονταζολί
+  el = Βερσαλλίες, Σατροβίλ, Σαιν-Ζερμαίν-αν-Λαι
 
 [France_Languedoc-Roussillon_Aude Description]
-  en = Narbonne, Carcassonne, ?
+  en = Narbonne, Carcassonne, Castelnaudary
   ru = Каркасон
   ja = カルカソンヌ
   es = Narbona, Carcasona
-  el = Ναρμπόν, Καρκασόν,;
+  el = Ναρμπόν, Καρκασόν
 
 [France_Languedoc-Roussillon_Gard Description]
   en = Nîmes, Alès, Bagnols-sur-Cèze
@@ -49227,7 +49205,6 @@
   en = Montpellier, Béziers, Sète
   ru = Монпелье, Сет
   ar = مونبيلييه
-  fr = Montpellier, Béziers
   de = Béziers
   ja = モンペリエ, ベジエ
   ko = 몽펠리에
@@ -49236,16 +49213,14 @@
   he = מונפלייה
 
 [France_Languedoc-Roussillon_Lozere Description]
-  en = Aumont-Aubrac, Mende, Marvejols
+  en = Mende, Marvejols, Saint-Chély-d'Apcher
   ru = Манд
-  fr = Mende
-  el = Ωμόν-Ωμπράκ, Μέντε, Μαρβεγιόλ
+  el = Μέντε, Μαρβεγιόλ
 
 [France_Languedoc-Roussillon_Pyrenees-Orientales Description]
   en = Perpignan, Canet-en-Roussillon, Saint-Estève
   ru = Перпиньян
   ar = بيربينيا
-  fr = Perpignan, Saint-Estève
   it = Perpignano
   ja = ペルピニャン
   ko = 페르피냥
@@ -49258,7 +49233,6 @@
 [France_Limousin Description]
   en = Limoges, Brive-la-Gaillarde, Tulle
   ru = Лимож, Тюль
-  fr = Limoges, Tulle
   hu = Limoges
   ja = リモージュ, チュール
   uk = Лімож
@@ -49269,7 +49243,6 @@
   en = Nancy, Vandœuvre-lès-Nancy, Lunéville
   ru = Нанси
   ar = نانسي
-  fr = Nancy
   de = Lünstadt
   hu = Nancy
   ja = ナンシー
@@ -49289,7 +49262,6 @@
   ru = Мец
   ar = متز
   cs = Mety
-  fr = Metz, Thionville
   de = Diedenhofen
   hu = Metz
   ja = メス
@@ -49306,28 +49278,24 @@
   el = Επινάλ, Σαιντ-ντι-ντε-Βοζ, Γκραρμέρ
 
 [France_Lower Normandy_Calvados Description]
-  en = Caen, Lisieux, Hérouville-Saint-Clair
+  en = Caen, Hérouville-Saint-Clair, Lisieux
   ru = Кан, Лизьё
   nl = Caen
-  fr = Lisieux
   ja = カーン
   uk = Кан
-  el = Καέν, Λισιέ, Χερουβίλ-Σαιντ-Κλερ
+  el = Καέν, Χερουβίλ-Σαιντ-Κλερ, Λισιέ
 
 [France_Lower Normandy_Manche Description]
-  en = Cherbourg-Octeville, Cherbourg, Saint-Lô
+  en = Cherbourg-en-Cotentin, Saint-Lô, Granville
   ru = Шербур-Октевиль, Сен-Ло
   da = Saint-Lo
-  fr = Cherbourg, Saint-Lô
   ja = シェルブール＝オクトヴィル
-  es = Cherburgo-Octeville
   uk = Шербур, Сен-Ло
-  el = Σερμπούρ-Οκτεβίλ, Σερμπούρ, Σαιν-Λο
+  el = Σερμπούρ-αν-Κοταντέν, Σαιν-Λο, Γκρανβίλ
 
 [France_Lower Normandy_Orne Description]
   en = Alençon, Flers, Argentan
   ru = Алансон
-  fr = Alençon
   el = Αλενσόν, Φλερ, Αρζεντάν
 
 [France_Midi-Pyrenees_Ariege Description]
@@ -49339,13 +49307,11 @@
 [France_Midi-Pyrenees_Aveyron Description]
   en = Rodez, Millau, Villefranche-de-Rouergue
   ru = Родез
-  fr = Rodez, Millau, Villefranche-de-Rouergue
   el = Ροντέ, Μιλό, Βιλφράνς-ντε-Ρωρζ
 
 [France_Midi-Pyrenees_Gers Description]
   en = Auch, L'Isle-Jourdain, Condom
   ru = Ош
-  fr = Auch
   ja = オーシュ
   uk = Ош
   el = Ω, Λιλ-Ζουρντέν, Κοντόμ
@@ -49355,7 +49321,6 @@
   en = Toulouse, Colomiers, Tournefeuille
   ru = Тулуза, Коломье
   ar = تولوز
-  fr = Toulouse, Colomiers, Tournefeuille
   hu = Toulouse
   it = Tolosa
   ja = トゥールーズ, コロミエ
@@ -49370,25 +49335,22 @@
 [France_Midi-Pyrenees_Hautes-Pyrenees Description]
   en = Tarbes, Lourdes, Aureilhan
   ru = Тарб, Лурд
-  fr = Tarbes, Lourdes
   uk = Тарб, Лурд, Ореян
   el = Ταρμπ, Λουρντ , Ωριλάν
 
 [France_Midi-Pyrenees_Lot Description]
   en = Cahors, Figeac, Gourdon
   ru = Каор
-  fr = Cahors
   el = Καόρ, Φιζέ, Γκουρντόν
 
 [France_Midi-Pyrenees_Tarn Description]
-  en = Albi, Castres, Carmaux
+  en = Albi, Castres, Gaillac
   ru = Альби
-  el = Αλμπί, Καστρ, Κάρμο
+  el = Αλμπί, Καστρ
 
 [France_Midi-Pyrenees_Tarn-et-Garonne Description]
   en = Montauban, Castelsarrasin, Moissac
   ru = Монтобан, Кастельсарразен
-  fr = Montauban, Castelsarrasin
   ja = モントーバン, カステルサラザン
   ko = 몽토방
   th = มงโตบ็อง
@@ -49414,7 +49376,6 @@
   ru = Лилль, Рубе, Туркуэн
   ar = توركوينغ
   nl = Rijsel, Toerkonje
-  fr = Lille, Roubaix
   hu = Lille
   ja = リール, ルーベ, トゥールコワン
   uk = Лілль
@@ -49425,7 +49386,6 @@
   ru = Валансьен, Дуэ
   ar = دويه
   nl = Valencijn, Dowaai
-  fr = Valenciennes, Douai
   el = Βαλενσιέν, Ντουέ, Καμπράι
   he = ואלנסיין
 
@@ -49433,7 +49393,6 @@
   en = Calais, Boulogne-sur-Mer, Arras
   ru = Кале, Булонь-сюр-Мер, Аррас
   nl = Atrecht
-  fr = Calais, Boulogne-sur-Mer, Arras
   de = Atrecht
   ja = カレー, アラス
   ko = 아라스
@@ -49449,7 +49408,6 @@
   en = Nantes, Saint-Herblain, Rezé
   ru = Нант
   ar = نانت
-  fr = Nantes, Saint-Herblain, Rezé
   hu = Nantes
   ja = ナント
   ko = 낭트
@@ -49461,7 +49419,6 @@
 [France_Pays de la Loire_Loire-Atlantique_Saint-Nazaire Description]
   en = Saint-Nazaire, Guérande, La Baule-Escoublac
   ru = Сен-Назер
-  fr = Saint-Nazaire, Guérande, La Baule-Escoublac
   ja = サン＝ナゼール
   ko = 생나제르
   th = แซ็ง-นาแซร์
@@ -49469,27 +49426,24 @@
   el = Σαιντ-Ναζέρ, Γκεράντ, Λα Μπολ Εσκουμπλάκ
 
 [France_Pays de la Loire_Maine-et-Loire Description]
-  en = Angers, Cholet, Chemillé
-  ru = Анже, Шоле
-  fr = Angers, Cholet
+  en = Angers, Cholet, Saumur
+  ru = Анже, Шоле, Сомюр
   ja = アンジェ, ショレ
   ko = 앙제
   uk = Анже, Шоле
-  el = Ανζέ, Σολέ, Σεμίλ
+  el = Ανζέ, Σολέ, Σωμύρ
   he = אנז'ה
 
 [France_Pays de la Loire_Mayenne Description]
-  en = Laval, Mayenne, Château-Gontier
+  en = Laval, Château-Gontier, Mayenne
   ru = Лаваль, Майен
-  fr = Laval, Mayenne, Château-Gontier
-  uk = Лаваль, Майєнн, Шато-Гонтьє
-  el = Λαβάλ, Μαγιέν, Σατώ-Γκοντιέ
+  uk = Лаваль, Шато-Гонтьє, Майєнн
+  el = Λαβάλ, Σατώ-Γκοντιέ, Μαγιέν
 
 [France_Pays de la Loire_Sarthe Description]
   en = Le Mans, La Flèche, Sablé-sur-Sarthe
   ru = Ле Ман
   ar = لو مان
-  fr = Le Mans, La Flèche
   hu = Le Mans
   ja = ル・マン
   ko = 르망
@@ -49498,17 +49452,15 @@
   he = לה מאן
 
 [France_Pays de la Loire_Vendee Description]
-  en = La Roche-sur-Yon, Challans, Les Herbiers
+  en = La Roche-sur-Yon, Les Sables-d'Olonne, Challans
   ru = Ла Рош-сюр-Йон
-  fr = La Roche-sur-Yon
   ja = ラ・ロッシュ＝シュル＝ヨン
-  uk = Ла-Рош-сюр-Іон, Шаллан, Ле-Ерб'є
-  el = Λα Ρος-συρ-Γιον, Σαλάν, Λε Χερμπ
+  uk = Ла-Рош-сюр-Іон, Шаллан, Шаллан
+  el = Λα Ρος-συρ-Γιον, Σαλάν, Σαλάν
 
 [France_Picardy_Aisne Description]
   en = Saint-Quentin, Soissons, Laon
   ru = Суассон, Лан
-  fr = Saint-Quentin, Soissons, Laon
   ja = サン＝カンタン, ラン
   uk = Суассон
   el = Σαιντ-Κουέντιν, Σουασόν, Λάον
@@ -49517,7 +49469,6 @@
   en = Beauvais, Compiègne, Creil
   ru = Бове, Компьень
   ar = بوفيه, كومبيين
-  fr = Beauvais, Compiègne
   ja = ボーヴェ, コンピエーニュ
   ko = 보베, 콩피에뉴
   uk = Бове, Комп’єнь
@@ -49528,7 +49479,6 @@
   en = Amiens, Abbeville, Albert
   ru = Амьен
   ar = أميان
-  fr = Amiens
   hu = Amiens
   ja = アミアン
   ko = 아미앵
@@ -49538,17 +49488,16 @@
   he = אמיין
 
 [France_Poitou-Charentes_Charente Description]
-  en = Angoulême, Roumazières, Cognac
+  en = Angoulême, Cognac, Soyaux
   ru = Ангулем
   ja = アングレーム
   uk = Ангулем
-  el = Ανγκουλέμ, Ρουμαζιέρ, Κονιάκ
+  el = Ανγκουλέμ, Κονιάκ, Σουαγιώ
 
 [France_Poitou-Charentes_Charente-Maritime Description]
   en = La Rochelle, Saintes, Rochefort
   ru = Ла Рошель
   ar = لا روشيل هي
-  fr = La Rochelle
   ja = ラ・ロシェル
   ko = 라로셸
   th = ลารอแชล
@@ -49557,16 +49506,15 @@
   he = לה רושל
 
 [France_Poitou-Charentes_Deux-Sevres Description]
-  en = Niort, Bressuire, Parthenay
+  en = Niort, Bressuire, Thouars
   ru = Ньор
   ja = ニオール
   uk = Ніор
-  el = Νιόρ, Μπρεσού, Πάρθενε
+  el = Νιόρ, Μπρεσού, Τουάρ
 
 [France_Poitou-Charentes_Vienne Description]
   en = Poitiers, Châtellerault, Buxerolles
   ru = Пуатье
-  fr = Poitiers
   hu = Poitiers
   ja = ポワチエ
   uk = Пуатьє
@@ -49598,7 +49546,6 @@
 [France_Provence-Alpes-Cote dAzur_Hautes-Alpes Description]
   en = Gap, Briançon, Embrun
   ru = Гап, Бриансон
-  fr = Gap, Briançon, Embrun
   ja = ギャップ
   el = Γκαπ, Μπριανσόν, Εμπρούν
 
@@ -49606,7 +49553,6 @@
   en = Nice, Antibes, Cannes
   ru = Ницца, Канны
   fi = Nizza
-  fr = Nice, Antibes, Cannes
   de = Nizza
   it = Nizza
   ja = ニース, アンティーブ, カンヌ
@@ -49618,21 +49564,20 @@
   el = Νίκαια, Αντίμπ, Κάννες
 
 [France_Provence-Alpes-Cote dAzur_Var Description]
-  en = Toulon, La Seyne-sur-Mer, Hyères
+  en = Toulon, La Seyne-sur-Mer, Fréjus
   ru = Тулон
   hu = Toulon
   it = Tolone
-  ja = トゥーロン, ラ・セーヌ＝シュル＝メール, イエール
+  ja = トゥーロン, ラ・セーヌ＝シュル＝メール, フレジュス
   pl = Tulon
   es = Tolón
   uk = Тулон
-  el = Τουλόν, Λα Σεν-συρ-Μερ, Χιέρες
+  el = Τουλόν, Λα Σεν-συρ-Μερ, Φρεζύς
   he = טולון
 
 [France_Provence-Alpes-Cote dAzur_Vaucluse Description]
   en = Avignon, Carpentras, Orange
   ru = Авиньон
-  fr = Avignon
   hu = Avignon
   it = Avignone
   ja = アヴィニョン
@@ -49641,31 +49586,28 @@
   el = Αβινιόν, Καρπεντράς, Οράνζ
 
 [France_Rhone-Alpes_Ain Description]
-  en = Bourg-en-Bresse, Oyonnax, Ambérieu-en-Bugey
+  en = Bourg-en-Bresse, Oyonnax, Valserhône
   ru = Бурк-ан-Брес
-  fr = Bourg-en-Bresse
   ja = ブール＝ガン＝ブレス
-  el = Μπουργκ-εν-Μπρες, Ονάξ, Αμπεριέ-εν-Μπυγιε
+  el = Μπουργκ-εν-Μπρες, Ονάξ
 
 [France_Rhone-Alpes_Ardeche Description]
   en = Annonay, Aubenas, Guilherand-Granges
-  fr = Annonay
   el = Ανονέ, Αουμπενάς, Γκίλχεράν-Γκρανζέ
 
 [France_Rhone-Alpes_Drome Description]
   en = Valence, Montélimar, Romans-sur-Isère
   ru = Валанс, Монтелимар
   ar = فالانس
-  fr = Valence, Montélimar, Romans-sur-Isère
   ja = ヴァランス, モンテリマール
   ko = 발랑스
   uk = Валанс, Монтелімар
   el = Βαλένς, Μοντελιμάρ, Ρομάνς-συρ-Ιζέρ
 
 [France_Rhone-Alpes_Haute-Savoie Description]
-  en = Annecy, Thonon-les-Bains, Annemasse
+  en = Annecy, Annemasse, Thonon-les-Bains
   ru = Анси
-  el = Ανεσύ, Τονόν-λε-Μπαιν, Ανμάς
+  el = Ανεσύ, Ανμάς, Τονόν-λε-Μπαιν
 
 [France_Rhone-Alpes_Isere Description]
   en = Grenoble, Saint-Martin-d'Hères, Échirolles
@@ -49676,18 +49618,16 @@
   el = Γκρενόμπλ, Σαιντ-ΜΑρτίν-νττερές, Εχιρόλ
 
 [France_Rhone-Alpes_Loire Description]
-  en = Saint-Étienne, Roanne, Saint-Chamond
+  en = Saint-Étienne, Saint-Chamond, Roanne
   ru = Сент-Этьен, Роан
-  fr = Roanne
   hu = Saint-Étienne
   ja = サン＝テティエンヌ
   uk = Сент-Етьєн
-  el = Σαιντ-Ετιέν, Ροάν, Σαιντ-Σαμόντ
+  el = Σαιντ-Ετιέν, Σαιντ-Σαμόντ, Ροάν
 
 [France_Rhone-Alpes_Rhone Description]
   en = Lyon, Villeurbanne, Vénissieux
   ru = Лион
-  fr = Lyon
   hu = Lyon
   it = Lione
   ja = リヨン, ヴィルールバンヌ, ヴェニシュー
@@ -49983,7 +49923,7 @@
   el = Άουγκσμπουργκ, Κέμπτεν (Αλγκάου), Ουλμ
 
 [Germany_Free State of Bavaria_Upper Bavaria_East Description]
-  en = Rosenheim, Rosenheim
+  en = Rosenheim
   ru = Розенхайм
   ar = روزنهايم
   de = Rosenheim
