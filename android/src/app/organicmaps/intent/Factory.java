@@ -211,7 +211,7 @@ public class Factory
           intent.putExtra(MwmActivity.EXTRA_BACK_URL, backUrl);
       }
 
-      // TODO: Kernel recognizes "mapsme://", "mwm://" and "mapswithme://" schemas only!!!
+      // Kernel recognizes "om://", "mapsme://", "mwm://" and "mapswithme://" schemes only!!!
       if (result.getUrlType() == ParsingResult.TYPE_INCORRECT)
         return Map.showMapForUrl(getUrl());
 
