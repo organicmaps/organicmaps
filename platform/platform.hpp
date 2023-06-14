@@ -210,7 +210,7 @@ public:
   /// @param directory directory path with slash at the end
   //@{
   /// @param ext files extension to find, like ".mwm".
-  static void GetFilesByExt(std::string const & directory, std::string const & ext,
+  static void GetFilesByExt(std::string const & directory, std::string_view ext,
                             FilesList & outFiles);
   static void GetFilesByRegExp(std::string const & directory, std::string const & regexp,
                                FilesList & outFiles);

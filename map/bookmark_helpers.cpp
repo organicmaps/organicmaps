@@ -245,17 +245,25 @@ std::string RemoveInvalidSymbols(std::string const & name)
   return strings::ToUtf8(filtered);
 }
 
-std::string GenerateUniqueFileName(const std::string & path, std::string name, std::string const & ext)
+
+std::string GenerateUniqueFileName(std::string const & path, std::string name, std::string_view ext)
 {
   // Remove extension, if file name already contains it.
   if (strings::EndsWith(name, ext))
     name.resize(name.size() - ext.size());
 
   size_t counter = 1;
-  std::string suffix;
-  while (Platform::IsFileExistsByFullPath(base::JoinPath(path, name + suffix + ext)))
+  std::string suffix, res;
+  do
+  {
+    res = name;
+    res = base::JoinPath(path, res.append(suffix).append(ext));
+    if (!Platform::IsFileExistsByFullPath(res))
+      break;
     suffix = strings::to_string(counter++);
-  return base::JoinPath(path, name + suffix + ext);
+  } while (true);
+
+  return res;
 }
 
 std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName)
@@ -264,13 +272,9 @@ std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName)
   if (filePath.empty())
     filePath = kDefaultBookmarksFileName;
 
-  return GenerateUniqueFileName(GetBookmarksDirectory(), std::move(filePath));
+  return GenerateUniqueFileName(GetBookmarksDirectory(), std::move(filePath), kKmlExtension);
 }
 
-std::string const kKmzExtension = ".kmz";
-std::string const kKmlExtension = ".kml";
-std::string const kKmbExtension = ".kmb";
-std::string const kGpxExtension = ".gpx";
 std::string const kDefaultBookmarksFileName = "Bookmarks";
 
 // Populate empty category & track names based on file name: assign file name to category name,

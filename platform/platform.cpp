@@ -214,13 +214,13 @@ void Platform::GetFontNames(FilesList & res) const
   LOG(LINFO, ("Available font files:", (res)));
 }
 
-void Platform::GetFilesByExt(std::string const & directory, std::string const & ext, FilesList & outFiles)
+void Platform::GetFilesByExt(std::string const & directory, std::string_view ext, FilesList & outFiles)
 {
   // Transform extension mask to regexp (.mwm -> \.mwm$)
   ASSERT ( !ext.empty(), () );
   ASSERT_EQUAL ( ext[0], '.' , () );
-
-  GetFilesByRegExp(directory, '\\' + ext + '$', outFiles);
+  std::string regexp = "\\";
+  GetFilesByRegExp(directory, regexp.append(ext).append("$"), outFiles);
 }
 
 // static
