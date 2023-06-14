@@ -10825,12 +10825,12 @@ mr:चार्जिंग स्टेशन|प्रभाराक के�
 amenity-charging_station|@charging_station
 
 amenity-charging_station-bicycle|@charging_station
-en:4Bicycle Charging
+en:4Bicycle Charging|4Bike Charging
 ru:4Велозарядка
 tr:4Bisiklet Şarj Etme
 
 amenity-charging_station-motorcar|@charging_station
-en:4Motorcar Charging
+en:4Motorcar Charging|3Car Charging|Charger
 ru:4Автозарядка
 tr:4Otomobil Şarj Cihazı|4Araba Şarj Cihazı|4Araç Şarj Cihazı|3Trugo|4TOGG Şarj
 
@@ -10872,7 +10872,7 @@ fa:شیرخوارگاه
 mr:पाळणाघर|अंगणवाडी|बालवाडी
 
 amenity-bicycle_parking
-en:4Bicycle Parking
+en:4Bicycle Parking|4Bike Parking
 ru:4Велопарковка|велостоянка
 be:4Велапаркоўка|веластаянка
 bg:4Велостоянка|паркинг|колело|велосипед
