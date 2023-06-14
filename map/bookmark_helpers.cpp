@@ -253,10 +253,17 @@ std::string GenerateUniqueFileName(std::string const & path, std::string name, s
     name.resize(name.size() - ext.size());
 
   size_t counter = 1;
-  std::string suffix;
-  while (Platform::IsFileExistsByFullPath(base::JoinPath(path, (name + suffix).append(ext))))
+  std::string suffix, res;
+  do
+  {
+    res = name;
+    res = base::JoinPath(path, res.append(suffix).append(ext));
+    if (!Platform::IsFileExistsByFullPath(res))
+      break;
     suffix = strings::to_string(counter++);
-  return base::JoinPath(path, (name +suffix).append(ext));
+  } while (true);
+
+  return res;
 }
 
 std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName)
