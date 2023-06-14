@@ -20,8 +20,38 @@ extension BookmarksListRouter: IBookmarksListRouter {
   }
 
   func showDescription(_ bookmarkGroup: BookmarkGroup) {
-//    let descriptionViewController = GuideDescriptionViewController(category: bookmarkGroup)
-//    mapViewController.navigationController?.pushViewController(descriptionViewController, animated: true)
+    let description = prepareHtmlDescription(bookmarkGroup)
+    let descriptionViewController = WebViewController(html: description, baseUrl: nil, title: bookmarkGroup.title)!
+    descriptionViewController.openInSafari = true
+    mapViewController.navigationController?.pushViewController(descriptionViewController, animated: true)
+  }
+  
+  func prepareHtmlDescription(_ bookmarkGroup: BookmarkGroup) -> String {
+    var description = bookmarkGroup.detailedAnnotation
+    if bookmarkGroup.isHtmlDescription {
+      if !description.contains("<body>") {
+        description = "<body>" + description
+      }
+    } else {
+      description = description.replacingOccurrences(of: "\n", with: "<br>")
+      let header = """
+                   <head>
+                     <style>
+                       body {
+                         line-height: 1.4;
+                         margin-right: 16px;
+                         margin-left: 16px;
+                       }
+                     </style>
+                   </head>
+                   <body>
+                   """
+      description = header + description
+    }
+    if !description.contains("</body>") {
+      description += "</body>"
+    }
+    return description
   }
 
   func showSubgroup(_ subgroupId: MWMMarkGroupID) {

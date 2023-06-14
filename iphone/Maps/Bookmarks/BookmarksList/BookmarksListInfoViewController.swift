@@ -4,7 +4,7 @@ protocol BookmarksListInfoViewControllerDelegate: AnyObject {
 }
 
 final class BookmarksListInfoViewController: UIViewController {
-  var info: IBookmakrsListInfoViewModel? {
+  var info: IBookmarksListInfoViewModel? {
     didSet {
       guard isViewLoaded, let info = info else { return }
       updateInfo(info)
@@ -26,17 +26,23 @@ final class BookmarksListInfoViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    descriptionButton.setTitle(L("placepage_place_description").uppercased(), for: .normal)
     separatorsConstraints.forEach { $0.constant = 1 / UIScreen.main.scale }
+    descriptionButton.titleLabel?.numberOfLines = 2
 
     guard let info = info else { return }
     updateInfo(info)
   }
 
-  private func updateInfo(_ info: IBookmakrsListInfoViewModel) {
+  private func updateInfo(_ info: IBookmarksListInfoViewModel) {
     titleLabel.text = info.title
     descriptionButton.isHidden = !info.hasDescription
-
+    if info.hasDescription {
+      let description = info.isHtmlDescription
+        ? BookmarksListInfoViewController.getPlainText(info.description)
+        : info.description
+      descriptionButton.setTitle(description, for: .normal)
+    }
+    
     titleImageView.isHidden = true
     if let imageUrl = info.imageUrl {
       titleImageView.wi_setImage(with: imageUrl, transitionDuration: 0) { [weak self] (image, error) in
@@ -45,5 +51,10 @@ final class BookmarksListInfoViewController: UIViewController {
         self?.delegate?.didUpdateContent()
       }
     }
+  }
+  
+  private static func getPlainText(_ htmlText: String) -> String? {
+    let formattedText = NSAttributedString.string(withHtml: htmlText, defaultAttributes: [:])
+    return formattedText?.string
   }
 }

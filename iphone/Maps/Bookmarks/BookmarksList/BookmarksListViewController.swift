@@ -188,7 +188,7 @@ extension BookmarksListViewController: IBookmarksListView {
     self.title = title
   }
 
-  func setInfo(_ info: IBookmakrsListInfoViewModel) {
+  func setInfo(_ info: IBookmarksListInfoViewModel) {
     infoViewController.info = info
     updateInfoSize()
   }

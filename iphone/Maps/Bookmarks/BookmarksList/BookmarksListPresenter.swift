@@ -181,8 +181,9 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
     view.enableEditing(true)
 
     let info = BookmarksListInfo(title: bookmarkGroup.title,
-                                 author: bookmarkGroup.author,
+                                 description: bookmarkGroup.detailedAnnotation,
                                  hasDescription: bookmarkGroup.hasDescription,
+                                 isHtmlDescription: bookmarkGroup.isHtmlDescription,
                                  imageUrl: bookmarkGroup.imageUrl,
                                  hasLogo: false)
     view.setInfo(info)
@@ -333,8 +334,9 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
 extension BookmarksListPresenter: CategorySettingsViewControllerDelegate {
   func categorySettingsController(_ viewController: CategorySettingsViewController, didEndEditing categoryId: MWMMarkGroupID) {
     let info = BookmarksListInfo(title: bookmarkGroup.title,
-                                 author: bookmarkGroup.author,
+                                 description: bookmarkGroup.detailedAnnotation,
                                  hasDescription: bookmarkGroup.hasDescription,
+                                 isHtmlDescription: bookmarkGroup.isHtmlDescription,
                                  imageUrl: bookmarkGroup.imageUrl,
                                  hasLogo: false)
     view.setInfo(info)
@@ -495,17 +497,19 @@ fileprivate struct BookmarksListMenuItem: IBookmarksListMenuItem {
   }
 }
 
-fileprivate struct BookmarksListInfo: IBookmakrsListInfoViewModel {
+fileprivate struct BookmarksListInfo: IBookmarksListInfoViewModel {
   let title: String
-  let author: String
+  let description: String
   let hasDescription: Bool
+  let isHtmlDescription: Bool
   let imageUrl: URL?
   let hasLogo: Bool
 
-  init(title: String, author: String, hasDescription:Bool, imageUrl: URL? = nil, hasLogo: Bool = false) {
+  init(title: String, description: String, hasDescription: Bool, isHtmlDescription: Bool, imageUrl: URL? = nil, hasLogo: Bool = false) {
     self.title = title
-    self.author = author
+    self.description = description
     self.hasDescription = hasDescription
+    self.isHtmlDescription = isHtmlDescription
     self.imageUrl = imageUrl
     self.hasLogo = hasLogo
   }
