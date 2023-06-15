@@ -39,7 +39,7 @@ class RouteInfo: NSObject {
 
 
   /// > Warning: Order of enum values MUST BE the same with
-  /// > native ``LaneWay`` enum (see platform/distance.hpp for details).
+  /// > native ``Distance::Units`` enum (see platform/distance.hpp for details).
   class func unitLength(for targetUnitsIndex: UInt8) -> UnitLength {
     switch targetUnitsIndex {
     case 0:

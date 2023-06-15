@@ -11,14 +11,14 @@ public final class Distance
 {
   /**
    * IMPORTANT : Order of enum values MUST BE the same
-   * with native LaneWay enum (see platform/distance.hpp for details).
+   * with native Distance::Units enum (see platform/distance.hpp for details).
    */
   public enum Units
   {
-    Meters(R.string.meter),
-    Kilometers(R.string.kilometer),
-    Feet(R.string.foot),
-    Miles(R.string.mile);
+    Meters(R.string.m),
+    Kilometers(R.string.km),
+    Feet(R.string.ft),
+    Miles(R.string.mi);
 
     @StringRes
     public final int mStringRes;
@@ -43,11 +43,6 @@ public final class Distance
     mUnits = Units.values()[unitsIndex];
   }
 
-  public boolean isValid()
-  {
-    return mDistance >= 0.0;
-  }
-
   @NonNull
   public String getUnitsStr(@NonNull final Context context)
   {
@@ -57,9 +52,6 @@ public final class Distance
   @NonNull
   public String toString(@NonNull final Context context)
   {
-    if (!isValid())
-      return "";
-
     return mDistanceStr + NON_BREAKING_SPACE + getUnitsStr(context);
   }
 
@@ -67,9 +59,6 @@ public final class Distance
   @Override
   public String toString()
   {
-    if (!isValid())
-      return "";
-
     return mDistanceStr + NON_BREAKING_SPACE + mUnits.toString();
   }
 }

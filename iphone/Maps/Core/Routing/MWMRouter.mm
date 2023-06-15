@@ -345,8 +345,6 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
   routing::FollowingInfo info;
   rm.GetRouteFollowingInfo(info);
   auto navManager = [MWMNavigationDashboardManager sharedManager];
-  if (!info.IsValid())
-    return;
   if ([MWMRouter type] == MWMRouterTypePublicTransport)
     [navManager updateTransitInfo:rm.GetTransitRouteInfo()];
   else

@@ -72,15 +72,6 @@ UNIT_TEST(Distance_CreateAltitudeFormatted)
   }
 }
 
-UNIT_TEST(Distance_IsValid)
-{
-  TEST_EQUAL(Distance(0.0).IsValid(), true, ());
-  TEST_EQUAL(Distance(-1).IsValid(), false, ());
-  TEST_EQUAL(Distance(std::numeric_limits<double>::epsilon()).IsValid(), true, ());
-  TEST_EQUAL(Distance(1).IsValid(), true, ());
-  TEST_EQUAL(Distance(1243.2, Distance::Units::Feet).IsValid(), true, ());
-}
-
 UNIT_TEST(Distance_IsLowUnits)
 {
   TEST_EQUAL(Distance(0.0, Distance::Units::Meters).IsLowUnits(), true, ());

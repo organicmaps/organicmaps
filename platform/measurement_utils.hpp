@@ -2,13 +2,10 @@
 
 #include "geometry/point2d.hpp"
 
-#include <optional>
 #include <string>
 
 namespace measurement_utils
 {
-using OptionalStringRef = std::optional<std::string> const &;
-
 enum class Units
 {
   Metric = 0,

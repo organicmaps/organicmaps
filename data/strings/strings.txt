@@ -15106,7 +15106,7 @@
     zh-Hans = 3. 使用应用时选择
     zh-Hant = 3. 使用應用時選擇
 
-  [meter]
+  [m]
     tags = android,ios
     en = m
     ar = متر
@@ -15145,7 +15145,7 @@
     zh-Hans = 米
     zh-Hant = 公尺
 
-  [kilometer]
+  [km]
     tags = android,ios
     en = km
     ar = كم
@@ -15222,7 +15222,7 @@
     zh-Hans = 公里每小时
     zh-Hant = 公里每小時
 
-  [mile]
+  [mi]
     tags = android,ios
     en = mi
     ar = ميل
@@ -15261,7 +15261,7 @@
     zh-Hans = 英里
     zh-Hant = 英哩
 
-  [foot]
+  [ft]
     comment = A unit of measure
     tags = android,ios
     en = ft

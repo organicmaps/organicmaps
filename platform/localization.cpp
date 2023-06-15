@@ -18,11 +18,11 @@ enum class MeasurementType
 
 const LocalizedUnits & GetLocalizedUnits(measurement_utils::Units units, MeasurementType measurementType)
 {
-  static LocalizedUnits UnitsLenghImperial = {GetLocalizedString("foot"), GetLocalizedString("mile")};
-  static LocalizedUnits UnitsLenghMetric = {GetLocalizedString("meter"), GetLocalizedString("kilometer")};
+  static LocalizedUnits UnitsLenghImperial = {GetLocalizedString("ft"), GetLocalizedString("mi")};
+  static LocalizedUnits UnitsLenghMetric = {GetLocalizedString("m"), GetLocalizedString("km")};
 
-  static LocalizedUnits UnitsSpeedImperial = {GetLocalizedString("foot"), GetLocalizedString("miles_per_hour")};
-  static LocalizedUnits UnitsSpeedMetric = {GetLocalizedString("meter"), GetLocalizedString("kilometers_per_hour")};
+  static LocalizedUnits UnitsSpeedImperial = {GetLocalizedString("ft"), GetLocalizedString("miles_per_hour")};
+  static LocalizedUnits UnitsSpeedMetric = {GetLocalizedString("m"), GetLocalizedString("kilometers_per_hour")};
 
   switch (measurementType)
   {

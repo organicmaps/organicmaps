@@ -181,12 +181,9 @@ public class NavigationController implements Application.ActivityLifecycleCallba
 
   private void updateVehicle(RoutingInfo info)
   {
-    if (info.distToTurn.isValid())
-    {
-      SpannableStringBuilder nextTurnDistance = Utils.formatDistance(mFrame.getContext(), info.distToTurn);
-      mNextTurnDistance.setText(nextTurnDistance);
-      info.carDirection.setTurnDrawable(mNextTurnImage);
-    }
+    SpannableStringBuilder nextTurnDistance = Utils.formatDistance(mFrame.getContext(), info.distToTurn);
+    mNextTurnDistance.setText(nextTurnDistance);
+    info.carDirection.setTurnDrawable(mNextTurnImage);
 
     if (RoutingInfo.CarDirection.isRoundAbout(info.carDirection))
       UiUtils.setTextAndShow(mCircleExit, String.valueOf(info.exitNum));

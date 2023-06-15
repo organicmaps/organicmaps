@@ -89,8 +89,6 @@ Distance Distance::CreateAltitudeFormatted(double meters)
   return elevation;
 }
 
-bool Distance::IsValid() const { return m_distance >= 0.0; }
-
 bool Distance::IsLowUnits() const { return m_units == Units::Meters || m_units == Units::Feet; }
 
 bool Distance::IsHighUnits() const { return !IsLowUnits(); }
@@ -129,34 +127,21 @@ std::string Distance::GetDistanceString() const
   return os.str();
 }
 
-#if defined(OMIM_OS_IPHONE) || defined(OMIM_OS_ANDROID)
 std::string Distance::GetUnitsString() const
 {
   switch (m_units)
   {
-  case Units::Meters: return GetLocalizedString("meter");
-  case Units::Kilometers: return GetLocalizedString("kilometer");
-  case Units::Feet: return GetLocalizedString("foot");
-  case Units::Miles: return GetLocalizedString("mile");
+  case Units::Meters: return GetLocalizedString("m");
+  case Units::Kilometers: return GetLocalizedString("km");
+  case Units::Feet: return GetLocalizedString("ft");
+  case Units::Miles: return GetLocalizedString("mi");
   default: UNREACHABLE();
   }
 }
-#else
-std::string Distance::GetUnitsString() const
-{
-  switch (m_units)
-  {
-  case Units::Meters: return "m";
-  case Units::Kilometers: return "km";
-  case Units::Feet: return "ft";
-  case Units::Miles: return "mi";
-  default: UNREACHABLE();
-  }
-}
-#endif
 
 Distance Distance::GetFormattedDistance() const
 {
+  ASSERT_GREATER_OR_EQUAL(m_distance, 0.0, ("Distance is not valid: ", *this));
   Distance newDistance = *this;
   int precision = 0;
 
@@ -197,9 +182,6 @@ Distance Distance::GetFormattedDistance() const
 
 std::string Distance::ToString() const
 {
-  if (!IsValid())
-    return "";
-
   return GetDistanceString() + " " + GetUnitsString();
 }
 

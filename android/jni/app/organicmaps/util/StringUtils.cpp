@@ -61,8 +61,7 @@ JNIEXPORT jobject JNICALL Java_app_organicmaps_util_StringUtils_nativeFormatSpee
 }
 
 JNIEXPORT jobject JNICALL
-Java_app_organicmaps_util_StringUtils_nativeFormatDistance(JNIEnv * env, jclass,
-                                                           jdouble distanceInMeters)
+Java_app_organicmaps_util_StringUtils_nativeFormatDistance(JNIEnv * env, jclass, jdouble distanceInMeters)
 {
   return ToJavaDistance(env, platform::Distance::CreateFormatted(distanceInMeters));
 }

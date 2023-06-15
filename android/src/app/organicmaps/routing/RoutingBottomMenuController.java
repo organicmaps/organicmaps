@@ -264,7 +264,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     {
       mAltitudeChart.setImageBitmap(bm);
       UiUtils.show(mAltitudeChart);
-      final String unit = limits.isMetricUnits ? mAltitudeDifference.getResources().getString(R.string.meter) : mAltitudeDifference.getResources().getString(R.string.foot);
+      final String unit = limits.isMetricUnits ? mAltitudeDifference.getResources().getString(R.string.m) : mAltitudeDifference.getResources().getString(R.string.ft);
       mAltitudeDifference.setText(String.format(Locale.getDefault(), "↗ %d %s ↘ %d %s",
                                                 limits.totalAscent, unit,
                                                 limits.totalDescent, unit));

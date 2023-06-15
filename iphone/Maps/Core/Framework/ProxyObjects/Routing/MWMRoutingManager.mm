@@ -80,7 +80,6 @@
   if (!self.isRoutingActive) { return  nil; }
   routing::FollowingInfo info;
   self.rm.GetRouteFollowingInfo(info);
-  if (!info.IsValid()) { return nil; }
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
   double speedMps = 0;
   if (lastLocation && lastLocation.speed >= 0) {
