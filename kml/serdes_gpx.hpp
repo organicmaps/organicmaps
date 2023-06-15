@@ -41,6 +41,7 @@ private:
   void ResetPoint();
   bool MakeValid();
   void ParseColor(std::string const & value);
+  void ParseGarminColor(std::string const & value);
 
   FileData & m_data;
   CategoryData m_compilationData;

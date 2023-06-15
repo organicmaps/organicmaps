@@ -132,8 +132,13 @@ UNIT_TEST(Route)
 UNIT_TEST(Color)
 {
   kml::FileData const dataFromFile = loadGpxFromFile("gpx_test_data/color.gpx");
-  TEST_EQUAL(4278190335, dataFromFile.m_tracksData[0].m_layers[0].m_color.m_rgba, ());
-  TEST_EQUAL(65535, dataFromFile.m_tracksData[1].m_layers[0].m_color.m_rgba, ());
+  uint32_t const red = 0xFF0000FF;
+  uint32_t const blue = 0x0000FFFF;
+  uint32_t const black = 0x000000FF;
+  TEST_EQUAL(red, dataFromFile.m_tracksData[0].m_layers[0].m_color.m_rgba, ());
+  TEST_EQUAL(blue, dataFromFile.m_tracksData[1].m_layers[0].m_color.m_rgba, ());
+  TEST_EQUAL(black, dataFromFile.m_tracksData[2].m_layers[0].m_color.m_rgba, ());
+  TEST_EQUAL(red, dataFromFile.m_tracksData[3].m_layers[0].m_color.m_rgba, ());
 }
 
 UNIT_TEST(MultiTrackNames)
