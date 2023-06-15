@@ -496,12 +496,12 @@
 	<string name="current_location_unknown_message">Месцазнаходжанне невядома. Магчыма вы ў будынку або ў танэлі.</string>
 	<string name="current_location_unknown_continue_button">Працягнуць</string>
 	<string name="current_location_unknown_stop_button">Спыніць</string>
-	<string name="meter">м</string>
-	<string name="kilometer">км</string>
+	<string name="m">м</string>
+	<string name="km">км</string>
 	<string name="kilometers_per_hour">км/г</string>
-	<string name="mile">міля</string>
+	<string name="mi">міля</string>
 	<!-- A unit of measure -->
-	<string name="foot">фут</string>
+	<string name="ft">фут</string>
 	<string name="miles_per_hour">міль/г</string>
 	<string name="hour">г</string>
 	<string name="minute">хв</string>

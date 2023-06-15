@@ -765,16 +765,16 @@
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. เลือกในขณะใช้แอป";
 
-"meter" = "ม.";
+"m" = "ม.";
 
-"kilometer" = "กม.";
+"km" = "กม.";
 
 "kilometers_per_hour" = "กม./ชม.";
 
-"mile" = "ไมล์";
+"mi" = "ไมล์";
 
 /* A unit of measure */
-"foot" = "ฟุต";
+"ft" = "ฟุต";
 
 "miles_per_hour" = "ไมล์/ชม.";
 

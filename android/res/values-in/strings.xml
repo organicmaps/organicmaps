@@ -474,12 +474,12 @@
 	<string name="current_location_unknown_message">Lokasi saat ini tidak diketahui. Anda mungkin berada dalam bangunan atau terowongan.</string>
 	<string name="current_location_unknown_continue_button">Lanjutkan</string>
 	<string name="current_location_unknown_stop_button">Berhenti</string>
-	<string name="meter">m</string>
-	<string name="kilometer">km</string>
+	<string name="m">m</string>
+	<string name="km">km</string>
 	<string name="kilometers_per_hour">km/j</string>
-	<string name="mile">mil</string>
+	<string name="mi">mil</string>
 	<!-- A unit of measure -->
-	<string name="foot">kaki</string>
+	<string name="ft">kaki</string>
 	<string name="miles_per_hour">mpj</string>
 	<string name="hour">j</string>
 	<string name="minute">mnt</string>

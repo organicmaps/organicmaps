@@ -472,12 +472,12 @@
 	<string name="current_location_unknown_message">현재 위치를 알 수 없습니다. 건물 안이나 터널 안에서는 검색할 수 없습니다</string>
 	<string name="current_location_unknown_continue_button">계속</string>
 	<string name="current_location_unknown_stop_button">중지</string>
-	<string name="meter">m</string>
-	<string name="kilometer">km</string>
+	<string name="m">m</string>
+	<string name="km">km</string>
 	<string name="kilometers_per_hour">km/시</string>
-	<string name="mile">mi</string>
+	<string name="mi">mi</string>
 	<!-- A unit of measure -->
-	<string name="foot">풋</string>
+	<string name="ft">풋</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">t</string>
 	<string name="minute">min</string>

@@ -478,12 +478,12 @@
 	<string name="current_location_unknown_message">Nezjistili jsme vaši současnou polohu. Možná jste v budově nebo tunelu.</string>
 	<string name="current_location_unknown_continue_button">Pokračovat</string>
 	<string name="current_location_unknown_stop_button">Zastavit</string>
-	<string name="meter">m</string>
-	<string name="kilometer">km</string>
+	<string name="m">m</string>
+	<string name="km">km</string>
 	<string name="kilometers_per_hour">km/h</string>
-	<string name="mile">mil</string>
+	<string name="mi">mil</string>
 	<!-- A unit of measure -->
-	<string name="foot">stopa</string>
+	<string name="ft">stopa</string>
 	<string name="miles_per_hour">mil/h</string>
 	<string name="hour">hod</string>
 	<string name="minute">min</string>

@@ -765,16 +765,16 @@
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. Vælg Mens app'en bruges";
 
-"meter" = "m";
+"m" = "m";
 
-"kilometer" = "km";
+"km" = "km";
 
 "kilometers_per_hour" = "km/t";
 
-"mile" = "mil";
+"mi" = "mil";
 
 /* A unit of measure */
-"foot" = "fod";
+"ft" = "fod";
 
 "miles_per_hour" = "mph";
 

@@ -472,12 +472,12 @@
 	<string name="current_location_unknown_message">Chưa biết địa điểm hiện tại. Có thể bạn đang ở trong một tòa nhà hoặc đường hầm.</string>
 	<string name="current_location_unknown_continue_button">Tiếp tục</string>
 	<string name="current_location_unknown_stop_button">Dừng</string>
-	<string name="meter">m</string>
-	<string name="kilometer">km</string>
+	<string name="m">m</string>
+	<string name="km">km</string>
 	<string name="kilometers_per_hour">km/giờ</string>
-	<string name="mile">dặm</string>
+	<string name="mi">dặm</string>
 	<!-- A unit of measure -->
-	<string name="foot">ft</string>
+	<string name="ft">ft</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">giờ</string>
 	<string name="minute">phút</string>

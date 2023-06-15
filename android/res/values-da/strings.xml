@@ -474,12 +474,12 @@
 	<string name="current_location_unknown_message">Aktuel placering er ukendt. Måske er du i en bygning eller i en tunnel.</string>
 	<string name="current_location_unknown_continue_button">Fortsæt</string>
 	<string name="current_location_unknown_stop_button">Stop</string>
-	<string name="meter">m</string>
-	<string name="kilometer">km</string>
+	<string name="m">m</string>
+	<string name="km">km</string>
 	<string name="kilometers_per_hour">km/t</string>
-	<string name="mile">mil</string>
+	<string name="mi">mil</string>
 	<!-- A unit of measure -->
-	<string name="foot">fod</string>
+	<string name="ft">fod</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">time</string>
 	<string name="minute">min</string>

@@ -501,12 +501,12 @@
 	<string name="current_location_unknown_message">Местоположение не найдено. Возможно, вы находитесь в помещении или в туннеле.</string>
 	<string name="current_location_unknown_continue_button">Продолжить</string>
 	<string name="current_location_unknown_stop_button">Стоп</string>
-	<string name="meter">м</string>
-	<string name="kilometer">км</string>
+	<string name="m">м</string>
+	<string name="km">км</string>
 	<string name="kilometers_per_hour">км/ч</string>
-	<string name="mile">ми</string>
+	<string name="mi">ми</string>
 	<!-- A unit of measure -->
-	<string name="foot">фут</string>
+	<string name="ft">фут</string>
 	<string name="miles_per_hour">ми/ч</string>
 	<string name="hour">ч</string>
 	<string name="minute">мин</string>

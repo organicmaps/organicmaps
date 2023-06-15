@@ -494,12 +494,12 @@
 	<string name="current_location_unknown_message">Huidige locatie is onbekend. Misschien bevindt u zich in een gebouw of tunnel.</string>
 	<string name="current_location_unknown_continue_button">Doorgaan</string>
 	<string name="current_location_unknown_stop_button">Stoppen</string>
-	<string name="meter">m</string>
-	<string name="kilometer">km</string>
+	<string name="m">m</string>
+	<string name="km">km</string>
 	<string name="kilometers_per_hour">km/h</string>
-	<string name="mile">mijl</string>
+	<string name="mi">mijl</string>
 	<!-- A unit of measure -->
-	<string name="foot">voet</string>
+	<string name="ft">voet</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">u</string>
 	<string name="minute">min</string>

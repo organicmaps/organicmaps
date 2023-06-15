@@ -469,12 +469,12 @@
 	<string name="current_location_unknown_message">مکان شما ناشناس مانده است.ممکن است شما داخل یک ساختمان یا تونل باشید.</string>
 	<string name="current_location_unknown_continue_button">ادامه</string>
 	<string name="current_location_unknown_stop_button">توقف</string>
-	<string name="meter">متر</string>
-	<string name="kilometer">کیلومتر</string>
+	<string name="m">متر</string>
+	<string name="km">کیلومتر</string>
 	<string name="kilometers_per_hour">کیلومتربرساعت (km/h)</string>
-	<string name="mile">مایل</string>
+	<string name="mi">مایل</string>
 	<!-- A unit of measure -->
-	<string name="foot">فوت</string>
+	<string name="ft">فوت</string>
 	<string name="miles_per_hour">مایل بر ساعت (mph)</string>
 	<string name="hour">ساعت</string>
 	<string name="minute">دقیقه</string>

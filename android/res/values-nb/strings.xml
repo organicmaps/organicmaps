@@ -498,12 +498,12 @@
 	<string name="current_location_unknown_message">Gjeldende plassering er ukjent. Du kan være i en bygning eller en tunnel.</string>
 	<string name="current_location_unknown_continue_button">Fortsett</string>
 	<string name="current_location_unknown_stop_button">Stopp</string>
-	<string name="meter">m</string>
-	<string name="kilometer">km</string>
+	<string name="m">m</string>
+	<string name="km">km</string>
 	<string name="kilometers_per_hour">km/t</string>
-	<string name="mile">mi</string>
+	<string name="mi">mi</string>
 	<!-- A unit of measure -->
-	<string name="foot">fot</string>
+	<string name="ft">fot</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">t</string>
 	<string name="minute">min</string>

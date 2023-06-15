@@ -765,16 +765,16 @@
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. アプリの使用中を選択してください";
 
-"meter" = "m";
+"m" = "m";
 
-"kilometer" = "km";
+"km" = "km";
 
 "kilometers_per_hour" = "キロメートル毎時";
 
-"mile" = "マイル";
+"mi" = "マイル";
 
 /* A unit of measure */
-"foot" = "フィート";
+"ft" = "フィート";
 
 "miles_per_hour" = "マイル毎時";
 

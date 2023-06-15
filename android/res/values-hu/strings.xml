@@ -486,12 +486,12 @@
 	<string name="current_location_unknown_message">Tartózkodási helye ismeretlen. Lehet, hogy épületben vagy alagútban tartózkodik.</string>
 	<string name="current_location_unknown_continue_button">Folytatás</string>
 	<string name="current_location_unknown_stop_button">Leállítás</string>
-	<string name="meter">m</string>
-	<string name="kilometer">km</string>
+	<string name="m">m</string>
+	<string name="km">km</string>
 	<string name="kilometers_per_hour">km/h</string>
-	<string name="mile">mf</string>
+	<string name="mi">mf</string>
 	<!-- A unit of measure -->
-	<string name="foot">ft</string>
+	<string name="ft">ft</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">ó</string>
 	<string name="minute">p</string>

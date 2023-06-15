@@ -486,12 +486,12 @@
 	<string name="current_location_unknown_message">目前位置未知，可能您在建築物內或隧道內。</string>
 	<string name="current_location_unknown_continue_button">繼續</string>
 	<string name="current_location_unknown_stop_button">停止</string>
-	<string name="meter">公尺</string>
-	<string name="kilometer">公里</string>
+	<string name="m">公尺</string>
+	<string name="km">公里</string>
 	<string name="kilometers_per_hour">公里每小時</string>
-	<string name="mile">英哩</string>
+	<string name="mi">英哩</string>
 	<!-- A unit of measure -->
-	<string name="foot">英尺</string>
+	<string name="ft">英尺</string>
 	<string name="miles_per_hour">英哩每小時</string>
 	<string name="hour">小時</string>
 	<string name="minute">分鐘</string>
