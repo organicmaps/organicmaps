@@ -2,7 +2,7 @@
 
 #include "platform/localization.hpp"
 #include "platform/location.hpp"
-#include "platform/measurement_utils.hpp"
+#include "platform/distance.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -13,8 +13,7 @@ static inline NSString * formattedDistance(double const & meters) {
   if (meters < 0.)
     return nil;
 
-  auto const localizedUnits = platform::GetLocalizedDistanceUnits();
-  return @(measurement_utils::FormatDistanceWithLocalization(meters, localizedUnits.m_high, localizedUnits.m_low).c_str());
+  return @(platform::Distance::CreateFormatted(meters).ToString().c_str());
 }
 
 static inline ms::LatLon ToLatLon(m2::PointD const & p) { return mercator::ToLatLon(p); }

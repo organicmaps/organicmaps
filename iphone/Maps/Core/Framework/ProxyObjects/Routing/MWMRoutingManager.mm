@@ -80,7 +80,6 @@
   if (!self.isRoutingActive) { return  nil; }
   routing::FollowingInfo info;
   self.rm.GetRouteFollowingInfo(info);
-  if (!info.IsValid()) { return nil; }
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
   double speedMps = 0;
   if (lastLocation && lastLocation.speed >= 0) {
@@ -94,11 +93,11 @@
   }
 
   MWMRouteInfo *objCInfo = [[MWMRouteInfo alloc] initWithTimeToTarget:info.m_time
-                                                       targetDistance:@(info.m_distToTarget.c_str())
-                                                          targetUnits:@(info.m_targetUnitsSuffix.c_str())
-                                                       distanceToTurn:@(info.m_distToTurn.c_str())
+                                                       targetDistance:@(info.m_distToTarget.GetDistanceString().c_str())
+                                                     targetUnitsIndex:static_cast<UInt8>(info.m_distToTarget.GetUnits())
+                                                       distanceToTurn:@(info.m_distToTurn.GetDistanceString().c_str())
+                                                       turnUnitsIndex:static_cast<UInt8>(info.m_distToTurn.GetUnits())
                                                            streetName:@(info.m_displayedStreetName.c_str())
-                                                            turnUnits:@(info.m_turnUnitsSuffix.c_str())
                                                         turnImageName:[self turnImageName:info.m_turn isPrimary:YES]
                                                     nextTurnImageName:[self turnImageName:info.m_nextTurn isPrimary:NO]
                                                              speedMps:speedMps

@@ -973,10 +973,8 @@ public class RoutingController implements Initializable<Void>
     long hours = TimeUnit.SECONDS.toHours(seconds);
     String min = context.getString(R.string.minute);
     String hour = context.getString(R.string.hour);
-    SpannableStringBuilder displayedH = Utils.formatUnitsText(context, textSize, unitsSize,
-                                                              String.valueOf(hours), hour);
-    SpannableStringBuilder displayedM = Utils.formatUnitsText(context, textSize, unitsSize,
-                                                              String.valueOf(minutes), min);
+    SpannableStringBuilder displayedH = Utils.formatTime(context, textSize, unitsSize, String.valueOf(hours), hour);
+    SpannableStringBuilder displayedM = Utils.formatTime(context, textSize, unitsSize, String.valueOf(minutes), min);
     return hours == 0 ? displayedM : TextUtils.concat(displayedH + "\u00A0", displayedM);
   }
 

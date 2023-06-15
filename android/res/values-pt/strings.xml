@@ -479,12 +479,12 @@
 	<string name="current_location_unknown_message">A localização atual é desconhecida. Talvez esteja num edifício ou num túnel.</string>
 	<string name="current_location_unknown_continue_button">Continuar</string>
 	<string name="current_location_unknown_stop_button">Parar</string>
-	<string name="meter">m</string>
-	<string name="kilometer">Km</string>
+	<string name="m">m</string>
+	<string name="km">Km</string>
 	<string name="kilometers_per_hour">km/h</string>
-	<string name="mile">mi</string>
+	<string name="mi">mi</string>
 	<!-- A unit of measure -->
-	<string name="foot">ft</string>
+	<string name="ft">ft</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">h</string>
 	<string name="minute">min</string>

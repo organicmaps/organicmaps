@@ -765,16 +765,16 @@
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. Избиране на Докато приложението се използва";
 
-"meter" = "м";
+"m" = "м";
 
-"kilometer" = "км";
+"km" = "км";
 
 "kilometers_per_hour" = "km/h";
 
-"mile" = "ми";
+"mi" = "ми";
 
 /* A unit of measure */
-"foot" = "фут";
+"ft" = "фут";
 
 "miles_per_hour" = "mph";
 

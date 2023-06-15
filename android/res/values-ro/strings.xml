@@ -482,10 +482,10 @@
 	<string name="current_location_unknown_message">Poziția actuală este necunoscută. Poate te afli într-o clădire sau un tunel.</string>
 	<string name="current_location_unknown_continue_button">Continuă</string>
 	<string name="current_location_unknown_stop_button">Oprește</string>
-	<string name="meter">m</string>
-	<string name="kilometer">km</string>
+	<string name="m">m</string>
+	<string name="km">km</string>
 	<string name="kilometers_per_hour">km/h</string>
-	<string name="mile">mi</string>
+	<string name="mi">mi</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="minute">min</string>
 	<string name="placepage_more_button">Mai mult</string>

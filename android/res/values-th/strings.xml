@@ -474,12 +474,12 @@
 	<string name="current_location_unknown_message">ไม่ทราบชื่อสถานที่ปัจจุบัน คุณอาจจะอยู่ในอาคาร หรือ ในอุโมงค์</string>
 	<string name="current_location_unknown_continue_button">ดำเนินการต่อ</string>
 	<string name="current_location_unknown_stop_button">หยุด</string>
-	<string name="meter">ม.</string>
-	<string name="kilometer">กม.</string>
+	<string name="m">ม.</string>
+	<string name="km">กม.</string>
 	<string name="kilometers_per_hour">กม./ชม.</string>
-	<string name="mile">ไมล์</string>
+	<string name="mi">ไมล์</string>
 	<!-- A unit of measure -->
-	<string name="foot">ฟุต</string>
+	<string name="ft">ฟุต</string>
 	<string name="miles_per_hour">ไมล์/ชม.</string>
 	<string name="hour">ชม.</string>
 	<string name="minute">น.</string>

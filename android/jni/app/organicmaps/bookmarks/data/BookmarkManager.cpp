@@ -1,6 +1,7 @@
 #include "app/organicmaps/core/jni_helper.hpp"
 #include "app/organicmaps/Framework.hpp"
 #include "app/organicmaps/UserMarkHelper.hpp"
+#include "app/organicmaps/util/Distance.hpp"
 
 #include "map/bookmark_helpers.hpp"
 #include "map/place_page_info.hpp"
@@ -526,15 +527,11 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeGetTrack(
 {
   // Track(long trackId, long categoryId, String name, String lengthString, int color)
   static jmethodID const cId = jni::GetConstructorID(env, trackClazz,
-                                                     "(JJLjava/lang/String;Ljava/lang/String;I)V");
+                                                     "(JJLjava/lang/String;Lapp/organicmaps/util/Distance;I)V");
   auto const * nTrack = frm()->GetBookmarkManager().GetTrack(static_cast<kml::TrackId>(trackId));
 
   ASSERT(nTrack, ("Track must not be null with id:)", trackId));
 
-  auto const localizedUnits = platform::GetLocalizedDistanceUnits();
-  std::string formattedLength = measurement_utils::FormatDistanceWithLocalization(nTrack->GetLengthMeters(),
-                                                                                  localizedUnits.m_high,
-                                                                                  localizedUnits.m_low);
   dp::Color nColor = nTrack->GetColor(0);
 
   jint androidColor = shift(nColor.GetAlpha(), 24) +
@@ -544,7 +541,7 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeGetTrack(
 
   return env->NewObject(trackClazz, cId,
                         trackId, static_cast<jlong>(nTrack->GetGroupId()), jni::ToJavaString(env, nTrack->GetName()),
-                        jni::ToJavaString(env, formattedLength), androidColor);
+                        ToJavaDistance(env, platform::Distance::CreateFormatted(nTrack->GetLengthMeters())), androidColor);
 }
 
 JNIEXPORT jlong JNICALL

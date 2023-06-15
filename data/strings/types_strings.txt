@@ -18012,7 +18012,6 @@
 
   [type.power.plant.hydro]
     ref = type.power.generator.hydro
-    tr = Hidroelektrik Santrali
 
   [type.power.plant.solar]
     en = Solar Power Plant

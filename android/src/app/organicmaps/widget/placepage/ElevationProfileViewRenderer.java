@@ -1,5 +1,6 @@
 package app.organicmaps.widget.placepage;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -15,7 +16,6 @@ import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.ElevationInfo;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.util.UiUtils;
-import app.organicmaps.util.Utils;
 
 import java.util.Objects;
 
@@ -64,14 +64,16 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
   @Override
   public void render(@NonNull PlacePageData data)
   {
+    final Context context = mAscent.getContext();
+
     mElevationInfo = (ElevationInfo) data;
     mChartController.setData(mElevationInfo);
     mTitle.setText(mElevationInfo.getName());
     setDifficulty(mElevationInfo.getDifficulty());
-    mAscent.setText(formatDistance(mElevationInfo.getAscent()));
-    mDescent.setText(formatDistance(mElevationInfo.getDescent()));
-    mMaxAltitude.setText(formatDistance(mElevationInfo.getMaxAltitude()));
-    mMinAltitude.setText(formatDistance(mElevationInfo.getMinAltitude()));
+    mAscent.setText(formatDistance(context, mElevationInfo.getAscent()));
+    mDescent.setText(formatDistance(context, mElevationInfo.getDescent()));
+    mMaxAltitude.setText(formatDistance(context, mElevationInfo.getMaxAltitude()));
+    mMinAltitude.setText(formatDistance(context, mElevationInfo.getMinAltitude()));
     UiUtils.hideIf(mElevationInfo.getDuration() == 0, mTimeContainer);
     mTime.setText(RoutingController.formatRoutingTime(mTitle.getContext(),
                                                       (int) mElevationInfo.getDuration(),
@@ -79,9 +81,9 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
   }
 
   @NonNull
-  private static String formatDistance(int distance)
+  private static String formatDistance(final Context context, int distance)
   {
-    return Framework.nativeFormatAltitude(distance);
+    return Framework.nativeFormatAltitude(distance).toString(context);
   }
 
   @Override

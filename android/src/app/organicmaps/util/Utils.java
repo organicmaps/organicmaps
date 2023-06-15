@@ -356,11 +356,24 @@ public class Utils
       NavUtils.navigateUpFromSameTask(activity);
   }
 
-  public static SpannableStringBuilder formatUnitsText(Context context, @DimenRes int size, @DimenRes int units, String dimension, String unitText)
+  public static SpannableStringBuilder formatTime(Context context, @DimenRes int size, @DimenRes int units, String dimension, String unitText)
   {
     final SpannableStringBuilder res = new SpannableStringBuilder(dimension).append("\u00A0").append(unitText);
     res.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(context, size), false), 0, dimension.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     res.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(context, units), false), dimension.length(), res.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    return res;
+  }
+
+  @NonNull
+  public static SpannableStringBuilder formatDistance(Context context, @NonNull Distance distance)
+  {
+    final SpannableStringBuilder res = new SpannableStringBuilder(distance.toString(context));
+    res.setSpan(
+        new AbsoluteSizeSpan(UiUtils.dimen(context, R.dimen.text_size_nav_number), false),
+        0, distance.mDistanceStr.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    res.setSpan(
+        new AbsoluteSizeSpan(UiUtils.dimen(context, R.dimen.text_size_nav_dimension), false),
+        distance.mDistanceStr.length(), res.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     return res;
   }
 

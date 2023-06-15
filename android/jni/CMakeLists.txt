@@ -16,6 +16,7 @@ set(SRC
   app/organicmaps/opengl/gl3stub.h
   app/organicmaps/platform/GuiThread.hpp
   app/organicmaps/platform/AndroidPlatform.hpp
+  app/organicmaps/util/Distance.hpp
   app/organicmaps/util/FeatureIdBuilder.hpp
   app/organicmaps/vulkan/android_vulkan_context_factory.hpp
 

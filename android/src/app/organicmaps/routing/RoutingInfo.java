@@ -6,15 +6,14 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 
 import app.organicmaps.R;
+import app.organicmaps.util.Distance;
 
 public class RoutingInfo
 {
   // Target (end point of route).
-  public final String distToTarget;
-  public final String targetUnits;
+  public final Distance distToTarget;
   // Next turn.
-  public final String distToTurn;
-  public final String turnUnits;
+  public final Distance distToTurn;
 
   public final int totalTimeInSeconds;
   // Current street name.
@@ -133,15 +132,13 @@ public class RoutingInfo
     }
   }
 
-  public RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix, String currentStreet, String nextStreet, double completionPercent,
+  public RoutingInfo(Distance distToTarget, Distance distToTurn, String currentStreet, String nextStreet, double completionPercent,
                      int vehicleTurnOrdinal, int vehicleNextTurnOrdinal, int pedestrianTurnOrdinal, int exitNum,
                      int totalTime, SingleLaneInfo[] lanes, boolean speedLimitExceeded,
                      boolean shouldPlayWarningSignal)
   {
     this.distToTarget = distToTarget;
-    this.targetUnits = units;
-    this.turnUnits = turnSuffix;
-    this.distToTurn = distTurn;
+    this.distToTurn = distToTurn;
     this.currentStreet = currentStreet;
     this.nextStreet = nextStreet;
     this.totalTimeInSeconds = totalTime;

@@ -25,11 +25,7 @@ public class StringUtils
   public static native String[] nativeFilterContainsNormalized(String[] strings, String substr);
 
   public static native Pair<String, String> nativeFormatSpeedAndUnits(double metersPerSecond);
-  public static native String nativeFormatDistance(double meters);
-  @NonNull
-  public static native String nativeFormatDistanceWithLocalization(double meters,
-                                                                   @NonNull String high,
-                                                                   @NonNull String low);
+  public static native Distance nativeFormatDistance(double meters);
   @NonNull
   public static native Pair<String, String> nativeGetLocalizedDistanceUnits();
   @NonNull

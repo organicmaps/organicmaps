@@ -11,6 +11,7 @@ import android.text.style.StyleSpan;
 import androidx.annotation.NonNull;
 
 import app.organicmaps.bookmarks.data.FeatureId;
+import app.organicmaps.util.Distance;
 import app.organicmaps.util.Utils;
 
 /**
@@ -36,7 +37,7 @@ public class SearchResult implements PopularityProvider
     public final FeatureId featureId;
     public final String featureType;
     public final String region;
-    public final String distance;
+    public final Distance distance;
     public final String cuisine;
     public final String brand;
     public final String airportIata;
@@ -46,7 +47,7 @@ public class SearchResult implements PopularityProvider
     public final int minutesUntilClosed;
     public final boolean hasPopularityHigherPriority;
 
-    public Description(FeatureId featureId, String featureType, String region, String distance,
+    public Description(FeatureId featureId, String featureType, String region, Distance distance,
                        String cuisine, String brand, String airportIata, String roadShields,
                        int openNow, int minutesUntilOpen, int minutesUntilClosed,
                        boolean hasPopularityHigherPriority)

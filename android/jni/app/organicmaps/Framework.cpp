@@ -4,6 +4,7 @@
 #include "app/organicmaps/UserMarkHelper.hpp"
 #include "app/organicmaps/opengl/androidoglcontextfactory.hpp"
 #include "app/organicmaps/platform/AndroidPlatform.hpp"
+#include "app/organicmaps/util/Distance.hpp"
 #include "app/organicmaps/util/FeatureIdBuilder.hpp"
 #include "app/organicmaps/util/NetworkPolicy.hpp"
 #include "app/organicmaps/vulkan/android_vulkan_context_factory.hpp"
@@ -925,16 +926,16 @@ JNIEXPORT jobject JNICALL
 Java_app_organicmaps_Framework_nativeGetDistanceAndAzimuth(
     JNIEnv * env, jclass, jdouble merX, jdouble merY, jdouble cLat, jdouble cLon, jdouble north)
 {
-  string distance;
+  platform::Distance distance;
   double azimut = -1.0;
   frm()->GetDistanceAndAzimut(m2::PointD(merX, merY), cLat, cLon, north, distance, azimut);
 
   static jclass const daClazz = jni::GetGlobalClassRef(env, "app/organicmaps/bookmarks/data/DistanceAndAzimut");
-  // Java signature : DistanceAndAzimut(String distance, double azimuth)
-  static jmethodID const methodID = jni::GetConstructorID(env, daClazz, "(Ljava/lang/String;D)V");
+  // Java signature : DistanceAndAzimut(Distance distance, double azimuth)
+  static jmethodID const methodID = jni::GetConstructorID(env, daClazz, "(Lapp/organicmaps/util/Distance;D)V");
 
   return env->NewObject(daClazz, methodID,
-                        jni::ToJavaString(env, distance.c_str()),
+                        ToJavaDistance(env, distance),
                         static_cast<jdouble>(azimut));
 }
 
@@ -980,11 +981,10 @@ Java_app_organicmaps_Framework_nativeFormatLatLon(JNIEnv * env, jclass, jdouble 
   }
 }
 
-JNIEXPORT jstring JNICALL
+JNIEXPORT jobject JNICALL
 Java_app_organicmaps_Framework_nativeFormatAltitude(JNIEnv * env, jclass, jdouble alt)
 {
-  auto const localizedUnits = platform::GetLocalizedAltitudeUnits();
-  return jni::ToJavaString(env, measurement_utils::FormatAltitudeWithLocalization(alt, localizedUnits.m_low));
+  return ToJavaDistance(env, platform::Distance::CreateAltitudeFormatted(alt));
 }
 
 JNIEXPORT jstring JNICALL
@@ -1210,19 +1210,16 @@ Java_app_organicmaps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass)
 
   routing::FollowingInfo info;
   fr->GetRoutingManager().GetRouteFollowingInfo(info);
-  if (!info.IsValid())
-    return nullptr;
 
   static jclass const klass = jni::GetGlobalClassRef(env, "app/organicmaps/routing/RoutingInfo");
-  // Java signature : RoutingInfo(String distToTarget, String units, String distTurn, String
-  //                              turnSuffix, String currentStreet, String nextStreet,
+  // Java signature : RoutingInfo(Distance distToTarget, Distance distToTurn,
+  //                              String currentStreet, String nextStreet,
   //                              double completionPercent, int vehicleTurnOrdinal, int
   //                              vehicleNextTurnOrdinal, int pedestrianTurnOrdinal, int exitNum,
   //                              int totalTime, SingleLaneInfo[] lanes)
   static jmethodID const ctorRouteInfoID =
       jni::GetConstructorID(env, klass,
-                            "(Ljava/lang/String;Ljava/lang/String;"
-                            "Ljava/lang/String;Ljava/lang/String;"
+                            "(Lapp/organicmaps/util/Distance;Lapp/organicmaps/util/Distance;"
                             "Ljava/lang/String;Ljava/lang/String;DIIIII"
                             "[Lapp/organicmaps/routing/SingleLaneInfo;ZZ)V");
 
@@ -1255,9 +1252,8 @@ Java_app_organicmaps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass)
   auto const isSpeedCamLimitExceeded = rm.IsRoutingActive() ? rm.IsSpeedCamLimitExceeded() : false;
   auto const shouldPlaySignal = frm()->GetRoutingManager().GetSpeedCamManager().ShouldPlayBeepSignal();
   jobject const result = env->NewObject(
-      klass, ctorRouteInfoID, jni::ToJavaString(env, info.m_distToTarget),
-      jni::ToJavaString(env, info.m_targetUnitsSuffix), jni::ToJavaString(env, info.m_distToTurn),
-      jni::ToJavaString(env, info.m_turnUnitsSuffix), jni::ToJavaString(env, info.m_sourceName),
+      klass, ctorRouteInfoID, ToJavaDistance(env, info.m_distToTarget),
+      ToJavaDistance(env, info.m_distToTurn), jni::ToJavaString(env, info.m_sourceName),
       jni::ToJavaString(env, info.m_displayedStreetName), info.m_completionPercent, info.m_turn,
       info.m_nextTurn, info.m_pedestrianTurn, info.m_exitNum, info.m_time, jLanes,
       static_cast<jboolean>(isSpeedCamLimitExceeded), static_cast<jboolean>(shouldPlaySignal));

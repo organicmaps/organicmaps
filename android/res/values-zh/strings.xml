@@ -482,12 +482,12 @@
 	<string name="current_location_unknown_message">当前位置未知，可能您在建筑内或隧道内。</string>
 	<string name="current_location_unknown_continue_button">继续</string>
 	<string name="current_location_unknown_stop_button">停止</string>
-	<string name="meter">米</string>
-	<string name="kilometer">公里</string>
+	<string name="m">米</string>
+	<string name="km">公里</string>
 	<string name="kilometers_per_hour">公里每小时</string>
-	<string name="mile">英里</string>
+	<string name="mi">英里</string>
 	<!-- A unit of measure -->
-	<string name="foot">英尺</string>
+	<string name="ft">英尺</string>
 	<string name="miles_per_hour">英里每小时</string>
 	<string name="hour">小時</string>
 	<string name="minute">分鐘</string>

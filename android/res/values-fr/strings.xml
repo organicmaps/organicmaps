@@ -500,12 +500,12 @@
 	<string name="current_location_unknown_message">L\'emplacement actuel est inconnu. Vous êtes peut-être dans un bâtiment ou sous un tunnel.</string>
 	<string name="current_location_unknown_continue_button">Continuer</string>
 	<string name="current_location_unknown_stop_button">Arrêter</string>
-	<string name="meter">m</string>
-	<string name="kilometer">km</string>
+	<string name="m">m</string>
+	<string name="km">km</string>
 	<string name="kilometers_per_hour">km/h</string>
-	<string name="mile">mi</string>
+	<string name="mi">mi</string>
 	<!-- A unit of measure -->
-	<string name="foot">ft</string>
+	<string name="ft">ft</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">h</string>
 	<string name="minute">min</string>

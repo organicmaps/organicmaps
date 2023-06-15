@@ -465,12 +465,12 @@
 	<string name="current_location_unknown_message">वर्तमान स्थान अज्ञात आहे. कदाचित तुम्ही एखाद्या इमारतीत किंवा बोगद्यात असाल.</string>
 	<string name="current_location_unknown_continue_button">चालू</string>
 	<string name="current_location_unknown_stop_button">थांबा</string>
-	<string name="meter">m</string>
-	<string name="kilometer">किमी</string>
+	<string name="m">m</string>
+	<string name="km">किमी</string>
 	<string name="kilometers_per_hour">km/h</string>
-	<string name="mile">mi</string>
+	<string name="mi">mi</string>
 	<!-- A unit of measure -->
-	<string name="foot">फूट</string>
+	<string name="ft">फूट</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">तास</string>
 	<string name="minute">मिनिट</string>

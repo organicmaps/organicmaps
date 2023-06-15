@@ -501,12 +501,12 @@
 	<string name="current_location_unknown_message">الموقع الحالي غير معروف. ربما تتواجد داخل مبنى أو نفق.</string>
 	<string name="current_location_unknown_continue_button">الاستمرار</string>
 	<string name="current_location_unknown_stop_button">إيقاف</string>
-	<string name="meter">متر</string>
-	<string name="kilometer">كم</string>
+	<string name="m">متر</string>
+	<string name="km">كم</string>
 	<string name="kilometers_per_hour">كم/ساعة</string>
-	<string name="mile">ميل</string>
+	<string name="mi">ميل</string>
 	<!-- A unit of measure -->
-	<string name="foot">قدم</string>
+	<string name="ft">قدم</string>
 	<string name="miles_per_hour">ميل/ساعة</string>
 	<string name="hour">س</string>
 	<string name="minute">د</string>

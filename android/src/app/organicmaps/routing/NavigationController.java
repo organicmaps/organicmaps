@@ -181,16 +181,9 @@ public class NavigationController implements Application.ActivityLifecycleCallba
 
   private void updateVehicle(RoutingInfo info)
   {
-    if (!TextUtils.isEmpty(info.distToTurn))
-    {
-      SpannableStringBuilder nextTurnDistance = Utils.formatUnitsText(mFrame.getContext(),
-                                                                      R.dimen.text_size_nav_number,
-                                                                      R.dimen.text_size_nav_dimension,
-                                                                      info.distToTurn,
-                                                                      info.turnUnits);
-      mNextTurnDistance.setText(nextTurnDistance);
-      info.carDirection.setTurnDrawable(mNextTurnImage);
-    }
+    SpannableStringBuilder nextTurnDistance = Utils.formatDistance(mFrame.getContext(), info.distToTurn);
+    mNextTurnDistance.setText(nextTurnDistance);
+    info.carDirection.setTurnDrawable(mNextTurnImage);
 
     if (RoutingInfo.CarDirection.isRoundAbout(info.carDirection))
       UiUtils.setTextAndShow(mCircleExit, String.valueOf(info.exitNum));
@@ -215,9 +208,7 @@ public class NavigationController implements Application.ActivityLifecycleCallba
 
   private void updatePedestrian(RoutingInfo info)
   {
-    mNextTurnDistance.setText(
-        Utils.formatUnitsText(mFrame.getContext(), R.dimen.text_size_nav_number,
-                              R.dimen.text_size_nav_dimension, info.distToTurn, info.turnUnits));
+    mNextTurnDistance.setText(Utils.formatDistance(mFrame.getContext(), info.distToTurn));
 
     info.pedestrianTurnDirection.setTurnDrawable(mNextTurnImage);
   }

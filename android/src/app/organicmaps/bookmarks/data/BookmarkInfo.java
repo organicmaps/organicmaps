@@ -4,6 +4,7 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 
 import app.organicmaps.Framework;
+import app.organicmaps.util.Distance;
 import app.organicmaps.util.GeoUtils;
 
 public class BookmarkInfo
@@ -71,7 +72,7 @@ public class BookmarkInfo
   }
 
   @NonNull
-  public String getDistance(double latitude, double longitude, double v)
+  public Distance getDistance(double latitude, double longitude, double v)
   {
     return getDistanceAndAzimuth(latitude, longitude, v).getDistance();
   }

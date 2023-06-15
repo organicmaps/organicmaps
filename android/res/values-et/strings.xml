@@ -486,12 +486,12 @@
 	<string name="current_location_unknown_message">Hetkeasukoht on teadmata. Võib-olla oled hoones sees või tunnelis.</string>
 	<string name="current_location_unknown_continue_button">Jätka</string>
 	<string name="current_location_unknown_stop_button">Lõpeta</string>
-	<string name="meter">m</string>
-	<string name="kilometer">km</string>
+	<string name="m">m</string>
+	<string name="km">km</string>
 	<string name="kilometers_per_hour">km/h</string>
-	<string name="mile">mi</string>
+	<string name="mi">mi</string>
 	<!-- A unit of measure -->
-	<string name="foot">jalga</string>
+	<string name="ft">jalga</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">h</string>
 	<string name="minute">min</string>

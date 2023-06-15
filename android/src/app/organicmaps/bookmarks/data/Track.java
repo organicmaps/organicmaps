@@ -1,25 +1,27 @@
 package app.organicmaps.bookmarks.data;
 
+import app.organicmaps.util.Distance;
+
 public class Track
 {
   private final long mTrackId;
   private final long mCategoryId;
   private final String mName;
-  private final String mLengthString;
+  private final Distance mLength;
   private final int mColor;
 
-  Track(long trackId, long categoryId, String name, String lengthString, int color)
+  Track(long trackId, long categoryId, String name, Distance length, int color)
   {
     mTrackId = trackId;
     mCategoryId = categoryId;
     mName = name;
-    mLengthString = lengthString;
+    mLength = length;
     mColor = color;
   }
 
   public String getName() { return mName; }
 
-  public String getLengthString() { return mLengthString;}
+  public Distance getLength() { return mLength;}
 
   public int getColor() { return mColor; }
 

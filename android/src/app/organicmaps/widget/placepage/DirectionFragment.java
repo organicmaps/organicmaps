@@ -119,7 +119,7 @@ public class DirectionFragment extends BaseMwmDialogFragment
       final DistanceAndAzimut distanceAndAzimuth =
           Framework.nativeGetDistanceAndAzimuthFromLatLon(mMapObject.getLat(), mMapObject.getLon(),
                                                           location.getLatitude(), location.getLongitude(), 0.0);
-      mTvDistance.setText(distanceAndAzimuth.getDistance());
+      mTvDistance.setText(distanceAndAzimuth.getDistance().toString(requireContext()));
     }
   }
 

@@ -470,12 +470,12 @@
 	<string name="current_location_unknown_message">現在地が不明です。建物の中やトンネル内の可能性があります。</string>
 	<string name="current_location_unknown_continue_button">続ける</string>
 	<string name="current_location_unknown_stop_button">止める</string>
-	<string name="meter">m</string>
-	<string name="kilometer">km</string>
+	<string name="m">m</string>
+	<string name="km">km</string>
 	<string name="kilometers_per_hour">キロメートル毎時</string>
-	<string name="mile">マイル</string>
+	<string name="mi">マイル</string>
 	<!-- A unit of measure -->
-	<string name="foot">フィート</string>
+	<string name="ft">フィート</string>
 	<string name="miles_per_hour">マイル毎時</string>
 	<string name="hour">時間</string>
 	<string name="minute">分</string>

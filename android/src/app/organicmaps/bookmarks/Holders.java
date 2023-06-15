@@ -367,7 +367,7 @@ public class Holders
       final Location loc = LocationHelper.INSTANCE.getSavedLocation();
 
       String distanceValue = loc == null ? "" : bookmark.getDistance(loc.getLatitude(),
-                                                                     loc.getLongitude(), 0.0);
+                                                                     loc.getLongitude(), 0.0).toString(mDistance.getContext());
       String separator = "";
       if (!distanceValue.isEmpty() && !bookmark.getFeatureType().isEmpty())
         separator = " • ";
@@ -412,7 +412,7 @@ public class Holders
       mDistance.setText(new StringBuilder().append(mDistance.getContext()
                                                             .getString(R.string.length))
                                            .append(" ")
-                                           .append(track.getLengthString())
+                                           .append(track.getLength().toString(mDistance.getContext()))
                                            .toString());
       Drawable circle = Graphics.drawCircle(track.getColor(), R.dimen.track_circle_size,
                                             mIcon.getContext().getResources());

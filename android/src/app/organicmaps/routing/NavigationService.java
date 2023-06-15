@@ -234,7 +234,7 @@ public class NavigationService extends Service
           .append(": ")
           .append(Utils.calculateFinishTime(routingInfo.totalTimeInSeconds));
       mRemoteViews.setImageViewResource(R.id.navigation_icon, routingInfo.carDirection.getTurnRes());
-      mRemoteViews.setTextViewText(R.id.navigation_distance_text, routingInfo.distToTurn + " " + routingInfo.turnUnits);
+      mRemoteViews.setTextViewText(R.id.navigation_distance_text, routingInfo.distToTurn.toString(getApplicationContext()));
     }
     mRemoteViews.setTextViewText(R.id.navigation_secondary_text, stringBuilderNavigationSecondaryText
         .toString());

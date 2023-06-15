@@ -10,6 +10,7 @@
 
 #include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
+#include "platform/distance.hpp"
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
@@ -186,7 +187,7 @@ string MapObject::GetElevationFormatted() const
   {
     double value;
     if (strings::to_double(sv, value))
-      return measurement_utils::FormatAltitude(value);
+      return platform::Distance::CreateAltitudeFormatted(value).ToString();
     else
       LOG(LWARNING, ("Invalid elevation metadata:", sv));
   }
