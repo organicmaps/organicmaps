@@ -43,6 +43,7 @@
         android:gravity="start|top"
         android:text="@string/category_desc_more"
         android:textColor="?attr/colorAccent"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:layout_marginTop="2dp" />
   </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
