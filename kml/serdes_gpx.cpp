@@ -27,6 +27,7 @@ std::string_view constexpr kWpt = "wpt";
 std::string_view constexpr kRtePt = "rtept";
 std::string_view constexpr kName = "name";
 std::string_view constexpr kColor = "color";
+std::string_view constexpr kGarminColor = "gpxx:DisplayColor";
 std::string_view constexpr kDesc = "desc";
 std::string_view constexpr kMetadata = "metadata";
 
@@ -139,6 +140,41 @@ void GpxParser::ParseColor(std::string const & value)
   m_color = kml::ToRGBA(colorBytes[0], colorBytes[1], colorBytes[2], (char)255);
 }
 
+
+// Garmin extensions spec: https://www8.garmin.com/xmlschemas/GpxExtensionsv3.xsd
+// Color mapping: https://help.locusmap.eu/topic/extend-garmin-gpx-compatibilty
+void GpxParser::ParseGarminColor(std::string const & v)
+{
+  static std::unordered_map<std::string, std::string> const kGarminToHex = {
+      {"Black", "000000"},
+      {"DarkRed", "8b0000"},
+      {"DarkGreen", "006400"},
+      {"DarkYellow", "b5b820"},
+      {"DarkBlue", "00008b"},
+      {"DarkMagenta", "8b008b"},
+      {"DarkCyan", "008b8b"},
+      {"LightGray", "cccccc"},
+      {"DarkGray", "444444"},
+      {"Red", "ff0000"},
+      {"Green", "00ff00"},
+      {"Yellow", "ffff00"},
+      {"Blue", "0000ff"},
+      {"Magenta", "ff00ff"},
+      {"Cyan", "00ffff"},
+      {"White", "ffffff"},
+      {"Transparent", "ff0000"}
+  };
+  auto const it = kGarminToHex.find(v);
+  if (it != kGarminToHex.end()) {
+    return ParseColor(it->second);
+  }
+  else
+  {
+    LOG(LWARNING, ("Unsupported color value", v));
+    return ParseColor("ff0000");  // default to red
+  }
+}
+
 void GpxParser::Pop(std::string_view tag)
 {
   ASSERT_EQUAL(m_tags.back(), tag, ());
@@ -238,6 +274,8 @@ void GpxParser::CharData(std::string value)
     }
     if (currTag == gpx::kColor)
       ParseColor(value);
+    else if (currTag == gpx::kGarminColor)
+      ParseGarminColor(value);
   }
 }
 }  // namespace gpx

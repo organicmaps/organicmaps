@@ -77,4 +77,35 @@
     </trkpt>
     </trkseg>
 </trk>
+
+<trk>
+    <name>black</name>
+    <extensions>
+      <gpxx:TrackExtension xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3">
+        <gpxx:DisplayColor>Black</gpxx:DisplayColor>
+      </gpxx:TrackExtension>
+    </extensions>
+    <trkseg>
+      <trkpt lat="48.766598" lon="-3.5625">
+        <ele>75.59999</ele>
+        <time>2013-03-08T09:05:06Z</time>
+      </trkpt>
+    </trkseg>
+</trk>
+
+<trk>
+    <name>reset to red</name>
+    <extensions>
+      <gpxx:TrackExtension xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3">
+        <gpxx:DisplayColor>UnussportedGarminColor</gpxx:DisplayColor>
+      </gpxx:TrackExtension>
+    </extensions>
+    <trkseg>
+      <trkpt lat="48.766598" lon="-3.5625">
+        <ele>75.59999</ele>
+        <time>2013-03-08T09:05:06Z</time>
+      </trkpt>
+    </trkseg>
+</trk>
+
 </gpx>
