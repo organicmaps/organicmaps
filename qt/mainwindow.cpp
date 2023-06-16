@@ -80,6 +80,13 @@ void FormatMapSize(uint64_t sizeInBytes, std::string & units, size_t & sizeToDow
   }
 }
 
+template <class T> T * CreateBlackControl(QString const & name)
+{
+  T * p = new T(name);
+  p->setStyleSheet("color: black;");
+  return p;
+}
+
 }  // namespace
 
 // Defined in osm_auth_dialog.cpp.
@@ -447,20 +454,18 @@ Framework & MainWindow::GetFramework() const
 
 void MainWindow::CreateCountryStatusControls()
 {
-  setStyleSheet("QPushButton { color: black; } QLabel { color: black; }");
-
   QHBoxLayout * mainLayout = new QHBoxLayout();
-  m_downloadButton = new QPushButton("Download");
+  m_downloadButton = CreateBlackControl<QPushButton>("Download");
   mainLayout->addWidget(m_downloadButton, 0, Qt::AlignHCenter);
   m_downloadButton->setVisible(false);
   connect(m_downloadButton, &QAbstractButton::released, this, &MainWindow::OnDownloadClicked);
 
-  m_retryButton = new QPushButton("Retry downloading");
+  m_retryButton = CreateBlackControl<QPushButton>("Retry downloading");
   mainLayout->addWidget(m_retryButton, 0, Qt::AlignHCenter);
   m_retryButton->setVisible(false);
   connect(m_retryButton, &QAbstractButton::released, this, &MainWindow::OnRetryDownloadClicked);
 
-  m_downloadingStatusLabel = new QLabel("Downloading");
+  m_downloadingStatusLabel = CreateBlackControl<QLabel>("Downloading");
   mainLayout->addWidget(m_downloadingStatusLabel, 0, Qt::AlignHCenter);
   m_downloadingStatusLabel->setVisible(false);
 
