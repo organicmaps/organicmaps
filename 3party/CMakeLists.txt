@@ -45,13 +45,15 @@ if (NOT LINUX_DETECTED)
   add_subdirectory(icu)
 endif()
 
+add_subdirectory(fast_obj)
 add_subdirectory(liboauthcpp)
 add_subdirectory(minizip)
+add_subdirectory(open-location-code)
 add_subdirectory(opening_hours)
 add_subdirectory(sdf_image)
 add_subdirectory(stb_image)
 add_subdirectory(succinct)
-add_subdirectory(open-location-code)
+
 add_subdirectory(vulkan_wrapper)
 
 if (PLATFORM_DESKTOP)

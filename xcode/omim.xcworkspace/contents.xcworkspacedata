@@ -49,6 +49,9 @@
          location = "container:gflags/gflags.xcodeproj">
       </FileRef>
       <FileRef
+         location = "container:fast_obj/fast_obj.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "container:icu/icu.xcodeproj">
       </FileRef>
       <FileRef

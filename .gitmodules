@@ -53,3 +53,6 @@
 [submodule "3party/gflags"]
 	path = 3party/gflags
 	url = https://github.com/gflags/gflags
+[submodule "3party/fast_obj"]
+	path = 3party/fast_obj
+	url = https://github.com/thisistherk/fast_obj
