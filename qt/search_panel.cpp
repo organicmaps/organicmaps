@@ -67,7 +67,7 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   groupBox->setLayout(modeLayout);
   groupBox->setFlat(true);
   searchModeButtons->button(static_cast<int>(search::Mode::Everywhere))->setChecked(true);
-  connect(searchModeButtons, SIGNAL(buttonClicked(int)), this, SLOT(OnSearchModeChanged(int)));
+  connect(searchModeButtons, SIGNAL(idClicked(int)), this, SLOT(OnSearchModeChanged(int)));
 
   m_isCategory = new QCheckBox(tr("Category request"));
   m_isCategory->setCheckState(Qt::Unchecked);
