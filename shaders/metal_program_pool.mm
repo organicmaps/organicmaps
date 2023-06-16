@@ -84,8 +84,8 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
   ProgramInfo("vsDebugRect", "fsDebugRect", {{0, 0}}),                       // DebugRect
   ProgramInfo("vsScreenQuad", "fsScreenQuad", {{0, 1}}),                     // ScreenQuad
   ProgramInfo("vsArrow3d", "fsArrow3d", {{0, 0}, {1, 1}}),                   // Arrow3d
-  ProgramInfo("vsArrow3dShadow", "fsArrow3dShadow", {{0, 0}}),               // Arrow3dShadow
-  ProgramInfo("vsArrow3dShadow", "fsArrow3dOutline", {{0, 0}}),              // Arrow3dOutline
+  ProgramInfo("vsArrow3dShadow", "fsArrow3dShadow", {{0, 0}, {1, 1}}),       // Arrow3dShadow
+  ProgramInfo("vsArrow3dShadow", "fsArrow3dOutline", {{0, 0}, {1, 1}}),      // Arrow3dOutline
   ProgramInfo("vsColoredSymbolBillboard", "fsColoredSymbol", {{0, 2}}),      // ColoredSymbolBillboard
   ProgramInfo("vsTexturingBillboard", "fsTexturing", {{0, 2}}),              // TexturingBillboard
   ProgramInfo("vsMaskedTexturingBillboard", "fsMaskedTexturing", {{0, 3}}),  // MaskedTexturingBillboard
