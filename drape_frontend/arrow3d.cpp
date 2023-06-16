@@ -10,7 +10,13 @@
 #include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
 
+#include "coding/reader.hpp"
+
 #include "geometry/screenbase.hpp"
+
+#include "3party/fast_obj/fast_obj.h"
+
+#include <cstring>
 
 namespace df
 {
@@ -21,15 +27,146 @@ double constexpr kArrow3dScaleMax = 2.2;
 int constexpr kArrow3dMinZoom = 16;
 }  // namespace arrow3d
 
+namespace {
 float constexpr kOutlineScale = 1.2f;
 
-int constexpr kComponentsInVertex = 4;
+int constexpr kComponentsInVertex = 3;
 int constexpr kComponentsInNormal = 3;
+int constexpr kComponentsInTexCoord = 2;
 
 df::ColorConstant const kArrow3DShadowColor = "Arrow3DShadow";
 df::ColorConstant const kArrow3DObsoleteColor = "Arrow3DObsolete";
 df::ColorConstant const kArrow3DColor = "Arrow3D";
 df::ColorConstant const kArrow3DOutlineColor = "Arrow3DOutline";
+
+std::string const kDefaultArrowMesh = "arrow.obj";
+std::string const kDefaultArrowShadowMesh = "arrow_shadow.obj";
+
+std::string const kMainFileId = "main_obj_file_id";
+
+using TLoadingCompletion = std::function<void(std::vector<float> positions,
+                                              std::vector<float> normals,
+                                              std::vector<float> texCoords)>;
+using TLoadingFailure = std::function<void(std::string const &)>;
+
+namespace fast_obj_adapter {
+void * FileOpen(char const * path, void * userData)
+{
+  // Load only the main OBJ file, skip all the files that can be referred
+  // inside the OBJ model.
+  if (kMainFileId != path) {
+    return nullptr;
+  }
+  return userData;
+}
+
+void FileClose(void * file, void * userData)
+{
+  // Do nothing.
+}
+
+size_t FileRead(void * file, void * dst, size_t bytes, void * userData)
+{
+  auto reader = static_cast<ReaderSource<ReaderPtr<Reader>> *>(userData);
+  CHECK(reader != nullptr, ());
+  auto const sz = reader->Size();
+  if (sz == 0) {
+    return 0;
+  }
+  
+  if (bytes > sz) {
+    bytes = static_cast<size_t>(sz);
+  }
+  
+  auto const p = reader->Pos();
+  reader->Read(dst, bytes);
+  CHECK_LESS_OR_EQUAL(p, reader->Pos(), ());
+  return static_cast<size_t>(reader->Pos() - p);
+}
+
+unsigned long FileSize(void * file, void * userData)
+{
+  auto reader = static_cast<ReaderSource<ReaderPtr<Reader>> *>(userData);
+  CHECK(reader != nullptr, ());
+  CHECK_LESS(reader->Size(), static_cast<uint64_t>(std::numeric_limits<size_t>::max()), ());
+  return static_cast<size_t>(reader->Size());
+}
+}  // namespace fast_obj_adapter
+
+bool LoadMesh(std::string const & pathToMesh,
+              TLoadingCompletion const & completionHandler,
+              TLoadingFailure const & failureHandler)
+{
+  CHECK(completionHandler != nullptr, ());
+  CHECK(failureHandler != nullptr, ());
+
+  fastObjMesh * meshData = nullptr;
+  try
+  {
+    ReaderPtr<Reader> reader = GetStyleReader().GetDefaultResourceReader(pathToMesh);
+    ReaderSource<ReaderPtr<Reader>> source(reader);
+    
+    // Read OBJ file.
+    fastObjCallbacks callbacks;
+    callbacks.file_open = fast_obj_adapter::FileOpen;
+    callbacks.file_close = fast_obj_adapter::FileClose;
+    callbacks.file_read = fast_obj_adapter::FileRead;
+    callbacks.file_size = fast_obj_adapter::FileSize;
+    meshData = fast_obj_read_with_callbacks(kMainFileId.c_str(), &callbacks, &source);
+    CHECK(meshData != nullptr, ());
+    
+    // Fill buffers.
+    std::vector<float> positions;
+    if (meshData->position_count > 1)
+      positions.resize(meshData->index_count * kComponentsInVertex);
+    
+    std::vector<float> normals;
+    if (meshData->normal_count > 1)
+      normals.resize(meshData->index_count * kComponentsInNormal);
+    
+    std::vector<float> texCoords;
+    if (meshData->texcoord_count > 1)
+      texCoords.resize(meshData->index_count * kComponentsInTexCoord);
+    
+    for (uint32_t i = 0; i < meshData->index_count; ++i)
+    {
+      if (meshData->position_count > 1)
+      {
+        memcpy(&positions[i * kComponentsInVertex],
+               &meshData->positions[meshData->indices[i].p * kComponentsInVertex],
+               sizeof(float) * kComponentsInVertex);
+      }
+      
+      if (meshData->normal_count > 1)
+      {
+        memcpy(&normals[i * kComponentsInNormal],
+               &meshData->normals[meshData->indices[i].n * kComponentsInNormal],
+               sizeof(float) * kComponentsInNormal);
+      }
+      
+      if (meshData->texcoord_count > 1)
+      {
+        memcpy(&texCoords[i * kComponentsInTexCoord],
+               &meshData->texcoords[meshData->indices[i].t * kComponentsInTexCoord],
+               sizeof(float) * kComponentsInTexCoord);
+      }
+    }
+    
+    completionHandler(std::move(positions), std::move(normals), std::move(texCoords));
+    
+    fast_obj_destroy(meshData);
+  }
+  catch (RootException & e)
+  {
+    if (meshData)
+      fast_obj_destroy(meshData);
+    failureHandler(e.what());
+    return false;
+  }
+
+  return true;
+}
+}  // namespace
 
 Arrow3d::Arrow3d(ref_ptr<dp::GraphicsContext> context)
   : m_arrowMesh(context, dp::MeshObject::DrawPrimitive::Triangles)
@@ -37,39 +174,61 @@ Arrow3d::Arrow3d(ref_ptr<dp::GraphicsContext> context)
   , m_state(CreateRenderState(gpu::Program::Arrow3d, DepthLayer::OverlayLayer))
 {
   m_state.SetDepthTestEnabled(false);
-  std::vector<float> vertices = {
-    0.0f, 0.0f, -1.0f, 1.0f,    -1.2f, -1.0f, 0.0f, 1.0f,   0.0f, 2.0f, 0.0f, 1.0f,
-    0.0f, 0.0f, -1.0f, 1.0f,    0.0f,  2.0f, 0.0f, 1.0f,    1.2f, -1.0f, 0.0f, 1.0f,
-    0.0f, 0.0f, -1.0f, 1.0f,    0.0f, -0.5f, 0.0f, 1.0f,    -1.2f, -1.0f, 0.0f, 1.0f,
-    0.0f, 0.0f, -1.0f, 1.0f,    1.2f, -1.0f, 0.0f, 1.0f,    0.0f, -0.5f, 0.0f, 1.0f,
-
-    0.0f, 2.27f, 0.0f, 0.0f,    1.4f, -1.17f, 0.0f, 0.0f,   0.0f, 2.0f, 0.0f, 1.0f,
-    0.0f, 2.0f, 0.0f, 1.0f,     1.4f, -1.17f, 0.0f, 0.0f,   1.2f, -1.0f, 0.0f, 1.0f,
-    0.0f, 2.27f, 0.0f, 0.0f,    0.0f, 2.0f, 0.0f, 1.0f,     -1.4f, -1.17f, 0.0f, 0.0f,
-    0.0f, 2.0f, 0.0f, 1.0f,     -1.2f, -1.0f, 0.0f, 1.0f,   -1.4f, -1.17f, 0.0f, 0.0f,
-
-    1.2f, -1.0f, 0.0f, 1.0f,    1.4f, -1.17f, 0.0f, 0.0f,   0.0f, -0.67f, 0.0f, 0.0f,
-    0.0f, -0.5f, 0.0f, 1.0f,    1.2f, -1.0f, 0.0f, 1.0f,    0.0f, -0.67f, 0.0f, 0.0f,
-    -1.2f, -1.0f, 0.0f, 1.0f,   0.0f, -0.67f, 0.0f, 0.0f,   -1.4f, -1.17f, 0.0f, 0.0f,
-    0.0f, -0.5f, 0.0f, 1.0f,    0.0f, -0.67f, 0.0f, 0.0f,   -1.2f, -1.0f, 0.0f, 1.0f,
-  };
-
-  std::vector<float> normals =
-      dp::MeshObject::GenerateNormalsForTriangles(vertices, kComponentsInVertex);
 
   auto constexpr kVerticesBufferInd = 0;
-  auto copiedVertices = vertices;
-  m_arrowMesh.SetBuffer(kVerticesBufferInd, std::move(copiedVertices),
-                        sizeof(float) * kComponentsInVertex);
-  m_arrowMesh.SetAttribute("a_pos", kVerticesBufferInd, 0 /* offset */, kComponentsInVertex);
-
+  
+  // Load arrow mesh.
   auto constexpr kNormalsBufferInd = 1;
-  m_arrowMesh.SetBuffer(kNormalsBufferInd, std::move(normals), sizeof(float) * kComponentsInNormal);
-  m_arrowMesh.SetAttribute("a_normal", kNormalsBufferInd, 0 /* offset */, kComponentsInNormal);
+  LoadMesh(kDefaultArrowMesh, [&](std::vector<float> positions,
+                                  std::vector<float> normals,
+                                  std::vector<float> /* texCoords */)
+  {
+    // Positions.
+    CHECK(!positions.empty(), ());
+    m_arrowMesh.SetBuffer(kVerticesBufferInd, std::move(positions),
+                          sizeof(float) * kComponentsInVertex);
+    m_arrowMesh.SetAttribute("a_pos", kVerticesBufferInd, 0 /* offset */,
+                             kComponentsInVertex);
 
-  m_shadowMesh.SetBuffer(kVerticesBufferInd, std::move(vertices),
-                         sizeof(float) * kComponentsInVertex);
-  m_shadowMesh.SetAttribute("a_pos", kVerticesBufferInd, 0 /* offset */, kComponentsInVertex);
+    // Normals.
+    if (normals.empty())
+    {
+      normals =
+        dp::MeshObject::GenerateNormalsForTriangles(positions, kComponentsInNormal);
+    }
+    m_arrowMesh.SetBuffer(kNormalsBufferInd, std::move(normals),
+                          sizeof(float) * kComponentsInNormal);
+    m_arrowMesh.SetAttribute("a_normal", kNormalsBufferInd, 0 /* offset */,
+                             kComponentsInNormal);
+    
+  },
+    [](std::string const & reason)
+  {
+    LOG(LERROR, (reason));
+  });
+  
+  // Load shadow arrow mesh.
+  auto constexpr kTexCoordShadowBufferInd = 1;
+  LoadMesh(kDefaultArrowShadowMesh, [&](std::vector<float> positions,
+                                        std::vector<float> /* normals */,
+                                        std::vector<float> texCoords) {
+    // Positions.
+    CHECK(!positions.empty(), ());
+    m_shadowMesh.SetBuffer(kVerticesBufferInd, std::move(positions),
+                           sizeof(float) * kComponentsInVertex);
+    m_shadowMesh.SetAttribute("a_pos", kVerticesBufferInd, 0 /* offset */,
+                              kComponentsInVertex);
+    
+    // Texture coordinates.
+    m_shadowMesh.SetBuffer(kTexCoordShadowBufferInd, std::move(texCoords),
+                           sizeof(float) * kComponentsInTexCoord);
+    m_shadowMesh.SetAttribute("a_texCoords", kTexCoordShadowBufferInd, 0 /* offset */,
+                              kComponentsInTexCoord);
+  },
+    [](std::string const & reason)
+  {
+    LOG(LERROR, (reason));
+  });
 }
 
 // static
