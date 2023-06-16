@@ -107,7 +107,6 @@ final class CategorySettingsViewController: MWMTableViewController {
     }
 
     delegate?.categorySettingsController(self, didEndEditing: bookmarkGroup.categoryId)
-    self.navigationController?.popViewController(animated: true)
   }
 }
 
