@@ -609,15 +609,37 @@ UNIT_CLASS_TEST(MwmTestsFixture, AddrInterpolation_Rank)
   ms::LatLon const center(-34.57852, -58.42567);
   SetViewportAndLoadMaps(center);
 
-  auto request = MakeRequest("Sante Fe 1176", "en");
-  auto const & results = request->Results();
+  {
+    auto request = MakeRequest("Sante Fe 1176", "en");
+    auto const & results = request->Results();
 
-  TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+    TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
 
-  // Top first address results in 50 km.
-  Range const range(results);
-  EqualClassifType(range, GetClassifTypes({{"addr:interpolation"}}));
-  TEST_LESS(SortedByDistance(range, center), 50000.0, ());
+    // Top first address results in 50 km.
+    Range const range(results);
+    EqualClassifType(range, GetClassifTypes({{"addr:interpolation"}}));
+    TEST_LESS(SortedByDistance(range, center), 50000.0, ());
+  }
+
+  // Funny object here. barrier=fence with address and postcode=2700.
+  // We should rank it lower than housenumber matchings. Or not?
+  // https://www.openstreetmap.org/way/582640784#map=19/-33.91495/-60.55215
+  {
+    auto request = MakeRequest("José Hernández 2700", "en");
+    auto const & results = request->Results();
+
+    TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+
+    // Top first address results.
+    Range const range(results, 0, 6 /* count */);
+    EqualClassifType(range, GetClassifTypes({{"building", "address"}}));
+
+    // Results are not sorted because one match is not exact (address near street).
+    //TEST_LESS(SortedByDistance(range, center), 300000.0, ());
+
+    // Interesting results goes after, streets on distance ~250km in Pergamino.
+    // Seems like because of matching 2700 postcode.
+  }
 }
 
 } // namespace real_mwm_tests
