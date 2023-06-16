@@ -461,6 +461,7 @@
 		CDCA27842245090900167D87 /* ListenerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCA27832245090900167D87 /* ListenerContainer.swift */; };
 		CDCA278622451F5000167D87 /* RouteInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCA278522451F5000167D87 /* RouteInfo.swift */; };
 		CDCA278E2248F34C00167D87 /* MWMRoutingManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = CDCA278B2248F34C00167D87 /* MWMRoutingManager.mm */; };
+		EBA1BC3D2A3BD69E00E33F7A /* libfast_obj.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA1BC3C2A3BD69E00E33F7A /* libfast_obj.a */; };
 		F607C1881C032A8800B53A87 /* resources-hdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = F607C1831C032A8800B53A87 /* resources-hdpi_clear */; };
 		F607C18A1C032A8800B53A87 /* resources-hdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = F607C1841C032A8800B53A87 /* resources-hdpi_dark */; };
 		F623DA6C1C9C2731006A3436 /* opening_hours_how_to_edit.html in Resources */ = {isa = PBXBuildFile; fileRef = F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */; };
@@ -1315,6 +1316,7 @@
 		CDCA278C2248F34C00167D87 /* MWMRouterResultCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRouterResultCode.h; sourceTree = "<group>"; };
 		CDCA278F2248F3B800167D87 /* MWMLocationModeListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMLocationModeListener.h; sourceTree = "<group>"; };
 		CDE0F3AD225B8D45008BA5C3 /* MWMSpeedCameraManagerMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSpeedCameraManagerMode.h; sourceTree = "<group>"; };
+		EBA1BC3C2A3BD69E00E33F7A /* libfast_obj.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libfast_obj.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED48BBB817C2B1E2003E7E92 /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
 		ED48BBB917C2B1E2003E7E92 /* CircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleView.m; sourceTree = "<group>"; };
 		EE026F0511D6AC0D00645242 /* classificator.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = classificator.txt; path = ../../data/classificator.txt; sourceTree = SOURCE_ROOT; };
@@ -1626,6 +1628,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBA1BC3D2A3BD69E00E33F7A /* libfast_obj.a in Frameworks */,
 				FA456C3C26BDC6AD00B83C20 /* Chart.framework in Frameworks */,
 				FA853BF326BC5DE50026D455 /* libshaders.a in Frameworks */,
 				FA853BEF26BC5BA40026D455 /* libdescriptions.a in Frameworks */,
@@ -1762,6 +1765,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EBA1BC3C2A3BD69E00E33F7A /* libfast_obj.a */,
 				FA456C3B26BDC6AD00B83C20 /* Chart.framework */,
 				FA853BF226BC5DE50026D455 /* libshaders.a */,
 				FA853BF026BC5C120026D455 /* libshaders.a */,

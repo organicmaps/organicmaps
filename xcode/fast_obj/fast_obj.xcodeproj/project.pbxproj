@@ -1,0 +1,191 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		675D21C61BFB8F2B00717E4F /* fast_obj.h in Headers */ = {isa = PBXBuildFile; fileRef = 675D21C41BFB8F2B00717E4F /* fast_obj.h */; };
+		EBA1BC3B2A3BD5AB00E33F7A /* fast_obj.c in Sources */ = {isa = PBXBuildFile; fileRef = EBA1BC3A2A3BD5AB00E33F7A /* fast_obj.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		34EBB47E1DBF52D3005BE9B8 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		34EBB47F1DBF52D3005BE9B8 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		675D21BA1BFB8DBA00717E4F /* libfast_obj.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libfast_obj.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		675D21C41BFB8F2B00717E4F /* fast_obj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fast_obj.h; sourceTree = "<group>"; };
+		EBA1BC3A2A3BD5AB00E33F7A /* fast_obj.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fast_obj.c; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		675D21B71BFB8DBA00717E4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		675D21B11BFB8DBA00717E4F = {
+			isa = PBXGroup;
+			children = (
+				34EBB47E1DBF52D3005BE9B8 /* common-debug.xcconfig */,
+				34EBB47F1DBF52D3005BE9B8 /* common-release.xcconfig */,
+				675D21C21BFB8F1000717E4F /* fast_obj */,
+				675D21BB1BFB8DBA00717E4F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		675D21BB1BFB8DBA00717E4F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				675D21BA1BFB8DBA00717E4F /* libfast_obj.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		675D21C21BFB8F1000717E4F /* fast_obj */ = {
+			isa = PBXGroup;
+			children = (
+				EBA1BC3A2A3BD5AB00E33F7A /* fast_obj.c */,
+				675D21C41BFB8F2B00717E4F /* fast_obj.h */,
+			);
+			name = fast_obj;
+			path = ../../3party/fast_obj;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		675D21B81BFB8DBA00717E4F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				675D21C61BFB8F2B00717E4F /* fast_obj.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		675D21B91BFB8DBA00717E4F /* fast_obj */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 675D21BE1BFB8DBA00717E4F /* Build configuration list for PBXNativeTarget "fast_obj" */;
+			buildPhases = (
+				675D21B61BFB8DBA00717E4F /* Sources */,
+				675D21B71BFB8DBA00717E4F /* Frameworks */,
+				675D21B81BFB8DBA00717E4F /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = fast_obj;
+			productName = fast_obj;
+			productReference = 675D21BA1BFB8DBA00717E4F /* libfast_obj.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		675D21B21BFB8DBA00717E4F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1410;
+				TargetAttributes = {
+					675D21B91BFB8DBA00717E4F = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
+				};
+			};
+			buildConfigurationList = 675D21B51BFB8DBA00717E4F /* Build configuration list for PBXProject "fast_obj" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 675D21B11BFB8DBA00717E4F;
+			productRefGroup = 675D21BB1BFB8DBA00717E4F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				675D21B91BFB8DBA00717E4F /* fast_obj */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		675D21B61BFB8DBA00717E4F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EBA1BC3B2A3BD5AB00E33F7A /* fast_obj.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		675D21BC1BFB8DBA00717E4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34EBB47E1DBF52D3005BE9B8 /* common-debug.xcconfig */;
+			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+			};
+			name = Debug;
+		};
+		675D21BD1BFB8DBA00717E4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34EBB47F1DBF52D3005BE9B8 /* common-release.xcconfig */;
+			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+			};
+			name = Release;
+		};
+		675D21BF1BFB8DBA00717E4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		675D21C01BFB8DBA00717E4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		675D21B51BFB8DBA00717E4F /* Build configuration list for PBXProject "fast_obj" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				675D21BC1BFB8DBA00717E4F /* Debug */,
+				675D21BD1BFB8DBA00717E4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		675D21BE1BFB8DBA00717E4F /* Build configuration list for PBXNativeTarget "fast_obj" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				675D21BF1BFB8DBA00717E4F /* Debug */,
+				675D21C01BFB8DBA00717E4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 675D21B21BFB8DBA00717E4F /* Project object */;
+}
