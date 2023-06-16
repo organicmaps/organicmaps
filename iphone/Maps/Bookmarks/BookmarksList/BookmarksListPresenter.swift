@@ -340,10 +340,13 @@ extension BookmarksListPresenter: CategorySettingsViewControllerDelegate {
                                  imageUrl: bookmarkGroup.imageUrl,
                                  hasLogo: false)
     view.setInfo(info)
+    viewController.goBack()
   }
 
   func categorySettingsController(_ viewController: CategorySettingsViewController, didDelete categoryId: MWMMarkGroupID) {
-    delegate?.bookmarksListDidDeleteGroup()
+    if let delegate = delegate as? UIViewController {
+      viewController.navigationController?.popToViewController(delegate, animated: true)
+    }
   }
 }
 

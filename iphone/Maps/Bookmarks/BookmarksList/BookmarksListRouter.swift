@@ -20,13 +20,13 @@ extension BookmarksListRouter: IBookmarksListRouter {
   }
 
   func showDescription(_ bookmarkGroup: BookmarkGroup) {
-    let description = prepareHtmlDescription(bookmarkGroup)
+    let description = BookmarksListRouter.prepareHtmlDescription(bookmarkGroup)
     let descriptionViewController = WebViewController(html: description, baseUrl: nil, title: bookmarkGroup.title)!
     descriptionViewController.openInSafari = true
     mapViewController.navigationController?.pushViewController(descriptionViewController, animated: true)
   }
   
-  func prepareHtmlDescription(_ bookmarkGroup: BookmarkGroup) -> String {
+  private static func prepareHtmlDescription(_ bookmarkGroup: BookmarkGroup) -> String {
     var description = bookmarkGroup.detailedAnnotation
     if bookmarkGroup.isHtmlDescription {
       if !description.contains("<body>") {
