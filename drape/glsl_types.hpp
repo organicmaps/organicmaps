@@ -5,6 +5,7 @@
 #include "drape/color.hpp"
 
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/quaternion.hpp>
 #include <glm/mat3x3.hpp>
 #include <glm/mat4x2.hpp>
 #include <glm/mat4x3.hpp>

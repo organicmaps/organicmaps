@@ -5,6 +5,7 @@
 
 #include "shaders/program_manager.hpp"
 
+#include "drape/glsl_func.hpp"
 #include "drape/texture_manager.hpp"
 
 #include "indexer/map_style_reader.hpp"
@@ -173,7 +174,7 @@ Arrow3d::Arrow3d(ref_ptr<dp::GraphicsContext> context)
   , m_shadowMesh(context, dp::MeshObject::DrawPrimitive::Triangles)
   , m_state(CreateRenderState(gpu::Program::Arrow3d, DepthLayer::OverlayLayer))
 {
-  m_state.SetDepthTestEnabled(false);
+  m_state.SetDepthTestEnabled(true);
 
   auto constexpr kVerticesBufferInd = 0;
   
@@ -258,6 +259,21 @@ void Arrow3d::SetPositionObsolete(bool obsolete)
   m_obsoletePosition = obsolete;
 }
 
+void Arrow3d::SetMeshOffset(glsl::vec3 const & offset)
+{
+  m_meshOffset = offset;
+}
+
+void Arrow3d::SetMeshRotation(glsl::vec3 const & eulerAngles)
+{
+  m_meshEulerAngles = eulerAngles;
+}
+
+void Arrow3d::SetMeshScale(glsl::vec3 const & scale)
+{
+  m_meshScale = scale;
+}
+
 void Arrow3d::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
                      ScreenBase const & screen, bool routingMode)
 {
@@ -289,17 +305,15 @@ void Arrow3d::RenderArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::Pro
                           dp::Color const & color, float dz, float scaleFactor)
 {
   gpu::Arrow3dProgramParams params;
-  math::Matrix<float, 4, 4> const modelTransform = CalculateTransform(screen, dz, scaleFactor,
-                                                                      context->GetApiVersion());
-  params.m_transform = glsl::make_mat4(modelTransform.m_data);
+  params.m_transform = CalculateTransform(screen, dz, scaleFactor, context->GetApiVersion());
   params.m_color = glsl::ToVec4(color);
 
   auto gpuProgram = mng->GetProgram(program);
   mesh.Render(context, gpuProgram, m_state, mng->GetParamsSetter(), params);
 }
 
-math::Matrix<float, 4, 4> Arrow3d::CalculateTransform(ScreenBase const & screen, float dz,
-                                                      float scaleFactor, dp::ApiVersion apiVersion) const
+glsl::mat4  Arrow3d::CalculateTransform(ScreenBase const & screen, float dz,
+                                        float scaleFactor, dp::ApiVersion apiVersion) const
 {
   double arrowScale = VisualParams::Instance().GetVisualScale() * arrow3d::kArrowSize * scaleFactor;
   if (screen.isPerspective())
@@ -308,38 +322,50 @@ math::Matrix<float, 4, 4> Arrow3d::CalculateTransform(ScreenBase const & screen,
     arrowScale *= (arrow3d::kArrow3dScaleMin * (1.0 - t) + arrow3d::kArrow3dScaleMax * t);
   }
 
-  auto const scaleX = static_cast<float>(arrowScale * 2.0 / screen.PixelRect().SizeX());
-  auto const scaleY = static_cast<float>(arrowScale * 2.0 / screen.PixelRect().SizeY());
-  auto const scaleZ = static_cast<float>(screen.isPerspective() ? (0.002 * screen.GetDepth3d()) : 1.0);
-
+  glm::quat qx = glm::angleAxis(m_meshEulerAngles.x, glm::vec3{1.0f, 0.0f, 0.0f});
+  glm::quat qy = glm::angleAxis(m_meshEulerAngles.y, glm::vec3{0.0f, 1.0f, 0.0f});
+  glm::quat qz = glm::angleAxis(static_cast<float>(m_azimuth + screen.GetAngle() + m_meshEulerAngles.z),
+                                glm::vec3{0.0f, 0.0f, -1.0f});
+  auto const rotationMatrix = glm::mat4_cast(qz * qy * qx);
+  
+  auto const scaleMatrix = glm::scale(glm::mat4(1.0f),
+    glm::vec3{arrowScale, arrowScale, screen.isPerspective() ? arrowScale : 1.0} * m_meshScale);
+  
+  auto const translationMatrix = glm::translate(glm::mat4(1.0f), m_meshOffset);
+  
+  auto postProjectionScale = glm::vec3{2.0f / screen.PixelRect().SizeX(),
+                                       2.0f / screen.PixelRect().SizeY(), 1.0f};
+  postProjectionScale.z =
+    screen.isPerspective() ? std::min(postProjectionScale.x, postProjectionScale.y) * screen.GetScale3d()
+                           : 0.1f;
+  auto const postProjectionScaleMatrix = glm::scale(glm::mat4(1.0f), postProjectionScale);
+  
   m2::PointD const pos = screen.GtoP(m_position);
   auto const dX = static_cast<float>(2.0 * pos.x / screen.PixelRect().SizeX() - 1.0);
   auto const dY = static_cast<float>(2.0 * pos.y / screen.PixelRect().SizeY() - 1.0);
+  auto const postProjectionTranslationMatrix = glm::translate(glm::mat4(1.0f),
+    glm::vec3{dX, -dY, dz});
+  
+  auto modelTransform = postProjectionTranslationMatrix *
+                        postProjectionScaleMatrix *
+                        scaleMatrix *
+                        translationMatrix *
+                        rotationMatrix;
 
-  math::Matrix<float, 4, 4> scaleM = math::Identity<float, 4>();
-  scaleM(0, 0) = scaleX;
-  scaleM(1, 1) = scaleY;
-  scaleM(2, 2) = scaleZ;
-
-  math::Matrix<float, 4, 4> rotateM = math::Identity<float, 4>();
-  rotateM(0, 0) = static_cast<float>(cos(m_azimuth + screen.GetAngle()));
-  rotateM(0, 1) = static_cast<float>(-sin(m_azimuth + screen.GetAngle()));
-  rotateM(1, 0) = -rotateM(0, 1);
-  rotateM(1, 1) = rotateM(0, 0);
-
-  math::Matrix<float, 4, 4> translateM = math::Identity<float, 4>();
-  translateM(3, 0) = dX;
-  translateM(3, 1) = -dY;
-  translateM(3, 2) = dz;
-
-  math::Matrix<float, 4, 4> modelTransform = rotateM * scaleM * translateM;
   if (screen.isPerspective())
-    return modelTransform * math::Matrix<float, 4, 4>(screen.Pto3dMatrix());
+  {
+    glm::mat4 pTo3dView;
+    auto m = math::Matrix<float, 4, 4>(screen.Pto3dMatrix());
+    static_assert(sizeof(m) == sizeof(pTo3dView));
+    memcpy(&pTo3dView, &m, sizeof(pTo3dView));
+    auto postProjectionPerspective = pTo3dView * modelTransform;
+    return postProjectionPerspective;
+  }
 
   if (apiVersion == dp::ApiVersion::Metal)
   {
-    modelTransform(3, 2) = modelTransform(3, 2) + 0.5f;
-    modelTransform(2, 2) = modelTransform(2, 2) * 0.5f;
+    modelTransform[3][2] = modelTransform[3][2] + 0.5f;
+    modelTransform[2][2] = modelTransform[2][2] * 0.5f;
   }
 
   return modelTransform;
