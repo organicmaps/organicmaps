@@ -402,6 +402,10 @@ public class PlacePageController extends Fragment implements
 
   private void onBookmarkBtnClicked()
   {
+    // mMapObject is set to null when the place page closes
+    // We don't want users to interact with the buttons when the PP is closing
+    if (mMapObject == null)
+      return;
     // No need to call setMapObject here as the native methods will reopen the place page
     if (MapObject.isOfType(MapObject.BOOKMARK, mMapObject))
       Framework.nativeDeleteBookmarkFromMapObject();
@@ -490,7 +494,8 @@ public class PlacePageController extends Fragment implements
 
   private void onAvoidBtnClicked(@NonNull RoadType roadType)
   {
-    mPlacePageRouteSettingsListener.onPlacePageRequestToggleRouteSettings(roadType);
+    if (mMapObject != null)
+      mPlacePageRouteSettingsListener.onPlacePageRequestToggleRouteSettings(roadType);
   }
 
   private void removePlacePageFragments()
