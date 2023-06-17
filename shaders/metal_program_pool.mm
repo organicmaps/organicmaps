@@ -47,61 +47,62 @@ std::array<ProgramInfo, static_cast<size_t>(SystemProgram::SystemProgramsCount)>
 }};
 
 std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMetalProgramsInfo = {{
-  ProgramInfo("vsColoredSymbol", "fsColoredSymbol", {{0, 2}}),               // ColoredSymbol
-  ProgramInfo("vsTexturing", "fsTexturing", {{0, 2}}),                       // Texturing
-  ProgramInfo("vsMaskedTexturing", "fsMaskedTexturing", {{0, 3}}),           // MaskedTexturing
-  ProgramInfo("vsUserMark", "fsUserMark", {{0, 3}}),                         // Bookmark
-  ProgramInfo("vsUserMark", "fsUserMark", {{0, 3}}),                         // BookmarkAnim
-  ProgramInfo("vsTextOutlined", "fsText", {{0, 2}, {3, 4}}),                 // TextOutlined
-  ProgramInfo("vsText", "fsText", {{0, 1}, {2, 3}}),                         // Text
-  ProgramInfo("vsText", "fsTextFixed", {{0, 1}, {2, 3}}),                    // TextFixed
-  ProgramInfo("vsTextStaticOutlinedGui", "fsTextOutlinedGui", {{0, 4}}),     // TextStaticOutlinedGui
-  ProgramInfo("vsTextOutlinedGui", "fsTextOutlinedGui", {{0, 2}, {3, 4}}),   // TextOutlinedGui
-  ProgramInfo("vsArea", "fsArea", {{0, 1}}),                                 // Area
-  ProgramInfo("vsArea", "fsArea", {{0, 1}}),                                 // AreaOutline
-  ProgramInfo("vsArea3d", "fsArea3d", {{0, 2}}),                             // Area3d
-  ProgramInfo("vsArea3dOutline", "fsArea", {{0, 1}}),                        // Area3dOutline
-  ProgramInfo("vsLine", "fsLine", {{0, 2}}),                                 // Line
-  ProgramInfo("vsCapJoin", "fsCapJoin", {{0, 2}}),                           // CapJoin
-  ProgramInfo("vsTransitCircle", "fsTransitCircle", {{0, 2}}),               // TransitCircle
-  ProgramInfo("vsDashedLine", "fsDashedLine", {{0, 3}}),                     // DashedLine
-  ProgramInfo("vsPathSymbol", "fsPathSymbol", {{0, 2}}),                     // PathSymbol
-  ProgramInfo("vsHatchingArea", "fsHatchingArea", {{0, 2}}),                 // HatchingArea
-  ProgramInfo("vsTexturingGui", "fsTexturingGui", {{0, 1}}),                 // TexturingGui
-  ProgramInfo("vsRuler", "fsRuler", {{0, 2}}),                               // Ruler
-  ProgramInfo("vsAccuracy", "fsAccuracy", {{0, 1}}),                         // Accuracy
-  ProgramInfo("vsMyPosition", "fsMyPosition", {{0, 1}}),                     // MyPosition
-  ProgramInfo("vsSelectionLine", "fsSelectionLine", {{0, 3}}),               // SelectionLine
-  ProgramInfo("vsTransit", "fsTransit", {{0, 2}}),                           // Transit
-  ProgramInfo("vsTransitMarker", "fsTransitMarker", {{0, 2}}),               // TransitMarker
-  ProgramInfo("vsRoute", "fsRoute", {{0, 3}}),                               // Route
-  ProgramInfo("vsRoute", "fsRouteDash", {{0, 3}}),                           // RouteDash
-  ProgramInfo("vsRouteArrow", "fsRouteArrow", {{0, 2}}),                     // RouteArrow
-  ProgramInfo("vsRouteMarker", "fsRouteMarker", {{0, 2}}),                   // RouteMarker
-  ProgramInfo("vsCirclePoint", "fsCirclePoint", {{0, 0}, {1, 2}}),           // CirclePoint
-  ProgramInfo("vsUserMark", "fsUserMark", {{0, 3}}),                         // BookmarkAboveText
-  ProgramInfo("vsUserMark", "fsUserMark", {{0, 3}}),                         // BookmarkAnimAboveText
-  ProgramInfo("vsDebugRect", "fsDebugRect", {{0, 0}}),                       // DebugRect
-  ProgramInfo("vsScreenQuad", "fsScreenQuad", {{0, 1}}),                     // ScreenQuad
-  ProgramInfo("vsArrow3d", "fsArrow3d", {{0, 0}, {1, 1}}),                   // Arrow3d
-  ProgramInfo("vsArrow3dShadow", "fsArrow3dShadow", {{0, 0}, {1, 1}}),       // Arrow3dShadow
-  ProgramInfo("vsArrow3dShadow", "fsArrow3dOutline", {{0, 0}, {1, 1}}),      // Arrow3dOutline
-  ProgramInfo("vsColoredSymbolBillboard", "fsColoredSymbol", {{0, 2}}),      // ColoredSymbolBillboard
-  ProgramInfo("vsTexturingBillboard", "fsTexturing", {{0, 2}}),              // TexturingBillboard
-  ProgramInfo("vsMaskedTexturingBillboard", "fsMaskedTexturing", {{0, 3}}),  // MaskedTexturingBillboard
-  ProgramInfo("vsUserMarkBillboard", "fsUserMark", {{0, 3}}),                // BookmarkBillboard
-  ProgramInfo("vsUserMarkBillboard", "fsUserMark", {{0, 3}}),                // BookmarkAnimBillboard
-  ProgramInfo("vsUserMarkBillboard", "fsUserMark", {{0, 3}}),                // BookmarkAboveTextBillboard
-  ProgramInfo("vsUserMarkBillboard", "fsUserMark", {{0, 3}}),                // BookmarkAnimAboveTextBillboard
-  ProgramInfo("vsTextOutlinedBillboard", "fsText", {{0, 2}, {3, 4}}),        // TextOutlinedBillboard
-  ProgramInfo("vsTextBillboard", "fsText", {{0, 1}, {2, 3}}),                // TextBillboard
-  ProgramInfo("vsTextBollboard", "fsTextFixed", {{0, 1}, {2, 3}}),           // TextFixedBillboard
-  ProgramInfo("vsTraffic", "fsTraffic", {{0, 2}}),                           // Traffic
-  ProgramInfo("vsTrafficLine", "fsTrafficLine", {{0, 1}}),                   // TrafficLine
-  ProgramInfo("vsTrafficCircle", "fsTrafficCircle", {{0, 2}}),               // TrafficCircle
-  ProgramInfo("vsSmaaEdges", "fsSmaaEdges", {{0, 1}}),                       // SmaaEdges
-  ProgramInfo("vsSmaaBlendingWeight", "fsSmaaBlendingWeight", {{0, 1}}),     // SmaaBlendingWeight
-  ProgramInfo("vsSmaaFinal", "fsSmaaFinal", {{0, 1}}),                       // SmaaFinal
+  ProgramInfo("vsColoredSymbol", "fsColoredSymbol", {{0, 2}}),                     // ColoredSymbol
+  ProgramInfo("vsTexturing", "fsTexturing", {{0, 2}}),                             // Texturing
+  ProgramInfo("vsMaskedTexturing", "fsMaskedTexturing", {{0, 3}}),                 // MaskedTexturing
+  ProgramInfo("vsUserMark", "fsUserMark", {{0, 3}}),                               // Bookmark
+  ProgramInfo("vsUserMark", "fsUserMark", {{0, 3}}),                               // BookmarkAnim
+  ProgramInfo("vsTextOutlined", "fsText", {{0, 2}, {3, 4}}),                       // TextOutlined
+  ProgramInfo("vsText", "fsText", {{0, 1}, {2, 3}}),                               // Text
+  ProgramInfo("vsText", "fsTextFixed", {{0, 1}, {2, 3}}),                          // TextFixed
+  ProgramInfo("vsTextStaticOutlinedGui", "fsTextOutlinedGui", {{0, 4}}),           // TextStaticOutlinedGui
+  ProgramInfo("vsTextOutlinedGui", "fsTextOutlinedGui", {{0, 2}, {3, 4}}),         // TextOutlinedGui
+  ProgramInfo("vsArea", "fsArea", {{0, 1}}),                                       // Area
+  ProgramInfo("vsArea", "fsArea", {{0, 1}}),                                       // AreaOutline
+  ProgramInfo("vsArea3d", "fsArea3d", {{0, 2}}),                                   // Area3d
+  ProgramInfo("vsArea3dOutline", "fsArea", {{0, 1}}),                              // Area3dOutline
+  ProgramInfo("vsLine", "fsLine", {{0, 2}}),                                       // Line
+  ProgramInfo("vsCapJoin", "fsCapJoin", {{0, 2}}),                                 // CapJoin
+  ProgramInfo("vsTransitCircle", "fsTransitCircle", {{0, 2}}),                     // TransitCircle
+  ProgramInfo("vsDashedLine", "fsDashedLine", {{0, 3}}),                           // DashedLine
+  ProgramInfo("vsPathSymbol", "fsPathSymbol", {{0, 2}}),                           // PathSymbol
+  ProgramInfo("vsHatchingArea", "fsHatchingArea", {{0, 2}}),                       // HatchingArea
+  ProgramInfo("vsTexturingGui", "fsTexturingGui", {{0, 1}}),                       // TexturingGui
+  ProgramInfo("vsRuler", "fsRuler", {{0, 2}}),                                     // Ruler
+  ProgramInfo("vsAccuracy", "fsAccuracy", {{0, 1}}),                               // Accuracy
+  ProgramInfo("vsMyPosition", "fsMyPosition", {{0, 1}}),                           // MyPosition
+  ProgramInfo("vsSelectionLine", "fsSelectionLine", {{0, 3}}),                     // SelectionLine
+  ProgramInfo("vsTransit", "fsTransit", {{0, 2}}),                                 // Transit
+  ProgramInfo("vsTransitMarker", "fsTransitMarker", {{0, 2}}),                     // TransitMarker
+  ProgramInfo("vsRoute", "fsRoute", {{0, 3}}),                                     // Route
+  ProgramInfo("vsRoute", "fsRouteDash", {{0, 3}}),                                 // RouteDash
+  ProgramInfo("vsRouteArrow", "fsRouteArrow", {{0, 2}}),                           // RouteArrow
+  ProgramInfo("vsRouteMarker", "fsRouteMarker", {{0, 2}}),                         // RouteMarker
+  ProgramInfo("vsCirclePoint", "fsCirclePoint", {{0, 0}, {1, 2}}),                 // CirclePoint
+  ProgramInfo("vsUserMark", "fsUserMark", {{0, 3}}),                               // BookmarkAboveText
+  ProgramInfo("vsUserMark", "fsUserMark", {{0, 3}}),                               // BookmarkAnimAboveText
+  ProgramInfo("vsDebugRect", "fsDebugRect", {{0, 0}}),                             // DebugRect
+  ProgramInfo("vsScreenQuad", "fsScreenQuad", {{0, 1}}),                           // ScreenQuad
+  ProgramInfo("vsArrow3d", "fsArrow3d", {{0, 0}, {1, 1}}),                         // Arrow3d
+  ProgramInfo("vsArrow3dTextured", "fsArrow3dTextured", {{0, 0}, {1, 1}, {2, 2}}), // Arrow3dTextured
+  ProgramInfo("vsArrow3dShadow", "fsArrow3dShadow", {{0, 0}, {1, 1}}),             // Arrow3dShadow
+  ProgramInfo("vsArrow3dShadow", "fsArrow3dOutline", {{0, 0}, {1, 1}}),            // Arrow3dOutline
+  ProgramInfo("vsColoredSymbolBillboard", "fsColoredSymbol", {{0, 2}}),            // ColoredSymbolBillboard
+  ProgramInfo("vsTexturingBillboard", "fsTexturing", {{0, 2}}),                    // TexturingBillboard
+  ProgramInfo("vsMaskedTexturingBillboard", "fsMaskedTexturing", {{0, 3}}),        // MaskedTexturingBillboard
+  ProgramInfo("vsUserMarkBillboard", "fsUserMark", {{0, 3}}),                      // BookmarkBillboard
+  ProgramInfo("vsUserMarkBillboard", "fsUserMark", {{0, 3}}),                      // BookmarkAnimBillboard
+  ProgramInfo("vsUserMarkBillboard", "fsUserMark", {{0, 3}}),                      // BookmarkAboveTextBillboard
+  ProgramInfo("vsUserMarkBillboard", "fsUserMark", {{0, 3}}),                      // BookmarkAnimAboveTextBillboard
+  ProgramInfo("vsTextOutlinedBillboard", "fsText", {{0, 2}, {3, 4}}),              // TextOutlinedBillboard
+  ProgramInfo("vsTextBillboard", "fsText", {{0, 1}, {2, 3}}),                      // TextBillboard
+  ProgramInfo("vsTextBollboard", "fsTextFixed", {{0, 1}, {2, 3}}),                 // TextFixedBillboard
+  ProgramInfo("vsTraffic", "fsTraffic", {{0, 2}}),                                 // Traffic
+  ProgramInfo("vsTrafficLine", "fsTrafficLine", {{0, 1}}),                         // TrafficLine
+  ProgramInfo("vsTrafficCircle", "fsTrafficCircle", {{0, 2}}),                     // TrafficCircle
+  ProgramInfo("vsSmaaEdges", "fsSmaaEdges", {{0, 1}}),                             // SmaaEdges
+  ProgramInfo("vsSmaaBlendingWeight", "fsSmaaBlendingWeight", {{0, 1}}),           // SmaaBlendingWeight
+  ProgramInfo("vsSmaaFinal", "fsSmaaFinal", {{0, 1}}),                             // SmaaFinal
 }};
 
 MTLVertexFormat GetFormatByDataType(MTLDataType dataType)

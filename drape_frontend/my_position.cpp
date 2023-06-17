@@ -67,8 +67,7 @@ MyPosition::MyPosition(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Texture
 
 void MyPosition::InitArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng)
 {
-  m_arrow3d = make_unique_dp<Arrow3d>(context);
-  m_arrow3d->SetTexture(mng);
+  m_arrow3d = make_unique_dp<Arrow3d>(context, mng, std::nullopt, std::nullopt);
 }
 
 void MyPosition::SetPosition(m2::PointF const & pt)

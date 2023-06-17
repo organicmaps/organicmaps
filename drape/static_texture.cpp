@@ -94,11 +94,13 @@ public:
 
 StaticTexture::StaticTexture(ref_ptr<dp::GraphicsContext> context,
                              std::string const & textureName, std::string const & skinPathName,
-                             dp::TextureFormat format, ref_ptr<HWTextureAllocator> allocator)
+                             dp::TextureFormat format, ref_ptr<HWTextureAllocator> allocator,
+                             bool allowOptional /* = false */)
   : m_textureName(textureName)
   , m_skinPathName(skinPathName)
   , m_format(format)
   , m_info(make_unique_dp<StaticResourceInfo>())
+  , m_allowOptional(allowOptional)
 {
   m_isLoadingCorrect = Load(context, allocator);
 }
@@ -121,8 +123,11 @@ bool StaticTexture::Load(ref_ptr<dp::GraphicsContext> context, ref_ptr<HWTexture
 
   auto failureHandler = [this, context](std::string const & reason)
   {
-    LOG(LERROR, (reason));
-    Fail(context);
+    if (!m_allowOptional)
+    {
+      LOG(LERROR, (reason));
+      Fail(context);
+    }
   };
 
   uint8_t const bytesPerPixel = GetBytesPerPixel(m_format);

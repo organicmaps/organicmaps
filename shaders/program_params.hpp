@@ -187,10 +187,13 @@ struct ShapesProgramParams
 struct Arrow3dProgramParams
 {
   glsl::mat4 m_transform;
+  glsl::mat4 m_normalTransform;
   glsl::vec4 m_color;
+  glsl::vec2 m_texCoordFlipping;
 
   BIND_PROGRAMS(Arrow3dProgramParams,
     Program::Arrow3d,
+    Program::Arrow3dTextured,
     Program::Arrow3dShadow,
     Program::Arrow3dOutline)
 } ALIGNMENT;

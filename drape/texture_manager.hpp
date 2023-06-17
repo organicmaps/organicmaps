@@ -113,6 +113,7 @@ public:
   ref_ptr<Texture> GetSymbolsTexture() const;
   ref_ptr<Texture> GetTrafficArrowTexture() const;
   ref_ptr<Texture> GetHatchingTexture() const;
+  ref_ptr<Texture> GetArrowTexture() const;
   ref_ptr<Texture> GetSMAAAreaTexture() const;
   ref_ptr<Texture> GetSMAASearchTexture() const;
 
@@ -224,6 +225,7 @@ private:
 
   drape_ptr<Texture> m_trafficArrowTexture;
   drape_ptr<Texture> m_hatchingTexture;
+  drape_ptr<Texture> m_arrowTexture;
   drape_ptr<Texture> m_smaaAreaTexture;
   drape_ptr<Texture> m_smaaSearchTexture;
 
