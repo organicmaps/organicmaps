@@ -46,6 +46,7 @@ enum class Program
   DebugRect,
   ScreenQuad,
   Arrow3d,
+  Arrow3dTextured,
   Arrow3dShadow,
   Arrow3dOutline,
   ColoredSymbolBillboard,
@@ -109,6 +110,7 @@ inline std::string DebugPrint(Program p)
   case Program::DebugRect: return "DebugRect";
   case Program::ScreenQuad: return "ScreenQuad";
   case Program::Arrow3d: return "Arrow3d";
+  case Program::Arrow3dTextured: return "Arrow3dTextured";
   case Program::Arrow3dShadow: return "Arrow3dShadow";
   case Program::Arrow3dOutline: return "Arrow3dOutline";
   case Program::ColoredSymbolBillboard: return "ColoredSymbolBillboard";

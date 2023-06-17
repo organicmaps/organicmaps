@@ -35,6 +35,7 @@ BookmarkAnimAboveText user_mark.vsh.glsl user_mark.fsh.glsl
 DebugRect debug_rect.vsh.glsl debug_rect.fsh.glsl
 ScreenQuad screen_quad.vsh.glsl texturing.fsh.glsl
 Arrow3d arrow3d.vsh.glsl arrow3d.fsh.glsl
+Arrow3dTextured arrow3d_textured.vsh.glsl arrow3d_textured.fsh.glsl
 Arrow3dShadow arrow3d_shadow.vsh.glsl arrow3d_shadow.fsh.glsl
 Arrow3dOutline arrow3d_shadow.vsh.glsl arrow3d_outline.fsh.glsl
 ColoredSymbolBillboard colored_symbol_billboard.vsh.glsl colored_symbol.fsh.glsl

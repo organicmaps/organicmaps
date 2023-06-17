@@ -11,7 +11,7 @@
 namespace dp
 {
 size_t constexpr kMaxBindingDecl = 8;
-size_t constexpr kMaxBindingInfo = 2;
+size_t constexpr kMaxBindingInfo = 3;
 
 struct BindingDecl
 {

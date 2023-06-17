@@ -193,6 +193,7 @@ void TextureManager::Release()
 
   m_trafficArrowTexture.reset();
   m_hatchingTexture.reset();
+  m_arrowTexture.reset();
   m_smaaAreaTexture.reset();
   m_smaaSearchTexture.reset();
 
@@ -396,7 +397,10 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
                                                         dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
   m_hatchingTexture = make_unique_dp<StaticTexture>(context, "area-hatching", m_resPostfix,
                                                     dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
-
+  m_arrowTexture = make_unique_dp<StaticTexture>(context, "arrow-texture", StaticTexture::kDefaultResource,
+                                                 dp::TextureFormat::RGBA8, make_ref(m_textureAllocator),
+                                                 true /* allowOptional */);
+  
   // SMAA is not supported on OpenGL ES2.
   if (apiVersion != dp::ApiVersion::OpenGLES2)
   {
@@ -591,6 +595,12 @@ ref_ptr<Texture> TextureManager::GetHatchingTexture() const
 {
   CHECK(m_isInitialized, ());
   return make_ref(m_hatchingTexture);
+}
+
+ref_ptr<Texture> TextureManager::GetArrowTexture() const
+{
+  CHECK(m_isInitialized, ());
+  return make_ref(m_arrowTexture);
 }
 
 ref_ptr<Texture> TextureManager::GetSMAAAreaTexture() const

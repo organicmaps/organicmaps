@@ -188,6 +188,8 @@
 		BBF7917A214AB8B600D27BD8 /* transit_circle.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = transit_circle.fsh.glsl; sourceTree = "<group>"; };
 		BBF7917B214AB8B600D27BD8 /* traffic_circle.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = traffic_circle.vsh.glsl; sourceTree = "<group>"; };
 		BBF7917C214AB8B600D27BD8 /* transit_circle.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = transit_circle.vsh.glsl; sourceTree = "<group>"; };
+		EBCBCBDE2A3E1EE90020450E /* arrow3d_textured.vsh.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = arrow3d_textured.vsh.glsl; sourceTree = "<group>"; };
+		EBCBCBDF2A3E1EE90020450E /* arrow3d_textured.fsh.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = arrow3d_textured.fsh.glsl; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,6 +277,8 @@
 				4566609020E256470085E8C1 /* arrow3d_outline.fsh.glsl */,
 				456660B520E2564D0085E8C1 /* arrow3d_shadow.fsh.glsl */,
 				4566609C20E256480085E8C1 /* arrow3d_shadow.vsh.glsl */,
+				EBCBCBDF2A3E1EE90020450E /* arrow3d_textured.fsh.glsl */,
+				EBCBCBDE2A3E1EE90020450E /* arrow3d_textured.vsh.glsl */,
 				4566609D20E256480085E8C1 /* arrow3d.fsh.glsl */,
 				456660BE20E2564F0085E8C1 /* arrow3d.vsh.glsl */,
 				4566609220E256470085E8C1 /* circle_point.fsh.glsl */,

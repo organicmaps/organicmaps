@@ -20,7 +20,8 @@ public:
 
   StaticTexture(ref_ptr<dp::GraphicsContext> context,
                 std::string const & textureName, std::string const & skinPathName,
-                dp::TextureFormat format, ref_ptr<HWTextureAllocator> allocator);
+                dp::TextureFormat format, ref_ptr<HWTextureAllocator> allocator,
+                bool allowOptional = false);
 
   ref_ptr<ResourceInfo> FindResource(Key const & key, bool & newResource) override;
   void Create(ref_ptr<dp::GraphicsContext> context, Params const & params) override;
@@ -37,6 +38,7 @@ private:
   std::string const m_textureName;
   std::string const m_skinPathName;
   dp::TextureFormat const m_format;
+  bool const m_allowOptional;
 
   drape_ptr<Texture::ResourceInfo> m_info;
 

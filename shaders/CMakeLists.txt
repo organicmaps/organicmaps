@@ -11,6 +11,8 @@ set(shader_files
     GL/arrow3d_outline.fsh.glsl
     GL/arrow3d_shadow.fsh.glsl
     GL/arrow3d_shadow.vsh.glsl
+    GL/arrow3d_textured.fsh.glsl
+    GL/arrow3d_textured.vsh.glsl
     GL/circle.fsh.glsl
     GL/circle.vsh.glsl
     GL/circle_point.fsh.glsl
