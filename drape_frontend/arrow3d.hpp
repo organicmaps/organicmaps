@@ -3,6 +3,7 @@
 #include "drape_frontend/render_state_extension.hpp"
 
 #include "drape/color.hpp"
+#include "drape/glsl_types.hpp"
 #include "drape/mesh_object.hpp"
 
 #include "geometry/rect2d.hpp"
@@ -36,13 +37,20 @@ public:
   void SetAzimuth(double azimuth);
   void SetTexture(ref_ptr<dp::TextureManager> texMng);
   void SetPositionObsolete(bool obsolete);
+  
+  // Leyout is axes (in the plane of map): x - right, y - up,
+  // -z - perpendicular to the map's plane directed towards the observer.
+  // Offset is in local coordinates (model's coordinates).
+  void SetMeshOffset(glsl::vec3 const & offset);
+  void SetMeshRotation(glsl::vec3 const & eulerAngles);
+  void SetMeshScale(glsl::vec3 const & scale);
 
   void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
               ScreenBase const & screen, bool routingMode);
 
 private:
-  math::Matrix<float, 4, 4> CalculateTransform(ScreenBase const & screen, float dz,
-                                               float scaleFactor, dp::ApiVersion apiVersion) const;
+  glsl::mat4 CalculateTransform(ScreenBase const & screen, float dz,
+                                float scaleFactor, dp::ApiVersion apiVersion) const;
   void RenderArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
                    dp::MeshObject & mesh, ScreenBase const & screen, gpu::Program program,
                    dp::Color const & color, float dz, float scaleFactor);
@@ -55,5 +63,9 @@ private:
   bool m_obsoletePosition = false;
 
   dp::RenderState m_state;
+  
+  glsl::vec3 m_meshOffset{0.0f, 0.0f, 0.0f};
+  glsl::vec3 m_meshEulerAngles{0.0f, 0.0f, 0.0f};
+  glsl::vec3 m_meshScale{1.0f, 1.0f, 1.0f};
 };
 }  // namespace df
