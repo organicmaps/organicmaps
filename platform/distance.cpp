@@ -70,7 +70,7 @@ Distance::Distance() : Distance(0.0) {}
 Distance::Distance(double distanceInMeters) : Distance(distanceInMeters, Units::Meters) {}
 
 Distance::Distance(double distance, platform::Distance::Units units)
-  : m_distance(distance), m_units(units)
+  : m_distance(distance), m_precision(0), m_units(units)
 {
 }
 
@@ -123,7 +123,7 @@ Distance::Units Distance::GetUnits() const { return m_units; }
 std::string Distance::GetDistanceString() const
 {
   std::ostringstream os;
-  os << std::defaultfloat << m_distance;
+  os << std::setprecision(m_precision) << std::fixed << m_distance;
   return os.str();
 }
 
@@ -143,7 +143,7 @@ Distance Distance::GetFormattedDistance() const
 {
   ASSERT_GREATER_OR_EQUAL(m_distance, 0.0, ("Distance is not valid: ", *this));
   Distance newDistance = *this;
-  int precision = 0;
+  newDistance.m_precision = 0;
 
   if (newDistance.m_units == Units::Kilometers)
     newDistance = newDistance.To(Units::Meters);
@@ -163,7 +163,7 @@ Distance Distance::GetFormattedDistance() const
     double highValue = newDistance.m_distance / highFactor;
     newDistance.m_distance = highValue;
     newDistance.m_units = newDistance.m_units == Units::Meters ? Units::Kilometers : Units::Miles;
-    precision = round(highValue * 10) / 10 >= 10.0 ? 0 : 1;
+    newDistance.m_precision = round(highValue * 10) / 10 >= 10.0 ? 0 : 1;
   }
   else
     newDistance.m_distance = lowValue;
@@ -175,9 +175,11 @@ Distance Distance::GetFormattedDistance() const
     newDistance.m_distance = round(newDistance.m_distance / 10) * 10;
 
   if (IsHighUnits() && newDistance.m_distance < 10)
-    precision = 1;
+    newDistance.m_precision = 1;
 
-  return {WithPrecision(newDistance.m_distance, precision), newDistance.m_units};
+  newDistance.m_distance = WithPrecision(newDistance.m_distance, newDistance.m_precision);
+  newDistance.m_precision = static_cast<int>(newDistance.m_distance * 10) % 10 != 0 ? 1 : 0;
+  return newDistance;
 }
 
 std::string Distance::ToString() const

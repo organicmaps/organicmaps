@@ -60,6 +60,7 @@ public:
 
 private:
   double m_distance;
+  std::uint8_t m_precision;
   Units m_units;
 };
 
