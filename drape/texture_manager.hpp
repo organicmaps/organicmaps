@@ -117,6 +117,9 @@ public:
   ref_ptr<Texture> GetSMAAAreaTexture() const;
   ref_ptr<Texture> GetSMAASearchTexture() const;
 
+  void InvalidateArrowTexture(ref_ptr<dp::GraphicsContext> context,
+                              std::optional<std::string> const & texturePath = std::nullopt);
+
 private:
   struct GlyphGroup
   {
@@ -210,7 +213,7 @@ private:
 
   void UpdateGlyphTextures(ref_ptr<dp::GraphicsContext> context);
   bool HasAsyncRoutines() const;
-
+  
   static constexpr size_t GetInvalidGlyphGroup();
 
 private:

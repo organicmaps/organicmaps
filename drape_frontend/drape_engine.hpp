@@ -3,6 +3,7 @@
 #include "drape_frontend/backend_renderer.hpp"
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/custom_features_context.hpp"
+#include "drape_frontend/drape_engine_params.hpp"
 #include "drape_frontend/drape_hints.hpp"
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/route_shape.hpp"
@@ -69,6 +70,7 @@ public:
            bool isRoutingActive,
            bool isAutozoomEnabled,
            bool simplifiedTrafficColors,
+           std::optional<Arrow3dCustomDecl> arrow3dCustomDecl,
            OverlaysShowStatsCallback && overlaysShowStatsCallback,
            OnGraphicsContextInitialized && onGraphicsContextInitialized)
       : m_apiVersion(apiVersion)
@@ -89,6 +91,7 @@ public:
       , m_isRoutingActive(isRoutingActive)
       , m_isAutozoomEnabled(isAutozoomEnabled)
       , m_simplifiedTrafficColors(simplifiedTrafficColors)
+      , m_arrow3dCustomDecl(std::move(arrow3dCustomDecl))
       , m_overlaysShowStatsCallback(std::move(overlaysShowStatsCallback))
       , m_onGraphicsContextInitialized(std::move(onGraphicsContextInitialized))
     {}
@@ -112,6 +115,7 @@ public:
     bool m_isRoutingActive;
     bool m_isAutozoomEnabled;
     bool m_simplifiedTrafficColors;
+    std::optional<Arrow3dCustomDecl> m_arrow3dCustomDecl;
     OverlaysShowStatsCallback m_overlaysShowStatsCallback;
     OnGraphicsContextInitialized m_onGraphicsContextInitialized;
   };
@@ -252,6 +256,8 @@ public:
   void UpdateMyPositionRoutingOffset(bool useDefault, int offsetY);
 
   location::EMyPositionMode GetMyPositionMode() const;
+  
+  void SetCustomArrow3d(std::optional<Arrow3dCustomDecl> arrow3dCustomDecl);
 
 private:
   void AddUserEvent(drape_ptr<UserEvent> && e);

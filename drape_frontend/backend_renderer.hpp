@@ -2,9 +2,11 @@
 
 #include "drape_frontend/gui/layer_render.hpp"
 
+#include "drape_frontend/arrow3d.hpp"
 #include "drape_frontend/base_renderer.hpp"
 #include "drape_frontend/batchers_pool.hpp"
 #include "drape_frontend/drape_api_builder.hpp"
+#include "drape_frontend/drape_engine_params.hpp"
 #include "drape_frontend/map_data_provider.hpp"
 #include "drape_frontend/overlay_batcher.hpp"
 #include "drape_frontend/requested_tiles.hpp"
@@ -43,6 +45,7 @@ public:
            MapDataProvider const & model, TUpdateCurrentCountryFn const & updateCurrentCountryFn,
            ref_ptr<RequestedTiles> requestedTiles, bool allow3dBuildings, bool trafficEnabled,
            bool isolinesEnabled, bool simplifiedTrafficColors,
+           std::optional<Arrow3dCustomDecl> arrow3dCustomDecl,
            OnGraphicsContextInitialized const & onGraphicsContextInitialized)
       : BaseRenderer::Params(apiVersion, commutator, factory, texMng, onGraphicsContextInitialized)
       , m_model(model)
@@ -52,6 +55,7 @@ public:
       , m_trafficEnabled(trafficEnabled)
       , m_isolinesEnabled(isolinesEnabled)
       , m_simplifiedTrafficColors(simplifiedTrafficColors)
+      , m_arrow3dCustomDecl(std::move(arrow3dCustomDecl))
     {}
 
     MapDataProvider const & m_model;
@@ -61,6 +65,7 @@ public:
     bool m_trafficEnabled;
     bool m_isolinesEnabled;
     bool m_simplifiedTrafficColors;
+    std::optional<Arrow3dCustomDecl> m_arrow3dCustomDecl;
   };
 
   explicit BackendRenderer(Params && params);
@@ -128,6 +133,9 @@ private:
   drape_ptr<MetalineManager> m_metalineManager;
 
   gui::TWidgetsInitInfo m_lastWidgetsInfo;
+  
+  std::optional<Arrow3dCustomDecl> m_arrow3dCustomDecl;
+  Arrow3d::PreloadedData m_arrow3dPreloadedData;
 
 #ifdef DEBUG
   bool m_isTeardowned;

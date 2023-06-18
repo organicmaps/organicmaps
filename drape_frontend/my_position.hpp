@@ -12,6 +12,8 @@
 
 #include "geometry/screenbase.hpp"
 
+#include <optional>
+#include <string>
 #include <vector>
 #include <utility>
 
@@ -22,7 +24,9 @@ class MyPosition
 public:
   MyPosition(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng);
 
-  void InitArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng);
+  bool InitArrow(ref_ptr<dp::GraphicsContext> context,
+                 ref_ptr<dp::TextureManager> mng,
+                 Arrow3d::PreloadedData && preloadedData);
 
   // pt - mercator point.
   void SetPosition(m2::PointF const & pt);

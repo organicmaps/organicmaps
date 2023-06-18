@@ -103,11 +103,11 @@ DrapeEngine::DrapeEngine(Params && params)
                                    params.m_trafficEnabled,
                                    params.m_isolinesEnabled,
                                    params.m_simplifiedTrafficColors,
+                                   std::move(params.m_arrow3dCustomDecl),
                                    params.m_onGraphicsContextInitialized);
 
   m_backend = make_unique_dp<BackendRenderer>(std::move(brParams));
   m_frontend = make_unique_dp<FrontendRenderer>(std::move(frParams));
-
 
   m_widgetsInfo = std::move(params.m_info);
 
@@ -993,5 +993,12 @@ void DrapeEngine::UpdateMyPositionRoutingOffset(bool useDefault, int offsetY)
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<UpdateMyPositionRoutingOffsetMessage>(useDefault, offsetY),
                                   MessagePriority::Normal);
+}
+
+void DrapeEngine::SetCustomArrow3d(std::optional<Arrow3dCustomDecl> arrow3dCustomDecl)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<Arrow3dRecacheMessage>(std::move(arrow3dCustomDecl)),
+                                  MessagePriority::High);
 }
 }  // namespace df

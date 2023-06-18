@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape_frontend/drape_engine_params.hpp"
 #include "drape_frontend/render_state_extension.hpp"
 
 #include "drape/color.hpp"
@@ -31,10 +32,36 @@ class Arrow3d
 {
   using Base = dp::MeshObject;
 public:
+  struct PreloadedMeshData
+  {
+    std::vector<float> m_positions;
+    std::vector<float> m_normals;
+    std::vector<float> m_texCoords;
+  };
+  
+  struct PreloadedData
+  {
+    std::optional<PreloadedMeshData> m_meshData;
+    std::optional<PreloadedMeshData> m_shadowMeshData;
+    bool m_arrowMeshTexturingEnabled = false;
+    glsl::vec2 m_texCoordFlipping{0.0f, 1.0f};
+    
+    glsl::vec3 m_meshOffset{0.0f, 0.0f, 0.0f};
+    glsl::vec3 m_meshEulerAngles{0.0f, 0.0f, 0.0f};
+    glsl::vec3 m_meshScale{1.0f, 1.0f, 1.0f};
+    
+    bool m_enableShadow = true;
+    bool m_enableOutline = true;
+  };
+  
+  static PreloadedData PreloadMesh(std::optional<Arrow3dCustomDecl> const & customDecl,
+                                   ref_ptr<dp::TextureManager> texMng);
+  
   Arrow3d(ref_ptr<dp::GraphicsContext> context,
           ref_ptr<dp::TextureManager> texMng,
-          std::optional<std::string> const & meshPath,
-          std::optional<std::string> const & shadowMeshPath);
+          PreloadedData && preloadedData);
+  
+  bool IsValid() const;
 
   static double GetMaxBottomSize();
 
@@ -48,8 +75,6 @@ public:
   void SetMeshOffset(glsl::vec3 const & offset);
   void SetMeshRotation(glsl::vec3 const & eulerAngles);
   void SetMeshScale(glsl::vec3 const & scale);
-  
-  void SetTexCoordFlipping(bool flipX, bool flipY);
   
   void SetShadowEnabled(bool enabled);
   void SetOutlineEnabled(bool enabled);
@@ -66,8 +91,12 @@ private:
                    dp::Color const & color, float dz, float scaleFactor);
 
   dp::MeshObject m_arrowMesh;
-  bool m_arrowMeshTexturingEnabled = false;
-  dp::MeshObject m_shadowMesh;
+  bool const m_arrowMeshTexturingEnabled;
+  glsl::vec2 const m_texCoordFlipping{0.0f, 1.0f}; // Y is flipped by default.
+                                   
+  drape_ptr<dp::MeshObject> m_shadowMesh;
+  
+  bool m_isValid = false;
 
   m2::PointD m_position;
   double m_azimuth = 0.0;
@@ -78,9 +107,6 @@ private:
   glsl::vec3 m_meshOffset{0.0f, 0.0f, 0.0f};
   glsl::vec3 m_meshEulerAngles{0.0f, 0.0f, 0.0f};
   glsl::vec3 m_meshScale{1.0f, 1.0f, 1.0f};
-  
-  // Y is flipped by default.
-  glsl::vec2 m_texCoordFlipping{0.0f, 1.0f};
   
   bool m_enableShadow = true;
   bool m_enableOutline = true;
