@@ -42,6 +42,8 @@ float const kGlyphAreaCoverage = 0.9f;
 std::string const kSymbolTextures[] = { "symbols" };
 uint32_t const kDefaultSymbolsIndex = 0;
 
+std::string const kArrowTextureDefaultName = "arrow-texture";
+
 void MultilineTextToUniString(TextureManager::TMultilineText const & text, strings::UniString & outString)
 {
   size_t cnt = 0;
@@ -397,7 +399,7 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
                                                         dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
   m_hatchingTexture = make_unique_dp<StaticTexture>(context, "area-hatching", m_resPostfix,
                                                     dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
-  m_arrowTexture = make_unique_dp<StaticTexture>(context, "arrow-texture", StaticTexture::kDefaultResource,
+  m_arrowTexture = make_unique_dp<StaticTexture>(context, kArrowTextureDefaultName, StaticTexture::kDefaultResource,
                                                  dp::TextureFormat::RGBA8, make_ref(m_textureAllocator),
                                                  true /* allowOptional */);
   
@@ -490,6 +492,25 @@ void TextureManager::OnSwitchMapStyle(ref_ptr<dp::GraphicsContext> context)
     else
       symbolsTexture->Invalidate(context, m_resPostfix, make_ref(m_textureAllocator), m_texturesToCleanup);
   }
+}
+
+void TextureManager::InvalidateArrowTexture(ref_ptr<dp::GraphicsContext> context,
+                                            std::optional<std::string> const & texturePath /* = std::nullopt */)
+{
+  CHECK(m_isInitialized, ());
+  
+  ref_ptr<dp::StaticTexture> arrowTexture = make_ref(m_arrowTexture);
+  CHECK(arrowTexture != nullptr, ());
+  
+  if (texturePath.has_value())
+    arrowTexture->UpdateTextureName(texturePath.value(), std::nullopt /* skinPathName */);
+  else
+    arrowTexture->UpdateTextureName(kArrowTextureDefaultName, StaticTexture::kDefaultResource);
+
+  if (context->GetApiVersion() != dp::ApiVersion::Vulkan)
+    arrowTexture->Invalidate(context, make_ref(m_textureAllocator));
+  else
+    arrowTexture->Invalidate(context, make_ref(m_textureAllocator), m_texturesToCleanup);
 }
 
 void TextureManager::GetTexturesToCleanup(std::vector<drape_ptr<HWTexture>> & textures)

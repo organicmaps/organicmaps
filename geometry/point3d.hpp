@@ -82,6 +82,7 @@ Point<T> CrossProduct(Point<T> const & a, Point<T> const & b)
   return Point<T>(x, y, z);
 }
 
+using PointF = Point<float>;
 using PointD = Point<double>;
 
 template <typename T>

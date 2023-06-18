@@ -65,9 +65,12 @@ MyPosition::MyPosition(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Texture
   CachePointPosition(context, mng);
 }
 
-void MyPosition::InitArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng)
+bool MyPosition::InitArrow(ref_ptr<dp::GraphicsContext> context,
+                           ref_ptr<dp::TextureManager> mng,
+                           Arrow3d::PreloadedData && preloadedData)
 {
-  m_arrow3d = make_unique_dp<Arrow3d>(context, mng, std::nullopt, std::nullopt);
+  m_arrow3d = make_unique_dp<Arrow3d>(context, mng, std::move(preloadedData));
+  return m_arrow3d->IsValid();
 }
 
 void MyPosition::SetPosition(m2::PointF const & pt)

@@ -45,6 +45,7 @@ BackendRenderer::BackendRenderer(Params && params)
   , m_requestedTiles(params.m_requestedTiles)
   , m_updateCurrentCountryFn(params.m_updateCurrentCountryFn)
   , m_metalineManager(make_unique_dp<MetalineManager>(params.m_commutator, m_model))
+  , m_arrow3dCustomDecl(std::move(params.m_arrow3dCustomDecl))
 {
 #ifdef DEBUG
   m_isTeardowned = false;
@@ -70,7 +71,7 @@ BackendRenderer::BackendRenderer(Params && params)
                               make_unique_dp<FlushSubrouteMarkersMessage>(std::move(subrouteMarkersData)),
                               MessagePriority::Normal);
   });
-
+  
   StartThread();
 }
 
@@ -605,6 +606,47 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::Type::Arrow3dRecache:
+    {
+      ref_ptr<Arrow3dRecacheMessage> msg = message;
+      
+      m_arrow3dCustomDecl = msg->GetArrow3dCustomDecl();
+     
+      // Invalidate Arrow3d texture.
+      CHECK(m_context != nullptr, ());
+      m_texMng->InvalidateArrowTexture(m_context, m_arrow3dCustomDecl.has_value() ?
+                                                    m_arrow3dCustomDecl.value().m_arrowMeshTexturePath :
+                                                    std::nullopt);
+      
+      // Preload mesh data.
+      m_arrow3dPreloadedData = Arrow3d::PreloadMesh(m_arrow3dCustomDecl, m_texMng);
+      if (!m_arrow3dPreloadedData.m_meshData.has_value())
+      {
+        // Fallback to default arrow mesh.
+        m_arrow3dCustomDecl.reset();
+        m_texMng->InvalidateArrowTexture(m_context, std::nullopt);
+        m_arrow3dPreloadedData = Arrow3d::PreloadMesh(m_arrow3dCustomDecl, m_texMng);
+      }
+      
+      // Recache map shapes.
+      RecacheMapShapes();
+      
+      // For Vulkan we initialize deferred cleaning up.
+      if (m_context->GetApiVersion() == dp::ApiVersion::Vulkan)
+      {
+        std::vector<drape_ptr<dp::HWTexture>> textures;
+        m_texMng->GetTexturesToCleanup(textures);
+        if (!textures.empty())
+        {
+          m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                    make_unique_dp<CleanupTexturesMessage>(std::move(textures)),
+                                    MessagePriority::Normal);
+        }
+      }
+
+      break;
+    }
+
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
   case Message::Type::NotifyGraphicsReady:
     {
@@ -734,13 +776,17 @@ void BackendRenderer::InitContextDependentResources()
   m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                             make_unique_dp<FinishTexturesInitializationMessage>(),
                             MessagePriority::Normal);
+  
+  // Preload Arrow3D mesh.
+  m_arrow3dPreloadedData = Arrow3d::PreloadMesh(m_arrow3dCustomDecl, m_texMng);
 }
 
 void BackendRenderer::RecacheMapShapes()
 {
   CHECK(m_context != nullptr, ());
   auto msg = make_unique_dp<MapShapesMessage>(make_unique_dp<MyPosition>(m_context, m_texMng),
-                                              make_unique_dp<SelectionShape>(m_context, m_texMng));
+                                              make_unique_dp<SelectionShape>(m_context, m_texMng),
+                                              m_arrow3dPreloadedData);
   m_context->Flush();
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, std::move(msg), MessagePriority::Normal);
 }

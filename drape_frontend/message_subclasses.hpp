@@ -5,6 +5,7 @@
 #include "drape_frontend/custom_features_context.hpp"
 #include "drape_frontend/drape_api.hpp"
 #include "drape_frontend/drape_api_builder.hpp"
+#include "drape_frontend/drape_engine_params.hpp"
 #include "drape_frontend/gps_track_point.hpp"
 #include "drape_frontend/gui/layer_render.hpp"
 #include "drape_frontend/gui/skin.hpp"
@@ -446,9 +447,11 @@ private:
 class MapShapesMessage : public Message
 {
 public:
-  MapShapesMessage(drape_ptr<MyPosition> && shape, drape_ptr<SelectionShape> && selection)
+  MapShapesMessage(drape_ptr<MyPosition> && shape, drape_ptr<SelectionShape> && selection,
+                   Arrow3d::PreloadedData preloadedArrow3dData)
     : m_shape(std::move(shape))
     , m_selection(std::move(selection))
+    , m_preloadedArrow3dData(std::move(preloadedArrow3dData))
   {}
 
   Type GetType() const override { return Type::MapShapes; }
@@ -457,10 +460,12 @@ public:
 
   drape_ptr<MyPosition> && AcceptShape() { return std::move(m_shape); }
   drape_ptr<SelectionShape> AcceptSelection() { return std::move(m_selection); }
+  Arrow3d::PreloadedData && AcceptPeloadedArrow3dData() { return std::move(m_preloadedArrow3dData); }
 
 private:
   drape_ptr<MyPosition> m_shape;
   drape_ptr<SelectionShape> m_selection;
+  Arrow3d::PreloadedData m_preloadedArrow3dData;
 };
 
 class ChangeMyPositionModeMessage : public Message
@@ -1420,5 +1425,23 @@ public:
 private:
   Functor m_functor;
   uint64_t const m_notifyId;
+};
+
+class Arrow3dRecacheMessage : public Message
+{
+public:
+  Arrow3dRecacheMessage(std::optional<Arrow3dCustomDecl> arrow3dCustomDecl)
+    : m_arrow3dCustomDecl(std::move(arrow3dCustomDecl))
+  {}
+
+  Type GetType() const override { return Type::Arrow3dRecache; }
+
+  std::optional<Arrow3dCustomDecl> const & GetArrow3dCustomDecl() const
+  {
+    return m_arrow3dCustomDecl;
+  }
+
+private:
+  std::optional<Arrow3dCustomDecl> m_arrow3dCustomDecl;
 };
 }  // namespace df

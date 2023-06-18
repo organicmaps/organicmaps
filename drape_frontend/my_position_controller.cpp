@@ -318,10 +318,15 @@ void MyPositionController::CorrectGlobalScalePoint(m2::PointD & pt) const
 
 void MyPositionController::SetRenderShape(ref_ptr<dp::GraphicsContext> context,
                                           ref_ptr<dp::TextureManager> texMng,
-                                          drape_ptr<MyPosition> && shape)
+                                          drape_ptr<MyPosition> && shape,
+                                          Arrow3d::PreloadedData && preloadedData)
 {
   m_shape = std::move(shape);
-  m_shape->InitArrow(context, texMng);
+  if (!m_shape->InitArrow(context, texMng, std::move(preloadedData)))
+  {
+    m_shape.reset();
+    LOG(LERROR, ("Invalid Arrow3D mesh."));
+  }
 }
 
 void MyPositionController::ResetRenderShape()

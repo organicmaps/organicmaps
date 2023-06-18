@@ -207,6 +207,7 @@
 		EB2B78001EEDD418002697B6 /* metaline_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EB2B77FE1EEDD418002697B6 /* metaline_manager.hpp */; };
 		EB2B78031EEDD439002697B6 /* read_metaline_task.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB2B78011EEDD439002697B6 /* read_metaline_task.cpp */; };
 		EB2B78041EEDD439002697B6 /* read_metaline_task.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EB2B78021EEDD439002697B6 /* read_metaline_task.hpp */; };
+		EBCBCBE12A3EE2340020450E /* drape_engine_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EBCBCBE02A3EE2340020450E /* drape_engine_params.hpp */; };
 		F6B283101C1B04680081957A /* gps_track_point.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B2830B1C1B04680081957A /* gps_track_point.hpp */; };
 		F6B283111C1B04680081957A /* gps_track_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B2830C1C1B04680081957A /* gps_track_renderer.cpp */; };
 		F6B283121C1B04680081957A /* gps_track_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B2830D1C1B04680081957A /* gps_track_renderer.hpp */; };
@@ -417,6 +418,7 @@
 		EB2B77FE1EEDD418002697B6 /* metaline_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = metaline_manager.hpp; sourceTree = "<group>"; };
 		EB2B78011EEDD439002697B6 /* read_metaline_task.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = read_metaline_task.cpp; sourceTree = "<group>"; };
 		EB2B78021EEDD439002697B6 /* read_metaline_task.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = read_metaline_task.hpp; sourceTree = "<group>"; };
+		EBCBCBE02A3EE2340020450E /* drape_engine_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_engine_params.hpp; sourceTree = "<group>"; };
 		F6B2830B1C1B04680081957A /* gps_track_point.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gps_track_point.hpp; sourceTree = "<group>"; };
 		F6B2830C1C1B04680081957A /* gps_track_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gps_track_renderer.cpp; sourceTree = "<group>"; };
 		F6B2830D1C1B04680081957A /* gps_track_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gps_track_renderer.hpp; sourceTree = "<group>"; };
@@ -487,6 +489,7 @@
 				347F520A1DC2334A0064B273 /* drape_api_renderer.hpp */,
 				347F520B1DC2334A0064B273 /* drape_api.cpp */,
 				347F520C1DC2334A0064B273 /* drape_api.hpp */,
+				EBCBCBE02A3EE2340020450E /* drape_engine_params.hpp */,
 				454B9A391F4591AC003FAE7A /* drape_engine_safe_ptr.hpp */,
 				670947F41BDF9BF5005014C0 /* drape_engine.cpp */,
 				670947F51BDF9BF5005014C0 /* drape_engine.hpp */,
@@ -686,6 +689,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBCBCBE12A3EE2340020450E /* drape_engine_params.hpp in Headers */,
 				670947971BDF9BE1005014C0 /* line_shape.hpp in Headers */,
 				56BF56DB1C7608C0006DD7CB /* choose_position_mark.hpp in Headers */,
 				BB7D67D21F34A62C002FD122 /* custom_features_context.hpp in Headers */,
