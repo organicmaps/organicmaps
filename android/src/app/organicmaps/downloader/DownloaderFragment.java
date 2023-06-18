@@ -61,14 +61,18 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
     return mAdapter != null && mAdapter.getItemCount() > 0;
   }
   private void showFab() {
-    if (mFab != null && shouldShowFab()) {
+    if (mFab != null && shouldShowFab() && !isRecyclerViewAtBottom()) {
       mFab.show();
+    } else {
+      mFab.hide();
     }
   }
 
   private void hideFab() {
-    if (mFab != null) {
+    if (mFab != null && shouldShowFab() && !isRecyclerViewAtBottom()) {
       mFab.hide();
+    } else {
+      mFab.show();
     }
   }
   private boolean isRecyclerViewAtBottom() {
