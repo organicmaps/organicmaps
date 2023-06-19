@@ -6,12 +6,8 @@ import androidx.car.app.CarContext;
 import androidx.car.app.constraints.ConstraintManager;
 import androidx.car.app.model.Action;
 import androidx.car.app.model.CarIcon;
-import androidx.car.app.model.CarLocation;
 import androidx.car.app.model.Header;
 import androidx.car.app.model.ItemList;
-import androidx.car.app.model.Metadata;
-import androidx.car.app.model.Place;
-import androidx.car.app.model.PlaceMarker;
 import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.PlaceListNavigationTemplate;
@@ -84,15 +80,12 @@ public class SearchOnMapScreen extends BaseMapScreen implements NativeSearchList
   private Row createResultItem(@NonNull SearchResult result, int resultIndex)
   {
     final Row.Builder builder = new Row.Builder();
-    builder.setBrowsable(true);
     if (result.type == SearchResult.TYPE_RESULT)
     {
-      final Metadata metadata = new Metadata.Builder().setPlace(new Place.Builder(CarLocation.create(result.lat, result.lon)).setMarker(new PlaceMarker.Builder().setLabel("" + (resultIndex + 1)).build()).build()).build();
       final String title = result.getTitle(getCarContext());
       builder.setTitle(title);
       builder.addText(result.getFormattedDescription(getCarContext()));
       builder.addText(SearchUiHelpers.getOpeningHoursAndDistanceText(getCarContext(), result));
-      builder.setMetadata(metadata);
       builder.setOnClickListener(() -> {
         SearchRecents.add(title, getCarContext());
         SearchEngine.INSTANCE.cancel();
@@ -102,6 +95,7 @@ public class SearchOnMapScreen extends BaseMapScreen implements NativeSearchList
     }
     else
     {
+      builder.setBrowsable(true);
       builder.setTitle(result.suggestion);
       builder.setImage(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_search)).build());
       builder.setOnClickListener(() -> getScreenManager().push(new Builder(getCarContext(), getSurfaceRenderer()).setQuery(result.suggestion).build()));
