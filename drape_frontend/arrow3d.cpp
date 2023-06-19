@@ -181,7 +181,8 @@ Arrow3d::PreloadedData Arrow3d::PreloadMesh(std::optional<Arrow3dCustomDecl> con
 {
   Arrow3d::PreloadedData data;
   
-  bool const useDefaultResource = !customDecl.has_value();
+  bool const useDefaultResource = !customDecl.has_value() ||
+                                  customDecl.value().m_loadFromDefaultResourceFolder;
   
   // Load arrow mesh.
   std::string meshPath = customDecl.has_value() ? customDecl.value().m_arrowMeshPath :

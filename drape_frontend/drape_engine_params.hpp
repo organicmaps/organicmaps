@@ -19,6 +19,10 @@ struct Arrow3dCustomDecl
   // If it's not set, no shadow or outline will be rendered.
   std::optional<std::string> m_shadowMeshPath;
   
+  // Allows to load files from bundled resources.
+  // You must use string identifiers of resources instead of file names.
+  bool m_loadFromDefaultResourceFolder = false;
+  
   // Leyout is axes (in the plane of map): x - right, y - up,
   // -z - perpendicular to the map's plane directed towards the observer.
   

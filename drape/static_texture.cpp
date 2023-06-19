@@ -38,11 +38,10 @@ bool LoadData(std::string const & textureName, std::optional<std::string> const 
   std::vector<unsigned char> rawData;
   try
   {
-    std::string const resName = textureName + ".png";
     ReaderPtr<Reader> reader = skinPathName.has_value() ?
                                  skinPathName.value() == StaticTexture::kDefaultResource ?
-                                   GetStyleReader().GetDefaultResourceReader(resName) :
-                                   GetStyleReader().GetResourceReader(resName, skinPathName.value()) :
+                                   GetStyleReader().GetDefaultResourceReader(textureName) :
+                                   GetStyleReader().GetResourceReader(textureName, skinPathName.value()) :
                                  GetPlatform().GetReader(textureName);
 
     CHECK_LESS(reader.Size(), static_cast<uint64_t>(std::numeric_limits<size_t>::max()), ());
