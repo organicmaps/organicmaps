@@ -386,13 +386,15 @@ area|z0-[natural=desert],
 
 /* 6.WATER */
 
-area|z0-[natural=water],
+area|z0-[natural=water][!tunnel],
 area|z0-[waterway=dock],
 area|z0-[waterway=riverbank],
 area|z0-[landuse=salt_pond],
 area|z12-[landuse=basin],
 area|z12-[landuse=reservoir],
 {fill-opacity: 1;}
+area|z15-[natural=water][tunnel],
+{fill-opacity: 0.15;}
 
 area|z11-[natural=wetland],
 area|z11-[leisure=marina],
@@ -412,13 +414,14 @@ line|z13-[natural=strait],
 
 /* 6.1 Area water(lake,pond etc.) */
 
-area|z0-[natural=water],
+area|z0-[natural=water][!tunnel],
 area|z0-[landuse=salt_pond],
 area|z0-[waterway=dock],
 area|z0-[waterway=riverbank],
 area|z12-[landuse=basin],
 area|z12-[landuse=reservoir],
 area|z13-[leisure=swimming_pool],
+area|z15-[natural=water][tunnel],
 area|z16-[amenity=fountain],
 {fill-color: @water;}
 

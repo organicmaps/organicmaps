@@ -446,23 +446,22 @@ node|z17-[natural=beach]
 node|z1-[place=ocean],
 node|z4-[place=sea],
 area|z10-[landuse=reservoir][bbox_area>=4000000],
-area|z10-[natural=water][bbox_area>=80000000],
+area|z10-[natural=water][!tunnel][bbox_area>=4000000],
 line|z11-[waterway=river],
 line|z11-[waterway=riverbank],
 line|z13-[waterway=canal],
 line|z13-[natural=strait],
-node|z14-[natural=water][bbox_area>=1000000],
 node|z14-[natural=bay],
 node|z14-[natural=strait],
-area|z14-[natural=water][bbox_area>=1000000],
 node|z16-[natural=wetland],
 area|z16-[natural=wetland],
 {text:name;text-color: @water_label;}
 
-/* Don't want to break current logic, but there are several strange moments here:
-- removing NODE rule "node|z14-[natural=water][bbox_area>=1000000]" breaks other rules.
-- z14-[natural=water], bbox_area=[1000000-4000000] range can stay without captions (see rules below).
- */
+area|z10-[natural=water][!tunnel][bbox_area<4000000],
+{text:name;text-color: @water_label;}
+
+area|z12-[landuse=reservoir][bbox_area<4000000],
+{text:name;text-color: @water_label;}
 
 /*6.1 Area water(ocean,sea,lake,pond etc.)*/
 
@@ -478,25 +477,28 @@ node|z5-[place=ocean]
 node|z4-[place=sea]
 {font-size: 12;}
 
-node|z14-15[natural=water],
+area|z10-[landuse=reservoir][bbox_area>=4000000],
+area|z10-13[natural=water][!tunnel][bbox_area>=4000000],
+{font-size: 8.5;}
+area|z12-[landuse=reservoir][bbox_area<4000000],
+area|z10-13[natural=water][!tunnel][bbox_area<4000000],
+{text: none;}
+
 node|z14-15[natural=bay],
 node|z14-15[natural=strait],
-area|z14-15[natural=water]
+area|z14-15[natural=water][!tunnel][bbox_area>=4000000],
 {font-size: 9.5;}
-node|z16-[natural=water],
+area|z14-15[natural=water][!tunnel][bbox_area<4000000],
+{font-size: 9.5;}
+
 node|z16-[natural=bay],
 node|z16-[natural=strait],
 node|z16-[natural=wetland],
-area|z16-[natural=water],
+area|z16-[natural=water][!tunnel][bbox_area>=4000000],
 area|z16-[natural=wetland],
 {font-size: 10.5;}
-
-area|z10-[landuse=reservoir][bbox_area>=4000000],
-area|z10-[natural=water][bbox_area>=4000000],
-{font-size: 8.5;}
-area|z10-[landuse=reservoir][bbox_area<4000000],
-area|z10-[natural=water][bbox_area<4000000],
-{font-size: 0;} /*check*/
+area|z16-[natural=water][!tunnel][bbox_area<4000000],
+{font-size: 10.5;}
 
 /* 6.2 Line water(river,canal etc.) Do not draw tunnel waterways */
 
