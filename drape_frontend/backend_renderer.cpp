@@ -614,9 +614,13 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
      
       // Invalidate Arrow3d texture.
       CHECK(m_context != nullptr, ());
-      m_texMng->InvalidateArrowTexture(m_context, m_arrow3dCustomDecl.has_value() ?
-                                                    m_arrow3dCustomDecl.value().m_arrowMeshTexturePath :
-                                                    std::nullopt);
+      m_texMng->InvalidateArrowTexture(m_context,
+                                       m_arrow3dCustomDecl.has_value() ?
+                                         m_arrow3dCustomDecl.value().m_arrowMeshTexturePath :
+                                         std::nullopt,
+                                       m_arrow3dCustomDecl.has_value() ?
+                                         m_arrow3dCustomDecl.value().m_loadFromDefaultResourceFolder :
+                                         false);
       
       // Preload mesh data.
       m_arrow3dPreloadedData = Arrow3d::PreloadMesh(m_arrow3dCustomDecl, m_texMng);
@@ -624,7 +628,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       {
         // Fallback to default arrow mesh.
         m_arrow3dCustomDecl.reset();
-        m_texMng->InvalidateArrowTexture(m_context, std::nullopt);
+        m_texMng->InvalidateArrowTexture(m_context);
         m_arrow3dPreloadedData = Arrow3d::PreloadMesh(m_arrow3dCustomDecl, m_texMng);
       }
       

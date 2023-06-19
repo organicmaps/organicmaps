@@ -118,7 +118,8 @@ public:
   ref_ptr<Texture> GetSMAASearchTexture() const;
 
   void InvalidateArrowTexture(ref_ptr<dp::GraphicsContext> context,
-                              std::optional<std::string> const & texturePath = std::nullopt);
+                              std::optional<std::string> const & texturePath = std::nullopt,
+                              bool useDefaultResourceFolder = false);
   // Apply must be called on FrontendRenderer.
   void ApplyInvalidatedStaticTextures();
 

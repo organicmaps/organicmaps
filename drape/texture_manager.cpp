@@ -42,7 +42,7 @@ float const kGlyphAreaCoverage = 0.9f;
 std::string const kSymbolTextures[] = { "symbols" };
 uint32_t const kDefaultSymbolsIndex = 0;
 
-std::string const kArrowTextureDefaultName = "arrow-texture";
+std::string const kArrowTextureDefaultName = "arrow-texture.png";
 
 void MultilineTextToUniString(TextureManager::TMultilineText const & text, strings::UniString & outString)
 {
@@ -395,9 +395,9 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
   }
 
   // Initialize static textures.
-  m_trafficArrowTexture = make_unique_dp<StaticTexture>(context, "traffic-arrow", m_resPostfix,
+  m_trafficArrowTexture = make_unique_dp<StaticTexture>(context, "traffic-arrow.png", m_resPostfix,
                                                         dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
-  m_hatchingTexture = make_unique_dp<StaticTexture>(context, "area-hatching", m_resPostfix,
+  m_hatchingTexture = make_unique_dp<StaticTexture>(context, "area-hatching.png", m_resPostfix,
                                                     dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
   m_arrowTexture = make_unique_dp<StaticTexture>(context, kArrowTextureDefaultName, StaticTexture::kDefaultResource,
                                                  dp::TextureFormat::RGBA8, make_ref(m_textureAllocator),
@@ -406,9 +406,9 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
   // SMAA is not supported on OpenGL ES2.
   if (apiVersion != dp::ApiVersion::OpenGLES2)
   {
-    m_smaaAreaTexture = make_unique_dp<StaticTexture>(context, "smaa-area", StaticTexture::kDefaultResource,
+    m_smaaAreaTexture = make_unique_dp<StaticTexture>(context, "smaa-area.png", StaticTexture::kDefaultResource,
                                                       dp::TextureFormat::RedGreen, make_ref(m_textureAllocator));
-    m_smaaSearchTexture = make_unique_dp<StaticTexture>(context, "smaa-search", StaticTexture::kDefaultResource,
+    m_smaaSearchTexture = make_unique_dp<StaticTexture>(context, "smaa-search.png", StaticTexture::kDefaultResource,
                                                         dp::TextureFormat::Alpha, make_ref(m_textureAllocator));
   }
 
@@ -495,13 +495,17 @@ void TextureManager::OnSwitchMapStyle(ref_ptr<dp::GraphicsContext> context)
 }
 
 void TextureManager::InvalidateArrowTexture(ref_ptr<dp::GraphicsContext> context,
-                                            std::optional<std::string> const & texturePath /* = std::nullopt */)
+                                            std::optional<std::string> const & texturePath /* = std::nullopt */,
+                                            bool useDefaultResourceFolder /* = false */)
 {
   CHECK(m_isInitialized, ());
   
   if (texturePath.has_value())
   {
-    m_newArrowTexture = make_unique_dp<StaticTexture>(context, texturePath.value(), std::nullopt /* skinPathName */,
+    m_newArrowTexture = make_unique_dp<StaticTexture>(context, texturePath.value(),
+                                                      useDefaultResourceFolder ?
+                                                        std::make_optional(StaticTexture::kDefaultResource) :
+                                                        std::nullopt /* skinPathName */,
                                                       dp::TextureFormat::RGBA8, make_ref(m_textureAllocator),
                                                       true /* allowOptional */);
   }
