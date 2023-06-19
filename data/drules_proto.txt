@@ -4234,25 +4234,30 @@ cont {
   name: "amenity-community_centre"
   element {
     scale: 14
-    symbol {
-      name: "tourism-s"
-      priority: 16805
-      min_distance: 8
-    }
     caption {
       primary {
         height: 10
         color: 4473924
         offset_y: 1
-        is_optional: true
       }
       priority: 15805
     }
   }
   element {
     scale: 15
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15805
+    }
+  }
+  element {
+    scale: 16
     symbol {
-      name: "tourism-m"
+      name: "community-m"
       priority: 16805
       min_distance: 24
     }
@@ -4267,28 +4272,11 @@ cont {
     }
   }
   element {
-    scale: 16
-    symbol {
-      name: "tourism-m"
-      priority: 16805
-      min_distance: 16
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: 15805
-    }
-  }
-  element {
     scale: 17
     symbol {
-      name: "tourism-m"
+      name: "community-m"
       priority: 16805
-      min_distance: 16
+      min_distance: 24
     }
     caption {
       primary {
@@ -4303,9 +4291,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "tourism-m"
+      name: "community-m"
       priority: 16805
-      min_distance: 16
+      min_distance: 24
     }
     caption {
       primary {
@@ -4320,9 +4308,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "tourism-m"
+      name: "community-m"
       priority: 16805
-      min_distance: 16
+      min_distance: 24
     }
     caption {
       primary {
