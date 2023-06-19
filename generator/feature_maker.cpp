@@ -7,6 +7,7 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -177,6 +178,12 @@ bool FeatureMaker::BuildFromRelation(OsmElement & p, FeatureBuilderParams const 
     auto const nodes = osm_element::GetPlaceNodeFromMembers(p);
     if (!nodes.empty())
     {
+      // Patch to avoid multiple instances from Node and Relation. Node should inherit all needed tags (population).
+      // This is ok, because "canonical" OSM assumes that country/state place tag presents in Nodes only.
+      /// @todo Store boundaries like for cities?
+      if (ftypes::IsCountryChecker::Instance()(placeType) || ftypes::IsStateChecker::Instance()(placeType))
+        return false;
+
       // admin_centre will be the first
       center = ReadNode(nodes.front());
     }
