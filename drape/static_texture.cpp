@@ -142,28 +142,6 @@ bool StaticTexture::Load(ref_ptr<dp::GraphicsContext> context, ref_ptr<HWTexture
                   completionHandler, failureHandler);
 }
 
-void StaticTexture::Invalidate(ref_ptr<dp::GraphicsContext> context,
-                               ref_ptr<HWTextureAllocator> allocator,
-                               std::vector<drape_ptr<HWTexture>> & internalTextures)
-{
-  internalTextures.push_back(std::move(m_hwTexture));
-  Invalidate(context, allocator);
-}
-
-void StaticTexture::Invalidate(ref_ptr<dp::GraphicsContext> context,
-                               ref_ptr<HWTextureAllocator> allocator)
-{
-  Destroy();
-  m_isLoadingCorrect = Load(context, allocator);
-}
-
-void StaticTexture::UpdateTextureName(std::string const & textureName,
-                                      std::optional<std::string> const & skinPathName)
-{
-  m_textureName = textureName;
-  m_skinPathName = skinPathName;
-}
-
 ref_ptr<Texture::ResourceInfo> StaticTexture::FindResource(Texture::Key const & key,
                                                            bool & newResource)
 {

@@ -499,18 +499,27 @@ void TextureManager::InvalidateArrowTexture(ref_ptr<dp::GraphicsContext> context
 {
   CHECK(m_isInitialized, ());
   
-  ref_ptr<dp::StaticTexture> arrowTexture = make_ref(m_arrowTexture);
-  CHECK(arrowTexture != nullptr, ());
-  
   if (texturePath.has_value())
-    arrowTexture->UpdateTextureName(texturePath.value(), std::nullopt /* skinPathName */);
+  {
+    m_newArrowTexture = make_unique_dp<StaticTexture>(context, texturePath.value(), std::nullopt /* skinPathName */,
+                                                      dp::TextureFormat::RGBA8, make_ref(m_textureAllocator),
+                                                      true /* allowOptional */);
+  }
   else
-    arrowTexture->UpdateTextureName(kArrowTextureDefaultName, StaticTexture::kDefaultResource);
+  {
+    m_newArrowTexture = make_unique_dp<StaticTexture>(context, kArrowTextureDefaultName, StaticTexture::kDefaultResource,
+                                                      dp::TextureFormat::RGBA8, make_ref(m_textureAllocator),
+                                                      true /* allowOptional */);
+  }
+}
 
-  if (context->GetApiVersion() != dp::ApiVersion::Vulkan)
-    arrowTexture->Invalidate(context, make_ref(m_textureAllocator));
-  else
-    arrowTexture->Invalidate(context, make_ref(m_textureAllocator), m_texturesToCleanup);
+void TextureManager::ApplyInvalidatedStaticTextures()
+{
+  if (m_newArrowTexture)
+  {
+    std::swap(m_arrowTexture, m_newArrowTexture);
+    m_newArrowTexture.reset();
+  }
 }
 
 void TextureManager::GetTexturesToCleanup(std::vector<drape_ptr<HWTexture>> & textures)
@@ -621,6 +630,9 @@ ref_ptr<Texture> TextureManager::GetHatchingTexture() const
 ref_ptr<Texture> TextureManager::GetArrowTexture() const
 {
   CHECK(m_isInitialized, ());
+  if (m_newArrowTexture)
+    return make_ref(m_newArrowTexture);
+  
   return make_ref(m_arrowTexture);
 }
 
