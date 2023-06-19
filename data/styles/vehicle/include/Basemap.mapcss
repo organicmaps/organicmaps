@@ -338,7 +338,7 @@ area|z0-[natural=desert],
 
 /* 6.WATER */
 
-area|z0-[natural=water],
+area|z0-[natural=water][!tunnel],
 area|z0-[waterway=dock],
 area|z0-[waterway=riverbank],
 area|z0-[landuse=salt_pond],
@@ -361,7 +361,7 @@ line|z13-[natural=strait],
 
 /* 6.1 Area water(lake,pond etc.) */
 
-area|z0-[natural=water],
+area|z0-[natural=water][!tunnel],
 area|z0-[landuse=salt_pond],
 area|z0-[waterway=dock],
 area|z0-[waterway=riverbank],
