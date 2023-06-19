@@ -1184,17 +1184,11 @@ node|z17-[tourism=attraction][attraction=animal],
 area|z17-[tourism=attraction][attraction=animal]
 {icon-image: zoo-m.svg;icon-min-distance: 24;}
 
-node|z14[amenity=community_centre],
-area|z14[amenity=community_centre]
-{icon-image: tourism-s.svg;icon-min-distance: 8;}
-node|z15[amenity=community_centre],
-area|z15[amenity=community_centre]
-{icon-image: tourism-m.svg;icon-min-distance: 24;}
 node|z16-[amenity=community_centre],
 area|z16-[amenity=community_centre]
-{icon-image: tourism-m.svg;icon-min-distance: 16;}
+{icon-image: community-m.svg;icon-min-distance: 24;}
 
-/* 4.2 Apartament */
+/* 4.2 Apartment */
 
 node|z16-[tourism=hotel],
 node|z16-[tourism=hostel],
