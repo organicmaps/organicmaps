@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:maxLines="100"
+        android:maxLines="3"
         android:textAppearance="@style/MwmTextAppearance.Body3" />
 
     <TextView
@@ -43,7 +43,6 @@
         android:gravity="start|top"
         android:text="@string/category_desc_more"
         android:textColor="?attr/colorAccent"
-        android:textSize="14sp"
         android:layout_marginTop="2dp" />
   </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
