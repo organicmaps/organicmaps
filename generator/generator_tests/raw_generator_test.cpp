@@ -271,6 +271,8 @@ UNIT_CLASS_TEST(TestRawGenerator, AreaHighway)
   TEST_EQUAL(pedestrians, 4, ());
 }
 
+// place=region doesn't have drawing rules, but we keep it in
+// GetNondrawableStandaloneIndexScale for the search.
 UNIT_CLASS_TEST(TestRawGenerator, Place_Region)
 {
   uint32_t const regionType = classif().GetTypeByPath({"place", "region"});
@@ -987,6 +989,41 @@ UNIT_CLASS_TEST(TestRawGenerator, NamedAddress)
 
   TEST_EQUAL(withName, 3, ());
   TEST_EQUAL(withNumber, 0, ());
+}
+
+// https://github.com/organicmaps/organicmaps/issues/5096
+UNIT_CLASS_TEST(TestRawGenerator, Place_State)
+{
+  uint32_t const stateType = classif().GetTypeByPath({"place", "state"});
+
+  std::string const mwmName = "State";
+  std::string const worldMwmName = WORLD_FILE_NAME;
+  BuildFB("./data/osm_test_data/place_state.osm", mwmName, true /* makeWorld */);
+
+  size_t states = 0;
+
+  ForEachFB(worldMwmName, [&](feature::FeatureBuilder const & fb)
+  {
+    if (fb.HasType(stateType))
+    {
+      TEST(!fb.GetName().empty(), ());
+      ++states;
+    }
+  });
+
+  TEST_EQUAL(states, 1, ());
+  states = 0;
+
+  ForEachFB(mwmName, [&](feature::FeatureBuilder const & fb)
+  {
+    if (fb.HasType(stateType))
+    {
+      TEST(!fb.GetName().empty(), ());
+      ++states;
+    }
+  });
+
+  TEST_EQUAL(states, 1, ());
 }
 
 } // namespace raw_generator_tests
