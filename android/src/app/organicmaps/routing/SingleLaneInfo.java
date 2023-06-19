@@ -5,8 +5,8 @@ import app.organicmaps.R;
 
 public class SingleLaneInfo
 {
-  LaneWay[] mLane;
-  boolean mIsActive;
+  public LaneWay[] mLane;
+  public boolean mIsActive;
 
   /**
    * IMPORTANT : Order of enum values MUST BE the same

@@ -25,9 +25,11 @@ import java.util.Map;
 
 public class DrivingOptionsScreen extends BaseMapScreen
 {
+  public static final Object DRIVING_OPTIONS_RESULT_CHANGED = 0x1;
+
   private static class DrivingOption
   {
-    public RoadType roadType;
+    public final RoadType roadType;
 
     @StringRes
     public int text;
@@ -81,7 +83,7 @@ public class DrivingOptionsScreen extends BaseMapScreen
     {
       if (Boolean.TRUE.equals(mInitialDrivingOptionsState.get(drivingOption.roadType)) != RoutingOptions.hasOption(drivingOption.roadType))
       {
-        setResult(true);
+        setResult(DRIVING_OPTIONS_RESULT_CHANGED);
         return;
       }
     }

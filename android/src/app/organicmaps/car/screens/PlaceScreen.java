@@ -13,8 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
 import androidx.car.app.CarToast;
 import androidx.car.app.model.Action;
-import androidx.car.app.model.CarColor;
 import androidx.car.app.model.CarIcon;
+import androidx.car.app.model.DistanceSpan;
 import androidx.car.app.model.DurationSpan;
 import androidx.car.app.model.ForegroundCarColorSpan;
 import androidx.car.app.model.Header;
@@ -32,6 +32,8 @@ import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.bookmarks.data.Metadata;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.settings.DrivingOptionsScreen;
+import app.organicmaps.car.util.Colors;
+import app.organicmaps.car.util.RoutingHelpers;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.util.OnBackPressedCallback;
@@ -143,12 +145,14 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
 
     final Row.Builder builder = new Row.Builder();
 
-    builder.setTitle(routingInfo.distToTarget + " " + routingInfo.targetUnits);
-
     final SpannableString time = new SpannableString(" ");
     time.setSpan(DurationSpan.create(routingInfo.totalTimeInSeconds), 0, 1, SPAN_INCLUSIVE_INCLUSIVE);
-    time.setSpan(ForegroundCarColorSpan.create(CarColor.BLUE), 0, 1, SPAN_EXCLUSIVE_EXCLUSIVE);
-    builder.addText(time);
+    builder.setTitle(time);
+
+    final SpannableString distance = new SpannableString(" ");
+    distance.setSpan(DistanceSpan.create(RoutingHelpers.createDistance(routingInfo.distToTarget)), 0, 1, SPAN_INCLUSIVE_INCLUSIVE);
+    distance.setSpan(ForegroundCarColorSpan.create(Colors.DISTANCE), 0, 1, SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.addText(distance);
 
     return builder.build();
   }
@@ -165,7 +169,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     }
 
     final Action.Builder startRouteBuilder = new Action.Builder();
-    startRouteBuilder.setBackgroundColor(CarColor.GREEN);
+    startRouteBuilder.setBackgroundColor(Colors.START_NAVIGATION);
 
     if (mRoutingController.isNavigating())
     {
@@ -204,7 +208,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     final Action.Builder builder = new Action.Builder();
     final CarIcon.Builder iconBuilder = new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_bookmarks));
     if (mMapObject.getMapObjectType() == MapObject.BOOKMARK)
-      iconBuilder.setTint(CarColor.YELLOW);
+      iconBuilder.setTint(Colors.BOOKMARK_SAVED);
     builder.setIcon(iconBuilder.build());
     builder.setOnClickListener(() -> {
       // TODO(AndrewShkrob): Bookmarks not working while mRoutingController.isPlanning()
@@ -227,7 +231,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
 
   private void onDrivingOptionsResult(@Nullable Object result)
   {
-    if (result == null)
+    if (result == null || result != DrivingOptionsScreen.DRIVING_OPTIONS_RESULT_CHANGED)
       return;
 
     // Driving Options changed. Let's rebuild the route
