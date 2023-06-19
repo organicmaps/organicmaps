@@ -3,14 +3,16 @@ package app.organicmaps.car.screens.search;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.car.app.CarContext;
 import androidx.car.app.model.CarColor;
+import androidx.car.app.model.DistanceSpan;
 import androidx.car.app.model.ForegroundCarColorSpan;
 
 import app.organicmaps.R;
+import app.organicmaps.car.util.Colors;
+import app.organicmaps.car.util.RoutingHelpers;
 import app.organicmaps.search.SearchResult;
 
 public final class SearchUiHelpers
@@ -24,13 +26,14 @@ public final class SearchUiHelpers
     if (openingHours.length() != 0)
       result.append(openingHours);
 
-    if (!TextUtils.isEmpty(searchResult.description.distance))
+    if (!searchResult.description.distance.isValid())
     {
       if (result.length() != 0)
         result.append(" • ");
 
-      final SpannableStringBuilder distance = new SpannableStringBuilder(searchResult.description.distance);
-      distance.setSpan(ForegroundCarColorSpan.create(CarColor.BLUE), 0, distance.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      final SpannableStringBuilder distance = new SpannableStringBuilder(" ");
+      distance.setSpan(DistanceSpan.create(RoutingHelpers.createDistance(searchResult.description.distance)), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      distance.setSpan(ForegroundCarColorSpan.create(Colors.DISTANCE), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
       result.append(distance);
     }
 
@@ -43,7 +46,7 @@ public final class SearchUiHelpers
     final SpannableStringBuilder result = new SpannableStringBuilder();
 
     String text = "";
-    CarColor color = CarColor.DEFAULT;
+    CarColor color = Colors.DEFAULT;
     switch (searchResult.description.openNow)
     {
     case SearchResult.OPEN_NOW_YES:
@@ -52,12 +55,12 @@ public final class SearchUiHelpers
         final String time = searchResult.description.minutesUntilClosed + " " +
             carContext.getString(R.string.minute);
         text = carContext.getString(R.string.closes_in, time);
-        color = CarColor.YELLOW;
+        color = Colors.OPENING_HOURS_CLOSES_SOON;
       }
       else
       {
         text = carContext.getString(R.string.editor_time_open);
-        color = CarColor.GREEN;
+        color = Colors.OPENING_HOURS_OPEN;
       }
       break;
     case SearchResult.OPEN_NOW_NO:
@@ -69,7 +72,7 @@ public final class SearchUiHelpers
       }
       else
         text = carContext.getString(R.string.closed);
-      color = CarColor.RED;
+      color = Colors.OPENING_HOURS_CLOSED;
       break;
     }
 

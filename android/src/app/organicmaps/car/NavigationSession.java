@@ -10,6 +10,9 @@ import androidx.car.app.Screen;
 import androidx.car.app.ScreenManager;
 import androidx.car.app.Session;
 import androidx.car.app.SessionInfo;
+import androidx.car.app.navigation.NavigationManager;
+import androidx.car.app.navigation.NavigationManagerCallback;
+import androidx.car.app.navigation.model.Trip;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 
@@ -19,6 +22,7 @@ import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.car.screens.NavigationScreen;
 import app.organicmaps.car.screens.PlaceScreen;
 import app.organicmaps.car.screens.hacks.PopToRootHack;
+import app.organicmaps.car.util.RoutingUtils;
 import app.organicmaps.display.DisplayChangedListener;
 import app.organicmaps.display.DisplayManager;
 import app.organicmaps.display.DisplayType;
@@ -31,18 +35,24 @@ import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.location.LocationState;
 import app.organicmaps.routing.RoutingController;
+import app.organicmaps.routing.RoutingInfo;
 import app.organicmaps.util.log.Logger;
 import app.organicmaps.widget.placepage.PlacePageData;
 
 import java.io.IOException;
 
-public final class NavigationSession extends Session implements DefaultLifecycleObserver, LocationListener, LocationState.ModeChangeListener, DisplayChangedListener, Framework.PlacePageActivationListener
+public final class NavigationSession extends Session implements DefaultLifecycleObserver, LocationListener, LocationState.ModeChangeListener, DisplayChangedListener, Framework.PlacePageActivationListener, NavigationManagerCallback
 {
   private static final String TAG = NavigationSession.class.getSimpleName();
 
   @Nullable
   private final SessionInfo mSessionInfo;
+  @NonNull
   private final SurfaceRenderer mSurfaceRenderer;
+  @NonNull
+  private final ScreenManager mScreenManager;
+  @NonNull
+  private final NavigationManager mNavigationManager;
   private boolean mInitFailed = false;
 
   public NavigationSession(@Nullable SessionInfo sessionInfo)
@@ -50,12 +60,16 @@ public final class NavigationSession extends Session implements DefaultLifecycle
     getLifecycle().addObserver(this);
     mSessionInfo = sessionInfo;
     mSurfaceRenderer = new SurfaceRenderer(getCarContext(), getLifecycle());
+    mScreenManager = getCarContext().getCarService(ScreenManager.class);
+    mNavigationManager = getCarContext().getCarService(NavigationManager.class);
   }
 
   @Override
   public void onCarConfigurationChanged(@NonNull Configuration newConfiguration)
   {
     Logger.d(TAG, "New configuration: " + newConfiguration);
+
+    mScreenManager.getTop().invalidate();
   }
 
   @NonNull
@@ -91,6 +105,7 @@ public final class NavigationSession extends Session implements DefaultLifecycle
   public void onStart(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
+    mNavigationManager.setNavigationManagerCallback(this);
     if (DisplayManager.from(getCarContext()).isCarDisplayUsed())
     {
       LocationState.nativeSetListener(this);
@@ -137,7 +152,7 @@ public final class NavigationSession extends Session implements DefaultLifecycle
   @Override
   public void onMyPositionModeChanged(int newMode)
   {
-    final Screen screen = getCarContext().getCarService(ScreenManager.class).getTop();
+    final Screen screen = mScreenManager.getTop();
     if (screen instanceof BaseMapScreen)
       screen.invalidate();
   }
@@ -151,25 +166,26 @@ public final class NavigationSession extends Session implements DefaultLifecycle
   public void onCompassUpdated(double north)
   {
     Map.onCompassUpdated(north, false);
+    if (RoutingController.get().isNavigating())
+      updateTrip();
   }
 
   @Override
   public void onDisplayChanged(@NonNull final DisplayType newDisplayType)
   {
     Logger.d(TAG);
-    final ScreenManager screenManager = getCarContext().getCarService(ScreenManager.class);
-    final boolean isUsedOnDeviceScreenShown = screenManager.getTop() instanceof MapPlaceholderScreen;
+    final boolean isUsedOnDeviceScreenShown = mScreenManager.getTop() instanceof MapPlaceholderScreen;
     final RoutingController routingController = RoutingController.get();
     if (newDisplayType == DisplayType.Car)
     {
       LocationState.nativeSetListener(this);
       onMyPositionModeChanged(LocationState.nativeGetMode());
-      screenManager.popToRoot();
+      mScreenManager.popToRoot();
       routingController.restore();
       if (routingController.isNavigating())
-        screenManager.push(new NavigationScreen(getCarContext(), mSurfaceRenderer));
+        mScreenManager.push(new NavigationScreen(getCarContext(), mSurfaceRenderer));
       else if (routingController.isPlanning() && routingController.getEndPoint() != null)
-        screenManager.push(new PlaceScreen.Builder(getCarContext(), mSurfaceRenderer).setMapObject(routingController.getEndPoint()).build());
+        mScreenManager.push(new PlaceScreen.Builder(getCarContext(), mSurfaceRenderer).setMapObject(routingController.getEndPoint()).build());
       mSurfaceRenderer.enable();
       Framework.nativePlacePageActivationListener(this);
     }
@@ -178,7 +194,7 @@ public final class NavigationSession extends Session implements DefaultLifecycle
       Framework.nativeRemovePlacePageActivationListener(this);
       mSurfaceRenderer.disable();
       final PopToRootHack hack = new PopToRootHack.Builder(getCarContext()).setScreenToPush(new MapPlaceholderScreen(getCarContext())).build();
-      screenManager.push(hack);
+      mScreenManager.push(hack);
       routingController.onSaveState();
     }
   }
@@ -187,32 +203,53 @@ public final class NavigationSession extends Session implements DefaultLifecycle
   public void onPlacePageActivated(@NonNull PlacePageData data)
   {
     Logger.d(TAG);
-    final MapObject mapObject = (MapObject) data;
-    final ScreenManager screenManager = getCarContext().getCarService(ScreenManager.class);
-    if (screenManager.getTop() instanceof PlaceScreen)
+    // TODO (AndrewShkrob): Will be implemented later. "Add stop" and another functionality
+    final Screen screen = mScreenManager.getTop();
+    if (screen instanceof NavigationScreen)
     {
-      final PlaceScreen screen = (PlaceScreen) screenManager.getTop();
-      if (screen.getMapObject().getFeatureId().equals(mapObject.getFeatureId()))
+      Framework.nativeDeactivatePopup();
+      return;
+    }
+    final MapObject mapObject = (MapObject) data;
+    if (screen instanceof PlaceScreen)
+    {
+      final PlaceScreen placeScreen = (PlaceScreen) screen;
+      if (placeScreen.getMapObject().getFeatureId().equals(mapObject.getFeatureId()))
       {
-        screen.updateMapObject(mapObject);
+        placeScreen.updateMapObject(mapObject);
         return;
       }
     }
     final PlaceScreen placeScreen = new PlaceScreen.Builder(getCarContext(), mSurfaceRenderer).setMapObject(mapObject).build();
     if (RoutingController.get().isNavigating())
-      screenManager.push(placeScreen);
+      mScreenManager.push(placeScreen);
     else
     {
       final PopToRootHack hack = new PopToRootHack.Builder(getCarContext()).setScreenToPush(placeScreen).build();
-      screenManager.push(hack);
+      mScreenManager.push(hack);
     }
   }
 
   @Override
   public void onPlacePageDeactivated(boolean switchFullScreenMode)
   {
-    final ScreenManager screenManager = getCarContext().getCarService(ScreenManager.class);
-    if (screenManager.getTop() instanceof PlaceScreen)
-      screenManager.popToRoot();
+    if (mScreenManager.getTop() instanceof PlaceScreen)
+      mScreenManager.popToRoot();
+  }
+
+  @Override
+  public void onStopNavigation()
+  {
+    if (mScreenManager.getTop() instanceof NavigationScreen)
+      ((NavigationScreen) mScreenManager.getTop()).stopNavigation();
+  }
+
+  private void updateTrip()
+  {
+    final RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
+    final Trip trip = RoutingUtils.createTrip(getCarContext(), info, RoutingController.get().getEndPoint());
+    mNavigationManager.updateTrip(trip);
+    if (mScreenManager.getTop() instanceof NavigationScreen)
+      mScreenManager.getTop().invalidate();
   }
 }

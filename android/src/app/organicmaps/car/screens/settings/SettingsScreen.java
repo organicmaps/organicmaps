@@ -79,7 +79,7 @@ public class SettingsScreen extends BaseMapScreen
   {
     final Row.Builder builder = new Row.Builder();
     builder.setTitle(getCarContext().getString(R.string.driving_options_title));
-    builder.setOnClickListener(() -> getScreenManager().push(new DrivingOptionsScreen(getCarContext(), getSurfaceRenderer())));
+    builder.setOnClickListener(() -> getScreenManager().pushForResult(new DrivingOptionsScreen(getCarContext(), getSurfaceRenderer()), this::setResult));
     builder.setBrowsable(true);
     return builder.build();
   }
