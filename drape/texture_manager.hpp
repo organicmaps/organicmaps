@@ -119,6 +119,8 @@ public:
 
   void InvalidateArrowTexture(ref_ptr<dp::GraphicsContext> context,
                               std::optional<std::string> const & texturePath = std::nullopt);
+  // Apply must be called on FrontendRenderer.
+  void ApplyInvalidatedStaticTextures();
 
 private:
   struct GlyphGroup
@@ -231,6 +233,8 @@ private:
   drape_ptr<Texture> m_arrowTexture;
   drape_ptr<Texture> m_smaaAreaTexture;
   drape_ptr<Texture> m_smaaSearchTexture;
+  
+  drape_ptr<Texture> m_newArrowTexture;
 
   drape_ptr<GlyphManager> m_glyphManager;
   drape_ptr<HWTextureAllocator> m_textureAllocator;

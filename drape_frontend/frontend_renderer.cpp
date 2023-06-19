@@ -413,6 +413,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<MapShapesMessage> msg = message;
       CHECK(m_context != nullptr, ());
+      m_texMng->ApplyInvalidatedStaticTextures();
       m_myPositionController->SetRenderShape(m_context, m_texMng, msg->AcceptShape(),
                                              msg->AcceptPeloadedArrow3dData());
       m_selectionShape = msg->AcceptSelection();
