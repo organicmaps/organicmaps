@@ -63,6 +63,7 @@ void MapObject::SetFromFeatureType(FeatureType & ft)
   m_roadShields = ftypes::GetRoadShieldsNames(ft);
   m_featureID = ft.GetID();
   m_geomType = ft.GetGeomType();
+  m_layer = ft.GetLayer();
 
   if (m_geomType == feature::GeomType::Area)
     assign_range(m_triangles, ft.GetTrianglesAsPoints(FeatureType::BEST_GEOMETRY));

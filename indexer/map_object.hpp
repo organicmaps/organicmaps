@@ -100,6 +100,7 @@ public:
 
   bool IsPointType() const;
   feature::GeomType GetGeomType() const { return m_geomType; };
+  int8_t GetLayer() const { return m_layer; };
 
   /// @returns true if object is of building type.
   bool IsBuilding() const;
@@ -123,6 +124,7 @@ protected:
   feature::Metadata m_metadata;
 
   feature::GeomType m_geomType = feature::GeomType::Undefined;
+  int8_t m_layer = feature::LAYER_EMPTY;
 };
 
 }  // namespace osm

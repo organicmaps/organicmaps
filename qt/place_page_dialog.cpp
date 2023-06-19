@@ -81,6 +81,10 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
     addEntry("Raw Types", DebugPrint(info.GetTypes()));
   }
 
+  auto const layer = info.GetLayer();
+  if (layer != feature::LAYER_EMPTY)
+    addEntry("Layer", std::to_string(layer));
+
   using PropID = osm::MapObject::MetadataID;
 
   if (auto cuisines = info.FormatCuisines(); !cuisines.empty())
