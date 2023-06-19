@@ -8,6 +8,8 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
+import androidx.car.app.OnScreenResultListener;
+import androidx.car.app.Screen;
 import androidx.car.app.model.Action;
 import androidx.car.app.model.ActionStrip;
 import androidx.car.app.model.CarColor;
@@ -66,6 +68,18 @@ public final class UiHelpers
   @NonNull
   public static Action createSettingsAction(@NonNull BaseMapScreen mapScreen, @NonNull SurfaceRenderer surfaceRenderer)
   {
+    return createSettingsAction(mapScreen, surfaceRenderer, null);
+  }
+
+  @NonNull
+  public static Action createSettingsActionForResult(@NonNull BaseMapScreen mapScreen, @NonNull SurfaceRenderer surfaceRenderer, @NonNull OnScreenResultListener onScreenResultListener)
+  {
+    return createSettingsAction(mapScreen, surfaceRenderer, onScreenResultListener);
+  }
+
+  @NonNull
+  private static Action createSettingsAction(@NonNull BaseMapScreen mapScreen, @NonNull SurfaceRenderer surfaceRenderer, @Nullable OnScreenResultListener onScreenResultListener)
+  {
     final CarContext context = mapScreen.getCarContext();
     final CarIcon iconSettings = new CarIcon.Builder(IconCompat.createWithResource(context, R.drawable.ic_settings)).build();
 
@@ -81,7 +95,11 @@ public final class UiHelpers
       //   * Action.onClickListener is called for action from root screen (A)
       if (mapScreen.getScreenManager().getTop() != mapScreen)
         return;
-      mapScreen.getScreenManager().push(new SettingsScreen(context, surfaceRenderer));
+      final Screen settingsScreen = new SettingsScreen(context, surfaceRenderer);
+      if (onScreenResultListener != null)
+        mapScreen.getScreenManager().pushForResult(settingsScreen, onScreenResultListener);
+      else
+        mapScreen.getScreenManager().push(settingsScreen);
     }).build();
   }
 
@@ -144,7 +162,7 @@ public final class UiHelpers
   {
     final Action.Builder builder = new Action.Builder();
     final int locationMode = LocationState.nativeGetMode();
-    CarColor tintColor = CarColor.DEFAULT;
+    CarColor tintColor = Colors.DEFAULT;
 
     @DrawableRes int drawableRes;
     switch (locationMode)
@@ -158,11 +176,11 @@ public final class UiHelpers
       break;
     case LocationState.FOLLOW:
       drawableRes = R.drawable.ic_follow;
-      tintColor = CarColor.BLUE;
+      tintColor = Colors.LOCATION_TINT;
       break;
     case LocationState.FOLLOW_AND_ROTATE:
       drawableRes = R.drawable.ic_follow_and_rotate;
-      tintColor = CarColor.BLUE;
+      tintColor = Colors.LOCATION_TINT;
       break;
     default:
       throw new IllegalArgumentException("Invalid button mode: " + locationMode);

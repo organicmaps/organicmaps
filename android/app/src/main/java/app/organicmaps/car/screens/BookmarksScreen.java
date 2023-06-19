@@ -3,6 +3,9 @@ package app.organicmaps.car.screens;
 import static java.util.Objects.requireNonNull;
 
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,6 +13,8 @@ import androidx.car.app.CarContext;
 import androidx.car.app.constraints.ConstraintManager;
 import androidx.car.app.model.Action;
 import androidx.car.app.model.CarIcon;
+import androidx.car.app.model.DistanceSpan;
+import androidx.car.app.model.ForegroundCarColorSpan;
 import androidx.car.app.model.Header;
 import androidx.car.app.model.ItemList;
 import androidx.car.app.model.Row;
@@ -22,8 +27,12 @@ import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.bookmarks.data.BookmarkInfo;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.car.SurfaceRenderer;
+import app.organicmaps.car.util.Colors;
+import app.organicmaps.car.util.RoutingHelpers;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.car.screens.base.BaseMapScreen;
+import app.organicmaps.location.LocationHelper;
+import app.organicmaps.util.Distance;
 import app.organicmaps.util.Graphics;
 
 import java.util.ArrayList;
@@ -106,8 +115,9 @@ public class BookmarksScreen extends BaseMapScreen
       itemBuilder.setTitle(bookmarkInfo.getName());
       if (!bookmarkInfo.getAddress().isEmpty())
         itemBuilder.addText(bookmarkInfo.getAddress());
-      if (!bookmarkInfo.getFeatureType().isEmpty())
-        itemBuilder.addText(bookmarkInfo.getFeatureType());
+      final CharSequence description = getDescription(bookmarkInfo);
+      if (description.length() != 0)
+        itemBuilder.addText(description);
       final Drawable icon = Graphics.drawCircleAndImage(bookmarkInfo.getIcon().argb(),
           R.dimen.track_circle_size,
           bookmarkInfo.getIcon().getResId(),
@@ -118,6 +128,27 @@ public class BookmarksScreen extends BaseMapScreen
       builder.addItem(itemBuilder.build());
     }
     return builder.build();
+  }
+
+  @NonNull
+  private CharSequence getDescription(final BookmarkInfo bookmark)
+  {
+    final SpannableStringBuilder result = new SpannableStringBuilder(" ");
+    final Location loc = LocationHelper.INSTANCE.getSavedLocation();
+    if (loc != null)
+    {
+      final Distance distance = bookmark.getDistance(loc.getLatitude(), loc.getLongitude(), 0.0);
+      result.setSpan(DistanceSpan.create(RoutingHelpers.createDistance(distance)), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      result.setSpan(ForegroundCarColorSpan.create(Colors.DISTANCE), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    }
+
+    if (loc != null && !bookmark.getFeatureType().isEmpty())
+    {
+      result.append(" • ");
+      result.append(bookmark.getFeatureType());
+    }
+
+    return result;
   }
 
   @NonNull
