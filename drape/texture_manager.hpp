@@ -79,6 +79,8 @@ public:
     std::string m_colors;
     std::string m_patterns;
     GlyphManager::Params m_glyphMngParams;
+    std::optional<std::string> m_arrowTexturePath;
+    bool m_arrowTextureUseDefaultResourceFolder = false;
   };
 
   explicit TextureManager(ref_ptr<GlyphGenerator> glyphGenerator);
