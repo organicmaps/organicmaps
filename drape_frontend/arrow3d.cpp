@@ -283,7 +283,7 @@ Arrow3d::Arrow3d(ref_ptr<dp::GraphicsContext> context,
   , m_arrowMeshTexturingEnabled(preloadedData.m_arrowMeshTexturingEnabled)
   , m_texCoordFlipping(std::move(preloadedData.m_texCoordFlipping))
   , m_shadowMesh(preloadedData.m_shadowMeshData.has_value() ?
-                 std::make_unique<dp::MeshObject>(context, dp::MeshObject::DrawPrimitive::Triangles) :
+                 make_unique_dp<dp::MeshObject>(context, dp::MeshObject::DrawPrimitive::Triangles) :
                  nullptr)
   , m_state(CreateRenderState(gpu::Program::Arrow3d, DepthLayer::OverlayLayer))
   , m_meshOffset(std::move(preloadedData.m_meshOffset))

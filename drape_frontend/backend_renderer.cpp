@@ -765,7 +765,13 @@ void BackendRenderer::InitContextDependentResources()
   params.m_glyphMngParams.m_sdfScale = VisualParams::Instance().GetGlyphSdfScale();
   params.m_glyphMngParams.m_baseGlyphHeight = VisualParams::Instance().GetGlyphBaseSize();
   GetPlatform().GetFontNames(params.m_glyphMngParams.m_fonts);
-
+  if (m_arrow3dCustomDecl.has_value())
+  {
+    params.m_arrowTexturePath = m_arrow3dCustomDecl.value().m_arrowMeshTexturePath;
+    params.m_arrowTextureUseDefaultResourceFolder =
+      m_arrow3dCustomDecl.value().m_loadFromDefaultResourceFolder;
+  }
+  
   CHECK(m_context != nullptr, ());
   m_texMng->Init(m_context, params);
 
