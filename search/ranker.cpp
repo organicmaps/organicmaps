@@ -771,6 +771,15 @@ void Ranker::UpdateResults(bool lastUpdate)
 
   if (m_params.m_viewportSearch)
   {
+    // Heuristics to filter partially matched category trash in the viewport.
+    // https://github.com/organicmaps/organicmaps/issues/5251
+    auto it = partition(m_tentativeResults.begin(), m_tentativeResults.end(),
+                        [](RankerResult const & r) { return !r.IsPartialCategory(); });
+
+    size_t const goodCount = distance(m_tentativeResults.begin(), it);
+    if (goodCount >= 10 || goodCount * 3 >= m_tentativeResults.size())
+      m_tentativeResults.erase(it, m_tentativeResults.end());
+
     sort(m_tentativeResults.begin(), m_tentativeResults.end(),
          base::LessBy(&RankerResult::GetDistanceToPivot));
   }
