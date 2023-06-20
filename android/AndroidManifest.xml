@@ -718,7 +718,8 @@
 
     <activity
         android:name="app.organicmaps.editor.FeatureCategoryActivity"
-        android:parentActivityName="app.organicmaps.MwmActivity" />
+        android:parentActivityName="app.organicmaps.MwmActivity"
+        android:windowSoftInputMode="adjustResize" />
 
     <activity
         android:name="app.organicmaps.editor.ReportActivity"
