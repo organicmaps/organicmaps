@@ -205,8 +205,18 @@ public class PlacePageController extends Fragment implements
     return items;
   }
 
+  private void setPlacePageInteractions(boolean enabled)
+  {
+    // Prevent place page scrolling when playing the close animation
+    mPlacePageBehavior.setDraggable(enabled);
+    mPlacePage.setNestedScrollingEnabled(enabled);
+    // Prevent user interaction with place page content when closing
+    mPlacePageContainer.setEnabled(enabled);
+  }
+
   private void close()
   {
+    setPlacePageInteractions(false);
     mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
   }
 
@@ -577,6 +587,7 @@ public class PlacePageController extends Fragment implements
     mMapObject = mapObject;
     if (mapObject != null)
     {
+      setPlacePageInteractions(true);
       // Only collapse the place page if the data is different from the one already available
       mShouldCollapse = PlacePageUtils.isHiddenState(mPlacePageBehavior.getState()) || !MapObject.same(mPreviousMapObject, mMapObject);
       mPreviousMapObject = mMapObject;
@@ -586,7 +597,8 @@ public class PlacePageController extends Fragment implements
           mapObject,
           MapObject.isOfType(MapObject.API_POINT, mMapObject),
           !MapObject.isOfType(MapObject.MY_POSITION, mMapObject));
-    } else
+    }
+    else
       close();
   }
 
