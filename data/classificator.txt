@@ -55,12 +55,14 @@ world  +
         clinic  -
         college  -
         community_centre  -
+        conference_centre  -
         courthouse  -
         dentist  -
         doctors  -
         drinking_water  -
         driving_school  -
         events_venue  -
+        exhibition_centre  -
         fast_food  -
         ferry_terminal  -
         fire_station  -
@@ -214,8 +216,15 @@ world  +
             state  -
             suburb  -
             {}
-        military  -
         national_park  -
+        protected_area  +
+            1  -
+            2  -
+            3  -
+            4  -
+            5  -
+            6  -
+            {}
         {}
     building  +
         address  -
