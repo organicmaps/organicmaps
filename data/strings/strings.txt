@@ -15413,45 +15413,6 @@
     zh-Hans = 分鐘
     zh-Hant = 分鐘
 
-  [placepage_place_description]
-    tags = ios
-    en = Description
-    ar = الوصف
-    be = Апісанне
-    bg = Описание
-    ca = Descripció
-    cs = Popis
-    da = Beskrivelse
-    de = Beschreibung
-    es = Descripción
-    et = Kirjeldus
-    eu = Deskribapena
-    fa = توضیحات
-    fi = Kuvaus
-    fr = Description
-    hu = Leírás
-    id = Deskripsi
-    it = Descrizione
-    ja = 説明
-    ko = 설명
-    lt = Aprašymas
-    mr = वर्णन
-    nb = Beskrivelse
-    nl = Beschrijving
-    pl = Opis
-    pt = Descrição
-    pt-BR = Descrição
-    ro = Descriere
-    ru = Описание
-    sk = Popis
-    sv = Beskrivning
-    th = คำอธิบาย
-    tr = Açıklama
-    uk = Опис
-    vi = Mô tả
-    zh-Hans = 说明
-    zh-Hant = 說明
-
   [placepage_more_button]
     tags = android,ios
     en = More
