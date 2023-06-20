@@ -39,11 +39,11 @@
 	<!-- Text in About screen -->
 	<string name="about_headline">Zdarma pro všechny, vyrobené s láskou</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_1">• Žádné reklamy, žádné sledování, žádné sběr dat</string>
+	<string name="about_proposition_1">• Žádné reklamy, žádné sledování, žádný sběr dat</string>
 	<!-- Text in About screen -->
 	<string name="about_proposition_2">• Šetří baterii, nevyužívá data na pozadí</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Rychlý, minimalistický, žádný haraburdí</string>
+	<string name="about_proposition_3">• Rychlé, minimalistické, žádný bloatware</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Otevřená aplikace vytvořená nadšenci a dobrovolníky.</string>
 	<string name="connection_settings">Nastavení připojení</string>
@@ -451,7 +451,7 @@
 	<string name="placepage_add_business_button">Přidat organizaci</string>
 	<string name="message_invalid_feature_position">Objekt zde nemůže být umístěn</string>
 	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Kartografické údaje z OpenStreetMap od roku %s. Je to jako Wikipedia, kde můžete přidat nebo upravovat místa pro všechny uživatele po celém světě.</string>
+	<string name="osm_presentation">Kartografická data z OpenStreetMap z %s. OSM je jako Wikipedie pro mapy, kde můžete přidat nebo upravovat místa pro uživatele po celém světě.</string>
 	<string name="login_to_make_edits_visible">Přihlaste se, aby ostatní uživatelé mohli vidět změny, které jste provedli.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d z %2$d</string>
