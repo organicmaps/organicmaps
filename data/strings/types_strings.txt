@@ -5256,6 +5256,46 @@
     zh-Hans = 国家公园
     zh-Hant = 國家公園
 
+  [type.boundary.protected_area]
+    en = Protected Area
+    ar = منطقة محمية
+    be = Запаведная зона
+    bg = Защитена местност
+    ca = Àrea Protegida
+    cs = Chráněné území
+    da = Beskyttet område
+    de = Geschützter Bereich
+    el = Προστατευόμενη Περιοχή
+    es = Área protegida
+    et = Kaitseala
+    eu = Babestutako Eremua
+    fa = منطقه حفاظت شده
+    fi = Suojeltu alue
+    fr = Zone protégée
+    he = אזור מוגן
+    hu = Védett terület
+    id = Kawasan Lindung
+    it = Area protetta
+    ja = 保護区域
+    ko = 보호구역
+    mr = संरक्षित क्षेत्र
+    nb = Vernet område
+    nl = Beschermd gebied
+    pl = Strefa chroniona
+    pt = Área protegida
+    pt-BR = Área protegida
+    ro = Zonă protejată
+    ru = Заповедная зона
+    sk = Chránené územie
+    sv = Skyddat område
+    sw = Eneo Lindwa
+    th = พื้นที่คุ้มครอง
+    tr = Korunmuş bölge
+    uk = Заповідна зона
+    vi = Khu bảo tồn
+    zh-Hans = 保护区
+    zh-Hant = 保護區
+
   [type.building]
     en = Building
     ar = مبنى

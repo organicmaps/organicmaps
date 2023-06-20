@@ -61,6 +61,7 @@ area[landuse=reservoir],
 */
 area[leisure=nature_reserve],
 area[boundary=national_park],
+area[boundary=protected_area],
 area[landuse=military],
 {fill-position: foreground; z-index: 2;}
 
@@ -180,9 +181,6 @@ node[waterway=lock_gate],
 line[man_made=cutline]
 {z-index: 120;}
 
-line[boundary=military]
-{z-index: 125;}
-
 line[boundary=administrative]
 {z-index: 130;}
 
@@ -269,10 +267,6 @@ line|z9[boundary=administrative][admin_level=4]
 line|z10-[boundary=administrative][admin_level=4]
 {width: 1.2;dashes: 1.8,0.9;}
 
-/* 3.3 Military */
-
-line|z10-[boundary=military]
-{color: @military;opacity: 1;dashes: 1.8,0.9;width: 1.2;}
 
 /* 4.VEGETATION */
 
@@ -352,6 +346,7 @@ area|z12-13[landuse=field],
 /* Next types are hardcoded to have a hatching-style fill, see drape_frontend/stylist.cpp */
 area|z10-[leisure=nature_reserve],
 area|z10-[boundary=national_park],
+area|z10-[boundary=protected_area][protect_class=1],
 {fill-opacity: 0.2; fill-color: @green6;}
 
 area|z10-[landuse=military][military=danger_area],

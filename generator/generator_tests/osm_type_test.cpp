@@ -679,18 +679,32 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Boundary)
 {
-  Tags const tags = {
-    { "admin_level", "4" },
-    { "boundary", "administrative" },
-    { "admin_level", "2" },
-    { "boundary", "administrative" },
-  };
+  {
+    Tags const tags = {
+      { "admin_level", "4" },
+      { "boundary", "administrative" },
+      { "admin_level", "2" },
+      { "boundary", "administrative" },
+    };
 
-  auto const params = GetFeatureBuilderParams(tags);
+    auto const params = GetFeatureBuilderParams(tags);
 
-  TEST_EQUAL(params.m_types.size(), 2, (params));
-  TEST(params.IsTypeExist(GetType({"boundary", "administrative", "2"})), ());
-  TEST(params.IsTypeExist(GetType({"boundary", "administrative", "4"})), ());
+    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST(params.IsTypeExist(GetType({"boundary", "administrative", "2"})), ());
+    TEST(params.IsTypeExist(GetType({"boundary", "administrative", "4"})), ());
+  }
+
+  {
+    Tags const tags = {
+      { "protect_class", "1b" },
+      { "boundary", "protected_area" },
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"boundary", "protected_area", "1"})), ());
+  }
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Dibrugarh)
@@ -1759,6 +1773,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"barrier", "toll_booth"},
     {"barrier", "wall"},
     {"boundary", "national_park"},
+    {"boundary", "protected_area"},
     {"building", "has_parts"},
     {"building", "train_station"},
     {"cemetery", "grave"},

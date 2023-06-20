@@ -195,7 +195,7 @@ highway|path|bridge;[highway=path][bridge?];;name;int_name;194;
 piste:type|nordic;195;
 natural|beach|gravel;[natural=beach][surface=gravel];;name;int_name;196;
 railway|crossing;197;
-boundary|national_park;198;
+boundary|protected_area;198;
 natural|wood|deciduous;[natural=wood][wood=deciduous],[natural=wood][leaf_type=deciduous],[natural=wood][leaf_cycle=deciduous];x;name;int_name;199;landuse|forest|deciduous
 waterway|dam;200;
 amenity|charging_station|motorcar;[amenity=charging_station][motorcar?];;name;int_name;201;
@@ -478,12 +478,12 @@ aerialway|platter;477;
 deprecated|deprecated;478;x
 deprecated|deprecated;479;x
 railway|preserved|tunnel;[railway=preserved][tunnel?];;name;int_name;480;
-deprecated|deprecated;481;x
-deprecated|deprecated;482;x
-deprecated|deprecated;483;x
-deprecated|deprecated;484;x
-deprecated|deprecated;485;x
-deprecated|deprecated;486;x
+boundary|protected_area|1;[boundary=protected_area][protect_class=1],[boundary=protected_area][protect_class=1a],[boundary=protected_area][protect_class=1b];;name;int_name;481;
+boundary|protected_area|2;[boundary=protected_area][protect_class=2];;name;int_name;482;
+boundary|protected_area|3;[boundary=protected_area][protect_class=3];;name;int_name;483;
+boundary|protected_area|4;[boundary=protected_area][protect_class=4];;name;int_name;484;
+boundary|protected_area|5;[boundary=protected_area][protect_class=5];;name;int_name;485;
+boundary|protected_area|6;[boundary=protected_area][protect_class=6];;name;int_name;486;
 leisure|park|permissive;[leisure=park][access=permissive];;name;int_name;487;
 highway|bridleway|tunnel;[highway=bridleway][tunnel?];;name;int_name;488;
 highway|motorway_link|tunnel;[highway=motorway_link][tunnel?];;name;int_name;489;
@@ -837,7 +837,7 @@ deprecated|deprecated;836;x
 deprecated|deprecated;837;x
 deprecated|deprecated;838;x
 landuse|military|danger_area;[landuse=military][military=danger_area][wikipedia?],[landuse=military][military=cordon][wikipedia?];;name;int_name;839;
-boundary|military;840;
+boundary|national_park;840;
 deprecated|deprecated;841;x
 deprecated|deprecated;842;x
 deprecated|deprecated;843;x
