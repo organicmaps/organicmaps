@@ -578,15 +578,15 @@ area|z16-[tourism=theme_park]
 node|z17-[tourism=artwork]
 {icon-image: tourism-m.svg;icon-min-distance: 24;}
 
-node|z14[amenity=community_centre],
-area|z14[amenity=community_centre]
-{icon-image: tourism-m.svg;icon-min-distance: 8;}
-node|z15[amenity=community_centre],
-area|z15[amenity=community_centre]
-{icon-image: tourism-m.svg;icon-min-distance: 24;}
 node|z16-[amenity=community_centre],
-area|z16-[amenity=community_centre]
-{icon-image: tourism-m.svg;icon-min-distance: 16;}
+area|z16-[amenity=community_centre],
+node|z16-[amenity=conference_centre],
+area|z16-[amenity=conference_centre],
+node|z16-[amenity=events_venue],
+area|z16-[amenity=events_venue],
+node|z16-[amenity=exhibition_centre],
+area|z16-[amenity=exhibition_centre],
+{icon-image: community-m.svg;icon-min-distance: 24;}
 
 
 /* 4.3 Food */

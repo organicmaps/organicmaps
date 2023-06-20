@@ -1391,6 +1391,47 @@
     zh-Hans = 社区活动中心
     zh-Hant = 社區活動中心
 
+  [type.amenity.conference_centre]
+    en = Conference Center
+    en-GB = Conference Centre
+    ar = مركز المؤتمرات
+    be = Канферэнц-цэнтр
+    bg = Конферентен център
+    ca = Centre de Conferències
+    cs = Konferenční centrum
+    da = Konferencecenter
+    de = Konferenzzentrum
+    el = Συνεδριακό Κέντρο
+    es = Centro de conferencias
+    et = Konverentsikeskus
+    eu = Biltzar Jauregia
+    fa = مرکز کنفرانس
+    fi = Konferenssikeskus
+    fr = Centre de conférence
+    he = מרכז כנסים
+    hu = Konferencia Központ
+    id = Pusat konferensi
+    it = Centro conferenze
+    ja = カンファレンスセンター
+    ko = 컨퍼런스 센터
+    lt = Konferencijų centras
+    mr = परिषद केंद्र
+    nb = Konferansesenter
+    nl = Conferentiecentrum
+    pl = Centrum konferencyjne
+    pt = Centro de conferências
+    ro = Centru de conferinte
+    ru = Конференц-центр
+    sk = Konferenčné centrum
+    sv = Konferens Center
+    sw = Kituo cha Mikutano
+    th = ศูนย์ประชุม
+    tr = Konferans merkezi
+    uk = Конференц-центр
+    vi = Trung tâm Hội nghị
+    zh-Hans = 会议中心
+    zh-Hant = 會議中心
+
   [type.amenity.courthouse]
     en = Courthouse
     ar = محكمة
@@ -1565,6 +1606,47 @@
     vi = Trường lái xe
     zh-Hans = 驾校
     zh-Hant = 駕訓班
+
+  [type.amenity.exhibition_centre]
+    en = Exhibition Center
+    en-GB = Exhibition Centre
+    ar = مركز المعرض
+    be = Выставачны цэнтр
+    bg = Изложбен център
+    ca = Centre d'exposicions
+    cs = Výstaviště
+    da = Udstillingscenter
+    de = Ausstellungszentrum
+    el = Εκθεσιακό Κέντρο
+    es = Centro de Exposiciones
+    et = Näituste keskus
+    eu = Erakusketa Zentroa
+    fa = مرکز نمایشگاه
+    fi = Näyttelykeskus
+    fr = Centre d'exposition
+    he = מרכז תערוכה
+    hu = Kiállítási Központ
+    id = Pusat pameran
+    it = Centro espositivo
+    ja = エキシビションセンター
+    ko = 전시 센터
+    lt = Parodų centras
+    mr = प्रदर्शन केंद्र
+    nb = Utstillingssenter
+    nl = Expositiecentrum
+    pl = Centrum wystawowe
+    pt = Centro de exposições
+    ro = Centru de expozitie
+    ru = Выставочный центр
+    sk = Výstavisko
+    sv = Mässa
+    sw = Kituo cha Maonyesho
+    th = ศูนย์นิทรรศการ
+    tr = Sergi Merkezi
+    uk = Виставковий центр
+    vi = Trung tâm triển lãm
+    zh-Hans = 展览中心
+    zh-Hant = 展覽中心
 
   [type.amenity.money_transfer]
     en = Money Transfer
