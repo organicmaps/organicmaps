@@ -195,7 +195,7 @@ landuse|forest|coniferous
 *piste:type|nordic
 *natural|beach|gravel
 *railway|crossing
-*boundary|national_park
+*boundary|protected_area
 landuse|forest|deciduous
 *waterway|dam
 *amenity|charging_station|motorcar
@@ -478,12 +478,12 @@ mapswithme
 mapswithme
 mapswithme
 *railway|preserved|tunnel
-mapswithme
-mapswithme
-mapswithme
-mapswithme
-mapswithme
-mapswithme
+*boundary|protected_area|1
+*boundary|protected_area|2
+*boundary|protected_area|3
+*boundary|protected_area|4
+*boundary|protected_area|5
+*boundary|protected_area|6
 *leisure|park|permissive
 *highway|bridleway|tunnel
 *highway|motorway_link|tunnel
@@ -837,7 +837,7 @@ mapswithme
 mapswithme
 mapswithme
 *landuse|military|danger_area
-*boundary|military
+*boundary|national_park
 mapswithme
 mapswithme
 mapswithme
@@ -859,8 +859,8 @@ mapswithme
 *highway|busway|bridge
 *highway|busway|tunnel
 landuse|salt_pond
-mapswithme
-mapswithme
+*amenity|conference_centre
+*amenity|exhibition_centre
 *railway|siding|tunnel
 *railway|yard|tunnel
 *area:highway|footway
