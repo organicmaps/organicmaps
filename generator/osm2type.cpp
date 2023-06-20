@@ -325,7 +325,7 @@ void LeaveLongestTypes(vector<generator::TypeStrings> & matchedTypes)
 
 void MatchTypes(OsmElement * p, FeatureBuilderParams & params, function<bool(uint32_t)> const & filterType)
 {
-  auto static const rules = generator::ParseMapCSS(GetPlatform().GetReader("mapcss-mapping.csv"));
+  auto static const rules = generator::ParseMapCSS(GetPlatform().GetReader(MAPCSS_MAPPING_FILE));
 
   vector<generator::TypeStrings> matchedTypes;
   for (auto const & [typeString, rule] : rules)
@@ -955,7 +955,7 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
        }},
   });
 
-  // Stage4: Match tags in classificator to find feature types.
+  // Stage4: Match tags to classificator feature types via mapcss-mapping.csv.
   MatchTypes(p, params, filterType);
 
   // Stage5: Postprocess feature types.

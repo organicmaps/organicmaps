@@ -1,3 +1,29 @@
+# This file is used to map OSM tags to OM classificator types.
+# OSM tags are preprocessed according to data/replaced_tags.txt before this mapping.
+#
+# Example row: highway|bus_stop;[highway=bus_stop];;name;int_name;22; (mind the last semicolon!)
+# It contains:
+# - type name: "highway|bus_stop" ("|" is converted to "-" internally)
+# - mapcss selectors for tags: "[highway=bus_stop]", multiple selectors are separated with commas
+# - "x" for an obsolete type or an empty cell otherwise
+# - primary title tag (usually "name")
+# - secondary title tag (usually "int_name")
+# - type id, sequential starting from 1
+# - optional: a replacement type for an obsolete one
+# A "mandatory" mapcss selector like [fee?] or [fee] matches all tag values except [fee=no],
+# a "forbidden" selector like [!oneway] matches [oneway=no] only or absence of this tag.
+# Longer (more detailed) types are preferred when matching, e.g. highway-primary-bridge wins over highway-primary.
+#
+# A shorter format for above example: highway|bus_stop;22;
+# It leaves only columns 1, 6 and 7. For obsolete types with no replacement put "x" into the last column.
+# It works only for simple types matching by replacing "=" with "|".
+#
+# An example of a type with a replacement:
+# highway|unsurfaced|disused;[highway=unsurfaced][disused?];x;name;int_name;838;highway|unclassified
+#
+# A C++ parser implementation used by the generator is in generator/utils.cpp::ParseMapCSS().
+# A python parser implementation used to compile *.mapcss style files is in tools/kothic/src/libkomwm.py::komap_mapswithme().
+
 building;[building];;addr:housenumber;name;1;
 highway|residential;2;
 highway|service;3;
