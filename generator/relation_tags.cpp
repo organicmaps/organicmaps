@@ -2,6 +2,8 @@
 
 #include "generator/osm_element.hpp"
 
+#include"indexer/classificator.hpp"
+
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
@@ -74,7 +76,13 @@ bool RelationTagsWay::IsAcceptBoundary(RelationElement const & e) const
 {
   // Do not accumulate boundary types (boundary=administrative) for inner polygons.
   // Example: Minsk city border (admin_level=8) is inner for Minsk area border (admin_level=4).
-  return e.GetWayRole(Base::m_featureID) != "inner";
+  if (e.GetWayRole(Base::m_featureID) == "inner")
+    return false;
+
+  // Skip religious_administration, political, etc ...
+  // https://github.com/organicmaps/organicmaps/issues/4702
+  auto const v = e.GetTagValue("boundary");
+  return (!v.empty () && classif().GetTypeByPathSafe({"boundary", v}) != Classificator::INVALID_TYPE);
 }
 
 void RelationTagsWay::Process(RelationElement const & e)
@@ -146,7 +154,14 @@ void RelationTagsWay::Process(RelationElement const & e)
   if (type == "building")
     return;
 
-  bool const isBoundary = (type == "boundary") && IsAcceptBoundary(e);
+  bool isBoundary = false;
+  if (type == "boundary")
+  {
+    if (!IsAcceptBoundary(e))
+      return;
+    isBoundary = true;
+  }
+
   bool const isPlaceDest = Base::IsKeyTagExists("place") || Base::IsKeyTagExists("de:place");
   bool const isAssociatedStreet = type == "associatedStreet";
   bool const processAssociatedStreet = isAssociatedStreet &&
@@ -180,9 +195,6 @@ void RelationTagsWay::Process(RelationElement const & e)
       if ((isBoundary && !isPlaceDest) || (!isHighway && isAssociatedStreet) || Base::IsKeyTagExists(p.first))
         continue;
     }
-
-    if (!isBoundary && p.first == "boundary")
-      continue;
 
     if (p.first == "place" || p.first == "de:place" || p.first == "capital")
       continue;
