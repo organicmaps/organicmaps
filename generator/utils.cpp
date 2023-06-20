@@ -144,6 +144,7 @@ bool MapcssRule::Matches(std::vector<OsmElement::Tag> const & tags) const
   return true;
 }
 
+// The data/mapcss-mapping.csv format is described inside the file itself.
 MapcssRules ParseMapCSS(std::unique_ptr<Reader> reader)
 {
   ReaderStreamBuf buffer(std::move(reader));
@@ -199,26 +200,12 @@ MapcssRules ParseMapCSS(std::unique_ptr<Reader> reader)
     });
   };
 
-  // Mapcss-mapping maps tags to types.
-  // Types can be marked obsolete or replaced with a different type.
-  //
-  // Example row: highway|bus_stop;[highway=bus_stop];;name;int_name;22;
-  // It contains:
-  // - type name: "highway|bus_stop" ('|' is converted to '-' internally)
-  // - mapcss selectors for tags: "[highway=bus_stop]", multiple selectors are separated with comma
-  // - "x" for an obsolete type or an empty cell otherwise
-  // - primary title tag (usually "name")
-  // - secondary title tag (usually "int_name")
-  // - type id, sequential starting from 1
-  // - replacement type for an obsolete tag, if exists
-  //
-  // A shorter format for above example: highway|bus_stop;22;
-  // It leaves only columns 1, 6 and 7. For obsolete types with no replacement put "x" into the last
-  // column. It works only for simple types that are produced from tags replacing '=' with '|'.
-
   std::string line;
   while (std::getline(data, line))
   {
+    if (line.empty() || line.front() == '#')
+      continue;
+
     std::vector<std::string> fields;
     strings::ParseCSVRow(line, ';', fields);
     CHECK(fields.size() == 3 || fields.size() == 7, (fields.size(), fields, line));
