@@ -186,11 +186,14 @@ private:
 IsHatchingTerritoryChecker::IsHatchingTerritoryChecker()
 {
   Classificator const & c = classif();
-  char const * arr[][2] = {{"leisure", "nature_reserve"},
-                           {"boundary", "national_park"},
-                           {"landuse", "military"}};
-  for (auto const & p : arr)
-    m_types.push_back(c.GetTypeByPath({p[0], p[1]}));
+  base::StringIL arr[] = {
+    {"leisure", "nature_reserve"},
+    {"boundary", "national_park"},
+    {"landuse", "military"},
+    {"boundary", "protected_area", "1"},
+  };
+  for (auto const & sl : arr)
+    m_types.push_back(c.GetTypeByPath(sl));
 }
 
 void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int const zoomLevel,
