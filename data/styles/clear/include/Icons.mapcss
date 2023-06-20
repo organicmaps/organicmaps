@@ -114,8 +114,6 @@ node[vending=parking_tickets],
 area[vending=parking_tickets]
 {z-index: 2200;}
 
-node[shop],
-area[shop],
 node[amenity=veterinary],
 area[amenity=veterinary],
 node[leisure=playground],
@@ -158,6 +156,11 @@ area[amenity=bbq],
 node[amenity=toilets],
 area[amenity=toilets]
 {z-index: 2400;}
+
+/* Bigger than amenities above */
+node[shop],
+area[shop],
+{z-index: 2410;}
 
 /* Bigger than leisure=playground, sports_centre, pitch */
 node[sport],
