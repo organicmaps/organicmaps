@@ -1,70 +1,71 @@
-[Main]
-# If the flag DEBUG is set a special small planet file will be downloaded.
-DEBUG: 1
-# The path where the planet will be downloaded and the maps are generated.
-MAIN_OUT_PATH: ~/maps_build
-# The path where caches for nodes, ways, relations are stored.
-# CACHE_PATH:
-
-
 [Developer]
-# The path where the generator_tool will be searched.
-BUILD_PATH: ~/omim-build-release
-# The path to the project directory omim.
-OMIM_PATH: ~/omim
+# Path to the `organicmaps` source code repository:
+OMIM_PATH: ~/OM/organicmaps
+# A path with the generator_tool binary:
+BUILD_PATH: ${Developer:OMIM_PATH}/../omim-build-release
+
+
+[Main]
+# A special small planet file will be downloaded if DEBUG is set to 1.
+DEBUG: 0
+# A main working directory. There is a subdirectory created for each generator run
+# which contains the planet and other downloads, temporary build files, logs and completed MWMs.
+MAIN_OUT_PATH: ${Developer:OMIM_PATH}/../maps_build
+# Path for storing caches for nodes, ways, relations.
+# If it's not set then caches are stored inside the directory of the current build.
+# CACHE_PATH: ${Main:MAIN_OUT_PATH}/cache
 
 
 [Generator tool]
-# The path to the omim/data.
+# Path to the data/ folder in the repository:
 USER_RESOURCE_PATH: ${Developer:OMIM_PATH}/data
-# Do not change it. This is determined automatically.
-# NODE_STORAGE: map
+# Features stage only parallelism level. Set to 0 for auto detection.
+THREADS_COUNT_FEATURES_STAGE: 0
 
 
 [Osm tools]
-# The path to the osmctools sources.
+# Path to osmctools binaries:
+OSM_TOOLS_PATH: ${Developer:OMIM_PATH}/../osmctools
+# If the binaries are not found neither in the configured path nor system-wide,
+# then the tools are built from the sources:
 OSM_TOOLS_SRC_PATH: ${Developer:OMIM_PATH}/tools/osmctools
-# The path where osmctools will be searched or will be built.
-OSM_TOOLS_PATH: ~/osmctools
-
-
-[Stages]
-# Run osmupdate tool for planet.
-NEED_PLANET_UPDATE: 0
-# Auto detection.
-THREADS_COUNT_FEATURES_STAGE: 0
-# If you want to calculate diffs, you need to specify, where old maps are
-DATA_ARCHIVE_DIR: ${Generator tool:USER_RESOURCE_PATH}
-# You may specify, how many versions in the archive to use for diff calculation
-DIFF_VERSION_DEPTH: 2
 
 
 [Logging]
-# The path where maps_generator log will be saved.
-# LOG_FILE_PATH: generation.log
+# maps_generator's general (python output only) log file path and name.
+# More detailed logs that include output of the `generator_tool` binary
+# are located in the `logs/` subdir of a particular build directory,
+# e.g. `maps_build/2023_06_04__20_05_07/logs/`.
+LOG_FILE_PATH: ${Main:MAIN_OUT_PATH}/generation.log
 
 
 [External]
-# Note: If you want to set a directory name you have to add "/" to the end of url.
-# In each field where you need to specify a URL, you can specify the path to the file system using file:///path/to/file
-
-# The url to the planet file.
-# PLANET_URL:
-# The url to the file with md5 sum of the planet.
-# PLANET_MD5_URL:
-# The base url to WorldCoasts.geom and WorldCoasts.rawgeom (without file name).
-# Files latest_coasts.geom and latest_coasts.rawgeom must be at this URL.
+# Planet file location. It should be a dump of OSM data in osm.pbf format,
+# either an entire planet (from "planet.openstreetmap.org") or a particular
+# country/region extract from e.g. [Geofabrik](http://download.geofabrik.de/index.html).
+# Note that an entire planet generation takes 40+ hours on a 256GB RAM server (and 1TB+ disk space).
+# Stick to smaller extracts unless you have a machine this large.
+# Here and further, its possible to specify either an URL (to be downloaded automatically)
+# or a local file path like file:///path/to/file.
+# A sample URL to download a latest OSM dump for North Macedonia:
+PLANET_URL: https://download.geofabrik.de/europe/macedonia-latest.osm.pbf
+# Location of the md5 checksum of the planet file:
+PLANET_MD5_URL: https://download.geofabrik.de/north-america/canada/yukon-latest.osm.pbf.md5
+# A base url to the latest_coasts.geom and latest_coasts.rawgeom files.
 # For example, if PLANET_COASTS_URL = https://somesite.com/download/
-# The https://somesite.com/download/latest_coasts.geom url will be used to download latest_coasts.geom and
+# then the https://somesite.com/download/latest_coasts.geom url will be used to download latest_coasts.geom and
 # the https://somesite.com/download/latest_coasts.rawgeom url will be used to download latest_coasts.rawgeom.
+# Comment to skip getting the coastlines files.
 # PLANET_COASTS_URL:
-# Set to 'true' to build special routing section in World.mwm for alerting about absent regions without which the
-# route can't be built.
-NEED_BUILD_WORLD_ROADS: true
-# The url to the subway file.
-SUBWAY_URL: https://cdn.organicmaps.app/subway.json
+# Set to 'true' to build a special routing section in World.mwm
+# for alerting about absent regions without which the route can't be built.
+# This should be true for any non-planet build.
+NEED_BUILD_WORLD_ROADS: false
+# Subway file location, see docs/SUBWAY_GENERATION.md if you want to generate your own file.
+# Comment to disable subway layer generation.
+#SUBWAY_URL: https://cdn.organicmaps.app/subway.json
 
-# The url of the location with the transit files extracted from GTFS.
+# Location of the EXPERIMENTAL GTFS-extracted public transport transit files:
 # TRANSIT_URL:
 
 # Urls for production maps generation.
@@ -80,12 +81,21 @@ SUBWAY_URL: https://cdn.organicmaps.app/subway.json
 # US_POSTCODES_URL:
 
 
+[Stages]
+# Set to 1 to update the entire OSM planet file (as taken from "planet.openstreetmap.org")
+# via an osmupdate tool before the generation. Not for use with partial planet extracts.
+NEED_PLANET_UPDATE: 0
+# If you want to calculate diffs you need to specify where the old maps are.
+DATA_ARCHIVE_DIR: ${Generator tool:USER_RESOURCE_PATH}
+# How many versions in the archive to use for diff calculation:
+DIFF_VERSION_DEPTH: 2
+
+
 [Common]
-# Auto detection.
+# Default parallelism level for the most of jobs. Set to 0 for auto detection.
 THREADS_COUNT: 0
 
 
 [Stats]
-# Path to rules for calculating statistics by type
+# Path to rules for calculating statistics by type:
 STATS_TYPES_CONFIG: ${Developer:OMIM_PATH}/tools/python/maps_generator/var/etc/stats_types_config.txt
-

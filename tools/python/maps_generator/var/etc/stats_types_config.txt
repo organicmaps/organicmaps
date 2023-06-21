@@ -3,13 +3,13 @@
 # Regular expression of type;metric type;statistic name
 #
 # Regular expression of type
-#   Types you can find in omim/data/mapcss-mapping.csv.
-#   You must replace the character '|' with the '_' character.
+#   Types you can find in data/mapcss-mapping.csv.
+#   You must replace the character '|' with the '-' character.
 #
 # Metric type
 #   There can be three types of metrics:
 #   1) cnt - to count the number of objects
-#   2) line - to calculate the total length of objects
+#   2) len - to calculate the total length of objects
 #   3) area - to calculate the total area of ​​objects
 #
 # Statistic name
