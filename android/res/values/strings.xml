@@ -821,11 +821,13 @@
 	<string name="type.amenity.clinic">Clinic</string>
 	<string name="type.amenity.college">College</string>
 	<string name="type.amenity.community_centre">Community Centre</string>
+	<string name="type.amenity.conference_centre">Conference Center</string>
 	<string name="type.amenity.courthouse">Courthouse</string>
 	<string name="type.amenity.dentist">Dentist</string>
 	<string name="type.amenity.doctors">Doctor</string>
 	<string name="type.amenity.drinking_water">Drinking Water</string>
 	<string name="type.amenity.driving_school">Driving School</string>
+	<string name="type.amenity.exhibition_centre">Exhibition Center</string>
 	<string name="type.amenity.money_transfer">Money Transfer</string>
 	<string name="type.amenity.music_school">Music School</string>
 	<string name="type.amenity.language_school">Language School</string>
@@ -970,6 +972,7 @@
 	<string name="type.boundary.administrative.state">State Boundary</string>
 	<string name="type.boundary.administrative.suburb">Suburb Boundary</string>
 	<string name="type.boundary.national_park">National Park</string>
+	<string name="type.boundary.protected_area">Protected Area</string>
 	<string name="type.building">Building</string>
 	<string name="type.building.address">Building</string>
 	<string name="type.building.has_parts">Building</string>

@@ -724,11 +724,13 @@
 	<string name="type.amenity.clinic">Klinik</string>
 	<string name="type.amenity.college">Universitet</string>
 	<string name="type.amenity.community_centre">Medborgerhus</string>
+	<string name="type.amenity.conference_centre">Konferencecenter</string>
 	<string name="type.amenity.courthouse">Domhus</string>
 	<string name="type.amenity.dentist">Tandlæge</string>
 	<string name="type.amenity.doctors">Lægekontor</string>
 	<string name="type.amenity.drinking_water">Vand</string>
 	<string name="type.amenity.driving_school">Køreskole</string>
+	<string name="type.amenity.exhibition_centre">Udstillingscenter</string>
 	<string name="type.amenity.money_transfer">Pengeoverførsel</string>
 	<string name="type.amenity.music_school">Musikskolen</string>
 	<string name="type.amenity.language_school">Sprogskole</string>
@@ -823,6 +825,7 @@
 	<string name="type.barrier.swing_gate">Bom</string>
 	<string name="type.barrier.toll_booth">Betalingsstation</string>
 	<string name="type.boundary.national_park">National park</string>
+	<string name="type.boundary.protected_area">Beskyttet område</string>
 	<string name="type.building">Bygning</string>
 	<string name="type.building.address">Bygning</string>
 	<string name="type.building.has_parts">Bygning</string>

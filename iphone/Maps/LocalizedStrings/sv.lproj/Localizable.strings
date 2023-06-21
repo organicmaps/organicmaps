@@ -1340,6 +1340,8 @@
 
 "type.amenity.community_centre" = "Stadshus";
 
+"type.amenity.conference_centre" = "Konferens Center";
+
 "type.amenity.courthouse" = "Domstol";
 
 "type.amenity.dentist" = "Tandläkare";
@@ -1349,6 +1351,8 @@
 "type.amenity.drinking_water" = "Dricksvatten";
 
 "type.amenity.driving_school" = "Körskola";
+
+"type.amenity.exhibition_centre" = "Mässa";
 
 "type.amenity.money_transfer" = "Pengaöverföring";
 
@@ -1634,6 +1638,8 @@
 "type.boundary.administrative.suburb" = "Suburb Boundary";
 
 "type.boundary.national_park" = "Nationalpark";
+
+"type.boundary.protected_area" = "Skyddat område";
 
 "type.building" = "Byggnad";
 

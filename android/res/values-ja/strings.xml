@@ -733,11 +733,13 @@
 	<string name="type.amenity.clinic">クリニック</string>
 	<string name="type.amenity.college">カレッジ</string>
 	<string name="type.amenity.community_centre">コミュニティセンター</string>
+	<string name="type.amenity.conference_centre">カンファレンスセンター</string>
 	<string name="type.amenity.courthouse">裁判所</string>
 	<string name="type.amenity.dentist">歯医者</string>
 	<string name="type.amenity.doctors">医院</string>
 	<string name="type.amenity.drinking_water">水飲み場</string>
 	<string name="type.amenity.driving_school">自動車教習所</string>
+	<string name="type.amenity.exhibition_centre">エキシビションセンター</string>
 	<string name="type.amenity.money_transfer">送金</string>
 	<string name="type.amenity.music_school">音楽学校</string>
 	<string name="type.amenity.language_school">語学学校</string>
@@ -857,6 +859,7 @@
 	<string name="type.boundary.administrative.8">行政境界</string>
 	<string name="type.boundary.administrative.9">行政境界</string>
 	<string name="type.boundary.national_park">国立公園</string>
+	<string name="type.boundary.protected_area">保護区域</string>
 	<string name="type.building">建物</string>
 	<string name="type.building.address">建物</string>
 	<string name="type.building.has_parts">建物</string>

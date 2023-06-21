@@ -773,11 +773,13 @@
 	<string name="type.amenity.clinic">Kliinik</string>
 	<string name="type.amenity.college">Kolledž</string>
 	<string name="type.amenity.community_centre">Kogukonnakeskus</string>
+	<string name="type.amenity.conference_centre">Konverentsikeskus</string>
 	<string name="type.amenity.courthouse">Kohtumaja</string>
 	<string name="type.amenity.dentist">Hambaarst</string>
 	<string name="type.amenity.doctors">Arst</string>
 	<string name="type.amenity.drinking_water">Joogivesi</string>
 	<string name="type.amenity.driving_school">Autokool</string>
+	<string name="type.amenity.exhibition_centre">Näituste keskus</string>
 	<string name="type.amenity.money_transfer">Raha ülekanne</string>
 	<string name="type.amenity.music_school">Muusikakool</string>
 	<string name="type.amenity.language_school">Keeltekool</string>
@@ -922,6 +924,7 @@
 	<string name="type.boundary.administrative.state">Osariigi piir</string>
 	<string name="type.boundary.administrative.suburb">Eeslinna piir</string>
 	<string name="type.boundary.national_park">Rahvuspark</string>
+	<string name="type.boundary.protected_area">Kaitseala</string>
 	<string name="type.building">Hoone</string>
 	<string name="type.building.address">Hoone</string>
 	<string name="type.building.has_parts">Hoone</string>

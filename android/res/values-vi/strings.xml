@@ -722,11 +722,13 @@
 	<string name="type.amenity.clinic">Phòng khám</string>
 	<string name="type.amenity.college">Trường đại học</string>
 	<string name="type.amenity.community_centre">Trung Tâm Cộng Đồng</string>
+	<string name="type.amenity.conference_centre">Trung tâm Hội nghị</string>
 	<string name="type.amenity.courthouse">Tòa án</string>
 	<string name="type.amenity.dentist">Nha sĩ</string>
 	<string name="type.amenity.doctors">Bác sĩ</string>
 	<string name="type.amenity.drinking_water">Nước uống</string>
 	<string name="type.amenity.driving_school">Trường lái xe</string>
+	<string name="type.amenity.exhibition_centre">Trung tâm triển lãm</string>
 	<string name="type.amenity.money_transfer">Chuyển tiền</string>
 	<string name="type.amenity.music_school">Trường âm nhạc</string>
 	<string name="type.amenity.language_school">Ngôn ngữ Trường học</string>
@@ -825,6 +827,7 @@
 	<string name="type.barrier.swing_gate">Thanh Chắn</string>
 	<string name="type.barrier.toll_booth">Quầy Soát Vé</string>
 	<string name="type.boundary.national_park">Công viên quốc gia</string>
+	<string name="type.boundary.protected_area">Khu bảo tồn</string>
 	<string name="type.building">Tòa nhà</string>
 	<string name="type.building.address">Tòa nhà</string>
 	<string name="type.building.has_parts">Tòa nhà</string>

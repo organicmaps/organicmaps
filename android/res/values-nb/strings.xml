@@ -774,11 +774,13 @@
 	<string name="type.amenity.clinic">Klinikk</string>
 	<string name="type.amenity.college">Høyskole</string>
 	<string name="type.amenity.community_centre">Samfunnshus</string>
+	<string name="type.amenity.conference_centre">Konferansesenter</string>
 	<string name="type.amenity.courthouse">Domstol</string>
 	<string name="type.amenity.dentist">Tannlege</string>
 	<string name="type.amenity.doctors">Legekontor</string>
 	<string name="type.amenity.drinking_water">Drikkevann</string>
 	<string name="type.amenity.driving_school">Kjøreskole</string>
+	<string name="type.amenity.exhibition_centre">Utstillingssenter</string>
 	<string name="type.amenity.money_transfer">Pengeoverføring</string>
 	<string name="type.amenity.music_school">Musikkskole</string>
 	<string name="type.amenity.language_school">Språkskole</string>
@@ -878,6 +880,7 @@
 	<string name="type.barrier.swing_gate">Bom</string>
 	<string name="type.barrier.toll_booth">Bomstasjon</string>
 	<string name="type.boundary.national_park">Nasjonalpark</string>
+	<string name="type.boundary.protected_area">Vernet område</string>
 	<string name="type.building">Bygning</string>
 	<string name="type.building.address">Bygning</string>
 	<string name="type.building.has_parts">Bygning</string>

@@ -670,7 +670,9 @@
 	<string name="type.amenity.charging_station.bicycle">Станция за зареждане на велосипеди</string>
 	<string name="type.amenity.charging_station.motorcar">Станция за зареждане на автомобили</string>
 	<string name="type.leisure.bowling_alley">Боулинг писта</string>
+	<string name="type.amenity.conference_centre">Конферентен център</string>
 	<string name="type.amenity.driving_school">Автошкола</string>
+	<string name="type.amenity.exhibition_centre">Изложбен център</string>
 	<string name="type.amenity.money_transfer">Паричен превод</string>
 	<string name="type.amenity.music_school">Музикално училище</string>
 	<string name="type.amenity.language_school">Езиково училище</string>
@@ -691,6 +693,7 @@
 	<string name="type.recycling.batteries">Батерии</string>
 	<string name="type.barrier.city_wall">Градска стена</string>
 	<string name="type.barrier.ditch">Ров</string>
+	<string name="type.boundary.protected_area">Защитена местност</string>
 	<string name="type.cemetery.grave">Гроб</string>
 	<string name="type.craft">Занаяти</string>
 	<string name="type.craft.beekeeper">Пчелар</string>

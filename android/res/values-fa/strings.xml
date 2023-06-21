@@ -725,11 +725,13 @@
 	<string name="type.amenity.clinic">کلینیک</string>
 	<string name="type.amenity.college">دانشگاه</string>
 	<string name="type.amenity.community_centre">مرکزاجتماعی</string>
+	<string name="type.amenity.conference_centre">مرکز کنفرانس</string>
 	<string name="type.amenity.courthouse">دادگاه</string>
 	<string name="type.amenity.dentist">دندان پزشکی</string>
 	<string name="type.amenity.doctors">کلینیک</string>
 	<string name="type.amenity.drinking_water">اب اشامیدنی</string>
 	<string name="type.amenity.driving_school">اموزشگاه رانندگی</string>
+	<string name="type.amenity.exhibition_centre">مرکز نمایشگاه</string>
 	<string name="type.amenity.money_transfer">انتقال پول</string>
 	<string name="type.amenity.music_school">ﯽﻘﯿﺳﻮﻣ ﻩﺎﮕﺷﺯﻮﻣﺁ</string>
 	<string name="type.amenity.language_school">ﻥﺎﺑﺯ ﻪﺳﺭﺪﻣ</string>
@@ -828,6 +830,7 @@
 	<string name="type.barrier.swing_gate">اسانسور</string>
 	<string name="type.barrier.toll_booth">گیشه عوارضی</string>
 	<string name="type.boundary.national_park">پارک ملی</string>
+	<string name="type.boundary.protected_area">منطقه حفاظت شده</string>
 	<string name="type.building">ساختمان</string>
 	<string name="type.building.address">ساختمان</string>
 	<string name="type.building.has_parts">ساختمان</string>

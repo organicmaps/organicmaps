@@ -1340,6 +1340,8 @@
 
 "type.amenity.community_centre" = "مرکزاجتماعی";
 
+"type.amenity.conference_centre" = "مرکز کنفرانس";
+
 "type.amenity.courthouse" = "دادگاه";
 
 "type.amenity.dentist" = "دندان پزشکی";
@@ -1349,6 +1351,8 @@
 "type.amenity.drinking_water" = "اب اشامیدنی";
 
 "type.amenity.driving_school" = "اموزشگاه رانندگی";
+
+"type.amenity.exhibition_centre" = "مرکز نمایشگاه";
 
 "type.amenity.money_transfer" = "انتقال پول";
 
@@ -1634,6 +1638,8 @@
 "type.boundary.administrative.suburb" = "Suburb Boundary";
 
 "type.boundary.national_park" = "پارک ملی";
+
+"type.boundary.protected_area" = "منطقه حفاظت شده";
 
 "type.building" = "ساختمان";
 

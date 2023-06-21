@@ -263,6 +263,8 @@
 	<string name="type.amenity.charging_station.bicycle">תחנת טעינה לאופניים</string>
 	<string name="type.amenity.charging_station.motorcar">תחנת טעינה למכוניות</string>
 	<string name="type.leisure.bowling_alley">גנילואב םלוא</string>
+	<string name="type.amenity.conference_centre">מרכז כנסים</string>
+	<string name="type.amenity.exhibition_centre">מרכז תערוכה</string>
 	<string name="type.amenity.money_transfer">העברת כספים</string>
 	<string name="type.amenity.music_school">הקיזומל רפס תיב</string>
 	<string name="type.amenity.language_school">תופשל רפס תיב</string>
@@ -283,6 +285,7 @@
 	<string name="type.recycling.batteries">תוללוס</string>
 	<string name="type.barrier.city_wall">חומת העיר</string>
 	<string name="type.barrier.ditch">ןגֵמָ תלַעָתְ</string>
+	<string name="type.boundary.protected_area">אזור מוגן</string>
 	<string name="type.cemetery.grave">רבק</string>
 	<string name="type.craft">מְלָאכָה</string>
 	<string name="type.craft.beekeeper">כוורן</string>

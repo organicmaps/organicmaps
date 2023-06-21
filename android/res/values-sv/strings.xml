@@ -722,11 +722,13 @@
 	<string name="type.amenity.clinic">Klinik</string>
 	<string name="type.amenity.college">Högskola</string>
 	<string name="type.amenity.community_centre">Stadshus</string>
+	<string name="type.amenity.conference_centre">Konferens Center</string>
 	<string name="type.amenity.courthouse">Domstol</string>
 	<string name="type.amenity.dentist">Tandläkare</string>
 	<string name="type.amenity.doctors">Läkarmottagning</string>
 	<string name="type.amenity.drinking_water">Dricksvatten</string>
 	<string name="type.amenity.driving_school">Körskola</string>
+	<string name="type.amenity.exhibition_centre">Mässa</string>
 	<string name="type.amenity.money_transfer">Pengaöverföring</string>
 	<string name="type.amenity.music_school">Musikskola</string>
 	<string name="type.amenity.language_school">Språkskola</string>
@@ -825,6 +827,7 @@
 	<string name="type.barrier.swing_gate">Bom</string>
 	<string name="type.barrier.toll_booth">Tullhus</string>
 	<string name="type.boundary.national_park">Nationalpark</string>
+	<string name="type.boundary.protected_area">Skyddat område</string>
 	<string name="type.building">Byggnad</string>
 	<string name="type.building.address">Byggnad</string>
 	<string name="type.building.has_parts">Byggnad</string>

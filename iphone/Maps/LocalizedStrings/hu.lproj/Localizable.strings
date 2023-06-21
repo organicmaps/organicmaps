@@ -1340,6 +1340,8 @@
 
 "type.amenity.community_centre" = "Közösségi központ";
 
+"type.amenity.conference_centre" = "Konferencia Központ";
+
 "type.amenity.courthouse" = "Bíróság";
 
 "type.amenity.dentist" = "Fogorvos";
@@ -1349,6 +1351,8 @@
 "type.amenity.drinking_water" = "Ivóvíz";
 
 "type.amenity.driving_school" = "Autósiskola";
+
+"type.amenity.exhibition_centre" = "Kiállítási Központ";
 
 "type.amenity.money_transfer" = "Pénz átutalás";
 
@@ -1634,6 +1638,8 @@
 "type.boundary.administrative.suburb" = "Suburb Boundary";
 
 "type.boundary.national_park" = "Nemzeti park";
+
+"type.boundary.protected_area" = "Védett terület";
 
 "type.building" = "Épület";
 

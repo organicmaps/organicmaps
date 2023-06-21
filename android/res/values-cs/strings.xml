@@ -735,11 +735,13 @@
 	<string name="type.amenity.clinic">Klinika</string>
 	<string name="type.amenity.college">Vysoká škola</string>
 	<string name="type.amenity.community_centre">Kulturní centrum</string>
+	<string name="type.amenity.conference_centre">Konferenční centrum</string>
 	<string name="type.amenity.courthouse">Soud</string>
 	<string name="type.amenity.dentist">Zubař</string>
 	<string name="type.amenity.doctors">Lékařská ordinace</string>
 	<string name="type.amenity.drinking_water">Pitná voda</string>
 	<string name="type.amenity.driving_school">Autoškola</string>
+	<string name="type.amenity.exhibition_centre">Výstaviště</string>
 	<string name="type.amenity.money_transfer">Převod peněz</string>
 	<string name="type.amenity.music_school">Hudební škola</string>
 	<string name="type.amenity.language_school">Jazyková škola</string>
@@ -838,6 +840,7 @@
 	<string name="type.barrier.swing_gate">Závora</string>
 	<string name="type.barrier.toll_booth">Mýtné</string>
 	<string name="type.boundary.national_park">Národní park</string>
+	<string name="type.boundary.protected_area">Chráněné území</string>
 	<string name="type.building">Stavba</string>
 	<string name="type.building.address">Stavba</string>
 	<string name="type.building.has_parts">Stavba</string>

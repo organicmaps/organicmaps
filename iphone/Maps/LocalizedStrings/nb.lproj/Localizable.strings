@@ -1340,6 +1340,8 @@
 
 "type.amenity.community_centre" = "Samfunnshus";
 
+"type.amenity.conference_centre" = "Konferansesenter";
+
 "type.amenity.courthouse" = "Domstol";
 
 "type.amenity.dentist" = "Tannlege";
@@ -1349,6 +1351,8 @@
 "type.amenity.drinking_water" = "Drikkevann";
 
 "type.amenity.driving_school" = "Kjøreskole";
+
+"type.amenity.exhibition_centre" = "Utstillingssenter";
 
 "type.amenity.money_transfer" = "Pengeoverføring";
 
@@ -1634,6 +1638,8 @@
 "type.boundary.administrative.suburb" = "Suburb Boundary";
 
 "type.boundary.national_park" = "Nasjonalpark";
+
+"type.boundary.protected_area" = "Vernet område";
 
 "type.building" = "Bygning";
 

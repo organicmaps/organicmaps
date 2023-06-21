@@ -1340,6 +1340,8 @@
 
 "type.amenity.community_centre" = "Культурно-досуговый центр";
 
+"type.amenity.conference_centre" = "Конференц-центр";
+
 "type.amenity.courthouse" = "Суд";
 
 "type.amenity.dentist" = "Стоматология";
@@ -1349,6 +1351,8 @@
 "type.amenity.drinking_water" = "Питьевая вода";
 
 "type.amenity.driving_school" = "Автошкола";
+
+"type.amenity.exhibition_centre" = "Выставочный центр";
 
 "type.amenity.money_transfer" = "Денежные переводы";
 
@@ -1634,6 +1638,8 @@
 "type.boundary.administrative.suburb" = "Граница пригорода";
 
 "type.boundary.national_park" = "Национальный парк";
+
+"type.boundary.protected_area" = "Заповедная зона";
 
 "type.building" = "Здание";
 

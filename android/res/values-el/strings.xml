@@ -724,11 +724,13 @@
 	<string name="type.amenity.clinic">Κλινική</string>
 	<string name="type.amenity.college">Κολέγιο</string>
 	<string name="type.amenity.community_centre">Κέντρο κοινότητας</string>
+	<string name="type.amenity.conference_centre">Συνεδριακό Κέντρο</string>
 	<string name="type.amenity.courthouse">Δικαστικό μέγαρο</string>
 	<string name="type.amenity.dentist">Οδοντίατρος</string>
 	<string name="type.amenity.doctors">Γιατροί</string>
 	<string name="type.amenity.drinking_water">Πόσιμο νερό</string>
 	<string name="type.amenity.driving_school">Σχολή οδήγησης</string>
+	<string name="type.amenity.exhibition_centre">Εκθεσιακό Κέντρο</string>
 	<string name="type.amenity.money_transfer">Μεταφορά χρημάτων</string>
 	<string name="type.amenity.music_school">Μουσική Σχολή</string>
 	<string name="type.amenity.language_school">Σχολή Γλωσσών</string>
@@ -828,6 +830,7 @@
 	<string name="type.barrier.swing_gate">Ανυψούμενη μπάρα</string>
 	<string name="type.barrier.toll_booth">Σταθμός διοδίων</string>
 	<string name="type.boundary.national_park">Εθνικό πάρκο</string>
+	<string name="type.boundary.protected_area">Προστατευόμενη Περιοχή</string>
 	<string name="type.building">Κτίριο</string>
 	<string name="type.building.address">Κτίριο</string>
 	<string name="type.building.has_parts">Κτίριο</string>

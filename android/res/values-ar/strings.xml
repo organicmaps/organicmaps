@@ -774,11 +774,13 @@
 	<string name="type.amenity.clinic">عيادة</string>
 	<string name="type.amenity.college">كلية</string>
 	<string name="type.amenity.community_centre">مركز اجتماعي</string>
+	<string name="type.amenity.conference_centre">مركز المؤتمرات</string>
 	<string name="type.amenity.courthouse">محكمة</string>
 	<string name="type.amenity.dentist">طبيب أسنان</string>
 	<string name="type.amenity.doctors">طبيب</string>
 	<string name="type.amenity.drinking_water">مياه شرب</string>
 	<string name="type.amenity.driving_school">مدرسة قيادة</string>
+	<string name="type.amenity.exhibition_centre">مركز المعرض</string>
 	<string name="type.amenity.money_transfer">تحويل المال</string>
 	<string name="type.amenity.music_school">مدرسة موسيقى</string>
 	<string name="type.amenity.language_school">مدرسة لغة</string>
@@ -913,6 +915,7 @@
 	<string name="type.boundary.administrative.nation">حدود دولية</string>
 	<string name="type.boundary.administrative.region">حدود منطقة</string>
 	<string name="type.boundary.national_park">منتزه وطني</string>
+	<string name="type.boundary.protected_area">منطقة محمية</string>
 	<string name="type.building">مبنى</string>
 	<string name="type.building.address">مبنى</string>
 	<string name="type.building.has_parts">مبنى</string>

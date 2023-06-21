@@ -790,11 +790,13 @@
 	<string name="type.amenity.clinic">Klinik</string>
 	<string name="type.amenity.college">Kolej</string>
 	<string name="type.amenity.community_centre">Toplum Merkezi</string>
+	<string name="type.amenity.conference_centre">Konferans merkezi</string>
 	<string name="type.amenity.courthouse">Adliye</string>
 	<string name="type.amenity.dentist">Dişçi</string>
 	<string name="type.amenity.doctors">Doktor</string>
 	<string name="type.amenity.drinking_water">İçme Suyu</string>
 	<string name="type.amenity.driving_school">Sürücü Kursu</string>
+	<string name="type.amenity.exhibition_centre">Sergi Merkezi</string>
 	<string name="type.amenity.money_transfer">Para Aktarımı</string>
 	<string name="type.amenity.music_school">Müzik Okulu</string>
 	<string name="type.amenity.language_school">Dil Okulu</string>
@@ -934,6 +936,7 @@
 	<string name="type.boundary.administrative.state">Devlet Sınırı</string>
 	<string name="type.boundary.administrative.suburb">Mahalle Sınırı</string>
 	<string name="type.boundary.national_park">Ulusal Park</string>
+	<string name="type.boundary.protected_area">Korunmuş bölge</string>
 	<string name="type.building">Bina</string>
 	<string name="type.building.address">Bina</string>
 	<string name="type.building.has_parts">Bina</string>
