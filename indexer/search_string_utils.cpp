@@ -27,9 +27,12 @@ std::vector<UniString> const kAllowedMisprints = {
     MakeUniString("gh"),
     MakeUniString("pf"),
     MakeUniString("vw"),
+
+    // Russian
     MakeUniString("ао"),
     MakeUniString("еиэ"),
     MakeUniString("шщ"),
+
     // Spanish
     MakeUniString("jh"),  // "Jose" <-> "Hose"
     MakeUniString("fh"),  // "Hernández" <-> "Fernández"

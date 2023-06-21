@@ -96,6 +96,62 @@ UNIT_TEST(NameScore_Smoke)
   test("Зона №51", "зона №", NameScore::FULL_PREFIX, 0, 4);
 }
 
+UNIT_TEST(ErrorsMade_Smoke)
+{
+  {
+    QueryParams::Token const searchToken = strings::MakeUniString("hairdressers");
+
+    auto nameToken = strings::MakeUniString("h");
+    TEST(!search::impl::GetErrorsMade(searchToken, nameToken).IsValid(), ());
+    TEST(!search::impl::GetPrefixErrorsMade(searchToken, nameToken).IsValid(), ());
+
+    nameToken = strings::MakeUniString("hair");
+    TEST(!search::impl::GetErrorsMade(searchToken, nameToken).IsValid(), ());
+    TEST(!search::impl::GetPrefixErrorsMade(searchToken, nameToken).IsValid(), ());
+  }
+
+  {
+    auto nameToken = strings::MakeUniString("hair");
+
+    QueryParams::Token searchToken = strings::MakeUniString("hair");
+    TEST_EQUAL(search::impl::GetErrorsMade(searchToken, nameToken).m_errorsMade, 0, ());
+    TEST_EQUAL(search::impl::GetPrefixErrorsMade(searchToken, nameToken).m_errorsMade, 0, ());
+
+    searchToken = strings::MakeUniString("gair");
+    TEST_EQUAL(search::impl::GetErrorsMade(searchToken, nameToken).m_errorsMade, 1, ());
+    TEST_EQUAL(search::impl::GetPrefixErrorsMade(searchToken, nameToken).m_errorsMade, 1, ());
+
+    searchToken = strings::MakeUniString("gai");
+    TEST(!search::impl::GetErrorsMade(searchToken, nameToken).IsValid(), ());
+    TEST_EQUAL(search::impl::GetPrefixErrorsMade(searchToken, nameToken).m_errorsMade, 1, ());
+
+    searchToken = strings::MakeUniString("hairrr");
+    TEST(!search::impl::GetErrorsMade(searchToken, nameToken).IsValid(), ());
+    TEST(!search::impl::GetPrefixErrorsMade(searchToken, nameToken).IsValid(), ());
+  }
+
+  {
+    auto nameToken = strings::MakeUniString("hairdresser");
+
+    QueryParams::Token searchToken = strings::MakeUniString("hair");
+    TEST(!search::impl::GetErrorsMade(searchToken, nameToken).IsValid(), ());
+    TEST_EQUAL(search::impl::GetPrefixErrorsMade(searchToken, nameToken).m_errorsMade, 0, ());
+
+    searchToken = strings::MakeUniString("gair");
+    TEST_EQUAL(search::impl::GetPrefixErrorsMade(searchToken, nameToken).m_errorsMade, 1, ());
+
+    searchToken = strings::MakeUniString("gairdrese");
+    TEST(!search::impl::GetErrorsMade(searchToken, nameToken).IsValid(), ());
+    TEST_EQUAL(search::impl::GetPrefixErrorsMade(searchToken, nameToken).m_errorsMade, 2, ());
+  }
+}
+
+UNIT_TEST(NameScore_Prefix)
+{
+  TEST_EQUAL(GetScore("H Nicks", "hairdressers").m_nameScore, NameScore::ZERO, ());
+  TEST_EQUAL(GetScore("Hair E14", "hairdressers").m_nameScore, NameScore::ZERO, ());
+}
+
 UNIT_TEST(NameScore_SubstringVsErrors)
 {
   string const query = "Simon";
