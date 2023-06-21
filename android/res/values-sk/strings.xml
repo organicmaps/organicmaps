@@ -720,11 +720,13 @@
 	<string name="type.amenity.clinic">Poliklinika</string>
 	<string name="type.amenity.college">Vysoká škola</string>
 	<string name="type.amenity.community_centre">Dom kultúry</string>
+	<string name="type.amenity.conference_centre">Konferenčné centrum</string>
 	<string name="type.amenity.courthouse">Súd</string>
 	<string name="type.amenity.dentist">Zubár</string>
 	<string name="type.amenity.doctors">Ambulancia</string>
 	<string name="type.amenity.drinking_water">Pitná voda</string>
 	<string name="type.amenity.driving_school">Autoškola</string>
+	<string name="type.amenity.exhibition_centre">Výstavisko</string>
 	<string name="type.amenity.money_transfer">Prevod peňazí</string>
 	<string name="type.amenity.music_school">Hudobná škola</string>
 	<string name="type.amenity.language_school">Jazyková škola</string>
@@ -823,6 +825,7 @@
 	<string name="type.barrier.swing_gate">Závora</string>
 	<string name="type.barrier.toll_booth">Mýtne</string>
 	<string name="type.boundary.national_park">Národný park</string>
+	<string name="type.boundary.protected_area">Chránené územie</string>
 	<string name="type.building">Budova</string>
 	<string name="type.building.address">Budova</string>
 	<string name="type.building.has_parts">Budova</string>

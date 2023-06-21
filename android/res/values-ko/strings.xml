@@ -723,11 +723,13 @@
 	<string name="type.amenity.clinic">클리닉</string>
 	<string name="type.amenity.college">칼리지</string>
 	<string name="type.amenity.community_centre">커뮤니티센터</string>
+	<string name="type.amenity.conference_centre">컨퍼런스 센터</string>
 	<string name="type.amenity.courthouse">법원</string>
 	<string name="type.amenity.dentist">치과</string>
 	<string name="type.amenity.doctors">개인병원</string>
 	<string name="type.amenity.drinking_water">음수대</string>
 	<string name="type.amenity.driving_school">운전학원</string>
+	<string name="type.amenity.exhibition_centre">전시 센터</string>
 	<string name="type.amenity.money_transfer">송금</string>
 	<string name="type.amenity.music_school">음악 학교</string>
 	<string name="type.amenity.language_school">언어 학교</string>
@@ -827,6 +829,7 @@
 	<string name="type.barrier.swing_gate">차량차단기</string>
 	<string name="type.barrier.toll_booth">톨게이트</string>
 	<string name="type.boundary.national_park">국립 공원</string>
+	<string name="type.boundary.protected_area">보호구역</string>
 	<string name="type.building">건물</string>
 	<string name="type.building.address">건물</string>
 	<string name="type.building.has_parts">건물</string>

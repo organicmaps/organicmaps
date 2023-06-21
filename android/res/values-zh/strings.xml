@@ -744,11 +744,13 @@
 	<string name="type.amenity.clinic">诊所</string>
 	<string name="type.amenity.college">学院</string>
 	<string name="type.amenity.community_centre">社区活动中心</string>
+	<string name="type.amenity.conference_centre">会议中心</string>
 	<string name="type.amenity.courthouse">法院</string>
 	<string name="type.amenity.dentist">牙科医生</string>
 	<string name="type.amenity.doctors">医师办公室</string>
 	<string name="type.amenity.drinking_water">饮用水</string>
 	<string name="type.amenity.driving_school">驾校</string>
+	<string name="type.amenity.exhibition_centre">展览中心</string>
 	<string name="type.amenity.money_transfer">汇款</string>
 	<string name="type.amenity.music_school">音乐学校</string>
 	<string name="type.amenity.language_school">语言学校</string>
@@ -876,6 +878,7 @@
 	<string name="type.boundary.administrative.state">州省行政区域界线</string>
 	<string name="type.boundary.administrative.suburb">市郊行政区域界线</string>
 	<string name="type.boundary.national_park">国家公园</string>
+	<string name="type.boundary.protected_area">保护区</string>
 	<string name="type.building">建筑物</string>
 	<string name="type.building.address">建筑物</string>
 	<string name="type.building.has_parts">建筑物</string>

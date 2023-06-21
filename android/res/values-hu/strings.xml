@@ -746,11 +746,13 @@
 	<string name="type.amenity.clinic">Klinika</string>
 	<string name="type.amenity.college">Kollégium</string>
 	<string name="type.amenity.community_centre">Közösségi központ</string>
+	<string name="type.amenity.conference_centre">Konferencia Központ</string>
 	<string name="type.amenity.courthouse">Bíróság</string>
 	<string name="type.amenity.dentist">Fogorvos</string>
 	<string name="type.amenity.doctors">Rendelő</string>
 	<string name="type.amenity.drinking_water">Ivóvíz</string>
 	<string name="type.amenity.driving_school">Autósiskola</string>
+	<string name="type.amenity.exhibition_centre">Kiállítási Központ</string>
 	<string name="type.amenity.money_transfer">Pénz átutalás</string>
 	<string name="type.amenity.music_school">Zeneiskola</string>
 	<string name="type.amenity.language_school">Nyelviskola</string>
@@ -849,6 +851,7 @@
 	<string name="type.barrier.swing_gate">Sorompó</string>
 	<string name="type.barrier.toll_booth">Díjfizető kapu</string>
 	<string name="type.boundary.national_park">Nemzeti park</string>
+	<string name="type.boundary.protected_area">Védett terület</string>
 	<string name="type.building">Épület</string>
 	<string name="type.building.address">Épület</string>
 	<string name="type.building.has_parts">Épület</string>

@@ -1340,6 +1340,8 @@
 
 "type.amenity.community_centre" = "Community Centre";
 
+"type.amenity.conference_centre" = "מרכז כנסים";
+
 "type.amenity.courthouse" = "Courthouse";
 
 "type.amenity.dentist" = "Dentist";
@@ -1349,6 +1351,8 @@
 "type.amenity.drinking_water" = "Drinking Water";
 
 "type.amenity.driving_school" = "Driving School";
+
+"type.amenity.exhibition_centre" = "מרכז תערוכה";
 
 "type.amenity.money_transfer" = "העברת כספים";
 
@@ -1634,6 +1638,8 @@
 "type.boundary.administrative.suburb" = "Suburb Boundary";
 
 "type.boundary.national_park" = "National Park";
+
+"type.boundary.protected_area" = "אזור מוגן";
 
 "type.building" = "Building";
 

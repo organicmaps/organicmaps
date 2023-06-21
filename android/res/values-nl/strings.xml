@@ -781,11 +781,13 @@
 	<string name="type.amenity.clinic">Kliniek</string>
 	<string name="type.amenity.college">Hogeschool</string>
 	<string name="type.amenity.community_centre">Gemeenschapscentrum</string>
+	<string name="type.amenity.conference_centre">Conferentiecentrum</string>
 	<string name="type.amenity.courthouse">Rechtbank</string>
 	<string name="type.amenity.dentist">Tandarts</string>
 	<string name="type.amenity.doctors">Huisartsenpost</string>
 	<string name="type.amenity.drinking_water">Drinkwater</string>
 	<string name="type.amenity.driving_school">Rijschool</string>
+	<string name="type.amenity.exhibition_centre">Expositiecentrum</string>
 	<string name="type.amenity.money_transfer">Overschrijving</string>
 	<string name="type.amenity.music_school">Muziekschool</string>
 	<string name="type.amenity.language_school">Taalschool</string>
@@ -929,6 +931,7 @@
 	<string name="type.boundary.administrative.state">Staatsgrens</string>
 	<string name="type.boundary.administrative.suburb">Buitenwijkgrens</string>
 	<string name="type.boundary.national_park">Nationaal park</string>
+	<string name="type.boundary.protected_area">Beschermd gebied</string>
 	<string name="type.building">Gebouw</string>
 	<string name="type.building.address">Gebouw</string>
 	<string name="type.building.has_parts">Gebouw</string>

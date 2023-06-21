@@ -739,7 +739,9 @@
 	<string name="type.amenity.charging_station.bicycle">Станцыя для зарадкі ровараў</string>
 	<string name="type.amenity.charging_station.motorcar">Аўтамабільная зарадная станцыя</string>
 	<string name="type.leisure.bowling_alley">Боўлінг</string>
+	<string name="type.amenity.conference_centre">Канферэнц-цэнтр</string>
 	<string name="type.amenity.driving_school">Аўташкола</string>
+	<string name="type.amenity.exhibition_centre">Выставачны цэнтр</string>
 	<string name="type.amenity.money_transfer">Грашовыя пераводы</string>
 	<string name="type.amenity.music_school">Музычная школа</string>
 	<string name="type.amenity.language_school">Моўная школа</string>
@@ -802,6 +804,7 @@
 	<string name="type.barrier.ditch">Роў</string>
 	<string name="type.barrier.lift_gate">Шлагбаўм</string>
 	<string name="type.barrier.swing_gate">Шлагбаўм</string>
+	<string name="type.boundary.protected_area">Запаведная зона</string>
 	<string name="type.cemetery.grave">Магіла</string>
 	<string name="type.craft">Рамяство</string>
 	<string name="type.craft.beekeeper">Пчаляр</string>

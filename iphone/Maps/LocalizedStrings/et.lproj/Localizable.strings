@@ -1340,6 +1340,8 @@
 
 "type.amenity.community_centre" = "Kogukonnakeskus";
 
+"type.amenity.conference_centre" = "Konverentsikeskus";
+
 "type.amenity.courthouse" = "Kohtumaja";
 
 "type.amenity.dentist" = "Hambaarst";
@@ -1349,6 +1351,8 @@
 "type.amenity.drinking_water" = "Joogivesi";
 
 "type.amenity.driving_school" = "Autokool";
+
+"type.amenity.exhibition_centre" = "Näituste keskus";
 
 "type.amenity.money_transfer" = "Raha ülekanne";
 
@@ -1634,6 +1638,8 @@
 "type.boundary.administrative.suburb" = "Eeslinna piir";
 
 "type.boundary.national_park" = "Rahvuspark";
+
+"type.boundary.protected_area" = "Kaitseala";
 
 "type.building" = "Hoone";
 

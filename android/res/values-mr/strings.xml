@@ -743,11 +743,13 @@
 	<string name="type.amenity.clinic">चिकित्सालय</string>
 	<string name="type.amenity.college">महाविद्यालय</string>
 	<string name="type.amenity.community_centre">समुदाय केंद्र</string>
+	<string name="type.amenity.conference_centre">परिषद केंद्र</string>
 	<string name="type.amenity.courthouse">न्यायालय</string>
 	<string name="type.amenity.dentist">दंतवैद्य</string>
 	<string name="type.amenity.doctors">डॉक्टर</string>
 	<string name="type.amenity.drinking_water">पिण्याचे पाणी</string>
 	<string name="type.amenity.driving_school">वाहनचालक शाळा</string>
+	<string name="type.amenity.exhibition_centre">प्रदर्शन केंद्र</string>
 	<string name="type.amenity.money_transfer">पैसे हस्तांतरण</string>
 	<string name="type.office.diplomatic">दूतावास</string>
 	<string name="type.amenity.fast_food">फास्ट फूड</string>
@@ -873,6 +875,7 @@
 	<string name="type.boundary.administrative.state">राज्य सीमा</string>
 	<string name="type.boundary.administrative.suburb">उपनगर सीमा</string>
 	<string name="type.boundary.national_park">राष्ट्रीय उद्यान</string>
+	<string name="type.boundary.protected_area">संरक्षित क्षेत्र</string>
 	<string name="type.building">इमारत</string>
 	<string name="type.building.address">इमारत</string>
 	<string name="type.building.has_parts">इमारत</string>

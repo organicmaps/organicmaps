@@ -755,11 +755,13 @@
 	<string name="type.amenity.clinic">診所</string>
 	<string name="type.amenity.college">學院</string>
 	<string name="type.amenity.community_centre">社區活動中心</string>
+	<string name="type.amenity.conference_centre">會議中心</string>
 	<string name="type.amenity.courthouse">法院</string>
 	<string name="type.amenity.dentist">牙醫</string>
 	<string name="type.amenity.doctors">醫師診間</string>
 	<string name="type.amenity.drinking_water">飲用水</string>
 	<string name="type.amenity.driving_school">駕訓班</string>
+	<string name="type.amenity.exhibition_centre">展覽中心</string>
 	<string name="type.amenity.money_transfer">匯款</string>
 	<string name="type.amenity.music_school">音樂學校</string>
 	<string name="type.amenity.language_school">語言學校</string>
@@ -860,6 +862,7 @@
 	<string name="type.barrier.swing_gate">遮斷機</string>
 	<string name="type.barrier.toll_booth">收費站</string>
 	<string name="type.boundary.national_park">國家公園</string>
+	<string name="type.boundary.protected_area">保護區</string>
 	<string name="type.building">建築物</string>
 	<string name="type.building.address">建築物</string>
 	<string name="type.building.has_parts">建築物</string>

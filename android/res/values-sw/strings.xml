@@ -251,6 +251,8 @@
 	<string name="type.amenity.charging_station.bicycle">Kituo cha Kuchaji Baiskeli</string>
 	<string name="type.amenity.charging_station.motorcar">Kituo cha Kuchaji Magari</string>
 	<string name="type.leisure.bowling_alley">Njia ya Bowling</string>
+	<string name="type.amenity.conference_centre">Kituo cha Mikutano</string>
+	<string name="type.amenity.exhibition_centre">Kituo cha Maonyesho</string>
 	<string name="type.amenity.money_transfer">Uhamisho wa pesa</string>
 	<string name="type.amenity.music_school">Shule ya Muziki</string>
 	<string name="type.amenity.language_school">Shule ya Lugha</string>
@@ -278,6 +280,7 @@
 	<string name="type.barrier.city_wall">Ukuta wa jiji</string>
 	<string name="type.barrier.ditch">Moti</string>
 	<string name="type.boundary.national_park">Hifadhi ya taifa</string>
+	<string name="type.boundary.protected_area">Eneo Lindwa</string>
 	<string name="type.cemetery.grave">Kaburi</string>
 	<string name="type.craft">Ufundi</string>
 	<string name="type.craft.beekeeper">Mfugaji nyuki</string>

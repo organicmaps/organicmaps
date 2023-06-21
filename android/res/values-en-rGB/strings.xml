@@ -36,6 +36,8 @@
 
 	<!-- SECTION: Types -->
 	<string name="type.amenity.arts_centre">Arts Centre</string>
+	<string name="type.amenity.conference_centre">Conference Centre</string>
+	<string name="type.amenity.exhibition_centre">Exhibition Centre</string>
 	<string name="type.amenity.fuel">Petrol Station</string>
 	<string name="type.amenity.loading_dock">Loading Bay</string>
 	<string name="type.amenity.post_box">Postbox</string>

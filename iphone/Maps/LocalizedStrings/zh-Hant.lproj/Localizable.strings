@@ -1340,6 +1340,8 @@
 
 "type.amenity.community_centre" = "社區活動中心";
 
+"type.amenity.conference_centre" = "會議中心";
+
 "type.amenity.courthouse" = "法院";
 
 "type.amenity.dentist" = "牙醫";
@@ -1349,6 +1351,8 @@
 "type.amenity.drinking_water" = "飲用水";
 
 "type.amenity.driving_school" = "駕訓班";
+
+"type.amenity.exhibition_centre" = "展覽中心";
 
 "type.amenity.money_transfer" = "匯款";
 
@@ -1634,6 +1638,8 @@
 "type.boundary.administrative.suburb" = "Suburb Boundary";
 
 "type.boundary.national_park" = "國家公園";
+
+"type.boundary.protected_area" = "保護區";
 
 "type.building" = "建築物";
 

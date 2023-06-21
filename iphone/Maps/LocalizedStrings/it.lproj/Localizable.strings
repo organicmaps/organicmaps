@@ -1340,6 +1340,8 @@
 
 "type.amenity.community_centre" = "Centro ricreativo";
 
+"type.amenity.conference_centre" = "Centro conferenze";
+
 "type.amenity.courthouse" = "Tribunale";
 
 "type.amenity.dentist" = "Dentista";
@@ -1349,6 +1351,8 @@
 "type.amenity.drinking_water" = "Acqua potabile";
 
 "type.amenity.driving_school" = "Scuola guida";
+
+"type.amenity.exhibition_centre" = "Centro espositivo";
 
 "type.amenity.money_transfer" = "Trasferimento di denaro";
 
@@ -1634,6 +1638,8 @@
 "type.boundary.administrative.suburb" = "Suburb Boundary";
 
 "type.boundary.national_park" = "Parco nazionale";
+
+"type.boundary.protected_area" = "Area protetta";
 
 "type.building" = "Edificio";
 

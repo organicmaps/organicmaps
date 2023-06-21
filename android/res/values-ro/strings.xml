@@ -747,9 +747,11 @@
 	<string name="type.amenity.clinic">Clinică</string>
 	<string name="type.amenity.college">Colegiu</string>
 	<string name="type.amenity.community_centre">Centru comunitar</string>
+	<string name="type.amenity.conference_centre">Centru de conferinte</string>
 	<string name="type.amenity.courthouse">Judecătorie</string>
 	<string name="type.amenity.drinking_water">Apă de băut</string>
 	<string name="type.amenity.driving_school">Școală de șoferi</string>
+	<string name="type.amenity.exhibition_centre">Centru de expozitie</string>
 	<string name="type.amenity.money_transfer">Transfer de bani</string>
 	<string name="type.amenity.music_school">Scoala de Muzica</string>
 	<string name="type.amenity.language_school">Școala de limbi străine</string>
@@ -845,6 +847,7 @@
 	<string name="type.barrier.swing_gate">Barieră cu braț</string>
 	<string name="type.barrier.toll_booth">Cabină de taxare</string>
 	<string name="type.boundary.national_park">Parcul național</string>
+	<string name="type.boundary.protected_area">Zonă protejată</string>
 	<string name="type.building">Clădire</string>
 	<string name="type.building.address">Clădire</string>
 	<string name="type.building.has_parts">Clădire</string>

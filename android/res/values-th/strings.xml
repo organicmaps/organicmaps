@@ -724,11 +724,13 @@
 	<string name="type.amenity.clinic">คลินิก</string>
 	<string name="type.amenity.college">วิทยาลัย</string>
 	<string name="type.amenity.community_centre">ศูนย์ชุมชน</string>
+	<string name="type.amenity.conference_centre">ศูนย์ประชุม</string>
 	<string name="type.amenity.courthouse">ศาล</string>
 	<string name="type.amenity.dentist">ทันตแพทย์</string>
 	<string name="type.amenity.doctors">ห้องแพทย์</string>
 	<string name="type.amenity.drinking_water">น้ำดื่ม</string>
 	<string name="type.amenity.driving_school">โรงเรียนสอนขับรถ</string>
+	<string name="type.amenity.exhibition_centre">ศูนย์นิทรรศการ</string>
 	<string name="type.amenity.money_transfer">การโอนเงิน</string>
 	<string name="type.amenity.music_school">โรงเรียนดนตรี</string>
 	<string name="type.amenity.language_school">โรงเรียนภาษา</string>
@@ -828,6 +830,7 @@
 	<string name="type.barrier.swing_gate">ไม้กั้น</string>
 	<string name="type.barrier.toll_booth">ด่านเก็บเงิน</string>
 	<string name="type.boundary.national_park">อุทยานแห่งชาติ</string>
+	<string name="type.boundary.protected_area">พื้นที่คุ้มครอง</string>
 	<string name="type.building">อาคาร</string>
 	<string name="type.building.address">อาคาร</string>
 	<string name="type.building.has_parts">อาคาร</string>

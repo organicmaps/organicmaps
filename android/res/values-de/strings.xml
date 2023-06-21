@@ -782,11 +782,13 @@
 	<string name="type.amenity.clinic">Klinik</string>
 	<string name="type.amenity.college">Hochschule</string>
 	<string name="type.amenity.community_centre">Bürgerhaus</string>
+	<string name="type.amenity.conference_centre">Konferenzzentrum</string>
 	<string name="type.amenity.courthouse">Justizgebäude</string>
 	<string name="type.amenity.dentist">Zahnarzt</string>
 	<string name="type.amenity.doctors">Arztpraxis</string>
 	<string name="type.amenity.drinking_water">Trinkwasser</string>
 	<string name="type.amenity.driving_school">Fahrschule</string>
+	<string name="type.amenity.exhibition_centre">Ausstellungszentrum</string>
 	<string name="type.amenity.money_transfer">Geldtransfer</string>
 	<string name="type.amenity.music_school">Musikschule</string>
 	<string name="type.amenity.language_school">Sprachschule</string>
@@ -918,6 +920,7 @@
 	<string name="type.boundary.administrative.8">Verwaltungsgrenze</string>
 	<string name="type.boundary.administrative.9">Verwaltungsgrenze</string>
 	<string name="type.boundary.national_park">Nationalpark</string>
+	<string name="type.boundary.protected_area">Geschützter Bereich</string>
 	<string name="type.building">Gebäude</string>
 	<string name="type.building.address">Gebäude</string>
 	<string name="type.building.has_parts">Gebäude</string>

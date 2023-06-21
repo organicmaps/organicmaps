@@ -1340,6 +1340,8 @@
 
 "type.amenity.community_centre" = "ศูนย์ชุมชน";
 
+"type.amenity.conference_centre" = "ศูนย์ประชุม";
+
 "type.amenity.courthouse" = "ศาล";
 
 "type.amenity.dentist" = "ทันตแพทย์";
@@ -1349,6 +1351,8 @@
 "type.amenity.drinking_water" = "น้ำดื่ม";
 
 "type.amenity.driving_school" = "โรงเรียนสอนขับรถ";
+
+"type.amenity.exhibition_centre" = "ศูนย์นิทรรศการ";
 
 "type.amenity.money_transfer" = "การโอนเงิน";
 
@@ -1634,6 +1638,8 @@
 "type.boundary.administrative.suburb" = "Suburb Boundary";
 
 "type.boundary.national_park" = "อุทยานแห่งชาติ";
+
+"type.boundary.protected_area" = "พื้นที่คุ้มครอง";
 
 "type.building" = "อาคาร";
 

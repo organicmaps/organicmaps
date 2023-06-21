@@ -738,10 +738,13 @@
 	<string name="type.amenity.charging_station.bicycle">Estació de recàrrega de bicicletes</string>
 	<string name="type.amenity.charging_station.motorcar">Estació de recàrrega de cotxes</string>
 	<string name="type.leisure.bowling_alley">Bolera</string>
+	<string name="type.amenity.conference_centre">Centre de Conferències</string>
+	<string name="type.amenity.exhibition_centre">Centre d\'exposicions</string>
 	<string name="type.amenity.money_transfer">Transferència de diners</string>
 	<string name="type.amenity.loading_dock">Moll de càrrega</string>
 
 	<!-- SECTION: Types: Recycling -->
+	<string name="type.boundary.protected_area">Àrea Protegida</string>
 	<string name="type.craft.key_cutter">Tall de claus</string>
 	<string name="type.craft.locksmith">Serraller</string>
 	<string name="type.shop.camera">Botiga de càmeres</string>

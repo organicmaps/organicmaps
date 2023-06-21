@@ -722,11 +722,13 @@
 	<string name="type.amenity.clinic">Klinik</string>
 	<string name="type.amenity.college">Kampus</string>
 	<string name="type.amenity.community_centre">Pusat komunitas</string>
+	<string name="type.amenity.conference_centre">Pusat konferensi</string>
 	<string name="type.amenity.courthouse">Gedung pengadilan</string>
 	<string name="type.amenity.dentist">Dokter gigi</string>
 	<string name="type.amenity.doctors">Praktik dokter</string>
 	<string name="type.amenity.drinking_water">Air minum</string>
 	<string name="type.amenity.driving_school">Sekolah Mengemudi</string>
+	<string name="type.amenity.exhibition_centre">Pusat pameran</string>
 	<string name="type.amenity.money_transfer">Transfer uang</string>
 	<string name="type.amenity.music_school">Sekolah musik</string>
 	<string name="type.amenity.language_school">Sekolah bahasa</string>
@@ -824,6 +826,7 @@
 	<string name="type.barrier.swing_gate">Polisi tidur</string>
 	<string name="type.barrier.toll_booth">Gerbang tol</string>
 	<string name="type.boundary.national_park">Taman Nasional</string>
+	<string name="type.boundary.protected_area">Kawasan Lindung</string>
 	<string name="type.building">Gedung</string>
 	<string name="type.building.address">Gedung</string>
 	<string name="type.building.has_parts">Gedung</string>

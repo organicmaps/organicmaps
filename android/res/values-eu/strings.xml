@@ -784,11 +784,13 @@
 	<string name="type.amenity.clinic">Klinika</string>
 	<string name="type.amenity.college">Unibertsitatea</string>
 	<string name="type.amenity.community_centre">Komunitate Zentroa</string>
+	<string name="type.amenity.conference_centre">Biltzar Jauregia</string>
 	<string name="type.amenity.courthouse">Auzitegia</string>
 	<string name="type.amenity.dentist">Dentista</string>
 	<string name="type.amenity.doctors">Kontsulta medikoa</string>
 	<string name="type.amenity.drinking_water">Ur edangarria</string>
 	<string name="type.amenity.driving_school">Autoeskola</string>
+	<string name="type.amenity.exhibition_centre">Erakusketa Zentroa</string>
 	<string name="type.amenity.money_transfer">Diru transferentzia</string>
 	<string name="type.amenity.music_school">Musika Eskola</string>
 	<string name="type.amenity.language_school">Hizkuntza Eskola</string>
@@ -930,6 +932,7 @@
 	<string name="type.boundary.administrative.state">Estatuko muga</string>
 	<string name="type.boundary.administrative.suburb">Auzoko muga</string>
 	<string name="type.boundary.national_park">Parke Nazionala</string>
+	<string name="type.boundary.protected_area">Babestutako Eremua</string>
 	<string name="type.building">Eraikin</string>
 	<string name="type.building.address">Eraikin</string>
 	<string name="type.building.has_parts">Eraikin</string>
