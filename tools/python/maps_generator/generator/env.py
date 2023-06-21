@@ -129,7 +129,7 @@ class PathProvider:
     def intermediate_data_path(self) -> AnyStr:
         """
         intermediate_data_path contains intermediate files,
-        for example downloaded external files, that are needed for genration,
+        for example downloaded external files, that are needed for generation,
         *.mwm.tmp files, etc.
         """
         return os.path.join(self.build_path, "intermediate_data")
@@ -545,21 +545,20 @@ class Env:
             settings.OSM_TOOL_FILTER,
         ]
 
-        logger.info("Check osm tools ...")
-        if not create_if_not_exist_path(path):
-            tmp_paths = [os.path.join(path, t) for t in osm_tool_names]
-            if all([is_executable(t) for t in tmp_paths]):
-                osm_tool_paths = dict(zip(osm_tool_names, tmp_paths))
-                logger.info(f"Osm tools found - {', '.join(osm_tool_paths.values())}")
-                return osm_tool_paths
+        logger.info("Check for the osmctools binaries...")
 
-        tmp_paths = [shutil.which(t) for t in osm_tool_names]
-        if all(tmp_paths):
+        # Check in the configured path first.
+        tmp_paths = [os.path.join(path, t) for t in osm_tool_names]
+        if not all([is_executable(t) for t in tmp_paths]):
+            # Or use a system-wide installation.
+            tmp_paths = [shutil.which(t) for t in osm_tool_names]
+        if all([is_executable(t) for t in tmp_paths]):
             osm_tool_paths = dict(zip(osm_tool_names, tmp_paths))
-            logger.info(f"Osm tools found - {', '.join(osm_tool_paths.values())}")
+            logger.info(f"Found osmctools at {', '.join(osm_tool_paths.values())}")
             return osm_tool_paths
 
-        logger.info("Build osm tools ...")
+        logger.info(f"osmctools are not found, building from the sources into {path}...")
+        os.makedirs(path, exist_ok=True)
         return build_osmtools(settings.OSM_TOOLS_SRC_PATH)
 
     def setup_borders(self):

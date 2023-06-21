@@ -20,60 +20,10 @@ from maps_generator.utils.algo import unique
 
 logger = logging.getLogger("maps_generator")
 
-examples = """Examples:
-1) Non-standard planet with coastlines
-    If you want to generate maps for Japan you must complete the following steps:
-    1. Open https://download.geofabrik.de/asia/japan.html and copy url of osm.pbf
-     and md5sum files.
-    2. Edit the ini file:
-    maps_generator$ vim var/etc/map_generator.ini
-
-    ...
-    [Main]
-    ...
-    DEBUG: 0
-    ...
-    [External]
-    PLANET_URL: https://download.geofabrik.de/asia/japan-latest.osm.pbf
-    PLANET_MD5_URL: https://download.geofabrik.de/asia/japan-latest.osm.pbf.md5
-    ...
-    
-    3. Run
-    python$ python3.6 -m maps_generator --countries="World, WorldCoasts, Japan_*"
-
-    You must skip the step of updating the planet, because it is a non-standard planet.
-2) Rebuild stages:
-    For example, you changed routing code in omim project and want to regenerate maps.
-    You must have previous generation. You may regenerate from stage routing only for two mwms:
-    
-    python$ python3.6 -m maps_generator -c --from_stage="Routing" --countries="Japan_Kinki Region_Osaka_Osaka, Japan_Chugoku Region_Tottori"
-    
-    Note: To generate maps with the coastline, you need more time and you need the planet to contain a continuous coastline.
-
-3) Non-standard planet without coastlines
-    If you want to generate maps for Moscow you must complete the following steps:
-    1. Open https://download.geofabrik.de/russia/central-fed-district.html and copy url of osm.pbf and md5sum files.
-    2. Edit ini file:
-    maps_generator$ vim var/etc/map_generator.ini
-    ...
-    [Main]
-    ...
-    DEBUG: 0
-    ...
-    [External]
-    PLANET_URL: https://download.geofabrik.de/russia/central-fed-district-latest.osm.pbf
-    PLANET_MD5_URL: https://download.geofabrik.de/russia/central-fed-district-latest.osm.pbf.md5
-    ...
-    
-    3. Run
-    python$ python3.6 -m maps_generator --countries="Russia_Moscow" --skip="Coastline"
-"""
-
-
 def parse_options():
     parser = ArgumentParser(
-        description="Tool for generation maps for maps.me " "application.",
-        epilog=examples,
+        description="A tool to generate map files in Organic Maps' .mwm format.",
+        epilog="See maps_generator/README.md for setup instructions and usage examples.",
         formatter_class=RawDescriptionHelpFormatter,
         parents=[settings.parser],
     )
@@ -83,7 +33,7 @@ def parse_options():
         default="",
         nargs="?",
         type=str,
-        help="Continue the last build or specified in CONTINUE from the "
+        help="Continue the last build or the one specified in CONTINUE from the "
         "last stopped stage.",
     )
     parser.add_argument(
@@ -97,17 +47,18 @@ def parse_options():
         "--countries",
         type=str,
         default="",
-        help="List of regions, separated by a comma or a semicolon, or path to "
-        "file with regions, separated by a line break, for which maps"
-        " will be built. The names of the regions can be seen "
-        "in omim/data/borders. It is necessary to set names without "
-        "any extension.",
+        help="List of countries/regions, separated by a comma or a semicolon, or a path to "
+        "a file with a newline-separated list of regions, for which maps "
+        "should be built. Filenames in data/borders/ (without the .poly extension) "
+        "represent all valid region names. "
+        "A * wildcard is accepted, e.g. --countries=\"UK*\" will match "
+        "UK_England_East Midlands, UK_England_East of England_Essex, etc.",
     )
     parser.add_argument(
         "--without_countries",
         type=str,
         default="",
-        help="List of regions to exclude them from generation. Syntax is the same as for --countries.",
+        help="List of countries/regions to exclude from generation. Syntax is the same as for --countries.",
     )
     parser.add_argument(
         "--skip",
@@ -128,7 +79,7 @@ def parse_options():
         "--coasts",
         default=False,
         action="store_true",
-        help="Build only WorldCoasts.raw and WorldCoasts.rawgeom files",
+        help="Build only WorldCoasts.raw and WorldCoasts.rawgeom files.",
     )
     parser.add_argument(
         "--force_download_files",
@@ -140,8 +91,8 @@ def parse_options():
         "--production",
         default=False,
         action="store_true",
-        help="Build production maps. In another case, 'osm only maps' are built"
-        " - maps without additional data and advertising.",
+        help="Build production maps. Otherwise 'OSM-data-only maps' are built "
+        "without additional data like SRTM.",
     )
     parser.add_argument(
         "--order",
@@ -150,7 +101,9 @@ def parse_options():
             os.path.dirname(os.path.abspath(__file__)),
             "var/etc/file_generation_order.txt",
         ),
-        help="Mwm generation order.",
+        help="Mwm generation order, useful to have particular maps completed first "
+        "in a long build (defaults to maps_generator/var/etc/file_generation_order.txt "
+        "to process big countries first).",
     )
     return parser.parse_args()
 
@@ -170,7 +123,7 @@ def main():
         d = find_last_build_dir(continue_)
         if d is None:
             raise ContinueError(
-                "The build cannot continue: the last build " "directory was not found."
+                "The build cannot continue: the last build directory was not found."
             )
         build_name = d
 
@@ -226,7 +179,7 @@ def main():
         countries = unique(countries)
         diff = set(countries_list) - used_countries
         if diff:
-            raise ValidationError(f"Bad input countries {', '.join(diff)}")
+            raise ValidationError(f"Bad input countries: {', '.join(diff)}")
         return set(countries)
 
     countries = get_countries_set_from_line(countries_line)
