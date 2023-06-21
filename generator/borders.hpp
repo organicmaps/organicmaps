@@ -34,7 +34,7 @@ namespace borders
 // The file format for raw borders is described at
 //   https://wiki.openstreetmap.org/wiki/Osmosis/Polygon_Filter_File_Format
 //
-// The borders for all mwm files are shipped with the appilication in
+// The borders for all mwm files are shipped with the application in
 // the mwm binary format for geometry data (see coding/geometry_coding.hpp).
 // However, storing every single point turned out to take too much space,
 // therefore the borders are simplified. This simplification may lead to

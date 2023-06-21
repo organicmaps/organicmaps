@@ -9,6 +9,8 @@ CONFIG_PATH = os.path.join(
     "map_generator.ini",
 )
 
+print(f"Loading configuration from {CONFIG_PATH}")
+
 settings.init(CONFIG_PATH)
 
 from maps_generator.generator import stages_declaration
