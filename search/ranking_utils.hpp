@@ -3,14 +3,11 @@
 #include "search/common.hpp"
 #include "search/query_params.hpp"
 
-#include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
-#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <cstddef>
 #include <limits>
 #include <string>
 #include <vector>
