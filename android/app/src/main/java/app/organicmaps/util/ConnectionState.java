@@ -28,7 +28,9 @@ public enum ConnectionState implements Initializable<Context>
   public enum Type
   {
     NONE(CONNECTION_NONE, -1),
+    @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 28
     WIFI(CONNECTION_WIFI, ConnectivityManager.TYPE_WIFI),
+    @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 28
     WWAN(CONNECTION_WWAN, ConnectivityManager.TYPE_MOBILE);
 
     private final byte mNativeRepresentation;
@@ -63,6 +65,7 @@ public enum ConnectionState implements Initializable<Context>
     // No op
   }
 
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 29
   private boolean isNetworkConnected(int networkType)
   {
     final NetworkInfo info = getActiveNetwork();
@@ -70,6 +73,7 @@ public enum ConnectionState implements Initializable<Context>
   }
 
   @Nullable
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 29
   public NetworkInfo getActiveNetwork()
   {
     ConnectivityManager manager =
@@ -80,21 +84,25 @@ public enum ConnectionState implements Initializable<Context>
     return manager.getActiveNetworkInfo();
   }
 
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 28
   public boolean isMobileConnected()
   {
     return isNetworkConnected(ConnectivityManager.TYPE_MOBILE);
   }
 
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 28
   public boolean isWifiConnected()
   {
     return isNetworkConnected(ConnectivityManager.TYPE_WIFI);
   }
 
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 28
   public boolean isConnected()
   {
     return isNetworkConnected(ConnectivityManager.TYPE_WIFI) || isNetworkConnected(ConnectivityManager.TYPE_MOBILE);
   }
 
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 29
   public boolean isConnectionFast(NetworkInfo info)
   {
     if (info == null || !info.isConnected())
@@ -135,8 +143,10 @@ public enum ConnectionState implements Initializable<Context>
     return false;
   }
 
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 29
   public boolean isInRoaming()
   {
+
     NetworkInfo info = getActiveNetwork();
     return info != null && info.isRoaming();
   }

@@ -63,6 +63,7 @@ public class MediaPlayerWrapper
   }
 
   @NonNull
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 30
   private static AsyncTask<Integer, Void, InitializationResult> makeInitTask(@NonNull MediaPlayerWrapper wrapper)
   {
     return new InitPlayerTask(wrapper);
@@ -74,6 +75,7 @@ public class MediaPlayerWrapper
     mCompletionListener = null;
   }
 
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 30
   public void playback(@RawRes int streamResId,
                        @Nullable MediaPlayer.OnCompletionListener completionListener)
   {
@@ -88,7 +90,7 @@ public class MediaPlayerWrapper
 
     mCompletionListener = completionListener;
     mStreamResId = streamResId;
-    AsyncTask<Integer, Void, InitializationResult> task = makeInitTask(this);
+    AsyncTask<Integer, Void, InitializationResult> task = makeInitTask(this); // AsyncTask is deprecated in SDK v30
     task.execute(streamResId);
   }
 

@@ -51,11 +51,12 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
 
   @Nullable
   @Override
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 28
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState)
   {
     View root = inflater.inflate(R.layout.fragment_bookmark_category_settings, container, false);
-    setHasOptionsMenu(true);
+    setHasOptionsMenu(true); // Deprecated in SDK v28
     initViews(root);
     return root;
   }
@@ -74,12 +75,14 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
   }
 
   @Override
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 28
   public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater)
   {
     inflater.inflate(R.menu.menu_done, menu);
   }
 
   @Override
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 28
   public boolean onOptionsItemSelected(MenuItem item)
   {
     if (item.getItemId() == R.id.done)

@@ -21,8 +21,10 @@ public enum BookmarksSharingHelper
   private static final String TAG = BookmarksSharingHelper.class.getSimpleName();
 
   @Nullable
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 26
   private ProgressDialog mProgressDialog;
 
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 26
   public void prepareBookmarkCategoryForSharing(@NonNull Activity context, long catId)
   {
     mProgressDialog = new ProgressDialog(context, R.style.MwmTheme_AlertDialog);

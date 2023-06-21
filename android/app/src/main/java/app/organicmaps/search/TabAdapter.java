@@ -16,6 +16,7 @@ import app.organicmaps.util.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 27
 class TabAdapter extends FragmentPagerAdapter
 {
   enum Tab

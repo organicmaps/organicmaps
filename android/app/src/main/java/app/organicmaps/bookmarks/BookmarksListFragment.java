@@ -166,13 +166,14 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     onViewCreatedInternal(view);
   }
 
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 28
   private void onViewCreatedInternal(@NonNull View view)
   {
     configureBookmarksListAdapter();
 
     configureFab(view);
 
-    setHasOptionsMenu(true);
+    setHasOptionsMenu(true); // Deprecated in SDK v28
 
     ActionBar bar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
     if (bar != null)
@@ -640,6 +641,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   }
 
   @Override
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 28
   public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater)
   {
     inflater.inflate(R.menu.option_menu_bookmarks, menu);
@@ -649,6 +651,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   }
 
   @Override
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 28
   public void onPrepareOptionsMenu(@NonNull Menu menu)
   {
     super.onPrepareOptionsMenu(menu);
@@ -663,6 +666,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   }
 
   @Override
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 28
   public boolean onOptionsItemSelected(MenuItem item)
   {
     if (item.getItemId() == R.id.bookmarks_search)

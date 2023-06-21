@@ -282,10 +282,11 @@ public final class UiUtils
     toolbar.setNavigationIcon(ThemeUtils.getResource(toolbar.getContext(), R.attr.homeAsUpIndicator));
   }
 
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 30
   public static String deviceOrientationAsString(Activity activity)
   {
     String rotation = activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ? "|" : "-";
-    switch (activity.getWindowManager().getDefaultDisplay().getRotation())
+    switch (activity.getWindowManager().getDefaultDisplay().getRotation()) // getDefaultDisplay() is deprecated in SDK v30
     {
       case Surface.ROTATION_0:
         rotation += "0";

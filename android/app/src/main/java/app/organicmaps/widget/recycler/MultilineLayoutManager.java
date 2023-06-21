@@ -8,9 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MultilineLayoutManager extends RecyclerView.LayoutManager
 {
-  public MultilineLayoutManager()
+  @Override
+  public boolean isAutoMeasureEnabled()
   {
-    setAutoMeasureEnabled(true);
+    return true;
   }
 
   @Override

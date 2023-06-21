@@ -62,12 +62,13 @@ public class Bookmark extends MapObject
   // Do not use Core while restoring from Parcel! In some cases this constructor is called before
   // the App is completely initialized.
   // TODO: Method restoreHasCurrentPermission causes this strange behaviour, needs to be investigated.
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 33
   protected Bookmark(@MapObjectType int type, Parcel source)
   {
     super(type, source);
     mCategoryId = source.readLong();
     mBookmarkId = source.readLong();
-    mIcon = source.readParcelable(Icon.class.getClassLoader());
+    mIcon = source.readParcelable(Icon.class.getClassLoader()); // Deprecated in SDK v33
     mMerX = source.readDouble();
     mMerY = source.readDouble();
     initXY();

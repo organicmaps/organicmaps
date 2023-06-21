@@ -163,7 +163,7 @@ public class SplashActivity extends AppCompatActivity
     processNavigation();
   }
 
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({"unchecked", "deprecation"}) // TODO: Remove when minSdkVersion >= 33
   private void processNavigation()
   {
     Intent input = getIntent();
@@ -177,7 +177,7 @@ public class SplashActivity extends AppCompatActivity
       }
 
       Intent initialIntent = input.hasExtra(EXTRA_INITIAL_INTENT) ?
-                           input.getParcelableExtra(EXTRA_INITIAL_INTENT) :
+                           input.getParcelableExtra(EXTRA_INITIAL_INTENT) : // Deprecated in SDK v26
                            input;
       result.putExtra(EXTRA_INITIAL_INTENT, initialIntent);
       if (!initialIntent.hasCategory(Intent.CATEGORY_LAUNCHER))

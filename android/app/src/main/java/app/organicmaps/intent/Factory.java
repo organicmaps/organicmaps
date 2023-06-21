@@ -130,6 +130,7 @@ public class Factory
 
     @Nullable
     @Override
+    @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 33
     public MapTask process(@NonNull Intent intent)
     {
       // See KML/KMZ/KMB intent filters in manifest.
@@ -137,7 +138,7 @@ public class Factory
       if (Intent.ACTION_VIEW.equals(intent.getAction()))
         uri = intent.getData();
       else if (Intent.ACTION_SEND.equals(intent.getAction()))
-        uri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
+        uri = intent.getParcelableExtra(Intent.EXTRA_STREAM); // Deprecated in SDK v33
       else
         uri = null;
       if (uri == null)

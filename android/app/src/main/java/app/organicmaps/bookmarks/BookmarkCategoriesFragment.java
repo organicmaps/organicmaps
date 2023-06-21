@@ -238,6 +238,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   }
 
   @Override
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 28
   public void onImportButtonClick()
   {
     Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
@@ -252,7 +253,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
       intent.putExtra(DocumentsContract.EXTRA_EXCLUDE_SELF, true);
-    startActivityForResult(intent, REQ_CODE_IMPORT_DIRECTORY);
+    startActivityForResult(intent, REQ_CODE_IMPORT_DIRECTORY); // Deprecated in SDK v28
   }
 
   @Override
@@ -285,6 +286,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   }
 
   @Override
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 28
   public final void onActivityResult(int requestCode, int resultCode, Intent data)
   {
     super.onActivityResult(requestCode, resultCode, data);
@@ -304,7 +306,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
 
       final Context context = requireActivity();
       final Uri rootUri = data.getData();
-      final ProgressDialog dialog = new ProgressDialog(context, R.style.MwmTheme_AlertDialog);
+      final ProgressDialog dialog = new ProgressDialog(context, R.style.MwmTheme_AlertDialog); // Deprecated in SDK v26
       dialog.setMessage(getString(R.string.wait_several_minutes));
       dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
       dialog.setIndeterminate(true);

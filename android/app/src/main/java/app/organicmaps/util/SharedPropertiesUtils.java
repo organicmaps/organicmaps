@@ -52,6 +52,7 @@ public final class SharedPropertiesUtils
 
   public static void setShouldShowEmulateBadStorageSetting(@NonNull Context context, boolean show)
   {
+    @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 29
     SharedPreferences prefs = PreferenceManager
         .getDefaultSharedPreferences(MwmApplication.from(context));
     prefs.edit().putBoolean(PREFS_SHOW_EMULATE_BAD_STORAGE_SETTING, show).apply();
@@ -59,6 +60,7 @@ public final class SharedPropertiesUtils
 
   public static boolean shouldShowEmulateBadStorageSetting(@NonNull Context context)
   {
+    @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 29
     SharedPreferences prefs = PreferenceManager
         .getDefaultSharedPreferences(MwmApplication.from(context));
     return prefs.getBoolean(PREFS_SHOW_EMULATE_BAD_STORAGE_SETTING, false);
@@ -70,6 +72,7 @@ public final class SharedPropertiesUtils
    */
   public static void emulateBadExternalStorage(@NonNull Context context) throws IOException
   {
+    @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 29
     SharedPreferences prefs = PreferenceManager
         .getDefaultSharedPreferences(MwmApplication.from(context));
     String key = MwmApplication.from(context).getString(R.string.pref_emulate_bad_external_storage);

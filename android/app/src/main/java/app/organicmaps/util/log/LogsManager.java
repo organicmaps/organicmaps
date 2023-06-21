@@ -223,6 +223,7 @@ public final class LogsManager
    * NOTE: initFileLogging() must be called before.
    */
   @NonNull
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 23
   String getSystemInformation()
   {
     assertFileLoggingInit();
@@ -249,7 +250,7 @@ public final class LogsManager
     final ConnectivityManager manager = (ConnectivityManager) mApplication.getSystemService(Context.CONNECTIVITY_SERVICE);
     if (manager != null)
     {
-      // TODO: getAllNetworkInfo() is deprecated, for alternatives check
+      // TODO: getAllNetworkInfo() is deprecated in SDK v23, for alternatives check
       // https://stackoverflow.com/questions/32547006/connectivitymanager-getnetworkinfoint-deprecated
       for (NetworkInfo info : manager.getAllNetworkInfo())
         sb.append("\n\t").append(info.toString());

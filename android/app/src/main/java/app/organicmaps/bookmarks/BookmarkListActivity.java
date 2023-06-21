@@ -59,12 +59,13 @@ public class BookmarkListActivity extends BaseToolbarActivity
     return R.layout.bookmarks_activity;
   }
 
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 28
   static void startForResult(@NonNull Fragment fragment, @NonNull BookmarkCategory category)
   {
     Bundle args = new Bundle();
     args.putParcelable(BookmarksListFragment.EXTRA_CATEGORY, category);
     Intent intent = new Intent(fragment.requireActivity(), BookmarkListActivity.class);
     intent.putExtra(EXTRA_BUNDLE, args);
-    fragment.startActivityForResult(intent, BookmarkCategoriesFragment.REQ_CODE_DELETE_CATEGORY);
+    fragment.startActivityForResult(intent, BookmarkCategoriesFragment.REQ_CODE_DELETE_CATEGORY); // Deprecated in SDK v28
   }
 }

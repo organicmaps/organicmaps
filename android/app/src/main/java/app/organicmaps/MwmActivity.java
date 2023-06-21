@@ -971,6 +971,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         intent.hasExtra(EXTRA_TASK) &&
         ((intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0))
     {
+      @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 33
       final MapTask mapTask = (MapTask) intent.getSerializableExtra(EXTRA_TASK);
       mTasks.add(mapTask);
       intent.removeExtra(EXTRA_TASK);

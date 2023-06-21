@@ -32,11 +32,12 @@ public class BookmarkCategorySettingsActivity extends BaseMwmFragmentActivity
     return BookmarkCategorySettingsFragment.class;
   }
 
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 28
   public static void startForResult(@NonNull Fragment fragment,
                                            @NonNull BookmarkCategory category)
   {
     android.content.Intent intent = new Intent(fragment.requireActivity(), BookmarkCategorySettingsActivity.class)
         .putExtra(EXTRA_BOOKMARK_CATEGORY, category);
-    fragment.startActivityForResult(intent, REQUEST_CODE);
+    fragment.startActivityForResult(intent, REQUEST_CODE); // Deprecated in SDK v28
   }
 }

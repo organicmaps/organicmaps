@@ -65,6 +65,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     // An intent that was skipped due to core wasn't initialized has to be used
     // as a target intent for this activity, otherwise all input extras will be lost
     // in a splash activity loop.
+    @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 33
     Intent initialIntent = getIntent().getParcelableExtra(SplashActivity.EXTRA_INITIAL_INTENT);
     if (initialIntent != null)
       setIntent(initialIntent);

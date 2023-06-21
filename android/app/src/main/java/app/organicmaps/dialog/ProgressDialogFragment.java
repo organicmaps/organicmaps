@@ -51,6 +51,7 @@ public class ProgressDialogFragment extends DialogFragment
     return args;
   }
 
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 28
   protected void setCancelResult()
   {
     Fragment targetFragment = getTargetFragment();
@@ -59,11 +60,12 @@ public class ProgressDialogFragment extends DialogFragment
   }
 
   @Override
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 28
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
     Bundle args = requireArguments();
-    setRetainInstance(args.getBoolean(ARG_RETAIN_INSTANCE, true));
+    setRetainInstance(args.getBoolean(ARG_RETAIN_INSTANCE, true)); // Deprecated in SDK v28
     setCancelable(args.getBoolean(ARG_CANCELABLE, false));
   }
 
@@ -92,6 +94,7 @@ public class ProgressDialogFragment extends DialogFragment
   }
 
   @Override
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 28
   public void onDestroyView()
   {
     if (getDialog() != null && getRetainInstance())

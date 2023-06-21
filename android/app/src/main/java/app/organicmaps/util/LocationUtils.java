@@ -92,6 +92,7 @@ public class LocationUtils
     return newLocation.getAccuracy() < lastAccuracy;
   }
 
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 28. Settings.Secure.LOCATION_MODE is deprecated
   public static boolean areLocationServicesTurnedOn(@NonNull Context context)
   {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)

@@ -21,6 +21,7 @@ import java.util.Map;
  *   <li>Call {@link FragmentListHelper#getFragments()} to obtain list of fragments currently added to your Activity.</li>
  * </ul>
  */
+@SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 28. Replace Fragment class.
 public class FragmentListHelper
 {
   private final Map<String, WeakReference<Fragment>> mFragments = new HashMap<>();

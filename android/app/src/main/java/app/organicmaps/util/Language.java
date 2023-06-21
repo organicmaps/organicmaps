@@ -45,6 +45,7 @@ public class Language
     if (ims == null)
       return getDefaultLocale();
 
+    @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 24
     String locale = ims.getLocale();
     if (TextUtils.isEmpty(locale.trim()))
       return getDefaultLocale();

@@ -116,6 +116,7 @@ public class SearchWheel implements View.OnClickListener
     refreshSearchVisibility();
   }
 
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 30
   private boolean initSearchLayout()
   {
     if (mSearchLayout != null)
@@ -127,7 +128,7 @@ public class SearchWheel implements View.OnClickListener
 
     DisplayMetrics displayMetrics = new DisplayMetrics();
     WindowManager windowmanager = (WindowManager) mFrame.getContext().getSystemService(Context.WINDOW_SERVICE);
-    windowmanager.getDefaultDisplay().getMetrics(displayMetrics);
+    windowmanager.getDefaultDisplay().getMetrics(displayMetrics); // getDefaultDisplay() and getMetrics() are deprecated in SDK v30
     // Get available screen height in DP
     int height =  Math.round(displayMetrics.heightPixels / displayMetrics.density);
     // If height is less than 400dp, the search wheel in a straight line

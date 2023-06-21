@@ -91,10 +91,11 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
   }
 
   @Override
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 28
   public void onCreate(Bundle b)
   {
     super.onCreate(b);
-    setRetainInstance(true);
+    setRetainInstance(true); // Deprecated in SDK v28
     boolean launchByDeepLink = false;
     Bundle args = getArguments();
     if (args != null)

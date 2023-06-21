@@ -124,7 +124,10 @@ public class NavigationService extends Service
     // We got here because the user decided to remove location updates from the notification.
     if (finishedFromNotification)
     {
-      stopForeground(true);
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+        stopForeground(Service.STOP_FOREGROUND_REMOVE);
+      else
+        stopForeground(true);
       removeLocationUpdates();
     }
     return START_NOT_STICKY;
@@ -141,7 +144,10 @@ public class NavigationService extends Service
   public IBinder onBind(Intent intent)
   {
     Logger.i(TAG, "in onBind()");
-    stopForeground(true);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+      stopForeground(Service.STOP_FOREGROUND_REMOVE);
+    else
+      stopForeground(true);
     mChangingConfiguration = false;
     return mBinder;
   }
@@ -150,7 +156,10 @@ public class NavigationService extends Service
   public void onRebind(Intent intent)
   {
     Logger.i(TAG, "in onRebind()");
-    stopForeground(true);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+      stopForeground(Service.STOP_FOREGROUND_REMOVE);
+    else
+      stopForeground(true);
     mChangingConfiguration = false;
     super.onRebind(intent);
   }
@@ -195,6 +204,7 @@ public class NavigationService extends Service
         .getActivity(this, 0,
                      new Intent(this, MwmActivity.class), FLAG_IMMUTABLE);
 
+    @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 26
     Builder builder = new Builder(this, CHANNEL_ID)
         .addAction(R.drawable.ic_cancel, getString(R.string.button_exit),
                    pStopSelf)
@@ -203,7 +213,7 @@ public class NavigationService extends Service
         .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
         .setCustomContentView(mRemoteViews)
         .setCustomHeadsUpContentView(mRemoteViews)
-        .setPriority(Notification.PRIORITY_HIGH)
+        .setPriority(Notification.PRIORITY_HIGH) // Deprecated in SDK v26
         .setSmallIcon(R.drawable.ic_notification)
         .setShowWhen(true);
 

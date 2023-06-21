@@ -2,11 +2,13 @@ package app.organicmaps.routing;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.text.TextUtils;
@@ -175,7 +177,12 @@ public class NavigationController implements Application.ActivityLifecycleCallba
   public void doBackground()
   {
     if (mService != null)
-      mService.stopForeground(true);
+    {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+        mService.stopForeground(Service.STOP_FOREGROUND_REMOVE);
+      else
+        mService.stopForeground(true);
+    }
   }
 
   private void updateVehicle(@NonNull RoutingInfo info)

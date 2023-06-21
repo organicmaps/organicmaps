@@ -106,6 +106,7 @@ public class MapObject implements PopularityProvider, PlacePageData
       mRawTypes = new ArrayList<>(Arrays.asList(rawTypes));
   }
 
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 33
   protected MapObject(@MapObjectType int type, Parcel source)
   {
     //noinspection ResourceType

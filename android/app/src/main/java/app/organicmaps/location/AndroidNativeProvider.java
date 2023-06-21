@@ -52,6 +52,7 @@ class AndroidNativeProvider extends BaseLocationProvider
     }
 
     @Override
+    @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 29
     public void onStatusChanged(String provider, int status, Bundle extras)
     {
       Logger.d(TAG, "Status changed for location provider: " + provider + "; new status = " + status);

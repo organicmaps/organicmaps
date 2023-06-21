@@ -64,11 +64,12 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
   }
 
   @Override
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 28
   public void onAttach(Activity activity)
   {
     if (mListener == null)
     {
-      final Fragment parent = getParentFragment();
+      final Fragment parent = getParentFragment(); // deprecated in SDK v28
       if (parent instanceof Listener)
         mListener = (Listener) parent;
       else if (activity instanceof Listener)

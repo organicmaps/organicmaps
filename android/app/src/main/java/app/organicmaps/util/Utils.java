@@ -102,6 +102,7 @@ public class Utils
       w.clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
   }
 
+  @SuppressWarnings("deprecation") // TODO: Remove when minSdkVersion >= 26
   private static void showOnLockScreenOld(boolean enable, Activity activity)
   {
     if (enable)
@@ -154,7 +155,7 @@ public class Utils
       showSnackbarAbove(view, viewAbove, message);
   }
 
-  @SuppressWarnings("deprecated")
+  @SuppressWarnings("deprecation")
   private static @Nullable ResolveInfo resolveActivity(@NonNull PackageManager pm, @NonNull Intent intent, int flags)
   {
     return pm.resolveActivity(intent, flags);
@@ -675,11 +676,15 @@ public class Utils
     if (MwmApplication.from(context).arePlatformAndCoreInitialized())
       return;
 
-    FragmentManager manager = fragment.getFragmentManager();
-    if (manager == null)
-      return;
-
-    manager.beginTransaction().detach(fragment).commit();
+    try
+    {
+      FragmentManager manager = fragment.getParentFragmentManager();
+      manager.beginTransaction().detach(fragment).commit();
+    }
+    catch(IllegalStateException e)
+    {
+      //Ignore exception in fragment.getParentFragmentManager()
+    }
   }
 
   public static String capitalize(@Nullable String src)
