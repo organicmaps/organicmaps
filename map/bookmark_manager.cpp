@@ -81,7 +81,7 @@ BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollect
   if (fileName.empty())
     fileName = base::GetNameFromFullPathWithoutExt(kmlToShare.first);
 
-  auto const filePath = base::JoinPath(GetPlatform().TmpDir(), fileName.append(kKmlExtension));
+  auto const filePath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string{kKmlExtension});
   SCOPE_GUARD(fileGuard, std::bind(&base::DeleteFileX, filePath));
 
   auto const categoryId = kmlToShare.second->m_categoryData.m_id;
@@ -92,7 +92,7 @@ BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollect
                                           "Bookmarks file does not exist.");
   }
 
-  auto const tmpFilePath = base::JoinPath(GetPlatform().TmpDir(), fileName.append(kKmzExtension));
+  auto const tmpFilePath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string{kKmzExtension});
   if (!CreateZipFromPathDeflatedAndDefaultCompression(filePath, tmpFilePath))
   {
     return BookmarkManager::SharingResult(categoryId, BookmarkManager::SharingResult::Code::ArchiveError,
