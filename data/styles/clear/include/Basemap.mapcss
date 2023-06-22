@@ -43,6 +43,10 @@ line[waterway=drain],
 line[natural=strait],
 {z-index: 1;}
 
+/* man_made=bridge is always layer>=1 and other l=1 features should be drawn above it, hence a low base priority. */
+area[man_made=bridge],
+{fill-position: foreground; z-index: 1;}
+
 /*
   Foreground area water should be above linear water (e.g. rivers)
   and below hatching fills, dams, piers.
@@ -615,11 +619,15 @@ area|z15-[amenity=parking]
 
 /* 8.BUILDINGS */
 
-/* 8.1 Pier, dam, cutline */
+/* 8.1 Pier, dam, areal bridge, cutline */
 
 area|z12-[man_made=pier],
 area|z12-[man_made=breakwater],
 {fill-opacity: 1; fill-color: @background;}
+
+area|z14-[man_made=bridge],
+{fill-color: @bridge_background; fill-opacity: 0.8;}
+
 
 line|z14-[man_made=pier],
 line|z14-[man_made=breakwater],
@@ -678,12 +686,12 @@ line|z19-[man_made=cutline],
 area|z14[building],
 area|z14[waterway=dam],
 area|z14[landuse=garages],
-{fill-color: @building;fill-opacity: 0.5;casing-width: 0;}
+{fill-color: @building;fill-opacity: 0.5;}
 
 area|z15[building],
 area|z15[waterway=dam],
 area|z15[landuse=garages],
-{fill-color: @building;fill-opacity: 0.6;casing-width: 0;}
+{fill-color: @building;fill-opacity: 0.6;}
 
 area|z14-15[aeroway=terminal],
 area|z16[building],
@@ -692,18 +700,11 @@ area|z16[waterway=dam],
 area|z16[landuse=garages],
 {fill-color: @building;fill-opacity: 0.8;casing-width: 1;casing-color: @building_border;}
 
-area|z16[aeroway=terminal],
-area|z17[building],
-area|z17[building:part],
-area|z17[waterway=dam],
-area|z17[landuse=garages],
-{fill-color: @building_dark;casing-width: 1;casing-color: @building_dark_border;}
-
-area|z17-[aeroway=terminal],
-area|z18-[building],
-area|z18-[building:part],
-area|z18-[waterway=dam],
-area|z18-[landuse=garages],
+area|z16-[aeroway=terminal],
+area|z17-[building],
+area|z17-[building:part],
+area|z17-[waterway=dam],
+area|z17-[landuse=garages],
 {fill-color: @building_dark;casing-width: 1;casing-color: @building_dark_border;}
 
 

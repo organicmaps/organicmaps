@@ -750,6 +750,7 @@ void ApplyAreaFeature::ProcessAreaRule(Stylist::TRuleWrapper const & rule)
     BuildingOutline outline;
     if (m_isBuilding)
     {
+      /// @todo Make borders work for non-building areas too.
       outline.m_generateOutline = areaRule->has_border() &&
                                   areaRule->color() != areaRule->border().color() &&
                                   areaRule->border().width() > 0.0;
