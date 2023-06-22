@@ -27222,6 +27222,37 @@ cont {
   }
 }
 cont {
+  name: "man_made-bridge"
+  element {
+    scale: 16
+    area {
+      color: 856822290
+      priority: 1013
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 856822290
+      priority: 1013
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 856822290
+      priority: 1013
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 856822290
+      priority: 1013
+    }
+  }
+}
+cont {
   name: "man_made-cutline"
   element {
     scale: 15

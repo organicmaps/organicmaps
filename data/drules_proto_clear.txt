@@ -43227,6 +43227,51 @@ cont {
   }
 }
 cont {
+  name: "man_made-bridge"
+  element {
+    scale: 14
+    area {
+      color: 871230427
+      priority: 1010
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 871230427
+      priority: 1010
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 871230427
+      priority: 1010
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 871230427
+      priority: 1010
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 871230427
+      priority: 1010
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 871230427
+      priority: 1010
+    }
+  }
+}
+cont {
   name: "man_made-chimney"
   element {
     scale: 16
