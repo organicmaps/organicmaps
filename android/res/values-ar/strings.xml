@@ -1138,6 +1138,8 @@
 	<string name="type.highway.road">شارع</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">جسر</string>
+	<!-- A bridge structure outline. -->
+	<string name="type.man_made.bridge">جسر</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">نفق</string>
 	<string name="type.highway.secondary">شارع ثانوي</string>

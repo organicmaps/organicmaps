@@ -1155,6 +1155,8 @@
 	<string name="type.highway.road">Straat</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">Brug</string>
+	<!-- A bridge structure outline. -->
+	<string name="type.man_made.bridge">Brug</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">Tunnel</string>
 	<string name="type.highway.secondary">Secundaire weg</string>

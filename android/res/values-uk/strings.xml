@@ -1144,6 +1144,8 @@
 	<string name="type.highway.road">Дорога</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">Міст</string>
+	<!-- A bridge structure outline. -->
+	<string name="type.man_made.bridge">Міст</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">Тунель</string>
 	<string name="type.highway.secondary">Автодорога</string>

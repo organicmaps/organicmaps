@@ -1150,6 +1150,8 @@
 	<string name="type.highway.road">Maantee</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">Sild</string>
+	<!-- A bridge structure outline. -->
+	<string name="type.man_made.bridge">Sild</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">Tunnel</string>
 	<string name="type.highway.secondary">Teisene tee</string>

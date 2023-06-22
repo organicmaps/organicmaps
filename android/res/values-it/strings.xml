@@ -1129,6 +1129,8 @@
 	<string name="type.highway.road">Via</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">Ponte</string>
+	<!-- A bridge structure outline. -->
+	<string name="type.man_made.bridge">Ponte</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">Tunnel</string>
 	<string name="type.highway.secondary">Strada</string>

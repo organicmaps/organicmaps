@@ -456,6 +456,8 @@
 	<string name="type.highway.residential.tunnel">מִנהָרָה</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">לְגַשֵׁר</string>
+	<!-- A bridge structure outline. -->
+	<string name="type.man_made.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">מִנהָרָה</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->

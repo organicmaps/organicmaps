@@ -780,6 +780,8 @@
 	<string name="type.highway.residential.tunnel">Тунел</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">Мост</string>
+	<!-- A bridge structure outline. -->
+	<string name="type.man_made.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">Тунел</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->

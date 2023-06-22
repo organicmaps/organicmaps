@@ -1047,6 +1047,8 @@
 	<string name="type.highway.road">Οδός</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">Γέφυρα</string>
+	<!-- A bridge structure outline. -->
+	<string name="type.man_made.bridge">Γέφυρα</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">Σήραγγα</string>
 	<string name="type.highway.secondary">Οδός</string>

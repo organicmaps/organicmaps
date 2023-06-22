@@ -1043,6 +1043,8 @@
 	<string name="type.highway.road">Jalan</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">Menjembatani</string>
+	<!-- A bridge structure outline. -->
+	<string name="type.man_made.bridge">Menjembatani</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">Terowongan</string>
 	<string name="type.highway.secondary">Jalan</string>

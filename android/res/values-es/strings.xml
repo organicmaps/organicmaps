@@ -1167,6 +1167,8 @@
 	<string name="type.highway.road">Calle</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">Puente</string>
+	<!-- A bridge structure outline. -->
+	<string name="type.man_made.bridge">Puente</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">Túnel</string>
 	<string name="type.highway.secondary">Calle</string>

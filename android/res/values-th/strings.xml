@@ -1047,6 +1047,8 @@
 	<string name="type.highway.road">ถนน</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">สะพาน</string>
+	<!-- A bridge structure outline. -->
+	<string name="type.man_made.bridge">สะพาน</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">อุโมงค์</string>
 	<string name="type.highway.secondary">ถนน</string>

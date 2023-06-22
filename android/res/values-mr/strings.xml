@@ -1033,6 +1033,8 @@
 	<string name="type.highway.road">रस्ता</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">पूल</string>
+	<!-- A bridge structure outline. -->
+	<string name="type.man_made.bridge">पूल</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">बोगदा</string>
 	<string name="type.highway.secondary">दुय्यम मार्ग</string>
