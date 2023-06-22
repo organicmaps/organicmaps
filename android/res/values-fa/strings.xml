@@ -963,6 +963,8 @@
 	<string name="type.highway.road">جاده</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">پل</string>
+	<!-- A bridge structure outline. -->
+	<string name="type.man_made.bridge">پل</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">تونل</string>
 	<string name="type.highway.secondary">جاده</string>

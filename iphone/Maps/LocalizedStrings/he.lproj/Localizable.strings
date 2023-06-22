@@ -2064,6 +2064,9 @@
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.road.bridge" = "לְגַשֵׁר";
 
+/* A bridge structure outline. */
+"type.man_made.bridge" = "לְגַשֵׁר";
+
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.road.tunnel" = "מִנהָרָה";
 

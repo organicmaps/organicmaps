@@ -1042,6 +1042,8 @@
 	<string name="type.highway.road">Gade</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">Bro</string>
+	<!-- A bridge structure outline. -->
+	<string name="type.man_made.bridge">Bro</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">Tunnel</string>
 	<string name="type.highway.secondary">Gade</string>

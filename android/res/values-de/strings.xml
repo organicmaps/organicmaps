@@ -1142,6 +1142,8 @@
 	<string name="type.highway.road">Straße</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">Brücke</string>
+	<!-- A bridge structure outline. -->
+	<string name="type.man_made.bridge">Brücke</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">Tunnel</string>
 	<string name="type.highway.secondary">Straße</string>

@@ -1161,6 +1161,8 @@
 	<string name="type.highway.road">Yol</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">Köprü</string>
+	<!-- A bridge structure outline. -->
+	<string name="type.man_made.bridge">Köprü</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">Tünel</string>
 	<string name="type.highway.secondary">Tali Yol</string>

@@ -1063,6 +1063,8 @@
 	<string name="type.highway.road">Stradă</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">Pod</string>
+	<!-- A bridge structure outline. -->
+	<string name="type.man_made.bridge">Pod</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">Tunel</string>
 	<string name="type.highway.secondary">Stradă</string>

@@ -1044,6 +1044,8 @@
 	<string name="type.highway.road">Ulica</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">Most</string>
+	<!-- A bridge structure outline. -->
+	<string name="type.man_made.bridge">Most</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">Tunel</string>
 	<string name="type.highway.secondary">Ulica</string>

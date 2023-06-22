@@ -1047,6 +1047,8 @@
 	<string name="type.highway.road">거리</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">다리</string>
+	<!-- A bridge structure outline. -->
+	<string name="type.man_made.bridge">다리</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">터널</string>
 	<string name="type.highway.secondary">거리</string>

@@ -370,6 +370,8 @@
 	<string name="type.highway.residential.tunnel">Mtaro</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">Daraja</string>
+	<!-- A bridge structure outline. -->
+	<string name="type.man_made.bridge">Daraja</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">Mtaro</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->

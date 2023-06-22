@@ -1083,6 +1083,8 @@
 	<string name="type.highway.road">ストリート</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">橋</string>
+	<!-- A bridge structure outline. -->
+	<string name="type.man_made.bridge">橋</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">トンネル</string>
 	<string name="type.highway.secondary">ストリート</string>

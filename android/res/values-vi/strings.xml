@@ -1046,6 +1046,8 @@
 	<string name="type.highway.road">Phố</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">Cầu</string>
+	<!-- A bridge structure outline. -->
+	<string name="type.man_made.bridge">Cầu</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">Đường hầm</string>
 	<string name="type.highway.secondary">Phố</string>

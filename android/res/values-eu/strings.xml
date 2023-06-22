@@ -1154,6 +1154,8 @@
 	<string name="type.highway.road">Kalea</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">Zubia</string>
+	<!-- A bridge structure outline. -->
+	<string name="type.man_made.bridge">Zubia</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">Tunel</string>
 	<string name="type.highway.secondary">Kalea</string>

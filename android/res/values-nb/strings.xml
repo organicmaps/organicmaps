@@ -1101,6 +1101,8 @@
 	<string name="type.highway.road">Vei</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">Bru</string>
+	<!-- A bridge structure outline. -->
+	<string name="type.man_made.bridge">Bru</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">Tunnel</string>
 	<string name="type.highway.secondary">Sekundærvei</string>

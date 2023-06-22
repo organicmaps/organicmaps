@@ -1104,6 +1104,8 @@
 	<string name="type.highway.road">道路</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">桥</string>
+	<!-- A bridge structure outline. -->
+	<string name="type.man_made.bridge">桥</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">隧道</string>
 	<string name="type.highway.secondary">次要道路</string>
