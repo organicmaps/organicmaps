@@ -28,7 +28,8 @@ double constexpr kCategoriesRank = 1.0000000;
 double constexpr kCategoriesFalseCats = -1.0000000;
 
 double constexpr kDistanceToPivot = -0.2123693;
-double constexpr kRank = 0.15;
+// This constant is very important and checked in Famous_Cities_Rank test.
+double constexpr kRank = 0.23;
 double constexpr kPopularity = 1.0000000;
 
 // Decreased this value:
@@ -39,7 +40,6 @@ double constexpr kFalseCats = -0.01;
 double constexpr kErrorsMade = -0.15;
 double constexpr kMatchedFraction = 0.1876736;
 double constexpr kAllTokensUsed = 0.0478513;
-double constexpr kExactCountryOrCapital = 0.1247733;
 double constexpr kCommonTokens = -0.05;
 
 double constexpr kNameScore[] = {
@@ -100,7 +100,6 @@ static_assert(kDistanceToPivot <= 0, "");
 static_assert(kRank >= 0, "");
 static_assert(kPopularity >= 0, "");
 static_assert(kErrorsMade <= 0, "");
-static_assert(kExactCountryOrCapital >= 0, "");
 
 double TransformDistance(double distance)
 {
@@ -218,7 +217,6 @@ string DebugPrint(RankingInfo const & info)
      << ", m_pureCats: " << info.m_pureCats
      << ", m_falseCats: " << info.m_falseCats
      << ", m_allTokensUsed: " << info.m_allTokensUsed
-     << ", m_exactCountryOrCapital: " << info.m_exactCountryOrCapital
      << ", m_categorialRequest: " << info.m_categorialRequest
      << ", m_hasName: " << info.m_hasName
      << " }";
@@ -245,7 +243,6 @@ void RankingInfo::ToCSV(ostream & os) const
   os << m_pureCats << ",";
   os << m_falseCats << ",";
   os << (m_allTokensUsed ? 1 : 0) << ",";
-  os << (m_exactCountryOrCapital ? 1 : 0) << ",";
   os << (m_categorialRequest ? 1 : 0) << ",";
   os << (m_hasName ? 1 : 0);
 }
@@ -283,7 +280,6 @@ double RankingInfo::GetLinearModelRank() const
     }
 
     result += (m_allTokensUsed ? 1 : 0) * kAllTokensUsed;
-    result += (m_exactCountryOrCapital ? 1 : 0) * kExactCountryOrCapital;
     auto const nameRank = kNameScore[static_cast<size_t>(GetNameScore())] +
                           kErrorsMade * GetErrorsMadePerToken() +
                           kMatchedFraction * m_matchedFraction;
