@@ -878,7 +878,7 @@ mapswithme
 mapswithme
 *area:highway|motorway
 *area:highway|trunk
-mapswithme
+*man_made|bridge
 *entrance
 *entrance|main
 *shop|agrarian
