@@ -40,6 +40,10 @@ line[waterway=drain],
 line[natural=strait],
 {z-index: 1;}
 
+/* man_made=bridge is always layer>=1 and other l=1 features should be drawn above it, hence a low base priority. */
+area[man_made=bridge],
+{fill-position: foreground; z-index: 1;}
+
 /*
   Foreground area water should be above linear water (e.g. rivers)
   and below dams, piers.
@@ -527,11 +531,15 @@ area|z17-[amenity=parking_space]
 
 /* 8.BUILDINGS */
 
-/* 8.1 Pier, dam, cutline */
+/* 8.1 Pier, dam, areal bridge, cutline */
 
 area|z13-[man_made=pier],
 area|z13-[man_made=breakwater],
 {fill-opacity: 0.7; fill-color: @background;}
+
+area|z16-[man_made=bridge],
+{fill-color: @bridge_background; fill-opacity: 0.8;}
+
 
 line|z15-[man_made=pier],
 line|z15-[man_made=breakwater],

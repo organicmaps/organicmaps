@@ -10886,6 +10886,10 @@
     zh-Hans = 桥
     zh-Hant = 橋
 
+  [type.man_made.bridge]
+    comment = A bridge structure outline.
+    ref = type.highway.road.bridge
+
   [type.highway.road.tunnel]
     comment = These translations are used for all type.highway.*.tunnel.
     en = Tunnel

@@ -878,7 +878,7 @@ area:highway|cycleway;877;
 deprecated|deprecated;878;x
 area:highway|motorway;879;
 area:highway|trunk;880;
-deprecated|deprecated;881;x
+man_made|bridge;881;
 entrance;[entrance];;ref;addr:flats;882;
 entrance|main;[entrance=main];;ref;addr:flats;883;
 shop|agrarian;884;
