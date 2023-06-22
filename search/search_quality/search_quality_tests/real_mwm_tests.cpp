@@ -615,10 +615,13 @@ UNIT_CLASS_TEST(MwmTestsFixture, AddrInterpolation_Rank)
 
     TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
 
-    // Top first address results in 50 km.
-    Range const range(results);
+    // Top first address results in 20 km.
+    Range const range(results, 0, 2);
     EqualClassifType(range, GetClassifTypes({{"addr:interpolation"}}));
-    TEST_LESS(SortedByDistance(range, center), 50000.0, ());
+    TEST_LESS(SortedByDistance(range, center), 20000.0, ());
+
+    // - 3(4) place: Exact address in Montevideo, Uruguay (~200km)
+    // - 4+ places: addr:interpolation in Argentina
   }
 
   // Funny object here. barrier=fence with address and postcode=2700.
@@ -639,6 +642,97 @@ UNIT_CLASS_TEST(MwmTestsFixture, AddrInterpolation_Rank)
 
     // Interesting results goes after, streets on distance ~250km in Pergamino.
     // Seems like because of matching 2700 postcode.
+  }
+}
+
+// The idea behind that is to get most famous cities on first (rare second) place.
+// Every city has POIs, Stops (Metro), Streets named like other cities, but anyway - city should be on top.
+// Each city should have population rank and popularity (will be implemented) that gives them big search rank.
+/// @todo Add (restore) popularity at least from Wiki size.
+/// @todo Add more search query languages?
+UNIT_CLASS_TEST(MwmTestsFixture, Famous_Cities_Rank)
+{
+  auto const & cl = classif();
+  uint32_t const capitalType = cl.GetTypeByPath({"place", "city", "capital"});
+
+  std::string arrCities[] = {
+      "Buenos Aires",
+      "Rio de Janeiro",
+      "New York",
+      /// @todo After popularity.
+      //"San Francisco",
+      //"Las Vegas",
+      "Los Angeles",
+      "Toronto",
+      "Lisboa",
+      "Madrid",
+      "Barcelona",
+      "London",
+      "Paris",
+      //"Zurich",
+      "Rome",
+      "Milan",
+      "Venezia",
+      "Amsterdam",
+      "Berlin",
+      "Stockholm",
+      "Istanbul",
+      "Minsk",
+      "Moscow",
+      "Kyiv",
+      "New Delhi",
+      "Bangkok",
+      "Beijing",
+      "Tokyo",
+      "Melbourne",
+      "Sydney",
+  };
+  size_t const count = std::size(arrCities);
+
+  std::vector<ms::LatLon> arrCenters;
+  arrCenters.resize(count);
+  // Buenos Aires like starting point :)
+  arrCenters[0] = {-34.60649, -58.43540};
+
+  bool isGoGo = false;
+  for (size_t i = 0; i < count; ++i)
+  {
+    // For DEBUG.
+//    if (!isGoGo && arrCities[i] == "London")
+//      isGoGo = true;
+//    if (i > 0 && !isGoGo)
+//      continue;
+
+    /// @todo Temporary, USA has a lot of similar close cities.
+    if (arrCities[i] == "New York")
+      continue;
+
+    LOG(LINFO, ("=== Processing:", arrCities[i]));
+    SetViewportAndLoadMaps(arrCenters[i]);
+
+    for (size_t j = 0; j < count; ++j)
+    {
+      auto request = MakeRequest(arrCities[j] + " ", "en");
+      auto const & results = request->Results();
+      TEST_GREATER(results.size(), 0, (arrCities[i], arrCities[j]));
+
+      uint32_t type = results[0].GetFeatureType();
+      ftype::TruncValue(type, 3);
+      if (type != capitalType)
+      {
+        // Buenos Aires should always work.
+        TEST(i != 0, ());
+
+        TEST_GREATER(results.size(), 1, (arrCities[i], arrCities[j]));
+        type = results[1].GetFeatureType();
+        ftype::TruncValue(type, 3);
+
+        TEST(type == capitalType, (cl.GetReadableObjectName(type), arrCities[i], arrCities[j]));
+      }
+
+      if (i == 0 && i != j)
+        arrCenters[j] = mercator::ToLatLon(results[0].GetFeatureCenter());
+    }
   }
 }
 

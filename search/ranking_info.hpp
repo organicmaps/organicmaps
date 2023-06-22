@@ -62,7 +62,6 @@ struct RankingInfo : public StoredRankingInfo
     : m_isAltOrOldName(false)
     , m_allTokensUsed(true)
     , m_exactMatch(true)
-    , m_exactCountryOrCapital(true)
     , m_pureCats(false)
     , m_falseCats(false)
     , m_categorialRequest(false)
@@ -119,10 +118,6 @@ struct RankingInfo : public StoredRankingInfo
 
   // True iff all tokens retrieved from search index were matched without misprints.
   bool m_exactMatch : 1;
-
-  // True iff feature has country or capital type and matches request: full match with all tokens
-  // used and without misprints.
-  bool m_exactCountryOrCapital : 1;
 
   // True if all of the tokens that the feature was matched by
   // correspond to this feature's categories.

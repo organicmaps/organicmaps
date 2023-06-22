@@ -162,7 +162,6 @@ UNIT_TEST(NameScore_SubstringVsErrors)
   info.m_numTokens = 1;
   info.m_allTokensUsed = true;
   info.m_exactMatch = false;
-  info.m_exactCountryOrCapital = false;
 
   {
     RankingInfo poi1 = info;
@@ -192,14 +191,12 @@ UNIT_TEST(RankingInfo_PreferCountry)
   auto cafe = info;
   cafe.m_distanceToPivot = 1e3;
   cafe.m_tokenRanges[Model::TYPE_SUBPOI] = TokenRange(0, 1);
-  cafe.m_exactCountryOrCapital = false;
   cafe.m_type = Model::TYPE_SUBPOI;
   cafe.m_classifType.poi = PoiType::Eat;
 
   auto country = info;
   country.m_distanceToPivot = 1e6;
   country.m_tokenRanges[Model::TYPE_COUNTRY] = TokenRange(0, 1);
-  country.m_exactCountryOrCapital = true;
   country.m_type = Model::TYPE_COUNTRY;
 
   // Country should be preferred even if cafe is much closer to viewport center.
@@ -213,7 +210,6 @@ UNIT_TEST(RankingInfo_PrefixVsFull)
   info.m_matchedFraction = 1;
   info.m_allTokensUsed = true;
   info.m_exactMatch = false;
-  info.m_exactCountryOrCapital = false;
   info.m_distanceToPivot = 1000;
   info.m_type = Model::TYPE_SUBPOI;
   info.m_tokenRanges[Model::TYPE_SUBPOI] = TokenRange(0, 2);
