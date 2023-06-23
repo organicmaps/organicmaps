@@ -1,4 +1,7 @@
 #import "MapsAppDelegate.h"
+#import "ClipboardMonitor.h"
+
+#import <UIKit/UIKit.h>
 
 #import "EAGLView.h"
 #import "MWMAuthorizationCommon.h"
@@ -66,6 +69,7 @@ using namespace osm_auth_ios;
 
 @property(nonatomic) NSInteger standbyCounter;
 @property(nonatomic) MWMBackgroundFetchScheduler *backgroundFetchScheduler;
+@property (nonatomic, strong) ClipboardWatcher *clipboardWatcher;
 
 @end
 
@@ -222,11 +226,18 @@ using namespace osm_auth_ios;
     f.OnRecoverSurface(static_cast<int>(objcSize.width), static_cast<int>(objcSize.height),
                        true /* recreateContextDependentResources */);
   }
+  [self startWatchingClipboard];
   [MWMLocationManager applicationDidBecomeActive];
   [MWMSearch addCategoriesToSpotlight];
   [MWMKeyboard applicationDidBecomeActive];
   [MWMTextToSpeech applicationDidBecomeActive];
   LOG(LINFO, ("applicationDidBecomeActive - end"));
+}
+- (void)startWatchingClipboard {
+    NSLog(@"Watching started");
+  ClipboardWatcher *clipboardWatcher = [[ClipboardWatcher alloc] init];
+  UIWindow *targetWindow = [UIApplication sharedApplication].keyWindow;
+  [clipboardWatcher startWatching:targetWindow];
 }
 
 - (BOOL)application:(UIApplication *)application
