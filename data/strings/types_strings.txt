@@ -18876,6 +18876,37 @@
     zh-Hans = 铁路轨道
     zh-Hant = 鐵路軌道
 
+  [type.railway.rail.highspeed]
+    ref = type.railway.rail
+
+  [type.railway.rail.tourism]
+    ref = type.railway.rail
+
+  [type.railway.rail.main]
+    ref = type.railway.rail
+
+  [type.railway.rail.branch]
+    ref = type.railway.rail
+
+  [type.railway.rail.utility]
+    ref = type.railway.rail
+
+  [type.railway.rail.spur]
+    ref = type.railway.rail
+    en = Spur Rail
+    de = Anschlussgleis
+    et = Rööbastee
+    ja = 引き込み線
+    nl = Zijspoor
+    pt = Ramal de ferrovia
+    pt-BR = Ramal de ferrovia
+    ru = Подъездная Ж/Д
+    tr = Düz Ray
+    uk = Під'їздна залізниця
+
+  [type.railway.rail.service]
+    ref = type.railway.rail
+
   [type.railway.rail.bridge]
     en = Railway Bridge
     de = Eisenbahnbrücke
@@ -18891,6 +18922,27 @@
     uk = Залізничний міст
     zh-Hans = 铁路轨道
     zh-Hant = 鐵路軌道
+
+  [type.railway.rail.highspeed.bridge]
+    ref = type.railway.rail.bridge
+
+  [type.railway.rail.tourism.bridge]
+    ref = type.railway.rail.bridge
+
+  [type.railway.rail.main.bridge]
+    ref = type.railway.rail.bridge
+
+  [type.railway.rail.branch.bridge]
+    ref = type.railway.rail.bridge
+
+  [type.railway.rail.utility.bridge]
+    ref = type.railway.rail.bridge
+
+  [type.railway.rail.spur.bridge]
+    ref = type.railway.rail.bridge
+
+  [type.railway.rail.service.bridge]
+    ref = type.railway.rail.bridge
 
   [type.railway.rail.motor_vehicle]
     en = Railway
@@ -18923,42 +18975,26 @@
     zh-Hans = 铁路轨道
     zh-Hant = 鐵路軌道
 
-  [type.railway.spur]
-    comment = TODO: reuse for railway-rail-spur
-    en = Spur Rail
-    de = Anschlussgleis
-    et = Rööbastee
-    ja = 引き込み線
-    nl = Zijspoor
-    pt = Ramal de ferrovia
-    pt-BR = Ramal de ferrovia
-    ru = Подъездная Ж/Д
-    tr = Düz Ray
-    uk = Під'їздна залізниця
+  [type.railway.rail.highspeed.tunnel]
+    ref = type.railway.rail.tunnel
 
-  [type.railway.spur.bridge]
-    en = Spur Rail Bridge
-    de = Anschlussgleis
-    et = Rööbastee sild
-    ja = 引き込み線(橋)
-    nl = Zijspoor-brug
-    pt = Ramal de ferrovia
-    pt-BR = Ramal de ferrovia
-    ru = Подъездная Ж/Д
-    tr = Düz Ray
-    uk = Під'їздна залізниця
+  [type.railway.rail.tourism.tunnel]
+    ref = type.railway.rail.tunnel
 
-  [type.railway.spur.tunnel]
-    en = Spur Rail Tunnel
-    de = Anschlussgleis
-    et = Rööbastee tunnel
-    ja = 引き込み線(トンネル)
-    nl = Zijspoor-tunnel
-    pt = Ramal de ferrovia
-    pt-BR = Ramal de ferrovia
-    ru = Подъездная Ж/Д
-    tr = Düz Ray
-    uk = Під'їздна залізниця
+  [type.railway.rail.main.tunnel]
+    ref = type.railway.rail.tunnel
+
+  [type.railway.rail.branch.tunnel]
+    ref = type.railway.rail.tunnel
+
+  [type.railway.rail.utility.tunnel]
+    ref = type.railway.rail.tunnel
+
+  [type.railway.rail.spur.tunnel]
+    ref = type.railway.rail.tunnel
+
+  [type.railway.rail.service.tunnel]
+    ref = type.railway.rail.tunnel
 
   [type.railway.station]
     en = Train Station

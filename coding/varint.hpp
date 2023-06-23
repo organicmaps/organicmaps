@@ -12,14 +12,15 @@
 #include <cstdint>
 #include <type_traits>
 
-/// This function writes, using optimal bytes count.
-/// Pass any integral type and it will write platform-independent.
+// Writes any unsigned integer type using optimal bytes count, platform-independent.
+// Value ranges are [0;127] - 1 byte, [128; 16383] - 2 bytes, [16384; 2097151] - 3 bytes, etc.
 template <typename T, typename TSink>
 void WriteVarUint(TSink & dst, T value)
 {
   static_assert(std::is_unsigned<T>::value, "");
   while (value > 127)
   {
+    // First/greatest bit == 1 indicates that another byte follows.
     WriteToSink(dst, static_cast<uint8_t>((value & 127) | 128));
     value >>= 7;
   }

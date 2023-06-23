@@ -163,3 +163,13 @@ piste:lift=t-bar : aerialway=t-bar
 piste:lift=j-bar : aerialway=j-bar
 piste:lift=rope_tow : aerialway=rope_tow
 piste:lift=magic_carpet : aerialway=magic_carpet
+
+# Subtypes of railway=rail
+usage=industrial : usage=utility
+usage=military : usage=utility
+usage=test : usage=utility
+usage=science : usage=utility
+usage=freight : usage=utility
+service=siding : service=service
+service=yard : service=service
+service=crossover : service=service

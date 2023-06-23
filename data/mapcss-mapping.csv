@@ -1,28 +1,47 @@
 # This file is used to map OSM tags to OM classificator types.
 # OSM tags are preprocessed according to data/replaced_tags.txt before this mapping.
 #
-# Example row: highway|bus_stop;[highway=bus_stop];;name;int_name;22; (mind the last semicolon!)
+# Example row (mind the last semicolon!):
+#   highway|bus_stop;[highway=bus_stop];;name;int_name;22;
 # It contains:
 # - type name: "highway|bus_stop" ("|" is converted to "-" internally)
 # - mapcss selectors for tags: "[highway=bus_stop]", multiple selectors are separated with commas
-# - "x" for an obsolete type or an empty cell otherwise
+# - "x" for a deprecated type or an empty cell otherwise
 # - primary title tag (usually "name")
 # - secondary title tag (usually "int_name")
 # - type id, sequential starting from 1
-# - optional: a replacement type for an obsolete one
+# - optional: a replacement type for a deprecated one
 # A "mandatory" mapcss selector like [fee?] or [fee] matches all tag values except [fee=no],
 # a "forbidden" selector like [!oneway] matches [oneway=no] only or absence of this tag.
 # Longer (more detailed) types are preferred when matching, e.g. highway-primary-bridge wins over highway-primary.
 #
-# A shorter format for above example: highway|bus_stop;22;
-# It leaves only columns 1, 6 and 7. For obsolete types with no replacement put "x" into the last column.
-# It works only for simple types matching by replacing "=" with "|".
+# A shorter format for the above example:
+#   highway|bus_stop;22;
+# It leaves only columns 1, 6 and 7.
+# Works only for simple one tag matching by replacing a "|" with a "=".
+# For deprecated types with no replacement put "x" into the last column.
 #
-# An example of a type with a replacement:
-# highway|unsurfaced|disused;[highway=unsurfaced][disused?];x;name;int_name;838;highway|unclassified
+# A deprecated type is not drawn, not searchable, etc. even when using old map files.
+# An example of a deprecated type:
+#   deprecated:railway|yard:06.2023;447;x
+# Note there is the old type name and the deprecation date added into a first column.
+# Usually we don't re-use deprecated type ids for at least a year
+# to avoid breaking experience for users with old maps but a new app version.
+# An example of a deprecated type with a replacement:
+#   deprecated:highway|unsurfaced|disused:05.2020;[highway=unsurfaced][disused?];x;name;int_name;838;highway|unclassified
+# or in the short format:
+#   deprecated:highway|unsurfaced|disused:05.2020;838;highway|unclassified
+#
+# First 127 ids are reserved for the most frequently occuring types (they're encoded in 1 byte only).
+#
+# Every time you edit this file add/amend unit tests for new/changed matching cases
+# in generator/generator_tests/osm_type_test.cpp, build and run the tests:
+#   ./tools/unix/build_omim.sh -r generator_tests && ../omim-build-release/generator_tests --filter="osm_type_test"
 #
 # A C++ parser implementation used by the generator is in generator/utils.cpp::ParseMapCSS().
 # A python parser implementation used to compile *.mapcss style files is in tools/kothic/src/libkomwm.py::komap_mapswithme().
+# The app doesn't use this file directly, it loads a data/types.txt
+# which is derived from this file during style files compilation.
 
 building;[building];;addr:housenumber;name;1;
 highway|residential;2;
@@ -37,7 +56,9 @@ power|tower;10;
 landuse|forest;[landuse=forest],[natural=wood];;name;int_name;11;
 landuse|grass;12;
 highway|secondary;13;
-natural|wood;14;landuse|forest
+# Main railway lines, ~1M usages.
+# Using service= together with usage=main is a mismapping, but people do it, so exclude explicitly.
+railway|rail|main;[railway=rail][usage=main][!highspeed][!service];;name;int_name;14;
 landuse|residential;15;
 highway|path;16;
 highway|bus_stop;17;
@@ -45,12 +66,18 @@ natural|tree;18;
 place|locality;19;
 natural|coastline;20;
 place|village;21;
-deprecated|deprecated;22;x
+# Service railway lines, ~1M usages. All service=siding/yard/crossover except =spur (see replaced_tags.txt).
+railway|rail|service;[railway=rail][service=service];;name;int_name;22;
 waterway|river;23;
 hwtag|oneway;24;
 hwtag|private;25;
 amenity|parking;26;
 highway|primary;27;
+# TODO: railway-rail was deprecated in June 2023 in favor of more detailed railway-rail-main/branch/etc.
+# But the type should be kept for some time to retain original styling and translations in older mwms
+# and to match some rare combinations like railway=rail usage/service=rare_unsupported_value,
+# later such "unsupported" combinations should be replaced with railway-rail-spur or -service.
+# TODO: add != matching support to handle "unsupported" values, e.g. [usage!=main].
 railway|rail;28;
 highway|service|parking_aisle;[highway=service][service=parking_aisle];;name;int_name;29;
 place|hamlet;30;
@@ -88,7 +115,9 @@ amenity|restaurant;61;
 landuse|reservoir;62;
 highway|track|grade5;[highway=track][tracktype=grade5];;name;int_name;63;
 amenity|bench;64;
-deprecated|deprecated;65;x
+# Branch railway lines include ordinary railway=rail w/o any specific usage= or service=, ~500k usages.
+# Using service= together with usage=branch is a mismapping, but people do it, so exclude explicitly.
+railway|rail|branch;[railway=rail][usage=branch][!highspeed][!service],[railway=rail][!usage][!service][!highspeed];;name;int_name;65;
 highway|trunk;66;
 amenity|fuel;67;
 leisure|park;68;
@@ -96,7 +125,8 @@ leisure|pitch;69;
 highway|pedestrian;70;
 natural|scrub;71;
 highway|motorway|bridge;[highway=motorway][bridge?];;name;int_name;72;
-deprecated|deprecated;73;x
+# -spur doesn't include spurs w/ usage= (they're matched to -utility), ~400k usages.
+railway|rail|spur;[railway=rail][service=spur][!usage];;name;int_name;73;
 railway|level_crossing;74;
 landuse|industrial;75;
 barrier|wall;76;
@@ -105,7 +135,17 @@ place|town;78;
 power|line;[power=line][!location];;name;int_name;79;
 landuse|farmyard;80;
 highway|residential|bridge;[highway=residential][bridge?];;name;int_name;81;
-railway|rail|bridge;[railway=rail][bridge?];;name;int_name;82;
+# TODO: do not match this type, so that new railway-rail-main/branch/etc-bridge types are used,
+# but retain the old type for compatibility with old mwms for some time.
+# In the meantime railway=rail bridge=yes usage=rare_unsupported_value will be matched to railway-rail (not a bridge!).
+# Currently its impossible to make unsupported values fallback to railway-rail-bridge
+# same way unsupported values fallback to railway-rail, because railway-rail-bridge
+# is not a prefix of railway-rail-main|branch|etc-bridge.
+# Using a [dont=match] and falling back to just railway-rail seems like the best compromise for now.
+# When there is a != and | operators supports, we'll drop this workaround and match like
+# railway|rail|spur|bridge;...,[railway=rail][!service][usage?][usage!=main|branch|tourism|utility][bridge?];...
+# railway|rail|service|bridge;[railway=rail][service?][service!=spur][bridge?];...
+railway|rail|bridge;[railway=rail][bridge?][dont=match];;name;int_name;82;
 boundary|administrative|10;[boundary=administrative][admin_level=10];;name;int_name;83;
 boundary|administrative|6;[boundary=administrative][admin_level=6];;name;int_name;84;
 highway|secondary|bridge;[highway=secondary][bridge?];;name;int_name;85;
@@ -155,7 +195,7 @@ place|suburb;128;
 landuse|allotments;129;
 landuse|forest|coniferous;[landuse=forest][wood=coniferous],[landuse=forest][leaf_type=coniferous],[natural=wood][wood=coniferous],[natural=wood][leaf_type=coniferous];;name;int_name;130;
 landuse|forest|mixed;[landuse=forest][wood=mixed],[landuse=forest][leaf_type=mixed],[landuse=forest][leaf_cycle=mixed],[natural=wood][wood=mixed],[natural=wood][leaf_type=mixed],[natural=wood][leaf_cycle=mixed];;name;int_name;131;
-natural|wood|mixed;[natural=wood][wood=mixed],[natural=wood][leaf_type=mixed],[natural=wood][leaf_cycle=mixed];x;name;int_name;132;landuse|forest|mixed
+deprecated:natural|wood|mixed:01.2020;[natural=wood][wood=mixed],[natural=wood][leaf_type=mixed],[natural=wood][leaf_cycle=mixed];x;name;int_name;132;landuse|forest|mixed
 sport|tennis;133;
 landuse|vineyard;134;
 aeroway|taxiway;135;
@@ -164,9 +204,11 @@ leisure|garden|residential;[leisure=garden][garden:type=residential];;name;int_n
 amenity|fire_station;138;
 landuse|retail;139;
 leisure|nature_reserve;140;
-leisure|pitch|tennis;[leisure=pitch][sport=tennis];x;name;int_name;141;leisure|pitch
+deprecated:leisure|pitch|tennis:01.2020;[leisure=pitch][sport=tennis];x;name;int_name;141;leisure|pitch
 tourism|information;142;
 highway|motorway_link|bridge;[highway=motorway_link][bridge?];;name;int_name;143;
+# Usually there is something else in place of the old railway, e.g. highway=path,
+# but seems like its being used standalone still in which case usefull for e.g. hiking.
 railway|abandoned;144;
 amenity|parking|private;[amenity=parking][access=private];;name;int_name;145;
 boundary|administrative|7;[boundary=administrative][admin_level=7];;name;int_name;146;
@@ -195,7 +237,7 @@ highway|bridleway;168;
 natural|heath;169;
 landuse|basin;170;
 amenity|library;171;
-natural|wood|coniferous;[natural=wood][wood=coniferous],[natural=wood][leaf_type=coniferous];x;name;int_name;172;landuse|forest|coniferous
+deprecated:natural|wood|coniferous:01.2020;[natural=wood][wood=coniferous],[natural=wood][leaf_type=coniferous];x;name;int_name;172;landuse|forest|coniferous
 landuse|recreation_ground;173;
 landuse|village_green;174;
 amenity|drinking_water;175;
@@ -222,7 +264,7 @@ piste:type|nordic;195;
 natural|beach|gravel;[natural=beach][surface=gravel];;name;int_name;196;
 railway|crossing;197;
 boundary|protected_area;198;
-natural|wood|deciduous;[natural=wood][wood=deciduous],[natural=wood][leaf_type=deciduous],[natural=wood][leaf_cycle=deciduous];x;name;int_name;199;landuse|forest|deciduous
+deprecated:natural|wood|deciduous:01.2020;[natural=wood][wood=deciduous],[natural=wood][leaf_type=deciduous],[natural=wood][leaf_cycle=deciduous];x;name;int_name;199;landuse|forest|deciduous
 waterway|dam;200;
 amenity|charging_station|motorcar;[amenity=charging_station][motorcar?];;name;int_name;201;
 leisure|golf_course;202;
@@ -235,7 +277,8 @@ railway|disused;208;
 aeroway|runway;209;
 railway|halt;210;
 man_made|mast;211;
-railway|rail|tunnel;[railway=rail][tunnel?];;name;int_name;212;
+# TODO: see the railway-rail-bridge comment.
+railway|rail|tunnel;[railway=rail][tunnel?][dont=match];;name;int_name;212;
 man_made|wastewater_plant;213;
 man_made|flagpole;214;
 place|county;215;
@@ -269,8 +312,7 @@ sport|basketball;242;
 amenity|cinema;243;
 amenity|theatre;244;
 sport|chess;245;
-# Was railway|spur -- June 2023
-deprecated|deprecated;246;x
+deprecated:railway|spur:06.2023;246;x
 aerialway|station;247;
 landuse|brownfield;248;
 aeroway|apron;249;
@@ -322,6 +364,7 @@ place|farm;294;
 boundary|administrative|11;[boundary=administrative][admin_level=11];;name;int_name;295;
 waterway|weir;296;
 highway|secondary|tunnel;[highway=secondary][tunnel?];;name;int_name;297;
+# TODO: its a mismapping likely, if there is a bridge structure still, then it should be railway=disused.
 railway|abandoned|bridge;[railway=abandoned][bridge?];;name;int_name;298;
 man_made|lighthouse;299;
 highway|path|demanding_mountain_hiking;[highway=path][sac_scale=demanding_mountain_hiking];;name;int_name;300;
@@ -329,7 +372,7 @@ man_made|storage_tank;301;
 man_made|silo;302;
 power|generator;303;
 highway|pedestrian|bridge;[highway=pedestrian][bridge?];;name;int_name;304;
-man_made|pipeline|overground;[man_made=pipeline][location=overground];x;name;int_name;305;man_made|pipeline
+deprecated:man_made|pipeline|overground:02.2022;[man_made=pipeline][location=overground];x;name;int_name;305;man_made|pipeline
 natural|saddle;306;
 mountain_pass;[mountain_pass];;name;int_name;307;
 highway|raceway;308;
@@ -340,6 +383,7 @@ sport|equestrian;312;
 tourism|information|office;[tourism=information][information=office];;name;int_name;313;
 highway|footway|hiking;[highway=footway][sac_scale=hiking];;name;int_name;314;
 aeroway|gate;315;
+# TODO: railway=preserved is deprecated in OSM, recommended mapping is railway:preserved=yes + railway=*
 railway|preserved;316;
 highway|path|horse;[highway=path][horse?];;name;int_name;317;
 landuse|field;318;
@@ -353,7 +397,7 @@ amenity|grave_yard|christian;[amenity=grave_yard][religion=christian];;name;int_
 highway|trunk|tunnel;[highway=trunk][tunnel?];;name;int_name;326;
 highway|steps|tunnel;[highway=steps][tunnel?],[highway=steps][location=underground];;name;int_name;327;
 amenity|car_sharing;328;
-sport|football;329;sport|soccer
+deprecated:sport|football:10.2021;329;sport|soccer
 highway|steps|bridge;[highway=steps][bridge?];;name;int_name;330;
 highway|track|tunnel;[highway=track][tunnel?];;name;int_name;331;
 highway|pedestrian|tunnel;[highway=pedestrian][tunnel?],[highway=pedestrian][location=underground];;name;int_name;332;
@@ -362,11 +406,13 @@ sport|cricket;334;
 sport|bowls;335;
 highway|path|tunnel;[highway=path][tunnel?],[highway=path][location=underground];;name;int_name;336;
 man_made|breakwater;337;
-amenity|parking|permissive|fee;[amenity=parking][access=permissive][fee?];x;name;int_name;338;amenity|parking|permissive
-deprecated|deprecated;339;x
+deprecated:amenity|parking|permissive|fee:01.2020;[amenity=parking][access=permissive][fee?];x;name;int_name;338;amenity|parking|permissive
+# -utility includes all usage=industrial/military/test/science/freight (see replaced_tags.txt) incl. w/ service=spur, but not w/ other service= values.
+# TODO: add [key=value1|value2|etc] (and [key!=value1|value2|etc]) support to avoid referring to replaced_tags.txt.
+railway|rail|utility;[railway=rail][usage=utility][!service],[railway=rail][usage=utility][service=spur];;name;int_name;339;
 tourism|zoo;340;
 sport|gymnastics;341;
-deprecated|deprecated;342;x
+railway|rail|main|bridge;[railway=rail][usage=main][!highspeed][!service][bridge?];;name;int_name;342;
 railway|subway|bridge;[railway=subway][bridge?];;name;int_name;343;
 railway|light_rail|bridge;[railway=light_rail][bridge?];;name;int_name;344;
 aeroway|terminal;345;
@@ -380,38 +426,37 @@ sport|scuba_diving;352;
 highway|cycleway|permissive;[highway=cycleway][access=permissive];;name;int_name;353;
 highway|unclassified|area;[highway=unclassified][area?];;name;int_name;354;
 natural|volcano;355;
-amenity|parking|underground|fee;[amenity=parking][location=underground][fee?],[amenity=parking][parking=underground][fee?];x;name;int_name;356;amenity|parking|underground
+deprecated:amenity|parking|underground|fee:01.2020;[amenity=parking][location=underground][fee?],[amenity=parking][parking=underground][fee?];x;name;int_name;356;amenity|parking|underground
 amenity|parking|underground;[amenity=parking][location=underground],[amenity=parking][parking=underground];;name;int_name;357;
 deprecated|deprecated;358;x
 amenity|parking|multi-storey;[amenity=parking][parking=multi-storey];;name;int_name;359;
 leisure|recreation_ground;360;
 highway|footway|mountain_hiking;[highway=footway][sac_scale=mountain_hiking];;name;int_name;361;
-highway|service|driveway|bridge;[highway=service][service=driveway][bridge?];x;name;int_name;362;highway|service|driveway
-amenity|parking|multi-storey|fee;[amenity=parking][parking=multi-storey][fee?];x;name;int_name;363;amenity|parking|multi-storey
+deprecated:highway|service|driveway|bridge:01.2020;[highway=service][service=driveway][bridge?];x;name;int_name;362;highway|service|driveway
+deprecated:amenity|parking|multi-storey|fee:01.2020;[amenity=parking][parking=multi-storey][fee?];x;name;int_name;363;amenity|parking|multi-storey
 sport|9pin;364;
 sport|10pin;365;
 piste:type|downhill|novice;[piste:type=downhill][piste:difficulty=novice];;name;int_name;366;
 railway|narrow_gauge|bridge;[railway=narrow_gauge][bridge?];;name;int_name;367;
-deprecated|deprecated;368;x
-deprecated|deprecated;369;x
+railway|rail|main|tunnel;[railway=rail][usage=main][!highspeed][!service][tunnel?];;name;int_name;369;
 highway|bridleway|permissive;[highway=bridleway][access=permissive];;name;int_name;370;
 railway|construction;371;
-deprecated|deprecated;372;x
+railway|rail|branch|bridge;[railway=rail][usage=branch][!highspeed][!service][bridge?],[railway=rail][!usage][!service][!highspeed][bridge?];;name;int_name;372;
 landuse|greenhouse_horticulture;373;
-deprecated|deprecated;374;x
+railway|rail|branch|tunnel;[railway=rail][usage=branch][!highspeed][!service][tunnel?],[railway=rail][!usage][!service][!highspeed][tunnel?];;name;int_name;374;
 amenity|bureau_de_change;375;
-deprecated|deprecated;376;x
-deprecated|deprecated;377;x
+railway|rail|service|bridge;[railway=rail][service=service][bridge?];;name;int_name;376;
+railway|rail|service|tunnel;[railway=rail][service=service][tunnel?];;name;int_name;377;
 highway|bridleway|bridge;[highway=bridleway][bridge?];;name;int_name;378;
-highway|service|driveway|tunnel;[highway=service][service=driveway][tunnel?];x;name;int_name;379;highway|service|driveway
-deprecated|deprecated;380;x
+deprecated:highway|service|driveway|tunnel:01.2020;[highway=service][service=driveway][tunnel?];x;name;int_name;379;highway|service|driveway
+railway|rail|utility|bridge;[railway=rail][usage=utility][!service][bridge?],[railway=rail][usage=utility][service=spur][bridge?];;name;int_name;380;
 amenity|events_venue;381;
 railway|narrow_gauge|tunnel;[railway=narrow_gauge][tunnel?];;name;int_name;382;
 amenity|loading_dock;383;
 waterway|dock;384;
-deprecated|deprecated;385;x
-highway|service|driveway|area;[highway=service][service=driveway][area?];x;name;int_name;386;highway|service|driveway
-deprecated|deprecated;387;x
+railway|rail|utility|tunnel;[railway=rail][usage=utility][!service][tunnel?],[railway=rail][usage=utility][service=spur][tunnel?];;name;int_name;385;
+deprecated:highway|service|driveway|area:01.2020;[highway=service][service=driveway][area?];x;name;int_name;386;highway|service|driveway
+railway|rail|spur|bridge;[railway=rail][service=spur][!usage][bridge?];;name;int_name;387;
 place|city|capital;[place=city][capital?];;name;int_name;388;
 aerialway|cable_car;389;
 piste:type|downhill;390;
@@ -420,21 +465,22 @@ landuse|education;392;
 man_made|cairn;393;
 railway|preserved|bridge;[railway=preserved][bridge?];;name;int_name;394;
 highway|path|demanding_alpine_hiking;[highway=path][sac_scale=demanding_alpine_hiking];;name;int_name;395;
-deprecated|deprecated;396;x
+railway|rail|spur|tunnel;[railway=rail][service=spur][!usage][tunnel?];;name;int_name;396;
 highway|secondary_link|bridge;[highway=secondary_link][bridge?];;name;int_name;397;
 railway|tram|tunnel;[railway=tram][tunnel?];;name;int_name;398;
-deprecated|deprecated;399;x
+railway|rail|tourism;[railway=rail][usage=tourism][!service];;name;int_name;399;
+# TODO: its a mismapping likely, if there is a tunnel structure still, then it should be railway=disused.
 railway|abandoned|tunnel;[railway=abandoned][tunnel?];;name;int_name;400;
 area:highway|living_street;401;
 piste:type|sled;402;
 leisure|beach_resort;403;
 leisure|dog_park;404;
 aerialway|gondola;405;
-historic|museum;[historic=museum];x;name;int_name;406;tourism|museum
+deprecated:historic|museum:10.2021;[historic=museum];x;name;int_name;406;tourism|museum
 highway|living_street|bridge;[highway=living_street][bridge?];;name;int_name;407;
 leisure|track|area;[leisure=track][area?];;name;int_name;408;
 railway|monorail;409;
-deprecated|deprecated;410;x
+railway|rail|highspeed;[railway=rail][highspeed?];;name;int_name;410;
 deprecated|deprecated;411;x
 leisure|park|private;[leisure=park][access=private];;name;int_name;412;
 healthcare|physiotherapist;413;
@@ -453,8 +499,7 @@ healthcare|podiatrist;425;
 healthcare|psychotherapist;426;
 highway|ford;427;
 area:highway|path;428;
-# Was railway|siding -- June 2023
-deprecated|deprecated;429;x
+deprecated:railway|siding:06.2023;429;x
 highway|track|area;[highway=track][area?];;name;int_name;430;
 amenity|sanitary_dump_station;431;
 railway|funicular;432;
@@ -472,13 +517,11 @@ deprecated|deprecated;443;x
 highway|path|difficult_alpine_hiking;[highway=path][sac_scale=difficult_alpine_hiking];;name;int_name;444;
 earthquake:damage|spontaneous_camp;445;
 deprecated|deprecated;446;x
-# Was railway|yard -- June 2023
-deprecated|deprecated;447;x
+deprecated:railway|yard:06.2023;447;x
 deprecated|deprecated;448;x
-natural|meadow;449;landuse|meadow
+deprecated:natural|meadow:10.2021;449;landuse|meadow
 deprecated|deprecated;450;x
-# Was railway|razed -- June 2023
-deprecated|deprecated;451;x
+deprecated:railway|razed:06.2023;451;x
 highway|footway|demanding_mountain_hiking;[highway=footway][sac_scale=demanding_mountain_hiking];;name;int_name;452;
 deprecated|deprecated;453;x
 deprecated|deprecated;454;x
@@ -526,7 +569,7 @@ amenity|parking|park_and_ride;[amenity=parking][parking=park_and_ride];;name;int
 waterway|fish_pass;496;
 waterway|fish_pass|tunnel;[waterway=fish_pass][tunnel?];;name;int_name;497;
 natural|water|lock;[natural=water][water=lock];;name;int_name;498;
-waterway|lock;499;waterway|canal
+deprecated:waterway|lock:06.2022;499;waterway|canal
 deprecated|deprecated;500;x
 deprecated|deprecated;501;x
 deprecated|deprecated;502;x
@@ -536,8 +579,7 @@ deprecated|deprecated;505;x
 deprecated|deprecated;506;x
 deprecated|deprecated;507;x
 deprecated|deprecated;508;x
-# Was railway|spur|bridge -- June 2023
-deprecated|deprecated;509;x
+deprecated:railway|spur|bridge:06.2023;509;x
 deprecated|deprecated;510;x
 deprecated|deprecated;511;x
 deprecated|deprecated;512;x
@@ -570,7 +612,7 @@ deprecated|deprecated;538;x
 railway|funicular|tunnel;[railway=funicular][tunnel?];;name;int_name;539;
 barrier|cycle_barrier;540;
 addr:interpolation;[addr:interpolation];;addr:housenumber;name;541;
-amenity|speed_trap;542;highway|speed_camera
+deprecated:amenity|speed_trap:10.2021;542;highway|speed_camera
 area:highway|track;543;
 area:highway|primary;544;
 deprecated|deprecated;545;x
@@ -654,8 +696,7 @@ deprecated|deprecated;622;x
 deprecated|deprecated;623;x
 deprecated|deprecated;624;x
 deprecated|deprecated;625;x
-# Was railway|siding|bridge -- June 2023
-deprecated|deprecated;626;x
+deprecated:railway|siding|bridge:06.2023;626;x
 highway|footway|difficult_alpine_hiking;[highway=footway][sac_scale=difficult_alpine_hiking];;name;int_name;627;
 deprecated|deprecated;628;x
 deprecated|deprecated;629;x
@@ -680,8 +721,7 @@ deprecated|deprecated;647;x
 deprecated|deprecated;648;x
 deprecated|deprecated;649;x
 deprecated|deprecated;650;x
-# Was railway|spur|tunnel -- June 2023
-deprecated|deprecated;651;x
+deprecated:railway|spur|tunnel:06.2023;651;x
 deprecated|deprecated;652;x
 deprecated|deprecated;653;x
 deprecated|deprecated;654;x
@@ -695,8 +735,7 @@ deprecated|deprecated;661;x
 deprecated|deprecated;662;x
 deprecated|deprecated;663;x
 deprecated|deprecated;664;x
-# Was railway|yard|bridge -- June 2023
-deprecated|deprecated;665;x
+deprecated|railway|yard|bridge:06.2023;665;x
 deprecated|deprecated;666;x
 deprecated|deprecated;667;x
 deprecated|deprecated;668;x
@@ -883,10 +922,10 @@ deprecated|deprecated;848;x
 deprecated|deprecated;849;x
 deprecated|deprecated;850;x
 deprecated|deprecated;851;x
-deprecated|deprecated;852;x
-deprecated|deprecated;853;x
-deprecated|deprecated;854;x
-deprecated|deprecated;855;x
+railway|rail|highspeed|bridge;[railway=rail][highspeed?][bridge?];;name;int_name;852;
+railway|rail|tourism|bridge;[railway=rail][usage=tourism][!service][bridge?];;name;int_name;853;
+railway|rail|highspeed|tunnel;[railway=rail][highspeed?][tunnel?];;name;int_name;854;
+railway|rail|tourism|tunnel;[railway=rail][usage=tourism][!service][tunnel?];;name;int_name;855;
 mapswithme|grid;856;
 highway|service|busway;[highway=service][service=busway];;name;int_name;857;
 highway|busway;858;
@@ -895,10 +934,8 @@ highway|busway|tunnel;[highway=busway][tunnel?];;name;int_name;860;
 natural|salt_pond;861;landuse|salt_pond
 amenity|conference_centre;862;
 amenity|exhibition_centre;863;
-# Was railway|siding|tunnel -- June 2023
-deprecated|deprecated;864;x
-# Was railway|yard|tunnel -- June 2023
-deprecated|deprecated;865;x
+deprecated:railway|siding|tunnel:06.2023;864;x
+deprecated:railway|yard|tunnel:06.2023;865;x
 area:highway|footway;866;
 deprecated|deprecated;867;x
 area:highway|residential;868;
@@ -1028,6 +1065,7 @@ highway|speed_camera;991;
 shop|beauty;992;
 shop|sports;993;
 route|ferry|motor_vehicle;[route=ferry][motor_vehicle];x;name;int_name;994;route|ferry
+# For railways that carry vehicles, used for routing similar to ferries:
 railway|rail|motor_vehicle;[railway=rail][motor_vehicle];;name;int_name;995;
 hwtag|nofoot;996;
 place|city|capital|2;[place=city][capital=2],[place=city][capital?][admin_level=2];;name;int_name;997;
