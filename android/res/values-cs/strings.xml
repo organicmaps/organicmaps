@@ -552,8 +552,8 @@
 	<string name="bookmark_lists_hide_all">Skrýt vše</string>
 	<string name="bookmark_lists_show_all">Zobrazit vše</string>
 	<string name="bookmarks_create_new_group">Vytvořte nový seznam</string>
-	<!-- Bookmark categories screen -->
-	<string name="bookmarks_import">Importovat záložky</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_import">Import záložek a stop</string>
 	<string name="bookmarks_error_message_share_general">Nelze sdílet kvůli chybě aplikace</string>
 	<string name="bookmarks_error_title_share_empty">Chyba sdílení</string>
 	<string name="bookmarks_error_message_share_empty">Nelze sdílet s prázdným seznamem</string>

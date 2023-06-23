@@ -582,8 +582,8 @@
 	<string name="bookmark_lists_hide_all">Спрятать все</string>
 	<string name="bookmark_lists_show_all">Показать все</string>
 	<string name="bookmarks_create_new_group">Создать новый список</string>
-	<!-- Bookmark categories screen -->
-	<string name="bookmarks_import">Импортировать метки</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_import">Импортировать метки и треки</string>
 	<string name="bookmarks_error_message_share_general">Не удалось поделиться из-за ошибки приложения</string>
 	<string name="bookmarks_error_title_share_empty">Ошибка при попытке поделиться</string>
 	<string name="bookmarks_error_message_share_empty">Нельзя делиться пустыми списками</string>

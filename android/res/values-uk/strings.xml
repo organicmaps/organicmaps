@@ -574,6 +574,8 @@
 	<string name="bookmark_lists_hide_all">Приховати всі</string>
 	<string name="bookmark_lists_show_all">Показати всі</string>
 	<string name="bookmarks_create_new_group">Створити новий список</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_import">Імпортувати мітки та маршрути</string>
 	<string name="bookmarks_error_message_share_general">Неможливо поділитися через помилку програми</string>
 	<string name="bookmarks_error_title_share_empty">Помилка обміну</string>
 	<string name="bookmarks_error_message_share_empty">Неможливо поділитися пустим списком</string>

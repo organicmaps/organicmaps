@@ -573,8 +573,8 @@
 	<string name="bookmark_lists_hide_all">Схаваць усе</string>
 	<string name="bookmark_lists_show_all">Паказаць усе</string>
 	<string name="bookmarks_create_new_group">Стварыць новы спіс</string>
-	<!-- Bookmark categories screen -->
-	<string name="bookmarks_import">Імпартаваць закладкі</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_import">Імпартаваць закладкі і cцежкі</string>
 	<string name="bookmarks_error_message_share_general">Не атрымалася абагуліць з-за памылкі праграмы</string>
 	<string name="bookmarks_error_title_share_empty">Памылка пры спробе абагульвання</string>
 	<string name="bookmarks_error_message_share_empty">Нельга абагуліць пусты спіс</string>

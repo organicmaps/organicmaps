@@ -548,6 +548,8 @@
 	<string name="bookmark_lists_hide_all">Sembunyikan semua</string>
 	<string name="bookmark_lists_show_all">Perlihatkan semua</string>
 	<string name="bookmarks_create_new_group">Buat daftar baru</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_import">Impor penanda dan trek</string>
 	<string name="bookmarks_error_message_share_general">Tidak dapat berbagi karena kesalahan aplikasi</string>
 	<string name="bookmarks_error_title_share_empty">Kesalahan dalam membagikan</string>
 	<string name="bookmarks_error_message_share_empty">Tidak dapat membagikan daftar kosong</string>

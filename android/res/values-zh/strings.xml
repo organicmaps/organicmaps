@@ -556,6 +556,8 @@
 	<string name="bookmark_lists_hide_all">全部隱藏</string>
 	<string name="bookmark_lists_show_all">全部顯示</string>
 	<string name="bookmarks_create_new_group">创建新的列表</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_import">导入书签和轨迹</string>
 	<string name="bookmarks_error_message_share_general">由于应用程序出错而无法分享</string>
 	<string name="bookmarks_error_title_share_empty">分享错误</string>
 	<string name="bookmarks_error_message_share_empty">无法分享空列表</string>

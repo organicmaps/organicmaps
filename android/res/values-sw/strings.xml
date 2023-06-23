@@ -104,6 +104,8 @@
 	<string name="bookmark_lists_hide_all">Ficha zote</string>
 	<string name="bookmark_lists_show_all">Onyesha zote</string>
 	<string name="bookmarks_create_new_group">Unda orodha mpya</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_import">Ingiza alamisho na nyimbo</string>
 	<string name="bookmarks_error_message_share_general">Haiwezekani kushiriki kutokana na hitilafu ya programu</string>
 	<string name="bookmarks_error_title_share_empty">Hitilafu ya kushiriki</string>
 	<string name="bookmarks_error_message_share_empty">Haiwezekani kushiriki orodha tupu</string>

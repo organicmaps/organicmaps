@@ -544,6 +544,8 @@
 	<string name="bookmark_lists_hide_all">すべて非表示</string>
 	<string name="bookmark_lists_show_all">すべて表示</string>
 	<string name="bookmarks_create_new_group">新しいリストを作成する</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_import">ブックマークとトラックをインポートする</string>
 	<string name="bookmarks_error_message_share_general">アプリケーションエラーのため共有できません</string>
 	<string name="bookmarks_error_title_share_empty">共有エラー</string>
 	<string name="bookmarks_error_message_share_empty">空のリストは共有できません</string>

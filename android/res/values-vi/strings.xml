@@ -546,6 +546,8 @@
 	<string name="bookmark_lists_hide_all">Ẩn tất cả</string>
 	<string name="bookmark_lists_show_all">Hiển thị tất cả</string>
 	<string name="bookmarks_create_new_group">Tạo danh sách mới</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_import">Nhập dấu trang và bản nhạc</string>
 	<string name="bookmarks_error_message_share_general">Không thể chia sẻ do lỗi ứng dụng</string>
 	<string name="bookmarks_error_title_share_empty">Lỗi chia sẻ</string>
 	<string name="bookmarks_error_message_share_empty">Không thể chia sẻ một danh sách trống</string>
