@@ -40,9 +40,9 @@ LOG_FILE_PATH: ${Main:MAIN_OUT_PATH}/generation.log
 
 
 [External]
-# Planet file location. It should be a dump of OSM data in osm.pbf format,
-# either an entire planet (from "planet.openstreetmap.org") or a particular
-# country/region extract from e.g. [Geofabrik](http://download.geofabrik.de/index.html).
+# Planet file location. It should be a dump of OSM data in osm.pbf format.
+# By default its an entire planet from "planet.openstreetmap.org".
+# Or set it to a particular country/region extract from e.g. [Geofabrik](http://download.geofabrik.de/index.html).
 # Note that an entire planet generation takes 40+ hours on a 256GB RAM server (and 1TB+ disk space).
 # Stick to smaller extracts unless you have a machine this large.
 # Here and further, its possible to specify either an URL (to be downloaded automatically)
@@ -50,16 +50,15 @@ LOG_FILE_PATH: ${Main:MAIN_OUT_PATH}/generation.log
 # A sample URL to download a latest OSM dump for North Macedonia:
 PLANET_URL: https://download.geofabrik.de/europe/macedonia-latest.osm.pbf
 # Location of the md5 checksum of the planet file:
-PLANET_MD5_URL: https://download.geofabrik.de/north-america/canada/yukon-latest.osm.pbf.md5
+PLANET_MD5_URL: ${External:PLANET_URL}.md5
 # A base url to the latest_coasts.geom and latest_coasts.rawgeom files.
 # For example, if PLANET_COASTS_URL = https://somesite.com/download/
 # then the https://somesite.com/download/latest_coasts.geom url will be used to download latest_coasts.geom and
 # the https://somesite.com/download/latest_coasts.rawgeom url will be used to download latest_coasts.rawgeom.
 # Comment to skip getting the coastlines files.
 # PLANET_COASTS_URL:
-# Set to 'true' to build a special routing section in World.mwm
+# Should be 'true' for an entire planet build to make a special routing section in World.mwm
 # for alerting about absent regions without which the route can't be built.
-# This should be true for any non-planet build.
 NEED_BUILD_WORLD_ROADS: false
 # Subway file location, see docs/SUBWAY_GENERATION.md if you want to generate your own file.
 # Comment to disable subway layer generation.
