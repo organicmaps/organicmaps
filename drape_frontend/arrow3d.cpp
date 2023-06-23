@@ -23,17 +23,20 @@
 #include "3party/fast_obj/fast_obj.h"
 
 #include <cstring>
+#include <string_view>
 
 namespace df
 {
-namespace arrow3d {
+namespace arrow3d
+{
 double constexpr kArrowSize = 12.0;
 double constexpr kArrow3dScaleMin = 1.0;
 double constexpr kArrow3dScaleMax = 2.2;
 int constexpr kArrow3dMinZoom = 16;
 }  // namespace arrow3d
 
-namespace {
+namespace
+{
 float constexpr kOutlineScale = 1.2f;
 
 int constexpr kComponentsInVertex = 3;
@@ -45,24 +48,25 @@ df::ColorConstant const kArrow3DObsoleteColor = "Arrow3DObsolete";
 df::ColorConstant const kArrow3DColor = "Arrow3D";
 df::ColorConstant const kArrow3DOutlineColor = "Arrow3DOutline";
 
-std::string const kDefaultArrowMesh = "arrow.obj";
-std::string const kDefaultArrowShadowMesh = "arrow_shadow.obj";
+std::string_view const kDefaultArrowMesh = "arrow.obj";
+std::string_view const kDefaultArrowShadowMesh = "arrow_shadow.obj";
 
-std::string const kMainFileId = "main_obj_file_id";
+std::string_view const kMainFileId = "main_obj_file_id";
 
 using TLoadingCompletion = std::function<void(std::vector<float> positions,
                                               std::vector<float> normals,
                                               std::vector<float> texCoords)>;
 using TLoadingFailure = std::function<void(std::string const &)>;
 
-namespace fast_obj_adapter {
+namespace fast_obj_adapter
+{
 void * FileOpen(char const * path, void * userData)
 {
   // Load only the main OBJ file, skip all the files that can be referred
   // inside the OBJ model.
-  if (kMainFileId != path) {
+  if (kMainFileId != path)
     return nullptr;
-  }
+  
   return userData;
 }
 
@@ -76,13 +80,11 @@ size_t FileRead(void * file, void * dst, size_t bytes, void * userData)
   auto reader = static_cast<ReaderSource<ReaderPtr<Reader>> *>(userData);
   CHECK(reader != nullptr, ());
   auto const sz = reader->Size();
-  if (sz == 0) {
+  if (sz == 0)
     return 0;
-  }
   
-  if (bytes > sz) {
+  if (bytes > sz)
     bytes = static_cast<size_t>(sz);
-  }
   
   auto const p = reader->Pos();
   reader->Read(dst, bytes);
@@ -98,6 +100,20 @@ unsigned long FileSize(void * file, void * userData)
   return static_cast<size_t>(reader->Size());
 }
 }  // namespace fast_obj_adapter
+
+class FastObjMeshGuard
+{
+public:
+  explicit FastObjMeshGuard(fastObjMesh * mesh) : m_mesh(mesh) {}
+  ~FastObjMeshGuard()
+  {
+    if (m_mesh)
+      fast_obj_destroy(m_mesh);
+  }
+  
+private:
+  fastObjMesh * const m_mesh;
+};
 
 bool LoadMesh(std::string const & pathToMesh,
               bool isDefaultResource,
@@ -120,8 +136,9 @@ bool LoadMesh(std::string const & pathToMesh,
     callbacks.file_close = fast_obj_adapter::FileClose;
     callbacks.file_read = fast_obj_adapter::FileRead;
     callbacks.file_size = fast_obj_adapter::FileSize;
-    meshData = fast_obj_read_with_callbacks(kMainFileId.c_str(), &callbacks, &source);
+    meshData = fast_obj_read_with_callbacks(kMainFileId.data(), &callbacks, &source);
     CHECK(meshData != nullptr, ());
+    FastObjMeshGuard guard(meshData);
     
     // Fill buffers.
     std::vector<float> positions;
@@ -161,13 +178,9 @@ bool LoadMesh(std::string const & pathToMesh,
     }
     
     completionHandler(std::move(positions), std::move(normals), std::move(texCoords));
-    
-    fast_obj_destroy(meshData);
   }
   catch (RootException & e)
   {
-    if (meshData)
-      fast_obj_destroy(meshData);
     failureHandler(e.what());
     return false;
   }
@@ -183,11 +196,11 @@ Arrow3d::PreloadedData Arrow3d::PreloadMesh(std::optional<Arrow3dCustomDecl> con
   Arrow3d::PreloadedData data;
   
   bool const useDefaultResource = !customDecl.has_value() ||
-                                  customDecl.value().m_loadFromDefaultResourceFolder;
+                                  customDecl->m_loadFromDefaultResourceFolder;
   
   // Load arrow mesh.
-  std::string meshPath = customDecl.has_value() ? customDecl.value().m_arrowMeshPath :
-                                                  kDefaultArrowMesh;
+  auto const meshPath = customDecl.has_value() ? customDecl->m_arrowMeshPath :
+                                                 std::string(kDefaultArrowMesh);
   data.m_meshData = PreloadedMeshData{};
   if (!LoadMesh(meshPath, useDefaultResource, [&](std::vector<float> positions,
                                                   std::vector<float> normals,
@@ -198,17 +211,17 @@ Arrow3d::PreloadedData Arrow3d::PreloadMesh(std::optional<Arrow3dCustomDecl> con
         if (normals.empty())
           normals = dp::MeshObject::GenerateNormalsForTriangles(positions, kComponentsInNormal);
         
-        data.m_meshData.value().m_positions = std::move(positions);
-        data.m_meshData.value().m_normals = std::move(normals);
+        data.m_meshData->m_positions = std::move(positions);
+        data.m_meshData->m_normals = std::move(normals);
         
         // Texture coordinates.
         ref_ptr<dp::StaticTexture> arrowTexture = texMng->GetArrowTexture();
-        CHECK(arrowTexture != nullptr, ());
+        CHECK(arrowTexture != nullptr, ("Arrow texture must be initialized before the mesh"));
         // NOTE: texture must be loaded before the mesh.
         if (arrowTexture->IsLoadingCorrect() && !texCoords.empty())
         {
           data.m_arrowMeshTexturingEnabled = true;
-          data.m_meshData.value().m_texCoords = std::move(texCoords);
+          data.m_meshData->m_texCoords = std::move(texCoords);
         }
         else
         {
@@ -230,8 +243,8 @@ Arrow3d::PreloadedData Arrow3d::PreloadMesh(std::optional<Arrow3dCustomDecl> con
   }
   
   // Load shadow arrow mesh.
-  auto shadowMeshPath = customDecl.has_value() ? customDecl.value().m_shadowMeshPath :
-                                                 kDefaultArrowShadowMesh;
+  auto const shadowMeshPath = customDecl.has_value() ? customDecl->m_shadowMeshPath :
+                                                       std::string(kDefaultArrowShadowMesh);
   if (shadowMeshPath.has_value())
   {
     data.m_shadowMeshData = PreloadedMeshData{};
@@ -242,8 +255,8 @@ Arrow3d::PreloadedData Arrow3d::PreloadMesh(std::optional<Arrow3dCustomDecl> con
       // NOTE: Shadow mesh must contain texture coordinates. They're used to create soft shadow.
       if (!positions.empty() && !texCoords.empty())
       {
-        data.m_shadowMeshData.value().m_positions = std::move(positions);
-        data.m_shadowMeshData.value().m_texCoords = std::move(texCoords);
+        data.m_shadowMeshData->m_positions = std::move(positions);
+        data.m_shadowMeshData->m_texCoords = std::move(texCoords);
       }
       else
       {
@@ -259,19 +272,19 @@ Arrow3d::PreloadedData Arrow3d::PreloadMesh(std::optional<Arrow3dCustomDecl> con
   
   if (customDecl.has_value())
   {
-    data.m_texCoordFlipping = glsl::vec2{customDecl.value().m_flipTexCoordU ? 1.0f : 0.0f,
-                                         customDecl.value().m_flipTexCoordV ? 1.0f : 0.0f};
-    data.m_meshOffset = glsl::vec3{customDecl.value().m_offset.x,
-                                   customDecl.value().m_offset.y,
-                                   customDecl.value().m_offset.z};
-    data.m_meshEulerAngles = glsl::vec3{customDecl.value().m_eulerAngles.x,
-                                        customDecl.value().m_eulerAngles.y,
-                                        customDecl.value().m_eulerAngles.z};
-    data.m_meshScale = glsl::vec3{customDecl.value().m_scale.x,
-                                  customDecl.value().m_scale.y,
-                                  customDecl.value().m_scale.z};
-    data.m_enableShadow = customDecl.value().m_enableShadow;
-    data.m_enableOutline = customDecl.value().m_enableOutline;
+    data.m_texCoordFlipping = glsl::vec2{customDecl->m_flipTexCoordU ? 1.0f : 0.0f,
+                                         customDecl->m_flipTexCoordV ? 1.0f : 0.0f};
+    data.m_meshOffset = glsl::vec3{customDecl->m_offset.x,
+                                   customDecl->m_offset.y,
+                                   customDecl->m_offset.z};
+    data.m_meshEulerAngles = glsl::vec3{customDecl->m_eulerAngles.x,
+                                        customDecl->m_eulerAngles.y,
+                                        customDecl->m_eulerAngles.z};
+    data.m_meshScale = glsl::vec3{customDecl->m_scale.x,
+                                  customDecl->m_scale.y,
+                                  customDecl->m_scale.z};
+    data.m_enableShadow = customDecl->m_enableShadow;
+    data.m_enableOutline = customDecl->m_enableOutline;
   }
   
   return data;
@@ -298,9 +311,7 @@ Arrow3d::Arrow3d(ref_ptr<dp::GraphicsContext> context,
   // Workaround for OpenGL: some devices require any texture to be set in the rendering pipeline.
   auto const apiVersion = context->GetApiVersion();
   if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
-  {
     m_state.SetColorTexture(texMng->GetSymbolsTexture());
-  }
   
   m_isValid = preloadedData.m_meshData.has_value();
 
@@ -311,16 +322,16 @@ Arrow3d::Arrow3d(ref_ptr<dp::GraphicsContext> context,
   if (m_isValid)
   {
     // Positions.
-    CHECK(!preloadedData.m_meshData.value().m_positions.empty(), ());
+    CHECK(!preloadedData.m_meshData->m_positions.empty(), ());
     m_arrowMesh.SetBuffer(kVerticesBufferInd,
-                          std::move(preloadedData.m_meshData.value().m_positions),
+                          std::move(preloadedData.m_meshData->m_positions),
                           sizeof(float) * kComponentsInVertex);
     m_arrowMesh.SetAttribute("a_pos", kVerticesBufferInd, 0 /* offset */,
                              kComponentsInVertex);
 
     // Normals.
-    CHECK(!preloadedData.m_meshData.value().m_normals.empty(), ());
-    m_arrowMesh.SetBuffer(kNormalsBufferInd, std::move(preloadedData.m_meshData.value().m_normals),
+    CHECK(!preloadedData.m_meshData->m_normals.empty(), ());
+    m_arrowMesh.SetBuffer(kNormalsBufferInd, std::move(preloadedData.m_meshData->m_normals),
                           sizeof(float) * kComponentsInNormal);
     m_arrowMesh.SetAttribute("a_normal", kNormalsBufferInd, 0 /* offset */,
                              kComponentsInNormal);
@@ -328,11 +339,11 @@ Arrow3d::Arrow3d(ref_ptr<dp::GraphicsContext> context,
     // Texture coordinates.
     if (m_arrowMeshTexturingEnabled)
     {
-      CHECK(!preloadedData.m_meshData.value().m_texCoords.empty(), ());
+      CHECK(!preloadedData.m_meshData->m_texCoords.empty(), ());
       m_state.SetColorTexture(texMng->GetArrowTexture());
       
       m_arrowMesh.SetBuffer(kTexCoordBufferInd,
-                            std::move(preloadedData.m_meshData.value().m_texCoords),
+                            std::move(preloadedData.m_meshData->m_texCoords),
                             sizeof(float) * kComponentsInTexCoord);
       m_arrowMesh.SetAttribute("a_texCoords", kTexCoordBufferInd, 0 /* offset */,
                                kComponentsInTexCoord);
@@ -346,17 +357,17 @@ Arrow3d::Arrow3d(ref_ptr<dp::GraphicsContext> context,
     auto constexpr kTexCoordShadowBufferInd = 1;
     
     // Positions.
-    CHECK(!preloadedData.m_shadowMeshData.value().m_positions.empty(), ());
+    CHECK(!preloadedData.m_shadowMeshData->m_positions.empty(), ());
     m_shadowMesh->SetBuffer(kVerticesBufferInd,
-                            std::move(preloadedData.m_shadowMeshData.value().m_positions),
+                            std::move(preloadedData.m_shadowMeshData->m_positions),
                             sizeof(float) * kComponentsInVertex);
     m_shadowMesh->SetAttribute("a_pos", kVerticesBufferInd, 0 /* offset */,
                                kComponentsInVertex);
     
     // Texture coordinates.
-    CHECK(!preloadedData.m_shadowMeshData.value().m_texCoords.empty(), ());
+    CHECK(!preloadedData.m_shadowMeshData->m_texCoords.empty(), ());
     m_shadowMesh->SetBuffer(kTexCoordShadowBufferInd,
-                            std::move(preloadedData.m_shadowMeshData.value().m_texCoords),
+                            std::move(preloadedData.m_shadowMeshData->m_texCoords),
                             sizeof(float) * kComponentsInTexCoord);
     m_shadowMesh->SetAttribute("a_texCoords", kTexCoordShadowBufferInd, 0 /* offset */,
                                kComponentsInTexCoord);
@@ -479,8 +490,8 @@ std::pair<glsl::mat4, glsl::mat4> Arrow3d::CalculateTransform(ScreenBase const &
     arrowScale *= (arrow3d::kArrow3dScaleMin * (1.0 - t) + arrow3d::kArrow3dScaleMax * t);
   }
 
-  glm::quat qx = glm::angleAxis(m_meshEulerAngles.x, glm::vec3{1.0f, 0.0f, 0.0f});
-  glm::quat qy = glm::angleAxis(m_meshEulerAngles.y, glm::vec3{0.0f, 1.0f, 0.0f});
+  glm::quat const qx = glm::angleAxis(m_meshEulerAngles.x, glm::vec3{1.0f, 0.0f, 0.0f});
+  glm::quat const qy = glm::angleAxis(m_meshEulerAngles.y, glm::vec3{0.0f, 1.0f, 0.0f});
   glm::quat qz = glm::angleAxis(static_cast<float>(m_azimuth + screen.GetAngle() + m_meshEulerAngles.z),
                                 glm::vec3{0.0f, 0.0f, -1.0f});
   auto const rotationMatrix = glm::mat4_cast(qz * qy * qx);
@@ -515,7 +526,7 @@ std::pair<glsl::mat4, glsl::mat4> Arrow3d::CalculateTransform(ScreenBase const &
   if (screen.isPerspective())
   {
     glm::mat4 pTo3dView;
-    auto m = math::Matrix<float, 4, 4>(screen.Pto3dMatrix());
+    auto const m = math::Matrix<float, 4, 4>(screen.Pto3dMatrix());
     static_assert(sizeof(m) == sizeof(pTo3dView));
     memcpy(&pTo3dView, &m, sizeof(pTo3dView));
     auto postProjectionPerspective = pTo3dView * modelTransform;

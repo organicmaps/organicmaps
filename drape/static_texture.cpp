@@ -56,8 +56,9 @@ bool LoadData(std::string const & textureName, std::optional<std::string> const 
   }
   
   int w, h, bpp;
-  if (!stbi_info_from_memory(&rawData[0], static_cast<int>(rawData.size()), &w, &h, &bpp)) {
-    failureHandler("Failed to get image file info");
+  if (!stbi_info_from_memory(&rawData[0], static_cast<int>(rawData.size()), &w, &h, &bpp))
+  {
+    failureHandler(std::string("Failed to get image file info from ") + textureName);
     return false;
   }
   

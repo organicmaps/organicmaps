@@ -23,7 +23,7 @@ struct Arrow3dCustomDecl
   // You must use string identifiers of resources instead of file names.
   bool m_loadFromDefaultResourceFolder = false;
   
-  // Leyout is axes (in the plane of map): x - right, y - up,
+  // Layout of axes (in the plane of map): x - right, y - up,
   // -z - perpendicular to the map's plane directed towards the observer.
   
   // Offset is in local (model's) coordinates.
@@ -41,7 +41,7 @@ struct Arrow3dCustomDecl
   // Enable shadow rendering (only in perspective mode).
   // Shadow mesh must exist, otherwise standard one will be used.
   bool m_enableShadow = false;
-  // Enabled outlint rendering (only in routing mode).
+  // Enabled outline rendering (only in routing mode).
   // Shadow mesh must exist, otherwise standard one will be used.
   bool m_enableOutline = false;
 };
