@@ -58,7 +58,8 @@ def parse_options():
         "--without_countries",
         type=str,
         default="",
-        help="List of countries/regions to exclude from generation. Syntax is the same as for --countries.",
+        help="List of countries/regions to exclude from generation. "
+        "Has a priority over --countries and uses the same syntax.",
     )
     parser.add_argument(
         "--skip",
@@ -127,13 +128,6 @@ def main():
             )
         build_name = d
 
-    # Processing of 'countries' option.
-    # There is processing 'countries' and 'without_countries' options.
-    # Option 'without_countries' has more priority than 'countries'.
-    # Options 'countries' and 'without_countries' can include '*'.
-    # For example: '--countries="UK*, Japan"*' means
-    # '--countries="UK_England_East Midlands, UK_England_East of England_Essex, ...,
-    # Japan_Chubu Region_Aichi_Nagoya, Japan_Chubu Region_Aichi_Toyohashi, ..."'.
     countries_line = ""
     without_countries_line = ""
     if "COUNTRIES" in os.environ:
