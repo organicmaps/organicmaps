@@ -269,7 +269,8 @@ sport|basketball;242;
 amenity|cinema;243;
 amenity|theatre;244;
 sport|chess;245;
-railway|spur;246;
+# Was railway|spur -- June 2023
+deprecated|deprecated;246;x
 aerialway|station;247;
 landuse|brownfield;248;
 aeroway|apron;249;
@@ -452,7 +453,8 @@ healthcare|podiatrist;425;
 healthcare|psychotherapist;426;
 highway|ford;427;
 area:highway|path;428;
-railway|siding;429;
+# Was railway|siding -- June 2023
+deprecated|deprecated;429;x
 highway|track|area;[highway=track][area?];;name;int_name;430;
 amenity|sanitary_dump_station;431;
 railway|funicular;432;
@@ -470,11 +472,13 @@ deprecated|deprecated;443;x
 highway|path|difficult_alpine_hiking;[highway=path][sac_scale=difficult_alpine_hiking];;name;int_name;444;
 earthquake:damage|spontaneous_camp;445;
 deprecated|deprecated;446;x
-railway|yard;447;
+# Was railway|yard -- June 2023
+deprecated|deprecated;447;x
 deprecated|deprecated;448;x
 natural|meadow;449;landuse|meadow
 deprecated|deprecated;450;x
-railway|razed;451;
+# Was railway|razed -- June 2023
+deprecated|deprecated;451;x
 highway|footway|demanding_mountain_hiking;[highway=footway][sac_scale=demanding_mountain_hiking];;name;int_name;452;
 deprecated|deprecated;453;x
 deprecated|deprecated;454;x
@@ -532,7 +536,8 @@ deprecated|deprecated;505;x
 deprecated|deprecated;506;x
 deprecated|deprecated;507;x
 deprecated|deprecated;508;x
-railway|spur|bridge;[railway=spur][bridge?];;name;int_name;509;
+# Was railway|spur|bridge -- June 2023
+deprecated|deprecated;509;x
 deprecated|deprecated;510;x
 deprecated|deprecated;511;x
 deprecated|deprecated;512;x
@@ -649,7 +654,8 @@ deprecated|deprecated;622;x
 deprecated|deprecated;623;x
 deprecated|deprecated;624;x
 deprecated|deprecated;625;x
-railway|siding|bridge;[railway=siding][bridge?];;name;int_name;626;
+# Was railway|siding|bridge -- June 2023
+deprecated|deprecated;626;x
 highway|footway|difficult_alpine_hiking;[highway=footway][sac_scale=difficult_alpine_hiking];;name;int_name;627;
 deprecated|deprecated;628;x
 deprecated|deprecated;629;x
@@ -674,7 +680,8 @@ deprecated|deprecated;647;x
 deprecated|deprecated;648;x
 deprecated|deprecated;649;x
 deprecated|deprecated;650;x
-railway|spur|tunnel;[railway=spur][tunnel?];;name;int_name;651;
+# Was railway|spur|tunnel -- June 2023
+deprecated|deprecated;651;x
 deprecated|deprecated;652;x
 deprecated|deprecated;653;x
 deprecated|deprecated;654;x
@@ -688,7 +695,8 @@ deprecated|deprecated;661;x
 deprecated|deprecated;662;x
 deprecated|deprecated;663;x
 deprecated|deprecated;664;x
-railway|yard|bridge;[railway=yard][bridge?];;name;int_name;665;
+# Was railway|yard|bridge -- June 2023
+deprecated|deprecated;665;x
 deprecated|deprecated;666;x
 deprecated|deprecated;667;x
 deprecated|deprecated;668;x
@@ -887,8 +895,10 @@ highway|busway|tunnel;[highway=busway][tunnel?];;name;int_name;860;
 natural|salt_pond;861;landuse|salt_pond
 amenity|conference_centre;862;
 amenity|exhibition_centre;863;
-railway|siding|tunnel;[railway=siding][tunnel?];;name;int_name;864;
-railway|yard|tunnel;[railway=yard][tunnel?];;name;int_name;865;
+# Was railway|siding|tunnel -- June 2023
+deprecated|deprecated;864;x
+# Was railway|yard|tunnel -- June 2023
+deprecated|deprecated;865;x
 area:highway|footway;866;
 deprecated|deprecated;867;x
 area:highway|residential;868;
