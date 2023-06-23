@@ -579,8 +579,8 @@
 	<string name="bookmark_lists_hide_all">Ocultar todo</string>
 	<string name="bookmark_lists_show_all">Mostrar todo</string>
 	<string name="bookmarks_create_new_group">Crear nueva lista</string>
-	<!-- Bookmark categories screen -->
-	<string name="bookmarks_import">Importar marcadores</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_import">Importar marcadores y pistas</string>
 	<string name="bookmarks_error_message_share_general">No se puede compartir debido a un error de la aplicación</string>
 	<string name="bookmarks_error_title_share_empty">Error al compartir</string>
 	<string name="bookmarks_error_message_share_empty">No se puede compartir una lista vacía</string>

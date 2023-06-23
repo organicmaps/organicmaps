@@ -560,8 +560,8 @@
 	<string name="bookmark_lists_hide_all">Ascunde tot</string>
 	<string name="bookmark_lists_show_all">Arată tot</string>
 	<string name="bookmarks_create_new_group">Creează o listă nouă</string>
-	<!-- Bookmark categories screen -->
-	<string name="bookmarks_import">Importă locuri preferate</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_import">Importați marcaje și piese</string>
 	<string name="bookmarks_error_message_share_general">Nu poate fi trimis din cauza unei erori a aplicației</string>
 	<string name="bookmarks_error_title_share_empty">Eroare de trimitere</string>
 	<string name="bookmarks_error_message_share_empty">Nu poate fi trimisă o listă goală</string>

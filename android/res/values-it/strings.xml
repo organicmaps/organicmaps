@@ -560,8 +560,8 @@
 	<string name="bookmark_lists_hide_all">Nascondi tutto</string>
 	<string name="bookmark_lists_show_all">Mostra tutto</string>
 	<string name="bookmarks_create_new_group">Crea un nuovo elenco</string>
-	<!-- Bookmark categories screen -->
-	<string name="bookmarks_import">Importa luoghi preferiti</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_import">Importazione di segnalibri e tracce</string>
 	<string name="bookmarks_error_message_share_general">Impossibile condividere a causa di un errore dell\'applicazione</string>
 	<string name="bookmarks_error_title_share_empty">Errore di condivisione</string>
 	<string name="bookmarks_error_message_share_empty">Impossibile condividere un elenco vuoto</string>

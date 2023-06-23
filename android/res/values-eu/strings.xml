@@ -577,8 +577,8 @@
 	<string name="bookmark_lists_hide_all">Ezkutatu guztiak</string>
 	<string name="bookmark_lists_show_all">Erakutsi guztiak</string>
 	<string name="bookmarks_create_new_group">Sortu zerrenda berria</string>
-	<!-- Bookmark categories screen -->
-	<string name="bookmarks_import">Inportatu markagailuak</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_import">Laster-markak eta ibilbideak inportatu</string>
 	<string name="bookmarks_error_message_share_general">Ezin izan da partekatu aplikazioaren errore baten ondorioz</string>
 	<string name="bookmarks_error_title_share_empty">Partekatzeak huts egin du</string>
 	<string name="bookmarks_error_message_share_empty">Ezin da partekatu zerrenda hutsik</string>

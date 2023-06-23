@@ -543,6 +543,8 @@
 	<string name="bookmark_lists_hide_all">پنهان کردن همه</string>
 	<string name="bookmark_lists_show_all">نمایش همه</string>
 	<string name="bookmarks_create_new_group">ایجاد لیست جدید</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_import">وارد کردن نشانکu200cها و آهنگu200cها</string>
 	<string name="bookmarks_error_message_share_general">با توجه به خطای برنامه، امکان اشتراک گذاری وجود ندارد</string>
 	<string name="bookmarks_error_title_share_empty">خطای اشتراک</string>
 	<string name="bookmarks_error_message_share_empty">یک لیست خالی را نمی توان به اشتراک گذاشت</string>

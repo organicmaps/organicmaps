@@ -560,8 +560,8 @@
 	<string name="bookmark_lists_hide_all">Összes elrejtése</string>
 	<string name="bookmark_lists_show_all">Összes megjelenítése</string>
 	<string name="bookmarks_create_new_group">Új lista létrehozása</string>
-	<!-- Bookmark categories screen -->
-	<string name="bookmarks_import">Könyvjelzők importálása</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_import">Könyvjelzők és sávok importálása</string>
 	<string name="bookmarks_error_message_share_general">Nem lehet megosztani alkalmazáshiba miatt</string>
 	<string name="bookmarks_error_title_share_empty">Megosztási hiba</string>
 	<string name="bookmarks_error_message_share_empty">Üres lista nem osztható meg</string>

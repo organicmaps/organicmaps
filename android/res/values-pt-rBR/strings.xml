@@ -558,8 +558,6 @@
 	<string name="bookmark_lists_hide_all">Ocultar tudo</string>
 	<string name="bookmark_lists_show_all">Exibir tudo</string>
 	<string name="bookmarks_create_new_group">Criar nova lista</string>
-	<!-- Bookmark categories screen -->
-	<string name="bookmarks_import">Importar favoritos</string>
 	<string name="bookmarks_error_message_share_general">Impossível compartilhar devido a um erro do aplicativo</string>
 	<string name="bookmarks_error_title_share_empty">Erro de compartilhamento</string>
 	<string name="bookmarks_error_message_share_empty">Impossível compartilhar uma lista vazia</string>

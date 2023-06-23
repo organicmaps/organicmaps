@@ -544,6 +544,8 @@
 	<string name="bookmark_lists_hide_all">Dölj alla</string>
 	<string name="bookmark_lists_show_all">Visa alla</string>
 	<string name="bookmarks_create_new_group">Skapa ny lista</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_import">Importera bokmärken och spår</string>
 	<string name="bookmarks_error_message_share_general">Kunde inte delas på grund av ett applikationsfel</string>
 	<string name="bookmarks_error_title_share_empty">Delningsfel</string>
 	<string name="bookmarks_error_message_share_empty">Kan inte dela en tom lista</string>

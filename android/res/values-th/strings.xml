@@ -548,6 +548,8 @@
 	<string name="bookmark_lists_hide_all">ซ่อนทั้งหมด</string>
 	<string name="bookmark_lists_show_all">แสดงทั้งหมด</string>
 	<string name="bookmarks_create_new_group">สร้างรายการใหม่</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_import">นำเข้าบุ๊กมาร์กและแทร็ก</string>
 	<string name="bookmarks_error_message_share_general">ไม่สามารถแชร์ได้เนื่องจากเกิดข้อผิดพลาดในแอปพลิเคชัน</string>
 	<string name="bookmarks_error_title_share_empty">ข้อผิดพลาดในการแชร์</string>
 	<string name="bookmarks_error_message_share_empty">ไม่สามารถแชร์รายการที่ว่างเปล่าได้</string>

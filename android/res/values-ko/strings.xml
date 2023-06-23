@@ -546,6 +546,8 @@
 	<string name="bookmark_lists_hide_all">모두 숨기기</string>
 	<string name="bookmark_lists_show_all">모두 표시</string>
 	<string name="bookmarks_create_new_group">새 목록 만들기</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_import">북마크 및 트랙 가져오기</string>
 	<string name="bookmarks_error_message_share_general">애플리케이션 오류로 인해 공유할 수 없습니다</string>
 	<string name="bookmarks_error_title_share_empty">공유 오류</string>
 	<string name="bookmarks_error_message_share_empty">빈 목록을 공유 할 수 없습니다</string>

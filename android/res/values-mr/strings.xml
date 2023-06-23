@@ -543,8 +543,8 @@
 	<string name="bookmark_lists_hide_all">सर्व लपवा</string>
 	<string name="bookmark_lists_show_all">सर्व दाखवा</string>
 	<string name="bookmarks_create_new_group">नवीन यादी जोडा</string>
-	<!-- Bookmark categories screen -->
-	<string name="bookmarks_import">खूणपत्रे आयात करा</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_import">बुकमार्क आणि ट्रॅक आयात करा</string>
 	<string name="bookmarks_error_message_share_general">ऍप त्रुटीमुळे सामायिक करण्यात अक्षम</string>
 	<string name="bookmarks_error_title_share_empty">सामायिकरण त्रुटी</string>
 	<string name="bookmarks_error_message_share_empty">रिकामी यादी सामायिक करू शकत नाही</string>

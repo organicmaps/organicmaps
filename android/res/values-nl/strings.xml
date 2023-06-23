@@ -575,8 +575,8 @@
 	<string name="bookmark_lists_hide_all">Alles verbergen</string>
 	<string name="bookmark_lists_show_all">Alles weergeven</string>
 	<string name="bookmarks_create_new_group">Nieuwe lijst maken</string>
-	<!-- Bookmark categories screen -->
-	<string name="bookmarks_import">Bladwijzers importeren</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_import">Bladwijzers en tracks importeren</string>
 	<string name="bookmarks_error_message_share_general">Delen is onmogelijk wegens een toepassingsfout</string>
 	<string name="bookmarks_error_title_share_empty">Deelfout</string>
 	<string name="bookmarks_error_message_share_empty">Een lege lijst kan niet gedeeld worden</string>
