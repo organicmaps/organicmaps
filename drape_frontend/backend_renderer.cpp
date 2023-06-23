@@ -71,7 +71,7 @@ BackendRenderer::BackendRenderer(Params && params)
                               make_unique_dp<FlushSubrouteMarkersMessage>(std::move(subrouteMarkersData)),
                               MessagePriority::Normal);
   });
-  
+
   StartThread();
 }
 
@@ -616,10 +616,10 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       CHECK(m_context != nullptr, ());
       m_texMng->InvalidateArrowTexture(m_context,
                                        m_arrow3dCustomDecl.has_value() ?
-                                         m_arrow3dCustomDecl.value().m_arrowMeshTexturePath :
+                                         m_arrow3dCustomDecl->m_arrowMeshTexturePath :
                                          std::nullopt,
                                        m_arrow3dCustomDecl.has_value() ?
-                                         m_arrow3dCustomDecl.value().m_loadFromDefaultResourceFolder :
+                                         m_arrow3dCustomDecl->m_loadFromDefaultResourceFolder :
                                          false);
       
       // Preload mesh data.
@@ -767,9 +767,9 @@ void BackendRenderer::InitContextDependentResources()
   GetPlatform().GetFontNames(params.m_glyphMngParams.m_fonts);
   if (m_arrow3dCustomDecl.has_value())
   {
-    params.m_arrowTexturePath = m_arrow3dCustomDecl.value().m_arrowMeshTexturePath;
+    params.m_arrowTexturePath = m_arrow3dCustomDecl->m_arrowMeshTexturePath;
     params.m_arrowTextureUseDefaultResourceFolder =
-      m_arrow3dCustomDecl.value().m_loadFromDefaultResourceFolder;
+      m_arrow3dCustomDecl->m_loadFromDefaultResourceFolder;
   }
   
   CHECK(m_context != nullptr, ());
