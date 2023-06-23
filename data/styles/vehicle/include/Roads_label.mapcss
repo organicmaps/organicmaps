@@ -343,6 +343,10 @@ line|z18-[highway=secondary_link]
 
 /* 6.RESIDENTAL & TERTIARY 12-22 ZOOM */
 
+line|z16-[railway=rail][usage=tourism],
+{font-size: 14.5; text: name; text-position: line; text-color: @label_medium; text-halo-opacity: 0.8; text-halo-radius: 1; text-halo-color: @label_halo_light;}
+
+
 line|z12-[highway=residential],
 line|z12-[highway=tertiary],
 line|z18-[highway=residential_link],

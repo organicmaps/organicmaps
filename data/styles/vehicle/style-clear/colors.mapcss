@@ -72,6 +72,7 @@
 /* TRANSPORT */
 @railway_light: #B2B1A2;
 @railway: #8C8B80;
+@railway_tourism: #9C7D65;
 @railway_dash: #EEEEEE;
 @railway_tunnel: #808080;
 @aerialway: #444444;

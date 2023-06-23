@@ -140,10 +140,11 @@
 
 /* 5.5 Transport */
 
-@railway_light: #333333;
-@railway: #333333;
+@railway_light: #38303D;
+@railway: #44374A;
+@railway_tourism: #45372D;
 @railway_tunnel: #222222;
-@railway_dash: #111111;
+@railway_dash: #050505;
 @aerialway: #4E4E3D;
 @powerline: #333333;
 @tram: #5C5C51;
