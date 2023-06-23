@@ -55,7 +55,10 @@ void MapObject::SetFromFeatureType(FeatureType & ft)
   {
     return !cl.IsTypeValid(t);
   });
-  // Actually, we can't select object on map with invalid (non-drawable type).
+  // Actually, we can't select object on map with invalid (non-drawable or deprecated) type.
+  // TODO: in android prod a user will see an "empty" PP if a spot is selected in old mwm
+  // where a deprecated feature was; and could crash if play with routing to it, bookmarking it..
+  // A desktop/qt prod segfaults when trying to select such spots.
   ASSERT(!m_types.Empty(), ());
 
   m_metadata = ft.GetMetadata();
