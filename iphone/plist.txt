@@ -44,7 +44,7 @@
     ca = Marcadors i traces
     cs = Záložky a stopy
     da = Bogmærker og ruter
-    de = Lesezeichen und Strecken
+    de = Lesezeichen und Tracks
     el = Αγαπημένα και διαδρομές
     es = Marcadores y rutas
     et = Järjehoidjad ja rajad

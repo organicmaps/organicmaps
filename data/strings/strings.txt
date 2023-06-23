@@ -1907,7 +1907,7 @@
     ca = Marcadors i traces
     cs = Záložky a stopy
     da = Bogmærker og ruter
-    de = Lesezeichen und Strecken
+    de = Lesezeichen und Tracks
     el = Αγαπημένα και διαδρομές
     es = Marcadores y rutas
     et = Järjehoidjad ja rajad
@@ -4410,7 +4410,7 @@
     ca = Traces
     cs = Stopy
     da = Ruter
-    de = Strecken
+    de = Tracks
     el = Διαδρομές
     es = Rutas
     et = Rajad
@@ -5171,7 +5171,7 @@
     ca = Traces recents
     cs = Historie polohy
     da = Seneste sti
-    de = Letzte Strecke
+    de = Letzter Track
     el = Πρόσφατη διαδρομή
     es = Trayecto reciente
     et = Hiljutine rada
@@ -12983,7 +12983,7 @@
     ca = Per a crear una ruta, cal que actualitzeu tots els mapes i després torneu a planificar la ruta.
     cs = Chcete-li vytvořit trasu, pak musíte aktualizovat všechny mapy a poté trasu naplánovat znovu.
     da = For at oprette en rute skal du opdatere alle kort og så planlægge ruten igen.
-    de = Um eine Strecke zu erstellen, müssen Sie alle Karten aktualisieren und dann die Strecken erneut planen.
+    de = Um eine Route zu erstellen, müssen Sie alle Karten aktualisieren und dann die Route erneut planen.
     el = Για να δημιουργήσετε μια διαδρομή, πρέπει να ενημερώσετε όλους τους χάρτες και στη συνέχεια να σχεδιάσετε τη διαδρομή ξανά.
     es = Para crear una ruta, es necesario actualizar todos los mapas y volver a planificar la ruta.
     et = Marsruudi loomiseks tuleb värskendada kõiki kaarte ja seejärel planeerida marsruuti uuesti.
@@ -19907,8 +19907,8 @@
     ca:other = %d traces
     cs = %d cest
     da = %d ruter
-    de:one = %d Strecke
-    de:other = %d Strecken
+    de:one = %d Track
+    de:other = %d Tracks
     el = %d διαδρομές
     es-MX = %d rastreos
     es:one = %d ruta
@@ -26075,7 +26075,7 @@
     ar = حذف المسار
     be = Выдаліць сцежку
     ca = Esborra la traça
-    de = Strecke löschen
+    de = Track löschen
     es = Borrar ruta
     et = Kustuta rada
     eu = Ezabatu arrastoa
@@ -26100,7 +26100,7 @@
     ar = اسم المسار
     be = Назва сцежкі
     ca = Nom de la traça
-    de = Name der Strecke
+    de = Name des Tracks
     es = Nombre de la ruta
     et = Raja nimi
     eu = Arrastoaren izena
@@ -26153,7 +26153,7 @@
     ca = Traça
     cs = Dráha
     da = Rute
-    de = Strecke
+    de = Track
     el = Τροχιά
     es = Ruta
     et = Rada
