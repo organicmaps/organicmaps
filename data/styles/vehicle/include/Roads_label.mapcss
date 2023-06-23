@@ -74,18 +74,6 @@ line[highway=pedestrian],
 line[highway=ford]
 {z-index: 660;}
 
-line[railway=rail],
-line[railway=light_rail][!tunnel],
-line[railway=subway][!tunnel],
-line[railway=yard]
-{z-index: 680;}
-
-line[railway=rail]::dash,
-line[railway=light_rail][!tunnel]::dash,
-line[railway=subway][!tunnel]::dash,
-line[railway=yard]::dash
-{z-index: 690;}
-
 line[highway=unclassified],
 line[highway=road],
 line[highway=living_street]
@@ -464,19 +452,6 @@ line|z18-[highway=bridleway],
 line|z18-[highway=footway],
 {font-size: 10;}*/
 
-/* 9.RAIL 15-22 ZOOM */
-/*
-line[railway=rail],
-line[railway=light_rail],
-line[railway=yard],
-line[railway=construction],
-line[railway=disused],
-line[railway=preserved],
-line[railway=abandoned],
-line[railway=monorail],
-line[railway=narrow_gauge],
-line[railway=funicular]
-*/
 /* 10.PISTE 15-22 ZOOM */
 /*
 line[power=line],

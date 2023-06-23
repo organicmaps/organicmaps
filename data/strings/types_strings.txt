@@ -18923,55 +18923,8 @@
     zh-Hans = 铁路轨道
     zh-Hant = 鐵路軌道
 
-  [type.railway.razed]
-    en = Razed Rail
-    de = Stillgelegte Eisenbahnstrecke
-    et = Eemaldatud raudtee
-    ja = 撤去済の鉄道
-    nl = Verwijderde spoorbaan
-    pt = Ferrovia removida
-    pt-BR = Ferrovia removida
-    ru = Заброшенная Ж/Д
-    tr = Yıkılmış Ray
-    uk = Закинута залізниця
-
-  [type.railway.siding]
-    en = Siding Rail
-    de = Ausweich-/Überholgleis
-    et = Raudtee haru
-    ja = 側線
-    nl = Nevenspoor
-    pt = Desvio de ferrovia
-    pt-BR = Desvio de ferrovia
-    ru = Ветка Ж/Д
-    tr = Demiryolu Hattı
-    uk = Гілка залізниці
-
-  [type.railway.siding.bridge]
-    en = Siding Rail Bridge
-    de = Ausweich-/Überholgleis
-    et = Raudtee haru sild
-    ja = 側線(橋)
-    nl = Nevenspoor-brug
-    pt = Desvio de ferrovia
-    pt-BR = Desvio de ferrovia
-    ru = Ветка Ж/Д
-    tr = Demiryolu Hattı
-    uk = Гілка залізниці
-
-  [type.railway.siding.tunnel]
-    en = Siding Rail Tunnel
-    de = Ausweich-/Überholgleis
-    et = Raudtee haru tunnel
-    ja = 側線(トンネル)
-    nl = Nevenspoor-tunnel
-    pt = Desvio de ferrovia
-    pt-BR = Desvio de ferrovia
-    ru = Ветка Ж/Д
-    tr = Demiryolu Hattı
-    uk = Гілка залізниці
-
   [type.railway.spur]
+    comment = TODO: reuse for railway-rail-spur
     en = Spur Rail
     de = Anschlussgleis
     et = Rööbastee
@@ -19919,48 +19872,6 @@
     vi = Bến tàu điện
     zh-Hans = 电车站
     zh-Hant = 電車站
-
-  [type.railway.yard]
-    en = Railway Yard
-    de = Abstellgleis
-    et = Raudtee hoov
-    ja = ヤード
-    mr = रेल्वे आवार
-    nl = Rangeerterrein
-    pt = Pátio de manobras ferroviárias
-    pt-BR = Pátio de manobras ferroviárias
-    ru = Ж/Д площадка
-    tr = Demiryolu Avlusu
-    uk = Залізнична ділянка
-    zh-Hans = 铁路货场
-
-  [type.railway.yard.bridge]
-    en = Railway Yard Bridge
-    de = Abstellgleis
-    et = Raudtee hoovi sild
-    ja = ヤード(橋)
-    mr = रेल्वे आवार
-    nl = Rangeerterrein brug
-    pt = Pátio de manobras ferroviárias
-    pt-BR = Pátio de manobras ferroviárias
-    ru = Ж/Д площадка
-    tr = Demiryolu Avlusu
-    uk = Залізнична ділянка
-    zh-Hans = 铁路货场
-
-  [type.railway.yard.tunnel]
-    en = Railway Yard Tunnel
-    de = Abstellgleis
-    et = Raudtee hoovi tunnel
-    ja = ヤード(トンネル)
-    mr = रेल्वे आवार
-    nl = Rangeerterrein tunnel
-    pt = Pátio de manobras ferroviárias
-    pt-BR = Pátio de manobras ferroviárias
-    ru = Ж/Д площадка
-    tr = Demiryolu Avlusu
-    uk = Залізнична ділянка
-    zh-Hans = 铁路货场
 
   [type.route]
     en = Route
