@@ -2783,25 +2783,51 @@
 
 "type.railway.rail" = "Железнодорожный путь";
 
+"type.railway.rail.highspeed" = "Железнодорожный путь";
+
+"type.railway.rail.tourism" = "Железнодорожный путь";
+
+"type.railway.rail.main" = "Железнодорожный путь";
+
+"type.railway.rail.branch" = "Железнодорожный путь";
+
+"type.railway.rail.utility" = "Железнодорожный путь";
+
+"type.railway.rail.spur" = "Подъездная Ж/Д";
+
+"type.railway.rail.service" = "Железнодорожный путь";
+
 "type.railway.rail.bridge" = "Железнодорожный мост";
 
-"type.railway.rail.motor_vehicle" = "Железная дорога";
+"type.railway.rail.highspeed.bridge" = "Железнодорожный мост";
+
+"type.railway.rail.tourism.bridge" = "Железнодорожный мост";
+
+"type.railway.rail.main.bridge" = "Железнодорожный мост";
+
+"type.railway.rail.branch.bridge" = "Железнодорожный мост";
+
+"type.railway.rail.utility.bridge" = "Железнодорожный мост";
+
+"type.railway.rail.spur.bridge" = "Железнодорожный мост";
+
+"type.railway.rail.service.bridge" = "Железнодорожный мост";
 
 "type.railway.rail.tunnel" = "Железнодорожный туннель";
 
-"type.railway.razed" = "Заброшенная Ж/Д";
+"type.railway.rail.highspeed.tunnel" = "Железнодорожный туннель";
 
-"type.railway.siding" = "Ветка Ж/Д";
+"type.railway.rail.tourism.tunnel" = "Железнодорожный туннель";
 
-"type.railway.siding.bridge" = "Ветка Ж/Д";
+"type.railway.rail.main.tunnel" = "Железнодорожный туннель";
 
-"type.railway.siding.tunnel" = "Ветка Ж/Д";
+"type.railway.rail.branch.tunnel" = "Железнодорожный туннель";
 
-"type.railway.spur" = "Подъездная Ж/Д";
+"type.railway.rail.utility.tunnel" = "Железнодорожный туннель";
 
-"type.railway.spur.bridge" = "Подъездная Ж/Д";
+"type.railway.rail.spur.tunnel" = "Железнодорожный туннель";
 
-"type.railway.spur.tunnel" = "Подъездная Ж/Д";
+"type.railway.rail.service.tunnel" = "Железнодорожный туннель";
 
 "type.railway.station" = "Ж/д станция";
 
@@ -3265,17 +3291,11 @@
 
 "type.railway.tram_stop" = "Остановка трамвая";
 
-"type.railway.yard" = "Ж/Д площадка";
-
-"type.railway.yard.bridge" = "Ж/Д площадка";
-
-"type.railway.yard.tunnel" = "Ж/Д площадка";
-
 "type.route" = "Маршрут";
 
 "type.route.ferry" = "Паромная переправа";
 
-"type.route.shuttle_train" = "Челночная линия";
+"type.route.shuttle_train" = "route-shuttle_train";
 
 "type.shop" = "Магазин";
 

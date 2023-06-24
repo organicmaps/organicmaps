@@ -1455,6 +1455,13 @@
 	<string name="type.railway.level_crossing">Przejazd kolejowy</string>
 	<string name="type.railway.monorail">Kolej jednoszynowa</string>
 	<string name="type.railway.rail">Kolej</string>
+	<string name="type.railway.rail.highspeed">Kolej</string>
+	<string name="type.railway.rail.tourism">Kolej</string>
+	<string name="type.railway.rail.main">Kolej</string>
+	<string name="type.railway.rail.branch">Kolej</string>
+	<string name="type.railway.rail.utility">Kolej</string>
+	<string name="type.railway.rail.spur">Kolej</string>
+	<string name="type.railway.rail.service">Kolej</string>
 	<string name="type.railway.station">Dworzec kolejowy</string>
 	<string name="type.railway.station.funicular">Kolejka linowa</string>
 	<string name="type.railway.station.light_rail">Dworzec kolejowy</string>

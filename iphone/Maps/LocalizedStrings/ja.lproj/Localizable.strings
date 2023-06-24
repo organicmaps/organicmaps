@@ -2783,25 +2783,51 @@
 
 "type.railway.rail" = "鉄道";
 
+"type.railway.rail.highspeed" = "鉄道";
+
+"type.railway.rail.tourism" = "鉄道";
+
+"type.railway.rail.main" = "鉄道";
+
+"type.railway.rail.branch" = "鉄道";
+
+"type.railway.rail.utility" = "鉄道";
+
+"type.railway.rail.spur" = "引き込み線";
+
+"type.railway.rail.service" = "鉄道";
+
 "type.railway.rail.bridge" = "鉄道(橋)";
 
-"type.railway.rail.motor_vehicle" = "鉄道";
+"type.railway.rail.highspeed.bridge" = "鉄道(橋)";
+
+"type.railway.rail.tourism.bridge" = "鉄道(橋)";
+
+"type.railway.rail.main.bridge" = "鉄道(橋)";
+
+"type.railway.rail.branch.bridge" = "鉄道(橋)";
+
+"type.railway.rail.utility.bridge" = "鉄道(橋)";
+
+"type.railway.rail.spur.bridge" = "鉄道(橋)";
+
+"type.railway.rail.service.bridge" = "鉄道(橋)";
 
 "type.railway.rail.tunnel" = "鉄道(鉄道)";
 
-"type.railway.razed" = "撤去済の鉄道";
+"type.railway.rail.highspeed.tunnel" = "鉄道(鉄道)";
 
-"type.railway.siding" = "側線";
+"type.railway.rail.tourism.tunnel" = "鉄道(鉄道)";
 
-"type.railway.siding.bridge" = "側線(橋)";
+"type.railway.rail.main.tunnel" = "鉄道(鉄道)";
 
-"type.railway.siding.tunnel" = "側線(トンネル)";
+"type.railway.rail.branch.tunnel" = "鉄道(鉄道)";
 
-"type.railway.spur" = "引き込み線";
+"type.railway.rail.utility.tunnel" = "鉄道(鉄道)";
 
-"type.railway.spur.bridge" = "引き込み線(橋)";
+"type.railway.rail.spur.tunnel" = "鉄道(鉄道)";
 
-"type.railway.spur.tunnel" = "引き込み線(トンネル)";
+"type.railway.rail.service.tunnel" = "鉄道(鉄道)";
 
 "type.railway.station" = "鉄道駅";
 
@@ -3265,17 +3291,11 @@
 
 "type.railway.tram_stop" = "トラム";
 
-"type.railway.yard" = "ヤード";
-
-"type.railway.yard.bridge" = "ヤード(橋)";
-
-"type.railway.yard.tunnel" = "ヤード(トンネル)";
-
 "type.route" = "ルート";
 
 "type.route.ferry" = "フェリー航路";
 
-"type.route.shuttle_train" = "Shuttle Train";
+"type.route.shuttle_train" = "route-shuttle_train";
 
 "type.shop" = "買い物";
 

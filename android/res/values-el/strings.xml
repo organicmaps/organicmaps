@@ -1315,6 +1315,13 @@
 	<string name="type.railway.level_crossing">Σιδηροδρομική διέλευση</string>
 	<string name="type.railway.monorail">Μονοαξονικός σιδηρόδρομος</string>
 	<string name="type.railway.rail">Σιδηρόδρομος</string>
+	<string name="type.railway.rail.highspeed">Σιδηρόδρομος</string>
+	<string name="type.railway.rail.tourism">Σιδηρόδρομος</string>
+	<string name="type.railway.rail.main">Σιδηρόδρομος</string>
+	<string name="type.railway.rail.branch">Σιδηρόδρομος</string>
+	<string name="type.railway.rail.utility">Σιδηρόδρομος</string>
+	<string name="type.railway.rail.spur">Σιδηρόδρομος</string>
+	<string name="type.railway.rail.service">Σιδηρόδρομος</string>
 	<string name="type.railway.station">Σιδηροδρομικός σταθμός</string>
 	<string name="type.railway.station.funicular">Μονωτικό τρενάκι</string>
 	<string name="type.railway.station.light_rail">Σιδηροδρομικός σταθμός</string>

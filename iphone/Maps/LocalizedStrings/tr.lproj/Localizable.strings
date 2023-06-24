@@ -2783,25 +2783,51 @@
 
 "type.railway.rail" = "Demiryolu";
 
+"type.railway.rail.highspeed" = "Demiryolu";
+
+"type.railway.rail.tourism" = "Demiryolu";
+
+"type.railway.rail.main" = "Demiryolu";
+
+"type.railway.rail.branch" = "Demiryolu";
+
+"type.railway.rail.utility" = "Demiryolu";
+
+"type.railway.rail.spur" = "Düz Ray";
+
+"type.railway.rail.service" = "Demiryolu";
+
 "type.railway.rail.bridge" = "Demiryolu";
 
-"type.railway.rail.motor_vehicle" = "Demiryolu";
+"type.railway.rail.highspeed.bridge" = "Demiryolu";
+
+"type.railway.rail.tourism.bridge" = "Demiryolu";
+
+"type.railway.rail.main.bridge" = "Demiryolu";
+
+"type.railway.rail.branch.bridge" = "Demiryolu";
+
+"type.railway.rail.utility.bridge" = "Demiryolu";
+
+"type.railway.rail.spur.bridge" = "Demiryolu";
+
+"type.railway.rail.service.bridge" = "Demiryolu";
 
 "type.railway.rail.tunnel" = "Demiryolu";
 
-"type.railway.razed" = "Yıkılmış Ray";
+"type.railway.rail.highspeed.tunnel" = "Demiryolu";
 
-"type.railway.siding" = "Demiryolu Hattı";
+"type.railway.rail.tourism.tunnel" = "Demiryolu";
 
-"type.railway.siding.bridge" = "Demiryolu Hattı";
+"type.railway.rail.main.tunnel" = "Demiryolu";
 
-"type.railway.siding.tunnel" = "Demiryolu Hattı";
+"type.railway.rail.branch.tunnel" = "Demiryolu";
 
-"type.railway.spur" = "Düz Ray";
+"type.railway.rail.utility.tunnel" = "Demiryolu";
 
-"type.railway.spur.bridge" = "Düz Ray";
+"type.railway.rail.spur.tunnel" = "Demiryolu";
 
-"type.railway.spur.tunnel" = "Düz Ray";
+"type.railway.rail.service.tunnel" = "Demiryolu";
 
 "type.railway.station" = "Tren İstasyonu";
 
@@ -3265,17 +3291,11 @@
 
 "type.railway.tram_stop" = "Tramvay Durağı";
 
-"type.railway.yard" = "Demiryolu Avlusu";
-
-"type.railway.yard.bridge" = "Demiryolu Avlusu";
-
-"type.railway.yard.tunnel" = "Demiryolu Avlusu";
-
 "type.route" = "Rota";
 
 "type.route.ferry" = "Feribot";
 
-"type.route.shuttle_train" = "Servis Treni";
+"type.route.shuttle_train" = "route-shuttle_train";
 
 "type.shop" = "Mağaza";
 

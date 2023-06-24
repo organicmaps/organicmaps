@@ -2783,25 +2783,51 @@
 
 "type.railway.rail" = "Railway";
 
+"type.railway.rail.highspeed" = "Railway";
+
+"type.railway.rail.tourism" = "Railway";
+
+"type.railway.rail.main" = "Railway";
+
+"type.railway.rail.branch" = "Railway";
+
+"type.railway.rail.utility" = "Railway";
+
+"type.railway.rail.spur" = "Spur Rail";
+
+"type.railway.rail.service" = "Railway";
+
 "type.railway.rail.bridge" = "Railway Bridge";
 
-"type.railway.rail.motor_vehicle" = "Railway";
+"type.railway.rail.highspeed.bridge" = "Railway Bridge";
+
+"type.railway.rail.tourism.bridge" = "Railway Bridge";
+
+"type.railway.rail.main.bridge" = "Railway Bridge";
+
+"type.railway.rail.branch.bridge" = "Railway Bridge";
+
+"type.railway.rail.utility.bridge" = "Railway Bridge";
+
+"type.railway.rail.spur.bridge" = "Railway Bridge";
+
+"type.railway.rail.service.bridge" = "Railway Bridge";
 
 "type.railway.rail.tunnel" = "Railway Tunnel";
 
-"type.railway.razed" = "Razed Rail";
+"type.railway.rail.highspeed.tunnel" = "Railway Tunnel";
 
-"type.railway.siding" = "Siding Rail";
+"type.railway.rail.tourism.tunnel" = "Railway Tunnel";
 
-"type.railway.siding.bridge" = "Siding Rail Bridge";
+"type.railway.rail.main.tunnel" = "Railway Tunnel";
 
-"type.railway.siding.tunnel" = "Siding Rail Tunnel";
+"type.railway.rail.branch.tunnel" = "Railway Tunnel";
 
-"type.railway.spur" = "Spur Rail";
+"type.railway.rail.utility.tunnel" = "Railway Tunnel";
 
-"type.railway.spur.bridge" = "Spur Rail Bridge";
+"type.railway.rail.spur.tunnel" = "Railway Tunnel";
 
-"type.railway.spur.tunnel" = "Spur Rail Tunnel";
+"type.railway.rail.service.tunnel" = "Railway Tunnel";
 
 "type.railway.station" = "Train Station";
 
@@ -3265,17 +3291,11 @@
 
 "type.railway.tram_stop" = "Tram Stop";
 
-"type.railway.yard" = "Railway Yard";
-
-"type.railway.yard.bridge" = "Railway Yard Bridge";
-
-"type.railway.yard.tunnel" = "Railway Yard Tunnel";
-
 "type.route" = "Route";
 
 "type.route.ferry" = "Ferry";
 
-"type.route.shuttle_train" = "Shuttle Train";
+"type.route.shuttle_train" = "route-shuttle_train";
 
 "type.shop" = "Shop";
 

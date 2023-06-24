@@ -2783,25 +2783,51 @@
 
 "type.railway.rail" = "Chemin de fer";
 
+"type.railway.rail.highspeed" = "Chemin de fer";
+
+"type.railway.rail.tourism" = "Chemin de fer";
+
+"type.railway.rail.main" = "Chemin de fer";
+
+"type.railway.rail.branch" = "Chemin de fer";
+
+"type.railway.rail.utility" = "Chemin de fer";
+
+"type.railway.rail.spur" = "Chemin de fer";
+
+"type.railway.rail.service" = "Chemin de fer";
+
 "type.railway.rail.bridge" = "Chemin de fer";
 
-"type.railway.rail.motor_vehicle" = "Railway";
+"type.railway.rail.highspeed.bridge" = "Chemin de fer";
+
+"type.railway.rail.tourism.bridge" = "Chemin de fer";
+
+"type.railway.rail.main.bridge" = "Chemin de fer";
+
+"type.railway.rail.branch.bridge" = "Chemin de fer";
+
+"type.railway.rail.utility.bridge" = "Chemin de fer";
+
+"type.railway.rail.spur.bridge" = "Chemin de fer";
+
+"type.railway.rail.service.bridge" = "Chemin de fer";
 
 "type.railway.rail.tunnel" = "Chemin de fer";
 
-"type.railway.razed" = "Razed Rail";
+"type.railway.rail.highspeed.tunnel" = "Chemin de fer";
 
-"type.railway.siding" = "Siding Rail";
+"type.railway.rail.tourism.tunnel" = "Chemin de fer";
 
-"type.railway.siding.bridge" = "Siding Rail Bridge";
+"type.railway.rail.main.tunnel" = "Chemin de fer";
 
-"type.railway.siding.tunnel" = "Siding Rail Tunnel";
+"type.railway.rail.branch.tunnel" = "Chemin de fer";
 
-"type.railway.spur" = "Spur Rail";
+"type.railway.rail.utility.tunnel" = "Chemin de fer";
 
-"type.railway.spur.bridge" = "Spur Rail Bridge";
+"type.railway.rail.spur.tunnel" = "Chemin de fer";
 
-"type.railway.spur.tunnel" = "Spur Rail Tunnel";
+"type.railway.rail.service.tunnel" = "Chemin de fer";
 
 "type.railway.station" = "Gare";
 
@@ -3265,17 +3291,11 @@
 
 "type.railway.tram_stop" = "Arrêt de tramway";
 
-"type.railway.yard" = "Railway Yard";
-
-"type.railway.yard.bridge" = "Railway Yard Bridge";
-
-"type.railway.yard.tunnel" = "Railway Yard Tunnel";
-
 "type.route" = "Route";
 
 "type.route.ferry" = "Trajet de ferry";
 
-"type.route.shuttle_train" = "Shuttle Train";
+"type.route.shuttle_train" = "route-shuttle_train";
 
 "type.shop" = "Magasin";
 

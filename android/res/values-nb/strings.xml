@@ -1368,6 +1368,13 @@
 	<string name="type.railway.platform">Jernbaneplattform</string>
 	<string name="type.railway.preserved">Museumsjernbane</string>
 	<string name="type.railway.rail">Toglinje</string>
+	<string name="type.railway.rail.highspeed">Toglinje</string>
+	<string name="type.railway.rail.tourism">Toglinje</string>
+	<string name="type.railway.rail.main">Toglinje</string>
+	<string name="type.railway.rail.branch">Toglinje</string>
+	<string name="type.railway.rail.utility">Toglinje</string>
+	<string name="type.railway.rail.spur">Toglinje</string>
+	<string name="type.railway.rail.service">Toglinje</string>
 	<string name="type.railway.station">Togstasjon</string>
 	<string name="type.railway.station.funicular">Kabelbane</string>
 	<string name="type.railway.station.light_rail">Togstasjon</string>

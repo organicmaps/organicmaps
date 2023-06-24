@@ -2783,25 +2783,51 @@
 
 "type.railway.rail" = "Eisenbahn";
 
+"type.railway.rail.highspeed" = "Eisenbahn";
+
+"type.railway.rail.tourism" = "Eisenbahn";
+
+"type.railway.rail.main" = "Eisenbahn";
+
+"type.railway.rail.branch" = "Eisenbahn";
+
+"type.railway.rail.utility" = "Eisenbahn";
+
+"type.railway.rail.spur" = "Anschlussgleis";
+
+"type.railway.rail.service" = "Eisenbahn";
+
 "type.railway.rail.bridge" = "Eisenbahnbrücke";
 
-"type.railway.rail.motor_vehicle" = "Eisenbahn";
+"type.railway.rail.highspeed.bridge" = "Eisenbahnbrücke";
+
+"type.railway.rail.tourism.bridge" = "Eisenbahnbrücke";
+
+"type.railway.rail.main.bridge" = "Eisenbahnbrücke";
+
+"type.railway.rail.branch.bridge" = "Eisenbahnbrücke";
+
+"type.railway.rail.utility.bridge" = "Eisenbahnbrücke";
+
+"type.railway.rail.spur.bridge" = "Eisenbahnbrücke";
+
+"type.railway.rail.service.bridge" = "Eisenbahnbrücke";
 
 "type.railway.rail.tunnel" = "Eisenbahntunnel";
 
-"type.railway.razed" = "Stillgelegte Eisenbahnstrecke";
+"type.railway.rail.highspeed.tunnel" = "Eisenbahntunnel";
 
-"type.railway.siding" = "Ausweich-/Überholgleis";
+"type.railway.rail.tourism.tunnel" = "Eisenbahntunnel";
 
-"type.railway.siding.bridge" = "Ausweich-/Überholgleis";
+"type.railway.rail.main.tunnel" = "Eisenbahntunnel";
 
-"type.railway.siding.tunnel" = "Ausweich-/Überholgleis";
+"type.railway.rail.branch.tunnel" = "Eisenbahntunnel";
 
-"type.railway.spur" = "Anschlussgleis";
+"type.railway.rail.utility.tunnel" = "Eisenbahntunnel";
 
-"type.railway.spur.bridge" = "Anschlussgleis";
+"type.railway.rail.spur.tunnel" = "Eisenbahntunnel";
 
-"type.railway.spur.tunnel" = "Anschlussgleis";
+"type.railway.rail.service.tunnel" = "Eisenbahntunnel";
 
 "type.railway.station" = "Bahnhof";
 
@@ -3265,17 +3291,11 @@
 
 "type.railway.tram_stop" = "Straßenbahnhaltestelle";
 
-"type.railway.yard" = "Abstellgleis";
-
-"type.railway.yard.bridge" = "Abstellgleis";
-
-"type.railway.yard.tunnel" = "Abstellgleis";
-
 "type.route" = "Route";
 
 "type.route.ferry" = "Fähre";
 
-"type.route.shuttle_train" = "Shuttlezug";
+"type.route.shuttle_train" = "route-shuttle_train";
 
 "type.shop" = "Geschäft";
 

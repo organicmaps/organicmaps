@@ -1362,6 +1362,13 @@
 	<string name="type.railway.level_crossing">Rautatien tasoristeys</string>
 	<string name="type.railway.monorail">Monorail (kohorata)</string>
 	<string name="type.railway.rail">Rautatie</string>
+	<string name="type.railway.rail.highspeed">Rautatie</string>
+	<string name="type.railway.rail.tourism">Rautatie</string>
+	<string name="type.railway.rail.main">Rautatie</string>
+	<string name="type.railway.rail.branch">Rautatie</string>
+	<string name="type.railway.rail.utility">Rautatie</string>
+	<string name="type.railway.rail.spur">Rautatie</string>
+	<string name="type.railway.rail.service">Rautatie</string>
 	<string name="type.railway.station">Rautatieasema</string>
 	<string name="type.railway.station.funicular">Köysirata</string>
 	<string name="type.railway.station.light_rail">Rautatieasema</string>

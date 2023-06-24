@@ -1493,6 +1493,13 @@
 	<string name="type.railway.narrow_gauge">Vía férrea de ancho estrecho</string>
 	<string name="type.railway.platform">Plataforma de vía férrea</string>
 	<string name="type.railway.rail">Ferrocarril</string>
+	<string name="type.railway.rail.highspeed">Ferrocarril</string>
+	<string name="type.railway.rail.tourism">Ferrocarril</string>
+	<string name="type.railway.rail.main">Ferrocarril</string>
+	<string name="type.railway.rail.branch">Ferrocarril</string>
+	<string name="type.railway.rail.utility">Ferrocarril</string>
+	<string name="type.railway.rail.spur">Ferrocarril</string>
+	<string name="type.railway.rail.service">Ferrocarril</string>
 	<string name="type.railway.station">Estación de tren</string>
 	<string name="type.railway.station.funicular">Funicular</string>
 	<string name="type.railway.station.light_rail">Estación de tren</string>

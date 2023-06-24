@@ -550,6 +550,13 @@
 	<string name="type.railway.level_crossing">Tambuka Reli</string>
 	<string name="type.railway.monorail">Mfumo wa reli moja</string>
 	<string name="type.railway.rail">Njia ya Reli</string>
+	<string name="type.railway.rail.highspeed">Njia ya Reli</string>
+	<string name="type.railway.rail.tourism">Njia ya Reli</string>
+	<string name="type.railway.rail.main">Njia ya Reli</string>
+	<string name="type.railway.rail.branch">Njia ya Reli</string>
+	<string name="type.railway.rail.utility">Njia ya Reli</string>
+	<string name="type.railway.rail.spur">Njia ya Reli</string>
+	<string name="type.railway.rail.service">Njia ya Reli</string>
 	<string name="type.railway.station.funicular">Funicular</string>
 	<string name="type.railway.subway_entrance">Lango la kuingilia stesheni ya reli</string>
 	<string name="type.railway.subway_entrance.adana">Lango la kuingilia stesheni ya reli</string>

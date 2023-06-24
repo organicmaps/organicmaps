@@ -1320,6 +1320,13 @@
 	<string name="type.railway.level_crossing">Přejezd</string>
 	<string name="type.railway.monorail">Jednokolejná železnice</string>
 	<string name="type.railway.rail">Železnice</string>
+	<string name="type.railway.rail.highspeed">Železnice</string>
+	<string name="type.railway.rail.tourism">Železnice</string>
+	<string name="type.railway.rail.main">Železnice</string>
+	<string name="type.railway.rail.branch">Železnice</string>
+	<string name="type.railway.rail.utility">Železnice</string>
+	<string name="type.railway.rail.spur">Železnice</string>
+	<string name="type.railway.rail.service">Železnice</string>
 	<string name="type.railway.station">Železniční stanice</string>
 	<string name="type.railway.station.funicular">Lanovka</string>
 	<string name="type.railway.station.light_rail">Železniční stanice</string>

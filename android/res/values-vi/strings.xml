@@ -1308,6 +1308,13 @@
 	<string name="type.railway.level_crossing">Chỗ qua đường sắt</string>
 	<string name="type.railway.monorail">Đường sắt một chiều</string>
 	<string name="type.railway.rail">Đường sắt</string>
+	<string name="type.railway.rail.highspeed">Đường sắt</string>
+	<string name="type.railway.rail.tourism">Đường sắt</string>
+	<string name="type.railway.rail.main">Đường sắt</string>
+	<string name="type.railway.rail.branch">Đường sắt</string>
+	<string name="type.railway.rail.utility">Đường sắt</string>
+	<string name="type.railway.rail.spur">Đường sắt</string>
+	<string name="type.railway.rail.service">Đường sắt</string>
 	<string name="type.railway.station">Đường tàu hỏa</string>
 	<string name="type.railway.station.funicular">Đường sắt leo núi</string>
 	<string name="type.railway.station.light_rail">Đường tàu hỏa</string>
