@@ -330,6 +330,13 @@
 	<string name="type.railway.level_crossing">Cruce de ferrocarril</string>
 	<string name="type.railway.monorail">Monorraíl</string>
 	<string name="type.railway.rail">Línea de ferrocarril</string>
+	<string name="type.railway.rail.highspeed">Línea de ferrocarril</string>
+	<string name="type.railway.rail.tourism">Línea de ferrocarril</string>
+	<string name="type.railway.rail.main">Línea de ferrocarril</string>
+	<string name="type.railway.rail.branch">Línea de ferrocarril</string>
+	<string name="type.railway.rail.utility">Línea de ferrocarril</string>
+	<string name="type.railway.rail.spur">Línea de ferrocarril</string>
+	<string name="type.railway.rail.service">Línea de ferrocarril</string>
 	<string name="type.railway.station">Estación de tren</string>
 	<string name="type.railway.station.light_rail">Estación de tren</string>
 	<string name="type.railway.station.monorail">Estación de tren</string>

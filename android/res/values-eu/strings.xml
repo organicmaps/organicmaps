@@ -1422,6 +1422,13 @@
 	<string name="type.railway.level_crossing">Trenbide-pasagunea</string>
 	<string name="type.railway.monorail">Tren monoraila</string>
 	<string name="type.railway.rail">Trenbidea</string>
+	<string name="type.railway.rail.highspeed">Trenbidea</string>
+	<string name="type.railway.rail.tourism">Trenbidea</string>
+	<string name="type.railway.rail.main">Trenbidea</string>
+	<string name="type.railway.rail.branch">Trenbidea</string>
+	<string name="type.railway.rail.utility">Trenbidea</string>
+	<string name="type.railway.rail.spur">Trenbidea</string>
+	<string name="type.railway.rail.service">Trenbidea</string>
 	<string name="type.railway.station">Tren geltokian</string>
 	<string name="type.railway.station.funicular">Funikularra</string>
 	<string name="type.railway.station.light_rail">Tren geltokian</string>

@@ -1440,6 +1440,13 @@
 	<string name="type.railway.light_rail">Metropolitana</string>
 	<string name="type.railway.monorail">Monorotaia</string>
 	<string name="type.railway.rail">Binari</string>
+	<string name="type.railway.rail.highspeed">Binari</string>
+	<string name="type.railway.rail.tourism">Binari</string>
+	<string name="type.railway.rail.main">Binari</string>
+	<string name="type.railway.rail.branch">Binari</string>
+	<string name="type.railway.rail.utility">Binari</string>
+	<string name="type.railway.rail.spur">Binari</string>
+	<string name="type.railway.rail.service">Binari</string>
 	<string name="type.railway.station">Stazione ferroviaria</string>
 	<string name="type.railway.station.funicular">Funicolare</string>
 	<string name="type.railway.station.light_rail">Stazione ferroviaria</string>

@@ -2783,25 +2783,51 @@
 
 "type.railway.rail" = "Spoorlijn";
 
+"type.railway.rail.highspeed" = "Spoorlijn";
+
+"type.railway.rail.tourism" = "Spoorlijn";
+
+"type.railway.rail.main" = "Spoorlijn";
+
+"type.railway.rail.branch" = "Spoorlijn";
+
+"type.railway.rail.utility" = "Spoorlijn";
+
+"type.railway.rail.spur" = "Zijspoor";
+
+"type.railway.rail.service" = "Spoorlijn";
+
 "type.railway.rail.bridge" = "Treinspoorbrug";
 
-"type.railway.rail.motor_vehicle" = "Spoorweg";
+"type.railway.rail.highspeed.bridge" = "Treinspoorbrug";
+
+"type.railway.rail.tourism.bridge" = "Treinspoorbrug";
+
+"type.railway.rail.main.bridge" = "Treinspoorbrug";
+
+"type.railway.rail.branch.bridge" = "Treinspoorbrug";
+
+"type.railway.rail.utility.bridge" = "Treinspoorbrug";
+
+"type.railway.rail.spur.bridge" = "Treinspoorbrug";
+
+"type.railway.rail.service.bridge" = "Treinspoorbrug";
 
 "type.railway.rail.tunnel" = "Spoortunnel";
 
-"type.railway.razed" = "Verwijderde spoorbaan";
+"type.railway.rail.highspeed.tunnel" = "Spoortunnel";
 
-"type.railway.siding" = "Nevenspoor";
+"type.railway.rail.tourism.tunnel" = "Spoortunnel";
 
-"type.railway.siding.bridge" = "Nevenspoor-brug";
+"type.railway.rail.main.tunnel" = "Spoortunnel";
 
-"type.railway.siding.tunnel" = "Nevenspoor-tunnel";
+"type.railway.rail.branch.tunnel" = "Spoortunnel";
 
-"type.railway.spur" = "Zijspoor";
+"type.railway.rail.utility.tunnel" = "Spoortunnel";
 
-"type.railway.spur.bridge" = "Zijspoor-brug";
+"type.railway.rail.spur.tunnel" = "Spoortunnel";
 
-"type.railway.spur.tunnel" = "Zijspoor-tunnel";
+"type.railway.rail.service.tunnel" = "Spoortunnel";
 
 "type.railway.station" = "Station";
 
@@ -3265,17 +3291,11 @@
 
 "type.railway.tram_stop" = "Tramhalte";
 
-"type.railway.yard" = "Rangeerterrein";
-
-"type.railway.yard.bridge" = "Rangeerterrein brug";
-
-"type.railway.yard.tunnel" = "Rangeerterrein tunnel";
-
 "type.route" = "Route";
 
 "type.route.ferry" = "Veerboot";
 
-"type.route.shuttle_train" = "Shuttle-trein";
+"type.route.shuttle_train" = "route-shuttle_train";
 
 "type.shop" = "Winkel";
 

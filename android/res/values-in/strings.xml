@@ -1307,6 +1307,13 @@
 	<string name="type.railway.level_crossing">Perlintasan Kereta Api</string>
 	<string name="type.railway.monorail">Monorel</string>
 	<string name="type.railway.rail">Kereta api</string>
+	<string name="type.railway.rail.highspeed">Kereta api</string>
+	<string name="type.railway.rail.tourism">Kereta api</string>
+	<string name="type.railway.rail.main">Kereta api</string>
+	<string name="type.railway.rail.branch">Kereta api</string>
+	<string name="type.railway.rail.utility">Kereta api</string>
+	<string name="type.railway.rail.spur">Kereta api</string>
+	<string name="type.railway.rail.service">Kereta api</string>
 	<string name="type.railway.station">Rel kereta api</string>
 	<string name="type.railway.station.funicular">Kereta gantung</string>
 	<string name="type.railway.station.light_rail">Rel kereta api</string>

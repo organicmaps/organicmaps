@@ -1305,6 +1305,13 @@
 	<string name="type.railway.level_crossing">Järnvägskorsning</string>
 	<string name="type.railway.monorail">Monorail</string>
 	<string name="type.railway.rail">Järnväg</string>
+	<string name="type.railway.rail.highspeed">Järnväg</string>
+	<string name="type.railway.rail.tourism">Järnväg</string>
+	<string name="type.railway.rail.main">Järnväg</string>
+	<string name="type.railway.rail.branch">Järnväg</string>
+	<string name="type.railway.rail.utility">Järnväg</string>
+	<string name="type.railway.rail.spur">Järnväg</string>
+	<string name="type.railway.rail.service">Järnväg</string>
 	<string name="type.railway.station">Tågstation</string>
 	<string name="type.railway.station.funicular">Linbana</string>
 	<string name="type.railway.station.light_rail">Tågstation</string>

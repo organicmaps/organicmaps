@@ -2783,25 +2783,51 @@
 
 "type.railway.rail" = "Залізнична дорога";
 
+"type.railway.rail.highspeed" = "Залізнична дорога";
+
+"type.railway.rail.tourism" = "Залізнична дорога";
+
+"type.railway.rail.main" = "Залізнична дорога";
+
+"type.railway.rail.branch" = "Залізнична дорога";
+
+"type.railway.rail.utility" = "Залізнична дорога";
+
+"type.railway.rail.spur" = "Під'їздна залізниця";
+
+"type.railway.rail.service" = "Залізнична дорога";
+
 "type.railway.rail.bridge" = "Залізничний міст";
 
-"type.railway.rail.motor_vehicle" = "Залізниця";
+"type.railway.rail.highspeed.bridge" = "Залізничний міст";
+
+"type.railway.rail.tourism.bridge" = "Залізничний міст";
+
+"type.railway.rail.main.bridge" = "Залізничний міст";
+
+"type.railway.rail.branch.bridge" = "Залізничний міст";
+
+"type.railway.rail.utility.bridge" = "Залізничний міст";
+
+"type.railway.rail.spur.bridge" = "Залізничний міст";
+
+"type.railway.rail.service.bridge" = "Залізничний міст";
 
 "type.railway.rail.tunnel" = "Залізничний тунель";
 
-"type.railway.razed" = "Закинута залізниця";
+"type.railway.rail.highspeed.tunnel" = "Залізничний тунель";
 
-"type.railway.siding" = "Гілка залізниці";
+"type.railway.rail.tourism.tunnel" = "Залізничний тунель";
 
-"type.railway.siding.bridge" = "Гілка залізниці";
+"type.railway.rail.main.tunnel" = "Залізничний тунель";
 
-"type.railway.siding.tunnel" = "Гілка залізниці";
+"type.railway.rail.branch.tunnel" = "Залізничний тунель";
 
-"type.railway.spur" = "Під'їздна залізниця";
+"type.railway.rail.utility.tunnel" = "Залізничний тунель";
 
-"type.railway.spur.bridge" = "Під'їздна залізниця";
+"type.railway.rail.spur.tunnel" = "Залізничний тунель";
 
-"type.railway.spur.tunnel" = "Під'їздна залізниця";
+"type.railway.rail.service.tunnel" = "Залізничний тунель";
 
 "type.railway.station" = "Залізничний вокзал";
 
@@ -3265,17 +3291,11 @@
 
 "type.railway.tram_stop" = "Зупинка";
 
-"type.railway.yard" = "Залізнична ділянка";
-
-"type.railway.yard.bridge" = "Залізнична ділянка";
-
-"type.railway.yard.tunnel" = "Залізнична ділянка";
-
 "type.route" = "Маршрут";
 
 "type.route.ferry" = "Паромна переправа";
 
-"type.route.shuttle_train" = "Shuttle Train";
+"type.route.shuttle_train" = "route-shuttle_train";
 
 "type.shop" = "Крамниця";
 

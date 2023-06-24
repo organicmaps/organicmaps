@@ -1225,6 +1225,13 @@
 	<string name="type.railway.level_crossing">تقاطع راه آهن</string>
 	<string name="type.railway.monorail">مونوریل</string>
 	<string name="type.railway.rail">راه آهن</string>
+	<string name="type.railway.rail.highspeed">راه آهن</string>
+	<string name="type.railway.rail.tourism">راه آهن</string>
+	<string name="type.railway.rail.main">راه آهن</string>
+	<string name="type.railway.rail.branch">راه آهن</string>
+	<string name="type.railway.rail.utility">راه آهن</string>
+	<string name="type.railway.rail.spur">راه آهن</string>
+	<string name="type.railway.rail.service">راه آهن</string>
 	<string name="type.railway.station">ایستگاه قطار</string>
 	<string name="type.railway.station.funicular">فونیکولور</string>
 	<string name="type.railway.station.light_rail">ایستگاه قطار</string>

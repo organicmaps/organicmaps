@@ -1330,6 +1330,13 @@
 	<string name="type.railway.level_crossing">Vasúti átjáró</string>
 	<string name="type.railway.monorail">Egysínű vasút</string>
 	<string name="type.railway.rail">Vasút</string>
+	<string name="type.railway.rail.highspeed">Vasút</string>
+	<string name="type.railway.rail.tourism">Vasút</string>
+	<string name="type.railway.rail.main">Vasút</string>
+	<string name="type.railway.rail.branch">Vasút</string>
+	<string name="type.railway.rail.utility">Vasút</string>
+	<string name="type.railway.rail.spur">Vasút</string>
+	<string name="type.railway.rail.service">Vasút</string>
 	<string name="type.railway.station">Vonatmegálló</string>
 	<string name="type.railway.station.funicular">Funicular</string>
 	<string name="type.railway.station.light_rail">Vonatmegálló</string>

@@ -1424,6 +1424,13 @@
 	<string name="type.railway.level_crossing">مزلقان</string>
 	<string name="type.railway.monorail">اتجاه واحد</string>
 	<string name="type.railway.rail">خط سكة حديد</string>
+	<string name="type.railway.rail.highspeed">خط سكة حديد</string>
+	<string name="type.railway.rail.tourism">خط سكة حديد</string>
+	<string name="type.railway.rail.main">خط سكة حديد</string>
+	<string name="type.railway.rail.branch">خط سكة حديد</string>
+	<string name="type.railway.rail.utility">خط سكة حديد</string>
+	<string name="type.railway.rail.spur">خط سكة حديد</string>
+	<string name="type.railway.rail.service">خط سكة حديد</string>
 	<string name="type.railway.station">محطة سكك حديدية</string>
 	<string name="type.railway.station.funicular">حبلي</string>
 	<string name="type.railway.station.light_rail">محطة سكك حديدية</string>

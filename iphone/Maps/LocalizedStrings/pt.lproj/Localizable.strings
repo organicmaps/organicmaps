@@ -2783,25 +2783,51 @@
 
 "type.railway.rail" = "Ferrovia";
 
+"type.railway.rail.highspeed" = "Ferrovia";
+
+"type.railway.rail.tourism" = "Ferrovia";
+
+"type.railway.rail.main" = "Ferrovia";
+
+"type.railway.rail.branch" = "Ferrovia";
+
+"type.railway.rail.utility" = "Ferrovia";
+
+"type.railway.rail.spur" = "Ramal de ferrovia";
+
+"type.railway.rail.service" = "Ferrovia";
+
 "type.railway.rail.bridge" = "Ferrovia";
 
-"type.railway.rail.motor_vehicle" = "Ferrovia";
+"type.railway.rail.highspeed.bridge" = "Ferrovia";
+
+"type.railway.rail.tourism.bridge" = "Ferrovia";
+
+"type.railway.rail.main.bridge" = "Ferrovia";
+
+"type.railway.rail.branch.bridge" = "Ferrovia";
+
+"type.railway.rail.utility.bridge" = "Ferrovia";
+
+"type.railway.rail.spur.bridge" = "Ferrovia";
+
+"type.railway.rail.service.bridge" = "Ferrovia";
 
 "type.railway.rail.tunnel" = "Ferrovia";
 
-"type.railway.razed" = "Ferrovia removida";
+"type.railway.rail.highspeed.tunnel" = "Ferrovia";
 
-"type.railway.siding" = "Desvio de ferrovia";
+"type.railway.rail.tourism.tunnel" = "Ferrovia";
 
-"type.railway.siding.bridge" = "Desvio de ferrovia";
+"type.railway.rail.main.tunnel" = "Ferrovia";
 
-"type.railway.siding.tunnel" = "Desvio de ferrovia";
+"type.railway.rail.branch.tunnel" = "Ferrovia";
 
-"type.railway.spur" = "Ramal de ferrovia";
+"type.railway.rail.utility.tunnel" = "Ferrovia";
 
-"type.railway.spur.bridge" = "Ramal de ferrovia";
+"type.railway.rail.spur.tunnel" = "Ferrovia";
 
-"type.railway.spur.tunnel" = "Ramal de ferrovia";
+"type.railway.rail.service.tunnel" = "Ferrovia";
 
 "type.railway.station" = "Estação de comboios";
 
@@ -3265,17 +3291,11 @@
 
 "type.railway.tram_stop" = "Paragem de elétrico";
 
-"type.railway.yard" = "Pátio de manobras ferroviárias";
-
-"type.railway.yard.bridge" = "Pátio de manobras ferroviárias";
-
-"type.railway.yard.tunnel" = "Pátio de manobras ferroviárias";
-
 "type.route" = "Rota";
 
 "type.route.ferry" = "Rota de ferry";
 
-"type.route.shuttle_train" = "Rota de comboio vaivem";
+"type.route.shuttle_train" = "route-shuttle_train";
 
 "type.shop" = "Loja";
 

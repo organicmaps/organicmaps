@@ -1303,6 +1303,13 @@
 	<string name="type.railway.level_crossing">Niveauskæring</string>
 	<string name="type.railway.monorail">Monorail</string>
 	<string name="type.railway.rail">Jernbane</string>
+	<string name="type.railway.rail.highspeed">Jernbane</string>
+	<string name="type.railway.rail.tourism">Jernbane</string>
+	<string name="type.railway.rail.main">Jernbane</string>
+	<string name="type.railway.rail.branch">Jernbane</string>
+	<string name="type.railway.rail.utility">Jernbane</string>
+	<string name="type.railway.rail.spur">Jernbane</string>
+	<string name="type.railway.rail.service">Jernbane</string>
 	<string name="type.railway.station">Togstation</string>
 	<string name="type.railway.station.funicular">Funicular</string>
 	<string name="type.railway.station.light_rail">Togstation</string>

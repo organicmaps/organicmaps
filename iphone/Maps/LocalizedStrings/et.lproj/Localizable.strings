@@ -2783,25 +2783,51 @@
 
 "type.railway.rail" = "Raudtee";
 
+"type.railway.rail.highspeed" = "Raudtee";
+
+"type.railway.rail.tourism" = "Raudtee";
+
+"type.railway.rail.main" = "Raudtee";
+
+"type.railway.rail.branch" = "Raudtee";
+
+"type.railway.rail.utility" = "Raudtee";
+
+"type.railway.rail.spur" = "Rööbastee";
+
+"type.railway.rail.service" = "Raudtee";
+
 "type.railway.rail.bridge" = "Raudtee sild";
 
-"type.railway.rail.motor_vehicle" = "Raudtee";
+"type.railway.rail.highspeed.bridge" = "Raudtee sild";
+
+"type.railway.rail.tourism.bridge" = "Raudtee sild";
+
+"type.railway.rail.main.bridge" = "Raudtee sild";
+
+"type.railway.rail.branch.bridge" = "Raudtee sild";
+
+"type.railway.rail.utility.bridge" = "Raudtee sild";
+
+"type.railway.rail.spur.bridge" = "Raudtee sild";
+
+"type.railway.rail.service.bridge" = "Raudtee sild";
 
 "type.railway.rail.tunnel" = "Raudtee tunnel";
 
-"type.railway.razed" = "Eemaldatud raudtee";
+"type.railway.rail.highspeed.tunnel" = "Raudtee tunnel";
 
-"type.railway.siding" = "Raudtee haru";
+"type.railway.rail.tourism.tunnel" = "Raudtee tunnel";
 
-"type.railway.siding.bridge" = "Raudtee haru sild";
+"type.railway.rail.main.tunnel" = "Raudtee tunnel";
 
-"type.railway.siding.tunnel" = "Raudtee haru tunnel";
+"type.railway.rail.branch.tunnel" = "Raudtee tunnel";
 
-"type.railway.spur" = "Rööbastee";
+"type.railway.rail.utility.tunnel" = "Raudtee tunnel";
 
-"type.railway.spur.bridge" = "Rööbastee sild";
+"type.railway.rail.spur.tunnel" = "Raudtee tunnel";
 
-"type.railway.spur.tunnel" = "Rööbastee tunnel";
+"type.railway.rail.service.tunnel" = "Raudtee tunnel";
 
 "type.railway.station" = "Raudtee jaam";
 
@@ -3265,17 +3291,11 @@
 
 "type.railway.tram_stop" = "Trammipeatus";
 
-"type.railway.yard" = "Raudtee hoov";
-
-"type.railway.yard.bridge" = "Raudtee hoovi sild";
-
-"type.railway.yard.tunnel" = "Raudtee hoovi tunnel";
-
 "type.route" = "Tee";
 
 "type.route.ferry" = "Praam";
 
-"type.route.shuttle_train" = "Kiirrong";
+"type.route.shuttle_train" = "route-shuttle_train";
 
 "type.shop" = "Pood";
 

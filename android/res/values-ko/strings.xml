@@ -1312,6 +1312,13 @@
 	<string name="type.railway.level_crossing">철도 건널목</string>
 	<string name="type.railway.monorail">모노레일</string>
 	<string name="type.railway.rail">철로</string>
+	<string name="type.railway.rail.highspeed">철로</string>
+	<string name="type.railway.rail.tourism">철로</string>
+	<string name="type.railway.rail.main">철로</string>
+	<string name="type.railway.rail.branch">철로</string>
+	<string name="type.railway.rail.utility">철로</string>
+	<string name="type.railway.rail.spur">철로</string>
+	<string name="type.railway.rail.service">철로</string>
 	<string name="type.railway.station">기차역</string>
 	<string name="type.railway.station.funicular">케이블카</string>
 	<string name="type.railway.station.light_rail">기차역</string>
