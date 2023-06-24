@@ -1,0 +1,20 @@
+/build
+/nativeOutputs
+google-services.json
+secure.properties
+
+src/main/res/xml/network_security_config.xml
+
+# ignore flags symlinks
+/src/main/res/drawable-xhdpi/??.png
+/src/main/res/drawable-xhdpi/do_hack.png
+/src/main/res/drawable-xhdpi/uk_england.png
+/src/main/res/drawable-xhdpi/uk_northern_ireland.png
+/src/main/res/drawable-xhdpi/uk_scotland.png
+/src/main/res/drawable-xhdpi/uk_wales.png
+/src/main/res/drawable-mdpi/??.png
+/src/main/res/drawable-mdpi/do_hack.png
+/src/main/res/drawable-mdpi/uk_england.png
+/src/main/res/drawable-mdpi/uk_northern_ireland.png
+/src/main/res/drawable-mdpi/uk_scotland.png
+/src/main/res/drawable-mdpi/uk_wales.png

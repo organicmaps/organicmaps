@@ -4,7 +4,7 @@ project(organicmaps C CXX)
 
 set(SRC
   # JNI headers
-  ../../private.h
+  ../../../../../private.h
   app/organicmaps/core/jni_helper.hpp
   app/organicmaps/core/jni_java_methods.hpp
   app/organicmaps/core/logging.hpp

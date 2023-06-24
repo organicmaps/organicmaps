@@ -20,7 +20,7 @@
 #elif defined(OMIM_OS_LINUX)
   #include <cstdlib>
 #elif defined(OMIM_OS_ANDROID)
-  /// Body for this function is inside android/jni sources
+  /// Body for this function is inside android/app/src/main/cpp sources
   std::string GetAndroidSystemLanguage();
 #else
   #error "Define language preferences for your platform"
