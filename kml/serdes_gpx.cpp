@@ -17,8 +17,6 @@ namespace kml
 namespace gpx
 {
 
-using namespace std::string_view_literals;
-
 std::string_view constexpr kTrk = "trk";
 std::string_view constexpr kTrkSeg = "trkseg";
 std::string_view constexpr kRte = "rte";
@@ -27,9 +25,12 @@ std::string_view constexpr kWpt = "wpt";
 std::string_view constexpr kRtePt = "rtept";
 std::string_view constexpr kName = "name";
 std::string_view constexpr kColor = "color";
+std::string_view constexpr kOsmandColor = "osmand:color";
+std::string_view constexpr kGpx = "gpx";
 std::string_view constexpr kGarminColor = "gpxx:DisplayColor";
 std::string_view constexpr kDesc = "desc";
 std::string_view constexpr kMetadata = "metadata";
+int constexpr kInvalidColor = 0;
 
 
 std::string PointToString(m2::PointD const & org)
@@ -57,7 +58,7 @@ void GpxParser::ResetPoint()
   m_description.clear();
   m_org = {};
   m_predefinedColor = PredefinedColor::None;
-  m_color = 0;
+  m_color = kInvalidColor;
   m_customName.clear();
   m_trackLayers.clear();
   m_geometry.Clear();
@@ -120,7 +121,6 @@ void GpxParser::AddAttr(std::string const & attr, std::string const & value)
     else if (attr == "lon")
       m_lon = stod(value);
   }
-
 }
 
 std::string_view GpxParser::GetTagFromEnd(size_t n) const
@@ -140,6 +140,39 @@ void GpxParser::ParseColor(std::string const & value)
   m_color = kml::ToRGBA(colorBytes[0], colorBytes[1], colorBytes[2], (char)255);
 }
 
+// https://osmand.net/docs/technical/osmand-file-formats/osmand-gpx/ - "#AARRGGBB" or "#RRGGBB"
+void GpxParser::ParseOsmandColor(std::string const & value) {
+  if (value.empty())
+  {
+    LOG(LWARNING, ("Empty color value"));
+    return;
+  }
+  auto const colorBytes = FromHex(value.substr(1, value.size() - 1));
+  uint32_t color;
+  switch (colorBytes.size())
+  {
+    case 3:
+      color = kml::ToRGBA(colorBytes[0], colorBytes[1], colorBytes[2], (char)255);
+      break;
+    case 4:
+      color = kml::ToRGBA(colorBytes[1], colorBytes[2], colorBytes[3], colorBytes[0]);
+      break;
+    default:
+      LOG(LWARNING, ("Invalid color value", value));
+      return;
+  }
+  if (GetTagFromEnd(2) == gpx::kGpx)
+  {
+    m_globalColor = color;
+    for (auto & track : m_data.m_tracksData)
+      for (auto & layer : track.m_layers)
+        layer.m_color.m_rgba = m_globalColor;
+  }
+  else
+  {
+    m_color = color;
+  }
+}
 
 // Garmin extensions spec: https://www8.garmin.com/xmlschemas/GpxExtensionsv3.xsd
 // Color mapping: https://help.locusmap.eu/topic/extend-garmin-gpx-compatibilty
@@ -165,7 +198,8 @@ void GpxParser::ParseGarminColor(std::string const & v)
       {"Transparent", "ff0000"}
   };
   auto const it = kGarminToHex.find(v);
-  if (it != kGarminToHex.end()) {
+  if (it != kGarminToHex.end())
+  {
     return ParseColor(it->second);
   }
   else
@@ -181,7 +215,7 @@ void GpxParser::Pop(std::string_view tag)
   
   if (tag == gpx::kTrkPt || tag == gpx::kRtePt)
   {
-    m2::Point p = mercator::FromLatLon(m_lat, m_lon);
+    m2::PointD p = mercator::FromLatLon(m_lat, m_lon);
     if (m_line.empty() || !AlmostEqualAbs(m_line.back().GetPoint(), p, kMwmPointAccuracy))
       m_line.emplace_back(std::move(p));
   }
@@ -217,7 +251,12 @@ void GpxParser::Pop(std::string_view tag)
       {
         TrackLayer layer;
         layer.m_lineWidth = kml::kDefaultTrackWidth;
-        layer.m_color.m_rgba = (m_color != 0 ? m_color : kml::kDefaultTrackColor);
+        if (m_color != kInvalidColor)
+          layer.m_color.m_rgba = m_color;
+        else if (m_globalColor != kInvalidColor)
+          layer.m_color.m_rgba = m_globalColor;
+        else
+          layer.m_color.m_rgba = kml::kDefaultTrackColor;
         m_trackLayers.push_back(std::move(layer));
 
         TrackData data;
@@ -272,10 +311,12 @@ void GpxParser::CharData(std::string value)
       else if (currTag == gpx::kDesc)
         m_categoryData->m_description[kml::kDefaultLang] = value;
     }
-    if (currTag == gpx::kColor)
-      ParseColor(value);
-    else if (currTag == gpx::kGarminColor)
+    if (currTag == gpx::kGarminColor)
       ParseGarminColor(value);
+    else if (currTag == gpx::kOsmandColor)
+      ParseOsmandColor(value);
+    else if (currTag == gpx::kColor)
+      ParseColor(value);
   }
 }
 }  // namespace gpx
