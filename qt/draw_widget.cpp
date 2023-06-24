@@ -101,16 +101,25 @@ DrawWidget::DrawWidget(Framework & framework, std::unique_ptr<ScreenshotParams> 
         if (RoutingSettings::TurnsEnabled())
           m_turnsVisualizer.Visualize(routingManager, drapeApi);
 
-        RoutingManager::DistanceAltitude da;
-        if (!routingManager.GetRouteAltitudesAndDistancesM(da))
-          return;
+        auto const routerType = routingManager.GetLastUsedRouter();
+        if (routerType == routing::RouterType::Pedestrian || routerType == routing::RouterType::Bicycle)
+        {
+          RoutingManager::DistanceAltitude da;
+          if (!routingManager.GetRouteAltitudesAndDistancesM(da))
+            return;
 
-        da.Simplify();
-        LOG(LDEBUG, ("Altitudes:", da));
+          for (int iter = 0; iter < 2; ++iter)
+          {
+            LOG(LINFO, ("Altitudes", iter == 0 ? "before" : "after", "simplify:"));
+            LOG_SHORT(LDEBUG, (da));
 
-        uint32_t totalAscent, totalDescent;
-        da.CalculateAscentDescent(totalAscent, totalDescent);
-        LOG(LINFO, ("Ascent:", totalAscent, "Descent:", totalDescent));
+            uint32_t totalAscent, totalDescent;
+            da.CalculateAscentDescent(totalAscent, totalDescent);
+            LOG_SHORT(LINFO, ("Ascent:", totalAscent, "Descent:", totalDescent));
+
+            da.Simplify();
+          }
+        }
       });
 
   routingManager.SetRouteRecommendationListener(
@@ -664,11 +673,6 @@ void DrawWidget::ShowPlacePage()
     }
   }
   m_framework.DeactivateMapSelection(false);
-}
-
-void DrawWidget::SetRouter(routing::RouterType routerType)
-{
-  m_framework.GetRoutingManager().SetRouter(routerType);
 }
 
 void DrawWidget::SetRuler(bool enabled)

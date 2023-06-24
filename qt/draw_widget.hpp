@@ -60,8 +60,6 @@ public:
 
   void SetMapStyle(MapStyle mapStyle);
 
-  void SetRouter(routing::RouterType routerType);
-
   void SetRuler(bool enabled);
 
   RouteMarkType GetRoutePointAddMode() const { return m_routePointAddMode; }
