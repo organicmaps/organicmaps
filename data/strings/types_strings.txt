@@ -475,7 +475,7 @@
     ar = مركز فن
     cs = Umělecké centrum
     da = Kunsthus
-    de = Kunststätte
+    de = Kunstzentrum
     el = Κέντρο καλών τεχνών
     es = Centro de arte
     es-MX = Centro de artes
@@ -931,7 +931,7 @@
     ar = تأجير سيارات
     cs = Půjčovna aut
     da = Biludlejning
-    de = Autoverleih
+    de = Autovermietung
     el = Ενοικίαση αυτοκινήτου
     es = Coche de alquiler
     et = Autorent
@@ -1837,7 +1837,7 @@
     ar = محطة عبّارات
     cs = Trajekt
     da = Færge
-    de = Fähre
+    de = Fähranleger
     el = Πορθμείο
     es = Transbordador
     et = Praam
@@ -2903,7 +2903,7 @@
     ar = معبد بوذي
     cs = Chrám
     da = Tempel
-    de = Tempel
+    de = Buddhistischer Tempel
     el = Ναός
     es = Templo
     et = Tempel
@@ -2972,7 +2972,7 @@
     ar = معبد هندوسي
     cs = Chrám
     da = Tempel
-    de = Tempel
+    de = Hinduistischer Tempel
     el = Ναός
     es = Templo
     et = Tempel
@@ -3934,8 +3934,10 @@
     zh-Hant = 淋浴間
 
   [type.amenity.taxi]
-    en = Taxi
+    en = Taxi Stand
+    en-GB = Taxi Rank
     ar = سيارة أجرة
+    de = Taxistand
     el = Ταξί
     es = Taxi
     et = Takso
@@ -4422,7 +4424,7 @@
     en = Fuel Pump
     ar = ماكينة بيع الوقود
     be = Паліўная калонка
-    de = Tankautomat
+    de = Zapfsäule
     es = Maquina expendedora de combustible
     et = Tankimisautomaat
     fi = Bensa-automaatti
@@ -5491,6 +5493,7 @@
   [type.building.warehouse]
     en = Warehouse
     ar = مستودع
+    de = Lagerhalle
     es = Almacén
     et = Ladu
     eu = Denda
@@ -6320,7 +6323,7 @@
     bg = Винарна
     cs = Vinařství
     da = Vingård
-    de = Weingut
+    de = Kellerei
     el = Οινοποιείο
     es = Bodega
     et = Veinikelder
@@ -11002,7 +11005,7 @@
     ar = شارع
     cs = Ulice
     da = Gade
-    de = Straße
+    de = Zufahrtsweg
     el = Οδός
     es = Calle
     et = Hooldustee
@@ -11043,7 +11046,7 @@
   [type.highway.service.driveway]
     ref = type.highway.service
     en = Driveway
-    de = Zufahrt
+    de = Grundstückszufahrt
     et = Sissesõidutee
     mr = चालकमार्ग
     pt-BR = Via de acesso
@@ -11132,7 +11135,7 @@
     ar = درج
     cs = Cesta
     da = Sti
-    de = Stufen
+    de = Treppe
     el = Διαδρομή
     es = Escaleras
     et = Trepp
@@ -11237,7 +11240,7 @@
     ar = شارع
     cs = Ulice
     da = Gade
-    de = Straße
+    de = Forst-/Feldweg
     el = Οδός
     es = Pista
     et = Rada
@@ -11305,7 +11308,7 @@
     ar = إشارات مرور
     cs = Semafor
     da = Trafiklys
-    de = Verkehrsampel
+    de = Ampel
     el = Φανάρια κυκλοφορίας
     es = Semáforos
     et = Valgusfoor
@@ -11401,7 +11404,7 @@
     ar = شارع صغير
     cs = Ulice
     da = Gade
-    de = Straße
+    de = Nebenstraße
     el = Οδός
     es = Calle
     et = Vähetähtis tee
@@ -11937,7 +11940,7 @@
     bg = Усадба
     cs = Panský dům
     da = Herregård
-    de = Herrenhaus
+    de = Gutshaus
     el = Αρχοντικό
     es = Casa solariega
     et = Mõisahoone
@@ -11975,7 +11978,7 @@
     bg = Дворец
     cs = Palác
     da = Palads
-    de = Palais
+    de = Palast
     el = Παλάτι
     es = Palacio
     et = Palee
@@ -13057,6 +13060,7 @@
     en = Educational Facility
     ar = مؤسسات تعليمية
     be = Адукацыйныя ўстановы
+    de = Bildungseinrichtung
     es = Instalaciones educativas
     et = Haridusrajatised
     fr = Établissements éducatifs
@@ -13124,7 +13128,7 @@
 
   [type.landuse.farmyard]
     en = Farmyard
-    de = Landwirtschaftlich genutzte Fläche
+    de = Bauernhof
     es = Granja
     et = Taluõu
     fr = Ferme
@@ -14543,7 +14547,7 @@
 
   [type.man_made.cairn]
     en = Cairn
-    de = Steinhaufen
+    de = Steinmännchen
     et = Karjäär
     ja = ケルン
     nl = Steengroeve
@@ -14838,7 +14842,7 @@
     ca = Torre de comunicacions
     cs = Komunikační věž
     da = Kommunikationstårn
-    de = Kommunikationsturm
+    de = Funkturm
     el = Πύργος Επικοινωνιών
     es = Torre de comunicaciones
     et = Sidetorn
@@ -15154,7 +15158,7 @@
     bg = Гола скала
     cs = Holá skála
     da = Blottet klippe
-    de = Kahler Fels
+    de = Felsgestein
     el = Γυμνός βράχος
     es = Roca desnuda
     et = Paljas kivi
@@ -15382,7 +15386,7 @@
     bg = Пещера
     cs = Jeskyně
     da = Hule
-    de = Höhle
+    de = Höhleneingang
     el = Σπήλαιο
     es = Cueva
     et = Koobas
@@ -16098,7 +16102,7 @@
     bg = Овощна градина
     cs = Sad
     da = Frugthave
-    de = Garten
+    de = Obstplantage
     el = Οπωρώνας
     es = Huerto frutal
     et = Viljapuuaed
@@ -16404,7 +16408,7 @@
     bg = Ред дървета
     cs = Řada stromů
     da = Trærækker
-    de = Allee
+    de = Baumreihe
     el = Σειρά δέντρων
     es = Fila de árboles
     et = Puude rida
@@ -17704,7 +17708,7 @@
     bg = Предградие
     cs = Předměstí
     da = Forstad
-    de = Vorort
+    de = Stadtteil
     el = Προάστιο
     es = Barrio
     et = Äärelinn
@@ -18594,7 +18598,7 @@
     ar = مزلقان
     cs = Přejezd
     da = Niveauskæring
-    de = Eisenbahnüberweg
+    de = Bahnübergang
     el = Σιδηροδρομική διέλευση
     es = Cruce de ferrocarril
     es-MX = Cruce de ferrocarril
@@ -18874,7 +18878,7 @@
 
   [type.railway.rail.bridge]
     en = Railway Bridge
-    de = S-Bahn-Brücke
+    de = Eisenbahnbrücke
     et = Raudtee sild
     fr = Chemin de fer
     ja = 鉄道(橋)
@@ -18890,7 +18894,7 @@
 
   [type.railway.rail.motor_vehicle]
     en = Railway
-    de = S-Bahn
+    de = Eisenbahn
     et = Raudtee
     ja = 鉄道
     mr = रेल्वे
@@ -18905,7 +18909,7 @@
 
   [type.railway.rail.tunnel]
     en = Railway Tunnel
-    de = S-Bahn-Tunnel
+    de = Eisenbahntunnel
     et = Raudtee tunnel
     fr = Chemin de fer
     ja = 鉄道(鉄道)
@@ -22288,7 +22292,7 @@
     ar = معدات خارجية
     cs = Venkovní vybavení
     da = Fritidsudstyr
-    de = Outdoor-Ausrüstung
+    de = Outdoor-Ausrüstungs-Laden
     el = Εξοπλισμός υπαίθρου
     es = Equipamiento de ocio al aire libre
     et = Välisvarustus
@@ -22654,7 +22658,7 @@
     ar = أدوات رياضية
     cs = Sportovní zboží
     da = Sportsudstyr
-    de = Sportartikel
+    de = Sportgeschäft
     el = Αθλητικά είδη
     es = Artículos de deporte
     et = Sporditarbed
@@ -22825,7 +22829,7 @@
     ar = مكتب تذاكر
     cs = Prodej vstupenek
     da = Billetkontor
-    de = Fahrkartenschalter
+    de = Kartenverkauf
     el = Κατάστημα πώλησης εισιτηρίων
     es = Venta de entradas
     et = Piletipood
@@ -22861,7 +22865,7 @@
     ar = متجر ألعاب
     cs = Hračkářství
     da = Legetøjsbutik
-    de = Spielzeuggeschäft
+    de = Spielwarengeschäft
     el = Κατάστημα παιχνιδιών
     es = Tienda de juguetes
     et = Mänguasjapood
@@ -23733,7 +23737,7 @@
     bg = Медицински изделия
     cs = Zdravotní zásoby
     da = Medicinske forsyninger
-    de = Medizinische Versorgung
+    de = Sanitätshaus
     el = Ιατρικά Είδη
     es = Suministros médicos
     et = Meditsiinitarbed
@@ -23924,7 +23928,7 @@
     bg = Склад под наем
     cs = Pronájem skladu
     da = Lagerudlejning
-    de = Speichermiete
+    de = Lagervermietung
     el = Ενοικίαση αποθηκευτικού χώρου
     es = Alquiler de almacenamiento
     et = Ladustuse rent
@@ -23963,7 +23967,7 @@
     bg = Тютюн
     cs = Tabák
     da = Tobak
-    de = Tabak
+    de = Tabakwarengeschäft
     el = Καπνός
     es = Tabaco
     et = Tubakas
@@ -24040,7 +24044,7 @@
     bg = Часовници
     cs = Hodinky
     da = Ure
-    de = Uhren
+    de = Uhrengeschäft
     el = Ρολόγια
     es = Relojes
     et = Kellad
@@ -25017,7 +25021,7 @@
     bg = Тенис корт
     cs = Tenisový kurt
     da = Tennisbane
-    de = Tennisspielfeld
+    de = Tennisplatz
     el = Γήπεδο τένις
     es = Cancha de tenis
     es-MX = Cancha de tenis
@@ -25666,7 +25670,7 @@
     en-GB = Campsite
     ar = تخييم
     cs = Kempování
-    de = Zeltplatz
+    de = Campingplatz
     el = Κάμπινγκ
     es = Camping
     et = Telkimine
@@ -25699,7 +25703,7 @@
     be = Кемпінг для аўтадамоў
     cs = Kemp pro obytné přívěsy
     da = Autocamperplads
-    de = Wohnwagenstellplatz
+    de = Wohnmobilstellplatz
     el = Χώρος για τροχόσπιτα
     es = Zona de caravanas
     et = Haagiselamute park
@@ -25763,7 +25767,7 @@
     ar = سياحة
     cs = Pamětihodnost
     da = Turisme
-    de = Galerie
+    de = Kunstgalerie
     el = Αξιοθέατο
     es = Galería
     et = Galerii
@@ -26661,7 +26665,7 @@
     be = Рака
     cs = Řeka
     da = Flod
-    de = Flussufer
+    de = Fluss
     el = Ποταμός
     es = Río
     et = Jõgi
@@ -26997,7 +27001,7 @@
 
   [type.aerialway.magic_carpet]
     en = Magic Carpet
-    de = Laufband
+    de = Teppichlift
     es = Alfombra mágica
     et = Võluvaip
     fr = Tapis roulant
@@ -27036,7 +27040,7 @@
 
   [type.aerialway.t.bar]
     en = T-bar Lift
-    de = T-Bügel-Lift
+    de = Schlepplift (T-Bügel)
     es = Telesilla barra en T
     et = Ankurlift
     fi = Ankkurihissi
@@ -27061,7 +27065,7 @@
 
   [type.piste_type.downhill]
     en = Downhill Ski Run
-    de = Abfahrt
+    de = Ski-Abfahrt
     es = Pista de esquí alpino
     et = Mäesuusarada
     fi = Laskettelurinne
@@ -27076,7 +27080,7 @@
   [type.piste_type.downhill.advanced]
     ref = type.piste_type.downhill
     en = Advanced Downhill Ski Run
-    de = Schwierige Abfahrt
+    de = Schwierige Ski-Abfahrt
     et = Raske laskumine
     nl = Moeilijke afdaling
     pt = Esqui alpino avançado
@@ -27088,7 +27092,7 @@
   [type.piste_type.downhill.easy]
     ref = type.piste_type.downhill
     en = Easy Downhill Ski Run
-    de = Leichte Abfahrt
+    de = Leichte Ski-Abfahrt
     et = Kerge laskumine
     nl = Makkelijke afdaling
     pt = Esqui alpino fácil
@@ -27100,7 +27104,7 @@
   [type.piste_type.downhill.expert]
     ref = type.piste_type.downhill
     en = Expert Downhill Ski Run
-    de = Profi Abfahrt
+    de = Profi-Ski-Abfahrt
     et = Professionaalne laskumine
     nl = Afdaling voor experts
     pt = Esqui alpino avançado
@@ -27121,7 +27125,7 @@
   [type.piste_type.downhill.intermediate]
     ref = type.piste_type.downhill
     en = Intermediate Downhill Ski Run
-    de = Mittelschwere Abfahrt
+    de = Mittelschwere Ski-Abfahrt
     et = Keskmise raskusastmega laskumine
     nl = Gemiddelde afdaling
     pt = Esqui alpino intermédio
@@ -27133,7 +27137,7 @@
   [type.piste_type.downhill.novice]
     ref = type.piste_type.downhill
     en = Novice Downhill Ski Run
-    de = Anfängerfreundliche Abfahrt
+    de = Anfängerfreundliche Ski-Abfahrt
     et = Algajasõbralik laskumine
     nl = Beginnersafdaling
     pt = Esqui alpino iniciante

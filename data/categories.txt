@@ -1772,7 +1772,7 @@ da:4Sportsudstyr|sport
 nl:4Sportartikelen
 fi:Urheilukauppa
 fr:Articles de sport
-de:4Sportartikel|Fitnessgeschäft
+de:4Sportgeschäft|Sportartikel|Fitnessgeschäft
 hu:4Sporteszközök
 id:Barang olahraga
 it:Negozio sportivo|negozio articoli sportivi
@@ -2069,7 +2069,7 @@ cs:Hračkářství
 da:Legetøjsbutik|legetøj
 fi:Lelukauppa
 fr:4Jouets|Jeux
-de:5Spielzeuggeschäft
+de:5Spielwarengeschäft|Spielzeuggeschäft
 hu:Játékbolt
 id:Toko mainan
 it:Negozio di giocattoli
@@ -2563,7 +2563,7 @@ da:2Færge|færgehavn|terminal
 nl:3Veerpont|veerboot|veer|pont|overzetboot
 fi:3Lautta|terminaali|kuljetus
 fr:3Traversier|terminal
-de:2Fähre|Terminal
+de:2Fähre|Fähranleger|Terminal
 hu:4Kompkikötő
 id:3Terminal|feri
 it:3Traghetto
@@ -2591,7 +2591,7 @@ sw:Bandali|kivuko
 fa:ترمینال کِشتی
 
 amenity-taxi|@transport
-en:3Taxi|U+1F695|U+1F696
+en:3Taxi|Taxi Stand|Taxi Rank|U+1F695|U+1F696
 ru:3Такси
 bg:3такси|шофьор
 ar:سيارة أجرة|تاكسي|مواصلات|مواصلات
@@ -2600,7 +2600,7 @@ da:3Taxi|taxa
 nl:3Taxi
 fi:3Taksi
 fr:3Taxi
-de:3Taxi|Taxe|ÖPNV
+de:3Taxi|Taxistand|Taxe|ÖPNV
 hu:3Taxiállomás
 id:3Taksi
 it:3Taxi|3tassì
@@ -2969,7 +2969,7 @@ da:Tempel|kultsted
 nl:Tempel|gebedsplaats|gebedshuis
 fi:Temppeli|uskonnollinen kohde
 fr:Temple|lieu de culte
-de:Tempel|Anbetungsstätte
+de:Buddhistischer Tempel|Tempel|Anbetungsstätte
 hu:Buddhista szentély
 id:Kuil|tempat ibadah
 it:Tempio|duomo
@@ -3005,7 +3005,7 @@ da:Tempel|kultsted
 nl:Tempel|gebedsplaats|gebedshuis
 fi:Temppeli|uskonnollinen kohde
 fr:Temple|lieu de culte
-de:Tempel|Anbetungsstätte
+de:Hinduistischer Tempel|Tempel|Anbetungsstätte
 hu:Hindu szentély
 id:Kuil|tempat ibadah
 it:Tempio|duomo
@@ -4249,7 +4249,7 @@ da:4Biludlejning|bil
 nl:3Autoverhuur|4huurauto|auto delen|auto|huur
 fi:4Autovuokraamo
 fr:4Location de voitures|auto|loueur|location|partage
-de:3Autoverleih|Mietauto|Auto|Fahrzeug Mieten|Verleih|KFZ-Vermietung|Fahrzeugvermietung
+de:3Autovermietung|Autoverleih|Mietauto|Auto|Fahrzeug Mieten|Verleih|KFZ-Vermietung|Fahrzeugvermietung
 hu:3Gépkocsikölcsönző|kocsi|bérlés
 id:4Rental mobil
 it:3Noleggio di automobili|noleggio
@@ -9175,7 +9175,7 @@ da:4Camping|campingplads|teltplads|lejrplads
 nl:4Camping|kamperen|kampeerplek
 fi:5Retkeily
 fr:4Camping|terrain de camping
-de:4Zeltplatz|Zelten|Campingplatz|Camping
+de:4Campingplatz|Camping|Zeltplatz|Zelten
 hu:4Kemping|sátrazóhely
 id:5Perkemahan
 it:4Campeggio|campeggi|camping
@@ -9213,7 +9213,7 @@ da:5Autocamperplads|husvogn
 nl:4Caravan site|camping|woonwagenkamp
 fi:Asuntovaunupaikka|Retkeily
 fr:4Parc caravanier|VR|caravane|camping-car
-de:4Wohnwagenstellplatz|Campingplatz|Wohnwagenplatz|Wohnmobilpark|Wohnmobilstellplatz
+de:4Wohnmobilstellplatz|Wohnmobilpark|Wohnwagenstellplatz|Wohnwagenplatz|Campingplatz
 hu:4Lakókocsihely|kemping
 id:Lokasi perkemahan
 it:Area per campeggiatori
@@ -10080,7 +10080,7 @@ be:Вінакурня
 bg:Винарна
 cs:Vinařství
 da:Vingård
-de:4Weingut|3Winzer|Weinbauer
+de:4Kellerei|4Weingut|3Winzer|Weinbauer
 el:Οινοποιείο
 es:4Bodega|Vino
 et:Veinikelder
@@ -10431,7 +10431,7 @@ bg:Комуникационна кула
 ca:Torre de comunicacions
 cs:Komunikační věž
 da:Kommunikationstårn
-de:Kommunikationsturm
+de:Funkturm|Kommunikationsturm
 el:Πύργος Επικοινωνιών
 es:Torre de comunicaciones
 et:Sidetorn
@@ -10660,7 +10660,7 @@ cs:Venkovní vybavení|trekking|lezení|kempování
 da:Fritidsudstyr|vandring|klatring|camping
 fi:Ulkoiluvarusteet|vaellus|kiipeily|retkeily
 fr:Matériel de loisirs de plein air|Randonnée|Escalade|Camping
-de:4Outdoor-Ausrüstung|Trekking|Klettern|Camping
+de:4Outdoor-Ausrüstungs-Laden|Outdoor-Ausrüstung|Trekking|Klettern|Camping
 hu:Túrafelszerelés|trekking|mászás|kemping|üzlet
 id:Peralatan Outdoor|lintas alam|mendaki|kemah
 it:Attrezzatura sportiva|trekking|arrampicata|campeggio
@@ -11608,7 +11608,7 @@ mr:पार्सल लॉकर
 amenity-vending_machine-fuel|@fuel
 en:Fuel Dispenser|Gas Pump
 be:Паліўная калонка|бензакалонка|палівараздатачная калонка
-de:Tankautomat
+de:Zapfsäule|Tankautomat
 et:Tankimisautomaat
 ru:Топливная колонка|бензоколонка|топливораздаточная колонка
 tr:Yakıt dağıtıcı
@@ -11919,7 +11919,7 @@ da:Billetkontor
 nl:Kaartverkoop|Kaartjesverkoop|kaartjes
 fi:Lippumyymälä
 fr:Billetterie
-de:Fahrkartenschalter|Fahrkartengeschäft|Fahrkarten|Fahrkartenzentrum|Fahrkartenausgabe|Fahrkartenagentur|Fahrkartenhäuschen|Reisecenter|Kassenschalter|Zahlschalter
+de:4Kartenverkauf|Fahrkartenschalter|Fahrkartengeschäft|Fahrkarten|Fahrkartenzentrum|Fahrkartenausgabe|Fahrkartenagentur|Fahrkartenhäuschen|Reisecenter|Kassenschalter|Zahlschalter
 hu:Jegyiroda
 id:Tempat penjualan karcis
 it:Biglietteria
@@ -12389,7 +12389,7 @@ da:Hule
 nl:Grot
 fi:Luola
 fr:4Grotte
-de:Höhle
+de:Höhle|Höhleneingang
 hu:Barlang
 id:Gua
 it:4Grotta
@@ -13858,7 +13858,7 @@ tourism-gallery|@tourism
 en:3Gallery|museum
 ru:3Галерея|музей|картины|картинная галерея
 bg:3Галерия|музей|изложба|картини
-de:3Galerie|Museum|Kunstgalerie|Kunstausstellung
+de:4Kunstgalerie|3Galerie|Museum|Kunstausstellung
 es:3Galería de arte|museo
 et:3Galerii|muuseum
 eu:3Arte galeria|museoa
@@ -14657,7 +14657,7 @@ be:Медыцынскія прыналежнасці
 bg:Медицински изделия
 cs:Zdravotní zásoby
 da:Medicinske forsyninger
-de:4Medizinische Versorgung|5Heilbehelfe
+de:4Sanitätshaus|4Medizinische Versorgung|5Heilbehelfe
 el:Ιατρικά Είδη
 es:Suministros médicos
 et:Meditsiinitarvikud
@@ -14847,7 +14847,7 @@ be:Арэнда сховішчаў
 bg:Склад под наем
 cs:Pronájem skladu
 da:Lagerudlejning
-de:5Speichermiete
+de:5Lagervermietung|Speichermiete
 el:Ενοικίαση αποθηκευτικού χώρου
 es:Alquiler de almacenamiento
 et:Ladustuse rent
@@ -14885,7 +14885,7 @@ be:Тытунь
 bg:Тютюн
 cs:Tabák
 da:Tobak
-de:Tabak|4Trafik
+de:5Tabakwarengeschäft|Tabak|4Trafik
 el:Καπνός
 es:Tabaco
 et:Tubakas
@@ -14961,7 +14961,7 @@ be:Гадзіннік
 bg:Часовници
 cs:Hodinky
 da:Ure
-de:Uhren
+de:Uhrengeschäft|Uhren
 el:Ρολόγια
 es:Relojes
 et:Kellad
