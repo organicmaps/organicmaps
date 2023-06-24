@@ -908,7 +908,7 @@
 	<string name="type.amenity.school">School</string>
 	<string name="type.amenity.shelter">Shelter</string>
 	<string name="type.amenity.shower">Shower</string>
-	<string name="type.amenity.taxi">Taxi</string>
+	<string name="type.amenity.taxi">Taxi Stand</string>
 	<string name="type.amenity.telephone">Phone</string>
 	<string name="type.amenity.theatre">Theatre</string>
 	<string name="type.amenity.toilets">Toilet</string>
