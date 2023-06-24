@@ -164,7 +164,7 @@ def check_exact(path, expected):
 
 def check_android():
     ok = True
-    flavor = 'android/src/fdroid/play/'
+    flavor = 'android/app/src/main/fdroid/play/'
     ok = check_url(flavor + 'contact-website.txt') and ok
     ok = check_email(flavor + 'contact-email.txt') and ok
     ok = check_exact(flavor + 'default-language.txt', 'en-US') and ok
