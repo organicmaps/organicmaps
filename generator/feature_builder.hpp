@@ -159,6 +159,8 @@ public:
   Metadata const & GetMetadata() const { return m_params.GetMetadata(); }
   Metadata & GetMetadata() { return m_params.GetMetadata(); }
 
+  void SetHotelInfo(Metadata::ESource src, uint64_t id, double rating, uint8_t priceCategory);
+
   // To work with types and names based on drawing.
   // Check classificator types for their compatibility with feature geometry type.
   // Need to call when using any classificator types manipulating.

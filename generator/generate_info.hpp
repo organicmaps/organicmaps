@@ -1,7 +1,5 @@
 #pragma once
 
-#include "generator/cities_boundaries_builder.hpp"
-
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
@@ -49,6 +47,7 @@ struct GenerateInfo
   OsmSourceType m_osmFileType = OsmSourceType::XML;
   std::string m_osmFileName;
 
+  std::string m_bookingDataFilename;
   std::string m_brandsFilename;
   std::string m_brandsTranslationsFilename;
 

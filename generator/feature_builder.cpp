@@ -2,6 +2,7 @@
 
 #include "routing/routing_helpers.hpp"
 
+#include "indexer/custom_keyvalue.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -592,6 +593,29 @@ size_t FeatureBuilder::GetPointsCount() const
   for (auto const & p : m_polygons)
     counter += p.size();
   return counter;
+}
+
+void FeatureBuilder::SetHotelInfo(Metadata::ESource src, uint64_t id, double rating, uint8_t priceCategory)
+{
+  // Normalize rating [0, 100]
+  if (rating < 0 || rating > 10)
+    rating = 0;
+  else
+    rating *= 10;
+
+  auto & meta = GetMetadata();
+  auto const append = [src, &meta](Metadata::EType type, auto val)
+  {
+    indexer::CustomKeyValue kv(meta.Get(type));
+    kv.Add(src, val);
+    meta.Set(type, kv.ToString());
+  };
+
+  append(Metadata::FMD_CUSTOM_IDS, id);
+  if (rating > 0)
+    append(Metadata::FMD_RATINGS, static_cast<uint8_t>(std::round(rating)));
+  if (priceCategory > 0)
+    append(Metadata::FMD_PRICE_RATES, priceCategory);
 }
 
 bool FeatureBuilder::IsDrawableInRange(int lowScale, int highScale) const

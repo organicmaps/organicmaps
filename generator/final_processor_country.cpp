@@ -2,6 +2,7 @@
 
 #include "generator/addresses_collector.hpp"
 #include "generator/affiliation.hpp"
+#include "generator/booking_dataset.hpp"
 #include "generator/coastlines_generator.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/final_processor_utils.hpp"
@@ -10,6 +11,8 @@
 #include "generator/node_mixer.hpp"
 #include "generator/osm2type.hpp"
 #include "generator/region_meta.hpp"
+
+#include "generator/sponsored_dataset_inl.hpp"
 
 #include "routing/speed_camera_prohibition.hpp"
 
@@ -70,6 +73,9 @@ void CountryFinalProcessor::Process()
   if (!m_coastlineGeomFilename.empty())
     ProcessCoastline();
 
+  if (!m_hotelsFilename.empty())
+    ProcessBooking();
+
   // Add here all "straight-way" processing. There is no need to make many functions and
   // many read-write FeatureBuilder ops here.
   if (!m_miniRoundaboutsFilename.empty() || !m_addrInterpolFilename.empty())
@@ -104,6 +110,60 @@ void CountryFinalProcessor::Order()
   }, m_threadsCount);
 }
 */
+
+void CountryFinalProcessor::ProcessBooking()
+{
+  BookingDataset dataset(m_hotelsFilename);
+
+  std::ofstream matchingLogStream;
+  matchingLogStream.exceptions(std::fstream::failbit | std::fstream::badbit);
+  matchingLogStream.open(m_hotelsStatusFilename);
+
+  std::mutex m;
+  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & name, auto const & path)
+  {
+    if (!IsCountry(name))
+      return;
+
+    std::stringstream sstream;
+    FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
+    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](FeatureBuilder && fb, uint64_t)
+    {
+      auto const id = dataset.FindMatchingObjectId(fb);
+      if (id == BookingHotel::InvalidObjectId())
+      {
+        writer.Write(fb);
+      }
+      else
+      {
+        dataset.PreprocessMatchedOsmObject(id, fb, [&](FeatureBuilder & newFeature)
+        {
+          if (newFeature.PreSerialize())
+            writer.Write(newFeature);
+        });
+      }
+
+      auto const & isHotelChecker = ftypes::IsHotelChecker::Instance();
+      if (isHotelChecker(fb.GetTypes()))
+      {
+        if (id != BookingHotel::InvalidObjectId())
+          sstream << id;
+
+        auto const latLon = mercator::ToLatLon(fb.GetKeyPoint());
+        sstream << ',' << fb.GetMostGenericOsmId().GetEncodedId() << ','
+                << strings::to_string_dac(latLon.m_lat, 7) << ','
+                << strings::to_string_dac(latLon.m_lon, 7) << ',' << name << '\n';
+      }
+    });
+
+    std::lock_guard guard(m);
+    matchingLogStream << sstream.str();
+  }, m_threadsCount);
+
+  std::vector<FeatureBuilder> fbs;
+  dataset.BuildOsmObjects([&](auto && fb) { fbs.emplace_back(std::move(fb)); });
+  AppendToMwmTmp(fbs, *m_affiliations, m_temporaryMwmPath, m_threadsCount);
+}
 
 void CountryFinalProcessor::ProcessRoundabouts()
 {

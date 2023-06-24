@@ -150,6 +150,7 @@ DEFINE_bool(
 DEFINE_bool(generate_maxspeed, false, "Generate section with maxspeed of road features.");
 
 // Sponsored-related.
+DEFINE_string(booking_data, "", "Path to booking data in tsv format.");
 DEFINE_string(complex_hierarchy_data, "", "Path to complex hierarchy in csv format.");
 
 DEFINE_string(wikipedia_pages, "", "Input dir with wikipedia pages.");
@@ -251,6 +252,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
   genInfo.m_osmFileName = FLAGS_osm_file_name;
   genInfo.m_failOnCoasts = FLAGS_fail_on_coasts;
   genInfo.m_preloadCache = FLAGS_preload_cache;
+  genInfo.m_bookingDataFilename = FLAGS_booking_data;
   genInfo.m_popularPlacesFilename = FLAGS_popular_places_data;
   genInfo.m_brandsFilename = FLAGS_brands_data;
   genInfo.m_brandsTranslationsFilename = FLAGS_brands_translations_data;

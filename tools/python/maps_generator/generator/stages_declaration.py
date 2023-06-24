@@ -104,24 +104,26 @@ class StagePreprocess(Stage):
 
 @outer_stage
 @depends_from_internal(
-    D(settings.HOTELS_URL, PathProvider.hotels_path, "p"),
+    D(settings.HOTELS_URL, PathProvider.hotels_path),
     D(settings.PROMO_CATALOG_CITIES_URL, PathProvider.promo_catalog_cities_path, "p"),
     D(settings.POPULARITY_URL, PathProvider.popularity_path, "p"),
     D(settings.FOOD_URL, PathProvider.food_paths, "p"),
     D(settings.FOOD_TRANSLATIONS_URL, PathProvider.food_translations_path, "p"),
 )
-@test_stage(
-    Test(st.make_test_booking_data(max_days=7), lambda e, _: e.production, True)
-)
+# @test_stage(
+#     Test(st.make_test_booking_data(max_days=7), lambda e, _: e.production, True)
+# )
 class StageFeatures(Stage):
     def apply(self, env: Env):
         extra = {}
         if is_accepted(env, StageDescriptions):
             extra.update({"idToWikidata": env.paths.id_to_wikidata_path})
+
+        extra.update({"booking_data": env.paths.hotels_path})
+
         if env.production:
             extra.update(
                 {
-                    "booking_data": env.paths.hotels_path,
                     "promo_catalog_cities": env.paths.promo_catalog_cities_path,
                     "popular_places_data": env.paths.popularity_path,
                     "brands_data": env.paths.food_paths,

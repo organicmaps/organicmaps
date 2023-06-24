@@ -1,11 +1,12 @@
 #include "test_generator.hpp"
 
 #include "generator/borders.hpp"
-#include "generator/camera_info_collector.hpp"
 #include "generator/feature_sorter.hpp"
 #include "generator/osm_source.hpp"
 #include "generator/raw_generator.hpp"
 
+#include "generator/camera_info_collector.hpp"
+#include "generator/cities_boundaries_builder.hpp"
 #include "generator/maxspeeds_builder.hpp"
 #include "generator/restriction_generator.hpp"
 #include "generator/road_access_generator.hpp"
