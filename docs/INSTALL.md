@@ -345,6 +345,9 @@ In Android Studio open the project in `android/` directory.
 
 Setup a virtual device to use [emulator](https://developer.android.com/studio/run/emulator) ("Tools > Device Manager") or [use a hardware device for debugging](https://developer.android.com/studio/run/device). If using an emulator, make sure to choose a system image with API Level 31 and ABI _x86_64_.
 
+Android Studio has issues in parsing C++ part of the project - one of these applications should be used: [Qt Creator](https://www.qt.io/product/development-tools), [XCode](https://developer.apple.com/xcode/), [CLion](https://www.jetbrains.com/clion/). For XCode it is required to run `cmake . -g Xcode` to generate project files, while CLion and QT Creator can import CMakeLists.txt.
+
+
 ### Building
 
 There is a matrix of different build variants:
