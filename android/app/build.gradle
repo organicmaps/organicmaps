@@ -3,7 +3,6 @@ buildscript {
     google()
     mavenCentral()
   }
-
   //
   // The magic below is needed to disable Google Mobile Services (a.k.a GMS) and
   // Google Firebase Services during the build time. Unfortunately, the only way
@@ -120,8 +119,8 @@ import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 def getVersion() {
   def isWindows = DefaultNativePlatform.getCurrentOperatingSystem().isWindows()
   def bash = isWindows ? 'C:\\Program Files\\Git\\bin\\bash.exe' : 'bash'
-  def versionCode = Integer.parseInt(run([bash, '../tools/unix/version.sh', 'android_code']).trim())
-  def versionName = run([bash, '../tools/unix/version.sh', 'android_name']).trim()
+  def versionCode = Integer.parseInt(run([bash, '../../tools/unix/version.sh', 'android_code']).trim())
+  def versionName = run([bash, '../../tools/unix/version.sh', 'android_name']).trim()
   return new Tuple2(versionCode, versionName)
 }
 
@@ -210,27 +209,22 @@ android {
     setProperty("archivesBaseName", appName.replaceAll("\\s","") + "-" + defaultConfig.versionCode)
   }
 
-  sourceSets.main {
-    manifest.srcFile 'AndroidManifest.xml'
-    res.srcDirs = ['res']
-    java.srcDirs = ['src']
-    if (googleMobileServicesEnabled) {
-      java.srcDirs += 'flavors/gms-enabled'
-    } else {
-      java.srcDirs += 'flavors/gms-disabled'
-    }
-    if (googleFirebaseServicesEnabled) {
-      java.srcDirs += 'flavors/firebase-enabled'
-    } else {
-      java.srcDirs += 'flavors/firebase-disabled'
-    }
-    assets.srcDirs = ['assets']
-  }
-
-  sourceSets.test {
-    java.srcDirs = ['tests/java']
-    res.srcDirs = ['tests/resources']
-  }
+   sourceSets.main {
+//     manifest.srcFile 'AndroidManifest.xml'
+//     res.srcDirs = ['res']
+//     java.srcDirs = ['src']
+     if (googleMobileServicesEnabled) {
+       java.srcDirs += 'src/flavors/gms-enabled'
+     } else {
+       java.srcDirs += 'src/flavors/gms-disabled'
+     }
+     if (googleFirebaseServicesEnabled) {
+       java.srcDirs += 'src/flavors/firebase-enabled'
+     } else {
+       java.srcDirs += 'src/flavors/firebase-disabled'
+     }
+     assets.srcDirs = ['assets']
+   }
 
   flavorDimensions 'default'
 
@@ -399,7 +393,7 @@ android {
     cmake {
       version "3.22.1+"
       buildStagingDirectory "./nativeOutputs"
-      path "../CMakeLists.txt"
+      path "../../CMakeLists.txt"
     }
   }
 
@@ -445,8 +439,8 @@ task prepareGoogleReleaseListing {
   final sourceFlavor = 'fdroid'
   final targetFlavor = 'google'
   doLast {
-    final sourceDir = new File("${projectDir}/src/$sourceFlavor/play/listings")
-    final targetDir = new File("${projectDir}/src/$targetFlavor/play/listings")
+    final sourceDir = new File("${projectDir}/src/main/$sourceFlavor/play/listings")
+    final targetDir = new File("${projectDir}/src/main/$targetFlavor/play/listings")
     final sourceFiles = fileTree(dir: sourceDir,
         include: "**/*.txt", exclude: "**/*-${targetFlavor}.txt")
     sourceFiles.each { File sourceFile ->
@@ -460,7 +454,7 @@ task prepareGoogleReleaseListing {
       targetFile.text = overrideFile.exists() ? overrideFile.text : sourceFile.text
     }
     copy {
-      from "${projectDir}/../screenshots/android"
+      from "${projectDir}/../../screenshots/android"
       into targetDir
     }
   }
@@ -493,7 +487,7 @@ huaweiPublish {
           'ta-IN': 'ta_IN',
           'te-IN': 'te_IN',
       ]
-      def files = fileTree(dir: "$projectDir/src/fdroid/play/listings",
+      def files = fileTree(dir: "$projectDir/src/main/fdroid/play/listings",
           include: '**/release-notes.txt')
       files.each { File file ->
         def path = file.getPath()

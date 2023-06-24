@@ -1,6 +1,6 @@
 #include <jni.h>
-#include <android/jni/app/organicmaps/Framework.hpp>
-#include <android/jni/app/organicmaps/core/jni_helper.hpp>
+#include <android/app/src/main/cpp/app/organicmaps/Framework.hpp>
+#include <android/app/src/main/cpp/app/organicmaps/core/jni_helper.hpp>
 #include "routing/routing_options.hpp"
 
 routing::RoutingOptions::Road makeValue(jint option)
