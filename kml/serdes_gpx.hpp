@@ -42,6 +42,7 @@ private:
   bool MakeValid();
   void ParseColor(std::string const & value);
   void ParseGarminColor(std::string const & value);
+  void ParseOsmandColor(std::string const & value);
 
   FileData & m_data;
   CategoryData m_compilationData;
@@ -51,6 +52,7 @@ private:
   GeometryType m_geometryType;
   MultiGeometry m_geometry;
   uint32_t m_color;
+  uint32_t m_globalColor; // To support OSMAnd extensions with single color per GPX file
 
   LocalizableString m_name;
   LocalizableString m_description;

@@ -159,4 +159,21 @@ UNIT_TEST(Empty)
   TEST_EQUAL(0, dataFromFile.m_tracksData.size(), ());
 }
 
+UNIT_TEST(OsmandColor1)
+{
+  kml::FileData const dataFromFile = loadGpxFromFile("gpx_test_data/osmand1.gpx");
+  uint32_t const expected = 0xFF7800FF;
+  TEST_EQUAL(expected, dataFromFile.m_tracksData[0].m_layers[0].m_color.m_rgba, ());
+}
+
+UNIT_TEST(OsmandColor2)
+{
+  kml::FileData const dataFromFile = loadGpxFromFile("gpx_test_data/osmand2.gpx");
+  uint32_t const expected1 = 0x00FF00FF;
+  uint32_t const expected2 = 0x1010A0FF;
+  TEST_EQUAL(expected1, dataFromFile.m_bookmarksData[0].m_color.m_rgba, ());
+  TEST_EQUAL(expected2, dataFromFile.m_bookmarksData[1].m_color.m_rgba, ());
+}
+
+
 
