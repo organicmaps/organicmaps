@@ -82,7 +82,7 @@ jobs:
         run: |
           gcloud auth activate-service-account --key-file android/firebase-test-lab.json
           gcloud config set project omapsapp
-          gcloud firebase test android run --app ./android/build/outputs/apk/google/debug/OrganicMaps-*-google-debug.apk \
+          gcloud firebase test android run --app ./android/app/build/outputs/apk/google/debug/OrganicMaps-*-google-debug.apk \
             --device model=panther,version=33 \
             --device model=bluejay,version=32 \
             --device model=b2q,version=31 \

@@ -3,8 +3,8 @@ on:
   workflow_dispatch:  # Manual trigger
 
 env:
-  RELEASE_NOTES: android/src/google/play/release-notes/en-US/default.txt
-  FDROID_VERSION: android/src/fdroid/play/version.yaml
+  RELEASE_NOTES: android/app/src/main/google/play/release-notes/en-US/default.txt
+  FDROID_VERSION: android/app/src/main/fdroid/play/version.yaml
   JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64  # Java 17 is required for Android Gradle 8 plugin
 
 jobs:
@@ -151,7 +151,7 @@ jobs:
             echo ""
             echo "sha256sum:"
             echo -e '\n```'
-            (cd ./android/build/outputs/apk/web/release/ && sha256sum OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk) | tr -d '\n'
+            (cd ./android/app/build/outputs/apk/web/release/ && sha256sum OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk) | tr -d '\n'
             echo -e '\n```'
           } > ${{ runner.temp }}/release-notes.txt
 
@@ -164,5 +164,5 @@ jobs:
           name: ${{ needs.tag.outputs.tag }}
           tag_name: ${{ needs.tag.outputs.tag }}
           discussion_category_name: 'Announcements'
-          files: ./android/build/outputs/apk/web/release/OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk
+          files: ./android/app/build/outputs/apk/web/release/OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk
           fail_on_unmatched_files: true
