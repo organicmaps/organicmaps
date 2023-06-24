@@ -24,11 +24,6 @@ if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
   # Add gflags library.
   add_subdirectory(gflags)
   target_compile_options(gflags_nothreads_static PRIVATE $<$<CXX_COMPILER_ID:GNU>:-Wno-subobject-linkage>)
-  # Not needed for the usual build process, but it fixes QtCreator editor,
-  # that doesn't see gflags/gflags.h in binary dir (gflags has tricky cmake configuration).
-  if (PLATFORM_DESKTOP)
-    include_directories("${PROJECT_BINARY_DIR}/3party/gflags/include")
-  endif()
 
   # Add pugixml library.
   add_subdirectory(pugixml)
