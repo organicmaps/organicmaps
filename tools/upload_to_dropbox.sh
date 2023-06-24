@@ -15,9 +15,9 @@ FOLDER=$2
 KEY=$3
 TARGET="${4-testing}"
 
-rm -f $FOLDER/omim/android/build/outputs/apk/android-symbols.zip
+rm -f $FOLDER/omim/android/app/build/outputs/apk/android-symbols.zip
 
-zip -r $FOLDER/omim/android/build/outputs/apk/android-symbols.zip $FOLDER/omim/android/obj 
+zip -r $FOLDER/omim/android/app/build/outputs/apk/android-symbols.zip $FOLDER/omim/android/obj
 
 # Upload the files to DropBox:
 # Later this ugly bit will be replaced by a new and shiny python script
@@ -27,7 +27,7 @@ do
     curl -H "Authorization: Bearer $KEY" "https://api.dropbox.com/1/fileops/delete" -X POST --data "root=auto&path=$s"
 done
 
-cd $FOLDER/omim/android/build/outputs/apk/
+cd $FOLDER/omim/android/app/build/outputs/apk/
 
 # 2) Upload the new ones now
 for s in $(ls | grep "android" | grep -v "unaligned");

@@ -59,7 +59,7 @@ MERGED_FILE="$(mktemp)"
 cat "$STRINGS_PATH"/{strings,types_strings}.txt> "$MERGED_FILE"
 
 # TODO: Add validate-strings-file call to check for duplicates (and avoid Android build errors) when tags are properly set.
-"$TWINE" generate-all-localization-files --include translated --format android --untagged --tags android "$MERGED_FILE" "$OMIM_PATH/android/res/"
+"$TWINE" generate-all-localization-files --include translated --format android --untagged --tags android "$MERGED_FILE" "$OMIM_PATH/android/app/main/res/"
 "$TWINE" generate-all-localization-files --format apple --untagged --tags ios "$MERGED_FILE" "$OMIM_PATH/iphone/Maps/LocalizedStrings/"
 "$TWINE" generate-all-localization-files --format apple-plural --untagged --tags ios "$MERGED_FILE" "$OMIM_PATH/iphone/Maps/LocalizedStrings/"
 "$TWINE" generate-all-localization-files --format apple --file-name InfoPlist.strings "$OMIM_PATH/iphone/plist.txt" "$OMIM_PATH/iphone/Maps/LocalizedStrings/"
@@ -82,7 +82,7 @@ if [ "$SUPPORTED_LOCALIZATIONS" != "$(grep supportedLocalizations "$GRADLE_PROPE
 fi
 
 # Generate locales_config.xml to allow users change app's language on Android 13+
-LOCALES_CONFIG="$OMIM_PATH/android/res/xml/locales_config.xml"
+LOCALES_CONFIG="$OMIM_PATH/android/app/main/res/xml/locales_config.xml"
 SUPPORTED_LOCALIZATIONS=${SUPPORTED_LOCALIZATIONS/supportedLocalizations=/en,}
 SUPPORTED_LOCALIZATIONS=${SUPPORTED_LOCALIZATIONS/,en,/,}
 SUPPORTED_LOCALIZATIONS=${SUPPORTED_LOCALIZATIONS//_/-}

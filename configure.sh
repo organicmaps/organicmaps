@@ -14,9 +14,9 @@ BASE_PATH=$(cd "$(dirname "$0")"; pwd)
 
 DEFAULT_PRIVATE_HEADER="$BASE_PATH/private_default.h"
 PRIVATE_HEADER="private.h"
-PRIVATE_PROPERTIES="android/secure.properties"
-PRIVATE_NETWORK_CONFIG="android/res/xml/network_security_config.xml"
-PRIVATE_GOOGLE_SERVICES="android/google-services.json"
+PRIVATE_PROPERTIES="android/app/secure.properties"
+PRIVATE_NETWORK_CONFIG="android/app/src/main/res/xml/network_security_config.xml"
+PRIVATE_GOOGLE_SERVICES="android/app/google-services.json"
 
 SAVED_PRIVATE_REPO_FILE="$BASE_PATH/.private_repository_url"
 SAVED_PRIVATE_BRANCH_FILE="$BASE_PATH/.private_repository_branch"
