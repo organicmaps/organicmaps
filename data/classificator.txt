@@ -854,18 +854,36 @@ world  +
             tunnel  -
             {}
         rail  +
+            branch  +
+                bridge  -
+                tunnel  -
+                {}
             bridge  -
-            motor_vehicle  -
+            highspeed  +
+                bridge  -
+                tunnel  -
+                {}
+            main  +
+                bridge  -
+                tunnel  -
+                {}
+            service  +
+                bridge  -
+                tunnel  -
+                {}
+            spur  +
+                bridge  -
+                tunnel  -
+                {}
+            tourism  +
+                bridge  -
+                tunnel  -
+                {}
             tunnel  -
-            {}
-        razed  -
-        siding  +
-            bridge  -
-            tunnel  -
-            {}
-        spur  +
-            bridge  -
-            tunnel  -
+            utility  +
+                bridge  -
+                tunnel  -
+                {}
             {}
         station  +
             funicular  -
@@ -1103,10 +1121,6 @@ world  +
             tunnel  -
             {}
         tram_stop  -
-        yard  +
-            bridge  -
-            tunnel  -
-            {}
         {}
     recycling  +
         batteries  -

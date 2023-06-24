@@ -59931,6 +59931,500 @@ cont {
   }
 }
 cont {
+  name: "railway-rail-branch"
+  element {
+    scale: 11
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.8
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.0
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.2
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 2.6
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 1.3
+      color: 15658734
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+}
+cont {
+  name: "railway-rail-branch-bridge"
+  element {
+    scale: 11
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.8
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 4.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.0
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 4.4
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.2
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 5.4
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 5.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.6
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 1.3
+      color: 15658734
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 7.2
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 6.8
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 8.4
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 8.4
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+}
+cont {
+  name: "railway-rail-branch-tunnel"
+  element {
+    scale: 11
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.8
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 3.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.0
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 3.2
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.2
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 4.6
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.6
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 1.3
+      color: 15658734
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 5.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 5.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 5.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+}
+cont {
   name: "railway-rail-bridge"
   element {
     scale: 11
@@ -60129,7 +60623,7 @@ cont {
   }
 }
 cont {
-  name: "railway-rail-motor_vehicle"
+  name: "railway-rail-highspeed"
   element {
     scale: 11
     lines {
@@ -60247,7 +60741,2853 @@ cont {
   }
 }
 cont {
+  name: "railway-rail-highspeed-bridge"
+  element {
+    scale: 11
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.8
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 4.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.0
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 4.4
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.2
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 5.4
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 5.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.6
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 1.3
+      color: 15658734
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 7.2
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 6.8
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 8.4
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 8.4
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+}
+cont {
+  name: "railway-rail-highspeed-tunnel"
+  element {
+    scale: 11
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.8
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 3.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.0
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 3.2
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.2
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 4.6
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.6
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 1.3
+      color: 15658734
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 5.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 5.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 5.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+}
+cont {
+  name: "railway-rail-main"
+  element {
+    scale: 11
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.8
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.0
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.2
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 2.6
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 1.3
+      color: 15658734
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+}
+cont {
+  name: "railway-rail-main-bridge"
+  element {
+    scale: 11
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.8
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 4.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.0
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 4.4
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.2
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 5.4
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 5.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.6
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 1.3
+      color: 15658734
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 7.2
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 6.8
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 8.4
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 8.4
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+}
+cont {
+  name: "railway-rail-main-tunnel"
+  element {
+    scale: 11
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.8
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 3.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.0
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 3.2
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.2
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 4.6
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.6
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 1.3
+      color: 15658734
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 5.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 5.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 5.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+}
+cont {
+  name: "railway-rail-service"
+  element {
+    scale: 11
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.8
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.0
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.2
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 2.6
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 1.3
+      color: 15658734
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+}
+cont {
+  name: "railway-rail-service-bridge"
+  element {
+    scale: 11
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.8
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 4.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.0
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 4.4
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.2
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 5.4
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 5.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.6
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 1.3
+      color: 15658734
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 7.2
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 6.8
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 8.4
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 8.4
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+}
+cont {
+  name: "railway-rail-service-tunnel"
+  element {
+    scale: 11
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.8
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 3.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.0
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 3.2
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.2
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 4.6
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.6
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 1.3
+      color: 15658734
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 5.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 5.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 5.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+}
+cont {
+  name: "railway-rail-spur"
+  element {
+    scale: 11
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.8
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.0
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.2
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 2.6
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 1.3
+      color: 15658734
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+}
+cont {
+  name: "railway-rail-spur-bridge"
+  element {
+    scale: 11
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.8
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 4.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.0
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 4.4
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.2
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 5.4
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 5.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.6
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 1.3
+      color: 15658734
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 7.2
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 6.8
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 8.4
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 8.4
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+}
+cont {
+  name: "railway-rail-spur-tunnel"
+  element {
+    scale: 11
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.8
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 3.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.0
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 3.2
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.2
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 4.6
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.6
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 1.3
+      color: 15658734
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 5.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 5.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 5.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+}
+cont {
+  name: "railway-rail-tourism"
+  element {
+    scale: 11
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.8
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.0
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.2
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 2.6
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 1.3
+      color: 15658734
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+}
+cont {
+  name: "railway-rail-tourism-bridge"
+  element {
+    scale: 11
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.8
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 4.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.0
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 4.4
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.2
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 5.4
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 5.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.6
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 1.3
+      color: 15658734
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 7.2
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 6.8
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 8.4
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 8.4
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+}
+cont {
+  name: "railway-rail-tourism-tunnel"
+  element {
+    scale: 11
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.8
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 3.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.0
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 3.2
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.2
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 4.6
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.6
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 1.3
+      color: 15658734
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 5.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 5.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 5.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+}
+cont {
   name: "railway-rail-tunnel"
+  element {
+    scale: 11
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.8
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 3.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.0
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 3.2
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.2
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 4.6
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.6
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 1.3
+      color: 15658734
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 5.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 5.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 5.0
+      color: 8421504
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1332
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+}
+cont {
+  name: "railway-rail-utility"
+  element {
+    scale: 11
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.8
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.0
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.2
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 2.6
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 1.3
+      color: 15658734
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+}
+cont {
+  name: "railway-rail-utility-bridge"
+  element {
+    scale: 11
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.6
+      color: 11710882
+      priority: 1333
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.8
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 4.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.0
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 4.4
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.2
+      color: 11710882
+      priority: 1333
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 5.4
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 5.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.6
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 1.3
+      color: 15658734
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 7.2
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 6.8
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 8.4
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 8.4
+      color: 8421504
+      dashdot {
+      }
+      priority: 1263
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.0
+      color: 15592411
+      dashdot {
+      }
+      priority: 1273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 11710882
+      priority: 1333
+    }
+    lines {
+      width: 2.0
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1343
+    }
+  }
+}
+cont {
+  name: "railway-rail-utility-tunnel"
   element {
     scale: 11
     lines {
@@ -89211,500 +92551,6 @@ cont {
         is_optional: true
       }
       priority: 15931
-    }
-  }
-}
-cont {
-  name: "railway-yard"
-  element {
-    scale: 11
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 1333
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 1333
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 0.8
-      color: 11710882
-      priority: 1333
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.0
-      color: 11710882
-      priority: 1333
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.2
-      color: 11710882
-      priority: 1333
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 2.6
-      color: 11710882
-      priority: 1333
-    }
-    lines {
-      width: 1.3
-      color: 15658734
-      dashdot {
-        dd: 4.5
-        dd: 4.5
-      }
-      priority: 1343
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 3.0
-      color: 11710882
-      priority: 1333
-    }
-    lines {
-      width: 2.0
-      color: 15658734
-      dashdot {
-        dd: 6.3
-        dd: 6.3
-      }
-      priority: 1343
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 3.0
-      color: 11710882
-      priority: 1333
-    }
-    lines {
-      width: 2.0
-      color: 15658734
-      dashdot {
-        dd: 8.1
-        dd: 8.1
-      }
-      priority: 1343
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 3.0
-      color: 11710882
-      priority: 1333
-    }
-    lines {
-      width: 2.0
-      color: 15658734
-      dashdot {
-        dd: 8.1
-        dd: 8.1
-      }
-      priority: 1343
-    }
-  }
-}
-cont {
-  name: "railway-yard-bridge"
-  element {
-    scale: 11
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 1333
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 1333
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 0.8
-      color: 11710882
-      priority: 1333
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 4.0
-      color: 15592411
-      dashdot {
-      }
-      priority: 1057
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 11710882
-      priority: 1333
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 4.4
-      color: 15592411
-      dashdot {
-      }
-      priority: 1057
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.2
-      color: 11710882
-      priority: 1333
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 5.4
-      color: 8421504
-      dashdot {
-      }
-      priority: 1048
-      cap: BUTTCAP
-    }
-    lines {
-      width: 5.0
-      color: 15592411
-      dashdot {
-      }
-      priority: 1057
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.6
-      color: 11710882
-      priority: 1333
-    }
-    lines {
-      width: 1.3
-      color: 15658734
-      dashdot {
-        dd: 4.5
-        dd: 4.5
-      }
-      priority: 1343
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 7.2
-      color: 8421504
-      dashdot {
-      }
-      priority: 1048
-      cap: BUTTCAP
-    }
-    lines {
-      width: 6.8
-      color: 15592411
-      dashdot {
-      }
-      priority: 1057
-      cap: BUTTCAP
-    }
-    lines {
-      width: 3.0
-      color: 11710882
-      priority: 1333
-    }
-    lines {
-      width: 2.0
-      color: 15658734
-      dashdot {
-        dd: 6.3
-        dd: 6.3
-      }
-      priority: 1343
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 8.4
-      color: 8421504
-      dashdot {
-      }
-      priority: 1048
-      cap: BUTTCAP
-    }
-    lines {
-      width: 8.0
-      color: 15592411
-      dashdot {
-      }
-      priority: 1057
-      cap: BUTTCAP
-    }
-    lines {
-      width: 3.0
-      color: 11710882
-      priority: 1333
-    }
-    lines {
-      width: 2.0
-      color: 15658734
-      dashdot {
-        dd: 8.1
-        dd: 8.1
-      }
-      priority: 1343
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 8.4
-      color: 8421504
-      dashdot {
-      }
-      priority: 1048
-      cap: BUTTCAP
-    }
-    lines {
-      width: 8.0
-      color: 15592411
-      dashdot {
-      }
-      priority: 1057
-      cap: BUTTCAP
-    }
-    lines {
-      width: 3.0
-      color: 11710882
-      priority: 1333
-    }
-    lines {
-      width: 2.0
-      color: 15658734
-      dashdot {
-        dd: 8.1
-        dd: 8.1
-      }
-      priority: 1343
-    }
-  }
-}
-cont {
-  name: "railway-yard-tunnel"
-  element {
-    scale: 11
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 1333
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 1333
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 0.8
-      color: 11710882
-      priority: 1333
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 3.0
-      color: 8421504
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1332
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 11710882
-      priority: 1333
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 3.2
-      color: 8421504
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1332
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.2
-      color: 11710882
-      priority: 1333
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 4.6
-      color: 8421504
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1332
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.6
-      color: 11710882
-      priority: 1333
-    }
-    lines {
-      width: 1.3
-      color: 15658734
-      dashdot {
-        dd: 4.5
-        dd: 4.5
-      }
-      priority: 1343
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 5.0
-      color: 8421504
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1332
-      cap: BUTTCAP
-    }
-    lines {
-      width: 3.0
-      color: 11710882
-      priority: 1333
-    }
-    lines {
-      width: 2.0
-      color: 15658734
-      dashdot {
-        dd: 6.3
-        dd: 6.3
-      }
-      priority: 1343
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 5.0
-      color: 8421504
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1332
-      cap: BUTTCAP
-    }
-    lines {
-      width: 3.0
-      color: 11710882
-      priority: 1333
-    }
-    lines {
-      width: 2.0
-      color: 15658734
-      dashdot {
-        dd: 8.1
-        dd: 8.1
-      }
-      priority: 1343
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 5.0
-      color: 8421504
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1332
-      cap: BUTTCAP
-    }
-    lines {
-      width: 3.0
-      color: 11710882
-      priority: 1333
-    }
-    lines {
-      width: 2.0
-      color: 15658734
-      dashdot {
-        dd: 8.1
-        dd: 8.1
-      }
-      priority: 1343
     }
   }
 }
