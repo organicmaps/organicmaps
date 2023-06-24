@@ -74,7 +74,7 @@
 	<!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
 	<string name="bookmarks">Lesezeichen</string>
 	<!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
-	<string name="bookmarks_and_tracks">Lesezeichen und Strecken</string>
+	<string name="bookmarks_and_tracks">Lesezeichen und Tracks</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">Meine Orte</string>
 	<!-- Add bookmark dialog - bookmark name -->
@@ -197,7 +197,7 @@
 	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">Möchten Sie wirklich fortfahren?</string>
 	<!-- Title for tracks category in bookmarks manager -->
-	<string name="tracks_title">Strecken</string>
+	<string name="tracks_title">Tracks</string>
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Länge</string>
 	<string name="share_my_location">Meinen Standort teilen</string>
@@ -450,7 +450,7 @@
 	<string name="level">Stockwerk</string>
 	<string name="downloader_delete_map_dialog">Alle Kartenänderungen werden zusammen mit der Karte gelöscht.</string>
 	<string name="downloader_update_maps">Karten aktualisieren</string>
-	<string name="downloader_mwm_migration_dialog">Um eine Strecke zu erstellen, müssen Sie alle Karten aktualisieren und dann die Strecken erneut planen.</string>
+	<string name="downloader_mwm_migration_dialog">Um eine Route zu erstellen, müssen Sie alle Karten aktualisieren und dann die Route erneut planen.</string>
 	<string name="downloader_search_field_hint">Karte finden</string>
 	<string name="common_check_internet_connection_dialog">Bitte überprüfen Sie Ihre Einstellungen und stellen Sie sicher, dass Ihr Gerät mit dem Internet verbunden ist.</string>
 	<string name="downloader_no_space_title">Nicht genug Speicherplatz</string>
@@ -602,8 +602,8 @@
 	  <item quantity="other">%d Orte</item>
 	</plurals>
 	<plurals name="tracks">
-	  <item quantity="one">%d Strecke</item>
-	  <item quantity="other">%d Strecken</item>
+	  <item quantity="one">%d Track</item>
+	  <item quantity="other">%d Tracks</item>
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Standortdienste</string>
@@ -758,7 +758,7 @@
 	<string name="type.aeroway.taxiway">Rollweg</string>
 	<string name="type.aeroway.terminal">Terminal</string>
 	<string name="type.amenity">Infrastrukturobjekt</string>
-	<string name="type.amenity.arts_centre">Kunststätte</string>
+	<string name="type.amenity.arts_centre">Kunstzentrum</string>
 	<string name="type.amenity.atm">Geldautomat</string>
 	<string name="type.amenity.bbq">Grillplatz</string>
 	<string name="type.amenity.bench">Parkbank</string>
@@ -769,7 +769,7 @@
 	<string name="type.amenity.bureau_de_change">Geldwechselstelle</string>
 	<string name="type.amenity.bus_station">Busbahnhof</string>
 	<string name="type.amenity.cafe">Café</string>
-	<string name="type.amenity.car_rental">Autoverleih</string>
+	<string name="type.amenity.car_rental">Autovermietung</string>
 	<string name="type.amenity.car_sharing">Carsharing</string>
 	<string name="type.amenity.car_wash">Autowäsche</string>
 	<string name="type.amenity.casino">Kasino</string>
@@ -794,7 +794,7 @@
 	<string name="type.amenity.language_school">Sprachschule</string>
 	<string name="type.office.diplomatic">Botschaft</string>
 	<string name="type.amenity.fast_food">Fast-Food</string>
-	<string name="type.amenity.ferry_terminal">Fähre</string>
+	<string name="type.amenity.ferry_terminal">Fähranleger</string>
 	<string name="type.amenity.fire_station">Feuerwehr</string>
 	<string name="type.amenity.fountain">Springbrunnen</string>
 	<string name="type.amenity.fuel">Tankstelle</string>
@@ -831,9 +831,9 @@
 	<string name="type.amenity.payment_terminal">Bezahlterminal</string>
 	<string name="type.amenity.pharmacy">Apotheke</string>
 	<string name="type.amenity.place_of_worship">Anbetungsstätte</string>
-	<string name="type.amenity.place_of_worship.buddhist">Tempel</string>
+	<string name="type.amenity.place_of_worship.buddhist">Buddhistischer Tempel</string>
 	<string name="type.amenity.place_of_worship.christian">Kirche</string>
-	<string name="type.amenity.place_of_worship.hindu">Tempel</string>
+	<string name="type.amenity.place_of_worship.hindu">Hinduistischer Tempel</string>
 	<string name="type.amenity.place_of_worship.jewish">Synagoge</string>
 	<string name="type.amenity.place_of_worship.muslim">Moschee</string>
 	<string name="type.amenity.place_of_worship.shinto">Schrein</string>
@@ -866,6 +866,7 @@
 	<string name="type.amenity.school">Schule</string>
 	<string name="type.amenity.shelter">Unterstand</string>
 	<string name="type.amenity.shower">Dusche</string>
+	<string name="type.amenity.taxi">Taxistand</string>
 	<string name="type.amenity.telephone">Telefon</string>
 	<string name="type.amenity.theatre">Theater</string>
 	<string name="type.amenity.toilets">Toilette</string>
@@ -883,7 +884,7 @@
 	<string name="type.amenity.vending_machine.sweets">Süßigkeitenautomat</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Hundekotbeutelspender</string>
 	<string name="type.amenity.parcel_locker">Paketstation</string>
-	<string name="type.amenity.vending_machine.fuel">Tankautomat</string>
+	<string name="type.amenity.vending_machine.fuel">Zapfsäule</string>
 	<string name="type.amenity.veterinary">Tierarzt</string>
 	<string name="type.amenity.waste_basket">Abfalleimer</string>
 	<string name="type.amenity.waste_disposal">Müllcontainer</string>
@@ -926,6 +927,7 @@
 	<string name="type.building.has_parts">Gebäude</string>
 	<string name="type.building_part">Gebäude</string>
 	<string name="type.building.train_station">Bahnhof</string>
+	<string name="type.building.warehouse">Lagerhalle</string>
 	<string name="type.cemetery.grave">Grab</string>
 	<string name="type.craft">Handwerk</string>
 	<string name="type.craft.beekeeper">Imker</string>
@@ -948,7 +950,7 @@
 	<string name="type.craft.plumber">Installateur</string>
 	<string name="type.craft.sawmill">Sägewerk</string>
 	<string name="type.craft.shoemaker">Schuhmacher</string>
-	<string name="type.craft.winery">Weingut</string>
+	<string name="type.craft.winery">Kellerei</string>
 	<string name="type.craft.tailor">Schneider</string>
 	<string name="type.cuisine.african">Afrikanisch</string>
 	<string name="type.cuisine.american">Amerikanisch</string>
@@ -1156,17 +1158,17 @@
 	<string name="type.highway.secondary_link.bridge">Brücke</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.secondary_link.tunnel">Straßentunnel</string>
-	<string name="type.highway.service">Straße</string>
-	<string name="type.highway.service.area">Straße</string>
+	<string name="type.highway.service">Zufahrtsweg</string>
+	<string name="type.highway.service.area">Zufahrtsweg</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.service.bridge">Brücke</string>
-	<string name="type.highway.service.driveway">Zufahrt</string>
-	<string name="type.highway.service.parking_aisle">Straße</string>
+	<string name="type.highway.service.driveway">Grundstückszufahrt</string>
+	<string name="type.highway.service.parking_aisle">Zufahrtsweg</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.service.tunnel">Straßentunnel</string>
 	<string name="type.highway.services">Raststätte</string>
 	<string name="type.highway.speed_camera">Blitzer</string>
-	<string name="type.highway.steps">Stufen</string>
+	<string name="type.highway.steps">Treppe</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.steps.bridge">Brücke</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1181,20 +1183,20 @@
 	<string name="type.highway.tertiary_link.bridge">Brücke</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.tertiary_link.tunnel">Straßentunnel</string>
-	<string name="type.highway.track">Straße</string>
-	<string name="type.highway.track.area">Straße</string>
+	<string name="type.highway.track">Forst-/Feldweg</string>
+	<string name="type.highway.track.area">Forst-/Feldweg</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Brücke</string>
-	<string name="type.highway.track.grade1">Straße</string>
-	<string name="type.highway.track.grade2">Straße</string>
-	<string name="type.highway.track.grade3">Straße</string>
-	<string name="type.highway.track.grade4">Straße</string>
-	<string name="type.highway.track.grade5">Straße</string>
-	<string name="type.highway.track.no.access">Straße</string>
-	<string name="type.highway.track.permissive">Straße</string>
+	<string name="type.highway.track.grade1">Forst-/Feldweg</string>
+	<string name="type.highway.track.grade2">Forst-/Feldweg</string>
+	<string name="type.highway.track.grade3">Forst-/Feldweg</string>
+	<string name="type.highway.track.grade4">Forst-/Feldweg</string>
+	<string name="type.highway.track.grade5">Forst-/Feldweg</string>
+	<string name="type.highway.track.no.access">Forst-/Feldweg</string>
+	<string name="type.highway.track.permissive">Forst-/Feldweg</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Straßentunnel</string>
-	<string name="type.highway.traffic_signals">Verkehrsampel</string>
+	<string name="type.highway.traffic_signals">Ampel</string>
 	<string name="type.highway.trunk">Schnellstraße</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.trunk.bridge">Brücke</string>
@@ -1205,8 +1207,8 @@
 	<string name="type.highway.trunk_link.bridge">Brücke</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.trunk_link.tunnel">Straßentunnel</string>
-	<string name="type.highway.unclassified">Straße</string>
-	<string name="type.highway.unclassified.area">Straße</string>
+	<string name="type.highway.unclassified">Nebenstraße</string>
+	<string name="type.highway.unclassified.area">Nebenstraße</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.unclassified.bridge">Brücke</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1220,12 +1222,12 @@
 	<string name="type.area_highway.primary">Hauptstraße</string>
 	<string name="type.area_highway.residential">Wohnstraße</string>
 	<string name="type.area_highway.secondary">Straße</string>
-	<string name="type.area_highway.service">Straße</string>
+	<string name="type.area_highway.service">Zufahrtsweg</string>
 	<string name="type.area_highway.tertiary">Straße</string>
-	<string name="type.area_highway.steps">Stufen</string>
-	<string name="type.area_highway.track">Straße</string>
+	<string name="type.area_highway.steps">Treppe</string>
+	<string name="type.area_highway.track">Forst-/Feldweg</string>
 	<string name="type.area_highway.trunk">Schnellstraße</string>
-	<string name="type.area_highway.unclassified">Straße</string>
+	<string name="type.area_highway.unclassified">Nebenstraße</string>
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Historisches Objekt</string>
@@ -1239,8 +1241,8 @@
 	<string name="type.historic.castle.fortress">Festung</string>
 	<string name="type.historic.castle.hillfort">Wallburg</string>
 	<string name="type.historic.castle.kremlin">Kreml</string>
-	<string name="type.historic.castle.manor">Herrenhaus</string>
-	<string name="type.historic.castle.palace">Palais</string>
+	<string name="type.historic.castle.manor">Gutshaus</string>
+	<string name="type.historic.castle.palace">Palast</string>
 	<string name="type.historic.castle.shiro">Japanische Burg</string>
 	<string name="type.historic.castle.stately">Schloss</string>
 	<string name="type.historic.city_gate">Stadttor</string>
@@ -1274,9 +1276,10 @@
 	<string name="type.landuse.churchyard">Kirchhof</string>
 	<string name="type.landuse.commercial">Gewerbegebiet</string>
 	<string name="type.landuse.construction">Baustelle</string>
+	<string name="type.landuse.education">Bildungseinrichtung</string>
 	<string name="type.landuse.farm">Bauernhof</string>
 	<string name="type.landuse.farmland">Agrarland</string>
-	<string name="type.landuse.farmyard">Landwirtschaftlich genutzte Fläche</string>
+	<string name="type.landuse.farmyard">Bauernhof</string>
 	<string name="type.landuse.field">Feld</string>
 	<string name="type.landuse.forest">Wald</string>
 	<string name="type.landuse.forest.coniferous">Nadelwald</string>
@@ -1332,7 +1335,7 @@
 	<string name="type.leisure.water_park">Aquapark</string>
 	<string name="type.man_made">künstliche Anlage</string>
 	<string name="type.man_made.breakwater">Wellenbrecher</string>
-	<string name="type.man_made.cairn">Steinhaufen</string>
+	<string name="type.man_made.cairn">Steinmännchen</string>
 	<string name="type.man_made.chimney">Fabrikschornstein</string>
 	<string name="type.man_made.cutline">Schneise</string>
 	<string name="type.man_made.survey_point">Vermessungspunkt</string>
@@ -1343,7 +1346,7 @@
 	<string name="type.man_made.storage_tank">Speichertank</string>
 	<string name="type.man_made.surveillance">Überwachungskamera</string>
 	<string name="type.man_made.tower">Turm</string>
-	<string name="type.man_made.tower.communication">Kommunikationsturm</string>
+	<string name="type.man_made.tower.communication">Funkturm</string>
 	<string name="type.man_made.wastewater_plant">Kläranlage</string>
 	<string name="type.man_made.water_tap">Wasserhahn</string>
 	<string name="type.man_made.water_tower">Wasserturm</string>
@@ -1354,13 +1357,13 @@
 	<string name="type.military.bunker">Bunker</string>
 	<string name="type.mountain_pass">Gebirgspass</string>
 	<string name="type.natural">Natur</string>
-	<string name="type.natural.bare_rock">Kahler Fels</string>
+	<string name="type.natural.bare_rock">Felsgestein</string>
 	<string name="type.natural.bay">Bucht</string>
 	<string name="type.natural.beach">Strand</string>
 	<string name="type.natural.beach.sand">Sandstrand</string>
 	<string name="type.natural.beach.gravel">Kiesstrand</string>
 	<string name="type.natural.cape">Kap</string>
-	<string name="type.natural.cave_entrance">Höhle</string>
+	<string name="type.natural.cave_entrance">Höhleneingang</string>
 	<string name="type.natural.cliff">Klippe</string>
 	<string name="type.natural.earth_bank">Steilabhang</string>
 	<string name="type.man_made.embankment">Damm</string>
@@ -1379,7 +1382,7 @@
 	<string name="type.natural.water.river">Fluss</string>
 	<string name="type.natural.land">Land</string>
 	<string name="type.natural.meadow">Wiese</string>
-	<string name="type.natural.orchard">Garten</string>
+	<string name="type.natural.orchard">Obstplantage</string>
 	<string name="type.natural.peak">Gipfel</string>
 	<string name="type.natural.saddle">Bergsattel</string>
 	<string name="type.natural.rock">Fels</string>
@@ -1387,7 +1390,7 @@
 	<string name="type.natural.spring">Quelle</string>
 	<string name="type.natural.strait">Meerenge</string>
 	<string name="type.natural.tree">Baum</string>
-	<string name="type.natural.tree_row">Allee</string>
+	<string name="type.natural.tree_row">Baumreihe</string>
 	<string name="type.natural.vineyard">Weinberg</string>
 	<string name="type.natural.volcano">Vulkan</string>
 	<string name="type.natural.water">Wasserfläche</string>
@@ -1432,7 +1435,7 @@
 	<string name="type.place.square">Platz</string>
 	<string name="type.place.state">Bundesland</string>
 	<string name="type.place.state.USA">Bundesstaat</string>
-	<string name="type.place.suburb">Vorort</string>
+	<string name="type.place.suburb">Stadtteil</string>
 	<string name="type.place.town">Kleinstadt</string>
 	<string name="type.place.village">Dorf</string>
 	<string name="type.power">Energie</string>
@@ -1466,7 +1469,7 @@
 	<string name="type.railway.funicular.bridge">Standseilbahnbrücke</string>
 	<string name="type.railway.funicular.tunnel">Standseilbahntunnel</string>
 	<string name="type.railway.halt">Haltepunkt</string>
-	<string name="type.railway.level_crossing">Eisenbahnüberweg</string>
+	<string name="type.railway.level_crossing">Bahnübergang</string>
 	<string name="type.railway.light_rail">Stadtbahn</string>
 	<string name="type.railway.light_rail.bridge">Stadtbahnbrücke</string>
 	<string name="type.railway.light_rail.tunnel">Stadtbahntunnel</string>
@@ -1481,9 +1484,9 @@
 	<string name="type.railway.preserved.bridge">Museumsbahnbrücke</string>
 	<string name="type.railway.preserved.tunnel">Museumsbahntunnel</string>
 	<string name="type.railway.rail">Eisenbahn</string>
-	<string name="type.railway.rail.bridge">S-Bahn-Brücke</string>
-	<string name="type.railway.rail.motor_vehicle">S-Bahn</string>
-	<string name="type.railway.rail.tunnel">S-Bahn-Tunnel</string>
+	<string name="type.railway.rail.bridge">Eisenbahnbrücke</string>
+	<string name="type.railway.rail.motor_vehicle">Eisenbahn</string>
+	<string name="type.railway.rail.tunnel">Eisenbahntunnel</string>
 	<string name="type.railway.razed">Stillgelegte Eisenbahnstrecke</string>
 	<string name="type.railway.siding">Ausweich-/Überholgleis</string>
 	<string name="type.railway.siding.bridge">Ausweich-/Überholgleis</string>
@@ -1790,7 +1793,7 @@
 	<string name="type.shop.musical_instrument">Musikinstrumenteladen</string>
 	<string name="type.shop.newsagent">Zeitungsstand</string>
 	<string name="type.shop.optician">Optiker</string>
-	<string name="type.shop.outdoor">Outdoor-Ausrüstung</string>
+	<string name="type.shop.outdoor">Outdoor-Ausrüstungs-Laden</string>
 	<string name="type.shop.outpost">Abholpunkt</string>
 	<string name="type.shop.pastry">Konditorei</string>
 	<string name="type.shop.pawnbroker">Pfandleihe</string>
@@ -1800,13 +1803,13 @@
 	<string name="type.shop.seafood">Fischhändler</string>
 	<string name="type.shop.second_hand">Second-Hand-Laden</string>
 	<string name="type.shop.shoes">Schuhgeschäft</string>
-	<string name="type.shop.sports">Sportartikel</string>
+	<string name="type.shop.sports">Sportgeschäft</string>
 	<string name="type.shop.stationery">Schreibwarenladen</string>
 	<string name="type.shop.supermarket">Supermarkt</string>
 	<string name="type.shop.tattoo">Tattoo-Studio</string>
 	<string name="type.shop.tea">Teegeschäft</string>
-	<string name="type.shop.ticket">Fahrkartenschalter</string>
-	<string name="type.shop.toys">Spielzeuggeschäft</string>
+	<string name="type.shop.ticket">Kartenverkauf</string>
+	<string name="type.shop.toys">Spielwarengeschäft</string>
 	<string name="type.shop.travel_agency">Reisebüro</string>
 	<string name="type.shop.tyres">Reifen-Shop</string>
 	<string name="type.shop.variety_store">Billigladen</string>
@@ -1830,15 +1833,15 @@
 	<string name="type.shop.fishing">Angelgeschäft</string>
 	<string name="type.shop.interior_decoration">Einrichtungsgeschäft</string>
 	<string name="type.shop.lottery">Lotteriescheine</string>
-	<string name="type.shop.medical_supply">Medizinische Versorgung</string>
+	<string name="type.shop.medical_supply">Sanitätshaus</string>
 	<string name="type.shop.nutrition_supplements">Nahrungsergänzungsmittel</string>
 	<string name="type.shop.paint">Farben</string>
 	<string name="type.shop.perfumery">Parfümerie</string>
 	<string name="type.shop.sewing">Nähzubehör</string>
-	<string name="type.shop.storage_rental">Speichermiete</string>
-	<string name="type.shop.tobacco">Tabak</string>
+	<string name="type.shop.storage_rental">Lagervermietung</string>
+	<string name="type.shop.tobacco">Tabakwarengeschäft</string>
 	<string name="type.shop.trade">Handelsbedarf</string>
-	<string name="type.shop.watches">Uhren</string>
+	<string name="type.shop.watches">Uhrengeschäft</string>
 	<string name="type.shop.wholesale">Großhandelsgeschäft</string>
 	<string name="type.sport">Sport</string>
 	<string name="type.sport.american_football">American Football</string>
@@ -1865,7 +1868,7 @@
 	<string name="type.sport.soccer">Fußball</string>
 	<string name="type.sport.swimming">Schwimmen</string>
 	<string name="type.sport.table_tennis">Tischtennis</string>
-	<string name="type.sport.tennis">Tennisspielfeld</string>
+	<string name="type.sport.tennis">Tennisplatz</string>
 	<string name="type.sport.volleyball">Volleyball</string>
 	<string name="type.sport.10pin">Bowling</string>
 	<string name="type.sport.9pin">Bowling</string>
@@ -1886,10 +1889,10 @@
 	<string name="type.tourism.attraction">Sehenswürdigkeit</string>
 	<string name="type.tourism.attraction.animal">Sehenswürdigkeit</string>
 	<string name="type.tourism.attraction.specified">Sehenswürdigkeit</string>
-	<string name="type.tourism.camp_site">Zeltplatz</string>
-	<string name="type.tourism.caravan_site">Wohnwagenstellplatz</string>
+	<string name="type.tourism.camp_site">Campingplatz</string>
+	<string name="type.tourism.caravan_site">Wohnmobilstellplatz</string>
 	<string name="type.tourism.chalet">Ferienhaus</string>
-	<string name="type.tourism.gallery">Galerie</string>
+	<string name="type.tourism.gallery">Kunstgalerie</string>
 	<string name="type.tourism.guest_house">Gästehaus</string>
 	<string name="type.tourism.hostel">Herberge</string>
 	<string name="type.tourism.hotel">Hotel</string>
@@ -1922,7 +1925,7 @@
 	<string name="type.waterway.lock_gate">Schleusentor</string>
 	<string name="type.waterway.river">Fluss</string>
 	<string name="type.waterway.river.tunnel">Fluss</string>
-	<string name="type.waterway.riverbank">Flussufer</string>
+	<string name="type.waterway.riverbank">Fluss</string>
 	<string name="type.waterway.stream">Bach</string>
 	<string name="type.waterway.stream.ephemeral">Bach</string>
 	<string name="type.waterway.stream.intermittent">Bach</string>
@@ -1934,18 +1937,18 @@
 	<string name="type.wheelchair.no">Kein Rollstuhlzugang</string>
 	<string name="type.wheelchair.yes">Vollständiger Zugang für Rollstühle</string>
 	<string name="type.aerialway.j.bar">Schlepplift</string>
-	<string name="type.aerialway.magic_carpet">Laufband</string>
+	<string name="type.aerialway.magic_carpet">Teppichlift</string>
 	<string name="type.aerialway.platter">Tellerlift</string>
 	<string name="type.aerialway.rope_tow">Seillift</string>
-	<string name="type.aerialway.t.bar">T-Bügel-Lift</string>
+	<string name="type.aerialway.t.bar">Schlepplift (T-Bügel)</string>
 	<string name="type.piste_type">Pistentyp</string>
-	<string name="type.piste_type.downhill">Abfahrt</string>
-	<string name="type.piste_type.downhill.advanced">Schwierige Abfahrt</string>
-	<string name="type.piste_type.downhill.easy">Leichte Abfahrt</string>
-	<string name="type.piste_type.downhill.expert">Profi Abfahrt</string>
-	<string name="type.piste_type.downhill.freeride">Abfahrt</string>
-	<string name="type.piste_type.downhill.intermediate">Mittelschwere Abfahrt</string>
-	<string name="type.piste_type.downhill.novice">Anfängerfreundliche Abfahrt</string>
+	<string name="type.piste_type.downhill">Ski-Abfahrt</string>
+	<string name="type.piste_type.downhill.advanced">Schwierige Ski-Abfahrt</string>
+	<string name="type.piste_type.downhill.easy">Leichte Ski-Abfahrt</string>
+	<string name="type.piste_type.downhill.expert">Profi-Ski-Abfahrt</string>
+	<string name="type.piste_type.downhill.freeride">Ski-Abfahrt</string>
+	<string name="type.piste_type.downhill.intermediate">Mittelschwere Ski-Abfahrt</string>
+	<string name="type.piste_type.downhill.novice">Anfängerfreundliche Ski-Abfahrt</string>
 	<string name="type.piste_type.nordic">Langlaufloipe</string>
 	<string name="type.piste_type.sled">Rodelbahn</string>
 	<string name="type.amenity.events_venue">Veranstaltungszentrum</string>
