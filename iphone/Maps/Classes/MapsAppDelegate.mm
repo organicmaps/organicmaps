@@ -69,7 +69,7 @@ using namespace osm_auth_ios;
 
 @property(nonatomic) NSInteger standbyCounter;
 @property(nonatomic) MWMBackgroundFetchScheduler *backgroundFetchScheduler;
-@property (nonatomic, strong) ClipboardWatcher *clipboardWatcher;
+@property (nonatomic, strong) ClipboardChecker *clipboardChecker;
 
 @end
 
@@ -226,18 +226,18 @@ using namespace osm_auth_ios;
     f.OnRecoverSurface(static_cast<int>(objcSize.width), static_cast<int>(objcSize.height),
                        true /* recreateContextDependentResources */);
   }
-  [self startWatchingClipboard];
+  [self startCheckingClipboard];
   [MWMLocationManager applicationDidBecomeActive];
   [MWMSearch addCategoriesToSpotlight];
   [MWMKeyboard applicationDidBecomeActive];
   [MWMTextToSpeech applicationDidBecomeActive];
   LOG(LINFO, ("applicationDidBecomeActive - end"));
 }
-- (void)startWatchingClipboard {
+- (void)startCheckingClipboard {
     NSLog(@"Watching started");
-  ClipboardWatcher *clipboardWatcher = [[ClipboardWatcher alloc] init];
+  ClipboardChecker *clipboardChecker = [[ClipboardChecker alloc] init];
   UIWindow *targetWindow = [UIApplication sharedApplication].keyWindow;
-  [clipboardWatcher startWatching:targetWindow];
+  [clipboardChecker startChecking:targetWindow];
 }
 
 - (BOOL)application:(UIApplication *)application

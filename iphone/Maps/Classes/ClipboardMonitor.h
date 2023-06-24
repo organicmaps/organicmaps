@@ -1,8 +1,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface ClipboardWatcher : NSObject
+@interface ClipboardChecker : NSObject
 
-- (void)startWatching:(UIWindow *)window;
+- (void)startChecking:(UIWindow *)window;
 
 @end
