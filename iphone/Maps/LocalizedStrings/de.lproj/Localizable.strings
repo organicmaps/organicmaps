@@ -75,7 +75,7 @@
 "bookmarks" = "Lesezeichen";
 
 /* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
-"bookmarks_and_tracks" = "Lesezeichen und Strecken";
+"bookmarks_and_tracks" = "Lesezeichen und Tracks";
 
 /* Default bookmark list name */
 "core_my_places" = "Meine Orte";
@@ -200,7 +200,7 @@
 "data_version" = "OpenStreetMap-Daten: %@";
 
 /* Title for tracks category in bookmarks manager */
-"tracks_title" = "Strecken";
+"tracks_title" = "Tracks";
 
 /* Length of track in cell that describes route */
 "length" = "Länge";
@@ -242,7 +242,7 @@
 "pref_tts_other_section_title" = "Weitere";
 
 /* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Letzte Strecke";
+"pref_track_record_title" = "Letzter Track";
 
 "pref_map_auto_zoom" = "Auto-Zoom";
 
@@ -1220,16 +1220,16 @@
 "whats_new_auto_update_button_later" = "Später manuell aktualisieren";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Strecke löschen";
+"placepage_delete_track_button" = "Track löschen";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Name der Strecke";
+"placepage_track_name_hint" = "Name des Tracks";
 
 /* move track or bookmark from the list button text */
 "move" = "verschieben";
 
 /* edit track screen title */
-"track_title" = "Strecke";
+"track_title" = "Track";
 
 /* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsApp";

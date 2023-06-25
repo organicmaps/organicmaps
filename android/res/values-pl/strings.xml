@@ -580,7 +580,7 @@
 	<string name="bookmark_lists_show_all">Pokaż wszystkie</string>
 	<string name="bookmarks_create_new_group">Utwórz nową listę</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
-	<string name="bookmarks_import">Importuj zakładki i utwory</string>
+	<string name="bookmarks_import">Importuj zakładki i trasy</string>
 	<string name="bookmarks_error_message_share_general">Nie można udostępnić z powodu błędu aplikacji</string>
 	<string name="bookmarks_error_title_share_empty">Błąd udostępniania</string>
 	<string name="bookmarks_error_message_share_empty">Nie można udostępnić pustej listy</string>
