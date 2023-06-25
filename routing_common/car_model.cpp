@@ -39,7 +39,6 @@ VehicleModel::LimitsInitList const kDefaultOptions = {
     {HighwayType::HighwayLivingStreet, true},
     {HighwayType::HighwayRoad, true},
     {HighwayType::HighwayTrack, true},
-    {HighwayType::RailwayRailMotorVehicle, true},
     {HighwayType::RouteShuttleTrain, true},
     {HighwayType::RouteFerry, true},
     {HighwayType::ManMadePier, true}

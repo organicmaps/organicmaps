@@ -501,8 +501,6 @@ class IsWayWithDurationChecker : public BaseChecker
   IsWayWithDurationChecker();
 public:
   DECLARE_CHECKER_INSTANCE(IsWayWithDurationChecker);
-
-  uint32_t GetMotorVehicleRailway() const { return m_types[1]; }
 };
 
 /// Type of locality (do not change values and order - they have detalization order)

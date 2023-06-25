@@ -649,21 +649,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
 
   {
     Tags const tags = {
-      { "railway", "rail" },
-      { "motor_vehicle", "yes" },
-    };
-
-    auto const params = GetFeatureBuilderParams(tags);
-
-    TEST_EQUAL(params.m_types.size(), 2, (params));
-    uint32_t const type = GetType({"railway", "rail", "motor_vehicle"});
-    TEST(params.IsTypeExist(type), (params));
-    TEST(routing::CarModel::AllLimitsInstance().IsRoadType(type), ());
-    TEST(params.IsTypeExist(GetType({"railway", "rail", "branch"})), ());
-  }
-
-  {
-    Tags const tags = {
       { "route", "shuttle_train" },
     };
 

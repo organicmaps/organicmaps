@@ -31,9 +31,6 @@ public:
     auto const & c = classif();
     m_map[c.GetTypeByPath({"route", "ferry"})] = ftypes::HighwayClass::Transported;
     m_map[c.GetTypeByPath({"route", "shuttle_train"})] = ftypes::HighwayClass::Transported;
-    /// @todo Wow, actual highway type is railway-rail-motor_vehicle.
-    /// Should be carefull with GetHighwayClass function.
-    m_map[c.GetTypeByPath({"railway", "rail"})] = ftypes::HighwayClass::Transported;
 
     m_map[c.GetTypeByPath({"highway", "motorway"})] = ftypes::HighwayClass::Trunk;
     m_map[c.GetTypeByPath({"highway", "motorway_link"})] = ftypes::HighwayClass::Trunk;
@@ -772,10 +769,9 @@ IsMotorwayJunctionChecker::IsMotorwayJunctionChecker()
   m_types.push_back(c.GetTypeByPath({"highway", "motorway_junction"}));
 }
 
-IsWayWithDurationChecker::IsWayWithDurationChecker() : BaseChecker(3 /* level */)
+IsWayWithDurationChecker::IsWayWithDurationChecker()
 {
   base::StringIL const types[] = {{"route", "ferry"},
-                                  {"railway", "rail", "motor_vehicle"},
                                   {"route", "shuttle_train"}};
   Classificator const & c = classif();
   for (auto const & e : types)
