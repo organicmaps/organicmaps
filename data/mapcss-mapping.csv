@@ -1064,9 +1064,8 @@ junction|roundabout;990;
 highway|speed_camera;991;
 shop|beauty;992;
 shop|sports;993;
-route|ferry|motor_vehicle;[route=ferry][motor_vehicle];x;name;int_name;994;route|ferry
-# For railways that carry vehicles, used for routing similar to ferries:
-railway|rail|motor_vehicle;[railway=rail][motor_vehicle];;name;int_name;995;
+deprecated:route|ferry|motor_vehicle:09.2021;[route=ferry][motor_vehicle];x;name;int_name;994;route|ferry
+deprecated:railway|rail|motor_vehicle:06.2023;[railway=rail][motor_vehicle];x;name;int_name;995;railway|rail
 hwtag|nofoot;996;
 place|city|capital|2;[place=city][capital=2],[place=city][capital?][admin_level=2];;name;int_name;997;
 place|city|capital|3;[place=city][capital=3],[place=city][capital?][admin_level=3];;name;int_name;998;

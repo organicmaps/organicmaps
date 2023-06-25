@@ -31,7 +31,6 @@ VehicleModel::VehicleModel(Classificator const & classif, LimitsInitList const &
                            SurfaceInitList const & featureTypeSurface, HighwayBasedInfo const & info)
 : m_highwayBasedInfo(info)
 , m_onewayType(ftypes::IsOneWayChecker::Instance().GetType())
-, m_railwayVehicleType(ftypes::IsWayWithDurationChecker::Instance().GetMotorVehicleRailway())
 {
   m_roadTypes.Reserve(featureTypeLimits.size());
   for (auto const & v : featureTypeLimits)
@@ -70,20 +69,12 @@ void VehicleModel::AddAdditionalRoadTypes(Classificator const & classif, Additio
   }
 }
 
-uint32_t VehicleModel::PrepareToMatchType(uint32_t type) const
-{
-  // The only exception, 3-arity type now.
-  if (type != m_railwayVehicleType)
-    ftype::TruncValue(type, 2);
-  return type;
-}
-
 std::optional<HighwayType> VehicleModel::GetHighwayType(FeatureType & f) const
 {
   feature::TypesHolder const types(f);
   for (uint32_t t : types)
   {
-    t = PrepareToMatchType(t);
+    ftype::TruncValue(t, 2);
 
     auto const ret = GetHighwayType(t);
     if (ret)
@@ -140,7 +131,7 @@ SpeedKMpH VehicleModel::GetTypeSpeedImpl(feature::TypesHolder const & types, Spe
   optional<SpeedKMpH> additionalRoadSpeed;
   for (uint32_t t : types)
   {
-    t = PrepareToMatchType(t);
+    ftype::TruncValue(t, 2);
 
     if (!hwType)
       hwType = GetHighwayType(t);
@@ -228,7 +219,7 @@ bool VehicleModel::HasPassThroughType(feature::TypesHolder const & types) const
 {
   for (uint32_t t : types)
   {
-    t = PrepareToMatchType(t);
+    ftype::TruncValue(t, 2);
 
     // Additional types (like ferry) are always pass-through now.
     if (m_addRoadTypes.Find(t))
@@ -244,7 +235,7 @@ bool VehicleModel::HasPassThroughType(feature::TypesHolder const & types) const
 
 bool VehicleModel::IsRoadType(uint32_t type) const
 {
-  type = PrepareToMatchType(type);
+  ftype::TruncValue(type, 2);
   return m_addRoadTypes.Find(type) || m_roadTypes.Find(type);
 }
 
@@ -391,7 +382,6 @@ string DebugPrint(HighwayType type)
   case HighwayType::RouteFerry: return "route-ferry";
   case HighwayType::HighwayTertiaryLink: return "highway-tertiary_link";
   case HighwayType::HighwayBusway: return "highway-busway";
-  case HighwayType::RailwayRailMotorVehicle: return "railway-rail-motor_vehicle";
   case HighwayType::RouteShuttleTrain: return "route-shuttle_train";
   }
 

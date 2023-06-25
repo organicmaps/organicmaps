@@ -40,7 +40,6 @@ HighwayBasedFactors const kHighwayBasedFactors = {
     {HighwayType::HighwayTrack, InOutCityFactor(1.0)},
     {HighwayType::ManMadePier, InOutCityFactor(0.90)},
 
-    {HighwayType::RailwayRailMotorVehicle, InOutCityFactor(0.90)},
     {HighwayType::RouteFerry, InOutCityFactor(0.90)},
     {HighwayType::RouteShuttleTrain, InOutCityFactor(0.90)},
 };
@@ -75,7 +74,6 @@ HighwayBasedSpeeds const kHighwayBasedSpeeds = {
     {HighwayType::HighwayTrack, InOutCitySpeedKMpH(5.00 /* in city */, 5.00 /* out city */)},
     {HighwayType::ManMadePier, InOutCitySpeedKMpH({17.00, 10.00} /* in city */, {17.00, 10.00} /* out city */)},
 
-    {HighwayType::RailwayRailMotorVehicle, InOutCitySpeedKMpH(10.00 /* in city */, 10.00 /* out city */)},
     {HighwayType::RouteFerry, InOutCitySpeedKMpH(10.00 /* in city */, 10.00 /* out city */)},
     {HighwayType::RouteShuttleTrain, InOutCitySpeedKMpH(25.00 /* in city */, 25.00 /* out city */)},
 };

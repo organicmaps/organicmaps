@@ -18944,21 +18944,6 @@
   [type.railway.rail.service.bridge]
     ref = type.railway.rail.bridge
 
-  [type.railway.rail.motor_vehicle]
-    en = Railway
-    de = Eisenbahn
-    et = Raudtee
-    ja = 鉄道
-    mr = रेल्वे
-    nl = Spoorweg
-    pt = Ferrovia
-    pt-BR = Ferrovia
-    ru = Железная дорога
-    tr = Demiryolu
-    uk = Залізниця
-    zh-Hans = 铁路轨道
-    zh-Hant = 鐵路軌道
-
   [type.railway.rail.tunnel]
     en = Railway Tunnel
     de = Eisenbahntunnel
@@ -19942,14 +19927,7 @@
     zh-Hans = 航线
 
   [type.route.shuttle_train]
-    en = Shuttle Train
-    de = Shuttlezug
-    et = Kiirrong
-    nl = Shuttle-trein
-    pt = Rota de comboio vaivem
-    pt-BR = Rota de trem vaivém
-    ru = Челночная линия
-    tr = Servis Treni
+    en = route-shuttle_train
 
   [type.shop]
     en = Shop
