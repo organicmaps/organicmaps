@@ -18681,7 +18681,7 @@
     mr = बुकमार्क आणि ट्रॅक आयात करा
     nb = Importer bokmerker og spor
     nl = Bladwijzers en tracks importeren
-    pl = Importuj zakładki i utwory
+    pl = Importuj zakładki i trasy
     pt = Importar favoritos e trilhas
     ro = Importați marcaje și piese
     ru = Импортировать метки и треки
