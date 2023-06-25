@@ -74,7 +74,7 @@
 	<!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
 	<string name="bookmarks">Lesezeichen</string>
 	<!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
-	<string name="bookmarks_and_tracks">Lesezeichen und Strecken</string>
+	<string name="bookmarks_and_tracks">Lesezeichen und Tracks</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">Meine Orte</string>
 	<!-- Add bookmark dialog - bookmark name -->
@@ -197,7 +197,7 @@
 	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">Möchten Sie wirklich fortfahren?</string>
 	<!-- Title for tracks category in bookmarks manager -->
-	<string name="tracks_title">Strecken</string>
+	<string name="tracks_title">Tracks</string>
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Länge</string>
 	<string name="share_my_location">Meinen Standort teilen</string>
@@ -450,7 +450,7 @@
 	<string name="level">Stockwerk</string>
 	<string name="downloader_delete_map_dialog">Alle Kartenänderungen werden zusammen mit der Karte gelöscht.</string>
 	<string name="downloader_update_maps">Karten aktualisieren</string>
-	<string name="downloader_mwm_migration_dialog">Um eine Strecke zu erstellen, müssen Sie alle Karten aktualisieren und dann die Strecken erneut planen.</string>
+	<string name="downloader_mwm_migration_dialog">Um eine Route zu erstellen, müssen Sie alle Karten aktualisieren und dann die Route erneut planen.</string>
 	<string name="downloader_search_field_hint">Karte finden</string>
 	<string name="common_check_internet_connection_dialog">Bitte überprüfen Sie Ihre Einstellungen und stellen Sie sicher, dass Ihr Gerät mit dem Internet verbunden ist.</string>
 	<string name="downloader_no_space_title">Nicht genug Speicherplatz</string>
@@ -602,8 +602,8 @@
 	  <item quantity="other">%d Orte</item>
 	</plurals>
 	<plurals name="tracks">
-	  <item quantity="one">%d Strecke</item>
-	  <item quantity="other">%d Strecken</item>
+	  <item quantity="one">%d Track</item>
+	  <item quantity="other">%d Tracks</item>
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Standortdienste</string>
