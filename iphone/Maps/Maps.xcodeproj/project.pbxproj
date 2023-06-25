@@ -1135,7 +1135,7 @@
 		6B679E88266BFD090074AE2A /* 00_NotoNaskhArabic-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "00_NotoNaskhArabic-Regular.ttf"; path = "../../data/00_NotoNaskhArabic-Regular.ttf"; sourceTree = "<group>"; };
 		6B9978341C89A316003B8AA0 /* editor.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = editor.config; path = ../../data/editor.config; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* OMaps.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OMaps.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
-		8F71F2442A46035800089B33 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Bridging-Header.h"; path = "../../../../../.Trash/Bridging-Header.h"; sourceTree = "<group>"; };
+		8F71F2442A46035800089B33 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		8FE7398D2A4208A100DC5837 /* ClipboardMonitor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClipboardMonitor.h; sourceTree = "<group>"; };
 		8FE7398E2A4208CC00DC5837 /* ClipboardMonitor.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ClipboardMonitor.mm; sourceTree = "<group>"; };
 		978D4A30199A11E600D72CA7 /* faq.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = faq.html; path = ../../data/faq.html; sourceTree = "<group>"; };
