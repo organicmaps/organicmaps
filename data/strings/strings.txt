@@ -4,6 +4,7 @@
     comment = Button text (should be short)
     tags = android
     en = Back
+    af = Terug
     ar = رجوع
     be = Назад
     bg = Назад
@@ -46,6 +47,7 @@
     comment = Button text (should be short)
     tags = android,ios
     en = Cancel
+    af = Kanselleer
     ar = إلغاء
     be = Скасаваць
     bg = Отмяна
@@ -88,6 +90,7 @@
     comment = Button which interrupts country download
     tags = ios
     en = Cancel Download
+    af = Kanselleer aflaai
     ar = إلغاء التنزيل
     be = Скасаваць спампоўку
     bg = Отмяна на изтегляне
@@ -130,6 +133,7 @@
     comment = Button which deletes downloaded country
     tags = android,ios
     en = Delete
+    af = Skrap
     ar = حذف
     be = Выдаліць
     bg = Изтриване
@@ -171,6 +175,7 @@
   [download_maps]
     tags = android,ios
     en = Download Maps
+    af = Laai kaarte af
     ar = تنزيل الخرائط
     be = Спампаваць мапы
     bg = Изтегляне на карти
@@ -213,6 +218,7 @@
     comment = Settings/Downloader - info for country when download fails
     tags = android
     en = Download has failed. Touch to try again.
+    af = Aflaai het misluk. Tik om weer te probeer.
     ar = فشلت عملية التنزيل، انقر لإعادة المحاولة
     be = Не атрымалася спампаваць. Націсніце, каб паспрабаваць зноў.
     bg = Изтеглянето се провали. Натиснете, за да опитате отново.
@@ -255,6 +261,7 @@
     comment = Settings/Downloader - info for country which started downloading
     tags = android,ios
     en = Downloading…
+    af = Laai tans af…
     ar = جاري التنزيل…
     be = Спампоўванне…
     bg = Теглене…
@@ -298,6 +305,7 @@
     tags = android,ios
     en = Kilometers
     en-GB = Kilometres
+    af = Kilometers
     ar = الكيلومترات
     be = Кіламетры
     bg = Километри
@@ -340,6 +348,7 @@
     comment = Leave Review dialog - Review button
     tags = ios
     en = Leave a Review
+    af = Skryf ’n resensie
     ar = اترك تعليقاً
     be = Напісаць водгук
     bg = Напишете отзив
@@ -382,6 +391,7 @@
     comment = Settings/Downloader - size string, only strings different from English should be translated
     tags = android
     en = MB
+    af = MB
     ar = ميغابايت
     be = МБ
     bg = МБ
@@ -399,6 +409,7 @@
   [gb]
     tags = android
     en = GB
+    af = GB
     ar = غيغابايت
     be = ГБ
     bg = ГБ
@@ -412,6 +423,7 @@
     comment = Choose measurement on first launch alert - choose imperial system button
     tags = android,ios
     en = Miles
+    af = Myle
     ar = الأميال
     be = Мілі
     bg = Мили
@@ -454,6 +466,7 @@
     comment = A text for current gps location point/arrow selected on the map
     tags = android,ios
     en = My Position
+    af = My posisie
     ar = موقعي
     be = Маё месцазнаходжанне
     bg = Мое местоположение
@@ -496,6 +509,7 @@
     comment = Update maps later button text
     tags = android,ios
     en = Later
+    af = Later
     ar = ًلاحقا
     be = Потым
     bg = По-късно
@@ -538,6 +552,7 @@
     comment = View and button titles for accessibility, please also edit it in iphone/plist.txt
     tags = android,ios
     en = Search
+    af = Soek
     ar = البحث
     be = Шукаць
     bg = Търсене
@@ -579,6 +594,7 @@
     comment = Search box placeholder text; Used when searching on the map itself, not when searching for a map
     tags = android
     en = Search Map
+    af = Soek op die kaart
     ar = ابحث في الخريطة
     be = Шукаць на мапе
     bg = Търсене в карта
@@ -621,6 +637,7 @@
     comment = Settings/Downloader - 3G download warning dialog confirm button
     tags = ios
     en = Yes
+    af = Ja
     ar = نعم
     be = Так
     bg = Да
@@ -663,6 +680,7 @@
     comment = Location services are disabled by user alert - message
     tags = android
     en = You currently have all Location Services for this device or application disabled. Please enable them in Settings.
+    af = Alle liggingsdienste vir hierdie toestel of toepassing is tans gedeaktiveer. Aktiveer dit asb. in Instellings.
     ar = التطبيق أو جميع خدمات تحديد المواقع معطلة لديك في الوقت الحالي. الرجاء تفعيلها في الإعدادات.
     be = Служба геалакацыі адключана для гэтай прылады або праграмы. Калі ласка, уключыце яе ў Наладах.
     bg = В момента всички услуги за местоположение за това устройство или приложение са деактивирани. Моля, разрешете ги в Настройки.
@@ -705,6 +723,7 @@
     comment = View and button titles for accessibility
     tags = android,ios
     en = Show on the map
+    af = Toon op die kaart
     ar = عرض على الخريطة
     be = Паказаць на мапе
     bg = Показване на картата
@@ -746,6 +765,7 @@
     comment = Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown
     tags = ios
     en = Download Map
+    af = Laai die kaart af
     ar = تنزيل الخريطة
     be = Спампаваць мапу
     bg = Изтегляне на карта
@@ -788,6 +808,7 @@
     comment = Message to display at the center of the screen when the country download has failed
     tags = android,ios
     en = Download has failed
+    af = Aflaai het misluk
     ar = فشلت عملية تنزيل
     be = Памылка спампоўкі
     bg = Изтеглянето се провали
@@ -830,6 +851,7 @@
     comment = Button text for the button under the country_status_download_failed message
     tags = android
     en = Try Again
+    af = Probeer weer
     ar = محاولة مرة أخرى
     be = Паспрабаваць зноў
     bg = Опитайте отново
@@ -871,6 +893,7 @@
   [about_menu_title]
     tags = android,ios
     en = About Organic Maps
+    af = Oor Organic Maps
     ar = حول Organic Maps
     be = Аб праграме Organic Maps
     bg = Относно приложението
@@ -913,6 +936,7 @@
     tags = android
     comment = Text in About screen
     en = Free for everyone, made with love
+    af = Gratis vir almal, gemaak met liefde
     ar = مجاني للجميع ، مصنوع من الحب
     be = Бясплатна для ўсіх, зроблена з любоўю
     bg = Безплатно за всички, направени с любов
@@ -953,6 +977,7 @@
     tags = android
     comment = Text in About screen
     en = • No ads, no tracking, no data collection
+    af = • Geen advertensies, geen nasporing, geen dataversameling
     ar = • لا إعلانات ، لا تتبع ، لا جمع البيانات
     be = • Без рэкламы, без трэкінгу, без збору вашых даных
     bg = • Без реклами, без проследяване, без събиране на данни
@@ -993,6 +1018,7 @@
     tags = android
     comment = Text in About screen
     en = • No battery drain, no background data
+    af = • Geen battery-afvloei, geen agtergronddata
     ar = • يحفظ البطارية ، لا يستخدم بيانات الخلفية
     be = • Эканоміць батарэю, не выкарыстоўвае фонавыя даныя
     bg = • Пести батерията, не използва фонови данни
@@ -1036,6 +1062,7 @@
     tags = android
     comment = Text in About screen
     en = • Fast, minimalist, no software bloat
+    af = • Vinnige, minimalisties, geen programmatuurgemors nie
     ar = • سريع ، الحد الأدنى ، لا خردة
     be = • Хуткія, мінімалістычныя, без смецця
     bg = • Бързи, минималистични, без боклуци
@@ -1076,6 +1103,7 @@
     tags = android
     comment = Text in About screen
     en = Open-source application created by enthusiasts and volunteers.
+    af = Oopbrontoepassing geskep deur entoesiaste en vrywilligers.
     ar = تطبيق مفتوح المصدر الذي أنشأه المتحمسون والمتطوعون.
     be = Праграма з адкрытым зыходным кодам, створаная энтузіястамі і валанцёрамі.
     bg = Приложение с отворен код, създадено от ентусиасти и доброволци.
@@ -1114,6 +1142,7 @@
   [connection_settings]
     tags = android
     en = Connection Settings
+    af = Verbindingsinstellings
     ar = إعدادات الاتصال
     be = Налады падключэння
     bg = Настройки за свързване
@@ -1155,6 +1184,7 @@
   [close]
     tags = android,ios
     en = Close
+    af = Sluit
     ar = إغلاق
     be = Закрыць
     bg = Затваряне
@@ -1196,6 +1226,7 @@
   [unsupported_phone]
     tags = android
     en = The app requires hardware accelerated OpenGL. Unfortunately, your device is not supported.
+    af = ’n Apparatuurversnelde OpenGL is nodig vir die toep. U toestel word ongelukkig nie gesteun nie.
     ar = أنت بحاجة الى OpenGL بأجهزة تسريع. لسوء الحظ جهازك لا يدعم هذه الخاصية.
     be = Для працы праграмы неабходны апаратна паскораны OpenGL. Нажаль, ваша прылада не падтрымліваецца.
     bg = Приложението изисква хардуерно ускорение на OpenGL. За съжаление вашето устройство не се поддържа.
@@ -1237,6 +1268,7 @@
   [download]
     tags = android,ios
     en = Download
+    af = Laai af
     ar = تنزيل
     be = Спампаваць
     bg = Изтегляне
@@ -1279,6 +1311,7 @@
     comment = Used in DownloadResources startup screen
     tags = android
     en = Please disconnect USB cable or insert memory card to use Organic Maps
+    af = Ontkoppel die USB-kabel of gebruik ’n geheuekaart om Organic Maps te gebruik
     ar = الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام Organic Maps.
     be = Адключыце USB кабель або ўстаўце карту памяці, каб карыстацца Organic Maps
     bg = Моля, изключете USB кабела или поставете карта с памет.
@@ -1320,6 +1353,7 @@
     comment = Used in DownloadResources startup screen
     tags = android
     en = Please free up some space on the SD card/USB storage first in order to use the app
+    af = Maak asb. eers spasie op die SD-kaart/USB-berging beskikbaar om die kaart te kan gebruik
     ar = الرجاء إخلاء بعض المساحة في تخزين البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل أولا من أجل استخدام هذا التطبيق.
     be = Вызваліце месца на SD-карце/USB-сховішчы, каб карыстацца праграмай
     bg = Моля, първо освободете място на SD картата/USB паметта, за да можете да използвате приложението.
@@ -1361,6 +1395,7 @@
   [download_resources]
     tags = android
     en = Before you start using the app, please download the general world map to your device.\nIt will use %@ of storage.
+    af = Voordat u die toep begin gebruik, moet u asb. die algemene wêreldkaart na u toestel aflaai.\nDit sal %@ se spasie opneem.
     ar = قبل أن تبدأ باستخدام التطبيق، سنقوم بتنزيل خريطة العالم العامة على جهازك.\nستحتاج إلى %@ من البيانات.
     be = Перад пачаткам працы дазвольце нам спампаваць агульную мапу свету на вашу прыладу.\nГэта патрабуе %@ сховішча.
     bg = Преди да започнете да използвате приложението, позволете ни да изтеглим общата карта на света на вашето устройство.\nТова ще използва %@ от паметта.
@@ -1402,6 +1437,7 @@
   [download_resources_continue]
     tags = android
     en = Go to Map
+    af = Gaan na kaart
     ar = الذهاب الى الخريطة
     be = Перайсці да мапы
     bg = Към картата
@@ -1443,6 +1479,7 @@
   [downloading_country_can_proceed]
     tags = android
     en = Downloading %@. You can now\nproceed to the map.
+    af = Laai tans %@ af. U kan nou\nna die kaart gaan.
     ar = تنزيل %@. يمكنك الآن\nالمتابعة الى الخريطة.
     be = Спампоўванне %@. Цяпер вы можаце\nперайсці да мапы.
     bg = Изтегляне на %@. Вече можете да преминете към картата.
@@ -1484,6 +1521,7 @@
   [download_country_ask]
     tags = android
     en = Download %@?
+    af = Laai %@ af?
     ar = هل تريد تنزيل %@؟
     be = Спампаваць %@?
     bg = Изтегляне на %@?
@@ -1525,6 +1563,7 @@
   [update_country_ask]
     tags = android
     en = Update %@?
+    af = Werk %@ by?
     ar = هل تريد تحديث %@ ؟
     be = Абнавіць %@?
     bg = Обновяване на %@?
@@ -1567,6 +1606,7 @@
     comment = REMOVE THIS STRING AFTER REFACTORING
     tags = android
     en = Pause
+    af = Wag
     ar = توقيف مؤقت
     be = Прыпыніць
     bg = Пауза
@@ -1609,6 +1649,7 @@
     comment = REMOVE THIS STRING AFTER REFACTORING
     tags = android,ios
     en = Continue
+    af = Gaan voort
     ar = استمرار
     be = Працягнуць
     bg = Възобновяване
@@ -1651,6 +1692,7 @@
     comment = Show popup notification on top of the map when country download has failed.
     tags = android
     en = %@ download has failed
+    af = Aflaai van %@ het misluk
     ar = فشلت عملية تنزيل %@
     be = Не ўдалося спампаваць %@
     bg = Изтеглянето на %@ се провали
@@ -1693,6 +1735,7 @@
     comment = "Add new bookmark list" dialog title
     tags = android,ios
     en = Add a New List
+    af = Voeg ’n nuwe lys toe
     ar = إضافة قائمة جديدة
     be = Дадаць спіс
     bg = Добавяне на нова група
@@ -1736,6 +1779,7 @@
     tags = android,ios
     en = Bookmark Color
     en-GB = Bookmark Colour
+    af = Boekmerkkleur
     ar = لون الإشارة المرجعية
     be = Колер закладкі
     bg = Цвят на отметка
@@ -1778,6 +1822,7 @@
     comment = Add Bookmark list dialog - hint when the list name is empty
     tags = android,ios
     en = Bookmark List Name
+    af = Boekmerklysnaam
     ar = اسم قائمة الإشارات المرجعية
     be = Назва спісу закладак
     bg = Име на група
@@ -1819,6 +1864,7 @@
     comment = "Bookmark Lists" dialog title
     tags = ios
     en = Bookmark Lists
+    af = Boekmerklyste
     ar = قائمة الإشارات المرجعية
     be = Спісы закладак
     ca = Llistes de marcadors
@@ -1859,6 +1905,7 @@
     comment = Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied.
     tags = android,ios
     en = Bookmarks
+    af = Boekmerke
     ar = الإشارات المرجعية
     be = Закладкі
     bg = Отметки
@@ -1901,6 +1948,7 @@
     comment = "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt
     tags = android,ios
     en = Bookmarks and Tracks
+    af = Boekmerke en paaie
     ar = الإشارات المرجعية والمسارات
     be = Закладкі i cцежкі
     bg = Отметки и пътеки
@@ -1942,6 +1990,7 @@
     comment = Default bookmark list name
     tags = android,ios
     en = My Places
+    af = My plekke
     ar = أماكني
     be = Мае месцы
     bg = Мои места
@@ -1984,6 +2033,7 @@
     comment = Add bookmark dialog - bookmark name
     tags = android
     en = Name
+    af = Adres
     ar = الاسم
     be = Назва
     bg = Име
@@ -2026,6 +2076,7 @@
     comment = Editor title above street and house number
     tags = android,ios
     en = Address
+    af = Adres
     ar = العنوان
     be = Адрас
     bg = Адрес
@@ -2068,6 +2119,7 @@
     comment = Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell.
     tags = android
     en = List
+    af = Lys
     ar = قائمة
     be = Спіс
     bg = Списък
@@ -2110,6 +2162,7 @@
     comment = Settings button in system menu
     tags = android,ios
     en = Settings
+    af = Instellings
     ar = الإعدادات
     be = Налады
     bg = Настройки
@@ -2152,6 +2205,7 @@
     comment = Header of settings activity where user defines storage path
     tags = android
     en = Save maps to
+    af = Bewaar kaarte in
     ar = مكان تخزين الخرائط
     be = Захаваць мапы ў
     bg = Запаметяване на карти в
@@ -2194,6 +2248,7 @@
     comment = Detailed description of Maps Storage settings button
     tags = android
     en = Select the folder to download maps to.
+    af = Kies die vouer om kaarte na af te laai.
     ar = اختر المكان الذي ينبغي تنزيل الخرائط إليه.
     be = Выберыце папку для захоўвання спампаваных мап.
     bg = Изберете мястото, където картите трябва да се изтеглят
@@ -2235,6 +2290,7 @@
     comment = E.g. "Downloaded maps: 500Mb" in Maps Storage settings
     tags = android
     en = Downloaded maps
+    af = Afgelaaide kaarte
     ar = الخرائط المنزلة
     be = Спампаваныя мапы
     bg = Карти
@@ -2276,6 +2332,7 @@
     comment = Internal storage type in Maps Storage settings (not accessible by the user)
     tags = android
     en = Internal private storage
+    af = Interne privaat berging
     ar = وحدة التخزين الداخلية الخاصة
     be = Унутранае прыватнае сховішча
     ca = Emmagatzematge privat intern
@@ -2298,6 +2355,7 @@
     comment = Shared storage type in Maps Storage settings (a primary storage usually)
     tags = android
     en = Internal shared storage
+    af = Interne gedeelde berging
     ar = وحدة التخزين الداخلية المشتركة
     be = Унутранае агульнае сховішча
     ca = Emmagatzematge compartit intern
@@ -2320,6 +2378,7 @@
     comment = Removable external storage type in Maps Storage settings, e.g. an SD card
     tags = android
     en = SD card
+    af = SD-kaart
     ar = بطاقة الذاكرة
     be = SD-карта
     ca = Targeta SD
@@ -2342,6 +2401,7 @@
     comment = Generic external storage type in Maps Storage settings
     tags = android
     en = External shared storage
+    af = Eksterne gedeelde berging
     ar = وحدة تخزين خارجية مشتركة
     be = Знешняе агульнае сховішча
     ca = Emmagatzematge compartit extern
@@ -2364,6 +2424,7 @@
     comment = Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB"
     tags = android
     en = %1$@ free of %2$@
+    af = %1$@ van %2$@ beskikbaar
     ar = %1$@ فارغ من %2$@
     be = %1$@ вольна з %2$@
     ca = %1$@ lliures de %2$@
@@ -2386,6 +2447,7 @@
     comment = Question dialog for transferring maps from one storage to another
     tags = android
     en = Move maps?
+    af = Skuif kaarte?
     ar = هل تريد نقل الخرائط؟
     be = Перамясціць мапы?
     bg = Преместване на карти?
@@ -2428,6 +2490,7 @@
     comment = Error moving map files from one storage to another
     tags = android
     en = Error moving map files
+    af = Fout by die skuig van kaartlêers
     ar = فشلت عملية نقل ملفات الخرائط
     ca = S'ha produït un error en moure els fitxers de mapes
     de = Fehler beim Verschieben der Karten
@@ -2448,6 +2511,7 @@
     comment = Ask to wait user several minutes (some long process in modal dialog).
     tags = android
     en = This can take several minutes.\nPlease wait…
+    af = Dit kan etlike minute duur.\nWag asb.…
     ar = يمكن أن تستغرق هذه العملية عدة دقائق.\nالرجاء الانتظار…
     be = Гэта можа заняць некальмі хвілін.\nКалі ласка, пачакайце…
     bg = Това може да отнеме няколко минути.\nМоля изчакайте…
@@ -2490,6 +2554,7 @@
     comment = Measurement units title in settings activity
     tags = android,ios
     en = Measurement units
+    af = Afstandseenhede
     ar = وحدات القياس
     be = Адзінкі вымярэння
     bg = Мерни единици
@@ -2533,6 +2598,7 @@
     tags = android
     en = Choose between miles and kilometers
     en-GB = Choose between miles and kilometres
+    af = Kies tussen myle en kilometers
     ar = اختر من بين الأميال و الكيلومترات.
     be = Выкарыстоўваць кіламетры або мілі
     bg = Изберете между километри или мили
@@ -2577,6 +2643,7 @@
     comment = Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat!
     tags = android,ios
     en = Where to eat
+    af = Waar om te eet
     ar = أمكان لتناول الطعام
     be = Дзе паесці
     bg = Места за хапване
@@ -2619,6 +2686,7 @@
     comment = Search category for grocery stores; any changes should be duplicated in categories.txt @food!
     tags = android,ios
     en = Groceries
+    af = Kruideniersware
     ar = بقالية
     be = Прадукты
     bg = Продукти
@@ -2661,6 +2729,7 @@
     comment = Search category for public transport; any changes should be duplicated in categories.txt @transport!
     tags = android,ios
     en = Transport
+    af = Vervoer
     ar = مواصلات
     be = Транспарт
     bg = Транспорт
@@ -2704,6 +2773,7 @@
     tags = android,ios
     en = Gas
     en-GB = Petrol
+    af = Brandstof
     ar = وقود الحافلات
     be = АЗС
     bg = Гориво
@@ -2746,6 +2816,7 @@
     comment = Search category for parking lots; any changes should be duplicated in categories.txt @parking!
     tags = android,ios
     en = Parking
+    af = Parkering
     ar = مرافق ركن السيارات
     be = Паркоўка
     bg = Паркинг
@@ -2788,6 +2859,7 @@
     comment = Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping!
     tags = android,ios
     en = Shopping
+    af = Inkopies
     ar = تسوق
     be = Шопінг
     bg = Шопинг
@@ -2830,6 +2902,7 @@
     comment = Search category for places to stay; any changes should be duplicated in categories.txt @hotel!
     tags = android,ios
     en = Hotel
+    af = Hotel
     ar = فندق
     be = Гатэль
     bg = Хотел
@@ -2872,6 +2945,7 @@
     comment = Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism!
     tags = android,ios
     en = Sights
+    af = Besienswaardighede
     ar = سياحة
     be = Славутасці
     bg = Забележителности
@@ -2914,6 +2988,7 @@
     comment = Search category for entertainment; any changes should be duplicated in categories.txt @entertainment!
     tags = android,ios
     en = Entertainment
+    af = Vermaak
     ar = تسلية
     be = Забавы
     bg = Развлечения
@@ -2956,6 +3031,7 @@
     comment = Search category for ATMs; any changes should be duplicated in categories.txt @atm!
     tags = android,ios
     en = ATM
+    af = OTM
     ar = صراف آلي
     be = Банкамат
     bg = Банкомат
@@ -2998,6 +3074,7 @@
     comment = Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife!
     tags = android,ios
     en = Nightlife
+    af = Naglewe
     ar = أنشطة ترفيه ليلية
     be = Начное жыццё
     bg = Нощен живот
@@ -3040,6 +3117,7 @@
     comment = Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children!
     tags = android,ios
     en = Family holiday
+    af = Gesinsvakansie
     ar = عطلة عائلية
     be = Сямейны адпачынак
     bg = Семейна почивка
@@ -3082,6 +3160,7 @@
     comment = Search category for banks; any changes should be duplicated in categories.txt @bank!
     tags = android,ios
     en = Bank
+    af = Bank
     ar = بنك
     be = Банк
     bg = Банка
@@ -3124,6 +3203,7 @@
     comment = Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy!
     tags = android,ios
     en = Pharmacy
+    af = Apteek
     ar = صيدلية
     be = Аптэка
     bg = Аптека
@@ -3166,6 +3246,7 @@
     comment = Search category for hospitals; any changes should be duplicated in categories.txt @hospital!
     tags = android,ios
     en = Hospital
+    af = Hospitaal
     ar = مستشفى
     be = Бальніца
     bg = Болница
@@ -3209,6 +3290,7 @@
     comment = Search category for toilets; any changes should be duplicated in categories.txt @toilet!
     tags = android,ios
     en = Toilet
+    af = Toilet
     ar = مرحاض
     be = Прыбіральня
     bg = Тоалетна
@@ -3251,6 +3333,7 @@
     comment = Search category for post offices; any changes should be duplicated in categories.txt @post!
     tags = android,ios
     en = Post
+    af = Pos
     ar = بريد
     be = Пошта
     bg = Поща
@@ -3293,6 +3376,7 @@
     comment = Search category for police; any changes should be duplicated in categories.txt @police!
     tags = android,ios
     en = Police
+    af = Polisie
     ar = شرطة
     be = Паліцыя
     bg = Полиция
@@ -3335,6 +3419,7 @@
     comment = Search category for WiFi access; any changes should be duplicated in categories.txt @wifi!
     tags = android,ios
     en = WiFi
+    af = Wi-Fi
     ar = إنترنت لا سلكي
     be = WiFi
     bg = WiFi
@@ -3375,6 +3460,7 @@
     comment = Search category for recycling; any changes should be duplicated in categories.txt @recycling!
     tags = android,ios
     en = Recycling
+    af = Herwinning
     ar = إعادة تدوير
     be = Перапрацоўка адходаў
     bg = Рециклиране
@@ -3417,6 +3503,7 @@
     comment = Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type
     tags = android,ios
     en = Water
+    af = Water
     ar = ماء
     be = Вада
     bg = Вода
@@ -3461,6 +3548,7 @@
     comment = Search category for RV facilities; any changes should be duplicated in categories.txt @rv!
     tags = android,ios
     en = RV Facilities
+    af = Karavaanfasiliteite
     ar = منشآت للمنازل المتنقلة
     be = Для аўтадамоў
     bg = За RV
@@ -3503,6 +3591,7 @@
     comment = Notes field in Bookmarks view
     tags = android
     en = Notes
+    af = Notas
     ar = ملاحظات
     be = Нататкі
     bg = Бележки
@@ -3545,6 +3634,7 @@
     comment = Email Subject when sharing bookmark list
     tags = android
     en = Organic Maps bookmarks were shared with you
+    af = Organic Maps-boekmerke is met u gedeel
     ar = تم مشاركة إشارات Organic Maps المرجعية معك
     be = З вамі падзяліліся закладкамі Ogranic Maps
     bg = Споделени са с вас отметки за Organic Maps
@@ -3585,6 +3675,7 @@
   [share_bookmarks_email_body]
     tags = android,ios
     en = Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!
+    af = Hallo!\n\nMy boekmerke is aangeheg; open dit asb. in Organic Maps. Indien dit nie geïnstalleer is nie, kan u dit hier aflaai: https://omaps.app/get?kmz\n\nGeniet dit om met Organic Maps te reis!
     ar = مرحباً! ْ\n\n تم إرفاق إشاراتي المرجعية من تطبيق Organic Maps. الرجاء فتحهم إذا لديك تطبيق Organic Maps مثبتاً. أو، إذا لم يكن مثبتاً، قم بتنزيل التطبيق لنظام iOS أو أندرويد من خلال الضغط على هذا الرابط: https://omaps.app/get?kmz \n\nاستمتع بالسفر مع Organic Maps!
     be = Вітаю!\n\nУ далучаным файле мае закладкі з праграмы Organic Maps. Калі ласка, адкрыйце іх, калі ў вас усталяваны Organic Maps. Калі не, спампуйце праграму для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!
     ca = Hola!\n\nAdjunto els meus marcadors de l'aplicació Organic Maps. Obriu-los si teniu l'Organic Maps instal·lat. O, si no teniu l'aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://omaps.app/get?kmz\n\nGaudiu viatjant amb l'Organic Maps!
@@ -3610,6 +3701,7 @@
     comment = message title of loading file
     tags = android,ios
     en = Loading Bookmarks
+    af = Laai tans boekmerke
     ar = يتم تحميل الإشارات المرجعية
     be = Загрузка закладак
     bg = Зареждане на отметки
@@ -3652,6 +3744,7 @@
     comment = Kmz file successful loading
     tags = android,ios
     en = Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.
+    af = Boekmerke is suksesvol gelaai! U kan dit op die kaart of op die boekmerkbestuurderskerm vind.
     ar = تم تحميل الإشارات المرجعية بنجاح! يمكنك العثور عليها على الخريطة أو على شاشة إدارة الإشارات المرجعية.
     be = Закладкі паспяхова загружаны! Вы можаце іх убачыць на мапе або ў захаваных закладках.
     bg = Отметките са заредени успешно! Можете да ги откриете на картата или при секцията с отметки.
@@ -3694,6 +3787,7 @@
     comment = Kml file loading failed
     tags = android,ios
     en = Failed to load bookmarks. The file may be corrupted or defective.
+    af = Kon nie boekmerke laai nie. Die lêer is dalk gekorrupteer of defektief.
     ar = فشلت عملية تحميل الإشارات المرجعية. قد يكون الملف تالف أو غير صالح.
     be = Не ўдалося загрузіць закладкі. Файл можа быць пашкоджаны або няспраўны.
     bg = Качването на отметките се провали. Файлът може да бъде повреден или дефектен.
@@ -3736,6 +3830,7 @@
     comment = resource for context menu
     tags = android,ios
     en = Edit
+    af = Wysig
     ar = تعديل
     be = Рэдагаваць
     bg = Редакция
@@ -3777,6 +3872,7 @@
     comment = Warning message when doing search around current position
     tags = android,ios
     en = Your location hasn't been determined yet
+    af = U ligging is nog nie vasgestel nie
     ar = لم يتم تحديد موقعك بعد.
     be = Ваша месцазнаходжанне пакуль не вызначана
     bg = Местоположението ви още не е определено
@@ -3819,6 +3915,7 @@
     comment = Alert message that we can't run Map Storage settings due to some reasons.
     tags = android
     en = Sorry, Map Storage settings are currently disabled.
+    af = Jammer, Kaartbergingsinstellings is tans gedeaktiveer.
     ar = نأسف، اعدادات تخزين الخرائط معطلة حالياً.
     be = На жаль, налады сховішча мапы зараз адключаны.
     bg = Съжаляваме, но настройките за съхранение на карти в момента са деактивирани.
@@ -3861,6 +3958,7 @@
     comment = Alert message that downloading is in progress.
     tags = android
     en = Map download is in progress now.
+    af = Die kaart word tans afgelaai.
     ar = جاري الآن تنزيل الخريطة
     be = Ідзе спампоўванне мапы.
     bg = Изтеглянето на картата вече е в ход.
@@ -3903,6 +4001,7 @@
     comment = Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140.
     tags = android
     en = Check out my current location in Organic Maps! %1$@ or %2$@ Don't have offline maps? Download here: https://omaps.app/get
+    af = Kyk my huidige posisie in Organic Maps! %1$@ of %2$@ Het u nie vanlyn kaarte nie? Laai hier af: https://omaps.app/get
     ar = مرحباً، تفقد الموقع الخاص بي على Organic Maps! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: https://omaps.app/get
     be = Гэй, глядзі дзе я зараз на мапе! %1$@ альбо %2$@ Няма афлайн-мап? Спампуй тут: https://omaps.app/get
     bg = Хей, виж текущото ми местоположение в Organic Maps! %1$@ или %2$@
@@ -3944,6 +4043,7 @@
     comment = Subject for emailed bookmark
     tags = android,ios
     en = Hey, check out my pin in Organic Maps!
+    af = Hallo, kyk my liggingmerker in Organic Maps!
     ar = مرحباً، تفقد الدبوس الخاص بي على خريطة Organic Maps!
     be = Гэй, глядзі маю метку на Organic Maps!
     bg = Хей, виж какво съм отбелязал в Organic Maps!
@@ -3985,6 +4085,7 @@
     comment = Subject for emailed position
     tags = android,ios
     en = Hey, check out my current location on the Organic Maps map!
+    af = Hallo, sien my huidige ligging op die Organic Maps-toep!
     ar = مرحباً، تحقق من موقعي الحالي على خريطة Organic Maps!
     be = Гэй, глядзі дзе я зараз на мапе Organic Maps!
     bg = Хей, виж текущото ми местоположение на картата в Organic Maps!
@@ -4026,6 +4127,7 @@
     comment = Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME
     tags = android
     en = Hi,\n\nI'm here now: %1$@. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
+    af = Dagsê,\n\nEk is nou hier: %1$@. Klik op die skakel %2$@ of hierdie een %3$@ om die plek op die kaart te sien.\n\nDankie.
     ar = ًمرحبا،\n\nأنا هنا الآن: %1$@. انقر على هذا الرابط %2$@ أو ذلك الرابط %3$@ لمشاهدة المكان على الخريطة.\n\nشكراً.
     be = Прывітанне,\n\nЯ зараз тут: %1$@. Перайдзі па гэтай %2$@ або гэтай %3$@ спасылцы, каб убачыць месца на мапе.\n\nДзякуй.
     bg = Здравей,\n\nСега съм тук: %1$@. Натисни върху тази връзка %2$@ или тази %3$@, за да видиш мястото на картата.\n\nБлагодаря.
@@ -4067,6 +4169,7 @@
     comment = Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.
     tags = android,ios
     en = Share
+    af = Deel
     ar = مشاركة
     be = Абагуліць
     bg = Споделяне
@@ -4109,6 +4212,7 @@
     comment = Share by email button text, also used in editor and About.
     tags = android,ios
     en = Email
+    af = E-pos
     ar = البريد الالكتروني
     be = Электронная пошта
     bg = Имейл
@@ -4150,6 +4254,7 @@
     comment = Text for message when used successfully copied something
     tags = android
     en = Copied to clipboard: %1$@
+    af = Na knipbord gekopieer: %1$@
     ar = تم النسخ الى الحافظة: %1$@
     be = Скапіравана ў буфер абмену: %1$@
     bg = Копирано в клипборда: %1$@
@@ -4192,6 +4297,7 @@
     comment = place preview title
     tags = ios
     en = Info
+    af = Inligting
     ar = المعلومات
     be = Інфармацыя
     bg = Информация
@@ -4234,6 +4340,7 @@
     comment = Used for bookmark editing
     tags = android,ios
     en = Done
+    af = Gereed
     ar = تم
     be = Гатова
     bg = Готово
@@ -4276,6 +4383,7 @@
     comment = Prints version number in About dialog
     tags = ios
     en = Version: %@
+    af = Weergawe: %@
     ar = الاصدار: %@
     be = Версія: %@
     bg = Версия: %@
@@ -4319,6 +4427,7 @@
     comment = Data version in «About» screen, %@ is replaced by a local, human readable date.
     tags = android,ios
     en = OpenStreetMap data: %@
+    af = OpenStreetMap-data: %@
     ar = بيانات خريطة الشارع المفتوحة: %@
     be = Даныя OpenStreetMap: %@
     bg = Данни на OpenStreetMap: %@
@@ -4362,6 +4471,7 @@
     comment = Confirmation in downloading countries dialog
     tags = android
     en = Are you sure you want to continue?
+    af = Is u seker u wil voortgaan?
     ar = هل أنت واثق أنك تريد الاستمرار؟
     be = Вы сапраўды хочаце працягнуць?
     bg = Сигурни ли сте, че искате да продължите?
@@ -4404,6 +4514,7 @@
     comment = Title for tracks category in bookmarks manager
     tags = android,ios
     en = Tracks
+    af = Paaie
     ar = المسارات
     be = Маршруты
     bg = Пътеки
@@ -4446,6 +4557,7 @@
     comment = Length of track in cell that describes route
     tags = android,ios
     en = Length
+    af = Lengte
     ar = الطول
     be = Даўжыня
     bg = Дължина
@@ -4487,6 +4599,7 @@
   [share_my_location]
     tags = android,ios
     en = Share My Location
+    af = Deel my ligging
     ar = مشاركة موقعي
     be = Абагуліць маё месцазнаходжанне
     bg = Споделяне на местоположение
@@ -4529,6 +4642,7 @@
     comment = Settings general group in settings screen
     tags = android
     en = General settings
+    af = Algemene instellings
     ar = الإعدادات العامة
     be = Агульныя налады
     bg = Общи настройки
@@ -4559,6 +4673,7 @@
     comment = Settings information group in settings screen
     tags = android
     en = Information
+    af = Inligting
     ar = معلومات
     be = Інфармацыя
     bg = Информация
@@ -4589,6 +4704,7 @@
   [prefs_group_route]
     tags = android,ios
     en = Navigation
+    af = Navigasie
     ar = الملاحة
     be = Навігацыя
     bg = Навигация
@@ -4629,6 +4745,7 @@
   [pref_zoom_title]
     tags = android,ios
     en = Zoom buttons
+    af = Zoemknoppe
     ar = أزرار التكبير والتصغير
     be = Кнопкі маштабавання
     bg = Мащабни бутони
@@ -4670,6 +4787,7 @@
   [pref_zoom_summary]
     tags = android
     en = Display on the map
+    af = Vertoon op die kaart
     ar = عرض على الشاشة
     be = Паказаць на мапе
     bg = Показване на картата
@@ -4712,6 +4830,7 @@
     comment = Settings «Map» category: «Night style» title
     tags = android,ios
     en = Night Mode
+    af = Nagmodus
     ar = الوضع الليلي
     be = Начны рэжым
     bg = Нощен режим
@@ -4794,6 +4913,7 @@
     comment = «Map style» entry value
     tags = android,ios
     en = On
+    af = Aan
     ar = تشغيل
     be = Уключаны
     bg = Включен
@@ -4835,6 +4955,7 @@
     comment = «Map style» entry value
     tags = android,ios
     en = Auto
+    af = Outomaties
     ar = تلقائي
     be = Аўтаматычна
     bg = Автоматично
@@ -4876,6 +4997,7 @@
     comment = Settings «Map» category: «Perspective view» title
     tags = android,ios
     en = Perspective view
+    af = Perspektiefaansig
     ar = العرض المنظوري
     be = Перспектыўны выгляд
     bg = Перспективен изглед
@@ -4917,6 +5039,7 @@
     comment = Settings «Map» category: «3D buildings» title
     tags = android,ios
     en = 3D buildings
+    af = 3D-geboue
     ar = مباني ثلاثية الأبعاد
     be = 3D будынкі
     bg = 3D сгради
@@ -4958,6 +5081,7 @@
     comment = A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled
     tags = android,ios
     en = 3D buildings are disabled in power saving mode
+    af = 3D-geboue is gedeaktiveer in batterybesparingsmodus
     ar = يتم إيقاف تشغيل المباني ثلاثية الأبعاد في وضع توفير الطاقة
     be = У рэжыме энергазберажэння 3D-будынкі адключаны
     bg = 3D сградите са изключени в режим на пестене на енергия
@@ -5001,6 +5125,7 @@
     comment = Settings «Route» category: «Tts enabled» title
     tags = android,ios
     en = Voice Instructions
+    af = Steminstruksies
     ar = تعليمات صوتية
     be = Галасавыя інструкцыі
     bg = Гласови инструкции
@@ -5042,6 +5167,7 @@
     comment = Settings «Route» category: «Tts language» title
     tags = android,ios
     en = Voice Language
+    af = Stemtaal
     ar = لغة الصوت
     be = Мова агучвання
     bg = Език на инструкциите
@@ -5083,6 +5209,7 @@
     comment = Settings «Route» category: «Tts unavailable» subtitle
     tags = android
     en = Not Available
+    af = Nie beskikbaar
     ar = غير متاح
     be = Не даступны
     bg = Не е налично
@@ -5124,6 +5251,7 @@
     comment = Title for "Other" section in TTS settings.
     tags = ios
     en = Other
+    af = Ander
     ar = آخر
     be = Іншы
     bg = Друго
@@ -5165,6 +5293,7 @@
     comment = Settings «Map» category: «Record track» title
     tags = ios
     en = Recent track
+    af = Onlangse pad
     ar = المسار الأخير
     be = Нядаўні маршрут
     bg = Скорошна пътека
@@ -5205,6 +5334,7 @@
   [pref_map_auto_zoom]
     tags = android,ios
     en = Auto zoom
+    af = Outomatiese zoem
     ar = تكبير تلقائي
     be = Аўтаматычны маштаб
     bg = Автоматично мащабиране
@@ -5245,6 +5375,7 @@
   [duration_disabled]
     tags = android,ios
     en = Off
+    af = Af
     ar = لا يعمل
     be = Выключана
     bg = Изключено
@@ -5285,6 +5416,7 @@
   [duration_1_hour]
     tags = android,ios
     en = 1 hour
+    af = 1 uur
     ar = 1 ساعة
     be = 1 гадзіна
     bg = 1 час
@@ -5325,6 +5457,7 @@
   [duration_2_hours]
     tags = android,ios
     en = 2 hours
+    af = 2 uur
     ar = 2 ساعة
     be = 2 гадзіны
     bg = 2 часа
@@ -5365,6 +5498,7 @@
   [duration_6_hours]
     tags = android,ios
     en = 6 hours
+    af = 6 uur
     ar = 6 ساعات
     be = 6 гадзін
     bg = 6 часа
@@ -5405,6 +5539,7 @@
   [duration_12_hours]
     tags = android,ios
     en = 12 hours
+    af = 12 uur
     ar = 12 ساعة
     be = 12 гадзін
     bg = 12 часа
@@ -5445,6 +5580,7 @@
   [duration_1_day]
     tags = android,ios
     en = 1 day
+    af = 1 dag
     ar = 1 يوم
     be = 1 дзень
     bg = 1 ден
@@ -5485,6 +5621,7 @@
   [recent_track_help_text]
     tags = ios
     en = This option allows you to record traveled path for a certain period and see it on the map. Please note: activation of this function causes increased battery usage. The track will be removed automatically from the map after the time interval will expire.
+    af = Hierdie opsie laat u toe om die afgelegde pad vir ’n sekere tydperk op te neem en dit op die kaart te sien. Let wel: aktivering van hierdie funksie verhoog batterygebruik. Die pad word outomaties van die kaart geskrap nadat die tydsinterval verstryk.
     ar = يتيح لك هذا الخيار تسجيل مسار السفر لفترة معينة وعرضه على الخريطة. الرجاء ملاحظة: يؤدي تنشيط هذه الوظيفة إلى زيادة استهلاك البطارية. سوف تتم إزالة المسار تلقائيًا من الخريطة بعد انتهاء الفاصل الزمني.
     be = Гэтая функцыя дазваляе запісваць пройдзены шлях за пэўны перыяд і бачыць яго на мапе. Увага: уключэнне гэтай функцыі павялічвае выкарыстанне батарэі. Запісаны маршрут будзе выдалены з карты па заканчэнні гэтага тэрміна.
     bg = Тази опция ви позволява да запишете изминатия път за определен период и да го видите на картата. Моля, обърнете внимание: активирането на тази функция води до повишено използване на батерията.
@@ -5526,6 +5663,7 @@
   [placepage_distance]
     tags = ios
     en = Distance
+    af = Afstand
     ar = المسافة
     be = Адлегласць
     ca = Distància
@@ -5565,6 +5703,7 @@
   [search_show_on_map]
     tags = android,ios
     en = View on map
+    af = Bekyk op kaart
     ar = مشاهدة على الخريطة
     be = Паглядзець на мапе
     bg = Преглед на картата
@@ -5607,6 +5746,7 @@
     comment = Menu button
     tags = android
     en = Menu
+    af = Kieslys
     ca = Menú
     es = Menú
     eu = Menua
@@ -5621,6 +5761,7 @@
     comment = Text in menu
     tags = android,ios
     en = Website
+    af = Webwerf
     ar = الموقع الإلكتروني
     be = Вэб-сайт
     bg = Уебсайт
@@ -5662,6 +5803,7 @@
     comment = Text in About menu, opens Organic Maps news website
     tags = android,ios
     en = News
+    af = Nuus
     ar = أخبار
     be = Навіны
     bg = Новини
@@ -5760,6 +5902,7 @@
     comment = Settings: Send feedback button and dialog title
     tags = android
     en = Feedback
+    af = Terugvoer
     ar = إرسال التعليقات
     be = Водгук
     bg = Обратна връзка
@@ -5801,6 +5944,7 @@
     comment = Text in menu
     tags = android,ios
     en = Rate the app
+    af = Gradeer die toep
     ar = قيّم التطبيق
     be = Ацаніць праграму
     bg = Оцени приложение
@@ -5843,6 +5987,7 @@
     comment = Text in menu
     tags = android,ios
     en = Help
+    af = Help
     ar = مساعدة
     be = Дапамога
     bg = Помощ
@@ -5885,6 +6030,7 @@
     comment = Button in the main Help dialog
     tags = android,ios
     en = Frequently Asked Questions
+    af = Gereelde vrae
     ar = اسئلة مكررة
     be = Пытанні і адказы
     bg = Въпроси и отговори
@@ -5928,6 +6074,7 @@
     comment = Button in the main menu
     tags = android,ios
     en = Donate
+    af = Skenk
     ar = تبرع
     be = Падтрымаць грашыма
     bg = Дарете
@@ -5970,6 +6117,7 @@
     comment = Button in the main Help dialog
     tags = android,ios
     en = Support the project
+    af = Ondersteun die projek
     ar = ﻉﻭﺮﺸﻤﻟﺍ ﻢﻋﺩ
     be = Падтрымаць праект
     bg = Подкрепете проекта
@@ -6013,6 +6161,7 @@
     comment = Button in the main Help dialog
     tags = android,ios
     en = Copyright
+    af = Kopiereg
     ar = حقوق النشر
     be = Капірайт
     bg = Авторски права
@@ -6055,6 +6204,7 @@
     comment = Text in menu + Button in the main Help dialog
     tags = android,ios
     en = Report a bug
+    af = Rapporteer ’n fout
     ar = الإبلاغ عن خطأ
     be = Паведаміць аб памылцы
     bg = Докладване на проблем
@@ -6097,6 +6247,7 @@
     comment = Alert text
     tags = ios
     en = The email client has not been set up. Please configure it or contact us at %@
+    af = Die e-posleser is nie opgestel nie. Stel dit asb. op of kontak ons by %@
     ar = لم يتم تنصيب البريد الإلكتروني. يرجى تفعيله أو استخدام أي وسيلة أخرى للاتصال بنا على %@
     be = Паштовы кліент не наладжаны. Наладзьце яго альбо звяжыцеся з намі па адрасе %@ іншым чынам.
     bg = Имейл клиентът не е настроен. Моля, конфигурирайте го или използвайте друг начин, за да се свържете с нас на %@
@@ -6139,6 +6290,7 @@
     comment = Alert title
     tags = ios
     en = Error sending email
+    af = E-posstuurfout
     ar = حذث خطأ في إرسال البريد الإلكتروني
     be = Памылка пры адпраўцы пошты
     bg = Грешка при изпращане на поща
@@ -6181,6 +6333,7 @@
     comment = Settings item title
     tags = ios
     en = Compass calibration
+    af = Kompaskalibrering
     ar = معايرة البوصلة
     be = Каліброўка компаса
     bg = Калибриране на компас
@@ -6223,6 +6376,7 @@
     comment = Toast text when compass calibration may improve the correctness of the current position arrow
     tags = android
     en = Improve arrow direction by moving the phone in a figure-eight motion to calibrate the compass.
+    af = Verbeter die pylrigting deur die selfoon in ’n agtbeweging te beweeg om die kompas te kalibreer.
     ar = قم بتحسين اتجاه السهم عن طريق تحريك الهاتف في حركة على شكل ثمانية لمعايرة البوصلة.
     be = Палепшыце кірунак стрэлкі, перамяшчаючы тэлефон у выглядзе васьмёркі, каб адкалібраваць компас.
     bg = Подобрете посоката на стрелката, като движите телефона с движение тип "осмица", за да калибрирате компаса.
@@ -6265,6 +6419,7 @@
     comment = Toast text when compass calibration may improve the correctness of the current position arrow
     tags = android
     en = Move the phone in a figure-eight motion to calibrate the compass and fix the arrow direction on the map.
+    af = Beweeg die selfoon in ’n agtvormige beweging om die kompas te kalibreer en die rigting van die pyl op die kaart vas te maak.
     ar = حرك الهاتف في حركة على شكل ثمانية لمعايرة البوصلة وإصلاح اتجاه السهم على الخريطة.
     be = Перамяшчайце тэлефон у выглядзе васьмёркі, каб адкалібраваць компас і зафіксаваць кірунак стрэлкі на карце.
     bg = Преместете телефона с движение тип "осмица", за да калибрирате компаса и да фиксирате посоката на стрелката върху картата.
@@ -6307,6 +6462,7 @@
     comment = Update all button text
     tags = android,ios
     en = Update All
+    af = Werk alles by
     ar = تحديث الكل
     be = Абнавіць усё
     bg = Обновяване на всичко
@@ -6348,6 +6504,7 @@
     comment = Cancel all button text
     tags = android
     en = Cancel All
+    af = Kanselleer aflaai
     ar = إلغاء الكل
     be = Скасаваць усё
     bg = Отмяна на всичко
@@ -6390,6 +6547,7 @@
     comment = Downloaded maps list header
     tags = android,ios
     en = Downloaded
+    af = Afgelaai
     ar = التي تم تنزيلها
     be = Спампаваныя
     bg = Изтеглено
@@ -6431,6 +6589,7 @@
     comment = Downloaded maps category
     tags = ios
     en = Available
+    af = Beskikbaar
     ar = متوفر
     be = Даступныя
     ca = Disponibles
@@ -6471,6 +6630,7 @@
     comment = Country queued for download
     tags = android,ios
     en = Queued
+    af = In wagry
     ar = مَصْفوف
     be = У чарзе
     bg = На опашка
@@ -6512,6 +6672,7 @@
   [downloader_near_me_subtitle]
     tags = android,ios
     en = Near me
+    af = Naby my
     ar = قريب مني
     be = Каля мяне
     bg = Близо до мен
@@ -6553,6 +6714,7 @@
     comment = In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10"
     tags = android,ios
     en = Maps
+    af = Kaarte
     ar = الخرائط
     be = Мапы
     bg = Карти
@@ -6593,6 +6755,7 @@
   [downloader_download_all_button]
     tags = android,ios
     en = Download All
+    af = Laai alles af
     ar = تنزيل الكل
     be = Спампаваць усё
     bg = Изтегляне на всичко
@@ -6633,6 +6796,7 @@
   [downloader_downloading]
     tags = android,ios
     en = Downloading:
+    af = Laai tans af:
     ar = يتم التنزيل:
     be = Спампоўванне:
     bg = Теглене:
@@ -6673,6 +6837,7 @@
   [downloader_search_results]
     tags = ios
     en = Found
+    af = Gevind
     ar = تم العثور على
     be = Знойдзена
     ca = Trobat
@@ -6713,6 +6878,7 @@
     comment = Status of outdated country in the list
     tags = ios
     en = Update
+    af = Werk by
     ar = تحديث
     be = Абнавіць
     bg = Обновление
@@ -6755,6 +6921,7 @@
     comment = Status of failed country in the list
     tags = ios
     en = Failed
+    af = Misluk
     ar = فشل
     be = Не ўдалося
     bg = Провал
@@ -6797,6 +6964,7 @@
     comment = Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode
     tags = android,ios
     en = To delete map, please stop navigation.
+    af = Stop die navigasie om die kaart te skrap.
     ar = لحذف الخريطة يرجى إيقاف الملاحة.
     be = Каб выдаліць мапу, спыніце навігацыю.
     bg = За да изтриете карта, моля спрете навигирането.
@@ -6838,6 +7006,7 @@
     comment = PointsInDifferentMWM
     tags = android,ios
     en = Routes can only be created that are fully contained within a map of a single region.
+    af = Slegs die roetes wat in hul geheel in ’n kaart is van ’n enkele streek is, kan geskep word.
     ar = يمكن فقط إنشاء المسارات التي توجد بشكل كامل ضمن خريطة دولة واحدة.
     be = Маршруты могуць быць пракладзены толькі ў межах карты аднаго рэгіёна.
     bg = Могат да се създават само маршрути, които са изцяло в рамките на картата на един регион.
@@ -6880,6 +7049,7 @@
     comment = Context menu item for downloader.
     tags = android,ios
     en = Download map
+    af = Laai kaart af
     ar = تنزيل الخريطة
     be = Спампаваць мапу
     bg = Изтегляне на карта
@@ -6922,6 +7092,7 @@
     comment = Item status in downloader.
     tags = android,ios
     en = Retry
+    af = Probeer weer
     ar = المحاولة مجدداً
     be = Паспрабаваць зноў
     bg = Повторно
@@ -6963,6 +7134,7 @@
     comment = Item in context menu.
     tags = android,ios
     en = Delete Map
+    af = Skrap kaart
     ar = حذف الخريطة
     be = Выдаліць мапу
     bg = Изтриване на карта
@@ -7005,6 +7177,7 @@
     comment = Item in context menu.
     tags = android
     en = Update Map
+    af = Werk kaart by
     ar = تحديث الخريطة
     be = Абнавіць мапу
     bg = Обнояване на карта
@@ -7047,6 +7220,7 @@
     comment = Preference title
     tags = android
     en = Google Play Services
+    af = Google Play-dienste
     ar = خدمات Google Play
     be = Сэрвісы Google Play
     bg = Услуги за Google Play
@@ -7088,6 +7262,7 @@
     comment = Preference text
     tags = android
     en = Use Google Play Services to determine your current location
+    af = Gebruik Google Play-dienste om u huidige ligging te bepaal
     ar = استخدام خدمات Google Play لتحديد موقعك الحالي
     be = Выкарыстоўваць сэрвісы Google Play для вызначэння месцазнаходжання
     bg = Използвайте услугите на Google Play, за да определите текущото си местоположение
@@ -7129,6 +7304,7 @@
     comment = Text for routing error dialog
     tags = android,ios
     en = Download all of the maps along your route
+    af = Laai al die kaarte langs u roete af
     ar = تنزيل الخرائط على طول طريقك
     be = Спампаваць усе мапы на вашым маршруце
     bg = Изтегляне на всички карти по вашия маршрут
@@ -7170,6 +7346,7 @@
     comment = Text for routing error dialog
     tags = android,ios
     en = In order to create a route, we need to download and update all the maps from your location to your destination.
+    af = Om ’n roete te skep moet ons al die kaarte van u ligging na u bestemming aflaai en bywerk.
     ar = من أجل تعيين الطريق، نحتاج إلى تنزيل أو تحديث جميع الخرائط التي تغطي المنطقة من موقعك إلى وجهتك
     be = Каб пракласці маршрут, трэба спампаваць і абнавіць усе мапы на на вашым шляху.
     bg = За да създадем маршрут, трябва да изтеглим и актуализираме всички карти от местоположението ви до вашата дестинация.
@@ -7210,6 +7387,7 @@
     comment = Text for routing error dialog
     tags = android
     en = Not enough space
+    af = Nie genoeg spasie nie
     ar = لا يوجد مساحة كافية
     be = Не хапае месца
     bg = Недостатъчно място
@@ -7251,6 +7429,7 @@
     comment = bookmark button text
     tags = ios
     en = bookmark
+    af = boekmerk
     ar = إشارة مرجعية
     be = закладка
     bg = отметка
@@ -7293,6 +7472,7 @@
     comment = location service disabled
     tags = android
     en = Please enable Location Services
+    af = Aktiveer asb. liggingdienste
     ar = الرجاء تفعيل خدمة تحديد الموقع الجغرافي
     be = Калі ласка, уключыце геалакацыю
     bg = Моля, разрешете услугите за местоположение
@@ -7333,6 +7513,7 @@
   [save]
     tags = android,ios
     en = Save
+    af = Bewaar
     ar = حفظ
     be = Захаваць
     bg = Запазване
@@ -7373,6 +7554,7 @@
   [edit_description_hint]
     tags = android
     en = Your descriptions (text or html)
+    af = U besprekings (teks of html)
     ar = الوصف (استعمل نص أو html(
     be = Ваша апісанне (тэкст або html)
     bg = Ваши описания (текст или html)
@@ -7413,6 +7595,7 @@
   [create]
     tags = android,ios
     en = create
+    af = skep
     ar = إنشاء
     be = стварыць
     bg = създаване
@@ -7454,6 +7637,7 @@
     comment = red color
     tags = android,ios
     en = Red
+    af = Rooi
     ar = أحمر
     be = Чырвоны
     bg = Червено
@@ -7496,6 +7680,7 @@
     comment = yellow color
     tags = android,ios
     en = Yellow
+    af = Geel
     ar = أصفر
     be = Жоўты
     bg = Жълто
@@ -7538,6 +7723,7 @@
     comment = blue color
     tags = android,ios
     en = Blue
+    af = Blou
     ar = أزرق
     be = Сіні
     bg = Синьо
@@ -7580,6 +7766,7 @@
     comment = green color
     tags = android,ios
     en = Green
+    af = Groen
     ar = أخضر
     be = Зялёны
     bg = Зелено
@@ -7622,6 +7809,7 @@
     comment = purple color
     tags = android,ios
     en = Purple
+    af = Pers
     ar = أرجواني
     be = Пурпурны
     bg = Лилаво
@@ -7664,6 +7852,7 @@
     comment = orange color
     tags = android,ios
     en = Orange
+    af = Oranje
     ar = برتقالي
     be = Аранжавы
     bg = Оранжево
@@ -7706,6 +7895,7 @@
     comment = brown color
     tags = android,ios
     en = Brown
+    af = Bruin
     ar = بني
     be = Карычневы
     bg = Кафяво
@@ -7748,6 +7938,7 @@
     comment = pink color
     tags = android,ios
     en = Pink
+    af = Pienk
     ar = زهري
     be = Ружовы
     bg = Розово
@@ -7790,6 +7981,7 @@
     comment = deep purple color
     tags = android,ios
     en = Deep Purple
+    af = Donkerpers
     ar = أرجواني داكن
     be = Цёмна-пурпурны
     ca = Porpra fosc
@@ -7832,6 +8024,7 @@
     comment = light blue color
     tags = android,ios
     en = Light Blue
+    af = Ligblou
     ar = أزرق فاتح
     be = Блакітны
     ca = Blau clar
@@ -7874,6 +8067,7 @@
     comment = cyan color
     tags = android,ios
     en = Cyan
+    af = Siaan
     ar = أزرق سماوي
     be = Сіне-зялёны
     ca = Cian
@@ -7916,6 +8110,7 @@
     comment = teal color
     tags = android,ios
     en = Teal
+    af = Teël
     ar = أخضر فاتح
     be = Смарагдавы
     ca = Jade
@@ -7958,6 +8153,7 @@
     comment = lime color
     tags = android,ios
     en = Lime
+    af = Lemmetjie
     ar = ليموني
     be = Лайм
     ca = Llima
@@ -8000,6 +8196,7 @@
     comment = deep orange color
     tags = android,ios
     en = Deep Orange
+    af = Donkeroranje
     ar = برتقالي داكن
     be = Цёмна-аранжавы
     ca = Taronja fosc
@@ -8043,6 +8240,7 @@
     tags = android,ios
     en = Gray
     en-GB = Grey
+    af = Grys
     ar = رمادي
     be = Шэры
     ca = Gris
@@ -8086,6 +8284,7 @@
     tags = android,ios
     en = Blue Gray
     en-GB = Blue Grey
+    af = Blougrys
     ar = رمادي أزرق
     be = Блакітна-шэры
     ca = Gris blavós
@@ -8129,6 +8328,7 @@
   [dialog_routing_disclaimer_title]
     tags = android,ios
     en = When following the route, please keep in mind:
+    af = Wanneer u die roete volg, hou asb. die volgende in gedagte:
     ar = عند اتباع المسار، يُرجى الانتباه إلى ما يلي:
     be = Падчас руху па маршруце памятайце:
     bg = Когато следвате маршрута, моля, имайте предвид:
@@ -8170,6 +8370,7 @@
   [dialog_routing_disclaimer_priority]
     tags = android,ios
     en = — Road conditions, traffic laws, and road signs always take priority over the navigation hints;
+    af = – Padtoestande, verkeersreëls en padtekens neem kry voorkeur bo die navigasiewenke;
     ar = — إن ظروف الطريق وقوانين وإشارات المرور لها الأولوية على المشورة الملاحية دائماً;
     be = — Дарожныя абставіны, правілы дарожнага руху і дарожныя знакі заўсёды маюць прыярытэт над падказкамі навігацыі;
     bg = - Пътната обстановка, законите за движение по пътищата и че пътните знаци винаги имат приоритет пред навигационните подсказки;
@@ -8211,6 +8412,7 @@
   [dialog_routing_disclaimer_precision]
     tags = android,ios
     en = — The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination;
+    af = – Die kaart kan onakkuraat wees en die voorgestelde roete is dalk nie die mees optimale manier om die bestemming te bereik nie;
     ar = —  قد تكون الخريطة غير دقيقة وقد لا يكون المسار المقترح هو المسار الأمثل دائمًا للوصول إلى الوجهة.;
     be = — Мапа можа быць недакладнай, а прапанаваны маршрут не заўжды найлепшым;
     bg = - Картата може да е неточна, а предложеният маршрут невинаги е най-оптималният начин за достигане до дестинацията;
@@ -8252,6 +8454,7 @@
   [dialog_routing_disclaimer_recommendations]
     tags = android,ios
     en = — Suggested routes should only be understood as recommendations;
+    af = — Voorgestelde roetes moet slegs as aanbevelings geag word;
     ar = — يجب التعامل مع المسارات المقترحة كتوصيات فقط;
     be = — Прапанаваныя маршруты трэба ўспрымаць толькі як рэкамендацыі;
     bg = - Предложените маршрути са само препоръки;
@@ -8294,6 +8497,7 @@
     tags = android,ios
     en = — Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.
     en-GB = — Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorised places.
+    af = Wees versigtig met die roetes in die grenssones: die roetes wat deur ons toep geskep word kan soms oor landsgrense in onwettige areas gaan.
     ar = — تحذير بشأن المسارات في المناطق الحدودية: المسارات التي تم إنشاؤها بواسطة تطبيقنا قد تعبر  أحياناً حدود الدول في أماكن غير مصرح بها;
     be = — Будзьце ўважлівы з маршрутамі ў памежных зонах: маршруты, пракладзеныя нашай праграмай, часам могуць перасякаць мяжу ў недазволеных месцах.
     bg = - Бъдете внимателни с маршрутите в гранични зони: маршрутите, създадени от нашето приложение, понякога могат да пресичат границите на страната на неразрешени места.
@@ -8334,6 +8538,7 @@
   [dialog_routing_disclaimer_beware]
     tags = android,ios
     en = Please stay alert and safe on the roads!
+    af = Bly asb. paraat en veilig op die paaie!
     ar = يجب أن تظل يقظًا وآمنًا على الطريق!
     be = Будзьце пільнымі і паводзьце сябе бяспечна на дарозе!
     bg = Моля, бъдете бдителни и безопасни по пътищата!
@@ -8375,6 +8580,7 @@
   [dialog_routing_check_gps]
     tags = android,ios
     en = Check GPS signal
+    af = Gaan GPS-sein na
     ar = تحقق من إشارة نظام تحديد الموقع الجغرافي
     be = Праверце сігнал GPS
     bg = Приверете GPS сигнала
@@ -8416,6 +8622,7 @@
   [dialog_routing_error_location_not_found]
     tags = android,ios
     en = Unable to create route. Current GPS coordinates could not be identified.
+    af = Kan nie roete bereken nie. Huidige GPD-koördinate kon nie geïdentifiseer word nie.
     ar = تعذر إنشاء مسار. لم نستطع تحديد الإحداثيات الجغرافية الحالية.
     be = Не ўдалося пракласці маршрут. Каардынаты GPS не вызначаны.
     bg = Не е възможно да се създаде маршрут. Текущите GPS координати не могат да бъдат идентифицирани.
@@ -8457,6 +8664,7 @@
   [dialog_routing_location_turn_wifi]
     tags = android,ios
     en = Please check your GPS signal. Enabling Wi-Fi will improve your location accuracy.
+    af = Kaan asb. u GPS-sein na. Met Wi-Fi sal u liggingakkuraatheid verbeter.
     ar = الرجاء التحقق من إشارة نظام تحديد الموقع. إن تفعيل الWi-Fi سيحسب دقة الموقع.
     be = Калі ласка, праверце сігнал GPS. Для больш дакладнага вызначэння месцазнаходжання ўключыце Wi-Fi.
     bg = Моля, проверете GPS сигнала. Включването на Wi-Fi ще подобри точността на местоположението ви.
@@ -8498,6 +8706,7 @@
   [dialog_routing_location_turn_on]
     tags = android,ios
     en = Enable location services
+    af = Aktiveer liggingdienste
     ar = تفعيل خدمات الموقع الجغرافي
     be = Уключыць геалагацыю
     bg = Активиране на услугите за местоположение
@@ -8539,6 +8748,7 @@
   [dialog_routing_location_unknown_turn_on]
     tags = android,ios
     en = Unable to locate current GPS coordinates. Enable location services to calculate route.
+    af = Kan nie huidige GPD-koördinate opspoor nie. Aktiveer liggingdienste om roete te bereken.
     ar = لم نستطع تحديد الإحداثيات الجغرافية الحالي. قم بتفعيل خدمات الموقع الجغرافي لحساب الطريق المناسب
     be = Не атрымалася вызначыць каардынаты GPS. Уключыце геалакацыю, каб пракласці маршрут.
     bg = Не е възможно да се определят GPS координатите. Активирайте услугите за местоположение, за да изчислите маршрута.
@@ -8580,6 +8790,7 @@
   [dialog_routing_download_files]
     tags = ios
     en = Download required files
+    af = Laai vereiste lêers af
     ar = تنزيل الملفات المطلوبة
     be = Спампуйце неабходныя файлы
     bg = Изтегляне на необходимите файлове
@@ -8621,6 +8832,7 @@
   [dialog_routing_download_and_update_all]
     tags = ios
     en = Download or update all maps along the projected path to calculate a route.
+    af = Laai af of werk alle kaarte langs die berekende pad by om ’n roete te bereken.
     ar = قم بتنزيل وتحديث كافة الخرائط ومعلومات التوجيه على طول الطريق المتوقع لحساب المسار.
     be = Спампуйце і абнавіце ўсе мапы і даныя навігацыі на шляху руху, каб пракласці маршрут.
     bg = За да изчислите маршрут, изтеглете и актуализирайте всички карти и пътища по маршрута.
@@ -8661,6 +8873,7 @@
   [dialog_routing_unable_locate_route]
     tags = android,ios
     en = Unable to locate route
+    af = Kan nie roete opspoor nie
     ar = تعذر إيجاد المسار
     be = Не ўдалося знайсці маршрут
     bg = Не е намерен маршрут
@@ -8702,6 +8915,7 @@
   [dialog_routing_cant_build_route]
     tags = android
     en = Unable to create route.
+    af = Kan nie roete bereken nie.
     ar = تعذر إنشاء مسار.
     be = Не ўдалося пракласці маршрут.
     bg = Не е възможно да се създаде маршрут.
@@ -8743,6 +8957,7 @@
   [dialog_routing_change_start_or_end]
     tags = android,ios
     en = Please adjust your starting point or destination.
+    af = Pas asb. u beginpunt of bestemming aan.
     ar = الرجاء تعديل نقطة بدء أو تعديل وجهتك.
     be = Калі ласка, змяніце пункт адпраўлення або прызначэння.
     bg = Моля, коригирайте началната точка или дестинацията си.
@@ -8784,6 +8999,7 @@
   [dialog_routing_change_start]
     tags = android,ios
     en = Adjust starting point
+    af = Pas beginpunt aan
     ar = تعديل نقطة البدء
     be = Змяніце пункт адпраўлення
     bg = Регулиране на началната точка
@@ -8825,6 +9041,7 @@
   [dialog_routing_start_not_determined]
     tags = android,ios
     en = Route was not created. Unable to locate starting point.
+    af = Roete is nie bereken nie. Kan nie beginpunt opspoor nie.
     ar = لم يتم إنشاء المسار. تعذر تحديد موقع نقطة البدء.
     be = Маршрут не пракладзены. Не знойдзены пункт адпраўлення.
     bg = Маршрутът не е създаден. Не може да се намери начална точка.
@@ -8866,6 +9083,7 @@
   [dialog_routing_select_closer_start]
     tags = android,ios
     en = Please select a starting point closer to a road.
+    af = Kies asb. ’n beginpunt nader aan ’n pad.
     ar = يُرجى تحديد نقطة بدء أكثر قربًا للطريق.
     be = Выберыце пункт адпраўлення бліжэй да дарогі.
     bg = Моля, изберете начална точка, която е по-близо до път.
@@ -8907,6 +9125,7 @@
   [dialog_routing_change_end]
     tags = android,ios
     en = Adjust destination
+    af = Pas bestemming aan
     ar = تعديل الوجهة
     be = Змяніце пункт прызначэння
     bg = Регулиране на дестинацията
@@ -8948,6 +9167,7 @@
   [dialog_routing_end_not_determined]
     tags = android,ios
     en = Route was not created. Unable to locate the destination.
+    af = Roete is nie bereken nie. Kan nie die bestemming ospoor nie.
     ar = لم يتم إنشاء المسار. تعذر تحديد موقع الوجهة.
     be = Маршрут не пракладзены. Не знойдзены пункт прызначэння.
     bg = Маршрутът не е създаден. Не е възможно да се открие дестинацията.
@@ -8989,6 +9209,7 @@
   [dialog_routing_select_closer_end]
     tags = android,ios
     en = Please select a destination point located closer to a road.
+    af = Kies asb. ’n bestemmingspunt wat nader aan ’n pad is.
     ar = يُرجى تحديد نقطة وجهة تقع أكثر قربًا من الطريق.
     be = Выберыце пункт прызначэння бліжэй да дарогі.
     bg = Моля, изберете крайна точка, разположена по-близо до път.
@@ -9030,6 +9251,7 @@
   [dialog_routing_change_intermediate]
     tags = android,ios
     en = Unable to locate the intermediate point.
+    af = Kan nie die tussenstop opspoor nie.
     ar = تعذر تحديد مكان النقطة الوسيطة.
     be = Не знойдзена прамежкавая кропка маршрута.
     bg = Не може да се открие междинната точка на маршрута.
@@ -9070,6 +9292,7 @@
   [dialog_routing_intermediate_not_determined]
     tags = android,ios
     en = Please adjust your intermediate point.
+    af = Werk asb. u tussenstop by.
     ar = الرجاء ضبط النقطة الوسيطة الخاصة بك.
     be = Змяніце прамежкавы пункт.
     bg = Моля, коригирайте междинната си точка на маршрута.
@@ -9111,6 +9334,7 @@
   [dialog_routing_system_error]
     tags = android,ios
     en = System error
+    af = Stelselfout
     ar = خطأ في النظام
     be = Памылка сістэмы
     bg = Грешка в системата
@@ -9152,6 +9376,7 @@
   [dialog_routing_application_error]
     tags = android,ios
     en = Unable to create route due to an application error.
+    af = Kan weens ’n toepassingfout nie ’n roete berkeen nie.
     ar = تعذر إنشاء مسار نتيجة وجود خطأ في التطبيق.
     be = Не ўдалося пракласці маршрут з-за памылкі праграмы.
     bg = Не е възможно да се създаде маршрут поради грешка в приложението.
@@ -9193,6 +9418,7 @@
   [dialog_routing_try_again]
     tags = android,ios
     en = Please try again
+    af = Probeer asb. weer
     ar = الرجاء إعادة المحاولة
     be = Паспрабуйце зноў
     bg = Моля, опитайте отново
@@ -9234,6 +9460,7 @@
   [not_now]
     tags = ios
     en = Not Now
+    af = Nie nou nie
     ar = ليس الآن
     be = Не зараз
     bg = Не сега
@@ -9275,6 +9502,7 @@
   [dialog_routing_download_and_build_cross_route]
     tags = android,ios
     en = Would you like to download the map and create a more optimal route spanning more than one map?
+    af = Wil u die kaart aflaai en ’n meer optimale roete bereken wat oor meer as een kaart loop?
     ar = هل ترغب في تنزيل الخريطة وإنشاء مسار أفضل يمتد عبر أكثر من خريطة؟
     be = Спампаваць мапу і пракласці лепшы маршрут праз некалькі мап?
     bg = Бихте ли искали да изтеглите картата и да създадете по-оптимален маршрут, обхващащ повече от една карта?
@@ -9316,6 +9544,7 @@
   [dialog_routing_download_cross_route]
     tags = android,ios
     en = Download additional maps to create a better route that crosses the boundaries of this map.
+    af = Laai bykomende kaarte af om ’n beter roete te bereken wat die grense van hierdie kaart oorskry.
     ar = تنزيل خرائط إضافية لإنشاء مسار أفضل يعبر حافة هذه الخريطة.
     be = Спампаваць дадатковыя мапы, каб пракласці лепшы маршрут, які перасякае межы гэтай мапы.
     bg = За да създадете по-добър маршрут с граничен преход, трябва да изтеглите картата.
@@ -9359,6 +9588,7 @@
   [search_without_internet_advertisement]
     tags = android
     en = To start searching and creating routes, please download the map. After that you will no longer need an Internet connection.
+    af = Om te begin met soek en  roetebeskrywings te kan maak moet u die kaart aflaai. U het daarna nie meer ’n internetverbinding nodig nie.
     ar = لبدء البحث وإنشاء الطرق، يرجى تنزيل الخريطة،  ولن تحتاج إلى اتصال بالإنترنت بعد ذلك.
     be = Каб шукаць месцы і пракладваць маршруты, спампуйце карту. Пасля гэтага падключэнне да інтэрнэту вам больш не спатрэбіцца.
     bg = За да започнете да търсите и създавате маршрути, изтеглете картата. Това ще ви позволи да пътувате без интернет връзка.
@@ -9400,6 +9630,7 @@
   [search_select_map]
     tags = android
     en = Select Map
+    af = Kies kaart
     ar = اختيار الخريطة
     be = Выбраць мапу
     bg = Избор на карта
@@ -9442,6 +9673,7 @@
     comment = «Show» context menu
     tags = android,ios
     en = Show
+    af = Toon
     ar = عرض
     be = Паказаць
     bg = Показване
@@ -9483,6 +9715,7 @@
     comment = «Hide» context menu
     tags = android,ios
     en = Hide
+    af = Versteek
     ar = إخفاء
     be = Схаваць
     bg = Скриване
@@ -9524,6 +9757,7 @@
     comment = Failed planning route message in navigation view
     tags = ios
     en = Route Planning Failed
+    af = Roeteberekening het misluk
     ar = فشل في تخطيط المسار
     be = Памылка пракладання маршрута
     bg = Неуспешно планиране на маршрут
@@ -9565,6 +9799,7 @@
     comment = Arrive routing message in navigation view
     tags = android,ios
     en = Arrival at %@
+    af = Aankoms om %@
     ar = وقت الوصول: %@
     be = Прыбыццё ў %@
     bg = Пристигане в %@
@@ -9606,6 +9841,7 @@
     comment = Text for routing::RouterResultCode::FileTooOld dialog.
     tags = ios
     en = Download and update all map along the projected path to calculate route.
+    af = Om ’n roete te bereken moet u alle kaarte van die pad aflaai en bywerk.
     ar = لإنشاء مسار، يرجى تنزيل وتحديث جميع الخرائط على امتداد الطريق.
     be = Спампуйце і абнавіце ўсе мапы на шляху, каб пракласці маршрут.
     ca = Baixeu i actualitzeu tots els mapes del trajecte per a calcular-ne la ruta.
@@ -9643,6 +9879,7 @@
   [categories]
     tags = android,ios
     en = Categories
+    af = Kategorieë
     ar = التصنيفات
     be = Катэгорыі
     bg = Категории
@@ -9683,6 +9920,7 @@
   [history]
     tags = android,ios
     en = History
+    af = Geskiedenis
     ar = سجل البحث
     be = Гісторыя
     bg = История
@@ -9723,6 +9961,7 @@
   [search_not_found]
     tags = android,ios
     en = Oops, no results found.
+    af = Oeps, geen resultate gevind.
     ar = المعذرة، لم أعثر على أية نتائج.
     be = Нічога не знойдзена.
     bg = За съжаление не са намерени резултати.
@@ -9763,6 +10002,7 @@
   [search_not_found_query]
     tags = android,ios
     en = Try changing your search criteria.
+    af = Probeer u soekkriteria verander.
     ar = يرجى تجربة معاير بحث أخرى.
     be = Паспрабуйце змяніць крытэрыі пошуку.
     bg = Опитайте да промените критериите за търсене.
@@ -9803,6 +10043,7 @@
   [search_history_title]
     tags = android,ios
     en = Search History
+    af = Soekgeskiedenis
     ar = سجل البحث
     be = Гісторыя пошуку
     bg = История на търсенията
@@ -9843,6 +10084,7 @@
   [search_history_text]
     tags = android,ios
     en = View your recent searches.
+    af = Bekyk al u onlangse soektogte.
     ar = عرض عمليات البحث الأخيرة.
     be = Праглядзець свае апошнія пошукі.
     bg = Преглед на последните търсения.
@@ -9883,6 +10125,7 @@
   [clear_search]
     tags = android,ios
     en = Clear Search History
+    af = Wis soekgeskiedenis
     ar = مسح سجل البحث
     be = Ачысціць гісторыю пошуку
     bg = Изчистване на историята на търсенията
@@ -9954,6 +10197,7 @@
   [p2p_your_location]
     tags = android,ios
     en = Your Location
+    af = U ligging
     ar = موقعك
     be = Ваша месцазнаходжанне
     bg = Вашето местоположение
@@ -9994,6 +10238,7 @@
   [p2p_start]
     tags = android,ios
     en = Start
+    af = Begin
     ar = ابدأ
     be = Пачаць
     bg = Начало
@@ -10034,6 +10279,7 @@
   [p2p_from_here]
     tags = android,ios
     en = Route from
+    af = Roete vanaf
     ar = الطريق من هنا
     be = Адсюль
     bg = Маршрут от
@@ -10074,6 +10320,7 @@
   [p2p_to_here]
     tags = android,ios
     en = Route to
+    af = Roete na
     ar = الطريق إلى
     be = Дасюль
     bg = Маршрут към
@@ -10114,6 +10361,7 @@
   [p2p_only_from_current]
     tags = android,ios
     en = Navigation is only available from your current location.
+    af = Navigering is slegs beskikbaar vanaf u huidige ligging.
     ar = تتوفر الملاحة من خلال موقعك الحالي فقط.
     be = Навігацыя магчыма толькі ад цяперашняга месцазнаходжання.
     bg = Навигацията е възможна само от текущото ви местоположение.
@@ -10154,6 +10402,7 @@
   [p2p_reroute_from_current]
     tags = android,ios
     en = Do you want to plan a route from your current location?
+    af = Wil u ’n roete vanaf u huidige ligging beplan?
     ar = هل ترغب في أن نرسم مسار لك من موقعك الحالي؟
     be = Хочаце перапракласці маршрут ад цяперашняга месцазнаходжання?
     bg = Искате ли да планираме маршрут от текущото ви местоположение?
@@ -10195,6 +10444,7 @@
     comment = Edit open hours/set time and minutes dialog
     tags = android
     en = Next
+    af = Volgende
     ar = التالي
     be = Далей
     bg = Напред
@@ -10236,6 +10486,7 @@
     comment = Tab title in the Edit Opening Hours time picker
     tags = android
     en = From
+    af = Van
     ar = من الساعة
     be = З
     bg = От
@@ -10277,6 +10528,7 @@
     comment = Tab title in the Edit Opening Hours time picker
     tags = android
     en = To
+    af = tot
     ar = إلى
     be = Да
     bg = До
@@ -10317,6 +10569,7 @@
   [editor_time_add]
     tags = android,ios
     en = Add Schedule
+    af = Voeg skedule toe
     ar = إضافة جدول
     be = Дадаць расклад
     bg = Добавяне на график
@@ -10357,6 +10610,7 @@
   [editor_time_delete]
     tags = android,ios
     en = Delete Schedule
+    af = Skrap skedule
     ar = حذف جدول
     be = Выдаліць расклад
     bg = Изтриване на график
@@ -10398,6 +10652,7 @@
     comment = Text for allday switch.
     tags = android,ios
     en = All Day (24 hours)
+    af = Heeldag (24 uur)
     ar = طوال اليوم (٢٤ ساعة)
     be = Цэлы дзень (24 гадзіны)
     bg = Цял ден (24 часа)
@@ -10438,6 +10693,7 @@
   [editor_time_open]
     tags = android,ios
     en = Open
+    af = Oop
     ar = يفتح
     be = Адкрыта
     bg = Отворено
@@ -10478,6 +10734,7 @@
   [editor_time_close]
     tags = android,ios
     en = Closed
+    af = Gesluit
     ar = يغلق
     be = Закрыта
     bg = Затворено
@@ -10518,6 +10775,7 @@
   [editor_time_add_closed]
     tags = android,ios
     en = Add Non-Business Hours
+    af = Voeg nie-besigheidsure toe
     ar = إضافة ساعات راحة
     be = Дадаць час, калі закрыта
     bg = Добавяне на почивка
@@ -10558,6 +10816,7 @@
   [editor_time_title]
     tags = android,ios
     en = Business Hours
+    af = Besigheidsure
     ar = ساعات العمل
     be = Час працы
     bg = Работно време
@@ -10598,6 +10857,7 @@
   [editor_time_advanced]
     tags = android,ios
     en = Advanced Mode
+    af = Gevorderde modus
     ar = الوضع المتقدم
     be = Пашыраны рэжым
     bg = Подробен режим
@@ -10638,6 +10898,7 @@
   [editor_time_simple]
     tags = android,ios
     en = Simple Mode
+    af = Eenvoudige modus
     ar = الوضع البسيط
     be = Просты рэжым
     bg = Сбит режим
@@ -10678,6 +10939,7 @@
   [editor_hours_closed]
     tags = android,ios
     en = Non-Business Hours
+    af = Nie-besigheidsure
     ar = ساعات الراحة
     be = Час, калі закрыта
     bg = Почивка
@@ -10718,6 +10980,7 @@
   [editor_example_values]
     tags = android,ios
     en = Example Values
+    af = Voorbeeldwaardes
     ar = أمثلة على القيم
     be = Прыклады значэнняў
     bg = Примерни стойности
@@ -10758,6 +11021,7 @@
   [editor_correct_mistake]
     tags = android
     en = Correct mistake
+    af = Stel fout reg
     ar = تصحيح الخطأ
     be = Выправіць памылку
     bg = Поправяне на грешка
@@ -10798,6 +11062,7 @@
   [editor_add_select_location]
     tags = android,ios
     en = Location
+    af = Ligging
     ar = الموقع
     be = Месцазнаходжанне
     bg = Местоположение
@@ -10838,6 +11103,7 @@
   [editor_done_dialog_1]
     tags = ios
     en = You’ve changed the world map! Don't keep it to yourself; tell your friends and edit it together.
+    af = U het die wêreldkaart verander! Moet dit nie vir uself hou nie; Vertel u vriende en wysig dit saam.
     ar = لقد ساهمت بتحسين خريطة العالم. لا تخفي ذلك! أخبر أصدقائك، وحسنوها معاً.
     be = Вы змянілі мапу свету. Не хавайце гэта! Расскажыце сябрам і рэдагуйце разам.
     bg = Променили сте картата на света. Не го крийте, кажете на приятелите си и редактирайте заедно.
@@ -10878,6 +11144,7 @@
   [share_with_friends]
     tags = ios
     en = Share with friends
+    af = Deel met vriende
     ar = شارك مع الأصدقاء
     be = Абагуліць з сябрамі
     bg = Споделяне с приятели
@@ -10918,6 +11185,7 @@
   [editor_report_problem_desription_1]
     tags = android
     en = Please describe the problem in detail so that the OpenStreetMap community can fix it.
+    af = Beskryf asb. die probleem in detail sodat die OpenStreetMap-gemeenskap dit kan regstel.
     ar = يرجى وصف المشكلة بالتفاصيل حتى يتسنى لفريق خريطة الشارع المفتوح إصلاح الخطأ.
     be = Калі ласка, падрабязна апішыце праблему, каб супольнасць OpenStreetMap магла выправіць памылку.
     bg = Моля, опишете подробно проблема, за да може общността на OpenStreetMap да отстрани грешката.
@@ -10958,6 +11226,7 @@
   [editor_report_problem_desription_2]
     tags = android
     en = Or do it yourself at https://www.openstreetmap.org/
+    af = Of doen dit welf by https://www.openstreetmap.org/
     ar = أو افعل ذلك بنفسك من خلال الموقع https://www.openstreetmap.org/
     be = Або зрабіце гэта самі на https://www.openstreetmap.org/
     bg = Или го направете сами на https://www.openstreetmap.org/
@@ -10998,6 +11267,7 @@
   [editor_report_problem_send_button]
     tags = android,ios
     en = Send
+    af = Stuur
     ar = إرسال
     be = Адправіць
     bg = Изпращане
@@ -11038,6 +11308,7 @@
   [editor_report_problem_title]
     tags = android
     en = Issue
+    af = Probleem
     ar = مشكلة
     be = Праблема
     bg = Проблем
@@ -11078,6 +11349,7 @@
   [editor_report_problem_no_place_title]
     tags = android
     en = This place does not exist
+    af = Hierdie plek bestaan nie
     ar = المكان غير موجود
     be = Месца не існуе
     bg = Мястото не съществува
@@ -11118,6 +11390,7 @@
   [editor_report_problem_under_construction_title]
     tags = android
     en = Сlosed for maintenance
+    af = Gesluit vir onderhoud
     ar = مغلق للصيانة
     be = Закрыта на рамонт
     bg = Затворено за ремонт
@@ -11158,6 +11431,7 @@
   [editor_report_problem_duplicate_place_title]
     tags = android
     en = Duplicate place
+    af = Dupliseer plek
     ar = مكان مكرر
     be = Паўтараючаеся месца
     bg = Дубликат
@@ -11198,6 +11472,7 @@
   [autodownload]
     tags = android,ios
     en = Auto-download maps
+    af = Laai kaarte outomaties af
     ar = التنزيل التلقائي
     be = Аўтаматычнае спампоўванне
     bg = Автоматично изтегляне
@@ -11239,6 +11514,7 @@
     comment = Place Page opening hours text
     tags = ios
     en = Closed now
+    af = Nou gesluit
     ar = مغلق الآن
     be = Зараз закрыта
     bg = Затворено сега
@@ -11280,6 +11556,7 @@
     comment = Place Page opening hours text
     tags = android,ios
     en = Daily
+    af = Daagliks
     ar = يومياً
     be = Штодзённа
     bg = Ежедневно
@@ -11320,6 +11597,7 @@
   [twentyfour_seven]
     tags = android,ios
     en = 24/7
+    af = 24/7
     ar = ٢٤/٧(ليلاً ونهاراً)
     be = 24/7
     bg = 24 часа
@@ -11361,6 +11639,7 @@
   [day_off_today]
     tags = android,ios
     en = Closed today
+    af = Vandag gesluit
     ar = مغلق اليوم
     be = Сёння закрыта
     bg = Затворено днес
@@ -11401,6 +11680,7 @@
   [day_off]
     tags = android,ios
     en = Closed
+    af = Gesluit
     ar = مغلق
     be = Закрыта
     bg = Затворено
@@ -11441,6 +11721,7 @@
   [today]
     tags = android,ios
     en = Today
+    af = Vandag
     ar = اليوم
     be = Сёння
     bg = Днес
@@ -11481,6 +11762,7 @@
   [opens_tomorrow_at]
     tags = ios
     en = Opens tomorrow at %@
+    af = Open môre om %@
     be = Адкрыецца заўтра ў %@
     ca = Obre demà a les %@
     de = Öffnet morgen um %@
@@ -11501,6 +11783,7 @@
   [opens_dayoftheweek_at]
     tags = ios
     en = Opens %1$@ at %2$@
+    af = Open %1$@ om %2$@
     be = Адкрываецца ў %1$@ у %2$@
     ca = Obre el %1$@ a les %2$@
     de = Öffnet %1$@ um %2$@
@@ -11521,6 +11804,7 @@
   [opens_at]
     tags = ios
     en = Opens at %@
+    af = Open om %@
     be = Адкрываецца ў %@
     ca = Obre a les %@
     de = Öffnet um %@
@@ -11541,6 +11825,7 @@
   [opens_in]
     tags = android,ios
     en = Opens in %@
+    af = Open oor %@
     ar = يفتح بعد %@
     be = Адкрываецца праз %@
     ca = Obre en %@
@@ -11562,6 +11847,7 @@
   [closes_at]
     tags = ios
     en = Closes at %@
+    af = Sluit om %@
     be = Закрываецца ў %@
     ca = Tanca a les %@
     de = Schließt um %@
@@ -11582,6 +11868,7 @@
   [closes_in]
     tags = android,ios
     en = Closes in %@
+    af = Sluit oor %@
     ar = يغلق في غضون %@
     be = Закрываецца праз %@
     ca = Tanca en %@
@@ -11603,6 +11890,7 @@
   [closed]
     tags = android,ios
     en = Closed
+    af = Gesluit
     ar = مغلق
     be = Закрыта
     bg = Затворено
@@ -11643,6 +11931,7 @@
   [add_opening_hours]
     tags = ios
     en = Add opening hours
+    af = Voeg besigheidsure toe
     ar = أضف ساعات العمل
     be = Дадаць часы працы
     bg = Добавяне на работно време
@@ -11683,6 +11972,7 @@
   [edit_opening_hours]
     tags = android
     en = Edit business hours
+    af = Wysig besigheidsure
     ar = حرر ساعات العمل
     be = Правіць часы працы
     bg = Редакция на работното време
@@ -11723,6 +12013,7 @@
   [no_osm_account]
     tags = android,ios
     en = Don't have an OpenStreetMap account?
+    af = Het u nie ’n OpenStreetMap-rekening nie?
     ar = ليس لديك حساب في خريطة الشارع المفتوحة؟
     be = Не зарэгістраваныя на OpenStreetMap?
     bg = Нямате акаунт в OpenStreetMap?
@@ -11763,6 +12054,7 @@
   [register_at_openstreetmap]
     tags = android,ios
     en = Register at OpenStreetMap
+    af = Registreer by OpenStreetMap
     ar = التسجيل في حريطة الشارع المفتوحة
     be = Зарэгістравацца на OpenStreetMap
     bg = Регистриране в OpenStreetMap
@@ -11803,6 +12095,7 @@
   [password_8_chars_min]
     tags = ios
     en = Password (8 characters minimum)
+    af = Wagwoord (ten minste 8 karakters)
     ar = كلمة المرور (٨ أحرف بحد أدنى)
     be = Пароль (мінімум 8 сімвалаў)
     bg = Парола (поне 8 символа)
@@ -11843,6 +12136,7 @@
   [invalid_username_or_password]
     tags = ios
     en = Invalid username or password.
+    af = Ongeldige gebruikersnaam of wagwoord.
     ar = اسم المستخدم أو كلمة المرور غير صالحة.
     be = Няправільныя імя карыстальніка альбо пароль.
     bg = Невалидно потребителско име или парола.
@@ -11883,6 +12177,7 @@
   [login]
     tags = android,ios
     en = OpenStreetMap Login
+    af = OpenStreetMap-aantekening
     ar = تسجيل الدخول
     be = Увайсці
     bg = Вход
@@ -11923,6 +12218,7 @@
   [login_osm]
     tags = android
     en = Login to OpenStreetMap
+    af = Teken aan op OpenStreetMap
     ar = OpenStreetMap ﻰﻟﺇ ﻝﻮﺧﺪﻟﺍ ﻞﻴﺠﺴﺗ
     be = Увайсці ў OpenStreetMap
     bg = Влезте в OpenStreetMap
@@ -11963,6 +12259,7 @@
   [password]
     tags = android
     en = Password
+    af = Wagwoord
     ar = كلمة المرور
     be = Пароль
     bg = Парола
@@ -12003,6 +12300,7 @@
   [forgot_password]
     tags = android,ios
     en = Forgot your password?
+    af = Het u u wagwoord vergeet?
     ar = هل نسيت كلمة المرور؟
     be = Забылі пароль?
     bg = Забравили сте паролата си?
@@ -12043,6 +12341,7 @@
   [osm_account]
     tags = ios
     en = OSM Account
+    af = OSM-rekening
     ar = حساب على خريطة الشارع المفتوحة
     be = Акаунт OSM
     bg = OSM Акаунт
@@ -12083,6 +12382,7 @@
   [logout]
     tags = android,ios
     en = Log Out
+    af = Teken af
     ar = تسجيل الخروج
     be = Выйсці
     bg = Изход
@@ -12124,6 +12424,7 @@
     comment = Information text: "Last upload 11.01.2016"
     tags = ios
     en = Last upload
+    af = Laaste oplaai
     ar = آخر تعديل
     be = Апошняя запампоўка
     bg = Последно качване
@@ -12164,6 +12465,7 @@
   [thank_you]
     tags = ios
     en = Thank You
+    af = Dankie
     ar = شكراً لك
     be = Дзякуй
     bg = Благодаря
@@ -12204,6 +12506,7 @@
   [edit_place]
     tags = android,ios
     en = Edit Place
+    af = Wysig plek
     ar = تعديل المكان
     be = Правіць месца
     bg = Редакция на място
@@ -12244,6 +12547,7 @@
   [place_name]
     tags = ios
     en = Place Name
+    af = Pleknaam
     ar = اسم المكان
     be = Назва месца
     bg = Име на място
@@ -12284,6 +12588,7 @@
   [add_language]
     tags = android,ios
     en = Add a language
+    af = Voeg ’n taal toe
     ar = إضافة لغة
     be = Дадаць мову
     bg = Добавяне на език
@@ -12324,6 +12629,7 @@
   [street]
     tags = android
     en = Street
+    af = Straat
     ar = الشارع
     be = Вуліца
     bg = Улица
@@ -12365,6 +12671,7 @@
     comment = Editable House Number text field (in address block).
     tags = android,ios
     en = Building number
+    af = Gebounommer
     ar = رقم المنزل
     be = Нумар будынка
     bg = Номер на сграда
@@ -12405,6 +12712,7 @@
   [details]
     tags = android,ios
     en = Details
+    af = Details
     ar = التفاصيل
     be = Падрабязнасці
     bg = Подробности
@@ -12446,6 +12754,7 @@
     comment = Text field to enter non-existing street name, below list of known streets around
     tags = android,ios
     en = Add a street
+    af = Voeg ’n straat toe
     ar = إضافة شارع
     be = Дадаць вуліцу
     bg = Добавяне на улица
@@ -12487,6 +12796,7 @@
     comment = Error to display when a new street name is not entered in the New street dialog
     tags = android
     en = Please enter a street name
+    af = Voer asb. ’n straatnaam in
     ar = الرجاء إدخال اسم الشارع
     be = Увядзіце назву вуліцы
     bg = Въведете име на улица
@@ -12515,6 +12825,7 @@
   [choose_language]
     tags = android,ios
     en = Choose a language
+    af = Kies ’n taal
     ar = اختر اللغة
     be = Выбраць мову
     bg = Избор на език
@@ -12555,6 +12866,7 @@
   [choose_street]
     tags = android,ios
     en = Choose a street
+    af = Kies ’n straat
     ar = اختر الشارع
     be = Выбраць вуліцу
     bg = Избор на улица
@@ -12595,6 +12907,7 @@
   [postal_code]
     tags = android,ios
     en = Postal Code
+    af = Poskode
     ar = الرمز البريدي
     be = Паштовы індэкс
     bg = Пощенски код
@@ -12634,6 +12947,7 @@
   [cuisine]
     tags = android,ios
     en = Cuisine
+    af = Kookkuns
     ar = المطبخ
     be = Кухня
     bg = Кухня
@@ -12674,6 +12988,7 @@
   [select_cuisine]
     tags = android,ios
     en = Select cuisine
+    af = Kies kookkuns
     ar = اختر المطبخ
     be = Выбраць кухню
     bg = Избор на кухня
@@ -12715,6 +13030,7 @@
     comment = login text field
     tags = android,ios
     en = Email or username
+    af = E-posadres of gebruikersnaam
     ar = البريد الإلكتروني أو اسم المستخدم
     be = Email або імя карыстальніка
     bg = Имейл или потребителско име
@@ -12755,6 +13071,7 @@
   [phone]
     tags = ios
     en = Phone
+    af = Telefoon
     ar = رقم الهاتف
     be = Тэлефон
     bg = Телефон
@@ -12795,6 +13112,7 @@
   [editor_add_phone]
     tags = android
     en = Add Phone
+    af = Voeg telefoonnomer toe
     ar = إضافة رقم هاتف
     ca = Afegeix un telèfon
     de = Telefon hinzufügen
@@ -12816,6 +13134,7 @@
   [level]
     tags = android,ios
     en = Floor
+    af = Verdieping
     ar = طابق
     be = Паверх
     bg = Етаж
@@ -12857,6 +13176,7 @@
   [please_note]
     tags = ios
     en = Please note
+    af = Let wel
     ar = يرجى العلم أنه،
     be = Звярніце ўвагу
     bg = Моля, имайте предвид
@@ -12897,6 +13217,7 @@
   [downloader_delete_map_dialog]
     tags = android,ios
     en = All of your map edits will be deleted with the map.
+    af = Alle wysigings aan kaarte word saam met die kaart geskrap.
     ar = سيتم حذف جميع التغييرات بالخريطة بالإضافة إلى حذف الخريطة نفسها.
     be = Усе вашы праўкі мапы будуць выдаленыя разам з мапай.
     bg = Всички ваши редакции на картата ще бъдат изтрити заедно с нея.
@@ -12937,6 +13258,7 @@
   [downloader_update_maps]
     tags = android,ios
     en = Update Maps
+    af = Werk kaarte by
     ar = تحديث الخرائط
     be = Абнавіць мапы
     bg = Обновяване на карти
@@ -12977,6 +13299,7 @@
   [downloader_mwm_migration_dialog]
     tags = android
     en = To create a route, you need to update all maps and then plan the route again.
+    af = Om ’n roete te skep moet u alle kaarte bywerk en die roete dan weer beplan.
     ar = لإنشاء مسار، فأنت تحتاج إلى تحديث كافة الخرائط ثم إعادة تخطيط المسار مرة أخرى.
     be = Каб стварыць маршрут, вам трэба абнавіць усе мапы і потым пракласці маршрут зноў.
     bg = За да създадете маршрут, трябва да актуализирате всички карти и след това да планирате маршрута отново.
@@ -13017,6 +13340,7 @@
   [downloader_search_field_hint]
     tags = android,ios
     en = Find map
+    af = Vind kaart
     ar = ابحث عن خريطة
     be = Знайсці мапу
     bg = Намиране на карта
@@ -13057,6 +13381,7 @@
   [migration_download_error_dialog]
     tags = ios
     en = Download error
+    af = Aflaaifout
     ar = خطأ بالتنزيل
     be = Памылка спампоўкі
     bg = Грешка при изтегляне
@@ -13097,6 +13422,7 @@
   [common_check_internet_connection_dialog]
     tags = android,ios
     en = Please make sure your device is connected to the Internet.
+    af = Maak asb. seker u toestel het ’n internetverbinding.
     ar = يرجى التحقق من الإعدادات والتأكد من اتصال جهازك بالإنترنت.
     be = Праверце налады і ўпэўніцеся, што прылада падключана да інтэрнэту.
     bg = Моля, проверете настройките си и се уверете, че устройството ви е свързано с интернет.
@@ -13137,6 +13463,7 @@
   [downloader_no_space_title]
     tags = android,ios
     en = Not enough space
+    af = Nie genoeg spasie nie
     ar = لا تتوفر مساحة كافية
     be = Не хапае месца
     bg = Няма достатъчно място
@@ -13177,6 +13504,7 @@
   [downloader_no_space_message]
     tags = android,ios
     en = Please delete any unnecessary data
+    af = Skrap asb. enige onnodige data
     ar = من فضلك، قم بإزالة البيانات غير الضرورية
     be = Выдаліце непатрэбныя даныя
     bg = Моля, изтрийте всички ненужни данни.
@@ -13217,6 +13545,7 @@
   [editor_login_error_dialog]
     tags = android
     en = Login error.
+    af = Aantekenfout.
     ar = خطأ في تسجيل الدخول.
     be = Памылка аўтарызацыі.
     bg = Грешка при вход.
@@ -13257,6 +13586,7 @@
   [editor_profile_changes]
     tags = android,ios
     en = Verified Changes
+    af = Bevestigde veranderinge
     ar = التعديلات التي تم التحقق منها
     be = Правераныя змены
     bg = Потвърдени промени
@@ -13297,6 +13627,7 @@
   [editor_focus_map_on_location]
     tags = android,ios
     en = Drag the map to select the correct location of the object.
+    af = Sleep die kaart om die voorwerp se regte ligging te kies.
     ar = اسحب الخريطة لتحدد موقع الإضافة.
     be = Перацягніце мапу, каб выбраць правільнае месцазнаходжанне аб'екта.
     bg = Плъзнете картата, за да изберете правилното местоположение на обекта.
@@ -13337,6 +13668,7 @@
   [editor_add_select_category]
     tags = ios
     en = Select category
+    af = Kies kategorie
     ar = اختر الفئة
     be = Выбраць катэгорыю
     bg = Избор на категория
@@ -13377,6 +13709,7 @@
   [editor_add_select_category_popular_subtitle]
     tags = ios
     en = Popular
+    af = Gewild
     ar = رائج
     be = Папулярныя
     bg = Популярно
@@ -13417,6 +13750,7 @@
   [editor_add_select_category_all_subtitle]
     tags = ios
     en = All Categories
+    af = Kategorieë
     ar = جميع الفئات
     be = Усе катэгорыі
     bg = Всички категории
@@ -13457,6 +13791,7 @@
   [editor_edit_place_title]
     tags = android,ios
     en = Editing
+    af = Wysig tans
     ar = يتم التعديل
     be = Рэдагаванне
     bg = Редактиране
@@ -13497,6 +13832,7 @@
   [editor_add_place_title]
     tags = android,ios
     en = Adding
+    af = Voeg tans toe
     ar = يتم الإٍضافة
     be = Даданне
     bg = Добавяне
@@ -13537,6 +13873,7 @@
   [editor_edit_place_name_hint]
     tags = android,ios
     en = Name of the place
+    af = Naam van die plek
     ar = اسم المكان
     be = Назва месца
     bg = Име на мястото
@@ -13577,6 +13914,7 @@
   [editor_edit_place_category_title]
     tags = android,ios
     en = Category
+    af = Kategorie
     ar = الفئة
     be = Катэгорыя
     bg = Категория
@@ -13617,6 +13955,7 @@
   [detailed_problem_description]
     tags = android
     en = Detailed description of the issue
+    af = Gedetailleerde beskrywing van die probleem
     ar = وصف مفصّل للمشكلة
     be = Падрабязнае апісанне праблемы
     bg = Подробно описание на проблема
@@ -13657,6 +13996,7 @@
   [editor_report_problem_other_title]
     tags = android
     en = Different problem
+    af = ’n Ander probleem
     ar = مشكلة أخرى
     be = Іншая праблема
     bg = Друг проблем
@@ -13697,6 +14037,7 @@
   [placepage_add_business_button]
     tags = android
     en = Add business
+    af = Voeg besigheid toe
     ar = إضافة مؤسسة
     be = Дадаць установу
     bg = Добавяне на бизнес
@@ -13737,6 +14078,7 @@
   [whatsnew_editor_message_1]
     tags = ios
     en = Add new places to the map, and edit existing ones directly from the app.
+    af = Voeg nuwe plekke tot die kaart toe, en wysig bestaandes direk vanuit die toep.
     ar = قم بإضافة أماكن جديدة للخريطة، وعدل أماكن حالية مباشرة من التطبيق.
     be = Стварайце на мапе новыя месцы і рэдагуйце існуючыя прама ў праграме.
     bg = Добавяне на нови места в картата и редакция на съществуващите директно от приложението.
@@ -13777,6 +14119,7 @@
   [dialog_incorrect_feature_position]
     tags = ios
     en = Change location
+    af = Verander ligging
     ar = تغيير الموقع
     be = Змяніце месцазнаходжанне
     bg = Смяна на местоположение
@@ -13817,6 +14160,7 @@
   [message_invalid_feature_position]
     tags = android,ios
     en = No object can be located here
+    af = Geen voorwerp kan hier geplaas word nie
     ar = لا يمكن تحديد موقع الكائن هنا
     be = Аб'ект не можа знаходзіцца тут
     bg = Тук не може да бъде намерен обект
@@ -13858,6 +14202,7 @@
     comment = Text in About and OSM Login screens. %@ is replaced by a local, human readable date.
     tags = android
     en = Cartographic data from OpenStreetMap as of %@. OSM is like Wikipedia for maps, where you can add and edit places for users around the world.
+    af = Kartografiese data van OpenStreetMap soos op %@. OSM is soos Wikipedia vir kaarte waar u plekke vir gebruikers van oor die wêreld kan toevoeg en wysig.
     ar = بيانات رسم الخرائط من OpenStreetMap اعتبارًا من %@. إنه مثل ويكيبيديا حيث يمكنك إضافة أو تحرير أماكن لجميع المستخدمين في جميع أنحاء العالم.
     be = Картаграфічныя даныя OpenStreetMap па стане на %@. Гэта як Вікіпедыя, дзе вы можаце дадаць або рэдагаваць месцы для ўсіх карыстальнікаў па ўсім свеце.
     bg = Картографски данни от OpenStreetMap към %@. Това е като Wikipedia, където можете да добавяте или редактирате места за всички потребители по света.
@@ -13897,6 +14242,7 @@
   [login_to_make_edits_visible]
     tags = android,ios
     en = Log in to openstreetmap.org to publish your changes to the world.
+    af = Teken by openstreetpam.org aan om u verandering aan die wêreld te publiseer.
     ar = قم بتسجيل الدخول حتى يتمكن باقي المستخدمين من رؤية التغييرات التي قمت بها.
     be = Аўтарызуйцеся ў OpenStreetMap.org, каб іншыя карыстальнікі бачылі вашыя змены.
     bg = Влезте в системата, за да могат другите потребители да видят направените от вас промени
@@ -13938,6 +14284,7 @@
     comment = Error dialog no space
     tags = ios
     en = To download, you need more space. Please delete any unnecessary data.
+    af = U benodig meer spasie om af te laai. Skrap asb. enige onnodige data.
     ar = للتنزيل، فأنت تحتاج إلى توفير مساحة أكبر. من فضلك، الرجاء قم بحذف البيانات غير الضرورية.
     be = Каб спампаваць, трэба больш месца. Выдаліце непатрэбныя даныя.
     bg = За изтегляне ви е необходимо повече място. Моля, изтрийте всички ненужни данни.
@@ -13978,6 +14325,7 @@
   [editor_sharing_title]
     tags = ios
     en = I improved the Organic Maps maps
+    af = Ek het Organic Maps verbeter
     ar = لقد قمت بتحسين خرائط تطبيق Organic Maps
     be = Я палепшыў мапы Organic Maps
     bg = Подобрих картите на Organic Maps
@@ -14019,6 +14367,7 @@
     comment = Downloaded 10 **of** 20 <- it is that "of"
     tags = android,ios
     en = %1$d of %2$d
+    af = %a$d van %2$d
     ar = %1$d من%2$d
     be = %1$d з %2$d
     bg = %1$d от %2$d
@@ -14059,6 +14408,7 @@
   [download_over_mobile_header]
     tags = android,ios
     en = Download over a cellular network connection?
+    af = Laai af oor ’n mobieledataverbinding?
     ar = تنزيل باستخدام بيانات الجوال؟
     be = Спампаваць праз мабільны інтэрнэт?
     bg = Изтегляне чрез мобилни данни?
@@ -14099,6 +14449,7 @@
   [download_over_mobile_message]
     tags = android,ios
     en = This could be considerably expensive with some plans or if roaming.
+    af = Dit kan behoorlik duur wees met sommige planne of indien dooldata aktief is.
     ar = قد يكون هذا مكلفاً جداً في بعض الاحيان أو عند التجوال.
     be = Гэта можа быць даволі дорага з некаторымі тарыфнымі планамі або ў роўмінгу.
     bg = Това може да бъде значително скъпо при някои планове или при роуминг.
@@ -14139,6 +14490,7 @@
   [error_enter_correct_house_number]
     tags = android,ios
     en = Enter a valid building number
+    af = Voer ’n geldige gebounommer in
     ar = أدخل رقم بناء صحيح
     be = Увядзіце правільны нумар дома
     bg = Въведете валиден номер на сграда
@@ -14179,6 +14531,7 @@
   [editor_storey_number]
     tags = android,ios
     en = Number of floors (maximum of %d)
+    af = Aantal verdiepings (maksimum van %d)
     ar = عدد الطوابق (بحد أقصى %d)
     be = Колькасць паверхаў (максімум %d)
     bg = Брой етажи (максимум %d)
@@ -14220,6 +14573,7 @@
     comment = Error message in Editor when a user tries to set the number of floors for a building higher than %d floors
     tags = android,ios
     en = The number of floors must non exceed %d
+    af = Die aantal verdiepings mag nie %d oorskry nie
     ar = يجب ألا يتجاوز عدد طوابق المبنى %d
     be = Колькасць паверхаў павінна быць не больш за %d
     bg = Броят на етажите не трябва да надвишава %d
@@ -14261,6 +14615,7 @@
     tags = android,ios
     en = ZIP Code
     en-GB = Postcode
+    af = Poskode
     ar = الرمز البريدي
     be = Паштовы індэкс
     bg = Пощенски код
@@ -14302,6 +14657,7 @@
     tags = android,ios
     en = Enter a valid ZIP code
     en-GB = Enter a valid postcode
+    af = Voer ’n geldige poskode in
     ar = أدخل الرمز البريدي صالح
     be = Увядзіце правільны паштовы індэкс
     bg = Въведете валиден пощенски код
@@ -14343,6 +14699,7 @@
     comment = Place Page title for long tap
     tags = android,ios
     en = Unknown Place
+    af = Onbekende plek
     ar = مكان غير معروف
     be = Невядомае месца
     bg = Неизвестно място
@@ -14383,6 +14740,7 @@
   [editor_other_info]
     tags = android,ios
     en = Send a note to OSM editors
+    af = Stuur ’n nota aan OSM-wysigers
     ar = ارسل ملاحظة إلى محرري خريطة الشارع المفتوحة
     be = Адправіць нататку рэдактарам OSM
     bg = Изпращане на бележка до редакторите на OSM
@@ -14425,6 +14783,7 @@
   [editor_detailed_description_hint]
     tags = android,ios
     en = Detailed comment
+    af = Gedetailleerde kommentaar
     ar = تعليق مفصّل
     be = Падрабязны каментарый
     bg = Подробен коментар
@@ -14465,6 +14824,7 @@
   [editor_detailed_description]
     tags = android,ios
     en = Your suggested map changes will be sent to the OpenStreetMap community. Please describe any additional details that cannot be edited in Organic Maps.
+    af = U het kaartveranderinge voorgestel wat na die OpenStreetMap-gemeenskap gestuur sal word. Beskryf asb. enige bykomende detail wat nie in Organic Maps gewysig kan word nie.
     ar = سيتم إرسال التغييرات التي اقترحتها إلى مجتمع خريطة الشارع المفتوحة. اذكر التفاصيل التي لا يمكن تحريرها في Organic Maps
     be = Прапанаваныя вамі змены будуць дасланы суполцы OpenStreetMap. Апішыце любыя дадатковыя дэталі, якія нельга рэдагаваць у Organic Maps.
     bg = Предложените от вас промени по картата ще бъдат изпратени до общността на OpenStreetMap. Опишете всички допълнителни подробности, които не могат да бъдат въведени в Organic Maps.
@@ -14505,6 +14865,7 @@
   [editor_more_about_osm]
     tags = android,ios
     en = More about OpenStreetMap
+    af = Meer oor OpenStreetMap
     ar = المزيد عن خريطة الشارع المفتوحة
     be = Падрабязней пра OpenStreetMap
     bg = Повече за OpenStreetMap
@@ -14545,6 +14906,7 @@
   [editor_operator]
     tags = android,ios
     en = Owner
+    af = Eienaar
     ar = المالك
     be = Уладальнік
     bg = Собственик
@@ -14585,6 +14947,7 @@
   [downloader_no_downloaded_maps_title]
     tags = android,ios
     en = You haven't downloaded any maps
+    af = U het geen kaarte afgelaai nie
     ar = لم تقم بتنزيل أية خرائط
     be = Вы не спампавалі ніводнай мапы
     bg = Не сте изтеглили никакви карти
@@ -14625,6 +14988,7 @@
   [downloader_no_downloaded_maps_message]
     tags = android,ios
     en = Download maps to search and navigate offline.
+    af = Laai kaarte af om die ligging te soek en vanlyn te navigeer.
     ar = قم بتنزيل خرائط للبحث عن مكان واستخدام الملاحة بدون اتصال بالإنترنت.
     be = Спампуйце мапы, каб шукаць месцы і карыстацца навігацыяй без інтэрнэту.
     bg = Изтеглете картите, от които се нуждаете, за да намирате места и да навигирате без интернет.
@@ -14666,6 +15030,7 @@
     comment = Error title that appears after certain time without location.
     tags = android,ios
     en = Continue detecting your location?
+    af = Gaan voort met vasstel van u ligging?
     ar = هل تريد متابعة اكتشاف موقعك الحالي؟
     be = Працягнуць вызначэнне месцазнаходжання?
     bg = Да продължаваме ли да ви засичаме местоположението?
@@ -14707,6 +15072,7 @@
     comment = Error that appears after certain time without location.
     tags = android,ios
     en = Current location is unknown. You may be in a building or tunnel.
+    af = Huidige ligging is onbekend. U is dalk in ’n gebou of tonnel.
     ar = الموقع الحالي غير معروف. ربما تتواجد داخل مبنى أو نفق.
     be = Месцазнаходжанне невядома. Магчыма вы ў будынку або ў танэлі.
     bg = Настоящото местоположение е неизвестно. Може би се намирате в сграда или тунел.
@@ -14747,6 +15113,7 @@
   [current_location_unknown_continue_button]
     tags = android,ios
     en = Continue
+    af = Gaan voort
     ar = الاستمرار
     be = Працягнуць
     bg = Продължаване
@@ -14787,6 +15154,7 @@
   [current_location_unknown_stop_button]
     tags = android,ios
     en = Stop
+    af = Stop
     ar = إيقاف
     be = Спыніць
     bg = Стоп
@@ -14827,6 +15195,7 @@
   [current_location_unknown_error_title]
     tags = ios
     en = Current location is unknown.
+    af = Huidige ligging is onbekend.
     ar = الموقع الحالي غير معروف.
     be = Месцазнаходжанне невядома.
     bg = Настоящото местоположение е неизвестно.
@@ -14866,6 +15235,7 @@
   [current_location_unknown_error_message]
     tags = ios
     en = An error occurred while determining your location. Check that your device is working properly and try again later.
+    af = ’n Fout het voorgekom toe u ligging vasgestel is. Maak seker u toestel werk deeglik en probeer later weer.
     ar = حدث خطأ أثناء البحث عن موقعك. تأكد من أن جهازك يعمل بشكل صحيح وأعد المحاولة لاحقًا.
     be = Адбылася памылка пры пошуку месцазнаходжання. Праверце, што ваша прылада працуе як трэба, і паспрабуйце зноў.
     bg = Възникна грешка при търсенето на вашето местоположение. Проверете дали устройството ви работи правилно и опитайте отново по-късно.
@@ -14906,6 +15276,7 @@
   [location_services_disabled_header]
     tags = ios
     en = Location services are disabled
+    af = Liggingsdienste is gedeaktiveer
     ar = تم تعطيل خدمات تحديد الموقع الجغرافي
     be = Геалакацыя адключана
     bg = Услугите за местоположение са деактивирани
@@ -14947,6 +15318,7 @@
   [location_services_disabled_message]
     tags = ios
     en = Enable access to geolocation in the device settings
+    af = Aktiveer toegang tot geoligging in die toestelinstellings
     ar = قم بإعطاء التطبيق السماحية بالوصول إلى الموقع الجغرافي في إعدادات الجهاز
     be = Уключыце доступ да геалакацыі у наладах прылады.
     bg = Разрешаване на достъпа до геолокация в настройките на устройството
@@ -14988,6 +15360,7 @@
   [location_services_disabled_1]
     tags = ios
     en = 1. Open Settings
+    af = 1. Open Instellings
     ar = 1. افتح الإعدادات
     be = 1. Адкрыйце Налады
     bg = 1. Отваряне на Настройки
@@ -15029,6 +15402,7 @@
   [location_services_disabled_2]
     tags = ios
     en = 2. Tap Location
+    af = 2. Tik op ligging
     ar = 2. انقر على الموقع
     be = 2. Націсніце Геалакацыя
     bg = 2. Натискане на Местоположение
@@ -15070,6 +15444,7 @@
     comment = iOS Dialog for the case when the location permission is not granted
     tags = ios
     en = 3. Select While Using the App
+    af = 3. Kies Terwyl u die toep gebruik
     ar = 3. اختيار التفعيل أثناء استخدام التطبيق
     be = 3. Выберыце "Падчас выкарыстання праграмы"
     bg = 3. Избиране на Докато приложението се използва
@@ -15109,6 +15484,7 @@
   [m]
     tags = android,ios
     en = m
+    af = m
     ar = متر
     be = м
     bg = м
@@ -15148,6 +15524,7 @@
   [km]
     tags = android,ios
     en = km
+    af = km
     ar = كم
     be = км
     bg = км
@@ -15187,6 +15564,7 @@
   [kilometers_per_hour]
     tags = android,ios
     en = km/h
+    af = km/h
     ar = كم/ساعة
     be = км/г
     ca = km/h
@@ -15225,6 +15603,7 @@
   [mi]
     tags = android,ios
     en = mi
+    af = myl
     ar = ميل
     be = міля
     bg = ми
@@ -15265,6 +15644,7 @@
     comment = A unit of measure
     tags = android,ios
     en = ft
+    af = vt.
     ar = قدم
     be = фут
     bg = фут
@@ -15302,6 +15682,7 @@
   [miles_per_hour]
     tags = android,ios
     en = mph
+    af = mph
     ar = ميل/ساعة
     be = міль/г
     ca = mph
@@ -15340,6 +15721,7 @@
   [hour]
     tags = android,ios
     en = h
+    af = h
     ar = س
     be = г
     bg = ч
@@ -15377,6 +15759,7 @@
   [minute]
     tags = android,ios
     en = min
+    af = min
     ar = د
     be = хв
     bg = мин
@@ -15416,6 +15799,7 @@
   [placepage_more_button]
     tags = android,ios
     en = More
+    af = Meer
     ar = المزيد
     be = Яшчэ
     bg = Още
@@ -15456,6 +15840,7 @@
   [book_button]
     tags = ios
     en = Book
+    af = Bespreek
     ar = حجز
     be = Забраніраваць
     bg = Резервиране
@@ -15495,6 +15880,7 @@
   [placepage_call_button]
     tags = ios
     en = Call
+    af = Bel
     ar = اتصال
     be = Патэлефанаваць
     bg = Обаждане
@@ -15535,6 +15921,7 @@
   [placepage_edit_bookmark_button]
     tags = android,ios
     en = Edit Bookmark
+    af = Wysig boekmerk
     ar = تحرير العلامة المرجعية
     be = Рэдагаваць закладку
     bg = Редакция на отметка
@@ -15575,6 +15962,7 @@
   [placepage_bookmark_name_hint]
     tags = ios
     en = Bookmark Name
+    af = Boekmerknaam
     ar = اسم العلامة المرجعية
     be = Назва закладкі
     bg = Име на отметка
@@ -15615,6 +16003,7 @@
   [placepage_personal_notes_hint]
     tags = ios
     en = Personal notes
+    af = Persoonlike notas
     ar = ملاحظات شخصية
     be = Асабістыя нататкі
     ca = Notes personals
@@ -15654,6 +16043,7 @@
   [placepage_delete_bookmark_button]
     tags = ios
     en = Delete Bookmark
+    af = Skrap boekmerk
     ar = حذف العلامة المرجعية
     be = Выдаліць закладку
     ca = Esborra el marcador
@@ -15693,6 +16083,7 @@
   [editor_edits_sent_message]
     tags = ios
     en = Your suggested changes have been sent
+    af = U voorgestelde veranderinge is verstuur
     ar = لقد تم إرسال التغييرات التي اقترحتها
     be = Прапанаваныя вамі змены былі адпраўлены
     bg = Предложените от вас промени са изпратени
@@ -15733,6 +16124,7 @@
   [editor_comment_hint]
     tags = android,ios
     en = Comment…
+    af = Kommentaar…
     ar = تعليق…
     be = Каментарый…
     bg = Коментиране…
@@ -15773,6 +16165,7 @@
   [editor_reset_edits_message]
     tags = android,ios
     en = Discard all local changes?
+    af = Wys alle lokale veranderinge af?
     ar = هل تريد مسح كافة التغييرات المحلية؟
     be = Адмовіцца ад усіх лакальных змен?
     bg = Отхвърляне на всички локални промени?
@@ -15813,6 +16206,7 @@
   [editor_reset_edits_button]
     tags = android,ios
     en = Discard
+    af = Wys af
     ar = مسح
     be = Адмовіцца
     bg = Отхвърляне
@@ -15853,6 +16247,7 @@
   [editor_remove_place_message]
     tags = android,ios
     en = Delete added place?
+    af = Skrap toegevoegde plek?
     ar = إزالة مكان الذي تمت إضافته؟
     be = Выдаліць даданае месца?
     bg = Изтриване на добавеното място?
@@ -15893,6 +16288,7 @@
   [editor_remove_place_button]
     tags = android,ios
     en = Delete
+    af = Skrap
     ar = إزالة
     be = Выдаліць
     bg = Изтриване
@@ -15933,6 +16329,7 @@
   [editor_place_doesnt_exist]
     tags = android,ios
     en = Place does not exist
+    af = Plek bestaan nie
     ar = المكان غير موجود
     be = Месца не існуе
     bg = Мястото не съществува
@@ -15974,6 +16371,7 @@
     comment = Error message for "Place doesn't exist" dialog when comment is empty
     tags = android
     en = Please indicate the reason for deleting the place
+    af = Dui asb. die rede aan waarom u die plek skrap
     ar = الرجاء توضيح سبب مسح هذا المكان
     be = Калі ласка, укажыце прычыну выдалення
     ca = Indiqueu per què esborreu el lloc
@@ -15997,6 +16395,7 @@
   [text_more_button]
     tags = ios
     en = …more
+    af = …meer
     ar = …المزيد
     be = …яшчэ
     bg = …още
@@ -16038,6 +16437,7 @@
     comment = Phone number error message
     tags = android,ios
     en = Enter a valid phone number
+    af = Voer ’n geldige telefoonnommer in
     ar = أدخل رقم هاتف صالح
     be = Увядзіце правільны нумар тэлефона
     bg = Въведете валиден телефонен номер
@@ -16078,6 +16478,7 @@
   [error_enter_correct_web]
     tags = android,ios
     en = Enter a valid web address
+    af = Voer ’n geldige webadres in
     ar = أدخل عنوان ويب صالح
     be = Увядзіце правільны вэб-адрас
     bg = Въведете валиден уеб адрес
@@ -16118,6 +16519,7 @@
   [error_enter_correct_email]
     tags = android,ios
     en = Enter a valid email
+    af = Voer ’n geldige e-posadres in
     ar = أدخل بريداً إلكترونياً صالحاً
     be = Увядзіце правільны адрас электронный пошты
     bg = Въведете валиден имейл
@@ -16158,6 +16560,7 @@
   [error_enter_correct_facebook_page]
     tags = android
     en = Enter a valid Facebook web address, account, or page name
+    af = Voer ’n geldige Facebook-webadres, -rekening of -bladnaam in
     ar = أدخل اسم صفحة أو حساب أو عنوان ويب خاص بفيسبوك صالح
     ca = Introduïu una adreça web de Facebook, un compte o un nom de pàgina vàlids
     de = Geben Sie eine gültige Facebook-Webadresse, ein Konto oder einen Seitennamen ein
@@ -16180,6 +16583,7 @@
   [error_enter_correct_instagram_page]
     tags = android
     en = Enter a valid Instagram username or web address
+    af = Voer ’n geldige Instagram-gebruikersnaam of -webadres in
     ar = أدخل اسم حساب أو عنوان ويب خاص بإنستغرام صالح
     ca = Introduïu una adreça web d'Instagram o un nom de compte vàlids
     de = Geben Sie eine gültige Instagram-Webadresse oder einen Kontonamen ein
@@ -16202,6 +16606,7 @@
   [error_enter_correct_twitter_page]
     tags = android
     en = Enter a valid Twitter username or web address
+    af = Voer ’n geldige Twitter-gebruikersnaam of -webadres in
     ar = أدخل اسم مستخدم او موقع ويب خاص بتويتر صالح
     ca = Introduïu una adreça web de Twitter o un nom d'usuari vàlids
     de = Geben Sie eine gültige Twitter-Webadresse oder einen Benutzernamen ein
@@ -16224,6 +16629,7 @@
   [error_enter_correct_vk_page]
     tags = android
     en = Enter a valid VK username or web address
+    af = Voer ’n geldige VK-gebruikersnaam of -webadres in
     ar = أدخل اسم حساب أو عنوان ويب خاص بموقع VK صالح
     ca = Introduïu una adreça web de VK o un nom de compte vàlids
     de = Geben Sie eine gültige VK-Webadresse oder einen Kontonamen ein
@@ -16245,6 +16651,7 @@
   [error_enter_correct_line_page]
     tags = android
     en = Enter a valid LINE ID or web address
+    af = Voer ’n geldige LINE-ID of -webadres in
     ar = أدخل رقم تعريفي خاص بتطبيق LINE أو موقع ويب خاص بتطيق LINE صالح
     be = Увядзіце сапраўдны LINE ID або вэб-адрас
     ca = Introduïu una adreça web de LINE o un ID LINE vàlids
@@ -16266,6 +16673,7 @@
   [refresh]
     tags = ios
     en = Update
+    af = Werk by
     ar = تحديث
     be = Абнавіць
     bg = Обновление
@@ -16306,6 +16714,7 @@
   [placepage_add_place_button]
     tags = android,ios
     en = Add a place to the map
+    af = Voeg ’n plek tot die kaart toe
     ar = إضافة مكان ما للخريطة
     be = Дадаць месца на мапу
     bg = Добавяне на място в картата
@@ -16347,6 +16756,7 @@
     comment = Displayed when saving some edits to the map to warn against publishing personal data
     tags = android,ios
     en = Do you want to send it to all users?
+    af = Wil u dit na alle gebruikers stuur?
     ar = هل ترغب في إرساله لجميع المستخدمين؟
     be = Хочаце адправіць усім карыстальнікам?
     bg = Искате ли да го изпратите на всички потребители?
@@ -16388,6 +16798,7 @@
     comment = Dialog before publishing the modifications to the public map.
     tags = android,ios
     en = Make sure you did not enter any private or personal data.
+    af = Maak seker u het geen privaat of persoonlike data ingevoer nie.
     ar = تأكد من أنك لم تقم بإدخال أية بيانات شخصية.
     be = Упэўніцеся, што вы не ўвялі ніякіх асабістых даных.
     bg = Уверете се, че не сте въвели никакви лични данни.
@@ -16428,6 +16839,7 @@
   [editor_share_to_all_dialog_message_2]
     tags = android,ios
     en = OpenStreetMap editors will check the changes and contact you if they have any questions.
+    af = OpenStraatMap-redigeerders sal die verandeirnge nagaan en u kontak indien hulle vrae het.
     ar = .ﺔﻠﺌﺳﺃ ﻱﺃ ﻢﻬﻳﺪﻟ ﻥﺎﻛ ﺍﺫﺇ ﻚﻌﻣ ﻥﻮﻠﺻﺍﻮﺘﻳﻭ ﺕﺍﺮﻴﻴﻐﺘﻟﺍ ﻦﻣ OpenStreetMap ﻭﺭﺮﺤﻣ ﻖﻘﺤﺘﻴﺳ
     be = Рэдактары OpenStreetMap правераць змены і звяжуцца з вамі, калі ў іх узнікнуць пытанні.
     bg = Редакторите на OpenStreetMap ще проверят промените и ще се свържат с вас, ако имат въпроси.
@@ -16469,6 +16881,7 @@
   [navigation_stop_button]
     tags = ios
     en = stop
+    af = stop
     ar = توقف
     be = спыніць
     ca = atura't
@@ -16508,6 +16921,7 @@
     tags = ios
     comment = iOS dialog for the case when recent track recording is on and the app comes back from background
     en = Disable recording of your recently travelled route?
+    af = Deaktiveer opname van u onlangs berese roete?
     ar = هل تريد تعطيل تسجيل مسارات سفرك؟
     be = Выключыць запіс вашага нядаўна пройдзенага маршрута?
     bg = Деактивиране на записването на последния ви маршрут?
@@ -16548,6 +16962,7 @@
   [off_recent_track_background_button]
     tags = ios
     en = Disable
+    af = Deaktiveer
     ar = تعطيل
     be = Адключыць
     bg = Деактивиране
@@ -16589,6 +17004,7 @@
     comment = For sharing via SMS and so on
     tags = ios
     en = Check out
+    af = Bekyk
     ar = اتطلع على
     be = Паглядзі
     bg = Виж
@@ -16629,6 +17045,7 @@
   [recent_track_background_dialog_message]
     tags = ios
     en = Organic Maps uses your location in the background to record your recently travelled route.
+    af = Organic Maps gebruik u ligging in die agtergrond om u onlangs berese roete op te neem.
     ar = يستخدم Organic Maps موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.
     be = Organic Maps выкарыстоўвае вашу геалакацыю ў фонавым рэжыме, каб запісваць ваш нядаўна пройдзены маршрут.
     bg = Organic Maps използва геопозицията ви във фонов режим за записване на последния ви маршрут.
@@ -16670,6 +17087,7 @@
     comment = Text under the version number in the Help dialog. TODO: Synchronize other translations with English.
     tags = android,ios
     en = Organic Maps is a fast and free offline maps app without ads and tracking. Maps are based on crowd-sourced OpenStreetMap.org data, so you can fix mapping errors and add features there yourself. Organic Maps is an open-source project created by enthusiasts in their spare time. Your feedback and support are much appreciated!
+    af = Organic Maps is ’n vinnige en gratis vanlyn kaarttoep sonder advertensies of nasporing. Kaarte is gebaseer op skareverkreë OpenStreetMap.org-data, sodat u self kaartfoute kan regstel en gunksies kan toevoeg. Organic Maps is ’n oopbronprojek wat deur entoesiaste in hul vrye tyd geskep is. U terugvoer en ondersteuning word waardeer!
     ar = Organic Maps هو تطبيق سريع ومجاني للوصول إلى الخرائط بدون اتصال بالانترنت، وهو بدون إعلانات ومتتبعات. إن الخرائط هي مصدرها بيانات خريطة الشارع المفتوحة التي يستطيع الجميع تعديلها، لذلك يمكنك إصلاح أخطاء الخريطة وإضافة الميزات بنفسك. Organic Maps هو مشروع مفتوح المصدر أُنشأ من قبل مجموعة من الهواة في وقت فراغهم. نقدّر جداً مساهماتك ودعمك.
     be = Organic Maps — гэта хуткія і бясплатныя мапы без рэкламы, якія працуюць без інтэрнэту і не шпіёняць за вамі. Усе картаграфічныя даныя бяруцца з OpenStreetMap.org, там вы зможаце самастойна выпраўляць памылкі і дадаваць новыя аб'екты. Organic Maps — гэта праект з адкрытым зыходным кодам, які ствараецца энтузіястамі ў вольны час. Будзем рады вашай падтрымцы і зваротнай сувязі!
     bg = Organic Maps е безплатно приложение за офлайн карти с отворен код. Без реклами. Без проследяване. Ако видите грешка на картата, моля, поправете я в OpenStreetMap. Проектът е създаден от ентусиасти в свободното ни време, така че имаме нужда от вашата отзиви и подкрепа.
@@ -16712,6 +17130,7 @@
   [general_settings]
     tags = ios
     en = General settings
+    af = Algemene instellings
     ar = الإعدادات العامة
     be = Агульныя налады
     bg = Общи настройки
@@ -16753,6 +17172,7 @@
     comment = For the first routing
     tags = android,ios
     en = Accept
+    af = Aanvaar
     ar = قبول
     be = Прыняць
     bg = Приемане
@@ -16794,6 +17214,7 @@
     comment = For the first routing
     tags = android,ios
     en = Decline
+    af = Weier
     ar = رفض
     be = Адхіліць
     bg = Отказване
@@ -16835,6 +17256,7 @@
     comment = A noun - a button name used to show search results in list form
     tags = ios
     en = List
+    af = Lys
     ar = قائمة
     be = Спіс
     bg = Списък
@@ -16875,6 +17297,7 @@
   [mobile_data_dialog]
     tags = android,ios
     en = Use mobile internet to show detailed information?
+    af = Gebruik mobiele internet om gedetailleerde inligting te toon?
     ar = استخدام بيانات الجوال لإظهار المعلومات التفصيلية؟
     be = Выкарыстоўваць мабільны інтэрнэт для паказу больш падрабязнай інфармацыі?
     bg = Използване на мобилни данни за подробна информация?
@@ -16915,6 +17338,7 @@
   [mobile_data_option_always]
     tags = android,ios
     en = Use Always
+    af = Gebruik altyd
     ar = استخدام دائمًا
     be = Заўсёды
     bg = Винаги
@@ -16955,6 +17379,7 @@
   [mobile_data_option_today]
     tags = android,ios
     en = Only Today
+    af = Slegs vandag
     ar = اليوم فقط
     be = Толькі сёння
     bg = Само днес
@@ -16995,6 +17420,7 @@
   [mobile_data_option_not_today]
     tags = android,ios
     en = Do not Use Today
+    af = Moenie vandag gebruik nie
     ar = عدم الاستخدام اليوم
     be = Не сёння
     bg = Без днес
@@ -17035,6 +17461,7 @@
   [mobile_data]
     tags = android,ios
     en = Mobile Internet
+    af = Mobiele internet
     ar = بيانات الجوال
     be = Мабільны інтэрнэт
     bg = Мобилни данни
@@ -17076,6 +17503,7 @@
     comment = NOTE to translators: please synchronize your translation with the English one.
     tags = android,ios
     en = Mobile internet is required for map update notifications and uploading edits.
+    af = Mobiele internet is nodig vir kaartbywerkkennisgewings en om wysigings op te laai.
     ar = إننا نحتاج بيانات الجوال لعرض معلومات تفصيلية عن الأماكن والإشارات المرجعية.
     be = Мабільны інтэрнэт неабходны для апавяшчэнняў аб абнаўленні мапы і для адлюстравання падрабязнай інфармацыі аб месцах і закладках.
     bg = Мобилните данни са необходими за показване на подробна информация за местата, като например снимки, цени и отзиви.
@@ -17116,6 +17544,7 @@
   [mobile_data_option_never]
     tags = android,ios
     en = Never Use
+    af = Gebruik nooit
     ar = عدم الاستخدام مطلقًا
     be = Ніколі не ужываць
     bg = Никога
@@ -17156,6 +17585,7 @@
   [mobile_data_option_ask]
     tags = android,ios
     en = Always Ask
+    af = Vra altyd
     ar = السؤال دوماً
     be = Заўсёды пытаць
     bg = Винаги питай
@@ -17196,6 +17626,7 @@
   [traffic_update_maps_text]
     tags = android,ios
     en = To display traffic data, maps must be updated.
+    af = Kaarte moet bygewerk word om verkeersdata te vertoon.
     ar = لعرض البيانات المرورية، يجب تحديث الخرائط.
     be = Для паказу інфармацыі пра рух, трэба абнавіць мапы.
     bg = За да се показват данни за трафика, картите трябва да са актуализирани.
@@ -17236,6 +17667,7 @@
   [big_font]
     tags = android,ios
     en = Increase size for map labels
+    af = Vergroot lettergrootte op kaart
     ar = زيادة حجم الخط على الخريطة
     be = Павялічыць шрыфт мапы
     bg = Увеличаване на размера на шрифта в картата
@@ -17276,6 +17708,7 @@
   [traffic_update_app]
     tags = android
     en = Please update Organic Maps
+    af = Werk Organic Maps asb. by
     ar = الرجاء تحديث Organic Maps
     be = Абнавіце Organic Maps
     bg = Моля, актуализирайте Organic Maps
@@ -17317,6 +17750,7 @@
     comment = "traffic" as in road congestion
     tags = ios
     en = To display traffic data, the application must be updated.
+    af = Die toepassing moet bygewerk word om verkeersdata te vertoon.
     ar = لعرض البيانات المرورية، يجب تحديث التطبيق.
     be = Для паказу інфармацыі пра рух трэба абнавіць праграмы.
     bg = За да се показват данни за трафика, приложението трябва да се актуализира.
@@ -17358,6 +17792,7 @@
     comment = "traffic" as in "road congestion"
     tags = android,ios
     en = Traffic data is not available
+    af = Verkeersdata is nie beskikbaar nie
     ar = البيانات المرورية غير متاحة
     be = Інфармацыі пра рух няма
     bg = Няма налични данни за трафика
@@ -17398,6 +17833,7 @@
   [enable_logging]
     tags = android
     en = Enable logging
+    af = Staan logboekinskrywing toe
     ar = تفعيل التسجيل
     be = Уключыць вядзенне журналу
     bg = Активиране на запис на дневник
@@ -17439,6 +17875,7 @@
     comment = Settings: "Send general feedback" button
     tags = android
     en = General Feedback
+    af = Algemene terugvoer
     ar = تعقيب عام
     be = Агульны водгук
     bg = Обща обратна връзка
@@ -17480,6 +17917,7 @@
   [on]
     tags = android,ios
     en = On
+    af = Aan
     ar = تشغيل
     be = Укл.
     bg = Вкл.
@@ -17521,6 +17959,7 @@
   [off]
     tags = android,ios
     en = Off
+    af = Af
     ar = إيقاف
     be = Выкл.
     bg = Изкл.
@@ -17562,6 +18001,7 @@
   [prefs_languages_information]
     tags = android
     en = We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    af = Ons gebruik die TTS-stelsel vir steminstruksies. Talle Android-toestelle gebruik Google TTS; u kan dit aflaai of bywerk deur Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     ar = نحن نستخدم نظام تحويل النص إلى كلام (TTS) للتعليمات الصوتية. تستخدم العديد من أجهزة أندرويد نظام Google TTS، يمكنك تنزيله من أو تحديثه من متجر Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     be = Мы ужываем сістэмны сінтэзатар маўлення (TTS). Многія прылады на Android ужываюць Google TTS, вы можаце спампаваць або абнавіць яго праз Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     bg = Навигирането се озвучава от системен синтезатор на реч (TTS). Много устройства използват Google TTS, който може да бъде изтеглен или актуализиран от Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts).
@@ -17603,6 +18043,7 @@
   [prefs_languages_information_off]
     tags = android
     en = For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play, Galaxy Store, App Gallery, FDroid).\nOpen your device's settings → Language and input → Speech → Text to speech output.\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.
+    af = Vir sommige tale sal u ’n spraaksintetiseerder of bykomende taalpakket vanaf die toepwinkel (Google Play, Galaxy Store, App Gallery, FDroid) moet installeer.\nOpen u toestel se instellings → Taal en toevoer → Spraak → Teks na spraak afvoer.\nHier kan u instellings vir spraaksintetisering bestuur (bv. laai taalpakket vir vanlyn gebruik af) en kies ’n ander teks-na-spraak-enjin.
     ar = بالنسبة لبعض اللغات، ستحتاج إلى تنزيل تطبيق تحويل النص إلى كلام أو حزمة لغات إضافية من متجر التطبيقات(متجر Play، Galaxy Store، App Gallery، FDroid(.\nافتح إعدادات جهازك ثم اللغة والإدخال ثم تحويل النص إلى كلام.\nهنا يمكنك إدارة الإعدادات لأنظمة تحويل النص إلى كلا(على سبيل المثال، تنزيل حزمة اللغة للاستجدام دون اتصال انترنيت)
     be = Для некаторых моў вам спатрэбіцца ўсталяваць сінтэзатар маўлення або дадатковы моўны пакет з крамы праграм (Google Play, Galaxy Store, App Gallery, F-Droid).\Зайдзіце на вашай прыладзе ў Налады → Мова і ўвод → Маўленне → Сінтэз маўлення.\nТут вы можаце задаць налады сінтэза маўлення (напрыклад, спампаваць моўны пакет для выкарыстання без падключэння да інтэрнэту) або выбраць іншы сінтэзатар маўлення.
     bg = За някои езици може да се наложи да инсталирате допълнителен синтезатор на реч (TTS) от магазина за приложения (Google Play Магазин, Galaxy Store).\nЗа да настроите синтезатора на реч, отидете в Настройки → Езици и въвеждане → Синтезиран говор.\nТук можете да инсталирате допълнителни езикови пакети или да изберете синтезатор на реч.
@@ -17643,6 +18084,7 @@
   [prefs_languages_information_off_link]
     tags = android
     en = For more information please check this guide.
+    af = Sien hierdie gids vir meer inligting
     ar = لمزيد من المعلومات الرجاء مراجعة هذا الدليل.
     be = Больш падрабязная інфармацыя знаходзіцца ў гэтым кіраўніцтве.
     bg = За повече информация вижте това ръководство.
@@ -17684,6 +18126,7 @@
   [transliteration_title]
     tags = android,ios
     en = Transliteration into Latin alphabet
+    af = Transliterasie in Latynse alfabet
     ar = كتابة جميع الاسماء بالحروف اللاتينية بشكل حرفي
     be = Транслітарацыя лацінкай
     bg = Латинска транслитерация
@@ -17729,6 +18172,7 @@
   [learn_more]
     tags = android
     en = Learn more
+    af = Meer inligting
     ar = معرفة المزيد
     be = Даведацца больш
     bg = Научете повече
@@ -17771,6 +18215,7 @@
     comment = Subway exits for public transport marks on the map
     tags = android,ios
     en = Exit
+    af = Uitgang
     ar = خروج
     be = Выхад
     bg = Изход
@@ -17812,6 +18257,7 @@
   [routing_add_start_point]
     tags = android,ios
     en = Add a starting point to plan a route
+    af = Voeg ’n beginpunt toe om ’n roete te beplan
     ar = أضف نقطة البداية لتخطيط المسار
     be = Дадайце пункт адпраўлення, каб пракласці маршрут
     bg = Добавяне на начална точка за планиране на маршрут
@@ -17853,6 +18299,7 @@
   [routing_add_finish_point]
     tags = android,ios
     en = Add a destination to plan a route
+    af = Voeg ’n rigting by om ’n roete te beplan
     ar = أضف النهاية لتخطيط المسار
     be = Дадайце пункт прызначэння, каб пракласці маршрут
     bg = Добавяне на крайна точка за планиране на маршрут
@@ -17894,6 +18341,7 @@
   [button_exit]
     tags = android
     en = Exit
+    af = Verlaat
     ar = خروج
     be = Выхад
     bg = Изход
@@ -17935,6 +18383,7 @@
   [planning_route_manage_route]
     tags = ios
     en = Manage Route
+    af = Bestuur roete
     ar = إدارة المسار
     be = Кіраваць маршрутам
     bg = Управление на маршрут
@@ -17976,6 +18425,7 @@
   [button_plan]
     tags = ios
     en = Plan
+    af = Beplan
     ar = خطة
     be = Пракласці
     bg = Планиране
@@ -18017,6 +18467,7 @@
   [placepage_remove_stop]
     tags = android,ios
     en = Remove
+    af = Verwyder
     ar = إزالة
     be = Выдаліць
     bg = Премахване
@@ -18058,6 +18509,7 @@
   [planning_route_remove_title]
     tags = ios
     en = Drag here to remove
+    af = Sleep hier om te verwyder
     ar = اسحب هنا للإزالة
     be = Перацягніце сюды, каб выдаліць
     bg = Плъзнете тук, за да премахнете
@@ -18099,6 +18551,7 @@
   [placepage_add_stop]
     tags = android,ios
     en = Add Stop
+    af = Voeg tussenstop toe
     ar = إضافة نقطة توقف
     be = Дадаць прыпынак
     bg = Добавяне на спирка
@@ -18140,6 +18593,7 @@
   [start_from_my_position]
     tags = ios
     en = Start from
+    af = Begin vanaf
     ar = بدء من
     be = Пачаць ад
     ca = Comença des de
@@ -18180,6 +18634,7 @@
   [profile_authorization_error]
     tags = ios
     en = Oops, there was an error. Try signing in again.
+    af = Oeps, daar was ’n fout. Probeer weer aanteken.
     ar = عفوًا، كان هناك خطأ. حاول تسجيل الدخول مرة اخرى.
     be = Ой-ёй, здарылася памылка. Паспрабуйце аўтарызавацца зноў.
     bg = За съжаление има грешка. Опитайте да влезете отново.
@@ -18221,6 +18676,7 @@
   [dialog_error_storage_title]
     tags = android
     en = Storage access problem
+    af = Bergtoegangprobleem
     ar = مشكلة الوصول للتخزين
     be = Праблема з доступам да сховішча
     bg = Проблем с достъпа до хранилището
@@ -18263,6 +18719,7 @@
   [dialog_error_storage_message]
     tags = android
     en = External storage is not accessible. The SD Card may have been removed, damaged, or the file system is read-only. Please, check your SD Card or contact us at support@organicmaps.app
+    af = Eksterne bergspasie is nie toeganklik nie. Die SD-kaart is dalk verwyder, beskadig, of die lêerstelsel is leesalleen. Gaan u SD-kaart na of kontak ons by support@organicmaps.app
     ar = التخزين الخارجي غير متوفر، ربما تمت إزالة بطاقة SD، أو أنها تالفة أو نظام الملفات للقراءة فقط. افحصه أو راسلنا على support@organicmaps.app
     be = Знешняе сховішча недасягальнае. SD-карта можа быць вынутая, пашкоджаная, альбо файлавая сістэма даступная толькі для чытання. Праверце вашу SD-карту альбо зважыцеся за намі па адрасе support@organicmaps.app
     bg = Външната памет на устройството не е налична, SD картата може да е била извадена, повредена или файловата система е само за четене. Проверете това и се свържете с нас support@organicmaps.app
@@ -18305,6 +18762,7 @@
   [setting_emulate_bad_storage]
     tags = android
     en = Emulate bad storage
+    af = Emuleer slegte bergspasie
     ar = محاكاة التخزين السيء
     be = Эмуляваць дрэннае сховішча
     bg = Емулация на грешки с външна памет
@@ -18347,6 +18805,7 @@
   [core_entrance]
     tags = android,ios
     en = Entrance
+    af = Ingang
     ar = المدخل
     be = Уваход
     bg = Вход
@@ -18389,6 +18848,7 @@
   [error_enter_correct_name]
     tags = android,ios
     en = Please enter a correct name
+    af = Voer asb. ’n korrekte naam in
     ar = الرجاء إدخال اسم صحيح
     be = Калі ласка, увядзіце правільну назву
     bg = Моля, въведете правилно име
@@ -18431,6 +18891,7 @@
   [bookmark_lists]
     tags = android,ios
     en = Lists
+    af = Lyste
     ar = قوائم
     be = Спісы
     bg = Списъци
@@ -18474,6 +18935,7 @@
     comment = Do not display all bookmark lists on the map
     tags = android,ios
     en = Hide all
+    af = Versteek alles
     ar = إخفاء الكل
     be = Схаваць усе
     bg = Скриване на всичко
@@ -18516,6 +18978,7 @@
   [bookmark_lists_show_all]
     tags = android,ios
     en = Show all
+    af = Toon alles
     ar = إظهار الكل
     be = Паказаць усе
     bg = Показване на всичко
@@ -18614,6 +19077,7 @@
   [bookmarks_create_new_group]
     tags = android,ios
     en = Create a new list
+    af = Skep ’n nuwe lys
     ar = إنشاء قائمة جديدة
     be = Стварыць новы спіс
     bg = Създаване на нов списък
@@ -18657,6 +19121,7 @@
     tags = android
     comment = Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files
     en = Import Bookmarks and Tracks
+    af = Voer leidrade en snitte in
     ar = استيراد الإشارات المرجعية والمسارات
     be = Імпартаваць закладкі і cцежкі
     bg = Импортиране на отметки и песни
@@ -18698,6 +19163,7 @@
   [downloader_hide_screen]
     tags = ios
     en = Hide Screen
+    af = Versteek skerm
     ar = إخفاء الشاشة
     be = Схаваць экран
     bg = Скриване на екрана
@@ -18740,6 +19206,7 @@
   [downloader_percent]
     tags = ios
     en = %@ (%@ of %@)
+    af = %@ (%@ van %@)
     ar = %@ (%@ من %@)
     be = %@ (%@ з %@)
     bg = %@ (%@ от %@)
@@ -18782,6 +19249,7 @@
   [downloader_process]
     tags = ios
     en = Downloading %@…
+    af = Laai tans %@ af…
     ar = جاري التنزيل %@…
     be = Спампоўванне %@…
     bg = Теглене %@…
@@ -18824,6 +19292,7 @@
   [downloader_applying]
     tags = ios
     en = Applying %@…
+    af = Pas tans %@ toe…
     ar = جاري التطبيق %@…
     be = Прымяненне %@…
     bg = Прилагане %@…
@@ -18866,6 +19335,7 @@
   [bookmarks_error_message_share_general]
     tags = android,ios
     en = Unable to share due to an application error
+    af = Kan nie deel nie weens ’n toepassingfout
     ar = تعذرت المشاركة بسبب خطأ في التطبيق
     be = Не атрымалася абагуліць з-за памылкі праграмы
     bg = Не е възможно споделяне поради грешка в приложението
@@ -18908,6 +19378,7 @@
   [bookmarks_error_title_share_empty]
     tags = android,ios
     en = Sharing error
+    af = Deelfout
     ar = خطأ في المشاركة
     be = Памылка пры спробе абагульвання
     bg = Грешка при споделяне
@@ -18950,6 +19421,7 @@
   [bookmarks_error_message_share_empty]
     tags = android,ios
     en = Cannot share an empty list
+    af = Kan nie ’n leë lys deel nie
     ar = لا يمكن مشاركة قائمة فارغة
     be = Нельга абагуліць пусты спіс
     bg = Не може да се споделя празен списък
@@ -18992,6 +19464,7 @@
   [bookmarks_error_title_empty_list_name]
     tags = android
     en = The name can't be empty
+    af = Die naam kan nie leeg wees nie
     ar = لا يمكن للاسم أن يكون فارغًا
     be = Назва не можа быць пустой
     bg = Името не може да бъде празно
@@ -19034,6 +19507,7 @@
   [bookmarks_error_message_empty_list_name]
     tags = android,ios
     en = Please enter the list name
+    af = Voer asb. die lysnaam in
     ar = يرجى إدخال اسم القائمة
     be = Увядзіце назву спіса
     bg = Моля, въведете името на списъка
@@ -19076,6 +19550,7 @@
   [bookmarks_new_list_hint]
     tags = android
     en = New list
+    af = Nuwe lys
     ar = قائمة جديدة
     be = Новы спіс
     bg = Нов списък
@@ -19118,6 +19593,7 @@
   [bookmarks_error_title_list_name_already_taken]
     tags = android,ios
     en = This name is already taken
+    af = Die naam is reeds in gebruik
     ar = هذا الاسم موجود سابقا
     be = Гэтая назва ўжо занятая
     bg = Това име вече е заето
@@ -19160,6 +19636,7 @@
   [bookmarks_error_message_list_name_already_taken]
     tags = android
     en = Please choose another name
+    af = Kies asb. ’n ander naam
     ar = يرجى اختيار اسم آخر
     be = Выберыце іншую назву
     bg = Моля, изберете друго име
@@ -19202,6 +19679,7 @@
   [bookmarks_error_title_list_name_too_long]
     tags = ios
     en = This name is too long
+    af = Die naam is te lank
     ar = هذا الاسم طويل جداً
     be = Гэтая назва надта доўгая
     ca = Aquest nom és massa llarg
@@ -19243,6 +19721,7 @@
   [please_wait]
     tags = android
     en = Please wait…
+    af = Wag asb.…
     ar = أرجو الإنتظار…
     be = Пачакайце…
     bg = Моля, изчакайте…
@@ -19285,6 +19764,7 @@
   [phone_number]
     tags = android
     en = Phone number
+    af = Telefoonnommer
     ar = رقم الهاتف
     be = Нумар тэлефона
     ca = Número de telèfon
@@ -19326,6 +19806,7 @@
   [profile]
     tags = android,ios
     en = OpenStreetMap profile
+    af = OpenStreetMap-profiel
     ar = ملف الشخصي على خريطة الشارع المفتوحة
     be = Профіль OpenStreetMap
     bg = Профил в OpenStreetMap
@@ -19366,6 +19847,7 @@
   [bookmarks_detect_title]
     tags = ios
     en = New files detected
+    af = Nuwe lêers is bespeur
     ar = تم اكتشاف ملفات جديدة
     be = Знойдзены новыя файлы
     bg = Открити са нови файлове
@@ -19483,6 +19965,7 @@
   [button_convert]
     tags = ios
     en = Convert
+    af = Skakel om
     ar = تحول
     be = Ператварыць
     bg = Конвертиране
@@ -19525,6 +20008,7 @@
   [bookmarks_convert_error_title]
     tags = ios
     en = Error
+    af = Fout
     ar = خطأ
     be = Памылка
     bg = Грешка
@@ -19567,6 +20051,7 @@
   [bookmarks_convert_error_message]
     tags = ios
     en = Some files were not converted.
+    af = Sommige lêers is nie omgeskakel nie.
     ar = لم يتم تحويل بعض الملفات.
     be = Некаторыя файлы не ператварыліся.
     bg = Някои файлове не са конвертирани.
@@ -19609,6 +20094,7 @@
   [bookmarks_restore_title]
     tags = ios
     en = Restore this version?
+    af = Stel hierdie weergawe terug?
     ar = استعادة هذا النسخة؟
     be = Аднавіць гэтую версію?
     bg = Възстановяване на тази версия?
@@ -19651,6 +20137,7 @@
   [common_check_internet_connection_dialog_title]
     tags = android
     en = No internet connection
+    af = Geen internetverbinding
     ar = لا يوجد اتصال بالإنترنت
     be = Няма падключэння да інтэрнэту
     bg = Няма интернет връзка
@@ -19693,6 +20180,7 @@
   [error_system_message]
     tags = ios
     en = An unknown error occurred
+    af = ’n Onbekende fout het voorgekom
     ar = حدث خطأ غير معروف
     be = Адбылася невядомая памылка
     bg = Възникна неизвестна грешка
@@ -19735,6 +20223,7 @@
   [restore]
     tags = ios
     en = Restore
+    af = Stel terug
     ar = استعادة
     be = Аднавіць
     bg = Възстановяване
@@ -19953,6 +20442,7 @@
     comment = used to choose between the Google and Android location services
     tags = android
     en = Tracking settings
+    af = Naspoorinstellings
     ar = إعدادات التتبع
     be = Налады адсочвання
     bg = Настройки за проследяване
@@ -19995,6 +20485,7 @@
   [crash_reports]
     tags = android
     en = Crash report
+    af = Uitbomverslag
     ar = تقرير الخاص بتعطل التطبيق
     be = Справаздача аб памылцы
     bg = Доклад за срив
@@ -20037,6 +20528,7 @@
   [crash_reports_description]
     tags = android
     en = We may use your crash reports to improve Organic Maps. Changes will take effect after you restart the app.
+    af = Ons kan u uitbomverslae gebruik om Organic Maps te verbeter. Veranderinge sal plaasvind nadat u die toep herbegin het.
     ar = قد نستخدم بياناتك لتحسين تجربة Organic Maps. سوف تكون التغييرات نافذة المفعول بعد إعادة تشغيل التطبيق.
     be = Мы можам выкарыстоўваць вашы даныя, каб палепшыць Organic Maps. Змены набудуць сілу пасля перазапуску праграмы.
     bg = Можем да използваме данни ви, за да подобрим изживяването с Organic Maps. Промените ще влязат в сила, след рестартиране на приложението.
@@ -20079,6 +20571,7 @@
   [privacy_policy]
     tags = android,ios
     en = Privacy policy
+    af = Privaatheidsbeleid
     ar = سياسة الخصوصية
     be = Палітыка прыватнасці
     bg = Политика за поверителност
@@ -20121,6 +20614,7 @@
   [terms_of_use]
     tags = android,ios
     en = Terms of use
+    af = Gebruiksvoorwaardes
     ar = شروط الاستخدام
     be = Умовы выкарыстання
     bg = Условия за ползване
@@ -20163,6 +20657,7 @@
   [button_layer_traffic]
     tags = android,ios
     en = Traffic
+    af = Verkeer
     ar = حركة مرور
     be = Рух
     bg = Трафик
@@ -20206,6 +20701,7 @@
     tags = android,ios
     en = Subway
     en-GB = Metro
+    af = Moltrein
     ar = مترو الانفاق
     be = Метро
     bg = Метро
@@ -20248,6 +20744,7 @@
   [layers_title]
     tags = android,ios
     en = Map layers
+    af = Kaartlae
     ar = طبقات الخريطة
     be = Слаі карты
     bg = Слоеве на картата
@@ -20291,6 +20788,7 @@
     tags = android,ios
     en = Subway map is unavailable
     en-GB = Metro map is unavailable
+    af = Moltreinkaart is onbeskikbaar
     ar = خريطة مترو الانفاق غير متوفرة
     be = Мапа метро недаступная
     bg = Картата на метрото не е налична
@@ -20333,6 +20831,7 @@
   [bookmarks_empty_list_title]
     tags = android
     en = This list is empty
+    af = Hierdie lys is leeg
     ar = هذه اللائحة فارغة
     be = Гэты спіс пусты
     bg = Този списък е празен
@@ -20375,6 +20874,7 @@
   [bookmarks_empty_list_message]
     tags = android
     en = To add a bookmark, tap a place on the map and then tap the star icon
+    af = Tik op ’n plek op die kaart en dan op die sterikoon om ’n boekmerk toe te voeg
     ar = لإضافة إشارة مرجعية ، اضغط على مكان على الخريطة ثم انقر على رمز النجمة
     be = Каб дадаць закладку, націсніце на месца на мапе і потым на іконку з зорачкай
     bg = За да добавите отметка, докоснете място на картата, след което докоснете звездообразната икона.
@@ -20417,6 +20917,7 @@
   [category_desc_more]
     tags = android
     en = …more
+    af = …nog
     ar = …المزيد
     be = …яшчэ
     bg = …още
@@ -20459,6 +20960,7 @@
   [title_error_downloading_bookmarks]
     tags = ios
     en = An error occurred
+    af = ’n Fout het voorgekom
     ar = حدث خطأ
     be = Адбылася памылка
     bg = Възникна грешка
@@ -20501,6 +21003,7 @@
   [popular_place]
     tags = ios
     en = Popular
+    af = Gewild
     ar = رائج
     be = Папулярнае
     bg = Популярно
@@ -20527,6 +21030,7 @@
   [export_file]
     tags = android,ios
     en = Export file
+    af = Stuur lêer uit
     ar = ملف التصدير
     be = Экспартаваць файл
     bg = Експортиране на файл
@@ -20569,6 +21073,7 @@
   [list_settings]
     tags = android,ios
     en = List Settings
+    af = Lysinstellings
     ar = إعدادات القائمة
     be = Налады спіса
     bg = Настройки на списък
@@ -20611,6 +21116,7 @@
   [delete_list]
     tags = android,ios
     en = Delete list
+    af = Skrap lys
     ar = حذف القائمة
     be = Выдаліць спіс
     bg = Изтриване на списък
@@ -20653,6 +21159,7 @@
   [hide_from_map]
     tags = ios
     en = Hide from map
+    af = Versteek van die kaart
     ar = إخفاء من الخريطة
     be = Схаваць з мапы
     ca = Amaga-ho en el mapa
@@ -20694,6 +21201,7 @@
   [public_access]
     tags = android
     en = Public access
+    af = Openbare toegang
     ar = مسموح الوصول لعامة الشعب
     be = Публічны доступ
     bg = Публичен достъп
@@ -20736,6 +21244,7 @@
   [limited_access]
     tags = android
     en = Limited access
+    af = Beperkte toegang
     ar = مسموح الوصول بشكل محدود
     be = Абмежаваны доступ
     bg = Ограничен достъп
@@ -20778,6 +21287,7 @@
   [bookmark_list_description_hint]
     tags = android,ios
     en = Enter a description (text or html)
+    af = Voer ’n beskrywing in (teks of html)
     ar = اكتب وصفًا (نص أو html)
     be = Дабаўце апісанне (тэкст альбо html)
     bg = Добавяне на описание (текст или html)
@@ -20820,6 +21330,7 @@
   [not_shared]
     tags = android
     en = Private
+    af = Privaat
     ar = خاص
     be = Прыватны
     bg = Лично
@@ -20862,6 +21373,7 @@
   [tags_loading_error_subtitle]
     tags = ios
     en = An error occurred while loading tags, please try again
+    af = ’n Fout het voorgekom toe etikette gelaai word, probeer weer
     ar = حدث خطأ أثناء تحميل العلامات ، يرجى المحاولة مرة أخرى
     be = Адбылася памылка падчас загрузкі метак, калі ласка паспрабуйце зноў
     bg = Възникна грешка при зареждането на таговете, моля, опитайте отново
@@ -20904,6 +21416,7 @@
   [download_button]
     tags = ios
     en = Download
+    af = Laai af
     ar = تنزيل
     be = Спампаваць
     ca = Baixa
@@ -20945,6 +21458,7 @@
   [speedcams_alert_title]
     tags = android,ios
     en = Speed cameras
+    af = Spoedkameras
     ar = تحذيرات كاميرات السرعة
     be = Камеры хуткасці
     bg = Камери за скорост
@@ -20987,6 +21501,7 @@
   [speedcam_option_auto]
     tags = android,ios
     en = Auto
+    af = Outomaties
     ar = تلفائياً
     be = Аўтаматычна
     bg = Автоматично
@@ -21029,6 +21544,7 @@
   [speedcam_option_always]
     tags = android,ios
     en = Always
+    af = Altyd
     ar = مفعل دائماً
     be = Заўсёды
     bg = Винаги
@@ -21071,6 +21587,7 @@
   [speedcam_option_never]
     tags = android,ios
     en = Never
+    af = Nooit
     ar = معطل دائماً
     be = Ніколі
     bg = Никога
@@ -21113,6 +21630,7 @@
   [place_description_title]
     tags = android,ios
     en = Place Description
+    af = Plekbeskrywing
     ar = وصف المكان
     be = Апісанне месца
     bg = Описание на мястото
@@ -21156,6 +21674,7 @@
     comment = this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected.
     tags = android
     en = Map downloader
+    af = Kaartaflaaier
     ar = مُنزّل الخريطة
     be = Спампоўка мапаў
     bg = Изтегляне на карти
@@ -21198,6 +21717,7 @@
   [speedcams_notice_message]
     tags = ios
     en = Auto - Warn about speedcams if there is a risk of exceeding the speed limit\nAlways - Always warn about speedcams\nNever - Never warn about speedcams
+    af = Outomaties – Waarsku oor spoedkameras indien daar ’n risiko is dat die grens oorskry word\nAltyd – Waarsku altyd oor spoedkameras\nNooit – Waarsku nooit oor spoedkameras
     ar = تلقائياً - حذرني عن كاميرات السرعة إذا هناك احتمالية تجاوز الحد الأقصى للسرعة\nمفعل دائماً - حذرني دائما من كاميرات السرعة \n معطل دائماً - لا تحذرني من كاميرات السرعة أبداً
     be = Аўтаматычна - Папярэджваць пра камеры хуткасці, калі ёсць рызыка перавышэння дазволенай хуткасці.\nЗаўсёды - Заўсёды папярэджваць пра камеры\nНіколі - Ніколі не папярэджваць пра камеры
     bg = Автоматично - Предупреждава се при камери за скорост, ако има риск от превишаване на ограничението на скоростта\nВинаги - Винаги се продупреждава при камери за скорост\nНикога - Никога не се предупреждава при камери за скорост
@@ -21240,6 +21760,7 @@
   [power_managment_title]
     tags = android,ios
     en = Power saving mode
+    af = Energiebesparende modus
     ar = وضع توفير الطاقة
     be = Рэжым захавання энергіі
     bg = Режим пестене на енергия
@@ -21282,6 +21803,7 @@
   [power_managment_description]
     tags = android,ios
     en = Try to reduce power usage at the expense of some functionality.
+    af = Probeer batterygebruik verminder ten koste van sekere funksionaliteit.
     ar = عندما يتم اختيار الوضع التلقائي، يبدأ التطبيق بتعطيل الخصائص التي تستهلك البطارية بناءً على مستوى شحن البطارية الحالي
     be = Калі ўключаны рэжым захавання энергіі, праграма пачынае выключаць энергазатратныя функцыі ў залежнасці ад зарада батарэі
     bg = Ако е активиран режима пестене на енергия, приложението ще деактивира функциите, консумиращи енергия, в зависимост от текущия заряд на телефона.
@@ -21324,6 +21846,7 @@
   [power_managment_setting_never]
     tags = android,ios
     en = Never
+    af = Nooit
     ar = أبدًا
     be = Ніколі
     bg = Никога
@@ -21366,6 +21889,7 @@
   [power_managment_setting_auto]
     tags = android,ios
     en = When battery is low
+    af = Wanneer battery laag as
     ar = تلقائي
     be = Аўтаматычна
     bg = Автоматично
@@ -21408,6 +21932,7 @@
   [power_managment_setting_manual_max]
     tags = android,ios
     en = Always
+    af = Altyd
     ar = توفير الطاقة الأقصى
     be = Максімальнае захаванне энергіі
     bg = Максимално пестене на енергия
@@ -21450,6 +21975,7 @@
   [enable_logging_warning_message]
     tags = android
     en = Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using "Report a bug" in the Help dialog. Logs may include location info.
+    af = Aktiveer hierdie opsie tydelik om ’n gedetailleerde diagnosestaat van u probleem op te neem en handmatig na ons te stuur d.m.v. die “Rapporteer ’n fout” in die Help-dialoog. Sulke state kan liggingsinligting bevat.
     ar = هذا الخيار يقوم ببدأ تسجيل سجلات التطبيق لإغراض التشخيصة. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا لحل المشاكل التي تواجهكم داخل التطبيق. قم بتفعيل هذا الخيار بشكل مؤقت فقط في حالة طلب الدعم من Organic Maps.
     be = Опцыя ўключае запіс журнала падзей для мэтаў дыягностыкі. Гэта можа дапамагчы нашай камандзе вырашаць праблемы з праграмай. Уключайце гэтую опцыю часова, каб запісаць і паслаць нам дэталёвую інфармацыю, пра знойденую вамі праблему.
     bg = Тази настройка е разрешена, за да се записват действия за диагностични цели, които помагат на нашия екип да идентифицира проблеми с приложението. Временно активирайте тази настройка само за изпращане на подробна информация за проблема, който сте открили с приложението.
@@ -21492,6 +22018,7 @@
   [access_rules_author_only]
     tags = android
     en = Online editing
+    af = Aanlyn wysiging
     ar = التعديل باستخدام الإنترنت
     be = Рэдагаванне анлайн
     bg = Онлайн редактиране
@@ -21534,6 +22061,7 @@
   [driving_options_title]
     tags = android,ios
     en = Routing options
+    af = Ompadopsies
     ar = خيارات رسم المسار
     be = Налады пракладкі маршрута
     bg = Опции за маршрутизация
@@ -21576,6 +22104,7 @@
   [driving_options_subheader]
     tags = android,ios
     en = Avoid on every route
+    af = Vermy op elke roete
     ar = تجنبها على جميع الطرق
     be = Пазбягаць на кожным маршруце
     bg = Избягване при всеки маршрут
@@ -21618,6 +22147,7 @@
   [avoid_tolls]
     tags = android,ios
     en = Toll roads
+    af = Tolpaaie
     ar = الطرق ذات الرسوم
     be = Платныя дарогі
     bg = Платени пътища
@@ -21660,6 +22190,7 @@
   [avoid_unpaved]
     tags = android,ios
     en = Unpaved roads
+    af = Grondpaaie
     ar = الطرق غير المعبدة
     be = Грунтовыя дарогі
     bg = Неасфалтирани пътища
@@ -21702,6 +22233,7 @@
   [avoid_ferry]
     tags = android,ios
     en = Ferry crossings
+    af = Veerbootkruisings
     ar = استخدام العبّارات
     be = Паромныя пераправы
     bg = Преходи с ферибот
@@ -21744,6 +22276,7 @@
   [avoid_motorways]
     tags = android,ios
     en = Motorways
+    af = Snelweg
     ar = الطرق السريعة
     be = Аўтамагістралі
     bg = Магистрали
@@ -21786,6 +22319,7 @@
   [unable_to_calc_alert_title]
     tags = android,ios
     en = Unable to calculate route
+    af = Kan nie ’n roete bereken nie
     ar = لا يمكن حساب الطريق
     be = Не атрымалася пракласці маршрут
     bg = Не е възможнос изчисляване на маршрут
@@ -21828,6 +22362,7 @@
   [unable_to_calc_alert_subtitle]
     tags = android,ios
     en = A route could not be found. This may be caused by your routing options or incomplete OpenStreetMap data. Please change your routing options and retry.
+    af = ’n Roete kon nie gevind word nie. Dit kan deur ’n ompadopsies of onvolledige OpenStreetMap-data veroorsaak word. Verander u omwegopsies en probeer weer.
     ar = نأسف، لم نعثر على الطريق ربما بسبب الخيارات التي قمت بتحديدها. يرجى تغيير الإعدادات والمحاولة مجددًا
     be = Нажаль, мы не змаглі пракласці маршрут, магчыма з-за абраных вамі налад. Змяніце налады і паспрабуйце зноў.
     bg = За съжаление не успяхме да намерим маршрут, вероятно поради избраните от вас параметри. Моля, променете настройките и опитайте отново.
@@ -21870,6 +22405,7 @@
   [define_to_avoid_btn]
     tags = android,ios
     en = Define roads to avoid
+    af = Definieer paaie om te vermy
     ar = حدد الطرق التي يجب تجنبها
     be = Задаць дарогі, якіх пазбягаць
     bg = Определяне пътищата, които да се избягват
@@ -21912,6 +22448,7 @@
   [change_driving_options_btn]
     tags = android,ios
     en = Routing options enabled
+    af = Ompadinstellings is geaktiveer
     ar = تم تفعيل خيارات رسم الطريق
     be = Налады пракладкі маршрута ўключаны
     bg = Разрешени опции за маршрутизиране
@@ -21954,6 +22491,7 @@
   [toll_road]
     tags = android,ios
     en = Toll road
+    af = Tolpaaie
     ar = طريق برسوم مرور
     be = Платная дарога
     ca = Via de peatge
@@ -21995,6 +22533,7 @@
   [unpaved_road]
     tags = android,ios
     en = Unpaved road
+    af = Grondpaaie
     ar = طريق غير معبد
     be = Грунтовая дарога
     ca = Via sense pavimentar
@@ -22036,6 +22575,7 @@
   [ferry_crossing]
     tags = android,ios
     en = Ferry crossing
+    af = Veerbootkruisings
     ar = استخدام عبّارة
     be = Паромная пераправа
     ca = Ferris
@@ -22077,6 +22617,7 @@
   [avoid_toll_roads_placepage]
     tags = android,ios
     en = Avoid toll roads
+    af = Vermy tolpaaie
     ar = تجنب الطرق ذات الرسوم
     be = Пазбягаць платных дарог
     bg = Избягване на платени пътища
@@ -22119,6 +22660,7 @@
   [avoid_unpaved_roads_placepage]
     tags = android,ios
     en = Avoid unpaved roads
+    af = ermy grondpaaie
     ar = تجنب الطرق الغير معبدة
     be = Пазбягаць грунтовых дарог
     bg = Избягвайте неасфалтирани пътища
@@ -22161,6 +22703,7 @@
   [avoid_ferry_crossing_placepage]
     tags = android,ios
     en = Avoid ferry crossings
+    af = Vermy veerbootkruisings
     ar = تجنب استخدام العبّارات
     be = Пазбягаць паромных перапраў
     bg = Избягване на преходи с ферибот
@@ -22203,6 +22746,7 @@
   [trip_start]
     tags = ios
     en = Let's go
+    af = Kom ons gaan
     ar = هيا بنا
     be = Паехалі
     ca = Som-hi
@@ -22244,6 +22788,7 @@
   [pick_destination]
     tags = ios
     en = Destination
+    af = Bestemming
     ar = جهة الوصول
     be = Пункт прызначэння
     ca = Destinació
@@ -22286,6 +22831,7 @@
     tags = ios
     en = Re-center
     en-GB = Re-centre
+    af = Hersentreer
     ar = العودة إلى الوسط
     be = Па цэнтры
     ca = Centra
@@ -22327,6 +22873,7 @@
   [search_results]
     tags = ios
     en = Search results
+    af = Soekresultate
     ar = نتائج البحث
     be = Вынікі пошуку
     ca = Resultats de cerca
@@ -22368,6 +22915,7 @@
   [then_turn]
     tags = ios
     en = Then
+    af = Dan
     ar = ثم
     be = Потым
     ca = Després
@@ -22409,6 +22957,7 @@
   [redirect_route_alert]
     tags = ios
     en = Do you want to rebuild the route?
+    af = Wil u die roete herbou?
     ar = هل تريد إعادة رسم الطريق?
     be = Хочаце перапракласці маршрут?
     ca = Voleu tornar a calcular la ruta?
@@ -22451,6 +23000,7 @@
     comment = A generic "Yes" button in dialogs
     tags = android,ios
     en = Yes
+    af = Ja
     ar = نعم
     be = Так
     bg = Да
@@ -22494,6 +23044,7 @@
     comment = A generic "No" button in dialogs
     tags = android,ios
     en = No
+    af = Nee
     ar = لا
     be = Не
     bg = Не
@@ -22565,6 +23116,7 @@
   [trip_finished]
     tags = ios
     en = You have arrived!
+    af = U het aangekom!
     ar = لقد وصلت!
     be = Вы прыбылі!
     ca = Heu arribat!
@@ -22606,6 +23158,7 @@
   [keyboard_availability_alert]
     tags = ios
     en = Keyboard is not available while driving
+    af = Toetsbord is nie beskikbaar terwyl u bestuur nie
     ar = لوحة الكتابة غير متاحة أثناء القيادة
     be = Клавіятура недасягальная падчас язды
     ca = El teclat no és disponible mentre conduïu
@@ -22647,6 +23200,7 @@
   [dialog_routing_change_start_carplay]
     tags = ios
     en = Unable to build a route from your current location
+    af = Kan nie ’n roete vanaf u huidige ligging bou nie
     ar = لا يمكن رسم طريق من موقعك الحالي
     be = Не атрымалася пракласці маршрут ад вашага цяперашняга месцазнаходжання
     ca = No es pot calcular cap ruta des de la vostra ubicació actual
@@ -22688,6 +23242,7 @@
   [dialog_routing_change_end_carplay]
     tags = ios
     en = Unable to find a route to your destination. Please choose another end point
+    af = Kan nie ’n roete na u bestemming vind nie. Kies asb. ’n ander eindpunt
     ar = لا يمكن رسم طريق لجهة الوصول. يرجي اختيار مكان آخر
     be = Не атрымалася пракласці маршрут да вашага пункту прызначэння. Выберыце іншы пункт прызначэння.
     ca = No es pot calcular cap ruta a la vostra destinació. Trieu un altre punt
@@ -22729,6 +23284,7 @@
   [dialog_routing_check_gps_carplay]
     tags = ios
     en = No GPS signal. Please move to an open area
+    af = Geen GPS-sein. Beweeg asb. na ’n oop area
     ar = لا يوجد إشارة نظام تحديد المواقع الجغرافية. يرجى الانتقال لمنطقة مفتوح
     be = Няма сігналу GPS. Перамясціцеся на адкрытую прастору
     ca = No hi ha senyal GPS. Aneu a un àrea oberta
@@ -22770,6 +23326,7 @@
   [dialog_routing_unable_locate_route_carplay]
     tags = ios
     en = Unable to build a route. Please specify other route points
+    af = Kan nie nn roete bou nie. Spesifiseer asb. ander roetepunte
     ar = لا يمكن رسم طريق. يرجى تحديد أماكن أخرى على الطريق
     be = Не атрымалася пракласці маршрут. Выберыце іншыя кропкі маршрута.
     ca = No es pot calcular cap ruta. Indiqueu uns punts de ruta diferents.
@@ -22811,6 +23368,7 @@
   [dialog_routing_download_files_carplay]
     tags = ios
     en = To create a route, download missing maps on your device
+    af = Laai vermiste kaarte op u toestel af om ’n roete te skep
     ar = كي تُنشئ مساراً، يجب أن تحمل الخرائط المفقودة على جهازك
     be = Каб пракласці маршрут, спампуйце мапы, каторых не хапае на вашай прыладзе
     ca = Per a crear una ruta, baixeu les mapes que manquen en el vostre aparell
@@ -22852,6 +23410,7 @@
   [dialog_routing_system_error_carplay]
     tags = ios
     en = An error occurred. Please restart the application
+    af = ’n Fout het voorgekom. Herbegin asb. die toepassing
     ar = حدث خطأ. يرجى إعادة تشغيل التطبيق
     be = Адбылася памылка. Калі ласка, перазапусціце праграму
     ca = S'ha produït un error. Reinicieu l'aplicació
@@ -22893,6 +23452,7 @@
   [dialog_routing_rebuild_from_current_location_carplay]
     tags = ios
     en = The route will be rebuilt from your current location
+    af = Die roete sal vanaf u huidige ligging herbou word
     ar = سيتم إعادة رسم الطريق من موقعك الحالي
     be = Маршрут будзе перапракладзены ад вашага цяперашняга месцазнаходжання
     ca = Es tornarà a calcular la ruta des de la ubicació actual
@@ -22934,6 +23494,7 @@
   [dialog_routing_rebuild_for_vehicle_carplay]
     tags = ios
     en = The route will be converted into an automobile one
+    af = Die roete sal in ’n outoroete verander word
     ar = سيتم تعديل الطريق ليكون خاص بالسيارة
     be = Маршрут будзе ператвораны ў аўтамабільны
     ca = La ruta es convertira a una d'automòbil
@@ -22975,6 +23536,7 @@
   [ok]
     tags = android,ios
     en = OK
+    af = Goed
     ar = موافق
     be = Ок
     bg = Ок
@@ -23017,6 +23579,7 @@
   [avoid_unpaved_carplay_1]
     tags = ios
     en = No dirt road
+    af = Geen grondpaaie
     ar = بدون طرق ترابية
     be = Без грунт.
     ca = Sense vies no pavimentades
@@ -23058,6 +23621,7 @@
   [avoid_unpaved_carplay_2]
     tags = ios
     en = Avoid unpaved
+    af = Vermy grondpaaie
     ar = تجنب الطرق غير المعبدة
     be = Пазбягаць грунтовак
     ca = Evita vies sense pavimentar
@@ -23099,6 +23663,7 @@
   [avoid_ferry_carplay_1]
     tags = ios
     en = No ferries
+    af = Geen veerbote
     ar = بدون عبََارة
     be = Без паромаў
     ca = Sense ferris
@@ -23140,6 +23705,7 @@
   [avoid_ferry_carplay_2]
     tags = ios
     en = Avoid ferries
+    af = Vermy veerbote
     ar = تجنب العبََارة
     be = Пазбягаць паромаў
     ca = Evita els ferris
@@ -23181,6 +23747,7 @@
   [avoid_tolls_carplay_1]
     tags = ios
     en = No toll road
+    af = Geen tolpad
     ar = بدون طرق ذات رسوم
     be = Без платных
     ca = Sense vies de peatge
@@ -23222,6 +23789,7 @@
   [avoid_tolls_carplay_2]
     tags = ios
     en = Avoid toll road
+    af = Vermy tolpad
     ar = تجنب الطريق ذات الرسوم
     be = Пазбягаць платных
     ca = Evita les vies de peatge
@@ -23263,6 +23831,7 @@
   [speedcams_alert_title_carplay_1]
     tags = ios
     en = Speedсams
+    af = Kameras
     ar = كاميرات السرعة
     be = Камеры
     ca = Radars
@@ -23304,6 +23873,7 @@
   [speedcams_alert_title_carplay_2]
     tags = ios
     en = Speed warnings
+    af = Spoedkameras
     ar = تحذير بشأن السرعة
     be = Папяр. аб хуткасці
     ca = Avisos de radars
@@ -23345,6 +23915,7 @@
   [download_map_carplay]
     tags = ios
     en = Please download maps in the app on your mobile device
+    af = Laai asb. kaarte in die toep op u mobiele toestel af
     ar = يُرجى تحميل الخرائط في تطبيق Organic Maps على جهازك
     be = Спампуйце мапы ў праграме Organic Maps на вашай прыладзе
     ca = Baixeu els mapes en l'aplicació Organic Maps del vostre aparell
@@ -23386,6 +23957,7 @@
   [carplay_roundabout_exit]
     tags = ios
     en = %@ exit
+    af = Afrit %@
     ar = المخرج رقم %@
     be = %@ з'езд
     ca = %@ sortida
@@ -23428,6 +24000,7 @@
     comment = max. 10 symbols, both iOS and Android
     tags = android,ios
     en = Sort…
+    af = Sorteer…
     ar = ترتيب…
     be = Сартаваць…
     bg = Сортиране…
@@ -23471,6 +24044,7 @@
     comment = Android, title, max 20-22 symbols
     tags = android
     en = Sort bookmarks
+    af = Sorteer boekmerke
     ar = رتّب العلامات المرجعية
     be = Сартаваць закладкі
     bg = Сортиране на отметки
@@ -23514,6 +24088,7 @@
     comment = iOS
     tags = ios
     en = Sort by default
+    af = Versteksortering
     ar = ترتيب افتراضي
     be = Сартаваць па змаўчанні
     ca = Ordenació predeterminada
@@ -23555,6 +24130,7 @@
   [sort_type]
     tags = ios
     en = Sort by type
+    af = Sorteer volgens tipe
     ar = رتّب حسب النوع
     be = Сартаваць па тыпу
     ca = Ordena per tipus
@@ -23596,6 +24172,7 @@
   [sort_distance]
     tags = ios
     en = Sort by distance
+    af = Sorteer volgens afstand
     ar = رتّب حسب المسافة
     be = Сартаваць па адлегласці
     ca = Ordena per distància
@@ -23637,6 +24214,7 @@
   [sort_date]
     tags = ios
     en = Sort by date
+    af = Sorteer volgens datum
     ar = رتّب حسب التاريخ
     be = Сартаваць па даце
     ca = Ordena per data
@@ -23679,6 +24257,7 @@
     comment = Android
     tags = android
     en = By default
+    af = Verstek
     ar = بشكل افتراضي
     be = Па змоўчанні
     bg = По подразбиране
@@ -23722,6 +24301,7 @@
     comment = Android
     tags = android
     en = By type
+    af = Volgens tipe
     ar = حسب النوع
     be = Па тыпу
     bg = По тип
@@ -23765,6 +24345,7 @@
     comment = Android
     tags = android
     en = By distance
+    af = Volgens afstand
     ar = حسب المسافة
     be = Па адлегласці
     bg = По разстояние
@@ -23808,6 +24389,7 @@
     comment = Android
     tags = android
     en = By date
+    af = Volgens datum
     ar = حسب التاريخ
     be = Па даце
     bg = По дата
@@ -23850,6 +24432,7 @@
   [week_ago_sorttype]
     tags = android,ios
     en = A week ago
+    af = 'n week gelede
     ar = منذ أسبوع
     be = Тыдзень таму
     ca = Fa una setmana
@@ -23891,6 +24474,7 @@
   [month_ago_sorttype]
     tags = android,ios
     en = A month ago
+    af = ’n Maand gelede
     ar = منذ شهر
     be = Месяц таму
     ca = Fa un mes
@@ -23932,6 +24516,7 @@
   [moremonth_ago_sorttype]
     tags = android,ios
     en = More than a month ago
+    af = Meer as ’n maand gelede
     ar = منذ أكثر من شهر
     be = Больш за месяц таму
     ca = Fa més d'un mes
@@ -23973,6 +24558,7 @@
   [moreyear_ago_sorttype]
     tags = android,ios
     en = More than a year ago
+    af = Meer as ’n jaar gelede
     ar = منذ أكثر من سنة
     be = Больш за год таму
     ca = Fa més d'un any
@@ -24014,6 +24600,7 @@
   [near_me_sorttype]
     tags = android,ios
     en = Near me
+    af = Naby my
     ar = قريب مني
     be = Каля мяне
     ca = Prop meu
@@ -24055,6 +24642,7 @@
   [others_sorttype]
     tags = android,ios
     en = Others
+    af = Ander
     ar = أخرى
     be = Іншыя
     ca = Altres
@@ -24098,6 +24686,7 @@
   [food_places]
     tags = android,ios
     en = Food
+    af = Kos
     ar = طعام
     be = Ежа
     ca = Menjar
@@ -24139,6 +24728,7 @@
   [tourist_places]
     tags = android,ios
     en = Sights
+    af = Besienswaardighede
     ar = أماكن سياحية
     be = Славутасці
     ca = Llocs d'interès
@@ -24180,6 +24770,7 @@
   [museums]
     tags = android,ios
     en = Museums
+    af = Museums
     ar = متاحف
     be = Музеі
     ca = Museus
@@ -24221,6 +24812,7 @@
   [parks]
     tags = android,ios
     en = Parks
+    af = Parke
     ar = حدائق
     be = Паркі
     ca = Parcs
@@ -24262,6 +24854,7 @@
   [swim_places]
     tags = android,ios
     en = Swim
+    af = Swem
     ar = سباحة
     be = Плаванне
     ca = Natació
@@ -24303,6 +24896,7 @@
   [mountains]
     tags = android,ios
     en = Mountains
+    af = Berge
     ar = جبال
     be = Горы
     ca = Muntanyes
@@ -24344,6 +24938,7 @@
   [animals]
     tags = android,ios
     en = Animals
+    af = Diere
     ar = حيوانات
     be = Жывёлы
     ca = Animals
@@ -24385,6 +24980,7 @@
   [hotels]
     tags = android,ios
     en = Hotels
+    af = Hotelle
     ar = فنادق
     be = Гатэлі
     ca = Hotels
@@ -24426,6 +25022,7 @@
   [buildings]
     tags = android,ios
     en = Buildings
+    af = Geboue
     ar = أبنية
     be = Будынкі
     ca = Edificis
@@ -24467,6 +25064,7 @@
   [money]
     tags = android,ios
     en = Money
+    af = Geld
     ar = نقود
     be = Грошы
     ca = Diners
@@ -24508,6 +25106,7 @@
   [shops]
     tags = android,ios
     en = Shops
+    af = Winkels
     ar = متاجر
     be = Крамы
     ca = Botigues
@@ -24549,6 +25148,7 @@
   [parkings]
     tags = android,ios
     en = Parkings
+    af = Parkeerplekke
     ar = مواقف سيارات
     be = Паркоўкі
     ca = Aparcaments
@@ -24591,6 +25191,7 @@
     tags = android,ios
     en = Gas stations
     en-GB = Petrol Stations
+    af = Vulstasies
     ar = محطات وقود
     be = Запраўкі
     ca = Gasolineres
@@ -24632,6 +25233,7 @@
   [medicine]
     tags = android,ios
     en = Medicine
+    af = Geneeskunde
     ar = دواء
     be = Медыцына
     ca = Medicina
@@ -24673,6 +25275,7 @@
   [search_in_the_list]
     tags = android,ios
     en = Search in the list
+    af = Soek in die lys
     ar = ابحث في القائمة
     be = Шукаць у спісе
     bg = Търсене в списъка
@@ -24715,6 +25318,7 @@
   [religious_places]
     tags = android,ios
     en = Religious places
+    af = Plekke van aanbidding
     ar = أماكن دينية
     be = Святыя месцы
     ca = Llocs de culte
@@ -24756,6 +25360,7 @@
   [select_list]
     tags = android
     en = Select list
+    af = Kies lys
     ar = اختر القائمة
     be = Выбраць спіс
     bg = Избор на списък
@@ -24799,6 +25404,7 @@
     tags = android,ios
     en = Subway navigation in this region is not available yet
     en-GB = Metro navigation in this region is not available yet
+    af = Moltreinnavigasie is nog nie in hierdie streek beskikbaar nie
     ar = التنقل باستخدام مترو الأنفاق في هذه المنطقة غير متاح حتى الآن
     be = Навігацыі па метро для гэтага рэгіёна пакуль няма
     bg = Навигацията за метро все още не е налична в региона
@@ -24842,6 +25448,7 @@
     tags = android,ios
     en = Subway route is not found
     en-GB = Metro route is not found
+    af = Moltreinroete nie gevind
     ar = لم يتم العثور على مترو الانفاق
     be = Маршрут на метро не знойдзены
     bg = Не е открит маршрут за метро
@@ -24885,6 +25492,7 @@
     tags = android,ios
     en = Please choose a start or end point closer to a subway station
     en-GB = Please choose a start or end point closer to a metro station
+    af = Kies asb. ’n begin- of eindpunt nader aan die moltreinstasie
     ar = يرجى اختيار نقطة بداية أو نهاية أقرب لمحطة مترو الأنفاق
     be = Выберыце пункт адпраўлення альбо прызначэння бліжэй да станцыі метро
     bg = Моля, изберете начална или крайна точка по-близо до метростанция
@@ -24927,6 +25535,7 @@
   [button_layer_isolines]
     tags = android,ios
     en = Contour Lines
+    af = Kontoerlyne
     ar = تضاريس
     be = Рэльеф
     bg = Терен
@@ -24969,6 +25578,7 @@
   [isolines_activation_error_dialog]
     tags = android,ios
     en = Activating contour lines requires downloading map data for this area
+    af = Om kontoerlyne te aktiveer moet u kaartdata vir hierdie area aflaai
     ar = لتفعيل الطبقة الطبوغرافية واستخدامها ، يرجى تحديث أو تنزيل خريطة المنطقة
     be = Каб карыстацца мапай рэльефа, абнавіце альбо спампуйце мапу патрэбнай мясцовасці
     bg = За да активирате и използвате топографския слой, моля, актуализирайте или изтеглете картата на района
@@ -25011,6 +25621,7 @@
   [isolines_location_error_dialog]
     tags = android,ios
     en = Contour lines are not yet available in this area
+    af = Die kontoerlyne is nog nie in hierdie area beskikbaar nie
     ar = الطبقة الطبوغرافية ليست متاحة بعد في هذه المنطقة
     be = Мапы рэльефа для гэтай мясцовасці пакуль што няма
     bg = Топографският слой все още не е наличен в тази област
@@ -25053,6 +25664,7 @@
   [elevation_profile_diff_level]
     tags = ios
     en = Difficulty level
+    af = Moeilikheidsgraad
     ar = مستوى الصعوبة
     be = Узровень складанасці
     bg = Степен на трудност
@@ -25095,6 +25707,7 @@
   [elevation_profile_diff_level_easy]
     tags = ios
     en = Easy
+    af = Maklik
     ar = سهل
     be = Лёгкі
     ca = Fàcil
@@ -25136,6 +25749,7 @@
   [elevation_profile_diff_level_moderate]
     tags = ios
     en = Moderate
+    af = Matig
     ar = معتدل
     be = Сярэдні
     ca = Moderat
@@ -25177,6 +25791,7 @@
   [elevation_profile_diff_level_hard]
     tags = ios
     en = Hard
+    af = Moeilik
     ar = صعب
     be = Цяжкі
     ca = Difícil
@@ -25218,6 +25833,7 @@
   [elevation_profile_ascent]
     tags = android,ios
     en = Ascent
+    af = Styging
     ar = تصاعدي
     be = Пад'ём
     bg = Изкачване
@@ -25260,6 +25876,7 @@
   [elevation_profile_descent]
     tags = android,ios
     en = Descent
+    af = Daling
     ar = تنازلي
     be = Спуск
     bg = Спускане
@@ -25302,6 +25919,7 @@
   [elevation_profile_minaltitude]
     tags = android,ios
     en = Min. altitude
+    af = Min. hoogte
     ar = الحد الأدنى للارتفاع
     be = Мін. вышыня
     bg = Мин. надморска височина
@@ -25344,6 +25962,7 @@
   [elevation_profile_maxaltitude]
     tags = android,ios
     en = Max. altitude
+    af = Maks. hoogte
     ar = الحد الأقصى للارتفاع
     be = Макс. вышыня
     bg = Макс. надморска височина
@@ -25386,6 +26005,7 @@
   [elevation_profile_difficulty]
     tags = android,ios
     en = Difficulty
+    af = Moeilikheid
     ar = درجة الصعوبة
     be = Складанасць
     bg = Трудност
@@ -25428,6 +26048,7 @@
   [elevation_profile_distance]
     tags = android
     en = Dist.:
+    af = Afst.:
     ar = المسافة:
     be = Адл.:
     bg = Разст.:
@@ -25470,6 +26091,7 @@
   [elevation_profile_time]
     tags = android,ios
     en = Time:
+    af = Tyd:
     ar = المدة:
     be = Час:
     bg = Време:
@@ -25512,6 +26134,7 @@
   [isolines_toast_zooms_1_10]
     tags = android,ios
     en = Zoom in to explore isolines
+    af = Zoem in om isolyne te bekyk
     ar = قم بالتقريب لتكتشف خطوط الكنتور
     be = Павялічце маштаб, каб пабачыць рэльеф
     bg = Увеличете мащаба, за да разгледате изолиниите
@@ -25554,6 +26177,7 @@
   [downloader_updating_ios]
     tags = ios
     en = Updating
+    af = Werk tans by
     ar = جاري التحديث
     be = Абнаўленне
     ca = S'està actualitzant
@@ -25595,6 +26219,7 @@
   [downloader_loading_ios]
     tags = ios
     en = Downloading
+    af = Laai tans af
     ar = جاري التنزيل
     be = Спампоўка
     ca = Està baixant
@@ -25636,6 +26261,7 @@
   [download_map_title]
     tags = android
     en = Download the world map
+    af = Laai die wêreldkaart af
     ar = تنزيل خريطة العالم
     be = Спампаваць мапу света
     bg = Изтегляне на картата на света
@@ -25662,6 +26288,7 @@
     tags = android
     comment = Used in DownloadResources startup screen
     en = Unable to create folder and move files on internal device's memory or sdcard
+    af = Kan nie vouer skep en lêers op internetoestelgeheue of SD-kaart skuif nie
     ar = تعذر إنشاء المجلد ونقل الملفات على الذاكرة الداخلية للجهاز أو على بطاقة SD
     ca = No s'ha pogut crear la carpeta ni moure els fitxers a la memòria interna de l'aparell o targeta SD
     de = Ordner kann nicht erstellt und Dateien können nicht auf den Gerätespeicher oder die SD-Karte verschoben werden
@@ -25682,6 +26309,7 @@
     tags = android
     comment = Used in DownloadResources startup screen
     en = Disk error
+    af = Skyffout
     ar = حدث خطأ في التخزين
     ca = Error de disc
     de = Speicherfehler
@@ -25702,6 +26330,7 @@
     comment = Used in DownloadResources startup screen
     tags = android
     en = Connection failure
+    af = Koppelingsfout
     ar = فشل الاتصال
     be = Памылка падлучэння
     bg = Неуспешно свързване
@@ -25728,6 +26357,7 @@
     comment = Used in DownloadResources startup screen
     tags = android
     en = Disconnect USB cable
+    af = Ontkoppel USB-kabel
     be = Адлучыце USB кабель
     bg = Изключване на USB кабел
     ca = Desconnecteu el cable USB
@@ -25752,6 +26382,7 @@
   [enable_screen_sleep]
     tags = android
     en = Allow the screen to sleep
+    af = Laat skerm toe om te slaap
     ar = اسمح للشاشة بالنوم
     be = Дазволіць экрану засынаць
     bg = Позволяване на екрана да заспи
@@ -25794,6 +26425,7 @@
     comment = Description in preferences
     tags = android
     en = When enabled, the screen will be allowed to sleep after a period of inactivity.
+    af = Indien geaktiveer, sal die skerm na ’n periode van onaktiwiteit in slaapstand gaan.
     ar = عند التفعيل ، سيتم السماح للشاشة بالنوم بعد فترة من عدم النشاط.
     be = Дазваляе экрану засынаць пасля перыяда бездзеяння.
     bg = Когато е разрешено, екранът ще бъде оставен да заспи след определен период на неактивност.
@@ -25836,6 +26468,7 @@
     tags = android
     comment = A preference title; keep short!
     en = Show on the lock screen
+    af = Toon op grendelskerm
     ar = إظهار  التطبيق فوق شاشة القفل
     be = Паказваць на экране блакіроўкі
     ca = Mostra en la pantalla de bloqueig
@@ -25862,6 +26495,7 @@
     tags = android
     comment = Description in preferences
     en = When enabled, the app will work on the lockscreen even when the device is locked.
+    af = Indien geaktiveer, sal die toep op die grendelskerm werk selfs indien die toestel vergrendel is.
     ar = عند التفعيل، لن تحتاج لفتح قفل جهازك كل مرة أثناء تشغيل التطبيق
     be = Калі ўключана, вам не трэба разблакіраваць прыладу кожны раз падчас працы праграмы.
     ca = Si està activa, no cal desblocar l'aparell cada vegada mentre l'aplicació està funcionant.
@@ -25888,6 +26522,7 @@
     comment = Autoupdate dialog on start
     tags = ios
     en = Update downloaded maps
+    af = Werk afgelaaide kaarte by
     ar = قم بتحديث الخرائط المُنزلة
     be = Абнавіце спампаваныя мапы
     bg = Актуализиране на изтеглените карти
@@ -25934,6 +26569,7 @@
     comment = Autoupdate dialog on start
     tags = ios
     en = Updating maps keeps the information about objects up to date
+    af = Die bywerk van kaarte hou die inligting oor voorwerpe aktueel
     ar = تحديث الخرائط والاحتفاظ بالمعلومات حول الكائنات محدثة
     be = Абнаўленне мапаў падтрымлівае актуальнасць звестак пра аб’екты
     bg = Актуализирането на картите поддържа актуална информацията за обектите
@@ -25980,6 +26616,7 @@
     comment = Autoupdate dialog on start
     tags = ios
     en = Update (%@)
+    af = Werk by (%@)
     ar = تحديث (%@)
     be = Абнавіць (%@)
     bg = Актуализация (%@)
@@ -26026,6 +26663,7 @@
     comment = Autoupdate dialog on start
     tags = ios
     en = Manually update later
+    af = Werk later handmatig by
     ar = تحديث يدوياً في وقت لاحق
     be = Абнавіць пазней уручную
     bg = Ръчно актуализиране по-късно
@@ -26072,6 +26710,7 @@
     comment = Delete track button on track edit screen
     tags = ios
     en = Delete Track
+    af = Skrap trajek
     ar = حذف المسار
     be = Выдаліць сцежку
     ca = Esborra la traça
@@ -26097,6 +26736,7 @@
     comment = Placeholder for track name input on track edit screen
     tags = ios
     en = Track Name
+    af = Trajeknaam
     ar = اسم المسار
     be = Назва сцежкі
     ca = Nom de la traça
@@ -26122,6 +26762,7 @@
     comment = move track or bookmark from the list button text
     tags = ios
     en = Move
+    af = Skuif
     ar = نقل
     be = Перамясціць
     ca = Mou
@@ -26147,6 +26788,7 @@
     comment = edit track screen title
     tags = ios
     en = Track
+    af = Trajek
     ar = مسار
     be = Сцежка
     bg = Пътека
@@ -26189,6 +26831,7 @@
     comment = OpenStreetMap text on splash screen
     tags = android
     en = Map data from OpenStreetMap
+    af = Kaartdata vanad OpenStreetMap
     ar = بيانات الخريطة من خريطة الشارع المفتوحة
     be = Дадзеныя карты з OpenStreetMap
     bg = Картографски данни от OpenStreetMap
