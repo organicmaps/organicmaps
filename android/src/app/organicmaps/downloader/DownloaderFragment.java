@@ -198,11 +198,13 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
     SearchEngine.INSTANCE.addMapListener(mSearchListener);
 
     getRecyclerView().addOnScrollListener(mScrollListener);
-    if (mAdapter != null)
+    if (mAdapter == null)
     {
-      mAdapter.refreshData();
-      mAdapter.attach();
+      mAdapter = createAdapter();
     }
+    mAdapter.refreshData();
+    mAdapter.attach();
+
 
     mBottomPanel = new BottomPanel(this, view);
     mToolbarController = new DownloaderToolbarController(view, requireActivity(), this);
@@ -229,7 +231,6 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
     if (getRecyclerView() != null) {
       getRecyclerView().removeOnScrollListener(mScrollListener);
     }
-    mFab = null;
   }
 
   @Override
