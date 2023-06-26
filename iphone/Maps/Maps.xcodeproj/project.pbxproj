@@ -324,7 +324,7 @@
 		6B15907226623AE500944BBA /* 00_NotoSansThai-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6B15907026623AE500944BBA /* 00_NotoSansThai-Regular.ttf */; };
 		6B679E89266BFD0A0074AE2A /* 00_NotoNaskhArabic-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6B679E88266BFD090074AE2A /* 00_NotoNaskhArabic-Regular.ttf */; };
 		6B9978361C89A316003B8AA0 /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 6B9978341C89A316003B8AA0 /* editor.config */; };
-		8FE7398F2A4208CC00DC5837 /* ClipboardMonitor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8FE7398E2A4208CC00DC5837 /* ClipboardMonitor.mm */; };
+		8FE7398F2A4208CC00DC5837 /* CoordinatesFromClipboard.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8FE7398E2A4208CC00DC5837 /* CoordinatesFromClipboard.mm */; };
 		99012847243F0D6900C72B10 /* UIViewController+alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99012846243F0D6900C72B10 /* UIViewController+alternative.swift */; };
 		9901284F244732DB00C72B10 /* BottomTabBarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99012849244732DB00C72B10 /* BottomTabBarPresenter.swift */; };
 		99012851244732DB00C72B10 /* BottomTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9901284B244732DB00C72B10 /* BottomTabBarViewController.swift */; };
@@ -1136,8 +1136,8 @@
 		6B9978341C89A316003B8AA0 /* editor.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = editor.config; path = ../../data/editor.config; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* OMaps.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OMaps.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		8F71F2442A46035800089B33 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
-		8FE7398D2A4208A100DC5837 /* ClipboardMonitor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClipboardMonitor.h; sourceTree = "<group>"; };
-		8FE7398E2A4208CC00DC5837 /* ClipboardMonitor.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ClipboardMonitor.mm; sourceTree = "<group>"; };
+		8FE7398D2A4208A100DC5837 /* CoordinatesFromClipboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoordinatesFromClipboard.h; sourceTree = "<group>"; };
+		8FE7398E2A4208CC00DC5837 /* CoordinatesFromClipboard.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CoordinatesFromClipboard.mm; sourceTree = "<group>"; };
 		978D4A30199A11E600D72CA7 /* faq.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = faq.html; path = ../../data/faq.html; sourceTree = "<group>"; };
 		97A5967E19B9CD47007A963F /* copyright.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = copyright.html; path = ../../data/copyright.html; sourceTree = "<group>"; };
 		99012846243F0D6900C72B10 /* UIViewController+alternative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+alternative.swift"; sourceTree = "<group>"; };
@@ -1706,8 +1706,8 @@
 				34FE4C421BCC013500066718 /* Widgets */,
 				FA8E808825F412E2002A1434 /* FirstSession.mm */,
 				FA8E808A25F41337002A1434 /* FirstSession.h */,
-				8FE7398D2A4208A100DC5837 /* ClipboardMonitor.h */,
-				8FE7398E2A4208CC00DC5837 /* ClipboardMonitor.mm */,
+				8FE7398D2A4208A100DC5837 /* CoordinatesFromClipboard.h */,
+				8FE7398E2A4208CC00DC5837 /* CoordinatesFromClipboard.mm */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -3881,7 +3881,7 @@
 				34AB666E1FC5AA330078E451 /* TransportTransitStepsCollectionView.swift in Sources */,
 				993DF11E23F6BDB100AC231A /* UITextViewRenderer.swift in Sources */,
 				F6E2FF5A1E097BA00083EBEC /* MWMNightModeController.m in Sources */,
-				8FE7398F2A4208CC00DC5837 /* ClipboardMonitor.mm in Sources */,
+				8FE7398F2A4208CC00DC5837 /* CoordinatesFromClipboard.mm in Sources */,
 				471A7BB8247FE3C300A0D4C1 /* URL+Query.swift in Sources */,
 				47F86D0120C93D8D00FEE291 /* TabViewController.swift in Sources */,
 				99536113235DB86C008B218F /* InsetsLabel.swift in Sources */,

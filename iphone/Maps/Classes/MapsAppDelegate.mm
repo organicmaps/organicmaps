@@ -1,5 +1,5 @@
 #import "MapsAppDelegate.h"
-#import "ClipboardMonitor.h"
+#import "CoordinatesFromClipboard.h"
 
 #import <UIKit/UIKit.h>
 
@@ -69,7 +69,7 @@ using namespace osm_auth_ios;
 
 @property(nonatomic) NSInteger standbyCounter;
 @property(nonatomic) MWMBackgroundFetchScheduler *backgroundFetchScheduler;
-@property (nonatomic, strong) ClipboardChecker *clipboardChecker;
+@property (nonatomic, strong) ClipboardCheck *clipboardCheck;
 
 @end
 
@@ -226,18 +226,18 @@ using namespace osm_auth_ios;
     f.OnRecoverSurface(static_cast<int>(objcSize.width), static_cast<int>(objcSize.height),
                        true /* recreateContextDependentResources */);
   }
-  [self startCheckingClipboard];
+  [self checkClipboard];
   [MWMLocationManager applicationDidBecomeActive];
   [MWMSearch addCategoriesToSpotlight];
   [MWMKeyboard applicationDidBecomeActive];
   [MWMTextToSpeech applicationDidBecomeActive];
   LOG(LINFO, ("applicationDidBecomeActive - end"));
 }
-- (void)startCheckingClipboard {
+- (void)checkClipboard {
     NSLog(@"Watching started");
-  ClipboardChecker *clipboardChecker = [[ClipboardChecker alloc] init];
+  ClipboardCheck *clipboardCheck = [[ClipboardCheck alloc] init];
   UIWindow *targetWindow = [UIApplication sharedApplication].keyWindow;
-  [clipboardChecker startChecking:targetWindow];
+  [clipboardCheck Check:targetWindow];
 }
 
 - (BOOL)application:(UIApplication *)application
