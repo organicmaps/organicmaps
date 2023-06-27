@@ -96,13 +96,15 @@ drape_ptr<Texture> CreateArrowTexture(ref_ptr<dp::GraphicsContext> context,
 {
   if (texturePath.has_value())
   {
-    return make_unique_dp<StaticTexture>(context, texturePath.value(),
-      useDefaultResourceFolder ? std::make_optional(StaticTexture::kDefaultResource) : std::nullopt /* skinPathName */,
-      dp::TextureFormat::RGBA8, textureAllocator, true /* allowOptional */);
+    return make_unique_dp<StaticTexture>(
+        context, texturePath.value(),
+        useDefaultResourceFolder ? std::make_optional(StaticTexture::kDefaultResource)
+                                 : std::nullopt /* skinPathName */,
+        dp::TextureFormat::RGBA8, textureAllocator, true /* allowOptional */);
   }
-  return make_unique_dp<StaticTexture>(context, "arrow-texture.png", StaticTexture::kDefaultResource,
-                                       dp::TextureFormat::RGBA8, textureAllocator,
-                                       true /* allowOptional */);
+  return make_unique_dp<StaticTexture>(context, "arrow-texture.png",
+                                       StaticTexture::kDefaultResource, dp::TextureFormat::RGBA8,
+                                       textureAllocator, true /* allowOptional */);
 }
 }  // namespace
 
@@ -409,21 +411,25 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
   }
 
   // Initialize static textures.
-  m_trafficArrowTexture = make_unique_dp<StaticTexture>(context, "traffic-arrow.png", m_resPostfix,
-                                                        dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
-  m_hatchingTexture = make_unique_dp<StaticTexture>(context, "area-hatching.png", m_resPostfix,
-                                                    dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
-  m_arrowTexture = CreateArrowTexture(context, make_ref(m_textureAllocator),
-                                      params.m_arrowTexturePath,
-                                      params.m_arrowTextureUseDefaultResourceFolder);
-  
+  m_trafficArrowTexture =
+      make_unique_dp<StaticTexture>(context, "traffic-arrow.png", m_resPostfix,
+                                    dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
+  m_hatchingTexture =
+      make_unique_dp<StaticTexture>(context, "area-hatching.png", m_resPostfix,
+                                    dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
+  m_arrowTexture =
+      CreateArrowTexture(context, make_ref(m_textureAllocator), params.m_arrowTexturePath,
+                         params.m_arrowTextureUseDefaultResourceFolder);
+
   // SMAA is not supported on OpenGL ES2.
   if (apiVersion != dp::ApiVersion::OpenGLES2)
   {
-    m_smaaAreaTexture = make_unique_dp<StaticTexture>(context, "smaa-area.png", StaticTexture::kDefaultResource,
-                                                      dp::TextureFormat::RedGreen, make_ref(m_textureAllocator));
-    m_smaaSearchTexture = make_unique_dp<StaticTexture>(context, "smaa-search.png", StaticTexture::kDefaultResource,
-                                                        dp::TextureFormat::Alpha, make_ref(m_textureAllocator));
+    m_smaaAreaTexture =
+        make_unique_dp<StaticTexture>(context, "smaa-area.png", StaticTexture::kDefaultResource,
+                                      dp::TextureFormat::RedGreen, make_ref(m_textureAllocator));
+    m_smaaSearchTexture =
+        make_unique_dp<StaticTexture>(context, "smaa-search.png", StaticTexture::kDefaultResource,
+                                      dp::TextureFormat::Alpha, make_ref(m_textureAllocator));
   }
 
   // Initialize patterns (reserved ./data/patterns.txt lines count).
@@ -508,12 +514,14 @@ void TextureManager::OnSwitchMapStyle(ref_ptr<dp::GraphicsContext> context)
   }
 }
 
-void TextureManager::InvalidateArrowTexture(ref_ptr<dp::GraphicsContext> context,
-                                            std::optional<std::string> const & texturePath /* = std::nullopt */,
-                                            bool useDefaultResourceFolder /* = false */)
+void TextureManager::InvalidateArrowTexture(
+    ref_ptr<dp::GraphicsContext> context,
+    std::optional<std::string> const & texturePath /* = std::nullopt */,
+    bool useDefaultResourceFolder /* = false */)
 {
   CHECK(m_isInitialized, ());
-  m_newArrowTexture = CreateArrowTexture(context, make_ref(m_textureAllocator), texturePath, useDefaultResourceFolder);
+  m_newArrowTexture = CreateArrowTexture(context, make_ref(m_textureAllocator), texturePath,
+                                         useDefaultResourceFolder);
 }
 
 void TextureManager::ApplyInvalidatedStaticTextures()
@@ -635,7 +643,7 @@ ref_ptr<Texture> TextureManager::GetArrowTexture() const
   CHECK(m_isInitialized, ());
   if (m_newArrowTexture)
     return make_ref(m_newArrowTexture);
-  
+
   return make_ref(m_arrowTexture);
 }
 

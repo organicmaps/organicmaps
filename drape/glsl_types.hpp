@@ -1,11 +1,11 @@
 #pragma once
 
-#include "geometry/point2d.hpp"
-
 #include "drape/color.hpp"
 
-#include <glm/gtc/type_ptr.hpp>
+#include "geometry/point2d.hpp"
+
 #include <glm/gtc/quaternion.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <glm/mat3x3.hpp>
 #include <glm/mat4x2.hpp>
 #include <glm/mat4x3.hpp>
@@ -13,7 +13,6 @@
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
-
 #include <type_traits>
 
 namespace glsl

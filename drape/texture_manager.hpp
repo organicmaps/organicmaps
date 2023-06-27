@@ -218,7 +218,7 @@ private:
 
   void UpdateGlyphTextures(ref_ptr<dp::GraphicsContext> context);
   bool HasAsyncRoutines() const;
-  
+
   static constexpr size_t GetInvalidGlyphGroup();
 
 private:
@@ -236,7 +236,7 @@ private:
   drape_ptr<Texture> m_arrowTexture;
   drape_ptr<Texture> m_smaaAreaTexture;
   drape_ptr<Texture> m_smaaSearchTexture;
-  
+
   drape_ptr<Texture> m_newArrowTexture;
 
   drape_ptr<GlyphManager> m_glyphManager;
