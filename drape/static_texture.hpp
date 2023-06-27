@@ -19,12 +19,9 @@ public:
 
   static std::string const kDefaultResource;
 
-  StaticTexture(ref_ptr<dp::GraphicsContext> context,
-                std::string const & textureName,
-                std::optional<std::string> const & skinPathName,
-                dp::TextureFormat format,
-                ref_ptr<HWTextureAllocator> allocator,
-                bool allowOptional = false);
+  StaticTexture(ref_ptr<dp::GraphicsContext> context, std::string const & textureName,
+                std::optional<std::string> const & skinPathName, dp::TextureFormat format,
+                ref_ptr<HWTextureAllocator> allocator, bool allowOptional = false);
 
   ref_ptr<ResourceInfo> FindResource(Key const & key, bool & newResource) override;
   void Create(ref_ptr<dp::GraphicsContext> context, Params const & params) override;
@@ -32,7 +29,7 @@ public:
               ref_ptr<void> data) override;
 
   bool IsLoadingCorrect() const { return m_isLoadingCorrect; }
-  
+
 private:
   void Fail(ref_ptr<dp::GraphicsContext> context);
   bool Load(ref_ptr<dp::GraphicsContext> context, ref_ptr<HWTextureAllocator> allocator);

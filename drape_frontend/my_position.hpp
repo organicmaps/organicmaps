@@ -14,8 +14,8 @@
 
 #include <optional>
 #include <string>
-#include <vector>
 #include <utility>
+#include <vector>
 
 namespace df
 {
@@ -24,8 +24,7 @@ class MyPosition
 public:
   MyPosition(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng);
 
-  bool InitArrow(ref_ptr<dp::GraphicsContext> context,
-                 ref_ptr<dp::TextureManager> mng,
+  bool InitArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng,
                  Arrow3d::PreloadedData && preloadedData);
 
   // pt - mercator point.

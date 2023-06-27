@@ -38,11 +38,12 @@ bool LoadData(std::string const & textureName, std::optional<std::string> const 
   std::vector<unsigned char> rawData;
   try
   {
-    ReaderPtr<Reader> reader = skinPathName.has_value() ?
-                                 skinPathName.value() == StaticTexture::kDefaultResource ?
-                                   GetStyleReader().GetDefaultResourceReader(textureName) :
-                                   GetStyleReader().GetResourceReader(textureName, skinPathName.value()) :
-                                 GetPlatform().GetReader(textureName);
+    ReaderPtr<Reader> reader =
+        skinPathName.has_value()
+            ? skinPathName.value() == StaticTexture::kDefaultResource
+                ? GetStyleReader().GetDefaultResourceReader(textureName)
+                : GetStyleReader().GetResourceReader(textureName, skinPathName.value())
+            : GetPlatform().GetReader(textureName);
 
     CHECK_LESS(reader.Size(), static_cast<uint64_t>(std::numeric_limits<size_t>::max()), ());
     size_t const size = static_cast<size_t>(reader.Size());
@@ -54,20 +55,20 @@ bool LoadData(std::string const & textureName, std::optional<std::string> const 
     failureHandler(e.what());
     return false;
   }
-  
+
   int w, h, bpp;
   if (!stbi_info_from_memory(&rawData[0], static_cast<int>(rawData.size()), &w, &h, &bpp))
   {
     failureHandler(std::string("Failed to get image file info from ") + textureName);
     return false;
   }
-  
+
   ASSERT(glm::isPowerOfTwo(w), (w));
   ASSERT(glm::isPowerOfTwo(h), (h));
-  
+
   unsigned char * data =
       stbi_load_from_memory(&rawData[0], static_cast<int>(rawData.size()), &w, &h, &bpp, 0);
-  
+
   if (bytesPerPixel != bpp)
   {
     std::vector<unsigned char> convertedData(static_cast<size_t>(w * h * bytesPerPixel));
@@ -97,11 +98,9 @@ public:
 };
 }  // namespace
 
-StaticTexture::StaticTexture(ref_ptr<dp::GraphicsContext> context,
-                             std::string const & textureName,
+StaticTexture::StaticTexture(ref_ptr<dp::GraphicsContext> context, std::string const & textureName,
                              std::optional<std::string> const & skinPathName,
-                             dp::TextureFormat format,
-                             ref_ptr<HWTextureAllocator> allocator,
+                             dp::TextureFormat format, ref_ptr<HWTextureAllocator> allocator,
                              bool allowOptional /* = false */)
   : m_textureName(textureName)
   , m_skinPathName(skinPathName)

@@ -28,12 +28,12 @@
 #include "drape/render_bucket.hpp"
 #include "drape/viewport.hpp"
 
+#include "platform/location.hpp"
+
 #include "geometry/polyline2d.hpp"
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 #include "geometry/triangle2d.hpp"
-
-#include "platform/location.hpp"
 
 #include <condition_variable>
 #include <functional>
@@ -460,7 +460,10 @@ public:
 
   drape_ptr<MyPosition> && AcceptShape() { return std::move(m_shape); }
   drape_ptr<SelectionShape> AcceptSelection() { return std::move(m_selection); }
-  Arrow3d::PreloadedData && AcceptPeloadedArrow3dData() { return std::move(m_preloadedArrow3dData); }
+  Arrow3d::PreloadedData && AcceptPeloadedArrow3dData()
+  {
+    return std::move(m_preloadedArrow3dData);
+  }
 
 private:
   drape_ptr<MyPosition> m_shape;

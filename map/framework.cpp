@@ -119,7 +119,7 @@ size_t constexpr kMaxTrafficCacheSizeBytes = 64 /* Mb */ * 1024 * 1024;
 // This is temporary solution while we don't have a good filter.
 bool ParseSetGpsTrackMinAccuracyCommand(string const & query)
 {
-  const char kGpsAccuracy[] = "?gpstrackaccuracy:";
+  char const kGpsAccuracy[] = "?gpstrackaccuracy:";
   if (!strings::StartsWith(query, kGpsAccuracy))
     return false;
 
@@ -1488,8 +1488,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
       df::MapDataProvider(std::move(idReadFn), std::move(featureReadFn),
                           std::move(isCountryLoadedByNameFn), std::move(updateCurrentCountryFn)),
       params.m_hints, params.m_visualScale, fontsScaleFactor, std::move(params.m_widgetsInitInfo),
-      std::move(myPositionModeChangedFn), allow3dBuildings,
-      trafficEnabled, isolinesEnabled,
+      std::move(myPositionModeChangedFn), allow3dBuildings, trafficEnabled, isolinesEnabled,
       params.m_isChoosePositionMode, params.m_isChoosePositionMode, GetSelectedFeatureTriangles(),
       m_routingManager.IsRoutingActive() && m_routingManager.IsRoutingFollowing(),
       isAutozoomEnabled, simplifiedTrafficColors, std::nullopt /* arrow3dCustomDecl */,

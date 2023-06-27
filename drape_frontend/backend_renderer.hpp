@@ -1,12 +1,11 @@
 #pragma once
 
-#include "drape_frontend/gui/layer_render.hpp"
-
 #include "drape_frontend/arrow3d.hpp"
 #include "drape_frontend/base_renderer.hpp"
 #include "drape_frontend/batchers_pool.hpp"
 #include "drape_frontend/drape_api_builder.hpp"
 #include "drape_frontend/drape_engine_params.hpp"
+#include "drape_frontend/gui/layer_render.hpp"
 #include "drape_frontend/map_data_provider.hpp"
 #include "drape_frontend/overlay_batcher.hpp"
 #include "drape_frontend/requested_tiles.hpp"
@@ -133,7 +132,7 @@ private:
   drape_ptr<MetalineManager> m_metalineManager;
 
   gui::TWidgetsInitInfo m_lastWidgetsInfo;
-  
+
   std::optional<Arrow3dCustomDecl> m_arrow3dCustomDecl;
   Arrow3d::PreloadedData m_arrow3dPreloadedData;
 

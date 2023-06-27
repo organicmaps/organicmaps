@@ -609,19 +609,18 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::Arrow3dRecache:
     {
       ref_ptr<Arrow3dRecacheMessage> msg = message;
-      
+
       m_arrow3dCustomDecl = msg->GetArrow3dCustomDecl();
-     
+
       // Invalidate Arrow3d texture.
       CHECK(m_context != nullptr, ());
-      m_texMng->InvalidateArrowTexture(m_context,
-                                       m_arrow3dCustomDecl.has_value() ?
-                                         m_arrow3dCustomDecl->m_arrowMeshTexturePath :
-                                         std::nullopt,
-                                       m_arrow3dCustomDecl.has_value() ?
-                                         m_arrow3dCustomDecl->m_loadFromDefaultResourceFolder :
-                                         false);
-      
+      m_texMng->InvalidateArrowTexture(
+          m_context,
+          m_arrow3dCustomDecl.has_value() ? m_arrow3dCustomDecl->m_arrowMeshTexturePath
+                                          : std::nullopt,
+          m_arrow3dCustomDecl.has_value() ? m_arrow3dCustomDecl->m_loadFromDefaultResourceFolder
+                                          : false);
+
       // Preload mesh data.
       m_arrow3dPreloadedData = Arrow3d::PreloadMesh(m_arrow3dCustomDecl, m_texMng);
       if (!m_arrow3dPreloadedData.m_meshData.has_value())
@@ -631,10 +630,10 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
         m_texMng->InvalidateArrowTexture(m_context);
         m_arrow3dPreloadedData = Arrow3d::PreloadMesh(m_arrow3dCustomDecl, m_texMng);
       }
-      
+
       // Recache map shapes.
       RecacheMapShapes();
-      
+
       // For Vulkan we initialize deferred cleaning up.
       if (m_context->GetApiVersion() == dp::ApiVersion::Vulkan)
       {
@@ -769,9 +768,9 @@ void BackendRenderer::InitContextDependentResources()
   {
     params.m_arrowTexturePath = m_arrow3dCustomDecl->m_arrowMeshTexturePath;
     params.m_arrowTextureUseDefaultResourceFolder =
-      m_arrow3dCustomDecl->m_loadFromDefaultResourceFolder;
+        m_arrow3dCustomDecl->m_loadFromDefaultResourceFolder;
   }
-  
+
   CHECK(m_context != nullptr, ());
   m_texMng->Init(m_context, params);
 
@@ -786,7 +785,7 @@ void BackendRenderer::InitContextDependentResources()
   m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                             make_unique_dp<FinishTexturesInitializationMessage>(),
                             MessagePriority::Normal);
-  
+
   // Preload Arrow3D mesh.
   m_arrow3dPreloadedData = Arrow3d::PreloadMesh(m_arrow3dCustomDecl, m_texMng);
 }

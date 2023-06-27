@@ -18,14 +18,14 @@ struct Arrow3dCustomDecl
   // Path to shadow mesh .OBJ file.
   // If it's not set, no shadow or outline will be rendered.
   std::optional<std::string> m_shadowMeshPath;
-  
+
   // Allows to load files from bundled resources.
   // You must use string identifiers of resources instead of file names.
   bool m_loadFromDefaultResourceFolder = false;
-  
+
   // Layout of axes (in the plane of map): x - right, y - up,
   // -z - perpendicular to the map's plane directed towards the observer.
-  
+
   // Offset is in local (model's) coordinates.
   m3::PointF m_offset = m3::PointF(0.0f, 0.0f, 0.0f);
   // Rotation angles.
@@ -37,7 +37,7 @@ struct Arrow3dCustomDecl
   bool m_flipTexCoordU = false;
   // Flip V texture coordinate (enabled in the Drape by default).
   bool m_flipTexCoordV = true;
-  
+
   // Enable shadow rendering (only in perspective mode).
   // Shadow mesh must exist, otherwise standard one will be used.
   bool m_enableShadow = false;
