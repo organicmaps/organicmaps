@@ -19,6 +19,7 @@
 
 #include "geometry/screenbase.hpp"
 
+#define FAST_OBJ_IMPLEMENTATION
 #include "3party/fast_obj/fast_obj.h"
 
 #include <cstring>
