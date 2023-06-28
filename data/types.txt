@@ -195,7 +195,7 @@ landuse|forest|coniferous
 *piste:type|nordic
 *natural|beach|gravel
 *railway|crossing
-*boundary|protected_area
+*boundary|national_park
 landuse|forest|deciduous
 *waterway|dam
 *amenity|charging_station|motorcar
@@ -837,7 +837,7 @@ mapswithme
 mapswithme
 mapswithme
 *landuse|military|danger_area
-*boundary|national_park
+*boundary|protected_area
 mapswithme
 mapswithme
 mapswithme
