@@ -745,6 +745,12 @@
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.boundary.protected_area">Àrea Protegida</string>
+	<string name="type.boundary.protected_area.1">Àrea Protegida</string>
+	<string name="type.boundary.protected_area.2">Àrea Protegida</string>
+	<string name="type.boundary.protected_area.3">Àrea Protegida</string>
+	<string name="type.boundary.protected_area.4">Àrea Protegida</string>
+	<string name="type.boundary.protected_area.5">Àrea Protegida</string>
+	<string name="type.boundary.protected_area.6">Àrea Protegida</string>
 	<string name="type.craft.key_cutter">Tall de claus</string>
 	<string name="type.craft.locksmith">Serraller</string>
 	<string name="type.shop.camera">Botiga de càmeres</string>

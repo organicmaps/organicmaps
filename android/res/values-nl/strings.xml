@@ -932,6 +932,12 @@
 	<string name="type.boundary.administrative.suburb">Buitenwijkgrens</string>
 	<string name="type.boundary.national_park">Nationaal park</string>
 	<string name="type.boundary.protected_area">Beschermd gebied</string>
+	<string name="type.boundary.protected_area.1">Beschermd gebied</string>
+	<string name="type.boundary.protected_area.2">Beschermd gebied</string>
+	<string name="type.boundary.protected_area.3">Beschermd gebied</string>
+	<string name="type.boundary.protected_area.4">Beschermd gebied</string>
+	<string name="type.boundary.protected_area.5">Beschermd gebied</string>
+	<string name="type.boundary.protected_area.6">Beschermd gebied</string>
 	<string name="type.building">Gebouw</string>
 	<string name="type.building.address">Gebouw</string>
 	<string name="type.building.has_parts">Gebouw</string>

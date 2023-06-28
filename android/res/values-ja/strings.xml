@@ -862,6 +862,12 @@
 	<string name="type.boundary.administrative.9">行政境界</string>
 	<string name="type.boundary.national_park">国立公園</string>
 	<string name="type.boundary.protected_area">保護区域</string>
+	<string name="type.boundary.protected_area.1">保護区域</string>
+	<string name="type.boundary.protected_area.2">保護区域</string>
+	<string name="type.boundary.protected_area.3">保護区域</string>
+	<string name="type.boundary.protected_area.4">保護区域</string>
+	<string name="type.boundary.protected_area.5">保護区域</string>
+	<string name="type.boundary.protected_area.6">保護区域</string>
 	<string name="type.building">建物</string>
 	<string name="type.building.address">建物</string>
 	<string name="type.building.has_parts">建物</string>

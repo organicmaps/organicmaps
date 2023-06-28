@@ -1641,6 +1641,18 @@
 
 "type.boundary.protected_area" = "Защитена местност";
 
+"type.boundary.protected_area.1" = "Защитена местност";
+
+"type.boundary.protected_area.2" = "Защитена местност";
+
+"type.boundary.protected_area.3" = "Защитена местност";
+
+"type.boundary.protected_area.4" = "Защитена местност";
+
+"type.boundary.protected_area.5" = "Защитена местност";
+
+"type.boundary.protected_area.6" = "Защитена местност";
+
 "type.building" = "Building";
 
 "type.building.address" = "Building";

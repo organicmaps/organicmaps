@@ -1641,6 +1641,18 @@
 
 "type.boundary.protected_area" = "Àrea Protegida";
 
+"type.boundary.protected_area.1" = "Àrea Protegida";
+
+"type.boundary.protected_area.2" = "Àrea Protegida";
+
+"type.boundary.protected_area.3" = "Àrea Protegida";
+
+"type.boundary.protected_area.4" = "Àrea Protegida";
+
+"type.boundary.protected_area.5" = "Àrea Protegida";
+
+"type.boundary.protected_area.6" = "Àrea Protegida";
+
 "type.building" = "Building";
 
 "type.building.address" = "Building";

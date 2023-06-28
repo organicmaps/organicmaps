@@ -1641,6 +1641,18 @@
 
 "type.boundary.protected_area" = "Заповідна зона";
 
+"type.boundary.protected_area.1" = "Заповідна зона";
+
+"type.boundary.protected_area.2" = "Заповідна зона";
+
+"type.boundary.protected_area.3" = "Заповідна зона";
+
+"type.boundary.protected_area.4" = "Заповідна зона";
+
+"type.boundary.protected_area.5" = "Заповідна зона";
+
+"type.boundary.protected_area.6" = "Заповідна зона";
+
 "type.building" = "Будівля";
 
 "type.building.address" = "Будівля";

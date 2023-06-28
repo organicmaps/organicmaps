@@ -1641,6 +1641,18 @@
 
 "type.boundary.protected_area" = "Korunmuş bölge";
 
+"type.boundary.protected_area.1" = "Korunmuş bölge";
+
+"type.boundary.protected_area.2" = "Korunmuş bölge";
+
+"type.boundary.protected_area.3" = "Korunmuş bölge";
+
+"type.boundary.protected_area.4" = "Korunmuş bölge";
+
+"type.boundary.protected_area.5" = "Korunmuş bölge";
+
+"type.boundary.protected_area.6" = "Korunmuş bölge";
+
 "type.building" = "Bina";
 
 "type.building.address" = "Bina";

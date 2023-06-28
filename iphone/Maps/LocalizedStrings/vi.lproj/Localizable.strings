@@ -1641,6 +1641,18 @@
 
 "type.boundary.protected_area" = "Khu bảo tồn";
 
+"type.boundary.protected_area.1" = "Khu bảo tồn";
+
+"type.boundary.protected_area.2" = "Khu bảo tồn";
+
+"type.boundary.protected_area.3" = "Khu bảo tồn";
+
+"type.boundary.protected_area.4" = "Khu bảo tồn";
+
+"type.boundary.protected_area.5" = "Khu bảo tồn";
+
+"type.boundary.protected_area.6" = "Khu bảo tồn";
+
 "type.building" = "Tòa nhà";
 
 "type.building.address" = "Tòa nhà";

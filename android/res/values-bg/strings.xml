@@ -694,6 +694,12 @@
 	<string name="type.barrier.city_wall">Градска стена</string>
 	<string name="type.barrier.ditch">Ров</string>
 	<string name="type.boundary.protected_area">Защитена местност</string>
+	<string name="type.boundary.protected_area.1">Защитена местност</string>
+	<string name="type.boundary.protected_area.2">Защитена местност</string>
+	<string name="type.boundary.protected_area.3">Защитена местност</string>
+	<string name="type.boundary.protected_area.4">Защитена местност</string>
+	<string name="type.boundary.protected_area.5">Защитена местност</string>
+	<string name="type.boundary.protected_area.6">Защитена местност</string>
 	<string name="type.cemetery.grave">Гроб</string>
 	<string name="type.craft">Занаяти</string>
 	<string name="type.craft.beekeeper">Пчелар</string>

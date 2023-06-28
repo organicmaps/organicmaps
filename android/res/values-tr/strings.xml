@@ -937,6 +937,12 @@
 	<string name="type.boundary.administrative.suburb">Mahalle Sınırı</string>
 	<string name="type.boundary.national_park">Ulusal Park</string>
 	<string name="type.boundary.protected_area">Korunmuş bölge</string>
+	<string name="type.boundary.protected_area.1">Korunmuş bölge</string>
+	<string name="type.boundary.protected_area.2">Korunmuş bölge</string>
+	<string name="type.boundary.protected_area.3">Korunmuş bölge</string>
+	<string name="type.boundary.protected_area.4">Korunmuş bölge</string>
+	<string name="type.boundary.protected_area.5">Korunmuş bölge</string>
+	<string name="type.boundary.protected_area.6">Korunmuş bölge</string>
 	<string name="type.building">Bina</string>
 	<string name="type.building.address">Bina</string>
 	<string name="type.building.has_parts">Bina</string>

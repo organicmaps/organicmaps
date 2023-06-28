@@ -1641,6 +1641,18 @@
 
 "type.boundary.protected_area" = "אזור מוגן";
 
+"type.boundary.protected_area.1" = "אזור מוגן";
+
+"type.boundary.protected_area.2" = "אזור מוגן";
+
+"type.boundary.protected_area.3" = "אזור מוגן";
+
+"type.boundary.protected_area.4" = "אזור מוגן";
+
+"type.boundary.protected_area.5" = "אזור מוגן";
+
+"type.boundary.protected_area.6" = "אזור מוגן";
+
 "type.building" = "Building";
 
 "type.building.address" = "Building";

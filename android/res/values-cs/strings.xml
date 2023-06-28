@@ -841,6 +841,12 @@
 	<string name="type.barrier.toll_booth">Mýtné</string>
 	<string name="type.boundary.national_park">Národní park</string>
 	<string name="type.boundary.protected_area">Chráněné území</string>
+	<string name="type.boundary.protected_area.1">Chráněné území</string>
+	<string name="type.boundary.protected_area.2">Chráněné území</string>
+	<string name="type.boundary.protected_area.3">Chráněné území</string>
+	<string name="type.boundary.protected_area.4">Chráněné území</string>
+	<string name="type.boundary.protected_area.5">Chráněné území</string>
+	<string name="type.boundary.protected_area.6">Chráněné území</string>
 	<string name="type.building">Stavba</string>
 	<string name="type.building.address">Stavba</string>
 	<string name="type.building.has_parts">Stavba</string>

@@ -922,6 +922,12 @@
 	<string name="type.boundary.administrative.9">Verwaltungsgrenze</string>
 	<string name="type.boundary.national_park">Nationalpark</string>
 	<string name="type.boundary.protected_area">Geschützter Bereich</string>
+	<string name="type.boundary.protected_area.1">Geschützter Bereich</string>
+	<string name="type.boundary.protected_area.2">Geschützter Bereich</string>
+	<string name="type.boundary.protected_area.3">Geschützter Bereich</string>
+	<string name="type.boundary.protected_area.4">Geschützter Bereich</string>
+	<string name="type.boundary.protected_area.5">Geschützter Bereich</string>
+	<string name="type.boundary.protected_area.6">Geschützter Bereich</string>
 	<string name="type.building">Gebäude</string>
 	<string name="type.building.address">Gebäude</string>
 	<string name="type.building.has_parts">Gebäude</string>

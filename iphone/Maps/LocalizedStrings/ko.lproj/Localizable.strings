@@ -1641,6 +1641,18 @@
 
 "type.boundary.protected_area" = "보호구역";
 
+"type.boundary.protected_area.1" = "보호구역";
+
+"type.boundary.protected_area.2" = "보호구역";
+
+"type.boundary.protected_area.3" = "보호구역";
+
+"type.boundary.protected_area.4" = "보호구역";
+
+"type.boundary.protected_area.5" = "보호구역";
+
+"type.boundary.protected_area.6" = "보호구역";
+
 "type.building" = "건물";
 
 "type.building.address" = "건물";

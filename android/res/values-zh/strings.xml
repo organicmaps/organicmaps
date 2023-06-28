@@ -881,6 +881,12 @@
 	<string name="type.boundary.administrative.suburb">市郊行政区域界线</string>
 	<string name="type.boundary.national_park">国家公园</string>
 	<string name="type.boundary.protected_area">保护区</string>
+	<string name="type.boundary.protected_area.1">保护区</string>
+	<string name="type.boundary.protected_area.2">保护区</string>
+	<string name="type.boundary.protected_area.3">保护区</string>
+	<string name="type.boundary.protected_area.4">保护区</string>
+	<string name="type.boundary.protected_area.5">保护区</string>
+	<string name="type.boundary.protected_area.6">保护区</string>
 	<string name="type.building">建筑物</string>
 	<string name="type.building.address">建筑物</string>
 	<string name="type.building.has_parts">建筑物</string>

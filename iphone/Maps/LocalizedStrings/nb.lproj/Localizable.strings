@@ -1641,6 +1641,18 @@
 
 "type.boundary.protected_area" = "Vernet område";
 
+"type.boundary.protected_area.1" = "Vernet område";
+
+"type.boundary.protected_area.2" = "Vernet område";
+
+"type.boundary.protected_area.3" = "Vernet område";
+
+"type.boundary.protected_area.4" = "Vernet område";
+
+"type.boundary.protected_area.5" = "Vernet område";
+
+"type.boundary.protected_area.6" = "Vernet område";
+
 "type.building" = "Bygning";
 
 "type.building.address" = "Bygning";

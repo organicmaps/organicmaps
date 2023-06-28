@@ -848,6 +848,12 @@
 	<string name="type.barrier.toll_booth">Cabină de taxare</string>
 	<string name="type.boundary.national_park">Parcul național</string>
 	<string name="type.boundary.protected_area">Zonă protejată</string>
+	<string name="type.boundary.protected_area.1">Zonă protejată</string>
+	<string name="type.boundary.protected_area.2">Zonă protejată</string>
+	<string name="type.boundary.protected_area.3">Zonă protejată</string>
+	<string name="type.boundary.protected_area.4">Zonă protejată</string>
+	<string name="type.boundary.protected_area.5">Zonă protejată</string>
+	<string name="type.boundary.protected_area.6">Zonă protejată</string>
 	<string name="type.building">Clădire</string>
 	<string name="type.building.address">Clădire</string>
 	<string name="type.building.has_parts">Clădire</string>

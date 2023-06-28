@@ -916,6 +916,12 @@
 	<string name="type.boundary.administrative.region">حدود منطقة</string>
 	<string name="type.boundary.national_park">منتزه وطني</string>
 	<string name="type.boundary.protected_area">منطقة محمية</string>
+	<string name="type.boundary.protected_area.1">منطقة محمية</string>
+	<string name="type.boundary.protected_area.2">منطقة محمية</string>
+	<string name="type.boundary.protected_area.3">منطقة محمية</string>
+	<string name="type.boundary.protected_area.4">منطقة محمية</string>
+	<string name="type.boundary.protected_area.5">منطقة محمية</string>
+	<string name="type.boundary.protected_area.6">منطقة محمية</string>
 	<string name="type.building">مبنى</string>
 	<string name="type.building.address">مبنى</string>
 	<string name="type.building.has_parts">مبنى</string>

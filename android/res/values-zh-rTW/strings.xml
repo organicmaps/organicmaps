@@ -863,6 +863,12 @@
 	<string name="type.barrier.toll_booth">收費站</string>
 	<string name="type.boundary.national_park">國家公園</string>
 	<string name="type.boundary.protected_area">保護區</string>
+	<string name="type.boundary.protected_area.1">保護區</string>
+	<string name="type.boundary.protected_area.2">保護區</string>
+	<string name="type.boundary.protected_area.3">保護區</string>
+	<string name="type.boundary.protected_area.4">保護區</string>
+	<string name="type.boundary.protected_area.5">保護區</string>
+	<string name="type.boundary.protected_area.6">保護區</string>
 	<string name="type.building">建築物</string>
 	<string name="type.building.address">建築物</string>
 	<string name="type.building.has_parts">建築物</string>

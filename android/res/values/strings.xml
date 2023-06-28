@@ -973,6 +973,12 @@
 	<string name="type.boundary.administrative.suburb">Suburb Boundary</string>
 	<string name="type.boundary.national_park">National Park</string>
 	<string name="type.boundary.protected_area">Protected Area</string>
+	<string name="type.boundary.protected_area.1">Protected Area</string>
+	<string name="type.boundary.protected_area.2">Protected Area</string>
+	<string name="type.boundary.protected_area.3">Protected Area</string>
+	<string name="type.boundary.protected_area.4">Protected Area</string>
+	<string name="type.boundary.protected_area.5">Protected Area</string>
+	<string name="type.boundary.protected_area.6">Protected Area</string>
 	<string name="type.building">Building</string>
 	<string name="type.building.address">Building</string>
 	<string name="type.building.has_parts">Building</string>

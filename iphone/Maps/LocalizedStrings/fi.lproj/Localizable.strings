@@ -1641,6 +1641,18 @@
 
 "type.boundary.protected_area" = "Suojeltu alue";
 
+"type.boundary.protected_area.1" = "Suojeltu alue";
+
+"type.boundary.protected_area.2" = "Suojeltu alue";
+
+"type.boundary.protected_area.3" = "Suojeltu alue";
+
+"type.boundary.protected_area.4" = "Suojeltu alue";
+
+"type.boundary.protected_area.5" = "Suojeltu alue";
+
+"type.boundary.protected_area.6" = "Suojeltu alue";
+
 "type.building" = "Rakennus";
 
 "type.building.address" = "Rakennus";

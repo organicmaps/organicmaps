@@ -907,6 +907,12 @@
 	<string name="type.boundary.administrative.state">Confine statale</string>
 	<string name="type.boundary.national_park">Parco nazionale</string>
 	<string name="type.boundary.protected_area">Area protetta</string>
+	<string name="type.boundary.protected_area.1">Area protetta</string>
+	<string name="type.boundary.protected_area.2">Area protetta</string>
+	<string name="type.boundary.protected_area.3">Area protetta</string>
+	<string name="type.boundary.protected_area.4">Area protetta</string>
+	<string name="type.boundary.protected_area.5">Area protetta</string>
+	<string name="type.boundary.protected_area.6">Area protetta</string>
 	<string name="type.building">Edificio</string>
 	<string name="type.building.address">Edificio</string>
 	<string name="type.building.has_parts">Edificio</string>

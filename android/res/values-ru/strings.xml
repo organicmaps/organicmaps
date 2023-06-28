@@ -951,6 +951,12 @@
 	<string name="type.boundary.administrative.suburb">Граница пригорода</string>
 	<string name="type.boundary.national_park">Национальный парк</string>
 	<string name="type.boundary.protected_area">Заповедная зона</string>
+	<string name="type.boundary.protected_area.1">Заповедная зона</string>
+	<string name="type.boundary.protected_area.2">Заповедная зона</string>
+	<string name="type.boundary.protected_area.3">Заповедная зона</string>
+	<string name="type.boundary.protected_area.4">Заповедная зона</string>
+	<string name="type.boundary.protected_area.5">Заповедная зона</string>
+	<string name="type.boundary.protected_area.6">Заповедная зона</string>
 	<string name="type.building">Здание</string>
 	<string name="type.building.address">Здание</string>
 	<string name="type.building.has_parts">Здание</string>

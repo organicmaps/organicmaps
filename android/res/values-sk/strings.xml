@@ -828,6 +828,12 @@
 	<string name="type.barrier.toll_booth">Mýtne</string>
 	<string name="type.boundary.national_park">Národný park</string>
 	<string name="type.boundary.protected_area">Chránené územie</string>
+	<string name="type.boundary.protected_area.1">Chránené územie</string>
+	<string name="type.boundary.protected_area.2">Chránené územie</string>
+	<string name="type.boundary.protected_area.3">Chránené územie</string>
+	<string name="type.boundary.protected_area.4">Chránené územie</string>
+	<string name="type.boundary.protected_area.5">Chránené územie</string>
+	<string name="type.boundary.protected_area.6">Chránené územie</string>
 	<string name="type.building">Budova</string>
 	<string name="type.building.address">Budova</string>
 	<string name="type.building.has_parts">Budova</string>

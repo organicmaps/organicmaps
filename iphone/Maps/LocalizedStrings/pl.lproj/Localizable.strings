@@ -1641,6 +1641,18 @@
 
 "type.boundary.protected_area" = "Strefa chroniona";
 
+"type.boundary.protected_area.1" = "Strefa chroniona";
+
+"type.boundary.protected_area.2" = "Strefa chroniona";
+
+"type.boundary.protected_area.3" = "Strefa chroniona";
+
+"type.boundary.protected_area.4" = "Strefa chroniona";
+
+"type.boundary.protected_area.5" = "Strefa chroniona";
+
+"type.boundary.protected_area.6" = "Strefa chroniona";
+
 "type.building" = "Budynek";
 
 "type.building.address" = "Budynek";

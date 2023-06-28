@@ -922,6 +922,12 @@
 	<string name="type.boundary.administrative.suburb">Приміська межа</string>
 	<string name="type.boundary.national_park">Національний парк</string>
 	<string name="type.boundary.protected_area">Заповідна зона</string>
+	<string name="type.boundary.protected_area.1">Заповідна зона</string>
+	<string name="type.boundary.protected_area.2">Заповідна зона</string>
+	<string name="type.boundary.protected_area.3">Заповідна зона</string>
+	<string name="type.boundary.protected_area.4">Заповідна зона</string>
+	<string name="type.boundary.protected_area.5">Заповідна зона</string>
+	<string name="type.boundary.protected_area.6">Заповідна зона</string>
 	<string name="type.building">Будівля</string>
 	<string name="type.building.address">Будівля</string>
 	<string name="type.building.has_parts">Будівля</string>
