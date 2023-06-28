@@ -805,6 +805,12 @@
 	<string name="type.barrier.lift_gate">Шлагбаўм</string>
 	<string name="type.barrier.swing_gate">Шлагбаўм</string>
 	<string name="type.boundary.protected_area">Запаведная зона</string>
+	<string name="type.boundary.protected_area.1">Запаведная зона</string>
+	<string name="type.boundary.protected_area.2">Запаведная зона</string>
+	<string name="type.boundary.protected_area.3">Запаведная зона</string>
+	<string name="type.boundary.protected_area.4">Запаведная зона</string>
+	<string name="type.boundary.protected_area.5">Запаведная зона</string>
+	<string name="type.boundary.protected_area.6">Запаведная зона</string>
 	<string name="type.cemetery.grave">Магіла</string>
 	<string name="type.craft">Рамяство</string>
 	<string name="type.craft.beekeeper">Пчаляр</string>

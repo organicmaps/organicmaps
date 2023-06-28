@@ -900,6 +900,12 @@
 	<string name="type.boundary.administrative.suburb">Fronteira de subúrbio</string>
 	<string name="type.boundary.national_park">Parque nacional</string>
 	<string name="type.boundary.protected_area">Área protegida</string>
+	<string name="type.boundary.protected_area.1">Área protegida</string>
+	<string name="type.boundary.protected_area.2">Área protegida</string>
+	<string name="type.boundary.protected_area.3">Área protegida</string>
+	<string name="type.boundary.protected_area.4">Área protegida</string>
+	<string name="type.boundary.protected_area.5">Área protegida</string>
+	<string name="type.boundary.protected_area.6">Área protegida</string>
 	<string name="type.building">Edifício</string>
 	<string name="type.building.address">Edifício</string>
 	<string name="type.building.has_parts">Edifício</string>

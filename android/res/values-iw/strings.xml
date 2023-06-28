@@ -288,6 +288,12 @@
 	<string name="type.barrier.city_wall">חומת העיר</string>
 	<string name="type.barrier.ditch">ןגֵמָ תלַעָתְ</string>
 	<string name="type.boundary.protected_area">אזור מוגן</string>
+	<string name="type.boundary.protected_area.1">אזור מוגן</string>
+	<string name="type.boundary.protected_area.2">אזור מוגן</string>
+	<string name="type.boundary.protected_area.3">אזור מוגן</string>
+	<string name="type.boundary.protected_area.4">אזור מוגן</string>
+	<string name="type.boundary.protected_area.5">אזור מוגן</string>
+	<string name="type.boundary.protected_area.6">אזור מוגן</string>
 	<string name="type.cemetery.grave">רבק</string>
 	<string name="type.craft">מְלָאכָה</string>
 	<string name="type.craft.beekeeper">כוורן</string>

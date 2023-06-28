@@ -1641,6 +1641,18 @@
 
 "type.boundary.protected_area" = "พื้นที่คุ้มครอง";
 
+"type.boundary.protected_area.1" = "พื้นที่คุ้มครอง";
+
+"type.boundary.protected_area.2" = "พื้นที่คุ้มครอง";
+
+"type.boundary.protected_area.3" = "พื้นที่คุ้มครอง";
+
+"type.boundary.protected_area.4" = "พื้นที่คุ้มครอง";
+
+"type.boundary.protected_area.5" = "พื้นที่คุ้มครอง";
+
+"type.boundary.protected_area.6" = "พื้นที่คุ้มครอง";
+
 "type.building" = "อาคาร";
 
 "type.building.address" = "อาคาร";

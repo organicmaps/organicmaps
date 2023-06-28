@@ -1641,6 +1641,18 @@
 
 "type.boundary.protected_area" = "Beskyttet område";
 
+"type.boundary.protected_area.1" = "Beskyttet område";
+
+"type.boundary.protected_area.2" = "Beskyttet område";
+
+"type.boundary.protected_area.3" = "Beskyttet område";
+
+"type.boundary.protected_area.4" = "Beskyttet område";
+
+"type.boundary.protected_area.5" = "Beskyttet område";
+
+"type.boundary.protected_area.6" = "Beskyttet område";
+
 "type.building" = "Bygning";
 
 "type.building.address" = "Bygning";

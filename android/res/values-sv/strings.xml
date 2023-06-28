@@ -830,6 +830,12 @@
 	<string name="type.barrier.toll_booth">Tullhus</string>
 	<string name="type.boundary.national_park">Nationalpark</string>
 	<string name="type.boundary.protected_area">Skyddat område</string>
+	<string name="type.boundary.protected_area.1">Skyddat område</string>
+	<string name="type.boundary.protected_area.2">Skyddat område</string>
+	<string name="type.boundary.protected_area.3">Skyddat område</string>
+	<string name="type.boundary.protected_area.4">Skyddat område</string>
+	<string name="type.boundary.protected_area.5">Skyddat område</string>
+	<string name="type.boundary.protected_area.6">Skyddat område</string>
 	<string name="type.building">Byggnad</string>
 	<string name="type.building.address">Byggnad</string>
 	<string name="type.building.has_parts">Byggnad</string>

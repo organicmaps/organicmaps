@@ -1641,6 +1641,18 @@
 
 "type.boundary.protected_area" = "Beschermd gebied";
 
+"type.boundary.protected_area.1" = "Beschermd gebied";
+
+"type.boundary.protected_area.2" = "Beschermd gebied";
+
+"type.boundary.protected_area.3" = "Beschermd gebied";
+
+"type.boundary.protected_area.4" = "Beschermd gebied";
+
+"type.boundary.protected_area.5" = "Beschermd gebied";
+
+"type.boundary.protected_area.6" = "Beschermd gebied";
+
 "type.building" = "Gebouw";
 
 "type.building.address" = "Gebouw";

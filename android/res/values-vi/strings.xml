@@ -830,6 +830,12 @@
 	<string name="type.barrier.toll_booth">Quầy Soát Vé</string>
 	<string name="type.boundary.national_park">Công viên quốc gia</string>
 	<string name="type.boundary.protected_area">Khu bảo tồn</string>
+	<string name="type.boundary.protected_area.1">Khu bảo tồn</string>
+	<string name="type.boundary.protected_area.2">Khu bảo tồn</string>
+	<string name="type.boundary.protected_area.3">Khu bảo tồn</string>
+	<string name="type.boundary.protected_area.4">Khu bảo tồn</string>
+	<string name="type.boundary.protected_area.5">Khu bảo tồn</string>
+	<string name="type.boundary.protected_area.6">Khu bảo tồn</string>
 	<string name="type.building">Tòa nhà</string>
 	<string name="type.building.address">Tòa nhà</string>
 	<string name="type.building.has_parts">Tòa nhà</string>

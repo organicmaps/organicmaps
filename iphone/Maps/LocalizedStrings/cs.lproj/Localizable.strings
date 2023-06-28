@@ -1641,6 +1641,18 @@
 
 "type.boundary.protected_area" = "Chráněné území";
 
+"type.boundary.protected_area.1" = "Chráněné území";
+
+"type.boundary.protected_area.2" = "Chráněné území";
+
+"type.boundary.protected_area.3" = "Chráněné území";
+
+"type.boundary.protected_area.4" = "Chráněné území";
+
+"type.boundary.protected_area.5" = "Chráněné území";
+
+"type.boundary.protected_area.6" = "Chráněné území";
+
 "type.building" = "Stavba";
 
 "type.building.address" = "Stavba";

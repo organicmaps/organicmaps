@@ -828,6 +828,12 @@
 	<string name="type.barrier.toll_booth">Betalingsstation</string>
 	<string name="type.boundary.national_park">National park</string>
 	<string name="type.boundary.protected_area">Beskyttet område</string>
+	<string name="type.boundary.protected_area.1">Beskyttet område</string>
+	<string name="type.boundary.protected_area.2">Beskyttet område</string>
+	<string name="type.boundary.protected_area.3">Beskyttet område</string>
+	<string name="type.boundary.protected_area.4">Beskyttet område</string>
+	<string name="type.boundary.protected_area.5">Beskyttet område</string>
+	<string name="type.boundary.protected_area.6">Beskyttet område</string>
 	<string name="type.building">Bygning</string>
 	<string name="type.building.address">Bygning</string>
 	<string name="type.building.has_parts">Bygning</string>

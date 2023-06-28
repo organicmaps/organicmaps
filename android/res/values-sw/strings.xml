@@ -283,6 +283,12 @@
 	<string name="type.barrier.ditch">Moti</string>
 	<string name="type.boundary.national_park">Hifadhi ya taifa</string>
 	<string name="type.boundary.protected_area">Eneo Lindwa</string>
+	<string name="type.boundary.protected_area.1">Eneo Lindwa</string>
+	<string name="type.boundary.protected_area.2">Eneo Lindwa</string>
+	<string name="type.boundary.protected_area.3">Eneo Lindwa</string>
+	<string name="type.boundary.protected_area.4">Eneo Lindwa</string>
+	<string name="type.boundary.protected_area.5">Eneo Lindwa</string>
+	<string name="type.boundary.protected_area.6">Eneo Lindwa</string>
 	<string name="type.cemetery.grave">Kaburi</string>
 	<string name="type.craft">Ufundi</string>
 	<string name="type.craft.beekeeper">Mfugaji nyuki</string>

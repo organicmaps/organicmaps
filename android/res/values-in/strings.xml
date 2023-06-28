@@ -829,6 +829,12 @@
 	<string name="type.barrier.toll_booth">Gerbang tol</string>
 	<string name="type.boundary.national_park">Taman Nasional</string>
 	<string name="type.boundary.protected_area">Kawasan Lindung</string>
+	<string name="type.boundary.protected_area.1">Kawasan Lindung</string>
+	<string name="type.boundary.protected_area.2">Kawasan Lindung</string>
+	<string name="type.boundary.protected_area.3">Kawasan Lindung</string>
+	<string name="type.boundary.protected_area.4">Kawasan Lindung</string>
+	<string name="type.boundary.protected_area.5">Kawasan Lindung</string>
+	<string name="type.boundary.protected_area.6">Kawasan Lindung</string>
 	<string name="type.building">Gedung</string>
 	<string name="type.building.address">Gedung</string>
 	<string name="type.building.has_parts">Gedung</string>

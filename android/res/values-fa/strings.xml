@@ -833,6 +833,12 @@
 	<string name="type.barrier.toll_booth">گیشه عوارضی</string>
 	<string name="type.boundary.national_park">پارک ملی</string>
 	<string name="type.boundary.protected_area">منطقه حفاظت شده</string>
+	<string name="type.boundary.protected_area.1">منطقه حفاظت شده</string>
+	<string name="type.boundary.protected_area.2">منطقه حفاظت شده</string>
+	<string name="type.boundary.protected_area.3">منطقه حفاظت شده</string>
+	<string name="type.boundary.protected_area.4">منطقه حفاظت شده</string>
+	<string name="type.boundary.protected_area.5">منطقه حفاظت شده</string>
+	<string name="type.boundary.protected_area.6">منطقه حفاظت شده</string>
 	<string name="type.building">ساختمان</string>
 	<string name="type.building.address">ساختمان</string>
 	<string name="type.building.has_parts">ساختمان</string>

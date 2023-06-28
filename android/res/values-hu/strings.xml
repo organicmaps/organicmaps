@@ -852,6 +852,12 @@
 	<string name="type.barrier.toll_booth">Díjfizető kapu</string>
 	<string name="type.boundary.national_park">Nemzeti park</string>
 	<string name="type.boundary.protected_area">Védett terület</string>
+	<string name="type.boundary.protected_area.1">Védett terület</string>
+	<string name="type.boundary.protected_area.2">Védett terület</string>
+	<string name="type.boundary.protected_area.3">Védett terület</string>
+	<string name="type.boundary.protected_area.4">Védett terület</string>
+	<string name="type.boundary.protected_area.5">Védett terület</string>
+	<string name="type.boundary.protected_area.6">Védett terület</string>
 	<string name="type.building">Épület</string>
 	<string name="type.building.address">Épület</string>
 	<string name="type.building.has_parts">Épület</string>

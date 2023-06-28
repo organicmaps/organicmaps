@@ -1641,6 +1641,18 @@
 
 "type.boundary.protected_area" = "Védett terület";
 
+"type.boundary.protected_area.1" = "Védett terület";
+
+"type.boundary.protected_area.2" = "Védett terület";
+
+"type.boundary.protected_area.3" = "Védett terület";
+
+"type.boundary.protected_area.4" = "Védett terület";
+
+"type.boundary.protected_area.5" = "Védett terület";
+
+"type.boundary.protected_area.6" = "Védett terület";
+
 "type.building" = "Épület";
 
 "type.building.address" = "Épület";

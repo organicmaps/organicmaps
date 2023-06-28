@@ -881,6 +881,12 @@
 	<string name="type.barrier.toll_booth">Bomstasjon</string>
 	<string name="type.boundary.national_park">Nasjonalpark</string>
 	<string name="type.boundary.protected_area">Vernet område</string>
+	<string name="type.boundary.protected_area.1">Vernet område</string>
+	<string name="type.boundary.protected_area.2">Vernet område</string>
+	<string name="type.boundary.protected_area.3">Vernet område</string>
+	<string name="type.boundary.protected_area.4">Vernet område</string>
+	<string name="type.boundary.protected_area.5">Vernet område</string>
+	<string name="type.boundary.protected_area.6">Vernet område</string>
 	<string name="type.building">Bygning</string>
 	<string name="type.building.address">Bygning</string>
 	<string name="type.building.has_parts">Bygning</string>

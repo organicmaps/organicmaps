@@ -1641,6 +1641,18 @@
 
 "type.boundary.protected_area" = "منطقه حفاظت شده";
 
+"type.boundary.protected_area.1" = "منطقه حفاظت شده";
+
+"type.boundary.protected_area.2" = "منطقه حفاظت شده";
+
+"type.boundary.protected_area.3" = "منطقه حفاظت شده";
+
+"type.boundary.protected_area.4" = "منطقه حفاظت شده";
+
+"type.boundary.protected_area.5" = "منطقه حفاظت شده";
+
+"type.boundary.protected_area.6" = "منطقه حفاظت شده";
+
 "type.building" = "ساختمان";
 
 "type.building.address" = "ساختمان";

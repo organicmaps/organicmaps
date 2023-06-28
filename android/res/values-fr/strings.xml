@@ -926,6 +926,12 @@
 	<string name="type.boundary.administrative.suburb">Frontière de quartier</string>
 	<string name="type.boundary.national_park">Parc national</string>
 	<string name="type.boundary.protected_area">Zone protégée</string>
+	<string name="type.boundary.protected_area.1">Zone protégée</string>
+	<string name="type.boundary.protected_area.2">Zone protégée</string>
+	<string name="type.boundary.protected_area.3">Zone protégée</string>
+	<string name="type.boundary.protected_area.4">Zone protégée</string>
+	<string name="type.boundary.protected_area.5">Zone protégée</string>
+	<string name="type.boundary.protected_area.6">Zone protégée</string>
 	<string name="type.building">Bâtiment</string>
 	<string name="type.building.address">Bâtiment</string>
 	<string name="type.building.has_parts">Bâtiment</string>

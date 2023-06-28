@@ -922,6 +922,12 @@
 	<string name="type.boundary.administrative.suburb">Granica przedmieść</string>
 	<string name="type.boundary.national_park">Park narodowy</string>
 	<string name="type.boundary.protected_area">Strefa chroniona</string>
+	<string name="type.boundary.protected_area.1">Strefa chroniona</string>
+	<string name="type.boundary.protected_area.2">Strefa chroniona</string>
+	<string name="type.boundary.protected_area.3">Strefa chroniona</string>
+	<string name="type.boundary.protected_area.4">Strefa chroniona</string>
+	<string name="type.boundary.protected_area.5">Strefa chroniona</string>
+	<string name="type.boundary.protected_area.6">Strefa chroniona</string>
 	<string name="type.building">Budynek</string>
 	<string name="type.building.address">Budynek</string>
 	<string name="type.building.has_parts">Budynek</string>

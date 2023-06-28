@@ -925,6 +925,12 @@
 	<string name="type.boundary.administrative.suburb">Eeslinna piir</string>
 	<string name="type.boundary.national_park">Rahvuspark</string>
 	<string name="type.boundary.protected_area">Kaitseala</string>
+	<string name="type.boundary.protected_area.1">Kaitseala</string>
+	<string name="type.boundary.protected_area.2">Kaitseala</string>
+	<string name="type.boundary.protected_area.3">Kaitseala</string>
+	<string name="type.boundary.protected_area.4">Kaitseala</string>
+	<string name="type.boundary.protected_area.5">Kaitseala</string>
+	<string name="type.boundary.protected_area.6">Kaitseala</string>
 	<string name="type.building">Hoone</string>
 	<string name="type.building.address">Hoone</string>
 	<string name="type.building.has_parts">Hoone</string>

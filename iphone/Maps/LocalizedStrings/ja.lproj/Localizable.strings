@@ -1641,6 +1641,18 @@
 
 "type.boundary.protected_area" = "保護区域";
 
+"type.boundary.protected_area.1" = "保護区域";
+
+"type.boundary.protected_area.2" = "保護区域";
+
+"type.boundary.protected_area.3" = "保護区域";
+
+"type.boundary.protected_area.4" = "保護区域";
+
+"type.boundary.protected_area.5" = "保護区域";
+
+"type.boundary.protected_area.6" = "保護区域";
+
 "type.building" = "建物";
 
 "type.building.address" = "建物";

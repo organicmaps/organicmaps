@@ -882,6 +882,12 @@
 	<string name="type.boundary.administrative.state">Osavaltion raja</string>
 	<string name="type.boundary.national_park">Kansallispuisto</string>
 	<string name="type.boundary.protected_area">Suojeltu alue</string>
+	<string name="type.boundary.protected_area.1">Suojeltu alue</string>
+	<string name="type.boundary.protected_area.2">Suojeltu alue</string>
+	<string name="type.boundary.protected_area.3">Suojeltu alue</string>
+	<string name="type.boundary.protected_area.4">Suojeltu alue</string>
+	<string name="type.boundary.protected_area.5">Suojeltu alue</string>
+	<string name="type.boundary.protected_area.6">Suojeltu alue</string>
 	<string name="type.building">Rakennus</string>
 	<string name="type.building.address">Rakennus</string>
 	<string name="type.building.has_parts">Rakennus</string>

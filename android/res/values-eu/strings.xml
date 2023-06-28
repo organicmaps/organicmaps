@@ -933,6 +933,12 @@
 	<string name="type.boundary.administrative.suburb">Auzoko muga</string>
 	<string name="type.boundary.national_park">Parke Nazionala</string>
 	<string name="type.boundary.protected_area">Babestutako Eremua</string>
+	<string name="type.boundary.protected_area.1">Babestutako Eremua</string>
+	<string name="type.boundary.protected_area.2">Babestutako Eremua</string>
+	<string name="type.boundary.protected_area.3">Babestutako Eremua</string>
+	<string name="type.boundary.protected_area.4">Babestutako Eremua</string>
+	<string name="type.boundary.protected_area.5">Babestutako Eremua</string>
+	<string name="type.boundary.protected_area.6">Babestutako Eremua</string>
 	<string name="type.building">Eraikin</string>
 	<string name="type.building.address">Eraikin</string>
 	<string name="type.building.has_parts">Eraikin</string>

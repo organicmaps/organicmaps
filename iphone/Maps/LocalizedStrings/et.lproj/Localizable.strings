@@ -1641,6 +1641,18 @@
 
 "type.boundary.protected_area" = "Kaitseala";
 
+"type.boundary.protected_area.1" = "Kaitseala";
+
+"type.boundary.protected_area.2" = "Kaitseala";
+
+"type.boundary.protected_area.3" = "Kaitseala";
+
+"type.boundary.protected_area.4" = "Kaitseala";
+
+"type.boundary.protected_area.5" = "Kaitseala";
+
+"type.boundary.protected_area.6" = "Kaitseala";
+
 "type.building" = "Hoone";
 
 "type.building.address" = "Hoone";

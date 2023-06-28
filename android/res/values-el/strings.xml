@@ -833,6 +833,12 @@
 	<string name="type.barrier.toll_booth">Σταθμός διοδίων</string>
 	<string name="type.boundary.national_park">Εθνικό πάρκο</string>
 	<string name="type.boundary.protected_area">Προστατευόμενη Περιοχή</string>
+	<string name="type.boundary.protected_area.1">Προστατευόμενη Περιοχή</string>
+	<string name="type.boundary.protected_area.2">Προστατευόμενη Περιοχή</string>
+	<string name="type.boundary.protected_area.3">Προστατευόμενη Περιοχή</string>
+	<string name="type.boundary.protected_area.4">Προστατευόμενη Περιοχή</string>
+	<string name="type.boundary.protected_area.5">Προστατευόμενη Περιοχή</string>
+	<string name="type.boundary.protected_area.6">Προστατευόμενη Περιοχή</string>
 	<string name="type.building">Κτίριο</string>
 	<string name="type.building.address">Κτίριο</string>
 	<string name="type.building.has_parts">Κτίριο</string>

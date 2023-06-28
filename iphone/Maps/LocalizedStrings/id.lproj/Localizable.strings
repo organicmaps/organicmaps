@@ -1641,6 +1641,18 @@
 
 "type.boundary.protected_area" = "Kawasan Lindung";
 
+"type.boundary.protected_area.1" = "Kawasan Lindung";
+
+"type.boundary.protected_area.2" = "Kawasan Lindung";
+
+"type.boundary.protected_area.3" = "Kawasan Lindung";
+
+"type.boundary.protected_area.4" = "Kawasan Lindung";
+
+"type.boundary.protected_area.5" = "Kawasan Lindung";
+
+"type.boundary.protected_area.6" = "Kawasan Lindung";
+
 "type.building" = "Gedung";
 
 "type.building.address" = "Gedung";

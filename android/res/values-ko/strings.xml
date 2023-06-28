@@ -832,6 +832,12 @@
 	<string name="type.barrier.toll_booth">톨게이트</string>
 	<string name="type.boundary.national_park">국립 공원</string>
 	<string name="type.boundary.protected_area">보호구역</string>
+	<string name="type.boundary.protected_area.1">보호구역</string>
+	<string name="type.boundary.protected_area.2">보호구역</string>
+	<string name="type.boundary.protected_area.3">보호구역</string>
+	<string name="type.boundary.protected_area.4">보호구역</string>
+	<string name="type.boundary.protected_area.5">보호구역</string>
+	<string name="type.boundary.protected_area.6">보호구역</string>
 	<string name="type.building">건물</string>
 	<string name="type.building.address">건물</string>
 	<string name="type.building.has_parts">건물</string>

@@ -876,6 +876,12 @@
 	<string name="type.boundary.administrative.suburb">उपनगर सीमा</string>
 	<string name="type.boundary.national_park">राष्ट्रीय उद्यान</string>
 	<string name="type.boundary.protected_area">संरक्षित क्षेत्र</string>
+	<string name="type.boundary.protected_area.1">संरक्षित क्षेत्र</string>
+	<string name="type.boundary.protected_area.2">संरक्षित क्षेत्र</string>
+	<string name="type.boundary.protected_area.3">संरक्षित क्षेत्र</string>
+	<string name="type.boundary.protected_area.4">संरक्षित क्षेत्र</string>
+	<string name="type.boundary.protected_area.5">संरक्षित क्षेत्र</string>
+	<string name="type.boundary.protected_area.6">संरक्षित क्षेत्र</string>
 	<string name="type.building">इमारत</string>
 	<string name="type.building.address">इमारत</string>
 	<string name="type.building.has_parts">इमारत</string>
