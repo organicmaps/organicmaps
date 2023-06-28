@@ -263,7 +263,7 @@ highway|path|bridge;[highway=path][bridge?];;name;int_name;194;
 piste:type|nordic;195;
 natural|beach|gravel;[natural=beach][surface=gravel];;name;int_name;196;
 railway|crossing;197;
-boundary|protected_area;198;
+boundary|national_park;198;
 deprecated:natural|wood|deciduous:01.2020;[natural=wood][wood=deciduous],[natural=wood][leaf_type=deciduous],[natural=wood][leaf_cycle=deciduous];x;name;int_name;199;landuse|forest|deciduous
 waterway|dam;200;
 amenity|charging_station|motorcar;[amenity=charging_station][motorcar?];;name;int_name;201;
@@ -910,7 +910,7 @@ deprecated|deprecated;836;x
 deprecated|deprecated;837;x
 deprecated|deprecated;838;x
 landuse|military|danger_area;[landuse=military][military=danger_area][wikipedia?],[landuse=military][military=cordon][wikipedia?];;name;int_name;839;
-boundary|national_park;840;
+boundary|protected_area;840;
 deprecated|deprecated;841;x
 deprecated|deprecated;842;x
 deprecated|deprecated;843;x

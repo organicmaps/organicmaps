@@ -5380,6 +5380,24 @@
     zh-Hans = 保护区
     zh-Hant = 保護區
 
+  [type.boundary.protected_area.1]
+    ref = type.boundary.protected_area
+
+  [type.boundary.protected_area.2]
+    ref = type.boundary.protected_area
+
+  [type.boundary.protected_area.3]
+    ref = type.boundary.protected_area
+
+  [type.boundary.protected_area.4]
+    ref = type.boundary.protected_area
+
+  [type.boundary.protected_area.5]
+    ref = type.boundary.protected_area
+
+  [type.boundary.protected_area.6]
+    ref = type.boundary.protected_area
+
   [type.building]
     en = Building
     ar = مبنى
