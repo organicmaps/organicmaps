@@ -123,9 +123,9 @@ public:
     FMD_DENOMINATION = 21,
     FMD_BUILDING_LEVELS = 22,
     FMD_TEST_ID = 23,
-    // FMD_SPONSORED_ID = 24,
-    // FMD_PRICE_RATE = 25,
-    // FMD_RATING = 26,
+    FMD_CUSTOM_IDS = 24,
+    FMD_PRICE_RATES = 25,
+    FMD_RATINGS = 26,
     // FMD_BANNER_URL = 27,
     FMD_LEVEL = 28,
     FMD_AIRPORT_IATA = 29,
@@ -147,6 +147,8 @@ public:
     FMD_WIKIMEDIA_COMMONS = 41,
     FMD_COUNT
   };
+
+  enum ESource : uint8_t { SRC_KAYAK = 0 };
 
   /// Used to normalize tags like "contact:phone", "phone" and "contact:mobile" to a common metadata enum value.
   static bool TypeFromString(std::string_view osmTagKey, EType & outType);

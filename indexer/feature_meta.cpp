@@ -1,4 +1,5 @@
 #include "indexer/feature_meta.hpp"
+#include "custom_keyvalue.hpp"
 
 #include "std/target_os.hpp"
 
@@ -180,35 +181,38 @@ string ToString(Metadata::EType type)
   case Metadata::FMD_STARS: return "stars";
   case Metadata::FMD_OPERATOR: return "operator";
   case Metadata::FMD_WEBSITE: return "website";
-  case Metadata::FMD_CONTACT_FACEBOOK: return "contact:facebook";
-  case Metadata::FMD_CONTACT_INSTAGRAM: return "contact:instagram";
-  case Metadata::FMD_CONTACT_TWITTER: return "contact:twitter";
-  case Metadata::FMD_CONTACT_VK: return "contact:vk";
-  case Metadata::FMD_CONTACT_LINE: return "contact:line";
   case Metadata::FMD_INTERNET: return "internet_access";
   case Metadata::FMD_ELE: return "ele";
-  case Metadata::FMD_DESTINATION: return "destination";
-  case Metadata::FMD_DESTINATION_REF: return "destination:ref";
-  case Metadata::FMD_JUNCTION_REF: return "junction:ref";
   case Metadata::FMD_TURN_LANES: return "turn:lanes";
   case Metadata::FMD_TURN_LANES_FORWARD: return "turn:lanes:forward";
   case Metadata::FMD_TURN_LANES_BACKWARD: return "turn:lanes:backward";
   case Metadata::FMD_EMAIL: return "email";
   case Metadata::FMD_POSTCODE: return "addr:postcode";
   case Metadata::FMD_WIKIPEDIA: return "wikipedia";
-  case Metadata::FMD_WIKIMEDIA_COMMONS: return "wikimedia_commons";
+  case Metadata::FMD_DESCRIPTION: return "description";
   case Metadata::FMD_FLATS: return "addr:flats";
   case Metadata::FMD_HEIGHT: return "height";
   case Metadata::FMD_MIN_HEIGHT: return "min_height";
   case Metadata::FMD_DENOMINATION: return "denomination";
   case Metadata::FMD_BUILDING_LEVELS: return "building:levels";
-  case Metadata::FMD_BUILDING_MIN_LEVEL: return "building:min_level";
   case Metadata::FMD_TEST_ID: return "test_id";
+  case Metadata::FMD_CUSTOM_IDS: return "custom_ids";
+  case Metadata::FMD_PRICE_RATES: return "price_rates";
+  case Metadata::FMD_RATINGS: return "ratings";
   case Metadata::FMD_LEVEL: return "level";
   case Metadata::FMD_AIRPORT_IATA: return "iata";
   case Metadata::FMD_BRAND: return "brand";
   case Metadata::FMD_DURATION: return "duration";
-  case Metadata::FMD_DESCRIPTION: return "description";
+  case Metadata::FMD_CONTACT_FACEBOOK: return "contact:facebook";
+  case Metadata::FMD_CONTACT_INSTAGRAM: return "contact:instagram";
+  case Metadata::FMD_CONTACT_TWITTER: return "contact:twitter";
+  case Metadata::FMD_CONTACT_VK: return "contact:vk";
+  case Metadata::FMD_CONTACT_LINE: return "contact:line";
+  case Metadata::FMD_DESTINATION: return "destination";
+  case Metadata::FMD_DESTINATION_REF: return "destination:ref";
+  case Metadata::FMD_JUNCTION_REF: return "junction:ref";
+  case Metadata::FMD_BUILDING_MIN_LEVEL: return "building:min_level";
+  case Metadata::FMD_WIKIMEDIA_COMMONS: return "wikimedia_commons";
   case Metadata::FMD_COUNT: CHECK(false, ("FMD_COUNT can not be used as a type."));
   };
 
@@ -231,10 +235,20 @@ string DebugPrint(Metadata const & metadata)
         res += "; ";
 
       res.append(DebugPrint(t)).append("=");
-      if (t == Metadata::FMD_DESCRIPTION)
+      switch (t)
+      {
+      case Metadata::FMD_DESCRIPTION:
         res += DebugPrint(StringUtf8Multilang::FromBuffer(std::string(sv)));
-      else
+        break;
+      case Metadata::FMD_CUSTOM_IDS:
+      case Metadata::FMD_PRICE_RATES:
+      case Metadata::FMD_RATINGS:
+        res += DebugPrint(indexer::CustomKeyValue(sv));
+        break;
+      default:
         res.append(sv);
+        break;
+      }
     }
   }
   res += "]";
