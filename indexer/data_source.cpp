@@ -217,8 +217,8 @@ void DataSource::ForEachInIntervals(ReaderCallback const & fn, covering::Coverin
     fn(GetMwmHandleById(worldID[1]), cov, scale);
 }
 
-void DataSource::ForEachFeatureIDInRect(FeatureIdCallback const & f, m2::RectD const & rect,
-                                        int scale) const
+void DataSource::ForEachFeatureIDInRect(FeatureIdCallback const & f, m2::RectD const & rect, int scale,
+                                        covering::CoveringMode mode /* = covering::ViewportWithLowLevels */) const
 {
   auto readFeatureId = [&f](uint32_t index, FeatureSource & src)
   {
@@ -227,7 +227,7 @@ void DataSource::ForEachFeatureIDInRect(FeatureIdCallback const & f, m2::RectD c
   };
 
   ReadMWMFunctor readFunctor(*m_factory, readFeatureId);
-  ForEachInIntervals(readFunctor, covering::LowLevelsOnly, rect, scale);
+  ForEachInIntervals(readFunctor, mode, rect, scale);
 }
 
 void DataSource::ForEachInRect(FeatureCallback const & f, m2::RectD const & rect, int scale) const
