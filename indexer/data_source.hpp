@@ -26,7 +26,8 @@ public:
   ///         now, returns false.
   bool DeregisterMap(platform::CountryFile const & countryFile);
 
-  void ForEachFeatureIDInRect(FeatureIdCallback const & f, m2::RectD const & rect, int scale) const;
+  void ForEachFeatureIDInRect(FeatureIdCallback const & f, m2::RectD const & rect, int scale,
+                              covering::CoveringMode mode = covering::ViewportWithLowLevels) const;
   void ForEachInRect(FeatureCallback const & f, m2::RectD const & rect, int scale) const;
   // Calls |f| for features closest to |center| until |stopCallback| returns true or distance
   // |sizeM| from has been reached. Then for EditableDataSource calls |f| for each edited feature
