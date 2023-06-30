@@ -106,35 +106,32 @@ void ReadFeatureType(std::function<void(FeatureType &)> const & fn, FeatureSourc
 // FeaturesLoaderGuard ---------------------------------------------------------------------
 std::string FeaturesLoaderGuard::GetCountryFileName() const
 {
-  if (!m_handle.IsAlive())
-    return {};
-
+  ASSERT(m_handle.IsAlive(), ());
   return m_handle.GetValue()->GetCountryFileName();
+}
+
+int64_t FeaturesLoaderGuard::GetVersion() const
+{
+  ASSERT(m_handle.IsAlive(), ());
+  return m_handle.GetInfo()->GetVersion();
 }
 
 bool FeaturesLoaderGuard::IsWorld() const
 {
-  if (!m_handle.IsAlive())
-    return false;
-
-  return m_handle.GetValue()->GetHeader().GetType() ==
-         feature::DataHeader::MapType::World;
+  ASSERT(m_handle.IsAlive(), ());
+  return m_handle.GetValue()->GetHeader().GetType() == feature::DataHeader::MapType::World;
 }
 
 std::unique_ptr<FeatureType> FeaturesLoaderGuard::GetOriginalOrEditedFeatureByIndex(uint32_t index) const
 {
-  if (!m_handle.IsAlive())
-    return {};
-
+  ASSERT(m_handle.IsAlive(), ());
   ASSERT_NOT_EQUAL(m_source->GetFeatureStatus(index), FeatureStatus::Created, ());
   return GetFeatureByIndex(index);
 }
 
 std::unique_ptr<FeatureType> FeaturesLoaderGuard::GetFeatureByIndex(uint32_t index) const
 {
-  if (!m_handle.IsAlive())
-    return {};
-
+  ASSERT(m_handle.IsAlive(), ());
   ASSERT_NOT_EQUAL(FeatureStatus::Deleted, m_source->GetFeatureStatus(index),
                    ("Deleted feature was cached. It should not be here. Please review your code."));
 

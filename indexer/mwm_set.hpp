@@ -388,7 +388,7 @@ public:
   feature::DataHeader const & GetHeader() const  { return m_factory.GetHeader(); }
   feature::RegionData const & GetRegionData() const { return m_factory.GetRegionData(); }
   version::MwmVersion const & GetMwmVersion() const { return m_factory.GetMwmVersion(); }
-  std::string const & GetCountryFileName() const { return m_file.GetCountryFile().GetName(); }
+  std::string const & GetCountryFileName() const { return m_file.GetCountryName(); }
 
   bool HasSearchIndex() const { return m_cont.IsExist(SEARCH_INDEX_FILE_TAG); }
   bool HasGeometryIndex() const { return m_cont.IsExist(INDEX_FILE_TAG); }

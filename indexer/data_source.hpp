@@ -4,7 +4,6 @@
 #include "indexer/feature_source.hpp"
 #include "indexer/mwm_set.hpp"
 
-#include <cstdint>
 #include <functional>
 #include <memory>
 #include <utility>
@@ -88,10 +87,14 @@ public:
   FeaturesLoaderGuard(DataSource const & dataSource, DataSource::MwmId const & id)
     : m_handle(dataSource.GetMwmHandleById(id)), m_source(dataSource.CreateFeatureSource(m_handle))
   {
+    // FeaturesLoaderGuard is always created in-place, so MWM should always be alive.
+    ASSERT(id.IsAlive(), ());
   }
 
   MwmSet::MwmId const & GetId() const { return m_handle.GetId(); }
   std::string GetCountryFileName() const;
+  int64_t GetVersion() const;
+
   bool IsWorld() const;
   /// Editor core only method, to get 'untouched', original version of feature.
   std::unique_ptr<FeatureType> GetOriginalFeatureByIndex(uint32_t index) const;
