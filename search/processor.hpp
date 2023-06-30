@@ -70,8 +70,9 @@ public:
 
   void Search(SearchParams params);
 
-  // Tries to parse a custom debugging command from |m_query|.
-  void SearchDebug();
+  /// Tries to parse a custom debugging command from |m_query|.
+  /// @return True if can stop further search.
+  bool SearchDebug();
   // Tries to generate a (lat, lon) result from |m_query|.
   // Returns true if |m_query| contains coordinates.
   bool SearchCoordinates();
@@ -121,6 +122,7 @@ protected:
   // 2. fid={ MwmId [Laos, 200623], 123 } or just { MwmId [Laos, 200623], 123 } or whatever current
   //    format of the string returned by FeatureID's DebugPrint is.
   void SearchByFeatureId();
+  void EmitCustomIDs();
 
   Locales GetCategoryLocales() const;
 
@@ -135,13 +137,9 @@ protected:
 
   m2::RectD const & GetViewport() const;
 
-  void EmitFeatureIfExists(std::vector<std::shared_ptr<MwmInfo>> const & infos,
-                           storage::CountryId const & mwmName, std::optional<uint32_t> version,
-                           uint32_t fid);
-  // The results are sorted by distance (to a point from |m_viewport| or |m_position|)
-  // before being emitted.
-  void EmitFeaturesByIndexFromAllMwms(std::vector<std::shared_ptr<MwmInfo>> const & infos,
-                                      uint32_t fid);
+  // The results are sorted by distance (to a point from |m_viewport| or |m_position|) before being emitted.
+  template <class FnT>
+  void EmitResultsFromMwms(std::vector<std::shared_ptr<MwmInfo>> const & infos, FnT const & fn);
 
   CategoriesHolder const & m_categories;
   storage::CountryInfoGetter const & m_infoGetter;
