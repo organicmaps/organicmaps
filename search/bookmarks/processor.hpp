@@ -1,7 +1,6 @@
 #pragma once
 
 #include "search/base/mem_search_index.hpp"
-#include "search/bookmarks/results.hpp"
 #include "search/bookmarks/types.hpp"
 #include "search/cancel_exception.hpp"
 #include "search/doc_vec.hpp"
@@ -11,13 +10,9 @@
 #include "search/search_params.hpp"
 #include "search/utils.hpp"
 
-#include "indexer/search_string_utils.hpp"
-
-#include <cstdint>
 #include <unordered_map>
 #include <unordered_set>
-#include <utility>
-#include <vector>
+
 
 namespace base
 {
