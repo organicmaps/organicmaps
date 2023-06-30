@@ -7,29 +7,30 @@
 
 namespace generator
 {
-struct BookingHotel : SponsoredObjectBase
+class BookingHotel : public SponsoredObjectBase
 {
-  enum class Fields
+  enum Fields
   {
     Id = 0,
-    Latitude = 1,
-    Longtitude = 2,
-    Name = 3,
-    Address = 4,
-    Stars = 5,
-    PriceCategory = 6,
-    RatingBooking = 7,
-    RatingUsers = 8,
-    DescUrl = 9,
-    Type = 10,
-    Translations = 11,
+    Latitude,
+    Longitude,
+    Name,
+    Address,
+    Stars,
+    PriceCategory,
+    RatingBooking,
+    RatingUsers,
+    DescUrl,
+    Type,
+    Translations,
+
     Counter
   };
 
-  explicit BookingHotel(std::string const & src);
+public:
+  explicit BookingHotel(std::string src);
 
-  static constexpr size_t FieldIndex(Fields field) { return SponsoredObjectBase::FieldIndex(field); }
-  static constexpr size_t FieldsCount() { return SponsoredObjectBase::FieldsCount<Fields>(); }
+  static constexpr size_t FieldsCount() { return Fields::Counter; }
 
   uint32_t m_stars = 0;
   uint32_t m_priceCategory = 0;
@@ -37,6 +38,7 @@ struct BookingHotel : SponsoredObjectBase
   double m_ratingUser = 0.0;
   uint32_t m_type = 0;
   std::string m_translations;
+  std::string m_descUrl;
 };
 
 using BookingDataset = SponsoredDataset<BookingHotel>;

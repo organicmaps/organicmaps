@@ -2,36 +2,40 @@
 
 #include <string>
 
-namespace feature
-{
-class FeatureBuilder;
-}  // namespace feature
-
 namespace generator
 {
-namespace impl
-{
-double GetLinearNormDistanceScore(double distance, double maxDistance);
-double GetNameSimilarityScore(std::string const & booking_name, std::string const & osm_name);
-}  // namespace impl
+struct SponsoredObjectBase;
 
-namespace sponsored_scoring
+namespace sponsored
 {
-/// Represents a match scoring statystics of a sponsored object agains osm object.
-template <typename SponsoredObject>
-struct MatchStats
-{
-  /// Returns some score based on geven fields and classificator tuning.
-  double GetMatchingScore() const;
-  /// Returns true if GetMatchingScore is greater then some theshold.
-  bool IsMatched() const;
 
-  double m_linearNormDistanceScore{};
-  double m_nameSimilarityScore{};
+/// Represents a match scoring statistics of a sponsored object against OSM object.
+class MatchStats
+{
+  // Calculated with tools/python/booking_hotels_quality.py.
+  static double constexpr kOptimalThreshold = 0.304875;
+
+public:
+  MatchStats(double distM, double distLimitM, std::string const & name, std::string const & fbName);
+
+  /// @return some score based on geven fields and classificator tuning.
+  double GetMatchingScore() const
+  {
+    // TODO(mgsergio): Use tuner to get optimal function.
+    return m_linearNormDistanceScore * m_nameSimilarityScore;
+  }
+
+  /// @return true if GetMatchingScore is greater then some theshold.
+  bool IsMatched() const
+  {
+    return GetMatchingScore() > kOptimalThreshold;
+  }
+
+public:
+  double m_distance;
+  double m_linearNormDistanceScore;
+  double m_nameSimilarityScore;
 };
 
-/// Matches a given sponsored object against a given OSM object.
-template <typename SponsoredObject>
-MatchStats<SponsoredObject> Match(SponsoredObject const & o, feature::FeatureBuilder const & fb);
-}  // namespace booking_scoring
-}  // namespace generator
+} // namespace sponsored
+} // namespace generator

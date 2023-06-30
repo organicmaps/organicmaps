@@ -1,6 +1,5 @@
 #include "generator/booking_dataset.hpp"
 #include "generator/feature_builder.hpp"
-#include "generator/sponsored_scoring.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -18,37 +17,42 @@ namespace generator
 using namespace feature;
 
 // BookingHotel ------------------------------------------------------------------------------------
-BookingHotel::BookingHotel(std::string const & src)
+BookingHotel::BookingHotel(std::string src)
 {
+  /// @todo For fast parsing we can preprocess src (quotes) and return string_view's.
   std::vector<std::string> rec;
   strings::ParseCSVRow(src, '\t', rec);
-  CHECK_EQUAL(rec.size(), FieldsCount(), ("Error parsing hotels.tsv line:",
-                                          boost::replace_all_copy(src, "\t", "\\t")));
 
-  CLOG(LDEBUG, strings::to_uint(rec[FieldIndex(Fields::Id)], m_id.Get()), ());
-  // TODO(mgsergio): Use ms::LatLon.
-  CLOG(LDEBUG, strings::to_double(rec[FieldIndex(Fields::Latitude)], m_latLon.m_lat), ());
-  CLOG(LDEBUG, strings::to_double(rec[FieldIndex(Fields::Longtitude)], m_latLon.m_lon), ());
+  CHECK_EQUAL(rec.size(), Fields::Counter,
+              ("Error parsing hotels entry:", boost::replace_all_copy(src, "\t", "\\t")));
 
-  m_name = rec[FieldIndex(Fields::Name)];
-  m_address = rec[FieldIndex(Fields::Address)];
+  // Assign id in the end in case of possible errors.
+  uint32_t id;
+  CLOG(LDEBUG, strings::to_uint(rec[Fields::Id], id), ());
+  CLOG(LDEBUG, strings::to_double(rec[Fields::Latitude], m_latLon.m_lat), ());
+  CLOG(LDEBUG, strings::to_double(rec[Fields::Longitude], m_latLon.m_lon), ());
 
-  CLOG(LDEBUG, strings::to_uint(rec[FieldIndex(Fields::Stars)], m_stars), ());
-  CLOG(LDEBUG, strings::to_uint(rec[FieldIndex(Fields::PriceCategory)], m_priceCategory), ());
-  CLOG(LDEBUG, strings::to_double(rec[FieldIndex(Fields::RatingBooking)], m_ratingBooking), ());
-  CLOG(LDEBUG, strings::to_double(rec[FieldIndex(Fields::RatingUsers)], m_ratingUser), ());
+  m_name = rec[Fields::Name];
+  m_address = rec[Fields::Address];
 
-  m_descUrl = rec[FieldIndex(Fields::DescUrl)];
+  CLOG(LDEBUG, strings::to_uint(rec[Fields::Stars], m_stars), ());
+  CLOG(LDEBUG, strings::to_uint(rec[Fields::PriceCategory], m_priceCategory), ());
+  CLOG(LDEBUG, strings::to_double(rec[Fields::RatingBooking], m_ratingBooking), ());
+  CLOG(LDEBUG, strings::to_double(rec[Fields::RatingUsers], m_ratingUser), ());
 
-  CLOG(LDEBUG, strings::to_uint(rec[FieldIndex(Fields::Type)], m_type), ());
+  m_descUrl = rec[Fields::DescUrl];
 
-  m_translations = rec[FieldIndex(Fields::Translations)];
+  CLOG(LDEBUG, strings::to_uint(rec[Fields::Type], m_type), ());
+
+  m_translations = rec[Fields::Translations];
+
+  m_id.Set(id);
 }
 
 
 // BookingDataset ----------------------------------------------------------------------------------
 template <>
-bool BookingDataset::NecessaryMatchingConditionHolds(FeatureBuilder const & fb) const
+bool BookingDataset::IsSponsoredCandidate(FeatureBuilder const & fb) const
 {
   if (fb.GetName(StringUtf8Multilang::kDefaultCode).empty())
     return false;
@@ -173,28 +177,4 @@ void BookingDataset::BuildObject(Object const & hotel, FBuilderFnT const & fn) c
   fn(fb);
 }
 
-/// @todo It looks like quite common FindMatchingObjectId function implementation.
-template <>
-BookingDataset::ObjectId BookingDataset::FindMatchingObjectIdImpl(FeatureBuilder const & fb) const
-{
-  auto const name = fb.GetName(StringUtf8Multilang::kDefaultCode);
-
-  if (name.empty())
-    return Object::InvalidObjectId();
-
-  // Find |kMaxSelectedElements| nearest values to a point, sorted by distance?
-  auto const bookingIndexes = m_storage.GetNearestObjects(mercator::ToLatLon(fb.GetKeyPoint()));
-
-  /// @todo Select best candidate? Assume we match "Foo Resort SPA hotel" feature. Have candidates:
-  /// - "Bar SPA hotel" in 10 meters (first);
-  /// - "Foo SPA hotel" in 100 meters (second, but best);
-  /// I suspect that first "Bar hotel" will be selected (wrong).
-  for (auto const j : bookingIndexes)
-  {
-    if (sponsored_scoring::Match(m_storage.GetObjectById(j), fb).IsMatched())
-      return j;
-  }
-
-  return Object::InvalidObjectId();
-}
-}  // namespace generator
+} // namespace generator

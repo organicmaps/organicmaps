@@ -46,6 +46,7 @@ set(SRC
   source_data.hpp
   source_to_element_test.cpp
   speed_cameras_test.cpp
+  sponsored_scoring_tests.cpp
   srtm_parser_test.cpp
   tag_admixer_test.cpp
   tesselator_test.cpp

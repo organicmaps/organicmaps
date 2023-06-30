@@ -1,5 +1,7 @@
 #include "generator/sponsored_scoring.hpp"
 
+#include "search/ranking_utils.hpp"
+
 #include "indexer/search_string_utils.hpp"
 
 #include "base/math.hpp"
@@ -7,18 +9,50 @@
 #include <algorithm>
 #include <vector>
 
+
+namespace generator
+{
+namespace sponsored
+{
 namespace
 {
-using WeightedBagOfWords = std::vector<std::pair<strings::UniString, double>>;
+using StringT = strings::UniString;
+class SkipTokens
+{
+  std::set<StringT> m_skip;
+public:
+  SkipTokens()
+  {
+    /// @todo Add other common terms?
+    m_skip.insert(strings::MakeUniString("hotel"));
+  }
+  bool Has(StringT const & s) const
+  {
+    return m_skip.count(s) > 0;
+  }
+};
 
-std::vector<strings::UniString> StringToWords(std::string const & str)
+using WeightedBagOfWords = std::vector<std::pair<StringT, double>>;
+
+std::vector<StringT> StringToWords(std::string const & str)
 {
   auto result = search::NormalizeAndTokenizeString(str);
-  std::sort(std::begin(result), std::end(result));
+
+  static SkipTokens toSkip;
+  auto it = std::remove_if(result.begin(), result.end(), [](StringT const & s)
+  {
+    return toSkip.Has(s) || search::IsStopWord(s);
+  });
+
+  // In case if name is like "The Hotel".
+  if (std::distance(result.begin(), it) > 0)
+    result.erase(it, result.end());
+
+  std::sort(result.begin(), result.end());
   return result;
 }
 
-WeightedBagOfWords MakeWeightedBagOfWords(std::vector<strings::UniString> const & words)
+WeightedBagOfWords MakeWeightedBagOfWords(std::vector<StringT> const & words)
 {
   // TODO(mgsergio): Calculate tf-idsf score for every word.
   auto constexpr kTfIdfScorePlaceholder = 1;
@@ -38,7 +72,7 @@ WeightedBagOfWords MakeWeightedBagOfWords(std::vector<strings::UniString> const 
 
 double WeightedBagsDotProduct(WeightedBagOfWords const & lhs, WeightedBagOfWords const & rhs)
 {
-  double result{};
+  double result = 0;
 
   auto lhsIt = begin(lhs);
   auto rhsIt = begin(rhs);
@@ -77,12 +111,7 @@ double WeightedBagOfWordsCos(WeightedBagOfWords const & lhs, WeightedBagOfWords 
 
   return product / (lhsLength * rhsLength);
 }
-}  // namespace
 
-namespace generator
-{
-namespace impl
-{
 double GetLinearNormDistanceScore(double distance, double const maxDistance)
 {
   CHECK_NOT_EQUAL(maxDistance, 0.0, ("maxDistance cannot be 0."));
@@ -102,5 +131,16 @@ double GetNameSimilarityScore(std::string const & booking_name, std::string cons
 
   return WeightedBagOfWordsCos(aws, bws);
 }
-}  // namespace impl
-}  // namespace generator
+}  // namespace
+
+MatchStats::MatchStats(double distM, double distLimitM, std::string const & name, std::string const & fbName)
+  : m_distance(distM)
+{
+  m_linearNormDistanceScore = GetLinearNormDistanceScore(distM, distLimitM);
+
+  // TODO(mgsergio): Check all translations and use the best one.
+  m_nameSimilarityScore = GetNameSimilarityScore(name, fbName);
+}
+
+} // namespace sponsored
+} // namespace generator

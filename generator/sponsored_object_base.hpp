@@ -22,22 +22,15 @@ struct SponsoredObjectBase
 
   virtual ~SponsoredObjectBase() = default;
 
-  template<typename Fields>
-  static constexpr size_t FieldIndex(Fields field) { return static_cast<size_t>(field); }
-
-  template<typename Fields>
-  static constexpr size_t FieldsCount() { return static_cast<size_t>(Fields::Counter); }
-
   bool HasAddresParts() const { return !m_street.empty() || !m_houseNumber.empty(); }
 
   ObjectId m_id{InvalidObjectId()};
   ms::LatLon m_latLon = ms::LatLon::Zero();
   std::string m_name;
+
   std::string m_street;
   std::string m_houseNumber;
-
   std::string m_address;
-  std::string m_descUrl;
 };
 
 NEWTYPE_SIMPLE_OUTPUT(SponsoredObjectBase::ObjectId);

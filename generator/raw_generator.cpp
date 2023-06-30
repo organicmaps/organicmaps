@@ -141,6 +141,7 @@ void RawGenerator::GenerateCoasts()
 
 void RawGenerator::GenerateCustom(std::shared_ptr<TranslatorInterface> const & translator)
 {
+  CHECK(translator, ());
   m_translators->Append(translator);
 }
 
@@ -148,6 +149,7 @@ void RawGenerator::GenerateCustom(
     std::shared_ptr<TranslatorInterface> const & translator,
     std::shared_ptr<FinalProcessorIntermediateMwmInterface> const & finalProcessor)
 {
+  CHECK(translator && finalProcessor, ());
   m_translators->Append(translator);
   m_finalProcessors.emplace(finalProcessor);
 }

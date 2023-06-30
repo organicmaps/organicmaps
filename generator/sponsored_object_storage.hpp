@@ -107,7 +107,9 @@ public:
 
     for (std::string line; std::getline(src, line);)
     {
-      Object object(line);
+      Object object(std::move(line));
+      line.clear();
+
       if (object.m_id != Object::InvalidObjectId() &&
           excludedIds.find(object.m_id) == excludedIds.cend())
       {

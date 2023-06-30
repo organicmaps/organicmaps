@@ -2,7 +2,8 @@
 
 #include "generator/addresses_collector.hpp"
 #include "generator/affiliation.hpp"
-#include "generator/booking_dataset.hpp"
+//#include "generator/booking_dataset.hpp"
+#include "generator/kayak_dataset.hpp"
 #include "generator/coastlines_generator.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/final_processor_utils.hpp"
@@ -113,7 +114,8 @@ void CountryFinalProcessor::Order()
 
 void CountryFinalProcessor::ProcessBooking()
 {
-  BookingDataset dataset(m_hotelsFilename);
+  KayakDataset dataset(m_hotelsFilename);
+  LOG(LINFO, ("Loaded", dataset.GetStorage().Size(), "hotels from", m_hotelsFilename));
 
   std::ofstream matchingLogStream;
   matchingLogStream.exceptions(std::fstream::failbit | std::fstream::badbit);
@@ -126,38 +128,46 @@ void CountryFinalProcessor::ProcessBooking()
       return;
 
     std::stringstream sstream;
+    sstream << std::fixed << std::setprecision(7);
+
+    size_t total = 0, matched = 0;
+
     FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
     ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](FeatureBuilder && fb, uint64_t)
     {
-      auto const id = dataset.FindMatchingObjectId(fb);
-      if (id == BookingHotel::InvalidObjectId())
+      bool hotelProcessed = false;
+      if (dataset.IsSponsoredCandidate(fb))
       {
-        writer.Write(fb);
-      }
-      else
-      {
-        dataset.PreprocessMatchedOsmObject(id, fb, [&](FeatureBuilder & newFeature)
+        ++total;
+        auto const id = dataset.FindMatchingObjectId(fb);
+        if (id != KayakHotel::InvalidObjectId())
         {
-          if (newFeature.PreSerialize())
-            writer.Write(newFeature);
-        });
-      }
+          ++matched;
+          hotelProcessed = true;
 
-      auto const & isHotelChecker = ftypes::IsHotelChecker::Instance();
-      if (isHotelChecker(fb.GetTypes()))
-      {
-        if (id != BookingHotel::InvalidObjectId())
+          dataset.PreprocessMatchedOsmObject(id, fb, [&](FeatureBuilder & newFeature)
+          {
+            if (newFeature.PreSerialize())
+              writer.Write(newFeature);
+          });
+
           sstream << id;
+        }
+        else
+          sstream << "NO";
 
-        auto const latLon = mercator::ToLatLon(fb.GetKeyPoint());
-        sstream << ',' << fb.GetMostGenericOsmId().GetEncodedId() << ','
-                << strings::to_string_dac(latLon.m_lat, 7) << ','
-                << strings::to_string_dac(latLon.m_lon, 7) << ',' << name << '\n';
+        auto const ll = mercator::ToLatLon(fb.GetKeyPoint());
+        sstream << ",\t" << DebugPrint(fb.GetMostGenericOsmId()) << ",\t" << ll.m_lat << ',' << ll.m_lon << std::endl;
       }
+
+      if (!hotelProcessed)
+        writer.Write(fb);
     });
 
     std::lock_guard guard(m);
     matchingLogStream << sstream.str();
+    LOG(LINFO, ("Hotels (MWM, total, matched):", name, total, matched));
+
   }, m_threadsCount);
 
   std::vector<FeatureBuilder> fbs;

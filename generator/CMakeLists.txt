@@ -7,8 +7,6 @@ set(SRC
   affiliation.hpp
   altitude_generator.cpp
   altitude_generator.hpp
-  # Should precede booking_dataset.cpp because of Unity build + template instantiation order.
-  booking_scoring.cpp
   booking_dataset.cpp
   booking_dataset.hpp
   borders.cpp
@@ -124,6 +122,8 @@ set(SRC
   isolines_generator.hpp
   isolines_section_builder.cpp
   isolines_section_builder.hpp
+  kayak_dataset.cpp
+  kayak_dataset.hpp
   maxspeeds_builder.cpp
   maxspeeds_builder.hpp
   maxspeeds_collector.cpp

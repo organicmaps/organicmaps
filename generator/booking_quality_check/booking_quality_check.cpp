@@ -1,22 +1,18 @@
-#include "generator/booking_dataset.hpp"
-
+//#include "generator/booking_dataset.hpp"
 #include "generator/feature_builder.hpp"
+#include "generator/feature_maker.hpp"
 //#include "generator/opentable_dataset.hpp"
+#include "generator/kayak_dataset.hpp"
 #include "generator/osm_source.hpp"
-#include "generator/processor_booking.hpp"
 #include "generator/raw_generator.hpp"
-#include "generator/sponsored_scoring.hpp"
-#include "generator/translator_collection.hpp"
-#include "generator/translator_factory.hpp"
+#include "generator/sponsored_dataset_inl.hpp"
+#include "generator/translator.hpp"
 
 #include "indexer/classificator_loader.hpp"
-
-#include "geometry/distance_on_sphere.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/exception.hpp"
 #include "base/geo_object_id.hpp"
-#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <fstream>
@@ -39,7 +35,7 @@ DEFINE_string(factors, "", "Factors output path");
 DEFINE_string(sample, "", "Path so sample file");
 
 DEFINE_uint64(seed, minstd_rand::default_seed, "Seed for random shuffle");
-DEFINE_uint64(selection_size, 1000, "Selection size");
+DEFINE_uint64(selection_size, 10000, "Selection size");
 DEFINE_bool(generate, false, "Generate unmarked sample");
 
 using namespace generator;
@@ -100,7 +96,7 @@ GenerateInfo GetGenerateInfo()
   info.SetNodeStorageType("map");
   info.SetOsmFileType("o5m");
 
-  info.m_intermediateDir = base::GetDirectory(FLAGS_factors);
+  info.m_cacheDir = info.m_intermediateDir = base::GetDirectory(FLAGS_osm);
 
   // Set other info params here.
 
@@ -189,36 +185,37 @@ vector<SampleItem<Object>> ReadSampleFromFile(string const & name)
   return ReadSample<Object>(ist);
 }
 
+void PrintOsmUrl(std::ostream & os, ms::LatLon const & ll)
+{
+  os << "# URL: https://www.openstreetmap.org/?mlat=" << ll.m_lat << "&mlon=" << ll.m_lon
+     << "#map=18/" << ll.m_lat << "/" << ll.m_lon << endl;
+};
+
 template <typename Dataset, typename Object = typename Dataset::Object>
 void GenerateFactors(Dataset const & dataset,
                      map<base::GeoObjectId, FeatureBuilder> const & features,
                      vector<SampleItem<Object>> const & sampleItems, ostream & ost)
 {
+  ost << fixed << setprecision(6);
+
   for (auto const & item : sampleItems)
   {
     auto const & object = dataset.GetStorage().GetObjectById(item.m_sponsoredId);
     auto const & feature = features.at(item.m_osmId);
 
-    auto const score = generator::sponsored_scoring::Match(object, feature);
+    auto const score = dataset.CalcScore(object, feature);
 
-    auto const center = mercator::ToLatLon(feature.GetKeyPoint());
-    double const distanceMeters = ms::DistanceOnEarth(center, object.m_latLon);
-    auto const matched = score.IsMatched();
-
-    ost << "# ------------------------------------------" << fixed << setprecision(6)
-        << endl;
-    ost << (matched ? 'y' : 'n') << " \t" << DebugPrint(feature.GetMostGenericOsmId())
-        << "\t " << object.m_id
-        << "\tdistance: " << distanceMeters
+    ost << "# ------------------------------------------" << endl;
+    ost << (score.IsMatched() ? "YES" : "NO") << "\t" << DebugPrint(feature.GetMostGenericOsmId())
+        << "\t" << object.m_id
+        << "\tdistance: " << score.m_distance
         << "\tdistance score: " << score.m_linearNormDistanceScore
         << "\tname score: " << score.m_nameSimilarityScore
         << "\tresult score: " << score.GetMatchingScore()
         << endl;
     ost << "# " << PrintBuilder(feature) << endl;
     ost << "# " << object << endl;
-    ost << "# URL: https://www.openstreetmap.org/?mlat="
-        << object.m_latLon.m_lat << "&mlon=" << object.m_latLon.m_lon << "#map=18/"
-        << object.m_latLon.m_lat << "/" << object.m_latLon.m_lon << endl;
+    PrintOsmUrl(ost, object.m_latLon);
   }
 }
 
@@ -241,38 +238,33 @@ void GenerateSample(Dataset const & dataset,
   if (FLAGS_selection_size < elementIndexes.size())
     elementIndexes.resize(FLAGS_selection_size);
 
-  stringstream outStream;
-
+  ost << fixed << setprecision(6);
   for (auto osmId : elementIndexes)
   {
     auto const & fb = features.at(osmId);
-    auto const sponsoredIndexes = dataset.GetStorage().GetNearestObjects(mercator::ToLatLon(fb.GetKeyPoint()));
+    auto const ll = mercator::ToLatLon(fb.GetKeyPoint());
+    auto const sponsoredIndexes = dataset.GetStorage().GetNearestObjects(ll);
+
+    ost << "# ------------------------------------------" << endl
+        << "# " << PrintBuilder(fb) << endl;
+    PrintOsmUrl(ost, ll);
 
     for (auto const sponsoredId : sponsoredIndexes)
     {
       auto const & object = dataset.GetStorage().GetObjectById(sponsoredId);
-      auto const score = sponsored_scoring::Match(object, fb);
+      auto const score = dataset.CalcScore(object, fb);
 
-      auto const center = mercator::ToLatLon(fb.GetKeyPoint());
-      double const distanceMeters = ms::DistanceOnEarth(center, object.m_latLon);
-      auto const matched = score.IsMatched();
-
-      ost << "# ------------------------------------------" << fixed << setprecision(6)
-          << endl;
-      ost << (matched ? 'y' : 'n') << " \t" << DebugPrint(osmId) << "\t " << sponsoredId
-          << "\tdistance: " << distanceMeters
+      ost << (score.IsMatched() ? "YES" : "NO") << "\t" << sponsoredId
+          << "\tdistance: " << score.m_distance
           << "\tdistance score: " << score.m_linearNormDistanceScore
           << "\tname score: " << score.m_nameSimilarityScore
           << "\tresult score: " << score.GetMatchingScore()
-          << endl;
-      ost << "# " << PrintBuilder(fb) << endl;
-      ost << "# " << object << endl;
-      ost << "# URL: https://www.openstreetmap.org/?mlat="
-          << object.m_latLon.m_lat << "&mlon=" << object.m_latLon.m_lon
-          << "#map=18/" << object.m_latLon.m_lat << "/" << object.m_latLon.m_lon << endl;
+          << endl
+          << "# " << object << endl;
+      PrintOsmUrl(ost, object.m_latLon);
     }
-    if (!sponsoredIndexes.empty())
-      ost << endl << endl;
+
+    ost << endl;
   }
 }
 
@@ -280,7 +272,7 @@ template <typename Dataset>
 string GetDatasetFilePath(GenerateInfo const & info);
 
 template <>
-string GetDatasetFilePath<BookingDataset>(GenerateInfo const & info)
+string GetDatasetFilePath<KayakDataset>(GenerateInfo const & info)
 {
   return info.m_bookingDataFilename;
 }
@@ -291,6 +283,75 @@ string GetDatasetFilePath<BookingDataset>(GenerateInfo const & info)
 //  return info.m_opentableDataFilename;
 //}
 
+class TranslatorMock : public Translator
+{
+public:
+  TranslatorMock(std::shared_ptr<FeatureProcessorInterface> const & processor,
+                 std::shared_ptr<generator::cache::IntermediateData> const & cache)
+    : Translator(processor, cache, std::make_shared<FeatureMakerSimple>(cache->GetCache()))
+  {
+  }
+
+  /// @name TranslatorInterface overrides.
+  /// @{
+  std::shared_ptr<TranslatorInterface> Clone() const override
+  {
+    UNREACHABLE();
+    return nullptr;
+  }
+  void Merge(TranslatorInterface const &) override
+  {
+    UNREACHABLE();
+  }
+  /// @}
+};
+
+class AggregateProcessor : public FeatureProcessorInterface
+{
+public:
+  /// @name FeatureProcessorInterface overrides.
+  /// @{
+  std::shared_ptr<FeatureProcessorInterface> Clone() const override
+  {
+    UNREACHABLE();
+    return nullptr;
+  }
+  void Process(feature::FeatureBuilder & fb) override
+  {
+    auto const id = fb.GetMostGenericOsmId();
+    m_features.emplace(id, std::move(fb));
+  }
+  void Finish() override {}
+  /// @}
+
+  std::map<base::GeoObjectId, feature::FeatureBuilder> m_features;
+};
+
+template <class Dataset> class DatasetFilter : public FilterInterface
+{
+  Dataset const & m_dataset;
+public:
+  DatasetFilter(Dataset const & dataset) : m_dataset(dataset) {}
+
+  /// @name FilterInterface overrides.
+  /// @{
+  std::shared_ptr<FilterInterface> Clone() const override
+  {
+    UNREACHABLE();
+    return nullptr;
+  }
+  bool IsAccepted(OsmElement const & e) const override
+  {
+    // All hotels under tourism tag.
+    return !e.GetTag("tourism").empty();
+  }
+  bool IsAccepted(feature::FeatureBuilder const & fb) const override
+  {
+    return m_dataset.IsSponsoredCandidate(fb);
+  }
+  /// @}
+};
+
 template <typename Dataset, typename Object = typename Dataset::Object>
 void RunImpl(GenerateInfo & info)
 {
@@ -298,16 +359,17 @@ void RunImpl(GenerateInfo & info)
   Dataset dataset(dataSetFilePath);
   LOG_SHORT(LINFO, (dataset.GetStorage().Size(), "objects are loaded from a file:", dataSetFilePath));
 
-  map<base::GeoObjectId, FeatureBuilder> features;
   LOG_SHORT(LINFO, ("OSM data:", FLAGS_osm));
 
   generator::cache::IntermediateDataObjectsCache objectsCache;
-  generator::cache::IntermediateData cacheLoader(objectsCache, info);
-  auto translators = make_shared<TranslatorCollection>();
-  auto processor = make_shared<ProcessorBooking<Dataset>>(dataset, features);
-  translators->Append(CreateTranslator(TranslatorType::Country, processor, cacheLoader.GetCache(), info));
+  auto cache = std::make_shared<generator::cache::IntermediateData>(objectsCache, info);
+  auto processor = make_shared<AggregateProcessor>();
+  auto translator = std::make_shared<TranslatorMock>(processor, cache);
+  translator->SetFilter(std::make_shared<DatasetFilter<Dataset>>(dataset));
+
   RawGenerator generator(info);
-  generator.GenerateCustom(translators);
+  generator.GenerateCustom(translator);
+  CHECK(generator.Execute(), ());
 
   if (FLAGS_generate)
   {
@@ -319,7 +381,7 @@ void RunImpl(GenerateInfo & info)
       CHECK(ofst->is_open(), ("Can't open file", FLAGS_sample, strerror(errno)));
       ost = ofst.get();
     }
-    GenerateSample(dataset, features, *ost);
+    GenerateSample(dataset, processor->m_features, *ost);
   }
   else
   {
@@ -327,7 +389,7 @@ void RunImpl(GenerateInfo & info)
     LOG_SHORT(LINFO, ("Sample size is", sample.size()));
     ofstream ost(FLAGS_factors);
     CHECK(ost.is_open(), ("Can't open file", FLAGS_factors, strerror(errno)));
-    GenerateFactors<Dataset>(dataset, features, sample, ost);
+    GenerateFactors<Dataset>(dataset, processor->m_features, sample, ost);
   }
 }
 
@@ -335,7 +397,7 @@ void Run(DatasetType const datasetType, GenerateInfo & info)
 {
   switch (datasetType)
   {
-  case DatasetType::Booking: RunImpl<BookingDataset>(info); break;
+  case DatasetType::Booking: RunImpl<KayakDataset>(info); break;
   //case DatasetType::Opentable: RunImpl<OpentableDataset>(info); break;
   }
 }
