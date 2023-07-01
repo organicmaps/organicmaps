@@ -1,15 +1,16 @@
 #include "qt/preferences_dialog.hpp"
 
+#include "map/framework.hpp"
+
 #include "platform/measurement_utils.hpp"
 #include "platform/settings.hpp"
 
 #include <QtGlobal>  // QT_VERSION_CHECK
 #include <QtGui/QIcon>
+#include <QLocale>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QTableWidget>
-#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QButtonGroup>
@@ -23,38 +24,38 @@ std::string const kEnabledAutoRegenGeomIndex = "EnabledAutoRegenGeomIndex";
 
 namespace qt
 {
-  PreferencesDialog::PreferencesDialog(QWidget * parent)
+  PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
   : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint)
   {
     QIcon icon(":/ui/logo.png");
     setWindowIcon(icon);
     setWindowTitle(tr("Preferences"));
 
-    m_pUnits = new QButtonGroup(this);
-    QGroupBox * radioBox = new QGroupBox("System of measurement");
+    QButtonGroup * unitsGroup = new QButtonGroup(this);
+    QGroupBox * unitsRadioBox = new QGroupBox("System of measurement");
     {
-      QHBoxLayout * pLayout = new QHBoxLayout();
+      QHBoxLayout * layout = new QHBoxLayout();
 
-      QRadioButton * p = new QRadioButton("Metric");
-      pLayout->addWidget(p);
-      m_pUnits->addButton(p, static_cast<int>(Units::Metric));
+      QRadioButton * radioButton = new QRadioButton("Metric");
+      layout->addWidget(radioButton);
+      unitsGroup->addButton(radioButton, static_cast<int>(Units::Metric));
 
-      p = new QRadioButton("Imperial (foot)");
-      pLayout->addWidget(p);
-      m_pUnits->addButton(p, static_cast<int>(Units::Imperial));
+      radioButton = new QRadioButton("Imperial (foot)");
+      layout->addWidget(radioButton);
+      unitsGroup->addButton(radioButton, static_cast<int>(Units::Imperial));
 
-      radioBox->setLayout(pLayout);
+      unitsRadioBox->setLayout(layout);
 
       Units u;
       if (!settings::Get(settings::kMeasurementUnits, u))
       {
-        // set default measurement from system locale
+        // Set default measurement from system locale
         if (QLocale::system().measurementSystem() == QLocale::MetricSystem)
           u = Units::Metric;
         else
           u = Units::Imperial;
       }
-      m_pUnits->button(static_cast<int>(u))->setChecked(true);
+      unitsGroup->button(static_cast<int>(u))->setChecked(true);
 
       // Temporary to pass the address of overloaded function.
 #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
@@ -62,29 +63,40 @@ namespace qt
 #else
       void (QButtonGroup::* buttonClicked)(int) = &QButtonGroup::idClicked;
 #endif
-      connect(m_pUnits, buttonClicked, this, &PreferencesDialog::OnUnitsChanged);
+      connect(unitsGroup, buttonClicked, [&framework](int i)
+      {
+        Units u = Units::Metric;
+        switch (i)
+        {
+        case 0: u = Units::Metric; break;
+        case 1: u = Units::Imperial; break;
+        }
 
+        settings::Set(settings::kMeasurementUnits, u);
+        framework.SetupMeasurementSystem();
+      });
     }
 
-  #ifdef BUILD_DESIGNER
-    QCheckBox * checkBox = new QCheckBox("Enable auto regeneration of geometry index");
+#ifdef BUILD_DESIGNER
+    QCheckBox * indexRegenCheckBox = new QCheckBox("Enable auto regeneration of geometry index");
     {
       bool enabled = false;
       if (!settings::Get(kEnabledAutoRegenGeomIndex, enabled))
-      {
         settings::Set(kEnabledAutoRegenGeomIndex, false);
-      }
-      checkBox->setChecked(enabled);
-      connect(checkBox, &QCheckBox::stateChanged, this, &PreferencesDialog::OnEnabledAutoRegenGeomIndex);
+      indexRegenCheckBox->setChecked(enabled);
+      connect(indexRegenCheckBox, &QCheckBox::stateChanged, [](int i)
+      {
+        settings::Set(kEnabledAutoRegenGeomIndex, static_cast<bool>(i))
+      });
     }
-  #endif
+#endif
 
     QHBoxLayout * bottomLayout = new QHBoxLayout();
     {
       QPushButton * closeButton = new QPushButton(tr("Close"));
       closeButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
       closeButton->setDefault(true);
-      connect(closeButton, &QAbstractButton::clicked, this, &PreferencesDialog::OnCloseClick);
+      connect(closeButton, &QAbstractButton::clicked, [this](){ done(0); });
 
       bottomLayout->addStretch(1);
       bottomLayout->setSpacing(0);
@@ -92,37 +104,12 @@ namespace qt
     }
 
     QVBoxLayout * finalLayout = new QVBoxLayout();
-    finalLayout->addWidget(radioBox);
-  #ifdef BUILD_DESIGNER
-    finalLayout->addWidget(checkBox);
-  #endif
+    finalLayout->addWidget(unitsRadioBox);
+    finalLayout->addWidget(largeFontCheckBox);
+#ifdef BUILD_DESIGNER
+    finalLayout->addWidget(indexRegenCheckBox);
+#endif
     finalLayout->addLayout(bottomLayout);
     setLayout(finalLayout);
   }
-
-  void PreferencesDialog::OnCloseClick()
-  {
-    done(0);
-  }
-
-  void PreferencesDialog::OnUnitsChanged(int i)
-  {
-    using namespace settings;
-
-    Units u = Units::Metric;
-    switch (i)
-    {
-    case 0: u = Units::Metric; break;
-    case 1: u = Units::Imperial; break;
-    }
-
-    settings::Set(kMeasurementUnits, u);
-  }
-
-#ifdef BUILD_DESIGNER
-  void PreferencesDialog::OnEnabledAutoRegenGeomIndex(int i)
-  {
-    settings::Set(kEnabledAutoRegenGeomIndex, static_cast<bool>(i));
-  }
-#endif
 }

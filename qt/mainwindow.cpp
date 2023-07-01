@@ -655,11 +655,11 @@ void MainWindow::OnBeforeEngineCreation()
 
 void MainWindow::OnPreferences()
 {
-  PreferencesDialog dlg(this);
+  Framework & framework = m_pDrawWidget->GetFramework();
+  PreferencesDialog dlg(this, framework);
   dlg.exec();
 
-  m_pDrawWidget->GetFramework().SetupMeasurementSystem();
-  m_pDrawWidget->GetFramework().EnterForeground();
+  framework.EnterForeground();
 }
 
 #ifdef BUILD_DESIGNER
