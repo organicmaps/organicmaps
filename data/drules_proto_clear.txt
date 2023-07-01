@@ -11476,6 +11476,73 @@ cont {
   }
 }
 cont {
+  name: "barrier-turnstile"
+  element {
+    scale: 16
+    symbol {
+      name: "dot-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "dot-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "dot-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "dot-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
   name: "barrier-wall"
   element {
     scale: 16
@@ -14704,6 +14771,49 @@ cont {
     scale: 19
     symbol {
       name: "entrance-s"
+      priority: 16049
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6381914
+        offset_x: 1
+        text: "ref"
+        is_optional: true
+      }
+      secondary {
+        height: 12
+        offset_y: 10
+        text: "addr:flats"
+        is_optional: true
+      }
+      priority: 15049
+    }
+  }
+}
+cont {
+  name: "entrance-exit"
+  element {
+    scale: 18
+    symbol {
+      name: "exit-s"
+      priority: 16049
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6381914
+        offset_x: 1
+        text: "ref"
+        is_optional: true
+      }
+      priority: 15049
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "exit-s"
       priority: 16049
     }
     caption {
@@ -92743,6 +92853,77 @@ cont {
   }
 }
 cont {
+  name: "shop-auction"
+  element {
+    scale: 16
+    symbol {
+      name: "auction-m"
+      priority: 16607
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15607
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "auction-m"
+      priority: 16607
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15607
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "auction-m"
+      priority: 16607
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15607
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "auction-m"
+      priority: 16607
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15607
+    }
+  }
+}
+cont {
   name: "shop-baby_goods"
   element {
     scale: 18
@@ -94321,6 +94502,59 @@ cont {
       name: "shop-m"
       priority: 16607
       min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15607
+    }
+  }
+}
+cont {
+  name: "shop-collector"
+  element {
+    scale: 16
+    symbol {
+      name: "shop-m"
+      priority: 16607
+      min_distance: 10
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "shop-m"
+      priority: 16607
+      min_distance: 24
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "shop-m"
+      priority: 16607
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15607
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16607
+      min_distance: 24
     }
     caption {
       primary {

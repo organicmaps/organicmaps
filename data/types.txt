@@ -747,7 +747,7 @@ boundary|administrative|4
 *barrier|cattle_grid
 *barrier|ditch
 *barrier|kissing_gate
-mapswithme
+*barrier|turnstile
 mapswithme
 mapswithme
 mapswithme
@@ -875,7 +875,7 @@ mapswithme
 mapswithme
 mapswithme
 *area:highway|cycleway
-mapswithme
+*entrance|exit
 *area:highway|motorway
 *area:highway|trunk
 *man_made|bridge
@@ -1560,3 +1560,5 @@ mapswithme
 *shop|cannabis
 *shop|herbalist
 *shop|camera
+*shop|auction
+*shop|collector
