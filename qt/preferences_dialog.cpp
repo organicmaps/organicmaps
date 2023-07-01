@@ -77,6 +77,15 @@ namespace qt
       });
     }
 
+    QCheckBox * largeFontCheckBox = new QCheckBox("Use larger font on the map");
+    {
+      largeFontCheckBox->setChecked(framework.LoadLargeFontsSize());
+      connect(largeFontCheckBox, &QCheckBox::stateChanged, [&framework](int i)
+      {
+        framework.SetLargeFontsSize(static_cast<bool>(i));
+      });
+    }
+
 #ifdef BUILD_DESIGNER
     QCheckBox * indexRegenCheckBox = new QCheckBox("Enable auto regeneration of geometry index");
     {
