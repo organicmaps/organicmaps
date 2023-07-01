@@ -30,6 +30,7 @@ std::string_view constexpr kGpx = "gpx";
 std::string_view constexpr kGarminColor = "gpxx:DisplayColor";
 std::string_view constexpr kDesc = "desc";
 std::string_view constexpr kMetadata = "metadata";
+std::string_view constexpr kEle = "ele";
 int constexpr kInvalidColor = 0;
 
 
@@ -63,13 +64,14 @@ void GpxParser::ResetPoint()
   m_trackLayers.clear();
   m_geometry.Clear();
   m_geometryType = GEOMETRY_TYPE_UNKNOWN;
+  m_altitude = geometry::kInvalidAltitude;
 }
 
 bool GpxParser::MakeValid()
 {
   if (GEOMETRY_TYPE_POINT == m_geometryType)
   {
-    if (mercator::ValidX(m_org.x) && mercator::ValidY(m_org.y))
+    if (mercator::ValidX(m_org.GetPoint().x) && mercator::ValidY(m_org.GetPoint().y))
     {
       // Set default name.
       if (m_name.empty())
@@ -101,20 +103,18 @@ bool GpxParser::Push(std::string_view tag)
   return true;
 }
 
+bool GpxParser::IsValidCoordinatesPosition()
+{
+  return GetTagFromEnd(0) == gpx::kWpt || (GetTagFromEnd(0) == gpx::kTrkPt && GetTagFromEnd(1) == gpx::kTrkSeg) ||
+         (GetTagFromEnd(0) == gpx::kRtePt && GetTagFromEnd(1) == gpx::kRte);
+}
+
 void GpxParser::AddAttr(std::string const & attr, std::string const & value)
 {
   std::string attrInLowerCase = attr;
   strings::AsciiToLower(attrInLowerCase);
 
-  if (GetTagFromEnd(0) == gpx::kWpt)
-  {
-    if (attr == "lat")
-      m_lat = stod(value);
-    else if (attr == "lon")
-      m_lon = stod(value);
-  }
-  else if ((GetTagFromEnd(0) == gpx::kTrkPt && GetTagFromEnd(1) == gpx::kTrkSeg) ||
-           (GetTagFromEnd(0) == gpx::kRtePt && GetTagFromEnd(1) == gpx::kRte))
+  if (IsValidCoordinatesPosition())
   {
     if (attr == "lat")
       m_lat = stod(value);
@@ -215,9 +215,10 @@ void GpxParser::Pop(std::string_view tag)
   
   if (tag == gpx::kTrkPt || tag == gpx::kRtePt)
   {
-    m2::PointD p = mercator::FromLatLon(m_lat, m_lon);
+    m2::PointD const p = mercator::FromLatLon(m_lat, m_lon);
     if (m_line.empty() || !AlmostEqualAbs(m_line.back().GetPoint(), p, kMwmPointAccuracy))
-      m_line.emplace_back(std::move(p));
+      m_line.emplace_back(p, m_altitude);
+    m_altitude = geometry::kInvalidAltitude;
   }
   else if (tag == gpx::kTrkSeg || tag == gpx::kRte)
   {
@@ -225,7 +226,9 @@ void GpxParser::Pop(std::string_view tag)
   }
   else if (tag == gpx::kWpt)
   {
-    m_org = mercator::FromLatLon(m_lat, m_lon);
+    m_org.SetPoint(mercator::FromLatLon(m_lat, m_lon));
+    m_org.SetAltitude(m_altitude);
+    m_altitude = geometry::kInvalidAltitude;
   }
   
   if (tag == gpx::kRte || tag == gpx::kTrkSeg || tag == gpx::kWpt)
@@ -279,46 +282,69 @@ void GpxParser::CharData(std::string value)
   size_t const count = m_tags.size();
   if (count > 1 && !value.empty())
   {
-    std::string_view const & currTag = m_tags[count - 1];
-    std::string_view const & prevTag = m_tags[count - 2];
+    std::string const & currTag = m_tags[count - 1];
+    std::string const & prevTag = m_tags[count - 2];
 
-    if (prevTag == gpx::kWpt)
-    {
-      if (currTag == gpx::kName)
-        m_name[kml::kDefaultLang] = value;
-      else if (currTag == gpx::kDesc)
-        m_description[kml::kDefaultLang] = value;
-    }
-    else if (prevTag == gpx::kTrk || prevTag == gpx::kRte)
-    {
-      if (currTag == gpx::kName)
-      {
-        m_name[kml::kDefaultLang] = value;
-        if (m_categoryData->m_name[kml::kDefaultLang].empty())
-          m_categoryData->m_name[kml::kDefaultLang] = value;
-      }
-      else if (currTag == gpx::kDesc)
-      {
-        m_description[kml::kDefaultLang] = value;
-        if (m_categoryData->m_description[kml::kDefaultLang].empty())
-          m_categoryData->m_description[kml::kDefaultLang] = value;
-      }
-    }
-    else if (prevTag == gpx::kMetadata)
-    {
-      if (currTag == gpx::kName)
-        m_categoryData->m_name[kml::kDefaultLang] = value;
-      else if (currTag == gpx::kDesc)
-        m_categoryData->m_description[kml::kDefaultLang] = value;
-    }
-    if (currTag == gpx::kGarminColor)
+    if (currTag == gpx::kName)
+      ParseName(value, prevTag);
+    else if (currTag == gpx::kDesc)
+      ParseDescription(value, prevTag);
+    else if (currTag == gpx::kGarminColor)
       ParseGarminColor(value);
     else if (currTag == gpx::kOsmandColor)
       ParseOsmandColor(value);
     else if (currTag == gpx::kColor)
       ParseColor(value);
+    else if (currTag == gpx::kEle)
+      ParseAltitude(value);
   }
 }
+
+void GpxParser::ParseDescription(std::string const & value, std::string const & prevTag)
+{
+  if (prevTag == kWpt)
+  {
+    m_description[kDefaultLang] = value;
+  }
+  else if (prevTag == kTrk || prevTag == kRte)
+  {
+    m_description[kDefaultLang] = value;
+    if (m_categoryData->m_description[kDefaultLang].empty())
+      m_categoryData->m_description[kDefaultLang] = value;
+  }
+  else if (prevTag == kMetadata)
+  {
+    m_categoryData->m_description[kDefaultLang] = value;
+  }
+}
+
+void GpxParser::ParseName(std::string const & value, std::string const & prevTag)
+{
+  if (prevTag == kWpt)
+  {
+    m_name[kDefaultLang] = value;
+  }
+  else if (prevTag == kTrk || prevTag == kRte)
+  {
+    m_name[kDefaultLang] = value;
+    if (m_categoryData->m_name[kDefaultLang].empty())
+      m_categoryData->m_name[kDefaultLang] = value;
+  }
+  else if (prevTag == kMetadata)
+  {
+    m_categoryData->m_name[kDefaultLang] = value;
+  }
+}
+
+void GpxParser::ParseAltitude(std::string const & value)
+{
+  double rawAltitude;
+  if (strings::to_double(value, rawAltitude))
+    m_altitude = static_cast<geometry::Altitude>(round(rawAltitude));
+  else
+    m_altitude = geometry::kInvalidAltitude;
+}
+
 }  // namespace gpx
 
 DeserializerGpx::DeserializerGpx(FileData & fileData)
