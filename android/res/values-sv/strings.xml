@@ -113,6 +113,8 @@
 	<string name="parking">Parkering</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Shopping</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">Begagnad</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Hotell</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -826,6 +828,7 @@
 	<string name="type.barrier.kissing_gate">Grind</string>
 	<string name="type.barrier.lift_gate">Bom</string>
 	<string name="type.barrier.stile">Stätta</string>
+	<string name="type.barrier.turnstile">Turnstile</string>
 	<string name="type.barrier.swing_gate">Bom</string>
 	<string name="type.barrier.toll_booth">Tullhus</string>
 	<string name="type.boundary.national_park">Nationalpark</string>
@@ -956,6 +959,7 @@
 	<string name="type.entrance">Entré</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Huvudentré</string>
+	<string name="type.entrance.exit">Utgång</string>
 	<string name="type.healthcare.laboratory">Medicinskt laboratorium</string>
 	<string name="type.healthcare.physiotherapist">Fysioterapeut</string>
 	<string name="type.healthcare.alternative">Alternativ medicin</string>
@@ -1730,4 +1734,6 @@
 	<string name="type.wheelchair.no">Ej utrustad för handikappade</string>
 	<string name="type.wheelchair.yes">Utrustad för handikappade</string>
 	<string name="type.amenity.events_venue">Evenemangslokal</string>
+	<string name="type.shop.auction">Auktion</string>
+	<string name="type.shop.collector">Samlingsföremål</string>
 </resources>

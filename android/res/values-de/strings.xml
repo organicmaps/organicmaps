@@ -125,6 +125,8 @@
 	<string name="parking">Parkplatz</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Shopping</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">Second-hand</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Hotel</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -906,6 +908,7 @@
 	<string name="type.barrier.lift_gate">Schranke</string>
 	<string name="type.barrier.retaining_wall">Stützmauer</string>
 	<string name="type.barrier.stile">Zaunübertritt</string>
+	<string name="type.barrier.turnstile">Drehkreuz</string>
 	<string name="type.barrier.swing_gate">Schranke</string>
 	<string name="type.barrier.toll_booth">Mautstelle</string>
 	<string name="type.barrier.wall">Mauer</string>
@@ -1050,6 +1053,7 @@
 	<string name="type.entrance">Eingang</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Haupteingang</string>
+	<string name="type.entrance.exit">Ausfahrt</string>
 	<string name="type.healthcare.laboratory">Medizinisches Labor</string>
 	<string name="type.healthcare.physiotherapist">Physiotherapie</string>
 	<string name="type.healthcare.alternative">Alternative Medizin</string>
@@ -1967,4 +1971,6 @@
 	<string name="type.piste_type.nordic">Langlaufloipe</string>
 	<string name="type.piste_type.sled">Rodelbahn</string>
 	<string name="type.amenity.events_venue">Veranstaltungszentrum</string>
+	<string name="type.shop.auction">Auktion</string>
+	<string name="type.shop.collector">Sammlerstücke</string>
 </resources>

@@ -103,6 +103,8 @@
 	<string name="parking">वाहनतळ</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">खरेदी</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">वापरलेले</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">मुक्कामगृह</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -851,6 +853,7 @@
 	<string name="type.barrier.kissing_gate">दार</string>
 	<string name="type.barrier.lift_gate">लिफ्ट दार</string>
 	<string name="type.barrier.retaining_wall">संधारक भिंत</string>
+	<string name="type.barrier.turnstile">टर्नस्टाइल</string>
 	<string name="type.barrier.swing_gate">झुलते दार</string>
 	<string name="type.barrier.toll_booth">टोल बूथ</string>
 	<string name="type.barrier.wall">भिंत</string>
@@ -942,6 +945,7 @@
 	<string name="type.entrance">प्रवेशद्वार</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">मुख्य प्रवेशद्वार</string>
+	<string name="type.entrance.exit">बाहेर पडा</string>
 	<string name="type.healthcare.laboratory">वैद्यकीय प्रयोगशाळा</string>
 	<string name="type.healthcare.physiotherapist">फिजिओथेरपिस्ट</string>
 	<string name="type.healthcare.alternative">पर्यायी औषध</string>
@@ -1781,4 +1785,6 @@
 	<string name="type.wheelchair.no">चाकखुर्चीसाठी प्रवेश नाही</string>
 	<string name="type.wheelchair.yes">चाकखुर्चीसाठी प्रवेश</string>
 	<string name="type.amenity.events_venue">कार्यक्रमाचे ठिकाण</string>
+	<string name="type.shop.auction">लिलाव</string>
+	<string name="type.shop.collector">संग्रहणीय वस्तू</string>
 </resources>

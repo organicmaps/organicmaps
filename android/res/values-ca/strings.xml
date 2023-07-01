@@ -117,6 +117,8 @@
 	<string name="parking">Aparcament</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Compres</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">Segona mà</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Hotel</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -744,6 +746,7 @@
 	<string name="type.amenity.loading_dock">Moll de càrrega</string>
 
 	<!-- SECTION: Types: Recycling -->
+	<string name="type.barrier.turnstile">Torniquet</string>
 	<string name="type.boundary.protected_area">Àrea Protegida</string>
 	<string name="type.boundary.protected_area.1">Àrea Protegida</string>
 	<string name="type.boundary.protected_area.2">Àrea Protegida</string>
@@ -756,6 +759,7 @@
 	<string name="type.shop.camera">Botiga de càmeres</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Entrada principal</string>
+	<string name="type.entrance.exit">Sortida</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.busway">Carretera dedicada a l\'autobús</string>
@@ -789,4 +793,6 @@
 	<string name="type.shop.appliance">Botiga d\'electrodomèstics</string>
 	<string name="type.shop.bed">Botiga de llits</string>
 	<string name="type.waterway.fish_pass">Pas de peix</string>
+	<string name="type.shop.auction">Subhasta</string>
+	<string name="type.shop.collector">Col·leccionables</string>
 </resources>

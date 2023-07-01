@@ -110,6 +110,9 @@
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "Đi mua sắm";
 
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
+"secondhand" = "Đồ cũ";
+
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "Khách sạn";
 
@@ -1591,6 +1594,8 @@
 
 "type.barrier.stile" = "Trụ chắn";
 
+"type.barrier.turnstile" = "Cửa quay";
+
 "type.barrier.swing_gate" = "Thanh Chắn";
 
 "type.barrier.toll_booth" = "Quầy Soát Vé";
@@ -1899,6 +1904,8 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Lối vào chính";
+
+"type.entrance.exit" = "Lối ra";
 
 "type.healthcare.laboratory" = "Phòng thí nghiệm y tế";
 
@@ -3752,3 +3759,7 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.amenity.events_venue" = "Địa điểm tổ chức sự kiện";
+
+"type.shop.auction" = "Bán đấu giá";
+
+"type.shop.collector" = "Đồ sưu tầm";

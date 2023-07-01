@@ -125,6 +125,8 @@
 	<string name="parking">Parking</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Shopping</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">Z drugiej ręki</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Hotel</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -897,6 +899,7 @@
 	<string name="type.barrier.lift_gate">Szlaban</string>
 	<string name="type.barrier.retaining_wall">Mur oporowy</string>
 	<string name="type.barrier.stile">Przełaz</string>
+	<string name="type.barrier.turnstile">Bramka obrotowa</string>
 	<string name="type.barrier.swing_gate">Szlaban</string>
 	<string name="type.barrier.toll_booth">Kasa</string>
 	<string name="type.barrier.wall">Mur</string>
@@ -1051,6 +1054,7 @@
 	<string name="type.entrance">Wejście</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Główne wejście</string>
+	<string name="type.entrance.exit">Wyjdź</string>
 	<string name="type.healthcare.laboratory">Laboratorium Medyczne</string>
 	<string name="type.healthcare.physiotherapist">Fizjoterapeuta</string>
 	<string name="type.healthcare.alternative">Medycyna alternatywna</string>
@@ -1886,4 +1890,6 @@
 	<string name="type.wheelchair.no">Nie wyposażono dla osób niepełnosprawnych</string>
 	<string name="type.wheelchair.yes">Wyposażono dla osób niepełnosprawnych</string>
 	<string name="type.amenity.events_venue">Miejsce wydarzeń</string>
+	<string name="type.shop.auction">Aukcja</string>
+	<string name="type.shop.collector">Przedmioty kolekcjonerskie</string>
 </resources>

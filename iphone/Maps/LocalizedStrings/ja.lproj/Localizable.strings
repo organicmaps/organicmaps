@@ -110,6 +110,9 @@
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "ショッピング";
 
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
+"secondhand" = "中古品";
+
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "ホテル";
 
@@ -1591,6 +1594,8 @@
 
 "type.barrier.stile" = "回転扉";
 
+"type.barrier.turnstile" = "ターンスタイル";
+
 "type.barrier.swing_gate" = "ブームバリア";
 
 "type.barrier.toll_booth" = "料金所";
@@ -1899,6 +1904,8 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "正面玄関";
+
+"type.entrance.exit" = "終了する";
 
 "type.healthcare.laboratory" = "医療研究所";
 
@@ -3752,3 +3759,7 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.amenity.events_venue" = "イベント会場";
+
+"type.shop.auction" = "オークション";
+
+"type.shop.collector" = "コレクタブル";

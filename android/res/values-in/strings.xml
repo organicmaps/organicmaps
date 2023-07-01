@@ -115,6 +115,8 @@
 	<string name="parking">Parkir</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Berbelanja</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">Tangan kedua</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Hotel</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -825,6 +827,7 @@
 	<string name="type.barrier.kissing_gate">Gerbang</string>
 	<string name="type.barrier.lift_gate">Polisi tidur</string>
 	<string name="type.barrier.stile">Undakan</string>
+	<string name="type.barrier.turnstile">Pintu putar</string>
 	<string name="type.barrier.swing_gate">Polisi tidur</string>
 	<string name="type.barrier.toll_booth">Gerbang tol</string>
 	<string name="type.boundary.national_park">Taman Nasional</string>
@@ -957,6 +960,7 @@
 	<string name="type.entrance">Pintu masuk</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Pintu masuk utama</string>
+	<string name="type.entrance.exit">Keluar</string>
 	<string name="type.healthcare.laboratory">Laboratorium medis</string>
 	<string name="type.healthcare.physiotherapist">Fisioterapis</string>
 	<string name="type.healthcare.alternative">Pengobatan alternatif</string>
@@ -1731,4 +1735,6 @@
 	<string name="type.wheelchair.no">Tidak ada akses kursi roda</string>
 	<string name="type.wheelchair.yes">Akses penuh kursi roda</string>
 	<string name="type.amenity.events_venue">Tempat acara</string>
+	<string name="type.shop.auction">Lelang</string>
+	<string name="type.shop.collector">Barang koleksi</string>
 </resources>

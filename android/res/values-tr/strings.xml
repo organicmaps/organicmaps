@@ -127,6 +127,8 @@
 	<string name="parking">Otopark</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Alışveriş</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">İkinci el</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Otel</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -912,6 +914,7 @@
 	<string name="type.barrier.lift_gate">Asansör Kapısı</string>
 	<string name="type.barrier.retaining_wall">İstinat duvarı</string>
 	<string name="type.barrier.stile">Çit Merdiveni</string>
+	<string name="type.barrier.turnstile">Turnike</string>
 	<string name="type.barrier.swing_gate">Salıncak Kapısı</string>
 	<string name="type.barrier.toll_booth">Gişe</string>
 	<string name="type.barrier.wall">Duvar</string>
@@ -1067,6 +1070,7 @@
 	<string name="type.entrance">Giriş</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Ana giriş</string>
+	<string name="type.entrance.exit">Çıkış</string>
 	<string name="type.healthcare.laboratory">Tıbbi Laboratuvar</string>
 	<string name="type.healthcare.physiotherapist">Fizyoterapist</string>
 	<string name="type.healthcare.alternative">Alternatif tıp</string>
@@ -1991,4 +1995,6 @@
 	<string name="type.piste_type.nordic">İskandinav Kayak Pisti</string>
 	<string name="type.piste_type.sled">Kızak Pisti</string>
 	<string name="type.amenity.events_venue">Etkinlik mekanı</string>
+	<string name="type.shop.auction">Müzayede</string>
+	<string name="type.shop.collector">Koleksiyon eşyaları</string>
 </resources>

@@ -110,6 +110,9 @@
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "خرید کردن";
 
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
+"secondhand" = "دست دوم";
+
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "هتل";
 
@@ -1591,6 +1594,8 @@
 
 "type.barrier.stile" = "پلکان";
 
+"type.barrier.turnstile" = "گردان";
+
 "type.barrier.swing_gate" = "اسانسور";
 
 "type.barrier.toll_booth" = "گیشه عوارضی";
@@ -1899,6 +1904,8 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "ﯽﻠﺻﺍ ﯼﺩﻭﺭﻭ";
+
+"type.entrance.exit" = "خارج شوید";
 
 "type.healthcare.laboratory" = "ﯽﮑﺷﺰﭘ ﻩﺎﮕﺸﯾﺎﻣﺯﺁ";
 
@@ -3752,3 +3759,7 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.amenity.events_venue" = "محل برگزاری رویدادها";
+
+"type.shop.auction" = "حراج";
+
+"type.shop.collector" = "کلکسیونی ها";

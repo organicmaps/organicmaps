@@ -110,6 +110,9 @@
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "Winkelen";
 
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
+"secondhand" = "Tweedehands";
+
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "Hotel";
 
@@ -1591,6 +1594,8 @@
 
 "type.barrier.stile" = "Tourniquet";
 
+"type.barrier.turnstile" = "Tourniquet";
+
 "type.barrier.swing_gate" = "Slagboom";
 
 "type.barrier.toll_booth" = "Tolhokje";
@@ -1899,6 +1904,8 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Hoofdingang";
+
+"type.entrance.exit" = "Ga naar";
 
 "type.healthcare.laboratory" = "Medisch laboratorium";
 
@@ -3752,3 +3759,7 @@
 "type.piste_type.sled" = "Sleebaan";
 
 "type.amenity.events_venue" = "Evenementenlocatie";
+
+"type.shop.auction" = "Veiling";
+
+"type.shop.collector" = "Verzamelobjecten";

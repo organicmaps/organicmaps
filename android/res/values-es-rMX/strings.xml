@@ -209,6 +209,7 @@
 	<string name="type.boundary.administrative.country">Frontera de país</string>
 	<string name="type.boundary.administrative.nation">Frontera de país</string>
 	<string name="type.boundary.national_park">Parque nacional</string>
+	<string name="type.entrance.exit">Salida</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

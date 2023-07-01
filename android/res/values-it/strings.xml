@@ -113,6 +113,8 @@
 	<string name="parking">Parcheggio</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Negozi</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">Di seconda mano</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Albergo</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -884,6 +886,7 @@
 	<string name="type.barrier.kissing_gate">Cancello</string>
 	<string name="type.barrier.lift_gate">Barriera ferroviaria</string>
 	<string name="type.barrier.stile">Scaletta per recinzioni</string>
+	<string name="type.barrier.turnstile">Tornello</string>
 	<string name="type.barrier.swing_gate">Barriera ferroviaria</string>
 	<string name="type.barrier.toll_booth">Casello di pedaggio</string>
 	<string name="type.barrier.wall">Muro</string>
@@ -1036,6 +1039,7 @@
 	<string name="type.entrance">Ingresso</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Entrata principale</string>
+	<string name="type.entrance.exit">Uscita</string>
 	<string name="type.healthcare.laboratory">Laboratorio Medico</string>
 	<string name="type.healthcare.physiotherapist">Fisioterapista</string>
 	<string name="type.healthcare.alternative">Medicina alternativa</string>
@@ -1887,4 +1891,6 @@
 	<string name="type.wheelchair.yes">Accessibile ai disabili</string>
 	<string name="type.piste_type.sled">Pista per slitte</string>
 	<string name="type.amenity.events_venue">Sede degli eventi</string>
+	<string name="type.shop.auction">Asta</string>
+	<string name="type.shop.collector">Oggetti da collezione</string>
 </resources>

@@ -110,6 +110,9 @@
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "购物";
 
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
+"secondhand" = "二手货";
+
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "旅店";
 
@@ -1591,6 +1594,8 @@
 
 "type.barrier.stile" = "台阶";
 
+"type.barrier.turnstile" = "旋转门";
+
 "type.barrier.swing_gate" = "道闸";
 
 "type.barrier.toll_booth" = "收费站";
@@ -1899,6 +1904,8 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "主要入口";
+
+"type.entrance.exit" = "退出";
 
 "type.healthcare.laboratory" = "医学实验室";
 
@@ -3752,3 +3759,7 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.amenity.events_venue" = "活动场所";
+
+"type.shop.auction" = "拍卖会";
+
+"type.shop.collector" = "收藏品";

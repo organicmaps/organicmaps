@@ -112,6 +112,8 @@
 	<string name="parking">پارکینگ</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">خرید کردن</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">دست دوم</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">هتل</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -829,6 +831,7 @@
 	<string name="type.barrier.kissing_gate">ورودی</string>
 	<string name="type.barrier.lift_gate">اسانسور</string>
 	<string name="type.barrier.stile">پلکان</string>
+	<string name="type.barrier.turnstile">گردان</string>
 	<string name="type.barrier.swing_gate">اسانسور</string>
 	<string name="type.barrier.toll_booth">گیشه عوارضی</string>
 	<string name="type.boundary.national_park">پارک ملی</string>
@@ -876,6 +879,7 @@
 	<string name="type.entrance">ورودی</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">ﯽﻠﺻﺍ ﯼﺩﻭﺭﻭ</string>
+	<string name="type.entrance.exit">خارج شوید</string>
 	<string name="type.healthcare.laboratory">ﯽﮑﺷﺰﭘ ﻩﺎﮕﺸﯾﺎﻣﺯﺁ</string>
 	<string name="type.healthcare.physiotherapist">فیزیوتراپیست</string>
 	<string name="type.healthcare.alternative">طب جایگزین</string>
@@ -1654,4 +1658,6 @@
 	<string name="type.wheelchair.no">بدون دسترسی با صندلی چرخ دار</string>
 	<string name="type.wheelchair.yes">دسترسی کامل با صندلی چرخ دار</string>
 	<string name="type.amenity.events_venue">محل برگزاری رویدادها</string>
+	<string name="type.shop.auction">حراج</string>
+	<string name="type.shop.collector">کلکسیونی ها</string>
 </resources>

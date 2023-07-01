@@ -110,6 +110,9 @@
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "खरेदी";
 
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
+"secondhand" = "वापरलेले";
+
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "मुक्कामगृह";
 
@@ -1591,6 +1594,8 @@
 
 "type.barrier.stile" = "Stile";
 
+"type.barrier.turnstile" = "टर्नस्टाइल";
+
 "type.barrier.swing_gate" = "झुलते दार";
 
 "type.barrier.toll_booth" = "टोल बूथ";
@@ -1899,6 +1904,8 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "मुख्य प्रवेशद्वार";
+
+"type.entrance.exit" = "बाहेर पडा";
 
 "type.healthcare.laboratory" = "वैद्यकीय प्रयोगशाळा";
 
@@ -3752,3 +3759,7 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.amenity.events_venue" = "कार्यक्रमाचे ठिकाण";
+
+"type.shop.auction" = "लिलाव";
+
+"type.shop.collector" = "संग्रहणीय वस्तू";

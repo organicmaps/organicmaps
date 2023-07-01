@@ -110,6 +110,9 @@
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "Compras";
 
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
+"secondhand" = "Segunda mano";
+
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "Hotel";
 
@@ -1591,6 +1594,8 @@
 
 "type.barrier.stile" = "Escalón";
 
+"type.barrier.turnstile" = "Torniquete";
+
 "type.barrier.swing_gate" = "Barrera";
 
 "type.barrier.toll_booth" = "Cabina de peaje";
@@ -1899,6 +1904,8 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Entrada principal";
+
+"type.entrance.exit" = "Salir";
 
 "type.healthcare.laboratory" = "Laboratorio médico";
 
@@ -3752,3 +3759,7 @@
 "type.piste_type.sled" = "Pista para trineos";
 
 "type.amenity.events_venue" = "Lugar para eventos";
+
+"type.shop.auction" = "Subasta";
+
+"type.shop.collector" = "Coleccionables";

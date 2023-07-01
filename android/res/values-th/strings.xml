@@ -115,6 +115,8 @@
 	<string name="parking">ที่จอดรถ</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">ช็อปปิง</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">มือสอง</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">โรงแรม</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -829,6 +831,7 @@
 	<string name="type.barrier.kissing_gate">ประตู</string>
 	<string name="type.barrier.lift_gate">ไม้กั้น</string>
 	<string name="type.barrier.stile">บันไดข้าม</string>
+	<string name="type.barrier.turnstile">ประตูหมุน</string>
 	<string name="type.barrier.swing_gate">ไม้กั้น</string>
 	<string name="type.barrier.toll_booth">ด่านเก็บเงิน</string>
 	<string name="type.boundary.national_park">อุทยานแห่งชาติ</string>
@@ -961,6 +964,7 @@
 	<string name="type.entrance">ทางเข้า</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">ทางเข้าหลัก</string>
+	<string name="type.entrance.exit">ทางออก</string>
 	<string name="type.healthcare.laboratory">ห้องปฏิบัติการทางการแพทย์</string>
 	<string name="type.healthcare.physiotherapist">นักกายภาพบำบัด</string>
 	<string name="type.healthcare.alternative">การแพทย์ทางเลือก</string>
@@ -1741,4 +1745,6 @@
 	<string name="type.wheelchair.no">พื้นที่ไม่สามารถใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุ</string>
 	<string name="type.wheelchair.yes">พื้นใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุได้</string>
 	<string name="type.amenity.events_venue">สถานที่จัดงาน</string>
+	<string name="type.shop.auction">ประมูล</string>
+	<string name="type.shop.collector">ของสะสม</string>
 </resources>
