@@ -115,6 +115,8 @@
 	<string name="parking">Parkkipaikka</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Ostokset</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">Käytetty</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Hotelli</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -859,6 +861,7 @@
 	<string name="type.barrier.kissing_gate">Portti</string>
 	<string name="type.barrier.lift_gate">Nostopuomi</string>
 	<string name="type.barrier.stile">Portaat</string>
+	<string name="type.barrier.turnstile">Kääntöportti</string>
 	<string name="type.barrier.swing_gate">Kääntöpuomi</string>
 	<string name="type.barrier.toll_booth">Tietulliasema</string>
 	<string name="type.barrier.wall">Muuri</string>
@@ -1010,6 +1013,7 @@
 	<string name="type.entrance">Sisäänkäynti</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Pääsisäänkäynti</string>
+	<string name="type.entrance.exit">Poistu</string>
 	<string name="type.healthcare.laboratory">Lääketieteellinen laboratorio</string>
 	<string name="type.healthcare.physiotherapist">Fysioterapeutti</string>
 	<string name="type.healthcare.alternative">Vaihtoehtoinen lääketiede</string>
@@ -1813,4 +1817,6 @@
 	<string name="type.piste_type.nordic">Latu</string>
 	<string name="type.piste_type.sled">Kelkkarata</string>
 	<string name="type.amenity.events_venue">Tapahtumapaikka</string>
+	<string name="type.shop.auction">Huutokauppa</string>
+	<string name="type.shop.collector">Keräilyesineet</string>
 </resources>

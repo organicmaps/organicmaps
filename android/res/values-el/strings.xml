@@ -114,6 +114,8 @@
 	<string name="parking">Χώρος στάθμευσης</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Ψώνια</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">Μεταχειρισμένα</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Ξενοδοχείο</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -829,6 +831,7 @@
 	<string name="type.barrier.kissing_gate">Πύλη</string>
 	<string name="type.barrier.lift_gate">Ανυψούμενη μπάρα</string>
 	<string name="type.barrier.stile">Τουρνικέ</string>
+	<string name="type.barrier.turnstile">Πεζοδρόμιο</string>
 	<string name="type.barrier.swing_gate">Ανυψούμενη μπάρα</string>
 	<string name="type.barrier.toll_booth">Σταθμός διοδίων</string>
 	<string name="type.boundary.national_park">Εθνικό πάρκο</string>
@@ -961,6 +964,7 @@
 	<string name="type.entrance">Είσοδος</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Κύρια είσοδος</string>
+	<string name="type.entrance.exit">Έξοδος</string>
 	<string name="type.healthcare.laboratory">Ιατρικό Εργαστήριο</string>
 	<string name="type.healthcare.physiotherapist">Φυσικοθεραπευτής</string>
 	<string name="type.healthcare.alternative">Εναλλακτική ιατρική</string>
@@ -1745,4 +1749,6 @@
 	<string name="type.wheelchair.no">Δεν υπάρχει πρόβλεψη για άτομα με ειδικές ανάγκες</string>
 	<string name="type.wheelchair.yes">Εξοπλισμένο για άτομα με ειδικές ανάγκες</string>
 	<string name="type.amenity.events_venue">Κέντρο εκδηλώσεων</string>
+	<string name="type.shop.auction">Δημοπρασία</string>
+	<string name="type.shop.collector">Συλλεκτικά αντικείμενα</string>
 </resources>

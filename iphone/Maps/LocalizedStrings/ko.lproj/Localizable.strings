@@ -110,6 +110,9 @@
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "쇼핑";
 
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
+"secondhand" = "중고";
+
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "호텔";
 
@@ -1591,6 +1594,8 @@
 
 "type.barrier.stile" = "디딤대";
 
+"type.barrier.turnstile" = "개찰구";
+
 "type.barrier.swing_gate" = "차량차단기";
 
 "type.barrier.toll_booth" = "톨게이트";
@@ -1899,6 +1904,8 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "정문";
+
+"type.entrance.exit" = "종료";
 
 "type.healthcare.laboratory" = "의료 연구실";
 
@@ -3752,3 +3759,7 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.amenity.events_venue" = "행사장";
+
+"type.shop.auction" = "경매";
+
+"type.shop.collector" = "수집품";

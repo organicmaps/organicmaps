@@ -113,6 +113,8 @@
 	<string name="parking">Parkovisko</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Nakupovanie</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">Second-hand</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Hotel</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -824,6 +826,7 @@
 	<string name="type.barrier.kissing_gate">Brána</string>
 	<string name="type.barrier.lift_gate">Závora</string>
 	<string name="type.barrier.stile">Turniket</string>
+	<string name="type.barrier.turnstile">Turniket</string>
 	<string name="type.barrier.swing_gate">Závora</string>
 	<string name="type.barrier.toll_booth">Mýtne</string>
 	<string name="type.boundary.national_park">Národný park</string>
@@ -956,6 +959,7 @@
 	<string name="type.entrance">Vstup</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Hlavný vchod</string>
+	<string name="type.entrance.exit">Exit</string>
 	<string name="type.healthcare.laboratory">Lekárske laboratórium</string>
 	<string name="type.healthcare.physiotherapist">Fyzioterapeut</string>
 	<string name="type.healthcare.alternative">Alternatívna medicína</string>
@@ -1727,4 +1731,6 @@
 	<string name="type.wheelchair.no">Žiaden bezbariérový prístup</string>
 	<string name="type.wheelchair.yes">Úplný bezbariérový prístup</string>
 	<string name="type.amenity.events_venue">Miesto konania podujatí</string>
+	<string name="type.shop.auction">Aukcia</string>
+	<string name="type.shop.collector">Zberateľské predmety</string>
 </resources>

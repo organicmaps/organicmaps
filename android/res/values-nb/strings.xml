@@ -127,6 +127,8 @@
 	<string name="parking">Parkering</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Shopping</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">Brukt</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Hotell</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -877,6 +879,7 @@
 	<string name="type.barrier.kissing_gate">Port</string>
 	<string name="type.barrier.lift_gate">Bom</string>
 	<string name="type.barrier.stile">Gjerdeklyver</string>
+	<string name="type.barrier.turnstile">Turnstile</string>
 	<string name="type.barrier.swing_gate">Bom</string>
 	<string name="type.barrier.toll_booth">Bomstasjon</string>
 	<string name="type.boundary.national_park">Nasjonalpark</string>
@@ -1009,6 +1012,7 @@
 	<string name="type.entrance">Inngang</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Hovedinngang</string>
+	<string name="type.entrance.exit">Utgang</string>
 	<string name="type.healthcare.laboratory">Medisinsk laboratorium</string>
 	<string name="type.healthcare.physiotherapist">Fysioterapeut</string>
 	<string name="type.healthcare.alternative">Alternativ medisin</string>
@@ -1797,4 +1801,6 @@
 	<string name="type.wheelchair.no">Ingen tilgang for rullestol</string>
 	<string name="type.wheelchair.yes">Full tilgang for rullestol</string>
 	<string name="type.amenity.events_venue">Arrangementssted</string>
+	<string name="type.shop.auction">Auksjon</string>
+	<string name="type.shop.collector">Samleobjekter</string>
 </resources>

@@ -116,6 +116,8 @@
 	<string name="parking">Паркинг</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Шопинг</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">Втора употреба</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Хотел</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -693,6 +695,7 @@
 	<string name="type.recycling.batteries">Батерии</string>
 	<string name="type.barrier.city_wall">Градска стена</string>
 	<string name="type.barrier.ditch">Ров</string>
+	<string name="type.barrier.turnstile">Турникет</string>
 	<string name="type.boundary.protected_area">Защитена местност</string>
 	<string name="type.boundary.protected_area.1">Защитена местност</string>
 	<string name="type.boundary.protected_area.2">Защитена местност</string>
@@ -727,6 +730,7 @@
 	<string name="type.cuisine.deli">Деликатеси</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Главния вход</string>
+	<string name="type.entrance.exit">Изход</string>
 	<string name="type.healthcare.laboratory">Медицинска лаборатория</string>
 	<string name="type.healthcare.physiotherapist">Физиотерапевт</string>
 	<string name="type.healthcare.alternative">Алтернативна медицина</string>
@@ -1033,4 +1037,6 @@
 	<string name="type.tourism.information.office">Туристически офис</string>
 	<string name="type.waterway.fish_pass">Стълба за риба</string>
 	<string name="type.amenity.events_venue">Място за провеждане на събития</string>
+	<string name="type.shop.auction">Търг</string>
+	<string name="type.shop.collector">Колекционерски стоки</string>
 </resources>

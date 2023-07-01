@@ -113,6 +113,8 @@
 	<string name="parking">주차</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">쇼핑</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">중고</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">호텔</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -828,6 +830,7 @@
 	<string name="type.barrier.kissing_gate">게이트</string>
 	<string name="type.barrier.lift_gate">차량차단기</string>
 	<string name="type.barrier.stile">디딤대</string>
+	<string name="type.barrier.turnstile">개찰구</string>
 	<string name="type.barrier.swing_gate">차량차단기</string>
 	<string name="type.barrier.toll_booth">톨게이트</string>
 	<string name="type.boundary.national_park">국립 공원</string>
@@ -960,6 +963,7 @@
 	<string name="type.entrance">입구</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">정문</string>
+	<string name="type.entrance.exit">종료</string>
 	<string name="type.healthcare.laboratory">의료 연구실</string>
 	<string name="type.healthcare.physiotherapist">물리치료사</string>
 	<string name="type.healthcare.alternative">대체 약품</string>
@@ -1743,4 +1747,6 @@
 	<string name="type.wheelchair.no">휠체어 접근 금지</string>
 	<string name="type.wheelchair.yes">휠체어 접근 가능</string>
 	<string name="type.amenity.events_venue">행사장</string>
+	<string name="type.shop.auction">경매</string>
+	<string name="type.shop.collector">수집품</string>
 </resources>

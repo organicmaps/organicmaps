@@ -113,6 +113,8 @@
 	<string name="parking">停車場</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">購物</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">二手</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">旅館</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -859,6 +861,7 @@
 	<string name="type.barrier.kissing_gate">大門</string>
 	<string name="type.barrier.lift_gate">遮斷機</string>
 	<string name="type.barrier.stile">梯磴</string>
+	<string name="type.barrier.turnstile">旋轉門</string>
 	<string name="type.barrier.swing_gate">遮斷機</string>
 	<string name="type.barrier.toll_booth">收費站</string>
 	<string name="type.boundary.national_park">國家公園</string>
@@ -991,6 +994,7 @@
 	<string name="type.entrance">入口</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">主要入口</string>
+	<string name="type.entrance.exit">出口</string>
 	<string name="type.healthcare.laboratory">醫學實驗室</string>
 	<string name="type.healthcare.physiotherapist">物理治療師</string>
 	<string name="type.healthcare.alternative">替代藥物</string>
@@ -1797,4 +1801,6 @@
 	<string name="type.wheelchair.no">未配備殘疾人專用</string>
 	<string name="type.wheelchair.yes">配備殘疾人專用</string>
 	<string name="type.amenity.events_venue">活動場所</string>
+	<string name="type.shop.auction">拍賣</string>
+	<string name="type.shop.collector">收藏品</string>
 </resources>

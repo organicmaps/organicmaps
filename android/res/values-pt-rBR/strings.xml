@@ -123,6 +123,8 @@
 	<string name="parking">Estacionamento</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Compras</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">De segunda mão</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Hotel</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -875,6 +877,7 @@
 	<string name="type.barrier.lift_gate">Cancela</string>
 	<string name="type.barrier.retaining_wall">Muro de retenção</string>
 	<string name="type.barrier.stile">Travessia de escada cerca ou muro</string>
+	<string name="type.barrier.turnstile">Catraca</string>
 	<string name="type.barrier.swing_gate">Cancela</string>
 	<string name="type.barrier.toll_booth">Cabine de pedágio</string>
 	<string name="type.barrier.wall">Muro</string>
@@ -1015,6 +1018,7 @@
 	<string name="type.entrance">Entrada</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Entrada principal</string>
+	<string name="type.entrance.exit">Sair</string>
 	<string name="type.healthcare.laboratory">Laboratório médico</string>
 	<string name="type.healthcare.physiotherapist">Fisioterapeuta</string>
 	<string name="type.healthcare.alternative">Medicina alternativa</string>
@@ -1818,4 +1822,5 @@
 	<string name="type.piste_type.nordic">Pista tipo nórdico</string>
 	<string name="type.piste_type.sled">Pista para trenós</string>
 	<string name="type.amenity.events_venue">Local do evento</string>
+	<string name="type.shop.collector">Colecionáveis</string>
 </resources>

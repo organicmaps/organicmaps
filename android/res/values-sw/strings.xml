@@ -24,6 +24,8 @@
 	<string name="food">Migahawani</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Manunuzi</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">Mtumba</string>
 	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
 	<string name="nightlife">Shughuli za usiku</string>
 	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
@@ -281,6 +283,7 @@
 	<string name="type.amenity.vending_machine.public_transport_tickets">Mashine ya kuuzia tiketi za usafiri wa umma</string>
 	<string name="type.barrier.city_wall">Ukuta wa jiji</string>
 	<string name="type.barrier.ditch">Moti</string>
+	<string name="type.barrier.turnstile">Turnstile</string>
 	<string name="type.boundary.national_park">Hifadhi ya taifa</string>
 	<string name="type.boundary.protected_area">Eneo Lindwa</string>
 	<string name="type.boundary.protected_area.1">Eneo Lindwa</string>
@@ -316,6 +319,7 @@
 	<string name="type.cuisine.coffee_shop">Kahawa</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Mlango Mkuu</string>
+	<string name="type.entrance.exit">Utgång</string>
 	<string name="type.healthcare.laboratory">Maabara ya Matibabu</string>
 	<string name="type.healthcare.physiotherapist">Mtaalamu wa Physiotherapist</string>
 	<string name="type.healthcare.alternative">Dawa mbadala</string>
@@ -765,4 +769,6 @@
 	<string name="type.wheelchair.no">Viti vya magurudumu haviruhusiwi</string>
 	<string name="type.wheelchair.yes">Viti vya magurudumu vinaruhusiwa kabisa</string>
 	<string name="type.amenity.events_venue">Ukumbi wa Matukio</string>
+	<string name="type.shop.auction">Mnada</string>
+	<string name="type.shop.collector">Mikusanyiko</string>
 </resources>

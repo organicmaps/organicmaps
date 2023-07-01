@@ -126,6 +126,8 @@
 	<string name="parking">Паркоўка</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Шопінг</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">Сэканд-хэнд</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Гатэль</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -803,6 +805,7 @@
 	<string name="type.barrier.city_wall">Гарадскі вал</string>
 	<string name="type.barrier.ditch">Роў</string>
 	<string name="type.barrier.lift_gate">Шлагбаўм</string>
+	<string name="type.barrier.turnstile">Турнікет</string>
 	<string name="type.barrier.swing_gate">Шлагбаўм</string>
 	<string name="type.boundary.protected_area">Запаведная зона</string>
 	<string name="type.boundary.protected_area.1">Запаведная зона</string>
@@ -841,6 +844,7 @@
 	<string name="type.emergency.fire_hydrant">Пажарны гідрант</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Галоўны ўваход</string>
+	<string name="type.entrance.exit">Выхад</string>
 	<string name="type.healthcare.laboratory">Медыцынская лабараторыя</string>
 	<string name="type.healthcare.physiotherapist">Фізіятэрапеўт</string>
 	<string name="type.healthcare.alternative">Альтэрнатыўная медыцына</string>
@@ -1193,4 +1197,6 @@
 	<string name="type.waterway.stream.intermittent">Рака</string>
 	<string name="type.waterway.stream.tunnel">Рака</string>
 	<string name="type.amenity.events_venue">Месца правядзення мерапрыемстваў</string>
+	<string name="type.shop.auction">Аўкцыён</string>
+	<string name="type.shop.collector">Калекцыйныя прадметы</string>
 </resources>

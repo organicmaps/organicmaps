@@ -117,6 +117,8 @@
 	<string name="parking">Parkla</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Poed</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">Kasutatud</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Hotell</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -900,6 +902,7 @@
 	<string name="type.barrier.lift_gate">Tõstevärav</string>
 	<string name="type.barrier.retaining_wall">Tugisein</string>
 	<string name="type.barrier.stile">Trepp</string>
+	<string name="type.barrier.turnstile">Turnstile</string>
 	<string name="type.barrier.swing_gate">Tiibvärav</string>
 	<string name="type.barrier.toll_booth">Tolliputka</string>
 	<string name="type.barrier.wall">Müür</string>
@@ -1056,6 +1059,7 @@
 	<string name="type.entrance">Sissepääs</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Peasissekäik</string>
+	<string name="type.entrance.exit">Väljumine</string>
 	<string name="type.healthcare.laboratory">Meditsiinilabor</string>
 	<string name="type.healthcare.physiotherapist">Füsioterapeut</string>
 	<string name="type.healthcare.alternative">Alternatiivne meditsiin</string>
@@ -1986,4 +1990,6 @@
 	<string name="type.piste_type.nordic">Murdmaa suusarada</string>
 	<string name="type.piste_type.sled">Kelgurada</string>
 	<string name="type.amenity.events_venue">Ürituste toimumiskoht</string>
+	<string name="type.shop.auction">Oksjon</string>
+	<string name="type.shop.collector">Kollektsioneeritavad esemed</string>
 </resources>

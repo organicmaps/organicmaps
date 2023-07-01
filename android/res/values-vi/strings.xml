@@ -113,6 +113,8 @@
 	<string name="parking">đỗ xe</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Đi mua sắm</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">Đồ cũ</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Khách sạn</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -826,6 +828,7 @@
 	<string name="type.barrier.kissing_gate">Cổng</string>
 	<string name="type.barrier.lift_gate">Thanh Chắn</string>
 	<string name="type.barrier.stile">Trụ chắn</string>
+	<string name="type.barrier.turnstile">Cửa quay</string>
 	<string name="type.barrier.swing_gate">Thanh Chắn</string>
 	<string name="type.barrier.toll_booth">Quầy Soát Vé</string>
 	<string name="type.boundary.national_park">Công viên quốc gia</string>
@@ -958,6 +961,7 @@
 	<string name="type.entrance">Lối vào</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Lối vào chính</string>
+	<string name="type.entrance.exit">Lối ra</string>
 	<string name="type.healthcare.laboratory">Phòng thí nghiệm y tế</string>
 	<string name="type.healthcare.physiotherapist">Nhà vật lý trị liệu</string>
 	<string name="type.healthcare.alternative">Liều thuốc thay thế</string>
@@ -1738,4 +1742,6 @@
 	<string name="type.wheelchair.no">Không trang bị cho người khuyết tật</string>
 	<string name="type.wheelchair.yes">Được trang bị cho người khuyết tật</string>
 	<string name="type.amenity.events_venue">Địa điểm tổ chức sự kiện</string>
+	<string name="type.shop.auction">Bán đấu giá</string>
+	<string name="type.shop.collector">Đồ sưu tầm</string>
 </resources>

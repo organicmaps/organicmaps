@@ -110,6 +110,9 @@
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "ช็อปปิง";
 
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
+"secondhand" = "มือสอง";
+
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "โรงแรม";
 
@@ -1591,6 +1594,8 @@
 
 "type.barrier.stile" = "บันไดข้าม";
 
+"type.barrier.turnstile" = "ประตูหมุน";
+
 "type.barrier.swing_gate" = "ไม้กั้น";
 
 "type.barrier.toll_booth" = "ด่านเก็บเงิน";
@@ -1899,6 +1904,8 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "ทางเข้าหลัก";
+
+"type.entrance.exit" = "ทางออก";
 
 "type.healthcare.laboratory" = "ห้องปฏิบัติการทางการแพทย์";
 
@@ -3752,3 +3759,7 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.amenity.events_venue" = "สถานที่จัดงาน";
+
+"type.shop.auction" = "ประมูล";
+
+"type.shop.collector" = "ของสะสม";

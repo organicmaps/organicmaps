@@ -113,6 +113,8 @@
 	<string name="parking">駐車場</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">ショッピング</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">中古品</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">ホテル</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -846,6 +848,7 @@
 	<string name="type.barrier.lift_gate">ブームバリア</string>
 	<string name="type.barrier.retaining_wall">擁壁</string>
 	<string name="type.barrier.stile">回転扉</string>
+	<string name="type.barrier.turnstile">ターンスタイル</string>
 	<string name="type.barrier.swing_gate">ブームバリア</string>
 	<string name="type.barrier.toll_booth">料金所</string>
 	<string name="type.barrier.wall">壁</string>
@@ -990,6 +993,7 @@
 	<string name="type.entrance">エントランス</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">正面玄関</string>
+	<string name="type.entrance.exit">終了する</string>
 	<string name="type.healthcare.laboratory">医療研究所</string>
 	<string name="type.healthcare.physiotherapist">理学療法士</string>
 	<string name="type.healthcare.alternative">代替医療</string>
@@ -1888,4 +1892,6 @@
 	<string name="type.wheelchair.no">車椅子でのアクセスなし</string>
 	<string name="type.wheelchair.yes">車椅子でのアクセスあり</string>
 	<string name="type.amenity.events_venue">イベント会場</string>
+	<string name="type.shop.auction">オークション</string>
+	<string name="type.shop.collector">コレクタブル</string>
 </resources>

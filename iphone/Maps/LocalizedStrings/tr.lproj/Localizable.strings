@@ -110,6 +110,9 @@
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "Alışveriş";
 
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
+"secondhand" = "İkinci el";
+
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "Otel";
 
@@ -1591,6 +1594,8 @@
 
 "type.barrier.stile" = "Çit Merdiveni";
 
+"type.barrier.turnstile" = "Turnike";
+
 "type.barrier.swing_gate" = "Salıncak Kapısı";
 
 "type.barrier.toll_booth" = "Gişe";
@@ -1899,6 +1904,8 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Ana giriş";
+
+"type.entrance.exit" = "Çıkış";
 
 "type.healthcare.laboratory" = "Tıbbi Laboratuvar";
 
@@ -3752,3 +3759,7 @@
 "type.piste_type.sled" = "Kızak Pisti";
 
 "type.amenity.events_venue" = "Etkinlik mekanı";
+
+"type.shop.auction" = "Müzayede";
+
+"type.shop.collector" = "Koleksiyon eşyaları";

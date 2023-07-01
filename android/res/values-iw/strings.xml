@@ -101,6 +101,8 @@
 	<string name="fuel">גז</string>
 	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
 	<string name="parking">חניה</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">יד שניה</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">מלון</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -287,6 +289,7 @@
 	<string name="type.recycling.batteries">תוללוס</string>
 	<string name="type.barrier.city_wall">חומת העיר</string>
 	<string name="type.barrier.ditch">ןגֵמָ תלַעָתְ</string>
+	<string name="type.barrier.turnstile">קרוסלת</string>
 	<string name="type.boundary.protected_area">אזור מוגן</string>
 	<string name="type.boundary.protected_area.1">אזור מוגן</string>
 	<string name="type.boundary.protected_area.2">אזור מוגן</string>
@@ -405,6 +408,7 @@
 	<string name="type.cuisine.vietnamese">מטבח וייטנאמי</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">תישארה הסינכ</string>
+	<string name="type.entrance.exit">יְצִיאָה</string>
 	<string name="type.healthcare.laboratory">תיאופר הדבעמ</string>
 	<string name="type.healthcare.physiotherapist">פיזיותרפיסט</string>
 	<string name="type.healthcare.alternative">רפואה אלטרנטיבית</string>
@@ -716,4 +720,6 @@
 	<string name="type.tourism.information.office">משרד תיירות</string>
 	<string name="type.waterway.fish_pass">סולם דגים</string>
 	<string name="type.amenity.events_venue">מקום אירועים</string>
+	<string name="type.shop.auction">מכירה פומבית</string>
+	<string name="type.shop.collector">פריטי אספנות</string>
 </resources>

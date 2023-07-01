@@ -128,6 +128,8 @@
 	<string name="parking">مرافق ركن السيارات</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">تسوق</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">اليد الثانية</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">فندق</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -893,6 +895,7 @@
 	<string name="type.barrier.kissing_gate">بوابة</string>
 	<string name="type.barrier.lift_gate">حاجز بوابة</string>
 	<string name="type.barrier.stile">ممر عبور</string>
+	<string name="type.barrier.turnstile">الباب الدوار</string>
 	<string name="type.barrier.swing_gate">حاجز بوابة</string>
 	<string name="type.barrier.toll_booth">كشك رسوم عبور</string>
 	<string name="type.barrier.wall">جدار</string>
@@ -1046,6 +1049,7 @@
 	<string name="type.entrance">مدخل</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">ﻲﺴﻴﺋﺮﻟﺍ ﻞﺧﺪﻤﻟﺍ</string>
+	<string name="type.entrance.exit">مخرج</string>
 	<string name="type.healthcare.laboratory">مختبر طبي</string>
 	<string name="type.healthcare.physiotherapist">اخصائي علاج طبيعي</string>
 	<string name="type.healthcare.alternative">الطب البديل</string>
@@ -1856,4 +1860,6 @@
 	<string name="type.wheelchair.no">لا يدعم لكراسي المعاقين</string>
 	<string name="type.wheelchair.yes">دعم كامل لكراسي المعاقين</string>
 	<string name="type.amenity.events_venue">مكان الأحداث</string>
+	<string name="type.shop.auction">مزاد علني</string>
+	<string name="type.shop.collector">المقتنيات</string>
 </resources>

@@ -110,6 +110,9 @@
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "Berbelanja";
 
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
+"secondhand" = "Tangan kedua";
+
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "Hotel";
 
@@ -1591,6 +1594,8 @@
 
 "type.barrier.stile" = "Undakan";
 
+"type.barrier.turnstile" = "Pintu putar";
+
 "type.barrier.swing_gate" = "Polisi tidur";
 
 "type.barrier.toll_booth" = "Gerbang tol";
@@ -1899,6 +1904,8 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Pintu masuk utama";
+
+"type.entrance.exit" = "Keluar";
 
 "type.healthcare.laboratory" = "Laboratorium medis";
 
@@ -3752,3 +3759,7 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.amenity.events_venue" = "Tempat acara";
+
+"type.shop.auction" = "Lelang";
+
+"type.shop.collector" = "Barang koleksi";

@@ -113,6 +113,8 @@
 	<string name="parking">Parcare</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Shopping</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">La mâna a doua</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Hotel</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -844,6 +846,7 @@
 	<string name="type.barrier.kissing_gate">Poartă</string>
 	<string name="type.barrier.lift_gate">Barieră cu braț</string>
 	<string name="type.barrier.stile">Barieră</string>
+	<string name="type.barrier.turnstile">Turnichet</string>
 	<string name="type.barrier.swing_gate">Barieră cu braț</string>
 	<string name="type.barrier.toll_booth">Cabină de taxare</string>
 	<string name="type.boundary.national_park">Parcul național</string>
@@ -975,6 +978,7 @@
 	<string name="type.entrance">Intrare</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Intrarea principala</string>
+	<string name="type.entrance.exit">Ieșire</string>
 	<string name="type.healthcare.laboratory">Laborator medical</string>
 	<string name="type.healthcare.physiotherapist">Fizioterapeut</string>
 	<string name="type.healthcare.alternative">Medicină alternativă</string>
@@ -1748,4 +1752,6 @@
 	<string name="type.wheelchair.no">Nu este utilat pentru invalizi</string>
 	<string name="type.wheelchair.yes">Utilat pentru invalizi</string>
 	<string name="type.amenity.events_venue">Locul de desfășurare a evenimentelor</string>
+	<string name="type.shop.auction">Licitație</string>
+	<string name="type.shop.collector">Colecții</string>
 </resources>

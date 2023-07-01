@@ -110,6 +110,9 @@
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "Poed";
 
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
+"secondhand" = "Kasutatud";
+
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "Hotell";
 
@@ -1591,6 +1594,8 @@
 
 "type.barrier.stile" = "Trepp";
 
+"type.barrier.turnstile" = "Turnstile";
+
 "type.barrier.swing_gate" = "Tiibvärav";
 
 "type.barrier.toll_booth" = "Tolliputka";
@@ -1899,6 +1904,8 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Peasissekäik";
+
+"type.entrance.exit" = "Väljumine";
 
 "type.healthcare.laboratory" = "Meditsiinilabor";
 
@@ -3752,3 +3759,7 @@
 "type.piste_type.sled" = "Kelgurada";
 
 "type.amenity.events_venue" = "Ürituste toimumiskoht";
+
+"type.shop.auction" = "Oksjon";
+
+"type.shop.collector" = "Kollektsioneeritavad esemed";

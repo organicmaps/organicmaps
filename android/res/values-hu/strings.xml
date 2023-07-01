@@ -125,6 +125,8 @@
 	<string name="parking">Parkoló</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Bevásárlás</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">Second-hand</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Szálloda</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -848,6 +850,7 @@
 	<string name="type.barrier.kissing_gate">Kapu</string>
 	<string name="type.barrier.lift_gate">Sorompó</string>
 	<string name="type.barrier.stile">Átjáró</string>
+	<string name="type.barrier.turnstile">Fordítókapu</string>
 	<string name="type.barrier.swing_gate">Sorompó</string>
 	<string name="type.barrier.toll_booth">Díjfizető kapu</string>
 	<string name="type.boundary.national_park">Nemzeti park</string>
@@ -980,6 +983,7 @@
 	<string name="type.entrance">Bejárat</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Főbejárat</string>
+	<string name="type.entrance.exit">Kilépés</string>
 	<string name="type.healthcare.laboratory">Orvosi laboratórium</string>
 	<string name="type.healthcare.physiotherapist">Fizioterapeuta</string>
 	<string name="type.healthcare.alternative">Alternatív gyógyászat</string>
@@ -1759,4 +1763,6 @@
 	<string name="type.wheelchair.no">Nem akadálymentesített</string>
 	<string name="type.wheelchair.yes">Teljesen akadálymentesített</string>
 	<string name="type.amenity.events_venue">Rendezvények helyszíne</string>
+	<string name="type.shop.auction">Aukció</string>
+	<string name="type.shop.collector">Gyűjthető tárgyak</string>
 </resources>

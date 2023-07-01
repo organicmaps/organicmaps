@@ -110,6 +110,9 @@
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "Bevásárlás";
 
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
+"secondhand" = "Second-hand";
+
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "Szálloda";
 
@@ -1591,6 +1594,8 @@
 
 "type.barrier.stile" = "Átjáró";
 
+"type.barrier.turnstile" = "Fordítókapu";
+
 "type.barrier.swing_gate" = "Sorompó";
 
 "type.barrier.toll_booth" = "Díjfizető kapu";
@@ -1899,6 +1904,8 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Főbejárat";
+
+"type.entrance.exit" = "Kilépés";
 
 "type.healthcare.laboratory" = "Orvosi laboratórium";
 
@@ -3752,3 +3759,7 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.amenity.events_venue" = "Rendezvények helyszíne";
+
+"type.shop.auction" = "Aukció";
+
+"type.shop.collector" = "Gyűjthető tárgyak";

@@ -125,6 +125,8 @@
 	<string name="parking">Aparkalekua</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Erosketak</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">Bigarren eskuko</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Hotela</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -908,6 +910,7 @@
 	<string name="type.barrier.lift_gate">Hesia</string>
 	<string name="type.barrier.retaining_wall">Euste-horma</string>
 	<string name="type.barrier.stile">Urratsa</string>
+	<string name="type.barrier.turnstile">Tornuska</string>
 	<string name="type.barrier.swing_gate">Hesia</string>
 	<string name="type.barrier.toll_booth">Bidesaria</string>
 	<string name="type.barrier.wall">Horma</string>
@@ -1063,6 +1066,7 @@
 	<string name="type.entrance">Sarrera</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Sarrera Nagusia</string>
+	<string name="type.entrance.exit">Irten</string>
 	<string name="type.healthcare.laboratory">Medikuntza laborategia</string>
 	<string name="type.healthcare.physiotherapist">Fisioterapeuta</string>
 	<string name="type.healthcare.alternative">Medikuntza alternatiboa</string>
@@ -1849,4 +1853,6 @@
 	<string name="type.wheelchair.no">Ezinduentzako ekipatuta ez dago</string>
 	<string name="type.wheelchair.yes">Ezinduentzako hornitua</string>
 	<string name="type.amenity.events_venue">Ekitaldien Lekua</string>
+	<string name="type.shop.auction">Enkantea</string>
+	<string name="type.shop.collector">Bildumagarriak</string>
 </resources>

@@ -126,6 +126,8 @@
 	<string name="parking">Парковка</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Шопінг</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<string name="secondhand">Секонд-хенд</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Готель</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -899,6 +901,7 @@
 	<string name="type.barrier.kissing_gate">Ворота</string>
 	<string name="type.barrier.lift_gate">Шлагбаум</string>
 	<string name="type.barrier.stile">Перелаз</string>
+	<string name="type.barrier.turnstile">Турнікет.</string>
 	<string name="type.barrier.swing_gate">Шлагбаум</string>
 	<string name="type.barrier.toll_booth">Пункт оплати</string>
 	<string name="type.barrier.wall">Стіна</string>
@@ -1052,6 +1055,7 @@
 	<string name="type.entrance">Вхід</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Головний вхід</string>
+	<string name="type.entrance.exit">Виходьте.</string>
 	<string name="type.healthcare.laboratory">Медична лабораторія</string>
 	<string name="type.healthcare.physiotherapist">Фізіотерапевт</string>
 	<string name="type.healthcare.alternative">Альтернативна медицина</string>
@@ -1978,4 +1982,6 @@
 	<string name="type.piste_type.nordic">Лижня</string>
 	<string name="type.piste_type.sled">Траса для санок</string>
 	<string name="type.amenity.events_venue">Місце проведення подій</string>
+	<string name="type.shop.auction">Аукціон</string>
+	<string name="type.shop.collector">Колекційні речі</string>
 </resources>

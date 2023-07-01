@@ -110,6 +110,9 @@
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "Shopping";
 
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
+"secondhand" = "La mâna a doua";
+
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "Hotel";
 
@@ -1591,6 +1594,8 @@
 
 "type.barrier.stile" = "Barieră";
 
+"type.barrier.turnstile" = "Turnichet";
+
 "type.barrier.swing_gate" = "Barieră cu braț";
 
 "type.barrier.toll_booth" = "Cabină de taxare";
@@ -1899,6 +1904,8 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Intrarea principala";
+
+"type.entrance.exit" = "Ieșire";
 
 "type.healthcare.laboratory" = "Laborator medical";
 
@@ -3752,3 +3759,7 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.amenity.events_venue" = "Locul de desfășurare a evenimentelor";
+
+"type.shop.auction" = "Licitație";
+
+"type.shop.collector" = "Colecții";

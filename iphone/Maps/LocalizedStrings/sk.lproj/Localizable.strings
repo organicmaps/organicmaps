@@ -110,6 +110,9 @@
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "Nakupovanie";
 
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
+"secondhand" = "Second-hand";
+
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "Hotel";
 
@@ -1591,6 +1594,8 @@
 
 "type.barrier.stile" = "Turniket";
 
+"type.barrier.turnstile" = "Turniket";
+
 "type.barrier.swing_gate" = "Závora";
 
 "type.barrier.toll_booth" = "Mýtne";
@@ -1899,6 +1904,8 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Hlavný vchod";
+
+"type.entrance.exit" = "Exit";
 
 "type.healthcare.laboratory" = "Lekárske laboratórium";
 
@@ -3752,3 +3759,7 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.amenity.events_venue" = "Miesto konania podujatí";
+
+"type.shop.auction" = "Aukcia";
+
+"type.shop.collector" = "Zberateľské predmety";
