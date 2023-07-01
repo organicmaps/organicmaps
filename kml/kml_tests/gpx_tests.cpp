@@ -79,7 +79,38 @@ UNIT_TEST(Gpx_Test_Route)
   kml::FileData const dataFromText = loadGpxFromString(input);
   auto line = dataFromText.m_tracksData[0].m_geometry.m_lines[0];
   TEST_EQUAL(line.size(), 3, ());
-  TEST_EQUAL(line[0], mercator::FromLatLon(54.23955053156179, 24.114990234375004), ());
+  TEST_EQUAL(line[0], geometry::PointWithAltitude(mercator::FromLatLon(54.23955053156179, 24.114990234375004), 131), ());
+}
+
+
+UNIT_TEST(Gpx_Altitude_Issues)
+{
+  std::string const input = R"(<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.0">
+<trk>
+    <name>new</name>
+    <type>Cycling</type>
+    <trkseg>
+      <trkpt lat="1" lon="1"></trkpt>
+      <trkpt lat="2" lon="2"><ele>1.0</ele></trkpt>
+      <trkpt lat="3" lon="3"></trkpt>
+      <trkpt lat="4" lon="4"><ele>2.0</ele></trkpt>
+      <trkpt lat="5" lon="5"><ele>Wrong</ele></trkpt>
+      <trkpt lat="6" lon="6"><ele>3</ele></trkpt>
+    </trkseg>
+</trk>
+</gpx>
+)";
+
+  kml::FileData const dataFromText = loadGpxFromString(input);
+  auto line = dataFromText.m_tracksData[0].m_geometry.m_lines[0];
+  TEST_EQUAL(line.size(), 6, ());
+  TEST_EQUAL(line[0], geometry::PointWithAltitude(mercator::FromLatLon(1, 1), geometry::kInvalidAltitude), ());
+  TEST_EQUAL(line[1], geometry::PointWithAltitude(mercator::FromLatLon(2, 2), 1), ());
+  TEST_EQUAL(line[2], geometry::PointWithAltitude(mercator::FromLatLon(3, 3), geometry::kInvalidAltitude), ());
+  TEST_EQUAL(line[3], geometry::PointWithAltitude(mercator::FromLatLon(4, 4), 2), ());
+  TEST_EQUAL(line[4], geometry::PointWithAltitude(mercator::FromLatLon(5, 5), geometry::kInvalidAltitude), ());
+  TEST_EQUAL(line[5], geometry::PointWithAltitude(mercator::FromLatLon(6, 6), 3), ());
 }
 
 UNIT_TEST(GoMap)
@@ -125,8 +156,8 @@ UNIT_TEST(Route)
   auto line = dataFromFile.m_tracksData[0].m_geometry.m_lines[0];
   TEST_EQUAL(line.size(), 2, ());
   TEST_EQUAL(dataFromFile.m_categoryData.m_name[kDefaultCode], "Some random route", ());
-  TEST_EQUAL(line[0], mercator::FromLatLon(48.20984622935899, 16.376023292541507), ());
-  TEST_EQUAL(line[1], mercator::FromLatLon(48.209503040543545, 16.381065845489506), ());
+  TEST_EQUAL(line[0], geometry::PointWithAltitude(mercator::FromLatLon(48.20984622935899, 16.376023292541507), 184), ());
+  TEST_EQUAL(line[1], geometry::PointWithAltitude(mercator::FromLatLon(48.209503040543545, 16.381065845489506), 187), ());
 }
 
 UNIT_TEST(Color)

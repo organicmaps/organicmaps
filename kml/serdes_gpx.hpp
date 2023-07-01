@@ -43,6 +43,7 @@ private:
   void ParseColor(std::string const & value);
   void ParseGarminColor(std::string const & value);
   void ParseOsmandColor(std::string const & value);
+  bool IsValidCoordinatesPosition();
 
   FileData & m_data;
   CategoryData m_compilationData;
@@ -57,14 +58,18 @@ private:
   LocalizableString m_name;
   LocalizableString m_description;
   PredefinedColor m_predefinedColor;
-  m2::PointD m_org;
+  geometry::PointWithAltitude m_org;
 
   double m_lat;
   double m_lon;
+  geometry::Altitude m_altitude;
 
   MultiGeometry::LineT m_line;
   LocalizableString m_customName;
   std::vector<TrackLayer> m_trackLayers;
+  void ParseName(std::string const & value, std::string const & prevTag);
+  void ParseDescription(std::string const & value, std::string const & prevTag);
+  void ParseAltitude(std::string const & value);
 };
 }  // namespace gpx
 
