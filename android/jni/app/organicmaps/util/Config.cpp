@@ -94,7 +94,6 @@ extern "C"
     Java_app_organicmaps_util_Config_nativeSetLargeFontsSize(JNIEnv * env, jclass thiz,
                                                             jboolean value)
     {
-      frm()->SaveLargeFontsSize(value);
       frm()->SetLargeFontsSize(value);
     }
 
