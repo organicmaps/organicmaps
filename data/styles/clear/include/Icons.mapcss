@@ -1400,6 +1400,7 @@ node|z16-[barrier=kissing_gate],
 node|z16-[barrier=lift_gate],
 node|z16-[barrier=swing_gate],
 node|z16-[barrier=stile],
+node|z16-[barrier=turnstile],
 node|z16-[amenity=nightclub],
 area|z16-[amenity=nightclub],
 node|z16-[amenity=bank],
@@ -1999,6 +2000,7 @@ node|z16-[barrier=block],
 node|z16-[barrier=bollard],
 node|z16-[barrier=chain],
 node|z16-[barrier=stile],
+node|z16-[barrier=turnstile],
 {icon-image: dot-m.svg;font-size: 11;}
 
 node|z16-[barrier=entrance],
@@ -2280,6 +2282,8 @@ node|z16-[shop=second_hand],
 area|z16-[shop=second_hand],
 node|z16-[shop=antiques],
 area|z16-[shop=antiques],
+node|z16-[shop=auction],
+area|z16-[shop=auction],
 node|z16-[shop=bookmaker],
 area|z16-[shop=bookmaker],
 node|z16-[shop=bakery],
@@ -2461,6 +2465,9 @@ area|z16[shop=second_hand]
 node|z16[shop=antiques],
 area|z16[shop=antiques]
 {icon-image: antiques-m.svg;}
+node|z16[shop=auction],
+area|z16[shop=auction]
+{icon-image: auction-m.svg;}
 node|z16[shop=bookmaker],
 area|z16[shop=bookmaker]
 {icon-image: bookmaker-m.svg;}
@@ -2542,6 +2549,9 @@ area|z16[shop=grocery],
 node|z16[shop=health_food],
 area|z16[shop=health_food],
 {icon-image: grocery-m.svg;}
+node|z16[shop=collector],
+area|z16[shop=collector]
+{icon-image: shop-m.svg;}
 node|z16[shop=copyshop],
 area|z16[shop=copyshop]
 {icon-image: copyshop-m.svg;}
@@ -2670,6 +2680,9 @@ area|z17-[shop=second_hand]
 node|z17-[shop=antiques],
 area|z17-[shop=antiques]
 {icon-image: antiques-m.svg;icon-min-distance: 24;}
+node|z17-[shop=auction],
+area|z17-[shop=auction]
+{icon-image: auction-m.svg;icon-min-distance: 24;}
 node|z17-[shop=bookmaker],
 area|z17-[shop=bookmaker]
 {icon-image: bookmaker-m.svg;icon-min-distance: 24;}
@@ -2751,6 +2764,9 @@ area|z17-[shop=grocery],
 node|z17-[shop=health_food],
 area|z17-[shop=health_food],
 {icon-image: grocery-m.svg;icon-min-distance: 24;}
+node|z17-[shop=collector],
+area|z17-[shop=collector]
+{icon-image: shop-m.svg;icon-min-distance: 24;}
 node|z17-[shop=copyshop],
 area|z17-[shop=copyshop]
 {icon-image: copyshop-m.svg;icon-min-distance: 24;}

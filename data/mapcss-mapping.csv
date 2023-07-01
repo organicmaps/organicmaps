@@ -820,7 +820,7 @@ amenity|parking_entrance|permissive;[amenity=parking_entrance][access=permissive
 barrier|cattle_grid;747;
 barrier|ditch;748;
 barrier|kissing_gate;749;
-deprecated|deprecated;750;x
+barrier|turnstile;750;
 deprecated|deprecated;751;x
 deprecated|deprecated;752;x
 deprecated|deprecated;753;x
@@ -948,7 +948,7 @@ area:highway|unclassified;874;
 deprecated|deprecated;875;x
 deprecated|deprecated;876;x
 area:highway|cycleway;877;
-deprecated|deprecated;878;x
+entrance|exit;878;
 area:highway|motorway;879;
 area:highway|trunk;880;
 man_made|bridge;881;
@@ -1633,3 +1633,5 @@ shop|fashion_accessories;1559;
 shop|cannabis;1560;
 shop|herbalist;1561;
 shop|camera;1562;
+shop|auction;1563;
+shop|collector;1564;

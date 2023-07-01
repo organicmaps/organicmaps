@@ -17,6 +17,7 @@ DisplayedCategories::DisplayedCategories(CategoriesHolder const & holder) : m_ho
             "fuel",
             "parking",
             "shopping",
+            "secondhand",
             "atm",
             "nightlife",
             "children",

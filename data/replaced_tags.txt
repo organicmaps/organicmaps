@@ -42,7 +42,7 @@ shop=haberdashery : shop=sewing
 shop=money_transfer : amenity=money_transfer
 shop=estate_agent : office=estate_agent
 shop=locksmith : craft=locksmith
-
+shop=auction_house : shop=auction
 ford=boat : highway=ford
 ford=intermittent : highway=ford
 ford=seasonal : highway=ford
@@ -52,7 +52,6 @@ ford=yes : highway=ford
 
 barrier=jersey_barrier : barrier=block
 barrier=sliding_gate : barrier=gate
-barrier=turnstile : barrier=stile
 
 drinkable=yes : amenity=drinking_water
 drinking_water=yes : amenity=drinking_water

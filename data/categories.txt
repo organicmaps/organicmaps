@@ -693,6 +693,47 @@ sk:3Banka
 sw:Benki|fedha
 fa:بانک
 
+# First keyword should match [secondhand] definition in strings.txt!
+@secondhand
+en:4Second Hand
+ar:اليد الثانية
+be:4Сэканд-хэнд
+bg:Втора употреба
+ca:Segona mà
+cs:Second-hand
+da:Brugt
+de:Second-hand
+el:Μεταχειρισμένα
+es:Segunda mano
+et:Kasutatud
+eu:Bigarren eskuko
+fa:دست دوم
+fi:Käytetty
+fr:D'occasion
+he:יד שניה
+hu:Second-hand
+id:Tangan kedua
+it:Di seconda mano
+ja:中古品
+ko:중고
+mr:वापरलेले
+nb:Brukt
+nl:Tweedehands
+pl:Z drugiej ręki
+pt:Em segunda mão
+pt-BR:De segunda mão
+ro:La mâna a doua
+ru:4Секонд-хенд
+sk:Second-hand
+sv:Begagnad
+sw:Mtumba
+th:มือสอง
+tr:İkinci el
+uk:Секонд-хенд
+vi:Đồ cũ
+zh-Hans:二手货
+zh-Hant:二手
+
 amenity-bank|@bank
 en:money|U+1F3E6|U+1F4B0|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 ru:деньги
@@ -11832,10 +11873,9 @@ sk:Obchodník s rybami
 fa:فروشگاه غذای دریایی
 mr:सीफूड शॉप
 
-shop-second_hand|@shopping|@shop
-en:4Second Hand|Thrift|Flea market
+shop-second_hand|@shopping|@shop|@secondhand
+en:Thrift|Flea market
 ar:ﺔﻠﻤﻌﺘﺴﻣ ﺕﺍﻭﺩﺍ ﺮﺠﺘﻣ
-be:Сэканд-хэнд
 bg:Магазин втора употреба
 cs:Obchod z druhé ruky
 da:Genbrugsbutik
@@ -11845,10 +11885,8 @@ es:Tienda de segunda mano
 et:4Kasutatud|Kirbuturg
 eu:Bigarren eskuko denda
 fa:ﻡﻭﺩ ﺖﺳﺩ ﻩﺎﮕﺷﻭﺮﻓ
-fi:Second Hand Store
 fr:Boutique d'objets d'occasion
 he:היינש די תונח
-hu:Second Hand Store
 id:Toko Barang bekas
 it:Negozio di articoli usati|Negozio dell'usato|Mercatino delle pulci
 ja:古物商
@@ -11859,18 +11897,17 @@ pl:Sklep z używaną ręką
 pt:Loja de segunda mão
 pt-BR:Loja de segunda mão
 ro:Magazin second-hand
-ru:Секонд-хенд|4Подержанные товары
+ru:4Подержанные товары
 sk:Obchod z druhej ruky
 sv:Andrahandsaffär
 sw:Duka la Mitumba
 th:ร้านขายของมือสอง
 tr:İkinci El Mağazası
-uk:Секонд-хенд
 vi:Cửa hàng bán đồ đã qua sử dụng
 zh-Hans:二手店
 zh-Hant:二手店
 
-shop-charity|@shop
+shop-charity|@shop|@secondhand
 en:4Charity
 ar:ﻱﺮﻴﺧ ﺮﺠﺘﻣ
 be:Дабрачынная
@@ -14268,7 +14305,7 @@ ru:Чай|чая
 tr:Çay mağazası
 zh-Hans:茶叶商店
 
-shop-antiques|@shopping|@shop
+shop-antiques|@shopping|@shop|@secondhand
 en:Antiques
 ar:ﻒﺤﺘﻟﺍ
 be:Антыкварыят
@@ -15086,3 +15123,83 @@ uk:Електростанція
 vi:Nhà máy điện
 zh-Hans:发电厂
 zh-Hant:發電廠
+
+shop-auction|@secondhand
+en:4Auction|Auctioneer|Auction House
+ar:مزاد علني
+be:Аўкцыён
+bg:Търг
+ca:Subhasta
+cs:Aukce
+da:Auktion
+de:Auktion
+el:Δημοπρασία
+es:Subasta
+et:Oksjon
+eu:Enkantea
+fa:حراج
+fi:Huutokauppa
+fr:Vente aux enchères
+he:מכירה פומבית
+hu:Aukció
+id:Lelang
+it:Asta
+ja:オークション
+ko:경매
+mr:लिलाव
+nb:Auksjon
+nl:Veiling
+pl:Aukcja
+pt:Leilão
+ro:Licitație
+ru:Аукцион
+sk:Aukcia
+sv:Auktion
+sw:Mnada
+th:ประมูล
+tr:Müzayede
+uk:Аукціон
+vi:Bán đấu giá
+zh-Hans:拍卖会
+zh-Hant:拍賣
+
+shop-collector|@shopping|@secondhand
+en:Collector
+ar:جامع
+be:Калекцыянер
+bg:Колектор
+ca:Col·leccionista
+cs:Collector
+da:Samler
+de:Sammler
+el:Συλλέκτης
+es:Colector
+es-MX:Coleccionista
+et:Koguja
+eu:Bildumatzailea
+fa:گردآورنده
+fi:Kerääjä
+fr:Collecteur
+he:אַסְפָן
+hu:Gyűjtő
+id:Kolektor
+it:Collezionista
+ja:コレクター
+ko:수집가
+mr:कलेक्टर
+nb:Samler
+nl:Verzamelaar
+pl:Kolekcjoner
+pt:Coleccionador
+pt-BR:Coletor
+ro:Colector
+ru:Коллекционер
+sk:Zberateľ
+sv:Samlare
+sw:Mkusanyaji
+th:นักสะสม
+tr:Koleksiyoncu
+uk:Колекціонер
+vi:Nhà sưu tập
+zh-Hans:收藏家
+zh-Hant:集電極
