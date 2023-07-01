@@ -2437,11 +2437,6 @@ void Framework::Load3dMode(bool & allow3d, bool & allow3dBuildings)
     allow3dBuildings = true;
 }
 
-void Framework::SaveLargeFontsSize(bool isLargeSize)
-{
-  settings::Set(kLargeFontsSize, isLargeSize);
-}
-
 bool Framework::LoadLargeFontsSize()
 {
   bool isLargeSize;
@@ -2452,6 +2447,8 @@ bool Framework::LoadLargeFontsSize()
 
 void Framework::SetLargeFontsSize(bool isLargeSize)
 {
+  settings::Set(kLargeFontsSize, isLargeSize);
+
   double const scaleFactor = isLargeSize ? kLargeFontsScaleFactor : 1.0;
 
   ASSERT(m_drapeEngine.get() != nullptr, ());

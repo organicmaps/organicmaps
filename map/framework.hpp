@@ -657,7 +657,6 @@ public:
   void Load3dMode(bool & allow3d, bool & allow3dBuildings);
 
   void SetLargeFontsSize(bool isLargeSize);
-  void SaveLargeFontsSize(bool isLargeSize);
   bool LoadLargeFontsSize();
 
   bool LoadAutoZoom();
