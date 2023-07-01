@@ -2,13 +2,9 @@
 
 ## Apple AppStore
 
-### Upload metadata to AppStore
+### Upload metadata and screenshots to AppStore
 
-Use [GitHub Actions](../.github/workflows/ios-release-metadata.yaml).
-
-### Upload screenshots to AppStore
-
-Use [GitHub Actions](../.github/workflows/ios-release-screenshots.yaml).
+Use [GitHub Actions](../.github/workflows/ios-release.yaml).
 
 ### Checking metadata
 
