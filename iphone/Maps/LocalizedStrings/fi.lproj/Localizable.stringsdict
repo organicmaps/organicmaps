@@ -19,6 +19,8 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>one</key>
+      <string>%d kirjanmerkki</string>
       <key>other</key>
       <string>%d kirjanmerkkiä</string>
     </dict>
@@ -37,7 +39,7 @@
       <key>one</key>
       <string>%d tiedosto löydettiin. Näet sen muunnoksen jälkeen.</string>
       <key>other</key>
-      <string>%d tiedostoa on löytynyt. Näet heidät muuntamisen jälkeen.</string>
+      <string>%d tiedostoa löydettiin. Näet ne muunnoksen jälkeen.</string>
     </dict>
   </dict>
 
@@ -51,8 +53,10 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>one</key>
+      <string>%d kohde</string>
       <key>other</key>
-      <string>%d paikka</string>
+      <string>%d kohdetta</string>
     </dict>
   </dict>
 
@@ -66,8 +70,10 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>one</key>
+      <string>%d reitti</string>
       <key>other</key>
-      <string>%d radat</string>
+      <string>%d reittiä</string>
     </dict>
   </dict>
 </dict>
