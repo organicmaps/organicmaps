@@ -12748,7 +12748,6 @@
     ko = 집 번호
     lt = Pastato numeris
     mr = बिल्डिंग क्रमांक
-    fi = Siirry nopeasti aikaisempaan hakuun
     nb = Et husnummer
     nl = Huisnummer
     pl = Numer domu
@@ -15389,7 +15388,7 @@
     et = Luba seadme seadetes juurdepääs geograafilisele asukohale
     eu = Aktibatu geokokapenerako sarbidea gailuaren ezarpenetan
     fa = سرویس موقعیت مکانی خود را در بخش تنظیمات فعال کنید.
-    fi = Salli sijaintipalveluiden käyttö laitteen asetuksissa 
+    fi = Salli sijaintipalveluiden käyttö laitteen asetuksissa
     fr = Permettre l'accès à la géolocalisation dans les paramètres de l'appareil
     he = אפשרו גישה לגאולוקיישן בהגדרות המכשיר
     hu = Kapcsolja be a földrajzi helymeghatározást a készülék beállításaiban
