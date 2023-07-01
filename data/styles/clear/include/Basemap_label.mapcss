@@ -676,6 +676,7 @@ node|z16-[addr:housenumber][addr:street]::int_name
 {text:int_name;text-color: @building_label;text-position: center;}
 node|z19-[entrance],
 node|z18-[entrance=main],
+node|z18-[entrance=exit],
 node|z18-[amenity=loading_dock],
 {text-color: @building_label;}
 
@@ -724,6 +725,8 @@ node|z18-[addr:housenumber][addr:street]::int_name
 node|z19-[entrance],
 node|z18-[amenity=loading_dock],
 {icon-image: entrance-s.svg;font-size: 10;text: ref;text-offset-x: 1;}
+node|z18-[entrance=exit],
+{icon-image: exit-s.svg;font-size: 10;text: ref;text-offset-x: 1;}
 node|z18-[entrance=main],
 {icon-image: main_entrance-s.svg;font-size: 10;text: ref;text-offset-x: 1;}
 node|z19-[entrance]::flats

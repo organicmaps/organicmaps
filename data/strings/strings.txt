@@ -2898,6 +2898,48 @@
     zh-Hans = 购物
     zh-Hant = 購物
 
+  [secondhand]
+    comment = Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand!
+    tags = android,ios
+    en = Second Hand
+    ar = اليد الثانية
+    be = Сэканд-хэнд
+    bg = Втора употреба
+    ca = Segona mà
+    cs = Second-hand
+    da = Brugt
+    de = Second-hand
+    el = Μεταχειρισμένα
+    es = Segunda mano
+    et = Kasutatud
+    eu = Bigarren eskuko
+    fa = دست دوم
+    fi = Käytetty
+    fr = D'occasion
+    he = יד שניה
+    hu = Second-hand
+    id = Tangan kedua
+    it = Di seconda mano
+    ja = 中古品
+    ko = 중고
+    mr = वापरलेले
+    nb = Brukt
+    nl = Tweedehands
+    pl = Z drugiej ręki
+    pt = Em segunda mão
+    pt-BR = De segunda mão
+    ro = La mâna a doua
+    ru = Секонд-хенд
+    sk = Second-hand
+    sv = Begagnad
+    sw = Mtumba
+    th = มือสอง
+    tr = İkinci el
+    uk = Секонд-хенд
+    vi = Đồ cũ
+    zh-Hans = 二手货
+    zh-Hant = 二手
+
   [hotel]
     comment = Search category for places to stay; any changes should be duplicated in categories.txt @hotel!
     tags = android,ios

@@ -326,6 +326,6 @@ UNIT_TEST(CategoriesIndex_AllCategoriesEnglishName)
   CategoriesIndex index;
 
   index.AddAllCategoriesInLang(CategoriesHolder::MapLocaleToInteger("en"));
-  TEST_LESS(index.GetNumTrieNodes(), 10000, ());
+  TEST_LESS(index.GetNumTrieNodes(), 11000, ());
 }
 #endif

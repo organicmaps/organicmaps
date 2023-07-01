@@ -47,7 +47,7 @@ DEEPL_TARGET_LANGUAGES = [
     'it',
     'ja',
     'ko',
-    'lt',
+#    'lt',
 #    'lv',
     'nb',
     'nl',
