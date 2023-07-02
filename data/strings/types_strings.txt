@@ -2037,6 +2037,7 @@
     be = Хрысціянскія могілкі
     es = Cementerio cristiano
     et = Kristlik surnuaed
+    fr = Cimetière chrétien
     it = Cimitero cristiano
     ja = キリスト教墓地
     mr = ख्रिश्चन स्मशानभूमी
@@ -4428,6 +4429,7 @@
     es = Maquina expendedora de combustible
     et = Tankimisautomaat
     fi = Bensa-automaatti
+    fr = Pompe à carburants
     mr = इंधन विक्रीयंत्र
     nl = Tankautomaat
     pt-BR = Bomba de combustível
@@ -4548,6 +4550,7 @@
     de = Müllumladestation
     es = Estación de transferencia de residuos
     et = Jäätmete üleandmise jaam
+    fr = Station de transfert de déchets
     it = Centro trasferimento rifiuti
     mr = कचरा हस्तांतरण केंद्र
     nl = Overslagstation voor afval
@@ -4743,6 +4746,7 @@
     es = Barrera para bicicletas
     et = Jalgrattabarjäär
     eu = Bizikleta-hesia
+    fr = Barrière à vélos
     fi = Polkupyöräeste
     it = Barriera per biciclette
     ja = バリカー
@@ -5526,7 +5530,7 @@
     eu = Tren geltokian
     fa = ایستگاه قطار
     fi = Rautatieasema
-    fr = Gare
+    fr = Gare ferroviaire
     hu = Vonatmegálló
     id = Rel kereta api
     it = Stazione ferroviaria
@@ -6120,7 +6124,7 @@
     eu = Metalgintzako langilea
     fa = اهن کار
     fi = Metallimies
-    fr = Métallo
+    fr = Constructions métalliques
     he = עובד מתכת
     hu = Lakatos
     id = Tukang besi
@@ -10031,7 +10035,7 @@
     de = Reitweg
     es = Camino de caballos
     et = Valjarada
-    fr = Chemin pour cavalier
+    fr = Chemin équestre
     it = sentiero per cavalli
     ja = 馬道
     nb = Ridevei
@@ -10541,6 +10545,7 @@
     en = Motorway Ramp
     de = Autobahnauffahrt
     et = Kiirtee kaldtee
+    fr = Bretelle d'autoroute
     it = Svincolo autostradale
     mr = महामार्ग उतार
     nl = Snelwegoprit
@@ -13659,6 +13664,7 @@
     de = Erholungsgebiet
     es = Área recreativa
     et = Puhkeväljak
+    fr = Aire de jeux
     it = Area divertimento
     ja = レクリエーション
     mr = मनोरंजन मैदान
@@ -14545,6 +14551,7 @@
     ar = مسبح خاص
     es = Piscina privada
     et = Privaatne bassein
+    fr = Piscine privée
     it = Piscina privata
     nl = Privé zwembad
 
@@ -16772,6 +16779,7 @@
   [type.noexit]
     en = Dead End
     et = Tupiktee
+    fr = Voie sans issue
     it = Strada senza uscita
     ja = 行き止まり
     mr = रस्ता बंद
@@ -17938,6 +17946,7 @@
     de = Generator
     es = Generador
     et = Generaator
+    fr = Générateur
     it = Generatore
     ja = 発電機
     mr = जनित्र(जनरेटर)
@@ -18113,6 +18122,7 @@
     de = Hochspannungs-Freileitung
     es = Línea eléctrica
     et = Elektriliin
+    fr = Ligne électrique
     it = Cavo elettrico
     ja = 電力線
     mr = विद्युत तार
@@ -18130,6 +18140,7 @@
     de = Unterirdische Hochpannungsleitung
     es = Línea eléctrica subterránea
     et = Maa-alune elektriliin
+    fr = Ligne électrique souterraine
     ja = 地下電力線
     mr = भूमिगत विद्युत तार
     nl = Ondergrondse hoogspanningsleiding
@@ -18146,6 +18157,7 @@
     de = Nieder-/Mittelspannungsfreileitung
     es = Línea eléctrica de baja tensión
     et = Madal-/Keskpinge elektriliin
+    fr = Ligne électrique
     it = Cavo elettrico
     ja = 低圧電力線
     mr = किरकोळ विद्युत तार
@@ -18420,7 +18432,7 @@
     eu = Zutabe elektrikoa
     fa = برج قدرت
     fi = Sähköpylväs
-    fr = Poteau électrique
+    fr = Pylône électrique
     hu = Villanyoszlop
     id = Menara listrik
     it = Pilone elettrico
@@ -19094,7 +19106,7 @@
     eu = Tren geltokian
     fa = ایستگاه قطار
     fi = Rautatieasema
-    fr = Gare
+    fr = Gare ferroviaire
     hu = Vonatmegálló
     id = Rel kereta api
     it = Stazione ferroviaria
@@ -23537,7 +23549,7 @@
     eu = Arteak eta Eskulanak
     fa = ﯽﺘﺳﺩ ﻊﯾﺎﻨﺻ ﻭ ﺮﻨﻫ
     fi = Käsityöt
-    fr = L'artisanat
+    fr = Matériel d'arts et de loisirs créatifs
     he = הריציו תונמוא
     hu = Művészetek és kézművesség
     id = Seni dan kerajinan
@@ -24629,7 +24641,7 @@
     eu = Golfa
     fa = گلف
     fi = Golf
-    fr = Le golf
+    fr = Golf
     he = גולף
     hu = Golf
     id = Golf
@@ -25387,6 +25399,7 @@
     et = Turism
     eu = Turismoa
     fi = Turismi
+    fr = Tourisme
     it = Turismo
     ja = 観光
     mr = पर्यटन
@@ -25702,6 +25715,7 @@
     eu = Kanpalekua
     fa = محل چادر زنی
     fi = Retkeily
+    fr = Camping
     hu = Kemping
     id = Perkemahan
     it = Campeggio
