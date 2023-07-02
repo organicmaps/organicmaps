@@ -391,7 +391,8 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     return;
   }
 
-  info.m_distToTarget = platform::Distance::CreateFormatted(m_route->GetTotalDistanceMeters());
+  info.m_distToTarget =
+      platform::Distance::CreateFormatted(m_route->GetCurrentDistanceToEndMeters());
 
   double distanceToTurnMeters = 0.;
   turns::TurnItem turn;
