@@ -105,8 +105,8 @@ StaticTexture::StaticTexture(ref_ptr<dp::GraphicsContext> context, std::string c
   : m_textureName(textureName)
   , m_skinPathName(skinPathName)
   , m_format(format)
-  , m_info(make_unique_dp<StaticResourceInfo>())
   , m_allowOptional(allowOptional)
+  , m_info(make_unique_dp<StaticResourceInfo>())
 {
   m_isLoadingCorrect = Load(context, allocator);
 }
