@@ -694,14 +694,14 @@ UNIT_CLASS_TEST(MwmTestsFixture, Famous_Cities_Rank)
   // Buenos Aires like starting point :)
   arrCenters[0] = {-34.60649, -58.43540};
 
-  bool isGoGo = false;
+  // For DEBUG.
+  // bool isGoGo = false;
   for (size_t i = 0; i < count; ++i)
   {
-    // For DEBUG.
-//    if (!isGoGo && arrCities[i] == "London")
-//      isGoGo = true;
-//    if (i > 0 && !isGoGo)
-//      continue;
+    // if (!isGoGo && arrCities[i] == "London")
+    //   isGoGo = true;
+    // if (i > 0 && !isGoGo)
+    //   continue;
 
     /// @todo Temporary, USA has a lot of similar close cities.
     if (arrCities[i] == "New York")

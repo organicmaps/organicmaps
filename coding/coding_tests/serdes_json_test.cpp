@@ -71,7 +71,7 @@ struct ValueTypes
                   visitor(m_doubleValue, "doubleValue"),
                   visitor(m_stringValue, "stringValue"),
                   visitor(m_enumValue, "enumValue"),
-                  visitor(m_timePointValue, "timePointValue"));
+                  visitor(m_timePointValue, "timePointValue"))
 
   ValueTypes() = default;
   ValueTypes(uint32_t testCounter)
@@ -115,7 +115,7 @@ struct ObjectTypes
 {
   DECLARE_VISITOR(visitor(m_pointValue, "pointValue"),
                   visitor(m_latLonValue, "latLonValue"),
-                  visitor(m_pairValue, "pairValue"));
+                  visitor(m_pairValue, "pairValue"))
 
   ObjectTypes() = default;
   ObjectTypes(uint32_t testCounter)
@@ -138,7 +138,7 @@ struct ObjectTypes
 struct PointerTypes
 {
   DECLARE_VISITOR(visitor(m_uniquePtrValue, "uniquePtrValue"),
-                  visitor(m_sharedPtrValue, "sharedPtrValue"));
+                  visitor(m_sharedPtrValue, "sharedPtrValue"))
 
   PointerTypes() = default;
   PointerTypes(uint32_t testCounter)
@@ -163,7 +163,7 @@ struct ArrayTypes
                   visitor(m_dequeValue, "dequeValue"),
                   visitor(m_vectorValue, "vectorValue"),
                   visitor(m_mapValue, "mapValue"),
-                  visitor(m_unorderedSetValue, "unorderedSetValue"));
+                  visitor(m_unorderedSetValue, "unorderedSetValue"))
 
   ArrayTypes() = default;
   ArrayTypes(uint32_t testCounter)

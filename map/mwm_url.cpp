@@ -209,7 +209,7 @@ void ParsedMapApi::ParseMapParam(std::string const & key, std::string const & va
       return;
     }
 
-    points.push_back({.m_lat = lat, .m_lon = lon});
+    points.push_back({lat, lon, "" /* m_name */, "" /* m_id */, "" /* m_style */});
   }
   else if (key == kZoomLevel)
   {

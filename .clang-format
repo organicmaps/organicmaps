@@ -4,7 +4,7 @@
 BasedOnStyle: Google
 IndentWidth: 2
 BreakBeforeBraces: Allman
-ColumnLimit: 100
+ColumnLimit: 120
 
 ---
 Language: Cpp

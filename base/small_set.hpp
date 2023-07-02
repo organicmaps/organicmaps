@@ -23,6 +23,7 @@ class SmallSet
 {
 public:
   static uint64_t constexpr kNumBlocks = (UpperBound + 63) / 64;
+  static_assert(kNumBlocks > 0);
 
   class Iterator
   {

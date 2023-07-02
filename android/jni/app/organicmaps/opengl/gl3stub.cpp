@@ -17,7 +17,7 @@
 #include "gl3stub.h"
 
 GLboolean gl3stubInit() {
-    #define FIND_PROC(s) s = (void*)eglGetProcAddress(#s)
+    #define FIND_PROC(s) s = reinterpret_cast<decltype(s)>(eglGetProcAddress(#s))
     FIND_PROC(glReadBuffer);
     FIND_PROC(glDrawRangeElements);
     FIND_PROC(glTexImage3D);

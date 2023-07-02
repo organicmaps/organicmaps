@@ -44,7 +44,7 @@ public:
 private:
   struct Config
   {
-    DECLARE_VISITOR(visitor(m_facilities, "current_state"), visitor(m_scheme, "scheme"));
+    DECLARE_VISITOR(visitor(m_facilities, "current_state"), visitor(m_scheme, "scheme"))
 
     Config() { m_facilities.fill(true); }
 
