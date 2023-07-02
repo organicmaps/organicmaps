@@ -694,4 +694,24 @@ UNIT_TEST(Spain_N634_Piligrim_Road)
       mercator::FromLatLon(43.5435194, -6.5340694), 7217.93);
 }
 
+// https://github.com/organicmaps/organicmaps/issues/5410
+UNIT_TEST(Australia_Mountains_Downlhill)
+{
+  using namespace integration;
+  using mercator::FromLatLon;
+
+  TRouteResult const routeResult = CalculateRoute(GetVehicleComponents(VehicleType::Pedestrian),
+                                                  FromLatLon(-33.7374217, 150.283098), {0., 0.},
+                                                  FromLatLon(-33.7375399, 150.283358));
+
+  TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
+  TEST(routeResult.first, ());
+  Route const & route = *routeResult.first;
+
+  TestRouteLength(route, 27.4434);
+  // Altitudes diff is (914 -> 798).
+  double const eta = route.GetTotalTimeSec();
+  TEST(10 * 60 < eta && eta < 15 * 60, (eta));
+}
+
 } // namespace pedestrian_route_test

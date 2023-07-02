@@ -95,7 +95,10 @@ double GetPedestrianClimbPenalty(EdgeEstimator::Purpose purpose, double tangent,
   if (altitudeM >= kMountainSicknessAltitudeM)
     return kMinPenalty + (10.0 + (altitudeM - kMountainSicknessAltitudeM) * 10.0 / 1500.0) * fabs(tangent) * impact;
 
-  if (purpose == EdgeEstimator::Purpose::Weight)
+  // Use magic constant from this table: https://en.wikipedia.org/wiki/Tobler's_hiking_function#Sample_values
+  // Tobler's returns unusually big values for bigger tangent.
+  // See Australia_Mountains_Downlhill test.
+  if (purpose == EdgeEstimator::Purpose::Weight || fabs(tangent) > 1.19)
   {
     tangent = fabs(tangent);
     // Some thoughts about gradient and foot walking: https://gre-kow.livejournal.com/26916.html
