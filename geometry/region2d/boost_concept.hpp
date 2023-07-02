@@ -8,7 +8,6 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wreturn-std-move"
 #pragma clang diagnostic ignored "-Wshorten-64-to-32"
-#pragma clang diagnostic ignored "-Wunused-but-set-variable"
 #endif
 #include <boost/polygon/polygon.hpp>
 #ifdef __clang__
