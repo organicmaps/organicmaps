@@ -162,7 +162,7 @@ protected:
       readed.m_stop1Id = reader.ReadAtMost64Bits(connector::kStopIdBits);
       readed.m_stop2Id = reader.ReadAtMost64Bits(connector::kStopIdBits);
       readed.m_lineId = reader.ReadAtMost32Bits(connector::kLineIdBits);
-    };
+    }
 
     template <class Source>
     static void ReadCrossMwmId(uint8_t bits, BitReader<Source> & reader, base::GeoObjectId & osmId)

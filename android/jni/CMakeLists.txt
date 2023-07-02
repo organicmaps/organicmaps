@@ -47,7 +47,7 @@ set(SRC
   app/organicmaps/opengl/android_gl_utils.cpp
   app/organicmaps/opengl/androidoglcontext.cpp
   app/organicmaps/opengl/androidoglcontextfactory.cpp
-  app/organicmaps/opengl/gl3stub.c
+  app/organicmaps/opengl/gl3stub.cpp
   app/organicmaps/platform/GuiThread.cpp
   app/organicmaps/platform/HttpThread.cpp
   app/organicmaps/platform/Language.cpp

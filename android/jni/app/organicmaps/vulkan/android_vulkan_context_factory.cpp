@@ -134,8 +134,8 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory(uint32_t appVersionCode
     return;
   }
 
-  VkPhysicalDevice tmpGpus[gpuCount];
-  statusCode = vkEnumeratePhysicalDevices(m_vulkanInstance, &gpuCount, tmpGpus);
+  std::vector<VkPhysicalDevice> tmpGpus(gpuCount);
+  statusCode = vkEnumeratePhysicalDevices(m_vulkanInstance, &gpuCount, tmpGpus.data());
   if (statusCode != VK_SUCCESS)
   {
     LOG_ERROR_VK_CALL(vkEnumeratePhysicalDevices, statusCode);

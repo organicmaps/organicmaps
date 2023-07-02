@@ -2,10 +2,10 @@
 set(OMIM_WARNING_FLAGS
   $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall>
   $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wextra>
-  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wno-unused-parameter>
-  $<$<CXX_COMPILER_ID:AppleClang>:-Wno-deprecated-declarations>  # boost warnings
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wpedantic>
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wno-unused-parameter>  # We have a lot of functions with unused parameters
 )
-set(OMIM_INCLUDE_DIRS "${OMIM_ROOT}/3party/boost")
+set(3PARTY_INCLUDE_DIRS "${OMIM_ROOT}/3party/boost")
 
 # Function for setting target platform:
 function(omim_set_platform_var PLATFORM_VAR pattern)
@@ -33,7 +33,7 @@ function(omim_add_executable executable)
 
   # Enable warnings for all our binaries.
   target_compile_options(${executable} PRIVATE ${OMIM_WARNING_FLAGS})
-  target_include_directories(${executable} PRIVATE ${OMIM_INCLUDE_DIRS})
+  target_include_directories(${executable} SYSTEM PRIVATE ${3PARTY_INCLUDE_DIRS})
   if (USE_ASAN)
     target_link_libraries(${executable}
       -fsanitize=address
@@ -79,7 +79,7 @@ function(omim_add_library library)
 
   # Enable warnings for all our libraries.
   target_compile_options(${library} PRIVATE ${OMIM_WARNING_FLAGS})
-  target_include_directories(${library} PRIVATE ${OMIM_INCLUDE_DIRS})
+  target_include_directories(${library} SYSTEM PRIVATE ${3PARTY_INCLUDE_DIRS})
   if (USE_PPROF AND PLATFORM_MAC)
     find_path(PPROF_INCLUDE_DIR NAMES gperftools/profiler.h)
     target_include_directories(${library} SYSTEM PUBLIC ${PPROF_INCLUDE_DIR})
@@ -96,7 +96,7 @@ function(omim_add_test_impl disable_platform_init executable)
       ${OMIM_ROOT}/testing/testingmain.cpp
     )
     target_compile_options(${executable} PRIVATE ${OMIM_WARNING_FLAGS})
-    target_include_directories(${executable} PRIVATE ${OMIM_INCLUDE_DIRS})
+    target_include_directories(${executable} SYSTEM PRIVATE ${3PARTY_INCLUDE_DIRS})
     if(disable_platform_init)
       target_compile_definitions(${PROJECT_NAME} PRIVATE OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT)
     else()

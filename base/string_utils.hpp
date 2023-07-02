@@ -574,7 +574,7 @@ std::string to_string_width(T l, int width)
   std::ostringstream ss;
   if (l < 0)
     ss << '-';
-  ss << std::setfill('0') << std::setw(width) << abs(l);
+  ss << std::setfill('0') << std::setw(width) << std::abs(l);
   return ss.str();
 }
 
