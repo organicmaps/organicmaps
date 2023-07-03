@@ -139,8 +139,6 @@ int main(int argc, char * argv[])
   UNUSED_VALUE(mainGuard);
 
   QApplication app(argc, argv);
-  // Pretty icons on HDPI displays.
-  QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
   platform.SetupMeasurementSystem();
 
 

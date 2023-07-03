@@ -25,12 +25,6 @@ omim_add_library(${PROJECT_NAME} ${SRC} ${RESOURCES})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES AUTOMOC ON)
 
-target_compile_options(${PROJECT_NAME}
-  PRIVATE
-    $<$<CXX_COMPILER_ID:AppleClang,Clang>:-Wno-shorten-64-to-32>
-    $<$<CXX_COMPILER_ID:AppleClang,Clang>:-Wno-deprecated-declarations>
-)
-
 target_link_libraries(${PROJECT_NAME}
   map
   Qt6::Gui

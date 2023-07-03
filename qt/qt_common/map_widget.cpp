@@ -150,7 +150,7 @@ void MapWidget::SliderReleased() { m_sliderState = SliderState::Released; }
 
 m2::PointD MapWidget::GetDevicePoint(QMouseEvent * e) const
 {
-  return m2::PointD(L2D(e->x()), L2D(e->y()));
+  return m2::PointD(L2D(e->position().x()), L2D(e->position().y()));
 }
 
 df::Touch MapWidget::GetTouch(QMouseEvent * e) const
@@ -502,7 +502,7 @@ void MapWidget::mouseReleaseEvent(QMouseEvent * e)
     return;
 
   if (e->button() == Qt::RightButton)
-    emit OnContextMenuRequested(e->globalPos());
+    emit OnContextMenuRequested(e->globalPosition().toPoint());
 
   QOpenGLWidget::mouseReleaseEvent(e);
   if (IsLeftButton(e))

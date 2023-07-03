@@ -33,8 +33,6 @@ int main(int argc, char *argv[])
   {
     gflags::ParseCommandLineFlags(&argc, &argv, true);
     QApplication app(argc, argv);
-    // Pretty icons on HDPI displays.
-    QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 
     tools::SkinGenerator gen;
 
