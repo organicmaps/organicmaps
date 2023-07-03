@@ -19,6 +19,12 @@
 #pragma clang diagnostic pop
 #endif
 
+/// Dispatcher's methods Push, Pop and AddAttr can conveniently take different parameters:
+/// 1. char const * (no any overhead, is called by the Expat)
+/// 2. std::string or std::string const & (temporary std::string is created from char const *)
+/// 3. std::string_view (created from char const *)
+///
+/// CharData accepts std::string const & or std::string & to modify the data before consumption.
 template <typename DispatcherT>
 class XmlParser
 {
@@ -112,7 +118,7 @@ public:
     if (m_restrictDepth != size_t(-1))
       m_restrictDepth = static_cast<size_t>(-1);
     else
-      m_dispatcher.Pop(std::string(name));
+      m_dispatcher.Pop(name);
   }
 
   void OnCharacterData(XML_Char const * data, int length)

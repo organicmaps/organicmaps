@@ -33,7 +33,7 @@ std::string_view constexpr kMetadata = "metadata";
 std::string_view constexpr kEle = "ele";
 int constexpr kInvalidColor = 0;
 
-
+// TODO: Remove copypaste and use elevation/altitude.
 std::string PointToString(m2::PointD const & org)
 {
   double const lon = mercator::XToLon(org.x);
@@ -64,6 +64,8 @@ void GpxParser::ResetPoint()
   m_trackLayers.clear();
   m_geometry.Clear();
   m_geometryType = GEOMETRY_TYPE_UNKNOWN;
+  m_lat = 0.;
+  m_lon = 0.;
   m_altitude = geometry::kInvalidAltitude;
 }
 
@@ -71,16 +73,17 @@ bool GpxParser::MakeValid()
 {
   if (GEOMETRY_TYPE_POINT == m_geometryType)
   {
-    if (mercator::ValidX(m_org.GetPoint().x) && mercator::ValidY(m_org.GetPoint().y))
+    m2::PointD const & pt = m_org.GetPoint();
+    if (mercator::ValidX(pt.x) && mercator::ValidY(pt.y))
     {
       // Set default name.
       if (m_name.empty())
         m_name[kml::kDefaultLang] = gpx::PointToString(m_org);
-      
+
       // Set default pin.
       if (m_predefinedColor == PredefinedColor::None)
         m_predefinedColor = PredefinedColor::Red;
-      
+
       return true;
     }
     return false;
@@ -89,41 +92,42 @@ bool GpxParser::MakeValid()
   {
     return m_geometry.IsValid();
   }
-  
+
   return false;
 }
 
-bool GpxParser::Push(std::string_view tag)
+bool GpxParser::Push(std::string tag)
 {
-  m_tags.push_back(std::string{tag});
-  if (GetTagFromEnd(0) == gpx::kWpt)
+  if (tag == gpx::kWpt)
     m_geometryType = GEOMETRY_TYPE_POINT;
-  else if (GetTagFromEnd(0) == gpx::kTrkPt || GetTagFromEnd(0) == gpx::kRtePt)
+  else if (tag == gpx::kTrkPt || tag == gpx::kRtePt)
     m_geometryType = GEOMETRY_TYPE_LINE;
+
+  m_tags.emplace_back(std::move(tag));
+
   return true;
 }
 
 bool GpxParser::IsValidCoordinatesPosition()
 {
-  return GetTagFromEnd(0) == gpx::kWpt || (GetTagFromEnd(0) == gpx::kTrkPt && GetTagFromEnd(1) == gpx::kTrkSeg) ||
-         (GetTagFromEnd(0) == gpx::kRtePt && GetTagFromEnd(1) == gpx::kRte);
+  std::string const & lastTag = GetTagFromEnd(0);
+  return lastTag == gpx::kWpt
+      || (lastTag == gpx::kTrkPt && GetTagFromEnd(1) == gpx::kTrkSeg)
+      || (lastTag == gpx::kRtePt && GetTagFromEnd(1) == gpx::kRte);
 }
 
-void GpxParser::AddAttr(std::string const & attr, std::string const & value)
+void GpxParser::AddAttr(std::string_view attr, char const * value)
 {
-  std::string attrInLowerCase = attr;
-  strings::AsciiToLower(attrInLowerCase);
-
   if (IsValidCoordinatesPosition())
   {
-    if (attr == "lat")
-      m_lat = stod(value);
-    else if (attr == "lon")
-      m_lon = stod(value);
+    if (attr == "lat" && !strings::to_double(value, m_lat))
+      LOG(LERROR, ("Bad gpx latitude:", value));
+    else if (attr == "lon" && !strings::to_double(value, m_lon))
+      LOG(LERROR, ("Bad gpx longitude:", value));
   }
 }
 
-std::string_view GpxParser::GetTagFromEnd(size_t n) const
+std::string const & GpxParser::GetTagFromEnd(size_t n) const
 {
   ASSERT_LESS(n, m_tags.size(), ());
   return m_tags[m_tags.size() - n - 1];
@@ -161,7 +165,7 @@ void GpxParser::ParseOsmandColor(std::string const & value) {
       LOG(LWARNING, ("Invalid color value", value));
       return;
   }
-  if (GetTagFromEnd(2) == gpx::kGpx)
+  if (m_tags.size() > 2 && GetTagFromEnd(2) == gpx::kGpx)
   {
     m_globalColor = color;
     for (auto & track : m_data.m_tracksData)
@@ -212,7 +216,7 @@ void GpxParser::ParseGarminColor(std::string const & v)
 void GpxParser::Pop(std::string_view tag)
 {
   ASSERT_EQUAL(m_tags.back(), tag, ());
-  
+
   if (tag == gpx::kTrkPt || tag == gpx::kRtePt)
   {
     m2::PointD const p = mercator::FromLatLon(m_lat, m_lon);
@@ -230,7 +234,7 @@ void GpxParser::Pop(std::string_view tag)
     m_org.SetAltitude(m_altitude);
     m_altitude = geometry::kInvalidAltitude;
   }
-  
+
   if (tag == gpx::kRte || tag == gpx::kTrkSeg || tag == gpx::kWpt)
   {
     if (MakeValid())
@@ -275,10 +279,10 @@ void GpxParser::Pop(std::string_view tag)
   m_tags.pop_back();
 }
 
-void GpxParser::CharData(std::string value)
+void GpxParser::CharData(std::string & value)
 {
   strings::Trim(value);
-  
+
   size_t const count = m_tags.size();
   if (count > 1 && !value.empty())
   {

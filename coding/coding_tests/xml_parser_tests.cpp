@@ -38,13 +38,13 @@ class SmokeDispatcher
 {
 public:
   void CharData(std::string const &) {}
-  void AddAttr(std::string const &, std::string const &) {}
-  bool Push(std::string const & push)
+  void AddAttr(char const *, char const *) {}
+  bool Push(std::string_view push)
   {
     TEST_EQUAL(push, "root", ());
     return true;
   }
-  void Pop(std::string const & v) { TEST_EQUAL(v, "root", ()); }
+  void Pop(std::string_view pop) { TEST_EQUAL(pop, "root", ()); }
 };
 
 class Dispatcher
@@ -55,20 +55,20 @@ public:
 
   void CharData(std::string const & ch) {}
 
-  void AddAttr(std::string const & key, std::string const & value)
+  void AddAttr(std::string key, std::string value)
   {
-    m_addAttrs.emplace_back(key, value);
+    m_addAttrs.emplace_back(std::move(key), std::move(value));
   }
 
-  bool Push(std::string const & push)
+  bool Push(std::string push)
   {
-    m_pushes.push_back(push);
+    m_pushes.emplace_back(std::move(push));
     return true;
   }
 
-  void Pop(std::string const & v)
+  void Pop(std::string pop)
   {
-    m_pops.push_back(v);
+    m_pops.emplace_back(std::move(pop));
   }
 
   void TestAddAttrs(PairsOfStrings const & addAttrs)

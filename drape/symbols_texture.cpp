@@ -37,9 +37,9 @@ public:
     , m_height(0)
   {}
 
-  bool Push(std::string const & /*element*/) { return true; }
+  bool Push(char const * /*element*/) { return true; }
 
-  void Pop(std::string const & element)
+  void Pop(std::string_view element)
   {
     if (element == "symbol")
     {
@@ -53,7 +53,7 @@ public:
     }
   }
 
-  void AddAttr(std::string const & attribute, std::string const & value)
+  void AddAttr(std::string_view attribute, char const * value)
   {
     if (attribute == "name")
       m_name = value;

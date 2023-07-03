@@ -110,10 +110,10 @@ ReaderPtr<Reader> StyleReader::GetDrawingRulesReader() const
 }
 
 ReaderPtr<Reader> StyleReader::GetResourceReader(std::string const & file,
-                                                 std::string const & density) const
+                                                 std::string_view density) const
 {
   std::string const resourceDir =
-      std::string("resources-") + density + GetStyleResourcesSuffix(GetCurrentStyle());
+      std::string("resources-").append(density) + GetStyleResourcesSuffix(GetCurrentStyle());
   std::string resFile = base::JoinPath(resourceDir, file);
 
   auto overriddenResFile = base::JoinPath(GetPlatform().WritableDir(), kStylesOverrideDir, resFile);

@@ -834,9 +834,10 @@ double KmlParser::GetTrackWidthForStyle(std::string const & styleUrl) const
   return kDefaultTrackWidth;
 }
 
-bool KmlParser::Push(std::string const & tag)
+bool KmlParser::Push(std::string movedTag)
 {
-  m_tags.push_back(tag);
+  std::string const & tag = m_tags.emplace_back(std::move(movedTag));
+
   if (tag == kCompilation)
   {
     m_categoryData = &m_compilationData;
@@ -850,53 +851,51 @@ bool KmlParser::Push(std::string const & tag)
   return true;
 }
 
-void KmlParser::AddAttr(std::string const & attr, std::string const & value)
+void KmlParser::AddAttr(std::string attr, std::string value)
 {
-  std::string attrInLowerCase = attr;
-  strings::AsciiToLower(attrInLowerCase);
+  strings::AsciiToLower(attr);
 
-  if (IsValidAttribute(kStyle, value, attrInLowerCase))
+  if (IsValidAttribute(kStyle, value, attr))
   {
     m_styleId = value;
   }
-  else if (IsValidAttribute(kStyleMap, value, attrInLowerCase))
+  else if (IsValidAttribute(kStyleMap, value, attr))
   {
     m_mapStyleId = value;
   }
-  else if (IsValidAttribute(kCompilation, value, attrInLowerCase))
+  else if (IsValidAttribute(kCompilation, value, attr))
   {
     if (!strings::to_uint64(value, m_categoryData->m_compilationId))
       m_categoryData->m_compilationId = 0;
   }
 
-  if (attrInLowerCase == "code")
+  if (attr == "code")
   {
     m_attrCode = StringUtf8Multilang::GetLangIndex(value);
   }
-  else if (attrInLowerCase == "id")
+  else if (attr == "id")
   {
     m_attrId = value;
   }
-  else if (attrInLowerCase == "key")
+  else if (attr == "key")
   {
     m_attrKey = value;
   }
-  else if (attrInLowerCase == "type" && !value.empty() && GetTagFromEnd(0) == kCompilation)
+  else if (attr == "type" && !value.empty() && GetTagFromEnd(0) == kCompilation)
   {
-    std::string valueInLowerCase = value;
-    strings::AsciiToLower(valueInLowerCase);
-    if (valueInLowerCase == "category")
+    strings::AsciiToLower(value);
+    if (value == "category")
       m_categoryData->m_type = CompilationType::Category;
-    else if (valueInLowerCase == "collection")
+    else if (value == "collection")
       m_categoryData->m_type = CompilationType::Collection;
-    else if (valueInLowerCase == "day")
+    else if (value == "day")
       m_categoryData->m_type = CompilationType::Day;
     else
       m_categoryData->m_type = CompilationType::Category;
   }
 }
 
-bool KmlParser::IsValidAttribute(std::string_view const & type, std::string const & value,
+bool KmlParser::IsValidAttribute(std::string_view type, std::string const & value,
                                  std::string const & attrInLowerCase) const
 {
   return (GetTagFromEnd(0) == type && !value.empty() && attrInLowerCase == "id");
@@ -914,7 +913,7 @@ bool KmlParser::IsProcessTrackTag() const
   return n >= 3 && IsTrack(m_tags[n - 1]) && (m_tags[n - 2] == kPlacemark || m_tags[n - 3] == kPlacemark);
 }
 
-void KmlParser::Pop(std::string const & tag)
+void KmlParser::Pop(std::string_view tag)
 {
   ASSERT_EQUAL(m_tags.back(), tag, ());
 
@@ -1030,18 +1029,19 @@ void KmlParser::Pop(std::string const & tag)
   m_tags.pop_back();
 }
 
-void KmlParser::CharData(std::string value)
+void KmlParser::CharData(std::string & value)
 {
   strings::Trim(value);
 
   size_t const count = m_tags.size();
   if (count > 1 && !value.empty())
   {
-    std::string const & currTag = m_tags[count - 1];
-    std::string const & prevTag = m_tags[count - 2];
-    std::string const ppTag = count > 2 ? m_tags[count - 3] : std::string();
-    std::string const pppTag = count > 3 ? m_tags[count - 4] : std::string();
-    std::string const ppppTag = count > 4 ? m_tags[count - 5] : std::string();
+    using namespace std;
+    string const & currTag = m_tags[count - 1];
+    string const & prevTag = m_tags[count - 2];
+    string_view const ppTag = count > 2 ? m_tags[count - 3] : string_view{};
+    string_view const pppTag = count > 3 ? m_tags[count - 4] : string_view{};
+    string_view const ppppTag = count > 4 ? m_tags[count - 5] : string_view{};
 
     auto const TrackTag = [this, &prevTag, &currTag, &value]()
     {
