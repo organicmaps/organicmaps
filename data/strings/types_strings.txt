@@ -311,6 +311,7 @@
     et = Platvorm
     eu = Plataforma
     fr = Aire de stationnement pour aéronefs
+    it = Area di stazionamento per aeromobili
     ja = エプロン
     nl = Platform
     pl = Płyta postojowa samolotów
@@ -329,6 +330,7 @@
     eu = Ontziratzeko atea
     fi = Portti
     fr = Porte d'embarquement
+    it = Cancello aeroportuale
     ja = 搭乗口
     mr = दार
     pl = Wyjście lotniskowe
@@ -381,7 +383,7 @@
     eu = Pista
     fi = Kiitorata
     fr = Piste d'aviation
-    it = Pista
+    it = Pista di decollo/atterraggio
     ja = 滑走路
     mr = धावपट्टी
     nl = Startbaan
@@ -420,7 +422,7 @@
     et = Terminal
     eu = Terminala
     fi = Terminaali
-    it = Terminal
+    it = Terminal aeroportuale
     ja = 空港ターミナルビル
     mr = टर्मिनल
     pl = Terminal lotniskowy
@@ -448,7 +450,7 @@
     fr = Objets d'infrastructure
     hu = Infrastruktúra
     id = Ruang berfasilitas
-    it = Servize
+    it = Struttura
     ja = アメニティー
     ko = 생활 편의시설
     mr = सुविधा
@@ -574,7 +576,7 @@
     fa = میکده
     fi = Baari
     hu = Bár
-    it = Bar
+    it = Bar alcolico
     ja = 居酒屋
     ko = 바
     mr = बार
@@ -768,6 +770,7 @@
     et = Õlleaed
     fa = غذا
     hu = Sörkert
+    it = Biergarten
     ja = ビアガーデン
     ko = 비어가르텐
     nb = Uteservering
@@ -941,7 +944,7 @@
     fr = Location de voitures
     hu = Gépkocsi-kölcsönző
     id = Rental mobil
-    it = Noleggio di automobili
+    it = Noleggio automobili
     ja = レンタカー
     ko = 카 렌탈
     mr = भाड्याची गाडी
@@ -975,6 +978,7 @@
     fr = Station d'autopartage
     hu = Gépjármű megosztása
     id = Berbagi mobil
+    it = Car sharing
     ja = カーシェアリング
     ko = 카 셰어링
     mr = कार शेअरिंग
@@ -1706,7 +1710,7 @@
     he = הקיזומל רפס תיב
     hu = Zeneiskola
     id = Sekolah musik
-    it = Scuola di Musica
+    it = Scuola di musica
     ja = 音楽学校
     ko = 음악 학교
     nb = Musikkskole
@@ -1847,7 +1851,7 @@
     fr = Terminal de ferry
     hu = Komp
     id = Terminal
-    it = Traghetto
+    it = Terminal traghetti
     ja = フェリー
     ko = 페리
     mr = होडी
@@ -2611,7 +2615,7 @@
     fr = Parking relais
     hu = Parkoló
     id = Parkir
-    it = Parcheggio
+    it = Parcheggio di interscambio
     ja = 駐車場
     ko = 주차
     mr = वाहनतळ
@@ -2727,7 +2731,7 @@
     fr = Place de stationnement
     hu = Parkolóhely
     id = Tempat parkir
-    it = Parcheggio
+    it = Posteggio singolo
     ja = 駐車スペース
     ko = 주차장
     mr = पार्किंगची जागा
@@ -2912,7 +2916,7 @@
     fi = Temppeli
     hu = Templom
     id = Kuil
-    it = Tempio
+    it = Tempio buddista
     ja = 寺院
     ko = 불교 사원
     mr = मंदिर
@@ -2981,7 +2985,7 @@
     fi = Temppeli
     hu = Templom
     id = Kuil
-    it = Tempio
+    it = Tempio induista
     ja = ヒンドゥー教寺院
     ko = 힌두교 사원
     mr = मंदिर
@@ -3085,7 +3089,7 @@
     fr = Sanctuaire
     hu = Kegyhely
     id = Kuil
-    it = Santuario
+    it = Santuario shintoista
     ja = 神社
     ko = 사당
     mr = देवस्थान
@@ -3119,7 +3123,7 @@
     fi = Temppeli
     hu = Templom
     id = Kuil
-    it = Tempio
+    it = Tempio taoista
     ja = 道教寺院
     ko = 도교 사원
     mr = मंदिर
@@ -3190,7 +3194,7 @@
     fr = Boîte aux lettres
     hu = Levelesláda
     id = Kotak pos
-    it = Casella della posta
+    it = Casella postale
     ja = 郵便ポスト
     ko = 우편함
     mr = टपालपेटी
@@ -3312,7 +3316,7 @@
     fr = Microbibliothèque
     hu = Nyilvános könyvespolc
     id = Rak Buku
-    it = Libreria
+    it = Biblioteca di strada
     ja = 街角文庫
     ko = 도서 교환
     nb = Bokhylle
@@ -3821,7 +3825,7 @@
     es = Estación de vaciado para caravanas
     et = Hoidmispaagi prügila
     fr = Station de vidange
-    it = Area servizi camper
+    it = Scarico acque nere
     nl = Caravantoilet cassette-leegpunt
     pl = Miejsce opróżniania toalety dla kamperów
     pt-BR = Estação de despejo de esgotos
@@ -4044,7 +4048,7 @@
     fi = WC
     fr = Toilettes
     hu = Mosdó
-    it = Toilette
+    it = Servizi igienici
     ja = トイレ
     ko = 화장실
     mr = शौचालय
@@ -4145,7 +4149,7 @@
     eu = Makina saltzailea
     fi = Myyntiautomaatti
     fr = Distributeur automatique
-    it = Macchinetta
+    it = Distributore automatico
     ja = 自動販売機
     mr = विक्रीयंत्र
     nl = Automaat
@@ -4203,7 +4207,7 @@
     eu = Kafea saltzeko makina
     fi = Kahviautomaatti
     fr = Distributeur de café
-    it = Distributore di caffè
+    it = Macchina del caffè
     mr = कॉफी विक्रीयंत्र
     nl = Koffieautomaat
     pt-BR = Máquina de café
@@ -4272,7 +4276,7 @@
     eu = Janaria saltzeko makina
     fi = Ruoka-automaatti
     fr = Distributeur d'aliments
-    it = Distributore di alimenti
+    it = Distributore automatico di alimenti
     mr = अन्न विक्रीयंत्र
     nl = Etenswarenautomaat
     pt-BR = Máquina de venda de comidas
@@ -4288,7 +4292,7 @@
     eu = Egunkariak saltzeko makina
     fi = Sanomalehtiautomaatti
     fr = Distributeur de journaux
-    it = Distributore di giornali
+    it = Distributore automatico di giornali
     mr = वृत्तपत्र विक्रीयंत्र
     nl = Krantenautomaat
     pt-BR = Máquina de venda de jornais
@@ -4348,7 +4352,7 @@
     fr = Distributeur de billets de transport en commun
     hu = Automata jegykiadó tömegközlekedési eszközökhöz
     id = Mesin penjual otomatis tiket transportasi umum
-    it = Distributore automatico biglietti di trasporto
+    it = Biglietteria automatica del trasporto pubblico
     ja = 公共交通機関の券売機
     ko = 대중교통표 자동판매기
     mr = तिकीट यंत्र
@@ -4379,7 +4383,7 @@
     eu = Gozokiak saltzeko makina
     fi = Karkkiautomaatti
     fr = Distributeur de bonbons
-    it = Distributore di dolciumi
+    it = Distributore automatico di dolciumi
     mr = मिठाई विक्रीयंत्र
     nl = Snoepautomaat
     pt-BR = Máquina de venda de doces
@@ -4395,6 +4399,7 @@
     et = Ekskremendikottide automaat
     eu = Kaka poltsak saltzeko makina
     fr = Distributeur de sacs à excréments
+    it = Distributore di sacchetti per escrementi
     mr = मलमूत्र पिशव्या विक्रीयंत्र
     nl = Hondenpoepzakjesdispenser
     pt-BR = Saquinhos de lixo
@@ -4428,6 +4433,7 @@
     es = Maquina expendedora de combustible
     et = Tankimisautomaat
     fi = Bensa-automaatti
+    it = Pompa di rifornimento
     mr = इंधन विक्रीयंत्र
     nl = Tankautomaat
     pt-BR = Bomba de combustível
@@ -4521,7 +4527,7 @@
     fr = Déchets
     hu = Szemét
     id = Sampah
-    it = Spazzatura
+    it = Cassonetto
     ja = ゴミ
     ko = 휴지통
     mr = कचऱ्याची मोठी पेटी
@@ -4573,7 +4579,7 @@
     fr = Point d’eau
     hu = Vízvételi pont
     id = Titik Air
-    it = Distributore acqua
+    it = Punto acqua
     ja = 給水所
     ko = 상수도
     nb = Vannpunkt
@@ -4926,7 +4932,7 @@
     fr = Barrière levante
     hu = Sorompó
     id = Polisi tidur
-    it = Barriera ferroviaria
+    it = Sbarra
     ja = ブームバリア
     ko = 차량차단기
     mr = लिफ्ट दार
@@ -21641,6 +21647,7 @@
     fr = Quincaillerie
     he = ןיינב ירמוחל תונח
     hu = Barkácsüzlet
+    it = Ferramenta
     ja = ホームセンター
     nl = IJzerwaren
     pl = Sklep z narzędziami
