@@ -16,7 +16,7 @@ namespace df
 {
 namespace
 {
-/* 
+/*
 * The overall rendering depth range [dp::kMinDepth;dp::kMaxDepth] is divided
 * into following specific depth ranges:
 * FG - foreground lines and areas (buildings..), rendered on top of other geometry always,
@@ -227,14 +227,31 @@ private:
 IsHatchingTerritoryChecker::IsHatchingTerritoryChecker()
 {
   Classificator const & c = classif();
-  base::StringIL arr[] = {
+
+  base::StringIL const arr3[] = {
+    {"boundary", "protected_area", "1"},
+  };
+  for (auto const & sl : arr3)
+    m_types.push_back(c.GetTypeByPath(sl));
+  m_type3end = m_types.size();
+
+  base::StringIL const arr2[] = {
     {"leisure", "nature_reserve"},
     {"boundary", "national_park"},
     {"landuse", "military"},
-    {"boundary", "protected_area", "1"},
   };
-  for (auto const & sl : arr)
+  for (auto const & sl : arr2)
     m_types.push_back(c.GetTypeByPath(sl));
+}
+
+bool IsHatchingTerritoryChecker::IsMatched(uint32_t type) const
+{
+  // Matching with subtypes (see Stylist_IsHatching test).
+
+  auto const iEnd3 = m_types.begin() + m_type3end;
+  if (std::find(m_types.begin(), iEnd3, PrepareToMatch(type, 3)) != iEnd3)
+    return true;
+  return std::find(iEnd3, m_types.end(), PrepareToMatch(type, 2)) != m_types.end();
 }
 
 void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int const zoomLevel,
