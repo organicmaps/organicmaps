@@ -68,13 +68,13 @@ public:
 
   /// @name Parser callback functions.
   /// @{
-  bool Push(std::string const & name);
-  void AddAttr(std::string const & attr, std::string const & value);
-  void Pop(std::string const & tag);
-  void CharData(std::string value);
+  bool Push(std::string name);
+  void AddAttr(std::string attr, std::string value);
+  void Pop(std::string_view tag);
+  void CharData(std::string & value);
   /// @}
 
-  bool IsValidAttribute(std::string_view const & type, std::string const & value,
+  bool IsValidAttribute(std::string_view type, std::string const & value,
                         std::string const & attrInLowerCase) const;
 
   static kml::TrackLayer GetDefaultTrackLayer();

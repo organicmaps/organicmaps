@@ -18,7 +18,7 @@ public:
 
   void CharData(std::string const &) {}
 
-  void AddAttr(std::string const & key, std::string const & value)
+  void AddAttr(std::string_view key, char const * value)
   {
     if (!m_current)
       return;
@@ -41,12 +41,12 @@ public:
       m_current->m_role = value;
   }
 
-  bool Push(std::string const & tagName)
+  bool Push(char const * tagName)
   {
-    ASSERT_GREATER_OR_EQUAL(tagName.size(), 2, ());
+    ASSERT(tagName[0] != 0 && tagName[1] != 0, ("tagName.size() >= 2"));
 
     // As tagKey we use first two char of tag name.
-    auto tagKey = OsmElement::EntityType(*reinterpret_cast<uint16_t const *>(tagName.data()));
+    auto const tagKey = OsmElement::EntityType(*reinterpret_cast<uint16_t const *>(tagName));
 
     switch (++m_depth)
     {
@@ -65,7 +65,7 @@ public:
     return true;
   }
 
-  void Pop(std::string const & v)
+  void Pop(char const *)
   {
     switch (--m_depth)
     {

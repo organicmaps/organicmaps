@@ -24,11 +24,11 @@ class GpxParser
 {
 public:
   explicit GpxParser(FileData & data);
-  bool Push(std::string_view name);
-  void AddAttr(std::string const & attr, std::string const & value);
-  std::string_view GetTagFromEnd(size_t n) const;
+  bool Push(std::string name);
+  void AddAttr(std::string_view attr, char const * value);
+  std::string const & GetTagFromEnd(size_t n) const;
   void Pop(std::string_view tag);
-  void CharData(std::string value);
+  void CharData(std::string & value);
 
 private:
   enum GeometryType
@@ -77,14 +77,14 @@ class DeserializerGpx
 {
 public:
   DECLARE_EXCEPTION(DeserializeException, RootException);
-  
+
   explicit DeserializerGpx(FileData & fileData);
-  
+
   template <typename ReaderType>
   void Deserialize(ReaderType const & reader)
   {
     NonOwningReaderSource src(reader);
-    
+
     gpx::GpxParser parser(m_fileData);
     if (!ParseXML(src, parser, true))
     {
@@ -96,7 +96,7 @@ public:
       MYTHROW(DeserializeException, ("Could not parse GPX."));
     }
   }
-  
+
 private:
   FileData & m_fileData;
 };
