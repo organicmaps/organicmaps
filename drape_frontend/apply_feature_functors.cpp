@@ -702,6 +702,7 @@ void ApplyAreaFeature::BuildEdges(int vertexIndex1, int vertexIndex2, int vertex
 
 void ApplyAreaFeature::CalculateBuildingOutline(bool calculateNormals, BuildingOutline & outline)
 {
+  // Make sure that you called this fuction once! per feature.
   outline.m_vertices = std::move(m_points);
   outline.m_indices.reserve(m_edges.size() * 2);
   if (calculateNormals)
@@ -748,7 +749,7 @@ void ApplyAreaFeature::ProcessAreaRule(Stylist::TRuleWrapper const & rule)
     params.m_baseGtoPScale = static_cast<float>(m_currentScaleGtoP);
 
     BuildingOutline outline;
-    if (m_isBuilding)
+    if (m_isBuilding && !params.m_hatching)
     {
       /// @todo Make borders work for non-building areas too.
       outline.m_generateOutline = areaRule->has_border() &&
