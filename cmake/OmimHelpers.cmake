@@ -33,7 +33,7 @@ function(omim_add_executable executable)
 
   # Enable warnings for all our binaries.
   target_compile_options(${executable} PRIVATE ${OMIM_WARNING_FLAGS})
-  target_include_directories(${executable} PRIVATE ${OMIM_INCLUDE_DIRS})
+  target_include_directories(${executable} SYSTEM PRIVATE ${OMIM_INCLUDE_DIRS})
   if (USE_ASAN)
     target_link_libraries(${executable}
       -fsanitize=address
@@ -74,12 +74,15 @@ function(omim_add_executable executable)
   endif()
 endfunction()
 
+
+# SYSTEM is needed to suppress warnings from 3party headers.
+
 function(omim_add_library library)
   add_library(${library} ${ARGN})
 
   # Enable warnings for all our libraries.
   target_compile_options(${library} PRIVATE ${OMIM_WARNING_FLAGS})
-  target_include_directories(${library} PRIVATE ${OMIM_INCLUDE_DIRS})
+  target_include_directories(${library} SYSTEM PRIVATE ${OMIM_INCLUDE_DIRS})
   if (USE_PPROF AND PLATFORM_MAC)
     find_path(PPROF_INCLUDE_DIR NAMES gperftools/profiler.h)
     target_include_directories(${library} SYSTEM PUBLIC ${PPROF_INCLUDE_DIR})
@@ -87,6 +90,18 @@ function(omim_add_library library)
   if (USE_PCH)
     add_precompiled_headers_to_target(${library} ${OMIM_PCH_TARGET_NAME})
   endif()
+
+
+  if (USE_CLANG_TIDY)
+    find_program(CLANG_TIDY_COMMAND NAMES clang-tidy)
+    if(NOT CLANG_TIDY_COMMAND)
+      message(FATAL_ERROR "USE_CLANG_TIDY is ON but clang-tidy is not found!")
+    else()
+      message(STATUS "Found clang-tidy at ${CLANG_TIDY_COMMAND}")
+      set_target_properties(${library} PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
+    endif()
+  endif()
+
 endfunction()
 
 function(omim_add_test_impl disable_platform_init executable)
@@ -96,7 +111,7 @@ function(omim_add_test_impl disable_platform_init executable)
       ${OMIM_ROOT}/testing/testingmain.cpp
     )
     target_compile_options(${executable} PRIVATE ${OMIM_WARNING_FLAGS})
-    target_include_directories(${executable} PRIVATE ${OMIM_INCLUDE_DIRS})
+    target_include_directories(${executable} SYSTEM PRIVATE ${OMIM_INCLUDE_DIRS})
     if(disable_platform_init)
       target_compile_definitions(${PROJECT_NAME} PRIVATE OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT)
     else()

@@ -70,7 +70,7 @@ jobs:
           CXX: clang++-14
         # -g1 should slightly reduce build time.
         run: |
-          cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS=-g1 -DUNITY_DISABLE=ON
+          cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS=-g1 -DUNITY_DISABLE=ON -DUSE_CLANG_TIDY=ON
 
       - name: Compile
         shell: bash

@@ -127,6 +127,7 @@ if (BUILD_DESIGNER)
   add_definitions(-DBUILD_DESIGNER)
 endif()
 
+option(USE_CLANG_TIDY "Enable Clang Tidy" OFF)
 option(USE_ASAN "Enable Address Sanitizer" OFF)
 option(USE_TSAN "Enable Thread Sanitizer" OFF)
 option(USE_LIBFUZZER "Enable LibFuzzer" OFF)
@@ -160,6 +161,10 @@ endif()
 
 if (PLATFORM_LINUX)
   option(USE_PPROF "Enable Google Profiler" OFF)
+endif()
+
+if (USE_CLANG_TIDY)
+  message(STATUS "Clang Tidy is enabled")
 endif()
 
 if (USE_ASAN)
