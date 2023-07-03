@@ -159,8 +159,6 @@ int main(int argc, char * argv[])
 {
 #if defined(OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP) && !defined(OMIM_OS_IPHONE)
   QAPP theApp(argc, argv);
-  // Pretty icons on HDPI displays.
-  QAPP::setAttribute(Qt::AA_UseHighDpiPixmaps);
   UNUSED_VALUE(theApp);
 #else
   UNUSED_VALUE(argc);
