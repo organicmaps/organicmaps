@@ -5,10 +5,8 @@
 
 #include "base/buffer_vector.hpp"
 
-#include <cstdint>
 #include <functional>
 #include <string>
-#include <utility>
 
 class FeatureType;
 
@@ -26,6 +24,10 @@ class IsHatchingTerritoryChecker : public ftypes::BaseChecker
   IsHatchingTerritoryChecker();
 public:
   DECLARE_CHECKER_INSTANCE(IsHatchingTerritoryChecker);
+protected:
+  bool IsMatched(uint32_t type) const override;
+private:
+  size_t m_type3end;
 };
 
 struct CaptionDescription

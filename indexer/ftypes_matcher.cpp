@@ -13,7 +13,7 @@
 #include <iterator>
 #include <map>
 #include <sstream>
-#include <unordered_map>
+
 
 namespace ftypes
 {
@@ -139,7 +139,7 @@ uint32_t BaseChecker::PrepareToMatch(uint32_t type, uint8_t level)
 
 bool BaseChecker::IsMatched(uint32_t type) const
 {
-  return (find(m_types.begin(), m_types.end(), PrepareToMatch(type, m_level)) != m_types.end());
+  return base::IsExist(m_types, PrepareToMatch(type, m_level));
 }
 
 void BaseChecker::ForEachType(function<void(uint32_t)> const & fn) const
