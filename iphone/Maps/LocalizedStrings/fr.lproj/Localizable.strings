@@ -1381,7 +1381,7 @@
 "type.amenity.grave_yard" = "Cimetière";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
-"type.amenity.grave_yard.christian" = "Cimetière";
+"type.amenity.grave_yard.christian" = "Cimetière chrétien";
 
 "type.amenity.hospital" = "Hôpital";
 
@@ -1550,7 +1550,7 @@
 
 "type.amenity.parcel_locker" = "Consigne automatique pour colis";
 
-"type.amenity.vending_machine.fuel" = "Fuel Pump";
+"type.amenity.vending_machine.fuel" = "Pompe à carburants";
 
 "type.amenity.veterinary" = "Docteur vétérinaire";
 
@@ -1558,7 +1558,7 @@
 
 "type.amenity.waste_disposal" = "Déchets";
 
-"type.amenity.waste_transfer_station" = "Waste Transfer Station";
+"type.amenity.waste_transfer_station" = "Station de transfert de déchets";
 
 "type.amenity.water_point" = "Point d’eau";
 
@@ -1574,7 +1574,7 @@
 
 "type.barrier.city_wall" = "Mur de la ville";
 
-"type.barrier.cycle_barrier" = "Cycle Barrier";
+"type.barrier.cycle_barrier" = "Barrière à vélos";
 
 "type.barrier.ditch" = "Fossé";
 
@@ -1668,7 +1668,7 @@
 
 "type.building.garage" = "Garage";
 
-"type.building.train_station" = "Gare";
+"type.building.train_station" = "Gare ferroviaire";
 
 "type.building.warehouse" = "Entrepôt";
 
@@ -1701,7 +1701,7 @@
 
 "type.craft.locksmith" = "Serrurier";
 
-"type.craft.metal_construction" = "Métallo";
+"type.craft.metal_construction" = "Constructions métalliques";
 
 "type.craft.painter" = "Peintre";
 
@@ -1932,12 +1932,12 @@
 
 "type.highway" = "Highway";
 
-"type.highway.bridleway" = "Chemin pour cavalier";
+"type.highway.bridleway" = "Chemin équestre";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.bridleway.bridge" = "Pont";
 
-"type.highway.bridleway.permissive" = "Chemin pour cavalier";
+"type.highway.bridleway.permissive" = "Chemin équestre";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunnel";
@@ -2004,7 +2004,7 @@
 
 "type.highway.motorway_junction" = "Sortie";
 
-"type.highway.motorway_link" = "Autoroute";
+"type.highway.motorway_link" = "Bretelle d'autoroute";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway_link.bridge" = "Pont";
@@ -2348,7 +2348,7 @@
 "type.landuse.cemetery" = "Cimetière";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
-"type.landuse.cemetery.christian" = "Cimetière";
+"type.landuse.cemetery.christian" = "Cimetière chrétien";
 
 "type.landuse.churchyard" = "Cour d'église";
 
@@ -2396,7 +2396,7 @@
 
 "type.landuse.railway" = "Installations ferroviaires";
 
-"type.landuse.recreation_ground" = "Recreation Ground";
+"type.landuse.recreation_ground" = "Aire de jeux";
 
 "type.landuse.reservoir" = "Bassin de retenue";
 
@@ -2466,7 +2466,7 @@
 
 "type.leisure.swimming_pool" = "Piscine";
 
-"type.leisure.swimming_pool.private" = "Piscine";
+"type.leisure.swimming_pool.private" = "Piscine privée";
 
 "type.leisure.track" = "Piste de course";
 
@@ -2614,7 +2614,7 @@
 
 "type.natural.wetland.marsh" = "Marais";
 
-"type.noexit" = "Dead End";
+"type.noexit" = "Voie sans issue";
 
 "type.office" = "Bureau";
 
@@ -2700,7 +2700,7 @@
 
 "type.power" = "Power";
 
-"type.power.generator" = "Power Generator";
+"type.power.generator" = "Générateur";
 
 "type.power.generator.solar" = "Générateur solaire";
 
@@ -2710,11 +2710,11 @@
 
 "type.power.generator.hydro" = "Centrale hydroélectrique";
 
-"type.power.line" = "Power Line";
+"type.power.line" = "Ligne électrique";
 
-"type.power.line.underground" = "Underground Power Line";
+"type.power.line.underground" = "Ligne électrique souterraine";
 
-"type.power.minor_line" = "Minor Power Line";
+"type.power.minor_line" = "Ligne électrique";
 
 "type.power.plant" = "Centrale électrique";
 
@@ -2734,7 +2734,7 @@
 
 "type.power.substation" = "Poste électrique";
 
-"type.power.tower" = "Poteau électrique";
+"type.power.tower" = "Pylône électrique";
 
 "type.psurface" = "psurface";
 
@@ -2770,7 +2770,7 @@
 
 "type.railway.funicular.tunnel" = "Funiculaire";
 
-"type.railway.halt" = "Gare";
+"type.railway.halt" = "Gare ferroviaire";
 
 "type.railway.level_crossing" = "Passage à niveau";
 
@@ -2848,13 +2848,13 @@
 
 "type.railway.rail.service.tunnel" = "Chemin de fer";
 
-"type.railway.station" = "Gare";
+"type.railway.station" = "Gare ferroviaire";
 
 "type.railway.station.funicular" = "Funiculaire";
 
-"type.railway.station.light_rail" = "Gare";
+"type.railway.station.light_rail" = "Gare ferroviaire";
 
-"type.railway.station.monorail" = "Gare";
+"type.railway.station.monorail" = "Gare ferroviaire";
 
 "type.railway.station.subway" = "Station de métro";
 
@@ -3511,7 +3511,7 @@
 
 "type.shop.cheese" = "Fromagerie";
 
-"type.shop.craft" = "L'artisanat";
+"type.shop.craft" = "Matériel d'arts et de loisirs créatifs";
 
 "type.shop.dairy" = "Crémerie";
 
@@ -3569,7 +3569,7 @@
 
 "type.sport.equestrian" = "Sport hippique";
 
-"type.sport.golf" = "Le golf";
+"type.sport.golf" = "Golf";
 
 "type.sport.gymnastics" = "Gymnastique";
 
@@ -3612,7 +3612,7 @@
 
 "type.sport.pelota" = "Pelote basque";
 
-"type.tourism" = "Tourism";
+"type.tourism" = "Tourisme";
 
 "type.tourism.alpine_hut" = "Refuge de montagne";
 
@@ -3634,7 +3634,7 @@
 
 "type.tourism.attraction.specified" = "Attraction";
 
-"type.tourism.camp_site" = "Campground";
+"type.tourism.camp_site" = "Camping";
 
 "type.tourism.caravan_site" = "Aire de camping-car";
 
