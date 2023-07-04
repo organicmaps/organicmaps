@@ -749,7 +749,7 @@ bool EditableMapObject::ValidateName(string const & name)
   {
     auto const ch = *it;
     // Exclude ASCII control characters.
-    if (ch < U'\U0000001F')
+    if (ch <= U'\U0000001F')
       return false;
     // Exclude {|}~ DEL and C1 control characters.
     if (ch >= U'\U0000007B' && ch <= U'\U0000009F')
