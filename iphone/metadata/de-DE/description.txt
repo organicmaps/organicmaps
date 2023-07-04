@@ -3,7 +3,7 @@
 • Höhenlinien, Höhenprofile, Bergspitzen und Steigungen
 • Schritt-für-Schritt-Navigation für Fußgänger, Radfahrer und Autos mit Sprachführung
 • Schnelle Offlinesuche
-• Export und Import von Lesezeichen im KML/KMZ-Format (GPX ist geplant)
+• Export und Import von Lesezeichen als KML, KMZ, GPX
 • Dunkler Modus zum Schutz deiner Augen
 • … und viele weitere Funktionen!
 
