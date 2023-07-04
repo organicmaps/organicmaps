@@ -14424,7 +14424,7 @@
     comment = Downloaded 10 **of** 20 <- it is that "of"
     tags = android,ios
     en = %1$d of %2$d
-    af = %a$d van %2$d
+    af = %1$d van %2$d
     ar = %1$d من%2$d
     be = %1$d з %2$d
     bg = %1$d от %2$d
