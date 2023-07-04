@@ -35,10 +35,9 @@
 #include <algorithm>
 #include <cmath>
 #include <limits>
+#include <map>
 #include <mutex>
-#include <sstream>
-#include <unordered_map>
-#include <utility>
+
 
 namespace df
 {
@@ -458,7 +457,7 @@ void ApplyPointFeature::ProcessPointRule(Stylist::TRuleWrapper const & rule)
     return;
 
   SymbolRuleProto const * symRule = rule.m_rule->GetSymbol();
-  if (symRule != nullptr)
+  if (symRule)
   {
     m_symbolDepth = rule.m_depth;
     m_symbolRule = symRule;
@@ -757,12 +756,16 @@ void ApplyAreaFeature::ProcessAreaRule(Stylist::TRuleWrapper const & rule)
                                   areaRule->border().width() > 0.0;
       if (outline.m_generateOutline)
         params.m_outlineColor = ToDrapeColor(areaRule->border().color());
+
       bool const calculateNormals = m_posZ > 0.0;
-      CalculateBuildingOutline(calculateNormals, outline);
+      if (calculateNormals || outline.m_generateOutline)
+        CalculateBuildingOutline(calculateNormals, outline);
+
       params.m_is3D = !outline.m_indices.empty() && calculateNormals;
     }
 
-    m_insertShape(make_unique_dp<AreaShape>(std::vector<m2::PointD>(m_triangles), std::move(outline), params));
+    m_insertShape(make_unique_dp<AreaShape>(params.m_hatching ? m_triangles : std::move(m_triangles),
+                                            std::move(outline), params));
   }
   else
   {

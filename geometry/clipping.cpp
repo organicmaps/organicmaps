@@ -9,8 +9,8 @@
 
 namespace m2
 {
-using AddPolygonPoint = std::function<void(m2::PointD const &)>;
-
+namespace
+{
 int GetRectSideIndex(int code)
 {
   if (code == m2::detail::LEFT)
@@ -22,8 +22,11 @@ int GetRectSideIndex(int code)
   return 3;
 }
 
-void InsertCorners(std::vector<m2::PointD> const & corners, m2::PointD const & p1, m2::PointD const & p2,
-                   m2::PointD const & p3, AddPolygonPoint const & addPolygonPoint, int code1,
+using CornersT = std::array<m2::PointD, 4>;
+
+template <class AddPointFnT>
+void InsertCorners(CornersT const & corners, m2::PointD const & p1, m2::PointD const & p2,
+                   m2::PointD const & p3, AddPointFnT const & addPolygonPoint, int code1,
                    int code2)
 {
   int cornerInd = GetRectSideIndex(code1);
@@ -43,9 +46,10 @@ void InsertCorners(std::vector<m2::PointD> const & corners, m2::PointD const & p
   }
 }
 
-bool IntersectEdge(m2::RectD const & rect, std::vector<m2::PointD> const & corners,
+template <class AddPointFnT>
+bool IntersectEdge(m2::RectD const & rect, CornersT const & corners,
                    m2::PointD const & pp1, m2::PointD const & pp2, m2::PointD const & pp3,
-                   AddPolygonPoint const & addPolygonPoint, int prevClipCode, int nextClipCode,
+                   AddPointFnT const & addPolygonPoint, int prevClipCode, int nextClipCode,
                    int & firstClipCode, int & lastClipCode)
 {
   m2::PointD p1 = pp1;
@@ -71,20 +75,18 @@ bool IntersectEdge(m2::RectD const & rect, std::vector<m2::PointD> const & corne
   }
   return false;
 }
+} // namespace
 
 void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::PointD const & p2,
                         m2::PointD const & p3, ClipTriangleByRectResultIt const & resultIterator)
 {
-  if (resultIterator == nullptr)
-    return;
-
   if (rect.IsPointInside(p1) && rect.IsPointInside(p2) && rect.IsPointInside(p3))
   {
     resultIterator(p1, p2, p3);
     return;
   }
 
-  static double constexpr kEps = 1e-8;
+  double constexpr kEps = 1e-8;
   std::vector<m2::PointD> polygon;
   auto const addPolygonPoint = [&polygon](m2::PointD const & pt)
   {
@@ -92,8 +94,7 @@ void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::Point
       polygon.push_back(pt);
   };
 
-  std::vector<m2::PointD> const corners = {rect.LeftTop(), rect.RightTop(), rect.RightBottom(),
-                                      rect.LeftBottom()};
+  CornersT const corners = { rect.LeftTop(), rect.RightTop(), rect.RightBottom(), rect.LeftBottom() };
 
   int firstClipCode[3];
   int lastClipCode[3];
