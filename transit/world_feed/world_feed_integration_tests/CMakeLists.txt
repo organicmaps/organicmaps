@@ -8,3 +8,14 @@ target_link_libraries(${PROJECT_NAME}
   world_feed
   generator
 )
+
+# This test requires additional data from the other repository
+set(TEST_DATA_REPO_URL "https://github.com/organicmaps/world_feed_integration_tests_data.git")
+set(DESTINATION_FOLDER "${OMIM_DATA_DIR}/world_feed_integration_tests_data/")
+
+add_custom_command(
+  TARGET ${PROJECT_NAME}
+  POST_BUILD
+  COMMAND test -d ${DESTINATION_FOLDER} || (git clone ${TEST_DATA_REPO_URL} ${DESTINATION_FOLDER})
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+)
