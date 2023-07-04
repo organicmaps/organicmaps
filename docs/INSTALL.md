@@ -236,15 +236,15 @@ Run all unit tests:
 
 ```bash
 cd build
-../tools/python/run_desktop_tests.py -f . -u ../data/ -d ../data/
+ctest -LE "fixture" --output-on-failure
 ```
 
-To run a limited set of tests, use `-i` flag. To exclude some tests, use `-e` flag:
+To run a limited set of tests, use `-R <regex>` flag. To exclude some tests, use `-E <regex>` flag:
 
 ```bash
 cd build
-../tools/python/run_desktop_tests.py -f . -u ../data/ -d ../data/ -i base_tests,coding_tests
-../tools/python/run_desktop_tests.py -f . -u ../data/ -d ../data/ -e routing_integration_tests
+ctest -R "base_tests|coding_tests" --output-on-failure
+ctest -LE "fixture" -E "base_tests|coding_tests" --output-on-failure
 ```
 
 When developing, it is more convenient to use a symlink:
@@ -255,7 +255,7 @@ ln -s ../data/ data
 ./coding_tests
 ```
 
-Some tests [are known to be broken](https://github.com/organicmaps/organicmaps/issues?q=is%3Aissue+is%3Aopen+label%3ATests).
+Some tests [are known to be broken](https://github.com/organicmaps/organicmaps/issues?q=is%3Aissue+is%3Aopen+label%3ATests) and disabled on CI.
 
 ### Debug commands
 

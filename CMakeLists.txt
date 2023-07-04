@@ -58,6 +58,7 @@ set(OMIM_ROOT ${CMAKE_SOURCE_DIR})
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${OMIM_ROOT}/cmake")
 
 include(OmimHelpers)
+include(OmimTesting)
 
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
   set(LINUX_DETECTED TRUE)
@@ -209,6 +210,8 @@ endif()
 
 if (NOT SKIP_TESTS)
   set(SKIP_TESTS FALSE)
+  enable_testing()
+  set(CTEST_CONFIGURATION_TYPE ${CMAKE_BUILD_TYPE})
 endif()
 
 if (NOT PYTHON_VERSION)
