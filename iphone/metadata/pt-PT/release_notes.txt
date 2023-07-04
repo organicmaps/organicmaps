@@ -1,17 +1,17 @@
 • Suporte à importação de GPX
 • Novos dados OpenStreetMap de 2 de junho
-• Correção de listas de favoritos que desapareciam quando caracteres errados eram salvos no nome ou na descrição de um favorito
+• Correção de listas de favoritos que desapareciam quando caracteres errados eram guardados no nome ou na descrição de um favorito
 • Melhoria no roteamento de carros e bicicletas
 • Correção de TTS em português (Brasil) e espanhol (México) que não funcionavam
-• Correção de falha ao importar ficheiro KML/KMZ/GPX
+• Correção de falha ao importar ficheiros KML/KMZ/GPX
 • Correção de importações repetidas do mesmo ficheiro
 • Correção de tradução em basco, bielorrusso, inglês, inglês britânico e ucraniano
 
 Estilos:
-• Correção de ícone de funicular
+• Correção no ícone de funicular
 • Alteração na cor do deserto no modo escuro
-• Adição de Escada de Peixe
+• Adição de "escada de peixes" em albufeiras e represas
 • Novo ícone para cacifo
-• Correção de ícone para a estação de metro mais ao norte de Munique
+• Correção de ícone para a estação de metro mais a norte de Munique
 
-Acompanhe nossas novidades em https://omaps.org/news
+Acompanhe as novidades em https://omaps.org/news
