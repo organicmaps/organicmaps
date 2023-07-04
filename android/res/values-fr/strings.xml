@@ -808,7 +808,7 @@
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">Cimetière</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
-	<string name="type.amenity.grave_yard.christian">Cimetière</string>
+	<string name="type.amenity.grave_yard.christian">Cimetière chrétien</string>
 	<string name="type.amenity.hospital">Hôpital</string>
 	<string name="type.amenity.hunting_stand">Mirador</string>
 	<string name="type.amenity.ice_cream">Stand de crème glacée</string>
@@ -885,9 +885,11 @@
 	<string name="type.amenity.vending_machine.sweets">Distributeur de bonbons</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Distributeur de sacs à excréments</string>
 	<string name="type.amenity.parcel_locker">Consigne automatique pour colis</string>
+	<string name="type.amenity.vending_machine.fuel">Pompe à carburants</string>
 	<string name="type.amenity.veterinary">Docteur vétérinaire</string>
 	<string name="type.amenity.waste_basket">Poubelle</string>
 	<string name="type.amenity.waste_disposal">Déchets</string>
+	<string name="type.amenity.waste_transfer_station">Station de transfert de déchets</string>
 	<string name="type.amenity.water_point">Point d’eau</string>
 	<string name="type.barrier">Barrière</string>
 	<string name="type.barrier.block">Bloc</string>
@@ -895,6 +897,7 @@
 	<string name="type.barrier.border_control">Contrôle aux frontières</string>
 	<string name="type.barrier.chain">Chaîne</string>
 	<string name="type.barrier.city_wall">Mur de la ville</string>
+	<string name="type.barrier.cycle_barrier">Barrière à vélos</string>
 	<string name="type.barrier.ditch">Fossé</string>
 	<string name="type.barrier.entrance">Entrée</string>
 	<string name="type.barrier.fence">Clôture</string>
@@ -939,7 +942,7 @@
 	<string name="type.building.address">Bâtiment</string>
 	<string name="type.building.has_parts">Bâtiment</string>
 	<string name="type.building_part">Bâtiment</string>
-	<string name="type.building.train_station">Gare</string>
+	<string name="type.building.train_station">Gare ferroviaire</string>
 	<string name="type.building.warehouse">Entrepôt</string>
 	<string name="type.cemetery.grave">Tombe</string>
 	<string name="type.craft">Artisanat</string>
@@ -956,7 +959,7 @@
 	<string name="type.craft.hvac">Chauffage, ventilation et climatisation</string>
 	<string name="type.craft.key_cutter">Reproduction de clé</string>
 	<string name="type.craft.locksmith">Serrurier</string>
-	<string name="type.craft.metal_construction">Métallo</string>
+	<string name="type.craft.metal_construction">Constructions métalliques</string>
 	<string name="type.craft.painter">Peintre</string>
 	<string name="type.craft.photographer">Photographe</string>
 	<string name="type.shop.camera">Boutique d\'appareils photo</string>
@@ -1070,10 +1073,10 @@
 	<string name="type.healthcare.speech_therapist">Logopédie</string>
 
 	<!-- SECTION: Types: Roads -->
-	<string name="type.highway.bridleway">Chemin pour cavalier</string>
+	<string name="type.highway.bridleway">Chemin équestre</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">Pont</string>
-	<string name="type.highway.bridleway.permissive">Chemin pour cavalier</string>
+	<string name="type.highway.bridleway.permissive">Chemin équestre</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
 	<string name="type.highway.busway">Route réservée aux bus</string>
@@ -1111,7 +1114,7 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway.tunnel">Tunnel</string>
 	<string name="type.highway.motorway_junction">Sortie</string>
-	<string name="type.highway.motorway_link">Autoroute</string>
+	<string name="type.highway.motorway_link">Bretelle d\'autoroute</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.motorway_link.bridge">Pont</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1283,7 +1286,7 @@
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Cimetière</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
-	<string name="type.landuse.cemetery.christian">Cimetière</string>
+	<string name="type.landuse.cemetery.christian">Cimetière chrétien</string>
 	<string name="type.landuse.churchyard">Cour d\'église</string>
 	<string name="type.landuse.commercial">Zone commerciale</string>
 	<string name="type.landuse.construction">Chantier de construction</string>
@@ -1305,6 +1308,7 @@
 	<string name="type.landuse.orchard">Vergers</string>
 	<string name="type.landuse.quarry">Carrières</string>
 	<string name="type.landuse.railway">Installations ferroviaires</string>
+	<string name="type.landuse.recreation_ground">Aire de jeux</string>
 	<string name="type.landuse.reservoir">Bassin de retenue</string>
 	<string name="type.landuse.residential">Zone résidentielle</string>
 	<string name="type.landuse.retail">Zone commerciale</string>
@@ -1333,7 +1337,7 @@
 	<string name="type.sport.yoga">Yoga</string>
 	<string name="type.leisure.stadium">Stade</string>
 	<string name="type.leisure.swimming_pool">Piscine</string>
-	<string name="type.leisure.swimming_pool.private">Piscine</string>
+	<string name="type.leisure.swimming_pool.private">Piscine privée</string>
 	<string name="type.leisure.track">Piste de course</string>
 	<string name="type.leisure.track.area">Piste de course</string>
 	<string name="type.leisure.water_park">Centre aquatique</string>
@@ -1396,6 +1400,7 @@
 	<string name="type.natural.wetland">Zone humide</string>
 	<string name="type.natural.wetland.bog">Tourbière</string>
 	<string name="type.natural.wetland.marsh">Marais</string>
+	<string name="type.noexit">Voie sans issue</string>
 	<string name="type.office">Bureau</string>
 	<string name="type.office.company">Bureaux d\'entreprise</string>
 	<string name="type.office.estate_agent">Agence immobilière</string>
@@ -1437,10 +1442,14 @@
 	<string name="type.place.suburb">Quartier</string>
 	<string name="type.place.town">Ville</string>
 	<string name="type.place.village">Village</string>
+	<string name="type.power.generator">Générateur</string>
 	<string name="type.power.generator.solar">Générateur solaire</string>
 	<string name="type.power.generator.wind">Éolienne génératrice</string>
 	<string name="type.power.generator.gas">Centrale à turbine à gaz</string>
 	<string name="type.power.generator.hydro">Centrale hydroélectrique</string>
+	<string name="type.power.line">Ligne électrique</string>
+	<string name="type.power.line.underground">Ligne électrique souterraine</string>
+	<string name="type.power.minor_line">Ligne électrique</string>
 	<string name="type.power.plant">Centrale électrique</string>
 	<string name="type.power.plant.coal">Centrale au charbon</string>
 	<string name="type.power.plant.gas">Centrale à turbine à gaz</string>
@@ -1449,7 +1458,7 @@
 	<string name="type.power.plant.wind">Centrale éolienne</string>
 	<string name="type.power.pole">Poteau électrique</string>
 	<string name="type.power.substation">Poste électrique</string>
-	<string name="type.power.tower">Poteau électrique</string>
+	<string name="type.power.tower">Pylône électrique</string>
 	<string name="type.railway">Chemin de fer</string>
 	<string name="type.railway.abandoned">Chemin de fer abandonné</string>
 	<string name="type.railway.abandoned.bridge">Chemin de fer abandonné</string>
@@ -1460,7 +1469,7 @@
 	<string name="type.railway.funicular">Funiculaire</string>
 	<string name="type.railway.funicular.bridge">Funiculaire</string>
 	<string name="type.railway.funicular.tunnel">Funiculaire</string>
-	<string name="type.railway.halt">Gare</string>
+	<string name="type.railway.halt">Gare ferroviaire</string>
 	<string name="type.railway.level_crossing">Passage à niveau</string>
 	<string name="type.railway.monorail">Monorail</string>
 	<string name="type.railway.monorail.bridge">Monorail</string>
@@ -1491,10 +1500,10 @@
 	<string name="type.railway.rail.utility.tunnel">Chemin de fer</string>
 	<string name="type.railway.rail.spur.tunnel">Chemin de fer</string>
 	<string name="type.railway.rail.service.tunnel">Chemin de fer</string>
-	<string name="type.railway.station">Gare</string>
+	<string name="type.railway.station">Gare ferroviaire</string>
 	<string name="type.railway.station.funicular">Funiculaire</string>
-	<string name="type.railway.station.light_rail">Gare</string>
-	<string name="type.railway.station.monorail">Gare</string>
+	<string name="type.railway.station.light_rail">Gare ferroviaire</string>
+	<string name="type.railway.station.monorail">Gare ferroviaire</string>
 	<string name="type.railway.station.subway">Station de métro</string>
 	<string name="type.railway.station.subway.adana">Station de métro</string>
 	<string name="type.railway.station.subway.algiers">Station de métro</string>
@@ -1820,7 +1829,7 @@
 	<string name="type.shop.boutique">Boutique</string>
 	<string name="type.shop.charity">Magasin de charité</string>
 	<string name="type.shop.cheese">Fromagerie</string>
-	<string name="type.shop.craft">L\'artisanat</string>
+	<string name="type.shop.craft">Matériel d\'arts et de loisirs créatifs</string>
 	<string name="type.shop.dairy">Crémerie</string>
 	<string name="type.shop.electrical">Magasin de fournitures et d\'appareils électriques</string>
 	<string name="type.shop.fishing">Magasin de pêche</string>
@@ -1849,7 +1858,7 @@
 	<string name="type.sport.cricket">Cricket</string>
 	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Sport hippique</string>
-	<string name="type.sport.golf">Le golf</string>
+	<string name="type.sport.golf">Golf</string>
 	<string name="type.sport.gymnastics">Gymnastique</string>
 	<string name="type.sport.handball">Handball</string>
 	<string name="type.sport.multi">Sports multiples</string>
@@ -1871,6 +1880,7 @@
 	<string name="type.sport.field_hockey">Hockey sur gazon</string>
 	<string name="type.sport.badminton">Badminton</string>
 	<string name="type.sport.pelota">Pelote basque</string>
+	<string name="type.tourism">Tourisme</string>
 	<string name="type.tourism.alpine_hut">Refuge de montagne</string>
 	<string name="type.tourism.apartment">Appart\'hôtel</string>
 	<string name="type.tourism.artwork">Œuvre</string>
@@ -1878,6 +1888,7 @@
 	<string name="type.tourism.artwork.painting">Œuvre</string>
 	<string name="type.tourism.artwork.sculpture">Œuvre</string>
 	<string name="type.tourism.artwork.statue">Œuvre</string>
+	<string name="type.tourism.camp_site">Camping</string>
 	<string name="type.tourism.caravan_site">Aire de camping-car</string>
 	<string name="type.tourism.chalet">Meublé de tourisme</string>
 	<string name="type.tourism.gallery">Galerie d\'art</string>
