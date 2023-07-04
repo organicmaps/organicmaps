@@ -24,9 +24,7 @@
 #include <QtGui/QAction>
 #include <QtWidgets/QMenu>
 
-namespace qt
-{
-namespace common
+namespace qt::common
 {
 //#define ENABLE_AA_SWITCH
 
@@ -285,6 +283,17 @@ void MapWidget::Build()
   m_vao->release();
 }
 
+namespace
+{
+search::ReverseGeocoder::Address GetFeatureAddressInfo(Framework const & framework, FeatureType & ft)
+{
+  search::ReverseGeocoder const coder(framework.GetDataSource());
+  search::ReverseGeocoder::Address address;
+  coder.GetExactAddress(ft, address);
+  return address;
+}
+} // namespace
+
 void MapWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
 {
   // show feature types
@@ -514,14 +523,4 @@ void MapWidget::wheelEvent(QWheelEvent * e)
   m_framework.Scale(exp(e->angleDelta().y() / 3.0 / 360.0), m2::PointD(L2D(pos.x()), L2D(pos.y())), false);
 }
 
-search::ReverseGeocoder::Address GetFeatureAddressInfo(Framework const & framework,
-                                                       FeatureType & ft)
-{
-  search::ReverseGeocoder const coder(framework.GetDataSource());
-  search::ReverseGeocoder::Address address;
-  coder.GetExactAddress(ft, address);
-
-  return address;
-}
-}  // namespace common
-}  // namespace qt
+} // namespace qt::common

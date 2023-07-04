@@ -1,14 +1,12 @@
-#include "map/framework.hpp"
+#include "mainwindow.hpp"
 
-#include "openlr/openlr_match_quality/openlr_assessment_tool/mainwindow.hpp"
+#include "qt/qt_common/helpers.hpp"
+
+#include "map/framework.hpp"
 
 #include <gflags/gflags.h>
 
-#include <cstdio>
-
-#include <QApplication>
-
-using namespace openlr;
+#include <QtWidgets/QApplication>
 
 namespace
 {
@@ -32,10 +30,12 @@ int main(int argc, char * argv[])
   // Pretty icons on HDPI displays.
   QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 
+  qt::common::SetDefaultSurfaceFormat(app.platformName());
+
   FrameworkParams params;
 
   Framework framework(params);
-  MainWindow mainWindow(framework);
+  openlr::MainWindow mainWindow(framework);
 
   mainWindow.showMaximized();
 
