@@ -12,7 +12,6 @@
 
 #include <algorithm>
 #include <cmath>
-#include <codecvt>
 #include <regex>
 #include <sstream>
 
@@ -743,38 +742,30 @@ bool EditableMapObject::ValidateName(string const & name)
   if (name.empty())
     return true;
 
-  if (strings::IsASCIIString(name))
-  {
-    static auto const s_nameRegex = regex(R"(^[ A-Za-z0-9.,?!@°#$%&()\-\+\/\\\[\]:;"'`]+$)");
-    return regex_match(name, s_nameRegex);
-  }
+  static std::u32string_view constexpr excludedSymbols = U"^§><*=_±√•÷×¶";
 
-  std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> converter;
-
-  std::u32string u32name;
-  try
+  using Iter = utf8::unchecked::iterator<string::const_iterator>;
+  for (Iter it{name.cbegin()}; it != Iter{name.cend()}; ++it)
   {
-    u32name = converter.from_bytes(name);
-  }
-  catch (std::range_error const &)
-  {
-    // Cannot convert, for ex. it is possible for some emoji.
-    return false;
-  }
-
-  std::u32string const excludedSymbols = U"^~§><{}*=_±\n\t\r\v\f|√•÷×¶";
-
-  for (auto const ch : u32name)
-  {
+    auto const ch = *it;
+    // Exclude ASCII control characters.
+    if (ch <= U'\U0000001F')
+      return false;
+    // Exclude {|}~ DEL and C1 control characters.
+    if (ch >= U'\U0000007B' && ch <= U'\U0000009F')
+      return false;
     // Exclude arrows, mathematical symbols, borders, geometric shapes.
     if (ch >= U'\U00002190' && ch <= U'\U00002BFF')
+      return false;
+    // Emoji modifiers https://en.wikipedia.org/wiki/Emoji#Emoji_versus_text_presentation
+    if (ch == U'\U0000FE0E' || ch == U'\U0000FE0F')
       return false;
     // Exclude format controls, musical symbols, emoticons, ornamental and pictographs,
     // ancient and exotic alphabets.
     if (ch >= U'\U0000FFF0' && ch <= U'\U0001F9FF')
       return false;
 
-    if (find(excludedSymbols.cbegin(), excludedSymbols.cend(), ch) != excludedSymbols.cend())
+    if (excludedSymbols.find(ch) != std::u32string_view::npos)
       return false;
   }
   return true;
