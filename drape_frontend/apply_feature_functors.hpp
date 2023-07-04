@@ -7,16 +7,12 @@
 #include "drape/drape_diagnostics.hpp"
 #include "drape/pointers.hpp"
 
-#include "indexer/ftypes_matcher.hpp"
 #include "indexer/road_shields_parser.hpp"
 
-#include "geometry/clipping.hpp"
 #include "geometry/point2d.hpp"
-#include "geometry/polyline2d.hpp"
 #include "geometry/spline.hpp"
 
 #include <functional>
-#include <utility>
 #include <vector>
 
 class CaptionDefProto;
