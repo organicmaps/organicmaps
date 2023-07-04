@@ -84,6 +84,7 @@ data/[0-9][0-9][0-9][0-9][0-9][0-9]
 data/gps_track.dat
 # temporary files for downloader
 data/settings.ini
+data/world_feed_integration_tests_data
 
 # benchmark results
 data/benchmarks/*.trace
@@ -136,7 +137,7 @@ android/firebase-app-distribution.json
 android/firebase-test-lab.json
 android/huawei-appgallery.json
 android/res/xml/network_security_config.xml
-server
+./server/
 iphone/Maps/app.omaps/
 
 *.li

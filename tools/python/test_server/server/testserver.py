@@ -36,6 +36,7 @@ from ResponseProvider import ResponseProvider
 from ResponseProvider import ResponseProviderMixin
 from SiblingKiller import SiblingKiller
 from threading import Timer
+from config import LIFESPAN, PING_TIMEOUT, PORT
 import os
 import socket
 import threading
@@ -53,12 +54,6 @@ except:
 
 
 logging.basicConfig(format='%(asctime)s %(message)s', level=logging.DEBUG)
-
-PORT = 34568
-LIFESPAN = 180.0  # timeout for the self destruction timer - how much time
-                  # passes between the last request and the server killing
-                  # itself
-PING_TIMEOUT = 5  # Nubmer of seconds to wait for ping response
 
 
 class InternalServer(HTTPServer):
