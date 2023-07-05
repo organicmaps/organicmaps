@@ -749,20 +749,20 @@ bool EditableMapObject::ValidateName(string const & name)
   {
     auto const ch = *it;
     // Exclude ASCII control characters.
-    if (ch <= U'\U0000001F')
+    if (ch <= 0x1F)
       return false;
     // Exclude {|}~ DEL and C1 control characters.
-    if (ch >= U'\U0000007B' && ch <= U'\U0000009F')
+    if (ch >= 0x7B && ch <= 0x9F)
       return false;
     // Exclude arrows, mathematical symbols, borders, geometric shapes.
-    if (ch >= U'\U00002190' && ch <= U'\U00002BFF')
+    if (ch >= 0x2190 && ch <= 0x2BFF)
       return false;
     // Emoji modifiers https://en.wikipedia.org/wiki/Emoji#Emoji_versus_text_presentation
-    if (ch == U'\U0000FE0E' || ch == U'\U0000FE0F')
+    if (ch == 0xFE0E || ch == 0xFE0F)
       return false;
     // Exclude format controls, musical symbols, emoticons, ornamental and pictographs,
     // ancient and exotic alphabets.
-    if (ch >= U'\U0000FFF0' && ch <= U'\U0001F9FF')
+    if (ch >= 0xFFF0 && ch <= 0x1F9FF)
       return false;
 
     if (excludedSymbols.find(ch) != std::u32string_view::npos)
