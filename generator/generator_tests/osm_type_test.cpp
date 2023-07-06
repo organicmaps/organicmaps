@@ -646,14 +646,15 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
 
     auto const params = GetFeatureBuilderParams(tags);
 
-    TEST_EQUAL(params.m_types.size(), 7, (params));
+    TEST_EQUAL(params.m_types.size(), 6, (params));
     TEST(params.IsTypeExist(GetType({"highway", "primary"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "oneway"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "private"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "nofoot"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "bidir_bicycle"})), ());
-    TEST(params.IsTypeExist(GetType({"hwtag", "yescar"})), ());
+    // We don't put yescar tag for features that already Yes by default.
+    //TEST(params.IsTypeExist(GetType({"hwtag", "yescar"})), ());
   }
 
   {
@@ -728,11 +729,11 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
 
     auto const params = GetFeatureBuilderParams(tags);
 
-    TEST_EQUAL(params.m_types.size(), 4, (params));
+    TEST_EQUAL(params.m_types.size(), 3, (params));
     TEST(params.IsTypeExist(GetType({"highway", "trunk"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "nofoot"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "nobicycle"})), ());
-    TEST(params.IsTypeExist(GetType({"hwtag", "yescar"})), ());
+    //TEST(params.IsTypeExist(GetType({"hwtag", "yescar"})), ());
   }
 
   {
@@ -765,6 +766,36 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
     TEST(params.IsTypeExist(GetType({"highway", "residential"})), (params));
     TEST(params.IsTypeExist(GetType({"hwtag", "nosidewalk"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), ());
+  }
+
+  {
+    Tags const tags = {
+      {"bench", "yes"},
+      {"bicycle", "yes"},
+      {"bin", "yes"},
+      {"foot", "designated"},
+      {"highway", "footway"},
+      {"lit", "yes"},
+      {"public_transport", "platform"},
+      {"railway", "platform"},
+      {"shelter", "yes"},
+      {"smoothness", "good"},
+      {"surface", "paving_stones"},
+      {"tactile_paving", "yes"},
+      {"traffic_sign", "DE:239,DE:1022-10"},
+      {"tram", "yes"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 8, (params));
+    TEST(params.IsTypeExist(GetType({"highway", "footway"})), (params));
+    TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), ());
+    TEST(!params.IsTypeExist(GetType({"hwtag", "yesfoot"})), ());
+
+    /// @todo One platform is enough.
+    TEST(params.IsTypeExist(GetType({"railway", "platform"})), (params));
+    TEST(params.IsTypeExist(GetType({"public_transport", "platform"})), (params));
   }
 }
 

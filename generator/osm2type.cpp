@@ -10,6 +10,7 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature_impl.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "platform/platform.hpp"
 
@@ -885,6 +886,29 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
     p->UpdateTag("capital", [&](string & value) { value = "2"; });
 }
 
+bool IsCarDesignatedHighway(uint32_t type)
+{
+  switch (ftypes::IsWayChecker::Instance().GetSearchRank(type))
+  {
+  case ftypes::IsWayChecker::Motorway:
+  case ftypes::IsWayChecker::Regular:
+  case ftypes::IsWayChecker::Minors:
+    return true;
+  default:
+    return false;
+  }
+}
+
+bool IsBicycleDesignatedHighway(uint32_t type)
+{
+  return ftypes::IsWayChecker::Instance().GetSearchRank(type) == ftypes::IsWayChecker::Cycleway;
+}
+
+bool IsPedestrianDesignatedHighway(uint32_t type)
+{
+  return ftypes::IsWayChecker::Instance().GetSearchRank(type) == ftypes::IsWayChecker::Pedestrian;
+}
+
 void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
 {
   static CachedTypes const types;
@@ -1014,16 +1038,25 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
         params.AddType(types.Get(CachedTypes::OneWay));
 
       auto const ApplyFlag = [&flags, &AddParam](Flags::Type f, CachedTypes::Type yes,
-                                                 CachedTypes::Type no0, CachedTypes::Type no1)
+                                                 CachedTypes::Type no0, CachedTypes::Type no1,
+                                                 bool isDesignated)
       {
-        if (flags[f] != 0)
-          AddParam(flags[f] == 1 ? yes : no0);
-        else if (flags[int(f) + 1] != 0)
-          AddParam(flags[int(f) + 1] == 1 ? yes : no1);
+        if (flags[f] == 1 && !isDesignated)
+          AddParam(yes);
+        else if (flags[f] == -1)
+          AddParam(no0);
+        else if (flags[int(f) + 1] == 1 && !isDesignated)
+          AddParam(yes);
+        else if (flags[int(f) + 1] == -1)
+          AddParam(no1);
       };
-      ApplyFlag(Flags::Foot, CachedTypes::YesFoot, CachedTypes::NoFoot, CachedTypes::NoSidewalk);
-      ApplyFlag(Flags::Bicycle, CachedTypes::YesBicycle, CachedTypes::NoBicycle, CachedTypes::NoCycleway);
-      ApplyFlag(Flags::MotorCar, CachedTypes::YesCar, CachedTypes::NoCar, CachedTypes::NoCar);
+
+      ApplyFlag(Flags::Foot, CachedTypes::YesFoot, CachedTypes::NoFoot, CachedTypes::NoSidewalk,
+                IsPedestrianDesignatedHighway(vType));
+      ApplyFlag(Flags::Bicycle, CachedTypes::YesBicycle, CachedTypes::NoBicycle, CachedTypes::NoCycleway,
+                IsBicycleDesignatedHighway(vType));
+      ApplyFlag(Flags::MotorCar, CachedTypes::YesCar, CachedTypes::NoCar, CachedTypes::NoCar,
+                IsCarDesignatedHighway(vType));
 
       highwayDone = true;
     }

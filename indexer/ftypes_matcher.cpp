@@ -347,6 +347,7 @@ IsWayChecker::IsWayChecker()
       {"secondary",     Regular},
       {"secondary_link",Regular},
       {"service",       Minors},
+      {"steps",         Pedestrian},
       {"tertiary",      Regular},
       {"tertiary_link", Regular},
       {"track",         Outdoor},
