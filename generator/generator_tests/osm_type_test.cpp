@@ -1332,27 +1332,16 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_NoExit)
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Junctions)
 {
-  for (char const * value : { "yes", "circular", "jughandle" })
+  for (char const * value : { "yes", "jughandle" })
   {
     Tags const tags = {
         {"junction", value }
     };
 
+    // Useless now, because they don't have any rules and are not set as an exception.
     auto const params = GetFeatureBuilderParams(tags);
-
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"junction"})), (params));
-  }
-
-  {
-    Tags const tags = {
-        {"junction", "roundabout" }
-    };
-
-    auto const params = GetFeatureBuilderParams(tags);
-
-    TEST_EQUAL(params.m_types.size(), 1, (params));
-    TEST(params.IsTypeExist(GetType({"junction", "roundabout"})), (params));
   }
 }
 
@@ -2013,6 +2002,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"hwtag", "yescar"},
     {"hwtag", "yesfoot"},
     {"internet_access", "wlan"},
+    {"junction", "circular"},
     {"junction", "roundabout"},
     {"landuse", "allotments"},
     {"landuse", "basin"},

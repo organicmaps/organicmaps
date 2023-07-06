@@ -410,6 +410,7 @@ IsOneWayChecker::IsOneWayChecker()
 IsRoundAboutChecker::IsRoundAboutChecker()
 {
   Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"junction", "circular"}));
   m_types.push_back(c.GetTypeByPath({"junction", "roundabout"}));
 }
 

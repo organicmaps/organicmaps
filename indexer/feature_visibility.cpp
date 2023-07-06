@@ -4,6 +4,7 @@
 #include "indexer/drawing_rules.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_data.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 
 #include "base/assert.hpp"
@@ -175,11 +176,11 @@ namespace
       return false;
 
     static uint32_t const hwtag = cl.GetTypeByPath({"hwtag"});
-    static uint32_t const roundabout = cl.GetTypeByPath({"junction", "roundabout"});
     static uint32_t const psurface = cl.GetTypeByPath({"psurface"});
 
     /// @todo "roundabout" type itself has caption drawing rules (for point junctions?).
-    if ((geomType == GeomType::Line || geomType == GeomType::Undefined) && type == roundabout)
+    if ((geomType == GeomType::Line || geomType == GeomType::Undefined) &&
+        ftypes::IsRoundAboutChecker::Instance()(type))
       return true;
 
     ftype::TruncValue(type, 1);

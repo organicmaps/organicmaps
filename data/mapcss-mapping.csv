@@ -937,7 +937,7 @@ amenity|exhibition_centre;863;
 deprecated:railway|siding|tunnel:06.2023;864;x
 deprecated:railway|yard|tunnel:06.2023;865;x
 area:highway|footway;866;
-deprecated|deprecated;867;x
+junction|circular;867;
 area:highway|residential;868;
 area:highway|secondary;869;
 area:highway|tertiary;870;
@@ -1079,6 +1079,7 @@ place|city|capital|10;[place=city][capital=10],[place=city][capital?][admin_leve
 place|city|capital|11;[place=city][capital=11],[place=city][capital?][admin_level=11];;name;int_name;1006;
 hwtag|yesfoot;1007;
 public_transport|platform;1008;
+# Useless now, it is detected by the classifier, but has no any rules and isn't set as an exception.
 junction;[junction];;name;int_name;1009;
 aeroway|aerodrome|international;[aeroway=aerodrome][aerodrome=international],[aeroway=aerodrome][aerodrome:type=international];;name;int_name;1010;
 railway|station|light_rail;[railway=station][station=light_rail],[railway=station][transport=light_rail];;name;int_name;1011;

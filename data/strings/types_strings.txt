@@ -13366,7 +13366,7 @@
     uk = Перехрестя
     zh-Hans = 交叉口
 
-  [type.junction.roundabout]
+  [type.junction.circular]
     en = Roundabout
     af = Verkeersirkel
     ar = دوّار
@@ -13386,6 +13386,9 @@
     tr = Göbekli kavşak
     uk = Кільце
     zh-Hans = 环岛
+
+  [type.junction.roundabout]
+    ref = type.junction.circular
 
   [type.landuse]
     en = Landuse
