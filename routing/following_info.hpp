@@ -46,6 +46,8 @@ public:
     }
   };
 
+  bool IsValid() const { return m_distToTarget.IsValid(); }
+
   /// @name Formatted covered distance.
   platform::Distance m_distToTarget;
 

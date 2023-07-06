@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.Html;
+import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -365,7 +366,7 @@ public class Utils
   }
 
   @NonNull
-  public static SpannableStringBuilder formatDistance(Context context, @NonNull Distance distance)
+  public static Spannable formatDistance(Context context, @NonNull Distance distance)
   {
     final SpannableStringBuilder res = new SpannableStringBuilder(distance.toString(context));
     res.setSpan(

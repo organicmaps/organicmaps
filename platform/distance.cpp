@@ -65,14 +65,11 @@ double WithPrecision(double value, uint8_t precision)
 }
 }  // namespace
 
-Distance::Distance() : Distance(0.0) {}
+Distance::Distance() : Distance(-1.0) {}
 
 Distance::Distance(double distanceInMeters) : Distance(distanceInMeters, Units::Meters) {}
 
-Distance::Distance(double distance, platform::Distance::Units units)
-  : m_distance(distance), m_units(units)
-{
-}
+Distance::Distance(double distance, platform::Distance::Units units) : m_distance(distance), m_units(units) {}
 
 Distance Distance::CreateFormatted(double distanceInMeters)
 {
@@ -82,12 +79,13 @@ Distance Distance::CreateFormatted(double distanceInMeters)
 Distance Distance::CreateAltitudeFormatted(double meters)
 {
   Distance elevation = Distance(meters).To(
-      measurement_utils::GetMeasurementUnits() == measurement_utils::Units::Metric ? Units::Meters
-                                                                                   : Units::Feet);
+      measurement_utils::GetMeasurementUnits() == measurement_utils::Units::Metric ? Units::Meters : Units::Feet);
   if (elevation.IsLowUnits())
     elevation.m_distance = WithPrecision(elevation.m_distance, 0);
   return elevation;
 }
+
+bool Distance::IsValid() const { return m_distance >= 0.0; }
 
 bool Distance::IsLowUnits() const { return m_units == Units::Meters || m_units == Units::Feet; }
 
@@ -110,18 +108,22 @@ Distance Distance::To(Distance::Units units) const
 
 Distance Distance::ToPlatformUnitsFormatted() const
 {
-  return To(measurement_utils::GetMeasurementUnits() == measurement_utils::Units::Metric
-                ? Units::Meters
-                : Units::Feet)
+  return To(measurement_utils::GetMeasurementUnits() == measurement_utils::Units::Metric ? Units::Meters : Units::Feet)
       .GetFormattedDistance();
 }
 
-double Distance::GetDistance() const { return m_distance; }
+double Distance::GetDistance() const
+{
+  return m_distance;
+}
 
 Distance::Units Distance::GetUnits() const { return m_units; }
 
 std::string Distance::GetDistanceString() const
 {
+  if (!IsValid())
+    return "";
+
   std::ostringstream os;
   os << std::defaultfloat << m_distance;
   return os.str();
@@ -141,7 +143,8 @@ std::string Distance::GetUnitsString() const
 
 Distance Distance::GetFormattedDistance() const
 {
-  ASSERT_GREATER_OR_EQUAL(m_distance, 0.0, ("Distance is not valid: ", *this));
+  ASSERT(IsValid(), ());
+
   Distance newDistance = *this;
   int precision = 0;
 
@@ -182,6 +185,9 @@ Distance Distance::GetFormattedDistance() const
 
 std::string Distance::ToString() const
 {
+  if (!IsValid())
+    return "";
+
   return GetDistanceString() + " " + GetUnitsString();
 }
 

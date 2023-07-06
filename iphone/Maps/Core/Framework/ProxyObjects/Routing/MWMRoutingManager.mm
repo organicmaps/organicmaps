@@ -77,14 +77,16 @@
 }
 
 - (MWMRouteInfo *)routeInfo {
-  if (!self.isRoutingActive) { return  nil; }
+  if (!self.isRoutingActive)
+    return nil;
   routing::FollowingInfo info;
   self.rm.GetRouteFollowingInfo(info);
+  if (!info.IsValid())
+    return nil;
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
   double speedMps = 0;
-  if (lastLocation && lastLocation.speed >= 0) {
+  if (lastLocation && lastLocation.speed >= 0)
     speedMps = lastLocation.speed;
-  }
   NSInteger roundExitNumber = 0;
   if (info.m_turn == routing::turns::CarDirection::EnterRoundAbout ||
       info.m_turn == routing::turns::CarDirection::StayOnRoundAbout ||
