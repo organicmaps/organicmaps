@@ -8,6 +8,7 @@
 
 #include "indexer/data_header.hpp"
 #include "indexer/feature_visibility.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "base/geo_object_id.hpp"
 
@@ -96,7 +97,9 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_LineTypes)
 
   TEST(fb2.IsValid(), (fb2));
   TEST_EQUAL(fb1, fb2, ());
+
   TEST_EQUAL(fb2.GetTypesCount(), 5, ());
+  ftypes::IsRoundAboutChecker::Instance()(fb2.GetTypes());
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, FBuilder_Waterfall)
@@ -198,7 +201,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessNames)
   TEST(fb1.IsValid(), (fb1));
 }
 
-UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilderParams_Parsing)
+UNIT_CLASS_TEST(TestWithClassificator, FBuilder_ParamsParsing)
 {
   FeatureBuilderParams params;
 
@@ -215,7 +218,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilderParams_Parsing)
   TEST_EQUAL(params.house.Get(), "0", ());
 }
 
-UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilder_SerializeLocalityObjectForBuildingPoint)
+UNIT_CLASS_TEST(TestWithClassificator, FBuilder_SerializeLocalityObjectForBuildingPoint)
 {
   FeatureBuilder fb;
   FeatureBuilderParams params;
@@ -247,7 +250,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilder_SerializeLocalityObjectFor
   fb.SerializeLocalityObject(serial::GeometryCodingParams(), buffer);
 }
 
-UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilder_SerializeAccuratelyForIntermediate)
+UNIT_CLASS_TEST(TestWithClassificator, FBuilder_SerializeAccuratelyForIntermediate)
 {
   FeatureBuilder fb1;
   FeatureBuilderParams params;
@@ -257,7 +260,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilder_SerializeAccuratelyForInte
     { "highway", "motorway" },
     { "hwtag", "oneway" },
     { "psurface", "paved_good" },
-    { "junction", "roundabout" },
+    { "junction", "circular" },
   };
 
   AddTypes(params, arr2);
@@ -266,7 +269,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilder_SerializeAccuratelyForInte
 
   auto const diff = 0.33333333334567;
   for (size_t i = 0; i < 100; ++i)
-      fb1.AddPoint(m2::PointD(i + diff, i + 1 + diff));
+    fb1.AddPoint(m2::PointD(i + diff, i + 1 + diff));
 
   fb1.SetLinear();
 
@@ -282,6 +285,9 @@ UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilder_SerializeAccuratelyForInte
 
   TEST(fb2.IsValid(), (fb2));
   TEST(fb1.IsExactEq(fb2), ());
+
+  TEST_EQUAL(fb2.GetTypesCount(), 5, ());
+  ftypes::IsRoundAboutChecker::Instance()(fb2.GetTypes());
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessAltName)
