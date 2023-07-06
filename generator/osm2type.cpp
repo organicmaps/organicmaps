@@ -959,6 +959,11 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
              params.SetReversedGeometry(true);
            }},
           {"oneway", "!", [&noOneway] { noOneway = true; }},
+// Unlike "roundabout", "circular" is not assumed to force oneway=yes
+// (https://wiki.openstreetmap.org/wiki/Tag:junction%3Dcircular), but!
+// There are a lot of junction=circular without oneway tag, which is a mapping error (run overpass under England).
+// And most of this junctions are assumed to be oneway.
+          {"junction", "circular", [&addOneway] { addOneway = true; }},
           {"junction", "roundabout", [&addOneway] { addOneway = true; }},
 
           {"access", "private", [&AddParam] { AddParam(CachedTypes::Private); }},
