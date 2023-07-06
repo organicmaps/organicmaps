@@ -36,6 +36,8 @@ public:
   /// \warning GetFormattedDistance() will transform it to high units
   static Distance CreateAltitudeFormatted(double meters);
 
+  bool IsValid() const;
+
   bool IsLowUnits() const;
   bool IsHighUnits() const;
 

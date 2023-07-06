@@ -9,7 +9,6 @@ import android.content.ServiceConnection;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -179,10 +178,9 @@ public class NavigationController implements Application.ActivityLifecycleCallba
       mService.stopForeground(true);
   }
 
-  private void updateVehicle(RoutingInfo info)
+  private void updateVehicle(@NonNull RoutingInfo info)
   {
-    SpannableStringBuilder nextTurnDistance = Utils.formatDistance(mFrame.getContext(), info.distToTurn);
-    mNextTurnDistance.setText(nextTurnDistance);
+    mNextTurnDistance.setText(Utils.formatDistance(mFrame.getContext(), info.distToTurn));
     info.carDirection.setTurnDrawable(mNextTurnImage);
 
     if (RoutingInfo.CarDirection.isRoundAbout(info.carDirection))
@@ -206,7 +204,7 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     }
   }
 
-  private void updatePedestrian(RoutingInfo info)
+  private void updatePedestrian(@NonNull RoutingInfo info)
   {
     mNextTurnDistance.setText(Utils.formatDistance(mFrame.getContext(), info.distToTurn));
 

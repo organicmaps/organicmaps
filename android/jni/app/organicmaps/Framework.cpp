@@ -1210,6 +1210,8 @@ Java_app_organicmaps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass)
 
   routing::FollowingInfo info;
   fr->GetRoutingManager().GetRouteFollowingInfo(info);
+  if (!info.IsValid())
+    return nullptr;
 
   static jclass const klass = jni::GetGlobalClassRef(env, "app/organicmaps/routing/RoutingInfo");
   // Java signature : RoutingInfo(Distance distToTarget, Distance distToTurn,

@@ -9,8 +9,7 @@ namespace platform
 struct ScopedSettings
 {
   /// Saves/restores previous units and sets new units for a scope.
-  explicit ScopedSettings(measurement_utils::Units newUnits)
-    : m_oldUnits(measurement_utils::Units::Metric)
+  explicit ScopedSettings(measurement_utils::Units newUnits) : m_oldUnits(measurement_utils::Units::Metric)
   {
     m_wasSet = settings::Get(settings::kMeasurementUnits, m_oldUnits);
     settings::Set(settings::kMeasurementUnits, newUnits);
@@ -27,6 +26,15 @@ struct ScopedSettings
   bool m_wasSet;
   measurement_utils::Units m_oldUnits;
 };
+
+UNIT_TEST(Distance_InititalDistance)
+{
+  Distance d;
+  TEST(!d.IsValid(), ());
+  TEST_ALMOST_EQUAL_ULPS(d.GetDistance(), -1.0, ());
+  TEST_EQUAL(d.GetDistanceString(), "", ());
+  TEST_EQUAL(d.ToString(), "", ());
+}
 
 UNIT_TEST(Distance_CreateFormatted)
 {
@@ -307,7 +315,7 @@ UNIT_TEST(Distance_FormattedDistance)
   {
     Distance const formattedDistance = data.distance.GetFormattedDistance();
     // Run two times to verify that nothing breaks after second format
-    for (const auto & d : {formattedDistance, formattedDistance.GetFormattedDistance()})
+    for (auto const & d : {formattedDistance, formattedDistance.GetFormattedDistance()})
     {
       TEST_ALMOST_EQUAL_ULPS(d.GetDistance(), data.formattedDistance, (data.distance.ToString()));
       TEST_EQUAL(d.GetUnits(), data.formattedUnits, (data.distance.ToString()));
