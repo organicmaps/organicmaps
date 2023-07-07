@@ -219,9 +219,9 @@ pugi::xml_node GetBestOsmNode(pugi::xml_document const & osmResponse, ms::LatLon
   {
     try
     {
-      XMLFeature xmlFt(xNode.node());
+      XMLFeature const xmlFeature(xNode.node());
 
-      double const nodeScore = ScoreLatLon(xmlFt, latLon);
+      double const nodeScore = ScoreLatLon(xmlFeature, latLon);
       if (nodeScore < 0)
         continue;
 

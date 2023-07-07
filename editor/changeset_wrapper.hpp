@@ -16,8 +16,6 @@ class FeatureType;
 
 namespace osm
 {
-struct ClientToken;
-
 class ChangesetWrapper
 {
   using TypeCount = std::map<std::string, size_t>;
@@ -33,8 +31,7 @@ public:
   DECLARE_EXCEPTION(LinearFeaturesAreNotSupportedException, ChangesetWrapperException);
   DECLARE_EXCEPTION(EmptyFeatureException, ChangesetWrapperException);
 
-  ChangesetWrapper(KeySecret const & keySecret,
-                   ServerApi06::KeyValueTags const & comments) noexcept;
+  ChangesetWrapper(KeySecret const & keySecret, ServerApi06::KeyValueTags comments) noexcept;
   ~ChangesetWrapper();
 
   /// Throws many exceptions from above list, plus including XMLNode's parsing ones.
@@ -51,8 +48,6 @@ public:
 
   /// Throws exceptions from above list.
   void Delete(editor::XMLFeature node);
-
-  uint64_t GetChangesetId() const { return m_changesetId; }
 
 private:
   /// Unfortunately, pugi can't return xml_documents from methods.
