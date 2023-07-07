@@ -165,8 +165,9 @@ editor::XMLFeature ChangesetWrapper::GetMatchingNodeFeatureFromOSM(m2::PointD co
   {
     std::ostringstream sstr;
     bestNode.print(sstr);
-    LOG(LDEBUG, ("Node has no tags", sstr.str()));
-    MYTHROW(EmptyFeatureException, ("Node has no tags"));
+    auto const strNode = sstr.str();
+    LOG(LDEBUG, ("Node has no tags", strNode));
+    MYTHROW(EmptyFeatureException, ("Node has no tags", strNode));
   }
 
   return {bestNode};
@@ -338,7 +339,17 @@ std::string ChangesetWrapper::GetDescription() const
       result.append("; ");
     result.append("Deleted ").append(TypeCountToString(m_deleted_types));
   }
+  if (!m_error.empty())
+  {
+    if (!result.empty())
+      result.append("; ");
+    result.append(m_error);
   }
   return result;
+}
+
+void ChangesetWrapper::SetErrorDescription(std::string const & error)
+{
+  m_error = error;
 }
 }  // namespace osm

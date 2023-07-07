@@ -49,6 +49,9 @@ public:
   /// Throws exceptions from above list.
   void Delete(editor::XMLFeature node);
 
+  /// Allows to see exception details in OSM changesets for easier debugging.
+  void SetErrorDescription(std::string const & error);
+
 private:
   /// Unfortunately, pugi can't return xml_documents from methods.
   /// Throws exceptions from above list.
@@ -63,6 +66,7 @@ private:
   TypeCount m_modified_types;
   TypeCount m_created_types;
   TypeCount m_deleted_types;
+  std::string m_error;
   static std::string TypeCountToString(TypeCount const & typeCount);
   std::string GetDescription() const;
 };
