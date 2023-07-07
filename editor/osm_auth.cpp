@@ -8,6 +8,7 @@
 #include "base/string_utils.hpp"
 
 #include <map>
+#include <utility>
 
 #include "private.h"
 
@@ -65,9 +66,8 @@ bool OsmOAuth::IsValid(UrlRequestToken const & urt)
   return !(urt.first.empty() || urt.second.first.empty() || urt.second.second.empty());
 }
 
-OsmOAuth::OsmOAuth(string const & consumerKey, string const & consumerSecret,
-                   string const & baseUrl, string const & apiUrl)
-  : m_consumerKeySecret(consumerKey, consumerSecret), m_baseUrl(baseUrl), m_apiUrl(apiUrl)
+OsmOAuth::OsmOAuth(string const & consumerKey, string const & consumerSecret, string baseUrl, string apiUrl)
+  : m_consumerKeySecret(consumerKey, consumerSecret), m_baseUrl(std::move(baseUrl)), m_apiUrl(std::move(apiUrl))
 {
 }
 // static

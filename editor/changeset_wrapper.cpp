@@ -12,8 +12,6 @@
 #include <sstream>
 #include <utility>
 
-using editor::XMLFeature;
-
 namespace
 {
 m2::RectD GetBoundingRect(std::vector<m2::PointD> const & geometry)
@@ -34,27 +32,26 @@ bool OsmFeatureHasTags(pugi::xml_node const & osmFt)
 
 std::string_view constexpr kVowels = "aeiouy";
 
-std::string const kMainTags[] = {"amenity",   "shop",    "tourism", "historic", "craft",
-                                 "emergency", "barrier", "highway", "office",   "leisure",
-                                "waterway",  "natural", "place",   "entrance", "building"};
+std::string_view constexpr kMainTags[] = {
+    "amenity", "shop", "tourism", "historic", "craft", "emergency", "barrier", "highway", "office",
+    "leisure", "waterway",  "natural", "place",   "entrance", "building"};
 
-std::string GetTypeForFeature(XMLFeature const & node)
+std::string GetTypeForFeature(editor::XMLFeature const & node)
 {
-  for (std::string const & key : kMainTags)
+  for (std::string_view const key : kMainTags)
   {
     if (node.HasTag(key))
     {
       // Non-const for RVO.
       std::string value = node.GetTagValue(key);
       if (value == "yes")
-        return key;
+        return std::string{key};
       else if (key == "shop" || key == "office" || key == "building" || key == "entrance")
-        return value + " " + key;  // "convenience shop"
+        return value.append(" ").append(key);  // "convenience shop"
       else if (!value.empty() && value.back() == 's')
         // Remove 's' from the tail: "toilets" -> "toilet".
         return value.erase(value.size() - 1);
-      else
-        return value;
+      return value;
     }
   }
 
@@ -102,8 +99,8 @@ std::string DebugPrint(xml_document const & doc)
 namespace osm
 {
 ChangesetWrapper::ChangesetWrapper(KeySecret const & keySecret,
-                                   ServerApi06::KeyValueTags const & comments) noexcept
-  : m_changesetComments(comments), m_api(OsmOAuth::ServerAuth(keySecret))
+                                   ServerApi06::KeyValueTags comments) noexcept
+  : m_changesetComments(std::move(comments)), m_api(OsmOAuth::ServerAuth(keySecret))
 {
 }
 
@@ -149,7 +146,7 @@ void ChangesetWrapper::LoadXmlFromOSM(ms::LatLon const & min, ms::LatLon const &
             ("Can't parse OSM server response for GetXmlFeaturesInRect request", response.second));
 }
 
-XMLFeature ChangesetWrapper::GetMatchingNodeFeatureFromOSM(m2::PointD const & center)
+editor::XMLFeature ChangesetWrapper::GetMatchingNodeFeatureFromOSM(m2::PointD const & center)
 {
   // Match with OSM node.
   ms::LatLon const ll = mercator::ToLatLon(center);
@@ -172,10 +169,10 @@ XMLFeature ChangesetWrapper::GetMatchingNodeFeatureFromOSM(m2::PointD const & ce
     MYTHROW(EmptyFeatureException, ("Node has no tags"));
   }
 
-  return XMLFeature(bestNode);
+  return {bestNode};
 }
 
-XMLFeature ChangesetWrapper::GetMatchingAreaFeatureFromOSM(std::vector<m2::PointD> const & geometry)
+editor::XMLFeature ChangesetWrapper::GetMatchingAreaFeatureFromOSM(std::vector<m2::PointD> const & geometry)
 {
   auto const kSamplePointsCount = 3;
   bool hasRelation = false;
@@ -210,12 +207,12 @@ XMLFeature ChangesetWrapper::GetMatchingAreaFeatureFromOSM(std::vector<m2::Point
       MYTHROW(EmptyFeatureException, ("The matched object has no tags"));
     }
 
-    return XMLFeature(bestWayOrRelation);
+    return {bestWayOrRelation};
   }
   MYTHROW(OsmObjectWasDeletedException, ("OSM does not have any matching way for feature"));
 }
 
-void ChangesetWrapper::Create(XMLFeature node)
+void ChangesetWrapper::Create(editor::XMLFeature node)
 {
   if (m_changesetId == kInvalidChangesetId)
     m_changesetId = m_api.CreateChangeSet(m_changesetComments);
@@ -227,7 +224,7 @@ void ChangesetWrapper::Create(XMLFeature node)
   m_created_types[GetTypeForFeature(node)]++;
 }
 
-void ChangesetWrapper::Modify(XMLFeature node)
+void ChangesetWrapper::Modify(editor::XMLFeature node)
 {
   if (m_changesetId == kInvalidChangesetId)
     m_changesetId = m_api.CreateChangeSet(m_changesetComments);
@@ -238,7 +235,7 @@ void ChangesetWrapper::Modify(XMLFeature node)
   m_modified_types[GetTypeForFeature(node)]++;
 }
 
-void ChangesetWrapper::Delete(XMLFeature node)
+void ChangesetWrapper::Delete(editor::XMLFeature node)
 {
   if (m_changesetId == kInvalidChangesetId)
     m_changesetId = m_api.CreateChangeSet(m_changesetComments);
@@ -314,8 +311,7 @@ std::string ChangesetWrapper::TypeCountToString(TypeCount const & typeCount)
         // "library" -> "libraries"
         else if (lastTwo.back() == 'y' && kVowels.find(lastTwo.front()) == std::string::npos)
         {
-          auto const pos = static_cast<size_t>(ss.tellp());
-          ss.seekp(static_cast<typename std::ostringstream::pos_type>(pos - 1));
+          ss.seekp(ss.tellp() - std::ostringstream::pos_type{1});
           ss << "ie";
         }
       }
@@ -329,18 +325,19 @@ std::string ChangesetWrapper::GetDescription() const
 {
   std::string result;
   if (!m_created_types.empty())
-    result = "Created " + TypeCountToString(m_created_types);
+    result.append("Created ").append(TypeCountToString(m_created_types));
   if (!m_modified_types.empty())
   {
     if (!result.empty())
-      result += "; ";
-    result += "Updated " + TypeCountToString(m_modified_types);
+      result.append("; ");
+    result.append("Updated ").append(TypeCountToString(m_modified_types));
   }
   if (!m_deleted_types.empty())
   {
     if (!result.empty())
-      result += "; ";
-    result += "Deleted " + TypeCountToString(m_deleted_types);
+      result.append("; ");
+    result.append("Deleted ").append(TypeCountToString(m_deleted_types));
+  }
   }
   return result;
 }

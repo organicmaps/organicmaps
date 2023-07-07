@@ -234,7 +234,7 @@ TFunc LoadExtension(std::string const & ext)
 
 void GLFunctions::Init(dp::ApiVersion apiVersion)
 {
-  std::lock_guard<std::mutex> lock(s_mutex);
+  std::lock_guard const lock(s_mutex);
   if (s_inited)
     return;
 
