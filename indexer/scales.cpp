@@ -65,6 +65,7 @@ namespace scales
 
   bool IsGoodForLevel(int level, m2::RectD const & r)
   {
+    ASSERT(level >= 0 && level <= GetUpperScale(), (level));
     // assume that feature is always visible in upper scale
     return (level == GetUpperScale() || std::max(r.SizeX(), r.SizeY()) > GetEpsilonForLevel(level));
   }
