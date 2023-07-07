@@ -243,7 +243,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_SerializeLocalityObjectForBuildi
   feature::DataHeader header;
   header.SetGeometryCodingParams(serial::GeometryCodingParams());
   header.SetScales({scales::GetUpperScale()});
-  feature::GeometryHolder holder(fb, header, std::numeric_limits<uint32_t>::max() /* maxTrianglesNumber */);
+  feature::GeometryHolder holder(fb, header);
 
   auto & buffer = holder.GetBuffer();
   TEST(fb.PreSerializeAndRemoveUselessNamesForMwm(buffer), ());

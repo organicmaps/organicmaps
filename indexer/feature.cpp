@@ -27,45 +27,43 @@ namespace
 {
 uint32_t constexpr kInvalidOffset = numeric_limits<uint32_t>::max();
 
-// Get the index for geometry serialization.
+// Get an index of inner geometry scale range.
 // @param[in]  scale:
 // -1 : index for the best geometry
 // -2 : index for the worst geometry
-// default : needed geometry
+// default : index for the request scale
 int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale)
 {
   int const count = loadInfo.GetScalesCount();
-
-  // In case of WorldCoasts we should get correct last geometry.
-  int const lastScale = loadInfo.GetLastScale();
-  if (scale > lastScale)
-    scale = lastScale;
 
   switch (scale)
   {
   case FeatureType::WORST_GEOMETRY: return 0;
   case FeatureType::BEST_GEOMETRY: return count - 1;
   default:
+    // In case of WorldCoasts we should get correct last geometry.
+    int const lastScale = loadInfo.GetLastScale();
+    if (scale > lastScale)
+      scale = lastScale;
+
     for (int i = 0; i < count; ++i)
     {
       if (scale <= loadInfo.GetScale(i))
         return i;
     }
+    ASSERT(false, ("No suitable geometry scale range in the map file."));
     return -1;
   }
 }
 
+// Get an index of outer geometry scale range.
 int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale,
                   FeatureType::GeometryOffsets const & offsets)
 {
-  int ind = -1;
-  int const count = static_cast<int>(offsets.size());
+  int const count = loadInfo.GetScalesCount();
+  ASSERT_EQUAL(count, static_cast<int>(offsets.size()), ());
 
-  // In case of WorldCoasts we should get correct last geometry.
-  int const lastScale = loadInfo.GetLastScale();
-  if (scale > lastScale)
-    scale = lastScale;
-
+  int ind = 0;
   switch (scale)
   {
   case FeatureType::BEST_GEOMETRY:
@@ -73,30 +71,32 @@ int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale,
     ind = count - 1;
     while (ind >= 0 && offsets[ind] == kInvalidOffset)
       --ind;
+    if (ind >= 0)
+      return ind;
     break;
 
   case FeatureType::WORST_GEOMETRY:
     // Choose the worst existing geometry for the first visible scale.
-    ind = 0;
     while (ind < count && offsets[ind] == kInvalidOffset)
       ++ind;
+    if (ind < count)
+      return ind;
     break;
 
   default:
   {
-    int const n = loadInfo.GetScalesCount();
-    for (int i = 0; i < n; ++i)
-    {
-      if (scale <= loadInfo.GetScale(i))
-        return (offsets[i] != kInvalidOffset ? i : -1);
-    }
+    // In case of WorldCoasts we should get correct last geometry.
+    int const lastScale = loadInfo.GetLastScale();
+    if (scale > lastScale)
+      scale = lastScale;
+    while (ind < count && scale > loadInfo.GetScale(ind))
+      ++ind;
+    ASSERT_LESS(ind, count, ("No suitable geometry scale range in the map file."));
+    return (offsets[ind] != kInvalidOffset ? ind : -1);
   }
   }
 
-  if (ind >= 0 && ind < count)
-    return ind;
-
-  ASSERT(false, ("Feature should have any geometry ..."));
+  ASSERT(false, ("A feature doesn't have any geometry."));
   return -1;
 }
 
@@ -340,7 +340,10 @@ void FeatureType::ParseHeader2()
   {
     ptsCount = bitSource.Read(4);
     if (ptsCount == 0)
+    {
+      // Outer geometry: read offsets mask.
       ptsMask = bitSource.Read(4);
+    }
     else
       ASSERT_GREATER(ptsCount, 1, ());
   }
@@ -348,7 +351,10 @@ void FeatureType::ParseHeader2()
   {
     trgCount = bitSource.Read(4);
     if (trgCount == 0)
+    {
+      // Outer geometry: read offsets mask.
       trgMask = bitSource.Read(4);
+    }
   }
 
   ArrayByteSource src(bitSource.RoundPtr());
@@ -358,6 +364,11 @@ void FeatureType::ParseHeader2()
   {
     if (ptsCount > 0)
     {
+      // Inner geometry.
+      // Number of bytes in simplification mask:
+      // first and last points are never simplified/discarded,
+      // 2 bits are used per each other point, i.e.
+      // 3-6 pts - 1 byte, 7-10 pts - 2b, 11-14 pts - 3b.
       int const count = ((ptsCount - 2) + 4 - 1) / 4;
       ASSERT_LESS(count, 4, ());
 
@@ -374,6 +385,7 @@ void FeatureType::ParseHeader2()
     }
     else
     {
+      // Outer geometry: first point is stored in the header still.
       m_points.emplace_back(serial::LoadPoint(src, cp));
       ReadOffsets(*m_loadInfo, src, ptsMask, m_offsets.m_pts);
     }
@@ -382,6 +394,7 @@ void FeatureType::ParseHeader2()
   {
     if (trgCount > 0)
     {
+      // Inner geometry (strips).
       trgCount += 2;
 
       auto const * start = src.PtrUint8();
@@ -390,6 +403,7 @@ void FeatureType::ParseHeader2()
     }
     else
     {
+      // Outer geometry.
       ReadOffsets(*m_loadInfo, src, trgMask, m_offsets.m_trg);
     }
   }
@@ -431,7 +445,7 @@ void FeatureType::ParseGeometry(int scale)
       {
         ASSERT_EQUAL(pointsCount, 1, ());
 
-        // outer geometry
+        // Outer geometry.
         int const ind = GetScaleIndex(*m_loadInfo, scale, m_offsets.m_pts);
         if (ind != -1)
         {
@@ -445,19 +459,16 @@ void FeatureType::ParseGeometry(int scale)
       }
       else
       {
-        // filter inner geometry
-
+        // Filter inner geometry according to points simplification mask.
         PointsBufferT points;
         points.reserve(pointsCount);
 
-        int const scaleIndex = GetScaleIndex(*m_loadInfo, scale);
-        ASSERT_LESS(scaleIndex, m_loadInfo->GetScalesCount(), ());
-
+        int const ind = GetScaleIndex(*m_loadInfo, scale);
         points.emplace_back(m_points.front());
         for (size_t i = 1; i + 1 < pointsCount; ++i)
         {
-          // check for point visibility in needed scaleIndex
-          if (static_cast<int>((m_ptsSimpMask >> (2 * (i - 1))) & 0x3) <= scaleIndex)
+          // Check if the point is visible in the requested scale index.
+          if (static_cast<int>((m_ptsSimpMask >> (2 * (i - 1))) & 0x3) <= ind)
             points.emplace_back(m_points[i]);
         }
         points.emplace_back(m_points.back());
@@ -533,7 +544,7 @@ void FeatureType::ParseTriangles(int scale)
     {
       if (m_triangles.empty())
       {
-        auto const ind = GetScaleIndex(*m_loadInfo, scale, m_offsets.m_trg);
+        int const ind = GetScaleIndex(*m_loadInfo, scale, m_offsets.m_trg);
         if (ind != -1)
         {
           ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetTrianglesReader(ind));

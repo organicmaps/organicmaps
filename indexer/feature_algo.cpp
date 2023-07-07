@@ -11,8 +11,8 @@
 namespace feature
 {
 /// @returns point on a feature that is the closest to f.GetLimitRect().Center().
-/// It is used by many ednities in the core of mapsme. Do not modify it's
-/// logic if you really-really know what you are doing.
+/// It is used by many entities in the core. Do not modify it's
+/// logic unless you really-really know what you are doing.
 m2::PointD GetCenter(FeatureType & f, int scale)
 {
   GeomType const type = f.GetGeomType();
