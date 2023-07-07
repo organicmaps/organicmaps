@@ -206,6 +206,7 @@ void Platform::GetFontNames(FilesList & res) const
     "05_khmeros.ttf",
     "06_code2000.ttf",
     "07_roboto_medium.ttf",
+    "08_NotoSerifDevanagari-Regular.ttf"
   };
   res.insert(res.end(), arrDef, arrDef + ARRAY_SIZE(arrDef));
 
