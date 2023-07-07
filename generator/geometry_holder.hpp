@@ -21,6 +21,12 @@
 
 namespace feature
 {
+// 4 bits are used to encode number of inner points/triangles
+// (and the "0" value is reserved to indicate use of outer geometry).
+// But actually 16 inner triangles are stored or just 14 inner points,
+// because a 3-byte points simplification mask doesn't allow more.
+int constexpr kMaxInnerGeometryElements = 14;
+
 class GeometryHolder
 {
 public:
@@ -28,27 +34,22 @@ public:
   using Points = std::vector<m2::PointD>;
   using Polygons = std::list<Points>;
 
-  // For FeatureType serialization maxNumTriangles should be less than numeric_limits<uint8_t>::max
-  // because FeatureType format uses uint8_t to encode the number of triangles.
   GeometryHolder(FileGetter geoFileGetter, FileGetter trgFileGetter, FeatureBuilder & fb,
-                 DataHeader const & header, size_t maxNumTriangles = 14)
+                 DataHeader const & header)
     : m_geoFileGetter(geoFileGetter)
     , m_trgFileGetter(trgFileGetter)
     , m_fb(fb)
     , m_ptsInner(true)
     , m_trgInner(true)
     , m_header(header)
-    , m_maxNumTriangles(maxNumTriangles)
   {
   }
 
-  GeometryHolder(FeatureBuilder & fb, DataHeader const & header,
-                 size_t maxNumTriangles = 14)
+  GeometryHolder(FeatureBuilder & fb, DataHeader const & header)
     : m_fb(fb)
     , m_ptsInner(true)
     , m_trgInner(true)
     , m_header(header)
-    , m_maxNumTriangles(maxNumTriangles)
   {
   }
 
@@ -58,15 +59,24 @@ public:
 
   Points const & GetSourcePoints()
   {
+    // For short lines keep simplifying the previous version to ensure points visibility is consistent.
     return !m_current.empty() ? m_current : m_fb.GetOuterGeometry();
   }
 
+  // Its important AddPoints is called sequentially from upper scales to lower.
   void AddPoints(Points const & points, int scaleIndex)
   {
-    if (m_ptsInner && points.size() <= m_maxNumTriangles)
+    if (m_ptsInner && points.size() <= kMaxInnerGeometryElements)
     {
+      // Inner geometry: store inside feature's header and keep
+      // a simplification mask for scale-specific visibility of each point.
       if (m_buffer.m_innerPts.empty())
+      {
+        // If geometry is added for the most detailed scale 3 only then
+        // the mask is never updated and left == 0, which works OK
+        // as the feature is not supposed to be using lower geometry scales anyway.
         m_buffer.m_innerPts = points;
+      }
       else
         FillInnerPointsMask(points, scaleIndex);
       m_current = points;
@@ -83,7 +93,7 @@ public:
   bool TryToMakeStrip(Points & points)
   {
     size_t const count = points.size();
-    if (!m_trgInner || (count >= 2 && count - 2 > m_maxNumTriangles))
+    if (!m_trgInner || (count >= 2 && count - 2 > kMaxInnerGeometryElements))
     {
       // too many points for strip
       m_trgInner = false;
@@ -259,7 +269,5 @@ private:
   bool m_ptsInner, m_trgInner;
 
   feature::DataHeader const & m_header;
-  // max triangles number to store in innerTriangles
-  size_t m_maxNumTriangles;
 };
 }  //  namespace feature

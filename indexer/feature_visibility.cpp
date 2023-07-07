@@ -229,6 +229,7 @@ bool IsDrawableForIndexGeometryOnly(TypesHolder const & types, m2::RectD const &
 
   static uint32_t const buildingPartType = c.GetTypeByPath({"building:part"});
 
+  // Exclude too small area features unless it's a part of a coast or a building.
   if (types.GetGeomType() == GeomType::Area && !types.Has(c.GetCoastType()) &&
       !types.Has(buildingPartType) && !scales::IsGoodForLevel(level, limitRect))
     return false;
