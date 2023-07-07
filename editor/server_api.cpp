@@ -74,8 +74,7 @@ void ServerApi06::CreateElementAndSetAttributes(editor::XMLFeature & element) co
 uint64_t ServerApi06::ModifyElement(editor::XMLFeature const & element) const
 {
   std::string const id = element.GetAttribute("id");
-  if (id.empty())
-    MYTHROW(ModifiedElementHasNoIdAttribute, ("Please set id attribute for", element));
+  CHECK(!id.empty(), ("id attribute is missing for", element));
 
   OsmOAuth::Response const response = m_auth.Request("/" + element.GetTypeString() + "/" + id,
                                                      "PUT", element.ToOSMString());
@@ -83,7 +82,7 @@ uint64_t ServerApi06::ModifyElement(editor::XMLFeature const & element) const
     MYTHROW(ModifyElementHasFailed, ("ModifyElement request has failed:", response, "for", element));
   uint64_t version;
   if (!strings::to_uint64(response.second, version))
-    MYTHROW(CantParseServerResponse, ("Can't parse element version from server response."));
+    MYTHROW(CantParseServerResponse, ("Can't parse element version from server response", response.second));
   return version;
 }
 

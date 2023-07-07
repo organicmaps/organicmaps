@@ -727,6 +727,7 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
           uploadInfo.m_uploadError = ex.Msg();
           ++errorsCount;
           LOG(LWARNING, (ex.what()));
+          changeset.SetErrorDescription(ex.Msg());
         }
         catch (ChangesetWrapper::EmptyFeatureException const & ex)
         {
@@ -734,6 +735,7 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
           uploadInfo.m_uploadError = ex.Msg();
           ++errorsCount;
           LOG(LWARNING, (ex.what()));
+          changeset.SetErrorDescription(ex.Msg());
         }
         catch (RootException const & ex)
         {
@@ -741,6 +743,7 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
           uploadInfo.m_uploadError = ex.Msg();
           ++errorsCount;
           LOG(LWARNING, (ex.what()));
+          changeset.SetErrorDescription(ex.Msg());
         }
         // TODO(AlexZ): Use timestamp from the server.
         uploadInfo.m_uploadAttemptTimestamp = time(nullptr);
