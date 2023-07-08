@@ -22543,6 +22543,39 @@ cont {
   }
 }
 cont {
+  name: "junction-circular"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+      }
+      priority: 15573
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+      }
+      priority: 15573
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+      }
+      priority: 15573
+    }
+  }
+}
+cont {
   name: "junction-roundabout"
   element {
     scale: 17

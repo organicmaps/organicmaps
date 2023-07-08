@@ -864,7 +864,7 @@ landuse|salt_pond
 mapswithme
 mapswithme
 *area:highway|footway
-mapswithme
+*junction|circular
 *area:highway|residential
 *area:highway|secondary
 *area:highway|tertiary
