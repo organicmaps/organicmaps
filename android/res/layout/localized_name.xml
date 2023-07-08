@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- TODO set attr  android:animateLayoutChanges="true"
+  when recyclerview-v7:23.2.1+ will be used.
+  RecyclerView of earlier versions doesn't have scrollTo method and hence crashes.-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/name"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  android:paddingEnd="@dimen/margin_base"
+  android:paddingStart="@dimen/margin_base">
+
+  <TextView
+    android:id="@+id/show_additional_names"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_block_base"
+    android:background="?clickableBackground"
+    android:fontFamily="@string/robotoMedium"
+    android:gravity="center_vertical"
+    android:text="@string/editor_edit_place_name_hint"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    tools:drawableEnd="@drawable/ic_expand_more"
+    tools:ignore="UnusedAttribute" />
+
+  <include layout="@layout/recycler_default" />
+
+  <TextView
+    android:id="@+id/more_names"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_block_base"
+    android:background="?clickableBackground"
+    android:gravity="center"
+    android:text="@string/placepage_more_button"
+    android:textAppearance="@style/MwmTextAppearance.Button" />
+
+  <TextView
+    android:id="@+id/add_langs"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_block_base"
+    android:background="?clickableBackground"
+    android:gravity="center"
+    android:text="@string/add_language"
+    android:textAppearance="@style/MwmTextAppearance.Button" />
+
+</LinearLayout>

@@ -1,0 +1,305 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		45B8534D1F13C1340087F8ED /* arena.cc in Sources */ = {isa = PBXBuildFile; fileRef = 45B8534C1F13C1340087F8ED /* arena.cc */; };
+		45B853541F13C17D0087F8ED /* arenastring.cc in Sources */ = {isa = PBXBuildFile; fileRef = 45B8534E1F13C17D0087F8ED /* arenastring.cc */; };
+		45B853551F13C17D0087F8ED /* extension_set.cc in Sources */ = {isa = PBXBuildFile; fileRef = 45B8534F1F13C17D0087F8ED /* extension_set.cc */; };
+		45B853561F13C17D0087F8ED /* generated_message_util.cc in Sources */ = {isa = PBXBuildFile; fileRef = 45B853501F13C17D0087F8ED /* generated_message_util.cc */; };
+		45B853571F13C17D0087F8ED /* message_lite.cc in Sources */ = {isa = PBXBuildFile; fileRef = 45B853511F13C17D0087F8ED /* message_lite.cc */; };
+		45B853581F13C17D0087F8ED /* repeated_field.cc in Sources */ = {isa = PBXBuildFile; fileRef = 45B853521F13C17D0087F8ED /* repeated_field.cc */; };
+		45B853591F13C17D0087F8ED /* wire_format_lite.cc in Sources */ = {isa = PBXBuildFile; fileRef = 45B853531F13C17D0087F8ED /* wire_format_lite.cc */; };
+		45B8535D1F13C1B30087F8ED /* coded_stream.cc in Sources */ = {isa = PBXBuildFile; fileRef = 45B8535A1F13C1B30087F8ED /* coded_stream.cc */; };
+		45B8535E1F13C1B30087F8ED /* zero_copy_stream_impl_lite.cc in Sources */ = {isa = PBXBuildFile; fileRef = 45B8535B1F13C1B30087F8ED /* zero_copy_stream_impl_lite.cc */; };
+		45B8535F1F13C1B30087F8ED /* zero_copy_stream.cc in Sources */ = {isa = PBXBuildFile; fileRef = 45B8535C1F13C1B30087F8ED /* zero_copy_stream.cc */; };
+		45B8536E1F13C22E0087F8ED /* atomicops_internals_x86_gcc.cc in Sources */ = {isa = PBXBuildFile; fileRef = 45B853621F13C22E0087F8ED /* atomicops_internals_x86_gcc.cc */; };
+		45B8536F1F13C22E0087F8ED /* bytestream.cc in Sources */ = {isa = PBXBuildFile; fileRef = 45B853631F13C22E0087F8ED /* bytestream.cc */; };
+		45B853701F13C22E0087F8ED /* common.cc in Sources */ = {isa = PBXBuildFile; fileRef = 45B853641F13C22E0087F8ED /* common.cc */; };
+		45B853711F13C22E0087F8ED /* int128.cc in Sources */ = {isa = PBXBuildFile; fileRef = 45B853651F13C22E0087F8ED /* int128.cc */; };
+		45B853721F13C22E0087F8ED /* once.cc in Sources */ = {isa = PBXBuildFile; fileRef = 45B853661F13C22E0087F8ED /* once.cc */; };
+		45B853731F13C22E0087F8ED /* status.cc in Sources */ = {isa = PBXBuildFile; fileRef = 45B853671F13C22E0087F8ED /* status.cc */; };
+		45B853741F13C22E0087F8ED /* statusor.cc in Sources */ = {isa = PBXBuildFile; fileRef = 45B853681F13C22E0087F8ED /* statusor.cc */; };
+		45B853751F13C22E0087F8ED /* stringpiece.cc in Sources */ = {isa = PBXBuildFile; fileRef = 45B853691F13C22E0087F8ED /* stringpiece.cc */; };
+		45B853761F13C22E0087F8ED /* stringprintf.cc in Sources */ = {isa = PBXBuildFile; fileRef = 45B8536A1F13C22E0087F8ED /* stringprintf.cc */; };
+		45B853771F13C22E0087F8ED /* structurally_valid.cc in Sources */ = {isa = PBXBuildFile; fileRef = 45B8536B1F13C22E0087F8ED /* structurally_valid.cc */; };
+		45B853781F13C22E0087F8ED /* strutil.cc in Sources */ = {isa = PBXBuildFile; fileRef = 45B8536C1F13C22E0087F8ED /* strutil.cc */; };
+		45B853791F13C22E0087F8ED /* time.cc in Sources */ = {isa = PBXBuildFile; fileRef = 45B8536D1F13C22E0087F8ED /* time.cc */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		34F558581DBF3D2E00A4FC11 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		34F558591DBF3D2E00A4FC11 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		45B8534C1F13C1340087F8ED /* arena.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = arena.cc; path = protobuf/src/google/protobuf/arena.cc; sourceTree = "<group>"; };
+		45B8534E1F13C17D0087F8ED /* arenastring.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = arenastring.cc; path = protobuf/src/google/protobuf/arenastring.cc; sourceTree = "<group>"; };
+		45B8534F1F13C17D0087F8ED /* extension_set.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = extension_set.cc; path = protobuf/src/google/protobuf/extension_set.cc; sourceTree = "<group>"; };
+		45B853501F13C17D0087F8ED /* generated_message_util.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = generated_message_util.cc; path = protobuf/src/google/protobuf/generated_message_util.cc; sourceTree = "<group>"; };
+		45B853511F13C17D0087F8ED /* message_lite.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = message_lite.cc; path = protobuf/src/google/protobuf/message_lite.cc; sourceTree = "<group>"; };
+		45B853521F13C17D0087F8ED /* repeated_field.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = repeated_field.cc; path = protobuf/src/google/protobuf/repeated_field.cc; sourceTree = "<group>"; };
+		45B853531F13C17D0087F8ED /* wire_format_lite.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wire_format_lite.cc; path = protobuf/src/google/protobuf/wire_format_lite.cc; sourceTree = "<group>"; };
+		45B8535A1F13C1B30087F8ED /* coded_stream.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = coded_stream.cc; path = protobuf/src/google/protobuf/io/coded_stream.cc; sourceTree = "<group>"; };
+		45B8535B1F13C1B30087F8ED /* zero_copy_stream_impl_lite.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = zero_copy_stream_impl_lite.cc; path = protobuf/src/google/protobuf/io/zero_copy_stream_impl_lite.cc; sourceTree = "<group>"; };
+		45B8535C1F13C1B30087F8ED /* zero_copy_stream.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = zero_copy_stream.cc; path = protobuf/src/google/protobuf/io/zero_copy_stream.cc; sourceTree = "<group>"; };
+		45B853621F13C22E0087F8ED /* atomicops_internals_x86_gcc.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = atomicops_internals_x86_gcc.cc; path = protobuf/src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc; sourceTree = "<group>"; };
+		45B853631F13C22E0087F8ED /* bytestream.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bytestream.cc; path = protobuf/src/google/protobuf/stubs/bytestream.cc; sourceTree = "<group>"; };
+		45B853641F13C22E0087F8ED /* common.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = common.cc; path = protobuf/src/google/protobuf/stubs/common.cc; sourceTree = "<group>"; };
+		45B853651F13C22E0087F8ED /* int128.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = int128.cc; path = protobuf/src/google/protobuf/stubs/int128.cc; sourceTree = "<group>"; };
+		45B853661F13C22E0087F8ED /* once.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = once.cc; path = protobuf/src/google/protobuf/stubs/once.cc; sourceTree = "<group>"; };
+		45B853671F13C22E0087F8ED /* status.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = status.cc; path = protobuf/src/google/protobuf/stubs/status.cc; sourceTree = "<group>"; };
+		45B853681F13C22E0087F8ED /* statusor.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = statusor.cc; path = protobuf/src/google/protobuf/stubs/statusor.cc; sourceTree = "<group>"; };
+		45B853691F13C22E0087F8ED /* stringpiece.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stringpiece.cc; path = protobuf/src/google/protobuf/stubs/stringpiece.cc; sourceTree = "<group>"; };
+		45B8536A1F13C22E0087F8ED /* stringprintf.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stringprintf.cc; path = protobuf/src/google/protobuf/stubs/stringprintf.cc; sourceTree = "<group>"; };
+		45B8536B1F13C22E0087F8ED /* structurally_valid.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = structurally_valid.cc; path = protobuf/src/google/protobuf/stubs/structurally_valid.cc; sourceTree = "<group>"; };
+		45B8536C1F13C22E0087F8ED /* strutil.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = strutil.cc; path = protobuf/src/google/protobuf/stubs/strutil.cc; sourceTree = "<group>"; };
+		45B8536D1F13C22E0087F8ED /* time.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = time.cc; path = protobuf/src/google/protobuf/stubs/time.cc; sourceTree = "<group>"; };
+		670D04CD1B0BAC210013A7AC /* libprotobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libprotobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		670D04CA1B0BAC210013A7AC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		45B853601F13C1BD0087F8ED /* io */ = {
+			isa = PBXGroup;
+			children = (
+				45B8535A1F13C1B30087F8ED /* coded_stream.cc */,
+				45B8535B1F13C1B30087F8ED /* zero_copy_stream_impl_lite.cc */,
+				45B8535C1F13C1B30087F8ED /* zero_copy_stream.cc */,
+			);
+			name = io;
+			sourceTree = "<group>";
+		};
+		45B853611F13C1D90087F8ED /* stubs */ = {
+			isa = PBXGroup;
+			children = (
+				45B853621F13C22E0087F8ED /* atomicops_internals_x86_gcc.cc */,
+				45B853631F13C22E0087F8ED /* bytestream.cc */,
+				45B853641F13C22E0087F8ED /* common.cc */,
+				45B853651F13C22E0087F8ED /* int128.cc */,
+				45B853661F13C22E0087F8ED /* once.cc */,
+				45B853671F13C22E0087F8ED /* status.cc */,
+				45B853681F13C22E0087F8ED /* statusor.cc */,
+				45B853691F13C22E0087F8ED /* stringpiece.cc */,
+				45B8536A1F13C22E0087F8ED /* stringprintf.cc */,
+				45B8536B1F13C22E0087F8ED /* structurally_valid.cc */,
+				45B8536C1F13C22E0087F8ED /* strutil.cc */,
+				45B8536D1F13C22E0087F8ED /* time.cc */,
+			);
+			name = stubs;
+			sourceTree = "<group>";
+		};
+		670D04C41B0BAC210013A7AC = {
+			isa = PBXGroup;
+			children = (
+				34F558581DBF3D2E00A4FC11 /* common-debug.xcconfig */,
+				34F558591DBF3D2E00A4FC11 /* common-release.xcconfig */,
+				670D04CF1B0BAC210013A7AC /* protobuf */,
+				670D04CE1B0BAC210013A7AC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		670D04CE1B0BAC210013A7AC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				670D04CD1B0BAC210013A7AC /* libprotobuf.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		670D04CF1B0BAC210013A7AC /* protobuf */ = {
+			isa = PBXGroup;
+			children = (
+				45B8534C1F13C1340087F8ED /* arena.cc */,
+				45B8534E1F13C17D0087F8ED /* arenastring.cc */,
+				45B8534F1F13C17D0087F8ED /* extension_set.cc */,
+				45B853501F13C17D0087F8ED /* generated_message_util.cc */,
+				45B853601F13C1BD0087F8ED /* io */,
+				45B853511F13C17D0087F8ED /* message_lite.cc */,
+				45B853521F13C17D0087F8ED /* repeated_field.cc */,
+				45B853611F13C1D90087F8ED /* stubs */,
+				45B853531F13C17D0087F8ED /* wire_format_lite.cc */,
+			);
+			name = protobuf;
+			path = ../../3party/protobuf;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		670D04CB1B0BAC210013A7AC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		670D04CC1B0BAC210013A7AC /* protobuf */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 670D04D81B0BAC210013A7AC /* Build configuration list for PBXNativeTarget "protobuf" */;
+			buildPhases = (
+				670D04C91B0BAC210013A7AC /* Sources */,
+				670D04CA1B0BAC210013A7AC /* Frameworks */,
+				670D04CB1B0BAC210013A7AC /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = protobuf;
+			productName = protobuf;
+			productReference = 670D04CD1B0BAC210013A7AC /* libprotobuf.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		670D04C51B0BAC210013A7AC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1410;
+				TargetAttributes = {
+					670D04CC1B0BAC210013A7AC = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+				};
+			};
+			buildConfigurationList = 670D04C81B0BAC210013A7AC /* Build configuration list for PBXProject "protobuf" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 670D04C41B0BAC210013A7AC;
+			productRefGroup = 670D04CE1B0BAC210013A7AC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				670D04CC1B0BAC210013A7AC /* protobuf */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		670D04C91B0BAC210013A7AC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45B853741F13C22E0087F8ED /* statusor.cc in Sources */,
+				45B853571F13C17D0087F8ED /* message_lite.cc in Sources */,
+				45B853791F13C22E0087F8ED /* time.cc in Sources */,
+				45B853731F13C22E0087F8ED /* status.cc in Sources */,
+				45B853751F13C22E0087F8ED /* stringpiece.cc in Sources */,
+				45B8535E1F13C1B30087F8ED /* zero_copy_stream_impl_lite.cc in Sources */,
+				45B8536E1F13C22E0087F8ED /* atomicops_internals_x86_gcc.cc in Sources */,
+				45B853771F13C22E0087F8ED /* structurally_valid.cc in Sources */,
+				45B853721F13C22E0087F8ED /* once.cc in Sources */,
+				45B853781F13C22E0087F8ED /* strutil.cc in Sources */,
+				45B853541F13C17D0087F8ED /* arenastring.cc in Sources */,
+				45B853561F13C17D0087F8ED /* generated_message_util.cc in Sources */,
+				45B853711F13C22E0087F8ED /* int128.cc in Sources */,
+				45B853701F13C22E0087F8ED /* common.cc in Sources */,
+				45B8536F1F13C22E0087F8ED /* bytestream.cc in Sources */,
+				45B853551F13C17D0087F8ED /* extension_set.cc in Sources */,
+				45B853581F13C17D0087F8ED /* repeated_field.cc in Sources */,
+				45B8535D1F13C1B30087F8ED /* coded_stream.cc in Sources */,
+				45B8534D1F13C1340087F8ED /* arena.cc in Sources */,
+				45B853761F13C22E0087F8ED /* stringprintf.cc in Sources */,
+				45B8535F1F13C1B30087F8ED /* zero_copy_stream.cc in Sources */,
+				45B853591F13C17D0087F8ED /* wire_format_lite.cc in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		670D04D61B0BAC210013A7AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34F558581DBF3D2E00A4FC11 /* common-debug.xcconfig */;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					HAVE_PTHREAD,
+				);
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
+					"$(OMIM_ROOT)/3party/protobuf/",
+				);
+			};
+			name = Debug;
+		};
+		670D04D71B0BAC210013A7AC /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34F558591DBF3D2E00A4FC11 /* common-release.xcconfig */;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					HAVE_PTHREAD,
+				);
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
+					"$(OMIM_ROOT)/3party/protobuf/",
+				);
+			};
+			name = Release;
+		};
+		670D04D91B0BAC210013A7AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		670D04DA1B0BAC210013A7AC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		670D04C81B0BAC210013A7AC /* Build configuration list for PBXProject "protobuf" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				670D04D61B0BAC210013A7AC /* Debug */,
+				670D04D71B0BAC210013A7AC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		670D04D81B0BAC210013A7AC /* Build configuration list for PBXNativeTarget "protobuf" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				670D04D91B0BAC210013A7AC /* Debug */,
+				670D04DA1B0BAC210013A7AC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 670D04C51B0BAC210013A7AC /* Project object */;
+}

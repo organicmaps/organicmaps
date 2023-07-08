@@ -1,0 +1,76 @@
+# This file is used to calculate statistics by type.
+# File format:
+# Regular expression of type;metric type;statistic name
+#
+# Regular expression of type
+#   Types you can find in omim/data/mapcss-mapping.csv.
+#   You must replace the character '|' with the '_' character.
+#
+# Metric type
+#   There can be three types of metrics:
+#   1) cnt - to count the number of objects
+#   2) line - to calculate the total length of objects
+#   3) area - to calculate the total area of ​​objects
+#
+# Statistic name
+#   The name of the statistics will be written to the resulting file.
+
+barrier-(fence|gate);len;Fences
+building;cnt;Building
+(amenity|shop|historic)-.*;cnt;POI
+(amenity|shop|historic)-.*;cnt_names;POI with names
+amenity-(cafe|restaurant|fast_food).*;cnt;Cafes and restaurants
+amenity-(pub|bar);cnt;Bars and pubs
+amenity-kindergarten;cnt;Kindergartens
+amenity-(school|university|college);cnt;Schools and universities
+amenity-parking.*;cnt;Parking lots
+amenity-parking.*;area;Parking lots
+amenity-pharmacy;cnt;Pharmacies
+amenity-place_of_worship.*;cnt;Temples
+amenity-(hospital|doctors);cnt;Hospitals and clinics
+amenity-toilets;cnt;Toilets
+amenity-(waste_disposal|recycling);cnt;Garbage bins
+highway-(motorway|trunk|primary|secondary|tertiary|residential|unclassified|service|track|living_street)(_link)?(-.*)?;len;Road network
+highway-(footway|path|pedestrian|steps).*;len;Footpaths
+highway-.*-bridge;len;Bridges
+highway-.*-tunnel;len;Tunnels
+highway-(footway|path|steps)-bridge;len;Pedestrian bridges
+highway-(footway|path|steps)-tunnel;len;Pedestrian tunnels
+highway-steps.*;len;Stairs
+highway-speed_camera;cnt;Speed ​​cameras
+internet_access-wlan;cnt;Wi-Fi access points
+leisure-(pitch|stadium|playing_fields|track|sports_centre).*;cnt;Sports grounds and complexes
+leisure-playground;cnt;Playgrounds
+man_made-lighthouse;cnt;Lighthouses
+man_made-windmill;cnt;Windmills
+man_made-pipeline.*;len;Pipelines
+natural-beach;cnt;Beaches
+natural-tree;cnt;Trees
+natural-waterfall;cnt;Waterfalls
+piste:type.*;len;Ski trails
+place-(city.*|town|village|hamlet);cnt;Settlements
+place-island;cnt;Islands
+power-(minor_)?line.*;len;Power lines
+power-(pole|tower);cnt;Power Line Supports
+railway-(rail|monorail|light_rail|narrow_gauge|preserved|siding|spur|yard|disused|incline).*;len;Railways
+railway-.*-(bridge|tunnel);len;Railway bridges and tunnels
+railway-(razed|abandoned).*;len;Abandoned railways
+railway-narrow_gauge.*;len;Narrow gauge railways
+railway-tram(-.*)?;len;Tram rails
+railway-(halt|station);cnt;Railway stations
+railway-subway.*;len;Subway lines
+highway-bus_stop|railway-tram_stop;cnt;Ground Transportation Stops
+shop-bakery;cnt;Bakeries
+shop-books;cnt;Book stores
+shop-clothes;cnt;Clothing stores
+shop-shoes;cnt;Shoe stores
+shop-(convenience|supermarket);cnt;Grocery stores
+shop-florist;cnt;Flower shops
+shop-(hairdresser|beauty);cnt;Hairdressers and beauty salons
+tourism-(guest_house|hos?tel|motel);cnt;Hotels and hostels
+tourism-(attraction|viewpoint);cnt;Attractions and viewpoints
+waterway-(canal|river|stream)(-.*)?;len;Rivers, canals and streams
+landuse-cemetery.*;area;Cemeteries
+leisure-park.*;area;Parks
+natural-beach;area;Beaches
+sponsored-booking;cnt;Booking hotels

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  tools:background="@color/black_primary"
+  tools:ignore="Overdraw">
+  <ImageView
+    android:id="@+id/image"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/label"
+    android:layout_centerHorizontal="true"
+    android:background="@drawable/ic_you_marker"
+    android:src="@drawable/ic_chart_pin" />
+  <TextView
+    android:id="@+id/label"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="?elevationProfileYourLocationPinBg"
+    android:ellipsize="end"
+    android:paddingStart="@dimen/margin_quarter"
+    android:paddingEnd="@dimen/margin_quarter"
+    android:singleLine="true"
+    android:text="you"
+    android:textColor="@color/base_accent"
+    android:textSize="@dimen/text_size_icon_title" />
+</RelativeLayout>

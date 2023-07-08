@@ -1,0 +1,10 @@
+• Support de l'import GPX
+• Nouvelles données OpenStreetMap au 2 juin 2023
+• Support des coordonnées UTM et MRGS
+• Amélioration des itinéraires pour voiture et vélo
+• Correction d'un bug qui prévenait l'envoi des modifications vers OSM lorsque l'appareil était alimenté sur batterie
+• La boussole fonctionne désormais sur les appareils dépourvus de gyroscope
+• Correction de descriptions Wiki manquantes
+• Réduction de la vitesse d'élocution de la synthèse vocale
+
+…Plus: omaps.org/fr/news

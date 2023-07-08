@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:background="?cardBackground"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+  <include layout="@layout/altitude_chart_panel"
+           tools:visibility="visible"/>
+
+  <include layout="@layout/routing_bottom_panel_transit"/>
+
+  <include
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_gravity="center_vertical"
+    layout="@layout/start_button"/>
+
+  <TextView
+    android:id="@+id/error"
+    android:paddingStart="@dimen/margin_base"
+    android:paddingEnd="@dimen/margin_base"
+    android:paddingTop="@dimen/margin_half_plus"
+    android:paddingBottom="@dimen/margin_half_plus"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="gone"/>
+</LinearLayout>

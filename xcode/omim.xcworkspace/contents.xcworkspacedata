@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "container:common-debug.xcconfig">
+   </FileRef>
+   <FileRef
+      location = "container:common-release.xcconfig">
+   </FileRef>
+   <FileRef
+      location = "container:common.xcconfig">
+   </FileRef>
+   <Group
+      location = "group:../std"
+      name = "std">
+      <FileRef
+         location = "group:../std/target_os.hpp">
+      </FileRef>
+      <FileRef
+         location = "group:../std/windows.hpp">
+      </FileRef>
+   </Group>
+   <Group
+      location = "container:../pyhelpers"
+      name = "pyhelpers">
+      <FileRef
+         location = "group:pair.hpp">
+      </FileRef>
+      <FileRef
+         location = "group:vector_uint8.hpp">
+      </FileRef>
+   </Group>
+   <Group
+      location = "container:"
+      name = "3party">
+      <FileRef
+         location = "container:agg/agg.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:bsdiff/bsdiff.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:expat/expat.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:freetype/freetype.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:gflags/gflags.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:icu/icu.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:jansson/jansson.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:minizip/minizip.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:oauthcpp/oauthcpp.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:open_location_code/open_location_code.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:opening_hours/opening_hours.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:osrm/osrm.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:protobuf/protobuf.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:pugixml/pugixml.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:sdf_image/sdf_image.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:stb_image/stb_image.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:succinct/succinct.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:tess2/tess2.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:vulkan_wrapper/vulkan_wrapper.xcodeproj">
+      </FileRef>
+   </Group>
+   <FileRef
+      location = "container:base/base.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:coding/coding.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:cppjansson/cppjansson.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:descriptions/descriptions.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:drape/drape.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:drape_frontend/drape_frontend.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:editor/editor.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:ge0/ge0.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:generator/generator.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:geometry/geometry.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:indexer/indexer.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:kml/kml.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:map/map.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:mapshot/mapshot.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:mwm_diff/mwm_diff.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:openlr/openlr.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:platform/platform.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:qt/qt.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:routing/routing.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:routing_common/routing_common.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:search/search.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:shaders/shaders.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:software_renderer/software_renderer.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:storage/storage.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:tracking/tracking.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:traffic/traffic.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:transit/transit.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:../iphone/Chart/Chart.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:../iphone/CoreApi/CoreApi.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:../iphone/DatePicker/DatePicker.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:../iphone/Maps/Maps.xcodeproj">
+   </FileRef>
+</Workspace>

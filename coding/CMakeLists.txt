@@ -1,0 +1,108 @@
+project(coding)
+
+set(SRC
+  base64.cpp
+  base64.hpp
+  bit_streams.hpp
+  buffer_reader.hpp
+  buffered_file_writer.cpp
+  buffered_file_writer.hpp
+  bwt.cpp
+  bwt.hpp
+  bwt_coder.hpp
+  byte_stream.hpp
+  compressed_bit_vector.cpp
+  compressed_bit_vector.hpp
+  constants.hpp
+  csv_reader.cpp
+  csv_reader.hpp
+  dd_vector.hpp
+  diff.hpp
+  elias_coder.hpp
+  endianness.hpp
+  file_reader.cpp
+  file_reader.hpp
+  file_sort.hpp
+  file_writer.cpp
+  file_writer.hpp
+  files_container.cpp
+  files_container.hpp
+  fixed_bits_ddvector.hpp
+  geometry_coding.cpp
+  geometry_coding.hpp
+  hex.cpp
+  hex.hpp
+  huffman.cpp
+  huffman.hpp
+  internal/file64_api.hpp
+  internal/file_data.cpp
+  internal/file_data.hpp
+  internal/xmlparser.hpp
+  map_uint32_to_val.hpp
+  memory_region.hpp
+  mmap_reader.cpp
+  mmap_reader.hpp
+  move_to_front.cpp
+  move_to_front.hpp
+  parse_xml.hpp
+  point_coding.cpp
+  point_coding.hpp
+  read_write_utils.hpp
+  reader.cpp
+  reader.hpp
+  reader_cache.hpp
+  reader_streambuf.cpp
+  reader_streambuf.hpp
+  reader_wrapper.hpp
+  reader_writer_ops.cpp
+  reader_writer_ops.hpp
+  serdes_binary_header.hpp
+  serdes_json.hpp
+  sha1.cpp
+  sha1.hpp
+  simple_dense_coding.cpp
+  simple_dense_coding.hpp
+  sparse_vector.hpp
+  streams.hpp
+  streams_common.hpp
+  streams_sink.hpp
+  string_utf8_multilang.cpp
+  string_utf8_multilang.hpp
+  succinct_mapper.hpp
+  tesselator_decl.hpp
+  text_storage.hpp
+  traffic.cpp
+  traffic.hpp
+  transliteration.cpp
+  transliteration.hpp
+  url.cpp
+  url.hpp
+  value_opt_string.hpp
+  var_record_reader.hpp
+  var_serial_vector.hpp
+  varint.hpp
+  write_to_sink.hpp
+  writer.hpp
+  zip_creator.cpp
+  zip_creator.hpp
+  zip_reader.cpp
+  zip_reader.hpp
+  zlib.cpp
+  zlib.hpp
+)
+
+omim_add_library(${PROJECT_NAME} ${SRC})
+
+target_link_libraries(${PROJECT_NAME}
+  base
+  expat
+  cppjansson
+  succinct
+  ICU::uc
+  ICU::i18n # For transliteration.
+  oauthcpp  # For base64_encode and base64_decode
+  minizip
+  ${LIBZ}
+)
+
+omim_add_test_subdirectory(coding_tests)

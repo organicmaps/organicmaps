@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/ll__place_wifi"
+  style="@style/PlacePageItemFrame"
+  tools:background="#40FF0000"
+  tools:visibility="visible">
+
+  <ImageView
+    android:id="@+id/iv__place_wifi"
+    style="@style/PlacePageMetadataIcon"
+    android:src="@drawable/ic_wifi"/>
+
+  <TextView
+    android:id="@+id/tv__place_wifi"
+    style="@style/PlacePageMetadataText"
+    android:text="@string/yes"/>
+</LinearLayout>

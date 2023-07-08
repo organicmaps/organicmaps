@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="qme-9J-aMf" customClass="MWMEditorSwitchTableViewCell" propertyAccessControl="none">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qme-9J-aMf" id="fpo-VO-awT">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="j3u-fF-pG6">
+                        <rect key="frame" x="16" y="8" width="28" height="28"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="28" id="Ce3-kg-QsX"/>
+                            <constraint firstAttribute="width" constant="28" id="MT3-eQ-SOL"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="187" translatesAutoresizingMaskIntoConstraints="NO" id="QFf-wR-pPw">
+                        <rect key="frame" x="60" y="0.0" width="187" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="44" id="XYk-fv-D9R"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17:blackPrimaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qvr-u3-nNo">
+                        <rect key="frame" x="255" y="6.5" width="51" height="31"/>
+                        <connections>
+                            <action selector="valueChanged" destination="qme-9J-aMf" eventType="valueChanged" id="sak-SB-Nvi"/>
+                        </connections>
+                    </switch>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="QFf-wR-pPw" firstAttribute="top" secondItem="fpo-VO-awT" secondAttribute="top" id="3mH-Ua-EUl"/>
+                    <constraint firstItem="j3u-fF-pG6" firstAttribute="centerY" secondItem="fpo-VO-awT" secondAttribute="centerY" id="4xr-PJ-Dl2"/>
+                    <constraint firstAttribute="trailing" secondItem="qvr-u3-nNo" secondAttribute="trailing" constant="16" id="T2E-Dp-9aj"/>
+                    <constraint firstItem="j3u-fF-pG6" firstAttribute="leading" secondItem="fpo-VO-awT" secondAttribute="leading" constant="16" id="TFM-QG-P2e"/>
+                    <constraint firstAttribute="bottom" secondItem="QFf-wR-pPw" secondAttribute="bottom" id="YAg-Wx-DLo"/>
+                    <constraint firstItem="qvr-u3-nNo" firstAttribute="leading" secondItem="QFf-wR-pPw" secondAttribute="trailing" constant="8" id="m7G-DT-9Wm"/>
+                    <constraint firstItem="QFf-wR-pPw" firstAttribute="leading" secondItem="fpo-VO-awT" secondAttribute="leading" constant="60" id="mNR-IV-cek"/>
+                    <constraint firstItem="qvr-u3-nNo" firstAttribute="centerY" secondItem="fpo-VO-awT" secondAttribute="centerYWithinMargins" id="opz-Nt-Q5b"/>
+                </constraints>
+                <userDefinedRuntimeAttributes>
+                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+                </userDefinedRuntimeAttributes>
+            </tableViewCellContentView>
+            <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="icon" destination="j3u-fF-pG6" id="nIz-cY-MCW"/>
+                <outlet property="label" destination="QFf-wR-pPw" id="1MO-Vf-bt6"/>
+                <outlet property="switchControl" destination="qvr-u3-nNo" id="hfe-x6-0cw"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="155"/>
+        </tableViewCell>
+    </objects>
+</document>

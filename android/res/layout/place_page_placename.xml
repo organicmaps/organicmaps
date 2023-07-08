@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/ll__place_name"
+  style="@style/PlacePageItemFrame"
+  android:layout_width="match_parent"
+  android:layout_height="72dp"
+  tools:background="#2000FF00"
+  tools:visibility="visible">
+
+  <ImageView
+    android:id="@+id/iv__place_name"
+    style="@style/PlacePageMetadataIcon"
+    android:layout_centerVertical="true"
+    android:src="@drawable/ic_address"/>
+
+  <Space
+    android:id="@+id/anchor_center"
+    android:layout_width="0dp"
+    android:layout_height="4dp"
+    android:layout_centerVertical="true"/>
+
+  <TextView
+    android:id="@+id/tv__place_address"
+    style="@style/PlacePageMetadataText"
+    android:layout_above="@id/anchor_center"
+    android:layout_toEndOf="@id/iv__place_name"
+    tools:text="Sample place"/>
+
+  <TextView
+    android:id="@+id/tv__place_post_address"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignStart="@id/tv__place_address"
+    android:layout_below="@id/anchor_center"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    tools:text="Post address"/>
+</RelativeLayout>

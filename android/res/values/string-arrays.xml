@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string-array name="measument_units">
+    <item>@string/kilometres</item>
+    <item>@string/miles</item>
+  </string-array>
+
+  <string-array name="measument_units_values"
+                translatable="false">
+    <item>0</item>
+    <item>1</item>
+  </string-array>
+
+  <string-array name="map_style">
+    <item>@string/pref_map_style_default</item>
+    <item>@string/pref_map_style_night</item>
+    <item>@string/pref_map_style_auto</item>
+  </string-array>
+
+  <string-array name="map_style_values"
+                translatable="false">
+    <item>@string/theme_default</item>
+    <item>@string/theme_night</item>
+    <item>@string/theme_auto</item>
+  </string-array>
+
+  <string-array name="speed_cameras">
+    <item>@string/speedcam_option_auto</item>
+    <item>@string/speedcam_option_always</item>
+    <item>@string/speedcam_option_never</item>
+  </string-array>
+
+  <string-array name="speed_cameras_values" translatable="false">
+    <item>@string/auto_enum_value</item>
+    <item>@string/always_enum_value</item>
+    <item>@string/never_enum_value</item>
+  </string-array>
+
+  <string-array name="track_length">
+    <item>@string/duration_disabled</item>
+    <item>@string/duration_1_hour</item>
+    <item>@string/duration_2_hours</item>
+    <item>@string/duration_6_hours</item>
+    <item>@string/duration_12_hours</item>
+    <item>@string/duration_1_day</item>
+  </string-array>
+
+  <string-array name="track_length_values">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>6</item>
+    <item>12</item>
+    <item>24</item>
+  </string-array>
+
+  <string-array name="mobile_data_options">
+    <item>@string/mobile_data_option_ask</item>
+    <item>@string/mobile_data_option_always</item>
+    <item>@string/mobile_data_option_never</item>
+  </string-array>
+
+  <string-array name="mobile_data_options_values">
+    <item>ASK</item>
+    <item>ALWAYS</item>
+    <item>NEVER</item>
+  </string-array>
+
+  <string-array name="power_management_scheme">
+    <item>@string/power_managment_setting_never</item>
+    <item>@string/power_managment_setting_manual_max</item>
+    <item>@string/power_managment_setting_auto</item>
+  </string-array>
+
+  <string-array name="power_management_scheme_values">
+    <item>1</item>
+    <item>3</item>
+    <item>4</item>
+  </string-array>
+</resources>

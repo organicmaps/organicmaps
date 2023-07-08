@@ -1,0 +1,66 @@
+name: iOS Check
+on:
+  workflow_dispatch: # Manual trigger
+  pull_request:
+    paths-ignore:
+      - .gitignore
+      - .github/**
+      - '!.github/workflows/ios-check.yaml'  # Run check on self change
+      - '**/*_tests/**'
+      - '**/CMakeLists.txt'
+      - CONTRIBUTORS
+      - LICENSE
+      - NOTICE
+      - README.md
+      - android/**
+      - data/strings/**
+      - docs/**
+      - generator/**
+      - iphone/metadata/**
+      - packaging/**
+      - pyhelpers/**
+      - qt*/**
+      - skin_generator/**
+      - tools/**
+      - track_generator/**
+
+jobs:
+  ios-check:
+    name: Build iOS
+    runs-on: macos-12
+    env:
+      LANG: en_US.UTF-8  # Fastlane complains that the terminal is using ASCII.
+      LANGUAGE: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+    strategy:
+      fail-fast: false
+      matrix:
+        buildType: [Debug, Release]
+    # Cancels previous jobs if the same branch or PR was updated again.
+    concurrency:
+      group: ${{ github.workflow }}-${{ matrix.buildType }}-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v3
+
+      - name: Parallel submodules checkout
+        shell: bash
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(sysctl -n hw.logicalcpu) * 20))
+
+      - name: Configure
+        shell: bash
+        run: ./configure.sh
+
+      - name: Compile
+        shell: bash
+        # Check for compilation errors.
+        run: |
+          xcodebuild \
+            -workspace xcode/omim.xcworkspace \
+            -scheme OMaps \
+            -configuration ${{ matrix.buildType }} build \
+            'generic/platform=iOS' \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO

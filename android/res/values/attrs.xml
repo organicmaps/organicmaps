@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <declare-styleable name="WheelProgressView">
+    <attr name="wheelProgressColor" format="color"/>
+    <attr name="wheelSecondaryColor" format="color"/>
+    <attr name="wheelThickness" format="dimension"/>
+    <attr name="centerDrawable" format="reference" />
+  </declare-styleable>
+
+  <declare-styleable name="PlacePageView">
+    <attr name="animationType" format="enum">
+      <enum name="bottom" value="0"/>
+      <enum name="left" value="1"/>
+    </attr>
+    <attr name="docked" format="boolean"/>
+    <attr name="floating" format="boolean"/>
+  </declare-styleable>
+
+  <declare-styleable name="FlatProgressView">
+    <attr name="progressColor" format="color"/>
+    <attr name="progressThickness" format="dimension"/>
+    <attr name="secondaryProgressColor" format="color"/>
+    <attr name="secondaryProgressThickness" format="dimension"/>
+    <attr name="headColor" format="color"/>
+    <attr name="headRadius" format="dimension"/>
+    <attr name="progress" format="integer"/>
+  </declare-styleable>
+
+  <declare-styleable name="TransitStepView">
+    <attr name="android:textSize"/>
+    <attr name="android:textColor"/>
+    <attr name="android:text"/>
+    <attr name="android:drawable"/>
+  </declare-styleable>
+
+  <bool name="isTablet">false</bool>
+  <bool name="tabletLayout">false</bool>
+
+  <declare-styleable name="PlaceholderView">
+    <attr name="imgSrcDefault" format="reference"/>
+    <attr name="titleDefault" format="reference"/>
+    <attr name="subTitleDefault" format="reference"/>
+  </declare-styleable>
+
+  <attr name="trafficMenuDisabled" format="reference"/>
+  <attr name="subwayMenuDisabled" format="reference"/>
+  <attr name="isoLinesMenuDisabled" format="reference"/>
+  <attr name="trafficMenuEnabled" format="reference"/>
+  <attr name="subwayMenuEnabled" format="reference"/>
+  <attr name="isoLinesMenuEnabled" format="reference"/>
+  <attr name="accentColorSelector" format="color"/>
+  <attr name="bookingFilterTitleColor" format="color"/>
+  <attr name="adsRemovalOptionsBg" format="reference"/>
+  <attr name="adsRemovalOptionsDivider" format="color"/>
+  <attr name="icClearRounded" format="reference"/>
+  <attr name="bookmarkSubscriptionScreenBg" format="reference"/>
+  <attr name="bookmarkSubscriptionCardEdge" format="reference"/>
+  <attr name="bookmarkSubscriptionCardBg" format="color"/>
+  <attr name="bookmarkSubscriptionCardTextColor" format="color"/>
+  <attr name="imgPromoBookingTitle" format="reference"/>
+</resources>

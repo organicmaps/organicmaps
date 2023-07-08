@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="rsc-tP-qGq" customClass="MWMEditorCategoryCell" propertyAccessControl="none">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rsc-tP-qGq" id="mWc-I7-4kZ">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_gray_right" translatesAutoresizingMaskIntoConstraints="NO" id="uA3-ru-Ja1">
+                        <rect key="frame" x="286" y="8" width="28" height="28"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="28" id="CW0-pF-saL"/>
+                            <constraint firstAttribute="height" constant="28" id="P6z-Sg-ZyD"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMGray"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jfx-Kc-WOc">
+                        <rect key="frame" x="16" y="12" width="226" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="BaE-rI-CN2"/>
+                            <constraint firstAttribute="height" constant="20" id="oLW-um-5dA"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17:blackPrimaryText"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_edit_place_category_title"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="501" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qrd-hP-nIJ">
+                        <rect key="frame" x="250" y="11.5" width="42" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="hsO-dV-WsY"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17:blackSecondaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="icU-WX-U52">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <connections>
+                            <action selector="cellTap" destination="rsc-tP-qGq" eventType="touchUpInside" id="dru-SF-L7z"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Jfx-Kc-WOc" firstAttribute="leading" secondItem="mWc-I7-4kZ" secondAttribute="leading" constant="16" id="5lg-6C-NQt"/>
+                    <constraint firstItem="qrd-hP-nIJ" firstAttribute="leading" secondItem="Jfx-Kc-WOc" secondAttribute="trailing" constant="8" id="ETn-mX-ysj"/>
+                    <constraint firstItem="Jfx-Kc-WOc" firstAttribute="centerY" secondItem="mWc-I7-4kZ" secondAttribute="centerY" id="P6u-UL-5f7"/>
+                    <constraint firstAttribute="trailing" secondItem="qrd-hP-nIJ" secondAttribute="trailing" constant="28" id="Rwj-G9-EoG"/>
+                    <constraint firstAttribute="trailing" secondItem="uA3-ru-Ja1" secondAttribute="trailing" constant="6" id="byM-mn-aQu"/>
+                    <constraint firstItem="uA3-ru-Ja1" firstAttribute="centerY" secondItem="mWc-I7-4kZ" secondAttribute="centerY" id="sVc-Kt-8ZX"/>
+                    <constraint firstItem="qrd-hP-nIJ" firstAttribute="centerY" secondItem="mWc-I7-4kZ" secondAttribute="centerY" id="wSH-Lz-TEL"/>
+                </constraints>
+            </tableViewCellContentView>
+            <constraints>
+                <constraint firstItem="icU-WX-U52" firstAttribute="centerX" secondItem="rsc-tP-qGq" secondAttribute="centerX" id="F9k-Ej-LFc"/>
+                <constraint firstItem="icU-WX-U52" firstAttribute="width" secondItem="rsc-tP-qGq" secondAttribute="width" id="ZUi-Rh-jlL"/>
+                <constraint firstItem="icU-WX-U52" firstAttribute="height" secondItem="rsc-tP-qGq" secondAttribute="height" id="dy8-tF-aiq"/>
+                <constraint firstItem="icU-WX-U52" firstAttribute="centerY" secondItem="rsc-tP-qGq" secondAttribute="centerY" id="uky-CX-2ye"/>
+            </constraints>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="accessoryIcon" destination="uA3-ru-Ja1" id="esf-Xi-gLG"/>
+                <outlet property="detail" destination="qrd-hP-nIJ" id="IOE-vz-HaI"/>
+                <outlet property="detailRightSpace" destination="Rwj-G9-EoG" id="H8f-mf-vOJ"/>
+            </connections>
+            <point key="canvasLocation" x="501.44927536231887" y="199.55357142857142"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic_arrow_gray_right" width="28" height="28"/>
+    </resources>
+</document>

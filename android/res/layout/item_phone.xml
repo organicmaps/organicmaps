@@ -1,0 +1,44 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_item_oneline"
+    android:background="?clickableBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/margin_half_plus"
+    android:paddingEnd="@dimen/margin_half">
+
+    <ImageView
+        android:id="@+id/phone_icon"
+        style="@style/MwmWidget.Editor.MetadataIcon"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/ic_phone"
+        android:layout_alignParentStart="true"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/phone_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/margin_half"
+        android:layout_toEndOf="@id/phone_icon"
+        android:layout_toStartOf="@id/delete_icon"
+        android:textColorHint="?android:textColorSecondary">
+        <EditText
+            android:id="@+id/input"
+            style="@style/MwmWidget.Editor.FieldLayout.EditText"
+            tools:hint="Hint"
+            tools:text="Input"
+            android:inputType="phone"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/delete_icon"
+        style="@style/MwmWidget.Editor.MetadataIcon"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/ic_delete"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"/>
+
+</RelativeLayout>

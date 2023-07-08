@@ -1,0 +1,712 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		470015F42342509C00EBF03D /* CoreApi.h in Headers */ = {isa = PBXBuildFile; fileRef = 470015F22342509C00EBF03D /* CoreApi.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		471527392491EDAA00E91BBA /* MWMBookmarkColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 471527382491EDA400E91BBA /* MWMBookmarkColor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4718C4322355FC3C00640DF1 /* MWMNetworkPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 4718C4302355FC3C00640DF1 /* MWMNetworkPolicy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4718C4332355FC3C00640DF1 /* MWMNetworkPolicy.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4718C4312355FC3C00640DF1 /* MWMNetworkPolicy.mm */; };
+		471AB98D23AB925D00F56D49 /* MWMMapSearchResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 471AB98B23AB925D00F56D49 /* MWMMapSearchResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		471AB98E23AB925D00F56D49 /* MWMMapSearchResult.mm in Sources */ = {isa = PBXBuildFile; fileRef = 471AB98C23AB925D00F56D49 /* MWMMapSearchResult.mm */; };
+		471AB99123AB931000F56D49 /* MWMMapSearchResult+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 471AB98F23AB931000F56D49 /* MWMMapSearchResult+Core.h */; };
+		472602A824092C5B00731135 /* MWMGeoUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 472602A624092C5B00731135 /* MWMGeoUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		472602A924092C5B00731135 /* MWMGeoUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 472602A724092C5B00731135 /* MWMGeoUtil.mm */; };
+		475784C22344B422008291A4 /* Framework.h in Headers */ = {isa = PBXBuildFile; fileRef = 475784C02344B421008291A4 /* Framework.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		475784C32344B422008291A4 /* Framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 475784C12344B422008291A4 /* Framework.cpp */; };
+		47942D6B237CC3D600DEFAE3 /* PlacePageData.h in Headers */ = {isa = PBXBuildFile; fileRef = 47942D51237CC3B500DEFAE3 /* PlacePageData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47942D6C237CC3DE00DEFAE3 /* PlacePageData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47942D52237CC3B500DEFAE3 /* PlacePageData.mm */; };
+		47942D6D237CC3E300DEFAE3 /* PlacePagePreviewData.h in Headers */ = {isa = PBXBuildFile; fileRef = 47942D53237CC3B500DEFAE3 /* PlacePagePreviewData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47942D6E237CC3E800DEFAE3 /* PlacePagePreviewData+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 47942D54237CC3B500DEFAE3 /* PlacePagePreviewData+Core.h */; };
+		47942D6F237CC3F400DEFAE3 /* PlacePageInfoData.h in Headers */ = {isa = PBXBuildFile; fileRef = 47942D56237CC3B500DEFAE3 /* PlacePageInfoData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47942D70237CC40400DEFAE3 /* PlacePageInfoData+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 47942D57237CC3B500DEFAE3 /* PlacePageInfoData+Core.h */; };
+		47942D71237CC40800DEFAE3 /* PlacePageInfoData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47942D58237CC3B500DEFAE3 /* PlacePageInfoData.mm */; };
+		47942D72237CC40B00DEFAE3 /* OpeningHours.h in Headers */ = {isa = PBXBuildFile; fileRef = 47942D59237CC3B500DEFAE3 /* OpeningHours.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47942D73237CC41400DEFAE3 /* OpeningHours.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47942D5A237CC3B500DEFAE3 /* OpeningHours.mm */; };
+		47942D82237CC52A00DEFAE3 /* MWMOpeningHours.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47942D80237CC52A00DEFAE3 /* MWMOpeningHours.mm */; };
+		47942D83237CC52E00DEFAE3 /* MWMOpeningHours.h in Headers */ = {isa = PBXBuildFile; fileRef = 47942D81237CC52A00DEFAE3 /* MWMOpeningHours.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47942D86237CC55500DEFAE3 /* MWMOpeningHoursCommon.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47942D85237CC55500DEFAE3 /* MWMOpeningHoursCommon.mm */; };
+		47942D87237CC55800DEFAE3 /* MWMOpeningHoursCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 47942D84237CC55400DEFAE3 /* MWMOpeningHoursCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47942D88237CCA8800DEFAE3 /* PlacePagePreviewData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47942D55237CC3B500DEFAE3 /* PlacePagePreviewData.mm */; };
+		47942D9C237D927800DEFAE3 /* PlacePageBookmarkData.h in Headers */ = {isa = PBXBuildFile; fileRef = 47942D9A237D927800DEFAE3 /* PlacePageBookmarkData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47942D9D237D927800DEFAE3 /* PlacePageBookmarkData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47942D9B237D927800DEFAE3 /* PlacePageBookmarkData.mm */; };
+		47942DA0237D954400DEFAE3 /* PlacePageBookmarkData+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 47942D9E237D954400DEFAE3 /* PlacePageBookmarkData+Core.h */; };
+		47942DAB237ED9FE00DEFAE3 /* IOpeningHoursLocalization.h in Headers */ = {isa = PBXBuildFile; fileRef = 47942DAA237ED9FE00DEFAE3 /* IOpeningHoursLocalization.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		479F7047234F774100011E2E /* MWMFrameworkHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 479F7046234F774000011E2E /* MWMFrameworkHelper.mm */; };
+		479F704A234F785B00011E2E /* MWMTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 479F7049234F785B00011E2E /* MWMTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		479F704B234F78AB00011E2E /* MWMFrameworkHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 479F7045234F774000011E2E /* MWMFrameworkHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		479F7056234FB7F200011E2E /* MWMBookmarksManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 479F7054234FB7F100011E2E /* MWMBookmarksManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		479F7057234FB7F200011E2E /* MWMBookmarksManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 479F7055234FB7F100011E2E /* MWMBookmarksManager.mm */; };
+		479F705E234FBB8C00011E2E /* MWMBookmarkGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 479F705C234FBB8B00011E2E /* MWMBookmarkGroup.m */; };
+		479F705F234FBB8F00011E2E /* MWMBookmarkGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 479F705D234FBB8C00011E2E /* MWMBookmarkGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		479F7062234FBC4700011E2E /* MWMCarPlayBookmarkObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = 479F7061234FBC4600011E2E /* MWMCarPlayBookmarkObject.mm */; };
+		479F7063234FBC5900011E2E /* MWMCarPlayBookmarkObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 479F7060234FBC4500011E2E /* MWMCarPlayBookmarkObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47A65CAF235008E100DCD85F /* CoreApi-swift.h in Headers */ = {isa = PBXBuildFile; fileRef = 47A65CAE235008C700DCD85F /* CoreApi-swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47C637D62354AEBE00E12DE0 /* MWMMapOverlayManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47C637D42354AEBD00E12DE0 /* MWMMapOverlayManager.mm */; };
+		47C637D72354AEBE00E12DE0 /* MWMMapOverlayManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 47C637D52354AEBE00E12DE0 /* MWMMapOverlayManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47C637DC2354B79B00E12DE0 /* MWMSearchFrameworkHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47C637DA2354B79A00E12DE0 /* MWMSearchFrameworkHelper.mm */; };
+		47C637DD2354B79B00E12DE0 /* MWMSearchFrameworkHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 47C637DB2354B79B00E12DE0 /* MWMSearchFrameworkHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47CA68DD2502022400671019 /* MWMBookmark.h in Headers */ = {isa = PBXBuildFile; fileRef = 47CA68DB2502022400671019 /* MWMBookmark.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47CA68DE2502022400671019 /* MWMBookmark.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47CA68DC2502022400671019 /* MWMBookmark.mm */; };
+		47CA68E12506C01F00671019 /* MWMBookmark+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 47CA68DF2506C01F00671019 /* MWMBookmark+Core.h */; };
+		47CA68E42506D29000671019 /* MWMBookmarkColor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47CA68E32506D29000671019 /* MWMBookmarkColor.mm */; };
+		47CA68E82506F61300671019 /* MWMTrack.h in Headers */ = {isa = PBXBuildFile; fileRef = 47CA68E62506F61300671019 /* MWMTrack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47CA68E92506F61400671019 /* MWMTrack.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47CA68E72506F61300671019 /* MWMTrack.mm */; };
+		47CA68EC2506F6F100671019 /* MWMTrack+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 47CA68EA2506F6F100671019 /* MWMTrack+Core.h */; };
+		47D609DC234FE625008ECC47 /* MWMBookmarksObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 47D609DB234FE625008ECC47 /* MWMBookmarksObserver.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47D9019523AC22E500D9364C /* MWMMapUpdateInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 47D9019323AC22E500D9364C /* MWMMapUpdateInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47D9019623AC22E500D9364C /* MWMMapUpdateInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47D9019423AC22E500D9364C /* MWMMapUpdateInfo.mm */; };
+		47D9019923AC236100D9364C /* MWMMapUpdateInfo+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 47D9019723AC236100D9364C /* MWMMapUpdateInfo+Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47E8163623B1889C008FD836 /* MWMStorage.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47E8163423B1889B008FD836 /* MWMStorage.mm */; };
+		47E8163723B188D3008FD836 /* MWMStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 47E8163523B1889B008FD836 /* MWMStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47EEAFF42350CEDB005CF316 /* AppInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47EEAFF22350CEDA005CF316 /* AppInfo.mm */; };
+		47EEAFF62350CF48005CF316 /* AppInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 47EEAFF32350CEDB005CF316 /* AppInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47EEAFF72350D060005CF316 /* MWMCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 47EEAFF52350CEF6005CF316 /* MWMCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47F0D2152516847F00BC685E /* MWMBookmarksSection.h in Headers */ = {isa = PBXBuildFile; fileRef = 47F0D2132516847F00BC685E /* MWMBookmarksSection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47F0D2162516847F00BC685E /* MWMBookmarksSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 47F0D2142516847F00BC685E /* MWMBookmarksSection.m */; };
+		47F4F1F923A3336C0022FD56 /* MWMMapNodeAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = 47F4F1F723A3336B0022FD56 /* MWMMapNodeAttributes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47F4F1FA23A3336C0022FD56 /* MWMMapNodeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47F4F1F823A3336C0022FD56 /* MWMMapNodeAttributes.mm */; };
+		47F4F1FD23A3D1AC0022FD56 /* MWMMapNodeAttributes+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 47F4F1FB23A3D1AC0022FD56 /* MWMMapNodeAttributes+Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47F701EF238C86F000D18E95 /* PlacePageButtonsData.h in Headers */ = {isa = PBXBuildFile; fileRef = 47F701ED238C86F000D18E95 /* PlacePageButtonsData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47F701F0238C86F000D18E95 /* PlacePageButtonsData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47F701EE238C86F000D18E95 /* PlacePageButtonsData.mm */; };
+		47F701F3238C877C00D18E95 /* PlacePageButtonsData+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 47F701F1238C877C00D18E95 /* PlacePageButtonsData+Core.h */; };
+		99103843237EDFA200893C9F /* DeepLinkData.h in Headers */ = {isa = PBXBuildFile; fileRef = 99103841237EDFA200893C9F /* DeepLinkData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		99103844237EDFA200893C9F /* DeepLinkData.m in Sources */ = {isa = PBXBuildFile; fileRef = 99103842237EDFA200893C9F /* DeepLinkData.m */; };
+		9940622023EAC57900493D1A /* ElevationHeightPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 9940621E23EAC57900493D1A /* ElevationHeightPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9940622123EAC57900493D1A /* ElevationHeightPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9940621F23EAC57900493D1A /* ElevationHeightPoint.m */; };
+		99447849238559F2004DAEE5 /* DeeplinkUrlType.h in Headers */ = {isa = PBXBuildFile; fileRef = 99447847238559F2004DAEE5 /* DeeplinkUrlType.h */; };
+		9957FACE237AB01400855F48 /* DeepLinkParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 9957FACC237AB01400855F48 /* DeepLinkParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9957FACF237AB01400855F48 /* DeepLinkParser.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9957FACD237AB01400855F48 /* DeepLinkParser.mm */; };
+		9957FADB237ACB1100855F48 /* DeepLinkSearchData.h in Headers */ = {isa = PBXBuildFile; fileRef = 9957FAD9237ACB1100855F48 /* DeepLinkSearchData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9957FADC237ACB1100855F48 /* DeepLinkSearchData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9957FADA237ACB1100855F48 /* DeepLinkSearchData.mm */; };
+		9957FAE8237AE5B000855F48 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = 9957FAE6237AE5B000855F48 /* Logger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9957FAE9237AE5B000855F48 /* Logger.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9957FAE7237AE5B000855F48 /* Logger.mm */; };
+		9974CA2923DF1968003FE824 /* ElevationProfileData.h in Headers */ = {isa = PBXBuildFile; fileRef = 9974CA2723DF1968003FE824 /* ElevationProfileData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9974CA2A23DF1968003FE824 /* ElevationProfileData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9974CA2823DF1968003FE824 /* ElevationProfileData.mm */; };
+		9974CA2D23DF197B003FE824 /* ElevationProfileData+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 9974CA2B23DF197B003FE824 /* ElevationProfileData+Core.h */; };
+		AC6A585728057EF6003EABAF /* StringUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = AC6A585628057CC1003EABAF /* StringUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		470015EF2342509C00EBF03D /* CoreApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		470015F22342509C00EBF03D /* CoreApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreApi.h; sourceTree = "<group>"; };
+		470015F32342509C00EBF03D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4700161223425CFD00EBF03D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		470016142342633D00EBF03D /* CoreApi.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = CoreApi.modulemap; sourceTree = "<group>"; };
+		471527382491EDA400E91BBA /* MWMBookmarkColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMBookmarkColor.h; sourceTree = "<group>"; };
+		4718C4302355FC3C00640DF1 /* MWMNetworkPolicy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMNetworkPolicy.h; sourceTree = "<group>"; };
+		4718C4312355FC3C00640DF1 /* MWMNetworkPolicy.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNetworkPolicy.mm; sourceTree = "<group>"; };
+		471AB98B23AB925D00F56D49 /* MWMMapSearchResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMapSearchResult.h; sourceTree = "<group>"; };
+		471AB98C23AB925D00F56D49 /* MWMMapSearchResult.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapSearchResult.mm; sourceTree = "<group>"; };
+		471AB98F23AB931000F56D49 /* MWMMapSearchResult+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMMapSearchResult+Core.h"; sourceTree = "<group>"; };
+		472602A624092C5B00731135 /* MWMGeoUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMGeoUtil.h; sourceTree = "<group>"; };
+		472602A724092C5B00731135 /* MWMGeoUtil.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMGeoUtil.mm; sourceTree = "<group>"; };
+		475784C02344B421008291A4 /* Framework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Framework.h; sourceTree = "<group>"; };
+		475784C12344B422008291A4 /* Framework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Framework.cpp; sourceTree = "<group>"; };
+		47942D51237CC3B500DEFAE3 /* PlacePageData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlacePageData.h; sourceTree = "<group>"; };
+		47942D52237CC3B500DEFAE3 /* PlacePageData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PlacePageData.mm; sourceTree = "<group>"; };
+		47942D53237CC3B500DEFAE3 /* PlacePagePreviewData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlacePagePreviewData.h; sourceTree = "<group>"; };
+		47942D54237CC3B500DEFAE3 /* PlacePagePreviewData+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlacePagePreviewData+Core.h"; sourceTree = "<group>"; };
+		47942D55237CC3B500DEFAE3 /* PlacePagePreviewData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PlacePagePreviewData.mm; sourceTree = "<group>"; };
+		47942D56237CC3B500DEFAE3 /* PlacePageInfoData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlacePageInfoData.h; sourceTree = "<group>"; };
+		47942D57237CC3B500DEFAE3 /* PlacePageInfoData+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlacePageInfoData+Core.h"; sourceTree = "<group>"; };
+		47942D58237CC3B500DEFAE3 /* PlacePageInfoData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PlacePageInfoData.mm; sourceTree = "<group>"; };
+		47942D59237CC3B500DEFAE3 /* OpeningHours.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpeningHours.h; sourceTree = "<group>"; };
+		47942D5A237CC3B500DEFAE3 /* OpeningHours.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpeningHours.mm; sourceTree = "<group>"; };
+		47942D80237CC52A00DEFAE3 /* MWMOpeningHours.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMOpeningHours.mm; sourceTree = "<group>"; };
+		47942D81237CC52A00DEFAE3 /* MWMOpeningHours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMOpeningHours.h; sourceTree = "<group>"; };
+		47942D84237CC55400DEFAE3 /* MWMOpeningHoursCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMOpeningHoursCommon.h; sourceTree = "<group>"; };
+		47942D85237CC55500DEFAE3 /* MWMOpeningHoursCommon.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMOpeningHoursCommon.mm; sourceTree = "<group>"; };
+		47942D9A237D927800DEFAE3 /* PlacePageBookmarkData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlacePageBookmarkData.h; sourceTree = "<group>"; };
+		47942D9B237D927800DEFAE3 /* PlacePageBookmarkData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PlacePageBookmarkData.mm; sourceTree = "<group>"; };
+		47942D9E237D954400DEFAE3 /* PlacePageBookmarkData+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlacePageBookmarkData+Core.h"; sourceTree = "<group>"; };
+		47942DAA237ED9FE00DEFAE3 /* IOpeningHoursLocalization.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOpeningHoursLocalization.h; sourceTree = "<group>"; };
+		479834EE23426C0100724D1E /* common-debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../../xcode/common-debug.xcconfig"; sourceTree = "<group>"; };
+		479834EF23426C0100724D1E /* common-release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../../xcode/common-release.xcconfig"; sourceTree = "<group>"; };
+		479F7045234F774000011E2E /* MWMFrameworkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFrameworkHelper.h; sourceTree = "<group>"; };
+		479F7046234F774000011E2E /* MWMFrameworkHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMFrameworkHelper.mm; sourceTree = "<group>"; };
+		479F7049234F785B00011E2E /* MWMTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTypes.h; sourceTree = "<group>"; };
+		479F7054234FB7F100011E2E /* MWMBookmarksManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBookmarksManager.h; sourceTree = "<group>"; };
+		479F7055234FB7F100011E2E /* MWMBookmarksManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBookmarksManager.mm; sourceTree = "<group>"; };
+		479F705C234FBB8B00011E2E /* MWMBookmarkGroup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMBookmarkGroup.m; sourceTree = "<group>"; };
+		479F705D234FBB8C00011E2E /* MWMBookmarkGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMBookmarkGroup.h; sourceTree = "<group>"; };
+		479F7060234FBC4500011E2E /* MWMCarPlayBookmarkObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCarPlayBookmarkObject.h; sourceTree = "<group>"; };
+		479F7061234FBC4600011E2E /* MWMCarPlayBookmarkObject.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCarPlayBookmarkObject.mm; sourceTree = "<group>"; };
+		47A65CAE235008C700DCD85F /* CoreApi-swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CoreApi-swift.h"; sourceTree = "<group>"; };
+		47C637D42354AEBD00E12DE0 /* MWMMapOverlayManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapOverlayManager.mm; sourceTree = "<group>"; };
+		47C637D52354AEBE00E12DE0 /* MWMMapOverlayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapOverlayManager.h; sourceTree = "<group>"; };
+		47C637DA2354B79A00E12DE0 /* MWMSearchFrameworkHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchFrameworkHelper.mm; sourceTree = "<group>"; };
+		47C637DB2354B79B00E12DE0 /* MWMSearchFrameworkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchFrameworkHelper.h; sourceTree = "<group>"; };
+		47CA68DB2502022400671019 /* MWMBookmark.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMBookmark.h; sourceTree = "<group>"; };
+		47CA68DC2502022400671019 /* MWMBookmark.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBookmark.mm; sourceTree = "<group>"; };
+		47CA68DF2506C01F00671019 /* MWMBookmark+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMBookmark+Core.h"; sourceTree = "<group>"; };
+		47CA68E32506D29000671019 /* MWMBookmarkColor.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBookmarkColor.mm; sourceTree = "<group>"; };
+		47CA68E52506D38700671019 /* MWMBookmarkColor+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMBookmarkColor+Core.h"; sourceTree = "<group>"; };
+		47CA68E62506F61300671019 /* MWMTrack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMTrack.h; sourceTree = "<group>"; };
+		47CA68E72506F61300671019 /* MWMTrack.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTrack.mm; sourceTree = "<group>"; };
+		47CA68EA2506F6F100671019 /* MWMTrack+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMTrack+Core.h"; sourceTree = "<group>"; };
+		47D609DB234FE625008ECC47 /* MWMBookmarksObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMBookmarksObserver.h; sourceTree = "<group>"; };
+		47D9019323AC22E500D9364C /* MWMMapUpdateInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMapUpdateInfo.h; sourceTree = "<group>"; };
+		47D9019423AC22E500D9364C /* MWMMapUpdateInfo.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapUpdateInfo.mm; sourceTree = "<group>"; };
+		47D9019723AC236100D9364C /* MWMMapUpdateInfo+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMMapUpdateInfo+Core.h"; sourceTree = "<group>"; };
+		47E8163423B1889B008FD836 /* MWMStorage.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMStorage.mm; sourceTree = "<group>"; };
+		47E8163523B1889B008FD836 /* MWMStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMStorage.h; sourceTree = "<group>"; };
+		47EEAFF22350CEDA005CF316 /* AppInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = AppInfo.mm; sourceTree = "<group>"; };
+		47EEAFF32350CEDB005CF316 /* AppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInfo.h; sourceTree = "<group>"; };
+		47EEAFF52350CEF6005CF316 /* MWMCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCommon.h; sourceTree = "<group>"; };
+		47F0D2132516847F00BC685E /* MWMBookmarksSection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMBookmarksSection.h; sourceTree = "<group>"; };
+		47F0D2142516847F00BC685E /* MWMBookmarksSection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMBookmarksSection.m; sourceTree = "<group>"; };
+		47F4F1F723A3336B0022FD56 /* MWMMapNodeAttributes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMapNodeAttributes.h; sourceTree = "<group>"; };
+		47F4F1F823A3336C0022FD56 /* MWMMapNodeAttributes.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapNodeAttributes.mm; sourceTree = "<group>"; };
+		47F4F1FB23A3D1AC0022FD56 /* MWMMapNodeAttributes+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMMapNodeAttributes+Core.h"; sourceTree = "<group>"; };
+		47F701ED238C86F000D18E95 /* PlacePageButtonsData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlacePageButtonsData.h; sourceTree = "<group>"; };
+		47F701EE238C86F000D18E95 /* PlacePageButtonsData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PlacePageButtonsData.mm; sourceTree = "<group>"; };
+		47F701F1238C877C00D18E95 /* PlacePageButtonsData+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlacePageButtonsData+Core.h"; sourceTree = "<group>"; };
+		99103841237EDFA200893C9F /* DeepLinkData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkData.h; sourceTree = "<group>"; };
+		99103842237EDFA200893C9F /* DeepLinkData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeepLinkData.m; sourceTree = "<group>"; };
+		9940621E23EAC57900493D1A /* ElevationHeightPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ElevationHeightPoint.h; sourceTree = "<group>"; };
+		9940621F23EAC57900493D1A /* ElevationHeightPoint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ElevationHeightPoint.m; sourceTree = "<group>"; };
+		99447847238559F2004DAEE5 /* DeeplinkUrlType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeeplinkUrlType.h; sourceTree = "<group>"; };
+		9957FACC237AB01400855F48 /* DeepLinkParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkParser.h; sourceTree = "<group>"; };
+		9957FACD237AB01400855F48 /* DeepLinkParser.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkParser.mm; sourceTree = "<group>"; };
+		9957FAD9237ACB1100855F48 /* DeepLinkSearchData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkSearchData.h; sourceTree = "<group>"; };
+		9957FADA237ACB1100855F48 /* DeepLinkSearchData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkSearchData.mm; sourceTree = "<group>"; };
+		9957FAE6237AE5B000855F48 /* Logger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
+		9957FAE7237AE5B000855F48 /* Logger.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Logger.mm; sourceTree = "<group>"; };
+		9974CA2723DF1968003FE824 /* ElevationProfileData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ElevationProfileData.h; sourceTree = "<group>"; };
+		9974CA2823DF1968003FE824 /* ElevationProfileData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ElevationProfileData.mm; sourceTree = "<group>"; };
+		9974CA2B23DF197B003FE824 /* ElevationProfileData+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ElevationProfileData+Core.h"; sourceTree = "<group>"; };
+		AC6A585628057CC1003EABAF /* StringUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringUtils.h; sourceTree = "<group>"; };
+		FAA6D8CF29205D2D00E8D50D /* libcppjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcppjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		470015EC2342509C00EBF03D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		470015E52342509C00EBF03D = {
+			isa = PBXGroup;
+			children = (
+				479834EE23426C0100724D1E /* common-debug.xcconfig */,
+				479834EF23426C0100724D1E /* common-release.xcconfig */,
+				4700160B2342562200EBF03D /* Target Support Files */,
+				470015F12342509C00EBF03D /* CoreApi */,
+				470015F02342509C00EBF03D /* Products */,
+				4700161123425CFC00EBF03D /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		470015F02342509C00EBF03D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				470015EF2342509C00EBF03D /* CoreApi.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		470015F12342509C00EBF03D /* CoreApi */ = {
+			isa = PBXGroup;
+			children = (
+				47F4F1F623A333280022FD56 /* Storage */,
+				9957FAE5237AE59C00855F48 /* Logger */,
+				9957FAC1237AABD800855F48 /* DeepLink */,
+				47942D6A237CC3B500DEFAE3 /* PlacePageData */,
+				4718C42F2355FC0D00640DF1 /* NetworkPolicy */,
+				47C637D92354B76700E12DE0 /* Search */,
+				47C637D32354AEA800E12DE0 /* Traffic */,
+				479F704C234FB5C800011E2E /* Bookmarks */,
+				479F7048234F784B00011E2E /* Common */,
+				477C775523435B69001C5B4E /* Framework */,
+				470015F22342509C00EBF03D /* CoreApi.h */,
+				47A65CAE235008C700DCD85F /* CoreApi-swift.h */,
+				470015F32342509C00EBF03D /* Info.plist */,
+			);
+			path = CoreApi;
+			sourceTree = "<group>";
+		};
+		4700160B2342562200EBF03D /* Target Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				470016142342633D00EBF03D /* CoreApi.modulemap */,
+			);
+			name = "Target Support Files";
+			sourceTree = "<group>";
+		};
+		4700161123425CFC00EBF03D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FAA6D8CF29205D2D00E8D50D /* libcppjansson.a */,
+				4700161223425CFD00EBF03D /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4718C42F2355FC0D00640DF1 /* NetworkPolicy */ = {
+			isa = PBXGroup;
+			children = (
+				4718C4302355FC3C00640DF1 /* MWMNetworkPolicy.h */,
+				4718C4312355FC3C00640DF1 /* MWMNetworkPolicy.mm */,
+			);
+			path = NetworkPolicy;
+			sourceTree = "<group>";
+		};
+		477C775523435B69001C5B4E /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				475784C12344B422008291A4 /* Framework.cpp */,
+				475784C02344B421008291A4 /* Framework.h */,
+				479F7045234F774000011E2E /* MWMFrameworkHelper.h */,
+				479F7046234F774000011E2E /* MWMFrameworkHelper.mm */,
+			);
+			path = Framework;
+			sourceTree = "<group>";
+		};
+		47942D5B237CC3B500DEFAE3 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				47942D9A237D927800DEFAE3 /* PlacePageBookmarkData.h */,
+				47942D9E237D954400DEFAE3 /* PlacePageBookmarkData+Core.h */,
+				47942D9B237D927800DEFAE3 /* PlacePageBookmarkData.mm */,
+				47942D53237CC3B500DEFAE3 /* PlacePagePreviewData.h */,
+				47942D54237CC3B500DEFAE3 /* PlacePagePreviewData+Core.h */,
+				47942D55237CC3B500DEFAE3 /* PlacePagePreviewData.mm */,
+				47942D56237CC3B500DEFAE3 /* PlacePageInfoData.h */,
+				47942D57237CC3B500DEFAE3 /* PlacePageInfoData+Core.h */,
+				47942D58237CC3B500DEFAE3 /* PlacePageInfoData.mm */,
+				47942D59237CC3B500DEFAE3 /* OpeningHours.h */,
+				47942D5A237CC3B500DEFAE3 /* OpeningHours.mm */,
+				47942D81237CC52A00DEFAE3 /* MWMOpeningHours.h */,
+				47942D80237CC52A00DEFAE3 /* MWMOpeningHours.mm */,
+				47942D84237CC55400DEFAE3 /* MWMOpeningHoursCommon.h */,
+				47942D85237CC55500DEFAE3 /* MWMOpeningHoursCommon.mm */,
+				47942DAA237ED9FE00DEFAE3 /* IOpeningHoursLocalization.h */,
+				47F701ED238C86F000D18E95 /* PlacePageButtonsData.h */,
+				47F701F1238C877C00D18E95 /* PlacePageButtonsData+Core.h */,
+				47F701EE238C86F000D18E95 /* PlacePageButtonsData.mm */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		47942D6A237CC3B500DEFAE3 /* PlacePageData */ = {
+			isa = PBXGroup;
+			children = (
+				47942D51237CC3B500DEFAE3 /* PlacePageData.h */,
+				47942D52237CC3B500DEFAE3 /* PlacePageData.mm */,
+				47942D5B237CC3B500DEFAE3 /* Common */,
+				9974CA2623DF1931003FE824 /* ElevationProfile */,
+			);
+			path = PlacePageData;
+			sourceTree = "<group>";
+		};
+		479F7048234F784B00011E2E /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				AC6A585628057CC1003EABAF /* StringUtils.h */,
+				479F7049234F785B00011E2E /* MWMTypes.h */,
+				47EEAFF52350CEF6005CF316 /* MWMCommon.h */,
+				47EEAFF32350CEDB005CF316 /* AppInfo.h */,
+				47EEAFF22350CEDA005CF316 /* AppInfo.mm */,
+				472602A624092C5B00731135 /* MWMGeoUtil.h */,
+				472602A724092C5B00731135 /* MWMGeoUtil.mm */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		479F704C234FB5C800011E2E /* Bookmarks */ = {
+			isa = PBXGroup;
+			children = (
+				479F7054234FB7F100011E2E /* MWMBookmarksManager.h */,
+				479F7055234FB7F100011E2E /* MWMBookmarksManager.mm */,
+				479F705D234FBB8C00011E2E /* MWMBookmarkGroup.h */,
+				479F705C234FBB8B00011E2E /* MWMBookmarkGroup.m */,
+				479F7060234FBC4500011E2E /* MWMCarPlayBookmarkObject.h */,
+				479F7061234FBC4600011E2E /* MWMCarPlayBookmarkObject.mm */,
+				47D609DB234FE625008ECC47 /* MWMBookmarksObserver.h */,
+				471527382491EDA400E91BBA /* MWMBookmarkColor.h */,
+				47CA68E52506D38700671019 /* MWMBookmarkColor+Core.h */,
+				47CA68E32506D29000671019 /* MWMBookmarkColor.mm */,
+				47CA68DB2502022400671019 /* MWMBookmark.h */,
+				47CA68DF2506C01F00671019 /* MWMBookmark+Core.h */,
+				47CA68DC2502022400671019 /* MWMBookmark.mm */,
+				47CA68E62506F61300671019 /* MWMTrack.h */,
+				47CA68EA2506F6F100671019 /* MWMTrack+Core.h */,
+				47CA68E72506F61300671019 /* MWMTrack.mm */,
+				47F0D2132516847F00BC685E /* MWMBookmarksSection.h */,
+				47F0D2142516847F00BC685E /* MWMBookmarksSection.m */,
+			);
+			path = Bookmarks;
+			sourceTree = "<group>";
+		};
+		47C637D32354AEA800E12DE0 /* Traffic */ = {
+			isa = PBXGroup;
+			children = (
+				47C637D52354AEBE00E12DE0 /* MWMMapOverlayManager.h */,
+				47C637D42354AEBD00E12DE0 /* MWMMapOverlayManager.mm */,
+			);
+			path = Traffic;
+			sourceTree = "<group>";
+		};
+		47C637D92354B76700E12DE0 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				47C637DB2354B79B00E12DE0 /* MWMSearchFrameworkHelper.h */,
+				47C637DA2354B79A00E12DE0 /* MWMSearchFrameworkHelper.mm */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		47F4F1F623A333280022FD56 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				47E8163523B1889B008FD836 /* MWMStorage.h */,
+				47E8163423B1889B008FD836 /* MWMStorage.mm */,
+				47F4F1F723A3336B0022FD56 /* MWMMapNodeAttributes.h */,
+				47F4F1FB23A3D1AC0022FD56 /* MWMMapNodeAttributes+Core.h */,
+				47F4F1F823A3336C0022FD56 /* MWMMapNodeAttributes.mm */,
+				471AB98B23AB925D00F56D49 /* MWMMapSearchResult.h */,
+				471AB98F23AB931000F56D49 /* MWMMapSearchResult+Core.h */,
+				471AB98C23AB925D00F56D49 /* MWMMapSearchResult.mm */,
+				47D9019323AC22E500D9364C /* MWMMapUpdateInfo.h */,
+				47D9019723AC236100D9364C /* MWMMapUpdateInfo+Core.h */,
+				47D9019423AC22E500D9364C /* MWMMapUpdateInfo.mm */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		99103840237ED97600893C9F /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				9957FAD9237ACB1100855F48 /* DeepLinkSearchData.h */,
+				9957FADA237ACB1100855F48 /* DeepLinkSearchData.mm */,
+				99103841237EDFA200893C9F /* DeepLinkData.h */,
+				99103842237EDFA200893C9F /* DeepLinkData.m */,
+				99447847238559F2004DAEE5 /* DeeplinkUrlType.h */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		9957FAC1237AABD800855F48 /* DeepLink */ = {
+			isa = PBXGroup;
+			children = (
+				99103840237ED97600893C9F /* Data */,
+				9957FACC237AB01400855F48 /* DeepLinkParser.h */,
+				9957FACD237AB01400855F48 /* DeepLinkParser.mm */,
+			);
+			path = DeepLink;
+			sourceTree = "<group>";
+		};
+		9957FAE5237AE59C00855F48 /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				9957FAE6237AE5B000855F48 /* Logger.h */,
+				9957FAE7237AE5B000855F48 /* Logger.mm */,
+			);
+			path = Logger;
+			sourceTree = "<group>";
+		};
+		9974CA2623DF1931003FE824 /* ElevationProfile */ = {
+			isa = PBXGroup;
+			children = (
+				9974CA2723DF1968003FE824 /* ElevationProfileData.h */,
+				9974CA2823DF1968003FE824 /* ElevationProfileData.mm */,
+				9974CA2B23DF197B003FE824 /* ElevationProfileData+Core.h */,
+				9940621E23EAC57900493D1A /* ElevationHeightPoint.h */,
+				9940621F23EAC57900493D1A /* ElevationHeightPoint.m */,
+			);
+			path = ElevationProfile;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		470015EA2342509C00EBF03D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9957FAE8237AE5B000855F48 /* Logger.h in Headers */,
+				470015F42342509C00EBF03D /* CoreApi.h in Headers */,
+				479F705F234FBB8F00011E2E /* MWMBookmarkGroup.h in Headers */,
+				471AB99123AB931000F56D49 /* MWMMapSearchResult+Core.h in Headers */,
+				47942D6D237CC3E300DEFAE3 /* PlacePagePreviewData.h in Headers */,
+				47CA68DD2502022400671019 /* MWMBookmark.h in Headers */,
+				9940622023EAC57900493D1A /* ElevationHeightPoint.h in Headers */,
+				47A65CAF235008E100DCD85F /* CoreApi-swift.h in Headers */,
+				9957FACE237AB01400855F48 /* DeepLinkParser.h in Headers */,
+				9974CA2D23DF197B003FE824 /* ElevationProfileData+Core.h in Headers */,
+				AC6A585728057EF6003EABAF /* StringUtils.h in Headers */,
+				47F701EF238C86F000D18E95 /* PlacePageButtonsData.h in Headers */,
+				47EEAFF72350D060005CF316 /* MWMCommon.h in Headers */,
+				47F0D2152516847F00BC685E /* MWMBookmarksSection.h in Headers */,
+				47CA68E82506F61300671019 /* MWMTrack.h in Headers */,
+				472602A824092C5B00731135 /* MWMGeoUtil.h in Headers */,
+				47D9019523AC22E500D9364C /* MWMMapUpdateInfo.h in Headers */,
+				9957FADB237ACB1100855F48 /* DeepLinkSearchData.h in Headers */,
+				479F7056234FB7F200011E2E /* MWMBookmarksManager.h in Headers */,
+				47942D83237CC52E00DEFAE3 /* MWMOpeningHours.h in Headers */,
+				4718C4322355FC3C00640DF1 /* MWMNetworkPolicy.h in Headers */,
+				47CA68EC2506F6F100671019 /* MWMTrack+Core.h in Headers */,
+				99103843237EDFA200893C9F /* DeepLinkData.h in Headers */,
+				47F4F1FD23A3D1AC0022FD56 /* MWMMapNodeAttributes+Core.h in Headers */,
+				9974CA2923DF1968003FE824 /* ElevationProfileData.h in Headers */,
+				47C637DD2354B79B00E12DE0 /* MWMSearchFrameworkHelper.h in Headers */,
+				47942D70237CC40400DEFAE3 /* PlacePageInfoData+Core.h in Headers */,
+				47942DA0237D954400DEFAE3 /* PlacePageBookmarkData+Core.h in Headers */,
+				479F704B234F78AB00011E2E /* MWMFrameworkHelper.h in Headers */,
+				47D9019923AC236100D9364C /* MWMMapUpdateInfo+Core.h in Headers */,
+				47942D6E237CC3E800DEFAE3 /* PlacePagePreviewData+Core.h in Headers */,
+				47942D87237CC55800DEFAE3 /* MWMOpeningHoursCommon.h in Headers */,
+				47942DAB237ED9FE00DEFAE3 /* IOpeningHoursLocalization.h in Headers */,
+				479F7063234FBC5900011E2E /* MWMCarPlayBookmarkObject.h in Headers */,
+				47E8163723B188D3008FD836 /* MWMStorage.h in Headers */,
+				47EEAFF62350CF48005CF316 /* AppInfo.h in Headers */,
+				47F701F3238C877C00D18E95 /* PlacePageButtonsData+Core.h in Headers */,
+				47CA68E12506C01F00671019 /* MWMBookmark+Core.h in Headers */,
+				471527392491EDAA00E91BBA /* MWMBookmarkColor.h in Headers */,
+				47F4F1F923A3336C0022FD56 /* MWMMapNodeAttributes.h in Headers */,
+				479F704A234F785B00011E2E /* MWMTypes.h in Headers */,
+				47C637D72354AEBE00E12DE0 /* MWMMapOverlayManager.h in Headers */,
+				99447849238559F2004DAEE5 /* DeeplinkUrlType.h in Headers */,
+				47942D9C237D927800DEFAE3 /* PlacePageBookmarkData.h in Headers */,
+				47942D72237CC40B00DEFAE3 /* OpeningHours.h in Headers */,
+				47942D6B237CC3D600DEFAE3 /* PlacePageData.h in Headers */,
+				47D609DC234FE625008ECC47 /* MWMBookmarksObserver.h in Headers */,
+				471AB98D23AB925D00F56D49 /* MWMMapSearchResult.h in Headers */,
+				47942D6F237CC3F400DEFAE3 /* PlacePageInfoData.h in Headers */,
+				475784C22344B422008291A4 /* Framework.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		470015EE2342509C00EBF03D /* CoreApi */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 470015F72342509C00EBF03D /* Build configuration list for PBXNativeTarget "CoreApi" */;
+			buildPhases = (
+				470015EA2342509C00EBF03D /* Headers */,
+				470015EB2342509C00EBF03D /* Sources */,
+				470015EC2342509C00EBF03D /* Frameworks */,
+				470015ED2342509C00EBF03D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CoreApi;
+			productName = CoreApi;
+			productReference = 470015EF2342509C00EBF03D /* CoreApi.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		470015E62342509C00EBF03D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1410;
+				ORGANIZATIONNAME = "Organic Maps";
+				TargetAttributes = {
+					470015EE2342509C00EBF03D = {
+						CreatedOnToolsVersion = 10.2;
+					};
+				};
+			};
+			buildConfigurationList = 470015E92342509C00EBF03D /* Build configuration list for PBXProject "CoreApi" */;
+			compatibilityVersion = "Xcode 12.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 470015E52342509C00EBF03D;
+			productRefGroup = 470015F02342509C00EBF03D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				470015EE2342509C00EBF03D /* CoreApi */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		470015ED2342509C00EBF03D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		470015EB2342509C00EBF03D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9957FADC237ACB1100855F48 /* DeepLinkSearchData.mm in Sources */,
+				9957FACF237AB01400855F48 /* DeepLinkParser.mm in Sources */,
+				47F4F1FA23A3336C0022FD56 /* MWMMapNodeAttributes.mm in Sources */,
+				99103844237EDFA200893C9F /* DeepLinkData.m in Sources */,
+				47942D88237CCA8800DEFAE3 /* PlacePagePreviewData.mm in Sources */,
+				47942D9D237D927800DEFAE3 /* PlacePageBookmarkData.mm in Sources */,
+				47942D86237CC55500DEFAE3 /* MWMOpeningHoursCommon.mm in Sources */,
+				9974CA2A23DF1968003FE824 /* ElevationProfileData.mm in Sources */,
+				47942D82237CC52A00DEFAE3 /* MWMOpeningHours.mm in Sources */,
+				47942D73237CC41400DEFAE3 /* OpeningHours.mm in Sources */,
+				47C637DC2354B79B00E12DE0 /* MWMSearchFrameworkHelper.mm in Sources */,
+				479F7062234FBC4700011E2E /* MWMCarPlayBookmarkObject.mm in Sources */,
+				47942D6C237CC3DE00DEFAE3 /* PlacePageData.mm in Sources */,
+				479F705E234FBB8C00011E2E /* MWMBookmarkGroup.m in Sources */,
+				47F0D2162516847F00BC685E /* MWMBookmarksSection.m in Sources */,
+				479F7057234FB7F200011E2E /* MWMBookmarksManager.mm in Sources */,
+				47942D71237CC40800DEFAE3 /* PlacePageInfoData.mm in Sources */,
+				479F7047234F774100011E2E /* MWMFrameworkHelper.mm in Sources */,
+				47D9019623AC22E500D9364C /* MWMMapUpdateInfo.mm in Sources */,
+				47CA68E42506D29000671019 /* MWMBookmarkColor.mm in Sources */,
+				471AB98E23AB925D00F56D49 /* MWMMapSearchResult.mm in Sources */,
+				47C637D62354AEBE00E12DE0 /* MWMMapOverlayManager.mm in Sources */,
+				475784C32344B422008291A4 /* Framework.cpp in Sources */,
+				4718C4332355FC3C00640DF1 /* MWMNetworkPolicy.mm in Sources */,
+				47CA68E92506F61400671019 /* MWMTrack.mm in Sources */,
+				472602A924092C5B00731135 /* MWMGeoUtil.mm in Sources */,
+				47F701F0238C86F000D18E95 /* PlacePageButtonsData.mm in Sources */,
+				9940622123EAC57900493D1A /* ElevationHeightPoint.m in Sources */,
+				47EEAFF42350CEDB005CF316 /* AppInfo.mm in Sources */,
+				47E8163623B1889C008FD836 /* MWMStorage.mm in Sources */,
+				47CA68DE2502022400671019 /* MWMBookmark.mm in Sources */,
+				9957FAE9237AE5B000855F48 /* Logger.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		470015F52342509C00EBF03D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 479834EE23426C0100724D1E /* common-debug.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/glm",
+					"$(OMIM_ROOT)/3party/pugixml/pugixml/src",
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		470015F62342509C00EBF03D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 479834EF23426C0100724D1E /* common-release.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/glm",
+					"$(OMIM_ROOT)/3party/pugixml/pugixml/src",
+				);
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		470015F82342509C00EBF03D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = CoreApi/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = CoreApi.modulemap;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		470015F92342509C00EBF03D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = CoreApi/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = CoreApi.modulemap;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		470015E92342509C00EBF03D /* Build configuration list for PBXProject "CoreApi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				470015F52342509C00EBF03D /* Debug */,
+				470015F62342509C00EBF03D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		470015F72342509C00EBF03D /* Build configuration list for PBXNativeTarget "CoreApi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				470015F82342509C00EBF03D /* Debug */,
+				470015F92342509C00EBF03D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 470015E62342509C00EBF03D /* Project object */;
+}

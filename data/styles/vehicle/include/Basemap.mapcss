@@ -1,0 +1,672 @@
+/* ~~~~ CONTENT OF BASEMAP ~~~~~
+
+1.Z-INDEX of BASEMAP
+2.LAND
+3.BOUNDARY
+  3.1 Countries
+  3.2 Region
+4.VEGETATION
+5.BEACH, GLACIER, DESERT, etc.
+6.WATER
+  6.1 Area water(lake,pond etc.)
+  6.2 Line water(river,canal etc.)
+7.LANDUSE
+  7.1 Industrial
+  7.2 Hostital
+  7.3 University & Sport
+  7.4 Cemetry
+  7.5 Pedestrian areas
+  7.6 Airports
+  7.7 Religion
+  7.8 Agricultural
+8.BUILDINGS
+  8.1 Pier, dam, cutline
+  8.2 Building
+  8.3 Barriers, cliffs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+/* 1.Z-INDEX BASE MAP */
+
+/* Linear and areal water features are put into the "bg-top" layer
+   above landcover/background areas and below lines and foreground areas.
+*/
+line[waterway=river],
+line[waterway=riverbank],
+line[waterway=stream],
+line[waterway=canal],
+line[waterway=fish_pass],
+line[waterway=ditch],
+line[waterway=drain],
+line[natural=strait],
+{fill-position: background-top; z-index: 1;}
+
+/* man_made=bridge is always layer>=1 and other l=1 features should be drawn above it, hence a low base priority. */
+area[man_made=bridge],
+{fill-position: foreground; z-index: 1;}
+
+/*
+  Areal water should be above linear water (e.g. rivers).
+*/
+area[natural=water],
+area[waterway=dock],
+area[waterway=riverbank],
+area[landuse=salt_pond],
+area[landuse=basin],
+area[landuse=reservoir],
+{fill-position: background-top; z-index: 2;}
+
+
+/* Foreground areas which should be above water. */
+area[waterway=dam],
+line[waterway=dam],
+area[man_made=pier],
+area[man_made=breakwater],
+line[man_made=pier],
+line[man_made=breakwater],
+{fill-position: foreground; z-index: 3;}
+
+
+area[natural=coastline]
+{z-index: -10;}
+
+area[natural=land],
+area[place=islet]
+{z-index: 0;}
+
+area[natural=glacier],
+area[natural=beach],
+area[natural=desert],
+area[leisure=beach_resort],
+area[amenity=university],
+area[aeroway=aerodrome][aerodrome=international],
+area[aeroway=aerodrome]
+{z-index: 1;}
+
+area[amenity=hospital],
+area[amenity=doctors],
+area[healthcare=laboratory],
+{z-index: 2;}
+
+area[landuse=industrial],
+area[landuse=construction],
+area[landuse=churchyard],
+area[landuse=landfill],
+area[landuse=railway],
+area[landuse=quarry]
+{z-index: 3;}
+
+area[landuse=forest],
+area[leisure=nature_reserve]
+{z-index: 30;}
+
+area[leisure=park],
+area[leisure=garden]
+{z-index: 40;}
+
+/* Should be greater than leisure=park */
+area[leisure=pitch],
+area[leisure=stadium],
+area[leisure=playground],
+area[sport=multi],
+area[sport=soccer],
+{z-index: 41;}
+
+area[landuse=farmland],
+area[landuse=allotments],
+area[natural=scrub],
+area[landuse=orchard],
+area[landuse=vineyard],
+area[landuse=meadow],
+area[landuse=recreation_ground],
+area[landuse=village_green],
+area[landuse=field],
+{z-index: 42;}
+
+area[landuse=cemetery],
+area[amenity=grave_yard]
+{z-index: 43;}
+
+area[highway=pedestrian][area?],
+area[area:highway=pedestrian],
+area[highway=footway][area?][!sac_scale],
+area[area:highway=footway],
+area[area:highway=living_street],
+area[public_transport=platform],
+area[railway=platform]
+{z-index: 44;}
+
+area[landuse=grass],
+area[natural=grassland],
+area[leisure=golf_course],
+area[natural=heath]
+{z-index: 45;}
+
+area[natural=wetland],
+{z-index: 49;}
+
+line[barrier=ditch],
+{z-index: 50;}
+
+area[leisure=swimming_pool],
+{z-index: 100;}
+
+line[waterway=weir],
+node[waterway=lock_gate],
+{z-index: 110;}
+
+line[man_made=cutline]
+{z-index: 120;}
+
+line[boundary=administrative]
+{z-index: 130;}
+
+line[natural=cliff],
+line[natural=earth_bank],
+line[man_made=embankment],
+line[barrier=retaining_wall],
+{z-index: 145;}
+
+area[building],
+area[building:part],
+area[landuse=garages],
+{z-index: 150;}
+
+area[aeroway=terminal]
+{z-index: 160;}
+
+area[amenity=place_of_worship]
+{z-index: 210;}
+
+line[barrier=wall],
+line[barrier=fence],
+line[barrier=hedge],
+line[barrier=city_wall],
+line[historic=citywalls],
+area[amenity=parking],
+area[amenity=parking_space],
+{z-index: 950;}
+
+/* 2.LAND */
+
+area|z0-[natural=coastline],
+area|z0-[natural=land],
+area|z10-[place=islet]
+{fill-position: background;	fill-opacity: 1;}
+
+area|z0-[natural=coastline]
+{fill-color: @water;}
+
+area|z0-[natural=land],
+area|z10-[place=islet]
+{fill-color: @background;}
+
+/* 3.BOUNDARIES */
+
+line|z2-[boundary=administrative]
+{color: @border_country;opacity: 1;}
+
+line|z4[boundary=administrative][admin_level=3],
+line|z5-[boundary=administrative][admin_level=4]
+{color: @border_region;opacity: 1;}
+
+/* 3.1 Country */
+
+line|z2[boundary=administrative][admin_level=2]
+{width: 0.5;opacity: 0.7;}
+line|z3[boundary=administrative][admin_level=2]
+{width: 0.5;opacity: 0.8;}
+line|z4[boundary=administrative][admin_level=2]
+{width: 0.6;}
+line|z5[boundary=administrative][admin_level=2]
+{width: 0.8;}
+line|z6[boundary=administrative][admin_level=2]
+{width: 0.85;}
+line|z7[boundary=administrative][admin_level=2]
+{width: 1;}
+line|z8[boundary=administrative][admin_level=2]
+{width: 1.1;}
+line|z9-[boundary=administrative][admin_level=2]
+{width: 1.4;}
+
+/* 3.2 Region */
+
+line|z4[boundary=administrative][admin_level=3]
+{width: 0.8;dashes: 0.9,0.36;}
+line|z5[boundary=administrative][admin_level=4]
+{width: 0.7;opacity: 0.8;dashes: 1.35,0.9;}
+line|z6[boundary=administrative][admin_level=4]
+{width: 0.8;dashes: 0.9,0.45;}
+line|z7[boundary=administrative][admin_level=4]
+{width: 0.9;dashes: 1.8,0.9;}
+line|z8[boundary=administrative][admin_level=4]
+{width: 0.9;dashes: 1.44,1.44;}
+line|z9[boundary=administrative][admin_level=4]
+{width: 1;dashes: 1.8,0.9;}
+line|z10-[boundary=administrative][admin_level=4]
+{width: 1.2;dashes: 1.8,0.9;}
+
+/* 4.VEGETATION */
+
+area|z10-[landuse=forest],
+area|z10-[leisure=park],
+area|z10-[leisure=nature_reserve],
+area|z12-[leisure=garden],
+area|z14-[landuse=grass],
+area|z14-[natural=grassland],
+area|z14-[leisure=golf_course],
+area|z14-[natural=heath],
+area|z14-[landuse=allotments],
+area|z14-[natural=scrub],
+area|z14-[landuse=orchard],
+area|z14-[landuse=vineyard],
+area|z14-[landuse=meadow],
+area|z14-[landuse=recreation_ground],
+area|z14-[landuse=village_green],
+area|z14-[landuse=field],
+{fill-position: background; fill-opacity: 1;}
+
+area|z10[landuse=forest],
+area|z10[leisure=nature_reserve],
+{fill-color: @green1;}
+
+area|z14-[landuse=grass],
+area|z14-[natural=grassland],
+area|z14-[leisure=golf_course],
+area|z14-[natural=heath],
+
+area|z14-[landuse=allotments],
+area|z14-[natural=scrub],
+area|z14-[landuse=orchard],
+area|z14-[landuse=vineyard],
+area|z14-[landuse=meadow],
+area|z14-[landuse=recreation_ground],
+area|z14-[landuse=village_green],
+area|z14-[landuse=field],
+{fill-color: @green1;}
+
+area|z11-12[landuse=forest],
+area|z11-12[leisure=nature_reserve],
+area|z10-12[leisure=park],
+area|z12[leisure=garden],
+{fill-color: @green2;}
+
+area|z13[landuse=forest],
+area|z13[leisure=nature_reserve],
+area|z13[leisure=park],
+area|z13[leisure=garden]
+{fill-color: @green3;}
+
+area|z14[landuse=forest],
+area|z14[leisure=nature_reserve],
+area|z14[leisure=park],
+area|z14[leisure=garden]
+{fill-color: @green4;}
+
+area|z15[landuse=forest],
+area|z15[leisure=nature_reserve],
+area|z15[leisure=park],
+area|z15[leisure=garden]
+{fill-color: @green5;}
+
+area|z16-[landuse=forest],
+area|z16-[leisure=nature_reserve],
+area|z16-[leisure=park],
+area|z16-[leisure=garden]
+{fill-color: @forest;}
+
+area|z12-[natural=bare_rock],
+{fill-color: @barerock;}
+
+/* 5.BEACH, GLACIER, DESERT, etc. */
+
+area|z0-[natural=glacier],
+area|z10-[natural=beach],
+area|z0-[natural=desert],
+area|z10-[leisure=beach_resort],
+{fill-position: background;	fill-opacity: 1;}
+
+area|z0-[natural=glacier]
+{fill-color: @glacier;}
+
+area|z10-[natural=beach],
+area|z10-[leisure=beach_resort],
+{fill-color: @beach;fill-opacity: 0.35;}
+
+area|z0-[natural=desert],
+{fill-color: @desert;}
+
+/* 6.WATER */
+
+area|z0-[natural=water][!tunnel],
+area|z0-[waterway=dock],
+area|z0-[waterway=riverbank],
+area|z0-[landuse=salt_pond],
+area|z12-[landuse=basin],
+area|z12-[landuse=reservoir],
+{fill-opacity: 1;}
+
+area|z11-[natural=wetland],
+area|z13-[leisure=swimming_pool],
+{fill-position: background;	fill-opacity: 1;}
+
+line|z10-[waterway=river],
+line|z10-[waterway=riverbank],
+line|z13-[waterway=stream],
+line|z13-[waterway=canal],
+line|z17-[waterway=ditch],
+line|z17-[waterway=drain],
+line|z13-[natural=strait],
+{opacity: 1; color: @river;}
+
+/* 6.1 Area water(lake,pond etc.) */
+
+area|z0-[natural=water][!tunnel],
+area|z0-[landuse=salt_pond],
+area|z0-[waterway=dock],
+area|z0-[waterway=riverbank],
+area|z12-[landuse=basin],
+area|z12-[landuse=reservoir],
+area|z13-[leisure=swimming_pool],
+{fill-color: @water;}
+
+area|z11-[natural=wetland],
+{fill-color: @wetland;fill-opacity: 1;}
+
+/* 6.2 Line water(river,canal etc.) */
+
+line|z10[waterway=river],
+line|z10[waterway=riverbank],
+{width: 1;}
+
+line|z11-12[waterway=river],
+line|z11-12[waterway=riverbank],
+{width: 1.2;}
+
+line|z13[waterway=river],
+line|z13[waterway=riverbank],
+{width: 1.6;}
+/*line|z13[waterway=stream],
+line|z13[waterway=canal],
+line|z13[natural=strait],
+{width: 0.7;}
+line|z13[waterway=stream][intermittent=yes]
+{width: 0.7;dashes: 2.7,2.7;}*/
+
+line|z14[waterway=river],
+line|z14[waterway=riverbank],
+{width: 1.8;}
+/*line|z14[waterway=stream],
+line|z14[waterway=canal],
+line|z14[natural=strait],
+{width: 1;}
+line|z14[waterway=stream][intermittent=yes]
+{width: 1;dashes: 2.7,2.7;}*/
+
+line|z15-[waterway=river],
+line|z15-[waterway=riverbank],
+{width: 2.2;}
+/*line|z15-[waterway=stream],
+line|z15-[waterway=canal],
+line|z15-[natural=strait],
+{width: 1.6;}
+line|z15-[waterway=stream][intermittent=yes]
+{width: 1.4;dashes: 4.95,4.95;}*/
+
+node|z16-[waterway=lock_gate],
+{icon-image: dot-m.svg;}
+
+line|z17-[waterway=ditch],
+line|z17-[barrier=ditch],
+line|z17-[waterway=drain],
+{width: 1.8;opacity: 1;color: @river;dashes: 0.9,0.9;}
+
+/* Do not draw tunnel waterways */
+
+line[waterway][tunnel]
+{width: 0;}
+
+/* 7.LANDUSE */
+
+area|z10-[aeroway=aerodrome][aerodrome=international],
+area|z10-[aeroway=aerodrome],
+area|z14-[amenity=hospital],
+area|z14-[amenity=doctors],
+area|z14-[healthcare=laboratory],
+area|z14-[highway=pedestrian][area?],
+area|z14-[area:highway=pedestrian],
+area|z14-[highway=footway][area?][!sac_scale],
+area|z14-[area:highway=footway],
+area|z14-[area:highway=living_street],
+area|z14-[amenity=grave_yard],
+area|z14-[landuse=cemetery],
+area|z14-[amenity=university],
+area|z15-[landuse=industrial],
+area|z15-[landuse=construction],
+area|z15-[landuse=churchyard],
+area|z15-[landuse=landfill],
+area|z15-[landuse=railway],
+area|z15-[landuse=quarry],
+area|z15-[leisure=stadium],
+area|z15-[amenity=parking],
+area|z15-[amenity=parking_space],
+area|z16-[public_transport=platform],
+area|z16-[amenity=place_of_worship],
+area|z16-[railway=platform],
+{fill-position: background;	fill-opacity: 1;}
+
+/* 7.1 Industrial */
+
+area|z15-[landuse=industrial],
+area|z15-[landuse=construction],
+area|z15-[landuse=landfill],
+area|z15-[landuse=railway],
+area|z15-[landuse=quarry]
+{fill-color: @industrial;fill-opacity: 1;}
+
+
+/* 7.2 Hostital */
+
+
+
+/* 7.3 University & Sport */
+
+
+
+
+area|z15-[leisure=stadium],
+{fill-color: @sport;fill-opacity: 1;}
+
+/* 7.4 Cemetry */
+
+area|z14[landuse=cemetery],
+area|z14[amenity=grave_yard]
+{fill-color: @green2;fill-opacity: 1;}
+
+area|z15-[amenity=grave_yard],
+area|z15-[landuse=cemetery]
+{fill-color: @green2;fill-opacity: 1;}
+
+area|z16-[amenity=grave_yard],
+area|z16-[landuse=cemetery]
+{fill-color: @green3;fill-opacity: 1;}
+
+/* 7.5 Pedestrian areas */
+
+
+
+/* 7.6 Airports */
+
+area|z10[aeroway=aerodrome][aerodrome=international],
+area|z10[aeroway=aerodrome],
+{fill-color: @aerodrome0;}
+area|z11[aeroway=aerodrome][aerodrome=international],
+area|z11[aeroway=aerodrome],
+{fill-color: @aerodrome1;}
+area|z12-[aeroway=aerodrome][aerodrome=international],
+area|z12-[aeroway=aerodrome]
+{fill-color: @aerodrome2;}
+area|z13[aeroway=aerodrome][aerodrome=international],
+area|z13[aeroway=aerodrome]
+{fill-color: @aerodrome3;}
+area|z14[aeroway=aerodrome][aerodrome=international],
+area|z14[aeroway=aerodrome]
+{fill-color: @aerodrome4;}
+area|z15-19[aeroway=aerodrome][aerodrome=international],
+area|z15-19[aeroway=aerodrome]
+{fill-color: @aerodrome5;}
+
+/* 7.7 Religion */
+area|z15-[landuse=churchyard]
+{fill-color: @background; fill-opacity: 1;}
+
+/* 7.8 Agricultural */
+area|z14-[landuse=farmland],
+{fill-position: background; fill-color: @farmland; fill-opacity: 1;}
+
+/* Parking */
+
+area|z15-[amenity=parking],
+area|z15-[amenity=parking_space]
+{fill-color: @parking;fill-opacity: 1;}
+area|z17-[amenity=parking],
+area|z17-[amenity=parking_space]
+{fill-color: @parking_l;fill-opacity: 1;}
+
+/* 8.BUILDINGS */
+
+/* 8.1 Pier, dam, areal bridge, cutline */
+
+area|z13-[man_made=pier],
+area|z13-[man_made=breakwater],
+{fill-opacity: 0.7; fill-color: @background;}
+
+area|z16-[man_made=bridge],
+{fill-color: @bridge_background; fill-opacity: 0.8;}
+
+
+line|z15-[man_made=pier],
+line|z15-[man_made=breakwater],
+{width: 2;color: @background;opacity: 0.7;}
+
+line|z15-[waterway=dam],
+line|z15-[waterway=weir],
+{width: 2;color: @building_dark;opacity: 0.5;}
+
+line|z16[man_made=pier],
+line|z16[man_made=breakwater],
+line|z16[waterway=dam],
+line|z16[waterway=weir],
+{width: 3;}
+
+line|z17[man_made=pier],
+line|z17[man_made=breakwater],
+line|z17[waterway=dam],
+line|z17[waterway=weir],
+{width: 4.5;}
+
+line|z18[man_made=pier],
+line|z18[man_made=breakwater],
+line|z18[waterway=dam],
+line|z18[waterway=weir],
+{width: 6;}
+
+line|z19-[man_made=pier],
+line|z19-[man_made=breakwater],
+line|z19-[waterway=dam],
+line|z19-[waterway=weir],
+{width: 8;}
+
+line|z15-[man_made=cutline],
+{width: 1.5;color: @green0;opacity: 0.4;}
+line|z16[man_made=cutline],
+{width: 2;}
+line|z17[man_made=cutline],
+{width: 3;}
+line|z18[man_made=cutline],
+{width: 4.5;}
+line|z19-[man_made=cutline],
+{width: 6;}
+
+
+/* 8.2 Building */
+
+area|z15[building],
+area|z15[waterway=dam],
+area|z15[landuse=garages],
+{fill-color: @building;fill-opacity: 0.65;casing-width: 1;casing-color: @building_border;}
+
+area|z14-[aeroway=terminal],
+area|z16-[building],
+area|z16-[building:part],
+area|z16-[waterway=dam],
+area|z16-[landuse=garages],
+{fill-color: @building;fill-opacity: 0.55;casing-width: 1;casing-color: @building_border;}
+
+
+/* 8.3 Barriers, cliffs */
+
+line|z17-[barrier=fence],
+line|z17-[barrier=wall],
+{color: @fence; width: 1; opacity: 0.7;}
+line|z18-[barrier=fence],
+line|z18-[barrier=wall],
+{width: 1.3; opacity:0.8;}
+
+
+line|z18-[barrier=hedge],
+{color: @hedge; width: 2; opacity: 0.6;}
+line|z19-[barrier=hedge],
+{width: 3; opacity: 0.7;}
+
+
+/*
+  The triangles pattern uses "dashes: " parameter as a 4 values tuple:
+  dash length (===), triangle base (tb), triangle height, base height / dash width.
+  ===\tb /===  - base height / dash width
+      \ /    | - triangle height
+
+  Set width = triangle height + base height.
+*/
+
+line|z15-[barrier=city_wall],
+line|z15-[historic=citywalls],
+{color: @building_dark; width: 2; opacity: 1;}
+line|z16[barrier=city_wall],
+line|z16[historic=citywalls],
+{width: 2.8;}
+line|z17-[barrier=city_wall],
+line|z17-[historic=citywalls],
+{color: @building; width: 4.5; dashes: 3,3,1.5,3;}
+line|z18[barrier=city_wall],
+line|z18[historic=citywalls],
+{width: 5.9; dashes: 4,4,1.9,4;}
+line|z19-[barrier=city_wall],
+line|z19-[historic=citywalls],
+{width: 8.5; dashes: 6,6,2.5,6;}
+
+
+line|z16-[natural=cliff],
+line|z16-[natural=earth_bank],
+{color: @cliff; width: 2; dashes: 1.4,1.4; opacity: 0.6;}
+line|z17[natural=cliff],
+line|z17[natural=earth_bank],
+{width: 3; dashes: 1.5,1.5; opacity: 0.6;}
+line|z18[natural=cliff],
+line|z18[natural=earth_bank],
+{width: 6.2; dashes: 3,3.5,4.5,1.2; opacity: 0.6;}
+line|z19-[natural=cliff],
+line|z19-[natural=earth_bank],
+{width: 7.4; dashes: 3.5,5,6,1.4; opacity: 0.6;}
+
+
+line|z17-[barrier=retaining_wall],
+{color: @fence; width: 2.4; dashes: 2.8,1.4,1.4,1; opacity: 1;}
+line|z18-[barrier=retaining_wall],
+{width: 3.2; dashes: 4,2,2,1.2;}
+
+
+line|z17-[man_made=embankment],
+{color: @building_dark; width: 3.5; dashes: 4,2,2,1.5; opacity: 1;}
+line|z18-[man_made=embankment],
+{width: 5; dashes: 6,3,3,2; opacity: 1;}

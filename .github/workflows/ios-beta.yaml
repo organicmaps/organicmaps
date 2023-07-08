@@ -1,0 +1,73 @@
+name: iOS Beta
+on:
+  workflow_dispatch: # Manual trigger
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - .gitignore
+      - .github/**
+      - '!.github/workflows/ios-beta.yaml'  # Run check on self change
+      - '**/*_tests/**'
+      - '**/CMakeLists.txt'
+      - CONTRIBUTORS
+      - LICENSE
+      - NOTICE
+      - README.md
+      - android/**
+      - data/strings/**
+      - docs/**
+      - generator/**
+      - packaging/**
+      - pyhelpers/**
+      - qt*/**
+      - skin_generator/**
+      - tools/**
+      - track_generator/**
+
+jobs:
+  ios-beta:
+    name: Apple TestFlight
+    runs-on: macos-12
+    env:
+      LANG: en_US.UTF-8  # Fastlane complains that the terminal is using ASCII.
+      LANGUAGE: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+    environment: beta
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 100 # enough to get all commits for the current day
+
+      - name: Parallel submodules checkout
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(sysctl -n hw.logicalcpu) * 20))
+
+      - name: Checkout private keys
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ secrets.PRIVATE_REPO }}
+          ssh-key: ${{ secrets.PRIVATE_SSH_KEY }}
+          ref: master
+          path: private.git
+
+      - name: Configure repo with private keys
+        run: |
+          ./configure.sh ./private.git
+          rm -rf ./private.git
+
+      - name: Compile and upload to TestFlight
+        run: ./fastlane.sh upload_testflight
+        env:
+          APPSTORE_CERTIFICATE_PASSWORD: '${{ secrets.APPSTORE_CERTIFICATE_PASSWORD }}'
+        working-directory: xcode
+
+      - name: Upload ipa and DSYMs artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ipa and DSYM archive
+          path: xcode/build/*
+          if-no-files-found: error

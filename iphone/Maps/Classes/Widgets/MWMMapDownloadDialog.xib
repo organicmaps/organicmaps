@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I6H-BQ-1TG" customClass="MWMMapDownloadDialog">
+            <rect key="frame" x="0.0" y="0.0" width="200" height="199"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Россия" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQf-xO-gh1">
+                    <rect key="frame" x="14" y="20" width="172" height="29"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium16:blackSecondaryText"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="260" verticalCompressionResistancePriority="751" text="Доминиканская республика" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vMH-GY-Vm2">
+                    <rect key="frame" x="14" y="51" width="172" height="47"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium20:blackPrimaryText"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="260" text="16 МБ" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vU4-G9-kcd">
+                    <rect key="frame" x="14" y="106" width="172" height="17"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium14:blackSecondaryText"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iyV-Rb-bea">
+                    <rect key="frame" x="20" y="135" width="160" height="44"/>
+                    <color key="backgroundColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="i64-mO-Txs"/>
+                        <constraint firstAttribute="width" constant="160" id="tIM-Zn-N9S"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="Скачать карту">
+                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="country_status_download_without_size"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalButton"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="downloadAction" destination="I6H-BQ-1TG" eventType="touchUpInside" id="gK1-oH-Xye"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="usc-Cm-gmg" userLabel="ProgressViewWrapper">
+                    <rect key="frame" x="84" y="141" width="32" height="32"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="32" id="LiD-Zk-ocz"/>
+                        <constraint firstAttribute="height" constant="32" id="jrx-nU-VSG"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="GQf-xO-gh1" firstAttribute="top" secondItem="I6H-BQ-1TG" secondAttribute="top" priority="500" constant="20" id="1zT-cE-XI3"/>
+                <constraint firstItem="GQf-xO-gh1" firstAttribute="leading" secondItem="iyV-Rb-bea" secondAttribute="leading" constant="-6" id="4vl-GS-oaZ"/>
+                <constraint firstItem="usc-Cm-gmg" firstAttribute="centerX" secondItem="iyV-Rb-bea" secondAttribute="centerX" id="7DI-KV-B8S"/>
+                <constraint firstItem="vU4-G9-kcd" firstAttribute="leading" secondItem="iyV-Rb-bea" secondAttribute="leading" constant="-6" id="8nk-Fu-pae"/>
+                <constraint firstAttribute="trailing" secondItem="iyV-Rb-bea" secondAttribute="trailing" constant="20" id="C8t-0i-lpV"/>
+                <constraint firstItem="vMH-GY-Vm2" firstAttribute="leading" secondItem="iyV-Rb-bea" secondAttribute="leading" constant="-6" id="E4i-Dd-AQA"/>
+                <constraint firstAttribute="bottom" secondItem="iyV-Rb-bea" secondAttribute="bottom" priority="500" constant="20" id="HSh-rd-XIZ"/>
+                <constraint firstItem="vMH-GY-Vm2" firstAttribute="top" secondItem="GQf-xO-gh1" secondAttribute="bottom" priority="500" constant="2" id="Kje-IL-qJy"/>
+                <constraint firstItem="vU4-G9-kcd" firstAttribute="top" secondItem="vMH-GY-Vm2" secondAttribute="bottom" constant="8" id="S4i-o8-W4I"/>
+                <constraint firstItem="iyV-Rb-bea" firstAttribute="top" secondItem="vU4-G9-kcd" secondAttribute="bottom" constant="12" id="VN6-NK-qgb"/>
+                <constraint firstItem="iyV-Rb-bea" firstAttribute="leading" secondItem="I6H-BQ-1TG" secondAttribute="leading" constant="20" id="atf-Me-rzF"/>
+                <constraint firstAttribute="trailing" secondItem="iyV-Rb-bea" secondAttribute="trailing" priority="500" constant="20" id="hgA-l8-VzT"/>
+                <constraint firstItem="vU4-G9-kcd" firstAttribute="trailing" secondItem="iyV-Rb-bea" secondAttribute="trailing" constant="6" id="jZP-5b-Nbs"/>
+                <constraint firstItem="usc-Cm-gmg" firstAttribute="centerY" secondItem="iyV-Rb-bea" secondAttribute="centerY" id="pxa-11-yUj"/>
+                <constraint firstItem="GQf-xO-gh1" firstAttribute="trailing" secondItem="iyV-Rb-bea" secondAttribute="trailing" constant="6" id="sMn-Pe-OLX"/>
+                <constraint firstItem="vMH-GY-Vm2" firstAttribute="trailing" secondItem="iyV-Rb-bea" secondAttribute="trailing" constant="6" id="wqD-4Q-AwL"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="DialogView"/>
+            </userDefinedRuntimeAttributes>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="hgA-l8-VzT"/>
+                    <exclude reference="C8t-0i-lpV"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=compact">
+                <mask key="constraints">
+                    <include reference="hgA-l8-VzT"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular">
+                <mask key="constraints">
+                    <include reference="C8t-0i-lpV"/>
+                    <include reference="HSh-rd-XIZ"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="downloadButton" destination="iyV-Rb-bea" id="6fy-CY-zos"/>
+                <outlet property="node" destination="vMH-GY-Vm2" id="LJq-UU-a3U"/>
+                <outlet property="nodeSize" destination="vU4-G9-kcd" id="DMJ-NW-mxf"/>
+                <outlet property="parentNode" destination="GQf-xO-gh1" id="gWT-r0-LTv"/>
+                <outlet property="progressWrapper" destination="usc-Cm-gmg" id="NTd-bU-rDE"/>
+            </connections>
+            <point key="canvasLocation" x="417.78169014084506" y="529.6875"/>
+        </view>
+    </objects>
+</document>

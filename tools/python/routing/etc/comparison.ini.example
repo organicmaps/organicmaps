@@ -1,0 +1,60 @@
+# List of old versions
+# Format:
+# {
+#   "name": <just human readable name>
+#   "branch": <branch of version>
+#   "hash": <hash of branch> (not required, by default: hash from local repo will be taken)
+#   "mwm_path": <path to mwms for this version>
+# }
+[OLD_VERSION]
+Params = [
+    {
+        "name": "release-94 version",
+        "branch": "release-94",
+        "hash": "bba92911d0347347d704e1e4b1215a2844bedd09",
+        "mwm_path": "/mwm/path/for/this/version"
+    }]
+
+# List of new versions, the same syntax as for old versions.
+[NEW_VERSION]
+Params = [
+    {
+        "name": "Less operator new first version",
+        "branch": "less_operator_new",
+        "hash": "1111111111111111111111111111111111111111",
+        "mwm_path": "/mwm/path/for/this/version"
+    },
+    {
+        "name": "Less operator new second version",
+        "branch": "less_operator_new",
+        "hash": "2222222222222222222222222222222222222222",
+        "mwm_path": "/mwm/path/for/this/version"
+    },
+    {
+        "name": "Less cache miss",
+        "branch": "less_cache_miss",
+        "mwm_path": "/mwm/path/for/this/version"
+    }]
+
+[PATHS]
+# Path where all results will be placed.
+ResultsSaveDir = /results
+# Path to file with routes in format:
+#   start_lat_1 start_lon_1 finish_lat_1 finish_lon_1
+#   start_lat_2 start_lon_2 finish_lat_2 finish_lon_2
+#   ...
+RoutesFile = /start_finish_latlon_file.routes
+
+[TOOL]
+# If |Benchmark| is True, the time of route building statistics will be collected, otherwise info about built routes
+# will be collected (i.e. average similarity, average ETA difference between equals routes, etc.).
+Benchmark = True
+# Verbose output of routes_builder_tool.
+Verbose = False
+# Timeout for building each route.
+Timeout = 180
+# Number of building each route for calculating average route time building (only when |Benchmark| = True).
+LaunchesNumber = 3
+# car, pedestrian, bicycle, transit
+VehicleType = car
+

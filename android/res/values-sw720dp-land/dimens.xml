@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Nav menu -->
+  <dimen name="nav_menu_content_height">64dp</dimen>
+  <dimen name="nav_progress">8dp</dimen>
+
+  <!-- Altitude chart -->
+  <dimen name="altitude_chart_image_width">328dp</dimen>
+</resources>

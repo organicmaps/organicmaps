@@ -1,0 +1,101 @@
+name: Android Monkey
+on:
+  workflow_dispatch: # Manual trigger
+  schedule:
+    - cron:  '0 5 * * *' # Once per day at 05:00 UTC
+
+env:
+  JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64  # Java 17 is required for Android Gradle 8 plugin
+
+jobs:
+  precondition:
+    runs-on: ubuntu-latest
+    name: Check preconditions
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1000 # fetch month or so
+
+      - name: Check that Android was updated
+        id: check
+        shell: bash
+        run: |
+          DIRS="android base drape drape_frontend editor ge0 map platform routing search shaders storage traffic transit"
+          if [ '${{ github.event_name }}' != 'schedule' ] || 
+             [ $(git rev-list --count --since="24 hours" HEAD $DIRS) -gt 0 ]; then
+            echo "updated=true" >> $GITHUB_OUTPUT
+          else
+            echo "updated=" >> $GITHUB_OUTPUT
+          fi
+    outputs:
+      updated: ${{ steps.check.outputs.updated }}
+
+  android-google-debug:
+    name: Android Google Debug
+    runs-on: ubuntu-latest
+    needs: precondition
+    if: ${{ needs.precondition.outputs.updated != '' }}
+    environment: beta
+    steps:
+      - name: Install build tools and dependencies
+        shell: bash
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ninja-build
+
+      - name: Install Google SDK
+        uses: google-github-actions/setup-gcloud@v0
+
+      - name: Checkout sources
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 100 # enough to get all commits for the current day
+
+      - name: Parallel submodules checkout
+        shell: bash
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
+
+      - name: Checkout private keys
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ secrets.PRIVATE_REPO }}
+          ssh-key: ${{ secrets.PRIVATE_SSH_KEY }}
+          ref: master
+          path: private.git
+
+      - name: Configure repo with private keys
+        shell: bash
+        run: |
+          ./configure.sh ./private.git
+          rm -rf ./private.git
+
+      - name: Compile
+        shell: bash
+        working-directory: android
+        run: |
+          cmake --version
+          ninja --version
+          gradle -Pfirebase assembleGoogleDebug uploadCrashlyticsSymbolFileGoogleDebug
+
+      - name: Run monkey
+        run: |
+          gcloud auth activate-service-account --key-file android/firebase-test-lab.json
+          gcloud config set project omapsapp
+          gcloud firebase test android run --app ./android/build/outputs/apk/google/debug/OrganicMaps-*-google-debug.apk \
+            --device model=panther,version=33 \
+            --device model=bluejay,version=32 \
+            --device model=b2q,version=31 \
+            --device model=f2q,version=30 \
+            --device model=a10,version=29 \
+            --device model=Pixel2.arm,version=30 \
+            --device model=MediumPhone.arm,version=29 \
+            --device model=MediumPhone.arm,version=28 \
+            --device model=MediumPhone.arm,version=27 \
+            --device model=Pixel2.arm,version=26,orientation=landscape \
+            --device model=Nexus6,version=25 \
+            --device model=NexusLowRes,version=24 \
+            --device model=NexusLowRes,version=23,orientation=landscape \
+            --device model=Nexus6,version=22 \
+            --device model=Nexus7,version=21 \
+            --timeout 15m

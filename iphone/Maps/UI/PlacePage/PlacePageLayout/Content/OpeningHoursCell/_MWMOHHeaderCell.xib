@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="_MWMOHHeaderCell" id="LXG-cP-akO" customClass="_MWMOHHeaderCell" propertyAccessControl="none">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LXG-cP-akO" id="WuT-dc-opP">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_placepage_open_hours" translatesAutoresizingMaskIntoConstraints="NO" id="nwH-Nj-buF">
+                        <rect key="frame" x="16" y="12" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="AU3-h8-Jf3"/>
+                            <constraint firstAttribute="width" constant="24" id="RuT-UD-d6E"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сегодня 8:00 – 18:00" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qDh-SU-MHG" userLabel="Text">
+                        <rect key="frame" x="60" y="14" width="271" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_gray_down" translatesAutoresizingMaskIntoConstraints="NO" id="VHY-FB-giE">
+                        <rect key="frame" x="339" y="10" width="28" height="28"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="28" id="GMF-Az-vGZ"/>
+                            <constraint firstAttribute="width" constant="28" id="qap-Cz-ia0"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mvv-gY-euE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
+                        <connections>
+                            <action selector="extendTap" destination="LXG-cP-akO" eventType="touchUpInside" id="yMy-04-GCs"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="qDh-SU-MHG" secondAttribute="bottom" constant="14" id="0DZ-az-Lhs"/>
+                    <constraint firstItem="nwH-Nj-buF" firstAttribute="leading" secondItem="WuT-dc-opP" secondAttribute="leading" constant="16" id="6Pu-RX-aEk"/>
+                    <constraint firstItem="Mvv-gY-euE" firstAttribute="leading" secondItem="WuT-dc-opP" secondAttribute="leading" id="8P4-c4-MZD"/>
+                    <constraint firstItem="VHY-FB-giE" firstAttribute="leading" secondItem="qDh-SU-MHG" secondAttribute="trailing" constant="8" id="9t0-oW-VAo"/>
+                    <constraint firstItem="qDh-SU-MHG" firstAttribute="top" secondItem="WuT-dc-opP" secondAttribute="top" constant="14" id="EEt-O9-WgL"/>
+                    <constraint firstAttribute="bottom" secondItem="Mvv-gY-euE" secondAttribute="bottom" id="Gbe-0R-FgZ"/>
+                    <constraint firstAttribute="trailing" secondItem="Mvv-gY-euE" secondAttribute="trailing" id="fbo-mH-Bi6"/>
+                    <constraint firstAttribute="trailing" secondItem="VHY-FB-giE" secondAttribute="trailing" constant="8" id="jQX-bd-gBc"/>
+                    <constraint firstItem="qDh-SU-MHG" firstAttribute="leading" secondItem="nwH-Nj-buF" secondAttribute="trailing" constant="20" id="rcw-Eo-aHO"/>
+                    <constraint firstItem="Mvv-gY-euE" firstAttribute="top" secondItem="WuT-dc-opP" secondAttribute="top" id="zyW-ZM-u0d"/>
+                </constraints>
+            </tableViewCellContentView>
+            <constraints>
+                <constraint firstItem="nwH-Nj-buF" firstAttribute="centerY" secondItem="LXG-cP-akO" secondAttribute="centerY" id="Fk1-cA-KAh"/>
+                <constraint firstItem="VHY-FB-giE" firstAttribute="centerY" secondItem="LXG-cP-akO" secondAttribute="centerY" id="x8c-sP-BJ3"/>
+            </constraints>
+            <connections>
+                <outlet property="arrowIcon" destination="VHY-FB-giE" id="j5m-f3-Wv6"/>
+                <outlet property="text" destination="qDh-SU-MHG" id="OTq-0N-S6b"/>
+            </connections>
+            <point key="canvasLocation" x="65.94202898550725" y="28.794642857142854"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic_arrow_gray_down" width="28" height="28"/>
+        <image name="ic_placepage_open_hours" width="28" height="28"/>
+    </resources>
+</document>

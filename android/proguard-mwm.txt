@@ -1,0 +1,40 @@
+# obfuscate supportV7 menu subclasses. it fixes bug with some Samsung and other devices ROMS based on android 4.2.2.
+# more details here : https://code.google.com/p/android/issues/detail?id=78377
+# For some reason, this line disables optimizations and avoids crashes due to missing @Keep attributes.
+# Looks like R8 keeps EVERYTHING except that unused support lib :)
+# TODO: Remove this line after properly marking all JNI-called classes and methods with @Keep.
+# Also remove everything else what is not needed.
+-keep class !android.support.v7.internal.view.menu.**,** {*;}
+
+# Gson support
+-keep class app.organicmaps.util.Gsonable
+-keep class * implements app.organicmaps.util.Gsonable
+
+-keepclassmembernames class * implements app.organicmaps.util.Gsonable {
+  !transient <fields>;
+}
+
+# Enabling shrinking causes
+# Execution failed for task ':minifyFdroidReleaseWithR8'.
+# > com.android.tools.r8.CompilationFailedException: Compilation failed to complete
+# Optimizing leads to crashes like
+# No pending exception expected: java.lang.ClassNotFoundException: Didn't find class "app.organicmaps.util.HttpClient"
+# It requires to manually mark all methods and classes called from NDK.
+-dontoptimize
+
+-keepnames class * implements app.organicmaps.util.Gsonable {
+  !transient <fields>;
+}
+
+-keepclassmembers class * implements app.organicmaps.util.Gsonable {
+  <init>(...);
+}
+
+-dontwarn com.google.android.material.**
+-keep class com.google.android.material.** { *; }
+
+-dontwarn androidx.**
+-keep class androidx.** { *; }
+-keep interface androidx.** { *; }
+
+-dontwarn javax.lang.model.element.Modifier

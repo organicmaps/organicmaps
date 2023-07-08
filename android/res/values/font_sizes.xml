@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!-- BASE TEXT SIZES -->
+
+  <!-- we use slightly greater font sizes, then in default material styles -->
+  <dimen name="text_size_display_2">40sp</dimen>
+  <dimen name="text_size_display_1">36sp</dimen>
+  <dimen name="text_size_display_0">34sp</dimen>
+  <dimen name="text_size_headline">20sp</dimen>
+  <dimen name="text_size_title">24sp</dimen>
+  <dimen name="text_size_toolbar">20sp</dimen>
+  <dimen name="text_size_body_0">18sp</dimen>
+  <dimen name="text_size_body_1">16sp</dimen>
+  <dimen name="text_size_body_2">16sp</dimen>
+  <dimen name="text_size_body_3">14sp</dimen>
+  <dimen name="text_size_body_4">12sp</dimen>
+  <dimen name="text_size_body_5">10sp</dimen>
+  <dimen name="text_size_caption">14sp</dimen>
+  <dimen name="text_size_icon_title">10sp</dimen>
+  <dimen name="text_size_button">16sp</dimen>
+  <dimen name="text_size_alert_dialog_title">20sp</dimen>
+  <dimen name="no_line_spacing_extra">0sp</dimen>
+  <dimen name="line_spacing_extra_0">2sp</dimen>
+  <dimen name="line_spacing_extra_1">4sp</dimen>
+  <dimen name="line_spacing_extra_2">6sp</dimen>
+
+  <dimen name="text_size_h6_headline">20sp</dimen>
+  <dimen name="text_size_h5_headline">24sp</dimen>
+  <dimen name="text_size_h4_headline">34sp</dimen>
+  <dimen name="text_size_h3_headline">48sp</dimen>
+  <dimen name="text_size_h2_headline">60sp</dimen>
+  <dimen name="test_size_h1_headline">96sp</dimen>
+
+  <!-- BASE TEXT SIZES -->
+
+  <!-- -->
+
+  <!-- direction fragment -->
+
+  <dimen name="text_direction_dist">52sp</dimen>
+  <dimen name="text_direction_subtitle">22sp</dimen>
+  <dimen name="text_direction_title">58sp</dimen>
+
+  <!-- direction fragment -->
+
+  <!-- -->
+
+  <dimen name="text_size_routing_number">16sp</dimen>
+  <dimen name="text_size_routing_dimension">12sp</dimen>
+  <dimen name="text_size_routing_dimension_inline">20sp</dimen>
+  <dimen name="text_size_routing_plan_detail">16sp</dimen>
+  <dimen name="text_size_routing_plan_detail_arrival">14sp</dimen>
+  <dimen name="text_size_time_picker">56sp</dimen>
+
+  <dimen name="text_size_nav_street">17sp</dimen>
+  <dimen name="text_size_nav_next_turn">24sp</dimen>
+  <dimen name="text_size_nav_circle_exit">20sp</dimen>
+  <dimen name="text_size_nav_number">24sp</dimen>
+  <dimen name="text_size_nav_dimension">20sp</dimen>
+  <dimen name="text_size_nav_menu_number">28sp</dimen>
+  <dimen name="text_size_nav_menu_dimension">16sp</dimen>
+
+  <dimen name="text_size_banner">8sp</dimen>
+  <dimen name="terms_of_use_line_spacing">2sp</dimen>
+  <dimen name="text_size_bookmark_all_subs_title">32sp</dimen>
+</resources>

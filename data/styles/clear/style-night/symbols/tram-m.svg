@@ -1,0 +1,10 @@
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>tram-m</title>
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity="1">
+  <g id="tram-m" fill-rule="nonzero">
+   <rect id="Rectangle" width="24" height="24" rx="2.5" fill="#000" opacity=".6"/>
+   <rect id="Rectangle" x="1" y="1" width="22" height="22" rx="2" fill="#2F6499"/>
+   <path id="Shape" d="m16.8 15.458v-5.908c0-1.953-1.827-2.38-4.207-2.443l0.532-1.057h2.275v-1.05h-7v1.05h3.325l-0.532 1.064c-2.191 0.063-4.193 0.497-4.193 2.436v5.908c0 1.015 0.833 1.862 1.813 2.079l-1.113 1.113v0.35h1.561l1.4-1.4h2.639l1.4 1.4h1.4v-0.35l-1.05-1.05h-0.056c1.183 0 1.806-0.959 1.806-2.142zm-4.9 1.092c-0.581 0-1.05-0.469-1.05-1.05s0.469-1.05 1.05-1.05 1.05 0.469 1.05 1.05-0.469 1.05-1.05 1.05zm3.5-3.15h-7v-3.5h7v3.5z" fill="#000"/>
+  </g>
+ </g>
+</svg>

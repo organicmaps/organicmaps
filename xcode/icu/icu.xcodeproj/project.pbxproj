@@ -1,0 +1,1730 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FA525FA9266AEA4C00B5EBFD /* stubdata.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525BFD266AEA4900B5EBFD /* stubdata.cpp */; };
+		FA525FAA266AEA4C00B5EBFD /* nultrans.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525C03266AEA4900B5EBFD /* nultrans.cpp */; };
+		FA525FAD266AEA4C00B5EBFD /* anytrans.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C06266AEA4900B5EBFD /* anytrans.h */; };
+		FA525FB6266AEA4C00B5EBFD /* rbt.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C0F266AEA4900B5EBFD /* rbt.h */; };
+		FA525FB8266AEA4C00B5EBFD /* tridpars.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C11266AEA4900B5EBFD /* tridpars.h */; };
+		FA525FBB266AEA4C00B5EBFD /* transreg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525C14266AEA4900B5EBFD /* transreg.cpp */; };
+		FA525FD7266AEA4C00B5EBFD /* toupptrn.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C32266AEA4900B5EBFD /* toupptrn.h */; };
+		FA525FE0266AEA4C00B5EBFD /* casetrn.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C3B266AEA4900B5EBFD /* casetrn.h */; };
+		FA525FF7266AEA4C00B5EBFD /* toupptrn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525C52266AEA4900B5EBFD /* toupptrn.cpp */; };
+		FA526009266AEA4C00B5EBFD /* nortrans.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C64266AEA4900B5EBFD /* nortrans.h */; };
+		FA52600D266AEA4C00B5EBFD /* casetrn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525C68266AEA4900B5EBFD /* casetrn.cpp */; };
+		FA526011266AEA4C00B5EBFD /* translit.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C6D266AEA4900B5EBFD /* translit.h */; };
+		FA526012266AEA4C00B5EBFD /* ucsdet.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C6E266AEA4900B5EBFD /* ucsdet.h */; };
+		FA526013266AEA4C00B5EBFD /* tzfmt.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C6F266AEA4900B5EBFD /* tzfmt.h */; };
+		FA526014266AEA4C00B5EBFD /* ufieldpositer.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C70266AEA4900B5EBFD /* ufieldpositer.h */; };
+		FA526015266AEA4C00B5EBFD /* tblcoll.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C71266AEA4900B5EBFD /* tblcoll.h */; };
+		FA526016266AEA4C00B5EBFD /* dtfmtsym.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C72266AEA4900B5EBFD /* dtfmtsym.h */; };
+		FA526017266AEA4C00B5EBFD /* unirepl.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C73266AEA4900B5EBFD /* unirepl.h */; };
+		FA526018266AEA4C00B5EBFD /* fmtable.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C74266AEA4900B5EBFD /* fmtable.h */; };
+		FA526019266AEA4C00B5EBFD /* dtitvfmt.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C75266AEA4900B5EBFD /* dtitvfmt.h */; };
+		FA52601A266AEA4C00B5EBFD /* choicfmt.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C76266AEA4900B5EBFD /* choicfmt.h */; };
+		FA52601B266AEA4C00B5EBFD /* unumberrangeformatter.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C77266AEA4900B5EBFD /* unumberrangeformatter.h */; };
+		FA52601C266AEA4C00B5EBFD /* numberrangeformatter.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C78266AEA4900B5EBFD /* numberrangeformatter.h */; };
+		FA52601D266AEA4C00B5EBFD /* tznames.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C79266AEA4900B5EBFD /* tznames.h */; };
+		FA52601E266AEA4C00B5EBFD /* uregion.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C7A266AEA4900B5EBFD /* uregion.h */; };
+		FA52601F266AEA4C00B5EBFD /* ucal.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C7B266AEA4900B5EBFD /* ucal.h */; };
+		FA526020266AEA4C00B5EBFD /* fpositer.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C7C266AEA4900B5EBFD /* fpositer.h */; };
+		FA526021266AEA4C00B5EBFD /* dtitvinf.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C7D266AEA4900B5EBFD /* dtitvinf.h */; };
+		FA526022266AEA4C00B5EBFD /* rbnf.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C7E266AEA4900B5EBFD /* rbnf.h */; };
+		FA526023266AEA4C00B5EBFD /* udat.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C7F266AEA4900B5EBFD /* udat.h */; };
+		FA526024266AEA4C00B5EBFD /* vtzone.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C80266AEA4900B5EBFD /* vtzone.h */; };
+		FA526025266AEA4C00B5EBFD /* usearch.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C81266AEA4900B5EBFD /* usearch.h */; };
+		FA526026266AEA4C00B5EBFD /* numsys.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C82266AEA4900B5EBFD /* numsys.h */; };
+		FA526027266AEA4C00B5EBFD /* timezone.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C83266AEA4900B5EBFD /* timezone.h */; };
+		FA526028266AEA4C00B5EBFD /* coleitr.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C84266AEA4900B5EBFD /* coleitr.h */; };
+		FA526029266AEA4C00B5EBFD /* msgfmt.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C85266AEA4900B5EBFD /* msgfmt.h */; };
+		FA52602A266AEA4C00B5EBFD /* fieldpos.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C86266AEA4900B5EBFD /* fieldpos.h */; };
+		FA52602B266AEA4C00B5EBFD /* simpletz.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C87266AEA4900B5EBFD /* simpletz.h */; };
+		FA52602C266AEA4C00B5EBFD /* unumberformatter.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C88266AEA4900B5EBFD /* unumberformatter.h */; };
+		FA52602D266AEA4C00B5EBFD /* umsg.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C89266AEA4900B5EBFD /* umsg.h */; };
+		FA52602E266AEA4C00B5EBFD /* sortkey.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C8A266AEA4900B5EBFD /* sortkey.h */; };
+		FA52602F266AEA4C00B5EBFD /* basictz.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C8B266AEA4900B5EBFD /* basictz.h */; };
+		FA526030266AEA4C00B5EBFD /* reldatefmt.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C8C266AEA4900B5EBFD /* reldatefmt.h */; };
+		FA526031266AEA4C00B5EBFD /* plurrule.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C8D266AEA4900B5EBFD /* plurrule.h */; };
+		FA526032266AEA4C00B5EBFD /* measunit.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C8E266AEA4900B5EBFD /* measunit.h */; };
+		FA526033266AEA4C00B5EBFD /* gregocal.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C8F266AEA4900B5EBFD /* gregocal.h */; };
+		FA526034266AEA4C00B5EBFD /* nounit.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C90266AEA4900B5EBFD /* nounit.h */; };
+		FA526035266AEA4C00B5EBFD /* measure.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C91266AEA4900B5EBFD /* measure.h */; };
+		FA526036266AEA4C00B5EBFD /* tzrule.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C92266AEA4900B5EBFD /* tzrule.h */; };
+		FA526037266AEA4C00B5EBFD /* regex.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C93266AEA4900B5EBFD /* regex.h */; };
+		FA526038266AEA4C00B5EBFD /* gender.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C94266AEA4900B5EBFD /* gender.h */; };
+		FA526039266AEA4C00B5EBFD /* dcfmtsym.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C95266AEA4900B5EBFD /* dcfmtsym.h */; };
+		FA52603A266AEA4C00B5EBFD /* decimfmt.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C96266AEA4900B5EBFD /* decimfmt.h */; };
+		FA52603B266AEA4C00B5EBFD /* udatpg.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C97266AEA4900B5EBFD /* udatpg.h */; };
+		FA52603C266AEA4C00B5EBFD /* listformatter.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C98266AEA4900B5EBFD /* listformatter.h */; };
+		FA52603D266AEA4C00B5EBFD /* calendar.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C99266AEA4900B5EBFD /* calendar.h */; };
+		FA52603E266AEA4C00B5EBFD /* ucol.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C9A266AEA4900B5EBFD /* ucol.h */; };
+		FA52603F266AEA4C00B5EBFD /* upluralrules.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C9B266AEA4900B5EBFD /* upluralrules.h */; };
+		FA526040266AEA4C00B5EBFD /* tmunit.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C9C266AEA4900B5EBFD /* tmunit.h */; };
+		FA526041266AEA4C00B5EBFD /* ulocdata.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C9D266AEA4900B5EBFD /* ulocdata.h */; };
+		FA526042266AEA4C00B5EBFD /* dtptngen.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C9E266AEA4900B5EBFD /* dtptngen.h */; };
+		FA526043266AEA4C00B5EBFD /* tmutamt.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525C9F266AEA4900B5EBFD /* tmutamt.h */; };
+		FA526044266AEA4C00B5EBFD /* uformattedvalue.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CA0266AEA4900B5EBFD /* uformattedvalue.h */; };
+		FA526045266AEA4C00B5EBFD /* ucoleitr.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CA1266AEA4900B5EBFD /* ucoleitr.h */; };
+		FA526046266AEA4C00B5EBFD /* compactdecimalformat.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CA2266AEA4900B5EBFD /* compactdecimalformat.h */; };
+		FA526047266AEA4C00B5EBFD /* unum.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CA3266AEA4900B5EBFD /* unum.h */; };
+		FA526048266AEA4C00B5EBFD /* tztrans.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CA4266AEA4900B5EBFD /* tztrans.h */; };
+		FA526049266AEA4C00B5EBFD /* numberformatter.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CA5266AEA4900B5EBFD /* numberformatter.h */; };
+		FA52604A266AEA4C00B5EBFD /* datefmt.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CA6266AEA4900B5EBFD /* datefmt.h */; };
+		FA52604B266AEA4C00B5EBFD /* utmscale.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CA7266AEA4900B5EBFD /* utmscale.h */; };
+		FA52604C266AEA4C00B5EBFD /* coll.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CA8266AEA4900B5EBFD /* coll.h */; };
+		FA52604D266AEA4C00B5EBFD /* currpinf.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CA9266AEA4900B5EBFD /* currpinf.h */; };
+		FA52604E266AEA4C00B5EBFD /* uregex.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CAA266AEA4900B5EBFD /* uregex.h */; };
+		FA52604F266AEA4C00B5EBFD /* tmutfmt.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CAB266AEA4900B5EBFD /* tmutfmt.h */; };
+		FA526050266AEA4C00B5EBFD /* plurfmt.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CAC266AEA4900B5EBFD /* plurfmt.h */; };
+		FA526051266AEA4C00B5EBFD /* smpdtfmt.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CAD266AEA4900B5EBFD /* smpdtfmt.h */; };
+		FA526052266AEA4C00B5EBFD /* ugender.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CAE266AEA4900B5EBFD /* ugender.h */; };
+		FA526053266AEA4C00B5EBFD /* selfmt.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CAF266AEA4900B5EBFD /* selfmt.h */; };
+		FA526054266AEA4C00B5EBFD /* uformattable.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CB0266AEA4900B5EBFD /* uformattable.h */; };
+		FA526055266AEA4C00B5EBFD /* curramt.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CB1266AEA4900B5EBFD /* curramt.h */; };
+		FA526056266AEA4C00B5EBFD /* udateintervalformat.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CB2266AEA4900B5EBFD /* udateintervalformat.h */; };
+		FA526057266AEA4C00B5EBFD /* stsearch.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CB3266AEA4900B5EBFD /* stsearch.h */; };
+		FA526058266AEA4C00B5EBFD /* alphaindex.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CB4266AEA4900B5EBFD /* alphaindex.h */; };
+		FA526059266AEA4C00B5EBFD /* rbtz.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CB5266AEA4900B5EBFD /* rbtz.h */; };
+		FA52605A266AEA4C00B5EBFD /* uspoof.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CB6266AEA4900B5EBFD /* uspoof.h */; };
+		FA52605B266AEA4C00B5EBFD /* region.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CB7266AEA4900B5EBFD /* region.h */; };
+		FA52605C266AEA4C00B5EBFD /* ureldatefmt.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CB8266AEA4900B5EBFD /* ureldatefmt.h */; };
+		FA52605D266AEA4C00B5EBFD /* utrans.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CB9266AEA4900B5EBFD /* utrans.h */; };
+		FA52605E266AEA4C00B5EBFD /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CBA266AEA4900B5EBFD /* format.h */; };
+		FA52605F266AEA4C00B5EBFD /* scientificnumberformatter.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CBB266AEA4900B5EBFD /* scientificnumberformatter.h */; };
+		FA526060266AEA4C00B5EBFD /* dtrule.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CBC266AEA4900B5EBFD /* dtrule.h */; };
+		FA526061266AEA4C00B5EBFD /* search.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CBD266AEA4900B5EBFD /* search.h */; };
+		FA526062266AEA4C00B5EBFD /* unumsys.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CBE266AEA4900B5EBFD /* unumsys.h */; };
+		FA526063266AEA4C00B5EBFD /* formattedvalue.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CBF266AEA4900B5EBFD /* formattedvalue.h */; };
+		FA526064266AEA4C00B5EBFD /* numfmt.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CC0266AEA4900B5EBFD /* numfmt.h */; };
+		FA526065266AEA4C00B5EBFD /* currunit.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CC1266AEA4900B5EBFD /* currunit.h */; };
+		FA526066266AEA4C00B5EBFD /* ulistformatter.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CC2266AEA4900B5EBFD /* ulistformatter.h */; };
+		FA526067266AEA4C00B5EBFD /* measfmt.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CC3266AEA4900B5EBFD /* measfmt.h */; };
+		FA526069266AEA4C00B5EBFD /* remtrans.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CC5266AEA4900B5EBFD /* remtrans.h */; };
+		FA52606C266AEA4C00B5EBFD /* uni2name.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CC8266AEA4900B5EBFD /* uni2name.h */; };
+		FA526073266AEA4C00B5EBFD /* cpdtrans.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CCF266AEA4900B5EBFD /* cpdtrans.h */; };
+		FA526074266AEA4C00B5EBFD /* funcrepl.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CD0266AEA4900B5EBFD /* funcrepl.h */; };
+		FA526075266AEA4C00B5EBFD /* quant.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CD1266AEA4900B5EBFD /* quant.h */; };
+		FA526080266AEA4C00B5EBFD /* translit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525CDD266AEA4900B5EBFD /* translit.cpp */; };
+		FA52608C266AEA4C00B5EBFD /* titletrn.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CE9266AEA4900B5EBFD /* titletrn.h */; };
+		FA52608F266AEA4C00B5EBFD /* ucln_in.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CEC266AEA4900B5EBFD /* ucln_in.h */; };
+		FA526093266AEA4C00B5EBFD /* tridpars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525CF0266AEA4900B5EBFD /* tridpars.cpp */; };
+		FA526094266AEA4C00B5EBFD /* cpdtrans.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525CF1266AEA4900B5EBFD /* cpdtrans.cpp */; };
+		FA526096266AEA4C00B5EBFD /* unesctrn.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CF4266AEA4900B5EBFD /* unesctrn.h */; };
+		FA526098266AEA4C00B5EBFD /* rbt_rule.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525CF6266AEA4900B5EBFD /* rbt_rule.h */; };
+		FA5260A0266AEA4C00B5EBFD /* rbt_rule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525CFE266AEA4900B5EBFD /* rbt_rule.cpp */; };
+		FA5260AC266AEA4C00B5EBFD /* rbt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525D0A266AEA4900B5EBFD /* rbt.cpp */; };
+		FA5260B3266AEA4C00B5EBFD /* strrepl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525D11266AEA4900B5EBFD /* strrepl.cpp */; };
+		FA5260B8266AEA4C00B5EBFD /* quant.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525D16266AEA4900B5EBFD /* quant.cpp */; };
+		FA5260C2266AEA4C00B5EBFD /* funcrepl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525D21266AEA4A00B5EBFD /* funcrepl.cpp */; };
+		FA5260D0266AEA4C00B5EBFD /* rbt_pars.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525D30266AEA4A00B5EBFD /* rbt_pars.h */; };
+		FA5260D3266AEA4C00B5EBFD /* name2uni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525D33266AEA4A00B5EBFD /* name2uni.cpp */; };
+		FA5260D7266AEA4C00B5EBFD /* strmatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525D37266AEA4A00B5EBFD /* strmatch.cpp */; };
+		FA5260D8266AEA4C00B5EBFD /* ucln_in.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525D38266AEA4A00B5EBFD /* ucln_in.cpp */; };
+		FA5260EA266AEA4C00B5EBFD /* titletrn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525D4A266AEA4A00B5EBFD /* titletrn.cpp */; };
+		FA5260F8266AEA4C00B5EBFD /* strrepl.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525D58266AEA4A00B5EBFD /* strrepl.h */; };
+		FA5260FE266AEA4C00B5EBFD /* rbt_pars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525D5E266AEA4A00B5EBFD /* rbt_pars.cpp */; };
+		FA526104266AEA4C00B5EBFD /* esctrn.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525D64266AEA4A00B5EBFD /* esctrn.h */; };
+		FA52610D266AEA4C00B5EBFD /* rbt_data.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525D6D266AEA4A00B5EBFD /* rbt_data.h */; };
+		FA526110266AEA4C00B5EBFD /* anytrans.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525D70266AEA4A00B5EBFD /* anytrans.cpp */; };
+		FA526113266AEA4C00B5EBFD /* unesctrn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525D73266AEA4A00B5EBFD /* unesctrn.cpp */; };
+		FA526117266AEA4C00B5EBFD /* remtrans.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525D77266AEA4A00B5EBFD /* remtrans.cpp */; };
+		FA526118266AEA4C00B5EBFD /* transreg.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525D78266AEA4A00B5EBFD /* transreg.h */; };
+		FA52611C266AEA4C00B5EBFD /* nortrans.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525D7C266AEA4A00B5EBFD /* nortrans.cpp */; };
+		FA526134266AEA4C00B5EBFD /* strmatch.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525D94266AEA4A00B5EBFD /* strmatch.h */; };
+		FA526135266AEA4C00B5EBFD /* rbt_set.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525D95266AEA4A00B5EBFD /* rbt_set.cpp */; };
+		FA526154266AEA4C00B5EBFD /* name2uni.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525DB5266AEA4A00B5EBFD /* name2uni.h */; };
+		FA526155266AEA4C00B5EBFD /* esctrn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525DB6266AEA4A00B5EBFD /* esctrn.cpp */; };
+		FA526163266AEA4D00B5EBFD /* nultrans.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525DC4266AEA4A00B5EBFD /* nultrans.h */; };
+		FA526166266AEA4D00B5EBFD /* tolowtrn.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525DC7266AEA4A00B5EBFD /* tolowtrn.h */; };
+		FA526183266AEA4D00B5EBFD /* rbt_set.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525DE5266AEA4A00B5EBFD /* rbt_set.h */; };
+		FA52618D266AEA4D00B5EBFD /* rbt_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525DEF266AEA4A00B5EBFD /* rbt_data.cpp */; };
+		FA52619A266AEA4D00B5EBFD /* tolowtrn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525DFC266AEA4A00B5EBFD /* tolowtrn.cpp */; };
+		FA5261A0266AEA4D00B5EBFD /* uni2name.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525E02266AEA4A00B5EBFD /* uni2name.cpp */; };
+		FA5261A2266AEA4D00B5EBFD /* uniset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525E05266AEA4B00B5EBFD /* uniset.cpp */; };
+		FA5261A5266AEA4D00B5EBFD /* unisetspan.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E08266AEA4B00B5EBFD /* unisetspan.h */; };
+		FA5261A6266AEA4D00B5EBFD /* utf_impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525E09266AEA4B00B5EBFD /* utf_impl.cpp */; };
+		FA5261A7266AEA4D00B5EBFD /* uhash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525E0A266AEA4B00B5EBFD /* uhash.cpp */; };
+		FA5261A9266AEA4D00B5EBFD /* ureslocs.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E0C266AEA4B00B5EBFD /* ureslocs.h */; };
+		FA5261AC266AEA4D00B5EBFD /* udatamem.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E0F266AEA4B00B5EBFD /* udatamem.h */; };
+		FA5261AE266AEA4D00B5EBFD /* ushape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525E11266AEA4B00B5EBFD /* ushape.cpp */; };
+		FA5261B0266AEA4D00B5EBFD /* uarrsort.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525E13266AEA4B00B5EBFD /* uarrsort.cpp */; };
+		FA5261B2266AEA4D00B5EBFD /* umutex.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E15266AEA4B00B5EBFD /* umutex.h */; };
+		FA5261B3266AEA4D00B5EBFD /* locmap.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E16266AEA4B00B5EBFD /* locmap.h */; };
+		FA5261B4266AEA4D00B5EBFD /* uniset_props.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525E17266AEA4B00B5EBFD /* uniset_props.cpp */; };
+		FA5261B6266AEA4D00B5EBFD /* uvector.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E19266AEA4B00B5EBFD /* uvector.h */; };
+		FA5261B7266AEA4D00B5EBFD /* ubidiwrt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525E1A266AEA4B00B5EBFD /* ubidiwrt.cpp */; };
+		FA5261B9266AEA4D00B5EBFD /* uniquecharstr.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E1C266AEA4B00B5EBFD /* uniquecharstr.h */; };
+		FA5261BE266AEA4D00B5EBFD /* ubiditransform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525E21266AEA4B00B5EBFD /* ubiditransform.cpp */; };
+		FA5261C5266AEA4D00B5EBFD /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525E28266AEA4B00B5EBFD /* util.cpp */; };
+		FA5261C6266AEA4D00B5EBFD /* cstring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525E2A266AEA4B00B5EBFD /* cstring.cpp */; };
+		FA5261C7266AEA4D00B5EBFD /* ucln.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E2B266AEA4B00B5EBFD /* ucln.h */; };
+		FA5261CE266AEA4D00B5EBFD /* unisetspan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525E32266AEA4B00B5EBFD /* unisetspan.cpp */; };
+		FA5261D4266AEA4D00B5EBFD /* uresdata.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E38266AEA4B00B5EBFD /* uresdata.h */; };
+		FA5261D6266AEA4D00B5EBFD /* locid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525E3A266AEA4B00B5EBFD /* locid.cpp */; };
+		FA5261D8266AEA4D00B5EBFD /* unames.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525E3C266AEA4B00B5EBFD /* unames.cpp */; };
+		FA5261DA266AEA4D00B5EBFD /* loclikely.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525E3E266AEA4B00B5EBFD /* loclikely.cpp */; };
+		FA5261DB266AEA4D00B5EBFD /* uscript_props.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525E3F266AEA4B00B5EBFD /* uscript_props.cpp */; };
+		FA5261E2266AEA4D00B5EBFD /* ubidiln.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525E46266AEA4B00B5EBFD /* ubidiln.cpp */; };
+		FA5261E5266AEA4D00B5EBFD /* putil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525E49266AEA4B00B5EBFD /* putil.cpp */; };
+		FA5261E6266AEA4D00B5EBFD /* uelement.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E4A266AEA4B00B5EBFD /* uelement.h */; };
+		FA5261E7266AEA4D00B5EBFD /* utrie2.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E4B266AEA4B00B5EBFD /* utrie2.h */; };
+		FA5261E9266AEA4D00B5EBFD /* bytestrie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525E4D266AEA4B00B5EBFD /* bytestrie.cpp */; };
+		FA5261EA266AEA4D00B5EBFD /* utf_old.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E4F266AEA4B00B5EBFD /* utf_old.h */; };
+		FA5261EB266AEA4D00B5EBFD /* ubrk.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E50266AEA4B00B5EBFD /* ubrk.h */; };
+		FA5261EC266AEA4D00B5EBFD /* localematcher.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E51266AEA4B00B5EBFD /* localematcher.h */; };
+		FA5261ED266AEA4D00B5EBFD /* stringpiece.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E52266AEA4B00B5EBFD /* stringpiece.h */; };
+		FA5261EE266AEA4D00B5EBFD /* ucat.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E53266AEA4B00B5EBFD /* ucat.h */; };
+		FA5261EF266AEA4D00B5EBFD /* stringoptions.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E54266AEA4B00B5EBFD /* stringoptions.h */; };
+		FA5261F0266AEA4D00B5EBFD /* ptypes.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E55266AEA4B00B5EBFD /* ptypes.h */; };
+		FA5261F1266AEA4D00B5EBFD /* usetiter.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E56266AEA4B00B5EBFD /* usetiter.h */; };
+		FA5261F2266AEA4D00B5EBFD /* errorcode.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E57266AEA4B00B5EBFD /* errorcode.h */; };
+		FA5261F3266AEA4D00B5EBFD /* dtintrv.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E58266AEA4B00B5EBFD /* dtintrv.h */; };
+		FA5261F4266AEA4D00B5EBFD /* ucurr.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E59266AEA4B00B5EBFD /* ucurr.h */; };
+		FA5261F5266AEA4D00B5EBFD /* icuplug.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E5A266AEA4B00B5EBFD /* icuplug.h */; };
+		FA5261F6266AEA4D00B5EBFD /* utext.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E5B266AEA4B00B5EBFD /* utext.h */; };
+		FA5261F7266AEA4D00B5EBFD /* edits.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E5C266AEA4B00B5EBFD /* edits.h */; };
+		FA5261F8266AEA4D00B5EBFD /* parsepos.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E5D266AEA4B00B5EBFD /* parsepos.h */; };
+		FA5261F9266AEA4D00B5EBFD /* urep.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E5E266AEA4B00B5EBFD /* urep.h */; };
+		FA5261FA266AEA4D00B5EBFD /* utf32.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E5F266AEA4B00B5EBFD /* utf32.h */; };
+		FA5261FB266AEA4D00B5EBFD /* ustring.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E60266AEA4B00B5EBFD /* ustring.h */; };
+		FA5261FC266AEA4D00B5EBFD /* ubiditransform.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E61266AEA4B00B5EBFD /* ubiditransform.h */; };
+		FA5261FD266AEA4D00B5EBFD /* uenum.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E62266AEA4B00B5EBFD /* uenum.h */; };
+		FA5261FE266AEA4D00B5EBFD /* umutablecptrie.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E63266AEA4B00B5EBFD /* umutablecptrie.h */; };
+		FA5261FF266AEA4D00B5EBFD /* appendable.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E64266AEA4B00B5EBFD /* appendable.h */; };
+		FA526200266AEA4D00B5EBFD /* uset.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E65266AEA4B00B5EBFD /* uset.h */; };
+		FA526201266AEA4D00B5EBFD /* casemap.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E66266AEA4B00B5EBFD /* casemap.h */; };
+		FA526202266AEA4D00B5EBFD /* schriter.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E67266AEA4B00B5EBFD /* schriter.h */; };
+		FA526203266AEA4D00B5EBFD /* ucpmap.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E68266AEA4B00B5EBFD /* ucpmap.h */; };
+		FA526204266AEA4D00B5EBFD /* uldnames.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E69266AEA4B00B5EBFD /* uldnames.h */; };
+		FA526205266AEA4D00B5EBFD /* uiter.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E6A266AEA4B00B5EBFD /* uiter.h */; };
+		FA526206266AEA4D00B5EBFD /* docmain.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E6B266AEA4B00B5EBFD /* docmain.h */; };
+		FA526207266AEA4D00B5EBFD /* uniset.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E6C266AEA4B00B5EBFD /* uniset.h */; };
+		FA526208266AEA4D00B5EBFD /* udata.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E6D266AEA4B00B5EBFD /* udata.h */; };
+		FA526209266AEA4D00B5EBFD /* stringtriebuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E6E266AEA4B00B5EBFD /* stringtriebuilder.h */; };
+		FA52620A266AEA4D00B5EBFD /* chariter.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E6F266AEA4B00B5EBFD /* chariter.h */; };
+		FA52620B266AEA4D00B5EBFD /* umisc.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E70266AEA4B00B5EBFD /* umisc.h */; };
+		FA52620C266AEA4D00B5EBFD /* uloc.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E71266AEA4B00B5EBFD /* uloc.h */; };
+		FA52620D266AEA4D00B5EBFD /* bytestriebuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E72266AEA4B00B5EBFD /* bytestriebuilder.h */; };
+		FA52620E266AEA4D00B5EBFD /* utrace.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E73266AEA4B00B5EBFD /* utrace.h */; };
+		FA52620F266AEA4D00B5EBFD /* locdspnm.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E74266AEA4B00B5EBFD /* locdspnm.h */; };
+		FA526210266AEA4D00B5EBFD /* uchriter.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E75266AEA4B00B5EBFD /* uchriter.h */; };
+		FA526211266AEA4D00B5EBFD /* enumset.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E76266AEA4B00B5EBFD /* enumset.h */; };
+		FA526212266AEA4D00B5EBFD /* utf.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E77266AEA4B00B5EBFD /* utf.h */; };
+		FA526213266AEA4D00B5EBFD /* strenum.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E78266AEA4B00B5EBFD /* strenum.h */; };
+		FA526214266AEA4D00B5EBFD /* ucnv_err.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E79266AEA4B00B5EBFD /* ucnv_err.h */; };
+		FA526215266AEA4D00B5EBFD /* bytestrie.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E7A266AEA4B00B5EBFD /* bytestrie.h */; };
+		FA526216266AEA4D00B5EBFD /* uobject.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E7B266AEA4B00B5EBFD /* uobject.h */; };
+		FA526217266AEA4D00B5EBFD /* ures.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E7C266AEA4B00B5EBFD /* ures.h */; };
+		FA526218266AEA4D00B5EBFD /* normlzr.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E7D266AEA4B00B5EBFD /* normlzr.h */; };
+		FA526219266AEA4D00B5EBFD /* usprep.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E7E266AEA4B00B5EBFD /* usprep.h */; };
+		FA52621A266AEA4D00B5EBFD /* urename.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E7F266AEA4B00B5EBFD /* urename.h */; };
+		FA52621B266AEA4D00B5EBFD /* caniter.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E80266AEA4B00B5EBFD /* caniter.h */; };
+		FA52621C266AEA4D00B5EBFD /* ucharstrie.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E81266AEA4B00B5EBFD /* ucharstrie.h */; };
+		FA52621D266AEA4D00B5EBFD /* unistr.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E82266AEA4B00B5EBFD /* unistr.h */; };
+		FA52621E266AEA4D00B5EBFD /* rbbi.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E83266AEA4B00B5EBFD /* rbbi.h */; };
+		FA52621F266AEA4D00B5EBFD /* idna.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E84266AEA4B00B5EBFD /* idna.h */; };
+		FA526220266AEA4D00B5EBFD /* unorm2.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E85266AEA4B00B5EBFD /* unorm2.h */; };
+		FA526221266AEA4D00B5EBFD /* localebuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E86266AEA4B00B5EBFD /* localebuilder.h */; };
+		FA526222266AEA4D00B5EBFD /* dbbi.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E87266AEA4B00B5EBFD /* dbbi.h */; };
+		FA526223266AEA4D00B5EBFD /* bytestream.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E88266AEA4B00B5EBFD /* bytestream.h */; };
+		FA526224266AEA4D00B5EBFD /* uversion.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E89266AEA4B00B5EBFD /* uversion.h */; };
+		FA526225266AEA4D00B5EBFD /* messagepattern.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E8A266AEA4B00B5EBFD /* messagepattern.h */; };
+		FA526226266AEA4D00B5EBFD /* uidna.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E8B266AEA4B00B5EBFD /* uidna.h */; };
+		FA526227266AEA4D00B5EBFD /* filteredbrk.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E8C266AEA4B00B5EBFD /* filteredbrk.h */; };
+		FA526228266AEA4D00B5EBFD /* char16ptr.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E8D266AEA4B00B5EBFD /* char16ptr.h */; };
+		FA526229266AEA4D00B5EBFD /* symtable.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E8E266AEA4B00B5EBFD /* symtable.h */; };
+		FA52622A266AEA4D00B5EBFD /* ucasemap.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E8F266AEA4B00B5EBFD /* ucasemap.h */; };
+		FA52622B266AEA4D00B5EBFD /* udisplaycontext.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E90266AEA4B00B5EBFD /* udisplaycontext.h */; };
+		FA52622C266AEA4D00B5EBFD /* umachine.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E91266AEA4B00B5EBFD /* umachine.h */; };
+		FA52622D266AEA4D00B5EBFD /* ustringtrie.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E92266AEA4B00B5EBFD /* ustringtrie.h */; };
+		FA52622E266AEA4D00B5EBFD /* ucptrie.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E93266AEA4B00B5EBFD /* ucptrie.h */; };
+		FA52622F266AEA4D00B5EBFD /* icudataver.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E94266AEA4B00B5EBFD /* icudataver.h */; };
+		FA526230266AEA4D00B5EBFD /* uchar.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E95266AEA4B00B5EBFD /* uchar.h */; };
+		FA526231266AEA4D00B5EBFD /* unorm.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E96266AEA4B00B5EBFD /* unorm.h */; };
+		FA526232266AEA4D00B5EBFD /* ushape.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E97266AEA4B00B5EBFD /* ushape.h */; };
+		FA526233266AEA4D00B5EBFD /* unifunct.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E98266AEA4B00B5EBFD /* unifunct.h */; };
+		FA526234266AEA4D00B5EBFD /* simpleformatter.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E99266AEA4B00B5EBFD /* simpleformatter.h */; };
+		FA526235266AEA4D00B5EBFD /* ucnv_cb.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E9A266AEA4B00B5EBFD /* ucnv_cb.h */; };
+		FA526236266AEA4D00B5EBFD /* locid.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E9B266AEA4B00B5EBFD /* locid.h */; };
+		FA526237266AEA4D00B5EBFD /* resbund.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E9C266AEA4B00B5EBFD /* resbund.h */; };
+		FA526238266AEA4D00B5EBFD /* ubidi.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E9D266AEA4B00B5EBFD /* ubidi.h */; };
+		FA526239266AEA4D00B5EBFD /* uvernum.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E9E266AEA4B00B5EBFD /* uvernum.h */; };
+		FA52623A266AEA4D00B5EBFD /* unimatch.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525E9F266AEA4B00B5EBFD /* unimatch.h */; };
+		FA52623B266AEA4D00B5EBFD /* ucnvsel.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EA0266AEA4B00B5EBFD /* ucnvsel.h */; };
+		FA52623C266AEA4D00B5EBFD /* parseerr.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EA1266AEA4B00B5EBFD /* parseerr.h */; };
+		FA52623D266AEA4D00B5EBFD /* putil.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EA2266AEA4B00B5EBFD /* putil.h */; };
+		FA52623E266AEA4D00B5EBFD /* normalizer2.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EA3266AEA4B00B5EBFD /* normalizer2.h */; };
+		FA52623F266AEA4D00B5EBFD /* ucnv.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EA4266AEA4B00B5EBFD /* ucnv.h */; };
+		FA526240266AEA4D00B5EBFD /* ucharstriebuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EA5266AEA4B00B5EBFD /* ucharstriebuilder.h */; };
+		FA526241266AEA4D00B5EBFD /* uconfig.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EA6266AEA4B00B5EBFD /* uconfig.h */; };
+		FA526242266AEA4D00B5EBFD /* utf16.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EA7266AEA4B00B5EBFD /* utf16.h */; };
+		FA526243266AEA4D00B5EBFD /* brkiter.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EA8266AEA4B00B5EBFD /* brkiter.h */; };
+		FA526244266AEA4D00B5EBFD /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EA9266AEA4B00B5EBFD /* platform.h */; };
+		FA526245266AEA4D00B5EBFD /* rep.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EAA266AEA4B00B5EBFD /* rep.h */; };
+		FA526246266AEA4D00B5EBFD /* std_string.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EAB266AEA4B00B5EBFD /* std_string.h */; };
+		FA526247266AEA4D00B5EBFD /* utf8.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EAC266AEA4B00B5EBFD /* utf8.h */; };
+		FA526248266AEA4D00B5EBFD /* localpointer.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EAD266AEA4B00B5EBFD /* localpointer.h */; };
+		FA526249266AEA4D00B5EBFD /* uclean.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EAE266AEA4B00B5EBFD /* uclean.h */; };
+		FA52624A266AEA4D00B5EBFD /* uscript.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EAF266AEA4B00B5EBFD /* uscript.h */; };
+		FA52624B266AEA4D00B5EBFD /* utypes.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EB0266AEA4B00B5EBFD /* utypes.h */; };
+		FA52624C266AEA4D00B5EBFD /* unifilt.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EB1266AEA4B00B5EBFD /* unifilt.h */; };
+		FA52624D266AEA4D00B5EBFD /* resource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525EB2266AEA4B00B5EBFD /* resource.cpp */; };
+		FA52624E266AEA4D00B5EBFD /* uvector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525EB3266AEA4B00B5EBFD /* uvector.cpp */; };
+		FA52624F266AEA4D00B5EBFD /* ucase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525EB4266AEA4B00B5EBFD /* ucase.cpp */; };
+		FA526253266AEA4D00B5EBFD /* locutil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525EB8266AEA4B00B5EBFD /* locutil.cpp */; };
+		FA526254266AEA4D00B5EBFD /* cmemory.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EB9266AEA4B00B5EBFD /* cmemory.h */; };
+		FA526255266AEA4D00B5EBFD /* patternprops.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EBA266AEA4B00B5EBFD /* patternprops.h */; };
+		FA526256266AEA4D00B5EBFD /* uresimp.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EBB266AEA4B00B5EBFD /* uresimp.h */; };
+		FA526257266AEA4D00B5EBFD /* ubidi_props_data.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EBC266AEA4B00B5EBFD /* ubidi_props_data.h */; };
+		FA526258266AEA4D00B5EBFD /* utracimp.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EBD266AEA4B00B5EBFD /* utracimp.h */; };
+		FA52625F266AEA4D00B5EBFD /* uloc_tag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525EC4266AEA4B00B5EBFD /* uloc_tag.cpp */; };
+		FA526264266AEA4D00B5EBFD /* uenum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525EC9266AEA4B00B5EBFD /* uenum.cpp */; };
+		FA52626C266AEA4D00B5EBFD /* charstr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525ED1266AEA4B00B5EBFD /* charstr.cpp */; };
+		FA52626D266AEA4D00B5EBFD /* uloc_keytype.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525ED2266AEA4B00B5EBFD /* uloc_keytype.cpp */; };
+		FA526270266AEA4D00B5EBFD /* ubidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525ED5266AEA4B00B5EBFD /* ubidi.cpp */; };
+		FA526273266AEA4D00B5EBFD /* umapfile.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525ED8266AEA4B00B5EBFD /* umapfile.h */; };
+		FA526279266AEA4D00B5EBFD /* bmpset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525EDE266AEA4B00B5EBFD /* bmpset.cpp */; };
+		FA52627A266AEA4D00B5EBFD /* uniset_closure.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525EDF266AEA4B00B5EBFD /* uniset_closure.cpp */; };
+		FA52627C266AEA4D00B5EBFD /* ulocimp.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EE1266AEA4B00B5EBFD /* ulocimp.h */; };
+		FA52627D266AEA4D00B5EBFD /* charstr.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EE2266AEA4B00B5EBFD /* charstr.h */; };
+		FA52627E266AEA4D00B5EBFD /* bytesinkutil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525EE3266AEA4B00B5EBFD /* bytesinkutil.cpp */; };
+		FA526280266AEA4D00B5EBFD /* ubidi_props.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EE5266AEA4B00B5EBFD /* ubidi_props.h */; };
+		FA526282266AEA4D00B5EBFD /* utrie2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525EE8266AEA4B00B5EBFD /* utrie2.cpp */; };
+		FA526288266AEA4D00B5EBFD /* udatamem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525EF0266AEA4B00B5EBFD /* udatamem.cpp */; };
+		FA526289266AEA4D00B5EBFD /* umutablecptrie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525EF1266AEA4B00B5EBFD /* umutablecptrie.cpp */; };
+		FA52628A266AEA4D00B5EBFD /* patternprops.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525EF2266AEA4B00B5EBFD /* patternprops.cpp */; };
+		FA52628C266AEA4D00B5EBFD /* localebuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525EF5266AEA4B00B5EBFD /* localebuilder.cpp */; };
+		FA52628D266AEA4D00B5EBFD /* uposixdefs.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EF6266AEA4B00B5EBFD /* uposixdefs.h */; };
+		FA526290266AEA4D00B5EBFD /* stringpiece.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525EF9266AEA4B00B5EBFD /* stringpiece.cpp */; };
+		FA526293266AEA4D00B5EBFD /* udataswp.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525EFC266AEA4B00B5EBFD /* udataswp.h */; };
+		FA526294266AEA4D00B5EBFD /* ustrtrns.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525EFD266AEA4B00B5EBFD /* ustrtrns.cpp */; };
+		FA526296266AEA4D00B5EBFD /* cmemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525EFF266AEA4B00B5EBFD /* cmemory.cpp */; };
+		FA526297266AEA4D00B5EBFD /* resbund_cnv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F00266AEA4B00B5EBFD /* resbund_cnv.cpp */; };
+		FA526299266AEA4D00B5EBFD /* cstring.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525F02266AEA4B00B5EBFD /* cstring.h */; };
+		FA52629A266AEA4D00B5EBFD /* unistr_case.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F03266AEA4B00B5EBFD /* unistr_case.cpp */; };
+		FA5262A0266AEA4D00B5EBFD /* propname.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525F09266AEA4B00B5EBFD /* propname.h */; };
+		FA5262A2266AEA4D00B5EBFD /* uenumimp.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525F0B266AEA4B00B5EBFD /* uenumimp.h */; };
+		FA5262A4266AEA4D00B5EBFD /* uprops.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F0D266AEA4B00B5EBFD /* uprops.cpp */; };
+		FA5262A6266AEA4D00B5EBFD /* propname.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F0F266AEA4B00B5EBFD /* propname.cpp */; };
+		FA5262AB266AEA4D00B5EBFD /* unifilt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F15266AEA4B00B5EBFD /* unifilt.cpp */; };
+		FA5262AC266AEA4D00B5EBFD /* utrie_swap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F16266AEA4B00B5EBFD /* utrie_swap.cpp */; };
+		FA5262AD266AEA4D00B5EBFD /* uresdata.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F17266AEA4B00B5EBFD /* uresdata.cpp */; };
+		FA5262B0266AEA4D00B5EBFD /* umapfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F1A266AEA4B00B5EBFD /* umapfile.cpp */; };
+		FA5262B4266AEA4D00B5EBFD /* ucln_imp.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525F1E266AEA4B00B5EBFD /* ucln_imp.h */; };
+		FA5262B5266AEA4D00B5EBFD /* ustrcase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F1F266AEA4B00B5EBFD /* ustrcase.cpp */; };
+		FA5262B9266AEA4D00B5EBFD /* umath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F23266AEA4B00B5EBFD /* umath.cpp */; };
+		FA5262BA266AEA4D00B5EBFD /* uset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F24266AEA4B00B5EBFD /* uset.cpp */; };
+		FA5262BC266AEA4D00B5EBFD /* ucln_cmn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F26266AEA4B00B5EBFD /* ucln_cmn.cpp */; };
+		FA5262BE266AEA4D00B5EBFD /* ubidiimp.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525F28266AEA4B00B5EBFD /* ubidiimp.h */; };
+		FA5262C2266AEA4D00B5EBFD /* ucmndata.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F2C266AEA4B00B5EBFD /* ucmndata.cpp */; };
+		FA5262C4266AEA4D00B5EBFD /* edits.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F2E266AEA4B00B5EBFD /* edits.cpp */; };
+		FA5262C9266AEA4D00B5EBFD /* ucmndata.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525F33266AEA4B00B5EBFD /* ucmndata.h */; };
+		FA5262CA266AEA4D00B5EBFD /* parsepos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F34266AEA4B00B5EBFD /* parsepos.cpp */; };
+		FA5262CD266AEA4D00B5EBFD /* loadednormalizer2impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F37266AEA4B00B5EBFD /* loadednormalizer2impl.cpp */; };
+		FA5262CE266AEA4D00B5EBFD /* udata.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F38266AEA4B00B5EBFD /* udata.cpp */; };
+		FA5262D2266AEA4D00B5EBFD /* util.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525F3C266AEA4B00B5EBFD /* util.h */; };
+		FA5262D4266AEA4D00B5EBFD /* resource.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525F3E266AEA4B00B5EBFD /* resource.h */; };
+		FA5262D6266AEA4D00B5EBFD /* udataswp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F40266AEA4B00B5EBFD /* udataswp.cpp */; };
+		FA5262D8266AEA4D00B5EBFD /* ustrcase_locale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F42266AEA4B00B5EBFD /* ustrcase_locale.cpp */; };
+		FA5262DA266AEA4D00B5EBFD /* unistr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F44266AEA4B00B5EBFD /* unistr.cpp */; };
+		FA5262DC266AEA4D00B5EBFD /* normalizer2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F46266AEA4B00B5EBFD /* normalizer2.cpp */; };
+		FA5262DE266AEA4D00B5EBFD /* resbund.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F48266AEA4B00B5EBFD /* resbund.cpp */; };
+		FA5262DF266AEA4D00B5EBFD /* uhash_us.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F49266AEA4B00B5EBFD /* uhash_us.cpp */; };
+		FA5262E0266AEA4D00B5EBFD /* bmpset.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525F4A266AEA4B00B5EBFD /* bmpset.h */; };
+		FA5262E2266AEA4D00B5EBFD /* utrie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F4C266AEA4B00B5EBFD /* utrie.cpp */; };
+		FA5262E5266AEA4D00B5EBFD /* umutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F4F266AEA4B00B5EBFD /* umutex.cpp */; };
+		FA5262EB266AEA4D00B5EBFD /* ruleiter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F55266AEA4B00B5EBFD /* ruleiter.cpp */; };
+		FA5262ED266AEA4D00B5EBFD /* appendable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F57266AEA4B00B5EBFD /* appendable.cpp */; };
+		FA5262F5266AEA4D00B5EBFD /* normalizer2impl.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525F5F266AEA4B00B5EBFD /* normalizer2impl.h */; };
+		FA5262F6266AEA4D00B5EBFD /* uresbund.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F60266AEA4B00B5EBFD /* uresbund.cpp */; };
+		FA5262FA266AEA4D00B5EBFD /* ucptrie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F64266AEA4B00B5EBFD /* ucptrie.cpp */; };
+		FA5262FB266AEA4D00B5EBFD /* ubidi_props.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F65266AEA4B00B5EBFD /* ubidi_props.cpp */; };
+		FA5262FC266AEA4D00B5EBFD /* ustrenum.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525F66266AEA4B00B5EBFD /* ustrenum.h */; };
+		FA5262FD266AEA4D00B5EBFD /* uprops.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525F67266AEA4B00B5EBFD /* uprops.h */; };
+		FA5262FE266AEA4D00B5EBFD /* uchar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F68266AEA4B00B5EBFD /* uchar.cpp */; };
+		FA5262FF266AEA4D00B5EBFD /* ucase.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525F69266AEA4B00B5EBFD /* ucase.h */; };
+		FA526300266AEA4D00B5EBFD /* normalizer2impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F6A266AEA4B00B5EBFD /* normalizer2impl.cpp */; };
+		FA526301266AEA4D00B5EBFD /* unistrappender.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525F6B266AEA4B00B5EBFD /* unistrappender.h */; };
+		FA526304266AEA4D00B5EBFD /* bytesinkutil.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525F6E266AEA4B00B5EBFD /* bytesinkutil.h */; };
+		FA526306266AEA4D00B5EBFD /* uset_imp.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525F70266AEA4B00B5EBFD /* uset_imp.h */; };
+		FA52630A266AEA4D00B5EBFD /* unifunct.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F75266AEA4B00B5EBFD /* unifunct.cpp */; };
+		FA52630B266AEA4D00B5EBFD /* characterproperties.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F76266AEA4B00B5EBFD /* characterproperties.cpp */; };
+		FA52630E266AEA4D00B5EBFD /* locutil.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525F79266AEA4B00B5EBFD /* locutil.h */; };
+		FA52630F266AEA4D00B5EBFD /* uinvchar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F7A266AEA4B00B5EBFD /* uinvchar.cpp */; };
+		FA526311266AEA4D00B5EBFD /* bytestream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F7C266AEA4B00B5EBFD /* bytestream.cpp */; };
+		FA526313266AEA4D00B5EBFD /* ustring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F7E266AEA4B00B5EBFD /* ustring.cpp */; };
+		FA526314266AEA4D00B5EBFD /* putilimp.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525F7F266AEA4B00B5EBFD /* putilimp.h */; };
+		FA526319266AEA4D00B5EBFD /* util_props.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F84266AEA4B00B5EBFD /* util_props.cpp */; };
+		FA52631A266AEA4D00B5EBFD /* uloc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F85266AEA4B00B5EBFD /* uloc.cpp */; };
+		FA52631D266AEA4D00B5EBFD /* ustrenum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F89266AEA4B00B5EBFD /* ustrenum.cpp */; };
+		FA52631F266AEA4D00B5EBFD /* unistr_case_locale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F8B266AEA4B00B5EBFD /* unistr_case_locale.cpp */; };
+		FA526320266AEA4D00B5EBFD /* uhash.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525F8D266AEA4B00B5EBFD /* uhash.h */; };
+		FA526321266AEA4D00B5EBFD /* uobject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F8E266AEA4B00B5EBFD /* uobject.cpp */; };
+		FA526323266AEA4D00B5EBFD /* utrie.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525F90266AEA4B00B5EBFD /* utrie.h */; };
+		FA52632C266AEA4D00B5EBFD /* uarrsort.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525F99266AEA4C00B5EBFD /* uarrsort.h */; };
+		FA52632E266AEA4D00B5EBFD /* uscript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525F9B266AEA4C00B5EBFD /* uscript.cpp */; };
+		FA526330266AEA4D00B5EBFD /* ruleiter.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525F9D266AEA4C00B5EBFD /* ruleiter.h */; };
+		FA526332266AEA4D00B5EBFD /* ucln_cmn.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525F9F266AEA4C00B5EBFD /* ucln_cmn.h */; };
+		FA526333266AEA4D00B5EBFD /* uinvchar.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525FA0266AEA4C00B5EBFD /* uinvchar.h */; };
+		FA526334266AEA4D00B5EBFD /* locmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525FA1266AEA4C00B5EBFD /* locmap.cpp */; };
+		FA526337266AEA4D00B5EBFD /* utrace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525FA4266AEA4C00B5EBFD /* utrace.cpp */; };
+		FACE0515276CA365006A197F /* emojiprops.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACE0513276CA364006A197F /* emojiprops.cpp */; };
+		FACE0516276CA365006A197F /* emojiprops.h in Headers */ = {isa = PBXBuildFile; fileRef = FACE0514276CA365006A197F /* emojiprops.h */; };
+		FACE051B276CA5DE006A197F /* ucharstrieiterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACE0517276CA5DD006A197F /* ucharstrieiterator.cpp */; };
+		FACE051C276CA5DE006A197F /* uvectr32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACE0518276CA5DE006A197F /* uvectr32.cpp */; };
+		FACE051D276CA5DE006A197F /* ucharstrie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACE0519276CA5DE006A197F /* ucharstrie.cpp */; };
+		FACE051E276CA5DE006A197F /* uvectr32.h in Headers */ = {isa = PBXBuildFile; fileRef = FACE051A276CA5DE006A197F /* uvectr32.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		BBB165D71E8275120058BF1E /* libicu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libicu.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBB16C1A1E8276A50058BF1E /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		BBB16C1B1E8276A50058BF1E /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		FA525BFD266AEA4900B5EBFD /* stubdata.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stubdata.cpp; sourceTree = "<group>"; };
+		FA525C03266AEA4900B5EBFD /* nultrans.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nultrans.cpp; sourceTree = "<group>"; };
+		FA525C06266AEA4900B5EBFD /* anytrans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = anytrans.h; sourceTree = "<group>"; };
+		FA525C0F266AEA4900B5EBFD /* rbt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rbt.h; sourceTree = "<group>"; };
+		FA525C11266AEA4900B5EBFD /* tridpars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tridpars.h; sourceTree = "<group>"; };
+		FA525C14266AEA4900B5EBFD /* transreg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transreg.cpp; sourceTree = "<group>"; };
+		FA525C32266AEA4900B5EBFD /* toupptrn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = toupptrn.h; sourceTree = "<group>"; };
+		FA525C3B266AEA4900B5EBFD /* casetrn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = casetrn.h; sourceTree = "<group>"; };
+		FA525C52266AEA4900B5EBFD /* toupptrn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = toupptrn.cpp; sourceTree = "<group>"; };
+		FA525C64266AEA4900B5EBFD /* nortrans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nortrans.h; sourceTree = "<group>"; };
+		FA525C68266AEA4900B5EBFD /* casetrn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = casetrn.cpp; sourceTree = "<group>"; };
+		FA525C6D266AEA4900B5EBFD /* translit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = translit.h; sourceTree = "<group>"; };
+		FA525C6E266AEA4900B5EBFD /* ucsdet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ucsdet.h; sourceTree = "<group>"; };
+		FA525C6F266AEA4900B5EBFD /* tzfmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tzfmt.h; sourceTree = "<group>"; };
+		FA525C70266AEA4900B5EBFD /* ufieldpositer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ufieldpositer.h; sourceTree = "<group>"; };
+		FA525C71266AEA4900B5EBFD /* tblcoll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tblcoll.h; sourceTree = "<group>"; };
+		FA525C72266AEA4900B5EBFD /* dtfmtsym.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dtfmtsym.h; sourceTree = "<group>"; };
+		FA525C73266AEA4900B5EBFD /* unirepl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unirepl.h; sourceTree = "<group>"; };
+		FA525C74266AEA4900B5EBFD /* fmtable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fmtable.h; sourceTree = "<group>"; };
+		FA525C75266AEA4900B5EBFD /* dtitvfmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dtitvfmt.h; sourceTree = "<group>"; };
+		FA525C76266AEA4900B5EBFD /* choicfmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = choicfmt.h; sourceTree = "<group>"; };
+		FA525C77266AEA4900B5EBFD /* unumberrangeformatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unumberrangeformatter.h; sourceTree = "<group>"; };
+		FA525C78266AEA4900B5EBFD /* numberrangeformatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = numberrangeformatter.h; sourceTree = "<group>"; };
+		FA525C79266AEA4900B5EBFD /* tznames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tznames.h; sourceTree = "<group>"; };
+		FA525C7A266AEA4900B5EBFD /* uregion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uregion.h; sourceTree = "<group>"; };
+		FA525C7B266AEA4900B5EBFD /* ucal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ucal.h; sourceTree = "<group>"; };
+		FA525C7C266AEA4900B5EBFD /* fpositer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fpositer.h; sourceTree = "<group>"; };
+		FA525C7D266AEA4900B5EBFD /* dtitvinf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dtitvinf.h; sourceTree = "<group>"; };
+		FA525C7E266AEA4900B5EBFD /* rbnf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rbnf.h; sourceTree = "<group>"; };
+		FA525C7F266AEA4900B5EBFD /* udat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = udat.h; sourceTree = "<group>"; };
+		FA525C80266AEA4900B5EBFD /* vtzone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vtzone.h; sourceTree = "<group>"; };
+		FA525C81266AEA4900B5EBFD /* usearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = usearch.h; sourceTree = "<group>"; };
+		FA525C82266AEA4900B5EBFD /* numsys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = numsys.h; sourceTree = "<group>"; };
+		FA525C83266AEA4900B5EBFD /* timezone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timezone.h; sourceTree = "<group>"; };
+		FA525C84266AEA4900B5EBFD /* coleitr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = coleitr.h; sourceTree = "<group>"; };
+		FA525C85266AEA4900B5EBFD /* msgfmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = msgfmt.h; sourceTree = "<group>"; };
+		FA525C86266AEA4900B5EBFD /* fieldpos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fieldpos.h; sourceTree = "<group>"; };
+		FA525C87266AEA4900B5EBFD /* simpletz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = simpletz.h; sourceTree = "<group>"; };
+		FA525C88266AEA4900B5EBFD /* unumberformatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unumberformatter.h; sourceTree = "<group>"; };
+		FA525C89266AEA4900B5EBFD /* umsg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = umsg.h; sourceTree = "<group>"; };
+		FA525C8A266AEA4900B5EBFD /* sortkey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sortkey.h; sourceTree = "<group>"; };
+		FA525C8B266AEA4900B5EBFD /* basictz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = basictz.h; sourceTree = "<group>"; };
+		FA525C8C266AEA4900B5EBFD /* reldatefmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reldatefmt.h; sourceTree = "<group>"; };
+		FA525C8D266AEA4900B5EBFD /* plurrule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = plurrule.h; sourceTree = "<group>"; };
+		FA525C8E266AEA4900B5EBFD /* measunit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = measunit.h; sourceTree = "<group>"; };
+		FA525C8F266AEA4900B5EBFD /* gregocal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gregocal.h; sourceTree = "<group>"; };
+		FA525C90266AEA4900B5EBFD /* nounit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nounit.h; sourceTree = "<group>"; };
+		FA525C91266AEA4900B5EBFD /* measure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = measure.h; sourceTree = "<group>"; };
+		FA525C92266AEA4900B5EBFD /* tzrule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tzrule.h; sourceTree = "<group>"; };
+		FA525C93266AEA4900B5EBFD /* regex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = regex.h; sourceTree = "<group>"; };
+		FA525C94266AEA4900B5EBFD /* gender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gender.h; sourceTree = "<group>"; };
+		FA525C95266AEA4900B5EBFD /* dcfmtsym.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dcfmtsym.h; sourceTree = "<group>"; };
+		FA525C96266AEA4900B5EBFD /* decimfmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = decimfmt.h; sourceTree = "<group>"; };
+		FA525C97266AEA4900B5EBFD /* udatpg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = udatpg.h; sourceTree = "<group>"; };
+		FA525C98266AEA4900B5EBFD /* listformatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = listformatter.h; sourceTree = "<group>"; };
+		FA525C99266AEA4900B5EBFD /* calendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = calendar.h; sourceTree = "<group>"; };
+		FA525C9A266AEA4900B5EBFD /* ucol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ucol.h; sourceTree = "<group>"; };
+		FA525C9B266AEA4900B5EBFD /* upluralrules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = upluralrules.h; sourceTree = "<group>"; };
+		FA525C9C266AEA4900B5EBFD /* tmunit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tmunit.h; sourceTree = "<group>"; };
+		FA525C9D266AEA4900B5EBFD /* ulocdata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ulocdata.h; sourceTree = "<group>"; };
+		FA525C9E266AEA4900B5EBFD /* dtptngen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dtptngen.h; sourceTree = "<group>"; };
+		FA525C9F266AEA4900B5EBFD /* tmutamt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tmutamt.h; sourceTree = "<group>"; };
+		FA525CA0266AEA4900B5EBFD /* uformattedvalue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uformattedvalue.h; sourceTree = "<group>"; };
+		FA525CA1266AEA4900B5EBFD /* ucoleitr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ucoleitr.h; sourceTree = "<group>"; };
+		FA525CA2266AEA4900B5EBFD /* compactdecimalformat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = compactdecimalformat.h; sourceTree = "<group>"; };
+		FA525CA3266AEA4900B5EBFD /* unum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unum.h; sourceTree = "<group>"; };
+		FA525CA4266AEA4900B5EBFD /* tztrans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tztrans.h; sourceTree = "<group>"; };
+		FA525CA5266AEA4900B5EBFD /* numberformatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = numberformatter.h; sourceTree = "<group>"; };
+		FA525CA6266AEA4900B5EBFD /* datefmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = datefmt.h; sourceTree = "<group>"; };
+		FA525CA7266AEA4900B5EBFD /* utmscale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utmscale.h; sourceTree = "<group>"; };
+		FA525CA8266AEA4900B5EBFD /* coll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = coll.h; sourceTree = "<group>"; };
+		FA525CA9266AEA4900B5EBFD /* currpinf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = currpinf.h; sourceTree = "<group>"; };
+		FA525CAA266AEA4900B5EBFD /* uregex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uregex.h; sourceTree = "<group>"; };
+		FA525CAB266AEA4900B5EBFD /* tmutfmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tmutfmt.h; sourceTree = "<group>"; };
+		FA525CAC266AEA4900B5EBFD /* plurfmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = plurfmt.h; sourceTree = "<group>"; };
+		FA525CAD266AEA4900B5EBFD /* smpdtfmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smpdtfmt.h; sourceTree = "<group>"; };
+		FA525CAE266AEA4900B5EBFD /* ugender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ugender.h; sourceTree = "<group>"; };
+		FA525CAF266AEA4900B5EBFD /* selfmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = selfmt.h; sourceTree = "<group>"; };
+		FA525CB0266AEA4900B5EBFD /* uformattable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uformattable.h; sourceTree = "<group>"; };
+		FA525CB1266AEA4900B5EBFD /* curramt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curramt.h; sourceTree = "<group>"; };
+		FA525CB2266AEA4900B5EBFD /* udateintervalformat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = udateintervalformat.h; sourceTree = "<group>"; };
+		FA525CB3266AEA4900B5EBFD /* stsearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stsearch.h; sourceTree = "<group>"; };
+		FA525CB4266AEA4900B5EBFD /* alphaindex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = alphaindex.h; sourceTree = "<group>"; };
+		FA525CB5266AEA4900B5EBFD /* rbtz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rbtz.h; sourceTree = "<group>"; };
+		FA525CB6266AEA4900B5EBFD /* uspoof.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uspoof.h; sourceTree = "<group>"; };
+		FA525CB7266AEA4900B5EBFD /* region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = region.h; sourceTree = "<group>"; };
+		FA525CB8266AEA4900B5EBFD /* ureldatefmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ureldatefmt.h; sourceTree = "<group>"; };
+		FA525CB9266AEA4900B5EBFD /* utrans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utrans.h; sourceTree = "<group>"; };
+		FA525CBA266AEA4900B5EBFD /* format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
+		FA525CBB266AEA4900B5EBFD /* scientificnumberformatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scientificnumberformatter.h; sourceTree = "<group>"; };
+		FA525CBC266AEA4900B5EBFD /* dtrule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dtrule.h; sourceTree = "<group>"; };
+		FA525CBD266AEA4900B5EBFD /* search.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = search.h; sourceTree = "<group>"; };
+		FA525CBE266AEA4900B5EBFD /* unumsys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unumsys.h; sourceTree = "<group>"; };
+		FA525CBF266AEA4900B5EBFD /* formattedvalue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = formattedvalue.h; sourceTree = "<group>"; };
+		FA525CC0266AEA4900B5EBFD /* numfmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = numfmt.h; sourceTree = "<group>"; };
+		FA525CC1266AEA4900B5EBFD /* currunit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = currunit.h; sourceTree = "<group>"; };
+		FA525CC2266AEA4900B5EBFD /* ulistformatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ulistformatter.h; sourceTree = "<group>"; };
+		FA525CC3266AEA4900B5EBFD /* measfmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = measfmt.h; sourceTree = "<group>"; };
+		FA525CC5266AEA4900B5EBFD /* remtrans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = remtrans.h; sourceTree = "<group>"; };
+		FA525CC8266AEA4900B5EBFD /* uni2name.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uni2name.h; sourceTree = "<group>"; };
+		FA525CCF266AEA4900B5EBFD /* cpdtrans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpdtrans.h; sourceTree = "<group>"; };
+		FA525CD0266AEA4900B5EBFD /* funcrepl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = funcrepl.h; sourceTree = "<group>"; };
+		FA525CD1266AEA4900B5EBFD /* quant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quant.h; sourceTree = "<group>"; };
+		FA525CDD266AEA4900B5EBFD /* translit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = translit.cpp; sourceTree = "<group>"; };
+		FA525CE9266AEA4900B5EBFD /* titletrn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = titletrn.h; sourceTree = "<group>"; };
+		FA525CEC266AEA4900B5EBFD /* ucln_in.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ucln_in.h; sourceTree = "<group>"; };
+		FA525CF0266AEA4900B5EBFD /* tridpars.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tridpars.cpp; sourceTree = "<group>"; };
+		FA525CF1266AEA4900B5EBFD /* cpdtrans.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpdtrans.cpp; sourceTree = "<group>"; };
+		FA525CF4266AEA4900B5EBFD /* unesctrn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unesctrn.h; sourceTree = "<group>"; };
+		FA525CF6266AEA4900B5EBFD /* rbt_rule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rbt_rule.h; sourceTree = "<group>"; };
+		FA525CFE266AEA4900B5EBFD /* rbt_rule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rbt_rule.cpp; sourceTree = "<group>"; };
+		FA525D0A266AEA4900B5EBFD /* rbt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rbt.cpp; sourceTree = "<group>"; };
+		FA525D11266AEA4900B5EBFD /* strrepl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = strrepl.cpp; sourceTree = "<group>"; };
+		FA525D16266AEA4900B5EBFD /* quant.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = quant.cpp; sourceTree = "<group>"; };
+		FA525D21266AEA4A00B5EBFD /* funcrepl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = funcrepl.cpp; sourceTree = "<group>"; };
+		FA525D30266AEA4A00B5EBFD /* rbt_pars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rbt_pars.h; sourceTree = "<group>"; };
+		FA525D33266AEA4A00B5EBFD /* name2uni.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = name2uni.cpp; sourceTree = "<group>"; };
+		FA525D37266AEA4A00B5EBFD /* strmatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = strmatch.cpp; sourceTree = "<group>"; };
+		FA525D38266AEA4A00B5EBFD /* ucln_in.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ucln_in.cpp; sourceTree = "<group>"; };
+		FA525D4A266AEA4A00B5EBFD /* titletrn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = titletrn.cpp; sourceTree = "<group>"; };
+		FA525D58266AEA4A00B5EBFD /* strrepl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strrepl.h; sourceTree = "<group>"; };
+		FA525D5E266AEA4A00B5EBFD /* rbt_pars.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rbt_pars.cpp; sourceTree = "<group>"; };
+		FA525D64266AEA4A00B5EBFD /* esctrn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = esctrn.h; sourceTree = "<group>"; };
+		FA525D6D266AEA4A00B5EBFD /* rbt_data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rbt_data.h; sourceTree = "<group>"; };
+		FA525D70266AEA4A00B5EBFD /* anytrans.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = anytrans.cpp; sourceTree = "<group>"; };
+		FA525D73266AEA4A00B5EBFD /* unesctrn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unesctrn.cpp; sourceTree = "<group>"; };
+		FA525D77266AEA4A00B5EBFD /* remtrans.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = remtrans.cpp; sourceTree = "<group>"; };
+		FA525D78266AEA4A00B5EBFD /* transreg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = transreg.h; sourceTree = "<group>"; };
+		FA525D7C266AEA4A00B5EBFD /* nortrans.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nortrans.cpp; sourceTree = "<group>"; };
+		FA525D94266AEA4A00B5EBFD /* strmatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strmatch.h; sourceTree = "<group>"; };
+		FA525D95266AEA4A00B5EBFD /* rbt_set.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rbt_set.cpp; sourceTree = "<group>"; };
+		FA525DB5266AEA4A00B5EBFD /* name2uni.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = name2uni.h; sourceTree = "<group>"; };
+		FA525DB6266AEA4A00B5EBFD /* esctrn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = esctrn.cpp; sourceTree = "<group>"; };
+		FA525DC4266AEA4A00B5EBFD /* nultrans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nultrans.h; sourceTree = "<group>"; };
+		FA525DC7266AEA4A00B5EBFD /* tolowtrn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tolowtrn.h; sourceTree = "<group>"; };
+		FA525DE5266AEA4A00B5EBFD /* rbt_set.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rbt_set.h; sourceTree = "<group>"; };
+		FA525DEF266AEA4A00B5EBFD /* rbt_data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rbt_data.cpp; sourceTree = "<group>"; };
+		FA525DFC266AEA4A00B5EBFD /* tolowtrn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tolowtrn.cpp; sourceTree = "<group>"; };
+		FA525E02266AEA4A00B5EBFD /* uni2name.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uni2name.cpp; sourceTree = "<group>"; };
+		FA525E05266AEA4B00B5EBFD /* uniset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uniset.cpp; sourceTree = "<group>"; };
+		FA525E08266AEA4B00B5EBFD /* unisetspan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unisetspan.h; sourceTree = "<group>"; };
+		FA525E09266AEA4B00B5EBFD /* utf_impl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utf_impl.cpp; sourceTree = "<group>"; };
+		FA525E0A266AEA4B00B5EBFD /* uhash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uhash.cpp; sourceTree = "<group>"; };
+		FA525E0C266AEA4B00B5EBFD /* ureslocs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ureslocs.h; sourceTree = "<group>"; };
+		FA525E0F266AEA4B00B5EBFD /* udatamem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = udatamem.h; sourceTree = "<group>"; };
+		FA525E11266AEA4B00B5EBFD /* ushape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ushape.cpp; sourceTree = "<group>"; };
+		FA525E13266AEA4B00B5EBFD /* uarrsort.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uarrsort.cpp; sourceTree = "<group>"; };
+		FA525E15266AEA4B00B5EBFD /* umutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = umutex.h; sourceTree = "<group>"; };
+		FA525E16266AEA4B00B5EBFD /* locmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = locmap.h; sourceTree = "<group>"; };
+		FA525E17266AEA4B00B5EBFD /* uniset_props.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uniset_props.cpp; sourceTree = "<group>"; };
+		FA525E19266AEA4B00B5EBFD /* uvector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uvector.h; sourceTree = "<group>"; };
+		FA525E1A266AEA4B00B5EBFD /* ubidiwrt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ubidiwrt.cpp; sourceTree = "<group>"; };
+		FA525E1C266AEA4B00B5EBFD /* uniquecharstr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uniquecharstr.h; sourceTree = "<group>"; };
+		FA525E21266AEA4B00B5EBFD /* ubiditransform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ubiditransform.cpp; sourceTree = "<group>"; };
+		FA525E28266AEA4B00B5EBFD /* util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = util.cpp; sourceTree = "<group>"; };
+		FA525E2A266AEA4B00B5EBFD /* cstring.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cstring.cpp; sourceTree = "<group>"; };
+		FA525E2B266AEA4B00B5EBFD /* ucln.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ucln.h; sourceTree = "<group>"; };
+		FA525E32266AEA4B00B5EBFD /* unisetspan.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unisetspan.cpp; sourceTree = "<group>"; };
+		FA525E38266AEA4B00B5EBFD /* uresdata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uresdata.h; sourceTree = "<group>"; };
+		FA525E3A266AEA4B00B5EBFD /* locid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = locid.cpp; sourceTree = "<group>"; };
+		FA525E3C266AEA4B00B5EBFD /* unames.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unames.cpp; sourceTree = "<group>"; };
+		FA525E3E266AEA4B00B5EBFD /* loclikely.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = loclikely.cpp; sourceTree = "<group>"; };
+		FA525E3F266AEA4B00B5EBFD /* uscript_props.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uscript_props.cpp; sourceTree = "<group>"; };
+		FA525E46266AEA4B00B5EBFD /* ubidiln.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ubidiln.cpp; sourceTree = "<group>"; };
+		FA525E49266AEA4B00B5EBFD /* putil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = putil.cpp; sourceTree = "<group>"; };
+		FA525E4A266AEA4B00B5EBFD /* uelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uelement.h; sourceTree = "<group>"; };
+		FA525E4B266AEA4B00B5EBFD /* utrie2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utrie2.h; sourceTree = "<group>"; };
+		FA525E4D266AEA4B00B5EBFD /* bytestrie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bytestrie.cpp; sourceTree = "<group>"; };
+		FA525E4F266AEA4B00B5EBFD /* utf_old.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf_old.h; sourceTree = "<group>"; };
+		FA525E50266AEA4B00B5EBFD /* ubrk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ubrk.h; sourceTree = "<group>"; };
+		FA525E51266AEA4B00B5EBFD /* localematcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = localematcher.h; sourceTree = "<group>"; };
+		FA525E52266AEA4B00B5EBFD /* stringpiece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stringpiece.h; sourceTree = "<group>"; };
+		FA525E53266AEA4B00B5EBFD /* ucat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ucat.h; sourceTree = "<group>"; };
+		FA525E54266AEA4B00B5EBFD /* stringoptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stringoptions.h; sourceTree = "<group>"; };
+		FA525E55266AEA4B00B5EBFD /* ptypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ptypes.h; sourceTree = "<group>"; };
+		FA525E56266AEA4B00B5EBFD /* usetiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = usetiter.h; sourceTree = "<group>"; };
+		FA525E57266AEA4B00B5EBFD /* errorcode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = errorcode.h; sourceTree = "<group>"; };
+		FA525E58266AEA4B00B5EBFD /* dtintrv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dtintrv.h; sourceTree = "<group>"; };
+		FA525E59266AEA4B00B5EBFD /* ucurr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ucurr.h; sourceTree = "<group>"; };
+		FA525E5A266AEA4B00B5EBFD /* icuplug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = icuplug.h; sourceTree = "<group>"; };
+		FA525E5B266AEA4B00B5EBFD /* utext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utext.h; sourceTree = "<group>"; };
+		FA525E5C266AEA4B00B5EBFD /* edits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = edits.h; sourceTree = "<group>"; };
+		FA525E5D266AEA4B00B5EBFD /* parsepos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parsepos.h; sourceTree = "<group>"; };
+		FA525E5E266AEA4B00B5EBFD /* urep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = urep.h; sourceTree = "<group>"; };
+		FA525E5F266AEA4B00B5EBFD /* utf32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf32.h; sourceTree = "<group>"; };
+		FA525E60266AEA4B00B5EBFD /* ustring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ustring.h; sourceTree = "<group>"; };
+		FA525E61266AEA4B00B5EBFD /* ubiditransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ubiditransform.h; sourceTree = "<group>"; };
+		FA525E62266AEA4B00B5EBFD /* uenum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uenum.h; sourceTree = "<group>"; };
+		FA525E63266AEA4B00B5EBFD /* umutablecptrie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = umutablecptrie.h; sourceTree = "<group>"; };
+		FA525E64266AEA4B00B5EBFD /* appendable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = appendable.h; sourceTree = "<group>"; };
+		FA525E65266AEA4B00B5EBFD /* uset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uset.h; sourceTree = "<group>"; };
+		FA525E66266AEA4B00B5EBFD /* casemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = casemap.h; sourceTree = "<group>"; };
+		FA525E67266AEA4B00B5EBFD /* schriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = schriter.h; sourceTree = "<group>"; };
+		FA525E68266AEA4B00B5EBFD /* ucpmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ucpmap.h; sourceTree = "<group>"; };
+		FA525E69266AEA4B00B5EBFD /* uldnames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uldnames.h; sourceTree = "<group>"; };
+		FA525E6A266AEA4B00B5EBFD /* uiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uiter.h; sourceTree = "<group>"; };
+		FA525E6B266AEA4B00B5EBFD /* docmain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = docmain.h; sourceTree = "<group>"; };
+		FA525E6C266AEA4B00B5EBFD /* uniset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uniset.h; sourceTree = "<group>"; };
+		FA525E6D266AEA4B00B5EBFD /* udata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = udata.h; sourceTree = "<group>"; };
+		FA525E6E266AEA4B00B5EBFD /* stringtriebuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stringtriebuilder.h; sourceTree = "<group>"; };
+		FA525E6F266AEA4B00B5EBFD /* chariter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chariter.h; sourceTree = "<group>"; };
+		FA525E70266AEA4B00B5EBFD /* umisc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = umisc.h; sourceTree = "<group>"; };
+		FA525E71266AEA4B00B5EBFD /* uloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uloc.h; sourceTree = "<group>"; };
+		FA525E72266AEA4B00B5EBFD /* bytestriebuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bytestriebuilder.h; sourceTree = "<group>"; };
+		FA525E73266AEA4B00B5EBFD /* utrace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utrace.h; sourceTree = "<group>"; };
+		FA525E74266AEA4B00B5EBFD /* locdspnm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = locdspnm.h; sourceTree = "<group>"; };
+		FA525E75266AEA4B00B5EBFD /* uchriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uchriter.h; sourceTree = "<group>"; };
+		FA525E76266AEA4B00B5EBFD /* enumset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = enumset.h; sourceTree = "<group>"; };
+		FA525E77266AEA4B00B5EBFD /* utf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf.h; sourceTree = "<group>"; };
+		FA525E78266AEA4B00B5EBFD /* strenum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strenum.h; sourceTree = "<group>"; };
+		FA525E79266AEA4B00B5EBFD /* ucnv_err.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ucnv_err.h; sourceTree = "<group>"; };
+		FA525E7A266AEA4B00B5EBFD /* bytestrie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bytestrie.h; sourceTree = "<group>"; };
+		FA525E7B266AEA4B00B5EBFD /* uobject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uobject.h; sourceTree = "<group>"; };
+		FA525E7C266AEA4B00B5EBFD /* ures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ures.h; sourceTree = "<group>"; };
+		FA525E7D266AEA4B00B5EBFD /* normlzr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = normlzr.h; sourceTree = "<group>"; };
+		FA525E7E266AEA4B00B5EBFD /* usprep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = usprep.h; sourceTree = "<group>"; };
+		FA525E7F266AEA4B00B5EBFD /* urename.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = urename.h; sourceTree = "<group>"; };
+		FA525E80266AEA4B00B5EBFD /* caniter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = caniter.h; sourceTree = "<group>"; };
+		FA525E81266AEA4B00B5EBFD /* ucharstrie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ucharstrie.h; sourceTree = "<group>"; };
+		FA525E82266AEA4B00B5EBFD /* unistr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unistr.h; sourceTree = "<group>"; };
+		FA525E83266AEA4B00B5EBFD /* rbbi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rbbi.h; sourceTree = "<group>"; };
+		FA525E84266AEA4B00B5EBFD /* idna.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = idna.h; sourceTree = "<group>"; };
+		FA525E85266AEA4B00B5EBFD /* unorm2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unorm2.h; sourceTree = "<group>"; };
+		FA525E86266AEA4B00B5EBFD /* localebuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = localebuilder.h; sourceTree = "<group>"; };
+		FA525E87266AEA4B00B5EBFD /* dbbi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dbbi.h; sourceTree = "<group>"; };
+		FA525E88266AEA4B00B5EBFD /* bytestream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bytestream.h; sourceTree = "<group>"; };
+		FA525E89266AEA4B00B5EBFD /* uversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uversion.h; sourceTree = "<group>"; };
+		FA525E8A266AEA4B00B5EBFD /* messagepattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = messagepattern.h; sourceTree = "<group>"; };
+		FA525E8B266AEA4B00B5EBFD /* uidna.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uidna.h; sourceTree = "<group>"; };
+		FA525E8C266AEA4B00B5EBFD /* filteredbrk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filteredbrk.h; sourceTree = "<group>"; };
+		FA525E8D266AEA4B00B5EBFD /* char16ptr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = char16ptr.h; sourceTree = "<group>"; };
+		FA525E8E266AEA4B00B5EBFD /* symtable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = symtable.h; sourceTree = "<group>"; };
+		FA525E8F266AEA4B00B5EBFD /* ucasemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ucasemap.h; sourceTree = "<group>"; };
+		FA525E90266AEA4B00B5EBFD /* udisplaycontext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = udisplaycontext.h; sourceTree = "<group>"; };
+		FA525E91266AEA4B00B5EBFD /* umachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = umachine.h; sourceTree = "<group>"; };
+		FA525E92266AEA4B00B5EBFD /* ustringtrie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ustringtrie.h; sourceTree = "<group>"; };
+		FA525E93266AEA4B00B5EBFD /* ucptrie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ucptrie.h; sourceTree = "<group>"; };
+		FA525E94266AEA4B00B5EBFD /* icudataver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = icudataver.h; sourceTree = "<group>"; };
+		FA525E95266AEA4B00B5EBFD /* uchar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uchar.h; sourceTree = "<group>"; };
+		FA525E96266AEA4B00B5EBFD /* unorm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unorm.h; sourceTree = "<group>"; };
+		FA525E97266AEA4B00B5EBFD /* ushape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ushape.h; sourceTree = "<group>"; };
+		FA525E98266AEA4B00B5EBFD /* unifunct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unifunct.h; sourceTree = "<group>"; };
+		FA525E99266AEA4B00B5EBFD /* simpleformatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = simpleformatter.h; sourceTree = "<group>"; };
+		FA525E9A266AEA4B00B5EBFD /* ucnv_cb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ucnv_cb.h; sourceTree = "<group>"; };
+		FA525E9B266AEA4B00B5EBFD /* locid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = locid.h; sourceTree = "<group>"; };
+		FA525E9C266AEA4B00B5EBFD /* resbund.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resbund.h; sourceTree = "<group>"; };
+		FA525E9D266AEA4B00B5EBFD /* ubidi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ubidi.h; sourceTree = "<group>"; };
+		FA525E9E266AEA4B00B5EBFD /* uvernum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uvernum.h; sourceTree = "<group>"; };
+		FA525E9F266AEA4B00B5EBFD /* unimatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unimatch.h; sourceTree = "<group>"; };
+		FA525EA0266AEA4B00B5EBFD /* ucnvsel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ucnvsel.h; sourceTree = "<group>"; };
+		FA525EA1266AEA4B00B5EBFD /* parseerr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parseerr.h; sourceTree = "<group>"; };
+		FA525EA2266AEA4B00B5EBFD /* putil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = putil.h; sourceTree = "<group>"; };
+		FA525EA3266AEA4B00B5EBFD /* normalizer2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = normalizer2.h; sourceTree = "<group>"; };
+		FA525EA4266AEA4B00B5EBFD /* ucnv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ucnv.h; sourceTree = "<group>"; };
+		FA525EA5266AEA4B00B5EBFD /* ucharstriebuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ucharstriebuilder.h; sourceTree = "<group>"; };
+		FA525EA6266AEA4B00B5EBFD /* uconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uconfig.h; sourceTree = "<group>"; };
+		FA525EA7266AEA4B00B5EBFD /* utf16.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf16.h; sourceTree = "<group>"; };
+		FA525EA8266AEA4B00B5EBFD /* brkiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = brkiter.h; sourceTree = "<group>"; };
+		FA525EA9266AEA4B00B5EBFD /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
+		FA525EAA266AEA4B00B5EBFD /* rep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rep.h; sourceTree = "<group>"; };
+		FA525EAB266AEA4B00B5EBFD /* std_string.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = std_string.h; sourceTree = "<group>"; };
+		FA525EAC266AEA4B00B5EBFD /* utf8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf8.h; sourceTree = "<group>"; };
+		FA525EAD266AEA4B00B5EBFD /* localpointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = localpointer.h; sourceTree = "<group>"; };
+		FA525EAE266AEA4B00B5EBFD /* uclean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uclean.h; sourceTree = "<group>"; };
+		FA525EAF266AEA4B00B5EBFD /* uscript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uscript.h; sourceTree = "<group>"; };
+		FA525EB0266AEA4B00B5EBFD /* utypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utypes.h; sourceTree = "<group>"; };
+		FA525EB1266AEA4B00B5EBFD /* unifilt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unifilt.h; sourceTree = "<group>"; };
+		FA525EB2266AEA4B00B5EBFD /* resource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = resource.cpp; sourceTree = "<group>"; };
+		FA525EB3266AEA4B00B5EBFD /* uvector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uvector.cpp; sourceTree = "<group>"; };
+		FA525EB4266AEA4B00B5EBFD /* ucase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ucase.cpp; sourceTree = "<group>"; };
+		FA525EB8266AEA4B00B5EBFD /* locutil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = locutil.cpp; sourceTree = "<group>"; };
+		FA525EB9266AEA4B00B5EBFD /* cmemory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmemory.h; sourceTree = "<group>"; };
+		FA525EBA266AEA4B00B5EBFD /* patternprops.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = patternprops.h; sourceTree = "<group>"; };
+		FA525EBB266AEA4B00B5EBFD /* uresimp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uresimp.h; sourceTree = "<group>"; };
+		FA525EBC266AEA4B00B5EBFD /* ubidi_props_data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ubidi_props_data.h; sourceTree = "<group>"; };
+		FA525EBD266AEA4B00B5EBFD /* utracimp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utracimp.h; sourceTree = "<group>"; };
+		FA525EC4266AEA4B00B5EBFD /* uloc_tag.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uloc_tag.cpp; sourceTree = "<group>"; };
+		FA525EC9266AEA4B00B5EBFD /* uenum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uenum.cpp; sourceTree = "<group>"; };
+		FA525ED1266AEA4B00B5EBFD /* charstr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = charstr.cpp; sourceTree = "<group>"; };
+		FA525ED2266AEA4B00B5EBFD /* uloc_keytype.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uloc_keytype.cpp; sourceTree = "<group>"; };
+		FA525ED5266AEA4B00B5EBFD /* ubidi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ubidi.cpp; sourceTree = "<group>"; };
+		FA525ED8266AEA4B00B5EBFD /* umapfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = umapfile.h; sourceTree = "<group>"; };
+		FA525EDE266AEA4B00B5EBFD /* bmpset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bmpset.cpp; sourceTree = "<group>"; };
+		FA525EDF266AEA4B00B5EBFD /* uniset_closure.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uniset_closure.cpp; sourceTree = "<group>"; };
+		FA525EE1266AEA4B00B5EBFD /* ulocimp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ulocimp.h; sourceTree = "<group>"; };
+		FA525EE2266AEA4B00B5EBFD /* charstr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = charstr.h; sourceTree = "<group>"; };
+		FA525EE3266AEA4B00B5EBFD /* bytesinkutil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bytesinkutil.cpp; sourceTree = "<group>"; };
+		FA525EE5266AEA4B00B5EBFD /* ubidi_props.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ubidi_props.h; sourceTree = "<group>"; };
+		FA525EE8266AEA4B00B5EBFD /* utrie2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utrie2.cpp; sourceTree = "<group>"; };
+		FA525EF0266AEA4B00B5EBFD /* udatamem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = udatamem.cpp; sourceTree = "<group>"; };
+		FA525EF1266AEA4B00B5EBFD /* umutablecptrie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = umutablecptrie.cpp; sourceTree = "<group>"; };
+		FA525EF2266AEA4B00B5EBFD /* patternprops.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = patternprops.cpp; sourceTree = "<group>"; };
+		FA525EF5266AEA4B00B5EBFD /* localebuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = localebuilder.cpp; sourceTree = "<group>"; };
+		FA525EF6266AEA4B00B5EBFD /* uposixdefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uposixdefs.h; sourceTree = "<group>"; };
+		FA525EF9266AEA4B00B5EBFD /* stringpiece.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stringpiece.cpp; sourceTree = "<group>"; };
+		FA525EFC266AEA4B00B5EBFD /* udataswp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = udataswp.h; sourceTree = "<group>"; };
+		FA525EFD266AEA4B00B5EBFD /* ustrtrns.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ustrtrns.cpp; sourceTree = "<group>"; };
+		FA525EFF266AEA4B00B5EBFD /* cmemory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cmemory.cpp; sourceTree = "<group>"; };
+		FA525F00266AEA4B00B5EBFD /* resbund_cnv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = resbund_cnv.cpp; sourceTree = "<group>"; };
+		FA525F02266AEA4B00B5EBFD /* cstring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cstring.h; sourceTree = "<group>"; };
+		FA525F03266AEA4B00B5EBFD /* unistr_case.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unistr_case.cpp; sourceTree = "<group>"; };
+		FA525F09266AEA4B00B5EBFD /* propname.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = propname.h; sourceTree = "<group>"; };
+		FA525F0B266AEA4B00B5EBFD /* uenumimp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uenumimp.h; sourceTree = "<group>"; };
+		FA525F0D266AEA4B00B5EBFD /* uprops.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uprops.cpp; sourceTree = "<group>"; };
+		FA525F0F266AEA4B00B5EBFD /* propname.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = propname.cpp; sourceTree = "<group>"; };
+		FA525F15266AEA4B00B5EBFD /* unifilt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unifilt.cpp; sourceTree = "<group>"; };
+		FA525F16266AEA4B00B5EBFD /* utrie_swap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utrie_swap.cpp; sourceTree = "<group>"; };
+		FA525F17266AEA4B00B5EBFD /* uresdata.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uresdata.cpp; sourceTree = "<group>"; };
+		FA525F1A266AEA4B00B5EBFD /* umapfile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = umapfile.cpp; sourceTree = "<group>"; };
+		FA525F1E266AEA4B00B5EBFD /* ucln_imp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ucln_imp.h; sourceTree = "<group>"; };
+		FA525F1F266AEA4B00B5EBFD /* ustrcase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ustrcase.cpp; sourceTree = "<group>"; };
+		FA525F23266AEA4B00B5EBFD /* umath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = umath.cpp; sourceTree = "<group>"; };
+		FA525F24266AEA4B00B5EBFD /* uset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uset.cpp; sourceTree = "<group>"; };
+		FA525F26266AEA4B00B5EBFD /* ucln_cmn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ucln_cmn.cpp; sourceTree = "<group>"; };
+		FA525F28266AEA4B00B5EBFD /* ubidiimp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ubidiimp.h; sourceTree = "<group>"; };
+		FA525F2C266AEA4B00B5EBFD /* ucmndata.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ucmndata.cpp; sourceTree = "<group>"; };
+		FA525F2E266AEA4B00B5EBFD /* edits.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = edits.cpp; sourceTree = "<group>"; };
+		FA525F33266AEA4B00B5EBFD /* ucmndata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ucmndata.h; sourceTree = "<group>"; };
+		FA525F34266AEA4B00B5EBFD /* parsepos.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parsepos.cpp; sourceTree = "<group>"; };
+		FA525F37266AEA4B00B5EBFD /* loadednormalizer2impl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = loadednormalizer2impl.cpp; sourceTree = "<group>"; };
+		FA525F38266AEA4B00B5EBFD /* udata.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = udata.cpp; sourceTree = "<group>"; };
+		FA525F3C266AEA4B00B5EBFD /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
+		FA525F3E266AEA4B00B5EBFD /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		FA525F40266AEA4B00B5EBFD /* udataswp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = udataswp.cpp; sourceTree = "<group>"; };
+		FA525F42266AEA4B00B5EBFD /* ustrcase_locale.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ustrcase_locale.cpp; sourceTree = "<group>"; };
+		FA525F44266AEA4B00B5EBFD /* unistr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unistr.cpp; sourceTree = "<group>"; };
+		FA525F46266AEA4B00B5EBFD /* normalizer2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = normalizer2.cpp; sourceTree = "<group>"; };
+		FA525F48266AEA4B00B5EBFD /* resbund.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = resbund.cpp; sourceTree = "<group>"; };
+		FA525F49266AEA4B00B5EBFD /* uhash_us.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uhash_us.cpp; sourceTree = "<group>"; };
+		FA525F4A266AEA4B00B5EBFD /* bmpset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bmpset.h; sourceTree = "<group>"; };
+		FA525F4C266AEA4B00B5EBFD /* utrie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utrie.cpp; sourceTree = "<group>"; };
+		FA525F4F266AEA4B00B5EBFD /* umutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = umutex.cpp; sourceTree = "<group>"; };
+		FA525F55266AEA4B00B5EBFD /* ruleiter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ruleiter.cpp; sourceTree = "<group>"; };
+		FA525F57266AEA4B00B5EBFD /* appendable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = appendable.cpp; sourceTree = "<group>"; };
+		FA525F5F266AEA4B00B5EBFD /* normalizer2impl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = normalizer2impl.h; sourceTree = "<group>"; };
+		FA525F60266AEA4B00B5EBFD /* uresbund.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uresbund.cpp; sourceTree = "<group>"; };
+		FA525F64266AEA4B00B5EBFD /* ucptrie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ucptrie.cpp; sourceTree = "<group>"; };
+		FA525F65266AEA4B00B5EBFD /* ubidi_props.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ubidi_props.cpp; sourceTree = "<group>"; };
+		FA525F66266AEA4B00B5EBFD /* ustrenum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ustrenum.h; sourceTree = "<group>"; };
+		FA525F67266AEA4B00B5EBFD /* uprops.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uprops.h; sourceTree = "<group>"; };
+		FA525F68266AEA4B00B5EBFD /* uchar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uchar.cpp; sourceTree = "<group>"; };
+		FA525F69266AEA4B00B5EBFD /* ucase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ucase.h; sourceTree = "<group>"; };
+		FA525F6A266AEA4B00B5EBFD /* normalizer2impl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = normalizer2impl.cpp; sourceTree = "<group>"; };
+		FA525F6B266AEA4B00B5EBFD /* unistrappender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unistrappender.h; sourceTree = "<group>"; };
+		FA525F6E266AEA4B00B5EBFD /* bytesinkutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bytesinkutil.h; sourceTree = "<group>"; };
+		FA525F70266AEA4B00B5EBFD /* uset_imp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uset_imp.h; sourceTree = "<group>"; };
+		FA525F75266AEA4B00B5EBFD /* unifunct.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unifunct.cpp; sourceTree = "<group>"; };
+		FA525F76266AEA4B00B5EBFD /* characterproperties.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = characterproperties.cpp; sourceTree = "<group>"; };
+		FA525F79266AEA4B00B5EBFD /* locutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = locutil.h; sourceTree = "<group>"; };
+		FA525F7A266AEA4B00B5EBFD /* uinvchar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uinvchar.cpp; sourceTree = "<group>"; };
+		FA525F7C266AEA4B00B5EBFD /* bytestream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bytestream.cpp; sourceTree = "<group>"; };
+		FA525F7E266AEA4B00B5EBFD /* ustring.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ustring.cpp; sourceTree = "<group>"; };
+		FA525F7F266AEA4B00B5EBFD /* putilimp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = putilimp.h; sourceTree = "<group>"; };
+		FA525F84266AEA4B00B5EBFD /* util_props.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = util_props.cpp; sourceTree = "<group>"; };
+		FA525F85266AEA4B00B5EBFD /* uloc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uloc.cpp; sourceTree = "<group>"; };
+		FA525F89266AEA4B00B5EBFD /* ustrenum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ustrenum.cpp; sourceTree = "<group>"; };
+		FA525F8B266AEA4B00B5EBFD /* unistr_case_locale.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unistr_case_locale.cpp; sourceTree = "<group>"; };
+		FA525F8D266AEA4B00B5EBFD /* uhash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uhash.h; sourceTree = "<group>"; };
+		FA525F8E266AEA4B00B5EBFD /* uobject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uobject.cpp; sourceTree = "<group>"; };
+		FA525F90266AEA4B00B5EBFD /* utrie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utrie.h; sourceTree = "<group>"; };
+		FA525F99266AEA4C00B5EBFD /* uarrsort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uarrsort.h; sourceTree = "<group>"; };
+		FA525F9B266AEA4C00B5EBFD /* uscript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uscript.cpp; sourceTree = "<group>"; };
+		FA525F9D266AEA4C00B5EBFD /* ruleiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ruleiter.h; sourceTree = "<group>"; };
+		FA525F9F266AEA4C00B5EBFD /* ucln_cmn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ucln_cmn.h; sourceTree = "<group>"; };
+		FA525FA0266AEA4C00B5EBFD /* uinvchar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uinvchar.h; sourceTree = "<group>"; };
+		FA525FA1266AEA4C00B5EBFD /* locmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = locmap.cpp; sourceTree = "<group>"; };
+		FA525FA4266AEA4C00B5EBFD /* utrace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utrace.cpp; sourceTree = "<group>"; };
+		FACE0513276CA364006A197F /* emojiprops.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = emojiprops.cpp; sourceTree = "<group>"; };
+		FACE0514276CA365006A197F /* emojiprops.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = emojiprops.h; sourceTree = "<group>"; };
+		FACE0517276CA5DD006A197F /* ucharstrieiterator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ucharstrieiterator.cpp; sourceTree = "<group>"; };
+		FACE0518276CA5DE006A197F /* uvectr32.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uvectr32.cpp; sourceTree = "<group>"; };
+		FACE0519276CA5DE006A197F /* ucharstrie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ucharstrie.cpp; sourceTree = "<group>"; };
+		FACE051A276CA5DE006A197F /* uvectr32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uvectr32.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BBB165D41E8275120058BF1E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BBB165CE1E8275120058BF1E = {
+			isa = PBXGroup;
+			children = (
+				FA525E03266AEA4B00B5EBFD /* common */,
+				FA525C02266AEA4900B5EBFD /* i18n */,
+				FA525BFC266AEA4900B5EBFD /* stubdata */,
+				BBB16C1A1E8276A50058BF1E /* common-debug.xcconfig */,
+				BBB16C1B1E8276A50058BF1E /* common-release.xcconfig */,
+				BBB165D81E8275120058BF1E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BBB165D81E8275120058BF1E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BBB165D71E8275120058BF1E /* libicu.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FA525BFC266AEA4900B5EBFD /* stubdata */ = {
+			isa = PBXGroup;
+			children = (
+				FA525BFD266AEA4900B5EBFD /* stubdata.cpp */,
+			);
+			name = stubdata;
+			path = ../../3party/icu/icu/icu4c/source/stubdata;
+			sourceTree = "<group>";
+		};
+		FA525C02266AEA4900B5EBFD /* i18n */ = {
+			isa = PBXGroup;
+			children = (
+				FA525D70266AEA4A00B5EBFD /* anytrans.cpp */,
+				FA525C06266AEA4900B5EBFD /* anytrans.h */,
+				FA525C68266AEA4900B5EBFD /* casetrn.cpp */,
+				FA525C3B266AEA4900B5EBFD /* casetrn.h */,
+				FA525CF1266AEA4900B5EBFD /* cpdtrans.cpp */,
+				FA525CCF266AEA4900B5EBFD /* cpdtrans.h */,
+				FA525DB6266AEA4A00B5EBFD /* esctrn.cpp */,
+				FA525D64266AEA4A00B5EBFD /* esctrn.h */,
+				FA525D21266AEA4A00B5EBFD /* funcrepl.cpp */,
+				FA525CD0266AEA4900B5EBFD /* funcrepl.h */,
+				FA525D33266AEA4A00B5EBFD /* name2uni.cpp */,
+				FA525DB5266AEA4A00B5EBFD /* name2uni.h */,
+				FA525D7C266AEA4A00B5EBFD /* nortrans.cpp */,
+				FA525C64266AEA4900B5EBFD /* nortrans.h */,
+				FA525C03266AEA4900B5EBFD /* nultrans.cpp */,
+				FA525DC4266AEA4A00B5EBFD /* nultrans.h */,
+				FA525D16266AEA4900B5EBFD /* quant.cpp */,
+				FA525CD1266AEA4900B5EBFD /* quant.h */,
+				FA525DEF266AEA4A00B5EBFD /* rbt_data.cpp */,
+				FA525D6D266AEA4A00B5EBFD /* rbt_data.h */,
+				FA525D5E266AEA4A00B5EBFD /* rbt_pars.cpp */,
+				FA525D30266AEA4A00B5EBFD /* rbt_pars.h */,
+				FA525CFE266AEA4900B5EBFD /* rbt_rule.cpp */,
+				FA525CF6266AEA4900B5EBFD /* rbt_rule.h */,
+				FA525D95266AEA4A00B5EBFD /* rbt_set.cpp */,
+				FA525DE5266AEA4A00B5EBFD /* rbt_set.h */,
+				FA525D0A266AEA4900B5EBFD /* rbt.cpp */,
+				FA525C0F266AEA4900B5EBFD /* rbt.h */,
+				FA525D77266AEA4A00B5EBFD /* remtrans.cpp */,
+				FA525CC5266AEA4900B5EBFD /* remtrans.h */,
+				FA525D37266AEA4A00B5EBFD /* strmatch.cpp */,
+				FA525D94266AEA4A00B5EBFD /* strmatch.h */,
+				FA525D11266AEA4900B5EBFD /* strrepl.cpp */,
+				FA525D58266AEA4A00B5EBFD /* strrepl.h */,
+				FA525D4A266AEA4A00B5EBFD /* titletrn.cpp */,
+				FA525CE9266AEA4900B5EBFD /* titletrn.h */,
+				FA525DFC266AEA4A00B5EBFD /* tolowtrn.cpp */,
+				FA525DC7266AEA4A00B5EBFD /* tolowtrn.h */,
+				FA525C52266AEA4900B5EBFD /* toupptrn.cpp */,
+				FA525C32266AEA4900B5EBFD /* toupptrn.h */,
+				FA525CDD266AEA4900B5EBFD /* translit.cpp */,
+				FA525C14266AEA4900B5EBFD /* transreg.cpp */,
+				FA525D78266AEA4A00B5EBFD /* transreg.h */,
+				FA525CF0266AEA4900B5EBFD /* tridpars.cpp */,
+				FA525C11266AEA4900B5EBFD /* tridpars.h */,
+				FA525D38266AEA4A00B5EBFD /* ucln_in.cpp */,
+				FA525CEC266AEA4900B5EBFD /* ucln_in.h */,
+				FA525D73266AEA4A00B5EBFD /* unesctrn.cpp */,
+				FA525CF4266AEA4900B5EBFD /* unesctrn.h */,
+				FA525E02266AEA4A00B5EBFD /* uni2name.cpp */,
+				FA525CC8266AEA4900B5EBFD /* uni2name.h */,
+				FA525C6C266AEA4900B5EBFD /* unicode */,
+			);
+			name = i18n;
+			path = ../../3party/icu/icu/icu4c/source/i18n;
+			sourceTree = "<group>";
+		};
+		FA525C6C266AEA4900B5EBFD /* unicode */ = {
+			isa = PBXGroup;
+			children = (
+				FA525C6D266AEA4900B5EBFD /* translit.h */,
+				FA525C6E266AEA4900B5EBFD /* ucsdet.h */,
+				FA525C6F266AEA4900B5EBFD /* tzfmt.h */,
+				FA525C70266AEA4900B5EBFD /* ufieldpositer.h */,
+				FA525C71266AEA4900B5EBFD /* tblcoll.h */,
+				FA525C72266AEA4900B5EBFD /* dtfmtsym.h */,
+				FA525C73266AEA4900B5EBFD /* unirepl.h */,
+				FA525C74266AEA4900B5EBFD /* fmtable.h */,
+				FA525C75266AEA4900B5EBFD /* dtitvfmt.h */,
+				FA525C76266AEA4900B5EBFD /* choicfmt.h */,
+				FA525C77266AEA4900B5EBFD /* unumberrangeformatter.h */,
+				FA525C78266AEA4900B5EBFD /* numberrangeformatter.h */,
+				FA525C79266AEA4900B5EBFD /* tznames.h */,
+				FA525C7A266AEA4900B5EBFD /* uregion.h */,
+				FA525C7B266AEA4900B5EBFD /* ucal.h */,
+				FA525C7C266AEA4900B5EBFD /* fpositer.h */,
+				FA525C7D266AEA4900B5EBFD /* dtitvinf.h */,
+				FA525C7E266AEA4900B5EBFD /* rbnf.h */,
+				FA525C7F266AEA4900B5EBFD /* udat.h */,
+				FA525C80266AEA4900B5EBFD /* vtzone.h */,
+				FA525C81266AEA4900B5EBFD /* usearch.h */,
+				FA525C82266AEA4900B5EBFD /* numsys.h */,
+				FA525C83266AEA4900B5EBFD /* timezone.h */,
+				FA525C84266AEA4900B5EBFD /* coleitr.h */,
+				FA525C85266AEA4900B5EBFD /* msgfmt.h */,
+				FA525C86266AEA4900B5EBFD /* fieldpos.h */,
+				FA525C87266AEA4900B5EBFD /* simpletz.h */,
+				FA525C88266AEA4900B5EBFD /* unumberformatter.h */,
+				FA525C89266AEA4900B5EBFD /* umsg.h */,
+				FA525C8A266AEA4900B5EBFD /* sortkey.h */,
+				FA525C8B266AEA4900B5EBFD /* basictz.h */,
+				FA525C8C266AEA4900B5EBFD /* reldatefmt.h */,
+				FA525C8D266AEA4900B5EBFD /* plurrule.h */,
+				FA525C8E266AEA4900B5EBFD /* measunit.h */,
+				FA525C8F266AEA4900B5EBFD /* gregocal.h */,
+				FA525C90266AEA4900B5EBFD /* nounit.h */,
+				FA525C91266AEA4900B5EBFD /* measure.h */,
+				FA525C92266AEA4900B5EBFD /* tzrule.h */,
+				FA525C93266AEA4900B5EBFD /* regex.h */,
+				FA525C94266AEA4900B5EBFD /* gender.h */,
+				FA525C95266AEA4900B5EBFD /* dcfmtsym.h */,
+				FA525C96266AEA4900B5EBFD /* decimfmt.h */,
+				FA525C97266AEA4900B5EBFD /* udatpg.h */,
+				FA525C98266AEA4900B5EBFD /* listformatter.h */,
+				FA525C99266AEA4900B5EBFD /* calendar.h */,
+				FA525C9A266AEA4900B5EBFD /* ucol.h */,
+				FA525C9B266AEA4900B5EBFD /* upluralrules.h */,
+				FA525C9C266AEA4900B5EBFD /* tmunit.h */,
+				FA525C9D266AEA4900B5EBFD /* ulocdata.h */,
+				FA525C9E266AEA4900B5EBFD /* dtptngen.h */,
+				FA525C9F266AEA4900B5EBFD /* tmutamt.h */,
+				FA525CA0266AEA4900B5EBFD /* uformattedvalue.h */,
+				FA525CA1266AEA4900B5EBFD /* ucoleitr.h */,
+				FA525CA2266AEA4900B5EBFD /* compactdecimalformat.h */,
+				FA525CA3266AEA4900B5EBFD /* unum.h */,
+				FA525CA4266AEA4900B5EBFD /* tztrans.h */,
+				FA525CA5266AEA4900B5EBFD /* numberformatter.h */,
+				FA525CA6266AEA4900B5EBFD /* datefmt.h */,
+				FA525CA7266AEA4900B5EBFD /* utmscale.h */,
+				FA525CA8266AEA4900B5EBFD /* coll.h */,
+				FA525CA9266AEA4900B5EBFD /* currpinf.h */,
+				FA525CAA266AEA4900B5EBFD /* uregex.h */,
+				FA525CAB266AEA4900B5EBFD /* tmutfmt.h */,
+				FA525CAC266AEA4900B5EBFD /* plurfmt.h */,
+				FA525CAD266AEA4900B5EBFD /* smpdtfmt.h */,
+				FA525CAE266AEA4900B5EBFD /* ugender.h */,
+				FA525CAF266AEA4900B5EBFD /* selfmt.h */,
+				FA525CB0266AEA4900B5EBFD /* uformattable.h */,
+				FA525CB1266AEA4900B5EBFD /* curramt.h */,
+				FA525CB2266AEA4900B5EBFD /* udateintervalformat.h */,
+				FA525CB3266AEA4900B5EBFD /* stsearch.h */,
+				FA525CB4266AEA4900B5EBFD /* alphaindex.h */,
+				FA525CB5266AEA4900B5EBFD /* rbtz.h */,
+				FA525CB6266AEA4900B5EBFD /* uspoof.h */,
+				FA525CB7266AEA4900B5EBFD /* region.h */,
+				FA525CB8266AEA4900B5EBFD /* ureldatefmt.h */,
+				FA525CB9266AEA4900B5EBFD /* utrans.h */,
+				FA525CBA266AEA4900B5EBFD /* format.h */,
+				FA525CBB266AEA4900B5EBFD /* scientificnumberformatter.h */,
+				FA525CBC266AEA4900B5EBFD /* dtrule.h */,
+				FA525CBD266AEA4900B5EBFD /* search.h */,
+				FA525CBE266AEA4900B5EBFD /* unumsys.h */,
+				FA525CBF266AEA4900B5EBFD /* formattedvalue.h */,
+				FA525CC0266AEA4900B5EBFD /* numfmt.h */,
+				FA525CC1266AEA4900B5EBFD /* currunit.h */,
+				FA525CC2266AEA4900B5EBFD /* ulistformatter.h */,
+				FA525CC3266AEA4900B5EBFD /* measfmt.h */,
+			);
+			path = unicode;
+			sourceTree = "<group>";
+		};
+		FA525E03266AEA4B00B5EBFD /* common */ = {
+			isa = PBXGroup;
+			children = (
+				FA525F57266AEA4B00B5EBFD /* appendable.cpp */,
+				FA525EDE266AEA4B00B5EBFD /* bmpset.cpp */,
+				FA525F4A266AEA4B00B5EBFD /* bmpset.h */,
+				FA525EE3266AEA4B00B5EBFD /* bytesinkutil.cpp */,
+				FA525F6E266AEA4B00B5EBFD /* bytesinkutil.h */,
+				FA525F7C266AEA4B00B5EBFD /* bytestream.cpp */,
+				FA525E4D266AEA4B00B5EBFD /* bytestrie.cpp */,
+				FA525F76266AEA4B00B5EBFD /* characterproperties.cpp */,
+				FA525ED1266AEA4B00B5EBFD /* charstr.cpp */,
+				FA525EE2266AEA4B00B5EBFD /* charstr.h */,
+				FA525EFF266AEA4B00B5EBFD /* cmemory.cpp */,
+				FA525EB9266AEA4B00B5EBFD /* cmemory.h */,
+				FA525E2A266AEA4B00B5EBFD /* cstring.cpp */,
+				FA525F02266AEA4B00B5EBFD /* cstring.h */,
+				FA525F2E266AEA4B00B5EBFD /* edits.cpp */,
+				FACE0513276CA364006A197F /* emojiprops.cpp */,
+				FACE0514276CA365006A197F /* emojiprops.h */,
+				FA525F37266AEA4B00B5EBFD /* loadednormalizer2impl.cpp */,
+				FA525EF5266AEA4B00B5EBFD /* localebuilder.cpp */,
+				FA525E3A266AEA4B00B5EBFD /* locid.cpp */,
+				FA525E3E266AEA4B00B5EBFD /* loclikely.cpp */,
+				FA525FA1266AEA4C00B5EBFD /* locmap.cpp */,
+				FA525E16266AEA4B00B5EBFD /* locmap.h */,
+				FA525EB8266AEA4B00B5EBFD /* locutil.cpp */,
+				FA525F79266AEA4B00B5EBFD /* locutil.h */,
+				FA525F46266AEA4B00B5EBFD /* normalizer2.cpp */,
+				FA525F6A266AEA4B00B5EBFD /* normalizer2impl.cpp */,
+				FA525F5F266AEA4B00B5EBFD /* normalizer2impl.h */,
+				FA525F34266AEA4B00B5EBFD /* parsepos.cpp */,
+				FA525EF2266AEA4B00B5EBFD /* patternprops.cpp */,
+				FA525EBA266AEA4B00B5EBFD /* patternprops.h */,
+				FA525F0F266AEA4B00B5EBFD /* propname.cpp */,
+				FA525F09266AEA4B00B5EBFD /* propname.h */,
+				FA525E49266AEA4B00B5EBFD /* putil.cpp */,
+				FA525F7F266AEA4B00B5EBFD /* putilimp.h */,
+				FA525F00266AEA4B00B5EBFD /* resbund_cnv.cpp */,
+				FA525F48266AEA4B00B5EBFD /* resbund.cpp */,
+				FA525EB2266AEA4B00B5EBFD /* resource.cpp */,
+				FA525F3E266AEA4B00B5EBFD /* resource.h */,
+				FA525F55266AEA4B00B5EBFD /* ruleiter.cpp */,
+				FA525F9D266AEA4C00B5EBFD /* ruleiter.h */,
+				FA525EF9266AEA4B00B5EBFD /* stringpiece.cpp */,
+				FA525E13266AEA4B00B5EBFD /* uarrsort.cpp */,
+				FA525F99266AEA4C00B5EBFD /* uarrsort.h */,
+				FA525EBC266AEA4B00B5EBFD /* ubidi_props_data.h */,
+				FA525F65266AEA4B00B5EBFD /* ubidi_props.cpp */,
+				FA525EE5266AEA4B00B5EBFD /* ubidi_props.h */,
+				FA525ED5266AEA4B00B5EBFD /* ubidi.cpp */,
+				FA525F28266AEA4B00B5EBFD /* ubidiimp.h */,
+				FA525E46266AEA4B00B5EBFD /* ubidiln.cpp */,
+				FA525E21266AEA4B00B5EBFD /* ubiditransform.cpp */,
+				FA525E1A266AEA4B00B5EBFD /* ubidiwrt.cpp */,
+				FA525EB4266AEA4B00B5EBFD /* ucase.cpp */,
+				FA525F69266AEA4B00B5EBFD /* ucase.h */,
+				FA525F68266AEA4B00B5EBFD /* uchar.cpp */,
+				FACE0519276CA5DE006A197F /* ucharstrie.cpp */,
+				FACE0517276CA5DD006A197F /* ucharstrieiterator.cpp */,
+				FA525F26266AEA4B00B5EBFD /* ucln_cmn.cpp */,
+				FA525F9F266AEA4C00B5EBFD /* ucln_cmn.h */,
+				FA525F1E266AEA4B00B5EBFD /* ucln_imp.h */,
+				FA525E2B266AEA4B00B5EBFD /* ucln.h */,
+				FA525F2C266AEA4B00B5EBFD /* ucmndata.cpp */,
+				FA525F33266AEA4B00B5EBFD /* ucmndata.h */,
+				FA525F64266AEA4B00B5EBFD /* ucptrie.cpp */,
+				FA525F38266AEA4B00B5EBFD /* udata.cpp */,
+				FA525EF0266AEA4B00B5EBFD /* udatamem.cpp */,
+				FA525E0F266AEA4B00B5EBFD /* udatamem.h */,
+				FA525F40266AEA4B00B5EBFD /* udataswp.cpp */,
+				FA525EFC266AEA4B00B5EBFD /* udataswp.h */,
+				FA525E4A266AEA4B00B5EBFD /* uelement.h */,
+				FA525EC9266AEA4B00B5EBFD /* uenum.cpp */,
+				FA525F0B266AEA4B00B5EBFD /* uenumimp.h */,
+				FA525F49266AEA4B00B5EBFD /* uhash_us.cpp */,
+				FA525E0A266AEA4B00B5EBFD /* uhash.cpp */,
+				FA525F8D266AEA4B00B5EBFD /* uhash.h */,
+				FA525F7A266AEA4B00B5EBFD /* uinvchar.cpp */,
+				FA525FA0266AEA4C00B5EBFD /* uinvchar.h */,
+				FA525ED2266AEA4B00B5EBFD /* uloc_keytype.cpp */,
+				FA525EC4266AEA4B00B5EBFD /* uloc_tag.cpp */,
+				FA525F85266AEA4B00B5EBFD /* uloc.cpp */,
+				FA525EE1266AEA4B00B5EBFD /* ulocimp.h */,
+				FA525F1A266AEA4B00B5EBFD /* umapfile.cpp */,
+				FA525ED8266AEA4B00B5EBFD /* umapfile.h */,
+				FA525F23266AEA4B00B5EBFD /* umath.cpp */,
+				FA525EF1266AEA4B00B5EBFD /* umutablecptrie.cpp */,
+				FA525F4F266AEA4B00B5EBFD /* umutex.cpp */,
+				FA525E15266AEA4B00B5EBFD /* umutex.h */,
+				FA525E3C266AEA4B00B5EBFD /* unames.cpp */,
+				FA525E4E266AEA4B00B5EBFD /* unicode */,
+				FA525F15266AEA4B00B5EBFD /* unifilt.cpp */,
+				FA525F75266AEA4B00B5EBFD /* unifunct.cpp */,
+				FA525E1C266AEA4B00B5EBFD /* uniquecharstr.h */,
+				FA525EDF266AEA4B00B5EBFD /* uniset_closure.cpp */,
+				FA525E17266AEA4B00B5EBFD /* uniset_props.cpp */,
+				FA525E05266AEA4B00B5EBFD /* uniset.cpp */,
+				FA525E32266AEA4B00B5EBFD /* unisetspan.cpp */,
+				FA525E08266AEA4B00B5EBFD /* unisetspan.h */,
+				FA525F8B266AEA4B00B5EBFD /* unistr_case_locale.cpp */,
+				FA525F03266AEA4B00B5EBFD /* unistr_case.cpp */,
+				FA525F44266AEA4B00B5EBFD /* unistr.cpp */,
+				FA525F6B266AEA4B00B5EBFD /* unistrappender.h */,
+				FA525F8E266AEA4B00B5EBFD /* uobject.cpp */,
+				FA525EF6266AEA4B00B5EBFD /* uposixdefs.h */,
+				FA525F0D266AEA4B00B5EBFD /* uprops.cpp */,
+				FA525F67266AEA4B00B5EBFD /* uprops.h */,
+				FA525F60266AEA4B00B5EBFD /* uresbund.cpp */,
+				FA525F17266AEA4B00B5EBFD /* uresdata.cpp */,
+				FA525E38266AEA4B00B5EBFD /* uresdata.h */,
+				FA525EBB266AEA4B00B5EBFD /* uresimp.h */,
+				FA525E0C266AEA4B00B5EBFD /* ureslocs.h */,
+				FA525E3F266AEA4B00B5EBFD /* uscript_props.cpp */,
+				FA525F9B266AEA4C00B5EBFD /* uscript.cpp */,
+				FA525F70266AEA4B00B5EBFD /* uset_imp.h */,
+				FA525F24266AEA4B00B5EBFD /* uset.cpp */,
+				FA525E11266AEA4B00B5EBFD /* ushape.cpp */,
+				FA525F42266AEA4B00B5EBFD /* ustrcase_locale.cpp */,
+				FA525F1F266AEA4B00B5EBFD /* ustrcase.cpp */,
+				FA525F89266AEA4B00B5EBFD /* ustrenum.cpp */,
+				FA525F66266AEA4B00B5EBFD /* ustrenum.h */,
+				FA525F7E266AEA4B00B5EBFD /* ustring.cpp */,
+				FA525EFD266AEA4B00B5EBFD /* ustrtrns.cpp */,
+				FA525E09266AEA4B00B5EBFD /* utf_impl.cpp */,
+				FA525F84266AEA4B00B5EBFD /* util_props.cpp */,
+				FA525E28266AEA4B00B5EBFD /* util.cpp */,
+				FA525F3C266AEA4B00B5EBFD /* util.h */,
+				FA525FA4266AEA4C00B5EBFD /* utrace.cpp */,
+				FA525EBD266AEA4B00B5EBFD /* utracimp.h */,
+				FA525F16266AEA4B00B5EBFD /* utrie_swap.cpp */,
+				FA525F4C266AEA4B00B5EBFD /* utrie.cpp */,
+				FA525F90266AEA4B00B5EBFD /* utrie.h */,
+				FA525EE8266AEA4B00B5EBFD /* utrie2.cpp */,
+				FA525E4B266AEA4B00B5EBFD /* utrie2.h */,
+				FA525EB3266AEA4B00B5EBFD /* uvector.cpp */,
+				FA525E19266AEA4B00B5EBFD /* uvector.h */,
+				FACE0518276CA5DE006A197F /* uvectr32.cpp */,
+				FACE051A276CA5DE006A197F /* uvectr32.h */,
+			);
+			name = common;
+			path = ../../3party/icu/icu/icu4c/source/common;
+			sourceTree = "<group>";
+		};
+		FA525E4E266AEA4B00B5EBFD /* unicode */ = {
+			isa = PBXGroup;
+			children = (
+				FA525E4F266AEA4B00B5EBFD /* utf_old.h */,
+				FA525E50266AEA4B00B5EBFD /* ubrk.h */,
+				FA525E51266AEA4B00B5EBFD /* localematcher.h */,
+				FA525E52266AEA4B00B5EBFD /* stringpiece.h */,
+				FA525E53266AEA4B00B5EBFD /* ucat.h */,
+				FA525E54266AEA4B00B5EBFD /* stringoptions.h */,
+				FA525E55266AEA4B00B5EBFD /* ptypes.h */,
+				FA525E56266AEA4B00B5EBFD /* usetiter.h */,
+				FA525E57266AEA4B00B5EBFD /* errorcode.h */,
+				FA525E58266AEA4B00B5EBFD /* dtintrv.h */,
+				FA525E59266AEA4B00B5EBFD /* ucurr.h */,
+				FA525E5A266AEA4B00B5EBFD /* icuplug.h */,
+				FA525E5B266AEA4B00B5EBFD /* utext.h */,
+				FA525E5C266AEA4B00B5EBFD /* edits.h */,
+				FA525E5D266AEA4B00B5EBFD /* parsepos.h */,
+				FA525E5E266AEA4B00B5EBFD /* urep.h */,
+				FA525E5F266AEA4B00B5EBFD /* utf32.h */,
+				FA525E60266AEA4B00B5EBFD /* ustring.h */,
+				FA525E61266AEA4B00B5EBFD /* ubiditransform.h */,
+				FA525E62266AEA4B00B5EBFD /* uenum.h */,
+				FA525E63266AEA4B00B5EBFD /* umutablecptrie.h */,
+				FA525E64266AEA4B00B5EBFD /* appendable.h */,
+				FA525E65266AEA4B00B5EBFD /* uset.h */,
+				FA525E66266AEA4B00B5EBFD /* casemap.h */,
+				FA525E67266AEA4B00B5EBFD /* schriter.h */,
+				FA525E68266AEA4B00B5EBFD /* ucpmap.h */,
+				FA525E69266AEA4B00B5EBFD /* uldnames.h */,
+				FA525E6A266AEA4B00B5EBFD /* uiter.h */,
+				FA525E6B266AEA4B00B5EBFD /* docmain.h */,
+				FA525E6C266AEA4B00B5EBFD /* uniset.h */,
+				FA525E6D266AEA4B00B5EBFD /* udata.h */,
+				FA525E6E266AEA4B00B5EBFD /* stringtriebuilder.h */,
+				FA525E6F266AEA4B00B5EBFD /* chariter.h */,
+				FA525E70266AEA4B00B5EBFD /* umisc.h */,
+				FA525E71266AEA4B00B5EBFD /* uloc.h */,
+				FA525E72266AEA4B00B5EBFD /* bytestriebuilder.h */,
+				FA525E73266AEA4B00B5EBFD /* utrace.h */,
+				FA525E74266AEA4B00B5EBFD /* locdspnm.h */,
+				FA525E75266AEA4B00B5EBFD /* uchriter.h */,
+				FA525E76266AEA4B00B5EBFD /* enumset.h */,
+				FA525E77266AEA4B00B5EBFD /* utf.h */,
+				FA525E78266AEA4B00B5EBFD /* strenum.h */,
+				FA525E79266AEA4B00B5EBFD /* ucnv_err.h */,
+				FA525E7A266AEA4B00B5EBFD /* bytestrie.h */,
+				FA525E7B266AEA4B00B5EBFD /* uobject.h */,
+				FA525E7C266AEA4B00B5EBFD /* ures.h */,
+				FA525E7D266AEA4B00B5EBFD /* normlzr.h */,
+				FA525E7E266AEA4B00B5EBFD /* usprep.h */,
+				FA525E7F266AEA4B00B5EBFD /* urename.h */,
+				FA525E80266AEA4B00B5EBFD /* caniter.h */,
+				FA525E81266AEA4B00B5EBFD /* ucharstrie.h */,
+				FA525E82266AEA4B00B5EBFD /* unistr.h */,
+				FA525E83266AEA4B00B5EBFD /* rbbi.h */,
+				FA525E84266AEA4B00B5EBFD /* idna.h */,
+				FA525E85266AEA4B00B5EBFD /* unorm2.h */,
+				FA525E86266AEA4B00B5EBFD /* localebuilder.h */,
+				FA525E87266AEA4B00B5EBFD /* dbbi.h */,
+				FA525E88266AEA4B00B5EBFD /* bytestream.h */,
+				FA525E89266AEA4B00B5EBFD /* uversion.h */,
+				FA525E8A266AEA4B00B5EBFD /* messagepattern.h */,
+				FA525E8B266AEA4B00B5EBFD /* uidna.h */,
+				FA525E8C266AEA4B00B5EBFD /* filteredbrk.h */,
+				FA525E8D266AEA4B00B5EBFD /* char16ptr.h */,
+				FA525E8E266AEA4B00B5EBFD /* symtable.h */,
+				FA525E8F266AEA4B00B5EBFD /* ucasemap.h */,
+				FA525E90266AEA4B00B5EBFD /* udisplaycontext.h */,
+				FA525E91266AEA4B00B5EBFD /* umachine.h */,
+				FA525E92266AEA4B00B5EBFD /* ustringtrie.h */,
+				FA525E93266AEA4B00B5EBFD /* ucptrie.h */,
+				FA525E94266AEA4B00B5EBFD /* icudataver.h */,
+				FA525E95266AEA4B00B5EBFD /* uchar.h */,
+				FA525E96266AEA4B00B5EBFD /* unorm.h */,
+				FA525E97266AEA4B00B5EBFD /* ushape.h */,
+				FA525E98266AEA4B00B5EBFD /* unifunct.h */,
+				FA525E99266AEA4B00B5EBFD /* simpleformatter.h */,
+				FA525E9A266AEA4B00B5EBFD /* ucnv_cb.h */,
+				FA525E9B266AEA4B00B5EBFD /* locid.h */,
+				FA525E9C266AEA4B00B5EBFD /* resbund.h */,
+				FA525E9D266AEA4B00B5EBFD /* ubidi.h */,
+				FA525E9E266AEA4B00B5EBFD /* uvernum.h */,
+				FA525E9F266AEA4B00B5EBFD /* unimatch.h */,
+				FA525EA0266AEA4B00B5EBFD /* ucnvsel.h */,
+				FA525EA1266AEA4B00B5EBFD /* parseerr.h */,
+				FA525EA2266AEA4B00B5EBFD /* putil.h */,
+				FA525EA3266AEA4B00B5EBFD /* normalizer2.h */,
+				FA525EA4266AEA4B00B5EBFD /* ucnv.h */,
+				FA525EA5266AEA4B00B5EBFD /* ucharstriebuilder.h */,
+				FA525EA6266AEA4B00B5EBFD /* uconfig.h */,
+				FA525EA7266AEA4B00B5EBFD /* utf16.h */,
+				FA525EA8266AEA4B00B5EBFD /* brkiter.h */,
+				FA525EA9266AEA4B00B5EBFD /* platform.h */,
+				FA525EAA266AEA4B00B5EBFD /* rep.h */,
+				FA525EAB266AEA4B00B5EBFD /* std_string.h */,
+				FA525EAC266AEA4B00B5EBFD /* utf8.h */,
+				FA525EAD266AEA4B00B5EBFD /* localpointer.h */,
+				FA525EAE266AEA4B00B5EBFD /* uclean.h */,
+				FA525EAF266AEA4B00B5EBFD /* uscript.h */,
+				FA525EB0266AEA4B00B5EBFD /* utypes.h */,
+				FA525EB1266AEA4B00B5EBFD /* unifilt.h */,
+			);
+			path = unicode;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		BBB165D51E8275120058BF1E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA526245266AEA4D00B5EBFD /* rep.h in Headers */,
+				FA526049266AEA4C00B5EBFD /* numberformatter.h in Headers */,
+				FA526246266AEA4D00B5EBFD /* std_string.h in Headers */,
+				FA5262F5266AEA4D00B5EBFD /* normalizer2impl.h in Headers */,
+				FA5261A9266AEA4D00B5EBFD /* ureslocs.h in Headers */,
+				FA526062266AEA4C00B5EBFD /* unumsys.h in Headers */,
+				FA5262FF266AEA4D00B5EBFD /* ucase.h in Headers */,
+				FA526067266AEA4C00B5EBFD /* measfmt.h in Headers */,
+				FA526231266AEA4D00B5EBFD /* unorm.h in Headers */,
+				FA52620F266AEA4D00B5EBFD /* locdspnm.h in Headers */,
+				FA526018266AEA4C00B5EBFD /* fmtable.h in Headers */,
+				FA5261F5266AEA4D00B5EBFD /* icuplug.h in Headers */,
+				FA52604A266AEA4C00B5EBFD /* datefmt.h in Headers */,
+				FA526014266AEA4C00B5EBFD /* ufieldpositer.h in Headers */,
+				FA52604E266AEA4C00B5EBFD /* uregex.h in Headers */,
+				FA526332266AEA4D00B5EBFD /* ucln_cmn.h in Headers */,
+				FA526304266AEA4D00B5EBFD /* bytesinkutil.h in Headers */,
+				FA5261ED266AEA4D00B5EBFD /* stringpiece.h in Headers */,
+				FA526063266AEA4C00B5EBFD /* formattedvalue.h in Headers */,
+				FA526330266AEA4D00B5EBFD /* ruleiter.h in Headers */,
+				FA526024266AEA4C00B5EBFD /* vtzone.h in Headers */,
+				FA526056266AEA4C00B5EBFD /* udateintervalformat.h in Headers */,
+				FA5261F9266AEA4D00B5EBFD /* urep.h in Headers */,
+				FA526075266AEA4C00B5EBFD /* quant.h in Headers */,
+				FA526216266AEA4D00B5EBFD /* uobject.h in Headers */,
+				FA5261F7266AEA4D00B5EBFD /* edits.h in Headers */,
+				FACE051E276CA5DE006A197F /* uvectr32.h in Headers */,
+				FA52621B266AEA4D00B5EBFD /* caniter.h in Headers */,
+				FA52603F266AEA4C00B5EBFD /* upluralrules.h in Headers */,
+				FA526183266AEA4D00B5EBFD /* rbt_set.h in Headers */,
+				FA526333266AEA4D00B5EBFD /* uinvchar.h in Headers */,
+				FA52605A266AEA4C00B5EBFD /* uspoof.h in Headers */,
+				FA526022266AEA4C00B5EBFD /* rbnf.h in Headers */,
+				FA5261F3266AEA4D00B5EBFD /* dtintrv.h in Headers */,
+				FA526050266AEA4C00B5EBFD /* plurfmt.h in Headers */,
+				FA526009266AEA4C00B5EBFD /* nortrans.h in Headers */,
+				FA52605E266AEA4C00B5EBFD /* format.h in Headers */,
+				FA52605D266AEA4C00B5EBFD /* utrans.h in Headers */,
+				FA52623F266AEA4D00B5EBFD /* ucnv.h in Headers */,
+				FA52632C266AEA4D00B5EBFD /* uarrsort.h in Headers */,
+				FA52602B266AEA4C00B5EBFD /* simpletz.h in Headers */,
+				FA526201266AEA4D00B5EBFD /* casemap.h in Headers */,
+				FA52623C266AEA4D00B5EBFD /* parseerr.h in Headers */,
+				FA52602F266AEA4C00B5EBFD /* basictz.h in Headers */,
+				FA52604D266AEA4C00B5EBFD /* currpinf.h in Headers */,
+				FA52623A266AEA4D00B5EBFD /* unimatch.h in Headers */,
+				FA5261D4266AEA4D00B5EBFD /* uresdata.h in Headers */,
+				FA5261EB266AEA4D00B5EBFD /* ubrk.h in Headers */,
+				FA526066266AEA4C00B5EBFD /* ulistformatter.h in Headers */,
+				FA5262A0266AEA4D00B5EBFD /* propname.h in Headers */,
+				FA526053266AEA4C00B5EBFD /* selfmt.h in Headers */,
+				FA52605C266AEA4C00B5EBFD /* ureldatefmt.h in Headers */,
+				FA526042266AEA4C00B5EBFD /* dtptngen.h in Headers */,
+				FA526017266AEA4C00B5EBFD /* unirepl.h in Headers */,
+				FA52623D266AEA4D00B5EBFD /* putil.h in Headers */,
+				FA52603C266AEA4C00B5EBFD /* listformatter.h in Headers */,
+				FA526016266AEA4C00B5EBFD /* dtfmtsym.h in Headers */,
+				FA526225266AEA4D00B5EBFD /* messagepattern.h in Headers */,
+				FA52604B266AEA4C00B5EBFD /* utmscale.h in Headers */,
+				FA526226266AEA4D00B5EBFD /* uidna.h in Headers */,
+				FA526031266AEA4C00B5EBFD /* plurrule.h in Headers */,
+				FA526046266AEA4C00B5EBFD /* compactdecimalformat.h in Headers */,
+				FA526314266AEA4D00B5EBFD /* putilimp.h in Headers */,
+				FA5261E7266AEA4D00B5EBFD /* utrie2.h in Headers */,
+				FA5261EE266AEA4D00B5EBFD /* ucat.h in Headers */,
+				FA52621C266AEA4D00B5EBFD /* ucharstrie.h in Headers */,
+				FA52602E266AEA4C00B5EBFD /* sortkey.h in Headers */,
+				FA5262BE266AEA4D00B5EBFD /* ubidiimp.h in Headers */,
+				FA52620C266AEA4D00B5EBFD /* uloc.h in Headers */,
+				FA52601A266AEA4C00B5EBFD /* choicfmt.h in Headers */,
+				FA52623E266AEA4D00B5EBFD /* normalizer2.h in Headers */,
+				FA52608C266AEA4C00B5EBFD /* titletrn.h in Headers */,
+				FA5261B2266AEA4D00B5EBFD /* umutex.h in Headers */,
+				FA526028266AEA4C00B5EBFD /* coleitr.h in Headers */,
+				FA52603E266AEA4C00B5EBFD /* ucol.h in Headers */,
+				FA526052266AEA4C00B5EBFD /* ugender.h in Headers */,
+				FA526032266AEA4C00B5EBFD /* measunit.h in Headers */,
+				FA526299266AEA4D00B5EBFD /* cstring.h in Headers */,
+				FA526211266AEA4D00B5EBFD /* enumset.h in Headers */,
+				FA526239266AEA4D00B5EBFD /* uvernum.h in Headers */,
+				FA526134266AEA4C00B5EBFD /* strmatch.h in Headers */,
+				FA526166266AEA4D00B5EBFD /* tolowtrn.h in Headers */,
+				FA526293266AEA4D00B5EBFD /* udataswp.h in Headers */,
+				FA526096266AEA4C00B5EBFD /* unesctrn.h in Headers */,
+				FA52622C266AEA4D00B5EBFD /* umachine.h in Headers */,
+				FA526229266AEA4D00B5EBFD /* symtable.h in Headers */,
+				FA526215266AEA4D00B5EBFD /* bytestrie.h in Headers */,
+				FA5261C7266AEA4D00B5EBFD /* ucln.h in Headers */,
+				FA526060266AEA4C00B5EBFD /* dtrule.h in Headers */,
+				FA52623B266AEA4D00B5EBFD /* ucnvsel.h in Headers */,
+				FA52604C266AEA4C00B5EBFD /* coll.h in Headers */,
+				FA526019266AEA4C00B5EBFD /* dtitvfmt.h in Headers */,
+				FA526323266AEA4D00B5EBFD /* utrie.h in Headers */,
+				FA52621A266AEA4D00B5EBFD /* urename.h in Headers */,
+				FA526058266AEA4C00B5EBFD /* alphaindex.h in Headers */,
+				FA5261F1266AEA4D00B5EBFD /* usetiter.h in Headers */,
+				FA526202266AEA4D00B5EBFD /* schriter.h in Headers */,
+				FA5262D4266AEA4D00B5EBFD /* resource.h in Headers */,
+				FA526222266AEA4D00B5EBFD /* dbbi.h in Headers */,
+				FA526320266AEA4D00B5EBFD /* uhash.h in Headers */,
+				FA526026266AEA4C00B5EBFD /* numsys.h in Headers */,
+				FA526244266AEA4D00B5EBFD /* platform.h in Headers */,
+				FA526224266AEA4D00B5EBFD /* uversion.h in Headers */,
+				FA5261FC266AEA4D00B5EBFD /* ubiditransform.h in Headers */,
+				FA526223266AEA4D00B5EBFD /* bytestream.h in Headers */,
+				FA52624A266AEA4D00B5EBFD /* uscript.h in Headers */,
+				FA526256266AEA4D00B5EBFD /* uresimp.h in Headers */,
+				FA52605F266AEA4C00B5EBFD /* scientificnumberformatter.h in Headers */,
+				FA526248266AEA4D00B5EBFD /* localpointer.h in Headers */,
+				FA526208266AEA4D00B5EBFD /* udata.h in Headers */,
+				FA526041266AEA4C00B5EBFD /* ulocdata.h in Headers */,
+				FA5262C9266AEA4D00B5EBFD /* ucmndata.h in Headers */,
+				FA5261F6266AEA4D00B5EBFD /* utext.h in Headers */,
+				FA526020266AEA4C00B5EBFD /* fpositer.h in Headers */,
+				FA526073266AEA4C00B5EBFD /* cpdtrans.h in Headers */,
+				FA5262B4266AEA4D00B5EBFD /* ucln_imp.h in Headers */,
+				FA526065266AEA4C00B5EBFD /* currunit.h in Headers */,
+				FA52603B266AEA4C00B5EBFD /* udatpg.h in Headers */,
+				FA52601E266AEA4C00B5EBFD /* uregion.h in Headers */,
+				FA5261F2266AEA4D00B5EBFD /* errorcode.h in Headers */,
+				FA526012266AEA4C00B5EBFD /* ucsdet.h in Headers */,
+				FA526257266AEA4D00B5EBFD /* ubidi_props_data.h in Headers */,
+				FA526037266AEA4C00B5EBFD /* regex.h in Headers */,
+				FA52606C266AEA4C00B5EBFD /* uni2name.h in Headers */,
+				FA526218266AEA4D00B5EBFD /* normlzr.h in Headers */,
+				FA526203266AEA4D00B5EBFD /* ucpmap.h in Headers */,
+				FA526154266AEA4C00B5EBFD /* name2uni.h in Headers */,
+				FA526069266AEA4C00B5EBFD /* remtrans.h in Headers */,
+				FA5261A5266AEA4D00B5EBFD /* unisetspan.h in Headers */,
+				FA526243266AEA4D00B5EBFD /* brkiter.h in Headers */,
+				FA52601F266AEA4C00B5EBFD /* ucal.h in Headers */,
+				FA52603D266AEA4C00B5EBFD /* calendar.h in Headers */,
+				FA5262D2266AEA4D00B5EBFD /* util.h in Headers */,
+				FA526104266AEA4C00B5EBFD /* esctrn.h in Headers */,
+				FA526212266AEA4D00B5EBFD /* utf.h in Headers */,
+				FA525FAD266AEA4C00B5EBFD /* anytrans.h in Headers */,
+				FA5261AC266AEA4D00B5EBFD /* udatamem.h in Headers */,
+				FA52620E266AEA4D00B5EBFD /* utrace.h in Headers */,
+				FA526214266AEA4D00B5EBFD /* ucnv_err.h in Headers */,
+				FA52602D266AEA4C00B5EBFD /* umsg.h in Headers */,
+				FA526033266AEA4C00B5EBFD /* gregocal.h in Headers */,
+				FA526035266AEA4C00B5EBFD /* measure.h in Headers */,
+				FA52621D266AEA4D00B5EBFD /* unistr.h in Headers */,
+				FA526255266AEA4D00B5EBFD /* patternprops.h in Headers */,
+				FA526029266AEA4C00B5EBFD /* msgfmt.h in Headers */,
+				FA52624C266AEA4D00B5EBFD /* unifilt.h in Headers */,
+				FA52605B266AEA4C00B5EBFD /* region.h in Headers */,
+				FA526051266AEA4C00B5EBFD /* smpdtfmt.h in Headers */,
+				FA525FE0266AEA4C00B5EBFD /* casetrn.h in Headers */,
+				FA5261FA266AEA4D00B5EBFD /* utf32.h in Headers */,
+				FA526027266AEA4C00B5EBFD /* timezone.h in Headers */,
+				FA526030266AEA4C00B5EBFD /* reldatefmt.h in Headers */,
+				FA526013266AEA4C00B5EBFD /* tzfmt.h in Headers */,
+				FA5261FB266AEA4D00B5EBFD /* ustring.h in Headers */,
+				FA526048266AEA4C00B5EBFD /* tztrans.h in Headers */,
+				FA526021266AEA4C00B5EBFD /* dtitvinf.h in Headers */,
+				FA526011266AEA4C00B5EBFD /* translit.h in Headers */,
+				FA526200266AEA4D00B5EBFD /* uset.h in Headers */,
+				FA526228266AEA4D00B5EBFD /* char16ptr.h in Headers */,
+				FA52622B266AEA4D00B5EBFD /* udisplaycontext.h in Headers */,
+				FA526220266AEA4D00B5EBFD /* unorm2.h in Headers */,
+				FA5261F0266AEA4D00B5EBFD /* ptypes.h in Headers */,
+				FA526064266AEA4C00B5EBFD /* numfmt.h in Headers */,
+				FA526232266AEA4D00B5EBFD /* ushape.h in Headers */,
+				FA5262A2266AEA4D00B5EBFD /* uenumimp.h in Headers */,
+				FA526209266AEA4D00B5EBFD /* stringtriebuilder.h in Headers */,
+				FA5262FC266AEA4D00B5EBFD /* ustrenum.h in Headers */,
+				FA526234266AEA4D00B5EBFD /* simpleformatter.h in Headers */,
+				FA526238266AEA4D00B5EBFD /* ubidi.h in Headers */,
+				FA526061266AEA4C00B5EBFD /* search.h in Headers */,
+				FA52604F266AEA4C00B5EBFD /* tmutfmt.h in Headers */,
+				FA526034266AEA4C00B5EBFD /* nounit.h in Headers */,
+				FA526015266AEA4C00B5EBFD /* tblcoll.h in Headers */,
+				FA526280266AEA4D00B5EBFD /* ubidi_props.h in Headers */,
+				FA52608F266AEA4C00B5EBFD /* ucln_in.h in Headers */,
+				FA526036266AEA4C00B5EBFD /* tzrule.h in Headers */,
+				FA526221266AEA4D00B5EBFD /* localebuilder.h in Headers */,
+				FA52621F266AEA4D00B5EBFD /* idna.h in Headers */,
+				FA52610D266AEA4C00B5EBFD /* rbt_data.h in Headers */,
+				FA526023266AEA4C00B5EBFD /* udat.h in Headers */,
+				FA5261E6266AEA4D00B5EBFD /* uelement.h in Headers */,
+				FA526213266AEA4D00B5EBFD /* strenum.h in Headers */,
+				FA526118266AEA4C00B5EBFD /* transreg.h in Headers */,
+				FA5261F8266AEA4D00B5EBFD /* parsepos.h in Headers */,
+				FA526047266AEA4C00B5EBFD /* unum.h in Headers */,
+				FA5261EA266AEA4D00B5EBFD /* utf_old.h in Headers */,
+				FA5261FE266AEA4D00B5EBFD /* umutablecptrie.h in Headers */,
+				FA526207266AEA4D00B5EBFD /* uniset.h in Headers */,
+				FA52602C266AEA4C00B5EBFD /* unumberformatter.h in Headers */,
+				FA526306266AEA4D00B5EBFD /* uset_imp.h in Headers */,
+				FA526205266AEA4D00B5EBFD /* uiter.h in Headers */,
+				FA526098266AEA4C00B5EBFD /* rbt_rule.h in Headers */,
+				FA52620B266AEA4D00B5EBFD /* umisc.h in Headers */,
+				FA526236266AEA4D00B5EBFD /* locid.h in Headers */,
+				FA52601D266AEA4C00B5EBFD /* tznames.h in Headers */,
+				FA5260D0266AEA4C00B5EBFD /* rbt_pars.h in Headers */,
+				FA526057266AEA4C00B5EBFD /* stsearch.h in Headers */,
+				FA526230266AEA4D00B5EBFD /* uchar.h in Headers */,
+				FA526235266AEA4D00B5EBFD /* ucnv_cb.h in Headers */,
+				FACE0516276CA365006A197F /* emojiprops.h in Headers */,
+				FA5261B3266AEA4D00B5EBFD /* locmap.h in Headers */,
+				FA526258266AEA4D00B5EBFD /* utracimp.h in Headers */,
+				FA526247266AEA4D00B5EBFD /* utf8.h in Headers */,
+				FA5261B6266AEA4D00B5EBFD /* uvector.h in Headers */,
+				FA526237266AEA4D00B5EBFD /* resbund.h in Headers */,
+				FA52628D266AEA4D00B5EBFD /* uposixdefs.h in Headers */,
+				FA52624B266AEA4D00B5EBFD /* utypes.h in Headers */,
+				FA526054266AEA4C00B5EBFD /* uformattable.h in Headers */,
+				FA526254266AEA4D00B5EBFD /* cmemory.h in Headers */,
+				FA52627D266AEA4D00B5EBFD /* charstr.h in Headers */,
+				FA526038266AEA4C00B5EBFD /* gender.h in Headers */,
+				FA52601B266AEA4C00B5EBFD /* unumberrangeformatter.h in Headers */,
+				FA526217266AEA4D00B5EBFD /* ures.h in Headers */,
+				FA5261FD266AEA4D00B5EBFD /* uenum.h in Headers */,
+				FA5262E0266AEA4D00B5EBFD /* bmpset.h in Headers */,
+				FA526301266AEA4D00B5EBFD /* unistrappender.h in Headers */,
+				FA526059266AEA4C00B5EBFD /* rbtz.h in Headers */,
+				FA52602A266AEA4C00B5EBFD /* fieldpos.h in Headers */,
+				FA5261F4266AEA4D00B5EBFD /* ucurr.h in Headers */,
+				FA526040266AEA4C00B5EBFD /* tmunit.h in Headers */,
+				FA526204266AEA4D00B5EBFD /* uldnames.h in Headers */,
+				FA52627C266AEA4D00B5EBFD /* ulocimp.h in Headers */,
+				FA526025266AEA4C00B5EBFD /* usearch.h in Headers */,
+				FA5262FD266AEA4D00B5EBFD /* uprops.h in Headers */,
+				FA526241266AEA4D00B5EBFD /* uconfig.h in Headers */,
+				FA526044266AEA4C00B5EBFD /* uformattedvalue.h in Headers */,
+				FA5261FF266AEA4D00B5EBFD /* appendable.h in Headers */,
+				FA526206266AEA4D00B5EBFD /* docmain.h in Headers */,
+				FA525FD7266AEA4C00B5EBFD /* toupptrn.h in Headers */,
+				FA526074266AEA4C00B5EBFD /* funcrepl.h in Headers */,
+				FA52601C266AEA4C00B5EBFD /* numberrangeformatter.h in Headers */,
+				FA526055266AEA4C00B5EBFD /* curramt.h in Headers */,
+				FA526242266AEA4D00B5EBFD /* utf16.h in Headers */,
+				FA52621E266AEA4D00B5EBFD /* rbbi.h in Headers */,
+				FA526219266AEA4D00B5EBFD /* usprep.h in Headers */,
+				FA526210266AEA4D00B5EBFD /* uchriter.h in Headers */,
+				FA5260F8266AEA4C00B5EBFD /* strrepl.h in Headers */,
+				FA52622A266AEA4D00B5EBFD /* ucasemap.h in Headers */,
+				FA52620D266AEA4D00B5EBFD /* bytestriebuilder.h in Headers */,
+				FA52603A266AEA4C00B5EBFD /* decimfmt.h in Headers */,
+				FA526039266AEA4C00B5EBFD /* dcfmtsym.h in Headers */,
+				FA526227266AEA4D00B5EBFD /* filteredbrk.h in Headers */,
+				FA52622D266AEA4D00B5EBFD /* ustringtrie.h in Headers */,
+				FA5261EF266AEA4D00B5EBFD /* stringoptions.h in Headers */,
+				FA526273266AEA4D00B5EBFD /* umapfile.h in Headers */,
+				FA52622F266AEA4D00B5EBFD /* icudataver.h in Headers */,
+				FA5261B9266AEA4D00B5EBFD /* uniquecharstr.h in Headers */,
+				FA526249266AEA4D00B5EBFD /* uclean.h in Headers */,
+				FA525FB6266AEA4C00B5EBFD /* rbt.h in Headers */,
+				FA52622E266AEA4D00B5EBFD /* ucptrie.h in Headers */,
+				FA526163266AEA4D00B5EBFD /* nultrans.h in Headers */,
+				FA5261EC266AEA4D00B5EBFD /* localematcher.h in Headers */,
+				FA52630E266AEA4D00B5EBFD /* locutil.h in Headers */,
+				FA526233266AEA4D00B5EBFD /* unifunct.h in Headers */,
+				FA526045266AEA4C00B5EBFD /* ucoleitr.h in Headers */,
+				FA525FB8266AEA4C00B5EBFD /* tridpars.h in Headers */,
+				FA526240266AEA4D00B5EBFD /* ucharstriebuilder.h in Headers */,
+				FA52620A266AEA4D00B5EBFD /* chariter.h in Headers */,
+				FA526043266AEA4C00B5EBFD /* tmutamt.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		BBB165D61E8275120058BF1E /* icu */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BBB165E21E8275120058BF1E /* Build configuration list for PBXNativeTarget "icu" */;
+			buildPhases = (
+				BBB165D31E8275120058BF1E /* Sources */,
+				BBB165D41E8275120058BF1E /* Frameworks */,
+				BBB165D51E8275120058BF1E /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = icu;
+			productName = icu;
+			productReference = BBB165D71E8275120058BF1E /* libicu.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BBB165CF1E8275120058BF1E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1410;
+				TargetAttributes = {
+					BBB165D61E8275120058BF1E = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = BBB165D21E8275120058BF1E /* Build configuration list for PBXProject "icu" */;
+			compatibilityVersion = "Xcode 12.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BBB165CE1E8275120058BF1E;
+			productRefGroup = BBB165D81E8275120058BF1E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BBB165D61E8275120058BF1E /* icu */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BBB165D31E8275120058BF1E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FACE0515276CA365006A197F /* emojiprops.cpp in Sources */,
+				FA5262FB266AEA4D00B5EBFD /* ubidi_props.cpp in Sources */,
+				FA5260EA266AEA4C00B5EBFD /* titletrn.cpp in Sources */,
+				FA525FAA266AEA4C00B5EBFD /* nultrans.cpp in Sources */,
+				FA5262F6266AEA4D00B5EBFD /* uresbund.cpp in Sources */,
+				FA5260AC266AEA4C00B5EBFD /* rbt.cpp in Sources */,
+				FA5262BC266AEA4D00B5EBFD /* ucln_cmn.cpp in Sources */,
+				FA52618D266AEA4D00B5EBFD /* rbt_data.cpp in Sources */,
+				FA52631D266AEA4D00B5EBFD /* ustrenum.cpp in Sources */,
+				FA526290266AEA4D00B5EBFD /* stringpiece.cpp in Sources */,
+				FA52631F266AEA4D00B5EBFD /* unistr_case_locale.cpp in Sources */,
+				FA526282266AEA4D00B5EBFD /* utrie2.cpp in Sources */,
+				FA52627A266AEA4D00B5EBFD /* uniset_closure.cpp in Sources */,
+				FA52630F266AEA4D00B5EBFD /* uinvchar.cpp in Sources */,
+				FA5262BA266AEA4D00B5EBFD /* uset.cpp in Sources */,
+				FA5261B7266AEA4D00B5EBFD /* ubidiwrt.cpp in Sources */,
+				FA52629A266AEA4D00B5EBFD /* unistr_case.cpp in Sources */,
+				FA52631A266AEA4D00B5EBFD /* uloc.cpp in Sources */,
+				FA5260A0266AEA4C00B5EBFD /* rbt_rule.cpp in Sources */,
+				FA5261A2266AEA4D00B5EBFD /* uniset.cpp in Sources */,
+				FA526155266AEA4C00B5EBFD /* esctrn.cpp in Sources */,
+				FA5262EB266AEA4D00B5EBFD /* ruleiter.cpp in Sources */,
+				FA526279266AEA4D00B5EBFD /* bmpset.cpp in Sources */,
+				FA5261A6266AEA4D00B5EBFD /* utf_impl.cpp in Sources */,
+				FA5261CE266AEA4D00B5EBFD /* unisetspan.cpp in Sources */,
+				FA52611C266AEA4C00B5EBFD /* nortrans.cpp in Sources */,
+				FA52626C266AEA4D00B5EBFD /* charstr.cpp in Sources */,
+				FA5262DF266AEA4D00B5EBFD /* uhash_us.cpp in Sources */,
+				FA5262B0266AEA4D00B5EBFD /* umapfile.cpp in Sources */,
+				FA5262DE266AEA4D00B5EBFD /* resbund.cpp in Sources */,
+				FA5261A7266AEA4D00B5EBFD /* uhash.cpp in Sources */,
+				FA5261E2266AEA4D00B5EBFD /* ubidiln.cpp in Sources */,
+				FA5261C5266AEA4D00B5EBFD /* util.cpp in Sources */,
+				FA5262CD266AEA4D00B5EBFD /* loadednormalizer2impl.cpp in Sources */,
+				FA52628C266AEA4D00B5EBFD /* localebuilder.cpp in Sources */,
+				FACE051D276CA5DE006A197F /* ucharstrie.cpp in Sources */,
+				FA5262AB266AEA4D00B5EBFD /* unifilt.cpp in Sources */,
+				FA5261DA266AEA4D00B5EBFD /* loclikely.cpp in Sources */,
+				FA5260FE266AEA4C00B5EBFD /* rbt_pars.cpp in Sources */,
+				FA5262CE266AEA4D00B5EBFD /* udata.cpp in Sources */,
+				FA5262B9266AEA4D00B5EBFD /* umath.cpp in Sources */,
+				FA5261E5266AEA4D00B5EBFD /* putil.cpp in Sources */,
+				FA526253266AEA4D00B5EBFD /* locutil.cpp in Sources */,
+				FA52619A266AEA4D00B5EBFD /* tolowtrn.cpp in Sources */,
+				FA526300266AEA4D00B5EBFD /* normalizer2impl.cpp in Sources */,
+				FA526110266AEA4C00B5EBFD /* anytrans.cpp in Sources */,
+				FA52624F266AEA4D00B5EBFD /* ucase.cpp in Sources */,
+				FA52625F266AEA4D00B5EBFD /* uloc_tag.cpp in Sources */,
+				FA5262DC266AEA4D00B5EBFD /* normalizer2.cpp in Sources */,
+				FA5262E5266AEA4D00B5EBFD /* umutex.cpp in Sources */,
+				FA52624E266AEA4D00B5EBFD /* uvector.cpp in Sources */,
+				FA52627E266AEA4D00B5EBFD /* bytesinkutil.cpp in Sources */,
+				FA5261DB266AEA4D00B5EBFD /* uscript_props.cpp in Sources */,
+				FA5262A4266AEA4D00B5EBFD /* uprops.cpp in Sources */,
+				FA52632E266AEA4D00B5EBFD /* uscript.cpp in Sources */,
+				FA5261C6266AEA4D00B5EBFD /* cstring.cpp in Sources */,
+				FA5261E9266AEA4D00B5EBFD /* bytestrie.cpp in Sources */,
+				FA526288266AEA4D00B5EBFD /* udatamem.cpp in Sources */,
+				FA5262D8266AEA4D00B5EBFD /* ustrcase_locale.cpp in Sources */,
+				FA526117266AEA4C00B5EBFD /* remtrans.cpp in Sources */,
+				FA5261AE266AEA4D00B5EBFD /* ushape.cpp in Sources */,
+				FA5260B3266AEA4C00B5EBFD /* strrepl.cpp in Sources */,
+				FA52600D266AEA4C00B5EBFD /* casetrn.cpp in Sources */,
+				FA526264266AEA4D00B5EBFD /* uenum.cpp in Sources */,
+				FA52628A266AEA4D00B5EBFD /* patternprops.cpp in Sources */,
+				FA5262DA266AEA4D00B5EBFD /* unistr.cpp in Sources */,
+				FA526093266AEA4C00B5EBFD /* tridpars.cpp in Sources */,
+				FA5262D6266AEA4D00B5EBFD /* udataswp.cpp in Sources */,
+				FA526296266AEA4D00B5EBFD /* cmemory.cpp in Sources */,
+				FA5261BE266AEA4D00B5EBFD /* ubiditransform.cpp in Sources */,
+				FACE051C276CA5DE006A197F /* uvectr32.cpp in Sources */,
+				FA526319266AEA4D00B5EBFD /* util_props.cpp in Sources */,
+				FA525FBB266AEA4C00B5EBFD /* transreg.cpp in Sources */,
+				FA5260C2266AEA4C00B5EBFD /* funcrepl.cpp in Sources */,
+				FA5262CA266AEA4D00B5EBFD /* parsepos.cpp in Sources */,
+				FA52626D266AEA4D00B5EBFD /* uloc_keytype.cpp in Sources */,
+				FA526297266AEA4D00B5EBFD /* resbund_cnv.cpp in Sources */,
+				FA526337266AEA4D00B5EBFD /* utrace.cpp in Sources */,
+				FA526094266AEA4C00B5EBFD /* cpdtrans.cpp in Sources */,
+				FA5262A6266AEA4D00B5EBFD /* propname.cpp in Sources */,
+				FA5262FA266AEA4D00B5EBFD /* ucptrie.cpp in Sources */,
+				FA5262C2266AEA4D00B5EBFD /* ucmndata.cpp in Sources */,
+				FA5261B0266AEA4D00B5EBFD /* uarrsort.cpp in Sources */,
+				FA526313266AEA4D00B5EBFD /* ustring.cpp in Sources */,
+				FA525FA9266AEA4C00B5EBFD /* stubdata.cpp in Sources */,
+				FA526270266AEA4D00B5EBFD /* ubidi.cpp in Sources */,
+				FA5260D8266AEA4C00B5EBFD /* ucln_in.cpp in Sources */,
+				FA526321266AEA4D00B5EBFD /* uobject.cpp in Sources */,
+				FA526289266AEA4D00B5EBFD /* umutablecptrie.cpp in Sources */,
+				FA525FF7266AEA4C00B5EBFD /* toupptrn.cpp in Sources */,
+				FA5262E2266AEA4D00B5EBFD /* utrie.cpp in Sources */,
+				FA526135266AEA4C00B5EBFD /* rbt_set.cpp in Sources */,
+				FA5261D6266AEA4D00B5EBFD /* locid.cpp in Sources */,
+				FA52624D266AEA4D00B5EBFD /* resource.cpp in Sources */,
+				FA526113266AEA4C00B5EBFD /* unesctrn.cpp in Sources */,
+				FA526294266AEA4D00B5EBFD /* ustrtrns.cpp in Sources */,
+				FA5260D7266AEA4C00B5EBFD /* strmatch.cpp in Sources */,
+				FA52630A266AEA4D00B5EBFD /* unifunct.cpp in Sources */,
+				FA5262FE266AEA4D00B5EBFD /* uchar.cpp in Sources */,
+				FA5262B5266AEA4D00B5EBFD /* ustrcase.cpp in Sources */,
+				FA5261A0266AEA4D00B5EBFD /* uni2name.cpp in Sources */,
+				FA5261B4266AEA4D00B5EBFD /* uniset_props.cpp in Sources */,
+				FA5260D3266AEA4C00B5EBFD /* name2uni.cpp in Sources */,
+				FA526311266AEA4D00B5EBFD /* bytestream.cpp in Sources */,
+				FA5262AD266AEA4D00B5EBFD /* uresdata.cpp in Sources */,
+				FA52630B266AEA4D00B5EBFD /* characterproperties.cpp in Sources */,
+				FA5262C4266AEA4D00B5EBFD /* edits.cpp in Sources */,
+				FA5261D8266AEA4D00B5EBFD /* unames.cpp in Sources */,
+				FA5262ED266AEA4D00B5EBFD /* appendable.cpp in Sources */,
+				FACE051B276CA5DE006A197F /* ucharstrieiterator.cpp in Sources */,
+				FA5262AC266AEA4D00B5EBFD /* utrie_swap.cpp in Sources */,
+				FA526334266AEA4D00B5EBFD /* locmap.cpp in Sources */,
+				FA526080266AEA4C00B5EBFD /* translit.cpp in Sources */,
+				FA5260B8266AEA4C00B5EBFD /* quant.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		BBB165E01E8275120058BF1E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BBB16C1A1E8276A50058BF1E /* common-debug.xcconfig */;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					UCONFIG_USE_LOCAL,
+					"$(inherited)",
+				);
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/icu",
+					"$(OMIM_ROOT)/3party/icu/icu/icu4c/source/common",
+					"$(OMIM_ROOT)/3party/icu/icu/icu4c/source/i18n",
+				);
+			};
+			name = Debug;
+		};
+		BBB165E11E8275120058BF1E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BBB16C1B1E8276A50058BF1E /* common-release.xcconfig */;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					UCONFIG_USE_LOCAL,
+					"$(inherited)",
+				);
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/icu",
+					"$(OMIM_ROOT)/3party/icu/icu/icu4c/source/common",
+					"$(OMIM_ROOT)/3party/icu/icu/icu4c/source/i18n",
+				);
+			};
+			name = Release;
+		};
+		BBB165E31E8275120058BF1E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		BBB165E41E8275120058BF1E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BBB165D21E8275120058BF1E /* Build configuration list for PBXProject "icu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BBB165E01E8275120058BF1E /* Debug */,
+				BBB165E11E8275120058BF1E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BBB165E21E8275120058BF1E /* Build configuration list for PBXNativeTarget "icu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BBB165E31E8275120058BF1E /* Debug */,
+				BBB165E41E8275120058BF1E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BBB165CF1E8275120058BF1E /* Project object */;
+}

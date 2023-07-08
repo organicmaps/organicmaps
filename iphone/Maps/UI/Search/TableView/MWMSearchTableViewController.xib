@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMSearchTableViewController">
+            <connections>
+                <outlet property="tableView" destination="oZD-Er-6fn" id="Ayl-9n-mV7"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="i5M-Pr-FkT" customClass="MWMSearchTableView" propertyAccessControl="none">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NsS-9j-1hr">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ed-oS-Uw6">
+                            <rect key="frame" x="0.0" y="70" width="320" height="320"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="320" id="iu3-jC-BuA"/>
+                                <constraint firstAttribute="width" secondItem="0ed-oS-Uw6" secondAttribute="height" multiplier="1:1" priority="999" id="rBn-RY-c74"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="0ed-oS-Uw6" firstAttribute="centerY" secondItem="NsS-9j-1hr" secondAttribute="centerY" id="3os-g7-XiN"/>
+                        <constraint firstItem="0ed-oS-Uw6" firstAttribute="centerX" secondItem="NsS-9j-1hr" secondAttribute="centerX" id="N4N-MH-XVw"/>
+                        <constraint firstItem="0ed-oS-Uw6" firstAttribute="height" relation="lessThanOrEqual" secondItem="NsS-9j-1hr" secondAttribute="height" id="aad-2C-r3O"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oZD-Er-6fn">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="T9n-AG-sHf"/>
+                        <outlet property="delegate" destination="-1" id="Syl-wX-U5b"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="oZD-Er-6fn" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="9cU-AY-lQv"/>
+                <constraint firstItem="NsS-9j-1hr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="C7g-sy-qp4"/>
+                <constraint firstAttribute="trailing" secondItem="oZD-Er-6fn" secondAttribute="trailing" id="DoP-hv-QXb"/>
+                <constraint firstAttribute="bottom" secondItem="NsS-9j-1hr" secondAttribute="bottom" priority="750" id="P9i-5E-bpw"/>
+                <constraint firstItem="NsS-9j-1hr" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="csW-fl-Sp0"/>
+                <constraint firstAttribute="trailing" secondItem="NsS-9j-1hr" secondAttribute="trailing" id="dIC-Mf-12H"/>
+                <constraint firstItem="oZD-Er-6fn" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="iKy-dd-6Jt"/>
+                <constraint firstAttribute="bottom" secondItem="oZD-Er-6fn" secondAttribute="bottom" priority="750" id="rgu-oY-7XC"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="noResultsBottomOffset" destination="P9i-5E-bpw" id="qTI-X5-KzS"/>
+                <outlet property="noResultsContainer" destination="NsS-9j-1hr" id="BfV-Wz-ztf"/>
+                <outlet property="noResultsWrapper" destination="0ed-oS-Uw6" id="RbW-yn-sl8"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="154"/>
+        </view>
+    </objects>
+</document>

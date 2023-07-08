@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:fitsSystemWindows="true">
+
+  <FrameLayout
+    android:id="@+id/fragment_container"
+    style="@style/MwmWidget.FrameLayout.Elevation"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?windowBackgroundForced"
+    android:layout_above="@+id/tv__mode_switch"
+    android:layout_below="@id/toolbar"/>
+
+  <View
+    android:id="@+id/v__bottom_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignTop="@+id/tv__mode_switch"
+    android:layout_alignParentBottom="true"
+    android:background="?cardBackground"/>
+
+  <TextView
+    android:id="@+id/tv__mode_switch"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="?clickableBackground"
+    android:gravity="center_vertical"
+    android:padding="@dimen/margin_base"
+    android:text="@string/editor_time_advanced"
+    android:textAllCaps="true"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    android:textColor="?colorAccent" />
+
+  <include
+    layout="@layout/shadow_bottom"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_above="@id/tv__mode_switch"/>
+
+</RelativeLayout>

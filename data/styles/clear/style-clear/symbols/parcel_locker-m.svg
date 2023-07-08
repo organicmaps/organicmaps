@@ -1,0 +1,11 @@
+<svg version="1.1" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+ <title>parcel_locker-m</title>
+ <g id="parcel_locker" fill="#717065">
+  <path d="m2 5.0723v5.9258l6 2.9336v-5.9316z"/>
+  <path d="m14 4-4.9995 3.3456-4.897e-4 5.922 5-3.2676z"/>
+  <path d="m7.5 0-5.5 4 6.0058 2.8751 5.9942-3.8732v-0.00391z"/>
+  <path d="m0 14h2.5v-1h-1.5v-12h1.5v-1h-2.5z"/>
+  <circle id="Oval" cx="2.5" cy="0.5" r="0.5"/>
+  <circle id="Oval" cx="2.5" cy="13.5" r="0.5"/>
+ </g>
+</svg>

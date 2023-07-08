@@ -1,0 +1,53 @@
+‣ A nosa aplicación gratuíta non rastrexa a ninguén, non contén anuncios e precisa do teu apoio.
+‣ Os colaboradores e o noso pequeno equipo están a melloralo constantemente no noso tempo libre.
+‣ Se algo está mal ou falta no mapa, corrixao en <b>OpenStreetMap</b> e vexa os cambios na futura actualización do mapa.
+‣ Se a navegación ou a busca non funciona, envíanos un correo electrónico. Respondemos a <i>TODOS</i> os correos electrónicos e solucionarémolo canto antes.
+
+<b>Os teus comentarios e valoracións de 5 estrelas son a mellor motivación para nós.</b>
+
+Funcións principais:
+
+• Gratuíto, código aberto, sen anuncios, sen seguimento
+• Mapas detallados sen conexión con localizacións que non se atopan noutros mapas, grazas á comunidade <b>OpenStreetMap</b>.
+• Rutas para bicicletas e paseos
+• Curvas de nivel, perfís de altura, cumes montañosos e ladeiras
+• Navegación paso a paso para peóns, ciclistas e coches con guía de voz
+• Busca rápida sen conexión
+• Exportación e importación de marcadores en formato KML, KMZ, GPX
+• Modo escuro para protexer os ollos
+
+Android Auto, o transporte público e os mapas por satélite <i>aínda</i> non son compatibles. Pero coa <i>a túa axuda e apoio</i> podemos mellorar este mundo e os nosos mapas, paso a paso.
+
+Organic Maps é <b>puro, orgánico e feito con amor</b>:
+
+• Experiencia sen conexión rápida como un lóstrego
+• Respecta a túa privacidade
+• Aforrar batería
+• Non hai cargos de datos móbiles inesperados
+• Fácil de usar, só están integradas as funcións máis importantes
+
+Libre de rastreadores e cousas malas:
+
+• Sen anuncios
+• Sen seguimento
+• Sen recollida de datos
+• Sen telemetría
+• Sen rexistros molestos
+• Sen titorías obrigatorias
+• Non hai correo electrónico lixo molesto
+• Non hai notificacións push
+• Sen lixo
+• Simplemente natural na súa forma e uso
+
+En Organic Maps, cremos que <b>a privacidade é un dereito humano básico</b>:
+
+• Organic Maps é un proxecto de código aberto mantido por unha comunidade independente
+• Protexemos a túa privacidade das miradas indiscretas dos grandes xigantes da tecnoloxía
+• Mantéñase seguro sen importar onde esteas
+
+Non hai rastreadores e só son necesarios permisos mínimos, segundo o informe de privacidade de Exodus.
+
+Visita o sitio web <b><i>organicmaps.app</i></b> para obter máis detalles e preguntas frecuentes. Ou póñase en contacto connosco directamente en @OrganicMapsApp en Telegram.
+
+Rexeita a vixilancia: vive a túa liberdade.
+<b>Proba Organic Maps!</b>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  android:id="@+id/ll__place_entrance"
+  style="@style/PlacePageItemFrame"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  tools:background="#40FF0000"
+  tools:visibility="visible">
+  <ImageView
+    style="@style/PlacePageMetadataIcon"
+    android:src="@drawable/ic_entrance"/>
+
+  <TextView
+    android:id="@+id/tv__place_entrance"
+    style="@style/PlacePageMetadataText"
+    tools:text="150 - 200"/>
+</LinearLayout>

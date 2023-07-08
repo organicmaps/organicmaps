@@ -1,0 +1,10 @@
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>cafe-m</title>
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity="1">
+  <g id="cafe-m" fill-rule="nonzero">
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#000" opacity=".6"/>
+   <circle id="Oval" cx="12" cy="12" r="11" fill="#BB9342"/>
+   <path id="Shape" d="m15.889 7h-8.8889v5.5556c0 1.2278 0.99444 2.2222 2.2222 2.2222h3.3333c1.2278 0 2.2222-0.99444 2.2222-2.2222v-1.6667h1.1111c0.61667 0 1.1111-0.5 1.1111-1.1111v-1.6667c0-0.61667-0.49444-1.1111-1.1111-1.1111zm0 2.7778h-1.1111v-1.6667h1.1111v1.6667zm-8.8889 6.1111h8.8889v1.1111h-8.8889v-1.1111z" fill="#000"/>
+  </g>
+ </g>
+</svg>

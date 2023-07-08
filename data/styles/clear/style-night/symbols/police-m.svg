@@ -1,0 +1,10 @@
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>police-m</title>
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity="1">
+  <g id="police-m" fill-rule="nonzero">
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#000" opacity=".6"/>
+   <circle id="Oval" cx="12" cy="12" r="11" fill="#717065"/>
+   <path id="Shape" d="m11.727 5-5.7273 2.5455v3.8182c0 3.5318 2.4436 6.8345 5.7273 7.6364 3.2836-0.80182 5.7273-4.1045 5.7273-7.6364v-3.8182l-5.7273-2.5455zm1.5909 7.3755 0.57273 2.4691-2.1636-1.3045-2.1636 1.3045 0.57273-2.4627-1.9091-1.6482 2.52-0.21636 0.98-2.3227 0.98 2.3164 2.52 0.21636-1.9091 1.6482z" fill="#000"/>
+  </g>
+ </g>
+</svg>

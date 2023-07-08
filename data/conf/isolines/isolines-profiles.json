@@ -1,0 +1,88 @@
+{
+    "profiles": [
+        {
+            "key": "high",
+            "value": {
+                "alitudesStep": 20,
+                "gaussianFilterRFactor": 1.0,
+                "gaussianFilterStDev": 2.0,
+                "latLonStepFactor": 1,
+                "maxIsolinesLength": 500,
+                "medianFilterR": 1,
+                "simplificationZoom": 17
+            }
+        },
+        {
+            "key": "high_f2",
+            "value": {
+                "alitudesStep": 20,
+                "gaussianFilterRFactor": 1.0,
+                "gaussianFilterStDev": 2.0,
+                "latLonStepFactor": 2,
+                "maxIsolinesLength": 500,
+                "medianFilterR": 1,
+                "simplificationZoom": 17
+            }
+        },
+        {
+            "key": "normal",
+            "value": {
+                "alitudesStep": 50,
+                "gaussianFilterRFactor": 1.0,
+                "gaussianFilterStDev": 2.0,
+                "latLonStepFactor": 1,
+                "maxIsolinesLength": 500,
+                "medianFilterR": 1,
+                "simplificationZoom": 15
+            }
+        },
+        {
+            "key": "small",
+            "value": {
+                "alitudesStep": 50,
+                "gaussianFilterRFactor": 1.0,
+                "gaussianFilterStDev": 2.0,
+                "latLonStepFactor": 1,
+                "maxIsolinesLength": 500,
+                "medianFilterR": 1,
+                "simplificationZoom": 14
+            }
+        },
+        {
+            "key": "extra_small",
+            "value": {
+                "alitudesStep": 100,
+                "gaussianFilterRFactor": 1.0,
+                "gaussianFilterStDev": 2.0,
+                "latLonStepFactor": 1,
+                "maxIsolinesLength": 500,
+                "medianFilterR": 1,
+                "simplificationZoom": 14
+            }
+        },
+        {
+            "key": "poor",
+            "value": {
+                "alitudesStep": 500,
+                "gaussianFilterRFactor": 1.0,
+                "gaussianFilterStDev": 2.0,
+                "latLonStepFactor": 2,
+                "maxIsolinesLength": 500,
+                "medianFilterR": 1,
+                "simplificationZoom": 14
+            }
+        },
+        {
+            "key": "extra_poor",
+            "value": {
+                "alitudesStep": 1000,
+                "gaussianFilterRFactor": 1.0,
+                "gaussianFilterStDev": 2.0,
+                "latLonStepFactor": 2,
+                "maxIsolinesLength": 500,
+                "medianFilterR": 1,
+                "simplificationZoom": 14
+            }
+        }
+    ]
+}

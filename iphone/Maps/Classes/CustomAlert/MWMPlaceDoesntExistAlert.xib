@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="bh1-8l-voy" customClass="MWMPlaceDoesntExistAlert">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XjH-qf-m6h" userLabel="ContainerView">
+                    <rect key="frame" x="47.5" y="250.5" width="280" height="166"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NwN-e5-YQR" userLabel="Title">
+                            <rect key="frame" x="20" y="20" width="240" height="22"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="240" id="Bz8-HZ-yfK"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="JWn-Ze-jrX"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium18:blackPrimaryText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_place_doesnt_exist"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VvH-Bb-fV9" userLabel="Message">
+                            <rect key="frame" x="20" y="54" width="240" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="240" id="Gau-b5-VxP"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="VWx-20-JCg"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_detailed_description"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="npf-dH-f50">
+                            <rect key="frame" x="16" y="86" width="248" height="24"/>
+                            <subviews>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0f8-vD-nJT">
+                                    <rect key="frame" x="4" y="0.0" width="240" height="24"/>
+                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="240" id="uql-Jo-4VK"/>
+                                    </constraints>
+                                    <edgeInsets key="layoutMargins" top="4" left="4" bottom="4" right="4"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackPrimaryText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="editor_comment_hint"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+                                    </userDefinedRuntimeAttributes>
+                                </textField>
+                            </subviews>
+                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstItem="0f8-vD-nJT" firstAttribute="centerX" secondItem="npf-dH-f50" secondAttribute="centerX" id="Pm7-RK-HAq"/>
+                                <constraint firstItem="0f8-vD-nJT" firstAttribute="centerY" secondItem="npf-dH-f50" secondAttribute="centerY" id="T6e-qA-hJ1"/>
+                                <constraint firstAttribute="height" constant="24" id="ZAd-qX-QyG"/>
+                                <constraint firstAttribute="width" constant="248" id="x63-Bq-F0w"/>
+                                <constraint firstItem="0f8-vD-nJT" firstAttribute="height" secondItem="npf-dH-f50" secondAttribute="height" id="zHi-xB-aCQ"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AlertViewTextField"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kEx-DM-ynC" userLabel="hDivider">
+                            <rect key="frame" x="0.0" y="122" width="280" height="1"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="JKX-3f-YE4"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zaM-0A-71d" userLabel="left">
+                            <rect key="frame" x="0.0" y="122" width="140" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="JRt-9h-Ljb"/>
+                                <constraint firstAttribute="width" constant="140" id="y86-N4-bGg"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <state key="normal" title="left">
+                                <color key="titleColor" red="0.090196078430000007" green="0.61960784310000006" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <state key="highlighted" backgroundImage="dialog_btn_press"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="cancel"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium17:linkBlueText"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="leftButtonTap" destination="bh1-8l-voy" eventType="touchUpInside" id="Ge7-Dx-Pf3"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MkK-sG-n6m" userLabel="right">
+                            <rect key="frame" x="140" y="122" width="140" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="2ra-bP-J3a"/>
+                                <constraint firstAttribute="width" constant="140" id="pNb-5U-J8Z"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                            <state key="normal" title="right">
+                                <color key="titleColor" red="0.090196078430000007" green="0.61960784310000006" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <state key="highlighted" backgroundImage="dialog_btn_press"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_report_problem_send_button"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium17:linkBlueText"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="rightButtonTap" destination="bh1-8l-voy" eventType="touchUpInside" id="4FZ-zi-TAB"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tyn-yU-dk3" userLabel="vDivider">
+                            <rect key="frame" x="139.5" y="122" width="1" height="44"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="1" id="Bva-2f-zNE"/>
+                                <constraint firstAttribute="height" constant="44" id="jEO-cN-3PZ"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="MkK-sG-n6m" secondAttribute="trailing" id="21Y-zv-8JR"/>
+                        <constraint firstItem="NwN-e5-YQR" firstAttribute="top" secondItem="XjH-qf-m6h" secondAttribute="top" constant="20" id="6pQ-wv-c4Z"/>
+                        <constraint firstItem="VvH-Bb-fV9" firstAttribute="top" secondItem="NwN-e5-YQR" secondAttribute="bottom" constant="12" id="EAW-Ft-SfJ"/>
+                        <constraint firstAttribute="bottom" secondItem="MkK-sG-n6m" secondAttribute="bottom" id="K0E-y1-z0P"/>
+                        <constraint firstAttribute="bottom" secondItem="zaM-0A-71d" secondAttribute="bottom" id="KzG-74-cDe"/>
+                        <constraint firstItem="kEx-DM-ynC" firstAttribute="width" secondItem="XjH-qf-m6h" secondAttribute="width" id="Ldw-GJ-Ulm"/>
+                        <constraint firstAttribute="bottom" secondItem="Tyn-yU-dk3" secondAttribute="bottom" id="Mb3-VE-bBR"/>
+                        <constraint firstItem="Tyn-yU-dk3" firstAttribute="centerX" secondItem="XjH-qf-m6h" secondAttribute="centerX" id="PkD-5c-ltY"/>
+                        <constraint firstItem="zaM-0A-71d" firstAttribute="leading" secondItem="XjH-qf-m6h" secondAttribute="leading" id="RCZ-fs-HwM"/>
+                        <constraint firstItem="kEx-DM-ynC" firstAttribute="top" secondItem="npf-dH-f50" secondAttribute="bottom" constant="12" id="TD5-DZ-mt2"/>
+                        <constraint firstItem="NwN-e5-YQR" firstAttribute="centerX" secondItem="XjH-qf-m6h" secondAttribute="centerX" id="ZbO-Kn-lsV"/>
+                        <constraint firstItem="npf-dH-f50" firstAttribute="top" secondItem="VvH-Bb-fV9" secondAttribute="bottom" constant="12" id="apH-SR-1Ir"/>
+                        <constraint firstItem="zaM-0A-71d" firstAttribute="top" secondItem="kEx-DM-ynC" secondAttribute="bottom" constant="-1" id="cPx-SM-J1B"/>
+                        <constraint firstItem="VvH-Bb-fV9" firstAttribute="centerX" secondItem="XjH-qf-m6h" secondAttribute="centerX" id="mPb-7n-Ns1"/>
+                        <constraint firstItem="npf-dH-f50" firstAttribute="centerX" secondItem="XjH-qf-m6h" secondAttribute="centerX" id="nfD-rk-FZo"/>
+                        <constraint firstAttribute="width" constant="280" id="uve-xM-xfj"/>
+                        <constraint firstItem="kEx-DM-ynC" firstAttribute="centerX" secondItem="XjH-qf-m6h" secondAttribute="centerX" id="vop-cl-2u7"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AlertView"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="XjH-qf-m6h" firstAttribute="centerX" secondItem="bh1-8l-voy" secondAttribute="centerX" id="Ez4-IC-X2C"/>
+                <constraint firstItem="XjH-qf-m6h" firstAttribute="centerY" secondItem="bh1-8l-voy" secondAttribute="centerY" id="ihl-fu-ac9"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="4Cb-Xf-v8p"/>
+            <connections>
+                <outlet property="centerHorizontaly" destination="ihl-fu-ac9" id="f11-9c-PMh"/>
+                <outlet property="textField" destination="0f8-vD-nJT" id="tm8-Pb-b1x"/>
+            </connections>
+            <point key="canvasLocation" x="305" y="172"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="dialog_btn_press" width="280" height="44"/>
+    </resources>
+</document>

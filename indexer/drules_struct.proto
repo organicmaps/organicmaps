@@ -1,0 +1,147 @@
+syntax = "proto3";
+option optimize_for = LITE_RUNTIME;
+
+message DashDotProto
+{
+  repeated double dd = 1;
+  double offset = 2;
+}
+
+message PathSymProto
+{
+  string name = 1;
+  double step = 2;
+  double offset = 3;
+}
+
+enum LineJoin
+{
+  ROUNDJOIN = 0;
+  BEVELJOIN = 1;
+  NOJOIN = 2;
+}
+
+enum LineCap
+{
+  ROUNDCAP = 0;
+  BUTTCAP = 1;
+  SQUARECAP = 2;
+}
+
+message LineRuleProto
+{
+  double width = 1;
+  uint32 color = 2;
+  DashDotProto dashdot = 3;
+  int32 priority = 4;
+  PathSymProto pathsym = 5;
+  LineJoin join = 6;
+  LineCap cap = 7;
+}
+
+message LineDefProto
+{
+  double width = 1;
+  uint32 color = 2;
+  DashDotProto dashdot = 3;
+  PathSymProto pathsym = 4;
+  LineJoin join = 6;
+  LineCap cap = 7;
+}
+
+message AreaRuleProto
+{
+  uint32 color = 1;
+  LineDefProto border = 2;
+  int32 priority = 3;
+}
+
+message SymbolRuleProto
+{
+  string name = 1;
+  int32 apply_for_type = 2;  // 1 - for nodes, 2 - for ways, default - for all
+  int32 priority = 3;
+  int32 min_distance = 4;
+}
+
+message CaptionDefProto
+{
+  int32 height = 1;
+  uint32 color = 2;
+  uint32 stroke_color = 3;
+  int32 offset_x = 4;
+  int32 offset_y = 5;
+  string text = 6;
+  bool is_optional = 7;
+}
+
+message CaptionRuleProto
+{
+  CaptionDefProto primary = 1;
+  CaptionDefProto secondary = 2;
+  int32 priority = 3;
+}
+
+message CircleRuleProto
+{
+  double radius = 1;
+  uint32 color = 2;
+  LineDefProto border = 3;
+  int32 priority = 4;
+}
+
+message PathTextRuleProto
+{
+  CaptionDefProto primary = 1;
+  CaptionDefProto secondary = 2;
+  int32 priority = 3;
+}
+
+message ShieldRuleProto
+{
+  int32 height = 1;
+  uint32 color = 2;
+  uint32 stroke_color = 3;
+  int32 priority = 4;
+  int32 min_distance = 5;
+  uint32 text_color = 6;
+  uint32 text_stroke_color = 7;
+}
+
+message DrawElementProto
+{
+  int32 scale = 1;
+  repeated LineRuleProto lines = 2;
+  AreaRuleProto area = 3;
+  SymbolRuleProto symbol = 4;
+  CaptionRuleProto caption = 5;
+  CircleRuleProto circle = 6;
+  PathTextRuleProto path_text = 7;
+  ShieldRuleProto shield = 8;
+  repeated string apply_if = 9;
+}
+
+message ClassifElementProto
+{
+  string name = 1;
+  repeated DrawElementProto element = 2;
+}
+
+message ColorElementProto
+{
+  string name = 1;
+  uint32 color = 2;
+  float x = 3;
+  float y = 4;
+}
+
+message ColorsElementProto
+{
+  repeated ColorElementProto value = 1;
+}
+
+message ContainerProto
+{
+  repeated ClassifElementProto cont = 1;
+  ColorsElementProto colors = 2;
+}

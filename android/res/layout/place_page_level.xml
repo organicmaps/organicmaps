@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/ll__place_level"
+  style="@style/PlacePageItemFrame"
+  android:tag="level"
+  tools:background="#4000FFFF"
+  tools:visibility="visible">
+
+  <ImageView
+    android:id="@+id/iv__place_level"
+    style="@style/PlacePageMetadataIcon"
+    android:src="@drawable/ic_level_white" />
+
+  <TextView
+    android:id="@+id/tv__place_level"
+    style="@style/PlacePageMetadataText"
+    tools:text="@string/level" />
+</LinearLayout>

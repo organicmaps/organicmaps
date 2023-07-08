@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookmarksBannerViewController" customModule="OMaps" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="200" height="149"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kvK-r8-9Xu" userLabel="DownloadGuides">
+                    <rect key="frame" x="16" y="85" width="168" height="44"/>
+                    <color key="backgroundColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_next2"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="ZhM-b4-Vdc"/>
+                        <constraint firstAttribute="width" constant="168" id="nAP-Ng-wbM"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                    <state key="normal" title="Download guides">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="popup_mwm_download_guides_cta"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalButton"/>
+                    </userDefinedRuntimeAttributes>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="nAP-Ng-wbM"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=compact">
+                        <mask key="constraints">
+                            <include reference="nAP-Ng-wbM"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <action selector="onButtonTap:" destination="-1" eventType="touchUpInside" id="R47-A2-Qam"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preparing for a journey?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="35N-Ns-W96">
+                    <rect key="frame" x="16" y="20" width="168" height="49"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="popup_mwm_download_guides_title"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="blackPrimaryText"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="kvK-r8-9Xu" firstAttribute="top" secondItem="35N-Ns-W96" secondAttribute="bottom" constant="16" id="0SX-Ic-lyW"/>
+                <constraint firstAttribute="trailing" secondItem="kvK-r8-9Xu" secondAttribute="trailing" constant="16" id="3kz-42-pdE"/>
+                <constraint firstItem="35N-Ns-W96" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="Du0-LJ-1AY"/>
+                <constraint firstAttribute="trailing" secondItem="35N-Ns-W96" secondAttribute="trailing" constant="16" id="KRG-nI-0Po"/>
+                <constraint firstAttribute="leading" secondItem="35N-Ns-W96" secondAttribute="leading" constant="-16" id="LxX-49-ORC"/>
+                <constraint firstItem="kvK-r8-9Xu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="jdJ-37-iP8"/>
+                <constraint firstAttribute="bottom" secondItem="kvK-r8-9Xu" secondAttribute="bottom" constant="20" id="qe2-Vu-LOX"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="52.799999999999997" y="70.614692653673174"/>
+        </view>
+    </objects>
+</document>

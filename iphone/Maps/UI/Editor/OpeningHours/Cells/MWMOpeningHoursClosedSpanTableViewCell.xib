@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="MWMOpeningHoursClosedSpanTableViewCell" propertyAccessControl="none">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHW-h6-k3U" userLabel="Cancel Button" customClass="MWMButton">
+                        <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="44" id="6T7-Ur-RWl"/>
+                        </constraints>
+                        <state key="normal" image="ic_clear_sys"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="cancelTap" destination="KGk-i7-Jjw" eventType="touchUpInside" id="UKS-mG-ZJG"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Closed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="86" translatesAutoresizingMaskIntoConstraints="NO" id="lia-DA-sOa">
+                        <rect key="frame" x="44" y="12" width="86" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17:blackPrimaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14:00-15:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="170" translatesAutoresizingMaskIntoConstraints="NO" id="hOg-Ps-YH4">
+                        <rect key="frame" x="134" y="11.5" width="170" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="170" id="lQt-Xw-FNV"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.49803921569999998" green="0.49803921569999998" blue="0.49803921569999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17:blackHintText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3cC-7h-Nyb" userLabel="Expand Button">
+                        <rect key="frame" x="44" y="0.0" width="276" height="44"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <connections>
+                            <action selector="expandTap" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Fva-H8-Hgd"/>
+                        </connections>
+                    </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" translatesAutoresizingMaskIntoConstraints="NO" id="fZN-J3-A1c">
+                        <rect key="frame" x="0.0" y="43.5" width="320" height="1"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="Vyg-vJ-QBa"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMSeparator"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="fZN-J3-A1c" secondAttribute="trailing" id="4ix-Pa-jem"/>
+                    <constraint firstAttribute="bottom" secondItem="3cC-7h-Nyb" secondAttribute="bottom" id="8WG-92-rMW"/>
+                    <constraint firstItem="3cC-7h-Nyb" firstAttribute="leading" secondItem="eHW-h6-k3U" secondAttribute="trailing" id="9Bn-Ln-6Kp"/>
+                    <constraint firstItem="lia-DA-sOa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="9iu-Vt-ehV"/>
+                    <constraint firstAttribute="bottom" secondItem="eHW-h6-k3U" secondAttribute="bottom" id="EBf-Wx-e3F"/>
+                    <constraint firstItem="eHW-h6-k3U" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="F0P-mc-NEh"/>
+                    <constraint firstItem="eHW-h6-k3U" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Plg-3V-wwv"/>
+                    <constraint firstItem="fZN-J3-A1c" firstAttribute="top" secondItem="hOg-Ps-YH4" secondAttribute="bottom" constant="12" id="Pyv-5m-MMc"/>
+                    <constraint firstAttribute="bottom" secondItem="fZN-J3-A1c" secondAttribute="bottom" constant="-0.5" id="Yi4-tf-i9O"/>
+                    <constraint firstItem="3cC-7h-Nyb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ZM1-oj-Ttu"/>
+                    <constraint firstItem="hOg-Ps-YH4" firstAttribute="leading" secondItem="lia-DA-sOa" secondAttribute="trailing" priority="500" constant="4" id="bUD-vp-CsK"/>
+                    <constraint firstAttribute="trailing" secondItem="3cC-7h-Nyb" secondAttribute="trailing" id="dwl-rT-xgr"/>
+                    <constraint firstAttribute="trailing" secondItem="hOg-Ps-YH4" secondAttribute="trailing" priority="500" constant="16" id="jzD-AQ-ZIp"/>
+                    <constraint firstItem="hOg-Ps-YH4" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" priority="500" id="kba-LF-TBE"/>
+                    <constraint firstItem="hOg-Ps-YH4" firstAttribute="leading" secondItem="lia-DA-sOa" secondAttribute="leading" priority="250" id="mU9-yf-vga"/>
+                    <constraint firstItem="fZN-J3-A1c" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="nVn-y5-wFx"/>
+                    <constraint firstItem="hOg-Ps-YH4" firstAttribute="top" secondItem="lia-DA-sOa" secondAttribute="bottom" priority="250" constant="4" id="ne6-qS-gOV"/>
+                    <constraint firstItem="lia-DA-sOa" firstAttribute="leading" secondItem="eHW-h6-k3U" secondAttribute="trailing" id="sEk-K9-5ox"/>
+                    <constraint firstAttribute="trailing" secondItem="lia-DA-sOa" secondAttribute="trailing" priority="250" constant="8" id="zjM-Hg-INM"/>
+                </constraints>
+                <userDefinedRuntimeAttributes>
+                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+                </userDefinedRuntimeAttributes>
+            </tableViewCellContentView>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="hoursClosedLabel" destination="lia-DA-sOa" id="tUx-Cy-R9r"/>
+                <outlet property="hoursClosedTrailing" destination="zjM-Hg-INM" id="QKd-Py-tbi"/>
+                <outlet property="timeSpanHorizontalAlignment" destination="mU9-yf-vga" id="k7T-pi-YAP"/>
+                <outlet property="timeSpanLabel" destination="hOg-Ps-YH4" id="dyB-M5-ePt"/>
+                <outlet property="timeSpanVerticalAlignment" destination="ne6-qS-gOV" id="i2Q-La-wrT"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="155"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic_clear_sys" width="28" height="28"/>
+        <image name="separator_image" width="1" height="1"/>
+    </resources>
+</document>

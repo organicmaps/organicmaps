@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8YO-Xx-cAh">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Driving Options View Controller-->
+        <scene sceneID="BWZ-fX-cej">
+            <objects>
+                <tableViewController storyboardIdentifier="DrivingOptionsViewController" id="8YO-Xx-cAh" userLabel="Driving Options View Controller" customClass="DrivingOptionsViewController" customModule="OMaps" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Q8U-4Z-lWC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="AVOID ON EVERY ROUTE" id="qNN-Uw-84i">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="YrA-ve-xPG" customClass="SettingsTableViewSwitchCell" customModule="OMaps" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YrA-ve-xPG" id="gKI-YE-akp">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Avoid toll roads" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="PKT-Eh-l9Q">
+                                                    <rect key="frame" x="16" y="12" width="286" height="20.5"/>
+                                                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="0.0" maxX="-25" maxY="0.0"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="avoid_tolls"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nlP-Dk-uja">
+                                                    <rect key="frame" x="310" y="6.5" width="51" height="31"/>
+                                                    <inset key="insetFor6xAndEarlier" minX="3" minY="-2" maxX="-3" maxY="2"/>
+                                                    <color key="onTintColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="nlP-Dk-uja" secondAttribute="trailing" id="5CB-YF-tBp"/>
+                                                <constraint firstItem="PKT-Eh-l9Q" firstAttribute="leading" secondItem="gKI-YE-akp" secondAttribute="leading" constant="16" id="5dg-1e-U4h"/>
+                                                <constraint firstItem="nlP-Dk-uja" firstAttribute="centerY" secondItem="gKI-YE-akp" secondAttribute="centerY" id="AUq-22-7X0"/>
+                                                <constraint firstItem="nlP-Dk-uja" firstAttribute="leading" secondItem="PKT-Eh-l9Q" secondAttribute="trailing" constant="8" id="pkY-UP-YbA"/>
+                                                <constraint firstItem="PKT-Eh-l9Q" firstAttribute="centerY" secondItem="gKI-YE-akp" secondAttribute="centerY" id="yiZ-Et-ruq"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="delegate" destination="8YO-Xx-cAh" id="w8e-bi-R4K"/>
+                                            <outlet property="switchButton" destination="nlP-Dk-uja" id="4jG-7K-sWV"/>
+                                            <outlet property="title" destination="PKT-Eh-l9Q" id="FdA-Xd-B6c"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Edm-gG-iZL" customClass="SettingsTableViewSwitchCell" customModule="OMaps" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="99.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Edm-gG-iZL" id="mIt-Ku-xiU">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Avoid unpaved roads" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="v9t-VR-YwE">
+                                                    <rect key="frame" x="16" y="12" width="286" height="20.5"/>
+                                                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="0.0" maxX="-25" maxY="0.0"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="avoid_unpaved"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u63-P9-9ZM">
+                                                    <rect key="frame" x="310" y="6.5" width="51" height="31"/>
+                                                    <inset key="insetFor6xAndEarlier" minX="3" minY="-2" maxX="-3" maxY="2"/>
+                                                    <color key="onTintColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="u63-P9-9ZM" firstAttribute="centerY" secondItem="mIt-Ku-xiU" secondAttribute="centerY" id="E68-jT-G0O"/>
+                                                <constraint firstItem="u63-P9-9ZM" firstAttribute="leading" secondItem="v9t-VR-YwE" secondAttribute="trailing" constant="8" id="IaF-Cc-T99"/>
+                                                <constraint firstItem="v9t-VR-YwE" firstAttribute="leading" secondItem="mIt-Ku-xiU" secondAttribute="leading" constant="16" id="X4E-mC-lAs"/>
+                                                <constraint firstItem="v9t-VR-YwE" firstAttribute="centerY" secondItem="mIt-Ku-xiU" secondAttribute="centerY" id="iQU-rF-tI8"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="u63-P9-9ZM" secondAttribute="trailing" id="zVr-oH-1aL"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="delegate" destination="8YO-Xx-cAh" id="d0x-IA-p32"/>
+                                            <outlet property="switchButton" destination="u63-P9-9ZM" id="GMO-FY-FGY"/>
+                                            <outlet property="title" destination="v9t-VR-YwE" id="Z8m-Ie-Ten"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ZqG-Fn-9Da" customClass="SettingsTableViewSwitchCell" customModule="OMaps" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="143.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZqG-Fn-9Da" id="7US-xU-xAU">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Avoid ferry crossings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="cIW-w0-eCH">
+                                                    <rect key="frame" x="16" y="12" width="286" height="20.5"/>
+                                                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="0.0" maxX="-25" maxY="0.0"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="avoid_ferry"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="COE-Zp-Rda">
+                                                    <rect key="frame" x="310" y="6.5" width="51" height="31"/>
+                                                    <inset key="insetFor6xAndEarlier" minX="3" minY="-2" maxX="-3" maxY="2"/>
+                                                    <color key="onTintColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="COE-Zp-Rda" firstAttribute="centerY" secondItem="7US-xU-xAU" secondAttribute="centerY" id="23d-6c-LMC"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="COE-Zp-Rda" secondAttribute="trailing" id="RxJ-np-Eda"/>
+                                                <constraint firstItem="COE-Zp-Rda" firstAttribute="leading" secondItem="cIW-w0-eCH" secondAttribute="trailing" constant="8" id="kRT-wA-8tq"/>
+                                                <constraint firstItem="cIW-w0-eCH" firstAttribute="centerY" secondItem="7US-xU-xAU" secondAttribute="centerY" id="nH4-EJ-6bz"/>
+                                                <constraint firstItem="cIW-w0-eCH" firstAttribute="leading" secondItem="7US-xU-xAU" secondAttribute="leading" constant="16" id="vYU-LJ-yK6"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="delegate" destination="8YO-Xx-cAh" id="SKD-CC-bJO"/>
+                                            <outlet property="switchButton" destination="COE-Zp-Rda" id="16p-2l-T41"/>
+                                            <outlet property="title" destination="cIW-w0-eCH" id="Uc5-KH-WaN"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="EZ7-Gy-8aA" customClass="SettingsTableViewSwitchCell" customModule="OMaps" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="187.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EZ7-Gy-8aA" id="6ee-yF-kGr">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Avoid motorways" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="L5B-JN-YBU">
+                                                    <rect key="frame" x="16" y="12" width="286" height="20.5"/>
+                                                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="0.0" maxX="-25" maxY="0.0"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="avoid_motorways"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qDh-Oi-fF2">
+                                                    <rect key="frame" x="310" y="6.5" width="51" height="31"/>
+                                                    <inset key="insetFor6xAndEarlier" minX="3" minY="-2" maxX="-3" maxY="2"/>
+                                                    <color key="onTintColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="L5B-JN-YBU" firstAttribute="centerY" secondItem="6ee-yF-kGr" secondAttribute="centerY" id="0fe-aJ-kqu"/>
+                                                <constraint firstItem="qDh-Oi-fF2" firstAttribute="centerY" secondItem="6ee-yF-kGr" secondAttribute="centerY" id="4yM-xR-vgD"/>
+                                                <constraint firstItem="L5B-JN-YBU" firstAttribute="leading" secondItem="6ee-yF-kGr" secondAttribute="leading" constant="16" id="BOe-ZN-h3k"/>
+                                                <constraint firstItem="qDh-Oi-fF2" firstAttribute="leading" secondItem="L5B-JN-YBU" secondAttribute="trailing" constant="8" id="bQb-Bq-hjE"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="qDh-Oi-fF2" secondAttribute="trailing" id="hNa-7M-GkI"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="delegate" destination="8YO-Xx-cAh" id="bcu-c0-4xR"/>
+                                            <outlet property="switchButton" destination="qDh-Oi-fF2" id="Tuw-4C-QNT"/>
+                                            <outlet property="title" destination="L5B-JN-YBU" id="RAC-DL-FwU"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="8YO-Xx-cAh" id="3Lz-g5-LiH"/>
+                            <outlet property="delegate" destination="8YO-Xx-cAh" id="Iup-r1-FJ7"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="ferryCrossingsCell" destination="ZqG-Fn-9Da" id="td7-b1-uPz"/>
+                        <outlet property="motorwaysCell" destination="EZ7-Gy-8aA" id="g4i-mp-cFD"/>
+                        <outlet property="tollRoadsCell" destination="YrA-ve-xPG" id="s0c-im-mto"/>
+                        <outlet property="unpavedRoadsCell" destination="Edm-gG-iZL" id="X5s-mB-VZ6"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XZd-C9-klr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="100" y="100"/>
+        </scene>
+    </scenes>
+</document>

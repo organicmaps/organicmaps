@@ -1,0 +1,1 @@
+# Add types which should be skipped when building search index to search::TypesSkipper:m_skipAlways

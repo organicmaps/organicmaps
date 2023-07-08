@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/search_button_frame"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:clipChildren="false"
+  android:clipToPadding="false"
+  android:layoutDirection="ltr"
+  android:theme="?navButtonsThemeRect">
+  <LinearLayout
+    android:id="@+id/search_frame"
+    android:layout_width="286dp"
+    android:layout_height="48dp"
+    android:layout_alignParentStart="true"
+    android:background="?searchLayoutBackground"
+    android:orientation="horizontal"
+    android:padding="@dimen/margin_quarter"
+    android:visibility="invisible"
+    tools:visibility="visible">
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/search_fuel"
+      style="@style/MwmWidget.MapButton.Search"
+      android:layout_gravity="center_vertical"
+      android:layout_marginStart="50dp"
+      android:contentDescription="@string/fuel"
+      android:src="@drawable/ic_routing_fuel_on" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/search_parking"
+      style="@style/MwmWidget.MapButton.Search"
+      android:layout_gravity="center_vertical"
+      android:layout_marginStart="@dimen/margin_half"
+      android:contentDescription="@string/parkings"
+      android:src="@drawable/ic_routing_parking_on" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/search_eat"
+      style="@style/MwmWidget.MapButton.Search"
+      android:layout_gravity="center_vertical"
+      android:layout_marginStart="@dimen/margin_half"
+      android:contentDescription="@string/eat"
+      android:src="@drawable/ic_routing_eat_on" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/search_food"
+      style="@style/MwmWidget.MapButton.Search"
+      android:layout_gravity="center_vertical"
+      android:layout_marginStart="@dimen/margin_half"
+      android:contentDescription="@string/shopping"
+      android:src="@drawable/ic_routing_food_on" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/search_atm"
+      style="@style/MwmWidget.MapButton.Search"
+      android:layout_gravity="center_vertical"
+      android:layout_marginStart="@dimen/margin_half"
+      android:contentDescription="@string/atm"
+      android:src="@drawable/ic_routing_atm_on" />
+  </LinearLayout>
+</RelativeLayout>

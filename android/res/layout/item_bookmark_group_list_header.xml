@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="?windowBackgroundForced"
+  android:orientation="horizontal"
+  android:paddingStart="@dimen/margin_base"
+  android:paddingTop="@dimen/margin_half_plus"
+  android:paddingEnd="@dimen/margin_base"
+  android:paddingBottom="@dimen/margin_half_plus">
+  <TextView
+    android:id="@+id/text_message"
+    style="?fontHeadline6"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentStart="true"
+    android:paddingTop="@dimen/margin_half_plus"
+    tools:text="@string/categories" />
+  <TextView
+    android:id="@+id/button"
+    style="?fontSubtitle2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_centerVertical="true"
+    android:background="?selectableItemBackground"
+    android:paddingTop="@dimen/margin_half_plus"
+    android:text="@string/bookmark_lists_hide_all"
+    android:textAllCaps="true"
+    android:textColor="?colorAccent" />
+</RelativeLayout>

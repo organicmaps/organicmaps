@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="@dimen/height_item_multiline"
+  android:background="?clickableBackground">
+  <ImageView
+    android:id="@+id/iv__bookmark_color"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentStart="true"
+    android:layout_centerVertical="true"
+    android:layout_marginStart="@dimen/margin_base"
+    android:layout_marginEnd="@dimen/margin_base" />
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_toEndOf="@id/iv__bookmark_color"
+    android:orientation="vertical">
+    <TextView
+      android:id="@+id/tv__bookmark_name"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_base"
+      android:layout_marginEnd="@dimen/bookmark_collection_item_end_margin"
+      android:singleLine="true"
+      android:textAppearance="?fontBody1"
+      tools:text="@string/tracks_title" />
+    <TextView
+      android:id="@+id/tv__bookmark_distance"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/bookmark_collection_item_end_margin"
+      android:layout_marginBottom="@dimen/margin_half_plus"
+      android:singleLine="true"
+      android:textColor="?android:textColorSecondary"
+      android:textAppearance="?fontBody2"
+      tools:text="@string/by_distance" />
+  </LinearLayout>
+</RelativeLayout>

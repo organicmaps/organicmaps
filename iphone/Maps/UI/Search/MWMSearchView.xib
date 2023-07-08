@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMSearchManager">
+            <connections>
+                <outlet property="actionBarView" destination="d2A-Id-T62" id="UKk-U2-Mwl"/>
+                <outlet property="contentView" destination="u9y-bx-NGd" id="A03-AI-DbY"/>
+                <outlet property="searchBarView" destination="g9f-m8-RFv" id="opS-Ll-3Fn"/>
+                <outlet property="searchTextField" destination="ySb-oA-ZeW" id="Awu-Z4-EdK"/>
+                <outlet property="tableViewContainer" destination="QQn-4W-Y0s" id="5hb-b3-y8Q"/>
+                <outletCollection property="topViews" destination="u9y-bx-NGd" id="mAw-CD-QQV"/>
+                <outletCollection property="topViews" destination="d2A-Id-T62" id="Q0C-Eb-VyX"/>
+            </connections>
+        </placeholder>
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g9f-m8-RFv" customClass="SearchBar" customModule="OMaps" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C73-2V-To8" userLabel="StatusBarBackground">
+                    <rect key="frame" x="0.0" y="-100" width="320" height="188"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchBarView"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="DrM-QJ-TCl">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ghc-B6-erG">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
+                            <subviews>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="ySb-oA-ZeW" userLabel="Search" customClass="SearchTextField" customModule="OMaps" customModuleProvider="target">
+                                    <rect key="frame" x="8" y="4" width="240" height="76"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="queryField"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchSearchTextField"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="search"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="textFieldDidEndEditing:" destination="-1" eventType="editingDidEnd" id="CuD-rP-0bT"/>
+                                        <action selector="textFieldTextDidChange:" destination="-1" eventType="editingChanged" id="NU4-jh-Dd4"/>
+                                        <outlet property="delegate" destination="-1" id="U2Z-lL-bo1"/>
+                                    </connections>
+                                </textField>
+                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="qkR-cN-NI4">
+                                    <rect key="frame" x="248" y="4" width="72" height="76"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="cancelButton"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="72" id="8mI-K9-qAu"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
+                                    <state key="normal" title="Cancel">
+                                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="cancel"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="whitePrimaryText"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="cancelButtonPressed" destination="-1" eventType="touchUpInside" id="cx8-zT-fgZ"/>
+                                    </connections>
+                                </button>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_search" translatesAutoresizingMaskIntoConstraints="NO" id="ebE-7b-E9f">
+                                    <rect key="frame" x="8" y="4" width="36" height="76"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="36" id="8Ta-mE-6dI"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchSearchTextFieldIcon"/>
+                                    </userDefinedRuntimeAttributes>
+                                </imageView>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="pnj-0S-fkE">
+                                    <rect key="frame" x="8" y="4" width="36" height="76"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="36" id="v0W-Aw-eSV"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchSearchTextFieldIcon"/>
+                                    </userDefinedRuntimeAttributes>
+                                </activityIndicatorView>
+                                <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CrZ-Cz-xyW">
+                                    <rect key="frame" x="8" y="4" width="36" height="76"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="36" id="gfO-3m-OFv"/>
+                                    </constraints>
+                                    <state key="normal" image="ic_search_back"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchSearchTextFieldIcon"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="backButtonPressed" destination="-1" eventType="touchUpInside" id="xyJ-fc-ged"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="pnj-0S-fkE" firstAttribute="top" secondItem="ySb-oA-ZeW" secondAttribute="top" id="4oA-1o-TMf"/>
+                                <constraint firstItem="qkR-cN-NI4" firstAttribute="top" secondItem="ghc-B6-erG" secondAttribute="top" constant="4" id="FlS-h1-5Su"/>
+                                <constraint firstItem="qkR-cN-NI4" firstAttribute="leading" secondItem="ySb-oA-ZeW" secondAttribute="trailing" id="HJ2-r6-yVw"/>
+                                <constraint firstItem="ebE-7b-E9f" firstAttribute="bottom" secondItem="ySb-oA-ZeW" secondAttribute="bottom" id="R45-81-QPe"/>
+                                <constraint firstItem="ebE-7b-E9f" firstAttribute="leading" secondItem="ySb-oA-ZeW" secondAttribute="leading" id="THA-Pu-i5t"/>
+                                <constraint firstItem="CrZ-Cz-xyW" firstAttribute="top" secondItem="ySb-oA-ZeW" secondAttribute="top" id="WxT-Hy-CL1"/>
+                                <constraint firstItem="CrZ-Cz-xyW" firstAttribute="bottom" secondItem="ySb-oA-ZeW" secondAttribute="bottom" id="XIJ-EQ-sfC"/>
+                                <constraint firstAttribute="height" constant="44" id="evQ-q0-G3V"/>
+                                <constraint firstAttribute="bottom" secondItem="qkR-cN-NI4" secondAttribute="bottom" constant="8" id="exK-0S-ML2"/>
+                                <constraint firstAttribute="bottom" secondItem="ySb-oA-ZeW" secondAttribute="bottom" constant="8" id="kc1-xj-dnr"/>
+                                <constraint firstItem="ySb-oA-ZeW" firstAttribute="leading" secondItem="ghc-B6-erG" secondAttribute="leading" constant="8" id="kch-1z-rhZ"/>
+                                <constraint firstItem="CrZ-Cz-xyW" firstAttribute="leading" secondItem="ySb-oA-ZeW" secondAttribute="leading" id="m7Z-jP-Upg"/>
+                                <constraint firstAttribute="trailing" secondItem="qkR-cN-NI4" secondAttribute="trailing" id="ngR-ML-Cnj"/>
+                                <constraint firstItem="pnj-0S-fkE" firstAttribute="leading" secondItem="ySb-oA-ZeW" secondAttribute="leading" id="ove-r5-YFo"/>
+                                <constraint firstItem="qkR-cN-NI4" firstAttribute="centerY" secondItem="ySb-oA-ZeW" secondAttribute="centerY" id="rPK-s8-GJi"/>
+                                <constraint firstItem="pnj-0S-fkE" firstAttribute="bottom" secondItem="ySb-oA-ZeW" secondAttribute="bottom" id="udX-a7-hOd"/>
+                                <constraint firstItem="ySb-oA-ZeW" firstAttribute="top" secondItem="ghc-B6-erG" secondAttribute="top" constant="4" id="yet-nD-qWN"/>
+                                <constraint firstItem="ebE-7b-E9f" firstAttribute="top" secondItem="ySb-oA-ZeW" secondAttribute="top" id="zqb-O1-mO9"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="VX9-29-j2Z"/>
+            <color key="backgroundColor" red="0.12549019610000001" green="0.59607843140000005" blue="0.32156862749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="C73-2V-To8" firstAttribute="top" secondItem="g9f-m8-RFv" secondAttribute="top" constant="-100" id="Alh-jk-902"/>
+                <constraint firstItem="DrM-QJ-TCl" firstAttribute="leading" secondItem="g9f-m8-RFv" secondAttribute="leading" id="Fqj-iv-GAo"/>
+                <constraint firstAttribute="bottom" secondItem="DrM-QJ-TCl" secondAttribute="bottom" id="Wtv-8F-BmX"/>
+                <constraint firstAttribute="bottom" secondItem="C73-2V-To8" secondAttribute="bottom" id="e6z-lu-FFZ"/>
+                <constraint firstAttribute="trailing" secondItem="DrM-QJ-TCl" secondAttribute="trailing" id="eSZ-Cp-LJl"/>
+                <constraint firstAttribute="width" secondItem="DrM-QJ-TCl" secondAttribute="width" id="he4-ZG-kIs"/>
+                <constraint firstItem="C73-2V-To8" firstAttribute="leading" secondItem="g9f-m8-RFv" secondAttribute="leading" id="qhr-if-gM8">
+                    <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                </constraint>
+                <constraint firstAttribute="trailing" secondItem="C73-2V-To8" secondAttribute="trailing" id="xV9-by-bNe">
+                    <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                </constraint>
+                <constraint firstItem="DrM-QJ-TCl" firstAttribute="top" secondItem="g9f-m8-RFv" secondAttribute="top" id="zwx-cA-Bru"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchBar"/>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="activityIndicator" destination="pnj-0S-fkE" id="fLT-4I-s5b"/>
+                <outlet property="backButton" destination="CrZ-Cz-xyW" id="fIz-hG-JFM"/>
+                <outlet property="searchIcon" destination="ebE-7b-E9f" id="sCN-KI-2a1"/>
+                <outlet property="searchTextField" destination="ySb-oA-ZeW" id="xHR-vF-csP"/>
+                <outlet property="stackView" destination="DrM-QJ-TCl" id="Fzm-8G-JnZ"/>
+            </connections>
+            <point key="canvasLocation" x="225.59999999999999" y="-211.39430284857573"/>
+        </view>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="d2A-Id-T62" customClass="SearchActionBarView" customModule="OMaps" customModuleProvider="target" propertyAccessControl="none">
+            <rect key="frame" x="0.0" y="0.0" width="361" height="36"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2gF-Kc-0a7">
+                    <rect key="frame" x="0.0" y="0.0" width="361" height="36"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a8x-P8-Y8p" customClass="MWMButton">
+                            <rect key="frame" x="0.0" y="0.0" width="296" height="36"/>
+                            <accessibility key="accessibilityConfiguration" identifier="viewOnMapButton"/>
+                            <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
+                            <state key="normal" title="Map" image="ic_search_mode_map"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchActionBarButton"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="search_show_on_map"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="changeMode" destination="-1" eventType="touchUpInside" id="uAW-Mp-BVp"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Enq-yv-2XZ" customClass="MWMButton">
+                            <rect key="frame" x="296" y="0.0" width="65" height="36"/>
+                            <accessibility key="accessibilityConfiguration" identifier="viewOnMapButton"/>
+                            <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
+                            <state key="normal" title="List" image="ic_search_mode_list"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchActionBarButton"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="search_in_table"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="changeMode" destination="-1" eventType="touchUpInside" id="yqV-vF-c3I"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Bgt-hj-RpB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="2gF-Kc-0a7" secondAttribute="trailing" id="Fdx-hX-coi"/>
+                <constraint firstItem="2gF-Kc-0a7" firstAttribute="top" secondItem="d2A-Id-T62" secondAttribute="top" id="Y62-Rf-LAh"/>
+                <constraint firstAttribute="height" constant="36" id="eLk-al-10m"/>
+                <constraint firstItem="2gF-Kc-0a7" firstAttribute="leading" secondItem="d2A-Id-T62" secondAttribute="leading" id="itE-d4-hzw"/>
+                <constraint firstAttribute="bottom" secondItem="2gF-Kc-0a7" secondAttribute="bottom" id="s4H-Jq-xk9"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchActionBarView"/>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="listButton" destination="Enq-yv-2XZ" id="DUY-wh-ohq"/>
+                <outlet property="mapButton" destination="a8x-P8-Y8p" id="Rtu-DA-x6c"/>
+                <outlet property="stackView" destination="2gF-Kc-0a7" id="08D-2t-Cpt"/>
+            </connections>
+            <point key="canvasLocation" x="193" y="-58"/>
+        </view>
+        <view contentMode="scaleToFill" id="u9y-bx-NGd" userLabel="Content" customClass="MWMSearchContentView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="402"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jHn-5d-yXG" customClass="SolidTouchView">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="402"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QQn-4W-Y0s">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="402"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="wvK-7O-o3d"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="jHn-5d-yXG" firstAttribute="leading" secondItem="u9y-bx-NGd" secondAttribute="leading" id="1Qk-kN-iT5">
+                    <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                </constraint>
+                <constraint firstItem="wvK-7O-o3d" firstAttribute="bottom" secondItem="QQn-4W-Y0s" secondAttribute="bottom" id="5UL-RM-PTF"/>
+                <constraint firstItem="jHn-5d-yXG" firstAttribute="top" secondItem="u9y-bx-NGd" secondAttribute="top" id="Bgm-2G-pSD"/>
+                <constraint firstItem="QQn-4W-Y0s" firstAttribute="leading" secondItem="u9y-bx-NGd" secondAttribute="leading" id="CFW-pd-Qj7"/>
+                <constraint firstItem="QQn-4W-Y0s" firstAttribute="top" secondItem="u9y-bx-NGd" secondAttribute="top" id="T8W-hj-ces"/>
+                <constraint firstAttribute="trailing" secondItem="jHn-5d-yXG" secondAttribute="trailing" id="aKt-MM-Csi">
+                    <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                </constraint>
+                <constraint firstAttribute="bottom" secondItem="jHn-5d-yXG" secondAttribute="bottom" id="hm3-xK-oys">
+                    <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                </constraint>
+                <constraint firstAttribute="trailing" secondItem="QQn-4W-Y0s" secondAttribute="trailing" id="pBX-G3-gBz"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="236" y="229"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_search" width="28" height="28"/>
+        <image name="ic_search_back" width="24" height="24"/>
+        <image name="ic_search_mode_list" width="20" height="20"/>
+        <image name="ic_search_mode_map" width="20" height="20"/>
+    </resources>
+</document>

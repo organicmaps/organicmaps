@@ -1,0 +1,4 @@
+api_key_path "keys/appstore.json"
+app_identifier "app.organicmaps"
+metadata_path "../iphone/metadata"
+screenshots_path "../screenshots/ios"

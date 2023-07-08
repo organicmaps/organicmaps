@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<gpx version="1.1" creator="OsmAnd~ 4.4.7" xmlns="http://www.topografix.com/GPX/1/1" xmlns:osmand="https://osmand.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+  <metadata>
+    <name>favorites-Testowa</name>
+    <time>2023-06-26T12:47:07Z</time>
+  </metadata>
+  <wpt lat="52.0027434" lon="19.1427702">
+    <ele>114</ele>
+    <time>2023-06-26T12:46:49Z</time>
+    <name>Jednostka Wojskowa Nr 4393 i 4395</name>
+    <type>Testowa</type>
+    <extensions>
+      <osmand:amenity_subtype>military_landuse</osmand:amenity_subtype>
+      <osmand:osm_tag_icao>EPLY</osmand:osm_tag_icao>
+      <osmand:amenity_name>Jednostka Wojskowa Nr 4393 i 4395</osmand:amenity_name>
+      <osmand:amenity_type>military</osmand:amenity_type>
+      <osmand:address>Brak określonego adresu</osmand:address>
+      <osmand:icon>military_landuse</osmand:icon>
+      <osmand:background>circle</osmand:background>
+      <osmand:color>#00ff00</osmand:color>
+      <osmand:amenity_origin>Amenity:Jednostka Wojskowa Nr 4393 i 4395: military:military_landuse</osmand:amenity_origin>
+    </extensions>
+  </wpt>
+  <wpt lat="52.2136024" lon="19.4585842">
+    <ele>111</ele>
+    <time>2023-06-26T12:45:07Z</time>
+    <name>Ochotnicza Straż Pożarna w Kaszewach Kościelnych</name>
+    <type>Testowa</type>
+    <extensions>
+      <osmand:amenity_subtype>fire_station</osmand:amenity_subtype>
+      <osmand:amenity_name>Ochotnicza Straż Pożarna w Kaszewach Kościelnych</osmand:amenity_name>
+      <osmand:amenity_type>emergency</osmand:amenity_type>
+      <osmand:address>Brak określonego adresu</osmand:address>
+      <osmand:icon>special_star</osmand:icon>
+      <osmand:background>circle</osmand:background>
+      <osmand:color>#1010a0</osmand:color>
+      <osmand:amenity_origin>Amenity:Ochotnicza Straz Pozarna w Kaszewach Koscielnych: emergency:fire_station</osmand:amenity_origin>
+    </extensions>
+  </wpt>
+  <extensions>
+    <osmand:points_groups>
+      <group name="Testowa" color="#1010a0" icon="special_star" background="circle" />
+    </osmand:points_groups>
+  </extensions>
+</gpx>

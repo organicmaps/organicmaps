@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMCircularProgress">
+            <connections>
+                <outlet property="rootView" destination="2DE-Qh-89K" id="1DR-Lj-Wv9"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="2DE-Qh-89K" customClass="MWMCircularProgressView" propertyAccessControl="none">
+            <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="viF-Ee-7h0" customClass="MWMButton">
+                    <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    <state key="normal">
+                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="buttonTouchUpInside:" destination="-1" eventType="touchUpInside" id="aPG-4e-uSw"/>
+                    </connections>
+                </button>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aMt-XV-9UK" userLabel="Spinner">
+                    <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="viF-Ee-7h0" firstAttribute="top" secondItem="2DE-Qh-89K" secondAttribute="top" id="3gS-24-Olj"/>
+                <constraint firstItem="aMt-XV-9UK" firstAttribute="width" relation="lessThanOrEqual" secondItem="vnA-dQ-QpI" secondAttribute="width" id="Bxj-4M-UlX"/>
+                <constraint firstItem="aMt-XV-9UK" firstAttribute="centerX" secondItem="vnA-dQ-QpI" secondAttribute="centerX" id="EJm-Be-grG"/>
+                <constraint firstItem="aMt-XV-9UK" firstAttribute="leading" secondItem="2DE-Qh-89K" secondAttribute="leading" priority="100" id="JK6-QX-JcI"/>
+                <constraint firstAttribute="bottom" secondItem="aMt-XV-9UK" secondAttribute="bottom" priority="100" id="VFI-Yh-q1q"/>
+                <constraint firstItem="aMt-XV-9UK" firstAttribute="centerY" secondItem="vnA-dQ-QpI" secondAttribute="centerY" id="eVP-mP-bGc"/>
+                <constraint firstItem="aMt-XV-9UK" firstAttribute="height" relation="lessThanOrEqual" secondItem="vnA-dQ-QpI" secondAttribute="height" id="eWY-kL-sQD"/>
+                <constraint firstAttribute="trailing" secondItem="viF-Ee-7h0" secondAttribute="trailing" id="fQT-G3-rJF"/>
+                <constraint firstItem="aMt-XV-9UK" firstAttribute="top" secondItem="2DE-Qh-89K" secondAttribute="top" priority="100" id="fbs-bw-DIs"/>
+                <constraint firstAttribute="bottom" secondItem="viF-Ee-7h0" secondAttribute="bottom" id="j4s-7V-lg9"/>
+                <constraint firstAttribute="trailing" secondItem="aMt-XV-9UK" secondAttribute="trailing" priority="100" id="k01-wU-25n"/>
+                <constraint firstItem="viF-Ee-7h0" firstAttribute="leading" secondItem="2DE-Qh-89K" secondAttribute="leading" id="sHS-iu-Url"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vnA-dQ-QpI"/>
+            <connections>
+                <outlet property="button" destination="viF-Ee-7h0" id="0zP-Ye-sRs"/>
+                <outlet property="owner" destination="-1" id="0n7-PI-5tO"/>
+                <outlet property="spinner" destination="aMt-XV-9UK" id="bmp-bV-h3C"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="155"/>
+        </view>
+    </objects>
+</document>

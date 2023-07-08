@@ -1,0 +1,9 @@
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <polygon points="24 0 0 0 0 24 24 24" fill="#FFF" opacity=".6"/>
+  <rect x="1" y="1" width="22" height="22" fill="#FF6F00"/>
+  <g transform="translate(3 3)" fill="#FFF">
+   <path d="m0-1.7764e-15h3l6 14.3 6-14.3h3v18h-3v-10.703l-4.4 10.703h-3.2l-4.4-10.703v10.703h-3v-18z"/>
+  </g>
+ </g>
+</svg>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:gravity="center_vertical"
+  android:orientation="horizontal"
+  tools:background="#3000FF00"
+  tools:ignore="RtlSymmetry">
+
+  <Space
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="0.5"/>
+
+  <!-- Speed -->
+  <LinearLayout
+    android:id="@+id/speed_view_container"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/speed_cams_bg"
+    android:gravity="center"
+    android:minWidth="@dimen/nav_numbers_side_min_width">
+
+    <TextView
+      android:id="@+id/speed_value"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:includeFontPadding="false"
+      android:lines="1"
+      android:textAppearance="@style/MwmTextAppearance.NavMenu.Number"
+      tools:text="999" />
+
+    <!-- Speed -->
+    <TextView
+      android:id="@+id/speed_dimen"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:includeFontPadding="false"
+      android:lines="1"
+      android:textAppearance="@style/MwmTextAppearance.NavMenu.Number.Dimension"
+      tools:background="#20FF0000"
+      tools:text="km/h" />
+  </LinearLayout>
+
+  <Space
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1.25"/>
+
+  <!-- Time -->
+  <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:minWidth="@dimen/nav_numbers_side_min_width">
+
+    <LinearLayout
+      android:id="@+id/time_values_container"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      tools:background="#20FF0000">
+
+      <TextView
+        android:id="@+id/time_hour_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:lines="1"
+        android:textAppearance="@style/MwmTextAppearance.NavMenu.Time"
+        tools:text="999" />
+
+      <TextView
+        android:id="@+id/time_hour_dimen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_quarter"
+        android:includeFontPadding="false"
+        android:lines="1"
+        android:textAppearance="@style/MwmTextAppearance.NavMenu.Time.Dimension"
+        tools:text="h" />
+
+      <TextView
+        android:id="@+id/time_minute_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:lines="1"
+        android:textAlignment="center"
+        android:textAppearance="@style/MwmTextAppearance.NavMenu.Time"
+        tools:text="99" />
+
+      <TextView
+        android:id="@+id/time_minute_dimen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:lines="1"
+        android:textAppearance="@style/MwmTextAppearance.NavMenu.Time.Dimension"
+        tools:text="m" />
+    </LinearLayout>
+
+    <TextView
+      android:id="@+id/time_estimate"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:includeFontPadding="false"
+      android:lines="1"
+      android:textAlignment="center"
+      android:textAppearance="@style/MwmTextAppearance.NavMenu.Number.Dimension"
+      tools:text="99:99 AM" />
+  </LinearLayout>
+
+  <Space
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1.25"/>
+
+  <!-- Distance -->
+  <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:minWidth="@dimen/nav_numbers_side_min_width">
+
+    <TextView
+      android:id="@+id/distance_value"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:includeFontPadding="false"
+      android:lines="1"
+      android:textAppearance="@style/MwmTextAppearance.NavMenu.Number"
+      tools:text="99999" />
+
+    <TextView
+      android:id="@+id/distance_dimen"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:includeFontPadding="false"
+      android:lines="1"
+      android:textAppearance="@style/MwmTextAppearance.NavMenu.Number.Dimension"
+      tools:background="#20FF0000"
+      tools:text="km" />
+  </LinearLayout>
+
+  <Space
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="0.5"/>
+</LinearLayout>

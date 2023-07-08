@@ -1,0 +1,17 @@
+• GPX import support
+• New OpenStreetMap data as of June 2, 2023
+• Fixed disappearing bookmark lists when wrong characters were saved in a bookmark name or description
+• Improved car and bicycle routing
+• Fixed non-working Portuguese (Brazil) and Spanish (Mexico) voice directions languages
+• Fixed crash when importing KML/KMZ/GPX file
+• Fixed repeated imports of the same file
+• Corrected Basque, Belarusian, British, English, and Ukrainian translations
+
+Styles:
+• Fixed funicular icon
+• Changed desert color in the dark mode
+• Added Fish Pass
+• New Icon for Parcel Locker
+• Fixed icon for northernmost Munich underground station
+
+Follow our news at https://omaps.org/news

@@ -1,0 +1,4 @@
+population
+name
+bbox_area
+rating

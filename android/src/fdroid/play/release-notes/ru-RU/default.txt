@@ -1,0 +1,1 @@
+../../listings/ru-RU/release-notes.txt

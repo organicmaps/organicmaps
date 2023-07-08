@@ -1,0 +1,10 @@
+<svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+ <g fill="none">
+  <circle cx="9" cy="9" r="9" fill="#FFF" opacity=".6"/>
+  <g transform="translate(1 1)">
+   <circle cx="8" cy="8" r="7.3" fill="#FFF"/>
+   <path d="m8 1.5c3.6 0 6.5 2.9 6.5 6.5s-2.9 6.5-6.5 6.5-6.5-2.9-6.5-6.5 2.9-6.5 6.5-6.5zm0-1.5c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8z" fill="#212121"/>
+  </g>
+  <path d="m10 8v5h-2v-5h-3v-2h8v2h-3z" fill="#212121"/>
+ </g>
+</svg>

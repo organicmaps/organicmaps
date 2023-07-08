@@ -1,0 +1,247 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6719DD4E1B95A9440018166F /* bucketalloc.c in Sources */ = {isa = PBXBuildFile; fileRef = 6719DD401B95A9440018166F /* bucketalloc.c */; };
+		6719DD4F1B95A9440018166F /* bucketalloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 6719DD411B95A9440018166F /* bucketalloc.h */; };
+		6719DD501B95A9440018166F /* dict.c in Sources */ = {isa = PBXBuildFile; fileRef = 6719DD421B95A9440018166F /* dict.c */; };
+		6719DD511B95A9440018166F /* dict.h in Headers */ = {isa = PBXBuildFile; fileRef = 6719DD431B95A9440018166F /* dict.h */; };
+		6719DD521B95A9440018166F /* geom.c in Sources */ = {isa = PBXBuildFile; fileRef = 6719DD441B95A9440018166F /* geom.c */; };
+		6719DD531B95A9440018166F /* geom.h in Headers */ = {isa = PBXBuildFile; fileRef = 6719DD451B95A9440018166F /* geom.h */; };
+		6719DD541B95A9440018166F /* mesh.c in Sources */ = {isa = PBXBuildFile; fileRef = 6719DD461B95A9440018166F /* mesh.c */; };
+		6719DD551B95A9440018166F /* mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 6719DD471B95A9440018166F /* mesh.h */; };
+		6719DD561B95A9440018166F /* priorityq.c in Sources */ = {isa = PBXBuildFile; fileRef = 6719DD481B95A9440018166F /* priorityq.c */; };
+		6719DD571B95A9440018166F /* priorityq.h in Headers */ = {isa = PBXBuildFile; fileRef = 6719DD491B95A9440018166F /* priorityq.h */; };
+		6719DD581B95A9440018166F /* sweep.c in Sources */ = {isa = PBXBuildFile; fileRef = 6719DD4A1B95A9440018166F /* sweep.c */; };
+		6719DD591B95A9440018166F /* sweep.h in Headers */ = {isa = PBXBuildFile; fileRef = 6719DD4B1B95A9440018166F /* sweep.h */; };
+		6719DD5A1B95A9440018166F /* tess.c in Sources */ = {isa = PBXBuildFile; fileRef = 6719DD4C1B95A9440018166F /* tess.c */; };
+		6719DD5B1B95A9440018166F /* tess.h in Headers */ = {isa = PBXBuildFile; fileRef = 6719DD4D1B95A9440018166F /* tess.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		34F5585A1DBF3DC500A4FC11 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		34F5585B1DBF3DC500A4FC11 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		6719DD381B95A8E70018166F /* libtess2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtess2.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6719DD401B95A9440018166F /* bucketalloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bucketalloc.c; path = Source/bucketalloc.c; sourceTree = "<group>"; };
+		6719DD411B95A9440018166F /* bucketalloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bucketalloc.h; path = Source/bucketalloc.h; sourceTree = "<group>"; };
+		6719DD421B95A9440018166F /* dict.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = dict.c; path = Source/dict.c; sourceTree = "<group>"; };
+		6719DD431B95A9440018166F /* dict.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dict.h; path = Source/dict.h; sourceTree = "<group>"; };
+		6719DD441B95A9440018166F /* geom.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = geom.c; path = Source/geom.c; sourceTree = "<group>"; };
+		6719DD451B95A9440018166F /* geom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = geom.h; path = Source/geom.h; sourceTree = "<group>"; };
+		6719DD461B95A9440018166F /* mesh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = mesh.c; path = Source/mesh.c; sourceTree = "<group>"; };
+		6719DD471B95A9440018166F /* mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mesh.h; path = Source/mesh.h; sourceTree = "<group>"; };
+		6719DD481B95A9440018166F /* priorityq.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = priorityq.c; path = Source/priorityq.c; sourceTree = "<group>"; };
+		6719DD491B95A9440018166F /* priorityq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = priorityq.h; path = Source/priorityq.h; sourceTree = "<group>"; };
+		6719DD4A1B95A9440018166F /* sweep.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = sweep.c; path = Source/sweep.c; sourceTree = "<group>"; };
+		6719DD4B1B95A9440018166F /* sweep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sweep.h; path = Source/sweep.h; sourceTree = "<group>"; };
+		6719DD4C1B95A9440018166F /* tess.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = tess.c; path = Source/tess.c; sourceTree = "<group>"; };
+		6719DD4D1B95A9440018166F /* tess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tess.h; path = Source/tess.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6719DD351B95A8E70018166F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6719DD2F1B95A8E70018166F = {
+			isa = PBXGroup;
+			children = (
+				34F5585A1DBF3DC500A4FC11 /* common-debug.xcconfig */,
+				34F5585B1DBF3DC500A4FC11 /* common-release.xcconfig */,
+				6719DD3F1B95A8F80018166F /* tess2 */,
+				6719DD391B95A8E70018166F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6719DD391B95A8E70018166F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6719DD381B95A8E70018166F /* libtess2.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6719DD3F1B95A8F80018166F /* tess2 */ = {
+			isa = PBXGroup;
+			children = (
+				6719DD401B95A9440018166F /* bucketalloc.c */,
+				6719DD411B95A9440018166F /* bucketalloc.h */,
+				6719DD421B95A9440018166F /* dict.c */,
+				6719DD431B95A9440018166F /* dict.h */,
+				6719DD441B95A9440018166F /* geom.c */,
+				6719DD451B95A9440018166F /* geom.h */,
+				6719DD461B95A9440018166F /* mesh.c */,
+				6719DD471B95A9440018166F /* mesh.h */,
+				6719DD481B95A9440018166F /* priorityq.c */,
+				6719DD491B95A9440018166F /* priorityq.h */,
+				6719DD4A1B95A9440018166F /* sweep.c */,
+				6719DD4B1B95A9440018166F /* sweep.h */,
+				6719DD4C1B95A9440018166F /* tess.c */,
+				6719DD4D1B95A9440018166F /* tess.h */,
+			);
+			name = tess2;
+			path = ../../3party/libtess2;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		6719DD361B95A8E70018166F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6719DD531B95A9440018166F /* geom.h in Headers */,
+				6719DD571B95A9440018166F /* priorityq.h in Headers */,
+				6719DD551B95A9440018166F /* mesh.h in Headers */,
+				6719DD5B1B95A9440018166F /* tess.h in Headers */,
+				6719DD591B95A9440018166F /* sweep.h in Headers */,
+				6719DD511B95A9440018166F /* dict.h in Headers */,
+				6719DD4F1B95A9440018166F /* bucketalloc.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		6719DD371B95A8E70018166F /* tess2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6719DD3C1B95A8E70018166F /* Build configuration list for PBXNativeTarget "tess2" */;
+			buildPhases = (
+				6719DD341B95A8E70018166F /* Sources */,
+				6719DD351B95A8E70018166F /* Frameworks */,
+				6719DD361B95A8E70018166F /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = tess2;
+			productName = tess2;
+			productReference = 6719DD381B95A8E70018166F /* libtess2.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6719DD301B95A8E70018166F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1410;
+				TargetAttributes = {
+					6719DD371B95A8E70018166F = {
+						CreatedOnToolsVersion = 6.4;
+					};
+				};
+			};
+			buildConfigurationList = 6719DD331B95A8E70018166F /* Build configuration list for PBXProject "tess2" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6719DD2F1B95A8E70018166F;
+			productRefGroup = 6719DD391B95A8E70018166F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6719DD371B95A8E70018166F /* tess2 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6719DD341B95A8E70018166F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6719DD5A1B95A9440018166F /* tess.c in Sources */,
+				6719DD581B95A9440018166F /* sweep.c in Sources */,
+				6719DD541B95A9440018166F /* mesh.c in Sources */,
+				6719DD561B95A9440018166F /* priorityq.c in Sources */,
+				6719DD4E1B95A9440018166F /* bucketalloc.c in Sources */,
+				6719DD501B95A9440018166F /* dict.c in Sources */,
+				6719DD521B95A9440018166F /* geom.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		6719DD3A1B95A8E70018166F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34F5585A1DBF3DC500A4FC11 /* common-debug.xcconfig */;
+			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/libtess2/Include",
+				);
+			};
+			name = Debug;
+		};
+		6719DD3B1B95A8E70018166F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34F5585B1DBF3DC500A4FC11 /* common-release.xcconfig */;
+			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/libtess2/Include",
+				);
+			};
+			name = Release;
+		};
+		6719DD3D1B95A8E70018166F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6719DD3E1B95A8E70018166F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6719DD331B95A8E70018166F /* Build configuration list for PBXProject "tess2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6719DD3A1B95A8E70018166F /* Debug */,
+				6719DD3B1B95A8E70018166F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6719DD3C1B95A8E70018166F /* Build configuration list for PBXNativeTarget "tess2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6719DD3D1B95A8E70018166F /* Debug */,
+				6719DD3E1B95A8E70018166F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6719DD301B95A8E70018166F /* Project object */;
+}

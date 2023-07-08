@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="81H-Jz-Sl2" customClass="MWMEditorAddAdditionalNameTableViewCell" propertyAccessControl="none">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="81H-Jz-Sl2" id="EHS-hP-aIE">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ua5-4V-1PH" customClass="MWMButton">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="height" priority="750" constant="44" id="oVm-ep-LLL"/>
+                        </constraints>
+                        <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <inset key="titleEdgeInsets" minX="14" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" title="add_language" image="ic_add_light"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="imageName" value="ic_add"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalTransButtonBig"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="add_language"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="addLanguageTap" destination="81H-Jz-Sl2" eventType="touchUpInside" id="Lw7-kU-hIK"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="Ua5-4V-1PH" secondAttribute="bottom" id="Nmp-Cj-ffg"/>
+                    <constraint firstItem="Ua5-4V-1PH" firstAttribute="leading" secondItem="EHS-hP-aIE" secondAttribute="leading" id="XP5-8s-Vka"/>
+                    <constraint firstItem="Ua5-4V-1PH" firstAttribute="top" secondItem="EHS-hP-aIE" secondAttribute="top" id="YAU-Xb-h9Y"/>
+                    <constraint firstAttribute="trailing" secondItem="Ua5-4V-1PH" secondAttribute="trailing" id="f6J-6o-AjX"/>
+                </constraints>
+                <userDefinedRuntimeAttributes>
+                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+                </userDefinedRuntimeAttributes>
+            </tableViewCellContentView>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="342" y="257"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic_add_light" width="22" height="22"/>
+    </resources>
+</document>

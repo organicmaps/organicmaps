@@ -1,0 +1,198 @@
+/* BASE */
+@white: #ffffff;
+@background:#E3E1D2; /*E6E6D5 #EDEAE1;	/* @background: #f1eee8; */
+/*@backgroundone: #DEDECD;*/
+
+
+/* BOUNDARIES */
+@border_country: #63635C;
+@border_country_light: #73726B;
+@border_region: #73726B;
+
+
+/* ROADS */
+@trunk: #FF8800; /*#ED8800; #FF8800;*/
+@trunk_hard: #F7632C;
+@trunk_medium: #F86B39;
+@trunk_light: #F87C4A;
+@primary:  #E5B643;
+
+/* YELLOW ROADS BUNDLE  */
+@primary_yellow: #FCD767;
+@primary_yellow_case: #E5A643;
+@trunk_yellow: #FF8800;
+@trunk_yellow_case: #CD764C;
+
+/* ORANGE ROADS BUNDLE  */
+
+@trunk: #FF8800;
+@trunk_orange: #FF5919;
+@trunk_orange_medium: #FF9140;
+@trunk_orange_light: #FF8742;
+@primary_orange:  #FF8726;
+@primary_orange_medium: #FFAD57;
+@primary_orange_light: #FFAD57;
+@secondary: #FFFFFF;
+@residential: #FCFCFC;
+@unclassified: #FCFCFC;
+@pedestrian: #FCFCFC;
+@footway: #FCFCFC;
+@cycleway: #FF87AD;
+@construction: #BBBBAA;
+@track: #635730;
+@path: #A05012;
+@bridleway: #3D361E;
+
+
+/* bridges */
+@bridge_background: #E5E4D5;
+@bridge_casing: #808080;
+@casing_road:  #F5F3E4; /*#BDBBAF; #FCFCF7; #E3E1D5;*/
+
+/* tunnels */
+
+@primary_tunnel_orange: #FCA462;
+@primary_tunnel_yellow: #FCD767;
+@trunk_tunnel_orange: #FCA462;
+@trunk_tunnel_yellow: #FF8800;
+@primary_tunnel_casing: #808080;
+@trunk_tunnel_casing: #808080;
+@secondary_tunnel: #FFFFFF;
+@secondary_tunnel_casing:  #808080;
+@tertiary_tunnel: #FFFFFF;
+@tertiary_tunnel_casing:  #808080;
+@unclassified_tunnel: #FFFFFF;
+@unclassified_tunnel_casing: #808080;
+/*roads_links */
+@trunk_link: #FFFFFF;
+@primary_link: #FFFFFF;
+@secondary_link: #FFFFFF;
+@tertiary_link: #f8f8f8;
+
+/* TRANSPORT */
+@railway_light: #B2B1A2;
+@railway: #8C8B80;
+@railway_dash: #EEEEEE;
+@railway_tunnel: #808080;
+@aerialway: #444444;
+@tram: #7A7A7A;
+@tram_1: #E82033;
+@ferry: #4499Bb;
+
+/*aerodrome*/
+@aerodrome0: #D8D1E8;
+@aerodrome1: #D8D1E8;
+@aerodrome2: #D8D1E8;
+@aerodrome3: #D8D1E8;
+@aerodrome4: #D8D1E8;
+@aerodrome5: #D8D1E8;
+
+/* NATURAL */
+@glacier: #FFFFFF;
+@water: #8BD3E0;
+/*@water_1: #9AD2D9;*/
+@river: #36B0BF;
+/*@river_1: #9AD2D9;*/
+@wetland: #c9ddd6;
+@forest:  #C8DBAD;/*#AABF65;*/
+@park: #C8DBAD; /*A5BF60 #A4B275 #BCCC74*/
+@natpark: #C8DBAD;
+@beach: #FCEC7E;
+@barerock: #EDE5DC;
+@desert: #EEE5B2;
+
+/*forest-park*/
+@green0: #C6D9AB;
+@green1: #C6D9AB;
+@green2: #C6D9AB;
+@green3: #C6D9AB;
+@green4: #C6D9AB;
+@green5: #C6D9AB;
+@green6: #888C38;
+
+/* BUILDINGS */
+@housename: #65655E;
+@building_label: #61615A;
+@building: #D4D3CA;/*#C9C8BB;*/
+@building_dark: #C7C6BF;/*#C2C0B3;*/
+@building_border: #D4D3CA;
+@building_dark_border: #D4D3CA;
+
+/* LANDUSE */
+
+@pedestrian_area: #EDE8D6;
+@pedestrian_area_light: #F2EEDA;
+
+@unversity: #F8E4BA;
+@hospital: #F8D9D9;/*FADCDB*/
+@industrial: #E1DCE3;/*#D5D5DE; #E4E2EB;*/
+@sport: #C8DBAD;
+@parking: #F2F2CE;
+@parking_l: #FCFCC2;/*#F0EBC5;DCDCB9; #F2F2CE;*/
+@military: #E53935;
+@farmland: #ededc3;
+
+/* BARRIERS */
+@fence: #888888;
+@hedge: #36831C;
+@cliff: #8C5826;
+
+
+/* LABELS COLORS */
+@label_extra_dark: #000000;
+@label_dark: #222222;
+@label_medium: #333333;
+@label_light: #444444;
+@label_extra_light: #7F7F7F;
+
+@label_halo_bg: #E3E1D2;
+@label_halo_dark: #E3E1D2;
+@label_halo_medium: #EDEBDB;
+@label_halo_light: #FFFFFF;
+
+
+/* PLACE LABELS */
+@city_label: #666666;
+@city_label_light: #7F7F7F;
+@city_halo: #DDDDCC;
+@city_halo_light: #DDDDCC;
+@country_label: #8C8C8C;
+@state_label: #8C8C8C;
+@district_label: #7F7F7F;
+
+@poi_label: #444444;
+@subway_label: #333333;
+@railway_label: #333333;
+
+/* ROADS LABELS */
+@primary_road_label: #2E2E2E;
+@secondary_road_label: #333333;
+@road_label_halo: #FFFFFF;
+@shield_text: #000000;
+@shield_text_halo: #000000;
+@shield: #FFFFFF;
+@shield_outline: #000000;
+/* blue - #2E89B0; #687E94; #598DBE; */
+
+@label_dark: #333333;
+@label_light: #444444;
+@dark:  #333333;
+
+/* NATURAL LABELS */
+@water_label: #4499Bb;
+@park_label: #3A7921;
+@park_label_1: #499953;
+@halo_park_label: #FFFFFF;
+@halo_water_label: #fff;
+
+/* UNIVERSAL HALO */
+@label_halo: #FFFFFF;
+
+
+/* PISTE */
+@piste: #C47AFF;
+@piste_novice:#5feb2e;
+@piste_easy: #0b27fb;
+@piste_intermadiate: #fc0e1b;
+@piste_expert: #220625;
+@piste_advanced: #0a0a0d;

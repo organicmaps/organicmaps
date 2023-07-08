@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/rl__bookmark_details"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="?cardBackground"
+  android:padding="@dimen/margin_half">
+  <LinearLayout
+    android:id="@+id/ll__bookmark_name"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_half"
+    android:layout_marginEnd="@dimen/margin_half"
+    android:orientation="vertical">
+    <app.organicmaps.widget.CustomTextInputLayout
+      style="?fontBody1"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textColorHint="?android:textColorSecondary">
+      <EditText
+        android:id="@+id/et__bookmark_name"
+        style="@style/MwmWidget.PlacePage.EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/name"
+        android:inputType="textCapSentences"
+        android:singleLine="true" />
+    </app.organicmaps.widget.CustomTextInputLayout>
+  </LinearLayout>
+  <RelativeLayout
+    android:id="@+id/rl__bookmark_set"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/ll__bookmark_name"
+    android:layout_marginStart="@dimen/margin_half_plus">
+    <TextView
+      android:id="@+id/tv__bookmark_set_title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_base"
+      android:layout_marginEnd="@dimen/margin_quadruple"
+      android:text="@string/list"
+      android:textAppearance="@style/MwmTextAppearance.Body3" />
+    <TextView
+      android:id="@+id/tv__bookmark_set"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/tv__bookmark_set_title"
+      android:layout_centerVertical="true"
+      android:layout_marginEnd="@dimen/margin_quadruple"
+      android:background="?attr/selectableItemBackground"
+      android:clickable="true"
+      android:paddingTop="@dimen/margin_quarter_plus"
+      android:paddingBottom="@dimen/margin_half_plus"
+      android:textAppearance="@style/MwmTextAppearance.Body1"
+      app:drawableEndCompat="@drawable/ic_arrow_down" />
+    <View
+      android:id="@+id/divideerrr"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_alignBottom="@id/tv__bookmark_set"
+      android:layout_marginEnd="@dimen/margin_quadruple"
+      android:background="@color/divider" />
+    <ImageView
+      android:id="@+id/iv__bookmark_color"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:layout_alignParentRight="true"
+      android:layout_alignEnd="@id/divideerrr"
+      android:background="?clickableBackground"
+      android:padding="@dimen/margin_half"
+      tools:src="@drawable/ic_bookmark_none" />
+  </RelativeLayout>
+  <app.organicmaps.widget.CustomTextInputLayout
+    style="?fontBody1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/rl__bookmark_set"
+    android:layout_margin="@dimen/margin_half"
+    android:textColorHint="?android:textColorSecondary">
+    <EditText
+      android:id="@+id/et__description"
+      style="@style/MwmWidget.PlacePage.EditText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/edit_description_hint"
+      android:inputType="textMultiLine" />
+  </app.organicmaps.widget.CustomTextInputLayout>
+</RelativeLayout>

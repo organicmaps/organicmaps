@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Do NOT replace with LinearLayout because of issue in ExpandableListView:
+     Child views do not occupy the whole width of the list. -->
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:minHeight="@dimen/height_item_oneline"
+  android:paddingStart="@dimen/margin_base_plus"
+  android:paddingEnd="@dimen/margin_base_plus">
+  <app.organicmaps.widget.WheelProgressView
+    android:id="@+id/wheel_progress"
+    android:layout_width="@dimen/downloader_status_size"
+    android:layout_height="@dimen/downloader_status_size"
+    android:layout_centerVertical="true"
+    android:layout_marginEnd="@dimen/margin_half"
+    android:visibility="gone"
+    app:wheelProgressColor="?colorAccent"
+    app:wheelSecondaryColor="?dividerHorizontal"
+    app:wheelThickness="@dimen/margin_eighth"
+    app:centerDrawable="@android:color/transparent"
+    tools:visibility="visible"/>
+
+  <TextView
+    android:id="@+id/tv__size"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_centerVertical="true"
+    android:layout_marginEnd="@dimen/margin_base_plus"
+    android:maxLines="1"
+    android:textAppearance="@style/MwmTextAppearance.Body1"
+    tools:text="256 MB"/>
+
+  <TextView
+    android:id="@+id/tv__title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_toEndOf="@id/wheel_progress"
+    android:layout_toStartOf="@id/tv__size"
+    android:layout_centerVertical="true"
+    android:layout_alignWithParentIfMissing="true"
+    android:layout_marginEnd="@dimen/margin_half"
+    android:maxLines="2"
+    android:ellipsize="end"
+    android:textAppearance="@style/MwmTextAppearance.Body1"
+    tools:text="Country name name name name name name name name"/>
+</RelativeLayout>

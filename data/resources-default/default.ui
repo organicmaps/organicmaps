@@ -1,0 +1,38 @@
+<root>
+  <ruler>
+    <portrait>
+      <anchor vertical="bottom" horizontal="left"/>
+      <relative vertical="bottom" horizontal="left"/>
+      <offset x="10" y="10"/>
+    </portrait>
+    <landscape>
+      <anchor vertical="bottom" horizontal="left"/>
+      <relative vertical="bottom" horizontal="left"/>
+      <offset x="10" y="10"/>
+    </landscape>
+  </ruler>
+  <compass>
+    <portrait>
+      <anchor vertical="center" horizontal="center"/>
+      <relative vertical="top" horizontal="right"/>
+      <offset x="34" y="48"/>
+    </portrait>
+    <landscape>
+      <anchor vertical="center" horizontal="center"/>
+      <relative vertical="top" horizontal="right"/>
+      <offset x="34" y="48"/>
+    </landscape>
+  </compass>
+  <copyright>
+    <portrait>
+      <anchor vertical="bottom" horizontal="left"/>
+      <relative vertical="bottom" horizontal="left"/>
+      <offset x="10" y="10"/>
+    </portrait>
+    <landscape>
+      <anchor vertical="bottom" horizontal="left"/>
+      <relative vertical="bottom" horizontal="left"/>
+      <offset x="10" y="10"/>
+    </landscape>
+  </copyright>
+</root>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/routing_plan_frame"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  android:clipToPadding="false">
+  <FrameLayout android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.Toolbar
+      android:id="@+id/toolbar"
+      style="@style/MwmWidget.ToolbarStyle"
+      android:theme="@style/MwmWidget.ToolbarTheme"
+      android:layout_width="match_parent"
+      app:contentInsetStart="0dp"
+      android:layout_height="wrap_content"
+      android:elevation="0dp">
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="?attr/actionBarSize">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentStart="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="?homeAsUpIndicator"
+            android:scaleType="center"
+            tools:src="@drawable/ic_down" />
+
+        <RadioGroup
+            android:id="@+id/route_type"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
+
+          <app.organicmaps.widget.RoutingToolbarButton
+              android:id="@+id/vehicle"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="@dimen/routing_selector_wheel_margin"
+              tools:button="@drawable/ic_car"
+              tools:buttonTint="?colorAccent" />
+
+          <app.organicmaps.widget.RoutingToolbarButton
+              android:id="@+id/pedestrian"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="12dp"
+              android:layout_marginEnd="12dp"
+              tools:button="@drawable/ic_pedestrian"
+              tools:buttonTint="?iconTintLight" />
+
+          <app.organicmaps.widget.RoutingToolbarButton
+              android:id="@+id/transit"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="@dimen/margin_half_plus"
+              tools:button="@drawable/ic_transit"
+              tools:buttonTint="?iconTintLight" />
+
+          <app.organicmaps.widget.RoutingToolbarButton
+              android:id="@+id/bicycle"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="12dp"
+              tools:button="@drawable/ic_bike"
+              tools:buttonTint="?iconTintLight" />
+        </RadioGroup>
+
+        <LinearLayout
+          android:id="@+id/progress_frame"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignStart="@id/route_type"
+          android:layout_centerInParent="true"
+          android:orientation="horizontal"
+          tools:background="#80FF0000">
+
+          <app.organicmaps.widget.WheelProgressView
+            android:id="@+id/progress_vehicle"
+            style="@style/MwmWidget.ProgressWheel.RoutingPlan"
+            android:layout_marginStart="@dimen/routing_selector_wheel_margin"
+            android:layout_marginTop="@dimen/routing_selector_wheel_margin"
+            android:layout_marginBottom="@dimen/routing_selector_wheel_margin"
+            tools:visibility="visible"/>
+
+          <app.organicmaps.widget.WheelProgressView
+            android:id="@+id/progress_pedestrian"
+            style="@style/MwmWidget.ProgressWheel.RoutingPlan"
+            android:layout_marginTop="@dimen/routing_selector_wheel_margin"
+            android:layout_marginBottom="@dimen/routing_selector_wheel_margin"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"/>
+
+          <app.organicmaps.widget.WheelProgressView
+            android:id="@+id/progress_transit"
+            style="@style/MwmWidget.ProgressWheel.RoutingPlan"
+            android:layout_marginTop="@dimen/routing_selector_wheel_margin"
+            android:layout_marginBottom="@dimen/routing_selector_wheel_margin"
+            android:layout_marginEnd="12dp"/>
+
+          <app.organicmaps.widget.WheelProgressView
+            android:id="@+id/progress_bicycle"
+            style="@style/MwmWidget.ProgressWheel.RoutingPlan"
+            android:layout_marginTop="@dimen/routing_selector_wheel_margin"
+            android:layout_marginBottom="@dimen/routing_selector_wheel_margin"
+            android:layout_marginEnd="12dp"/>
+        </LinearLayout>
+
+      </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+  </FrameLayout>
+  <FrameLayout
+    android:id="@+id/driving_options_btn_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/drivingOptionsViewBg"
+    android:foreground="@drawable/shadow_top"
+    android:visibility="gone"
+    tools:visibility="visible">
+    <RelativeLayout
+      android:id="@+id/driving_options_btn"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="?attr/selectableItemBackgroundBorderless"
+      android:gravity="center"
+      android:minHeight="@dimen/height_block_base">
+      <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+          android:id="@+id/driving_options_btn_img"
+          android:layout_width="@dimen/margin_base_plus"
+          android:layout_height="@dimen/margin_base_plus"
+          android:layout_gravity="center"
+          android:layout_marginEnd="@dimen/margin_half_plus_eight"
+          android:src="@drawable/ic_error_white" />
+        <TextView
+          android:id="@+id/driving_options_btn_title"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:fontFamily="@string/robotoMedium"
+          android:gravity="center"
+          android:textAllCaps="true"
+          android:textAppearance="?android:attr/textAppearanceSmall"
+          android:textColor="@color/text_light"
+          tools:ignore="UnusedAttribute"
+          tools:text="test" />
+      </LinearLayout>
+    </RelativeLayout>
+  </FrameLayout>
+  <FrameLayout
+    style="@style/MwmWidget.FrameLayout.Elevation"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+</LinearLayout>

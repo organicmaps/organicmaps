@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="?windowBackgroundForced">
+  <androidx.appcompat.widget.Toolbar
+    android:id="@+id/toolbar"
+    style="@style/MwmWidget.ToolbarStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/MwmWidget.ToolbarTheme">
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize">
+      <TextView
+        android:id="@+id/tv__save"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:padding="@dimen/margin_half"
+        android:text="@string/save"
+        android:textAppearance="@style/MwmTextAppearance.Toolbar.Title.Button" />
+    </RelativeLayout>
+  </androidx.appcompat.widget.Toolbar>
+  <FrameLayout
+    style="@style/MwmWidget.FrameLayout.Elevation"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/toolbar">
+    <include layout="@layout/edit_bookmark_common"/>
+  </FrameLayout>
+</RelativeLayout>
