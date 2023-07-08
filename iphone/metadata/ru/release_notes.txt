@@ -1,17 +1,27 @@
-• Поддержка импорта GPX
-• Новые данные OpenStreetMap от 2 июня
-• Исправлено исчезновение списков меток при сохранении неправильных символов в названии или описании метки
-• Улучшена маршрутизация для автомобилей и велосипедов
-• Исправлены неработающие языки голосовых указаний на португальском (Бразилия) и испанском (Мексика) языках
-• Исправлены креши при импорте файлов KML, KMZ, GPX
-• Исправлен повторный импорт одного и того же файла KML/KMZ
-• Исправлены баскский, белорусский, британский, английский и украинский переводы
+• Fresh OpenStreetMap data as of July 7, 2023
+• Support altitude, OSMand and Garmin colors in imported GPX tracks
+• Show coordinates in Open Location Code (OLC), UTM, MRGS, and OpenStreetMap.org formats on click and copy coordinates on a long tap
+• Fixed crash when rendering large objects
+• Bookmark lists descriptions are now displayed and saved properly
+• Faster loading of bookmarks and tracks
+• Fixed pedestrian ETA for big slopes
+• Prefer tertiary roads to service roads in car routing
 
-Стили:
-• Исправлена иконка фуникулера
-• Изменен цвет пустыни в темном режиме
-• Добавлен Рыбоход
-• Новая иконка для камеры хранения посылок
-• Исправлена иконка самой северной станции метро Мюнхена
+Search
+• Improved search results ranking
+• Fixed shop categories search
+• Fixed airport search results with empty names
 
-Следите за нашими новостями на https://omaps.org/ru/news
+Styles
+• Added second-hand category, auction, collectors shops, turnstile & exit
+• Made areal water tunnels transparent and visible from z15
+• Introduced more detailed railway-rail-* types
+• Added a bridge structure outline man_made-bridge
+• Added community center, conference center, exhibition center, events venue
+• Increased shop icons priority
+• Added boundary=protected_area
+
+Translations:
+• Updated Czech, Finnish, French, German, Italian, Polish, Swedish, and Turkish translations
+
+Follow our news at https://omaps.org/news

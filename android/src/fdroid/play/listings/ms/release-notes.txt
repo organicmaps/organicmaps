@@ -1,13 +1,15 @@
-• GPX import support
-• New OpenStreetMap data as of June 2
-• MRGS and UTM coordinates support (tap on coordinates to change)
-• Improved car and bicycle routing
-• Fixed bug that prevented upload of OSM edits when on battery power
-• Now compass works on devices without gyroscope
-• Fixed missing Wiki descriptions
-• Decreased TTS (Text-To-Speech) voice speed
-• Added Fish Pass
-• Fixed funicular and parcel locker icons
-• Corrected be, eu, en, en-GB, and uk translations
+• Fresh OpenStreetMap data as of July 7, 2023
+• Fix several crashes
+• Support altitude, OSMand and Garmin colors in imported GPX tracks
+• Fixed pedestrian ETA for big slopes
+• Better car routing
+• Improved search
+• Share button has been moved to the Place Page
+• Fixed API backurl
+• Updated cz, de, fi, fr, it, pl, sv, tr translations
+• Add new shops and events types
+• Improved water tunnels and bridges rendering
+• More detailed railway types
+• Add boundary=protected_area
 
 …more: omaps.org/news

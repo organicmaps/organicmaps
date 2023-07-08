@@ -1,12 +1,15 @@
-• Підтримка імпорту GPX треків
-• Нові дані OSM станом на 2 червня
-• Підтримка MGRS та UTM координат
-• Покращено побудову автомобільних та велосипедних маршрутів
-• Виправлено помилку, яка перешкоджала завантаженню змін до OSM при роботі від акумулятора
-• Тепер компас працює на пристроях без гіроскопу
-• Виправлено відсутні описи Вікіпедії
-• Зменшили швидкість голосових підказок
-• Додали на мапу рибоходи
-• Нові іконки для фунікулерів та поштоматів
+• Fresh OpenStreetMap data as of July 7, 2023
+• Fix several crashes
+• Support altitude, OSMand and Garmin colors in imported GPX tracks
+• Fixed pedestrian ETA for big slopes
+• Better car routing
+• Improved search
+• Share button has been moved to the Place Page
+• Fixed API backurl
+• Updated cz, de, fi, fr, it, pl, sv, tr translations
+• Add new shops and events types
+• Improved water tunnels and bridges rendering
+• More detailed railway types
+• Add boundary=protected_area
 
-omaps.org/news
+…more: omaps.org/news

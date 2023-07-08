@@ -1,10 +1,15 @@
-• GPX dosyalarını içe aktarma desteği
-• Yeni OpenStreetMap verileri (2 Haziran)
-• MRGS ve UTM koordinat desteği (ayarlamak için koordinatlara dokunun)
-• İyileştirilmiş araç ve bisiklet rotaları
-• Pil tasarrufundayken harita düzenlemede oluşan hata düzeltildi
-• Artık pusula, jiroskop sensörü olmayan cihazlarda da çalışıyor
-• Eksik Vikipedi açıklamaları düzeltildi
-• Navigasyon sesi yavaşlatıldı
-• Balık geçidi kategorisi eklendi
-…dahası: omaps.org/tr/news
+• Fresh OpenStreetMap data as of July 7, 2023
+• Fix several crashes
+• Support altitude, OSMand and Garmin colors in imported GPX tracks
+• Fixed pedestrian ETA for big slopes
+• Better car routing
+• Improved search
+• Share button has been moved to the Place Page
+• Fixed API backurl
+• Updated cz, de, fi, fr, it, pl, sv, tr translations
+• Add new shops and events types
+• Improved water tunnels and bridges rendering
+• More detailed railway types
+• Add boundary=protected_area
+
+…more: omaps.org/news
