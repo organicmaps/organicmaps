@@ -576,6 +576,7 @@ world  +
         zero  -
         {}
     junction  +
+        circular  -
         roundabout  -
         {}
     landuse  +

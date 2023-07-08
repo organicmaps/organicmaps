@@ -36191,6 +36191,39 @@ cont {
   }
 }
 cont {
+  name: "junction-circular"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 10
+        color: 3355443
+      }
+      priority: 15470
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 10
+        color: 3355443
+      }
+      priority: 15470
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 10
+        color: 3355443
+      }
+      priority: 15470
+    }
+  }
+}
+cont {
   name: "junction-roundabout"
   element {
     scale: 17
