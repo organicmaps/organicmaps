@@ -1,13 +1,14 @@
-• Suporte à importação de GPX
-• Novos dados OSM de 02/06
-• Suporte às coordenadas MRGS e UTM
-• Melhoria no roteamento de carros e bicicletas
-• Correção que impedia enviar alterações ligado à bateria
-• Suporte à bússola em dispositivos sem giroscópio
-• Correção das descrições da wiki ausentes
-• Diminuição da velocidade da voz TTS
-• Adição de "escada de peixes" em albufeiras e represas
-• Correção de ícones de funicular e cacifo
-• Correção de traduções be, eu, en, en-GB e uk
+• Novos dados OSM de 10/07
+• Correção de vários erros
+• Melhor suporte nas trilhas GPX importadas a altitude e cores
+• Correção do ETA para pedestres
+• Melhoria no roteamento de carros e na busca
+• Botão Partilhar foi movido
+• Correção do backurl da API
+• Atualização de traduções para cz, de, fi, fr, it, pl, sv, tr
+• Adição de novas lojas e tipos de eventos
+• Melhoria na renderização de túneis de água e pontes
+• Detalhamento nos tipos de ferrovias
+• Adição de áreas protegidas
 
 …mais: omaps.org/news

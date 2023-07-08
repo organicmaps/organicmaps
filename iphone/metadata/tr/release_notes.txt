@@ -1,17 +1,29 @@
-• GPX import support
-• New OpenStreetMap data as of June 2, 2023
-• Fixed disappearing bookmark lists when wrong characters were saved in a bookmark name or description
-• Improved car and bicycle routing
-• Fixed non-working Portuguese (Brazil) and Spanish (Mexico) voice directions languages
-• Fixed crash when importing KML/KMZ/GPX file
-• Fixed repeated imports of the same file
-• Corrected Basque, Belarusian, British, English, and Ukrainian translations
+• 10 Temmuz 2023 tarihine ait yeni OpenStreetMap harita verileri
+• İçe aktarılan GPX dosyalarında yükseklik, OSMand ve Garmin renkleri artık destekleniyor
+• Artık koordinatların üstüne dokunarak Open Location Code (OLC), UTM, MRGS ve OpenStreetMap.org formatlarında koordinatları görebilirsiniz. Ayrıca koordinatların üzerine basılı tutarak koordinatları kopyalayabilirsiniz.
+• Büyük harita nesneleri işlenirken oluşan çökme sorunu düzeltildi
+• Yer imi listeleri açıklamaları artık düzgün bir şekilde görüntüleniyor ve kaydediliyor
+• Yer imleri ve rota kaydı dosyaları artık daha hızlı yükleniyor
+• Yüksek eğimlerden geçen yaya rotalarında tahmini varış zamanı düzeltildi
+• Araç rotalarında üçüncü derece yollar, servis yollarına göre artık daha öncelikli olarak tercih ediliyor
 
-Styles:
-• Fixed funicular icon
-• Changed desert color in the dark mode
-• Added Fish Pass
-• New Icon for Parcel Locker
-• Fixed icon for northernmost Munich underground station
+Search
+• Improved search results ranking
+• Fixed shop categories search
+• Fixed airport search results with empty names
+
+Styles
+• Improve visibility and findability of highway services and rest areas
+• Added second-hand category, auction, collectors shops, turnstile & exit
+• Made areal water tunnels transparent and visible from z15
+• Introduced more detailed railway-rail-* types
+• Fixed railway-abandoned/preserved bridges
+• Added a bridge structure outline man_made-bridge
+• Added community center, conference center, exhibition center, events venue
+• Increased shop icons priority
+• Added boundary=protected_area
+
+Translations:
+• Updated Catalan, Czech, Finnish, French, German, Italian, Polish, Spanish, Swedish, and Turkish translations
 
 Follow our news at https://omaps.org/news

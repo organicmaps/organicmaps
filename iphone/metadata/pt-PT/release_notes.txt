@@ -1,17 +1,27 @@
-• Suporte à importação de GPX
-• Novos dados OpenStreetMap de 2 de junho
-• Correção de listas de favoritos que desapareciam quando caracteres errados eram guardados no nome ou na descrição de um favorito
-• Melhoria no roteamento de carros e bicicletas
-• Correção de TTS em português (Brasil) e espanhol (México) que não funcionavam
-• Correção de falha ao importar ficheiros KML/KMZ/GPX
-• Correção de importações repetidas do mesmo ficheiro
-• Correção de tradução em basco, bielorrusso, inglês, inglês britânico e ucraniano
+• Novos dados OpenStreetMap de 10 de julho
+• Suporte, nas trilhas GPX importadas, a altitude, e cores do OSMand e Garmin
+• Mostra coordenadas nos formatos Open Location Code (OLC), UTM, MRGS e OpenStreetMap.org ao clicar e copiar as coordenadas com um toque longo
+• Correção na falha ao renderizar objetos grandes
+• As descrições das listas de favoritos agora são exibidas e salvas corretamente
+• Carregamento mais rápido de favoritos e trilhas
+• Correção de tempo de chegada para pedestres em grandes declives
+• Roteamento de veículos dá preferência a estradas terciárias do que estradas de serviço
 
-Estilos:
-• Correção no ícone de funicular
-• Alteração na cor do deserto no modo escuro
-• Adição de "escada de peixes" em albufeiras e represas
-• Novo ícone para cacifo
-• Correção de ícone para a estação de metro mais a norte de Munique
+Busca
+• Melhoria na classificação dos resultados de pesquisa
+• Correção na busca de categorias de lojas
+• Correção nos resultados de pesquisa de aeroportos com nomes vazios
 
-Acompanhe as novidades em https://omaps.org/news
+Estilos
+• Adição de categoria de lojas de segunda mão, leilão, lojas de colecionadores, catraca e saída
+• Túneis de água aéreos transparentes e visíveis a partir do z15
+• Introdução de detalhamento nos tipos de ferrovias
+• Adição de contorno da estrutura da ponte
+• Adição de centro comunitário, centro de conferências, centro de exposições, local de eventos
+• Aumento da prioridade dos ícones da loja
+• Adição de áreas protegidas
+
+Traduções
+• Traduções atualizadas em alemão, finlandês, francês, italiano, polonês, sueco, tcheco e turco
+
+Acompanhe nossas novidades em https://omaps.org/news
