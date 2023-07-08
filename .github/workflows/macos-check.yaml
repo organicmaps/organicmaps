@@ -55,11 +55,18 @@ jobs:
         shell: bash
         run: ./configure.sh
 
+      - name: Configure ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          key: ${{ github.workflow }}-${{ matrix.CMAKE_BUILD_TYPE }}
+
       - name: CMake
         shell: bash
         run: |
           echo "Building ${{ matrix.CMAKE_BUILD_TYPE }}"
-          cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.CMAKE_BUILD_TYPE }} -DCMAKE_C_FLAGS=-g1 -DCMAKE_CXX_FLAGS=-g1
+          cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.CMAKE_BUILD_TYPE }} \
+            -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
+            -DCMAKE_C_FLAGS=-g1 -DCMAKE_CXX_FLAGS=-g1
 
       - name: Compile
         shell: bash
