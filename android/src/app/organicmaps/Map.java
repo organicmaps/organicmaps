@@ -348,7 +348,7 @@ public final class Map
   private static native boolean nativeIsEngineCreated();
   private static native void nativeSetRenderingInitializationFinishedListener(
       @Nullable MapRenderingListener listener);
-  private static native boolean nativeShowMapForUrl(String url);
+  public static native boolean nativeShowMapForUrl(String url);
 
   // Surface
   private static native boolean nativeAttachSurface(Surface surface);

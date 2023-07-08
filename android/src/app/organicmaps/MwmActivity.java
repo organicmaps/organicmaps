@@ -2,17 +2,25 @@ package app.organicmaps;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
@@ -26,7 +34,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.Framework.PlacePageActivationListener;
 import app.organicmaps.api.Const;
@@ -96,26 +103,33 @@ import app.organicmaps.widget.placepage.PlacePageData;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Stack;
 
 public class MwmActivity extends BaseMwmFragmentActivity
-    implements PlacePageActivationListener,
-               View.OnTouchListener,
-               MapRenderingListener,
-               CustomNavigateUpListener,
-               RoutingController.Container,
-               LocationListener,
-               LocationState.ModeChangeListener,
-               RoutingPlanInplaceController.RoutingPlanListener,
-               RoutingBottomMenuListener,
-               BookmarkManager.BookmarksLoadingListener,
-               FloatingSearchToolbarController.SearchToolbarListener,
-               NoConnectionListener,
-               MenuBottomSheetFragment.MenuBottomSheetInterfaceWithHeader,
-               PlacePageController.PlacePageRouteSettingsListener,
-               MapButtonsController.MapButtonClickListener
+        implements PlacePageActivationListener,
+        View.OnTouchListener,
+        MapRenderingListener,
+        CustomNavigateUpListener,
+        RoutingController.Container,
+        LocationListener,
+        LocationState.ModeChangeListener,
+        RoutingPlanInplaceController.RoutingPlanListener,
+        RoutingBottomMenuListener,
+        BookmarkManager.BookmarksLoadingListener,
+        FloatingSearchToolbarController.SearchToolbarListener,
+        NoConnectionListener,
+        MenuBottomSheetFragment.MenuBottomSheetInterfaceWithHeader,
+        PlacePageController.PlacePageRouteSettingsListener,
+        MapButtonsController.MapButtonClickListener
 {
   private static final String TAG = MwmActivity.class.getSimpleName();
 
@@ -125,10 +139,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
 
   private static final String[] DOCKED_FRAGMENTS = { SearchFragment.class.getName(),
-                                                     DownloaderFragment.class.getName(),
-                                                     RoutingPlanFragment.class.getName(),
-                                                     EditorHostFragment.class.getName(),
-                                                     ReportFragment.class.getName() };
+          DownloaderFragment.class.getName(),
+          RoutingPlanFragment.class.getName(),
+          EditorHostFragment.class.getName(),
+          ReportFragment.class.getName() };
 
   public static final int REQ_CODE_ERROR_DRIVING_OPTIONS_DIALOG = 5;
   public static final int REQ_CODE_DRIVING_OPTIONS = 6;
@@ -199,7 +213,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public static Intent createShowMapIntent(@NonNull Context context, @Nullable String countryId)
   {
     return new Intent(context, DownloadResourcesLegacyActivity.class)
-        .putExtra(DownloadResourcesLegacyActivity.EXTRA_COUNTRY, countryId);
+            .putExtra(DownloadResourcesLegacyActivity.EXTRA_COUNTRY, countryId);
   }
 
   @Override
@@ -235,7 +249,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected int getFragmentContentResId()
   {
     return (mIsTabletLayout ? R.id.fragment_container
-                            : super.getFragmentContentResId());
+            : super.getFragmentContentResId());
   }
 
   @Nullable
@@ -311,10 +325,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     new MaterialAlertDialogBuilder(MwmActivity.this, R.style.MwmTheme_AlertDialog)
-        .setMessage(R.string.unknown_current_position)
-        .setCancelable(true)
-        .setPositiveButton(R.string.ok, null)
-        .show();
+            .setMessage(R.string.unknown_current_position)
+            .setCancelable(true)
+            .setPositiveButton(R.string.ok, null)
+            .show();
   }
 
   @Override
@@ -372,7 +386,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mSearchController = new FloatingSearchToolbarController(this, this);
     mSearchController.getToolbar()
-                     .getViewTreeObserver();
+            .getViewTreeObserver();
 
     boolean isLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
     initViews(isLaunchByDeepLink);
@@ -393,9 +407,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void refreshLightStatusBar()
   {
     UiUtils.setLightStatusBar(this, !(
-        ThemeUtils.isNightTheme(this)
-        || RoutingController.get().isPlanning()
-        || Framework.nativeIsInChoosePositionMode()
+            ThemeUtils.isNightTheme(this)
+                    || RoutingController.get().isPlanning()
+                    || Framework.nativeIsInChoosePositionMode()
     ));
   }
 
@@ -429,10 +443,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onNoConnectionError()
   {
     new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.common_check_internet_connection_dialog_title)
-        .setMessage(R.string.common_check_internet_connection_dialog)
-        .setPositiveButton(R.string.ok, null)
-        .show();
+            .setTitle(R.string.common_check_internet_connection_dialog_title)
+            .setMessage(R.string.common_check_internet_connection_dialog)
+            .setPositiveButton(R.string.ok, null)
+            .show();
   }
 
   private void initViews(boolean isLaunchByDeeplink)
@@ -468,35 +482,35 @@ public class MwmActivity extends BaseMwmFragmentActivity
         finish();
     });
     mPointChooser.findViewById(R.id.done).setOnClickListener(
-        v ->
-        {
-          switch (mPointChooserMode)
-          {
-          case API:
-            final Intent apiResult = new Intent();
-            final double[] center = Framework.nativeGetScreenRectCenter();
-            apiResult.putExtra(Const.EXTRA_POINT_LAT, center[0]);
-            apiResult.putExtra(Const.EXTRA_POINT_LON, center[1]);
-            apiResult.putExtra(Const.EXTRA_ZOOM_LEVEL, Framework.nativeGetDrawScale());
-            setResult(Activity.RESULT_OK, apiResult);
-            finish();
-            break;
-          case EDITOR:
-            if (Framework.nativeIsDownloadedMapAtScreenCenter())
-              startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));
-            else
+            v ->
             {
-                new AlertDialog.Builder(this, R.style.MwmTheme_AlertDialog)
-                    .setTitle(R.string.message_invalid_feature_position)
-                    .setPositiveButton(R.string.ok, null)
-                    .show();
-            }
-            break;
-          case NONE:
-            throw new IllegalStateException("Unexpected mPositionChooserMode");
-          }
-          closePositionChooser();
-        });
+              switch (mPointChooserMode)
+              {
+                case API:
+                  final Intent apiResult = new Intent();
+                  final double[] center = Framework.nativeGetScreenRectCenter();
+                  apiResult.putExtra(Const.EXTRA_POINT_LAT, center[0]);
+                  apiResult.putExtra(Const.EXTRA_POINT_LON, center[1]);
+                  apiResult.putExtra(Const.EXTRA_ZOOM_LEVEL, Framework.nativeGetDrawScale());
+                  setResult(Activity.RESULT_OK, apiResult);
+                  finish();
+                  break;
+                case EDITOR:
+                  if (Framework.nativeIsDownloadedMapAtScreenCenter())
+                    startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));
+                  else
+                  {
+                    new AlertDialog.Builder(this, R.style.MwmTheme_AlertDialog)
+                            .setTitle(R.string.message_invalid_feature_position)
+                            .setPositiveButton(R.string.ok, null)
+                            .show();
+                  }
+                  break;
+                case NONE:
+                  throw new IllegalStateException("Unexpected mPositionChooserMode");
+              }
+              closePositionChooser();
+            });
     UiUtils.hide(mPointChooser);
   }
 
@@ -574,9 +588,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mMapFragment = (MapFragment) factory.instantiate(getClassLoader(), MapFragment.class.getName());
       mMapFragment.setArguments(args);
       manager
-          .beginTransaction()
-          .replace(R.id.map_fragment_container, mMapFragment, MapFragment.class.getName())
-          .commit();
+              .beginTransaction()
+              .replace(R.id.map_fragment_container, mMapFragment, MapFragment.class.getName())
+              .commit();
     }
 
     View container = findViewById(R.id.map_fragment_container);
@@ -597,7 +611,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mPreviousMapLayoutMode != layoutMode)
     {
       FragmentTransaction transaction = getSupportFragmentManager()
-          .beginTransaction().replace(R.id.map_buttons, new MapButtonsController());
+              .beginTransaction().replace(R.id.map_buttons, new MapButtonsController());
       transaction.commit();
       mPreviousMapLayoutMode = layoutMode;
     }
@@ -648,7 +662,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean closeBottomSheet(String id)
   {
     MenuBottomSheetFragment bottomSheet =
-        (MenuBottomSheetFragment) getSupportFragmentManager().findFragmentByTag(id);
+            (MenuBottomSheetFragment) getSupportFragmentManager().findFragmentByTag(id);
     if (bottomSheet == null || !bottomSheet.isAdded())
       return false;
     bottomSheet.dismiss();
@@ -885,11 +899,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.downloader_update_maps)
-        .setMessage(R.string.isolines_activation_error_dialog)
-        .setPositiveButton(R.string.ok, (dialog, which) -> startActivity(new Intent(this, DownloaderActivity.class)))
-        .setNegativeButton(R.string.cancel, null)
-        .show();
+            .setTitle(R.string.downloader_update_maps)
+            .setMessage(R.string.isolines_activation_error_dialog)
+            .setPositiveButton(R.string.ok, (dialog, which) -> startActivity(new Intent(this, DownloaderActivity.class)))
+            .setNegativeButton(R.string.cancel, null)
+            .show();
   }
 
   @Override
@@ -920,9 +934,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void addTask(Intent intent)
   {
     if (intent != null &&
-        !intent.getBooleanExtra(EXTRA_CONSUMED, false) &&
-        intent.hasExtra(EXTRA_TASK) &&
-        ((intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0))
+            !intent.getBooleanExtra(EXTRA_CONSUMED, false) &&
+            intent.hasExtra(EXTRA_TASK) &&
+            ((intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0))
     {
       final MapTask mapTask = (MapTask) intent.getSerializableExtra(EXTRA_TASK);
       mTasks.add(mapTask);
@@ -939,7 +953,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean isMapRendererActive()
   {
     return mMapFragment != null && Map.isEngineCreated()
-           && mMapFragment.isContextCreated();
+            && mMapFragment.isContextCreated();
   }
 
   private void addTask(MapTask task)
@@ -956,6 +970,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onResume();
     refreshSearchToolbar();
     setFullscreen(isFullscreen());
+    Handler handler = new Handler(Looper.getMainLooper());
+    handler.postDelayed(new Runnable() {
+      @Override
+      public void run() {
+        checkClipboardForUrl();
+      }
+    }, 1000);
+
     if (Framework.nativeIsInChoosePositionMode())
     {
       UiUtils.show(mPointChooser);
@@ -966,6 +988,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mNavigationController.onActivityResumed(this);
     refreshLightStatusBar();
+    Log.e("test1","FROM RESUMEEEEEEE");
   }
 
   @Override
@@ -1041,9 +1064,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     RoutingController routingController = RoutingController.get();
     if (!closeBottomSheet(MAIN_MENU_ID) && !closeBottomSheet(LAYERS_MENU_ID) && !collapseNavMenu() &&
-        !closePlacePage() &&!closeSearchToolbar(true, true) &&
-        !closeSidePanel() && !closePositionChooser() &&
-        !routingController.resetToPlanningStateIfNavigating() && !routingController.cancel())
+            !closePlacePage() &&!closeSearchToolbar(true, true) &&
+            !closeSidePanel() && !closePositionChooser() &&
+            !routingController.resetToPlanningStateIfNavigating() && !routingController.cancel())
     {
       try
       {
@@ -1076,8 +1099,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     fm.beginTransaction()
-      .remove(fragment)
-      .commitAllowingStateLoss();
+            .remove(fragment)
+            .commitAllowingStateLoss();
     fm.executePendingTransactions();
   }
 
@@ -1123,7 +1146,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (switchFullScreenMode)
     {
       if ((mPanelAnimator != null && mPanelAnimator.isVisible()) ||
-          UiUtils.isVisible(mSearchController.getToolbar()))
+              UiUtils.isVisible(mSearchController.getToolbar()))
         return;
 
       setFullscreen(!isFullscreen());
@@ -1137,8 +1160,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void setFullscreen(boolean isFullscreen)
   {
     if (RoutingController.get().isNavigating()
-        || RoutingController.get().isBuilding()
-        || RoutingController.get().isPlanning())
+            || RoutingController.get().isBuilding()
+            || RoutingController.get().isPlanning())
       return;
 
     mMapButtonsViewModel.setButtonsHidden(isFullscreen);
@@ -1549,7 +1572,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps)
   {
     RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(getSupportFragmentManager().getFragmentFactory(),
-                                                                            getApplicationContext(), lastResultCode, lastMissingMaps);
+            getApplicationContext(), lastResultCode, lastMissingMaps);
     fragment.show(getSupportFragmentManager(), RoutingErrorDialogFragment.class.getSimpleName());
   }
 
@@ -1557,11 +1580,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onDrivingOptionsBuildError()
   {
     new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.unable_to_calc_alert_title)
-        .setMessage(R.string.unable_to_calc_alert_subtitle)
-        .setPositiveButton(R.string.settings, (dialog, which) -> DrivingOptionsActivity.start(this))
-        .setNegativeButton(R.string.cancel, null)
-        .show();
+            .setTitle(R.string.unable_to_calc_alert_title)
+            .setMessage(R.string.unable_to_calc_alert_subtitle)
+            .setPositiveButton(R.string.settings, (dialog, which) -> DrivingOptionsActivity.start(this))
+            .setNegativeButton(R.string.cancel, null)
+            .show();
   }
 
   @Override
@@ -1569,29 +1592,29 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     final StringBuilder builder = new StringBuilder();
     for (int resId : new int[] { R.string.dialog_routing_disclaimer_priority, R.string.dialog_routing_disclaimer_precision,
-        R.string.dialog_routing_disclaimer_recommendations, R.string.dialog_routing_disclaimer_borders,
-        R.string.dialog_routing_disclaimer_beware })
+            R.string.dialog_routing_disclaimer_recommendations, R.string.dialog_routing_disclaimer_borders,
+            R.string.dialog_routing_disclaimer_beware })
       builder.append(MwmApplication.from(this).getString(resId)).append("\n\n");
 
     new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.dialog_routing_disclaimer_title)
-        .setMessage(builder.toString())
-        .setCancelable(false)
-        .setNegativeButton(R.string.decline, null)
-        .setPositiveButton(R.string.accept, (dlg, which) -> {
-          Config.acceptRoutingDisclaimer();
-          RoutingController.get().prepare(startPoint, endPoint);
-        })
-        .show();
+            .setTitle(R.string.dialog_routing_disclaimer_title)
+            .setMessage(builder.toString())
+            .setCancelable(false)
+            .setNegativeButton(R.string.decline, null)
+            .setPositiveButton(R.string.accept, (dlg, which) -> {
+              Config.acceptRoutingDisclaimer();
+              RoutingController.get().prepare(startPoint, endPoint);
+            })
+            .show();
   }
 
   @Override
   public void onSuggestRebuildRoute()
   {
     final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
-        .setMessage(R.string.p2p_reroute_from_current)
-        .setCancelable(false)
-        .setNegativeButton(R.string.cancel, null);
+            .setMessage(R.string.p2p_reroute_from_current)
+            .setCancelable(false)
+            .setNegativeButton(R.string.cancel, null);
 
     final TextView titleView = (TextView)View.inflate(this, R.layout.dialog_suggest_reroute_title, null);
     titleView.setText(R.string.p2p_only_from_current);
@@ -1610,11 +1633,103 @@ public class MwmActivity extends BaseMwmFragmentActivity
     builder.show();
   }
 
+  private class HttpRequestTask extends AsyncTask<String, Void, String> {
+    private Context context;
+    private ProgressDialog progressDialog;
+    public HttpRequestTask(Context context) {
+      this.context = context;
+    }
+    @Override
+    protected void onPreExecute() {
+      super.onPreExecute();
+      // Show the progress dialog
+      progressDialog = ProgressDialog.show(context, "", "Redirecting to URL using the anonymous proxy", true);
+    }
+
+    @Override
+    protected String doInBackground(String... params) {
+      String requestUrl = params[0];
+      try {
+        URL url = new URL(requestUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.connect();
+
+        InputStream inputStream = connection.getInputStream();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+          byteArrayOutputStream.write(buffer, 0, bytesRead);
+        }
+        byte[] responseBytes = byteArrayOutputStream.toByteArray();
+        return new String(responseBytes);
+      } catch (Exception e) {
+        Log.e("test1", "Error performing HTTP request: " + e.getMessage());
+        Toast.makeText(context, "Redirection failed, please check your internet connection.", Toast.LENGTH_SHORT).show();
+        return null;
+      }
+    }
+
+    @Override
+    protected void onPostExecute(String response) {
+      if (response != null) {
+        try {
+          JSONObject jsonObject = new JSONObject(response);
+          JSONObject urlObject = jsonObject.getJSONObject("url");
+          String geo = urlObject.getString("geo");
+          Log.e("test1", "Geo: " + geo);
+          Log.e("test1", geo);
+          progressDialog.dismiss();
+          Map.nativeShowMapForUrl(geo);
+          ClipboardManager clipService = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+          ClipData clipData = ClipData.newPlainText("", "");
+          clipService.setPrimaryClip(clipData);
+          Log.e("test1","finish");
+        } catch (JSONException e) {
+          Log.e("test1", "Error");
+          e.printStackTrace();
+        }
+      } else {
+        Log.e("test1", "HTTP request failed");
+        Toast.makeText(context, "Please check that your URL points to an address.", Toast.LENGTH_SHORT).show();
+      }
+    }
+  }
+public void checkClipboardForUrl() {
+  ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+  Log.e("test1","clipboard is "+ String.valueOf(clipboard!=null) + "and primary clip" + String.valueOf(clipboard.hasPrimaryClip()));
+  if (clipboard != null ) {
+    Log.e("test1","first");
+    ClipData clipData = clipboard.getPrimaryClip();
+    Log.e("test1","clipdata is "+ String.valueOf(clipData!=null));
+    if (clipData != null && clipData.getItemCount() > 0) {
+      Log.e("test1","second");
+      CharSequence text = clipData.getItemAt(0).getText();
+      String clipboardText = text.toString();
+      Log.e("test1", clipboardText);
+      if (clipboardText.contains("goo.gl") || clipboardText.contains("maps.app.goo.gl") || clipboardText.contains("www.google.com")) {
+        Log.e("test1", "The copied text is from Google");
+        try {
+          String url = clipboardText;
+          String requestUrl = "https://url-un.kartikay-2101ce32.workers.dev/coordinates?url=" + url;
+          Log.e("test1", requestUrl);
+          new HttpRequestTask(this).execute(requestUrl);
+        } catch (Exception e) {
+          Log.e("test1", "Error performing HTTP request: " + e.getMessage());
+        }
+      }
+    }
+  }
+}
+
+
   @Override
   public void onMyPositionModeChanged(int newMode)
   {
     Logger.d(TAG, "location newMode = " + newMode);
     mMapButtonsViewModel.setMyPositionMode(newMode);
+
     RoutingController controller = RoutingController.get();
     if (controller.isPlanning())
       showAddStartOrFinishFrame(controller, true);
@@ -1686,8 +1801,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onBookmarksFileLoaded(boolean success)
   {
-    Utils.showSnackbar(this, findViewById(R.id.coordinator), findViewById(R.id.menu_frame),
-                        success ? R.string.load_kmz_successful : R.string.load_kmz_failed);
+    Utils.showSnackbar(this, findViewById(R.id.coordinator),
+            success ? R.string.load_kmz_successful : R.string.load_kmz_failed);
   }
 
   @Override
@@ -1806,10 +1921,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
       ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
       items.add(new MenuBottomSheetItem(R.string.placepage_add_place_button, R.drawable.ic_plus, this::onAddPlaceOptionSelected));
       items.add(new MenuBottomSheetItem(
-          R.string.download_maps,
-          R.drawable.ic_download,
-          getDownloadMapsCounter(),
-          this::onDownloadMapsOptionSelected
+              R.string.download_maps,
+              R.drawable.ic_download,
+              getDownloadMapsCounter(),
+              this::onDownloadMapsOptionSelected
       ));
       mDonatesUrl = Config.getDonateUrl();
       if (!TextUtils.isEmpty(mDonatesUrl))
