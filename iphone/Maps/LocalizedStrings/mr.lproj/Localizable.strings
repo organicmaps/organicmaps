@@ -2334,6 +2334,8 @@
 
 "type.junction" = "जंक्शन";
 
+"type.junction.circular" = "गोलमार्ग";
+
 "type.junction.roundabout" = "गोलमार्ग";
 
 "type.landuse" = "भूमी उपयोग";

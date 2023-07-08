@@ -1298,6 +1298,7 @@
 	<string name="type.historic.wayside_shrine">Peto de ánimas</string>
 	<string name="type.internet_access">Internet</string>
 	<string name="type.internet_access.wlan">Internet</string>
+	<string name="type.junction.circular">Rotonda</string>
 	<string name="type.junction.roundabout">Rotonda</string>
 	<string name="type.landuse">Uso del suelo</string>
 	<string name="type.landuse.basin">Cuenca</string>

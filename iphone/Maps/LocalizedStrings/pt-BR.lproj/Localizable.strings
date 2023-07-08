@@ -2334,6 +2334,8 @@
 
 "type.junction" = "Cruzamento";
 
+"type.junction.circular" = "Rotatória";
+
 "type.junction.roundabout" = "Rotatória";
 
 "type.landuse" = "Uso do solo";

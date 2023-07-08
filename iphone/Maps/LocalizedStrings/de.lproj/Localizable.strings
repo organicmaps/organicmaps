@@ -2334,6 +2334,8 @@
 
 "type.junction" = "Straßenknotenpunkt";
 
+"type.junction.circular" = "Kreisverkehr";
+
 "type.junction.roundabout" = "Kreisverkehr";
 
 "type.landuse" = "Landnutzung";

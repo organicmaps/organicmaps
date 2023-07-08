@@ -1345,6 +1345,7 @@
 	<string name="type.internet_access">Internet</string>
 	<string name="type.internet_access.wlan">Internet</string>
 	<string name="type.junction">Junction</string>
+	<string name="type.junction.circular">Roundabout</string>
 	<string name="type.junction.roundabout">Roundabout</string>
 	<string name="type.landuse">Landuse</string>
 	<string name="type.landuse.allotments">Allotments</string>

@@ -2334,6 +2334,8 @@
 
 "type.junction" = "交差点";
 
+"type.junction.circular" = "ラウンドアバウト";
+
 "type.junction.roundabout" = "ラウンドアバウト";
 
 "type.landuse" = "土地利用";

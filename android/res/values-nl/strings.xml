@@ -1287,6 +1287,7 @@
 	<string name="type.internet_access">Internet</string>
 	<string name="type.internet_access.wlan">Draadloos internet</string>
 	<string name="type.junction">Kruispunt</string>
+	<string name="type.junction.circular">Rotonde</string>
 	<string name="type.junction.roundabout">Rotonde</string>
 	<string name="type.landuse">Landgebruik</string>
 	<string name="type.landuse.allotments">Volkstuinen</string>

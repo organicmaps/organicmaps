@@ -1282,6 +1282,7 @@
 	<string name="type.internet_access">Internet</string>
 	<string name="type.internet_access.wlan">Internet</string>
 	<string name="type.junction">Ristmik</string>
+	<string name="type.junction.circular">Ringtee</string>
 	<string name="type.junction.roundabout">Ringtee</string>
 	<string name="type.landuse">Maakasutus</string>
 	<string name="type.landuse.allotments">Peenrad</string>

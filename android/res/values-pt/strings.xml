@@ -1244,6 +1244,7 @@
 	<string name="type.internet_access">Internet</string>
 	<string name="type.internet_access.wlan">Internet</string>
 	<string name="type.junction">Cruzamento</string>
+	<string name="type.junction.circular">Rotunda</string>
 	<string name="type.junction.roundabout">Rotunda</string>
 	<string name="type.landuse">Uso do solo</string>
 	<string name="type.landuse.allotments">Horta comunitária</string>

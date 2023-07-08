@@ -2334,6 +2334,8 @@
 
 "type.junction" = "Junction";
 
+"type.junction.circular" = "Biribilgunea";
+
 "type.junction.roundabout" = "Biribilgunea";
 
 "type.landuse" = "Landuse";

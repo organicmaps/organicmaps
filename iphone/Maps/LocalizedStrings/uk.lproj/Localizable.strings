@@ -2334,6 +2334,8 @@
 
 "type.junction" = "Перехрестя";
 
+"type.junction.circular" = "Кільце";
+
 "type.junction.roundabout" = "Кільце";
 
 "type.landuse" = "Землевикористання";

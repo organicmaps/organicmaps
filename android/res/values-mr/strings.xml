@@ -1165,6 +1165,7 @@
 	<string name="type.internet_access">इंटरनेट</string>
 	<string name="type.internet_access.wlan">इंटरनेट</string>
 	<string name="type.junction">जंक्शन</string>
+	<string name="type.junction.circular">गोलमार्ग</string>
 	<string name="type.junction.roundabout">गोलमार्ग</string>
 	<string name="type.landuse">भूमी उपयोग</string>
 	<string name="type.landuse.allotments">वाटप</string>

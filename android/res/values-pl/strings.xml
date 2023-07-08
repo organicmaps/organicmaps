@@ -1274,6 +1274,7 @@
 	<string name="type.historic.wayside_cross">Krzyż przydrożny</string>
 	<string name="type.historic.wayside_shrine">Kapliczka przydrożna</string>
 	<string name="type.junction">Skrzyżowanie</string>
+	<string name="type.junction.circular">Rondo</string>
 	<string name="type.junction.roundabout">Rondo</string>
 	<string name="type.landuse">Zagospodarowanie ziemi</string>
 	<string name="type.landuse.allotments">Działki</string>

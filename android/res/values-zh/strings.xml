@@ -1236,6 +1236,7 @@
 	<string name="type.internet_access">互联网</string>
 	<string name="type.internet_access.wlan">无线热点</string>
 	<string name="type.junction">交叉口</string>
+	<string name="type.junction.circular">环岛</string>
 	<string name="type.junction.roundabout">环岛</string>
 	<string name="type.landuse">土地利用要素</string>
 	<string name="type.landuse.allotments">市民农园</string>

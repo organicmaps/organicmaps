@@ -1278,6 +1278,7 @@
 	<string name="type.internet_access">Інтернет</string>
 	<string name="type.internet_access.wlan">Інтернет</string>
 	<string name="type.junction">Перехрестя</string>
+	<string name="type.junction.circular">Кільце</string>
 	<string name="type.junction.roundabout">Кільце</string>
 	<string name="type.landuse">Землевикористання</string>
 	<string name="type.landuse.allotments">Земельні ділянки</string>

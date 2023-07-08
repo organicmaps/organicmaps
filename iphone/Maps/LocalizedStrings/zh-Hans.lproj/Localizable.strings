@@ -2334,6 +2334,8 @@
 
 "type.junction" = "交叉口";
 
+"type.junction.circular" = "环岛";
+
 "type.junction.roundabout" = "环岛";
 
 "type.landuse" = "土地利用要素";

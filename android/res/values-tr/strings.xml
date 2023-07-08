@@ -1293,6 +1293,7 @@
 	<string name="type.internet_access">İnternet</string>
 	<string name="type.internet_access.wlan">İnternet</string>
 	<string name="type.junction">Kavşak noktası</string>
+	<string name="type.junction.circular">Göbekli kavşak</string>
 	<string name="type.junction.roundabout">Göbekli kavşak</string>
 	<string name="type.landuse">Arazi Kullanımı</string>
 	<string name="type.landuse.allotments">Tahsisler</string>
