@@ -264,10 +264,12 @@ vector<LocalizedStreet> const & EditableMapObject::GetNearbyStreets() const { re
 
 void EditableMapObject::ForEachMetadataItem(function<void(string_view tag, string_view value)> const & fn) const
 {
-  m_metadata.ForEach([&fn](feature::Metadata::EType type, std::string_view value)
+  m_metadata.ForEach([&fn](MetadataID type, std::string_view value)
   {
+    switch (type)
+    {
     // Multilang description may produce several tags with different values.
-    if (type == feature::Metadata::FMD_DESCRIPTION)
+    case MetadataID::FMD_DESCRIPTION:
     {
       auto const mlDescr = StringUtf8Multilang::FromBuffer(std::string(value));
       mlDescr.ForEach([&fn](int8_t code, string_view v)
@@ -277,10 +279,14 @@ void EditableMapObject::ForEachMetadataItem(function<void(string_view tag, strin
         else
           fn(string("description:").append(StringUtf8Multilang::GetLangByCode(code)), v);
       });
+      break;
     }
-    else
-    {
-      fn(ToString(type), value);
+    // Skip non-string values (they are not related to OSM anyway).
+    case MetadataID::FMD_CUSTOM_IDS:
+    case MetadataID::FMD_PRICE_RATES:
+    case MetadataID::FMD_RATINGS:
+      break;
+    default: fn(ToString(type), value); break;
     }
   });
 }
