@@ -480,7 +480,7 @@ deprecated:historic|museum:10.2021;[historic=museum];x;name;int_name;406;tourism
 highway|living_street|bridge;[highway=living_street][bridge?];;name;int_name;407;
 leisure|track|area;[leisure=track][area?];;name;int_name;408;
 railway|monorail;409;
-railway|rail|highspeed;[railway=rail][highspeed?];;name;int_name;410;
+railway|rail|highspeed;[railway=rail][highspeed?][!service];;name;int_name;410;
 deprecated|deprecated;411;x
 leisure|park|private;[leisure=park][access=private];;name;int_name;412;
 healthcare|physiotherapist;413;
@@ -922,9 +922,9 @@ deprecated|deprecated;848;x
 deprecated|deprecated;849;x
 deprecated|deprecated;850;x
 deprecated|deprecated;851;x
-railway|rail|highspeed|bridge;[railway=rail][highspeed?][bridge?];;name;int_name;852;
+railway|rail|highspeed|bridge;[railway=rail][highspeed?][!service][bridge?];;name;int_name;852;
 railway|rail|tourism|bridge;[railway=rail][usage=tourism][!service][bridge?];;name;int_name;853;
-railway|rail|highspeed|tunnel;[railway=rail][highspeed?][tunnel?];;name;int_name;854;
+railway|rail|highspeed|tunnel;[railway=rail][highspeed?][!service][tunnel?];;name;int_name;854;
 railway|rail|tourism|tunnel;[railway=rail][usage=tourism][!service][tunnel?];;name;int_name;855;
 mapswithme|grid;856;
 highway|service|busway;[highway=service][service=busway];;name;int_name;857;
