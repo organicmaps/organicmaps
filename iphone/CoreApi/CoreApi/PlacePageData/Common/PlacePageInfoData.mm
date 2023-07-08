@@ -29,7 +29,6 @@ using namespace osm;
     using MetadataID = MapObject::MetadataID;
     rawData.ForEachMetadataReadable([&](MetadataID metaID, std::string const & value)
     {
-      /// @todo Show wikipedia, wikimedia_commons here?
       switch (metaID)
       {
         case MetadataID::FMD_OPEN_HOURS:

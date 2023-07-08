@@ -68,9 +68,13 @@ public:
       {
       case MetadataID::FMD_WIKIPEDIA: fn(id, feature::Metadata::ToWikiURL(value)); break;
       case MetadataID::FMD_WIKIMEDIA_COMMONS: fn(id, feature::Metadata::ToWikimediaCommonsURL(value)); break;
-      /// @todo Skip description for now, because it's not a valid UTF8 string.
+      /// @todo Clients should make separate processing of non-string values, skip for now.
       /// @see EditableMapObject::ForEachMetadataItem.
-      case MetadataID::FMD_DESCRIPTION: break;
+      case MetadataID::FMD_DESCRIPTION:
+      case MetadataID::FMD_CUSTOM_IDS:
+      case MetadataID::FMD_PRICE_RATES:
+      case MetadataID::FMD_RATINGS:
+        break;
       default: fn(id, value); break;
       }
     });

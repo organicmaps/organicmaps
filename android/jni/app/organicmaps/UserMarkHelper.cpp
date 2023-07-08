@@ -13,11 +13,11 @@ void InjectMetadata(JNIEnv * env, jclass const clazz, jobject const mapObject, o
   static jmethodID const addId = env->GetMethodID(clazz, "addMetadata", "(ILjava/lang/String;)V");
   ASSERT(addId, ());
 
-  using MetadataID = osm::MapObject::MetadataID;
-  src.ForEachMetadataReadable([env, &mapObject](MetadataID id, std::string const & meta)
+  src.ForEachMetadataReadable([env, &mapObject](osm::MapObject::MetadataID id, std::string const & meta)
   {
-    // TODO: It is not a good idea to pass raw strings to UI. Calling separate getters should be a better way.
-    if (id != MetadataID::FMD_DESCRIPTION && !meta.empty())
+    /// @todo Make separate processing of non-string values like FMD_DESCRIPTION.
+    /// Actually, better to call separate getters instead of ToString processing.
+    if (!meta.empty())
     {
       jni::TScopedLocalRef metaString(env, jni::ToJavaString(env, meta));
       env->CallVoidMethod(mapObject, addId, static_cast<jint>(id), metaString.get());
