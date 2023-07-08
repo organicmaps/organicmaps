@@ -200,7 +200,7 @@ void MapWidget::Build()
 {
   std::string vertexSrc;
   std::string fragmentSrc;
-  if (m_apiOpenGLES3)
+  if (m_apiOpenGLES3 && context()->format().version() >= qMakePair(3, 2))
   {
     vertexSrc =
         "\
