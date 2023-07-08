@@ -2334,6 +2334,8 @@
 
 "type.junction" = "Junction";
 
+"type.junction.circular" = "Roundabout";
+
 "type.junction.roundabout" = "Roundabout";
 
 "type.landuse" = "Landuse";

@@ -1274,6 +1274,7 @@
 	<string name="type.historic.wayside_cross">Wegkreuz</string>
 	<string name="type.historic.wayside_shrine">Bildstock</string>
 	<string name="type.junction">Straßenknotenpunkt</string>
+	<string name="type.junction.circular">Kreisverkehr</string>
 	<string name="type.junction.roundabout">Kreisverkehr</string>
 	<string name="type.landuse">Landnutzung</string>
 	<string name="type.landuse.allotments">Kleingarten</string>

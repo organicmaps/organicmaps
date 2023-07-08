@@ -1269,6 +1269,7 @@
 	<string name="type.internet_access">إنترنت</string>
 	<string name="type.internet_access.wlan">إنترنت لا سلكي</string>
 	<string name="type.junction">تقاطع</string>
+	<string name="type.junction.circular">دوّار</string>
 	<string name="type.junction.roundabout">دوّار</string>
 	<string name="type.landuse.basin">حوض المياه</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->

@@ -2334,6 +2334,8 @@
 
 "type.junction" = "Kruispunt";
 
+"type.junction.circular" = "Rotonde";
+
 "type.junction.roundabout" = "Rotonde";
 
 "type.landuse" = "Landgebruik";

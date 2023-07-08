@@ -2334,6 +2334,8 @@
 
 "type.junction" = "Kavşak noktası";
 
+"type.junction.circular" = "Göbekli kavşak";
+
 "type.junction.roundabout" = "Göbekli kavşak";
 
 "type.landuse" = "Arazi Kullanımı";

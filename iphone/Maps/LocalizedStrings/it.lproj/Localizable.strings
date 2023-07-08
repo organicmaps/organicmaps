@@ -2334,6 +2334,8 @@
 
 "type.junction" = "Incrocio";
 
+"type.junction.circular" = "Rotonda";
+
 "type.junction.roundabout" = "Rotonda";
 
 "type.landuse" = "Landuse";

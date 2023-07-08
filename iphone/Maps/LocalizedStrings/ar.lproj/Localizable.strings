@@ -2334,6 +2334,8 @@
 
 "type.junction" = "تقاطع";
 
+"type.junction.circular" = "دوّار";
+
 "type.junction.roundabout" = "دوّار";
 
 "type.landuse" = "Landuse";

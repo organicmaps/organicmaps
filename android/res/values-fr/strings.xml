@@ -1279,6 +1279,7 @@
 	<string name="type.historic.tomb">Tombe historique</string>
 	<string name="type.historic.wayside_cross">Croix de chemin</string>
 	<string name="type.historic.wayside_shrine">Oratoire</string>
+	<string name="type.junction.circular">Rond-point</string>
 	<string name="type.junction.roundabout">Rond-point</string>
 	<string name="type.landuse.allotments">Jardins familiaux</string>
 	<string name="type.landuse.basin">Réservoir</string>

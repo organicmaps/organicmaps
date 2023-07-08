@@ -1215,6 +1215,7 @@
 	<string name="type.internet_access">インターネット</string>
 	<string name="type.internet_access.wlan">インターネット</string>
 	<string name="type.junction">交差点</string>
+	<string name="type.junction.circular">ラウンドアバウト</string>
 	<string name="type.junction.roundabout">ラウンドアバウト</string>
 	<string name="type.landuse">土地利用</string>
 	<string name="type.landuse.allotments">市民農園</string>
