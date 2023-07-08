@@ -1,17 +1,27 @@
-• GPX import support
-• New OpenStreetMap data as of June 2, 2023
-• Fixed disappearing bookmark lists when wrong characters were saved in a bookmark name or description
-• Improved car and bicycle routing
-• Fixed non-working Portuguese (Brazil) and Spanish (Mexico) voice directions languages
-• Fixed crash when importing KML/KMZ/GPX file
-• Fixed repeated imports of the same file
-• Corrected Basque, Belarusian, British, English, and Ukrainian translations
+• Neue OSM-Daten vom 10. Juli 2023
+• Unterstützung für Färbung von importierten Tracks
+• Durch Klicken auf die Koordinaten werden diese in den folgenden Formaten angezeigt: Open Location Code (OLC), UTM, MRGS, und OpenStreetMap.org, ein langes Klicken kopiert die angezeigten Koordinaten
+• Behebung eines Absturzes, wenn große Objekte angezeigt wurden
+• Beschreibungen der Lesezeichenlisten, werden jetzt angezeigt und zuverlässiger gespeichert
+• Lesezeichen und Tracks werden jetzt schneller geladen
+• Verbesserte ETA bei starken Steigungen zu Fuß
+• Kreisstraßen werden Zufahrtswegen bei der Routenfindung mit dem Auto bevorzugt
 
-Styles:
-• Fixed funicular icon
-• Changed desert color in the dark mode
-• Added Fish Pass
-• New Icon for Parcel Locker
-• Fixed icon for northernmost Munich underground station
+Suche
+• Verbesserte Sortierung der Suchergebnisse
+• Fehlerbehebung bei der Suche nach Geschäftskategorien
+• Fehlerbehebung für Ergebnisse ohne Namen bei der Suche nach Flughäfen
 
-Follow our news at https://omaps.org/news
+Aussehen
+• Neu hinzugefügt: Second-Hand Kategorie, Auktionshaus, Geschäft für Sammlerartikel und Symbol für Drehkreuz und Ausgang
+• Unterwassertunnel werden transparent und ab Zoomlevel 15 dargestellt
+• Detailliertere Bahnsstreckentypen
+• Umrisse von Brücken werden dargestellt, vorher wurden nur die Straßen angezeigt
+• Neu hinzugefügt: Gemeinschaftszentrum,  Kongresszentrum, Messegelände und Veranstaltungsgelände
+• Symbole von Läden haben eine höhere Priorität bekommen
+• Darstellung für Schutzgebiete hinzugefügt
+
+Übersetzung:
+• Verbesserte tschechische, finnische, französische, deutsche, italienische, polnische, schwedische, und türkische Übersetzung
+
+Bleib auf dem aktuellsten Stand unter: https://omaps.org/news

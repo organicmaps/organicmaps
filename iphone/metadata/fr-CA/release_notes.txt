@@ -1,17 +1,27 @@
-• GPX import support
-• New OpenStreetMap data as of June 2, 2023
-• Fixed disappearing bookmark lists when wrong characters were saved in a bookmark name or description
-• Improved car and bicycle routing
-• Fixed non-working Portuguese (Brazil) and Spanish (Mexico) voice directions languages
-• Fixed crash when importing KML/KMZ/GPX file
-• Fixed repeated imports of the same file
-• Corrected Basque, Belarusian, British, English, and Ukrainian translations
+• Actualisation des données OpenStreetMap au 10 juillet 2023
+• Support de l'altitude, OsmAnd, et des couleurs Garmin dans l'import des trajets GPX
+• Un appui affiche les coordonnées au format Open Location Code (OLC), UTM, MRGS, et OpenStreetMap.org, un appui long permet de les copier
+• Correction d'un plantage lors du rendu de gros objets
+• Les descriptions de la liste des signets sont désormais correctement affichées et sauvegardées
+• Temps de chargement amélioré pour les signets et trajets
+• Correction du temps d'arrivée estimé pour les grandes pentes en trajet piéton
+• Préférence pour les routes tertiaires aux routes de services dans les itinéraires en voiture
 
-Styles:
-• Fixed funicular icon
-• Changed desert color in the dark mode
-• Added Fish Pass
-• New Icon for Parcel Locker
-• Fixed icon for northernmost Munich underground station
+Recherche
+• Amélioration du tri des résultats de recherche
+• Correction de la recherche des catégories de magasins
+• Correction du nom vide dans les résultats de recherche des aéroports
 
-Follow our news at https://omaps.org/news
+Styles
+• Ajout de la catégorie seconde main, enchère, boutique de collectionneurs, tourniquet, et sortie
+• Rendu des tunnels d'eau transparent et visibles depuis z15
+• Ajout de plus de types de voies ferroviaires
+• Ajout du type de pont man_made-bridge
+• Ajout des centres communautaires, centres de conférences, salles d'expositions, lieux d'événements
+• Augmentation de la priorité d'affichage des icônes de magasins
+• Ajout de boundary=protected_area
+
+Traductions
+• Mise à jour des traductions Tchèque, Finnois, Français, Allemand, Italien, Polonais, Suédois, et Turc.
+
+Suivez nos actualités sur https://omaps.org/news

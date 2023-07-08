@@ -1,12 +1,15 @@
-• Stöd för GPX-import
-• Uppdaterad OpenStreetMap-data från 2 juni 2023
-• Stöd för koordinater i MRGS- och UTM-format
-• Förbättrad bil- och cykelruttning
-• Åtgärdade ett fel som hindrade uppladdning av OSM-ändringar
-• Nu fungerar kompassen på enheter utan gyroskop
-• Åtgärdade att beskrivningar från Wikipedia saknades
-• Minskat hastigheten på maskinuppläsningsrösten
-• Korrigerat ikonerna för bergbana och paketbox
-• Korrigerat vissa översättningar
+• Fresh OpenStreetMap data as of July 10, 2023
+• Fix several crashes
+• Support altitude, OsmAnd and Garmin colors in imported GPX tracks
+• Fixed pedestrian ETA for big slopes
+• Better car routing
+• Improved search ranking
+• Share button has been moved to the Place Page
+• Fixed API backurl
+• Updated many translations
+• Add new shops and event venues types
+• Improved water tunnels and bridges rendering
+• More detailed railway types
+• Add boundary=protected_area
 
-... och mer på https://omaps.org/sv/news/
+…och mer på omaps.org/news

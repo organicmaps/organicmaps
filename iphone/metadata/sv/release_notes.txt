@@ -1,17 +1,29 @@
-• Stöd för GPX-import
-• Uppdaterad OpenStreetMap-data från 2 juni 2023
-• Åtgärdade ett fel där bokmärkeslistan försvann när man sparade ogiltiga tecken i ett bokmärkes namn eller beskrivning
-• Förbättrad bil- och cykelruttning
-• Åtgärdade att röstnavigering inte funkade på brasiliansk portugisiska och mexikansk spanska
-• Åtgärdade en krasch som uppstod när man importerade KML-, KMZ- och GPX-filer
-• Åtgärdade att samma fil importerades flera gånger
-• Korrigerat översättningarna för baskiska, vitryska, engelska, amerikanska och ukrainska
+• Fresh OpenStreetMap data as of July 10, 2023
+• Support altitude, OsmAnd and Garmin colors in imported GPX tracks
+• Show coordinates in Open Location Code (OLC), UTM, MRGS, and OpenStreetMap.org formats on click and copy coordinates on a long tap
+• Fixed crash when rendering large objects
+• Bookmark lists descriptions are now displayed and saved properly
+• Faster loading of bookmarks and tracks
+• Fixed pedestrian ETA for big slopes
+• Prefer tertiary roads to service roads in car routing
 
-Kartversioner:
-• Åtgärdat bergbaneikonen
-• Ändrat färgen på öken i mörkt läge
-• Lagt till fiskekort
-• Ny ikon för paketbox
-• Åtgärdat ikonen för den nordligaste tunnelbanestationen i München
+Search
+• Improved search results ranking
+• Fixed shop categories search
+• Fixed airport search results with empty names
+
+Styles
+• Improve visibility and findability of highway services and rest areas
+• Added second-hand category, auction, collectors shops, turnstile & exit
+• Made areal water tunnels transparent and visible from z15
+• Introduced more detailed railway-rail-* types
+• Fixed railway-abandoned/preserved bridges
+• Added a bridge structure outline man_made-bridge
+• Added community center, conference center, exhibition center, events venue
+• Increased shop icons priority
+• Added boundary=protected_area
+
+Translations:
+• Updated Catalan, Czech, Finnish, French, German, Italian, Polish, Spanish, Swedish, and Turkish translations
 
 Följ våra nyheter på https://omaps.org/sv/news/
