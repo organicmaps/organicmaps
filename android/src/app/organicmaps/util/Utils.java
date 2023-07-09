@@ -776,7 +776,7 @@ public class Utils
     @Override
     public void onCompleted(final boolean success, @Nullable final String zipPath)
     {
-      //TODO: delete zip file after its sent.
+      // TODO: delete zip file after its sent.
       UiThread.run(() -> {
         final Activity activity = mActivityRef.get();
         if (activity == null)
@@ -786,23 +786,26 @@ public class Utils
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(Intent.EXTRA_EMAIL, new String[] { mEmail });
         intent.putExtra(Intent.EXTRA_SUBJECT, "[" + BuildConfig.VERSION_NAME + "] " + mSubject);
-        // TODO: Send a short text attachment with system info and logs if zipping logs failed 
+        // TODO: Send a short text attachment with system info and logs if zipping logs failed
         if (success)
         {
           final Uri uri = StorageUtils.getUriForFilePath(activity, zipPath);
           intent.putExtra(Intent.EXTRA_STREAM, uri);
           // Properly set permissions for intent, see
           // https://developer.android.com/reference/androidx/core/content/FileProvider#include-the-permission-in-an-intent
-          intent.setData(uri);
+          intent.setDataAndType(uri, "message/rfc822");
           intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
           if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
             intent.setClipData(ClipData.newRawUri("", uri));
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
           }
         }
+        else
+        {
+          intent.setType("message/rfc822");
+        }
         // Do this so some email clients don't complain about empty body.
         intent.putExtra(Intent.EXTRA_TEXT, "");
-        intent.setType("message/rfc822");
         try
         {
           activity.startActivity(intent);
