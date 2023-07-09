@@ -1,0 +1,64 @@
+name: Linux Appstream
+on:
+  workflow_dispatch: # Manual trigger
+  push:
+    branches:
+    - master
+    paths:
+      - qt/res/app.organicmaps.desktop.metainfo.xml
+      # So that we can check for missing changelog entries:
+      - android/src/fdroid/play/version.yaml
+  pull_request:
+    paths:
+      - qt/res/app.organicmaps.desktop.metainfo.xml
+      # So that we can check for missing changelog entries:
+      - android/src/fdroid/play/version.yaml
+
+jobs:
+  validate-appstream:
+    name: Validate appstream data
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Install appstream validator
+        shell: bash
+        run: |
+          sudo apt update -y
+          sudo apt install -y \
+              flatpak
+          sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+          # We get it from flathub to ensure we have a recent version
+          sudo flatpak install -y org.freedesktop.appstream-glib
+
+      - name: Validate appstream data
+        shell: bash
+        run: flatpak run org.freedesktop.appstream-glib validate --nonet qt/res/app.organicmaps.desktop.metainfo.xml
+
+  changelog:
+    name: Validate changelog
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Ensure that latest version is present in changelog
+        shell: bash
+        run: |
+          version_regex='version: *(.*)-FDroid'
+          version_file='android/src/fdroid/play/version.yaml'
+          if [[ "$(cat $version_file)" =~ $regex ]]; then
+            version="${BASH_REMATCH[1]}"
+            if ! grep "release version=\"$version\"" 'qt/res/app.organicmaps.desktop.metainfo.xml'; then
+              echo "Changelog for version '$version' not found in '$version_file'."
+              exit 1
+            fi
+          else
+            echo "Failed to find current version from '$version_file' with regex '$version_regex'."
+            exit 1
+          fi
