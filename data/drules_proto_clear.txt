@@ -57859,7 +57859,15 @@ cont {
   element {
     scale: 16
     lines {
-      width: 5.6
+      width: 7.6
+      color: 8421504
+      priority: 273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 6.4
+      color: 15592411
+      priority: 283
       cap: BUTTCAP
     }
     lines {
@@ -57875,7 +57883,15 @@ cont {
   element {
     scale: 17
     lines {
-      width: 6.0
+      width: 9.2
+      color: 8421504
+      priority: 273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 7.8
+      color: 15592411
+      priority: 283
       cap: BUTTCAP
     }
     lines {
@@ -57891,7 +57907,15 @@ cont {
   element {
     scale: 18
     lines {
-      width: 6.0
+      width: 12.0
+      color: 8421504
+      priority: 273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 10.2
+      color: 15592411
+      priority: 283
       cap: BUTTCAP
     }
     lines {
@@ -57907,7 +57931,15 @@ cont {
   element {
     scale: 19
     lines {
-      width: 6.0
+      width: 12.0
+      color: 8421504
+      priority: 273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 10.2
+      color: 15592411
+      priority: 283
       cap: BUTTCAP
     }
     lines {
@@ -57974,6 +58006,19 @@ cont {
 }
 cont {
   name: "railway-construction"
+  element {
+    scale: 15
+    lines {
+      width: 1.0
+      color: 9868678
+      dashdot {
+        dd: 1.8
+        dd: 5.4
+      }
+      priority: 294
+      cap: BUTTCAP
+    }
+  }
   element {
     scale: 16
     lines {
@@ -58571,6 +58616,12 @@ cont {
   element {
     scale: 13
     lines {
+      width: 4.0
+      color: 15592411
+      priority: 67
+      cap: BUTTCAP
+    }
+    lines {
       width: 0.8
       color: 11710882
       priority: 343
@@ -58580,7 +58631,7 @@ cont {
   element {
     scale: 14
     lines {
-      width: 4.0
+      width: 4.4
       color: 15592411
       priority: 67
       cap: BUTTCAP
@@ -58595,7 +58646,7 @@ cont {
   element {
     scale: 15
     lines {
-      width: 4.4
+      width: 4.8
       color: 15592411
       priority: 67
       cap: BUTTCAP
@@ -58610,13 +58661,13 @@ cont {
   element {
     scale: 16
     lines {
-      width: 5.4
+      width: 7.0
       color: 8421504
       priority: 57
       cap: BUTTCAP
     }
     lines {
-      width: 5.0
+      width: 5.8
       color: 15592411
       priority: 67
       cap: BUTTCAP
@@ -58639,13 +58690,13 @@ cont {
   element {
     scale: 17
     lines {
-      width: 7.2
+      width: 10.0
       color: 8421504
       priority: 57
       cap: BUTTCAP
     }
     lines {
-      width: 6.8
+      width: 8.6
       color: 15592411
       priority: 67
       cap: BUTTCAP
@@ -58668,13 +58719,13 @@ cont {
   element {
     scale: 18
     lines {
-      width: 8.4
+      width: 12.8
       color: 8421504
       priority: 57
       cap: BUTTCAP
     }
     lines {
-      width: 8.0
+      width: 11.0
       color: 15592411
       priority: 67
       cap: BUTTCAP
@@ -58697,13 +58748,13 @@ cont {
   element {
     scale: 19
     lines {
-      width: 8.4
+      width: 12.8
       color: 8421504
       priority: 57
       cap: BUTTCAP
     }
     lines {
-      width: 8.0
+      width: 11.0
       color: 15592411
       priority: 67
       cap: BUTTCAP
@@ -59077,6 +59128,19 @@ cont {
 cont {
   name: "railway-preserved"
   element {
+    scale: 15
+    lines {
+      width: 1.6
+      color: 9868678
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 294
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 16
     lines {
       width: 1.6
@@ -59128,9 +59192,36 @@ cont {
 cont {
   name: "railway-preserved-bridge"
   element {
-    scale: 16
+    scale: 15
     lines {
       width: 5.6
+      color: 15592411
+      priority: 283
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.6
+      color: 9868678
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 294
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 7.6
+      color: 8421504
+      priority: 273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 6.4
+      color: 15592411
+      priority: 283
       cap: BUTTCAP
     }
     lines {
@@ -59146,7 +59237,15 @@ cont {
   element {
     scale: 17
     lines {
-      width: 6.0
+      width: 9.2
+      color: 8421504
+      priority: 273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 7.8
+      color: 15592411
+      priority: 283
       cap: BUTTCAP
     }
     lines {
@@ -59162,7 +59261,15 @@ cont {
   element {
     scale: 18
     lines {
-      width: 6.0
+      width: 12.0
+      color: 8421504
+      priority: 273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 10.2
+      color: 15592411
+      priority: 283
       cap: BUTTCAP
     }
     lines {
@@ -59178,7 +59285,15 @@ cont {
   element {
     scale: 19
     lines {
-      width: 6.0
+      width: 12.0
+      color: 8421504
+      priority: 273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 10.2
+      color: 15592411
+      priority: 283
       cap: BUTTCAP
     }
     lines {
@@ -59194,6 +59309,19 @@ cont {
 }
 cont {
   name: "railway-preserved-tunnel"
+  element {
+    scale: 15
+    lines {
+      width: 1.6
+      color: 9868678
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 294
+      cap: BUTTCAP
+    }
+  }
   element {
     scale: 16
     lines {
@@ -59366,9 +59494,9 @@ cont {
   element {
     scale: 11
     lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
+      width: 1.0
+      color: 9868678
+      priority: 411
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -59376,9 +59504,9 @@ cont {
   element {
     scale: 12
     lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
+      width: 1.1
+      color: 9868678
+      priority: 411
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -59386,27 +59514,27 @@ cont {
   element {
     scale: 13
     lines {
-      width: 0.8
-      color: 11710882
-      priority: 343
+      width: 1.2
+      color: 9868678
+      priority: 411
       cap: BUTTCAP
     }
   }
   element {
     scale: 14
     lines {
-      width: 1.0
-      color: 11710882
-      priority: 343
+      width: 1.3
+      color: 9868678
+      priority: 411
       cap: BUTTCAP
     }
   }
   element {
     scale: 15
     lines {
-      width: 1.2
-      color: 11710882
-      priority: 343
+      width: 1.4
+      color: 9868678
+      priority: 411
       cap: BUTTCAP
     }
   }
@@ -59414,42 +59542,42 @@ cont {
     scale: 16
     lines {
       width: 2.6
-      color: 11710882
-      priority: 343
+      color: 9868678
+      priority: 411
     }
     lines {
-      width: 1.3
+      width: 1.4
       color: 15658734
       dashdot {
         dd: 4.5
         dd: 4.5
       }
-      priority: 352
+      priority: 421
     }
   }
   element {
     scale: 17
     lines {
       width: 3.0
-      color: 11710882
-      priority: 343
+      color: 9868678
+      priority: 411
     }
     lines {
-      width: 2.0
+      width: 1.8
       color: 15658734
       dashdot {
         dd: 6.3
         dd: 6.3
       }
-      priority: 352
+      priority: 421
     }
   }
   element {
     scale: 18
     lines {
-      width: 3.0
-      color: 11710882
-      priority: 343
+      width: 3.6
+      color: 9868678
+      priority: 411
     }
     lines {
       width: 2.0
@@ -59458,15 +59586,15 @@ cont {
         dd: 8.1
         dd: 8.1
       }
-      priority: 352
+      priority: 421
     }
   }
   element {
     scale: 19
     lines {
-      width: 3.0
-      color: 11710882
-      priority: 343
+      width: 3.6
+      color: 9868678
+      priority: 411
     }
     lines {
       width: 2.0
@@ -59475,7 +59603,7 @@ cont {
         dd: 8.1
         dd: 8.1
       }
-      priority: 352
+      priority: 421
     }
   }
 }
@@ -59484,9 +59612,9 @@ cont {
   element {
     scale: 11
     lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
+      width: 1.0
+      color: 9868678
+      priority: 411
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -59494,9 +59622,9 @@ cont {
   element {
     scale: 12
     lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
+      width: 1.1
+      color: 9868678
+      priority: 411
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -59504,50 +59632,20 @@ cont {
   element {
     scale: 13
     lines {
-      width: 0.8
-      color: 11710882
-      priority: 343
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 4.0
-      color: 15592411
-      priority: 283
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 11710882
-      priority: 343
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 4.4
+      width: 4.8
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
       width: 1.2
-      color: 11710882
-      priority: 343
+      color: 9868678
+      priority: 411
       cap: BUTTCAP
     }
   }
   element {
-    scale: 16
-    lines {
-      width: 5.4
-      color: 8421504
-      priority: 273
-      cap: BUTTCAP
-    }
+    scale: 14
     lines {
       width: 5.0
       color: 15592411
@@ -59555,22 +59653,29 @@ cont {
       cap: BUTTCAP
     }
     lines {
-      width: 2.6
-      color: 11710882
-      priority: 343
-    }
-    lines {
       width: 1.3
-      color: 15658734
-      dashdot {
-        dd: 4.5
-        dd: 4.5
-      }
-      priority: 352
+      color: 9868678
+      priority: 411
+      cap: BUTTCAP
     }
   }
   element {
-    scale: 17
+    scale: 15
+    lines {
+      width: 5.2
+      color: 15592411
+      priority: 283
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.4
+      color: 9868678
+      priority: 411
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
     lines {
       width: 7.2
       color: 8421504
@@ -59578,44 +59683,73 @@ cont {
       cap: BUTTCAP
     }
     lines {
-      width: 6.8
+      width: 6.0
+      color: 15592411
+      priority: 283
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.6
+      color: 9868678
+      priority: 411
+    }
+    lines {
+      width: 1.4
+      color: 15658734
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 421
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 9.6
+      color: 8421504
+      priority: 273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.2
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
       width: 3.0
-      color: 11710882
-      priority: 343
+      color: 9868678
+      priority: 411
     }
     lines {
-      width: 2.0
+      width: 1.8
       color: 15658734
       dashdot {
         dd: 6.3
         dd: 6.3
       }
-      priority: 352
+      priority: 421
     }
   }
   element {
     scale: 18
     lines {
-      width: 8.4
+      width: 12.8
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 8.0
+      width: 11.0
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
-      color: 11710882
-      priority: 343
+      width: 3.6
+      color: 9868678
+      priority: 411
     }
     lines {
       width: 2.0
@@ -59624,27 +59758,27 @@ cont {
         dd: 8.1
         dd: 8.1
       }
-      priority: 352
+      priority: 421
     }
   }
   element {
     scale: 19
     lines {
-      width: 8.4
+      width: 12.8
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 8.0
+      width: 11.0
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
-      color: 11710882
-      priority: 343
+      width: 3.6
+      color: 9868678
+      priority: 411
     }
     lines {
       width: 2.0
@@ -59653,7 +59787,7 @@ cont {
         dd: 8.1
         dd: 8.1
       }
-      priority: 352
+      priority: 421
     }
   }
 }
@@ -59662,9 +59796,9 @@ cont {
   element {
     scale: 11
     lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
+      width: 1.0
+      color: 9868678
+      priority: 411
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -59672,9 +59806,9 @@ cont {
   element {
     scale: 12
     lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
+      width: 1.1
+      color: 9868678
+      priority: 411
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -59682,47 +59816,47 @@ cont {
   element {
     scale: 13
     lines {
-      width: 0.8
-      color: 11710882
-      priority: 343
+      width: 1.2
+      color: 9868678
+      priority: 411
       cap: BUTTCAP
     }
   }
   element {
     scale: 14
     lines {
-      width: 3.0
+      width: 3.3
       color: 8421504
       dashdot {
         dd: 5.0
         dd: 5.0
       }
-      priority: 342
+      priority: 410
       cap: BUTTCAP
     }
     lines {
-      width: 1.0
-      color: 11710882
-      priority: 343
+      width: 1.3
+      color: 9868678
+      priority: 411
       cap: BUTTCAP
     }
   }
   element {
     scale: 15
     lines {
-      width: 3.2
+      width: 3.4
       color: 8421504
       dashdot {
         dd: 5.0
         dd: 5.0
       }
-      priority: 342
+      priority: 410
       cap: BUTTCAP
     }
     lines {
-      width: 1.2
-      color: 11710882
-      priority: 343
+      width: 1.4
+      color: 9868678
+      priority: 411
       cap: BUTTCAP
     }
   }
@@ -59735,22 +59869,22 @@ cont {
         dd: 5.0
         dd: 5.0
       }
-      priority: 342
+      priority: 410
       cap: BUTTCAP
     }
     lines {
       width: 2.6
-      color: 11710882
-      priority: 343
+      color: 9868678
+      priority: 411
     }
     lines {
-      width: 1.3
+      width: 1.4
       color: 15658734
       dashdot {
         dd: 4.5
         dd: 4.5
       }
-      priority: 352
+      priority: 421
     }
   }
   element {
@@ -59762,40 +59896,40 @@ cont {
         dd: 5.0
         dd: 5.0
       }
-      priority: 342
+      priority: 410
       cap: BUTTCAP
     }
     lines {
       width: 3.0
-      color: 11710882
-      priority: 343
+      color: 9868678
+      priority: 411
     }
     lines {
-      width: 2.0
+      width: 1.8
       color: 15658734
       dashdot {
         dd: 6.3
         dd: 6.3
       }
-      priority: 352
+      priority: 421
     }
   }
   element {
     scale: 18
     lines {
-      width: 5.0
+      width: 5.6
       color: 8421504
       dashdot {
         dd: 5.0
         dd: 5.0
       }
-      priority: 342
+      priority: 410
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
-      color: 11710882
-      priority: 343
+      width: 3.6
+      color: 9868678
+      priority: 411
     }
     lines {
       width: 2.0
@@ -59804,25 +59938,25 @@ cont {
         dd: 8.1
         dd: 8.1
       }
-      priority: 352
+      priority: 421
     }
   }
   element {
     scale: 19
     lines {
-      width: 5.0
+      width: 5.6
       color: 8421504
       dashdot {
         dd: 5.0
         dd: 5.0
       }
-      priority: 342
+      priority: 410
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
-      color: 11710882
-      priority: 343
+      width: 3.6
+      color: 9868678
+      priority: 411
     }
     lines {
       width: 2.0
@@ -59831,7 +59965,7 @@ cont {
         dd: 8.1
         dd: 8.1
       }
-      priority: 352
+      priority: 421
     }
   }
 }
@@ -59860,6 +59994,12 @@ cont {
   element {
     scale: 13
     lines {
+      width: 4.0
+      color: 15592411
+      priority: 283
+      cap: BUTTCAP
+    }
+    lines {
       width: 0.8
       color: 11710882
       priority: 343
@@ -59869,7 +60009,7 @@ cont {
   element {
     scale: 14
     lines {
-      width: 4.0
+      width: 4.4
       color: 15592411
       priority: 283
       cap: BUTTCAP
@@ -59884,7 +60024,7 @@ cont {
   element {
     scale: 15
     lines {
-      width: 4.4
+      width: 4.8
       color: 15592411
       priority: 283
       cap: BUTTCAP
@@ -59899,13 +60039,13 @@ cont {
   element {
     scale: 16
     lines {
-      width: 5.4
+      width: 7.0
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 5.0
+      width: 5.8
       color: 15592411
       priority: 283
       cap: BUTTCAP
@@ -59928,13 +60068,13 @@ cont {
   element {
     scale: 17
     lines {
-      width: 7.2
+      width: 10.0
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 6.8
+      width: 8.6
       color: 15592411
       priority: 283
       cap: BUTTCAP
@@ -59957,13 +60097,13 @@ cont {
   element {
     scale: 18
     lines {
-      width: 8.4
+      width: 12.8
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 8.0
+      width: 11.0
       color: 15592411
       priority: 283
       cap: BUTTCAP
@@ -59986,13 +60126,13 @@ cont {
   element {
     scale: 19
     lines {
-      width: 8.4
+      width: 12.8
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 8.0
+      width: 11.0
       color: 15592411
       priority: 283
       cap: BUTTCAP
@@ -60016,11 +60156,21 @@ cont {
 cont {
   name: "railway-rail-highspeed"
   element {
+    scale: 10
+    lines {
+      width: 1.2
+      color: 9868678
+      priority: 411
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 11
     lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
+      width: 1.3
+      color: 9868678
+      priority: 411
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -60028,9 +60178,9 @@ cont {
   element {
     scale: 12
     lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
+      width: 1.4
+      color: 9868678
+      priority: 411
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -60038,27 +60188,27 @@ cont {
   element {
     scale: 13
     lines {
-      width: 0.8
-      color: 11710882
-      priority: 343
+      width: 1.6
+      color: 9868678
+      priority: 411
       cap: BUTTCAP
     }
   }
   element {
     scale: 14
     lines {
-      width: 1.0
-      color: 11710882
-      priority: 343
+      width: 1.8
+      color: 9868678
+      priority: 411
       cap: BUTTCAP
     }
   }
   element {
     scale: 15
     lines {
-      width: 1.2
-      color: 11710882
-      priority: 343
+      width: 2.0
+      color: 9868678
+      priority: 411
       cap: BUTTCAP
     }
   }
@@ -60066,79 +60216,89 @@ cont {
     scale: 16
     lines {
       width: 2.6
-      color: 11710882
-      priority: 343
+      color: 9868678
+      priority: 411
     }
     lines {
-      width: 1.3
+      width: 1.1
       color: 15658734
       dashdot {
-        dd: 4.5
-        dd: 4.5
+        dd: 10.0
+        dd: 10.0
       }
-      priority: 352
+      priority: 421
     }
   }
   element {
     scale: 17
     lines {
       width: 3.0
-      color: 11710882
-      priority: 343
+      color: 9868678
+      priority: 411
     }
     lines {
-      width: 2.0
+      width: 1.5
       color: 15658734
       dashdot {
-        dd: 6.3
-        dd: 6.3
+        dd: 13.0
+        dd: 13.0
       }
-      priority: 352
+      priority: 421
     }
   }
   element {
     scale: 18
     lines {
-      width: 3.0
-      color: 11710882
-      priority: 343
+      width: 3.6
+      color: 9868678
+      priority: 411
     }
     lines {
-      width: 2.0
+      width: 1.7
       color: 15658734
       dashdot {
-        dd: 8.1
-        dd: 8.1
+        dd: 16.0
+        dd: 16.0
       }
-      priority: 352
+      priority: 421
     }
   }
   element {
     scale: 19
     lines {
-      width: 3.0
-      color: 11710882
-      priority: 343
+      width: 3.6
+      color: 9868678
+      priority: 411
     }
     lines {
-      width: 2.0
+      width: 1.7
       color: 15658734
       dashdot {
-        dd: 8.1
-        dd: 8.1
+        dd: 16.0
+        dd: 16.0
       }
-      priority: 352
+      priority: 421
     }
   }
 }
 cont {
   name: "railway-rail-highspeed-bridge"
   element {
+    scale: 10
+    lines {
+      width: 1.2
+      color: 9868678
+      priority: 411
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 11
     lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
+      width: 1.3
+      color: 9868678
+      priority: 411
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -60146,9 +60306,9 @@ cont {
   element {
     scale: 12
     lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
+      width: 1.4
+      color: 9868678
+      priority: 411
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -60156,167 +60316,183 @@ cont {
   element {
     scale: 13
     lines {
-      width: 0.8
-      color: 11710882
-      priority: 343
+      width: 5.6
+      color: 15592411
+      priority: 283
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.6
+      color: 9868678
+      priority: 411
       cap: BUTTCAP
     }
   }
   element {
     scale: 14
     lines {
-      width: 4.0
+      width: 6.0
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
-      width: 1.0
-      color: 11710882
-      priority: 343
+      width: 1.8
+      color: 9868678
+      priority: 411
       cap: BUTTCAP
     }
   }
   element {
     scale: 15
     lines {
-      width: 4.4
+      width: 6.4
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
-      width: 1.2
-      color: 11710882
-      priority: 343
+      width: 2.0
+      color: 9868678
+      priority: 411
       cap: BUTTCAP
     }
   }
   element {
     scale: 16
     lines {
-      width: 5.4
+      width: 6.6
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 5.0
+      width: 5.4
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
       width: 2.6
-      color: 11710882
-      priority: 343
+      color: 9868678
+      priority: 411
     }
     lines {
-      width: 1.3
+      width: 1.1
       color: 15658734
       dashdot {
-        dd: 4.5
-        dd: 4.5
+        dd: 10.0
+        dd: 10.0
       }
-      priority: 352
+      priority: 421
     }
   }
   element {
     scale: 17
     lines {
-      width: 7.2
+      width: 9.0
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 6.8
+      width: 7.6
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
       width: 3.0
-      color: 11710882
-      priority: 343
+      color: 9868678
+      priority: 411
     }
     lines {
-      width: 2.0
+      width: 1.5
       color: 15658734
       dashdot {
-        dd: 6.3
-        dd: 6.3
+        dd: 13.0
+        dd: 13.0
       }
-      priority: 352
+      priority: 421
     }
   }
   element {
     scale: 18
     lines {
-      width: 8.4
+      width: 12.2
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 8.0
+      width: 10.4
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
-      color: 11710882
-      priority: 343
+      width: 3.6
+      color: 9868678
+      priority: 411
     }
     lines {
-      width: 2.0
+      width: 1.7
       color: 15658734
       dashdot {
-        dd: 8.1
-        dd: 8.1
+        dd: 16.0
+        dd: 16.0
       }
-      priority: 352
+      priority: 421
     }
   }
   element {
     scale: 19
     lines {
-      width: 8.4
+      width: 12.2
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 8.0
+      width: 10.4
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
-      color: 11710882
-      priority: 343
+      width: 3.6
+      color: 9868678
+      priority: 411
     }
     lines {
-      width: 2.0
+      width: 1.7
       color: 15658734
       dashdot {
-        dd: 8.1
-        dd: 8.1
+        dd: 16.0
+        dd: 16.0
       }
-      priority: 352
+      priority: 421
     }
   }
 }
 cont {
   name: "railway-rail-highspeed-tunnel"
   element {
+    scale: 10
+    lines {
+      width: 1.2
+      color: 9868678
+      priority: 411
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 11
     lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
+      width: 1.3
+      color: 9868678
+      priority: 411
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -60324,9 +60500,9 @@ cont {
   element {
     scale: 12
     lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
+      width: 1.4
+      color: 9868678
+      priority: 411
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -60334,47 +60510,47 @@ cont {
   element {
     scale: 13
     lines {
-      width: 0.8
-      color: 11710882
-      priority: 343
+      width: 1.6
+      color: 9868678
+      priority: 411
       cap: BUTTCAP
     }
   }
   element {
     scale: 14
     lines {
-      width: 3.0
+      width: 3.8
       color: 8421504
       dashdot {
         dd: 5.0
         dd: 5.0
       }
-      priority: 342
+      priority: 410
       cap: BUTTCAP
     }
     lines {
-      width: 1.0
-      color: 11710882
-      priority: 343
+      width: 1.8
+      color: 9868678
+      priority: 411
       cap: BUTTCAP
     }
   }
   element {
     scale: 15
     lines {
-      width: 3.2
+      width: 4.0
       color: 8421504
       dashdot {
         dd: 5.0
         dd: 5.0
       }
-      priority: 342
+      priority: 410
       cap: BUTTCAP
     }
     lines {
-      width: 1.2
-      color: 11710882
-      priority: 343
+      width: 2.0
+      color: 9868678
+      priority: 411
       cap: BUTTCAP
     }
   }
@@ -60387,22 +60563,22 @@ cont {
         dd: 5.0
         dd: 5.0
       }
-      priority: 342
+      priority: 410
       cap: BUTTCAP
     }
     lines {
       width: 2.6
-      color: 11710882
-      priority: 343
+      color: 9868678
+      priority: 411
     }
     lines {
-      width: 1.3
+      width: 1.1
       color: 15658734
       dashdot {
-        dd: 4.5
-        dd: 4.5
+        dd: 10.0
+        dd: 10.0
       }
-      priority: 352
+      priority: 421
     }
   }
   element {
@@ -60414,87 +60590,97 @@ cont {
         dd: 5.0
         dd: 5.0
       }
-      priority: 342
+      priority: 410
       cap: BUTTCAP
     }
     lines {
       width: 3.0
-      color: 11710882
-      priority: 343
+      color: 9868678
+      priority: 411
     }
     lines {
-      width: 2.0
+      width: 1.5
       color: 15658734
       dashdot {
-        dd: 6.3
-        dd: 6.3
+        dd: 13.0
+        dd: 13.0
       }
-      priority: 352
+      priority: 421
     }
   }
   element {
     scale: 18
     lines {
-      width: 5.0
+      width: 5.6
       color: 8421504
       dashdot {
         dd: 5.0
         dd: 5.0
       }
-      priority: 342
+      priority: 410
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
-      color: 11710882
-      priority: 343
+      width: 3.6
+      color: 9868678
+      priority: 411
     }
     lines {
-      width: 2.0
+      width: 1.7
       color: 15658734
       dashdot {
-        dd: 8.1
-        dd: 8.1
+        dd: 16.0
+        dd: 16.0
       }
-      priority: 352
+      priority: 421
     }
   }
   element {
     scale: 19
     lines {
-      width: 5.0
+      width: 5.6
       color: 8421504
       dashdot {
         dd: 5.0
         dd: 5.0
       }
-      priority: 342
+      priority: 410
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
-      color: 11710882
-      priority: 343
+      width: 3.6
+      color: 9868678
+      priority: 411
     }
     lines {
-      width: 2.0
+      width: 1.7
       color: 15658734
       dashdot {
-        dd: 8.1
-        dd: 8.1
+        dd: 16.0
+        dd: 16.0
       }
-      priority: 352
+      priority: 421
     }
   }
 }
 cont {
   name: "railway-rail-main"
   element {
+    scale: 10
+    lines {
+      width: 1.0
+      color: 9868678
+      priority: 411
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 11
     lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
+      width: 1.0
+      color: 9868678
+      priority: 411
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -60502,9 +60688,9 @@ cont {
   element {
     scale: 12
     lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
+      width: 1.1
+      color: 9868678
+      priority: 411
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -60512,27 +60698,27 @@ cont {
   element {
     scale: 13
     lines {
-      width: 0.8
-      color: 11710882
-      priority: 343
+      width: 1.2
+      color: 9868678
+      priority: 411
       cap: BUTTCAP
     }
   }
   element {
     scale: 14
     lines {
-      width: 1.0
-      color: 11710882
-      priority: 343
+      width: 1.3
+      color: 9868678
+      priority: 411
       cap: BUTTCAP
     }
   }
   element {
     scale: 15
     lines {
-      width: 1.2
-      color: 11710882
-      priority: 343
+      width: 1.4
+      color: 9868678
+      priority: 411
       cap: BUTTCAP
     }
   }
@@ -60540,42 +60726,42 @@ cont {
     scale: 16
     lines {
       width: 2.6
-      color: 11710882
-      priority: 343
+      color: 9868678
+      priority: 411
     }
     lines {
-      width: 1.3
+      width: 1.4
       color: 15658734
       dashdot {
         dd: 4.5
         dd: 4.5
       }
-      priority: 352
+      priority: 421
     }
   }
   element {
     scale: 17
     lines {
       width: 3.0
-      color: 11710882
-      priority: 343
+      color: 9868678
+      priority: 411
     }
     lines {
-      width: 2.0
+      width: 1.8
       color: 15658734
       dashdot {
         dd: 6.3
         dd: 6.3
       }
-      priority: 352
+      priority: 421
     }
   }
   element {
     scale: 18
     lines {
-      width: 3.0
-      color: 11710882
-      priority: 343
+      width: 3.6
+      color: 9868678
+      priority: 411
     }
     lines {
       width: 2.0
@@ -60584,15 +60770,15 @@ cont {
         dd: 8.1
         dd: 8.1
       }
-      priority: 352
+      priority: 421
     }
   }
   element {
     scale: 19
     lines {
-      width: 3.0
-      color: 11710882
-      priority: 343
+      width: 3.6
+      color: 9868678
+      priority: 411
     }
     lines {
       width: 2.0
@@ -60601,18 +60787,28 @@ cont {
         dd: 8.1
         dd: 8.1
       }
-      priority: 352
+      priority: 421
     }
   }
 }
 cont {
   name: "railway-rail-main-bridge"
   element {
+    scale: 10
+    lines {
+      width: 1.0
+      color: 9868678
+      priority: 411
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 11
     lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
+      width: 1.0
+      color: 9868678
+      priority: 411
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -60620,9 +60816,9 @@ cont {
   element {
     scale: 12
     lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
+      width: 1.1
+      color: 9868678
+      priority: 411
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -60630,50 +60826,20 @@ cont {
   element {
     scale: 13
     lines {
-      width: 0.8
-      color: 11710882
-      priority: 343
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 4.0
-      color: 15592411
-      priority: 283
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 11710882
-      priority: 343
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 4.4
+      width: 4.8
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
       width: 1.2
-      color: 11710882
-      priority: 343
+      color: 9868678
+      priority: 411
       cap: BUTTCAP
     }
   }
   element {
-    scale: 16
-    lines {
-      width: 5.4
-      color: 8421504
-      priority: 273
-      cap: BUTTCAP
-    }
+    scale: 14
     lines {
       width: 5.0
       color: 15592411
@@ -60681,22 +60847,29 @@ cont {
       cap: BUTTCAP
     }
     lines {
-      width: 2.6
-      color: 11710882
-      priority: 343
-    }
-    lines {
       width: 1.3
-      color: 15658734
-      dashdot {
-        dd: 4.5
-        dd: 4.5
-      }
-      priority: 352
+      color: 9868678
+      priority: 411
+      cap: BUTTCAP
     }
   }
   element {
-    scale: 17
+    scale: 15
+    lines {
+      width: 5.2
+      color: 15592411
+      priority: 283
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.4
+      color: 9868678
+      priority: 411
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
     lines {
       width: 7.2
       color: 8421504
@@ -60704,44 +60877,73 @@ cont {
       cap: BUTTCAP
     }
     lines {
-      width: 6.8
+      width: 6.0
+      color: 15592411
+      priority: 283
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.6
+      color: 9868678
+      priority: 411
+    }
+    lines {
+      width: 1.4
+      color: 15658734
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 421
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 9.6
+      color: 8421504
+      priority: 273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.2
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
       width: 3.0
-      color: 11710882
-      priority: 343
+      color: 9868678
+      priority: 411
     }
     lines {
-      width: 2.0
+      width: 1.8
       color: 15658734
       dashdot {
         dd: 6.3
         dd: 6.3
       }
-      priority: 352
+      priority: 421
     }
   }
   element {
     scale: 18
     lines {
-      width: 8.4
+      width: 12.8
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 8.0
+      width: 11.0
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
-      color: 11710882
-      priority: 343
+      width: 3.6
+      color: 9868678
+      priority: 411
     }
     lines {
       width: 2.0
@@ -60750,27 +60952,27 @@ cont {
         dd: 8.1
         dd: 8.1
       }
-      priority: 352
+      priority: 421
     }
   }
   element {
     scale: 19
     lines {
-      width: 8.4
+      width: 12.8
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 8.0
+      width: 11.0
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
-      color: 11710882
-      priority: 343
+      width: 3.6
+      color: 9868678
+      priority: 411
     }
     lines {
       width: 2.0
@@ -60779,18 +60981,28 @@ cont {
         dd: 8.1
         dd: 8.1
       }
-      priority: 352
+      priority: 421
     }
   }
 }
 cont {
   name: "railway-rail-main-tunnel"
   element {
+    scale: 10
+    lines {
+      width: 1.0
+      color: 9868678
+      priority: 411
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 11
     lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
+      width: 1.0
+      color: 9868678
+      priority: 411
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -60798,9 +61010,9 @@ cont {
   element {
     scale: 12
     lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
+      width: 1.1
+      color: 9868678
+      priority: 411
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -60808,47 +61020,47 @@ cont {
   element {
     scale: 13
     lines {
-      width: 0.8
-      color: 11710882
-      priority: 343
+      width: 1.2
+      color: 9868678
+      priority: 411
       cap: BUTTCAP
     }
   }
   element {
     scale: 14
     lines {
-      width: 3.0
+      width: 3.3
       color: 8421504
       dashdot {
         dd: 5.0
         dd: 5.0
       }
-      priority: 342
+      priority: 410
       cap: BUTTCAP
     }
     lines {
-      width: 1.0
-      color: 11710882
-      priority: 343
+      width: 1.3
+      color: 9868678
+      priority: 411
       cap: BUTTCAP
     }
   }
   element {
     scale: 15
     lines {
-      width: 3.2
+      width: 3.4
       color: 8421504
       dashdot {
         dd: 5.0
         dd: 5.0
       }
-      priority: 342
+      priority: 410
       cap: BUTTCAP
     }
     lines {
-      width: 1.2
-      color: 11710882
-      priority: 343
+      width: 1.4
+      color: 9868678
+      priority: 411
       cap: BUTTCAP
     }
   }
@@ -60861,22 +61073,22 @@ cont {
         dd: 5.0
         dd: 5.0
       }
-      priority: 342
+      priority: 410
       cap: BUTTCAP
     }
     lines {
       width: 2.6
-      color: 11710882
-      priority: 343
+      color: 9868678
+      priority: 411
     }
     lines {
-      width: 1.3
+      width: 1.4
       color: 15658734
       dashdot {
         dd: 4.5
         dd: 4.5
       }
-      priority: 352
+      priority: 421
     }
   }
   element {
@@ -60888,40 +61100,40 @@ cont {
         dd: 5.0
         dd: 5.0
       }
-      priority: 342
+      priority: 410
       cap: BUTTCAP
     }
     lines {
       width: 3.0
-      color: 11710882
-      priority: 343
+      color: 9868678
+      priority: 411
     }
     lines {
-      width: 2.0
+      width: 1.8
       color: 15658734
       dashdot {
         dd: 6.3
         dd: 6.3
       }
-      priority: 352
+      priority: 421
     }
   }
   element {
     scale: 18
     lines {
-      width: 5.0
+      width: 5.6
       color: 8421504
       dashdot {
         dd: 5.0
         dd: 5.0
       }
-      priority: 342
+      priority: 410
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
-      color: 11710882
-      priority: 343
+      width: 3.6
+      color: 9868678
+      priority: 411
     }
     lines {
       width: 2.0
@@ -60930,25 +61142,25 @@ cont {
         dd: 8.1
         dd: 8.1
       }
-      priority: 352
+      priority: 421
     }
   }
   element {
     scale: 19
     lines {
-      width: 5.0
+      width: 5.6
       color: 8421504
       dashdot {
         dd: 5.0
         dd: 5.0
       }
-      priority: 342
+      priority: 410
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
-      color: 11710882
-      priority: 343
+      width: 3.6
+      color: 9868678
+      priority: 411
     }
     lines {
       width: 2.0
@@ -60957,74 +61169,18 @@ cont {
         dd: 8.1
         dd: 8.1
       }
-      priority: 352
+      priority: 421
     }
   }
 }
 cont {
   name: "railway-rail-service"
   element {
-    scale: 11
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 0.8
-      color: 11710882
-      priority: 343
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.0
-      color: 11710882
-      priority: 343
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.2
-      color: 11710882
-      priority: 343
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 16
     lines {
-      width: 2.6
+      width: 1.3
       color: 11710882
       priority: 343
-    }
-    lines {
-      width: 1.3
-      color: 15658734
-      dashdot {
-        dd: 4.5
-        dd: 4.5
-      }
-      priority: 352
     }
   }
   element {
@@ -61035,8 +61191,8 @@ cont {
       priority: 343
     }
     lines {
-      width: 2.0
-      color: 15658734
+      width: 1.8
+      color: 15000299
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -61047,13 +61203,13 @@ cont {
   element {
     scale: 18
     lines {
-      width: 3.0
+      width: 3.6
       color: 11710882
       priority: 343
     }
     lines {
       width: 2.0
-      color: 15658734
+      color: 15000299
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -61064,13 +61220,13 @@ cont {
   element {
     scale: 19
     lines {
-      width: 3.0
+      width: 3.6
       color: 11710882
       priority: 343
     }
     lines {
       width: 2.0
-      color: 15658734
+      color: 15000299
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -61082,103 +61238,35 @@ cont {
 cont {
   name: "railway-rail-service-bridge"
   element {
-    scale: 11
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 0.8
-      color: 11710882
-      priority: 343
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 4.0
-      color: 15592411
-      priority: 283
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 11710882
-      priority: 343
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 4.4
-      color: 15592411
-      priority: 283
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.2
-      color: 11710882
-      priority: 343
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 16
     lines {
-      width: 5.4
+      width: 7.0
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 5.0
+      width: 5.8
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
-      width: 2.6
+      width: 1.3
       color: 11710882
       priority: 343
-    }
-    lines {
-      width: 1.3
-      color: 15658734
-      dashdot {
-        dd: 4.5
-        dd: 4.5
-      }
-      priority: 352
     }
   }
   element {
     scale: 17
     lines {
-      width: 7.2
+      width: 9.6
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 6.8
+      width: 8.2
       color: 15592411
       priority: 283
       cap: BUTTCAP
@@ -61189,8 +61277,8 @@ cont {
       priority: 343
     }
     lines {
-      width: 2.0
-      color: 15658734
+      width: 1.8
+      color: 15000299
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -61201,25 +61289,25 @@ cont {
   element {
     scale: 18
     lines {
-      width: 8.4
+      width: 12.8
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 8.0
+      width: 11.0
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
+      width: 3.6
       color: 11710882
       priority: 343
     }
     lines {
       width: 2.0
-      color: 15658734
+      color: 15000299
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -61230,25 +61318,25 @@ cont {
   element {
     scale: 19
     lines {
-      width: 8.4
+      width: 12.8
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 8.0
+      width: 11.0
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
+      width: 3.6
       color: 11710882
       priority: 343
     }
     lines {
       width: 2.0
-      color: 15658734
+      color: 15000299
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -61260,76 +61348,9 @@ cont {
 cont {
   name: "railway-rail-service-tunnel"
   element {
-    scale: 11
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 0.8
-      color: 11710882
-      priority: 343
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 3.0
-      color: 8421504
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 342
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 11710882
-      priority: 343
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 3.2
-      color: 8421504
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 342
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.2
-      color: 11710882
-      priority: 343
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 16
     lines {
-      width: 4.6
+      width: 3.3
       color: 8421504
       dashdot {
         dd: 5.0
@@ -61337,20 +61358,11 @@ cont {
       }
       priority: 342
       cap: BUTTCAP
-    }
-    lines {
-      width: 2.6
-      color: 11710882
-      priority: 343
     }
     lines {
       width: 1.3
-      color: 15658734
-      dashdot {
-        dd: 4.5
-        dd: 4.5
-      }
-      priority: 352
+      color: 11710882
+      priority: 343
     }
   }
   element {
@@ -61371,8 +61383,8 @@ cont {
       priority: 343
     }
     lines {
-      width: 2.0
-      color: 15658734
+      width: 1.8
+      color: 15000299
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -61383,7 +61395,7 @@ cont {
   element {
     scale: 18
     lines {
-      width: 5.0
+      width: 5.6
       color: 8421504
       dashdot {
         dd: 5.0
@@ -61393,13 +61405,13 @@ cont {
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
+      width: 3.6
       color: 11710882
       priority: 343
     }
     lines {
       width: 2.0
-      color: 15658734
+      color: 15000299
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -61410,7 +61422,7 @@ cont {
   element {
     scale: 19
     lines {
-      width: 5.0
+      width: 5.6
       color: 8421504
       dashdot {
         dd: 5.0
@@ -61420,13 +61432,13 @@ cont {
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
+      width: 3.6
       color: 11710882
       priority: 343
     }
     lines {
       width: 2.0
-      color: 15658734
+      color: 15000299
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -61438,44 +61450,6 @@ cont {
 cont {
   name: "railway-rail-spur"
   element {
-    scale: 11
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 0.8
-      color: 11710882
-      priority: 343
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.0
-      color: 11710882
-      priority: 343
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 15
     lines {
       width: 1.2
@@ -61487,18 +61461,9 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.6
+      width: 1.3
       color: 11710882
       priority: 343
-    }
-    lines {
-      width: 1.3
-      color: 15658734
-      dashdot {
-        dd: 4.5
-        dd: 4.5
-      }
-      priority: 352
     }
   }
   element {
@@ -61509,8 +61474,8 @@ cont {
       priority: 343
     }
     lines {
-      width: 2.0
-      color: 15658734
+      width: 1.8
+      color: 15000299
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -61521,13 +61486,13 @@ cont {
   element {
     scale: 18
     lines {
-      width: 3.0
+      width: 3.6
       color: 11710882
       priority: 343
     }
     lines {
       width: 2.0
-      color: 15658734
+      color: 15000299
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -61538,13 +61503,13 @@ cont {
   element {
     scale: 19
     lines {
-      width: 3.0
+      width: 3.6
       color: 11710882
       priority: 343
     }
     lines {
       width: 2.0
-      color: 15658734
+      color: 15000299
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -61556,53 +61521,9 @@ cont {
 cont {
   name: "railway-rail-spur-bridge"
   element {
-    scale: 11
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 0.8
-      color: 11710882
-      priority: 343
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 4.0
-      color: 15592411
-      priority: 283
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 11710882
-      priority: 343
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 15
     lines {
-      width: 4.4
+      width: 4.8
       color: 15592411
       priority: 283
       cap: BUTTCAP
@@ -61617,42 +61538,33 @@ cont {
   element {
     scale: 16
     lines {
-      width: 5.4
+      width: 7.0
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 5.0
+      width: 5.8
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
-      width: 2.6
+      width: 1.3
       color: 11710882
       priority: 343
-    }
-    lines {
-      width: 1.3
-      color: 15658734
-      dashdot {
-        dd: 4.5
-        dd: 4.5
-      }
-      priority: 352
     }
   }
   element {
     scale: 17
     lines {
-      width: 7.2
+      width: 9.6
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 6.8
+      width: 8.2
       color: 15592411
       priority: 283
       cap: BUTTCAP
@@ -61663,8 +61575,8 @@ cont {
       priority: 343
     }
     lines {
-      width: 2.0
-      color: 15658734
+      width: 1.8
+      color: 15000299
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -61675,25 +61587,25 @@ cont {
   element {
     scale: 18
     lines {
-      width: 8.4
+      width: 12.8
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 8.0
+      width: 11.0
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
+      width: 3.6
       color: 11710882
       priority: 343
     }
     lines {
       width: 2.0
-      color: 15658734
+      color: 15000299
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -61704,25 +61616,25 @@ cont {
   element {
     scale: 19
     lines {
-      width: 8.4
+      width: 12.8
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 8.0
+      width: 11.0
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
+      width: 3.6
       color: 11710882
       priority: 343
     }
     lines {
       width: 2.0
-      color: 15658734
+      color: 15000299
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -61734,54 +61646,6 @@ cont {
 cont {
   name: "railway-rail-spur-tunnel"
   element {
-    scale: 11
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 0.8
-      color: 11710882
-      priority: 343
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 3.0
-      color: 8421504
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 342
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 11710882
-      priority: 343
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 15
     lines {
       width: 3.2
@@ -61803,7 +61667,7 @@ cont {
   element {
     scale: 16
     lines {
-      width: 4.6
+      width: 3.3
       color: 8421504
       dashdot {
         dd: 5.0
@@ -61813,18 +61677,9 @@ cont {
       cap: BUTTCAP
     }
     lines {
-      width: 2.6
+      width: 1.3
       color: 11710882
       priority: 343
-    }
-    lines {
-      width: 1.3
-      color: 15658734
-      dashdot {
-        dd: 4.5
-        dd: 4.5
-      }
-      priority: 352
     }
   }
   element {
@@ -61845,8 +61700,8 @@ cont {
       priority: 343
     }
     lines {
-      width: 2.0
-      color: 15658734
+      width: 1.8
+      color: 15000299
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -61857,7 +61712,7 @@ cont {
   element {
     scale: 18
     lines {
-      width: 5.0
+      width: 5.6
       color: 8421504
       dashdot {
         dd: 5.0
@@ -61867,13 +61722,13 @@ cont {
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
+      width: 3.6
       color: 11710882
       priority: 343
     }
     lines {
       width: 2.0
-      color: 15658734
+      color: 15000299
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -61884,7 +61739,7 @@ cont {
   element {
     scale: 19
     lines {
-      width: 5.0
+      width: 5.6
       color: 8421504
       dashdot {
         dd: 5.0
@@ -61894,13 +61749,13 @@ cont {
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
+      width: 3.6
       color: 11710882
       priority: 343
     }
     lines {
       width: 2.0
-      color: 15658734
+      color: 15000299
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -61912,11 +61767,21 @@ cont {
 cont {
   name: "railway-rail-tourism"
   element {
+    scale: 10
+    lines {
+      width: 1.0
+      color: 10255717
+      priority: 411
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 11
     lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
+      width: 1.0
+      color: 10255717
+      priority: 411
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -61924,9 +61789,9 @@ cont {
   element {
     scale: 12
     lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
+      width: 1.1
+      color: 10255717
+      priority: 411
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -61934,70 +61799,102 @@ cont {
   element {
     scale: 13
     lines {
-      width: 0.8
-      color: 11710882
-      priority: 343
+      width: 1.2
+      color: 10255717
+      priority: 411
       cap: BUTTCAP
     }
   }
   element {
     scale: 14
     lines {
-      width: 1.0
-      color: 11710882
-      priority: 343
+      width: 1.3
+      color: 10255717
+      priority: 411
       cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 871230427
+      }
+      priority: 16411
     }
   }
   element {
     scale: 15
     lines {
-      width: 1.2
-      color: 11710882
-      priority: 343
+      width: 1.4
+      color: 10255717
+      priority: 411
       cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 3355443
+        stroke_color: 871230427
+      }
+      priority: 16411
     }
   }
   element {
     scale: 16
     lines {
       width: 2.6
-      color: 11710882
-      priority: 343
+      color: 10255717
+      priority: 411
     }
     lines {
-      width: 1.3
+      width: 1.4
       color: 15658734
       dashdot {
         dd: 4.5
         dd: 4.5
       }
-      priority: 352
+      priority: 421
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 16411
     }
   }
   element {
     scale: 17
     lines {
       width: 3.0
-      color: 11710882
-      priority: 343
+      color: 10255717
+      priority: 411
     }
     lines {
-      width: 2.0
+      width: 1.8
       color: 15658734
       dashdot {
         dd: 6.3
         dd: 6.3
       }
-      priority: 352
+      priority: 421
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 16411
     }
   }
   element {
     scale: 18
     lines {
-      width: 3.0
-      color: 11710882
-      priority: 343
+      width: 3.6
+      color: 10255717
+      priority: 411
     }
     lines {
       width: 2.0
@@ -62006,15 +61903,23 @@ cont {
         dd: 8.1
         dd: 8.1
       }
-      priority: 352
+      priority: 421
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 16411
     }
   }
   element {
     scale: 19
     lines {
-      width: 3.0
-      color: 11710882
-      priority: 343
+      width: 3.6
+      color: 10255717
+      priority: 411
     }
     lines {
       width: 2.0
@@ -62023,18 +61928,36 @@ cont {
         dd: 8.1
         dd: 8.1
       }
-      priority: 352
+      priority: 421
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 16411
     }
   }
 }
 cont {
   name: "railway-rail-tourism-bridge"
   element {
+    scale: 10
+    lines {
+      width: 1.0
+      color: 10255717
+      priority: 411
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 11
     lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
+      width: 1.0
+      color: 10255717
+      priority: 411
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -62042,9 +61965,9 @@ cont {
   element {
     scale: 12
     lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
+      width: 1.1
+      color: 10255717
+      priority: 411
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -62052,50 +61975,20 @@ cont {
   element {
     scale: 13
     lines {
-      width: 0.8
-      color: 11710882
-      priority: 343
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 4.0
-      color: 15592411
-      priority: 283
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 11710882
-      priority: 343
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 4.4
+      width: 4.8
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
       width: 1.2
-      color: 11710882
-      priority: 343
+      color: 10255717
+      priority: 411
       cap: BUTTCAP
     }
   }
   element {
-    scale: 16
-    lines {
-      width: 5.4
-      color: 8421504
-      priority: 273
-      cap: BUTTCAP
-    }
+    scale: 14
     lines {
       width: 5.0
       color: 15592411
@@ -62103,22 +61996,45 @@ cont {
       cap: BUTTCAP
     }
     lines {
-      width: 2.6
-      color: 11710882
-      priority: 343
-    }
-    lines {
       width: 1.3
-      color: 15658734
-      dashdot {
-        dd: 4.5
-        dd: 4.5
+      color: 10255717
+      priority: 411
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 871230427
       }
-      priority: 352
+      priority: 16411
     }
   }
   element {
-    scale: 17
+    scale: 15
+    lines {
+      width: 5.2
+      color: 15592411
+      priority: 283
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.4
+      color: 10255717
+      priority: 411
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 3355443
+        stroke_color: 871230427
+      }
+      priority: 16411
+    }
+  }
+  element {
+    scale: 16
     lines {
       width: 7.2
       color: 8421504
@@ -62126,44 +62042,89 @@ cont {
       cap: BUTTCAP
     }
     lines {
-      width: 6.8
+      width: 6.0
+      color: 15592411
+      priority: 283
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.6
+      color: 10255717
+      priority: 411
+    }
+    lines {
+      width: 1.4
+      color: 15658734
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 421
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 16411
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 9.6
+      color: 8421504
+      priority: 273
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.2
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
       width: 3.0
-      color: 11710882
-      priority: 343
+      color: 10255717
+      priority: 411
     }
     lines {
-      width: 2.0
+      width: 1.8
       color: 15658734
       dashdot {
         dd: 6.3
         dd: 6.3
       }
-      priority: 352
+      priority: 421
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 16411
     }
   }
   element {
     scale: 18
     lines {
-      width: 8.4
+      width: 12.8
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 8.0
+      width: 11.0
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
-      color: 11710882
-      priority: 343
+      width: 3.6
+      color: 10255717
+      priority: 411
     }
     lines {
       width: 2.0
@@ -62172,27 +62133,35 @@ cont {
         dd: 8.1
         dd: 8.1
       }
-      priority: 352
+      priority: 421
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 16411
     }
   }
   element {
     scale: 19
     lines {
-      width: 8.4
+      width: 12.8
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 8.0
+      width: 11.0
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
-      color: 11710882
-      priority: 343
+      width: 3.6
+      color: 10255717
+      priority: 411
     }
     lines {
       width: 2.0
@@ -62201,18 +62170,36 @@ cont {
         dd: 8.1
         dd: 8.1
       }
-      priority: 352
+      priority: 421
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 16411
     }
   }
 }
 cont {
   name: "railway-rail-tourism-tunnel"
   element {
+    scale: 10
+    lines {
+      width: 1.0
+      color: 10255717
+      priority: 411
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 11
     lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
+      width: 1.0
+      color: 10255717
+      priority: 411
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -62220,9 +62207,9 @@ cont {
   element {
     scale: 12
     lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
+      width: 1.1
+      color: 10255717
+      priority: 411
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -62230,48 +62217,64 @@ cont {
   element {
     scale: 13
     lines {
-      width: 0.8
-      color: 11710882
-      priority: 343
+      width: 1.2
+      color: 10255717
+      priority: 411
       cap: BUTTCAP
     }
   }
   element {
     scale: 14
     lines {
-      width: 3.0
+      width: 3.3
       color: 8421504
       dashdot {
         dd: 5.0
         dd: 5.0
       }
-      priority: 342
+      priority: 410
       cap: BUTTCAP
     }
     lines {
-      width: 1.0
-      color: 11710882
-      priority: 343
+      width: 1.3
+      color: 10255717
+      priority: 411
       cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 871230427
+      }
+      priority: 16411
     }
   }
   element {
     scale: 15
     lines {
-      width: 3.2
+      width: 3.4
       color: 8421504
       dashdot {
         dd: 5.0
         dd: 5.0
       }
-      priority: 342
+      priority: 410
       cap: BUTTCAP
     }
     lines {
-      width: 1.2
-      color: 11710882
-      priority: 343
+      width: 1.4
+      color: 10255717
+      priority: 411
       cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 3355443
+        stroke_color: 871230427
+      }
+      priority: 16411
     }
   }
   element {
@@ -62283,22 +62286,30 @@ cont {
         dd: 5.0
         dd: 5.0
       }
-      priority: 342
+      priority: 410
       cap: BUTTCAP
     }
     lines {
       width: 2.6
-      color: 11710882
-      priority: 343
+      color: 10255717
+      priority: 411
     }
     lines {
-      width: 1.3
+      width: 1.4
       color: 15658734
       dashdot {
         dd: 4.5
         dd: 4.5
       }
-      priority: 352
+      priority: 421
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 16411
     }
   }
   element {
@@ -62310,40 +62321,48 @@ cont {
         dd: 5.0
         dd: 5.0
       }
-      priority: 342
+      priority: 410
       cap: BUTTCAP
     }
     lines {
       width: 3.0
-      color: 11710882
-      priority: 343
+      color: 10255717
+      priority: 411
     }
     lines {
-      width: 2.0
+      width: 1.8
       color: 15658734
       dashdot {
         dd: 6.3
         dd: 6.3
       }
-      priority: 352
+      priority: 421
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 16411
     }
   }
   element {
     scale: 18
     lines {
-      width: 5.0
+      width: 5.6
       color: 8421504
       dashdot {
         dd: 5.0
         dd: 5.0
       }
-      priority: 342
+      priority: 410
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
-      color: 11710882
-      priority: 343
+      width: 3.6
+      color: 10255717
+      priority: 411
     }
     lines {
       width: 2.0
@@ -62352,25 +62371,33 @@ cont {
         dd: 8.1
         dd: 8.1
       }
-      priority: 352
+      priority: 421
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 16411
     }
   }
   element {
     scale: 19
     lines {
-      width: 5.0
+      width: 5.6
       color: 8421504
       dashdot {
         dd: 5.0
         dd: 5.0
       }
-      priority: 342
+      priority: 410
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
-      color: 11710882
-      priority: 343
+      width: 3.6
+      color: 10255717
+      priority: 411
     }
     lines {
       width: 2.0
@@ -62379,7 +62406,15 @@ cont {
         dd: 8.1
         dd: 8.1
       }
-      priority: 352
+      priority: 421
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 16411
     }
   }
 }
@@ -62564,29 +62599,9 @@ cont {
 cont {
   name: "railway-rail-utility"
   element {
-    scale: 11
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 13
     lines {
-      width: 0.8
+      width: 1.0
       color: 11710882
       priority: 343
       cap: BUTTCAP
@@ -62595,7 +62610,7 @@ cont {
   element {
     scale: 14
     lines {
-      width: 1.0
+      width: 1.1
       color: 11710882
       priority: 343
       cap: BUTTCAP
@@ -62613,18 +62628,9 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.6
+      width: 1.3
       color: 11710882
       priority: 343
-    }
-    lines {
-      width: 1.3
-      color: 15658734
-      dashdot {
-        dd: 4.5
-        dd: 4.5
-      }
-      priority: 352
     }
   }
   element {
@@ -62635,8 +62641,8 @@ cont {
       priority: 343
     }
     lines {
-      width: 2.0
-      color: 15658734
+      width: 1.8
+      color: 15000299
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -62647,13 +62653,13 @@ cont {
   element {
     scale: 18
     lines {
-      width: 3.0
+      width: 3.6
       color: 11710882
       priority: 343
     }
     lines {
       width: 2.0
-      color: 15658734
+      color: 15000299
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -62664,13 +62670,13 @@ cont {
   element {
     scale: 19
     lines {
-      width: 3.0
+      width: 3.6
       color: 11710882
       priority: 343
     }
     lines {
       width: 2.0
-      color: 15658734
+      color: 15000299
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -62682,38 +62688,9 @@ cont {
 cont {
   name: "railway-rail-utility-bridge"
   element {
-    scale: 11
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 13
     lines {
-      width: 0.8
-      color: 11710882
-      priority: 343
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 4.0
+      width: 4.4
       color: 15592411
       priority: 283
       cap: BUTTCAP
@@ -62726,9 +62703,24 @@ cont {
     }
   }
   element {
+    scale: 14
+    lines {
+      width: 4.6
+      color: 15592411
+      priority: 283
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.1
+      color: 11710882
+      priority: 343
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 15
     lines {
-      width: 4.4
+      width: 4.8
       color: 15592411
       priority: 283
       cap: BUTTCAP
@@ -62743,42 +62735,33 @@ cont {
   element {
     scale: 16
     lines {
-      width: 5.4
+      width: 7.0
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 5.0
+      width: 5.8
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
-      width: 2.6
+      width: 1.3
       color: 11710882
       priority: 343
-    }
-    lines {
-      width: 1.3
-      color: 15658734
-      dashdot {
-        dd: 4.5
-        dd: 4.5
-      }
-      priority: 352
     }
   }
   element {
     scale: 17
     lines {
-      width: 7.2
+      width: 9.6
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 6.8
+      width: 8.2
       color: 15592411
       priority: 283
       cap: BUTTCAP
@@ -62789,8 +62772,8 @@ cont {
       priority: 343
     }
     lines {
-      width: 2.0
-      color: 15658734
+      width: 1.8
+      color: 15000299
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -62801,25 +62784,25 @@ cont {
   element {
     scale: 18
     lines {
-      width: 8.4
+      width: 12.8
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 8.0
+      width: 11.0
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
+      width: 3.6
       color: 11710882
       priority: 343
     }
     lines {
       width: 2.0
-      color: 15658734
+      color: 15000299
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -62830,25 +62813,25 @@ cont {
   element {
     scale: 19
     lines {
-      width: 8.4
+      width: 12.8
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 8.0
+      width: 11.0
       color: 15592411
       priority: 283
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
+      width: 3.6
       color: 11710882
       priority: 343
     }
     lines {
       width: 2.0
-      color: 15658734
+      color: 15000299
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -62860,29 +62843,9 @@ cont {
 cont {
   name: "railway-rail-utility-tunnel"
   element {
-    scale: 11
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 343
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 13
     lines {
-      width: 0.8
+      width: 1.0
       color: 11710882
       priority: 343
       cap: BUTTCAP
@@ -62891,7 +62854,7 @@ cont {
   element {
     scale: 14
     lines {
-      width: 3.0
+      width: 3.1
       color: 8421504
       dashdot {
         dd: 5.0
@@ -62901,7 +62864,7 @@ cont {
       cap: BUTTCAP
     }
     lines {
-      width: 1.0
+      width: 1.1
       color: 11710882
       priority: 343
       cap: BUTTCAP
@@ -62929,7 +62892,7 @@ cont {
   element {
     scale: 16
     lines {
-      width: 4.6
+      width: 3.3
       color: 8421504
       dashdot {
         dd: 5.0
@@ -62939,18 +62902,9 @@ cont {
       cap: BUTTCAP
     }
     lines {
-      width: 2.6
+      width: 1.3
       color: 11710882
       priority: 343
-    }
-    lines {
-      width: 1.3
-      color: 15658734
-      dashdot {
-        dd: 4.5
-        dd: 4.5
-      }
-      priority: 352
     }
   }
   element {
@@ -62971,8 +62925,8 @@ cont {
       priority: 343
     }
     lines {
-      width: 2.0
-      color: 15658734
+      width: 1.8
+      color: 15000299
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -62983,7 +62937,7 @@ cont {
   element {
     scale: 18
     lines {
-      width: 5.0
+      width: 5.6
       color: 8421504
       dashdot {
         dd: 5.0
@@ -62993,13 +62947,13 @@ cont {
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
+      width: 3.6
       color: 11710882
       priority: 343
     }
     lines {
       width: 2.0
-      color: 15658734
+      color: 15000299
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -63010,7 +62964,7 @@ cont {
   element {
     scale: 19
     lines {
-      width: 5.0
+      width: 5.6
       color: 8421504
       dashdot {
         dd: 5.0
@@ -63020,13 +62974,13 @@ cont {
       cap: BUTTCAP
     }
     lines {
-      width: 3.0
+      width: 3.6
       color: 11710882
       priority: 343
     }
     lines {
       width: 2.0
-      color: 15658734
+      color: 15000299
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -81949,6 +81903,12 @@ cont {
   element {
     scale: 13
     lines {
+      width: 4.0
+      color: 15592411
+      priority: 283
+      cap: BUTTCAP
+    }
+    lines {
       width: 0.8
       color: 11710882
       priority: 343
@@ -81958,7 +81918,7 @@ cont {
   element {
     scale: 14
     lines {
-      width: 4.0
+      width: 4.4
       color: 15592411
       priority: 283
       cap: BUTTCAP
@@ -81973,7 +81933,7 @@ cont {
   element {
     scale: 15
     lines {
-      width: 4.4
+      width: 4.8
       color: 15592411
       priority: 283
       cap: BUTTCAP
@@ -81988,13 +81948,13 @@ cont {
   element {
     scale: 16
     lines {
-      width: 5.4
+      width: 7.0
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 5.0
+      width: 5.8
       color: 15592411
       priority: 283
       cap: BUTTCAP
@@ -82017,13 +81977,13 @@ cont {
   element {
     scale: 17
     lines {
-      width: 7.2
+      width: 10.0
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 6.8
+      width: 8.6
       color: 15592411
       priority: 283
       cap: BUTTCAP
@@ -82046,13 +82006,13 @@ cont {
   element {
     scale: 18
     lines {
-      width: 8.4
+      width: 12.8
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 8.0
+      width: 11.0
       color: 15592411
       priority: 283
       cap: BUTTCAP
@@ -82075,13 +82035,13 @@ cont {
   element {
     scale: 19
     lines {
-      width: 8.4
+      width: 12.8
       color: 8421504
       priority: 273
       cap: BUTTCAP
     }
     lines {
-      width: 8.0
+      width: 11.0
       color: 15592411
       priority: 283
       cap: BUTTCAP
