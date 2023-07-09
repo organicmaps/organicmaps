@@ -47,11 +47,11 @@ class FindMarkFunctor
 {
 public:
   FindMarkFunctor(UserMark const ** mark, double & minD, m2::AnyRectD const & rect)
-    : m_mark(mark)
-    , m_minD(minD)
-    , m_rect(rect)
+    : m_mark{mark}
+    , m_minD{minD}
+    , m_rect{rect}
+    , m_globalCenter{rect.GlobalCenter()}
   {
-    m_globalCenter = rect.GlobalCenter();
   }
 
   void operator()(UserMark const * mark)
@@ -59,7 +59,7 @@ public:
     m2::PointD const & org = mark->GetPivot();
     if (m_rect.IsPointInside(org))
     {
-      double minDCandidate = m_globalCenter.SquaredLength(org);
+      double const minDCandidate = m_globalCenter.SquaredLength(org);
       if (minDCandidate < m_minD)
       {
         *m_mark = mark;
@@ -87,19 +87,13 @@ BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollect
   auto const categoryId = kmlToShare.second->m_categoryData.m_id;
 
   if (!SaveKmlFileSafe(*kmlToShare.second, filePath, KmlFileType::Text))
-  {
-    return BookmarkManager::SharingResult(categoryId, BookmarkManager::SharingResult::Code::FileError,
-                                          "Bookmarks file does not exist.");
-  }
+    return {categoryId, BookmarkManager::SharingResult::Code::FileError, "Bookmarks file does not exist."};
 
   auto const tmpFilePath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string{kKmzExtension});
   if (!CreateZipFromPathDeflatedAndDefaultCompression(filePath, tmpFilePath))
-  {
-    return BookmarkManager::SharingResult(categoryId, BookmarkManager::SharingResult::Code::ArchiveError,
-                                          "Could not create archive.");
-  }
+    return {categoryId, BookmarkManager::SharingResult::Code::ArchiveError, "Could not create archive."};
 
-  return BookmarkManager::SharingResult(categoryId, tmpFilePath);
+  return {categoryId, tmpFilePath};
 }
 
 std::string ToString(BookmarkManager::SortingType type)
@@ -613,7 +607,7 @@ std::string BookmarkManager::GetLocalizedRegionAddress(m2::PointD const & pt)
 {
   CHECK(m_testModeEnabled, ());
 
-  std::unique_lock<std::mutex> lock(m_regionAddressMutex);
+  std::unique_lock const lock(m_regionAddressMutex);
   if (m_regionAddressGetter == nullptr)
   {
     LOG(LWARNING, ("Region address getter is not set. Address getting failed."));
@@ -635,7 +629,7 @@ void BookmarkManager::UpdateElevationMyPosition(kml::TrackId const & trackId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  static_assert(TrackSelectionMark::kInvalidDistance < 0, "");
+  static_assert(TrackSelectionMark::kInvalidDistance < 0);
   double myPositionDistance = TrackSelectionMark::kInvalidDistance;
   if (m_myPositionMark->HasPosition())
   {
@@ -789,7 +783,7 @@ void BookmarkManager::SetTrackSelectionMark(kml::TrackId trackId, m2::PointD con
 {
   auto const markId = GetTrackSelectionMarkId(trackId);
 
-  TrackSelectionMark * trackSelectionMark = nullptr;
+  TrackSelectionMark * trackSelectionMark;
   if (markId == kml::kInvalidMarkId)
   {
     trackSelectionMark = CreateUserMark<TrackSelectionMark>(pt);
@@ -1003,8 +997,9 @@ void BookmarkManager::SetBookmarksAddresses(AddressesCollection const & addresse
   }
 }
 
+// static
 void BookmarkManager::AddTracksSortedBlock(std::vector<SortTrackData> const & sortedTracks,
-                                           SortedBlocksCollection & sortedBlocks) const
+                                           SortedBlocksCollection & sortedBlocks)
 {
   if (!sortedTracks.empty())
   {
@@ -1017,7 +1012,8 @@ void BookmarkManager::AddTracksSortedBlock(std::vector<SortTrackData> const & so
   }
 }
 
-void BookmarkManager::SortTracksByTime(std::vector<SortTrackData> & tracks) const
+// static
+void BookmarkManager::SortTracksByTime(std::vector<SortTrackData> & tracks)
 {
   bool hasTimestamp = false;
   for (auto const & track : tracks)
@@ -1053,7 +1049,7 @@ void BookmarkManager::SortByDistance(std::vector<SortBookmarkData> const & bookm
   for (auto const & mark : bookmarksForSort)
   {
     auto const distance = mercator::DistanceOnEarth(mark.m_point, myPosition);
-    sortedMarks.push_back(std::make_pair(&mark, distance));
+    sortedMarks.emplace_back(&mark, distance);
   }
 
   std::sort(sortedMarks.begin(), sortedMarks.end(),
@@ -1110,7 +1106,7 @@ void BookmarkManager::SortByDistance(std::vector<SortBookmarkData> const & bookm
 
 void BookmarkManager::SortByTime(std::vector<SortBookmarkData> const & bookmarksForSort,
                                  std::vector<SortTrackData> const & tracksForSort,
-                                 SortedBlocksCollection & sortedBlocks) const
+                                 SortedBlocksCollection & sortedBlocks)
 {
   std::vector<SortTrackData> sortedTracks = tracksForSort;
   SortTracksByTime(sortedTracks);
@@ -1158,7 +1154,7 @@ void BookmarkManager::SortByTime(std::vector<SortBookmarkData> const & bookmarks
 
 void BookmarkManager::SortByType(std::vector<SortBookmarkData> const & bookmarksForSort,
                                  std::vector<SortTrackData> const & tracksForSort,
-                                 SortedBlocksCollection & sortedBlocks) const
+                                 SortedBlocksCollection & sortedBlocks)
 {
   AddTracksSortedBlock(tracksForSort, sortedBlocks);
 
@@ -1193,7 +1189,7 @@ void BookmarkManager::SortByType(std::vector<SortBookmarkData> const & bookmarks
     if (typeCount.second < kMinCommonTypesCount && typeCount.first != BookmarkBaseType::Hotel)
       othersTypeMarksCount += typeCount.second;
     else
-      sortedTypes.push_back(typeCount);
+      sortedTypes.emplace_back(typeCount);
   }
 
   std::sort(sortedTypes.begin(), sortedTypes.end(),
@@ -1202,12 +1198,12 @@ void BookmarkManager::SortByType(std::vector<SortBookmarkData> const & bookmarks
 
   std::map<BookmarkBaseType, size_t> blockIndices;
   sortedBlocks.reserve(sortedBlocks.size() + sortedTypes.size() + (othersTypeMarksCount > 0 ? 1 : 0));
-  for (size_t i = 0; i < sortedTypes.size(); ++i)
+  for (auto const & sortedType : sortedTypes)
   {
-    auto const type = sortedTypes[i].first;
+    auto const type = sortedType.first;
     SortedBlock typeBlock;
     typeBlock.m_blockName = GetLocalizedBookmarkBaseType(type);
-    typeBlock.m_markIds.reserve(sortedTypes[i].second);
+    typeBlock.m_markIds.reserve(sortedType.second);
     blockIndices[type] = sortedBlocks.size();
     sortedBlocks.emplace_back(std::move(typeBlock));
   }
@@ -1282,7 +1278,7 @@ void BookmarkManager::GetSortedCategory(SortParams const & params)
   if (m_testModeEnabled)
   {
     // Sort bookmarks synchronously.
-    std::unique_lock<std::mutex> lock(m_regionAddressMutex);
+    std::unique_lock const lock(m_regionAddressMutex);
     if (m_regionAddressGetter == nullptr)
     {
       LOG(LWARNING, ("Region address getter is not set, bookmarks sorting failed."));
@@ -1303,7 +1299,7 @@ void BookmarkManager::GetSortedCategory(SortParams const & params)
                         [this, params, bookmarksForSort = std::move(bookmarksForSort),
                           tracksForSort = std::move(tracksForSort)]() mutable
   {
-    std::unique_lock<std::mutex> lock(m_regionAddressMutex);
+    std::unique_lock const lock(m_regionAddressMutex);
     if (m_regionAddressGetter == nullptr)
     {
       GetPlatform().RunTask(Platform::Thread::Gui, [params]
@@ -1521,7 +1517,7 @@ bool BookmarkManager::IsSearchAllowed(kml::MarkGroupId groupId) const
   /// @todo This function is actually called on Android only. Probably, there was some problems
   /// with indexing large sets of bookmarks, but iOS works good at the same time?
   auto const bookmarksCount = GetUserMarkIds(groupId).size();
-  auto const maxCount = searchAPI.GetMaximumPossibleNumberOfBookmarksToIndex();
+  auto const maxCount = SearchAPI::GetMaximumPossibleNumberOfBookmarksToIndex();
   return indexedBookmarksCount + bookmarksCount <= maxCount;
 }
 
@@ -1596,13 +1592,13 @@ void BookmarkManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
 void BookmarkManager::InitRegionAddressGetter(DataSource const & dataSource,
                                               storage::CountryInfoGetter const & infoGetter)
 {
-  std::unique_lock<std::mutex> lock(m_regionAddressMutex);
+  std::unique_lock const lock(m_regionAddressMutex);
   m_regionAddressGetter = std::make_unique<search::RegionAddressGetter>(dataSource, infoGetter);
 }
 
 void BookmarkManager::ResetRegionAddressGetter()
 {
-  std::unique_lock<std::mutex> lock(m_regionAddressMutex);
+  std::unique_lock const lock(m_regionAddressMutex);
   m_regionAddressGetter.reset();
 }
 
@@ -1745,7 +1741,7 @@ void BookmarkManager::LoadMetadata()
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   auto const metadataFilePath = base::JoinPath(GetPlatform().WritableDir(), kMetadataFileName);
-  if (!GetPlatform().IsFileExistsByFullPath(metadataFilePath))
+  if (!Platform::IsFileExistsByFullPath(metadataFilePath))
     return;
 
   Metadata metadata;
@@ -2049,7 +2045,7 @@ BookmarkCategory * BookmarkManager::GetBmCategorySafe(kml::MarkGroupId categoryI
   return (it != m_categories.end() ? it->second.get() : nullptr);
 }
 
-void BookmarkManager::GetBookmarksInfo(kml::MarkIdSet const & marks, std::vector<BookmarkInfo> & bookmarksInfo)
+void BookmarkManager::GetBookmarksInfo(kml::MarkIdSet const & marks, std::vector<BookmarkInfo> & bookmarksInfo) const
 {
   bookmarksInfo.clear();
   bookmarksInfo.reserve(marks.size());
@@ -2063,6 +2059,7 @@ void BookmarkManager::GetBookmarksInfo(kml::MarkIdSet const & marks, std::vector
   }
 }
 
+// static
 void BookmarkManager::GetBookmarkGroupsInfo(MarksChangesTracker::GroupMarkIdSet const & groups,
                                             std::vector<BookmarkGroupInfo> & groupsInfo)
 {
@@ -2152,8 +2149,8 @@ void BookmarkManager::UpdateBmGroupIdList()
   using PairT = std::pair<kml::MarkGroupId, BookmarkCategory const *>;
   std::vector<PairT> vec;
   vec.reserve(count);
-  for (auto it = m_categories.begin(); it != m_categories.end(); ++it)
-    vec.emplace_back(it->first, it->second.get());
+  for (auto const & [markGroupId, categoryPtr] : m_categories)
+    vec.emplace_back(markGroupId, categoryPtr.get());
 
   std::sort(vec.begin(), vec.end(), [](PairT const & lhs, PairT const & rhs)
   {
@@ -2413,9 +2410,9 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     {
       UNUSED_VALUE(compilationId);
       compilation->SetParentId(groupId);
-      auto const & categoryData = group->GetCategoryData();
-      compilation->SetAccessRules(categoryData.m_accessRules);
-      compilation->SetAuthor(categoryData.m_authorName, categoryData.m_authorId);
+      auto const & catData = group->GetCategoryData();
+      compilation->SetAccessRules(catData.m_accessRules);
+      compilation->SetAuthor(catData.m_authorName, catData.m_authorId);
     }
 
     for (auto & bmData : fileData.m_bookmarksData)
@@ -2572,7 +2569,7 @@ BookmarkManager::KMLDataCollectionPtr BookmarkManager::PrepareToSaveBookmarks(
 
   std::string const fileDir = GetBookmarksDirectory();
 
-  if (!GetPlatform().IsFileExistsByFullPath(fileDir) && !GetPlatform().MkDirChecked(fileDir))
+  if (!Platform::IsFileExistsByFullPath(fileDir) && !Platform::MkDirChecked(fileDir))
     return nullptr;
 
   auto collection = std::make_shared<KMLDataCollection>();
@@ -2846,10 +2843,8 @@ void BookmarkManager::MarksChangesTracker::OnUpdateMark(kml::MarkId markId)
     m_updatedMarks.insert(markId);
 }
 
-void BookmarkManager::MarksChangesTracker::InsertBookmark(kml::MarkId markId,
-                                                          kml::MarkGroupId catId,
-                                                          GroupMarkIdSet & setToInsert,
-                                                          GroupMarkIdSet & setToErase)
+void BookmarkManager::MarksChangesTracker::InsertBookmark(kml::MarkId markId, kml::MarkGroupId catId,
+                                                          GroupMarkIdSet & setToInsert, GroupMarkIdSet & setToErase)
 {
   auto const itCat = setToErase.find(catId);
   if (itCat != setToErase.end())
@@ -2866,15 +2861,10 @@ void BookmarkManager::MarksChangesTracker::InsertBookmark(kml::MarkId markId,
   setToInsert[catId].insert(markId);
 }
 
-bool BookmarkManager::MarksChangesTracker::HasBookmarkCategories(
-    kml::GroupIdSet const & groupIds) const
+// static
+bool BookmarkManager::MarksChangesTracker::HasBookmarkCategories(kml::GroupIdSet const & groupIds)
 {
-  for (auto groupId : groupIds)
-  {
-    if (m_bmManager->IsBookmarkCategory(groupId))
-      return true;
-  }
-  return false;
+  return std::any_of(groupIds.cbegin(), groupIds.cend(), BookmarkManager::IsBookmarkCategory);
 }
 
 void BookmarkManager::MarksChangesTracker::InferVisibility(BookmarkCategory * const group)
@@ -2894,7 +2884,7 @@ void BookmarkManager::MarksChangesTracker::InferVisibility(BookmarkCategory * co
   auto const groupId = group->GetID();
   for (kml::MarkId const userMark : m_bmManager->GetUserMarkIds(groupId))
   {
-    if (!m_bmManager->IsBookmark(userMark))
+    if (!BookmarkManager::IsBookmark(userMark))
       continue;
     Bookmark * const bookmark = m_bmManager->GetBookmarkForEdit(userMark);
     bool isVisible = false;
