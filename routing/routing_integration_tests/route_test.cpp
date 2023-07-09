@@ -116,15 +116,6 @@ UNIT_TEST(PriceIslandLoadCrossGeometryTest)
   TestRoutePointsNumber(*route.first, kExpectedPointsNumber);
 }
 
-// Cross mwm tests.
-UNIT_TEST(RussiaMoscowLeningradskiy39GerPanfilovtsev22RouteTest)
-{
-  CalculateRouteAndTestRouteLength(
-      GetVehicleComponents(VehicleType::Car),
-      {37.53758809983519, 67.536162466434234}, {0., 0.}, {37.40993977728661, 67.644784047393685},
-      14296.);
-}
-
 UNIT_TEST(NederlandLeeuwardenToDenOeverTest)
 {
   CalculateRouteAndTestRouteLength(
@@ -211,7 +202,7 @@ UNIT_TEST(GermanyToTallinCrossMwmRoute)
 
 // Strange map edits in Africa borders. Routing not linked now.
 /*
-UNIT_TEST(RussiaMoscowLenigradskiy39RepublicOfSouthAfricaCapeTownCenterRouteTest)
+UNIT_TEST(Russia_Moscow_Leningradskiy39RepublicOfSouthAfricaCapeTownCenterRouteTest)
 {
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
       FromLatLon(55.79721, 37.53786), {0., 0.},
@@ -292,7 +283,7 @@ UNIT_TEST(RussiaSmolenskRussiaMoscowTimeTest)
   TestRouteTime(route, 18374.9);
 }
 
-UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22TimeTest)
+UNIT_TEST(Russia_Moscow_Leningradskiy39GeroevPanfilovtsev22TimeTest)
 {
   TRouteResult const routeResult = CalculateRoute(GetVehicleComponents(VehicleType::Car),
                                   FromLatLon(55.7971, 37.53804), {0., 0.},
@@ -303,10 +294,10 @@ UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22TimeTest)
   TEST(routeResult.first, ());
   Route const & route = *routeResult.first;
   TestRouteLength(route, 14276.3);
-  TestRouteTime(route, 1113.86);
+  TestRouteTime(route, 1126.09);
 }
 
-UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22SubrouteTest)
+UNIT_TEST(Russia_Moscow_Leningradskiy39GeroevPanfilovtsev22SubrouteTest)
 {
   TRouteResult const routeResult = CalculateRoute(GetVehicleComponents(VehicleType::Car),
                                   FromLatLon(55.7971, 37.53804), {0., 0.},
@@ -820,7 +811,8 @@ UNIT_TEST(Turkey_Salarialaca_Sanliurfa)
   TEST(routeResult.first, ());
   Route const & route = *routeResult.first;
   TestRouteLength(route, 656891);
-  TestRouteTime(route, 21138);  // should be less than 6 hours (6 * 3600)
+  // Should be less than 6 hours (6 * 3600), between Valhalla and GraphHopper.
+  TestRouteTime(route, 20453.5);
 }
 
 // https://github.com/organicmaps/organicmaps/issues/4924
@@ -877,6 +869,13 @@ UNIT_TEST(Greece_Crete_Use_EO94)
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
                                    FromLatLon(35.5170594, 24.0938699), {0., 0.},
                                    FromLatLon(35.5446109, 24.1312439), 6333.82);
+}
+
+UNIT_TEST(Bulgaria_Rosenovo_Dobrich)
+{
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
+                                   FromLatLon(43.6650649, 27.7826578), {0., 0.},
+                                   FromLatLon(43.5690961, 27.8307318), 16556.3);
 }
 
 } // namespace route_test
