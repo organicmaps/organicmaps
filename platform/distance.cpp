@@ -174,9 +174,6 @@ Distance Distance::GetFormattedDistance() const
   if (IsHighUnits() && newDistance.GetUnits() != m_units)
     newDistance = *this;
 
-  if (newDistance.m_distance > 100)
-    newDistance.m_distance = round(newDistance.m_distance / 10) * 10;
-
   if (IsHighUnits() && newDistance.m_distance < 10)
     precision = 1;
 
