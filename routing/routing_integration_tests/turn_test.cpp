@@ -1385,4 +1385,23 @@ UNIT_TEST(Israel_KeepMotorway)
   TestNoTurns(arr);
 }
 /// @}
+
+// https://github.com/organicmaps/organicmaps/issues/5468
+UNIT_TEST(UK_Junction_Circular)
+{
+  using namespace integration;
+  TRouteResult const routeResult = CalculateRoute(GetVehicleComponents(VehicleType::Car),
+                                                  mercator::FromLatLon(53.53692, -2.28832), {0., 0.},
+                                                  mercator::FromLatLon(53.54025, -2.28701));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+  TestRouteLength(route, 548.17);
+
+  TestTurnCount(route, 2);
+  GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::EnterRoundAbout).TestRoundAboutExitNum(3);
+  GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::LeaveRoundAbout);
+}
+
 } // namespace turn_test
