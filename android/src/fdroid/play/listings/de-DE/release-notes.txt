@@ -4,10 +4,7 @@
 • Verbesserte Routenführung für Autos und Fahrräder
 • Fehler behoben, der das Hochladen von OSM-Änderungen im Akkubetrieb verhinderte
 • Jetzt funktioniert der Kompass auf Geräten ohne Gyroskop
-• Fehlende Wiki-Beschreibungen behoben
 • Verringerte TTS-Sprachgeschwindigkeit (Text-To-Speech)
-• Fischpass hinzugefügt
-• Symbole für Seilbahn und Paketschließfächer wurden korrigiert
 • Korrigierte be-, eu-, en-, en-GB- und uk-Übersetzungen
 
 …mehr: omaps.org/news
