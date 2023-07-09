@@ -103,6 +103,7 @@ std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType
 std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fileType);
 
 std::string GetKMLPath(std::string const & filePath);
+std::string GetLowercaseFileExt(std::string const & filePath);
 
 bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, KmlFileType fileType);
 bool SaveKmlData(kml::FileData & kmlData, Writer & writer, KmlFileType fileType);

@@ -444,10 +444,11 @@ public enum BookmarkManager
     // See IsBadCharForPath()
     filename = filename.replaceAll("[:/\\\\<>\"|?*]", "");
 
+    final String lowerCaseFilename = filename.toLowerCase(java.util.Locale.ROOT);
     // Check that filename contains bookmarks extension.
     for (String ext: BOOKMARKS_EXTENSIONS)
     {
-      if (filename.endsWith(ext))
+      if (lowerCaseFilename.endsWith(ext))
         return filename;
     }
 

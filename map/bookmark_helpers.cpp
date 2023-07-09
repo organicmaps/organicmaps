@@ -206,12 +206,6 @@ void ValidateKmlData(std::unique_ptr<kml::FileData> & data)
   }
 }
 
-// Returns extension with a dot in a lower case.
-std::string GetFileExt(std::string const & filePath)
-{
-  return strings::MakeLowerCase(base::GetFileExtension(filePath));
-}
-
 bool IsBadCharForPath(strings::UniChar c)
 {
   if (c < ' ')
@@ -245,6 +239,11 @@ std::string RemoveInvalidSymbols(std::string const & name)
   return strings::ToUtf8(filtered);
 }
 
+// Returns extension with a dot in a lower case.
+std::string GetLowercaseFileExt(std::string const & filePath)
+{
+  return strings::MakeLowerCase(base::GetFileExtension(filePath));
+}
 
 std::string GenerateUniqueFileName(std::string const & path, std::string name, std::string_view ext)
 {
@@ -339,13 +338,17 @@ std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType
 
 std::string GetKMLPath(std::string const & filePath)
 {
-  std::string const fileExt = GetFileExt(filePath);
+  std::string const fileExt = GetLowercaseFileExt(filePath);
   std::string fileSavePath;
   if (fileExt == kKmlExtension || fileExt == kGpxExtension)
   {
     fileSavePath = GenerateValidAndUniqueFilePathForKML(base::FileNameFromFullPath(filePath));
+    LOG(LWARNING, ("GetKMLPath inside if", filePath, fileSavePath));
     if (!base::CopyFileX(filePath, fileSavePath))
+    {
+      LOG(LWARNING, ("CopyFileX failed", filePath, fileSavePath));
       return {};
+    }
   }
   else if (fileExt == kKmbExtension)
   {
@@ -367,7 +370,7 @@ std::string GetKMLPath(std::string const & filePath)
       std::string ext;
       for (size_t i = 0; i < files.size(); ++i)
       {
-        ext = GetFileExt(files[i].first);
+        ext = GetLowercaseFileExt(files[i].first);
         if (ext == kKmlExtension)
         {
           kmlFileName = files[i].first;
