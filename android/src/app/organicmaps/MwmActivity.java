@@ -8,6 +8,8 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -102,6 +104,7 @@ import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageData;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -974,7 +977,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     handler.postDelayed(new Runnable() {
       @Override
       public void run() {
-        checkClipboardForUrl();
+        try {
+          checkClipboardForUrl();
+        }
+        catch (Exception e) {
+          Log.e("test1","Exception caught");
+        }
       }
     }, 1000);
 
@@ -1665,8 +1673,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
         byte[] responseBytes = byteArrayOutputStream.toByteArray();
         return new String(responseBytes);
       } catch (Exception e) {
+        progressDialog.dismiss();
+        View view = findViewById(android.R.id.content);
+        Snackbar.make(view, "Redirection failed, please check your internet connection.", Snackbar.LENGTH_SHORT).show();
         Log.e("test1", "Error performing HTTP request: " + e.getMessage());
-        Toast.makeText(context, "Redirection failed, please check your internet connection.", Toast.LENGTH_SHORT).show();
         return null;
       }
     }
@@ -1687,12 +1697,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
           clipService.setPrimaryClip(clipData);
           Log.e("test1","finish");
         } catch (JSONException e) {
+          progressDialog.dismiss();
+          View view = findViewById(android.R.id.content);
+          Snackbar.make(view, "Please check that your URL points to an address.", Snackbar.LENGTH_SHORT).show();
           Log.e("test1", "Error");
           e.printStackTrace();
         }
       } else {
         Log.e("test1", "HTTP request failed");
-        Toast.makeText(context, "Please check that your URL points to an address.", Toast.LENGTH_SHORT).show();
       }
     }
   }
