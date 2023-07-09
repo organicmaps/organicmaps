@@ -383,11 +383,8 @@ void MapWidget::initializeGL()
     else
     {
       LOG(LINFO, ("Contex is LibGL"));
-      GLint majorVersion = 0, minorVersion = 0;
-      funcs->glGetIntegerv(GL_MAJOR_VERSION, &majorVersion);
-      funcs->glGetIntegerv(GL_MINOR_VERSION, &minorVersion);
 
-      if (majorVersion < 3 || (majorVersion == 3 && minorVersion < 2))
+      if (context()->format().version() < qMakePair(3, 2))
       {
         LOG(LINFO, ("OpenGL version is below 3.2, taking the OpenGL 2.1 path"));
         m_apiOpenGLES3 = false;
