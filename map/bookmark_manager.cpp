@@ -1871,7 +1871,7 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
     std::string fileSavePath = GetKMLPath(filePath);
     if (!fileSavePath.empty())
     {
-      auto const ext = base::GetFileExtension(filePath);
+      auto const ext = GetLowercaseFileExt(filePath);
       std::unique_ptr<kml::FileData> kmlData;
       if (ext == ".kml" || ext == ".kmz")
         kmlData = LoadKmlFile(fileSavePath, KmlFileType::Text);
