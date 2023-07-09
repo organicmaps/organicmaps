@@ -8,11 +8,39 @@ platform :ios do
       ensure_env_vars(
         env_vars: ['APPSTORE_CERTIFICATE_PASSWORD']
       )
+      # Fixes random Fastlane failures by manually importing Apple certificates.
+      # See https://github.com/fastlane/fastlane/issues/20960#issuecomment-1621931850
       import_certificate(
-        certificate_path: 'keys/AppleWDRCA.cer',
+        certificate_path: 'keys/Apple/AppleWWDRCA.cer',
         keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
         keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
       )
+      import_certificate(
+        certificate_path: 'keys/Apple/AppleWWDRCAG2.cer',
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
+      )
+      import_certificate(
+        certificate_path: 'keys/Apple/AppleWWDRCAG3.cer',
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
+      )
+      import_certificate(
+        certificate_path: 'keys/Apple/AppleWWDRCAG4.cer',
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
+      )
+      import_certificate(
+        certificate_path: 'keys/Apple/AppleWWDRCAG5.cer',
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
+      )
+      import_certificate(
+        certificate_path: 'keys/Apple/AppleWWDRCAG6.cer',
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
+      )
+      # Organic Maps certificates.
       import_certificate(
         certificate_path: 'keys/CertificatesDev.p12',
         certificate_password: ENV['APPSTORE_CERTIFICATE_PASSWORD'],
