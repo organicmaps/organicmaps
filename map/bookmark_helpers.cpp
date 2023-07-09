@@ -343,12 +343,8 @@ std::string GetKMLPath(std::string const & filePath)
   if (fileExt == kKmlExtension || fileExt == kGpxExtension)
   {
     fileSavePath = GenerateValidAndUniqueFilePathForKML(base::FileNameFromFullPath(filePath));
-    LOG(LWARNING, ("GetKMLPath inside if", filePath, fileSavePath));
     if (!base::CopyFileX(filePath, fileSavePath))
-    {
-      LOG(LWARNING, ("CopyFileX failed", filePath, fileSavePath));
       return {};
-    }
   }
   else if (fileExt == kKmbExtension)
   {
