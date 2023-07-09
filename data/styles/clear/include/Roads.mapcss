@@ -124,6 +124,8 @@ line[highway=road][bridge?]::bridgeblack,
 line[highway=service][bridge?]::bridgeblack,
 line[railway=rail][bridge?]::bridgeblack,
 line[railway=subway][bridge?]::bridgeblack,
+line[railway=preserved][bridge?]::bridgeblack,
+line[railway=abandoned][bridge?]::bridgeblack,
 {z-index: 390;}
 
 line[highway=motorway][bridge?]::bridgewhite,
@@ -145,6 +147,8 @@ line[highway=road][bridge?]::bridgewhite,
 line[highway=service][bridge?]::bridgewhite,
 line[railway=rail][bridge?]::bridgewhite,
 line[railway=subway][bridge?]::bridgewhite,
+line[railway=preserved][bridge?]::bridgewhite,
+line[railway=abandoned][bridge?]::bridgewhite,
 {z-index: 400;}
 
 line[highway=construction],
@@ -1124,9 +1128,9 @@ line|z17-[railway=rail][service=service]::dash,
 line|z12-[railway=funicular],
 line|z14-[railway=monorail],
 line|z15-[railway=narrow_gauge],
-line|z16-[railway=construction],
+line|z15-[railway=construction],
+line|z15-[railway=preserved],
 line|z16-[railway=disused],
-line|z16-[railway=preserved],
 line|z16-[railway=abandoned],
 {color: @railway;opacity:1;}
 
@@ -1144,10 +1148,14 @@ line|z16-[railway=light_rail][!tunnel]::dash,
 line|z13-[railway=rail][bridge?]::bridgewhite,
 line|z13-[railway=subway][bridge?]::bridgewhite,
 line|z13-[railway=light_rail][bridge?]::bridgewhite,
+line|z15-[railway=preserved][bridge?]::bridgewhite,
+line|z16-[railway=abandoned][bridge?]::bridgewhite,
 {casing-linecap: butt;casing-color:@bridge_background;}
 line|z16-[railway=rail][bridge?]::bridgeblack,
 line|z16-[railway=subway][bridge?]::bridgeblack,
 line|z16-[railway=light_rail][bridge?]::bridgeblack,
+line|z16-[railway=preserved][bridge?]::bridgeblack,
+line|z16-[railway=abandoned][bridge?]::bridgeblack,
 {casing-linecap: butt;casing-color:@bridge_casing;}
 
 /* 9.1 RAIL 11-22 ZOOM */
@@ -1296,12 +1304,12 @@ line|z18-[railway=light_rail][!tunnel]::dash,
 {width: 2;dashes: 8.1,8.1;}
 
 
-line|z16-[railway=preserved],
-line|z16-[railway=abandoned]
+line|z15-[railway=preserved],
+line|z16-[railway=abandoned],
 {width: 1.6;dashes: 6.3,6.3;}
 
-line|z16-[railway=construction],
-line|z16-[railway=disused]
+line|z15-[railway=construction],
+line|z16-[railway=disused],
 {width: 1;dashes: 1.8,5.4;}
 
 /* 9.2 Rail tunnel 14-22 ZOOM */
@@ -1335,31 +1343,44 @@ line|z14-[railway=narrow_gauge][bridge?]::bridgeblack,
 line|z13-15[railway=rail][bridge?]::bridgewhite,
 line|z13-15[railway=subway][bridge?]::bridgewhite,
 line|z13-15[railway=light_rail][bridge?]::bridgewhite,
+line|z15[railway=preserved][bridge?]::bridgewhite,
 {casing-width-add: 1.2;}
 line|z16[railway=rail][bridge?]::bridgewhite,
 line|z16[railway=subway][bridge?]::bridgewhite,
 line|z16[railway=light_rail][bridge?]::bridgewhite,
+line|z16[railway=preserved][bridge?]::bridgewhite,
+line|z16[railway=abandoned][bridge?]::bridgewhite,
 {casing-width-add: 1.6;}
 line|z17[railway=rail][bridge?]::bridgewhite,
 line|z17[railway=subway][bridge?]::bridgewhite,
 line|z17[railway=light_rail][bridge?]::bridgewhite,
+line|z17[railway=preserved][bridge?]::bridgewhite,
+line|z17[railway=abandoned][bridge?]::bridgewhite,
 {casing-width-add: 2.3;}
 line|z18-[railway=rail][bridge?]::bridgewhite,
 line|z18-[railway=subway][bridge?]::bridgewhite,
 line|z18-[railway=light_rail][bridge?]::bridgewhite,
+line|z18-[railway=preserved][bridge?]::bridgewhite,
+line|z18-[railway=abandoned][bridge?]::bridgewhite,
 {casing-width-add: 3.5;}
 
 line|z16[railway=rail][bridge?]::bridgeblack,
 line|z16[railway=subway][bridge?]::bridgeblack,
 line|z16[railway=light_rail][bridge?]::bridgeblack,
+line|z16[railway=preserved][bridge?]::bridgeblack,
+line|z16[railway=abandoned][bridge?]::bridgeblack,
 {casing-width-add: 2.2;}
 line|z17[railway=rail][bridge?]::bridgeblack,
 line|z17[railway=subway][bridge?]::bridgeblack,
 line|z17[railway=light_rail][bridge?]::bridgeblack,
+line|z17[railway=preserved][bridge?]::bridgeblack,
+line|z17[railway=abandoned][bridge?]::bridgeblack,
 {casing-width-add: 3;}
 line|z18-[railway=rail][bridge?]::bridgeblack,
 line|z18-[railway=subway][bridge?]::bridgeblack,
 line|z18-[railway=light_rail][bridge?]::bridgeblack,
+line|z18-[railway=preserved][bridge?]::bridgeblack,
+line|z18-[railway=abandoned][bridge?]::bridgeblack,
 {casing-width-add: 4.4;}
 
 /* 9.4 Monorail 14-22 ZOOM */
