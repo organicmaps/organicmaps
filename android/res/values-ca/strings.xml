@@ -571,7 +571,7 @@
 	<string name="bookmark_lists_show_all">Mostra-ho tot</string>
 	<string name="bookmarks_create_new_group">Crea una llista</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
-	<string name="bookmarks_import">Importa marcadors i les pistes</string>
+	<string name="bookmarks_import">Importa marcadors i les traces</string>
 	<string name="bookmarks_error_message_share_general">No s\'ha pogut compartir a causa d\'un error de l\'aplicació</string>
 	<string name="bookmarks_error_title_share_empty">Error al compartir</string>
 	<string name="bookmarks_error_message_share_empty">No es pot compartir una llista buida</string>
