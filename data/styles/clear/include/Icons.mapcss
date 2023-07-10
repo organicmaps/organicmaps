@@ -251,7 +251,7 @@ node[leisure=picnic_table],
 area[leisure=picnic_table],
 node[amenity=shelter],
 area[amenity=shelter],
-node[highway=rest_area],
+area[highway=services],
 area[highway=rest_area],
 node[amenity=bicycle_rental],
 area[amenity=bicycle_rental],
@@ -301,8 +301,6 @@ node[shop=car_repair][service=tyres],
 area[shop=car_repair][service=tyres],
 node[shop=caravan],
 area[shop=caravan],
-node[highway=services],
-area[highway=services],
 node[amenity=post_office],
 area[amenity=post_office],
 node[amenity=dentist],
@@ -1228,8 +1226,6 @@ node|z16-[leisure=picnic_table],
 area|z16-[leisure=picnic_table],
 node|z16-[amenity=shelter],
 area|z16-[amenity=shelter],
-node|z16-[highway=rest_area],
-area|z16-[highway=rest_area],
 node|z16-[tourism=caravan_site],
 area|z16-[tourism=caravan_site]
 {text: name;text-color: @poi_label;text-offset: 1;font-size: 10;}
@@ -1289,8 +1285,6 @@ area|z15-[tourism=camp_site]
 
 node|z16-[tourism=picnic_site],
 area|z16-[tourism=picnic_site],
-node|z16-[highway=rest_area],
-area|z16-[highway=rest_area]
 {icon-image: picnic-m.svg;icon-min-distance: 10;}
 node|z16-[leisure=picnic_table],
 area|z16-[leisure=picnic_table]
@@ -2236,17 +2230,6 @@ node|z16-[man_made=survey_point]
 
 /* 6. SHOP */
 
-node|z15-[highway=services],
-area|z15-[highway=services],
-{text: name; text-color: @poi_label; text-offset: 1; font-size: 10; text-position: center;}
-
-node|z15[highway=services],
-area|z15[highway=services],
-{icon-image: car-repair-s.svg; icon-min-distance: 20;}
-node|z16-[highway=services],
-area|z16-[highway=services],
-{icon-image: car-repair-m.svg;}
-
 node|z16-[amenity=marketplace],
 area|z16-[amenity=marketplace],
 {text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
@@ -2935,10 +2918,16 @@ area|z17-[craft=metal_construction]
 
 /* 7. CAR */
 
+area|z14-[highway=services],
+area|z15-[highway=rest_area],
+{text-position: center;}
+
 node|z14-[amenity=fuel],
 area|z14-[amenity=fuel],
 node|z14-[amenity=charging_station][motorcar?],
 area|z14-[amenity=charging_station][motorcar?],
+area|z14-[highway=services],
+area|z15-[highway=rest_area],
 node|z15-[amenity=sanitary_dump_station],
 area|z15-[amenity=sanitary_dump_station],
 node|z16-[amenity=charging_station],
@@ -2987,6 +2976,20 @@ area|z17-[amenity=charging_station]
 {icon-image: charging-station-m.svg;}
 node|z18-[amenity=charging_station],
 area|z18-[amenity=charging_station]
+{font-size: 11;}
+
+area|z14[highway=services],
+{icon-image: car-repair-s.svg; icon-min-distance: 20;}
+area|z15[highway=services],
+{icon-image: car-repair-m.svg; icon-min-distance: 10;}
+area|z15[highway=rest_area]
+{icon-image: picnic-m.svg; icon-min-distance: 10;}
+area|z16-[highway=services],
+{icon-image: car-repair-m.svg;}
+area|z16-[highway=rest_area],
+{icon-image: picnic-m.svg;}
+area|z18-[highway=services],
+area|z18-[highway=rest_area],
 {font-size: 11;}
 
 node|z17-[amenity=car_wash],
