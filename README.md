@@ -69,14 +69,9 @@ Organic Maps app is free from trackers and other bad stuff:
 - No crapware
 - ~~No pesticides~~ Purely organic!
 
-The Android application is verified by <a href="https://reports.exodus-privacy.eu.org/en/reports/app.organicmaps/latest/">Exodus Privacy Project:
+The application is verified by <a href="https://reports.exodus-privacy.eu.org/en/reports/app.organicmaps/latest/">Exodus Privacy Project:
 
 <img src="docs/privacy/exodus.png" width="400">
-</a>
-
-The iOS application is verified by <a href="https://ios.trackercontrol.org/app/app.organicmaps">TrackerControl for iOS:
-
-<img src="docs/privacy/trackercontrol-ios.png" width="400">
 </a>
 
 <br/>
