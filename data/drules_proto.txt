@@ -25226,19 +25226,53 @@ cont {
 cont {
   name: "highway-rest_area"
   element {
-    scale: 16
+    scale: 14
     symbol {
       name: "picnic-m"
       priority: 16637
       min_distance: 10
     }
-    path_text {
+    caption {
       primary {
         height: 10
         color: 4473924
         offset_y: 1
+        is_optional: true
       }
+      priority: 15637
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "picnic-m"
       priority: 16637
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15637
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "picnic-m"
+      priority: 16637
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15637
     }
   }
   element {
@@ -25246,15 +25280,15 @@ cont {
     symbol {
       name: "picnic-m"
       priority: 16637
-      min_distance: 10
     }
-    path_text {
+    caption {
       primary {
         height: 10
         color: 4473924
         offset_y: 1
+        is_optional: true
       }
-      priority: 16637
+      priority: 15637
     }
   }
   element {
@@ -25262,15 +25296,15 @@ cont {
     symbol {
       name: "picnic-m"
       priority: 16637
-      min_distance: 10
     }
-    path_text {
+    caption {
       primary {
-        height: 10
+        height: 11
         color: 4473924
         offset_y: 1
+        is_optional: true
       }
-      priority: 16637
+      priority: 15637
     }
   }
   element {
@@ -25278,15 +25312,15 @@ cont {
     symbol {
       name: "picnic-m"
       priority: 16637
-      min_distance: 10
     }
-    path_text {
+    caption {
       primary {
-        height: 10
+        height: 11
         color: 4473924
         offset_y: 1
+        is_optional: true
       }
-      priority: 16637
+      priority: 15637
     }
   }
 }
@@ -27497,10 +27531,10 @@ cont {
 cont {
   name: "highway-services"
   element {
-    scale: 15
+    scale: 12
     symbol {
       name: "car-repair-s"
-      priority: 16656
+      priority: 16637
       min_distance: 20
     }
     caption {
@@ -27510,14 +27544,65 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15656
+      priority: 15637
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "car-repair-s"
+      priority: 16637
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15637
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "car-repair-s"
+      priority: 16637
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15637
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "car-repair-m"
+      priority: 16637
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15637
     }
   }
   element {
     scale: 16
     symbol {
       name: "car-repair-m"
-      priority: 16656
+      priority: 16637
     }
     caption {
       primary {
@@ -27526,14 +27611,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15656
+      priority: 15637
     }
   }
   element {
     scale: 17
     symbol {
       name: "car-repair-m"
-      priority: 16656
+      priority: 16637
     }
     caption {
       primary {
@@ -27542,39 +27627,39 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15656
+      priority: 15637
     }
   }
   element {
     scale: 18
     symbol {
       name: "car-repair-m"
-      priority: 16656
+      priority: 16637
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 4473924
         offset_y: 1
         is_optional: true
       }
-      priority: 15656
+      priority: 15637
     }
   }
   element {
     scale: 19
     symbol {
       name: "car-repair-m"
-      priority: 16656
+      priority: 16637
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 4473924
         offset_y: 1
         is_optional: true
       }
-      priority: 15656
+      priority: 15637
     }
   }
 }
