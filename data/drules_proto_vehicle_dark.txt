@@ -12997,6 +12997,106 @@ cont {
   }
 }
 cont {
+  name: "highway-rest_area"
+  element {
+    scale: 14
+    symbol {
+      name: "picnic-m"
+      priority: 16878
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 12
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15878
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "picnic-m"
+      priority: 16878
+    }
+    caption {
+      primary {
+        height: 12
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15878
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "picnic-m"
+      priority: 16878
+    }
+    caption {
+      primary {
+        height: 12
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15878
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "picnic-m"
+      priority: 16878
+    }
+    caption {
+      primary {
+        height: 13
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15878
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "picnic-m"
+      priority: 16878
+    }
+    caption {
+      primary {
+        height: 14
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15878
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "picnic-m"
+      priority: 16878
+    }
+    caption {
+      primary {
+        height: 14
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15878
+    }
+  }
+}
+cont {
   name: "highway-road"
   element {
     scale: 12
@@ -15286,6 +15386,133 @@ cont {
         stroke_color: 1118464
       }
       priority: 16390
+    }
+  }
+}
+cont {
+  name: "highway-services"
+  element {
+    scale: 12
+    symbol {
+      name: "car-repair-s"
+      priority: 16878
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "car-repair-m"
+      priority: 16878
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15878
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "car-repair-m"
+      priority: 16878
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 12
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15878
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "car-repair-m"
+      priority: 16878
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 12
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15878
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "car-repair-m"
+      priority: 16878
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 12
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15878
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "car-repair-m"
+      priority: 16878
+    }
+    caption {
+      primary {
+        height: 13
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15878
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "car-repair-m"
+      priority: 16878
+    }
+    caption {
+      primary {
+        height: 14
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15878
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "car-repair-m"
+      priority: 16878
+    }
+    caption {
+      primary {
+        height: 14
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15878
     }
   }
 }
