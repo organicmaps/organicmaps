@@ -4,17 +4,9 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
-  <View
-    android:id="@+id/place_page_status_bar_background"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    android:layout_gravity="center_horizontal|top"
-    android:background="?ppBackground"
-    android:visibility="gone" />
   <androidx.core.widget.NestedScrollViewClickFixed
     android:id="@+id/placepage"
     style="?attr/bottomSheetStyle"
-    android:elevation="0dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fillViewport="true"
