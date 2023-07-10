@@ -11692,42 +11692,60 @@ sk:Garáž
 fa:گاراژ
 mr:गॅरेज
 
-highway-rest_area
-en:Highway Rest Area
-en-GB:Lay By|rest area
-en-AU:Rest Area|lay by
-ru:Зона отдыха на трассе
-bg:Почивка|магистрала|Почивна зона
+highway-rest_area|highway-services
+en:4Rest Area
+ru:4Зона отдыха|Место отдыха
 ar:استراحة
+be:4Зона адпачынку
+bg:Почивка|магистрала|Почивна зона
 cs:Odpočívadlo
 da:Rasteplads
-nl:Snelweg rustplaats|Parkeerplaats
+de:Rastplatz
+el:Χώρος ανάπαυσης αυτοκινητιστών
+es:Área de descanso
+et:Kiirtee puhkepeatus
+eu:Atseden gunea
 fi:Levähdyspaikka
 fr:Aire de repos
-de:Rastplatz
 hu:Pihenőzóna
 id:Tempat istirahat
 it:Area di sosta
 ja:休憩所
 ko:휴게소|고속도로 휴게소|휴게소
+mr:महामार्ग विश्रांती क्षेत्र
 nb:Rasteplass
+nl:Snelweg rustplaats|Parkeerplaats
 pl:Miejsce odpoczynku
 pt:Área de descanso
 pt-BR:Área de descanso
 ro:Zonă de odihnă
-es:Área de descanso
-et:Kiirtee puhkepeatus
-eu:Atseden gunea
+sk:Odpočívadlo
 sv:Viloplats
 th:บริเวณพักผ่อน
 tr:Otoyol Dinlenme Alanı
-uk:Зона відпочинку
+uk:4Зона відпочинку
 vi:Khu Vực Thụt Vào Để Đỗ Xe
 zh-Hans:休息区
 zh-Hant:休息區
-el:Χώρος ανάπαυσης αυτοκινητιστών
-sk:Odpočívadlo
-mr:महामार्ग विश्रांती क्षेत्र
+
+highway-services
+en:4Service Area|service station
+be:4Зона абслугоўвання
+de:Raststätte
+es:Área de servicio
+et:Teenindusala
+fr:Aire de service
+ja:サービスエリア
+mr:सेवा क्षेत्र
+nl:4Servicegebied
+pl:Miejsce obsługi podróżnych
+pt:Área de serviço
+pt-BR:Área de serviços de estrada
+ru:4Зона обслуживания
+tr:4Servis Alanı
+uk:4Зона обслуговування
+zh-Hans:服务区
+zh-Hant:服務區
 
 man_made-chimney
 en:Factory Chimney
