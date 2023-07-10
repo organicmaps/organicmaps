@@ -19189,12 +19189,12 @@
     ar = استيراد الإشارات المرجعية والمسارات
     be = Імпартаваць закладкі і cцежкі
     bg = Импортиране на отметки и песни
-    ca = Importa marcadors i les pistes
+    ca = Importa marcadors i les traces
     cs = Import záložek a stop
     da = Importer bogmærker og spor
     de = Lesezeichen und Tracks importieren
     el = Εισαγωγή σελιδοδεικτών και κομματιών
-    es = Importar marcadores y pistas
+    es = Importar marcadores y trazas
     et = Importida järjehoidjaid ja lugusid
     eu = Laster-markak eta ibilbideak inportatu
     fa = وارد کردن نشانکu200cها و آهنگu200cها
