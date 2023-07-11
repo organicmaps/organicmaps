@@ -82,7 +82,7 @@ def google_translate(text):
   fromTo = fromTo[:-1]
   res = subprocess.run([TRANS_CMD, '-b', '-no-bidi', fromTo, text], text=True, capture_output=True)
   if res.returncode != 0:
-    print('Error running trans program:')
+    print(f'Error running {TRANS_CMD} program:')
     print(res.stderr)
     exit(1)
 
