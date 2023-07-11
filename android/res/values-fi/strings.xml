@@ -1410,13 +1410,32 @@
 	<string name="type.railway.level_crossing">Rautatien tasoristeys</string>
 	<string name="type.railway.monorail">Monorail (kohorata)</string>
 	<string name="type.railway.rail">Rautatie</string>
-	<string name="type.railway.rail.highspeed">Rautatie</string>
-	<string name="type.railway.rail.tourism">Rautatie</string>
+	<string name="type.railway.rail.highspeed">Suurnopeusrautatie</string>
+	<string name="type.railway.rail.tourism">Turistinen rautatie</string>
 	<string name="type.railway.rail.main">Rautatie</string>
-	<string name="type.railway.rail.branch">Rautatie</string>
-	<string name="type.railway.rail.utility">Rautatie</string>
-	<string name="type.railway.rail.spur">Rautatie</string>
-	<string name="type.railway.rail.service">Rautatie</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">Toissijainen rautatie</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">Rautatieliikenne</string>
+	<string name="type.railway.rail.spur">Rautatien varsi</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">Apukiskorata</string>
+	<string name="type.railway.rail.bridge">Rautatiesilta</string>
+	<string name="type.railway.rail.highspeed.bridge">Rautatiesilta</string>
+	<string name="type.railway.rail.tourism.bridge">Rautatiesilta</string>
+	<string name="type.railway.rail.main.bridge">Rautatiesilta</string>
+	<string name="type.railway.rail.branch.bridge">Rautatiesilta</string>
+	<string name="type.railway.rail.utility.bridge">Rautatiesilta</string>
+	<string name="type.railway.rail.spur.bridge">Rautatiesilta</string>
+	<string name="type.railway.rail.service.bridge">Rautatiesilta</string>
+	<string name="type.railway.rail.tunnel">Rautatietunneli</string>
+	<string name="type.railway.rail.highspeed.tunnel">Rautatietunneli</string>
+	<string name="type.railway.rail.tourism.tunnel">Rautatietunneli</string>
+	<string name="type.railway.rail.main.tunnel">Rautatietunneli</string>
+	<string name="type.railway.rail.branch.tunnel">Rautatietunneli</string>
+	<string name="type.railway.rail.utility.tunnel">Rautatietunneli</string>
+	<string name="type.railway.rail.spur.tunnel">Rautatietunneli</string>
+	<string name="type.railway.rail.service.tunnel">Rautatietunneli</string>
 	<string name="type.railway.station">Rautatieasema</string>
 	<string name="type.railway.station.funicular">Köysirata</string>
 	<string name="type.railway.station.light_rail">Rautatieasema</string>

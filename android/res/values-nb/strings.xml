@@ -1378,13 +1378,32 @@
 	<string name="type.railway.platform">Jernbaneplattform</string>
 	<string name="type.railway.preserved">Museumsjernbane</string>
 	<string name="type.railway.rail">Toglinje</string>
-	<string name="type.railway.rail.highspeed">Toglinje</string>
-	<string name="type.railway.rail.tourism">Toglinje</string>
-	<string name="type.railway.rail.main">Toglinje</string>
-	<string name="type.railway.rail.branch">Toglinje</string>
-	<string name="type.railway.rail.utility">Toglinje</string>
-	<string name="type.railway.rail.spur">Toglinje</string>
-	<string name="type.railway.rail.service">Toglinje</string>
+	<string name="type.railway.rail.highspeed">Høyhastighetsjernbane</string>
+	<string name="type.railway.rail.tourism">Turistjernbane</string>
+	<string name="type.railway.rail.main">Jernbane</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">Sekundær jernbane</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">Service jernbane</string>
+	<string name="type.railway.rail.spur">Jernbanespor</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">Ekstra jernbanespor</string>
+	<string name="type.railway.rail.bridge">Jernbanebro</string>
+	<string name="type.railway.rail.highspeed.bridge">Jernbanebro</string>
+	<string name="type.railway.rail.tourism.bridge">Jernbanebro</string>
+	<string name="type.railway.rail.main.bridge">Jernbanebro</string>
+	<string name="type.railway.rail.branch.bridge">Jernbanebro</string>
+	<string name="type.railway.rail.utility.bridge">Jernbanebro</string>
+	<string name="type.railway.rail.spur.bridge">Jernbanebro</string>
+	<string name="type.railway.rail.service.bridge">Jernbanebro</string>
+	<string name="type.railway.rail.tunnel">Jernbanetunnel</string>
+	<string name="type.railway.rail.highspeed.tunnel">Jernbanetunnel</string>
+	<string name="type.railway.rail.tourism.tunnel">Jernbanetunnel</string>
+	<string name="type.railway.rail.main.tunnel">Jernbanetunnel</string>
+	<string name="type.railway.rail.branch.tunnel">Jernbanetunnel</string>
+	<string name="type.railway.rail.utility.tunnel">Jernbanetunnel</string>
+	<string name="type.railway.rail.spur.tunnel">Jernbanetunnel</string>
+	<string name="type.railway.rail.service.tunnel">Jernbanetunnel</string>
 	<string name="type.railway.station">Togstasjon</string>
 	<string name="type.railway.station.funicular">Kabelbane</string>
 	<string name="type.railway.station.light_rail">Togstasjon</string>

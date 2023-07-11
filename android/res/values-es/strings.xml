@@ -1504,13 +1504,32 @@
 	<string name="type.railway.narrow_gauge">Vía férrea de ancho estrecho</string>
 	<string name="type.railway.platform">Plataforma de vía férrea</string>
 	<string name="type.railway.rail">Ferrocarril</string>
-	<string name="type.railway.rail.highspeed">Ferrocarril</string>
-	<string name="type.railway.rail.tourism">Ferrocarril</string>
+	<string name="type.railway.rail.highspeed">Ferrocarril de alta velocidad</string>
+	<string name="type.railway.rail.tourism">Ferrocarril turístico</string>
 	<string name="type.railway.rail.main">Ferrocarril</string>
-	<string name="type.railway.rail.branch">Ferrocarril</string>
-	<string name="type.railway.rail.utility">Ferrocarril</string>
-	<string name="type.railway.rail.spur">Ferrocarril</string>
-	<string name="type.railway.rail.service">Ferrocarril</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">Ramal ferroviario</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">Ferrocarril utilitario</string>
+	<string name="type.railway.rail.spur">Espolón ferroviario</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">Vía férrea de maniobras</string>
+	<string name="type.railway.rail.bridge">Puente ferroviario</string>
+	<string name="type.railway.rail.highspeed.bridge">Puente ferroviario</string>
+	<string name="type.railway.rail.tourism.bridge">Puente ferroviario</string>
+	<string name="type.railway.rail.main.bridge">Puente ferroviario</string>
+	<string name="type.railway.rail.branch.bridge">Puente ferroviario</string>
+	<string name="type.railway.rail.utility.bridge">Puente ferroviario</string>
+	<string name="type.railway.rail.spur.bridge">Puente ferroviario</string>
+	<string name="type.railway.rail.service.bridge">Puente ferroviario</string>
+	<string name="type.railway.rail.tunnel">Túnel ferroviario</string>
+	<string name="type.railway.rail.highspeed.tunnel">Túnel ferroviario</string>
+	<string name="type.railway.rail.tourism.tunnel">Túnel ferroviario</string>
+	<string name="type.railway.rail.main.tunnel">Túnel ferroviario</string>
+	<string name="type.railway.rail.branch.tunnel">Túnel ferroviario</string>
+	<string name="type.railway.rail.utility.tunnel">Túnel ferroviario</string>
+	<string name="type.railway.rail.spur.tunnel">Túnel ferroviario</string>
+	<string name="type.railway.rail.service.tunnel">Túnel ferroviario</string>
 	<string name="type.railway.station">Estación de tren</string>
 	<string name="type.railway.station.funicular">Funicular</string>
 	<string name="type.railway.station.light_rail">Estación de tren</string>

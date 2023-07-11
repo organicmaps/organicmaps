@@ -1495,13 +1495,16 @@
 	<string name="type.railway.preserved.bridge">Museumsbahnbrücke</string>
 	<string name="type.railway.preserved.tunnel">Museumsbahntunnel</string>
 	<string name="type.railway.rail">Eisenbahn</string>
-	<string name="type.railway.rail.highspeed">Eisenbahn</string>
-	<string name="type.railway.rail.tourism">Eisenbahn</string>
+	<string name="type.railway.rail.highspeed">Hochgeschwindigkeits-eisenbahn</string>
+	<string name="type.railway.rail.tourism">Touristische eisenbahn</string>
 	<string name="type.railway.rail.main">Eisenbahn</string>
-	<string name="type.railway.rail.branch">Eisenbahn</string>
-	<string name="type.railway.rail.utility">Eisenbahn</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">Sekundärbahn</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">Versorgungseisenbahn</string>
 	<string name="type.railway.rail.spur">Anschlussgleis</string>
-	<string name="type.railway.rail.service">Eisenbahn</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">Hilfsbahngleis</string>
 	<string name="type.railway.rail.bridge">Eisenbahnbrücke</string>
 	<string name="type.railway.rail.highspeed.bridge">Eisenbahnbrücke</string>
 	<string name="type.railway.rail.tourism.bridge">Eisenbahnbrücke</string>

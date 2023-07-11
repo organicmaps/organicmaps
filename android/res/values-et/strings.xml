@@ -1512,13 +1512,16 @@
 	<string name="type.railway.preserved.bridge">Muuseumiraudtee sild</string>
 	<string name="type.railway.preserved.tunnel">Muuseumiraudtee tunnel</string>
 	<string name="type.railway.rail">Raudtee</string>
-	<string name="type.railway.rail.highspeed">Raudtee</string>
-	<string name="type.railway.rail.tourism">Raudtee</string>
+	<string name="type.railway.rail.highspeed">Kiirraudtee</string>
+	<string name="type.railway.rail.tourism">Turismiraudtee</string>
 	<string name="type.railway.rail.main">Raudtee</string>
-	<string name="type.railway.rail.branch">Raudtee</string>
-	<string name="type.railway.rail.utility">Raudtee</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">Teisene raudtee</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">Teenindus raudtee</string>
 	<string name="type.railway.rail.spur">Rööbastee</string>
-	<string name="type.railway.rail.service">Raudtee</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">Lisarööpmel rööbastee</string>
 	<string name="type.railway.rail.bridge">Raudtee sild</string>
 	<string name="type.railway.rail.highspeed.bridge">Raudtee sild</string>
 	<string name="type.railway.rail.tourism.bridge">Raudtee sild</string>

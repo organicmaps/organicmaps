@@ -2804,19 +2804,22 @@
 
 "type.railway.rail" = "Spoorlijn";
 
-"type.railway.rail.highspeed" = "Spoorlijn";
+"type.railway.rail.highspeed" = "Hogesnelheidstrein";
 
-"type.railway.rail.tourism" = "Spoorlijn";
+"type.railway.rail.tourism" = "Toeristische spoorlijn";
 
-"type.railway.rail.main" = "Spoorlijn";
+"type.railway.rail.main" = "Spoor";
 
-"type.railway.rail.branch" = "Spoorlijn";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Secundaire spoorwegen";
 
-"type.railway.rail.utility" = "Spoorlijn";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Spoorwegen";
 
 "type.railway.rail.spur" = "Zijspoor";
 
-"type.railway.rail.service" = "Spoorlijn";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Hulpspoor";
 
 "type.railway.rail.bridge" = "Treinspoorbrug";
 

@@ -2804,51 +2804,54 @@
 
 "type.railway.rail" = "Railway";
 
-"type.railway.rail.highspeed" = "Railway";
+"type.railway.rail.highspeed" = "Хуткасная чыгунка";
 
-"type.railway.rail.tourism" = "Railway";
+"type.railway.rail.tourism" = "Турыстычная чыгунка";
 
-"type.railway.rail.main" = "Railway";
+"type.railway.rail.main" = "Чыгуначны";
 
-"type.railway.rail.branch" = "Railway";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Другасная чыгунка";
 
-"type.railway.rail.utility" = "Railway";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Службова чыгунка";
 
-"type.railway.rail.spur" = "Railway";
+"type.railway.rail.spur" = "Чыгуначны шлях";
 
-"type.railway.rail.service" = "Railway";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Дапаможны чыгуначны шлях";
 
-"type.railway.rail.bridge" = "Railway Bridge";
+"type.railway.rail.bridge" = "Чыгуначны мост";
 
-"type.railway.rail.highspeed.bridge" = "Railway Bridge";
+"type.railway.rail.highspeed.bridge" = "Чыгуначны мост";
 
-"type.railway.rail.tourism.bridge" = "Railway Bridge";
+"type.railway.rail.tourism.bridge" = "Чыгуначны мост";
 
-"type.railway.rail.main.bridge" = "Railway Bridge";
+"type.railway.rail.main.bridge" = "Чыгуначны мост";
 
-"type.railway.rail.branch.bridge" = "Railway Bridge";
+"type.railway.rail.branch.bridge" = "Чыгуначны мост";
 
-"type.railway.rail.utility.bridge" = "Railway Bridge";
+"type.railway.rail.utility.bridge" = "Чыгуначны мост";
 
-"type.railway.rail.spur.bridge" = "Railway Bridge";
+"type.railway.rail.spur.bridge" = "Чыгуначны мост";
 
-"type.railway.rail.service.bridge" = "Railway Bridge";
+"type.railway.rail.service.bridge" = "Чыгуначны мост";
 
-"type.railway.rail.tunnel" = "Railway Tunnel";
+"type.railway.rail.tunnel" = "Чыгуначны тунэль";
 
-"type.railway.rail.highspeed.tunnel" = "Railway Tunnel";
+"type.railway.rail.highspeed.tunnel" = "Чыгуначны тунэль";
 
-"type.railway.rail.tourism.tunnel" = "Railway Tunnel";
+"type.railway.rail.tourism.tunnel" = "Чыгуначны тунэль";
 
-"type.railway.rail.main.tunnel" = "Railway Tunnel";
+"type.railway.rail.main.tunnel" = "Чыгуначны тунэль";
 
-"type.railway.rail.branch.tunnel" = "Railway Tunnel";
+"type.railway.rail.branch.tunnel" = "Чыгуначны тунэль";
 
-"type.railway.rail.utility.tunnel" = "Railway Tunnel";
+"type.railway.rail.utility.tunnel" = "Чыгуначны тунэль";
 
-"type.railway.rail.spur.tunnel" = "Railway Tunnel";
+"type.railway.rail.spur.tunnel" = "Чыгуначны тунэль";
 
-"type.railway.rail.service.tunnel" = "Railway Tunnel";
+"type.railway.rail.service.tunnel" = "Чыгуначны тунэль";
 
 "type.railway.station" = "Train Station";
 

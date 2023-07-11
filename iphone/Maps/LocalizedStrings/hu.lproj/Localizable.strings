@@ -2804,51 +2804,54 @@
 
 "type.railway.rail" = "Vasút";
 
-"type.railway.rail.highspeed" = "Vasút";
+"type.railway.rail.highspeed" = "Nagysebességű vasút";
 
-"type.railway.rail.tourism" = "Vasút";
+"type.railway.rail.tourism" = "Turisztikai vasút";
 
 "type.railway.rail.main" = "Vasút";
 
-"type.railway.rail.branch" = "Vasút";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Másodlagos vasút";
 
-"type.railway.rail.utility" = "Vasút";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Közüzemi vasút";
 
-"type.railway.rail.spur" = "Vasút";
+"type.railway.rail.spur" = "Vasúti nyomvonal";
 
-"type.railway.rail.service" = "Vasút";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Kiegészítő sínpálya";
 
-"type.railway.rail.bridge" = "Railway Bridge";
+"type.railway.rail.bridge" = "Vasúti híd";
 
-"type.railway.rail.highspeed.bridge" = "Railway Bridge";
+"type.railway.rail.highspeed.bridge" = "Vasúti híd";
 
-"type.railway.rail.tourism.bridge" = "Railway Bridge";
+"type.railway.rail.tourism.bridge" = "Vasúti híd";
 
-"type.railway.rail.main.bridge" = "Railway Bridge";
+"type.railway.rail.main.bridge" = "Vasúti híd";
 
-"type.railway.rail.branch.bridge" = "Railway Bridge";
+"type.railway.rail.branch.bridge" = "Vasúti híd";
 
-"type.railway.rail.utility.bridge" = "Railway Bridge";
+"type.railway.rail.utility.bridge" = "Vasúti híd";
 
-"type.railway.rail.spur.bridge" = "Railway Bridge";
+"type.railway.rail.spur.bridge" = "Vasúti híd";
 
-"type.railway.rail.service.bridge" = "Railway Bridge";
+"type.railway.rail.service.bridge" = "Vasúti híd";
 
-"type.railway.rail.tunnel" = "Railway Tunnel";
+"type.railway.rail.tunnel" = "Vasúti alagút";
 
-"type.railway.rail.highspeed.tunnel" = "Railway Tunnel";
+"type.railway.rail.highspeed.tunnel" = "Vasúti alagút";
 
-"type.railway.rail.tourism.tunnel" = "Railway Tunnel";
+"type.railway.rail.tourism.tunnel" = "Vasúti alagút";
 
-"type.railway.rail.main.tunnel" = "Railway Tunnel";
+"type.railway.rail.main.tunnel" = "Vasúti alagút";
 
-"type.railway.rail.branch.tunnel" = "Railway Tunnel";
+"type.railway.rail.branch.tunnel" = "Vasúti alagút";
 
-"type.railway.rail.utility.tunnel" = "Railway Tunnel";
+"type.railway.rail.utility.tunnel" = "Vasúti alagút";
 
-"type.railway.rail.spur.tunnel" = "Railway Tunnel";
+"type.railway.rail.spur.tunnel" = "Vasúti alagút";
 
-"type.railway.rail.service.tunnel" = "Railway Tunnel";
+"type.railway.rail.service.tunnel" = "Vasúti alagút";
 
 "type.railway.station" = "Vonatmegálló";
 

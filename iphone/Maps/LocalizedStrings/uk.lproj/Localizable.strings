@@ -2804,19 +2804,22 @@
 
 "type.railway.rail" = "Залізнична дорога";
 
-"type.railway.rail.highspeed" = "Залізнична дорога";
+"type.railway.rail.highspeed" = "Швидкісна залізниця";
 
-"type.railway.rail.tourism" = "Залізнична дорога";
+"type.railway.rail.tourism" = "Туристична залізниця";
 
-"type.railway.rail.main" = "Залізнична дорога";
+"type.railway.rail.main" = "Залізниця";
 
-"type.railway.rail.branch" = "Залізнична дорога";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Залізнична гілка";
 
-"type.railway.rail.utility" = "Залізнична дорога";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Службова залізниця";
 
 "type.railway.rail.spur" = "Під'їздна залізниця";
 
-"type.railway.rail.service" = "Залізнична дорога";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Допоміжна залізнична колія";
 
 "type.railway.rail.bridge" = "Залізничний міст";
 

@@ -1581,13 +1581,16 @@
 	<string name="type.railway.preserved.bridge">Preserved Rail Bridge</string>
 	<string name="type.railway.preserved.tunnel">Preserved Rail Tunnel</string>
 	<string name="type.railway.rail">Railway</string>
-	<string name="type.railway.rail.highspeed">Railway</string>
-	<string name="type.railway.rail.tourism">Railway</string>
+	<string name="type.railway.rail.highspeed">High-Speed Railway</string>
+	<string name="type.railway.rail.tourism">Touristic Railway</string>
 	<string name="type.railway.rail.main">Railway</string>
-	<string name="type.railway.rail.branch">Railway</string>
-	<string name="type.railway.rail.utility">Railway</string>
-	<string name="type.railway.rail.spur">Spur Rail</string>
-	<string name="type.railway.rail.service">Railway</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">Railway Branch</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">Utility Railway</string>
+	<string name="type.railway.rail.spur">Railway Spur</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">Service Rail Track</string>
 	<string name="type.railway.rail.bridge">Railway Bridge</string>
 	<string name="type.railway.rail.highspeed.bridge">Railway Bridge</string>
 	<string name="type.railway.rail.tourism.bridge">Railway Bridge</string>

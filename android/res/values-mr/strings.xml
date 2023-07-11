@@ -1371,13 +1371,16 @@
 	<string name="type.railway.narrow_gauge.tunnel">अरुंदमापी रेल्वे</string>
 	<string name="type.railway.platform">रेल्वे फलाट</string>
 	<string name="type.railway.rail">रेल्वे</string>
-	<string name="type.railway.rail.highspeed">रेल्वे</string>
-	<string name="type.railway.rail.tourism">रेल्वे</string>
+	<string name="type.railway.rail.highspeed">हाय-स्पीड रेल्वे</string>
+	<string name="type.railway.rail.tourism">पर्यटन रेल्वे</string>
 	<string name="type.railway.rail.main">रेल्वे</string>
-	<string name="type.railway.rail.branch">रेल्वे</string>
-	<string name="type.railway.rail.utility">रेल्वे</string>
-	<string name="type.railway.rail.spur">रेल्वे</string>
-	<string name="type.railway.rail.service">रेल्वे</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">दुय्यम रेल्वे</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">उपयुक्तता रेल्वे</string>
+	<string name="type.railway.rail.spur">रेल्वे स्पर</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">सहायक रेल्वे ट्रॅक</string>
 	<string name="type.railway.rail.bridge">रेल्वे</string>
 	<string name="type.railway.rail.highspeed.bridge">रेल्वे</string>
 	<string name="type.railway.rail.tourism.bridge">रेल्वे</string>

@@ -2804,51 +2804,54 @@
 
 "type.railway.rail" = "Rautatie";
 
-"type.railway.rail.highspeed" = "Rautatie";
+"type.railway.rail.highspeed" = "Suurnopeusrautatie";
 
-"type.railway.rail.tourism" = "Rautatie";
+"type.railway.rail.tourism" = "Turistinen rautatie";
 
 "type.railway.rail.main" = "Rautatie";
 
-"type.railway.rail.branch" = "Rautatie";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Toissijainen rautatie";
 
-"type.railway.rail.utility" = "Rautatie";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Rautatieliikenne";
 
-"type.railway.rail.spur" = "Rautatie";
+"type.railway.rail.spur" = "Rautatien varsi";
 
-"type.railway.rail.service" = "Rautatie";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Apukiskorata";
 
-"type.railway.rail.bridge" = "Railway Bridge";
+"type.railway.rail.bridge" = "Rautatiesilta";
 
-"type.railway.rail.highspeed.bridge" = "Railway Bridge";
+"type.railway.rail.highspeed.bridge" = "Rautatiesilta";
 
-"type.railway.rail.tourism.bridge" = "Railway Bridge";
+"type.railway.rail.tourism.bridge" = "Rautatiesilta";
 
-"type.railway.rail.main.bridge" = "Railway Bridge";
+"type.railway.rail.main.bridge" = "Rautatiesilta";
 
-"type.railway.rail.branch.bridge" = "Railway Bridge";
+"type.railway.rail.branch.bridge" = "Rautatiesilta";
 
-"type.railway.rail.utility.bridge" = "Railway Bridge";
+"type.railway.rail.utility.bridge" = "Rautatiesilta";
 
-"type.railway.rail.spur.bridge" = "Railway Bridge";
+"type.railway.rail.spur.bridge" = "Rautatiesilta";
 
-"type.railway.rail.service.bridge" = "Railway Bridge";
+"type.railway.rail.service.bridge" = "Rautatiesilta";
 
-"type.railway.rail.tunnel" = "Railway Tunnel";
+"type.railway.rail.tunnel" = "Rautatietunneli";
 
-"type.railway.rail.highspeed.tunnel" = "Railway Tunnel";
+"type.railway.rail.highspeed.tunnel" = "Rautatietunneli";
 
-"type.railway.rail.tourism.tunnel" = "Railway Tunnel";
+"type.railway.rail.tourism.tunnel" = "Rautatietunneli";
 
-"type.railway.rail.main.tunnel" = "Railway Tunnel";
+"type.railway.rail.main.tunnel" = "Rautatietunneli";
 
-"type.railway.rail.branch.tunnel" = "Railway Tunnel";
+"type.railway.rail.branch.tunnel" = "Rautatietunneli";
 
-"type.railway.rail.utility.tunnel" = "Railway Tunnel";
+"type.railway.rail.utility.tunnel" = "Rautatietunneli";
 
-"type.railway.rail.spur.tunnel" = "Railway Tunnel";
+"type.railway.rail.spur.tunnel" = "Rautatietunneli";
 
-"type.railway.rail.service.tunnel" = "Railway Tunnel";
+"type.railway.rail.service.tunnel" = "Rautatietunneli";
 
 "type.railway.station" = "Rautatieasema";
 

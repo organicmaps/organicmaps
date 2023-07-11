@@ -2804,51 +2804,54 @@
 
 "type.railway.rail" = "Jernbane";
 
-"type.railway.rail.highspeed" = "Jernbane";
+"type.railway.rail.highspeed" = "Højhastighedsjernbane";
 
-"type.railway.rail.tourism" = "Jernbane";
+"type.railway.rail.tourism" = "Turistisk jernbane";
 
 "type.railway.rail.main" = "Jernbane";
 
-"type.railway.rail.branch" = "Jernbane";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Sekundær jernbane";
 
-"type.railway.rail.utility" = "Jernbane";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Jernbane til forsyningsselskaber";
 
-"type.railway.rail.spur" = "Jernbane";
+"type.railway.rail.spur" = "Jernbanespor";
 
-"type.railway.rail.service" = "Jernbane";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Ekstra jernbanespor";
 
-"type.railway.rail.bridge" = "Railway Bridge";
+"type.railway.rail.bridge" = "Jernbanebro";
 
-"type.railway.rail.highspeed.bridge" = "Railway Bridge";
+"type.railway.rail.highspeed.bridge" = "Jernbanebro";
 
-"type.railway.rail.tourism.bridge" = "Railway Bridge";
+"type.railway.rail.tourism.bridge" = "Jernbanebro";
 
-"type.railway.rail.main.bridge" = "Railway Bridge";
+"type.railway.rail.main.bridge" = "Jernbanebro";
 
-"type.railway.rail.branch.bridge" = "Railway Bridge";
+"type.railway.rail.branch.bridge" = "Jernbanebro";
 
-"type.railway.rail.utility.bridge" = "Railway Bridge";
+"type.railway.rail.utility.bridge" = "Jernbanebro";
 
-"type.railway.rail.spur.bridge" = "Railway Bridge";
+"type.railway.rail.spur.bridge" = "Jernbanebro";
 
-"type.railway.rail.service.bridge" = "Railway Bridge";
+"type.railway.rail.service.bridge" = "Jernbanebro";
 
-"type.railway.rail.tunnel" = "Railway Tunnel";
+"type.railway.rail.tunnel" = "Jernbanetunnel";
 
-"type.railway.rail.highspeed.tunnel" = "Railway Tunnel";
+"type.railway.rail.highspeed.tunnel" = "Jernbanetunnel";
 
-"type.railway.rail.tourism.tunnel" = "Railway Tunnel";
+"type.railway.rail.tourism.tunnel" = "Jernbanetunnel";
 
-"type.railway.rail.main.tunnel" = "Railway Tunnel";
+"type.railway.rail.main.tunnel" = "Jernbanetunnel";
 
-"type.railway.rail.branch.tunnel" = "Railway Tunnel";
+"type.railway.rail.branch.tunnel" = "Jernbanetunnel";
 
-"type.railway.rail.utility.tunnel" = "Railway Tunnel";
+"type.railway.rail.utility.tunnel" = "Jernbanetunnel";
 
-"type.railway.rail.spur.tunnel" = "Railway Tunnel";
+"type.railway.rail.spur.tunnel" = "Jernbanetunnel";
 
-"type.railway.rail.service.tunnel" = "Railway Tunnel";
+"type.railway.rail.service.tunnel" = "Jernbanetunnel";
 
 "type.railway.station" = "Togstation";
 

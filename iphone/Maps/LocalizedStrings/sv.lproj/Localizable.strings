@@ -2804,51 +2804,54 @@
 
 "type.railway.rail" = "Järnväg";
 
-"type.railway.rail.highspeed" = "Järnväg";
+"type.railway.rail.highspeed" = "Järnväg för höghastighetståg";
 
-"type.railway.rail.tourism" = "Järnväg";
+"type.railway.rail.tourism" = "Järnväg för turisttrafik";
 
 "type.railway.rail.main" = "Järnväg";
 
-"type.railway.rail.branch" = "Järnväg";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Sekundär järnväg";
 
-"type.railway.rail.utility" = "Järnväg";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Järnväg för allmännyttiga ändamål";
 
-"type.railway.rail.spur" = "Järnväg";
+"type.railway.rail.spur" = "Järnvägsspår";
 
-"type.railway.rail.service" = "Järnväg";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Extra järnvägsspår";
 
-"type.railway.rail.bridge" = "Railway Bridge";
+"type.railway.rail.bridge" = "Järnvägsbro";
 
-"type.railway.rail.highspeed.bridge" = "Railway Bridge";
+"type.railway.rail.highspeed.bridge" = "Järnvägsbro";
 
-"type.railway.rail.tourism.bridge" = "Railway Bridge";
+"type.railway.rail.tourism.bridge" = "Järnvägsbro";
 
-"type.railway.rail.main.bridge" = "Railway Bridge";
+"type.railway.rail.main.bridge" = "Järnvägsbro";
 
-"type.railway.rail.branch.bridge" = "Railway Bridge";
+"type.railway.rail.branch.bridge" = "Järnvägsbro";
 
-"type.railway.rail.utility.bridge" = "Railway Bridge";
+"type.railway.rail.utility.bridge" = "Järnvägsbro";
 
-"type.railway.rail.spur.bridge" = "Railway Bridge";
+"type.railway.rail.spur.bridge" = "Järnvägsbro";
 
-"type.railway.rail.service.bridge" = "Railway Bridge";
+"type.railway.rail.service.bridge" = "Järnvägsbro";
 
-"type.railway.rail.tunnel" = "Railway Tunnel";
+"type.railway.rail.tunnel" = "Järnvägstunnel";
 
-"type.railway.rail.highspeed.tunnel" = "Railway Tunnel";
+"type.railway.rail.highspeed.tunnel" = "Järnvägstunnel";
 
-"type.railway.rail.tourism.tunnel" = "Railway Tunnel";
+"type.railway.rail.tourism.tunnel" = "Järnvägstunnel";
 
-"type.railway.rail.main.tunnel" = "Railway Tunnel";
+"type.railway.rail.main.tunnel" = "Järnvägstunnel";
 
-"type.railway.rail.branch.tunnel" = "Railway Tunnel";
+"type.railway.rail.branch.tunnel" = "Järnvägstunnel";
 
-"type.railway.rail.utility.tunnel" = "Railway Tunnel";
+"type.railway.rail.utility.tunnel" = "Järnvägstunnel";
 
-"type.railway.rail.spur.tunnel" = "Railway Tunnel";
+"type.railway.rail.spur.tunnel" = "Järnvägstunnel";
 
-"type.railway.rail.service.tunnel" = "Railway Tunnel";
+"type.railway.rail.service.tunnel" = "Järnvägstunnel";
 
 "type.railway.station" = "Tågstation";
 

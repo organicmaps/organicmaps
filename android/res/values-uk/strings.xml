@@ -1504,13 +1504,16 @@
 	<string name="type.railway.preserved.bridge">Законсервована залізниця</string>
 	<string name="type.railway.preserved.tunnel">Законсервована залізниця</string>
 	<string name="type.railway.rail">Залізнична дорога</string>
-	<string name="type.railway.rail.highspeed">Залізнична дорога</string>
-	<string name="type.railway.rail.tourism">Залізнична дорога</string>
-	<string name="type.railway.rail.main">Залізнична дорога</string>
-	<string name="type.railway.rail.branch">Залізнична дорога</string>
-	<string name="type.railway.rail.utility">Залізнична дорога</string>
+	<string name="type.railway.rail.highspeed">Швидкісна залізниця</string>
+	<string name="type.railway.rail.tourism">Туристична залізниця</string>
+	<string name="type.railway.rail.main">Залізниця</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">Залізнична гілка</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">Службова залізниця</string>
 	<string name="type.railway.rail.spur">Під\'їздна залізниця</string>
-	<string name="type.railway.rail.service">Залізнична дорога</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">Допоміжна залізнична колія</string>
 	<string name="type.railway.rail.bridge">Залізничний міст</string>
 	<string name="type.railway.rail.highspeed.bridge">Залізничний міст</string>
 	<string name="type.railway.rail.tourism.bridge">Залізничний міст</string>

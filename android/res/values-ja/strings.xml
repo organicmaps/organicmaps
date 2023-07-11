@@ -1433,13 +1433,16 @@
 	<string name="type.railway.preserved.bridge">保存鉄道(橋)</string>
 	<string name="type.railway.preserved.tunnel">保存鉄道(トンネル)</string>
 	<string name="type.railway.rail">鉄道</string>
-	<string name="type.railway.rail.highspeed">鉄道</string>
-	<string name="type.railway.rail.tourism">鉄道</string>
+	<string name="type.railway.rail.highspeed">高速鉄道</string>
+	<string name="type.railway.rail.tourism">観光鉄道</string>
 	<string name="type.railway.rail.main">鉄道</string>
-	<string name="type.railway.rail.branch">鉄道</string>
-	<string name="type.railway.rail.utility">鉄道</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">二次鉄道</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">実用鉄道</string>
 	<string name="type.railway.rail.spur">引き込み線</string>
-	<string name="type.railway.rail.service">鉄道</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">補助線路</string>
 	<string name="type.railway.rail.bridge">鉄道(橋)</string>
 	<string name="type.railway.rail.highspeed.bridge">鉄道(橋)</string>
 	<string name="type.railway.rail.tourism.bridge">鉄道(橋)</string>

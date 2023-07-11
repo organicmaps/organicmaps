@@ -1457,13 +1457,32 @@
 	<string name="type.railway.light_rail">Metropolitana</string>
 	<string name="type.railway.monorail">Monorotaia</string>
 	<string name="type.railway.rail">Binari</string>
-	<string name="type.railway.rail.highspeed">Binari</string>
-	<string name="type.railway.rail.tourism">Binari</string>
-	<string name="type.railway.rail.main">Binari</string>
-	<string name="type.railway.rail.branch">Binari</string>
-	<string name="type.railway.rail.utility">Binari</string>
-	<string name="type.railway.rail.spur">Binari</string>
-	<string name="type.railway.rail.service">Binari</string>
+	<string name="type.railway.rail.highspeed">Ferrovia ad alta velocità</string>
+	<string name="type.railway.rail.tourism">Ferrovia turistica</string>
+	<string name="type.railway.rail.main">Ferrovia</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">Ferrovia secondaria</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">Ferrovia di utilità</string>
+	<string name="type.railway.rail.spur">Sperone ferroviario</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">Binario ausiliario</string>
+	<string name="type.railway.rail.bridge">Ponte ferroviario</string>
+	<string name="type.railway.rail.highspeed.bridge">Ponte ferroviario</string>
+	<string name="type.railway.rail.tourism.bridge">Ponte ferroviario</string>
+	<string name="type.railway.rail.main.bridge">Ponte ferroviario</string>
+	<string name="type.railway.rail.branch.bridge">Ponte ferroviario</string>
+	<string name="type.railway.rail.utility.bridge">Ponte ferroviario</string>
+	<string name="type.railway.rail.spur.bridge">Ponte ferroviario</string>
+	<string name="type.railway.rail.service.bridge">Ponte ferroviario</string>
+	<string name="type.railway.rail.tunnel">Tunnel ferroviario</string>
+	<string name="type.railway.rail.highspeed.tunnel">Tunnel ferroviario</string>
+	<string name="type.railway.rail.tourism.tunnel">Tunnel ferroviario</string>
+	<string name="type.railway.rail.main.tunnel">Tunnel ferroviario</string>
+	<string name="type.railway.rail.branch.tunnel">Tunnel ferroviario</string>
+	<string name="type.railway.rail.utility.tunnel">Tunnel ferroviario</string>
+	<string name="type.railway.rail.spur.tunnel">Tunnel ferroviario</string>
+	<string name="type.railway.rail.service.tunnel">Tunnel ferroviario</string>
 	<string name="type.railway.station">Stazione ferroviaria</string>
 	<string name="type.railway.station.funicular">Funicolare</string>
 	<string name="type.railway.station.light_rail">Stazione ferroviaria</string>
