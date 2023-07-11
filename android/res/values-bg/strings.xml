@@ -961,6 +961,32 @@
 	<string name="type.power.plant.solar">Слънчева електроцентрала</string>
 	<string name="type.power.plant.wind">Вятърна електроцентрала</string>
 	<string name="type.railway.funicular">Фуникуляр</string>
+	<string name="type.railway.rail.highspeed">Високоскоростна железница</string>
+	<string name="type.railway.rail.tourism">Туристическа железница</string>
+	<string name="type.railway.rail.main">Железопътна линия</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">Вторична железница</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">Сервизна железница</string>
+	<string name="type.railway.rail.spur">Железопътна отбивка</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">Спомагателен релсов път</string>
+	<string name="type.railway.rail.bridge">Железопътен мост</string>
+	<string name="type.railway.rail.highspeed.bridge">Железопътен мост</string>
+	<string name="type.railway.rail.tourism.bridge">Железопътен мост</string>
+	<string name="type.railway.rail.main.bridge">Железопътен мост</string>
+	<string name="type.railway.rail.branch.bridge">Железопътен мост</string>
+	<string name="type.railway.rail.utility.bridge">Железопътен мост</string>
+	<string name="type.railway.rail.spur.bridge">Железопътен мост</string>
+	<string name="type.railway.rail.service.bridge">Железопътен мост</string>
+	<string name="type.railway.rail.tunnel">Железопътен тунел</string>
+	<string name="type.railway.rail.highspeed.tunnel">Железопътен тунел</string>
+	<string name="type.railway.rail.tourism.tunnel">Железопътен тунел</string>
+	<string name="type.railway.rail.main.tunnel">Железопътен тунел</string>
+	<string name="type.railway.rail.branch.tunnel">Железопътен тунел</string>
+	<string name="type.railway.rail.utility.tunnel">Железопътен тунел</string>
+	<string name="type.railway.rail.spur.tunnel">Железопътен тунел</string>
+	<string name="type.railway.rail.service.tunnel">Железопътен тунел</string>
 	<string name="type.railway.station.funicular">Фуникуляр</string>
 	<string name="type.shop.bathroom_furnishing">Обзавеждане за баня</string>
 	<string name="type.shop.cannabis">Магазин за канабис</string>

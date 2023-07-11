@@ -2804,19 +2804,22 @@
 
 "type.railway.rail" = "Eisenbahn";
 
-"type.railway.rail.highspeed" = "Eisenbahn";
+"type.railway.rail.highspeed" = "Hochgeschwindigkeits-eisenbahn";
 
-"type.railway.rail.tourism" = "Eisenbahn";
+"type.railway.rail.tourism" = "Touristische eisenbahn";
 
 "type.railway.rail.main" = "Eisenbahn";
 
-"type.railway.rail.branch" = "Eisenbahn";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Sekundärbahn";
 
-"type.railway.rail.utility" = "Eisenbahn";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Versorgungseisenbahn";
 
 "type.railway.rail.spur" = "Anschlussgleis";
 
-"type.railway.rail.service" = "Eisenbahn";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Hilfsbahngleis";
 
 "type.railway.rail.bridge" = "Eisenbahnbrücke";
 

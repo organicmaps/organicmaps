@@ -1322,13 +1322,32 @@
 	<string name="type.railway.level_crossing">철도 건널목</string>
 	<string name="type.railway.monorail">모노레일</string>
 	<string name="type.railway.rail">철로</string>
-	<string name="type.railway.rail.highspeed">철로</string>
-	<string name="type.railway.rail.tourism">철로</string>
-	<string name="type.railway.rail.main">철로</string>
-	<string name="type.railway.rail.branch">철로</string>
-	<string name="type.railway.rail.utility">철로</string>
-	<string name="type.railway.rail.spur">철로</string>
-	<string name="type.railway.rail.service">철로</string>
+	<string name="type.railway.rail.highspeed">고속 철도</string>
+	<string name="type.railway.rail.tourism">관광 철도</string>
+	<string name="type.railway.rail.main">철도</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">보조 철도</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">유틸리티 철도</string>
+	<string name="type.railway.rail.spur">철도 박차</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">보조 레일 트랙</string>
+	<string name="type.railway.rail.bridge">철도 교량</string>
+	<string name="type.railway.rail.highspeed.bridge">철도 교량</string>
+	<string name="type.railway.rail.tourism.bridge">철도 교량</string>
+	<string name="type.railway.rail.main.bridge">철도 교량</string>
+	<string name="type.railway.rail.branch.bridge">철도 교량</string>
+	<string name="type.railway.rail.utility.bridge">철도 교량</string>
+	<string name="type.railway.rail.spur.bridge">철도 교량</string>
+	<string name="type.railway.rail.service.bridge">철도 교량</string>
+	<string name="type.railway.rail.tunnel">철도 터널</string>
+	<string name="type.railway.rail.highspeed.tunnel">철도 터널</string>
+	<string name="type.railway.rail.tourism.tunnel">철도 터널</string>
+	<string name="type.railway.rail.main.tunnel">철도 터널</string>
+	<string name="type.railway.rail.branch.tunnel">철도 터널</string>
+	<string name="type.railway.rail.utility.tunnel">철도 터널</string>
+	<string name="type.railway.rail.spur.tunnel">철도 터널</string>
+	<string name="type.railway.rail.service.tunnel">철도 터널</string>
 	<string name="type.railway.station">기차역</string>
 	<string name="type.railway.station.funicular">케이블카</string>
 	<string name="type.railway.station.light_rail">기차역</string>

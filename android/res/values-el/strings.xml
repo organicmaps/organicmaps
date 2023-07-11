@@ -1325,13 +1325,32 @@
 	<string name="type.railway.level_crossing">Σιδηροδρομική διέλευση</string>
 	<string name="type.railway.monorail">Μονοαξονικός σιδηρόδρομος</string>
 	<string name="type.railway.rail">Σιδηρόδρομος</string>
-	<string name="type.railway.rail.highspeed">Σιδηρόδρομος</string>
-	<string name="type.railway.rail.tourism">Σιδηρόδρομος</string>
+	<string name="type.railway.rail.highspeed">Σιδηρόδρομος υψηλής ταχύτητας</string>
+	<string name="type.railway.rail.tourism">Τουριστικός σιδηρόδρομος</string>
 	<string name="type.railway.rail.main">Σιδηρόδρομος</string>
-	<string name="type.railway.rail.branch">Σιδηρόδρομος</string>
-	<string name="type.railway.rail.utility">Σιδηρόδρομος</string>
-	<string name="type.railway.rail.spur">Σιδηρόδρομος</string>
-	<string name="type.railway.rail.service">Σιδηρόδρομος</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">Δευτερεύων σιδηροδρομικός σιδηρόδρομος</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">Σιδηρόδρομος κοινής ωφέλειας</string>
+	<string name="type.railway.rail.spur">Σιδηροδρομική ατραπός</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">Βοηθητική σιδηροδρομική γραμμή</string>
+	<string name="type.railway.rail.bridge">Σιδηροδρομική γέφυρα</string>
+	<string name="type.railway.rail.highspeed.bridge">Σιδηροδρομική γέφυρα</string>
+	<string name="type.railway.rail.tourism.bridge">Σιδηροδρομική γέφυρα</string>
+	<string name="type.railway.rail.main.bridge">Σιδηροδρομική γέφυρα</string>
+	<string name="type.railway.rail.branch.bridge">Σιδηροδρομική γέφυρα</string>
+	<string name="type.railway.rail.utility.bridge">Σιδηροδρομική γέφυρα</string>
+	<string name="type.railway.rail.spur.bridge">Σιδηροδρομική γέφυρα</string>
+	<string name="type.railway.rail.service.bridge">Σιδηροδρομική γέφυρα</string>
+	<string name="type.railway.rail.tunnel">Σιδηροδρομική σήραγγα</string>
+	<string name="type.railway.rail.highspeed.tunnel">Σιδηροδρομική σήραγγα</string>
+	<string name="type.railway.rail.tourism.tunnel">Σιδηροδρομική σήραγγα</string>
+	<string name="type.railway.rail.main.tunnel">Σιδηροδρομική σήραγγα</string>
+	<string name="type.railway.rail.branch.tunnel">Σιδηροδρομική σήραγγα</string>
+	<string name="type.railway.rail.utility.tunnel">Σιδηροδρομική σήραγγα</string>
+	<string name="type.railway.rail.spur.tunnel">Σιδηροδρομική σήραγγα</string>
+	<string name="type.railway.rail.service.tunnel">Σιδηροδρομική σήραγγα</string>
 	<string name="type.railway.station">Σιδηροδρομικός σταθμός</string>
 	<string name="type.railway.station.funicular">Μονωτικό τρενάκι</string>
 	<string name="type.railway.station.light_rail">Σιδηροδρομικός σταθμός</string>

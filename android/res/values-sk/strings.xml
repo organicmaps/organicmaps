@@ -1315,13 +1315,32 @@
 	<string name="type.railway.level_crossing">Križovanie úrovní</string>
 	<string name="type.railway.monorail">Jednokoľajnicová dráha</string>
 	<string name="type.railway.rail">Železnica</string>
-	<string name="type.railway.rail.highspeed">Železnica</string>
-	<string name="type.railway.rail.tourism">Železnica</string>
-	<string name="type.railway.rail.main">Železnica</string>
-	<string name="type.railway.rail.branch">Železnica</string>
-	<string name="type.railway.rail.utility">Železnica</string>
-	<string name="type.railway.rail.spur">Železnica</string>
-	<string name="type.railway.rail.service">Železnica</string>
+	<string name="type.railway.rail.highspeed">Vysokorýchlostná železnica</string>
+	<string name="type.railway.rail.tourism">Turistická železnica</string>
+	<string name="type.railway.rail.main">Železnice</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">Sekundárna železnica</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">Úžitková železnica</string>
+	<string name="type.railway.rail.spur">Železničná odbočka</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">Pomocná železničná trať</string>
+	<string name="type.railway.rail.bridge">Železničný most</string>
+	<string name="type.railway.rail.highspeed.bridge">Železničný most</string>
+	<string name="type.railway.rail.tourism.bridge">Železničný most</string>
+	<string name="type.railway.rail.main.bridge">Železničný most</string>
+	<string name="type.railway.rail.branch.bridge">Železničný most</string>
+	<string name="type.railway.rail.utility.bridge">Železničný most</string>
+	<string name="type.railway.rail.spur.bridge">Železničný most</string>
+	<string name="type.railway.rail.service.bridge">Železničný most</string>
+	<string name="type.railway.rail.tunnel">Železničný tunel</string>
+	<string name="type.railway.rail.highspeed.tunnel">Železničný tunel</string>
+	<string name="type.railway.rail.tourism.tunnel">Železničný tunel</string>
+	<string name="type.railway.rail.main.tunnel">Železničný tunel</string>
+	<string name="type.railway.rail.branch.tunnel">Železničný tunel</string>
+	<string name="type.railway.rail.utility.tunnel">Železničný tunel</string>
+	<string name="type.railway.rail.spur.tunnel">Železničný tunel</string>
+	<string name="type.railway.rail.service.tunnel">Železničný tunel</string>
 	<string name="type.railway.station">Železničná stanica</string>
 	<string name="type.railway.station.funicular">Lanovka</string>
 	<string name="type.railway.station.light_rail">Železničná stanica</string>

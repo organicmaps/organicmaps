@@ -2804,51 +2804,54 @@
 
 "type.railway.rail" = "Demiryolu";
 
-"type.railway.rail.highspeed" = "Demiryolu";
+"type.railway.rail.highspeed" = "Yüksek hızlı demiryolu";
 
-"type.railway.rail.tourism" = "Demiryolu";
+"type.railway.rail.tourism" = "Turistik demiryolu";
 
 "type.railway.rail.main" = "Demiryolu";
 
-"type.railway.rail.branch" = "Demiryolu";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "İkincil demiryolu";
 
-"type.railway.rail.utility" = "Demiryolu";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Yardımcı demiryolu";
 
 "type.railway.rail.spur" = "Düz Ray";
 
-"type.railway.rail.service" = "Demiryolu";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Yardımcı ray hattı";
 
-"type.railway.rail.bridge" = "Demiryolu";
+"type.railway.rail.bridge" = "Demiryolu köprüsü";
 
-"type.railway.rail.highspeed.bridge" = "Demiryolu";
+"type.railway.rail.highspeed.bridge" = "Demiryolu köprüsü";
 
-"type.railway.rail.tourism.bridge" = "Demiryolu";
+"type.railway.rail.tourism.bridge" = "Demiryolu köprüsü";
 
-"type.railway.rail.main.bridge" = "Demiryolu";
+"type.railway.rail.main.bridge" = "Demiryolu köprüsü";
 
-"type.railway.rail.branch.bridge" = "Demiryolu";
+"type.railway.rail.branch.bridge" = "Demiryolu köprüsü";
 
-"type.railway.rail.utility.bridge" = "Demiryolu";
+"type.railway.rail.utility.bridge" = "Demiryolu köprüsü";
 
-"type.railway.rail.spur.bridge" = "Demiryolu";
+"type.railway.rail.spur.bridge" = "Demiryolu köprüsü";
 
-"type.railway.rail.service.bridge" = "Demiryolu";
+"type.railway.rail.service.bridge" = "Demiryolu köprüsü";
 
-"type.railway.rail.tunnel" = "Demiryolu";
+"type.railway.rail.tunnel" = "Demiryolu tüneli";
 
-"type.railway.rail.highspeed.tunnel" = "Demiryolu";
+"type.railway.rail.highspeed.tunnel" = "Demiryolu tüneli";
 
-"type.railway.rail.tourism.tunnel" = "Demiryolu";
+"type.railway.rail.tourism.tunnel" = "Demiryolu tüneli";
 
-"type.railway.rail.main.tunnel" = "Demiryolu";
+"type.railway.rail.main.tunnel" = "Demiryolu tüneli";
 
-"type.railway.rail.branch.tunnel" = "Demiryolu";
+"type.railway.rail.branch.tunnel" = "Demiryolu tüneli";
 
-"type.railway.rail.utility.tunnel" = "Demiryolu";
+"type.railway.rail.utility.tunnel" = "Demiryolu tüneli";
 
-"type.railway.rail.spur.tunnel" = "Demiryolu";
+"type.railway.rail.spur.tunnel" = "Demiryolu tüneli";
 
-"type.railway.rail.service.tunnel" = "Demiryolu";
+"type.railway.rail.service.tunnel" = "Demiryolu tüneli";
 
 "type.railway.station" = "Tren İstasyonu";
 

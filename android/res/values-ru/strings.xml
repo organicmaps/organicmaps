@@ -1542,13 +1542,16 @@
 	<string name="type.railway.preserved.bridge">Законсервированная Ж/Д</string>
 	<string name="type.railway.preserved.tunnel">Законсервированная Ж/Д</string>
 	<string name="type.railway.rail">Железнодорожный путь</string>
-	<string name="type.railway.rail.highspeed">Железнодорожный путь</string>
-	<string name="type.railway.rail.tourism">Железнодорожный путь</string>
-	<string name="type.railway.rail.main">Железнодорожный путь</string>
-	<string name="type.railway.rail.branch">Железнодорожный путь</string>
-	<string name="type.railway.rail.utility">Железнодорожный путь</string>
-	<string name="type.railway.rail.spur">Подъездная Ж/Д</string>
-	<string name="type.railway.rail.service">Железнодорожный путь</string>
+	<string name="type.railway.rail.highspeed">Высокоскоростная железная дорога</string>
+	<string name="type.railway.rail.tourism">Туристическая железная дорога</string>
+	<string name="type.railway.rail.main">Железная дорога</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">Второстепенная железная дорога</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">Служебная железная дорога</string>
+	<string name="type.railway.rail.spur">Подъездной Ж/Д путь</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">Вспомогательный Ж/Д путь</string>
 	<string name="type.railway.rail.bridge">Железнодорожный мост</string>
 	<string name="type.railway.rail.highspeed.bridge">Железнодорожный мост</string>
 	<string name="type.railway.rail.tourism.bridge">Железнодорожный мост</string>

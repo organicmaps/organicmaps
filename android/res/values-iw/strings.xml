@@ -634,6 +634,32 @@
 	<string name="type.power.plant.solar">תחנת כוח סולארית</string>
 	<string name="type.power.plant.wind">תחנת כוח רוח</string>
 	<string name="type.railway.funicular">רַכֶּבֶל</string>
+	<string name="type.railway.rail.highspeed">רכבת מהירה</string>
+	<string name="type.railway.rail.tourism">רכבת תיירות</string>
+	<string name="type.railway.rail.main">מסילת רכבת</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">רכבת משנית</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">רכבת שירות</string>
+	<string name="type.railway.rail.spur">ספר רכבת</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">מסילת רכבת עזר</string>
+	<string name="type.railway.rail.bridge">גשר הרכבת</string>
+	<string name="type.railway.rail.highspeed.bridge">גשר הרכבת</string>
+	<string name="type.railway.rail.tourism.bridge">גשר הרכבת</string>
+	<string name="type.railway.rail.main.bridge">גשר הרכבת</string>
+	<string name="type.railway.rail.branch.bridge">גשר הרכבת</string>
+	<string name="type.railway.rail.utility.bridge">גשר הרכבת</string>
+	<string name="type.railway.rail.spur.bridge">גשר הרכבת</string>
+	<string name="type.railway.rail.service.bridge">גשר הרכבת</string>
+	<string name="type.railway.rail.tunnel">מנהרת הרכבת</string>
+	<string name="type.railway.rail.highspeed.tunnel">מנהרת הרכבת</string>
+	<string name="type.railway.rail.tourism.tunnel">מנהרת הרכבת</string>
+	<string name="type.railway.rail.main.tunnel">מנהרת הרכבת</string>
+	<string name="type.railway.rail.branch.tunnel">מנהרת הרכבת</string>
+	<string name="type.railway.rail.utility.tunnel">מנהרת הרכבת</string>
+	<string name="type.railway.rail.spur.tunnel">מנהרת הרכבת</string>
+	<string name="type.railway.rail.service.tunnel">מנהרת הרכבת</string>
 	<string name="type.railway.station.funicular">רַכֶּבֶל</string>
 	<string name="type.shop.bathroom_furnishing">ריהוט חדר רחצה</string>
 	<string name="type.shop.cannabis">חנות קנאביס</string>

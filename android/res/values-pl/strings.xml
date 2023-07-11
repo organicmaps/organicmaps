@@ -1466,13 +1466,32 @@
 	<string name="type.railway.level_crossing">Przejazd kolejowy</string>
 	<string name="type.railway.monorail">Kolej jednoszynowa</string>
 	<string name="type.railway.rail">Kolej</string>
-	<string name="type.railway.rail.highspeed">Kolej</string>
-	<string name="type.railway.rail.tourism">Kolej</string>
+	<string name="type.railway.rail.highspeed">Kolej dużych prędkości</string>
+	<string name="type.railway.rail.tourism">Kolej turystyczna</string>
 	<string name="type.railway.rail.main">Kolej</string>
-	<string name="type.railway.rail.branch">Kolej</string>
-	<string name="type.railway.rail.utility">Kolej</string>
-	<string name="type.railway.rail.spur">Kolej</string>
-	<string name="type.railway.rail.service">Kolej</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">Kolej drugorzędna</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">Kolej użytkowa</string>
+	<string name="type.railway.rail.spur">Ostroga kolejowa</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">Pomocniczy tor kolejowy</string>
+	<string name="type.railway.rail.bridge">Most kolejowy</string>
+	<string name="type.railway.rail.highspeed.bridge">Most kolejowy</string>
+	<string name="type.railway.rail.tourism.bridge">Most kolejowy</string>
+	<string name="type.railway.rail.main.bridge">Most kolejowy</string>
+	<string name="type.railway.rail.branch.bridge">Most kolejowy</string>
+	<string name="type.railway.rail.utility.bridge">Most kolejowy</string>
+	<string name="type.railway.rail.spur.bridge">Most kolejowy</string>
+	<string name="type.railway.rail.service.bridge">Most kolejowy</string>
+	<string name="type.railway.rail.tunnel">Tunel kolejowy</string>
+	<string name="type.railway.rail.highspeed.tunnel">Tunel kolejowy</string>
+	<string name="type.railway.rail.tourism.tunnel">Tunel kolejowy</string>
+	<string name="type.railway.rail.main.tunnel">Tunel kolejowy</string>
+	<string name="type.railway.rail.branch.tunnel">Tunel kolejowy</string>
+	<string name="type.railway.rail.utility.tunnel">Tunel kolejowy</string>
+	<string name="type.railway.rail.spur.tunnel">Tunel kolejowy</string>
+	<string name="type.railway.rail.service.tunnel">Tunel kolejowy</string>
 	<string name="type.railway.station">Dworzec kolejowy</string>
 	<string name="type.railway.station.funicular">Kolejka linowa</string>
 	<string name="type.railway.station.light_rail">Dworzec kolejowy</string>

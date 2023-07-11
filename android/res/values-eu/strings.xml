@@ -1433,13 +1433,32 @@
 	<string name="type.railway.level_crossing">Trenbide-pasagunea</string>
 	<string name="type.railway.monorail">Tren monoraila</string>
 	<string name="type.railway.rail">Trenbidea</string>
-	<string name="type.railway.rail.highspeed">Trenbidea</string>
-	<string name="type.railway.rail.tourism">Trenbidea</string>
+	<string name="type.railway.rail.highspeed">Abiadura handiko trena</string>
+	<string name="type.railway.rail.tourism">Tren turistikoa</string>
 	<string name="type.railway.rail.main">Trenbidea</string>
-	<string name="type.railway.rail.branch">Trenbidea</string>
-	<string name="type.railway.rail.utility">Trenbidea</string>
-	<string name="type.railway.rail.spur">Trenbidea</string>
-	<string name="type.railway.rail.service">Trenbidea</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">Bigarren mailako trenbidea</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">Erabilgarritasun trena</string>
+	<string name="type.railway.rail.spur">Trenbide-spur</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">Trenbide laguntzailea</string>
+	<string name="type.railway.rail.bridge">Trenbide zubia</string>
+	<string name="type.railway.rail.highspeed.bridge">Trenbide zubia</string>
+	<string name="type.railway.rail.tourism.bridge">Trenbide zubia</string>
+	<string name="type.railway.rail.main.bridge">Trenbide zubia</string>
+	<string name="type.railway.rail.branch.bridge">Trenbide zubia</string>
+	<string name="type.railway.rail.utility.bridge">Trenbide zubia</string>
+	<string name="type.railway.rail.spur.bridge">Trenbide zubia</string>
+	<string name="type.railway.rail.service.bridge">Trenbide zubia</string>
+	<string name="type.railway.rail.tunnel">Trenbide-tunela</string>
+	<string name="type.railway.rail.highspeed.tunnel">Trenbide-tunela</string>
+	<string name="type.railway.rail.tourism.tunnel">Trenbide-tunela</string>
+	<string name="type.railway.rail.main.tunnel">Trenbide-tunela</string>
+	<string name="type.railway.rail.branch.tunnel">Trenbide-tunela</string>
+	<string name="type.railway.rail.utility.tunnel">Trenbide-tunela</string>
+	<string name="type.railway.rail.spur.tunnel">Trenbide-tunela</string>
+	<string name="type.railway.rail.service.tunnel">Trenbide-tunela</string>
 	<string name="type.railway.station">Tren geltokian</string>
 	<string name="type.railway.station.funicular">Funikularra</string>
 	<string name="type.railway.station.light_rail">Tren geltokian</string>

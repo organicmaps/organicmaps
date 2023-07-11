@@ -2804,51 +2804,54 @@
 
 "type.railway.rail" = "Ferrovia";
 
-"type.railway.rail.highspeed" = "Ferrovia";
+"type.railway.rail.highspeed" = "Ferrovia de alta velocidade";
 
-"type.railway.rail.tourism" = "Ferrovia";
+"type.railway.rail.tourism" = "Ferrovia turística";
 
 "type.railway.rail.main" = "Ferrovia";
 
-"type.railway.rail.branch" = "Ferrovia";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Ramal ferroviário";
 
-"type.railway.rail.utility" = "Ferrovia";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Ferrovia de serviços";
 
-"type.railway.rail.spur" = "Ramal de ferrovia";
+"type.railway.rail.spur" = "Ramal de inserção";
 
-"type.railway.rail.service" = "Ferrovia";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Linha de serviço";
 
-"type.railway.rail.bridge" = "Ferrovia";
+"type.railway.rail.bridge" = "Ponte ferroviária";
 
-"type.railway.rail.highspeed.bridge" = "Ferrovia";
+"type.railway.rail.highspeed.bridge" = "Ponte ferroviária";
 
-"type.railway.rail.tourism.bridge" = "Ferrovia";
+"type.railway.rail.tourism.bridge" = "Ponte ferroviária";
 
-"type.railway.rail.main.bridge" = "Ferrovia";
+"type.railway.rail.main.bridge" = "Ponte ferroviária";
 
-"type.railway.rail.branch.bridge" = "Ferrovia";
+"type.railway.rail.branch.bridge" = "Ponte ferroviária";
 
-"type.railway.rail.utility.bridge" = "Ferrovia";
+"type.railway.rail.utility.bridge" = "Ponte ferroviária";
 
-"type.railway.rail.spur.bridge" = "Ferrovia";
+"type.railway.rail.spur.bridge" = "Ponte ferroviária";
 
-"type.railway.rail.service.bridge" = "Ferrovia";
+"type.railway.rail.service.bridge" = "Ponte ferroviária";
 
-"type.railway.rail.tunnel" = "Ferrovia";
+"type.railway.rail.tunnel" = "Túnel ferroviário";
 
-"type.railway.rail.highspeed.tunnel" = "Ferrovia";
+"type.railway.rail.highspeed.tunnel" = "Túnel ferroviário";
 
-"type.railway.rail.tourism.tunnel" = "Ferrovia";
+"type.railway.rail.tourism.tunnel" = "Túnel ferroviário";
 
-"type.railway.rail.main.tunnel" = "Ferrovia";
+"type.railway.rail.main.tunnel" = "Túnel ferroviário";
 
-"type.railway.rail.branch.tunnel" = "Ferrovia";
+"type.railway.rail.branch.tunnel" = "Túnel ferroviário";
 
-"type.railway.rail.utility.tunnel" = "Ferrovia";
+"type.railway.rail.utility.tunnel" = "Túnel ferroviário";
 
-"type.railway.rail.spur.tunnel" = "Ferrovia";
+"type.railway.rail.spur.tunnel" = "Túnel ferroviário";
 
-"type.railway.rail.service.tunnel" = "Ferrovia";
+"type.railway.rail.service.tunnel" = "Túnel ferroviário";
 
 "type.railway.station" = "Estação de trem";
 

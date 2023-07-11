@@ -2804,19 +2804,22 @@
 
 "type.railway.rail" = "रेल्वे";
 
-"type.railway.rail.highspeed" = "रेल्वे";
+"type.railway.rail.highspeed" = "हाय-स्पीड रेल्वे";
 
-"type.railway.rail.tourism" = "रेल्वे";
+"type.railway.rail.tourism" = "पर्यटन रेल्वे";
 
 "type.railway.rail.main" = "रेल्वे";
 
-"type.railway.rail.branch" = "रेल्वे";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "दुय्यम रेल्वे";
 
-"type.railway.rail.utility" = "रेल्वे";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "उपयुक्तता रेल्वे";
 
-"type.railway.rail.spur" = "रेल्वे";
+"type.railway.rail.spur" = "रेल्वे स्पर";
 
-"type.railway.rail.service" = "रेल्वे";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "सहायक रेल्वे ट्रॅक";
 
 "type.railway.rail.bridge" = "रेल्वे";
 

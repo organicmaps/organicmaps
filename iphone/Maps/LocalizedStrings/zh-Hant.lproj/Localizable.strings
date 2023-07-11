@@ -2804,35 +2804,38 @@
 
 "type.railway.rail" = "鐵路軌道";
 
-"type.railway.rail.highspeed" = "鐵路軌道";
+"type.railway.rail.highspeed" = "高鐵";
 
-"type.railway.rail.tourism" = "鐵路軌道";
+"type.railway.rail.tourism" = "旅遊鐵路";
 
-"type.railway.rail.main" = "鐵路軌道";
+"type.railway.rail.main" = "鐵路";
 
-"type.railway.rail.branch" = "鐵路軌道";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "二級鐵路";
 
-"type.railway.rail.utility" = "鐵路軌道";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "公用鐵路";
 
-"type.railway.rail.spur" = "鐵路軌道";
+"type.railway.rail.spur" = "鐵路支線";
 
-"type.railway.rail.service" = "鐵路軌道";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "輔助鐵軌";
 
-"type.railway.rail.bridge" = "鐵路軌道";
+"type.railway.rail.bridge" = "鐵路橋";
 
-"type.railway.rail.highspeed.bridge" = "鐵路軌道";
+"type.railway.rail.highspeed.bridge" = "鐵路橋";
 
-"type.railway.rail.tourism.bridge" = "鐵路軌道";
+"type.railway.rail.tourism.bridge" = "鐵路橋";
 
-"type.railway.rail.main.bridge" = "鐵路軌道";
+"type.railway.rail.main.bridge" = "鐵路橋";
 
-"type.railway.rail.branch.bridge" = "鐵路軌道";
+"type.railway.rail.branch.bridge" = "鐵路橋";
 
-"type.railway.rail.utility.bridge" = "鐵路軌道";
+"type.railway.rail.utility.bridge" = "鐵路橋";
 
-"type.railway.rail.spur.bridge" = "鐵路軌道";
+"type.railway.rail.spur.bridge" = "鐵路橋";
 
-"type.railway.rail.service.bridge" = "鐵路軌道";
+"type.railway.rail.service.bridge" = "鐵路橋";
 
 "type.railway.rail.tunnel" = "鐵路軌道";
 

@@ -1091,6 +1091,32 @@
 	<string name="type.power.plant.wind">Ветраэлектрастанцыя</string>
 	<string name="type.railway.funicular">Фунікулёр</string>
 	<string name="type.railway.platform">Чыгуначная платформа</string>
+	<string name="type.railway.rail.highspeed">Хуткасная чыгунка</string>
+	<string name="type.railway.rail.tourism">Турыстычная чыгунка</string>
+	<string name="type.railway.rail.main">Чыгуначны</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">Другасная чыгунка</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">Службова чыгунка</string>
+	<string name="type.railway.rail.spur">Чыгуначны шлях</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">Дапаможны чыгуначны шлях</string>
+	<string name="type.railway.rail.bridge">Чыгуначны мост</string>
+	<string name="type.railway.rail.highspeed.bridge">Чыгуначны мост</string>
+	<string name="type.railway.rail.tourism.bridge">Чыгуначны мост</string>
+	<string name="type.railway.rail.main.bridge">Чыгуначны мост</string>
+	<string name="type.railway.rail.branch.bridge">Чыгуначны мост</string>
+	<string name="type.railway.rail.utility.bridge">Чыгуначны мост</string>
+	<string name="type.railway.rail.spur.bridge">Чыгуначны мост</string>
+	<string name="type.railway.rail.service.bridge">Чыгуначны мост</string>
+	<string name="type.railway.rail.tunnel">Чыгуначны тунэль</string>
+	<string name="type.railway.rail.highspeed.tunnel">Чыгуначны тунэль</string>
+	<string name="type.railway.rail.tourism.tunnel">Чыгуначны тунэль</string>
+	<string name="type.railway.rail.main.tunnel">Чыгуначны тунэль</string>
+	<string name="type.railway.rail.branch.tunnel">Чыгуначны тунэль</string>
+	<string name="type.railway.rail.utility.tunnel">Чыгуначны тунэль</string>
+	<string name="type.railway.rail.spur.tunnel">Чыгуначны тунэль</string>
+	<string name="type.railway.rail.service.tunnel">Чыгуначны тунэль</string>
 	<string name="type.railway.station.funicular">Фунікулёр</string>
 	<string name="type.shop.bathroom_furnishing">Мэбля для ванных пакояў</string>
 	<string name="type.shop.beverages">Напоі</string>

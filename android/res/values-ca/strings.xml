@@ -777,6 +777,32 @@
 	<string name="type.power.plant.solar">Central d\'energia solar</string>
 	<string name="type.power.plant.wind">Central eòlica</string>
 	<string name="type.railway.funicular">Funicular</string>
+	<string name="type.railway.rail.highspeed">Ferrocarril d\'alta velocitat</string>
+	<string name="type.railway.rail.tourism">Ferrocarril turístic</string>
+	<string name="type.railway.rail.main">Ferrocarril</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">Ferrocarril secundari</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">Ferrocarril d\'utilitat</string>
+	<string name="type.railway.rail.spur">Espoló de ferrocarril</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">Via ferroviària auxiliar</string>
+	<string name="type.railway.rail.bridge">Pont del ferrocarril</string>
+	<string name="type.railway.rail.highspeed.bridge">Pont del ferrocarril</string>
+	<string name="type.railway.rail.tourism.bridge">Pont del ferrocarril</string>
+	<string name="type.railway.rail.main.bridge">Pont del ferrocarril</string>
+	<string name="type.railway.rail.branch.bridge">Pont del ferrocarril</string>
+	<string name="type.railway.rail.utility.bridge">Pont del ferrocarril</string>
+	<string name="type.railway.rail.spur.bridge">Pont del ferrocarril</string>
+	<string name="type.railway.rail.service.bridge">Pont del ferrocarril</string>
+	<string name="type.railway.rail.tunnel">Túnel ferroviari</string>
+	<string name="type.railway.rail.highspeed.tunnel">Túnel ferroviari</string>
+	<string name="type.railway.rail.tourism.tunnel">Túnel ferroviari</string>
+	<string name="type.railway.rail.main.tunnel">Túnel ferroviari</string>
+	<string name="type.railway.rail.branch.tunnel">Túnel ferroviari</string>
+	<string name="type.railway.rail.utility.tunnel">Túnel ferroviari</string>
+	<string name="type.railway.rail.spur.tunnel">Túnel ferroviari</string>
+	<string name="type.railway.rail.service.tunnel">Túnel ferroviari</string>
 	<string name="type.railway.station.funicular">Funicular</string>
 	<string name="type.shop.bathroom_furnishing">Mobles de bany</string>
 	<string name="type.shop.cannabis">Botiga de cànnabis</string>

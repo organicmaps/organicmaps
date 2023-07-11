@@ -2804,19 +2804,22 @@
 
 "type.railway.rail" = "铁路轨道";
 
-"type.railway.rail.highspeed" = "铁路轨道";
+"type.railway.rail.highspeed" = "高速铁路";
 
-"type.railway.rail.tourism" = "铁路轨道";
+"type.railway.rail.tourism" = "观光性铁路";
 
-"type.railway.rail.main" = "铁路轨道";
+"type.railway.rail.main" = "铁路";
 
-"type.railway.rail.branch" = "铁路轨道";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "铁路支线";
 
-"type.railway.rail.utility" = "铁路轨道";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "公共铁路";
 
-"type.railway.rail.spur" = "铁路轨道";
+"type.railway.rail.spur" = "铁路岔线";
 
-"type.railway.rail.service" = "铁路轨道";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "服务性铁路";
 
 "type.railway.rail.bridge" = "铁路轨道";
 
