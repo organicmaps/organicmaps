@@ -23107,7 +23107,7 @@
     fi = Leivonnainen
     fr = Pâtisserie
     he = הפאמ
-    hu = Cukrászsütemény
+    hu = Cukrászda
     id = Kue-kue
     it = Pasticcino
     ja = ペストリー
