@@ -1,39 +1,37 @@
-• Detailed offline maps with places that don't exist on other maps
-• Cycling routes, hiking trails, and walking paths
-• Contour lines, elevation profiles, peaks, and slopes
-• Turn-by-turn walking, cycling, and car navigation with voice guidance
-• Fast offline search
-• Bookmark everything you need, import and share KML, KMZ, GPX
-• Dark mode to protect your eyes
-• … and many other features!
+• Mapas offline detalhados com lugares que não existem em outros mapas
+• Rotas de ciclismo, trilhos para caminhadas e caminhos para peões
+• Curvas de nível, perfis de elevação, picos e encostas
+• Navegação passo a passo a pé, bicicleta e carro, com orientação por voz
+• Pesquisa rápida no mapa e marcadores sem ligação à Internet
+• Modo escuro para proteger os seus olhos
 
-Organic Maps is pure and organic, made with love:
+O Organic Maps é puro e orgânico, feito com amor:
 
-• Respects your privacy
-• Saves your battery
-• No unexpected mobile data charges
+• Respeita a sua privacidade
+• Economiza a bateria
+• Sem gastos inesperados de dados móveis
 
-Organic Maps is free from trackers and other bad stuff:
+O Organic Maps está livre de rastreadores e outras coisas ruins:
 
-• No ads
-• No tracking
-• No data collection
-• No phoning home
-• No annoying registration
-• No mandatory tutorials
-• No noisy email spam
-• No push notifications
-• No crapware
-• No pesticides
+• Sem anúncios
+• Sem rastreamento
+• Sem recolha de dados
+• Sem conexões a servidores externos
+• Sem registos desnecessários
+• Sem tutoriais obrigatórios
+• Sem lixo eletrónico por e-mail
+• Sem notificações "push"
+• Sem recursos desnecessários
+• Sem pesticidas
 
-At Organic Maps, we believe that privacy is a fundamental human right:
+No Organic Maps, acreditamos que a privacidade é um direito fundamental do ser humano:
 
-• Organic Maps is an indie community-driven project
-• The code is open-sourced
-• The maps data is taken from OpenStreetMap, also community-driven project
-• We protect your privacy from Big Tech’s prying eyes
-• Stay safe no matter wherever you are
+• O Organic Maps é um projeto independente voltado para a comunidade
+• É de código aberto
+• Os dados dos mapas são retirados do OpenStreetMap, um projeto também voltado para a comunidade
+• Protegemos a sua privacidade dos olhos curiosos das grandes empresas
+• Fique protegido, não importa onde esteja
 
-Reject surveillance, embrace your freedom, and support the community.
+Rejeite a vigilância, abrace a sua liberdade e apoie a comunidade.
 
-Give Organic Maps a try!
+Experimente o Organic Maps!

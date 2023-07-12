@@ -1,13 +1,13 @@
-• GPX import support
-• New OpenStreetMap data as of June 2
-• MRGS and UTM coordinates support (tap on coordinates to change)
-• Improved car and bicycle routing
-• Fixed bug that prevented upload of OSM edits when on battery power
-• Now compass works on devices without gyroscope
-• Fixed missing Wiki descriptions
-• Decreased TTS (Text-To-Speech) voice speed
-• Added Fish Pass
-• Fixed funicular and parcel locker icons
-• Corrected be, eu, en, en-GB, and uk translations
+• GPX导入支持
+• 6月2日最新OpenStreetMap数据
+• MRGS和UTM坐标支持（点击坐标可更改）
+• 改进了汽车和自行车路线
+• 修复了电池袋里时阻止上传OSM编辑的bug
+• 指南针可以在没有陀螺仪的设备上使用
+• 修复缺失的Wiki描述
+• 降低TTS （文本转语音）语速
+• 添加钓鱼通道
+• 修复缆车索道和包裹寄存柜图标
+• 更正be、eu、en、en-GB和uk语言翻译
 
-…more: omaps.org/news
+…更多内容请参考：omaps.org/news

@@ -1,1 +1,1 @@
-Vandringsleder, Resa, GPS
+Leder, resor, GPS-navigering
