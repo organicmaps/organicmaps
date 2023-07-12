@@ -1,15 +1,15 @@
-• Fresh OpenStreetMap data as of July 7, 2023
-• Fix several crashes
-• Support altitude, OSMand and Garmin colors in imported GPX tracks
-• Fixed pedestrian ETA for big slopes
-• Better car routing
-• Improved search
-• Share button has been moved to the Place Page
-• Fixed API backurl
-• Updated cz, de, fi, fr, it, pl, sv, tr translations
-• Add new shops and events types
-• Improved water tunnels and bridges rendering
-• More detailed railway types
-• Add boundary=protected_area
+• Свежыя даныя OpenStreetMap па стане на 7 ліпеня 2023 г
+• Выпраўлена некалькі збояў
+• Падтрымка вышыні, OSMand і колераў Garmin у імпартаваных дарожках GPX
+• Выпраўлены час прыбыцця для пешага маршрута з вялікімі схіламі
+• Палепшаны аўтамабільны маршрут
+• Палепшаны пошук
+• Кнопка «Абагуліць» была перамешчана на старонку «Месца».
+• Выпраўлены backurl API
+• Абноўлены пераклады cz, de, fi, fr, it, pl, sv, tr
+• Даданы новыя крамы і тыпы мерапрыемстваў
+• Палепшаны рэндэрынг водных тунэляў і мастоў
+• Больш падрабязныя тыпы чыгункі
+• Даданая boundary=protected_area
 
-…more: omaps.org/news
+…больш: omaps.org/news
