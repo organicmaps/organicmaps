@@ -1,7 +1,6 @@
 #include "indexer/drules_selector.hpp"
 #include "indexer/drules_selector_parser.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/scales.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -29,10 +28,10 @@ public:
   }
 
   // ISelector overrides:
-  bool Test(FeatureType & ft) const override
+  bool Test(FeatureType & ft, int zoom) const override
   {
     for (auto const & selector : m_selectors)
-      if (!selector->Test(ft))
+      if (!selector->Test(ft, zoom))
         return false;
     return true;
   }
@@ -47,7 +46,7 @@ class Selector : public ISelector
 {
 public:
   // Signature of function which takes a property from a feature
-  typedef bool (*TGetFeatureTagValueFn)(FeatureType &, TType & value);
+  typedef bool (*TGetFeatureTagValueFn)(FeatureType &, int, TType & value);
 
   Selector(TGetFeatureTagValueFn fn, SelectorOperatorType op, TType const & value)
     : m_getFeatureValueFn(fn), m_evalFn(nullptr), m_value(value)
@@ -73,10 +72,10 @@ public:
   }
 
   // ISelector overrides:
-  bool Test(FeatureType & ft) const override
+  bool Test(FeatureType & ft, int zoom) const override
   {
     TType tagValue;
-    if (!m_getFeatureValueFn(ft, tagValue))
+    if (!m_getFeatureValueFn(ft, zoom, tagValue))
       return false;
     return (this->*m_evalFn)(tagValue);
   }
@@ -134,28 +133,27 @@ private:
 */
 
 // Feature tag value evaluator for tag 'population'
-bool GetPopulation(FeatureType & ft, uint64_t & population)
+bool GetPopulation(FeatureType & ft, int, uint64_t & population)
 {
   population = ftypes::GetPopulation(ft);
   return true;
 }
 
 // Feature tag value evaluator for tag 'name'
-bool GetName(FeatureType & ft, string & name)
+bool GetName(FeatureType & ft, int, string & name)
 {
   name = ft.GetReadableName();
   return true;
 }
 
 // Feature tag value evaluator for tag 'bbox_area' (bounding box area in sq.meters)
-bool GetBoundingBoxArea(FeatureType & ft, double & sqM)
+bool GetBoundingBoxArea(FeatureType & ft, int zoom, double & sqM)
 {
   if (feature::GeomType::Area != ft.GetGeomType())
     return false;
 
-  // FIXME: the best geometry is loaded here always, use the current zoom level
-  // see https://github.com/organicmaps/organicmaps/issues/2840
-  sqM = mercator::AreaOnEarth(ft.GetLimitRect(scales::GetUpperScale()));
+  // https://github.com/organicmaps/organicmaps/issues/2840
+  sqM = mercator::AreaOnEarth(ft.GetLimitRect(zoom));
   return true;
 }
 }  // namespace
