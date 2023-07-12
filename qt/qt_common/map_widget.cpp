@@ -365,6 +365,7 @@ void MapWidget::initializeGL()
                 "\nShading language version:\n",funcs->glGetString(GL_SHADING_LANGUAGE_VERSION),
                 "\nExtensions:", funcs->glGetString(GL_EXTENSIONS)));
 
+    auto fmt = context()->format();
     if (context()->isOpenGLES())
     {
       LOG(LINFO, ("Context is LibGLES"));
@@ -382,9 +383,9 @@ void MapWidget::initializeGL()
     }
     else
     {
-      LOG(LINFO, ("Contex is LibGL"));
+      LOG(LINFO, ("Contex is LibGL, try to override.."));
 
-      if (context()->format().version() < qMakePair(3, 2))
+      if (fmt.version() < qMakePair(3, 2))
       {
         LOG(LINFO, ("OpenGL version is below 3.2, taking the OpenGL 2.1 path"));
         m_apiOpenGLES3 = false;
@@ -395,9 +396,10 @@ void MapWidget::initializeGL()
         // TODO: Separate apiOpenGL3 from apiOpenGLES3, and use that for the currend shader code.
         m_apiOpenGLES3 = true;
       }
+
+      fmt.setRenderableType(QSurfaceFormat::OpenGLES);
     }
 
-    auto fmt = context()->format();
     if (m_apiOpenGLES3)
     {
       fmt.setProfile(QSurfaceFormat::CoreProfile);
