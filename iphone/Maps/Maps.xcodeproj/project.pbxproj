@@ -572,6 +572,7 @@
 		F6FE3C3C1CC5106500A73196 /* MWMPlaceDoesntExistAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6FE3C3A1CC5106500A73196 /* MWMPlaceDoesntExistAlert.xib */; };
 		F6FEA82E1C58F108007223CC /* MWMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F6FEA82C1C58E89B007223CC /* MWMButton.m */; };
 		FA14E686276014C10066E453 /* libz.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FA14E683276014C10066E453 /* libz.1.tbd */; };
+		FA4511912A5EC15100CD8F64 /* 00_NotoSerifDevanagari-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA45118E2A5EC15100CD8F64 /* 00_NotoSerifDevanagari-Regular.ttf */; };
 		FA456C3C26BDC6AD00B83C20 /* Chart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA456C3B26BDC6AD00B83C20 /* Chart.framework */; };
 		FA456C3D26BDC6BA00B83C20 /* Chart.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA456C3B26BDC6AD00B83C20 /* Chart.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FA456C3E26BDC6C100B83C20 /* DatePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BDC26BC58570026D455 /* DatePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1538,6 +1539,7 @@
 		FA1A4CF226AABBEC00026C44 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = bg; path = bg.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		FA1A4CF326AABBED00026C44 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FA1A4CF426AABBEE00026C44 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FA45118E2A5EC15100CD8F64 /* 00_NotoSerifDevanagari-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "00_NotoSerifDevanagari-Regular.ttf"; path = "../../data/00_NotoSerifDevanagari-Regular.ttf"; sourceTree = "<group>"; };
 		FA456C3B26BDC6AD00B83C20 /* Chart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Chart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA456C4026BDCC8E00B83C20 /* shaders.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = shaders.xcodeproj; path = ../../xcode/shaders/shaders.xcodeproj; sourceTree = "<group>"; };
 		FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = WorldCoasts.mwm; path = ../../data/WorldCoasts.mwm; sourceTree = "<group>"; };
@@ -3488,6 +3490,7 @@
 			children = (
 				6B679E88266BFD090074AE2A /* 00_NotoNaskhArabic-Regular.ttf */,
 				6B15907026623AE500944BBA /* 00_NotoSansThai-Regular.ttf */,
+				FA45118E2A5EC15100CD8F64 /* 00_NotoSerifDevanagari-Regular.ttf */,
 				EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */,
 				9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */,
 				EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */,
@@ -3707,6 +3710,7 @@
 				47AEF8402231249E00D20538 /* categories_brands.txt in Resources */,
 				F6C3A1B221AC22810060EEC8 /* Alert 5.m4a in Resources */,
 				6741A9531BF340DE002C974C /* 01_dejavusans.ttf in Resources */,
+				FA4511912A5EC15100CD8F64 /* 00_NotoSerifDevanagari-Regular.ttf in Resources */,
 				6741A9541BF340DE002C974C /* 02_droidsans-fallback.ttf in Resources */,
 				6741A9571BF340DE002C974C /* 03_jomolhari-id-a3d.ttf in Resources */,
 				3404F49A2028A20D0090E401 /* BMCCategoryCell.xib in Resources */,
