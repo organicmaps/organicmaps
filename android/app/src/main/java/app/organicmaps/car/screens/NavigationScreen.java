@@ -4,6 +4,7 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
+import androidx.car.app.CarToast;
 import androidx.car.app.model.Action;
 import androidx.car.app.model.ActionStrip;
 import androidx.car.app.model.CarIcon;
@@ -92,6 +93,8 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     ThemeSwitcher.INSTANCE.restart(true);
     mNavigationManager.navigationEnded();
     RoutingUtils.resetTrip();
+    // TODO (AndrewShkrob): Handle "Stop" click and "Navigation finished" actions separately. Add localized string.
+    CarToast.makeText(getCarContext(), "Navigation finished", CarToast.LENGTH_LONG).show();
     getScreenManager().popToRoot();
   }
 

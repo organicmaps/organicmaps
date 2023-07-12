@@ -164,6 +164,19 @@ public final class NavigationSession extends Session implements DefaultLifecycle
   @Override
   public void onLocationUpdated(@NonNull Location location)
   {
+    if (!RoutingController.get().isNavigating())
+      return;
+
+    // TODO: consider to create callback mechanism to transfer 'ROUTE_IS_FINISHED' event from
+    // the core to the platform code (https://github.com/organicmaps/organicmaps/issues/3589),
+    // because calling the native method 'nativeIsRouteFinished'
+    // too often can result in poor UI performance.
+    if (Framework.nativeIsRouteFinished())
+    {
+      RoutingController.get().cancel();
+      // Restart location with a new interval.
+      LocationHelper.INSTANCE.restart();
+    }
   }
 
   @Override
