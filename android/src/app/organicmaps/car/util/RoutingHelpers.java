@@ -112,13 +112,9 @@ public final class RoutingHelpers
       break;
     // TODO (AndrewShkrob): add support for CW (clockwise) directions
     case ENTER_ROUND_ABOUT:
-      maneuverType = Maneuver.TYPE_ROUNDABOUT_ENTER_CCW;
-      break;
     case STAY_ON_ROUND_ABOUT:
-      maneuverType = Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CCW;
-      break;
     case LEAVE_ROUND_ABOUT:
-      maneuverType = Maneuver.TYPE_ROUNDABOUT_EXIT_CCW;
+      maneuverType = Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CCW;
       break;
     case START_AT_THE_END_OF_STREET:
       maneuverType = Maneuver.TYPE_DEPART;
