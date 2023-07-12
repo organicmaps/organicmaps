@@ -1,6 +1,9 @@
 name: macOS Check
 on:
   workflow_dispatch: # Manual trigger
+  push:
+    branches:
+      - master
   pull_request:
     paths-ignore:
       - .gitignore
