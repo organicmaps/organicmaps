@@ -64,9 +64,13 @@ namespace stats
 
   struct MapInfo
   {
-    explicit MapInfo(double geometryDupFactor) : m_geometryDupFactor(geometryDupFactor) {}
+    explicit MapInfo(int geomMinDiff, double geomMinFactor)
+      : m_geomMinDiff(geomMinDiff)
+      , m_geomMinFactor(geomMinFactor)
+    {}
 
-    double m_geometryDupFactor;
+    size_t m_geomMinDiff;
+    double m_geomMinFactor;
 
     std::map<feature::GeomType, GeneralInfo> m_byGeomType;
     std::map<ClassifType, GeneralInfo> m_byClassifType;
@@ -74,10 +78,11 @@ namespace stats
     std::map<AreaType, GeneralInfo> m_byAreaSize;
 
     GeomStats m_byLineGeom, m_byAreaGeom,
-              m_byLineGeomCompared, m_byAreaGeomCompared,
+              m_byLineGeomComparedS, m_byLineGeomComparedD,
+              m_byAreaGeomComparedS, m_byAreaGeomComparedD,
               m_byLineGeomDup, m_byAreaGeomDup;
 
-    GeneralInfo m_inner[3];
+    GeneralInfo m_innerPoints, m_innerFirstPoints, m_innerStrips, m_innerSize;
   };
 
   void PrintFileContainerStats(std::ostream & os, std::string const & fPath);
