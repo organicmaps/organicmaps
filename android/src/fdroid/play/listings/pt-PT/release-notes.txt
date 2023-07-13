@@ -10,5 +10,3 @@
 • Melhoria na renderização de túneis de água e pontes
 • Detalhamento nos tipos de ferrovias
 • Adição de áreas protegidas
-
-…mais: omaps.org/news
