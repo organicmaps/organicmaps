@@ -20976,49 +20976,6 @@
     zh-Hans = 导出文件
     zh-Hant = 導出文件
 
-  [list_settings]
-    tags = android,ios
-    en = List Settings
-    af = Lysinstellings
-    ar = إعدادات القائمة
-    be = Налады спіса
-    bg = Настройки на списък
-    ca = Configuració de la llista
-    cs = Nastavení seznamu
-    da = Listeindstillinger
-    de = Listeneinstellungen
-    el = Ρυθμίσεις Λίστας
-    es = Ajustes de la lista
-    es-MX = Ajustes de lista
-    et = Loetelu seaded
-    eu = Zerrendaren ezarpenak
-    fa = تنظیمات لیست
-    fi = Luettelon asetukset
-    fr = Paramètres de la liste
-    hu = Lista beállításai
-    id = Pengaturan Daftar
-    it = Impostazioni elenco
-    ja = リスト設定
-    ko = 목록 세팅
-    lt = Sąrašo nustatymai
-    mr = यादी सेटिंग
-    nb = Liste Innstillinger
-    nl = Lijst Instellingen
-    pl = Ustawienia listy
-    pt = Configurações de listas
-    pt-BR = Configurações de lista
-    ro = Opțiunile listei
-    ru = Настройки списка
-    sk = Nastavenie zoznamu
-    sv = Listinställningar
-    sw = Mipangilio ya Orodhesha
-    th = การตั้งค่ารายการ
-    tr = Liste Ayarları
-    uk = Налаштування списку
-    vi = Cài đặt danh sách
-    zh-Hans = 列表设置
-    zh-Hant = 列表設定
-
   [delete_list]
     tags = android,ios
     en = Delete list

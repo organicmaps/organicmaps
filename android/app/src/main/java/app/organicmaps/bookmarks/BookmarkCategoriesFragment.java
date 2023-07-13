@@ -167,7 +167,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
     if (mSelectedCategory != null)
     {
       items.add(new MenuBottomSheetItem(
-          R.string.list_settings,
+          R.string.edit,
           R.drawable.ic_settings,
           () -> onSettingsActionSelected(mSelectedCategory)));
       items.add(new MenuBottomSheetItem(

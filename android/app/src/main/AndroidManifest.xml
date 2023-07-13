@@ -847,7 +847,7 @@
 
     <activity
       android:name="app.organicmaps.bookmarks.BookmarkCategorySettingsActivity"
-      android:label="@string/list_settings"/>
+      android:label="@string/edit"/>
     <activity
       android:name="app.organicmaps.widget.placepage.PlaceDescriptionActivity"
       android:label="@string/place_description_title"/>

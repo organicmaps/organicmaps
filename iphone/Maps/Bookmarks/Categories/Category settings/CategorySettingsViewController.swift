@@ -37,7 +37,7 @@ final class CategorySettingsViewController: MWMTableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    title = L("list_settings")
+    title = L("edit")
     navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
                                                         target: self,
                                                         action: #selector(onSave))
