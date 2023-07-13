@@ -1,6 +1,9 @@
 name: iOS Check
 on:
   workflow_dispatch: # Manual trigger
+  push:
+    branches:
+      - master
   pull_request:
     paths-ignore:
       - .gitignore
@@ -53,11 +56,17 @@ jobs:
         shell: bash
         run: ./configure.sh
 
+      - name: Configure ccache
+        uses: mikehardy/buildcache-action@v2.1.0
+        with:
+          cache_key: ${{ github.workflow }}-${{ matrix.buildType }}
+
       - name: Compile
         shell: bash
         # Check for compilation errors.
         run: |
           xcodebuild \
+            CC=clang CPLUSPLUS=clang++ LD=clang LDPLUSPLUS=clang++ \
             -workspace xcode/omim.xcworkspace \
             -scheme OMaps \
             -configuration ${{ matrix.buildType }} build \

@@ -74,10 +74,11 @@ jobs:
         env:
           CC: clang-14
           CXX: clang++-14
+          CMAKE_C_COMPILER_LAUNCHER: ccache
+          CMAKE_CXX_COMPILER_LAUNCHER: ccache
         # -g1 should slightly reduce build time.
         run: |
           cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug \
-            -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
             -DCMAKE_CXX_FLAGS=-g1 -DUNITY_DISABLE=ON
 
       - name: Compile
@@ -138,11 +139,12 @@ jobs:
         env:
           CC: ${{ matrix.compiler.CC }}
           CXX: ${{ matrix.compiler.CXX }}
+          CMAKE_C_COMPILER_LAUNCHER: ccache
+          CMAKE_CXX_COMPILER_LAUNCHER: ccache
         # -g1 should slightly reduce build time.
         run: |
           echo "Building ${{ matrix.CMAKE_BUILD_TYPE }}"
           cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.CMAKE_BUILD_TYPE }} \
-            -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
             -DCMAKE_C_FLAGS=-g1 -DCMAKE_CXX_FLAGS=-g1
 
       - name: Compile

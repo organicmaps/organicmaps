@@ -1,6 +1,9 @@
 name: Android Check
 on:
   workflow_dispatch: # Manual trigger
+  push:
+    branches:
+      - master
   pull_request:
     paths-ignore:
       - .gitignore
@@ -83,9 +86,17 @@ jobs:
         shell: bash
         run: ./configure.sh
 
+      - name: Configure ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          key: ${{ github.workflow }}-${{ matrix.flavor }}
+
       - name: Compile ${{ matrix.flavor }}
         shell: bash
         working-directory: android
+        env:
+          CMAKE_C_COMPILER_LAUNCHER: ccache
+          CMAKE_CXX_COMPILER_LAUNCHER: ccache
         run: |
           cmake --version
           ninja --version
