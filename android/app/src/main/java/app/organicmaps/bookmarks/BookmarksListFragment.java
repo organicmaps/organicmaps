@@ -733,7 +733,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
         items.add(new MenuBottomSheetItem(R.string.sort, R.drawable.ic_sort, this::onSortOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.export_file, R.drawable.ic_share, this::onShareOptionSelected));
     }
-    items.add(new MenuBottomSheetItem(R.string.list_settings, R.drawable.ic_settings, this::onSettingsOptionSelected));
+    items.add(new MenuBottomSheetItem(R.string.edit, R.drawable.ic_settings, this::onSettingsOptionSelected));
     if (!isLastOwnedCategory())
       items.add(new MenuBottomSheetItem(R.string.delete_list, R.drawable.ic_delete, this::onDeleteOptionSelected));
     return items;

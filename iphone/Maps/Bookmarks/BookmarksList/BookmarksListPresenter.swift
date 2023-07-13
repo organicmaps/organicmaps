@@ -119,7 +119,7 @@ final class BookmarksListPresenter {
     moreItems.append(BookmarksListMenuItem(title: L("search_show_on_map"), action: { [weak self] in
       self?.viewOnMap()
     }))
-    moreItems.append(BookmarksListMenuItem(title: L("list_settings"), action: { [weak self] in
+    moreItems.append(BookmarksListMenuItem(title: L("edit"), action: { [weak self] in
       guard let self = self else { return }
       self.router.listSettings(self.bookmarkGroup, delegate: self)
     }))
