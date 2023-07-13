@@ -2804,51 +2804,54 @@
 
 "type.railway.rail" = "Cale ferată";
 
-"type.railway.rail.highspeed" = "Cale ferată";
+"type.railway.rail.highspeed" = "Calea ferată de mare viteză";
 
-"type.railway.rail.tourism" = "Cale ferată";
+"type.railway.rail.tourism" = "Calea ferată turistică";
 
-"type.railway.rail.main" = "Cale ferată";
+"type.railway.rail.main" = "Calea ferată";
 
-"type.railway.rail.branch" = "Cale ferată";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Calea ferată secundară";
 
-"type.railway.rail.utility" = "Cale ferată";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Calea ferată utilitară";
 
-"type.railway.rail.spur" = "Cale ferată";
+"type.railway.rail.spur" = "Pinteni de cale ferată";
 
-"type.railway.rail.service" = "Cale ferată";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Calea ferată auxiliară";
 
-"type.railway.rail.bridge" = "Railway Bridge";
+"type.railway.rail.bridge" = "Podul de cale ferată";
 
-"type.railway.rail.highspeed.bridge" = "Railway Bridge";
+"type.railway.rail.highspeed.bridge" = "Podul de cale ferată";
 
-"type.railway.rail.tourism.bridge" = "Railway Bridge";
+"type.railway.rail.tourism.bridge" = "Podul de cale ferată";
 
-"type.railway.rail.main.bridge" = "Railway Bridge";
+"type.railway.rail.main.bridge" = "Podul de cale ferată";
 
-"type.railway.rail.branch.bridge" = "Railway Bridge";
+"type.railway.rail.branch.bridge" = "Podul de cale ferată";
 
-"type.railway.rail.utility.bridge" = "Railway Bridge";
+"type.railway.rail.utility.bridge" = "Podul de cale ferată";
 
-"type.railway.rail.spur.bridge" = "Railway Bridge";
+"type.railway.rail.spur.bridge" = "Podul de cale ferată";
 
-"type.railway.rail.service.bridge" = "Railway Bridge";
+"type.railway.rail.service.bridge" = "Podul de cale ferată";
 
-"type.railway.rail.tunnel" = "Railway Tunnel";
+"type.railway.rail.tunnel" = "Tunel de cale ferată";
 
-"type.railway.rail.highspeed.tunnel" = "Railway Tunnel";
+"type.railway.rail.highspeed.tunnel" = "Tunel de cale ferată";
 
-"type.railway.rail.tourism.tunnel" = "Railway Tunnel";
+"type.railway.rail.tourism.tunnel" = "Tunel de cale ferată";
 
-"type.railway.rail.main.tunnel" = "Railway Tunnel";
+"type.railway.rail.main.tunnel" = "Tunel de cale ferată";
 
-"type.railway.rail.branch.tunnel" = "Railway Tunnel";
+"type.railway.rail.branch.tunnel" = "Tunel de cale ferată";
 
-"type.railway.rail.utility.tunnel" = "Railway Tunnel";
+"type.railway.rail.utility.tunnel" = "Tunel de cale ferată";
 
-"type.railway.rail.spur.tunnel" = "Railway Tunnel";
+"type.railway.rail.spur.tunnel" = "Tunel de cale ferată";
 
-"type.railway.rail.service.tunnel" = "Railway Tunnel";
+"type.railway.rail.service.tunnel" = "Tunel de cale ferată";
 
 "type.railway.station" = "Feroviar";
 

@@ -1315,13 +1315,32 @@
 	<string name="type.railway.level_crossing">Järnvägskorsning</string>
 	<string name="type.railway.monorail">Monorail</string>
 	<string name="type.railway.rail">Järnväg</string>
-	<string name="type.railway.rail.highspeed">Järnväg</string>
-	<string name="type.railway.rail.tourism">Järnväg</string>
+	<string name="type.railway.rail.highspeed">Järnväg för höghastighetståg</string>
+	<string name="type.railway.rail.tourism">Järnväg för turisttrafik</string>
 	<string name="type.railway.rail.main">Järnväg</string>
-	<string name="type.railway.rail.branch">Järnväg</string>
-	<string name="type.railway.rail.utility">Järnväg</string>
-	<string name="type.railway.rail.spur">Järnväg</string>
-	<string name="type.railway.rail.service">Järnväg</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">Sekundär järnväg</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">Järnväg för allmännyttiga ändamål</string>
+	<string name="type.railway.rail.spur">Järnvägsspår</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">Extra järnvägsspår</string>
+	<string name="type.railway.rail.bridge">Järnvägsbro</string>
+	<string name="type.railway.rail.highspeed.bridge">Järnvägsbro</string>
+	<string name="type.railway.rail.tourism.bridge">Järnvägsbro</string>
+	<string name="type.railway.rail.main.bridge">Järnvägsbro</string>
+	<string name="type.railway.rail.branch.bridge">Järnvägsbro</string>
+	<string name="type.railway.rail.utility.bridge">Järnvägsbro</string>
+	<string name="type.railway.rail.spur.bridge">Järnvägsbro</string>
+	<string name="type.railway.rail.service.bridge">Järnvägsbro</string>
+	<string name="type.railway.rail.tunnel">Järnvägstunnel</string>
+	<string name="type.railway.rail.highspeed.tunnel">Järnvägstunnel</string>
+	<string name="type.railway.rail.tourism.tunnel">Järnvägstunnel</string>
+	<string name="type.railway.rail.main.tunnel">Järnvägstunnel</string>
+	<string name="type.railway.rail.branch.tunnel">Järnvägstunnel</string>
+	<string name="type.railway.rail.utility.tunnel">Järnvägstunnel</string>
+	<string name="type.railway.rail.spur.tunnel">Järnvägstunnel</string>
+	<string name="type.railway.rail.service.tunnel">Järnvägstunnel</string>
 	<string name="type.railway.station">Tågstation</string>
 	<string name="type.railway.station.funicular">Linbana</string>
 	<string name="type.railway.station.light_rail">Tågstation</string>

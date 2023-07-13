@@ -121,6 +121,8 @@ line[highway=road][bridge?]::bridgeblack,
 line[highway=service][bridge?]::bridgeblack,
 line[railway=rail][bridge?]::bridgeblack,
 line[railway=subway][bridge?]::bridgeblack,
+line[railway=preserved][bridge?]::bridgeblack,
+line[railway=abandoned][bridge?]::bridgeblack,
 {z-index: 390;}
 
 line[highway=motorway][bridge?]::bridgewhite,
@@ -142,6 +144,8 @@ line[highway=road][bridge?]::bridgewhite,
 line[highway=service][bridge?]::bridgewhite,
 line[railway=rail][bridge?]::bridgewhite,
 line[railway=subway][bridge?]::bridgewhite,
+line[railway=preserved][bridge?]::bridgewhite,
+line[railway=abandoned][bridge?]::bridgewhite,
 {z-index: 400;}
 
 line[highway=construction],
@@ -199,12 +203,20 @@ line[highway=secondary_link]
 line[highway=secondary]
 {z-index: 800;}
 
-line[highway=primary_link]
+line[highway=primary_link],
+line[railway=rail][highspeed?],
+line[railway=rail][usage=main],
+line[railway=rail][usage=tourism],
+line[railway=rail][usage=branch],
 {z-index: 840;}
 
 line[highway=primary],
 line|z8-9[highway=world_towns_level],
 line|z8-9[highway=world_level],
+line[railway=rail][highspeed?]::dash,
+line[railway=rail][usage=main]::dash,
+line[railway=rail][usage=tourism]::dash,
+line[railway=rail][usage=branch]::dash,
 {z-index: 850;}
 
 line[highway=motorway_link],
@@ -1001,9 +1013,35 @@ line|z15-[aeroway=taxiway]
 /* 9.RAIL 11-22 ZOOM */
 
 line|z11-[railway=rail],
+{color: @railway_light; opacity: 1;}
+line|z16-[railway=rail]::dash,
+{color: @railway_dash; opacity:1;}
+
+
+line|z10-[railway=rail][highspeed?],
+line|z10-[railway=rail][usage=main],
+line|z11-[railway=rail][usage=branch],
+{color: @railway; opacity: 1;}
+line|z10-[railway=rail][usage=tourism],
+{color: @railway_tourism; opacity: 1;}
+
+line|z16-[railway=rail][highspeed?]::dash,
+line|z16-[railway=rail][usage=main]::dash,
+line|z16-[railway=rail][usage=tourism]::dash,
+line|z16-[railway=rail][usage=branch]::dash,
+{color: @railway_dash; opacity: 1;}
+
+line|z13-[railway=rail][usage=utility],
+line|z15-[railway=rail][service=spur],
+line|z16-[railway=rail][service=service],
+{color: @railway_light; opacity: 1;}
+line|z17-[railway=rail][usage=utility]::dash,
+line|z17-[railway=rail][service=spur]::dash,
+line|z17-[railway=rail][service=service]::dash,
+{color: @industrial; opacity: 1;}
+
+
 line|z12-[railway=funicular],
-line|z13-[railway=light_rail][!tunnel],
-line|z13-[railway=subway][!tunnel],
 line|z14-[railway=monorail],
 line|z15-[railway=narrow_gauge],
 line|z16-[railway=construction],
@@ -1011,74 +1049,195 @@ line|z16-[railway=disused],
 line|z16-[railway=preserved],
 line|z16-[railway=abandoned],
 {color: @railway;opacity:1;}
+
+line|z13-[railway=light_rail][!tunnel],
+line|z13-[railway=subway][!tunnel],
+{color: @railway_light; opacity: 1;}
+
 line|z16-[railway=tram]::centerline,
 {color: @tram;opacity:1;z-index: 1000;}
 line|z16-[railway=tram]
 {color: @tram;opacity:1;}
-line|z16-[railway=rail]::dash,
+
 line|z16-[railway=subway][!tunnel]::dash,
 line|z16-[railway=light_rail][!tunnel]::dash,
 {color: @railway_dash;opacity:1;}
+
 line|z14-[railway=rail][bridge?]::bridgewhite,
 line|z14-[railway=subway][bridge?]::bridgewhite,
 line|z14-[railway=light_rail][bridge?]::bridgewhite,
+line|z16-[railway=preserved][bridge?]::bridgewhite,
+line|z16-[railway=abandoned][bridge?]::bridgewhite,
 line|z16-[railway=tram][bridge?]::bridgewhite,
 {casing-linecap: butt;casing-color:@bridge_background;}
-line|z14-[railway=rail][bridge?]::bridgeblack,
-line|z14-[railway=subway][bridge?]::bridgeblack,
-line|z14-[railway=light_rail][bridge?]::bridgeblack,
-line|z16-[railway=tram][bridge?]::bridgeblack
+line|z16-[railway=rail][bridge?]::bridgeblack,
+line|z16-[railway=subway][bridge?]::bridgeblack,
+line|z16-[railway=light_rail][bridge?]::bridgeblack,
+line|z16-[railway=preserved][bridge?]::bridgeblack,
+line|z16-[railway=abandoned][bridge?]::bridgeblack,
+line|z16-[railway=tram][bridge?]::bridgeblack,
 {casing-linecap: butt;casing-color:@bridge_casing;}
 
 /* 9.1 RAIL 11-22 ZOOM */
 
 line|z11-12[railway=rail],
-{color: @railway_light;width: 0.7;}
-line|z13-[railway=rail],
+{width: 0.7;}
+line|z13[railway=rail],
+{width: 0.9;}
+line|z14[railway=rail],
+{width: 1.2;}
+line|z15[railway=rail],
+{width: 1.8;}
+line|z16[railway=rail],
+{width: 2.8;}
+line|z17[railway=rail],
+{width: 3.2;}
+line|z18[railway=rail],
+{width: 4.2;}
+line|z19-[railway=rail],
+{width: 5.8;}
+
+line|z16[railway=rail]::dash,
+{width: 1.5; dashes: 4.5,4.5;}
+line|z17[railway=rail]::dash,
+{width: 2.4; dashes: 6.3,6.3;}
+line|z18[railway=rail]::dash,
+{width: 3.3; dashes: 8.1,8.1;}
+line|z19-[railway=rail]::dash,
+{width: 5; dashes: 8.1,8.1;}
+
+/* Reset styling inherited from railway=rail. */
+line|z11-12[railway=rail][usage=utility],
+line|z11-14[railway=rail][service=spur],
+line|z11-15[railway=rail][service=service],
+{width: 0;}
+line|z16[railway=rail][usage=utility]::dash,
+line|z16[railway=rail][service=spur]::dash,
+line|z16[railway=rail][service=service]::dash,
+{width: 0;}
+
+
+line|z10-11[railway=rail][usage=main],
+line|z10-11[railway=rail][usage=tourism],
+line|z11[railway=rail][usage=branch],
+line|z13[railway=rail][usage=utility],
+{width: 1;}
+line|z12[railway=rail][usage=main],
+line|z12[railway=rail][usage=tourism],
+line|z12[railway=rail][usage=branch],
+line|z14[railway=rail][usage=utility],
+{width: 1.1;}
+line|z10[railway=rail][highspeed?],
+line|z13[railway=rail][usage=main],
+line|z13[railway=rail][usage=tourism],
+line|z13[railway=rail][usage=branch],
+line|z15[railway=rail][usage=utility],
+line|z15[railway=rail][service=spur],
+{width: 1.2;}
+line|z11[railway=rail][highspeed?],
+line|z14[railway=rail][usage=main],
+line|z14[railway=rail][usage=tourism],
+line|z14[railway=rail][usage=branch],
+line|z16[railway=rail][usage=utility],
+line|z16[railway=rail][service=spur],
+line|z16[railway=rail][service=service],
+{width: 1.3;}
+line|z12[railway=rail][highspeed?],
+line|z15[railway=rail][usage=main],
+line|z15[railway=rail][usage=tourism],
+line|z15[railway=rail][usage=branch],
+{width: 1.6;}
+line|z13[railway=rail][highspeed?],
+{width: 1.8;}
+line|z14[railway=rail][highspeed?],
+{width: 2;}
+line|z15[railway=rail][highspeed?],
+{width: 2.2;}
+line|z16[railway=rail][highspeed?],
+line|z16[railway=rail][usage=main],
+line|z16[railway=rail][usage=tourism],
+line|z16[railway=rail][usage=branch],
+{width: 2.8;}
+line|z17[railway=rail][highspeed?],
+line|z17[railway=rail][usage=main],
+line|z17[railway=rail][usage=tourism],
+line|z17[railway=rail][usage=branch],
+line|z17[railway=rail][usage=utility],
+line|z17[railway=rail][service=spur],
+line|z17[railway=rail][service=service],
+{width: 3.2;}
+line|z18-[railway=rail][highspeed?],
+line|z18-[railway=rail][usage=main],
+line|z18-[railway=rail][usage=tourism],
+line|z18-[railway=rail][usage=branch],
+line|z18-[railway=rail][usage=utility],
+line|z18-[railway=rail][service=spur],
+line|z18-[railway=rail][service=service],
+{width: 4.2;}
+
+
+line|z16[railway=rail][highspeed?]::dash,
+{width: 1.2; dashes: 10,10;}
+line|z17[railway=rail][highspeed?]::dash,
+{width: 1.6; dashes: 13,13;}
+line|z18-[railway=rail][highspeed?]::dash,
+{width: 2.1; dashes: 16,16;}
+
+line|z16[railway=rail][usage=main]::dash,
+line|z16[railway=rail][usage=tourism]::dash,
+line|z16[railway=rail][usage=branch]::dash,
+{width: 1.5; dashes: 4.5,4.5;}
+line|z17[railway=rail][usage=main]::dash,
+line|z17[railway=rail][usage=tourism]::dash,
+line|z17[railway=rail][usage=branch]::dash,
+line|z17[railway=rail][usage=utility]::dash,
+line|z17[railway=rail][service=spur]::dash,
+line|z17[railway=rail][service=service]::dash,
+{width: 2; dashes: 6.3,6.3;}
+line|z18-[railway=rail][usage=main]::dash,
+line|z18-[railway=rail][usage=tourism]::dash,
+line|z18-[railway=rail][usage=branch]::dash,
+line|z18-[railway=rail][usage=utility]::dash,
+line|z18-[railway=rail][service=spur]::dash,
+line|z18-[railway=rail][service=service]::dash,
+{width: 2.6; dashes: 8.1,8.1;}
+
+
 line|z13-[railway=subway][!tunnel],
 line|z13-[railway=light_rail][!tunnel],
-{color: @railway_light;width: 0.9;}
-line|z14[railway=rail],
+{width: 0.9;}
 line|z14[railway=subway][!tunnel],
 line|z14[railway=light_rail][!tunnel],
 {width: 1.15;}
-line|z15[railway=rail],
 line|z15[railway=subway][!tunnel],
 line|z15[railway=light_rail][!tunnel],
 {width: 1.8;}
-line|z16[railway=rail],
 line|z16[railway=subway][!tunnel],
 line|z16[railway=light_rail][!tunnel],
 {width: 2.8;}
-line|z17[railway=rail],
 line|z17[railway=subway][!tunnel],
 line|z17[railway=light_rail][!tunnel],
 {width: 3.2;}
-line|z18[railway=rail],
 line|z18[railway=subway][!tunnel],
 line|z18[railway=light_rail][!tunnel],
 {width: 4.2;}
-line|z19[railway=rail],
 line|z19[railway=subway][!tunnel],
 line|z19[railway=light_rail][!tunnel],
 {width: 5.8;}
 
-line|z16[railway=rail]::dash,
 line|z16[railway=subway][!tunnel]::dash,
 line|z16[railway=light_rail][!tunnel]::dash,
 {width: 1.5;dashes: 4.5,4.5;}
-line|z17[railway=rail]::dash,
 line|z17[railway=subway][!tunnel]::dash,
 line|z17[railway=light_rail][!tunnel]::dash,
 {width: 2.4;dashes: 6.3,6.3;}
-line|z18[railway=rail]::dash,
 line|z18[railway=subway][!tunnel]::dash,
 line|z18[railway=light_rail][!tunnel]::dash,
 {width: 3.3;dashes: 8.1,8.1;}
-line|z19[railway=rail]::dash,
 line|z19[railway=subway][!tunnel]::dash,
 line|z19[railway=light_rail][!tunnel]::dash,
 {width: 5;dashes: 10.1,10.1;}
+
 
 line|z16-[railway=preserved],
 line|z16-[railway=abandoned]
@@ -1108,29 +1267,47 @@ line|z14-[railway=monorail][bridge?]::bridgeblack,
 line|z14-[railway=narrow_gauge][bridge?]::bridgeblack,
 {casing-linecap: round;}
 
-line|z14-15[railway][bridge?]::bridgewhite,
-{casing-width-add: 1;}
-line|z16[railway][bridge?]::bridgewhite,
+line|z14-15[railway=rail][bridge?]::bridgewhite,
+line|z14-15[railway=subway][bridge?]::bridgewhite,
+line|z14-15[railway=light_rail][bridge?]::bridgewhite,
 {casing-width-add: 1.2;}
-line|z17-[railway][bridge?]::bridgewhite,
-{casing-width-add: 1.4;}
+line|z16[railway=rail][bridge?]::bridgewhite,
+line|z16[railway=subway][bridge?]::bridgewhite,
+line|z16[railway=light_rail][bridge?]::bridgewhite,
+line|z16[railway=preserved][bridge?]::bridgewhite,
+line|z16[railway=abandoned][bridge?]::bridgewhite,
+{casing-width-add: 1.6;}
+line|z17[railway=rail][bridge?]::bridgewhite,
+line|z17[railway=subway][bridge?]::bridgewhite,
+line|z17[railway=light_rail][bridge?]::bridgewhite,
+line|z17[railway=preserved][bridge?]::bridgewhite,
+line|z17[railway=abandoned][bridge?]::bridgewhite,
+{casing-width-add: 2.3;}
 line|z18-[railway=rail][bridge?]::bridgewhite,
 line|z18-[railway=subway][bridge?]::bridgewhite,
 line|z18-[railway=light_rail][bridge?]::bridgewhite,
-{casing-width-add: 2;}
+line|z18-[railway=preserved][bridge?]::bridgewhite,
+line|z18-[railway=abandoned][bridge?]::bridgewhite,
+{casing-width-add: 3.5;}
 
 line|z16[railway=rail][bridge?]::bridgeblack,
 line|z16[railway=subway][bridge?]::bridgeblack,
 line|z16[railway=light_rail][bridge?]::bridgeblack,
-{casing-width-add: 1.4;}
-line|z17-[railway=rail][bridge?]::bridgeblack,
-line|z17-[railway=subway][bridge?]::bridgeblack,
-line|z17-[railway=light_rail][bridge?]::bridgeblack,
-{casing-width-add: 1.6;}
+line|z16[railway=preserved][bridge?]::bridgeblack,
+line|z16[railway=abandoned][bridge?]::bridgeblack,
+{casing-width-add: 2.2;}
+line|z17[railway=rail][bridge?]::bridgeblack,
+line|z17[railway=subway][bridge?]::bridgeblack,
+line|z17[railway=light_rail][bridge?]::bridgeblack,
+line|z17[railway=preserved][bridge?]::bridgeblack,
+line|z17[railway=abandoned][bridge?]::bridgeblack,
+{casing-width-add: 3;}
 line|z18-[railway=rail][bridge?]::bridgeblack,
 line|z18-[railway=subway][bridge?]::bridgeblack,
 line|z18-[railway=light_rail][bridge?]::bridgeblack,
-{casing-width-add: 2.2;}
+line|z18-[railway=preserved][bridge?]::bridgeblack,
+line|z18-[railway=abandoned][bridge?]::bridgeblack,
+{casing-width-add: 4.4;}
 
 /* 9.4 Monorail 14-22 ZOOM */
 

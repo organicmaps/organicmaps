@@ -2804,51 +2804,54 @@
 
 "type.railway.rail" = "راه آهن";
 
-"type.railway.rail.highspeed" = "راه آهن";
+"type.railway.rail.highspeed" = "راه آهن پرسرعت";
 
-"type.railway.rail.tourism" = "راه آهن";
+"type.railway.rail.tourism" = "راه آهن توریستی";
 
 "type.railway.rail.main" = "راه آهن";
 
-"type.railway.rail.branch" = "راه آهن";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "راه آهن ثانویه";
 
-"type.railway.rail.utility" = "راه آهن";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "راه آهن شهری";
 
-"type.railway.rail.spur" = "راه آهن";
+"type.railway.rail.spur" = "خار راه آهن";
 
-"type.railway.rail.service" = "راه آهن";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "ریل کمکی";
 
-"type.railway.rail.bridge" = "Railway Bridge";
+"type.railway.rail.bridge" = "پل راه آهن";
 
-"type.railway.rail.highspeed.bridge" = "Railway Bridge";
+"type.railway.rail.highspeed.bridge" = "پل راه آهن";
 
-"type.railway.rail.tourism.bridge" = "Railway Bridge";
+"type.railway.rail.tourism.bridge" = "پل راه آهن";
 
-"type.railway.rail.main.bridge" = "Railway Bridge";
+"type.railway.rail.main.bridge" = "پل راه آهن";
 
-"type.railway.rail.branch.bridge" = "Railway Bridge";
+"type.railway.rail.branch.bridge" = "پل راه آهن";
 
-"type.railway.rail.utility.bridge" = "Railway Bridge";
+"type.railway.rail.utility.bridge" = "پل راه آهن";
 
-"type.railway.rail.spur.bridge" = "Railway Bridge";
+"type.railway.rail.spur.bridge" = "پل راه آهن";
 
-"type.railway.rail.service.bridge" = "Railway Bridge";
+"type.railway.rail.service.bridge" = "پل راه آهن";
 
-"type.railway.rail.tunnel" = "Railway Tunnel";
+"type.railway.rail.tunnel" = "تونل راه آهن";
 
-"type.railway.rail.highspeed.tunnel" = "Railway Tunnel";
+"type.railway.rail.highspeed.tunnel" = "تونل راه آهن";
 
-"type.railway.rail.tourism.tunnel" = "Railway Tunnel";
+"type.railway.rail.tourism.tunnel" = "تونل راه آهن";
 
-"type.railway.rail.main.tunnel" = "Railway Tunnel";
+"type.railway.rail.main.tunnel" = "تونل راه آهن";
 
-"type.railway.rail.branch.tunnel" = "Railway Tunnel";
+"type.railway.rail.branch.tunnel" = "تونل راه آهن";
 
-"type.railway.rail.utility.tunnel" = "Railway Tunnel";
+"type.railway.rail.utility.tunnel" = "تونل راه آهن";
 
-"type.railway.rail.spur.tunnel" = "Railway Tunnel";
+"type.railway.rail.spur.tunnel" = "تونل راه آهن";
 
-"type.railway.rail.service.tunnel" = "Railway Tunnel";
+"type.railway.rail.service.tunnel" = "تونل راه آهن";
 
 "type.railway.station" = "ایستگاه قطار";
 

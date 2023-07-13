@@ -2804,19 +2804,22 @@
 
 "type.railway.rail" = "Raudtee";
 
-"type.railway.rail.highspeed" = "Raudtee";
+"type.railway.rail.highspeed" = "Kiirraudtee";
 
-"type.railway.rail.tourism" = "Raudtee";
+"type.railway.rail.tourism" = "Turismiraudtee";
 
 "type.railway.rail.main" = "Raudtee";
 
-"type.railway.rail.branch" = "Raudtee";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Teisene raudtee";
 
-"type.railway.rail.utility" = "Raudtee";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Teenindus raudtee";
 
 "type.railway.rail.spur" = "Rööbastee";
 
-"type.railway.rail.service" = "Raudtee";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Lisarööpmel rööbastee";
 
 "type.railway.rail.bridge" = "Raudtee sild";
 

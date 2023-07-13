@@ -1,13 +1,13 @@
-• GPX import support
-• New OpenStreetMap data as of June 2
-• MRGS and UTM coordinates support (tap on coordinates to change)
-• Improved car and bicycle routing
-• Fixed bug that prevented upload of OSM edits when on battery power
-• Now compass works on devices without gyroscope
-• Fixed missing Wiki descriptions
-• Decreased TTS (Text-To-Speech) voice speed
-• Added Fish Pass
-• Fixed funicular and parcel locker icons
-• Corrected be, eu, en, en-GB, and uk translations
+• Friss OpenStreetMap adatok (2023. július 10)
+• Számos összeomlás javítása
+• Magasság, OsmAnd és Garmin színek támogatása az importált GPX pályákon.
+• Javított gyalogos ETA a nagy lejtők esetében
+• Jobb autós útvonaltervezés
+• Javított keresés
+• A Megosztás gomb átkerült a Hely oldalra
+• Frissített fordítások
+• Új üzletek és eseménytípusok hozzáadása
+• Javítottuk a vízi alagutak és hidak megjelenítését
+• Részletesebb vasúti típusok
 
-…more: omaps.org/news
+omaps.org/news

@@ -1340,13 +1340,32 @@
 	<string name="type.railway.level_crossing">Vasúti átjáró</string>
 	<string name="type.railway.monorail">Egysínű vasút</string>
 	<string name="type.railway.rail">Vasút</string>
-	<string name="type.railway.rail.highspeed">Vasút</string>
-	<string name="type.railway.rail.tourism">Vasút</string>
+	<string name="type.railway.rail.highspeed">Nagysebességű vasút</string>
+	<string name="type.railway.rail.tourism">Turisztikai vasút</string>
 	<string name="type.railway.rail.main">Vasút</string>
-	<string name="type.railway.rail.branch">Vasút</string>
-	<string name="type.railway.rail.utility">Vasút</string>
-	<string name="type.railway.rail.spur">Vasút</string>
-	<string name="type.railway.rail.service">Vasút</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">Másodlagos vasút</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">Közüzemi vasút</string>
+	<string name="type.railway.rail.spur">Vasúti nyomvonal</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">Kiegészítő sínpálya</string>
+	<string name="type.railway.rail.bridge">Vasúti híd</string>
+	<string name="type.railway.rail.highspeed.bridge">Vasúti híd</string>
+	<string name="type.railway.rail.tourism.bridge">Vasúti híd</string>
+	<string name="type.railway.rail.main.bridge">Vasúti híd</string>
+	<string name="type.railway.rail.branch.bridge">Vasúti híd</string>
+	<string name="type.railway.rail.utility.bridge">Vasúti híd</string>
+	<string name="type.railway.rail.spur.bridge">Vasúti híd</string>
+	<string name="type.railway.rail.service.bridge">Vasúti híd</string>
+	<string name="type.railway.rail.tunnel">Vasúti alagút</string>
+	<string name="type.railway.rail.highspeed.tunnel">Vasúti alagút</string>
+	<string name="type.railway.rail.tourism.tunnel">Vasúti alagút</string>
+	<string name="type.railway.rail.main.tunnel">Vasúti alagút</string>
+	<string name="type.railway.rail.branch.tunnel">Vasúti alagút</string>
+	<string name="type.railway.rail.utility.tunnel">Vasúti alagút</string>
+	<string name="type.railway.rail.spur.tunnel">Vasúti alagút</string>
+	<string name="type.railway.rail.service.tunnel">Vasúti alagút</string>
 	<string name="type.railway.station">Vonatmegálló</string>
 	<string name="type.railway.station.funicular">Funicular</string>
 	<string name="type.railway.station.light_rail">Vonatmegálló</string>

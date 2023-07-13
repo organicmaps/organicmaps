@@ -2804,51 +2804,54 @@
 
 "type.railway.rail" = "Železnice";
 
-"type.railway.rail.highspeed" = "Železnice";
+"type.railway.rail.highspeed" = "Vysokorychlostní železnice";
 
-"type.railway.rail.tourism" = "Železnice";
+"type.railway.rail.tourism" = "Turistická železnice";
 
 "type.railway.rail.main" = "Železnice";
 
-"type.railway.rail.branch" = "Železnice";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Sekundární železnice";
 
-"type.railway.rail.utility" = "Železnice";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Užitková železnice";
 
-"type.railway.rail.spur" = "Železnice";
+"type.railway.rail.spur" = "Železniční odbočka";
 
-"type.railway.rail.service" = "Železnice";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Pomocná kolejnice";
 
-"type.railway.rail.bridge" = "Railway Bridge";
+"type.railway.rail.bridge" = "Železniční most";
 
-"type.railway.rail.highspeed.bridge" = "Railway Bridge";
+"type.railway.rail.highspeed.bridge" = "Železniční most";
 
-"type.railway.rail.tourism.bridge" = "Railway Bridge";
+"type.railway.rail.tourism.bridge" = "Železniční most";
 
-"type.railway.rail.main.bridge" = "Railway Bridge";
+"type.railway.rail.main.bridge" = "Železniční most";
 
-"type.railway.rail.branch.bridge" = "Railway Bridge";
+"type.railway.rail.branch.bridge" = "Železniční most";
 
-"type.railway.rail.utility.bridge" = "Railway Bridge";
+"type.railway.rail.utility.bridge" = "Železniční most";
 
-"type.railway.rail.spur.bridge" = "Railway Bridge";
+"type.railway.rail.spur.bridge" = "Železniční most";
 
-"type.railway.rail.service.bridge" = "Railway Bridge";
+"type.railway.rail.service.bridge" = "Železniční most";
 
-"type.railway.rail.tunnel" = "Railway Tunnel";
+"type.railway.rail.tunnel" = "Železniční tunel";
 
-"type.railway.rail.highspeed.tunnel" = "Railway Tunnel";
+"type.railway.rail.highspeed.tunnel" = "Železniční tunel";
 
-"type.railway.rail.tourism.tunnel" = "Railway Tunnel";
+"type.railway.rail.tourism.tunnel" = "Železniční tunel";
 
-"type.railway.rail.main.tunnel" = "Railway Tunnel";
+"type.railway.rail.main.tunnel" = "Železniční tunel";
 
-"type.railway.rail.branch.tunnel" = "Railway Tunnel";
+"type.railway.rail.branch.tunnel" = "Železniční tunel";
 
-"type.railway.rail.utility.tunnel" = "Railway Tunnel";
+"type.railway.rail.utility.tunnel" = "Železniční tunel";
 
-"type.railway.rail.spur.tunnel" = "Railway Tunnel";
+"type.railway.rail.spur.tunnel" = "Železniční tunel";
 
-"type.railway.rail.service.tunnel" = "Railway Tunnel";
+"type.railway.rail.service.tunnel" = "Železniční tunel";
 
 "type.railway.station" = "Železniční stanice";
 

@@ -2804,19 +2804,22 @@
 
 "type.railway.rail" = "Железнодорожный путь";
 
-"type.railway.rail.highspeed" = "Железнодорожный путь";
+"type.railway.rail.highspeed" = "Высокоскоростная железная дорога";
 
-"type.railway.rail.tourism" = "Железнодорожный путь";
+"type.railway.rail.tourism" = "Туристическая железная дорога";
 
-"type.railway.rail.main" = "Железнодорожный путь";
+"type.railway.rail.main" = "Железная дорога";
 
-"type.railway.rail.branch" = "Железнодорожный путь";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Второстепенная железная дорога";
 
-"type.railway.rail.utility" = "Железнодорожный путь";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Служебная железная дорога";
 
-"type.railway.rail.spur" = "Подъездная Ж/Д";
+"type.railway.rail.spur" = "Подъездной Ж/Д путь";
 
-"type.railway.rail.service" = "Железнодорожный путь";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Вспомогательный Ж/Д путь";
 
 "type.railway.rail.bridge" = "Железнодорожный мост";
 

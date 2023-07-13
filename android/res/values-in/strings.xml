@@ -1317,13 +1317,32 @@
 	<string name="type.railway.level_crossing">Perlintasan Kereta Api</string>
 	<string name="type.railway.monorail">Monorel</string>
 	<string name="type.railway.rail">Kereta api</string>
-	<string name="type.railway.rail.highspeed">Kereta api</string>
-	<string name="type.railway.rail.tourism">Kereta api</string>
+	<string name="type.railway.rail.highspeed">Kereta api berkecepatan tinggi</string>
+	<string name="type.railway.rail.tourism">Kereta api wisata</string>
 	<string name="type.railway.rail.main">Kereta api</string>
-	<string name="type.railway.rail.branch">Kereta api</string>
-	<string name="type.railway.rail.utility">Kereta api</string>
-	<string name="type.railway.rail.spur">Kereta api</string>
-	<string name="type.railway.rail.service">Kereta api</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">Kereta api sekunder</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">Kereta api utilitas</string>
+	<string name="type.railway.rail.spur">Pacu kereta api</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">Jalur rel bantu</string>
+	<string name="type.railway.rail.bridge">Jembatan kereta api</string>
+	<string name="type.railway.rail.highspeed.bridge">Jembatan kereta api</string>
+	<string name="type.railway.rail.tourism.bridge">Jembatan kereta api</string>
+	<string name="type.railway.rail.main.bridge">Jembatan kereta api</string>
+	<string name="type.railway.rail.branch.bridge">Jembatan kereta api</string>
+	<string name="type.railway.rail.utility.bridge">Jembatan kereta api</string>
+	<string name="type.railway.rail.spur.bridge">Jembatan kereta api</string>
+	<string name="type.railway.rail.service.bridge">Jembatan kereta api</string>
+	<string name="type.railway.rail.tunnel">Terowongan kereta api</string>
+	<string name="type.railway.rail.highspeed.tunnel">Terowongan kereta api</string>
+	<string name="type.railway.rail.tourism.tunnel">Terowongan kereta api</string>
+	<string name="type.railway.rail.main.tunnel">Terowongan kereta api</string>
+	<string name="type.railway.rail.branch.tunnel">Terowongan kereta api</string>
+	<string name="type.railway.rail.utility.tunnel">Terowongan kereta api</string>
+	<string name="type.railway.rail.spur.tunnel">Terowongan kereta api</string>
+	<string name="type.railway.rail.service.tunnel">Terowongan kereta api</string>
 	<string name="type.railway.station">Rel kereta api</string>
 	<string name="type.railway.station.funicular">Kereta gantung</string>
 	<string name="type.railway.station.light_rail">Rel kereta api</string>

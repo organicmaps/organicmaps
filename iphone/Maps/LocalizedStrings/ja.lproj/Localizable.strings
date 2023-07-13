@@ -2804,19 +2804,22 @@
 
 "type.railway.rail" = "鉄道";
 
-"type.railway.rail.highspeed" = "鉄道";
+"type.railway.rail.highspeed" = "高速鉄道";
 
-"type.railway.rail.tourism" = "鉄道";
+"type.railway.rail.tourism" = "観光鉄道";
 
 "type.railway.rail.main" = "鉄道";
 
-"type.railway.rail.branch" = "鉄道";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "二次鉄道";
 
-"type.railway.rail.utility" = "鉄道";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "実用鉄道";
 
 "type.railway.rail.spur" = "引き込み線";
 
-"type.railway.rail.service" = "鉄道";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "補助線路";
 
 "type.railway.rail.bridge" = "鉄道(橋)";
 

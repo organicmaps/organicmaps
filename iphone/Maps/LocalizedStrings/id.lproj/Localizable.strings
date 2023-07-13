@@ -2804,51 +2804,54 @@
 
 "type.railway.rail" = "Kereta api";
 
-"type.railway.rail.highspeed" = "Kereta api";
+"type.railway.rail.highspeed" = "Kereta api berkecepatan tinggi";
 
-"type.railway.rail.tourism" = "Kereta api";
+"type.railway.rail.tourism" = "Kereta api wisata";
 
 "type.railway.rail.main" = "Kereta api";
 
-"type.railway.rail.branch" = "Kereta api";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Kereta api sekunder";
 
-"type.railway.rail.utility" = "Kereta api";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Kereta api utilitas";
 
-"type.railway.rail.spur" = "Kereta api";
+"type.railway.rail.spur" = "Pacu kereta api";
 
-"type.railway.rail.service" = "Kereta api";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Jalur rel bantu";
 
-"type.railway.rail.bridge" = "Railway Bridge";
+"type.railway.rail.bridge" = "Jembatan kereta api";
 
-"type.railway.rail.highspeed.bridge" = "Railway Bridge";
+"type.railway.rail.highspeed.bridge" = "Jembatan kereta api";
 
-"type.railway.rail.tourism.bridge" = "Railway Bridge";
+"type.railway.rail.tourism.bridge" = "Jembatan kereta api";
 
-"type.railway.rail.main.bridge" = "Railway Bridge";
+"type.railway.rail.main.bridge" = "Jembatan kereta api";
 
-"type.railway.rail.branch.bridge" = "Railway Bridge";
+"type.railway.rail.branch.bridge" = "Jembatan kereta api";
 
-"type.railway.rail.utility.bridge" = "Railway Bridge";
+"type.railway.rail.utility.bridge" = "Jembatan kereta api";
 
-"type.railway.rail.spur.bridge" = "Railway Bridge";
+"type.railway.rail.spur.bridge" = "Jembatan kereta api";
 
-"type.railway.rail.service.bridge" = "Railway Bridge";
+"type.railway.rail.service.bridge" = "Jembatan kereta api";
 
-"type.railway.rail.tunnel" = "Railway Tunnel";
+"type.railway.rail.tunnel" = "Terowongan kereta api";
 
-"type.railway.rail.highspeed.tunnel" = "Railway Tunnel";
+"type.railway.rail.highspeed.tunnel" = "Terowongan kereta api";
 
-"type.railway.rail.tourism.tunnel" = "Railway Tunnel";
+"type.railway.rail.tourism.tunnel" = "Terowongan kereta api";
 
-"type.railway.rail.main.tunnel" = "Railway Tunnel";
+"type.railway.rail.main.tunnel" = "Terowongan kereta api";
 
-"type.railway.rail.branch.tunnel" = "Railway Tunnel";
+"type.railway.rail.branch.tunnel" = "Terowongan kereta api";
 
-"type.railway.rail.utility.tunnel" = "Railway Tunnel";
+"type.railway.rail.utility.tunnel" = "Terowongan kereta api";
 
-"type.railway.rail.spur.tunnel" = "Railway Tunnel";
+"type.railway.rail.spur.tunnel" = "Terowongan kereta api";
 
-"type.railway.rail.service.tunnel" = "Railway Tunnel";
+"type.railway.rail.service.tunnel" = "Terowongan kereta api";
 
 "type.railway.station" = "Rel kereta api";
 

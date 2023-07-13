@@ -2804,51 +2804,54 @@
 
 "type.railway.rail" = "Đường sắt";
 
-"type.railway.rail.highspeed" = "Đường sắt";
+"type.railway.rail.highspeed" = "Đường sắt cao tốc";
 
-"type.railway.rail.tourism" = "Đường sắt";
+"type.railway.rail.tourism" = "Đường sắt du lịch";
 
 "type.railway.rail.main" = "Đường sắt";
 
-"type.railway.rail.branch" = "Đường sắt";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Đường sắt phụ";
 
-"type.railway.rail.utility" = "Đường sắt";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Đường sắt tiện ích";
 
-"type.railway.rail.spur" = "Đường sắt";
+"type.railway.rail.spur" = "Đường sắt thúc đẩy";
 
-"type.railway.rail.service" = "Đường sắt";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Đường ray phụ trợ";
 
-"type.railway.rail.bridge" = "Railway Bridge";
+"type.railway.rail.bridge" = "Cầu đường sắt";
 
-"type.railway.rail.highspeed.bridge" = "Railway Bridge";
+"type.railway.rail.highspeed.bridge" = "Cầu đường sắt";
 
-"type.railway.rail.tourism.bridge" = "Railway Bridge";
+"type.railway.rail.tourism.bridge" = "Cầu đường sắt";
 
-"type.railway.rail.main.bridge" = "Railway Bridge";
+"type.railway.rail.main.bridge" = "Cầu đường sắt";
 
-"type.railway.rail.branch.bridge" = "Railway Bridge";
+"type.railway.rail.branch.bridge" = "Cầu đường sắt";
 
-"type.railway.rail.utility.bridge" = "Railway Bridge";
+"type.railway.rail.utility.bridge" = "Cầu đường sắt";
 
-"type.railway.rail.spur.bridge" = "Railway Bridge";
+"type.railway.rail.spur.bridge" = "Cầu đường sắt";
 
-"type.railway.rail.service.bridge" = "Railway Bridge";
+"type.railway.rail.service.bridge" = "Cầu đường sắt";
 
-"type.railway.rail.tunnel" = "Railway Tunnel";
+"type.railway.rail.tunnel" = "Đường hầm đường sắt";
 
-"type.railway.rail.highspeed.tunnel" = "Railway Tunnel";
+"type.railway.rail.highspeed.tunnel" = "Đường hầm đường sắt";
 
-"type.railway.rail.tourism.tunnel" = "Railway Tunnel";
+"type.railway.rail.tourism.tunnel" = "Đường hầm đường sắt";
 
-"type.railway.rail.main.tunnel" = "Railway Tunnel";
+"type.railway.rail.main.tunnel" = "Đường hầm đường sắt";
 
-"type.railway.rail.branch.tunnel" = "Railway Tunnel";
+"type.railway.rail.branch.tunnel" = "Đường hầm đường sắt";
 
-"type.railway.rail.utility.tunnel" = "Railway Tunnel";
+"type.railway.rail.utility.tunnel" = "Đường hầm đường sắt";
 
-"type.railway.rail.spur.tunnel" = "Railway Tunnel";
+"type.railway.rail.spur.tunnel" = "Đường hầm đường sắt";
 
-"type.railway.rail.service.tunnel" = "Railway Tunnel";
+"type.railway.rail.service.tunnel" = "Đường hầm đường sắt";
 
 "type.railway.station" = "Đường tàu hỏa";
 

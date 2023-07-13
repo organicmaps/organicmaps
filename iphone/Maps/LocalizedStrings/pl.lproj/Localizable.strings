@@ -2804,51 +2804,54 @@
 
 "type.railway.rail" = "Kolej";
 
-"type.railway.rail.highspeed" = "Kolej";
+"type.railway.rail.highspeed" = "Kolej dużych prędkości";
 
-"type.railway.rail.tourism" = "Kolej";
+"type.railway.rail.tourism" = "Kolej turystyczna";
 
 "type.railway.rail.main" = "Kolej";
 
-"type.railway.rail.branch" = "Kolej";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Kolej drugorzędna";
 
-"type.railway.rail.utility" = "Kolej";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Kolej użytkowa";
 
-"type.railway.rail.spur" = "Kolej";
+"type.railway.rail.spur" = "Ostroga kolejowa";
 
-"type.railway.rail.service" = "Kolej";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Pomocniczy tor kolejowy";
 
-"type.railway.rail.bridge" = "Railway Bridge";
+"type.railway.rail.bridge" = "Most kolejowy";
 
-"type.railway.rail.highspeed.bridge" = "Railway Bridge";
+"type.railway.rail.highspeed.bridge" = "Most kolejowy";
 
-"type.railway.rail.tourism.bridge" = "Railway Bridge";
+"type.railway.rail.tourism.bridge" = "Most kolejowy";
 
-"type.railway.rail.main.bridge" = "Railway Bridge";
+"type.railway.rail.main.bridge" = "Most kolejowy";
 
-"type.railway.rail.branch.bridge" = "Railway Bridge";
+"type.railway.rail.branch.bridge" = "Most kolejowy";
 
-"type.railway.rail.utility.bridge" = "Railway Bridge";
+"type.railway.rail.utility.bridge" = "Most kolejowy";
 
-"type.railway.rail.spur.bridge" = "Railway Bridge";
+"type.railway.rail.spur.bridge" = "Most kolejowy";
 
-"type.railway.rail.service.bridge" = "Railway Bridge";
+"type.railway.rail.service.bridge" = "Most kolejowy";
 
-"type.railway.rail.tunnel" = "Railway Tunnel";
+"type.railway.rail.tunnel" = "Tunel kolejowy";
 
-"type.railway.rail.highspeed.tunnel" = "Railway Tunnel";
+"type.railway.rail.highspeed.tunnel" = "Tunel kolejowy";
 
-"type.railway.rail.tourism.tunnel" = "Railway Tunnel";
+"type.railway.rail.tourism.tunnel" = "Tunel kolejowy";
 
-"type.railway.rail.main.tunnel" = "Railway Tunnel";
+"type.railway.rail.main.tunnel" = "Tunel kolejowy";
 
-"type.railway.rail.branch.tunnel" = "Railway Tunnel";
+"type.railway.rail.branch.tunnel" = "Tunel kolejowy";
 
-"type.railway.rail.utility.tunnel" = "Railway Tunnel";
+"type.railway.rail.utility.tunnel" = "Tunel kolejowy";
 
-"type.railway.rail.spur.tunnel" = "Railway Tunnel";
+"type.railway.rail.spur.tunnel" = "Tunel kolejowy";
 
-"type.railway.rail.service.tunnel" = "Railway Tunnel";
+"type.railway.rail.service.tunnel" = "Tunel kolejowy";
 
 "type.railway.station" = "Dworzec kolejowy";
 

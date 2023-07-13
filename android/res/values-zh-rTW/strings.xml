@@ -1356,21 +1356,24 @@
 	<string name="type.railway.monorail.bridge">單軌軌道</string>
 	<string name="type.railway.monorail.tunnel">單軌軌道</string>
 	<string name="type.railway.rail">鐵路軌道</string>
-	<string name="type.railway.rail.highspeed">鐵路軌道</string>
-	<string name="type.railway.rail.tourism">鐵路軌道</string>
-	<string name="type.railway.rail.main">鐵路軌道</string>
-	<string name="type.railway.rail.branch">鐵路軌道</string>
-	<string name="type.railway.rail.utility">鐵路軌道</string>
-	<string name="type.railway.rail.spur">鐵路軌道</string>
-	<string name="type.railway.rail.service">鐵路軌道</string>
-	<string name="type.railway.rail.bridge">鐵路軌道</string>
-	<string name="type.railway.rail.highspeed.bridge">鐵路軌道</string>
-	<string name="type.railway.rail.tourism.bridge">鐵路軌道</string>
-	<string name="type.railway.rail.main.bridge">鐵路軌道</string>
-	<string name="type.railway.rail.branch.bridge">鐵路軌道</string>
-	<string name="type.railway.rail.utility.bridge">鐵路軌道</string>
-	<string name="type.railway.rail.spur.bridge">鐵路軌道</string>
-	<string name="type.railway.rail.service.bridge">鐵路軌道</string>
+	<string name="type.railway.rail.highspeed">高鐵</string>
+	<string name="type.railway.rail.tourism">旅遊鐵路</string>
+	<string name="type.railway.rail.main">鐵路</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">二級鐵路</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">公用鐵路</string>
+	<string name="type.railway.rail.spur">鐵路支線</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">輔助鐵軌</string>
+	<string name="type.railway.rail.bridge">鐵路橋</string>
+	<string name="type.railway.rail.highspeed.bridge">鐵路橋</string>
+	<string name="type.railway.rail.tourism.bridge">鐵路橋</string>
+	<string name="type.railway.rail.main.bridge">鐵路橋</string>
+	<string name="type.railway.rail.branch.bridge">鐵路橋</string>
+	<string name="type.railway.rail.utility.bridge">鐵路橋</string>
+	<string name="type.railway.rail.spur.bridge">鐵路橋</string>
+	<string name="type.railway.rail.service.bridge">鐵路橋</string>
 	<string name="type.railway.rail.tunnel">鐵路軌道</string>
 	<string name="type.railway.rail.highspeed.tunnel">鐵路軌道</string>
 	<string name="type.railway.rail.tourism.tunnel">鐵路軌道</string>

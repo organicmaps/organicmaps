@@ -1517,13 +1517,16 @@
 	<string name="type.railway.preserved.bridge">Museumspoorbaanbrug</string>
 	<string name="type.railway.preserved.tunnel">Museumspoorbaantunnel</string>
 	<string name="type.railway.rail">Spoorlijn</string>
-	<string name="type.railway.rail.highspeed">Spoorlijn</string>
-	<string name="type.railway.rail.tourism">Spoorlijn</string>
-	<string name="type.railway.rail.main">Spoorlijn</string>
-	<string name="type.railway.rail.branch">Spoorlijn</string>
-	<string name="type.railway.rail.utility">Spoorlijn</string>
+	<string name="type.railway.rail.highspeed">Hogesnelheidstrein</string>
+	<string name="type.railway.rail.tourism">Toeristische spoorlijn</string>
+	<string name="type.railway.rail.main">Spoor</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">Secundaire spoorwegen</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">Spoorwegen</string>
 	<string name="type.railway.rail.spur">Zijspoor</string>
-	<string name="type.railway.rail.service">Spoorlijn</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">Hulpspoor</string>
 	<string name="type.railway.rail.bridge">Treinspoorbrug</string>
 	<string name="type.railway.rail.highspeed.bridge">Treinspoorbrug</string>
 	<string name="type.railway.rail.tourism.bridge">Treinspoorbrug</string>

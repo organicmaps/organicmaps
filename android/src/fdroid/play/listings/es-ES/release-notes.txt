@@ -1,10 +1,14 @@
-- Soporte de importación GPX
-- Nuevos datos de OpenStreetMap a partir del 2 de junio
-- Soporte de coordenadas MRGS y UTM (pulse sobre las coordenadas para cambiarlas)
-- Mejora de las rutas en coche y bicicleta
-- Se ha corregido un error que impedía cargar ediciones de OSM con la batería agotada.
-- Ahora la brújula funciona en dispositivos sin giroscopio
-- Se ha corregido la falta de descripciones Wiki
-- Disminución de la velocidad de voz TTS (Text-To-Speech)
+• Fresh OpenStreetMap data as of July 10, 2023
+• Fixed several crashes
+• Support altitude, OsmAnd and Garmin colors in imported GPX tracks
+• Fixed pedestrian ETA for big slopes
+• Better car routing
+• Improved search ranking
+• Share button has been moved to the Place Page
+• Updated many translations
+• Added new shops and event venues types
+• Improved water tunnels and bridges rendering
+• More detailed railways
+• Added boundary=protected_area
 
-...más: omaps.org/news
+…más: omaps.org/news

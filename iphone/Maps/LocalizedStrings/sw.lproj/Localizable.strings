@@ -2804,51 +2804,54 @@
 
 "type.railway.rail" = "Njia ya Reli";
 
-"type.railway.rail.highspeed" = "Njia ya Reli";
+"type.railway.rail.highspeed" = "Reli ya mwendo wa kasi";
 
-"type.railway.rail.tourism" = "Njia ya Reli";
+"type.railway.rail.tourism" = "Reli ya kitalii";
 
-"type.railway.rail.main" = "Njia ya Reli";
+"type.railway.rail.main" = "Reli";
 
-"type.railway.rail.branch" = "Njia ya Reli";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Reli ya sekondari";
 
-"type.railway.rail.utility" = "Njia ya Reli";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Utility railway";
 
-"type.railway.rail.spur" = "Njia ya Reli";
+"type.railway.rail.spur" = "Railway spur";
 
-"type.railway.rail.service" = "Njia ya Reli";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Njia ya reli ya msaidizi";
 
-"type.railway.rail.bridge" = "Railway Bridge";
+"type.railway.rail.bridge" = "Daraja la reli";
 
-"type.railway.rail.highspeed.bridge" = "Railway Bridge";
+"type.railway.rail.highspeed.bridge" = "Daraja la reli";
 
-"type.railway.rail.tourism.bridge" = "Railway Bridge";
+"type.railway.rail.tourism.bridge" = "Daraja la reli";
 
-"type.railway.rail.main.bridge" = "Railway Bridge";
+"type.railway.rail.main.bridge" = "Daraja la reli";
 
-"type.railway.rail.branch.bridge" = "Railway Bridge";
+"type.railway.rail.branch.bridge" = "Daraja la reli";
 
-"type.railway.rail.utility.bridge" = "Railway Bridge";
+"type.railway.rail.utility.bridge" = "Daraja la reli";
 
-"type.railway.rail.spur.bridge" = "Railway Bridge";
+"type.railway.rail.spur.bridge" = "Daraja la reli";
 
-"type.railway.rail.service.bridge" = "Railway Bridge";
+"type.railway.rail.service.bridge" = "Daraja la reli";
 
-"type.railway.rail.tunnel" = "Railway Tunnel";
+"type.railway.rail.tunnel" = "Njia ya reli";
 
-"type.railway.rail.highspeed.tunnel" = "Railway Tunnel";
+"type.railway.rail.highspeed.tunnel" = "Njia ya reli";
 
-"type.railway.rail.tourism.tunnel" = "Railway Tunnel";
+"type.railway.rail.tourism.tunnel" = "Njia ya reli";
 
-"type.railway.rail.main.tunnel" = "Railway Tunnel";
+"type.railway.rail.main.tunnel" = "Njia ya reli";
 
-"type.railway.rail.branch.tunnel" = "Railway Tunnel";
+"type.railway.rail.branch.tunnel" = "Njia ya reli";
 
-"type.railway.rail.utility.tunnel" = "Railway Tunnel";
+"type.railway.rail.utility.tunnel" = "Njia ya reli";
 
-"type.railway.rail.spur.tunnel" = "Railway Tunnel";
+"type.railway.rail.spur.tunnel" = "Njia ya reli";
 
-"type.railway.rail.service.tunnel" = "Railway Tunnel";
+"type.railway.rail.service.tunnel" = "Njia ya reli";
 
 "type.railway.station" = "Train Station";
 

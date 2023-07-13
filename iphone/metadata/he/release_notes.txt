@@ -1,17 +1,30 @@
-• GPX import support
-• New OpenStreetMap data as of June 2, 2023
-• Fixed disappearing bookmark lists when wrong characters were saved in a bookmark name or description
-• Improved car and bicycle routing
-• Fixed non-working Portuguese (Brazil) and Spanish (Mexico) voice directions languages
-• Fixed crash when importing KML/KMZ/GPX file
-• Fixed repeated imports of the same file
-• Corrected Basque, Belarusian, British, English, and Ukrainian translations
+• Fresh OpenStreetMap data as of July 10, 2023
+• Support altitude, OsmAnd and Garmin colors in imported GPX tracks
+• Show coordinates in Open Location Code (OLC), UTM, MRGS, and OpenStreetMap.org formats on click and copy coordinates on a long tap
+• Fixed crash when rendering large objects
+• Bookmark lists descriptions are now displayed and saved properly
+• Faster loading of bookmarks and tracks
+• Fixed pedestrian ETA for big slopes
+• Prefer tertiary roads to service roads in car routing
 
-Styles:
-• Fixed funicular icon
-• Changed desert color in the dark mode
-• Added Fish Pass
-• New Icon for Parcel Locker
-• Fixed icon for northernmost Munich underground station
+Search
+• Improved search results ranking
+• Fixed shop categories search
+• Fixed airport search results with empty names
+
+Styles
+• Improve visibility and findability of highway services and rest areas
+• Added second-hand category, auction, collectors shops, turnstile & exit
+• Fixed underwater tunnels not being visible
+• Fixed areal water tunnels being drawn over other areas
+• Major railway lines are more visible now, while minor utility/service tracks clutter the map less
+• Fixed railway-abandoned/preserved bridges
+• Added a bridge structure outline man_made-bridge
+• Added community center, conference center, exhibition center, events venue
+• Increased shop icons priority
+• Added boundary=protected_area
+
+Translations:
+• Updated Catalan, Czech, Finnish, French, German, Italian, Polish, Spanish, Swedish, and Turkish translations
 
 Follow our news at https://omaps.org/news

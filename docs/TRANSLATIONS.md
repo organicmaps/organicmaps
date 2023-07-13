@@ -49,6 +49,8 @@ By default, it searches `strings.txt`, to check `types_strings.txt` add a `-t` o
 There are many more other options, e.g. print various translation statistics, validate and re-format translation files.
 Check `tools/python/strings_utils.py -h` to see all of them.
 
+## Automatic translations
+
 In some cases automatically translated strings are better than no translation at all.
 There are two scripts to automate given string's translation into multiple languages.
 Please [install Translate Shell](https://www.soimort.org/translate-shell/#installation) first to be able to run them.
@@ -58,6 +60,7 @@ Please [install Translate Shell](https://www.soimort.org/translate-shell/#instal
 The first one uses free DeepL API where possible and provides a significantly better quality translations.
 It requires registering a [DeepL account](https://www.deepl.com/pro#developer) and [getting API key](https://www.deepl.com/account/summary).
 You may be asked for a credit card for verification, but it won't be charged.
+Requires Python version >= 3.7.
 
 ```bash
 export DEEPL_FREE_API_KEY=<your DeepL API key here>

@@ -2804,51 +2804,54 @@
 
 "type.railway.rail" = "خط سكة حديد";
 
-"type.railway.rail.highspeed" = "خط سكة حديد";
+"type.railway.rail.highspeed" = "سكة حديد عالية السرعة";
 
-"type.railway.rail.tourism" = "خط سكة حديد";
+"type.railway.rail.tourism" = "السكك الحديدية السياحية";
 
-"type.railway.rail.main" = "خط سكة حديد";
+"type.railway.rail.main" = "سكة حديدية";
 
-"type.railway.rail.branch" = "خط سكة حديد";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "السكك الحديدية الثانوية";
 
-"type.railway.rail.utility" = "خط سكة حديد";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "سكة حديد المرافق";
 
-"type.railway.rail.spur" = "خط سكة حديد";
+"type.railway.rail.spur" = "سكة حديد سبير";
 
-"type.railway.rail.service" = "خط سكة حديد";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "مسار السكك الحديدية المساعدة";
 
-"type.railway.rail.bridge" = "Railway Bridge";
+"type.railway.rail.bridge" = "جسر للسكك الحديدية";
 
-"type.railway.rail.highspeed.bridge" = "Railway Bridge";
+"type.railway.rail.highspeed.bridge" = "جسر للسكك الحديدية";
 
-"type.railway.rail.tourism.bridge" = "Railway Bridge";
+"type.railway.rail.tourism.bridge" = "جسر للسكك الحديدية";
 
-"type.railway.rail.main.bridge" = "Railway Bridge";
+"type.railway.rail.main.bridge" = "جسر للسكك الحديدية";
 
-"type.railway.rail.branch.bridge" = "Railway Bridge";
+"type.railway.rail.branch.bridge" = "جسر للسكك الحديدية";
 
-"type.railway.rail.utility.bridge" = "Railway Bridge";
+"type.railway.rail.utility.bridge" = "جسر للسكك الحديدية";
 
-"type.railway.rail.spur.bridge" = "Railway Bridge";
+"type.railway.rail.spur.bridge" = "جسر للسكك الحديدية";
 
-"type.railway.rail.service.bridge" = "Railway Bridge";
+"type.railway.rail.service.bridge" = "جسر للسكك الحديدية";
 
-"type.railway.rail.tunnel" = "Railway Tunnel";
+"type.railway.rail.tunnel" = "نفق السكة الحديد";
 
-"type.railway.rail.highspeed.tunnel" = "Railway Tunnel";
+"type.railway.rail.highspeed.tunnel" = "نفق السكة الحديد";
 
-"type.railway.rail.tourism.tunnel" = "Railway Tunnel";
+"type.railway.rail.tourism.tunnel" = "نفق السكة الحديد";
 
-"type.railway.rail.main.tunnel" = "Railway Tunnel";
+"type.railway.rail.main.tunnel" = "نفق السكة الحديد";
 
-"type.railway.rail.branch.tunnel" = "Railway Tunnel";
+"type.railway.rail.branch.tunnel" = "نفق السكة الحديد";
 
-"type.railway.rail.utility.tunnel" = "Railway Tunnel";
+"type.railway.rail.utility.tunnel" = "نفق السكة الحديد";
 
-"type.railway.rail.spur.tunnel" = "Railway Tunnel";
+"type.railway.rail.spur.tunnel" = "نفق السكة الحديد";
 
-"type.railway.rail.service.tunnel" = "Railway Tunnel";
+"type.railway.rail.service.tunnel" = "نفق السكة الحديد";
 
 "type.railway.station" = "محطة سكك حديدية";
 

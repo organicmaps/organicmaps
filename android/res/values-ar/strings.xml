@@ -1435,13 +1435,32 @@
 	<string name="type.railway.level_crossing">مزلقان</string>
 	<string name="type.railway.monorail">اتجاه واحد</string>
 	<string name="type.railway.rail">خط سكة حديد</string>
-	<string name="type.railway.rail.highspeed">خط سكة حديد</string>
-	<string name="type.railway.rail.tourism">خط سكة حديد</string>
-	<string name="type.railway.rail.main">خط سكة حديد</string>
-	<string name="type.railway.rail.branch">خط سكة حديد</string>
-	<string name="type.railway.rail.utility">خط سكة حديد</string>
-	<string name="type.railway.rail.spur">خط سكة حديد</string>
-	<string name="type.railway.rail.service">خط سكة حديد</string>
+	<string name="type.railway.rail.highspeed">سكة حديد عالية السرعة</string>
+	<string name="type.railway.rail.tourism">السكك الحديدية السياحية</string>
+	<string name="type.railway.rail.main">سكة حديدية</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">السكك الحديدية الثانوية</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">سكة حديد المرافق</string>
+	<string name="type.railway.rail.spur">سكة حديد سبير</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">مسار السكك الحديدية المساعدة</string>
+	<string name="type.railway.rail.bridge">جسر للسكك الحديدية</string>
+	<string name="type.railway.rail.highspeed.bridge">جسر للسكك الحديدية</string>
+	<string name="type.railway.rail.tourism.bridge">جسر للسكك الحديدية</string>
+	<string name="type.railway.rail.main.bridge">جسر للسكك الحديدية</string>
+	<string name="type.railway.rail.branch.bridge">جسر للسكك الحديدية</string>
+	<string name="type.railway.rail.utility.bridge">جسر للسكك الحديدية</string>
+	<string name="type.railway.rail.spur.bridge">جسر للسكك الحديدية</string>
+	<string name="type.railway.rail.service.bridge">جسر للسكك الحديدية</string>
+	<string name="type.railway.rail.tunnel">نفق السكة الحديد</string>
+	<string name="type.railway.rail.highspeed.tunnel">نفق السكة الحديد</string>
+	<string name="type.railway.rail.tourism.tunnel">نفق السكة الحديد</string>
+	<string name="type.railway.rail.main.tunnel">نفق السكة الحديد</string>
+	<string name="type.railway.rail.branch.tunnel">نفق السكة الحديد</string>
+	<string name="type.railway.rail.utility.tunnel">نفق السكة الحديد</string>
+	<string name="type.railway.rail.spur.tunnel">نفق السكة الحديد</string>
+	<string name="type.railway.rail.service.tunnel">نفق السكة الحديد</string>
 	<string name="type.railway.station">محطة سكك حديدية</string>
 	<string name="type.railway.station.funicular">حبلي</string>
 	<string name="type.railway.station.light_rail">محطة سكك حديدية</string>

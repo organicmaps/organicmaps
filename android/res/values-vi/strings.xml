@@ -1318,13 +1318,32 @@
 	<string name="type.railway.level_crossing">Chỗ qua đường sắt</string>
 	<string name="type.railway.monorail">Đường sắt một chiều</string>
 	<string name="type.railway.rail">Đường sắt</string>
-	<string name="type.railway.rail.highspeed">Đường sắt</string>
-	<string name="type.railway.rail.tourism">Đường sắt</string>
+	<string name="type.railway.rail.highspeed">Đường sắt cao tốc</string>
+	<string name="type.railway.rail.tourism">Đường sắt du lịch</string>
 	<string name="type.railway.rail.main">Đường sắt</string>
-	<string name="type.railway.rail.branch">Đường sắt</string>
-	<string name="type.railway.rail.utility">Đường sắt</string>
-	<string name="type.railway.rail.spur">Đường sắt</string>
-	<string name="type.railway.rail.service">Đường sắt</string>
+	<!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+	<string name="type.railway.rail.branch">Đường sắt phụ</string>
+	<!-- Non-passenger utility tracks: industrial, military, test. -->
+	<string name="type.railway.rail.utility">Đường sắt tiện ích</string>
+	<string name="type.railway.rail.spur">Đường sắt thúc đẩy</string>
+	<!-- Short service tracks: siding, yard, crossover. -->
+	<string name="type.railway.rail.service">Đường ray phụ trợ</string>
+	<string name="type.railway.rail.bridge">Cầu đường sắt</string>
+	<string name="type.railway.rail.highspeed.bridge">Cầu đường sắt</string>
+	<string name="type.railway.rail.tourism.bridge">Cầu đường sắt</string>
+	<string name="type.railway.rail.main.bridge">Cầu đường sắt</string>
+	<string name="type.railway.rail.branch.bridge">Cầu đường sắt</string>
+	<string name="type.railway.rail.utility.bridge">Cầu đường sắt</string>
+	<string name="type.railway.rail.spur.bridge">Cầu đường sắt</string>
+	<string name="type.railway.rail.service.bridge">Cầu đường sắt</string>
+	<string name="type.railway.rail.tunnel">Đường hầm đường sắt</string>
+	<string name="type.railway.rail.highspeed.tunnel">Đường hầm đường sắt</string>
+	<string name="type.railway.rail.tourism.tunnel">Đường hầm đường sắt</string>
+	<string name="type.railway.rail.main.tunnel">Đường hầm đường sắt</string>
+	<string name="type.railway.rail.branch.tunnel">Đường hầm đường sắt</string>
+	<string name="type.railway.rail.utility.tunnel">Đường hầm đường sắt</string>
+	<string name="type.railway.rail.spur.tunnel">Đường hầm đường sắt</string>
+	<string name="type.railway.rail.service.tunnel">Đường hầm đường sắt</string>
 	<string name="type.railway.station">Đường tàu hỏa</string>
 	<string name="type.railway.station.funicular">Đường sắt leo núi</string>
 	<string name="type.railway.station.light_rail">Đường tàu hỏa</string>

@@ -1,17 +1,30 @@
-- Soporte de importación GPX
-- Nuevos datos de OpenStreetMap a partir del 2 de junio de 2023
-- Corrección de la desaparición de las listas de marcadores cuando se guardaban caracteres erróneos en el nombre o la descripción de un marcador.
-- Mejora de las rutas en coche y en bicicleta
-- Se ha corregido la falta de funcionalidad de las indicaciones de voz en Portugués (Brasil) y Español (México).
-- Corregido el fallo al importar los archivos KML/KMZ/GPX
-- Corrección en las importaciones repetidas del mismo archivo
-- Corrección de las traducciones al Euskera, Bielorruso, Inglés y Ucraniano.
+• Fresh OpenStreetMap data as of July 10, 2023
+• Support altitude, OsmAnd and Garmin colors in imported GPX tracks
+• Show coordinates in Open Location Code (OLC), UTM, MRGS, and OpenStreetMap.org formats on click and copy coordinates on a long tap
+• Fixed crash when rendering large objects
+• Bookmark lists descriptions are now displayed and saved properly
+• Faster loading of bookmarks and tracks
+• Fixed pedestrian ETA for big slopes
+• Prefer tertiary roads to service roads in car routing
 
-Estilos:
-- Corregido el icono del funicular
-- Cambiado el color del desierto en el modo oscuro
-- Añadido paso de peces
-- Nuevo icono para el casillero de paquetes
-- Corregido el icono de la estación de metro más septentrional de Múnich
+Search
+• Improved search results ranking
+• Fixed shop categories search
+• Fixed airport search results with empty names
+
+Styles
+• Improve visibility and findability of highway services and rest areas
+• Added second-hand category, auction, collectors shops, turnstile & exit
+• Fixed underwater tunnels not being visible
+• Fixed areal water tunnels being drawn over other areas
+• Major railway lines are more visible now, while minor utility/service tracks clutter the map less
+• Fixed railway-abandoned/preserved bridges
+• Added a bridge structure outline man_made-bridge
+• Added community center, conference center, exhibition center, events venue
+• Increased shop icons priority
+• Added boundary=protected_area
+
+Translations:
+• Updated Catalan, Czech, Finnish, French, German, Italian, Polish, Spanish, Swedish, and Turkish translations
 
 Sigue nuestras noticias en https://omaps.org/news

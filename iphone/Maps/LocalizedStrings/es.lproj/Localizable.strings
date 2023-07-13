@@ -2804,51 +2804,54 @@
 
 "type.railway.rail" = "Ferrocarril";
 
-"type.railway.rail.highspeed" = "Ferrocarril";
+"type.railway.rail.highspeed" = "Ferrocarril de alta velocidad";
 
-"type.railway.rail.tourism" = "Ferrocarril";
+"type.railway.rail.tourism" = "Ferrocarril turístico";
 
 "type.railway.rail.main" = "Ferrocarril";
 
-"type.railway.rail.branch" = "Ferrocarril";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Ramal ferroviario";
 
-"type.railway.rail.utility" = "Ferrocarril";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Ferrocarril utilitario";
 
-"type.railway.rail.spur" = "Ferrocarril";
+"type.railway.rail.spur" = "Espolón ferroviario";
 
-"type.railway.rail.service" = "Ferrocarril";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Vía férrea de maniobras";
 
-"type.railway.rail.bridge" = "Railway Bridge";
+"type.railway.rail.bridge" = "Puente ferroviario";
 
-"type.railway.rail.highspeed.bridge" = "Railway Bridge";
+"type.railway.rail.highspeed.bridge" = "Puente ferroviario";
 
-"type.railway.rail.tourism.bridge" = "Railway Bridge";
+"type.railway.rail.tourism.bridge" = "Puente ferroviario";
 
-"type.railway.rail.main.bridge" = "Railway Bridge";
+"type.railway.rail.main.bridge" = "Puente ferroviario";
 
-"type.railway.rail.branch.bridge" = "Railway Bridge";
+"type.railway.rail.branch.bridge" = "Puente ferroviario";
 
-"type.railway.rail.utility.bridge" = "Railway Bridge";
+"type.railway.rail.utility.bridge" = "Puente ferroviario";
 
-"type.railway.rail.spur.bridge" = "Railway Bridge";
+"type.railway.rail.spur.bridge" = "Puente ferroviario";
 
-"type.railway.rail.service.bridge" = "Railway Bridge";
+"type.railway.rail.service.bridge" = "Puente ferroviario";
 
-"type.railway.rail.tunnel" = "Railway Tunnel";
+"type.railway.rail.tunnel" = "Túnel ferroviario";
 
-"type.railway.rail.highspeed.tunnel" = "Railway Tunnel";
+"type.railway.rail.highspeed.tunnel" = "Túnel ferroviario";
 
-"type.railway.rail.tourism.tunnel" = "Railway Tunnel";
+"type.railway.rail.tourism.tunnel" = "Túnel ferroviario";
 
-"type.railway.rail.main.tunnel" = "Railway Tunnel";
+"type.railway.rail.main.tunnel" = "Túnel ferroviario";
 
-"type.railway.rail.branch.tunnel" = "Railway Tunnel";
+"type.railway.rail.branch.tunnel" = "Túnel ferroviario";
 
-"type.railway.rail.utility.tunnel" = "Railway Tunnel";
+"type.railway.rail.utility.tunnel" = "Túnel ferroviario";
 
-"type.railway.rail.spur.tunnel" = "Railway Tunnel";
+"type.railway.rail.spur.tunnel" = "Túnel ferroviario";
 
-"type.railway.rail.service.tunnel" = "Railway Tunnel";
+"type.railway.rail.service.tunnel" = "Túnel ferroviario";
 
 "type.railway.station" = "Estación de tren";
 

@@ -2804,51 +2804,54 @@
 
 "type.railway.rail" = "Chemin de fer";
 
-"type.railway.rail.highspeed" = "Chemin de fer";
+"type.railway.rail.highspeed" = "Chemin de fer à grande vitesse";
 
-"type.railway.rail.tourism" = "Chemin de fer";
+"type.railway.rail.tourism" = "Ligne touristique";
 
 "type.railway.rail.main" = "Chemin de fer";
 
-"type.railway.rail.branch" = "Chemin de fer";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Chemin de fer secondaire";
 
-"type.railway.rail.utility" = "Chemin de fer";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Train de fret";
 
-"type.railway.rail.spur" = "Chemin de fer";
+"type.railway.rail.spur" = "Embranchement ferroviaire";
 
-"type.railway.rail.service" = "Chemin de fer";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Service ferroviaire";
 
-"type.railway.rail.bridge" = "Chemin de fer";
+"type.railway.rail.bridge" = "Pont ferroviaire";
 
-"type.railway.rail.highspeed.bridge" = "Chemin de fer";
+"type.railway.rail.highspeed.bridge" = "Pont ferroviaire";
 
-"type.railway.rail.tourism.bridge" = "Chemin de fer";
+"type.railway.rail.tourism.bridge" = "Pont ferroviaire";
 
-"type.railway.rail.main.bridge" = "Chemin de fer";
+"type.railway.rail.main.bridge" = "Pont ferroviaire";
 
-"type.railway.rail.branch.bridge" = "Chemin de fer";
+"type.railway.rail.branch.bridge" = "Pont ferroviaire";
 
-"type.railway.rail.utility.bridge" = "Chemin de fer";
+"type.railway.rail.utility.bridge" = "Pont ferroviaire";
 
-"type.railway.rail.spur.bridge" = "Chemin de fer";
+"type.railway.rail.spur.bridge" = "Pont ferroviaire";
 
-"type.railway.rail.service.bridge" = "Chemin de fer";
+"type.railway.rail.service.bridge" = "Pont ferroviaire";
 
-"type.railway.rail.tunnel" = "Chemin de fer";
+"type.railway.rail.tunnel" = "Tunnel ferroviaire";
 
-"type.railway.rail.highspeed.tunnel" = "Chemin de fer";
+"type.railway.rail.highspeed.tunnel" = "Tunnel ferroviaire";
 
-"type.railway.rail.tourism.tunnel" = "Chemin de fer";
+"type.railway.rail.tourism.tunnel" = "Tunnel ferroviaire";
 
-"type.railway.rail.main.tunnel" = "Chemin de fer";
+"type.railway.rail.main.tunnel" = "Tunnel ferroviaire";
 
-"type.railway.rail.branch.tunnel" = "Chemin de fer";
+"type.railway.rail.branch.tunnel" = "Tunnel ferroviaire";
 
-"type.railway.rail.utility.tunnel" = "Chemin de fer";
+"type.railway.rail.utility.tunnel" = "Tunnel ferroviaire";
 
-"type.railway.rail.spur.tunnel" = "Chemin de fer";
+"type.railway.rail.spur.tunnel" = "Tunnel ferroviaire";
 
-"type.railway.rail.service.tunnel" = "Chemin de fer";
+"type.railway.rail.service.tunnel" = "Tunnel ferroviaire";
 
 "type.railway.station" = "Gare ferroviaire";
 
