@@ -8,19 +8,19 @@ No ads, no tracking, no data collection, no crapware. Your [donations](https://o
 
 <p float="left">
   <a href="https://apps.apple.com/app/organic-maps/id1567437057">
-    <img src="docs/badges/apple-appstore.png" width="180">
+    <img alt="Download on the App Store" src="docs/badges/apple-appstore.png" width="180">
   </a>
   <a href="https://play.google.com/store/apps/details?id=app.organicmaps">
-    <img src="docs/badges/google-play.png" width="180">
+    <img alt="Get it on Google Play" src="docs/badges/google-play.png" width="180">
   </a>
   <a href="https://appgallery.huawei.com/#/app/C104325611">
-    <img src="docs/badges/huawei-appgallery.png" width="180">
+    <img alt="Explore it on AppGallery" src="docs/badges/huawei-appgallery.png" width="180">
   </a>
   <a href="https://f-droid.org/en/packages/app.organicmaps/">
-    <img src="docs/badges/fdroid.png" width="180">
+    <img alt="Get it on F-Droid" src="docs/badges/fdroid.png" width="180">
   </a>
   <a href='https://flathub.org/apps/details/app.organicmaps.desktop'>
-    <img alt="Download on Flathub" src="https://flathub.org/assets/badges/flathub-badge-en.png" width="180"/>
+    <img alt="Download on Flathub" src="docs/badges/flathub.png" width="180"/>
   </a>
   <a href="https://repology.org/project/organicmaps/versions">
     <img src="https://repology.org/badge/vertical-allrepos/organicmaps.svg" width="180" alt="Packaging status">
