@@ -483,7 +483,7 @@ bool EditableMapObject::UpdateMetadataValue(string_view key, string value)
   if (!feature::Metadata::TypeFromString(key, type))
     return false;
 
-  m_metadata.Set(type, std::move(value));
+  SetMetadata(type, std::move(value));
   return true;
 }
 
