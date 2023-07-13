@@ -15,8 +15,9 @@ Search
 Styles
 • Improve visibility and findability of highway services and rest areas
 • Added second-hand category, auction, collectors shops, turnstile & exit
-• Made areal water tunnels transparent and visible from z15
-• Introduced more detailed railway-rail-* types
+• Fixed underwater tunnels not being visible
+• Fixed areal water tunnels being drawn over other areas
+• Major railway lines are more visible now, while minor utility/service tracks clutter the map less
 • Fixed railway-abandoned/preserved bridges
 • Added a bridge structure outline man_made-bridge
 • Added community center, conference center, exhibition center, events venue

@@ -5,7 +5,6 @@
 • Besseres Routing für Autos
 • Verbesserte Suche
 • Teilen-Knopf ist jetzt auf der Place Page
-• Fehlerbehebung der backurl-API
 • Bessere Übersetzung
 • Neue Shops, Veranstaltungsorte und Schutzgebiete hinzugefügt
 • Bessere Darstellung von Unterwassertunneln und Brücken

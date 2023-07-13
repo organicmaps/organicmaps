@@ -1,15 +1,14 @@
 • Fresh OpenStreetMap data as of July 10, 2023
-• Fix several crashes
+• Fixed several crashes
 • Support altitude, OsmAnd and Garmin colors in imported GPX tracks
 • Fixed pedestrian ETA for big slopes
 • Better car routing
 • Improved search ranking
 • Share button has been moved to the Place Page
-• Fixed API backurl
 • Updated many translations
-• Add new shops and event venues types
+• Added new shops and event venues types
 • Improved water tunnels and bridges rendering
-• More detailed railway types
-• Add boundary=protected_area
+• More detailed railways
+• Added boundary=protected_area
 
 …更多内容请参考：omaps.org/news

@@ -5,7 +5,6 @@
 • Jobb autós útvonaltervezés
 • Javított keresés
 • A Megosztás gomb átkerült a Hely oldalra
-• Javított API backurl
 • Frissített fordítások
 • Új üzletek és eseménytípusok hozzáadása
 • Javítottuk a vízi alagutak és hidak megjelenítését
