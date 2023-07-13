@@ -169,7 +169,7 @@ public:
   //@{
   struct InnerGeomStat
   {
-    uint32_t m_points = 0, m_strips = 0, m_size = 0;
+    uint32_t m_points = 0, m_firstPoints = 0, m_strips = 0, m_size = 0;
   };
 
   InnerGeomStat GetInnerStats() const { return m_innerStats; }
