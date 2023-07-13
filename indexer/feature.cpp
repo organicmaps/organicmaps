@@ -385,8 +385,10 @@ void FeatureType::ParseHeader2()
     }
     else
     {
-      // Outer geometry: first point is stored in the header still.
+      // Outer geometry: first (base) point is stored in the header still.
+      auto const * start = src.PtrUint8();
       m_points.emplace_back(serial::LoadPoint(src, cp));
+      m_innerStats.m_firstPoints = CalcOffset(src, start);
       ReadOffsets(*m_loadInfo, src, ptsMask, m_offsets.m_pts);
     }
   }
