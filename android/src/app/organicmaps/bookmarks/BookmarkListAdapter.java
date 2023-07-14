@@ -30,6 +30,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
   static final int TYPE_BOOKMARK = 1;
   static final int TYPE_SECTION = 2;
   static final int TYPE_DESC = 3;
+  static final int MAX_VISIBLE_LINES = 2;
 
   @NonNull
   private final DataSource<BookmarkCategory> mDataSource;
@@ -432,8 +433,8 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
         TextView text = desc.findViewById(R.id.text);
         setMoreButtonVisibility(text, moreBtn);
         holder = new Holders.DescriptionViewHolder(desc, mSectionsDataSource.getCategory());
-        text.setOnClickListener(v -> onMoreButtonClicked(moreBtn, text));
-        moreBtn.setOnClickListener(v -> onMoreButtonClicked(moreBtn, text));
+        text.setOnClickListener(v -> onMoreButtonClicked(text));
+        moreBtn.setOnClickListener(v -> onMoreButtonClicked(text));
         break;
     }
 
@@ -524,9 +525,9 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     text.post(() ->
     {
       final int lineCount = text.getLineCount();
-      if (lineCount > 2)
+      if (lineCount > MAX_VISIBLE_LINES)
       {
-        text.setMaxLines(2);
+        text.setMaxLines(MAX_VISIBLE_LINES);
         moreBtn.setVisibility(View.VISIBLE);
       }
       else
@@ -534,11 +535,11 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     });
   }
 
-  private void onMoreButtonClicked(TextView moreBtn, TextView text)
+  private void onMoreButtonClicked(TextView text)
   {
-    if (text.getMaxLines() == 2)
+    if (text.getMaxLines() == MAX_VISIBLE_LINES)
       text.setMaxLines(Integer.MAX_VALUE);
     else
-      text.setMaxLines(2);
+      text.setMaxLines(MAX_VISIBLE_LINES);
   }
 }
