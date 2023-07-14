@@ -202,21 +202,24 @@ public class Factory
     {
       final ParsingResult result = Framework.nativeParseAndSetApiUrl(getUrl());
 
-      // TODO: Kernel recognizes "mapsme://", "mwm://" and "mapswithme://" schemas only!!!
+      final Uri uri = Uri.parse(getUrl());
+      if (uri.isHierarchical())
+      {
+        final String backUrl = uri.getQueryParameter("backurl");
+        if (!TextUtils.isEmpty(backUrl))
+        {
+          final Intent intent = target.getIntent();
+          if (intent != null)
+            intent.putExtra(MwmActivity.EXTRA_BACK_URL, backUrl);
+        }
+      }
+
+      // TODO: Kernel recognizes "om://", "mapsme://", "mwm://" and "mapswithme://" schemas only!!!
       if (result.getUrlType() == ParsingResult.TYPE_INCORRECT)
         return Map.showMapForUrl(getUrl());
 
       if (!result.isSuccess())
         return false;
-
-      final Uri uri = Uri.parse(getUrl());
-      final String backUrl = uri.getQueryParameter("backurl");
-      if (!TextUtils.isEmpty(backUrl))
-      {
-        Intent intent = target.getIntent();
-        if (intent != null)
-          intent.putExtra(MwmActivity.EXTRA_BACK_URL, backUrl);
-      }
 
       switch (result.getUrlType())
       {
