@@ -86,6 +86,7 @@ landuse-forest-mixed                                # area z10- (also has icon z
 landuse-churchyard                                  # area z15-
 landuse-construction                                # area z15-
 landuse-industrial                                  # area z15-
+landuse-industrial-mine                             # area z15-
 landuse-landfill                                    # area z15- (also has caption z15-)
 landuse-quarry                                      # area z15- (also has caption z15-)
 landuse-railway                                     # area z15- (also has caption z15-)
