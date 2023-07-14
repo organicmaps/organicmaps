@@ -113,6 +113,46 @@
   </screenshots>
 
   <releases>
+   <release version="2023.07.13-10" date="2023-07-13">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>Fresh OpenStreetMap data as of July 10, 2023</li>
+           <li>Use Qt6 instead of Qt5, please report any log errors or issues</li>
+           <li>Add preference for larger map font size</li>
+           <li>Feature's layer is displayed in the Place Page</li>
+           <li>Fixed crash when rendering large objects</li>
+           <li>Faster loading of bookmarks and tracks</li>
+           <li>Support altitude, OsmAnd, and Garmin colors in imported GPX tracks</li>
+           <li>Fixed pedestrian ETA for big slopes</li>
+           <li>Prefer tertiary roads to service roads in car routing</li>
+           <li>Better Devanagari (Marathi) font</li>
+         </ul>
+       <p>Search:</p>
+         <ul>
+           <li>Improved search results ranking</li>
+           <li>Fixed shop categories search</li>
+           <li>Fixed airport search results with empty names</li>
+         </ul>
+       <p>Translations:</p>
+         <ul>
+           <li>Updated Catalan, Czech, Finnish, French, German, Italian, Polish, Spanish, Swedish, and Turkish translations</li>
+         </ul>
+       <p>Map Styles:</p>
+         <ul>
+           <li>Improve visibility and findability of highway services and rest areas</li>
+           <li>Added second-hand category, auction, collectors shops, turnstile &amp; exit</li>
+           <li>Fixed underwater tunnels not being visible</li>
+           <li>Fixed areal water tunnels being drawn over other areas</li>
+           <li>Introduced more detailed railway-rail-* types</li>
+           <li>Fixed railway-abandoned/preserved bridges</li>
+           <li>Added a bridge structure outline man_made-bridge</li>
+           <li>Added community center, conference center, exhibition center, events venue</li>
+           <li>Increased shop icons priority</li>
+           <li>Added boundary=protected_area</li>
+         </ul>
+     </description>
+   </release>
    <release version="2023.06.04-13" date="2023-06-04">
      <description>
        <p>Highlights:</p>
