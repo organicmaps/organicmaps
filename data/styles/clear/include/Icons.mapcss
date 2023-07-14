@@ -469,6 +469,7 @@ node|z15-[amenity=community_centre],
 area|z15-[amenity=community_centre],
 node|z15-[historic=memorial],
 area|z15-[historic=memorial],
+node|z15-[historic=mine],
 node|z15-[historic=battlefield],
 area|z15-[historic=battlefield],
 node|z15-[tourism=gallery],
@@ -476,13 +477,16 @@ area|z15-[tourism=gallery],
 node|z15-[tourism=artwork],
 node|z15-[tourism=information][information=office],
 node|z15-[tourism=information][information=visitor_centre],
+node|z15-[historic=ship],
 node|z16-[tourism=information],
+node|z16-[historic=aircraft],
+node|z16-[historic=tank],
+node|z16-[historic=wreck],
+node|z16-[historic=locomotive],
 node|z16-[historic=boundary_stone],
 area|z16-[historic=boundary_stone],
 node|z16-[historic=wayside_cross],
 area|z16-[historic=wayside_cross],
-node|z16-[historic=ship],
-area|z16-[historic=ship],
 node|z16-[historic=tomb],
 area|z16-[historic=tomb],
 node|z16-[tourism=aquarium],
@@ -499,6 +503,9 @@ node|z17-[historic=pillory],
 area|z17-[historic=pillory],
 node|z17-[amenity=arts_centre],
 area|z17-[amenity=arts_centre],
+node|z18-[historic=anchor],
+node|z18-[historic=cannon],
+node|z18-[historic=stone],
 {text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
 
 node|z12-14[historic=fort],
@@ -528,10 +535,33 @@ node|z17-[historic=archaeological_site],
 area|z17-[historic=archaeological_site]
 {icon-image: archaeological-site-m.svg;}
 
-
 node|z19-[historic=ruins][!name],
 area|z19-[historic=ruins][!name],
 {icon-image: remains-m.svg;}
+
+node|z15-[historic=mine],
+{icon-image: mine-m.svg;}
+
+node|z16-[historic=aircraft],
+{icon-image: aircraft-m.svg;}
+
+node|z16-[historic=tank],
+{icon-image: tank-m.svg;}
+
+node|z16-[historic=wreck],
+{icon-image: wreck-m.svg;}
+
+node|z16-[historic=locomotive],
+{icon-image: locomotive-m.svg;}
+
+node|z18-[historic=cannon],
+{icon-image: cannon-m.svg;}
+
+node|z18-[historic=anchor],
+{icon-image: anchor-m.svg;}
+
+node|z18-[historic=stone],
+{icon-image: stone-m.svg;}
 
 node|z13-14[historic=monument],
 area|z13-14[historic=monument]
@@ -644,8 +674,7 @@ area|z16-[historic=pillory],
 node|z16-[historic=wayside_cross],
 area|z16-[historic=wayside_cross],
 {icon-image: cross-m.svg;font-size: 11;icon-min-distance: 8;}
-node|z16-[historic=ship],
-area|z16-[historic=ship],
+node|z15-[historic=ship],
 {icon-image: historic-ship-m.svg;font-size: 11;icon-min-distance: 8;}
 node|z16-[historic=tomb],
 area|z16-[historic=tomb],
@@ -873,6 +902,10 @@ area|z14-[man_made=lighthouse],
 node|z15-[amenity=hospital],
 node|z15-[landuse=landfill],
 area|z15-[landuse=landfill],
+node|z15-[landuse=quarry],
+area|z15-[landuse=quarry],
+node|z15-[landuse=industrial][industrial=mine],
+area|z15-[landuse=industrial][industrial=mine],
 node|z15-[barrier=border_control],
 node|z16-[building=hospital],
 area|z16-[building=hospital],
@@ -1447,6 +1480,12 @@ area|z17-[amenity=bank]
 node|z15-[landuse=landfill],
 area|z15-[landuse=landfill]
 {icon-image: waste-basket-m.svg;text-offset: 1;font-size: 10;}
+
+node|z15-[landuse=quarry],
+area|z15-[landuse=quarry],
+node|z15-[landuse=industrial][industrial=mine],
+area|z15-[landuse=industrial][industrial=mine]
+{icon-image: mine-m.svg;text-offset: 1;font-size: 10;}
 
 node|z16-[leisure=water_park],
 area|z16-[leisure=water_park]

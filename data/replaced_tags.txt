@@ -113,10 +113,15 @@ diet:vegan=only : cuisine=vegan
 diet=vegan : cuisine=vegan
 
 ruins=yes : historic=ruins
-historic=cannon : historic=memorial
 historic=technical_monument : historic=memorial
 historic=shield : historic=memorial
 historic=fountain : amenity=fountain | u
+historic=milestone : historic=stone
+historic=rune_stone : historic=stone
+historic=ogham_stone : historic=stone
+historic=standing_stone : historic=stone
+historic=aircraft_wreck : historic=aircraft
+historic=windmill : man_made=windmill
 
 memorial=blue_plaque : memorial=plaque
 memorial=stele : memorial=sculpture

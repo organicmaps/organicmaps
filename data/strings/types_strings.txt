@@ -12507,6 +12507,88 @@
     zh-Hans = 历史地点
     zh-Hant = 歷史地點
 
+  [type.historic.aircraft]
+    en = Historic Aircraft
+    ar = الطائرات التاريخية
+    be = Гістарычныя самалёты
+    bg = Исторически самолет
+    ca = Avions Històrics
+    cs = Historická letadla
+    da = Historiske fly
+    de = Historisches Flugzeug
+    el = Ιστορικό αεροσκάφος
+    es = Avión histórico
+    et = Ajalooline lennuk
+    eu = Hegazkin historikoa
+    fa = هواپیمای تاریخی
+    fi = Historiallinen lentokone
+    fr = Avion historique
+    he = מטוס היסטורי
+    hu = Történelmi Repülőgép
+    id = Pesawat Bersejarah
+    it = Aerei storici
+    ja = 歴史的な航空機
+    ko = "역사적인 항공기"
+    lt = Istorinis lėktuvas
+    mr = ऐतिहासिक विमान
+    nb = Historisk fly
+    nl = Historische vliegtuigen
+    pl = Historyczny samolot
+    pt = Aeronaves Históricas
+    pt-BR = Aeronaves Históricas
+    ro = Avioane istorice
+    ru = Исторический самолет
+    sk = Historické lietadlo
+    sv = Historiska flygplan
+    sw = Ndege ya kihistoria
+    th = เครื่องบินประวัติศาสตร์
+    tr = Tarihi Uçak
+    uk = Історичний літак
+    vi = Máy bay lịch sử
+    zh-Hans = 历史悠久的飞机
+    zh-Hant = 歷史悠久的飛機
+
+  [type.historic.anchor]
+    en = Historic Anchor
+    ar = مرساة تاريخية
+    be = Гістарычны якар
+    bg = Историческа котва
+    ca = Àncora històrica
+    cs = Historická kotva
+    da = Historisk anker
+    de = Historischer Anker
+    el = Ιστορική Άγκυρα
+    es = Ancla histórica
+    et = Ajalooline ankur
+    eu = Aingura Historikoa
+    fa = لنگر تاریخی
+    fi = Historiallinen ankkuri
+    fr = Ancre historique
+    he = עוגן היסטורי
+    hu = Történelmi horgony
+    id = Jangkar Bersejarah
+    it = Ancora storica
+    ja = 歴史的なアンカー
+    ko = 역사적인 앵커
+    lt = Istorinis inkaras
+    mr = ऐतिहासिक अँकर
+    nb = Historisk anker
+    nl = Historisch anker
+    pl = Historyczna kotwica
+    pt = Âncora Histórica
+    pt-BR = Âncora Histórica
+    ro = Ancoră istorică
+    ru = Исторический якорь
+    sk = Historická kotva
+    sv = Historiskt ankare
+    sw = Nanga ya kihistoria
+    th = ผู้ประกาศข่าวประวัติศาสตร์
+    tr = Tarihi Çapa
+    uk = Історичний якір
+    vi = Mỏ Neo lịch sử
+    zh-Hans = 历史锚
+    zh-Hant = 歷史錨
+
   [type.historic.archaeological_site]
     en = Archaeological Site
     af = Argeologiese terrein
@@ -12623,6 +12705,47 @@
     vi = Đá ranh giới
     zh-Hans = 界碑
     zh-Hant = 界碑
+
+  [type.historic.cannon]
+    en = Cannon
+    ar = مدفع
+    be = Гармата
+    bg = Оръдие
+    ca = Canó
+    cs = Dělo
+    da = Kanon
+    de = Kanone
+    el = Κανόνι
+    es = Cañón
+    et = Kahur
+    eu = Kanoia
+    fa = توپ
+    fi = Tykki
+    fr = Canon
+    he = תוֹתָח
+    hu = Ágyú
+    id = Meriam
+    it = Cannone
+    ja = 大砲
+    ko = 대포
+    lt = Patranka
+    mr = तोफ
+    nb = Kanon
+    nl = Kanon
+    pl = Armata
+    pt = Canhão
+    pt-BR = Canhão
+    ro = Tun
+    ru = Пушка
+    sk = Cannon
+    sv = Kanon
+    sw = Kanuni
+    th = ปืนใหญ่
+    tr = Top
+    uk = Гармата
+    vi = Pháo
+    zh-Hans = 大炮
+    zh-Hant = 大砲
 
   [type.historic.castle]
     en = Castle
@@ -13210,6 +13333,47 @@
     zh-Hans = 绞架
     zh-Hant = 絞架
 
+  [type.historic.locomotive]
+    en = Historic Locomotive
+    ar = قاطرة تاريخية
+    be = Гістарычны паравоз
+    bg = Исторически Локомотив
+    ca = Locomotora històrica
+    cs = Historická lokomotiva
+    da = Historisk lokomotiv
+    de = Historische Lokomotive
+    el = Ιστορική Ατμομηχανή
+    es = Locomotora histórica
+    et = Ajalooline vedur
+    eu = Lokomotora historikoa
+    fa = لوکوموتیو تاریخی
+    fi = Historiallinen veturi
+    fr = Locomotive historique
+    he = קטר היסטורי
+    hu = Történelmi mozdony
+    id = Lokomotif Bersejarah
+    it = Locomotiva storica
+    ja = 歴史的な機関車
+    ko = 역사적인 기관차
+    lt = Istorinis lokomotyvas
+    mr = ऐतिहासिक लोकोमोटिव्ह
+    nb = Historisk lokomotiv
+    nl = Historische locomotief
+    pl = Zabytkowa lokomotywa
+    pt = Locomotiva Histórica
+    pt-BR = Locomotiva Histórica
+    ro = Locomotiva istorică
+    ru = Исторический локомотив
+    sk = Historická lokomotíva
+    sv = Historiskt lok
+    sw = Locomotive ya kihistoria
+    th = หัวรถจักรประวัติศาสตร์
+    tr = Tarihi Lokomotif
+    uk = Історичний паровоз
+    vi = Đầu máy lịch sử
+    zh-Hans = 历史悠久的机车
+    zh-Hant = 歷史悠久的機車
+
   [type.historic.memorial]
     en = Memorial
     af = Gedenkteken
@@ -13445,6 +13609,47 @@
     zh-Hans = 绊脚石
     zh-Hant = 絆腳石
 
+  [type.historic.stone]
+    en = Historic Stone
+    ar = الحجر التاريخي
+    be = Гістарычны камень
+    bg = Исторически камък
+    ca = Pedra Històrica
+    cs = Historický kámen
+    da = Historisk sten
+    de = Historischer Stein
+    el = Ιστορική Πέτρα
+    es = Piedra histórica
+    et = Ajalooline kivi
+    eu = Harri historikoa
+    fa = سنگ تاریخی
+    fi = Historiallinen kivi
+    fr = Pierre historique
+    he = אבן היסטורית
+    hu = Történelmi kő
+    id = Batu Bersejarah
+    it = Pietra storica
+    ja = 歴史的な石
+    ko = 역사적인 돌
+    lt = Istorinis akmuo
+    mr = ऐतिहासिक दगड
+    nb = Historisk stein
+    nl = Historische steen
+    pl = Historyczny kamień
+    pt = Pedra Histórica
+    pt-BR = Pedra Histórica
+    ro = Piatra istorica
+    ru = Исторический камень
+    sk = Historický kameň
+    sv = Historisk sten
+    sw = Jiwe la Kihistoria
+    th = หินประวัติศาสตร์
+    tr = Tarihi Taş
+    uk = Історичний камінь
+    vi = Đá lịch sử
+    zh-Hans = 历史之石
+    zh-Hant = 歷史之石
+
   [type.historic.memorial.war_memorial]
     en = War Memorial
     af = Oorlogsgedenkteken
@@ -13483,6 +13688,47 @@
     vi = Đài tưởng niệm chiến tranh
     zh-Hans = 战争纪念建筑
     zh-Hant = 戰爭紀念建築
+
+  [type.historic.mine]
+    en = Historic Mine
+    ar = منجم تاريخي
+    be = Гістарычная шахта
+    bg = Историческа мина
+    ca = Mina Històrica
+    cs = Historický důl
+    da = Historisk mine
+    de = Historische Mine
+    el = Ιστορικό Ορυχείο
+    es = Mina histórica
+    et = Ajalooline kaevandus
+    eu = Meategi historikoa
+    fa = معدن تاریخی
+    fi = Historiallinen kaivos
+    fr = Mine historique
+    he = מכרה היסטורי
+    hu = Történelmi Bánya
+    id = Tambang Bersejarah
+    it = Miniera storica
+    ja = 歴史ある鉱山
+    ko = 역사적인 광산
+    lt = Istorinė kasykla
+    mr = ऐतिहासिक खाण
+    nb = Historisk gruve
+    nl = Historische mijn
+    pl = Kopalnia Historyczna
+    pt = Mina Histórica
+    pt-BR = Mina Histórica
+    ro = Mina istorică
+    ru = Историческая шахта
+    sk = Historická baňa
+    sv = Historisk gruva
+    sw = Mgodi wa Kihistoria
+    th = เหมืองประวัติศาสตร์
+    tr = Tarihi Maden
+    uk = Історична шахта
+    vi = Mỏ lịch sử
+    zh-Hans = 历史矿山
+    zh-Hant = 歷史礦山
 
   [type.historic.monument]
     en = Monument
@@ -13639,6 +13885,47 @@
     zh-Hans = 历史船
     zh-Hant = 歷史船
 
+  [type.historic.tank]
+    en = Historic Tank
+    ar = الخزان التاريخي
+    be = Гістарычны танк
+    bg = Исторически танк
+    ca = Tanc històric
+    cs = Historický tank
+    da = Historisk tank
+    de = Historischer Panzer
+    el = Ιστορική δεξαμενή
+    es = Tanque histórico
+    et = Ajalooline tank
+    eu = Depositu historikoa
+    fa = تانک تاریخی
+    fi = Historiallinen tankki
+    fr = Char historique
+    he = טנק היסטורי
+    hu = Történelmi Tank
+    id = Tangki Bersejarah
+    it = Carro armato storico
+    ja = 歴史的な戦車
+    ko = 역사적인 탱크
+    lt = Istorinis tankas
+    mr = ऐतिहासिक टाकी
+    nb = Historisk tank
+    nl = Historische tank
+    pl = Historyczny czołg
+    pt = Tanque Histórico
+    pt-BR = Tanque Histórico
+    ro = Tanc istoric
+    ru = Исторический танк
+    sk = Historický tank
+    sv = Historisk tank
+    sw = Tangi ya kihistoria
+    th = รถถังประวัติศาสตร์
+    tr = Tarihi Tank
+    uk = Історичний танк
+    vi = Xe tăng lịch sử
+    zh-Hans = 历史悠久的坦克
+    zh-Hant = 歷史悠久的坦克
+
   [type.historic.tomb]
     en = Tomb
     af = Graftombe
@@ -13755,6 +14042,47 @@
     vi = Đền thờ
     zh-Hans = 路旁神龛
     zh-Hant = 路旁神龕
+
+  [type.historic.wreck]
+    en = Shipwreck
+    ar = حطام سفينة
+    be = Караблекрушэнне
+    bg = корабокрушение
+    ca = Naufragi
+    cs = Vrak
+    da = Forlis
+    de = Schiffswrack
+    el = Ναυάγιο
+    es = Naufragio
+    et = Laevahukk
+    eu = Naufragioa
+    fa = غرق کشتی
+    fi = Haaksirikko
+    fr = Naufrage
+    he = לְנַפֵּץ
+    hu = Hajótörés
+    id = Kecelakaan kapal
+    it = Naufragio
+    ja = 難破船
+    ko = 난파선
+    lt = Laivo avarija
+    mr = जहाजाचा नाश
+    nb = Skipsvrak
+    nl = Schipbreuk
+    pl = Wrak statku
+    pt = Naufrágio
+    pt-BR = Naufrágio
+    ro = Naufragiu
+    ru = Кораблекрушение
+    sk = Stroskotanie lode
+    sv = Förlisning
+    sw = Ajali ya meli
+    th = ซากเรืออัปปาง
+    tr = Gemi enkazı
+    uk = Корабельна аварія
+    vi = Sự chìm tàu
+    zh-Hans = 沉船
+    zh-Hant = 沉船
 
   [type.hwtag]
     en = hwtag

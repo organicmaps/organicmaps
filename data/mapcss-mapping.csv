@@ -822,7 +822,7 @@ barrier|cattle_grid;747;
 barrier|ditch;748;
 barrier|kissing_gate;749;
 barrier|turnstile;750;
-deprecated|deprecated;751;x
+landuse|industrial|mine;[landuse=industrial][industrial=mine];;name;int_name;751;
 deprecated|deprecated;752;x
 deprecated|deprecated;753;x
 deprecated|deprecated;754;x
@@ -1647,3 +1647,12 @@ leisure|amusement_arcade;1571;
 amenity|place_of_worship|christian|mormon;[amenity=place_of_worship][religion=christian][denomination=mormon];;name;int_name;1572;
 amenity|public_bath;1573;
 amenity|vehicle_inspection;1574;
+historic|cannon;1575;
+historic|anchor;1576;
+historic|stone;1577;
+historic|aircraft;1578;
+historic|tank;1579;
+historic|mine;1580;
+historic|wreck;1581;
+historic|locomotive;1582;
+
