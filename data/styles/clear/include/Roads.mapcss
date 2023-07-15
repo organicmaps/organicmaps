@@ -1102,8 +1102,8 @@ line|z16-[railway=rail]::dash,
 {color: @railway_dash; opacity:1;}
 
 
-line|z10-[railway=rail][highspeed?],
-line|z10-[railway=rail][usage=main],
+line|z7-[railway=rail][highspeed?],
+line|z8-[railway=rail][usage=main],
 line|z11-[railway=rail][usage=branch],
 {color: @railway; opacity: 1;}
 line|z10-[railway=rail][usage=tourism],
@@ -1191,7 +1191,7 @@ line|z16[railway=rail][service=service]::dash,
 {width: 0;}
 
 
-line|z10-11[railway=rail][usage=main],
+line|z8-11[railway=rail][usage=main],
 line|z10-11[railway=rail][usage=tourism],
 line|z11[railway=rail][usage=branch],
 line|z13[railway=rail][usage=utility],
@@ -1201,7 +1201,7 @@ line|z12[railway=rail][usage=tourism],
 line|z12[railway=rail][usage=branch],
 line|z14[railway=rail][usage=utility],
 {width: 1.1;}
-line|z10[railway=rail][highspeed?],
+line|z7-10[railway=rail][highspeed?],
 line|z13[railway=rail][usage=main],
 line|z13[railway=rail][usage=tourism],
 line|z13[railway=rail][usage=branch],
