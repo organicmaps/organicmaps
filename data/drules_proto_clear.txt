@@ -60156,6 +60156,36 @@ cont {
 cont {
   name: "railway-rail-highspeed"
   element {
+    scale: 7
+    lines {
+      width: 1.2
+      color: 9868678
+      priority: 411
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 8
+    lines {
+      width: 1.2
+      color: 9868678
+      priority: 411
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 9
+    lines {
+      width: 1.2
+      color: 9868678
+      priority: 411
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 10
     lines {
       width: 1.2
@@ -60283,6 +60313,36 @@ cont {
 }
 cont {
   name: "railway-rail-highspeed-bridge"
+  element {
+    scale: 7
+    lines {
+      width: 1.2
+      color: 9868678
+      priority: 411
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 8
+    lines {
+      width: 1.2
+      color: 9868678
+      priority: 411
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 9
+    lines {
+      width: 1.2
+      color: 9868678
+      priority: 411
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
   element {
     scale: 10
     lines {
@@ -60478,6 +60538,36 @@ cont {
 cont {
   name: "railway-rail-highspeed-tunnel"
   element {
+    scale: 7
+    lines {
+      width: 1.2
+      color: 9868678
+      priority: 411
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 8
+    lines {
+      width: 1.2
+      color: 9868678
+      priority: 411
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 9
+    lines {
+      width: 1.2
+      color: 9868678
+      priority: 411
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 10
     lines {
       width: 1.2
@@ -60666,6 +60756,26 @@ cont {
 cont {
   name: "railway-rail-main"
   element {
+    scale: 8
+    lines {
+      width: 1.0
+      color: 9868678
+      priority: 411
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 9
+    lines {
+      width: 1.0
+      color: 9868678
+      priority: 411
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 10
     lines {
       width: 1.0
@@ -60793,6 +60903,26 @@ cont {
 }
 cont {
   name: "railway-rail-main-bridge"
+  element {
+    scale: 8
+    lines {
+      width: 1.0
+      color: 9868678
+      priority: 411
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 9
+    lines {
+      width: 1.0
+      color: 9868678
+      priority: 411
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
   element {
     scale: 10
     lines {
@@ -60987,6 +61117,26 @@ cont {
 }
 cont {
   name: "railway-rail-main-tunnel"
+  element {
+    scale: 8
+    lines {
+      width: 1.0
+      color: 9868678
+      priority: 411
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 9
+    lines {
+      width: 1.0
+      color: 9868678
+      priority: 411
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
   element {
     scale: 10
     lines {
