@@ -16,7 +16,7 @@ namespace feature
   bool IsCategoryNondrawableType(uint32_t type);
   bool IsUsefulType(uint32_t type);
   bool IsDrawableForIndex(FeatureType & ft, int level);
-  bool IsDrawableForIndex(TypesHolder const & types, m2::RectD const & limitRect, int level);
+  bool IsDrawableForIndex(TypesHolder const & types, m2::RectD const & limitRect, bool isClosedLine, int level);
 
   // The separation into ClassifOnly and GeometryOnly versions is needed to speed up
   // the geometrical index (see indexer/scale_index_builder.hpp).
@@ -38,7 +38,7 @@ namespace feature
   /// @}
 
   int GetMinDrawableScale(FeatureType & ft);
-  int GetMinDrawableScale(TypesHolder const & types, m2::RectD const & limitRect);
+  int GetMinDrawableScale(TypesHolder const & types, m2::RectD const & limitRect, bool isClosedLine);
   //int GetMinDrawableScaleGeometryOnly(TypesHolder const & types, m2::RectD limitRect);
   int GetMinDrawableScaleClassifOnly(TypesHolder const & types);
 

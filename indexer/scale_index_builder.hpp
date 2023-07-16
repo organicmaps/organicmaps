@@ -102,7 +102,7 @@ private:
     if (ft.IsEmptyGeometry(scale))
       return false;
 
-    // This function assumes that geometry rect for the needed scale is already initialized.
+    // Checks feature's geometry is suitable for the needed scale; assumes the geometry rect is already initialized.
     return feature::IsDrawableForIndexGeometryOnly(ft, scale);
   }
 

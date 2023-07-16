@@ -64,7 +64,10 @@ public:
   Geometry const & GetGeometry() const { return m_polygons; }
   PointSeq const & GetOuterGeometry() const { return m_polygons.front(); }
   GeomType GetGeomType() const { return m_params.GetGeomType(); }
+  // Used for good areas and lines.
   bool IsGeometryClosed() const;
+  // Used for lines incl. degenerate ones.
+  bool IsClosedLine() const;
   m2::PointD GetGeometryCenter() const;
   m2::PointD GetKeyPoint() const;
   size_t GetPointsCount() const;
@@ -161,7 +164,6 @@ public:
   // Clear name if it's not visible in scale range [minS, maxS].
   void RemoveNameIfInvisible(int minS = 0, int maxS = 1000);
   void RemoveUselessNames();
-  int GetMinFeatureDrawScale() const;
   bool IsDrawableInRange(int lowScale, int highScale) const;
 
   /// @name Serialization.

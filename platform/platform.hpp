@@ -132,7 +132,7 @@ public:
   /// @return always the same writable dir for current user with slash at the end
   std::string const & WritableDir() const
   {
-    ASSERT(!m_writableDir.empty(), ());
+    // The generator_tool could be run without -data_path (writableDir) option.
     return m_writableDir;
   }
   /// Set writable dir — use for testing and linux stuff only
