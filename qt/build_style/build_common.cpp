@@ -8,10 +8,7 @@
 #include <QtCore/QDir>
 #include <QtCore/QFile>
 #include <QtCore/QProcess>
-#include <QtCore/QProcessEnvironment>
 
-#include <exception>
-#include <iomanip>  // std::quoted
 #include <regex>
 #include <string>
 
@@ -121,9 +118,4 @@ QString GetExternalPath(QString const & name, QString const & primaryPath,
       path.fromStdString(base::JoinPath(m[0], name.toStdString()));
   }
   return path;
-}
-
-QString GetProtobufEggPath()
-{
-  return GetExternalPath("protobuf-3.3.0-py2.7.egg", "kothic", "../3party/protobuf");
 }

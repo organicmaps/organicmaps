@@ -142,11 +142,6 @@ set(SRC
 
 set(OTHER_FILES drules_struct.proto)
 
-# Disable warnings.
-set_source_files_properties(drules_struct.pb.cc PROPERTIES COMPILE_FLAGS
-  "$<$<CXX_COMPILER_ID:AppleClang,Clang>:-Wno-shorten-64-to-32> $<$<CXX_COMPILER_ID:GNU>:-Wno-deprecated-declarations>"
-)
-
 file(COPY ${OTHER_FILES} DESTINATION ${CMAKE_BINARY_DIR})
 
 omim_add_library(${PROJECT_NAME} ${SRC})

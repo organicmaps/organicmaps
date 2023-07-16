@@ -241,26 +241,26 @@ int main(int argc, char * argv[])
                      );
     w.show();
     returnCode = app.exec();
-  }
 
 #ifdef BUILD_DESIGNER
-  if (build_style::NeedRecalculate && !mapcssFilePath.isEmpty())
-  {
-    try
+    if (build_style::NeedRecalculate && !mapcssFilePath.isEmpty())
     {
-      build_style::RunRecalculationGeometryScript(mapcssFilePath);
+      try
+      {
+        build_style::RunRecalculationGeometryScript(mapcssFilePath);
+      }
+      catch (std::exception & e)
+      {
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Error");
+        msgBox.setText(e.what());
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.exec();
+      }
     }
-    catch (std::exception & e)
-    {
-      QMessageBox msgBox;
-      msgBox.setWindowTitle("Error");
-      msgBox.setText(e.what());
-      msgBox.setStandardButtons(QMessageBox::Ok);
-      msgBox.setDefaultButton(QMessageBox::Ok);
-      msgBox.exec();
-    }
-  }
 #endif // BUILD_DESIGNER
+  }
 
   LOG_SHORT(LINFO, ("Organic Maps finished with code", returnCode));
   return returnCode;

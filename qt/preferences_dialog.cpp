@@ -95,7 +95,7 @@ namespace qt
       indexRegenCheckBox->setChecked(enabled);
       connect(indexRegenCheckBox, &QCheckBox::stateChanged, [](int i)
       {
-        settings::Set(kEnabledAutoRegenGeomIndex, static_cast<bool>(i))
+        settings::Set(kEnabledAutoRegenGeomIndex, static_cast<bool>(i));
       });
     }
 #endif

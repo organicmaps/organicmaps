@@ -21,4 +21,3 @@ QString JoinPathQt(std::initializer_list<QString> folders);
 
 QString GetExternalPath(QString const & name, QString const & primaryPath,
                         QString const & secondaryPath);
-QString GetProtobufEggPath();

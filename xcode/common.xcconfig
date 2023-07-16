@@ -3,6 +3,7 @@ OMIM_ROOT = $(PROJECT_DIR)/../..
 QT_PATH[arch=x86_64] = /usr/local/opt/qt@5
 QT_PATH[arch=arm64] = /opt/homebrew/opt/qt@5
 BOOST_ROOT = $(OMIM_ROOT)/3party/boost
+PROTOBUF_PATHS = $(OMIM_ROOT)/3party/protobuf/protobuf/third_party/abseil-cpp/ $(OMIM_ROOT)/3party/protobuf/protobuf/src
 
 // jansson is included in many libs, and is also used in headers (leaks to other libs)
 HEADER_SEARCH_PATHS = $(inherited) $(OMIM_ROOT) $(BOOST_ROOT) $(OMIM_ROOT)/3party/jansson $(OMIM_ROOT)/3party/jansson/jansson/src

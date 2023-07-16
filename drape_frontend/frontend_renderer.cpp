@@ -22,6 +22,10 @@
 #include "drape/support_manager.hpp"
 #include "drape/utils/projection.hpp"
 
+#if BUILD_DESIGNER
+#include "indexer/classificator_loader.hpp"
+#endif
+
 #include "indexer/drawing_rules.hpp"
 #include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
