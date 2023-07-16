@@ -131,8 +131,15 @@ std::string Distance::GetDistanceString() const
   if (!IsValid())
     return "";
 
+  // Default precision is 0 (no decimals).
+  int precision = 0;
+
+  // Set 1 decimal precision for high distances (km, miles) lower than 10.0 (9.5, 7.0,...).
+  if (m_distance < 10.0 && IsHighUnits())
+    precision = 1;
+
   std::ostringstream os;
-  os << std::defaultfloat << m_distance;
+  os << std::fixed << std::setprecision(precision) << m_distance;
   return os.str();
 }
 
