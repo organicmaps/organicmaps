@@ -17,13 +17,10 @@ and ["icons wanted" issues](https://github.com/organicmaps/organicmaps/issues?q=
 
 To work with styles first [clone the OM repository](INSTALL.md#getting-sources).
 
-Install a `protobuf` python package with `pip`
+First, you need to install Python 3.8 or a newer version.
+Then, use the following command to install the `protobuf` python package using `pip`:
 ```
-pip install protobuf
-```
-or with your OS package manager, e.g for Ubuntu 
-```
-sudo apt install python3-protobuf 
+pip3 install -r tools/kothic/requirements.txt
 ```
 
 To run the `generate_symbols.sh` script install `optipng` also, e.g. for Ubuntu

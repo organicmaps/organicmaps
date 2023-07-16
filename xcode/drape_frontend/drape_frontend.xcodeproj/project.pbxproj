@@ -999,6 +999,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/glm",
+					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
+					"$(OMIM_ROOT)/3party/protobuf/protobuf/third_party/abseil-cpp/",
+					"$(OMIM_ROOT)/3party/pugixml/pugixml/src",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1007,6 +1014,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/glm",
+					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
+					"$(OMIM_ROOT)/3party/protobuf/protobuf/third_party/abseil-cpp/",
+					"$(OMIM_ROOT)/3party/pugixml/pugixml/src",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
