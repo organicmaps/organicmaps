@@ -789,13 +789,7 @@
 				EXECUTABLE_PREFIX = lib;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(QT_PATH)/include",
-					"$(OMIM_ROOT)/3party/expat/lib",
-					"$(OMIM_ROOT)/3party/glm",
-					"$(OMIM_ROOT)/3party/protobuf/protobuf/third_party/utf8_range/",
-					"$(OMIM_ROOT)/3party/protobuf/protobuf/third_party/abseil-cpp/",
-					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
-					"$(OMIM_ROOT)/3party/pugixml/pugixml/src",
+					"${PROTOBUF_PATHS}",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WARNING_CFLAGS = "-Wno-deprecated-register ";
@@ -808,13 +802,7 @@
 				EXECUTABLE_PREFIX = lib;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(QT_PATH)/include",
-					"$(OMIM_ROOT)/3party/expat/lib",
-					"$(OMIM_ROOT)/3party/glm",
-					"$(OMIM_ROOT)/3party/protobuf/protobuf/third_party/utf8_range/",
-					"$(OMIM_ROOT)/3party/protobuf/protobuf/third_party/abseil-cpp/",
-					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
-					"$(OMIM_ROOT)/3party/pugixml/pugixml/src",
+					"${PROTOBUF_PATHS}",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WARNING_CFLAGS = "-Wno-deprecated-register ";
