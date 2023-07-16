@@ -285,7 +285,10 @@ void VulkanBaseContext::EndRendering()
   submitInfo.pCommandBuffers = commandBuffers;
 
   auto const res = vkQueueSubmit(m_queue, 1, &submitInfo, m_fences[m_inflightFrameIndex]);
-  if (res != VK_ERROR_DEVICE_LOST)
+  // Vulkan driver is possibly buggy on Nexus 5x / Android 8.1. It returns
+  // VK_ERROR_INITIALIZATION_FAILED instead of VK_ERROR_DEVICE_LOST. Some details:
+  // https://www.saschawillems.de/blog/2019/03/08/getting-a-vulkan-application-up-and-running-on-a-low-spec-device-with-buggy-drivers/
+  if (res != VK_ERROR_DEVICE_LOST && res != VK_ERROR_INITIALIZATION_FAILED)
   {
     m_needPresent = true;
     CHECK_RESULT_VK_CALL(vkQueueSubmit, res);
