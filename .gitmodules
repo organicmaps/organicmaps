@@ -9,7 +9,7 @@
   url = https://github.com/aurelien-rainone/macdeployqtfix.git
 [submodule "3party/protobuf/protobuf"]
   path = 3party/protobuf/protobuf
-  url = https://github.com/organicmaps/protobuf.git
+  url = https://github.com/protocolbuffers/protobuf.git
 [submodule "tools/twine"]
   path = tools/twine
   url = https://github.com/organicmaps/twine.git
