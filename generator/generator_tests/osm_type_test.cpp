@@ -1618,7 +1618,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_RailwayRail)
     {{"railway", "rail", "utility"}, {{"railway", "rail"}, {"usage", "industrial"}, {"service", "spur"}}},
     {{"railway", "rail", "spur"}, {{"railway", "rail"}, {"service", "spur"}}},
     {{"railway", "rail", "service"}, {{"railway", "rail"}, {"service", "siding"}}},
+    {{"railway", "rail", "service"}, {{"railway", "rail"}, {"highspeed", "positive_value"}, {"service", "siding"}}},
     {{"railway", "rail", "service"}, {{"railway", "rail"}, {"usage", "main"}, {"service", "siding"}}},
+    {{"railway", "rail", "service"}, {{"railway", "rail"}, {"usage", "branch"}, {"service", "yard"}}},
     {{"railway", "rail", "service"}, {{"railway", "rail"}, {"usage", "unsupported_value"}, {"service", "crossover"}}},
     // TODO: better match to railway-rail-spur:
     {{"railway", "rail"}, {{"railway", "rail"}, {"usage", "unsupported_value"}}},
@@ -1638,7 +1640,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_RailwayRail)
     {{"railway", "rail", "utility", "bridge"}, {{"railway", "rail"}, {"usage", "military"}, {"service", "spur"}, {"bridge", "positive_value"}}},
     {{"railway", "rail", "spur", "bridge"}, {{"railway", "rail"}, {"service", "spur"}, {"bridge", "positive_value"}}},
     {{"railway", "rail", "service", "bridge"}, {{"railway", "rail"}, {"service", "yard"}, {"bridge", "positive_value"}}},
+    {{"railway", "rail", "service", "bridge"}, {{"railway", "rail"}, {"highspeed", "positive_value"}, {"service", "siding"}, {"bridge", "positive_value"}}},
     {{"railway", "rail", "service", "bridge"}, {{"railway", "rail"}, {"usage", "main"}, {"service", "yard"}, {"bridge", "positive_value"}}},
+    {{"railway", "rail", "service", "bridge"}, {{"railway", "rail"}, {"usage", "branch"}, {"service", "crossover"}, {"bridge", "positive_value"}}},
     {{"railway", "rail", "service", "bridge"}, {{"railway", "rail"}, {"usage", "unsupported_value"}, {"service", "siding"}, {"bridge", "positive_value"}}},
     // TODO: better match to railway-rail-spur-bridge:
     {{"railway", "rail"}, {{"railway", "rail"}, {"usage", "unsupported_value"}, {"bridge", "positive_value"}}},
@@ -1658,7 +1662,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_RailwayRail)
     {{"railway", "rail", "utility", "tunnel"}, {{"railway", "rail"}, {"usage", "military"}, {"service", "spur"}, {"tunnel", "positive_value"}}},
     {{"railway", "rail", "spur", "tunnel"}, {{"railway", "rail"}, {"service", "spur"}, {"tunnel", "positive_value"}}},
     {{"railway", "rail", "service", "tunnel"}, {{"railway", "rail"}, {"service", "yard"}, {"tunnel", "positive_value"}}},
+    {{"railway", "rail", "service", "tunnel"}, {{"railway", "rail"}, {"highspeed", "positive_value"}, {"service", "siding"}, {"tunnel", "positive_value"}}},
     {{"railway", "rail", "service", "tunnel"}, {{"railway", "rail"}, {"usage", "main"}, {"service", "yard"}, {"tunnel", "positive_value"}}},
+    {{"railway", "rail", "service", "tunnel"}, {{"railway", "rail"}, {"usage", "branch"}, {"service", "crossover"}, {"tunnel", "positive_value"}}},
     {{"railway", "rail", "service", "tunnel"}, {{"railway", "rail"}, {"usage", "unsupported_value"}, {"service", "siding"}, {"tunnel", "positive_value"}}},
     // TODO: better match to railway-rail-spur-tunnel:
     {{"railway", "rail"}, {{"railway", "rail"}, {"usage", "unsupported_value"}, {"tunnel", "positive_value"}}},
