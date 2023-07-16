@@ -1,43 +1,38 @@
 project(protobuf)
 
-set(SRC
-  config.h
-  protobuf/src/google/protobuf/arena.cc
-  protobuf/src/google/protobuf/extension_set.cc
-  protobuf/src/google/protobuf/generated_message_util.cc
-  protobuf/src/google/protobuf/io/coded_stream.cc
-  protobuf/src/google/protobuf/io/zero_copy_stream.cc
-  protobuf/src/google/protobuf/io/zero_copy_stream_impl_lite.cc
-  protobuf/src/google/protobuf/message_lite.cc
-  protobuf/src/google/protobuf/repeated_field.cc
-  protobuf/src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc
-  protobuf/src/google/protobuf/stubs/bytestream.cc
-  protobuf/src/google/protobuf/stubs/common.cc
-  protobuf/src/google/protobuf/stubs/int128.cc
-  protobuf/src/google/protobuf/stubs/once.cc
-  protobuf/src/google/protobuf/stubs/status.cc
-  protobuf/src/google/protobuf/stubs/statusor.cc
-  protobuf/src/google/protobuf/stubs/stringpiece.cc
-  protobuf/src/google/protobuf/stubs/stringprintf.cc
-  protobuf/src/google/protobuf/stubs/structurally_valid.cc
-  protobuf/src/google/protobuf/stubs/strutil.cc
-  protobuf/src/google/protobuf/stubs/time.cc
-  protobuf/src/google/protobuf/wire_format_lite.cc
+# Disable all compile-time warnings for protobuf
+add_compile_options(-w)
+
+# protobuf config
+set(protobuf_LIB_NAME libprotobuf-lite)
+set(protobuf_VERSION "23.4")
+set(protobuf_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/protobuf)
+set(protobuf_SHARED_OR_STATIC "STATIC")
+set(protobuf_BUILD_TESTS OFF)
+set(protobuf_INSTALL OFF)
+
+# abseil
+set(ABSL_PROPAGATE_CXX_STD ON)
+set(ABSL_ROOT_DIR ${protobuf_SOURCE_DIR}/third_party/abseil-cpp)
+include(protobuf/cmake/abseil-cpp.cmake)
+
+# utf8_range
+set(utf8_range_ENABLE_TESTS OFF)
+set(utf8_range_ENABLE_INSTALL OFF)
+add_subdirectory(${protobuf_SOURCE_DIR}/third_party/utf8_range)
+include_directories(SYSTEM ${protobuf_SOURCE_DIR}/third_party/utf8_range)
+
+include(protobuf/cmake/${protobuf_LIB_NAME}.cmake)
+
+add_library(${PROJECT_NAME} ALIAS ${protobuf_LIB_NAME})
+
+# Disable Unity build for protobuf
+set_target_properties(${protobuf_LIB_NAME} PROPERTIES UNITY_BUILD OFF)
+set(ABSL_TARGETS
+  absl_strings
+  absl_time
+  absl_time_zone
 )
-
-add_library(${PROJECT_NAME} ${SRC})
-
-target_include_directories(${PROJECT_NAME}
-  PRIVATE . ../../
-  PUBLIC protobuf/src
-)
-
-if(NOT PLATFORM_WIN)
-  target_compile_definitions(${PROJECT_NAME} PRIVATE HAVE_PTHREAD)
-endif ()
-
-target_compile_options(${PROJECT_NAME} PRIVATE
-  $<$<CXX_COMPILER_ID:AppleClang,Clang>:-Wno-shorten-64-to-32>
-  $<$<CXX_COMPILER_ID:AppleClang,Clang,GNU>:-Wno-deprecated-declarations>
-  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wno-sign-compare>
-)
+foreach(target IN LISTS ABSL_TARGETS)
+  set_target_properties(${target} PROPERTIES UNITY_BUILD OFF)
+endforeach()
