@@ -112,9 +112,12 @@ bool SupportManager::IsVulkanForbidden() const
 bool SupportManager::IsVulkanForbidden(std::string const & deviceName,
                                        Version apiVersion, Version driverVersion) const
 {
-  /// @todo Should we ban all PowerVR Rogue devices?
   static char const * kBannedDevices[] = {
-    "PowerVR Rogue G6110", "PowerVR Rogue GE8100", "PowerVR Rogue GE8300"
+    /// @todo Should we ban all PowerVR Rogue devices?
+    // https://github.com/organicmaps/organicmaps/issues/1379
+    "PowerVR Rogue G6110", "PowerVR Rogue GE8100", "PowerVR Rogue GE8300",
+    // https://github.com/organicmaps/organicmaps/issues/5539
+    "Adreno (TM) 418",
   };
 
   // On these configurations we've detected fatal driver-specific Vulkan errors.
