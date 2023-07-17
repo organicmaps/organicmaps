@@ -25,22 +25,22 @@ namespace dp
 {
 namespace
 {
-uint32_t const kMaxTextureSize = 1024;
-uint32_t const kStippleTextureWidth = 512;  /// @todo Should be equal with kMaxStipplePenLength?
-uint32_t const kMinStippleTextureHeight = 64;
-uint32_t const kMinColorTextureSize = 32;
-uint32_t const kGlyphsTextureSize = 1024;
-size_t const kInvalidGlyphGroup = std::numeric_limits<size_t>::max();
+uint32_t constexpr kMaxTextureSize = 1024;
+uint32_t constexpr kStippleTextureWidth = 512;  /// @todo Should be equal with kMaxStipplePenLength?
+uint32_t constexpr kMinStippleTextureHeight = 64;
+uint32_t constexpr kMinColorTextureSize = 32;
+uint32_t constexpr kGlyphsTextureSize = 1024;
+size_t constexpr kInvalidGlyphGroup = std::numeric_limits<size_t>::max();
 
 // Reserved for elements like RuleDrawer or other LineShapes.
-uint32_t const kReservedPatterns = 10;
-size_t const kReservedColors = 20;
+uint32_t constexpr kReservedPatterns = 10;
+size_t constexpr kReservedColors = 20;
 
-float const kGlyphAreaMultiplier = 1.2f;
-float const kGlyphAreaCoverage = 0.9f;
+float constexpr kGlyphAreaMultiplier = 1.2f;
+float constexpr kGlyphAreaCoverage = 0.9f;
 
 std::string const kSymbolTextures[] = { "symbols" };
-uint32_t const kDefaultSymbolsIndex = 0;
+uint32_t constexpr kDefaultSymbolsIndex = 0;
 
 void MultilineTextToUniString(TextureManager::TMultilineText const & text, strings::UniString & outString)
 {
@@ -304,7 +304,7 @@ void TextureManager::GetGlyphsRegions(ref_ptr<FontTexture> tex, strings::UniStri
   std::vector<GlyphKey> keys;
   keys.reserve(text.size());
   for (auto const & c : text)
-    keys.emplace_back(GlyphKey(c, fixedHeight));
+    keys.emplace_back(c, fixedHeight);
 
   bool hasNew = false;
   auto resourcesInfo = tex->FindResources(keys, hasNew);
@@ -342,7 +342,7 @@ void TextureManager::MarkCharactersUsage(strings::UniString const & text, int fi
                                          HybridGlyphGroup & group)
 {
   for (auto const & c : text)
-    group.m_glyphs.emplace(std::make_pair(c, fixedHeight));
+    group.m_glyphs.emplace(c, fixedHeight);
 }
 
 size_t TextureManager::FindHybridGlyphsGroup(strings::UniString const & text, int fixedHeight)
@@ -485,7 +485,7 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
 
   // Initialize glyphs.
   m_glyphManager = make_unique_dp<GlyphManager>(params.m_glyphMngParams);
-  uint32_t const textureSquare = kGlyphsTextureSize * kGlyphsTextureSize;
+  uint32_t constexpr textureSquare = kGlyphsTextureSize * kGlyphsTextureSize;
   uint32_t const baseGlyphHeight =
       static_cast<uint32_t>(params.m_glyphMngParams.m_baseGlyphHeight * kGlyphAreaMultiplier);
   uint32_t const averageGlyphSquare = baseGlyphHeight * baseGlyphHeight;
