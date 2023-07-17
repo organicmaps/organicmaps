@@ -325,7 +325,7 @@ void LeaveLongestTypes(vector<generator::TypeStrings> & matchedTypes)
 
 void MatchTypes(OsmElement * p, FeatureBuilderParams & params, function<bool(uint32_t)> const & filterType)
 {
-  auto static const rules = generator::ParseMapCSS(GetPlatform().GetReader(MAPCSS_MAPPING_FILE));
+  auto static const rules = generator::ParseMapCSS(GetPlatform().GetReader("mapcss-mapping.csv"));
 
   vector<generator::TypeStrings> matchedTypes;
   for (auto const & [typeString, rule] : rules)
@@ -423,7 +423,7 @@ string MatchCity(OsmElement const * p)
       {"montreal", {-73.995802, 45.398482, -73.474295, 45.70479}},
       {"moscow", {36.9964599609, 55.3962717136, 38.1884765625, 56.1118730004}},
       {"mumbai", {72.7514648437, 18.8803004445, 72.9862976074, 19.2878132403}},
-      {"munchen", {11.3433837891, 47.9981928195, 11.7965698242, 48.2730267576}},
+      {"munchen", {11.3433837891, 47.9981928195, 11.7965698242, 48.2530267576}},
       {"nagoya", {136.791969,35.025951,137.060899,35.260229}}, 
       {"newyork", {-74.4104003906, 40.4134960497, -73.4600830078, 41.1869224229}},
       {"nnov", {43.6431884766, 56.1608472541, 44.208984375, 56.4245355509}},
@@ -461,6 +461,7 @@ string MatchCity(OsmElement const * p)
       {"taoyuan", {110.8471,28.4085,111.6109,29.4019}}, 
       {"tashkent", {69.12171, 41.163421, 69.476967, 41.398638}},
       {"tbilisi", {44.596922, 41.619315, 45.019694, 41.843421}},
+      {"tehran", {50.6575}},
       {"tianjin", {116.7022,38.555,118.0587,40.252}}, 
       {"tokyo", {139.240722656, 35.2186974963, 140.498657227, 36.2575628263}},
       {"valencia", {-0.432551, 39.27845, -0.272521, 39.566609}},
@@ -955,7 +956,7 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
        }},
   });
 
-  // Stage4: Match tags to classificator feature types via mapcss-mapping.csv.
+  // Stage4: Match tags in classificator to find feature types.
   MatchTypes(p, params, filterType);
 
   // Stage5: Postprocess feature types.
