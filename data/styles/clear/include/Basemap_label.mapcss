@@ -71,18 +71,24 @@ node[place=village]
 node[place=town]
 {z-index: 1100;}
 
-node[place=city][capital!=2][population<40000]
+node[place=city],
 {z-index: 1200;}
 
-node[place=city][capital=3][population<40000],
-node[place=city][capital=4][population<40000]
+node[place=city][capital=5],
+node[place=city][capital=6],
+node[place=city][capital=7],
+node[place=city][capital=8],
+node[place=city][capital=9],
+node[place=city][capital=10],
+node[place=city][capital=11],
+node[place=city][capital?],
 {z-index: 1300;}
 
-node[place=city][capital!=2][population>=40000],
-node[place=city][capital!=2][population>=40000]::int_name
+node[place=city][capital=3],
+node[place=city][capital=4],
 {z-index: 1400;}
 
-node[place=city][capital=2][population>=0]
+node[place=city][capital=2],
 {z-index: 1450;}
 
 node[place=ocean],
@@ -210,7 +216,7 @@ node|z4[place=city][capital!=2][population>=1000000]::int_name,
 node|z5[place=city][capital!=2][population>=150000]::int_name,
 node|z6[place=city][capital!=2][population>=50000]::int_name,
 node|z7-8[place=city][capital!=2][population>=40000]::int_name,
-node|z4-[place=city][capital=2][population<40000]::int_name,
+node|z4-[place=city][capital=2][population>=0]::int_name,
 node|z9-11[place=city][capital!=2]::int_name,
 node|z12-[place=city][capital!=2][population<40000]::int_name
 {text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 1;text-halo-color: @label_halo_light;}
