@@ -95,6 +95,9 @@ class FeatureTypesProcessor
 
   static uint32_t GetType(char const * arr[], size_t n);
 
+  // Truncates the types to leave first two parts only (e.g. highway-motorway),
+  // unless the type is added into exceptions.
+  // Then optionally maps into a different type if a mapping was set before.
   void CorrectType(uint32_t & t) const;
 
   class do_change_types

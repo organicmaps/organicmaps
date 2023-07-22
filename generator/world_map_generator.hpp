@@ -100,17 +100,23 @@ public:
     , m_boundaryChecker(rawGeometryFileName)
     , m_popularPlacesFilename(popularPlacesFilename)
   {
-    // Do not strip last types for given tags,
+    // By default all line types are truncated to 2 parts only.
+    // Do not strip last parts for given types,
     // for example, do not cut 'admin_level' in  'boundary-administrative-XXX'.
     char const * arr1[][3] = {{"boundary", "administrative", "2"},
                               {"boundary", "administrative", "3"},
-                              {"boundary", "administrative", "4"}};
-
+                              {"boundary", "administrative", "4"},
+                              {"railway", "rail", "highspeed"},
+                              {"railway", "rail", "main"}};
     for (size_t i = 0; i < ARRAY_SIZE(arr1); ++i)
       m_typesCorrector.SetDontNormalizeType(arr1[i]);
 
-    char const * arr2[] = {"boundary", "administrative", "4", "state"};
-    m_typesCorrector.SetDontNormalizeType(arr2);
+    char const * arr2[][4] = {{"railway", "rail", "highspeed", "bridge"},
+                              {"railway", "rail", "highspeed", "tunnel"},
+                              {"railway", "rail", "main", "bridge"},
+                              {"railway", "rail", "main", "tunnel"}};
+    for (size_t i = 0; i < ARRAY_SIZE(arr2); ++i)
+      m_typesCorrector.SetDontNormalizeType(arr2[i]);
 
     if (popularPlacesFilename.empty())
       LOG(LWARNING, ("popular_places_data option not set. Popular atractions will not be added to World.mwm"));
