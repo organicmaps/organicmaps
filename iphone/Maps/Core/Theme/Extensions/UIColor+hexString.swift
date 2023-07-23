@@ -31,7 +31,7 @@ extension UIColor {
         convertToHEX(component: b)
       )
 
-      if alpha < 1 {
+      if (alpha < 1) {
         color += String(format: hexColorComponentTemplate, convertToHEX(component: alpha))
       }
 
