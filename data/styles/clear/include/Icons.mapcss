@@ -27,474 +27,6 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-/* 1. Z-INDEX OF ICONS */
-
-node[amenity=fountain],
-area[amenity=fountain]
-{z-index: 2000;}
-
-node[natural=spring],
-area[natural=spring],
-node[natural=hot_spring],
-area[natural=hot_spring],
-node[natural=geyser],
-area[natural=geyser],
-node[amenity=drinking_water],
-area[amenity=drinking_water],
-node[man_made=water_tap],
-area[man_made=water_tap],
-node[amenity=water_point],
-area[amenity=water_point],
-node[man_made=water_well],
-area[man_made=water_well],
-node[amenity=waste_basket],
-node[amenity=waste_disposal],
-area[amenity=waste_disposal],
-node[man_made=survey_point],
-node[highway=elevator],
-area[highway=elevator],
-{z-index: 2100;}
-
-node[natural=cave_entrance],
-area[natural=cave_entrance],
-node[waterway=waterfall],
-area[waterway=waterfall],
-node[natural=volcano],
-area[natural=volcano],
-node[natural=peak],
-area[natural=peak],
-node[natural=saddle],
-area[natural=saddle],
-node[mountain_pass],
-area[mountain_pass],
-node[tourism=information],
-node[historic],
-area[historic],
-node[amenity=post_box],
-area[amenity=post_box],
-node[amenity=telephone],
-node[emergency=phone],
-node[amenity=bench],
-node[amenity=recycling],
-area[amenity=recycling],
-node[amenity=sanitary_dump_station],
-area[amenity=sanitary_dump_station],
-node[amenity=waste_transfer_station],
-area[amenity=waste_transfer_station],
-node[amenity=vending_machine],
-area[amenity=vending_machine],
-node[amenity=parcel_locker],
-area[amenity=parcel_locker],
-node[amenity=hunting_stand],
-area[amenity=hunting_stand],
-node[amenity=shower],
-area[amenity=shower],
-node[amenity=conference_centre],
-area[amenity=conference_centre],
-node[amenity=events_venue],
-area[amenity=events_venue],
-node[amenity=exhibition_centre],
-area[amenity=exhibition_centre],
-node[man_made=chimney],
-area[man_made=chimney],
-node[vending=parking_tickets],
-area[vending=parking_tickets]
-{z-index: 2200;}
-
-node[amenity=veterinary],
-area[amenity=veterinary],
-node[leisure=playground],
-area[leisure=playground],
-node[historic=ruins],
-area[historic=ruins],
-node[tourism=caravan_site],
-area[tourism=caravan_site],
-node[amenity=bicycle_parking],
-area[amenity=bicycle_parking],
-node[leisure=water_park],
-area[leisure=water_park],
-node[amenity=taxi],
-area[amenity=taxi],
-node[barrier=lift_gate],
-area[barrier=lift_gate],
-node[leisure=dog_park],
-area[leisure=dog_park],
-node[leisure=water_park],
-area[leisure=water_park],
-node[man_made=windmill],
-area[man_made=windmill],
-node[amenity=casino],
-area[amenity=casino],
-node[shop=money_lender],
-area[shop=money_lender],
-node[amenity=childcare],
-area[amenity=childcare],
-node[power=station],
-area[power=station],
-node[power=substation],
-area[power=substation],
-node[craft],
-area[craft],
-node[amenity=bbq],
-area[amenity=bbq],
-node[amenity=toilets],
-area[amenity=toilets]
-{z-index: 2400;}
-
-/* Bigger than amenities above */
-node[shop],
-area[shop],
-{z-index: 2410;}
-
-/* Bigger than leisure=playground, sports_centre, pitch */
-node[sport],
-area[sport],
-{z-index: 2410;}
-
-node[sport=futsal],
-area[sport=futsal],
-node[sport=archery],
-area[sport=archery],
-node[sport=shooting],
-area[sport=shooting],
-node[sport=australian_football],
-area[sport=australian_football],
-node[sport=bowls],
-area[sport=bowls],
-node[sport=cricket],
-area[sport=cricket],
-node[sport=curling],
-area[sport=curling],
-node[sport=diving],
-area[sport=diving],
-node[sport=scuba_diving],
-area[sport=scuba_diving],
-node[sport=equestrian],
-area[sport=equestrian],
-node[sport=climbing],
-area[sport=climbing],
-node[sport=9pin],
-area[sport=9pin],
-node[sport=10pin],
-area[sport=10pin],
-node[sport=chess],
-area[sport=chess],
-{z-index: 2440;}
-
-node[sport=swimming],
-area[sport=swimming],
-node[sport=baseball],
-area[sport=baseball],
-node[sport=basketball],
-area[sport=basketball],
-node[sport=american_football],
-area[sport=american_football],
-node[sport=athletics],
-area[sport=athletics],
-node[sport=golf],
-area[sport=golf],
-node[sport=gymnastics],
-area[sport=gymnastics],
-node[sport=skateboard],
-area[sport=skateboard],
-node[sport=volleyball],
-area[sport=volleyball],
-node[sport=beachvolleyball],
-area[sport=beachvolleyball],
-node[sport=table_tennis],
-area[sport=table_tennis],
-node[sport=yoga],
-area[sport=yoga],
-node[sport=padel],
-area[sport=padel],
-node[sport=handball],
-area[sport=handball],
-node[sport=ice_hockey],
-area[sport=ice_hockey],
-node[sport=field_hockey],
-area[sport=field_hockey],
-node[sport=badminton],
-area[sport=badminton],
-node[sport=pelota],
-area[sport=pelota],
-{z-index: 2460;}
-
-node[landuse=landfill],
-area[landuse=landfill],
-node|z17-[sport=tennis],
-area|z17-[sport=tennis],
-node|z17-[sport=skiing],
-area|z17-[sport=skiing],
-node[tourism=camp_site],
-area[tourism=camp_site],
-node[tourism=picnic_site],
-area[tourism=picnic_site],
-node[leisure=picnic_table],
-area[leisure=picnic_table],
-node[amenity=shelter],
-area[amenity=shelter],
-area[highway=services],
-area[highway=rest_area],
-node[amenity=bicycle_rental],
-area[amenity=bicycle_rental],
-node[amenity=bicycle_repair_station],
-area[amenity=bicycle_repair_station],
-node[amenity=car_wash],
-area[amenity=car_wash],
-node[amenity=car_sharing],
-area[amenity=car_sharing],
-node[amenity=car_rental],
-area[amenity=car_rental],
-node|z18-[office],
-area|z18-[office],
-node[amenity=fire_station],
-area[amenity=fire_station],
-node[amenity=atm],
-area[amenity=atm],
-node[amenity=bureau_de_change],
-area[amenity=bureau_de_change],
-node[amenity=money_transfer],
-area[amenity=money_transfer],
-node[shop=pawnbroker],
-area[shop=pawnbroker],
-node[amenity=library],
-area[amenity=library],
-node[shop=charity],
-area[shop=charity],
-node[shop=second_hand],
-area[shop=second_hand],
-node[shop=antiques],
-area[shop=antiques],
-node[aeroway=gate],
-area[aeroway=gate],
-{z-index: 2500;}
-
-node[amenity=fuel],
-area[amenity=fuel],
-node[amenity=charging_station],
-area[amenity=charging_station]
-{z-index: 2590;}
-
-node[aerialway=station],
-node[railway=level_crossing],
-node[amenity=marketplace],
-area[amenity=marketplace],
-node[shop=supermarket],
-area[shop=supermarket],
-node[shop=car_repair][service=tyres],
-area[shop=car_repair][service=tyres],
-node[shop=caravan],
-area[shop=caravan],
-node[amenity=post_office],
-area[amenity=post_office],
-node[amenity=dentist],
-area[amenity=dentist],
-node[amenity=clinic],
-area[amenity=clinic],
-node[amenity=doctors],
-area[amenity=doctors],
-node[healthcare=laboratory],
-area[healthcare=laboratory],
-node[healthcare=physiotherapist],
-area[healthcare=physiotherapist],
-node[healthcare=alternative],
-area[healthcare=alternative],
-node[healthcare=audiologist],
-area[healthcare=audiologist],
-node[healthcare=blood_donation],
-area[healthcare=blood_donation],
-node[healthcare=optometrist],
-area[healthcare=optometrist],
-node[healthcare=podiatrist],
-area[healthcare=podiatrist],
-node[healthcare=psychotherapist],
-area[healthcare=psychotherapist],
-node[healthcare=sample_collection],
-area[healthcare=sample_collection],
-node[healthcare=speech_therapist],
-area[healthcare=speech_therapist],
-node[leisure=swimming_pool],
-area[leisure=swimming_pool],
-area[aeroway=heliport],
-area[aeroway=helipad],
-node[aeroway=heliport],
-node[aeroway=helipad],
-node[historic=archaeological_site],
-area[historic=archaeological_site],
-node[amenity=bank],
-area[amenity=bank],
-node[amenity=courthouse],
-area[amenity=courthouse],
-node[amenity=cinema],
-area[amenity=cinema],
-node[leisure=bowling_alley],
-area[leisure=bowling_alley],
-node[amenity=nightclub],
-area[amenity=nightclub],
-node[amenity=police],
-area[amenity=police],
-node[amenity=prison],
-area[amenity=prison],
-node[office=diplomatic],
-area[office=diplomatic],
-node[office=lawyer],
-area[office=lawyer]
-{z-index: 2600;}
-
-node[man_made=lighthouse],
-area[man_made=lighthouse],
-node[barrier=border_control],
-{z-index: 2700;}
-
-node[tourism=attraction][attraction=animal],
-area[tourism=attraction][attraction=animal],
-{z-index: 2760;}
-
-node[amenity=cafe],
-area[amenity=cafe],
-node[amenity=theatre],
-area[amenity=theatre]
-{z-index: 2790;}
-
-node[amenity=restaurant],
-area[amenity=restaurant]
-{z-index: 2788;}
-node[amenity=fast_food],
-area[amenity=fast_food],
-node[amenity=food_court],
-area[amenity=food_court]
-{z-index: 2786;}
-node[amenity=bar],
-area[amenity=bar]
-{z-index: 2784;}
-node[amenity=pub],
-area[amenity=pub],
-node[amenity=biergarten],
-area[amenity=biergarten],
-node[amenity=ice_cream],
-area[amenity=ice_cream],
-{z-index: 2782;}
-
-node[historic=monument],
-area[historic=monument],
-node[historic=memorial],
-area[historic=memorial],
-node[historic=battlefield],
-area[historic=battlefield],
-node[tourism=artwork],
-area[tourism=artwork],
-{z-index: 2800;}
-
-/* OSM Hotel */
-
-node[tourism=apartment],
-area[tourism=apartment],
-node[tourism=chalet],
-area[tourism=chalet],
-node[tourism=guest_house],
-area[tourism=guest_house]
-{z-index: 2812;}
-
-node[tourism=alpine_hut],
-area[tourism=alpine_hut],
-node[tourism=wilderness_hut],
-area[tourism=wilderness_hut]
-{z-index: 2813;}
-
-node[tourism=hostel],
-area[tourism=hostel]
-{z-index: 2814;}
-
-node[tourism=motel],
-area[tourism=motel]
-{z-index: 2815;}
-
-node[tourism=resort],
-area[tourism=resort]
-{z-index: 2816;}
-
-node[tourism=hotel],
-area[tourism=hotel]
-{z-index: 2818;}
-
-node[amenity=place_of_worship],
-area[amenity=place_of_worship]
-{z-index: 2872;}
-
-node[amenity=community_centre],
-area[amenity=community_centre],
-{z-index: 2870;}
-node[tourism=attraction],
-area[tourism=attraction],
-area[place=square],
-node|z16-[tourism=attraction][attraction=animal],
-area|z16-[tourism=attraction][attraction=animal],
-node[tourism=theme_park],
-area[tourism=theme_park]
-{z-index: 2872;}
-node[historic=ship],
-area[historic=ship],
-{z-index: 2873;}
-node[tourism=gallery]
-{z-index: 2874;}
-node[tourism=museum],
-area[tourism=museum]
-{z-index: 2876;}
-node[leisure=stadium],
-area[leisure=stadium]
-{z-index: 2878;}
-node[tourism=viewpoint]
-{z-index: 2880;}
-node[tourism=zoo],
-area[tourism=zoo]
-{z-index: 2882;}
-
-node[historic=fort],
-area[historic=fort],
-node[historic=castle],
-area[historic=castle]
-{z-index: 2890;}
-
-node[building=hospital],
-area[building=hospital],
-node[building=university],
-area[building=university],
-node[amenity=pharmacy],
-area[amenity=pharmacy]
-{z-index: 2900;}
-
-node[barrier=toll_booth],
-area[barrier=toll_booth]
-{z-index: 2910;}
-
-node[shop=mall],
-area[shop=mall]
-{z-index: 2930;}
-
-node[railway=subway_entrance],
-node[highway=bus_stop],
-area[highway=bus_stop]
-{z-index: 2950;}
-
-node[railway=halt],
-node[railway=tram_stop],
-area[railway=tram_stop]
-{z-index: 2960;}
-
-node[amenity=bus_station],
-node[public_transport=station],
-{z-index: 2970;}
-
-area[amenity=bus_station],
-area[public_transport=station]
-{z-index: 2980;}
-
-node[railway=station],
-node[amenity=ferry_terminal],
-node[railway=subway_entrance][city=moscow],
-node[railway=station][transport=subway]
-{z-index: 2990;}
-
 /* 2. NATURAL */
 
 node|z10-[natural=volcano],
@@ -1514,10 +1046,6 @@ area|z18-[shop],
 
 /* 5.1 Hospital */
 
-area|z15-[amenity=hospital],
-node|z15-[amenity=hospital],
-{-x-me-text-priority:16000;}
-
 area|z14[amenity=hospital]
 {icon-image: hospital-s.svg;icon-min-distance: 8;}
 node|z15[amenity=hospital]
@@ -1623,10 +1151,10 @@ area|z17-[amenity=pharmacy]
 /* 5.2 Education */
 
 area|z14[amenity=university][name]
-{icon-image: college-s.svg;icon-min-distance: 12;-x-me-text-priority:16000;}
+{icon-image: college-s.svg;icon-min-distance: 12;}
 area|z15-[amenity=university][name],
 node|z15-[amenity=university][name]
-{icon-image: college-m.svg;icon-min-distance: 12;-x-me-text-priority:16000;}
+{icon-image: college-m.svg;icon-min-distance: 12;}
 node|z16[amenity=university][name],
 area|z16[amenity=university][name]
 {icon-min-distance: 11;}
@@ -1642,13 +1170,13 @@ node|z15-[amenity=university][!name]
 
 node|z16-[amenity=college],
 area|z16-[amenity=college]
-{icon-image: college-m.svg; -x-me-text-priority:16000;}
+{icon-image: college-m.svg;}
 node|z18-[amenity=college],
 area|z18-[amenity=college]
 {font-size: 11;}
 node|z17-[amenity=kindergarten],
 area|z17-[amenity=kindergarten]
-{icon-image: kindergarten-m.svg; -x-me-text-priority:16000;}
+{icon-image: kindergarten-m.svg;}
 node|z18-[amenity=kindergarten],
 area|z18-[amenity=kindergarten]
 {font-size: 11;}
@@ -1660,7 +1188,7 @@ area|z18-[amenity=childcare]
 {font-size: 11;}
 node|z17-[amenity=school],
 area|z17-[amenity=school]
-{icon-image: school-m.svg; -x-me-text-priority:16000;}
+{icon-image: school-m.svg;}
 node|z18-[amenity=school],
 area|z18-[amenity=school]
 {font-size: 11;}
@@ -1684,15 +1212,15 @@ node|z15-[leisure=stadium]
 
 node|z17-[leisure=pitch],
 node|z17-[leisure=ice_rink]
-{icon-image: pitch-m.svg;icon-min-distance: 10;-x-me-text-priority: 16000;}
+{icon-image: pitch-m.svg;icon-min-distance: 10;}
 node|z17-[leisure=fitness_station]
-{icon-image: gym-m.svg;icon-min-distance: 10;-x-me-text-priority: 16000;}
+{icon-image: gym-m.svg;icon-min-distance: 10;}
 node|z17-[leisure=sports_centre]
-{icon-image: pitch-m.svg;-x-me-text-priority: 15500;icon-min-distance: 10;}
+{icon-image: pitch-m.svg;icon-min-distance: 10;}
 node|z17-[leisure=fitness_centre]
-{icon-image: gym-m.svg;-x-me-text-priority: 15500;icon-min-distance: 10;}
+{icon-image: gym-m.svg;icon-min-distance: 10;}
 node|z17-[leisure=sauna]
-{icon-image: sauna-m.svg;-x-me-text-priority: 15500;icon-min-distance: 10;}
+{icon-image: sauna-m.svg;icon-min-distance: 10;}
 node|z17-[leisure=playground],
 area|z17-[leisure=playground],
 {icon-image: playground-m.svg;font-size: 11;icon-min-distance: 10;}
@@ -2172,7 +1700,7 @@ area|z16-[man_made=storage_tank],
 
 node|z18-[amenity=bbq],
 area|z18-[amenity=bbq]
-{icon-image: bbq-m.svg;font-size: 11;-x-me-text-priority:16000;}
+{icon-image: bbq-m.svg;font-size: 11;}
 
 node|z16-[man_made=survey_point]
 {icon-image: survey_point-m.svg;font-size: 11;}

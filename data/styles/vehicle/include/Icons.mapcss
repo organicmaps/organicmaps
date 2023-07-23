@@ -26,142 +26,6 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-/* 1. Z-INDEX OF ICONS */
-
-node[amenity=marketplace],
-area[amenity=marketplace]
-{z-index: 6;}
-
-node[shop=supermarket],
-area[shop=supermarket],
-{z-index: 2600;}
-
-node[boundary=national_park],
-area[boundary=national_park],
-node[boundary=protected_area],
-area[boundary=protected_area],
-node[leisure=nature_reserve],
-area[leisure=nature_reserve]
-{z-index: 2700;}
-
-node[amenity=cafe],
-area[amenity=cafe],
-node[amenity=theatre],
-area[amenity=theatre]
-{z-index: 2790;}
-
-node[amenity=restaurant],
-area[amenity=restaurant]
-{z-index: 2788;}
-node[amenity=fast_food],
-area[amenity=fast_food]
-{z-index: 2786;}
-node[amenity=bar],
-area[amenity=bar]
-{z-index: 2784;}
-node[amenity=pub],
-area[amenity=pub]
-{z-index: 2782;}
-
-node[amenity=car_wash],
-area[amenity=car_wash],
-node[amenity=car_rental],
-area[amenity=car_rental],
-node[shop=car_repair][service=tyres],
-area[shop=car_repair][service=tyres],
-{z-index: 2832;}
-
-node[historic],
-area[historic],
-node[amenity=arts_centre],
-area[amenity=arts_centre]
-{z-index: 2868;}
-node[tourism=attraction],
-area[tourism=attraction],
-node[amenity=community_centre],
-area[amenity=community_centre],
-node[tourism=artwork]
-{z-index: 2870;}
-node[tourism=attraction],
-area[tourism=attraction],
-node[historic=monument],
-area[historic=monument],
-node[historic=city_gate],
-area[historic=city_gate],
-node[historic=memorial],
-area[historic=memorial],
-node[historic=battlefield],
-area[historic=battlefield],
-node[tourism=theme_park],
-area[tourism=theme_park]
-{z-index: 2872;}
-node[tourism=gallery]
-{z-index: 2874;}
-node[tourism=museum],
-area[tourism=museum]
-{z-index: 2876;}
-node[leisure=stadium],
-area[leisure=stadium]
-{z-index: 2878;}
-node[tourism=zoo],
-area[tourism=zoo]
-{z-index: 2882;}
-node[historic=fort],
-area[historic=fort],
-node[historic=castle],
-area[historic=castle]
-{z-index: 2890;}
-
-node[building=hospital],
-area[building=hospital],
-node[building=university],
-area[building=university],
-area[highway=services],
-area[highway=rest_area],
-{z-index: 2900;}
-
-
-node[barrier=border_control],
-node[barrier=toll_booth],
-area[barrier=toll_booth],
-node[barrier=lift_gate],
-area[barrier=lift_gate],
-node[railway=level_crossing],
-{z-index: 2950;}
-
-node[highway=bus_stop],
-area[highway=bus_stop],
-node[shop=mall],
-area[shop=mall]
-{z-index: 3000;}
-
-node[railway=halt],
-node[railway=tram_stop],
-area[railway=tram_stop],
-node[public_transport=station],
-area[public_transport=station],
-{z-index: 3020;}
-
-node[amenity=bus_station],
-area[amenity=bus_station],
-node[tourism=viewpoint]
-{z-index: 3050;}
-
-node[amenity=parking],
-area[amenity=parking],
-node[railway=station],
-node[railway=station][transport=subway],
-{z-index: 3100;}
-
-node[amenity=fuel],
-area[amenity=fuel],
-node[amenity=charging_station],
-area[amenity=charging_station]
-{z-index: 3590;}
-
-node[highway=speed_camera],
-{z-index: 75000;}
-
 /* 2. NATURAL */
 
 node|z12-[landuse=forest][name],
@@ -667,10 +531,6 @@ area|z17-[amenity=post_office],
 
 /* 5.1 Hospital */
 
-area|z15-[amenity=hospital],
-node|z15-[amenity=hospital],
-{-x-me-text-priority:16000;}
-
 node|z15[amenity=hospital],
 node|z15[building=hospital],
 area|z15[building=hospital]
@@ -694,7 +554,7 @@ area|z18-[building=hospital],
 
 area|z15-[amenity=university][name],
 node|z15-[amenity=university][name]
-{icon-image: college-m.svg;icon-min-distance: 15;-x-me-text-priority:16000;font-size: 12.5;}
+{icon-image: college-m.svg;icon-min-distance: 15;font-size: 12.5;}
 area|z16[amenity=university][name],
 node|z16[amenity=university][name]
 {icon-min-distance: 9;font-size: 12.75;}
@@ -832,16 +692,16 @@ area|z15-[shop=car_repair][service=tyres],
 
 node|z14[shop=mall],
 area|z14[shop=mall]
-{icon-image: shop-m.svg;font-size:12.25;icon-min-distance: 5;-x-me-icon-priority:15500;-x-me-text-priority:15500;}
+{icon-image: shop-m.svg;font-size:12.25;icon-min-distance: 5;}
 node|z15[shop=mall],
 area|z15[shop=mall]
-{icon-image: shop-m.svg;font-size:12.5;icon-min-distance: 6;-x-me-icon-priority:15500; -x-me-text-priority:15500;}
+{icon-image: shop-m.svg;font-size:12.5;icon-min-distance: 6;}
 node|z16-17[shop=mall],
 area|z16-17[shop=mall]
-{icon-image: shop-m.svg;font-size: 13.25;icon-min-distance: 8;-x-me-icon-priority:15500; -x-me-text-priority:15500;}
+{icon-image: shop-m.svg;font-size: 13.25;icon-min-distance: 8;}
 node|z18-[shop=mall],
 area|z18-[shop=mall]
-{icon-image: shop-m.svg;font-size: 14.5;icon-min-distance: 8;-x-me-icon-priority:15500; -x-me-text-priority:15500;}
+{icon-image: shop-m.svg;font-size: 14.5;icon-min-distance: 8;}
 
 node|z14[shop=supermarket],
 area|z14[shop=supermarket]
