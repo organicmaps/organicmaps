@@ -29,74 +29,10 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-/* 1. Z-INDEX BASE MAP LABEL */
-
-node[entrance]
-{z-index: 10;}
-
-area[building],
-node[building],
-area[addr:housenumber][addr:street],
-node[addr:housenumber][addr:street],
-{z-index: 50;}
-
-area[landuse=cemetery],
-node[landuse=cemetery],
-area[amenity=grave_yard],
-node[amenity=grave_yard],
-{z-index: 800;}
-
-node[place=continent]
-{z-index: 999;}
-
-node[place=country],
-line[waterway=weir],
-node[waterway=weir],
-area[landuse=military],
-node[landuse=military]
-{z-index: 1000;}
-
-node[place=state],
-node[place=suburb]
-{z-index: 1001;}
-
-node[place=hamlet]
-{z-index: 1002;}
-
-node[place=village]
-{z-index: 1050;}
-
-node[place=town]
-{z-index: 1100;}
-
-node[place=city],
-{z-index: 1200;}
-
-node[place=city][capital=5],
-node[place=city][capital=6],
-node[place=city][capital=7],
-node[place=city][capital=8],
-node[place=city][capital=9],
-node[place=city][capital=10],
-node[place=city][capital=11],
-node[place=city][capital?],
-{z-index: 1300;}
-
-node[place=city][capital=3],
-node[place=city][capital=4],
-{z-index: 1400;}
-
-node[place=city][capital=2],
-{z-index: 1450;}
-
-node[place=ocean],
-node[place=sea]
-{z-index: 3000;}
-
 /* 2.CONTINENTS */
 
 *[place]
-{text-position: center;fill-position: background;}
+{text-position: center;}
 
 node|z1-2[place=continent],
 node|z12-[place=archipelago],
@@ -108,7 +44,7 @@ area|z14-[natural=cape]
 {text: name;}
 
 node|z1-2[place=continent]
-{font-size: 12;text-color: @country_label;max-width: 5;-x-me-text-priority:16000;}
+{font-size: 12;text-color: @country_label;max-width: 5;}
 
 node|z12-[place=archipelago],
 area|z12-[place=archipelago],
@@ -123,9 +59,9 @@ area|z14-[natural=cape]
 /* 3.COUNTRIES & STATES */
 
 node|z3-[place=country]
-{text: name;text-color: @country_label;-x-me-text-priority:16000;}
+{text: name;text-color: @country_label;}
 node|z3-[place=country]::int_name
-{text: int_name;text-color: @country_label;-x-me-text-priority:16000;}
+{text: int_name;text-color: @country_label;}
 
 node|z5[place=state][addr:country=US],
 node|z6-10[place=state]
@@ -440,14 +376,6 @@ node|z17-[natural=beach]
 {text: name;font-size: 10;text-color: @poi_label;}
 
 /* 6.WATER */
-
-[waterway=river],
-[waterway=riverbank],
-[waterway=stream],
-[waterway=canal],
-[natural=strait],
-[waterway=dam],
-{-x-me-text-priority: 16950;}
 
 node|z1-[place=ocean],
 node|z4-[place=sea],
