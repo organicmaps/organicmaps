@@ -269,4 +269,12 @@ UNIT_TEST(Stolbcy_Use_Unpaved)
       mercator::FromLatLon(53.454082, 26.7560061), 5148.45 /* expectedRouteMeters */);
 }
 
+UNIT_TEST(Russia_UseTrunk)
+{
+  // Similar with GraphHopper.
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
+                                   mercator::FromLatLon(66.271, 33.048), {0.0, 0.0},
+                                   mercator::FromLatLon(68.95, 33.045), 412359 /* expectedRouteMeters */);
+}
+
 } // namespace bicycle_route_test
