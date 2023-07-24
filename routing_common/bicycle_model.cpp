@@ -31,8 +31,9 @@ SpeedKMpH constexpr kSpeedOnFootwayKMpH = {5.0 /* weight */, 7.0 /* eta */};
 
 HighwayBasedSpeeds const kDefaultSpeeds = {
     // {highway class : InOutCitySpeedKMpH(in city(weight, eta), out city(weight eta))}
-    {HighwayType::HighwayTrunk, InOutCitySpeedKMpH(SpeedKMpH(3.0, 18.0))},
-    {HighwayType::HighwayTrunkLink, InOutCitySpeedKMpH(SpeedKMpH(3.0, 18.0))},
+    /// @see Russia_UseTrunk for Trunk weights.
+    {HighwayType::HighwayTrunk, InOutCitySpeedKMpH(SpeedKMpH(5.0, 18.0))},
+    {HighwayType::HighwayTrunkLink, InOutCitySpeedKMpH(SpeedKMpH(5.0, 18.0))},
     {HighwayType::HighwayPrimary, InOutCitySpeedKMpH(SpeedKMpH(10.0, 18.0), SpeedKMpH(14.0, 18.0))},
     {HighwayType::HighwayPrimaryLink, InOutCitySpeedKMpH(SpeedKMpH(10.0, 18.0), SpeedKMpH(14.0, 18.0))},
     {HighwayType::HighwaySecondary, InOutCitySpeedKMpH(SpeedKMpH(15.0, 18.0), SpeedKMpH(20.0, 18.0))},
