@@ -178,7 +178,11 @@ void StreetsMatcher::Go(BaseContext const & ctx, CBV const & candidates,
   //
   // That's why we need all predictions here.
 
-  sort(predictions.rbegin(), predictions.rend(), base::LessBy(&Prediction::m_prob));
+  sort(predictions.begin(), predictions.end(), [](Prediction const & l, Prediction const & r)
+  {
+    return l.IsBetter(r);
+  });
+
   while (predictions.size() > kMaxNumOfImprobablePredictions &&
          predictions.back().m_prob < kTailProbability)
   {
