@@ -20389,6 +20389,9 @@
   [type.railway.station.subway.tbilisi]
     ref = type.railway.station.subway
 
+  [type.railway.station.subway.tehran]
+    ref = type.railway.station.subway
+
   [type.railway.station.subway.tianjin]
     ref = type.railway.station.subway
 
@@ -20802,6 +20805,9 @@
     ref = type.railway.subway_entrance
 
   [type.railway.subway_entrance.tbilisi]
+    ref = type.railway.subway_entrance
+
+  [type.railway.subway_entrance.tehran]
     ref = type.railway.subway_entrance
 
   [type.railway.subway_entrance.tianjin]
