@@ -27,6 +27,11 @@ namespace
 {
 uint32_t constexpr kInvalidOffset = numeric_limits<uint32_t>::max();
 
+bool IsRealGeomOffset(uint32_t offset)
+{
+  return (offset != kInvalidOffset && offset != kGeomOffsetFallback);
+}
+
 // Get an index of inner geometry scale range.
 // @param[in]  scale:
 // -1 : index for the best geometry
@@ -69,7 +74,7 @@ int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale,
   case FeatureType::BEST_GEOMETRY:
     // Choose the best existing geometry for the last visible scale.
     ind = count - 1;
-    while (ind >= 0 && offsets[ind] == kInvalidOffset)
+    while (ind >= 0 && !IsRealGeomOffset(offsets[ind]))
       --ind;
     if (ind >= 0)
       return ind;
@@ -77,7 +82,7 @@ int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale,
 
   case FeatureType::WORST_GEOMETRY:
     // Choose the worst existing geometry for the first visible scale.
-    while (ind < count && offsets[ind] == kInvalidOffset)
+    while (ind < count && !IsRealGeomOffset(offsets[ind]))
       ++ind;
     if (ind < count)
       return ind;
@@ -89,15 +94,16 @@ int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale,
     int const lastScale = loadInfo.GetLastScale();
     if (scale > lastScale)
       scale = lastScale;
-    // If there is no geometry for the requested scale
-    // fallback to the next more detailed one.
-    while (ind < count && (scale > loadInfo.GetScale(ind) || offsets[ind] == kInvalidOffset))
+
+    // If there is no geometry for the requested scale (kHasGeoOffsetFlag) fallback to the next more detailed one.
+    while (ind < count && (scale > loadInfo.GetScale(ind) || offsets[ind] == kGeomOffsetFallback))
       ++ind;
+
     // Some WorldCoasts features have idx == 0 geometry only and its possible
     // other features to be visible on e.g. idx == 1 only,
     // but then they shouldn't be attempted to be drawn using other geom scales.
     ASSERT_LESS(ind, count, ("No suitable geometry scale range in the map file."));
-    return (ind < count ? ind : -1);
+    return (offsets[ind] != kInvalidOffset ? ind : -1);
   }
   }
 
@@ -498,8 +504,8 @@ FeatureType::GeomStat FeatureType::GetOuterGeometryStats()
 
       for (size_t ind = 0; ind < scalesCount; ++ind)
       {
-        auto const scaleOffset = m_offsets.m_pts[ind];
-        if (scaleOffset != kInvalidOffset)
+        uint32_t const scaleOffset = m_offsets.m_pts[ind];
+        if (IsRealGeomOffset(scaleOffset))
         {
           points.clear();
           points.emplace_back(m_points.front());
@@ -568,15 +574,16 @@ FeatureType::GeomStat FeatureType::GetOuterTrianglesStats()
     {
       for (int ind = 0; ind < scalesCount; ++ind)
       {
-        if (m_offsets.m_trg[ind] != kInvalidOffset)
+        uint32_t const scaleOffset = m_offsets.m_trg[ind];
+        if (IsRealGeomOffset(scaleOffset))
         {
           m_triangles.clear();
 
           ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetTrianglesReader(ind));
-          src.Skip(m_offsets.m_trg[ind]);
+          src.Skip(scaleOffset);
           serial::LoadOuterTriangles(src, m_loadInfo->GetGeometryCodingParams(ind), m_triangles);
 
-          res.m_sizes[ind] = static_cast<uint32_t>(src.Pos() - m_offsets.m_trg[ind]);
+          res.m_sizes[ind] = static_cast<uint32_t>(src.Pos() - scaleOffset);
           res.m_elements[ind] = m_triangles.size() / 3;
         }
       }
