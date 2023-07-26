@@ -1573,7 +1573,7 @@ railway|subway_entrance|lausanne;[railway=subway_entrance][city=lausanne];;name;
 railway|subway_entrance|lille;[railway=subway_entrance][city=lille];;name;int_name;1499;
 railway|subway_entrance|lima;[railway=subway_entrance][city=lima];;name;int_name;1500;
 railway|subway_entrance|lisboa;[railway=subway_entrance][city=lisboa];;name;int_name;1501;
-deprecated|deprecated;1502;x
+railway|subway_entrance|tehran;[railway=subway_entrance][city=tehran];;name;int_name;1502;
 railway|subway_entrance|lyon;[railway=subway_entrance][city=lyon];;name;int_name;1503;
 railway|subway_entrance|malaga;[railway=subway_entrance][city=malaga];;name;int_name;1504;
 railway|subway_entrance|manila;[railway=subway_entrance][city=manila];;name;int_name;1505;
@@ -1636,3 +1636,4 @@ shop|herbalist;1561;
 shop|camera;1562;
 shop|auction;1563;
 shop|collector;1564;
+railway|station|subway|tehran;[railway=station][transport=subway][city=tehran],[railway=station][station=subway][city=tehran];;name;int_name;1565;

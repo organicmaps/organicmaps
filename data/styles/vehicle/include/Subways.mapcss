@@ -825,6 +825,13 @@ node|z15-16[railway=station][transport=subway][city=tbilisi] {icon-image: subway
 node|z17-[railway=station][transport=subway][city=tbilisi] {icon-image: subway-tbilisi-m.svg;}
 node|z16-[railway=subway_entrance][city=tbilisi] {icon-image: subway-tbilisi-s.svg;}
 
+/* Tehran Subway Station */
+node|z13[railway=station][transport=subway][city=tehran] {icon-image: subway-tehran-s.svg;icon-min-distance: 1;}
+node|z14[railway=station][transport=subway][city=tehran] {icon-image: subway-tehran-s.svg;}
+node|z15-16[railway=station][transport=subway][city=tehran] {icon-image: subway-tehran-m.svg;}
+node|z17-[railway=station][transport=subway][city=tehran] {icon-image: subway-tehran-m.svg;}
+node|z16-[railway=subway_entrance][city=tehran] {icon-image: subway-tehran-s.svg;}
+
 /* Tianjin Subway Station */
 node|z13[railway=station][transport=subway][city=tianjin] {icon-image: subway-tianjin-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=tianjin] {icon-image: subway-tianjin-s.svg;}
