@@ -17,7 +17,11 @@ namespace feature
 {
 class SharedLoadInfo;
 struct NameParamsOut; // Include feature_utils.hpp when using
-}
+
+// "fallback" flag value (1 is taken to distinguish from the "normal" offset value),
+// which means geometry should be loaded from the next offset of the more detailed geom level.
+uint32_t constexpr kGeomOffsetFallback = 1;
+} // namespace feature
 
 namespace osm
 {
