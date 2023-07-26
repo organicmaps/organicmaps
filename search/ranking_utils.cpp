@@ -114,7 +114,7 @@ bool IsStopWord(UniString const & s)
       char const * arr[] = {
         "a", "s", "the",  // English
         "am", "im", "an", // German
-        "d", "de", "di", "da", "la", "le", // French, Spanish, Italian
+        "d", "da", "de", "di", "du", "la", "le", // French, Spanish, Italian
         "и", "я"          // Cyrillic
       };
       for (char const * s : arr)
