@@ -1499,7 +1499,7 @@ amenity|recycling|container
 *railway|subway_entrance|lille
 *railway|subway_entrance|lima
 *railway|subway_entrance|lisboa
-mapswithme
+*railway|subway_entrance|tehran
 *railway|subway_entrance|lyon
 *railway|subway_entrance|malaga
 *railway|subway_entrance|manila
@@ -1562,3 +1562,4 @@ mapswithme
 *shop|camera
 *shop|auction
 *shop|collector
+*railway|station|subway|tehran
