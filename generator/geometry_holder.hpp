@@ -5,17 +5,14 @@
 #include "generator/feature_helpers.hpp"
 #include "generator/tesselator.hpp"
 
-#include "geometry/parametrized_segment.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/polygon.hpp"
-#include "geometry/simplification.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/data_header.hpp"
+#include "indexer/feature.hpp"
 
-#include <cstdint>
 #include <functional>
-#include <limits>
 #include <list>
 #include <vector>
 
@@ -96,6 +93,12 @@ public:
         WriteOuterPoints(points, scaleIndex);
         m_ptsPrevCount = points.size();
       }
+      else
+      {
+        CHECK(m_buffer.m_ptsMask != 0, ("Some valid geometry should be present already"));
+        m_buffer.m_ptsMask |= (1 << scaleIndex);
+        m_buffer.m_ptsOffset.push_back(feature::kGeomOffsetFallback);
+      }
     }
   }
 
@@ -152,14 +155,25 @@ public:
   {
     CHECK(m_buffer.m_innerTrg.empty(), ());
     m_trgInner = false;
+
     size_t trgPointsCount = 0;
     for (auto const & points : polys)
       trgPointsCount += points.size();
+
     if (m_trgPrevCount == 0 ||
         (trgPointsCount + kGeomMinDiff <= m_trgPrevCount && trgPointsCount * kGeomMinFactor <= m_trgPrevCount))
     {
-      WriteOuterTriangles(polys, scaleIndex);
-      m_trgPrevCount = trgPointsCount;
+      if (WriteOuterTriangles(polys, scaleIndex))
+      {
+        // Assign only if geometry is valid (correctly tesselated and saved).
+        m_trgPrevCount = trgPointsCount;
+      }
+    }
+    else
+    {
+      CHECK(m_buffer.m_trgMask != 0, ("Some valid geometry should be present already"));
+      m_buffer.m_trgMask |= (1 << scaleIndex);
+      m_buffer.m_trgOffset.push_back(feature::kGeomOffsetFallback);
     }
   }
 
@@ -194,12 +208,13 @@ private:
 
     m_buffer.m_ptsMask |= (1 << i);
     auto const pos = feature::CheckedFilePosCast(m_geoFileGetter(i));
+    CHECK(pos != feature::kGeomOffsetFallback, ());
     m_buffer.m_ptsOffset.push_back(pos);
 
     serial::SaveOuterPath(toSave, cp, m_geoFileGetter(i));
   }
 
-  void WriteOuterTriangles(Polygons const & polys, int i)
+  bool WriteOuterTriangles(Polygons const & polys, int i)
   {
     CHECK(m_trgFileGetter, ("m_trgFileGetter must be set to write outer triangles."));
 
@@ -207,8 +222,9 @@ private:
     tesselator::TrianglesInfo info;
     if (0 == tesselator::TesselateInterior(polys, info))
     {
-      LOG(LINFO, ("GeometryHolder: No triangles in", m_fb.GetMostGenericOsmId()));
-      return;
+      /// @todo Some examples here: https://github.com/organicmaps/organicmaps/issues/5607
+      LOG(LWARNING, ("GeometryHolder: No triangles for scale index", i, "in", m_fb.GetMostGenericOsmId()));
+      return false;
     }
 
     auto const cp = m_header.GetGeometryCodingParams(i);
@@ -245,8 +261,11 @@ private:
     // saving to file
     m_buffer.m_trgMask |= (1 << i);
     auto const pos = feature::CheckedFilePosCast(m_trgFileGetter(i));
+    CHECK(pos != feature::kGeomOffsetFallback, ());
     m_buffer.m_trgOffset.push_back(pos);
     saver.Save(m_trgFileGetter(i));
+
+    return true;
   }
 
   void FillInnerPointsMask(Points const & points, uint32_t scaleIndex)
