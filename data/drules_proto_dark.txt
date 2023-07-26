@@ -80412,6 +80412,168 @@ cont {
   }
 }
 cont {
+  name: "railway-station-subway-tehran"
+  element {
+    scale: 13
+    symbol {
+      name: "subway-tehran-s"
+      priority: 16970
+      min_distance: 1
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "subway-tehran-s"
+      priority: 16970
+      min_distance: 1
+    }
+    caption {
+      primary {
+        height: 11
+        color: 8947848
+        stroke_color: 1292964096
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 9
+        color: 8947848
+        stroke_color: 1292964096
+        offset_y: 1
+        text: "int_name"
+        is_optional: true
+      }
+      priority: 15970
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "subway-tehran-m"
+      priority: 16970
+    }
+    caption {
+      primary {
+        height: 12
+        color: 8947848
+        stroke_color: 856756480
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 10
+        color: 8947848
+        stroke_color: 856756480
+        offset_y: 1
+        text: "int_name"
+        is_optional: true
+      }
+      priority: 15970
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "subway-tehran-m"
+      priority: 16970
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 856756480
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 856756480
+        offset_y: 1
+        text: "int_name"
+        is_optional: true
+      }
+      priority: 15970
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway-tehran-m"
+      priority: 16970
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 437326080
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 437326080
+        offset_y: 1
+        text: "int_name"
+        is_optional: true
+      }
+      priority: 15970
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-tehran-m"
+      priority: 16970
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 437326080
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 437326080
+        offset_y: 1
+        text: "int_name"
+        is_optional: true
+      }
+      priority: 15970
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-tehran-m"
+      priority: 16970
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 437326080
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 437326080
+        offset_y: 1
+        text: "int_name"
+        is_optional: true
+      }
+      priority: 15970
+    }
+  }
+}
+cont {
   name: "railway-station-subway-tianjin"
   element {
     scale: 13
@@ -90778,6 +90940,91 @@ cont {
     scale: 19
     symbol {
       name: "subway-tbilisi-s"
+      priority: 16931
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 437326080
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 437326080
+        offset_y: 1
+        text: "int_name"
+        is_optional: true
+      }
+      priority: 15931
+    }
+  }
+}
+cont {
+  name: "railway-subway_entrance-tehran"
+  element {
+    scale: 16
+    symbol {
+      name: "subway-tehran-s"
+      priority: 16931
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway-tehran-s"
+      priority: 16931
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 437326080
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 437326080
+        offset_y: 1
+        text: "int_name"
+        is_optional: true
+      }
+      priority: 15931
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-tehran-s"
+      priority: 16931
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 437326080
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 437326080
+        offset_y: 1
+        text: "int_name"
+        is_optional: true
+      }
+      priority: 15931
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-tehran-s"
       priority: 16931
     }
     caption {
