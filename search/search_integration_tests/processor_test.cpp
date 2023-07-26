@@ -3417,4 +3417,42 @@ UNIT_CLASS_TEST(ProcessorTest, StreetCategories)
   }
 }
 
+// https://github.com/organicmaps/organicmaps/issues/4421
+UNIT_CLASS_TEST(ProcessorTest, BarcelonaStreet)
+{
+  TestStreet street({{-1, -1}, {1, 1}}, "Carrer de la Concòrdia", "default");
+  street.SetType({"highway", "residential"});
+  TestStreet highway({{-0.9, -0.9}, {0.9, -0.9}}, "C-59 Carretera de Mollet", "default");
+  highway.SetType({"highway", "trunk"});
+  highway.SetRoadNumber("C-59");
+
+  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(street);
+    builder.Add(highway);
+  });
+
+  SetViewport(m2::RectD(-0.5, -0.5, 0.5, 0.5));
+
+  {
+    Rules const rules = {
+      ExactMatch(wonderlandId, street),
+      // 1 token match is discarded for _relaxed_
+      //ExactMatch(wonderlandId, highway),
+    };
+    TEST(OrderedResultsMatch(MakeRequest("carrer de concordia 59", "en")->Results(), rules), ());
+    // Add some misspellings.
+    TEST(OrderedResultsMatch(MakeRequest("carrer concoria 59", "en")->Results(), rules), ());
+    TEST(OrderedResultsMatch(MakeRequest("carer la concoria 59", "en")->Results(), rules), ());
+  }
+
+  {
+    Rules const rules = {
+        ExactMatch(wonderlandId, street),
+        ExactMatch(wonderlandId, highway),
+    };
+    TEST(OrderedResultsMatch(MakeRequest("concordia 59", "en")->Results(), rules), ());
+  }
+}
+
 } // namespace processor_test

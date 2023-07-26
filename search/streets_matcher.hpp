@@ -18,7 +18,21 @@ class StreetsMatcher
 public:
   struct Prediction
   {
-    inline size_t GetNumTokens() const { return m_tokenRange.Size(); }
+    size_t GetNumTokens() const { return m_tokenRange.Size(); }
+
+    /// @todo Check m_withMisprints ?
+    /// @{
+    bool SameForRelaxedMatch(Prediction const & rhs) const
+    {
+      return m_prob == rhs.m_prob && GetNumTokens() == rhs.GetNumTokens();
+    }
+    bool IsBetter(Prediction const & rhs) const
+    {
+      if (m_prob == rhs.m_prob)
+        return GetNumTokens() > rhs.GetNumTokens();
+      return m_prob > rhs.m_prob;
+    }
+    /// @}
 
     CBV m_features;
     TokenRange m_tokenRange;
