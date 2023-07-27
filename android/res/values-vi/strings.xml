@@ -1449,6 +1449,7 @@
 	<string name="type.railway.station.subway.taoyuan">Ngầm</string>
 	<string name="type.railway.station.subway.tashkent">Ngầm</string>
 	<string name="type.railway.station.subway.tbilisi">Ngầm</string>
+	<string name="type.railway.station.subway.tehran">Ngầm</string>
 	<string name="type.railway.station.subway.tianjin">Ngầm</string>
 	<string name="type.railway.station.subway.tokyo">Ngầm</string>
 	<string name="type.railway.station.subway.valencia">Ngầm</string>
@@ -1559,6 +1560,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.tashkent">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.tbilisi">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.tehran">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.tianjin">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.tokyo">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.valencia">Lỗi vào Metro</string>

@@ -3063,6 +3063,8 @@
 
 "type.railway.station.subway.tbilisi" = "Ngầm";
 
+"type.railway.station.subway.tehran" = "Ngầm";
+
 "type.railway.station.subway.tianjin" = "Ngầm";
 
 "type.railway.station.subway.tokyo" = "Ngầm";
@@ -3288,6 +3290,8 @@
 "type.railway.subway_entrance.tashkent" = "Lỗi vào Metro";
 
 "type.railway.subway_entrance.tbilisi" = "Lỗi vào Metro";
+
+"type.railway.subway_entrance.tehran" = "Lỗi vào Metro";
 
 "type.railway.subway_entrance.tianjin" = "Lỗi vào Metro";
 

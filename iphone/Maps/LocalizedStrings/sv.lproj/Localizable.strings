@@ -3063,6 +3063,8 @@
 
 "type.railway.station.subway.tbilisi" = "Tunnelbana";
 
+"type.railway.station.subway.tehran" = "Tunnelbana";
+
 "type.railway.station.subway.tianjin" = "Tunnelbana";
 
 "type.railway.station.subway.tokyo" = "Tunnelbana";
@@ -3288,6 +3290,8 @@
 "type.railway.subway_entrance.tashkent" = "Tunnelbana entré";
 
 "type.railway.subway_entrance.tbilisi" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.tehran" = "Tunnelbana entré";
 
 "type.railway.subway_entrance.tianjin" = "Tunnelbana entré";
 

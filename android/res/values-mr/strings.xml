@@ -1502,6 +1502,7 @@
 	<string name="type.railway.station.subway.taoyuan">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.tashkent">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.tbilisi">भुयारी मार्ग</string>
+	<string name="type.railway.station.subway.tehran">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.tianjin">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.tokyo">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.valencia">भुयारी मार्ग</string>
@@ -1615,6 +1616,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.tashkent">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.tbilisi">भुयारी प्रवेशद्वार</string>
+	<string name="type.railway.subway_entrance.tehran">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.tianjin">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.tokyo">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.valencia">भुयारी प्रवेशद्वार</string>

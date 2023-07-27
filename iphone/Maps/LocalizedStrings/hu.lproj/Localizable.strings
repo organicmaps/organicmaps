@@ -3063,6 +3063,8 @@
 
 "type.railway.station.subway.tbilisi" = "Földalatti";
 
+"type.railway.station.subway.tehran" = "Földalatti";
+
 "type.railway.station.subway.tianjin" = "Földalatti";
 
 "type.railway.station.subway.tokyo" = "Földalatti";
@@ -3289,6 +3291,8 @@
 
 "type.railway.subway_entrance.tbilisi" = "Földalatti bejárat";
 
+"type.railway.subway_entrance.tehran" = "Földalatti bejárat";
+
 "type.railway.subway_entrance.tianjin" = "Földalatti bejárat";
 
 "type.railway.subway_entrance.tokyo" = "Földalatti bejárat";
@@ -3453,7 +3457,7 @@
 
 "type.shop.outpost" = "Felvevő pont";
 
-"type.shop.pastry" = "Cukrászsütemény";
+"type.shop.pastry" = "Cukrászda";
 
 "type.shop.pawnbroker" = "Zálogház";
 
