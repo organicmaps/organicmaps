@@ -678,11 +678,11 @@ UNIT_TEST(Romania_Mountains_ETA)
   TEST(routeResult.first, ());
   Route const & route = *routeResult.first;
 
-  /// @todo Current Tobler’s Hiking function works bad here.
-
-  TestRouteLength(route, 4671.33);
+  // Google agrees here and also makes a detour with less ascent/descent.
+  // GraphHopper, OSRM make a shorter route via the mountain.
+  TestRouteLength(route, 5766.87);
   route.GetTotalTimeSec();
-  TEST_LESS(route.GetTotalTimeSec(), 2 * 3600, ());
+  TEST_LESS(route.GetTotalTimeSec(), 2.5 * 3600, ());
 }
 
 // Check piligrim routes here: www santiago.nl/downloads/
@@ -711,7 +711,7 @@ UNIT_TEST(Australia_Mountains_Downlhill)
   TestRouteLength(route, 27.4434);
   // Altitudes diff is (914 -> 798).
   double const eta = route.GetTotalTimeSec();
-  TEST(10 * 60 < eta && eta < 15 * 60, (eta));
+  TEST(8 * 60 < eta && eta < 11 * 60, (eta));
 }
 
 } // namespace pedestrian_route_test
