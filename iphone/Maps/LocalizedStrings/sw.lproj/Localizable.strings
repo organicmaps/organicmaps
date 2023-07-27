@@ -3063,6 +3063,8 @@
 
 "type.railway.station.subway.tbilisi" = "Subway Station";
 
+"type.railway.station.subway.tehran" = "Subway Station";
+
 "type.railway.station.subway.tianjin" = "Subway Station";
 
 "type.railway.station.subway.tokyo" = "Subway Station";
@@ -3288,6 +3290,8 @@
 "type.railway.subway_entrance.tashkent" = "Lango la kuingilia stesheni ya reli";
 
 "type.railway.subway_entrance.tbilisi" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.tehran" = "Lango la kuingilia stesheni ya reli";
 
 "type.railway.subway_entrance.tianjin" = "Lango la kuingilia stesheni ya reli";
 

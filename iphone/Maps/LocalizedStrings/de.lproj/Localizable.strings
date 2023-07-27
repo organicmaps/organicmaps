@@ -3063,6 +3063,8 @@
 
 "type.railway.station.subway.tbilisi" = "U-Bahn-Station";
 
+"type.railway.station.subway.tehran" = "U-Bahn-Station";
+
 "type.railway.station.subway.tianjin" = "U-Bahn-Station";
 
 "type.railway.station.subway.tokyo" = "U-Bahn-Station";
@@ -3288,6 +3290,8 @@
 "type.railway.subway_entrance.tashkent" = "U-Bahn-Eingang";
 
 "type.railway.subway_entrance.tbilisi" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.tehran" = "U-Bahn-Eingang";
 
 "type.railway.subway_entrance.tianjin" = "U-Bahn-Eingang";
 

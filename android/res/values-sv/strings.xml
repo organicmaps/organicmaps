@@ -1446,6 +1446,7 @@
 	<string name="type.railway.station.subway.taoyuan">Tunnelbana</string>
 	<string name="type.railway.station.subway.tashkent">Tunnelbana</string>
 	<string name="type.railway.station.subway.tbilisi">Tunnelbana</string>
+	<string name="type.railway.station.subway.tehran">Tunnelbana</string>
 	<string name="type.railway.station.subway.tianjin">Tunnelbana</string>
 	<string name="type.railway.station.subway.tokyo">Tunnelbana</string>
 	<string name="type.railway.station.subway.valencia">Tunnelbana</string>
@@ -1556,6 +1557,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">Tunnelbana entré</string>
 	<string name="type.railway.subway_entrance.tashkent">Tunnelbana entré</string>
 	<string name="type.railway.subway_entrance.tbilisi">Tunnelbana entré</string>
+	<string name="type.railway.subway_entrance.tehran">Tunnelbana entré</string>
 	<string name="type.railway.subway_entrance.tianjin">Tunnelbana entré</string>
 	<string name="type.railway.subway_entrance.tokyo">Tunnelbana entré</string>
 	<string name="type.railway.subway_entrance.valencia">Tunnelbana entré</string>

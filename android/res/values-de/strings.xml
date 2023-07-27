@@ -1626,6 +1626,7 @@
 	<string name="type.railway.station.subway.taoyuan">U-Bahn-Station</string>
 	<string name="type.railway.station.subway.tashkent">U-Bahn-Station</string>
 	<string name="type.railway.station.subway.tbilisi">U-Bahn-Station</string>
+	<string name="type.railway.station.subway.tehran">U-Bahn-Station</string>
 	<string name="type.railway.station.subway.tianjin">U-Bahn-Station</string>
 	<string name="type.railway.station.subway.tokyo">U-Bahn-Station</string>
 	<string name="type.railway.station.subway.valencia">U-Bahn-Station</string>
@@ -1739,6 +1740,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">U-Bahn-Eingang</string>
 	<string name="type.railway.subway_entrance.tashkent">U-Bahn-Eingang</string>
 	<string name="type.railway.subway_entrance.tbilisi">U-Bahn-Eingang</string>
+	<string name="type.railway.subway_entrance.tehran">U-Bahn-Eingang</string>
 	<string name="type.railway.subway_entrance.tianjin">U-Bahn-Eingang</string>
 	<string name="type.railway.subway_entrance.tokyo">U-Bahn-Eingang</string>
 	<string name="type.railway.subway_entrance.valencia">U-Bahn-Eingang</string>

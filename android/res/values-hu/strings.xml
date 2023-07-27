@@ -1471,6 +1471,7 @@
 	<string name="type.railway.station.subway.taoyuan">Földalatti</string>
 	<string name="type.railway.station.subway.tashkent">Földalatti</string>
 	<string name="type.railway.station.subway.tbilisi">Földalatti</string>
+	<string name="type.railway.station.subway.tehran">Földalatti</string>
 	<string name="type.railway.station.subway.tianjin">Földalatti</string>
 	<string name="type.railway.station.subway.tokyo">Földalatti</string>
 	<string name="type.railway.station.subway.valencia">Földalatti</string>
@@ -1581,6 +1582,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">Földalatti bejárat</string>
 	<string name="type.railway.subway_entrance.tashkent">Földalatti bejárat</string>
 	<string name="type.railway.subway_entrance.tbilisi">Földalatti bejárat</string>
+	<string name="type.railway.subway_entrance.tehran">Földalatti bejárat</string>
 	<string name="type.railway.subway_entrance.tianjin">Földalatti bejárat</string>
 	<string name="type.railway.subway_entrance.tokyo">Földalatti bejárat</string>
 	<string name="type.railway.subway_entrance.valencia">Földalatti bejárat</string>
@@ -1656,7 +1658,7 @@
 	<string name="type.shop.optician">Optika</string>
 	<string name="type.shop.outdoor">Túrafelszerelés</string>
 	<string name="type.shop.outpost">Felvevő pont</string>
-	<string name="type.shop.pastry">Cukrászsütemény</string>
+	<string name="type.shop.pastry">Cukrászda</string>
 	<string name="type.shop.pawnbroker">Zálogház</string>
 	<string name="type.shop.pet">Házikedvenc-üzlet</string>
 	<string name="type.shop.pet_grooming">Kisállat ápolás</string>
