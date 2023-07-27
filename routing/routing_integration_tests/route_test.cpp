@@ -280,7 +280,10 @@ UNIT_TEST(RussiaSmolenskRussiaMoscowTimeTest)
   TEST(routeResult.first, ());
   Route const & route = *routeResult.first;
   TestRouteLength(route, 391659);
-  TestRouteTime(route, 18374.9);
+
+  // https://www.openstreetmap.org/directions?engine=graphhopper_car&route=54.800%2C32.055%3B55.753%2C37.602
+  // Middle between GraphHopper and OSRM
+  TestRouteTime(route, 18607.2);
 }
 
 UNIT_TEST(Russia_Moscow_Leningradskiy39GeroevPanfilovtsev22TimeTest)
@@ -404,7 +407,7 @@ UNIT_TEST(TolyattiFeatureThatCrossSeveralMwmsTest)
 
   // GraphHopper and Valhalla agree here, but OSRM makes a short route via Syzran.
   TestRouteLength(route, 166157);
-  TestRouteTime(route, 8151.04);
+  TestRouteTime(route, 7958.85);
 }
 
 // Test on removing speed cameras from the route for maps from Jan 2019,
@@ -778,6 +781,9 @@ UNIT_TEST(Turkey_AvoidMountainsSecondary)
                               FromLatLon(41.0027, 27.6752), {0., 0.},
                               FromLatLon(40.6119, 27.1136));
 
+  // GraphHopper and OSRM make a short route via the mountain secondary.
+  // Valhalla makes a long route. I think it is correct.
+  /// @todo Should "split" ways for better inCity/outCity classification. Now long ways are detected as outCity (wrong).
   TestRouteLength(*res.first, 100399);
   TestRouteTime(*res.first, 5319.01);
 }
