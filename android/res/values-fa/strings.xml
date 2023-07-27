@@ -1366,6 +1366,7 @@
 	<string name="type.railway.station.subway.taoyuan">حمل و نقل</string>
 	<string name="type.railway.station.subway.tashkent">حمل و نقل</string>
 	<string name="type.railway.station.subway.tbilisi">حمل و نقل</string>
+	<string name="type.railway.station.subway.tehran">حمل و نقل</string>
 	<string name="type.railway.station.subway.tianjin">حمل و نقل</string>
 	<string name="type.railway.station.subway.tokyo">حمل و نقل</string>
 	<string name="type.railway.station.subway.valencia">حمل و نقل</string>
@@ -1476,6 +1477,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">ورودی مترو</string>
 	<string name="type.railway.subway_entrance.tashkent">ورودی مترو</string>
 	<string name="type.railway.subway_entrance.tbilisi">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.tehran">ورودی مترو</string>
 	<string name="type.railway.subway_entrance.tianjin">ورودی مترو</string>
 	<string name="type.railway.subway_entrance.tokyo">ورودی مترو</string>
 	<string name="type.railway.subway_entrance.valencia">ورودی مترو</string>

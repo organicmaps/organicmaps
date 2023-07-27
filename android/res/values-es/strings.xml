@@ -1635,6 +1635,7 @@
 	<string name="type.railway.station.subway.taoyuan">Metro</string>
 	<string name="type.railway.station.subway.tashkent">Metro</string>
 	<string name="type.railway.station.subway.tbilisi">Metro</string>
+	<string name="type.railway.station.subway.tehran">Metro</string>
 	<string name="type.railway.station.subway.tianjin">Metro</string>
 	<string name="type.railway.station.subway.tokyo">Metro</string>
 	<string name="type.railway.station.subway.valencia">Metro</string>
@@ -1746,6 +1747,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">Entrada al metro</string>
 	<string name="type.railway.subway_entrance.tashkent">Entrada al metro</string>
 	<string name="type.railway.subway_entrance.tbilisi">Entrada al metro</string>
+	<string name="type.railway.subway_entrance.tehran">Entrada al metro</string>
 	<string name="type.railway.subway_entrance.tianjin">Entrada al metro</string>
 	<string name="type.railway.subway_entrance.tokyo">Entrada al metro</string>
 	<string name="type.railway.subway_entrance.valencia">Entrada al metro</string>

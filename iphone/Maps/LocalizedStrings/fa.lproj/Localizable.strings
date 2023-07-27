@@ -3063,6 +3063,8 @@
 
 "type.railway.station.subway.tbilisi" = "حمل و نقل";
 
+"type.railway.station.subway.tehran" = "حمل و نقل";
+
 "type.railway.station.subway.tianjin" = "حمل و نقل";
 
 "type.railway.station.subway.tokyo" = "حمل و نقل";
@@ -3288,6 +3290,8 @@
 "type.railway.subway_entrance.tashkent" = "ورودی مترو";
 
 "type.railway.subway_entrance.tbilisi" = "ورودی مترو";
+
+"type.railway.subway_entrance.tehran" = "ورودی مترو";
 
 "type.railway.subway_entrance.tianjin" = "ورودی مترو";
 

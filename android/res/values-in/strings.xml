@@ -1448,6 +1448,7 @@
 	<string name="type.railway.station.subway.taoyuan">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.tashkent">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.tbilisi">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.tehran">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.tianjin">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.tokyo">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.valencia">Stasiun bawah tanah</string>
@@ -1558,6 +1559,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">Pintu masuk kereta bawah tanah</string>
 	<string name="type.railway.subway_entrance.tashkent">Pintu masuk kereta bawah tanah</string>
 	<string name="type.railway.subway_entrance.tbilisi">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.tehran">Pintu masuk kereta bawah tanah</string>
 	<string name="type.railway.subway_entrance.tianjin">Pintu masuk kereta bawah tanah</string>
 	<string name="type.railway.subway_entrance.tokyo">Pintu masuk kereta bawah tanah</string>
 	<string name="type.railway.subway_entrance.valencia">Pintu masuk kereta bawah tanah</string>

@@ -3063,6 +3063,8 @@
 
 "type.railway.station.subway.tbilisi" = "भुयारी मार्ग";
 
+"type.railway.station.subway.tehran" = "भुयारी मार्ग";
+
 "type.railway.station.subway.tianjin" = "भुयारी मार्ग";
 
 "type.railway.station.subway.tokyo" = "भुयारी मार्ग";
@@ -3288,6 +3290,8 @@
 "type.railway.subway_entrance.tashkent" = "भुयारी प्रवेशद्वार";
 
 "type.railway.subway_entrance.tbilisi" = "भुयारी प्रवेशद्वार";
+
+"type.railway.subway_entrance.tehran" = "भुयारी प्रवेशद्वार";
 
 "type.railway.subway_entrance.tianjin" = "भुयारी प्रवेशद्वार";
 

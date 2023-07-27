@@ -1564,6 +1564,7 @@
 	<string name="type.railway.station.subway.taoyuan">地下鉄</string>
 	<string name="type.railway.station.subway.tashkent">地下鉄</string>
 	<string name="type.railway.station.subway.tbilisi">地下鉄</string>
+	<string name="type.railway.station.subway.tehran">地下鉄</string>
 	<string name="type.railway.station.subway.tianjin">地下鉄</string>
 	<string name="type.railway.station.subway.tokyo">地下鉄</string>
 	<string name="type.railway.station.subway.valencia">地下鉄</string>
@@ -1674,6 +1675,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">地下鉄入り口</string>
 	<string name="type.railway.subway_entrance.tashkent">地下鉄入り口</string>
 	<string name="type.railway.subway_entrance.tbilisi">地下鉄入り口</string>
+	<string name="type.railway.subway_entrance.tehran">地下鉄入り口</string>
 	<string name="type.railway.subway_entrance.tianjin">地下鉄入り口</string>
 	<string name="type.railway.subway_entrance.tokyo">地下鉄入り口</string>
 	<string name="type.railway.subway_entrance.valencia">地下鉄入り口</string>

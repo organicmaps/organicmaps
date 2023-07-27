@@ -3063,6 +3063,8 @@
 
 "type.railway.station.subway.tbilisi" = "Stasiun bawah tanah";
 
+"type.railway.station.subway.tehran" = "Stasiun bawah tanah";
+
 "type.railway.station.subway.tianjin" = "Stasiun bawah tanah";
 
 "type.railway.station.subway.tokyo" = "Stasiun bawah tanah";
@@ -3288,6 +3290,8 @@
 "type.railway.subway_entrance.tashkent" = "Pintu masuk kereta bawah tanah";
 
 "type.railway.subway_entrance.tbilisi" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.tehran" = "Pintu masuk kereta bawah tanah";
 
 "type.railway.subway_entrance.tianjin" = "Pintu masuk kereta bawah tanah";
 

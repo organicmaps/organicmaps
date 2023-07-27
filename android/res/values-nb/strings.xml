@@ -1509,6 +1509,7 @@
 	<string name="type.railway.station.subway.taoyuan">T-bane</string>
 	<string name="type.railway.station.subway.tashkent">T-bane</string>
 	<string name="type.railway.station.subway.tbilisi">T-bane</string>
+	<string name="type.railway.station.subway.tehran">T-bane</string>
 	<string name="type.railway.station.subway.tianjin">T-bane</string>
 	<string name="type.railway.station.subway.tokyo">T-bane</string>
 	<string name="type.railway.station.subway.valencia">T-bane</string>
@@ -1619,6 +1620,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">T-bane inngang</string>
 	<string name="type.railway.subway_entrance.tashkent">T-bane inngang</string>
 	<string name="type.railway.subway_entrance.tbilisi">T-bane inngang</string>
+	<string name="type.railway.subway_entrance.tehran">T-bane inngang</string>
 	<string name="type.railway.subway_entrance.tianjin">T-bane inngang</string>
 	<string name="type.railway.subway_entrance.tokyo">T-bane inngang</string>
 	<string name="type.railway.subway_entrance.valencia">T-bane inngang</string>
