@@ -93,8 +93,8 @@ VehicleModel::LimitsInitList NoPassThroughTrack()
 VehicleModel::SurfaceInitList const kCarSurface = {
   // {{surfaceType, surfaceType}, {weightFactor, etaFactor}}
   {{"psurface", "paved_good"}, {1.0, 1.0}},
-  {{"psurface", "paved_bad"}, {0.5, 0.5}},
-  {{"psurface", "unpaved_good"}, {0.4, 0.8}},
+  {{"psurface", "paved_bad"}, {0.6, 0.7}},
+  {{"psurface", "unpaved_good"}, {0.4, 0.7}},
   {{"psurface", "unpaved_bad"}, {0.2, 0.3}}
 };
 }  // namespace car_model
