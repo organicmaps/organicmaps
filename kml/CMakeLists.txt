@@ -3,6 +3,7 @@ project(kml)
 set(SRC
   header_binary.hpp
   minzoom_quadtree.hpp
+  serdes_common.cpp
   serdes_common.hpp
   serdes.cpp
   serdes.hpp

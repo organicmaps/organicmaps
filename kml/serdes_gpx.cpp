@@ -9,8 +9,6 @@
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"
 
-#include <sstream>
-
 
 namespace kml
 {
@@ -32,19 +30,6 @@ std::string_view constexpr kDesc = "desc";
 std::string_view constexpr kMetadata = "metadata";
 std::string_view constexpr kEle = "ele";
 int constexpr kInvalidColor = 0;
-
-// TODO: Remove copypaste and use elevation/altitude.
-std::string PointToString(m2::PointD const & org)
-{
-  double const lon = mercator::XToLon(org.x);
-  double const lat = mercator::YToLat(org.y);
-
-  std::ostringstream ss;
-  ss.precision(8);
-
-  ss << lon << "," << lat;
-  return ss.str();
-}
 
 GpxParser::GpxParser(FileData & data)
 : m_data(data)
@@ -78,7 +63,7 @@ bool GpxParser::MakeValid()
     {
       // Set default name.
       if (m_name.empty())
-        m_name[kml::kDefaultLang] = gpx::PointToString(m_org);
+        m_name[kml::kDefaultLang] = kml::PointToString(m_org);
 
       // Set default pin.
       if (m_predefinedColor == PredefinedColor::None)

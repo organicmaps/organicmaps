@@ -15,6 +15,7 @@
 		45E456142058509200D9F45E /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45E456122058508C00D9F45E /* testingmain.cpp */; };
 		464344F3294F952700984CB7 /* gpx_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 464344F2294F952700984CB7 /* gpx_tests.cpp */; };
 		46AA9E60294549B000ECED73 /* serdes_gpx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 464BD0FB294546B20011955A /* serdes_gpx.cpp */; };
+		ACDD8A7B2A73684F000F2C43 /* serdes_common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACDD8A782A736045000F2C43 /* serdes_common.cpp */; };
 		E2AA225E25275C6B002589E2 /* minzoom_quadtree_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2AA225C25275C6B002589E2 /* minzoom_quadtree_tests.cpp */; };
 		E2DC9C9125264E3E0098174E /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9C9025264E3E0098174E /* types.cpp */; };
 		FA67C84B26BB365600B33DCA /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA67C84A26BB365600B33DCA /* libplatform.a */; };
@@ -60,6 +61,8 @@
 		464344F2294F952700984CB7 /* gpx_tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = gpx_tests.cpp; sourceTree = "<group>"; };
 		464BD0FB294546B20011955A /* serdes_gpx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; path = serdes_gpx.cpp; sourceTree = "<group>"; };
 		464BD0FC294546B20011955A /* serdes_gpx.hpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.h; path = serdes_gpx.hpp; sourceTree = "<group>"; };
+		ACDD8A772A736045000F2C43 /* serdes_common.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = serdes_common.hpp; sourceTree = "<group>"; };
+		ACDD8A782A736045000F2C43 /* serdes_common.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = serdes_common.cpp; sourceTree = "<group>"; };
 		E2AA225925275C1D002589E2 /* minzoom_quadtree.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = minzoom_quadtree.hpp; sourceTree = "<group>"; };
 		E2AA225C25275C6B002589E2 /* minzoom_quadtree_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = minzoom_quadtree_tests.cpp; sourceTree = "<group>"; };
 		E2AA225D25275C6B002589E2 /* tests_data.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tests_data.hpp; sourceTree = "<group>"; };
@@ -136,10 +139,14 @@
 			children = (
 				45E4558D20584AB900D9F45E /* header_binary.hpp */,
 				E2AA225925275C1D002589E2 /* minzoom_quadtree.hpp */,
-				45E4559220584ABA00D9F45E /* serdes_binary.cpp */,
-				45E4559320584ABA00D9F45E /* serdes_binary.hpp */,
 				45E4558E20584AB900D9F45E /* serdes.cpp */,
 				45E4559020584AB900D9F45E /* serdes.hpp */,
+				45E4559220584ABA00D9F45E /* serdes_binary.cpp */,
+				45E4559320584ABA00D9F45E /* serdes_binary.hpp */,
+				ACDD8A782A736045000F2C43 /* serdes_common.cpp */,
+				ACDD8A772A736045000F2C43 /* serdes_common.hpp */,
+				464BD0FB294546B20011955A /* serdes_gpx.cpp */,
+				464BD0FC294546B20011955A /* serdes_gpx.hpp */,
 				4568C86320BD455600E2192B /* type_utils.cpp */,
 				45E4558F20584AB900D9F45E /* type_utils.hpp */,
 				E2DC9C8925264E0C0098174E /* types_v3.hpp */,
@@ -150,8 +157,6 @@
 				E2DC9C9025264E3E0098174E /* types.cpp */,
 				45E4559420584ABA00D9F45E /* types.hpp */,
 				45E4559120584ABA00D9F45E /* visitors.hpp */,
-				464BD0FB294546B20011955A /* serdes_gpx.cpp */,
-				464BD0FC294546B20011955A /* serdes_gpx.hpp */,
 			);
 			name = kml;
 			path = ../../kml;
@@ -282,6 +287,7 @@
 				46AA9E60294549B000ECED73 /* serdes_gpx.cpp in Sources */,
 				45E4559520584ABA00D9F45E /* serdes.cpp in Sources */,
 				E2DC9C9125264E3E0098174E /* types.cpp in Sources */,
+				ACDD8A7B2A73684F000F2C43 /* serdes_common.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
