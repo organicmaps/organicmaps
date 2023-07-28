@@ -344,8 +344,6 @@ struct UnicodeBlock
 using TUniBlocks = std::vector<UnicodeBlock>;
 using TUniBlockIter = TUniBlocks::const_iterator;
 
-int constexpr GlyphManager::kDynamicGlyphSize = -1;
-
 struct GlyphManager::Impl
 {
   FT_Library m_library;
