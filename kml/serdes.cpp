@@ -13,8 +13,6 @@
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
-#include <sstream>
-
 namespace kml
 {
 namespace
@@ -63,25 +61,6 @@ std::string const kIndent4 = Indent(4);
 std::string const kIndent6 = Indent(6);
 std::string const kIndent8 = Indent(8);
 std::string const kIndent10 = Indent(10);
-
-std::string PointToString(m2::PointD const & org)
-{
-  double const lon = mercator::XToLon(org.x);
-  double const lat = mercator::YToLat(org.y);
-
-  std::ostringstream ss;
-  ss.precision(8);
-
-  ss << lon << "," << lat;
-  return ss.str();
-}
-
-std::string PointToString(geometry::PointWithAltitude const & pt)
-{
-  if (pt.GetAltitude() != geometry::kInvalidAltitude)
-    return PointToString(pt.GetPoint()) + "," + strings::to_string(pt.GetAltitude());
-  return PointToString(pt.GetPoint());
-}
 
 std::string GetLocalizableString(LocalizableString const & s, int8_t lang)
 {
