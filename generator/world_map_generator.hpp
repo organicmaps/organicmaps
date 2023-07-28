@@ -14,8 +14,6 @@
 #include "coding/point_coding.hpp"
 
 #include "geometry/polygon.hpp"
-#include "geometry/region2d.hpp"
-#include "geometry/tree4d.hpp"
 
 #include "base/logging.hpp"
 
@@ -25,8 +23,6 @@
 #include <sstream>
 #include <string>
 #include <vector>
-
-#include "defines.hpp"
 
 #include "water_boundary_checker.hpp"
 
@@ -94,11 +90,12 @@ class WorldMapGenerator
   std::string m_popularPlacesFilename;
 
 public:
-  explicit WorldMapGenerator(std::string const & worldFilename, std::string const & rawGeometryFileName,
-                             std::string const & popularPlacesFilename)
+  /// @param[in]  coastGeomFilename     Can be empty if no need to cut borders by water.
+  /// @param[in]  popularPlacesFilename Can be empty if no need in popular places.
+  WorldMapGenerator(std::string const & worldFilename, std::string const & coastGeomFilename,
+                    std::string const & popularPlacesFilename)
     : m_worldBucket(worldFilename)
     , m_merger(kPointCoordBits - (scales::GetUpperScale() - scales::GetUpperWorldScale()) / 2)
-    , m_boundaryChecker(rawGeometryFileName)
     , m_popularPlacesFilename(popularPlacesFilename)
   {
     // Do not strip last types for given tags,
@@ -110,11 +107,12 @@ public:
     for (size_t i = 0; i < ARRAY_SIZE(arr1); ++i)
       m_typesCorrector.SetDontNormalizeType(arr1[i]);
 
-    char const * arr2[] = {"boundary", "administrative", "4", "state"};
-    m_typesCorrector.SetDontNormalizeType(arr2);
-
     if (popularPlacesFilename.empty())
       LOG(LWARNING, ("popular_places_data option not set. Popular atractions will not be added to World.mwm"));
+
+    // Can be empty in tests.
+    if (!coastGeomFilename.empty())
+      m_boundaryChecker.LoadWaterGeometry(coastGeomFilename);
   }
 
   void Process(feature::FeatureBuilder & fb)

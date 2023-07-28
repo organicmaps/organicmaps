@@ -23,7 +23,7 @@ public:
                         size_t chunkSize = 1024);
 
   void GenerateCountries(bool isTests = false);
-  void GenerateWorld();
+  void GenerateWorld(bool cutBordersByWater = true);
   void GenerateCoasts();
   void GenerateCustom(std::shared_ptr<TranslatorInterface> const & translator);
   void GenerateCustom(
@@ -44,7 +44,7 @@ private:
 
   FinalProcessorPtr CreateCoslineFinalProcessor();
   FinalProcessorPtr CreateCountryFinalProcessor(AffiliationInterfacePtr const & affiliations, bool needMixNodes);
-  FinalProcessorPtr CreateWorldFinalProcessor();
+  FinalProcessorPtr CreateWorldFinalProcessor(bool cutBordersByWater);
   bool GenerateFilteredFeatures();
 
   feature::GenerateInfo & m_genInfo;

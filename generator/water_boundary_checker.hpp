@@ -1,4 +1,11 @@
 #pragma once
+#include "generator/feature_builder.hpp"
+
+#include "indexer/classificator.hpp"
+
+#include "geometry/region2d.hpp"
+#include "geometry/tree4d.hpp"
+
 
 class WaterBoundaryChecker
 {
@@ -14,11 +21,6 @@ class WaterBoundaryChecker
   size_t m_selectedPolygons = 0;
 
 public:
-  WaterBoundaryChecker(std::string const & rawGeometryFileName)
-  {
-    LoadWaterGeometry(rawGeometryFileName);
-  }
-
   ~WaterBoundaryChecker()
   {
     LOG_SHORT(LINFO, ("Features checked:", m_totalFeatures, "borders checked:", m_totalBorders,
