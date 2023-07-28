@@ -124,7 +124,7 @@ uint64_t ServerApi06::CreateNote(ms::LatLon const & ll, std::string const & mess
   CHECK(!message.empty(), ("Note content should not be empty."));
   std::string const params = "?lat=" + strings::to_string_dac(ll.m_lat, 7) +
                              "&lon=" + strings::to_string_dac(ll.m_lon, 7) +
-                             "&text=" + url::UrlEncode(message + " #organicmaps");
+                             "&text=" + url::UrlEncode(message + " #organicmaps " + OMIM_OS_NAME);
   OsmOAuth::Response const response = m_auth.Request("/notes" + params, "POST");
   if (response.first != OsmOAuth::HTTP::OK)
     MYTHROW(ErrorAddingNote, ("Could not post a new note:", response));
