@@ -120,11 +120,11 @@ void RawGenerator::GenerateCountries(bool isTests/* = false*/)
   m_finalProcessors.emplace(CreateCountryFinalProcessor(affiliation, false));
 }
 
-void RawGenerator::GenerateWorld()
+void RawGenerator::GenerateWorld(bool cutBordersByWater/* = true */)
 {
   auto processor = CreateProcessor(ProcessorType::World, m_queue, m_genInfo.m_popularPlacesFilename);
   m_translators->Append(CreateTranslator(TranslatorType::World, processor, m_cache, m_genInfo));
-  m_finalProcessors.emplace(CreateWorldFinalProcessor());
+  m_finalProcessors.emplace(CreateWorldFinalProcessor(cutBordersByWater));
 }
 
 void RawGenerator::GenerateCoasts()
@@ -202,11 +202,16 @@ RawGenerator::FinalProcessorPtr RawGenerator::CreateCountryFinalProcessor(
   return finalProcessor;
 }
 
-RawGenerator::FinalProcessorPtr RawGenerator::CreateWorldFinalProcessor()
+RawGenerator::FinalProcessorPtr RawGenerator::CreateWorldFinalProcessor(bool cutBordersByWater)
 {
-  auto finalProcessor = std::make_shared<WorldFinalProcessor>(
-      m_genInfo.m_tmpDir,
-      m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, RAW_GEOM_FILE_EXTENSION));
+  std::string coastlineGeom;
+  if (cutBordersByWater)
+  {
+    // This file should exist or read exception will be thrown otherwise.
+    coastlineGeom  = m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, RAW_GEOM_FILE_EXTENSION);
+  }
+  auto finalProcessor = std::make_shared<WorldFinalProcessor>(m_genInfo.m_tmpDir, coastlineGeom);
+
   finalProcessor->SetPopularPlaces(m_genInfo.m_popularPlacesFilename);
   finalProcessor->SetCitiesAreas(m_genInfo.GetIntermediateFileName(CITIES_AREAS_TMP_FILENAME));
   return finalProcessor;

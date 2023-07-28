@@ -4,6 +4,7 @@
 #include "generator/feature_sorter.hpp"
 #include "generator/osm_source.hpp"
 #include "generator/raw_generator.hpp"
+#include "generator/search_index_builder.hpp"
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/features_offsets_table.hpp"
@@ -65,25 +66,54 @@ void TestRawGenerator::BuildFB(std::string const & osmFilePath, std::string cons
   m_genInfo.m_tmpDir = m_genInfo.m_targetDir = GetTmpPath();
   m_genInfo.m_fileName = mwmName;
 
+  m_genInfo.m_citiesBoundariesFilename = GetCitiesBoundariesPath();
+
   RawGenerator rawGenerator(m_genInfo);
   rawGenerator.ForceReloadCache();
+
+  rawGenerator.GenerateWorld(false /* cutBordersByWater */);
   rawGenerator.GenerateCountries(true /* isTests */);
+
   CHECK(rawGenerator.Execute(), ("Error generating", mwmName));
 }
 
 void TestRawGenerator::BuildFeatures(std::string const & mwmName)
 {
-  CHECK(feature::GenerateFinalFeatures(m_genInfo, mwmName, feature::DataHeader::MapType::Country), ());
+  using namespace feature;
+  auto const type = IsWorld(mwmName) ? DataHeader::MapType::World : DataHeader::MapType::Country;
+  CHECK(GenerateFinalFeatures(m_genInfo, mwmName, type), ());
 
   std::string const mwmPath = GetMwmPath(mwmName);
 
-  CHECK(feature::BuildOffsetsTable(mwmPath), ());
+  CHECK(BuildOffsetsTable(mwmPath), ());
   CHECK(indexer::BuildIndexFromDataFile(mwmPath, mwmPath), ());
+}
+
+void TestRawGenerator::BuildSearch(std::string const & mwmName)
+{
+  CHECK(indexer::BuildSearchIndexFromDataFile(mwmName, m_genInfo, true /* forceRebuild */, 1 /* threadsCount */), ());
+
+  if (IsWorld(mwmName))
+  {
+    generator::OsmIdToBoundariesTable table;
+    CHECK(generator::DeserializeBoundariesTable(GetCitiesBoundariesPath(), table), ());
+    CHECK(generator::BuildCitiesBoundaries(GetMwmPath(mwmName), table), ());
+  }
 }
 
 std::string TestRawGenerator::GetMwmPath(std::string const & mwmName) const
 {
-  return base::JoinPath(m_genInfo.m_targetDir, mwmName + DATA_FILE_EXTENSION);
+  return m_genInfo.GetTargetFileName(mwmName, DATA_FILE_EXTENSION);
+}
+
+std::string TestRawGenerator::GetCitiesBoundariesPath() const
+{
+  return m_genInfo.GetTmpFileName(CITIES_BOUNDARIES_FILE_TAG, ".bin");
+}
+
+bool TestRawGenerator::IsWorld(std::string const & mwmName) const
+{
+  return (mwmName == WORLD_FILE_NAME);
 }
 
 } // namespace tests_support

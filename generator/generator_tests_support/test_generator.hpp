@@ -23,6 +23,7 @@ public:
 
   void BuildFB(std::string const & osmFilePath, std::string const & mwmName);
   void BuildFeatures(std::string const & mwmName);
+  void BuildSearch(std::string const & mwmName);
 
   template <class FnT> void ForEachFB(std::string const & mwmName, FnT && fn)
   {
@@ -34,7 +35,10 @@ public:
   }
 
   std::string GetMwmPath(std::string const & mwmName) const;
+  std::string GetCitiesBoundariesPath() const;
+
   feature::GenerateInfo const & GetGenInfo() const { return m_genInfo; }
+  bool IsWorld(std::string const & mwmName) const;
 };
 
 } // namespace tests_support
