@@ -72,14 +72,31 @@ UNIT_TEST(Gpx_Test_Route)
           <ele>0.0</ele>
       </trkpt>
     </trkseg>
+    <trkseg>
+      <trkpt lat="55.23955053156179" lon="25.114990234375004">
+          <ele>131.5</ele>
+      </trkpt>
+      <trkpt lat="54.32933804825253" lon="25.136718750000004">
+          <ele>0.0</ele>
+      </trkpt>
+    </trkseg>
 </trk>
 </gpx>
 )";
 
   kml::FileData const dataFromText = loadGpxFromString(input);
-  auto line = dataFromText.m_tracksData[0].m_geometry.m_lines[0];
-  TEST_EQUAL(line.size(), 3, ());
-  TEST_EQUAL(line[0], geometry::PointWithAltitude(mercator::FromLatLon(54.23955053156179, 24.114990234375004), 131), ());
+  auto const & lines = dataFromText.m_tracksData[0].m_geometry.m_lines;
+  TEST_EQUAL(lines.size(), 2, ());
+  {
+    auto const & line = lines[0];
+    TEST_EQUAL(line.size(), 3, ());
+    TEST_EQUAL(line.back(), geometry::PointWithAltitude(mercator::FromLatLon(54.05293900056246, 25.72998046875), 0), ());
+  }
+  {
+    auto const & line = lines[1];
+    TEST_EQUAL(line.size(), 2, ());
+    TEST_EQUAL(line.back(), geometry::PointWithAltitude(mercator::FromLatLon(54.32933804825253, 25.136718750000004), 0), ());
+  }
 }
 
 
