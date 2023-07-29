@@ -220,7 +220,7 @@ void GpxParser::Pop(std::string_view tag)
     m_altitude = geometry::kInvalidAltitude;
   }
 
-  if (tag == gpx::kRte || tag == gpx::kTrkSeg || tag == gpx::kWpt)
+  if (tag == gpx::kRte || tag == gpx::kTrk || tag == gpx::kWpt)
   {
     if (MakeValid())
     {
