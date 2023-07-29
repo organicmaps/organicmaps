@@ -5,6 +5,8 @@
 #include "geometry/point2d.hpp"
 #include "geometry/region2d.hpp"
 
+#include "indexer/scales.hpp"
+
 #include <vector>
 #include <unordered_map>
 
@@ -90,7 +92,15 @@ void SimplifyContours(int simplificationZoom, Contours<ValueType> & contours)
       std::vector<m2::PointD> contourSimple;
       feature::SimplifyPoints(m2::SquaredDistanceFromSegmentToPoint(),
                               simplificationZoom, contour, contourSimple);
-      contour = std::move(contourSimple);
+      CHECK_GREATER(contourSimple.size(), 1, ());
+      // Discard closed lines which are degenerate (<=3 points) or too small for the requested zoom level.
+      /// @todo it doesn't fix all cases as the simplification algo
+      /// can produce e.g. a 5 points closed but degenerate line ("flat", not a loop anymore).
+      if (contourSimple.front() == contourSimple.back() &&
+          !scales::IsGoodOutlineForLevel(simplificationZoom, contourSimple))
+        contour.clear();
+      else
+        contour = std::move(contourSimple);
     }
   }
 }

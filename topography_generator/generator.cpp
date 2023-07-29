@@ -593,6 +593,10 @@ void Generator::PackIsolinesForCountry(storage::CountryId const & countryId,
     return;
   }
 
+  // TODO : prepare simplified and filtered isolones for all geom levels here
+  // (ATM its the most detailed geom3 only) instead of in the generator
+  // to skip re-doing it for every maps gen. And it'll be needed anyway
+  // for the longer term vision to supply isolines in separately downloadable files.
   LOG(LINFO, ("Begin packing isolines for country", countryId));
 
   m2::RectD countryRect;
@@ -622,6 +626,8 @@ void Generator::PackIsolinesForCountry(storage::CountryId const & countryId,
 
       CropContours(countryRect, countryRegions, params.m_maxIsolineLength,
                    params.m_alitudesStepFactor, isolines);
+      // Simplification is done already while processing tiles in ProcessTile().
+      // But now a different country-specific simpificationZoom could be applied.
       if (params.m_simplificationZoom > 0)
         SimplifyContours(params.m_simplificationZoom, isolines);
 
