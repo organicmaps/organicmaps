@@ -185,8 +185,8 @@ public:
 
         if (isArea && holder.NeedProcessTriangles())
         {
-          // simplify and serialize triangles
-          bool const good = isCoast || IsGoodArea(points, level);
+          // Simplify and serialize triangles.
+          bool const good = isCoast || scales::IsGoodOutlineForLevel(level, points);
 
           // At this point we don't need last point equal to first.
           CHECK_GREATER(points.size(), 0, ());
@@ -212,15 +212,14 @@ public:
 
             // Increment level check for coastline polygons for the first scale level.
             // This is used for better coastlines quality.
-            if (IsGoodArea(simplified.back(), (isCoast && i == 0) ? level + 1 : level))
+            if (scales::IsGoodOutlineForLevel((isCoast && i == 0) ? level + 1 : level, simplified.back()))
             {
               // At this point we don't need last point equal to first.
-              CHECK_GREATER(simplified.back().size(), 0, ());
               simplified.back().pop_back();
             }
             else
             {
-              // Remove small polygon.
+              // Remove small or degenerate polygon.
               simplified.pop_back();
             }
           }
@@ -266,19 +265,6 @@ private:
 
   using TmpFiles = std::vector<std::unique_ptr<TmpFile>>;
 
-  static bool IsGoodArea(Points const & poly, int level)
-  {
-    // Area has the same first and last points. That's why minimal number of points for
-    // area is 4.
-    if (poly.size() < 4)
-      return false;
-
-    m2::RectD r;
-    CalcRect(poly, r);
-
-    return scales::IsGoodForLevel(level, r);
-  }
-
   bool IsCountry() const { return m_header.GetType() == feature::DataHeader::MapType::Country; }
 
   static void SimplifyPoints(int level, bool isCoast, m2::RectD const & rect, Points const & in, Points & out)
@@ -320,6 +306,7 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, std::string const
   std::string const srcFilePath = info.GetTmpFileName(name);
   std::string const dataFilePath = info.GetTargetFileName(name);
 
+  LOG(LINFO, ("Calculating middle points"));
   // Store cellIds for middle points.
   CalculateMidPoints midPoints;
   ForEachFeatureRawFormat(srcFilePath, [&midPoints](FeatureBuilder const & fb, uint64_t pos) {
@@ -357,6 +344,7 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, std::string const
       // FeaturesCollector2 will create temporary file `dataFilePath + FEATURES_FILE_TAG`.
       // We cannot remove it in ~FeaturesCollector2(), we need to remove it in SCOPE_GUARD.
       SCOPE_GUARD(_, [&]() { Platform::RemoveFileIfExists(info.GetTargetFileName(name, FEATURES_FILE_TAG)); });
+      LOG(LINFO, ("Simplifying and filtering geometry for all geom levels"));
       FeaturesCollector2 collector(name, info, header, regionData, info.m_versionDate);
       for (auto const & point : midPoints.GetVector())
       {
@@ -368,10 +356,14 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, std::string const
         collector(fb);
       }
 
+      LOG(LINFO, ("Writing features' data to", dataFilePath));
+
       // Update bounds with the limit rect corresponding to region borders.
       // Bounds before update can be too big because of big invisible features like a
       // relation that contains an entire country's border.
-      // Borders file may be unavailable when building test mwms.
+      // TODO: Borders file may be unavailable when building test mwms (why?).
+      // Probably its the reason resulting mwm sizes are unpredictable
+      // when building not the whole planet.
       m2::RectD bordersRect;
       if (borders::GetBordersRect(info.m_targetDir, name, bordersRect))
         collector.SetBounds(bordersRect);
