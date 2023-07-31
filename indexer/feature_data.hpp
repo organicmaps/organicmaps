@@ -323,8 +323,10 @@ public:
     m_reversedGeometry = rhs.m_reversedGeometry;
   }
 
-  /// @name Used to store address to temporary TEMP_ADDR_FILE_TAG section.
+  /// @name Used to store address to temporary TEMP_ADDR_EXTENSION file.
   /// @{
+  void SetAddress(feature::AddressData && addr) { m_addrTags = std::move(addr); }
+
   void SetStreet(std::string s);
   std::string_view GetStreet() const;
 
@@ -334,7 +336,7 @@ public:
   }
   /// @}
 
-  void SetPostcode(std::string const & s);
+  void SetPostcode(std::string s);
   std::string_view GetPostcode() const;
 
   feature::Metadata const & GetMetadata() const { return m_metadata; }

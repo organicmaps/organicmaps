@@ -1158,15 +1158,34 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
   namesExtractor.Finish();
 
   // Stage3: Process base feature tags.
-  std::string houseName, houseNumber, addrStreet, addrPostcode;
+  std::string houseName, houseNumber, conscriptionHN, streetHN, addrPostcode;
+  feature::AddressData addr;
   TagProcessor(p).ApplyRules<void(string &, string &)>(
   {
-      {"addr:housenumber", "*",
-       [&houseNumber](string & k, string & v) {
-         houseNumber = std::move(v);
-         k.clear();
-         v.clear();
-       }},
+      {"addr:housenumber", "*", [&houseNumber](string & k, string & v)
+      {
+        houseNumber = std::move(v);
+        k.clear();
+        v.clear();
+      }},
+      {"addr:conscriptionnumber", "*", [&conscriptionHN](string & k, string & v)
+      {
+        conscriptionHN = std::move(v);
+        k.clear();
+        v.clear();
+      }},
+      {"addr:provisionalnumber", "*", [&conscriptionHN](string & k, string & v)
+      {
+        conscriptionHN = std::move(v);
+        k.clear();
+        v.clear();
+      }},
+      {"addr:streetnumber", "*", [&streetHN](string & k, string & v)
+      {
+        streetHN = std::move(v);
+        k.clear();
+        v.clear();
+      }},
       {"contact:housenumber", "*", [&houseNumber](string & k, string & v)
       {
         if (houseNumber.empty())
@@ -1174,22 +1193,33 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
         k.clear();
         v.clear();
       }},
-      {"addr:housename", "*",
-       [&houseName](string & k, string & v) {
-         houseName = std::move(v);
-         k.clear();
-         v.clear();
-       }},
-      {"addr:street", "*", [&addrStreet](string & k, string & v)
+      {"addr:housename", "*", [&houseName](string & k, string & v)
       {
-        addrStreet = std::move(v);
+        houseName = std::move(v);
         k.clear();
         v.clear();
       }},
-      {"contact:street", "*", [&addrStreet](string & k, string & v)
+      {"addr:street", "*", [&addr](string & k, string & v)
       {
-        if (addrStreet.empty())
-          addrStreet = std::move(v);
+        addr.Set(feature::AddressData::Type::Street, std::move(v));
+        k.clear();
+        v.clear();
+      }},
+      {"contact:street", "*", [&addr](string & k, string & v)
+      {
+        addr.SetIfAbsent(feature::AddressData::Type::Street, std::move(v));
+        k.clear();
+        v.clear();
+      }},
+      {"addr:place", "*", [&addr](string & k, string & v)
+      {
+        addr.Set(feature::AddressData::Type::Place, std::move(v));
+        k.clear();
+        v.clear();
+      }},
+      {"addr:suburb", "*", [&addr](string & k, string & v)
+      {
+        addr.Set(feature::AddressData::Type::Suburb, std::move(v));
         k.clear();
         v.clear();
       }},
@@ -1239,8 +1269,32 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
        }},
   });
 
-  params.SetStreet(std::move(addrStreet));
-  params.SetPostcode(addrPostcode);
+  // OSM consistency check with house numbers.
+  if (!conscriptionHN.empty() || !streetHN.empty())
+  {
+    // Simple validity check, trust housenumber tag in other cases.
+
+    char const * kHNLogTag = "HNLog";
+    if (!conscriptionHN.empty() && !streetHN.empty())
+    {
+      auto i = houseNumber.find('/');
+      if (i == std::string::npos)
+      {
+        LOG(LWARNING, (kHNLogTag, "Override housenumber for:", DebugPrintID(*p), houseNumber, conscriptionHN, streetHN));
+        houseNumber = conscriptionHN + "/" + streetHN;
+      }
+    }
+    else if (houseNumber.empty())
+    {
+      LOG(LWARNING, (kHNLogTag, "Assign housenumber for:", DebugPrintID(*p), houseNumber, conscriptionHN, streetHN));
+      houseNumber = conscriptionHN.empty() ? streetHN : conscriptionHN;
+    }
+
+    /// @todo Remove "ev." prefix from HN?
+  }
+
+  params.SetAddress(std::move(addr));
+  params.SetPostcode(std::move(addrPostcode));
   params.SetHouseNumberAndHouseName(std::move(houseNumber), std::move(houseName));
 
   // Stage4: Match tags to classificator feature types via mapcss-mapping.csv.
@@ -1252,15 +1306,12 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
   {
     std::string const typesString = params.PrintTypes();
 
-    // Unknown type is possible in unit tests.
-    std::string const id = (p->m_type != OsmElement::EntityType::Unknown) ?
-          DebugPrint(GetGeoObjectId(*p)) : std::string("Unknown");
-
     if (params.RemoveInconsistentTypes())
-      LOG(LWARNING, ("Inconsistent types for:", id, "Types:", typesString));
+      LOG(LWARNING, ("Inconsistent types for:", DebugPrintID(*p), "Types:", typesString));
 
+    size_t const typesCount = params.m_types.size();
     if (params.FinishAddingTypesEx() == FeatureParams::TYPES_EXCEED_MAX)
-      LOG(LWARNING, ("Exceeded types count for:", id, "Types:", typesString));
+      LOG(LWARNING, ("Exceeded types count for:", DebugPrintID(*p), "Types:", typesCount, typesString));
   }
 
   // Stage6: Collect additional information about feature such as

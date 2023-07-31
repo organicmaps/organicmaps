@@ -450,7 +450,7 @@ void BuildAddressTable(FilesContainerR & container, std::string const & addressD
 
   uint32_t address = 0, missing = 0;
 
-  auto const kEmptyResult = uint32_t(-1);
+  uint32_t constexpr kEmptyResult = uint32_t(-1);
   std::vector<uint32_t> results(featuresCount, kEmptyResult);
 
   std::mutex resMutex;
