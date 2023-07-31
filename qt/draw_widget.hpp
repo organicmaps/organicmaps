@@ -9,7 +9,7 @@
 
 #include "search/result.hpp"
 
-#include "routing/router.hpp"
+#include "indexer/map_style.hpp"
 
 #include <QtWidgets/QRubberBand>
 
