@@ -3,12 +3,10 @@
 #include "indexer/tree_structure.hpp"
 
 #include "base/logging.hpp"
-#include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <functional>
-#include <iterator>
+
 
 using std::string;
 
@@ -51,7 +49,7 @@ ClassifObject * ClassifObject::Find(string const & s)
 
 void ClassifObject::AddDrawRule(drule::Key const & k)
 {
-  auto i = lower_bound(m_drawRules.begin(), m_drawRules.end(), k.m_scale, less_scales());
+  auto i = std::lower_bound(m_drawRules.begin(), m_drawRules.end(), k.m_scale, less_scales());
   for (; i != m_drawRules.end() && i->m_scale == k.m_scale; ++i)
     if (k == *i)
       return; // already exists
@@ -60,11 +58,11 @@ void ClassifObject::AddDrawRule(drule::Key const & k)
 
 ClassifObjectPtr ClassifObject::BinaryFind(std::string_view const s) const
 {
-  auto const i = lower_bound(m_objs.begin(), m_objs.end(), s, LessName());
+  auto const i = std::lower_bound(m_objs.begin(), m_objs.end(), s, LessName());
   if ((i == m_objs.end()) || ((*i).m_name != s))
     return {nullptr, 0};
   else
-    return {&(*i), static_cast<size_t>(distance(m_objs.begin(), i))};
+    return {&(*i), static_cast<size_t>(std::distance(m_objs.begin(), i))};
 }
 
 void ClassifObject::LoadPolicy::Start(size_t i)
@@ -250,7 +248,7 @@ namespace
 
     void find(int ft, int scale)
     {
-      auto i = lower_bound(m_rules.begin(), m_rules.end(), scale, less_scales());
+      auto i = std::lower_bound(m_rules.begin(), m_rules.end(), scale, less_scales());
       while (i != m_rules.end() && i->m_scale == scale)
         add_rule(ft, i++);
     }
@@ -388,7 +386,7 @@ uint32_t Classificator::GetTypeByPath(std::vector<std::string_view> const & path
   return type;
 }
 
-uint32_t Classificator::GetTypeByPath(std::initializer_list<char const *> const & lst) const
+uint32_t Classificator::GetTypeByPath(base::StringIL const & lst) const
 {
   uint32_t const type = GetTypeByPathImpl(lst.begin(), lst.end());
   ASSERT_NOT_EQUAL(type, INVALID_TYPE, (lst));
