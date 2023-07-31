@@ -116,8 +116,12 @@ private:
     auto const interpol = ftypes::IsAddressInterpolChecker::Instance().GetInterpolType(feature);
     if (interpol != feature::InterpolType::None)
       return house_numbers::HouseNumbersMatchRange(feature.GetRef(), queryParse, interpol);
-    else
-      return house_numbers::HouseNumbersMatch(strings::MakeUniString(feature.GetHouseNumber()), queryParse);
+
+    auto const uniHouse = strings::MakeUniString(feature.GetHouseNumber());
+    if (feature.GetID().IsEqualCountry({"Czech", "Slovakia"}))
+      return house_numbers::HouseNumbersMatchConscription(uniHouse, queryParse);
+
+    return house_numbers::HouseNumbersMatch(uniHouse, queryParse);
   }
 
   template <typename Fn>
