@@ -178,13 +178,21 @@ class AddressData : public MetadataBase
 public:
   enum class Type : uint8_t
   {
-    Street,
+    Street, Place, Suburb,
   };
 
   // Store single value only.
-  void Set(Type type, std::string const & s)
+  void Set(Type type, std::string s)
   {
-    MetadataBase::Set(base::Underlying(type), s);
+    if (!s.empty())
+      MetadataBase::Set(base::Underlying(type), std::move(s));
+  }
+
+  void SetIfAbsent(Type type, std::string s)
+  {
+    uint8_t const ut = base::Underlying(type);
+    if (!s.empty() && !Has(ut))
+      MetadataBase::Set(ut, std::move(s));
   }
 
   std::string_view Get(Type type) const { return MetadataBase::Get(base::Underlying(type)); }

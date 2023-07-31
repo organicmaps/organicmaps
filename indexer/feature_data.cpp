@@ -525,13 +525,7 @@ uint32_t FeatureParams::GetTypeForIndex(uint32_t i)
 
 void FeatureBuilderParams::SetStreet(string s)
 {
-  if (s.empty())
-    return;
-
-  // Replace \n with spaces because we write addresses to txt file.
-  replace(s.begin(), s.end(), '\n', ' ');
-
-  m_addrTags.Set(AddressData::Type::Street, s);
+  m_addrTags.Set(AddressData::Type::Street, std::move(s));
 }
 
 std::string_view FeatureBuilderParams::GetStreet() const
@@ -539,10 +533,10 @@ std::string_view FeatureBuilderParams::GetStreet() const
   return m_addrTags.Get(AddressData::Type::Street);
 }
 
-void FeatureBuilderParams::SetPostcode(string const & s)
+void FeatureBuilderParams::SetPostcode(string s)
 {
   if (!s.empty())
-    m_metadata.Set(Metadata::FMD_POSTCODE, s);
+    m_metadata.Set(Metadata::FMD_POSTCODE, std::move(s));
 }
 
 std::string_view FeatureBuilderParams::GetPostcode() const
