@@ -2,15 +2,13 @@
 
 #include "indexer/drawing_rule_def.hpp"
 #include "indexer/feature_decl.hpp"
-#include "indexer/map_style.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/types_mapping.hpp"
 
 #include "base/macros.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <bitset>
-#include <initializer_list>
-#include <iostream>
 #include <string>
 #include <utility>
 #include <vector>
@@ -194,7 +192,7 @@ public:
   /// Invokes ASSERT in case of nonexisting type
   uint32_t GetTypeByPath(std::vector<std::string> const & path) const;
   uint32_t GetTypeByPath(std::vector<std::string_view> const & path) const;
-  uint32_t GetTypeByPath(std::initializer_list<char const *> const & lst) const;
+  uint32_t GetTypeByPath(base::StringIL const & lst) const;
   ///@}
 
   /// @see GetReadableObjectName().
