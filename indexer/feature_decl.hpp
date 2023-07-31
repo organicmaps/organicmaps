@@ -2,7 +2,8 @@
 
 #include "indexer/mwm_set.hpp"
 
-#include <cstdint>
+#include "base/stl_helpers.hpp"
+
 #include <string>
 
 namespace feature
@@ -44,6 +45,7 @@ struct FeatureID
 
   std::string GetMwmName() const;
   int64_t GetMwmVersion() const;
+  bool IsEqualCountry(base::StringIL const & lst) const;
 
   MwmSet::MwmId m_mwmId;
   uint32_t m_index = 0;
