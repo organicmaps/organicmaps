@@ -34,6 +34,9 @@ enum OverlayRank : uint8_t
   OverlayRanksCount
 };
 
+// Should be the same as OVERLAYS_MAX_PRIORITY in kothic.
+uint32_t constexpr kOverlaysMaxPriority = 10000;
+
 uint64_t constexpr kPriorityMaskZoomLevel = 0xFF0000000000FFFF;
 uint64_t constexpr kPriorityMaskManual    = 0x00FFFFFFFF00FFFF;
 uint64_t constexpr kPriorityMaskRank      = 0x0000000000FFFFFF;
