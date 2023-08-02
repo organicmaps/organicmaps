@@ -176,7 +176,7 @@ private:
 
       // @todo: make sure features are prioritised the same way as in the run-time displacer,
       // see overlay_handle.cpp::CalculateOverlayPriority()
-      ASSERT(0 <= depth && depth <= 190000, (depth));
+      ASSERT(-10000 <= depth && depth < 10000, (depth));
       uint8_t rank = ft.GetRank();
       m_priority = (static_cast<uint32_t>(depth) << 8) | rank;
     }
