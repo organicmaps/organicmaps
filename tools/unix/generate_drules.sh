@@ -22,7 +22,7 @@ function BuildDrawingRules() {
 }
 
 # Cleanup
-cleanup=(classificator.txt types.txt visibility.txt colors.txt patterns.txt)
+cleanup=(classificator.txt types.txt visibility.txt patterns.txt)
 for item in ${cleanup[*]}
 do
   rm $DATA_PATH/$item || true
@@ -30,16 +30,16 @@ done
 
 # Building drawing rules
 BuildDrawingRules clear  clear _clear
-BuildDrawingRules clear  night _dark
+#BuildDrawingRules clear  night _dark
 BuildDrawingRules vehicle  clear _vehicle_clear
-BuildDrawingRules vehicle  night _vehicle_dark
+#BuildDrawingRules vehicle  night _vehicle_dark
 
 # In designer mode we use drules_proto_design file instead of standard ones
 cp $OMIM_PATH/data/drules_proto_clear.bin $OMIM_PATH/data/drules_proto_design.bin
 
-echo "Exporting transit colors"
-python3 "$OMIM_PATH/tools/python/transit/transit_colors_export.py" \
-  "$DATA_PATH/colors.txt" > /dev/null
+#echo "Exporting transit colors"
+#python3 "$OMIM_PATH/tools/python/transit/transit_colors_export.py" \
+#  "$DATA_PATH/colors.txt" > /dev/null
 
 echo "Merging default and vehicle styles"
 python3 "$OMIM_PATH/tools/python/stylesheet/drules_merge.py" \
