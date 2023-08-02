@@ -233,7 +233,9 @@ std::string SquareHandle::GetOverlayDebugInfo()
 /// @todo remove minZoomLevel param from everywhere, its not used anymore.
 uint64_t CalculateOverlayPriority(int minZoomLevel, uint8_t rank, float depth)
 {
-  ASSERT(0 <= depth && depth <= 190000, (depth));
+  // Negative range is used for optional captions which are below all other overlays.
+  ASSERT(-kOverlaysMaxPriority <= depth && depth < kOverlaysMaxPriority, (depth));
+  depth += kOverlaysMaxPriority;
 
   // Even if minZoomLevel < 0 (-1 is not visible), we will get more consistent |minZoom| value (less is worse).
   ASSERT_GREATER_OR_EQUAL(minZoomLevel, 0, ());
