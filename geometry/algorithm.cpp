@@ -22,7 +22,10 @@ PointD CalculatePolyLineCenter::GetResult() const
   if (e == m_poly.begin())
   {
     /// @todo It's very strange, but we have linear objects with zero length.
+    // It's degenerate closed lines (size == 2, first == last), now we filter them
+    // in feature_sorter.cpp, but they could be present in older mwms still.
     LOG(LWARNING, ("Zero length linear object"));
+    CHECK_GREATER(m_poly.size(), 0, ());
     return e->m_p;
   }
 

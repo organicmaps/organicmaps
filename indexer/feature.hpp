@@ -96,6 +96,7 @@ public:
 
   m2::RectD GetLimitRect(int scale);
   m2::RectD const & GetLimitRectChecked() const;
+  bool IsClosedLine() const;
 
   bool IsEmptyGeometry(int scale);
 

@@ -14,6 +14,7 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_processor.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/scales_patch.hpp"
 
@@ -151,21 +152,30 @@ public:
     GeometryHolder holder([this](int i) -> FileWriter & { return *m_geoFile[i]; },
                           [this](int i) -> FileWriter & { return *m_trgFile[i]; }, fb, m_header);
 
-    bool const isLine = fb.IsLine();
-    bool const isArea = fb.IsArea();
-    CHECK(!isLine || !isArea, ("A feature can't have both points and triangles geometries:", fb.GetMostGenericOsmId()));
+    bool isValidLine = fb.IsLine();
+    bool isValidArea = fb.IsArea();
+    CHECK(!isValidLine || !isValidArea, ("A feature can't have both points and triangles geometries:", fb.GetMostGenericOsmId()));
+    bool isClosedLine = fb.IsClosedLine();
+    bool const isRoad = isValidLine && routing::IsRoad(fb.GetTypes());
+    bool const isCoast = fb.IsCoastCell();
+    m2::RectD const rect = fb.GetLimitRect();
 
     int const scalesStart = static_cast<int>(m_header.GetScalesCount()) - 1;
     for (int i = scalesStart; i >= 0; --i)
     {
       int const level = m_header.GetScale(i);
+      // TODO : re-checks geom limit rect size via IsDrawableForIndexGeometryOnly() which was checked already in CalculateMidPoints.
       if (fb.IsDrawableInRange(scales::PatchMinDrawableScale(i > 0 ? m_header.GetScale(i - 1) + 1 : 0),
                                scales::PatchMaxDrawableScale(level)))
       {
-        bool const isCoast = fb.IsCoastCell();
-        m2::RectD const rect = fb.GetLimitRect();
-
         // Simplify and serialize geometry.
+
+        // Only valid geometry should come from the OSM data (feature_maker.cpp
+        // filters it to min 2 points for ways and min 3 points for closed ways)
+        // and *.isolines files (the topography_generator filters it
+        // to 2 points for lines and min 4 points for closed lines).
+        // But the geometry can degenerate during simplification so we re-filter it here.
+
         // The same line simplification algo is used both for lines
         // and areas. For the latter polygon's outline is simplified and
         // tesselated afterwards. But e.g. simplifying a circle from 50
@@ -174,19 +184,49 @@ public:
         // is much higher than between trg1 and trg2.
         Points points;
 
-        // Do not change linear geometry for the upper scale.
-        if (isLine && i == scalesStart && IsCountry() && routing::IsRoad(fb.GetTypes()))
-          points = holder.GetSourcePoints();
-        else if (isLine || holder.NeedProcessTriangles())
+        // Do not change the most detailed linear geometry for roads (for precise distances calculation)
+        // and for isolines (they had been simplified already while being generated).
+        bool isKeepSourceLine = false;
+        if (isValidLine && i == scalesStart && IsCountry() &&
+            (isRoad || ftypes::IsIsolineChecker::Instance()(fb.GetTypes())))
+        {
+          points = fb.GetOuterGeometry();
+          // As an exception we keep degenerate 3 points closed geom3 roads
+          // (to avoid breaking routing) in a form of a regular 2-points line.
+          if (isRoad && isClosedLine && points.size() == 3)
+          {
+            LOG(LWARNING, ("Convert a 3-points degenerate closed road line into a 2-points line", DebugPrint(fb)));
+            points.pop_back();
+            isClosedLine = false;
+          }
+          // TODO : keep filtering until *.isolines files are regenerated to be pre-filtered; remove the if afterwards.
+          if (!ftypes::IsIsolineChecker::Instance()(fb.GetTypes()))
+            isKeepSourceLine = true;
+        }
+        else if (isValidLine || holder.NeedProcessTriangles())
           SimplifyPoints(level, isCoast, rect, holder.GetSourcePoints(), points);
 
-        if (isLine)
-          holder.AddPoints(points, i);
-
-        if (isArea && holder.NeedProcessTriangles())
+        if (isValidLine)
         {
-          // simplify and serialize triangles
-          bool const good = isCoast || IsGoodArea(points, level);
+          // Discard closed lines which are degenerate (<=3 points, first == last)
+          // or too small for the current geom level (except roads).
+          if (isClosedLine && !isKeepSourceLine &&
+              (points.size() <= 3 || (!isRoad && !scales::IsGoodOutlineForLevel(level, points))))
+          {
+            LOG(LDEBUG, ("Closed line: too small or degenerate, points count", points.size(), "at scale", i, DebugPrint(fb)));
+            isValidLine = false;
+          }
+          else
+          {
+            CHECK(!isClosedLine && points.size() > 1 || points.size() > 3, (DebugPrint(fb)));
+            holder.AddPoints(points, i);
+          }
+        }
+
+        if (isValidArea && holder.NeedProcessTriangles())
+        {
+          // Simplify and serialize triangles.
+          bool const good = isCoast || scales::IsGoodOutlineForLevel(level, points);
 
           // At this point we don't need last point equal to first.
           CHECK_GREATER(points.size(), 0, ());
@@ -202,6 +242,8 @@ public:
             simplified.push_back({});
             simplified.back().swap(points);
           }
+          else
+            LOG(LDEBUG, ("Area: too small or degenerate 1st polygon of", polys.size(), ", points count", points.size(), "at scale", i, DebugPrint(fb)));
 
           auto iH = polys.begin();
           for (++iH; iH != polys.end(); ++iH)
@@ -212,20 +254,25 @@ public:
 
             // Increment level check for coastline polygons for the first scale level.
             // This is used for better coastlines quality.
-            if (IsGoodArea(simplified.back(), (isCoast && i == 0) ? level + 1 : level))
+            if (scales::IsGoodOutlineForLevel((isCoast && i == 0) ? level + 1 : level, simplified.back()))
             {
               // At this point we don't need last point equal to first.
-              CHECK_GREATER(simplified.back().size(), 0, ());
               simplified.back().pop_back();
             }
             else
             {
-              // Remove small polygon.
+              // Remove small or degenerate polygon.
               simplified.pop_back();
+              LOG(LDEBUG, ("Area: too small or degenerate 2nd+ polygon of", polys.size(), ", points count", simplified.back().size(), "at scale", i, DebugPrint(fb)));
             }
           }
 
-          if (!simplified.empty())
+          if (simplified.empty())
+          {
+            // Stop processing this area.
+            isValidArea = false;
+          }
+          else
             holder.AddTriangles(simplified, i);
         }
       }
@@ -265,19 +312,6 @@ private:
   };
 
   using TmpFiles = std::vector<std::unique_ptr<TmpFile>>;
-
-  static bool IsGoodArea(Points const & poly, int level)
-  {
-    // Area has the same first and last points. That's why minimal number of points for
-    // area is 4.
-    if (poly.size() < 4)
-      return false;
-
-    m2::RectD r;
-    CalcRect(poly, r);
-
-    return scales::IsGoodForLevel(level, r);
-  }
 
   bool IsCountry() const { return m_header.GetType() == feature::DataHeader::MapType::Country; }
 
@@ -320,6 +354,7 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, std::string const
   std::string const srcFilePath = info.GetTmpFileName(name);
   std::string const dataFilePath = info.GetTargetFileName(name);
 
+  LOG(LINFO, ("Calculating middle points"));
   // Store cellIds for middle points.
   CalculateMidPoints midPoints;
   ForEachFeatureRawFormat(srcFilePath, [&midPoints](FeatureBuilder const & fb, uint64_t pos) {
@@ -357,6 +392,7 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, std::string const
       // FeaturesCollector2 will create temporary file `dataFilePath + FEATURES_FILE_TAG`.
       // We cannot remove it in ~FeaturesCollector2(), we need to remove it in SCOPE_GUARD.
       SCOPE_GUARD(_, [&]() { Platform::RemoveFileIfExists(info.GetTargetFileName(name, FEATURES_FILE_TAG)); });
+      LOG(LINFO, ("Simplifying and filtering geometry for all geom levels"));
       FeaturesCollector2 collector(name, info, header, regionData, info.m_versionDate);
       for (auto const & point : midPoints.GetVector())
       {
@@ -368,10 +404,14 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, std::string const
         collector(fb);
       }
 
+      LOG(LINFO, ("Writing features' data to", dataFilePath));
+
       // Update bounds with the limit rect corresponding to region borders.
       // Bounds before update can be too big because of big invisible features like a
       // relation that contains an entire country's border.
-      // Borders file may be unavailable when building test mwms.
+      // TODO: Borders file may be unavailable when building test mwms (why?).
+      // Probably its the reason resulting mwm sizes are unpredictable
+      // when building not the whole planet.
       m2::RectD bordersRect;
       if (borders::GetBordersRect(info.m_targetDir, name, bordersRect))
         collector.SetBounds(bordersRect);

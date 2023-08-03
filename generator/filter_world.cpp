@@ -37,8 +37,11 @@ bool FilterWorld::IsInternationalAirport(feature::FeatureBuilder const & fb)
 // static
 bool FilterWorld::IsGoodScale(feature::FeatureBuilder const & fb)
 {
-  // GetMinFeatureDrawScale also checks suitable size for AREA features
-  return scales::GetUpperWorldScale() >= fb.GetMinFeatureDrawScale();
+  // GetMinDrawableScale also checks suitable size for AREA features.
+  int const minScale = GetMinDrawableScale(fb.GetTypesHolder(), fb.GetLimitRect(), fb.IsClosedLine());
+
+  // Some features become invisible after merge processing, so -1 is possible.
+  return scales::GetUpperWorldScale() >= minScale && minScale != -1;
 }
 
 // static

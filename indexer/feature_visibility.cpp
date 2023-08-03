@@ -10,6 +10,8 @@
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
 
+#include "routing/routing_helpers.hpp"
+
 #include <algorithm>
 #include <array>
 
@@ -223,16 +225,25 @@ bool CanGenerateLike(vector<uint32_t> const & types, GeomType geomType)
 
 namespace
 {
-bool IsDrawableForIndexGeometryOnly(TypesHolder const & types, m2::RectD const & limitRect, int level)
-{
-  Classificator const & c = classif();
 
-  static uint32_t const buildingPartType = c.GetTypeByPath({"building:part"});
+// Used by the generator when
+// - building scale / visibility index (via FeatureShouldBeIndexed())
+// - simplifying geometry (via CalculateMidPoints and IsDrawableInRange())
+// - including features into the World map (via FilterWorld::IsAccepted() and NeedPushToWorld())
+bool IsDrawableForIndexGeometryOnly(TypesHolder const & types, m2::RectD const & limitRect, bool isClosedLine, int level)
+{
+  // Exclude too small closed lines (except roads).
+  if (isClosedLine && !routing::IsRoad(types) && !scales::IsGoodForLevel(level, limitRect))
+    return false;
 
   // Exclude too small area features unless it's a part of a coast or a building.
-  if (types.GetGeomType() == GeomType::Area && !types.Has(c.GetCoastType()) &&
-      !types.Has(buildingPartType) && !scales::IsGoodForLevel(level, limitRect))
-    return false;
+  if (types.GetGeomType() == GeomType::Area)
+  {
+    Classificator const & c = classif();
+    static uint32_t const buildingPartType = c.GetTypeByPath({"building:part"});
+    if (!types.Has(c.GetCoastType()) && !types.Has(buildingPartType) && !scales::IsGoodForLevel(level, limitRect))
+      return false;
+  }
 
   return true;
 }
@@ -259,15 +270,15 @@ bool IsDrawableForIndex(FeatureType & ft, int level)
          IsDrawableForIndexClassifOnly(TypesHolder(ft), level);
 }
 
-bool IsDrawableForIndex(TypesHolder const & types, m2::RectD const & limitRect, int level)
+bool IsDrawableForIndex(TypesHolder const & types, m2::RectD const & limitRect, bool isClosedLine, int level)
 {
-  return IsDrawableForIndexGeometryOnly(types, limitRect, level) &&
+  return IsDrawableForIndexGeometryOnly(types, limitRect, isClosedLine, level) &&
          IsDrawableForIndexClassifOnly(types, level);
 }
 
 bool IsDrawableForIndexGeometryOnly(FeatureType & ft, int level)
 {
-  return IsDrawableForIndexGeometryOnly(TypesHolder(ft), ft.GetLimitRectChecked(), level);
+  return IsDrawableForIndexGeometryOnly(TypesHolder(ft), ft.GetLimitRectChecked(), ft.IsClosedLine(), level);
 }
 
 bool IsUsefulType(uint32_t t, GeomType geomType, bool emptyName)
@@ -303,16 +314,16 @@ bool RemoveUselessTypes(vector<uint32_t> & types, GeomType geomType, bool emptyN
 
 int GetMinDrawableScale(FeatureType & ft)
 {
-  return GetMinDrawableScale(TypesHolder(ft), ft.GetLimitRectChecked());
+  return GetMinDrawableScale(TypesHolder(ft), ft.GetLimitRectChecked(), ft.IsClosedLine());
 }
 
-int GetMinDrawableScale(TypesHolder const & types, m2::RectD const & limitRect)
+int GetMinDrawableScale(TypesHolder const & types, m2::RectD const & limitRect, bool isClosedLine)
 {
   int const upBound = scales::GetUpperStyleScale();
 
   for (int level = 0; level <= upBound; ++level)
   {
-    if (IsDrawableForIndex(types, limitRect, level))
+    if (IsDrawableForIndex(types, limitRect, isClosedLine, level))
       return level;
   }
 

@@ -53,6 +53,7 @@ bool FeatureMakerSimple::BuildFromWay(OsmElement & p, FeatureBuilderParams const
 
   fb.SetOsmId(base::MakeOsmWay(p.m_id));
   fb.SetParams(params);
+  // TODO : convert degenerate 3-points closed ways into 2-points lines?
   if (fb.IsGeometryClosed())
     fb.SetArea();
   else

@@ -335,6 +335,13 @@ int8_t FeatureType::GetLayer()
   return m_params.layer;
 }
 
+// TODO: there is a room to store more information in Header2 (geometry header),
+// but it needs a mwm version change.
+// 1st bit - inner / outer flag
+// 4 more bits - inner points/triangles count or outer geom offsets mask
+//   (but actually its enough to store number of the first existing geom level only - 2 bits)
+// 3-5 more bits are spare
+// One of them could be used for a closed line flag to avoid storing identical first + last points.
 void FeatureType::ParseHeader2()
 {
   if (m_parsed.m_header2)
@@ -351,6 +358,7 @@ void FeatureType::ParseHeader2()
   {
     elemsCount = bitSource.Read(4);
     // For outer geometry read the geom scales (offsets) mask.
+    // For inner geometry remaining 4 bits are not used.
     if (elemsCount == 0)
       geomScalesMask = bitSource.Read(4);
     else
@@ -474,6 +482,13 @@ void FeatureType::ParseGeometry(int scale)
             points.emplace_back(m_points[i]);
         }
         points.emplace_back(m_points.back());
+
+        // Treat closed degenerate zero-length lines (2 points, first == last) as an empty geometry,
+        // because the first and the last points are not excludable via the simplification mask.
+        // Don't discard 3-points degenerate lines, because there could be unfiltered closed roads
+        // like this in the older mwms (new mwms will have them converted into regular 2-points lines).
+        if (points.size() == 2 && points.front() == points.back())
+          points.clear();
 
         m_points.swap(points);
       }
@@ -734,6 +749,16 @@ bool FeatureType::IsEmptyGeometry(int scale)
   case GeomType::Line: return m_points.empty();
   default: return false;
   }
+}
+
+bool FeatureType::IsClosedLine() const
+{
+  if (GetGeomType() == GeomType::Line)
+  {
+    ASSERT(m_parsed.m_points, (m_id));
+    return m_points.size() > 1 && m_points.front() == m_points.back();
+  }
+  return false;
 }
 
 size_t FeatureType::GetPointsCount() const

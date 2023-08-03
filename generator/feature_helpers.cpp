@@ -13,7 +13,7 @@ CalculateMidPoints::CalculateMidPoints()
 {
   m_minDrawableScaleFn = [](FeatureBuilder const & fb)
   {
-    return GetMinDrawableScale(fb.GetTypesHolder(), fb.GetLimitRect());
+    return GetMinDrawableScale(fb.GetTypesHolder(), fb.GetLimitRect(), fb.IsClosedLine());
   };
 }
 
