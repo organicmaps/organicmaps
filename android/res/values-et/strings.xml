@@ -862,7 +862,7 @@
 	<string name="type.amenity.school">Kool</string>
 	<string name="type.amenity.shelter">Varjupaik</string>
 	<string name="type.amenity.shower">Dušš</string>
-	<string name="type.amenity.taxi">Takso</string>
+	<string name="type.amenity.taxi">Taksopeatus</string>
 	<string name="type.amenity.telephone">Telefon</string>
 	<string name="type.amenity.theatre">Teater</string>
 	<string name="type.amenity.toilets">Tualett</string>

@@ -204,6 +204,7 @@
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.scrap_metal">Desechos de metal</string>
 	<string name="type.recycling.small_appliances">Desechos electrónicos</string>
+	<string name="type.amenity.taxi">Parada de taxi</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Máquina expendedora de billetes de transporte público</string>
 	<string name="type.boundary.administrative.2">Frontera de país</string>
 	<string name="type.boundary.administrative.country">Frontera de país</string>

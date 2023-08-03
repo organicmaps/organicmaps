@@ -746,6 +746,7 @@
 	<string name="type.amenity.loading_dock">Moll de càrrega</string>
 
 	<!-- SECTION: Types: Recycling -->
+	<string name="type.amenity.taxi">Parada de taxis</string>
 	<string name="type.barrier.turnstile">Torniquet</string>
 	<string name="type.boundary.protected_area">Àrea Protegida</string>
 	<string name="type.boundary.protected_area.1">Àrea Protegida</string>

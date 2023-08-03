@@ -853,7 +853,7 @@
 	<string name="type.amenity.school">Scuola</string>
 	<string name="type.amenity.shelter">Riparo</string>
 	<string name="type.amenity.shower">Doccia</string>
-	<string name="type.amenity.taxi">Taxi</string>
+	<string name="type.amenity.taxi">Stazione dei taxi</string>
 	<string name="type.amenity.telephone">Telefono</string>
 	<string name="type.amenity.theatre">Teatro</string>
 	<string name="type.amenity.toilets">Servizi igienici</string>

@@ -693,6 +693,7 @@
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">Батерии</string>
+	<string name="type.amenity.taxi">Стойка за таксита</string>
 	<string name="type.barrier.city_wall">Градска стена</string>
 	<string name="type.barrier.ditch">Ров</string>
 	<string name="type.barrier.turnstile">Турникет</string>

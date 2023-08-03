@@ -853,7 +853,7 @@
 	<string name="type.amenity.school">Skole</string>
 	<string name="type.amenity.shelter">Ly</string>
 	<string name="type.amenity.shower">Dusj</string>
-	<string name="type.amenity.taxi">Drosje</string>
+	<string name="type.amenity.taxi">Drosjeholdeplass</string>
 	<string name="type.amenity.telephone">Telefon</string>
 	<string name="type.amenity.theatre">Teater</string>
 	<string name="type.amenity.toilets">Toalett</string>

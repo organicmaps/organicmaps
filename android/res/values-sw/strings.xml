@@ -280,6 +280,7 @@
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">Betri</string>
+	<string name="type.amenity.taxi">Stendi ya teksi</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Mashine ya kuuzia tiketi za usafiri wa umma</string>
 	<string name="type.barrier.city_wall">Ukuta wa jiji</string>
 	<string name="type.barrier.ditch">Moti</string>

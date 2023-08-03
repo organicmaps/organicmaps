@@ -862,7 +862,7 @@
 	<string name="type.amenity.school">مدرسة</string>
 	<string name="type.amenity.shelter">ملجأ</string>
 	<string name="type.amenity.shower">حمام</string>
-	<string name="type.amenity.taxi">سيارة أجرة</string>
+	<string name="type.amenity.taxi">محطة التاكسي</string>
 	<string name="type.amenity.telephone">هاتف</string>
 	<string name="type.amenity.theatre">مسرح</string>
 	<string name="type.amenity.toilets">حمام</string>

@@ -804,6 +804,7 @@
 	<string name="type.recycling.small_appliances">Elektronik affald</string>
 	<string name="type.amenity.school">Skole</string>
 	<string name="type.amenity.shower">Bruser</string>
+	<string name="type.amenity.taxi">Taxaholdeplads</string>
 	<string name="type.amenity.telephone">Telefon</string>
 	<string name="type.amenity.theatre">Teater</string>
 	<string name="type.amenity.townhall">Rådhus</string>

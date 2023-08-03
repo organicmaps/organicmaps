@@ -805,6 +805,7 @@
 	<string name="type.amenity.school">Skola</string>
 	<string name="type.amenity.shelter">Skyddsrum</string>
 	<string name="type.amenity.shower">Dusch</string>
+	<string name="type.amenity.taxi">Taxistation</string>
 	<string name="type.amenity.telephone">Telefon</string>
 	<string name="type.amenity.theatre">Teater</string>
 	<string name="type.amenity.toilets">Toalett</string>

@@ -879,7 +879,7 @@
 	<string name="type.amenity.school">Okul</string>
 	<string name="type.amenity.shelter">Barınak</string>
 	<string name="type.amenity.shower">Duş</string>
-	<string name="type.amenity.taxi">Taksi</string>
+	<string name="type.amenity.taxi">Taksi durağı</string>
 	<string name="type.amenity.telephone">Telefon</string>
 	<string name="type.amenity.theatre">Tiyatro</string>
 	<string name="type.amenity.toilets">Tuvalet</string>

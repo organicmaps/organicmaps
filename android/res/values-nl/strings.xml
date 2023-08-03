@@ -869,7 +869,7 @@
 	<string name="type.amenity.school">School</string>
 	<string name="type.amenity.shelter">Beschutting</string>
 	<string name="type.amenity.shower">Douche</string>
-	<string name="type.amenity.taxi">Taxi</string>
+	<string name="type.amenity.taxi">Taxistandplaats</string>
 	<string name="type.amenity.telephone">Telefoon</string>
 	<string name="type.amenity.theatre">Theater</string>
 	<string name="type.amenity.toilets">Toiletten</string>

@@ -879,7 +879,7 @@
 	<string name="type.amenity.school">Escuela</string>
 	<string name="type.amenity.shelter">Refugio</string>
 	<string name="type.amenity.shower">Ducha</string>
-	<string name="type.amenity.taxi">Taxi</string>
+	<string name="type.amenity.taxi">Parada de taxis</string>
 	<string name="type.amenity.telephone">Teléfono</string>
 	<string name="type.amenity.theatre">Teatro</string>
 	<string name="type.amenity.toilets">WC</string>

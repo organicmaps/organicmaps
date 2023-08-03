@@ -823,6 +823,7 @@
 	<string name="type.amenity.school">Școală</string>
 	<string name="type.amenity.shelter">Adăpost</string>
 	<string name="type.amenity.shower">Duș</string>
+	<string name="type.amenity.taxi">Stație de taxi</string>
 	<string name="type.amenity.telephone">Telefon</string>
 	<string name="type.amenity.theatre">Teatru</string>
 	<string name="type.amenity.toilets">Toaletă</string>

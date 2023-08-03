@@ -818,7 +818,7 @@
 	<string name="type.amenity.school">学校</string>
 	<string name="type.amenity.shelter">避難所</string>
 	<string name="type.amenity.shower">シャワー</string>
-	<string name="type.amenity.taxi">タクシー</string>
+	<string name="type.amenity.taxi">タクシースタンド</string>
 	<string name="type.amenity.telephone">公衆電話</string>
 	<string name="type.amenity.theatre">劇場</string>
 	<string name="type.amenity.toilets">トイレ</string>

@@ -868,6 +868,7 @@
 	<string name="type.amenity.school">École</string>
 	<string name="type.amenity.shelter">Abri</string>
 	<string name="type.amenity.shower">Douche</string>
+	<string name="type.amenity.taxi">Station de taxis</string>
 	<string name="type.amenity.telephone">Téléphone</string>
 	<string name="type.amenity.theatre">Théâtre</string>
 	<string name="type.amenity.toilets">Toilettes</string>

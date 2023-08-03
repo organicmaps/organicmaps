@@ -835,7 +835,7 @@
 	<string name="type.amenity.school">Escola</string>
 	<string name="type.amenity.shelter">Abrigo</string>
 	<string name="type.amenity.shower">Chuveiro</string>
-	<string name="type.amenity.taxi">Táxi</string>
+	<string name="type.amenity.taxi">Ponto de táxi</string>
 	<string name="type.amenity.telephone">Telefone</string>
 	<string name="type.amenity.theatre">Teatro</string>
 	<string name="type.amenity.toilets">Casa de banho</string>
