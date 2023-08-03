@@ -15,29 +15,29 @@
 # - BG-top: water (linear and areal)
 # - BG-by-size: landcover areas sorted by their size
 
-landuse-basin	area
-landuse-reservoir	area
-landuse-salt_pond	area
-natural-water	area
-natural-water-basin	area
-natural-water-lake	area
-natural-water-lock	area
-natural-water-pond	area
-natural-water-reservoir	area
-natural-water-river	area
-natural-water-tunnel	area
-waterway-dock	area
-waterway-riverbank	area
-waterway-riverbank	line
+landuse-basin                            area       # z12-
+landuse-reservoir                        area       # z12- (also has caption z10-)
+landuse-salt_pond                        area       # z1-
+natural-water                            area       # z1- (also has caption z10-)
+natural-water-basin                      area       # z1- (also has caption z10-)
+natural-water-lake                       area       # z1- (also has caption z10-)
+natural-water-lock                       area       # z1- (also has caption z10-)
+natural-water-pond                       area       # z1- (also has caption z10-)
+natural-water-reservoir                  area       # z1- (also has caption z10-)
+natural-water-river                      area       # z1- (also has caption z10-)
+natural-water-tunnel                     area       # z15-
+waterway-dock                            area       # z1-
+waterway-riverbank                       area       # z1- (also has line z10-, pathtext z11-)
+waterway-riverbank                       line       # z10- (also has area z1-, pathtext z11-)
 === 20
 
-natural-strait	line
-waterway-canal	line
-waterway-ditch	line
-waterway-drain	line
-waterway-fish_pass	line
-waterway-river	line
-waterway-stream	line
-waterway-stream-ephemeral	line
-waterway-stream-intermittent	line
+natural-strait                           line       # z13- (also has caption z13-)
+waterway-canal                           line       # z13- (also has pathtext z13-)
+waterway-ditch                           line       # z17-
+waterway-drain                           line       # z17-
+waterway-fish_pass                       line       # z13- (also has pathtext z13-)
+waterway-river                           line       # z10- (also has pathtext z11-)
+waterway-stream                          line       # z13- (also has pathtext z13-)
+waterway-stream-ephemeral                line       # z13- (also has pathtext z13-)
+waterway-stream-intermittent             line       # z13- (also has pathtext z13-)
 === 10
