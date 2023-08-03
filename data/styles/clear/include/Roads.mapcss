@@ -789,7 +789,7 @@ line|z15[highway=service],
 line|z15[highway=service][service=busway],
 line|z15[highway=busway],
 {width: 1.2;}
-line|z15-16[highway=service][service=driveway]
+line|z15[highway=service][service=driveway]
 {width: 0;}
 line|z16[highway=service],
 line|z16[highway=service][service=busway],
