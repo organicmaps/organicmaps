@@ -885,8 +885,8 @@ highway-steps-tunnel	pathtext	31475
 highway-secondary_link	pathtext	31396
 highway-secondary_link-bridge	pathtext	31396
 highway-secondary_link-tunnel	pathtext	31396
-highway-ford	pathtext	31336
 highway-ford	icon	31336
+highway-ford	pathtext	31336
 highway-busway	pathtext	31326
 highway-busway-bridge	pathtext	31326
 highway-busway-tunnel	pathtext	31326
