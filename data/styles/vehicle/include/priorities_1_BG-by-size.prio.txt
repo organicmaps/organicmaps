@@ -13,68 +13,99 @@
 # - BG-top: water (linear and areal)
 # - BG-by-size: landcover areas sorted by their size
 
-amenity-parking	area	160
-amenity-parking-fee	area	160
-amenity-parking-multi-storey	area	160
-amenity-parking-no-access	area	160
-amenity-parking-park_and_ride	area	160
-amenity-parking-permissive	area	160
-amenity-parking-private	area	160
-amenity-parking-underground	area	160
-leisure-stadium	area	150
-leisure-nature_reserve	area	140
-amenity-parking_space	area	130
-amenity-parking_space-disabled	area	130
-amenity-parking_space-permissive	area	130
-amenity-parking_space-private	area	130
-amenity-parking_space-underground	area	130
-amenity-grave_yard	area	120
-amenity-grave_yard-christian	area	120
-landuse-cemetery	area	120
-landuse-cemetery-christian	area	120
-aeroway-terminal	area	110
-leisure-swimming_pool	area	100
-leisure-swimming_pool-private	area	100
-leisure-golf_course	area	90
-natural-wetland	area	90
-natural-wetland-bog	area	90
-natural-wetland-marsh	area	90
-landuse-grass	area	80
-natural-grassland	area	80
-natural-heath	area	80
-landuse-allotments	area	70
-landuse-farmland	area	70
-landuse-field	area	70
-landuse-meadow	area	70
-landuse-orchard	area	70
-landuse-recreation_ground	area	70
-landuse-village_green	area	70
-landuse-vineyard	area	70
-natural-scrub	area	70
-leisure-garden	area	60
-leisure-garden-residential	area	60
-leisure-park	area	60
-leisure-park-no-access	area	60
-leisure-park-permissive	area	60
-leisure-park-private	area	60
-landuse-forest	area	50
-landuse-forest-coniferous	area	50
-landuse-forest-deciduous	area	50
-landuse-forest-mixed	area	50
-landuse-churchyard	area	40
-landuse-construction	area	40
-landuse-industrial	area	40
-landuse-landfill	area	40
-landuse-quarry	area	40
-landuse-railway	area	40
-aeroway-aerodrome	area	30
-aeroway-aerodrome-international	area	30
-leisure-beach_resort	area	30
-natural-beach	area	30
-natural-beach-gravel	area	30
-natural-beach-sand	area	30
-natural-desert	area	30
-natural-glacier	area	30
-natural-land	area	20
-place-islet	area	20
-natural-coastline	area	10
+amenity-parking	area
+amenity-parking-fee	area
+amenity-parking-multi-storey	area
+amenity-parking-no-access	area
+amenity-parking-park_and_ride	area
+amenity-parking-permissive	area
+amenity-parking-private	area
+amenity-parking-underground	area
+=== 160
+
+leisure-stadium	area
+=== 150
+
+leisure-nature_reserve	area
+=== 140
+
+amenity-parking_space	area
+amenity-parking_space-disabled	area
+amenity-parking_space-permissive	area
+amenity-parking_space-private	area
+amenity-parking_space-underground	area
+=== 130
+
+amenity-grave_yard	area
+amenity-grave_yard-christian	area
+landuse-cemetery	area
+landuse-cemetery-christian	area
+=== 120
+
+aeroway-terminal	area
+=== 110
+
+leisure-swimming_pool	area
+leisure-swimming_pool-private	area
+=== 100
+
+leisure-golf_course	area
+natural-wetland	area
+natural-wetland-bog	area
+natural-wetland-marsh	area
+=== 90
+
+landuse-grass	area
+natural-grassland	area
+natural-heath	area
+=== 80
+
+landuse-allotments	area
+landuse-farmland	area
+landuse-field	area
+landuse-meadow	area
+landuse-orchard	area
+landuse-recreation_ground	area
+landuse-village_green	area
+landuse-vineyard	area
+natural-scrub	area
+=== 70
+
+leisure-garden	area
+leisure-garden-residential	area
+leisure-park	area
+leisure-park-no-access	area
+leisure-park-permissive	area
+leisure-park-private	area
+=== 60
+
+landuse-forest	area
+landuse-forest-coniferous	area
+landuse-forest-deciduous	area
+landuse-forest-mixed	area
+=== 50
+
+landuse-churchyard	area
+landuse-construction	area
+landuse-industrial	area
+landuse-landfill	area
+landuse-quarry	area
+landuse-railway	area
+=== 40
+
+aeroway-aerodrome	area
+aeroway-aerodrome-international	area
+leisure-beach_resort	area
+natural-beach	area
+natural-beach-gravel	area
+natural-beach-sand	area
+natural-desert	area
+natural-glacier	area
+=== 30
+
+natural-land	area
+place-islet	area
+=== 20
+
+natural-coastline	area
+=== 10

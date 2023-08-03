@@ -13,92 +13,141 @@
 # - BG-top: water (linear and areal)
 # - BG-by-size: landcover areas sorted by their size
 
-leisure-stadium	area	250
-amenity-place_of_worship	area	240
-amenity-place_of_worship-buddhist	area	240
-amenity-place_of_worship-christian	area	240
-amenity-place_of_worship-hindu	area	240
-amenity-place_of_worship-jewish	area	240
-amenity-place_of_worship-muslim	area	240
-amenity-place_of_worship-shinto	area	240
-amenity-place_of_worship-taoist	area	240
-amenity-doctors	area	230
-leisure-swimming_pool	area	230
-leisure-swimming_pool-private	area	230
-landuse-landfill	area	220
-sport-multi	area	210
-sport-soccer	area	210
-leisure-playground	area	200
-amenity-fountain	area	190
-amenity-grave_yard	area	180
-amenity-grave_yard-christian	area	180
-landuse-cemetery	area	180
-landuse-cemetery-christian	area	180
-highway-pedestrian-area	area	170
-highway-footway-area	area	160
-leisure-track-area	area	160
-aeroway-terminal	area	150
-leisure-golf_course	area	140
-natural-scrub	area	130
-landuse-grass	area	120
-natural-grassland	area	120
-natural-heath	area	120
-area:highway-footway	area	110
-area:highway-living_street	area	110
-area:highway-pedestrian	area	110
-public_transport-platform	area	110
-railway-platform	area	110
-amenity-parking	area	100
-amenity-parking-fee	area	100
-amenity-parking-multi-storey	area	100
-amenity-parking-no-access	area	100
-amenity-parking-park_and_ride	area	100
-amenity-parking-permissive	area	100
-amenity-parking-private	area	100
-amenity-parking-underground	area	100
-natural-wetland	area	90
-natural-wetland-bog	area	90
-natural-wetland-marsh	area	90
-landuse-allotments	area	80
-landuse-farmland	area	80
-landuse-farmyard	area	80
-landuse-field	area	80
-landuse-meadow	area	80
-landuse-orchard	area	80
-landuse-recreation_ground	area	80
-landuse-village_green	area	80
-landuse-vineyard	area	80
-leisure-pitch	area	80
-natural-bare_rock	area	80
-leisure-garden	area	70
-leisure-garden-residential	area	70
-leisure-park	area	70
-leisure-park-no-access	area	70
-leisure-park-permissive	area	70
-leisure-park-private	area	70
-landuse-forest	area	60
-landuse-forest-coniferous	area	60
-landuse-forest-deciduous	area	60
-landuse-forest-mixed	area	60
-landuse-churchyard	area	50
-landuse-construction	area	50
-landuse-industrial	area	50
-landuse-quarry	area	50
-landuse-railway	area	50
-amenity-college	area	40
-amenity-hospital	area	40
-amenity-kindergarten	area	40
-amenity-school	area	40
-amenity-university	area	40
-aeroway-aerodrome	area	30
-aeroway-aerodrome-international	area	30
-landuse-education	area	30
-leisure-beach_resort	area	30
-natural-beach	area	30
-natural-beach-gravel	area	30
-natural-beach-sand	area	30
-natural-desert	area	30
-natural-glacier	area	30
-natural-land	area	20
-place-islet	area	20
-natural-coastline	area	10
+leisure-stadium	area
+=== 250
+
+amenity-place_of_worship	area
+amenity-place_of_worship-buddhist	area
+amenity-place_of_worship-christian	area
+amenity-place_of_worship-hindu	area
+amenity-place_of_worship-jewish	area
+amenity-place_of_worship-muslim	area
+amenity-place_of_worship-shinto	area
+amenity-place_of_worship-taoist	area
+=== 240
+
+amenity-doctors	area
+leisure-swimming_pool	area
+leisure-swimming_pool-private	area
+=== 230
+
+landuse-landfill	area
+=== 220
+
+sport-multi	area
+sport-soccer	area
+=== 210
+
+leisure-playground	area
+=== 200
+
+amenity-fountain	area
+=== 190
+
+amenity-grave_yard	area
+amenity-grave_yard-christian	area
+landuse-cemetery	area
+landuse-cemetery-christian	area
+=== 180
+
+highway-pedestrian-area	area
+=== 170
+
+highway-footway-area	area
+leisure-track-area	area
+=== 160
+
+aeroway-terminal	area
+=== 150
+
+leisure-golf_course	area
+=== 140
+
+natural-scrub	area
+=== 130
+
+landuse-grass	area
+natural-grassland	area
+natural-heath	area
+=== 120
+
+area:highway-footway	area
+area:highway-living_street	area
+area:highway-pedestrian	area
+public_transport-platform	area
+railway-platform	area
+=== 110
+
+amenity-parking	area
+amenity-parking-fee	area
+amenity-parking-multi-storey	area
+amenity-parking-no-access	area
+amenity-parking-park_and_ride	area
+amenity-parking-permissive	area
+amenity-parking-private	area
+amenity-parking-underground	area
+=== 100
+
+natural-wetland	area
+natural-wetland-bog	area
+natural-wetland-marsh	area
+=== 90
+
+landuse-allotments	area
+landuse-farmland	area
+landuse-farmyard	area
+landuse-field	area
+landuse-meadow	area
+landuse-orchard	area
+landuse-recreation_ground	area
+landuse-village_green	area
+landuse-vineyard	area
+leisure-pitch	area
+natural-bare_rock	area
+=== 80
+
+leisure-garden	area
+leisure-garden-residential	area
+leisure-park	area
+leisure-park-no-access	area
+leisure-park-permissive	area
+leisure-park-private	area
+=== 70
+
+landuse-forest	area
+landuse-forest-coniferous	area
+landuse-forest-deciduous	area
+landuse-forest-mixed	area
+=== 60
+
+landuse-churchyard	area
+landuse-construction	area
+landuse-industrial	area
+landuse-quarry	area
+landuse-railway	area
+=== 50
+
+amenity-college	area
+amenity-hospital	area
+amenity-kindergarten	area
+amenity-school	area
+amenity-university	area
+=== 40
+
+aeroway-aerodrome	area
+aeroway-aerodrome-international	area
+landuse-education	area
+leisure-beach_resort	area
+natural-beach	area
+natural-beach-gravel	area
+natural-beach-sand	area
+natural-desert	area
+natural-glacier	area
+=== 30
+
+natural-land	area
+place-islet	area
+=== 20
+
+natural-coastline	area
+=== 10

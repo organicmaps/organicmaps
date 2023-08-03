@@ -10,1628 +10,2091 @@
 # - BG-top: water (linear and areal)
 # - BG-by-size: landcover areas sorted by their size
 
-place-continent	caption	2560
-place-ocean	caption	2550
-place-country	caption	2540
-place-city-capital-2	caption	2520
-place-city-capital-2	icon	2520
-place-city-capital-3	caption	2500
-place-city-capital-4	caption	2500
-place-sea	caption	2495
-place-city-capital	caption	2490
-place-city-capital-10	caption	2490
-place-city-capital-11	caption	2490
-place-city-capital-5	caption	2490
-place-city-capital-6	caption	2490
-place-city-capital-7	caption	2490
-place-city-capital-8	caption	2490
-place-city-capital-9	caption	2490
-place-city	caption	2480
-place-state-USA	caption	2470
-place-state	caption	2460
-aeroway-aerodrome-international	icon	2450
-place-island	caption	2440
-place-town	caption	2430
-aeroway-aerodrome-international	caption	2420
-place-suburb	caption	2320
-railway-station-subway-moscow	icon	2310
-railway-station-subway-spb	icon	2310
-aeroway-aerodrome	icon	2280
-isoline-step_1000	pathtext	2280
-railway-station-subway-moscow	caption	2260
-railway-station-subway-spb	caption	2260
-place-village	caption	2240
-railway-station	icon	2230
-amenity-ferry_terminal	icon	2227
-highway-motorway	pathtext	2225
-highway-motorway	shield	2225
-highway-motorway-bridge	pathtext	2225
-highway-motorway-bridge	shield	2225
-highway-motorway-tunnel	pathtext	2225
-highway-motorway-tunnel	shield	2225
-highway-trunk	pathtext	2225
-highway-trunk	shield	2225
-highway-trunk-bridge	pathtext	2225
-highway-trunk-bridge	shield	2225
-highway-trunk-tunnel	pathtext	2225
-highway-trunk-tunnel	shield	2225
-boundary-national_park	caption	2223
-boundary-national_park	icon	2223
-boundary-protected_area	caption	2223
-boundary-protected_area	icon	2223
-boundary-protected_area-1	caption	2223
-boundary-protected_area-1	icon	2223
-boundary-protected_area-2	caption	2223
-boundary-protected_area-2	icon	2223
-boundary-protected_area-3	caption	2223
-boundary-protected_area-3	icon	2223
-boundary-protected_area-4	caption	2223
-boundary-protected_area-4	icon	2223
-boundary-protected_area-5	caption	2223
-boundary-protected_area-5	icon	2223
-boundary-protected_area-6	caption	2223
-boundary-protected_area-6	icon	2223
-leisure-nature_reserve	caption	2223
-leisure-nature_reserve	icon	2223
-landuse-reservoir	caption	2220
-natural-water-lake	caption	2220
-natural-water-reservoir	caption	2220
-railway-station-funicular	icon	2220
-railway-station-light_rail	icon	2220
-railway-station-monorail	icon	2220
-railway-station-subway-adana	icon	2220
-railway-station-subway-algiers	icon	2220
-railway-station-subway-almaty	icon	2220
-railway-station-subway-amsterdam	icon	2220
-railway-station-subway-beijing	icon	2220
-railway-station-subway-berlin	icon	2220
-railway-station-subway-buenos_aires	icon	2220
-railway-station-subway-istanbul	icon	2220
-railway-station-subway-kiev	icon	2220
-railway-station-subway-la	icon	2220
-railway-station-subway-lisboa	icon	2220
-railway-station-subway-london	icon	2220
-railway-station-subway-madrid	icon	2220
-railway-station-subway-mexico	icon	2220
-railway-station-subway-minsk	icon	2220
-railway-station-subway-newyork	icon	2220
-railway-station-subway-paris	icon	2220
-railway-station-subway-roma	icon	2220
-railway-station-subway-sf	icon	2220
-railway-station-subway-shanghai	icon	2220
-railway-station-subway-stockholm	icon	2220
-railway-station-subway-tokyo	icon	2220
-railway-station-subway-vienna	icon	2220
-barrier-toll_booth	icon	2210
-historic-castle	icon	2200
-historic-castle-castrum	icon	2200
-historic-castle-defensive	icon	2200
-historic-castle-fortified_church	icon	2200
-historic-castle-fortress	icon	2200
-historic-castle-hillfort	icon	2200
-historic-castle-kremlin	icon	2200
-historic-castle-manor	icon	2200
-historic-castle-palace	icon	2200
-historic-castle-shiro	icon	2200
-historic-castle-stately	icon	2200
-historic-fort	icon	2200
-aerialway-station	icon	2190
-natural-peak	icon	2180
-natural-volcano	caption	2180
-natural-volcano	icon	2180
-isoline-step_500	pathtext	2160
-natural-water-river	caption	2160
-amenity-bus_station	icon	2140
-railway-station	caption	2140
-railway-station-funicular	caption	2140
-railway-station-light_rail	caption	2140
-railway-station-monorail	caption	2140
-railway-station-subway-adana	caption	2140
-railway-station-subway-algiers	caption	2140
-railway-station-subway-almaty	caption	2140
-railway-station-subway-amsterdam	caption	2140
-railway-station-subway-beijing	caption	2140
-railway-station-subway-berlin	caption	2140
-railway-station-subway-buenos_aires	caption	2140
-railway-station-subway-istanbul	caption	2140
-railway-station-subway-kiev	caption	2140
-railway-station-subway-la	caption	2140
-railway-station-subway-lisboa	caption	2140
-railway-station-subway-london	caption	2140
-railway-station-subway-madrid	caption	2140
-railway-station-subway-mexico	caption	2140
-railway-station-subway-minsk	caption	2140
-railway-station-subway-newyork	caption	2140
-railway-station-subway-paris	caption	2140
-railway-station-subway-roma	caption	2140
-railway-station-subway-sf	caption	2140
-railway-station-subway-shanghai	caption	2140
-railway-station-subway-stockholm	caption	2140
-railway-station-subway-tokyo	caption	2140
-railway-station-subway-vienna	caption	2140
-barrier-toll_booth	caption	2130
-railway-station-subway	icon	2130
-railway-station-subway-ankara	icon	2130
-railway-station-subway-athens	icon	2130
-railway-station-subway-baku	icon	2130
-railway-station-subway-bangkok	icon	2130
-railway-station-subway-barcelona	icon	2130
-railway-station-subway-bengalore	icon	2130
-railway-station-subway-bilbao	icon	2130
-railway-station-subway-brasilia	icon	2130
-railway-station-subway-brescia	icon	2130
-railway-station-subway-brussels	icon	2130
-railway-station-subway-bucharest	icon	2130
-railway-station-subway-budapest	icon	2130
-railway-station-subway-bursa	icon	2130
-railway-station-subway-cairo	icon	2130
-railway-station-subway-caracas	icon	2130
-railway-station-subway-catania	icon	2130
-railway-station-subway-changchun	icon	2130
-railway-station-subway-chengdu	icon	2130
-railway-station-subway-chicago	icon	2130
-railway-station-subway-chongqing	icon	2130
-railway-station-subway-dalian	icon	2130
-railway-station-subway-delhi	icon	2130
-railway-station-subway-dnepro	icon	2130
-railway-station-subway-dubai	icon	2130
-railway-station-subway-ekb	icon	2130
-railway-station-subway-fukuoka	icon	2130
-railway-station-subway-glasgow	icon	2130
-railway-station-subway-guangzhou	icon	2130
-railway-station-subway-hamburg	icon	2130
-railway-station-subway-helsinki	icon	2130
-railway-station-subway-hiroshima	icon	2130
-railway-station-subway-isfahan	icon	2130
-railway-station-subway-izmir	icon	2130
-railway-station-subway-kazan	icon	2130
-railway-station-subway-kharkiv	icon	2130
-railway-station-subway-kobe	icon	2130
-railway-station-subway-kolkata	icon	2130
-railway-station-subway-kunming	icon	2130
-railway-station-subway-kyoto	icon	2130
-railway-station-subway-lausanne	icon	2130
-railway-station-subway-lille	icon	2130
-railway-station-subway-lima	icon	2130
-railway-station-subway-lyon	icon	2130
-railway-station-subway-malaga	icon	2130
-railway-station-subway-manila	icon	2130
-railway-station-subway-maracaibo	icon	2130
-railway-station-subway-mashhad	icon	2130
-railway-station-subway-mecca	icon	2130
-railway-station-subway-medellin	icon	2130
-railway-station-subway-milan	icon	2130
-railway-station-subway-montreal	icon	2130
-railway-station-subway-munchen	icon	2130
-railway-station-subway-nagoya	icon	2130
-railway-station-subway-nnov	icon	2130
-railway-station-subway-novosibirsk	icon	2130
-railway-station-subway-osaka	icon	2130
-railway-station-subway-oslo	icon	2130
-railway-station-subway-palma	icon	2130
-railway-station-subway-panama	icon	2130
-railway-station-subway-philadelphia	icon	2130
-railway-station-subway-pyongyang	icon	2130
-railway-station-subway-rennes	icon	2130
-railway-station-subway-rio	icon	2130
-railway-station-subway-rotterdam	icon	2130
-railway-station-subway-samara	icon	2130
-railway-station-subway-santiago	icon	2130
-railway-station-subway-santo_domingo	icon	2130
-railway-station-subway-saopaulo	icon	2130
-railway-station-subway-sapporo	icon	2130
-railway-station-subway-sendai	icon	2130
-railway-station-subway-shiraz	icon	2130
-railway-station-subway-sofia	icon	2130
-railway-station-subway-tabriz	icon	2130
-railway-station-subway-taipei	icon	2130
-railway-station-subway-taoyuan	icon	2130
-railway-station-subway-tashkent	icon	2130
-railway-station-subway-tbilisi	icon	2130
-railway-station-subway-tehran	icon	2130
-railway-station-subway-tianjin	icon	2130
-railway-station-subway-valencia	icon	2130
-railway-station-subway-warszawa	icon	2130
-railway-station-subway-washington	icon	2130
-railway-station-subway-wuhan	icon	2130
-railway-station-subway-yerevan	icon	2130
-railway-station-subway-yokohama	icon	2130
-historic-castle	caption	2120
-historic-castle-castrum	caption	2120
-historic-castle-defensive	caption	2120
-historic-castle-fortified_church	caption	2120
-historic-castle-fortress	caption	2120
-historic-castle-hillfort	caption	2120
-historic-castle-kremlin	caption	2120
-historic-castle-manor	caption	2120
-historic-castle-palace	caption	2120
-historic-castle-shiro	caption	2120
-historic-castle-stately	caption	2120
-historic-fort	caption	2120
-aerialway-station	caption	2110
-aeroway-aerodrome	caption	2100
-natural-peak	caption	2100
-railway-halt	icon	2100
-amenity-ferry_terminal	caption	2090
-highway-primary	pathtext	2090
-highway-primary	shield	2090
-highway-primary-bridge	pathtext	2090
-highway-primary-bridge	shield	2090
-highway-primary-tunnel	pathtext	2090
-highway-primary-tunnel	shield	2090
-route-ferry	pathtext	2090
-highway-motorway_link	pathtext	2080
-highway-motorway_link	shield	2080
-highway-motorway_link-bridge	pathtext	2080
-highway-motorway_link-bridge	shield	2080
-highway-motorway_link-tunnel	pathtext	2080
-highway-motorway_link-tunnel	shield	2080
-highway-trunk_link	pathtext	2080
-highway-trunk_link	shield	2080
-highway-trunk_link-bridge	pathtext	2080
-highway-trunk_link-bridge	shield	2080
-highway-trunk_link-tunnel	pathtext	2080
-highway-trunk_link-tunnel	shield	2080
-highway-primary_link	pathtext	2070
-highway-primary_link	shield	2070
-highway-primary_link-bridge	pathtext	2070
-highway-primary_link-bridge	shield	2070
-highway-primary_link-tunnel	pathtext	2070
-highway-primary_link-tunnel	shield	2070
-tourism-zoo	icon	2050
-leisure-stadium	icon	2040
-tourism-museum	icon	2030
-historic-monument	icon	2020
-historic-city_gate	icon	2010
-railway-station-subway	caption	1980
-railway-station-subway-ankara	caption	1980
-railway-station-subway-athens	caption	1980
-railway-station-subway-baku	caption	1980
-railway-station-subway-bangkok	caption	1980
-railway-station-subway-barcelona	caption	1980
-railway-station-subway-bengalore	caption	1980
-railway-station-subway-bilbao	caption	1980
-railway-station-subway-brasilia	caption	1980
-railway-station-subway-brescia	caption	1980
-railway-station-subway-brussels	caption	1980
-railway-station-subway-bucharest	caption	1980
-railway-station-subway-budapest	caption	1980
-railway-station-subway-bursa	caption	1980
-railway-station-subway-cairo	caption	1980
-railway-station-subway-caracas	caption	1980
-railway-station-subway-catania	caption	1980
-railway-station-subway-changchun	caption	1980
-railway-station-subway-chengdu	caption	1980
-railway-station-subway-chicago	caption	1980
-railway-station-subway-chongqing	caption	1980
-railway-station-subway-dalian	caption	1980
-railway-station-subway-delhi	caption	1980
-railway-station-subway-dnepro	caption	1980
-railway-station-subway-dubai	caption	1980
-railway-station-subway-ekb	caption	1980
-railway-station-subway-fukuoka	caption	1980
-railway-station-subway-glasgow	caption	1980
-railway-station-subway-guangzhou	caption	1980
-railway-station-subway-hamburg	caption	1980
-railway-station-subway-helsinki	caption	1980
-railway-station-subway-hiroshima	caption	1980
-railway-station-subway-isfahan	caption	1980
-railway-station-subway-izmir	caption	1980
-railway-station-subway-kazan	caption	1980
-railway-station-subway-kharkiv	caption	1980
-railway-station-subway-kobe	caption	1980
-railway-station-subway-kolkata	caption	1980
-railway-station-subway-kunming	caption	1980
-railway-station-subway-kyoto	caption	1980
-railway-station-subway-lausanne	caption	1980
-railway-station-subway-lille	caption	1980
-railway-station-subway-lima	caption	1980
-railway-station-subway-lyon	caption	1980
-railway-station-subway-malaga	caption	1980
-railway-station-subway-manila	caption	1980
-railway-station-subway-maracaibo	caption	1980
-railway-station-subway-mashhad	caption	1980
-railway-station-subway-mecca	caption	1980
-railway-station-subway-medellin	caption	1980
-railway-station-subway-milan	caption	1980
-railway-station-subway-montreal	caption	1980
-railway-station-subway-munchen	caption	1980
-railway-station-subway-nagoya	caption	1980
-railway-station-subway-nnov	caption	1980
-railway-station-subway-novosibirsk	caption	1980
-railway-station-subway-osaka	caption	1980
-railway-station-subway-oslo	caption	1980
-railway-station-subway-palma	caption	1980
-railway-station-subway-panama	caption	1980
-railway-station-subway-philadelphia	caption	1980
-railway-station-subway-pyongyang	caption	1980
-railway-station-subway-rennes	caption	1980
-railway-station-subway-rio	caption	1980
-railway-station-subway-rotterdam	caption	1980
-railway-station-subway-samara	caption	1980
-railway-station-subway-santiago	caption	1980
-railway-station-subway-santo_domingo	caption	1980
-railway-station-subway-saopaulo	caption	1980
-railway-station-subway-sapporo	caption	1980
-railway-station-subway-sendai	caption	1980
-railway-station-subway-shiraz	caption	1980
-railway-station-subway-sofia	caption	1980
-railway-station-subway-tabriz	caption	1980
-railway-station-subway-taipei	caption	1980
-railway-station-subway-taoyuan	caption	1980
-railway-station-subway-tashkent	caption	1980
-railway-station-subway-tbilisi	caption	1980
-railway-station-subway-tehran	caption	1980
-railway-station-subway-tianjin	caption	1980
-railway-station-subway-valencia	caption	1980
-railway-station-subway-warszawa	caption	1980
-railway-station-subway-washington	caption	1980
-railway-station-subway-wuhan	caption	1980
-railway-station-subway-yerevan	caption	1980
-railway-station-subway-yokohama	caption	1980
-amenity-bus_station	caption	1970
-railway-halt	caption	1960
-railway-tram_stop	icon	1960
-waterway-waterfall	caption	1960
-waterway-waterfall	icon	1960
-tourism-zoo	caption	1950
-leisure-stadium	caption	1940
-tourism-museum	caption	1930
-historic-monument	caption	1920
-historic-city_gate	caption	1910
-place-hamlet	caption	1900
-place-locality	caption	1890
-place-neighbourhood	caption	1890
-amenity-charging_station-motorcar	icon	1880
-amenity-fuel	icon	1880
-highway-secondary	pathtext	1875
-highway-secondary	shield	1875
-highway-secondary-bridge	pathtext	1875
-highway-secondary-bridge	shield	1875
-highway-secondary-tunnel	pathtext	1875
-highway-secondary-tunnel	shield	1875
-shop-mall	icon	1870
-place-square	icon	1850
-tourism-theme_park	icon	1850
-amenity-community_centre	icon	1840
-amenity-theatre	icon	1830
-man_made-lighthouse	icon	1820
-highway-services	icon	1800
-mountain_pass	icon	1790
-natural-saddle	icon	1790
-natural-geyser	icon	1780
-natural-hot_spring	icon	1780
-natural-spring	icon	1780
-railway-rail-tourism	pathtext	1770
-railway-rail-tourism-bridge	pathtext	1770
-railway-rail-tourism-tunnel	pathtext	1770
-amenity-hospital	caption	1760
-amenity-hospital	icon	1760
-amenity-university	caption	1760
-amenity-university	icon	1760
-leisure-park	icon	1740
-leisure-park-permissive	icon	1740
-natural-cave_entrance	caption	1740
-natural-cave_entrance	icon	1740
-tourism-attraction	icon	1737
-tourism-viewpoint	icon	1736
-amenity-place_of_worship-buddhist	icon	1735
-amenity-place_of_worship-christian	icon	1735
-amenity-place_of_worship-hindu	icon	1735
-amenity-place_of_worship-jewish	icon	1735
-amenity-place_of_worship-muslim	icon	1735
-amenity-place_of_worship-shinto	icon	1735
-amenity-place_of_worship-taoist	icon	1735
-amenity-place_of_worship	icon	1734
-landuse-forest	caption	1730
-landuse-forest	icon	1730
-landuse-forest-coniferous	caption	1730
-landuse-forest-coniferous	icon	1730
-landuse-forest-deciduous	caption	1730
-landuse-forest-deciduous	icon	1730
-landuse-forest-mixed	caption	1730
-landuse-forest-mixed	icon	1730
-railway-tram_stop	caption	1700
-natural-water	caption	1690
-natural-water-pond	caption	1690
-shop-mall	caption	1690
-tourism-viewpoint	caption	1680
-amenity-place_of_worship	caption	1670
-amenity-place_of_worship-buddhist	caption	1670
-amenity-place_of_worship-christian	caption	1670
-amenity-place_of_worship-hindu	caption	1670
-amenity-place_of_worship-jewish	caption	1670
-amenity-place_of_worship-muslim	caption	1670
-amenity-place_of_worship-shinto	caption	1670
-amenity-place_of_worship-taoist	caption	1670
-place-square	caption	1670
-tourism-attraction	caption	1670
-tourism-theme_park	caption	1670
-amenity-community_centre	caption	1660
-amenity-theatre	caption	1650
-man_made-lighthouse	caption	1640
-amenity-charging_station-motorcar	caption	1630
-amenity-fuel	caption	1630
-highway-services	caption	1620
-mountain_pass	caption	1610
-natural-saddle	caption	1610
-natural-geyser	caption	1600
-natural-hot_spring	caption	1600
-natural-spring	caption	1600
-natural-bare_rock	caption	1590
-landuse-recreation_ground	caption	1580
-leisure-park	caption	1580
-leisure-park-permissive	caption	1580
-natural-desert	caption	1570
-place-islet	caption	1560
-natural-bay	caption	1550
-natural-cape	caption	1550
-place-isolated_dwelling	caption	1550
-railway-subway_entrance-moscow	icon	1540
-waterway-dam	pathtext	1530
-railway-subway_entrance-spb	icon	1520
-tourism-gallery	icon	1510
-historic-battlefield	icon	1500
-historic-memorial	icon	1500
-historic-memorial-sculpture	icon	1500
-historic-memorial-statue	icon	1500
-historic-memorial-war_memorial	icon	1500
-tourism-artwork	icon	1500
-tourism-artwork-architecture	icon	1500
-tourism-artwork-painting	icon	1500
-tourism-artwork-sculpture	icon	1500
-tourism-artwork-statue	icon	1500
-tourism-attraction-animal	caption	1495
-tourism-attraction-animal	icon	1495
-tourism-attraction-specified	caption	1495
-tourism-attraction-specified	icon	1495
-amenity-cafe	icon	1490
-amenity-restaurant	icon	1480
-amenity-fast_food	icon	1470
-amenity-food_court	icon	1470
-amenity-bar	icon	1460
-amenity-biergarten	icon	1450
-amenity-pub	icon	1450
-barrier-border_control	icon	1440
-aerialway-cable_car	pathtext	1430
-aerialway-chair_lift	pathtext	1430
-aerialway-drag_lift	pathtext	1430
-aerialway-gondola	pathtext	1430
-aerialway-j-bar	pathtext	1430
-aerialway-magic_carpet	pathtext	1430
-aerialway-mixed_lift	pathtext	1430
-aerialway-platter	pathtext	1430
-aerialway-rope_tow	pathtext	1430
-aerialway-t-bar	pathtext	1430
-shop-car_repair-tyres	icon	1430
-highway-rest_area	icon	1420
-tourism-camp_site	icon	1420
-tourism-caravan_site	icon	1420
-amenity-sanitary_dump_station	icon	1410
-amenity-drinking_water	icon	1400
-amenity-water_point	icon	1400
-man_made-water_tap	icon	1400
-man_made-water_well	icon	1400
-waterway-weir	pathtext	1390
-isoline-step_100	pathtext	1340
-man_made-flagpole	icon	1330
-natural-rock	icon	1330
-railway-subway_entrance-moscow	caption	1320
-railway-subway_entrance-spb	caption	1310
-tourism-gallery	caption	1300
-historic-battlefield	caption	1290
-historic-memorial	caption	1290
-historic-memorial-sculpture	caption	1290
-historic-memorial-statue	caption	1290
-historic-memorial-war_memorial	caption	1290
-tourism-artwork	caption	1290
-tourism-artwork-architecture	caption	1290
-tourism-artwork-painting	caption	1290
-tourism-artwork-sculpture	caption	1290
-tourism-artwork-statue	caption	1290
-amenity-cafe	caption	1280
-amenity-restaurant	caption	1270
-amenity-fast_food	caption	1260
-amenity-food_court	caption	1260
-amenity-bar	caption	1250
-amenity-biergarten	caption	1240
-amenity-pub	caption	1240
-barrier-border_control	caption	1230
-shop-car_repair-tyres	caption	1220
-highway-rest_area	caption	1210
-tourism-camp_site	caption	1210
-amenity-sanitary_dump_station	caption	1200
-amenity-drinking_water	caption	1190
-amenity-water_point	caption	1190
-highway-motorway_junction	caption	1180
-aeroway-terminal	caption	1160
-area:highway-footway	caption	1150
-area:highway-pedestrian	caption	1150
-natural-beach	caption	1120
-natural-beach-gravel	caption	1120
-natural-beach-sand	caption	1120
-place-farm	caption	1110
-railway-subway_entrance	icon	1110
-railway-subway_entrance-adana	icon	1110
-railway-subway_entrance-algiers	icon	1110
-railway-subway_entrance-almaty	icon	1110
-railway-subway_entrance-amsterdam	icon	1110
-railway-subway_entrance-ankara	icon	1110
-railway-subway_entrance-athens	icon	1110
-railway-subway_entrance-baku	icon	1110
-railway-subway_entrance-bangkok	icon	1110
-railway-subway_entrance-barcelona	icon	1110
-railway-subway_entrance-beijing	icon	1110
-railway-subway_entrance-bengalore	icon	1110
-railway-subway_entrance-berlin	icon	1110
-railway-subway_entrance-bilbao	icon	1110
-railway-subway_entrance-brasilia	icon	1110
-railway-subway_entrance-brescia	icon	1110
-railway-subway_entrance-brussels	icon	1110
-railway-subway_entrance-bucharest	icon	1110
-railway-subway_entrance-budapest	icon	1110
-railway-subway_entrance-buenos_aires	icon	1110
-railway-subway_entrance-bursa	icon	1110
-railway-subway_entrance-cairo	icon	1110
-railway-subway_entrance-caracas	icon	1110
-railway-subway_entrance-catania	icon	1110
-railway-subway_entrance-changchun	icon	1110
-railway-subway_entrance-chengdu	icon	1110
-railway-subway_entrance-chicago	icon	1110
-railway-subway_entrance-chongqing	icon	1110
-railway-subway_entrance-dalian	icon	1110
-railway-subway_entrance-delhi	icon	1110
-railway-subway_entrance-dnepro	icon	1110
-railway-subway_entrance-dubai	icon	1110
-railway-subway_entrance-ekb	icon	1110
-railway-subway_entrance-fukuoka	icon	1110
-railway-subway_entrance-glasgow	icon	1110
-railway-subway_entrance-guangzhou	icon	1110
-railway-subway_entrance-hamburg	icon	1110
-railway-subway_entrance-helsinki	icon	1110
-railway-subway_entrance-hiroshima	icon	1110
-railway-subway_entrance-isfahan	icon	1110
-railway-subway_entrance-istanbul	icon	1110
-railway-subway_entrance-izmir	icon	1110
-railway-subway_entrance-kazan	icon	1110
-railway-subway_entrance-kharkiv	icon	1110
-railway-subway_entrance-kiev	icon	1110
-railway-subway_entrance-kobe	icon	1110
-railway-subway_entrance-kolkata	icon	1110
-railway-subway_entrance-kunming	icon	1110
-railway-subway_entrance-kyoto	icon	1110
-railway-subway_entrance-la	icon	1110
-railway-subway_entrance-lausanne	icon	1110
-railway-subway_entrance-lille	icon	1110
-railway-subway_entrance-lima	icon	1110
-railway-subway_entrance-lisboa	icon	1110
-railway-subway_entrance-london	icon	1110
-railway-subway_entrance-lyon	icon	1110
-railway-subway_entrance-madrid	icon	1110
-railway-subway_entrance-malaga	icon	1110
-railway-subway_entrance-manila	icon	1110
-railway-subway_entrance-maracaibo	icon	1110
-railway-subway_entrance-mashhad	icon	1110
-railway-subway_entrance-mecca	icon	1110
-railway-subway_entrance-medellin	icon	1110
-railway-subway_entrance-mexico	icon	1110
-railway-subway_entrance-milan	icon	1110
-railway-subway_entrance-minsk	icon	1110
-railway-subway_entrance-montreal	icon	1110
-railway-subway_entrance-munchen	icon	1110
-railway-subway_entrance-nagoya	icon	1110
-railway-subway_entrance-newyork	icon	1110
-railway-subway_entrance-nnov	icon	1110
-railway-subway_entrance-novosibirsk	icon	1110
-railway-subway_entrance-osaka	icon	1110
-railway-subway_entrance-oslo	icon	1110
-railway-subway_entrance-palma	icon	1110
-railway-subway_entrance-panama	icon	1110
-railway-subway_entrance-paris	icon	1110
-railway-subway_entrance-philadelphia	icon	1110
-railway-subway_entrance-pyongyang	icon	1110
-railway-subway_entrance-rennes	icon	1110
-railway-subway_entrance-rio	icon	1110
-railway-subway_entrance-roma	icon	1110
-railway-subway_entrance-rotterdam	icon	1110
-railway-subway_entrance-samara	icon	1110
-railway-subway_entrance-santiago	icon	1110
-railway-subway_entrance-santo_domingo	icon	1110
-railway-subway_entrance-saopaulo	icon	1110
-railway-subway_entrance-sapporo	icon	1110
-railway-subway_entrance-sendai	icon	1110
-railway-subway_entrance-sf	icon	1110
-railway-subway_entrance-shanghai	icon	1110
-railway-subway_entrance-shiraz	icon	1110
-railway-subway_entrance-sofia	icon	1110
-railway-subway_entrance-stockholm	icon	1110
-railway-subway_entrance-tabriz	icon	1110
-railway-subway_entrance-taipei	icon	1110
-railway-subway_entrance-taoyuan	icon	1110
-railway-subway_entrance-tashkent	icon	1110
-railway-subway_entrance-tbilisi	icon	1110
-railway-subway_entrance-tehran	icon	1110
-railway-subway_entrance-tianjin	icon	1110
-railway-subway_entrance-tokyo	icon	1110
-railway-subway_entrance-valencia	icon	1110
-railway-subway_entrance-vienna	icon	1110
-railway-subway_entrance-warszawa	icon	1110
-railway-subway_entrance-washington	icon	1110
-railway-subway_entrance-wuhan	icon	1110
-railway-subway_entrance-yerevan	icon	1110
-railway-subway_entrance-yokohama	icon	1110
-amenity-charging_station	icon	1107
-amenity-charging_station-bicycle	icon	1107
-landuse-allotments	caption	1107
-landuse-cemetery	caption	1107
-landuse-cemetery	icon	1107
-landuse-cemetery-christian	caption	1107
-landuse-cemetery-christian	icon	1107
-landuse-farmland	caption	1107
-landuse-orchard	caption	1107
-landuse-vineyard	caption	1107
-shop-supermarket	icon	1107
-tourism-alpine_hut	icon	1107
-tourism-chalet	icon	1107
-tourism-information-office	icon	1107
-tourism-wilderness_hut	icon	1107
-highway-bus_stop	icon	1105
-amenity-pharmacy	icon	1100
-highway-pedestrian	pathtext	1100
-highway-pedestrian-area	pathtext	1100
-highway-pedestrian-bridge	pathtext	1100
-highway-pedestrian-tunnel	pathtext	1100
-highway-tertiary	pathtext	1100
-highway-tertiary	shield	1100
-highway-tertiary-bridge	pathtext	1100
-highway-tertiary-bridge	shield	1100
-highway-tertiary-tunnel	pathtext	1100
-highway-tertiary-tunnel	shield	1100
-natural-strait	caption	1100
-waterway-river	pathtext	1100
-waterway-riverbank	pathtext	1100
-highway-unclassified	pathtext	1095
-highway-unclassified-area	pathtext	1095
-highway-unclassified-bridge	pathtext	1095
-highway-unclassified-tunnel	pathtext	1095
-amenity-fountain	icon	1093
-amenity-parking	icon	1093
-amenity-parking-fee	icon	1093
-amenity-parking-multi-storey	icon	1093
-amenity-parking-park_and_ride	icon	1093
-highway-raceway	pathtext	1093
-highway-residential	pathtext	1090
-highway-residential	shield	1090
-highway-residential-area	pathtext	1090
-highway-residential-area	shield	1090
-highway-residential-bridge	pathtext	1090
-highway-residential-bridge	shield	1090
-highway-residential-tunnel	pathtext	1090
-highway-residential-tunnel	shield	1090
-highway-road	pathtext	1090
-highway-road-bridge	pathtext	1090
-highway-road-tunnel	pathtext	1090
-highway-secondary_link	pathtext	1090
-highway-secondary_link-bridge	pathtext	1090
-highway-secondary_link-tunnel	pathtext	1090
-highway-cycleway	pathtext	1085
-highway-cycleway-bridge	pathtext	1085
-highway-cycleway-permissive	pathtext	1085
-highway-cycleway-tunnel	pathtext	1085
-highway-footway	pathtext	1085
-highway-footway-area	pathtext	1085
-highway-footway-bridge	pathtext	1085
-highway-footway-tunnel	pathtext	1085
-highway-tertiary_link	pathtext	1085
-highway-tertiary_link-bridge	pathtext	1085
-highway-tertiary_link-tunnel	pathtext	1085
-historic-ship	icon	1080
-natural-water-basin	caption	1080
-natural-water-lock	caption	1080
-waterway-canal	pathtext	1080
-waterway-fish_pass	pathtext	1080
-waterway-stream	pathtext	1080
-waterway-stream-ephemeral	pathtext	1080
-waterway-stream-intermittent	pathtext	1080
-amenity-shelter	icon	1078
-highway-ford	icon	1078
-highway-ford	pathtext	1078
-man_made-survey_point	icon	1078
-tourism-information	icon	1078
-tourism-information-board	icon	1078
-tourism-information-guidepost	icon	1078
-tourism-information-map	icon	1078
-highway-bridleway	pathtext	1075
-highway-bridleway-bridge	pathtext	1075
-highway-bridleway-permissive	pathtext	1075
-highway-bridleway-tunnel	pathtext	1075
-highway-footway-alpine_hiking	pathtext	1075
-highway-footway-demanding_alpine_hiking	pathtext	1075
-highway-footway-demanding_mountain_hiking	pathtext	1075
-highway-footway-difficult_alpine_hiking	pathtext	1075
-highway-footway-hiking	pathtext	1075
-highway-footway-mountain_hiking	pathtext	1075
-highway-footway-permissive	pathtext	1075
-highway-path	pathtext	1075
-highway-path-alpine_hiking	pathtext	1075
-highway-path-bicycle	pathtext	1075
-highway-path-bridge	pathtext	1075
-highway-path-demanding_alpine_hiking	pathtext	1075
-highway-path-demanding_mountain_hiking	pathtext	1075
-highway-path-difficult_alpine_hiking	pathtext	1075
-highway-path-hiking	pathtext	1075
-highway-path-horse	pathtext	1075
-highway-path-mountain_hiking	pathtext	1075
-highway-path-permissive	pathtext	1075
-highway-path-tunnel	pathtext	1075
-highway-service	pathtext	1075
-highway-service-area	pathtext	1075
-highway-service-bridge	pathtext	1075
-highway-service-busway	pathtext	1075
-highway-service-driveway	pathtext	1075
-highway-service-parking_aisle	pathtext	1075
-highway-service-tunnel	pathtext	1075
-highway-steps	pathtext	1075
-highway-steps-bridge	pathtext	1075
-highway-steps-tunnel	pathtext	1075
-highway-track	pathtext	1075
-highway-track-area	pathtext	1075
-highway-track-bridge	pathtext	1075
-highway-track-grade1	pathtext	1075
-highway-track-grade2	pathtext	1075
-highway-track-grade3	pathtext	1075
-highway-track-grade4	pathtext	1075
-highway-track-grade5	pathtext	1075
-highway-track-no-access	pathtext	1075
-highway-track-permissive	pathtext	1075
-highway-track-tunnel	pathtext	1075
-tourism-hotel	icon	1070
-tourism-resort	icon	1070
-tourism-motel	icon	1060
-tourism-hostel	icon	1050
-tourism-apartment	icon	1030
-tourism-guest_house	icon	1030
-amenity-ice_cream	icon	1020
-aeroway-helipad	icon	1010
-amenity-bank	icon	1010
-amenity-marketplace	icon	1010
-amenity-nightclub	icon	1010
-shop-caravan	icon	1010
-highway-construction	pathtext	990
-highway-living_street	pathtext	990
-highway-living_street-bridge	pathtext	990
-highway-living_street-tunnel	pathtext	990
-leisure-picnic_table	icon	990
-shop-antiques	icon	990
-shop-charity	icon	990
-shop-second_hand	icon	990
-tourism-picnic_site	icon	990
-shop-alcohol	icon	980
-shop-art	icon	980
-shop-auction	icon	980
-shop-bakery	icon	980
-shop-beauty	icon	980
-shop-beverages	icon	980
-shop-bicycle	icon	980
-shop-bookmaker	icon	980
-shop-books	icon	980
-shop-butcher	icon	980
-shop-camera	icon	980
-shop-car	icon	980
-shop-car_parts	icon	980
-shop-car_repair	icon	980
-shop-cheese	icon	980
-shop-chemist	icon	980
-shop-chocolate	icon	980
-shop-clothes	icon	980
-shop-collector	icon	980
-shop-computer	icon	980
-shop-confectionery	icon	980
-shop-convenience	icon	980
-shop-copyshop	icon	980
-shop-cosmetics	icon	980
-shop-deli	icon	980
-shop-department_store	icon	980
-shop-doityourself	icon	980
-shop-dry_cleaning	icon	980
-shop-electronics	icon	980
-shop-erotic	icon	980
-shop-fabric	icon	980
-shop-farm	icon	980
-shop-florist	icon	980
-shop-funeral_directors	icon	980
-shop-furniture	icon	980
-shop-garden_centre	icon	980
-shop-gift	icon	980
-shop-greengrocer	icon	980
-shop-grocery	icon	980
-shop-hairdresser	icon	980
-shop-hardware	icon	980
-shop-health_food	icon	980
-shop-houseware	icon	980
-shop-interior_decoration	icon	980
-shop-jewelry	icon	980
-shop-kiosk	icon	980
-shop-kitchen	icon	980
-shop-laundry	icon	980
-shop-mobile_phone	icon	980
-shop-motorcycle	icon	980
-shop-music	icon	980
-shop-musical_instrument	icon	980
-shop-optician	icon	980
-shop-outdoor	icon	980
-shop-pastry	icon	980
-shop-pet	icon	980
-shop-photo	icon	980
-shop-seafood	icon	980
-shop-sewing	icon	980
-shop-shoes	icon	980
-shop-sports	icon	980
-shop-stationery	icon	980
-shop-tattoo	icon	980
-shop-ticket	icon	980
-shop-toys	icon	980
-shop-tyres	icon	980
-shop-video	icon	980
-shop-video_games	icon	980
-shop-wine	icon	980
-amenity-bicycle_parking	icon	970
-amenity-motorcycle_parking	icon	970
-amenity-taxi	icon	970
-amenity-veterinary	icon	970
-barrier-lift_gate	icon	970
-leisure-dog_park	icon	970
-leisure-water_park	icon	970
-man_made-windmill	icon	970
-amenity-conference_centre	icon	960
-amenity-events_venue	icon	960
-amenity-exhibition_centre	icon	960
-historic-boundary_stone	icon	960
-historic-gallows	icon	960
-historic-pillory	icon	960
-historic-tomb	icon	960
-historic-wayside_cross	icon	960
-historic-wayside_shrine	icon	960
-man_made-chimney	icon	960
-highway-busway	pathtext	900
-highway-busway-bridge	pathtext	900
-highway-busway-tunnel	pathtext	900
-waterway-lock_gate	icon	880
-amenity-parking-no-access	icon	870
-amenity-parking-permissive	icon	870
-amenity-parking-private	icon	870
-amenity-parking-underground	icon	870
-leisure-marina	icon	860
-leisure-garden	icon	850
-amenity-college	icon	840
-landuse-military	icon	840
-landuse-military-danger_area	icon	840
-leisure-beach_resort	icon	830
-amenity-college	caption	820
-barrier-block	icon	820
-barrier-bollard	icon	820
-barrier-chain	icon	820
-barrier-entrance	icon	820
-barrier-gate	icon	820
-barrier-kissing_gate	icon	820
-barrier-stile	icon	820
-barrier-swing_gate	icon	820
-barrier-turnstile	icon	820
-man_made-mast	icon	820
-man_made-silo	icon	820
-man_made-storage_tank	icon	820
-man_made-works	icon	820
-power-tower	icon	820
-highway-bus_stop	caption	810
-railway-subway_entrance	caption	810
-railway-subway_entrance-adana	caption	810
-railway-subway_entrance-algiers	caption	810
-railway-subway_entrance-almaty	caption	810
-railway-subway_entrance-amsterdam	caption	810
-railway-subway_entrance-ankara	caption	810
-railway-subway_entrance-athens	caption	810
-railway-subway_entrance-baku	caption	810
-railway-subway_entrance-bangkok	caption	810
-railway-subway_entrance-barcelona	caption	810
-railway-subway_entrance-beijing	caption	810
-railway-subway_entrance-bengalore	caption	810
-railway-subway_entrance-berlin	caption	810
-railway-subway_entrance-bilbao	caption	810
-railway-subway_entrance-brasilia	caption	810
-railway-subway_entrance-brescia	caption	810
-railway-subway_entrance-brussels	caption	810
-railway-subway_entrance-bucharest	caption	810
-railway-subway_entrance-budapest	caption	810
-railway-subway_entrance-buenos_aires	caption	810
-railway-subway_entrance-bursa	caption	810
-railway-subway_entrance-cairo	caption	810
-railway-subway_entrance-caracas	caption	810
-railway-subway_entrance-catania	caption	810
-railway-subway_entrance-changchun	caption	810
-railway-subway_entrance-chengdu	caption	810
-railway-subway_entrance-chicago	caption	810
-railway-subway_entrance-chongqing	caption	810
-railway-subway_entrance-dalian	caption	810
-railway-subway_entrance-delhi	caption	810
-railway-subway_entrance-dnepro	caption	810
-railway-subway_entrance-dubai	caption	810
-railway-subway_entrance-ekb	caption	810
-railway-subway_entrance-fukuoka	caption	810
-railway-subway_entrance-glasgow	caption	810
-railway-subway_entrance-guangzhou	caption	810
-railway-subway_entrance-hamburg	caption	810
-railway-subway_entrance-helsinki	caption	810
-railway-subway_entrance-hiroshima	caption	810
-railway-subway_entrance-isfahan	caption	810
-railway-subway_entrance-istanbul	caption	810
-railway-subway_entrance-izmir	caption	810
-railway-subway_entrance-kazan	caption	810
-railway-subway_entrance-kharkiv	caption	810
-railway-subway_entrance-kiev	caption	810
-railway-subway_entrance-kobe	caption	810
-railway-subway_entrance-kolkata	caption	810
-railway-subway_entrance-kunming	caption	810
-railway-subway_entrance-kyoto	caption	810
-railway-subway_entrance-la	caption	810
-railway-subway_entrance-lausanne	caption	810
-railway-subway_entrance-lille	caption	810
-railway-subway_entrance-lima	caption	810
-railway-subway_entrance-lisboa	caption	810
-railway-subway_entrance-london	caption	810
-railway-subway_entrance-lyon	caption	810
-railway-subway_entrance-madrid	caption	810
-railway-subway_entrance-malaga	caption	810
-railway-subway_entrance-manila	caption	810
-railway-subway_entrance-maracaibo	caption	810
-railway-subway_entrance-mashhad	caption	810
-railway-subway_entrance-mecca	caption	810
-railway-subway_entrance-medellin	caption	810
-railway-subway_entrance-mexico	caption	810
-railway-subway_entrance-milan	caption	810
-railway-subway_entrance-minsk	caption	810
-railway-subway_entrance-montreal	caption	810
-railway-subway_entrance-munchen	caption	810
-railway-subway_entrance-nagoya	caption	810
-railway-subway_entrance-newyork	caption	810
-railway-subway_entrance-nnov	caption	810
-railway-subway_entrance-novosibirsk	caption	810
-railway-subway_entrance-osaka	caption	810
-railway-subway_entrance-oslo	caption	810
-railway-subway_entrance-palma	caption	810
-railway-subway_entrance-panama	caption	810
-railway-subway_entrance-paris	caption	810
-railway-subway_entrance-philadelphia	caption	810
-railway-subway_entrance-pyongyang	caption	810
-railway-subway_entrance-rennes	caption	810
-railway-subway_entrance-rio	caption	810
-railway-subway_entrance-roma	caption	810
-railway-subway_entrance-rotterdam	caption	810
-railway-subway_entrance-samara	caption	810
-railway-subway_entrance-santiago	caption	810
-railway-subway_entrance-santo_domingo	caption	810
-railway-subway_entrance-saopaulo	caption	810
-railway-subway_entrance-sapporo	caption	810
-railway-subway_entrance-sendai	caption	810
-railway-subway_entrance-sf	caption	810
-railway-subway_entrance-shanghai	caption	810
-railway-subway_entrance-shiraz	caption	810
-railway-subway_entrance-sofia	caption	810
-railway-subway_entrance-stockholm	caption	810
-railway-subway_entrance-tabriz	caption	810
-railway-subway_entrance-taipei	caption	810
-railway-subway_entrance-taoyuan	caption	810
-railway-subway_entrance-tashkent	caption	810
-railway-subway_entrance-tbilisi	caption	810
-railway-subway_entrance-tehran	caption	810
-railway-subway_entrance-tianjin	caption	810
-railway-subway_entrance-tokyo	caption	810
-railway-subway_entrance-valencia	caption	810
-railway-subway_entrance-vienna	caption	810
-railway-subway_entrance-warszawa	caption	810
-railway-subway_entrance-washington	caption	810
-railway-subway_entrance-wuhan	caption	810
-railway-subway_entrance-yerevan	caption	810
-railway-subway_entrance-yokohama	caption	810
-amenity-pharmacy	caption	800
-leisure-park-no-access	caption	800
-leisure-park-no-access	icon	800
-leisure-park-private	caption	800
-leisure-park-private	icon	800
-historic-ship	caption	790
-landuse-construction	caption	790
-landuse-farmyard	caption	790
-landuse-industrial	caption	790
-landuse-landfill	caption	790
-landuse-landfill	icon	790
-landuse-quarry	caption	790
-landuse-railway	caption	790
-tourism-hotel	caption	780
-tourism-resort	caption	770
-tourism-motel	caption	760
-tourism-hostel	caption	750
-tourism-alpine_hut	caption	740
-tourism-wilderness_hut	caption	740
-tourism-apartment	caption	730
-tourism-chalet	caption	730
-tourism-guest_house	caption	730
-amenity-ice_cream	caption	720
-aeroway-helipad	caption	710
-amenity-bank	caption	710
-amenity-marketplace	caption	710
-amenity-nightclub	caption	710
-shop-caravan	caption	710
-shop-supermarket	caption	710
-amenity-charging_station	caption	700
-amenity-charging_station-bicycle	caption	700
-amenity-shelter	caption	690
-leisure-picnic_table	caption	690
-shop-antiques	caption	690
-shop-charity	caption	690
-shop-second_hand	caption	690
-tourism-picnic_site	caption	690
-shop-alcohol	caption	680
-shop-art	caption	680
-shop-auction	caption	680
-shop-bakery	caption	680
-shop-beauty	caption	680
-shop-beverages	caption	680
-shop-bicycle	caption	680
-shop-bookmaker	caption	680
-shop-books	caption	680
-shop-butcher	caption	680
-shop-camera	caption	680
-shop-car	caption	680
-shop-car_parts	caption	680
-shop-car_repair	caption	680
-shop-cheese	caption	680
-shop-chemist	caption	680
-shop-chocolate	caption	680
-shop-clothes	caption	680
-shop-collector	caption	680
-shop-computer	caption	680
-shop-confectionery	caption	680
-shop-convenience	caption	680
-shop-copyshop	caption	680
-shop-cosmetics	caption	680
-shop-deli	caption	680
-shop-department_store	caption	680
-shop-doityourself	caption	680
-shop-dry_cleaning	caption	680
-shop-electronics	caption	680
-shop-erotic	caption	680
-shop-fabric	caption	680
-shop-farm	caption	680
-shop-florist	caption	680
-shop-funeral_directors	caption	680
-shop-furniture	caption	680
-shop-garden_centre	caption	680
-shop-gift	caption	680
-shop-greengrocer	caption	680
-shop-grocery	caption	680
-shop-hairdresser	caption	680
-shop-hardware	caption	680
-shop-health_food	caption	680
-shop-houseware	caption	680
-shop-interior_decoration	caption	680
-shop-jewelry	caption	680
-shop-kiosk	caption	680
-shop-kitchen	caption	680
-shop-laundry	caption	680
-shop-mobile_phone	caption	680
-shop-motorcycle	caption	680
-shop-music	caption	680
-shop-musical_instrument	caption	680
-shop-optician	caption	680
-shop-outdoor	caption	680
-shop-pastry	caption	680
-shop-pet	caption	680
-shop-photo	caption	680
-shop-seafood	caption	680
-shop-sewing	caption	680
-shop-shoes	caption	680
-shop-sports	caption	680
-shop-stationery	caption	680
-shop-tattoo	caption	680
-shop-ticket	caption	680
-shop-toys	caption	680
-shop-tyres	caption	680
-shop-video	caption	680
-shop-video_games	caption	680
-shop-wine	caption	680
-amenity-taxi	caption	670
-amenity-veterinary	caption	670
-barrier-lift_gate	caption	670
-leisure-dog_park	caption	670
-leisure-water_park	caption	670
-man_made-windmill	caption	670
-tourism-caravan_site	caption	670
-amenity-conference_centre	caption	660
-amenity-events_venue	caption	660
-amenity-exhibition_centre	caption	660
-historic-boundary_stone	caption	660
-historic-gallows	caption	660
-historic-pillory	caption	660
-historic-tomb	caption	660
-historic-wayside_cross	caption	660
-historic-wayside_shrine	caption	660
-man_made-chimney	caption	660
-tourism-information	caption	660
-tourism-information-board	caption	660
-tourism-information-guidepost	caption	660
-tourism-information-map	caption	660
-tourism-information-office	caption	660
-man_made-survey_point	caption	650
-amenity-fountain	caption	640
-leisure-track	caption	630
-leisure-track-area	caption	630
-building	caption	620
-building-address	caption	620
-building-garage	caption	620
-building-has_parts	caption	620
-building-train_station	caption	620
-railway-platform	caption	610
-amenity-parking	caption	600
-amenity-parking-fee	caption	600
-amenity-parking-multi-storey	caption	600
-amenity-parking-no-access	caption	600
-amenity-parking-park_and_ride	caption	600
-amenity-parking-permissive	caption	600
-amenity-parking-private	caption	600
-amenity-parking-underground	caption	600
-leisure-marina	caption	590
-natural-wetland	caption	590
-natural-wetland-bog	caption	590
-natural-wetland-marsh	caption	590
-leisure-garden	caption	580
-landuse-military	caption	570
-landuse-military-danger_area	caption	570
-leisure-beach_resort	caption	560
-barrier-block	caption	550
-barrier-bollard	caption	550
-barrier-chain	caption	550
-barrier-entrance	caption	550
-barrier-gate	caption	550
-barrier-kissing_gate	caption	550
-barrier-stile	caption	550
-barrier-swing_gate	caption	550
-barrier-turnstile	caption	550
-man_made-silo	caption	550
-man_made-storage_tank	caption	550
-man_made-works	caption	550
-historic-memorial-cross	icon	540
-amenity-cinema	icon	530
-amenity-clinic	icon	530
-amenity-courthouse	icon	530
-amenity-dentist	icon	530
-amenity-doctors	icon	530
-amenity-police	icon	530
-amenity-post_office	icon	530
-amenity-prison	icon	530
-healthcare-alternative	icon	530
-healthcare-audiologist	icon	530
-healthcare-blood_donation	icon	530
-healthcare-laboratory	icon	530
-healthcare-optometrist	icon	530
-healthcare-physiotherapist	icon	530
-healthcare-podiatrist	icon	530
-healthcare-psychotherapist	icon	530
-healthcare-sample_collection	icon	530
-healthcare-speech_therapist	icon	530
-historic-archaeological_site	icon	530
-leisure-bowling_alley	icon	530
-leisure-swimming_pool	icon	530
-leisure-swimming_pool-private	icon	530
-office-diplomatic	icon	530
-office-lawyer	icon	530
-railway-level_crossing	icon	530
-aeroway-gate	icon	520
-amenity-bicycle_rental	icon	520
-amenity-bicycle_repair_station	icon	520
-amenity-bureau_de_change	icon	520
-amenity-car_wash	icon	520
-amenity-money_transfer	icon	520
-shop-pawnbroker	icon	520
-sport-skiing	icon	520
-sport-tennis	icon	520
-sport-american_football	icon	510
-sport-athletics	icon	510
-sport-badminton	icon	510
-sport-baseball	icon	510
-sport-basketball	icon	510
-sport-beachvolleyball	icon	510
-sport-field_hockey	icon	510
-sport-golf	icon	510
-sport-gymnastics	icon	510
-sport-handball	icon	510
-sport-ice_hockey	icon	510
-sport-padel	icon	510
-sport-pelota	icon	510
-sport-skateboard	icon	510
-sport-swimming	icon	510
-sport-table_tennis	icon	510
-sport-volleyball	icon	510
-sport-yoga	icon	510
-sport-10pin	icon	500
-sport-9pin	icon	500
-sport-archery	icon	500
-sport-australian_football	icon	500
-sport-bowls	icon	500
-sport-chess	icon	500
-sport-climbing	icon	500
-sport-cricket	icon	500
-sport-curling	icon	500
-sport-diving	icon	500
-sport-equestrian	icon	500
-sport-futsal	icon	500
-sport-scuba_diving	icon	500
-sport-shooting	icon	500
-shop-massage	icon	490
-shop-money_lender	icon	490
-shop-newsagent	icon	490
-shop-variety_store	icon	490
-sport-multi	icon	490
-sport-soccer	icon	490
-amenity-casino	icon	480
-amenity-childcare	icon	480
-craft-beekeeper	icon	480
-craft-blacksmith	icon	480
-craft-brewery	icon	480
-craft-carpenter	icon	480
-craft-confectionery	icon	480
-craft-electrician	icon	480
-craft-electronics_repair	icon	480
-craft-gardener	icon	480
-craft-metal_construction	icon	480
-craft-painter	icon	480
-craft-photographer	icon	480
-craft-plumber	icon	480
-craft-sawmill	icon	480
-craft-shoemaker	icon	480
-craft-tailor	icon	480
-historic-ruins	icon	480
-leisure-playground	icon	480
-power-station	icon	480
-amenity-parcel_locker	icon	470
-amenity-recycling	icon	470
-amenity-recycling-centre	icon	470
-amenity-recycling-container	icon	470
-amenity-shower	icon	470
-amenity-telephone	icon	470
-amenity-vending_machine	icon	470
-amenity-vending_machine-cigarettes	icon	470
-amenity-vending_machine-coffee	icon	470
-amenity-vending_machine-condoms	icon	470
-amenity-vending_machine-drinks	icon	470
-amenity-vending_machine-excrement_bags	icon	470
-amenity-vending_machine-food	icon	470
-amenity-vending_machine-fuel	icon	470
-amenity-vending_machine-newspapers	icon	470
-amenity-vending_machine-parking_tickets	icon	470
-amenity-vending_machine-public_transport_tickets	icon	470
-amenity-vending_machine-sweets	icon	470
-amenity-waste_transfer_station	icon	470
-emergency-phone	icon	470
-highway-elevator	icon	460
-amenity-grave_yard	icon	450
-amenity-grave_yard-christian	icon	450
-cemetery-grave	icon	450
-leisure-golf_course	icon	440
-isoline-step_10	pathtext	430
-isoline-step_50	pathtext	430
-isoline-zero	pathtext	430
-leisure-pitch	icon	420
-amenity-kindergarten	icon	410
-amenity-school	icon	410
-amenity-arts_centre	icon	400
-amenity-driving_school	icon	400
-amenity-kindergarten	caption	400
-amenity-language_school	icon	400
-amenity-music_school	icon	400
-amenity-nursing_home	icon	400
-amenity-parking_entrance	icon	400
-amenity-parking_entrance-permissive	icon	400
-amenity-parking_entrance-private	icon	400
-amenity-payment_terminal	icon	400
-amenity-school	caption	400
-leisure-fitness_centre	icon	400
-leisure-fitness_station	caption	400
-leisure-fitness_station	icon	400
-leisure-ice_rink	caption	400
-leisure-ice_rink	icon	400
-leisure-pitch	caption	400
-leisure-sauna	icon	400
-leisure-sports_centre	icon	400
-man_made-tower-communication	icon	400
-power-generator	icon	400
-power-generator-gas	icon	400
-power-generator-hydro	icon	400
-power-generator-wind	icon	400
-power-plant	icon	400
-power-plant-coal	icon	400
-power-plant-gas	icon	400
-power-plant-hydro	icon	400
-power-plant-solar	icon	400
-power-plant-wind	icon	400
-historic-memorial-cross	caption	390
-amenity-cinema	caption	380
-amenity-clinic	caption	380
-amenity-courthouse	caption	380
-amenity-dentist	caption	380
-amenity-doctors	caption	380
-amenity-police	caption	380
-amenity-post_office	caption	380
-amenity-prison	caption	380
-healthcare-alternative	caption	380
-healthcare-audiologist	caption	380
-healthcare-blood_donation	caption	380
-healthcare-laboratory	caption	380
-healthcare-optometrist	caption	380
-healthcare-physiotherapist	caption	380
-healthcare-podiatrist	caption	380
-healthcare-psychotherapist	caption	380
-healthcare-sample_collection	caption	380
-healthcare-speech_therapist	caption	380
-historic-archaeological_site	caption	380
-leisure-bowling_alley	caption	380
-leisure-swimming_pool	caption	380
-leisure-swimming_pool-private	caption	380
-office-diplomatic	caption	380
-office-lawyer	caption	380
-aeroway-gate	caption	370
-amenity-bicycle_rental	caption	370
-amenity-bicycle_repair_station	caption	370
-amenity-bureau_de_change	caption	370
-amenity-car_wash	caption	370
-amenity-money_transfer	caption	370
-shop-pawnbroker	caption	370
-sport-skiing	caption	370
-sport-tennis	caption	370
-sport-american_football	caption	360
-sport-athletics	caption	360
-sport-badminton	caption	360
-sport-baseball	caption	360
-sport-basketball	caption	360
-sport-beachvolleyball	caption	360
-sport-field_hockey	caption	360
-sport-golf	caption	360
-sport-gymnastics	caption	360
-sport-handball	caption	360
-sport-ice_hockey	caption	360
-sport-padel	caption	360
-sport-pelota	caption	360
-sport-skateboard	caption	360
-sport-swimming	caption	360
-sport-table_tennis	caption	360
-sport-volleyball	caption	360
-sport-yoga	caption	360
-sport-10pin	caption	350
-sport-9pin	caption	350
-sport-archery	caption	350
-sport-australian_football	caption	350
-sport-bowls	caption	350
-sport-chess	caption	350
-sport-climbing	caption	350
-sport-cricket	caption	350
-sport-curling	caption	350
-sport-diving	caption	350
-sport-equestrian	caption	350
-sport-futsal	caption	350
-sport-scuba_diving	caption	350
-sport-shooting	caption	350
-shop-massage	caption	340
-shop-money_lender	caption	340
-shop-newsagent	caption	340
-shop-variety_store	caption	340
-sport-multi	caption	340
-sport-soccer	caption	340
-amenity-bicycle_parking	caption	330
-amenity-casino	caption	330
-amenity-childcare	caption	330
-craft-beekeeper	caption	330
-craft-blacksmith	caption	330
-craft-brewery	caption	330
-craft-carpenter	caption	330
-craft-confectionery	caption	330
-craft-electrician	caption	330
-craft-electronics_repair	caption	330
-craft-gardener	caption	330
-craft-metal_construction	caption	330
-craft-painter	caption	330
-craft-photographer	caption	330
-craft-plumber	caption	330
-craft-sawmill	caption	330
-craft-shoemaker	caption	330
-craft-tailor	caption	330
-historic-ruins	caption	330
-leisure-playground	caption	330
-power-station	caption	330
-amenity-parcel_locker	caption	320
-amenity-recycling	caption	320
-amenity-recycling-centre	caption	320
-amenity-recycling-container	caption	320
-amenity-shower	caption	320
-amenity-telephone	caption	320
-amenity-vending_machine	caption	320
-amenity-vending_machine-cigarettes	caption	320
-amenity-vending_machine-coffee	caption	320
-amenity-vending_machine-condoms	caption	320
-amenity-vending_machine-drinks	caption	320
-amenity-vending_machine-excrement_bags	caption	320
-amenity-vending_machine-food	caption	320
-amenity-vending_machine-fuel	caption	320
-amenity-vending_machine-newspapers	caption	320
-amenity-vending_machine-parking_tickets	caption	320
-amenity-vending_machine-public_transport_tickets	caption	320
-amenity-vending_machine-sweets	caption	320
-amenity-waste_transfer_station	caption	320
-leisure-fitness_centre	caption	310
-leisure-sauna	caption	310
-leisure-sports_centre	caption	310
-junction	caption	300
-junction-circular	caption	300
-junction-roundabout	caption	300
-amenity-grave_yard	caption	290
-amenity-grave_yard-christian	caption	290
-cemetery-grave	caption	290
-leisure-golf_course	caption	280
-public_transport-platform	caption	270
-man_made-breakwater	caption	260
-man_made-pier	caption	260
-amenity-arts_centre	caption	250
-amenity-driving_school	caption	250
-amenity-language_school	caption	250
-amenity-motorcycle_parking	caption	250
-amenity-music_school	caption	250
-amenity-nursing_home	caption	250
-amenity-parking_entrance	caption	250
-amenity-parking_entrance-permissive	caption	250
-amenity-parking_entrance-private	caption	250
-amenity-payment_terminal	caption	250
-landuse-commercial	caption	250
-landuse-residential	caption	250
-leisure-common	caption	250
-leisure-dance	caption	250
-leisure-landscape_reserve	caption	250
-leisure-recreation_ground	caption	250
-leisure-slipway	caption	250
-historic-memorial-plaque	icon	240
-amenity-atm	icon	230
-amenity-car_rental	icon	230
-amenity-car_sharing	icon	230
-amenity-fire_station	icon	230
-amenity-library	icon	230
-office	icon	230
-office-company	icon	230
-office-estate_agent	icon	230
-office-government	icon	230
-office-insurance	icon	230
-office-ngo	icon	230
-office-telecommunication	icon	230
-shop	icon	220
-shop-agrarian	icon	220
-shop-appliance	icon	220
-shop-baby_goods	icon	220
-shop-bag	icon	220
-shop-bathroom_furnishing	icon	220
-shop-bed	icon	220
-shop-boutique	icon	220
-shop-cannabis	icon	220
-shop-carpet	icon	220
-shop-coffee	icon	220
-shop-craft	icon	220
-shop-curtain	icon	220
-shop-dairy	icon	220
-shop-electrical	icon	220
-shop-fashion_accessories	icon	220
-shop-fishing	icon	220
-shop-gas	icon	220
-shop-herbalist	icon	220
-shop-hifi	icon	220
-shop-lottery	icon	220
-shop-medical_supply	icon	220
-shop-motorcycle_repair	icon	220
-shop-nutrition_supplements	icon	220
-shop-outpost	icon	220
-shop-paint	icon	220
-shop-perfumery	icon	220
-shop-pet_grooming	icon	220
-shop-storage_rental	icon	220
-shop-tea	icon	220
-shop-tobacco	icon	220
-shop-trade	icon	220
-shop-travel_agency	icon	220
-shop-watches	icon	220
-shop-wholesale	icon	220
-amenity-bbq	icon	210
-amenity-toilets	icon	210
-craft-handicraft	icon	210
-craft-hvac	icon	210
-craft-key_cutter	icon	210
-craft-locksmith	icon	210
-craft-winery	icon	210
-amenity-bench	icon	200
-amenity-hunting_stand	icon	200
-amenity-post_box	icon	200
-amenity-waste_basket	icon	190
-amenity-waste_disposal	icon	190
-amenity-loading_dock	icon	170
-entrance-exit	icon	170
-entrance-main	icon	170
-amenity-bbq	caption	160
-amenity-internet_cafe	icon	160
-amenity-parking_space-disabled	icon	160
-emergency-defibrillator	icon	160
-emergency-fire_hydrant	icon	160
-historic-memorial-plaque	caption	150
-amenity-atm	caption	140
-amenity-car_rental	caption	140
-amenity-car_sharing	caption	140
-amenity-fire_station	caption	140
-amenity-library	caption	140
-office	caption	140
-office-company	caption	140
-office-estate_agent	caption	140
-office-government	caption	140
-office-insurance	caption	140
-office-ngo	caption	140
-office-telecommunication	caption	140
-shop	caption	130
-shop-agrarian	caption	130
-shop-appliance	caption	130
-shop-baby_goods	caption	130
-shop-bag	caption	130
-shop-bathroom_furnishing	caption	130
-shop-bed	caption	130
-shop-boutique	caption	130
-shop-cannabis	caption	130
-shop-carpet	caption	130
-shop-coffee	caption	130
-shop-craft	caption	130
-shop-curtain	caption	130
-shop-dairy	caption	130
-shop-electrical	caption	130
-shop-fashion_accessories	caption	130
-shop-fishing	caption	130
-shop-gas	caption	130
-shop-herbalist	caption	130
-shop-hifi	caption	130
-shop-lottery	caption	130
-shop-medical_supply	caption	130
-shop-motorcycle_repair	caption	130
-shop-nutrition_supplements	caption	130
-shop-outpost	caption	130
-shop-paint	caption	130
-shop-perfumery	caption	130
-shop-pet_grooming	caption	130
-shop-storage_rental	caption	130
-shop-tea	caption	130
-shop-tobacco	caption	130
-shop-trade	caption	130
-shop-travel_agency	caption	130
-shop-watches	caption	130
-shop-wholesale	caption	130
-amenity-toilets	caption	120
-craft-handicraft	caption	120
-craft-hvac	caption	120
-craft-key_cutter	caption	120
-craft-locksmith	caption	120
-craft-winery	caption	120
-amenity-bench	caption	110
-amenity-hunting_stand	caption	110
-amenity-post_box	caption	110
-amenity-waste_basket	caption	100
-amenity-waste_disposal	caption	100
-leisure-garden-residential	caption	90
-amenity-loading_dock	caption	80
-entrance-exit	caption	80
-entrance-main	caption	80
-amenity-internet_cafe	caption	70
-amenity-parking_space-disabled	caption	70
-emergency-defibrillator	caption	70
-emergency-fire_hydrant	caption	70
-historic-memorial-stolperstein	icon	60
-power-substation	icon	50
-entrance	icon	40
-historic-memorial-stolperstein	caption	30
-power-substation	caption	20
-entrance	caption	10
+place-continent	caption
+=== 2560
+
+place-ocean	caption
+=== 2550
+
+place-country	caption
+=== 2540
+
+place-city-capital-2	caption
+place-city-capital-2	icon
+=== 2520
+
+place-city-capital-3	caption
+place-city-capital-4	caption
+=== 2500
+
+place-sea	caption
+=== 2495
+
+place-city-capital	caption
+place-city-capital-10	caption
+place-city-capital-11	caption
+place-city-capital-5	caption
+place-city-capital-6	caption
+place-city-capital-7	caption
+place-city-capital-8	caption
+place-city-capital-9	caption
+=== 2490
+
+place-city	caption
+=== 2480
+
+place-state-USA	caption
+=== 2470
+
+place-state	caption
+=== 2460
+
+aeroway-aerodrome-international	icon
+=== 2450
+
+place-island	caption
+=== 2440
+
+place-town	caption
+=== 2430
+
+aeroway-aerodrome-international	caption
+=== 2420
+
+place-suburb	caption
+=== 2320
+
+railway-station-subway-moscow	icon
+railway-station-subway-spb	icon
+=== 2310
+
+aeroway-aerodrome	icon
+isoline-step_1000	pathtext
+=== 2280
+
+railway-station-subway-moscow	caption
+railway-station-subway-spb	caption
+=== 2260
+
+place-village	caption
+=== 2240
+
+railway-station	icon
+=== 2230
+
+amenity-ferry_terminal	icon
+=== 2227
+
+highway-motorway	pathtext
+highway-motorway	shield
+highway-motorway-bridge	pathtext
+highway-motorway-bridge	shield
+highway-motorway-tunnel	pathtext
+highway-motorway-tunnel	shield
+highway-trunk	pathtext
+highway-trunk	shield
+highway-trunk-bridge	pathtext
+highway-trunk-bridge	shield
+highway-trunk-tunnel	pathtext
+highway-trunk-tunnel	shield
+=== 2225
+
+boundary-national_park	caption
+boundary-national_park	icon
+boundary-protected_area	caption
+boundary-protected_area	icon
+boundary-protected_area-1	caption
+boundary-protected_area-1	icon
+boundary-protected_area-2	caption
+boundary-protected_area-2	icon
+boundary-protected_area-3	caption
+boundary-protected_area-3	icon
+boundary-protected_area-4	caption
+boundary-protected_area-4	icon
+boundary-protected_area-5	caption
+boundary-protected_area-5	icon
+boundary-protected_area-6	caption
+boundary-protected_area-6	icon
+leisure-nature_reserve	caption
+leisure-nature_reserve	icon
+=== 2223
+
+landuse-reservoir	caption
+natural-water-lake	caption
+natural-water-reservoir	caption
+railway-station-funicular	icon
+railway-station-light_rail	icon
+railway-station-monorail	icon
+railway-station-subway-adana	icon
+railway-station-subway-algiers	icon
+railway-station-subway-almaty	icon
+railway-station-subway-amsterdam	icon
+railway-station-subway-beijing	icon
+railway-station-subway-berlin	icon
+railway-station-subway-buenos_aires	icon
+railway-station-subway-istanbul	icon
+railway-station-subway-kiev	icon
+railway-station-subway-la	icon
+railway-station-subway-lisboa	icon
+railway-station-subway-london	icon
+railway-station-subway-madrid	icon
+railway-station-subway-mexico	icon
+railway-station-subway-minsk	icon
+railway-station-subway-newyork	icon
+railway-station-subway-paris	icon
+railway-station-subway-roma	icon
+railway-station-subway-sf	icon
+railway-station-subway-shanghai	icon
+railway-station-subway-stockholm	icon
+railway-station-subway-tokyo	icon
+railway-station-subway-vienna	icon
+=== 2220
+
+barrier-toll_booth	icon
+=== 2210
+
+historic-castle	icon
+historic-castle-castrum	icon
+historic-castle-defensive	icon
+historic-castle-fortified_church	icon
+historic-castle-fortress	icon
+historic-castle-hillfort	icon
+historic-castle-kremlin	icon
+historic-castle-manor	icon
+historic-castle-palace	icon
+historic-castle-shiro	icon
+historic-castle-stately	icon
+historic-fort	icon
+=== 2200
+
+aerialway-station	icon
+=== 2190
+
+natural-peak	icon
+natural-volcano	caption
+natural-volcano	icon
+=== 2180
+
+isoline-step_500	pathtext
+natural-water-river	caption
+=== 2160
+
+amenity-bus_station	icon
+railway-station	caption
+railway-station-funicular	caption
+railway-station-light_rail	caption
+railway-station-monorail	caption
+railway-station-subway-adana	caption
+railway-station-subway-algiers	caption
+railway-station-subway-almaty	caption
+railway-station-subway-amsterdam	caption
+railway-station-subway-beijing	caption
+railway-station-subway-berlin	caption
+railway-station-subway-buenos_aires	caption
+railway-station-subway-istanbul	caption
+railway-station-subway-kiev	caption
+railway-station-subway-la	caption
+railway-station-subway-lisboa	caption
+railway-station-subway-london	caption
+railway-station-subway-madrid	caption
+railway-station-subway-mexico	caption
+railway-station-subway-minsk	caption
+railway-station-subway-newyork	caption
+railway-station-subway-paris	caption
+railway-station-subway-roma	caption
+railway-station-subway-sf	caption
+railway-station-subway-shanghai	caption
+railway-station-subway-stockholm	caption
+railway-station-subway-tokyo	caption
+railway-station-subway-vienna	caption
+=== 2140
+
+barrier-toll_booth	caption
+railway-station-subway	icon
+railway-station-subway-ankara	icon
+railway-station-subway-athens	icon
+railway-station-subway-baku	icon
+railway-station-subway-bangkok	icon
+railway-station-subway-barcelona	icon
+railway-station-subway-bengalore	icon
+railway-station-subway-bilbao	icon
+railway-station-subway-brasilia	icon
+railway-station-subway-brescia	icon
+railway-station-subway-brussels	icon
+railway-station-subway-bucharest	icon
+railway-station-subway-budapest	icon
+railway-station-subway-bursa	icon
+railway-station-subway-cairo	icon
+railway-station-subway-caracas	icon
+railway-station-subway-catania	icon
+railway-station-subway-changchun	icon
+railway-station-subway-chengdu	icon
+railway-station-subway-chicago	icon
+railway-station-subway-chongqing	icon
+railway-station-subway-dalian	icon
+railway-station-subway-delhi	icon
+railway-station-subway-dnepro	icon
+railway-station-subway-dubai	icon
+railway-station-subway-ekb	icon
+railway-station-subway-fukuoka	icon
+railway-station-subway-glasgow	icon
+railway-station-subway-guangzhou	icon
+railway-station-subway-hamburg	icon
+railway-station-subway-helsinki	icon
+railway-station-subway-hiroshima	icon
+railway-station-subway-isfahan	icon
+railway-station-subway-izmir	icon
+railway-station-subway-kazan	icon
+railway-station-subway-kharkiv	icon
+railway-station-subway-kobe	icon
+railway-station-subway-kolkata	icon
+railway-station-subway-kunming	icon
+railway-station-subway-kyoto	icon
+railway-station-subway-lausanne	icon
+railway-station-subway-lille	icon
+railway-station-subway-lima	icon
+railway-station-subway-lyon	icon
+railway-station-subway-malaga	icon
+railway-station-subway-manila	icon
+railway-station-subway-maracaibo	icon
+railway-station-subway-mashhad	icon
+railway-station-subway-mecca	icon
+railway-station-subway-medellin	icon
+railway-station-subway-milan	icon
+railway-station-subway-montreal	icon
+railway-station-subway-munchen	icon
+railway-station-subway-nagoya	icon
+railway-station-subway-nnov	icon
+railway-station-subway-novosibirsk	icon
+railway-station-subway-osaka	icon
+railway-station-subway-oslo	icon
+railway-station-subway-palma	icon
+railway-station-subway-panama	icon
+railway-station-subway-philadelphia	icon
+railway-station-subway-pyongyang	icon
+railway-station-subway-rennes	icon
+railway-station-subway-rio	icon
+railway-station-subway-rotterdam	icon
+railway-station-subway-samara	icon
+railway-station-subway-santiago	icon
+railway-station-subway-santo_domingo	icon
+railway-station-subway-saopaulo	icon
+railway-station-subway-sapporo	icon
+railway-station-subway-sendai	icon
+railway-station-subway-shiraz	icon
+railway-station-subway-sofia	icon
+railway-station-subway-tabriz	icon
+railway-station-subway-taipei	icon
+railway-station-subway-taoyuan	icon
+railway-station-subway-tashkent	icon
+railway-station-subway-tbilisi	icon
+railway-station-subway-tehran	icon
+railway-station-subway-tianjin	icon
+railway-station-subway-valencia	icon
+railway-station-subway-warszawa	icon
+railway-station-subway-washington	icon
+railway-station-subway-wuhan	icon
+railway-station-subway-yerevan	icon
+railway-station-subway-yokohama	icon
+=== 2130
+
+historic-castle	caption
+historic-castle-castrum	caption
+historic-castle-defensive	caption
+historic-castle-fortified_church	caption
+historic-castle-fortress	caption
+historic-castle-hillfort	caption
+historic-castle-kremlin	caption
+historic-castle-manor	caption
+historic-castle-palace	caption
+historic-castle-shiro	caption
+historic-castle-stately	caption
+historic-fort	caption
+=== 2120
+
+aerialway-station	caption
+=== 2110
+
+aeroway-aerodrome	caption
+natural-peak	caption
+railway-halt	icon
+=== 2100
+
+amenity-ferry_terminal	caption
+highway-primary	pathtext
+highway-primary	shield
+highway-primary-bridge	pathtext
+highway-primary-bridge	shield
+highway-primary-tunnel	pathtext
+highway-primary-tunnel	shield
+route-ferry	pathtext
+=== 2090
+
+highway-motorway_link	pathtext
+highway-motorway_link	shield
+highway-motorway_link-bridge	pathtext
+highway-motorway_link-bridge	shield
+highway-motorway_link-tunnel	pathtext
+highway-motorway_link-tunnel	shield
+highway-trunk_link	pathtext
+highway-trunk_link	shield
+highway-trunk_link-bridge	pathtext
+highway-trunk_link-bridge	shield
+highway-trunk_link-tunnel	pathtext
+highway-trunk_link-tunnel	shield
+=== 2080
+
+highway-primary_link	pathtext
+highway-primary_link	shield
+highway-primary_link-bridge	pathtext
+highway-primary_link-bridge	shield
+highway-primary_link-tunnel	pathtext
+highway-primary_link-tunnel	shield
+=== 2070
+
+tourism-zoo	icon
+=== 2050
+
+leisure-stadium	icon
+=== 2040
+
+tourism-museum	icon
+=== 2030
+
+historic-monument	icon
+=== 2020
+
+historic-city_gate	icon
+=== 2010
+
+railway-station-subway	caption
+railway-station-subway-ankara	caption
+railway-station-subway-athens	caption
+railway-station-subway-baku	caption
+railway-station-subway-bangkok	caption
+railway-station-subway-barcelona	caption
+railway-station-subway-bengalore	caption
+railway-station-subway-bilbao	caption
+railway-station-subway-brasilia	caption
+railway-station-subway-brescia	caption
+railway-station-subway-brussels	caption
+railway-station-subway-bucharest	caption
+railway-station-subway-budapest	caption
+railway-station-subway-bursa	caption
+railway-station-subway-cairo	caption
+railway-station-subway-caracas	caption
+railway-station-subway-catania	caption
+railway-station-subway-changchun	caption
+railway-station-subway-chengdu	caption
+railway-station-subway-chicago	caption
+railway-station-subway-chongqing	caption
+railway-station-subway-dalian	caption
+railway-station-subway-delhi	caption
+railway-station-subway-dnepro	caption
+railway-station-subway-dubai	caption
+railway-station-subway-ekb	caption
+railway-station-subway-fukuoka	caption
+railway-station-subway-glasgow	caption
+railway-station-subway-guangzhou	caption
+railway-station-subway-hamburg	caption
+railway-station-subway-helsinki	caption
+railway-station-subway-hiroshima	caption
+railway-station-subway-isfahan	caption
+railway-station-subway-izmir	caption
+railway-station-subway-kazan	caption
+railway-station-subway-kharkiv	caption
+railway-station-subway-kobe	caption
+railway-station-subway-kolkata	caption
+railway-station-subway-kunming	caption
+railway-station-subway-kyoto	caption
+railway-station-subway-lausanne	caption
+railway-station-subway-lille	caption
+railway-station-subway-lima	caption
+railway-station-subway-lyon	caption
+railway-station-subway-malaga	caption
+railway-station-subway-manila	caption
+railway-station-subway-maracaibo	caption
+railway-station-subway-mashhad	caption
+railway-station-subway-mecca	caption
+railway-station-subway-medellin	caption
+railway-station-subway-milan	caption
+railway-station-subway-montreal	caption
+railway-station-subway-munchen	caption
+railway-station-subway-nagoya	caption
+railway-station-subway-nnov	caption
+railway-station-subway-novosibirsk	caption
+railway-station-subway-osaka	caption
+railway-station-subway-oslo	caption
+railway-station-subway-palma	caption
+railway-station-subway-panama	caption
+railway-station-subway-philadelphia	caption
+railway-station-subway-pyongyang	caption
+railway-station-subway-rennes	caption
+railway-station-subway-rio	caption
+railway-station-subway-rotterdam	caption
+railway-station-subway-samara	caption
+railway-station-subway-santiago	caption
+railway-station-subway-santo_domingo	caption
+railway-station-subway-saopaulo	caption
+railway-station-subway-sapporo	caption
+railway-station-subway-sendai	caption
+railway-station-subway-shiraz	caption
+railway-station-subway-sofia	caption
+railway-station-subway-tabriz	caption
+railway-station-subway-taipei	caption
+railway-station-subway-taoyuan	caption
+railway-station-subway-tashkent	caption
+railway-station-subway-tbilisi	caption
+railway-station-subway-tehran	caption
+railway-station-subway-tianjin	caption
+railway-station-subway-valencia	caption
+railway-station-subway-warszawa	caption
+railway-station-subway-washington	caption
+railway-station-subway-wuhan	caption
+railway-station-subway-yerevan	caption
+railway-station-subway-yokohama	caption
+=== 1980
+
+amenity-bus_station	caption
+=== 1970
+
+railway-halt	caption
+railway-tram_stop	icon
+waterway-waterfall	caption
+waterway-waterfall	icon
+=== 1960
+
+tourism-zoo	caption
+=== 1950
+
+leisure-stadium	caption
+=== 1940
+
+tourism-museum	caption
+=== 1930
+
+historic-monument	caption
+=== 1920
+
+historic-city_gate	caption
+=== 1910
+
+place-hamlet	caption
+=== 1900
+
+place-locality	caption
+place-neighbourhood	caption
+=== 1890
+
+amenity-charging_station-motorcar	icon
+amenity-fuel	icon
+=== 1880
+
+highway-secondary	pathtext
+highway-secondary	shield
+highway-secondary-bridge	pathtext
+highway-secondary-bridge	shield
+highway-secondary-tunnel	pathtext
+highway-secondary-tunnel	shield
+=== 1875
+
+shop-mall	icon
+=== 1870
+
+place-square	icon
+tourism-theme_park	icon
+=== 1850
+
+amenity-community_centre	icon
+=== 1840
+
+amenity-theatre	icon
+=== 1830
+
+man_made-lighthouse	icon
+=== 1820
+
+highway-services	icon
+=== 1800
+
+mountain_pass	icon
+natural-saddle	icon
+=== 1790
+
+natural-geyser	icon
+natural-hot_spring	icon
+natural-spring	icon
+=== 1780
+
+railway-rail-tourism	pathtext
+railway-rail-tourism-bridge	pathtext
+railway-rail-tourism-tunnel	pathtext
+=== 1770
+
+amenity-hospital	caption
+amenity-hospital	icon
+amenity-university	caption
+amenity-university	icon
+=== 1760
+
+leisure-park	icon
+leisure-park-permissive	icon
+natural-cave_entrance	caption
+natural-cave_entrance	icon
+=== 1740
+
+tourism-attraction	icon
+=== 1737
+
+tourism-viewpoint	icon
+=== 1736
+
+amenity-place_of_worship-buddhist	icon
+amenity-place_of_worship-christian	icon
+amenity-place_of_worship-hindu	icon
+amenity-place_of_worship-jewish	icon
+amenity-place_of_worship-muslim	icon
+amenity-place_of_worship-shinto	icon
+amenity-place_of_worship-taoist	icon
+=== 1735
+
+amenity-place_of_worship	icon
+=== 1734
+
+landuse-forest	caption
+landuse-forest	icon
+landuse-forest-coniferous	caption
+landuse-forest-coniferous	icon
+landuse-forest-deciduous	caption
+landuse-forest-deciduous	icon
+landuse-forest-mixed	caption
+landuse-forest-mixed	icon
+=== 1730
+
+railway-tram_stop	caption
+=== 1700
+
+natural-water	caption
+natural-water-pond	caption
+shop-mall	caption
+=== 1690
+
+tourism-viewpoint	caption
+=== 1680
+
+amenity-place_of_worship	caption
+amenity-place_of_worship-buddhist	caption
+amenity-place_of_worship-christian	caption
+amenity-place_of_worship-hindu	caption
+amenity-place_of_worship-jewish	caption
+amenity-place_of_worship-muslim	caption
+amenity-place_of_worship-shinto	caption
+amenity-place_of_worship-taoist	caption
+place-square	caption
+tourism-attraction	caption
+tourism-theme_park	caption
+=== 1670
+
+amenity-community_centre	caption
+=== 1660
+
+amenity-theatre	caption
+=== 1650
+
+man_made-lighthouse	caption
+=== 1640
+
+amenity-charging_station-motorcar	caption
+amenity-fuel	caption
+=== 1630
+
+highway-services	caption
+=== 1620
+
+mountain_pass	caption
+natural-saddle	caption
+=== 1610
+
+natural-geyser	caption
+natural-hot_spring	caption
+natural-spring	caption
+=== 1600
+
+natural-bare_rock	caption
+=== 1590
+
+landuse-recreation_ground	caption
+leisure-park	caption
+leisure-park-permissive	caption
+=== 1580
+
+natural-desert	caption
+=== 1570
+
+place-islet	caption
+=== 1560
+
+natural-bay	caption
+natural-cape	caption
+place-isolated_dwelling	caption
+=== 1550
+
+railway-subway_entrance-moscow	icon
+=== 1540
+
+waterway-dam	pathtext
+=== 1530
+
+railway-subway_entrance-spb	icon
+=== 1520
+
+tourism-gallery	icon
+=== 1510
+
+historic-battlefield	icon
+historic-memorial	icon
+historic-memorial-sculpture	icon
+historic-memorial-statue	icon
+historic-memorial-war_memorial	icon
+tourism-artwork	icon
+tourism-artwork-architecture	icon
+tourism-artwork-painting	icon
+tourism-artwork-sculpture	icon
+tourism-artwork-statue	icon
+=== 1500
+
+tourism-attraction-animal	caption
+tourism-attraction-animal	icon
+tourism-attraction-specified	caption
+tourism-attraction-specified	icon
+=== 1495
+
+amenity-cafe	icon
+=== 1490
+
+amenity-restaurant	icon
+=== 1480
+
+amenity-fast_food	icon
+amenity-food_court	icon
+=== 1470
+
+amenity-bar	icon
+=== 1460
+
+amenity-biergarten	icon
+amenity-pub	icon
+=== 1450
+
+barrier-border_control	icon
+=== 1440
+
+aerialway-cable_car	pathtext
+aerialway-chair_lift	pathtext
+aerialway-drag_lift	pathtext
+aerialway-gondola	pathtext
+aerialway-j-bar	pathtext
+aerialway-magic_carpet	pathtext
+aerialway-mixed_lift	pathtext
+aerialway-platter	pathtext
+aerialway-rope_tow	pathtext
+aerialway-t-bar	pathtext
+shop-car_repair-tyres	icon
+=== 1430
+
+highway-rest_area	icon
+tourism-camp_site	icon
+tourism-caravan_site	icon
+=== 1420
+
+amenity-sanitary_dump_station	icon
+=== 1410
+
+amenity-drinking_water	icon
+amenity-water_point	icon
+man_made-water_tap	icon
+man_made-water_well	icon
+=== 1400
+
+waterway-weir	pathtext
+=== 1390
+
+isoline-step_100	pathtext
+=== 1340
+
+man_made-flagpole	icon
+natural-rock	icon
+=== 1330
+
+railway-subway_entrance-moscow	caption
+=== 1320
+
+railway-subway_entrance-spb	caption
+=== 1310
+
+tourism-gallery	caption
+=== 1300
+
+historic-battlefield	caption
+historic-memorial	caption
+historic-memorial-sculpture	caption
+historic-memorial-statue	caption
+historic-memorial-war_memorial	caption
+tourism-artwork	caption
+tourism-artwork-architecture	caption
+tourism-artwork-painting	caption
+tourism-artwork-sculpture	caption
+tourism-artwork-statue	caption
+=== 1290
+
+amenity-cafe	caption
+=== 1280
+
+amenity-restaurant	caption
+=== 1270
+
+amenity-fast_food	caption
+amenity-food_court	caption
+=== 1260
+
+amenity-bar	caption
+=== 1250
+
+amenity-biergarten	caption
+amenity-pub	caption
+=== 1240
+
+barrier-border_control	caption
+=== 1230
+
+shop-car_repair-tyres	caption
+=== 1220
+
+highway-rest_area	caption
+tourism-camp_site	caption
+=== 1210
+
+amenity-sanitary_dump_station	caption
+=== 1200
+
+amenity-drinking_water	caption
+amenity-water_point	caption
+=== 1190
+
+highway-motorway_junction	caption
+=== 1180
+
+aeroway-terminal	caption
+=== 1160
+
+area:highway-footway	caption
+area:highway-pedestrian	caption
+=== 1150
+
+natural-beach	caption
+natural-beach-gravel	caption
+natural-beach-sand	caption
+=== 1120
+
+place-farm	caption
+railway-subway_entrance	icon
+railway-subway_entrance-adana	icon
+railway-subway_entrance-algiers	icon
+railway-subway_entrance-almaty	icon
+railway-subway_entrance-amsterdam	icon
+railway-subway_entrance-ankara	icon
+railway-subway_entrance-athens	icon
+railway-subway_entrance-baku	icon
+railway-subway_entrance-bangkok	icon
+railway-subway_entrance-barcelona	icon
+railway-subway_entrance-beijing	icon
+railway-subway_entrance-bengalore	icon
+railway-subway_entrance-berlin	icon
+railway-subway_entrance-bilbao	icon
+railway-subway_entrance-brasilia	icon
+railway-subway_entrance-brescia	icon
+railway-subway_entrance-brussels	icon
+railway-subway_entrance-bucharest	icon
+railway-subway_entrance-budapest	icon
+railway-subway_entrance-buenos_aires	icon
+railway-subway_entrance-bursa	icon
+railway-subway_entrance-cairo	icon
+railway-subway_entrance-caracas	icon
+railway-subway_entrance-catania	icon
+railway-subway_entrance-changchun	icon
+railway-subway_entrance-chengdu	icon
+railway-subway_entrance-chicago	icon
+railway-subway_entrance-chongqing	icon
+railway-subway_entrance-dalian	icon
+railway-subway_entrance-delhi	icon
+railway-subway_entrance-dnepro	icon
+railway-subway_entrance-dubai	icon
+railway-subway_entrance-ekb	icon
+railway-subway_entrance-fukuoka	icon
+railway-subway_entrance-glasgow	icon
+railway-subway_entrance-guangzhou	icon
+railway-subway_entrance-hamburg	icon
+railway-subway_entrance-helsinki	icon
+railway-subway_entrance-hiroshima	icon
+railway-subway_entrance-isfahan	icon
+railway-subway_entrance-istanbul	icon
+railway-subway_entrance-izmir	icon
+railway-subway_entrance-kazan	icon
+railway-subway_entrance-kharkiv	icon
+railway-subway_entrance-kiev	icon
+railway-subway_entrance-kobe	icon
+railway-subway_entrance-kolkata	icon
+railway-subway_entrance-kunming	icon
+railway-subway_entrance-kyoto	icon
+railway-subway_entrance-la	icon
+railway-subway_entrance-lausanne	icon
+railway-subway_entrance-lille	icon
+railway-subway_entrance-lima	icon
+railway-subway_entrance-lisboa	icon
+railway-subway_entrance-london	icon
+railway-subway_entrance-lyon	icon
+railway-subway_entrance-madrid	icon
+railway-subway_entrance-malaga	icon
+railway-subway_entrance-manila	icon
+railway-subway_entrance-maracaibo	icon
+railway-subway_entrance-mashhad	icon
+railway-subway_entrance-mecca	icon
+railway-subway_entrance-medellin	icon
+railway-subway_entrance-mexico	icon
+railway-subway_entrance-milan	icon
+railway-subway_entrance-minsk	icon
+railway-subway_entrance-montreal	icon
+railway-subway_entrance-munchen	icon
+railway-subway_entrance-nagoya	icon
+railway-subway_entrance-newyork	icon
+railway-subway_entrance-nnov	icon
+railway-subway_entrance-novosibirsk	icon
+railway-subway_entrance-osaka	icon
+railway-subway_entrance-oslo	icon
+railway-subway_entrance-palma	icon
+railway-subway_entrance-panama	icon
+railway-subway_entrance-paris	icon
+railway-subway_entrance-philadelphia	icon
+railway-subway_entrance-pyongyang	icon
+railway-subway_entrance-rennes	icon
+railway-subway_entrance-rio	icon
+railway-subway_entrance-roma	icon
+railway-subway_entrance-rotterdam	icon
+railway-subway_entrance-samara	icon
+railway-subway_entrance-santiago	icon
+railway-subway_entrance-santo_domingo	icon
+railway-subway_entrance-saopaulo	icon
+railway-subway_entrance-sapporo	icon
+railway-subway_entrance-sendai	icon
+railway-subway_entrance-sf	icon
+railway-subway_entrance-shanghai	icon
+railway-subway_entrance-shiraz	icon
+railway-subway_entrance-sofia	icon
+railway-subway_entrance-stockholm	icon
+railway-subway_entrance-tabriz	icon
+railway-subway_entrance-taipei	icon
+railway-subway_entrance-taoyuan	icon
+railway-subway_entrance-tashkent	icon
+railway-subway_entrance-tbilisi	icon
+railway-subway_entrance-tehran	icon
+railway-subway_entrance-tianjin	icon
+railway-subway_entrance-tokyo	icon
+railway-subway_entrance-valencia	icon
+railway-subway_entrance-vienna	icon
+railway-subway_entrance-warszawa	icon
+railway-subway_entrance-washington	icon
+railway-subway_entrance-wuhan	icon
+railway-subway_entrance-yerevan	icon
+railway-subway_entrance-yokohama	icon
+=== 1110
+
+amenity-charging_station	icon
+amenity-charging_station-bicycle	icon
+landuse-allotments	caption
+landuse-cemetery	caption
+landuse-cemetery	icon
+landuse-cemetery-christian	caption
+landuse-cemetery-christian	icon
+landuse-farmland	caption
+landuse-orchard	caption
+landuse-vineyard	caption
+shop-supermarket	icon
+tourism-alpine_hut	icon
+tourism-chalet	icon
+tourism-information-office	icon
+tourism-wilderness_hut	icon
+=== 1107
+
+highway-bus_stop	icon
+=== 1105
+
+amenity-pharmacy	icon
+highway-pedestrian	pathtext
+highway-pedestrian-area	pathtext
+highway-pedestrian-bridge	pathtext
+highway-pedestrian-tunnel	pathtext
+highway-tertiary	pathtext
+highway-tertiary	shield
+highway-tertiary-bridge	pathtext
+highway-tertiary-bridge	shield
+highway-tertiary-tunnel	pathtext
+highway-tertiary-tunnel	shield
+natural-strait	caption
+waterway-river	pathtext
+waterway-riverbank	pathtext
+=== 1100
+
+highway-unclassified	pathtext
+highway-unclassified-area	pathtext
+highway-unclassified-bridge	pathtext
+highway-unclassified-tunnel	pathtext
+=== 1095
+
+amenity-fountain	icon
+amenity-parking	icon
+amenity-parking-fee	icon
+amenity-parking-multi-storey	icon
+amenity-parking-park_and_ride	icon
+highway-raceway	pathtext
+=== 1093
+
+highway-residential	pathtext
+highway-residential	shield
+highway-residential-area	pathtext
+highway-residential-area	shield
+highway-residential-bridge	pathtext
+highway-residential-bridge	shield
+highway-residential-tunnel	pathtext
+highway-residential-tunnel	shield
+highway-road	pathtext
+highway-road-bridge	pathtext
+highway-road-tunnel	pathtext
+highway-secondary_link	pathtext
+highway-secondary_link-bridge	pathtext
+highway-secondary_link-tunnel	pathtext
+=== 1090
+
+highway-cycleway	pathtext
+highway-cycleway-bridge	pathtext
+highway-cycleway-permissive	pathtext
+highway-cycleway-tunnel	pathtext
+highway-footway	pathtext
+highway-footway-area	pathtext
+highway-footway-bridge	pathtext
+highway-footway-tunnel	pathtext
+highway-tertiary_link	pathtext
+highway-tertiary_link-bridge	pathtext
+highway-tertiary_link-tunnel	pathtext
+=== 1085
+
+historic-ship	icon
+natural-water-basin	caption
+natural-water-lock	caption
+waterway-canal	pathtext
+waterway-fish_pass	pathtext
+waterway-stream	pathtext
+waterway-stream-ephemeral	pathtext
+waterway-stream-intermittent	pathtext
+=== 1080
+
+amenity-shelter	icon
+highway-ford	icon
+highway-ford	pathtext
+man_made-survey_point	icon
+tourism-information	icon
+tourism-information-board	icon
+tourism-information-guidepost	icon
+tourism-information-map	icon
+=== 1078
+
+highway-bridleway	pathtext
+highway-bridleway-bridge	pathtext
+highway-bridleway-permissive	pathtext
+highway-bridleway-tunnel	pathtext
+highway-footway-alpine_hiking	pathtext
+highway-footway-demanding_alpine_hiking	pathtext
+highway-footway-demanding_mountain_hiking	pathtext
+highway-footway-difficult_alpine_hiking	pathtext
+highway-footway-hiking	pathtext
+highway-footway-mountain_hiking	pathtext
+highway-footway-permissive	pathtext
+highway-path	pathtext
+highway-path-alpine_hiking	pathtext
+highway-path-bicycle	pathtext
+highway-path-bridge	pathtext
+highway-path-demanding_alpine_hiking	pathtext
+highway-path-demanding_mountain_hiking	pathtext
+highway-path-difficult_alpine_hiking	pathtext
+highway-path-hiking	pathtext
+highway-path-horse	pathtext
+highway-path-mountain_hiking	pathtext
+highway-path-permissive	pathtext
+highway-path-tunnel	pathtext
+highway-service	pathtext
+highway-service-area	pathtext
+highway-service-bridge	pathtext
+highway-service-busway	pathtext
+highway-service-driveway	pathtext
+highway-service-parking_aisle	pathtext
+highway-service-tunnel	pathtext
+highway-steps	pathtext
+highway-steps-bridge	pathtext
+highway-steps-tunnel	pathtext
+highway-track	pathtext
+highway-track-area	pathtext
+highway-track-bridge	pathtext
+highway-track-grade1	pathtext
+highway-track-grade2	pathtext
+highway-track-grade3	pathtext
+highway-track-grade4	pathtext
+highway-track-grade5	pathtext
+highway-track-no-access	pathtext
+highway-track-permissive	pathtext
+highway-track-tunnel	pathtext
+=== 1075
+
+tourism-hotel	icon
+tourism-resort	icon
+=== 1070
+
+tourism-motel	icon
+=== 1060
+
+tourism-hostel	icon
+=== 1050
+
+tourism-apartment	icon
+tourism-guest_house	icon
+=== 1030
+
+amenity-ice_cream	icon
+=== 1020
+
+aeroway-helipad	icon
+amenity-bank	icon
+amenity-marketplace	icon
+amenity-nightclub	icon
+shop-caravan	icon
+=== 1010
+
+highway-construction	pathtext
+highway-living_street	pathtext
+highway-living_street-bridge	pathtext
+highway-living_street-tunnel	pathtext
+leisure-picnic_table	icon
+shop-antiques	icon
+shop-charity	icon
+shop-second_hand	icon
+tourism-picnic_site	icon
+=== 990
+
+shop-alcohol	icon
+shop-art	icon
+shop-auction	icon
+shop-bakery	icon
+shop-beauty	icon
+shop-beverages	icon
+shop-bicycle	icon
+shop-bookmaker	icon
+shop-books	icon
+shop-butcher	icon
+shop-camera	icon
+shop-car	icon
+shop-car_parts	icon
+shop-car_repair	icon
+shop-cheese	icon
+shop-chemist	icon
+shop-chocolate	icon
+shop-clothes	icon
+shop-collector	icon
+shop-computer	icon
+shop-confectionery	icon
+shop-convenience	icon
+shop-copyshop	icon
+shop-cosmetics	icon
+shop-deli	icon
+shop-department_store	icon
+shop-doityourself	icon
+shop-dry_cleaning	icon
+shop-electronics	icon
+shop-erotic	icon
+shop-fabric	icon
+shop-farm	icon
+shop-florist	icon
+shop-funeral_directors	icon
+shop-furniture	icon
+shop-garden_centre	icon
+shop-gift	icon
+shop-greengrocer	icon
+shop-grocery	icon
+shop-hairdresser	icon
+shop-hardware	icon
+shop-health_food	icon
+shop-houseware	icon
+shop-interior_decoration	icon
+shop-jewelry	icon
+shop-kiosk	icon
+shop-kitchen	icon
+shop-laundry	icon
+shop-mobile_phone	icon
+shop-motorcycle	icon
+shop-music	icon
+shop-musical_instrument	icon
+shop-optician	icon
+shop-outdoor	icon
+shop-pastry	icon
+shop-pet	icon
+shop-photo	icon
+shop-seafood	icon
+shop-sewing	icon
+shop-shoes	icon
+shop-sports	icon
+shop-stationery	icon
+shop-tattoo	icon
+shop-ticket	icon
+shop-toys	icon
+shop-tyres	icon
+shop-video	icon
+shop-video_games	icon
+shop-wine	icon
+=== 980
+
+amenity-bicycle_parking	icon
+amenity-motorcycle_parking	icon
+amenity-taxi	icon
+amenity-veterinary	icon
+barrier-lift_gate	icon
+leisure-dog_park	icon
+leisure-water_park	icon
+man_made-windmill	icon
+=== 970
+
+amenity-conference_centre	icon
+amenity-events_venue	icon
+amenity-exhibition_centre	icon
+historic-boundary_stone	icon
+historic-gallows	icon
+historic-pillory	icon
+historic-tomb	icon
+historic-wayside_cross	icon
+historic-wayside_shrine	icon
+man_made-chimney	icon
+=== 960
+
+highway-busway	pathtext
+highway-busway-bridge	pathtext
+highway-busway-tunnel	pathtext
+=== 900
+
+waterway-lock_gate	icon
+=== 880
+
+amenity-parking-no-access	icon
+amenity-parking-permissive	icon
+amenity-parking-private	icon
+amenity-parking-underground	icon
+=== 870
+
+leisure-marina	icon
+=== 860
+
+leisure-garden	icon
+=== 850
+
+amenity-college	icon
+landuse-military	icon
+landuse-military-danger_area	icon
+=== 840
+
+leisure-beach_resort	icon
+=== 830
+
+amenity-college	caption
+barrier-block	icon
+barrier-bollard	icon
+barrier-chain	icon
+barrier-entrance	icon
+barrier-gate	icon
+barrier-kissing_gate	icon
+barrier-stile	icon
+barrier-swing_gate	icon
+barrier-turnstile	icon
+man_made-mast	icon
+man_made-silo	icon
+man_made-storage_tank	icon
+man_made-works	icon
+power-tower	icon
+=== 820
+
+highway-bus_stop	caption
+railway-subway_entrance	caption
+railway-subway_entrance-adana	caption
+railway-subway_entrance-algiers	caption
+railway-subway_entrance-almaty	caption
+railway-subway_entrance-amsterdam	caption
+railway-subway_entrance-ankara	caption
+railway-subway_entrance-athens	caption
+railway-subway_entrance-baku	caption
+railway-subway_entrance-bangkok	caption
+railway-subway_entrance-barcelona	caption
+railway-subway_entrance-beijing	caption
+railway-subway_entrance-bengalore	caption
+railway-subway_entrance-berlin	caption
+railway-subway_entrance-bilbao	caption
+railway-subway_entrance-brasilia	caption
+railway-subway_entrance-brescia	caption
+railway-subway_entrance-brussels	caption
+railway-subway_entrance-bucharest	caption
+railway-subway_entrance-budapest	caption
+railway-subway_entrance-buenos_aires	caption
+railway-subway_entrance-bursa	caption
+railway-subway_entrance-cairo	caption
+railway-subway_entrance-caracas	caption
+railway-subway_entrance-catania	caption
+railway-subway_entrance-changchun	caption
+railway-subway_entrance-chengdu	caption
+railway-subway_entrance-chicago	caption
+railway-subway_entrance-chongqing	caption
+railway-subway_entrance-dalian	caption
+railway-subway_entrance-delhi	caption
+railway-subway_entrance-dnepro	caption
+railway-subway_entrance-dubai	caption
+railway-subway_entrance-ekb	caption
+railway-subway_entrance-fukuoka	caption
+railway-subway_entrance-glasgow	caption
+railway-subway_entrance-guangzhou	caption
+railway-subway_entrance-hamburg	caption
+railway-subway_entrance-helsinki	caption
+railway-subway_entrance-hiroshima	caption
+railway-subway_entrance-isfahan	caption
+railway-subway_entrance-istanbul	caption
+railway-subway_entrance-izmir	caption
+railway-subway_entrance-kazan	caption
+railway-subway_entrance-kharkiv	caption
+railway-subway_entrance-kiev	caption
+railway-subway_entrance-kobe	caption
+railway-subway_entrance-kolkata	caption
+railway-subway_entrance-kunming	caption
+railway-subway_entrance-kyoto	caption
+railway-subway_entrance-la	caption
+railway-subway_entrance-lausanne	caption
+railway-subway_entrance-lille	caption
+railway-subway_entrance-lima	caption
+railway-subway_entrance-lisboa	caption
+railway-subway_entrance-london	caption
+railway-subway_entrance-lyon	caption
+railway-subway_entrance-madrid	caption
+railway-subway_entrance-malaga	caption
+railway-subway_entrance-manila	caption
+railway-subway_entrance-maracaibo	caption
+railway-subway_entrance-mashhad	caption
+railway-subway_entrance-mecca	caption
+railway-subway_entrance-medellin	caption
+railway-subway_entrance-mexico	caption
+railway-subway_entrance-milan	caption
+railway-subway_entrance-minsk	caption
+railway-subway_entrance-montreal	caption
+railway-subway_entrance-munchen	caption
+railway-subway_entrance-nagoya	caption
+railway-subway_entrance-newyork	caption
+railway-subway_entrance-nnov	caption
+railway-subway_entrance-novosibirsk	caption
+railway-subway_entrance-osaka	caption
+railway-subway_entrance-oslo	caption
+railway-subway_entrance-palma	caption
+railway-subway_entrance-panama	caption
+railway-subway_entrance-paris	caption
+railway-subway_entrance-philadelphia	caption
+railway-subway_entrance-pyongyang	caption
+railway-subway_entrance-rennes	caption
+railway-subway_entrance-rio	caption
+railway-subway_entrance-roma	caption
+railway-subway_entrance-rotterdam	caption
+railway-subway_entrance-samara	caption
+railway-subway_entrance-santiago	caption
+railway-subway_entrance-santo_domingo	caption
+railway-subway_entrance-saopaulo	caption
+railway-subway_entrance-sapporo	caption
+railway-subway_entrance-sendai	caption
+railway-subway_entrance-sf	caption
+railway-subway_entrance-shanghai	caption
+railway-subway_entrance-shiraz	caption
+railway-subway_entrance-sofia	caption
+railway-subway_entrance-stockholm	caption
+railway-subway_entrance-tabriz	caption
+railway-subway_entrance-taipei	caption
+railway-subway_entrance-taoyuan	caption
+railway-subway_entrance-tashkent	caption
+railway-subway_entrance-tbilisi	caption
+railway-subway_entrance-tehran	caption
+railway-subway_entrance-tianjin	caption
+railway-subway_entrance-tokyo	caption
+railway-subway_entrance-valencia	caption
+railway-subway_entrance-vienna	caption
+railway-subway_entrance-warszawa	caption
+railway-subway_entrance-washington	caption
+railway-subway_entrance-wuhan	caption
+railway-subway_entrance-yerevan	caption
+railway-subway_entrance-yokohama	caption
+=== 810
+
+amenity-pharmacy	caption
+leisure-park-no-access	caption
+leisure-park-no-access	icon
+leisure-park-private	caption
+leisure-park-private	icon
+=== 800
+
+historic-ship	caption
+landuse-construction	caption
+landuse-farmyard	caption
+landuse-industrial	caption
+landuse-landfill	caption
+landuse-landfill	icon
+landuse-quarry	caption
+landuse-railway	caption
+=== 790
+
+tourism-hotel	caption
+=== 780
+
+tourism-resort	caption
+=== 770
+
+tourism-motel	caption
+=== 760
+
+tourism-hostel	caption
+=== 750
+
+tourism-alpine_hut	caption
+tourism-wilderness_hut	caption
+=== 740
+
+tourism-apartment	caption
+tourism-chalet	caption
+tourism-guest_house	caption
+=== 730
+
+amenity-ice_cream	caption
+=== 720
+
+aeroway-helipad	caption
+amenity-bank	caption
+amenity-marketplace	caption
+amenity-nightclub	caption
+shop-caravan	caption
+shop-supermarket	caption
+=== 710
+
+amenity-charging_station	caption
+amenity-charging_station-bicycle	caption
+=== 700
+
+amenity-shelter	caption
+leisure-picnic_table	caption
+shop-antiques	caption
+shop-charity	caption
+shop-second_hand	caption
+tourism-picnic_site	caption
+=== 690
+
+shop-alcohol	caption
+shop-art	caption
+shop-auction	caption
+shop-bakery	caption
+shop-beauty	caption
+shop-beverages	caption
+shop-bicycle	caption
+shop-bookmaker	caption
+shop-books	caption
+shop-butcher	caption
+shop-camera	caption
+shop-car	caption
+shop-car_parts	caption
+shop-car_repair	caption
+shop-cheese	caption
+shop-chemist	caption
+shop-chocolate	caption
+shop-clothes	caption
+shop-collector	caption
+shop-computer	caption
+shop-confectionery	caption
+shop-convenience	caption
+shop-copyshop	caption
+shop-cosmetics	caption
+shop-deli	caption
+shop-department_store	caption
+shop-doityourself	caption
+shop-dry_cleaning	caption
+shop-electronics	caption
+shop-erotic	caption
+shop-fabric	caption
+shop-farm	caption
+shop-florist	caption
+shop-funeral_directors	caption
+shop-furniture	caption
+shop-garden_centre	caption
+shop-gift	caption
+shop-greengrocer	caption
+shop-grocery	caption
+shop-hairdresser	caption
+shop-hardware	caption
+shop-health_food	caption
+shop-houseware	caption
+shop-interior_decoration	caption
+shop-jewelry	caption
+shop-kiosk	caption
+shop-kitchen	caption
+shop-laundry	caption
+shop-mobile_phone	caption
+shop-motorcycle	caption
+shop-music	caption
+shop-musical_instrument	caption
+shop-optician	caption
+shop-outdoor	caption
+shop-pastry	caption
+shop-pet	caption
+shop-photo	caption
+shop-seafood	caption
+shop-sewing	caption
+shop-shoes	caption
+shop-sports	caption
+shop-stationery	caption
+shop-tattoo	caption
+shop-ticket	caption
+shop-toys	caption
+shop-tyres	caption
+shop-video	caption
+shop-video_games	caption
+shop-wine	caption
+=== 680
+
+amenity-taxi	caption
+amenity-veterinary	caption
+barrier-lift_gate	caption
+leisure-dog_park	caption
+leisure-water_park	caption
+man_made-windmill	caption
+tourism-caravan_site	caption
+=== 670
+
+amenity-conference_centre	caption
+amenity-events_venue	caption
+amenity-exhibition_centre	caption
+historic-boundary_stone	caption
+historic-gallows	caption
+historic-pillory	caption
+historic-tomb	caption
+historic-wayside_cross	caption
+historic-wayside_shrine	caption
+man_made-chimney	caption
+tourism-information	caption
+tourism-information-board	caption
+tourism-information-guidepost	caption
+tourism-information-map	caption
+tourism-information-office	caption
+=== 660
+
+man_made-survey_point	caption
+=== 650
+
+amenity-fountain	caption
+=== 640
+
+leisure-track	caption
+leisure-track-area	caption
+=== 630
+
+building	caption
+building-address	caption
+building-garage	caption
+building-has_parts	caption
+building-train_station	caption
+=== 620
+
+railway-platform	caption
+=== 610
+
+amenity-parking	caption
+amenity-parking-fee	caption
+amenity-parking-multi-storey	caption
+amenity-parking-no-access	caption
+amenity-parking-park_and_ride	caption
+amenity-parking-permissive	caption
+amenity-parking-private	caption
+amenity-parking-underground	caption
+=== 600
+
+leisure-marina	caption
+natural-wetland	caption
+natural-wetland-bog	caption
+natural-wetland-marsh	caption
+=== 590
+
+leisure-garden	caption
+=== 580
+
+landuse-military	caption
+landuse-military-danger_area	caption
+=== 570
+
+leisure-beach_resort	caption
+=== 560
+
+barrier-block	caption
+barrier-bollard	caption
+barrier-chain	caption
+barrier-entrance	caption
+barrier-gate	caption
+barrier-kissing_gate	caption
+barrier-stile	caption
+barrier-swing_gate	caption
+barrier-turnstile	caption
+man_made-silo	caption
+man_made-storage_tank	caption
+man_made-works	caption
+=== 550
+
+historic-memorial-cross	icon
+=== 540
+
+amenity-cinema	icon
+amenity-clinic	icon
+amenity-courthouse	icon
+amenity-dentist	icon
+amenity-doctors	icon
+amenity-police	icon
+amenity-post_office	icon
+amenity-prison	icon
+healthcare-alternative	icon
+healthcare-audiologist	icon
+healthcare-blood_donation	icon
+healthcare-laboratory	icon
+healthcare-optometrist	icon
+healthcare-physiotherapist	icon
+healthcare-podiatrist	icon
+healthcare-psychotherapist	icon
+healthcare-sample_collection	icon
+healthcare-speech_therapist	icon
+historic-archaeological_site	icon
+leisure-bowling_alley	icon
+leisure-swimming_pool	icon
+leisure-swimming_pool-private	icon
+office-diplomatic	icon
+office-lawyer	icon
+railway-level_crossing	icon
+=== 530
+
+aeroway-gate	icon
+amenity-bicycle_rental	icon
+amenity-bicycle_repair_station	icon
+amenity-bureau_de_change	icon
+amenity-car_wash	icon
+amenity-money_transfer	icon
+shop-pawnbroker	icon
+sport-skiing	icon
+sport-tennis	icon
+=== 520
+
+sport-american_football	icon
+sport-athletics	icon
+sport-badminton	icon
+sport-baseball	icon
+sport-basketball	icon
+sport-beachvolleyball	icon
+sport-field_hockey	icon
+sport-golf	icon
+sport-gymnastics	icon
+sport-handball	icon
+sport-ice_hockey	icon
+sport-padel	icon
+sport-pelota	icon
+sport-skateboard	icon
+sport-swimming	icon
+sport-table_tennis	icon
+sport-volleyball	icon
+sport-yoga	icon
+=== 510
+
+sport-10pin	icon
+sport-9pin	icon
+sport-archery	icon
+sport-australian_football	icon
+sport-bowls	icon
+sport-chess	icon
+sport-climbing	icon
+sport-cricket	icon
+sport-curling	icon
+sport-diving	icon
+sport-equestrian	icon
+sport-futsal	icon
+sport-scuba_diving	icon
+sport-shooting	icon
+=== 500
+
+shop-massage	icon
+shop-money_lender	icon
+shop-newsagent	icon
+shop-variety_store	icon
+sport-multi	icon
+sport-soccer	icon
+=== 490
+
+amenity-casino	icon
+amenity-childcare	icon
+craft-beekeeper	icon
+craft-blacksmith	icon
+craft-brewery	icon
+craft-carpenter	icon
+craft-confectionery	icon
+craft-electrician	icon
+craft-electronics_repair	icon
+craft-gardener	icon
+craft-metal_construction	icon
+craft-painter	icon
+craft-photographer	icon
+craft-plumber	icon
+craft-sawmill	icon
+craft-shoemaker	icon
+craft-tailor	icon
+historic-ruins	icon
+leisure-playground	icon
+power-station	icon
+=== 480
+
+amenity-parcel_locker	icon
+amenity-recycling	icon
+amenity-recycling-centre	icon
+amenity-recycling-container	icon
+amenity-shower	icon
+amenity-telephone	icon
+amenity-vending_machine	icon
+amenity-vending_machine-cigarettes	icon
+amenity-vending_machine-coffee	icon
+amenity-vending_machine-condoms	icon
+amenity-vending_machine-drinks	icon
+amenity-vending_machine-excrement_bags	icon
+amenity-vending_machine-food	icon
+amenity-vending_machine-fuel	icon
+amenity-vending_machine-newspapers	icon
+amenity-vending_machine-parking_tickets	icon
+amenity-vending_machine-public_transport_tickets	icon
+amenity-vending_machine-sweets	icon
+amenity-waste_transfer_station	icon
+emergency-phone	icon
+=== 470
+
+highway-elevator	icon
+=== 460
+
+amenity-grave_yard	icon
+amenity-grave_yard-christian	icon
+cemetery-grave	icon
+=== 450
+
+leisure-golf_course	icon
+=== 440
+
+isoline-step_10	pathtext
+isoline-step_50	pathtext
+isoline-zero	pathtext
+=== 430
+
+leisure-pitch	icon
+=== 420
+
+amenity-kindergarten	icon
+amenity-school	icon
+=== 410
+
+amenity-arts_centre	icon
+amenity-driving_school	icon
+amenity-kindergarten	caption
+amenity-language_school	icon
+amenity-music_school	icon
+amenity-nursing_home	icon
+amenity-parking_entrance	icon
+amenity-parking_entrance-permissive	icon
+amenity-parking_entrance-private	icon
+amenity-payment_terminal	icon
+amenity-school	caption
+leisure-fitness_centre	icon
+leisure-fitness_station	caption
+leisure-fitness_station	icon
+leisure-ice_rink	caption
+leisure-ice_rink	icon
+leisure-pitch	caption
+leisure-sauna	icon
+leisure-sports_centre	icon
+man_made-tower-communication	icon
+power-generator	icon
+power-generator-gas	icon
+power-generator-hydro	icon
+power-generator-wind	icon
+power-plant	icon
+power-plant-coal	icon
+power-plant-gas	icon
+power-plant-hydro	icon
+power-plant-solar	icon
+power-plant-wind	icon
+=== 400
+
+historic-memorial-cross	caption
+=== 390
+
+amenity-cinema	caption
+amenity-clinic	caption
+amenity-courthouse	caption
+amenity-dentist	caption
+amenity-doctors	caption
+amenity-police	caption
+amenity-post_office	caption
+amenity-prison	caption
+healthcare-alternative	caption
+healthcare-audiologist	caption
+healthcare-blood_donation	caption
+healthcare-laboratory	caption
+healthcare-optometrist	caption
+healthcare-physiotherapist	caption
+healthcare-podiatrist	caption
+healthcare-psychotherapist	caption
+healthcare-sample_collection	caption
+healthcare-speech_therapist	caption
+historic-archaeological_site	caption
+leisure-bowling_alley	caption
+leisure-swimming_pool	caption
+leisure-swimming_pool-private	caption
+office-diplomatic	caption
+office-lawyer	caption
+=== 380
+
+aeroway-gate	caption
+amenity-bicycle_rental	caption
+amenity-bicycle_repair_station	caption
+amenity-bureau_de_change	caption
+amenity-car_wash	caption
+amenity-money_transfer	caption
+shop-pawnbroker	caption
+sport-skiing	caption
+sport-tennis	caption
+=== 370
+
+sport-american_football	caption
+sport-athletics	caption
+sport-badminton	caption
+sport-baseball	caption
+sport-basketball	caption
+sport-beachvolleyball	caption
+sport-field_hockey	caption
+sport-golf	caption
+sport-gymnastics	caption
+sport-handball	caption
+sport-ice_hockey	caption
+sport-padel	caption
+sport-pelota	caption
+sport-skateboard	caption
+sport-swimming	caption
+sport-table_tennis	caption
+sport-volleyball	caption
+sport-yoga	caption
+=== 360
+
+sport-10pin	caption
+sport-9pin	caption
+sport-archery	caption
+sport-australian_football	caption
+sport-bowls	caption
+sport-chess	caption
+sport-climbing	caption
+sport-cricket	caption
+sport-curling	caption
+sport-diving	caption
+sport-equestrian	caption
+sport-futsal	caption
+sport-scuba_diving	caption
+sport-shooting	caption
+=== 350
+
+shop-massage	caption
+shop-money_lender	caption
+shop-newsagent	caption
+shop-variety_store	caption
+sport-multi	caption
+sport-soccer	caption
+=== 340
+
+amenity-bicycle_parking	caption
+amenity-casino	caption
+amenity-childcare	caption
+craft-beekeeper	caption
+craft-blacksmith	caption
+craft-brewery	caption
+craft-carpenter	caption
+craft-confectionery	caption
+craft-electrician	caption
+craft-electronics_repair	caption
+craft-gardener	caption
+craft-metal_construction	caption
+craft-painter	caption
+craft-photographer	caption
+craft-plumber	caption
+craft-sawmill	caption
+craft-shoemaker	caption
+craft-tailor	caption
+historic-ruins	caption
+leisure-playground	caption
+power-station	caption
+=== 330
+
+amenity-parcel_locker	caption
+amenity-recycling	caption
+amenity-recycling-centre	caption
+amenity-recycling-container	caption
+amenity-shower	caption
+amenity-telephone	caption
+amenity-vending_machine	caption
+amenity-vending_machine-cigarettes	caption
+amenity-vending_machine-coffee	caption
+amenity-vending_machine-condoms	caption
+amenity-vending_machine-drinks	caption
+amenity-vending_machine-excrement_bags	caption
+amenity-vending_machine-food	caption
+amenity-vending_machine-fuel	caption
+amenity-vending_machine-newspapers	caption
+amenity-vending_machine-parking_tickets	caption
+amenity-vending_machine-public_transport_tickets	caption
+amenity-vending_machine-sweets	caption
+amenity-waste_transfer_station	caption
+=== 320
+
+leisure-fitness_centre	caption
+leisure-sauna	caption
+leisure-sports_centre	caption
+=== 310
+
+junction	caption
+junction-circular	caption
+junction-roundabout	caption
+=== 300
+
+amenity-grave_yard	caption
+amenity-grave_yard-christian	caption
+cemetery-grave	caption
+=== 290
+
+leisure-golf_course	caption
+=== 280
+
+public_transport-platform	caption
+=== 270
+
+man_made-breakwater	caption
+man_made-pier	caption
+=== 260
+
+amenity-arts_centre	caption
+amenity-driving_school	caption
+amenity-language_school	caption
+amenity-motorcycle_parking	caption
+amenity-music_school	caption
+amenity-nursing_home	caption
+amenity-parking_entrance	caption
+amenity-parking_entrance-permissive	caption
+amenity-parking_entrance-private	caption
+amenity-payment_terminal	caption
+landuse-commercial	caption
+landuse-residential	caption
+leisure-common	caption
+leisure-dance	caption
+leisure-landscape_reserve	caption
+leisure-recreation_ground	caption
+leisure-slipway	caption
+=== 250
+
+historic-memorial-plaque	icon
+=== 240
+
+amenity-atm	icon
+amenity-car_rental	icon
+amenity-car_sharing	icon
+amenity-fire_station	icon
+amenity-library	icon
+office	icon
+office-company	icon
+office-estate_agent	icon
+office-government	icon
+office-insurance	icon
+office-ngo	icon
+office-telecommunication	icon
+=== 230
+
+shop	icon
+shop-agrarian	icon
+shop-appliance	icon
+shop-baby_goods	icon
+shop-bag	icon
+shop-bathroom_furnishing	icon
+shop-bed	icon
+shop-boutique	icon
+shop-cannabis	icon
+shop-carpet	icon
+shop-coffee	icon
+shop-craft	icon
+shop-curtain	icon
+shop-dairy	icon
+shop-electrical	icon
+shop-fashion_accessories	icon
+shop-fishing	icon
+shop-gas	icon
+shop-herbalist	icon
+shop-hifi	icon
+shop-lottery	icon
+shop-medical_supply	icon
+shop-motorcycle_repair	icon
+shop-nutrition_supplements	icon
+shop-outpost	icon
+shop-paint	icon
+shop-perfumery	icon
+shop-pet_grooming	icon
+shop-storage_rental	icon
+shop-tea	icon
+shop-tobacco	icon
+shop-trade	icon
+shop-travel_agency	icon
+shop-watches	icon
+shop-wholesale	icon
+=== 220
+
+amenity-bbq	icon
+amenity-toilets	icon
+craft-handicraft	icon
+craft-hvac	icon
+craft-key_cutter	icon
+craft-locksmith	icon
+craft-winery	icon
+=== 210
+
+amenity-bench	icon
+amenity-hunting_stand	icon
+amenity-post_box	icon
+=== 200
+
+amenity-waste_basket	icon
+amenity-waste_disposal	icon
+=== 190
+
+amenity-loading_dock	icon
+entrance-exit	icon
+entrance-main	icon
+=== 170
+
+amenity-bbq	caption
+amenity-internet_cafe	icon
+amenity-parking_space-disabled	icon
+emergency-defibrillator	icon
+emergency-fire_hydrant	icon
+=== 160
+
+historic-memorial-plaque	caption
+=== 150
+
+amenity-atm	caption
+amenity-car_rental	caption
+amenity-car_sharing	caption
+amenity-fire_station	caption
+amenity-library	caption
+office	caption
+office-company	caption
+office-estate_agent	caption
+office-government	caption
+office-insurance	caption
+office-ngo	caption
+office-telecommunication	caption
+=== 140
+
+shop	caption
+shop-agrarian	caption
+shop-appliance	caption
+shop-baby_goods	caption
+shop-bag	caption
+shop-bathroom_furnishing	caption
+shop-bed	caption
+shop-boutique	caption
+shop-cannabis	caption
+shop-carpet	caption
+shop-coffee	caption
+shop-craft	caption
+shop-curtain	caption
+shop-dairy	caption
+shop-electrical	caption
+shop-fashion_accessories	caption
+shop-fishing	caption
+shop-gas	caption
+shop-herbalist	caption
+shop-hifi	caption
+shop-lottery	caption
+shop-medical_supply	caption
+shop-motorcycle_repair	caption
+shop-nutrition_supplements	caption
+shop-outpost	caption
+shop-paint	caption
+shop-perfumery	caption
+shop-pet_grooming	caption
+shop-storage_rental	caption
+shop-tea	caption
+shop-tobacco	caption
+shop-trade	caption
+shop-travel_agency	caption
+shop-watches	caption
+shop-wholesale	caption
+=== 130
+
+amenity-toilets	caption
+craft-handicraft	caption
+craft-hvac	caption
+craft-key_cutter	caption
+craft-locksmith	caption
+craft-winery	caption
+=== 120
+
+amenity-bench	caption
+amenity-hunting_stand	caption
+amenity-post_box	caption
+=== 110
+
+amenity-waste_basket	caption
+amenity-waste_disposal	caption
+=== 100
+
+leisure-garden-residential	caption
+=== 90
+
+amenity-loading_dock	caption
+entrance-exit	caption
+entrance-main	caption
+=== 80
+
+amenity-internet_cafe	caption
+amenity-parking_space-disabled	caption
+emergency-defibrillator	caption
+emergency-fire_hydrant	caption
+=== 70
+
+historic-memorial-stolperstein	icon
+=== 60
+
+power-substation	icon
+=== 50
+
+entrance	icon
+=== 40
+
+historic-memorial-stolperstein	caption
+=== 30
+
+power-substation	caption
+=== 20
+
+entrance	caption
+=== 10
