@@ -10,854 +10,1083 @@
 # - BG-top: water (linear and areal)
 # - BG-by-size: landcover areas sorted by their size
 
-highway-speed_camera	icon	1510
-highway-motorway	pathtext	1500
-highway-motorway	shield	1500
-highway-motorway-bridge	pathtext	1500
-highway-motorway-bridge	shield	1500
-highway-motorway-tunnel	pathtext	1500
-highway-motorway-tunnel	shield	1500
-highway-trunk	pathtext	1500
-highway-trunk	shield	1500
-highway-trunk-bridge	pathtext	1500
-highway-trunk-bridge	shield	1500
-highway-trunk-tunnel	pathtext	1500
-highway-trunk-tunnel	shield	1500
-highway-primary	pathtext	1490
-highway-primary	shield	1490
-highway-primary-bridge	pathtext	1490
-highway-primary-bridge	shield	1490
-highway-primary-tunnel	pathtext	1490
-highway-primary-tunnel	shield	1490
-highway-motorway_link	pathtext	1480
-highway-motorway_link	shield	1480
-highway-motorway_link-bridge	pathtext	1480
-highway-motorway_link-bridge	shield	1480
-highway-motorway_link-tunnel	pathtext	1480
-highway-motorway_link-tunnel	shield	1480
-highway-trunk_link	pathtext	1480
-highway-trunk_link	shield	1480
-highway-trunk_link-bridge	pathtext	1480
-highway-trunk_link-bridge	shield	1480
-highway-trunk_link-tunnel	pathtext	1480
-highway-trunk_link-tunnel	shield	1480
-highway-motorway_junction	caption	1470
-highway-primary_link	pathtext	1470
-highway-primary_link	shield	1470
-highway-primary_link-bridge	pathtext	1470
-highway-primary_link-bridge	shield	1470
-highway-primary_link-tunnel	pathtext	1470
-highway-primary_link-tunnel	shield	1470
-highway-services	caption	1470
-highway-services	icon	1470
-highway-ford	icon	1460
-highway-rest_area	caption	1460
-highway-rest_area	icon	1460
-highway-secondary	pathtext	1460
-highway-secondary	shield	1460
-highway-secondary-bridge	pathtext	1460
-highway-secondary-bridge	shield	1460
-highway-secondary-tunnel	pathtext	1460
-highway-secondary-tunnel	shield	1460
-highway-tertiary	pathtext	1450
-highway-tertiary	shield	1450
-highway-tertiary-bridge	pathtext	1450
-highway-tertiary-bridge	shield	1450
-highway-tertiary-tunnel	pathtext	1450
-highway-tertiary-tunnel	shield	1450
-highway-secondary_link	pathtext	1440
-highway-secondary_link-bridge	pathtext	1440
-highway-secondary_link-tunnel	pathtext	1440
-highway-unclassified	pathtext	1430
-highway-unclassified-area	pathtext	1430
-highway-unclassified-bridge	pathtext	1430
-highway-unclassified-tunnel	pathtext	1430
-highway-residential	pathtext	1420
-highway-residential	shield	1420
-highway-residential-area	pathtext	1420
-highway-residential-area	shield	1420
-highway-residential-bridge	pathtext	1420
-highway-residential-bridge	shield	1420
-highway-residential-tunnel	pathtext	1420
-highway-residential-tunnel	shield	1420
-highway-road	pathtext	1410
-highway-road-bridge	pathtext	1410
-highway-road-tunnel	pathtext	1410
-highway-tertiary_link	pathtext	1400
-highway-tertiary_link-bridge	pathtext	1400
-highway-tertiary_link-tunnel	pathtext	1400
-place-continent	caption	1310
-place-ocean	caption	1300
-place-country	caption	1290
-place-city-capital-2	caption	1280
-place-city-capital-2	icon	1280
-place-city-capital-3	caption	1260
-place-city-capital-4	caption	1260
-place-sea	caption	1250
-place-city-capital	caption	1240
-place-city-capital-10	caption	1240
-place-city-capital-11	caption	1240
-place-city-capital-5	caption	1240
-place-city-capital-6	caption	1240
-place-city-capital-7	caption	1240
-place-city-capital-8	caption	1240
-place-city-capital-9	caption	1240
-place-city	caption	1230
-place-state-USA	caption	1220
-place-state	caption	1210
-aeroway-aerodrome-international	caption	1200
-aeroway-aerodrome-international	icon	1200
-place-town	caption	1180
-amenity-charging_station-motorcar	caption	1170
-amenity-charging_station-motorcar	icon	1170
-amenity-fuel	caption	1170
-amenity-fuel	icon	1170
-amenity-charging_station	icon	1150
-amenity-vending_machine-fuel	caption	1150
-amenity-vending_machine-fuel	icon	1150
-railway-station-subway-moscow	icon	1110
-railway-station-subway-spb	icon	1110
-railway-station-subway-moscow	caption	1090
-railway-station-subway-spb	caption	1090
-aeroway-aerodrome	icon	1080
-place-village	caption	1080
-railway-station	icon	1070
-landuse-reservoir	caption	1065
-natural-water-lake	caption	1065
-natural-water-reservoir	caption	1065
-railway-station-funicular	icon	1060
-railway-station-light_rail	icon	1060
-railway-station-monorail	icon	1060
-barrier-toll_booth	caption	1050
-barrier-toll_booth	icon	1050
-junction	caption	1048
-junction-circular	caption	1048
-junction-roundabout	caption	1048
-barrier-lift_gate	caption	1047
-barrier-lift_gate	icon	1047
-railway-level_crossing	icon	1046
-amenity-car_wash	caption	1045
-amenity-car_wash	icon	1045
-amenity-vending_machine-parking_tickets	caption	1045
-amenity-vending_machine-parking_tickets	icon	1045
-shop-car_parts	icon	1045
-shop-car_repair	icon	1045
-shop-car_repair-tyres	caption	1045
-shop-car_repair-tyres	icon	1045
-amenity-sanitary_dump_station	caption	1044
-amenity-sanitary_dump_station	icon	1044
-shop-caravan	icon	1044
-amenity-parking	icon	1043
-amenity-parking-fee	icon	1043
-amenity-parking-multi-storey	icon	1043
-amenity-parking-park_and_ride	icon	1043
-amenity-parking-permissive	icon	1043
-amenity-parking-underground	icon	1043
-boundary-national_park	icon	1042
-boundary-protected_area	icon	1042
-boundary-protected_area-1	icon	1042
-boundary-protected_area-2	icon	1042
-boundary-protected_area-3	icon	1042
-boundary-protected_area-4	icon	1042
-boundary-protected_area-5	icon	1042
-boundary-protected_area-6	icon	1042
-leisure-nature_reserve	icon	1042
-historic-castle	icon	1040
-historic-castle-castrum	icon	1040
-historic-castle-defensive	icon	1040
-historic-castle-fortified_church	icon	1040
-historic-castle-fortress	icon	1040
-historic-castle-hillfort	icon	1040
-historic-castle-kremlin	icon	1040
-historic-castle-manor	icon	1040
-historic-castle-palace	icon	1040
-historic-castle-shiro	icon	1040
-historic-castle-stately	icon	1040
-historic-fort	icon	1040
-amenity-car_rental	caption	1037
-amenity-car_rental	icon	1037
-amenity-car_sharing	icon	1037
-shop-car	icon	1037
-highway-living_street	pathtext	1035
-highway-living_street-bridge	pathtext	1035
-highway-living_street-tunnel	pathtext	1035
-highway-service	pathtext	1030
-highway-service-area	pathtext	1030
-highway-service-bridge	pathtext	1030
-highway-service-tunnel	pathtext	1030
-railway-station	caption	1025
-railway-station-funicular	caption	1025
-railway-station-light_rail	caption	1025
-railway-station-monorail	caption	1025
-leisure-park	caption	1020
-leisure-park	icon	1020
-leisure-park-permissive	caption	1020
-leisure-park-permissive	icon	1020
-landuse-forest	caption	1010
-landuse-forest	icon	1010
-landuse-forest-coniferous	caption	1010
-landuse-forest-coniferous	icon	1010
-landuse-forest-deciduous	caption	1010
-landuse-forest-deciduous	icon	1010
-landuse-forest-mixed	caption	1010
-landuse-forest-mixed	icon	1010
-highway-service-busway	pathtext	950
-highway-service-driveway	pathtext	950
-highway-service-parking_aisle	pathtext	950
-historic-castle	caption	950
-historic-castle-castrum	caption	950
-historic-castle-defensive	caption	950
-historic-castle-fortified_church	caption	950
-historic-castle-fortress	caption	950
-historic-castle-hillfort	caption	950
-historic-castle-kremlin	caption	950
-historic-castle-manor	caption	950
-historic-castle-palace	caption	950
-historic-castle-shiro	caption	950
-historic-castle-stately	caption	950
-historic-fort	caption	950
-boundary-national_park	caption	940
-boundary-protected_area	caption	940
-boundary-protected_area-1	caption	940
-boundary-protected_area-2	caption	940
-boundary-protected_area-3	caption	940
-boundary-protected_area-4	caption	940
-boundary-protected_area-5	caption	940
-boundary-protected_area-6	caption	940
-leisure-nature_reserve	caption	940
-place-island	caption	920
-natural-water-river	caption	915
-railway-station-subway	icon	900
-railway-station-subway-adana	caption	900
-railway-station-subway-adana	icon	900
-railway-station-subway-algiers	caption	900
-railway-station-subway-algiers	icon	900
-railway-station-subway-almaty	caption	900
-railway-station-subway-almaty	icon	900
-railway-station-subway-amsterdam	icon	900
-railway-station-subway-ankara	icon	900
-railway-station-subway-athens	icon	900
-railway-station-subway-baku	icon	900
-railway-station-subway-bangkok	icon	900
-railway-station-subway-barcelona	icon	900
-railway-station-subway-beijing	icon	900
-railway-station-subway-bengalore	icon	900
-railway-station-subway-berlin	icon	900
-railway-station-subway-bilbao	icon	900
-railway-station-subway-brasilia	icon	900
-railway-station-subway-brescia	icon	900
-railway-station-subway-brussels	icon	900
-railway-station-subway-bucharest	icon	900
-railway-station-subway-budapest	icon	900
-railway-station-subway-buenos_aires	icon	900
-railway-station-subway-bursa	icon	900
-railway-station-subway-cairo	icon	900
-railway-station-subway-caracas	icon	900
-railway-station-subway-catania	icon	900
-railway-station-subway-changchun	icon	900
-railway-station-subway-chengdu	icon	900
-railway-station-subway-chicago	icon	900
-railway-station-subway-chongqing	icon	900
-railway-station-subway-dalian	icon	900
-railway-station-subway-delhi	icon	900
-railway-station-subway-dnepro	icon	900
-railway-station-subway-dubai	icon	900
-railway-station-subway-ekb	icon	900
-railway-station-subway-fukuoka	icon	900
-railway-station-subway-glasgow	icon	900
-railway-station-subway-guangzhou	icon	900
-railway-station-subway-hamburg	icon	900
-railway-station-subway-helsinki	icon	900
-railway-station-subway-hiroshima	icon	900
-railway-station-subway-isfahan	icon	900
-railway-station-subway-istanbul	icon	900
-railway-station-subway-izmir	icon	900
-railway-station-subway-kazan	icon	900
-railway-station-subway-kharkiv	icon	900
-railway-station-subway-kiev	icon	900
-railway-station-subway-kobe	icon	900
-railway-station-subway-kolkata	icon	900
-railway-station-subway-kunming	icon	900
-railway-station-subway-kyoto	icon	900
-railway-station-subway-la	icon	900
-railway-station-subway-lausanne	icon	900
-railway-station-subway-lille	icon	900
-railway-station-subway-lima	icon	900
-railway-station-subway-lisboa	icon	900
-railway-station-subway-london	icon	900
-railway-station-subway-lyon	icon	900
-railway-station-subway-madrid	icon	900
-railway-station-subway-malaga	icon	900
-railway-station-subway-manila	icon	900
-railway-station-subway-maracaibo	icon	900
-railway-station-subway-mashhad	icon	900
-railway-station-subway-mecca	icon	900
-railway-station-subway-medellin	icon	900
-railway-station-subway-mexico	icon	900
-railway-station-subway-milan	icon	900
-railway-station-subway-minsk	icon	900
-railway-station-subway-montreal	icon	900
-railway-station-subway-munchen	icon	900
-railway-station-subway-nagoya	icon	900
-railway-station-subway-newyork	icon	900
-railway-station-subway-nnov	icon	900
-railway-station-subway-novosibirsk	icon	900
-railway-station-subway-osaka	icon	900
-railway-station-subway-oslo	icon	900
-railway-station-subway-palma	icon	900
-railway-station-subway-panama	icon	900
-railway-station-subway-paris	icon	900
-railway-station-subway-philadelphia	icon	900
-railway-station-subway-pyongyang	icon	900
-railway-station-subway-rennes	icon	900
-railway-station-subway-rio	icon	900
-railway-station-subway-roma	icon	900
-railway-station-subway-rotterdam	icon	900
-railway-station-subway-samara	icon	900
-railway-station-subway-santiago	icon	900
-railway-station-subway-santo_domingo	icon	900
-railway-station-subway-saopaulo	icon	900
-railway-station-subway-sapporo	icon	900
-railway-station-subway-sendai	icon	900
-railway-station-subway-sf	icon	900
-railway-station-subway-shanghai	icon	900
-railway-station-subway-shiraz	icon	900
-railway-station-subway-sofia	icon	900
-railway-station-subway-stockholm	icon	900
-railway-station-subway-tabriz	icon	900
-railway-station-subway-taipei	icon	900
-railway-station-subway-taoyuan	icon	900
-railway-station-subway-tashkent	icon	900
-railway-station-subway-tbilisi	icon	900
-railway-station-subway-tehran	icon	900
-railway-station-subway-tianjin	icon	900
-railway-station-subway-tokyo	icon	900
-railway-station-subway-valencia	icon	900
-railway-station-subway-vienna	icon	900
-railway-station-subway-warszawa	icon	900
-railway-station-subway-washington	icon	900
-railway-station-subway-wuhan	icon	900
-railway-station-subway-yerevan	icon	900
-railway-station-subway-yokohama	icon	900
-barrier-border_control	icon	880
-historic-city_gate	icon	880
-historic-monument	icon	880
-railway-station-subway	caption	870
-railway-station-subway-amsterdam	caption	870
-railway-station-subway-ankara	caption	870
-railway-station-subway-athens	caption	870
-railway-station-subway-baku	caption	870
-railway-station-subway-bangkok	caption	870
-railway-station-subway-barcelona	caption	870
-railway-station-subway-beijing	caption	870
-railway-station-subway-bengalore	caption	870
-railway-station-subway-berlin	caption	870
-railway-station-subway-bilbao	caption	870
-railway-station-subway-brasilia	caption	870
-railway-station-subway-brescia	caption	870
-railway-station-subway-brussels	caption	870
-railway-station-subway-bucharest	caption	870
-railway-station-subway-budapest	caption	870
-railway-station-subway-buenos_aires	caption	870
-railway-station-subway-bursa	caption	870
-railway-station-subway-cairo	caption	870
-railway-station-subway-caracas	caption	870
-railway-station-subway-catania	caption	870
-railway-station-subway-changchun	caption	870
-railway-station-subway-chengdu	caption	870
-railway-station-subway-chicago	caption	870
-railway-station-subway-chongqing	caption	870
-railway-station-subway-dalian	caption	870
-railway-station-subway-delhi	caption	870
-railway-station-subway-dnepro	caption	870
-railway-station-subway-dubai	caption	870
-railway-station-subway-ekb	caption	870
-railway-station-subway-fukuoka	caption	870
-railway-station-subway-glasgow	caption	870
-railway-station-subway-guangzhou	caption	870
-railway-station-subway-hamburg	caption	870
-railway-station-subway-helsinki	caption	870
-railway-station-subway-hiroshima	caption	870
-railway-station-subway-isfahan	caption	870
-railway-station-subway-istanbul	caption	870
-railway-station-subway-izmir	caption	870
-railway-station-subway-kazan	caption	870
-railway-station-subway-kharkiv	caption	870
-railway-station-subway-kiev	caption	870
-railway-station-subway-kobe	caption	870
-railway-station-subway-kolkata	caption	870
-railway-station-subway-kunming	caption	870
-railway-station-subway-kyoto	caption	870
-railway-station-subway-la	caption	870
-railway-station-subway-lausanne	caption	870
-railway-station-subway-lille	caption	870
-railway-station-subway-lima	caption	870
-railway-station-subway-lisboa	caption	870
-railway-station-subway-london	caption	870
-railway-station-subway-lyon	caption	870
-railway-station-subway-madrid	caption	870
-railway-station-subway-malaga	caption	870
-railway-station-subway-manila	caption	870
-railway-station-subway-maracaibo	caption	870
-railway-station-subway-mashhad	caption	870
-railway-station-subway-mecca	caption	870
-railway-station-subway-medellin	caption	870
-railway-station-subway-mexico	caption	870
-railway-station-subway-milan	caption	870
-railway-station-subway-minsk	caption	870
-railway-station-subway-montreal	caption	870
-railway-station-subway-munchen	caption	870
-railway-station-subway-nagoya	caption	870
-railway-station-subway-newyork	caption	870
-railway-station-subway-nnov	caption	870
-railway-station-subway-novosibirsk	caption	870
-railway-station-subway-osaka	caption	870
-railway-station-subway-oslo	caption	870
-railway-station-subway-palma	caption	870
-railway-station-subway-panama	caption	870
-railway-station-subway-paris	caption	870
-railway-station-subway-philadelphia	caption	870
-railway-station-subway-pyongyang	caption	870
-railway-station-subway-rennes	caption	870
-railway-station-subway-rio	caption	870
-railway-station-subway-roma	caption	870
-railway-station-subway-rotterdam	caption	870
-railway-station-subway-samara	caption	870
-railway-station-subway-santiago	caption	870
-railway-station-subway-santo_domingo	caption	870
-railway-station-subway-saopaulo	caption	870
-railway-station-subway-sapporo	caption	870
-railway-station-subway-sendai	caption	870
-railway-station-subway-sf	caption	870
-railway-station-subway-shanghai	caption	870
-railway-station-subway-shiraz	caption	870
-railway-station-subway-sofia	caption	870
-railway-station-subway-stockholm	caption	870
-railway-station-subway-tabriz	caption	870
-railway-station-subway-taipei	caption	870
-railway-station-subway-taoyuan	caption	870
-railway-station-subway-tashkent	caption	870
-railway-station-subway-tbilisi	caption	870
-railway-station-subway-tehran	caption	870
-railway-station-subway-tianjin	caption	870
-railway-station-subway-tokyo	caption	870
-railway-station-subway-valencia	caption	870
-railway-station-subway-vienna	caption	870
-railway-station-subway-warszawa	caption	870
-railway-station-subway-washington	caption	870
-railway-station-subway-wuhan	caption	870
-railway-station-subway-yerevan	caption	870
-railway-station-subway-yokohama	caption	870
-historic-city_gate	caption	860
-historic-monument	caption	860
-place-hamlet	caption	850
-place-locality	caption	840
-tourism-viewpoint	icon	820
-railway-halt	icon	810
-tourism-theme_park	icon	790
-shop-supermarket	icon	780
-highway-pedestrian	pathtext	760
-highway-pedestrian-area	pathtext	760
-highway-pedestrian-bridge	pathtext	760
-highway-pedestrian-tunnel	pathtext	760
-natural-strait	caption	720
-waterway-river	pathtext	720
-waterway-river-tunnel	pathtext	720
-waterway-riverbank	pathtext	720
-tourism-viewpoint	caption	710
-railway-halt	caption	700
-tourism-theme_park	caption	680
-shop-supermarket	caption	670
-natural-water	caption	660
-natural-water-basin	caption	660
-natural-water-lock	caption	660
-natural-water-pond	caption	660
-shop-mall	caption	660
-shop-mall	icon	660
-waterway-canal	pathtext	660
-waterway-canal-tunnel	pathtext	660
-aeroway-aerodrome	caption	640
-natural-desert	caption	640
-natural-bay	caption	630
-natural-cape	caption	630
-place-farm	caption	630
-place-isolated_dwelling	caption	630
-tourism-zoo	icon	600
-tourism-museum	icon	590
-tourism-gallery	icon	580
-historic-battlefield	icon	570
-historic-memorial	icon	570
-historic-memorial-sculpture	icon	570
-historic-memorial-statue	icon	570
-historic-memorial-war_memorial	icon	570
-tourism-attraction	icon	570
-tourism-attraction-animal	icon	570
-tourism-attraction-specified	icon	570
-amenity-community_centre	icon	560
-tourism-artwork	icon	560
-tourism-artwork-architecture	icon	560
-tourism-artwork-painting	icon	560
-tourism-artwork-sculpture	icon	560
-tourism-artwork-statue	icon	560
-amenity-cafe	icon	540
-amenity-theatre	icon	540
-amenity-university	icon	530
-amenity-hospital	caption	520
-amenity-hospital	icon	520
-amenity-university	caption	520
-amenity-parking	caption	510
-amenity-parking-fee	caption	510
-amenity-parking-multi-storey	caption	510
-amenity-parking-park_and_ride	caption	510
-amenity-parking-permissive	caption	510
-amenity-parking-underground	caption	510
-barrier-border_control	caption	500
-tourism-zoo	caption	490
-tourism-museum	caption	480
-tourism-gallery	caption	470
-historic-battlefield	caption	460
-historic-memorial	caption	460
-historic-memorial-sculpture	caption	460
-historic-memorial-statue	caption	460
-historic-memorial-war_memorial	caption	460
-tourism-attraction	caption	460
-tourism-attraction-animal	caption	460
-tourism-attraction-specified	caption	460
-amenity-community_centre	caption	450
-tourism-artwork	caption	450
-tourism-artwork-architecture	caption	450
-tourism-artwork-painting	caption	450
-tourism-artwork-sculpture	caption	450
-tourism-artwork-statue	caption	450
-amenity-cafe	caption	430
-amenity-theatre	caption	430
-aeroway-terminal	caption	410
-leisure-beach_resort	caption	390
-natural-beach	caption	390
-natural-beach-gravel	caption	390
-natural-beach-sand	caption	390
-amenity-charging_station-bicycle	icon	370
-historic-boundary_stone	icon	350
-historic-gallows	icon	350
-historic-pillory	icon	350
-historic-ship	icon	350
-historic-tomb	icon	350
-historic-wayside_cross	icon	350
-historic-wayside_shrine	icon	350
-amenity-restaurant	icon	340
-railway-rail-tourism	pathtext	330
-railway-rail-tourism-bridge	pathtext	330
-railway-rail-tourism-tunnel	pathtext	330
-amenity-place_of_worship	icon	300
-amenity-place_of_worship-buddhist	icon	300
-amenity-place_of_worship-christian	icon	300
-amenity-place_of_worship-hindu	icon	300
-amenity-place_of_worship-jewish	icon	300
-amenity-place_of_worship-muslim	icon	300
-amenity-place_of_worship-shinto	icon	300
-amenity-place_of_worship-taoist	icon	300
-waterway-lock_gate	icon	290
-amenity-conference_centre	icon	280
-amenity-events_venue	icon	280
-amenity-exhibition_centre	icon	280
-amenity-water_point	icon	280
-railway-subway_entrance	icon	280
-railway-subway_entrance-adana	icon	280
-railway-subway_entrance-algiers	icon	280
-railway-subway_entrance-almaty	icon	280
-railway-subway_entrance-amsterdam	icon	280
-railway-subway_entrance-ankara	icon	280
-railway-subway_entrance-athens	icon	280
-railway-subway_entrance-baku	icon	280
-railway-subway_entrance-bangkok	icon	280
-railway-subway_entrance-barcelona	icon	280
-railway-subway_entrance-beijing	icon	280
-railway-subway_entrance-bengalore	icon	280
-railway-subway_entrance-berlin	icon	280
-railway-subway_entrance-bilbao	icon	280
-railway-subway_entrance-brasilia	icon	280
-railway-subway_entrance-brescia	icon	280
-railway-subway_entrance-brussels	icon	280
-railway-subway_entrance-bucharest	icon	280
-railway-subway_entrance-budapest	icon	280
-railway-subway_entrance-buenos_aires	icon	280
-railway-subway_entrance-bursa	icon	280
-railway-subway_entrance-cairo	icon	280
-railway-subway_entrance-caracas	icon	280
-railway-subway_entrance-catania	icon	280
-railway-subway_entrance-changchun	icon	280
-railway-subway_entrance-chengdu	icon	280
-railway-subway_entrance-chicago	icon	280
-railway-subway_entrance-chongqing	icon	280
-railway-subway_entrance-dalian	icon	280
-railway-subway_entrance-delhi	icon	280
-railway-subway_entrance-dnepro	icon	280
-railway-subway_entrance-dubai	icon	280
-railway-subway_entrance-ekb	icon	280
-railway-subway_entrance-fukuoka	icon	280
-railway-subway_entrance-glasgow	icon	280
-railway-subway_entrance-guangzhou	icon	280
-railway-subway_entrance-hamburg	icon	280
-railway-subway_entrance-helsinki	icon	280
-railway-subway_entrance-hiroshima	icon	280
-railway-subway_entrance-isfahan	icon	280
-railway-subway_entrance-istanbul	icon	280
-railway-subway_entrance-izmir	icon	280
-railway-subway_entrance-kazan	icon	280
-railway-subway_entrance-kharkiv	icon	280
-railway-subway_entrance-kiev	icon	280
-railway-subway_entrance-kobe	icon	280
-railway-subway_entrance-kolkata	icon	280
-railway-subway_entrance-kunming	icon	280
-railway-subway_entrance-kyoto	icon	280
-railway-subway_entrance-la	icon	280
-railway-subway_entrance-lausanne	icon	280
-railway-subway_entrance-lille	icon	280
-railway-subway_entrance-lima	icon	280
-railway-subway_entrance-lisboa	icon	280
-railway-subway_entrance-london	icon	280
-railway-subway_entrance-lyon	icon	280
-railway-subway_entrance-madrid	icon	280
-railway-subway_entrance-malaga	icon	280
-railway-subway_entrance-manila	icon	280
-railway-subway_entrance-maracaibo	icon	280
-railway-subway_entrance-mashhad	icon	280
-railway-subway_entrance-mecca	icon	280
-railway-subway_entrance-medellin	icon	280
-railway-subway_entrance-mexico	icon	280
-railway-subway_entrance-milan	icon	280
-railway-subway_entrance-minsk	icon	280
-railway-subway_entrance-montreal	icon	280
-railway-subway_entrance-moscow	icon	280
-railway-subway_entrance-munchen	icon	280
-railway-subway_entrance-nagoya	icon	280
-railway-subway_entrance-newyork	icon	280
-railway-subway_entrance-nnov	icon	280
-railway-subway_entrance-novosibirsk	icon	280
-railway-subway_entrance-osaka	icon	280
-railway-subway_entrance-oslo	icon	280
-railway-subway_entrance-palma	icon	280
-railway-subway_entrance-panama	icon	280
-railway-subway_entrance-paris	icon	280
-railway-subway_entrance-philadelphia	icon	280
-railway-subway_entrance-pyongyang	icon	280
-railway-subway_entrance-rennes	icon	280
-railway-subway_entrance-rio	icon	280
-railway-subway_entrance-roma	icon	280
-railway-subway_entrance-rotterdam	icon	280
-railway-subway_entrance-samara	icon	280
-railway-subway_entrance-santiago	icon	280
-railway-subway_entrance-santo_domingo	icon	280
-railway-subway_entrance-saopaulo	icon	280
-railway-subway_entrance-sapporo	icon	280
-railway-subway_entrance-sendai	icon	280
-railway-subway_entrance-sf	icon	280
-railway-subway_entrance-shanghai	icon	280
-railway-subway_entrance-shiraz	icon	280
-railway-subway_entrance-sofia	icon	280
-railway-subway_entrance-spb	icon	280
-railway-subway_entrance-stockholm	icon	280
-railway-subway_entrance-tabriz	icon	280
-railway-subway_entrance-taipei	icon	280
-railway-subway_entrance-taoyuan	icon	280
-railway-subway_entrance-tashkent	icon	280
-railway-subway_entrance-tbilisi	icon	280
-railway-subway_entrance-tehran	icon	280
-railway-subway_entrance-tianjin	icon	280
-railway-subway_entrance-tokyo	icon	280
-railway-subway_entrance-valencia	icon	280
-railway-subway_entrance-vienna	icon	280
-railway-subway_entrance-warszawa	icon	280
-railway-subway_entrance-washington	icon	280
-railway-subway_entrance-wuhan	icon	280
-railway-subway_entrance-yerevan	icon	280
-railway-subway_entrance-yokohama	icon	280
-amenity-charging_station	caption	270
-amenity-charging_station-bicycle	caption	270
-amenity-parking-no-access	caption	250
-amenity-parking-no-access	icon	250
-amenity-parking-private	caption	250
-amenity-parking-private	icon	250
-historic-boundary_stone	caption	250
-historic-gallows	caption	250
-historic-pillory	caption	250
-historic-ship	caption	250
-historic-tomb	caption	250
-historic-wayside_cross	caption	250
-historic-wayside_shrine	caption	250
-amenity-restaurant	caption	240
-amenity-place_of_worship	caption	230
-amenity-place_of_worship-buddhist	caption	230
-amenity-place_of_worship-christian	caption	230
-amenity-place_of_worship-hindu	caption	230
-amenity-place_of_worship-jewish	caption	230
-amenity-place_of_worship-muslim	caption	230
-amenity-place_of_worship-shinto	caption	230
-amenity-place_of_worship-taoist	caption	230
-natural-wetland	caption	220
-natural-wetland-bog	caption	220
-natural-wetland-marsh	caption	220
-railway-subway_entrance	caption	210
-railway-subway_entrance-adana	caption	210
-railway-subway_entrance-algiers	caption	210
-railway-subway_entrance-almaty	caption	210
-railway-subway_entrance-amsterdam	caption	210
-railway-subway_entrance-ankara	caption	210
-railway-subway_entrance-athens	caption	210
-railway-subway_entrance-baku	caption	210
-railway-subway_entrance-bangkok	caption	210
-railway-subway_entrance-barcelona	caption	210
-railway-subway_entrance-beijing	caption	210
-railway-subway_entrance-bengalore	caption	210
-railway-subway_entrance-berlin	caption	210
-railway-subway_entrance-bilbao	caption	210
-railway-subway_entrance-brasilia	caption	210
-railway-subway_entrance-brescia	caption	210
-railway-subway_entrance-brussels	caption	210
-railway-subway_entrance-bucharest	caption	210
-railway-subway_entrance-budapest	caption	210
-railway-subway_entrance-buenos_aires	caption	210
-railway-subway_entrance-bursa	caption	210
-railway-subway_entrance-cairo	caption	210
-railway-subway_entrance-caracas	caption	210
-railway-subway_entrance-catania	caption	210
-railway-subway_entrance-changchun	caption	210
-railway-subway_entrance-chengdu	caption	210
-railway-subway_entrance-chicago	caption	210
-railway-subway_entrance-chongqing	caption	210
-railway-subway_entrance-dalian	caption	210
-railway-subway_entrance-delhi	caption	210
-railway-subway_entrance-dnepro	caption	210
-railway-subway_entrance-dubai	caption	210
-railway-subway_entrance-ekb	caption	210
-railway-subway_entrance-fukuoka	caption	210
-railway-subway_entrance-glasgow	caption	210
-railway-subway_entrance-guangzhou	caption	210
-railway-subway_entrance-hamburg	caption	210
-railway-subway_entrance-helsinki	caption	210
-railway-subway_entrance-hiroshima	caption	210
-railway-subway_entrance-isfahan	caption	210
-railway-subway_entrance-istanbul	caption	210
-railway-subway_entrance-izmir	caption	210
-railway-subway_entrance-kazan	caption	210
-railway-subway_entrance-kharkiv	caption	210
-railway-subway_entrance-kiev	caption	210
-railway-subway_entrance-kobe	caption	210
-railway-subway_entrance-kolkata	caption	210
-railway-subway_entrance-kunming	caption	210
-railway-subway_entrance-kyoto	caption	210
-railway-subway_entrance-la	caption	210
-railway-subway_entrance-lausanne	caption	210
-railway-subway_entrance-lille	caption	210
-railway-subway_entrance-lima	caption	210
-railway-subway_entrance-lisboa	caption	210
-railway-subway_entrance-london	caption	210
-railway-subway_entrance-lyon	caption	210
-railway-subway_entrance-madrid	caption	210
-railway-subway_entrance-malaga	caption	210
-railway-subway_entrance-manila	caption	210
-railway-subway_entrance-maracaibo	caption	210
-railway-subway_entrance-mashhad	caption	210
-railway-subway_entrance-mecca	caption	210
-railway-subway_entrance-medellin	caption	210
-railway-subway_entrance-mexico	caption	210
-railway-subway_entrance-milan	caption	210
-railway-subway_entrance-minsk	caption	210
-railway-subway_entrance-montreal	caption	210
-railway-subway_entrance-moscow	caption	210
-railway-subway_entrance-munchen	caption	210
-railway-subway_entrance-nagoya	caption	210
-railway-subway_entrance-newyork	caption	210
-railway-subway_entrance-nnov	caption	210
-railway-subway_entrance-novosibirsk	caption	210
-railway-subway_entrance-osaka	caption	210
-railway-subway_entrance-oslo	caption	210
-railway-subway_entrance-palma	caption	210
-railway-subway_entrance-panama	caption	210
-railway-subway_entrance-paris	caption	210
-railway-subway_entrance-philadelphia	caption	210
-railway-subway_entrance-pyongyang	caption	210
-railway-subway_entrance-rennes	caption	210
-railway-subway_entrance-rio	caption	210
-railway-subway_entrance-roma	caption	210
-railway-subway_entrance-rotterdam	caption	210
-railway-subway_entrance-samara	caption	210
-railway-subway_entrance-santiago	caption	210
-railway-subway_entrance-santo_domingo	caption	210
-railway-subway_entrance-saopaulo	caption	210
-railway-subway_entrance-sapporo	caption	210
-railway-subway_entrance-sendai	caption	210
-railway-subway_entrance-sf	caption	210
-railway-subway_entrance-shanghai	caption	210
-railway-subway_entrance-shiraz	caption	210
-railway-subway_entrance-sofia	caption	210
-railway-subway_entrance-spb	caption	210
-railway-subway_entrance-stockholm	caption	210
-railway-subway_entrance-tabriz	caption	210
-railway-subway_entrance-taipei	caption	210
-railway-subway_entrance-taoyuan	caption	210
-railway-subway_entrance-tashkent	caption	210
-railway-subway_entrance-tbilisi	caption	210
-railway-subway_entrance-tehran	caption	210
-railway-subway_entrance-tianjin	caption	210
-railway-subway_entrance-tokyo	caption	210
-railway-subway_entrance-valencia	caption	210
-railway-subway_entrance-vienna	caption	210
-railway-subway_entrance-warszawa	caption	210
-railway-subway_entrance-washington	caption	210
-railway-subway_entrance-wuhan	caption	210
-railway-subway_entrance-yerevan	caption	210
-railway-subway_entrance-yokohama	caption	210
-railway-tram_stop	icon	200
-historic-memorial-cross	icon	180
-amenity-arts_centre	icon	170
-historic-archaeological_site	icon	170
-historic-ruins	icon	170
-amenity-fast_food	icon	150
-amenity-bank	icon	140
-amenity-parcel_locker	icon	140
-amenity-police	icon	140
-amenity-post_office	icon	140
-amenity-vending_machine	icon	140
-amenity-vending_machine-cigarettes	icon	140
-amenity-vending_machine-coffee	icon	140
-amenity-vending_machine-condoms	icon	140
-amenity-vending_machine-drinks	icon	140
-amenity-vending_machine-excrement_bags	icon	140
-amenity-vending_machine-food	icon	140
-amenity-vending_machine-newspapers	icon	140
-amenity-vending_machine-public_transport_tickets	icon	140
-amenity-vending_machine-sweets	icon	140
-shop-motorcycle	icon	140
-railway-tram_stop	caption	130
-historic-memorial-cross	caption	120
-amenity-arts_centre	caption	110
-historic-archaeological_site	caption	110
-historic-ruins	caption	110
-amenity-fast_food	caption	90
-amenity-bank	caption	70
-amenity-parcel_locker	caption	70
-amenity-post_office	caption	70
-amenity-vending_machine	caption	70
-amenity-vending_machine-cigarettes	caption	70
-amenity-vending_machine-coffee	caption	70
-amenity-vending_machine-condoms	caption	70
-amenity-vending_machine-drinks	caption	70
-amenity-vending_machine-excrement_bags	caption	70
-amenity-vending_machine-food	caption	70
-amenity-vending_machine-newspapers	caption	70
-amenity-vending_machine-public_transport_tickets	caption	70
-amenity-vending_machine-sweets	caption	70
-landuse-landfill	caption	60
-landuse-quarry	caption	60
-landuse-railway	caption	60
-leisure-park-no-access	caption	50
-leisure-park-no-access	icon	50
-leisure-park-private	caption	50
-leisure-park-private	icon	50
-building	caption	20
-building-address	caption	20
-building-garage	caption	20
-building-has_parts	caption	20
-building-train_station	caption	20
-amenity-car_sharing	caption	10
+highway-speed_camera	icon
+=== 1510
+
+highway-motorway	pathtext
+highway-motorway	shield
+highway-motorway-bridge	pathtext
+highway-motorway-bridge	shield
+highway-motorway-tunnel	pathtext
+highway-motorway-tunnel	shield
+highway-trunk	pathtext
+highway-trunk	shield
+highway-trunk-bridge	pathtext
+highway-trunk-bridge	shield
+highway-trunk-tunnel	pathtext
+highway-trunk-tunnel	shield
+=== 1500
+
+highway-primary	pathtext
+highway-primary	shield
+highway-primary-bridge	pathtext
+highway-primary-bridge	shield
+highway-primary-tunnel	pathtext
+highway-primary-tunnel	shield
+=== 1490
+
+highway-motorway_link	pathtext
+highway-motorway_link	shield
+highway-motorway_link-bridge	pathtext
+highway-motorway_link-bridge	shield
+highway-motorway_link-tunnel	pathtext
+highway-motorway_link-tunnel	shield
+highway-trunk_link	pathtext
+highway-trunk_link	shield
+highway-trunk_link-bridge	pathtext
+highway-trunk_link-bridge	shield
+highway-trunk_link-tunnel	pathtext
+highway-trunk_link-tunnel	shield
+=== 1480
+
+highway-motorway_junction	caption
+highway-primary_link	pathtext
+highway-primary_link	shield
+highway-primary_link-bridge	pathtext
+highway-primary_link-bridge	shield
+highway-primary_link-tunnel	pathtext
+highway-primary_link-tunnel	shield
+highway-services	caption
+highway-services	icon
+=== 1470
+
+highway-ford	icon
+highway-rest_area	caption
+highway-rest_area	icon
+highway-secondary	pathtext
+highway-secondary	shield
+highway-secondary-bridge	pathtext
+highway-secondary-bridge	shield
+highway-secondary-tunnel	pathtext
+highway-secondary-tunnel	shield
+=== 1460
+
+highway-tertiary	pathtext
+highway-tertiary	shield
+highway-tertiary-bridge	pathtext
+highway-tertiary-bridge	shield
+highway-tertiary-tunnel	pathtext
+highway-tertiary-tunnel	shield
+=== 1450
+
+highway-secondary_link	pathtext
+highway-secondary_link-bridge	pathtext
+highway-secondary_link-tunnel	pathtext
+=== 1440
+
+highway-unclassified	pathtext
+highway-unclassified-area	pathtext
+highway-unclassified-bridge	pathtext
+highway-unclassified-tunnel	pathtext
+=== 1430
+
+highway-residential	pathtext
+highway-residential	shield
+highway-residential-area	pathtext
+highway-residential-area	shield
+highway-residential-bridge	pathtext
+highway-residential-bridge	shield
+highway-residential-tunnel	pathtext
+highway-residential-tunnel	shield
+=== 1420
+
+highway-road	pathtext
+highway-road-bridge	pathtext
+highway-road-tunnel	pathtext
+=== 1410
+
+highway-tertiary_link	pathtext
+highway-tertiary_link-bridge	pathtext
+highway-tertiary_link-tunnel	pathtext
+=== 1400
+
+place-continent	caption
+=== 1310
+
+place-ocean	caption
+=== 1300
+
+place-country	caption
+=== 1290
+
+place-city-capital-2	caption
+place-city-capital-2	icon
+=== 1280
+
+place-city-capital-3	caption
+place-city-capital-4	caption
+=== 1260
+
+place-sea	caption
+=== 1250
+
+place-city-capital	caption
+place-city-capital-10	caption
+place-city-capital-11	caption
+place-city-capital-5	caption
+place-city-capital-6	caption
+place-city-capital-7	caption
+place-city-capital-8	caption
+place-city-capital-9	caption
+=== 1240
+
+place-city	caption
+=== 1230
+
+place-state-USA	caption
+=== 1220
+
+place-state	caption
+=== 1210
+
+aeroway-aerodrome-international	caption
+aeroway-aerodrome-international	icon
+=== 1200
+
+place-town	caption
+=== 1180
+
+amenity-charging_station-motorcar	caption
+amenity-charging_station-motorcar	icon
+amenity-fuel	caption
+amenity-fuel	icon
+=== 1170
+
+amenity-charging_station	icon
+amenity-vending_machine-fuel	caption
+amenity-vending_machine-fuel	icon
+=== 1150
+
+railway-station-subway-moscow	icon
+railway-station-subway-spb	icon
+=== 1110
+
+railway-station-subway-moscow	caption
+railway-station-subway-spb	caption
+=== 1090
+
+aeroway-aerodrome	icon
+place-village	caption
+=== 1080
+
+railway-station	icon
+=== 1070
+
+landuse-reservoir	caption
+natural-water-lake	caption
+natural-water-reservoir	caption
+=== 1065
+
+railway-station-funicular	icon
+railway-station-light_rail	icon
+railway-station-monorail	icon
+=== 1060
+
+barrier-toll_booth	caption
+barrier-toll_booth	icon
+=== 1050
+
+junction	caption
+junction-circular	caption
+junction-roundabout	caption
+=== 1048
+
+barrier-lift_gate	caption
+barrier-lift_gate	icon
+=== 1047
+
+railway-level_crossing	icon
+=== 1046
+
+amenity-car_wash	caption
+amenity-car_wash	icon
+amenity-vending_machine-parking_tickets	caption
+amenity-vending_machine-parking_tickets	icon
+shop-car_parts	icon
+shop-car_repair	icon
+shop-car_repair-tyres	caption
+shop-car_repair-tyres	icon
+=== 1045
+
+amenity-sanitary_dump_station	caption
+amenity-sanitary_dump_station	icon
+shop-caravan	icon
+=== 1044
+
+amenity-parking	icon
+amenity-parking-fee	icon
+amenity-parking-multi-storey	icon
+amenity-parking-park_and_ride	icon
+amenity-parking-permissive	icon
+amenity-parking-underground	icon
+=== 1043
+
+boundary-national_park	icon
+boundary-protected_area	icon
+boundary-protected_area-1	icon
+boundary-protected_area-2	icon
+boundary-protected_area-3	icon
+boundary-protected_area-4	icon
+boundary-protected_area-5	icon
+boundary-protected_area-6	icon
+leisure-nature_reserve	icon
+=== 1042
+
+historic-castle	icon
+historic-castle-castrum	icon
+historic-castle-defensive	icon
+historic-castle-fortified_church	icon
+historic-castle-fortress	icon
+historic-castle-hillfort	icon
+historic-castle-kremlin	icon
+historic-castle-manor	icon
+historic-castle-palace	icon
+historic-castle-shiro	icon
+historic-castle-stately	icon
+historic-fort	icon
+=== 1040
+
+amenity-car_rental	caption
+amenity-car_rental	icon
+amenity-car_sharing	icon
+shop-car	icon
+=== 1037
+
+highway-living_street	pathtext
+highway-living_street-bridge	pathtext
+highway-living_street-tunnel	pathtext
+=== 1035
+
+highway-service	pathtext
+highway-service-area	pathtext
+highway-service-bridge	pathtext
+highway-service-tunnel	pathtext
+=== 1030
+
+railway-station	caption
+railway-station-funicular	caption
+railway-station-light_rail	caption
+railway-station-monorail	caption
+=== 1025
+
+leisure-park	caption
+leisure-park	icon
+leisure-park-permissive	caption
+leisure-park-permissive	icon
+=== 1020
+
+landuse-forest	caption
+landuse-forest	icon
+landuse-forest-coniferous	caption
+landuse-forest-coniferous	icon
+landuse-forest-deciduous	caption
+landuse-forest-deciduous	icon
+landuse-forest-mixed	caption
+landuse-forest-mixed	icon
+=== 1010
+
+highway-service-busway	pathtext
+highway-service-driveway	pathtext
+highway-service-parking_aisle	pathtext
+historic-castle	caption
+historic-castle-castrum	caption
+historic-castle-defensive	caption
+historic-castle-fortified_church	caption
+historic-castle-fortress	caption
+historic-castle-hillfort	caption
+historic-castle-kremlin	caption
+historic-castle-manor	caption
+historic-castle-palace	caption
+historic-castle-shiro	caption
+historic-castle-stately	caption
+historic-fort	caption
+=== 950
+
+boundary-national_park	caption
+boundary-protected_area	caption
+boundary-protected_area-1	caption
+boundary-protected_area-2	caption
+boundary-protected_area-3	caption
+boundary-protected_area-4	caption
+boundary-protected_area-5	caption
+boundary-protected_area-6	caption
+leisure-nature_reserve	caption
+=== 940
+
+place-island	caption
+=== 920
+
+natural-water-river	caption
+=== 915
+
+railway-station-subway	icon
+railway-station-subway-adana	caption
+railway-station-subway-adana	icon
+railway-station-subway-algiers	caption
+railway-station-subway-algiers	icon
+railway-station-subway-almaty	caption
+railway-station-subway-almaty	icon
+railway-station-subway-amsterdam	icon
+railway-station-subway-ankara	icon
+railway-station-subway-athens	icon
+railway-station-subway-baku	icon
+railway-station-subway-bangkok	icon
+railway-station-subway-barcelona	icon
+railway-station-subway-beijing	icon
+railway-station-subway-bengalore	icon
+railway-station-subway-berlin	icon
+railway-station-subway-bilbao	icon
+railway-station-subway-brasilia	icon
+railway-station-subway-brescia	icon
+railway-station-subway-brussels	icon
+railway-station-subway-bucharest	icon
+railway-station-subway-budapest	icon
+railway-station-subway-buenos_aires	icon
+railway-station-subway-bursa	icon
+railway-station-subway-cairo	icon
+railway-station-subway-caracas	icon
+railway-station-subway-catania	icon
+railway-station-subway-changchun	icon
+railway-station-subway-chengdu	icon
+railway-station-subway-chicago	icon
+railway-station-subway-chongqing	icon
+railway-station-subway-dalian	icon
+railway-station-subway-delhi	icon
+railway-station-subway-dnepro	icon
+railway-station-subway-dubai	icon
+railway-station-subway-ekb	icon
+railway-station-subway-fukuoka	icon
+railway-station-subway-glasgow	icon
+railway-station-subway-guangzhou	icon
+railway-station-subway-hamburg	icon
+railway-station-subway-helsinki	icon
+railway-station-subway-hiroshima	icon
+railway-station-subway-isfahan	icon
+railway-station-subway-istanbul	icon
+railway-station-subway-izmir	icon
+railway-station-subway-kazan	icon
+railway-station-subway-kharkiv	icon
+railway-station-subway-kiev	icon
+railway-station-subway-kobe	icon
+railway-station-subway-kolkata	icon
+railway-station-subway-kunming	icon
+railway-station-subway-kyoto	icon
+railway-station-subway-la	icon
+railway-station-subway-lausanne	icon
+railway-station-subway-lille	icon
+railway-station-subway-lima	icon
+railway-station-subway-lisboa	icon
+railway-station-subway-london	icon
+railway-station-subway-lyon	icon
+railway-station-subway-madrid	icon
+railway-station-subway-malaga	icon
+railway-station-subway-manila	icon
+railway-station-subway-maracaibo	icon
+railway-station-subway-mashhad	icon
+railway-station-subway-mecca	icon
+railway-station-subway-medellin	icon
+railway-station-subway-mexico	icon
+railway-station-subway-milan	icon
+railway-station-subway-minsk	icon
+railway-station-subway-montreal	icon
+railway-station-subway-munchen	icon
+railway-station-subway-nagoya	icon
+railway-station-subway-newyork	icon
+railway-station-subway-nnov	icon
+railway-station-subway-novosibirsk	icon
+railway-station-subway-osaka	icon
+railway-station-subway-oslo	icon
+railway-station-subway-palma	icon
+railway-station-subway-panama	icon
+railway-station-subway-paris	icon
+railway-station-subway-philadelphia	icon
+railway-station-subway-pyongyang	icon
+railway-station-subway-rennes	icon
+railway-station-subway-rio	icon
+railway-station-subway-roma	icon
+railway-station-subway-rotterdam	icon
+railway-station-subway-samara	icon
+railway-station-subway-santiago	icon
+railway-station-subway-santo_domingo	icon
+railway-station-subway-saopaulo	icon
+railway-station-subway-sapporo	icon
+railway-station-subway-sendai	icon
+railway-station-subway-sf	icon
+railway-station-subway-shanghai	icon
+railway-station-subway-shiraz	icon
+railway-station-subway-sofia	icon
+railway-station-subway-stockholm	icon
+railway-station-subway-tabriz	icon
+railway-station-subway-taipei	icon
+railway-station-subway-taoyuan	icon
+railway-station-subway-tashkent	icon
+railway-station-subway-tbilisi	icon
+railway-station-subway-tehran	icon
+railway-station-subway-tianjin	icon
+railway-station-subway-tokyo	icon
+railway-station-subway-valencia	icon
+railway-station-subway-vienna	icon
+railway-station-subway-warszawa	icon
+railway-station-subway-washington	icon
+railway-station-subway-wuhan	icon
+railway-station-subway-yerevan	icon
+railway-station-subway-yokohama	icon
+=== 900
+
+barrier-border_control	icon
+historic-city_gate	icon
+historic-monument	icon
+=== 880
+
+railway-station-subway	caption
+railway-station-subway-amsterdam	caption
+railway-station-subway-ankara	caption
+railway-station-subway-athens	caption
+railway-station-subway-baku	caption
+railway-station-subway-bangkok	caption
+railway-station-subway-barcelona	caption
+railway-station-subway-beijing	caption
+railway-station-subway-bengalore	caption
+railway-station-subway-berlin	caption
+railway-station-subway-bilbao	caption
+railway-station-subway-brasilia	caption
+railway-station-subway-brescia	caption
+railway-station-subway-brussels	caption
+railway-station-subway-bucharest	caption
+railway-station-subway-budapest	caption
+railway-station-subway-buenos_aires	caption
+railway-station-subway-bursa	caption
+railway-station-subway-cairo	caption
+railway-station-subway-caracas	caption
+railway-station-subway-catania	caption
+railway-station-subway-changchun	caption
+railway-station-subway-chengdu	caption
+railway-station-subway-chicago	caption
+railway-station-subway-chongqing	caption
+railway-station-subway-dalian	caption
+railway-station-subway-delhi	caption
+railway-station-subway-dnepro	caption
+railway-station-subway-dubai	caption
+railway-station-subway-ekb	caption
+railway-station-subway-fukuoka	caption
+railway-station-subway-glasgow	caption
+railway-station-subway-guangzhou	caption
+railway-station-subway-hamburg	caption
+railway-station-subway-helsinki	caption
+railway-station-subway-hiroshima	caption
+railway-station-subway-isfahan	caption
+railway-station-subway-istanbul	caption
+railway-station-subway-izmir	caption
+railway-station-subway-kazan	caption
+railway-station-subway-kharkiv	caption
+railway-station-subway-kiev	caption
+railway-station-subway-kobe	caption
+railway-station-subway-kolkata	caption
+railway-station-subway-kunming	caption
+railway-station-subway-kyoto	caption
+railway-station-subway-la	caption
+railway-station-subway-lausanne	caption
+railway-station-subway-lille	caption
+railway-station-subway-lima	caption
+railway-station-subway-lisboa	caption
+railway-station-subway-london	caption
+railway-station-subway-lyon	caption
+railway-station-subway-madrid	caption
+railway-station-subway-malaga	caption
+railway-station-subway-manila	caption
+railway-station-subway-maracaibo	caption
+railway-station-subway-mashhad	caption
+railway-station-subway-mecca	caption
+railway-station-subway-medellin	caption
+railway-station-subway-mexico	caption
+railway-station-subway-milan	caption
+railway-station-subway-minsk	caption
+railway-station-subway-montreal	caption
+railway-station-subway-munchen	caption
+railway-station-subway-nagoya	caption
+railway-station-subway-newyork	caption
+railway-station-subway-nnov	caption
+railway-station-subway-novosibirsk	caption
+railway-station-subway-osaka	caption
+railway-station-subway-oslo	caption
+railway-station-subway-palma	caption
+railway-station-subway-panama	caption
+railway-station-subway-paris	caption
+railway-station-subway-philadelphia	caption
+railway-station-subway-pyongyang	caption
+railway-station-subway-rennes	caption
+railway-station-subway-rio	caption
+railway-station-subway-roma	caption
+railway-station-subway-rotterdam	caption
+railway-station-subway-samara	caption
+railway-station-subway-santiago	caption
+railway-station-subway-santo_domingo	caption
+railway-station-subway-saopaulo	caption
+railway-station-subway-sapporo	caption
+railway-station-subway-sendai	caption
+railway-station-subway-sf	caption
+railway-station-subway-shanghai	caption
+railway-station-subway-shiraz	caption
+railway-station-subway-sofia	caption
+railway-station-subway-stockholm	caption
+railway-station-subway-tabriz	caption
+railway-station-subway-taipei	caption
+railway-station-subway-taoyuan	caption
+railway-station-subway-tashkent	caption
+railway-station-subway-tbilisi	caption
+railway-station-subway-tehran	caption
+railway-station-subway-tianjin	caption
+railway-station-subway-tokyo	caption
+railway-station-subway-valencia	caption
+railway-station-subway-vienna	caption
+railway-station-subway-warszawa	caption
+railway-station-subway-washington	caption
+railway-station-subway-wuhan	caption
+railway-station-subway-yerevan	caption
+railway-station-subway-yokohama	caption
+=== 870
+
+historic-city_gate	caption
+historic-monument	caption
+=== 860
+
+place-hamlet	caption
+=== 850
+
+place-locality	caption
+=== 840
+
+tourism-viewpoint	icon
+=== 820
+
+railway-halt	icon
+=== 810
+
+tourism-theme_park	icon
+=== 790
+
+shop-supermarket	icon
+=== 780
+
+highway-pedestrian	pathtext
+highway-pedestrian-area	pathtext
+highway-pedestrian-bridge	pathtext
+highway-pedestrian-tunnel	pathtext
+=== 760
+
+natural-strait	caption
+waterway-river	pathtext
+waterway-river-tunnel	pathtext
+waterway-riverbank	pathtext
+=== 720
+
+tourism-viewpoint	caption
+=== 710
+
+railway-halt	caption
+=== 700
+
+tourism-theme_park	caption
+=== 680
+
+shop-supermarket	caption
+=== 670
+
+natural-water	caption
+natural-water-basin	caption
+natural-water-lock	caption
+natural-water-pond	caption
+shop-mall	caption
+shop-mall	icon
+waterway-canal	pathtext
+waterway-canal-tunnel	pathtext
+=== 660
+
+aeroway-aerodrome	caption
+natural-desert	caption
+=== 640
+
+natural-bay	caption
+natural-cape	caption
+place-farm	caption
+place-isolated_dwelling	caption
+=== 630
+
+tourism-zoo	icon
+=== 600
+
+tourism-museum	icon
+=== 590
+
+tourism-gallery	icon
+=== 580
+
+historic-battlefield	icon
+historic-memorial	icon
+historic-memorial-sculpture	icon
+historic-memorial-statue	icon
+historic-memorial-war_memorial	icon
+tourism-attraction	icon
+tourism-attraction-animal	icon
+tourism-attraction-specified	icon
+=== 570
+
+amenity-community_centre	icon
+tourism-artwork	icon
+tourism-artwork-architecture	icon
+tourism-artwork-painting	icon
+tourism-artwork-sculpture	icon
+tourism-artwork-statue	icon
+=== 560
+
+amenity-cafe	icon
+amenity-theatre	icon
+=== 540
+
+amenity-university	icon
+=== 530
+
+amenity-hospital	caption
+amenity-hospital	icon
+amenity-university	caption
+=== 520
+
+amenity-parking	caption
+amenity-parking-fee	caption
+amenity-parking-multi-storey	caption
+amenity-parking-park_and_ride	caption
+amenity-parking-permissive	caption
+amenity-parking-underground	caption
+=== 510
+
+barrier-border_control	caption
+=== 500
+
+tourism-zoo	caption
+=== 490
+
+tourism-museum	caption
+=== 480
+
+tourism-gallery	caption
+=== 470
+
+historic-battlefield	caption
+historic-memorial	caption
+historic-memorial-sculpture	caption
+historic-memorial-statue	caption
+historic-memorial-war_memorial	caption
+tourism-attraction	caption
+tourism-attraction-animal	caption
+tourism-attraction-specified	caption
+=== 460
+
+amenity-community_centre	caption
+tourism-artwork	caption
+tourism-artwork-architecture	caption
+tourism-artwork-painting	caption
+tourism-artwork-sculpture	caption
+tourism-artwork-statue	caption
+=== 450
+
+amenity-cafe	caption
+amenity-theatre	caption
+=== 430
+
+aeroway-terminal	caption
+=== 410
+
+leisure-beach_resort	caption
+natural-beach	caption
+natural-beach-gravel	caption
+natural-beach-sand	caption
+=== 390
+
+amenity-charging_station-bicycle	icon
+=== 370
+
+historic-boundary_stone	icon
+historic-gallows	icon
+historic-pillory	icon
+historic-ship	icon
+historic-tomb	icon
+historic-wayside_cross	icon
+historic-wayside_shrine	icon
+=== 350
+
+amenity-restaurant	icon
+=== 340
+
+railway-rail-tourism	pathtext
+railway-rail-tourism-bridge	pathtext
+railway-rail-tourism-tunnel	pathtext
+=== 330
+
+amenity-place_of_worship	icon
+amenity-place_of_worship-buddhist	icon
+amenity-place_of_worship-christian	icon
+amenity-place_of_worship-hindu	icon
+amenity-place_of_worship-jewish	icon
+amenity-place_of_worship-muslim	icon
+amenity-place_of_worship-shinto	icon
+amenity-place_of_worship-taoist	icon
+=== 300
+
+waterway-lock_gate	icon
+=== 290
+
+amenity-conference_centre	icon
+amenity-events_venue	icon
+amenity-exhibition_centre	icon
+amenity-water_point	icon
+railway-subway_entrance	icon
+railway-subway_entrance-adana	icon
+railway-subway_entrance-algiers	icon
+railway-subway_entrance-almaty	icon
+railway-subway_entrance-amsterdam	icon
+railway-subway_entrance-ankara	icon
+railway-subway_entrance-athens	icon
+railway-subway_entrance-baku	icon
+railway-subway_entrance-bangkok	icon
+railway-subway_entrance-barcelona	icon
+railway-subway_entrance-beijing	icon
+railway-subway_entrance-bengalore	icon
+railway-subway_entrance-berlin	icon
+railway-subway_entrance-bilbao	icon
+railway-subway_entrance-brasilia	icon
+railway-subway_entrance-brescia	icon
+railway-subway_entrance-brussels	icon
+railway-subway_entrance-bucharest	icon
+railway-subway_entrance-budapest	icon
+railway-subway_entrance-buenos_aires	icon
+railway-subway_entrance-bursa	icon
+railway-subway_entrance-cairo	icon
+railway-subway_entrance-caracas	icon
+railway-subway_entrance-catania	icon
+railway-subway_entrance-changchun	icon
+railway-subway_entrance-chengdu	icon
+railway-subway_entrance-chicago	icon
+railway-subway_entrance-chongqing	icon
+railway-subway_entrance-dalian	icon
+railway-subway_entrance-delhi	icon
+railway-subway_entrance-dnepro	icon
+railway-subway_entrance-dubai	icon
+railway-subway_entrance-ekb	icon
+railway-subway_entrance-fukuoka	icon
+railway-subway_entrance-glasgow	icon
+railway-subway_entrance-guangzhou	icon
+railway-subway_entrance-hamburg	icon
+railway-subway_entrance-helsinki	icon
+railway-subway_entrance-hiroshima	icon
+railway-subway_entrance-isfahan	icon
+railway-subway_entrance-istanbul	icon
+railway-subway_entrance-izmir	icon
+railway-subway_entrance-kazan	icon
+railway-subway_entrance-kharkiv	icon
+railway-subway_entrance-kiev	icon
+railway-subway_entrance-kobe	icon
+railway-subway_entrance-kolkata	icon
+railway-subway_entrance-kunming	icon
+railway-subway_entrance-kyoto	icon
+railway-subway_entrance-la	icon
+railway-subway_entrance-lausanne	icon
+railway-subway_entrance-lille	icon
+railway-subway_entrance-lima	icon
+railway-subway_entrance-lisboa	icon
+railway-subway_entrance-london	icon
+railway-subway_entrance-lyon	icon
+railway-subway_entrance-madrid	icon
+railway-subway_entrance-malaga	icon
+railway-subway_entrance-manila	icon
+railway-subway_entrance-maracaibo	icon
+railway-subway_entrance-mashhad	icon
+railway-subway_entrance-mecca	icon
+railway-subway_entrance-medellin	icon
+railway-subway_entrance-mexico	icon
+railway-subway_entrance-milan	icon
+railway-subway_entrance-minsk	icon
+railway-subway_entrance-montreal	icon
+railway-subway_entrance-moscow	icon
+railway-subway_entrance-munchen	icon
+railway-subway_entrance-nagoya	icon
+railway-subway_entrance-newyork	icon
+railway-subway_entrance-nnov	icon
+railway-subway_entrance-novosibirsk	icon
+railway-subway_entrance-osaka	icon
+railway-subway_entrance-oslo	icon
+railway-subway_entrance-palma	icon
+railway-subway_entrance-panama	icon
+railway-subway_entrance-paris	icon
+railway-subway_entrance-philadelphia	icon
+railway-subway_entrance-pyongyang	icon
+railway-subway_entrance-rennes	icon
+railway-subway_entrance-rio	icon
+railway-subway_entrance-roma	icon
+railway-subway_entrance-rotterdam	icon
+railway-subway_entrance-samara	icon
+railway-subway_entrance-santiago	icon
+railway-subway_entrance-santo_domingo	icon
+railway-subway_entrance-saopaulo	icon
+railway-subway_entrance-sapporo	icon
+railway-subway_entrance-sendai	icon
+railway-subway_entrance-sf	icon
+railway-subway_entrance-shanghai	icon
+railway-subway_entrance-shiraz	icon
+railway-subway_entrance-sofia	icon
+railway-subway_entrance-spb	icon
+railway-subway_entrance-stockholm	icon
+railway-subway_entrance-tabriz	icon
+railway-subway_entrance-taipei	icon
+railway-subway_entrance-taoyuan	icon
+railway-subway_entrance-tashkent	icon
+railway-subway_entrance-tbilisi	icon
+railway-subway_entrance-tehran	icon
+railway-subway_entrance-tianjin	icon
+railway-subway_entrance-tokyo	icon
+railway-subway_entrance-valencia	icon
+railway-subway_entrance-vienna	icon
+railway-subway_entrance-warszawa	icon
+railway-subway_entrance-washington	icon
+railway-subway_entrance-wuhan	icon
+railway-subway_entrance-yerevan	icon
+railway-subway_entrance-yokohama	icon
+=== 280
+
+amenity-charging_station	caption
+amenity-charging_station-bicycle	caption
+=== 270
+
+amenity-parking-no-access	caption
+amenity-parking-no-access	icon
+amenity-parking-private	caption
+amenity-parking-private	icon
+historic-boundary_stone	caption
+historic-gallows	caption
+historic-pillory	caption
+historic-ship	caption
+historic-tomb	caption
+historic-wayside_cross	caption
+historic-wayside_shrine	caption
+=== 250
+
+amenity-restaurant	caption
+=== 240
+
+amenity-place_of_worship	caption
+amenity-place_of_worship-buddhist	caption
+amenity-place_of_worship-christian	caption
+amenity-place_of_worship-hindu	caption
+amenity-place_of_worship-jewish	caption
+amenity-place_of_worship-muslim	caption
+amenity-place_of_worship-shinto	caption
+amenity-place_of_worship-taoist	caption
+=== 230
+
+natural-wetland	caption
+natural-wetland-bog	caption
+natural-wetland-marsh	caption
+=== 220
+
+railway-subway_entrance	caption
+railway-subway_entrance-adana	caption
+railway-subway_entrance-algiers	caption
+railway-subway_entrance-almaty	caption
+railway-subway_entrance-amsterdam	caption
+railway-subway_entrance-ankara	caption
+railway-subway_entrance-athens	caption
+railway-subway_entrance-baku	caption
+railway-subway_entrance-bangkok	caption
+railway-subway_entrance-barcelona	caption
+railway-subway_entrance-beijing	caption
+railway-subway_entrance-bengalore	caption
+railway-subway_entrance-berlin	caption
+railway-subway_entrance-bilbao	caption
+railway-subway_entrance-brasilia	caption
+railway-subway_entrance-brescia	caption
+railway-subway_entrance-brussels	caption
+railway-subway_entrance-bucharest	caption
+railway-subway_entrance-budapest	caption
+railway-subway_entrance-buenos_aires	caption
+railway-subway_entrance-bursa	caption
+railway-subway_entrance-cairo	caption
+railway-subway_entrance-caracas	caption
+railway-subway_entrance-catania	caption
+railway-subway_entrance-changchun	caption
+railway-subway_entrance-chengdu	caption
+railway-subway_entrance-chicago	caption
+railway-subway_entrance-chongqing	caption
+railway-subway_entrance-dalian	caption
+railway-subway_entrance-delhi	caption
+railway-subway_entrance-dnepro	caption
+railway-subway_entrance-dubai	caption
+railway-subway_entrance-ekb	caption
+railway-subway_entrance-fukuoka	caption
+railway-subway_entrance-glasgow	caption
+railway-subway_entrance-guangzhou	caption
+railway-subway_entrance-hamburg	caption
+railway-subway_entrance-helsinki	caption
+railway-subway_entrance-hiroshima	caption
+railway-subway_entrance-isfahan	caption
+railway-subway_entrance-istanbul	caption
+railway-subway_entrance-izmir	caption
+railway-subway_entrance-kazan	caption
+railway-subway_entrance-kharkiv	caption
+railway-subway_entrance-kiev	caption
+railway-subway_entrance-kobe	caption
+railway-subway_entrance-kolkata	caption
+railway-subway_entrance-kunming	caption
+railway-subway_entrance-kyoto	caption
+railway-subway_entrance-la	caption
+railway-subway_entrance-lausanne	caption
+railway-subway_entrance-lille	caption
+railway-subway_entrance-lima	caption
+railway-subway_entrance-lisboa	caption
+railway-subway_entrance-london	caption
+railway-subway_entrance-lyon	caption
+railway-subway_entrance-madrid	caption
+railway-subway_entrance-malaga	caption
+railway-subway_entrance-manila	caption
+railway-subway_entrance-maracaibo	caption
+railway-subway_entrance-mashhad	caption
+railway-subway_entrance-mecca	caption
+railway-subway_entrance-medellin	caption
+railway-subway_entrance-mexico	caption
+railway-subway_entrance-milan	caption
+railway-subway_entrance-minsk	caption
+railway-subway_entrance-montreal	caption
+railway-subway_entrance-moscow	caption
+railway-subway_entrance-munchen	caption
+railway-subway_entrance-nagoya	caption
+railway-subway_entrance-newyork	caption
+railway-subway_entrance-nnov	caption
+railway-subway_entrance-novosibirsk	caption
+railway-subway_entrance-osaka	caption
+railway-subway_entrance-oslo	caption
+railway-subway_entrance-palma	caption
+railway-subway_entrance-panama	caption
+railway-subway_entrance-paris	caption
+railway-subway_entrance-philadelphia	caption
+railway-subway_entrance-pyongyang	caption
+railway-subway_entrance-rennes	caption
+railway-subway_entrance-rio	caption
+railway-subway_entrance-roma	caption
+railway-subway_entrance-rotterdam	caption
+railway-subway_entrance-samara	caption
+railway-subway_entrance-santiago	caption
+railway-subway_entrance-santo_domingo	caption
+railway-subway_entrance-saopaulo	caption
+railway-subway_entrance-sapporo	caption
+railway-subway_entrance-sendai	caption
+railway-subway_entrance-sf	caption
+railway-subway_entrance-shanghai	caption
+railway-subway_entrance-shiraz	caption
+railway-subway_entrance-sofia	caption
+railway-subway_entrance-spb	caption
+railway-subway_entrance-stockholm	caption
+railway-subway_entrance-tabriz	caption
+railway-subway_entrance-taipei	caption
+railway-subway_entrance-taoyuan	caption
+railway-subway_entrance-tashkent	caption
+railway-subway_entrance-tbilisi	caption
+railway-subway_entrance-tehran	caption
+railway-subway_entrance-tianjin	caption
+railway-subway_entrance-tokyo	caption
+railway-subway_entrance-valencia	caption
+railway-subway_entrance-vienna	caption
+railway-subway_entrance-warszawa	caption
+railway-subway_entrance-washington	caption
+railway-subway_entrance-wuhan	caption
+railway-subway_entrance-yerevan	caption
+railway-subway_entrance-yokohama	caption
+=== 210
+
+railway-tram_stop	icon
+=== 200
+
+historic-memorial-cross	icon
+=== 180
+
+amenity-arts_centre	icon
+historic-archaeological_site	icon
+historic-ruins	icon
+=== 170
+
+amenity-fast_food	icon
+=== 150
+
+amenity-bank	icon
+amenity-parcel_locker	icon
+amenity-police	icon
+amenity-post_office	icon
+amenity-vending_machine	icon
+amenity-vending_machine-cigarettes	icon
+amenity-vending_machine-coffee	icon
+amenity-vending_machine-condoms	icon
+amenity-vending_machine-drinks	icon
+amenity-vending_machine-excrement_bags	icon
+amenity-vending_machine-food	icon
+amenity-vending_machine-newspapers	icon
+amenity-vending_machine-public_transport_tickets	icon
+amenity-vending_machine-sweets	icon
+shop-motorcycle	icon
+=== 140
+
+railway-tram_stop	caption
+=== 130
+
+historic-memorial-cross	caption
+=== 120
+
+amenity-arts_centre	caption
+historic-archaeological_site	caption
+historic-ruins	caption
+=== 110
+
+amenity-fast_food	caption
+=== 90
+
+amenity-bank	caption
+amenity-parcel_locker	caption
+amenity-post_office	caption
+amenity-vending_machine	caption
+amenity-vending_machine-cigarettes	caption
+amenity-vending_machine-coffee	caption
+amenity-vending_machine-condoms	caption
+amenity-vending_machine-drinks	caption
+amenity-vending_machine-excrement_bags	caption
+amenity-vending_machine-food	caption
+amenity-vending_machine-newspapers	caption
+amenity-vending_machine-public_transport_tickets	caption
+amenity-vending_machine-sweets	caption
+=== 70
+
+landuse-landfill	caption
+landuse-quarry	caption
+landuse-railway	caption
+=== 60
+
+leisure-park-no-access	caption
+leisure-park-no-access	icon
+leisure-park-private	caption
+leisure-park-private	icon
+=== 50
+
+building	caption
+building-address	caption
+building-garage	caption
+building-has_parts	caption
+building-train_station	caption
+=== 20
+
+amenity-car_sharing	caption
+=== 10

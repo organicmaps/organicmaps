@@ -11,319 +11,394 @@
 # - BG-top: water (linear and areal)
 # - BG-by-size: landcover areas sorted by their size
 
-aerialway-cable_car	line::dash	380
-aerialway-chair_lift	line::dash	380
-aerialway-drag_lift	line::dash	380
-aerialway-gondola	line::dash	380
-aerialway-j-bar	line::dash	380
-aerialway-magic_carpet	line::dash	380
-aerialway-mixed_lift	line::dash	380
-aerialway-platter	line::dash	380
-aerialway-rope_tow	line::dash	380
-aerialway-t-bar	line::dash	380
-aerialway-cable_car	line	370
-aerialway-chair_lift	line	370
-aerialway-drag_lift	line	370
-aerialway-gondola	line	370
-aerialway-j-bar	line	370
-aerialway-magic_carpet	line	370
-aerialway-mixed_lift	line	370
-aerialway-platter	line	370
-aerialway-rope_tow	line	370
-aerialway-t-bar	line	370
-historic-citywalls	line	360
-power-line	line	350
-power-line	line::dash	340
-highway-cycleway	line	330
-highway-cycleway-bridge	line	330
-highway-cycleway-permissive	line	330
-highway-cycleway-tunnel	line	330
-highway-steps	line	330
-highway-steps-bridge	line	330
-highway-steps-tunnel	line	330
-hwtag-oneway	line::arrows	330
-waterway-weir	line	330
-barrier-city_wall	line	320
-barrier-fence	line	320
-barrier-hedge	line	320
-barrier-wall	line	320
-railway-monorail	line	320
-railway-monorail-bridge	line	320
-railway-monorail-tunnel	line	320
-railway-narrow_gauge	line	320
-railway-narrow_gauge-bridge	line	320
-railway-narrow_gauge-tunnel	line	320
-railway-tram	line	320
-railway-tram-bridge	line	320
-railway-tram-tunnel	line	320
-highway-motorway	line	310
-highway-motorway-bridge	line	310
-highway-motorway-tunnel	line	310
-highway-trunk	line	310
-highway-trunk-bridge	line	310
-highway-trunk-tunnel	line	310
-highway-world_level	line	310
-highway-world_towns_level	line	310
-highway-motorway_link	line	300
-highway-motorway_link-bridge	line	300
-highway-motorway_link-tunnel	line	300
-highway-trunk_link	line	300
-highway-trunk_link-bridge	line	300
-highway-trunk_link-tunnel	line	300
-highway-primary	line	290
-highway-primary-bridge	line	290
-highway-primary-tunnel	line	290
-railway-rail-branch	line::dash	290
-railway-rail-branch-bridge	line::dash	290
-railway-rail-branch-tunnel	line::dash	290
-railway-rail-highspeed	line::dash	290
-railway-rail-highspeed-bridge	line::dash	290
-railway-rail-highspeed-tunnel	line::dash	290
-railway-rail-main	line::dash	290
-railway-rail-main-bridge	line::dash	290
-railway-rail-main-tunnel	line::dash	290
-railway-rail-tourism	line::dash	290
-railway-rail-tourism-bridge	line::dash	290
-railway-rail-tourism-tunnel	line::dash	290
-highway-primary_link	line	280
-highway-primary_link-bridge	line	280
-highway-primary_link-tunnel	line	280
-railway-rail-branch	line	280
-railway-rail-branch-bridge	line	280
-railway-rail-branch-tunnel	line	280
-railway-rail-highspeed	line	280
-railway-rail-highspeed-bridge	line	280
-railway-rail-highspeed-tunnel	line	280
-railway-rail-main	line	280
-railway-rail-main-bridge	line	280
-railway-rail-main-tunnel	line	280
-railway-rail-tourism	line	280
-railway-rail-tourism-bridge	line	280
-railway-rail-tourism-tunnel	line	280
-highway-secondary	line	270
-highway-secondary-bridge	line	270
-highway-secondary-tunnel	line	270
-highway-secondary_link	line	260
-highway-secondary_link-bridge	line	260
-highway-secondary_link-tunnel	line	260
-highway-residential	line	250
-highway-residential-area	line	250
-highway-residential-bridge	line	250
-highway-residential-tunnel	line	250
-highway-tertiary	line	250
-highway-tertiary-bridge	line	250
-highway-tertiary-tunnel	line	250
-highway-tertiary_link	line	240
-highway-tertiary_link-bridge	line	240
-highway-tertiary_link-tunnel	line	240
-highway-living_street	line	230
-highway-living_street-bridge	line	230
-highway-living_street-tunnel	line	230
-highway-road	line	230
-highway-road-bridge	line	230
-highway-road-tunnel	line	230
-highway-unclassified	line	230
-highway-unclassified-area	line	230
-highway-unclassified-bridge	line	230
-highway-unclassified-tunnel	line	230
-railway-light_rail	line::dash	220
-railway-light_rail-bridge	line::dash	220
-railway-rail	line::dash	220
-railway-rail-bridge	line::dash	220
-railway-rail-service	line::dash	220
-railway-rail-service-bridge	line::dash	220
-railway-rail-service-tunnel	line::dash	220
-railway-rail-spur	line::dash	220
-railway-rail-spur-bridge	line::dash	220
-railway-rail-spur-tunnel	line::dash	220
-railway-rail-tunnel	line::dash	220
-railway-rail-utility	line::dash	220
-railway-rail-utility-bridge	line::dash	220
-railway-rail-utility-tunnel	line::dash	220
-railway-subway	line::dash	220
-railway-subway-bridge	line::dash	220
-railway-light_rail	line	210
-railway-light_rail-bridge	line	210
-railway-rail	line	210
-railway-rail-bridge	line	210
-railway-rail-service	line	210
-railway-rail-service-bridge	line	210
-railway-rail-service-tunnel	line	210
-railway-rail-spur	line	210
-railway-rail-spur-bridge	line	210
-railway-rail-spur-tunnel	line	210
-railway-rail-tunnel	line	210
-railway-rail-utility	line	210
-railway-rail-utility-bridge	line	210
-railway-rail-utility-tunnel	line	210
-railway-subway	line	210
-railway-subway-bridge	line	210
-highway-ford	line	200
-highway-pedestrian	line	200
-highway-pedestrian-area	line	200
-highway-pedestrian-bridge	line	200
-highway-pedestrian-tunnel	line	200
-highway-busway	line	190
-highway-busway-bridge	line	190
-highway-busway-tunnel	line	190
-highway-service	line	190
-highway-service-area	line	190
-highway-service-bridge	line	190
-highway-service-busway	line	190
-highway-service-driveway	line	190
-highway-service-parking_aisle	line	190
-highway-service-tunnel	line	190
-highway-footway	line	180
-highway-footway-alpine_hiking	line	180
-highway-footway-area	line	180
-highway-footway-bridge	line	180
-highway-footway-demanding_alpine_hiking	line	180
-highway-footway-demanding_mountain_hiking	line	180
-highway-footway-difficult_alpine_hiking	line	180
-highway-footway-hiking	line	180
-highway-footway-mountain_hiking	line	180
-highway-footway-permissive	line	180
-highway-footway-tunnel	line	180
-highway-path	line	180
-highway-path-alpine_hiking	line	180
-highway-path-bicycle	line	180
-highway-path-bridge	line	180
-highway-path-demanding_alpine_hiking	line	180
-highway-path-demanding_mountain_hiking	line	180
-highway-path-difficult_alpine_hiking	line	180
-highway-path-hiking	line	180
-highway-path-horse	line	180
-highway-path-mountain_hiking	line	180
-highway-path-permissive	line	180
-highway-path-tunnel	line	180
-highway-raceway	line	180
-highway-track	line	180
-highway-track-area	line	180
-highway-track-bridge	line	180
-highway-track-grade1	line	180
-highway-track-grade2	line	180
-highway-track-grade3	line	180
-highway-track-grade4	line	180
-highway-track-grade5	line	180
-highway-track-no-access	line	180
-highway-track-permissive	line	180
-highway-track-tunnel	line	180
-leisure-track	line	180
-highway-bridleway	line	170
-highway-bridleway-bridge	line	170
-highway-bridleway-permissive	line	170
-highway-bridleway-tunnel	line	170
-highway-construction	line	160
-railway-abandoned	line	160
-railway-abandoned-bridge	line	160
-railway-abandoned-tunnel	line	160
-railway-construction	line	160
-railway-disused	line	160
-railway-preserved	line	160
-railway-preserved-bridge	line	160
-railway-preserved-tunnel	line	160
-highway-motorway-bridge	line::bridgewhite	150
-highway-motorway_link-bridge	line::bridgewhite	150
-highway-pedestrian-bridge	line::bridgewhite	150
-highway-primary-bridge	line::bridgewhite	150
-highway-primary_link-bridge	line::bridgewhite	150
-highway-residential-bridge	line::bridgewhite	150
-highway-road-bridge	line::bridgewhite	150
-highway-secondary-bridge	line::bridgewhite	150
-highway-secondary_link-bridge	line::bridgewhite	150
-highway-service-bridge	line::bridgewhite	150
-highway-tertiary-bridge	line::bridgewhite	150
-highway-tertiary_link-bridge	line::bridgewhite	150
-highway-trunk-bridge	line::bridgewhite	150
-highway-trunk_link-bridge	line::bridgewhite	150
-highway-unclassified-bridge	line::bridgewhite	150
-railway-abandoned-bridge	line::bridgewhite	150
-railway-preserved-bridge	line::bridgewhite	150
-railway-rail-branch-bridge	line::bridgewhite	150
-railway-rail-bridge	line::bridgewhite	150
-railway-rail-highspeed-bridge	line::bridgewhite	150
-railway-rail-main-bridge	line::bridgewhite	150
-railway-rail-service-bridge	line::bridgewhite	150
-railway-rail-spur-bridge	line::bridgewhite	150
-railway-rail-tourism-bridge	line::bridgewhite	150
-railway-rail-utility-bridge	line::bridgewhite	150
-railway-subway-bridge	line::bridgewhite	150
-highway-motorway-bridge	line::bridgeblack	140
-highway-motorway_link-bridge	line::bridgeblack	140
-highway-pedestrian-bridge	line::bridgeblack	140
-highway-primary-bridge	line::bridgeblack	140
-highway-primary_link-bridge	line::bridgeblack	140
-highway-residential-bridge	line::bridgeblack	140
-highway-road-bridge	line::bridgeblack	140
-highway-secondary-bridge	line::bridgeblack	140
-highway-secondary_link-bridge	line::bridgeblack	140
-highway-service-bridge	line::bridgeblack	140
-highway-tertiary-bridge	line::bridgeblack	140
-highway-tertiary_link-bridge	line::bridgeblack	140
-highway-trunk-bridge	line::bridgeblack	140
-highway-trunk_link-bridge	line::bridgeblack	140
-highway-unclassified-bridge	line::bridgeblack	140
-railway-abandoned-bridge	line::bridgeblack	140
-railway-preserved-bridge	line::bridgeblack	140
-railway-rail-branch-bridge	line::bridgeblack	140
-railway-rail-bridge	line::bridgeblack	140
-railway-rail-highspeed-bridge	line::bridgeblack	140
-railway-rail-main-bridge	line::bridgeblack	140
-railway-rail-service-bridge	line::bridgeblack	140
-railway-rail-spur-bridge	line::bridgeblack	140
-railway-rail-tourism-bridge	line::bridgeblack	140
-railway-rail-utility-bridge	line::bridgeblack	140
-railway-subway-bridge	line::bridgeblack	140
-building	area	130
-building-garage	area	130
-building-has_parts	area	130
-building-train_station	area	130
-piste:type-downhill	line	120
-piste:type-downhill-advanced	line	120
-piste:type-downhill-easy	line	120
-piste:type-downhill-expert	line	120
-piste:type-downhill-freeride	line	120
-piste:type-downhill-intermediate	line	120
-piste:type-downhill-novice	line	120
-piste:type-nordic	line	120
-piste:type-sled	line	120
-building:part	area	110
-landuse-garages	area	110
-barrier-retaining_wall	line	100
-man_made-embankment	line	100
-natural-cliff	line	100
-natural-earth_bank	line	100
-boundary-administrative-2	line	90
-boundary-administrative-3	line	90
-boundary-administrative-4	line	90
-man_made-cutline	line	80
-route-ferry	line	80
-aeroway-runway	line	70
-aeroway-taxiway	line	70
-barrier-ditch	line	70
-isoline-step_10	line	60
-isoline-step_100	line	60
-isoline-step_1000	line	60
-isoline-step_50	line	60
-isoline-step_500	line	60
-isoline-zero	line	60
-highway-footway-tunnel	line::tunnelBackground	50
-highway-path-tunnel	line::tunnelBackground	50
-highway-steps-tunnel	line::tunnelBackground	50
-railway-light_rail-bridge	line::bridgewhite	50
-highway-footway-tunnel	line::tunnelCasing	40
-highway-path-tunnel	line::tunnelCasing	40
-highway-steps-tunnel	line::tunnelCasing	40
-railway-light_rail-bridge	line::bridgeblack	40
-man_made-breakwater	area	30
-man_made-breakwater	line	30
-man_made-pier	area	30
-man_made-pier	line	30
-waterway-dam	area	30
-waterway-dam	line	30
-boundary-national_park	area	20
-boundary-protected_area-1	area	20
-landuse-military	area	20
-landuse-military-danger_area	area	20
-leisure-nature_reserve	area	20
-man_made-bridge	area	10
+aerialway-cable_car	line::dash
+aerialway-chair_lift	line::dash
+aerialway-drag_lift	line::dash
+aerialway-gondola	line::dash
+aerialway-j-bar	line::dash
+aerialway-magic_carpet	line::dash
+aerialway-mixed_lift	line::dash
+aerialway-platter	line::dash
+aerialway-rope_tow	line::dash
+aerialway-t-bar	line::dash
+=== 380
+
+aerialway-cable_car	line
+aerialway-chair_lift	line
+aerialway-drag_lift	line
+aerialway-gondola	line
+aerialway-j-bar	line
+aerialway-magic_carpet	line
+aerialway-mixed_lift	line
+aerialway-platter	line
+aerialway-rope_tow	line
+aerialway-t-bar	line
+=== 370
+
+historic-citywalls	line
+=== 360
+
+power-line	line
+=== 350
+
+power-line	line::dash
+=== 340
+
+highway-cycleway	line
+highway-cycleway-bridge	line
+highway-cycleway-permissive	line
+highway-cycleway-tunnel	line
+highway-steps	line
+highway-steps-bridge	line
+highway-steps-tunnel	line
+hwtag-oneway	line::arrows
+waterway-weir	line
+=== 330
+
+barrier-city_wall	line
+barrier-fence	line
+barrier-hedge	line
+barrier-wall	line
+railway-monorail	line
+railway-monorail-bridge	line
+railway-monorail-tunnel	line
+railway-narrow_gauge	line
+railway-narrow_gauge-bridge	line
+railway-narrow_gauge-tunnel	line
+railway-tram	line
+railway-tram-bridge	line
+railway-tram-tunnel	line
+=== 320
+
+highway-motorway	line
+highway-motorway-bridge	line
+highway-motorway-tunnel	line
+highway-trunk	line
+highway-trunk-bridge	line
+highway-trunk-tunnel	line
+highway-world_level	line
+highway-world_towns_level	line
+=== 310
+
+highway-motorway_link	line
+highway-motorway_link-bridge	line
+highway-motorway_link-tunnel	line
+highway-trunk_link	line
+highway-trunk_link-bridge	line
+highway-trunk_link-tunnel	line
+=== 300
+
+highway-primary	line
+highway-primary-bridge	line
+highway-primary-tunnel	line
+railway-rail-branch	line::dash
+railway-rail-branch-bridge	line::dash
+railway-rail-branch-tunnel	line::dash
+railway-rail-highspeed	line::dash
+railway-rail-highspeed-bridge	line::dash
+railway-rail-highspeed-tunnel	line::dash
+railway-rail-main	line::dash
+railway-rail-main-bridge	line::dash
+railway-rail-main-tunnel	line::dash
+railway-rail-tourism	line::dash
+railway-rail-tourism-bridge	line::dash
+railway-rail-tourism-tunnel	line::dash
+=== 290
+
+highway-primary_link	line
+highway-primary_link-bridge	line
+highway-primary_link-tunnel	line
+railway-rail-branch	line
+railway-rail-branch-bridge	line
+railway-rail-branch-tunnel	line
+railway-rail-highspeed	line
+railway-rail-highspeed-bridge	line
+railway-rail-highspeed-tunnel	line
+railway-rail-main	line
+railway-rail-main-bridge	line
+railway-rail-main-tunnel	line
+railway-rail-tourism	line
+railway-rail-tourism-bridge	line
+railway-rail-tourism-tunnel	line
+=== 280
+
+highway-secondary	line
+highway-secondary-bridge	line
+highway-secondary-tunnel	line
+=== 270
+
+highway-secondary_link	line
+highway-secondary_link-bridge	line
+highway-secondary_link-tunnel	line
+=== 260
+
+highway-residential	line
+highway-residential-area	line
+highway-residential-bridge	line
+highway-residential-tunnel	line
+highway-tertiary	line
+highway-tertiary-bridge	line
+highway-tertiary-tunnel	line
+=== 250
+
+highway-tertiary_link	line
+highway-tertiary_link-bridge	line
+highway-tertiary_link-tunnel	line
+=== 240
+
+highway-living_street	line
+highway-living_street-bridge	line
+highway-living_street-tunnel	line
+highway-road	line
+highway-road-bridge	line
+highway-road-tunnel	line
+highway-unclassified	line
+highway-unclassified-area	line
+highway-unclassified-bridge	line
+highway-unclassified-tunnel	line
+=== 230
+
+railway-light_rail	line::dash
+railway-light_rail-bridge	line::dash
+railway-rail	line::dash
+railway-rail-bridge	line::dash
+railway-rail-service	line::dash
+railway-rail-service-bridge	line::dash
+railway-rail-service-tunnel	line::dash
+railway-rail-spur	line::dash
+railway-rail-spur-bridge	line::dash
+railway-rail-spur-tunnel	line::dash
+railway-rail-tunnel	line::dash
+railway-rail-utility	line::dash
+railway-rail-utility-bridge	line::dash
+railway-rail-utility-tunnel	line::dash
+railway-subway	line::dash
+railway-subway-bridge	line::dash
+=== 220
+
+railway-light_rail	line
+railway-light_rail-bridge	line
+railway-rail	line
+railway-rail-bridge	line
+railway-rail-service	line
+railway-rail-service-bridge	line
+railway-rail-service-tunnel	line
+railway-rail-spur	line
+railway-rail-spur-bridge	line
+railway-rail-spur-tunnel	line
+railway-rail-tunnel	line
+railway-rail-utility	line
+railway-rail-utility-bridge	line
+railway-rail-utility-tunnel	line
+railway-subway	line
+railway-subway-bridge	line
+=== 210
+
+highway-ford	line
+highway-pedestrian	line
+highway-pedestrian-area	line
+highway-pedestrian-bridge	line
+highway-pedestrian-tunnel	line
+=== 200
+
+highway-busway	line
+highway-busway-bridge	line
+highway-busway-tunnel	line
+highway-service	line
+highway-service-area	line
+highway-service-bridge	line
+highway-service-busway	line
+highway-service-driveway	line
+highway-service-parking_aisle	line
+highway-service-tunnel	line
+=== 190
+
+highway-footway	line
+highway-footway-alpine_hiking	line
+highway-footway-area	line
+highway-footway-bridge	line
+highway-footway-demanding_alpine_hiking	line
+highway-footway-demanding_mountain_hiking	line
+highway-footway-difficult_alpine_hiking	line
+highway-footway-hiking	line
+highway-footway-mountain_hiking	line
+highway-footway-permissive	line
+highway-footway-tunnel	line
+highway-path	line
+highway-path-alpine_hiking	line
+highway-path-bicycle	line
+highway-path-bridge	line
+highway-path-demanding_alpine_hiking	line
+highway-path-demanding_mountain_hiking	line
+highway-path-difficult_alpine_hiking	line
+highway-path-hiking	line
+highway-path-horse	line
+highway-path-mountain_hiking	line
+highway-path-permissive	line
+highway-path-tunnel	line
+highway-raceway	line
+highway-track	line
+highway-track-area	line
+highway-track-bridge	line
+highway-track-grade1	line
+highway-track-grade2	line
+highway-track-grade3	line
+highway-track-grade4	line
+highway-track-grade5	line
+highway-track-no-access	line
+highway-track-permissive	line
+highway-track-tunnel	line
+leisure-track	line
+=== 180
+
+highway-bridleway	line
+highway-bridleway-bridge	line
+highway-bridleway-permissive	line
+highway-bridleway-tunnel	line
+=== 170
+
+highway-construction	line
+railway-abandoned	line
+railway-abandoned-bridge	line
+railway-abandoned-tunnel	line
+railway-construction	line
+railway-disused	line
+railway-preserved	line
+railway-preserved-bridge	line
+railway-preserved-tunnel	line
+=== 160
+
+highway-motorway-bridge	line::bridgewhite
+highway-motorway_link-bridge	line::bridgewhite
+highway-pedestrian-bridge	line::bridgewhite
+highway-primary-bridge	line::bridgewhite
+highway-primary_link-bridge	line::bridgewhite
+highway-residential-bridge	line::bridgewhite
+highway-road-bridge	line::bridgewhite
+highway-secondary-bridge	line::bridgewhite
+highway-secondary_link-bridge	line::bridgewhite
+highway-service-bridge	line::bridgewhite
+highway-tertiary-bridge	line::bridgewhite
+highway-tertiary_link-bridge	line::bridgewhite
+highway-trunk-bridge	line::bridgewhite
+highway-trunk_link-bridge	line::bridgewhite
+highway-unclassified-bridge	line::bridgewhite
+railway-abandoned-bridge	line::bridgewhite
+railway-preserved-bridge	line::bridgewhite
+railway-rail-branch-bridge	line::bridgewhite
+railway-rail-bridge	line::bridgewhite
+railway-rail-highspeed-bridge	line::bridgewhite
+railway-rail-main-bridge	line::bridgewhite
+railway-rail-service-bridge	line::bridgewhite
+railway-rail-spur-bridge	line::bridgewhite
+railway-rail-tourism-bridge	line::bridgewhite
+railway-rail-utility-bridge	line::bridgewhite
+railway-subway-bridge	line::bridgewhite
+=== 150
+
+highway-motorway-bridge	line::bridgeblack
+highway-motorway_link-bridge	line::bridgeblack
+highway-pedestrian-bridge	line::bridgeblack
+highway-primary-bridge	line::bridgeblack
+highway-primary_link-bridge	line::bridgeblack
+highway-residential-bridge	line::bridgeblack
+highway-road-bridge	line::bridgeblack
+highway-secondary-bridge	line::bridgeblack
+highway-secondary_link-bridge	line::bridgeblack
+highway-service-bridge	line::bridgeblack
+highway-tertiary-bridge	line::bridgeblack
+highway-tertiary_link-bridge	line::bridgeblack
+highway-trunk-bridge	line::bridgeblack
+highway-trunk_link-bridge	line::bridgeblack
+highway-unclassified-bridge	line::bridgeblack
+railway-abandoned-bridge	line::bridgeblack
+railway-preserved-bridge	line::bridgeblack
+railway-rail-branch-bridge	line::bridgeblack
+railway-rail-bridge	line::bridgeblack
+railway-rail-highspeed-bridge	line::bridgeblack
+railway-rail-main-bridge	line::bridgeblack
+railway-rail-service-bridge	line::bridgeblack
+railway-rail-spur-bridge	line::bridgeblack
+railway-rail-tourism-bridge	line::bridgeblack
+railway-rail-utility-bridge	line::bridgeblack
+railway-subway-bridge	line::bridgeblack
+=== 140
+
+building	area
+building-garage	area
+building-has_parts	area
+building-train_station	area
+=== 130
+
+piste:type-downhill	line
+piste:type-downhill-advanced	line
+piste:type-downhill-easy	line
+piste:type-downhill-expert	line
+piste:type-downhill-freeride	line
+piste:type-downhill-intermediate	line
+piste:type-downhill-novice	line
+piste:type-nordic	line
+piste:type-sled	line
+=== 120
+
+building:part	area
+landuse-garages	area
+=== 110
+
+barrier-retaining_wall	line
+man_made-embankment	line
+natural-cliff	line
+natural-earth_bank	line
+=== 100
+
+boundary-administrative-2	line
+boundary-administrative-3	line
+boundary-administrative-4	line
+=== 90
+
+man_made-cutline	line
+route-ferry	line
+=== 80
+
+aeroway-runway	line
+aeroway-taxiway	line
+barrier-ditch	line
+=== 70
+
+isoline-step_10	line
+isoline-step_100	line
+isoline-step_1000	line
+isoline-step_50	line
+isoline-step_500	line
+isoline-zero	line
+=== 60
+
+highway-footway-tunnel	line::tunnelBackground
+highway-path-tunnel	line::tunnelBackground
+highway-steps-tunnel	line::tunnelBackground
+railway-light_rail-bridge	line::bridgewhite
+=== 50
+
+highway-footway-tunnel	line::tunnelCasing
+highway-path-tunnel	line::tunnelCasing
+highway-steps-tunnel	line::tunnelCasing
+railway-light_rail-bridge	line::bridgeblack
+=== 40
+
+man_made-breakwater	area
+man_made-breakwater	line
+man_made-pier	area
+man_made-pier	line
+waterway-dam	area
+waterway-dam	line
+=== 30
+
+boundary-national_park	area
+boundary-protected_area-1	area
+landuse-military	area
+landuse-military-danger_area	area
+leisure-nature_reserve	area
+=== 20
+
+man_made-bridge	area
+=== 10

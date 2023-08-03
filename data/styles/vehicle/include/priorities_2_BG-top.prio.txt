@@ -15,19 +15,22 @@
 # - BG-top: water (linear and areal)
 # - BG-by-size: landcover areas sorted by their size
 
-landuse-basin	area	20
-landuse-reservoir	area	20
-landuse-salt_pond	area	20
-natural-water	area	20
-natural-water-basin	area	20
-natural-water-lake	area	20
-natural-water-lock	area	20
-natural-water-pond	area	20
-natural-water-reservoir	area	20
-natural-water-river	area	20
-waterway-dock	area	20
-waterway-riverbank	area	20
-waterway-riverbank	line	20
-waterway-ditch	line	10
-waterway-drain	line	10
-waterway-river	line	10
+landuse-basin	area
+landuse-reservoir	area
+landuse-salt_pond	area
+natural-water	area
+natural-water-basin	area
+natural-water-lake	area
+natural-water-lock	area
+natural-water-pond	area
+natural-water-reservoir	area
+natural-water-river	area
+waterway-dock	area
+waterway-riverbank	area
+waterway-riverbank	line
+=== 20
+
+waterway-ditch	line
+waterway-drain	line
+waterway-river	line
+=== 10
