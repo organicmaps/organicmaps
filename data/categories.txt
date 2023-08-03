@@ -2632,41 +2632,45 @@ sw:Bandali|kivuko
 fa:ترمینال کِشتی
 
 amenity-taxi|@transport
-en:3Taxi|Taxi Stand|Taxi Rank|U+1F695|U+1F696
-ru:3Такси
-bg:3такси|шофьор
-ar:سيارة أجرة|تاكسي|مواصلات|مواصلات
-cs:3Taxi
-da:3Taxi|taxa
-nl:3Taxi
-fi:3Taksi
-fr:3Taxi
-de:3Taxi|Taxistand|Taxe|ÖPNV
+en:3Taxi Stand|Taxi Rank|Taxi|U+1F695|U+1F696
+ar:سيارة أجرة|تاكسي|مواصلات|مواصلات|محطة التاكسي
+be:Стаянка таксі
+bg:3такси|шофьор|Стойка за таксита
+ca:Parada de taxis
+cs:3Taxi|Stanoviště taxi
+da:3Taxaholdeplads|Taxi|taxa
+de:3Taxistand|Taxi|Taxe|ÖPNV
+el:Ταξί|πιάτσα|μεταφορές|Περίπτερο ταξί
+es:3Taxi|Parada de taxis
+es-MX:Parada de taxi
+et:3Taksopeatus|Takso
+eu:3Taxi geltokia|Taxia
+fa:تاکسی|اژانس|ایستگاه تاکسی
+fi:3Taksitolppa|Taksi
+fr:3Taxi|Station de taxis
+he:תחנת מוניות
 hu:3Taxiállomás
-id:3Taksi
-it:3Taxi|3tassì
-ja:1タクシー
-ko:1택시|택시로 가다
-mr:टॅक्सी
-nb:3Drosje
-pl:3Taxi|taksówka
-pt:2Táxi|2Praça de táxis
+id:3Taksi|Tempat taksi
+it:3Taxi|3tassì|Stazione dei taxi
+ja:1タクシースタンド|タクシー
+ko:1택시 승차장|택시|택시로 가다
+mr:टॅक्सी स्टँड|टॅक्सी
+nb:3Drosjeholdeplass|Drosje
+nl:3Taxistandplaats|Taxi
+pl:3Taxi|taksówka|Postój taksówek
+pt:2Táxi|2Praça de táxis|Ponto de táxi
 pt-BR:2Táxi
-ro:3Taxi
-es:3Taxi
-et:3Takso
-eu:3Taxia
-sv:3Taxi
-th:3แท็กซี่
-tr:3Taksi
-uk:3Таксі
-vi:3Taxi
-zh-Hans:出租车|交通
-zh-Hant:1計程車|交通
-el:Ταξί|πιάτσα|μεταφορές
-sk:3Taxi
-sw:3Teksi|usafiri
-fa:تاکسی|اژانس
+ro:3Taxi|Stație de taxi
+ru:3Такси|Стоянка такси
+sk:3Taxi|Stanovište taxíkov
+sv:3Taxistation|Taxi
+sw:3Teksi|usafiri|Stendi ya teksi
+th:3แท็กซี่|ป้ายรอแท็กซี่
+tr:3Taksi durağı|Taksi
+uk:3Таксі|Стоянка таксі
+vi:3Taxi|Đón taxi
+zh-Hans:出租车|交通|出租车站
+zh-Hant:1計程車|交通|的士站
 
 amenity-townhall
 en:3Town Hall|townhall|city hall|guildhall|village hall|4municipal hall|civic centre
