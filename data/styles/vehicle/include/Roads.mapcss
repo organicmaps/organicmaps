@@ -801,10 +801,10 @@ line|z18-[highway=unclassified][bridge?]::bridgeblack,
 
 line|z14[highway=service]
 {width: 1;}
+line|z14[highway=service][service=driveway]
+{width: 0;}
 line|z15[highway=service]
 {width: 1.6;}
-line|z15-16[highway=service][service=driveway]
-{width: 0;}
 line|z16[highway=service]
 {width: 3;}
 line|z17[highway=service]

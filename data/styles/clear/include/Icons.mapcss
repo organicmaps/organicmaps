@@ -503,8 +503,7 @@ node|z11-[natural=cave_entrance],
 area|z11-[natural=cave_entrance],
 node|z11-[waterway=waterfall],
 area|z11-[waterway=waterfall],
-node|z13-[natural=peak],
-area|z13-[natural=peak],
+node|z13-[natural=peak][name],
 node|z14-[natural=saddle],
 area|z14-[natural=saddle],
 node|z14-[mountain_pass],
@@ -519,6 +518,10 @@ node|z16-[natural=beach],
 area|z16-[natural=beach],
 area|z14-[natural=bare_rock],
 {text: name;text-color: @poi_label;text-position: center;text-offset: 1;}
+
+node|z13-[natural=peak][!name],
+{text: none;}
+
 
 node|z12-[boundary=national_park],
 area|z12-[boundary=national_park],
@@ -559,24 +562,18 @@ area|z15-[natural=volcano]
 {icon-image: volcano-m.svg;text-offset: 1;font-size: 10;}
 
 node|z12[natural=peak][name],
-area|z12[natural=peak][name]
-{icon-image: peakt-s.svg;icon-min-distance: 10;text-offset: 1;text: name;text-color: @poi_label;text-position: center;}
-node|z12-14[natural=peak][!name],
-node|z12-14[natural=rock][!name],
-area|z12-14[natural=peak][!name],
-area|z12-14[natural=rock][!name]
-{font-size: 0;}
+{icon-image: peakt-s.svg;icon-min-distance: 10;}
 node|z13[natural=peak][name],
-area|z13[natural=peak][name]
-{icon-image: peakt-s.svg;text-offset: 1;font-size: 9;}
+{icon-image: peakt-s.svg;font-size: 9;}
 node|z14[natural=peak][name],
-area|z14[natural=peak][name]
-{icon-image: peakt-s.svg;text-offset: 1;font-size: 10;}
-node|z15-[natural=peak],
+{icon-image: peakt-s.svg;font-size: 10;}
+node|z15-[natural=peak][name],
 node|z15-[natural=rock],
-area|z15-[natural=peak],
-area|z15-[natural=rock]
-{icon-image: peakt-m.svg;text-offset: 1;font-size: 10;}
+area|z15-[natural=rock],
+{icon-image: peakt-m.svg;font-size: 10;}
+
+node|z15-[natural=peak][!name],
+{icon-image: peakt-m.svg;font-size: 10;}
 
 /* ToDo: Make the same as natural=peak when we will have -s,-m icons */
 node|z14-[natural=saddle],
@@ -937,9 +934,9 @@ area|z14-[tourism=attraction],
 area|z14-[place=square],
 node|z14-[tourism=theme_park],
 area|z14-[tourism=theme_park],
-node|z14-[amenity=community_centre],
-area|z14-[amenity=community_centre],
 node|z14-[tourism=viewpoint],
+node|z15-[amenity=community_centre],
+area|z15-[amenity=community_centre],
 node|z15-[historic=memorial],
 area|z15-[historic=memorial],
 node|z15-[historic=battlefield],
@@ -1066,8 +1063,8 @@ node|z17-[amenity=arts_centre],
 area|z17-[amenity=arts_centre]
 {icon-image: gallery-m.svg;text-offset: 1;icon-min-distance: 12;}
 
-node|z14[amenity=theatre],
-area|z14[amenity=theatre]
+node|z14-15[amenity=theatre],
+area|z14-15[amenity=theatre]
 {icon-image: theatre-s.svg;text-offset: 1;icon-min-distance: 8;}
 node|z16-[amenity=theatre],
 area|z16-[amenity=theatre]
@@ -1151,8 +1148,8 @@ node|z17-[tourism=attraction][attraction=animal],
 area|z17-[tourism=attraction][attraction=animal]
 {icon-image: zoo-m.svg;icon-min-distance: 24;}
 
-node|z16-[amenity=community_centre],
-area|z16-[amenity=community_centre],
+node|z15-[amenity=community_centre],
+area|z15-[amenity=community_centre],
 node|z16-[amenity=conference_centre],
 area|z16-[amenity=conference_centre],
 node|z16-[amenity=events_venue],
