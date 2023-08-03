@@ -13,141 +13,141 @@
 # - BG-top: water (linear and areal)
 # - BG-by-size: landcover areas sorted by their size
 
-leisure-stadium	area
+leisure-stadium                          area       # z15- (also has caption z13-, icon z13-)
 === 250
 
-amenity-place_of_worship	area
-amenity-place_of_worship-buddhist	area
-amenity-place_of_worship-christian	area
-amenity-place_of_worship-hindu	area
-amenity-place_of_worship-jewish	area
-amenity-place_of_worship-muslim	area
-amenity-place_of_worship-shinto	area
-amenity-place_of_worship-taoist	area
+amenity-place_of_worship                 area       # z16- (also has caption z14-, icon z14-)
+amenity-place_of_worship-buddhist        area       # z16- (also has caption z14-, icon z14-)
+amenity-place_of_worship-christian       area       # z16- (also has caption z14-, icon z14-)
+amenity-place_of_worship-hindu           area       # z16- (also has caption z14-, icon z14-)
+amenity-place_of_worship-jewish          area       # z16- (also has caption z14-, icon z14-)
+amenity-place_of_worship-muslim          area       # z16- (also has caption z14-, icon z14-)
+amenity-place_of_worship-shinto          area       # z16- (also has caption z14-, icon z14-)
+amenity-place_of_worship-taoist          area       # z16- (also has caption z14-, icon z14-)
 === 240
 
-amenity-doctors	area
-leisure-swimming_pool	area
-leisure-swimming_pool-private	area
+amenity-doctors                          area       # z14- (also has caption z17-, icon z17-)
+leisure-swimming_pool                    area       # z13- (also has caption z17-, icon z17-)
+leisure-swimming_pool-private            area       # z13- (also has caption z17-, icon z17-)
 === 230
 
-landuse-landfill	area
+landuse-landfill                         area       # z15- (also has caption z15-, icon z15-)
 === 220
 
-sport-multi	area
-sport-soccer	area
+sport-multi                              area       # z15- (also has caption z17-, icon z17-)
+sport-soccer                             area       # z15- (also has caption z17-, icon z17-)
 === 210
 
-leisure-playground	area
+leisure-playground                       area       # z16- (also has caption z17-, icon z17-)
 === 200
 
-amenity-fountain	area
+amenity-fountain                         area       # z16- (also has caption z16-, icon z16-)
 === 190
 
-amenity-grave_yard	area
-amenity-grave_yard-christian	area
-landuse-cemetery	area
-landuse-cemetery-christian	area
+amenity-grave_yard                       area       # z14- (also has caption z17-, icon z17-)
+amenity-grave_yard-christian             area       # z14- (also has caption z17-, icon z17-)
+landuse-cemetery                         area       # z14- (also has caption z15-, icon z15-)
+landuse-cemetery-christian               area       # z14- (also has caption z15-, icon z15-)
 === 180
 
-highway-pedestrian-area	area
+highway-pedestrian-area                  area       # z14- (also has line z13-, pathtext z14-)
 === 170
 
-highway-footway-area	area
-leisure-track-area	area
+highway-footway-area                     area       # z14- (also has line z15-, pathtext z15-)
+leisure-track-area                       area       # z15- (also has caption z16-)
 === 160
 
-aeroway-terminal	area
+aeroway-terminal                         area       # z14- (also has caption z15-)
 === 150
 
-leisure-golf_course	area
+leisure-golf_course                      area       # z12- (also has caption z17-, icon z17-)
 === 140
 
-natural-scrub	area
+natural-scrub                            area       # z14-
 === 130
 
-landuse-grass	area
-natural-grassland	area
-natural-heath	area
+landuse-grass                            area       # z12-
+natural-grassland                        area       # z12-
+natural-heath                            area       # z12-
 === 120
 
-area:highway-footway	area
-area:highway-living_street	area
-area:highway-pedestrian	area
-public_transport-platform	area
-railway-platform	area
+area:highway-footway                     area       # z14- (also has caption z15-)
+area:highway-living_street               area       # z14-
+area:highway-pedestrian                  area       # z14- (also has caption z15-)
+public_transport-platform                area       # z16- (also has caption z17-)
+railway-platform                         area       # z16- (also has caption z16-)
 === 110
 
-amenity-parking	area
-amenity-parking-fee	area
-amenity-parking-multi-storey	area
-amenity-parking-no-access	area
-amenity-parking-park_and_ride	area
-amenity-parking-permissive	area
-amenity-parking-private	area
-amenity-parking-underground	area
+amenity-parking                          area       # z15- (also has caption z18-, icon z16-)
+amenity-parking-fee                      area       # z15- (also has caption z18-, icon z16-)
+amenity-parking-multi-storey             area       # z15- (also has caption z18-, icon z16-)
+amenity-parking-no-access                area       # z15- (also has caption z18-, icon z16-)
+amenity-parking-park_and_ride            area       # z15- (also has caption z18-, icon z16-)
+amenity-parking-permissive               area       # z15- (also has caption z18-, icon z16-)
+amenity-parking-private                  area       # z15- (also has caption z18-, icon z16-)
+amenity-parking-underground              area       # z15- (also has caption z18-, icon z16-)
 === 100
 
-natural-wetland	area
-natural-wetland-bog	area
-natural-wetland-marsh	area
+natural-wetland                          area       # z11- (also has caption z16-)
+natural-wetland-bog                      area       # z11- (also has caption z16-)
+natural-wetland-marsh                    area       # z11- (also has caption z16-)
 === 90
 
-landuse-allotments	area
-landuse-farmland	area
-landuse-farmyard	area
-landuse-field	area
-landuse-meadow	area
-landuse-orchard	area
-landuse-recreation_ground	area
-landuse-village_green	area
-landuse-vineyard	area
-leisure-pitch	area
-natural-bare_rock	area
+landuse-allotments                       area       # z12- (also has caption z15-)
+landuse-farmland                         area       # z10- (also has caption z15-)
+landuse-farmyard                         area       # z10- (also has caption z15-)
+landuse-field                            area       # z12-
+landuse-meadow                           area       # z12-
+landuse-orchard                          area       # z12- (also has caption z15-)
+landuse-recreation_ground                area       # z12- (also has caption z15-)
+landuse-village_green                    area       # z12-
+landuse-vineyard                         area       # z12- (also has caption z15-)
+leisure-pitch                            area       # z15- (also has caption z17-, icon z17-)
+natural-bare_rock                        area       # z12- (also has caption z14-)
 === 80
 
-leisure-garden	area
-leisure-garden-residential	area
-leisure-park	area
-leisure-park-no-access	area
-leisure-park-permissive	area
-leisure-park-private	area
+leisure-garden                           area       # z12- (also has caption z16-, icon z16-)
+leisure-garden-residential               area       # z12- (also has caption z18-)
+leisure-park                             area       # z10- (also has caption z14-, icon z14-)
+leisure-park-no-access                   area       # z10- (also has caption z14-, icon z14-)
+leisure-park-permissive                  area       # z10- (also has caption z14-, icon z14-)
+leisure-park-private                     area       # z10- (also has caption z14-, icon z14-)
 === 70
 
-landuse-forest	area
-landuse-forest-coniferous	area
-landuse-forest-deciduous	area
-landuse-forest-mixed	area
+landuse-forest                           area       # z10- (also has caption z13-, icon z12-)
+landuse-forest-coniferous                area       # z10- (also has caption z13-, icon z12-)
+landuse-forest-deciduous                 area       # z10- (also has caption z13-, icon z12-)
+landuse-forest-mixed                     area       # z10- (also has caption z13-, icon z12-)
 === 60
 
-landuse-churchyard	area
-landuse-construction	area
-landuse-industrial	area
-landuse-quarry	area
-landuse-railway	area
+landuse-churchyard                       area       # z15-
+landuse-construction                     area       # z15- (also has caption z15-)
+landuse-industrial                       area       # z15- (also has caption z15-)
+landuse-quarry                           area       # z15- (also has caption z15-)
+landuse-railway                          area       # z15- (also has caption z15-)
 === 50
 
-amenity-college	area
-amenity-hospital	area
-amenity-kindergarten	area
-amenity-school	area
-amenity-university	area
+amenity-college                          area       # z15- (also has caption z16-, icon z16-)
+amenity-hospital                         area       # z14- (also has caption z15-, icon z14-)
+amenity-kindergarten                     area       # z15- (also has caption z17-, icon z17-)
+amenity-school                           area       # z15- (also has caption z17-, icon z17-)
+amenity-university                       area       # z14- (also has caption z14-, icon z14-)
 === 40
 
-aeroway-aerodrome	area
-aeroway-aerodrome-international	area
-landuse-education	area
-leisure-beach_resort	area
-natural-beach	area
-natural-beach-gravel	area
-natural-beach-sand	area
-natural-desert	area
-natural-glacier	area
+aeroway-aerodrome                        area       # z10- (also has caption z14-, icon z14-)
+aeroway-aerodrome-international          area       # z10- (also has caption z10-, icon z7-)
+landuse-education                        area       # z15-
+leisure-beach_resort                     area       # z10- (also has caption z16-, icon z16-)
+natural-beach                            area       # z10- (also has caption z15-)
+natural-beach-gravel                     area       # z10- (also has caption z15-)
+natural-beach-sand                       area       # z10- (also has caption z15-)
+natural-desert                           area       # z1- (also has caption z14-)
+natural-glacier                          area       # z1-
 === 30
 
-natural-land	area
-place-islet	area
+natural-land                             area       # z1-
+place-islet                              area       # z10- (also has caption z14-)
 === 20
 
-natural-coastline	area
+natural-coastline                        area       # z1-
 === 10
