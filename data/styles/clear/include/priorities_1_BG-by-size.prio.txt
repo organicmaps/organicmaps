@@ -1,0 +1,104 @@
+# This file is automatically re-formatted and re-sorted in priorities descending order
+# when generate_drules.sh is run. Custom formatting and comments are not preserved.
+#
+# BG-by-size geometry: background areas rendered below BG-top and everything else.
+# Smaller areas are rendered above larger ones (area's size is estimated as the size of its' bounding box).
+# So effectively priority values of BG-by-size areas are not used at the moment.
+# But we might use them later for some special cases, e.g. to determine a main area type of a multi-type feature.
+# Keep them in a logical importance order please.
+#
+# Priorities ranges' rendering order overview:
+# - overlays (icons, captions...)
+# - FG: foreground areas and lines
+# - BG-top: water (linear and areal)
+# - BG-by-size: landcover areas sorted by their size
+
+leisure-stadium	area	871
+amenity-place_of_worship	area	831
+amenity-place_of_worship-buddhist	area	831
+amenity-place_of_worship-christian	area	831
+amenity-place_of_worship-hindu	area	831
+amenity-place_of_worship-jewish	area	831
+amenity-place_of_worship-muslim	area	831
+amenity-place_of_worship-shinto	area	831
+amenity-place_of_worship-taoist	area	831
+amenity-doctors	area	663
+leisure-swimming_pool	area	663
+leisure-swimming_pool-private	area	663
+landuse-landfill	area	643
+sport-multi	area	613
+sport-soccer	area	613
+leisure-playground	area	603
+amenity-fountain	area	574
+amenity-grave_yard	area	405
+amenity-grave_yard-christian	area	405
+landuse-cemetery	area	405
+landuse-cemetery-christian	area	405
+highway-pedestrian-area	area	336
+highway-footway-area	area	316
+leisure-track-area	area	316
+aeroway-terminal	area	237
+leisure-golf_course	area	158
+natural-scrub	area	148
+landuse-grass	area	138
+natural-grassland	area	138
+natural-heath	area	138
+area:highway-footway	area	128
+area:highway-living_street	area	128
+area:highway-pedestrian	area	128
+public_transport-platform	area	128
+railway-platform	area	128
+amenity-parking	area	118
+amenity-parking-fee	area	118
+amenity-parking-multi-storey	area	118
+amenity-parking-no-access	area	118
+amenity-parking-park_and_ride	area	118
+amenity-parking-permissive	area	118
+amenity-parking-private	area	118
+amenity-parking-underground	area	118
+natural-wetland	area	108
+natural-wetland-bog	area	108
+natural-wetland-marsh	area	108
+landuse-allotments	area	89
+landuse-farmland	area	89
+landuse-farmyard	area	89
+landuse-field	area	89
+landuse-meadow	area	89
+landuse-orchard	area	89
+landuse-recreation_ground	area	89
+landuse-village_green	area	89
+landuse-vineyard	area	89
+leisure-pitch	area	89
+natural-bare_rock	area	89
+leisure-garden	area	79
+leisure-garden-residential	area	79
+leisure-park	area	79
+leisure-park-no-access	area	79
+leisure-park-permissive	area	79
+leisure-park-private	area	79
+landuse-forest	area	69
+landuse-forest-coniferous	area	69
+landuse-forest-deciduous	area	69
+landuse-forest-mixed	area	69
+landuse-churchyard	area	39
+landuse-construction	area	39
+landuse-industrial	area	39
+landuse-quarry	area	39
+landuse-railway	area	39
+amenity-college	area	29
+amenity-hospital	area	29
+amenity-kindergarten	area	29
+amenity-school	area	29
+amenity-university	area	29
+aeroway-aerodrome	area	19
+aeroway-aerodrome-international	area	19
+landuse-education	area	19
+leisure-beach_resort	area	19
+natural-beach	area	19
+natural-beach-gravel	area	19
+natural-beach-sand	area	19
+natural-desert	area	19
+natural-glacier	area	19
+natural-land	area	9
+place-islet	area	9
+natural-coastline	area	0

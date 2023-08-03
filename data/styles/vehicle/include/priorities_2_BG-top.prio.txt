@@ -1,0 +1,33 @@
+# This file is automatically re-formatted and re-sorted in priorities descending order
+# when generate_drules.sh is run. Custom formatting and comments are not preserved.
+#
+# BG-top geometry: background lines and areas that should be always below foreground ones
+# (including e.g. layer=-10 underwater tunnels), but above background areas sorted by size (BG-by-size),
+# because ordering by size doesn't always work with e.g. water mapped over a forest,
+# so water should be on top of other landcover always, but linear waterways should be hidden beneath it.
+# Still, e.g. a layer=-1 BG-top feature will be rendered under a layer=0 BG-by-size feature
+# (so areal water tunnels are hidden beneath other landcover area) and a layer=1 landcover areas
+# are displayed above layer=0 BG-top.
+#
+# Priorities ranges' rendering order overview:
+# - overlays (icons, captions...)
+# - FG: foreground areas and lines
+# - BG-top: water (linear and areal)
+# - BG-by-size: landcover areas sorted by their size
+
+landuse-basin	area	37
+landuse-reservoir	area	37
+landuse-salt_pond	area	37
+natural-water	area	37
+natural-water-basin	area	37
+natural-water-lake	area	37
+natural-water-lock	area	37
+natural-water-pond	area	37
+natural-water-reservoir	area	37
+natural-water-river	area	37
+waterway-dock	area	37
+waterway-riverbank	area	37
+waterway-riverbank	line	37
+waterway-ditch	line	25
+waterway-drain	line	25
+waterway-river	line	25

@@ -1,0 +1,80 @@
+# This file is automatically re-formatted and re-sorted in priorities descending order
+# when generate_drules.sh is run. Custom formatting and comments are not preserved.
+#
+# BG-by-size geometry: background areas rendered below BG-top and everything else.
+# Smaller areas are rendered above larger ones (area's size is estimated as the size of its' bounding box).
+# So effectively priority values of BG-by-size areas are not used at the moment.
+# But we might use them later for some special cases, e.g. to determine a main area type of a multi-type feature.
+# Keep them in a logical importance order please.
+#
+# Priorities ranges' rendering order overview:
+# - overlays (icons, captions...)
+# - FG: foreground areas and lines
+# - BG-top: water (linear and areal)
+# - BG-by-size: landcover areas sorted by their size
+
+amenity-parking	area	962
+amenity-parking-fee	area	962
+amenity-parking-multi-storey	area	962
+amenity-parking-no-access	area	962
+amenity-parking-park_and_ride	area	962
+amenity-parking-permissive	area	962
+amenity-parking-private	area	962
+amenity-parking-underground	area	962
+leisure-stadium	area	862
+leisure-nature_reserve	area	712
+amenity-parking_space	area	562
+amenity-parking_space-disabled	area	562
+amenity-parking_space-permissive	area	562
+amenity-parking_space-private	area	562
+amenity-parking_space-underground	area	562
+amenity-grave_yard	area	500
+amenity-grave_yard-christian	area	500
+landuse-cemetery	area	500
+landuse-cemetery-christian	area	500
+aeroway-terminal	area	300
+leisure-swimming_pool	area	212
+leisure-swimming_pool-private	area	212
+leisure-golf_course	area	187
+natural-wetland	area	187
+natural-wetland-bog	area	187
+natural-wetland-marsh	area	187
+landuse-grass	area	175
+natural-grassland	area	175
+natural-heath	area	175
+landuse-allotments	area	137
+landuse-farmland	area	137
+landuse-field	area	137
+landuse-meadow	area	137
+landuse-orchard	area	137
+landuse-recreation_ground	area	137
+landuse-village_green	area	137
+landuse-vineyard	area	137
+natural-scrub	area	137
+leisure-garden	area	112
+leisure-garden-residential	area	112
+leisure-park	area	112
+leisure-park-no-access	area	112
+leisure-park-permissive	area	112
+leisure-park-private	area	112
+landuse-forest	area	100
+landuse-forest-coniferous	area	100
+landuse-forest-deciduous	area	100
+landuse-forest-mixed	area	100
+landuse-churchyard	area	50
+landuse-construction	area	50
+landuse-industrial	area	50
+landuse-landfill	area	50
+landuse-quarry	area	50
+landuse-railway	area	50
+aeroway-aerodrome	area	25
+aeroway-aerodrome-international	area	25
+leisure-beach_resort	area	25
+natural-beach	area	25
+natural-beach-gravel	area	25
+natural-beach-sand	area	25
+natural-desert	area	25
+natural-glacier	area	25
+natural-land	area	12
+place-islet	area	12
+natural-coastline	area	0
