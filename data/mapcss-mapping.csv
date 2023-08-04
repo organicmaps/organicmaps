@@ -698,7 +698,7 @@ deprecated|deprecated;624;x
 deprecated|deprecated;625;x
 deprecated:railway|siding|bridge:06.2023;626;x
 highway|footway|difficult_alpine_hiking;[highway=footway][sac_scale=difficult_alpine_hiking];;name;int_name;627;
-deprecated|deprecated;628;x
+highway|via_ferrata;628;
 deprecated|deprecated;629;x
 deprecated|deprecated;630;x
 highway|track|grade5|permissive;[highway=track][tracktype=grade5][access=permissive];x;name;int_name;631;highway|track|grade5
