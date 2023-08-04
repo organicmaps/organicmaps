@@ -174,6 +174,7 @@ target_link_libraries(${PROJECT_NAME}
   vulkan_wrapper
   stb_image
   sdf_image
+  harfbuzz
   ICU::i18n
   expat
   $<$<BOOL:${PLATFORM_MAC}>:-framework\ OpenGL>

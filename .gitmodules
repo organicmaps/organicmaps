@@ -56,3 +56,6 @@
 [submodule "3party/fast_obj"]
 	path = 3party/fast_obj
 	url = https://github.com/thisistherk/fast_obj
+[submodule "3party/harfbuzz/harfbuzz"]
+	path = 3party/harfbuzz/harfbuzz
+	url = https://github.com/harfbuzz/harfbuzz.git
