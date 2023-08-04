@@ -44,6 +44,7 @@ if (NOT LINUX_DETECTED)
   add_subdirectory(icu)
 endif()
 
+add_subdirectory(harfbuzz)
 add_subdirectory(liboauthcpp)
 add_subdirectory(minizip)
 add_subdirectory(open-location-code)
