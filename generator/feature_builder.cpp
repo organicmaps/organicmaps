@@ -567,14 +567,6 @@ bool FeatureBuilder::HasOsmId(base::GeoObjectId const & id) const
   return false;
 }
 
-int FeatureBuilder::GetMinFeatureDrawScale() const
-{
-  int const minScale = GetMinDrawableScale(GetTypesHolder(), m_limitRect);
-
-  // some features become invisible after merge processing, so -1 is possible
-  return (minScale == -1 ? 1000 : minScale);
-}
-
 bool FeatureBuilder::AddName(std::string_view lang, std::string_view name)
 {
   return m_params.AddName(lang, name);
@@ -776,7 +768,7 @@ std::string DebugPrint(FeatureBuilder const & fb)
   default: out << "ERROR: unknown geometry type"; break;
   }
 
-  out << " " << DebugPrint(fb.GetLimitRect())
+  out << " " << DebugPrint(mercator::ToLatLon(fb.GetLimitRect()))
       << " " << DebugPrint(fb.GetParams())
       << " " << ::DebugPrint(fb.m_osmIds);
   return out.str();

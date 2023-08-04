@@ -73,15 +73,7 @@ public:
     {
       // Inner geometry: store inside feature's header and keep
       // a simplification mask for scale-specific visibility of each point.
-      if (m_buffer.m_innerPts.empty())
-      {
-        // If geometry is added for the most detailed scale 3 only then
-        // the mask is never updated and left == 0, which works OK
-        // as the feature is not supposed to be using lower geometry scales anyway.
-        m_buffer.m_innerPts = points;
-      }
-      else
-        FillInnerPointsMask(points, scaleIndex);
+      FillInnerPoints(points, scaleIndex);
       m_current = points;
     }
     else
@@ -201,7 +193,7 @@ private:
 
     auto cp = m_header.GetGeometryCodingParams(i);
 
-    // Optimization: Store first point once in header for outer linear features.
+    // Optimization: store the first point once in the header instead of duplicating it for each geom scale.
     cp.SetBasePoint(points[0]);
     // Can optimize here, but ... Make copy of vector.
     Points toSave(points.begin() + 1, points.end());
@@ -268,14 +260,24 @@ private:
     return true;
   }
 
-  void FillInnerPointsMask(Points const & points, uint32_t scaleIndex)
+  void FillInnerPoints(Points const & points, uint32_t scaleIndex)
   {
     auto const & src = m_buffer.m_innerPts;
-    CHECK(!src.empty(), ());
+
+    if (src.empty())
+    {
+      m_buffer.m_innerPts = points;
+      // Init the simplification mask to the scaleIndex.
+      // First and last points are present always, hence not stored in the mask.
+      for (size_t i = 1; i < points.size() - 1; ++i)
+        m_buffer.m_ptsSimpMask |= (scaleIndex << (2 * (i - 1)));
+      return;
+    }
 
     CHECK(feature::ArePointsEqual(src.front(), points.front()), ());
     CHECK(feature::ArePointsEqual(src.back(), points.back()), ());
 
+    uint32_t constexpr mask = 0x3;
     size_t j = 1;
     for (size_t i = 1; i < points.size() - 1; ++i)
     {
@@ -283,8 +285,7 @@ private:
       {
         if (feature::ArePointsEqual(src[j], points[i]))
         {
-          // set corresponding 2 bits for source point [j] to scaleIndex
-          uint32_t mask = 0x3;
+          // Update corresponding 2 bits for the source point [j] to the scaleIndex.
           m_buffer.m_ptsSimpMask &= ~(mask << (2 * (j - 1)));
           m_buffer.m_ptsSimpMask |= (scaleIndex << (2 * (j - 1)));
           break;

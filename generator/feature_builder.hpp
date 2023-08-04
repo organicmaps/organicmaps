@@ -161,7 +161,6 @@ public:
   // Clear name if it's not visible in scale range [minS, maxS].
   void RemoveNameIfInvisible(int minS = 0, int maxS = 1000);
   void RemoveUselessNames();
-  int GetMinFeatureDrawScale() const;
   bool IsDrawableInRange(int lowScale, int highScale) const;
 
   /// @name Serialization.

@@ -335,6 +335,13 @@ int8_t FeatureType::GetLayer()
   return m_params.layer;
 }
 
+// TODO: there is a room to store more information in Header2 (geometry header),
+// but it needs a mwm version change.
+// 1st bit - inner / outer flag
+// 4 more bits - inner points/triangles count or outer geom offsets mask
+//   (but actually its enough to store number of the first existing geom level only - 2 bits)
+// 3-5 more bits are spare
+// One of them could be used for a closed line flag to avoid storing identical first + last points.
 void FeatureType::ParseHeader2()
 {
   if (m_parsed.m_header2)
@@ -351,6 +358,7 @@ void FeatureType::ParseHeader2()
   {
     elemsCount = bitSource.Read(4);
     // For outer geometry read the geom scales (offsets) mask.
+    // For inner geometry remaining 4 bits are not used.
     if (elemsCount == 0)
       geomScalesMask = bitSource.Read(4);
     else

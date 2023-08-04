@@ -159,6 +159,7 @@ public:
     for (int i = scalesStart; i >= 0; --i)
     {
       int const level = m_header.GetScale(i);
+      // TODO : re-checks geom limit rect size via IsDrawableForIndexGeometryOnly() which was checked already in CalculateMidPoints.
       if (fb.IsDrawableInRange(scales::PatchMinDrawableScale(i > 0 ? m_header.GetScale(i - 1) + 1 : 0),
                                scales::PatchMaxDrawableScale(level)))
       {
@@ -202,6 +203,8 @@ public:
             simplified.push_back({});
             simplified.back().swap(points);
           }
+          else
+            LOG(LDEBUG, ("Area: too small or degenerate 1st polygon of", polys.size(), ", points count", points.size(), "at scale", i, DebugPrint(fb)));
 
           auto iH = polys.begin();
           for (++iH; iH != polys.end(); ++iH)
@@ -221,6 +224,7 @@ public:
             {
               // Remove small or degenerate polygon.
               simplified.pop_back();
+              LOG(LDEBUG, ("Area: too small or degenerate 2nd+ polygon of", polys.size(), ", points count", simplified.back().size(), "at scale", i, DebugPrint(fb)));
             }
           }
 
@@ -361,9 +365,9 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, std::string const
       // Update bounds with the limit rect corresponding to region borders.
       // Bounds before update can be too big because of big invisible features like a
       // relation that contains an entire country's border.
-      // TODO: Borders file may be unavailable when building test mwms (why?).
-      // Probably its the reason resulting mwm sizes are unpredictable
-      // when building not the whole planet.
+      // Borders file may be unavailable when building test mwms.
+      /// @todo m_targetDir is a final MWM folder like 220702, so there is NO borders folder inside,
+      /// and the next function call always returns false.
       m2::RectD bordersRect;
       if (borders::GetBordersRect(info.m_targetDir, name, bordersRect))
         collector.SetBounds(bordersRect);
