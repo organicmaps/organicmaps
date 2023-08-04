@@ -2,11 +2,8 @@
 #include "helpers.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/classificator_loader.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/feature_data.hpp"
-
-#include "platform/platform.hpp"
 
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
@@ -57,6 +54,12 @@ public:
 
   void operator() (ClassifObject const * p, uint32_t type) const
   {
+    // We can't put TEST here, should check output manually. Or rewrite test in more sophisticated way.
+    // - place=county/region are non-drawable
+    // - historic=citywalls is not a Point
+    // - waterway=* [tunnel] are non-drawable
+    // - some highway,waterway are Point
+
     if (p->IsDrawableAny())
     {
       TypesHolder holder(m_geomType);
@@ -64,15 +67,14 @@ public:
 
       pair<int, int> const range = GetDrawableScaleRangeForRules(holder, m_rules);
       if (range.first == -1 || range.second == -1)
-        LOG(LINFO, ("No styles:", type, m_c.GetFullObjectName(type)));
+        LOG(LWARNING, ("No styles:", m_c.GetFullObjectName(type)));
     }
     else if (ftype::GetLevel(type) > 1)
-      LOG(LINFO, ("Type without any rules:", type, m_c.GetFullObjectName(type)));
+      LOG(LWARNING, ("Type without any rules:", m_c.GetFullObjectName(type)));
   }
 };
 
-void ForEachObject(Classificator const & c, vector<string_view> const & path, GeomType geomType,
-                   int rules)
+void ForEachObject(Classificator const & c, vector<string_view> const & path, GeomType geomType, int rules)
 {
   uint32_t const type = c.GetTypeByPath(path);
   ClassifObject const * pObj = c.GetObject(type);
@@ -101,12 +103,14 @@ void CheckLineStyles(Classificator const & c, string const & name)
 
 UNIT_TEST(Classificator_DrawingRules)
 {
-  styles::RunForEveryMapStyle([](MapStyle)
+  styles::RunForEveryMapStyle([](MapStyle style)
   {
+    if (style != MapStyle::MapStyleClear && style != MapStyle::MapStyleDark)
+      return;
+
     Classificator const & c = classif();
 
     LOG(LINFO, ("--------------- Point styles ---------------"));
-    CheckPointStyles(c, "landuse");
     CheckPointStyles(c, "amenity");
     CheckPointStyles(c, "historic");
     CheckPointStyles(c, "office");
@@ -169,7 +173,7 @@ void CheckPriority(vector<base::StringIL> const & arrT, vector<size_t> const & a
   vector<vector<uint32_t> > types;
   vector<vector<string> > typesInfo;
 
-  styles::RunForEveryMapStyle([&](MapStyle style)
+  styles::RunForEveryMapStyle([&](MapStyle)
   {
     types.clear();
     typesInfo.clear();
@@ -301,6 +305,63 @@ UNIT_TEST(Classificator_PoiPriority)
       // 2
       {"sport", "cricket"}
     }, {1, 1}, drule::symbol);
+  }
+}
+
+namespace
+{
+struct RangeEntry
+{
+  uint32_t m_type;
+  std::pair<int, int> m_range;
+
+  // From C++ 20.
+  // auto operator<=>(RangeEntry const &) const = default;
+  bool operator!=(RangeEntry const & rhs) const
+  {
+    return m_type != rhs.m_type || m_range != rhs.m_range;
+  }
+
+  friend std::string DebugPrint(RangeEntry const & e)
+  {
+    std::ostringstream ss;
+    ss << classif().GetReadableObjectName(e.m_type) << "; (" << e.m_range.first << "," << e.m_range.second << ")";
+    return ss.str();
+  }
+};
+} // namespace
+
+UNIT_TEST(Classificator_HighwayZoom_AcrossStyles)
+{
+  std::array<std::vector<RangeEntry>, MapStyleCount> scales;
+
+  styles::RunForEveryMapStyle([&scales](MapStyle style)
+  {
+    auto const & cl = classif();
+    uint32_t const type = cl.GetTypeByPath({"highway"});
+    ClassifObject const * pObj = cl.GetObject(type);
+
+    pObj->ForEachObjectInTree([&scales, style](ClassifObject const *, uint32_t type)
+    {
+      TypesHolder holder(GeomType::Line);
+      holder.Add(type);
+      scales[style].push_back({type, GetDrawableScaleRangeForRules(holder, RULE_LINE)});
+    }, type);
+  });
+
+  for (size_t iStyle = 1; iStyle < MapStyleCount; ++iStyle)
+  {
+    if (iStyle == MapStyleMerged)
+      continue;
+
+    // Don't put TEST, only diagnostic logs. In general, Clear and Vehical visibility styles are different
+    // for highways like: footway, path, steps, cycleway, bridleway, track, service.
+    TEST_EQUAL(scales[0].size(), scales[iStyle].size(), (iStyle));
+    for (size_t j = 0; j < scales[0].size(); ++j)
+    {
+      if (scales[0][j] != scales[iStyle][j])
+        LOG(LWARNING, (scales[0][j], scales[iStyle][j]));
+    }
   }
 }
 }  // namespace classificator_tests
