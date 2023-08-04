@@ -298,8 +298,8 @@ line|z9[highway=world_level]
 
 line|z7-[highway=trunk],
 line|z7-[highway=motorway],
-line|z13-[highway=motorway_link],
-line|z13-[highway=trunk_link]
+line|z10-[highway=motorway_link],
+line|z10-[highway=trunk_link]
 {color: @trunk_orange_light;opacity: 1;casing-color:@casing_road;}
 line|z12-[highway=motorway][tunnel?],
 line|z12-[highway=trunk][tunnel?],
@@ -328,57 +328,73 @@ line|z8[highway=motorway]
 line|z9[highway=trunk],
 line|z9[highway=motorway]
 {width: 1.4;}
+
+line|z10-[highway=trunk],
+line|z10-[highway=motorway]
+line|z10-[highway=motorway_link],
+line|z10-[highway=trunk_link],
+{color: @trunk_orange_medium;}
+
 line|z10[highway=trunk],
 line|z10[highway=motorway]
-{color: @trunk_orange_medium; width: 2.5;}
+{width: 2.5;}
+line|z10[highway=motorway_link],
+line|z10[highway=trunk_link],
+{width: 1.3;}
 line|z11[highway=trunk],
 line|z11[highway=motorway]
 {width: 3.5;}
+line|z11[highway=motorway_link],
+line|z11[highway=trunk_link],
+{width: 2.0;}
 line|z12[highway=trunk],
 line|z12[highway=motorway]
-{color: @trunk_orange_medium; width: 4;}
+{width: 4;}
+line|z12[highway=motorway_link],
+line|z12[highway=trunk_link],
+{width: 2.5;}
 line|z13[highway=trunk],
 line|z13[highway=motorway],
-{color: @trunk_orange_medium; width: 5;}
+{width: 5;}
 line|z13[highway=motorway_link],
 line|z13[highway=trunk_link]
-{color: @trunk_orange_medium; width: 2.8;}
+{width: 2.8;}
 line|z14[highway=trunk],
 line|z14[highway=motorway]
-{color: @trunk_orange_medium; width: 5.25;casing-width: 0.75;}
+{width: 5.25;casing-width: 0.75;}
 line|z14[highway=motorway_link],
 line|z14[highway=trunk_link]
-{color: @trunk_orange_medium; width: 3.37;casing-width: 0.45;}
+{width: 3.37;casing-width: 0.45;}
 line|z15[highway=trunk],
 line|z15[highway=motorway],
-{color:@trunk_orange_medium; width: 6.5;casing-width: 0.85;}
+{width: 6.5;casing-width: 0.85;}
 line|z15[highway=motorway_link],
 line|z15[highway=trunk_link]
-{color:@trunk_orange_medium; width: 5.5;casing-width: 0.55;}
+{width: 5.5;casing-width: 0.55;}
 line|z16[highway=trunk],
 line|z16[highway=motorway],
-{color:@trunk_orange_medium; width: 9.85;casing-width: 1.1;}
+{width: 9.85;casing-width: 1.1;}
 line|z16[highway=motorway_link],
 line|z16[highway=trunk_link]
-{color:@trunk_orange_medium; width: 7.95;casing-width: 0.8;}
+{width: 7.95;casing-width: 0.8;}
 line|z17[highway=trunk],
 line|z17[highway=motorway],
-{color:@trunk_orange_medium; width: 16;casing-width: 1.1;}
+{width: 16;casing-width: 1.1;}
 line|z17[highway=motorway_link],
 line|z17[highway=trunk_link]
-{color:@trunk_orange_medium; width: 13;casing-width: 1.0;}
+{width: 13;casing-width: 1.0;}
 line|z18[highway=trunk],
 line|z18[highway=motorway],
-{color:@trunk_orange_medium; width: 26;casing-width: 1.35;}
+{width: 26;casing-width: 1.35;}
 line|z18[highway=motorway_link],
 line|z18[highway=trunk_link]
-{color:@trunk_orange_medium; width: 20;casing-width: 1.15;}
+{width: 20;casing-width: 1.15;}
 line|z19-[highway=trunk],
 line|z19-[highway=motorway],
-{color:@trunk_orange_medium; width: 36;casing-width: 1.5;}
+{width: 36;casing-width: 1.5;}
 line|z19-[highway=motorway_link],
 line|z19-[highway=trunk_link]
-{color:@trunk_orange_medium; width: 26;casing-width: 1.25;}
+{width: 26;casing-width: 1.25;}
 
 /* 3.2 Trunk & Motorway tunnel 12-22 ZOOM */
 
@@ -464,11 +480,14 @@ line|z9[highway=primary]
 {width: 1.2;}
 line|z10[highway=primary]
 {width: 1.5;}
-line|z11[highway=primary]
+line|z11[highway=primary],
+line|z11[highway=primary_link],
 {width: 1.7;}
-line|z12[highway=primary]
+line|z12[highway=primary],
+line|z12[highway=primary_link],
 {width: 2.4;}
-line|z13[highway=primary]
+line|z13[highway=primary],
+line|z13[highway=primary_link],
 {width: 3;}
 line|z14[highway=primary],
 line|z14[highway=primary_link]
