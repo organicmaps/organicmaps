@@ -303,8 +303,12 @@ line|z9[highway=world_level]
 
 line|z7-[highway=trunk],
 line|z7-[highway=motorway],
+{color: @trunk_orange_medium;opacity: 1;}
+
+line|z10-[highway=trunk],
+line|z10-[highway=motorway],
 line|z10-[highway=motorway_link],
-line|z10-[highway=trunk_link]
+line|z10-[highway=trunk_link],
 {color: @trunk_orange_light;opacity: 1;}
 line|z12-[highway=motorway][tunnel?],
 line|z12-[highway=trunk][tunnel?],
@@ -335,7 +339,7 @@ line|z9[highway=motorway]
 {width: 1.2;}
 line|z10[highway=trunk],
 line|z10[highway=motorway]
-{color: @trunk_orange_medium; width: 1.5;}
+{width: 1.5;}
 line|z10[highway=motorway_link],
 line|z10[highway=trunk_link]
 {width: 0.8;}
@@ -347,7 +351,7 @@ line|z11[highway=trunk_link]
 {width: 1.0;}
 line|z12[highway=trunk],
 line|z12[highway=motorway]
-{color: @trunk_orange_medium; width: 1.9;}
+{width: 1.9;}
 line|z12[highway=motorway_link],
 line|z12[highway=trunk_link]
 {width: 1.2;}
