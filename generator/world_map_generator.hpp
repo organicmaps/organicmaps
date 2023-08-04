@@ -62,7 +62,8 @@ class WorldMapGenerator
     /// This function is called after merging linear features.
     void operator()(feature::FeatureBuilder const & fb) override
     {
-      // do additional check for suitable size of feature
+      // Do additional check for suitable size of feature, because
+      // same check in NeedPushToWorld() applies to areas only.
       if (NeedPushToWorld(fb) &&
           scales::IsGoodForLevel(scales::GetUpperWorldScale(), fb.GetLimitRect()))
         PushSure(fb);
