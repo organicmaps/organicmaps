@@ -1282,7 +1282,8 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   m_currentPlacePageInfo = BuildPlacePageInfo(info);
   if (m_currentPlacePageInfo)
   {
-    if (m_drapeEngine) {
+    if (m_drapeEngine)
+    {
       if (scale < 0)
         scale = GetFeatureViewportScale(m_currentPlacePageInfo->GetTypes());
       m2::PointD const center = m_currentPlacePageInfo->GetMercator();
