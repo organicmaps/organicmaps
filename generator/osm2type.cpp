@@ -578,7 +578,7 @@ void PreprocessElement(OsmElement * p)
       {"trolleybus", "yes", [&isBus] { isBus = true; }},
       {"tram", "yes", [&isTram] { isTram = true; }},
 
-      /// @todo Unfortunatelly, it's not working in many cases (route=subway, transport=subway).
+      /// @todo Unfortunately, it's not working in many cases (route=subway, transport=subway).
       /// Actually, it's better to process subways after feature types assignment.
       {"station", "subway", [&isSubway] { isSubway = true; }},
   });
@@ -587,7 +587,7 @@ void PreprocessElement(OsmElement * p)
     p->AddTag("layer", layer);
 
   // Tag 'city' is needed for correct selection of metro icons.
-  if (isSubway && p->m_type == OsmElement::EntityType::Node)
+  if (isSubway)
   {
     string const city = MatchCity(p);
     if (!city.empty())
