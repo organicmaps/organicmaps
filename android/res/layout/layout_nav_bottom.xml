@@ -21,6 +21,13 @@
     <include layout="@layout/bottom_sheet_handle" />
     <include layout="@layout/layout_nav_bottom_numbers" />
 
+    <ImageView
+        android:id="@+id/nav_routing_chart"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/nav_menu_content_height"
+        android:visibility="gone"
+        android:scaleType="fitXY"/>
+
     <app.organicmaps.widget.FlatProgressView
       android:id="@+id/navigation_progress"
       android:layout_width="match_parent"
