@@ -252,7 +252,7 @@ railway-halt                                        # caption z13- and icon z13-
 highway-primary                                     # pathtext z10- and shield z10- (also has line z8-)
 highway-primary-bridge                              # pathtext z10- and shield z10- (also has line z8-, line::bridgeblack z14-, line::bridgewhite z14-)
 highway-primary-tunnel                              # pathtext z10- and shield z10- (also has line z8-, line(casing) z14-)
-route-ferry                                         # pathtext z10- (also has line z10-)
+route-ferry                                         # pathtext z10- (also has line z7-)
 === 6200
 
 highway-motorway_link                               # pathtext z10- and shield z10- (also has line z10-)

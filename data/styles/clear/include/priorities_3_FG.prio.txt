@@ -357,7 +357,7 @@ boundary-administrative-4                           # line z5-
 === 90
 
 man_made-cutline                                    # line z14-
-route-ferry                                         # line z10- (also has pathtext z10-)
+route-ferry                                         # line z7- (also has pathtext z10-)
 === 80
 
 aeroway-runway                                      # line z12-
