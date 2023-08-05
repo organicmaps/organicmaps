@@ -129,7 +129,7 @@ amenity-fuel                                        # caption z12- and icon z12-
 === 1170
 
 amenity-charging_station                            # caption z16- and icon z16-
-amenity-vending_machine-fuel                        # caption z18- and icon z17-
+amenity-vending_machine-fuel                        # caption z17- and icon z17-
 === 1150
 
 railway-station-subway-moscow                       # caption z12- and icon z11-
@@ -495,6 +495,7 @@ amenity-conference_centre                           # icon z16-
 amenity-events_venue                                # icon z16-
 amenity-exhibition_centre                           # icon z16-
 amenity-water_point                                 # icon z16-
+building-train_station                              # caption z18- (also has area z15-)
 railway-subway_entrance                             # caption z17- and icon z16-
 railway-subway_entrance-adana                       # caption z17- and icon z16-
 railway-subway_entrance-algiers                     # caption z17- and icon z16-
@@ -635,16 +636,6 @@ amenity-bank                                        # caption z17- and icon z17-
 amenity-parcel_locker                               # caption z17- and icon z17-
 amenity-police                                      # icon z17-
 amenity-post_office                                 # caption z17- and icon z17-
-amenity-vending_machine                             # caption z17- and icon z17-
-amenity-vending_machine-cigarettes                  # caption z17- and icon z17-
-amenity-vending_machine-coffee                      # caption z17- and icon z17-
-amenity-vending_machine-condoms                     # caption z17- and icon z17-
-amenity-vending_machine-drinks                      # caption z17- and icon z17-
-amenity-vending_machine-excrement_bags              # caption z17- and icon z17-
-amenity-vending_machine-food                        # caption z17- and icon z17-
-amenity-vending_machine-newspapers                  # caption z17- and icon z17-
-amenity-vending_machine-public_transport_tickets    # caption z17- and icon z17-
-amenity-vending_machine-sweets                      # caption z17- and icon z17-
 shop-motorcycle                                     # icon z17-
 === 140
 
@@ -661,5 +652,4 @@ building                                            # caption z18- (also has are
 building-address                                    # caption z18-
 building-garage                                     # caption z18- (also has area z15-)
 building-has_parts                                  # caption z18- (also has area z15-)
-building-train_station                              # caption z18- (also has area z15-)
 === 20

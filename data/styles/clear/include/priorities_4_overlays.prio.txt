@@ -758,6 +758,7 @@ aeroway-helipad                                     # caption z16- and icon z16-
 amenity-bank                                        # caption z16- and icon z16-
 amenity-marketplace                                 # caption z16- and icon z16-
 amenity-nightclub                                   # caption z16- and icon z16-
+amenity-townhall                                    # caption z16- and icon z16-
 shop-caravan                                        # caption z16- and icon z16-
 === 1010
 
@@ -844,6 +845,7 @@ shop-wine                                           # caption z16- and icon z16-
 === 980
 
 amenity-bicycle_parking                             # caption z17- and icon z17-
+amenity-hunting_stand                               # caption z18- and icon z18-
 amenity-motorcycle_parking                          # caption z17- and icon z17-
 amenity-taxi                                        # caption z16- and icon z16-
 amenity-veterinary                                  # caption z16- and icon z16-
@@ -925,10 +927,6 @@ leisure-track                                       # caption z16- (also has lin
 leisure-track-area                                  # caption z16- (also has area z15-)
 === 630
 
-building                                            # caption z16- (also has area z14-)
-building-address                                    # caption z16-
-building-garage                                     # caption z16- (also has area z14-)
-building-has_parts                                  # caption z16- (also has area z14-)
 building-train_station                              # caption z16- (also has area z14-)
 === 620
 
@@ -1050,21 +1048,11 @@ power-station                                       # caption z17- and icon z17-
 amenity-parcel_locker                               # caption z17- and icon z17-
 amenity-recycling                                   # caption z19 and icon z17-
 amenity-recycling-centre                            # caption z19 and icon z17-
-amenity-recycling-container                         # caption z19 and icon z17-
 amenity-shower                                      # caption z17- and icon z17-
 amenity-telephone                                   # caption z19 and icon z17-
-amenity-vending_machine                             # caption z17- and icon z17-
-amenity-vending_machine-cigarettes                  # caption z17- and icon z17-
-amenity-vending_machine-coffee                      # caption z17- and icon z17-
-amenity-vending_machine-condoms                     # caption z17- and icon z17-
-amenity-vending_machine-drinks                      # caption z17- and icon z17-
-amenity-vending_machine-excrement_bags              # caption z17- and icon z17-
-amenity-vending_machine-food                        # caption z17- and icon z17-
-amenity-vending_machine-fuel                        # caption z18- and icon z17-
-amenity-vending_machine-newspapers                  # caption z17- and icon z17-
+amenity-vending_machine-fuel                        # caption z18- and icon z18-
 amenity-vending_machine-parking_tickets             # caption z17- and icon z17-
 amenity-vending_machine-public_transport_tickets    # caption z17- and icon z17-
-amenity-vending_machine-sweets                      # caption z17- and icon z17-
 amenity-waste_transfer_station                      # caption z19 and icon z17-
 emergency-phone                                     # icon z17-
 === 470
@@ -1195,6 +1183,7 @@ shop-wholesale                                      # caption z18- and icon z18-
 === 220
 
 amenity-bbq                                         # caption z18- and icon z18-
+amenity-internet_cafe                               # caption z19 and icon z18-
 amenity-toilets                                     # caption z18- and icon z18-
 craft-handicraft                                    # caption z18- and icon z18-
 craft-hvac                                          # caption z18- and icon z18-
@@ -1203,22 +1192,29 @@ craft-locksmith                                     # caption z18- and icon z18-
 craft-winery                                        # caption z18- and icon z18-
 === 210
 
-amenity-bench                                       # caption z19 and icon z18-
-amenity-hunting_stand                               # caption z18- and icon z18-
 amenity-post_box                                    # caption z18- and icon z18-
+amenity-recycling-container                         # caption z19 and icon z17-
+building                                            # caption z16- (also has area z14-)
+building-garage                                     # caption z16- (also has area z14-)
+building-has_parts                                  # caption z16- (also has area z14-)
+entrance-main                                       # caption z18- and icon z18-
 === 200
 
+amenity-vending_machine                             # caption z18- and icon z18-
+amenity-vending_machine-cigarettes                  # caption z18- and icon z18-
+amenity-vending_machine-coffee                      # caption z18- and icon z18-
+amenity-vending_machine-condoms                     # caption z18- and icon z18-
+amenity-vending_machine-drinks                      # caption z18- and icon z18-
+amenity-vending_machine-excrement_bags              # caption z18- and icon z18-
+amenity-vending_machine-food                        # caption z18- and icon z18-
+amenity-vending_machine-newspapers                  # caption z18- and icon z18-
+amenity-vending_machine-sweets                      # caption z18- and icon z18-
+=== 180
+
+amenity-bench                                       # caption z19 and icon z18-
+amenity-parking_space-disabled                      # caption z19 and icon z18-
 amenity-waste_basket                                # caption z19 and icon z18-
 amenity-waste_disposal                              # caption z18- and icon z18-
-=== 190
-
-amenity-loading_dock                                # caption z18- and icon z18-
-entrance-exit                                       # caption z18- and icon z18-
-entrance-main                                       # caption z18- and icon z18-
-=== 170
-
-amenity-internet_cafe                               # caption z19 and icon z18-
-amenity-parking_space-disabled                      # caption z19 and icon z18-
 emergency-defibrillator                             # caption z18- and icon z18-
 emergency-fire_hydrant                              # caption z18- and icon z18-
 === 160
@@ -1232,5 +1228,10 @@ historic-memorial-stolperstein                      # caption z19 and icon z19
 power-substation                                    # caption z19 and icon z19
 === 50
 
+amenity-loading_dock                                # caption z18- and icon z18-
 entrance                                            # caption z19 and icon z19
+entrance-exit                                       # caption z18- and icon z18-
 === 40
+
+building-address                                    # caption z16-
+=== 10
