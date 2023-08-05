@@ -90410,6 +90410,48 @@ cont {
 cont {
   name: "route-ferry"
   element {
+    scale: 7
+    lines {
+      width: 1.0
+      color: 2770241
+      dashdot {
+        dd: 5.4
+        dd: 2.7
+      }
+      priority: 80
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 8
+    lines {
+      width: 1.0
+      color: 2770241
+      dashdot {
+        dd: 5.4
+        dd: 2.7
+      }
+      priority: 80
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 9
+    lines {
+      width: 1.0
+      color: 2770241
+      dashdot {
+        dd: 5.4
+        dd: 2.7
+      }
+      priority: 80
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 10
     lines {
       width: 1.0
