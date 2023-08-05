@@ -888,6 +888,7 @@ node|z16-[barrier=stile],
 node|z16-[barrier=turnstile],
 node|z16-[amenity=nightclub],
 area|z16-[amenity=nightclub],
+node|z16-[amenity=townhall],
 node|z16-[amenity=bank],
 area|z16-[amenity=bank],
 node|z16-[amenity=taxi],
@@ -957,8 +958,10 @@ node|z17-[office=diplomatic],
 area|z17-[office=diplomatic],
 node|z17-[office=lawyer],
 area|z17-[office=lawyer],
-node|z17-[vending=parking_tickets],
-area|z17-[vending=parking_tickets],
+node|z17-[amenity=vending_machine][vending=parking_tickets],
+area|z17-[amenity=vending_machine][vending=parking_tickets],
+node|z17-[amenity=vending_machine][vending=public_transport_tickets],
+area|z17-[amenity=vending_machine][vending=public_transport_tickets],
 node|z17-[amenity=payment_terminal],
 area|z17-[amenity=payment_terminal],
 node|z17-[amenity=shower],
@@ -971,14 +974,14 @@ node|z17-[amenity=post_office],
 area|z17-[amenity=post_office],
 node|z17-[power=station],
 area|z17-[power=station],
-node|z17-[amenity=vending_machine],
-area|z17-[amenity=vending_machine],
 node|z17-[amenity=parcel_locker],
 area|z17-[amenity=parcel_locker],
 node|z17-[aeroway=gate],
 area|z17-[aeroway=gate],
 node|z17-[sport],
 area|z17-[sport],
+node|z18-[amenity=vending_machine],
+area|z18-[amenity=vending_machine],
 node|z18-[amenity=post_box],
 area|z18-[amenity=post_box],
 node|z18-[emergency=fire_hydrant],
@@ -1558,11 +1561,13 @@ node|z18-[amenity=prison],
 area|z18-[amenity=prison]
 {font-size: 11;}
 
+node|z16-[amenity=townhall],
 node|z17-[office=diplomatic],
-area|z17-[office=diplomatic]
+area|z17-[office=diplomatic],
 {icon-image: embassy-m.svg;}
+node|z17-[amenity=townhall],
 node|z18-[office=diplomatic],
-area|z18-[office=diplomatic]
+area|z18-[office=diplomatic],
 {font-size: 11;}
 
 node|z17-[amenity=bicycle_rental],
@@ -1598,19 +1603,19 @@ area|z18-[emergency=defibrillator]
 
 node|z17-[office=lawyer],
 area|z17-[office=lawyer]
-{icon-image: lawyer-m.svg;icon-min-distance: 10;}
+{icon-image: lawyer-m.svg;}
 
 node|z17-[amenity=telephone]
-{icon-image: phone-m.svg;icon-min-distance: 30;}
+{icon-image: phone-m.svg;}
 
 node|z17-[emergency=phone]
-{icon-image: emergency-phone-m.svg;icon-min-distance: 30;}
+{icon-image: emergency-phone-m.svg;}
 
 node|z17-[amenity=recycling],
 area|z17-[amenity=recycling],
 node|z17-[amenity=waste_transfer_station],
 area|z17-[amenity=waste_transfer_station],
-{icon-image: recycling-m.svg;icon-min-distance: 30;}
+{icon-image: recycling-m.svg;}
 
 node|z17-[power=station],
 area|z17-[power=station],
@@ -1622,30 +1627,30 @@ node|z17-[power=generator][generator:source!=solar],
 area|z17-[power=generator][generator:source!=solar],
 node|z19-[power=substation],
 area|z19-[power=substation],
-{icon-image: power-m.svg;font-size: 11;icon-min-distance: 20;}
+{icon-image: power-m.svg;font-size: 11;}
 
 node|z17-[amenity=shower],
 area|z17-[amenity=shower]
-{icon-image: shower-m.svg;icon-min-distance: 20;}
+{icon-image: shower-m.svg;}
 
 node|z17-[amenity=payment_terminal],
 area|z17-[amenity=payment_terminal]
-{icon-image: vending-m.svg;icon-min-distance: 20;}
-node|z17-[amenity=vending_machine],
-area|z17-[amenity=vending_machine],
-{icon-image: vending-m.svg;icon-min-distance: 20;}
+{icon-image: vending-m.svg;}
+node|z18-[amenity=vending_machine],
+area|z18-[amenity=vending_machine],
+{icon-image: vending-m.svg;}
 node|z17-[amenity=vending_machine][vending=parking_tickets],
-area|z17-[amenity=vending_machine][vending=parking_tickets]
+area|z17-[amenity=vending_machine][vending=parking_tickets],
 {icon-image: parking-meter-m.svg;font-size: 11;}
+node|z17-[amenity=vending_machine][vending=public_transport_tickets],
+area|z17-[amenity=vending_machine][vending=public_transport_tickets],
+{icon-image: vending-m.svg;}
 node|z17-[amenity=parcel_locker],
 area|z17-[amenity=parcel_locker],
-{icon-image: parcel_locker-m.svg;icon-min-distance: 20;}
+{icon-image: parcel_locker-m.svg;}
 
-node|z17[amenity=vending_machine][vending=fuel],
-area|z17[amenity=vending_machine][vending=fuel]
-{icon-image: zero-icon.svg;text: none;}
 node|z18-[amenity=vending_machine][vending=fuel],
-area|z18-[amenity=vending_machine][vending=fuel]
+area|z18-[amenity=vending_machine][vending=fuel],
 {icon-image: fuel-dispenser-m.svg;}
 
 node|z17-[aeroway=gate],
