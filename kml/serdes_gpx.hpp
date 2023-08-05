@@ -55,8 +55,9 @@ private:
   uint32_t m_color;
   uint32_t m_globalColor; // To support OSMAnd extensions with single color per GPX file
 
-  LocalizableString m_name;
-  LocalizableString m_description;
+  std::string m_name;
+  std::string m_description;
+  std::string m_comment;
   PredefinedColor m_predefinedColor;
   geometry::PointWithAltitude m_org;
 
@@ -65,11 +66,12 @@ private:
   geometry::Altitude m_altitude;
 
   MultiGeometry::LineT m_line;
-  LocalizableString m_customName;
+  std::string m_customName;
   std::vector<TrackLayer> m_trackLayers;
   void ParseName(std::string const & value, std::string const & prevTag);
   void ParseDescription(std::string const & value, std::string const & prevTag);
   void ParseAltitude(std::string const & value);
+  std::string BuildDescription();
 };
 }  // namespace gpx
 
