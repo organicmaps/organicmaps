@@ -29,6 +29,7 @@ std::string_view constexpr kGarminColor = "gpxx:DisplayColor";
 std::string_view constexpr kDesc = "desc";
 std::string_view constexpr kMetadata = "metadata";
 std::string_view constexpr kEle = "ele";
+std::string_view constexpr kCmt = "cmt";
 int constexpr kInvalidColor = 0;
 
 GpxParser::GpxParser(FileData & data)
@@ -42,6 +43,7 @@ void GpxParser::ResetPoint()
 {
   m_name.clear();
   m_description.clear();
+  m_comment.clear();
   m_org = {};
   m_predefinedColor = PredefinedColor::None;
   m_color = kInvalidColor;
@@ -63,7 +65,7 @@ bool GpxParser::MakeValid()
     {
       // Set default name.
       if (m_name.empty())
-        m_name[kml::kDefaultLang] = kml::PointToString(m_org);
+        m_name = kml::PointToString(m_org);
 
       // Set default pin.
       if (m_predefinedColor == PredefinedColor::None)
@@ -227,12 +229,15 @@ void GpxParser::Pop(std::string_view tag)
       if (GEOMETRY_TYPE_POINT == m_geometryType)
       {
         BookmarkData data;
-        data.m_name = std::move(m_name);
-        data.m_description = std::move(m_description);
+        if (!m_name.empty())
+          data.m_name = {{ kDefaultLang, m_name }};
+        if (!m_description.empty() || !m_comment.empty())
+          data.m_description = {{kDefaultLang, BuildDescription()}};
         data.m_color.m_predefinedColor = m_predefinedColor;
         data.m_color.m_rgba = m_color;
         data.m_point = m_org;
-        data.m_customName = std::move(m_customName);
+        if (!m_customName.empty())
+          data.m_customName = {{kDefaultLang, m_customName}};
         // Here we set custom name from 'name' field for KML-files exported from 3rd-party services.
         if (data.m_name.size() == 1 && data.m_name.begin()->first == kDefaultLangCode && data.m_customName.empty())
           data.m_customName = data.m_name;
@@ -252,8 +257,10 @@ void GpxParser::Pop(std::string_view tag)
         m_trackLayers.push_back(std::move(layer));
 
         TrackData data;
-        data.m_name = std::move(m_name);
-        data.m_description = std::move(m_description);
+        if (!m_name.empty())
+          data.m_name = {{ kDefaultLang, m_name }};
+        if (!m_description.empty() || !m_comment.empty())
+          data.m_description = {{kDefaultLang, BuildDescription()}};
         data.m_layers = std::move(m_trackLayers);
         data.m_geometry = std::move(m_geometry);
         m_data.m_tracksData.push_back(std::move(data));
@@ -286,6 +293,8 @@ void GpxParser::CharData(std::string & value)
       ParseColor(value);
     else if (currTag == gpx::kEle)
       ParseAltitude(value);
+    else if (currTag == gpx::kCmt)
+      m_comment = value;
   }
 }
 
@@ -293,11 +302,11 @@ void GpxParser::ParseDescription(std::string const & value, std::string const & 
 {
   if (prevTag == kWpt)
   {
-    m_description[kDefaultLang] = value;
+    m_description = value;
   }
   else if (prevTag == kTrk || prevTag == kRte)
   {
-    m_description[kDefaultLang] = value;
+    m_description = value;
     if (m_categoryData->m_description[kDefaultLang].empty())
       m_categoryData->m_description[kDefaultLang] = value;
   }
@@ -311,11 +320,11 @@ void GpxParser::ParseName(std::string const & value, std::string const & prevTag
 {
   if (prevTag == kWpt)
   {
-    m_name[kDefaultLang] = value;
+    m_name = value;
   }
   else if (prevTag == kTrk || prevTag == kRte)
   {
-    m_name[kDefaultLang] = value;
+    m_name = value;
     if (m_categoryData->m_name[kDefaultLang].empty())
       m_categoryData->m_name[kDefaultLang] = value;
   }
@@ -332,6 +341,15 @@ void GpxParser::ParseAltitude(std::string const & value)
     m_altitude = static_cast<geometry::Altitude>(round(rawAltitude));
   else
     m_altitude = geometry::kInvalidAltitude;
+}
+
+std::string GpxParser::BuildDescription()
+{
+  if (m_description.empty())
+    return m_comment;
+  else if (m_comment.empty())
+    return m_description;
+  return m_description + "\n\n" + m_comment;
 }
 
 }  // namespace gpx
