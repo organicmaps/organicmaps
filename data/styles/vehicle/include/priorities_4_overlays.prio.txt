@@ -11,7 +11,7 @@
 # - BG-by-size: landcover areas sorted by their size
 
 highway-speed_camera                                # icon z13-
-=== 1510
+=== 4400
 
 highway-motorway                                    # pathtext z10- and shield z10- (also has line z7-, line(casing) z14-)
 highway-motorway-bridge                             # pathtext z10- and shield z10- (also has line z7-, line(casing) z14-, line::bridgeblack z13-, line::bridgewhite z13-)
@@ -19,12 +19,12 @@ highway-motorway-tunnel                             # pathtext z10- and shield z
 highway-trunk                                       # pathtext z10- and shield z10- (also has line z7-, line(casing) z14-)
 highway-trunk-bridge                                # pathtext z10- and shield z10- (also has line z7-, line(casing) z14-, line::bridgeblack z13-, line::bridgewhite z13-)
 highway-trunk-tunnel                                # pathtext z10- and shield z10- (also has line z7-, line(casing) z12-)
-=== 1500
+=== 4350
 
 highway-primary                                     # pathtext z10- and shield z10- (also has line z8-, line(casing) z14-)
 highway-primary-bridge                              # pathtext z10- and shield z10- (also has line z8-, line(casing) z14-, line::bridgeblack z14-, line::bridgewhite z14-)
 highway-primary-tunnel                              # pathtext z10- and shield z10- (also has line z8-, line(casing) z14-)
-=== 1490
+=== 4300
 
 highway-motorway_link                               # pathtext z10- and shield z10- (also has line z10-, line(casing) z14-)
 highway-motorway_link-bridge                        # pathtext z10- and shield z10- (also has line z10-, line(casing) z14-, line::bridgeblack z14-, line::bridgewhite z14-)
@@ -32,72 +32,72 @@ highway-motorway_link-tunnel                        # pathtext z10- and shield z
 highway-trunk_link                                  # pathtext z10- and shield z10- (also has line z10-, line(casing) z14-)
 highway-trunk_link-bridge                           # pathtext z10- and shield z10- (also has line z10-, line(casing) z14-, line::bridgeblack z14-, line::bridgewhite z14-)
 highway-trunk_link-tunnel                           # pathtext z10- and shield z10- (also has line z10-, line(casing) z12-)
-=== 1480
+=== 4250
 
 highway-motorway_junction                           # caption z15-
 highway-primary_link                                # pathtext z10- and shield z11- (also has line z11-, line(casing) z14-)
 highway-primary_link-bridge                         # pathtext z10- and shield z11- (also has line z11-, line(casing) z14-, line::bridgeblack z14-, line::bridgewhite z14-)
 highway-primary_link-tunnel                         # pathtext z10- and shield z11- (also has line z11-, line(casing) z14-)
 highway-services                                    # caption z13- and icon z12-
-=== 1470
+=== 4200
 
 highway-ford                                        # icon z14-
 highway-rest_area                                   # caption z14- and icon z14-
 highway-secondary                                   # pathtext z10- and shield z12- (also has line z10-, line(casing) z14-)
 highway-secondary-bridge                            # pathtext z10- and shield z12- (also has line z10-, line(casing) z14-, line::bridgeblack z14-, line::bridgewhite z14-)
 highway-secondary-tunnel                            # pathtext z10- and shield z12- (also has line z10-, line(casing) z14-)
-=== 1460
+=== 4150
 
 highway-tertiary                                    # pathtext z12- and shield z15- (also has line z11-, line(casing) z15-)
 highway-tertiary-bridge                             # pathtext z12- and shield z15- (also has line z11-, line(casing) z15-, line::bridgeblack z14-, line::bridgewhite z14-)
 highway-tertiary-tunnel                             # pathtext z12- and shield z15- (also has line z11-, line(casing) z15-)
-=== 1450
+=== 4100
 
 highway-secondary_link                              # pathtext z16- (also has line z14-, line(casing) z14-)
 highway-secondary_link-bridge                       # pathtext z16- (also has line z14-, line(casing) z14-, line::bridgeblack z14-, line::bridgewhite z14-)
 highway-secondary_link-tunnel                       # pathtext z16- (also has line z14-, line(casing) z14-)
-=== 1440
+=== 4050
 
 highway-unclassified                                # pathtext z14- (also has line z11-)
 highway-unclassified-area                           # pathtext z14- (also has line z11-)
 highway-unclassified-bridge                         # pathtext z14- (also has line z11-, line::bridgeblack z14-, line::bridgewhite z14-)
 highway-unclassified-tunnel                         # pathtext z14- (also has line z11-, line(casing) z16-)
-=== 1430
+=== 4000
 
 highway-residential                                 # pathtext z12- and shield z18- (also has line z12-, line(casing) z15-)
 highway-residential-area                            # pathtext z12- and shield z18- (also has line z12-, line(casing) z15-)
 highway-residential-bridge                          # pathtext z12- and shield z18- (also has line z12-, line(casing) z15-, line::bridgeblack z14-, line::bridgewhite z14-)
 highway-residential-tunnel                          # pathtext z12- and shield z18- (also has line z12-, line(casing) z15-)
-=== 1420
+=== 3950
 
 highway-road                                        # pathtext z14- (also has line z12-)
 highway-road-bridge                                 # pathtext z14- (also has line z12-)
 highway-road-tunnel                                 # pathtext z14- (also has line z12-)
-=== 1410
+=== 3900
 
 highway-tertiary_link                               # pathtext z18- (also has line z15-, line(casing) z15-)
 highway-tertiary_link-bridge                        # pathtext z18- (also has line z15-, line(casing) z15-, line::bridgeblack z15-, line::bridgewhite z15-)
 highway-tertiary_link-tunnel                        # pathtext z18- (also has line z15-, line(casing) z15-)
-=== 1400
+=== 3850
 
 place-continent                                     # caption z1-2
-=== 1310
+=== 3800
 
 place-ocean                                         # caption z1-
-=== 1300
+=== 3750
 
 place-country                                       # caption z3-
-=== 1290
+=== 3700
 
 place-city-capital-2                                # caption z4- and icon z4-
-=== 1280
+=== 3650
 
 place-city-capital-3                                # caption z4-
 place-city-capital-4                                # caption z4-
-=== 1260
+=== 3600
 
 place-sea                                           # caption z4-
-=== 1250
+=== 3550
 
 place-city-capital                                  # caption z4-
 place-city-capital-10                               # caption z4-
@@ -107,76 +107,76 @@ place-city-capital-6                                # caption z4-
 place-city-capital-7                                # caption z4-
 place-city-capital-8                                # caption z4-
 place-city-capital-9                                # caption z4-
-=== 1240
+=== 3500
 
 place-city                                          # caption z4-
-=== 1230
+=== 3450
 
 place-state-USA                                     # caption z5-10
-=== 1220
+=== 3400
 
 place-state                                         # caption z6-10
-=== 1210
+=== 3350
 
 aeroway-aerodrome-international                     # caption z10- and icon z7- (also has area z10-)
-=== 1200
+=== 3300
 
 place-town                                          # caption z8-
-=== 1180
+=== 3250
 
 amenity-charging_station-motorcar                   # caption z14- and icon z14-
 amenity-fuel                                        # caption z12- and icon z12-
-=== 1170
+=== 3200
 
 amenity-charging_station                            # caption z16- and icon z16-
 amenity-vending_machine-fuel                        # caption z17- and icon z17-
-=== 1150
+=== 3150
 
 railway-station-subway-moscow                       # caption z12- and icon z11-
 railway-station-subway-spb                          # caption z12- and icon z11-
-=== 1110
+=== 3100
 
 aeroway-aerodrome                                   # caption z14- and icon z14- (also has area z10-)
 place-village                                       # caption z11-
-=== 1080
+=== 3050
 
 railway-station                                     # caption z13- and icon z12-
-=== 1070
+=== 3000
 
 landuse-reservoir                                   # caption z10- (also has area z12-)
 natural-water-lake                                  # caption z10- (also has area z1-)
 natural-water-reservoir                             # caption z10- (also has area z1-)
-=== 1065
+=== 2950
 
 railway-station-funicular                           # caption z13- and icon z12-
 railway-station-light_rail                          # caption z13- and icon z12-
 railway-station-monorail                            # caption z13- and icon z12-
-=== 1060
+=== 2900
 
 barrier-toll_booth                                  # caption z14- and icon z12-
-=== 1050
+=== 2850
 
 junction                                            # caption z17-
 junction-circular                                   # caption z17-
 junction-roundabout                                 # caption z17-
-=== 1048
+=== 2800
 
 barrier-lift_gate                                   # caption z16- and icon z16-
-=== 1047
+=== 2750
 
 railway-level_crossing                              # icon z17-
-=== 1046
+=== 2700
 
 amenity-car_wash                                    # caption z17- and icon z17-
 amenity-vending_machine-parking_tickets             # caption z17- and icon z17-
 shop-car_parts                                      # icon z17-
 shop-car_repair                                     # icon z17-
 shop-car_repair-tyres                               # caption z15- and icon z15-
-=== 1045
+=== 2650
 
 amenity-sanitary_dump_station                       # caption z15- and icon z15-
 shop-caravan                                        # icon z17-
-=== 1044
+=== 2600
 
 amenity-parking                                     # caption z16- and icon z15- (also has area z15-)
 amenity-parking-fee                                 # caption z16- and icon z15- (also has area z15-)
@@ -184,7 +184,7 @@ amenity-parking-multi-storey                        # caption z16- and icon z15-
 amenity-parking-park_and_ride                       # caption z16- and icon z15- (also has area z15-)
 amenity-parking-permissive                          # caption z16- and icon z15- (also has area z15-)
 amenity-parking-underground                         # caption z16- and icon z15- (also has area z15-)
-=== 1043
+=== 2550
 
 boundary-national_park                              # caption z12- and icon z12-
 boundary-protected_area                             # caption z12- and icon z12-
@@ -195,7 +195,7 @@ boundary-protected_area-4                           # caption z12- and icon z12-
 boundary-protected_area-5                           # caption z12- and icon z12-
 boundary-protected_area-6                           # caption z12- and icon z12-
 leisure-nature_reserve                              # caption z12- and icon z12- (also has area z10-)
-=== 1042
+=== 2500
 
 historic-castle                                     # caption z15- and icon z12-
 historic-castle-castrum                             # caption z15- and icon z12-
@@ -209,44 +209,44 @@ historic-castle-palace                              # caption z15- and icon z12-
 historic-castle-shiro                               # caption z15- and icon z12-
 historic-castle-stately                             # caption z15- and icon z12-
 historic-fort                                       # caption z15- and icon z12-
-=== 1040
+=== 2450
 
 amenity-car_rental                                  # caption z18- and icon z18-
 amenity-car_sharing                                 # caption z18- and icon z18-
 shop-car                                            # icon z17-
-=== 1037
+=== 2400
 
 highway-living_street                               # pathtext z14- (also has line z12-)
 highway-living_street-bridge                        # pathtext z14- (also has line z12-)
 highway-living_street-tunnel                        # pathtext z14- (also has line z12-, line(casing) z16-)
-=== 1035
+=== 2350
 
 highway-service                                     # pathtext z16- (also has line z14-)
 highway-service-area                                # pathtext z16- (also has line z14-)
 highway-service-bridge                              # pathtext z16- (also has line z14-)
 highway-service-tunnel                              # pathtext z16- (also has line z14-)
-=== 1030
+=== 2300
 
 leisure-park                                        # caption z14- and icon z14- (also has area z10-)
 leisure-park-permissive                             # caption z14- and icon z14- (also has area z10-)
-=== 1020
+=== 2250
 
 landuse-forest                                      # caption z12- and icon z12- (also has area z10-)
 landuse-forest-coniferous                           # caption z12- and icon z12- (also has area z10-)
 landuse-forest-deciduous                            # caption z12- and icon z12- (also has area z10-)
 landuse-forest-mixed                                # caption z12- and icon z12- (also has area z10-)
-=== 1010
+=== 2200
 
 highway-service-busway                              # pathtext z16- (also has line z14-)
 highway-service-driveway                            # pathtext z16- (also has line z15-)
 highway-service-parking_aisle                       # pathtext z16- (also has line z14-)
-=== 950
+=== 2150
 
 place-island                                        # caption z12-14
-=== 920
+=== 2100
 
 natural-water-river                                 # caption z10- (also has area z1-)
-=== 915
+=== 2050
 
 railway-station-subway                              # caption z13- and icon z13-
 railway-station-subway-adana                        # caption z13- and icon z12-
@@ -357,42 +357,42 @@ railway-station-subway-washington                   # caption z13- and icon z13-
 railway-station-subway-wuhan                        # caption z13- and icon z13-
 railway-station-subway-yerevan                      # caption z13- and icon z13-
 railway-station-subway-yokohama                     # caption z13- and icon z13-
-=== 900
+=== 2000
 
 barrier-border_control                              # caption z15- and icon z15-
 historic-city_gate                                  # caption z15- and icon z13-
 historic-monument                                   # caption z15- and icon z13-
-=== 880
+=== 1950
 
 place-hamlet                                        # caption z13-
-=== 850
+=== 1900
 
 place-locality                                      # caption z13-
-=== 840
+=== 1850
 
 tourism-viewpoint                                   # caption z15- and icon z14-
-=== 820
+=== 1800
 
 railway-halt                                        # caption z14- and icon z14-
-=== 810
+=== 1750
 
 tourism-theme_park                                  # caption z15- and icon z14-
-=== 790
+=== 1700
 
 shop-supermarket                                    # caption z14- and icon z14-
-=== 780
+=== 1650
 
 highway-pedestrian                                  # pathtext z14-
 highway-pedestrian-area                             # pathtext z14-
 highway-pedestrian-bridge                           # pathtext z14-
 highway-pedestrian-tunnel                           # pathtext z14-
-=== 760
+=== 1600
 
 natural-strait                                      # caption z13-
 waterway-river                                      # pathtext z11- (also has line z10-)
 waterway-river-tunnel                               # pathtext z11-
 waterway-riverbank                                  # pathtext z11- (also has area z1-, line z10-)
-=== 720
+=== 1550
 
 natural-water                                       # caption z10- (also has area z1-)
 natural-water-basin                                 # caption z10- (also has area z1-)
@@ -401,25 +401,25 @@ natural-water-pond                                  # caption z10- (also has are
 shop-mall                                           # caption z14- and icon z14-
 waterway-canal                                      # pathtext z13-
 waterway-canal-tunnel                               # pathtext z13-
-=== 660
+=== 1500
 
 natural-desert                                      # caption z14- (also has area z1-)
-=== 640
+=== 1450
 
 natural-bay                                         # caption z14-
 natural-cape                                        # caption z14-
 place-farm                                          # caption z14-
 place-isolated_dwelling                             # caption z14-
-=== 630
+=== 1400
 
 tourism-zoo                                         # caption z15- and icon z15-
-=== 600
+=== 1350
 
 tourism-museum                                      # caption z15- and icon z15-
-=== 590
+=== 1300
 
 tourism-gallery                                     # caption z15- and icon z15-
-=== 580
+=== 1250
 
 historic-battlefield                                # caption z15- and icon z15-
 historic-memorial                                   # caption z15- and icon z15-
@@ -429,7 +429,7 @@ historic-memorial-war_memorial                      # caption z15- and icon z15-
 tourism-attraction                                  # caption z15- and icon z15-
 tourism-attraction-animal                           # caption z15- and icon z15-
 tourism-attraction-specified                        # caption z15- and icon z15-
-=== 570
+=== 1200
 
 amenity-community_centre                            # caption z16- and icon z16-
 tourism-artwork                                     # caption z15- and icon z15-
@@ -437,29 +437,29 @@ tourism-artwork-architecture                        # caption z15- and icon z15-
 tourism-artwork-painting                            # caption z15- and icon z15-
 tourism-artwork-sculpture                           # caption z15- and icon z15-
 tourism-artwork-statue                              # caption z15- and icon z15-
-=== 560
+=== 1150
 
 amenity-cafe                                        # caption z15- and icon z15-
 amenity-theatre                                     # caption z15- and icon z15-
-=== 540
+=== 1100
 
 amenity-university                                  # caption z15- and icon z15-
-=== 530
+=== 1050
 
 amenity-hospital                                    # caption z15- and icon z15-
-=== 520
+=== 1000
 
 aeroway-terminal                                    # caption z15- (also has area z14-)
-=== 410
+=== 950
 
 leisure-beach_resort                                # caption z15- (also has area z10-)
 natural-beach                                       # caption z15- (also has area z10-)
 natural-beach-gravel                                # caption z15- (also has area z10-)
 natural-beach-sand                                  # caption z15- (also has area z10-)
-=== 390
+=== 900
 
 amenity-charging_station-bicycle                    # caption z16- and icon z16-
-=== 370
+=== 850
 
 historic-boundary_stone                             # caption z16- and icon z16-
 historic-gallows                                    # caption z16- and icon z16-
@@ -468,15 +468,15 @@ historic-ship                                       # caption z16- and icon z16-
 historic-tomb                                       # caption z16- and icon z16-
 historic-wayside_cross                              # caption z16- and icon z16-
 historic-wayside_shrine                             # caption z17- and icon z16-
-=== 350
+=== 800
 
 amenity-restaurant                                  # caption z16- and icon z16-
-=== 340
+=== 750
 
 railway-rail-tourism                                # pathtext z16- (also has line z10-, line::dash z16-)
 railway-rail-tourism-bridge                         # pathtext z16- (also has line z10-, line::bridgeblack z16-, line::bridgewhite z14-, line::dash z16-)
 railway-rail-tourism-tunnel                         # pathtext z16- (also has line z10-, line(casing) z14-, line::dash z16-)
-=== 330
+=== 700
 
 amenity-place_of_worship                            # caption z17- and icon z16-
 amenity-place_of_worship-buddhist                   # caption z17- and icon z16-
@@ -486,10 +486,10 @@ amenity-place_of_worship-jewish                     # caption z17- and icon z16-
 amenity-place_of_worship-muslim                     # caption z17- and icon z16-
 amenity-place_of_worship-shinto                     # caption z17- and icon z16-
 amenity-place_of_worship-taoist                     # caption z17- and icon z16-
-=== 300
+=== 650
 
 waterway-lock_gate                                  # icon z16-
-=== 290
+=== 600
 
 amenity-conference_centre                           # icon z16-
 amenity-events_venue                                # icon z16-
@@ -607,49 +607,49 @@ railway-subway_entrance-washington                  # caption z17- and icon z16-
 railway-subway_entrance-wuhan                       # caption z17- and icon z16-
 railway-subway_entrance-yerevan                     # caption z17- and icon z16-
 railway-subway_entrance-yokohama                    # caption z17- and icon z16-
-=== 280
+=== 550
 
 amenity-parking-no-access                           # caption z16- and icon z15- (also has area z15-)
 amenity-parking-private                             # caption z16- and icon z15- (also has area z15-)
-=== 250
+=== 500
 
 natural-wetland                                     # caption z16- (also has area z11-)
 natural-wetland-bog                                 # caption z16- (also has area z11-)
 natural-wetland-marsh                               # caption z16- (also has area z11-)
-=== 220
+=== 450
 
 railway-tram_stop                                   # caption z17- and icon z17-
-=== 200
+=== 400
 
 historic-memorial-cross                             # caption z17- and icon z17-
-=== 180
+=== 350
 
 amenity-arts_centre                                 # caption z17- and icon z17-
 historic-archaeological_site                        # caption z17- and icon z17-
 historic-ruins                                      # caption z17- and icon z17-
-=== 170
+=== 300
 
 amenity-fast_food                                   # caption z17- and icon z17-
-=== 150
+=== 250
 
 amenity-bank                                        # caption z17- and icon z17-
 amenity-parcel_locker                               # caption z17- and icon z17-
 amenity-police                                      # icon z17-
 amenity-post_office                                 # caption z17- and icon z17-
 shop-motorcycle                                     # icon z17-
-=== 140
+=== 200
 
 landuse-landfill                                    # caption z15- (also has area z15-)
 landuse-quarry                                      # caption z15- (also has area z15-)
 landuse-railway                                     # caption z15- (also has area z15-)
-=== 60
+=== 150
 
 leisure-park-no-access                              # caption z14- and icon z14- (also has area z10-)
 leisure-park-private                                # caption z14- and icon z14- (also has area z10-)
-=== 50
+=== 100
 
 building                                            # caption z18- (also has area z15-)
 building-address                                    # caption z18-
 building-garage                                     # caption z18- (also has area z15-)
 building-has_parts                                  # caption z18- (also has area z15-)
-=== 20
+=== 50
