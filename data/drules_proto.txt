@@ -3000,14 +3000,14 @@ cont {
     scale: 18
     symbol {
       name: "bench"
-      priority: 200
+      priority: 160
     }
   }
   element {
     scale: 19
     symbol {
       name: "bench"
-      priority: 200
+      priority: 160
     }
     caption {
       primary {
@@ -3016,7 +3016,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9800
+      priority: -9840
     }
   }
 }
@@ -5637,7 +5637,7 @@ cont {
     scale: 18
     symbol {
       name: "hunting-tower-m"
-      priority: 200
+      priority: 970
     }
     caption {
       primary {
@@ -5646,14 +5646,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9800
+      priority: -9030
     }
   }
   element {
     scale: 19
     symbol {
       name: "hunting-tower-m"
-      priority: 200
+      priority: 970
     }
     caption {
       primary {
@@ -5662,7 +5662,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9800
+      priority: -9030
     }
   }
 }
@@ -5715,14 +5715,14 @@ cont {
     scale: 18
     symbol {
       name: "internet_cafe-m"
-      priority: 160
+      priority: 210
     }
   }
   element {
     scale: 19
     symbol {
       name: "internet_cafe-m"
-      priority: 160
+      priority: 210
     }
     caption {
       primary {
@@ -5731,7 +5731,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9840
+      priority: -9790
     }
   }
 }
@@ -5886,7 +5886,7 @@ cont {
     scale: 18
     symbol {
       name: "entrance-s"
-      priority: 170
+      priority: 40
     }
     caption {
       primary {
@@ -5896,14 +5896,14 @@ cont {
         text: "ref"
         is_optional: true
       }
-      priority: -9830
+      priority: -9960
     }
   }
   element {
     scale: 19
     symbol {
       name: "entrance-s"
-      priority: 170
+      priority: 40
     }
     caption {
       primary {
@@ -5913,7 +5913,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9830
+      priority: -9960
     }
   }
 }
@@ -6242,7 +6242,6 @@ cont {
     symbol {
       name: "parcel_locker-m"
       priority: 470
-      min_distance: 20
     }
     caption {
       primary {
@@ -6259,7 +6258,6 @@ cont {
     symbol {
       name: "parcel_locker-m"
       priority: 470
-      min_distance: 20
     }
     caption {
       primary {
@@ -6276,7 +6274,6 @@ cont {
     symbol {
       name: "parcel_locker-m"
       priority: 470
-      min_distance: 20
     }
     caption {
       primary {
@@ -7238,7 +7235,6 @@ cont {
     symbol {
       name: "vending-m"
       priority: 400
-      min_distance: 20
     }
     caption {
       primary {
@@ -7255,7 +7251,6 @@ cont {
     symbol {
       name: "vending-m"
       priority: 400
-      min_distance: 20
     }
     caption {
       primary {
@@ -7272,7 +7267,6 @@ cont {
     symbol {
       name: "vending-m"
       priority: 400
-      min_distance: 20
     }
     caption {
       primary {
@@ -8611,7 +8605,6 @@ cont {
     symbol {
       name: "recycling-m"
       priority: 470
-      min_distance: 30
     }
   }
   element {
@@ -8619,7 +8612,6 @@ cont {
     symbol {
       name: "recycling-m"
       priority: 470
-      min_distance: 30
     }
   }
   element {
@@ -8627,7 +8619,6 @@ cont {
     symbol {
       name: "recycling-m"
       priority: 470
-      min_distance: 30
     }
     caption {
       primary {
@@ -8647,7 +8638,6 @@ cont {
     symbol {
       name: "recycling-m"
       priority: 470
-      min_distance: 30
     }
   }
   element {
@@ -8655,7 +8645,6 @@ cont {
     symbol {
       name: "recycling-m"
       priority: 470
-      min_distance: 30
     }
   }
   element {
@@ -8663,7 +8652,6 @@ cont {
     symbol {
       name: "recycling-m"
       priority: 470
-      min_distance: 30
     }
     caption {
       primary {
@@ -8682,24 +8670,21 @@ cont {
     scale: 17
     symbol {
       name: "recycling-m"
-      priority: 470
-      min_distance: 30
+      priority: 200
     }
   }
   element {
     scale: 18
     symbol {
       name: "recycling-m"
-      priority: 470
-      min_distance: 30
+      priority: 200
     }
   }
   element {
     scale: 19
     symbol {
       name: "recycling-m"
-      priority: 470
-      min_distance: 30
+      priority: 200
     }
     caption {
       primary {
@@ -8708,7 +8693,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9530
+      priority: -9800
     }
   }
 }
@@ -9043,7 +9028,6 @@ cont {
     symbol {
       name: "shower-m"
       priority: 470
-      min_distance: 20
     }
     caption {
       primary {
@@ -9060,7 +9044,6 @@ cont {
     symbol {
       name: "shower-m"
       priority: 470
-      min_distance: 20
     }
     caption {
       primary {
@@ -9077,7 +9060,6 @@ cont {
     symbol {
       name: "shower-m"
       priority: 470
-      min_distance: 20
     }
     caption {
       primary {
@@ -9168,7 +9150,6 @@ cont {
     symbol {
       name: "phone-m"
       priority: 470
-      min_distance: 30
     }
   }
   element {
@@ -9176,7 +9157,6 @@ cont {
     symbol {
       name: "phone-m"
       priority: 470
-      min_distance: 30
     }
   }
   element {
@@ -9184,7 +9164,6 @@ cont {
     symbol {
       name: "phone-m"
       priority: 470
-      min_distance: 30
     }
     caption {
       primary {
@@ -9340,13 +9319,67 @@ cont {
 cont {
   name: "amenity-townhall"
   element {
-    scale: 19
+    scale: 16
+    symbol {
+      name: "embassy-m"
+      priority: 1010
+    }
     caption {
       primary {
         height: 10
         color: 4473924
         offset_y: 1
+        is_optional: true
       }
+      priority: -8990
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "embassy-m"
+      priority: 1010
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8990
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "embassy-m"
+      priority: 1010
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8990
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "embassy-m"
+      priority: 1010
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8990
     }
   }
 }
@@ -9526,28 +9559,10 @@ cont {
 cont {
   name: "amenity-vending_machine"
   element {
-    scale: 17
-    symbol {
-      name: "vending-m"
-      priority: 470
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9530
-    }
-  }
-  element {
     scale: 18
     symbol {
       name: "vending-m"
-      priority: 470
-      min_distance: 20
+      priority: 180
     }
     caption {
       primary {
@@ -9556,15 +9571,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9530
+      priority: -9820
     }
   }
   element {
     scale: 19
     symbol {
       name: "vending-m"
-      priority: 470
-      min_distance: 20
+      priority: 180
     }
     caption {
       primary {
@@ -9573,35 +9587,17 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9530
+      priority: -9820
     }
   }
 }
 cont {
   name: "amenity-vending_machine-cigarettes"
   element {
-    scale: 17
-    symbol {
-      name: "vending-m"
-      priority: 470
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9530
-    }
-  }
-  element {
     scale: 18
     symbol {
       name: "vending-m"
-      priority: 470
-      min_distance: 20
+      priority: 180
     }
     caption {
       primary {
@@ -9610,15 +9606,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9530
+      priority: -9820
     }
   }
   element {
     scale: 19
     symbol {
       name: "vending-m"
-      priority: 470
-      min_distance: 20
+      priority: 180
     }
     caption {
       primary {
@@ -9627,35 +9622,17 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9530
+      priority: -9820
     }
   }
 }
 cont {
   name: "amenity-vending_machine-coffee"
   element {
-    scale: 17
-    symbol {
-      name: "vending-m"
-      priority: 470
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9530
-    }
-  }
-  element {
     scale: 18
     symbol {
       name: "vending-m"
-      priority: 470
-      min_distance: 20
+      priority: 180
     }
     caption {
       primary {
@@ -9664,15 +9641,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9530
+      priority: -9820
     }
   }
   element {
     scale: 19
     symbol {
       name: "vending-m"
-      priority: 470
-      min_distance: 20
+      priority: 180
     }
     caption {
       primary {
@@ -9681,35 +9657,17 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9530
+      priority: -9820
     }
   }
 }
 cont {
   name: "amenity-vending_machine-condoms"
   element {
-    scale: 17
-    symbol {
-      name: "vending-m"
-      priority: 470
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9530
-    }
-  }
-  element {
     scale: 18
     symbol {
       name: "vending-m"
-      priority: 470
-      min_distance: 20
+      priority: 180
     }
     caption {
       primary {
@@ -9718,15 +9676,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9530
+      priority: -9820
     }
   }
   element {
     scale: 19
     symbol {
       name: "vending-m"
-      priority: 470
-      min_distance: 20
+      priority: 180
     }
     caption {
       primary {
@@ -9735,35 +9692,17 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9530
+      priority: -9820
     }
   }
 }
 cont {
   name: "amenity-vending_machine-drinks"
   element {
-    scale: 17
-    symbol {
-      name: "vending-m"
-      priority: 470
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9530
-    }
-  }
-  element {
     scale: 18
     symbol {
       name: "vending-m"
-      priority: 470
-      min_distance: 20
+      priority: 180
     }
     caption {
       primary {
@@ -9772,15 +9711,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9530
+      priority: -9820
     }
   }
   element {
     scale: 19
     symbol {
       name: "vending-m"
-      priority: 470
-      min_distance: 20
+      priority: 180
     }
     caption {
       primary {
@@ -9789,35 +9727,17 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9530
+      priority: -9820
     }
   }
 }
 cont {
   name: "amenity-vending_machine-excrement_bags"
   element {
-    scale: 17
-    symbol {
-      name: "vending-m"
-      priority: 470
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9530
-    }
-  }
-  element {
     scale: 18
     symbol {
       name: "vending-m"
-      priority: 470
-      min_distance: 20
+      priority: 180
     }
     caption {
       primary {
@@ -9826,15 +9746,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9530
+      priority: -9820
     }
   }
   element {
     scale: 19
     symbol {
       name: "vending-m"
-      priority: 470
-      min_distance: 20
+      priority: 180
     }
     caption {
       primary {
@@ -9843,35 +9762,17 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9530
+      priority: -9820
     }
   }
 }
 cont {
   name: "amenity-vending_machine-food"
   element {
-    scale: 17
-    symbol {
-      name: "vending-m"
-      priority: 470
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9530
-    }
-  }
-  element {
     scale: 18
     symbol {
       name: "vending-m"
-      priority: 470
-      min_distance: 20
+      priority: 180
     }
     caption {
       primary {
@@ -9880,15 +9781,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9530
+      priority: -9820
     }
   }
   element {
     scale: 19
     symbol {
       name: "vending-m"
-      priority: 470
-      min_distance: 20
+      priority: 180
     }
     caption {
       primary {
@@ -9897,7 +9797,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9530
+      priority: -9820
     }
   }
 }
@@ -9906,9 +9806,17 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "zero-icon"
+      name: "fuel-dispenser-m"
       priority: 470
-      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9530
     }
   }
   element {
@@ -9916,7 +9824,6 @@ cont {
     symbol {
       name: "fuel-dispenser-m"
       priority: 470
-      min_distance: 20
     }
     caption {
       primary {
@@ -9933,7 +9840,6 @@ cont {
     symbol {
       name: "fuel-dispenser-m"
       priority: 470
-      min_distance: 20
     }
     caption {
       primary {
@@ -9949,28 +9855,10 @@ cont {
 cont {
   name: "amenity-vending_machine-newspapers"
   element {
-    scale: 17
-    symbol {
-      name: "vending-m"
-      priority: 470
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9530
-    }
-  }
-  element {
     scale: 18
     symbol {
       name: "vending-m"
-      priority: 470
-      min_distance: 20
+      priority: 180
     }
     caption {
       primary {
@@ -9979,15 +9867,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9530
+      priority: -9820
     }
   }
   element {
     scale: 19
     symbol {
       name: "vending-m"
-      priority: 470
-      min_distance: 20
+      priority: 180
     }
     caption {
       primary {
@@ -9996,7 +9883,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9530
+      priority: -9820
     }
   }
 }
@@ -10007,7 +9894,6 @@ cont {
     symbol {
       name: "parking-meter-m"
       priority: 470
-      min_distance: 20
     }
     caption {
       primary {
@@ -10024,7 +9910,6 @@ cont {
     symbol {
       name: "parking-meter-m"
       priority: 470
-      min_distance: 20
     }
     caption {
       primary {
@@ -10041,7 +9926,6 @@ cont {
     symbol {
       name: "parking-meter-m"
       priority: 470
-      min_distance: 20
     }
     caption {
       primary {
@@ -10061,7 +9945,6 @@ cont {
     symbol {
       name: "vending-m"
       priority: 470
-      min_distance: 20
     }
     caption {
       primary {
@@ -10078,7 +9961,6 @@ cont {
     symbol {
       name: "vending-m"
       priority: 470
-      min_distance: 20
     }
     caption {
       primary {
@@ -10095,7 +9977,6 @@ cont {
     symbol {
       name: "vending-m"
       priority: 470
-      min_distance: 20
     }
     caption {
       primary {
@@ -10111,28 +9992,10 @@ cont {
 cont {
   name: "amenity-vending_machine-sweets"
   element {
-    scale: 17
-    symbol {
-      name: "vending-m"
-      priority: 470
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9530
-    }
-  }
-  element {
     scale: 18
     symbol {
       name: "vending-m"
-      priority: 470
-      min_distance: 20
+      priority: 180
     }
     caption {
       primary {
@@ -10141,15 +10004,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9530
+      priority: -9820
     }
   }
   element {
     scale: 19
     symbol {
       name: "vending-m"
-      priority: 470
-      min_distance: 20
+      priority: 180
     }
     caption {
       primary {
@@ -10158,7 +10020,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9530
+      priority: -9820
     }
   }
 }
@@ -10235,14 +10097,14 @@ cont {
     scale: 18
     symbol {
       name: "waste-basket-s"
-      priority: 190
+      priority: 160
     }
   }
   element {
     scale: 19
     symbol {
       name: "waste-basket-s"
-      priority: 190
+      priority: 160
     }
     caption {
       primary {
@@ -10251,7 +10113,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9810
+      priority: -9840
     }
   }
 }
@@ -10261,7 +10123,7 @@ cont {
     scale: 18
     symbol {
       name: "waste-basket-m"
-      priority: 190
+      priority: 160
     }
     caption {
       primary {
@@ -10270,14 +10132,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9810
+      priority: -9840
     }
   }
   element {
     scale: 19
     symbol {
       name: "waste-basket-m"
-      priority: 190
+      priority: 160
     }
     caption {
       primary {
@@ -10286,7 +10148,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9810
+      priority: -9840
     }
   }
 }
@@ -10297,7 +10159,6 @@ cont {
     symbol {
       name: "recycling-m"
       priority: 470
-      min_distance: 30
     }
   }
   element {
@@ -10305,7 +10166,6 @@ cont {
     symbol {
       name: "recycling-m"
       priority: 470
-      min_distance: 30
     }
   }
   element {
@@ -10313,7 +10173,6 @@ cont {
     symbol {
       name: "recycling-m"
       priority: 470
-      min_distance: 30
     }
     caption {
       primary {
@@ -13451,7 +13310,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 620
+      priority: 200
     }
   }
   element {
@@ -13475,7 +13334,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 620
+      priority: 200
     }
   }
   element {
@@ -13499,7 +13358,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 620
+      priority: 200
     }
   }
   element {
@@ -13523,7 +13382,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 620
+      priority: 200
     }
   }
 }
@@ -13542,7 +13401,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 620
+      priority: 10
     }
   }
   element {
@@ -13558,7 +13417,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 620
+      priority: 10
     }
   }
   element {
@@ -13574,7 +13433,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 620
+      priority: 10
     }
   }
   element {
@@ -13590,7 +13449,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 620
+      priority: 10
     }
   }
 }
@@ -13631,7 +13490,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 620
+      priority: 200
     }
   }
   element {
@@ -13655,7 +13514,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 620
+      priority: 200
     }
   }
   element {
@@ -13679,7 +13538,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 620
+      priority: 200
     }
   }
   element {
@@ -13703,7 +13562,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 620
+      priority: 200
     }
   }
 }
@@ -13744,7 +13603,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 620
+      priority: 200
     }
   }
   element {
@@ -13768,7 +13627,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 620
+      priority: 200
     }
   }
   element {
@@ -13792,7 +13651,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 620
+      priority: 200
     }
   }
   element {
@@ -13816,7 +13675,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 620
+      priority: 200
     }
   }
 }
@@ -14913,7 +14772,6 @@ cont {
     symbol {
       name: "emergency-phone-m"
       priority: 470
-      min_distance: 30
     }
   }
   element {
@@ -14921,7 +14779,6 @@ cont {
     symbol {
       name: "emergency-phone-m"
       priority: 470
-      min_distance: 30
     }
   }
   element {
@@ -14929,7 +14786,6 @@ cont {
     symbol {
       name: "emergency-phone-m"
       priority: 470
-      min_distance: 30
     }
   }
 }
@@ -14965,7 +14821,7 @@ cont {
     scale: 18
     symbol {
       name: "exit-s"
-      priority: 170
+      priority: 40
     }
     caption {
       primary {
@@ -14975,14 +14831,14 @@ cont {
         text: "ref"
         is_optional: true
       }
-      priority: -9830
+      priority: -9960
     }
   }
   element {
     scale: 19
     symbol {
       name: "exit-s"
-      priority: 170
+      priority: 40
     }
     caption {
       primary {
@@ -14998,7 +14854,7 @@ cont {
         text: "addr:flats"
         is_optional: true
       }
-      priority: -9830
+      priority: -9960
     }
   }
 }
@@ -15008,7 +14864,7 @@ cont {
     scale: 18
     symbol {
       name: "main_entrance-s"
-      priority: 170
+      priority: 200
     }
     caption {
       primary {
@@ -15018,14 +14874,14 @@ cont {
         text: "ref"
         is_optional: true
       }
-      priority: -9830
+      priority: -9800
     }
   }
   element {
     scale: 19
     symbol {
       name: "main_entrance-s"
-      priority: 170
+      priority: 200
     }
     caption {
       primary {
@@ -15041,7 +14897,7 @@ cont {
         text: "addr:flats"
         is_optional: true
       }
-      priority: -9830
+      priority: -9800
     }
   }
 }
@@ -49753,7 +49609,6 @@ cont {
     symbol {
       name: "lawyer-m"
       priority: 530
-      min_distance: 10
     }
     caption {
       primary {
@@ -49770,7 +49625,6 @@ cont {
     symbol {
       name: "lawyer-m"
       priority: 530
-      min_distance: 10
     }
     caption {
       primary {
@@ -49787,7 +49641,6 @@ cont {
     symbol {
       name: "lawyer-m"
       priority: 530
-      min_distance: 10
     }
     caption {
       primary {
@@ -56250,7 +56103,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
   element {
@@ -56258,7 +56110,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
   element {
@@ -56266,7 +56117,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
 }
@@ -56277,7 +56127,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
   element {
@@ -56285,7 +56134,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
   element {
@@ -56293,7 +56141,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
 }
@@ -56304,7 +56151,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
   element {
@@ -56312,7 +56158,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
   element {
@@ -56320,7 +56165,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
 }
@@ -56331,7 +56175,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
   element {
@@ -56339,7 +56182,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
   element {
@@ -56347,7 +56189,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
 }
@@ -56378,7 +56219,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
   element {
@@ -56386,7 +56226,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
   element {
@@ -56394,7 +56233,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
 }
@@ -56405,7 +56243,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
   element {
@@ -56413,7 +56250,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
   element {
@@ -56421,7 +56257,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
 }
@@ -56432,7 +56267,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
   element {
@@ -56440,7 +56274,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
   element {
@@ -56448,7 +56281,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
 }
@@ -56459,7 +56291,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
   element {
@@ -56467,7 +56298,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
   element {
@@ -56475,7 +56305,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
 }
@@ -56486,7 +56315,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
   element {
@@ -56494,7 +56322,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
   element {
@@ -56502,7 +56329,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
 }
@@ -56513,7 +56339,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
   element {
@@ -56521,7 +56346,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
   element {
@@ -56529,7 +56353,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 400
-      min_distance: 20
     }
   }
 }
@@ -56540,7 +56363,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 480
-      min_distance: 20
     }
     caption {
       primary {
@@ -56557,7 +56379,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 480
-      min_distance: 20
     }
     caption {
       primary {
@@ -56574,7 +56395,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 480
-      min_distance: 20
     }
     caption {
       primary {
@@ -56594,7 +56414,6 @@ cont {
     symbol {
       name: "power-m"
       priority: 50
-      min_distance: 20
     }
     caption {
       primary {
