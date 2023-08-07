@@ -15,22 +15,21 @@
 # - BG-top: water (linear and areal)
 # - BG-by-size: landcover areas sorted by their size
 
-landuse-basin                                       # z12-
-landuse-reservoir                                   # z12- (also has caption z10-)
-landuse-salt_pond                                   # z1-
-natural-water                                       # z1- (also has caption z10-)
-natural-water-basin                                 # z1- (also has caption z10-)
-natural-water-lake                                  # z1- (also has caption z10-)
-natural-water-lock                                  # z1- (also has caption z10-)
-natural-water-pond                                  # z1- (also has caption z10-)
-natural-water-reservoir                             # z1- (also has caption z10-)
-natural-water-river                                 # z1- (also has caption z10-)
-waterway-dock                                       # z1-
-waterway-riverbank                                  # z1- (also has line z10-, pathtext z11-)
-waterway-riverbank                                  # z10- (also has area z1-, pathtext z11-)
+landuse-basin                                       # area z12-
+landuse-reservoir                                   # area z12- (also has caption z10-)
+landuse-salt_pond                                   # area z1-
+natural-water                                       # area z1- (also has caption z10-)
+natural-water-basin                                 # area z1- (also has caption z10-)
+natural-water-lake                                  # area z1- (also has caption z10-)
+natural-water-lock                                  # area z1- (also has caption z10-)
+natural-water-pond                                  # area z1- (also has caption z10-)
+natural-water-reservoir                             # area z1- (also has caption z10-)
+natural-water-river                                 # area z1- (also has caption z10-)
+waterway-dock                                       # area z1-
+waterway-riverbank                                  # area z1- and line z10- (also has pathtext z11-)
 === 20
 
-waterway-ditch                                      # z17-
-waterway-drain                                      # z17-
-waterway-river                                      # z10- (also has pathtext z11-)
+waterway-ditch                                      # line z17-
+waterway-drain                                      # line z17-
+waterway-river                                      # line z10- (also has pathtext z11-)
 === 10
