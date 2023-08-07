@@ -1710,7 +1710,6 @@ cont {
     symbol {
       name: "parcel_locker-m"
       priority: 140
-      min_distance: 20
     }
     caption {
       primary {
@@ -1727,7 +1726,6 @@ cont {
     symbol {
       name: "parcel_locker-m"
       priority: 140
-      min_distance: 20
     }
     caption {
       primary {
@@ -1744,7 +1742,6 @@ cont {
     symbol {
       name: "parcel_locker-m"
       priority: 140
-      min_distance: 20
     }
     caption {
       primary {
@@ -3653,391 +3650,21 @@ cont {
   }
 }
 cont {
-  name: "amenity-vending_machine"
-  element {
-    scale: 17
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-}
-cont {
-  name: "amenity-vending_machine-cigarettes"
-  element {
-    scale: 17
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-}
-cont {
-  name: "amenity-vending_machine-coffee"
-  element {
-    scale: 17
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-}
-cont {
-  name: "amenity-vending_machine-condoms"
-  element {
-    scale: 17
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-}
-cont {
-  name: "amenity-vending_machine-drinks"
-  element {
-    scale: 17
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-}
-cont {
-  name: "amenity-vending_machine-excrement_bags"
-  element {
-    scale: 17
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-}
-cont {
-  name: "amenity-vending_machine-food"
-  element {
-    scale: 17
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-}
-cont {
   name: "amenity-vending_machine-fuel"
   element {
     scale: 17
     symbol {
-      name: "zero-icon"
+      name: "fuel-dispenser-m"
       priority: 1150
-      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8850
     }
   }
   element {
@@ -4045,7 +3672,6 @@ cont {
     symbol {
       name: "fuel-dispenser-m"
       priority: 1150
-      min_distance: 20
     }
     caption {
       primary {
@@ -4062,7 +3688,6 @@ cont {
     symbol {
       name: "fuel-dispenser-m"
       priority: 1150
-      min_distance: 20
     }
     caption {
       primary {
@@ -4072,60 +3697,6 @@ cont {
         is_optional: true
       }
       priority: -8850
-    }
-  }
-}
-cont {
-  name: "amenity-vending_machine-newspapers"
-  element {
-    scale: 17
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
     }
   }
 }
@@ -4136,7 +3707,6 @@ cont {
     symbol {
       name: "parking-meter-m"
       priority: 1045
-      min_distance: 20
     }
     caption {
       primary {
@@ -4153,7 +3723,6 @@ cont {
     symbol {
       name: "parking-meter-m"
       priority: 1045
-      min_distance: 20
     }
     caption {
       primary {
@@ -4170,7 +3739,6 @@ cont {
     symbol {
       name: "parking-meter-m"
       priority: 1045
-      min_distance: 20
     }
     caption {
       primary {
@@ -4180,114 +3748,6 @@ cont {
         is_optional: true
       }
       priority: -8955
-    }
-  }
-}
-cont {
-  name: "amenity-vending_machine-public_transport_tickets"
-  element {
-    scale: 17
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-}
-cont {
-  name: "amenity-vending_machine-sweets"
-  element {
-    scale: 17
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "vending-m"
-      priority: 140
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9860
     }
   }
 }
@@ -6647,7 +6107,7 @@ cont {
         color: 6381914
         text: "addr:housenumber"
       }
-      priority: 20
+      priority: 280
     }
   }
   element {
@@ -6666,7 +6126,7 @@ cont {
         color: 6381914
         text: "addr:housenumber"
       }
-      priority: 20
+      priority: 280
     }
   }
 }
