@@ -83,21 +83,32 @@ bool Result::IsEqualSuggest(Result const & r) const
 
 bool Result::IsEqualFeature(Result const & r) const
 {
-  if (m_resultType != r.m_resultType)
+  if (m_resultType != r.m_resultType || m_featureType != r.m_featureType)
     return false;
 
   ASSERT_EQUAL(m_resultType, Result::Type::Feature, ());
-
   ASSERT(m_id.IsValid() && r.m_id.IsValid(), ());
+
+  /// @todo Investigate why it is happens here?
   if (m_id == r.m_id)
     return true;
 
-  // This function is used to filter duplicate results in cases:
-  // - emitted World.mwm and Country.mwm
-  // - after additional search in all mwm
-  // so it's suitable here to test for 500m
-  return m_str == r.m_str && m_address == r.m_address && m_featureType == r.m_featureType &&
-         PointDistance(m_center, r.m_center) < 500.0;
+  if (m_str != r.m_str)
+    return false;
+
+  if (m_id.IsWorld() != r.m_id.IsWorld())
+  {
+    // Filter logically duplicating results from World.mwm and Country.mwm (like cities).
+    return PointDistance(m_center, r.m_center) < 500.0;
+  }
+
+  // Keep only bus_stop filtering of most _annoying_ case (see BA_LasHeras test).
+  static uint32_t const busStop = classif().GetTypeByPath({"highway", "bus_stop"});
+  if (m_featureType == busStop)
+    return PointDistance(m_center, r.m_center) < 150.0;
+
+  // Filter real duplicates when say area park is present in 2 MWMs, or OSM data duplicates.
+  return m_address == r.m_address && PointDistance(m_center, r.m_center) < 10.0;
 }
 
 void Result::AddHighlightRange(pair<uint16_t, uint16_t> const & range)
@@ -216,15 +227,6 @@ bool Results::AddResult(Result && result)
 void Results::AddResultNoChecks(Result && result)
 {
   InsertResult(m_results.end(), std::move(result));
-}
-
-void Results::AddResultsNoChecks(ConstIter first, ConstIter last)
-{
-  while (first != last)
-  {
-    auto resultCopy = *first++;
-    AddResultNoChecks(std::move(resultCopy));
-  }
 }
 
 void Results::AddBookmarkResult(bookmarks::Result const & result)

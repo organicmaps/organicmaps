@@ -54,6 +54,11 @@ bool FeatureID::IsEqualCountry(base::StringIL const & lst) const
   return false;
 }
 
+bool FeatureID::IsWorld() const
+{
+  return m_mwmId.GetInfo()->GetType() == MwmInfo::MwmTypeT::WORLD;
+}
+
 size_t std::hash<FeatureID>::operator()(FeatureID const & fID) const
 {
   size_t seed = 0;

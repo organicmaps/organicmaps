@@ -46,6 +46,7 @@ struct FeatureID
   std::string GetMwmName() const;
   int64_t GetMwmVersion() const;
   bool IsEqualCountry(base::StringIL const & lst) const;
+  bool IsWorld() const;
 
   MwmSet::MwmId m_mwmId;
   uint32_t m_index = 0;

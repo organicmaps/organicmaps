@@ -300,26 +300,6 @@ string FormatFullAddress(ReverseGeocoder::Address const & addr, string const & r
   return FormatStreetAndHouse(addr) + (region.empty() ? "" : ", ") + region;
 }
 
-bool ResultExists(RankerResult const & p, vector<RankerResult> const & results,
-                  double minDistanceOnMapBetweenResults)
-{
-  // Filter equal features in different mwms.
-  auto equalCmp = [&p, &minDistanceOnMapBetweenResults](RankerResult const & r)
-  {
-    if (p.GetResultType() == r.GetResultType() &&
-        p.GetResultType() == RankerResult::Type::Feature)
-    {
-      if (p.IsEqualCommon(r))
-        return PointDistance(p.GetCenter(), r.GetCenter()) < minDistanceOnMapBetweenResults;
-    }
-
-    return false;
-  };
-
-  // Do not insert duplicating results.
-  return find_if(results.begin(), results.end(), equalCmp) != results.cend();
-}
-
 }  // namespace
 
 class RankerResultMaker
@@ -885,9 +865,8 @@ void Ranker::MakeRankerResults()
 
     ASSERT(!isViewportMode || m_geocoderParams.m_pivot.IsPointInside(p->GetCenter()), (r));
 
-    /// @todo Is it ok to make duplication check for O(N) here? Especially when we make RemoveDuplicatingLinear later.
-    if (isViewportMode || !ResultExists(*p, m_tentativeResults, m_params.m_minDistanceBetweenResultsM))
-      m_tentativeResults.push_back(std::move(*p));
+    // Do not filter any _duplicates_ here. Leave it for high level Results class.
+    m_tentativeResults.push_back(std::move(*p));
   };
 
   m_preRankerResults.clear();

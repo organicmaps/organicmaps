@@ -7,8 +7,6 @@
 #include "routing/regions_sparse_graph.hpp"
 #include "routing/routing_helpers.hpp"
 
-#include "routing_common/car_model.hpp"
-
 #include "base/scope_guard.hpp"
 
 namespace routing
@@ -92,8 +90,6 @@ void RegionsRouter::Do()
   sparseGraph->LoadRegionsSparseGraph();
 
   std::unique_ptr<WorldGraph> graph = std::make_unique<DummyWorldGraph>();
-
-  std::unique_ptr<IndexGraphStarter> starter;
 
   for (size_t i = 0; i < m_checkpoints.GetNumSubroutes(); ++i)
   {
