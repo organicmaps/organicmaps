@@ -360,7 +360,8 @@ public:
 
     if (info.m_type == Model::TYPE_STREET)
     {
-      info.m_classifType.street = m_wayChecker.GetSearchRank(res.GetBestType());
+      uint32_t const bestType = res.GetBestType(&m_params.m_preferredTypes);
+      info.m_classifType.street = m_wayChecker.GetSearchRank(bestType);
 
       /// @see Arbat_Address test.
       // "2" is a NameScore::FULL_PREFIX for "2-й Обыденский переулок", which is *very* high,
@@ -370,6 +371,25 @@ public:
         auto const & range = info.m_tokenRanges[info.m_type];
         if (range.Size() == 1 && m_params.IsNumberTokens(range))
           info.m_nameScore = NameScore::SUBSTRING;
+      }
+    }
+    else if (m_params.IsCategorialRequest() && Model::IsPoi(info.m_type))
+    {
+      // Update info.m_classifType.poi with the _best preferred_ type. Important for categorial request,
+      // when the Feature maybe a restaurant and a toilet simultaneously.
+      uint32_t const bestType = res.GetBestType(&m_params.m_preferredTypes);
+      feature::TypesHolder typesHolder;
+      typesHolder.Assign(bestType);
+      info.m_classifType.poi = GetPoiType(typesHolder);
+
+      // We do not compare result name and request for categorial requests, but we prefer named features
+      // for Eat, Hotel or Shop categories. Toilets, stops, defibrillators, ... are equal w/wo names.
+
+      if (info.m_classifType.poi != PoiType::Eat &&
+          info.m_classifType.poi != PoiType::Hotel &&
+          info.m_classifType.poi != PoiType::Shop)
+      {
+        info.m_hasName = false;
       }
     }
 
@@ -513,7 +533,6 @@ private:
 
     if (m_params.IsCategorialRequest())
     {
-      // We do not compare result name and request for categorial requests but we prefer named features.
       info.m_hasName = ft.HasName();
       if (!info.m_hasName)
       {
