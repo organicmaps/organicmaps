@@ -2608,7 +2608,7 @@ UNIT_CLASS_TEST(ProcessorTest, Suburbs)
     builder.Add(cafe);
   });
 
-  auto const testFullMatch = [&](auto const & query, auto const & expected)
+  auto const testFullMatch = [&](std::string const & query, auto const & expected)
   {
     auto request = MakeRequest(query);
     auto const & results = request->Results();

@@ -56,92 +56,71 @@ UNIT_CLASS_TEST(RankerTest, ErrorsInStreets)
 
 UNIT_CLASS_TEST(RankerTest, UniteSameResults)
 {
-  size_t constexpr kSameCount = 10;
+  TestCity city({1.5, 1.5}, "Buenos Aires", "es", 100);
 
-  vector<TestCafe> bars;
-  for (size_t i = 0; i < kSameCount; ++i)
-    bars.emplace_back(m2::PointD(0.0, 1.0), "bar", "en");
+  m2::PointD org(1.0, 1.0);
+  m2::PointD eps(1.0E-5, 1.0E-5);
 
-  vector<TestCafe> cafes;
-  for (size_t i = 0; i < kSameCount; ++i)
-    cafes.emplace_back(m2::PointD(1.0, 1.0), "cafe", "en");
+  TestPOI bus1(org, "Terminal 1", "de");
+  bus1.SetTypes({{"highway", "bus_stop"}});
+  TestPOI bus2(org + eps, "Terminal 1", "de");
+  bus2.SetTypes({{"highway", "bus_stop"}});
+  TestPOI bus3(org + eps + eps, "Terminal 1", "de");
+  bus3.SetTypes({{"highway", "bus_stop"}});
 
-  vector<TestCafe> fastfoods;
-  for (size_t i = 0; i < kSameCount; ++i)
-    fastfoods.emplace_back(m2::PointD(1.0, 1.0), "fastfood", "en");
+  TestCafe cafe1({0.5, 0.5}, "И точка", "ru");
+  TestCafe cafe2({0.5, 0.5}, "И точка", "ru");
 
-  auto id = BuildCountry("FoodLand", [&](TestMwmBuilder & builder) {
-    for (auto const & b : bars)
-      builder.Add(b);
-
-    for (auto const & c : cafes)
-      builder.Add(c);
-
-    for (auto const & f : fastfoods)
-      builder.Add(f);
+  auto const worldID = BuildWorld([&](TestMwmBuilder & builder)
+  {
+    builder.Add(city);
   });
 
-  SetViewport(m2::RectD(m2::PointD(0.0, 1.0), m2::PointD(2.0, 3.0)));
+  auto const countryID = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
   {
-    auto request = MakeRequest("eat ");
-    auto const & results = request->Results();
+    builder.Add(city);
+    builder.Add(bus1);
+    builder.Add(bus2);
+    builder.Add(bus3);
+    builder.Add(cafe1);
+    builder.Add(cafe2);
+  });
 
-    Rules barRules;
-    for (auto const & b : bars)
-      barRules.push_back(ExactMatch(id, b));
-
-    Rules cafeRules;
-    for (auto const & c : cafes)
-      cafeRules.push_back(ExactMatch(id, c));
-
-    Rules fastfoodRules;
-    for (auto const & f : fastfoods)
-      fastfoodRules.push_back(ExactMatch(id, f));
-
-    TEST(ResultsMatch(results,
-                      {AlternativesMatch(std::move(barRules)), AlternativesMatch(std::move(cafeRules)),
-                       AlternativesMatch(std::move(fastfoodRules))}),
-         ());
+  SetViewport({0, 0, 2, 2});
+  {
+    TEST(ResultsMatch("buenos", {ExactMatch(worldID, city)}), ());
+    // Expect bus1, because it is strictly in the center of viewport. But it can be any result from bus{1-3}.
+    TEST(ResultsMatch("terminal", {ExactMatch(countryID, bus1)}), ());
+    TEST_EQUAL(GetResultsNumber("точка", "ru"), 1, ());
   }
 }
 
-/// @todo This test doesn't make sense because we don't have POIs in World.
-/*
 UNIT_CLASS_TEST(RankerTest, PreferCountry)
 {
-  TestCountry wonderland(m2::PointD(10.0, 10.0), "Wonderland", "en");
-  TestPOI cafe(m2::PointD(0.0, 0.0), "Wonderland", "en");
-  auto worldId = BuildWorld([&](TestMwmBuilder & builder) {
+  std::string const name = "Wonderland";
+  TestCountry wonderland(m2::PointD(10.0, 10.0), name, "en");
+  TestPOI cafe(m2::PointD(0.0, 0.0), name, "en");
+
+  auto const worldID = BuildWorld([&](TestMwmBuilder & builder)
+  {
     builder.Add(wonderland);
+  });
+
+  auto const countryID = BuildCountry(name, [&](TestMwmBuilder & builder)
+  {
     builder.Add(cafe);
   });
 
-  SetViewport(m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0)));
+  SetViewport({0.0, 0.0, 1.0, 1.0});
   {
-    // Country which exactly matches the query should be preferred even if cafe is much closer to
-    // viewport center.
-    auto request = MakeRequest("Wonderland");
-    auto const & results = request->Results();
-
-    Rules rules = {ExactMatch(worldId, wonderland), ExactMatch(worldId, cafe)};
-    TEST(ResultsMatch(results, rules), ());
-
-    TEST_EQUAL(results.size(), 2, ());
-    TEST(ResultsMatch({results[0]}, {rules[0]}), ());
-    TEST(ResultsMatch({results[1]}, {rules[1]}), ());
+    // Country which exactly matches the query should be preferred even if cafe is much closer to viewport center.
+    Rules const rules = {ExactMatch(worldID, wonderland), ExactMatch(countryID, cafe)};
+    TEST(OrderedResultsMatch(name, rules), ());
   }
   {
-    // Country name does not exactly match, we should prefer cafe.
-    auto request = MakeRequest("Wanderland");
-    auto const & results = request->Results();
-
-    Rules rules = {ExactMatch(worldId, wonderland), ExactMatch(worldId, cafe)};
-    TEST(ResultsMatch(results, rules), ());
-
-    TEST_EQUAL(results.size(), 2, ());
-    TEST(ResultsMatch({results[0]}, {rules[1]}), ());
-    TEST(ResultsMatch({results[1]}, {rules[0]}), ());
+    /// @todo Fuzzy match should rank nearest cafe first?
+    Rules const rules = {ExactMatch(worldID, wonderland), ExactMatch(countryID, cafe)};
+    TEST(OrderedResultsMatch("Wanderland", rules), ());
   }
 }
-*/
 } // namespace ranker_test
