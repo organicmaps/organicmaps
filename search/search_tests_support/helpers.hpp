@@ -43,16 +43,18 @@ public:
   bool ResultsMatch(std::vector<Result> const & results, Rules const & rules);
   bool OrderedResultsMatch(std::vector<Result> const & results, Rules const & rules);
 
-  bool ResultsMatch(SearchParams const & params, Rules const & rules);
-
   bool IsResultMatches(Result const & result, Rule const & rule);
 
   bool AlternativeMatch(std::string const & query, std::vector<Rules> const & rulesList);
 
   size_t GetResultsNumber(std::string const & query, std::string const & locale);
 
+  SearchParams GetDefaultSearchParams(std::string const & query, std::string const & locale = "en") const;
   std::unique_ptr<TestSearchRequest> MakeRequest(SearchParams const & params);
-  std::unique_ptr<TestSearchRequest> MakeRequest(std::string const & query, std::string const & locale = "en");
+  std::unique_ptr<TestSearchRequest> MakeRequest(std::string const & query, std::string const & locale = "en")
+  {
+    return MakeRequest(GetDefaultSearchParams(query, locale));
+  }
 
   size_t CountFeatures(m2::RectD const & rect);
 

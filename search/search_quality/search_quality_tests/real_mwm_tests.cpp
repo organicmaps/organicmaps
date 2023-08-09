@@ -752,4 +752,48 @@ UNIT_CLASS_TEST(MwmTestsFixture, Conscription_HN)
   }
 }
 
+UNIT_CLASS_TEST(MwmTestsFixture, ToiletAirport)
+{
+  // Frankfurt Airport
+  ms::LatLon const center(50.052108, 8.571086);
+  SetViewportAndLoadMaps(center);
+
+  for (bool const isCategory : {false, true})
+  {
+    auto params = GetDefaultSearchParams("toilet");
+    params.m_categorialRequest = isCategory;
+    size_t constexpr kResultsCount = 30;
+    TEST_GREATER_OR_EQUAL(params.m_maxNumResults, kResultsCount, ());
+
+    auto request = MakeRequest(params);
+    auto const & results = request->Results();
+    TEST_EQUAL(results.size(), kResultsCount, ());
+
+    Range const range(results, 0, kResultsCount);
+    EqualClassifType(range, GetClassifTypes({{"amenity", "toilets"}}));
+    double const dist = SortedByDistance(range, center);
+    TEST_LESS(dist, 1000, ());
+  }
+}
+
+UNIT_CLASS_TEST(MwmTestsFixture, BA_LasHeras)
+{
+  // Buenos Aires (Palermo)
+  ms::LatLon const center(-34.5801125, -58.4158058);
+  SetViewportAndLoadMaps(center);
+
+  {
+    auto request = MakeRequest("Las Heras 2900");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+
+    // First results will be:
+    // - _exact_ street match addresses "Las Heras 2900"
+    // - "Las Heras 2900" bus stop (only one, avoid a bunch of duplicates)
+
+    // _sub-string_ street address match
+    HasAddress(Range(results, 0, 5), "Avenida General Las Heras", "2900");
+  }
+}
+
 } // namespace real_mwm_tests
