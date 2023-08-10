@@ -1,8 +1,9 @@
 #include "drape/overlay_handle.hpp"
 
 #include "base/macros.hpp"
-
 #include "base/internal/message.hpp"
+
+#include "indexer/drawing_rule_def.hpp"
 
 #include <algorithm>
 #include <sstream>
@@ -234,8 +235,8 @@ std::string SquareHandle::GetOverlayDebugInfo()
 uint64_t CalculateOverlayPriority(int minZoomLevel, uint8_t rank, float depth)
 {
   // Negative range is used for optional captions which are below all other overlays.
-  ASSERT(-kOverlaysMaxPriority <= depth && depth < kOverlaysMaxPriority, (depth));
-  depth += kOverlaysMaxPriority;
+  ASSERT(-drule::kOverlaysMaxPriority <= depth && depth < drule::kOverlaysMaxPriority, (depth));
+  depth += drule::kOverlaysMaxPriority;
 
   // Even if minZoomLevel < 0 (-1 is not visible), we will get more consistent |minZoom| value (less is worse).
   ASSERT_GREATER_OR_EQUAL(minZoomLevel, 0, ());

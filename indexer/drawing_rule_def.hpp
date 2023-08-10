@@ -2,9 +2,19 @@
 
 #include "base/buffer_vector.hpp"
 
-
 namespace drule
 {
+
+// Priority range for area and line drules. Should be same as LAYER_PRIORITY_RANGE in kothic.
+// Each layer = +/-1 value shifts the range by this number, so that e.g. priorities
+// of the default layer=0 range [0;1000) don't intersect with layer=-1 range [-1000;0) and so on..
+double constexpr kLayerPriorityRange = 1000;
+
+// Should be same as OVERLAYS_MAX_PRIORITY in kothic.
+// The overlays range is [-kOverlaysMaxPriority; kOverlaysMaxPriority), negative values are used
+// for optional captions which are below all other overlays.
+int32_t constexpr kOverlaysMaxPriority = 10000;
+
   class Key
   {
   public:
