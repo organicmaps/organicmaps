@@ -8,7 +8,6 @@
 
 #include "shaders/programs.hpp"
 
-#include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"
 
 #include <functional>
@@ -60,7 +59,7 @@ public:
     RulerHelper & helper = DrapeGui::GetRulerHelper();
 
     TBase::SetIsVisible(true);
-    bool isVisible = helper.IsVisible(screen);
+    bool isVisible = RulerHelper::IsVisible(screen);
     if (!isVisible)
     {
       m_animation.HideAnimated();
@@ -120,7 +119,7 @@ private:
     if (!IsVisible())
       return;
 
-    m_size = m2::PointF(helper.GetRulerPixelLength(), 2 * helper.GetRulerHalfHeight());
+    m_size = m2::PointF(helper.GetRulerPixelLength(), 2 * RulerHelper::GetRulerHalfHeight());
     if (IsAppearing())
       m_params.m_length = helper.GetRulerPixelLength();
     m_params.m_position = m_pivot;
@@ -143,7 +142,7 @@ public:
 
   bool Update(ScreenBase const & screen) override
   {
-    SetIsVisible(DrapeGui::GetRulerHelper().IsVisible(screen));
+    SetIsVisible(RulerHelper::IsVisible(screen));
     if (IsVisible() && (DrapeGui::GetRulerHelper().IsTextDirty() || m_firstUpdate))
     {
       SetContent(DrapeGui::GetRulerHelper().GetRulerText());
@@ -155,8 +154,7 @@ public:
 
   void SetPivot(glsl::vec2 const & pivot) override
   {
-    RulerHelper & helper = DrapeGui::GetRulerHelper();
-    TBase::SetPivot(pivot + glsl::vec2(0.0, helper.GetVerticalTextOffset() - helper.GetRulerHalfHeight()));
+    TBase::SetPivot(pivot + glsl::vec2(0.0, RulerHelper::GetVerticalTextOffset() - RulerHelper::GetRulerHalfHeight()));
   }
 
 protected:
@@ -196,8 +194,8 @@ void Ruler::DrawRuler(ref_ptr<dp::GraphicsContext> context, m2::PointF & size,
   tex->GetColorRegion(DrapeGui::GetGuiTextFont().m_color, reg);
 
   glsl::vec2 texCoord = glsl::ToVec2(reg.GetTexRect().Center());
-  float const h = DrapeGui::GetRulerHelper().GetRulerHalfHeight();
-  size += m2::PointF(DrapeGui::GetRulerHelper().GetMaxRulerPixelLength(), 2.0f * h);
+  float const h = RulerHelper::GetRulerHalfHeight();
+  size += m2::PointF(RulerHelper::GetMaxRulerPixelLength(), 2.0f * h);
 
   glsl::vec2 normals[] =
   {
@@ -239,22 +237,21 @@ void Ruler::DrawText(ref_ptr<dp::GraphicsContext> context, m2::PointF & size,
 {
   std::string alphabet;
   uint32_t maxTextLength;
-  RulerHelper & helper = DrapeGui::GetRulerHelper();
-  helper.GetTextInitInfo(alphabet, maxTextLength);
+  RulerHelper::GetTextInitInfo(alphabet, maxTextLength);
 
   MutableLabelDrawer::Params params;
   params.m_anchor = static_cast<dp::Anchor>((m_position.m_anchor & (dp::Right | dp::Left)) | dp::Bottom);
   params.m_alphabet = alphabet;
   params.m_maxLength = maxTextLength;
   params.m_font = DrapeGui::GetGuiTextFont();
-  params.m_pivot = m_position.m_pixelPivot + m2::PointF(0.0, helper.GetVerticalTextOffset());
+  params.m_pivot = m_position.m_pixelPivot + m2::PointF(0.0f, RulerHelper::GetVerticalTextOffset());
   params.m_handleCreator = [isAppearing, tex](dp::Anchor anchor, m2::PointF const & pivot) {
     return make_unique_dp<RulerTextHandle>(EGuiHandle::GuiHandleRulerLabel, anchor, pivot,
                                            isAppearing, tex);
   };
 
-  m2::PointF textSize = MutableLabelDrawer::Draw(context, params, tex,
+  m2::PointF const textSize = MutableLabelDrawer::Draw(context, params, tex,
     std::bind(&ShapeControl::AddShape, &control, _1, _2));
-  size.y += (textSize.y + abs(helper.GetVerticalTextOffset()));
+  size.y += (textSize.y + std::abs(RulerHelper::GetVerticalTextOffset()));
 }
 }  // namespace gui

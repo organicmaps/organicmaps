@@ -14,7 +14,6 @@
 
 #include "storage/country_info_getter.hpp"
 #include "storage/routing_helpers.hpp"
-#include "storage/storage.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
 
@@ -35,10 +34,8 @@
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
-#include <iomanip>
 #include <ios>
 #include <map>
-#include <sstream>
 
 #include "cppjansson/cppjansson.hpp"
 
@@ -65,7 +62,7 @@ void FillTurnsDistancesForRendering(vector<RouteSegment> const & segments,
   {
     auto const & t = s.GetTurn();
     CHECK_NOT_EQUAL(t.m_turn, CarDirection::Count, ());
-    // We do not render some of turn directions.
+    // We do not render some of the turn directions.
     if (t.m_turn == CarDirection::None || t.m_turn == CarDirection::StartAtEndOfStreet ||
         t.m_turn == CarDirection::StayOnRoundAbout || t.m_turn == CarDirection::ReachedYourDestination)
     {
@@ -813,7 +810,7 @@ bool RoutingManager::IsMyPosition(RouteMarkType type, size_t intermediateIndex)
 {
   RoutePointsLayout routePoints(*m_bmManager);
   RouteMarkPoint const * mark = routePoints.GetRoutePoint(type, intermediateIndex);
-  return mark != nullptr ? mark->IsMyPosition() : false;
+  return mark != nullptr && mark->IsMyPosition();
 }
 
 vector<RouteMarkData> RoutingManager::GetRoutePoints() const

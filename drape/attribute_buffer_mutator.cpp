@@ -17,7 +17,7 @@ void AttributeBufferMutator::AddMutation(BindingInfo const & info, MutateNode co
   m_data[info].push_back(node);
 }
 
-void * AttributeBufferMutator::AllocateMutationBuffer(uint32_t byteCount)
+void * AttributeBufferMutator::AllocateMutationBuffer(size_t byteCount)
 {
   m_array.push_back(make_pair(SharedBufferManager::instance().reserveSharedBuffer(byteCount), byteCount));
   return &((*m_array.back().first)[0]);

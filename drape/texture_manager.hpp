@@ -163,12 +163,10 @@ private:
   size_t FindHybridGlyphsGroup(strings::UniString const & text, int fixedHeight);
   size_t FindHybridGlyphsGroup(TMultilineText const & text, int fixedHeight);
 
-  uint32_t GetNumberOfUnfoundCharacters(strings::UniString const & text, int fixedHeight,
-                                        HybridGlyphGroup const & group) const;
+  static uint32_t GetNumberOfUnfoundCharacters(strings::UniString const & text, int fixedHeight,
+                                        HybridGlyphGroup const & group) ;
 
-  void MarkCharactersUsage(strings::UniString const & text, int fixedHeight, HybridGlyphGroup & group);
-  // It's a dummy method to support generic code.
-  void MarkCharactersUsage(strings::UniString const & text, int fixedHeight, GlyphGroup & group) {}
+  static void MarkCharactersUsage(strings::UniString const & text, int fixedHeight, HybridGlyphGroup & group);
 
   template<typename TGlyphGroup>
   void FillResultBuffer(strings::UniString const & text, int fixedHeight, TGlyphGroup & group,

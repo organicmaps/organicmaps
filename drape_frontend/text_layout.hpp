@@ -2,10 +2,10 @@
 
 #include "drape_frontend/shape_view_params.hpp"
 
-#include "drape/utils/vertex_decl.hpp"
 #include "drape/glsl_types.hpp"
 #include "drape/pointers.hpp"
 #include "drape/texture_manager.hpp"
+#include "drape/utils/vertex_decl.hpp"
 
 #include "geometry/spline.hpp"
 #include "geometry/screenbase.hpp"
@@ -27,11 +27,9 @@ namespace df
 class TextLayout
 {
 public:
-  virtual ~TextLayout() {}
+  virtual ~TextLayout() = default;
 
-  void Init(strings::UniString const & text,
-            float fontSize, bool isSdf,
-            ref_ptr<dp::TextureManager> textures);
+  void Init(strings::UniString && text, float fontSize, bool isSdf, ref_ptr<dp::TextureManager> textures);
 
   ref_ptr<dp::Texture> GetMaskTexture() const;
   uint32_t GetGlyphCount() const;
