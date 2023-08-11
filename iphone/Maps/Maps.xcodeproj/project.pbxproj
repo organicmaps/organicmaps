@@ -620,6 +620,7 @@
 		FA85D43F2795969700B858E9 /* AboutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85D43E2795969700B858E9 /* AboutController.swift */; };
 		FA85D44E279B738F00B858E9 /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85D44D279B738F00B858E9 /* CopyableLabel.swift */; };
 		FA8E808925F412E2002A1434 /* FirstSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA8E808825F412E2002A1434 /* FirstSession.mm */; };
+		FAF9DDA32A86DC54000D7037 /* libharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF9DDA22A86DC54000D7037 /* libharfbuzz.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1585,7 +1586,6 @@
 		FA853BEA26BC5B9E0026D455 /* libbsdiff.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbsdiff.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BEC26BC5B9E0026D455 /* libmwm_diff.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmwm_diff.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BEE26BC5BA40026D455 /* libdescriptions.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libdescriptions.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FA853BF026BC5C120026D455 /* libshaders.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libshaders.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BF226BC5DE50026D455 /* libshaders.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libshaders.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA85D43C27958BF500B858E9 /* FaqController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaqController.swift; sourceTree = "<group>"; };
 		FA85D43E2795969700B858E9 /* AboutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutController.swift; sourceTree = "<group>"; };
@@ -1620,6 +1620,7 @@
 		FAF8C67F278CEEA3006CAE66 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		FAF8C680278CEEA3006CAE66 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "es-MX"; path = "es-MX.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		FAF8C681278CEEA3006CAE66 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FAF9DDA22A86DC54000D7037 /* libharfbuzz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libharfbuzz.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFF42291347F101009BBB14 /* World.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = World.mwm; path = ../../data/World.mwm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1628,6 +1629,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAF9DDA32A86DC54000D7037 /* libharfbuzz.a in Frameworks */,
 				FA456C3C26BDC6AD00B83C20 /* Chart.framework in Frameworks */,
 				FA853BF326BC5DE50026D455 /* libshaders.a in Frameworks */,
 				FA853BEF26BC5BA40026D455 /* libdescriptions.a in Frameworks */,
@@ -1764,9 +1766,9 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FAF9DDA22A86DC54000D7037 /* libharfbuzz.a */,
 				FA456C3B26BDC6AD00B83C20 /* Chart.framework */,
 				FA853BF226BC5DE50026D455 /* libshaders.a */,
-				FA853BF026BC5C120026D455 /* libshaders.a */,
 				FA853BEE26BC5BA40026D455 /* libdescriptions.a */,
 				FA853BEA26BC5B9E0026D455 /* libbsdiff.a */,
 				FA853BEC26BC5B9E0026D455 /* libmwm_diff.a */,
