@@ -301,6 +301,10 @@ bool FeatureParams::AddName(string_view lang, string_view s)
   return true;
 }
 
+/// Store a housenumber or a housename.
+///  - strings having at least 1 digit go into the "house" addinfo;
+///  - strings w/o digits are stored in the empty "name";
+///  - if the "house" is set already then a new all-numeric value will replace it and push it into the empty "name".
 bool FeatureParams::AddHouseName(string const & s)
 {
   if (IsDummyName(s) || name.FindString(s) != StringUtf8Multilang::kUnsupportedLanguageCode)
@@ -310,8 +314,8 @@ bool FeatureParams::AddHouseName(string const & s)
   if (house.IsEmpty() && AddHouseNumber(s))
     return true;
 
-  // If we got a clear number, replace the house number with it.
-  // Example: housename=16th Street, housenumber=34
+  // If we got a true number, replace the previous housenumber with it
+  // and put the previous one into the empty name.
   if (strings::IsASCIINumeric(s))
   {
     string housename(house.Get());
@@ -336,6 +340,7 @@ bool FeatureParams::AddHouseName(string const & s)
   return false;
 }
 
+/// Store a new housenumber (must have at least one digit) into the "house" addinfo.
 bool FeatureParams::AddHouseNumber(string houseNumber)
 {
   ASSERT(!houseNumber.empty(), ("This check should be done by the caller."));
@@ -355,6 +360,7 @@ bool FeatureParams::AddHouseNumber(string houseNumber)
     ++i;
   houseNumber.erase(0, i);
 
+  // The housenumber must have one digit at least.
   if (any_of(houseNumber.cbegin(), houseNumber.cend(), &strings::IsASCIIDigit))
   {
     house.Set(houseNumber);

@@ -10,6 +10,7 @@
 #include <limits>
 #include <string>
 
+/// If a string holds an uint value then stores it as a varint, otherwise as a string.
 class StringNumericOptimal
 {
 public:

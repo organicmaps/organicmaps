@@ -7,8 +7,8 @@
 # - type name: "highway|bus_stop" ("|" is converted to "-" internally)
 # - mapcss selectors for tags: "[highway=bus_stop]", multiple selectors are separated with commas
 # - "x" for a deprecated type or an empty cell otherwise
-# - primary title tag (usually "name")
-# - secondary title tag (usually "int_name")
+# - primary title tag (usually "name"), IGNORED at the moment
+# - secondary title tag (usually "int_name"), IGNORED at the moment
 # - type id, sequential starting from 1
 # - optional: a replacement type for a deprecated one
 # A "mandatory" mapcss selector like [fee?] or [fee] matches all tag values except [fee=no],

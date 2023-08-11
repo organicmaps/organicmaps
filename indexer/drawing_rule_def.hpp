@@ -38,7 +38,8 @@ int32_t constexpr kOverlaysMaxPriority = 10000;
   /// drawing type of rule - can be one of ...
   enum rule_type_t { line, area, symbol, caption, circle, pathtext, waymarker, shield, count_of_rules };
 
-  /// text field type - can be one of ...
+  /// Text field type ("text: *"). Only "addr:housenumber" and "addr:housename" are recognised,
+  /// all other values like "int_name", "ref", etc. are ignored.
   enum text_type_t { text_type_name = 0, text_type_housename, text_type_housenumber };
 
   typedef buffer_vector<Key, 16> KeysT;
