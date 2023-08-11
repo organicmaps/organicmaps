@@ -1,0 +1,237 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FAF9DDA72A86DE04000D7037 /* harfbuzz.cc in Sources */ = {isa = PBXBuildFile; fileRef = FAF9DDA62A86DE04000D7037 /* harfbuzz.cc */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FAF9DD8F2A86D6D1000D7037 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		FAF9DD912A86D6D1000D7037 /* libharfbuzz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libharfbuzz.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAF9DDA02A86DA2F000D7037 /* common-debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		FAF9DDA12A86DA2F000D7037 /* common-release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		FAF9DDA62A86DE04000D7037 /* harfbuzz.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = harfbuzz.cc; path = ../../../3party/harfbuzz/harfbuzz/src/harfbuzz.cc; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FAF9DD8E2A86D6D1000D7037 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FAF9DD882A86D6D1000D7037 = {
+			isa = PBXGroup;
+			children = (
+				FAF9DDA02A86DA2F000D7037 /* common-debug.xcconfig */,
+				FAF9DDA12A86DA2F000D7037 /* common-release.xcconfig */,
+				FAF9DD932A86D6D1000D7037 /* harfbuzz */,
+				FAF9DD922A86D6D1000D7037 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FAF9DD922A86D6D1000D7037 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FAF9DD912A86D6D1000D7037 /* libharfbuzz.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FAF9DD932A86D6D1000D7037 /* harfbuzz */ = {
+			isa = PBXGroup;
+			children = (
+				FAF9DDA62A86DE04000D7037 /* harfbuzz.cc */,
+			);
+			path = harfbuzz;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FAF9DD902A86D6D1000D7037 /* harfbuzz */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FAF9DD9A2A86D6D1000D7037 /* Build configuration list for PBXNativeTarget "harfbuzz" */;
+			buildPhases = (
+				FAF9DD8D2A86D6D1000D7037 /* Sources */,
+				FAF9DD8E2A86D6D1000D7037 /* Frameworks */,
+				FAF9DD8F2A86D6D1000D7037 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = harfbuzz;
+			productName = harfbuzz;
+			productReference = FAF9DD912A86D6D1000D7037 /* libharfbuzz.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FAF9DD892A86D6D1000D7037 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				DefaultBuildSystemTypeForWorkspace = Latest;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					FAF9DD902A86D6D1000D7037 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+				};
+			};
+			buildConfigurationList = FAF9DD8C2A86D6D1000D7037 /* Build configuration list for PBXProject "harfbuzz" */;
+			compatibilityVersion = "Xcode 12.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FAF9DD882A86D6D1000D7037;
+			productRefGroup = FAF9DD922A86D6D1000D7037 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FAF9DD902A86D6D1000D7037 /* harfbuzz */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FAF9DD8D2A86D6D1000D7037 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAF9DDA72A86DE04000D7037 /* harfbuzz.cc in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		FAF9DD982A86D6D1000D7037 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FAF9DDA02A86DA2F000D7037 /* common-debug.xcconfig */;
+			buildSettings = {
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					DEBUG,
+					"HAVE_FREETYPE=1",
+					HAVE_ATEXIT,
+					HAVE_GETPAGESIZE,
+					HAVE_MMAP,
+					HAVE_MPROTECT,
+					HAVE_PTHREAD,
+					HAVE_SYSCONF,
+					HAVE_SYS_MMAN_H,
+					HAVE_UNISTD_H,
+				);
+				GCC_THREADSAFE_STATICS = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/jansson",
+					"$(OMIM_ROOT)/3party/jansson/jansson/src",
+					"$(OMIM_ROOT)/3party/freetype",
+					"$(OMIM_ROOT)/3party/freetype/freetype/include",
+				);
+			};
+			name = Debug;
+		};
+		FAF9DD992A86D6D1000D7037 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FAF9DDA12A86DA2F000D7037 /* common-release.xcconfig */;
+			buildSettings = {
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					RELEASE,
+					NDEBUG,
+					"HAVE_FREETYPE=1",
+					HAVE_ATEXIT,
+					HAVE_GETPAGESIZE,
+					HAVE_MMAP,
+					HAVE_MPROTECT,
+					HAVE_PTHREAD,
+					HAVE_SYSCONF,
+					HAVE_SYS_MMAN_H,
+					HAVE_UNISTD_H,
+				);
+				GCC_THREADSAFE_STATICS = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/jansson",
+					"$(OMIM_ROOT)/3party/jansson/jansson/src",
+					"$(OMIM_ROOT)/3party/freetype",
+					"$(OMIM_ROOT)/3party/freetype/freetype/include",
+				);
+			};
+			name = Release;
+		};
+		FAF9DD9B2A86D6D1000D7037 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		FAF9DD9C2A86D6D1000D7037 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FAF9DD8C2A86D6D1000D7037 /* Build configuration list for PBXProject "harfbuzz" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FAF9DD982A86D6D1000D7037 /* Debug */,
+				FAF9DD992A86D6D1000D7037 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FAF9DD9A2A86D6D1000D7037 /* Build configuration list for PBXNativeTarget "harfbuzz" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FAF9DD9B2A86D6D1000D7037 /* Debug */,
+				FAF9DD9C2A86D6D1000D7037 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FAF9DD892A86D6D1000D7037 /* Project object */;
+}
