@@ -158,8 +158,8 @@ m2::RectF const & TextureManager::BaseRegion::GetTexRect() const
 {
   if (!IsValid())
   {
-    static m2::RectF nilRect(0.0f, 0.0f, 0.0f, 0.0f);
-    return nilRect;
+    static m2::RectF constexpr kNilRect{0.0f, 0.0f, 0.0f, 0.0f};
+    return kNilRect;
   }
 
   return m_info->GetTexRect();
@@ -277,7 +277,7 @@ bool TextureManager::HasAsyncRoutines() const
 
 ref_ptr<Texture> TextureManager::AllocateGlyphTexture()
 {
-  std::lock_guard<std::mutex> lock(m_glyphTexturesMutex);
+  std::lock_guard const lock(m_glyphTexturesMutex);
   m2::PointU size(kGlyphsTextureSize, kGlyphsTextureSize);
   m_glyphTextures.push_back(make_unique_dp<FontTexture>(size, make_ref(m_glyphManager),
                                                         m_glyphGenerator,
@@ -303,7 +303,7 @@ void TextureManager::GetGlyphsRegions(ref_ptr<FontTexture> tex, strings::UniStri
 
   std::vector<GlyphKey> keys;
   keys.reserve(text.size());
-  for (auto const & c : text)
+  for (auto const c : text)
     keys.emplace_back(c, fixedHeight);
 
   bool hasNew = false;
@@ -326,7 +326,7 @@ void TextureManager::GetGlyphsRegions(ref_ptr<FontTexture> tex, strings::UniStri
 }
 
 uint32_t TextureManager::GetNumberOfUnfoundCharacters(strings::UniString const & text, int fixedHeight,
-                                                      HybridGlyphGroup const & group) const
+                                                      HybridGlyphGroup const & group)
 {
   uint32_t cnt = 0;
   for (auto const & c : text)

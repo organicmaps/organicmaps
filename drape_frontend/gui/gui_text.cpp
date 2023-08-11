@@ -12,7 +12,6 @@
 
 #include <algorithm>
 #include <array>
-#include <memory>
 #include <type_traits>
 
 namespace gui
@@ -169,7 +168,7 @@ void StaticLabel::CacheStaticText(std::string const & text, char const * delim,
   ranges.reserve(buffers.size());
 
   float fullHeight = 0.0;
-  float prevLineHeight = 0.0;
+  float prevLineHeight;
 
   buffer_vector<Vertex, 128> & rb = result.m_buffer;
   for (int i = static_cast<int>(buffers.size()) - 1; i >= 0; --i)
@@ -367,7 +366,7 @@ void MutableLabel::Precache(PrecacheParams const & params, PrecacheResult & resu
   for (const auto & node : m_alphabet)
   {
     dp::TextureManager::GlyphRegion const & reg = node.second;
-    m2::PointU pixelSize(reg.GetPixelSize());
+    m2::PointU const pixelSize(reg.GetPixelSize());
     maxGlyphWidth = std::max(maxGlyphWidth, pixelSize.x);
     maxGlyphHeight = std::max(maxGlyphHeight, pixelSize.y);
   }
@@ -375,12 +374,10 @@ void MutableLabel::Precache(PrecacheParams const & params, PrecacheResult & resu
   result.m_maxPixelSize = m2::PointF(m_maxLength * maxGlyphWidth, maxGlyphHeight);
 }
 
-void MutableLabel::SetText(LabelResult & result, std::string text) const
+void MutableLabel::SetText(LabelResult & result, std::string_view text) const
 {
-  if (text.size() > m_maxLength)
-    text = text.erase(static_cast<size_t>(m_maxLength - 3)) + "...";
-
-  strings::UniString uniText = bidi::log2vis(text);
+  strings::UniString uniText = bidi::log2vis(text.size() <= m_maxLength ? text
+      : std::string{text}.erase(static_cast<size_t>(m_maxLength - 3)) + "...");
 
   float maxHeight = 0.0f;
   float length = 0.0f;
@@ -405,7 +402,7 @@ void MutableLabel::SetText(LabelResult & result, std::string text) const
       ASSERT_EQUAL(normals.size(), maskTex.size(), ());
 
       for (size_t i = 0; i < normals.size(); ++i)
-        result.m_buffer.push_back(DynamicVertex(pen + normals[i], maskTex[i]));
+        result.m_buffer.emplace_back(pen + normals[i], maskTex[i]);
 
       float const advance = glyph.GetAdvanceX() * m_textRatio;
       length += advance + offsets.x;
@@ -428,11 +425,8 @@ void MutableLabel::SetText(LabelResult & result, std::string text) const
   for (DynamicVertex & v : result.m_buffer)
   {
     v.m_normal += anchorModifyer;
-    result.m_boundRect.Add(m2::PointD(glsl::ToPoint(v.m_normal)));
+    result.m_boundRect.Add(glsl::ToPoint(v.m_normal));
   }
-
-  for (size_t i = result.m_buffer.size(); i < 4 * m_maxLength; ++i)
-    result.m_buffer.push_back(DynamicVertex(glsl::vec2(0.0, 0.0), glsl::vec2(0.0, 0.0)));
 }
 
 m2::PointF MutableLabel::GetAverageSize() const
@@ -441,7 +435,7 @@ m2::PointF MutableLabel::GetAverageSize() const
   for (auto const & node : m_alphabet)
   {
     dp::TextureManager::GlyphRegion const & reg = node.second;
-    m2::PointF size = reg.GetPixelSize() * m_textRatio;
+    m2::PointF const size = reg.GetPixelSize() * m_textRatio;
     w += size.x;
     h = std::max(h, size.y);
   }
@@ -475,14 +469,13 @@ void MutableLabelHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator
   m_isContentDirty = false;
   MutableLabel::LabelResult result;
   m_textView->SetText(result, m_content);
-  m_size = m2::PointF(static_cast<float>(result.m_boundRect.SizeX()),
-                      static_cast<float>(result.m_boundRect.SizeY()));
 
-  uint32_t byteCount =
-      static_cast<uint32_t>(result.m_buffer.size()) * sizeof(MutableLabel::DynamicVertex);
+  m_size.x = result.m_boundRect.SizeX();
+  m_size.y = result.m_boundRect.SizeY();
 
-  auto dataPointer =
-      reinterpret_cast<MutableLabel::DynamicVertex *>(mutator->AllocateMutationBuffer(byteCount));
+  size_t const byteCount = result.m_buffer.size() * sizeof(MutableLabel::DynamicVertex);
+
+  auto const dataPointer = static_cast<MutableLabel::DynamicVertex *>(mutator->AllocateMutationBuffer(byteCount));
   std::copy(result.m_buffer.begin(), result.m_buffer.end(), dataPointer);
 
   dp::BindingInfo const & binding = MutableLabel::DynamicVertex::GetBindingInfo();
@@ -517,7 +510,7 @@ void MutableLabelHandle::SetTextureManager(ref_ptr<dp::TextureManager> textures)
   m_textureManager = textures;
 }
 
-ref_ptr<MutableLabel> MutableLabelHandle::GetTextView()
+ref_ptr<MutableLabel> MutableLabelHandle::GetTextView() const
 {
   return make_ref(m_textView);
 }
@@ -549,8 +542,8 @@ m2::PointF MutableLabelDrawer::Draw(ref_ptr<dp::GraphicsContext> context, Params
                                     ref_ptr<dp::TextureManager> mng,
                                     dp::Batcher::TFlushFn && flushFn)
 {
-  uint32_t vertexCount = dp::Batcher::VertexPerQuad * params.m_maxLength;
-  uint32_t indexCount = dp::Batcher::IndexPerQuad * params.m_maxLength;
+  uint32_t const vertexCount = dp::Batcher::VertexPerQuad * params.m_maxLength;
+  uint32_t const indexCount = dp::Batcher::IndexPerQuad * params.m_maxLength;
 
   ASSERT(params.m_handleCreator != nullptr, ());
   drape_ptr<MutableLabelHandle> handle = params.m_handleCreator(params.m_anchor, params.m_pivot);
@@ -579,7 +572,7 @@ m2::PointF MutableLabelDrawer::Draw(ref_ptr<dp::GraphicsContext> context, Params
   {
     dp::Batcher batcher(indexCount, vertexCount);
     batcher.SetBatcherHash(static_cast<uint64_t>(df::BatcherBucket::Default));
-    dp::SessionGuard guard(context, batcher, std::move(flushFn));
+    dp::SessionGuard const guard(context, batcher, std::move(flushFn));
     batcher.InsertListOfStrip(context, staticData.m_state, make_ref(&provider),
                               std::move(handle), dp::Batcher::VertexPerQuad);
   }

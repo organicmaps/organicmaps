@@ -93,7 +93,6 @@ class StaticResourceInfo : public Texture::ResourceInfo
 {
 public:
   StaticResourceInfo() : Texture::ResourceInfo(m2::RectF(0.0f, 0.0f, 1.0f, 1.0f)) {}
-  virtual ~StaticResourceInfo() {}
   Texture::ResourceType GetType() const override { return Texture::ResourceType::Static; }
 };
 }  // namespace

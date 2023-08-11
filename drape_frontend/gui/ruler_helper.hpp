@@ -1,7 +1,6 @@
 #pragma once
 
-#include "drape_frontend/animation/show_hide_animation.hpp"
-
+#include <cstdint>
 #include <string>
 
 class ScreenBase;
@@ -14,17 +13,17 @@ public:
   RulerHelper();
 
   void Update(ScreenBase const & screen);
-  bool IsVisible(ScreenBase const & screen) const;
+  static bool IsVisible(ScreenBase const & screen);
   void Invalidate();
 
-  float GetRulerHalfHeight() const;
+  static float GetRulerHalfHeight();
   float GetRulerPixelLength() const;
-  float GetMaxRulerPixelLength() const;
-  int GetVerticalTextOffset() const;
+  static float GetMaxRulerPixelLength();
+  static int GetVerticalTextOffset();
   bool IsTextDirty() const;
   std::string const & GetRulerText() const;
   void ResetTextDirtyFlag();
-  void GetTextInitInfo(std::string & alphabet, uint32_t & size) const;
+  static void GetTextInitInfo(std::string & alphabet, uint32_t & size);
 
 private:
   double CalcMetersDiff(double value);
