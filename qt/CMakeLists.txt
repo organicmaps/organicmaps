@@ -177,7 +177,7 @@ if (PLATFORM_MAC)
     set(BUNDLE_VERSION ${APP_VERSION})
   endif()
 
-  configure_file(${PROJECT_SOURCE_DIR}/res/Info.plist.in ${PROJECT_SOURCE_DIR}/res/Info.plist)
+  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/res/Info.plist.in ${CMAKE_CURRENT_SOURCE_DIR}/res/Info.plist)
 
   set_target_properties(${PROJECT_NAME}
     PROPERTIES
