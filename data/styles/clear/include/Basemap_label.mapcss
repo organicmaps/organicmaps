@@ -618,6 +618,10 @@ node|z18-[entrance=main],
 node|z18-[entrance=exit],
 node|z18-[amenity=loading_dock],
 {text-color: @building_label;}
+node|z19-[entrance]::flats,
+node|z18-[entrance=main]::flats,
+node|z18-[entrance=exit]::flats,
+{text-color: @building_label;}
 
 /* 8.1 Pier */
 area|z15-[waterway=dam],
@@ -669,7 +673,7 @@ node|z18-[entrance=exit],
 node|z18-[entrance=main],
 {icon-image: main_entrance-s.svg;font-size: 10;text: ref;text-offset-x: 1;}
 node|z19-[entrance]::flats
-{text: "addr:flats";font-size: 12;text-offset-y: 10;}
+{text: "addr:flats";font-size: 10;text-offset-y: 10;}
 
 /* 8.3 Airports */
 area|z14-[aeroway=terminal]
