@@ -765,6 +765,8 @@
 	<string name="type.amenity.parking.private">Parkir pribadi</string>
 	<string name="type.amenity.parking.park_and_ride">Parkir</string>
 	<string name="type.amenity.parking.underground">Parkir bawah tanah</string>
+	<string name="type.amenity.parking.street_side">Parkir</string>
+	<string name="type.amenity.parking.lane">Parkir</string>
 	<string name="type.amenity.parking_entrance">Pintu masuk parkir</string>
 	<string name="type.amenity.parking_entrance.private">Pintu masuk parkir</string>
 	<string name="type.amenity.parking_entrance.permissive">Pintu masuk parkir</string>

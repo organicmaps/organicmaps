@@ -766,6 +766,8 @@
 	<string name="type.amenity.parking.private">전용 주차장</string>
 	<string name="type.amenity.parking.park_and_ride">주차</string>
 	<string name="type.amenity.parking.underground">지하주차장</string>
+	<string name="type.amenity.parking.street_side">주차</string>
+	<string name="type.amenity.parking.lane">주차</string>
 	<string name="type.amenity.parking_entrance">주차장 입구</string>
 	<string name="type.amenity.parking_entrance.private">주차장 입구</string>
 	<string name="type.amenity.parking_entrance.permissive">주차장 입구</string>

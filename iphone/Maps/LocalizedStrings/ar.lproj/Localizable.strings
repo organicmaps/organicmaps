@@ -1421,6 +1421,10 @@
 
 "type.amenity.parking.underground" = "موقف سيارات تحت الأرض";
 
+"type.amenity.parking.street_side" = "موقف سيارات";
+
+"type.amenity.parking.lane" = "موقف سيارات";
+
 "type.amenity.parking_entrance" = "مدخل موقف سيارات";
 
 "type.amenity.parking_entrance.private" = "مدخل موقف سيارات";

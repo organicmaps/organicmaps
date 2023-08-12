@@ -686,6 +686,8 @@
 	<string name="type.amenity.parking.permissive">Частен паркинг</string>
 	<string name="type.amenity.parking.private">Частен паркинг</string>
 	<string name="type.amenity.parking.underground">Подземен паркинг</string>
+	<string name="type.amenity.parking.street_side">Паркинг</string>
+	<string name="type.amenity.parking.lane">Паркинг</string>
 	<string name="type.amenity.parking_entrance">Вход за паркинг</string>
 	<string name="type.amenity.parking_entrance.private">Вход за паркинг</string>
 	<string name="type.amenity.parking_entrance.permissive">Вход за паркинг</string>

@@ -828,6 +828,8 @@
 	<string name="type.amenity.parking.private">Stationnement privé</string>
 	<string name="type.amenity.parking.park_and_ride">Parking relais</string>
 	<string name="type.amenity.parking.underground">Stationnement souterrain</string>
+	<string name="type.amenity.parking.street_side">Stationnement</string>
+	<string name="type.amenity.parking.lane">Stationnement</string>
 	<string name="type.amenity.parking_entrance">Entrée du stationnement</string>
 	<string name="type.amenity.parking_entrance.private">Entrée du stationnement</string>
 	<string name="type.amenity.parking_entrance.permissive">Entrée du stationnement</string>

@@ -808,6 +808,8 @@
 	<string name="type.amenity.parking.private">Parcheggio privato</string>
 	<string name="type.amenity.parking.park_and_ride">Parcheggio di interscambio</string>
 	<string name="type.amenity.parking.underground">Parcheggio sotterraneo</string>
+	<string name="type.amenity.parking.street_side">Parcheggio</string>
+	<string name="type.amenity.parking.lane">Parcheggio</string>
 	<string name="type.amenity.parking_entrance">Ingresso parcheggio</string>
 	<string name="type.amenity.parking_entrance.private">Ingresso parcheggio</string>
 	<string name="type.amenity.parking_entrance.permissive">Ingresso parcheggio</string>
