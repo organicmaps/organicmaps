@@ -268,6 +268,8 @@
 	<string name="type.amenity.parking.permissive">Maegesho ya Kibinafsi</string>
 	<string name="type.amenity.parking.private">Maegesho ya Kibinafsi</string>
 	<string name="type.amenity.parking.underground">Maegesho ya chini ya ardhi</string>
+	<string name="type.amenity.parking.street_side">Maegesho</string>
+	<string name="type.amenity.parking.lane">Maegesho</string>
 	<string name="type.amenity.parking_entrance">Mlango wa maegesho</string>
 	<string name="type.amenity.parking_entrance.private">Mlango wa maegesho</string>
 	<string name="type.amenity.parking_entrance.permissive">Mlango wa maegesho</string>

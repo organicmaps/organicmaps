@@ -787,6 +787,8 @@
 	<string name="type.amenity.parking.private">Saját parkoló</string>
 	<string name="type.amenity.parking.park_and_ride">Parkoló</string>
 	<string name="type.amenity.parking.underground">Mélygarázs</string>
+	<string name="type.amenity.parking.street_side">Parkoló</string>
+	<string name="type.amenity.parking.lane">Parkoló</string>
 	<string name="type.amenity.parking_entrance">Parkoló bejárata</string>
 	<string name="type.amenity.parking_entrance.private">Parkoló bejárata</string>
 	<string name="type.amenity.parking_entrance.permissive">Parkoló bejárata</string>
