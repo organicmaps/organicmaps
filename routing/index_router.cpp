@@ -783,6 +783,23 @@ RouterResultCode IndexRouter::CalculateSubrouteNoLeapsMode(
   return result;
 }
 
+namespace
+{
+void CollapseForward_ReverseLoops(std::vector<Segment> & path)
+{
+  for (size_t i = 1; i < path.size() - 2;)
+  {
+    auto const beg = path.begin() + i;
+    auto const end = path.end() - 1;
+    auto j = std::find(beg + 1, end, path[i].GetReversed());
+    if (j != end)
+      path.erase(beg, j + 1);
+    else
+      ++i;
+  }
+}
+}
+
 RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
     Checkpoints const & checkpoints, size_t subrouteIdx, IndexGraphStarter & starter,
     RouterDelegate const & delegate, shared_ptr<AStarProgress> const & progress,
@@ -885,6 +902,7 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
       {
         // Check Germany_Italy_Malcesine test when changing this constants.
         // 2 - max number of leaps candidates per highway category.
+        // Total number of candidates will be definitely less than 2 * size(HighwayCategory).
         m_curr.fill(0);
         m_upper.fill(2);
       }
@@ -909,8 +927,7 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
       Segment const * be[] = { &r.m_path[1], &r.m_path[r.m_path.size() - 2] };
       for (uint8_t idx  = 0; idx < 2; ++idx)
       {
-        if (keys[idx].size() < kMaxVertices &&
-            keys[idx].insert(be[idx]->GetFeatureId()).second &&
+        if (keys[idx].insert(be[idx]->GetFeatureId()).second &&
             checkers[idx](*be[idx]))
         {
           uint8_t const nextIdx = (idx + 1) % 2;
@@ -923,10 +940,13 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
       }
     }
 
-    LOG(LINFO, ("Candidates count =", candidates.size()));
+    LOG(LINFO, ("Filtered candidates count =", candidates.size()));
     candidateMidWeights.reserve(candidates.size());
-    for (auto const & c : candidates)
+    for (auto & c : candidates)
+    {
+      CollapseForward_ReverseLoops(c.m_path);
       candidateMidWeights.push_back(leapsGraph.CalcMiddleCrossMwmWeight(c.m_path));
+    }
   }
 
   // Purge cross-mwm-graph cache memory before calculating subroutes for each MWM.
