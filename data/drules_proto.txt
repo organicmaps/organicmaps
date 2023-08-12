@@ -3025,9 +3025,8 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "bike-parking-m"
+      name: "bicycle-parking-m"
       priority: 2350
-      min_distance: 20
     }
     caption {
       primary {
@@ -3042,9 +3041,8 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "bike-parking-m"
+      name: "bicycle-parking-m"
       priority: 2350
-      min_distance: 20
     }
     caption {
       primary {
@@ -3059,9 +3057,8 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "bike-parking-m"
+      name: "bicycle-parking-m"
       priority: 2350
-      min_distance: 20
     }
     caption {
       primary {
@@ -6037,7 +6034,6 @@ cont {
     symbol {
       name: "motorcycle-parking-m"
       priority: 2350
-      min_distance: 20
     }
     caption {
       primary {
@@ -6054,7 +6050,6 @@ cont {
     symbol {
       name: "motorcycle-parking-m"
       priority: 2350
-      min_distance: 20
     }
     caption {
       primary {
@@ -6071,7 +6066,6 @@ cont {
     symbol {
       name: "motorcycle-parking-m"
       priority: 2350
-      min_distance: 20
     }
     caption {
       primary {
@@ -6304,7 +6298,7 @@ cont {
     symbol {
       name: "parking-s"
       priority: 3050
-      min_distance: 25
+      min_distance: 5
     }
   }
   element {
@@ -6316,6 +6310,7 @@ cont {
     symbol {
       name: "parking-m"
       priority: 3050
+      min_distance: 10
     }
   }
   element {
@@ -6327,6 +6322,7 @@ cont {
     symbol {
       name: "parking-m"
       priority: 3050
+      min_distance: 10
     }
     caption {
       primary {
@@ -6347,6 +6343,7 @@ cont {
     symbol {
       name: "parking-m"
       priority: 3050
+      min_distance: 10
     }
     caption {
       primary {
@@ -6375,9 +6372,9 @@ cont {
       priority: -1900
     }
     symbol {
-      name: "parking-s"
+      name: "parking_pay-s"
       priority: 3050
-      min_distance: 25
+      min_distance: 5
     }
   }
   element {
@@ -6387,8 +6384,9 @@ cont {
       priority: -1900
     }
     symbol {
-      name: "parking-m"
+      name: "parking_pay-m"
       priority: 3050
+      min_distance: 10
     }
   }
   element {
@@ -6398,8 +6396,9 @@ cont {
       priority: -1900
     }
     symbol {
-      name: "parking-m"
+      name: "parking_pay-m"
       priority: 3050
+      min_distance: 10
     }
     caption {
       primary {
@@ -6418,8 +6417,9 @@ cont {
       priority: -1900
     }
     symbol {
-      name: "parking-m"
+      name: "parking_pay-m"
       priority: 3050
+      min_distance: 10
     }
     caption {
       primary {
@@ -6429,6 +6429,69 @@ cont {
         is_optional: true
       }
       priority: -6950
+    }
+  }
+}
+cont {
+  name: "amenity-parking-lane"
+  element {
+    scale: 15
+    area {
+      color: 15921852
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 15921852
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 15921852
+    }
+    symbol {
+      name: "parking-s"
+      priority: 2125
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 15921852
+    }
+    symbol {
+      name: "parking-s"
+      priority: 2125
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7875
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 15921852
+    }
+    symbol {
+      name: "parking-s"
+      priority: 2125
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7875
     }
   }
 }
@@ -6450,7 +6513,7 @@ cont {
     symbol {
       name: "parking-s"
       priority: 3050
-      min_distance: 25
+      min_distance: 5
     }
   }
   element {
@@ -6462,6 +6525,7 @@ cont {
     symbol {
       name: "parking-m"
       priority: 3050
+      min_distance: 10
     }
   }
   element {
@@ -6473,6 +6537,7 @@ cont {
     symbol {
       name: "parking-m"
       priority: 3050
+      min_distance: 10
     }
     caption {
       primary {
@@ -6493,6 +6558,7 @@ cont {
     symbol {
       name: "parking-m"
       priority: 3050
+      min_distance: 10
     }
     caption {
       primary {
@@ -6523,7 +6589,7 @@ cont {
     symbol {
       name: "parking-s"
       priority: 2150
-      min_distance: 25
+      min_distance: 5
     }
   }
   element {
@@ -6535,6 +6601,7 @@ cont {
     symbol {
       name: "parking-m"
       priority: 2150
+      min_distance: 10
     }
   }
   element {
@@ -6546,6 +6613,7 @@ cont {
     symbol {
       name: "parking-m"
       priority: 2150
+      min_distance: 10
     }
     caption {
       primary {
@@ -6566,6 +6634,7 @@ cont {
     symbol {
       name: "parking-m"
       priority: 2150
+      min_distance: 10
     }
     caption {
       primary {
@@ -6596,7 +6665,7 @@ cont {
     symbol {
       name: "parking-s"
       priority: 3050
-      min_distance: 25
+      min_distance: 5
     }
   }
   element {
@@ -6608,6 +6677,7 @@ cont {
     symbol {
       name: "parking-m"
       priority: 3050
+      min_distance: 10
     }
   }
   element {
@@ -6619,6 +6689,7 @@ cont {
     symbol {
       name: "parking-m"
       priority: 3050
+      min_distance: 10
     }
     caption {
       primary {
@@ -6639,6 +6710,7 @@ cont {
     symbol {
       name: "parking-m"
       priority: 3050
+      min_distance: 10
     }
     caption {
       primary {
@@ -6667,9 +6739,9 @@ cont {
       priority: -1900
     }
     symbol {
-      name: "zero-icon"
+      name: "parking-s"
       priority: 2150
-      min_distance: 25
+      min_distance: 5
     }
   }
   element {
@@ -6679,8 +6751,9 @@ cont {
       priority: -1900
     }
     symbol {
-      name: "zero-icon"
+      name: "parking-m"
       priority: 2150
+      min_distance: 10
     }
   }
   element {
@@ -6692,6 +6765,7 @@ cont {
     symbol {
       name: "parking-m"
       priority: 2150
+      min_distance: 10
     }
     caption {
       primary {
@@ -6712,6 +6786,7 @@ cont {
     symbol {
       name: "parking-m"
       priority: 2150
+      min_distance: 10
     }
     caption {
       primary {
@@ -6739,21 +6814,12 @@ cont {
       color: 15921852
       priority: -1900
     }
-    symbol {
-      name: "zero-icon"
-      priority: 2150
-      min_distance: 25
-    }
   }
   element {
     scale: 17
     area {
       color: 15921852
       priority: -1900
-    }
-    symbol {
-      name: "zero-icon"
-      priority: 2150
     }
   }
   element {
@@ -6763,7 +6829,7 @@ cont {
       priority: -1900
     }
     symbol {
-      name: "parking-m"
+      name: "parking_private-m"
       priority: 2150
     }
     caption {
@@ -6783,7 +6849,7 @@ cont {
       priority: -1900
     }
     symbol {
-      name: "parking-m"
+      name: "parking_private-m"
       priority: 2150
     }
     caption {
@@ -6794,6 +6860,69 @@ cont {
         is_optional: true
       }
       priority: -7850
+    }
+  }
+}
+cont {
+  name: "amenity-parking-street_side"
+  element {
+    scale: 15
+    area {
+      color: 15921852
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 15921852
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 15921852
+    }
+    symbol {
+      name: "parking-s"
+      priority: 2125
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 15921852
+    }
+    symbol {
+      name: "parking-s"
+      priority: 2125
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7875
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 15921852
+    }
+    symbol {
+      name: "parking-s"
+      priority: 2125
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7875
     }
   }
 }
@@ -6815,7 +6944,7 @@ cont {
     symbol {
       name: "parking-s"
       priority: 2150
-      min_distance: 25
+      min_distance: 5
     }
   }
   element {
@@ -6827,6 +6956,7 @@ cont {
     symbol {
       name: "parking-m"
       priority: 2150
+      min_distance: 10
     }
   }
   element {
@@ -6838,6 +6968,7 @@ cont {
     symbol {
       name: "parking-m"
       priority: 2150
+      min_distance: 10
     }
     caption {
       primary {
@@ -6858,6 +6989,7 @@ cont {
     symbol {
       name: "parking-m"
       priority: 2150
+      min_distance: 10
     }
     caption {
       primary {
@@ -6873,6 +7005,13 @@ cont {
 cont {
   name: "amenity-parking_entrance"
   element {
+    scale: 16
+    symbol {
+      name: "parking_entrance-m"
+      priority: 850
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "parking_entrance-m"
@@ -6894,7 +7033,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -6906,9 +7045,16 @@ cont {
 cont {
   name: "amenity-parking_entrance-permissive"
   element {
+    scale: 16
+    symbol {
+      name: "parking_entrance-m"
+      priority: 850
+    }
+  }
+  element {
     scale: 17
     symbol {
-      name: "zero-icon"
+      name: "parking_entrance-m"
       priority: 850
     }
   }
@@ -6927,40 +7073,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9150
-    }
-  }
-}
-cont {
-  name: "amenity-parking_entrance-private"
-  element {
-    scale: 17
-    symbol {
-      name: "zero-icon"
-      priority: 850
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "parking_entrance-m"
-      priority: 850
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "parking_entrance-m"
-      priority: 850
-    }
-    caption {
-      primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
         is_optional: true
