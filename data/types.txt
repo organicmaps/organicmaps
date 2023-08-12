@@ -355,7 +355,7 @@ mapswithme
 *natural|volcano
 amenity|parking|underground
 *amenity|parking|underground
-mapswithme
+*amenity|parking|street_side
 *amenity|parking|multi-storey
 *leisure|recreation_ground
 *highway|footway|mountain_hiking
@@ -365,7 +365,7 @@ amenity|parking|multi-storey
 *sport|10pin
 *piste:type|downhill|novice
 *railway|narrow_gauge|bridge
-mapswithme
+*amenity|parking|lane
 *railway|rail|main|tunnel
 *highway|bridleway|permissive
 *railway|construction

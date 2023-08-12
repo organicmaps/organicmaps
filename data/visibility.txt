@@ -82,22 +82,24 @@ world  00000000000000000000  +
         loading_dock  00000000000000000000  -
         marketplace  00000000000000000000  -
         money_transfer  00000000000000000000  -
-        motorcycle_parking  00000000000000000000  -
+        motorcycle_parking  00000000000000000111  -
         music_school  00000000000000000000  -
         nightclub  00000000000000000000  -
         nursing_home  00000000000000000000  -
         parcel_locker  00000000000000000111  -
         parking  00000000000000011111  +
             fee  00000000000000011111  -
+            lane  00000000000000011111  -
             multi-storey  00000000000000011111  -
             no-access  00000000000000011111  -
             park_and_ride  00000000000000011111  -
             permissive  00000000000000011111  -
             private  00000000000000011111  -
+            street_side  00000000000000011111  -
             underground  00000000000000011111  -
             {}
-        parking_entrance  00000000000000000000  +
-            permissive  00000000000000000000  -
+        parking_entrance  00000000000000001111  +
+            permissive  00000000000000001111  -
             private  00000000000000000000  -
             {}
         parking_space  00000000000000011111  +

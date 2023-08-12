@@ -89,11 +89,13 @@ world  +
         parcel_locker  -
         parking  +
             fee  -
+            lane  -
             multi-storey  -
             no-access  -
             park_and_ride  -
             permissive  -
             private  -
+            street_side  -
             underground  -
             {}
         parking_entrance  +
