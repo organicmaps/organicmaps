@@ -5922,9 +5922,9 @@
   [twitter]
     comment = Text in menu
     tags = android,ios
-    en = Twitter
-    zh-Hans = 推特
-    zh-Hant = 推特
+    en = X (Twitter)
+    zh-Hans = X (推特)
+    zh-Hant = X (推特)
 
   [instagram]
     comment = Text in menu

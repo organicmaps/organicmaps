@@ -137,7 +137,7 @@
       <TextView android:id="@+id/twitter"
                 style="@style/MwmWidget.TextView.Item"
                 android:text="@string/twitter"
-                app:drawableStartCompat="@drawable/ic_twitter"/>
+                app:drawableStartCompat="@drawable/ic_twitterx"/>
 
       <TextView android:id="@+id/instagram"
                 style="@style/MwmWidget.TextView.Item"
