@@ -1091,7 +1091,7 @@ amenity-music_school                                # caption z19 and icon z17-
 amenity-nursing_home                                # caption z17- and icon z17-
 amenity-parking_entrance                            # caption z19 and icon z17-
 amenity-parking_entrance-permissive                 # caption z19 and icon z17-
-amenity-parking_entrance-private                    # caption z19
+amenity-parking_entrance-private                   
 amenity-payment_terminal                            # caption z17- and icon z17-
 leisure-fitness_centre                              # caption z17- and icon z17-
 leisure-fitness_station                             # caption z17- and icon z17-
