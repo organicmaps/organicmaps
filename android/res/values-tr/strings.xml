@@ -832,6 +832,8 @@
 	<string name="type.amenity.parking.private">Özel Otopark</string>
 	<string name="type.amenity.parking.park_and_ride">Otopark</string>
 	<string name="type.amenity.parking.underground">Yeraltı otoparkı</string>
+	<string name="type.amenity.parking.street_side">Otopark</string>
+	<string name="type.amenity.parking.lane">Otopark</string>
 	<string name="type.amenity.parking_entrance">Otopark girişi</string>
 	<string name="type.amenity.parking_entrance.private">Otopark girişi</string>
 	<string name="type.amenity.parking_entrance.permissive">Otopark girişi</string>

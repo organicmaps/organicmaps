@@ -788,6 +788,8 @@
 	<string name="type.amenity.parking.private">私人停车场</string>
 	<string name="type.amenity.parking.park_and_ride">停车场</string>
 	<string name="type.amenity.parking.underground">地下停车场</string>
+	<string name="type.amenity.parking.street_side">停车场</string>
+	<string name="type.amenity.parking.lane">停车场</string>
 	<string name="type.amenity.parking_entrance">停车场入口</string>
 	<string name="type.amenity.parking_entrance.private">停车场入口</string>
 	<string name="type.amenity.parking_entrance.permissive">停车场入口</string>

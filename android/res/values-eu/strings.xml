@@ -826,6 +826,8 @@
 	<string name="type.amenity.parking.private">Aparkaleku pribatua</string>
 	<string name="type.amenity.parking.park_and_ride">Aparkalekua</string>
 	<string name="type.amenity.parking.underground">Lurpeko Aparkalekua</string>
+	<string name="type.amenity.parking.street_side">Aparkalekua</string>
+	<string name="type.amenity.parking.lane">Aparkalekua</string>
 	<string name="type.amenity.parking_entrance">Aparkalekuaren sarrera</string>
 	<string name="type.amenity.parking_entrance.private">Aparkalekuaren sarrera</string>
 	<string name="type.amenity.parking_entrance.permissive">Aparkalekuaren sarrera</string>

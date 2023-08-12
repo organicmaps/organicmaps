@@ -815,6 +815,8 @@
 	<string name="type.amenity.parking.private">Privaatne parkimine</string>
 	<string name="type.amenity.parking.park_and_ride">Parkimine</string>
 	<string name="type.amenity.parking.underground">Maa-alune parkimine</string>
+	<string name="type.amenity.parking.street_side">Parkimine</string>
+	<string name="type.amenity.parking.lane">Parkimine</string>
 	<string name="type.amenity.parking_entrance">Parkla sissepääs</string>
 	<string name="type.amenity.parking_entrance.private">Parkla sissepääs</string>
 	<string name="type.amenity.parking_entrance.permissive">Parkla sissepääs</string>

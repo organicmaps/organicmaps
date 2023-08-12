@@ -816,6 +816,8 @@
 	<string name="type.amenity.parking.private">موقف سيارات خاص</string>
 	<string name="type.amenity.parking.park_and_ride">موقف سيارات</string>
 	<string name="type.amenity.parking.underground">موقف سيارات تحت الأرض</string>
+	<string name="type.amenity.parking.street_side">موقف سيارات</string>
+	<string name="type.amenity.parking.lane">موقف سيارات</string>
 	<string name="type.amenity.parking_entrance">مدخل موقف سيارات</string>
 	<string name="type.amenity.parking_entrance.private">مدخل موقف سيارات</string>
 	<string name="type.amenity.parking_entrance.permissive">مدخل موقف سيارات</string>
