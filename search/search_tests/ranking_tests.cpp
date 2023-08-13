@@ -96,53 +96,65 @@ UNIT_TEST(NameScore_Smoke)
   test("Зона №51", "зона №", NameScore::FULL_PREFIX, 0, 4);
 }
 
+namespace
+{
+ErrorsMade GetErrorsMade(QueryParams::Token const & token, strings::UniString const & text)
+{
+  return search::impl::GetErrorsMade(token, text, search::BuildLevenshteinDFA(text));
+}
+ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token, strings::UniString const & text)
+{
+  return search::impl::GetPrefixErrorsMade(token, text, search::BuildLevenshteinDFA(text));
+}
+} // namespace
+
 UNIT_TEST(ErrorsMade_Smoke)
 {
   {
     QueryParams::Token const searchToken = strings::MakeUniString("hairdressers");
 
     auto nameToken = strings::MakeUniString("h");
-    TEST(!search::impl::GetErrorsMade(searchToken, nameToken).IsValid(), ());
-    TEST(!search::impl::GetPrefixErrorsMade(searchToken, nameToken).IsValid(), ());
+    TEST(!GetErrorsMade(searchToken, nameToken).IsValid(), ());
+    TEST(!GetPrefixErrorsMade(searchToken, nameToken).IsValid(), ());
 
     nameToken = strings::MakeUniString("hair");
-    TEST(!search::impl::GetErrorsMade(searchToken, nameToken).IsValid(), ());
-    TEST(!search::impl::GetPrefixErrorsMade(searchToken, nameToken).IsValid(), ());
+    TEST(!GetErrorsMade(searchToken, nameToken).IsValid(), ());
+    TEST(!GetPrefixErrorsMade(searchToken, nameToken).IsValid(), ());
   }
 
   {
     auto nameToken = strings::MakeUniString("hair");
 
     QueryParams::Token searchToken = strings::MakeUniString("hair");
-    TEST_EQUAL(search::impl::GetErrorsMade(searchToken, nameToken).m_errorsMade, 0, ());
-    TEST_EQUAL(search::impl::GetPrefixErrorsMade(searchToken, nameToken).m_errorsMade, 0, ());
+    TEST_EQUAL(GetErrorsMade(searchToken, nameToken).m_errorsMade, 0, ());
+    TEST_EQUAL(GetPrefixErrorsMade(searchToken, nameToken).m_errorsMade, 0, ());
 
     searchToken = strings::MakeUniString("gair");
-    TEST_EQUAL(search::impl::GetErrorsMade(searchToken, nameToken).m_errorsMade, 1, ());
-    TEST_EQUAL(search::impl::GetPrefixErrorsMade(searchToken, nameToken).m_errorsMade, 1, ());
+    TEST_EQUAL(GetErrorsMade(searchToken, nameToken).m_errorsMade, 1, ());
+    TEST_EQUAL(GetPrefixErrorsMade(searchToken, nameToken).m_errorsMade, 1, ());
 
     searchToken = strings::MakeUniString("gai");
-    TEST(!search::impl::GetErrorsMade(searchToken, nameToken).IsValid(), ());
-    TEST_EQUAL(search::impl::GetPrefixErrorsMade(searchToken, nameToken).m_errorsMade, 1, ());
+    TEST(!GetErrorsMade(searchToken, nameToken).IsValid(), ());
+    TEST_EQUAL(GetPrefixErrorsMade(searchToken, nameToken).m_errorsMade, 1, ());
 
     searchToken = strings::MakeUniString("hairrr");
-    TEST(!search::impl::GetErrorsMade(searchToken, nameToken).IsValid(), ());
-    TEST(!search::impl::GetPrefixErrorsMade(searchToken, nameToken).IsValid(), ());
+    TEST(!GetErrorsMade(searchToken, nameToken).IsValid(), ());
+    TEST(!GetPrefixErrorsMade(searchToken, nameToken).IsValid(), ());
   }
 
   {
     auto nameToken = strings::MakeUniString("hairdresser");
 
     QueryParams::Token searchToken = strings::MakeUniString("hair");
-    TEST(!search::impl::GetErrorsMade(searchToken, nameToken).IsValid(), ());
-    TEST_EQUAL(search::impl::GetPrefixErrorsMade(searchToken, nameToken).m_errorsMade, 0, ());
+    TEST(!GetErrorsMade(searchToken, nameToken).IsValid(), ());
+    TEST_EQUAL(GetPrefixErrorsMade(searchToken, nameToken).m_errorsMade, 0, ());
 
     searchToken = strings::MakeUniString("gair");
-    TEST_EQUAL(search::impl::GetPrefixErrorsMade(searchToken, nameToken).m_errorsMade, 1, ());
+    TEST_EQUAL(GetPrefixErrorsMade(searchToken, nameToken).m_errorsMade, 1, ());
 
     searchToken = strings::MakeUniString("gairdrese");
-    TEST(!search::impl::GetErrorsMade(searchToken, nameToken).IsValid(), ());
-    TEST_EQUAL(search::impl::GetPrefixErrorsMade(searchToken, nameToken).m_errorsMade, 2, ());
+    TEST(!GetErrorsMade(searchToken, nameToken).IsValid(), ());
+    TEST_EQUAL(GetPrefixErrorsMade(searchToken, nameToken).m_errorsMade, 2, ());
   }
 }
 
