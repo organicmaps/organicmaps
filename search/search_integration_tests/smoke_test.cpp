@@ -148,19 +148,39 @@ UNIT_CLASS_TEST(SmokeTest, TypesSkipperTest)
 {
   TypesSkipper skipper;
 
-  base::StringIL const arr[] = {
-    {"barrier", "block"},
-    {"barrier", "toll_booth"},
-    {"entrance"}
-  };
-
   auto const & cl = classif();
-  for (auto const & path : arr)
-  {
-    TypesHolder types;
-    types.Add(cl.GetTypeByPath(path));
 
-    TEST(!skipper.SkipAlways(types), (path));
+  {
+    base::StringIL const arr[] = {{"entrance"}};
+    TypesHolder types;
+    for (auto const & path : arr)
+      types.Add(cl.GetTypeByPath(path));
+
+    TEST(!skipper.SkipAlways(types), ());
+    TEST(!skipper.SkipSpecialNames(types, "ETH"), ());
+    TEST(skipper.SkipSpecialNames(types, "2"), ());
+  }
+
+  {
+    base::StringIL const arr[] = {{"building"}};
+    TypesHolder types;
+    for (auto const & path : arr)
+      types.Add(cl.GetTypeByPath(path));
+
+    TEST(!skipper.SkipAlways(types), ());
+    TEST(!skipper.SkipSpecialNames(types, "3"), ());
+    skipper.SkipEmptyNameTypes(types);
+    TEST(types.Empty(), ());
+  }
+
+  {
+    base::StringIL const arr[] = {{"building"}, {"entrance"}};
+    TypesHolder types;
+    for (auto const & path : arr)
+      types.Add(cl.GetTypeByPath(path));
+
+    TEST(!skipper.SkipAlways(types), ());
+    TEST(!skipper.SkipSpecialNames(types, "4"), ());
     skipper.SkipEmptyNameTypes(types);
     TEST_EQUAL(types.Size(), 1, ());
   }
@@ -218,8 +238,6 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
     invisibleTypes.insert(cl.GetTypeByPath(tags));
 
   base::StringIL const notSupportedTags[] = {
-      // Not visible because excluded by TypesSkipper.
-      {"building", "address"},
       // Not visible for country scale range.
       {"place", "continent"},
       {"place", "region"}
