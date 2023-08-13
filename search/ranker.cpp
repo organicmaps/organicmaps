@@ -320,6 +320,7 @@ public:
     , m_infoGetter(infoGetter)
     , m_reverseGeocoder(reverseGeocoder)
     , m_params(params)
+    , m_isViewportMode(m_params.m_mode == Mode::Viewport)
   {
   }
 
@@ -455,7 +456,7 @@ private:
     m_ranker.GetBestMatchName(*ft, name);
 
     // Insert exact address (street and house number) instead of empty result name.
-    if (name.empty())
+    if (!m_isViewportMode && name.empty())
     {
       ReverseGeocoder::Address addr;
       if (GetExactAddress(*ft, center, addr))
@@ -652,6 +653,7 @@ private:
   storage::CountryInfoGetter const & m_infoGetter;
   ReverseGeocoder const & m_reverseGeocoder;
   Geocoder::Params const & m_params;
+  bool m_isViewportMode;
 
   unique_ptr<FeaturesLoaderGuard> m_loader;
 };
