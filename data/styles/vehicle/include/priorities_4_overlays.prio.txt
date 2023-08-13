@@ -187,10 +187,13 @@ amenity-parking-underground                         # caption z16- and icon z15-
 === 2550
 
 amenity-motorcycle_parking                          # icon z17-
+amenity-parking_entrance                            # icon z16-
+amenity-parking_entrance-permissive                 # icon z16-
+=== 2530
+
 amenity-parking-lane                                # icon z17- (also has area z15-)
 amenity-parking-street_side                         # icon z17- (also has area z15-)
-amenity-parking_entrance                            # icon z16-
-=== 2525
+=== 2520
 
 boundary-national_park                              # caption z12- and icon z12-
 boundary-protected_area                             # caption z12- and icon z12-
@@ -655,7 +658,9 @@ leisure-park-private                                # caption z14- and icon z14-
 === 100
 
 building                                            # caption z18- (also has area z15-)
-building-address                                    # caption z18-
-building-garage                                     # caption z18- (also has area z15-)
 building-has_parts                                  # caption z18- (also has area z15-)
 === 50
+
+building-address                                    # caption z18-
+building-garage                                     # caption z18- (also has area z15-)
+=== 30
