@@ -15,11 +15,13 @@
 
 amenity-parking                                     # area z15- (also has caption z16-, icon z15-)
 amenity-parking-fee                                 # area z15- (also has caption z16-, icon z15-)
+amenity-parking-lane                                # area z15- (also has icon z17-)
 amenity-parking-multi-storey                        # area z15- (also has caption z16-, icon z15-)
 amenity-parking-no-access                           # area z15- (also has caption z16-, icon z15-)
 amenity-parking-park_and_ride                       # area z15- (also has caption z16-, icon z15-)
 amenity-parking-permissive                          # area z15- (also has caption z16-, icon z15-)
 amenity-parking-private                             # area z15- (also has caption z17-, icon z17-)
+amenity-parking-street_side                         # area z15- (also has icon z17-)
 amenity-parking-underground                         # area z15- (also has caption z16-, icon z15-)
 === 160
 
