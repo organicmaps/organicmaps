@@ -3,6 +3,8 @@
 #
 # Overlays (icons, captions, path texts and shields) are rendered on top of all the geometry (lines, areas).
 # Overlays don't overlap each other, instead the ones with higher priority displace the less important ones.
+# Optional captions (which have an icon) are displayed only if there are no other overlays in their way
+# (technically, max overlays priority value (10000) is subtracted from their priorities automatically).
 #
 # Priorities ranges' rendering order overview:
 # - overlays (icons, captions...)
@@ -680,11 +682,7 @@ waterway-stream-intermittent                        # pathtext z13- (also has li
 
 amenity-shelter                                     # caption z16- and icon z16-
 highway-ford                                        # icon z16- and pathtext z16- (also has line z13-)
-man_made-survey_point                               # caption z16- and icon z16-
 tourism-information                                 # caption z16- and icon z16-
-tourism-information-board                           # caption z16- and icon z16-
-tourism-information-guidepost                       # caption z16- and icon z16-
-tourism-information-map                             # caption z16- and icon z16-
 === 2850
 
 highway-bridleway                                   # pathtext z15- (also has line z14-)
@@ -1037,12 +1035,10 @@ amenity-parcel_locker                               # caption z17- and icon z17-
 amenity-recycling                                   # caption z19 and icon z17-
 amenity-recycling-centre                            # caption z19 and icon z17-
 amenity-shower                                      # caption z17- and icon z17-
-amenity-telephone                                   # caption z19 and icon z17-
 amenity-vending_machine-fuel                        # caption z18- and icon z18-
 amenity-vending_machine-parking_tickets             # caption z17- and icon z17-
 amenity-vending_machine-public_transport_tickets    # caption z17- and icon z17-
 amenity-waste_transfer_station                      # caption z19 and icon z17-
-emergency-phone                                     # icon z17-
 === 1200
 
 highway-elevator                                    # icon z17-
@@ -1213,11 +1209,18 @@ amenity-parking-street_side                         # caption z18- and icon z17-
 
 amenity-parking-no-access                           # caption z18- and icon z16- (also has area z15-)
 amenity-parking-private                             # caption z18- and icon z18- (also has area z15-)
-amenity-parking_entrance-private                   
+amenity-parking_entrance-private                    # WARNING: no style defined (the type will be not included into map data)
 === 100
 
+man_made-survey_point                               # caption z16- and icon z16-
+tourism-information-board                           # caption z16- and icon z16-
+tourism-information-guidepost                       # caption z16- and icon z16-
+tourism-information-map                             # caption z16- and icon z16-
+=== -9950
+
+amenity-telephone                                   # caption z19 and icon z17-
 entrance                                            # caption z19 and icon z19
-=== 50
+=== -9960
 
 amenity-parking_space                               # caption z19
 amenity-parking_space-disabled                      # caption z19 and icon z18-
@@ -1233,18 +1236,19 @@ amenity-vending_machine-excrement_bags              # caption z18- and icon z18-
 amenity-vending_machine-food                        # caption z18- and icon z18-
 amenity-vending_machine-newspapers                  # caption z18- and icon z18-
 amenity-vending_machine-sweets                      # caption z18- and icon z18-
-=== 40
+=== -9970
 
 amenity-bench                                       # caption z19 and icon z18-
 amenity-waste_disposal                              # caption z18- and icon z18-
 emergency-defibrillator                             # caption z18- and icon z18-
-=== 30
+emergency-phone                                     # icon z17-
+=== -9980
 
 amenity-waste_basket                                # caption z19 and icon z18-
 emergency-fire_hydrant                              # caption z18- and icon z18-
 power-substation                                    # caption z19 and icon z19
-=== 20
+=== -9990
 
 amenity-loading_dock                                # caption z18- and icon z18-
 entrance-exit                                       # caption z18- and icon z18-
-=== 10
+=== -10000
