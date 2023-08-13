@@ -70,12 +70,12 @@ string DebugPrint(ErrorsMade const & errorsMade)
 
 namespace impl
 {
-ErrorsMade GetErrorsMade(QueryParams::Token const & token, strings::UniString const & text)
+ErrorsMade GetErrorsMade(QueryParams::Token const & token,
+                         strings::UniString const & text, LevenshteinDFA const & dfa)
 {
   if (token.AnyOfSynonyms([&text](strings::UniString const & s) { return text == s; }))
     return ErrorsMade(0);
 
-  auto const dfa = BuildLevenshteinDFA(text);
   auto it = dfa.Begin();
   strings::DFAMove(it, token.GetOriginal().begin(), token.GetOriginal().end());
   if (it.Accepts())
@@ -84,12 +84,12 @@ ErrorsMade GetErrorsMade(QueryParams::Token const & token, strings::UniString co
   return {};
 }
 
-ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token, strings::UniString const & text)
+ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token,
+                               strings::UniString const & text, LevenshteinDFA const & dfa)
 {
   if (token.AnyOfSynonyms([&text](strings::UniString const & s) { return StartsWith(text, s); }))
     return ErrorsMade(0);
 
-  auto const dfa = BuildLevenshteinDFA(text);
   auto it = dfa.Begin();
   strings::DFAMove(it, token.GetOriginal().begin(), token.GetOriginal().end());
   if (!it.Rejects())
@@ -127,13 +127,15 @@ bool IsStopWord(UniString const & s)
   return swChecker.Has(s);
 }
 
-void PrepareStringForMatching(string_view name, vector<strings::UniString> & tokens)
+TokensVector::TokensVector(string_view name)
 {
-  ForEachNormalizedToken(name, [&tokens](strings::UniString && token)
+  ForEachNormalizedToken(name, [this](strings::UniString && token)
   {
     if (!IsStopWord(token))
-      tokens.push_back(std::move(token));
+      m_tokens.push_back(std::move(token));
   });
+
+  Init();
 }
 
 string DebugPrint(NameScore const & score)
