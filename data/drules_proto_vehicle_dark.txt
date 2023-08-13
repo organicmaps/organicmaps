@@ -1709,21 +1709,21 @@ cont {
     scale: 17
     symbol {
       name: "motorcycle-parking-m"
-      priority: 2525
+      priority: 2530
     }
   }
   element {
     scale: 18
     symbol {
       name: "motorcycle-parking-m"
-      priority: 2525
+      priority: 2530
     }
   }
   element {
     scale: 19
     symbol {
       name: "motorcycle-parking-m"
-      priority: 2525
+      priority: 2530
     }
   }
 }
@@ -1982,22 +1982,25 @@ cont {
     scale: 15
     area {
       color: 1643785
+      priority: -1840
     }
   }
   element {
     scale: 16
     area {
       color: 1643785
+      priority: -1840
     }
   }
   element {
     scale: 17
     area {
       color: 2038026
+      priority: -1840
     }
     symbol {
       name: "parking-s"
-      priority: 2525
+      priority: 2520
       min_distance: 15
     }
   }
@@ -2005,10 +2008,11 @@ cont {
     scale: 18
     area {
       color: 2038026
+      priority: -1840
     }
     symbol {
       name: "parking-s"
-      priority: 2525
+      priority: 2520
       min_distance: 10
     }
   }
@@ -2016,10 +2020,11 @@ cont {
     scale: 19
     area {
       color: 2038026
+      priority: -1840
     }
     symbol {
       name: "parking-s"
-      priority: 2525
+      priority: 2520
       min_distance: 10
     }
   }
@@ -2506,22 +2511,25 @@ cont {
     scale: 15
     area {
       color: 1643785
+      priority: -1840
     }
   }
   element {
     scale: 16
     area {
       color: 1643785
+      priority: -1840
     }
   }
   element {
     scale: 17
     area {
       color: 2038026
+      priority: -1840
     }
     symbol {
       name: "parking-s"
-      priority: 2525
+      priority: 2520
       min_distance: 15
     }
   }
@@ -2529,10 +2537,11 @@ cont {
     scale: 18
     area {
       color: 2038026
+      priority: -1840
     }
     symbol {
       name: "parking-s"
-      priority: 2525
+      priority: 2520
       min_distance: 10
     }
   }
@@ -2540,10 +2549,11 @@ cont {
     scale: 19
     area {
       color: 2038026
+      priority: -1840
     }
     symbol {
       name: "parking-s"
-      priority: 2525
+      priority: 2520
       min_distance: 10
     }
   }
@@ -2653,28 +2663,28 @@ cont {
     scale: 16
     symbol {
       name: "parking_entrance-m"
-      priority: 2525
+      priority: 2530
     }
   }
   element {
     scale: 17
     symbol {
       name: "parking_entrance-m"
-      priority: 2525
+      priority: 2530
     }
   }
   element {
     scale: 18
     symbol {
       name: "parking_entrance-m"
-      priority: 2525
+      priority: 2530
     }
   }
   element {
     scale: 19
     symbol {
       name: "parking_entrance-m"
-      priority: 2525
+      priority: 2530
     }
   }
 }
@@ -2684,24 +2694,28 @@ cont {
     scale: 16
     symbol {
       name: "parking_entrance-m"
+      priority: 2530
     }
   }
   element {
     scale: 17
     symbol {
       name: "parking_entrance-m"
+      priority: 2530
     }
   }
   element {
     scale: 18
     symbol {
       name: "parking_entrance-m"
+      priority: 2530
     }
   }
   element {
     scale: 19
     symbol {
       name: "parking_entrance-m"
+      priority: 2530
     }
   }
 }
@@ -6047,7 +6061,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 50
+      priority: 30
     }
   }
   element {
@@ -6063,7 +6077,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 50
+      priority: 30
     }
   }
 }
@@ -6118,7 +6132,7 @@ cont {
         color: 7566195
         text: "addr:housenumber"
       }
-      priority: 50
+      priority: 30
     }
   }
   element {
@@ -6137,7 +6151,7 @@ cont {
         color: 7566195
         text: "addr:housenumber"
       }
-      priority: 50
+      priority: 30
     }
   }
 }
