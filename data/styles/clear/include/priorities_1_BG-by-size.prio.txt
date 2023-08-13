@@ -80,11 +80,13 @@ railway-platform                                    # area z16- (also has captio
 
 amenity-parking                                     # area z15- (also has caption z18-, icon z16-)
 amenity-parking-fee                                 # area z15- (also has caption z18-, icon z16-)
+amenity-parking-lane                                # area z15- (also has caption z18-, icon z17-)
 amenity-parking-multi-storey                        # area z15- (also has caption z18-, icon z16-)
 amenity-parking-no-access                           # area z15- (also has caption z18-, icon z16-)
 amenity-parking-park_and_ride                       # area z15- (also has caption z18-, icon z16-)
 amenity-parking-permissive                          # area z15- (also has caption z18-, icon z16-)
 amenity-parking-private                             # area z15- (also has caption z18-, icon z18-)
+amenity-parking-street_side                         # area z15- (also has caption z18-, icon z17-)
 amenity-parking-underground                         # area z15- (also has caption z18-, icon z16-)
 === 100
 

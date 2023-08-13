@@ -640,10 +640,6 @@ highway-unclassified-tunnel                         # pathtext z13- (also has li
 === 3100
 
 amenity-fountain                                    # caption z16- and icon z16- (also has area z16-)
-amenity-parking                                     # caption z18- and icon z16- (also has area z15-)
-amenity-parking-fee                                 # caption z18- and icon z16- (also has area z15-)
-amenity-parking-multi-storey                        # caption z18- and icon z16- (also has area z15-)
-amenity-parking-park_and_ride                       # caption z18- and icon z16- (also has area z15-)
 highway-raceway                                     # pathtext z16- (also has line z14-)
 === 3050
 
@@ -844,9 +840,7 @@ shop-video_games                                    # caption z16- and icon z16-
 shop-wine                                           # caption z16- and icon z16-
 === 2400
 
-amenity-bicycle_parking                             # caption z17- and icon z17-
 amenity-hunting_stand                               # caption z18- and icon z18-
-amenity-motorcycle_parking                          # caption z17- and icon z17-
 amenity-taxi                                        # caption z16- and icon z16-
 amenity-veterinary                                  # caption z16- and icon z16-
 barrier-lift_gate                                   # caption z16- and icon z16-
@@ -874,16 +868,6 @@ highway-busway-tunnel                               # pathtext z16- (also has li
 
 waterway-lock_gate                                  # icon z16-
 === 2200
-
-amenity-parking-no-access                           # caption z18- and icon z16- (also has area z15-)
-amenity-parking-permissive                          # caption z18- and icon z16- (also has area z15-)
-amenity-parking-private                             # caption z18- and icon z18- (also has area z15-)
-amenity-parking-underground                         # caption z18- and icon z16- (also has area z15-)
-=== 2150
-
-amenity-parking-lane                                # caption z18- and icon z17- (also has area z15-)
-amenity-parking-street_side                         # caption z18- and icon z17- (also has area z15-)
-=== 2125
 
 leisure-marina                                      # caption z16- and icon z16-
 === 2100
@@ -1089,9 +1073,6 @@ amenity-driving_school                              # caption z19 and icon z17-
 amenity-language_school                             # caption z19 and icon z17-
 amenity-music_school                                # caption z19 and icon z17-
 amenity-nursing_home                                # caption z17- and icon z17-
-amenity-parking_entrance                            # caption z19 and icon z17-
-amenity-parking_entrance-permissive                 # caption z19 and icon z17-
-amenity-parking_entrance-private                   
 amenity-payment_terminal                            # caption z17- and icon z17-
 leisure-fitness_centre                              # caption z17- and icon z17-
 leisure-fitness_station                             # caption z17- and icon z17-
@@ -1188,6 +1169,7 @@ shop-wholesale                                      # caption z18- and icon z18-
 
 amenity-bbq                                         # caption z18- and icon z18-
 amenity-internet_cafe                               # caption z19 and icon z18-
+amenity-public_bookcase                             # caption z19
 amenity-toilets                                     # caption z18- and icon z18-
 craft-handicraft                                    # caption z18- and icon z18-
 craft-hvac                                          # caption z18- and icon z18-
@@ -1196,14 +1178,52 @@ craft-locksmith                                     # caption z18- and icon z18-
 craft-winery                                        # caption z18- and icon z18-
 === 450
 
-amenity-post_box                                    # caption z18- and icon z18-
-amenity-recycling-container                         # caption z19 and icon z17-
 building                                            # caption z16- (also has area z14-)
 building-garage                                     # caption z16- (also has area z14-)
 building-has_parts                                  # caption z16- (also has area z14-)
-entrance-main                                       # caption z18- and icon z18-
 === 400
 
+amenity-parking                                     # caption z18- and icon z16- (also has area z15-)
+amenity-parking-fee                                 # caption z18- and icon z16- (also has area z15-)
+amenity-parking-multi-storey                        # caption z18- and icon z16- (also has area z15-)
+amenity-parking-park_and_ride                       # caption z18- and icon z16- (also has area z15-)
+amenity-parking-underground                         # caption z18- and icon z16- (also has area z15-)
+=== 300
+
+amenity-bicycle_parking                             # caption z17- and icon z17-
+amenity-motorcycle_parking                          # caption z17- and icon z17-
+amenity-parking-permissive                          # caption z18- and icon z16- (also has area z15-)
+amenity-parking_entrance                            # caption z19 and icon z17-
+amenity-parking_entrance-permissive                 # caption z19 and icon z17-
+=== 250
+
+amenity-post_box                                    # caption z18- and icon z18-
+amenity-recycling-container                         # caption z19 and icon z17-
+building-address                                    # caption z16-
+historic-memorial-stolperstein                      # caption z19 and icon z19
+leisure-garden-residential                          # caption z18- (also has area z12-)
+=== 200
+
+entrance-main                                       # caption z18- and icon z18-
+=== 170
+
+amenity-parking-lane                                # caption z18- and icon z17- (also has area z15-)
+amenity-parking-street_side                         # caption z18- and icon z17- (also has area z15-)
+=== 150
+
+amenity-parking-no-access                           # caption z18- and icon z16- (also has area z15-)
+amenity-parking-private                             # caption z18- and icon z18- (also has area z15-)
+amenity-parking_entrance-private                   
+=== 100
+
+entrance                                            # caption z19 and icon z19
+=== 50
+
+amenity-parking_space                               # caption z19
+amenity-parking_space-disabled                      # caption z19 and icon z18-
+amenity-parking_space-permissive                    # caption z19
+amenity-parking_space-private                       # caption z19
+amenity-parking_space-underground                   # caption z19
 amenity-vending_machine                             # caption z18- and icon z18-
 amenity-vending_machine-cigarettes                  # caption z18- and icon z18-
 amenity-vending_machine-coffee                      # caption z18- and icon z18-
@@ -1213,29 +1233,18 @@ amenity-vending_machine-excrement_bags              # caption z18- and icon z18-
 amenity-vending_machine-food                        # caption z18- and icon z18-
 amenity-vending_machine-newspapers                  # caption z18- and icon z18-
 amenity-vending_machine-sweets                      # caption z18- and icon z18-
-=== 350
+=== 40
 
 amenity-bench                                       # caption z19 and icon z18-
-amenity-parking_space-disabled                      # caption z19 and icon z18-
-amenity-waste_basket                                # caption z19 and icon z18-
 amenity-waste_disposal                              # caption z18- and icon z18-
 emergency-defibrillator                             # caption z18- and icon z18-
+=== 30
+
+amenity-waste_basket                                # caption z19 and icon z18-
 emergency-fire_hydrant                              # caption z18- and icon z18-
-=== 300
-
-leisure-garden-residential                          # caption z18- (also has area z12-)
-=== 250
-
-historic-memorial-stolperstein                      # caption z19 and icon z19
-=== 200
-
 power-substation                                    # caption z19 and icon z19
-=== 150
+=== 20
 
 amenity-loading_dock                                # caption z18- and icon z18-
-entrance                                            # caption z19 and icon z19
 entrance-exit                                       # caption z18- and icon z18-
-=== 100
-
-building-address                                    # caption z16-
-=== 50
+=== 10
