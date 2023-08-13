@@ -228,6 +228,7 @@ public:
     HasParts,
     NoCar,
     YesCar,
+    InternetAny,
     Wlan,
     RailwayStation,
     SubwayStation,
@@ -263,6 +264,7 @@ public:
         {Type::HasParts,           {"building", "has_parts"}},
         {Type::NoCar,              {"hwtag", "nocar"}},
         {Type::YesCar,             {"hwtag", "yescar"}},
+        {Type::InternetAny,        {"internet_access"}},
         {Type::Wlan,               {"internet_access", "wlan"}},
         {Type::RailwayStation,     {"railway", "station"}},
         {Type::SubwayStation,      {"railway", "station", "subway"}},
@@ -725,15 +727,28 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
 
   if (!params.house.IsEmpty())
   {
-    // Delete "entrance" type for house number (use it only with refs).
-    // Add "address" type if we have house number but no valid types.
-    if (params.PopExactType(types.Get(CachedTypes::Type::Entrance)) ||
-        (params.m_types.size() == 1 && params.IsTypeExist(types.Get(CachedTypes::Type::WheelchairAny), 1)))
+    // Add "building-address" type if we have house number, but no "suitable" (building, POI, etc) types.
+    // A lot in Czech, Italy or others, with individual address points (house numbers).
+    bool hasSuitableType = false;
+    for (uint32_t t : params.m_types)
     {
-      params.name.Clear();
-      // If we have address (house name or number), we should assign valid type.
-      // There are a lot of features like this in the Czech Republic.
+      /// @todo Make a function like HaveAddressLikeType ?
+      ftype::TruncValue(t, 1);
+      if (t != types.Get(CachedTypes::Type::Entrance) &&
+          t != types.Get(CachedTypes::Type::WheelchairAny) &&
+          t != types.Get(CachedTypes::Type::InternetAny))
+      {
+        hasSuitableType = true;
+        break;
+      }
+    }
+
+    if (!hasSuitableType)
+    {
       params.AddType(types.Get(CachedTypes::Type::Address));
+
+      if (!params.name.IsEmpty() || !params.ref.empty())
+        LOG(LWARNING, ("Address with name or ref:", GetGeoObjectId(*p), params.name, params.ref));
     }
   }
 

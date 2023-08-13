@@ -185,6 +185,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Combined)
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Address)
 {
+  uint32_t const addrType = GetType({"building", "address"});
   {
     // Single house number tag is transformed into address type.
     Tags const tags = { {"addr:housenumber", "42"} };
@@ -192,7 +193,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Address)
     auto const params = GetFeatureBuilderParams(tags);
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
-    TEST(params.IsTypeExist(GetType({"building", "address"})), ());
+    TEST(params.IsTypeExist(addrType), ());
 
     TEST_EQUAL(params.house.Get(), "42", ());
   }
@@ -213,7 +214,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Address)
     auto const params = GetFeatureBuilderParams(tags);
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
-    TEST(params.IsTypeExist(GetType({"building", "address"})), ());
+    TEST(params.IsTypeExist(addrType), ());
 
     TEST_EQUAL(params.house.Get(), "223/5", ());
     TEST_EQUAL(params.GetAddressData().Get(AddrType::Street), "Řetězová", ());
@@ -226,17 +227,19 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Address)
       {"addr:housenumber", "41"},
       {"addr:postcode", "8050"},
       {"addr:street", "Leutschenbachstrasse"},
-      {"entrance", "home"},
+      {"entrance", "main"},
       {"survey:date", "2020-12-17"},
       {"wheelchair", "no"},
+      {"internet_access", "wlan"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
 
-    TEST_EQUAL(params.m_types.size(), 2, (params));
-    TEST(params.IsTypeExist(GetType({"building", "address"})), ());
+    TEST_EQUAL(params.m_types.size(), 4, (params));
+    TEST(params.IsTypeExist(addrType), ());
+    TEST(params.IsTypeExist(GetType({"entrance", "main"})), ());
     TEST(params.IsTypeExist(GetType({"wheelchair", "no"})), ());
-    TEST(!params.IsTypeExist(GetType({"entrance"})), ());
+    TEST(params.IsTypeExist(GetType({"internet_access", "wlan"})), ());
 
     TEST_EQUAL(params.house.Get(), "41", ());
     TEST_EQUAL(params.GetAddressData().Get(AddrType::Street), "Leutschenbachstrasse", ());
