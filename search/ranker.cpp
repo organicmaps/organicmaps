@@ -51,8 +51,7 @@ void UpdateNameScores(string_view name, uint8_t lang, Slice const & slice, NameS
 }
 
 template <typename Slice>
-void UpdateNameScores(vector<strings::UniString> const & tokens, uint8_t lang, Slice const & slice,
-                      NameScores & bestScores)
+void UpdateNameScores(TokensVector & tokens, uint8_t lang, Slice const & slice, NameScores & bestScores)
 {
   bestScores.UpdateIfBetter(GetNameScores(tokens, lang, slice));
 }
@@ -110,21 +109,19 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
     if (name.empty())
       continue;
 
-    auto const updateScore = [&](string_view n)
+    auto const updateScore = [&](string_view name)
     {
-      vector<strings::UniString> t;
-      PrepareStringForMatching(n, t);
-
-      UpdateNameScores(t, lang, slice, bestScores);
-      UpdateNameScores(t, lang, sliceNoCategories, bestScores);
+      TokensVector vec(name);
+      UpdateNameScores(vec, lang, slice, bestScores);
+      UpdateNameScores(vec, lang, sliceNoCategories, bestScores);
 
       if (type == Model::TYPE_STREET)
       {
-        auto const variants = ModifyStrasse(t);
-        for (auto const & variant : variants)
+        for (auto & variant : ModifyStrasse(vec.GetTokens()))
         {
-          UpdateNameScores(variant, lang, slice, bestScores);
-          UpdateNameScores(variant, lang, sliceNoCategories, bestScores);
+          TokensVector vec(std::move(variant));
+          UpdateNameScores(vec, lang, slice, bestScores);
+          UpdateNameScores(vec, lang, sliceNoCategories, bestScores);
         }
       }
     };

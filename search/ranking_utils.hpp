@@ -97,8 +97,11 @@ namespace impl
 {
 // Returns the minimum number of errors needed to match |text| with |token|.
 // If it's not possible in accordance with GetMaxErrorsForToken(|text|), returns kInfiniteErrors.
-ErrorsMade GetErrorsMade(QueryParams::Token const & token, strings::UniString const & text);
-ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token, strings::UniString const & text);
+/// @param[in]  dfa DFA for |text|
+ErrorsMade GetErrorsMade(QueryParams::Token const & token,
+                         strings::UniString const & text, strings::LevenshteinDFA const & dfa);
+ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token,
+                               strings::UniString const & text, strings::LevenshteinDFA const & dfa);
 }  // namespace impl
 
 // The order and numeric values are important here. Please, check all use-cases before changing this enum.
@@ -165,20 +168,48 @@ std::string DebugPrint(NameScores const & scores);
 // Returns true when |s| is a stop-word and may be removed from a query.
 bool IsStopWord(strings::UniString const & s);
 
-// Normalizes, simplifies and splits string, removes stop-words.
-void PrepareStringForMatching(std::string_view name, std::vector<strings::UniString> & tokens);
+
+class TokensVector
+{
+  std::vector<strings::UniString> m_tokens;
+  std::vector<strings::LevenshteinDFA> m_dfas;
+
+private:
+  void Init()
+  {
+    m_dfas.resize(m_tokens.size());
+  }
+
+public:
+  TokensVector() = default;
+  explicit TokensVector(std::string_view name);
+  explicit TokensVector(std::vector<strings::UniString> && tokens) : m_tokens(std::move(tokens))
+  {
+    Init();
+  }
+
+  std::vector<strings::UniString> const & GetTokens() { return m_tokens; }
+  size_t Size() const { return m_tokens.size(); }
+  strings::UniString const & Token(size_t i) const { return m_tokens[i]; }
+  strings::LevenshteinDFA const & DFA(size_t i)
+  {
+    if (m_dfas[i].IsEmpty())
+      m_dfas[i] = BuildLevenshteinDFA(m_tokens[i]);
+    return m_dfas[i];
+  }
+};
+
 
 /// @param[in]  tokens  Feature's name (splitted on tokens, without delimiters) to match.
 /// @param[in]  slice   Input query.
 template <typename Slice>
-NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t lang,
-                         Slice const & slice)
+NameScores GetNameScores(TokensVector & tokens, uint8_t lang, Slice const & slice)
 {
   if (slice.Empty())
     return {};
 
   NameScores scores;
-  size_t const tokenCount = tokens.size();
+  size_t const tokenCount = tokens.Size();
   size_t const sliceCount = slice.Size();
 
   // Try matching words between token and slice, iterating over offsets.
@@ -233,16 +264,16 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t
     for (size_t i = std::max(0, int(offset) + 1 - int(tokenCount));
                 i < std::min(sliceCount, offset + 1); ++i)
     {
-      size_t const tokenIndex = i + tokenCount - 1 - offset;
+      size_t const tIdx = i + tokenCount - 1 - offset;
 
       // Count the errors. If GetErrorsMade finds a match, count it towards
       // the matched length and check against the prior best.
-      auto errorsMade = impl::GetErrorsMade(slice.Get(i), tokens[tokenIndex]);
+      auto errorsMade = impl::GetErrorsMade(slice.Get(i), tokens.Token(tIdx), tokens.DFA(tIdx));
 
       // Also, check like prefix, if we've got token-like matching errors.
       if (!errorsMade.IsZero() && slice.IsPrefix(i))
       {
-        auto const prefixErrors = impl::GetPrefixErrorsMade(slice.Get(i), tokens[tokenIndex]);
+        auto const prefixErrors = impl::GetPrefixErrorsMade(slice.Get(i), tokens.Token(tIdx), tokens.DFA(tIdx));
         if (prefixErrors.IsBetterThan(errorsMade))
         {
           // NAME_SCORE_PREFIX with less errors is better than NAME_SCORE_FULL_MATCH.
@@ -295,6 +326,7 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t
 template <typename Slice>
 NameScores GetNameScores(std::string_view name, uint8_t lang, Slice const & slice)
 {
-  return GetNameScores(NormalizeAndTokenizeString(name), lang, slice);
+  TokensVector tokens(name);
+  return GetNameScores(tokens, lang, slice);
 }
 }  // namespace search

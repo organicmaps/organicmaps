@@ -73,12 +73,12 @@ public:
     bool m_accepts;
   };
 
-  explicit PrefixDFAModifier(DFA const & dfa) : m_dfa(dfa) {}
+  explicit PrefixDFAModifier(DFA && dfa) : m_dfa(std::move(dfa)) {}
 
   Iterator Begin() const { return Iterator(m_dfa.Begin()); }
 
 private:
-  DFA const m_dfa;
+  DFA m_dfa;
 };
 
 template <typename DFAIt, typename It>
