@@ -286,6 +286,8 @@ public:
 
     if (skipIndex.SkipAlways(types))
       return;
+    if (skipIndex.SkipSpecialNames(types, f.GetName(StringUtf8Multilang::kDefaultCode)))
+      return;
 
     auto const isCountryOrState = [](auto types)
     {
