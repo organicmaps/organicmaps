@@ -3000,14 +3000,14 @@ cont {
     scale: 18
     symbol {
       name: "bench"
-      priority: 30
+      priority: -9980
     }
   }
   element {
     scale: 19
     symbol {
       name: "bench"
-      priority: 30
+      priority: -9980
     }
     caption {
       primary {
@@ -3016,7 +3016,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9970
+      priority: -10000
     }
   }
 }
@@ -5849,7 +5849,7 @@ cont {
     scale: 18
     symbol {
       name: "entrance-s"
-      priority: 10
+      priority: -10000
     }
     caption {
       primary {
@@ -5859,14 +5859,14 @@ cont {
         text: "ref"
         is_optional: true
       }
-      priority: -9990
+      priority: -10000
     }
   }
   element {
     scale: 19
     symbol {
       name: "entrance-s"
-      priority: 10
+      priority: -10000
     }
     caption {
       primary {
@@ -5876,7 +5876,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9990
+      priority: -10000
     }
   }
 }
@@ -7054,7 +7054,7 @@ cont {
         color: 5592405
         offset_y: 1
       }
-      priority: 40
+      priority: -9970
     }
   }
 }
@@ -7064,14 +7064,14 @@ cont {
     scale: 18
     symbol {
       name: "parking-disabled-m"
-      priority: 40
+      priority: -9970
     }
   }
   element {
     scale: 19
     symbol {
       name: "parking-disabled-m"
-      priority: 40
+      priority: -9970
     }
     caption {
       primary {
@@ -7080,7 +7080,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9960
+      priority: -10000
     }
   }
 }
@@ -7094,7 +7094,7 @@ cont {
         color: 5592405
         offset_y: 1
       }
-      priority: 40
+      priority: -9970
     }
   }
 }
@@ -7108,7 +7108,7 @@ cont {
         color: 5592405
         offset_y: 1
       }
-      priority: 40
+      priority: -9970
     }
   }
 }
@@ -7122,7 +7122,7 @@ cont {
         color: 5592405
         offset_y: 1
       }
-      priority: 40
+      priority: -9970
     }
   }
 }
@@ -9048,21 +9048,21 @@ cont {
     scale: 17
     symbol {
       name: "phone-m"
-      priority: 1200
+      priority: -9960
     }
   }
   element {
     scale: 18
     symbol {
       name: "phone-m"
-      priority: 1200
+      priority: -9960
     }
   }
   element {
     scale: 19
     symbol {
       name: "phone-m"
-      priority: 1200
+      priority: -9960
     }
     caption {
       primary {
@@ -9071,7 +9071,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -8800
+      priority: -10000
     }
   }
 }
@@ -9461,7 +9461,7 @@ cont {
     scale: 18
     symbol {
       name: "vending-m"
-      priority: 40
+      priority: -9970
     }
     caption {
       primary {
@@ -9470,14 +9470,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9960
+      priority: -10000
     }
   }
   element {
     scale: 19
     symbol {
       name: "vending-m"
-      priority: 40
+      priority: -9970
     }
     caption {
       primary {
@@ -9486,7 +9486,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9960
+      priority: -10000
     }
   }
 }
@@ -9496,7 +9496,7 @@ cont {
     scale: 18
     symbol {
       name: "vending-m"
-      priority: 40
+      priority: -9970
     }
     caption {
       primary {
@@ -9505,14 +9505,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9960
+      priority: -10000
     }
   }
   element {
     scale: 19
     symbol {
       name: "vending-m"
-      priority: 40
+      priority: -9970
     }
     caption {
       primary {
@@ -9521,7 +9521,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9960
+      priority: -10000
     }
   }
 }
@@ -9531,7 +9531,7 @@ cont {
     scale: 18
     symbol {
       name: "vending-m"
-      priority: 40
+      priority: -9970
     }
     caption {
       primary {
@@ -9540,14 +9540,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9960
+      priority: -10000
     }
   }
   element {
     scale: 19
     symbol {
       name: "vending-m"
-      priority: 40
+      priority: -9970
     }
     caption {
       primary {
@@ -9556,7 +9556,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9960
+      priority: -10000
     }
   }
 }
@@ -9566,7 +9566,7 @@ cont {
     scale: 18
     symbol {
       name: "vending-m"
-      priority: 40
+      priority: -9970
     }
     caption {
       primary {
@@ -9575,14 +9575,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9960
+      priority: -10000
     }
   }
   element {
     scale: 19
     symbol {
       name: "vending-m"
-      priority: 40
+      priority: -9970
     }
     caption {
       primary {
@@ -9591,7 +9591,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9960
+      priority: -10000
     }
   }
 }
@@ -9601,7 +9601,7 @@ cont {
     scale: 18
     symbol {
       name: "vending-m"
-      priority: 40
+      priority: -9970
     }
     caption {
       primary {
@@ -9610,14 +9610,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9960
+      priority: -10000
     }
   }
   element {
     scale: 19
     symbol {
       name: "vending-m"
-      priority: 40
+      priority: -9970
     }
     caption {
       primary {
@@ -9626,7 +9626,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9960
+      priority: -10000
     }
   }
 }
@@ -9636,7 +9636,7 @@ cont {
     scale: 18
     symbol {
       name: "vending-m"
-      priority: 40
+      priority: -9970
     }
     caption {
       primary {
@@ -9645,14 +9645,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9960
+      priority: -10000
     }
   }
   element {
     scale: 19
     symbol {
       name: "vending-m"
-      priority: 40
+      priority: -9970
     }
     caption {
       primary {
@@ -9661,7 +9661,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9960
+      priority: -10000
     }
   }
 }
@@ -9671,7 +9671,7 @@ cont {
     scale: 18
     symbol {
       name: "vending-m"
-      priority: 40
+      priority: -9970
     }
     caption {
       primary {
@@ -9680,14 +9680,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9960
+      priority: -10000
     }
   }
   element {
     scale: 19
     symbol {
       name: "vending-m"
-      priority: 40
+      priority: -9970
     }
     caption {
       primary {
@@ -9696,7 +9696,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9960
+      priority: -10000
     }
   }
 }
@@ -9741,7 +9741,7 @@ cont {
     scale: 18
     symbol {
       name: "vending-m"
-      priority: 40
+      priority: -9970
     }
     caption {
       primary {
@@ -9750,14 +9750,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9960
+      priority: -10000
     }
   }
   element {
     scale: 19
     symbol {
       name: "vending-m"
-      priority: 40
+      priority: -9970
     }
     caption {
       primary {
@@ -9766,7 +9766,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9960
+      priority: -10000
     }
   }
 }
@@ -9878,7 +9878,7 @@ cont {
     scale: 18
     symbol {
       name: "vending-m"
-      priority: 40
+      priority: -9970
     }
     caption {
       primary {
@@ -9887,14 +9887,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9960
+      priority: -10000
     }
   }
   element {
     scale: 19
     symbol {
       name: "vending-m"
-      priority: 40
+      priority: -9970
     }
     caption {
       primary {
@@ -9903,7 +9903,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9960
+      priority: -10000
     }
   }
 }
@@ -9980,14 +9980,14 @@ cont {
     scale: 18
     symbol {
       name: "waste-basket-s"
-      priority: 20
+      priority: -9990
     }
   }
   element {
     scale: 19
     symbol {
       name: "waste-basket-s"
-      priority: 20
+      priority: -9990
     }
     caption {
       primary {
@@ -9996,7 +9996,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9980
+      priority: -10000
     }
   }
 }
@@ -10006,7 +10006,7 @@ cont {
     scale: 18
     symbol {
       name: "waste-basket-m"
-      priority: 30
+      priority: -9980
     }
     caption {
       primary {
@@ -10015,14 +10015,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9970
+      priority: -10000
     }
   }
   element {
     scale: 19
     symbol {
       name: "waste-basket-m"
-      priority: 30
+      priority: -9980
     }
     caption {
       primary {
@@ -10031,7 +10031,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9970
+      priority: -10000
     }
   }
 }
@@ -14584,7 +14584,7 @@ cont {
     scale: 18
     symbol {
       name: "defibrillator-m"
-      priority: 30
+      priority: -9980
     }
     caption {
       primary {
@@ -14593,14 +14593,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9970
+      priority: -10000
     }
   }
   element {
     scale: 19
     symbol {
       name: "defibrillator-m"
-      priority: 30
+      priority: -9980
     }
     caption {
       primary {
@@ -14609,7 +14609,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9970
+      priority: -10000
     }
   }
 }
@@ -14619,7 +14619,7 @@ cont {
     scale: 18
     symbol {
       name: "firehydrant-m"
-      priority: 20
+      priority: -9990
     }
     caption {
       primary {
@@ -14628,14 +14628,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9980
+      priority: -10000
     }
   }
   element {
     scale: 19
     symbol {
       name: "firehydrant-m"
-      priority: 20
+      priority: -9990
     }
     caption {
       primary {
@@ -14644,7 +14644,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9980
+      priority: -10000
     }
   }
 }
@@ -14654,21 +14654,21 @@ cont {
     scale: 17
     symbol {
       name: "emergency-phone-m"
-      priority: 1200
+      priority: -9980
     }
   }
   element {
     scale: 18
     symbol {
       name: "emergency-phone-m"
-      priority: 1200
+      priority: -9980
     }
   }
   element {
     scale: 19
     symbol {
       name: "emergency-phone-m"
-      priority: 1200
+      priority: -9980
     }
   }
 }
@@ -14678,7 +14678,7 @@ cont {
     scale: 19
     symbol {
       name: "entrance-s"
-      priority: 50
+      priority: -9960
     }
     caption {
       primary {
@@ -14694,7 +14694,7 @@ cont {
         text: "addr:flats"
         is_optional: true
       }
-      priority: -9950
+      priority: -10000
     }
   }
 }
@@ -14704,7 +14704,7 @@ cont {
     scale: 18
     symbol {
       name: "exit-s"
-      priority: 10
+      priority: -10000
     }
     caption {
       primary {
@@ -14714,14 +14714,14 @@ cont {
         text: "ref"
         is_optional: true
       }
-      priority: -9990
+      priority: -10000
     }
   }
   element {
     scale: 19
     symbol {
       name: "exit-s"
-      priority: 10
+      priority: -10000
     }
     caption {
       primary {
@@ -14737,7 +14737,7 @@ cont {
         text: "addr:flats"
         is_optional: true
       }
-      priority: -9990
+      priority: -10000
     }
   }
 }
@@ -43599,7 +43599,7 @@ cont {
     scale: 16
     symbol {
       name: "survey_point-m"
-      priority: 2850
+      priority: -9950
     }
     caption {
       primary {
@@ -43608,14 +43608,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -7150
+      priority: -10000
     }
   }
   element {
     scale: 17
     symbol {
       name: "survey_point-m"
-      priority: 2850
+      priority: -9950
     }
     caption {
       primary {
@@ -43624,14 +43624,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -7150
+      priority: -10000
     }
   }
   element {
     scale: 18
     symbol {
       name: "survey_point-m"
-      priority: 2850
+      priority: -9950
     }
     caption {
       primary {
@@ -43640,14 +43640,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -7150
+      priority: -10000
     }
   }
   element {
     scale: 19
     symbol {
       name: "survey_point-m"
-      priority: 2850
+      priority: -9950
     }
     caption {
       primary {
@@ -43656,7 +43656,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -7150
+      priority: -10000
     }
   }
 }
@@ -56216,7 +56216,7 @@ cont {
     scale: 19
     symbol {
       name: "power-m"
-      priority: 20
+      priority: -9990
     }
     caption {
       primary {
@@ -56225,7 +56225,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9980
+      priority: -10000
     }
   }
 }
@@ -101240,7 +101240,7 @@ cont {
     scale: 16
     symbol {
       name: "board"
-      priority: 2850
+      priority: -9950
       min_distance: 10
     }
     caption {
@@ -101250,14 +101250,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -7150
+      priority: -10000
     }
   }
   element {
     scale: 17
     symbol {
       name: "board"
-      priority: 2850
+      priority: -9950
       min_distance: 10
     }
     caption {
@@ -101267,14 +101267,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -7150
+      priority: -10000
     }
   }
   element {
     scale: 18
     symbol {
       name: "board"
-      priority: 2850
+      priority: -9950
       min_distance: 10
     }
     caption {
@@ -101284,14 +101284,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -7150
+      priority: -10000
     }
   }
   element {
     scale: 19
     symbol {
       name: "board"
-      priority: 2850
+      priority: -9950
       min_distance: 10
     }
     caption {
@@ -101301,7 +101301,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -7150
+      priority: -10000
     }
   }
 }
@@ -101311,7 +101311,7 @@ cont {
     scale: 16
     symbol {
       name: "guidepost"
-      priority: 2850
+      priority: -9950
       min_distance: 10
     }
     caption {
@@ -101321,14 +101321,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -7150
+      priority: -10000
     }
   }
   element {
     scale: 17
     symbol {
       name: "guidepost"
-      priority: 2850
+      priority: -9950
       min_distance: 10
     }
     caption {
@@ -101338,14 +101338,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -7150
+      priority: -10000
     }
   }
   element {
     scale: 18
     symbol {
       name: "guidepost"
-      priority: 2850
+      priority: -9950
       min_distance: 10
     }
     caption {
@@ -101355,14 +101355,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -7150
+      priority: -10000
     }
   }
   element {
     scale: 19
     symbol {
       name: "guidepost"
-      priority: 2850
+      priority: -9950
       min_distance: 10
     }
     caption {
@@ -101372,7 +101372,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -7150
+      priority: -10000
     }
   }
 }
@@ -101382,7 +101382,7 @@ cont {
     scale: 16
     symbol {
       name: "map"
-      priority: 2850
+      priority: -9950
       min_distance: 10
     }
     caption {
@@ -101392,14 +101392,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -7150
+      priority: -10000
     }
   }
   element {
     scale: 17
     symbol {
       name: "map"
-      priority: 2850
+      priority: -9950
       min_distance: 10
     }
     caption {
@@ -101409,14 +101409,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -7150
+      priority: -10000
     }
   }
   element {
     scale: 18
     symbol {
       name: "map"
-      priority: 2850
+      priority: -9950
       min_distance: 10
     }
     caption {
@@ -101426,14 +101426,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -7150
+      priority: -10000
     }
   }
   element {
     scale: 19
     symbol {
       name: "map"
-      priority: 2850
+      priority: -9950
       min_distance: 10
     }
     caption {
@@ -101443,7 +101443,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -7150
+      priority: -10000
     }
   }
 }
