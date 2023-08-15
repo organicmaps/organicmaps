@@ -1,5 +1,6 @@
 # This file is automatically re-formatted and re-sorted in priorities descending order
-# when generate_drules.sh is run. Custom formatting and comments are not preserved.
+# when generate_drules.sh is run. All comments (automatic priorities of e.g. optional captions, drule types visibilities, etc.)
+# are generated automatically for information only. Custom formatting and comments are not preserved.
 #
 # BG-top geometry: background lines and areas that should be always below foreground ones
 # (including e.g. layer=-10 underwater tunnels), but above background areas sorted by size (BG-by-size),
@@ -27,7 +28,7 @@ natural-water-reservoir                             # area z1- (also has caption
 natural-water-river                                 # area z1- (also has caption z10-)
 natural-water-tunnel                                # area z15-
 waterway-dock                                       # area z1-
-waterway-riverbank                                  # area z1- and line z10- (also has pathtext z11-)
+waterway-riverbank                                  # line z10- and area z1- (also has pathtext z11-)
 === 20
 
 natural-strait                                      # line z13- (also has caption z13-)
