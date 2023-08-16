@@ -1,13 +1,11 @@
-• Neue OSM-Daten vom 10. Juli 2023
-• Abstürze behoben
-• Unterstützung für Farben in importierten Tracks
-• Verbesserte ETA bei starken Steigungen zu Fuß
-• Besseres Routing für Autos
-• Verbesserte Suche
-• Teilen-Knopf ist jetzt auf der Place Page
-• Bessere Übersetzung
-• Neue Shops, Veranstaltungsorte und Schutzgebiete hinzugefügt
-• Bessere Darstellung von Unterwassertunneln und Brücken
-• Detailliertere Bahnstreckentypen
+• Neue OpenStreetMap-Daten ab dem 14. August
+• Neue Wikipedia-Artikel
+• Suche nach Adressen in Tschechien und der Slowakei korrigiert
+• Fehlende Isolinien für einige Regionen in Argentinien, Chile, Kasachstan, Tibet, USA und Russland hinzugefügt
+• Fehler auf dem Nexus 5X behoben
+• Fährenrouten zur Weltkarte hinzugefügt
+• Parkplatz-Symbole neu gestaltet
+• Überarbeitetes Prioritätensystem für POIs
+• Verbesserte Suche und Routenplanung
 
-…mehr: omaps.org/news
+Mehr Details: omaps.org/de/news

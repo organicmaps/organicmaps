@@ -1,11 +1,13 @@
-• Нові дані OSM станом на 10 липня 2023 р.
-• Виправлено декілька падінь
-• Імпортовані GPX треки зараз підтримують висоти та кольорові схеми OSMand та Garmin
-• Виправлення оцінки часу для пішоходних маршрутів із великим нахилом
-• Покращення пошукових результатів
-• Кнопка "Поділитись" перенесена до спливаючої панелі
-• Оновлення перекладів
-• Додано нові магазини та місця проведення заходів
-• Більш деталізовані типи залізничних доріг
+• New OpenStreetMap data as of August 14
+• Fresh Wikipedia articles
+• Fixed search for addresses in Czech and Slovakia
+• Added missing isolines for some regions of Argentina, Chile, Kazakhstan, Tibet, USA, Russia
+• More dense isolines in some areas
+• Fixed bug on Nexus 5X
+• Added ferry routes to the World map
+• Redesigned parking icons
+• Revamped priorities system for POIs
+• Many other smaller enhancements and bug fixes
+• Faster, improved search and routing
 
-https://omaps.org/news
+…more: omaps.org/news
