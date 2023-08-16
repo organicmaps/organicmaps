@@ -776,6 +776,28 @@ UNIT_CLASS_TEST(MwmTestsFixture, ToiletAirport)
   }
 }
 
+UNIT_CLASS_TEST(MwmTestsFixture, WaterTap)
+{
+  // UK, Christchurch
+  ms::LatLon const center(50.744914, -1.787959);
+  SetViewportAndLoadMaps(center);
+
+  for (bool const isCategory : {false, true})
+  {
+    auto params = GetDefaultSearchParams("water tap ");
+    params.m_categorialRequest = isCategory;
+
+    auto request = MakeRequest(params);
+    auto const & results = request->Results();
+    TEST_GREATER_OR_EQUAL(results.size(), kTopPoiResultsCount, ());
+
+    Range const range(results);
+    EqualClassifType(range, GetClassifTypes({{"man_made", "water_tap"}}));
+    double const dist = SortedByDistance(range, center);
+    TEST_LESS(dist, 3500, ());
+  }
+}
+
 UNIT_CLASS_TEST(MwmTestsFixture, BA_LasHeras)
 {
   // Buenos Aires (Palermo)

@@ -190,15 +190,18 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
 {
   auto const & cl = classif();
 
-  // todo(@t.yan): fix some or delete category.
-  base::StringIL const invisibleAsPointTags[] = {
+  /// @todo Should rewrite test
+  base::StringIL const arrNotPoint[] = {
+      // Area types without suitable point drawing rules.
+      {"area:highway", "steps"},
+      {"landuse", "basin"},
+      {"natural", "glacier"},
+
+      // Linear types.
       {"waterway", "canal"},
       {"waterway", "river"},
       {"waterway", "riverbank"},
       {"waterway", "stream"},
-      {"landuse", "basin"},
-      {"place", "county"},
-      {"place", "islet"},
       {"highway", "footway"},
       {"highway", "cycleway"},
       {"highway", "living_street"},
@@ -215,7 +218,6 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
       {"highway", "secondary_link"},
       {"highway", "service"},
       {"highway", "steps"},
-      {"area:highway", "steps"},
       {"highway", "tertiary"},
       {"highway", "tertiary_link"},
       {"highway", "track"},
@@ -223,28 +225,65 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
       {"highway", "trunk"},
       {"highway", "trunk_link"},
       {"highway", "unclassified"},
-      {"man_made", "tower"},
-      {"man_made", "water_tower"},
-      {"man_made", "water_well"},
-      {"natural", "glacier"},
-      {"natural", "water", "pond"},
-      {"natural", "tree"},
-
-      /// @todo Not a point feature. Should rewrite test.
       {"historic", "citywalls"},
   };
+  set<uint32_t> notPointTypes;
+  for (auto const & tags : arrNotPoint)
+    notPointTypes.insert(cl.GetTypeByPath(tags));
+
+  // No point drawing rules for country scale range.
+  base::StringIL const arrInvisible[] = {
+      {"man_made", "tower"},
+      {"man_made", "water_tower"},
+      {"natural", "tree"},
+
+      {"place", "continent"},
+      {"place", "county"},
+      {"place", "region"},
+  };
   set<uint32_t> invisibleTypes;
-  for (auto const & tags : invisibleAsPointTags)
+  for (auto const & tags : arrInvisible)
     invisibleTypes.insert(cl.GetTypeByPath(tags));
 
-  base::StringIL const notSupportedTags[] = {
-      // Not visible for country scale range.
-      {"place", "continent"},
-      {"place", "region"}
+  // Not indexed types for Features with empty names.
+  base::StringIL const arrNoEmptyNames[] = {
+      {"area:highway"},
+      {"building"},
+      {"highway", "motorway_junction"},
+      {"landuse"},
+      {"man_made", "chimney"},
+      {"man_made", "tower"},
+      {"natural"},
+      {"office"},
+      {"place"},
+      {"waterway"},
+
+      /// @todo Controversial here.
+      /// Don't have point drawing rules except text -> type will be removed for Feature with empty name.
+      {"amenity", "public_bookcase"},
+      {"building", "train_station"},
+      {"leisure", "track"},
+      {"natural", "beach"},
   };
-  set<uint32_t> notSupportedTypes;
-  for (auto const & tags : notSupportedTags)
-    notSupportedTypes.insert(cl.GetTypeByPath(tags));
+  set<uint32_t> noEmptyNames;
+  for (auto const & tags : arrNoEmptyNames)
+    noEmptyNames.insert(cl.GetTypeByPath(tags));
+
+  uint32_t const commTower = cl.GetTypeByPath({"man_made", "tower", "communication"});
+  search::TwoLevelPOIChecker isPoi;
+  auto const isNoEmptyName = [commTower, &isPoi, &noEmptyNames](uint32_t t)
+  {
+    if (t != commTower)
+      ftype::TruncValue(t, 2);
+    if (noEmptyNames.count(t) > 0)
+      return true;
+
+    if (isPoi(t))
+      return false;
+
+    ftype::TruncValue(t, 1);
+    return (noEmptyNames.count(t) > 0);
+  };
 
   auto const & holder = GetDefaultCategories();
 
@@ -252,27 +291,50 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
 
   auto testCategory = [&](uint32_t type, CategoriesHolder::Category const &)
   {
-    if (invisibleTypes.count(type) > 0)
+    if (notPointTypes.count(type) > 0)
       return;
 
-    bool categoryIsSearchable = true;
-    if (notSupportedTypes.count(type) > 0)
-      categoryIsSearchable = false;
+    size_t resultIdx = 2;
+    if (invisibleTypes.count(type) == 0)
+    {
+      if (isNoEmptyName(type))
+        resultIdx = 1;
+      else
+        resultIdx = 0;
+    }
 
     string const countryName = "Wonderland";
 
-    TestPOI poi({1.0, 1.0}, "poi", "en");
+    TestPOI withName({1.0, 1.0}, "The Name", "en");
     if (IsCategoryNondrawableType(type))
-      poi.SetTypes({type, cafeType});
+      withName.SetTypes({type, cafeType});
     else
-      poi.SetTypes({type});
+      withName.SetTypes({type});
 
-    auto id = BuildMwm(countryName, DataHeader::MapType::Country,
-                       [&](TestMwmBuilder & builder) { builder.AddSafe(poi); });
+    TestPOI withoutName({2.0, 2.0}, "", "");
+    if (IsCategoryNondrawableType(type))
+      withoutName.SetTypes({type, cafeType});
+    else
+      withoutName.SetTypes({type});
 
-    Rules rules = {ExactMatch(id, poi)};
+    auto id = BuildMwm(countryName, DataHeader::MapType::Country, [&](TestMwmBuilder & builder)
+    {
+      builder.AddSafe(withName);
+      builder.AddSafe(withoutName);
+    });
+
+    Rules const rules[] = {
+      {ExactMatch(id, withName), ExactMatch(id, withoutName)},
+      {ExactMatch(id, withName)},
+      {}
+    };
     auto const query = holder.GetReadableFeatureType(type, CategoriesHolder::kEnglishCode);
-    TEST(CategoryMatch(query, categoryIsSearchable ? rules : Rules{}), (query, cl.GetReadableObjectName(type)));
+
+    // If you have "Unsatisfied rules" error, consider:
+    // - adding type to POIs here TwoLevelPOIChecker or
+    // - review TypesSkipper or
+    // - adding type to |arrNoEmptyNames| or |arrInvisible|
+    TEST(CategoryMatch(query, rules[resultIdx]), (query, cl.GetReadableObjectName(type)));
 
     DeregisterMap(countryName);
   };
