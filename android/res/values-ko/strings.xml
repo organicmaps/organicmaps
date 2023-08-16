@@ -808,6 +808,7 @@
 	<string name="type.amenity.school">학교</string>
 	<string name="type.amenity.shelter">대피소</string>
 	<string name="type.amenity.shower">샤워시설</string>
+	<string name="type.amenity.stripclub">스트립클럽</string>
 	<string name="type.amenity.taxi">택시</string>
 	<string name="type.amenity.telephone">전화</string>
 	<string name="type.amenity.theatre">연극</string>

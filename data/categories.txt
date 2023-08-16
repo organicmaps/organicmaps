@@ -6133,7 +6133,6 @@ id:Klub telanjang
 it:Stripclub
 ja:ストリップクラブ
 ko:스트립클럽
-lt:Stripklubas
 mr:स्ट्रिपक्लब
 nb:Stripklubb
 nl:Stripclub

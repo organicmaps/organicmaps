@@ -1518,6 +1518,8 @@
 
 "type.amenity.shower" = "Prysznic";
 
+"type.amenity.stripclub" = "Klub ze striptizem";
+
 "type.amenity.taxi" = "Taksówka";
 
 "type.amenity.telephone" = "Telefon";

@@ -1518,6 +1518,8 @@
 
 "type.amenity.shower" = "Ντους";
 
+"type.amenity.stripclub" = "Stripclub";
+
 "type.amenity.taxi" = "Ταξί";
 
 "type.amenity.telephone" = "Τηλέφωνο";

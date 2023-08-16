@@ -1518,6 +1518,8 @@
 
 "type.amenity.shower" = "Duş";
 
+"type.amenity.stripclub" = "Striptiz kulübü";
+
 "type.amenity.taxi" = "Taksi";
 
 "type.amenity.telephone" = "Telefon";

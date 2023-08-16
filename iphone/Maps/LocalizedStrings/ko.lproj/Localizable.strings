@@ -1518,6 +1518,8 @@
 
 "type.amenity.shower" = "샤워시설";
 
+"type.amenity.stripclub" = "스트립클럽";
+
 "type.amenity.taxi" = "택시";
 
 "type.amenity.telephone" = "전화";

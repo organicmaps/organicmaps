@@ -809,6 +809,7 @@
 	<string name="type.amenity.school">Σχολείο</string>
 	<string name="type.amenity.shelter">Καταφύγιο</string>
 	<string name="type.amenity.shower">Ντους</string>
+	<string name="type.amenity.stripclub">Stripclub</string>
 	<string name="type.amenity.taxi">Ταξί</string>
 	<string name="type.amenity.telephone">Τηλέφωνο</string>
 	<string name="type.amenity.theatre">Θέατρο</string>

@@ -1518,6 +1518,8 @@
 
 "type.amenity.shower" = "Ducha";
 
+"type.amenity.stripclub" = "Club de striptease";
+
 "type.amenity.taxi" = "Taxi";
 
 "type.amenity.telephone" = "Teléfono";
