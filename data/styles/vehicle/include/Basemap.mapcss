@@ -193,8 +193,6 @@ line|z10-[waterway=river],
 line|z10-[waterway=riverbank],
 line|z13-[waterway=stream],
 line|z13-[waterway=canal],
-line|z17-[waterway=ditch],
-line|z17-[waterway=drain],
 line|z13-[natural=strait],
 {opacity: 1; color: @river;}
 
@@ -208,6 +206,16 @@ area|z12-[landuse=basin],
 area|z12-[landuse=reservoir],
 area|z13-[leisure=swimming_pool],
 {fill-color: @water;}
+
+area|z0-[natural=water][water=ditch],
+area|z0-[natural=water][water=drain],
+area|z0-[natural=water][water=wastewater],
+{fill-color: none;}
+
+area|z13-[natural=water][water=ditch],
+area|z13-[natural=water][water=drain],
+area|z12-[natural=water][water=wastewater],
+{fill-color: @water_bad;fill-opacity: 1;}
 
 area|z11-[natural=wetland],
 {fill-color: @wetland;fill-opacity: 1;}
@@ -255,10 +263,12 @@ line|z15-[waterway=stream][intermittent=yes]
 node|z16-[waterway=lock_gate],
 {icon-image: dot-m.svg;}
 
-line|z17-[waterway=ditch],
-line|z17-[barrier=ditch],
-line|z17-[waterway=drain],
-{width: 1.8;opacity: 1;color: @river;dashes: 0.9,0.9;}
+line|z13-[waterway=ditch],
+line|z13-[waterway=drain],
+{opacity: 1; color: @water_bad; width: 1.5; dashes: 2.7,2.7;}
+line|z16-[waterway=ditch],
+line|z16-[waterway=drain],
+{width: 3;}
 
 /* Do not draw tunnel waterways */
 
@@ -497,6 +507,10 @@ line|z18[natural=earth_bank],
 line|z19-[natural=cliff],
 line|z19-[natural=earth_bank],
 {width: 7.4; dashes: 3.5,5,6,1.4; opacity: 0.6;}
+
+
+line|z17-[barrier=ditch],
+{width: 1.8;opacity: 1;color: @cliff;dashes: 0.9,0.9;}
 
 
 line|z17-[barrier=retaining_wall],

@@ -91,6 +91,7 @@
 /* NATURAL */
 @glacier: #FFFFFF;
 @water: #8BD3E0;
+@water_bad: #9dc7c1;
 /*@water_1: #9AD2D9;*/
 @river: #36B0BF;
 /*@river_1: #9AD2D9;*/
