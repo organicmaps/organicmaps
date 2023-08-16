@@ -805,6 +805,7 @@
 	<string name="type.amenity.school">Škola</string>
 	<string name="type.amenity.shelter">Prístrešok</string>
 	<string name="type.amenity.shower">Sprcha</string>
+	<string name="type.amenity.stripclub">Stripclub</string>
 	<string name="type.amenity.telephone">Telefón</string>
 	<string name="type.amenity.theatre">Divadlo</string>
 	<string name="type.amenity.toilets">Záchody</string>

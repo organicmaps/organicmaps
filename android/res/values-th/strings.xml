@@ -809,6 +809,7 @@
 	<string name="type.amenity.school">โรงเรียน</string>
 	<string name="type.amenity.shelter">ที่อยู่อาศัย</string>
 	<string name="type.amenity.shower">ฝักบัวอาบน้ำ</string>
+	<string name="type.amenity.stripclub">สตริปคลับ</string>
 	<string name="type.amenity.taxi">แท็กซี่</string>
 	<string name="type.amenity.telephone">โทรศัพท์</string>
 	<string name="type.amenity.theatre">โรงละคร</string>

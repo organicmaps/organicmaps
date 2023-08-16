@@ -1518,6 +1518,8 @@
 
 "type.amenity.shower" = "Shower";
 
+"type.amenity.stripclub" = "Stripclub";
+
 "type.amenity.taxi" = "Taxi Rank";
 
 "type.amenity.telephone" = "Phone";

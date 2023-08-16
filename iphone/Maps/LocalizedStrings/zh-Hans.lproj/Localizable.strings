@@ -1518,6 +1518,8 @@
 
 "type.amenity.shower" = "淋浴间";
 
+"type.amenity.stripclub" = "脱衣舞俱乐部";
+
 "type.amenity.taxi" = "出租车";
 
 "type.amenity.telephone" = "电话";

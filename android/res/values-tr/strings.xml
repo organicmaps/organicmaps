@@ -881,6 +881,7 @@
 	<string name="type.amenity.school">Okul</string>
 	<string name="type.amenity.shelter">Barınak</string>
 	<string name="type.amenity.shower">Duş</string>
+	<string name="type.amenity.stripclub">Striptiz kulübü</string>
 	<string name="type.amenity.taxi">Taksi</string>
 	<string name="type.amenity.telephone">Telefon</string>
 	<string name="type.amenity.theatre">Tiyatro</string>
