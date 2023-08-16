@@ -10462,7 +10462,7 @@
     da = Ønsker du, at vi planlægger en rute fra din nuværende placering?
     de = Soll eine Route von Ihrem aktuellen Standort aus berechnet werden?
     el = Θέλετε να σχεδιάσουμε μια διαδρομή από την τρέχουσα θέση σας;
-    es = ¿Quiere que planeemos un ruta desde su ubicación actual?
+    es = ¿Quiere que planeemos una ruta desde su ubicación actual?
     et = Kas soovid, et planeeriksime marsruudi Sinu praegusest asukohast?
     eu = Zure uneko kokapenetik ibilbide bat antolatzea nahi duzu?
     fa = آیا می خواهید یک مسیر را از موقعیت فعلیتان برنامه ریزی کنیم؟
@@ -20604,7 +20604,7 @@
     da = Vi kan anvende dine data til at forbedre brugeroplevelsen på Organic Maps. Ændringerne træder i kraft, når du har genstartet appen.
     de = Wir können Ihre Daten nutzen, um Organic Maps weiterzuentwickeln und zu verbessern. Die Änderungen werden nach dem Neustart der App wirksam werden.
     el = Μπορεί να χρησιμοποιήσουμε τα δεδομένα σας για να βελτιώσουμε την εμπειρία του Organic Maps. Οι αλλαγές θα ενεργοποιηθούν μετά την επανεκκίνηση της εφαρμογής.
-    es = Puede que utilicemos sus datos para mejorar la experiencia de Organic Maps. Los cambios tendrán efecto después dw que reinicie la aplicación.
+    es = Puede que utilicemos sus datos para mejorar la experiencia de Organic Maps. Los cambios tendrán efecto después de que reinicie la aplicación.
     es-MX = Puede que utilicemos sus datos para mejorar la experiencia de Organic Maps. Los cambios surtirán efecto después de que reinicie la aplicación.
     et = õime kasutada teie andmeid Organic Maps kasutuskogemuse parandamiseks. Muudatused jõustuvad pärast rakenduse taaskäivitamist.
     eu = Zure datuak Organic Maps-en esperientzia hobetzeko erabil ditzakegu. Aldaketak aplikazioa berrabiarazi ondoren jarriko dira indarrean.
