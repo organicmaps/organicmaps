@@ -501,6 +501,13 @@ area|z12-[landuse=reservoir][bbox_area<4000000],
 area|z10-13[natural=water][!tunnel][bbox_area<4000000],
 {text: none;}
 
+/*only render caption z17-*/
+area|z10-16[natural=water][water=moat],
+area|z10-16[natural=water][water=ditch],
+area|z10-16[natural=water][water=drain],
+area|z10-16[natural=water][water=wastewater],
+{text: none;}
+
 node|z14-15[natural=bay],
 node|z14-15[natural=strait],
 area|z14-15[natural=water][!tunnel][bbox_area>=4000000],

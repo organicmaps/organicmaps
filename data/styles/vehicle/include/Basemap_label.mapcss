@@ -434,6 +434,13 @@ area|z16-[natural=wetland],
 area|z16-[natural=water][!tunnel][bbox_area<4000000],
 {font-size: 10.5;}
 
+/*don't render caption in vehicle style*/
+area|z10-[natural=water][water=moat],
+area|z10-[natural=water][water=ditch],
+area|z10-[natural=water][water=drain],
+area|z10-[natural=water][water=wastewater],
+{text: none;}
+
 /* 6.2 Line water(river,canal etc.) Do not draw tunnel waterways */
 
 line[waterway]

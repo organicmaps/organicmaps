@@ -5179,7 +5179,48 @@
     tr = Bisiklet Bariyeri
     uk = Велосипедна перешкода
 
-  [type.barrier.ditch]
+  [type.waterway.ditch]
+    en = Drainage Ditch
+    ar = حفرة الصرف الصحي
+    be = Дрэнажная канава
+    bg = Отводнителна канавка
+    ca = Sèquia de drenatge
+    cs = Drenážní příkop
+    da = Afvandingsgrøft
+    de = Entwässerungsgraben
+    el = Αποστραγγιστική Τάφρο
+    es = Zanja de drenaje
+    et = Drenaažikraav
+    eu = Drainatze Zanga
+    fa = خندق زهکشی
+    fi = Viemäröinti oja
+    fr = Fossé de drainage
+    he = תעלת ניקוז
+    hu = Árok
+    id = Parit saluran air
+    it = Fossato di drenaggio
+    ja = 排水溝
+    ko = 배수구
+    lt = Drenažo griovys
+    mr = ड्रेनेज खंदक
+    nb = Dreneringsgrøft
+    nl = Sloot
+    pl = Rów melioracyjny
+    pt = Vala de drenagem
+    pt-BR = Vala de drenagem
+    ro = Șanț de drenaj
+    ru = Дренажная канава
+    sk = Drenážna priekopa
+    sv = Dräneringsdike
+    sw = Mfereji wa mifereji ya maji
+    th = คูระบายน้ำ
+    tr = Drenaj çukuru
+    uk = Дренажна канава
+    vi = Mương thoát nước
+    zh-Hans = 排水沟
+    zh-Hant = 排水溝
+
+  [type.natural.water.moat]
     en = Moat
     af = Grag
     ar = حفرة
@@ -5206,7 +5247,7 @@
     pl = Rów
     pt = Fosso
     ro = Şanţ
-    ru = Ров
+    ru = Оборонительный ров
     sk = Priekopa
     sv = Vallgrav
     sw = Moti
@@ -5216,6 +5257,47 @@
     vi = Hào nước
     zh-Hans = 沟渠
     zh-Hant = 護城河
+
+  [type.natural.water.wastewater]
+    en = Wastewater
+    ar = مياه الصرف
+    be = Сцёкавыя вады
+    bg = Отпадъчни води
+    ca = Aigües residuals
+    cs = Odpadní voda
+    da = Spildevand
+    de = Abwasser
+    el = Λυμάτων
+    es = Aguas residuales
+    et = Reovesi
+    eu = Hondakin-urak
+    fa = فاضلاب
+    fi = Jätevesi
+    fr = Eaux usées
+    he = שפכים
+    hu = Szennyvíz
+    id = Air limbah
+    it = Acque reflue
+    ja = 廃水
+    ko = 폐수
+    lt = Nuotekos
+    mr = सांडपाणी
+    nb = Avløpsvann
+    nl = Afvalwater
+    pl = Ścieki
+    pt = Águas residuais
+    pt-BR = Águas residuais
+    ro = Ape uzate
+    ru = Сточные воды
+    sk = Odpadová voda
+    sv = Avloppsvatten
+    sw = Maji machafu
+    th = น้ำเสีย
+    tr = Atık su
+    uk = Стічні води
+    vi = Nước thải
+    zh-Hans = 废水
+    zh-Hant = 廢水
 
   [type.barrier.entrance]
     en = Entrance
@@ -28088,7 +28170,7 @@
     uk = Дамба
     zh-Hans = 水坝
 
-  [type.waterway.ditch]
+  [type.barrier.ditch]
     en = Ditch
     af = Sloot
     de = Graben
@@ -28102,24 +28184,54 @@
     nl = Sloot
     pt = Vala
     pt-BR = Vala
-    ru = Канава
+    ru = Ров
     tr = Hendek
     uk = Канава
     zh-Hans = 水沟
 
-  [type.waterway.ditch.tunnel]
+  [type.natural.water.ditch]
     ref = type.waterway.ditch
+
+  [type.waterway.ditch.tunnel]
     en = Culvert
+    ar = عبارة
+    be = Водопропускная труба
+    bg = водосток
+    ca = Embaixada
+    cs = Propustek
+    da = Kulvert
     de = Durchlass
+    el = Υπόγειος οχετός
     es = Obra de drenaje
-    et = Truup
+    et = Truupp
+    eu = Zuloa
+    fa = کولورت
+    fi = Holvirumpu
     fr = Drain
+    he = גִשׁרוֹן
+    hu = Vízelvezető
+    id = Gorong-gorong
     it = Cunicolo
     ja = 暗渠
+    ko = 암거
+    lt = Pralaida
+    mr = कल्व्हर्ट
+    nb = Kulvert
     nl = Duiker
+    pl = Przepust
+    pt = Bueiro
+    pt-BR = Bueiro
+    ro = Canal de scurgere
     ru = Водопропускная труба
+    sk = Priepust
+    sv = Kulvert
+    sw = Culvert
+    th = ท่อระบายน้ำ
+    tr = Menfez
     uk = Водопропускна труба
+    vi = Cống
     zh-Hans = 涵洞
+    zh-Hant = 涵洞
 
   [type.waterway.dock]
     en = Waterway Dock
@@ -28156,6 +28268,9 @@
     tr = Lağım
     uk = Водовiдвiд
     zh-Hans = 渠
+
+  [type.natural.water.drain]
+    ref = type.waterway.drain
 
   [type.waterway.drain.tunnel]
     ref = type.waterway.ditch.tunnel
