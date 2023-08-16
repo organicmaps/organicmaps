@@ -106,7 +106,7 @@ fa:غذا|کجا غذا بخوریم
 
 # First keyword should match [food] definition in strings.txt!
 @food
-en:4Groceries|Food
+en:4Grocery|Groceries|Food
 ru:4Продукты|Еда
 ar:طعام|بقالية
 be:4Прадукты|Ежа
@@ -1108,7 +1108,7 @@ sw:Vipodozi
 fa:لوازم ارایشی بهداشتی
 
 shop-convenience|@food|@shop
-en:4Convenience|U+1F3EC|U+1F3EA|grocer|grocery|mini-mart|mini-market|superette
+en:4Convenience|U+1F3EC|U+1F3EA|mini-mart|mini-market|superette
 ru:4Продуктовый|продуктовая лавка|4гастроном|мини-маркет
 ar:متجر صغير
 be:4Прадуктовы|Харчаванне
@@ -1578,7 +1578,7 @@ sk:4Elektronika
 fa:فروشگاه تجهیزات الکترونیکی
 
 shop-hardware|shop-houseware|shop-doityourself|@shop
-en:4Hardware|DIY|U+1F3EC|U+1F3EA|U+1F50B|U+1F50C|U+1F4A1|U+1F526|U+1F529|U+1F528|U+2614
+en:4Hardware|4Houseware|DIY|U+1F3EC|U+1F3EA|U+1F50B|U+1F50C|U+1F4A1|U+1F526|U+1F529|U+1F528|U+2614
 ru:3Хозяйственный|Строительный|Стройтовары|Хозтовары
 ar:متجر عدد وأدوات|أدوات|عدة|متجر
 be:Гаспадарчы|Будаўнічы
@@ -1766,7 +1766,7 @@ sw:Uzuri saluni
 fa:سالن زیبایی
 
 shop-greengrocer|@food|@shop
-en:4Greengrocer|3grocery|U+1F345|U+1F346|U+1F33D|U+1F360|U+1F348|U+1F347|U+1F349|U+1F34A|U+1F34C|U+1F34D|U+1F34E|U+1F34F|U+1F350|U+1F351|U+1F353
+en:4Greengrocer|U+1F345|U+1F346|U+1F33D|U+1F360|U+1F348|U+1F347|U+1F349|U+1F34A|U+1F34C|U+1F34D|U+1F34E|U+1F34F|U+1F350|U+1F351|U+1F353
 ru:3Овощи|овощей|3Фрукты|фруктов
 ar:متجر خضروات وفواكه|خضار|فاكهة|متجر
 be:Садавіна|Агародніна
@@ -2445,9 +2445,9 @@ sk:4Električková zastávka|električka|4zastávka|stanica
 fa:ایستگاه قطار|ایستگاه تراموا
 
 amenity-bus_station|@transport
-en:2Bus Station|bus terminal|bus|station|U+1F68C|U+1F68F|U+1F68D
+en:2Bus Station|bus|U+1F68C|U+1F68F|U+1F68D
 ru:5Автовокзал|5Автостанция|5автобус|4остановка
-bg:4Автобусна спирка|автобуси|4автобусна станция|станция
+bg:4Автобусна спирка|автобуси|4автобусна станция
 ar:محطة حافلات|باص|حافلة|مواصلات|مواصلات
 cs:4Autobusové nádraží|4zastávka|bus
 da:2Busstation|2bus|station
