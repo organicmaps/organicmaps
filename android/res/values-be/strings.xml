@@ -787,6 +787,7 @@
 	<string name="type.recycling.green_waste">Арганіка / Харчовыя адходы</string>
 	<string name="type.recycling.cartons">Тэтрапак і аналагі</string>
 	<string name="type.amenity.sanitary_dump_station">Зліў для прыбіральняў транспартных сродкаў</string>
+	<string name="type.amenity.stripclub">Стрыптыз-клуб</string>
 	<string name="type.amenity.townhall">Адміністрацыя</string>
 	<string name="type.amenity.vending_machine">Гандлёвы аўтамат</string>
 	<string name="type.amenity.vending_machine.cigarettes">Аўтамат з цыгарэтамі</string>

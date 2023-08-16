@@ -870,6 +870,7 @@
 	<string name="type.amenity.school">Schule</string>
 	<string name="type.amenity.shelter">Unterstand</string>
 	<string name="type.amenity.shower">Dusche</string>
+	<string name="type.amenity.stripclub">Stripclub</string>
 	<string name="type.amenity.taxi">Taxistand</string>
 	<string name="type.amenity.telephone">Telefon</string>
 	<string name="type.amenity.theatre">Theater</string>

@@ -829,6 +829,7 @@
 	<string name="type.amenity.school">Iskola</string>
 	<string name="type.amenity.shelter">Menedék</string>
 	<string name="type.amenity.shower">Tusoló</string>
+	<string name="type.amenity.stripclub">Stripclub</string>
 	<string name="type.amenity.telephone">Telefon</string>
 	<string name="type.amenity.theatre">Színház</string>
 	<string name="type.amenity.toilets">Mosdó</string>

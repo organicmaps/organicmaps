@@ -1518,6 +1518,8 @@
 
 "type.amenity.shower" = "ฝักบัวอาบน้ำ";
 
+"type.amenity.stripclub" = "สตริปคลับ";
+
 "type.amenity.taxi" = "แท็กซี่";
 
 "type.amenity.telephone" = "โทรศัพท์";

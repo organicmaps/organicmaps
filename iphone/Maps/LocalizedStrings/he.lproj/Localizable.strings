@@ -1518,6 +1518,8 @@
 
 "type.amenity.shower" = "Shower";
 
+"type.amenity.stripclub" = "מועדון חשפנות";
+
 "type.amenity.taxi" = "Taxi Stand";
 
 "type.amenity.telephone" = "Phone";

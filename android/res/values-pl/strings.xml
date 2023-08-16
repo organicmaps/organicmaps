@@ -870,6 +870,7 @@
 	<string name="type.amenity.school">Szkoła</string>
 	<string name="type.amenity.shelter">Wiata</string>
 	<string name="type.amenity.shower">Prysznic</string>
+	<string name="type.amenity.stripclub">Klub ze striptizem</string>
 	<string name="type.amenity.taxi">Taksówka</string>
 	<string name="type.amenity.telephone">Telefon</string>
 	<string name="type.amenity.theatre">Teatr</string>

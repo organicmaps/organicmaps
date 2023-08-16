@@ -865,6 +865,7 @@
 	<string name="type.amenity.school">Школа</string>
 	<string name="type.amenity.shelter">Укриття</string>
 	<string name="type.amenity.shower">Душ</string>
+	<string name="type.amenity.stripclub">Стриптиз-клуб</string>
 	<string name="type.amenity.taxi">Таксі</string>
 	<string name="type.amenity.telephone">Телефон</string>
 	<string name="type.amenity.theatre">Театр</string>

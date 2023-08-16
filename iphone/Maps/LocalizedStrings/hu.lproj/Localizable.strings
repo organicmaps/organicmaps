@@ -1518,6 +1518,8 @@
 
 "type.amenity.shower" = "Tusoló";
 
+"type.amenity.stripclub" = "Stripclub";
+
 "type.amenity.taxi" = "Taxi Stand";
 
 "type.amenity.telephone" = "Telefon";

@@ -809,6 +809,7 @@
 	<string name="type.amenity.school">مدرسه</string>
 	<string name="type.amenity.shelter">پناهگاه</string>
 	<string name="type.amenity.shower">حمام</string>
+	<string name="type.amenity.stripclub">باشگاه استریپ</string>
 	<string name="type.amenity.taxi">تاکسی</string>
 	<string name="type.amenity.telephone">تلفن خانه</string>
 	<string name="type.amenity.theatre">سرگرمی</string>

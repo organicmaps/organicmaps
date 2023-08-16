@@ -831,6 +831,7 @@
 	<string name="type.amenity.school">学校</string>
 	<string name="type.amenity.shelter">庇护所</string>
 	<string name="type.amenity.shower">淋浴间</string>
+	<string name="type.amenity.stripclub">脱衣舞俱乐部</string>
 	<string name="type.amenity.taxi">出租车</string>
 	<string name="type.amenity.telephone">电话</string>
 	<string name="type.amenity.theatre">剧院</string>
