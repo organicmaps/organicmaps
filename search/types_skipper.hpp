@@ -1,10 +1,11 @@
 #pragma once
 
+#include "search/model.hpp"
+
 #include "indexer/feature_data.hpp"
 
 #include "base/buffer_vector.hpp"
 
-#include <cstdint>
 
 namespace search
 {
@@ -31,5 +32,7 @@ private:
   Cont m_skipIfEmptyName[2];
   Cont m_skipAlways[1];
   Cont m_skipSpecialNames[1];
+
+  TwoLevelPOIChecker m_isPoi;
 };
 }  // namespace search
