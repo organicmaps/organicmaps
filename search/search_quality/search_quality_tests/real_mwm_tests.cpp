@@ -311,7 +311,13 @@ UNIT_CLASS_TEST(MwmTestsFixture, Hamburg_Park)
   TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
   Range const range(results, 0, 4);
-  EqualClassifType(range, GetClassifTypes({{"tourism"}, {"shop", "gift"}, {"amenity", "fast_food"}}));
+  EqualClassifType(range, GetClassifTypes({
+      {"tourism", "theme_park"},
+      {"amenity", "fast_food"},
+      {"shop", "gift"},
+      {"highway", "service"}
+  }));
+
   NameStartsWith(range, {"Heide Park", "Heide-Park"});
   double const dist = SortedByDistance(range, center);
   TEST_LESS(dist, 100000, ());
