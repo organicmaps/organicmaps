@@ -1076,6 +1076,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
 	<string name="type.highway.busway">Eigene Busstraße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Tunnel</string>
 	<string name="type.highway.bus_stop">Bushaltestelle</string>
 	<string name="type.highway.construction">Straße im Bau</string>
 	<string name="type.highway.cycleway">Radweg</string>
@@ -1945,10 +1949,10 @@
 	<string name="type.waterway.fish_pass">Fischtreppe</string>
 	<string name="type.waterway.dam">Staudamm</string>
 	<string name="type.waterway.ditch">Graben</string>
-	<string name="type.waterway.ditch.tunnel">Graben</string>
+	<string name="type.waterway.ditch.tunnel">Durchlass</string>
 	<string name="type.waterway.dock">Dock</string>
 	<string name="type.waterway.drain">Abfluss</string>
-	<string name="type.waterway.drain.tunnel">Abfluss</string>
+	<string name="type.waterway.drain.tunnel">Durchlass</string>
 	<string name="type.waterway.lock_gate">Schleusentor</string>
 	<string name="type.waterway.river">Fluss</string>
 	<string name="type.waterway.river.tunnel">Fluss</string>

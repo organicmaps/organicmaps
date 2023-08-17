@@ -1948,6 +1948,12 @@
 
 "type.highway.busway" = "巴士专用道";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "桥";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "隧道";
+
 "type.highway.bus_stop" = "公交站";
 
 "type.highway.construction" = "在建道路";
@@ -3705,13 +3711,13 @@
 
 "type.waterway.ditch" = "水沟";
 
-"type.waterway.ditch.tunnel" = "水沟";
+"type.waterway.ditch.tunnel" = "涵洞";
 
 "type.waterway.dock" = "船坞";
 
 "type.waterway.drain" = "渠";
 
-"type.waterway.drain.tunnel" = "渠";
+"type.waterway.drain.tunnel" = "涵洞";
 
 "type.waterway.lock_gate" = "闸门";
 

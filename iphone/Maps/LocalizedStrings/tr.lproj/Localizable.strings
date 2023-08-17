@@ -1948,6 +1948,12 @@
 
 "type.highway.busway" = "Özel otobüs yolu";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Köprü";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Tünel";
+
 "type.highway.bus_stop" = "Otobüs Durağı";
 
 "type.highway.construction" = "Yapım Aşamasında Yol";
@@ -3711,7 +3717,7 @@
 
 "type.waterway.drain" = "Lağım";
 
-"type.waterway.drain.tunnel" = "Lağım";
+"type.waterway.drain.tunnel" = "Hendek";
 
 "type.waterway.lock_gate" = "Eklüz Kapağı";
 

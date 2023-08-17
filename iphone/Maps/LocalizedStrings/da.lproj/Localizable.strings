@@ -1948,6 +1948,12 @@
 
 "type.highway.busway" = "Dedikeret busvej";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Bro";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Tunnel";
+
 "type.highway.bus_stop" = "Busstoppested";
 
 "type.highway.construction" = "Vej under opbygning";
@@ -3711,7 +3717,7 @@
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Drain";
+"type.waterway.drain.tunnel" = "Ditch";
 
 "type.waterway.lock_gate" = "Låseport";
 

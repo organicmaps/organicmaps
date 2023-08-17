@@ -1285,7 +1285,7 @@
 
 "type.aeroway.taxiway" = "Taxibaan";
 
-"type.aeroway.terminal" = "Terminal";
+"type.aeroway.terminal" = "Luchthaventerminal";
 
 "type.amenity" = "Voorzieningen";
 
@@ -1947,6 +1947,12 @@
 "type.highway.bridleway.tunnel" = "Tunnel";
 
 "type.highway.busway" = "Speciale busweg";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Brug";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Tunnel";
 
 "type.highway.bus_stop" = "Bushalte";
 
@@ -3705,13 +3711,13 @@
 
 "type.waterway.ditch" = "Sloot";
 
-"type.waterway.ditch.tunnel" = "Sloot";
+"type.waterway.ditch.tunnel" = "Duiker";
 
 "type.waterway.dock" = "Dok";
 
 "type.waterway.drain" = "Afvoer";
 
-"type.waterway.drain.tunnel" = "Afvoer";
+"type.waterway.drain.tunnel" = "Duiker";
 
 "type.waterway.lock_gate" = "Sluisdeur";
 

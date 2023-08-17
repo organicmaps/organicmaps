@@ -1948,6 +1948,12 @@
 
 "type.highway.busway" = "Выделенная автобусная дорога";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Мост";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Тоннель";
+
 "type.highway.bus_stop" = "Остановка";
 
 "type.highway.construction" = "Строящаяся дорога";
@@ -3705,13 +3711,13 @@
 
 "type.waterway.ditch" = "Канава";
 
-"type.waterway.ditch.tunnel" = "Канава";
+"type.waterway.ditch.tunnel" = "Водопропускная труба";
 
 "type.waterway.dock" = "Причал";
 
 "type.waterway.drain" = "Водоотвод";
 
-"type.waterway.drain.tunnel" = "Водоотвод";
+"type.waterway.drain.tunnel" = "Водопропускная труба";
 
 "type.waterway.lock_gate" = "Шлюз";
 

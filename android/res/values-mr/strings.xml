@@ -966,6 +966,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">बोगदा</string>
 	<string name="type.highway.busway">समर्पित बस रस्ता</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">पूल</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">बोगदा</string>
 	<string name="type.highway.bus_stop">बस थांबा</string>
 	<string name="type.highway.construction">बांधकामाधीन रस्ता</string>
 	<string name="type.highway.cycleway">सायकल वाट</string>
@@ -1777,7 +1781,7 @@
 	<string name="type.waterway.ditch.tunnel">खंदक</string>
 	<string name="type.waterway.dock">जलमार्ग गोद</string>
 	<string name="type.waterway.drain">नाला</string>
-	<string name="type.waterway.drain.tunnel">नाला</string>
+	<string name="type.waterway.drain.tunnel">खंदक</string>
 	<string name="type.waterway.lock_gate">जलद्वार</string>
 	<string name="type.waterway.river">नदी</string>
 	<string name="type.waterway.river.tunnel">नदी</string>

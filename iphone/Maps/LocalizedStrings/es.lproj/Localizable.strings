@@ -1948,6 +1948,12 @@
 
 "type.highway.busway" = "Carretera exclusiva para autobuses";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Puente";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Túnel";
+
 "type.highway.bus_stop" = "Parada de autobús";
 
 "type.highway.construction" = "Carretera en construcción";
@@ -3705,13 +3711,13 @@
 
 "type.waterway.ditch" = "Zanja";
 
-"type.waterway.ditch.tunnel" = "Zanja";
+"type.waterway.ditch.tunnel" = "Obra de drenaje";
 
 "type.waterway.dock" = "Muelle";
 
 "type.waterway.drain" = "Desagüe";
 
-"type.waterway.drain.tunnel" = "Desagüe";
+"type.waterway.drain.tunnel" = "Obra de drenaje";
 
 "type.waterway.lock_gate" = "Compuerta";
 
