@@ -438,6 +438,7 @@ void RuleDrawer::ProcessPointStyle(FeatureType & f, Stylist const & s, TInsertSh
     return;
 
   DepthLayer depthLayer = DepthLayer::OverlayLayer;
+  // TODO: review necessity of the DepthLayer::NavigationLayer. ATM its used for speed cameras icons only.
   if (isSpeedCamera)
     depthLayer = DepthLayer::NavigationLayer;
 

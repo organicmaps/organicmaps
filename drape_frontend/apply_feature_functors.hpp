@@ -177,6 +177,7 @@ private:
 #endif
 };
 
+// Process pathtext and shield drules. Operates on metalines usually.
 class ApplyLineFeatureAdditional : public BaseApplyFeature
 {
   using TBase = BaseApplyFeature;
