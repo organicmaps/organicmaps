@@ -1082,6 +1082,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
 	<string name="type.highway.busway">Spetsiaalne bussitee</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Sild</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Tunnel</string>
 	<string name="type.highway.bus_stop">Bussipeatus</string>
 	<string name="type.highway.construction">Ehitusjärgus tee</string>
 	<string name="type.highway.cycleway">Jalgrattatee</string>
@@ -1964,10 +1968,10 @@
 	<string name="type.waterway.fish_pass">Kala redel</string>
 	<string name="type.waterway.dam">Tamm</string>
 	<string name="type.waterway.ditch">Kraav</string>
-	<string name="type.waterway.ditch.tunnel">Kraav</string>
+	<string name="type.waterway.ditch.tunnel">Truup</string>
 	<string name="type.waterway.dock">Veetee dokk</string>
 	<string name="type.waterway.drain">Kuivenduskraav</string>
-	<string name="type.waterway.drain.tunnel">Kuivenduskraav</string>
+	<string name="type.waterway.drain.tunnel">Truup</string>
 	<string name="type.waterway.lock_gate">Lüüsi värav</string>
 	<string name="type.waterway.river">Jõgi</string>
 	<string name="type.waterway.river.tunnel">Jõgi</string>

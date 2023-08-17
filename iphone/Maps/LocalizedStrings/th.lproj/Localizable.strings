@@ -1948,6 +1948,12 @@
 
 "type.highway.busway" = "ถนนทางเดินรถโดยเฉพาะ";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "สะพาน";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "อุโมงค์";
+
 "type.highway.bus_stop" = "ป้ายรถเมล์";
 
 "type.highway.construction" = "ทางกำลังอยู่ในการก่อสร้าง";
@@ -3711,7 +3717,7 @@
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Drain";
+"type.waterway.drain.tunnel" = "Ditch";
 
 "type.waterway.lock_gate" = "ประตูระบายน้ำ";
 

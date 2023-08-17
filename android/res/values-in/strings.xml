@@ -980,6 +980,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Terowongan</string>
 	<string name="type.highway.busway">Jalan khusus bus</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Menjembatani</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Terowongan</string>
 	<string name="type.highway.bus_stop">Halte bus</string>
 	<string name="type.highway.construction">Jalan sedang dibangun</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->

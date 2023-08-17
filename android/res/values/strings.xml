@@ -1130,6 +1130,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
 	<string name="type.highway.busway">Dedicated Bus Road</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Tunnel</string>
 	<string name="type.highway.bus_stop">Bus Stop</string>
 	<string name="type.highway.construction">Road Under Construction</string>
 	<string name="type.highway.cycleway">Cycle Path</string>
@@ -2034,10 +2038,10 @@
 	<string name="type.waterway.fish_pass">Fish Pass</string>
 	<string name="type.waterway.dam">Dam</string>
 	<string name="type.waterway.ditch">Ditch</string>
-	<string name="type.waterway.ditch.tunnel">Ditch</string>
+	<string name="type.waterway.ditch.tunnel">Culvert</string>
 	<string name="type.waterway.dock">Waterway Dock</string>
 	<string name="type.waterway.drain">Drain</string>
-	<string name="type.waterway.drain.tunnel">Drain</string>
+	<string name="type.waterway.drain.tunnel">Culvert</string>
 	<string name="type.waterway.lock_gate">Lock Gate</string>
 	<string name="type.waterway.river">River</string>
 	<string name="type.waterway.river.tunnel">River</string>

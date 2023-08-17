@@ -1039,6 +1039,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Túnel para cavaleiros</string>
 	<string name="type.highway.busway">Via exclusiva de ônibus</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Ponte</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Túnel</string>
 	<string name="type.highway.bus_stop">Ponto de ônibus</string>
 	<string name="type.highway.construction">Pista em construção</string>
 	<string name="type.highway.cycleway">Ciclovia</string>
@@ -1771,7 +1775,7 @@
 	<string name="type.waterway.ditch.tunnel">Vala</string>
 	<string name="type.waterway.dock">Doca</string>
 	<string name="type.waterway.drain">Valeta de drenagem</string>
-	<string name="type.waterway.drain.tunnel">Valeta de drenagem</string>
+	<string name="type.waterway.drain.tunnel">Vala</string>
 	<string name="type.waterway.lock_gate">Comporta de eclusa</string>
 	<string name="type.waterway.river">Rio</string>
 	<string name="type.waterway.river.tunnel">Rio</string>

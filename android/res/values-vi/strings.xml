@@ -981,6 +981,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Đường hầm</string>
 	<string name="type.highway.busway">Đường dành riêng cho xe buýt</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Cầu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Đường hầm</string>
 	<string name="type.highway.bus_stop">Bến xe buýt</string>
 	<string name="type.highway.construction">Đường đang thi công</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->

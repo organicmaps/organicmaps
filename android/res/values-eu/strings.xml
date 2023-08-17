@@ -1086,6 +1086,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunel</string>
 	<string name="type.highway.busway">Autobus errepidea</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Zubia</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Tunel</string>
 	<string name="type.highway.bus_stop">Autobus geltokia</string>
 	<string name="type.highway.construction">Eraikitzen ari diren errepidea</string>
 	<string name="type.highway.cycleway">Bizikletabidea</string>

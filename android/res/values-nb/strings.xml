@@ -1034,6 +1034,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
 	<string name="type.highway.busway">Dedikert bussvei</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Bru</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Tunnel</string>
 	<string name="type.highway.bus_stop">Busstopp</string>
 	<string name="type.highway.construction">Veikonstruksjon</string>
 	<string name="type.highway.cycleway">Sykkelvei</string>

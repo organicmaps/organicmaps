@@ -1948,6 +1948,12 @@
 
 "type.highway.busway" = "Dedicated Bus Road";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Bridge";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Tunnel";
+
 "type.highway.bus_stop" = "Bus Stop";
 
 "type.highway.construction" = "Road Under Construction";
@@ -3705,13 +3711,13 @@
 
 "type.waterway.ditch" = "Ditch";
 
-"type.waterway.ditch.tunnel" = "Ditch";
+"type.waterway.ditch.tunnel" = "Culvert";
 
 "type.waterway.dock" = "Waterway Dock";
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Drain";
+"type.waterway.drain.tunnel" = "Culvert";
 
 "type.waterway.lock_gate" = "Lock Gate";
 

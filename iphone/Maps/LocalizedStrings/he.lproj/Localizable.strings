@@ -1948,6 +1948,12 @@
 
 "type.highway.busway" = "ידועיי סובוטוא שיבכ";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "לְגַשֵׁר";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "מִנהָרָה";
+
 "type.highway.bus_stop" = "Bus Stop";
 
 "type.highway.construction" = "Road Under Construction";
@@ -3711,7 +3717,7 @@
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Drain";
+"type.waterway.drain.tunnel" = "Ditch";
 
 "type.waterway.lock_gate" = "Lock Gate";
 

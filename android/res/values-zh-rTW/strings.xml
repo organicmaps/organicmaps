@@ -1014,6 +1014,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">隧道</string>
 	<string name="type.highway.busway">巴士專用道</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">隧道</string>
 	<string name="type.highway.bus_stop">巴士站</string>
 	<string name="type.highway.construction">在建道路</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->

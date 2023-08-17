@@ -1948,6 +1948,12 @@
 
 "type.highway.busway" = "Αφιερωμένος δρόμος λεωφορείων";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Γέφυρα";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Σήραγγα";
+
 "type.highway.bus_stop" = "Στάση λεωφορείου";
 
 "type.highway.construction" = "Οδός υπό κατασκευή";
@@ -3711,7 +3717,7 @@
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Drain";
+"type.waterway.drain.tunnel" = "Ditch";
 
 "type.waterway.lock_gate" = "Φράγμα";
 
