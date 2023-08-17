@@ -6111,6 +6111,47 @@ sw:Malazi
 fa:پناهگاه
 mr:निवारा
 
+amenity-stripclub
+en:Stripclub
+ar:Stripclub
+be:Стрыптыз-клуб
+bg:Стриптийз клуб
+ca:Club de striptease
+cs:Stripcklub
+da:Stripklub
+de:Stripclub
+el:Stripclub
+es:Club de striptease
+et:Stripiklubi
+eu:Stripclub
+fa:باشگاه استریپ
+fi:Stripclub
+fr:Club de strip-tease
+he:מועדון חשפנות
+hu:Stripclub
+id:Klub telanjang
+it:Stripclub
+ja:ストリップクラブ
+ko:스트립클럽
+lt:Stripklubas
+mr:स्ट्रिपक्लब
+nb:Stripklubb
+nl:Stripclub
+pl:Klub ze striptizem
+pt:Clube de striptease
+pt-BR:Clube de striptease
+ro:Stripclub
+ru:Стриптиз-клуб
+sk:Stripclub
+sv:Stripklubb
+sw:Klabu ya Strip
+th:สตริปคลับ
+tr:Striptiz kulübü
+uk:Стриптиз-клуб
+vi:Câu lạc bộ thoát y
+zh-Hans:脱衣舞俱乐部
+zh-Hant:脫衣舞俱樂部
+
 amenity-telephone
 en:2Phone|U+260E|U+1F4DE|5Telephone
 ru:3Телефон|4таксофон
