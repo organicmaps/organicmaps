@@ -1012,6 +1012,10 @@ node|z18-[man_made=storage_tank],
 area|z18-[man_made=storage_tank],
 node|z18-[amenity=bbq],
 area|z18-[amenity=bbq],
+node|z18-[amenity=brothel],
+area|z18-[amenity=brothel],
+node|z18-[amenity=stripclub],
+area|z18-[amenity=stripclub],
 node|z19-[power=substation],
 area|z19-[power=substation],
 node|z18-[tourism],
@@ -1421,6 +1425,12 @@ area|z18-[amenity=place_of_worship][religion=taoist]
 node|z16-[amenity=nightclub],
 area|z16-[amenity=nightclub]
 {icon-image: nightclub-m.svg;font-size: 11;}
+
+node|z18-[amenity=brothel],
+area|z18-[amenity=brothel],
+node|z18-[amenity=stripclub],
+area|z18-[amenity=stripclub]
+{icon-image: stripclub-m.svg;font-size: 11;}
 
 node|z16[amenity=bank],
 area|z16[amenity=bank]

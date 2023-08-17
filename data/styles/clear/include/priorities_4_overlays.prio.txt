@@ -1113,10 +1113,12 @@ historic-memorial-plaque                            # caption z18- and icon z18-
 === 600
 
 amenity-atm                                         # caption z18- and icon z18-
+amenity-brothel                                     # caption z18- and icon z18-
 amenity-car_rental                                  # caption z18- and icon z18-
 amenity-car_sharing                                 # caption z18- and icon z18-
 amenity-fire_station                                # caption z18- and icon z18-
 amenity-library                                     # caption z18- and icon z18-
+amenity-stripclub                                   # caption z18- and icon z18-
 office                                              # caption z18- and icon z18-
 office-company                                      # caption z18- and icon z18-
 office-estate_agent                                 # caption z18- and icon z18-

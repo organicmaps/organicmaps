@@ -4078,6 +4078,46 @@
     zh-Hans = 淋浴间
     zh-Hant = 淋浴間
 
+  [type.amenity.stripclub]
+    en = Stripclub
+    ar = Stripclub
+    be = Стрыптыз-клуб
+    bg = Стриптийз клуб
+    ca = Club de striptease
+    cs = Stripcklub
+    da = Stripklub
+    de = Stripclub
+    el = Stripclub
+    es = Club de striptease
+    et = Stripiklubi
+    eu = Stripclub
+    fa = باشگاه استریپ
+    fi = Stripclub
+    fr = Club de strip-tease
+    he = מועדון חשפנות
+    hu = Stripclub
+    id = Klub telanjang
+    it = Stripclub
+    ja = ストリップクラブ
+    ko = 스트립클럽
+    lt = Stripklubas
+    mr = स्ट्रिपक्लब
+    nb = Stripklubb
+    nl = Stripclub
+    pl = Klub ze striptizem
+    pt = Clube de striptease
+    ro = Stripclub
+    ru = Стриптиз-клуб
+    sk = Stripclub
+    sv = Stripklubb
+    sw = Klabu ya Strip
+    th = สตริปคลับ
+    tr = Striptiz kulübü
+    uk = Стриптиз-клуб
+    vi = Câu lạc bộ thoát y
+    zh-Hans = 脱衣舞俱乐部
+    zh-Hant = 脫衣舞俱樂部
+
   [type.amenity.taxi]
     en = Taxi Stand
     en-GB = Taxi Rank
