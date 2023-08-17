@@ -134,6 +134,7 @@ world  +
         school  -
         shelter  -
         shower  -
+        stripclub  -
         taxi  -
         telephone  -
         theatre  -

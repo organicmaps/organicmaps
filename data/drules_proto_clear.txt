@@ -3264,13 +3264,35 @@ cont {
 cont {
   name: "amenity-brothel"
   element {
-    scale: 19
+    scale: 18
+    symbol {
+      name: "stripclub-m"
+      priority: 550
+    }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 4473924
         offset_y: 1
+        is_optional: true
       }
+      priority: -9450
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "stripclub-m"
+      priority: 550
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9450
     }
   }
 }
@@ -8968,6 +8990,41 @@ cont {
         is_optional: true
       }
       priority: -8800
+    }
+  }
+}
+cont {
+  name: "amenity-stripclub"
+  element {
+    scale: 18
+    symbol {
+      name: "stripclub-m"
+      priority: 550
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9450
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "stripclub-m"
+      priority: 550
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9450
     }
   }
 }
