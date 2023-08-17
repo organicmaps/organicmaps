@@ -217,34 +217,10 @@ m2::PointF GetOffset(int offsetX, int offsetY)
   return { static_cast<float>(offsetX * vs), static_cast<float>(offsetY * vs) };
 }
 
-// TODO : review following exceptions for navigation mode priorities.
-// Shields and highway pathtexts could be made the highest in the prios.txt file directly.
 uint16_t CalculateNavigationPoiPriority()
 {
   // All navigation POI have maximum priority in navigation mode.
   return std::numeric_limits<uint16_t>::max();
-}
-
-uint16_t CalculateNavigationRoadShieldPriority()
-{
-  // Road shields have less priority than navigation POI.
-  static uint16_t constexpr kMask = ~static_cast<uint16_t>(0xFF);
-  uint16_t priority = CalculateNavigationPoiPriority();
-  return priority & kMask;
-}
-
-uint16_t CalculateNavigationPathTextPriority(uint32_t textIndex)
-{
-  // Path texts have more priority than road shields in navigation mode.
-  static uint16_t constexpr kMask = ~static_cast<uint16_t>(0xFF);
-  uint16_t priority = CalculateNavigationPoiPriority();
-  priority &= kMask;
-
-  uint8_t constexpr kMaxTextIndex = std::numeric_limits<uint8_t>::max() - 1;
-  if (textIndex > kMaxTextIndex)
-    textIndex = kMaxTextIndex;
-  priority |= static_cast<uint8_t>(textIndex);
-  return priority;
 }
 
 bool IsSymbolRoadShield(ftypes::RoadShield const & shield)
@@ -831,10 +807,12 @@ void ApplyLineFeatureGeometry::ProcessLineRule(Stylist::TRuleWrapper const & rul
 
   if (!m_smooth)
   {
+    // A line crossing the tile several times will be split in several parts.
     m_clippedSplines = m2::ClipSplineByRect(m_tileRect, m_spline);
   }
   else
   {
+    // Isolines smoothing.
     m2::GuidePointsForSmooth guidePointsForSmooth;
     std::vector<std::vector<m2::PointD>> clippedPaths;
     auto extTileRect = m_tileRect;
@@ -1042,15 +1020,6 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
     titleDecl.m_secondaryTextFont.m_size *= 0.9f;
     titleDecl.m_secondaryOffset = m2::PointD(0.0f, 3.0 * mainScale);
   }
-
-  // Special priority for road shields in navigation style.
-  if (GetStyleReader().IsCarNavigationStyle())
-  {
-    textParams.m_specialDisplacement = poiParams.m_specialDisplacement
-      = symbolParams.m_specialDisplacement = SpecialDisplacement::SpecialMode;
-    textParams.m_specialPriority = poiParams.m_specialPriority
-      = symbolParams.m_specialPriority = CalculateNavigationRoadShieldPriority();
-  }
 }
 
 bool ApplyLineFeatureAdditional::CheckShieldsNearby(m2::PointD const & shieldPos,
@@ -1098,21 +1067,18 @@ void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
     params.m_auxText = m_captions.GetAuxText();
     params.m_textFont = fontDecl;
     params.m_baseGtoPScale = m_currentScaleGtoP;
-    bool const navigationEnabled = GetStyleReader().IsCarNavigationStyle();
-    if (navigationEnabled)
-      params.m_specialDisplacement = SpecialDisplacement::SpecialMode;
 
     uint32_t textIndex = kPathTextBaseTextIndex;
     for (auto const & spline : m_clippedSplines)
     {
       PathTextViewParams p = params;
-      if (navigationEnabled)
-        p.m_specialPriority = CalculateNavigationPathTextPriority(textIndex);
       auto shape = make_unique_dp<PathTextShape>(spline, p, m_tileKey, textIndex);
 
       if (!shape->CalculateLayout(texMng))
         continue;
 
+      // Position shields inbetween captions.
+      // If there is only one center position then the shield and the caption will compete for it.
       if (m_shieldRule != nullptr && !roadShields.empty())
         CalculateRoadShieldPositions(shape->GetOffsets(), spline, shieldPositions);
 
@@ -1122,6 +1088,7 @@ void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
   }
   else if (m_shieldRule != nullptr && !roadShields.empty())
   {
+    // Position shields without captions.
     for (auto const & spline : m_clippedSplines)
     {
       double const pixelLength = 300.0 * vs;
