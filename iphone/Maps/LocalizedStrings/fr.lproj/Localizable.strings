@@ -1948,6 +1948,12 @@
 
 "type.highway.busway" = "Route réservée aux bus";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Pont";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Tunnel";
+
 "type.highway.bus_stop" = "Arrêt de bus";
 
 "type.highway.construction" = "Route en construction";
@@ -3705,7 +3711,7 @@
 
 "type.waterway.ditch" = "Fossé";
 
-"type.waterway.ditch.tunnel" = "Fossé";
+"type.waterway.ditch.tunnel" = "Drain";
 
 "type.waterway.dock" = "Cale";
 

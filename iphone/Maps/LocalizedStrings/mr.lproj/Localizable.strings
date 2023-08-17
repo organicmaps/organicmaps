@@ -1948,6 +1948,12 @@
 
 "type.highway.busway" = "समर्पित बस रस्ता";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "पूल";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "बोगदा";
+
 "type.highway.bus_stop" = "बस थांबा";
 
 "type.highway.construction" = "बांधकामाधीन रस्ता";
@@ -3711,7 +3717,7 @@
 
 "type.waterway.drain" = "नाला";
 
-"type.waterway.drain.tunnel" = "नाला";
+"type.waterway.drain.tunnel" = "खंदक";
 
 "type.waterway.lock_gate" = "जलद्वार";
 

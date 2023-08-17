@@ -1948,6 +1948,12 @@
 
 "type.highway.busway" = "Spetsiaalne bussitee";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Sild";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Tunnel";
+
 "type.highway.bus_stop" = "Bussipeatus";
 
 "type.highway.construction" = "Ehitusjärgus tee";
@@ -3705,13 +3711,13 @@
 
 "type.waterway.ditch" = "Kraav";
 
-"type.waterway.ditch.tunnel" = "Kraav";
+"type.waterway.ditch.tunnel" = "Truup";
 
 "type.waterway.dock" = "Veetee dokk";
 
 "type.waterway.drain" = "Kuivenduskraav";
 
-"type.waterway.drain.tunnel" = "Kuivenduskraav";
+"type.waterway.drain.tunnel" = "Truup";
 
 "type.waterway.lock_gate" = "Lüüsi värav";
 

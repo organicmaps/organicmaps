@@ -1070,6 +1070,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">نفق</string>
 	<string name="type.highway.busway">ﺺﺼﺨﻣ ﺕﻼﻓﺎﺣ ﻖﻳﺮﻃ</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">جسر</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">نفق</string>
 	<string name="type.highway.bus_stop">موقف حافلة</string>
 	<string name="type.highway.construction">طريق تحت الإنشاء</string>
 	<string name="type.highway.cycleway">مسار للدراجات</string>

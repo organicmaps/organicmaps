@@ -1948,6 +1948,12 @@
 
 "type.highway.busway" = "Oma bussitie";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Silta";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Tunneli";
+
 "type.highway.bus_stop" = "Bussipysäkki";
 
 "type.highway.construction" = "Rakenteilla oleva tie";
@@ -3711,7 +3717,7 @@
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Drain";
+"type.waterway.drain.tunnel" = "Oja";
 
 "type.waterway.lock_gate" = "Kanavasulku";
 

@@ -1948,6 +1948,12 @@
 
 "type.highway.busway" = "Đường dành riêng cho xe buýt";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Cầu";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Đường hầm";
+
 "type.highway.bus_stop" = "Bến xe buýt";
 
 "type.highway.construction" = "Đường đang thi công";
@@ -3711,7 +3717,7 @@
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Drain";
+"type.waterway.drain.tunnel" = "Ditch";
 
 "type.waterway.lock_gate" = "Cổng Khóa";
 

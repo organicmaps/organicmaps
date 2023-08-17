@@ -732,6 +732,7 @@
 	<string name="type.aerialway.gondola">Cabinovia</string>
 	<string name="type.aerialway.mixed_lift">Impianto misto</string>
 	<string name="type.aerialway.station">Stazione</string>
+	<string name="type.aeroway">Infrastruttura aeroportuale</string>
 	<string name="type.aeroway.aerodrome">Aeroporto</string>
 	<string name="type.aeroway.aerodrome.international">Aeroporto</string>
 	<string name="type.aeroway.apron">Area di stazionamento per aeromobili</string>
@@ -832,6 +833,7 @@
 	<string name="type.amenity.post_box">Casella postale</string>
 	<string name="type.amenity.post_office">Ufficio postale</string>
 	<string name="type.amenity.prison">Prigione</string>
+	<string name="type.amenity.pub">Taverna</string>
 	<string name="type.amenity.public_bookcase">Biblioteca di strada</string>
 
 	<!-- SECTION: Types: Recycling -->
@@ -850,6 +852,7 @@
 	<string name="type.recycling.cans">Lattine</string>
 	<string name="type.recycling.shoes">Scarpe</string>
 	<string name="type.recycling.green_waste">Umido</string>
+	<string name="type.recycling.cartons">Tetrapak</string>
 	<string name="type.amenity.restaurant">Ristorante</string>
 	<string name="type.amenity.sanitary_dump_station">Scarico acque nere</string>
 	<string name="type.amenity.school">Scuola</string>
@@ -893,6 +896,7 @@
 	<string name="type.barrier.hedge">Siepe</string>
 	<string name="type.barrier.kissing_gate">Cancello</string>
 	<string name="type.barrier.lift_gate">Sbarra</string>
+	<string name="type.barrier.retaining_wall">Muro di sostegno</string>
 	<string name="type.barrier.stile">Scaletta per recinzioni</string>
 	<string name="type.barrier.turnstile">Tornello</string>
 	<string name="type.barrier.swing_gate">Barriera ferroviaria</string>
@@ -968,6 +972,7 @@
 	<string name="type.cuisine.beef_bowl">Gyūdon</string>
 	<string name="type.cuisine.brazilian">Cucina brasiliana</string>
 	<string name="type.cuisine.breakfast">Colazione</string>
+	<string name="type.cuisine.bubble_tea">Bubble tea</string>
 	<string name="type.cuisine.burger">Hamburger</string>
 	<string name="type.cuisine.buschenschank">Osteria contadina</string>
 	<string name="type.cuisine.cake">Torte</string>
@@ -985,6 +990,7 @@
 	<string name="type.cuisine.filipino">Cucina filippina</string>
 	<string name="type.cuisine.fine_dining">Ristorante elegante</string>
 	<string name="type.cuisine.fish">Pesce</string>
+	<string name="type.cuisine.fish_and_chips">Fish and Chips</string>
 	<string name="type.cuisine.french">Cucina francese</string>
 	<string name="type.cuisine.friture">Fritture</string>
 	<string name="type.cuisine.georgian">Cucina georgiana</string>
@@ -1068,6 +1074,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
 	<string name="type.highway.busway">Strada dedicata agli autobus</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Ponte</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Tunnel</string>
 	<string name="type.highway.bus_stop">Fermata dell\'autobus</string>
 	<string name="type.highway.construction">Strada in costruzione</string>
 	<string name="type.highway.cycleway">Pista ciclabile</string>
@@ -1098,9 +1108,9 @@
 	<string name="type.highway.living_street.tunnel">Tunnel</string>
 	<string name="type.highway.motorway">Autostrada</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.motorway.bridge">Ponte</string>
+	<string name="type.highway.motorway.bridge">Ponte autostradale</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.motorway.tunnel">Tunnel</string>
+	<string name="type.highway.motorway.tunnel">Tunnel autostradale</string>
 	<string name="type.highway.motorway_link">Svincolo autostradale</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.motorway_link.bridge">Ponte</string>
@@ -1268,6 +1278,7 @@
 	<string name="type.junction">Incrocio</string>
 	<string name="type.junction.circular">Rotonda</string>
 	<string name="type.junction.roundabout">Rotonda</string>
+	<string name="type.landuse.allotments">Orti comunitari</string>
 	<string name="type.landuse.basin">Bacino d\'acqua</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Cimitero</string>
@@ -1327,12 +1338,14 @@
 	<string name="type.leisure.track">Pista da corsa</string>
 	<string name="type.leisure.track.area">Pista da corsa</string>
 	<string name="type.leisure.water_park">Parco acquatico</string>
+	<string name="type.leisure.beach_resort">Resort balneare</string>
 	<string name="type.man_made">Stabilimento balneare</string>
 	<string name="type.man_made.breakwater">Frangiflutti</string>
 	<string name="type.man_made.chimney">Ciminiera industriale</string>
 	<string name="type.man_made.survey_point">Punto geodetico</string>
 	<string name="type.man_made.flagpole">Alza bandiera</string>
 	<string name="type.man_made.lighthouse">Faro</string>
+	<string name="type.man_made.mast">Pilone</string>
 	<string name="type.man_made.pier">Molo</string>
 	<string name="type.man_made.pipeline">Condotto</string>
 	<string name="type.man_made.silo">Silo</string>
@@ -1452,7 +1465,10 @@
 	<string name="type.psurface">Superficie</string>
 	<string name="type.public_transport">Trasporto pubblico</string>
 	<string name="type.railway">Ferrovia</string>
+	<string name="type.railway.abandoned">Ferrovia abbandonata</string>
 	<string name="type.railway.construction">Binari in costruzione</string>
+	<string name="type.railway.crossing">Passaggio ferroviario</string>
+	<string name="type.railway.disused">Ferrovia in disuso</string>
 	<string name="type.railway.funicular">Funicolare</string>
 	<string name="type.railway.halt">Stazione ferroviaria</string>
 	<string name="type.railway.level_crossing">Passaggio a livello</string>
@@ -1903,10 +1919,10 @@
 	<string name="type.waterway.fish_pass">Passaggio per pesci</string>
 	<string name="type.waterway.dam">Diga</string>
 	<string name="type.waterway.ditch">Fosso</string>
-	<string name="type.waterway.ditch.tunnel">Fosso</string>
+	<string name="type.waterway.ditch.tunnel">Cunicolo</string>
 	<string name="type.waterway.dock">Darsena</string>
 	<string name="type.waterway.drain">Canale di scolo</string>
-	<string name="type.waterway.drain.tunnel">Canale di scolo</string>
+	<string name="type.waterway.drain.tunnel">Cunicolo</string>
 	<string name="type.waterway.lock_gate">Sbarramento</string>
 	<string name="type.waterway.river">Fiume</string>
 	<string name="type.waterway.river.tunnel">Fiume</string>
@@ -1920,6 +1936,11 @@
 	<string name="type.wheelchair.limited">Accessibile in parte</string>
 	<string name="type.wheelchair.no">Non accessibile ai disabili</string>
 	<string name="type.wheelchair.yes">Accessibile ai disabili</string>
+	<string name="type.piste_type.downhill.advanced">Pista difficile</string>
+	<string name="type.piste_type.downhill.easy">Pista facile</string>
+	<string name="type.piste_type.downhill.expert">Pista per esperti</string>
+	<string name="type.piste_type.downhill.intermediate">Pista media</string>
+	<string name="type.piste_type.downhill.novice">Pista per principianti</string>
 	<string name="type.piste_type.sled">Pista per slitte</string>
 	<string name="type.amenity.events_venue">Sede degli eventi</string>
 	<string name="type.shop.auction">Asta</string>

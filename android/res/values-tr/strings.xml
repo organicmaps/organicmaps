@@ -1093,6 +1093,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tünel</string>
 	<string name="type.highway.busway">Özel otobüs yolu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Tünel</string>
 	<string name="type.highway.bus_stop">Otobüs Durağı</string>
 	<string name="type.highway.construction">Yapım Aşamasında Yol</string>
 	<string name="type.highway.cycleway">Bisiklet Yolu</string>
@@ -1972,7 +1976,7 @@
 	<string name="type.waterway.ditch.tunnel">Hendek</string>
 	<string name="type.waterway.dock">Rıhtım</string>
 	<string name="type.waterway.drain">Lağım</string>
-	<string name="type.waterway.drain.tunnel">Lağım</string>
+	<string name="type.waterway.drain.tunnel">Hendek</string>
 	<string name="type.waterway.lock_gate">Eklüz Kapağı</string>
 	<string name="type.waterway.river">Nehir</string>
 	<string name="type.waterway.river.tunnel">Nehir</string>

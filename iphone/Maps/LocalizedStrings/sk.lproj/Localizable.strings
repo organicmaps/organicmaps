@@ -1948,6 +1948,12 @@
 
 "type.highway.busway" = "Vyhradená autobusová cesta";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Most";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Tunel";
+
 "type.highway.bus_stop" = "Autobusová zastávka";
 
 "type.highway.construction" = "Cesta vo výstavbe";
@@ -3711,7 +3717,7 @@
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Drain";
+"type.waterway.drain.tunnel" = "Ditch";
 
 "type.waterway.lock_gate" = "Stavidlo";
 

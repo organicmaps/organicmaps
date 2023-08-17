@@ -1948,6 +1948,12 @@
 
 "type.highway.busway" = "ﺺﺼﺨﻣ ﺕﻼﻓﺎﺣ ﻖﻳﺮﻃ";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "جسر";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "نفق";
+
 "type.highway.bus_stop" = "موقف حافلة";
 
 "type.highway.construction" = "طريق تحت الإنشاء";
@@ -3711,7 +3717,7 @@
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Drain";
+"type.waterway.drain.tunnel" = "Ditch";
 
 "type.waterway.lock_gate" = "بوابة هويس";
 

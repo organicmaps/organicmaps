@@ -751,6 +751,10 @@
 	<string name="type.highway.bridleway.tunnel">Тунел</string>
 	<string name="type.highway.busway">Обособен автобусен път</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Мост</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Тунел</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.cycleway.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.cycleway.tunnel">Тунел</string>

@@ -1948,6 +1948,12 @@
 
 "type.highway.busway" = "Via exclusiva de autocarro";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Ponte";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Túnel";
+
 "type.highway.bus_stop" = "Paragem de autocarros";
 
 "type.highway.construction" = "Estrada em construção";
@@ -3711,7 +3717,7 @@
 
 "type.waterway.drain" = "Valeta de drenagem";
 
-"type.waterway.drain.tunnel" = "Valeta de drenagem";
+"type.waterway.drain.tunnel" = "Vala";
 
 "type.waterway.lock_gate" = "Comporta de eclusa";
 

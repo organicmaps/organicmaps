@@ -983,6 +983,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">터널</string>
 	<string name="type.highway.busway">버스전용도로</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">다리</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">터널</string>
 	<string name="type.highway.bus_stop">버스 정류장</string>
 	<string name="type.highway.construction">공사 중 도로</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
