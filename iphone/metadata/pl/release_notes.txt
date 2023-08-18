@@ -1,14 +1,14 @@
-• New OpenStreetMap maps data as of August 14
-• Updated more than a year old Wikipedia articles
-• Fixed Wiki text in the dark mode
-• Added missing isolines for some regions of Argentina, Chile, Kazakhstan, Tibet, USA, Russia (map sizes increased)
-• More dense isolines in many areas
-• Reduced many other map sizes
-• Import comments from GPX cmt tag
-• Treat GPX track segments as part of the singular track they belong to
-• Fixed a bug when editing social contacts
-• Dog Park can be added in the Editor
-• Updated Persian voice directions
+• Dane OpenStreetMap z 14 sierpnia
+• Zaktualizowane artykuły Wikipedii starsze niż rok
+• Poprawiony tekst Wiki w trybie ciemnym
+• Dodane brakujące izolinie w części regionów Argentyny, Chile, Kazachstanu, Tybetu, USA, Rosji (większe rozmiary map)
+• Gęstsze izolinie na wielu obszarach
+• Zmniejszone rozmiary wielu map
+• Import komentarzy z tagów GPX "cmt"
+• Traktowanie segmentów śladu GPX jako części jednego całego śladu
+• Naprawiony błąd podczas edycji kontaktów społecznościowych
+• Edytor umożliwia dodawanie psich parków
+• Zaktualizowane perskie wskazówki głosowe
 
 Routing
 • Updated road surface factors for car routing profile

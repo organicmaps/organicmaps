@@ -1,11 +1,10 @@
-• Neue OpenStreetMap-Daten ab dem 14. August
-• Neue Wikipedia-Artikel
-• Suche nach Adressen in Tschechien und der Slowakei korrigiert
-• Fehlende Isolinien für einige Regionen in Argentinien, Chile, Kasachstan, Tibet, USA und Russland hinzugefügt
-• Fehler auf dem Nexus 5X behoben
-• Fährenrouten zur Weltkarte hinzugefügt
-• Parkplatz-Symbole neu gestaltet
-• Überarbeitetes Prioritätensystem für POIs
-• Verbesserte Suche und Routenplanung
-
+• Neue Openstreetmap-Daten mit Stand 14. August
+• Aktuelle Wikipedia-Artikel
+• Suche von Adressen funktioniert nun auch für Tschechien und Slovakei
+• Fehlende Konturlinien für einige Regionen in Argentinien, Chile, Kasachstan, Tibet, USA, Russland hinzugefügt
+• Bessere Konturlinien für einige Regionen
+• Fehler bei Nexus 5X behoben
+• Fährverbindungen zur Weltkarte hinzugefügt
+• Überarbeitete Symbole für Parkplätze
+• Verbesserte Priorisierung von Sehenwürdigkeiten
 Mehr Details: omaps.org/de/news

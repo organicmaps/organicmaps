@@ -1,13 +1,12 @@
-• New OpenStreetMap data as of August 14
-• Fresh Wikipedia articles
-• Fixed search for addresses in Czech and Slovakia
-• Added missing isolines for some regions of Argentina, Chile, Kazakhstan, Tibet, USA, Russia
-• More dense isolines in some areas
-• Fixed bug on Nexus 5X
-• Added ferry routes to the World map
-• Redesigned parking icons
-• Revamped priorities system for POIs
-• Many other smaller enhancements and bug fixes
-• Faster, improved search and routing
+• Dati OpenStreetMap aggiornati al 14 agosto
+• Aggiornati articoli Wikipedia
+• Aggiustata ricerca per indirizzi in Cechia e Slovacchia
+• Aggiunte isolinee mancanti per alcune regioni di Argentina, Cile, Kazakistan, Tibet, USA, Russia
+• Rese isolinee più dense in alcune aree
+• Risolto bug su Nexus 5X
+• Aggiunte rotte dei traghetti alla mappa del mondo
+• Ridisegnate icone parcheggi
+• Rinnovate priorità per luoghi d'interesse
+• Velocizzate ricerca e indicazioni
 
-…more: omaps.org/news
+…di più: omaps.org/news
