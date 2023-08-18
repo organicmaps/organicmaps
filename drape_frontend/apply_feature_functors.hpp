@@ -206,7 +206,7 @@ private:
 
   std::vector<m2::SharedSpline> m_clippedSplines;
   float m_currentScaleGtoP;
-  float m_depth;
+  float m_captionDepth, m_shieldDepth;
   CaptionDefProto const * m_captionRule;
   ShieldRuleProto const * m_shieldRule;
 };

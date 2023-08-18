@@ -900,7 +900,8 @@ ApplyLineFeatureAdditional::ApplyLineFeatureAdditional(TileKey const & tileKey, 
   : TBase(tileKey, insertShape, id, rank, captions)
   , m_clippedSplines(clippedSplines)
   , m_currentScaleGtoP(static_cast<float>(currentScaleGtoP))
-  , m_depth(0.0f)
+  , m_captionDepth(0.0f)
+  , m_shieldDepth(0.0f)
   , m_captionRule(nullptr)
   , m_shieldRule(nullptr)
 {}
@@ -910,15 +911,19 @@ void ApplyLineFeatureAdditional::ProcessLineRule(Stylist::TRuleWrapper const & r
   if (m_clippedSplines.empty())
     return;
 
-  m_depth = rule.m_depth;
-
   ShieldRuleProto const * pShieldRule = rule.m_rule->GetShield();
   if (pShieldRule != nullptr)
+  {
     m_shieldRule = pShieldRule;
+    m_shieldDepth = rule.m_depth;
+  }
 
   CaptionDefProto const * pCaptionRule = rule.m_rule->GetCaption(0);
   if (pCaptionRule != nullptr && pCaptionRule->height() > 2 && !m_captions.GetMainText().empty())
+  {
     m_captionRule = pCaptionRule;
+    m_captionDepth = rule.m_depth;
+  }
 }
 
 void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureManager> texMng,
@@ -946,7 +951,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   UpdateRoadShieldTextFont(font, shield);
   textParams.m_tileCenter = m_tileRect.Center();
   textParams.m_depthTestEnabled = false;
-  textParams.m_depth = m_depth;
+  textParams.m_depth = m_shieldDepth;
   textParams.m_depthLayer = DepthLayer::OverlayLayer;
   textParams.m_rank = m_rank;
   textParams.m_featureId = m_id;
@@ -976,7 +981,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
     symbolParams.m_featureId = m_id;
     symbolParams.m_tileCenter = m_tileRect.Center();
     symbolParams.m_depthTestEnabled = true;
-    symbolParams.m_depth = m_depth;
+    symbolParams.m_depth = m_shieldDepth;
     symbolParams.m_depthLayer = DepthLayer::OverlayLayer;
     symbolParams.m_rank = m_rank;
     symbolParams.m_anchor = anchor;
@@ -1001,8 +1006,9 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   if (IsSymbolRoadShield(shield))
   {
     std::string symbolName = GetRoadShieldSymbolName(shield, fontScale);
+    poiParams.m_featureId = m_id;
     poiParams.m_tileCenter = m_tileRect.Center();
-    poiParams.m_depth = m_depth;
+    poiParams.m_depth = m_shieldDepth;
     poiParams.m_depthTestEnabled = false;
     poiParams.m_depthLayer = DepthLayer::OverlayLayer;
     poiParams.m_rank = m_rank;
@@ -1086,7 +1092,7 @@ void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
     PathTextViewParams params;
     params.m_tileCenter = m_tileRect.Center();
     params.m_featureId = m_id;
-    params.m_depth = m_depth;
+    params.m_depth = m_captionDepth;
     params.m_rank = m_rank;
     params.m_mainText = m_captions.GetMainText();
     params.m_auxText = m_captions.GetAuxText();
@@ -1146,7 +1152,6 @@ void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
     TextViewParams textParams;
     ColoredSymbolViewParams symbolParams;
     PoiSymbolViewParams poiParams;
-    poiParams.m_featureId = m_id;
     m2::PointD shieldPixelSize;
     GetRoadShieldsViewParams(texMng, shield, shieldIndex, static_cast<uint8_t>(roadShields.size()),
                              textParams, symbolParams, poiParams, shieldPixelSize);
