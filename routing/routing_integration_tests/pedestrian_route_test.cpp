@@ -11,6 +11,8 @@ namespace pedestrian_route_test
 {
 using namespace routing;
 using namespace routing::turns;
+using namespace integration;
+using mercator::FromLatLon;
 
 UNIT_TEST(GermanyBremenJunctionToCycleway)
 {
@@ -612,9 +614,6 @@ UNIT_TEST(Hungary_UseFootways)
 
 UNIT_TEST(France_Uphill_Downlhill)
 {
-  using namespace integration;
-  using mercator::FromLatLon;
-
   double timeDownhill, timeUphill;
   {
     TRouteResult const routeResult = CalculateRoute(GetVehicleComponents(VehicleType::Pedestrian),
@@ -667,9 +666,6 @@ UNIT_TEST(Italy_Rome_Altitude_Footway)
 
 UNIT_TEST(Romania_Mountains_ETA)
 {
-  using namespace integration;
-  using mercator::FromLatLon;
-
   TRouteResult const routeResult = CalculateRoute(GetVehicleComponents(VehicleType::Pedestrian),
       FromLatLon(45.5450, 25.2584), {0., 0.},
       FromLatLon(45.5223, 25.2806));
@@ -678,11 +674,11 @@ UNIT_TEST(Romania_Mountains_ETA)
   TEST(routeResult.first, ());
   Route const & route = *routeResult.first;
 
-  /// @todo Current Tobler’s Hiking function works bad here.
-
-  TestRouteLength(route, 4671.33);
+  // Google agrees here and also makes a detour with less ascent/descent.
+  // GraphHopper, OSRM make a shorter route via the mountain.
+  TestRouteLength(route, 5766.87);
   route.GetTotalTimeSec();
-  TEST_LESS(route.GetTotalTimeSec(), 2 * 3600, ());
+  TEST_LESS(route.GetTotalTimeSec(), 2.5 * 3600, ());
 }
 
 // Check piligrim routes here: www santiago.nl/downloads/
@@ -697,9 +693,6 @@ UNIT_TEST(Spain_N634_Piligrim_Road)
 // https://github.com/organicmaps/organicmaps/issues/5410
 UNIT_TEST(Australia_Mountains_Downlhill)
 {
-  using namespace integration;
-  using mercator::FromLatLon;
-
   TRouteResult const routeResult = CalculateRoute(GetVehicleComponents(VehicleType::Pedestrian),
                                                   FromLatLon(-33.7374217, 150.283098), {0., 0.},
                                                   FromLatLon(-33.7375399, 150.283358));
@@ -711,7 +704,33 @@ UNIT_TEST(Australia_Mountains_Downlhill)
   TestRouteLength(route, 27.4434);
   // Altitudes diff is (914 -> 798).
   double const eta = route.GetTotalTimeSec();
-  TEST(10 * 60 < eta && eta < 15 * 60, (eta));
+  TEST(8 * 60 < eta && eta < 11 * 60, (eta));
+}
+
+UNIT_TEST(Turkey_UsePrimary)
+{
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Pedestrian),
+      FromLatLon(38.7352697, 35.516104), {0., 0.},
+      FromLatLon(38.7398797, 35.5170627), 679.702);
+
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Pedestrian),
+      FromLatLon(38.7168708, 35.4903164), {0., 0.},
+      FromLatLon(38.7207386, 35.4811178), 1050.39);
+}
+
+UNIT_TEST(Georgia_UsePrimary)
+{
+  TRouteResult const routeResult = CalculateRoute(GetVehicleComponents(VehicleType::Pedestrian),
+                                                  FromLatLon(42.7175722, 42.0496444), {0., 0.},
+                                                  FromLatLon(43.0451, 42.3742778));
+
+  TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
+  TEST(routeResult.first, ());
+  Route const & route = *routeResult.first;
+
+  TestRouteLength(route, 68595);
+  double const eta = route.GetTotalTimeSec();
+  TEST(22 * 3600 < eta && eta < 24 * 3600, (eta));
 }
 
 } // namespace pedestrian_route_test

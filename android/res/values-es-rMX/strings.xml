@@ -216,6 +216,10 @@
 	<string name="type.highway.bridleway.bridge">Puente</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Túnel</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Puente</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Túnel</string>
 	<string name="type.highway.construction">Carretera en construcción</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.cycleway.bridge">Puente</string>
@@ -436,6 +440,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">Entrada de metro</string>
 	<string name="type.railway.subway_entrance.tashkent">Entrada de metro</string>
 	<string name="type.railway.subway_entrance.tbilisi">Entrada de metro</string>
+	<string name="type.railway.subway_entrance.tehran">Entrada de metro</string>
 	<string name="type.railway.subway_entrance.tianjin">Entrada de metro</string>
 	<string name="type.railway.subway_entrance.tokyo">Entrada de metro</string>
 	<string name="type.railway.subway_entrance.valencia">Entrada de metro</string>

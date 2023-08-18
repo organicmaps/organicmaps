@@ -1,14 +1,14 @@
-• Fresh OpenStreetMap data as of July 10, 2023
+• بيانات OpenStreetMap جديدة اعتبارًا من 10 يوليو 2023
 • Fixed several crashes
-• Support altitude, OsmAnd and Garmin colors in imported GPX tracks
-• Fixed pedestrian ETA for big slopes
-• Better car routing
-• Improved search ranking
-• Share button has been moved to the Place Page
-• Updated many translations
-• Added new shops and event venues types
-• Improved water tunnels and bridges rendering
-• More detailed railways
-• Added boundary=protected_area
+• دعم ألوان Garmin و OsmAnd و altitude في مسارات GPX المستوردة
+• تم إصلاح ETA للمشاة للمنحدرات الكبيرة
+• توجيه أفضل للسيارة
+• تحسين ترتيب البحث
+• تم نقل زر المشاركة إلى صفحة المكان
+• تحديث العديد من الترجمات
+• تمت إضافة المتاجر الجديدة وأماكن الفعاليات
+• تحسين أنفاق وجسور المياه
+• سكك حديدية أكثر تفصيلا
+• الحدود المضافة=المنطقة_المحمية
 
-…more: omaps.org/news
+…المزيد: omaps.org/news

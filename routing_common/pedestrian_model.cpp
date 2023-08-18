@@ -122,6 +122,16 @@ VehicleModel::LimitsInitList YesBridleway(VehicleModel::LimitsInitList res = kDe
   return res;
 }
 
+/// @see Turkey_UsePrimary, Georgia_UsePrimary test.
+HighwayBasedSpeeds IncreasePrimary()
+{
+  /// @todo Probably, should make Primary = Secondary = 4.
+  HighwayBasedSpeeds res = pedestrian_model::kDefaultSpeeds;
+  res.Replace(HighwayType::HighwayPrimary, InOutCitySpeedKMpH(SpeedKMpH(3.0, 5.0)));
+  res.Replace(HighwayType::HighwayPrimaryLink, InOutCitySpeedKMpH(SpeedKMpH(3.0, 5.0)));
+  return res;
+}
+
 VehicleModel::SurfaceInitList const kPedestrianSurface = {
   // {{surfaceType}, {weightFactor, etaFactor}}
   {{"psurface", "paved_good"}, {1.0, 1.0}},
@@ -139,9 +149,15 @@ PedestrianModel::PedestrianModel() : PedestrianModel(pedestrian_model::kDefaultO
 {
 }
 
-PedestrianModel::PedestrianModel(VehicleModel::LimitsInitList const & speedLimits)
-  : VehicleModel(classif(), speedLimits, pedestrian_model::kPedestrianSurface,
-                {pedestrian_model::kDefaultSpeeds, pedestrian_model::kDefaultFactors})
+PedestrianModel::PedestrianModel(VehicleModel::LimitsInitList const & limits)
+: PedestrianModel(limits, pedestrian_model::kDefaultSpeeds)
+{
+}
+
+PedestrianModel::PedestrianModel(VehicleModel::LimitsInitList const & limits,
+                                 HighwayBasedSpeeds const & speeds)
+  : VehicleModel(classif(), limits, pedestrian_model::kPedestrianSurface,
+                {speeds, pedestrian_model::kDefaultFactors})
 {
   using namespace pedestrian_model;
 
@@ -196,6 +212,7 @@ PedestrianModelFactory::PedestrianModelFactory(
   m_models["Denmark"] = make_shared<PedestrianModel>(YesCycleway(NoTrunk()));
   m_models["France"] = make_shared<PedestrianModel>(NoTrunk());
   m_models["Finland"] = make_shared<PedestrianModel>(YesCycleway());
+  m_models["Georgia"] = make_shared<PedestrianModel>(AllAllowed(), IncreasePrimary());
   m_models["Greece"] = make_shared<PedestrianModel>(YesCycleway(YesBridleway(NoTrunk())));
   m_models["Hungary"] = make_shared<PedestrianModel>(NoTrunk());
   m_models["Iceland"] = make_shared<PedestrianModel>(AllAllowed());
@@ -211,7 +228,7 @@ PedestrianModelFactory::PedestrianModelFactory(
   m_models["Spain"] = make_shared<PedestrianModel>(NoTrunk());
   m_models["Sweden"] = make_shared<PedestrianModel>(AllAllowed());
   m_models["Switzerland"] = make_shared<PedestrianModel>(NoTrunk());
-  m_models["Turkey"] = make_shared<PedestrianModel>(AllAllowed());
+  m_models["Turkey"] = make_shared<PedestrianModel>(AllAllowed(), IncreasePrimary());
   m_models["Ukraine"] = make_shared<PedestrianModel>(NoTrunk());
   m_models["United Kingdom"] = make_shared<PedestrianModel>(AllAllowed());
   m_models["United States of America"] = make_shared<PedestrianModel>(AllAllowed());

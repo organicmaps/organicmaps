@@ -232,6 +232,7 @@
     es = Infraestructura aérea
     et = Õhuruumi infrastruktuur
     eu = Aire azpiegitura
+    it = Infrastruttura aeroportuale
     ja = 空路
     mr = हवाई आधार संरचना
     nl = Luchtvaartinfrastructuur
@@ -346,6 +347,7 @@
     it = Cancello aeroportuale
     ja = 搭乗口
     mr = दार
+    nl = Gate
     pl = Wyjście lotniskowe
     pt = Porta de embarque
     pt-BR = Porta de embarque
@@ -443,6 +445,7 @@
     it = Terminal aeroportuale
     ja = 空港ターミナルビル
     mr = टर्मिनल
+    nl = Luchthaventerminal
     pl = Terminal lotniskowy
     pt = Terminal de passageiros
     pt-BR = Aerogare de passageiros
@@ -2756,6 +2759,14 @@
     zh-Hans = 地下停车场
     zh-Hant = 地下停車場
 
+  [type.amenity.parking.street_side]
+    ref = type.amenity.parking
+    en = Street-Side Parking
+
+  [type.amenity.parking.lane]
+    ref = type.amenity.parking
+    en = Roadside Lane Parking
+
   [type.amenity.parking_entrance]
     en = Parking Entrance
     af = Parkeeringang
@@ -3388,6 +3399,7 @@
     fi = Pubi
     fr = Pub
     hu = Kocsma
+    it = Taverna
     ja = バー
     ko = 술집
     mr = पब
@@ -3904,6 +3916,7 @@
     eu = Edateko kartoiak
     fi = Kartonki
     fr = Briques alimentaires
+    it = Tetrapak
     mr = पेय कार्टन
     nl = Drankverpakkingen
     pt-BR = Caixa de bebidas
@@ -5131,6 +5144,7 @@
     eu = Euste-horma
     fi = Tukimuuri
     fr = Mur de soutènement
+    it = Muro di sostegno
     ja = 擁壁
     mr = संधारक भिंत
     nl = Keermuur
@@ -7140,6 +7154,7 @@
     et = Mullitee
     eu = Burbuila tea
     fi = Kuplatee
+    it = Bubble tea
     ru = Чай с шариками
     uk = Бульбашковий чай
 
@@ -7761,6 +7776,7 @@
     he = פיש אנד צ'יפס
     hu = Hal és sültkrumpli
     id = Ikan dan kentang goreng
+    it = Fish and Chips
     ja = フィッシュ・アンド・チップス
     ko = 피쉬 앤 칩스
     nb = Fisk og pommes frites
@@ -10432,6 +10448,12 @@
     vi = Đường dành riêng cho xe buýt
     zh-Hans = 巴士专用道
     zh-Hant = 巴士專用道
+	
+  [type.highway.busway.bridge]
+    ref = type.highway.road.bridge
+	
+  [type.highway.busway.tunnel]
+    ref = type.highway.road.tunnel
 
   [type.highway.bus_stop]
     en = Bus Stop
@@ -10841,6 +10863,7 @@
     de = Autobahnbrücke
     et = Mootorrataste sild
     fi = Moottoritiesilta
+    it = Ponte autostradale
     mr = महामार्ग पूल
     nl = Snelwegbrug
     pl = Most drogowy
@@ -10854,6 +10877,7 @@
     de = Autobahntunnel
     et = Kiirtee tunnel
     fi = Moottoritietunneli
+    it = Tunnel autostradale
     mr = महामार्ग बोगदा
     nl = Snelwegtunnel
     pl = Tunel drogowy
@@ -13458,6 +13482,7 @@
     et = Peenrad
     fi = Siirtolapuutarha
     fr = Jardins familiaux
+    it = Orti comunitari
     ja = 市民農園
     mr = वाटप
     nl = Volkstuinen
@@ -15138,6 +15163,7 @@
     ar = منتجع شاطئي
     es = Resort de playa
     et = Rannakuurort
+    it = Resort balneare
     mr = समुद्री रिसॉर्ट
     nl = Strandresort
     ru = Пляжный курорт
@@ -15319,6 +15345,7 @@
     es = Mástil
     et = Mast
     fr = Mât
+    it = Pilone
     mr = डोलकाठी
     nl = Mast
     ru = Мачта/вышка
@@ -19187,6 +19214,7 @@
     es = Vía férrea abandonada
     et = Mahajäetud raudtee
     fr = Chemin de fer abandonné
+    it = Ferrovia abbandonata
     ja = 廃線
     nl = Voormalig treinspoor
     pt = Ferrovia abandonada
@@ -19251,6 +19279,7 @@
     es = Paso a nivel
     et = Raudtee ülesõit
     fr = Traversée de voie ferrée
+    it = Passaggio ferroviario
     ja = 歩行者用踏切
     mr = रेल्वे ओलांडणी
     nl = Spoorwegovergang
@@ -19267,6 +19296,7 @@
     es = Vía férrea en desuso
     et = Kasutamata raudtee
     fr = Chemin de fer désaffecté
+    it = Ferrovia in disuso
     ja = 休止線
     nl = Ongebruikt spoor
     pt = Ferrovia em desuso
@@ -20453,6 +20483,9 @@
   [type.railway.station.subway.tbilisi]
     ref = type.railway.station.subway
 
+  [type.railway.station.subway.tehran]
+    ref = type.railway.station.subway
+
   [type.railway.station.subway.tianjin]
     ref = type.railway.station.subway
 
@@ -20868,6 +20901,9 @@
   [type.railway.subway_entrance.tbilisi]
     ref = type.railway.subway_entrance
 
+  [type.railway.subway_entrance.tehran]
+    ref = type.railway.subway_entrance
+
   [type.railway.subway_entrance.tianjin]
     ref = type.railway.subway_entrance
 
@@ -20993,6 +21029,7 @@
     it = Percorso
     ja = ルート
     mr = मार्ग
+    nl = Route
     pt = Rota
     pt-BR = Rota
     ru = Маршрут
@@ -22911,6 +22948,7 @@
     ko = 정자
     mr = टपरी
     nb = Kiosk
+    nl = Kiosk
     pt = Quiosque
     pt-BR = Quiosque
     ro = Magazin
@@ -27752,6 +27790,17 @@
 
   [type.waterway.ditch.tunnel]
     ref = type.waterway.ditch
+    en = Culvert
+    de = Durchlass
+    es = Obra de drenaje
+    et = Truup
+    fr = Drain
+    it = Cunicolo
+    ja = 暗渠
+    nl = Duiker
+    ru = Водопропускная труба
+    uk = Водопропускна труба
+    zh-Hans = 涵洞
 
   [type.waterway.dock]
     en = Waterway Dock
@@ -27790,7 +27839,7 @@
     zh-Hans = 渠
 
   [type.waterway.drain.tunnel]
-    ref = type.waterway.drain
+    ref = type.waterway.ditch.tunnel
 
   [type.waterway.lock_gate]
     en = Lock Gate
@@ -28308,6 +28357,7 @@
     af = Gevorderde afdaling
     de = Schwierige Ski-Abfahrt
     et = Raske laskumine
+    it = Pista difficile
     nl = Moeilijke afdaling
     pt = Esqui alpino avançado
     pt-BR = Esqui alpino avançado
@@ -28321,6 +28371,7 @@
     af = Maklike afdaling
     de = Leichte Ski-Abfahrt
     et = Kerge laskumine
+    it = Pista facile
     nl = Makkelijke afdaling
     pt = Esqui alpino fácil
     pt-BR = Esqui alpino fácil
@@ -28334,6 +28385,7 @@
     af = Ervare afdaling
     de = Profi-Ski-Abfahrt
     et = Professionaalne laskumine
+    it = Pista per esperti
     nl = Afdaling voor experts
     pt = Esqui alpino avançado
     pt-BR = Esqui alpino avançado
@@ -28356,6 +28408,7 @@
     af = Gemiddelde afdaling
     de = Mittelschwere Ski-Abfahrt
     et = Keskmise raskusastmega laskumine
+    it = Pista media
     nl = Gemiddelde afdaling
     pt = Esqui alpino intermédio
     pt-BR = Esqui alpino intermédio
@@ -28370,6 +28423,7 @@
     de = Anfängerfreundliche Ski-Abfahrt
     et = Algajasõbralik laskumine
     nl = Beginnersafdaling
+    it = Pista per principianti
     pt = Esqui alpino iniciante
     pt-BR = Esqui alpino iniciante
     ru = Горнолыжная трасса для новичков

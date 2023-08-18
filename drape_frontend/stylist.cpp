@@ -37,26 +37,27 @@ static double constexpr kBasePriorityFg = 0,
                         kBasePriorityBgBySize = -2000;
 
 // Define depth ranges boundaries to accomodate for all possible layer=* values.
-// One layer space is df::kLayerDepthRange (1000). So each +1/-1 layer value shifts
+// One layer space is drule::kLayerPriorityRange (1000). So each +1/-1 layer value shifts
 // depth of the drule by -1000/+1000.
 
                         // FG depth range: [0;1000).
 static double constexpr kBaseDepthFg = 0,
                         // layer=-10/10 gives an overall FG range of [-10000;11000).
-                        kMaxLayeredDepthFg = kBaseDepthFg + (1 + feature::LAYER_HIGH) * df::kLayerDepthRange,
-                        kMinLayeredDepthFg = kBaseDepthFg + feature::LAYER_LOW * df::kLayerDepthRange,
+                        kMaxLayeredDepthFg = kBaseDepthFg + (1 + feature::LAYER_HIGH) * drule::kLayerPriorityRange,
+                        kMinLayeredDepthFg = kBaseDepthFg + feature::LAYER_LOW * drule::kLayerPriorityRange,
                         // Split the background layer space as 100 for BG-top and 900 for BG-by-size.
                         kBgTopRangeFraction = 0.1,
-                        kDepthRangeBgTop = kBgTopRangeFraction * df::kLayerDepthRange,
-                        kDepthRangeBgBySize = df::kLayerDepthRange - kDepthRangeBgTop,
+                        kDepthRangeBgTop = kBgTopRangeFraction * drule::kLayerPriorityRange,
+                        kDepthRangeBgBySize = drule::kLayerPriorityRange - kDepthRangeBgTop,
                         // So the BG-top range is [-10100,-10000).
                         kBaseDepthBgTop = kMinLayeredDepthFg - kDepthRangeBgTop,
                         // And BG-by-size range is [-11000,-11000).
                         kBaseDepthBgBySize = kBaseDepthBgTop - kDepthRangeBgBySize,
                         // Minimum BG depth for layer=-10 is -21000.
-                        kMinLayeredDepthBg = kBaseDepthBgBySize + feature::LAYER_LOW * df::kLayerDepthRange;
+                        kMinLayeredDepthBg = kBaseDepthBgBySize + feature::LAYER_LOW * drule::kLayerPriorityRange;
 
 static_assert(dp::kMinDepth <= kMinLayeredDepthBg && kMaxLayeredDepthFg <= dp::kMaxDepth);
+static_assert(dp::kMinDepth <= -drule::kOverlaysMaxPriority && drule::kOverlaysMaxPriority <= dp::kMaxDepth);
 
 enum Type
 {
@@ -168,12 +169,16 @@ private:
       /// @todo we might want to hide e.g. a trash bin under man_made=bridge or a bench on underground railway station?
       if (m_featureLayer != feature::LAYER_EMPTY)
       {
-        depth += m_featureLayer * df::kLayerDepthRange;
+        depth += m_featureLayer * drule::kLayerPriorityRange;
       }
-
-      // Check no features are clipped by the depth range constraints.
-      ASSERT(dp::kMinDepth <= depth && depth <= dp::kMaxDepth, (depth, m_f.GetID(), m_featureLayer));
     }
+    else
+    {
+      // Check overlays priorities range.
+      ASSERT(-drule::kOverlaysMaxPriority <= depth && depth < drule::kOverlaysMaxPriority, (depth, m_f.GetID()));
+    }
+    // Check no features are clipped by the depth range constraints.
+    ASSERT(dp::kMinDepth <= depth && depth <= dp::kMaxDepth, (depth, m_f.GetID(), m_featureLayer));
 
     drule::BaseRule const * const dRule = drule::rules().Find(key);
     if (dRule == nullptr)
@@ -186,6 +191,7 @@ private:
 
     // Skip lines with zero width. Lines can have zero width only if they have
     // path symbols along.
+    /// @todo should never happen, change to assert.
     auto const lineRule = dRule->GetLine();
     if (lineRule != nullptr && (lineRule->width() < 1e-5 && !lineRule->has_pathsym()))
       return;
@@ -314,6 +320,7 @@ void CaptionDescription::ProcessMainTextType(drule::text_type_t const & mainText
 
   if (mainTextType == drule::text_type_housenumber)
   {
+    /// @todo this code path is never used, probably need to have e.g. "text: housenumber" in styles for it.
     m_mainText.swap(m_houseNumber);
     m_houseNumber.clear();
     m_isHouseNumberInMainText = true;

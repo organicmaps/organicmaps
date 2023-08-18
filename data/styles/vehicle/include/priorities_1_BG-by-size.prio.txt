@@ -1,0 +1,113 @@
+# This file is automatically re-formatted and re-sorted in priorities descending order
+# when generate_drules.sh is run. Custom formatting and comments are not preserved.
+#
+# BG-by-size geometry: background areas rendered below BG-top and everything else.
+# Smaller areas are rendered above larger ones (area's size is estimated as the size of its' bounding box).
+# So effectively priority values of BG-by-size areas are not used at the moment.
+# But we might use them later for some special cases, e.g. to determine a main area type of a multi-type feature.
+# Keep them in a logical importance order please.
+#
+# Priorities ranges' rendering order overview:
+# - overlays (icons, captions...)
+# - FG: foreground areas and lines
+# - BG-top: water (linear and areal)
+# - BG-by-size: landcover areas sorted by their size
+
+amenity-parking                                     # area z15- (also has caption z16-, icon z15-)
+amenity-parking-fee                                 # area z15- (also has caption z16-, icon z15-)
+amenity-parking-lane                                # area z15- (also has icon z17-)
+amenity-parking-multi-storey                        # area z15- (also has caption z16-, icon z15-)
+amenity-parking-no-access                           # area z15- (also has caption z16-, icon z15-)
+amenity-parking-park_and_ride                       # area z15- (also has caption z16-, icon z15-)
+amenity-parking-permissive                          # area z15- (also has caption z16-, icon z15-)
+amenity-parking-private                             # area z15- (also has caption z17-, icon z17-)
+amenity-parking-street_side                         # area z15- (also has icon z17-)
+amenity-parking-underground                         # area z15- (also has caption z16-, icon z15-)
+=== 160
+
+leisure-stadium                                     # area z15-
+=== 150
+
+leisure-nature_reserve                              # area z10- (also has caption z12-, icon z12-)
+=== 140
+
+amenity-parking_space                               # area z15-
+amenity-parking_space-disabled                      # area z15-
+amenity-parking_space-permissive                    # area z15-
+amenity-parking_space-private                       # area z15-
+amenity-parking_space-underground                   # area z15-
+=== 130
+
+amenity-grave_yard                                  # area z14-
+amenity-grave_yard-christian                        # area z14-
+landuse-cemetery                                    # area z14-
+landuse-cemetery-christian                          # area z14-
+=== 120
+
+aeroway-terminal                                    # area z14- (also has caption z15-)
+=== 110
+
+leisure-swimming_pool                               # area z13-
+leisure-swimming_pool-private                       # area z13-
+=== 100
+
+leisure-golf_course                                 # area z14-
+natural-wetland                                     # area z11- (also has caption z16-)
+natural-wetland-bog                                 # area z11- (also has caption z16-)
+natural-wetland-marsh                               # area z11- (also has caption z16-)
+=== 90
+
+landuse-grass                                       # area z14-
+natural-grassland                                   # area z14-
+natural-heath                                       # area z14-
+=== 80
+
+landuse-allotments                                  # area z14-
+landuse-farmland                                    # area z14-
+landuse-field                                       # area z14-
+landuse-meadow                                      # area z14-
+landuse-orchard                                     # area z14-
+landuse-recreation_ground                           # area z14-
+landuse-village_green                               # area z14-
+landuse-vineyard                                    # area z14-
+natural-scrub                                       # area z14-
+=== 70
+
+leisure-garden                                      # area z12-
+leisure-garden-residential                          # area z12-
+leisure-park                                        # area z10- (also has caption z14-, icon z14-)
+leisure-park-no-access                              # area z10- (also has caption z14-, icon z14-)
+leisure-park-permissive                             # area z10- (also has caption z14-, icon z14-)
+leisure-park-private                                # area z10- (also has caption z14-, icon z14-)
+=== 60
+
+landuse-forest                                      # area z10- (also has caption z12-, icon z12-)
+landuse-forest-coniferous                           # area z10- (also has caption z12-, icon z12-)
+landuse-forest-deciduous                            # area z10- (also has caption z12-, icon z12-)
+landuse-forest-mixed                                # area z10- (also has caption z12-, icon z12-)
+=== 50
+
+landuse-churchyard                                  # area z15-
+landuse-construction                                # area z15-
+landuse-industrial                                  # area z15-
+landuse-landfill                                    # area z15- (also has caption z15-)
+landuse-quarry                                      # area z15- (also has caption z15-)
+landuse-railway                                     # area z15- (also has caption z15-)
+=== 40
+
+aeroway-aerodrome                                   # area z10- (also has caption z14-, icon z14-)
+aeroway-aerodrome-international                     # area z10- (also has caption z10-, icon z7-)
+leisure-beach_resort                                # area z10- (also has caption z15-)
+natural-beach                                       # area z10- (also has caption z15-)
+natural-beach-gravel                                # area z10- (also has caption z15-)
+natural-beach-sand                                  # area z10- (also has caption z15-)
+natural-desert                                      # area z1- (also has caption z14-)
+natural-glacier                                     # area z1-
+=== 30
+
+natural-land                                        # area z1-
+place-islet                                         # area z10-
+=== 20
+
+natural-coastline                                   # area z1-
+=== 10

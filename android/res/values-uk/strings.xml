@@ -816,6 +816,8 @@
 	<string name="type.amenity.parking.private">Приватна парковка</string>
 	<string name="type.amenity.parking.park_and_ride">Парковка</string>
 	<string name="type.amenity.parking.underground">Підземний паркінг</string>
+	<string name="type.amenity.parking.street_side">Парковка</string>
+	<string name="type.amenity.parking.lane">Парковка</string>
 	<string name="type.amenity.parking_entrance">Вхід на паркінг</string>
 	<string name="type.amenity.parking_entrance.private">Вхід на паркінг</string>
 	<string name="type.amenity.parking_entrance.permissive">Вхід на паркінг</string>
@@ -1076,6 +1078,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Тунель</string>
 	<string name="type.highway.busway">Виділена автобусна дорога</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Міст</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Тунель</string>
 	<string name="type.highway.bus_stop">Зупинка</string>
 	<string name="type.highway.construction">Дорога, що будується</string>
 	<string name="type.highway.cycleway">Велодоріжка</string>
@@ -1635,6 +1641,7 @@
 	<string name="type.railway.station.subway.taoyuan">Метро</string>
 	<string name="type.railway.station.subway.tashkent">Метро</string>
 	<string name="type.railway.station.subway.tbilisi">Метро</string>
+	<string name="type.railway.station.subway.tehran">Метро</string>
 	<string name="type.railway.station.subway.tianjin">Метро</string>
 	<string name="type.railway.station.subway.tokyo">Метро</string>
 	<string name="type.railway.station.subway.valencia">Метро</string>
@@ -1748,6 +1755,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">Вхід до метро</string>
 	<string name="type.railway.subway_entrance.tashkent">Вхід до метро</string>
 	<string name="type.railway.subway_entrance.tbilisi">Вхід до метро</string>
+	<string name="type.railway.subway_entrance.tehran">Вхід до метро</string>
 	<string name="type.railway.subway_entrance.tianjin">Вхід до метро</string>
 	<string name="type.railway.subway_entrance.tokyo">Вхід до метро</string>
 	<string name="type.railway.subway_entrance.valencia">Вхід до метро</string>
@@ -1952,10 +1960,10 @@
 	<string name="type.waterway.fish_pass">Рибохід</string>
 	<string name="type.waterway.dam">Дамба</string>
 	<string name="type.waterway.ditch">Канава</string>
-	<string name="type.waterway.ditch.tunnel">Канава</string>
+	<string name="type.waterway.ditch.tunnel">Водопропускна труба</string>
 	<string name="type.waterway.dock">Причал</string>
 	<string name="type.waterway.drain">Водовiдвiд</string>
-	<string name="type.waterway.drain.tunnel">Водовiдвiд</string>
+	<string name="type.waterway.drain.tunnel">Водопропускна труба</string>
 	<string name="type.waterway.lock_gate">Шлюз</string>
 	<string name="type.waterway.river">Річка</string>
 	<string name="type.waterway.river.tunnel">Річка</string>

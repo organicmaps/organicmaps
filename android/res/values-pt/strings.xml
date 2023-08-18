@@ -794,6 +794,8 @@
 	<string name="type.amenity.parking.private">Estacionamento privado</string>
 	<string name="type.amenity.parking.park_and_ride">Parque de estacionamento dissuasor</string>
 	<string name="type.amenity.parking.underground">Estacionamento subterrâneo</string>
+	<string name="type.amenity.parking.street_side">Estacionamento</string>
+	<string name="type.amenity.parking.lane">Estacionamento</string>
 	<string name="type.amenity.parking_entrance">Entrada do estacionamento</string>
 	<string name="type.amenity.parking_entrance.private">Entrada do estacionamento</string>
 	<string name="type.amenity.parking_entrance.permissive">Entrada do estacionamento</string>
@@ -1043,6 +1045,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Túnel</string>
 	<string name="type.highway.busway">Via exclusiva de autocarro</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Ponte</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Túnel</string>
 	<string name="type.highway.bus_stop">Paragem de autocarros</string>
 	<string name="type.highway.construction">Estrada em construção</string>
 	<string name="type.highway.cycleway">Ciclovia</string>
@@ -1596,6 +1602,7 @@
 	<string name="type.railway.station.subway.taoyuan">Estação de metro</string>
 	<string name="type.railway.station.subway.tashkent">Estação de metro</string>
 	<string name="type.railway.station.subway.tbilisi">Estação de metro</string>
+	<string name="type.railway.station.subway.tehran">Estação de metro</string>
 	<string name="type.railway.station.subway.tianjin">Estação de metro</string>
 	<string name="type.railway.station.subway.tokyo">Estação de metro</string>
 	<string name="type.railway.station.subway.valencia">Estação de metro</string>
@@ -1709,6 +1716,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">Entrada do metro</string>
 	<string name="type.railway.subway_entrance.tashkent">Entrada do metro</string>
 	<string name="type.railway.subway_entrance.tbilisi">Entrada do metro</string>
+	<string name="type.railway.subway_entrance.tehran">Entrada do metro</string>
 	<string name="type.railway.subway_entrance.tianjin">Entrada do metro</string>
 	<string name="type.railway.subway_entrance.tokyo">Entrada do metro</string>
 	<string name="type.railway.subway_entrance.valencia">Entrada do metro</string>
@@ -1915,7 +1923,7 @@
 	<string name="type.waterway.ditch.tunnel">Vala</string>
 	<string name="type.waterway.dock">Doca</string>
 	<string name="type.waterway.drain">Valeta de drenagem</string>
-	<string name="type.waterway.drain.tunnel">Valeta de drenagem</string>
+	<string name="type.waterway.drain.tunnel">Vala</string>
 	<string name="type.waterway.lock_gate">Comporta de eclusa</string>
 	<string name="type.waterway.river">Rio</string>
 	<string name="type.waterway.river.tunnel">Rio</string>

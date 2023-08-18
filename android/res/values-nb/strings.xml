@@ -815,6 +815,8 @@
 	<string name="type.amenity.parking.private">Privat parkering</string>
 	<string name="type.amenity.parking.park_and_ride">Parkering</string>
 	<string name="type.amenity.parking.underground">Underjordisk parkering</string>
+	<string name="type.amenity.parking.street_side">Parkering</string>
+	<string name="type.amenity.parking.lane">Parkering</string>
 	<string name="type.amenity.parking_entrance">Parkeringsinngang</string>
 	<string name="type.amenity.parking_entrance.private">Parkeringsinngang</string>
 	<string name="type.amenity.parking_entrance.permissive">Parkeringsinngang</string>
@@ -1032,6 +1034,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
 	<string name="type.highway.busway">Dedikert bussvei</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Bru</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Tunnel</string>
 	<string name="type.highway.bus_stop">Busstopp</string>
 	<string name="type.highway.construction">Veikonstruksjon</string>
 	<string name="type.highway.cycleway">Sykkelvei</string>
@@ -1509,6 +1515,7 @@
 	<string name="type.railway.station.subway.taoyuan">T-bane</string>
 	<string name="type.railway.station.subway.tashkent">T-bane</string>
 	<string name="type.railway.station.subway.tbilisi">T-bane</string>
+	<string name="type.railway.station.subway.tehran">T-bane</string>
 	<string name="type.railway.station.subway.tianjin">T-bane</string>
 	<string name="type.railway.station.subway.tokyo">T-bane</string>
 	<string name="type.railway.station.subway.valencia">T-bane</string>
@@ -1619,6 +1626,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">T-bane inngang</string>
 	<string name="type.railway.subway_entrance.tashkent">T-bane inngang</string>
 	<string name="type.railway.subway_entrance.tbilisi">T-bane inngang</string>
+	<string name="type.railway.subway_entrance.tehran">T-bane inngang</string>
 	<string name="type.railway.subway_entrance.tianjin">T-bane inngang</string>
 	<string name="type.railway.subway_entrance.tokyo">T-bane inngang</string>
 	<string name="type.railway.subway_entrance.valencia">T-bane inngang</string>

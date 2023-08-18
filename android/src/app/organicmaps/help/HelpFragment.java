@@ -60,11 +60,11 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     setupItem(R.id.news, true, root);
     setupItem(R.id.web, true, root);
     setupItem(R.id.email, true, root);
-    setupItem(R.id.github, false, root);
+    setupItem(R.id.github, true, root);
     setupItem(R.id.telegram, false, root);
     setupItem(R.id.instagram, false, root);
     setupItem(R.id.facebook, false, root);
-    setupItem(R.id.twitter, false, root);
+    setupItem(R.id.twitter, true, root);
     setupItem(R.id.matrix, true, root);
     setupItem(R.id.mastodon, false, root);
     setupItem(R.id.openstreetmap, true, root);

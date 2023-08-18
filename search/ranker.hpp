@@ -55,10 +55,6 @@ public:
     // We need it here to make suggestions.
     strings::UniString m_prefix;
 
-    // Minimal distance between search results in meters, needed for
-    // filtering of identical search results.
-    double m_minDistanceBetweenResultsM = 100.0;
-
     Locales m_categoryLocales;
 
     // The maximum number of results in a single emit.

@@ -258,7 +258,7 @@
 	<!-- Text in menu -->
 	<string name="facebook">Facebook</string>
 	<!-- Text in menu -->
-	<string name="twitter">Twitter</string>
+	<string name="twitter">X (Twitter)</string>
 	<!-- Text in menu -->
 	<string name="instagram">Instagram</string>
 	<!-- Text in the editor -->
@@ -863,6 +863,8 @@
 	<string name="type.amenity.parking.private">Private Parking</string>
 	<string name="type.amenity.parking.park_and_ride">Park And Ride Parking</string>
 	<string name="type.amenity.parking.underground">Underground Parking</string>
+	<string name="type.amenity.parking.street_side">Street-Side Parking</string>
+	<string name="type.amenity.parking.lane">Roadside Lane Parking</string>
 	<string name="type.amenity.parking_entrance">Parking Entrance</string>
 	<string name="type.amenity.parking_entrance.private">Parking Entrance</string>
 	<string name="type.amenity.parking_entrance.permissive">Parking Entrance</string>
@@ -1128,6 +1130,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
 	<string name="type.highway.busway">Dedicated Bus Road</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Tunnel</string>
 	<string name="type.highway.bus_stop">Bus Stop</string>
 	<string name="type.highway.construction">Road Under Construction</string>
 	<string name="type.highway.cycleway">Cycle Path</string>
@@ -1712,6 +1718,7 @@
 	<string name="type.railway.station.subway.taoyuan">Subway Station</string>
 	<string name="type.railway.station.subway.tashkent">Subway Station</string>
 	<string name="type.railway.station.subway.tbilisi">Subway Station</string>
+	<string name="type.railway.station.subway.tehran">Subway Station</string>
 	<string name="type.railway.station.subway.tianjin">Subway Station</string>
 	<string name="type.railway.station.subway.tokyo">Subway Station</string>
 	<string name="type.railway.station.subway.valencia">Subway Station</string>
@@ -1825,6 +1832,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">Subway Entrance</string>
 	<string name="type.railway.subway_entrance.tashkent">Subway Entrance</string>
 	<string name="type.railway.subway_entrance.tbilisi">Subway Entrance</string>
+	<string name="type.railway.subway_entrance.tehran">Subway Entrance</string>
 	<string name="type.railway.subway_entrance.tianjin">Subway Entrance</string>
 	<string name="type.railway.subway_entrance.tokyo">Subway Entrance</string>
 	<string name="type.railway.subway_entrance.valencia">Subway Entrance</string>
@@ -2030,10 +2038,10 @@
 	<string name="type.waterway.fish_pass">Fish Pass</string>
 	<string name="type.waterway.dam">Dam</string>
 	<string name="type.waterway.ditch">Ditch</string>
-	<string name="type.waterway.ditch.tunnel">Ditch</string>
+	<string name="type.waterway.ditch.tunnel">Culvert</string>
 	<string name="type.waterway.dock">Waterway Dock</string>
 	<string name="type.waterway.drain">Drain</string>
-	<string name="type.waterway.drain.tunnel">Drain</string>
+	<string name="type.waterway.drain.tunnel">Culvert</string>
 	<string name="type.waterway.lock_gate">Lock Gate</string>
 	<string name="type.waterway.river">River</string>
 	<string name="type.waterway.river.tunnel">River</string>

@@ -98,217 +98,217 @@
 namespace gl_const
 {
 
-const glConst GLUnpackAlignment     = GL_UNPACK_ALIGNMENT;
+constexpr glConst GLUnpackAlignment     = GL_UNPACK_ALIGNMENT;
 
-const glConst GLRenderer            = GL_RENDERER;
-const glConst GLVendor              = GL_VENDOR;
-const glConst GLVersion             = GL_VERSION;
+constexpr glConst GLRenderer            = GL_RENDERER;
+constexpr glConst GLVendor              = GL_VENDOR;
+constexpr glConst GLVersion             = GL_VERSION;
 
 #ifdef GL_VERSION_3_0
-const glConst glContextFlags        = GL_CONTEXT_FLAGS;
+constexpr glConst glContextFlags        = GL_CONTEXT_FLAGS;
 #else
-const glConst glContextFlags        = 0;
+constexpr glConst glContextFlags        = 0;
 #endif
 
-const glConst GLColorBit            = GL_COLOR_BUFFER_BIT;
-const glConst GLDepthBit            = GL_DEPTH_BUFFER_BIT;
-const glConst GLStencilBit          = GL_STENCIL_BUFFER_BIT;
+constexpr glConst GLColorBit            = GL_COLOR_BUFFER_BIT;
+constexpr glConst GLDepthBit            = GL_DEPTH_BUFFER_BIT;
+constexpr glConst GLStencilBit          = GL_STENCIL_BUFFER_BIT;
 
-const glConst GLMaxFragmentTextures = GL_MAX_TEXTURE_IMAGE_UNITS;
-const glConst GLMaxVertexTextures   = GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS;
-const glConst GLMaxTextureSize      = GL_MAX_TEXTURE_SIZE;
+constexpr glConst GLMaxFragmentTextures = GL_MAX_TEXTURE_IMAGE_UNITS;
+constexpr glConst GLMaxVertexTextures   = GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS;
+constexpr glConst GLMaxTextureSize      = GL_MAX_TEXTURE_SIZE;
 
-const glConst GLArrayBuffer         = GL_ARRAY_BUFFER;
-const glConst GLElementArrayBuffer  = GL_ELEMENT_ARRAY_BUFFER;
-const glConst GLPixelBufferWrite    = GL_PIXEL_UNPACK_BUFFER;
+constexpr glConst GLArrayBuffer         = GL_ARRAY_BUFFER;
+constexpr glConst GLElementArrayBuffer  = GL_ELEMENT_ARRAY_BUFFER;
+constexpr glConst GLPixelBufferWrite    = GL_PIXEL_UNPACK_BUFFER;
 
-const glConst GLBufferSize          = GL_BUFFER_SIZE;
-const glConst GLBufferUsage         = GL_BUFFER_USAGE;
+constexpr glConst GLBufferSize          = GL_BUFFER_SIZE;
+constexpr glConst GLBufferUsage         = GL_BUFFER_USAGE;
 
-const glConst GLWriteOnly           = WRITE_ONLY_DEF;
-const glConst GLReadOnly            = READ_ONLY_DEF;
+constexpr glConst GLWriteOnly           = WRITE_ONLY_DEF;
+constexpr glConst GLReadOnly            = READ_ONLY_DEF;
 
-const glConst GLReadBufferBit       = READ_BIT_DEF;
-const glConst GLWriteBufferBit      = WRITE_BIT_DEF;
-const glConst GLInvalidateRange     = INVALIDATE_RANGE_BIT_DEF;
-const glConst GLInvalidateBuffer    = INVALIDATE_BUFFER_BIT_DEF;
-const glConst GLFlushExplicit       = FLUSH_EXPLICIT_BIT_DEF;
-const glConst GLUnsynchronized      = UNSYNCHRONIZED_BIT_DEF;
+constexpr glConst GLReadBufferBit       = READ_BIT_DEF;
+constexpr glConst GLWriteBufferBit      = WRITE_BIT_DEF;
+constexpr glConst GLInvalidateRange     = INVALIDATE_RANGE_BIT_DEF;
+constexpr glConst GLInvalidateBuffer    = INVALIDATE_BUFFER_BIT_DEF;
+constexpr glConst GLFlushExplicit       = FLUSH_EXPLICIT_BIT_DEF;
+constexpr glConst GLUnsynchronized      = UNSYNCHRONIZED_BIT_DEF;
 
-const glConst GLStaticDraw          = GL_STATIC_DRAW;
-const glConst GLStreamDraw          = GL_STREAM_DRAW;
-const glConst GLDynamicDraw         = GL_DYNAMIC_DRAW;
+constexpr glConst GLStaticDraw          = GL_STATIC_DRAW;
+constexpr glConst GLStreamDraw          = GL_STREAM_DRAW;
+constexpr glConst GLDynamicDraw         = GL_DYNAMIC_DRAW;
 
-const glConst GLVertexShader        = GL_VERTEX_SHADER;
-const glConst GLFragmentShader      = GL_FRAGMENT_SHADER;
-const glConst GLCurrentProgram      = GL_CURRENT_PROGRAM;
+constexpr glConst GLVertexShader        = GL_VERTEX_SHADER;
+constexpr glConst GLFragmentShader      = GL_FRAGMENT_SHADER;
+constexpr glConst GLCurrentProgram      = GL_CURRENT_PROGRAM;
 
-const glConst GLRGBA                = GL_RGBA;
-const glConst GLRGB                 = GL_RGB;
-const glConst GLAlpha               = GL_ALPHA;
-const glConst GLLuminance           = GL_LUMINANCE;
-const glConst GLAlphaLuminance      = GL_LUMINANCE_ALPHA;
-const glConst GLDepthComponent      = GL_DEPTH_COMPONENT;
-const glConst GLDepthStencil        = GL_DEPTH_STENCIL;
+constexpr glConst GLRGBA                = GL_RGBA;
+constexpr glConst GLRGB                 = GL_RGB;
+constexpr glConst GLAlpha               = GL_ALPHA;
+constexpr glConst GLLuminance           = GL_LUMINANCE;
+constexpr glConst GLAlphaLuminance      = GL_LUMINANCE_ALPHA;
+constexpr glConst GLDepthComponent      = GL_DEPTH_COMPONENT;
+constexpr glConst GLDepthStencil        = GL_DEPTH_STENCIL;
 
-const glConst GLRGBA8               = GL_RGBA8_OES;
-const glConst GLRGBA4               = GL_RGBA4_OES;
-const glConst GLAlpha8              = GL_ALPHA8_OES;
-const glConst GLLuminance8          = GL_LUMINANCE8_OES;
-const glConst GLAlphaLuminance8     = GL_LUMINANCE8_ALPHA8_OES;
-const glConst GLAlphaLuminance4     = GL_LUMINANCE8_ALPHA4_OES;
-const glConst GLRed                 = GL_RED;
-const glConst GLRedGreen            = GL_RG;
+constexpr glConst GLRGBA8               = GL_RGBA8_OES;
+constexpr glConst GLRGBA4               = GL_RGBA4_OES;
+constexpr glConst GLAlpha8              = GL_ALPHA8_OES;
+constexpr glConst GLLuminance8          = GL_LUMINANCE8_OES;
+constexpr glConst GLAlphaLuminance8     = GL_LUMINANCE8_ALPHA8_OES;
+constexpr glConst GLAlphaLuminance4     = GL_LUMINANCE8_ALPHA4_OES;
+constexpr glConst GLRed                 = GL_RED;
+constexpr glConst GLRedGreen            = GL_RG;
 
-const glConst GL8BitOnChannel       = GL_UNSIGNED_BYTE;
-const glConst GL4BitOnChannel       = GL_UNSIGNED_SHORT_4_4_4_4;
+constexpr glConst GL8BitOnChannel       = GL_UNSIGNED_BYTE;
+constexpr glConst GL4BitOnChannel       = GL_UNSIGNED_SHORT_4_4_4_4;
 
-const glConst GLTexture2D           = GL_TEXTURE_2D;
+constexpr glConst GLTexture2D           = GL_TEXTURE_2D;
 
-const glConst GLTexture0            = GL_TEXTURE0;
+constexpr glConst GLTexture0            = GL_TEXTURE0;
 
-const glConst GLMinFilter           = GL_TEXTURE_MIN_FILTER;
-const glConst GLMagFilter           = GL_TEXTURE_MAG_FILTER;
-const glConst GLWrapS               = GL_TEXTURE_WRAP_S;
-const glConst GLWrapT               = GL_TEXTURE_WRAP_T;
+constexpr glConst GLMinFilter           = GL_TEXTURE_MIN_FILTER;
+constexpr glConst GLMagFilter           = GL_TEXTURE_MAG_FILTER;
+constexpr glConst GLWrapS               = GL_TEXTURE_WRAP_S;
+constexpr glConst GLWrapT               = GL_TEXTURE_WRAP_T;
 
-const glConst GLRepeat              = GL_REPEAT;
-const glConst GLMirroredRepeat      = GL_MIRRORED_REPEAT;
-const glConst GLClampToEdge         = GL_CLAMP_TO_EDGE;
+constexpr glConst GLRepeat              = GL_REPEAT;
+constexpr glConst GLMirroredRepeat      = GL_MIRRORED_REPEAT;
+constexpr glConst GLClampToEdge         = GL_CLAMP_TO_EDGE;
 
-const glConst GLLinear              = GL_LINEAR;
-const glConst GLNearest             = GL_NEAREST;
+constexpr glConst GLLinear              = GL_LINEAR;
+constexpr glConst GLNearest             = GL_NEAREST;
 
-const glConst GLByteType            = GL_BYTE;
-const glConst GLUnsignedByteType    = GL_UNSIGNED_BYTE;
-const glConst GLShortType           = GL_SHORT;
-const glConst GLUnsignedShortType   = GL_UNSIGNED_SHORT;
-const glConst GLIntType             = GL_INT;
-const glConst GLUnsignedIntType     = GL_UNSIGNED_INT;
-const glConst GLFloatType           = GL_FLOAT;
-const glConst GLUnsignedInt24_8Type = GL_UNSIGNED_INT_24_8;
+constexpr glConst GLByteType            = GL_BYTE;
+constexpr glConst GLUnsignedByteType    = GL_UNSIGNED_BYTE;
+constexpr glConst GLShortType           = GL_SHORT;
+constexpr glConst GLUnsignedShortType   = GL_UNSIGNED_SHORT;
+constexpr glConst GLIntType             = GL_INT;
+constexpr glConst GLUnsignedIntType     = GL_UNSIGNED_INT;
+constexpr glConst GLFloatType           = GL_FLOAT;
+constexpr glConst GLUnsignedInt24_8Type = GL_UNSIGNED_INT_24_8;
 
-const glConst GLFloatVec2           = GL_FLOAT_VEC2;
-const glConst GLFloatVec3           = GL_FLOAT_VEC3;
-const glConst GLFloatVec4           = GL_FLOAT_VEC4;
+constexpr glConst GLFloatVec2           = GL_FLOAT_VEC2;
+constexpr glConst GLFloatVec3           = GL_FLOAT_VEC3;
+constexpr glConst GLFloatVec4           = GL_FLOAT_VEC4;
 
-const glConst GLIntVec2             = GL_INT_VEC2;
-const glConst GLIntVec3             = GL_INT_VEC3;
-const glConst GLIntVec4             = GL_INT_VEC4;
+constexpr glConst GLIntVec2             = GL_INT_VEC2;
+constexpr glConst GLIntVec3             = GL_INT_VEC3;
+constexpr glConst GLIntVec4             = GL_INT_VEC4;
 
-const glConst GLFloatMat4           = GL_FLOAT_MAT4;
+constexpr glConst GLFloatMat4           = GL_FLOAT_MAT4;
 
-const glConst GLSampler2D           = GL_SAMPLER_2D;
+constexpr glConst GLSampler2D           = GL_SAMPLER_2D;
 
-const glConst GLAddBlend            = GL_FUNC_ADD;
-const glConst GLSubstractBlend      = GL_FUNC_SUBTRACT;
-const glConst GLReverseSubstrBlend  = GL_FUNC_REVERSE_SUBTRACT;
+constexpr glConst GLAddBlend            = GL_FUNC_ADD;
+constexpr glConst GLSubstractBlend      = GL_FUNC_SUBTRACT;
+constexpr glConst GLReverseSubstrBlend  = GL_FUNC_REVERSE_SUBTRACT;
 
-const glConst GLZero                = GL_ZERO;
-const glConst GLOne                 = GL_ONE;
-const glConst GLSrcColor            = GL_SRC_COLOR;
-const glConst GLOneMinusSrcColor    = GL_ONE_MINUS_SRC_COLOR;
-const glConst GLDstColor            = GL_DST_COLOR;
-const glConst GLOneMinusDstColor    = GL_ONE_MINUS_DST_COLOR;
-const glConst GLSrcAlpha            = GL_SRC_ALPHA;
-const glConst GLOneMinusSrcAlpha    = GL_ONE_MINUS_SRC_ALPHA;
-const glConst GLDstAlpha            = GL_DST_ALPHA;
-const glConst GLOneMinusDstAlpha    = GL_ONE_MINUS_DST_ALPHA;
+constexpr glConst GLZero                = GL_ZERO;
+constexpr glConst GLOne                 = GL_ONE;
+constexpr glConst GLSrcColor            = GL_SRC_COLOR;
+constexpr glConst GLOneMinusSrcColor    = GL_ONE_MINUS_SRC_COLOR;
+constexpr glConst GLDstColor            = GL_DST_COLOR;
+constexpr glConst GLOneMinusDstColor    = GL_ONE_MINUS_DST_COLOR;
+constexpr glConst GLSrcAlpha            = GL_SRC_ALPHA;
+constexpr glConst GLOneMinusSrcAlpha    = GL_ONE_MINUS_SRC_ALPHA;
+constexpr glConst GLDstAlpha            = GL_DST_ALPHA;
+constexpr glConst GLOneMinusDstAlpha    = GL_ONE_MINUS_DST_ALPHA;
 
-const glConst GLDepthTest           = GL_DEPTH_TEST;
-const glConst GLBlending            = GL_BLEND;
-const glConst GLCullFace            = GL_CULL_FACE;
-const glConst GLScissorTest         = GL_SCISSOR_TEST;
-const glConst GLStencilTest         = GL_STENCIL_TEST;
+constexpr glConst GLDepthTest           = GL_DEPTH_TEST;
+constexpr glConst GLBlending            = GL_BLEND;
+constexpr glConst GLCullFace            = GL_CULL_FACE;
+constexpr glConst GLScissorTest         = GL_SCISSOR_TEST;
+constexpr glConst GLStencilTest         = GL_STENCIL_TEST;
 
-const glConst GLDontCare = GL_DONT_CARE;
-const glConst GLTrue     = GL_TRUE;
-const glConst GLFalse    = GL_FALSE;
+constexpr glConst GLDontCare = GL_DONT_CARE;
+constexpr glConst GLTrue     = GL_TRUE;
+constexpr glConst GLFalse    = GL_FALSE;
 
 #ifdef GL_VERSION_4_3
-const glConst GLDebugOutput            = GL_DEBUG_OUTPUT;
-const glConst GLDebugOutputSynchronous = GL_DEBUG_OUTPUT_SYNCHRONOUS;
+constexpr glConst GLDebugOutput            = GL_DEBUG_OUTPUT;
+constexpr glConst GLDebugOutputSynchronous = GL_DEBUG_OUTPUT_SYNCHRONOUS;
 
-const glConst GLDebugSourceApi            = GL_DEBUG_SOURCE_API;
-const glConst GLDebugSourceShaderCompiler = GL_DEBUG_SOURCE_SHADER_COMPILER;
-const glConst GLDebugSourceThirdParty     = GL_DEBUG_SOURCE_THIRD_PARTY;
-const glConst GLDebugSourceApplication    = GL_DEBUG_SOURCE_APPLICATION;
-const glConst GLDebugSourceOther          = GL_DEBUG_SOURCE_OTHER;
+constexpr glConst GLDebugSourceApi            = GL_DEBUG_SOURCE_API;
+constexpr glConst GLDebugSourceShaderCompiler = GL_DEBUG_SOURCE_SHADER_COMPILER;
+constexpr glConst GLDebugSourceThirdParty     = GL_DEBUG_SOURCE_THIRD_PARTY;
+constexpr glConst GLDebugSourceApplication    = GL_DEBUG_SOURCE_APPLICATION;
+constexpr glConst GLDebugSourceOther          = GL_DEBUG_SOURCE_OTHER;
 
-const glConst GLDebugTypeError            = GL_DEBUG_TYPE_ERROR;
-const glConst GLDebugDeprecatedBehavior   = GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR;
-const glConst GLDebugUndefinedBehavior    = GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR;
-const glConst GLDebugPortability          = GL_DEBUG_TYPE_PORTABILITY;
-const glConst GLDebugPerformance          = GL_DEBUG_TYPE_PERFORMANCE;
-const glConst GLDebugOther                = GL_DEBUG_TYPE_OTHER;
+constexpr glConst GLDebugTypeError            = GL_DEBUG_TYPE_ERROR;
+constexpr glConst GLDebugDeprecatedBehavior   = GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR;
+constexpr glConst GLDebugUndefinedBehavior    = GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR;
+constexpr glConst GLDebugPortability          = GL_DEBUG_TYPE_PORTABILITY;
+constexpr glConst GLDebugPerformance          = GL_DEBUG_TYPE_PERFORMANCE;
+constexpr glConst GLDebugOther                = GL_DEBUG_TYPE_OTHER;
 
-const glConst GLDebugSeverityLow          = GL_DEBUG_SEVERITY_LOW;
-const glConst GLDebugSeverityMedium       = GL_DEBUG_SEVERITY_MEDIUM;
-const glConst GLDebugSeverityHigh         = GL_DEBUG_SEVERITY_HIGH;
-const glConst GLDebugSeverityNotification = GL_DEBUG_SEVERITY_NOTIFICATION;
+constexpr glConst GLDebugSeverityLow          = GL_DEBUG_SEVERITY_LOW;
+constexpr glConst GLDebugSeverityMedium       = GL_DEBUG_SEVERITY_MEDIUM;
+constexpr glConst GLDebugSeverityHigh         = GL_DEBUG_SEVERITY_HIGH;
+constexpr glConst GLDebugSeverityNotification = GL_DEBUG_SEVERITY_NOTIFICATION;
 
-const glConst glContextFlagDebugBit       = GL_CONTEXT_FLAG_DEBUG_BIT;
+constexpr glConst glContextFlagDebugBit       = GL_CONTEXT_FLAG_DEBUG_BIT;
 #else
-const glConst GLDebugOutput            = 0;
-const glConst GLDebugOutputSynchronous = 0;
+constexpr glConst GLDebugOutput            = 0;
+constexpr glConst GLDebugOutputSynchronous = 0;
 
-const glConst GLDebugSourceApi            = 0;
-const glConst GLDebugSourceShaderCompiler = 0;
-const glConst GLDebugSourceThirdParty     = 0;
-const glConst GLDebugSourceApplication    = 0;
-const glConst GLDebugSourceOther          = 0;
+constexpr glConst GLDebugSourceApi            = 0;
+constexpr glConst GLDebugSourceShaderCompiler = 0;
+constexpr glConst GLDebugSourceThirdParty     = 0;
+constexpr glConst GLDebugSourceApplication    = 0;
+constexpr glConst GLDebugSourceOther          = 0;
 
-const glConst GLDebugTypeError            = 0;
-const glConst GLDebugDeprecatedBehavior   = 0;
-const glConst GLDebugUndefinedBehavior    = 0;
-const glConst GLDebugPortability          = 0;
-const glConst GLDebugPerformance          = 0;
-const glConst GLDebugOther                = 0;
+constexpr glConst GLDebugTypeError            = 0;
+constexpr glConst GLDebugDeprecatedBehavior   = 0;
+constexpr glConst GLDebugUndefinedBehavior    = 0;
+constexpr glConst GLDebugPortability          = 0;
+constexpr glConst GLDebugPerformance          = 0;
+constexpr glConst GLDebugOther                = 0;
 
-const glConst GLDebugSeverityLow          = 0;
-const glConst GLDebugSeverityMedium       = 0;
-const glConst GLDebugSeverityHigh         = 0;
-const glConst GLDebugSeverityNotification = 0;
+constexpr glConst GLDebugSeverityLow          = 0;
+constexpr glConst GLDebugSeverityMedium       = 0;
+constexpr glConst GLDebugSeverityHigh         = 0;
+constexpr glConst GLDebugSeverityNotification = 0;
 
-const glConst glContextFlagDebugBit       = 0;
+constexpr glConst glContextFlagDebugBit       = 0;
 #endif
 
-const glConst GLClockwise           = GL_CW;
-const glConst GLCounterClockwise    = GL_CCW;
+constexpr glConst GLClockwise           = GL_CW;
+constexpr glConst GLCounterClockwise    = GL_CCW;
 
-const glConst GLFront               = GL_FRONT;
-const glConst GLBack                = GL_BACK;
-const glConst GLFrontAndBack        = GL_FRONT_AND_BACK;
+constexpr glConst GLFront               = GL_FRONT;
+constexpr glConst GLBack                = GL_BACK;
+constexpr glConst GLFrontAndBack        = GL_FRONT_AND_BACK;
 
-const glConst GLNever               = GL_NEVER;
-const glConst GLLess                = GL_LESS;
-const glConst GLEqual               = GL_EQUAL;
-const glConst GLLessOrEqual         = GL_LEQUAL;
-const glConst GLGreat               = GL_GREATER;
-const glConst GLNotEqual            = GL_NOTEQUAL;
-const glConst GLGreatOrEqual        = GL_GEQUAL;
-const glConst GLAlways              = GL_ALWAYS;
+constexpr glConst GLNever               = GL_NEVER;
+constexpr glConst GLLess                = GL_LESS;
+constexpr glConst GLEqual               = GL_EQUAL;
+constexpr glConst GLLessOrEqual         = GL_LEQUAL;
+constexpr glConst GLGreat               = GL_GREATER;
+constexpr glConst GLNotEqual            = GL_NOTEQUAL;
+constexpr glConst GLGreatOrEqual        = GL_GEQUAL;
+constexpr glConst GLAlways              = GL_ALWAYS;
 
-const glConst GLKeep                = GL_KEEP;
-const glConst GLIncr                = GL_INCR;
-const glConst GLDecr                = GL_DECR;
-const glConst GLInvert              = GL_INVERT;
-const glConst GLReplace             = GL_REPLACE;
-const glConst GLIncrWrap            = GL_INCR_WRAP;
-const glConst GLDecrWrap            = GL_DECR_WRAP;
+constexpr glConst GLKeep                = GL_KEEP;
+constexpr glConst GLIncr                = GL_INCR;
+constexpr glConst GLDecr                = GL_DECR;
+constexpr glConst GLInvert              = GL_INVERT;
+constexpr glConst GLReplace             = GL_REPLACE;
+constexpr glConst GLIncrWrap            = GL_INCR_WRAP;
+constexpr glConst GLDecrWrap            = GL_DECR_WRAP;
 
-const glConst GLActiveUniforms      = GL_ACTIVE_UNIFORMS;
+constexpr glConst GLActiveUniforms      = GL_ACTIVE_UNIFORMS;
 
-const glConst GLLines               = GL_LINES;
-const glConst GLLineStrip           = GL_LINE_STRIP;
-const glConst GLTriangles           = GL_TRIANGLES;
-const glConst GLTriangleStrip       = GL_TRIANGLE_STRIP;
+constexpr glConst GLLines               = GL_LINES;
+constexpr glConst GLLineStrip           = GL_LINE_STRIP;
+constexpr glConst GLTriangles           = GL_TRIANGLES;
+constexpr glConst GLTriangleStrip       = GL_TRIANGLE_STRIP;
 
-const glConst GLColorAttachment     = GL_COLOR_ATTACHMENT0;
-const glConst GLDepthAttachment     = GL_DEPTH_ATTACHMENT;
-const glConst GLStencilAttachment   = GL_STENCIL_ATTACHMENT;
-const glConst GLDepthStencilAttachment = GL_DEPTH_STENCIL_ATTACHMENT;
+constexpr glConst GLColorAttachment     = GL_COLOR_ATTACHMENT0;
+constexpr glConst GLDepthAttachment     = GL_DEPTH_ATTACHMENT;
+constexpr glConst GLStencilAttachment   = GL_STENCIL_ATTACHMENT;
+constexpr glConst GLDepthStencilAttachment = GL_DEPTH_STENCIL_ATTACHMENT;
 
-const glConst GLFramebufferComplete = GL_FRAMEBUFFER_COMPLETE;
+constexpr glConst GLFramebufferComplete = GL_FRAMEBUFFER_COMPLETE;
 
 } // namespace GLConst

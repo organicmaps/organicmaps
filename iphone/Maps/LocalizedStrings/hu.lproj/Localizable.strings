@@ -289,7 +289,7 @@
 "facebook" = "Facebook";
 
 /* Text in menu */
-"twitter" = "Twitter";
+"twitter" = "X (Twitter)";
 
 /* Text in menu */
 "instagram" = "Instagram";
@@ -1421,6 +1421,10 @@
 
 "type.amenity.parking.underground" = "Mélygarázs";
 
+"type.amenity.parking.street_side" = "Parkoló";
+
+"type.amenity.parking.lane" = "Parkoló";
+
 "type.amenity.parking_entrance" = "Parkoló bejárata";
 
 "type.amenity.parking_entrance.private" = "Parkoló bejárata";
@@ -1943,6 +1947,12 @@
 "type.highway.bridleway.tunnel" = "Alagút";
 
 "type.highway.busway" = "Kijelölt buszút";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Híd";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Alagút";
 
 "type.highway.bus_stop" = "Buszmegálló";
 
@@ -3063,6 +3073,8 @@
 
 "type.railway.station.subway.tbilisi" = "Földalatti";
 
+"type.railway.station.subway.tehran" = "Földalatti";
+
 "type.railway.station.subway.tianjin" = "Földalatti";
 
 "type.railway.station.subway.tokyo" = "Földalatti";
@@ -3289,6 +3301,8 @@
 
 "type.railway.subway_entrance.tbilisi" = "Földalatti bejárat";
 
+"type.railway.subway_entrance.tehran" = "Földalatti bejárat";
+
 "type.railway.subway_entrance.tianjin" = "Földalatti bejárat";
 
 "type.railway.subway_entrance.tokyo" = "Földalatti bejárat";
@@ -3453,7 +3467,7 @@
 
 "type.shop.outpost" = "Felvevő pont";
 
-"type.shop.pastry" = "Cukrászsütemény";
+"type.shop.pastry" = "Cukrászda";
 
 "type.shop.pawnbroker" = "Zálogház";
 
@@ -3703,7 +3717,7 @@
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Drain";
+"type.waterway.drain.tunnel" = "Ditch";
 
 "type.waterway.lock_gate" = "Zsilip";
 

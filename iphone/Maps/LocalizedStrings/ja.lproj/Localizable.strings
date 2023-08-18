@@ -289,7 +289,7 @@
 "facebook" = "Facebook";
 
 /* Text in menu */
-"twitter" = "Twitter";
+"twitter" = "X (Twitter)";
 
 /* Text in menu */
 "instagram" = "Instagram";
@@ -1421,6 +1421,10 @@
 
 "type.amenity.parking.underground" = "地下駐車場";
 
+"type.amenity.parking.street_side" = "駐車場";
+
+"type.amenity.parking.lane" = "駐車場";
+
 "type.amenity.parking_entrance" = "駐車場入口";
 
 "type.amenity.parking_entrance.private" = "駐車場入口";
@@ -1943,6 +1947,12 @@
 "type.highway.bridleway.tunnel" = "馬道(トンネル)";
 
 "type.highway.busway" = "バス専用道路";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "橋";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "トンネル";
 
 "type.highway.bus_stop" = "バス停";
 
@@ -3063,6 +3073,8 @@
 
 "type.railway.station.subway.tbilisi" = "地下鉄";
 
+"type.railway.station.subway.tehran" = "地下鉄";
+
 "type.railway.station.subway.tianjin" = "地下鉄";
 
 "type.railway.station.subway.tokyo" = "地下鉄";
@@ -3288,6 +3300,8 @@
 "type.railway.subway_entrance.tashkent" = "地下鉄入り口";
 
 "type.railway.subway_entrance.tbilisi" = "地下鉄入り口";
+
+"type.railway.subway_entrance.tehran" = "地下鉄入り口";
 
 "type.railway.subway_entrance.tianjin" = "地下鉄入り口";
 
@@ -3697,13 +3711,13 @@
 
 "type.waterway.ditch" = "排水路";
 
-"type.waterway.ditch.tunnel" = "排水路";
+"type.waterway.ditch.tunnel" = "暗渠";
 
 "type.waterway.dock" = "ドック";
 
 "type.waterway.drain" = "用水路";
 
-"type.waterway.drain.tunnel" = "用水路";
+"type.waterway.drain.tunnel" = "暗渠";
 
 "type.waterway.lock_gate" = "水門";
 

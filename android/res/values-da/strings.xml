@@ -766,6 +766,8 @@
 	<string name="type.amenity.parking.private">Privat parkering</string>
 	<string name="type.amenity.parking.park_and_ride">Parkering</string>
 	<string name="type.amenity.parking.underground">Underjordisk parkering</string>
+	<string name="type.amenity.parking.street_side">Parkering</string>
+	<string name="type.amenity.parking.lane">Parkering</string>
 	<string name="type.amenity.parking_entrance">Parkeringsindgang</string>
 	<string name="type.amenity.parking_entrance.private">Parkeringsindgang</string>
 	<string name="type.amenity.parking_entrance.permissive">Parkeringsindgang</string>
@@ -975,6 +977,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
 	<string name="type.highway.busway">Dedikeret busvej</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Tunnel</string>
 	<string name="type.highway.bus_stop">Busstoppested</string>
 	<string name="type.highway.construction">Vej under opbygning</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1444,6 +1450,7 @@
 	<string name="type.railway.station.subway.taoyuan">Metro</string>
 	<string name="type.railway.station.subway.tashkent">Metro</string>
 	<string name="type.railway.station.subway.tbilisi">Metro</string>
+	<string name="type.railway.station.subway.tehran">Metro</string>
 	<string name="type.railway.station.subway.tianjin">Metro</string>
 	<string name="type.railway.station.subway.tokyo">Metro</string>
 	<string name="type.railway.station.subway.valencia">Metro</string>
@@ -1554,6 +1561,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">Indgang til undergrundsbane</string>
 	<string name="type.railway.subway_entrance.tashkent">Indgang til undergrundsbane</string>
 	<string name="type.railway.subway_entrance.tbilisi">Indgang til undergrundsbane</string>
+	<string name="type.railway.subway_entrance.tehran">Indgang til undergrundsbane</string>
 	<string name="type.railway.subway_entrance.tianjin">Indgang til undergrundsbane</string>
 	<string name="type.railway.subway_entrance.tokyo">Indgang til undergrundsbane</string>
 	<string name="type.railway.subway_entrance.valencia">Indgang til undergrundsbane</string>

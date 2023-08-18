@@ -768,6 +768,8 @@
 	<string name="type.amenity.parking.private">ﯽﺻﺎﺼﺘﺧﺍ ﮓﻨﯿﮐﺭﺎﭘ</string>
 	<string name="type.amenity.parking.park_and_ride">پارکینگ</string>
 	<string name="type.amenity.parking.underground">ﯽﻨﯿﻣﺯ ﺮﯾﺯ ﮓﻨﯿﮐﺭﺎﭘ</string>
+	<string name="type.amenity.parking.street_side">پارکینگ</string>
+	<string name="type.amenity.parking.lane">پارکینگ</string>
 	<string name="type.amenity.parking_entrance">ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ</string>
 	<string name="type.amenity.parking_entrance.private">ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ</string>
 	<string name="type.amenity.parking_entrance.permissive">ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ</string>
@@ -897,6 +899,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">تونل</string>
 	<string name="type.highway.busway">ﺱﻮﺑﻮﺗﺍ ﯽﺻﺎﺼﺘﺧﺍ ﻩﺩﺎﺟ</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">پل</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">تونل</string>
 	<string name="type.highway.bus_stop">حمل و نقل</string>
 	<string name="type.highway.construction">جاده در دست ساخت است</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1366,6 +1372,7 @@
 	<string name="type.railway.station.subway.taoyuan">حمل و نقل</string>
 	<string name="type.railway.station.subway.tashkent">حمل و نقل</string>
 	<string name="type.railway.station.subway.tbilisi">حمل و نقل</string>
+	<string name="type.railway.station.subway.tehran">حمل و نقل</string>
 	<string name="type.railway.station.subway.tianjin">حمل و نقل</string>
 	<string name="type.railway.station.subway.tokyo">حمل و نقل</string>
 	<string name="type.railway.station.subway.valencia">حمل و نقل</string>
@@ -1476,6 +1483,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">ورودی مترو</string>
 	<string name="type.railway.subway_entrance.tashkent">ورودی مترو</string>
 	<string name="type.railway.subway_entrance.tbilisi">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.tehran">ورودی مترو</string>
 	<string name="type.railway.subway_entrance.tianjin">ورودی مترو</string>
 	<string name="type.railway.subway_entrance.tokyo">ورودی مترو</string>
 	<string name="type.railway.subway_entrance.valencia">ورودی مترو</string>

@@ -776,6 +776,8 @@
 	<string name="type.amenity.parking.private">Soukromé parkoviště</string>
 	<string name="type.amenity.parking.park_and_ride">Parkoviště</string>
 	<string name="type.amenity.parking.underground">Podzemní parkoviště</string>
+	<string name="type.amenity.parking.street_side">Parkoviště</string>
+	<string name="type.amenity.parking.lane">Parkoviště</string>
 	<string name="type.amenity.parking_entrance">Vjezd na parkoviště</string>
 	<string name="type.amenity.parking_entrance.private">Vjezd na parkoviště</string>
 	<string name="type.amenity.parking_entrance.permissive">Vjezd na parkoviště</string>
@@ -990,6 +992,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunel</string>
 	<string name="type.highway.busway">Vyhrazená autobusová silnice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Tunel</string>
 	<string name="type.highway.bus_stop">Autobusová zastávka</string>
 	<string name="type.highway.construction">Silnice v rekonstrukci</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1461,6 +1467,7 @@
 	<string name="type.railway.station.subway.taoyuan">Metro</string>
 	<string name="type.railway.station.subway.tashkent">Metro</string>
 	<string name="type.railway.station.subway.tbilisi">Metro</string>
+	<string name="type.railway.station.subway.tehran">Metro</string>
 	<string name="type.railway.station.subway.tianjin">Metro</string>
 	<string name="type.railway.station.subway.tokyo">Metro</string>
 	<string name="type.railway.station.subway.valencia">Metro</string>
@@ -1571,6 +1578,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">Vchod do podchodu</string>
 	<string name="type.railway.subway_entrance.tashkent">Vchod do podchodu</string>
 	<string name="type.railway.subway_entrance.tbilisi">Vchod do podchodu</string>
+	<string name="type.railway.subway_entrance.tehran">Vchod do podchodu</string>
 	<string name="type.railway.subway_entrance.tianjin">Vchod do podchodu</string>
 	<string name="type.railway.subway_entrance.tokyo">Vchod do podchodu</string>
 	<string name="type.railway.subway_entrance.valencia">Vchod do podchodu</string>

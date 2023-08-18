@@ -2817,7 +2817,7 @@ sk:3Vyhliadka
 sw:Genge|utalii
 fa:مناظرگردشگری
 
-tourism-information|@tourism
+tourism-information
 en:4Tourist Information|4information|U+1F481
 ru:4Туринформация|3информация
 bg:3информация
@@ -2891,7 +2891,7 @@ sk:3Piknik
 sw:Sehemu ya madhazi
 fa:مکان پیک نیک
 
-amenity-place_of_worship|@tourism
+amenity-place_of_worship
 en:Place of Worship|3temple|U+1F64F
 ru:Храм
 bg:Храм|молитва|църква|черква|поп|свещеник
@@ -7041,7 +7041,7 @@ sw:Msitu
 fa:جنگل
 mr:वन
 
-leisure-park|@tourism
+leisure-park
 en:Park|U+1F332|U+1F333|U+1F60C
 ru:Парк
 bg:Парк|отдих
@@ -12109,7 +12109,7 @@ el:Σαλέ
 sk:4Chata
 fa:کلبه
 
-tourism-information-board|@tourism
+tourism-information-board
 en:Information Board
 ru:Информационный щит
 bg:Информация|туризъм|бюро|табло
@@ -12145,7 +12145,7 @@ sk:Informačné centrum
 fa:تابلو اعلانات
 mr:माहिती फलक|सूचना फलक
 
-tourism-information-map|@tourism
+tourism-information-map
 en:Tourist Map
 ru:Карта
 bg:Карта|информация|туризъм

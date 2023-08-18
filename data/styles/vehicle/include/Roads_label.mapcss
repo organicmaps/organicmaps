@@ -25,105 +25,6 @@
 line[highway]
 {text-position: line;}
 
-/* 1.Z-INDEX ROADS */
-
-line[aeroway=runway],
-line[aeroway=taxiway]
-{z-index: 50;}
-
-line[piste:type=downhill][piste:difficulty=advanced],
-line[piste:type=downhill][piste:difficulty=easy],
-line[piste:type=downhill][piste:difficulty=expert],
-line[piste:type=downhill][piste:difficulty=freeride],
-line[piste:type=downhill][piste:difficulty=intermediate],
-line[piste:type=downhill][piste:difficulty=novice],
-{z-index: 100;}
-
-line[route=ferry],
-line[route=ferry_motorcar]
-{z-index: 115;}
-
-line[piste:type=downhill],
-line[piste:type=nordic],
-line[piste:type=sled],
-{z-index: 199;}
-
-line[highway=construction],
-line[highway=proposed],
-line[railway=construction],
-line[railway=disused],
-line[railway=preserved],
-line[railway=abandoned]
-{z-index: 450;}
-
-line[highway=bridleway]
-{z-index: 590;}
-
-line[highway=track],
-line[highway=raceway],
-line[leisure=track],
-line[highway=path],
-line[route=hiking],
-line[highway=footway]
-{z-index: 600;}
-
-line[highway=service]
-{z-index: 650;}
-
-line[highway=pedestrian],
-line[highway=ford]
-{z-index: 660;}
-
-line[highway=unclassified],
-line[highway=road],
-line[highway=living_street]
-{z-index: 700;}
-
-line[highway=residential_link],
-line[highway=tertiary_link]
-{z-index: 740;}
-
-line[highway=residential],
-line[highway=tertiary],
-{z-index: 750;}
-
-line[highway=secondary_link]
-{z-index: 790;}
-
-line[highway=secondary]
-{z-index: 800;}
-
-line[highway=primary_link]
-{z-index: 840;}
-
-line[highway=primary],
-line|z8-9[highway=world_towns_level],
-line|z8-9[highway=world_level],
-{z-index: 850;}
-
-line[highway=motorway_link],
-line[highway=trunk_link]
-{z-index: 890;}
-
-line|z4-7[highway=world_towns_level],
-line|z4-7[highway=world_level],
-line[highway=trunk],
-line[highway=motorway]
-{z-index: 900;}
-
-line[railway=monorail],
-line[railway=narrow_gauge],
-line[railway=tram]
-{z-index: 950;}
-
-line[highway=cycleway],
-line[highway=steps],
-node[highway=motorway_junction]
-{z-index: 1000;}
-
-line|z15-[hwtag=oneway]::arrows
-{z-index: 1000;}
-
 /* 2.SHIELD 10-22 ZOOM */
 
 line|z10-[highway=motorway],
@@ -135,7 +36,7 @@ line|z10-[highway=primary_link],
 line|z12-[highway=secondary],
 line|z15-[highway=tertiary],
 line|z18-[highway=residential],
-{shield-font-size: 9;shield-text-color: @shield_text;shield-text-halo-radius: 0;shield-text-halo-color: @shield_text_halo;shield-color: @shield;shield-outline-radius: 1;shield-outline-color: @shield_outline;-x-me-icon-priority: 100000;}
+{shield-font-size: 9;shield-text-color: @shield_text;shield-text-halo-radius: 0;shield-text-halo-color: @shield_text_halo;shield-color: @shield;shield-outline-radius: 1;shield-outline-color: @shield_outline;}
 
 line|z10[highway=motorway],
 line|z10[highway=trunk],
@@ -206,7 +107,7 @@ line|z16[highway=primary_link],
 line|z16[highway=secondary],
 line|z16[highway=residential],
 line|z16[highway=tertiary]
-{shield-min-distance: 300;-x-me-icon-priority: 75000;}
+{shield-min-distance: 300;}
 line|z17[highway=motorway],
 line|z17[highway=trunk],
 line|z17[highway=motorway_link],
@@ -484,7 +385,7 @@ line|z14[leisure=skiing]
 
 /*line|z10-[route=ferry],
 line|z10-[route=ferry_motorcar]
-{text: name;text-color: @water_label;text-position: line;z-index: 120;}
+{text: name;text-color: @water_label;text-position: line;}
 
 line|z10-16[route=ferry],
 line|z10-16[route=ferry_motorcar]

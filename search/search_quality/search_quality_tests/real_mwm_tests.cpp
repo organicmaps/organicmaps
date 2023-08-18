@@ -38,8 +38,12 @@ public:
     size_t m_beg, m_end;
 
   public:
-    explicit Range(ResultsT const & v) : m_v(v), m_beg(0), m_end(kTopPoiResultsCount) {}
-    Range(ResultsT const & v, size_t beg, size_t end = kTopPoiResultsCount) : m_v(v), m_beg(beg), m_end(end) {}
+    Range(ResultsT const & v, size_t beg, size_t end = kTopPoiResultsCount) : m_v(v), m_beg(beg), m_end(end)
+    {
+      TEST_LESS(beg, end, ());
+      TEST_GREATER_OR_EQUAL(v.size(), end, ());
+    }
+    explicit Range(ResultsT const & v) : Range(v, 0, kTopPoiResultsCount) {}
 
     size_t size() const { return m_end - m_beg; }
     auto begin() const { return m_v.begin() + m_beg; }
@@ -126,8 +130,13 @@ public:
     {
       if (r.GetResultType() == search::Result::Type::Feature && EqualClassifType(r.GetFeatureType(), buildingType))
       {
-        found = true;
-        break;
+        auto const & addr = r.GetAddress();
+        if ((street.empty() || addr.find(street) != std::string::npos) &&
+            (house.empty() || addr.find(house) != std::string::npos))
+        {
+          found = true;
+          break;
+        }
       }
     }
 
@@ -424,12 +433,8 @@ UNIT_CLASS_TEST(MwmTestsFixture, Arbat_Address)
   for (auto const & query : {"Арбат 2", "Арбат 4"})
   {
     auto request = MakeRequest(query);
-    auto const & results = request->Results();
-    size_t constexpr kResultsCount = 3;   // Building should be at the top.
-    TEST_GREATER(results.size(), kResultsCount, ());
-
-    Range const range(results, 0, kResultsCount);
-    HasAddress(range, {}, {});
+    // Address should be at the top.
+    HasAddress(Range(request->Results(), 0, 3), {}, {});
   }
 }
 
@@ -440,12 +445,8 @@ UNIT_CLASS_TEST(MwmTestsFixture, Hawaii_Address)
   SetViewportAndLoadMaps(center);
 
   auto request = MakeRequest("1000 Ululani Street");
-  auto const & results = request->Results();
-  size_t constexpr kResultsCount = 3;   // Building should be at the top.
-  TEST_GREATER_OR_EQUAL(results.size(), kResultsCount, ());
-
-  Range const range(results, 0, kResultsCount);
-  HasAddress(range, "Ululani Street", "1000");
+  // Address should be at the top.
+  HasAddress(Range(request->Results(), 0, 3), "Ululani Street", "1000");
 }
 
 // https://github.com/organicmaps/organicmaps/issues/3712
@@ -733,6 +734,65 @@ UNIT_CLASS_TEST(MwmTestsFixture, Famous_Cities_Rank)
       if (i == 0 && i != j)
         arrCenters[j] = mercator::ToLatLon(results[0].GetFeatureCenter());
     }
+  }
+}
+
+UNIT_CLASS_TEST(MwmTestsFixture, Conscription_HN)
+{
+  // Brno (Czech)
+  ms::LatLon const center(49.19217, 16.61121);
+  SetViewportAndLoadMaps(center);
+
+  for (std::string hn : {"77", "29"})
+  {
+    // postcode + street + house number
+    auto request = MakeRequest("63900 Havlenova " + hn, "cs");
+    // Should be the first result.
+    HasAddress(Range(request->Results(), 0, 1), "Havlenova", "77/29");
+  }
+}
+
+UNIT_CLASS_TEST(MwmTestsFixture, ToiletAirport)
+{
+  // Frankfurt Airport
+  ms::LatLon const center(50.052108, 8.571086);
+  SetViewportAndLoadMaps(center);
+
+  for (bool const isCategory : {false, true})
+  {
+    auto params = GetDefaultSearchParams("toilet");
+    params.m_categorialRequest = isCategory;
+    size_t constexpr kResultsCount = 30;
+    TEST_GREATER_OR_EQUAL(params.m_maxNumResults, kResultsCount, ());
+
+    auto request = MakeRequest(params);
+    auto const & results = request->Results();
+    TEST_EQUAL(results.size(), kResultsCount, ());
+
+    Range const range(results, 0, kResultsCount);
+    EqualClassifType(range, GetClassifTypes({{"amenity", "toilets"}}));
+    double const dist = SortedByDistance(range, center);
+    TEST_LESS(dist, 1000, ());
+  }
+}
+
+UNIT_CLASS_TEST(MwmTestsFixture, BA_LasHeras)
+{
+  // Buenos Aires (Palermo)
+  ms::LatLon const center(-34.5801125, -58.4158058);
+  SetViewportAndLoadMaps(center);
+
+  {
+    auto request = MakeRequest("Las Heras 2900");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+
+    // First results will be:
+    // - _exact_ street match addresses "Las Heras 2900"
+    // - "Las Heras 2900" bus stop (only one, avoid a bunch of duplicates)
+
+    // _sub-string_ street address match
+    HasAddress(Range(results, 0, 5), "Avenida General Las Heras", "2900");
   }
 }
 

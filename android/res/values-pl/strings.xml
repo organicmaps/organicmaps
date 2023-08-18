@@ -827,6 +827,8 @@
 	<string name="type.amenity.parking.private">Parking prywatny</string>
 	<string name="type.amenity.parking.park_and_ride">Parking \"Parkuj i Jedź\"</string>
 	<string name="type.amenity.parking.underground">Parking podziemny</string>
+	<string name="type.amenity.parking.street_side">Parking</string>
+	<string name="type.amenity.parking.lane">Parking</string>
 	<string name="type.amenity.parking_entrance">Wejście na parking</string>
 	<string name="type.amenity.parking_entrance.private">Wejście na parking</string>
 	<string name="type.amenity.parking_entrance.permissive">Wejście na parking</string>
@@ -1075,6 +1077,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunel drogowy dla koni</string>
 	<string name="type.highway.busway">Dedykowana droga autobusowa</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Tunel</string>
 	<string name="type.highway.bus_stop">Przystanek autobusowy</string>
 	<string name="type.highway.construction">Droga w trakcie budowy</string>
 	<string name="type.highway.cycleway">Droga rowerowa</string>
@@ -1597,6 +1603,7 @@
 	<string name="type.railway.station.subway.taoyuan">Metro</string>
 	<string name="type.railway.station.subway.tashkent">Metro</string>
 	<string name="type.railway.station.subway.tbilisi">Metro</string>
+	<string name="type.railway.station.subway.tehran">Metro</string>
 	<string name="type.railway.station.subway.tianjin">Metro</string>
 	<string name="type.railway.station.subway.tokyo">Metro</string>
 	<string name="type.railway.station.subway.valencia">Metro</string>
@@ -1707,6 +1714,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">Wejście do metra</string>
 	<string name="type.railway.subway_entrance.tashkent">Wejście do metra</string>
 	<string name="type.railway.subway_entrance.tbilisi">Wejście do metra</string>
+	<string name="type.railway.subway_entrance.tehran">Wejście do metra</string>
 	<string name="type.railway.subway_entrance.tianjin">Wejście do metra</string>
 	<string name="type.railway.subway_entrance.tokyo">Wejście do metra</string>
 	<string name="type.railway.subway_entrance.valencia">Wejście do metra</string>

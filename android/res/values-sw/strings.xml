@@ -268,6 +268,8 @@
 	<string name="type.amenity.parking.permissive">Maegesho ya Kibinafsi</string>
 	<string name="type.amenity.parking.private">Maegesho ya Kibinafsi</string>
 	<string name="type.amenity.parking.underground">Maegesho ya chini ya ardhi</string>
+	<string name="type.amenity.parking.street_side">Maegesho</string>
+	<string name="type.amenity.parking.lane">Maegesho</string>
 	<string name="type.amenity.parking_entrance">Mlango wa maegesho</string>
 	<string name="type.amenity.parking_entrance.private">Mlango wa maegesho</string>
 	<string name="type.amenity.parking_entrance.permissive">Mlango wa maegesho</string>
@@ -337,6 +339,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Mtaro</string>
 	<string name="type.highway.busway">Barabara ya basi iliyotengwa</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Daraja</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Mtaro</string>
 	<string name="type.highway.construction">Barabara inatengenezwa</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.cycleway.bridge">Daraja</string>
@@ -688,6 +694,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">Lango la kuingilia stesheni ya reli</string>
 	<string name="type.railway.subway_entrance.tashkent">Lango la kuingilia stesheni ya reli</string>
 	<string name="type.railway.subway_entrance.tbilisi">Lango la kuingilia stesheni ya reli</string>
+	<string name="type.railway.subway_entrance.tehran">Lango la kuingilia stesheni ya reli</string>
 	<string name="type.railway.subway_entrance.tianjin">Lango la kuingilia stesheni ya reli</string>
 	<string name="type.railway.subway_entrance.tokyo">Lango la kuingilia stesheni ya reli</string>
 	<string name="type.railway.subway_entrance.valencia">Lango la kuingilia stesheni ya reli</string>

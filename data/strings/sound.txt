@@ -11,7 +11,7 @@
     el = Μείνετε δεξιά.
     es = Manténgase a la derecha.
     eu = Mantendu eskuinera.
-    fa = به راست برانید.
+    fa = با زاویه کم به راست گردش کنید.
     fi = Pysy oikealla.
     fr = Serrez à droite.
     hi = दायीं ओर रहें
@@ -50,7 +50,7 @@
     el = Στρίψε δεξιά.
     es = Gire a la derecha.
     eu = Biratu eskuinera.
-    fa = به راست بپیچید.
+    fa = به راست گردش کنید.
     fi = Käänny oikealle.
     fr = Tournez à droite.
     hi = दायीं ओर मुड़ें।
@@ -89,7 +89,7 @@
     el = Απότομα δεξιά.
     es = Gire bruscamente a la derecha.
     eu = Eman bira itxia eskuinera.
-    fa = منتها الیه سمت راست.
+    fa = با زاویه تند به راست گردش کنید.
     fi = Jyrkkä oikea.
     fr = À droite toute.
     hi = तीव्रता से दाएं मुड़े।
@@ -206,7 +206,7 @@
     el = Μείνετε αριστερά.
     es = Manténgase a la izquierda.
     eu = Mantendu ezkerrean.
-    fa = به چپ برانید.
+    fa = با زاویه کم به چپ گردش کنید.
     fi = Pysy vasemmalla.
     fr = Serrez à gauche.
     hi = बायीं ओर रहें
@@ -245,7 +245,7 @@
     el = Στρίψε αριστερά.
     es = Gire a la izquierda.
     eu = Biratu ezkerrera.
-    fa = به چپ بپیچید.
+    fa = به چپ گردش کنید.
     fi = Käänny vasemmalle.
     fr = Tournez à gauche.
     hi = बायीं ओर मुड़ें।
@@ -284,7 +284,7 @@
     el = Απότομα αριστερά.
     es = Gire bruscamente a la izquierda.
     eu = Eman bira itxia ezkerrera.
-    fa = منتها الیه سمت چپ.
+    fa = با زاویه تند به چپ گردش کنید.
     fi = Jyrkkä vasen.
     fr = À gauche toute.
     hi = तीव्रता से बाएं मुड़े।
@@ -440,7 +440,7 @@
     el = Θα φτάσετε.
     es = Llegará a su destino.
     eu = Zure helmugara iritsiko zara.
-    fa = شما خواهید رسید.
+    fa = به مقصد خواهيد رسيد.
     fi = Olet perillä.
     fr = Vous arriverez.
     hi = गंतव्य स्थान
@@ -479,7 +479,7 @@
     el = Έχετε φτάσει.
     es = Ha llegado a su destino.
     eu = Helmugara iritsi zara.
-    fa = شما رسیده اید.
+    fa = به مقصد رسيديد.
     fi = Olet saapunut.
     fr = Vous êtes arrivé.
     hi = आप पहुंच गए हैं।
@@ -596,7 +596,7 @@
     el = Σε διακόσια μέτρα
     es = En doscientos metros
     eu = Berrehun metrora
-    fa = در دویست و پنجاه متری
+    fa = در دویست متری
     fi = Kahdensadan metrin päässä
     fr = Dans deux cents mètres
     hi = दो सौ मीटर में।
@@ -1220,7 +1220,7 @@
     el = Πάρτε την πρώτη έξοδο.
     es = Tome la primera salida.
     eu = Hartu lehen irteera.
-    fa = اولین خروجی را داخل شوید
+    fa = اولین خروجی را داخل شوید.
     fi = Poistu ensimmäisestä liittymästä.
     fr = Prenez la première sortie.
     hi = पहला एग्जिट लें।
@@ -2508,7 +2508,7 @@
     es = Cámara adelante
     eu = Kamera aurrera
     es-MX = Cámara próxima
-    fa = به دوربین نزدیک می شوید
+    fa = دوربین کنترل سرعت در نزدیکی
     fi = Edessä on kamera
     fr = Caméra devant
     hu = Kamera elöl

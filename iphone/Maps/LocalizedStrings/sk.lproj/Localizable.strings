@@ -289,7 +289,7 @@
 "facebook" = "Facebook";
 
 /* Text in menu */
-"twitter" = "Twitter";
+"twitter" = "X (Twitter)";
 
 /* Text in menu */
 "instagram" = "Instagram";
@@ -1421,6 +1421,10 @@
 
 "type.amenity.parking.underground" = "Podzemné parkovisko";
 
+"type.amenity.parking.street_side" = "Parkovisko";
+
+"type.amenity.parking.lane" = "Parkovisko";
+
 "type.amenity.parking_entrance" = "Vstup na parkovisko";
 
 "type.amenity.parking_entrance.private" = "Vstup na parkovisko";
@@ -1943,6 +1947,12 @@
 "type.highway.bridleway.tunnel" = "Tunel";
 
 "type.highway.busway" = "Vyhradená autobusová cesta";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Most";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Tunel";
 
 "type.highway.bus_stop" = "Autobusová zastávka";
 
@@ -3063,6 +3073,8 @@
 
 "type.railway.station.subway.tbilisi" = "Metro";
 
+"type.railway.station.subway.tehran" = "Metro";
+
 "type.railway.station.subway.tianjin" = "Metro";
 
 "type.railway.station.subway.tokyo" = "Metro";
@@ -3288,6 +3300,8 @@
 "type.railway.subway_entrance.tashkent" = "Vstup do metra";
 
 "type.railway.subway_entrance.tbilisi" = "Vstup do metra";
+
+"type.railway.subway_entrance.tehran" = "Vstup do metra";
 
 "type.railway.subway_entrance.tianjin" = "Vstup do metra";
 
@@ -3703,7 +3717,7 @@
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Drain";
+"type.waterway.drain.tunnel" = "Ditch";
 
 "type.waterway.lock_gate" = "Stavidlo";
 

@@ -17,7 +17,11 @@ namespace feature
 {
 class SharedLoadInfo;
 struct NameParamsOut; // Include feature_utils.hpp when using
-}
+
+// "fallback" flag value (1 is taken to distinguish from the "normal" offset value),
+// which means geometry should be loaded from the next offset of the more detailed geom level.
+uint32_t constexpr kGeomOffsetFallback = 1;
+} // namespace feature
 
 namespace osm
 {
@@ -138,7 +142,7 @@ public:
   }
   //@}
 
-  std::string DebugString(int scale);
+  std::string DebugString(int scale, bool includeKeyPoint = true);
 
   std::string const & GetHouseNumber();
 
@@ -169,7 +173,7 @@ public:
   //@{
   struct InnerGeomStat
   {
-    uint32_t m_points = 0, m_strips = 0, m_size = 0;
+    uint32_t m_points = 0, m_firstPoints = 0, m_strips = 0, m_size = 0;
   };
 
   InnerGeomStat GetInnerStats() const { return m_innerStats; }

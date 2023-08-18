@@ -785,6 +785,8 @@
 	<string name="type.amenity.parking.private">Parcare privată</string>
 	<string name="type.amenity.parking.park_and_ride">Parcare</string>
 	<string name="type.amenity.parking.underground">Parcare subterană</string>
+	<string name="type.amenity.parking.street_side">Parcare</string>
+	<string name="type.amenity.parking.lane">Parcare</string>
 	<string name="type.amenity.parking_entrance">Intrare parcare</string>
 	<string name="type.amenity.parking_entrance.private">Intrare parcare</string>
 	<string name="type.amenity.parking_entrance.permissive">Intrare parcare</string>
@@ -996,6 +998,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunel</string>
 	<string name="type.highway.busway">Drum dedicat autobuzului</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Pod</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Tunel</string>
 	<string name="type.highway.bus_stop">Stație de autobuz</string>
 	<string name="type.highway.construction">Drum în construcție</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1466,6 +1472,7 @@
 	<string name="type.railway.station.subway.taoyuan">Metrou</string>
 	<string name="type.railway.station.subway.tashkent">Metrou</string>
 	<string name="type.railway.station.subway.tbilisi">Metrou</string>
+	<string name="type.railway.station.subway.tehran">Metrou</string>
 	<string name="type.railway.station.subway.tianjin">Metrou</string>
 	<string name="type.railway.station.subway.tokyo">Metrou</string>
 	<string name="type.railway.station.subway.valencia">Metrou</string>
@@ -1576,6 +1583,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">Intrare în metro</string>
 	<string name="type.railway.subway_entrance.tashkent">Intrare în metro</string>
 	<string name="type.railway.subway_entrance.tbilisi">Intrare în metro</string>
+	<string name="type.railway.subway_entrance.tehran">Intrare în metro</string>
 	<string name="type.railway.subway_entrance.tianjin">Intrare în metro</string>
 	<string name="type.railway.subway_entrance.tokyo">Intrare în metro</string>
 	<string name="type.railway.subway_entrance.valencia">Intrare în metro</string>

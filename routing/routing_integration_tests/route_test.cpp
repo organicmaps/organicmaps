@@ -280,7 +280,10 @@ UNIT_TEST(RussiaSmolenskRussiaMoscowTimeTest)
   TEST(routeResult.first, ());
   Route const & route = *routeResult.first;
   TestRouteLength(route, 391659);
-  TestRouteTime(route, 18374.9);
+
+  // https://www.openstreetmap.org/directions?engine=graphhopper_car&route=54.800%2C32.055%3B55.753%2C37.602
+  // Middle between GraphHopper and OSRM
+  TestRouteTime(route, 18607.2);
 }
 
 UNIT_TEST(Russia_Moscow_Leningradskiy39GeroevPanfilovtsev22TimeTest)
@@ -404,7 +407,7 @@ UNIT_TEST(TolyattiFeatureThatCrossSeveralMwmsTest)
 
   // GraphHopper and Valhalla agree here, but OSRM makes a short route via Syzran.
   TestRouteLength(route, 166157);
-  TestRouteTime(route, 8151.04);
+  TestRouteTime(route, 7958.85);
 }
 
 // Test on removing speed cameras from the route for maps from Jan 2019,
@@ -501,7 +504,7 @@ UNIT_TEST(RussiaMoscowNotCrossingTollRoadTest)
 
   {
     // Avoid motorway toll road and build route through minor residential roads (short but slow).
-    RoutingOptionSetter optionsGuard(RoutingOptions::Road::Toll);
+    RoutingOptionSetter optionsGuard(RoutingOptions::Toll);
 
     // 1. End point is near the motorway toll road, but choose a minor track as end segment.
     CalculateRouteAndTestRouteLength(vehicleComponents, start, {0.0, 0.0}, finish[0], 8427.71);
@@ -778,6 +781,9 @@ UNIT_TEST(Turkey_AvoidMountainsSecondary)
                               FromLatLon(41.0027, 27.6752), {0., 0.},
                               FromLatLon(40.6119, 27.1136));
 
+  // GraphHopper and OSRM make a short route via the mountain secondary.
+  // Valhalla makes a long route. I think it is correct.
+  /// @todo Should "split" ways for better inCity/outCity classification. Now long ways are detected as outCity (wrong).
   TestRouteLength(*res.first, 100399);
   TestRouteTime(*res.first, 5319.01);
 }
@@ -792,7 +798,7 @@ UNIT_TEST(Slovenia_Croatia_CrossBorderPenalty)
 
 UNIT_TEST(USA_Birmingham_AL_KeyWest_FL_NoMotorway)
 {
-  RoutingOptionSetter optionsGuard(RoutingOptions::Road::Motorway);
+  RoutingOptionSetter optionsGuard(RoutingOptions::Motorway);
 
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
       FromLatLon(33.5209837, -86.807945), {0., 0.},
@@ -876,6 +882,47 @@ UNIT_TEST(Bulgaria_Rosenovo_Dobrich)
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
                                    FromLatLon(43.6650649, 27.7826578), {0., 0.},
                                    FromLatLon(43.5690961, 27.8307318), 16556.3);
+}
+
+UNIT_TEST(Russia_UseGravelPrimary_Not_DefaultTertiary)
+{
+  /// @todo Actually, tertiary should be tagged as surface=unaved.
+  /// There is an idea to detect and update route if we have leave-enter for the same ref (named) >= primary road:
+  /// {80K-004, some tertiary, 80K-004} in a reasonable distance. This is a signal that "some tertiary"
+  /// in a middle is an error.
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
+                                   FromLatLon(55.8466967, 57.303653), {0., 0.},
+                                   FromLatLon(55.8260004, 57.0367732), 19910);
+}
+
+// https://github.com/organicmaps/organicmaps/issues/5695
+UNIT_TEST(Russia_Yekaterinburg_NChelny)
+{
+  // Make sense without Chelyabinsk and Izhevsk. Thus we can check really fancy cases.
+  // Otherwise, good routes will be through Perm-Izhevsk or Chelyabinsk-Ufa
+  auto components = CreateAllMapsComponents(VehicleType::Car, {"Russia_Chelyabinsk Oblast", "Russia_Udmurt Republic"});
+
+  auto const start = FromLatLon(56.8382242, 60.6308866);
+  auto const finish = FromLatLon(55.7341111, 52.4156012);
+
+  {
+    RoutingOptionSetter optionsGuard(RoutingOptions::Dirty | RoutingOptions::Ferry);
+    // forward
+    CalculateRouteAndTestRouteLength(*components,
+                                     start, {0., 0.}, finish, 789014);
+    // backward
+    CalculateRouteAndTestRouteLength(*components,
+                                     finish, {0., 0.}, start, 787208);
+  }
+
+  // GraphHopper agrees here, OSRM makes a route like above.
+
+  // forward
+  CalculateRouteAndTestRouteLength(*components,
+                                   start, {0., 0.}, finish, 757109);
+  // backward
+  CalculateRouteAndTestRouteLength(*components,
+                                   finish, {0., 0.}, start, 755851);
 }
 
 } // namespace route_test

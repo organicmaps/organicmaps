@@ -3,6 +3,7 @@
 #include "indexer/cell_id.hpp"
 #include "indexer/cell_value_pair.hpp"
 #include "indexer/classificator.hpp"
+#include "indexer/drawing_rule_def.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/scales.hpp"
@@ -174,11 +175,11 @@ private:
           depth = k.m_priority;
       }
 
-      float const kMinDepth = -100000.0f;
-      float const kMaxDepth = 100000.0f;
-      float const d = base::Clamp(depth, kMinDepth, kMaxDepth) - kMinDepth;
+      // @todo: make sure features are prioritised the same way as in the run-time displacer,
+      // see overlay_handle.cpp::CalculateOverlayPriority()
+      ASSERT(-drule::kOverlaysMaxPriority <= depth && depth < drule::kOverlaysMaxPriority, (depth));
       uint8_t rank = ft.GetRank();
-      m_priority = (static_cast<uint32_t>(d) << 8) | rank;
+      m_priority = (static_cast<uint32_t>(depth) << 8) | rank;
     }
 
     // Same to dynamic displacement behaviour.

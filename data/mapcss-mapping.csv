@@ -428,7 +428,7 @@ highway|unclassified|area;[highway=unclassified][area?];;name;int_name;354;
 natural|volcano;355;
 deprecated:amenity|parking|underground|fee:01.2020;[amenity=parking][location=underground][fee?],[amenity=parking][parking=underground][fee?];x;name;int_name;356;amenity|parking|underground
 amenity|parking|underground;[amenity=parking][location=underground],[amenity=parking][parking=underground];;name;int_name;357;
-deprecated|deprecated;358;x
+amenity|parking|street_side;[amenity=parking][parking=street_side];;name;int_name;358;
 amenity|parking|multi-storey;[amenity=parking][parking=multi-storey];;name;int_name;359;
 leisure|recreation_ground;360;
 highway|footway|mountain_hiking;[highway=footway][sac_scale=mountain_hiking];;name;int_name;361;
@@ -438,6 +438,7 @@ sport|9pin;364;
 sport|10pin;365;
 piste:type|downhill|novice;[piste:type=downhill][piste:difficulty=novice];;name;int_name;366;
 railway|narrow_gauge|bridge;[railway=narrow_gauge][bridge?];;name;int_name;367;
+amenity|parking|lane;[amenity=parking][parking=lane];;name;int_name;368;
 railway|rail|main|tunnel;[railway=rail][usage=main][!highspeed][!service][tunnel?];;name;int_name;369;
 highway|bridleway|permissive;[highway=bridleway][access=permissive];;name;int_name;370;
 railway|construction;371;
@@ -1573,7 +1574,7 @@ railway|subway_entrance|lausanne;[railway=subway_entrance][city=lausanne];;name;
 railway|subway_entrance|lille;[railway=subway_entrance][city=lille];;name;int_name;1499;
 railway|subway_entrance|lima;[railway=subway_entrance][city=lima];;name;int_name;1500;
 railway|subway_entrance|lisboa;[railway=subway_entrance][city=lisboa];;name;int_name;1501;
-deprecated|deprecated;1502;x
+railway|subway_entrance|tehran;[railway=subway_entrance][city=tehran];;name;int_name;1502;
 railway|subway_entrance|lyon;[railway=subway_entrance][city=lyon];;name;int_name;1503;
 railway|subway_entrance|malaga;[railway=subway_entrance][city=malaga];;name;int_name;1504;
 railway|subway_entrance|manila;[railway=subway_entrance][city=manila];;name;int_name;1505;
@@ -1636,3 +1637,4 @@ shop|herbalist;1561;
 shop|camera;1562;
 shop|auction;1563;
 shop|collector;1564;
+railway|station|subway|tehran;[railway=station][transport=subway][city=tehran],[railway=station][station=subway][city=tehran];;name;int_name;1565;

@@ -787,6 +787,8 @@
 	<string name="type.amenity.parking.private">Saját parkoló</string>
 	<string name="type.amenity.parking.park_and_ride">Parkoló</string>
 	<string name="type.amenity.parking.underground">Mélygarázs</string>
+	<string name="type.amenity.parking.street_side">Parkoló</string>
+	<string name="type.amenity.parking.lane">Parkoló</string>
 	<string name="type.amenity.parking_entrance">Parkoló bejárata</string>
 	<string name="type.amenity.parking_entrance.private">Parkoló bejárata</string>
 	<string name="type.amenity.parking_entrance.permissive">Parkoló bejárata</string>
@@ -1001,6 +1003,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Alagút</string>
 	<string name="type.highway.busway">Kijelölt buszút</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Alagút</string>
 	<string name="type.highway.bus_stop">Buszmegálló</string>
 	<string name="type.highway.construction">Útépítés</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1471,6 +1477,7 @@
 	<string name="type.railway.station.subway.taoyuan">Földalatti</string>
 	<string name="type.railway.station.subway.tashkent">Földalatti</string>
 	<string name="type.railway.station.subway.tbilisi">Földalatti</string>
+	<string name="type.railway.station.subway.tehran">Földalatti</string>
 	<string name="type.railway.station.subway.tianjin">Földalatti</string>
 	<string name="type.railway.station.subway.tokyo">Földalatti</string>
 	<string name="type.railway.station.subway.valencia">Földalatti</string>
@@ -1581,6 +1588,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">Földalatti bejárat</string>
 	<string name="type.railway.subway_entrance.tashkent">Földalatti bejárat</string>
 	<string name="type.railway.subway_entrance.tbilisi">Földalatti bejárat</string>
+	<string name="type.railway.subway_entrance.tehran">Földalatti bejárat</string>
 	<string name="type.railway.subway_entrance.tianjin">Földalatti bejárat</string>
 	<string name="type.railway.subway_entrance.tokyo">Földalatti bejárat</string>
 	<string name="type.railway.subway_entrance.valencia">Földalatti bejárat</string>
@@ -1656,7 +1664,7 @@
 	<string name="type.shop.optician">Optika</string>
 	<string name="type.shop.outdoor">Túrafelszerelés</string>
 	<string name="type.shop.outpost">Felvevő pont</string>
-	<string name="type.shop.pastry">Cukrászsütemény</string>
+	<string name="type.shop.pastry">Cukrászda</string>
 	<string name="type.shop.pawnbroker">Zálogház</string>
 	<string name="type.shop.pet">Házikedvenc-üzlet</string>
 	<string name="type.shop.pet_grooming">Kisállat ápolás</string>

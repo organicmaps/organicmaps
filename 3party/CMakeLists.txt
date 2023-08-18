@@ -1,3 +1,7 @@
+# Fixes CMake deprecation warning:
+# Compatibility with CMake < 3.5 will be removed from a future version of CMake.
+set(CMAKE_WARN_DEPRECATED OFF CACHE BOOL "" FORCE)
+
 if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
   # Configure expat library.
   # Suppress "Policy CMP0077 is not set: option() honors normal variables"

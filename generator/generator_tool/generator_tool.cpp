@@ -172,8 +172,10 @@ DEFINE_string(us_postcodes_dataset, "", "Path to dataset with US postcodes.");
 // Printing stuff.
 DEFINE_bool(stats_general, false, "Print file and feature stats.");
 DEFINE_bool(stats_geometry, false, "Print outer geometry stats.");
-DEFINE_double(stats_geometry_dup_factor, 1.5, "Consider feature's geometry scale "
-              "duplicating a more detailed one if it has <dup_factor less elements.");
+DEFINE_uint64(stats_geom_min_diff, 5, "Consider feature's geometry scale "
+              "similar to a more detailed one if it has <min_diff less elements.");
+DEFINE_double(stats_geom_min_factor, 2.0f, "Consider feature's geometry scale "
+              "similar to a more detailed one if it has <min_factor times less elements.");
 DEFINE_bool(stats_types, false, "Print feature stats by type.");
 DEFINE_bool(dump_types, false, "Prints all types combinations and their total count.");
 DEFINE_bool(dump_prefixes, false, "Prints statistics on feature's' name prefixes.");
@@ -595,7 +597,8 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
   {
     LOG(LINFO, ("Calculating statistics for", dataFile));
     auto file = OfstreamWithExceptions(genInfo.GetIntermediateFileName(FLAGS_output, STATS_EXTENSION));
-    stats::MapInfo info(FLAGS_stats_geometry_dup_factor);
+    file << std::fixed << std::setprecision(1);
+    stats::MapInfo info(FLAGS_stats_geom_min_diff, FLAGS_stats_geom_min_factor);
     stats::CalcStats(dataFile, info);
 
     if (FLAGS_stats_general)

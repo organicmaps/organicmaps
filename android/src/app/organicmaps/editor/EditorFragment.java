@@ -445,7 +445,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     initBlock(view, Metadata.MetadataType.FMD_CONTACT_INSTAGRAM, R.id.block_instagram,
             R.drawable.ic_instagram_white, R.string.instagram, InputType.TYPE_TEXT_VARIATION_URI);
     initBlock(view, Metadata.MetadataType.FMD_CONTACT_TWITTER, R.id.block_twitter,
-            R.drawable.ic_twitter_white, R.string.twitter, InputType.TYPE_TEXT_VARIATION_URI);
+            R.drawable.ic_twitterx_white, R.string.twitter, InputType.TYPE_TEXT_VARIATION_URI);
     initBlock(view, Metadata.MetadataType.FMD_CONTACT_VK, R.id.block_vk,
             R.drawable.ic_vk_white, R.string.vk, InputType.TYPE_TEXT_VARIATION_URI);
     initBlock(view, Metadata.MetadataType.FMD_CONTACT_LINE, R.id.block_line,

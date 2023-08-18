@@ -823,6 +823,8 @@
 	<string name="type.amenity.parking.private">Yksityinen pysäköinti</string>
 	<string name="type.amenity.parking.park_and_ride">Liityntäpysäköinti</string>
 	<string name="type.amenity.parking.underground">Maanalainen pysäköinti</string>
+	<string name="type.amenity.parking.street_side">Parkkipaikka</string>
+	<string name="type.amenity.parking.lane">Parkkipaikka</string>
 	<string name="type.amenity.parking_entrance">Pysäköinnin sisäänkäynti</string>
 	<string name="type.amenity.parking_entrance.private">Pysäköinnin sisäänkäynti</string>
 	<string name="type.amenity.parking_entrance.permissive">Pysäköinnin sisäänkäynti</string>
@@ -1069,6 +1071,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunneli</string>
 	<string name="type.highway.busway">Oma bussitie</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Tunneli</string>
 	<string name="type.highway.bus_stop">Bussipysäkki</string>
 	<string name="type.highway.construction">Rakenteilla oleva tie</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1541,6 +1547,7 @@
 	<string name="type.railway.station.subway.taoyuan">Metro</string>
 	<string name="type.railway.station.subway.tashkent">Metro</string>
 	<string name="type.railway.station.subway.tbilisi">Metro</string>
+	<string name="type.railway.station.subway.tehran">Metro</string>
 	<string name="type.railway.station.subway.tianjin">Metro</string>
 	<string name="type.railway.station.subway.tokyo">Metro</string>
 	<string name="type.railway.station.subway.valencia">Metro</string>
@@ -1651,6 +1658,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">Metron sisäänkäynti</string>
 	<string name="type.railway.subway_entrance.tashkent">Metron sisäänkäynti</string>
 	<string name="type.railway.subway_entrance.tbilisi">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.tehran">Metron sisäänkäynti</string>
 	<string name="type.railway.subway_entrance.tianjin">Metron sisäänkäynti</string>
 	<string name="type.railway.subway_entrance.tokyo">Metron sisäänkäynti</string>
 	<string name="type.railway.subway_entrance.valencia">Metron sisäänkäynti</string>
@@ -1848,6 +1856,7 @@
 	<string name="type.waterway.ditch">Oja</string>
 	<string name="type.waterway.ditch.tunnel">Oja</string>
 	<string name="type.waterway.dock">Telakka</string>
+	<string name="type.waterway.drain.tunnel">Oja</string>
 	<string name="type.waterway.lock_gate">Kanavasulku</string>
 	<string name="type.waterway.river">Joki</string>
 	<string name="type.waterway.river.tunnel">Joki</string>

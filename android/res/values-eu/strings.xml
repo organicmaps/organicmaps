@@ -826,6 +826,8 @@
 	<string name="type.amenity.parking.private">Aparkaleku pribatua</string>
 	<string name="type.amenity.parking.park_and_ride">Aparkalekua</string>
 	<string name="type.amenity.parking.underground">Lurpeko Aparkalekua</string>
+	<string name="type.amenity.parking.street_side">Aparkalekua</string>
+	<string name="type.amenity.parking.lane">Aparkalekua</string>
 	<string name="type.amenity.parking_entrance">Aparkalekuaren sarrera</string>
 	<string name="type.amenity.parking_entrance.private">Aparkalekuaren sarrera</string>
 	<string name="type.amenity.parking_entrance.permissive">Aparkalekuaren sarrera</string>
@@ -1084,6 +1086,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunel</string>
 	<string name="type.highway.busway">Autobus errepidea</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Zubia</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Tunel</string>
 	<string name="type.highway.bus_stop">Autobus geltokia</string>
 	<string name="type.highway.construction">Eraikitzen ari diren errepidea</string>
 	<string name="type.highway.cycleway">Bizikletabidea</string>
@@ -1564,6 +1570,7 @@
 	<string name="type.railway.station.subway.taoyuan">Metroa</string>
 	<string name="type.railway.station.subway.tashkent">Metroa</string>
 	<string name="type.railway.station.subway.tbilisi">Metroa</string>
+	<string name="type.railway.station.subway.tehran">Metroa</string>
 	<string name="type.railway.station.subway.tianjin">Metroa</string>
 	<string name="type.railway.station.subway.tokyo">Metroa</string>
 	<string name="type.railway.station.subway.valencia">Metroa</string>
@@ -1674,6 +1681,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">Metroko sarrera</string>
 	<string name="type.railway.subway_entrance.tashkent">Metroko sarrera</string>
 	<string name="type.railway.subway_entrance.tbilisi">Metroko sarrera</string>
+	<string name="type.railway.subway_entrance.tehran">Metroko sarrera</string>
 	<string name="type.railway.subway_entrance.tianjin">Metroko sarrera</string>
 	<string name="type.railway.subway_entrance.tokyo">Metroko sarrera</string>
 	<string name="type.railway.subway_entrance.valencia">Metroko sarrera</string>

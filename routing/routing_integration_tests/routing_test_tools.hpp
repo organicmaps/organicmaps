@@ -104,7 +104,9 @@ void TestOnlineFetcher(ms::LatLon const & startPoint, ms::LatLon const & finalPo
                        std::vector<std::string> const & expected,
                        IRouterComponents & routerComponents);
 
-std::shared_ptr<VehicleRouterComponents> CreateAllMapsComponents(VehicleType vehicleType);
+std::shared_ptr<VehicleRouterComponents>
+CreateAllMapsComponents(VehicleType vehicleType, std::set<std::string> const & skipMaps);
+
 IRouterComponents & GetVehicleComponents(VehicleType vehicleType);
 
 TRouteResult CalculateRoute(IRouterComponents const & routerComponents,

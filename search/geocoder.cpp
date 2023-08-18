@@ -1220,10 +1220,12 @@ void Geocoder::ProcessStreets(BaseContext & ctx, CentersFilter const & centers, 
   vector<PredictionT> predictions;
   StreetsMatcher::Go(ctx, streets, *m_filter, m_params, predictions);
 
-  // Iterating from best to worst predictions here. Make "Relaxed" results for the best prediction only
-  // to avoid dummy streets results, matched by very _common_ tokens.
+  // Iterating from best to worst predictions here. Make "Relaxed" results for the best probability.
   for (size_t i = 0; i < predictions.size(); ++i)
-    CreateStreetsLayerAndMatchLowerLayers(ctx, predictions[i], centers, i == 0 /* makeRelaxed */);
+  {
+    CreateStreetsLayerAndMatchLowerLayers(ctx, predictions[i], centers,
+                                          predictions[0].SameForRelaxedMatch(predictions[i]) /* makeRelaxed */);
+  }
 }
 
 void Geocoder::GreedilyMatchStreetsWithSuburbs(BaseContext & ctx, CentersFilter const & centers)

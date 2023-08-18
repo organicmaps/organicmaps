@@ -767,6 +767,8 @@
 	<string name="type.amenity.parking.private">Ιδιωτικός χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.park_and_ride">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.underground">Υπόγειος χώρος στάθμευσης</string>
+	<string name="type.amenity.parking.street_side">Χώρος στάθμευσης</string>
+	<string name="type.amenity.parking.lane">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking_entrance">Είσοδος στάθμευσης</string>
 	<string name="type.amenity.parking_entrance.private">Είσοδος στάθμευσης</string>
 	<string name="type.amenity.parking_entrance.permissive">Είσοδος στάθμευσης</string>
@@ -982,6 +984,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Σήραγγα</string>
 	<string name="type.highway.busway">Αφιερωμένος δρόμος λεωφορείων</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Γέφυρα</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Σήραγγα</string>
 	<string name="type.highway.bus_stop">Στάση λεωφορείου</string>
 	<string name="type.highway.construction">Οδός υπό κατασκευή</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1456,6 +1462,7 @@
 	<string name="type.railway.station.subway.taoyuan">Μετρό</string>
 	<string name="type.railway.station.subway.tashkent">Μετρό</string>
 	<string name="type.railway.station.subway.tbilisi">Μετρό</string>
+	<string name="type.railway.station.subway.tehran">Μετρό</string>
 	<string name="type.railway.station.subway.tianjin">Μετρό</string>
 	<string name="type.railway.station.subway.tokyo">Μετρό</string>
 	<string name="type.railway.station.subway.valencia">Μετρό</string>
@@ -1566,6 +1573,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.tashkent">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.tbilisi">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.tehran">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.tianjin">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.tokyo">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.valencia">Είσοδος μετρό</string>

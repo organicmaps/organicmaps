@@ -1,7 +1,7 @@
 /* ~~~~ CONTENT OF ROADS ~~~~~
 
 1.Z-INDEX ROADS
-2.WORLD LAVEL ROAD 4-9 ZOOM
+2.WORLD LEVEL ROAD 4-9 ZOOM
 3.TRUNK & MOTORWAY 7-22 ZOOM
   3.1 Trunk & Motorway 7-22 ZOOM
   3.2 Trunk & Motorway tunnel 12-22 ZOOM
@@ -50,236 +50,12 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-/* 1.Z-INDEX ROADS */
-/*
-line[highway=motorway][tunnel?],
-line[highway=trunk][tunnel?],
-line[highway=motorway_link][tunnel?],
-line[highway=trunk_link][tunnel?],
-line[highway=primary][tunnel?],
-line[highway=primary_link][tunnel?],
-line[highway=secondary][tunnel?],
-line[highway=secondary_link][tunnel?],
-line[highway=tertiary][tunnel?],
-line[highway=tertiary_link][tunnel?],
-line[highway=residential][tunnel?],
-line[highway=unclassified][tunnel?],
-line[highway=pedestrian][tunnel?],
-line[highway=steps][tunnel?],
-line[highway=road][tunnel?],
-line[highway=service][tunnel?],
-line[railway=rail][tunnel?],
-*/
-
-
-line[highway=footway][tunnel?]::tunnelCasing,
-line[highway=path][tunnel?]::tunnelCasing,
-line[highway=steps][tunnel?]::tunnelCasing,
-line[railway=light_rail][bridge?]::bridgeblack,
-{z-index: 25;}
-
-line[highway=footway][tunnel?]::tunnelBackground,
-line[highway=path][tunnel?]::tunnelBackground,
-line[highway=steps][tunnel?]::tunnelBackground,
-line[railway=light_rail][bridge?]::bridgewhite,
-{z-index: 30;}
-
-line[aeroway=runway],
-line[aeroway=taxiway]
-{z-index: 50;}
-
-line[piste:type=downhill][piste:difficulty=advanced],
-line[piste:type=downhill][piste:difficulty=easy],
-line[piste:type=downhill][piste:difficulty=expert],
-line[piste:type=downhill][piste:difficulty=freeride],
-line[piste:type=downhill][piste:difficulty=intermediate],
-line[piste:type=downhill][piste:difficulty=novice],
-{z-index: 100;}
-
-line[route=ferry],
-line[route=ferry_motorcar]
-{z-index: 115;}
-
-line[piste:type=downhill],
-line[piste:type=nordic],
-line[piste:type=sled],
-{z-index: 199;}
-
-line[highway=motorway][bridge?]::bridgeblack,
-line[highway=trunk][bridge?]::bridgeblack,
-line[highway=motorway_link][bridge?]::bridgeblack,
-line[highway=trunk_link][bridge?]::bridgeblack,
-line[highway=primary][bridge?]::bridgeblack,
-line[highway=primary_link][bridge?]::bridgeblack,
-line[highway=secondary][bridge?]::bridgeblack,
-line[highway=secondary_link][bridge?]::bridgeblack,
-line[highway=tertiary][bridge?]::bridgeblack,
-line[highway=tertiary_link][bridge?]::bridgeblack,
-line[highway=residential][bridge?]::bridgeblack,
-line[highway=unclassified][bridge?]::bridgeblack,
-line[highway=pedestrian][bridge?]::bridgeblack,
-line[highway=footway][bridge?]::bridgeblack,
-line[highway=steps][bridge?]::bridgeblack,
-line[highway=road][bridge?]::bridgeblack,
-line[highway=service][bridge?]::bridgeblack,
-line[railway=rail][bridge?]::bridgeblack,
-line[railway=subway][bridge?]::bridgeblack,
-line[railway=preserved][bridge?]::bridgeblack,
-line[railway=abandoned][bridge?]::bridgeblack,
-{z-index: 390;}
-
-line[highway=motorway][bridge?]::bridgewhite,
-line[highway=trunk][bridge?]::bridgewhite,
-line[highway=motorway_link][bridge?]::bridgewhite,
-line[highway=trunk_link][bridge?]::bridgewhite,
-line[highway=primary][bridge?]::bridgewhite,
-line[highway=primary_link][bridge?]::bridgewhite,
-line[highway=secondary][bridge?]::bridgewhite,
-line[highway=secondary_link][bridge?]::bridgewhite,
-line[highway=tertiary][bridge?]::bridgewhite,
-line[highway=tertiary_link][bridge?]::bridgewhite,
-line[highway=residential][bridge?]::bridgewhite,
-line[highway=unclassified][bridge?]::bridgewhite,
-line[highway=pedestrian][bridge?]::bridgewhite,
-line[highway=footway][bridge?]::bridgewhite,
-line[highway=steps][bridge?]::bridgewhite,
-line[highway=road][bridge?]::bridgewhite,
-line[highway=service][bridge?]::bridgewhite,
-line[railway=rail][bridge?]::bridgewhite,
-line[railway=subway][bridge?]::bridgewhite,
-line[railway=preserved][bridge?]::bridgewhite,
-line[railway=abandoned][bridge?]::bridgewhite,
-{z-index: 400;}
-
-line[highway=construction],
-line[highway=proposed],
-line[railway=construction],
-line[railway=disused],
-line[railway=preserved],
-line[railway=abandoned]
-{z-index: 450;}
-
-line[highway=bridleway]
-{z-index: 590;}
-
-line[highway=track],
-line[highway=raceway],
-line[leisure=track][!area],
-line[highway=path],
-line[route=hiking],
-line[highway=footway]
-{z-index: 600;}
-
-line[highway=service],
-line[highway=service][service=busway],
-line[highway=busway],
-{z-index: 650;}
-
-line[highway=pedestrian],
-line[highway=ford]
-{z-index: 660;}
-
-line[railway=rail],
-line[railway=subway][!tunnel],
-line[railway=light_rail][!tunnel],
-{z-index: 680;}
-
-line[railway=rail]::dash,
-line[railway=subway][!tunnel]::dash,
-line[railway=light_rail][!tunnel]::dash,
-{z-index: 690;}
-
-line[highway=residential],
-line[highway=road],
-line[highway=living_street]
-{z-index: 700;}
-
-line[highway=residential_link],
-line[highway=tertiary_link]
-{z-index: 740;}
-
-line[highway=unclassified],
-line[highway=tertiary],
-{z-index: 750;}
-
-line[highway=secondary_link]
-{z-index: 790;}
-
-line[highway=secondary]
-{z-index: 800;}
-
-line[highway=primary_link],
-line[railway=rail][highspeed?],
-line[railway=rail][usage=main],
-line[railway=rail][usage=tourism],
-line[railway=rail][usage=branch],
-{z-index: 840;}
-
-line[highway=primary],
-line|z8-9[highway=world_towns_level],
-line|z8-9[highway=world_level],
-line[railway=rail][highspeed?]::dash,
-line[railway=rail][usage=main]::dash,
-line[railway=rail][usage=tourism]::dash,
-line[railway=rail][usage=branch]::dash,
-{z-index: 850;}
-
-line[highway=motorway_link],
-line[highway=trunk_link]
-{z-index: 890;}
-
-line|z4-7[highway=world_towns_level],
-line|z4-7[highway=world_level],
-line[highway=trunk],
-line[highway=motorway]
-{z-index: 900;}
-
-line[railway=monorail],
-line[railway=narrow_gauge],
-line[railway=tram]
-{z-index: 950;}
-
-line[highway=cycleway],
-line[highway=steps],
-node[highway=motorway_junction],
-node[junction],
-{z-index: 1000;}
-
-line[power=line]::dash
-{z-index: 1999;}
-line[power=line]
-{z-index: 2000;}
-
-line[aerialway=cable_car],
-line[aerialway=gondola],
-line[aerialway=mixed_lift],
-line[aerialway=chair_lift],
-line[aerialway=drag_lift],
-line[aerialway=j-bar],
-line[aerialway=t-bar],
-line[aerialway=magic_carpet],
-line[aerialway=platter],
-line[aerialway=rope_tow],
-{z-index: 2600;}
-
-line[aerialway=cable_car]::dash,
-line[aerialway=gondola]::dash,
-line[aerialway=mixed_lift]::dash,
-line[aerialway=chair_lift]::dash,
-line[aerialway=drag_lift] ::dash,
-line[aerialway=j-bar]::dash,
-line[aerialway=t-bar]::dash,
-line[aerialway=magic_carpet]::dash,
-line[aerialway=platter]::dash,
-line[aerialway=rope_tow]::dash,
-{z-index: 2605;}
-
 line[highway]
 {casing-width: 0;}
 
-/* 2.WORLD LAVEL ROAD 4-9 ZOOM */
+/* 2.WORLD LEVEL ROAD 4-9 ZOOM */
 
-line|z4-9[highway=world_towns_level],
+line|z6-9[highway=world_towns_level],
 line|z4-9[highway=world_level],
 {color: @trunk_orange_light;opacity: 1;}
 
@@ -303,8 +79,12 @@ line|z9[highway=world_level]
 
 line|z7-[highway=trunk],
 line|z7-[highway=motorway],
+{color: @trunk_orange_medium;opacity: 1;}
+
+line|z10-[highway=trunk],
+line|z10-[highway=motorway],
 line|z10-[highway=motorway_link],
-line|z10-[highway=trunk_link]
+line|z10-[highway=trunk_link],
 {color: @trunk_orange_light;opacity: 1;}
 line|z12-[highway=motorway][tunnel?],
 line|z12-[highway=trunk][tunnel?],
@@ -335,7 +115,7 @@ line|z9[highway=motorway]
 {width: 1.2;}
 line|z10[highway=trunk],
 line|z10[highway=motorway]
-{color: @trunk_orange_medium; width: 1.5;}
+{width: 1.5;}
 line|z10[highway=motorway_link],
 line|z10[highway=trunk_link]
 {width: 0.8;}
@@ -347,7 +127,7 @@ line|z11[highway=trunk_link]
 {width: 1.0;}
 line|z12[highway=trunk],
 line|z12[highway=motorway]
-{color: @trunk_orange_medium; width: 1.9;}
+{width: 1.9;}
 line|z12[highway=motorway_link],
 line|z12[highway=trunk_link]
 {width: 1.2;}
@@ -787,7 +567,7 @@ line|z15[highway=service],
 line|z15[highway=service][service=busway],
 line|z15[highway=busway],
 {width: 1.2;}
-line|z15-16[highway=service][service=driveway]
+line|z15[highway=service][service=driveway]
 {width: 0;}
 line|z16[highway=service],
 line|z16[highway=service][service=busway],
@@ -1533,7 +1313,7 @@ line|z14-[piste:type=downhill][piste:difficulty=freeride]
 line|z14[piste:type=downhill],
 line|z14[piste:type=nordic],
 line|z14[piste:type=sled],
-{width: 0.8;z-index: 10;}
+{width: 0.8;}
 line|z14[route=ski],
 line|z14[leisure=skiing]
 {width: 0.8;}
@@ -1572,6 +1352,6 @@ line|z17-[leisure=skiing]
 {width: 1.5;}
 
 /* 11. FERRY */
-line|z10-[route=ferry],
-line|z10-[route=ferry_motorcar]
+
+line|z7-[route=ferry],
 {color: @ferry;width: 1;opacity: 1;dashes: 5.4,2.7;}

@@ -348,11 +348,6 @@ void PathTextHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mu
   TextHandle::GetAttributeMutation(mutator);
 }
 
-uint64_t PathTextHandle::GetPriorityMask() const
-{
-  return dp::kPriorityMaskManual | dp::kPriorityMaskRank;
-}
-
 bool PathTextHandle::Enable3dExtention() const
 {
   // Do not extend overlays for path texts.

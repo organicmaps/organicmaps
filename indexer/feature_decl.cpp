@@ -40,6 +40,25 @@ int64_t FeatureID::GetMwmVersion() const
   return IsValid() ? m_mwmId.GetInfo()->GetVersion() : kInvalidMwmVersion;
 }
 
+bool FeatureID::IsEqualCountry(base::StringIL const & lst) const
+{
+  if (!IsValid())
+    return false;
+
+  auto const & name = m_mwmId.GetInfo()->GetCountryName();
+  for (char const * e : lst)
+  {
+    if (strings::StartsWith(name, e))
+      return true;
+  }
+  return false;
+}
+
+bool FeatureID::IsWorld() const
+{
+  return m_mwmId.GetInfo()->GetType() == MwmInfo::MwmTypeT::WORLD;
+}
+
 size_t std::hash<FeatureID>::operator()(FeatureID const & fID) const
 {
   size_t seed = 0;

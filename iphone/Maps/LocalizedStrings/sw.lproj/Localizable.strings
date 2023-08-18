@@ -289,7 +289,7 @@
 "facebook" = "Facebook";
 
 /* Text in menu */
-"twitter" = "Twitter";
+"twitter" = "X (Twitter)";
 
 /* Text in menu */
 "instagram" = "Instagram";
@@ -1421,6 +1421,10 @@
 
 "type.amenity.parking.underground" = "Maegesho ya chini ya ardhi";
 
+"type.amenity.parking.street_side" = "Maegesho";
+
+"type.amenity.parking.lane" = "Maegesho";
+
 "type.amenity.parking_entrance" = "Mlango wa maegesho";
 
 "type.amenity.parking_entrance.private" = "Mlango wa maegesho";
@@ -1943,6 +1947,12 @@
 "type.highway.bridleway.tunnel" = "Mtaro";
 
 "type.highway.busway" = "Barabara ya basi iliyotengwa";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Daraja";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Mtaro";
 
 "type.highway.bus_stop" = "Bus Stop";
 
@@ -3063,6 +3073,8 @@
 
 "type.railway.station.subway.tbilisi" = "Subway Station";
 
+"type.railway.station.subway.tehran" = "Subway Station";
+
 "type.railway.station.subway.tianjin" = "Subway Station";
 
 "type.railway.station.subway.tokyo" = "Subway Station";
@@ -3288,6 +3300,8 @@
 "type.railway.subway_entrance.tashkent" = "Lango la kuingilia stesheni ya reli";
 
 "type.railway.subway_entrance.tbilisi" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.tehran" = "Lango la kuingilia stesheni ya reli";
 
 "type.railway.subway_entrance.tianjin" = "Lango la kuingilia stesheni ya reli";
 
@@ -3703,7 +3717,7 @@
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Drain";
+"type.waterway.drain.tunnel" = "Ditch";
 
 "type.waterway.lock_gate" = "Lock Gate";
 

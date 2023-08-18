@@ -61,8 +61,3 @@ area::* {
 {
   text-position: center;
 }
-area[aeroway],
-area[tourism]
-{
-  fill-position: background;
-}

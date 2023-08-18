@@ -832,6 +832,8 @@
 	<string name="type.amenity.parking.private">Özel Otopark</string>
 	<string name="type.amenity.parking.park_and_ride">Otopark</string>
 	<string name="type.amenity.parking.underground">Yeraltı otoparkı</string>
+	<string name="type.amenity.parking.street_side">Otopark</string>
+	<string name="type.amenity.parking.lane">Otopark</string>
 	<string name="type.amenity.parking_entrance">Otopark girişi</string>
 	<string name="type.amenity.parking_entrance.private">Otopark girişi</string>
 	<string name="type.amenity.parking_entrance.permissive">Otopark girişi</string>
@@ -1091,6 +1093,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tünel</string>
 	<string name="type.highway.busway">Özel otobüs yolu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Tünel</string>
 	<string name="type.highway.bus_stop">Otobüs Durağı</string>
 	<string name="type.highway.construction">Yapım Aşamasında Yol</string>
 	<string name="type.highway.cycleway">Bisiklet Yolu</string>
@@ -1648,6 +1654,7 @@
 	<string name="type.railway.station.subway.taoyuan">Metro</string>
 	<string name="type.railway.station.subway.tashkent">Metro</string>
 	<string name="type.railway.station.subway.tbilisi">Metro</string>
+	<string name="type.railway.station.subway.tehran">Metro</string>
 	<string name="type.railway.station.subway.tianjin">Metro</string>
 	<string name="type.railway.station.subway.tokyo">Metro</string>
 	<string name="type.railway.station.subway.valencia">Metro</string>
@@ -1761,6 +1768,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">Metro Girişi</string>
 	<string name="type.railway.subway_entrance.tashkent">Metro Girişi</string>
 	<string name="type.railway.subway_entrance.tbilisi">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.tehran">Metro Girişi</string>
 	<string name="type.railway.subway_entrance.tianjin">Metro Girişi</string>
 	<string name="type.railway.subway_entrance.tokyo">Metro Girişi</string>
 	<string name="type.railway.subway_entrance.valencia">Metro Girişi</string>
@@ -1968,7 +1976,7 @@
 	<string name="type.waterway.ditch.tunnel">Hendek</string>
 	<string name="type.waterway.dock">Rıhtım</string>
 	<string name="type.waterway.drain">Lağım</string>
-	<string name="type.waterway.drain.tunnel">Lağım</string>
+	<string name="type.waterway.drain.tunnel">Hendek</string>
 	<string name="type.waterway.lock_gate">Eklüz Kapağı</string>
 	<string name="type.waterway.river">Nehir</string>
 	<string name="type.waterway.river.tunnel">Nehir</string>

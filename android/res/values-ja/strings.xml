@@ -777,6 +777,8 @@
 	<string name="type.amenity.parking.private">専用駐車場</string>
 	<string name="type.amenity.parking.park_and_ride">駐車場</string>
 	<string name="type.amenity.parking.underground">地下駐車場</string>
+	<string name="type.amenity.parking.street_side">駐車場</string>
+	<string name="type.amenity.parking.lane">駐車場</string>
 	<string name="type.amenity.parking_entrance">駐車場入口</string>
 	<string name="type.amenity.parking_entrance.private">駐車場入口</string>
 	<string name="type.amenity.parking_entrance.permissive">駐車場入口</string>
@@ -1014,6 +1016,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">馬道(トンネル)</string>
 	<string name="type.highway.busway">バス専用道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">トンネル</string>
 	<string name="type.highway.bus_stop">バス停</string>
 	<string name="type.highway.construction">工事中の道路</string>
 	<string name="type.highway.cycleway">自転車道</string>
@@ -1564,6 +1570,7 @@
 	<string name="type.railway.station.subway.taoyuan">地下鉄</string>
 	<string name="type.railway.station.subway.tashkent">地下鉄</string>
 	<string name="type.railway.station.subway.tbilisi">地下鉄</string>
+	<string name="type.railway.station.subway.tehran">地下鉄</string>
 	<string name="type.railway.station.subway.tianjin">地下鉄</string>
 	<string name="type.railway.station.subway.tokyo">地下鉄</string>
 	<string name="type.railway.station.subway.valencia">地下鉄</string>
@@ -1674,6 +1681,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">地下鉄入り口</string>
 	<string name="type.railway.subway_entrance.tashkent">地下鉄入り口</string>
 	<string name="type.railway.subway_entrance.tbilisi">地下鉄入り口</string>
+	<string name="type.railway.subway_entrance.tehran">地下鉄入り口</string>
 	<string name="type.railway.subway_entrance.tianjin">地下鉄入り口</string>
 	<string name="type.railway.subway_entrance.tokyo">地下鉄入り口</string>
 	<string name="type.railway.subway_entrance.valencia">地下鉄入り口</string>
@@ -1877,10 +1885,10 @@
 	<string name="type.waterway.fish_pass">魚道</string>
 	<string name="type.waterway.dam">ダム</string>
 	<string name="type.waterway.ditch">排水路</string>
-	<string name="type.waterway.ditch.tunnel">排水路</string>
+	<string name="type.waterway.ditch.tunnel">暗渠</string>
 	<string name="type.waterway.dock">ドック</string>
 	<string name="type.waterway.drain">用水路</string>
-	<string name="type.waterway.drain.tunnel">用水路</string>
+	<string name="type.waterway.drain.tunnel">暗渠</string>
 	<string name="type.waterway.lock_gate">水門</string>
 	<string name="type.waterway.river">河川</string>
 	<string name="type.waterway.river.tunnel">河川</string>

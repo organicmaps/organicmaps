@@ -159,12 +159,12 @@ FeatureStyler::FeatureStyler(FeatureType & f,
     if (layer != 0 && depth < 19000)
     {
       if (keys[i].m_type == drule::line || keys[i].m_type == drule::waymarker)
-        depth = (layer * df::kLayerDepthRange) + fmod(depth, df::kLayerDepthRange);
+        depth = (layer * drule::kLayerPriorityRange) + fmod(depth, drule::kLayerPriorityRange);
       else if (keys[i].m_type == drule::area)
       {
         // Use raw depth adding in area feature layers
         // (avoid overlap linear objects in case of "fmod").
-        depth += layer * df::kLayerDepthRange;
+        depth += layer * drule::kLayerPriorityRange;
       }
     }
 

@@ -686,6 +686,8 @@
 	<string name="type.amenity.parking.permissive">Частен паркинг</string>
 	<string name="type.amenity.parking.private">Частен паркинг</string>
 	<string name="type.amenity.parking.underground">Подземен паркинг</string>
+	<string name="type.amenity.parking.street_side">Паркинг</string>
+	<string name="type.amenity.parking.lane">Паркинг</string>
 	<string name="type.amenity.parking_entrance">Вход за паркинг</string>
 	<string name="type.amenity.parking_entrance.private">Вход за паркинг</string>
 	<string name="type.amenity.parking_entrance.permissive">Вход за паркинг</string>
@@ -748,6 +750,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Тунел</string>
 	<string name="type.highway.busway">Обособен автобусен път</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Мост</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Тунел</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.cycleway.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->

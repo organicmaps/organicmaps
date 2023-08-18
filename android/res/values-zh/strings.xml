@@ -232,7 +232,7 @@
 	<!-- Text in menu -->
 	<string name="facebook">脸书</string>
 	<!-- Text in menu -->
-	<string name="twitter">推特</string>
+	<string name="twitter">X (推特)</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">反馈</string>
 	<!-- Text in menu -->
@@ -788,6 +788,8 @@
 	<string name="type.amenity.parking.private">私人停车场</string>
 	<string name="type.amenity.parking.park_and_ride">停车场</string>
 	<string name="type.amenity.parking.underground">地下停车场</string>
+	<string name="type.amenity.parking.street_side">停车场</string>
+	<string name="type.amenity.parking.lane">停车场</string>
 	<string name="type.amenity.parking_entrance">停车场入口</string>
 	<string name="type.amenity.parking_entrance.private">停车场入口</string>
 	<string name="type.amenity.parking_entrance.permissive">停车场入口</string>
@@ -1035,6 +1037,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">隧道</string>
 	<string name="type.highway.busway">巴士专用道</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">隧道</string>
 	<string name="type.highway.bus_stop">公交站</string>
 	<string name="type.highway.construction">在建道路</string>
 	<string name="type.highway.cycleway">自行车道</string>
@@ -1573,6 +1579,7 @@
 	<string name="type.railway.station.subway.taoyuan">地铁车站</string>
 	<string name="type.railway.station.subway.tashkent">地铁车站</string>
 	<string name="type.railway.station.subway.tbilisi">地铁车站</string>
+	<string name="type.railway.station.subway.tehran">地铁车站</string>
 	<string name="type.railway.station.subway.tianjin">地铁车站</string>
 	<string name="type.railway.station.subway.tokyo">地铁车站</string>
 	<string name="type.railway.station.subway.valencia">地铁车站</string>
@@ -1683,6 +1690,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">地铁出入口</string>
 	<string name="type.railway.subway_entrance.tashkent">地铁出入口</string>
 	<string name="type.railway.subway_entrance.tbilisi">地铁出入口</string>
+	<string name="type.railway.subway_entrance.tehran">地铁出入口</string>
 	<string name="type.railway.subway_entrance.tianjin">地铁出入口</string>
 	<string name="type.railway.subway_entrance.tokyo">地铁出入口</string>
 	<string name="type.railway.subway_entrance.valencia">地铁出入口</string>
@@ -1883,10 +1891,10 @@
 	<string name="type.waterway.fish_pass">鱼梯</string>
 	<string name="type.waterway.dam">水坝</string>
 	<string name="type.waterway.ditch">水沟</string>
-	<string name="type.waterway.ditch.tunnel">水沟</string>
+	<string name="type.waterway.ditch.tunnel">涵洞</string>
 	<string name="type.waterway.dock">船坞</string>
 	<string name="type.waterway.drain">渠</string>
-	<string name="type.waterway.drain.tunnel">渠</string>
+	<string name="type.waterway.drain.tunnel">涵洞</string>
 	<string name="type.waterway.lock_gate">闸门</string>
 	<string name="type.waterway.river">河流</string>
 	<string name="type.waterway.river.tunnel">河流</string>

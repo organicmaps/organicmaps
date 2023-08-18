@@ -816,6 +816,8 @@
 	<string name="type.amenity.parking.private">موقف سيارات خاص</string>
 	<string name="type.amenity.parking.park_and_ride">موقف سيارات</string>
 	<string name="type.amenity.parking.underground">موقف سيارات تحت الأرض</string>
+	<string name="type.amenity.parking.street_side">موقف سيارات</string>
+	<string name="type.amenity.parking.lane">موقف سيارات</string>
 	<string name="type.amenity.parking_entrance">مدخل موقف سيارات</string>
 	<string name="type.amenity.parking_entrance.private">مدخل موقف سيارات</string>
 	<string name="type.amenity.parking_entrance.permissive">مدخل موقف سيارات</string>
@@ -1068,6 +1070,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">نفق</string>
 	<string name="type.highway.busway">ﺺﺼﺨﻣ ﺕﻼﻓﺎﺣ ﻖﻳﺮﻃ</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">جسر</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">نفق</string>
 	<string name="type.highway.bus_stop">موقف حافلة</string>
 	<string name="type.highway.construction">طريق تحت الإنشاء</string>
 	<string name="type.highway.cycleway">مسار للدراجات</string>
@@ -1566,6 +1572,7 @@
 	<string name="type.railway.station.subway.taoyuan">محطة مترو</string>
 	<string name="type.railway.station.subway.tashkent">محطة مترو</string>
 	<string name="type.railway.station.subway.tbilisi">محطة مترو</string>
+	<string name="type.railway.station.subway.tehran">محطة مترو</string>
 	<string name="type.railway.station.subway.tianjin">محطة مترو</string>
 	<string name="type.railway.station.subway.tokyo">محطة مترو</string>
 	<string name="type.railway.station.subway.valencia">محطة مترو</string>
@@ -1676,6 +1683,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">مدخل المترو</string>
 	<string name="type.railway.subway_entrance.tashkent">مدخل المترو</string>
 	<string name="type.railway.subway_entrance.tbilisi">مدخل المترو</string>
+	<string name="type.railway.subway_entrance.tehran">مدخل المترو</string>
 	<string name="type.railway.subway_entrance.tianjin">مدخل المترو</string>
 	<string name="type.railway.subway_entrance.tokyo">مدخل المترو</string>
 	<string name="type.railway.subway_entrance.valencia">مدخل المترو</string>

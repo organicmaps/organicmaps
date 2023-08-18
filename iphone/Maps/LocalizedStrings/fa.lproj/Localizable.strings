@@ -289,7 +289,7 @@
 "facebook" = "Facebook";
 
 /* Text in menu */
-"twitter" = "Twitter";
+"twitter" = "X (Twitter)";
 
 /* Text in menu */
 "instagram" = "Instagram";
@@ -1421,6 +1421,10 @@
 
 "type.amenity.parking.underground" = "ﯽﻨﯿﻣﺯ ﺮﯾﺯ ﮓﻨﯿﮐﺭﺎﭘ";
 
+"type.amenity.parking.street_side" = "پارکینگ";
+
+"type.amenity.parking.lane" = "پارکینگ";
+
 "type.amenity.parking_entrance" = "ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ";
 
 "type.amenity.parking_entrance.private" = "ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ";
@@ -1943,6 +1947,12 @@
 "type.highway.bridleway.tunnel" = "تونل";
 
 "type.highway.busway" = "ﺱﻮﺑﻮﺗﺍ ﯽﺻﺎﺼﺘﺧﺍ ﻩﺩﺎﺟ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "پل";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "تونل";
 
 "type.highway.bus_stop" = "حمل و نقل";
 
@@ -3063,6 +3073,8 @@
 
 "type.railway.station.subway.tbilisi" = "حمل و نقل";
 
+"type.railway.station.subway.tehran" = "حمل و نقل";
+
 "type.railway.station.subway.tianjin" = "حمل و نقل";
 
 "type.railway.station.subway.tokyo" = "حمل و نقل";
@@ -3288,6 +3300,8 @@
 "type.railway.subway_entrance.tashkent" = "ورودی مترو";
 
 "type.railway.subway_entrance.tbilisi" = "ورودی مترو";
+
+"type.railway.subway_entrance.tehran" = "ورودی مترو";
 
 "type.railway.subway_entrance.tianjin" = "ورودی مترو";
 
@@ -3703,7 +3717,7 @@
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Drain";
+"type.waterway.drain.tunnel" = "Ditch";
 
 "type.waterway.lock_gate" = "Lock Gate";
 

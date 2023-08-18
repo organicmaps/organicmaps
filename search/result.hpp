@@ -205,12 +205,12 @@ public:
     m_status = cancelled ? Status::EndedCancelled : Status::EndedNormal;
   }
 
+  // Used for results in the list.
   bool AddResult(Result && result);
 
-  // Fast version of AddResult() that doesn't do any checks for
-  // duplicates.
+  // Fast version of AddResult() that doesn't do any checks for duplicates.
+  // Used for results in the viewport.
   void AddResultNoChecks(Result && result);
-  void AddResultsNoChecks(ConstIter first, ConstIter last);
 
   void AddBookmarkResult(bookmarks::Result const & result);
 

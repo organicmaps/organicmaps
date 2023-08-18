@@ -776,6 +776,8 @@
 	<string name="type.amenity.nursing_home">वृद्धाश्रम</string>
 	<string name="type.amenity.parking">वाहनतळ</string>
 	<string name="type.amenity.parking.park_and_ride">वाहनतळ</string>
+	<string name="type.amenity.parking.street_side">वाहनतळ</string>
+	<string name="type.amenity.parking.lane">वाहनतळ</string>
 	<string name="type.amenity.parking_space">पार्किंगची जागा</string>
 	<string name="type.amenity.parking_space.permissive">पार्किंगची जागा</string>
 	<string name="type.amenity.parking_space.private">पार्किंगची जागा</string>
@@ -964,6 +966,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">बोगदा</string>
 	<string name="type.highway.busway">समर्पित बस रस्ता</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">पूल</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">बोगदा</string>
 	<string name="type.highway.bus_stop">बस थांबा</string>
 	<string name="type.highway.construction">बांधकामाधीन रस्ता</string>
 	<string name="type.highway.cycleway">सायकल वाट</string>
@@ -1502,6 +1508,7 @@
 	<string name="type.railway.station.subway.taoyuan">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.tashkent">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.tbilisi">भुयारी मार्ग</string>
+	<string name="type.railway.station.subway.tehran">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.tianjin">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.tokyo">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.valencia">भुयारी मार्ग</string>
@@ -1615,6 +1622,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.tashkent">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.tbilisi">भुयारी प्रवेशद्वार</string>
+	<string name="type.railway.subway_entrance.tehran">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.tianjin">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.tokyo">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.valencia">भुयारी प्रवेशद्वार</string>
@@ -1773,7 +1781,7 @@
 	<string name="type.waterway.ditch.tunnel">खंदक</string>
 	<string name="type.waterway.dock">जलमार्ग गोद</string>
 	<string name="type.waterway.drain">नाला</string>
-	<string name="type.waterway.drain.tunnel">नाला</string>
+	<string name="type.waterway.drain.tunnel">खंदक</string>
 	<string name="type.waterway.lock_gate">जलद्वार</string>
 	<string name="type.waterway.river">नदी</string>
 	<string name="type.waterway.river.tunnel">नदी</string>

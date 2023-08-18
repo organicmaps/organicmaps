@@ -500,7 +500,7 @@ void Tokenize(UniString s, bool isPrefix, TokensT & ts)
   }
 }
 
-void ParseHouseNumber(strings::UniString const & s, vector<TokensT> & parses)
+void ParseHouseNumber(UniString const & s, vector<TokensT> & parses)
 {
   TokensT tokens;
   Tokenize(s, false /* isPrefix */, tokens);
@@ -542,13 +542,13 @@ void ParseHouseNumber(strings::UniString const & s, vector<TokensT> & parses)
     SimplifyParse(parses[i]);
 }
 
-void ParseQuery(strings::UniString const & query, bool queryIsPrefix, TokensT & parse)
+void ParseQuery(UniString const & query, bool queryIsPrefix, TokensT & parse)
 {
   Tokenize(query, queryIsPrefix, parse);
   SimplifyParse(parse);
 }
 
-bool HouseNumbersMatch(strings::UniString const & houseNumber, TokensT const & queryParse)
+bool HouseNumbersMatch(UniString const & houseNumber, TokensT const & queryParse)
 {
   if (houseNumber.empty() || queryParse.empty())
     return false;
@@ -575,6 +575,19 @@ bool HouseNumbersMatch(strings::UniString const & houseNumber, TokensT const & q
     }
   }
   return false;
+}
+
+bool HouseNumbersMatchConscription(UniString const & houseNumber, TokensT const & queryParse)
+{
+  auto const beg = houseNumber.begin();
+  auto const end = houseNumber.end();
+  auto i = std::find(beg, end, '/');
+  if (i != end)
+  {
+    return HouseNumbersMatch(UniString(beg, i), queryParse) ||
+           HouseNumbersMatch(UniString(i + 1, end), queryParse);
+  }
+  return HouseNumbersMatch(houseNumber, queryParse);
 }
 
 bool HouseNumbersMatchRange(std::string_view const & hnRange, TokensT const & queryParse, feature::InterpolType interpol)
@@ -609,7 +622,7 @@ bool HouseNumbersMatchRange(std::string_view const & hnRange, TokensT const & qu
   return left < val && val < right;
 }
 
-bool LooksLikeHouseNumber(strings::UniString const & s, bool isPrefix)
+bool LooksLikeHouseNumber(UniString const & s, bool isPrefix)
 {
   static HouseNumberClassifier const classifier;
   return classifier.LooksGood(s, isPrefix);
@@ -617,10 +630,10 @@ bool LooksLikeHouseNumber(strings::UniString const & s, bool isPrefix)
 
 bool LooksLikeHouseNumber(string const & s, bool isPrefix)
 {
-  return LooksLikeHouseNumber(strings::MakeUniString(s), isPrefix);
+  return LooksLikeHouseNumber(MakeUniString(s), isPrefix);
 }
 
-bool LooksLikeHouseNumberStrict(strings::UniString const & s)
+bool LooksLikeHouseNumberStrict(UniString const & s)
 {
   static HouseNumberClassifier const classifier(g_patternsStrict);
   return classifier.LooksGood(s, false /* isPrefix */);
@@ -628,7 +641,7 @@ bool LooksLikeHouseNumberStrict(strings::UniString const & s)
 
 bool LooksLikeHouseNumberStrict(string const & s)
 {
-  return LooksLikeHouseNumberStrict(strings::MakeUniString(s));
+  return LooksLikeHouseNumberStrict(MakeUniString(s));
 }
 
 string DebugPrint(Token::Type type)

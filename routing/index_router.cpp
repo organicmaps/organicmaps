@@ -783,6 +783,23 @@ RouterResultCode IndexRouter::CalculateSubrouteNoLeapsMode(
   return result;
 }
 
+namespace
+{
+void CollapseForward_ReverseLoops(std::vector<Segment> & path)
+{
+  for (size_t i = 1; i < path.size() - 2;)
+  {
+    auto const beg = path.begin() + i;
+    auto const end = path.end() - 1;
+    auto j = std::find(beg + 1, end, path[i].GetReversed());
+    if (j != end)
+      path.erase(beg, j + 1);
+    else
+      ++i;
+  }
+}
+}
+
 RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
     Checkpoints const & checkpoints, size_t subrouteIdx, IndexGraphStarter & starter,
     RouterDelegate const & delegate, shared_ptr<AStarProgress> const & progress,
@@ -885,6 +902,7 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
       {
         // Check Germany_Italy_Malcesine test when changing this constants.
         // 2 - max number of leaps candidates per highway category.
+        // Total number of candidates will be definitely less than 2 * size(HighwayCategory).
         m_curr.fill(0);
         m_upper.fill(2);
       }
@@ -909,8 +927,7 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
       Segment const * be[] = { &r.m_path[1], &r.m_path[r.m_path.size() - 2] };
       for (uint8_t idx  = 0; idx < 2; ++idx)
       {
-        if (keys[idx].size() < kMaxVertices &&
-            keys[idx].insert(be[idx]->GetFeatureId()).second &&
+        if (keys[idx].insert(be[idx]->GetFeatureId()).second &&
             checkers[idx](*be[idx]))
         {
           uint8_t const nextIdx = (idx + 1) % 2;
@@ -923,10 +940,13 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
       }
     }
 
-    LOG(LINFO, ("Candidates count =", candidates.size()));
+    LOG(LINFO, ("Filtered candidates count =", candidates.size()));
     candidateMidWeights.reserve(candidates.size());
-    for (auto const & c : candidates)
+    for (auto & c : candidates)
+    {
+      CollapseForward_ReverseLoops(c.m_path);
       candidateMidWeights.push_back(leapsGraph.CalcMiddleCrossMwmWeight(c.m_path));
+    }
   }
 
   // Purge cross-mwm-graph cache memory before calculating subroutes for each MWM.
@@ -1458,6 +1478,8 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
                                                  RoutesCalculator & calculator,
                                                  RoutingResultT & result)
 {
+  LOG(LDEBUG, ("Process input:", input));
+
   // { fake, mwmId1, mwmId2, mwmId2, mwmId3, .. pairs of ids .. , fake }.
   ASSERT_GREATER_OR_EQUAL(input.size(), 4, ());
   ASSERT(input.size() % 2 == 0, ());
@@ -1554,6 +1576,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
 
     size_t lastPrev = 0;
     RouteWeight currentWeight = GetAStarWeightZero<RouteWeight>();
+    RouteWeight lastWeight = currentWeight;
 
     for (size_t i = startLeapEnd; i <= finishLeapStart; ++i)
     {
@@ -1577,49 +1600,42 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
       RoutingResultT const * res = nullptr;
       if (res = tryBuildRoute(prev, next, WorldGraphMode::JointSingleMwm); !res)
       {
-        auto const prevPoint = starter.GetPoint(input[next], true);
-        // |next + 1| - is the twin of |next|
-        // |next + 2| - is the next exit.
-        while (next + 2 < finishLeapStart && next != finishLeapStart)
+        // As written above, it may happen when "Avoid option" is enabled.
+        // Possibile recover here is to shift |prev| and |next| to skip this "bad" MWM, and build a new
+        // (mode = Joints) route (via several MWMs).
+        // https://github.com/organicmaps/organicmaps/issues/5695
+
+        /// @todo Anyway, this _recovering_ is a crutch. Should compare result.m_distance on caller side
+        /// and call ProcessLeapsJoints for the next candidates (not for the "best" only).
+        /// "Cross MWMs" together with "Avoid options" doesn't guarantee a best route, because
+        /// cross-mwm graph keeps only _clean_ (no any avoids) weights.
+
+        if (prev > 0)
         {
-          auto const point = starter.GetPoint(input[next + 2], true);
-          double const distBetweenExistsMeters = ms::DistanceOnEarth(point, prevPoint);
-
-          static double constexpr kMinDistBetweenExitsM = 100000;  // 100 km
-          if (distBetweenExistsMeters > kMinDistBetweenExitsM)
-            break;
-
-          LOG(LINFO, ("Exit:", point, "too close(", distBetweenExistsMeters / 1000, "km ), try get next."));
-          next += 2;
+          prev = lastPrev;
+          currentWeight = lastWeight;
+          if (prev == 0)
+            dropFirstSegment = false;
         }
 
-        if (next + 2 > finishLeapStart || next == finishLeapStart)
+        if (next + 2 > finishLeapStart)
           next = input.size() - 1;
         else
           next += 2;
 
         if (res = tryBuildRoute(prev, next, WorldGraphMode::Joints); !res)
-        {
-          // Already in start
-          if (prev == 0)
-            return RouterResultCode::RouteNotFound;
-
-          prev = lastPrev;
-          if (prev == 0)
-            dropFirstSegment = false;
-
-          if (res = tryBuildRoute(prev, next, WorldGraphMode::Joints); !res)
-            return RouterResultCode::RouteNotFound;
-        }
+          return RouterResultCode::RouteNotFound;
       }
 
       lastPrev = prev;
+      lastWeight = currentWeight;
       i = next;
 
       currentWeight += res->m_distance;
     }
 
     // Update final result if new route is better.
+    LOG(LDEBUG, ("Got a route:", startLeapEnd, finishLeapStart, currentWeight));
     if (result.Empty() || currentWeight < result.m_distance)
     {
       if (!result.Empty())

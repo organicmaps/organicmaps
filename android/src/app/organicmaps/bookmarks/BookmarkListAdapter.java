@@ -30,6 +30,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
   static final int TYPE_BOOKMARK = 1;
   static final int TYPE_SECTION = 2;
   static final int TYPE_DESC = 3;
+  static final int MAX_VISIBLE_LINES = 2;
 
   @NonNull
   private final DataSource<BookmarkCategory> mDataSource;
@@ -428,7 +429,12 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
         break;
       case TYPE_DESC:
         View desc = inflater.inflate(R.layout.item_category_description, parent, false);
+        TextView moreBtn = desc.findViewById(R.id.more_btn);
+        TextView text = desc.findViewById(R.id.text);
+        setMoreButtonVisibility(text, moreBtn);
         holder = new Holders.DescriptionViewHolder(desc, mSectionsDataSource.getCategory());
+        text.setOnClickListener(v -> onMoreButtonClicked(text));
+        moreBtn.setOnClickListener(v -> onMoreButtonClicked(text));
         break;
     }
 
@@ -512,5 +518,28 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
         throw new RuntimeException("Bookmark no longer exists " + bookmarkId);
       return info;
     }
+  }
+
+  private void setMoreButtonVisibility(TextView text, TextView moreBtn)
+  {
+    text.post(() ->
+    {
+      final int lineCount = text.getLineCount();
+      if (lineCount > MAX_VISIBLE_LINES)
+      {
+        text.setMaxLines(MAX_VISIBLE_LINES);
+        moreBtn.setVisibility(View.VISIBLE);
+      }
+      else
+        moreBtn.setVisibility(View.GONE);
+    });
+  }
+
+  private void onMoreButtonClicked(TextView text)
+  {
+    if (text.getMaxLines() == MAX_VISIBLE_LINES)
+      text.setMaxLines(Integer.MAX_VALUE);
+    else
+      text.setMaxLines(MAX_VISIBLE_LINES);
   }
 }

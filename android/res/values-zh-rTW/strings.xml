@@ -233,7 +233,7 @@
 	<!-- Text in menu -->
 	<string name="facebook">臉書</string>
 	<!-- Text in menu -->
-	<string name="twitter">推特</string>
+	<string name="twitter">X (推特)</string>
 	<!-- Text in menu -->
 	<string name="openstreetmap">開放街圖</string>
 	<!-- Settings: Send feedback button and dialog title -->
@@ -796,6 +796,8 @@
 	<string name="type.amenity.parking.private">私人停車場</string>
 	<string name="type.amenity.parking.park_and_ride">停車場</string>
 	<string name="type.amenity.parking.underground">地下停車場</string>
+	<string name="type.amenity.parking.street_side">停車場</string>
+	<string name="type.amenity.parking.lane">停車場</string>
 	<string name="type.amenity.parking_entrance">停車場入口</string>
 	<string name="type.amenity.parking_entrance.private">停車場入口</string>
 	<string name="type.amenity.parking_entrance.permissive">停車場入口</string>
@@ -1012,6 +1014,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">隧道</string>
 	<string name="type.highway.busway">巴士專用道</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">隧道</string>
 	<string name="type.highway.bus_stop">巴士站</string>
 	<string name="type.highway.construction">在建道路</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1487,6 +1493,7 @@
 	<string name="type.railway.station.subway.taoyuan">捷運站</string>
 	<string name="type.railway.station.subway.tashkent">捷運站</string>
 	<string name="type.railway.station.subway.tbilisi">捷運站</string>
+	<string name="type.railway.station.subway.tehran">捷運站</string>
 	<string name="type.railway.station.subway.tianjin">捷運站</string>
 	<string name="type.railway.station.subway.tokyo">捷運站</string>
 	<string name="type.railway.station.subway.valencia">捷運站</string>
@@ -1597,6 +1604,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">地鐵入口</string>
 	<string name="type.railway.subway_entrance.tashkent">地鐵入口</string>
 	<string name="type.railway.subway_entrance.tbilisi">地鐵入口</string>
+	<string name="type.railway.subway_entrance.tehran">地鐵入口</string>
 	<string name="type.railway.subway_entrance.tianjin">地鐵入口</string>
 	<string name="type.railway.subway_entrance.tokyo">地鐵入口</string>
 	<string name="type.railway.subway_entrance.valencia">地鐵入口</string>

@@ -51,8 +51,7 @@ void UpdateNameScores(string_view name, uint8_t lang, Slice const & slice, NameS
 }
 
 template <typename Slice>
-void UpdateNameScores(vector<strings::UniString> const & tokens, uint8_t lang, Slice const & slice,
-                      NameScores & bestScores)
+void UpdateNameScores(TokensVector & tokens, uint8_t lang, Slice const & slice, NameScores & bestScores)
 {
   bestScores.UpdateIfBetter(GetNameScores(tokens, lang, slice));
 }
@@ -110,21 +109,19 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
     if (name.empty())
       continue;
 
-    auto const updateScore = [&](string_view n)
+    auto const updateScore = [&](string_view name)
     {
-      vector<strings::UniString> t;
-      PrepareStringForMatching(n, t);
-
-      UpdateNameScores(t, lang, slice, bestScores);
-      UpdateNameScores(t, lang, sliceNoCategories, bestScores);
+      TokensVector vec(name);
+      UpdateNameScores(vec, lang, slice, bestScores);
+      UpdateNameScores(vec, lang, sliceNoCategories, bestScores);
 
       if (type == Model::TYPE_STREET)
       {
-        auto const variants = ModifyStrasse(t);
-        for (auto const & variant : variants)
+        for (auto & variant : ModifyStrasse(vec.GetTokens()))
         {
-          UpdateNameScores(variant, lang, slice, bestScores);
-          UpdateNameScores(variant, lang, sliceNoCategories, bestScores);
+          TokensVector vec(std::move(variant));
+          UpdateNameScores(vec, lang, slice, bestScores);
+          UpdateNameScores(vec, lang, sliceNoCategories, bestScores);
         }
       }
     };
@@ -300,26 +297,6 @@ string FormatFullAddress(ReverseGeocoder::Address const & addr, string const & r
   return FormatStreetAndHouse(addr) + (region.empty() ? "" : ", ") + region;
 }
 
-bool ResultExists(RankerResult const & p, vector<RankerResult> const & results,
-                  double minDistanceOnMapBetweenResults)
-{
-  // Filter equal features in different mwms.
-  auto equalCmp = [&p, &minDistanceOnMapBetweenResults](RankerResult const & r)
-  {
-    if (p.GetResultType() == r.GetResultType() &&
-        p.GetResultType() == RankerResult::Type::Feature)
-    {
-      if (p.IsEqualCommon(r))
-        return PointDistance(p.GetCenter(), r.GetCenter()) < minDistanceOnMapBetweenResults;
-    }
-
-    return false;
-  };
-
-  // Do not insert duplicating results.
-  return find_if(results.begin(), results.end(), equalCmp) != results.cend();
-}
-
 }  // namespace
 
 class RankerResultMaker
@@ -340,6 +317,7 @@ public:
     , m_infoGetter(infoGetter)
     , m_reverseGeocoder(reverseGeocoder)
     , m_params(params)
+    , m_isViewportMode(m_params.m_mode == Mode::Viewport)
   {
   }
 
@@ -360,7 +338,8 @@ public:
 
     if (info.m_type == Model::TYPE_STREET)
     {
-      info.m_classifType.street = m_wayChecker.GetSearchRank(res.GetBestType());
+      uint32_t const bestType = res.GetBestType(&m_params.m_preferredTypes);
+      info.m_classifType.street = m_wayChecker.GetSearchRank(bestType);
 
       /// @see Arbat_Address test.
       // "2" is a NameScore::FULL_PREFIX for "2-й Обыденский переулок", which is *very* high,
@@ -370,6 +349,25 @@ public:
         auto const & range = info.m_tokenRanges[info.m_type];
         if (range.Size() == 1 && m_params.IsNumberTokens(range))
           info.m_nameScore = NameScore::SUBSTRING;
+      }
+    }
+    else if (m_params.IsCategorialRequest() && Model::IsPoi(info.m_type))
+    {
+      // Update info.m_classifType.poi with the _best preferred_ type. Important for categorial request,
+      // when the Feature maybe a restaurant and a toilet simultaneously.
+      uint32_t const bestType = res.GetBestType(&m_params.m_preferredTypes);
+      feature::TypesHolder typesHolder;
+      typesHolder.Assign(bestType);
+      info.m_classifType.poi = GetPoiType(typesHolder);
+
+      // We do not compare result name and request for categorial requests, but we prefer named features
+      // for Eat, Hotel or Shop categories. Toilets, stops, defibrillators, ... are equal w/wo names.
+
+      if (info.m_classifType.poi != PoiType::Eat &&
+          info.m_classifType.poi != PoiType::Hotel &&
+          info.m_classifType.poi != PoiType::Shop)
+      {
+        info.m_hasName = false;
       }
     }
 
@@ -455,7 +453,7 @@ private:
     m_ranker.GetBestMatchName(*ft, name);
 
     // Insert exact address (street and house number) instead of empty result name.
-    if (name.empty())
+    if (!m_isViewportMode && name.empty())
     {
       ReverseGeocoder::Address addr;
       if (GetExactAddress(*ft, center, addr))
@@ -513,7 +511,6 @@ private:
 
     if (m_params.IsCategorialRequest())
     {
-      // We do not compare result name and request for categorial requests but we prefer named features.
       info.m_hasName = ft.HasName();
       if (!info.m_hasName)
       {
@@ -653,6 +650,7 @@ private:
   storage::CountryInfoGetter const & m_infoGetter;
   ReverseGeocoder const & m_reverseGeocoder;
   Geocoder::Params const & m_params;
+  bool m_isViewportMode;
 
   unique_ptr<FeaturesLoaderGuard> m_loader;
 };
@@ -866,9 +864,8 @@ void Ranker::MakeRankerResults()
 
     ASSERT(!isViewportMode || m_geocoderParams.m_pivot.IsPointInside(p->GetCenter()), (r));
 
-    /// @todo Is it ok to make duplication check for O(N) here? Especially when we make RemoveDuplicatingLinear later.
-    if (isViewportMode || !ResultExists(*p, m_tentativeResults, m_params.m_minDistanceBetweenResultsM))
-      m_tentativeResults.push_back(std::move(*p));
+    // Do not filter any _duplicates_ here. Leave it for high level Results class.
+    m_tentativeResults.push_back(std::move(*p));
   };
 
   m_preRankerResults.clear();

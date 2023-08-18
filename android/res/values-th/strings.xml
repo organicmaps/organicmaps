@@ -767,6 +767,8 @@
 	<string name="type.amenity.parking.private">ที่จอดรถส่วนตัว</string>
 	<string name="type.amenity.parking.park_and_ride">ที่จอดรถ</string>
 	<string name="type.amenity.parking.underground">ที่จอดรถใต้ดิน</string>
+	<string name="type.amenity.parking.street_side">ที่จอดรถ</string>
+	<string name="type.amenity.parking.lane">ที่จอดรถ</string>
 	<string name="type.amenity.parking_entrance">ทางเข้าที่จอดรถ</string>
 	<string name="type.amenity.parking_entrance.private">ทางเข้าที่จอดรถ</string>
 	<string name="type.amenity.parking_entrance.permissive">ทางเข้าที่จอดรถ</string>
@@ -982,6 +984,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">อุโมงค์</string>
 	<string name="type.highway.busway">ถนนทางเดินรถโดยเฉพาะ</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">สะพาน</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">อุโมงค์</string>
 	<string name="type.highway.bus_stop">ป้ายรถเมล์</string>
 	<string name="type.highway.construction">ทางกำลังอยู่ในการก่อสร้าง</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1453,6 +1459,7 @@
 	<string name="type.railway.station.subway.taoyuan">รถไฟ</string>
 	<string name="type.railway.station.subway.tashkent">รถไฟ</string>
 	<string name="type.railway.station.subway.tbilisi">รถไฟ</string>
+	<string name="type.railway.station.subway.tehran">รถไฟ</string>
 	<string name="type.railway.station.subway.tianjin">รถไฟ</string>
 	<string name="type.railway.station.subway.tokyo">รถไฟ</string>
 	<string name="type.railway.station.subway.valencia">รถไฟ</string>
@@ -1563,6 +1570,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.subway_entrance.tashkent">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.subway_entrance.tbilisi">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.tehran">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.subway_entrance.tianjin">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.subway_entrance.tokyo">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.subway_entrance.valencia">ทางเข้ารถไฟใต้ดิน</string>

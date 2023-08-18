@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 #include "map/bookmark_helpers.hpp"
 #include "kml/serdes_gpx.hpp"
+#include "base/string_utils.hpp"
 #include "coding/string_utf8_multilang.hpp"
 #include "geometry/mercator.hpp"
 #include "platform/platform.hpp"
@@ -72,14 +73,31 @@ UNIT_TEST(Gpx_Test_Route)
           <ele>0.0</ele>
       </trkpt>
     </trkseg>
+    <trkseg>
+      <trkpt lat="55.23955053156179" lon="25.114990234375004">
+          <ele>131.5</ele>
+      </trkpt>
+      <trkpt lat="54.32933804825253" lon="25.136718750000004">
+          <ele>0.0</ele>
+      </trkpt>
+    </trkseg>
 </trk>
 </gpx>
 )";
 
   kml::FileData const dataFromText = loadGpxFromString(input);
-  auto line = dataFromText.m_tracksData[0].m_geometry.m_lines[0];
-  TEST_EQUAL(line.size(), 3, ());
-  TEST_EQUAL(line[0], geometry::PointWithAltitude(mercator::FromLatLon(54.23955053156179, 24.114990234375004), 131), ());
+  auto const & lines = dataFromText.m_tracksData[0].m_geometry.m_lines;
+  TEST_EQUAL(lines.size(), 2, ());
+  {
+    auto const & line = lines[0];
+    TEST_EQUAL(line.size(), 3, ());
+    TEST_EQUAL(line.back(), geometry::PointWithAltitude(mercator::FromLatLon(54.05293900056246, 25.72998046875), 0), ());
+  }
+  {
+    auto const & line = lines[1];
+    TEST_EQUAL(line.size(), 2, ());
+    TEST_EQUAL(line.back(), geometry::PointWithAltitude(mercator::FromLatLon(54.32933804825253, 25.136718750000004), 0), ());
+  }
 }
 
 
@@ -206,5 +224,26 @@ UNIT_TEST(OsmandColor2)
   TEST_EQUAL(expected2, dataFromFile.m_bookmarksData[1].m_color.m_rgba, ());
 }
 
+UNIT_TEST(Gpx_Test_Cmt)
+{
+  std::string const input = R"(<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.0">
+ <wpt lat="1" lon="2"><name>1</name><desc>d1</desc></wpt>
+ <wpt lat="1" lon="2"><name>2</name><desc>d2</desc><cmt>c2</cmt></wpt>
+ <wpt lat="1" lon="2"><name>3</name><cmt>c3</cmt></wpt>
+ <wpt lat="1" lon="2"><name>4</name>
+  <desc>
+d4
+d5
 
 
+  </desc>
+  <cmt>c4</cmt>
+ </wpt>
+)";
+  kml::FileData const dataFromText = loadGpxFromString(input);
+  TEST_EQUAL("d1", dataFromText.m_bookmarksData[0].m_description.at(kml::kDefaultLang), ());
+  TEST_EQUAL("d2\n\nc2", dataFromText.m_bookmarksData[1].m_description.at(kml::kDefaultLang), ());
+  TEST_EQUAL("c3", dataFromText.m_bookmarksData[2].m_description.at(kml::kDefaultLang), ());
+  TEST_EQUAL("d4\nd5\n\nc4", dataFromText.m_bookmarksData[3].m_description.at(kml::kDefaultLang), ());
+}

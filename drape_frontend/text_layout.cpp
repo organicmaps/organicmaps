@@ -14,7 +14,7 @@ namespace df
 {
 namespace
 {
-float const kValidSplineTurn = 0.96f;
+float constexpr kValidSplineTurn = 0.96f;
 
 class TextGeometryGenerator
 {
@@ -64,7 +64,7 @@ public:
   {
     if (!glyph.IsValid())
       return;
-    m2::PointF pixelSize = glyph.GetPixelSize() * m_textRatio;
+    m2::PointF const pixelSize = glyph.GetPixelSize() * m_textRatio;
 
     float const xOffset = glyph.GetOffsetX() * m_textRatio;
     float const yOffset = glyph.GetOffsetY() * m_textRatio;
@@ -124,15 +124,15 @@ protected:
 
 void SplitText(strings::UniString & visText, buffer_vector<size_t, 2> & delimIndexes)
 {
-  char const * delims = " \n\t";
-  size_t count = visText.size();
+  size_t const count = visText.size();
   if (count > 15)
   {
     // split on two parts
     typedef strings::UniString::iterator TIter;
     auto const iMiddle = visText.begin() + count / 2;
 
-    size_t const delimsSize = strlen(delims);
+    char constexpr delims[] = " \n\t";
+    size_t constexpr delimsSize = sizeof(delims)/sizeof(delims[0]) - 1;  // Do not count trailing string's zero.
 
     // find next delimeter after middle [m, e)
     auto iNext = std::find_first_of(iMiddle,
@@ -151,7 +151,7 @@ void SplitText(strings::UniString & visText, buffer_vector<size_t, 2> & delimInd
     else
       --iPrev;
 
-    // get closest delimiter to the middle
+    // get the closest delimiter to the middle
     if (iNext == visText.end() ||
         (iPrev != visText.end() && std::distance(iPrev, iMiddle) < std::distance(iMiddle, iNext)))
     {
@@ -242,9 +242,9 @@ void CalculateOffsets(dp::Anchor anchor, float textRatio,
   size_t start = 0;
   for (size_t index = 0; index < delimIndexes.size(); ++index)
   {
-    size_t end = delimIndexes[index];
+    size_t const end = delimIndexes[index];
     ASSERT_NOT_EQUAL(start, end, ());
-    lengthAndHeight.push_back(TLengthAndHeight(0, 0));
+    lengthAndHeight.emplace_back(0, 0);
     TLengthAndHeight & node = lengthAndHeight.back();
     for (size_t glyphIndex = start; glyphIndex < end && glyphIndex < glyphs.size(); ++glyphIndex)
     {
@@ -277,8 +277,7 @@ void CalculateOffsets(dp::Anchor anchor, float textRatio,
   for (size_t index = 0; index < delimIndexes.size(); ++index)
   {
     TLengthAndHeight const & node = lengthAndHeight[index];
-    result.push_back(std::make_pair(delimIndexes[index],
-                                    glsl::vec2(xL(node.first, maxLength), yL(node.second))));
+    result.emplace_back(delimIndexes[index], glsl::vec2(xL(node.first, maxLength), yL(node.second)));
   }
 
   pixelSize = m2::PointF(maxLength, summaryHeight);
@@ -492,9 +491,9 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
       penIter.Advance(advanceSign * xAdvance);
     m2::PointD const newTangent = penIter.m_avrDir.Normalize();
 
-    glsl::vec2 tangent = glsl::ToVec2(newTangent);
-    glsl::vec2 normal = glsl::vec2(-tangent.y, tangent.x);
-    glsl::vec2 formingVector = glsl::ToVec2(baseVector) + halfFontSize * normal;
+    glsl::vec2 const tangent = glsl::ToVec2(newTangent);
+    glsl::vec2 const normal = glsl::vec2(-tangent.y, tangent.x);
+    glsl::vec2 const formingVector = glsl::ToVec2(baseVector) + halfFontSize * normal;
 
     float const xOffset = g.GetOffsetX() * m_textSizeRatio;
     float const yOffset = g.GetOffsetY() * m_textSizeRatio;
@@ -502,7 +501,7 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
     float const upVector = - (pxSize.y + yOffset);
     float const bottomVector = - yOffset;
 
-    size_t baseIndex = 4 * i;
+    size_t const baseIndex = 4 * i;
 
     buffer[baseIndex + 0] = {pivot, formingVector + normal * bottomVector + tangent * xOffset};
     buffer[baseIndex + 1] = {pivot, formingVector + normal * upVector + tangent * xOffset};

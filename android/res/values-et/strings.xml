@@ -815,6 +815,8 @@
 	<string name="type.amenity.parking.private">Privaatne parkimine</string>
 	<string name="type.amenity.parking.park_and_ride">Parkimine</string>
 	<string name="type.amenity.parking.underground">Maa-alune parkimine</string>
+	<string name="type.amenity.parking.street_side">Parkimine</string>
+	<string name="type.amenity.parking.lane">Parkimine</string>
 	<string name="type.amenity.parking_entrance">Parkla sissepääs</string>
 	<string name="type.amenity.parking_entrance.private">Parkla sissepääs</string>
 	<string name="type.amenity.parking_entrance.permissive">Parkla sissepääs</string>
@@ -1080,6 +1082,10 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
 	<string name="type.highway.busway">Spetsiaalne bussitee</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.busway.bridge">Sild</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.busway.tunnel">Tunnel</string>
 	<string name="type.highway.bus_stop">Bussipeatus</string>
 	<string name="type.highway.construction">Ehitusjärgus tee</string>
 	<string name="type.highway.cycleway">Jalgrattatee</string>
@@ -1643,6 +1649,7 @@
 	<string name="type.railway.station.subway.taoyuan">Metroo</string>
 	<string name="type.railway.station.subway.tashkent">Metroo</string>
 	<string name="type.railway.station.subway.tbilisi">Metroo</string>
+	<string name="type.railway.station.subway.tehran">Metroo</string>
 	<string name="type.railway.station.subway.tianjin">Metroo</string>
 	<string name="type.railway.station.subway.tokyo">Metroo</string>
 	<string name="type.railway.station.subway.valencia">Metroo</string>
@@ -1756,6 +1763,7 @@
 	<string name="type.railway.subway_entrance.taoyuan">Metroo sissepääs</string>
 	<string name="type.railway.subway_entrance.tashkent">Metroo sissepääs</string>
 	<string name="type.railway.subway_entrance.tbilisi">Metroo sissepääs</string>
+	<string name="type.railway.subway_entrance.tehran">Metroo sissepääs</string>
 	<string name="type.railway.subway_entrance.tianjin">Metroo sissepääs</string>
 	<string name="type.railway.subway_entrance.tokyo">Metroo sissepääs</string>
 	<string name="type.railway.subway_entrance.valencia">Metroo sissepääs</string>
@@ -1960,10 +1968,10 @@
 	<string name="type.waterway.fish_pass">Kala redel</string>
 	<string name="type.waterway.dam">Tamm</string>
 	<string name="type.waterway.ditch">Kraav</string>
-	<string name="type.waterway.ditch.tunnel">Kraav</string>
+	<string name="type.waterway.ditch.tunnel">Truup</string>
 	<string name="type.waterway.dock">Veetee dokk</string>
 	<string name="type.waterway.drain">Kuivenduskraav</string>
-	<string name="type.waterway.drain.tunnel">Kuivenduskraav</string>
+	<string name="type.waterway.drain.tunnel">Truup</string>
 	<string name="type.waterway.lock_gate">Lüüsi värav</string>
 	<string name="type.waterway.river">Jõgi</string>
 	<string name="type.waterway.river.tunnel">Jõgi</string>

@@ -1,0 +1,42 @@
+# This file is automatically re-formatted and re-sorted in priorities descending order
+# when generate_drules.sh is run. Custom formatting and comments are not preserved.
+#
+# BG-top geometry: background lines and areas that should be always below foreground ones
+# (including e.g. layer=-10 underwater tunnels), but above background areas sorted by size (BG-by-size),
+# because ordering by size doesn't always work with e.g. water mapped over a forest,
+# so water should be on top of other landcover always, but linear waterways should be hidden beneath it.
+# Still, e.g. a layer=-1 BG-top feature will be rendered under a layer=0 BG-by-size feature
+# (so areal water tunnels are hidden beneath other landcover area) and a layer=1 landcover areas
+# are displayed above layer=0 BG-top.
+#
+# Priorities ranges' rendering order overview:
+# - overlays (icons, captions...)
+# - FG: foreground areas and lines
+# - BG-top: water (linear and areal)
+# - BG-by-size: landcover areas sorted by their size
+
+landuse-basin                                       # area z12-
+landuse-reservoir                                   # area z12- (also has caption z10-)
+landuse-salt_pond                                   # area z1-
+natural-water                                       # area z1- (also has caption z10-)
+natural-water-basin                                 # area z1- (also has caption z10-)
+natural-water-lake                                  # area z1- (also has caption z10-)
+natural-water-lock                                  # area z1- (also has caption z10-)
+natural-water-pond                                  # area z1- (also has caption z10-)
+natural-water-reservoir                             # area z1- (also has caption z10-)
+natural-water-river                                 # area z1- (also has caption z10-)
+natural-water-tunnel                                # area z15-
+waterway-dock                                       # area z1-
+waterway-riverbank                                  # area z1- and line z10- (also has pathtext z11-)
+=== 20
+
+natural-strait                                      # line z13- (also has caption z13-)
+waterway-canal                                      # line z13- (also has pathtext z13-)
+waterway-ditch                                      # line z17-
+waterway-drain                                      # line z17-
+waterway-fish_pass                                  # line z13- (also has pathtext z13-)
+waterway-river                                      # line z10- (also has pathtext z11-)
+waterway-stream                                     # line z13- (also has pathtext z13-)
+waterway-stream-ephemeral                           # line z13- (also has pathtext z13-)
+waterway-stream-intermittent                        # line z13- (also has pathtext z13-)
+=== 10

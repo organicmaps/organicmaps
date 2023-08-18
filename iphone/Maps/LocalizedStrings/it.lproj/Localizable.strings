@@ -289,7 +289,7 @@
 "facebook" = "Facebook";
 
 /* Text in menu */
-"twitter" = "Twitter";
+"twitter" = "X (Twitter)";
 
 /* Text in menu */
 "instagram" = "Instagram";
@@ -1269,7 +1269,7 @@
 
 "type.aerialway.station" = "Stazione";
 
-"type.aeroway" = "Airspace Infrastructure";
+"type.aeroway" = "Infrastruttura aeroportuale";
 
 "type.aeroway.aerodrome" = "Aeroporto";
 
@@ -1421,6 +1421,10 @@
 
 "type.amenity.parking.underground" = "Parcheggio sotterraneo";
 
+"type.amenity.parking.street_side" = "Parcheggio";
+
+"type.amenity.parking.lane" = "Parcheggio";
+
 "type.amenity.parking_entrance" = "Ingresso parcheggio";
 
 "type.amenity.parking_entrance.private" = "Ingresso parcheggio";
@@ -1465,7 +1469,7 @@
 
 "type.amenity.prison" = "Prigione";
 
-"type.amenity.pub" = "Pub";
+"type.amenity.pub" = "Taverna";
 
 "type.amenity.public_bookcase" = "Biblioteca di strada";
 
@@ -1502,7 +1506,7 @@
 
 "type.recycling.green_waste" = "Umido";
 
-"type.recycling.cartons" = "Cartons";
+"type.recycling.cartons" = "Tetrapak";
 
 "type.amenity.restaurant" = "Ristorante";
 
@@ -1590,7 +1594,7 @@
 
 "type.barrier.lift_gate" = "Sbarra";
 
-"type.barrier.retaining_wall" = "Retaining Wall";
+"type.barrier.retaining_wall" = "Muro di sostegno";
 
 "type.barrier.stile" = "Scaletta per recinzioni";
 
@@ -1745,7 +1749,7 @@
 
 "type.cuisine.breakfast" = "Colazione";
 
-"type.cuisine.bubble_tea" = "Bubble Tea";
+"type.cuisine.bubble_tea" = "Bubble tea";
 
 "type.cuisine.burger" = "Hamburger";
 
@@ -1944,6 +1948,12 @@
 
 "type.highway.busway" = "Strada dedicata agli autobus";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Ponte";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Tunnel";
+
 "type.highway.bus_stop" = "Fermata dell'autobus";
 
 "type.highway.construction" = "Strada in costruzione";
@@ -1997,10 +2007,10 @@
 "type.highway.motorway" = "Autostrada";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.motorway.bridge" = "Ponte";
+"type.highway.motorway.bridge" = "Ponte autostradale";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.motorway.tunnel" = "Tunnel";
+"type.highway.motorway.tunnel" = "Tunnel autostradale";
 
 "type.highway.motorway_junction" = "Road Exit";
 
@@ -2340,7 +2350,7 @@
 
 "type.landuse" = "Landuse";
 
-"type.landuse.allotments" = "Allotments";
+"type.landuse.allotments" = "Orti comunitari";
 
 "type.landuse.basin" = "Bacino d'acqua";
 
@@ -2476,7 +2486,7 @@
 
 "type.leisure.water_park" = "Parco acquatico";
 
-"type.leisure.beach_resort" = "Beach Resort";
+"type.leisure.beach_resort" = "Resort balneare";
 
 "type.man_made" = "Stabilimento balneare";
 
@@ -2494,7 +2504,7 @@
 
 "type.man_made.lighthouse" = "Faro";
 
-"type.man_made.mast" = "Mast";
+"type.man_made.mast" = "Pilone";
 
 "type.man_made.pier" = "Molo";
 
@@ -2754,7 +2764,7 @@
 
 "type.railway" = "Ferrovia";
 
-"type.railway.abandoned" = "Abandoned Railway";
+"type.railway.abandoned" = "Ferrovia abbandonata";
 
 "type.railway.abandoned.bridge" = "Abandoned Railway Bridge";
 
@@ -2762,9 +2772,9 @@
 
 "type.railway.construction" = "Binari in costruzione";
 
-"type.railway.crossing" = "Railway Crossing";
+"type.railway.crossing" = "Passaggio ferroviario";
 
-"type.railway.disused" = "Disused Railway";
+"type.railway.disused" = "Ferrovia in disuso";
 
 "type.railway.funicular" = "Funicolare";
 
@@ -3063,6 +3073,8 @@
 
 "type.railway.station.subway.tbilisi" = "Stazione della metrò";
 
+"type.railway.station.subway.tehran" = "Stazione della metrò";
+
 "type.railway.station.subway.tianjin" = "Stazione della metrò";
 
 "type.railway.station.subway.tokyo" = "Stazione della metrò";
@@ -3288,6 +3300,8 @@
 "type.railway.subway_entrance.tashkent" = "Stazione metropolitana";
 
 "type.railway.subway_entrance.tbilisi" = "Stazione metropolitana";
+
+"type.railway.subway_entrance.tehran" = "Stazione metropolitana";
 
 "type.railway.subway_entrance.tianjin" = "Stazione metropolitana";
 
@@ -3697,13 +3711,13 @@
 
 "type.waterway.ditch" = "Fosso";
 
-"type.waterway.ditch.tunnel" = "Fosso";
+"type.waterway.ditch.tunnel" = "Cunicolo";
 
 "type.waterway.dock" = "Darsena";
 
 "type.waterway.drain" = "Canale di scolo";
 
-"type.waterway.drain.tunnel" = "Canale di scolo";
+"type.waterway.drain.tunnel" = "Cunicolo";
 
 "type.waterway.lock_gate" = "Sbarramento";
 
@@ -3747,17 +3761,17 @@
 
 "type.piste_type.downhill" = "Downhill Ski Run";
 
-"type.piste_type.downhill.advanced" = "Downhill Ski Run";
+"type.piste_type.downhill.advanced" = "Pista difficile";
 
-"type.piste_type.downhill.easy" = "Downhill Ski Run";
+"type.piste_type.downhill.easy" = "Pista facile";
 
-"type.piste_type.downhill.expert" = "Downhill Ski Run";
+"type.piste_type.downhill.expert" = "Pista per esperti";
 
 "type.piste_type.downhill.freeride" = "Downhill Ski Run";
 
-"type.piste_type.downhill.intermediate" = "Downhill Ski Run";
+"type.piste_type.downhill.intermediate" = "Pista media";
 
-"type.piste_type.downhill.novice" = "Downhill Ski Run";
+"type.piste_type.downhill.novice" = "Pista per principianti";
 
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
