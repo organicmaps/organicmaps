@@ -427,6 +427,9 @@ void TextShape::DrawSubStringOutlined(ref_ptr<dp::GraphicsContext> context,
   batcher->InsertListOfStrip(context, state, make_ref(&provider), std::move(handle), 4);
 }
 
+// TODO: *Shape classes are concerned with drawing themselves. Its strange they decide/manipulate overlays' priorities
+// in the scene. It seems more logical to set priorities beforehand in the creators of *Shapes and pass on final values only.
+// Check if such a refactoring makes sense.
 uint64_t TextShape::GetOverlayPriority() const
 {
   // Set up maximum priority for shapes which created by user in the editor and in case of disabling
