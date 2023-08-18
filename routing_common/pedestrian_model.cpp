@@ -173,7 +173,7 @@ PedestrianModel::PedestrianModel(VehicleModel::LimitsInitList const & limits,
   AddAdditionalRoadTypes(cl, {{ std::move(hwtagYesFoot), kDefaultSpeeds.Get(HighwayType::HighwayLivingStreet) }});
 
   // Update max pedestrian speed with possible ferry transfer. See EdgeEstimator::CalcHeuristic.
-  SpeedKMpH constexpr kMaxPedestrianSpeedKMpH(25.0);
+  SpeedKMpH constexpr kMaxPedestrianSpeedKMpH(60.0);
   CHECK_LESS(m_maxModelSpeed, kMaxPedestrianSpeedKMpH, ());
   m_maxModelSpeed = kMaxPedestrianSpeedKMpH;
 }
