@@ -1518,7 +1518,7 @@
 
 "type.amenity.shower" = "Duş";
 
-"type.amenity.taxi" = "Taksi";
+"type.amenity.taxi" = "Taksi durağı";
 
 "type.amenity.telephone" = "Telefon";
 
