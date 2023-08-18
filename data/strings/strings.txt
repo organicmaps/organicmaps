@@ -2262,7 +2262,7 @@
     et = Vali asukoht, kuhu kaardid tuleks alla laadida
     eu = Hautatu mapak non deskargatu behar diren
     fa = مسیری را که نقشه‌ها باید در آن دانلود شود را انتخاب کنید
-    fi = Valitse karttojen latauskohde
+    fi = Valitse karttojen latauskohde.
     fr = Sélectionner l'emplacement où les cartes devraient être téléchargées
     he = בחר הכתובת במחשבך לשמירת המפות שתוריד
     hu = Válassza ki, hogy hova töltsük le a térképeket
@@ -2921,7 +2921,7 @@
     et = Kasutatud
     eu = Bigarren eskuko
     fa = دست دوم
-    fi = Käytetty
+    fi = Käytetyt tavarat
     fr = D'occasion
     he = יד שניה
     hu = Second-hand
@@ -21885,7 +21885,7 @@
     et = Kui on valitud automaatrežiim, hakkab rakendus aku tühjendamise funktsioone olenevalt praegusest aku laetuse tasemest keelama
     eu = Energia aurrezteko modua aktibatuta badago, aplikazioak energia kontsumitzen duten funtzioak itzaliko ditu, telefonoaren uneko kargaren arabera.
     fa = هنگامی که حالت خودکار انتخاب شده‌باشد، برنامه با توجه میزان شارژ باتری شما، ویژگی‌های تخلیه کننده باتری را غیر فعال می‌کند
-    fi = Kun olet valinnut automaattisen tilan, sovellus alkaa sammuttamaan virtaa vieviä ominaisuuksia riippuen kulloisestakin akun latauksesta
+    fi = Kun olet valinnut automaattisen tilan, sovellus alkaa sammuttamaan virtaa vieviä ominaisuuksia riippuen kulloisestakin akun latauksesta.
     fr = Si le mode d'économie d'énergie est activé, l'application désactive les fonctions consommant de l'énergie en fonction de la charge actuelle du téléphone
     hu = Amikor az automatikus mód van kiválasztva, az alkalmazás elkezdi kikapcsolni az akkumulátort merítő funkciókat a jelenlegi akkumulátor töltöttség alapján
     id = Saat mode otomatis dipilih, aplikasi mulai menonaktifkan fitur yang menghabiskan daya baterai, bergantung pada tingkat daya baterai saat ini
@@ -26577,7 +26577,7 @@
     es = Cuando está habilitado, no tiene que desbloquear su dispositivo mientras la aplicación se está ejecutando.
     et = Kui lubatud, ei pea te seadet iga kord avama, kui rakendus töötab.
     eu = Gaituta dagoenean, ez duzu gailua desblokeatu beharrik aplikazioa abian dagoen bitartean.
-    fi = Kun käytössä, sovellus toimii lukitusnäytöllä vaikka laita olisi lukittuna.
+    fi = Kun käytössä, sovellus toimii lukitusnäytöllä vaikka laite olisi lukittuna.
     fr = Lorsqu'il est activé, vous n'avez pas besoin de déverrouiller votre appareil à chaque fois que l'application est en fonctionnement.
     hu = Ha engedélyezve van, nem kell minden alkalommal feloldanod a telefonod, amíg az alkalmazás fut.
     it = Quando è abilitata, non è necessario sbloccare il dispositivo ogni volta mentre l'app è in esecuzione.

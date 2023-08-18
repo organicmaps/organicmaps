@@ -292,7 +292,7 @@
     et = Rahvusvaheline lennujaam
     eu = Aireportua
     fa = فرودگاه
-    fi = Lentokenttä
+    fi = Kansainvälinen lentokenttä
     fr = Aéroport
     hu = Repülőtér
     id = Bandar udara
@@ -420,6 +420,7 @@
     es = Pista de rodaje
     et = Ruleerimistee
     eu = Taxiway
+    fi = Rullaustie
     fr = Taxiway
     it = Pista di rullaggio
     ja = 誘導路
@@ -2108,6 +2109,7 @@
     be = Хрысціянскія могілкі
     es = Cementerio cristiano
     et = Kristlik surnuaed
+    fi = Kristillinen hautausmaa
     fr = Cimetière chrétien
     it = Cimitero cristiano
     ja = キリスト教墓地
@@ -3013,7 +3015,7 @@
     et = Tempel
     eu = Tenplua
     fa = گردشگری
-    fi = Temppeli
+    fi = Buddhalainen temppeli
     hu = Templom
     id = Kuil
     it = Tempio buddista
@@ -3084,7 +3086,7 @@
     et = Tempel
     eu = Tenplua
     fa = گردشگری
-    fi = Temppeli
+    fi = Hindutemppeli
     hu = Templom
     id = Kuil
     it = Tempio induista
@@ -3190,7 +3192,7 @@
     et = Pühamu
     eu = Ermita
     fa = گردشگری
-    fi = Pyhäkkö
+    fi = Šintopyhäkkö
     fr = Sanctuaire
     hu = Kegyhely
     id = Kuil
@@ -3226,7 +3228,7 @@
     et = Tempel
     eu = Tenplua
     fa = گردشگری
-    fi = Temppeli
+    fi = Taolainen temppeli
     hu = Templom
     id = Kuil
     it = Tempio taoista
@@ -3581,7 +3583,7 @@
     et = Rõivad
     eu = Arropa
     fa = لباسهای قدیمی
-    fi = Vanhat vaatteet
+    fi = Vaatteet
     fr = Vêtements usagés
     hu = Régi ruhák
     id = Pakaian lama
@@ -3655,7 +3657,7 @@
     et = Paber
     eu = Papera
     fa = پسماند کاغذ
-    fi = Paperi- ja kartonkijäte
+    fi = Paperi
     fr = Papier usagé
     hu = Papír hulladék
     id = Limbah kertas
@@ -3692,7 +3694,7 @@
     et = Plastik
     eu = Plastikoa
     fa = پسماند پلاستیک
-    fi = Muovijäte
+    fi = Muovi
     fr = Déchets plastiques
     hu = Műanyag hulladék
     id = Limbah plastik
@@ -3804,7 +3806,7 @@
     et = Elektroonikajäätmed
     eu = Hondakin elektronikoak
     fa = پسماند الکترونیکی
-    fi = Kodinkonejäte
+    fi = SER
     fr = Déchets d'équipements électriques
     hu = Elektromos hulladék
     id = Limbah elektronik
@@ -3837,6 +3839,7 @@
     es = Cartón
     et = Papp
     eu = Kartoia
+    fi = Pahvi
     fr = Carton
     it = Cartone
     mr = पुठ्ठा
@@ -3855,6 +3858,7 @@
     es = Latas
     et = Purgid
     eu = Latak
+    fi = Tölkit
     fr = Emballages métalliques
     it = Lattine
     mr = कॅन
@@ -3873,6 +3877,7 @@
     es = Calzado
     et = Jalanõud
     eu = Oinetakoak
+    fi = Kengät
     fr = Chaussures
     it = Scarpe
     mr = पादत्राणे
@@ -3891,6 +3896,7 @@
     es = Orgánico
     et = Roheline/Orgaaniline jääde
     eu = Organikoa
+    fi = Biojäte
     fr = Déchets organiques
     it = Umido
     nl = GFT afval
@@ -3908,6 +3914,7 @@
     es = Cartones de bebida
     et = Joogipakendid
     eu = Edateko kartoiak
+    fi = Kartonki
     fr = Briques alimentaires
     it = Tetrapak
     mr = पेय कार्टन
@@ -4531,7 +4538,7 @@
     es = Máquina expendedora de dulces
     et = Maiustuste automaat
     eu = Gozokiak saltzeko makina
-    fi = Karkkiautomaatti
+    fi = Makeisautomaatti
     fr = Distributeur de bonbons
     it = Distributore automatico di dolciumi
     mr = मिठाई विक्रीयंत्र
@@ -4567,6 +4574,7 @@
     es = Taquilla de paquetes
     et = Pakiautomaat
     eu = Paketeen aldagela
+    fi = Pakettilokero
     fr = Consigne automatique pour colis
     it = Punto di ritiro
     mr = पार्सल लॉकर
@@ -4644,7 +4652,7 @@
     et = Prügikast
     eu = Paper-ontzia
     fa = سطل زباله
-    fi = Roska-astia
+    fi = Roskakori
     fr = Poubelle
     hu = Szemétkosár
     id = Kotak sampah
@@ -4766,6 +4774,7 @@
     es = Barrera
     et = Barjäär
     eu = Hesia
+    fi = Este
     fr = Barrière
     it = Barriera
     ja = 障害物
@@ -5133,6 +5142,7 @@
     es = Muro de contención
     et = Tugisein
     eu = Euste-horma
+    fi = Tukimuuri
     fr = Mur de soutènement
     it = Muro di sostegno
     ja = 擁壁
@@ -5529,6 +5539,7 @@
     es = Frontera de suburbio
     et = Eeslinna piir
     eu = Auzoko muga
+    fi = Esikaupunki
     fr = Frontière de quartier
     mr = उपनगर सीमा
     nl = Buitenwijkgrens
@@ -6215,7 +6226,7 @@
     et = Õhkkonditsioneer
     eu = Aire girotua
     fa = گرمایش و تهویه‌هوا
-    fi = Ilmastointilaite
+    fi = LVI
     fr = Chauffage, ventilation et climatisation
     he = חימום, אוורור ומיזוג אוויר
     hu = Hűtés-fűtés szerelő
@@ -7142,6 +7153,7 @@
     es = Té de burbujas
     et = Mullitee
     eu = Burbuila tea
+    fi = Kuplatee
     it = Bubble tea
     ru = Чай с шариками
     uk = Бульбашковий чай
@@ -7157,7 +7169,7 @@
     es = Hamburguesas
     et = Burger
     eu = Hanburgesak
-    fi = Hampurilainen
+    fi = Hampurilaiset
     fr = Hamburger
     he = המבורגר
     hu = Hamburger
@@ -8427,7 +8439,7 @@
     es = Cocina coreana
     et = Korea
     eu = Koreako sukaldaritza
-    fi = Korealainen
+    fi = Korealainen keittiö
     fr = Cuisine coréenne
     he = מטבח קוריאני
     hu = Koreai konyha
@@ -8638,7 +8650,7 @@
     es = Cocina mediterránea
     et = Vahemere
     eu = Sukaldaritza mediterraneoa
-    fi = Välimeren keittiö keittiö
+    fi = Välimeren keittiö
     fr = Cuisine méditerranéenne
     he = מטבח ים-תיכוני
     hu = Mediterrán konyha
@@ -8743,7 +8755,7 @@
     es = Tallarines
     et = Nuudlid
     eu = Fideoak
-    fi = Nuudeli
+    fi = Nuudelit
     fr = Nouilles
     he = אטריות
     hu = Tészta
@@ -8955,7 +8967,7 @@
     es = Pizzas
     et = Pizza
     eu = Pizza
-    fi = Pitsa
+    fi = Pizza
     fr = Pizza
     he = פיצה
     hu = Pizza
@@ -9591,7 +9603,7 @@
     es = Cocina vegana
     et = Vegan
     eu = Sukaldaritza beganoa
-    fi = Vegaani keittiö
+    fi = Vegaanikeittiö
     fr = Cuisine végétalienne
     he = מטבח טבעוני
     hu = Vegán konyha
@@ -9626,7 +9638,7 @@
     es = Cocina vegetariana
     et = Taimetoit
     eu = Sukaldaritza begetarianoa
-    fi = Kasvis keittiö
+    fi = Kasviskeittiö
     fr = Cuisine végétarienne
     he = מטבח צמחוני
     hu = Vegetáriánus konyha
@@ -9693,6 +9705,7 @@
     de = Notfall
     es = Emergencia
     et = Hädaabi
+    fi = Hätätila
     fr = Urgence
     it = Emergenza
     mr = आणीबाणी
@@ -9908,7 +9921,7 @@
     et = Väljumine
     eu = Irten
     fa = خارج شوید
-    fi = Poistu
+    fi = Ulos
     fr = Sortie
     he = יְצִיאָה
     hu = Kilépés
@@ -10345,6 +10358,7 @@
     de = Straße
     es = Carretera
     et = Maantee
+    fi = Valtatie
     it = Via
     ja = 道路
     mr = महामार्ग
@@ -10363,6 +10377,7 @@
     de = Reitweg
     es = Camino de caballos
     et = Valjarada
+    fi = Ratsastustie
     fr = Chemin équestre
     it = sentiero per cavalli
     ja = 馬道
@@ -10408,7 +10423,7 @@
     et = Spetsiaalne bussitee
     eu = Autobus errepidea
     fa = ﺱﻮﺑﻮﺗﺍ ﯽﺻﺎﺼﺘﺧﺍ ﻩﺩﺎﺟ
-    fi = Oma bussitie
+    fi = Busseille varattu tie
     fr = Route réservée aux bus
     he = ידועיי סובוטוא שיבכ
     hu = Kijelölt buszút
@@ -10522,6 +10537,7 @@
     es = Ciclovía
     et = Jalgrattatee
     eu = Bizikletabidea
+    fi = Pyörätie
     fr = Piste cyclable
     it = Pista ciclabile
     ja = 自転車道
@@ -10567,6 +10583,7 @@
     es = Ascensor
     et = Lift
     eu = Igogailua
+    fi = Hissi
     fr = Ascenseur
     it = Ascensore
     mr = उद्वाहक(लिफ्ट)
@@ -10631,6 +10648,7 @@
     ar = منطقة مشاة
     es = Zona peatonal
     et = Jalakäijate ala
+    fi = Jalankulkualue
     mr = पादचारी झोन
     nl = Voetgangerszone
     pl = Obszar chodnika
@@ -10646,6 +10664,7 @@
     ar = جسر للمشاة
     es = Puente peatonal
     et = Jalakäijate sild
+    fi = Jalankulkusilta
     mr = पादचारी पूल
     nl = Voetgangersbrug
     pl = Most dla pieszych
@@ -10656,6 +10675,7 @@
     ref = type.highway.path
     de = Anspruchsvoller Alpinwanderweg
     et = Nõudlik alpi matkarada
+    fi = Vaativa alppivaellus
     nl = Uitdagend alpine bergklimpad
     pt = Caminho pedonal
     pt-BR = Caminho pedonal difícil
@@ -10664,6 +10684,7 @@
   [type.highway.footway.demanding_mountain_hiking]
     ref = type.highway.path
     de = Anspruchsvoller Bergwanderweg
+    fi = Vaativa vuoristovaellus
     nl = Uitdagend bergwandelpad
     pt = Caminho pedonal
     pt-BR = Caminho pedonal difícil
@@ -10673,6 +10694,7 @@
     ref = type.highway.path
     de = Schwieriger Alpinwanderweg
     et = Nõudlik mägimatkarada
+    fi = Vaikea alppivaellus
     nl = Moeilijk alpine bergklimpad
     pt = Caminho pedonal
     pt-BR = Caminho pedonal difícil
@@ -10682,6 +10704,7 @@
     ref = type.highway.path
     de = Wanderweg
     es = Sendero
+    fi = Vaellus
     nl = Wandelpad
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
@@ -10691,6 +10714,7 @@
     ref = type.highway.path
     de = Bergwanderweg
     et = Mägirada
+    fi = Vuoristovaellus
     nl = Bergpad
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
@@ -10707,6 +10731,7 @@
     de = Fußgängertunnel
     es = Túnel peatonal
     et = Jalakäijate tunnel
+    fi = Jalankulkutunneli
     mr = पादचारी बोगदा
     nl = Voetgangerstunnel
     pl = Tunel dla pieszych
@@ -10761,7 +10786,7 @@
     et = Elamupiirkonna tänav
     eu = Kalea
     fa = جاده
-    fi = Katu
+    fi = Asuinkatu
     fr = Zone de rencontre
     hu = Utca
     id = Jalan
@@ -10807,7 +10832,7 @@
     et = Kiirtee
     eu = Kalea
     fa = جاده
-    fi = Katu
+    fi = Moottoritie
     fr = Autoroute
     hu = Utca
     id = Jalan
@@ -10837,6 +10862,7 @@
     af = Snelwegbrug
     de = Autobahnbrücke
     et = Mootorrataste sild
+    fi = Moottoritiesilta
     it = Ponte autostradale
     mr = महामार्ग पूल
     nl = Snelwegbrug
@@ -10850,6 +10876,7 @@
     af = Snelwegtonnel
     de = Autobahntunnel
     et = Kiirtee tunnel
+    fi = Moottoritietunneli
     it = Tunnel autostradale
     mr = महामार्ग बोगदा
     nl = Snelwegtunnel
@@ -10897,6 +10924,7 @@
     af = Snelwegoprit
     de = Autobahnauffahrt
     et = Kiirtee kaldtee
+    fi = Mottoritieramppi
     fr = Bretelle d'autoroute
     it = Svincolo autostradale
     mr = महामार्ग उतार
@@ -10955,6 +10983,7 @@
     ref = type.highway.path
     de = Alpinwanderweg
     et = Alpi matkarada
+    fi = Alppivaellus
     nl = Alpine wandelpad
     pl = Ścieżka wspinaczkowa
     pt-BR = Caminho pedonal
@@ -10966,6 +10995,7 @@
     ar = مسار للمشاة والدراجات معاً
     de = Radweg
     et = Jalgratta- ja jalgtee
+    fi = Pyörä- ja jalkatie
     mr = सायकल आणि पाऊलवाट
     nl = Fietspad
     pl = Ścieżka dla rowerów
@@ -10981,23 +11011,27 @@
     ref = type.highway.path
     de = Anspruchsvoller Alpinwanderweg
     et = Nõudlik alpi matkarada
+    fi = Vaativa alppivaellus
     pt-BR = Caminho pedonal difícil
 
   [type.highway.path.demanding_mountain_hiking]
     ref = type.highway.path
     de = Anspruchsvoller Bergwanderweg
     et = Nõudlik mägimatkarada
+    fi = Vaativa vuoristovaellus
     pt-BR = Caminho pedonal difícil
 
   [type.highway.path.difficult_alpine_hiking]
     ref = type.highway.path
     de = Schwieriger Alpinwanderweg
     et = Raske alpi matkarada
+    fi = Vaikea alppivaellus
     pt-BR = Caminho pedonal difícil
 
   [type.highway.path.hiking]
     ref = type.highway.path
     de = Wanderweg
+    fi = Vaellus
     nl = Wandelpad
     pt-BR = Caminho pedonal
 
@@ -11007,6 +11041,7 @@
     af = Ruiterpad
     de = Reitweg
     et = Valjarada
+    fi = Ratsastuspolku
     nl = Ruiterpad
     pt-BR = Caminho para cavaleiros
     ru = Конная тропа
@@ -11017,6 +11052,7 @@
     ref = type.highway.path
     de = Bergwanderweg
     et = Mägitee
+    fi = Vuoristovaellus
     nl = Bergpad
     pt-BR = Caminho pedonal
 
@@ -11038,7 +11074,7 @@
     et = Jalakäijate tänav
     eu = Kalea
     fa = جاده
-    fi = Katu
+    fi = Jalankulkutie
     fr = Rue piétonne
     hu = Utca
     id = Jalan
@@ -11068,6 +11104,7 @@
     af = Voetgangergebied
     es = Zona peatonal
     et = Jalakäijate ala
+    fi = Jalankulkualue
     it = Area pedonale
     mr = पादचारी झोन
     ru = Пешеходная зона
@@ -11081,6 +11118,7 @@
     af = Voetgangerbrug
     es = Puente peatonal
     et = Jalakäijate sild
+    fi = Jalankulkusilta
     mr = पादचारी पूल
     nl = Voetgangersbrug
     pl = Most pasażu pieszego
@@ -11094,6 +11132,7 @@
     de = Fußgängertunnel
     es = Túnel peatonal
     et = Jalakäijate tunnel
+    fi = Jalankulkutunneli
     mr = पादचारी बोगदा
     nl = Voetgangerstunnel
     pl = Tunel pasażu pieszego
@@ -11112,7 +11151,7 @@
     et = Esmane tee
     eu = Kalea
     fa = جاده
-    fi = Katu
+    fi = Pääkatu
     fr = Rue
     hu = Utca
     id = Jalan
@@ -11487,7 +11526,7 @@
     et = Hooldustee
     eu = Kalea
     fa = جاده
-    fi = Katu
+    fi = Huoltotie
     fr = Rue
     hu = Utca
     id = Jalan
@@ -11525,6 +11564,7 @@
     af = Oprit
     de = Grundstückszufahrt
     et = Sissesõidutee
+    fi = Ajotie
     mr = चालकमार्ग
     pt-BR = Via de acesso
     ru = Подъезд
@@ -11537,6 +11577,7 @@
     en = Parking Aisle
     af = Parkeergang
     et = Parkla vahetee
+    fi = Pysäköintikäytävä
     fr = Allée
     mr = पार्किंग गल्ली
     pl = Miejsca parkingowe
@@ -11552,6 +11593,7 @@
     ref = type.highway.road.tunnel
     de = Straßentunnel
     et = Tänava tunnel
+    fi = Huoltotunneli
     pl = Tunel drogowy
     pt-BR = Túnel rodoviário
 
@@ -11561,6 +11603,7 @@
     de = Raststätte
     es = Área de servicio
     et = Teenindusala
+    fi = Palvelualue
     fr = Aire de service
     ja = サービスエリア
     mr = सेवा क्षेत्र
@@ -11622,7 +11665,7 @@
     et = Trepp
     eu = Bidea
     fa = مسیر
-    fi = Polku
+    fi = Portaat
     fr = Escaliers
     hu = Ösvény
     id = Jalur
@@ -11835,7 +11878,7 @@
     et = Magistraaltee
     eu = Kalea
     fa = جاده
-    fi = Katu
+    fi = Päätie
     fr = Voie rapide
     hu = Utca
     id = Jalan
@@ -11871,6 +11914,7 @@
     ref = type.highway.trunk
     en = Trunk Road Ramp
     af = Hoofpadoprit
+    fi = Päätien ramppi
     mr = राष्ट्रीय महामार्ग उतार
     pt-BR = Saída de rodovia
     ru = Съезд с трассы
@@ -11936,7 +11980,6 @@
 
   [type.area_highway.cycleway]
     ref = type.highway.cycleway
-    fi = Pyörätie
     pt-BR = Caminho para ciclistas
 
   [type.area_highway.footway]
@@ -11952,7 +11995,6 @@
 
   [type.area_highway.motorway]
     ref = type.highway.motorway
-    fi = Moottoritie
 
   [type.area_highway.path]
     ref = type.highway.path
@@ -11980,7 +12022,6 @@
 
   [type.area_highway.steps]
     ref = type.highway.steps
-    fi = Portaat
     nl = Trappen
     pt-BR = Travessia
 
@@ -12212,7 +12253,7 @@
     et = Rooma kindlus
     eu = Castrum
     fa = قلعه رومی
-    fi = Castra
+    fi = Roomalaisleiri
     fr = Camp romain
     he = קסטרום
     hu = Castrum
@@ -12251,7 +12292,7 @@
     et = Kindlus
     eu = Gaztelu
     fa = قلعه
-    fi = Linna
+    fi = Linnake
     fr = Château fort
     he = טירה
     hu = Kastély
@@ -12563,7 +12604,7 @@
     et = Loss
     eu = Gaztelua
     fa = گردشگری
-    fi = Linna
+    fi = Arvokas linna
     fr = Château
     he = שאטו
     hu = Kastély
@@ -12681,7 +12722,7 @@
     et = Kindlus
     eu = Gotorlekua
     fa = دژ
-    fi = Fort
+    fi = Linnake
     fr = Fort militaire
     he = מִבצָר
     hu = Fort
@@ -12720,7 +12761,7 @@
     et = Võllas
     eu = Urkamendi
     fa = چوبه دار
-    fi = Sappeja
+    fi = Hirsipuu
     fr = Potence
     he = גרדום
     hu = Akasztófa
@@ -12838,7 +12879,7 @@
     et = Mälestusmärk
     eu = Oroitzapenezko plaka
     fa = گردشگری
-    fi = Muistomerkki
+    fi = Muistolaatta
     fr = Plaque commémorative
     he = לוחית זיכרון
     hu = Emlékmű
@@ -12877,7 +12918,7 @@
     et = Skulptuur
     eu = Eskultura
     fa = گردشگری
-    fi = Muistomerkki
+    fi = Veistos
     fr = Sculpture
     he = פֶּסֶל
     hu = Emlékmű
@@ -12916,7 +12957,7 @@
     et = Kuju
     eu = Estatua
     fa = گردشگری
-    fi = Muistomerkki
+    fi = Patsas
     fr = Mémorial
     he = פסל
     hu = Emlékmű
@@ -13149,7 +13190,7 @@
     et = Laev
     eu = Turismoa
     fa = گردشگری
-    fi = Nähtävyydet
+    fi = Alus
     fr = Navire
     he = אונייה
     hu = Túrizmus
@@ -13188,7 +13229,7 @@
     et = Haud
     eu = Ehorztoki
     fa = گردشگری
-    fi = Nähtävyydet
+    fi = Hautakammio
     fr = Tombe historique
     he = קֶבֶר
     hu = Sír
@@ -13378,6 +13419,7 @@
     ar = تقاطع
     de = Straßenknotenpunkt
     et = Ristmik
+    fi = Risteys
     it = Incrocio
     ja = 交差点
     mr = जंक्शन
@@ -13398,6 +13440,7 @@
     es = Rotonda
     et = Ringtee
     eu = Biribilgunea
+    fi = Liikenneympyrä
     fr = Rond-point
     it = Rotonda
     ja = ラウンドアバウト
@@ -13420,6 +13463,7 @@
     de = Landnutzung
     es = Uso del suelo
     et = Maakasutus
+    fi = Maankäyttö
     ja = 土地利用
     mr = भूमी उपयोग
     nl = Landgebruik
@@ -13436,6 +13480,7 @@
     af = Tuinplotte
     de = Kleingarten
     et = Peenrad
+    fi = Siirtolapuutarha
     fr = Jardins familiaux
     it = Orti comunitari
     ja = 市民農園
@@ -13494,6 +13539,7 @@
     af = Natuurlike bruin
     de = Brachfläche
     et = Ehitusmaa
+    fi = Tuhoalue
     fr = Friche industrielle
     ja = 再開発用地
     pl = Teren do zabudowy
@@ -13559,6 +13605,7 @@
     de = Gewerbegebiet
     es = Zona comercial
     et = Kommertspiirkond
+    fi = Kaupallinen alue
     fr = Zone commerciale
     it = Area commerciale
     ja = 商業用地
@@ -13579,6 +13626,7 @@
     de = Baustelle
     es = Construcción
     et = Ehitus
+    fi = Rakennustyömaa
     fr = Chantier de construction
     it = Cantiere
     ja = 建設工事中
@@ -13600,6 +13648,7 @@
     de = Bildungseinrichtung
     es = Instalaciones educativas
     et = Haridusrajatised
+    fi = Koulutuslaitos
     fr = Établissements éducatifs
     it = Strutture didattiche
     mr = शैक्षणिक सुविधा
@@ -13616,6 +13665,7 @@
     de = Bauernhof
     es = Granja
     et = Talu
+    fi = Maatila
     ja = 農地
     mr = शेत
     nl = Boerderij
@@ -13671,6 +13721,7 @@
     de = Bauernhof
     es = Granja
     et = Taluõu
+    fi = Maatila
     fr = Ferme
     it = Fattoria
     ja = 農地
@@ -13690,6 +13741,7 @@
     de = Feld
     es = Campo
     et = Põld
+    fi = Kenttä
     fr = Champ
     mr = क्षेत्र
     nl = Veld
@@ -13748,7 +13800,7 @@
     et = Okaspuumets
     eu = Basoa
     fa = جنگل
-    fi = Metsä
+    fi = Havumetsä
     fr = Forêt de conifères
     hu = Erdő
     id = Hutan
@@ -13784,7 +13836,7 @@
     et = Heitlehine mets
     eu = Basoa
     fa = جنگل
-    fi = Metsä
+    fi = Lehtimetsä
     fr = Forêt de feuillus
     hu = Erdő
     id = Hutan
@@ -13820,7 +13872,7 @@
     et = Segamets
     eu = Basoa
     fa = جنگل
-    fi = Metsä
+    fi = Sekametsä
     fr = Forêt
     hu = Erdő
     id = Hutan
@@ -13850,6 +13902,7 @@
     de = Garagen
     es = Garajes
     et = Garaažid
+    fi = Autotallit
     it = Garage
     ja = ガレージ
     mr = गराज
@@ -13907,6 +13960,7 @@
     de = Rohbauland
     es = Invernadero
     et = Ehituskrunt
+    fi = Vihreä kenttä
     fr = Terrain vierge
     ja = 建設予定地
     mr = हरितक्षेत्र
@@ -13924,6 +13978,7 @@
     de = Gewächshaus-Fläche
     es = Invernadero
     et = Kasvuhoone
+    fi = Kasvihuone
     fr = Culture sous serre
     ja = 温室栽培
     mr = हरितगृह
@@ -13942,6 +13997,7 @@
     de = Industriegebiet
     es = Zona industrial
     et = Tööstusmaa
+    fi = Teollisuusalue
     fr = Zone industrielle
     it = Zona industriale
     ja = 工業用地
@@ -13999,6 +14055,7 @@
     de = Wiese
     es = Pradera
     et = Heinamaa
+    fi = Niitty
     fr = Prairie
     it = Radura
     ja = 牧草地
@@ -14019,6 +14076,7 @@
     de = Militärgebiet
     es = Área militar
     et = Militaarala
+    fi = Sotilasalue
     fr = Terrain militaire
     it = Area militare
     ja = 軍用地
@@ -14039,6 +14097,7 @@
     de = Obstplantage
     es = Huerto
     et = Viljapuuaed
+    fi = Hedelmätarha
     fr = Vergers
     it = Frutteto
     ja = 果樹園
@@ -14058,6 +14117,7 @@
     de = Steinbruch
     es = Cantera
     et = Karjäär
+    fi = Louhos
     fr = Carrières
     it = Cava
     ja = 採石場
@@ -14115,6 +14175,7 @@
     de = Erholungsgebiet
     es = Área recreativa
     et = Puhkeväljak
+    fi = Virkistysalue
     fr = Aire de jeux
     it = Area divertimento
     ja = レクリエーション
@@ -14140,7 +14201,7 @@
     et = Vesi
     eu = Arroa
     fa = اب
-    fi = Vesi
+    fi = Vesiallas
     fr = Bassin de retenue
     hu = Víz
     id = Air
@@ -14170,6 +14231,7 @@
     de = Wohngebiet
     es = Zona residencial
     et = Elamumaa
+    fi = Asuinalue
     fr = Zone résidentielle
     it = Area residentiale
     ja = 住宅地
@@ -14190,6 +14252,7 @@
     de = Einzelhandelsgebiet
     es = Zona comercial
     et = Jaekaubandusmaa
+    fi = Kauppa-alue
     fr = Zone commerciale
     it = Area commerciale
     ja = 小売店エリア
@@ -14210,6 +14273,7 @@
     de = Saline
     es = Estanque
     et = Tiik
+    fi = Suolalampi
     fr = Marais salant
     it = Salina
     ja = 塩田
@@ -23658,7 +23722,7 @@
     et = Taaskasutus
     eu = Bigarren eskuko denda
     fa = ﻡﻭﺩ ﺖﺳﺩ ﻩﺎﮕﺷﻭﺮﻓ
-    fi = Second Hand Store
+    fi = Käytetyn tavaran liike
     fr = Boutique d'objets d'occasion
     he = היינש די תונח
     hu = Second Hand Store
