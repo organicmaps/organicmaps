@@ -58,7 +58,6 @@
       android:layout_height="wrap_content"
       android:layout_width="match_parent"
       android:layout_weight="1"
-      android:layout_gravity="center_vertical"
       android:maxLines="2"
       android:ellipsize="end"
       tools:text="5 h 55 min • 1555km"
