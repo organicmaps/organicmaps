@@ -10448,10 +10448,10 @@
     vi = Đường dành riêng cho xe buýt
     zh-Hans = 巴士专用道
     zh-Hant = 巴士專用道
-	
+
   [type.highway.busway.bridge]
     ref = type.highway.road.bridge
-	
+
   [type.highway.busway.tunnel]
     ref = type.highway.road.tunnel
 
@@ -28422,8 +28422,8 @@
     af = Beginnersafdaling
     de = Anfängerfreundliche Ski-Abfahrt
     et = Algajasõbralik laskumine
-    nl = Beginnersafdaling
     it = Pista per principianti
+    nl = Beginnersafdaling
     pt = Esqui alpino iniciante
     pt-BR = Esqui alpino iniciante
     ru = Горнолыжная трасса для новичков
