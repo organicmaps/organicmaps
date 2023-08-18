@@ -999,11 +999,14 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   if (IsRoutingActive())
     CloseRouting(false /* remove route points */);
 
-  // Show preview.
-  m2::RectD rect = ShowPreviewSegments(routePoints);
-  rect.Scale(kRouteScaleMultiplier);
-  m_drapeEngine.SafeCall(&df::DrapeEngine::SetModelViewRect, rect, true /* applyRotation */,
-                         -1 /* zoom */, true /* isAnim */, true /* useVisibleViewport */);
+  // Route points preview.
+  // Disabled preview zoom to fix https://github.com/organicmaps/organicmaps/issues/5409.
+  // Uncomment next lines to enable back zoom on route point add/remove.
+
+  //m2::RectD rect = ShowPreviewSegments(routePoints);
+  //rect.Scale(kRouteScaleMultiplier);
+  //m_drapeEngine.SafeCall(&df::DrapeEngine::SetModelViewRect, rect, true /* applyRotation */,
+  //                       -1 /* zoom */, true /* isAnim */, true /* useVisibleViewport */);
 
   m_routingSession.ClearPositionAccumulator();
   m_routingSession.SetUserCurrentPosition(routePoints.front().m_position);
