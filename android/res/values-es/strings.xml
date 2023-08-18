@@ -389,7 +389,7 @@
 	<string name="p2p_from_here">Ruta desde</string>
 	<string name="p2p_to_here">Ruta hacia</string>
 	<string name="p2p_only_from_current">La navegación solo está disponible desde su ubicación actual.</string>
-	<string name="p2p_reroute_from_current">¿Quiere que planeemos un ruta desde su ubicación actual?</string>
+	<string name="p2p_reroute_from_current">¿Quiere que planeemos una ruta desde su ubicación actual?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Siguiente</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->
@@ -614,7 +614,7 @@
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Configuraciones de seguimiento</string>
 	<string name="crash_reports">Informe de incidentes</string>
-	<string name="crash_reports_description">Puede que utilicemos sus datos para mejorar la experiencia de Organic Maps. Los cambios tendrán efecto después dw que reinicie la aplicación.</string>
+	<string name="crash_reports_description">Puede que utilicemos sus datos para mejorar la experiencia de Organic Maps. Los cambios tendrán efecto después de que reinicie la aplicación.</string>
 	<string name="privacy_policy">Política de privacidad</string>
 	<string name="terms_of_use">Condiciones de uso</string>
 	<string name="button_layer_traffic">Tráfico</string>

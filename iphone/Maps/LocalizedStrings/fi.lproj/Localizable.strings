@@ -111,7 +111,7 @@
 "shopping" = "Ostokset";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "Käytetty";
+"secondhand" = "Käytetyt tavarat";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "Hotelli";
@@ -1007,7 +1007,7 @@
 
 "power_managment_title" = "Virransäästötila";
 
-"power_managment_description" = "Kun olet valinnut automaattisen tilan, sovellus alkaa sammuttamaan virtaa vieviä ominaisuuksia riippuen kulloisestakin akun latauksesta";
+"power_managment_description" = "Kun olet valinnut automaattisen tilan, sovellus alkaa sammuttamaan virtaa vieviä ominaisuuksia riippuen kulloisestakin akun latauksesta.";
 
 "power_managment_setting_never" = "Ei koskaan";
 
@@ -1273,7 +1273,7 @@
 
 "type.aeroway.aerodrome" = "Lentokenttä";
 
-"type.aeroway.aerodrome.international" = "Lentokenttä";
+"type.aeroway.aerodrome.international" = "Kansainvälinen lentokenttä";
 
 "type.aeroway.apron" = "Apron";
 
@@ -1283,7 +1283,7 @@
 
 "type.aeroway.runway" = "Kiitorata";
 
-"type.aeroway.taxiway" = "Taxiway";
+"type.aeroway.taxiway" = "Rullaustie";
 
 "type.aeroway.terminal" = "Terminaali";
 
@@ -1381,7 +1381,7 @@
 "type.amenity.grave_yard" = "Hautausmaa";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
-"type.amenity.grave_yard.christian" = "Hautausmaa";
+"type.amenity.grave_yard.christian" = "Kristillinen hautausmaa";
 
 "type.amenity.hospital" = "Sairaala";
 
@@ -1447,19 +1447,19 @@
 
 "type.amenity.place_of_worship" = "Uskonnollinen kohde";
 
-"type.amenity.place_of_worship.buddhist" = "Temppeli";
+"type.amenity.place_of_worship.buddhist" = "Buddhalainen temppeli";
 
 "type.amenity.place_of_worship.christian" = "Kirkko";
 
-"type.amenity.place_of_worship.hindu" = "Temppeli";
+"type.amenity.place_of_worship.hindu" = "Hindutemppeli";
 
 "type.amenity.place_of_worship.jewish" = "Synagoga";
 
 "type.amenity.place_of_worship.muslim" = "Moskeija";
 
-"type.amenity.place_of_worship.shinto" = "Pyhäkkö";
+"type.amenity.place_of_worship.shinto" = "Šintopyhäkkö";
 
-"type.amenity.place_of_worship.taoist" = "Temppeli";
+"type.amenity.place_of_worship.taoist" = "Taolainen temppeli";
 
 "type.amenity.police" = "Poliisi";
 
@@ -1484,29 +1484,29 @@
 
 "type.recycling.batteries" = "Paristot";
 
-"type.recycling.clothes" = "Vanhat vaatteet";
+"type.recycling.clothes" = "Vaatteet";
 
 "type.recycling.glass_bottles" = "Lasipullot";
 
-"type.recycling.paper" = "Paperi- ja kartonkijäte";
+"type.recycling.paper" = "Paperi";
 
-"type.recycling.plastic" = "Muovijäte";
+"type.recycling.plastic" = "Muovi";
 
 "type.recycling.plastic_bottles" = "Muovipullot";
 
 "type.recycling.scrap_metal" = "Metalliromu";
 
-"type.recycling.small_appliances" = "Kodinkonejäte";
+"type.recycling.small_appliances" = "SER";
 
-"type.recycling.cardboard" = "Cardboard";
+"type.recycling.cardboard" = "Pahvi";
 
-"type.recycling.cans" = "Cans";
+"type.recycling.cans" = "Tölkit";
 
-"type.recycling.shoes" = "Shoes";
+"type.recycling.shoes" = "Kengät";
 
-"type.recycling.green_waste" = "Green/Organic Waste";
+"type.recycling.green_waste" = "Biojäte";
 
-"type.recycling.cartons" = "Cartons";
+"type.recycling.cartons" = "Kartonki";
 
 "type.amenity.restaurant" = "Ravintola";
 
@@ -1548,17 +1548,17 @@
 
 "type.amenity.vending_machine.public_transport_tickets" = "Julkisen liikenteen lippuautomaatti";
 
-"type.amenity.vending_machine.sweets" = "Karkkiautomaatti";
+"type.amenity.vending_machine.sweets" = "Makeisautomaatti";
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
-"type.amenity.parcel_locker" = "Parcel Locker";
+"type.amenity.parcel_locker" = "Pakettilokero";
 
 "type.amenity.vending_machine.fuel" = "Bensa-automaatti";
 
 "type.amenity.veterinary" = "Eläinlääkäri";
 
-"type.amenity.waste_basket" = "Roska-astia";
+"type.amenity.waste_basket" = "Roskakori";
 
 "type.amenity.waste_disposal" = "Roska";
 
@@ -1566,7 +1566,7 @@
 
 "type.amenity.water_point" = "Vesipiste";
 
-"type.barrier" = "Barrier";
+"type.barrier" = "Este";
 
 "type.barrier.block" = "Este";
 
@@ -1594,7 +1594,7 @@
 
 "type.barrier.lift_gate" = "Nostopuomi";
 
-"type.barrier.retaining_wall" = "Retaining Wall";
+"type.barrier.retaining_wall" = "Tukimuuri";
 
 "type.barrier.stile" = "Portaat";
 
@@ -1644,7 +1644,7 @@
 
 "type.boundary.administrative.state" = "Osavaltion raja";
 
-"type.boundary.administrative.suburb" = "Suburb Boundary";
+"type.boundary.administrative.suburb" = "Esikaupunki";
 
 "type.boundary.national_park" = "Kansallispuisto";
 
@@ -1699,7 +1699,7 @@
 "type.craft.handicraft" = "Käsityö";
 
 /* Heating, Ventilation, and Air Conditioning */
-"type.craft.hvac" = "Ilmastointilaite";
+"type.craft.hvac" = "LVI";
 
 "type.craft.key_cutter" = "Avaimen leikkaaminen";
 
@@ -1749,9 +1749,9 @@
 
 "type.cuisine.breakfast" = "Aamiainen";
 
-"type.cuisine.bubble_tea" = "Bubble Tea";
+"type.cuisine.bubble_tea" = "Kuplatee";
 
-"type.cuisine.burger" = "Hampurilainen";
+"type.cuisine.burger" = "Hampurilaiset";
 
 "type.cuisine.buschenschank" = "Viinitaverna";
 
@@ -1823,7 +1823,7 @@
 
 "type.cuisine.kebab" = "Kebab";
 
-"type.cuisine.korean" = "Korealainen";
+"type.cuisine.korean" = "Korealainen keittiö";
 
 "type.cuisine.lao" = "Laosilainen keittiö";
 
@@ -1835,13 +1835,13 @@
 
 "type.cuisine.malaysian" = "Malesialainen keittiö";
 
-"type.cuisine.mediterranean" = "Välimeren keittiö keittiö";
+"type.cuisine.mediterranean" = "Välimeren keittiö";
 
 "type.cuisine.mexican" = "Meksikolainen keittiö";
 
 "type.cuisine.moroccan" = "Marokkolainen keittiö";
 
-"type.cuisine.noodles" = "Nuudeli";
+"type.cuisine.noodles" = "Nuudelit";
 
 "type.cuisine.oriental" = "Itämainen keittiö";
 
@@ -1853,7 +1853,7 @@
 
 "type.cuisine.peruvian" = "Perulainen keittiö";
 
-"type.cuisine.pizza" = "Pitsa";
+"type.cuisine.pizza" = "Pizza";
 
 "type.cuisine.polish" = "Puolalainen keittiö";
 
@@ -1889,13 +1889,13 @@
 
 "type.cuisine.turkish" = "Turkkilainen keittiö";
 
-"type.cuisine.vegan" = "Vegaani keittiö";
+"type.cuisine.vegan" = "Vegaanikeittiö";
 
-"type.cuisine.vegetarian" = "Kasvis keittiö";
+"type.cuisine.vegetarian" = "Kasviskeittiö";
 
 "type.cuisine.vietnamese" = "Vietnamilainen keittiö";
 
-"type.emergency" = "Emergency";
+"type.emergency" = "Hätätila";
 
 "type.emergency.defibrillator" = "Defibrillaattori";
 
@@ -1909,7 +1909,7 @@
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Pääsisäänkäynti";
 
-"type.entrance.exit" = "Poistu";
+"type.entrance.exit" = "Ulos";
 
 "type.healthcare.laboratory" = "Lääketieteellinen laboratorio";
 
@@ -1934,19 +1934,19 @@
 
 /********** Types: Roads **********/
 
-"type.highway" = "Highway";
+"type.highway" = "Valtatie";
 
-"type.highway.bridleway" = "Bridle Path";
+"type.highway.bridleway" = "Ratsastustie";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.bridleway.bridge" = "Silta";
 
-"type.highway.bridleway.permissive" = "Bridle Path";
+"type.highway.bridleway.permissive" = "Ratsastustie";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunneli";
 
-"type.highway.busway" = "Oma bussitie";
+"type.highway.busway" = "Busseille varattu tie";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.busway.bridge" = "Silta";
@@ -1958,45 +1958,45 @@
 
 "type.highway.construction" = "Rakenteilla oleva tie";
 
-"type.highway.cycleway" = "Cycle Path";
+"type.highway.cycleway" = "Pyörätie";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.cycleway.bridge" = "Silta";
 
-"type.highway.cycleway.permissive" = "Cycle Path";
+"type.highway.cycleway.permissive" = "Pyörätie";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.cycleway.tunnel" = "Tunneli";
 
-"type.highway.elevator" = "Elevator";
+"type.highway.elevator" = "Hissi";
 
 "type.highway.footway" = "Polku";
 
 "type.highway.footway.alpine_hiking" = "Polku";
 
-"type.highway.footway.area" = "Polku";
+"type.highway.footway.area" = "Jalankulkualue";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.footway.bridge" = "Silta";
+"type.highway.footway.bridge" = "Jalankulkusilta";
 
-"type.highway.footway.demanding_alpine_hiking" = "Polku";
+"type.highway.footway.demanding_alpine_hiking" = "Vaativa alppivaellus";
 
-"type.highway.footway.demanding_mountain_hiking" = "Polku";
+"type.highway.footway.demanding_mountain_hiking" = "Vaativa vuoristovaellus";
 
-"type.highway.footway.difficult_alpine_hiking" = "Polku";
+"type.highway.footway.difficult_alpine_hiking" = "Vaikea alppivaellus";
 
-"type.highway.footway.hiking" = "Polku";
+"type.highway.footway.hiking" = "Vaellus";
 
-"type.highway.footway.mountain_hiking" = "Polku";
+"type.highway.footway.mountain_hiking" = "Vuoristovaellus";
 
 "type.highway.footway.permissive" = "Polku";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.footway.tunnel" = "Tunneli";
+"type.highway.footway.tunnel" = "Jalankulkutunneli";
 
 "type.highway.ford" = "Kahluupaikka";
 
-"type.highway.living_street" = "Katu";
+"type.highway.living_street" = "Asuinkatu";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.living_street.bridge" = "Silta";
@@ -2004,17 +2004,17 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.living_street.tunnel" = "Tunneli";
 
-"type.highway.motorway" = "Katu";
+"type.highway.motorway" = "Moottoritie";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.motorway.bridge" = "Silta";
+"type.highway.motorway.bridge" = "Moottoritiesilta";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.motorway.tunnel" = "Tunneli";
+"type.highway.motorway.tunnel" = "Moottoritietunneli";
 
 "type.highway.motorway_junction" = "Poistumistie";
 
-"type.highway.motorway_link" = "Katu";
+"type.highway.motorway_link" = "Mottoritieramppi";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway_link.bridge" = "Silta";
@@ -2024,41 +2024,41 @@
 
 "type.highway.path" = "Polku";
 
-"type.highway.path.alpine_hiking" = "Polku";
+"type.highway.path.alpine_hiking" = "Alppivaellus";
 
-"type.highway.path.bicycle" = "Polku";
+"type.highway.path.bicycle" = "Pyörä- ja jalkatie";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Silta";
 
-"type.highway.path.demanding_alpine_hiking" = "Polku";
+"type.highway.path.demanding_alpine_hiking" = "Vaativa alppivaellus";
 
-"type.highway.path.demanding_mountain_hiking" = "Polku";
+"type.highway.path.demanding_mountain_hiking" = "Vaativa vuoristovaellus";
 
-"type.highway.path.difficult_alpine_hiking" = "Polku";
+"type.highway.path.difficult_alpine_hiking" = "Vaikea alppivaellus";
 
-"type.highway.path.hiking" = "Polku";
+"type.highway.path.hiking" = "Vaellus";
 
-"type.highway.path.horse" = "Polku";
+"type.highway.path.horse" = "Ratsastuspolku";
 
-"type.highway.path.mountain_hiking" = "Polku";
+"type.highway.path.mountain_hiking" = "Vuoristovaellus";
 
 "type.highway.path.permissive" = "Polku";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Tunneli";
 
-"type.highway.pedestrian" = "Katu";
+"type.highway.pedestrian" = "Jalankulkutie";
 
-"type.highway.pedestrian.area" = "Katu";
+"type.highway.pedestrian.area" = "Jalankulkualue";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.pedestrian.bridge" = "Silta";
+"type.highway.pedestrian.bridge" = "Jalankulkusilta";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.pedestrian.tunnel" = "Tunneli";
+"type.highway.pedestrian.tunnel" = "Jalankulkutunneli";
 
-"type.highway.primary" = "Katu";
+"type.highway.primary" = "Pääkatu";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.primary.bridge" = "Silta";
@@ -2066,7 +2066,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary.tunnel" = "Tunneli";
 
-"type.highway.primary_link" = "Katu";
+"type.highway.primary_link" = "Pääkatu";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.primary_link.bridge" = "Silta";
@@ -2115,25 +2115,25 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary_link.tunnel" = "Tunneli";
 
-"type.highway.service" = "Katu";
+"type.highway.service" = "Huoltotie";
 
-"type.highway.service.area" = "Katu";
+"type.highway.service.area" = "Huoltotie";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.service.bridge" = "Silta";
 
-"type.highway.service.driveway" = "Katu";
+"type.highway.service.driveway" = "Ajotie";
 
-"type.highway.service.parking_aisle" = "Katu";
+"type.highway.service.parking_aisle" = "Pysäköintikäytävä";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.service.tunnel" = "Tunneli";
+"type.highway.service.tunnel" = "Huoltotunneli";
 
-"type.highway.services" = "Service Area";
+"type.highway.services" = "Palvelualue";
 
 "type.highway.speed_camera" = "Nopeusvalvontakamera";
 
-"type.highway.steps" = "Polku";
+"type.highway.steps" = "Portaat";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.steps.bridge" = "Silta";
@@ -2183,7 +2183,7 @@
 
 "type.highway.traffic_signals" = "Liikennevalot";
 
-"type.highway.trunk" = "Katu";
+"type.highway.trunk" = "Päätie";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk.bridge" = "Silta";
@@ -2191,7 +2191,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk.tunnel" = "Tunneli";
 
-"type.highway.trunk_link" = "Katu";
+"type.highway.trunk_link" = "Päätien ramppi";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk_link.bridge" = "Silta";
@@ -2213,7 +2213,7 @@
 
 "type.area_highway.footway" = "Kävelytie";
 
-"type.area_highway.living_street" = "Katu";
+"type.area_highway.living_street" = "Asuinkatu";
 
 "type.area_highway.motorway" = "Moottoritie";
 
@@ -2221,13 +2221,13 @@
 
 "type.area_highway.pedestrian" = "Kävelykatu";
 
-"type.area_highway.primary" = "Katu";
+"type.area_highway.primary" = "Pääkatu";
 
 "type.area_highway.residential" = "Katu";
 
 "type.area_highway.secondary" = "Katu";
 
-"type.area_highway.service" = "Katu";
+"type.area_highway.service" = "Huoltotie";
 
 "type.area_highway.tertiary" = "Katu";
 
@@ -2235,7 +2235,7 @@
 
 "type.area_highway.track" = "Katu";
 
-"type.area_highway.trunk" = "Katu";
+"type.area_highway.trunk" = "Päätie";
 
 "type.area_highway.unclassified" = "Katu";
 
@@ -2256,9 +2256,9 @@
 
 "type.historic.castle" = "Linna";
 
-"type.historic.castle.castrum" = "Castra";
+"type.historic.castle.castrum" = "Roomalaisleiri";
 
-"type.historic.castle.defensive" = "Linna";
+"type.historic.castle.defensive" = "Linnake";
 
 "type.historic.castle.fortified_church" = "Linnoitettu kirkko";
 
@@ -2274,25 +2274,25 @@
 
 "type.historic.castle.shiro" = "Japanilainen linna";
 
-"type.historic.castle.stately" = "Linna";
+"type.historic.castle.stately" = "Arvokas linna";
 
 "type.historic.city_gate" = "Kaupungin portti";
 
 "type.historic.citywalls" = "Kaupungin muuri";
 
-"type.historic.fort" = "Fort";
+"type.historic.fort" = "Linnake";
 
-"type.historic.gallows" = "Sappeja";
+"type.historic.gallows" = "Hirsipuu";
 
 "type.historic.memorial" = "Muistomerkki";
 
 "type.historic.memorial.cross" = "Muistoristi";
 
-"type.historic.memorial.plaque" = "Muistomerkki";
+"type.historic.memorial.plaque" = "Muistolaatta";
 
-"type.historic.memorial.sculpture" = "Muistomerkki";
+"type.historic.memorial.sculpture" = "Veistos";
 
-"type.historic.memorial.statue" = "Muistomerkki";
+"type.historic.memorial.statue" = "Patsas";
 
 "type.historic.memorial.stolperstein" = "Kompastuskivet";
 
@@ -2304,9 +2304,9 @@
 
 "type.historic.ruins" = "Rauniot";
 
-"type.historic.ship" = "Nähtävyydet";
+"type.historic.ship" = "Alus";
 
-"type.historic.tomb" = "Nähtävyydet";
+"type.historic.tomb" = "Hautakammio";
 
 "type.historic.wayside_cross" = "Tienvarren risti";
 
@@ -2342,81 +2342,81 @@
 
 "type.internet_access.wlan" = "Internet";
 
-"type.junction" = "Junction";
+"type.junction" = "Risteys";
 
-"type.junction.circular" = "Roundabout";
+"type.junction.circular" = "Liikenneympyrä";
 
-"type.junction.roundabout" = "Roundabout";
+"type.junction.roundabout" = "Liikenneympyrä";
 
-"type.landuse" = "Landuse";
+"type.landuse" = "Maankäyttö";
 
-"type.landuse.allotments" = "Allotments";
+"type.landuse.allotments" = "Siirtolapuutarha";
 
 "type.landuse.basin" = "Vesisäiliö";
 
-"type.landuse.brownfield" = "Brownfield";
+"type.landuse.brownfield" = "Tuhoalue";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery" = "Hautausmaa";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
-"type.landuse.cemetery.christian" = "Hautausmaa";
+"type.landuse.cemetery.christian" = "Kristillinen hautausmaa";
 
 "type.landuse.churchyard" = "Kirkon piha";
 
-"type.landuse.commercial" = "Commercial Area";
+"type.landuse.commercial" = "Kaupallinen alue";
 
-"type.landuse.construction" = "Construction Area";
+"type.landuse.construction" = "Rakennustyömaa";
 
-"type.landuse.education" = "Educational Facility";
+"type.landuse.education" = "Koulutuslaitos";
 
-"type.landuse.farm" = "Farm";
+"type.landuse.farm" = "Maatila";
 
 "type.landuse.farmland" = "Maatalousmaa";
 
-"type.landuse.farmyard" = "Farmyard";
+"type.landuse.farmyard" = "Maatila";
 
-"type.landuse.field" = "Field";
+"type.landuse.field" = "Kenttä";
 
 "type.landuse.forest" = "Metsä";
 
-"type.landuse.forest.coniferous" = "Metsä";
+"type.landuse.forest.coniferous" = "Havumetsä";
 
-"type.landuse.forest.deciduous" = "Metsä";
+"type.landuse.forest.deciduous" = "Lehtimetsä";
 
-"type.landuse.forest.mixed" = "Metsä";
+"type.landuse.forest.mixed" = "Sekametsä";
 
-"type.landuse.garages" = "Garages";
+"type.landuse.garages" = "Autotallit";
 
 "type.landuse.grass" = "Ruohikko";
 
-"type.landuse.greenfield" = "Greenfield";
+"type.landuse.greenfield" = "Vihreä kenttä";
 
-"type.landuse.greenhouse_horticulture" = "Greenhouse";
+"type.landuse.greenhouse_horticulture" = "Kasvihuone";
 
-"type.landuse.industrial" = "Industrial Area";
+"type.landuse.industrial" = "Teollisuusalue";
 
 "type.landuse.landfill" = "Kaatopaikka";
 
-"type.landuse.meadow" = "Meadow";
+"type.landuse.meadow" = "Niitty";
 
-"type.landuse.military" = "Military Area";
+"type.landuse.military" = "Sotilasalue";
 
-"type.landuse.orchard" = "Orchard";
+"type.landuse.orchard" = "Hedelmätarha";
 
-"type.landuse.quarry" = "Quarry";
+"type.landuse.quarry" = "Louhos";
 
 "type.landuse.railway" = "Rautatierakennukset";
 
-"type.landuse.recreation_ground" = "Recreation Ground";
+"type.landuse.recreation_ground" = "Virkistysalue";
 
-"type.landuse.reservoir" = "Vesi";
+"type.landuse.reservoir" = "Vesiallas";
 
-"type.landuse.residential" = "Residential Area";
+"type.landuse.residential" = "Asuinalue";
 
-"type.landuse.retail" = "Retail Area";
+"type.landuse.retail" = "Kauppa-alue";
 
-"type.landuse.salt_pond" = "Salt Pond";
+"type.landuse.salt_pond" = "Suolalampi";
 
 "type.landuse.village_green" = "Land";
 
@@ -3479,7 +3479,7 @@
 
 "type.shop.seafood" = "Kalakauppias";
 
-"type.shop.second_hand" = "Second Hand Store";
+"type.shop.second_hand" = "Käytetyn tavaran liike";
 
 "type.shop.shoes" = "Kenkäkauppa";
 

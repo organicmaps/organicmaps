@@ -727,7 +727,7 @@
 	<!-- Description in preferences -->
 	<string name="enable_show_on_lock_screen_description">Калі ўключана, вам не трэба разблакіраваць прыладу кожны раз падчас працы праграмы.</string>
 	<!-- OpenStreetMap text on splash screen -->
-	<string name="splash_subtitle">Дадзеныя карты з OpenStreetMap</string>
+	<string name="splash_subtitle">Даныя карты з OpenStreetMap</string>
 	<!-- Telegram group url for the "?" About page -->
 	<string name="telegram_url">https://t.me/OrganicMapsRu</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->

@@ -91,7 +91,7 @@
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage">Tallenna kartat kohteeseen</string>
 	<!-- Detailed description of Maps Storage settings button -->
-	<string name="maps_storage_summary">Valitse karttojen latauskohde</string>
+	<string name="maps_storage_summary">Valitse karttojen latauskohde.</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
 	<string name="maps_storage_downloaded">Ladatut kartat</string>
 	<!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
@@ -129,7 +129,7 @@
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Ostokset</string>
 	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">Käytetty</string>
+	<string name="secondhand">Käytetyt tavarat</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Hotelli</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
@@ -639,7 +639,7 @@
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Karttojen lataaminen</string>
 	<string name="power_managment_title">Virransäästötila</string>
-	<string name="power_managment_description">Kun olet valinnut automaattisen tilan, sovellus alkaa sammuttamaan virtaa vieviä ominaisuuksia riippuen kulloisestakin akun latauksesta</string>
+	<string name="power_managment_description">Kun olet valinnut automaattisen tilan, sovellus alkaa sammuttamaan virtaa vieviä ominaisuuksia riippuen kulloisestakin akun latauksesta.</string>
 	<string name="power_managment_setting_never">Ei koskaan</string>
 	<string name="power_managment_setting_auto">Automaattinen</string>
 	<string name="power_managment_setting_manual_max">Täysi virransäästö</string>
@@ -736,7 +736,7 @@
 	<!-- A preference title; keep short! -->
 	<string name="enable_show_on_lock_screen">Näytä lukitusnäytöllä</string>
 	<!-- Description in preferences -->
-	<string name="enable_show_on_lock_screen_description">Kun käytössä, sovellus toimii lukitusnäytöllä vaikka laita olisi lukittuna.</string>
+	<string name="enable_show_on_lock_screen_description">Kun käytössä, sovellus toimii lukitusnäytöllä vaikka laite olisi lukittuna.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">OpenStreetMapin karttatiedot</string>
 
@@ -752,10 +752,11 @@
 	<string name="type.aerialway.mixed_lift">Köysirata</string>
 	<string name="type.aerialway.station">Köysirata-asema</string>
 	<string name="type.aeroway.aerodrome">Lentokenttä</string>
-	<string name="type.aeroway.aerodrome.international">Lentokenttä</string>
+	<string name="type.aeroway.aerodrome.international">Kansainvälinen lentokenttä</string>
 	<string name="type.aeroway.gate">Portti</string>
 	<string name="type.aeroway.helipad">Helikopterialusta</string>
 	<string name="type.aeroway.runway">Kiitorata</string>
+	<string name="type.aeroway.taxiway">Rullaustie</string>
 	<string name="type.aeroway.terminal">Terminaali</string>
 	<string name="type.amenity">Infrastruktuurikohteet</string>
 	<string name="type.amenity.arts_centre">Taidekeskus</string>
@@ -803,7 +804,7 @@
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">Hautausmaa</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
-	<string name="type.amenity.grave_yard.christian">Hautausmaa</string>
+	<string name="type.amenity.grave_yard.christian">Kristillinen hautausmaa</string>
 	<string name="type.amenity.hospital">Sairaala</string>
 	<string name="type.amenity.hunting_stand">Metsästyspaikka</string>
 	<string name="type.amenity.ice_cream">Jäätelökioski</string>
@@ -836,13 +837,13 @@
 	<string name="type.amenity.payment_terminal">Maksupääte</string>
 	<string name="type.amenity.pharmacy">Apteekki</string>
 	<string name="type.amenity.place_of_worship">Uskonnollinen kohde</string>
-	<string name="type.amenity.place_of_worship.buddhist">Temppeli</string>
+	<string name="type.amenity.place_of_worship.buddhist">Buddhalainen temppeli</string>
 	<string name="type.amenity.place_of_worship.christian">Kirkko</string>
-	<string name="type.amenity.place_of_worship.hindu">Temppeli</string>
+	<string name="type.amenity.place_of_worship.hindu">Hindutemppeli</string>
 	<string name="type.amenity.place_of_worship.jewish">Synagoga</string>
 	<string name="type.amenity.place_of_worship.muslim">Moskeija</string>
-	<string name="type.amenity.place_of_worship.shinto">Pyhäkkö</string>
-	<string name="type.amenity.place_of_worship.taoist">Temppeli</string>
+	<string name="type.amenity.place_of_worship.shinto">Šintopyhäkkö</string>
+	<string name="type.amenity.place_of_worship.taoist">Taolainen temppeli</string>
 	<string name="type.amenity.police">Poliisi</string>
 	<string name="type.amenity.post_box">Postilaatikko</string>
 	<string name="type.amenity.post_office">Postitoimisto</string>
@@ -855,13 +856,18 @@
 	<string name="type.amenity.recycling">Kierrätysjäteastia</string>
 	<string name="type.amenity.recycling.container">Kierrätysjäteastia</string>
 	<string name="type.recycling.batteries">Paristot</string>
-	<string name="type.recycling.clothes">Vanhat vaatteet</string>
+	<string name="type.recycling.clothes">Vaatteet</string>
 	<string name="type.recycling.glass_bottles">Lasipullot</string>
-	<string name="type.recycling.paper">Paperi- ja kartonkijäte</string>
-	<string name="type.recycling.plastic">Muovijäte</string>
+	<string name="type.recycling.paper">Paperi</string>
+	<string name="type.recycling.plastic">Muovi</string>
 	<string name="type.recycling.plastic_bottles">Muovipullot</string>
 	<string name="type.recycling.scrap_metal">Metalliromu</string>
-	<string name="type.recycling.small_appliances">Kodinkonejäte</string>
+	<string name="type.recycling.small_appliances">SER</string>
+	<string name="type.recycling.cardboard">Pahvi</string>
+	<string name="type.recycling.cans">Tölkit</string>
+	<string name="type.recycling.shoes">Kengät</string>
+	<string name="type.recycling.green_waste">Biojäte</string>
+	<string name="type.recycling.cartons">Kartonki</string>
 	<string name="type.amenity.restaurant">Ravintola</string>
 	<string name="type.amenity.school">Koulu</string>
 	<string name="type.amenity.shelter">Katos</string>
@@ -881,12 +887,14 @@
 	<string name="type.amenity.vending_machine.newspapers">Sanomalehtiautomaatti</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Pysäköintimaksuautomaatti</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Julkisen liikenteen lippuautomaatti</string>
-	<string name="type.amenity.vending_machine.sweets">Karkkiautomaatti</string>
+	<string name="type.amenity.vending_machine.sweets">Makeisautomaatti</string>
+	<string name="type.amenity.parcel_locker">Pakettilokero</string>
 	<string name="type.amenity.vending_machine.fuel">Bensa-automaatti</string>
 	<string name="type.amenity.veterinary">Eläinlääkäri</string>
-	<string name="type.amenity.waste_basket">Roska-astia</string>
+	<string name="type.amenity.waste_basket">Roskakori</string>
 	<string name="type.amenity.waste_disposal">Roska</string>
 	<string name="type.amenity.water_point">Vesipiste</string>
+	<string name="type.barrier">Este</string>
 	<string name="type.barrier.block">Este</string>
 	<string name="type.barrier.bollard">Tolppa</string>
 	<string name="type.barrier.border_control">Rajavalvonta</string>
@@ -900,6 +908,7 @@
 	<string name="type.barrier.hedge">Pensasaita</string>
 	<string name="type.barrier.kissing_gate">Portti</string>
 	<string name="type.barrier.lift_gate">Nostopuomi</string>
+	<string name="type.barrier.retaining_wall">Tukimuuri</string>
 	<string name="type.barrier.stile">Portaat</string>
 	<string name="type.barrier.turnstile">Kääntöportti</string>
 	<string name="type.barrier.swing_gate">Kääntöpuomi</string>
@@ -923,6 +932,7 @@
 	<string name="type.boundary.administrative.municipality">Kunnanraja</string>
 	<string name="type.boundary.administrative.nation">Valtakunnanraja</string>
 	<string name="type.boundary.administrative.state">Osavaltion raja</string>
+	<string name="type.boundary.administrative.suburb">Esikaupunki</string>
 	<string name="type.boundary.national_park">Kansallispuisto</string>
 	<string name="type.boundary.protected_area">Suojeltu alue</string>
 	<string name="type.boundary.protected_area.1">Suojeltu alue</string>
@@ -950,7 +960,7 @@
 	<string name="type.craft.gardener">Puutarhuri</string>
 	<string name="type.craft.handicraft">Käsityö</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
-	<string name="type.craft.hvac">Ilmastointilaite</string>
+	<string name="type.craft.hvac">LVI</string>
 	<string name="type.craft.key_cutter">Avaimen leikkaaminen</string>
 	<string name="type.craft.locksmith">Lukkoseppä</string>
 	<string name="type.craft.metal_construction">Metallimies</string>
@@ -975,7 +985,8 @@
 	<string name="type.cuisine.beef_bowl">Naudanlihakulho</string>
 	<string name="type.cuisine.brazilian">Brasilialainen keittiö</string>
 	<string name="type.cuisine.breakfast">Aamiainen</string>
-	<string name="type.cuisine.burger">Hampurilainen</string>
+	<string name="type.cuisine.bubble_tea">Kuplatee</string>
+	<string name="type.cuisine.burger">Hampurilaiset</string>
 	<string name="type.cuisine.buschenschank">Viinitaverna</string>
 	<string name="type.cuisine.cake">Kakku</string>
 	<string name="type.cuisine.caribbean">Karibialainen keittiö</string>
@@ -1010,22 +1021,22 @@
 	<string name="type.cuisine.italian_pizza">Italialainen, pizza</string>
 	<string name="type.cuisine.japanese">Japanilainen keittiö</string>
 	<string name="type.cuisine.kebab">Kebab</string>
-	<string name="type.cuisine.korean">Korealainen</string>
+	<string name="type.cuisine.korean">Korealainen keittiö</string>
 	<string name="type.cuisine.lao">Laosilainen keittiö</string>
 	<string name="type.cuisine.lebanese">Libanonilainen keittiö</string>
 	<string name="type.cuisine.local">Paikallinen keittiö</string>
 	<string name="type.cuisine.malagasy">Madagaskarilainen keittiö</string>
 	<string name="type.cuisine.malaysian">Malesialainen keittiö</string>
-	<string name="type.cuisine.mediterranean">Välimeren keittiö keittiö</string>
+	<string name="type.cuisine.mediterranean">Välimeren keittiö</string>
 	<string name="type.cuisine.mexican">Meksikolainen keittiö</string>
 	<string name="type.cuisine.moroccan">Marokkolainen keittiö</string>
-	<string name="type.cuisine.noodles">Nuudeli</string>
+	<string name="type.cuisine.noodles">Nuudelit</string>
 	<string name="type.cuisine.oriental">Itämainen keittiö</string>
 	<string name="type.cuisine.pancake">Lettu</string>
 	<string name="type.cuisine.pasta">Pasta</string>
 	<string name="type.cuisine.persian">Persialainen keittiö</string>
 	<string name="type.cuisine.peruvian">Perulainen keittiö</string>
-	<string name="type.cuisine.pizza">Pitsa</string>
+	<string name="type.cuisine.pizza">Pizza</string>
 	<string name="type.cuisine.polish">Puolalainen keittiö</string>
 	<string name="type.cuisine.portuguese">Portugalilainen keittiö</string>
 	<string name="type.cuisine.ramen">Ramen</string>
@@ -1043,9 +1054,10 @@
 	<string name="type.cuisine.tea">Tee</string>
 	<string name="type.cuisine.thai">Thaimaalainen keittiö</string>
 	<string name="type.cuisine.turkish">Turkkilainen keittiö</string>
-	<string name="type.cuisine.vegan">Vegaani keittiö</string>
-	<string name="type.cuisine.vegetarian">Kasvis keittiö</string>
+	<string name="type.cuisine.vegan">Vegaanikeittiö</string>
+	<string name="type.cuisine.vegetarian">Kasviskeittiö</string>
 	<string name="type.cuisine.vietnamese">Vietnamilainen keittiö</string>
+	<string name="type.emergency">Hätätila</string>
 	<string name="type.emergency.defibrillator">Defibrillaattori</string>
 	<string name="type.emergency.fire_hydrant">Paloposti</string>
 	<string name="type.emergency.phone">Hätäpuhelin</string>
@@ -1053,7 +1065,7 @@
 	<string name="type.entrance">Sisäänkäynti</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Pääsisäänkäynti</string>
-	<string name="type.entrance.exit">Poistu</string>
+	<string name="type.entrance.exit">Ulos</string>
 	<string name="type.healthcare.laboratory">Lääketieteellinen laboratorio</string>
 	<string name="type.healthcare.physiotherapist">Fysioterapeutti</string>
 	<string name="type.healthcare.alternative">Vaihtoehtoinen lääketiede</string>
@@ -1066,77 +1078,83 @@
 	<string name="type.healthcare.speech_therapist">Logopedia</string>
 
 	<!-- SECTION: Types: Roads -->
+	<string name="type.highway">Valtatie</string>
+	<string name="type.highway.bridleway">Ratsastustie</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">Silta</string>
+	<string name="type.highway.bridleway.permissive">Ratsastustie</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunneli</string>
-	<string name="type.highway.busway">Oma bussitie</string>
+	<string name="type.highway.busway">Busseille varattu tie</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.busway.bridge">Silta</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.busway.tunnel">Tunneli</string>
 	<string name="type.highway.bus_stop">Bussipysäkki</string>
 	<string name="type.highway.construction">Rakenteilla oleva tie</string>
+	<string name="type.highway.cycleway">Pyörätie</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.cycleway.bridge">Silta</string>
+	<string name="type.highway.cycleway.permissive">Pyörätie</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.cycleway.tunnel">Tunneli</string>
+	<string name="type.highway.elevator">Hissi</string>
 	<string name="type.highway.footway">Polku</string>
 	<string name="type.highway.footway.alpine_hiking">Polku</string>
-	<string name="type.highway.footway.area">Polku</string>
+	<string name="type.highway.footway.area">Jalankulkualue</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.footway.bridge">Silta</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Polku</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Polku</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Polku</string>
-	<string name="type.highway.footway.hiking">Polku</string>
-	<string name="type.highway.footway.mountain_hiking">Polku</string>
+	<string name="type.highway.footway.bridge">Jalankulkusilta</string>
+	<string name="type.highway.footway.demanding_alpine_hiking">Vaativa alppivaellus</string>
+	<string name="type.highway.footway.demanding_mountain_hiking">Vaativa vuoristovaellus</string>
+	<string name="type.highway.footway.difficult_alpine_hiking">Vaikea alppivaellus</string>
+	<string name="type.highway.footway.hiking">Vaellus</string>
+	<string name="type.highway.footway.mountain_hiking">Vuoristovaellus</string>
 	<string name="type.highway.footway.permissive">Polku</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.footway.tunnel">Tunneli</string>
+	<string name="type.highway.footway.tunnel">Jalankulkutunneli</string>
 	<string name="type.highway.ford">Kahluupaikka</string>
-	<string name="type.highway.living_street">Katu</string>
+	<string name="type.highway.living_street">Asuinkatu</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.living_street.bridge">Silta</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.living_street.tunnel">Tunneli</string>
-	<string name="type.highway.motorway">Katu</string>
+	<string name="type.highway.motorway">Moottoritie</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.motorway.bridge">Silta</string>
+	<string name="type.highway.motorway.bridge">Moottoritiesilta</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.motorway.tunnel">Tunneli</string>
+	<string name="type.highway.motorway.tunnel">Moottoritietunneli</string>
 	<string name="type.highway.motorway_junction">Poistumistie</string>
-	<string name="type.highway.motorway_link">Katu</string>
+	<string name="type.highway.motorway_link">Mottoritieramppi</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.motorway_link.bridge">Silta</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Tunneli</string>
 	<string name="type.highway.path">Polku</string>
-	<string name="type.highway.path.alpine_hiking">Polku</string>
-	<string name="type.highway.path.bicycle">Polku</string>
+	<string name="type.highway.path.alpine_hiking">Alppivaellus</string>
+	<string name="type.highway.path.bicycle">Pyörä- ja jalkatie</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Silta</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Polku</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Polku</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Polku</string>
-	<string name="type.highway.path.hiking">Polku</string>
-	<string name="type.highway.path.horse">Polku</string>
-	<string name="type.highway.path.mountain_hiking">Polku</string>
+	<string name="type.highway.path.demanding_alpine_hiking">Vaativa alppivaellus</string>
+	<string name="type.highway.path.demanding_mountain_hiking">Vaativa vuoristovaellus</string>
+	<string name="type.highway.path.difficult_alpine_hiking">Vaikea alppivaellus</string>
+	<string name="type.highway.path.hiking">Vaellus</string>
+	<string name="type.highway.path.horse">Ratsastuspolku</string>
+	<string name="type.highway.path.mountain_hiking">Vuoristovaellus</string>
 	<string name="type.highway.path.permissive">Polku</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Tunneli</string>
-	<string name="type.highway.pedestrian">Katu</string>
-	<string name="type.highway.pedestrian.area">Katu</string>
+	<string name="type.highway.pedestrian">Jalankulkutie</string>
+	<string name="type.highway.pedestrian.area">Jalankulkualue</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.pedestrian.bridge">Silta</string>
+	<string name="type.highway.pedestrian.bridge">Jalankulkusilta</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.pedestrian.tunnel">Tunneli</string>
-	<string name="type.highway.primary">Katu</string>
+	<string name="type.highway.pedestrian.tunnel">Jalankulkutunneli</string>
+	<string name="type.highway.primary">Pääkatu</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.primary.bridge">Silta</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.primary.tunnel">Tunneli</string>
-	<string name="type.highway.primary_link">Katu</string>
+	<string name="type.highway.primary_link">Pääkatu</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.primary_link.bridge">Silta</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1166,16 +1184,17 @@
 	<string name="type.highway.secondary_link.bridge">Silta</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.secondary_link.tunnel">Tunneli</string>
-	<string name="type.highway.service">Katu</string>
-	<string name="type.highway.service.area">Katu</string>
+	<string name="type.highway.service">Huoltotie</string>
+	<string name="type.highway.service.area">Huoltotie</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.service.bridge">Silta</string>
-	<string name="type.highway.service.driveway">Katu</string>
-	<string name="type.highway.service.parking_aisle">Katu</string>
+	<string name="type.highway.service.driveway">Ajotie</string>
+	<string name="type.highway.service.parking_aisle">Pysäköintikäytävä</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.service.tunnel">Tunneli</string>
+	<string name="type.highway.service.tunnel">Huoltotunneli</string>
+	<string name="type.highway.services">Palvelualue</string>
 	<string name="type.highway.speed_camera">Nopeusvalvontakamera</string>
-	<string name="type.highway.steps">Polku</string>
+	<string name="type.highway.steps">Portaat</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.steps.bridge">Silta</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1204,12 +1223,12 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunneli</string>
 	<string name="type.highway.traffic_signals">Liikennevalot</string>
-	<string name="type.highway.trunk">Katu</string>
+	<string name="type.highway.trunk">Päätie</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.trunk.bridge">Silta</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.trunk.tunnel">Tunneli</string>
-	<string name="type.highway.trunk_link">Katu</string>
+	<string name="type.highway.trunk_link">Päätien ramppi</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.trunk_link.bridge">Silta</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1222,18 +1241,18 @@
 	<string name="type.highway.unclassified.tunnel">Tunneli</string>
 	<string name="type.area_highway.cycleway">Pyörätie</string>
 	<string name="type.area_highway.footway">Kävelytie</string>
-	<string name="type.area_highway.living_street">Katu</string>
+	<string name="type.area_highway.living_street">Asuinkatu</string>
 	<string name="type.area_highway.motorway">Moottoritie</string>
 	<string name="type.area_highway.path">Polku</string>
 	<string name="type.area_highway.pedestrian">Kävelykatu</string>
-	<string name="type.area_highway.primary">Katu</string>
+	<string name="type.area_highway.primary">Pääkatu</string>
 	<string name="type.area_highway.residential">Katu</string>
 	<string name="type.area_highway.secondary">Katu</string>
-	<string name="type.area_highway.service">Katu</string>
+	<string name="type.area_highway.service">Huoltotie</string>
 	<string name="type.area_highway.tertiary">Katu</string>
 	<string name="type.area_highway.steps">Portaat</string>
 	<string name="type.area_highway.track">Katu</string>
-	<string name="type.area_highway.trunk">Katu</string>
+	<string name="type.area_highway.trunk">Päätie</string>
 	<string name="type.area_highway.unclassified">Katu</string>
 
 	<!-- SECTION: Types: Historic -->
@@ -1242,8 +1261,8 @@
 	<string name="type.historic.battlefield">Taistelukenttä</string>
 	<string name="type.historic.boundary_stone">Rajamerkki</string>
 	<string name="type.historic.castle">Linna</string>
-	<string name="type.historic.castle.castrum">Castra</string>
-	<string name="type.historic.castle.defensive">Linna</string>
+	<string name="type.historic.castle.castrum">Roomalaisleiri</string>
+	<string name="type.historic.castle.defensive">Linnake</string>
 	<string name="type.historic.castle.fortified_church">Linnoitettu kirkko</string>
 	<string name="type.historic.castle.fortress">Linnoitus</string>
 	<string name="type.historic.castle.hillfort">Linnavuori</string>
@@ -1251,40 +1270,64 @@
 	<string name="type.historic.castle.manor">Kartano</string>
 	<string name="type.historic.castle.palace">Palatsi</string>
 	<string name="type.historic.castle.shiro">Japanilainen linna</string>
-	<string name="type.historic.castle.stately">Linna</string>
+	<string name="type.historic.castle.stately">Arvokas linna</string>
 	<string name="type.historic.city_gate">Kaupungin portti</string>
 	<string name="type.historic.citywalls">Kaupungin muuri</string>
-	<string name="type.historic.fort">Fort</string>
-	<string name="type.historic.gallows">Sappeja</string>
+	<string name="type.historic.fort">Linnake</string>
+	<string name="type.historic.gallows">Hirsipuu</string>
 	<string name="type.historic.memorial">Muistomerkki</string>
 	<string name="type.historic.memorial.cross">Muistoristi</string>
-	<string name="type.historic.memorial.plaque">Muistomerkki</string>
-	<string name="type.historic.memorial.sculpture">Muistomerkki</string>
-	<string name="type.historic.memorial.statue">Muistomerkki</string>
+	<string name="type.historic.memorial.plaque">Muistolaatta</string>
+	<string name="type.historic.memorial.sculpture">Veistos</string>
+	<string name="type.historic.memorial.statue">Patsas</string>
 	<string name="type.historic.memorial.stolperstein">Kompastuskivet</string>
 	<string name="type.historic.memorial.war_memorial">Sotamuistomerkki</string>
 	<string name="type.historic.monument">Monumentti</string>
 	<string name="type.historic.pillory">Häpeäpaalu</string>
 	<string name="type.historic.ruins">Rauniot</string>
-	<string name="type.historic.ship">Nähtävyydet</string>
-	<string name="type.historic.tomb">Nähtävyydet</string>
+	<string name="type.historic.ship">Alus</string>
+	<string name="type.historic.tomb">Hautakammio</string>
 	<string name="type.historic.wayside_cross">Tienvarren risti</string>
 	<string name="type.historic.wayside_shrine">Tienvarren pyhäkkö</string>
+	<string name="type.junction">Risteys</string>
+	<string name="type.junction.circular">Liikenneympyrä</string>
+	<string name="type.junction.roundabout">Liikenneympyrä</string>
+	<string name="type.landuse">Maankäyttö</string>
+	<string name="type.landuse.allotments">Siirtolapuutarha</string>
 	<string name="type.landuse.basin">Vesisäiliö</string>
+	<string name="type.landuse.brownfield">Tuhoalue</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Hautausmaa</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
-	<string name="type.landuse.cemetery.christian">Hautausmaa</string>
+	<string name="type.landuse.cemetery.christian">Kristillinen hautausmaa</string>
 	<string name="type.landuse.churchyard">Kirkon piha</string>
+	<string name="type.landuse.commercial">Kaupallinen alue</string>
+	<string name="type.landuse.construction">Rakennustyömaa</string>
+	<string name="type.landuse.education">Koulutuslaitos</string>
+	<string name="type.landuse.farm">Maatila</string>
 	<string name="type.landuse.farmland">Maatalousmaa</string>
+	<string name="type.landuse.farmyard">Maatila</string>
+	<string name="type.landuse.field">Kenttä</string>
 	<string name="type.landuse.forest">Metsä</string>
-	<string name="type.landuse.forest.coniferous">Metsä</string>
-	<string name="type.landuse.forest.deciduous">Metsä</string>
-	<string name="type.landuse.forest.mixed">Metsä</string>
+	<string name="type.landuse.forest.coniferous">Havumetsä</string>
+	<string name="type.landuse.forest.deciduous">Lehtimetsä</string>
+	<string name="type.landuse.forest.mixed">Sekametsä</string>
+	<string name="type.landuse.garages">Autotallit</string>
 	<string name="type.landuse.grass">Ruohikko</string>
+	<string name="type.landuse.greenfield">Vihreä kenttä</string>
+	<string name="type.landuse.greenhouse_horticulture">Kasvihuone</string>
+	<string name="type.landuse.industrial">Teollisuusalue</string>
 	<string name="type.landuse.landfill">Kaatopaikka</string>
+	<string name="type.landuse.meadow">Niitty</string>
+	<string name="type.landuse.military">Sotilasalue</string>
+	<string name="type.landuse.orchard">Hedelmätarha</string>
+	<string name="type.landuse.quarry">Louhos</string>
 	<string name="type.landuse.railway">Rautatierakennukset</string>
-	<string name="type.landuse.reservoir">Vesi</string>
+	<string name="type.landuse.recreation_ground">Virkistysalue</string>
+	<string name="type.landuse.reservoir">Vesiallas</string>
+	<string name="type.landuse.residential">Asuinalue</string>
+	<string name="type.landuse.retail">Kauppa-alue</string>
+	<string name="type.landuse.salt_pond">Suolalampi</string>
 	<string name="type.leisure.dog_park">Koirien ulkoilupaikka</string>
 	<string name="type.leisure.fitness_centre">Kuntosali</string>
 	<string name="type.leisure.fitness_station">Kuntokeskus</string>
@@ -1739,7 +1782,7 @@
 	<string name="type.shop.pet_grooming">Lemmikkieläinten hoito</string>
 	<string name="type.shop.photo">Valokuvakauppa</string>
 	<string name="type.shop.seafood">Kalakauppias</string>
-	<string name="type.shop.second_hand">Second Hand Store</string>
+	<string name="type.shop.second_hand">Käytetyn tavaran liike</string>
 	<string name="type.shop.shoes">Kenkäkauppa</string>
 	<string name="type.shop.sports">Urheilukauppa</string>
 	<string name="type.shop.stationery">Kirjoitustarvikekauppa</string>
