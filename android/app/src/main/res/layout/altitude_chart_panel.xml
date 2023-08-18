@@ -1,71 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/altitude_chart_panel"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_weight="1"
-    android:layout_marginBottom="@dimen/altitude_chart_margin_bottom"
-    android:layout_marginTop="@dimen/altitude_chart_margin_top"
+    android:layout_marginBottom="@dimen/margin_half"
+    android:layout_marginTop="@dimen/margin_half"
     android:paddingStart="@dimen/altitude_chart_container_padding_left"
     android:paddingEnd="@dimen/altitude_chart_container_padding_left"
+    android:orientation="vertical"
     tools:showIn="@layout/fragment_routing">
 
-    <TextView
-      android:id="@+id/time"
-      android:layout_width="wrap_content"
-      android:layout_marginBottom="@dimen/margin_half"
-      android:layout_marginEnd="@dimen/margin_half"
-      android:maxLines="2"
-      android:ellipsize="end"
-      android:layout_alignParentStart="true"
-      android:orientation="horizontal"
-      android:layout_toStartOf="@id/altitude_difference"
-      android:layout_height="wrap_content"
-      tools:text="5 h 55 min • 1555km"
-      tools:visibility="visible" />
-
-    <TextView
-      android:id="@+id/altitude_difference"
-      android:layout_width="wrap_content"
-      android:layout_height="@dimen/altitude_chart_time_distance_height"
-      android:layout_marginBottom="@dimen/margin_half"
-      android:layout_marginStart="@dimen/margin_half"
-      android:textAppearance="@style/MwmTextAppearance.Body3"
-      android:fontFamily="@string/robotoMedium"
-      android:textColor="?colorAccent"
-      android:layout_gravity="end"
-      android:gravity="center"
-      android:layout_alignParentEnd="true"
-      android:visibility="gone"
-      tools:text="43 m"
-      tools:visibility="visible" />
-
-    <ImageView
-      android:id="@+id/altitude_chart"
-      android:layout_alignParentStart="true"
-      android:layout_below="@id/time"
-      android:layout_toStartOf="@id/start"
-      android:layout_height="wrap_content"
+    <LinearLayout
+      android:id="@+id/time_elevation_line"
       android:layout_width="match_parent"
-      android:layout_marginTop="@dimen/margin_half"
-      android:layout_marginBottom="@dimen/margin_half"
-      android:layout_marginEnd="@dimen/margin_half" />
-
-    <Button
-      android:id="@+id/start"
-      style="@style/MwmWidget.Button.Primary"
-      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:minWidth="@dimen/start_button_width"
-      android:layout_marginStart="@dimen/margin_half"
+      android:orientation="horizontal"
       android:layout_marginTop="@dimen/margin_half"
-      android:text="@string/p2p_start"
-      tools:showIn="@layout/menu_route_plan_line"
-      android:layout_gravity="center_vertical"
-      android:layout_below="@id/altitude_difference"
-      android:layout_alignParentEnd="true"
-      android:layout_centerVertical="true" />
-</RelativeLayout>
+      android:layout_marginBottom="@dimen/margin_half">
+        <TextView
+          android:id="@+id/time"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:maxLines="2"
+          android:ellipsize="end"
+          tools:text="5 h 55 min • 1555km"
+          tools:visibility="visible" />
+
+        <TextView
+          android:id="@+id/altitude_difference"
+          android:layout_width="wrap_content"
+          android:layout_height="@dimen/altitude_chart_time_distance_height"
+          android:textAppearance="@style/MwmTextAppearance.Body3"
+          android:fontFamily="@string/robotoMedium"
+          android:textColor="?colorAccent"
+          android:layout_gravity="end"
+          android:gravity="center"
+          android:visibility="gone"
+          tools:text="↗ 43 m ↘ 88 m"
+          tools:visibility="visible" />
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:gravity="center_vertical" >
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:layout_weight="1">
+            <ImageView
+              android:id="@+id/altitude_chart"
+              android:layout_height="wrap_content"
+              android:layout_width="match_parent" />
+            <TextView
+              android:id="@+id/time_vehicle"
+              android:layout_height="wrap_content"
+              android:layout_width="match_parent"
+              android:maxLines="2"
+              android:ellipsize="end"
+              tools:text="5 h 55 min • 1555km"
+              tools:visibility="visible" />
+        </LinearLayout>
+
+        <Button
+          android:id="@+id/start"
+          style="@style/MwmWidget.Button.Primary"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_weight="0"
+          android:layout_marginStart="@dimen/margin_half"
+          android:minWidth="@dimen/start_button_width"
+          android:text="@string/p2p_start"
+          tools:showIn="@layout/menu_route_plan_line"
+          android:layout_gravity="center_vertical" />
+    </LinearLayout>
+</LinearLayout>

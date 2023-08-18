@@ -50,6 +50,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
   @NonNull
   private final Activity mContext;
   @NonNull
+  private final View mTimeElevationLine;
+  @NonNull
   private final View mAltitudeChartFrame;
   @NonNull
   private final View mTransitFrame;
@@ -63,6 +65,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
   private final TextView mTime;
   @NonNull
   private final TextView mAltitudeDifference;
+  @NonNull
+  private final TextView mTimeVehicle;
   @Nullable
   private final TextView mArrival;
   @NonNull
@@ -84,17 +88,20 @@ final class RoutingBottomMenuController implements View.OnClickListener
                                                  @Nullable RoutingBottomMenuListener listener)
   {
     View altitudeChartFrame = getViewById(activity, frame, R.id.altitude_chart_panel);
+    View timeEleveationLine = getViewById(activity, frame, R.id.time_elevation_line);
     View transitFrame = getViewById(activity, frame, R.id.transit_panel);
     TextView error = (TextView) getViewById(activity, frame, R.id.error);
     Button start = (Button) getViewById(activity, frame, R.id.start);
     ImageView altitudeChart = (ImageView) getViewById(activity, frame, R.id.altitude_chart);
     TextView time = (TextView) getViewById(activity, frame, R.id.time);
+    TextView timeVehicle = (TextView) getViewById(activity, frame, R.id.time_vehicle);
     TextView altitudeDifference = (TextView) getViewById(activity, frame, R.id.altitude_difference);
     TextView arrival = (TextView) getViewById(activity, frame, R.id.arrival);
     View actionFrame = getViewById(activity, frame, R.id.routing_action_frame);
 
-    return new RoutingBottomMenuController(activity, altitudeChartFrame, transitFrame, error, start, altitudeChart,
-                                           time, altitudeDifference, arrival, actionFrame, listener);
+    return new RoutingBottomMenuController(activity, altitudeChartFrame, timeEleveationLine, transitFrame,
+                                           error, start, altitudeChart, time, altitudeDifference,
+                                           timeVehicle, arrival, actionFrame, listener);
   }
 
   @NonNull
@@ -107,24 +114,28 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   private RoutingBottomMenuController(@NonNull Activity context,
                                       @NonNull View altitudeChartFrame,
+                                      @NonNull View timeEleveationLine,
                                       @NonNull View transitFrame,
                                       @NonNull TextView error,
                                       @NonNull Button start,
                                       @NonNull ImageView altitudeChart,
                                       @NonNull TextView time,
                                       @NonNull TextView altitudeDifference,
+                                      @NonNull TextView timeVehicle,
                                       @Nullable TextView arrival,
                                       @NonNull View actionFrame,
                                       @Nullable RoutingBottomMenuListener listener)
   {
     mContext = context;
     mAltitudeChartFrame = altitudeChartFrame;
+    mTimeElevationLine = timeEleveationLine;
     mTransitFrame = transitFrame;
     mError = error;
     mStart = start;
     mAltitudeChart = altitudeChart;
     mTime = time;
     mAltitudeDifference = altitudeDifference;
+    mTimeVehicle = timeVehicle;
     mArrival = arrival;
     mActionFrame = actionFrame;
     mActionMessage = actionFrame.findViewById(R.id.tv__message);
@@ -312,9 +323,11 @@ final class RoutingBottomMenuController implements View.OnClickListener
   {
     if (RoutingController.get().isVehicleRouterType())
     {
-      UiUtils.hide(mAltitudeChart, mAltitudeDifference);
+      UiUtils.hide(mTimeElevationLine, mAltitudeChart);
       return;
     }
+
+    UiUtils.hide(mTimeVehicle);
 
     int chartWidth = UiUtils.dimen(mContext, R.dimen.altitude_chart_image_width);
     int chartHeight = UiUtils.dimen(mContext, R.dimen.altitude_chart_image_height);
@@ -337,13 +350,21 @@ final class RoutingBottomMenuController implements View.OnClickListener
     final RoutingInfo rinfo = RoutingController.get().getCachedRoutingInfo();
     if (rinfo == null)
     {
-      UiUtils.hide(mTime);
-      UiUtils.hide(mAltitudeDifference);
+      UiUtils.hide(mTimeElevationLine, mTimeVehicle);
       return;
     }
 
     Spanned spanned = makeSpannedRoutingDetails(mContext, rinfo);
-    mTime.setText(spanned);
+    if (RoutingController.get().isVehicleRouterType())
+    {
+      UiUtils.show(mTimeVehicle);
+      mTimeVehicle.setText(spanned);
+    }
+    else
+    {
+      UiUtils.show(mTimeElevationLine);
+      mTime.setText(spanned);
+    }
 
     if (mArrival != null)
     {
