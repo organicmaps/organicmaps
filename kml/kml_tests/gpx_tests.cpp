@@ -240,10 +240,12 @@ d5
   </desc>
   <cmt>c4</cmt>
  </wpt>
+ <wpt lat="1" lon="2"><name>5</name><cmt>qqq</cmt><desc>qqq</desc></wpt>
 )";
   kml::FileData const dataFromText = loadGpxFromString(input);
   TEST_EQUAL("d1", dataFromText.m_bookmarksData[0].m_description.at(kml::kDefaultLang), ());
   TEST_EQUAL("d2\n\nc2", dataFromText.m_bookmarksData[1].m_description.at(kml::kDefaultLang), ());
   TEST_EQUAL("c3", dataFromText.m_bookmarksData[2].m_description.at(kml::kDefaultLang), ());
   TEST_EQUAL("d4\nd5\n\nc4", dataFromText.m_bookmarksData[3].m_description.at(kml::kDefaultLang), ());
+  TEST_EQUAL("qqq", dataFromText.m_bookmarksData[4].m_description.at(kml::kDefaultLang), ());
 }

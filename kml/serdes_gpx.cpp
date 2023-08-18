@@ -349,6 +349,8 @@ std::string GpxParser::BuildDescription()
     return m_comment;
   else if (m_comment.empty())
     return m_description;
+  else if (m_description == m_comment)
+    return m_description;
   return m_description + "\n\n" + m_comment;
 }
 
