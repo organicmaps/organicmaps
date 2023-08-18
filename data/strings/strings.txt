@@ -26907,7 +26907,7 @@
     en = Map data from OpenStreetMap
     af = Kaartdata vanad OpenStreetMap
     ar = بيانات الخريطة من خريطة الشارع المفتوحة
-    be = Дадзеныя карты з OpenStreetMap
+    be = Даныя карты з OpenStreetMap
     bg = Картографски данни от OpenStreetMap
     ca = Dades del mapa de l'OpenStreetMap
     cs = Mapová data z OpenStreetMap
