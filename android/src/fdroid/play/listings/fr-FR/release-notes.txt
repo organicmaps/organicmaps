@@ -1,10 +1,13 @@
-• Actualisation des données OpenStreetMap au 10 juillet 2023
-• Correction de plusieurs plantages
-• Support de l'altitude, OsmAnd, et des couleurs Garmin dans l'import des trajets GPX
-• Correction du temps d'arrivée estimé pour les grandes pentes en trajet piéton
-• Le bouton Partage a été déplacé sur l'écran Emplacements
-• Ajout de nouveaux magasins et types d'événements
-• Amélioration du rendu des tunnels d'eau et ponts
-• Ajout de plus de types de voies ferroviaires
+• New OpenStreetMap data as of August 14
+• Fresh Wikipedia articles
+• Fixed search for addresses in Czech and Slovakia
+• Added missing isolines for some regions of Argentina, Chile, Kazakhstan, Tibet, USA, Russia
+• More dense isolines in some areas
+• Fixed bug on Nexus 5X
+• Added ferry routes to the World map
+• Redesigned parking icons
+• Revamped priorities system for POIs
+• Many other smaller enhancements and bug fixes
+• Faster, improved search and routing
 
-…Plus sur : omaps.org/news
+…more: omaps.org/news

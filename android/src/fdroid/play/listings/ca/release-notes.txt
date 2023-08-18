@@ -1,14 +1,10 @@
-• Fresh OpenStreetMap data as of July 10, 2023
-• Fixed several crashes
-• Support altitude, OsmAnd and Garmin colors in imported GPX tracks
-• Fixed pedestrian ETA for big slopes
-• Better car routing
-• Improved search ranking
-• Share button has been moved to the Place Page
-• Updated many translations
-• Added new shops and event venues types
-• Improved water tunnels and bridges rendering
-• More detailed railways
-• Added boundary=protected_area
+• Dades de l'OpenStreetMap actualitzades al 14 d'agost
+• Publicacions de la Viquipèdia més recents
+• S'ha corregit la cerca en adreces de la República Txeca i Eslovàquia
+• S'ha afegit informació faltant per a algunes regions d'Argentina, Xile, Casaquistan, Tibet, USA i Rússia
+• Informació més detallada d'algunes àrees
+• S'han afegit rutes en ferri al mapa mundial
+• S'ha redissenyat la icona del pàrquing
+• Sistema de prioritats renovat per als PDI
 
-…more: omaps.org/news
+…més informació: omaps.org/news

@@ -1,14 +1,11 @@
-• Fresh OpenStreetMap data as of July 10, 2023
-• Fixed several crashes
-• Support altitude, OsmAnd and Garmin colors in imported GPX tracks
-• Fixed pedestrian ETA for big slopes
-• Better car routing
-• Improved search ranking
-• Share button has been moved to the Place Page
-• Updated many translations
-• Added new shops and event venues types
-• Improved water tunnels and bridges rendering
-• More detailed railways
-• Added boundary=protected_area
+• OpenStreetMap-en datu berriak abuztuaren 14tik aurrera
+• Wikipediako artikulu berriak
+• Txekia eta Eslovakiako helbideen konponketa
+• Argentina, Txile, Kazakhstan, Tibet, AEB, Errusia eskualde batzuetarako falta diren isolineak gehitu dira
+• Zona batzuetan isolinea trinkoagoak
+• Nexus 5X-n akatsa konpondu da
+• Ferry-bideak gehitu dira Munduko mapan
+• Aparkalekuen ikonoak birmoldatuak
+• Interesgune edo POIentzako lehentasunen sistema berritua
 
-…more: omaps.org/news
+…Xehetasun gehiago: omaps.org/news

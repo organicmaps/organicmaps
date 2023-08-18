@@ -1,14 +1,12 @@
-• Fresh OpenStreetMap data as of July 10, 2023
-• Fixed several crashes
-• Support altitude, OsmAnd and Garmin colors in imported GPX tracks
-• Fixed pedestrian ETA for big slopes
-• Better car routing
-• Improved search ranking
-• Share button has been moved to the Place Page
-• Updated many translations
-• Added new shops and event venues types
-• Improved water tunnels and bridges rendering
-• More detailed railways
-• Added boundary=protected_area
+• Dane OpenStreetMap z 14 sierpnia
+• Aktualne artykuły Wikipedii
+• Poprawione wyszukiwanie adresów w Czechach i Słowacji
+• Dodane brakujące izolinie w części regionów Argentyny, Chile, Kazachstanu, Tybetu, USA, Rosji
+• Gęstsze izolinie na niektórych obszarach
+• Naprawiony błąd z Nexus 5X
+• Trasy promów dodane do mapy świata
+• Przeprojektowane ikony parkingów
+• Przebudowany system priorytetów dla punktów POI
+• Szybsze, ulepszone wyszukiwanie i wyznaczanie tras
 
-…more: omaps.org/news
+…więcej: omaps.org/pl/news

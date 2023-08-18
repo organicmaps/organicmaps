@@ -1,27 +1,41 @@
-• Нові дані OSM станом на 10 липня 2023 р.
-• Імпортовані GPX треки підтримують висоти та кольорові схеми OSMand та Garmin
-• Відображення координат у форматах Open Location Code (OLC), UTM, MRGS та OpenStreetMap.org при натисканні на координати та при копіюванні при довгому натисканні
-• Виправлено падіння при відображенні великих обʼєктів
-• Виправлення відображення та редагування опису для списка міток
-• Пришвидшення завантаження міток та треків
-• Виправлення оцінки часу для пішоходних маршрутів із великим нахилом
-• Пріоритет третьорядних шляхів над службовими дорогами при побудові автомобільного маршруту
+• New OpenStreetMap maps data as of August 14
+• Updated more than a year old Wikipedia articles
+• Fixed Wiki text in the dark mode
+• Added missing isolines for some regions of Argentina, Chile, Kazakhstan, Tibet, USA, Russia (map sizes increased)
+• More dense isolines in many areas
+• Reduced many other map sizes
+• Import comments from GPX cmt tag
+• Treat GPX track segments as part of the singular track they belong to
+• Fixed a bug when editing social contacts
+• Dog Park can be added in the Editor
+• Updated Persian voice directions
 
-Пошук:
-• Покращення пошукових результатів
-• Виправлення типів магазинів
-• Виправлення пустих назв підчас пошуку аеропортів
+Routing
+• Updated road surface factors for car routing profile
+• Updated pedestrian routing profile for Turkey and Georgia
+• Fixed cross-mwm routing when "avoid" options are enabled
 
-Стиль:
-• Додано магазини секонд-хенд, аукціони, колекційні магазини, турнікети та виходи
-• Поверхні водяних тунелів відображаються прозорими та видимими починаючи з z15
-• Більш деталізовані типи залізничних доріг
-• Додано контури мостових конструкцій man_made-bridge
-• Додано громадські центри, конференц-зали, виставкові центри, місця проведення заходів
-• Збільшення пріоритетів для іконок магазинів
-• Додано заповідні території з тегом boundary=protected_area
+Search
+• Fixed search for addresses in Czech and Slovakia
+• Improved street matching
+• Remove Tourist Information, Place of Worship, Park, Information Board, and Tourist Map from the Sightseeings category
+• Do not filter duplicated search results except of very close bus stops
+• Better ranking when searching by category
+• Fixed search by a house name
 
-Переклади:
-• Оновлення перекладів чеською, німецькою, фінською, францюзькою, польською, шведською та турецькою мовами
+Styles
+• Added ferry routes to the World map
+• Removed square background from parking icons
+• Added separate icons for paid and private parkings
+• Made bicycle parking icon differ more from the motorcycle one
+• Updated parking entrance icon
+• Street-side and lane parkings use a smaller icon and appear later when zooming in
+• Added a motorcycle parking and parking entrance icons to the navigation mode
+• Fixed motorway=trunk links visibility in navigation mode
+• Improved motorway=trunk colors
+• Removed too small isolines at overview zoom levels
+• Added Tehran metro icon
+• Revamped priorities system, especially for POIs
+• Many other fixes and enhancements
 
-Слідкуйте за новинами на https://omaps.org/news
+Follow our news at https://omaps.org/news
