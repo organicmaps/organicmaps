@@ -1,12 +1,13 @@
-• 10 Temmuz tarihine ait yeni OpenStreetMap harita verileri
-• Birkaç çökme sorunu düzeltildi
-• İçe aktarılan GPX dosyalarında yükseklik, OsmAnd ve Garmin renkleri artık destekleniyor
-• Yüksek eğimlerdeki yaya rotalarında tahmini varış zamanı düzeltildi
-• Daha iyi araç rotaları
-• Geliştirilmiş arama
-• Paylaş düğmesi Mekan Sayfasına taşındı
-• Çeviriler güncellendi
-• Yeni mağaza ve etkinlik türleri eklendi
-• Su tünelleri ve köprüler iyileştirildi
+• New OpenStreetMap data as of August 14
+• Fresh Wikipedia articles
+• Fixed search for addresses in Czech and Slovakia
+• Added missing isolines for some regions of Argentina, Chile, Kazakhstan, Tibet, USA, Russia
+• More dense isolines in some areas
+• Fixed bug on Nexus 5X
+• Added ferry routes to the World map
+• Redesigned parking icons
+• Revamped priorities system for POIs
+• Many other smaller enhancements and bug fixes
+• Faster, improved search and routing
 
-…dahası: omaps.org/tr/news
+…more: omaps.org/news

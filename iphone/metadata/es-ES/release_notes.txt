@@ -1,30 +1,41 @@
-• Fresh OpenStreetMap data as of July 10, 2023
-• Support altitude, OsmAnd and Garmin colors in imported GPX tracks
-• Show coordinates in Open Location Code (OLC), UTM, MRGS, and OpenStreetMap.org formats on click and copy coordinates on a long tap
-• Fixed crash when rendering large objects
-• Bookmark lists descriptions are now displayed and saved properly
-• Faster loading of bookmarks and tracks
-• Fixed pedestrian ETA for big slopes
-• Prefer tertiary roads to service roads in car routing
+• New OpenStreetMap maps data as of August 14
+• Updated more than a year old Wikipedia articles
+• Fixed Wiki text in the dark mode
+• Added missing isolines for some regions of Argentina, Chile, Kazakhstan, Tibet, USA, Russia (map sizes increased)
+• More dense isolines in many areas
+• Reduced many other map sizes
+• Import comments from GPX cmt tag
+• Treat GPX track segments as part of the singular track they belong to
+• Fixed a bug when editing social contacts
+• Dog Park can be added in the Editor
+• Updated Persian voice directions
+
+Routing
+• Updated road surface factors for car routing profile
+• Updated pedestrian routing profile for Turkey and Georgia
+• Fixed cross-mwm routing when "avoid" options are enabled
 
 Search
-• Improved search results ranking
-• Fixed shop categories search
-• Fixed airport search results with empty names
+• Fixed search for addresses in Czech and Slovakia
+• Improved street matching
+• Remove Tourist Information, Place of Worship, Park, Information Board, and Tourist Map from the Sightseeings category
+• Do not filter duplicated search results except of very close bus stops
+• Better ranking when searching by category
+• Fixed search by a house name
 
 Styles
-• Improve visibility and findability of highway services and rest areas
-• Added second-hand category, auction, collectors shops, turnstile & exit
-• Fixed underwater tunnels not being visible
-• Fixed areal water tunnels being drawn over other areas
-• Major railway lines are more visible now, while minor utility/service tracks clutter the map less
-• Fixed railway-abandoned/preserved bridges
-• Added a bridge structure outline man_made-bridge
-• Added community center, conference center, exhibition center, events venue
-• Increased shop icons priority
-• Added boundary=protected_area
+• Added ferry routes to the World map
+• Removed square background from parking icons
+• Added separate icons for paid and private parkings
+• Made bicycle parking icon differ more from the motorcycle one
+• Updated parking entrance icon
+• Street-side and lane parkings use a smaller icon and appear later when zooming in
+• Added a motorcycle parking and parking entrance icons to the navigation mode
+• Fixed motorway=trunk links visibility in navigation mode
+• Improved motorway=trunk colors
+• Removed too small isolines at overview zoom levels
+• Added Tehran metro icon
+• Revamped priorities system, especially for POIs
+• Many other fixes and enhancements
 
-Translations:
-• Updated Catalan, Czech, Finnish, French, German, Italian, Polish, Spanish, Swedish, and Turkish translations
-
-Sigue nuestras noticias en https://omaps.org/news
+Follow our news at https://omaps.org/news

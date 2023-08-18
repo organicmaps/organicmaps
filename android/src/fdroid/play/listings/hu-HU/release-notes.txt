@@ -1,13 +1,11 @@
-• Friss OpenStreetMap adatok (2023. július 10)
-• Számos összeomlás javítása
-• Magasság, OsmAnd és Garmin színek támogatása az importált GPX pályákon.
-• Javított gyalogos ETA a nagy lejtők esetében
-• Jobb autós útvonaltervezés
-• Javított keresés
-• A Megosztás gomb átkerült a Hely oldalra
-• Frissített fordítások
-• Új üzletek és eseménytípusok hozzáadása
-• Javítottuk a vízi alagutak és hidak megjelenítését
-• Részletesebb vasúti típusok
+• Friss OpenStreetMap adatok (augusztus 14)
+• Friss Wikipédia cikkek 
+• Javítottuk a címek keresését Csehországban és Szlovákiában 
+• Hozzáadtuk Argentína, Chile, Kazahsztán, Tibet, USA, Oroszország egyes régióinak hiányzó határolóvonalait. 
+• Sűrűbb határolóvonalak néhány területen 
+• Javítottuk a hibát a Nexus 5X készülékeken 
+• Hozzáadtuk a kompútvonalak a világtérképhez 
+• Újraterveztük a parkolási ikonokat 
+• Gyorsabb, pontosabb keresés és útvonaltervezés 
 
-omaps.org/news
+…még több: omaps.org/hu/news

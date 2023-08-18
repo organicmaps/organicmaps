@@ -1,27 +1,41 @@
-• Neue OSM-Daten vom 10. Juli 2023
-• Unterstützung für Färbung von importierten Tracks
-• Durch Klicken auf die Koordinaten werden diese in den folgenden Formaten angezeigt: Open Location Code (OLC), UTM, MRGS, und OpenStreetMap.org, ein langes Klicken kopiert die angezeigten Koordinaten
-• Behebung eines Absturzes, wenn große Objekte angezeigt wurden
-• Beschreibungen der Lesezeichenlisten, werden jetzt angezeigt und zuverlässiger gespeichert
-• Lesezeichen und Tracks werden jetzt schneller geladen
-• Verbesserte ETA bei starken Steigungen zu Fuß
-• Kreisstraßen werden Zufahrtswegen bei der Routenfindung mit dem Auto bevorzugt
+• Neue OpenStreetMap-Kartendaten ab dem 14. August
+• Mehr als ein Jahr alte Wikipedia-Artikel aktualisiert
+• Wiki-Text im dunklen Modus korrigiert
+• Fehlende Isolinien für einige Regionen Argentiniens, Chiles, Kasachstans, Tibets, der USA und Russlands hinzugefügt (Kartengröße erhöht)
+• Dichtere Isolinien in vielen Gebieten
+• Viele andere Kartengrößen wurden verkleinert
+• Kommentare aus GPX cmt Tag importieren
+• GPX-Track-Segmente werden als Teil des einzelnen Tracks behandelt, zu dem sie gehören
+• Fehler bei der Bearbeitung von sozialen Kontakten behoben
+• Hundepark kann im Editor hinzugefügt werden
+• Persische Sprachanweisungen aktualisiert
+
+Routenplanung
+• Die Faktoren der Strassenoberfläche für das Auto-Routing-Profil wurden aktualisiert
+• Aktualisiertes Fußgänger-Routing-Profil für die Türkei und Georgien
+• Cross-MWM-Routing bei aktivierten "Vermeiden"-Optionen korrigiert
 
 Suche
-• Verbesserte Sortierung der Suchergebnisse
-• Fehlerbehebung bei der Suche nach Geschäftskategorien
-• Fehlerbehebung für Ergebnisse ohne Namen bei der Suche nach Flughäfen
+• Die Suche nach Adressen in Tschechien und der Slowakei wurde korrigiert
+• Verbesserter Straßenabgleich
+• Touristeninformation, Kultstätte, Park, Informationstafel und Touristenkarte wurden aus der Kategorie Sehenswürdigkeiten entfernt
+• Doppelte Suchergebnisse werden nicht mehr gefiltert, außer bei sehr nahen Haltestellen
+• Besseres Ranking bei der Suche nach Kategorien
+• Behobene Suche nach einem Hausnamen
 
-Aussehen
-• Neu hinzugefügt: Second-Hand Kategorie, Auktionshaus, Geschäft für Sammlerartikel und Symbol für Drehkreuz und Ausgang
-• Unterwassertunnel werden transparent und ab Zoomlevel 15 dargestellt
-• Detailliertere Bahnsstreckentypen
-• Umrisse von Brücken werden dargestellt, vorher wurden nur die Straßen angezeigt
-• Neu hinzugefügt: Gemeinschaftszentrum,  Kongresszentrum, Messegelände und Veranstaltungsgelände
-• Symbole von Läden haben eine höhere Priorität bekommen
-• Darstellung für Schutzgebiete hinzugefügt
+Stile
+• Fährenrouten zur Weltkarte hinzugefügt
+• Der quadratische Hintergrund von Parksymbolen wurde entfernt
+• Separate Icons für kostenpflichtige und private Parkplätze hinzugefügt
+• Das Fahrradparkplatz-Symbol unterscheidet sich nun deutlicher vom Motorrad-Symbol
+• Das Symbol für den Parkeingang wurde aktualisiert
+• Für Parkplätze am Straßenrand und auf Fahrspuren wird nun ein kleineres Symbol verwendet, das beim Heranzoomen später erscheint
+• Ein Motorradparkplatz• und Parkeingangssymbol wurde zum Navigationsmodus hinzugefügt
+• Die Sichtbarkeit der Autobahn-Links im Navigationsmodus wurde verbessert
+• Verbesserte Farben für Autobahn
+• Zu kleine Isolinien bei Übersichts-Zoomstufen wurden entfernt
+• Teheraner U-Bahn-Symbol hinzugefügt
+• Überarbeitetes Prioritätensystem, insbesondere für POIs
+• Viele weitere Korrekturen und Verbesserungen
 
-Übersetzung:
-• Verbesserte tschechische, finnische, französische, deutsche, italienische, polnische, schwedische, und türkische Übersetzung
-
-Bleib auf dem aktuellsten Stand unter: https://omaps.org/news
+Verfolgen Sie unsere Neuigkeiten unter https://omaps.org/de/news

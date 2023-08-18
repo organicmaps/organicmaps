@@ -1,27 +1,41 @@
-• Novos dados OpenStreetMap de 10 de julho
-• Suporte, nas trilhas GPX importadas, a altitude, e cores do OSMand e Garmin
-• Mostra coordenadas nos formatos Open Location Code (OLC), UTM, MRGS e OpenStreetMap.org ao clicar e copiar as coordenadas com um toque longo
-• Correção na falha ao renderizar objetos grandes
-• As descrições das listas de favoritos agora são exibidas e salvas corretamente
-• Carregamento mais rápido de favoritos e trilhas
-• Correção de tempo de chegada para pedestres em grandes declives
-• Roteamento de veículos dá preferência a estradas terciárias do que estradas de serviço
+• Novos dados OpenStreetMap de 14 de agosto
+• Atualização de artigos da Wikipédia com mais de um ano
+• Correção do texto da Wiki no modo escuro
+• Adição de isolinhas ausentes para algumas regiões da Argentina, Chile, Cazaquistão, EUA, Rússia e Tibete (tamanho dos mapas aumentado)
+• Isolinhas mais densas em muitas áreas
+• Redução de muitos outros mapas
+• Importação de comentários da etiqueta GPX cmt
+• Tratamento dos segmentos de trilha GPX como parte da trilha singular à qual pertencem
+• Correção de um bug ao editar contatos sociais
+• Parques Caninos podem ser adicionado no Editor
+• Atualização de direções de voz em persa
+
+Roteamento
+• Atualização de fatores de superfície da estrada para o roteamento de veículos
+• Atualização de roteamento de pedestres para Turquia e Geórgia
+• Correção do roteamento cross-mwm quando as opções "evitar" estão ativadas
 
 Busca
-• Melhoria na classificação dos resultados de pesquisa
-• Correção na busca de categorias de lojas
-• Correção nos resultados de pesquisa de aeroportos com nomes vazios
+• Correção de pesquisa de moradas na Eslováquia e República Checa
+• Melhoria na correspondência de rua
+• Remoção de Informações Turísticas, Local de Religião, Mapa Turístico, Painel de Informações e Parque da categoria Passeios Turísticos
+• Não filtragem dos resultados de pesquisa duplicados, exceto para paragens de autocarro muito próximas
+• Melhoria da classificação ao pesquisar por categoria
+• Correção de busca por um nome de casa
 
 Estilos
-• Adição de categoria de lojas de segunda mão, leilão, lojas de colecionadores, catraca e saída
-• Túneis de água aéreos transparentes e visíveis a partir do z15
-• Introdução de detalhamento nos tipos de ferrovias
-• Adição de contorno da estrutura da ponte
-• Adição de centro comunitário, centro de conferências, centro de exposições, local de eventos
-• Aumento da prioridade dos ícones da loja
-• Adição de áreas protegidas
-
-Traduções
-• Traduções atualizadas em alemão, finlandês, francês, italiano, polonês, sueco, tcheco e turco
+• Adição de rotas de balsa ao mapa do mundo
+• Remoção de fundo quadrado dos ícones de estacionamento
+• Adição de ícones distintos para estacionamentos pagos e privados
+• Diferenciação do ícone de estacionamento de bicicletas em relação ao ícone de motocicleta
+• Atualização do ícone de entrada de estacionamento
+• Uso de ícone menor para estacionamentos ao lado da rua e faixas de estacionamento, aparecendo mais tarde ao aumentar o zoom
+• Adição de ícones de estacionamento de motocicletas e de entrada de estacionamento ao modo de navegação
+• Correção de visibilidade de ligação de autoestradas no modo de navegação
+• Melhoria nas cores de autoestradas
+• Remoção de isolinhas muito pequenas nos níveis de zoom da visão geral
+• Adição de ícone do metrô de Teerão
+• Reformulação de sistema de prioridades, especialmente para POIs
+• Muitas outras correções e melhorias
 
 Acompanhe nossas novidades em https://omaps.org/news

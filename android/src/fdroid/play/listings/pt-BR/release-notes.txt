@@ -1,13 +1,13 @@
-• Novos dados OSM de 10/07
-• Correção de vários erros
-• Melhor suporte nas trilhas GPX importadas a altitude e cores
-• Correção do ETA para pedestres
-• Melhoria no roteamento de carros e na busca
-• Botão Compartilhar foi movido
-• Atualização de traduções para cz, de, fi, fr, it, pl, sv, tr
-• Adição de novas lojas e tipos de eventos
-• Melhoria na renderização de túneis de água e pontes
-• Detalhamento nos tipos de ferrovias
-• Adição de áreas protegidas
+• Novos dados OSM de 14/08
+• Artigos da Wikipédia atualizados
+• Pesquisa corrigida de endereços na Eslováquia e República Tcheca
+• Adicionado isolinhas ausentes para alguns países
+• Isolinhas mais densas em algumas áreas
+• Correção de bug no Nexus 5X
+• Adição de rotas de balsa ao mapa do mundo
+• Ícones de estacionamento redesenhados
+• Sistema de prioridades reformulado para POIs
+• Muitas outras melhorias e correções
+• Melhorias na busca e roteamento
 
-https://omaps.org/news
+…mais: omaps.org/news
