@@ -409,6 +409,7 @@
 	<string name="type.cuisine.vegan">מטבח טבעוני</string>
 	<string name="type.cuisine.vegetarian">מטבח צמחוני</string>
 	<string name="type.cuisine.vietnamese">מטבח וייטנאמי</string>
+	<string name="type.emergency.assembly_point">נקודת כינוס חירום</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">תישארה הסינכ</string>
 	<string name="type.entrance.exit">יְצִיאָה</string>
@@ -746,6 +747,7 @@
 	<string name="type.sport.field_hockey">הדש יקוה</string>
 	<string name="type.sport.badminton">תיצונ</string>
 	<string name="type.sport.pelota">תיקסאב הטלפ</string>
+	<string name="type.tourism.aquarium">אַקוַרִיוּם</string>
 	<string name="type.tourism.information">מידע לתייר</string>
 	<string name="type.tourism.information.board">לוח מידע</string>
 	<string name="type.tourism.information.guidepost">מנחה</string>

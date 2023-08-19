@@ -1899,6 +1899,8 @@
 
 "type.emergency" = "应急要素";
 
+"type.emergency.assembly_point" = "紧急集合点";
+
 "type.emergency.defibrillator" = "除颤器";
 
 "type.emergency.fire_hydrant" = "消防栓";
@@ -3634,6 +3636,8 @@
 "type.sport.pelota" = "巴斯克回力球";
 
 "type.tourism" = "旅游要素";
+
+"type.tourism.aquarium" = "水族馆";
 
 "type.tourism.alpine_hut" = "山上住宿";
 

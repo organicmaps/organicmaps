@@ -1899,6 +1899,8 @@
 
 "type.emergency" = "Hätätila";
 
+"type.emergency.assembly_point" = "Hätäkokouspiste";
+
 "type.emergency.defibrillator" = "Defibrillaattori";
 
 "type.emergency.fire_hydrant" = "Paloposti";
@@ -3634,6 +3636,8 @@
 "type.sport.pelota" = "Baskimaan pelota";
 
 "type.tourism" = "Turismi";
+
+"type.tourism.aquarium" = "Akvaario";
 
 "type.tourism.alpine_hut" = "Vuorimajoitus";
 

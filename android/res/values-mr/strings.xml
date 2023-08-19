@@ -941,6 +941,7 @@
 	<string name="type.cuisine.tea">चहा</string>
 	<string name="type.cuisine.vegetarian">शाकाहारी</string>
 	<string name="type.emergency">आणीबाणी</string>
+	<string name="type.emergency.assembly_point">आपत्कालीन विधानसभा पॉइंट</string>
 	<string name="type.emergency.defibrillator">कंपनरोधक</string>
 	<string name="type.emergency.fire_hydrant">अग्निशामक नळ</string>
 	<string name="type.emergency.phone">संकटकालीन फोन</string>
@@ -1747,6 +1748,7 @@
 	<string name="type.sport.10pin">गोलंदाजी</string>
 	<string name="type.sport.9pin">गोलंदाजी</string>
 	<string name="type.tourism">पर्यटन</string>
+	<string name="type.tourism.aquarium">मत्स्यालय</string>
 	<string name="type.tourism.apartment">सदनिका</string>
 	<string name="type.tourism.artwork">कलाकृती</string>
 	<string name="type.tourism.artwork.architecture">कलाकृती</string>

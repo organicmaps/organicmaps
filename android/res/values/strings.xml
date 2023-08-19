@@ -1103,6 +1103,7 @@
 	<string name="type.cuisine.vegetarian">Vegetarian</string>
 	<string name="type.cuisine.vietnamese">Vietnamese</string>
 	<string name="type.emergency">Emergency</string>
+	<string name="type.emergency.assembly_point">Emergency Assembly Point</string>
 	<string name="type.emergency.defibrillator">Defibrillator</string>
 	<string name="type.emergency.fire_hydrant">Fire Hydrant</string>
 	<string name="type.emergency.phone">Emergency Phone</string>
@@ -2000,6 +2001,7 @@
 	<string name="type.sport.badminton">Badminton</string>
 	<string name="type.sport.pelota">Basque Pelota</string>
 	<string name="type.tourism">Tourism</string>
+	<string name="type.tourism.aquarium">Aquarium</string>
 	<string name="type.tourism.alpine_hut">Alpine Lodging</string>
 	<string name="type.tourism.apartment">Holiday Apartment</string>
 	<string name="type.tourism.artwork">Artwork</string>

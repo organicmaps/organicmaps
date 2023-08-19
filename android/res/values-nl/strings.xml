@@ -1062,6 +1062,7 @@
 	<string name="type.cuisine.vegetarian">Vegetarisch</string>
 	<string name="type.cuisine.vietnamese">Vietnamees</string>
 	<string name="type.emergency">Noodgeval</string>
+	<string name="type.emergency.assembly_point">Verzamelpunt voor noodgevallen</string>
 	<string name="type.emergency.defibrillator">Defibrillator (AED)</string>
 	<string name="type.emergency.fire_hydrant">Brandkraan</string>
 	<string name="type.emergency.phone">Praatpaal</string>
@@ -1937,6 +1938,7 @@
 	<string name="type.sport.badminton">Badminton</string>
 	<string name="type.sport.pelota">Baskische peloton</string>
 	<string name="type.tourism">Tourisme</string>
+	<string name="type.tourism.aquarium">Aquarium</string>
 	<string name="type.tourism.alpine_hut">Berghut</string>
 	<string name="type.tourism.apartment">Appartementen</string>
 	<string name="type.tourism.artwork">Kunstwerk</string>

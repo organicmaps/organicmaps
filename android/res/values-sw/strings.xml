@@ -320,6 +320,7 @@
 	<string name="type.craft.winery">Mvinyo</string>
 	<string name="type.craft.tailor">Mshonaji nguo</string>
 	<string name="type.cuisine.coffee_shop">Kahawa</string>
+	<string name="type.emergency.assembly_point">Sehemu ya Mkutano wa Dharura</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Mlango Mkuu</string>
 	<string name="type.entrance.exit">Utgång</string>
@@ -786,6 +787,7 @@
 	<string name="type.sport.field_hockey">Hoki ya shamba</string>
 	<string name="type.sport.badminton">Badminton</string>
 	<string name="type.sport.pelota">Basque pelota</string>
+	<string name="type.tourism.aquarium">Aquarium</string>
 	<string name="type.tourism.information">Taarifa za Watalii</string>
 	<string name="type.tourism.information.board">Bodi ya habari</string>
 	<string name="type.tourism.information.guidepost">Chapisho la mwongozo</string>

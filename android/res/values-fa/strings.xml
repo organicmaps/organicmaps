@@ -875,6 +875,7 @@
 	<string name="type.craft.shoemaker">کفاش</string>
 	<string name="type.craft.winery">شراب‌خانه</string>
 	<string name="type.craft.tailor">خیاطی</string>
+	<string name="type.emergency.assembly_point">محل تجمع اضطراری</string>
 	<string name="type.emergency.defibrillator">دستگاه شوک</string>
 	<string name="type.emergency.fire_hydrant">شیر آتش‌نشانی</string>
 	<string name="type.emergency.phone">تلفن اضطراری</string>
@@ -1643,6 +1644,7 @@
 	<string name="type.sport.field_hockey">ﻦﻤﭼ ﯼﻭﺭ ﯽﮐﺎﻫ</string>
 	<string name="type.sport.badminton">ﻥﻮﺘﻨﯿﻣﺪﺑ</string>
 	<string name="type.sport.pelota">ﯽﮑﺳﺎﺑ ﯼﺎﺗﻮﻠﭘ</string>
+	<string name="type.tourism.aquarium">آکواریوم</string>
 	<string name="type.tourism.apartment">اپارتمان</string>
 	<string name="type.tourism.artwork">گردشگری</string>
 	<string name="type.tourism.artwork.architecture">گردشگری</string>

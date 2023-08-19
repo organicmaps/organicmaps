@@ -956,6 +956,7 @@
 	<string name="type.cuisine.vegan">Vegansk mat</string>
 	<string name="type.cuisine.vegetarian">Vegetarisk mat</string>
 	<string name="type.cuisine.vietnamese">Vietnamesisk mat</string>
+	<string name="type.emergency.assembly_point">Nöduppsamlingsplats</string>
 	<string name="type.emergency.fire_hydrant">Brandpost</string>
 	<string name="type.emergency.phone">Nödtelefon</string>
 	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
@@ -1719,6 +1720,7 @@
 	<string name="type.sport.field_hockey">Landhockey</string>
 	<string name="type.sport.badminton">Badminton</string>
 	<string name="type.sport.pelota">Baskisk pelota</string>
+	<string name="type.tourism.aquarium">Akvarium</string>
 	<string name="type.tourism.alpine_hut">Bergsboende</string>
 	<string name="type.tourism.apartment">Lägenheter</string>
 	<string name="type.tourism.artwork">Konstverk</string>

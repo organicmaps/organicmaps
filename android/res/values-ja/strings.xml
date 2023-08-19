@@ -989,6 +989,7 @@
 	<string name="type.cuisine.vegan">ビーガン料理</string>
 	<string name="type.cuisine.vegetarian">ベジタリアン料理</string>
 	<string name="type.cuisine.vietnamese">ベトナム料理</string>
+	<string name="type.emergency.assembly_point">緊急集合場所</string>
 	<string name="type.emergency.defibrillator">除細動器</string>
 	<string name="type.emergency.fire_hydrant">消火栓</string>
 	<string name="type.emergency.phone">緊急電話</string>
@@ -1847,6 +1848,7 @@
 	<string name="type.sport.badminton">バドミントン</string>
 	<string name="type.sport.pelota">バスクペロタ</string>
 	<string name="type.tourism">観光</string>
+	<string name="type.tourism.aquarium">水族館</string>
 	<string name="type.tourism.alpine_hut">山小屋</string>
 	<string name="type.tourism.apartment">アパート</string>
 	<string name="type.tourism.artwork">芸術</string>

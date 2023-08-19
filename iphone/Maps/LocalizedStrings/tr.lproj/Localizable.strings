@@ -1899,6 +1899,8 @@
 
 "type.emergency" = "Acil";
 
+"type.emergency.assembly_point" = "Acil Toplanma Noktası";
+
 "type.emergency.defibrillator" = "Defibrilatör";
 
 "type.emergency.fire_hydrant" = "Yangın Söndürme Musluğu";
@@ -3634,6 +3636,8 @@
 "type.sport.pelota" = "Bask pelotası";
 
 "type.tourism" = "Turizm";
+
+"type.tourism.aquarium" = "Akvaryum";
 
 "type.tourism.alpine_hut" = "Dağda Konaklama";
 

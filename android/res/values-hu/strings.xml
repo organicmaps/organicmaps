@@ -979,6 +979,7 @@
 	<string name="type.cuisine.vegan">Vegán konyha</string>
 	<string name="type.cuisine.vegetarian">Vegetáriánus konyha</string>
 	<string name="type.cuisine.vietnamese">Vietnami konyha</string>
+	<string name="type.emergency.assembly_point">Sürgősségi gyülekezési pont</string>
 	<string name="type.emergency.defibrillator">Defibrillátor</string>
 	<string name="type.emergency.fire_hydrant">Tűzcsap</string>
 	<string name="type.emergency.phone">Sürgősségi telefon</string>
@@ -1747,6 +1748,7 @@
 	<string name="type.sport.field_hockey">Gyeplabda</string>
 	<string name="type.sport.badminton">Tollaslabda</string>
 	<string name="type.sport.pelota">Baszk pelota</string>
+	<string name="type.tourism.aquarium">Akvárium</string>
 	<string name="type.tourism.alpine_hut">Hegyi menedék</string>
 	<string name="type.tourism.apartment">Apartmanok</string>
 	<string name="type.tourism.artwork">Szobor</string>

@@ -758,6 +758,7 @@
 	<string name="type.craft.key_cutter">Tall de claus</string>
 	<string name="type.craft.locksmith">Serraller</string>
 	<string name="type.shop.camera">Botiga de càmeres</string>
+	<string name="type.emergency.assembly_point">Punt de reunió d\'emergència</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Entrada principal</string>
 	<string name="type.entrance.exit">Sortida</string>
@@ -819,6 +820,7 @@
 	<string name="type.shop.agrarian">Botiga agrícola</string>
 	<string name="type.shop.appliance">Botiga d\'electrodomèstics</string>
 	<string name="type.shop.bed">Botiga de llits</string>
+	<string name="type.tourism.aquarium">Aquari</string>
 	<string name="type.waterway.fish_pass">Pas de peix</string>
 	<string name="type.shop.auction">Subhasta</string>
 	<string name="type.shop.collector">Col·leccionables</string>

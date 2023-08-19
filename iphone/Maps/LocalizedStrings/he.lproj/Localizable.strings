@@ -1899,6 +1899,8 @@
 
 "type.emergency" = "Emergency";
 
+"type.emergency.assembly_point" = "נקודת כינוס חירום";
+
 "type.emergency.defibrillator" = "Defibrillator";
 
 "type.emergency.fire_hydrant" = "Fire Hydrant";
@@ -3634,6 +3636,8 @@
 "type.sport.pelota" = "תיקסאב הטלפ";
 
 "type.tourism" = "Tourism";
+
+"type.tourism.aquarium" = "אַקוַרִיוּם";
 
 "type.tourism.alpine_hut" = "Alpine Lodging";
 

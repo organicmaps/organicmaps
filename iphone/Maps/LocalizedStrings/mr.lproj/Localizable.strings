@@ -1899,6 +1899,8 @@
 
 "type.emergency" = "आणीबाणी";
 
+"type.emergency.assembly_point" = "आपत्कालीन विधानसभा पॉइंट";
+
 "type.emergency.defibrillator" = "कंपनरोधक";
 
 "type.emergency.fire_hydrant" = "अग्निशामक नळ";
@@ -3634,6 +3636,8 @@
 "type.sport.pelota" = "Basque Pelota";
 
 "type.tourism" = "पर्यटन";
+
+"type.tourism.aquarium" = "मत्स्यालय";
 
 "type.tourism.alpine_hut" = "Alpine Lodging";
 

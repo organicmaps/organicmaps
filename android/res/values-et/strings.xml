@@ -1055,6 +1055,7 @@
 	<string name="type.cuisine.vegetarian">Taimetoit</string>
 	<string name="type.cuisine.vietnamese">Vietnami</string>
 	<string name="type.emergency">Hädaabi</string>
+	<string name="type.emergency.assembly_point">Erakorraline kogunemispunkt</string>
 	<string name="type.emergency.defibrillator">Defibrillaator</string>
 	<string name="type.emergency.fire_hydrant">Tuletõrjehüdrant</string>
 	<string name="type.emergency.phone">Hädaabi telefon</string>
@@ -1930,6 +1931,7 @@
 	<string name="type.sport.badminton">Badminton</string>
 	<string name="type.sport.pelota">Baski pelota</string>
 	<string name="type.tourism">Turism</string>
+	<string name="type.tourism.aquarium">Akvaarium</string>
 	<string name="type.tourism.alpine_hut">Mägimajutus</string>
 	<string name="type.tourism.apartment">Korterid</string>
 	<string name="type.tourism.artwork">Kunstiteos</string>

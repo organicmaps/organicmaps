@@ -1081,6 +1081,7 @@
 	<string name="type.cuisine.vegetarian">Вегетарианская кухня</string>
 	<string name="type.cuisine.vietnamese">Вьетнамская кухня</string>
 	<string name="type.emergency">Экстренная служба</string>
+	<string name="type.emergency.assembly_point">Пункт аварийного сбора</string>
 	<string name="type.emergency.defibrillator">Дефибриллятор</string>
 	<string name="type.emergency.fire_hydrant">Пожарный гидрант</string>
 	<string name="type.emergency.phone">Телефон для экстренных вызовов</string>
@@ -1960,6 +1961,7 @@
 	<string name="type.sport.badminton">Бадминтон</string>
 	<string name="type.sport.pelota">Баскская пелота</string>
 	<string name="type.tourism">Туризм</string>
+	<string name="type.tourism.aquarium">Аквариум</string>
 	<string name="type.tourism.alpine_hut">Горный отель</string>
 	<string name="type.tourism.apartment">Апартаменты</string>
 	<string name="type.tourism.artwork">Произведение искусства</string>

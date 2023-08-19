@@ -1899,6 +1899,8 @@
 
 "type.emergency" = "Emergency";
 
+"type.emergency.assembly_point" = "Điểm tập hợp khẩn cấp";
+
 "type.emergency.defibrillator" = "Máy khử rung tim";
 
 "type.emergency.fire_hydrant" = "Vòi chữa cháy";
@@ -3634,6 +3636,8 @@
 "type.sport.pelota" = "Pơ mu Basque";
 
 "type.tourism" = "Tourism";
+
+"type.tourism.aquarium" = "Bể nuôi cá";
 
 "type.tourism.alpine_hut" = "Nhà ở trên núi";
 

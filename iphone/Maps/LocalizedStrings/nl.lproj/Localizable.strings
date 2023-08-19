@@ -1899,6 +1899,8 @@
 
 "type.emergency" = "Noodgeval";
 
+"type.emergency.assembly_point" = "Verzamelpunt voor noodgevallen";
+
 "type.emergency.defibrillator" = "Defibrillator (AED)";
 
 "type.emergency.fire_hydrant" = "Brandkraan";
@@ -3634,6 +3636,8 @@
 "type.sport.pelota" = "Baskische peloton";
 
 "type.tourism" = "Tourisme";
+
+"type.tourism.aquarium" = "Aquarium";
 
 "type.tourism.alpine_hut" = "Berghut";
 

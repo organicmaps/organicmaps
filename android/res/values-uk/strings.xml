@@ -1051,6 +1051,7 @@
 	<string name="type.cuisine.vegan">Веганська кухня</string>
 	<string name="type.cuisine.vegetarian">Вегетаріанська кухня</string>
 	<string name="type.cuisine.vietnamese">В\'єтнамська кухня</string>
+	<string name="type.emergency.assembly_point">Аварійний збірний пункт</string>
 	<string name="type.emergency.defibrillator">Дефібрилятор</string>
 	<string name="type.emergency.fire_hydrant">Пожежний гідрант</string>
 	<string name="type.emergency.phone">Аварійний телефон</string>
@@ -1922,6 +1923,7 @@
 	<string name="type.sport.badminton">Бадмінтон</string>
 	<string name="type.sport.pelota">Баскська пелота</string>
 	<string name="type.tourism">Туризм</string>
+	<string name="type.tourism.aquarium">Акваріум</string>
 	<string name="type.tourism.alpine_hut">Гірський готель</string>
 	<string name="type.tourism.apartment">Апартаменти</string>
 	<string name="type.tourism.artwork">Витвір мистецтва</string>

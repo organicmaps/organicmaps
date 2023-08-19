@@ -1899,6 +1899,8 @@
 
 "type.emergency" = "Emergency";
 
+"type.emergency.assembly_point" = "Sürgősségi gyülekezési pont";
+
 "type.emergency.defibrillator" = "Defibrillátor";
 
 "type.emergency.fire_hydrant" = "Tűzcsap";
@@ -3634,6 +3636,8 @@
 "type.sport.pelota" = "Baszk pelota";
 
 "type.tourism" = "Tourism";
+
+"type.tourism.aquarium" = "Akvárium";
 
 "type.tourism.alpine_hut" = "Hegyi menedék";
 

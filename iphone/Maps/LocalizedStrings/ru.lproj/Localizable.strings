@@ -1899,6 +1899,8 @@
 
 "type.emergency" = "Экстренная служба";
 
+"type.emergency.assembly_point" = "Пункт аварийного сбора";
+
 "type.emergency.defibrillator" = "Дефибриллятор";
 
 "type.emergency.fire_hydrant" = "Пожарный гидрант";
@@ -3634,6 +3636,8 @@
 "type.sport.pelota" = "Баскская пелота";
 
 "type.tourism" = "Туризм";
+
+"type.tourism.aquarium" = "Аквариум";
 
 "type.tourism.alpine_hut" = "Горный отель";
 

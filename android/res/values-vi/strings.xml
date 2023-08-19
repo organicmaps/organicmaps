@@ -957,6 +957,7 @@
 	<string name="type.cuisine.vegan">Ẩm thực chay</string>
 	<string name="type.cuisine.vegetarian">Ẩm thực chay</string>
 	<string name="type.cuisine.vietnamese">Ẩm thực việt</string>
+	<string name="type.emergency.assembly_point">Điểm tập hợp khẩn cấp</string>
 	<string name="type.emergency.defibrillator">Máy khử rung tim</string>
 	<string name="type.emergency.fire_hydrant">Vòi chữa cháy</string>
 	<string name="type.emergency.phone">Điện thoại khẩn cấp</string>
@@ -1724,6 +1725,7 @@
 	<string name="type.sport.field_hockey">Khúc côn cầu</string>
 	<string name="type.sport.badminton">Cầu lông</string>
 	<string name="type.sport.pelota">Pơ mu Basque</string>
+	<string name="type.tourism.aquarium">Bể nuôi cá</string>
 	<string name="type.tourism.alpine_hut">Nhà ở trên núi</string>
 	<string name="type.tourism.apartment">Căn hộ</string>
 	<string name="type.tourism.artwork">Du lịch</string>
