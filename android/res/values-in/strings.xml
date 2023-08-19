@@ -956,6 +956,7 @@
 	<string name="type.cuisine.vegan">Masakan vegan</string>
 	<string name="type.cuisine.vegetarian">Masakan vegetarian</string>
 	<string name="type.cuisine.vietnamese">Masakan vietnam</string>
+	<string name="type.emergency.assembly_point">Titik Berkumpul Darurat</string>
 	<string name="type.emergency.defibrillator">Defibrilator</string>
 	<string name="type.emergency.fire_hydrant">Keran Kebakaran</string>
 	<string name="type.emergency.phone">Telepon darurat</string>
@@ -1722,6 +1723,7 @@
 	<string name="type.sport.field_hockey">Hoki Lapangan</string>
 	<string name="type.sport.badminton">Bulu tangkis</string>
 	<string name="type.sport.pelota">Basque pelota</string>
+	<string name="type.tourism.aquarium">Akuarium</string>
 	<string name="type.tourism.alpine_hut">Penginapan di pegunungan</string>
 	<string name="type.tourism.apartment">Apartemen</string>
 	<string name="type.tourism.artwork">Pariwisata</string>

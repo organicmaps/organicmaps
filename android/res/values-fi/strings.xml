@@ -1059,6 +1059,7 @@
 	<string name="type.cuisine.vegetarian">Kasviskeittiö</string>
 	<string name="type.cuisine.vietnamese">Vietnamilainen keittiö</string>
 	<string name="type.emergency">Hätätila</string>
+	<string name="type.emergency.assembly_point">Hätäkokouspiste</string>
 	<string name="type.emergency.defibrillator">Defibrillaattori</string>
 	<string name="type.emergency.fire_hydrant">Paloposti</string>
 	<string name="type.emergency.phone">Hätäpuhelin</string>
@@ -1861,6 +1862,7 @@
 	<string name="type.sport.badminton">Sulkapallo</string>
 	<string name="type.sport.pelota">Baskimaan pelota</string>
 	<string name="type.tourism">Turismi</string>
+	<string name="type.tourism.aquarium">Akvaario</string>
 	<string name="type.tourism.alpine_hut">Vuorimajoitus</string>
 	<string name="type.tourism.apartment">Loma-asunnot</string>
 	<string name="type.tourism.artwork">Taideteos</string>

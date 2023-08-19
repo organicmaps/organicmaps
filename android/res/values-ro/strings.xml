@@ -974,6 +974,7 @@
 	<string name="type.cuisine.vegan">Bucătărie vegan</string>
 	<string name="type.cuisine.vegetarian">Bucătărie vegetarian</string>
 	<string name="type.cuisine.vietnamese">Bucătărie vietnamez</string>
+	<string name="type.emergency.assembly_point">Punct de adunare de urgență</string>
 	<string name="type.emergency.defibrillator">Defibrilator</string>
 	<string name="type.emergency.fire_hydrant">Hidrant</string>
 	<string name="type.emergency.phone">Telefon de urgență</string>
@@ -1740,6 +1741,7 @@
 	<string name="type.sport.field_hockey">Hochei pe iarbă</string>
 	<string name="type.sport.badminton">Badminton</string>
 	<string name="type.sport.pelota">Pilota bascilor</string>
+	<string name="type.tourism.aquarium">Acvariu</string>
 	<string name="type.tourism.alpine_hut">Cabană de munte</string>
 	<string name="type.tourism.apartment">Apartamente</string>
 	<string name="type.tourism.artwork">Turism</string>

@@ -1010,6 +1010,7 @@
 	<string name="type.cuisine.vegetarian">素菜</string>
 	<string name="type.cuisine.vietnamese">越南菜</string>
 	<string name="type.emergency">应急要素</string>
+	<string name="type.emergency.assembly_point">紧急集合点</string>
 	<string name="type.emergency.defibrillator">除颤器</string>
 	<string name="type.emergency.fire_hydrant">消防栓</string>
 	<string name="type.emergency.phone">紧急电话</string>
@@ -1856,6 +1857,7 @@
 	<string name="type.sport.badminton">羽毛球</string>
 	<string name="type.sport.pelota">巴斯克回力球</string>
 	<string name="type.tourism">旅游要素</string>
+	<string name="type.tourism.aquarium">水族馆</string>
 	<string name="type.tourism.alpine_hut">山上住宿</string>
 	<string name="type.tourism.apartment">公寓</string>
 	<string name="type.tourism.artwork">艺术品</string>

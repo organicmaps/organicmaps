@@ -990,6 +990,7 @@
 	<string name="type.cuisine.vegan">全素料理</string>
 	<string name="type.cuisine.vegetarian">素食</string>
 	<string name="type.cuisine.vietnamese">越南料理</string>
+	<string name="type.emergency.assembly_point">緊急集合點</string>
 	<string name="type.emergency.defibrillator">心臟電擊器</string>
 	<string name="type.emergency.fire_hydrant">消防栓</string>
 	<string name="type.emergency.phone">緊急電話</string>
@@ -1767,6 +1768,7 @@
 	<string name="type.sport.field_hockey">曲棍球</string>
 	<string name="type.sport.badminton">羽毛球</string>
 	<string name="type.sport.pelota">巴斯克回力球</string>
+	<string name="type.tourism.aquarium">水族館</string>
 	<string name="type.tourism.alpine_hut">山上住宿</string>
 	<string name="type.tourism.apartment">公寓</string>
 	<string name="type.tourism.artwork">藝術品</string>

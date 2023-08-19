@@ -1066,6 +1066,7 @@
 	<string name="type.cuisine.vegetarian">Vejetaryen mutfağı</string>
 	<string name="type.cuisine.vietnamese">Vietnam mutfağı</string>
 	<string name="type.emergency">Acil</string>
+	<string name="type.emergency.assembly_point">Acil Toplanma Noktası</string>
 	<string name="type.emergency.defibrillator">Defibrilatör</string>
 	<string name="type.emergency.fire_hydrant">Yangın Söndürme Musluğu</string>
 	<string name="type.emergency.phone">Acil Telefon</string>
@@ -1935,6 +1936,7 @@
 	<string name="type.sport.badminton">Badminton</string>
 	<string name="type.sport.pelota">Bask pelotası</string>
 	<string name="type.tourism">Turizm</string>
+	<string name="type.tourism.aquarium">Akvaryum</string>
 	<string name="type.tourism.alpine_hut">Dağda Konaklama</string>
 	<string name="type.tourism.apartment">Apart Otel</string>
 	<string name="type.tourism.artwork">Sanat</string>

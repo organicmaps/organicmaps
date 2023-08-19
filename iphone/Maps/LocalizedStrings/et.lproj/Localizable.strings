@@ -1899,6 +1899,8 @@
 
 "type.emergency" = "Hädaabi";
 
+"type.emergency.assembly_point" = "Erakorraline kogunemispunkt";
+
 "type.emergency.defibrillator" = "Defibrillaator";
 
 "type.emergency.fire_hydrant" = "Tuletõrjehüdrant";
@@ -3634,6 +3636,8 @@
 "type.sport.pelota" = "Baski pelota";
 
 "type.tourism" = "Turism";
+
+"type.tourism.aquarium" = "Akvaarium";
 
 "type.tourism.alpine_hut" = "Mägimajutus";
 

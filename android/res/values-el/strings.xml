@@ -960,6 +960,7 @@
 	<string name="type.cuisine.vegan">Για χορτοφάγους</string>
 	<string name="type.cuisine.vegetarian">Χορτοφαγική</string>
 	<string name="type.cuisine.vietnamese">Βιετναμέζικη</string>
+	<string name="type.emergency.assembly_point">Σημείο συναρμολόγησης έκτακτης ανάγκης</string>
 	<string name="type.emergency.defibrillator">Πρώτες βοήθειες</string>
 	<string name="type.emergency.fire_hydrant">Πυροσβεστικός κρουνός</string>
 	<string name="type.emergency.phone">Τηλέφωνο έκτακτης ανάγκης</string>
@@ -1731,6 +1732,7 @@
 	<string name="type.sport.field_hockey">Χόκεϊ επί χόρτου</string>
 	<string name="type.sport.badminton">Αντιπτέριση</string>
 	<string name="type.sport.pelota">Βασκική πελότα</string>
+	<string name="type.tourism.aquarium">Ενυδρείο</string>
 	<string name="type.tourism.alpine_hut">Ορεινό καταφύγιο</string>
 	<string name="type.tourism.apartment">Διαμερίσματα</string>
 	<string name="type.tourism.artwork">Έργα τέχνης</string>

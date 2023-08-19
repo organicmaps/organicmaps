@@ -1899,6 +1899,8 @@
 
 "type.emergency" = "Emergência";
 
+"type.emergency.assembly_point" = "Ponto de Reunião de Emergência";
+
 "type.emergency.defibrillator" = "Desfibrilador";
 
 "type.emergency.fire_hydrant" = "Boca de incêndio";
@@ -3634,6 +3636,8 @@
 "type.sport.pelota" = "Pelota basca";
 
 "type.tourism" = "Turismo";
+
+"type.tourism.aquarium" = "Aquário";
 
 "type.tourism.alpine_hut" = "Abrigo de montanha";
 

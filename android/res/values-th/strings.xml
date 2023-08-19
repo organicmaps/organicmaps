@@ -960,6 +960,7 @@
 	<string name="type.cuisine.vegan">อาหารมังสวิรัติ</string>
 	<string name="type.cuisine.vegetarian">อาหารมังสวิรัติ</string>
 	<string name="type.cuisine.vietnamese">อาหารเวียดนาม</string>
+	<string name="type.emergency.assembly_point">จุดรวมพลฉุกเฉิน</string>
 	<string name="type.emergency.defibrillator">เครื่องกระตุ้นหัวใจ</string>
 	<string name="type.emergency.fire_hydrant">หัวจ่ายน้ำดับเพลิง</string>
 	<string name="type.emergency.phone">โทรศัพท์ฉุกเฉิน</string>
@@ -1727,6 +1728,7 @@
 	<string name="type.sport.field_hockey">กีฬาฮอกกี้</string>
 	<string name="type.sport.badminton">แบดมินตัน</string>
 	<string name="type.sport.pelota">Basque pelota</string>
+	<string name="type.tourism.aquarium">พิพิธภัณฑ์สัตว์น้ำ</string>
 	<string name="type.tourism.alpine_hut">ที่พักบนภูเขาโรงแรม</string>
 	<string name="type.tourism.apartment">อพาร์ตเมนต์</string>
 	<string name="type.tourism.artwork">งานศิลปะ</string>

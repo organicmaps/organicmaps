@@ -1899,6 +1899,8 @@
 
 "type.emergency" = "طوارئ";
 
+"type.emergency.assembly_point" = "نقطة التجمع في حالات الطوارئ";
+
 "type.emergency.defibrillator" = "مزيل الرجفان";
 
 "type.emergency.fire_hydrant" = "صنبور الإطفاء";
@@ -3634,6 +3636,8 @@
 "type.sport.pelota" = "ﻚﺳﺎﺒﻟﺍ ﺎﺗﻮﻠﻴﺑ";
 
 "type.tourism" = "Tourism";
+
+"type.tourism.aquarium" = "حوض سمك";
 
 "type.tourism.alpine_hut" = "مساكن جبلية";
 

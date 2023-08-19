@@ -843,6 +843,7 @@
 	<string name="type.craft.tailor">Кравец</string>
 	<string name="type.cuisine.bubble_tea">Чай з бурбалкамі</string>
 	<string name="type.cuisine.deli">Дэлікатэсы</string>
+	<string name="type.emergency.assembly_point">Аварыйны зборны пункт</string>
 	<string name="type.emergency.defibrillator">Дэфібрылятар</string>
 	<string name="type.emergency.fire_hydrant">Пажарны гідрант</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
@@ -1215,6 +1216,7 @@
 	<string name="type.sport.field_hockey">Хакей на траве</string>
 	<string name="type.sport.badminton">Бадмінтон</string>
 	<string name="type.sport.pelota">Баскская пелота</string>
+	<string name="type.tourism.aquarium">Акварыум</string>
 	<string name="type.tourism.caravan_site">Кемпінг для аўтадамоў</string>
 	<string name="type.tourism.information">Турыстычная інфармацыя</string>
 	<string name="type.tourism.information.board">Інфармацыйны шчыт</string>

@@ -1049,6 +1049,7 @@
 	<string name="type.cuisine.vegetarian">Vegetarisch</string>
 	<string name="type.cuisine.vietnamese">Vietnamesisch</string>
 	<string name="type.emergency">Notfall</string>
+	<string name="type.emergency.assembly_point">Notfall-Sammelpunkt</string>
 	<string name="type.emergency.defibrillator">Defibrillator</string>
 	<string name="type.emergency.fire_hydrant">Hydrant</string>
 	<string name="type.emergency.phone">Notruftelefon</string>
@@ -1911,6 +1912,7 @@
 	<string name="type.sport.badminton">Badminton</string>
 	<string name="type.sport.pelota">Pelota Vasca</string>
 	<string name="type.tourism">Tourismus</string>
+	<string name="type.tourism.aquarium">Aquarium</string>
 	<string name="type.tourism.alpine_hut">Berghütte</string>
 	<string name="type.tourism.apartment">Ferienwohnung</string>
 	<string name="type.tourism.artwork">Kunstwerk</string>

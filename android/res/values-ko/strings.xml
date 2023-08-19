@@ -959,6 +959,7 @@
 	<string name="type.cuisine.vegan">비건 음식</string>
 	<string name="type.cuisine.vegetarian">채식주의자 음식</string>
 	<string name="type.cuisine.vietnamese">베트남식 음식</string>
+	<string name="type.emergency.assembly_point">비상 집결지</string>
 	<string name="type.emergency.defibrillator">제세동기</string>
 	<string name="type.emergency.fire_hydrant">소화전</string>
 	<string name="type.emergency.phone">긴급 전화</string>
@@ -1729,6 +1730,7 @@
 	<string name="type.sport.field_hockey">필드 하키</string>
 	<string name="type.sport.badminton">배드민턴</string>
 	<string name="type.sport.pelota">바스크 펠로타</string>
+	<string name="type.tourism.aquarium">수족관</string>
 	<string name="type.tourism.alpine_hut">고산 오두막</string>
 	<string name="type.tourism.apartment">아파트</string>
 	<string name="type.tourism.artwork">작품</string>

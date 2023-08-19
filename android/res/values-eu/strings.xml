@@ -1062,6 +1062,7 @@
 	<string name="type.cuisine.vegan">Sukaldaritza beganoa</string>
 	<string name="type.cuisine.vegetarian">Sukaldaritza begetarianoa</string>
 	<string name="type.cuisine.vietnamese">Vietnamgo sukaldaritza</string>
+	<string name="type.emergency.assembly_point">Larrialdietako Batzar Puntua</string>
 	<string name="type.emergency.defibrillator">Desfibriladorea</string>
 	<string name="type.emergency.fire_hydrant">Suteen hidrantea</string>
 	<string name="type.emergency.phone">Larrialdi zenbakia</string>
@@ -1841,6 +1842,7 @@
 	<string name="type.sport.badminton">Badminton</string>
 	<string name="type.sport.pelota">Eusko pilota</string>
 	<string name="type.tourism">Turismoa</string>
+	<string name="type.tourism.aquarium">Aquariuma</string>
 	<string name="type.tourism.alpine_hut">Kabina</string>
 	<string name="type.tourism.apartment">Apartamentuak</string>
 	<string name="type.tourism.artwork">Artelanak</string>

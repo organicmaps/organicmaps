@@ -1008,6 +1008,7 @@
 	<string name="type.cuisine.vegan">Vegansk</string>
 	<string name="type.cuisine.vegetarian">Vegetarisk</string>
 	<string name="type.cuisine.vietnamese">Vietnamesisk mat</string>
+	<string name="type.emergency.assembly_point">Nødsamlingssted</string>
 	<string name="type.emergency.defibrillator">Hjertestarter</string>
 	<string name="type.emergency.fire_hydrant">Brannhydrant</string>
 	<string name="type.emergency.phone">Nødtelefon</string>
@@ -1785,6 +1786,7 @@
 	<string name="type.sport.badminton">Badminton</string>
 	<string name="type.sport.pelota">Baskisk pelota</string>
 	<string name="type.tourism">Turisme</string>
+	<string name="type.tourism.aquarium">Akvarium</string>
 	<string name="type.tourism.alpine_hut">Fjellstue</string>
 	<string name="type.tourism.apartment">Leiligheter</string>
 	<string name="type.tourism.artwork">Kunstverk</string>

@@ -731,6 +731,7 @@
 	<string name="type.craft.winery">Винарна</string>
 	<string name="type.craft.tailor">Шивач</string>
 	<string name="type.cuisine.deli">Деликатеси</string>
+	<string name="type.emergency.assembly_point">Авариен сборен пункт</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Главния вход</string>
 	<string name="type.entrance.exit">Изход</string>
@@ -1063,6 +1064,7 @@
 	<string name="type.sport.field_hockey">Хокей на трева</string>
 	<string name="type.sport.badminton">Бадминтон</string>
 	<string name="type.sport.pelota">Баска пелота</string>
+	<string name="type.tourism.aquarium">Аквариум</string>
 	<string name="type.tourism.information">Туринформация</string>
 	<string name="type.tourism.information.board">Информационен щит</string>
 	<string name="type.tourism.information.guidepost">Пътеводител</string>
