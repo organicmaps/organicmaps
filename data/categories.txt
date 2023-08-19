@@ -7118,6 +7118,45 @@ sw:Mbuga
 fa:پارک
 mr:उद्यान|पार्क
 
+tourism-aquarium|@tourism
+en:Aquarium
+ar:حوض سمك
+be:Акварыум
+bg:Аквариум
+ca:Aquari
+cs:Akvárium
+da:Akvarium
+de:Aquarium
+el:Ενυδρείο
+es:Acuario
+et:Akvaarium
+eu:Aquariuma
+fa:آکواریوم
+fi:Akvaario
+fr:Aquarium
+he:אַקוַרִיוּם
+hu:Akvárium
+id:Akuarium
+it:Acquario
+ja:水族館
+ko:수족관
+mr:मत्स्यालय
+nb:Akvarium
+nl:Aquarium
+pl:Akwarium
+pt:Aquário
+ro:Acvariu
+ru:Аквариум
+sk:Akvárium
+sv:Akvarium
+sw:Aquarium
+th:พิพิธภัณฑ์สัตว์น้ำ
+tr:Akvaryum
+uk:Акваріум
+vi:Bể nuôi cá
+zh-Hans:水族馆
+zh-Hant:水族館
+
 tourism-hostel|@hotel
 en:3Hostel|motel|U+1F3E8|backpack|backpacking
 ru:3Хостел|мотель|гостевой дом|мини отель
