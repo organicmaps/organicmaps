@@ -766,6 +766,7 @@ leisure-picnic_table                                # icon z16- (also has captio
 shop-antiques                                       # icon z16- (also has caption(optional) z16-)
 shop-charity                                        # icon z16- (also has caption(optional) z16-)
 shop-second_hand                                    # icon z16- (also has caption(optional) z16-)
+tourism-aquarium                                    # icon z16- (also has caption(optional) z16-)
 tourism-picnic_site                                 # icon z16- (also has caption(optional) z16-)
 === 2450
 
@@ -1705,6 +1706,7 @@ amenity-parking_entrance-private                    # WARNING: no style defined 
 # shop-antiques                                     # caption(optional) z16- (also has icon z16-)
 # shop-charity                                      # caption(optional) z16- (also has icon z16-)
 # shop-second_hand                                  # caption(optional) z16- (also has icon z16-)
+# tourism-aquarium                                  # caption(optional) z16- (also has icon z16-)
 # tourism-picnic_site                               # caption(optional) z16- (also has icon z16-)
 # === -7550
 

@@ -483,6 +483,8 @@ node|z16-[historic=ship],
 area|z16-[historic=ship],
 node|z16-[historic=tomb],
 area|z16-[historic=tomb],
+node|z16-[tourism=aquarium],
+area|z16-[tourism=aquarium],
 node|z17-[historic=ruins],
 area|z17-[historic=ruins],
 node|z17-[historic=wayside_shrine],
@@ -609,6 +611,9 @@ area|z15[tourism=zoo]
 node|z16-[tourism=zoo],
 area|z16-[tourism=zoo]
 {icon-image: zoo-m.svg;text-offset: 1;icon-min-distance: 8;}
+node|z16-[tourism=aquarium],
+area|z16-[tourism=aquarium]
+{icon-image: aquarium-m.svg;text-offset: 1;icon-min-distance: 8;}
 
 node|z14[tourism=viewpoint]
 {icon-image: viewpoint-s.svg;text-offset: 1;icon-min-distance: 8;}
