@@ -9756,6 +9756,45 @@
     tr = Acil
     zh-Hans = 应急要素
 
+  [type.emergency.assembly_point]
+    en = Emergency Assembly Point
+    ar = نقطة التجمع في حالات الطوارئ
+    be = Аварыйны зборны пункт
+    bg = Авариен сборен пункт
+    ca = Punt de reunió d'emergència
+    cs = Nouzové shromažďovací místo
+    da = Nødsamlingssted
+    de = Notfall-Sammelpunkt
+    el = Σημείο συναρμολόγησης έκτακτης ανάγκης
+    es = Punto de reunión de emergencia
+    et = Erakorraline kogunemispunkt
+    eu = Larrialdietako Batzar Puntua
+    fa = محل تجمع اضطراری
+    fi = Hätäkokouspiste
+    fr = Point de rassemblement d'urgence
+    he = נקודת כינוס חירום
+    hu = Sürgősségi gyülekezési pont
+    id = Titik Berkumpul Darurat
+    it = Punto di raccolta di emergenza
+    ja = 緊急集合場所
+    ko = 비상 집결지
+    mr = आपत्कालीन विधानसभा पॉइंट
+    nb = Nødsamlingssted
+    nl = Verzamelpunt voor noodgevallen
+    pl = Punkt Zgromadzeń Awaryjnych
+    pt = Ponto de Reunião de Emergência
+    ro = Punct de adunare de urgență
+    ru = Пункт аварийного сбора
+    sk = Núdzové zhromaždenie
+    sv = Nöduppsamlingsplats
+    sw = Sehemu ya Mkutano wa Dharura
+    th = จุดรวมพลฉุกเฉิน
+    tr = Acil Toplanma Noktası
+    uk = Аварійний збірний пункт
+    vi = Điểm tập hợp khẩn cấp
+    zh-Hans = 紧急集合点
+    zh-Hant = 緊急集合點
+
   [type.emergency.defibrillator]
     en = Defibrillator
     af = Defibrillator

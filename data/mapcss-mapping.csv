@@ -1640,3 +1640,4 @@ shop|collector;1564;
 railway|station|subway|tehran;[railway=station][transport=subway][city=tehran],[railway=station][station=subway][city=tehran];;name;int_name;1565;
 amenity|stripclub;1566;
 tourism|aquarium;1567;
+emergency|assembly_point;1568;
