@@ -113,6 +113,55 @@
   </screenshots>
 
   <releases>
+   <release version="2023.08.18-8" date="2023-08-18">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OpenStreetMap data as of August 14, 2023</li>
+           <li>Updated more than a year old Wikipedia articles</li>
+           <li>Added missing isolines for some regions of Argentina, Chile, Kazakhstan, Tibet, USA, Russia (map sizes increased)</li>
+           <li>More dense isolines in many areas</li>
+           <li>Removed too small isolines at overview zoom levels</li>
+           <li>Reduced many other map sizes</li>
+           <li>Import comments from GPX cmt tag</li>
+           <li>Treat GPX track segments as part of the singular track they belong to</li>
+           <li>Fixed a bug when editing social contacts</li>
+           <li>Dog Park can be added in the Editor</li>
+           <li>Updated Persian voice directions</li>
+         </ul>
+       <p>Routing:</p>
+         <ul>
+           <li>Updated road surface factors for car routing profile</li>
+           <li>Better pedestrian routing in Turkey and Georgia</li>
+           <li>Fixed cross-region routing when "avoid …" options are enabled</li>
+           <li></li>
+         </ul>
+       <p>Search:</p>
+         <ul>
+           <li>Fixed search for addresses in Czech and Slovakia</li>
+           <li>Improved street matching</li>
+           <li>Remove Tourist Information, Place of Worship, Park, Information Board, and Tourist Map from the Sightseeings category</li>
+           <li>Do not filter duplicated search results except for very close bus stops</li>
+           <li>Better ranking when searching by category</li>
+           <li>Fixed search by a house name</li>
+           <li>Faster search on the map screen</li>
+         </ul>
+       <p>Styles:</p>
+         <ul>
+           <li>Added ferry routes to the World map</li>
+           <li>Removed square background from parking icons</li>
+           <li>Added separate icons for paid and private parking</li>
+           <li>Made the bicycle parking icon differ more from the motorcycle one</li>
+           <li>Updated parking entrance icon</li>
+           <li>Street-side and lane parkings use a smaller icon and appear later when zooming in</li>
+           <li>Added motorcycle parking and parking entrance icons to the navigation mode</li>
+           <li>Fixed motorway=trunk links visibility in navigation mode</li>
+           <li>Improved motorway=trunk colors</li>
+           <li>Added Tehran metro icon</li>
+           <li>Revamped priorities system, especially for POIs</li>
+         </ul>
+     </description>
+   </release>
    <release version="2023.07.13-10" date="2023-07-13">
      <description>
        <p>Highlights:</p>
