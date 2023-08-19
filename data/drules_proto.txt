@@ -14897,6 +14897,41 @@ cont {
   }
 }
 cont {
+  name: "emergency-assembly_point"
+  element {
+    scale: 18
+    symbol {
+      name: "assembly_point-m"
+      priority: -9980
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -10000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "assembly_point-m"
+      priority: -9980
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -10000
+    }
+  }
+}
+cont {
   name: "emergency-defibrillator"
   element {
     scale: 18
@@ -100433,6 +100468,77 @@ cont {
         is_optional: true
       }
       priority: -7400
+    }
+  }
+}
+cont {
+  name: "tourism-aquarium"
+  element {
+    scale: 16
+    symbol {
+      name: "aquarium-m"
+      priority: 2450
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7550
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "aquarium-m"
+      priority: 2450
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7550
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "aquarium-m"
+      priority: 2450
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7550
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "aquarium-m"
+      priority: 2450
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7550
     }
   }
 }

@@ -355,6 +355,7 @@ world  +
         spontaneous_camp  -
         {}
     emergency  +
+        assembly_point  -
         defibrillator  -
         fire_hydrant  -
         phone  -
@@ -1308,6 +1309,7 @@ world  +
     tourism  +
         alpine_hut  -
         apartment  -
+        aquarium  -
         artwork  +
             architecture  -
             painting  -

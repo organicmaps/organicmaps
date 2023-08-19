@@ -1564,3 +1564,5 @@ amenity|recycling|container
 *shop|collector
 *railway|station|subway|tehran
 *amenity|stripclub
+*tourism|aquarium
+*emergency|assembly_point
