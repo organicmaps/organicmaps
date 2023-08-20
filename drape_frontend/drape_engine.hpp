@@ -248,6 +248,8 @@ public:
 
   void SetCustomArrow3d(std::optional<Arrow3dCustomDecl> arrow3dCustomDecl);
 
+  dp::ApiVersion GetApiVersion() const { return m_frontend->GetApiVersion(); };
+
 private:
   void AddUserEvent(drape_ptr<UserEvent> && e);
   void PostUserEvent(drape_ptr<UserEvent> && e);
