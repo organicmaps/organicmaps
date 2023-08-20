@@ -338,10 +338,15 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeCreateCategory(
 
 JNIEXPORT jboolean JNICALL
 Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeDeleteCategory(
-     JNIEnv *, jobject, jlong catId)
+     JNIEnv * env, jobject, jlong catId)
 {
   auto const categoryId = static_cast<kml::MarkGroupId>(catId);
-  return static_cast<jboolean>(frm()->GetBookmarkManager().GetEditSession().DeleteBmCategory(categoryId));
+  bool isSuccessfullyDeleted = frm()->GetBookmarkManager().GetEditSession().DeleteBmCategory(categoryId);
+  if (isSuccessfullyDeleted)
+  {
+   OnBookmarksChanged(env);
+  }
+  return static_cast<jboolean>(isSuccessfullyDeleted);
 }
 
 JNIEXPORT void JNICALL
