@@ -1021,6 +1021,8 @@ node|z18-[amenity=brothel],
 area|z18-[amenity=brothel],
 node|z18-[amenity=stripclub],
 area|z18-[amenity=stripclub],
+node|z18-[amenity=public_bookcase],
+area|z18-[amenity=public_bookcase],
 node|z19-[power=substation],
 area|z19-[power=substation],
 node|z18-[tourism],
@@ -1726,6 +1728,10 @@ area|z18-[amenity=bbq]
 
 node|z16-[man_made=survey_point]
 {icon-image: survey_point-m.svg;font-size: 11;}
+
+node|z18-[amenity=public_bookcase],
+area|z18-[amenity=public_bookcase]
+{icon-image: bookcase-m.svg;font-size: 11;}
 
 /* 6. SHOP */
 
