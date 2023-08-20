@@ -874,6 +874,7 @@
     <meta-data android:name="android.webkit.WebView.EnableSafeBrowsing" android:value="false" />
     <!-- Disable Google's anonymous stats collection -->
     <meta-data android:name="android.webkit.WebView.MetricsOptOut" android:value="true" />
+    
     <!-- Version >= 3.0. Dex Dual Mode support for Samsung devices -->
     <meta-data android:name="com.samsung.android.multidisplay.keep_process_alive" android:value="true" />
 
