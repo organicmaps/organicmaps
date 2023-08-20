@@ -2612,7 +2612,13 @@ bool Framework::ParseDrapeDebugCommand(string const & query)
   if (desiredStyle != MapStyleCount)
   {
 #if defined(OMIM_OS_ANDROID)
-    MarkMapStyle(desiredStyle);
+    if (m_drapeEngine->GetApiVersion() == dp::ApiVersion::Vulkan)
+    {
+      // See comment in android/jni/app/organicmaps/Framework.cpp Framework::MarkMapStyle().
+      SetMapStyle(desiredStyle);
+    }
+    else
+      MarkMapStyle(desiredStyle);
 #else
     SetMapStyle(desiredStyle);
 #endif
