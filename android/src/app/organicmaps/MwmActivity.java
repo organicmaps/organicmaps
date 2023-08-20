@@ -2,17 +2,27 @@ package app.organicmaps;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
@@ -94,7 +104,15 @@ import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageData;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Stack;
@@ -955,6 +973,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onResume();
     refreshSearchToolbar();
     setFullscreen(isFullscreen());
+    Handler handler = new Handler(Looper.getMainLooper());
+    handler.postDelayed(new Runnable() {
+      @Override
+      public void run() {
+        try {
+          checkClipboardForUrl();
+        }
+        catch (Exception e) {
+          Log.e("test1","Exception caught");
+        }
+      }
+    }, 1000);
+
     if (Framework.nativeIsInChoosePositionMode())
     {
       UiUtils.show(mPointChooser);
@@ -1608,6 +1639,101 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     builder.show();
   }
+
+  private class HttpRequestTask extends AsyncTask<String, Void, String> {
+    private Context context;
+    private ProgressDialog progressDialog;
+    public HttpRequestTask(Context context) {
+      this.context = context;
+    }
+    @Override
+    protected void onPreExecute() {
+      super.onPreExecute();
+      // Show the progress dialog
+      progressDialog = ProgressDialog.show(context, "", "Redirecting to URL using the anonymous proxy", true);
+    }
+
+    @Override
+    protected String doInBackground(String... params) {
+      String requestUrl = params[0];
+      try {
+        URL url = new URL(requestUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.connect();
+
+        InputStream inputStream = connection.getInputStream();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+          byteArrayOutputStream.write(buffer, 0, bytesRead);
+        }
+        byte[] responseBytes = byteArrayOutputStream.toByteArray();
+        return new String(responseBytes);
+      } catch (Exception e) {
+        progressDialog.dismiss();
+        View view = findViewById(android.R.id.content);
+        Snackbar.make(view, "Redirection failed, please check your internet connection.", Snackbar.LENGTH_SHORT).show();
+        Log.e("test1", "Error performing HTTP request: " + e.getMessage());
+        return null;
+      }
+    }
+
+    @Override
+    protected void onPostExecute(String response) {
+      if (response != null) {
+        try {
+          JSONObject jsonObject = new JSONObject(response);
+          JSONObject urlObject = jsonObject.getJSONObject("url");
+          String geo = urlObject.getString("geo");
+          Log.e("test1", "Geo: " + geo);
+          Log.e("test1", geo);
+          progressDialog.dismiss();
+          Map.nativeShowMapForUrl(geo);
+          ClipboardManager clipService = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+          ClipData clipData = ClipData.newPlainText("", "");
+          clipService.setPrimaryClip(clipData);
+          Log.e("test1","finish");
+        } catch (JSONException e) {
+          progressDialog.dismiss();
+          View view = findViewById(android.R.id.content);
+          Snackbar.make(view, "Please check that your URL points to an address.", Snackbar.LENGTH_SHORT).show();
+          Log.e("test1", "Error");
+          e.printStackTrace();
+        }
+      } else {
+        Log.e("test1", "HTTP request failed");
+      }
+    }
+  }
+  public void checkClipboardForUrl() {
+  ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+  Log.e("test1","clipboard is "+ String.valueOf(clipboard!=null) + "and primary clip" + String.valueOf(clipboard.hasPrimaryClip()));
+  if (clipboard != null ) {
+    Log.e("test1","first");
+    ClipData clipData = clipboard.getPrimaryClip();
+    Log.e("test1","clipdata is "+ String.valueOf(clipData!=null));
+    if (clipData != null && clipData.getItemCount() > 0) {
+      Log.e("test1","second");
+      CharSequence text = clipData.getItemAt(0).getText();
+      String clipboardText = text.toString();
+      Log.e("test1", clipboardText);
+      if (clipboardText.contains("goo.gl") || clipboardText.contains("maps.app.goo.gl") || clipboardText.contains("www.google.com")) {
+        Log.e("test1", "The copied text is from Google");
+        try {
+          String url = clipboardText;
+          String requestUrl = "https://url-un.kartikay-2101ce32.workers.dev/coordinates?url=" + url;
+          Log.e("test1", requestUrl);
+          new HttpRequestTask(this).execute(requestUrl);
+        } catch (Exception e) {
+          Log.e("test1", "Error performing HTTP request: " + e.getMessage());
+        }
+      }
+    }
+  }
+}
+
 
   @Override
   public void onMyPositionModeChanged(int newMode)
