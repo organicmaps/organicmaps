@@ -1170,7 +1170,7 @@ shop-wholesale                                      # icon z18- (also has captio
 
 amenity-bbq                                         # icon z18- (also has caption(optional) z18-)
 amenity-internet_cafe                               # icon z18- (also has caption(optional) z19-)
-amenity-public_bookcase                             # caption z19-
+amenity-public_bookcase                             # icon z18- (also has caption(optional) z18-)
 amenity-toilets                                     # icon z18- (also has caption(optional) z18-)
 craft-handicraft                                    # icon z18- (also has caption(optional) z18-)
 craft-hvac                                          # icon z18- (also has caption(optional) z18-)
@@ -2039,6 +2039,7 @@ amenity-parking_entrance-private                    # WARNING: no style defined 
 
 # amenity-bbq                                       # caption(optional) z18- (also has icon z18-)
 # amenity-internet_cafe                             # caption(optional) z19- (also has icon z18-)
+# amenity-public_bookcase                           # caption(optional) z18- (also has icon z18-)
 # amenity-toilets                                   # caption(optional) z18- (also has icon z18-)
 # craft-handicraft                                  # caption(optional) z18- (also has icon z18-)
 # craft-hvac                                        # caption(optional) z18- (also has icon z18-)
