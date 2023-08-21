@@ -1497,30 +1497,6 @@ bool BookmarkManager::IsVisible(kml::MarkGroupId groupId) const
   return GetGroup(groupId)->IsVisible();
 }
 
-bool BookmarkManager::IsSearchAllowed(kml::MarkGroupId groupId) const
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  CHECK(m_callbacks.m_getSearchAPI != nullptr, ());
-  auto & searchAPI = m_callbacks.m_getSearchAPI();
-
-  if (searchAPI.IsIndexingOfBookmarkGroupEnabled(groupId))
-    return true;
-
-  size_t indexedBookmarksCount = 0;
-  for (auto const indexableGroupId : searchAPI.GetIndexableGroups())
-  {
-    auto const it = m_categories.find(indexableGroupId);
-    if (it != m_categories.end())
-      indexedBookmarksCount += it->second->GetUserMarks().size();
-  }
-
-  /// @todo This function is actually called on Android only. Probably, there was some problems
-  /// with indexing large sets of bookmarks, but iOS works good at the same time?
-  auto const bookmarksCount = GetUserMarkIds(groupId).size();
-  auto const maxCount = SearchAPI::GetMaximumPossibleNumberOfBookmarksToIndex();
-  return indexedBookmarksCount + bookmarksCount <= maxCount;
-}
-
 void BookmarkManager::PrepareForSearch(kml::MarkGroupId groupId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());

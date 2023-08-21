@@ -260,7 +260,6 @@ public:
   void SetLastSortingType(kml::MarkGroupId groupId, SortingType sortingType);
   void ResetLastSortingType(kml::MarkGroupId groupId);
 
-  bool IsSearchAllowed(kml::MarkGroupId groupId) const;
   void PrepareForSearch(kml::MarkGroupId groupId);
 
   bool IsVisible(kml::MarkGroupId groupId) const;

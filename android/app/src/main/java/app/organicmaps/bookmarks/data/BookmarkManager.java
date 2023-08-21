@@ -537,8 +537,6 @@ public enum BookmarkManager
     return nativeIsUsedCategoryName(name);
   }
 
-  public boolean isSearchAllowed(long catId) { return nativeIsSearchAllowed(catId); }
-
   public void prepareForSearch(long catId) { nativePrepareForSearch(catId); }
 
   public boolean areAllCategoriesVisible()
@@ -802,8 +800,6 @@ public enum BookmarkManager
   private static native boolean nativeIsAsyncBookmarksLoadingInProgress();
 
   private static native boolean nativeIsUsedCategoryName(@NonNull String name);
-
-  private static native boolean nativeIsSearchAllowed(long catId);
 
   private static native void nativePrepareForSearch(long catId);
 
