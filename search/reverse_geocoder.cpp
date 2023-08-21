@@ -246,7 +246,7 @@ void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center, double maxDist
 
   for (auto const & b : buildings)
   {
-    // It's quite enough to analize nearest kMaxNumTriesToApproxAddress houses for the exact nearby address.
+    // It's quite enough to analyze nearest kMaxNumTriesToApproxAddress houses for the exact nearby address.
     // When we can't guarantee suitable address for the point with distant houses.
     if (GetNearbyAddress(table, b, false /* ignoreEdits */, addr) ||
         (++triesCount == kMaxNumTriesToApproxAddress))
