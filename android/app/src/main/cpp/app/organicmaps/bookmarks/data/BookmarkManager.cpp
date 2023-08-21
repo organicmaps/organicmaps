@@ -563,13 +563,6 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeIsUsedCategoryName(
   return static_cast<jboolean>(frm()->GetBookmarkManager().IsUsedCategoryName(ToNativeString(env, name)));
 }
 
-JNIEXPORT jboolean JNICALL
-Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeIsSearchAllowed(
-        JNIEnv *, jclass, jlong catId)
-{
-  return static_cast<jboolean>(frm()->GetBookmarkManager().IsSearchAllowed(static_cast<kml::MarkGroupId>(catId)));
-}
-
 JNIEXPORT void JNICALL
 Java_app_organicmaps_bookmarks_data_BookmarkManager_nativePrepareForSearch(
         JNIEnv *, jclass, jlong catId)
