@@ -556,7 +556,7 @@ node|z15-18[historic=memorial][memorial=stolperstein],
 area|z15-18[historic=memorial][memorial=stolperstein],
 node|z15-16[historic=memorial][memorial=cross],
 area|z15-16[historic=memorial][memorial=cross],
-{icon-image: ; text: none;}
+{icon-image: none; text: none;}
 
 node|z18-[historic=memorial][memorial=plaque],
 area|z18-[historic=memorial][memorial=plaque],
@@ -2526,7 +2526,7 @@ area|z16-[amenity=parking][parking=lane],
 /* =no doesn't work in kothic */
 /* node|z16-[amenity=parking][access=no], */
 /* area|z16-[amenity=parking][access=no], */
-{icon-image: ;icon-min-distance: 0;}
+{icon-image: none; icon-min-distance: 0;}
 
 node|z16-[amenity=parking][fee?],
 area|z16-[amenity=parking][fee?],
@@ -2546,7 +2546,7 @@ area|z17-[amenity=parking_entrance],
 {icon-image: parking_entrance-m.svg;}
 node|z17-[amenity=parking_entrance][access=private],
 area|z17-[amenity=parking_entrance][access=private],
-{icon-image: ;text: none;}
+{icon-image: none; text: none;}
 
 node|z18-[amenity=parking][access=private],
 area|z18-[amenity=parking][access=private],

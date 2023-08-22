@@ -324,7 +324,7 @@ node|z15-[historic=memorial][memorial=stolperstein],
 area|z15-[historic=memorial][memorial=stolperstein],
 node|z15-16[historic=memorial][memorial=cross],
 area|z15-16[historic=memorial][memorial=cross],
-{icon-image: ; text: none;}
+{icon-image: none; text: none;}
 
 node|z17-[historic=memorial][memorial=cross],
 area|z17-[historic=memorial][memorial=cross],
@@ -900,7 +900,7 @@ node|z15-[amenity=parking][parking=street_side],
 area|z15-[amenity=parking][parking=street_side],
 node|z15-[amenity=parking][parking=lane],
 area|z15-[amenity=parking][parking=lane],
-{icon-image: ;text: none;}
+{icon-image: none; text: none;}
 
 node|z15-[amenity=parking][fee?],
 area|z15-[amenity=parking][fee?],
@@ -921,7 +921,7 @@ area|z16-[amenity=parking_entrance],
 {icon-image: parking_entrance-m.svg; font-size: 12.5;}
 node|z16-[amenity=parking_entrance][access=private],
 area|z16-[amenity=parking_entrance][access=private],
-{icon-image: ;}
+{icon-image: none;}
 
 node|z17-[amenity=motorcycle_parking],
 area|z17-[amenity=motorcycle_parking],
