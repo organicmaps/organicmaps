@@ -108,12 +108,13 @@ ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token,
 enum class NameScore : uint8_t
 {
   // example name = "Carrefour Mini"
-                    // example query:
-  ZERO = 0,         // Rewe
-  SUBSTRING = 1,    // Mini
-  PREFIX = 2,       // Carref
-  FULL_PREFIX = 3,  // Carrefour
-  FULL_MATCH = 4,   // Carrefour Mini
+                  // example query:
+  ZERO = 0,       // Rewe
+  SUBSTRING,      // Mini
+  PREFIX,         // Carref
+  FIRST_MATCH,    // Carrefour Maxi
+  FULL_PREFIX,    // Carrefour
+  FULL_MATCH,     // Carrefour Mini
 
   COUNT
 };
@@ -202,6 +203,13 @@ public:
 
 /// @param[in]  tokens  Feature's name (splitted on tokens, without delimiters) to match.
 /// @param[in]  slice   Input query.
+/// @todo Should make the honest recurrent score calculation like:
+/// F(iToken, iSlice) = {
+///   score = max(F(iToken + 1, iSlice), F(iToken, iSlice + 1));
+///   if (Match(tokens[iToken], slice[iSlice]))
+///     score = max(score, Score(tokens[iToken], slice[iSlice]) + F(iToken + 1, iSlice + 1));
+///   return score;
+/// }
 template <typename Slice>
 NameScores GetNameScores(TokensVector & tokens, uint8_t lang, Slice const & slice)
 {
@@ -231,7 +239,7 @@ NameScores GetNameScores(TokensVector & tokens, uint8_t lang, Slice const & slic
   {
     // Reset error and match-length count for each offset attempt.
     ErrorsMade totalErrorsMade(0);
-    size_t matchedLength = 0;
+    int matchedLength = 0;
     // Highest quality namescore possible for this offset
     NameScore nameScore = NameScore::SUBSTRING;
     // Prefix & full matches must test starting at the same index. (tokenIndex == i)
@@ -243,6 +251,12 @@ NameScores GetNameScores(TokensVector & tokens, uint8_t lang, Slice const & slic
         nameScore = NameScore::FULL_PREFIX;
     }
     bool isAltOrOldName = false;
+
+    auto const isFullScore = [&nameScore]()
+    {
+      return (nameScore == NameScore::FULL_MATCH || nameScore == NameScore::FULL_PREFIX);
+    };
+
     // Iterate through the entire slice. Incomplete matches can still be good.
     // Using this slice & token as an example:
     //                              0   1   2   3   4   5   6
@@ -261,6 +275,8 @@ NameScores GetNameScores(TokensVector & tokens, uint8_t lang, Slice const & slic
     // slice =         foo bar baz bot bop bip bla
     // token =                                 baz bot bop
     //                 -6  -5  -4  -3  -2  -1   0   1   2
+
+    size_t iToken, iSlice;
     for (size_t i = std::max(0, int(offset) + 1 - int(tokenCount));
                 i < std::min(sliceCount, offset + 1); ++i)
     {
@@ -276,37 +292,37 @@ NameScores GetNameScores(TokensVector & tokens, uint8_t lang, Slice const & slic
         auto const prefixErrors = impl::GetPrefixErrorsMade(slice.Get(i), tokens.Token(tIdx), tokens.DFA(tIdx));
         if (prefixErrors.IsBetterThan(errorsMade))
         {
-          // NAME_SCORE_PREFIX with less errors is better than NAME_SCORE_FULL_MATCH.
+          // NameScore::PREFIX with less errors is better than NameScore::FULL_MATCH.
           /// @see RankingInfo_PrefixVsFull test.
           errorsMade = prefixErrors;
-          if (nameScore == NameScore::FULL_MATCH || nameScore == NameScore::FULL_PREFIX)
+          if (isFullScore())
             nameScore = NameScore::PREFIX;
         }
       }
 
-      // This block was responsibe for: name = "X Y", query = "X Z" => score is FULL_PREFIX.
-      // IMHO, this is very controversial, keep it as SUBSTRING.
-      /*
-      if (!errorsMade.IsValid() && nameScore == NameScore::FULL_MATCH && matchedLength)
+      if (!errorsMade.IsValid())
       {
-        nameScore = NameScore::FULL_PREFIX;
-        errorsMade = ErrorsMade(0);
-        // Don't count this token towards match length.
-        matchedLength -= slice.Get(i).GetOriginal().size();
+        // This block is responsibe for: name = "X Y {Z}", query = "X Z" => score is FIRST_MATCHED.
+        if (matchedLength > 0 && isFullScore())
+        {
+          nameScore = NameScore::FIRST_MATCH;
+          isAltOrOldName = StringUtf8Multilang::IsAltOrOldName(lang);
+        }
+        else
+        {
+          // If any token mismatches, this is at best a substring match.
+          nameScore = NameScore::SUBSTRING;
+        }
       }
-      */
-
-      if (errorsMade.IsValid())
+      else
       {
         // Update the match quality
         totalErrorsMade += errorsMade;
         matchedLength += slice.Get(i).GetOriginal().size();
         isAltOrOldName = StringUtf8Multilang::IsAltOrOldName(lang);
-      }
-      else
-      {
-        // If any token mismatches, this is at best a substring match.
-        nameScore = NameScore::SUBSTRING;
+
+        iToken = tIdx;
+        iSlice = i;
       }
     }
 
@@ -315,11 +331,29 @@ NameScores GetNameScores(TokensVector & tokens, uint8_t lang, Slice const & slic
       nameScore = NameScore::ZERO;
       totalErrorsMade = ErrorsMade();
     }
+    else
+    {
+      // Update |matchedLength| and |totalErrorsMade| for slice -> tokens tail (after last valid match).
+      while (++iSlice < sliceCount)
+      {
+        while (++iToken < tokenCount)
+        {
+          auto const errorsMade = impl::GetErrorsMade(slice.Get(iSlice), tokens.Token(iToken), tokens.DFA(iToken));
+          if (errorsMade.IsValid())
+          {
+            totalErrorsMade += errorsMade;
+            matchedLength += slice.Get(iSlice).GetOriginal().size();
+            break;
+          }
+        }
+      }
+    }
+
     scores.UpdateIfBetter(NameScores(nameScore, totalErrorsMade, isAltOrOldName, matchedLength));
   }
 
-  // Uncomment for verbose search logging
-  // LOG(LDEBUG, ("Match quality", search::DebugPrint(scores), "from", tokens, "into", slice));
+  // Uncomment for verbose search logging.
+  // LOG(LDEBUG, ("Match quality", scores, "from", tokens, "into", slice));
   return scores;
 }
 

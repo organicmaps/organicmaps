@@ -46,6 +46,7 @@ double constexpr kNameScore[] = {
  -0.05,   // Zero
   0,      // Substring
   0.01,   // Prefix
+  0.012,  // First Match
   0.018,  // Full Prefix
   0.02,   // Full Match
 };

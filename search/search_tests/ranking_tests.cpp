@@ -82,18 +82,23 @@ UNIT_TEST(NameScore_Smoke)
   test("фотоателье", "фото", NameScore::PREFIX, 0, 4);
 
   test("Pennsylvania Ave NW, Washington, DC", "1600 Pennsylvania Ave", NameScore::SUBSTRING, 0, 15);
-  test("Pennsylvania Ave NW, Washington, DC", "Pennsylvania Ave, Chicago", NameScore::SUBSTRING, 0, 15);
+  test("Pennsylvania Ave NW, Washington, DC", "Pennsylvania Ave, Chicago", NameScore::FIRST_MATCH, 0, 15);
 
   test("Barnes & Noble", "barne & noble", NameScore::FULL_MATCH, 1, 10);
   test("Barnes Avenue", "barne ", NameScore::FULL_PREFIX, 1, 5);
-  test("Barnes Avenue", "barne & noble", NameScore::SUBSTRING, 1, 5);
+  test("Barnes Avenue", "barne & noble", NameScore::FIRST_MATCH, 1, 5);
 
-  test("Barnes Avenue", "barne's & noble", NameScore::SUBSTRING, 0, 6);
+  test("Barnes Avenue", "barne's & noble", NameScore::FIRST_MATCH, 0, 6);
   test("Barnes & Noble", "barne's & noble", NameScore::FULL_MATCH, 0, 11);
   test("Barne's & Noble", "barnes & noble", NameScore::FULL_MATCH, 0, 11);
 
   test("Зона №51", "зона 51", NameScore::FULL_MATCH, 0, 6);
   test("Зона №51", "зона №", NameScore::FULL_PREFIX, 0, 4);
+
+  test("Göztepe 60. Yıl Parkı", "goztepe parki", NameScore::FIRST_MATCH, 0, 12);
+  test("Göztepe 60. Yıl Parkı", "goztepe 60 parki", NameScore::FIRST_MATCH, 0, 14);
+  test("Göztepe 60. Yıl Parkı", "60 parki", NameScore::SUBSTRING, 0, 7);
+  test("Göztepe 60. Yıl Parkı", "yil parki", NameScore::SUBSTRING, 0, 8);
 }
 
 namespace
