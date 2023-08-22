@@ -130,34 +130,48 @@ void PrintParse(ostringstream & oss, array<TokenRange, Model::TYPE_COUNT> const 
   oss << "]";
 }
 
+class IsAttraction
+{
+  std::vector<uint32_t> m_sights;
+  uint32_t m_leisure;
+
+public:
+  IsAttraction()
+  {
+    // We have several lists for attractions: short list in search categories for @tourism and long
+    // list in ftypes::AttractionsChecker. We have highway-pedestrian, place-square, historic-tomb,
+    // landuse-cemetery, amenity-townhall etc in long list and logic of long list is "if this object
+    // has high popularity and/or wiki description probably it is attraction". It's better to use
+    // short list here. And leisures too!
+
+    m_sights = search::GetCategoryTypes("sights", "en", GetDefaultCategories());
+    m_leisure = classif().GetTypeByPath({"leisure"});
+  }
+
+  bool operator() (feature::TypesHolder const & th) const
+  {
+    return th.HasWithSubclass(m_leisure) ||
+           base::AnyOf(m_sights, [&th](uint32_t t) { return th.HasWithSubclass(t); });
+  }
+};
+
 class IsServiceTypeChecker
 {
-private:
+public:
   IsServiceTypeChecker()
   {
     Classificator const & c = classif();
     for (char const * e : {"barrier", "power", "traffic_calming"})
-      m_oneLevelTypes.push_back(c.GetTypeByPath({e}));
+      m_types.push_back(c.GetTypeByPath({e}));
   }
 
-public:
-  static IsServiceTypeChecker const & Instance()
+  bool operator() (feature::TypesHolder const & th) const
   {
-    static const IsServiceTypeChecker instance;
-    return instance;
-  }
-
-  bool operator()(feature::TypesHolder const & th) const
-  {
-    return base::AnyOf(th, [&](auto t)
-    {
-      ftype::TruncValue(t, 1);
-      return base::IsExist(m_oneLevelTypes, t);
-    });
+    return base::AnyOf(m_types, [&th](uint32_t t) { return th.HasWithSubclass(t); });
   }
 
 private:
-  vector<uint32_t> m_oneLevelTypes;
+  vector<uint32_t> m_types;
 };
 }  // namespace
 
@@ -360,17 +374,12 @@ PoiType GetPoiType(feature::TypesHolder const & th)
   if (IsPublicTransportStopChecker::Instance()(th))
     return PoiType::TransportLocal;
 
-  // We have several lists for attractions: short list in search categories for @tourism and long
-  // list in ftypes::AttractionsChecker. We have highway-pedestrian, place-square, historic-tomb,
-  // landuse-cemetery, amenity-townhall etc in long list and logic of long list is "if this object
-  // has high popularity and/or wiki description probably it is attraction". It's better to use
-  // short list here.
-  auto static const attractionTypes =
-      search::GetCategoryTypes("sights", "en", GetDefaultCategories());
-  if (base::AnyOf(attractionTypes, [&th](auto t) { return th.HasWithSubclass(t); }))
+  static IsAttraction const attractionCheck;
+  if (attractionCheck(th))
     return PoiType::Attraction;
 
-  if (IsServiceTypeChecker::Instance()(th))
+  static IsServiceTypeChecker const serviceCheck;
+  if (serviceCheck(th))
     return PoiType::Service;
 
   return PoiType::General;
