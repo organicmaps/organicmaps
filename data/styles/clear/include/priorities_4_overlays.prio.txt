@@ -2111,7 +2111,7 @@ emergency-phone                                     # icon z17-
 === -9980
 
 amenity-waste_basket                                # icon z18- (also has caption(optional) z19-)
-emergency-fire_hydrant                              # icon z18- (also has caption(optional) z18-)
+emergency-fire_hydrant                              # icon z19- (also has caption(optional) z19-)
 power-substation                                    # icon z19- (also has caption(optional) z19-)
 === -9990
 
@@ -2133,7 +2133,7 @@ amenity-loading_dock                                # icon z18- (also has captio
 # amenity-waste_disposal                            # caption(optional) z18- (also has icon z18-)
 # emergency-assembly_point                          # caption(optional) z18- (also has icon z18-)
 # emergency-defibrillator                           # caption(optional) z18- (also has icon z18-)
-# emergency-fire_hydrant                            # caption(optional) z18- (also has icon z18-)
+# emergency-fire_hydrant                            # caption(optional) z19- (also has icon z19-)
 # entrance                                          # caption(optional) z19- (also has icon z19-)
 entrance-exit                                       # icon z18- (also has caption(optional) z18-)
 # entrance-exit                                     # caption(optional) z18- (also has icon z18-)
