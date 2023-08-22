@@ -2879,10 +2879,18 @@
   [type.amenity.parking.street_side]
     ref = type.amenity.parking
     en = Street-Side Parking
-
+    
+  [type.amenity.parking.fee.street_side]
+    ref = type.amenity.parking
+    en = Paid Street-Side Parking
+    
   [type.amenity.parking.lane]
     ref = type.amenity.parking
     en = Roadside Lane Parking
+    
+  [type.amenity.parking.fee.lane]
+    ref = type.amenity.parking
+    en = Paid Roadside Lane Parking
 
   [type.amenity.parking_entrance]
     en = Parking Entrance

@@ -428,7 +428,7 @@ highway|unclassified|area;[highway=unclassified][area?];;name;int_name;354;
 natural|volcano;355;
 deprecated:amenity|parking|underground|fee:01.2020;[amenity=parking][location=underground][fee?],[amenity=parking][parking=underground][fee?];x;name;int_name;356;amenity|parking|underground
 amenity|parking|underground;[amenity=parking][location=underground],[amenity=parking][parking=underground];;name;int_name;357;
-amenity|parking|street_side;[amenity=parking][parking=street_side];;name;int_name;358;
+amenity|parking|street_side;[amenity=parking][parking=street_side][!fee];;name;int_name;358;
 amenity|parking|multi-storey;[amenity=parking][parking=multi-storey];;name;int_name;359;
 leisure|recreation_ground;360;
 highway|footway|mountain_hiking;[highway=footway][sac_scale=mountain_hiking];;name;int_name;361;
@@ -438,7 +438,7 @@ sport|9pin;364;
 sport|10pin;365;
 piste:type|downhill|novice;[piste:type=downhill][piste:difficulty=novice];;name;int_name;366;
 railway|narrow_gauge|bridge;[railway=narrow_gauge][bridge?];;name;int_name;367;
-amenity|parking|lane;[amenity=parking][parking=lane];;name;int_name;368;
+amenity|parking|lane;[amenity=parking][parking=lane][!fee];;name;int_name;368;
 railway|rail|main|tunnel;[railway=rail][usage=main][!highspeed][!service][tunnel?];;name;int_name;369;
 highway|bridleway|permissive;[highway=bridleway][access=permissive];;name;int_name;370;
 railway|construction;371;
@@ -513,8 +513,8 @@ healthcare|speech_therapist;438;
 deprecated|deprecated;439;x
 deprecated|deprecated;440;x
 aerialway|t-bar;441;
-deprecated|deprecated;442;x
-deprecated|deprecated;443;x
+amenity|parking|fee|lane;[amenity=parking][fee?][parking=lane];;name;int_name;442;
+amenity|parking|fee|street_side;[amenity=parking][fee?][parking=street_side];;name;int_name;443;
 highway|path|difficult_alpine_hiking;[highway=path][sac_scale=difficult_alpine_hiking];;name;int_name;444;
 earthquake:damage|spontaneous_camp;445;
 deprecated|deprecated;446;x

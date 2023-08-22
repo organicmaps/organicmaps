@@ -2523,6 +2523,17 @@ node|z17-[amenity=parking],
 area|z17-[amenity=parking],
 {icon-image: parking-m.svg;font-size: 11;icon-min-distance: 10}
 
+node|z16-[amenity=parking][location=underground],
+area|z16-[amenity=parking][location=underground],
+{icon-image:parking_underground-m.svg;}
+
+node|z16-[amenity=parking][fee?],
+area|z16-[amenity=parking][fee?],
+{icon-image: parking_pay-s.svg;}
+node|z17-[amenity=parking][fee?],
+area|z17-[amenity=parking][fee?],
+{icon-image: parking_pay-m.svg;}
+
 /* no icon as these subtypes should display later */
 node|z16-[amenity=parking][access=private],
 area|z16-[amenity=parking][access=private],
@@ -2533,20 +2544,23 @@ area|z16-[amenity=parking][parking=lane],
 /* =no doesn't work in kothic */
 /* node|z16-[amenity=parking][access=no], */
 /* area|z16-[amenity=parking][access=no], */
+node|z16-[amenity=parking][parking=street_side][fee?],
+area|z16-[amenity=parking][parking=street_side][fee?],
+node|z16-[amenity=parking][parking=lane][fee?],
+area|z16-[amenity=parking][parking=lane][fee?],
 {icon-image: none; icon-min-distance: 0;}
 
-node|z16-[amenity=parking][fee?],
-area|z16-[amenity=parking][fee?],
-{icon-image: parking_pay-s.svg;}
-node|z17-[amenity=parking][fee?],
-area|z17-[amenity=parking][fee?],
-{icon-image: parking_pay-m.svg}
-
-node|z17-[amenity=parking][parking=street_side],
-area|z17-[amenity=parking][parking=street_side],
-node|z17-[amenity=parking][parking=lane],
-area|z17-[amenity=parking][parking=lane],
+node|z18-[amenity=parking][parking=street_side],
+area|z18-[amenity=parking][parking=street_side],
+node|z18-[amenity=parking][parking=lane],
+area|z18-[amenity=parking][parking=lane],
 {icon-image: parking-s.svg;}
+
+node|z18-[amenity=parking][parking=street_side][fee?],
+area|z18-[amenity=parking][parking=street_side][fee?],
+node|z18-[amenity=parking][parking=lane][fee?],
+area|z18-[amenity=parking][parking=lane][fee?],
+{icon-image: parking_pay-s.svg;}
 
 node|z17-[amenity=parking_entrance],
 area|z17-[amenity=parking_entrance],
