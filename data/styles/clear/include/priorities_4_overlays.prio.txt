@@ -1212,18 +1212,19 @@ leisure-garden-residential                          # caption z18- (also has are
 entrance-main                                       # icon z18- (also has caption(optional) z18-)
 === 170
 
+amenity-parking-fee-lane                            # icon z17- (also has caption(optional) z18-, area z15-)
+amenity-parking-fee-street_side                     # icon z17- (also has caption(optional) z18-, area z15-)
 amenity-parking-lane                                # icon z17- (also has caption(optional) z18-, area z15-)
 amenity-parking-street_side                         # icon z17- (also has caption(optional) z18-, area z15-)
 === 150
 
 amenity-parking-no-access                           # icon z16- (also has caption(optional) z18-, area z15-)
 amenity-parking-private                             # icon z18- (also has caption(optional) z18-, area z15-)
-amenity-parking_entrance-private                    # WARNING: no style defined (the type will be not included into map data)
 === 100
 
 #
 # All automatic optional captions priorities are below 0.
-# They follow the order of their correspoding icons.
+# They follow the order of their corresponding icons.
 #
 
 # aeroway-aerodrome-international                   # caption(optional) z10- (also has icon z7-, area z10-)
