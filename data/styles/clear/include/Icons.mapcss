@@ -987,8 +987,6 @@ node|z18-[amenity=vending_machine],
 area|z18-[amenity=vending_machine],
 node|z18-[amenity=post_box],
 area|z18-[amenity=post_box],
-node|z18-[emergency=fire_hydrant],
-area|z18-[emergency=fire_hydrant],
 node|z18-[amenity=fire_station],
 area|z18-[amenity=fire_station],
 node|z18-[emergency=defibrillator],
@@ -1033,6 +1031,7 @@ node|z18-[craft],
 area|z18-[craft],
 node|z19-[amenity],
 area|z19-[amenity],
+node|z19-[emergency=fire_hydrant],
 {text: name;text-color: @poi_label;text-offset: 1;font-size: 10;}
 
 /* POI */
@@ -1608,8 +1607,7 @@ area|z18-[amenity=post_office],
 node|z18-[amenity=post_box],
 area|z18-[amenity=post_box],
 {icon-image: postbox-m.svg;font-size: 11;}
-node|z18-[emergency=fire_hydrant],
-area|z18-[emergency=fire_hydrant]
+node|z19-[emergency=fire_hydrant],
 {icon-image: firehydrant-m.svg;font-size: 11;}
 
 node|z18-[emergency=defibrillator],
