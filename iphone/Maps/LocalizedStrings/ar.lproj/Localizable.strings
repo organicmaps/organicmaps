@@ -553,9 +553,9 @@
 /* Text for allday switch. */
 "editor_time_allday" = "طوال اليوم (٢٤ ساعة)";
 
-"editor_time_open" = "يفتح";
+"editor_time_open" = "مفتوح";
 
-"editor_time_close" = "يغلق";
+"editor_time_close" = "مغلق";
 
 "editor_time_add_closed" = "إضافة ساعات راحة";
 
@@ -597,11 +597,11 @@
 
 "opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
 
-"opens_at" = "Opens at %@";
+"opens_at" = "يفتح في %@";
 
 "opens_in" = "يفتح بعد %@";
 
-"closes_at" = "Closes at %@";
+"closes_at" = "يغلق في %@";
 
 "closes_in" = "يغلق في غضون %@";
 
@@ -689,7 +689,7 @@
 
 "editor_edit_place_title" = "يتم التعديل";
 
-"editor_add_place_title" = "يتم الإٍضافة";
+"editor_add_place_title" = "يتم الإضافة";
 
 "editor_edit_place_name_hint" = "اسم المكان";
 

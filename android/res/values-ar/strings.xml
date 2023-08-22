@@ -241,6 +241,8 @@
 	<string name="duration_12_hours">12 ساعة</string>
 	<string name="duration_1_day">1 يوم</string>
 	<string name="search_show_on_map">مشاهدة على الخريطة</string>
+	<!-- Menu button -->
+	<string name="menu">القائمة</string>
 	<!-- Text in menu -->
 	<string name="website">الموقع الإلكتروني</string>
 	<!-- Text in About menu, opens Organic Maps news website -->
@@ -403,8 +405,8 @@
 	<string name="editor_time_delete">حذف جدول</string>
 	<!-- Text for allday switch. -->
 	<string name="editor_time_allday">طوال اليوم (٢٤ ساعة)</string>
-	<string name="editor_time_open">يفتح</string>
-	<string name="editor_time_close">يغلق</string>
+	<string name="editor_time_open">مفتوح</string>
+	<string name="editor_time_close">مغلق</string>
 	<string name="editor_time_add_closed">إضافة ساعات راحة</string>
 	<string name="editor_time_title">ساعات العمل</string>
 	<string name="editor_time_advanced">الوضع المتقدم</string>
@@ -468,7 +470,7 @@
 	<string name="editor_profile_changes">التعديلات التي تم التحقق منها</string>
 	<string name="editor_focus_map_on_location">اسحب الخريطة لتحدد موقع الإضافة.</string>
 	<string name="editor_edit_place_title">يتم التعديل</string>
-	<string name="editor_add_place_title">يتم الإٍضافة</string>
+	<string name="editor_add_place_title">يتم الإضافة</string>
 	<string name="editor_edit_place_name_hint">اسم المكان</string>
 	<string name="editor_edit_place_category_title">الفئة</string>
 	<string name="detailed_problem_description">وصف مفصّل للمشكلة</string>
@@ -727,6 +729,8 @@
 	<string name="disk_error_title">حدث خطأ في التخزين</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">فشل الاتصال</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disconnect_usb_cable_title">إفصل سلك USB</string>
 	<string name="enable_screen_sleep">اسمح للشاشة بالنوم</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">عند التفعيل ، سيتم السماح للشاشة بالنوم بعد فترة من عدم النشاط.</string>
