@@ -14807,7 +14807,7 @@
   [type.leisure.picnic_table]
     en = Picnic Table
     af = Piekniektafel
-    ar = ﺔﻫﺰﻨﻟﺍ ﺔﻟﻭﺎﻃ
+    ar = طاولة النزهة
     be = Стол для пікніка
     bg = Маса за пикник
     cs = Piknikový stůl
@@ -21578,7 +21578,7 @@
   [type.shop.car_parts]
     en = Car Parts Shop
     af = Motoronderdelewinkel
-    ar = ﺓﺭﺎﻴﺴﻟﺍ ءﺍﺰﺟﺃ
+    ar = محل أجزاء سيارات
     cs = Autodíly
     da = Bildele
     de = Autoteile
@@ -22112,7 +22112,7 @@
   [type.shop.deli]
     en = Delicatessen
     af = Delicatessewinkel
-    ar = ﺔﺒﻠﻌﻤﻟﺍ ﺔﻤﻌﻃﻷﺍ ﻊﻴﺒﻟ ﻞﺤﻣ
+    ar = محل جواهز
     be = Дэлікатэсная крама
     bg = Магазин за деликатеси
     cs = Prodejna lahůdek
@@ -22367,7 +22367,7 @@
   [type.shop.farm]
     en = Farm Food Shop
     af = Boerderywinkel
-    ar = ﺔﻋﺭﺰﻤﻟﺍ ﺔﻳﺬﻏﺃ ﺮﺠﺘﻣ
+    ar = متجر أغذية المزرعة
     be = Сельскагаспадарчыя прадукты
     bg = Магазин за селскостопански храни
     cs = Prodejna farmářských potravin
@@ -22708,7 +22708,6 @@
     en = Grocery Store
     en-GB = Grocery Shop
     af = Kruidenier
-    ar = ﺕﺍﻭﺮﻀﺧ
     be = Бакалея
     bg = Хранителни стоки
     cs = Potraviny
@@ -22784,7 +22783,7 @@
     en = Hardware Store
     en-GB = Ironmongers
     af = Ysterware
-    ar = ﺕﺍﺪﻌﻣ ﻞﺤﻣ
+    ar = محد معدات
     be = Будаўнічы магазін
     bg = Магазин за хардуер
     el = Κατάστημα υλικού
@@ -22813,7 +22812,7 @@
   [type.shop.health_food]
     en = Health Food Shop
     af = Gesondheidsvoedsel
-    ar = ﺔﻴﺤﺼﻟﺍ ﺔﻳﺬﻏﻼﻟ ﺮﺠﺘﻣ
+    ar = متجر الأغذية الصحية
     be = Крама здаровай ежы
     bg = Магазин за здравословни храни
     cs = Prodejna zdravé výživy
@@ -22936,7 +22935,7 @@
     en = Housewares Store
     en-GB = Housewares Shop
     af = Huiswarewinkel
-    ar = ﺔﻴﻟﺰﻨﻣ ﺕﺍﻭﺩﺃ ﻞﺤﻣ
+    ar =محل أدوات منزلية
     be = Крама посуду
     bg = Магазин за домакински принадлежности
     cs = Obchod s domácími potřebami
@@ -23042,7 +23041,7 @@
     en = Kitchen Store
     en-GB = Kitchen Shop
     af = Kombuiswinkel
-    ar = ﺦﺒﻄﻤﻟﺍ ﺮﺠﺘﻣ
+    ar = متجر مطابخ
     be = Крама для кухні
     bg = Магазин за кухня
     cs = Prodejna kuchyní
@@ -23789,7 +23788,7 @@
   [type.shop.second_hand]
     en = Second Hand Shop
     af = Tweedehandsewinkel
-    ar = ﺔﻠﻤﻌﺘﺴﻣ ﺕﺍﻭﺩﺍ ﺮﺠﺘﻣ
+    ar = متجر بضائع مستعملة
     be = Крама сэканд-хэнд
     bg = Магазин втора употреба
     cs = Obchod z druhé ruky
@@ -24375,7 +24374,7 @@
   [type.shop.antiques]
     en = Antiques Shop
     af = Antiekwinkel
-    ar = ﻒﺤﺘﻟﺍ
+    ar = التحف
     be = Антыкварыят
     bg = Антики
     cs = Starožitnosti
@@ -24456,7 +24455,7 @@
     comment = maybe change to Art Gallery for en-US when supported
     en = Artwork Shop
     af = Kunswinkel
-    ar = ﻥﻮﻨﻔﻟﺍ ﺮﺠﺘﻣ
+    ar = متجر الفنون
     be = Крама мастацтваў
     bg = Магазин за изкуства
     cs = Obchod s uměním
@@ -24495,7 +24494,7 @@
   [type.shop.baby_goods]
     en = Baby Goods Shop
     af = Bababenodigdhede
-    ar = ﻝﺎﻔﻃﻸﻟ ﺮﺠﺘﻣ
+    ar = متجر الأطفال
     be = Дзіцячая крама
     bg = Детски магазин
     cs = Dětský obchod
@@ -24534,7 +24533,7 @@
   [type.shop.bag]
     en = Bag Shop
     af = Taswinkel
-    ar = ﺐﺋﺎﻘﺤﻟﺍ ﺮﺠﺘﻣ
+    ar = متجر الحقائب
     be = Крама сумак
     bg = Магазин за чанти
     cs = Obchod s taškami
@@ -24614,7 +24613,7 @@
   [type.shop.boutique]
     en = Boutique
     af = Boetiek
-    ar = ﺮﺠﺘﻣ
+    ar = بوتيك
     be = Буцік
     bg = Бутик
     cs = Butik
@@ -24653,7 +24652,7 @@
   [type.shop.charity]
     en = Charity Shop
     af = Liefdadigheidswinkel
-    ar = ﻱﺮﻴﺧ ﺮﺠﺘﻣ
+    ar = متجر خيري
     be = Дабрачынная крама
     bg = Благотворителен магазин
     cs = Charitativní obchod
@@ -24692,7 +24691,7 @@
   [type.shop.cheese]
     en = Cheese Shop
     af = Kaaswinkel
-    ar = ﻦﺒﺠﻟﺍ ﺮﺠﺘﻣ
+    ar = متجر جبن
     be = Сырны магазін
     bg = Магазин за сирене
     cs = Prodejna sýrů
@@ -24732,7 +24731,7 @@
     en = Craft Supplies Store
     en-GB = Arts and Crafts Shop
     af = Kunsvlyt en handewerk
-    ar = ﺔﻳﻭﺪﻴﻟﺍ ﻑﺮﺤﻟﺍﻭ ﻥﻮﻨﻔﻟﺍ
+    ar = الفنون و الحرف اليدوية
     be = Мастацтва і рамёствы
     bg = Изкуства и занаяти
     cs = Umění a řemesla
@@ -24771,7 +24770,7 @@
   [type.shop.dairy]
     en = Dairy Shop
     af = Suiwelprodukte
-    ar = ﻥﺎﺒﻟﻷﺍ ﺕﺎﺠﺘﻨﻣ
+    ar = متجر الألبان
     be = Малочныя прадукты
     bg = Млечни продукти
     cs = Mléčné výrobky
@@ -24811,7 +24810,7 @@
     en = Electrical Supplies Store
     en-GB = Electrical Supplies Shop
     af = Elektriese benodigdhede
-    ar = ﺔﻴﺋﺎﺑﺮﻬﻜﻟﺍ ﺕﺍﻭﺩﻷﺍ ﺮﺠﺘﻣ
+    ar = متجر البضع الكهربائية
     be = Крама электратэхнікі
     bg = Електрически магазин
     cs = Elektro obchod
@@ -24851,7 +24850,7 @@
     en = Fishing Store
     en-GB = Fishing Shop
     af = Visvangwinkel
-    ar = ﺪﻴﺻ ﺮﺠﺘﻣ
+    ar = متجر صيد
     be = Рыбалоўны магазін
     bg = Риболовен магазин
     cs = Rybářský obchod
@@ -24891,7 +24890,7 @@
     en = Interior Decorations Store
     en-GB = Interior Decorations Shop
     af = Binnenshuise ontwerp
-    ar = ﺔﻴﻠﺧﺍﺩ ﺕﺍﺭﻮﻜﻳﺩ
+    ar = محل ديكورات داخلية
     be = Ўпрыгажэнні інтэр'еру
     bg = Вътрешни декорации
     cs = Interiérové dekorace
@@ -25010,7 +25009,7 @@
     en = Nutrition Supplement Store
     en-GB = Nutrition Supplement Shop
     af = Voedingsaanvullings
-    ar = ﺔﻴﺋﺍﺬﻏ ﺕﻼﻤﻜﻣ
+    ar = محل مكملات غذائية
     be = Харчовыя дабаўкі
     bg = Хранителни добавки
     cs = Doplňky výživy
@@ -25088,7 +25087,7 @@
   [type.shop.perfumery]
     en = Perfume Shop
     af = Parfumerie
-    ar = ﺭﻮﻄﻌﻟﺍ
+    ar = العطور
     be = Парфумерыя
     bg = Парфюмерия
     cs = Parfumerie
@@ -25127,7 +25126,7 @@
   [type.shop.sewing]
     en = Sewing Supplies Shop
     af = Naaibenodigdhede
-    ar = ﺔﻃﺎﻴﺨﻟﺍ ﺕﺍﺪﻌﻣ
+    ar = معدات الخياطة
     be = Швейныя прыналежнасці
     bg = Шивашки консумативи
     cs = Šicí potřeby
@@ -25206,7 +25205,7 @@
     en = Smoke Shop
     en-GB = Tobacco Shop
     af = Tabakwinkel
-    ar = ﻎﺒﺗ
+    ar = تبغ
     be = Тытунь
     bg = Тютюн
     cs = Tabák
@@ -25285,7 +25284,7 @@
     en = Watch Store
     en-GB = Watch Shop
     af = Horlosiewinkel
-    ar = ﺕﺎﻋﺎﺳ
+    ar = ساعات
     be = Гадзіннік
     bg = Часовници
     cs = Hodinky
@@ -25325,7 +25324,7 @@
     en = Wholesale Store
     en-GB = Wholesale Shop
     af = Groothandel
-    ar = ﺔﻠﻤﺠﻟﺎﺑ ﺔﻴﺋﺍﺬﻐﻟﺍ ﺩﺍﻮﻤﻟﺍ ﺓﺭﺎﺠﺗ
+    ar = متجر مواد بالجملة
     be = Аптовая крама
     bg = Магазин на едро
     cs = Velkoobchodní prodejna
@@ -26600,7 +26599,7 @@
   [type.sport.pelota]
     en = Basque Pelota
     af = Baskiese peloton
-    ar = ﻚﺳﺎﺒﻟﺍ ﺎﺗﻮﻠﻴﺑ
+    ar = باسك بيلوتا
     be = Баскская пелота
     bg = Баска пелота
     cs = Baskická pelota
