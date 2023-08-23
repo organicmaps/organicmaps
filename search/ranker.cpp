@@ -748,9 +748,14 @@ void Ranker::UpdateResults(bool lastUpdate)
   }
   else
   {
-    /// @note Here is _reverse_ order sorting, because bigger is better.
-    sort(m_tentativeResults.rbegin(), m_tentativeResults.rend(),
-         base::LessBy(&RankerResult::GetLinearModelRank));
+    // Can get same Town features (from World) when searching in many MWMs.
+    base::SortUnique(m_tentativeResults,
+        [](RankerResult const & r1, RankerResult const & r2)
+        {
+          // Expect that linear rank is equal for the same features.
+          return r1.GetLinearModelRank() > r2.GetLinearModelRank();
+        },
+        base::EqualsBy(&RankerResult::GetID));
 
     ProcessSuggestions(m_tentativeResults);
   }
@@ -824,6 +829,8 @@ void Ranker::LoadCountriesTree() { m_regionInfoGetter.LoadCountriesTree(); }
 
 void Ranker::MakeRankerResults()
 {
+  LOG(LDEBUG, ("PreRankerResults number =", m_preRankerResults.size()));
+
   bool const isViewportMode = m_geocoderParams.m_mode == Mode::Viewport;
 
   RankerResultMaker maker(*this, m_dataSource, m_infoGetter, m_reverseGeocoder, m_geocoderParams);

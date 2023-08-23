@@ -95,12 +95,6 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
   m2::PointD const kPivot(0, 0);
   m2::RectD const kViewport(-5, -5, 5, 5);
 
-  /// @todo Well, I'm not sure that 50 results will have unique distances to pivot.
-  /// 7x7 grid is 49, so potentially it can be 51 (north and south) or (east and west).
-  /// But we should consider circle (ellipse) around pivot and I can't say,
-  /// how it goes in meters radius on integer mercator grid.
-  size_t constexpr kBatchSize = 50;
-
   vector<TestPOI> pois;
   for (int x = -5; x <= 5; ++x)
   {
@@ -111,7 +105,7 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
     }
   }
 
-  TEST_LESS(kBatchSize, pois.size(), ());
+  size_t const batchSize = pois.size() / 2;
 
   auto mwmId = BuildCountry("Cafeland", [&](TestMwmBuilder & builder)
   {
@@ -133,7 +127,7 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
   params.m_viewport = kViewport;
   params.m_accuratePivotCenter = kPivot;
   params.m_scale = scales::GetUpperScale();
-  params.m_everywhereBatchSize = kBatchSize;
+  params.m_everywhereBatchSize = batchSize;
   params.m_limit = pois.size();
   params.m_viewportSearch = false;
   preRanker.Init(params);
@@ -159,8 +153,8 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
   TEST(ranker.Finished(), ());
 
   size_t const count = results.size();
-  // See todo comment above for details.
-  TEST(count == kBatchSize || count == kBatchSize + 1, (count));
+  // Depends on std::shuffle, but lets keep 6% threshold.
+  TEST(count > batchSize*1.06 && count < batchSize*1.94, (count));
 
   vector<bool> checked(pois.size());
   for (size_t i = 0; i < count; ++i)
