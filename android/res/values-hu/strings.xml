@@ -626,7 +626,7 @@
 	<string name="driving_options_title">Útvonaltervezési lehetőségek</string>
 	<string name="driving_options_subheader">Elkerülés minden útvonalon</string>
 	<string name="avoid_tolls">Kerülje el a fizetős utakat</string>
-	<string name="avoid_unpaved">Évitez les routes non pavées</string>
+	<string name="avoid_unpaved">Kerülje a burkolatlan utakat</string>
 	<string name="avoid_ferry">Kerülje a kompátkelőhelyeket</string>
 	<string name="avoid_motorways">Kerülje az autópályákat</string>
 	<string name="unable_to_calc_alert_title">Nem lehet útvonalat számítani</string>

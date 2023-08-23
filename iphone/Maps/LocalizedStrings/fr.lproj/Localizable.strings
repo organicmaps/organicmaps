@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "Éviter sur tous les itinéraires";
 
-"avoid_tolls" = "Évitez les routes à péage";
+"avoid_tolls" = "Éviter les routes à péage";
 
-"avoid_unpaved" = "Évitez les routes non pavées";
+"avoid_unpaved" = "Éviter les routes non pavées";
 
-"avoid_ferry" = "Évitez les traversées en ferry";
+"avoid_ferry" = "Éviter les traversées en ferry";
 
-"avoid_motorways" = "Évitez les autoroutes";
+"avoid_motorways" = "Éviter les autoroutes";
 
 "unable_to_calc_alert_title" = "Impossible de calculer l'itinéraire";
 

@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "In jeder Reiseroute vermeiden";
 
-"avoid_tolls" = "Vermeiden Sie Mautstraßen";
+"avoid_tolls" = "Mautstraßen vermeiden";
 
-"avoid_unpaved" = "Vermeiden Sie unbefestigte Straßen";
+"avoid_unpaved" = "Unbefestigte Straßen vermeiden";
 
-"avoid_ferry" = "Vermeiden Sie Fährüberfahrten";
+"avoid_ferry" = "Fähren vermeiden";
 
-"avoid_motorways" = "Vermeiden Sie Autobahnen";
+"avoid_motorways" = "Autobahnen vermeiden";
 
 "unable_to_calc_alert_title" = "Route kann nicht berechnet werden";
 

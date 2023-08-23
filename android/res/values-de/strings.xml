@@ -643,10 +643,10 @@
 	<string name="access_rules_author_only">Online bearbeiten</string>
 	<string name="driving_options_title">Routenbeschränkungen</string>
 	<string name="driving_options_subheader">In jeder Reiseroute vermeiden</string>
-	<string name="avoid_tolls">Vermeiden Sie Mautstraßen</string>
-	<string name="avoid_unpaved">Vermeiden Sie unbefestigte Straßen</string>
-	<string name="avoid_ferry">Vermeiden Sie Fährüberfahrten</string>
-	<string name="avoid_motorways">Vermeiden Sie Autobahnen</string>
+	<string name="avoid_tolls">Mautstraßen vermeiden</string>
+	<string name="avoid_unpaved">Unbefestigte Straßen vermeiden</string>
+	<string name="avoid_ferry">Fähren vermeiden</string>
+	<string name="avoid_motorways">Autobahnen vermeiden</string>
 	<string name="unable_to_calc_alert_title">Route kann nicht berechnet werden</string>
 	<string name="unable_to_calc_alert_subtitle">Leider konnten wir keine Route mit den gewählten Optionen erstellen. Ändern Sie die Einstellungen und versuchen Sie es erneut</string>
 	<string name="define_to_avoid_btn">Umwege einstellen</string>
