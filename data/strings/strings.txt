@@ -22222,7 +22222,7 @@
     ca = Eviteu les vies de peatge
     cs = Vyhněte se zpoplatněným silnicím
     da = Undgå betalingsveje
-    de = Vermeiden Sie Mautstraßen
+    de = Mautstraßen vermeiden
     el = Αποφύγετε τους δρόμους με διόδια
     es = Evite las carreteras de pago
     es-MX = Evite las carreteras de peaje
@@ -22230,7 +22230,7 @@
     eu = Saihestu ordainpeko errepideak
     fa = از جاده های عوارضی خودداری کنید
     fi = Vältä maksullisia teitä
-    fr = Évitez les routes à péage
+    fr = Éviter les routes à péage
     hu = Kerülje el a fizetős utakat
     id = Hindari jalan tol
     it = Evita le strade a pedaggio
@@ -22265,7 +22265,7 @@
     ca = Eviteu les carreteres sense asfaltar
     cs = Vyhněte se nezpevněným cestám
     da = Undgå ikke-asfalterede veje
-    de = Vermeiden Sie unbefestigte Straßen
+    de = Unbefestigte Straßen vermeiden
     el = Αποφύγετε τους μη ασφαλτοστρωμένους δρόμους
     es = Evite caminos sin pavimento
     es-MX = Evite caminos de tierra
@@ -22273,8 +22273,8 @@
     eu = Saihestu asfaltatu gabeko errepideak
     fa = از جاده های آسفالت نشده خودداری کنید
     fi = Vältä päällystämättömiä teitä
-    fr = Évitez les routes non pavées
-    hu = Évitez les routes non pavées
+    fr = Éviter les routes non pavées
+    hu = Kerülje a burkolatlan utakat
     id = Hindari jalan yang tidak beraspal
     it = Evitare strade non asfaltate
     ja = 未舗装道路を避ける
@@ -22308,7 +22308,7 @@
     ca = Eviteu les travessies en ferri
     cs = Vyhněte se přejezdům trajektů
     da = Undgå færgeoverfarter
-    de = Vermeiden Sie Fährüberfahrten
+    de = Fähren vermeiden
     el = Αποφύγετε τις διελεύσεις με φέρι
     es = Evite los cruces de ferri
     es-MX = Evite los cruces de ferri
@@ -22316,7 +22316,7 @@
     eu = Saihestu ferry-pasaketak
     fa = از عبور کشتی ها خودداری کنید
     fi = Vältä lauttareittejä
-    fr = Évitez les traversées en ferry
+    fr = Éviter les traversées en ferry
     hu = Kerülje a kompátkelőhelyeket
     id = Hindari penyeberangan feri
     it = Evitare le traversate in traghetto
@@ -22351,7 +22351,7 @@
     ca = Eviteu les autopistes
     cs = Vyhněte se dálnicím
     da = Undgå motorveje
-    de = Vermeiden Sie Autobahnen
+    de = Autobahnen vermeiden
     el = Αποφύγετε τους αυτοκινητόδρομους
     es = Evite las autopistas
     es-MX = Evite las autopistas
@@ -22359,7 +22359,7 @@
     eu = Saihestu autobideak
     fa = از بزرگراه ها دوری کنید
     fi = Vältä moottoriteitä
-    fr = Évitez les autoroutes
+    fr = Éviter les autoroutes
     hu = Kerülje az autópályákat
     id = Hindari jalan raya
     it = Evitare le autostrade
