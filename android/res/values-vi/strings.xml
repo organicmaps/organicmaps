@@ -611,10 +611,10 @@
 	<string name="access_rules_author_only">Chỉnh sửa trực tuyến</string>
 	<string name="driving_options_title">Thiết lập đi vòng</string>
 	<string name="driving_options_subheader">Tránh trên mỗi tuyến</string>
-	<string name="avoid_tolls">Đường trả phí</string>
-	<string name="avoid_unpaved">Đường đất</string>
-	<string name="avoid_ferry">Bến phà</string>
-	<string name="avoid_motorways">Đường cao tốc</string>
+	<string name="avoid_tolls">Tránh đường thu phí</string>
+	<string name="avoid_unpaved">Tránh những con đường không trải nhựa</string>
+	<string name="avoid_ferry">Tránh qua phà</string>
+	<string name="avoid_motorways">Tránh đường cao tốc</string>
 	<string name="unable_to_calc_alert_title">Không thể tạo tuyến đường</string>
 	<string name="unable_to_calc_alert_subtitle">Rất tiếc, chúng không thể tạo tuyến đường với những tùy chọn đã chọn. Hãy thay đổi thiết lập và thử lại</string>
 	<string name="define_to_avoid_btn">Thiết lập đường đi vòng</string>

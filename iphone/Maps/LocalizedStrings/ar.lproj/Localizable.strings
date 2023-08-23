@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "تجنبها على جميع الطرق";
 
-"avoid_tolls" = "الطرق ذات الرسوم";
+"avoid_tolls" = "تجنب الطرق ذات الرسوم";
 
-"avoid_unpaved" = "الطرق غير المعبدة";
+"avoid_unpaved" = "تجنب الطرق غير المعبدة";
 
-"avoid_ferry" = "استخدام العبّارات";
+"avoid_ferry" = "تجنب معابر العبارات";
 
-"avoid_motorways" = "الطرق السريعة";
+"avoid_motorways" = "تجنب الطرق السريعة";
 
 "unable_to_calc_alert_title" = "لا يمكن حساب الطريق";
 

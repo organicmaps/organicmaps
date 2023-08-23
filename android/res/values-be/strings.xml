@@ -640,10 +640,10 @@
 	<string name="access_rules_author_only">Рэдагаванне анлайн</string>
 	<string name="driving_options_title">Налады пракладкі маршрута</string>
 	<string name="driving_options_subheader">Пазбягаць на кожным маршруце</string>
-	<string name="avoid_tolls">Платныя дарогі</string>
-	<string name="avoid_unpaved">Грунтовыя дарогі</string>
-	<string name="avoid_ferry">Паромныя пераправы</string>
-	<string name="avoid_motorways">Аўтамагістралі</string>
+	<string name="avoid_tolls">Пазбягайце платных дарог</string>
+	<string name="avoid_unpaved">Пазбягайце грунтавых дарог</string>
+	<string name="avoid_ferry">Пазбягайце паромных пераправаў</string>
+	<string name="avoid_motorways">Пазбягайце аўтастрад</string>
 	<string name="unable_to_calc_alert_title">Не атрымалася пракласці маршрут</string>
 	<string name="unable_to_calc_alert_subtitle">Нажаль, мы не змаглі пракласці маршрут, магчыма з-за абраных вамі налад. Змяніце налады і паспрабуйце зноў.</string>
 	<string name="define_to_avoid_btn">Задаць дарогі, якіх пазбягаць</string>

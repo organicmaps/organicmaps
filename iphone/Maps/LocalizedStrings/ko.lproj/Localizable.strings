@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "모든 길에서 피하기";
 
-"avoid_tolls" = "유로 도로";
+"avoid_tolls" = "유료 도로 피하기";
 
-"avoid_unpaved" = "비포장 도로";
+"avoid_unpaved" = "비포장도로 피하기";
 
-"avoid_ferry" = "여객선 교차로";
+"avoid_ferry" = "페리 횡단을 피하십시오";
 
-"avoid_motorways" = "고속도로";
+"avoid_motorways" = "고속도로 피하기";
 
 "unable_to_calc_alert_title" = "루트를 계산할 수 없습니다";
 

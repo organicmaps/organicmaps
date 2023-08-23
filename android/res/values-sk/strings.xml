@@ -610,10 +610,10 @@
 	<string name="access_rules_author_only">Online úprava</string>
 	<string name="driving_options_title">Možnosti jazdy</string>
 	<string name="driving_options_subheader">Vyhnúť sa na každej trase</string>
-	<string name="avoid_tolls">Spoplatnené cesty</string>
-	<string name="avoid_unpaved">Nespevnené cesty</string>
-	<string name="avoid_ferry">Prechody trajektom</string>
-	<string name="avoid_motorways">Diaľnice</string>
+	<string name="avoid_tolls">Vyhnite sa spoplatneným cestám</string>
+	<string name="avoid_unpaved">Vyhnite sa nespevneným cestám</string>
+	<string name="avoid_ferry">Vyhnite sa trajektovým prechodom</string>
+	<string name="avoid_motorways">Vyhýbajte sa diaľniciam</string>
 	<string name="unable_to_calc_alert_title">Nepodarilo sa vypočítať trasu</string>
 	<string name="unable_to_calc_alert_subtitle">Bohužiaľ sme nemohli nájsť trasu pravdepodobne z dôvodu definovaných možností. Zmeňte nastavenia a skúste to prosím znova</string>
 	<string name="define_to_avoid_btn">Definovať cesty, ktorým sa treba vyhnúť</string>

@@ -625,10 +625,10 @@
 	<string name="access_rules_author_only">Online szerkesztés</string>
 	<string name="driving_options_title">Útvonaltervezési lehetőségek</string>
 	<string name="driving_options_subheader">Elkerülés minden útvonalon</string>
-	<string name="avoid_tolls">Díjköteles utak</string>
-	<string name="avoid_unpaved">Burkolatlan utak</string>
-	<string name="avoid_ferry">Kompátkelők</string>
-	<string name="avoid_motorways">Autópályák</string>
+	<string name="avoid_tolls">Kerülje el a fizetős utakat</string>
+	<string name="avoid_unpaved">Évitez les routes non pavées</string>
+	<string name="avoid_ferry">Kerülje a kompátkelőhelyeket</string>
+	<string name="avoid_motorways">Kerülje az autópályákat</string>
 	<string name="unable_to_calc_alert_title">Nem lehet útvonalat számítani</string>
 	<string name="unable_to_calc_alert_subtitle">Sajnos nem találunk útvonalat, valószínűleg az általad meghatározott lehetőségek miatt. Kérjük változtass a beállításokon és próbáld újra</string>
 	<string name="define_to_avoid_btn">Elkerülendő utak meghatározása</string>

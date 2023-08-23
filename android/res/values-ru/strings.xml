@@ -654,10 +654,10 @@
 	<string name="access_rules_author_only">Редактируется онлайн</string>
 	<string name="driving_options_title">Настройки объезда</string>
 	<string name="driving_options_subheader">Избегать в каждом маршруте</string>
-	<string name="avoid_tolls">Платные дороги</string>
-	<string name="avoid_unpaved">Грунтовые дороги</string>
-	<string name="avoid_ferry">Паромные переправы</string>
-	<string name="avoid_motorways">Магистрали</string>
+	<string name="avoid_tolls">Избегайте платных дорог</string>
+	<string name="avoid_unpaved">Избегайте грунтовых дорог</string>
+	<string name="avoid_ferry">Избегайте паромных переправ</string>
+	<string name="avoid_motorways">Избегайте автомагистралей</string>
 	<string name="unable_to_calc_alert_title">Невозможно построить маршрут</string>
 	<string name="unable_to_calc_alert_subtitle">К сожалению, мы не смогли построить маршрут с выбранными опциями. Измените настройки и повторите попытку</string>
 	<string name="define_to_avoid_btn">Настроить пути объезда</string>

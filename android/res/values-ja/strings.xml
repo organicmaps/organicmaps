@@ -608,10 +608,10 @@
 	<string name="access_rules_author_only">オンライン編集</string>
 	<string name="driving_options_title">運転オプション</string>
 	<string name="driving_options_subheader">すべてのルートで回避</string>
-	<string name="avoid_tolls">有料道路</string>
-	<string name="avoid_unpaved">未舗装道路</string>
-	<string name="avoid_ferry">フェリー航路</string>
-	<string name="avoid_motorways">高速道路</string>
+	<string name="avoid_tolls">有料道路を避ける</string>
+	<string name="avoid_unpaved">未舗装道路を避ける</string>
+	<string name="avoid_ferry">フェリーの横断を避ける</string>
+	<string name="avoid_motorways">高速道路を避ける</string>
 	<string name="unable_to_calc_alert_title">ルートを計算できません</string>
 	<string name="unable_to_calc_alert_subtitle">残念ながら恐らく設定されたオプションのためにルートが見つけられませんでした。設定を変更し、もう一度お試しください</string>
 	<string name="define_to_avoid_btn">回避するために道を設定</string>

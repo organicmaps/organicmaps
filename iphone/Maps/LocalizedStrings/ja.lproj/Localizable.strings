@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "すべてのルートで回避";
 
-"avoid_tolls" = "有料道路";
+"avoid_tolls" = "有料道路を避ける";
 
-"avoid_unpaved" = "未舗装道路";
+"avoid_unpaved" = "未舗装道路を避ける";
 
-"avoid_ferry" = "フェリー航路";
+"avoid_ferry" = "フェリーの横断を避ける";
 
-"avoid_motorways" = "高速道路";
+"avoid_motorways" = "高速道路を避ける";
 
 "unable_to_calc_alert_title" = "ルートを計算できません";
 

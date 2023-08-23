@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "Evitar em todas as rotas";
 
-"avoid_tolls" = "Pedágios";
+"avoid_tolls" = "Evite estradas com pedágio";
 
-"avoid_unpaved" = "Pistas sem pavimentação";
+"avoid_unpaved" = "Evite pistas sem pavimentação";
 
-"avoid_ferry" = "Balsa";
+"avoid_ferry" = "Evite travessias de balsa";
 
-"avoid_motorways" = "Autoestradas";
+"avoid_motorways" = "Evite autoestradas";
 
 "unable_to_calc_alert_title" = "Incapaz de calcular rota";
 

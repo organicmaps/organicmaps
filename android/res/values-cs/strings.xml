@@ -618,10 +618,10 @@
 	<string name="access_rules_author_only">Upravujte on-line</string>
 	<string name="driving_options_title">Možnosti trasy</string>
 	<string name="driving_options_subheader">Vyhněte se na každé trase</string>
-	<string name="avoid_tolls">Silnice s mýtným</string>
-	<string name="avoid_unpaved">Nezpevněná silnice</string>
-	<string name="avoid_ferry">Přejezdy trajektů</string>
-	<string name="avoid_motorways">Dálnice</string>
+	<string name="avoid_tolls">Vyhněte se zpoplatněným silnicím</string>
+	<string name="avoid_unpaved">Vyhněte se nezpevněným cestám</string>
+	<string name="avoid_ferry">Vyhněte se přejezdům trajektů</string>
+	<string name="avoid_motorways">Vyhněte se dálnicím</string>
 	<string name="unable_to_calc_alert_title">Nelze vypočítat trasu</string>
 	<string name="unable_to_calc_alert_subtitle">Bohužel jsme nemohli nalézt trasu pravděpodobně kvůli vámi definovaným možnostem. Změňte prosím nastavení a zkuste to znovu</string>
 	<string name="define_to_avoid_btn">Definovat silnice, kterým se vyhnout</string>

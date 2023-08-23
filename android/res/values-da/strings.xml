@@ -613,10 +613,10 @@
 	<string name="access_rules_author_only">Online redigering</string>
 	<string name="driving_options_title">Køre muligheder</string>
 	<string name="driving_options_subheader">Undgå på enhver rute</string>
-	<string name="avoid_tolls">Betalingsveje</string>
-	<string name="avoid_unpaved">Grusveje</string>
-	<string name="avoid_ferry">Færgeoverfarter</string>
-	<string name="avoid_motorways">Motorveje</string>
+	<string name="avoid_tolls">Undgå betalingsveje</string>
+	<string name="avoid_unpaved">Undgå ikke-asfalterede veje</string>
+	<string name="avoid_ferry">Undgå færgeoverfarter</string>
+	<string name="avoid_motorways">Undgå motorveje</string>
 	<string name="unable_to_calc_alert_title">Det er ikke muligt at beregne rute</string>
 	<string name="unable_to_calc_alert_subtitle">Desværre kunne vi ikke finde en rute med den aktuelle opsætning. Ændre opsætningen, og prøv igen</string>
 	<string name="define_to_avoid_btn">Definer veje du vil undgå</string>

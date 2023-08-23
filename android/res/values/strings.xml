@@ -672,10 +672,10 @@
 	<string name="access_rules_author_only">Online editing</string>
 	<string name="driving_options_title">Routing options</string>
 	<string name="driving_options_subheader">Avoid on every route</string>
-	<string name="avoid_tolls">Toll roads</string>
-	<string name="avoid_unpaved">Unpaved roads</string>
-	<string name="avoid_ferry">Ferry crossings</string>
-	<string name="avoid_motorways">Motorways</string>
+	<string name="avoid_tolls">Avoid toll roads</string>
+	<string name="avoid_unpaved">Avoid unpaved roads</string>
+	<string name="avoid_ferry">Avoid ferry crossings</string>
+	<string name="avoid_motorways">Avoid motorways</string>
 	<string name="unable_to_calc_alert_title">Unable to calculate route</string>
 	<string name="unable_to_calc_alert_subtitle">A route could not be found. This may be caused by your routing options or incomplete OpenStreetMap data. Please change your routing options and retry.</string>
 	<string name="define_to_avoid_btn">Define roads to avoid</string>

@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "在每條線路上規避";
 
-"avoid_tolls" = "收費公路";
+"avoid_tolls" = "避開收費公路";
 
-"avoid_unpaved" = "土路";
+"avoid_unpaved" = "避開未鋪砌的道路";
 
-"avoid_ferry" = "渡輪渡口";
+"avoid_ferry" = "避免渡口";
 
-"avoid_motorways" = "高速公路";
+"avoid_motorways" = "避開高速公路";
 
 "unable_to_calc_alert_title" = "無法規劃路線";
 

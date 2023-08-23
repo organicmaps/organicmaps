@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "Vyhnúť sa na každej trase";
 
-"avoid_tolls" = "Spoplatnené cesty";
+"avoid_tolls" = "Vyhnite sa spoplatneným cestám";
 
-"avoid_unpaved" = "Nespevnené cesty";
+"avoid_unpaved" = "Vyhnite sa nespevneným cestám";
 
-"avoid_ferry" = "Prechody trajektom";
+"avoid_ferry" = "Vyhnite sa trajektovým prechodom";
 
-"avoid_motorways" = "Diaľnice";
+"avoid_motorways" = "Vyhýbajte sa diaľniciam";
 
 "unable_to_calc_alert_title" = "Nepodarilo sa vypočítať trasu";
 

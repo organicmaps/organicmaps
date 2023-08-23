@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "Evita-ho en totes les rutes";
 
-"avoid_tolls" = "Vies de peatge";
+"avoid_tolls" = "Eviteu les vies de peatge";
 
-"avoid_unpaved" = "Vies sense pavimentar";
+"avoid_unpaved" = "Eviteu les carreteres sense asfaltar";
 
-"avoid_ferry" = "Transbordaments en ferri";
+"avoid_ferry" = "Eviteu les travessies en ferri";
 
-"avoid_motorways" = "Autopistes";
+"avoid_motorways" = "Eviteu les autopistes";
 
 "unable_to_calc_alert_title" = "No s'ha pogut calcular la ruta";
 

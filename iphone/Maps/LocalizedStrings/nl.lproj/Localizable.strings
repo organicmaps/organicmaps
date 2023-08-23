@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "Vermijden op elke route";
 
-"avoid_tolls" = "Tolwegen";
+"avoid_tolls" = "Vermijd tolwegen";
 
-"avoid_unpaved" = "Onverharde wegen";
+"avoid_unpaved" = "Vermijd onverharde wegen";
 
-"avoid_ferry" = "Veerdiensten";
+"avoid_ferry" = "Vermijd veerbootovertochten";
 
-"avoid_motorways" = "Autosnelwegen";
+"avoid_motorways" = "Vermijd snelwegen";
 
 "unable_to_calc_alert_title" = "Kan route niet opbouwen";
 

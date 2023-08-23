@@ -612,10 +612,10 @@
 	<string name="access_rules_author_only">การแก้ไขทางออนไลน์</string>
 	<string name="driving_options_title">ทางเลือกเส้นทางขับขี่</string>
 	<string name="driving_options_subheader">หลีกเลี่ยงในทุกเส้นทาง</string>
-	<string name="avoid_tolls">ถนนแบบเสียค่าผ่านทาง</string>
-	<string name="avoid_unpaved">ถนนดิน</string>
-	<string name="avoid_ferry">เรือข้ามฟาก</string>
-	<string name="avoid_motorways">ทางด่วน</string>
+	<string name="avoid_tolls">หลีกเลี่ยงถนนที่เก็บค่าผ่านทาง</string>
+	<string name="avoid_unpaved">หลีกเลี่ยงถนนลูกรัง</string>
+	<string name="avoid_ferry">หลีกเลี่ยงการข้ามเรือข้ามฟาก</string>
+	<string name="avoid_motorways">หลีกเลี่ยงมอเตอร์เวย์</string>
 	<string name="unable_to_calc_alert_title">ไม่สามารถคำนวณเส้นทาง</string>
 	<string name="unable_to_calc_alert_subtitle">ขออภัย เราไม่สามารถค้นหาเส้นทาง โดยสาเหตุอาจมาจากทางเลือกที่คุณกำหนดไว้ โปรดเปลี่ยนการตั้งค่าทางเลือกและลองใหม่อีกครั้ง</string>
 	<string name="define_to_avoid_btn">กำหนดถนนที่ต้องการเลี่ยง</string>

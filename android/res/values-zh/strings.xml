@@ -620,10 +620,10 @@
 	<string name="access_rules_author_only">在线编辑</string>
 	<string name="driving_options_title">绕行设置</string>
 	<string name="driving_options_subheader">在每条线路上规避</string>
-	<string name="avoid_tolls">收费公路</string>
-	<string name="avoid_unpaved">土路</string>
-	<string name="avoid_ferry">渡轮渡口</string>
-	<string name="avoid_motorways">高速公路</string>
+	<string name="avoid_tolls">避开收费公路</string>
+	<string name="avoid_unpaved">避开未铺砌的道路</string>
+	<string name="avoid_ferry">避免渡口</string>
+	<string name="avoid_motorways">避开高速公路</string>
 	<string name="unable_to_calc_alert_title">无法规划路线</string>
 	<string name="unable_to_calc_alert_subtitle">很遗憾，我们无法使用所选选项规划路线。请更改设置，然后重试</string>
 	<string name="define_to_avoid_btn">设置绕行路径</string>

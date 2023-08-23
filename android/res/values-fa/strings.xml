@@ -611,10 +611,10 @@
 	<string name="access_rules_author_only">ویرایش آنلاین</string>
 	<string name="driving_options_title">گزینه‌های رانندگی</string>
 	<string name="driving_options_subheader">اجتناب از تمامی مسیرها</string>
-	<string name="avoid_tolls">جاده‌های دارای عوارض</string>
-	<string name="avoid_unpaved">جاده‌های آسفالت نشده</string>
-	<string name="avoid_ferry">گذرگاه‌های جاده‌ای</string>
-	<string name="avoid_motorways">بزرگراه‌ها</string>
+	<string name="avoid_tolls">از جاده های عوارضی خودداری کنید</string>
+	<string name="avoid_unpaved">از جاده های آسفالت نشده خودداری کنید</string>
+	<string name="avoid_ferry">از عبور کشتی ها خودداری کنید</string>
+	<string name="avoid_motorways">از بزرگراه ها دوری کنید</string>
 	<string name="unable_to_calc_alert_title">امکان محاسبه مسیر نیست</string>
 	<string name="unable_to_calc_alert_subtitle">متأسفانه، احتمالاً به دلیل گزینه‌های تعریف شده شما، مسیری پیدا نشد. لطفاً تنظیمات را تغییر داده و مجدد تلاش کنید</string>
 	<string name="define_to_avoid_btn">جاده‌های لغو شده را تعریف نمایید</string>

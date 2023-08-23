@@ -606,10 +606,10 @@
 	<string name="access_rules_author_only">Επεξεργάζεται online</string>
 	<string name="driving_options_title">Ρυθμίσεις παράκαμψης</string>
 	<string name="driving_options_subheader">Αποφυγή σε κάθε διαδρομή</string>
-	<string name="avoid_tolls">Δρόμοι με διόδια</string>
-	<string name="avoid_unpaved">Χωματόδρομοι</string>
-	<string name="avoid_ferry">Πορθμεία</string>
-	<string name="avoid_motorways">Αυτοκινητόδρομοι</string>
+	<string name="avoid_tolls">Αποφύγετε τους δρόμους με διόδια</string>
+	<string name="avoid_unpaved">Αποφύγετε τους μη ασφαλτοστρωμένους δρόμους</string>
+	<string name="avoid_ferry">Αποφύγετε τις διελεύσεις με φέρι</string>
+	<string name="avoid_motorways">Αποφύγετε τους αυτοκινητόδρομους</string>
 	<string name="unable_to_calc_alert_title">Δεν είναι δυνατή η δημιουργία διαδρομής</string>
 	<string name="unable_to_calc_alert_subtitle">Δυστυχώς, δεν μπορούσαμε να δημιουργήσουμε μια διαδρομή με τις καθορισμένες επιλογές. Αλλάξτε τις ρυθμίσεις και δοκιμάστε πάλι</string>
 	<string name="define_to_avoid_btn">Ρύθμιση της διαδρομής παράκαμψης</string>

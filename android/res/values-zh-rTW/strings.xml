@@ -628,10 +628,10 @@
 	<string name="access_rules_author_only">線上編輯</string>
 	<string name="driving_options_title">繞行設定</string>
 	<string name="driving_options_subheader">在每條線路上規避</string>
-	<string name="avoid_tolls">收費公路</string>
-	<string name="avoid_unpaved">土路</string>
-	<string name="avoid_ferry">渡輪渡口</string>
-	<string name="avoid_motorways">高速公路</string>
+	<string name="avoid_tolls">避開收費公路</string>
+	<string name="avoid_unpaved">避開未鋪砌的道路</string>
+	<string name="avoid_ferry">避免渡口</string>
+	<string name="avoid_motorways">避開高速公路</string>
 	<string name="unable_to_calc_alert_title">無法規劃路線</string>
 	<string name="unable_to_calc_alert_subtitle">很遺憾，我們無法使用所選選項規劃路線。請更改設定，然後重試</string>
 	<string name="define_to_avoid_btn">設定繞行路徑</string>

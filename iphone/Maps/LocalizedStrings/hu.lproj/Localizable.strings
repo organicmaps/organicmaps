@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "Elkerülés minden útvonalon";
 
-"avoid_tolls" = "Díjköteles utak";
+"avoid_tolls" = "Kerülje el a fizetős utakat";
 
-"avoid_unpaved" = "Burkolatlan utak";
+"avoid_unpaved" = "Évitez les routes non pavées";
 
-"avoid_ferry" = "Kompátkelők";
+"avoid_ferry" = "Kerülje a kompátkelőhelyeket";
 
-"avoid_motorways" = "Autópályák";
+"avoid_motorways" = "Kerülje az autópályákat";
 
 "unable_to_calc_alert_title" = "Nem lehet útvonalat számítani";
 

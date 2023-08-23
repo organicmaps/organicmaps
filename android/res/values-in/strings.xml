@@ -613,10 +613,10 @@
 	<string name="access_rules_author_only">Pengeditan online</string>
 	<string name="driving_options_title">Pilihan berkendara</string>
 	<string name="driving_options_subheader">Hindari di setiap rute</string>
-	<string name="avoid_tolls">Jalan tol</string>
-	<string name="avoid_unpaved">Jalan tanah</string>
-	<string name="avoid_ferry">Penyeberangan kapal feri</string>
-	<string name="avoid_motorways">Jalur motor</string>
+	<string name="avoid_tolls">Hindari jalan tol</string>
+	<string name="avoid_unpaved">Hindari jalan yang tidak beraspal</string>
+	<string name="avoid_ferry">Hindari penyeberangan feri</string>
+	<string name="avoid_motorways">Hindari jalan raya</string>
 	<string name="unable_to_calc_alert_title">Tidak dapat menghitung rute</string>
 	<string name="unable_to_calc_alert_subtitle">Sayangnya kami tidak dapat menemukan rute karena opsi pilihan Anda. Harap ubah pengaturan lalu coba lagi</string>
 	<string name="define_to_avoid_btn">Tentukan jalan yang dihindari</string>

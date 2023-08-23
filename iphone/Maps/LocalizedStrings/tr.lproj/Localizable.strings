@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "Her rotada kaçının";
 
-"avoid_tolls" = "Paralı yollar";
+"avoid_tolls" = "Ücretli yollardan kaçının";
 
-"avoid_unpaved" = "Asfaltsız yollar";
+"avoid_unpaved" = "Asfaltsız yollardan kaçının";
 
-"avoid_ferry" = "Feribot geçişleri";
+"avoid_ferry" = "Feribot geçişlerinden kaçının";
 
-"avoid_motorways" = "Otoyollar";
+"avoid_motorways" = "Otoyollardan kaçının";
 
 "unable_to_calc_alert_title" = "Rota hesaplanamıyor";
 

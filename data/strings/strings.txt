@@ -22345,7 +22345,7 @@
     tags = android,ios
     en = Avoid motorways
     af = Vermy snelweë
-    ar = تجنب الطرق السريعة 
+    ar = تجنب الطرق السريعة
     be = Пазбягайце аўтастрад
     bg = Избягвайте магистралите
     ca = Eviteu les autopistes

@@ -610,10 +610,10 @@
 	<string name="access_rules_author_only">온라인 수정</string>
 	<string name="driving_options_title">운전 옵션</string>
 	<string name="driving_options_subheader">모든 길에서 피하기</string>
-	<string name="avoid_tolls">유로 도로</string>
-	<string name="avoid_unpaved">비포장 도로</string>
-	<string name="avoid_ferry">여객선 교차로</string>
-	<string name="avoid_motorways">고속도로</string>
+	<string name="avoid_tolls">유료 도로 피하기</string>
+	<string name="avoid_unpaved">비포장도로 피하기</string>
+	<string name="avoid_ferry">페리 횡단을 피하십시오</string>
+	<string name="avoid_motorways">고속도로 피하기</string>
 	<string name="unable_to_calc_alert_title">루트를 계산할 수 없습니다</string>
 	<string name="unable_to_calc_alert_subtitle">아쉽게도 귀하가 정의한 옵션으로는 루트를 찾을 수가 없습니다. 설정을 바꾸신다음 다시 시도해주세요</string>
 	<string name="define_to_avoid_btn">피할 도로 정의하기</string>

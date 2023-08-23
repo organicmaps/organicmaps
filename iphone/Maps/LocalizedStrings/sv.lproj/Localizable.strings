@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "Undvik på varje rutten";
 
-"avoid_tolls" = "Betalväg";
+"avoid_tolls" = "Izogibajte se cestninskim cestam";
 
-"avoid_unpaved" = "Kärrväg";
+"avoid_unpaved" = "Izogibajte se neasfaltiranim cestam";
 
-"avoid_ferry" = "Färjetrafik";
+"avoid_ferry" = "Izogibajte se prehodom s trajektom";
 
-"avoid_motorways" = "Motorväg";
+"avoid_motorways" = "Izogibajte se avtocestam";
 
 "unable_to_calc_alert_title" = "Det går inte att bygga ruttenen";
 

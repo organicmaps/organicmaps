@@ -647,10 +647,10 @@
 	<string name="access_rules_author_only">Nettimuokkaus</string>
 	<string name="driving_options_title">Reititysvalinnat</string>
 	<string name="driving_options_subheader">Vältettävä kaikissa reiteissä</string>
-	<string name="avoid_tolls">Maksulliset tiet</string>
-	<string name="avoid_unpaved">Päällystämättömät tiet</string>
-	<string name="avoid_ferry">Lauttaliikenne</string>
-	<string name="avoid_motorways">Valtatiet</string>
+	<string name="avoid_tolls">Vältä maksullisia teitä</string>
+	<string name="avoid_unpaved">Vältä päällystämättömiä teitä</string>
+	<string name="avoid_ferry">Vältä lauttareittejä</string>
+	<string name="avoid_motorways">Vältä moottoriteitä</string>
 	<string name="unable_to_calc_alert_title">Reittiä ei voi luoda</string>
 	<string name="unable_to_calc_alert_subtitle">Valitettavasti emme voineet luoda reittiä valituilla vaihtoehdoilla. Vaihda asetuksia ja yritä uudelleen</string>
 	<string name="define_to_avoid_btn">Määritä vältettävät tiet</string>

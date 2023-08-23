@@ -611,10 +611,10 @@
 	<string name="access_rules_author_only">Redigeras online</string>
 	<string name="driving_options_title">Omvägsinställningar</string>
 	<string name="driving_options_subheader">Undvik på varje rutten</string>
-	<string name="avoid_tolls">Betalväg</string>
-	<string name="avoid_unpaved">Kärrväg</string>
-	<string name="avoid_ferry">Färjetrafik</string>
-	<string name="avoid_motorways">Motorväg</string>
+	<string name="avoid_tolls">Izogibajte se cestninskim cestam</string>
+	<string name="avoid_unpaved">Izogibajte se neasfaltiranim cestam</string>
+	<string name="avoid_ferry">Izogibajte se prehodom s trajektom</string>
+	<string name="avoid_motorways">Izogibajte se avtocestam</string>
 	<string name="unable_to_calc_alert_title">Det går inte att bygga ruttenen</string>
 	<string name="unable_to_calc_alert_subtitle">Tyvärr kunde vi inte bygga en rutt med de valda alternativen. Ändra inställningar och försök igen</string>
 	<string name="define_to_avoid_btn">Anpassa omvägsbana</string>

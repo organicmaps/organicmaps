@@ -628,10 +628,10 @@
 	<string name="access_rules_author_only">Modifică online</string>
 	<string name="driving_options_title">Opțiuni de ocolire</string>
 	<string name="driving_options_subheader">De evitat pe orice traseu</string>
-	<string name="avoid_tolls">Drumuri cu plată</string>
-	<string name="avoid_unpaved">Drumuri neasfaltate</string>
-	<string name="avoid_ferry">Treceri cu bac</string>
-	<string name="avoid_motorways">Autostrăzi</string>
+	<string name="avoid_tolls">Evitați drumurile cu taxă</string>
+	<string name="avoid_unpaved">Evitați drumurile neasfaltate</string>
+	<string name="avoid_ferry">Evitați traversările cu feribotul</string>
+	<string name="avoid_motorways">Evitați autostrăzile</string>
 	<string name="unable_to_calc_alert_title">Nu poate fi creat un traseu</string>
 	<string name="unable_to_calc_alert_subtitle">Din păcate, nu putem elabora un traseu cu opțiunile alese. Modifică-le și încearcă din nou.</string>
 	<string name="define_to_avoid_btn">Stabilește drumurile de evitat</string>

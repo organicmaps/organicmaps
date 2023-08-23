@@ -634,10 +634,10 @@
 	<string name="access_rules_author_only">Online muutmine</string>
 	<string name="driving_options_title">Marsruutimise valikud</string>
 	<string name="driving_options_subheader">Väldi igal marsruudil</string>
-	<string name="avoid_tolls">Tasulised teed</string>
-	<string name="avoid_unpaved">Katteta teed</string>
-	<string name="avoid_ferry">Praamiületused</string>
-	<string name="avoid_motorways">Kiirteed</string>
+	<string name="avoid_tolls">Vältige tasulisi teid</string>
+	<string name="avoid_unpaved">Vältige katmata teid</string>
+	<string name="avoid_ferry">Vältige praamiületusi</string>
+	<string name="avoid_motorways">Väldi kiirteid</string>
 	<string name="unable_to_calc_alert_title">Marsruudi arvutamine ei õnnestu</string>
 	<string name="unable_to_calc_alert_subtitle">Kahjuks ei leidnud me marsruuti tõenäoliselt teie valitud võimaluste tõttu. Muutke seadeid ja proovige uuesti.</string>
 	<string name="define_to_avoid_btn">Määra välditavad teed</string>

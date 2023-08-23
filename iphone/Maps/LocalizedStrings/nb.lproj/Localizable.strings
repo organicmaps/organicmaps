@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "Unngå ved hver rute";
 
-"avoid_tolls" = "Bompengeveier";
+"avoid_tolls" = "Unngå bomveier";
 
-"avoid_unpaved" = "Uasfaltert vei";
+"avoid_unpaved" = "Unngå uasfalterte veier";
 
-"avoid_ferry" = "Fergeoverganger";
+"avoid_ferry" = "Unngå fergeoverfarter";
 
-"avoid_motorways" = "Motorvei";
+"avoid_motorways" = "Unngå motorveier";
 
 "unable_to_calc_alert_title" = "Kan ikke beregne rute";
 

@@ -609,10 +609,10 @@
 	<string name="access_rules_author_only">ऑनलाइन संपादन</string>
 	<string name="driving_options_title">मार्गशोधी पर्याय</string>
 	<string name="driving_options_subheader">प्रत्येक मार्गावर टाळा</string>
-	<string name="avoid_tolls">टोल मार्ग</string>
-	<string name="avoid_unpaved">कच्चे मार्ग</string>
-	<string name="avoid_ferry">जल मार्ग</string>
-	<string name="avoid_motorways">महामार्ग</string>
+	<string name="avoid_tolls">टोल रस्ते टाळा</string>
+	<string name="avoid_unpaved">कच्चे रस्ते टाळा</string>
+	<string name="avoid_ferry">फेरी क्रॉसिंग टाळा</string>
+	<string name="avoid_motorways">मोटारवे टाळा</string>
 	<string name="unable_to_calc_alert_title">मार्गाची गणना करण्यात अक्षम</string>
 	<string name="unable_to_calc_alert_subtitle">दुर्दैवाने, आम्ही मार्ग शोधू शकलो नाही. ह्याचे कारण कदाचित तुम्ही निवडलेले पर्याय असावे. कृपया सेटिंग बदला आणि पुन्हा प्रयत्न करा.</string>
 	<string name="define_to_avoid_btn">टाळण्याचे मार्ग निवडा</string>

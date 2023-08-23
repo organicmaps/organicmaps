@@ -604,10 +604,10 @@
 	<string name="access_rules_author_only">Онлайн редактиране</string>
 	<string name="driving_options_title">Опции за маршрутизация</string>
 	<string name="driving_options_subheader">Избягване при всеки маршрут</string>
-	<string name="avoid_tolls">Платени пътища</string>
-	<string name="avoid_unpaved">Неасфалтирани пътища</string>
-	<string name="avoid_ferry">Преходи с ферибот</string>
-	<string name="avoid_motorways">Магистрали</string>
+	<string name="avoid_tolls">Избягвайте платените пътища</string>
+	<string name="avoid_unpaved">Избягвайте неасфалтирани пътища</string>
+	<string name="avoid_ferry">Избягвайте преминаването с ферибот</string>
+	<string name="avoid_motorways">Избягвайте магистралите</string>
 	<string name="unable_to_calc_alert_title">Не е възможнос изчисляване на маршрут</string>
 	<string name="unable_to_calc_alert_subtitle">За съжаление не успяхме да намерим маршрут, вероятно поради избраните от вас параметри. Моля, променете настройките и опитайте отново.</string>
 	<string name="define_to_avoid_btn">Определяне пътищата, които да се избягват</string>

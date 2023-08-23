@@ -114,10 +114,10 @@
 	<string name="access_rules_author_only">Se edita en línea</string>
 	<string name="driving_options_title">Ajustes de desvío</string>
 	<string name="driving_options_subheader">Evitar en cada ruta</string>
-	<string name="avoid_tolls">Carreteras de peaje</string>
-	<string name="avoid_unpaved">Caminos de tierra</string>
-	<string name="avoid_ferry">Cruces de ferri</string>
-	<string name="avoid_motorways">Autopistas</string>
+	<string name="avoid_tolls">Evite las carreteras de peaje</string>
+	<string name="avoid_unpaved">Evite caminos de tierra</string>
+	<string name="avoid_ferry">Evite los cruces de ferri</string>
+	<string name="avoid_motorways">Evite las autopistas</string>
 	<string name="unable_to_calc_alert_title">No se puede construir una ruta</string>
 	<string name="unable_to_calc_alert_subtitle">Desafortunadamente, no pudimos construir una ruta con las opciones seleccionadas. Cambie la configuración y vuelva a intentarlo</string>
 	<string name="define_to_avoid_btn">Configurar rutas de desvío</string>

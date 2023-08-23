@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "De evitat pe orice traseu";
 
-"avoid_tolls" = "Drumuri cu plată";
+"avoid_tolls" = "Evitați drumurile cu taxă";
 
-"avoid_unpaved" = "Drumuri neasfaltate";
+"avoid_unpaved" = "Evitați drumurile neasfaltate";
 
-"avoid_ferry" = "Treceri cu bac";
+"avoid_ferry" = "Evitați traversările cu feribotul";
 
-"avoid_motorways" = "Autostrăzi";
+"avoid_motorways" = "Evitați autostrăzile";
 
 "unable_to_calc_alert_title" = "Nu poate fi creat un traseu";
 

@@ -643,10 +643,10 @@
 	<string name="access_rules_author_only">Çevrimiçi düzenleme</string>
 	<string name="driving_options_title">Yönlendirme seçenekleri</string>
 	<string name="driving_options_subheader">Her rotada kaçının</string>
-	<string name="avoid_tolls">Paralı yollar</string>
-	<string name="avoid_unpaved">Asfaltsız yollar</string>
-	<string name="avoid_ferry">Feribot geçişleri</string>
-	<string name="avoid_motorways">Otoyollar</string>
+	<string name="avoid_tolls">Ücretli yollardan kaçının</string>
+	<string name="avoid_unpaved">Asfaltsız yollardan kaçının</string>
+	<string name="avoid_ferry">Feribot geçişlerinden kaçının</string>
+	<string name="avoid_motorways">Otoyollardan kaçının</string>
 	<string name="unable_to_calc_alert_title">Rota hesaplanamıyor</string>
 	<string name="unable_to_calc_alert_subtitle">Maalesef, muhtemelen belirlediğiniz seçeneklerden dolayı bir rota bulamadık. Lütfen seçenekleri değiştirin ve tekrar deneyin</string>
 	<string name="define_to_avoid_btn">Kaçınılması gereken yolları tanımlayın</string>

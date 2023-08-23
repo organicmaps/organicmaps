@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "Vältettävä kaikissa reiteissä";
 
-"avoid_tolls" = "Maksulliset tiet";
+"avoid_tolls" = "Vältä maksullisia teitä";
 
-"avoid_unpaved" = "Päällystämättömät tiet";
+"avoid_unpaved" = "Vältä päällystämättömiä teitä";
 
-"avoid_ferry" = "Lauttaliikenne";
+"avoid_ferry" = "Vältä lauttareittejä";
 
-"avoid_motorways" = "Valtatiet";
+"avoid_motorways" = "Vältä moottoriteitä";
 
 "unable_to_calc_alert_title" = "Reittiä ei voi luoda";
 

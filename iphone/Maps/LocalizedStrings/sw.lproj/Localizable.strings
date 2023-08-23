@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "Epuka kwenye kila njia";
 
-"avoid_tolls" = "Barabara za kulipia";
+"avoid_tolls" = "Undvik avgiftsbelagda vägar";
 
-"avoid_unpaved" = "Barabara za vumbi";
+"avoid_unpaved" = "Undvik oasfalterade vägar";
 
-"avoid_ferry" = "Vivuko cha feri";
+"avoid_ferry" = "Undvik färjeöverfarter";
 
-"avoid_motorways" = "Barabara za mwendo kasi";
+"avoid_motorways" = "Undvik motorvägar";
 
 "unable_to_calc_alert_title" = "Haiwezi kukokotoa njia";
 

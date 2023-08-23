@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "Tránh trên mỗi tuyến";
 
-"avoid_tolls" = "Đường trả phí";
+"avoid_tolls" = "Tránh đường thu phí";
 
-"avoid_unpaved" = "Đường đất";
+"avoid_unpaved" = "Tránh những con đường không trải nhựa";
 
-"avoid_ferry" = "Bến phà";
+"avoid_ferry" = "Tránh qua phà";
 
-"avoid_motorways" = "Đường cao tốc";
+"avoid_motorways" = "Tránh đường cao tốc";
 
 "unable_to_calc_alert_title" = "Không thể tạo tuyến đường";
 

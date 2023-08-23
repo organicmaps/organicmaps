@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "Избегать в каждом маршруте";
 
-"avoid_tolls" = "Платные дороги";
+"avoid_tolls" = "Избегайте платных дорог";
 
-"avoid_unpaved" = "Грунтовые дороги";
+"avoid_unpaved" = "Избегайте грунтовых дорог";
 
-"avoid_ferry" = "Паромные переправы";
+"avoid_ferry" = "Избегайте паромных переправ";
 
-"avoid_motorways" = "Магистрали";
+"avoid_motorways" = "Избегайте автомагистралей";
 
 "unable_to_calc_alert_title" = "Невозможно построить маршрут";
 

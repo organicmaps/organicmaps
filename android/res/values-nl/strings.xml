@@ -640,10 +640,10 @@
 	<string name="access_rules_author_only">Wordt online bewerkt</string>
 	<string name="driving_options_title">Route instellingen</string>
 	<string name="driving_options_subheader">Vermijden op elke route</string>
-	<string name="avoid_tolls">Tolwegen</string>
-	<string name="avoid_unpaved">Onverharde wegen</string>
-	<string name="avoid_ferry">Veerdiensten</string>
-	<string name="avoid_motorways">Autosnelwegen</string>
+	<string name="avoid_tolls">Vermijd tolwegen</string>
+	<string name="avoid_unpaved">Vermijd onverharde wegen</string>
+	<string name="avoid_ferry">Vermijd veerbootovertochten</string>
+	<string name="avoid_motorways">Vermijd snelwegen</string>
 	<string name="unable_to_calc_alert_title">Kan route niet opbouwen</string>
 	<string name="unable_to_calc_alert_subtitle">Helaas konden we geen route opbouwen met de gekozen opties. Wijzig de instellingen en probeer het opnieuw</string>
 	<string name="define_to_avoid_btn">Omwegen configureren</string>

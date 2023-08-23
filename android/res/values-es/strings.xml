@@ -647,10 +647,10 @@
 	<string name="access_rules_author_only">Edición en línea</string>
 	<string name="driving_options_title">Opciones de enrutamiento</string>
 	<string name="driving_options_subheader">Evitar en todas las rutas</string>
-	<string name="avoid_tolls">Carreteras de pago</string>
-	<string name="avoid_unpaved">Caminos sin pavimento</string>
-	<string name="avoid_ferry">Cruces de ferri</string>
-	<string name="avoid_motorways">Autopistas</string>
+	<string name="avoid_tolls">Evite las carreteras de pago</string>
+	<string name="avoid_unpaved">Evite caminos sin pavimento</string>
+	<string name="avoid_ferry">Evite los cruces de ferri</string>
+	<string name="avoid_motorways">Evite las autopistas</string>
 	<string name="unable_to_calc_alert_title">No se puede calcular la ruta</string>
 	<string name="unable_to_calc_alert_subtitle">Desafortunadamente, no pudimos encontrar una ruta con las opciones seleccionadas. Cambie la configuración y vuelva a intentarlo</string>
 	<string name="define_to_avoid_btn">Defina las carreteras a evitar</string>

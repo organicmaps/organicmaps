@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "Hindari di setiap rute";
 
-"avoid_tolls" = "Jalan tol";
+"avoid_tolls" = "Hindari jalan tol";
 
-"avoid_unpaved" = "Jalan tanah";
+"avoid_unpaved" = "Hindari jalan yang tidak beraspal";
 
-"avoid_ferry" = "Penyeberangan kapal feri";
+"avoid_ferry" = "Hindari penyeberangan feri";
 
-"avoid_motorways" = "Jalur motor";
+"avoid_motorways" = "Hindari jalan raya";
 
 "unable_to_calc_alert_title" = "Tidak dapat menghitung rute";
 

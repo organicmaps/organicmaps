@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "प्रत्येक मार्गावर टाळा";
 
-"avoid_tolls" = "टोल मार्ग";
+"avoid_tolls" = "टोल रस्ते टाळा";
 
-"avoid_unpaved" = "कच्चे मार्ग";
+"avoid_unpaved" = "कच्चे रस्ते टाळा";
 
-"avoid_ferry" = "जल मार्ग";
+"avoid_ferry" = "फेरी क्रॉसिंग टाळा";
 
-"avoid_motorways" = "महामार्ग";
+"avoid_motorways" = "मोटारवे टाळा";
 
 "unable_to_calc_alert_title" = "मार्गाची गणना करण्यात अक्षम";
 

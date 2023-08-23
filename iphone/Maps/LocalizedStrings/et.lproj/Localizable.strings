@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "Väldi igal marsruudil";
 
-"avoid_tolls" = "Tasulised teed";
+"avoid_tolls" = "Vältige tasulisi teid";
 
-"avoid_unpaved" = "Katteta teed";
+"avoid_unpaved" = "Vältige katmata teid";
 
-"avoid_ferry" = "Praamiületused";
+"avoid_ferry" = "Vältige praamiületusi";
 
-"avoid_motorways" = "Kiirteed";
+"avoid_motorways" = "Väldi kiirteid";
 
 "unable_to_calc_alert_title" = "Marsruudi arvutamine ei õnnestu";
 

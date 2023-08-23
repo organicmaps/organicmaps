@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "Avoid on every route";
 
-"avoid_tolls" = "Toll roads";
+"avoid_tolls" = "Avoid toll roads";
 
-"avoid_unpaved" = "Unpaved roads";
+"avoid_unpaved" = "Avoid unpaved roads";
 
-"avoid_ferry" = "Ferry crossings";
+"avoid_ferry" = "Avoid ferry crossings";
 
-"avoid_motorways" = "Motorways";
+"avoid_motorways" = "Avoid motorways";
 
 "unable_to_calc_alert_title" = "Unable to calculate route";
 

@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "在每条线路上规避";
 
-"avoid_tolls" = "收费公路";
+"avoid_tolls" = "避开收费公路";
 
-"avoid_unpaved" = "土路";
+"avoid_unpaved" = "避开未铺砌的道路";
 
-"avoid_ferry" = "渡轮渡口";
+"avoid_ferry" = "避免渡口";
 
-"avoid_motorways" = "高速公路";
+"avoid_motorways" = "避开高速公路";
 
 "unable_to_calc_alert_title" = "无法规划路线";
 

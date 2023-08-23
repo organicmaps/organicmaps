@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "اجتناب از تمامی مسیرها";
 
-"avoid_tolls" = "جاده‌های دارای عوارض";
+"avoid_tolls" = "از جاده های عوارضی خودداری کنید";
 
-"avoid_unpaved" = "جاده‌های آسفالت نشده";
+"avoid_unpaved" = "از جاده های آسفالت نشده خودداری کنید";
 
-"avoid_ferry" = "گذرگاه‌های جاده‌ای";
+"avoid_ferry" = "از عبور کشتی ها خودداری کنید";
 
-"avoid_motorways" = "بزرگراه‌ها";
+"avoid_motorways" = "از بزرگراه ها دوری کنید";
 
 "unable_to_calc_alert_title" = "امکان محاسبه مسیر نیست";
 

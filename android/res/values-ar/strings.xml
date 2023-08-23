@@ -646,10 +646,10 @@
 	<string name="access_rules_author_only">التعديل باستخدام الإنترنت</string>
 	<string name="driving_options_title">خيارات رسم المسار</string>
 	<string name="driving_options_subheader">تجنبها على جميع الطرق</string>
-	<string name="avoid_tolls">الطرق ذات الرسوم</string>
-	<string name="avoid_unpaved">الطرق غير المعبدة</string>
-	<string name="avoid_ferry">استخدام العبّارات</string>
-	<string name="avoid_motorways">الطرق السريعة</string>
+	<string name="avoid_tolls">تجنب الطرق ذات الرسوم</string>
+	<string name="avoid_unpaved">تجنب الطرق غير المعبدة</string>
+	<string name="avoid_ferry">تجنب معابر العبارات</string>
+	<string name="avoid_motorways">تجنب الطرق السريعة</string>
 	<string name="unable_to_calc_alert_title">لا يمكن حساب الطريق</string>
 	<string name="unable_to_calc_alert_subtitle">نأسف، لم نعثر على الطريق ربما بسبب الخيارات التي قمت بتحديدها. يرجى تغيير الإعدادات والمحاولة مجددًا</string>
 	<string name="define_to_avoid_btn">حدد الطرق التي يجب تجنبها</string>

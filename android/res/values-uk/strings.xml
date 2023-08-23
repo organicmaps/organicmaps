@@ -640,10 +640,10 @@
 	<string name="access_rules_author_only">Редагується онлайн</string>
 	<string name="driving_options_title">Налаштування об’їзду</string>
 	<string name="driving_options_subheader">Уникати в кожному маршруті</string>
-	<string name="avoid_tolls">Платні дороги</string>
-	<string name="avoid_unpaved">Ґрунтові дороги</string>
-	<string name="avoid_ferry">Поромні переправи</string>
-	<string name="avoid_motorways">Магістралі</string>
+	<string name="avoid_tolls">Уникайте платних доріг</string>
+	<string name="avoid_unpaved">Уникайте ґрунтових доріг</string>
+	<string name="avoid_ferry">Уникайте поромних переправ</string>
+	<string name="avoid_motorways">Уникайте автострад</string>
 	<string name="unable_to_calc_alert_title">Неможливо побудувати маршрут</string>
 	<string name="unable_to_calc_alert_subtitle">На жаль, ми не змогли побудувати маршрут з вибраними опціями. Змініть налаштування та спробуйте ще раз</string>
 	<string name="define_to_avoid_btn">Налаштувати шляхи об’їзду</string>

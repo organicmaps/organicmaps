@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "Пазбягаць на кожным маршруце";
 
-"avoid_tolls" = "Платныя дарогі";
+"avoid_tolls" = "Пазбягайце платных дарог";
 
-"avoid_unpaved" = "Грунтовыя дарогі";
+"avoid_unpaved" = "Пазбягайце грунтавых дарог";
 
-"avoid_ferry" = "Паромныя пераправы";
+"avoid_ferry" = "Пазбягайце паромных пераправаў";
 
-"avoid_motorways" = "Аўтамагістралі";
+"avoid_motorways" = "Пазбягайце аўтастрад";
 
 "unable_to_calc_alert_title" = "Не атрымалася пракласці маршрут";
 

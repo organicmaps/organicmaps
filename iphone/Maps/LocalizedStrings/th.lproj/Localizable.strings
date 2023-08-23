@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "หลีกเลี่ยงในทุกเส้นทาง";
 
-"avoid_tolls" = "ถนนแบบเสียค่าผ่านทาง";
+"avoid_tolls" = "หลีกเลี่ยงถนนที่เก็บค่าผ่านทาง";
 
-"avoid_unpaved" = "ถนนดิน";
+"avoid_unpaved" = "หลีกเลี่ยงถนนลูกรัง";
 
-"avoid_ferry" = "เรือข้ามฟาก";
+"avoid_ferry" = "หลีกเลี่ยงการข้ามเรือข้ามฟาก";
 
-"avoid_motorways" = "ทางด่วน";
+"avoid_motorways" = "หลีกเลี่ยงมอเตอร์เวย์";
 
 "unable_to_calc_alert_title" = "ไม่สามารถคำนวณเส้นทาง";
 
