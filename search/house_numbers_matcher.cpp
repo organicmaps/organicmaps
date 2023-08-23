@@ -32,51 +32,62 @@ namespace
 
 /// @todo By VNG: This list looks hillarious :) Definitely should set some lower bound number
 /// to filter very exotic entries in addr:housenumber.
-/// Removed street keywords for now.
-vector<string> const g_strings = {
-    "a",      "aa",      "ab",      "abc",  "ac",   "ad",      "ae",      "af",       "ag",
+
+// Removed street keywords for now and ALL one-letter strings. It is sensitive for search speed, because:
+// LooksLikeHouseNumber -> MatchBuildingsWithStreets -> *heavy* StreetVicinityLoader::GetStreet
+// "av", "avenida",
+// "ca", "cal",  "calle",  "carrera", "court",
+// "da", "de", "di".
+// "ga",
+// "ł", "la",
+// "ne",
+// "pa", "par", "park", "plaza",
+// "rd", "ro", "road",
+// "so", "south", "st", "street",
+// "vi",
+// "way", "we", "west",
+
+char const * g_strings[] = {
+    "aa",     "ab",      "abc",     "ac",   "ad",   "ae",      "af",      "ag",
     "ah",     "ai",      "aj",      "ak",   "al",   "am",      "an",      "ao",       "ap",
-    "aq",     "ar",      "are",     "as",   "at",   "au",      "av",      /*"avenida",*/  "aw",
-    "ax",     "ay",      "az",      "azm",  "b",    "ba",      "bab",     "bah",      "bak",
+    "aq",     "ar",      "are",     "as",   "at",   "au",      "aw",
+    "ax",     "ay",      "az",      "azm",  "ba",   "bab",     "bah",     "bak",
     "bb",     "bc",      "bd",      "be",   "bedr", "ben",     "bf",      "bg",       "bh",
     "bij",    "bis",     "bk",      "bl",   "bldg", "blk",     "bloc",    "block",    "bloco",
     "blok",   "bm",      "bmn",     "bn",   "bo",   "boe",     "bol",     "bor",      "bov",
     "box",    "bp",      "br",      "bra",  "brc",  "bs",      "bsa",     "bu",       "building",
-    "bv",      "bwn",     "bx",   "by",   "c",       "ca",      "cab",      "cal",
-    /*"calle",  "carrera",*/ "cat",     "cbi",  "cbu",  "cc",      "ccz",     "cd",       "ce",
-    "centre", "cfn",     "cgc",     "cjg",  "cl",   "club",    "cottage", "cottages", /*"court",*/
-    "cso",    "cum",     "d",       "da",   "db",   "dd",      "de",      "df",       "di",
-    "dia",    "dvu",     "e",       "ec",   "ee",   "eh",      "em",      "en",       "esm",
-    "ev",     "f",       "fdo",  "fer",  "ff",      "flat",     "flats",
-    "floor",  /*"g",*/       "ga",      "gar",  "gara", "gas",     "gb",      "gg",       "gr",
-    "grg",    "h",       "ha",      "haus", "hh",   "hl",      "ho",      "house",    "hr",
-    "hs",     "hv",      "i",       "ii",   "iii",  "int",     "iv",      "ix",       "j",
-    "jab",    "jf",      "jj",      "jms",  "jtg",  "k",       "ka",      "kab",      "kk",
-    "kmb",     "kmk",     "knn",  "koy",  "kp",      "kra",     "ksn",      "kud",
-    "l",      "ł",       "la",      "ldo",  "ll",   "local",   "loja",    "lot",      "lote",
-    "lsb",    "lt",      "m",       "mac",  "mad",  "mah",     "mak",     "mat",      "mb",
+    "bv",     "bwn",     "bx",      "by",   "cab",  "cat",     "cbi",     "cbu",      "cc",
+    "ccz",    "cd",      "ce",      "centre", "cfn",  "cgc",   "cjg",     "cl",       "club",
+    "cottage", "cottages", "cso",   "cum",  "db",   "dd",      "df",
+    "dia",    "dvu",     "ec",      "ee",   "eh",   "em",      "en",      "esm",
+    "ev",     "fdo",     "fer",     "ff",   "flat", "flats",   "floor",
+    "gar",    "gara",    "gas",     "gb",   "gg",   "gr",
+    "grg",    "ha",      "haus",    "hh",   "hl",   "ho",      "house",   "hr",
+    "hs",     "hv",      "ii",      "iii",  "int",  "iv",      "ix",
+    "jab",    "jf",      "jj",      "jms",  "jtg",  "ka",      "kab",     "kk",
+    "kmb",    "kmk",     "knn",     "koy",  "kp",   "kra",     "ksn",     "kud",
+    "ldo",    "ll",      "local",   "loja", "lot",  "lote",
+    "lsb",    "lt",      "mac",     "mad",  "mah",  "mak",     "mat",     "mb",
     "mbb",    "mbn",     "mch",     "mei",  "mks",  "mm",      "mny",     "mo",       "mok",
-    "mor",     "msb",  "mtj",  "mtk",     "mvd",     "n",        "na",
-    "ncc",    "ne",      "nij",     "nn",   "no",   "nr",      "nst",     "nu",       "nut",
-    "o",      "of",      "ofof",    "old",  "one",  "oo",      "opl",     "p",        "pa",
-    "pap",    "par",     /*"park",*/    "pav",  "pb",   "pch",     "pg",      "ph",       "phd",
-    "pkf",    /*"plaza",*/   "plot",    "po",   "pos",  "pp",      "pr",      "pra",      "pya",
-    "q",      "qq",      "quater",  "r",    "ra",   "rbo",     "rd",      "rear",     "reisach",
-    "rk",     "rm",      "ro",      /*"road",*/ "rosso",   "rs",      "rw",       "s",
+    "mor",    "msb",     "mtj",     "mtk",  "mvd",  "na",
+    "ncc",    "nij",     "nn",      "no",   "nr",   "nst",     "nu",      "nut",
+    "of",     "ofof",    "old",     "one",  "oo",   "opl",     "pa",
+    "pap",    "pav",     "pb",      "pch",  "pg",   "ph",      "phd",
+    "pkf",    "plot",    "po",      "pos",  "pp",   "pr",      "pra",     "pya",
+    "qq",     "quater",  "ra",      "rbo",  "rear", "reisach",
+    "rk",     "rm",      "rosso",   "rs",   "rw",
     "sab",    "sal",     "sav",     "sb",   "sba",  "sbb",     "sbl",     "sbn",      "sbx",
     "sc",     "sch",     "sco",     "seb",  "sep",  "sf",      "sgr",     "sir",
-    "sj",     "sl",      "sm",      "sn",   "snc",  "so",      "som",     /*"south",*/    "sp",
-    "spi",    "spn",     "ss",      "st",   "sta",  "stc",     "std",     "stiege",   /*"street",*/
-    "suite",  "sur",     "t",       "tam",  "ter",  "terrace", "tf",      "th",       "the",
+    "sj",     "sl",      "sm",      "sn",   "snc",  "som",     "sp",
+    "spi",    "spn",     "ss",      "sta",  "stc",  "std",     "stiege",
+    "suite",  "sur",     "tam",     "ter",  "terrace", "tf",   "th",      "the",
     "tl",     "to",      "torre",   "tr",   "traf", "trd",     "ts",      "tt",       "tu",
-    "u",      "uhm",     "unit",    "utc",  "v",    "vi",      "vii",     "w",        "wa",
-    /*"way",*/    "we",      /*"west",*/    "wf",   "wink", "wrh",     "ws",      "wsb",      "x",
-    "xx",     "y",       "z",       "za",   "zh",   "zona",    "zu",      "zw",       "א",
-    "ב",      "ג",       "α",       "а",    "б",    "бб",      "бл",      "в",        "вл",
-    "вх",     "г",       "д",       "е",    "ж",    "з",       "и",       "к",        "л",
-    "лит",    "м",       "н",    "о",    "п",       "р",       "разр",     "с",
-    "стр",    "т",       "тп",      "у",    "уч",   "участок", "ф",       "ц",        "ა",
-    "丁目",   "之",      "号",      "號",
+    "uhm",    "unit",    "utc",     "vii",  "wa",
+    "wf",     "wink",    "wrh",     "ws",   "wsb",
+    "xx",     "za",      "zh",      "zona", "zu",   "zw",      "א",
+    "ב",      "ג",       "α",       "бб",   "бл",   "вл",
+    "вх",    "лит",      "разр",    "стр",  "тп",   "уч",      "участок", "ა",
+    "丁目",   "之",       "号",      "號",
 
     // List of exceptions
     "владение"
@@ -105,9 +116,10 @@ vector<string> const g_patternsStrict = {
 
 
 // List of common synonyms for building parts. Constructed by hand.
-vector<string> const g_buildingPartSynonyms = {
+char const * g_buildingPartSynonyms[] = {
     "building", "bldg", "bld",   "bl",  "unit",     "block", "blk",  "корпус",
-    "корп",     "кор",  "литер", "лит", "строение", "стр",   "блок", "бл"};
+    "корп",     "кор",  "литер", "лит", "строение", "стр",   "блок", "бл"
+};
 
 // List of common stop words for buildings. Constructed by hand.
 UniString const g_stopWords[] = {MakeUniString("дом"), MakeUniString("house"), MakeUniString("д")};
