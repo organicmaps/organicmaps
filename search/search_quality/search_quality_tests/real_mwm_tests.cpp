@@ -97,6 +97,14 @@ public:
     }
   }
 
+  static size_t CountClassifType(Range const & results, uint32_t type)
+  {
+    return std::count_if(results.begin(), results.end(), [type](search::Result const & r)
+    {
+      return EqualClassifType(r.GetFeatureType(), type);
+    });
+  }
+
   static void NameStartsWith(Range const & results, base::StringIL const & prefixes)
   {
     for (auto const & r : results)
@@ -335,7 +343,10 @@ UNIT_CLASS_TEST(MwmTestsFixture, Barcelona_Carrers)
     auto const & results = request->Results();
     TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
-    Range const range(results, 0, 4);
+    // - First 2 streets in Barcelona (1-2 km)
+    // - Next streets in Badalona, Barbera, Sadabel, ... (20-30 km)
+    // - Again 2 _minor_ footways in Barcelona (1-2 km)
+    Range const range(results, 0, 2);
     EqualClassifType(range, GetClassifTypes({{"highway"}}));
     CenterInRect(range, {2.1651583, 41.3899995, 2.1863021, 41.4060494});
   }
@@ -473,6 +484,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, French_StopWord_Category)
 UNIT_CLASS_TEST(MwmTestsFixture, Street_BusStop)
 {
   // Buenos Aires
+  // Also should download Argentina_Santa Fe.
   ms::LatLon const center(-34.60655, -58.43566);
   SetViewportAndLoadMaps(center);
 
@@ -481,9 +493,10 @@ UNIT_CLASS_TEST(MwmTestsFixture, Street_BusStop)
     auto const & results = request->Results();
     TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
-    // Top results are Hotel and Street (sometimes bus stop).
+    // Top results are Hotel, Shop and Street.
+    // Full Match street (20 km) is better than Full Prefix bus stop (1 km).
     Range const range(results);
-    EqualClassifType(range, GetClassifTypes({{"tourism", "hotel"}, {"highway", "bus_stop"}, {"highway", "residential"}}));
+    EqualClassifType(range, GetClassifTypes({{"tourism", "hotel"}, {"shop"}, {"highway", "residential"}}));
   }
 
   {
@@ -824,4 +837,19 @@ UNIT_CLASS_TEST(MwmTestsFixture, BA_LasHeras)
   }
 }
 
+UNIT_CLASS_TEST(MwmTestsFixture, BA_SanMartin)
+{
+  // Buenos Aires (Palermo)
+  ms::LatLon const center(-34.5801392, -58.415764);
+  SetViewportAndLoadMaps(center);
+
+  {
+    auto request = MakeRequest("San Martin");
+    auto const & results = request->Results();
+    size_t constexpr kResultsCount = 12;
+    TEST_GREATER(results.size(), kResultsCount, ());
+    TEST_GREATER(CountClassifType(Range(results, 0, kResultsCount),
+                                  classif().GetTypeByPath({"railway", "station"})), 2, ());
+  }
+}
 } // namespace real_mwm_tests
