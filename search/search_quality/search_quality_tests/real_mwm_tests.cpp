@@ -129,14 +129,15 @@ public:
   }
 
   /// @param[in] street, house May be empty.
-  static void HasAddress(Range const & results, std::string const & street, std::string const & house)
+  static void HasAddress(Range const & results, std::string const & street, std::string const & house,
+                         base::StringIL classifType = {"building"})
   {
-    auto const buildingType = classif().GetTypeByPath({"building"});
+    auto const type = classif().GetTypeByPath(classifType);
 
     bool found = false;
     for (auto const & r : results)
     {
-      if (r.GetResultType() == search::Result::Type::Feature && EqualClassifType(r.GetFeatureType(), buildingType))
+      if (r.GetResultType() == search::Result::Type::Feature && EqualClassifType(r.GetFeatureType(), type))
       {
         auto const & addr = r.GetAddress();
         if ((street.empty() || addr.find(street) != std::string::npos) &&
@@ -850,6 +851,47 @@ UNIT_CLASS_TEST(MwmTestsFixture, BA_SanMartin)
     TEST_GREATER(results.size(), kResultsCount, ());
     TEST_GREATER(CountClassifType(Range(results, 0, kResultsCount),
                                   classif().GetTypeByPath({"railway", "station"})), 2, ());
+  }
+}
+
+UNIT_CLASS_TEST(MwmTestsFixture, Full_Address)
+{
+  {
+    // Krakow
+    ms::LatLon const center(50.061431, 19.9361584);
+    SetViewportAndLoadMaps(center);
+
+    auto request = MakeRequest("Sucha Beskidzka Armii Krajowej b-1 kozikowka  34-200 Poland");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+
+    HasAddress(Range(results, 0, 3), "Armii Krajowej", "B-1");
+    HasAddress(Range(results, 0, 3), "Armii Krajowej", "B-1A");
+  }
+
+  {
+    // Regensburg (DE)
+    ms::LatLon const center(49.0195332, 12.0974856);
+    SetViewportAndLoadMaps(center);
+
+    {
+      auto request = MakeRequest("Wörth an der Donau Gewerbepark A 1 93086 Germany");
+      auto const & results = request->Results();
+      TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+
+      HasAddress(Range(results, 0, 1), "Gewerbepark A", "A 1", {"shop", "car"});
+    }
+    {
+      auto request = MakeRequest("Wörth an der Donau Gewerbepark C 1 93086 Germany");
+      auto const & results = request->Results();
+      TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+
+      /// @todo There is a tricky neighborhood here, so ranking gets dumb :)
+      /// 1: "Gewerbepark A", "A 1" near "Gewerbepark C" st
+      /// 2: "Gewerbepark B", "1" near "Gewerbepark C" st
+      /// 3: "Gewerbepark C", "1"
+      HasAddress(Range(results, 0, 3), "Gewerbepark C", "1");
+    }
   }
 }
 } // namespace real_mwm_tests
