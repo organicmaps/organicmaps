@@ -1390,7 +1390,7 @@ fa:فروشگاه لوازم خانگی
 
 shop-kitchen|@shop
 en:Kitchen|Kitchen Studio
-ar:ﺦﺒﻄﻤﻟﺍ ﺮﺠﺘﻣ
+ar:متجر مطابخ
 be:Кухні|кухань
 bg:Магазин за кухня
 cs:Prodejna kuchyní
@@ -11972,7 +11972,7 @@ mr:सीफूड शॉप
 
 shop-second_hand|@shopping|@shop|@secondhand
 en:Thrift|Flea market
-ar:ﺔﻠﻤﻌﺘﺴﻣ ﺕﺍﻭﺩﺍ ﺮﺠﺘﻣ
+ar:متجر بضائع مستعملة
 bg:Магазин втора употреба
 cs:Obchod z druhé ruky
 da:Genbrugsbutik
@@ -12006,7 +12006,7 @@ zh-Hant:二手店
 
 shop-charity|@shop|@secondhand
 en:4Charity
-ar:ﻱﺮﻴﺧ ﺮﺠﺘﻣ
+ar:متجر خيري
 be:Дабрачынная
 bg:Благотворителен магазин
 cs:Charitativní obchod
@@ -14443,7 +14443,7 @@ zh-Hans:茶叶商店
 
 shop-antiques|@shopping|@shop|@secondhand
 en:Antiques
-ar:ﻒﺤﺘﻟﺍ
+ar:التحف
 be:Антыкварыят
 bg:Антики
 cs:Starožitnosti
@@ -14481,7 +14481,7 @@ zh-Hant:古董
 
 shop-art|@shopping|@shop
 en:Arts
-ar:ﻥﻮﻨﻔﻟﺍ ﺮﺠﺘﻣ
+ar:متجر الفنون
 be:Мастацтва|мастацтваў
 bg:Магазин за изкуства
 cs:Obchod s uměním
@@ -14519,7 +14519,7 @@ zh-Hant:藝術商店
 
 shop-baby_goods|@children|@shop
 en:Baby Goods
-ar:ﻝﺎﻔﻃﻸﻟ ﺮﺠﺘﻣ
+ar:متجر الأطفال
 be:Дзіцячая
 bg:Детски
 cs:Dětský obchod
@@ -14557,7 +14557,7 @@ zh-Hant:兒童商店
 
 shop-bag|@shopping|@shop
 en:Bags
-ar:ﺐﺋﺎﻘﺤﻟﺍ ﺮﺠﺘﻣ
+ar:متجر الحقائب
 be:Крама сумак
 bg:Магазин за чанти
 cs:Obchod s taškami
@@ -14595,7 +14595,7 @@ zh-Hant:箱包店
 
 shop-cheese|@food
 en:Cheese
-ar:ﻦﺒﺠﻟﺍ ﺮﺠﺘﻣ
+ar:متجر جبن
 be:Сыр|Сырны
 bg:Магазин за сирене
 cs:Prodejna sýrů
@@ -14633,7 +14633,7 @@ zh-Hant:奶酪店c
 
 shop-dairy|@food|@shop
 en:Dairy Products
-ar:ﻥﺎﺒﻟﻷﺍ ﺕﺎﺠﺘﻨﻣ
+ar:متجر الألبان
 be:Малако|Малочныя прадукты
 bg:Млечни продукти
 cs:Mléčné výrobky
@@ -14673,7 +14673,7 @@ zh-Hant:乳製品
 
 shop-electrical|@shop
 en:Electrical
-ar:ﺔﻴﺋﺎﺑﺮﻬﻜﻟﺍ ﺕﺍﻭﺩﻷﺍ ﺮﺠﺘﻣ
+ar:متجر البضع الكهربائية
 be:4Электроніка
 bg:Електрически магазин
 cs:Elektro obchod
@@ -14711,7 +14711,7 @@ zh-Hant:電器商城
 
 shop-fishing|@shop
 en:Fishing
-ar:ﺪﻴﺻ ﺮﺠﺘﻣ
+ar:متجر صيد
 be:Рыбалоўны
 bg:Риболовен
 cs:Rybářský obchod
@@ -14749,7 +14749,7 @@ zh-Hant:釣魚店
 
 shop-interior_decoration|@shop
 en:Interior Decorations
-ar:ﺔﻴﻠﺧﺍﺩ ﺕﺍﺭﻮﻜﻳﺩ
+ar:محل ديكورات داخلية
 be:Ўпрыгажэнні інтэр'еру
 bg:Вътрешни декорации
 cs:Interiérové dekorace
@@ -14863,7 +14863,7 @@ zh-Hant:醫療用品
 
 shop-nutrition_supplements|@shop
 en:Nutrition Supplements
-ar:ﺔﻴﺋﺍﺬﻏ ﺕﻼﻤﻜﻣ
+ar:محل مكملات غذائية
 be:Харчовыя дабаўкі
 bg:Хранителни добавки
 cs:Doplňky výživy
@@ -14939,7 +14939,7 @@ zh-Hant:油漆
 
 shop-perfumery|@shopping|@shop
 en:Perfumery
-ar:ﺭﻮﻄﻌﻟﺍ
+ar:العطور
 be:Парфум|Парфумерыя
 bg:Парфюмерия
 cs:Parfumerie
@@ -14977,7 +14977,7 @@ zh-Hant:香水
 
 shop-sewing|@shop
 en:3Sewing Supplies|4Haberdashery
-ar:ﺔﻃﺎﻴﺨﻟﺍ ﺕﺍﺪﻌﻣ
+ar:معدات الخياطة
 be:Швейныя прыналежнасці
 bg:Шивашки консумативи
 cs:Šicí potřeby
@@ -15053,7 +15053,7 @@ zh-Hant:存儲租賃
 
 shop-tobacco|@shop
 en:Tobacco
-ar:ﻎﺒﺗ
+ar:تبغ
 be:Тытунь
 bg:Тютюн
 cs:Tabák
@@ -15129,7 +15129,7 @@ zh-Hant:貿易用品
 
 shop-watches|@shopping|@shop
 en:Watches
-ar:ﺕﺎﻋﺎﺳ
+ar:ساعات
 be:Гадзіннік
 bg:Часовници
 cs:Hodinky
@@ -15167,7 +15167,7 @@ zh-Hant:手錶
 
 shop-wholesale|@shop
 en:Wholesale
-ar:ﺔﻠﻤﺠﻟﺎﺑ ﺔﻴﺋﺍﺬﻐﻟﺍ ﺩﺍﻮﻤﻟﺍ ﺓﺭﺎﺠﺗ
+ar:متجر مواد بالجملة
 be:Аптовая
 bg:Магазин на едро
 cs:Velkoobchodní prodejna
