@@ -7,45 +7,57 @@
   android:background="?cardBackground"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
-  <include layout="@layout/toolbar_with_search"/>
 
-  <Button
-    android:id="@+id/action"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/height_block_base"
-    android:layout_alignParentBottom="true"
-    style="@style/MwmWidget.Button.Primary"
-    tools:text="@string/downloader_update_all_button"/>
-
-  <include
-    layout="@layout/recycler_default"
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_below="@id/toolbar"
-    android:layout_above="@id/action"/>
+    tools:context="app.organicmaps.downloader.DownloaderFragment">
 
-  <com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/fab"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_above="@id/action"
-    android:layout_alignWithParentIfMissing="true"
-    android:layout_alignParentEnd="true"
-    android:layout_marginEnd="@dimen/margin_base"
-    android:layout_marginBottom="@dimen/margin_base"
-    app:tint="?android:textColorPrimaryInverse"
-    android:src="@drawable/ic_plus"/>
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
 
-  <app.organicmaps.widget.PlaceholderView
-    android:id="@+id/placeholder"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_below="@id/toolbar"
-    android:layout_above="@id/action"
-    android:paddingStart="@dimen/margin_double_and_half"
-    android:paddingEnd="@dimen/margin_double_and_half"
-    android:paddingTop="@dimen/placeholder_margin_top"
-    android:gravity="center_horizontal"
-    android:visibility="gone"
-    tools:visibility="visible"/>
+      <include layout="@layout/toolbar_with_search" />
+
+      <Button
+        android:id="@+id/action"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_block_base"
+        android:layout_alignParentBottom="true"
+        style="@style/MwmWidget.Button.Primary"
+        tools:text="@string/downloader_update_all_button" />
+
+      <include
+        layout="@layout/recycler_default"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_above="@id/action" />
+    </RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/fab"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_above="@id/action"
+      android:layout_gravity="bottom|right"
+      android:layout_marginEnd="@dimen/margin_base"
+      android:layout_marginBottom="@dimen/margin_base"
+      app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+      app:tint="?android:textColorPrimaryInverse"
+      android:src="@drawable/ic_plus"/>
+
+    <app.organicmaps.widget.PlaceholderView
+      android:id="@+id/placeholder"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@id/toolbar"
+      android:layout_above="@id/action"
+      android:gravity="center_horizontal"
+      android:paddingStart="@dimen/margin_double_and_half"
+      android:paddingTop="@dimen/placeholder_margin_top"
+      android:paddingEnd="@dimen/margin_double_and_half"
+      android:visibility="gone"
+      tools:visibility="visible"/>
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </RelativeLayout>
