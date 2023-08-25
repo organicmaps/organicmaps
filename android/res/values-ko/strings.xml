@@ -784,6 +784,7 @@
 	<string name="type.amenity.place_of_worship">예배 장소</string>
 	<string name="type.amenity.place_of_worship.buddhist">불교 사원</string>
 	<string name="type.amenity.place_of_worship.christian">교회</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">예수 그리스도 후기 성도 교회</string>
 	<string name="type.amenity.place_of_worship.hindu">힌두교 사원</string>
 	<string name="type.amenity.place_of_worship.jewish">유태교 회당</string>
 	<string name="type.amenity.place_of_worship.muslim">모스크</string>

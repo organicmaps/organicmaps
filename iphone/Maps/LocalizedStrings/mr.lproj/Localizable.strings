@@ -1457,6 +1457,8 @@
 
 "type.amenity.place_of_worship.christian" = "चर्च";
 
+"type.amenity.place_of_worship.christian.mormon" = "चर्च ऑफ जिझस क्राइस्ट ऑफ लेटर डे सेंट्स";
+
 "type.amenity.place_of_worship.hindu" = "मंदिर";
 
 "type.amenity.place_of_worship.jewish" = "सिनेगॉग";

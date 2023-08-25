@@ -842,6 +842,7 @@
 	<string name="type.amenity.place_of_worship">Uskonnollinen kohde</string>
 	<string name="type.amenity.place_of_worship.buddhist">Buddhalainen temppeli</string>
 	<string name="type.amenity.place_of_worship.christian">Kirkko</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Myöhempien Aikojen Pyhien Jeesuksen Kristuksen Kirkko</string>
 	<string name="type.amenity.place_of_worship.hindu">Hindutemppeli</string>
 	<string name="type.amenity.place_of_worship.jewish">Synagoga</string>
 	<string name="type.amenity.place_of_worship.muslim">Moskeija</string>

@@ -845,6 +845,7 @@
 	<string name="type.amenity.place_of_worship">Świątynia</string>
 	<string name="type.amenity.place_of_worship.buddhist">Świątynia buddyjska</string>
 	<string name="type.amenity.place_of_worship.christian">Kościół chrześcijański</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Kościół Jezusa Chrystusa Świętych w Dniach Ostatnich</string>
 	<string name="type.amenity.place_of_worship.hindu">Świątynia hinduistyczna</string>
 	<string name="type.amenity.place_of_worship.jewish">Synagoga</string>
 	<string name="type.amenity.place_of_worship.muslim">Meczet</string>

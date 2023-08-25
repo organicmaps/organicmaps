@@ -1457,6 +1457,8 @@
 
 "type.amenity.place_of_worship.christian" = "Церковь";
 
+"type.amenity.place_of_worship.christian.mormon" = "Церковь Иисуса Христа Святых последних дней";
+
 "type.amenity.place_of_worship.hindu" = "Храм";
 
 "type.amenity.place_of_worship.jewish" = "Синагога";

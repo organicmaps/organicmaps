@@ -1457,6 +1457,8 @@
 
 "type.amenity.place_of_worship.christian" = "Kilise";
 
+"type.amenity.place_of_worship.christian.mormon" = "İsa Mesih'in Son Zaman Azizleri Kilisesi";
+
 "type.amenity.place_of_worship.hindu" = "Tapınak";
 
 "type.amenity.place_of_worship.jewish" = "Sinagog";

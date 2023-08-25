@@ -747,6 +747,7 @@
 	<string name="type.amenity.exhibition_centre">Centre d\'exposicions</string>
 	<string name="type.amenity.money_transfer">Transferència de diners</string>
 	<string name="type.amenity.loading_dock">Moll de càrrega</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Església de Jesucrist dels Sants dels Últims Dies</string>
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.stripclub">Club de striptease</string>

@@ -785,6 +785,7 @@
 	<string name="type.amenity.place_of_worship">สถานที่ประกอบพิธีกรรม</string>
 	<string name="type.amenity.place_of_worship.buddhist">วัด</string>
 	<string name="type.amenity.place_of_worship.christian">โบสถ์</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">โบสถ์พระเยซูคริสต์แห่งวิสุทธิชนยุคสุดท้าย</string>
 	<string name="type.amenity.place_of_worship.hindu">วัด</string>
 	<string name="type.amenity.place_of_worship.jewish">มัสยิดยิว</string>
 	<string name="type.amenity.place_of_worship.muslim">มัสยิด</string>

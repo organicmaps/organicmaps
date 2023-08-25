@@ -281,6 +281,7 @@
 	<string name="type.amenity.parking_space.private">Sehemu ya maegesho</string>
 	<string name="type.amenity.parking_space.underground">Sehemu ya maegesho</string>
 	<string name="type.amenity.parking_space.disabled">Nafasi ya maegesho iliyozimwa</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Kanisa la Yesu Kristo la Watakatifu wa Siku za Mwisho</string>
 	<string name="type.amenity.post_office">Ofisi ya posta</string>
 
 	<!-- SECTION: Types: Recycling -->

@@ -1457,6 +1457,8 @@
 
 "type.amenity.place_of_worship.christian" = "Gereja";
 
+"type.amenity.place_of_worship.christian.mormon" = "Gereja Yesus Kristus dari Orang-Orang Suci Zaman Akhir";
+
 "type.amenity.place_of_worship.hindu" = "Kuil";
 
 "type.amenity.place_of_worship.jewish" = "Sinagoge";

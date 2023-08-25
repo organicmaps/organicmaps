@@ -833,6 +833,7 @@
 	<string name="type.amenity.place_of_worship">Jumalateenistuse koht</string>
 	<string name="type.amenity.place_of_worship.buddhist">Tempel</string>
 	<string name="type.amenity.place_of_worship.christian">Kirik</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Viimse Aja Pühade Jeesuse Kristuse kirik</string>
 	<string name="type.amenity.place_of_worship.hindu">Tempel</string>
 	<string name="type.amenity.place_of_worship.jewish">Sünagoog</string>
 	<string name="type.amenity.place_of_worship.muslim">Mošee</string>

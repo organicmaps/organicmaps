@@ -786,6 +786,7 @@
 	<string name="type.amenity.place_of_worship">گردشگری</string>
 	<string name="type.amenity.place_of_worship.buddhist">گردشگری</string>
 	<string name="type.amenity.place_of_worship.christian">گردشگری</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">کلیسای عیسی مسیح مقدسین آخرالزمان</string>
 	<string name="type.amenity.place_of_worship.hindu">گردشگری</string>
 	<string name="type.amenity.place_of_worship.jewish">گردشگری</string>
 	<string name="type.amenity.place_of_worship.muslim">گردشگری</string>

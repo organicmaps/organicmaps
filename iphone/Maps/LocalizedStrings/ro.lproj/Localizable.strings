@@ -1457,6 +1457,8 @@
 
 "type.amenity.place_of_worship.christian" = "Biserică";
 
+"type.amenity.place_of_worship.christian.mormon" = "Biserica lui Isus Hristos a Sfinților din Zilele din Urmă";
+
 "type.amenity.place_of_worship.hindu" = "Templu";
 
 "type.amenity.place_of_worship.jewish" = "Sinagogă";

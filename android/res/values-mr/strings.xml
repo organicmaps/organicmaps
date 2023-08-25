@@ -790,6 +790,7 @@
 	<string name="type.amenity.place_of_worship">धार्मिक ठिकाण</string>
 	<string name="type.amenity.place_of_worship.buddhist">मंदिर</string>
 	<string name="type.amenity.place_of_worship.christian">चर्च</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">चर्च ऑफ जिझस क्राइस्ट ऑफ लेटर डे सेंट्स</string>
 	<string name="type.amenity.place_of_worship.hindu">मंदिर</string>
 	<string name="type.amenity.place_of_worship.jewish">सिनेगॉग</string>
 	<string name="type.amenity.place_of_worship.muslim">मशीद</string>

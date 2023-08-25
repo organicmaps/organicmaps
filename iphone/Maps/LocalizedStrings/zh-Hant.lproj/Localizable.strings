@@ -1457,6 +1457,8 @@
 
 "type.amenity.place_of_worship.christian" = "基督教堂";
 
+"type.amenity.place_of_worship.christian.mormon" = "耶穌基督後期聖徒教會";
+
 "type.amenity.place_of_worship.hindu" = "印度教寺廟";
 
 "type.amenity.place_of_worship.jewish" = "猶太教堂";

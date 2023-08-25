@@ -1457,6 +1457,8 @@
 
 "type.amenity.place_of_worship.christian" = "Kirkko";
 
+"type.amenity.place_of_worship.christian.mormon" = "Myöhempien Aikojen Pyhien Jeesuksen Kristuksen Kirkko";
+
 "type.amenity.place_of_worship.hindu" = "Hindutemppeli";
 
 "type.amenity.place_of_worship.jewish" = "Synagoga";

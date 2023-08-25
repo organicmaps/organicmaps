@@ -806,6 +806,7 @@
 	<string name="type.amenity.place_of_worship">礼拜场所</string>
 	<string name="type.amenity.place_of_worship.buddhist">佛教寺庙</string>
 	<string name="type.amenity.place_of_worship.christian">基督教堂</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">耶稣基督后期圣徒教会</string>
 	<string name="type.amenity.place_of_worship.hindu">印度教寺庙</string>
 	<string name="type.amenity.place_of_worship.jewish">犹太教堂</string>
 	<string name="type.amenity.place_of_worship.muslim">清真寺</string>

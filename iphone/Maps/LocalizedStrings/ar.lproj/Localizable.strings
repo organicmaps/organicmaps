@@ -1457,6 +1457,8 @@
 
 "type.amenity.place_of_worship.christian" = "كنيسة";
 
+"type.amenity.place_of_worship.christian.mormon" = "كنيسة يسوع المسيح لقديسي الأيام الأخيرة";
+
 "type.amenity.place_of_worship.hindu" = "معبد هندوسي";
 
 "type.amenity.place_of_worship.jewish" = "معبد يهودي";

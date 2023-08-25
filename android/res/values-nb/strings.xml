@@ -833,6 +833,7 @@
 	<string name="type.amenity.place_of_worship">Gudshus</string>
 	<string name="type.amenity.place_of_worship.buddhist">Tempel</string>
 	<string name="type.amenity.place_of_worship.christian">Kirke</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Jesu Kristi Kirke av Siste Dagers Hellige</string>
 	<string name="type.amenity.place_of_worship.hindu">Tempel</string>
 	<string name="type.amenity.place_of_worship.jewish">Synagoge</string>
 	<string name="type.amenity.place_of_worship.muslim">Moské</string>
