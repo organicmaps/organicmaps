@@ -840,6 +840,7 @@
 	<string name="type.amenity.place_of_worship">Anbetungsstätte</string>
 	<string name="type.amenity.place_of_worship.buddhist">Buddhistischer Tempel</string>
 	<string name="type.amenity.place_of_worship.christian">Kirche</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Kirche Jesu Christi der Heiligen der Letzten Tage</string>
 	<string name="type.amenity.place_of_worship.hindu">Hinduistischer Tempel</string>
 	<string name="type.amenity.place_of_worship.jewish">Synagoge</string>
 	<string name="type.amenity.place_of_worship.muslim">Moschee</string>

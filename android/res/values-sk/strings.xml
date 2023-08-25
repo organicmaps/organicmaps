@@ -781,6 +781,7 @@
 	<string name="type.amenity.place_of_worship">Svätyňa</string>
 	<string name="type.amenity.place_of_worship.buddhist">Chrám</string>
 	<string name="type.amenity.place_of_worship.christian">Chrám</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Cirkev Ježiša Krista Svätých neskorších dní</string>
 	<string name="type.amenity.place_of_worship.hindu">Chrám</string>
 	<string name="type.amenity.place_of_worship.jewish">Synagóga</string>
 	<string name="type.amenity.place_of_worship.muslim">Mešita</string>

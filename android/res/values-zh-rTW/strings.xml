@@ -814,6 +814,7 @@
 	<string name="type.amenity.place_of_worship">寺廟</string>
 	<string name="type.amenity.place_of_worship.buddhist">佛教寺廟</string>
 	<string name="type.amenity.place_of_worship.christian">基督教堂</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">耶穌基督後期聖徒教會</string>
 	<string name="type.amenity.place_of_worship.hindu">印度教寺廟</string>
 	<string name="type.amenity.place_of_worship.jewish">猶太教堂</string>
 	<string name="type.amenity.place_of_worship.muslim">清真寺</string>

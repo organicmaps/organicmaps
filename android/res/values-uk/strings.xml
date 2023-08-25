@@ -834,6 +834,7 @@
 	<string name="type.amenity.place_of_worship">Храм</string>
 	<string name="type.amenity.place_of_worship.buddhist">Храм</string>
 	<string name="type.amenity.place_of_worship.christian">Церква</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Церква Ісуса Христа Святих Останніх Днів</string>
 	<string name="type.amenity.place_of_worship.hindu">Храм</string>
 	<string name="type.amenity.place_of_worship.jewish">Синагога</string>
 	<string name="type.amenity.place_of_worship.muslim">Мечеть</string>

@@ -850,6 +850,7 @@
 	<string name="type.amenity.place_of_worship">İbadet Yerleri</string>
 	<string name="type.amenity.place_of_worship.buddhist">Tapınak</string>
 	<string name="type.amenity.place_of_worship.christian">Kilise</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">İsa Mesih\'in Son Zaman Azizleri Kilisesi</string>
 	<string name="type.amenity.place_of_worship.hindu">Tapınak</string>
 	<string name="type.amenity.place_of_worship.jewish">Sinagog</string>
 	<string name="type.amenity.place_of_worship.muslim">Cami</string>

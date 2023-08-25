@@ -850,6 +850,7 @@
 	<string name="type.amenity.place_of_worship">Lugar de culto</string>
 	<string name="type.amenity.place_of_worship.buddhist">Templo</string>
 	<string name="type.amenity.place_of_worship.christian">Iglesia</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Iglesia de Jesucristo de los Santos de los Últimos Días</string>
 	<string name="type.amenity.place_of_worship.hindu">Templo</string>
 	<string name="type.amenity.place_of_worship.jewish">Sinagoga</string>
 	<string name="type.amenity.place_of_worship.muslim">Mezquita</string>

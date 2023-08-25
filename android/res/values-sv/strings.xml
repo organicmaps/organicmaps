@@ -783,6 +783,7 @@
 	<string name="type.amenity.place_of_worship">Plats för tillbedjan</string>
 	<string name="type.amenity.place_of_worship.buddhist">Tempel</string>
 	<string name="type.amenity.place_of_worship.christian">Kyrka</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Jesu Kristi Kyrka av Sista Dagars Heliga</string>
 	<string name="type.amenity.place_of_worship.hindu">Tempel</string>
 	<string name="type.amenity.place_of_worship.jewish">Synagoga</string>
 	<string name="type.amenity.place_of_worship.muslim">Moské</string>

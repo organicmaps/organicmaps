@@ -1457,6 +1457,8 @@
 
 "type.amenity.place_of_worship.christian" = "Eliza";
 
+"type.amenity.place_of_worship.christian.mormon" = "Azken Eguneko Santuen Jesukristoren eliza";
+
 "type.amenity.place_of_worship.hindu" = "Tenplua";
 
 "type.amenity.place_of_worship.jewish" = "Sinagoga";

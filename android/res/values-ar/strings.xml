@@ -838,6 +838,7 @@
 	<string name="type.amenity.place_of_worship">مكان عبادة</string>
 	<string name="type.amenity.place_of_worship.buddhist">معبد بوذي</string>
 	<string name="type.amenity.place_of_worship.christian">كنيسة</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">كنيسة يسوع المسيح لقديسي الأيام الأخيرة</string>
 	<string name="type.amenity.place_of_worship.hindu">معبد هندوسي</string>
 	<string name="type.amenity.place_of_worship.jewish">معبد يهودي</string>
 	<string name="type.amenity.place_of_worship.muslim">مسجد</string>

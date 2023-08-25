@@ -845,6 +845,7 @@
 	<string name="type.amenity.pharmacy">Pharmacie</string>
 	<string name="type.amenity.place_of_worship">Lieu de culte</string>
 	<string name="type.amenity.place_of_worship.christian">Église</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Église de Jésus-Christ des Saints des Derniers Jours</string>
 	<string name="type.amenity.place_of_worship.muslim">Mosquée</string>
 	<string name="type.amenity.place_of_worship.shinto">Sanctuaire</string>
 	<string name="type.amenity.post_box">Boîte aux lettres</string>

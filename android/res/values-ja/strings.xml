@@ -795,6 +795,7 @@
 	<string name="type.amenity.place_of_worship">礼拝</string>
 	<string name="type.amenity.place_of_worship.buddhist">寺院</string>
 	<string name="type.amenity.place_of_worship.christian">キリスト教会</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">末日聖徒イエス・キリスト教会</string>
 	<string name="type.amenity.place_of_worship.hindu">ヒンドゥー教寺院</string>
 	<string name="type.amenity.place_of_worship.jewish">ユダヤ教会</string>
 	<string name="type.amenity.place_of_worship.muslim">モスク</string>

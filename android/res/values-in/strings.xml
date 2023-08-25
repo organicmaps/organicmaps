@@ -783,6 +783,7 @@
 	<string name="type.amenity.place_of_worship">Tempat ibadah</string>
 	<string name="type.amenity.place_of_worship.buddhist">Kuil</string>
 	<string name="type.amenity.place_of_worship.christian">Gereja</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Gereja Yesus Kristus dari Orang-Orang Suci Zaman Akhir</string>
 	<string name="type.amenity.place_of_worship.hindu">Kuil</string>
 	<string name="type.amenity.place_of_worship.jewish">Sinagoge</string>
 	<string name="type.amenity.place_of_worship.muslim">Masjid</string>

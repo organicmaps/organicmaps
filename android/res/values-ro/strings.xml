@@ -803,6 +803,7 @@
 	<string name="type.amenity.place_of_worship">Loc de cult</string>
 	<string name="type.amenity.place_of_worship.buddhist">Templu</string>
 	<string name="type.amenity.place_of_worship.christian">Biserică</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Biserica lui Isus Hristos a Sfinților din Zilele din Urmă</string>
 	<string name="type.amenity.place_of_worship.hindu">Templu</string>
 	<string name="type.amenity.place_of_worship.jewish">Sinagogă</string>
 	<string name="type.amenity.place_of_worship.muslim">Moschee</string>

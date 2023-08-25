@@ -805,6 +805,7 @@
 	<string name="type.amenity.place_of_worship">Templom</string>
 	<string name="type.amenity.place_of_worship.buddhist">Templom</string>
 	<string name="type.amenity.place_of_worship.christian">Templom</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Utolsó Napok Szentjeinek Jézus Krisztus Egyháza</string>
 	<string name="type.amenity.place_of_worship.hindu">Templom</string>
 	<string name="type.amenity.place_of_worship.jewish">Zsinagóga</string>
 	<string name="type.amenity.place_of_worship.muslim">Mecset</string>
