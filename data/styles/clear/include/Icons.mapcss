@@ -1417,34 +1417,6 @@ node|z15-[amenity=place_of_worship][religion=christian][denomination=mormon],
 area|z15-[amenity=place_of_worship][religion=christian][denomination=mormon],
 {icon-image: mormon-m.svg;}
 
-node|z18-[amenity=place_of_worship],
-area|z18-[amenity=place_of_worship]
-{icon-image: place-of-worship-m.svg;icon-min-distance: 10;}
-node|z18-[amenity=place_of_worship][religion=christian],
-area|z18-[amenity=place_of_worship][religion=christian]
-{icon-image: christian-m.svg;}
-node|z18-[amenity=place_of_worship][religion=muslim],
-area|z18-[amenity=place_of_worship][religion=muslim]
-{icon-image: muslim-m.svg;}
-node|z18-[amenity=place_of_worship][religion=buddhist],
-area|z18-[amenity=place_of_worship][religion=buddhist]
-{icon-image: buddhist-m.svg;}
-node|z18-[amenity=place_of_worship][religion=hindu],
-area|z18-[amenity=place_of_worship][religion=hindu]
-{icon-image: hindu-m.svg;}
-node|z18-[amenity=place_of_worship][religion=shinto],
-area|z18-[amenity=place_of_worship][religion=shinto]
-{icon-image: shinto-m.svg;}
-node|z18-[amenity=place_of_worship][religion=jewish],
-area|z18-[amenity=place_of_worship][religion=jewish]
-{icon-image: jewish-m.svg;}
-node|z18-[amenity=place_of_worship][religion=taoist],
-area|z18-[amenity=place_of_worship][religion=taoist]
-{icon-image: taoist-m.svg;}
-node|z18-[amenity=place_of_worship][religion=christian][denomination=mormon],
-area|z18-[amenity=place_of_worship][religion=christian][denomination=mormon]
-{icon-image: mormon-m.svg;}
-
 /* 5.5 Others */
 
 node|z16-[amenity=nightclub],
