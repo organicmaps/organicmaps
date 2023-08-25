@@ -976,7 +976,12 @@ void KmlParser::Pop(std::string_view tag)
     // loading of KML files which were stored by older versions of OMaps.
     TrackLayer layer;
     layer.m_lineWidth = m_trackWidth;
-    layer.m_color.m_rgba = (m_color != 0 ? m_color : kDefaultTrackColor);
+    // Fix wrongly parsed transparent color, see https://github.com/organicmaps/organicmaps/issues/5800
+    // TODO: Remove this fix in 2024 when all users will have their imported GPX files fixed.
+    if (m_color == 0 || (m_color & 0xFF) < 10)
+      layer.m_color.m_rgba = kDefaultTrackColor;
+    else
+      layer.m_color.m_rgba = m_color;
     m_trackLayers.push_back(layer);
 
     m_trackWidth = kDefaultTrackWidth;
