@@ -795,7 +795,7 @@ UNIT_TEST(Kml_Deserialization_From_Bin_V6_And_V7)
 
 UNIT_TEST(Kml_Ver_2_3)
 {
-  char const * data = R"(<?xml version="1.0" encoding="UTF-8"?>
+  std::string_view constexpr data = R"(<?xml version="1.0" encoding="UTF-8"?>
     <kml xmlns="http://www.opengis.net/kml/2.2" version="2.3">
       <Placemark id="PM005">
         <Track>
@@ -859,7 +859,7 @@ UNIT_TEST(Kml_Ver_2_3)
   kml::FileData fData;
   try
   {
-    MemReader reader(data, strlen(data));
+    MemReader const reader(data);
     kml::DeserializerKml des(fData);
     des.Deserialize(reader);
   }
@@ -877,7 +877,7 @@ UNIT_TEST(Kml_Ver_2_3)
 
 UNIT_TEST(Kml_Placemark_contains_both_Bookmark_and_Track_data)
 {
-  char const * input = R"(<?xml version="1.0" encoding="UTF-8"?>
+  std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
   <Placemark>
     <MultiGeometry>
@@ -905,7 +905,7 @@ UNIT_TEST(Kml_Placemark_contains_both_Bookmark_and_Track_data)
   kml::FileData fData;
   try
   {
-    MemReader reader(input, strlen(input));
+    MemReader const reader(input);
     kml::DeserializerKml des(fData);
     des.Deserialize(reader);
   }
@@ -916,4 +916,45 @@ UNIT_TEST(Kml_Placemark_contains_both_Bookmark_and_Track_data)
 
   TEST_EQUAL(fData.m_bookmarksData.size(), 2, ());
   TEST_EQUAL(fData.m_tracksData.size(), 2, ());
+}
+
+// See https://github.com/organicmaps/organicmaps/issues/5800
+UNIT_TEST(Fix_Invisible_Color_Bug_In_Gpx_Tracks)
+{
+  std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+  <name>2023-08-20 Malente Radtour</name>
+  <visibility>1</visibility>
+  <Placemark>
+    <name>2023-08-20 Malente Radtour</name>
+    <Style><LineStyle>
+      <color>01000000</color>
+      <width>3</width>
+    </LineStyle></Style>
+    <LineString><coordinates>10.565979,54.16597,26 10.565956,54.165997,26</coordinates></LineString>
+  </Placemark>
+  <Placemark>
+    <name>Test default colors and width</name>
+    <LineString><coordinates>10.465979,54.16597,26 10.465956,54.165997,26</coordinates></LineString>
+  </Placemark>
+</Document>
+</kml>
+  )";
+
+  kml::FileData fData;
+  try
+  {
+    kml::DeserializerKml(fData).Deserialize(MemReader(input));
+  }
+  catch (kml::DeserializerKml::DeserializeException const & ex)
+  {
+    TEST(false, ("Exception raised", ex.Msg()));
+  }
+
+  TEST_EQUAL(fData.m_tracksData.size(), 2, ());
+  TEST_EQUAL(fData.m_tracksData[0].m_layers.size(), 1, ());
+  auto const & layer = fData.m_tracksData[0].m_layers[0];
+  TEST_EQUAL(layer.m_color.m_rgba, kml::kDefaultTrackColor, ("Wrong transparency should be fixed"));
+  TEST_EQUAL(layer.m_lineWidth, 3, ());
 }
