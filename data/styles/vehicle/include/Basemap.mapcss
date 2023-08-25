@@ -288,7 +288,6 @@ area|z15-[landuse=railway],
 area|z15-[landuse=quarry],
 area|z15-[leisure=stadium],
 area|z15-[amenity=parking],
-area|z15-[amenity=parking_space],
 area|z16-[public_transport=platform],
 area|z16-[amenity=place_of_worship],
 area|z16-[railway=platform],
@@ -304,7 +303,7 @@ area|z15-[landuse=quarry]
 {fill-color: @industrial;fill-opacity: 1;}
 
 
-/* 7.2 Hostital */
+/* 7.2 Hospital */
 
 
 
@@ -316,7 +315,7 @@ area|z15-[landuse=quarry]
 area|z15-[leisure=stadium],
 {fill-color: @sport;fill-opacity: 1;}
 
-/* 7.4 Cemetry */
+/* 7.4 Cemetery */
 
 area|z14[landuse=cemetery],
 area|z14[amenity=grave_yard]
@@ -366,11 +365,12 @@ area|z14-[landuse=farmland],
 /* Parking */
 
 area|z15-[amenity=parking],
-area|z15-[amenity=parking_space]
 {fill-color: @parking;fill-opacity: 1;}
 area|z17-[amenity=parking],
-area|z17-[amenity=parking_space]
 {fill-color: @parking_l;fill-opacity: 1;}
+
+area|z15-[amenity=parking][location=underground],
+{fill-color: none;}
 
 /* 8.BUILDINGS */
 
