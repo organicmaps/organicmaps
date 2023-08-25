@@ -1031,6 +1031,7 @@ craft-sawmill                                       # icon z17- (also has captio
 craft-shoemaker                                     # icon z17- (also has caption(optional) z18-)
 craft-tailor                                        # icon z17- (also has caption(optional) z18-)
 historic-ruins                                      # icon z17- (also has caption(optional) z17-)
+leisure-adult_gaming_centre                         # icon z17- (also has caption(optional) z17-)
 leisure-playground                                  # icon z17- (also has caption(optional) z17-, area z16-)
 power-station                                       # icon z17- (also has caption(optional) z17-)
 === 1250
@@ -1941,6 +1942,7 @@ amenity-parking_entrance-private                    # WARNING: no style defined 
 # craft-shoemaker                                   # caption(optional) z18- (also has icon z17-)
 # craft-tailor                                      # caption(optional) z18- (also has icon z17-)
 # historic-ruins                                    # caption(optional) z17- (also has icon z17-)
+# leisure-adult_gaming_centre                       # caption(optional) z17- (also has icon z17-)
 # leisure-playground                                # caption(optional) z17- (also has icon z17-, area z16-)
 # power-station                                     # caption(optional) z17- (also has icon z17-)
 # === -8750
