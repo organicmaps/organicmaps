@@ -8753,14 +8753,35 @@ cont {
 cont {
   name: "amenity-public_bookcase"
   element {
-    scale: 19
+    scale: 18
+    symbol {
+      name: "bookcase-m"
+      priority: 450
+    }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 4473924
         offset_y: 1
+        is_optional: true
       }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "bookcase-m"
       priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
     }
   }
 }
