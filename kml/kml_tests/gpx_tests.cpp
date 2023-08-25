@@ -213,6 +213,9 @@ UNIT_TEST(OsmandColor1)
   kml::FileData const dataFromFile = loadGpxFromFile("gpx_test_data/osmand1.gpx");
   uint32_t const expected = 0xFF7800FF;
   TEST_EQUAL(expected, dataFromFile.m_tracksData[0].m_layers[0].m_color.m_rgba, ());
+  TEST_EQUAL(expected, dataFromFile.m_tracksData[1].m_layers[0].m_color.m_rgba, ());
+  TEST_EQUAL(expected, dataFromFile.m_tracksData[2].m_layers[0].m_color.m_rgba, ());
+  TEST_EQUAL(expected, dataFromFile.m_tracksData[3].m_layers[0].m_color.m_rgba, ());
 }
 
 UNIT_TEST(OsmandColor2)

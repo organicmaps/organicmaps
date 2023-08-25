@@ -35,6 +35,7 @@ int constexpr kInvalidColor = 0;
 GpxParser::GpxParser(FileData & data)
 : m_data(data)
 , m_categoryData(&m_data.m_categoryData)
+, m_globalColor(kInvalidColor)
 {
   ResetPoint();
 }
