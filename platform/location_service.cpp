@@ -8,6 +8,8 @@
 
 #if defined(OMIM_OS_MAC)
 std::unique_ptr<location::LocationService> CreateAppleLocationService(location::LocationObserver &);
+#elif defined(OMIM_OS_LINUX)
+std::unique_ptr<location::LocationService> CreateQtLocationService(location::LocationObserver &, std::string const & sourceName);
 #endif
 
 namespace location
@@ -73,6 +75,8 @@ public:
     {
 #if defined(OMIM_OS_MAC)
       m_services.push_back(CreateAppleLocationService(*this));
+#elif defined(OMIM_OS_LINUX)
+      m_services.push_back(CreateQtLocationService(*this, "geoclue2"));
 #endif
     }
 

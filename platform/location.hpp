@@ -17,7 +17,9 @@ namespace location
     ENoError = 0,
     ENotSupported,
     EDenied,
-    EGPSIsOff
+    EGPSIsOff,
+    ETimeout,
+    EUnknown
   };
 
   enum TLocationSource
@@ -28,6 +30,7 @@ namespace location
     EAndroidNative,
     EGoogle,
     ETizen, // Deprecated but left here for backward compatibility.
+    EGeoClue2,
     EPredictor,
     EUser
   };
