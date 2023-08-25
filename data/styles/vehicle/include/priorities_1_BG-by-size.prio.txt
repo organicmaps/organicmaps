@@ -17,13 +17,14 @@
 amenity-parking                                     # area z15- (also has icon z15-, caption(optional) z16-)
 amenity-parking-fee                                 # area z15- (also has icon z15-, caption(optional) z16-)
 amenity-parking-lane                                # area z15- (also has icon z17-)
+amenity-parking-fee-lane                            # area z15- (also has icon z17-)
+amenity-parking-fee-street_side                     # area z15- (also has icon z17-)
 amenity-parking-multi-storey                        # area z15- (also has icon z15-, caption(optional) z16-)
 amenity-parking-no-access                           # area z15- (also has icon z15-, caption(optional) z16-)
 amenity-parking-park_and_ride                       # area z15- (also has icon z15-, caption(optional) z16-)
 amenity-parking-permissive                          # area z15- (also has icon z15-, caption(optional) z16-)
 amenity-parking-private                             # area z15- (also has icon z17-, caption(optional) z17-)
 amenity-parking-street_side                         # area z15- (also has icon z17-)
-amenity-parking-underground                         # area z15- (also has icon z15-, caption(optional) z16-)
 === 160
 
 leisure-stadium                                     # area z15-
@@ -31,13 +32,6 @@ leisure-stadium                                     # area z15-
 
 leisure-nature_reserve                              # area z10- (also has icon z12-, caption(optional) z12-)
 === 140
-
-amenity-parking_space                               # area z15-
-amenity-parking_space-disabled                      # area z15-
-amenity-parking_space-permissive                    # area z15-
-amenity-parking_space-private                       # area z15-
-amenity-parking_space-underground                   # area z15-
-=== 130
 
 amenity-grave_yard                                  # area z14-
 amenity-grave_yard-christian                        # area z14-
