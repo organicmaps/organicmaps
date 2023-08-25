@@ -145,6 +145,8 @@ else() # neither iPhone nor Android
   elseif(${PLATFORM_LINUX})
     append(SRC
       gui_thread_linux.cpp
+      qt_location_service.hpp
+      qt_location_service.cpp
       http_client_curl.cpp
       http_thread_qt.cpp
       http_thread_qt.hpp
@@ -167,6 +169,9 @@ endif()
 
 if (PLATFORM_LINUX)
   set_target_properties(${PROJECT_NAME} PROPERTIES AUTOMOC ON)
+  if (PLATFORM_DESKTOP)
+    find_package(Qt6 REQUIRED COMPONENTS Positioning)
+  endif()
 endif()
 
 target_link_libraries(${PROJECT_NAME}
@@ -174,6 +179,7 @@ target_link_libraries(${PROJECT_NAME}
   coding
   $<$<BOOL:${PLATFORM_DESKTOP}>:Qt6::Core>
   $<$<BOOL:${PLATFORM_LINUX}>:Qt6::Network>
+  $<$<AND:$<BOOL:${PLATFORM_LINUX}>,$<BOOL:${PLATFORM_DESKTOP}>>:Qt6::Positioning>
   $<$<BOOL:${PLATFORM_MAC}>:-framework\ Foundation -framework\ SystemConfiguration -framework\ CoreLocation -framework\ CFNetwork>
 )
 

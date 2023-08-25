@@ -371,12 +371,10 @@ void MainWindow::CreateNavigationBar()
 
     pToolBar->addSeparator();
 
-// #ifndef OMIM_OS_LINUX
     // add my position button with "checked" behavior
 
     m_pMyPositionAction = pToolBar->addAction(QIcon(":/navig64/location.png"), tr("My Position"), this, SLOT(OnMyPosition()));
     m_pMyPositionAction->setCheckable(true);
-// #endif
 
 #ifdef BUILD_DESIGNER
     // Add "Build style" button
@@ -546,16 +544,22 @@ void MainWindow::OnLocationError(location::TLocationError errorCode)
 {
   switch (errorCode)
   {
-  case location::EDenied:
-    m_pMyPositionAction->setEnabled(false);
-    break;
+  case location::EDenied:  [[fallthrough]];
+  case location::ETimeout: [[fallthrough]];
+  case location::EUnknown:
+    {
+      if (m_pMyPositionAction != nullptr)
+        m_pMyPositionAction->setEnabled(false);
+      break;
+    }
 
   default:
     ASSERT(false, ("Not handled location notification:", errorCode));
     break;
   }
 
-  m_pDrawWidget->GetFramework().OnLocationError(errorCode);
+  if (m_pDrawWidget != nullptr)
+    m_pDrawWidget->GetFramework().OnLocationError(errorCode);
 }
 
 void MainWindow::OnLocationUpdated(location::GpsInfo const & info)

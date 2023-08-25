@@ -98,12 +98,15 @@ sudo apt update && sudo apt install -y \
     ninja-build \
     python3 \
     qt6-base-dev \
+    qt6-positioning-dev \
     libc++-dev \
     libfreetype-dev \
     libglvnd-dev \
     libgl1-mesa-dev \
     libicu-dev \
     libqt6svg6-dev \
+    libqt6positioning6-plugins \
+    libqt6positioning6 \
     libsqlite3-dev \
     zlib1g-dev
 ```
@@ -133,6 +136,8 @@ sudo dnf install -y \
     mesa-libGL-devel \
     libglvnd-devel \
     qt6-qtbase-devel \
+    qt6-qtpositioning \
+    qt6-qtpositioning-devel \
     qt6-qtsvg-devel \
     sqlite-devel
 ```
