@@ -297,4 +297,32 @@
     <osmand:width>thin</osmand:width>
     <osmand:coloring_type>solid</osmand:coloring_type>
   </extensions>
+  <rte>
+      <rtept lat="51.8981366" lon="19.6027134">
+        <extensions>
+          <osmand:profile>car</osmand:profile>
+          <osmand:trkpt_idx>0</osmand:trkpt_idx>
+        </extensions>
+      </rtept>
+      <rtept lat="51.9014795" lon="19.6762745">
+        <extensions>
+          <osmand:profile>car</osmand:profile>
+          <osmand:trkpt_idx>71</osmand:trkpt_idx>
+        </extensions>
+      </rtept>
+  </rte>
+  <rte>
+    <rtept lat="51.8981366" lon="19.6027134">
+      <extensions>
+        <osmand:profile>car</osmand:profile>
+        <osmand:trkpt_idx>0</osmand:trkpt_idx>
+      </extensions>
+    </rtept>
+    <rtept lat="51.9014795" lon="19.6762745">
+      <extensions>
+        <osmand:profile>car</osmand:profile>
+        <osmand:trkpt_idx>71</osmand:trkpt_idx>
+      </extensions>
+    </rtept>
+  </rte>
 </gpx>
