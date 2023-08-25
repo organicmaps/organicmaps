@@ -260,7 +260,6 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
 
       /// @todo Controversial here.
       /// Don't have point drawing rules except text -> type will be removed for Feature with empty name.
-      {"amenity", "public_bookcase"},
       {"building", "train_station"},
       {"leisure", "track"},
       {"natural", "beach"},
