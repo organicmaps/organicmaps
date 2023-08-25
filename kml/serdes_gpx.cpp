@@ -47,6 +47,7 @@ void GpxParser::ResetPoint()
   m_org = {};
   m_predefinedColor = PredefinedColor::None;
   m_color = kInvalidColor;
+  m_globalColor = kInvalidColor;
   m_customName.clear();
   m_geometry.Clear();
   m_geometryType = GEOMETRY_TYPE_UNKNOWN;
