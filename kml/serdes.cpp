@@ -50,17 +50,12 @@ std::string const kExtendedDataFooter =
 
 std::string const kCompilationFooter = "</" + kCompilation + ">\n";
 
-std::string Indent(size_t count)
-{
-  return std::string(count, ' ');
-}
-
-std::string const kIndent0 = Indent(0);
-std::string const kIndent2 = Indent(2);
-std::string const kIndent4 = Indent(4);
-std::string const kIndent6 = Indent(6);
-std::string const kIndent8 = Indent(8);
-std::string const kIndent10 = Indent(10);
+std::string_view constexpr kIndent0 = {};
+std::string_view constexpr kIndent2 = {"  "};
+std::string_view constexpr kIndent4 = {"    "};
+std::string_view constexpr kIndent6 = {"      "};
+std::string_view constexpr kIndent8 = {"        "};
+std::string_view constexpr kIndent10 = {"          "};
 
 std::string GetLocalizableString(LocalizableString const & s, int8_t lang)
 {
@@ -180,18 +175,18 @@ void SaveStringWithCDATA(KmlWriter::WriterWrapper & writer, std::string s)
 }
 
 void SaveStyle(KmlWriter::WriterWrapper & writer, std::string const & style,
-               std::string const & offsetStr)
+               std::string_view const & indent)
 {
   if (style.empty())
     return;
 
-  writer << offsetStr << kIndent2 << "<Style id=\"" << style << "\">\n"
-         << offsetStr << kIndent4 << "<IconStyle>\n"
-         << offsetStr << kIndent6 << "<Icon>\n"
-         << offsetStr << kIndent8 << "<href>https://omaps.app/placemarks/" << style << ".png</href>\n"
-         << offsetStr << kIndent6 << "</Icon>\n"
-         << offsetStr << kIndent4 << "</IconStyle>\n"
-         << offsetStr << kIndent2 << "</Style>\n";
+  writer << indent << kIndent2 << "<Style id=\"" << style << "\">\n"
+         << indent << kIndent4 << "<IconStyle>\n"
+         << indent << kIndent6 << "<Icon>\n"
+         << indent << kIndent8 << "<href>https://omaps.app/placemarks/" << style << ".png</href>\n"
+         << indent << kIndent6 << "</Icon>\n"
+         << indent << kIndent4 << "</IconStyle>\n"
+         << indent << kIndent2 << "</Style>\n";
 }
 
 void SaveColorToABGR(KmlWriter::WriterWrapper & writer, uint32_t rgba)
@@ -212,31 +207,31 @@ std::string TimestampToString(Timestamp const & timestamp)
 }
 
 void SaveLocalizableString(KmlWriter::WriterWrapper & writer, LocalizableString const & str,
-                           std::string const & tagName, std::string const & offsetStr)
+                           std::string const & tagName, std::string_view const & indent)
 {
-  writer << offsetStr << "<mwm:" << tagName << ">\n";
+  writer << indent << "<mwm:" << tagName << ">\n";
   for (auto const & s : str)
   {
-    writer << offsetStr << kIndent2 << "<mwm:lang code=\""
+    writer << indent << kIndent2 << "<mwm:lang code=\""
            << StringUtf8Multilang::GetLangByCode(s.first) << "\">";
     SaveStringWithCDATA(writer, s.second);
     writer << "</mwm:lang>\n";
   }
-  writer << offsetStr << "</mwm:" << tagName << ">\n";
+  writer << indent << "</mwm:" << tagName << ">\n";
 }
 
 template <class StringViewLike>
 void SaveStringsArray(KmlWriter::WriterWrapper & writer,
                       std::vector<StringViewLike> const & stringsArray,
-                      std::string const & tagName, std::string const & offsetStr)
+                      std::string const & tagName, std::string_view const & indent)
 {
   if (stringsArray.empty())
     return;
 
-  writer << offsetStr << "<mwm:" << tagName << ">\n";
+  writer << indent << "<mwm:" << tagName << ">\n";
   for (auto const & s : stringsArray)
   {
-    writer << offsetStr << kIndent2 << "<mwm:value>";
+    writer << indent << kIndent2 << "<mwm:value>";
     // Constants from our code do not need any additional checks or escaping.
     if constexpr (std::is_same_v<StringViewLike, std::string_view>)
     {
@@ -247,24 +242,24 @@ void SaveStringsArray(KmlWriter::WriterWrapper & writer,
       SaveStringWithCDATA(writer, s);
     writer << "</mwm:value>\n";
   }
-  writer << offsetStr << "</mwm:" << tagName << ">\n";
+  writer << indent << "</mwm:" << tagName << ">\n";
 }
 
 void SaveStringsMap(KmlWriter::WriterWrapper & writer,
                     std::map<std::string, std::string> const & stringsMap,
-                    std::string const & tagName, std::string const & offsetStr)
+                    std::string const & tagName, std::string_view const & indent)
 {
   if (stringsMap.empty())
     return;
 
-  writer << offsetStr << "<mwm:" << tagName << ">\n";
+  writer << indent << "<mwm:" << tagName << ">\n";
   for (auto const & p : stringsMap)
   {
-    writer << offsetStr << kIndent2 << "<mwm:value key=\"" << p.first << "\">";
+    writer << indent << kIndent2 << "<mwm:value key=\"" << p.first << "\">";
     SaveStringWithCDATA(writer, p.second);
     writer << "</mwm:value>\n";
   }
-  writer << offsetStr << "</mwm:" << tagName << ">\n";
+  writer << indent << "</mwm:" << tagName << ">\n";
 }
 
 void SaveCategoryData(KmlWriter::WriterWrapper & writer, CategoryData const & categoryData,
@@ -367,26 +362,21 @@ void SaveCategoryData(KmlWriter::WriterWrapper & writer, CategoryData const & ca
   if (compilationData)
   {
     for (uint8_t i = 0; i < base::Underlying(PredefinedColor::Count); ++i)
-    {
-      SaveStyle(writer, GetStyleForPredefinedColor(static_cast<PredefinedColor>(i)),
-                compilationData ? kIndent0 : kIndent2);
-    }
-
-    auto const & indent = compilationData ? kIndent2 : kIndent4;
+      SaveStyle(writer, GetStyleForPredefinedColor(static_cast<PredefinedColor>(i)), kIndent0);
 
     // Use CDATA if we have special symbols in the name.
-    writer << indent << "<name>";
+    writer << kIndent2 << "<name>";
     SaveStringWithCDATA(writer, GetLocalizableString(categoryData.m_name, kDefaultLang));
     writer << "</name>\n";
 
     if (!categoryData.m_description.empty())
     {
-      writer << indent << "<description>";
+      writer << kIndent2 << "<description>";
       SaveStringWithCDATA(writer, GetLocalizableString(categoryData.m_description, kDefaultLang));
       writer << "</description>\n";
     }
 
-    writer << indent << "<visibility>" << (categoryData.m_visible ? "1" : "0") << "</visibility>\n";
+    writer << kIndent2 << "<visibility>" << (categoryData.m_visible ? "1" : "0") << "</visibility>\n";
   }
 
   SaveCategoryExtendedData(writer, categoryData, extendedServerId, compilationData);
@@ -496,12 +486,12 @@ void SaveBookmarkData(KmlWriter::WriterWrapper & writer, BookmarkData const & bo
 }
 
 void SaveTrackLayer(KmlWriter::WriterWrapper & writer, TrackLayer const & layer,
-                    std::string const & offsetStr)
+                    std::string_view const & indent)
 {
-  writer << offsetStr << "<color>";
+  writer << indent << "<color>";
   SaveColorToABGR(writer, layer.m_color.m_rgba);
   writer << "</color>\n";
-  writer << offsetStr << "<width>" << strings::to_string(layer.m_lineWidth) << "</width>\n";
+  writer << indent << "<width>" << strings::to_string(layer.m_lineWidth) << "</width>\n";
 }
 
 void SaveTrackGeometry(KmlWriter::WriterWrapper & writer, MultiGeometry const & geom)
@@ -639,11 +629,13 @@ bool ParsePointWithAltitude(std::string_view s, char const * delim,
 {
   geometry::Altitude altitude = geometry::kInvalidAltitude;
   m2::PointD pt;
-  auto result = ParsePoint(s, delim, pt, altitude);
-  point.SetPoint(std::move(pt));
-  point.SetAltitude(altitude);
-
-  return result;
+  if (ParsePoint(s, delim, pt, altitude))
+  {
+    point.SetPoint(pt);
+    point.SetAltitude(altitude);
+    return true;
+  }
+  return false;
 }
 }  // namespace
 
@@ -825,7 +817,7 @@ bool KmlParser::Push(std::string movedTag)
   else if (IsProcessTrackTag())
   {
     m_geometryType = GEOMETRY_TYPE_LINE;
-    m_geometry.m_lines.push_back({});
+    m_geometry.m_lines.emplace_back();
   }
   return true;
 }
@@ -984,9 +976,8 @@ void KmlParser::Pop(std::string_view tag)
     // loading of KML files which were stored by older versions of OMaps.
     TrackLayer layer;
     layer.m_lineWidth = m_trackWidth;
-    layer.m_color.m_predefinedColor = PredefinedColor::None;
     layer.m_color.m_rgba = (m_color != 0 ? m_color : kDefaultTrackColor);
-    m_trackLayers.push_back(std::move(layer));
+    m_trackLayers.push_back(layer);
 
     m_trackWidth = kDefaultTrackWidth;
     m_color = 0;
@@ -1167,7 +1158,7 @@ void KmlParser::CharData(std::string & value)
         if (!GetColorForStyle(value, m_color))
         {
           // Remove leading '#' symbol.
-          std::string styleId = m_mapStyle2Style[value.substr(1)];
+          std::string const styleId = m_mapStyle2Style[value.substr(1)];
           if (!styleId.empty())
             GetColorForStyle(styleId, m_color);
         }
