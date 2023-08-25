@@ -720,6 +720,9 @@
 	<string name="type.amenity.car_rental">مکان اجاره ماشین</string>
 	<string name="type.amenity.car_wash">کارواش</string>
 	<string name="type.amenity.casino">قمارخانه</string>
+	<string name="type.amenity.gambling">قمار</string>
+	<string name="type.leisure.adult_gaming_centre">مرکز بازی بزرگسالان</string>
+	<string name="type.leisure.amusement_arcade">گذرگاه طاقدار</string>
 	<string name="type.amenity.charging_station">ایستگاه شارژ</string>
 	<string name="type.amenity.charging_station.bicycle">ایستگاه شارژ دوچرخه</string>
 	<string name="type.amenity.charging_station.motorcar">ایستگاه شارژ موتور</string>

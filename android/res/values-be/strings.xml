@@ -738,6 +738,9 @@
 	<string name="type.addr_interpolation.even">Адрас/Блок</string>
 	<string name="type.addr_interpolation.odd">Адрас/Блок</string>
 	<string name="type.amenity.bicycle_parking">Велапаркоўка</string>
+	<string name="type.amenity.gambling">Азартныя гульні</string>
+	<string name="type.leisure.adult_gaming_centre">Гульнявы цэнтр для дарослых</string>
+	<string name="type.leisure.amusement_arcade">Аркада</string>
 	<string name="type.amenity.charging_station.bicycle">Станцыя для зарадкі ровараў</string>
 	<string name="type.amenity.charging_station.motorcar">Аўтамабільная зарадная станцыя</string>
 	<string name="type.leisure.bowling_alley">Боўлінг</string>

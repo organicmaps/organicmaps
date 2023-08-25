@@ -717,6 +717,9 @@
 	<string name="type.amenity.car_sharing">Samåkning</string>
 	<string name="type.amenity.car_wash">Biltvätt</string>
 	<string name="type.amenity.casino">Kasino</string>
+	<string name="type.amenity.gambling">Spelande</string>
+	<string name="type.leisure.adult_gaming_centre">Spelcenter för vuxna</string>
+	<string name="type.leisure.amusement_arcade">Arkad</string>
 	<string name="type.amenity.charging_station">Laddstation</string>
 	<string name="type.amenity.charging_station.bicycle">Laddningsstation för cykel</string>
 	<string name="type.amenity.charging_station.motorcar">Laddningsstation för bilar</string>

@@ -1325,6 +1325,12 @@
 
 "type.amenity.casino" = "Kumarhane";
 
+"type.amenity.gambling" = "Kumar";
+
+"type.leisure.adult_gaming_centre" = "Yetişkin Oyun Merkezi";
+
+"type.leisure.amusement_arcade" = "Oyun makinesi";
+
 "type.amenity.charging_station" = "Şarj İstasyonu";
 
 "type.amenity.charging_station.bicycle" = "Bisiklet Şarj İstasyonu";

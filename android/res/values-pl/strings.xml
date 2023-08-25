@@ -778,6 +778,9 @@
 	<string name="type.amenity.car_sharing">Współdzielenie samochodów</string>
 	<string name="type.amenity.car_wash">Myjnia samochodowa</string>
 	<string name="type.amenity.casino">Kasyno</string>
+	<string name="type.amenity.gambling">Hazard</string>
+	<string name="type.leisure.adult_gaming_centre">Centrum gier dla dorosłych</string>
+	<string name="type.leisure.amusement_arcade">Arkada</string>
 	<string name="type.amenity.charging_station">Stacja ładowania</string>
 	<string name="type.amenity.charging_station.bicycle">Stacja ładowania rowerów</string>
 	<string name="type.amenity.charging_station.motorcar">Stacja ładowania samochodów</string>

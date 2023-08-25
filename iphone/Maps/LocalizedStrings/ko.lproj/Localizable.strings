@@ -1325,6 +1325,12 @@
 
 "type.amenity.casino" = "카지노";
 
+"type.amenity.gambling" = "도박";
+
+"type.leisure.adult_gaming_centre" = "성인 게임 센터";
+
+"type.leisure.amusement_arcade" = "아케이드";
+
 "type.amenity.charging_station" = "충전 역";
 
 "type.amenity.charging_station.bicycle" = "자전거 충전소";

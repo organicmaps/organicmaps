@@ -1325,6 +1325,12 @@
 
 "type.amenity.casino" = "คาสิโน";
 
+"type.amenity.gambling" = "การพนัน";
+
+"type.leisure.adult_gaming_centre" = "ศูนย์เกมสำหรับผู้ใหญ่";
+
+"type.leisure.amusement_arcade" = "อาเขต";
+
 "type.amenity.charging_station" = "สถานีชาร์จ";
 
 "type.amenity.charging_station.bicycle" = "สถานีชาร์จจักรยาน";

@@ -776,6 +776,9 @@
 	<string name="type.amenity.car_sharing">Autodelen</string>
 	<string name="type.amenity.car_wash">Car Wash</string>
 	<string name="type.amenity.casino">Casino</string>
+	<string name="type.amenity.gambling">Gokken</string>
+	<string name="type.leisure.adult_gaming_centre">Gamingcentrum voor volwassenen</string>
+	<string name="type.leisure.amusement_arcade">Arcade</string>
 	<string name="type.amenity.charging_station">Oplaadstation</string>
 	<string name="type.amenity.charging_station.bicycle">Oplaadstation voor fietsen</string>
 	<string name="type.amenity.charging_station.motorcar">Oplaadstation voor auto\'s</string>

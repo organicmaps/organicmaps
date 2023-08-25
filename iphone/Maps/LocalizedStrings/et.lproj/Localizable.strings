@@ -1325,6 +1325,12 @@
 
 "type.amenity.casino" = "Kasiino";
 
+"type.amenity.gambling" = "Hasartmängud";
+
+"type.leisure.adult_gaming_centre" = "Täiskasvanute mängukeskus";
+
+"type.leisure.amusement_arcade" = "Arkaad";
+
 "type.amenity.charging_station" = "Laadimisjaam";
 
 "type.amenity.charging_station.bicycle" = "Jalgratta laadimisjaam";

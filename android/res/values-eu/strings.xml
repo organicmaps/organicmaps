@@ -777,6 +777,9 @@
 	<string name="type.amenity.car_sharing">Partekatu autoa</string>
 	<string name="type.amenity.car_wash">Kotxe garbiketa</string>
 	<string name="type.amenity.casino">Kasinoa</string>
+	<string name="type.amenity.gambling">Jokoa</string>
+	<string name="type.leisure.adult_gaming_centre">Helduen Joko Zentroa</string>
+	<string name="type.leisure.amusement_arcade">Arcade</string>
 	<string name="type.amenity.charging_station">Kargatzeko geltokia</string>
 	<string name="type.amenity.charging_station.bicycle">Bizikletak kargatzeko geltokia</string>
 	<string name="type.amenity.charging_station.motorcar">Autoak kargatzeko geltokia</string>

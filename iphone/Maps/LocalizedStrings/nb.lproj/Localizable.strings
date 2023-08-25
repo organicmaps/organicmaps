@@ -1325,6 +1325,12 @@
 
 "type.amenity.casino" = "Kasino";
 
+"type.amenity.gambling" = "Gambling";
+
+"type.leisure.adult_gaming_centre" = "Spillsenter for voksne";
+
+"type.leisure.amusement_arcade" = "Arcade";
+
 "type.amenity.charging_station" = "Ladestasjon";
 
 "type.amenity.charging_station.bicycle" = "Ladestasjon for sykkel";

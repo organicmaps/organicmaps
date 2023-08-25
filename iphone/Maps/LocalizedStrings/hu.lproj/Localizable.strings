@@ -1325,6 +1325,12 @@
 
 "type.amenity.casino" = "Kaszinó";
 
+"type.amenity.gambling" = "Szerencsejáték";
+
+"type.leisure.adult_gaming_centre" = "Felnőtt Játékközpont";
+
+"type.leisure.amusement_arcade" = "Árkád";
+
 "type.amenity.charging_station" = "Töltő állomás";
 
 "type.amenity.charging_station.bicycle" = "Kerékpártöltő állomás";

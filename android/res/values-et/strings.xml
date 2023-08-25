@@ -766,6 +766,9 @@
 	<string name="type.amenity.car_sharing">Autojagamine</string>
 	<string name="type.amenity.car_wash">Autopesula</string>
 	<string name="type.amenity.casino">Kasiino</string>
+	<string name="type.amenity.gambling">Hasartmängud</string>
+	<string name="type.leisure.adult_gaming_centre">Täiskasvanute mängukeskus</string>
+	<string name="type.leisure.amusement_arcade">Arkaad</string>
 	<string name="type.amenity.charging_station">Laadimisjaam</string>
 	<string name="type.amenity.charging_station.bicycle">Jalgratta laadimisjaam</string>
 	<string name="type.amenity.charging_station.motorcar">Autode laadimisjaam</string>

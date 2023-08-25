@@ -776,6 +776,9 @@
 	<string name="type.amenity.car_sharing">Autojen yhteiskäyttö</string>
 	<string name="type.amenity.car_wash">Autopesula</string>
 	<string name="type.amenity.casino">Kasino</string>
+	<string name="type.amenity.gambling">Uhkapelit</string>
+	<string name="type.leisure.adult_gaming_centre">Aikuisten pelikeskus</string>
+	<string name="type.leisure.amusement_arcade">Arcade</string>
 	<string name="type.amenity.charging_station">Latausasema</string>
 	<string name="type.amenity.charging_station.bicycle">Polkupyörän latausasema</string>
 	<string name="type.amenity.charging_station.motorcar">Auton latausasema</string>

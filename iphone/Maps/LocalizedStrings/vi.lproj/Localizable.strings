@@ -1325,6 +1325,12 @@
 
 "type.amenity.casino" = "Giải trí";
 
+"type.amenity.gambling" = "Bài bạc";
+
+"type.leisure.adult_gaming_centre" = "Trung tâm trò chơi dành cho người lớn";
+
+"type.leisure.amusement_arcade" = "Giải trí";
+
 "type.amenity.charging_station" = "Trạm Sạc điện";
 
 "type.amenity.charging_station.bicycle" = "Trạm sạc xe đạp";

@@ -792,6 +792,9 @@
 	<string name="type.amenity.car_sharing">Каршеринг</string>
 	<string name="type.amenity.car_wash">Автомойка</string>
 	<string name="type.amenity.casino">Казино</string>
+	<string name="type.amenity.gambling">Играть в азартные игры</string>
+	<string name="type.leisure.adult_gaming_centre">Игровой центр для взрослых</string>
+	<string name="type.leisure.amusement_arcade">Аркада</string>
 	<string name="type.amenity.charging_station">Зарядная станция</string>
 	<string name="type.amenity.charging_station.bicycle">Станция зарядки велосипедов</string>
 	<string name="type.amenity.charging_station.motorcar">Зарядная станция для автомобилей</string>

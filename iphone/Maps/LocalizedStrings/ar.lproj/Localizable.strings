@@ -1325,6 +1325,12 @@
 
 "type.amenity.casino" = "كازينو";
 
+"type.amenity.gambling" = "القمار";
+
+"type.leisure.adult_gaming_centre" = "مركز ألعاب الكبار";
+
+"type.leisure.amusement_arcade" = "ممر";
+
 "type.amenity.charging_station" = "محطة شحن";
 
 "type.amenity.charging_station.bicycle" = "محطة شحن الدراجات";
@@ -2460,7 +2466,7 @@
 
 "type.leisure.park.private" = "موقف سيارات";
 
-"type.leisure.picnic_table" = "ﺔﻫﺰﻨﻟﺍ ﺔﻟﻭﺎﻃ";
+"type.leisure.picnic_table" = "طاولة النزهة";
 
 "type.leisure.pitch" = "ملعب رياضي";
 
@@ -3363,7 +3369,7 @@
 
 "type.shop.car" = "متجر سيارات";
 
-"type.shop.car_parts" = "ﺓﺭﺎﻴﺴﻟﺍ ءﺍﺰﺟﺃ";
+"type.shop.car_parts" = "محل أجزاء سيارات";
 
 "type.shop.car_repair" = "محل صيانة السيارات";
 
@@ -3393,7 +3399,7 @@
 
 "type.shop.curtain" = "ستائر";
 
-"type.shop.deli" = "ﺔﺒﻠﻌﻤﻟﺍ ﺔﻤﻌﻃﻷﺍ ﻊﻴﺒﻟ ﻞﺤﻣ";
+"type.shop.deli" = "محل جواهز";
 
 "type.shop.department_store" = "متجر شامل";
 
@@ -3407,7 +3413,7 @@
 
 "type.shop.fabric" = "متجر";
 
-"type.shop.farm" = "ﺔﻋﺭﺰﻤﻟﺍ ﺔﻳﺬﻏﺃ ﺮﺠﺘﻣ";
+"type.shop.farm" = "متجر أغذية المزرعة";
 
 "type.shop.fashion_accessories" = "اكسسوارات الموضة";
 
@@ -3425,25 +3431,25 @@
 
 "type.shop.greengrocer" = "متجر خضروات وفواكه";
 
-"type.shop.grocery" = "ﺕﺍﻭﺮﻀﺧ";
+"type.shop.grocery" = "Grocery Store";
 
 "type.shop.hairdresser" = "مصفف شعر";
 
-"type.shop.hardware" = "ﺕﺍﺪﻌﻣ ﻞﺤﻣ";
+"type.shop.hardware" = "محد معدات";
 
-"type.shop.health_food" = "ﺔﻴﺤﺼﻟﺍ ﺔﻳﺬﻏﻼﻟ ﺮﺠﺘﻣ";
+"type.shop.health_food" = "متجر الأغذية الصحية";
 
 "type.shop.herbalist" = "متجر أعشاب";
 
 "type.shop.hifi" = "صوت هاي فاي";
 
-"type.shop.houseware" = "ﺔﻴﻟﺰﻨﻣ ﺕﺍﻭﺩﺃ ﻞﺤﻣ";
+"type.shop.houseware" = "محل أدوات منزلية";
 
 "type.shop.jewelry" = "مجوهرات";
 
 "type.shop.kiosk" = "كشك";
 
-"type.shop.kitchen" = "ﺦﺒﻄﻤﻟﺍ ﺮﺠﺘﻣ";
+"type.shop.kitchen" = "متجر مطابخ";
 
 "type.shop.laundry" = "مغسلة ملابس";
 
@@ -3483,7 +3489,7 @@
 
 "type.shop.seafood" = "سماك";
 
-"type.shop.second_hand" = "ﺔﻠﻤﻌﺘﺴﻣ ﺕﺍﻭﺩﺍ ﺮﺠﺘﻣ";
+"type.shop.second_hand" = "متجر بضائع مستعملة";
 
 "type.shop.shoes" = "متجر أحذية";
 
@@ -3515,56 +3521,56 @@
 
 "type.shop.agrarian" = "محل زراعي";
 
-"type.shop.antiques" = "ﻒﺤﺘﻟﺍ";
+"type.shop.antiques" = "التحف";
 
 "type.shop.appliance" = "متجر الأجهزة";
 
 /* maybe change to Art Gallery for en-US when supported */
-"type.shop.art" = "ﻥﻮﻨﻔﻟﺍ ﺮﺠﺘﻣ";
+"type.shop.art" = "متجر الفنون";
 
-"type.shop.baby_goods" = "ﻝﺎﻔﻃﻸﻟ ﺮﺠﺘﻣ";
+"type.shop.baby_goods" = "متجر الأطفال";
 
-"type.shop.bag" = "ﺐﺋﺎﻘﺤﻟﺍ ﺮﺠﺘﻣ";
+"type.shop.bag" = "متجر الحقائب";
 
 "type.shop.bed" = "متجر الأسرة";
 
-"type.shop.boutique" = "ﺮﺠﺘﻣ";
+"type.shop.boutique" = "بوتيك";
 
-"type.shop.charity" = "ﻱﺮﻴﺧ ﺮﺠﺘﻣ";
+"type.shop.charity" = "متجر خيري";
 
-"type.shop.cheese" = "ﻦﺒﺠﻟﺍ ﺮﺠﺘﻣ";
+"type.shop.cheese" = "متجر جبن";
 
-"type.shop.craft" = "ﺔﻳﻭﺪﻴﻟﺍ ﻑﺮﺤﻟﺍﻭ ﻥﻮﻨﻔﻟﺍ";
+"type.shop.craft" = "الفنون و الحرف اليدوية";
 
-"type.shop.dairy" = "ﻥﺎﺒﻟﻷﺍ ﺕﺎﺠﺘﻨﻣ";
+"type.shop.dairy" = "متجر الألبان";
 
-"type.shop.electrical" = "ﺔﻴﺋﺎﺑﺮﻬﻜﻟﺍ ﺕﺍﻭﺩﻷﺍ ﺮﺠﺘﻣ";
+"type.shop.electrical" = "متجر البضع الكهربائية";
 
-"type.shop.fishing" = "ﺪﻴﺻ ﺮﺠﺘﻣ";
+"type.shop.fishing" = "متجر صيد";
 
-"type.shop.interior_decoration" = "ﺔﻴﻠﺧﺍﺩ ﺕﺍﺭﻮﻜﻳﺩ";
+"type.shop.interior_decoration" = "محل ديكورات داخلية";
 
 "type.shop.lottery" = "ﺐﻴﺼﻧﺎﻴﻟﺍ ﺮﻛﺍﺬﺗ";
 
 "type.shop.medical_supply" = "ﺔﻴﺒﻄﻟﺍ ﺕﺍﺩﺍﺪﻣﻹﺍ";
 
-"type.shop.nutrition_supplements" = "ﺔﻴﺋﺍﺬﻏ ﺕﻼﻤﻜﻣ";
+"type.shop.nutrition_supplements" = "محل مكملات غذائية";
 
 "type.shop.paint" = "ﺕﺎﻧﺎﻫﺪﻟﺍ";
 
-"type.shop.perfumery" = "ﺭﻮﻄﻌﻟﺍ";
+"type.shop.perfumery" = "العطور";
 
-"type.shop.sewing" = "ﺔﻃﺎﻴﺨﻟﺍ ﺕﺍﺪﻌﻣ";
+"type.shop.sewing" = "معدات الخياطة";
 
 "type.shop.storage_rental" = "ﻦﻳﺰﺨﺘﻟﺍ ﺕﺍﺪﺣﻭ ﺮﻴﺟﺄﺗ";
 
-"type.shop.tobacco" = "ﻎﺒﺗ";
+"type.shop.tobacco" = "تبغ";
 
 "type.shop.trade" = "ﺔﻳﺭﺎﺠﺘﻟﺍ ﺕﺍﺪﻳﺭﻮﺘﻟﺍ";
 
-"type.shop.watches" = "ﺕﺎﻋﺎﺳ";
+"type.shop.watches" = "ساعات";
 
-"type.shop.wholesale" = "ﺔﻠﻤﺠﻟﺎﺑ ﺔﻴﺋﺍﺬﻐﻟﺍ ﺩﺍﻮﻤﻟﺍ ﺓﺭﺎﺠﺗ";
+"type.shop.wholesale" = "متجر مواد بالجملة";
 
 "type.sport" = "رياضة";
 
@@ -3633,7 +3639,7 @@
 
 "type.sport.badminton" = "ﺔﺸﻳﺮﻟﺍ ﺲﻨﺗ";
 
-"type.sport.pelota" = "ﻚﺳﺎﺒﻟﺍ ﺎﺗﻮﻠﻴﺑ";
+"type.sport.pelota" = "باسك بيلوتا";
 
 "type.tourism" = "Tourism";
 

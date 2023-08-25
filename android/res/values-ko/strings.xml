@@ -718,6 +718,9 @@
 	<string name="type.amenity.car_sharing">카 셰어링</string>
 	<string name="type.amenity.car_wash">세차</string>
 	<string name="type.amenity.casino">카지노</string>
+	<string name="type.amenity.gambling">도박</string>
+	<string name="type.leisure.adult_gaming_centre">성인 게임 센터</string>
+	<string name="type.leisure.amusement_arcade">아케이드</string>
 	<string name="type.amenity.charging_station">충전 역</string>
 	<string name="type.amenity.charging_station.bicycle">자전거 충전소</string>
 	<string name="type.amenity.charging_station.motorcar">자동차 충전소</string>

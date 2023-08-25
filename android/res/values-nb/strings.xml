@@ -767,6 +767,9 @@
 	<string name="type.amenity.car_sharing">Bildeling</string>
 	<string name="type.amenity.car_wash">Bilvask</string>
 	<string name="type.amenity.casino">Kasino</string>
+	<string name="type.amenity.gambling">Gambling</string>
+	<string name="type.leisure.adult_gaming_centre">Spillsenter for voksne</string>
+	<string name="type.leisure.amusement_arcade">Arcade</string>
 	<string name="type.amenity.charging_station">Ladestasjon</string>
 	<string name="type.amenity.charging_station.bicycle">Ladestasjon for sykkel</string>
 	<string name="type.amenity.charging_station.motorcar">Ladestasjon for biler</string>

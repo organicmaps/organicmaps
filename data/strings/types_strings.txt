@@ -23052,7 +23052,7 @@
     en = Housewares Store
     en-GB = Housewares Shop
     af = Huiswarewinkel
-    ar =محل أدوات منزلية
+    ar = محل أدوات منزلية
     be = Крама посуду
     bg = Магазин за домакински принадлежности
     cs = Obchod s domácími potřebami

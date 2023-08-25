@@ -739,6 +739,9 @@
 	<string name="type.amenity.car_sharing">Gépjármű megosztása</string>
 	<string name="type.amenity.car_wash">Autómosó</string>
 	<string name="type.amenity.casino">Kaszinó</string>
+	<string name="type.amenity.gambling">Szerencsejáték</string>
+	<string name="type.leisure.adult_gaming_centre">Felnőtt Játékközpont</string>
+	<string name="type.leisure.amusement_arcade">Árkád</string>
 	<string name="type.amenity.charging_station">Töltő állomás</string>
 	<string name="type.amenity.charging_station.bicycle">Kerékpártöltő állomás</string>
 	<string name="type.amenity.charging_station.motorcar">Autó töltőállomás</string>

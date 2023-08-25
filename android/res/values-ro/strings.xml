@@ -741,6 +741,9 @@
 	<string name="type.amenity.car_rental">Închiriere mașini</string>
 	<string name="type.amenity.car_wash">Spălătorie auto</string>
 	<string name="type.amenity.casino">Divertisment</string>
+	<string name="type.amenity.gambling">Jocuri de noroc</string>
+	<string name="type.leisure.adult_gaming_centre">Centru de jocuri pentru adulți</string>
+	<string name="type.leisure.amusement_arcade">Arcadă</string>
 	<string name="type.amenity.charging_station">Stație încărcare</string>
 	<string name="type.amenity.charging_station.bicycle">Stație de încărcare pentru biciclete</string>
 	<string name="type.amenity.charging_station.motorcar">Stație de încărcare autoturisme</string>

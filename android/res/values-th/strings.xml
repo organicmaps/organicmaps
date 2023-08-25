@@ -719,6 +719,9 @@
 	<string name="type.amenity.car_sharing">การใช้รถร่วมกัน</string>
 	<string name="type.amenity.car_wash">ล้างรถ</string>
 	<string name="type.amenity.casino">คาสิโน</string>
+	<string name="type.amenity.gambling">การพนัน</string>
+	<string name="type.leisure.adult_gaming_centre">ศูนย์เกมสำหรับผู้ใหญ่</string>
+	<string name="type.leisure.amusement_arcade">อาเขต</string>
 	<string name="type.amenity.charging_station">สถานีชาร์จ</string>
 	<string name="type.amenity.charging_station.bicycle">สถานีชาร์จจักรยาน</string>
 	<string name="type.amenity.charging_station.motorcar">สถานีชาร์จรถยนต์</string>

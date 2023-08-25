@@ -814,6 +814,9 @@
 	<string name="type.amenity.car_sharing">Car Sharing</string>
 	<string name="type.amenity.car_wash">Car Wash</string>
 	<string name="type.amenity.casino">Casino</string>
+	<string name="type.amenity.gambling">Gambling</string>
+	<string name="type.leisure.adult_gaming_centre">Adult Gaming Centre</string>
+	<string name="type.leisure.amusement_arcade">Arcade</string>
 	<string name="type.amenity.charging_station">Charging Station</string>
 	<string name="type.amenity.charging_station.bicycle">Bicycle Charging Station</string>
 	<string name="type.amenity.charging_station.motorcar">Car Charging Station</string>
