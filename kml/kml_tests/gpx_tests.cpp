@@ -1,12 +1,14 @@
 #include "testing/testing.hpp"
-#include "map/bookmark_helpers.hpp"
+
+#include "kml/serdes_common.hpp"
 #include "kml/serdes_gpx.hpp"
-#include "base/string_utils.hpp"
-#include "coding/string_utf8_multilang.hpp"
+
 #include "geometry/mercator.hpp"
+
+#include "coding/file_reader.hpp"
+
 #include "platform/platform.hpp"
 
-auto constexpr kDefaultCode = StringUtf8Multilang::kDefaultCode;
 
 kml::FileData loadGpxFromString(std::string const & content) {
   kml::FileData dataFromText;
@@ -45,9 +47,9 @@ UNIT_TEST(Gpx_Test_Point)
 
   kml::FileData data;
   kml::BookmarkData bookmarkData;
-  bookmarkData.m_name[kDefaultCode] = "Waypoint 1";
+  bookmarkData.m_name[kml::kDefaultLang] = "Waypoint 1";
   bookmarkData.m_point = mercator::FromLatLon(42.81025, -1.65727);
-  bookmarkData.m_customName[kDefaultCode] = "Waypoint 1";
+  bookmarkData.m_customName[kml::kDefaultLang] = "Waypoint 1";
   bookmarkData.m_color = {kml::PredefinedColor::Red, 0};
   data.m_bookmarksData.emplace_back(std::move(bookmarkData));
 
@@ -164,7 +166,7 @@ UNIT_TEST(PointsOnly)
   kml::FileData const dataFromFile = loadGpxFromFile("gpx_test_data/points.gpx");
   auto bookmarks = dataFromFile.m_bookmarksData;
   TEST_EQUAL(bookmarks.size(), 3, ());
-  TEST_EQUAL("Point 1", bookmarks[0].m_name[kDefaultCode], ());
+  TEST_EQUAL("Point 1", bookmarks[0].m_name[kml::kDefaultLang], ());
   TEST_EQUAL(bookmarks[0].m_point, mercator::FromLatLon(48.20984622935899, 16.376023292541507), ());
 }
 
@@ -173,7 +175,7 @@ UNIT_TEST(Route)
   kml::FileData dataFromFile = loadGpxFromFile("gpx_test_data/route.gpx");
   auto line = dataFromFile.m_tracksData[0].m_geometry.m_lines[0];
   TEST_EQUAL(line.size(), 2, ());
-  TEST_EQUAL(dataFromFile.m_categoryData.m_name[kDefaultCode], "Some random route", ());
+  TEST_EQUAL(dataFromFile.m_categoryData.m_name[kml::kDefaultLang], "Some random route", ());
   TEST_EQUAL(line[0], geometry::PointWithAltitude(mercator::FromLatLon(48.20984622935899, 16.376023292541507), 184), ());
   TEST_EQUAL(line[1], geometry::PointWithAltitude(mercator::FromLatLon(48.209503040543545, 16.381065845489506), 187), ());
 }
