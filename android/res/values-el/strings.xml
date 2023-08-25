@@ -719,6 +719,9 @@
 	<string name="type.amenity.car_sharing">Παραχώρηση αυτοκινήτου</string>
 	<string name="type.amenity.car_wash">Καθαρισμός αυτοκινήτων</string>
 	<string name="type.amenity.casino">Καζίνο</string>
+	<string name="type.amenity.gambling">ΤΥΧΕΡΑ ΠΑΙΧΝΙΔΙΑ</string>
+	<string name="type.leisure.adult_gaming_centre">Κέντρο παιχνιδιών ενηλίκων</string>
+	<string name="type.leisure.amusement_arcade">Στοά</string>
 	<string name="type.amenity.charging_station">Σταθμός φόρτισης</string>
 	<string name="type.amenity.charging_station.bicycle">Σταθμός φόρτισης ποδηλάτων</string>
 	<string name="type.amenity.charging_station.motorcar">Σταθμός φόρτισης αυτοκινήτων</string>

@@ -1325,6 +1325,12 @@
 
 "type.amenity.casino" = "カジノ";
 
+"type.amenity.gambling" = "ギャンブル";
+
+"type.leisure.adult_gaming_centre" = "アダルト ゲーム センター";
+
+"type.leisure.amusement_arcade" = "アーケード";
+
 "type.amenity.charging_station" = "充電ステーション";
 
 "type.amenity.charging_station.bicycle" = "自転車充電ステーション";

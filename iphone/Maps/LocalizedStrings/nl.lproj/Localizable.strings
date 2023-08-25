@@ -1325,6 +1325,12 @@
 
 "type.amenity.casino" = "Casino";
 
+"type.amenity.gambling" = "Gokken";
+
+"type.leisure.adult_gaming_centre" = "Gamingcentrum voor volwassenen";
+
+"type.leisure.amusement_arcade" = "Arcade";
+
 "type.amenity.charging_station" = "Oplaadstation";
 
 "type.amenity.charging_station.bicycle" = "Oplaadstation voor fietsen";

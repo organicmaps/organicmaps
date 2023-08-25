@@ -1325,6 +1325,12 @@
 
 "type.amenity.casino" = "Cassino";
 
+"type.amenity.gambling" = "Jogatina";
+
+"type.leisure.adult_gaming_centre" = "Centro de jogos para adultos";
+
+"type.leisure.amusement_arcade" = "Videogames";
+
 "type.amenity.charging_station" = "Eletroposto";
 
 "type.amenity.charging_station.bicycle" = "Estação de carregamento de bicicletas";

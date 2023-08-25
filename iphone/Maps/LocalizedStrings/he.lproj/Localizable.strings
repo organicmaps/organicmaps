@@ -1325,6 +1325,12 @@
 
 "type.amenity.casino" = "Casino";
 
+"type.amenity.gambling" = "הימורים";
+
+"type.leisure.adult_gaming_centre" = "מרכז משחקים למבוגרים";
+
+"type.leisure.amusement_arcade" = "מִקמֶרֶת";
+
 "type.amenity.charging_station" = "Charging Station";
 
 "type.amenity.charging_station.bicycle" = "תחנת טעינה לאופניים";

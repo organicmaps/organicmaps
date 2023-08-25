@@ -728,6 +728,9 @@
 	<string name="type.amenity.car_sharing">カーシェアリング</string>
 	<string name="type.amenity.car_wash">洗車場</string>
 	<string name="type.amenity.casino">カジノ</string>
+	<string name="type.amenity.gambling">ギャンブル</string>
+	<string name="type.leisure.adult_gaming_centre">アダルト ゲーム センター</string>
+	<string name="type.leisure.amusement_arcade">アーケード</string>
 	<string name="type.amenity.charging_station">充電ステーション</string>
 	<string name="type.amenity.charging_station.bicycle">自転車充電ステーション</string>
 	<string name="type.amenity.charging_station.motorcar">自動車充電ステーション</string>

@@ -1325,6 +1325,12 @@
 
 "type.amenity.casino" = "Casino";
 
+"type.amenity.gambling" = "Kamari";
+
+"type.leisure.adult_gaming_centre" = "Kituo cha Michezo ya Watu Wazima";
+
+"type.leisure.amusement_arcade" = "Ukumbi wa michezo";
+
 "type.amenity.charging_station" = "Charging Station";
 
 "type.amenity.charging_station.bicycle" = "Kituo cha Kuchaji Baiskeli";

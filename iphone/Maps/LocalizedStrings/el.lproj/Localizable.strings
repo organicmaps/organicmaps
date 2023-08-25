@@ -1325,6 +1325,12 @@
 
 "type.amenity.casino" = "Καζίνο";
 
+"type.amenity.gambling" = "ΤΥΧΕΡΑ ΠΑΙΧΝΙΔΙΑ";
+
+"type.leisure.adult_gaming_centre" = "Κέντρο παιχνιδιών ενηλίκων";
+
+"type.leisure.amusement_arcade" = "Στοά";
+
 "type.amenity.charging_station" = "Σταθμός φόρτισης";
 
 "type.amenity.charging_station.bicycle" = "Σταθμός φόρτισης ποδηλάτων";

@@ -783,6 +783,9 @@
 	<string name="type.amenity.car_sharing">Araç Paylaşımı</string>
 	<string name="type.amenity.car_wash">Araba Yıkama</string>
 	<string name="type.amenity.casino">Kumarhane</string>
+	<string name="type.amenity.gambling">Kumar</string>
+	<string name="type.leisure.adult_gaming_centre">Yetişkin Oyun Merkezi</string>
+	<string name="type.leisure.amusement_arcade">Oyun makinesi</string>
 	<string name="type.amenity.charging_station">Şarj İstasyonu</string>
 	<string name="type.amenity.charging_station.bicycle">Bisiklet Şarj İstasyonu</string>
 	<string name="type.amenity.charging_station.motorcar">Araç Şarj İstasyonu</string>

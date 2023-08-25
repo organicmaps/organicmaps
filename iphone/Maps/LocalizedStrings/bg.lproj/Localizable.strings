@@ -1325,6 +1325,12 @@
 
 "type.amenity.casino" = "Casino";
 
+"type.amenity.gambling" = "Хазарт";
+
+"type.leisure.adult_gaming_centre" = "Център за игри за възрастни";
+
+"type.leisure.amusement_arcade" = "Аркада";
+
 "type.amenity.charging_station" = "Charging Station";
 
 "type.amenity.charging_station.bicycle" = "Станция за зареждане на велосипеди";

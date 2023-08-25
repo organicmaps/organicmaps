@@ -717,6 +717,9 @@
 	<string name="type.amenity.car_sharing">Berbagi mobil</string>
 	<string name="type.amenity.car_wash">Cuci Mobil</string>
 	<string name="type.amenity.casino">Hiburan</string>
+	<string name="type.amenity.gambling">Berjudi</string>
+	<string name="type.leisure.adult_gaming_centre">Pusat Permainan Dewasa</string>
+	<string name="type.leisure.amusement_arcade">Arkade</string>
 	<string name="type.amenity.charging_station">Pusat Pengisian Daya</string>
 	<string name="type.amenity.charging_station.bicycle">Stasiun Pengisian Sepeda</string>
 	<string name="type.amenity.charging_station.motorcar">Stasiun Pengisian Mobil</string>

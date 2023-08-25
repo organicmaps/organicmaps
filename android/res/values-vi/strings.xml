@@ -717,6 +717,9 @@
 	<string name="type.amenity.car_sharing">Chia sẻ Xe</string>
 	<string name="type.amenity.car_wash">Rửa Xe</string>
 	<string name="type.amenity.casino">Giải trí</string>
+	<string name="type.amenity.gambling">Bài bạc</string>
+	<string name="type.leisure.adult_gaming_centre">Trung tâm trò chơi dành cho người lớn</string>
+	<string name="type.leisure.amusement_arcade">Giải trí</string>
 	<string name="type.amenity.charging_station">Trạm Sạc điện</string>
 	<string name="type.amenity.charging_station.bicycle">Trạm sạc xe đạp</string>
 	<string name="type.amenity.charging_station.motorcar">Trạm sạc xe máy</string>

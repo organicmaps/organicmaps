@@ -1325,6 +1325,12 @@
 
 "type.amenity.casino" = "जुगारगृह";
 
+"type.amenity.gambling" = "जुगार";
+
+"type.leisure.adult_gaming_centre" = "प्रौढ गेमिंग केंद्र";
+
+"type.leisure.amusement_arcade" = "आर्केड";
+
 "type.amenity.charging_station" = "चार्जिंग केंद्र";
 
 "type.amenity.charging_station.bicycle" = "सायकल चार्जिंग स्टेशन";

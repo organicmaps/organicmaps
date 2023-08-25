@@ -1325,6 +1325,12 @@
 
 "type.amenity.casino" = "賭場";
 
+"type.amenity.gambling" = "賭博";
+
+"type.leisure.adult_gaming_centre" = "成人遊戲中心";
+
+"type.leisure.amusement_arcade" = "拱廊";
+
 "type.amenity.charging_station" = "充電站";
 
 "type.amenity.charging_station.bicycle" = "自行車充電站";

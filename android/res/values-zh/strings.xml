@@ -739,6 +739,9 @@
 	<string name="type.amenity.car_sharing">拼车点</string>
 	<string name="type.amenity.car_wash">洗车</string>
 	<string name="type.amenity.casino">赌场</string>
+	<string name="type.amenity.gambling">赌博</string>
+	<string name="type.leisure.adult_gaming_centre">成人游戏中心</string>
+	<string name="type.leisure.amusement_arcade">拱廊</string>
 	<string name="type.amenity.charging_station">充电站</string>
 	<string name="type.amenity.charging_station.bicycle">自行车充电站</string>
 	<string name="type.amenity.charging_station.motorcar">汽车充电站</string>

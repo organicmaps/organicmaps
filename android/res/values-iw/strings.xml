@@ -264,6 +264,9 @@
 	<string name="type.addr_interpolation">כתובת/חסימה</string>
 	<string name="type.addr_interpolation.even">כתובת/חסימה</string>
 	<string name="type.addr_interpolation.odd">כתובת/חסימה</string>
+	<string name="type.amenity.gambling">הימורים</string>
+	<string name="type.leisure.adult_gaming_centre">מרכז משחקים למבוגרים</string>
+	<string name="type.leisure.amusement_arcade">מִקמֶרֶת</string>
 	<string name="type.amenity.charging_station.bicycle">תחנת טעינה לאופניים</string>
 	<string name="type.amenity.charging_station.motorcar">תחנת טעינה למכוניות</string>
 	<string name="type.leisure.bowling_alley">גנילואב םלוא</string>

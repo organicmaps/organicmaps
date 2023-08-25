@@ -760,6 +760,9 @@
 	<string name="type.amenity.car_sharing">Car sharing</string>
 	<string name="type.amenity.car_wash">Lavaggio auto</string>
 	<string name="type.amenity.casino">Casinò</string>
+	<string name="type.amenity.gambling">Gioco d\'azzardo</string>
+	<string name="type.leisure.adult_gaming_centre">Centro giochi per adulti</string>
+	<string name="type.leisure.amusement_arcade">Arcade</string>
 	<string name="type.amenity.charging_station">Stazione di ricarica</string>
 	<string name="type.amenity.charging_station.bicycle">Stazione di ricarica per biciclette</string>
 	<string name="type.amenity.charging_station.motorcar">Stazione di ricarica per autoveicoli</string>
