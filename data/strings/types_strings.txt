@@ -1145,6 +1145,45 @@
     zh-Hans = 赌博
     zh-Hant = 賭博
 
+  [type.leisure.adult_gaming_centre]
+    en = Adult Gaming Centre
+    ar = مركز ألعاب الكبار
+    be = Гульнявы цэнтр для дарослых
+    bg = Център за игри за възрастни
+    ca = Centre de joc per a adults
+    cs = Centrum her pro dospělé
+    da = Spillecenter for voksne
+    de = Gaming-Zentrum für Erwachsene
+    el = Κέντρο παιχνιδιών ενηλίκων
+    es = Centro de juegos para adultos
+    et = Täiskasvanute mängukeskus
+    eu = Helduen Joko Zentroa
+    fa = مرکز بازی بزرگسالان
+    fi = Aikuisten pelikeskus
+    fr = Centre de jeux pour adultes
+    he = מרכז משחקים למבוגרים
+    hu = Felnőtt Játékközpont
+    id = Pusat Permainan Dewasa
+    it = Centro giochi per adulti
+    ja = アダルト ゲーム センター
+    ko = 성인 게임 센터
+    mr = प्रौढ गेमिंग केंद्र
+    nb = Spillsenter for voksne
+    nl = Gamingcentrum voor volwassenen
+    pl = Centrum gier dla dorosłych
+    pt = Centro de jogos para adultos
+    ro = Centru de jocuri pentru adulți
+    ru = Игровой центр для взрослых
+    sk = Centrum hier pre dospelých
+    sv = Spelcenter för vuxna
+    sw = Kituo cha Michezo ya Watu Wazima
+    th = ศูนย์เกมสำหรับผู้ใหญ่
+    tr = Yetişkin Oyun Merkezi
+    uk = Ігровий центр для дорослих
+    vi = Trung tâm trò chơi dành cho người lớn
+    zh-Hans = 成人游戏中心
+    zh-Hant = 成人遊戲中心
+
   [type.amenity.charging_station]
     en = Charging Station
     af = Oplaaistasie
