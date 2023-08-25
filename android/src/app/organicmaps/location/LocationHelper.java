@@ -2,40 +2,33 @@ package app.organicmaps.location;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.IntentSenderRequest;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresPermission;
 import androidx.annotation.UiThread;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import app.organicmaps.Framework;
-import app.organicmaps.MwmApplication;
-import app.organicmaps.R;
-import app.organicmaps.background.AppBackgroundTracker;
 import app.organicmaps.base.Initializable;
 import app.organicmaps.bookmarks.data.FeatureId;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.util.Config;
-import app.organicmaps.util.Listeners;
 import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.NetworkPolicy;
-import app.organicmaps.util.Utils;
 import app.organicmaps.util.log.Logger;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-public enum LocationHelper implements Initializable<Context>, AppBackgroundTracker.OnTransitionListener, BaseLocationProvider.Listener
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+public enum LocationHelper implements Initializable<Context>, BaseLocationProvider.Listener
 {
   INSTANCE;
 
@@ -54,9 +47,9 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @NonNull
   private Context mContext;
 
-  private static final String TAG = LocationHelper.class.getSimpleName();
+  private static final String TAG = LocationState.LOCATION_TAG;
   @NonNull
-  private final Listeners<LocationListener> mListeners = new Listeners<>();
+  private final Set<LocationListener> mListeners = new LinkedHashSet<>();
   @Nullable
   private Location mSavedLocation;
   private double mSavedNorth = Double.NaN;
@@ -67,17 +60,11 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private BaseLocationProvider mLocationProvider;
-  @Nullable
-  private AppCompatActivity mActivity;
   private long mInterval;
   private boolean mInFirstRun;
   private boolean mActive;
-  @Nullable
-  private Dialog mErrorDialog;
-  @Nullable
-  private ActivityResultLauncher<String[]> mPermissionRequest;
-  @Nullable
-  private ActivityResultLauncher<IntentSenderRequest> mResolutionRequest;
+
+  private int mRotation = 0;
 
   @Override
   public void initialize(@NonNull Context context)
@@ -85,7 +72,6 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     mContext = context;
     mSensorHelper = new SensorHelper(context);
     mLocationProvider = LocationProviderFactory.getProvider(mContext, this);
-    MwmApplication.backgroundTracker(context).addListener(this);
   }
 
   @Override
@@ -131,54 +117,17 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     return mActive;
   }
 
-  @Override
-  public void onTransit(boolean foreground)
+  public void setRotation(int rotation)
   {
-    Logger.d(TAG, "foreground = " + foreground + " mode = " + LocationState.nativeGetMode());
-
-    if (foreground)
-    {
-      if (isActive())
-        return;
-
-      if (LocationState.nativeGetMode() == LocationState.NOT_FOLLOW_NO_POSITION)
-      {
-        Logger.d(TAG, "Location updates are stopped by the user manually, so skip provider start"
-            + " until the user starts it manually.");
-        return;
-      }
-
-      Logger.d(TAG, "Starting in foreground");
-      start();
-    }
-    else
-    {
-      if (!isActive())
-        return;
-
-      Logger.d(TAG, "Stopping in background");
-      stop();
-    }
-  }
-
-  public void closeLocationDialog()
-  {
-    if (mErrorDialog != null && mErrorDialog.isShowing())
-      mErrorDialog.dismiss();
-    mErrorDialog = null;
+    Logger.i(TAG, "rotation = " + rotation);
+    mRotation = rotation;
   }
 
   void notifyCompassUpdated(double north)
   {
-    mSavedNorth = north;
-    if (mActivity != null)
-    {
-      int rotation = mActivity.getWindowManager().getDefaultDisplay().getRotation();
-      mSavedNorth = LocationUtils.correctCompassAngle(rotation, mSavedNorth);
-    }
+    mSavedNorth = LocationUtils.correctCompassAngle(mRotation, north);
     for (LocationListener listener : mListeners)
       listener.onCompassUpdated(mSavedNorth);
-    mListeners.finishIterate();
   }
 
   private void notifyLocationUpdated()
@@ -186,11 +135,8 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     if (mSavedLocation == null)
       throw new IllegalStateException("No saved location");
 
-    closeLocationDialog();
-
     for (LocationListener listener : mListeners)
       listener.onLocationUpdated(mSavedLocation);
-    mListeners.finishIterate();
 
     // If we are still in the first run mode, i.e. user is staying on the first run screens,
     // not on the map, we mustn't post location update to the core. Only this preserving allows us
@@ -213,10 +159,13 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @Override
   public void onLocationChanged(@NonNull Location location)
   {
-    if (!isActive())
-      return;
-
     Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() + " location = " + location);
+
+    if (!isActive())
+    {
+      Logger.w(TAG, "Provider is not active");
+      return;
+    }
 
     if (!LocationUtils.isAccuracySatisfied(location))
     {
@@ -242,26 +191,16 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @UiThread
   public void onLocationResolutionRequired(@NonNull PendingIntent pendingIntent)
   {
-    if (!isActive())
-      return;
-
     Logger.d(TAG);
 
-    if (mResolutionRequest == null)
+    if (!isActive())
     {
-      Logger.d(TAG, "Can't resolve location permissions because UI is not attached");
-      stop();
-      LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
+      Logger.w(TAG, "Provider is not active");
       return;
     }
 
-    // Cancel our dialog in favor of system dialog.
-    closeLocationDialog();
-
-    // Launch system permission resolution dialog.
-    IntentSenderRequest intentSenderRequest = new IntentSenderRequest.Builder(pendingIntent.getIntentSender())
-        .build();
-    mResolutionRequest.launch(intentSenderRequest);
+    for (LocationListener listener : mListeners)
+      listener.onLocationResolutionRequired(pendingIntent);
   }
 
   @Override
@@ -280,114 +219,13 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   public void onLocationDisabled()
   {
     Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() +
-        " permissions = " + LocationUtils.isLocationGranted(mContext) +
         " settings = " + LocationUtils.areLocationServicesTurnedOn(mContext));
 
     stop();
     LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
 
-    if (mActivity == null)
-    {
-      Logger.d(TAG, "Don't show 'location disabled' error dialog because Activity is not attached");
-      return;
-    }
-
-    if (mErrorDialog != null && mErrorDialog.isShowing())
-    {
-      Logger.d(TAG, "Don't show 'location disabled' error dialog because another dialog is in progress");
-      return;
-    }
-
-    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mActivity, R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.enable_location_services)
-        .setMessage(R.string.location_is_disabled_long_text)
-        .setOnDismissListener(dialog -> mErrorDialog = null)
-        .setNegativeButton(R.string.close, null);
-    final Intent intent = Utils.makeSystemLocationSettingIntent(mActivity);
-    if (intent != null)
-    {
-      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-      intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-      intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-      builder.setPositiveButton(R.string.connection_settings, (dialog, which) -> mActivity.startActivity(intent));
-    }
-    mErrorDialog = builder.show();
-  }
-
-  @UiThread
-  private void onLocationDenied()
-  {
-    Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() +
-        " permissions = " + LocationUtils.isLocationGranted(mContext) +
-        " settings = " + LocationUtils.areLocationServicesTurnedOn(mContext));
-
-    stop();
-    LocationState.nativeOnLocationError(LocationState.ERROR_DENIED);
-
-    if (mActivity == null)
-    {
-      Logger.w(TAG, "Don't show 'location denied' error dialog because Activity is not attached");
-      return;
-    }
-
-    if (mErrorDialog != null && mErrorDialog.isShowing())
-    {
-      Logger.w(TAG, "Don't show 'location denied' error dialog because another dialog is in progress");
-      return;
-    }
-
-    mErrorDialog = new MaterialAlertDialogBuilder(mActivity, R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.enable_location_services)
-        .setMessage(R.string.location_is_disabled_long_text)
-        .setOnDismissListener(dialog -> mErrorDialog = null)
-        .setNegativeButton(R.string.close, null)
-        .show();
-  }
-
-  @UiThread
-  private void onLocationPendingTimeout()
-  {
-    Logger.d(TAG, " permissions = " + LocationUtils.isLocationGranted(mContext) +
-        " settings = " + LocationUtils.areLocationServicesTurnedOn(mContext));
-
-    //
-    // For all cases below we don't stop location provider until user explicitly clicks "Stop" in the dialog.
-    //
-
-    if (!isActive())
-    {
-      Logger.d(TAG, "Don't show 'location timeout' error dialog because provider is already stopped");
-      return;
-    }
-
-    if (mActivity == null)
-    {
-      Logger.d(TAG, "Don't show 'location timeout' error dialog because Activity is not attached");
-      return;
-    }
-
-    if (mErrorDialog != null && mErrorDialog.isShowing())
-    {
-      Logger.d(TAG, "Don't show 'location timeout' error dialog because another dialog is in progress");
-      return;
-    }
-
-    final AppCompatActivity activity = mActivity;
-    mErrorDialog = new MaterialAlertDialogBuilder(activity, R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.current_location_unknown_title)
-        .setMessage(R.string.current_location_unknown_message)
-        .setOnDismissListener(dialog -> mErrorDialog = null)
-        .setNegativeButton(R.string.current_location_unknown_stop_button, (dialog, which) ->
-        {
-          Logger.w(TAG, "Disabled by user");
-          LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
-          stop();
-        })
-        .setPositiveButton(R.string.current_location_unknown_continue_button, (dialog, which) ->
-        {
-          // Do nothing - provider will continue to search location.
-        })
-        .show();
+    for (LocationListener listener : mListeners)
+      listener.onLocationDisabled();
   }
 
   /**
@@ -398,24 +236,24 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @UiThread
   public void addListener(@NonNull LocationListener listener)
   {
-    Logger.d(TAG, "listener: " + listener + " count was: " + mListeners.getSize());
+    Logger.d(TAG, "listener: " + listener + " count was: " + mListeners.size());
 
-    mListeners.register(listener);
+    mListeners.add(listener);
     if (mSavedLocation != null)
       listener.onLocationUpdated(mSavedLocation);
     if (!Double.isNaN(mSavedNorth))
       listener.onCompassUpdated(mSavedNorth);
   }
 
-  @UiThread
   /**
    * Removes given location listener.
    * @param listener listener to unregister.
    */
+  @UiThread
   public void removeListener(@NonNull LocationListener listener)
   {
-    Logger.d(TAG, "listener: " + listener + " count was: " + mListeners.getSize());
-    mListeners.unregister(listener);
+    Logger.d(TAG, "listener: " + listener + " count was: " + mListeners.size());
+    mListeners.remove(listener);
   }
 
   private void calcLocationUpdatesInterval()
@@ -481,40 +319,30 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   {
     Logger.d(TAG);
     stop();
+    if (ContextCompat.checkSelfPermission(mContext, ACCESS_COARSE_LOCATION) != PERMISSION_GRANTED &&
+        ContextCompat.checkSelfPermission(mContext, ACCESS_FINE_LOCATION) != PERMISSION_GRANTED)
+    {
+      Logger.w(TAG, "Location is not restarted in foreground because of missing permissions");
+      return;
+    }
     start();
   }
 
   /**
    * Starts polling location updates.
    */
+  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
   public void start()
   {
-    Logger.d(TAG);
-
     if (isActive())
-      throw new IllegalStateException("Already started");
-
-    if (!LocationUtils.isLocationGranted(mContext))
     {
-      Logger.w(TAG, "Dynamic permissions ACCESS_COARSE_LOCATION and/or ACCESS_FINE_LOCATION are not granted");
-      Logger.d(TAG, "error mode = " + LocationState.nativeGetMode());
-      LocationState.nativeOnLocationError(LocationState.ERROR_DENIED);
-
-      if (mPermissionRequest == null)
-      {
-        Logger.w(TAG, "Don't request location permissions because Activity is not attached");
-        return;
-      }
-      mPermissionRequest.launch(new String[]{
-          ACCESS_COARSE_LOCATION,
-          ACCESS_FINE_LOCATION
-      });
+      Logger.d(TAG, "Already started");
       return;
     }
 
+    Logger.i(TAG);
     checkForAgpsUpdates();
 
-    LocationState.nativeSetLocationPendingTimeoutListener(this::onLocationPendingTimeout);
     mSensorHelper.start();
     final long oldInterval = mInterval;
     calcLocationUpdatesInterval();
@@ -529,17 +357,15 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
    */
   public void stop()
   {
-    Logger.d(TAG);
-
     if (!isActive())
     {
-      Logger.w(TAG, "Already stopped");
+      Logger.d(TAG, "Already stopped");
       return;
     }
 
+    Logger.i(TAG);
     mLocationProvider.stop();
     mSensorHelper.stop();
-    LocationState.nativeRemoveLocationPendingTimeoutListener();
     mActive = false;
   }
 
@@ -561,83 +387,6 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     final LocationManager manager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
     manager.sendExtraCommand(LocationManager.GPS_PROVIDER, "force_xtra_injection", null);
     manager.sendExtraCommand(LocationManager.GPS_PROVIDER, "force_time_injection", null);
-  }
-
-  /**
-   * Attach UI to helper.
-   */
-  @UiThread
-  public void attach(@NonNull AppCompatActivity activity)
-  {
-    Logger.d(TAG, "activity = " + activity);
-
-    if (mActivity != null)
-    {
-      Logger.e(TAG, "Another Activity = " + mActivity + " is already attached");
-      detach();
-    }
-
-    mActivity = activity;
-
-    mPermissionRequest = mActivity.registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
-        result -> onRequestPermissionsResult());
-    mResolutionRequest = mActivity.registerForActivityResult(new ActivityResultContracts.StartIntentSenderForResult(),
-        result -> onLocationResolutionResult(result.getResultCode()));
-  }
-
-  /**
-   * Detach UI from helper.
-   */
-  @UiThread
-  public void detach()
-  {
-    Logger.d(TAG, "activity = " + mActivity);
-
-    if (mActivity == null)
-    {
-      Logger.e(TAG, "Activity is not attached");
-      return;
-    }
-
-    assert mPermissionRequest != null;
-    mPermissionRequest.unregister();
-    mPermissionRequest = null;
-    assert mResolutionRequest != null;
-    mResolutionRequest.unregister();
-    mResolutionRequest = null;
-    mActivity = null;
-  }
-
-  @UiThread
-  private void onRequestPermissionsResult()
-  {
-    Logger.d(TAG);
-
-    if (LocationUtils.isLocationGranted(mContext))
-    {
-      Logger.i(TAG, "Permissions have been granted");
-      if (!isActive())
-        start();
-      return;
-    }
-
-    Logger.w(TAG, "Permissions have not been granted");
-    onLocationDenied();
-  }
-
-  @UiThread
-  private void onLocationResolutionResult(int resultCode)
-  {
-    if (resultCode != Activity.RESULT_OK)
-    {
-      Logger.w(TAG, "Resolution has not been granted");
-      stop();
-      LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
-      return;
-    }
-
-    Logger.i(TAG, "Resolution has been granted");
-    restart();
   }
 
   @UiThread
@@ -669,11 +418,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
       notifyLocationUpdated();
       Logger.d(TAG, "Current location is available, so play the nice zoom animation");
       Framework.nativeRunFirstLaunchAnimation();
-      return;
     }
-
-    // Restart location service to show alert dialog if any location error.
-    restart();
   }
 
   public double getSavedNorth()
