@@ -371,17 +371,21 @@ void AsyncRouter::CalculateRoute()
                           [delegateProxy, route, code]() { delegateProxy->OnReady(route, code); });
   }
 
-  bool const needAbsentRegions = (code != RouterResultCode::Cancelled);
+  bool const needAbsentRegions = (code != RouterResultCode::Cancelled &&
+          route->GetRouterId() != "ruler-router");
 
   std::set<std::string> absent;
-  if (absentRegionsFinder && needAbsentRegions)
-    absentRegionsFinder->GetAbsentRegions(absent);
-
-  absent.insert(route->GetAbsentCountries().cbegin(), route->GetAbsentCountries().cend());
-  if (!absent.empty())
+  if (needAbsentRegions)
   {
-    code = RouterResultCode::NeedMoreMaps;
-    LOG(LDEBUG, ("Absent regions:", absent));
+    if (absentRegionsFinder)
+      absentRegionsFinder->GetAbsentRegions(absent);
+
+    absent.insert(route->GetAbsentCountries().cbegin(), route->GetAbsentCountries().cend());
+    if (!absent.empty())
+    {
+      code = RouterResultCode::NeedMoreMaps;
+      LOG(LDEBUG, ("Absent regions:", absent));
+    }
   }
 
   elapsedSec = timer.ElapsedSeconds(); // routing time + absents fetch time

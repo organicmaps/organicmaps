@@ -139,6 +139,8 @@ set(SRC
   routing_session.hpp
   routing_settings.cpp
   routing_settings.hpp
+  ruler_router.cpp
+  ruler_router.hpp
   segment.cpp
   segment.hpp
   segmented_route.cpp
