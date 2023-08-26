@@ -1425,6 +1425,7 @@ Java_app_organicmaps_Framework_nativeSetRouter(JNIEnv * env, jclass, jint router
     case 1: type = Type::Pedestrian; break;
     case 2: type = Type::Bicycle; break;
     case 3: type = Type::Transit; break;
+    case 4: type = Type::Ruler; break;
     default: assert(false); break;
   }
   g_framework->GetRoutingManager().SetRouter(type);

@@ -603,6 +603,11 @@ public class RoutingController implements Initializable<Void>
     return mLastRouterType == Framework.ROUTER_TYPE_VEHICLE;
   }
 
+  boolean isRulerRouterType()
+  {
+    return mLastRouterType == Framework.ROUTER_TYPE_RULER;
+  }
+
   public boolean isNavigating()
   {
     return mState == State.NAVIGATION;
@@ -815,22 +820,14 @@ public class RoutingController implements Initializable<Void>
     }
 
     if (isSamePoint)
-    {
-      Logger.d(TAG, "setEndPoint: skip the same end point");
       return false;
-    }
 
     if (point != null && point.sameAs(startPoint))
     {
       if (endPoint == null)
-      {
-        Logger.d(TAG, "setEndPoint: skip because end point is empty");
         return false;
-      }
 
-      Logger.d(TAG, "setEndPoint: swap with starting point");
       startPoint = endPoint;
-
     }
 
     endPoint = point;

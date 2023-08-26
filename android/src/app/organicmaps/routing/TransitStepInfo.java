@@ -18,10 +18,11 @@ public class TransitStepInfo
   private static final int TRANSIT_TYPE_TRAIN = 3;
   private static final int TRANSIT_TYPE_LIGHT_RAIL = 4;
   private static final int TRANSIT_TYPE_MONORAIL = 5;
+  private static final int TRANSIT_TYPE_RULER = 6;
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ TRANSIT_TYPE_INTERMEDIATE_POINT, TRANSIT_TYPE_PEDESTRIAN, TRANSIT_TYPE_SUBWAY,
-            TRANSIT_TYPE_TRAIN, TRANSIT_TYPE_LIGHT_RAIL, TRANSIT_TYPE_MONORAIL })
+            TRANSIT_TYPE_TRAIN, TRANSIT_TYPE_LIGHT_RAIL, TRANSIT_TYPE_MONORAIL, TRANSIT_TYPE_RULER})
   @interface TransitType {}
 
   @NonNull
@@ -46,6 +47,18 @@ public class TransitStepInfo
     mNumber = number;
     mColor = color;
     mIntermediateIndex = intermediateIndex;
+  }
+
+  @NonNull
+  public static TransitStepInfo intermediatePoint(int intermediateIndex)
+  {
+    return new TransitStepInfo(TRANSIT_TYPE_INTERMEDIATE_POINT, null, null, 0, null, 0, intermediateIndex);
+  }
+
+  @NonNull
+  public static TransitStepInfo ruler(@NonNull String distance, @NonNull String distanceUnits)
+  {
+    return new TransitStepInfo(TRANSIT_TYPE_RULER, distance, distanceUnits, 0, null, 0, -1);
   }
 
   @NonNull

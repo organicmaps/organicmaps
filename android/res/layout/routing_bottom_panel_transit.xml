@@ -46,7 +46,7 @@
     android:id="@+id/transit_recycler_view"
     android:layout_marginTop="@dimen/margin_half_plus"
     android:layout_alignParentStart="true"
-    android:layout_below="@id/total_distance"
+    android:layout_below="@id/total_time"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"/>
 </RelativeLayout>
