@@ -1,1 +1,1 @@
-../../data/countries.txt
+../../../data/countries.txt

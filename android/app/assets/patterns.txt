@@ -1,1 +1,1 @@
-../../data/patterns.txt
+../../../data/patterns.txt

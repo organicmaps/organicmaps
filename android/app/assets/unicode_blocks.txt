@@ -1,1 +1,1 @@
-../../data/unicode_blocks.txt
+../../../data/unicode_blocks.txt

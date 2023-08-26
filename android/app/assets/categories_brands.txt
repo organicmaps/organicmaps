@@ -1,1 +1,1 @@
-../../data/categories_brands.txt
+../../../data/categories_brands.txt
