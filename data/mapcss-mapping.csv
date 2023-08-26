@@ -1644,3 +1644,4 @@ emergency|assembly_point;1568;
 amenity|gambling;1569;
 leisure|adult_gaming_centre;1570;
 leisure|amusement_arcade;1571;
+amenity|place_of_worship|christian|mormon;[amenity=place_of_worship][religion=christian][denomination=mormon];;name;int_name;1572;

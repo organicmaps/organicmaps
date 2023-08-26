@@ -3191,6 +3191,45 @@
     zh-Hans = 基督教堂
     zh-Hant = 基督教堂
 
+  [type.amenity.place_of_worship.christian.mormon]
+    en = Church of Jesus Christ of Latter Day Saints
+    ar = كنيسة يسوع المسيح لقديسي الأيام الأخيرة
+    be = Царква Ісуса Хрыста Святых апошніх дзён
+    bg = Църквата на Исус Христос на светиите от последните дни
+    ca = Església de Jesucrist dels Sants dels Últims Dies
+    cs = Církev Ježíše Krista Svatých posledních dnů
+    da = Jesu Kristi Kirke af Sidste Dages Hellige
+    de = Kirche Jesu Christi der Heiligen der Letzten Tage
+    el = Εκκλησία του Ιησού Χριστού των Αγίων των Τελευταίων Ημερών
+    es = Iglesia de Jesucristo de los Santos de los Últimos Días
+    et = Viimse Aja Pühade Jeesuse Kristuse kirik
+    eu = Azken Eguneko Santuen Jesukristoren eliza
+    fa = کلیسای عیسی مسیح مقدسین آخرالزمان
+    fi = Myöhempien Aikojen Pyhien Jeesuksen Kristuksen Kirkko
+    fr = Église de Jésus-Christ des Saints des Derniers Jours
+    he = כנסיית ישוע המשיח של קדושי אחרון הימים
+    hu = Utolsó Napok Szentjeinek Jézus Krisztus Egyháza
+    id = Gereja Yesus Kristus dari Orang-Orang Suci Zaman Akhir
+    it = Chiesa di Gesù Cristo dei Santi degli Ultimi Giorni
+    ja = 末日聖徒イエス・キリスト教会
+    ko = 예수 그리스도 후기 성도 교회
+    mr = चर्च ऑफ जिझस क्राइस्ट ऑफ लेटर डे सेंट्स
+    nb = Jesu Kristi Kirke av Siste Dagers Hellige
+    nl = Kerk van Jezus Christus van de Heiligen der Laatste Dagen
+    pl = Kościół Jezusa Chrystusa Świętych w Dniach Ostatnich
+    pt = Igreja de Jesus Cristo dos Santos dos Últimos Dias
+    ro = Biserica lui Isus Hristos a Sfinților din Zilele din Urmă
+    ru = Церковь Иисуса Христа Святых последних дней
+    sk = Cirkev Ježiša Krista Svätých neskorších dní
+    sv = Jesu Kristi Kyrka av Sista Dagars Heliga
+    sw = Kanisa la Yesu Kristo la Watakatifu wa Siku za Mwisho
+    th = โบสถ์พระเยซูคริสต์แห่งวิสุทธิชนยุคสุดท้าย
+    tr = İsa Mesih'in Son Zaman Azizleri Kilisesi
+    uk = Церква Ісуса Христа Святих Останніх Днів
+    vi = Nhà thờ Các Thánh hữu Ngày sau của Chúa Giêsu Kitô
+    zh-Hans = 耶稣基督后期圣徒教会
+    zh-Hant = 耶穌基督後期聖徒教會
+
   [type.amenity.place_of_worship.hindu]
     en = Hindu Temple
     af = Hindoe-tempel

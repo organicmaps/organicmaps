@@ -357,6 +357,7 @@ tourism-viewpoint                                   # icon z14- (also has captio
 
 amenity-place_of_worship-buddhist                   # icon z14- (also has caption(optional) z14-, area z16-)
 amenity-place_of_worship-christian                  # icon z14- (also has caption(optional) z14-, area z16-)
+amenity-place_of_worship-christian-mormon           # icon z14- (also has caption(optional) z14-, area z16-)
 amenity-place_of_worship-hindu                      # icon z14- (also has caption(optional) z14-, area z16-)
 amenity-place_of_worship-jewish                     # icon z14- (also has caption(optional) z14-, area z16-)
 amenity-place_of_worship-muslim                     # icon z14- (also has caption(optional) z14-, area z16-)
@@ -1466,6 +1467,7 @@ amenity-parking_entrance-private                    # WARNING: no style defined 
 
 # amenity-place_of_worship-buddhist                 # caption(optional) z14- (also has icon z14-, area z16-)
 # amenity-place_of_worship-christian                # caption(optional) z14- (also has icon z14-, area z16-)
+# amenity-place_of_worship-christian-mormon         # caption(optional) z14- (also has icon z14-, area z16-)
 # amenity-place_of_worship-hindu                    # caption(optional) z14- (also has icon z14-, area z16-)
 # amenity-place_of_worship-jewish                   # caption(optional) z14- (also has icon z14-, area z16-)
 # amenity-place_of_worship-muslim                   # caption(optional) z14- (also has icon z14-, area z16-)
