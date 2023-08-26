@@ -14,8 +14,8 @@ on:
       - LICENSE
       - NOTICE
       - README.md
-      - android/src/fdroid/**
-      - android/src/google/**
+      - android/app/src/main/fdroid/**
+      - android/app/src/main/google/**
       - iphone/**
       - data/strings/**
       - docs/**
@@ -106,5 +106,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: android-arm64-v8a-${{ matrix.flavor }}
-          path: android/build/outputs/apk/**/OrganicMaps-*.apk
+          path: android/app/build/outputs/apk/**/OrganicMaps-*.apk
           if-no-files-found: error

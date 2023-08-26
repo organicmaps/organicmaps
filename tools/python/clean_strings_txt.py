@@ -73,13 +73,13 @@ def grep_ios():
 
 def grep_android():
     logging.info("Grepping android...")
-    grep = "grep -r -I 'R.string.' {0}/android/src".format(OMIM_ROOT)
+    grep = "grep -r -I 'R.string.' {0}/android/app/src/main".format(OMIM_ROOT)
     ret = android_grep_wrapper(grep, ANDROID_JAVA_RE)
-    grep = "grep -r -I 'R.plurals.' {0}/android/src".format(OMIM_ROOT)
+    grep = "grep -r -I 'R.plurals.' {0}/android/app/src/main".format(OMIM_ROOT)
     ret.update(android_grep_wrapper(grep, ANDROID_JAVA_PLURAL_RE))
-    grep = "grep -r -I '@string/' {0}/android/res".format(OMIM_ROOT)
+    grep = "grep -r -I '@string/' {0}/android/app/src/main/res".format(OMIM_ROOT)
     ret.update(android_grep_wrapper(grep, ANDROID_XML_RE))
-    grep = "grep -r -I '@string/' {0}/android/AndroidManifest.xml".format(
+    grep = "grep -r -I '@string/' {0}/android/app/src/main/AndroidManifest.xml".format(
         OMIM_ROOT)
     ret.update(android_grep_wrapper(grep, ANDROID_XML_RE))
     ret = parenthesize(ret)
