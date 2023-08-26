@@ -22224,8 +22224,8 @@
     da = Undgå betalingsveje
     de = Mautstraßen vermeiden
     el = Αποφύγετε τους δρόμους με διόδια
-    es = Evite las carreteras de pago
-    es-MX = Evite las carreteras de peaje
+    es = Evitar peajes
+    es-MX = Evitar peajes
     et = Vältige tasulisi teid
     eu = Saihestu ordainpeko errepideak
     fa = از جاده های عوارضی خودداری کنید
@@ -22241,8 +22241,8 @@
     nb = Unngå bomveier
     nl = Vermijd tolwegen
     pl = Unikaj dróg płatnych
-    pt = Evite estradas com portagem
-    pt-BR = Evite estradas com pedágio
+    pt = Evitar portagens
+    pt-BR = Evitar pedágios
     ro = Evitați drumurile cu taxă
     ru = Избегайте платных дорог
     sk = Vyhnite sa spoplatneným cestám
@@ -22267,8 +22267,8 @@
     da = Undgå ikke-asfalterede veje
     de = Unbefestigte Straßen vermeiden
     el = Αποφύγετε τους μη ασφαλτοστρωμένους δρόμους
-    es = Evite caminos sin pavimento
-    es-MX = Evite caminos de tierra
+    es = Evitar caminos sin pavimentar
+    es-MX = Evitar caminos sin pavimentar
     et = Vältige katmata teid
     eu = Saihestu asfaltatu gabeko errepideak
     fa = از جاده های آسفالت نشده خودداری کنید
@@ -22284,8 +22284,8 @@
     nb = Unngå uasfalterte veier
     nl = Vermijd onverharde wegen
     pl = Unikaj dróg nieutwardzonych
-    pt = Evite estradas não pavimentadas
-    pt-BR = Evite pistas sem pavimentação
+    pt = Evitar estradas não-pavimentadas
+    pt-BR = Evitar estradas não-pavimentadas
     ro = Evitați drumurile neasfaltate
     ru = Избегайте грунтовых дорог
     sk = Vyhnite sa nespevneným cestám
@@ -22310,8 +22310,8 @@
     da = Undgå færgeoverfarter
     de = Fähren vermeiden
     el = Αποφύγετε τις διελεύσεις με φέρι
-    es = Evite los cruces de ferri
-    es-MX = Evite los cruces de ferri
+    es = Evitar ferris
+    es-MX = Evitar ferris
     et = Vältige praamiületusi
     eu = Saihestu ferry-pasaketak
     fa = از عبور کشتی ها خودداری کنید
@@ -22327,8 +22327,8 @@
     nb = Unngå fergeoverfarter
     nl = Vermijd veerbootovertochten
     pl = Unikaj przepraw promowych
-    pt = Evite travessias de ferry
-    pt-BR = Evite travessias de balsa
+    pt = Evitar balsas
+    pt-BR = Evitar balsas
     ro = Evitați traversările cu feribotul
     ru = Избегайте паромных переправ
     sk = Vyhnite sa trajektovým prechodom
@@ -22353,8 +22353,8 @@
     da = Undgå motorveje
     de = Autobahnen vermeiden
     el = Αποφύγετε τους αυτοκινητόδρομους
-    es = Evite las autopistas
-    es-MX = Evite las autopistas
+    es = Evitar autopistas
+    es-MX = Evitar autopistas
     et = Väldi kiirteid
     eu = Saihestu autobideak
     fa = از بزرگراه ها دوری کنید
@@ -22370,8 +22370,8 @@
     nb = Unngå motorveier
     nl = Vermijd snelwegen
     pl = Unikaj autostrad
-    pt = Evite autoestradas
-    pt-BR = Evite autoestradas
+    pt = Evitar autoestradas
+    pt-BR = Evitar rodovias
     ro = Evitați autostrăzile
     ru = Избегайте автомагистралей
     sk = Vyhýbajte sa diaľniciam
