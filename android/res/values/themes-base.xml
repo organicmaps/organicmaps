@@ -87,6 +87,7 @@
     <item name="homeAsUpIndicator">@drawable/back_arrow</item>
 
     <item name="transitPedestrianBackground">@color/black_4</item>
+    <item name="transitRulerBackground">@color/black_4</item>
     <item name="transitStepDivider">@drawable/dot_divider</item>
     <item name="trafficMenuEnabled">@drawable/ic_layers_traffic_active</item>
     <item name="subwayMenuEnabled">@drawable/ic_layers_subway_active</item>
@@ -221,6 +222,7 @@
     <item name="homeAsUpIndicator">@drawable/back_arrow</item>
 
     <item name="transitPedestrianBackground">@color/white_4</item>
+    <item name="transitRulerBackground">@color/white_4</item>
     <item name="transitStepDivider">@drawable/dot_divider_night</item>
     <item name="trafficMenuEnabled">@drawable/ic_layers_traffic_active_night</item>
     <item name="subwayMenuEnabled">@drawable/ic_layers_subway_active_night</item>

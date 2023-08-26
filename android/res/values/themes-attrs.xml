@@ -42,6 +42,7 @@
     <attr name="routingButtonHint" format="color" />
     <attr name="drivingOptionsViewBg" format="color" />
     <attr name="transitPedestrianBackground" format="color" />
+    <attr name="transitRulerBackground" format="color" />
     <attr name="colorBtnHighlight" format="color" />
     <attr name="transitStepDivider" format="reference" />
     <attr name="colorAccentTransparent" format="reference" />

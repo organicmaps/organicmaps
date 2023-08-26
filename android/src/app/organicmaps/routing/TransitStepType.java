@@ -12,7 +12,8 @@ public enum TransitStepType
   SUBWAY(R.drawable.ic_20px_route_planning_metro),
   TRAIN(R.drawable.ic_20px_route_planning_train),
   LIGHT_RAIL(R.drawable.ic_20px_route_planning_lightrail),
-  MONORAIL(R.drawable.ic_20px_route_planning_monorail);
+  MONORAIL(R.drawable.ic_20px_route_planning_monorail),
+  RULER(R.drawable.ic_ruler_route);
 
   @DrawableRes
   private final int mDrawable;

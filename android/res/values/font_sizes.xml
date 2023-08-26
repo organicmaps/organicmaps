@@ -51,6 +51,7 @@
   <dimen name="text_size_routing_dimension_inline">20sp</dimen>
   <dimen name="text_size_routing_plan_detail">16sp</dimen>
   <dimen name="text_size_routing_plan_detail_arrival">14sp</dimen>
+  <dimen name="text_size_routing_plan_detail_intermediate">20sp</dimen>
   <dimen name="text_size_time_picker">56sp</dimen>
 
   <dimen name="text_size_nav_street">17sp</dimen>

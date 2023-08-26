@@ -85,6 +85,12 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
       mDrawable = null;
       mText = String.valueOf(info.getIntermediateIndex() + 1);
     }
+    else if (mStepType == TransitStepType.RULER)
+    {
+      mDrawable = null;
+      mText = info.getDistance() + " " + info.getDistanceUnits();
+      mTextPaint.setColor(Color.BLACK);
+    }
     else
     {
       mDrawable = ResourcesCompat.getDrawable(getResources(), mStepType.getDrawable(), null);
@@ -101,6 +107,8 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
     {
       case PEDESTRIAN:
         return ThemeUtils.getColor(context, R.attr.transitPedestrianBackground);
+      case RULER:
+        return ThemeUtils.getColor(context, R.attr.transitRulerBackground);
       case INTERMEDIATE_POINT:
         return ThemeUtils.getColor(context, R.attr.colorPrimary);
       default:

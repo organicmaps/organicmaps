@@ -29,13 +29,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import app.organicmaps.Framework;
 import app.organicmaps.R;
+import app.organicmaps.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.location.LocationHelper;
+import app.organicmaps.util.Distance;
 import app.organicmaps.widget.recycler.DotDividerItemDecoration;
 import app.organicmaps.widget.recycler.MultilineLayoutManager;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 final class RoutingBottomMenuController implements View.OnClickListener
@@ -135,9 +139,11 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   void showAltitudeChartAndRoutingDetails()
   {
-    UiUtils.hide(mError, mActionFrame, mTransitFrame);
+    UiUtils.hide(mError, mActionFrame, mAltitudeChart, mAltitudeDifference, mTransitFrame);
 
-    showRouteAltitudeChart();
+    if (!RoutingController.get().isVehicleRouterType() &&
+        !RoutingController.get().isRulerRouterType())
+      showRouteAltitudeChart();
     showRoutingDetails();
     UiUtils.show(mAltitudeChartFrame);
   }
@@ -170,6 +176,53 @@ final class RoutingBottomMenuController implements View.OnClickListener
     TextView distanceView = mTransitFrame.findViewById(R.id.total_distance);
     UiUtils.showIf(info.getTotalPedestrianTimeInSec() > 0, dotView, pedestrianIcon, distanceView);
     distanceView.setText(info.getTotalPedestrianDistance() + " " + info.getTotalPedestrianDistanceUnits());
+  }
+
+  @SuppressLint("SetTextI18n")
+  void showRulerInfo(@NonNull RouteMarkData[] points, Distance totalLength)
+  {
+    UiUtils.hide(mError, mAltitudeChartFrame, mActionFrame, mAltitudeChartFrame);
+    showStartButton(false);
+    UiUtils.show(mTransitFrame);
+    RecyclerView rv = mTransitFrame.findViewById(R.id.transit_recycler_view);
+    if (points.length > 2)
+    {
+      UiUtils.show(rv);
+      TransitStepAdapter adapter = new TransitStepAdapter();
+      rv.setLayoutManager(new MultilineLayoutManager());
+      rv.setNestedScrollingEnabled(false);
+      rv.removeItemDecoration(mTransitViewDecorator);
+      rv.addItemDecoration(mTransitViewDecorator);
+      rv.setAdapter(adapter);
+      adapter.setItems(pointsToRulerSteps(points));
+    }
+    else
+      UiUtils.hide(rv); // Show only distance between start and finish
+
+    TextView totalTimeView = mTransitFrame.findViewById(R.id.total_time);
+    totalTimeView.setText(mContext.getString(R.string.placepage_distance) + ": " +
+                          totalLength.mDistanceStr + " " + totalLength.getUnitsStr(mContext));
+
+    UiUtils.hide(mTransitFrame, R.id.dot);
+    UiUtils.hide(mTransitFrame, R.id.pedestrian_icon);
+    UiUtils.hide(mTransitFrame, R.id.total_distance);
+  }
+
+  // Create steps info to use in TransitStepAdapter.
+  private List<TransitStepInfo> pointsToRulerSteps(RouteMarkData[] points)
+  {
+    List<TransitStepInfo> transitSteps = new LinkedList<>();
+    for (int i = 1; i < points.length; i++)
+    {
+      RouteMarkData segmentStart = points[i - 1];
+      RouteMarkData segmentEnd = points[i];
+      DistanceAndAzimut dist = Framework.nativeGetDistanceAndAzimuthFromLatLon(segmentStart.mLat, segmentStart.mLon, segmentEnd.mLat, segmentEnd.mLon, 0);
+      if (i > 1)
+        transitSteps.add(TransitStepInfo.intermediatePoint(i - 2));
+      transitSteps.add(TransitStepInfo.ruler(dist.getDistance().mDistanceStr, dist.getDistance().getUnitsStr(mContext)));
+    }
+
+    return transitSteps;
   }
 
   void showAddStartFrame()
@@ -206,15 +259,17 @@ final class RoutingBottomMenuController implements View.OnClickListener
     UiUtils.hide(mActionFrame);
   }
 
-  void setStartButton()
+  void setStartButton(boolean show)
   {
-    mStart.setText(mContext.getText(R.string.p2p_start));
-    mStart.setOnClickListener(v -> {
-      if (mListener != null)
-        mListener.onRoutingStart();
-    });
+    if (show) {
+      mStart.setText(mContext.getText(R.string.p2p_start));
+      mStart.setOnClickListener(v -> {
+        if (mListener != null)
+          mListener.onRoutingStart();
+      });
+    }
 
-    showStartButton(true);
+    showStartButton(show);
   }
 
   private void showError(@NonNull String message)
