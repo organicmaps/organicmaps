@@ -1019,13 +1019,13 @@
 
 "driving_options_subheader" = "Evitar en cada ruta";
 
-"avoid_tolls" = "Evite las carreteras de peaje";
+"avoid_tolls" = "Evitar peajes";
 
-"avoid_unpaved" = "Evite caminos de tierra";
+"avoid_unpaved" = "Evitar caminos sin pavimentar";
 
-"avoid_ferry" = "Evite los cruces de ferri";
+"avoid_ferry" = "Evitar ferris";
 
-"avoid_motorways" = "Evite las autopistas";
+"avoid_motorways" = "Evitar autopistas";
 
 "unable_to_calc_alert_title" = "No se puede construir una ruta";
 

@@ -621,10 +621,10 @@
 	<string name="access_rules_author_only">Edição online</string>
 	<string name="driving_options_title">Configurações de direção</string>
 	<string name="driving_options_subheader">Evitar em todos os percursos</string>
-	<string name="avoid_tolls">Evite estradas com portagem</string>
-	<string name="avoid_unpaved">Evite estradas não pavimentadas</string>
-	<string name="avoid_ferry">Evite travessias de ferry</string>
-	<string name="avoid_motorways">Evite autoestradas</string>
+	<string name="avoid_tolls">Evitar portagens</string>
+	<string name="avoid_unpaved">Evitar estradas não-pavimentadas</string>
+	<string name="avoid_ferry">Evitar balsas</string>
+	<string name="avoid_motorways">Evitar autoestradas</string>
 	<string name="unable_to_calc_alert_title">Não foi possível calcular a rota</string>
 	<string name="unable_to_calc_alert_subtitle">Infelizmente não foi possível criar o percurso com as opções selecionadas. Altere as opções e tente novamente</string>
 	<string name="define_to_avoid_btn">Definir as estradas a evitar</string>
