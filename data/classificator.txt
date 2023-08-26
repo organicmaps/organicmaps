@@ -69,6 +69,7 @@ world  +
         food_court  -
         fountain  -
         fuel  -
+        gambling  -
         grave_yard  +
             christian  -
             {}
@@ -625,6 +626,8 @@ world  +
         vineyard  -
         {}
     leisure  +
+        adult_gaming_centre  -
+        amusement_arcade  -
         beach_resort  -
         bowling_alley  -
         common  -

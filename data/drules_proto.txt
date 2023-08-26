@@ -5363,6 +5363,60 @@ cont {
   }
 }
 cont {
+  name: "amenity-gambling"
+  element {
+    scale: 17
+    symbol {
+      name: "gambling-m"
+      priority: 1250
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "gambling-m"
+      priority: 1250
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "gambling-m"
+      priority: 1250
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+}
+cont {
   name: "amenity-grave_yard"
   element {
     scale: 14
@@ -40147,6 +40201,114 @@ cont {
         color: 4473924
       }
       priority: 3250
+    }
+  }
+}
+cont {
+  name: "leisure-adult_gaming_centre"
+  element {
+    scale: 17
+    symbol {
+      name: "slots-m"
+      priority: 1250
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "slots-m"
+      priority: 1250
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "slots-m"
+      priority: 1250
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+}
+cont {
+  name: "leisure-amusement_arcade"
+  element {
+    scale: 17
+    symbol {
+      name: "arcade-m"
+      priority: 1250
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "arcade-m"
+      priority: 1250
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "arcade-m"
+      priority: 1250
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
     }
   }
 }
@@ -92161,7 +92323,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "bookmaker-m"
+      name: "lottery-m"
       priority: 2400
       min_distance: 10
     }
@@ -92178,7 +92340,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "bookmaker-m"
+      name: "lottery-m"
       priority: 2400
       min_distance: 24
     }
@@ -92195,7 +92357,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "bookmaker-m"
+      name: "lottery-m"
       priority: 2400
       min_distance: 24
     }
@@ -92212,7 +92374,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "bookmaker-m"
+      name: "lottery-m"
       priority: 2400
       min_distance: 24
     }
@@ -95765,9 +95927,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-m"
+      name: "lottery-m"
       priority: 500
-      min_distance: 10
+      min_distance: 20
     }
     caption {
       primary {
@@ -95782,9 +95944,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-m"
+      name: "lottery-m"
       priority: 500
-      min_distance: 10
+      min_distance: 20
     }
     caption {
       primary {
