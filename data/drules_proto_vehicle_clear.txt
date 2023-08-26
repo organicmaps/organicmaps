@@ -3096,6 +3096,58 @@ cont {
   }
 }
 cont {
+  name: "amenity-place_of_worship-christian-mormon"
+  element {
+    scale: 16
+    symbol {
+      name: "mormon-m"
+      min_distance: 10
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "mormon-m"
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 13
+        color: 4473924
+        offset_y: 1
+      }
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "mormon-m"
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 14
+        color: 4473924
+        offset_y: 1
+      }
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "mormon-m"
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 14
+        color: 4473924
+        offset_y: 1
+      }
+    }
+  }
+}
+cont {
   name: "amenity-place_of_worship-hindu"
   element {
     scale: 16

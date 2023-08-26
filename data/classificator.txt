@@ -113,7 +113,9 @@ world  +
         pharmacy  -
         place_of_worship  +
             buddhist  -
-            christian  -
+            christian  +
+                mormon  -
+                {}
             hindu  -
             jewish  -
             muslim  -
