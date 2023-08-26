@@ -237,6 +237,7 @@
 	<string name="duration_6_hours">6 ordu</string>
 	<string name="duration_12_hours">12 ordu</string>
 	<string name="duration_1_day">egun 1</string>
+	<string name="placepage_distance">Distantzia</string>
 	<string name="search_show_on_map">Ikusi mapan</string>
 	<!-- Menu button -->
 	<string name="menu">Menua</string>

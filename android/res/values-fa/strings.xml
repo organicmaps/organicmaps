@@ -213,6 +213,7 @@
 	<string name="duration_6_hours">6 ساعت</string>
 	<string name="duration_12_hours">12 ساعت</string>
 	<string name="duration_1_day">1 روز</string>
+	<string name="placepage_distance">مسافت</string>
 	<string name="search_show_on_map">مشاهده بر روی نقشه</string>
 	<!-- Text in menu -->
 	<string name="website">وب سایت</string>

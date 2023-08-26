@@ -237,6 +237,7 @@
 	<string name="duration_6_hours">6 uur</string>
 	<string name="duration_12_hours">12 uur</string>
 	<string name="duration_1_day">1 dag</string>
+	<string name="placepage_distance">Afstand</string>
 	<string name="search_show_on_map">Op kaart bekijken</string>
 	<!-- Text in menu -->
 	<string name="website">Website</string>

@@ -218,6 +218,7 @@
 	<string name="duration_6_hours">6 timmar</string>
 	<string name="duration_12_hours">12 timmar</string>
 	<string name="duration_1_day">1 dag</string>
+	<string name="placepage_distance">Avstånd</string>
 	<string name="search_show_on_map">Visa på kartan</string>
 	<!-- Text in menu -->
 	<string name="website">Webbplats</string>

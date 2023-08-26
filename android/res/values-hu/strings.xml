@@ -234,6 +234,7 @@
 	<string name="duration_6_hours">6 óra</string>
 	<string name="duration_12_hours">12 óra</string>
 	<string name="duration_1_day">1 nap</string>
+	<string name="placepage_distance">Távolság</string>
 	<string name="search_show_on_map">Megtekintés a térképen</string>
 	<!-- Text in menu -->
 	<string name="website">Honlap</string>

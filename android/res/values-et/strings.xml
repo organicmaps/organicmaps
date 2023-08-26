@@ -229,6 +229,7 @@
 	<string name="duration_6_hours">6 tundi</string>
 	<string name="duration_12_hours">12 tundi</string>
 	<string name="duration_1_day">1 päev</string>
+	<string name="placepage_distance">Kaugus</string>
 	<string name="search_show_on_map">Vaata kaardil</string>
 	<!-- Text in menu -->
 	<string name="website">Veebileht</string>

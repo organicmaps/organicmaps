@@ -239,6 +239,7 @@
 	<string name="duration_6_hours">6 saat</string>
 	<string name="duration_12_hours">12 saat</string>
 	<string name="duration_1_day">1 gün</string>
+	<string name="placepage_distance">Mesafe</string>
 	<string name="search_show_on_map">Haritada görüntüle</string>
 	<!-- Text in menu -->
 	<string name="website">Web Sitesi</string>

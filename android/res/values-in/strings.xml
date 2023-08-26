@@ -222,6 +222,7 @@
 	<string name="duration_6_hours">6 jam</string>
 	<string name="duration_12_hours">12 jam</string>
 	<string name="duration_1_day">1 hari</string>
+	<string name="placepage_distance">Jarak</string>
 	<string name="search_show_on_map">Tampilkan pada peta</string>
 	<!-- Text in menu -->
 	<string name="website">Situs Web</string>

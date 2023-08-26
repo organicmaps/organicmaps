@@ -220,6 +220,7 @@
 	<string name="duration_6_hours">6 hodín</string>
 	<string name="duration_12_hours">12 hodín</string>
 	<string name="duration_1_day">1 deň</string>
+	<string name="placepage_distance">Vzdialenosť</string>
 	<string name="search_show_on_map">Zobraziť na mape</string>
 	<!-- Text in menu -->
 	<string name="website">Webové stránky</string>
