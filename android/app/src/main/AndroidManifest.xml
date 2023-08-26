@@ -69,7 +69,7 @@
       android:supportsRtl="true"
       android:networkSecurityConfig="@xml/network_security_config"
       tools:targetApi="t">
-
+    <profileable android:shell="true" />
     <activity
       android:name="app.organicmaps.SplashActivity"
       android:exported="true">

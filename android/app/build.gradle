@@ -320,6 +320,15 @@ android {
   }
 
   buildTypes {
+
+    benchmark {
+      initWith release
+      signingConfig signingConfigs.debug
+      matchingFallbacks = ['release']
+      debuggable false
+      resValue 'string', 'app_id', android.defaultConfig.applicationId
+      resValue 'string', 'app_name', project.ext.appName
+    }
     debug {
       applicationIdSuffix '.debug'   // Allows to install debug and release builds together
       versionNameSuffix '-debug'
