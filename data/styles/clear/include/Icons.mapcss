@@ -1977,8 +1977,8 @@ node|z16[shop=auction],
 area|z16[shop=auction]
 {icon-image: auction-m.svg;}
 node|z16[shop=bookmaker],
-area|z16[shop=bookmaker]
-{icon-image: bookmaker-m.svg;}
+area|z16[shop=bookmaker],
+{icon-image: lottery-m.svg;}
 node|z16[shop=bakery],
 area|z16[shop=bakery],
 node|z16[shop=pastry],
@@ -2193,7 +2193,7 @@ area|z17-[shop=auction]
 {icon-image: auction-m.svg;icon-min-distance: 24;}
 node|z17-[shop=bookmaker],
 area|z17-[shop=bookmaker]
-{icon-image: bookmaker-m.svg;icon-min-distance: 24;}
+{icon-image: lottery-m.svg;icon-min-distance: 24;}
 node|z17-[shop=bakery],
 area|z17-[shop=bakery],
 node|z17-[shop=pastry],
