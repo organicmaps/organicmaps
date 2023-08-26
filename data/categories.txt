@@ -14941,14 +14941,14 @@ vi:Đồ trang trí nội thất
 zh-Hans:室内装饰
 zh-Hant:室內裝飾
 
-shop-lottery
+shop-lottery|@gambling
 en:Lottery Tickets
 ar:ﺐﻴﺼﻧﺎﻴﻟﺍ ﺮﻛﺍﺬﺗ
 be:Латарэя|Латарэйныя білеты
 bg:Лотарийни билети
 cs:Loterijní lístky
 da:Lotterikuponer
-de:4Lotteriescheine
+de:Lotteriescheine
 el:Λαχεία
 es:Boletos de lotería
 et:Loteriipiletid
