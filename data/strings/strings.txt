@@ -5710,7 +5710,7 @@
     zh-Hant = 它可讓您記錄特定期間所行經的路徑，並在地圖上看到該路徑。請注意：啟用此項功能會增加電池使用量。在時間間隔過期後，會從地圖中自動移除行進路線。
 
   [placepage_distance]
-    tags = ios
+    tags = android,ios
     en = Distance
     af = Afstand
     ar = المسافة
