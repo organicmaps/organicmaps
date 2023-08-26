@@ -1385,6 +1385,9 @@ area|z14[amenity=place_of_worship][religion=jewish]
 node|z14[amenity=place_of_worship][religion=taoist],
 area|z14[amenity=place_of_worship][religion=taoist]
 {icon-image: taoist-s.svg;text-offset: 1;icon-min-distance: 12;}
+node|z14-[amenity=place_of_worship][religion=christian][denomination=mormon],
+area|z14-[amenity=place_of_worship][religion=christian][denomination=mormon],
+{icon-image: mormon-s.svg;text-offset: 1;icon-min-distance: 12;}
 
 node|z15-[amenity=place_of_worship],
 area|z15-[amenity=place_of_worship]
@@ -1410,6 +1413,9 @@ area|z15-[amenity=place_of_worship][religion=jewish]
 node|z15-[amenity=place_of_worship][religion=taoist],
 area|z15-[amenity=place_of_worship][religion=taoist]
 {icon-image: taoist-m.svg;}
+node|z15-[amenity=place_of_worship][religion=christian][denomination=mormon],
+area|z15-[amenity=place_of_worship][religion=christian][denomination=mormon],
+{icon-image: mormon-m.svg;}
 
 node|z18-[amenity=place_of_worship],
 area|z18-[amenity=place_of_worship]
@@ -1435,6 +1441,9 @@ area|z18-[amenity=place_of_worship][religion=jewish]
 node|z18-[amenity=place_of_worship][religion=taoist],
 area|z18-[amenity=place_of_worship][religion=taoist]
 {icon-image: taoist-m.svg;}
+node|z18-[amenity=place_of_worship][religion=christian][denomination=mormon],
+area|z18-[amenity=place_of_worship][religion=christian][denomination=mormon]
+{icon-image: mormon-m.svg;}
 
 /* 5.5 Others */
 

@@ -592,6 +592,9 @@ area|z16-[amenity=place_of_worship][religion=buddhist]
 node|z16-[amenity=place_of_worship][religion=hindu],
 area|z16-[amenity=place_of_worship][religion=hindu]
 {icon-image: hindu-m.svg;font-size: 13;}
+node|z16-[amenity=place_of_worship][religion=christian][denomination=mormon],
+area|z16-[amenity=place_of_worship][religion=christian][denomination=mormon],
+{icon-image: mormon-m.svg;font-size: 13;}
 
 
 node|z18-[amenity=place_of_worship],
@@ -609,6 +612,9 @@ area|z18-[amenity=place_of_worship][religion=buddhist]
 node|z18-[amenity=place_of_worship][religion=hindu],
 area|z18-[amenity=place_of_worship][religion=hindu]
 {icon-image: hindu-m.svg;font-size: 14.5;}
+node|z18-[amenity=place_of_worship][religion=christian][denomination=mormon],
+area|z18-[amenity=place_of_worship][religion=christian][denomination=mormon],
+{icon-image: mormon-m.svg;font-size: 14.5;}
 
 
 /* 5.5 Others */
