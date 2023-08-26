@@ -46,7 +46,8 @@ enum class RouteType : uint8_t
   Pedestrian,
   Bicycle,
   Taxi,
-  Transit
+  Transit,
+  Ruler
 };
 
 struct RoutePattern

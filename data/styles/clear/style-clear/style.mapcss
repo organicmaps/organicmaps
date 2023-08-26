@@ -36,6 +36,8 @@ colors
   RoutePedestrian-opacity: 0.8;
   RouteBicycle-color: #9C27B0;
   RouteBicycle-opacity: 0.8;
+  RouteRuler-color: #66347F;
+  RouteRuler-opacity: 0.9;
   RoutePreview-color: #000000;
   RoutePreview-opacity: 0.3;
   RouteMaskCar-color: #000000;

@@ -17,6 +17,7 @@ std::string const kRouteColor = "Route";
 std::string const kRouteOutlineColor = "RouteOutline";
 std::string const kRoutePedestrian = "RoutePedestrian";
 std::string const kRouteBicycle = "RouteBicycle";
+std::string const kRouteRuler = "RouteRuler";
 std::string const kRoutePreview = "RoutePreview";
 std::string const kRouteMaskCar = "RouteMaskCar";
 std::string const kRouteFirstSegmentArrowsMaskCar = "RouteFirstSegmentArrowsMaskCar";
@@ -797,10 +798,18 @@ void RouteRenderer::SetSubrouteVisibility(dp::DrapeID id, bool isVisible)
 bool RouteRenderer::HasTransitData() const
 {
   for (auto const & subroute : m_subroutes)
-  {
     if (subroute.m_subroute->m_routeType == RouteType::Transit)
       return true;
-  }
+
+  return false;
+}
+
+bool RouteRenderer::IsRulerRoute() const
+{
+  for (auto const & subroute : m_subroutes)
+    if (subroute.m_subroute->m_routeType == RouteType::Ruler)
+      return true;
+
   return false;
 }
 
