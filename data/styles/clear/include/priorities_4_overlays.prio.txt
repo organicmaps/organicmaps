@@ -1014,6 +1014,7 @@ sport-soccer                                        # icon z17- (also has captio
 
 amenity-casino                                      # icon z17- (also has caption(optional) z17-)
 amenity-childcare                                   # icon z17- (also has caption(optional) z17-)
+amenity-gambling                                    # icon z17- (also has caption(optional) z17-)
 craft-beekeeper                                     # icon z17- (also has caption(optional) z18-)
 craft-blacksmith                                    # icon z17- (also has caption(optional) z18-)
 craft-brewery                                       # icon z17- (also has caption(optional) z18-)
@@ -1923,6 +1924,7 @@ amenity-parking_entrance-private                    # WARNING: no style defined 
 
 # amenity-casino                                    # caption(optional) z17- (also has icon z17-)
 # amenity-childcare                                 # caption(optional) z17- (also has icon z17-)
+# amenity-gambling                                  # caption(optional) z17- (also has icon z17-)
 # craft-beekeeper                                   # caption(optional) z18- (also has icon z17-)
 # craft-blacksmith                                  # caption(optional) z18- (also has icon z17-)
 # craft-brewery                                     # caption(optional) z18- (also has icon z17-)

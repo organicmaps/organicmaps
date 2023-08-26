@@ -1106,6 +1106,45 @@
     zh-Hans = 赌场
     zh-Hant = 賭場
 
+  [type.amenity.gambling]
+    en = Gambling
+    ar = القمار
+    be = Азартныя гульні
+    bg = Хазарт
+    ca = Jocs d'atzar
+    cs = Hazardní hry
+    da = Gambling
+    de = Glücksspiel
+    el = ΤΥΧΕΡΑ ΠΑΙΧΝΙΔΙΑ
+    es = Juegos de azar
+    et = Hasartmängud
+    eu = Jokoa
+    fa = قمار
+    fi = Uhkapelit
+    fr = Jeu d'argent
+    he = הימורים
+    hu = Szerencsejáték
+    id = Berjudi
+    it = Gioco d'azzardo
+    ja = ギャンブル
+    ko = 도박
+    mr = जुगार
+    nb = Gambling
+    nl = Gokken
+    pl = Hazard
+    pt = Jogatina
+    ro = Jocuri de noroc
+    ru = Играть в азартные игры
+    sk = Hazardné hry
+    sv = Spelande
+    sw = Kamari
+    th = การพนัน
+    tr = Kumar
+    uk = Азартні ігри
+    vi = Bài bạc
+    zh-Hans = 赌博
+    zh-Hant = 賭博
+
   [type.amenity.charging_station]
     en = Charging Station
     af = Oplaaistasie
