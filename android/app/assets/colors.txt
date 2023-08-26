@@ -1,1 +1,1 @@
-../../data/colors.txt
+../../../data/colors.txt

@@ -1,1 +1,1 @@
-../../data/categories.txt
+../../../data/categories.txt

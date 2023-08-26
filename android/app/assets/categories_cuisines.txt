@@ -1,1 +1,1 @@
-../../data/categories_cuisines.txt
+../../../data/categories_cuisines.txt

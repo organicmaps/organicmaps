@@ -1,1 +1,1 @@
-../../data/languages.txt
+../../../data/languages.txt

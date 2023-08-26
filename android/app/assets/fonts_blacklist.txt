@@ -1,1 +1,1 @@
-../../data/fonts_blacklist.txt
+../../../data/fonts_blacklist.txt
