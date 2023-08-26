@@ -4655,6 +4655,45 @@ vi:Trung tâm trò chơi dành cho người lớn
 zh-Hans:成人游戏中心
 zh-Hant:成人遊戲中心
 
+leisure-amusement_arcade|@entertainment
+en:Arcade|U+1F47E|U+1F579|U+1F3AE
+ar:ممر
+be:Аркада
+bg:Аркада
+ca:Arcade
+cs:Pasáž
+da:Arcade
+de:Arkade
+el:Στοά
+es:Arcade
+et:Arkaad
+eu:Arcade
+fa:گذرگاه طاقدار
+fi:Arcade
+fr:Arcade
+he:מִקמֶרֶת
+hu:Árkád
+id:Arkade
+it:Arcade
+ja:アーケード
+ko:아케이드
+mr:आर्केड
+nb:Arcade
+nl:Arcade
+pl:Arkada
+pt:Videogames
+ro:Arcadă
+ru:Аркада
+sk:Arcade
+sv:Arkad
+sw:Ukumbi wa michezo
+th:อาเขต
+tr:Oyun makinesi
+uk:Аркада
+vi:Giải trí
+zh-Hans:拱廊
+zh-Hant:拱廊
+
 amenity-college
 en:4College|U+1F3EB
 ru:4Колледж
@@ -14071,7 +14110,7 @@ fa:فروشگاه رسانه‌های تصویری
 mr:व्हिडिओ दुकान
 
 shop-video_games|@shop
-en:Video games|4videogames|video games|videogames
+en:Video games|4videogames|video games|videogames|U+1F47E|U+1F579|U+1F3AE
 ru:4видеоигры|4компьютерные игры
 bg:4Видеоигри|игри|магазин за видеоигри
 ar:متجر ألعاب فيديو

@@ -1184,6 +1184,45 @@
     zh-Hans = 成人游戏中心
     zh-Hant = 成人遊戲中心
 
+  [type.leisure.amusement_arcade]
+    en = Arcade
+    ar = ممر
+    be = Аркада
+    bg = Аркада
+    ca = Arcade
+    cs = Pasáž
+    da = Arcade
+    de = Arkade
+    el = Στοά
+    es = Arcade
+    et = Arkaad
+    eu = Arcade
+    fa = گذرگاه طاقدار
+    fi = Arcade
+    fr = Arcade
+    he = מִקמֶרֶת
+    hu = Árkád
+    id = Arkade
+    it = Arcade
+    ja = アーケード
+    ko = 아케이드
+    mr = आर्केड
+    nb = Arcade
+    nl = Arcade
+    pl = Arkada
+    pt = Videogames
+    ro = Arcadă
+    ru = Аркада
+    sk = Arcade
+    sv = Arkad
+    sw = Ukumbi wa michezo
+    th = อาเขต
+    tr = Oyun makinesi
+    uk = Аркада
+    vi = Giải trí
+    zh-Hans = 拱廊
+    zh-Hant = 拱廊
+
   [type.amenity.charging_station]
     en = Charging Station
     af = Oplaaistasie

@@ -943,6 +943,8 @@ node|z17-[amenity=gambling],
 area|z17-[amenity=gambling],
 node|z17-[leisure=adult_gaming_centre],
 area|z17-[leisure=adult_gaming_centre],
+node|z17-[leisure=amusement_arcade],
+area|z17-[leisure=amusement_arcade],
 node|z17-[amenity=courthouse],
 area|z17-[amenity=courthouse],
 node|z17-[amenity=nursing_home],
@@ -1550,6 +1552,9 @@ area|z17-[amenity=gambling],
 node|z17-[leisure=adult_gaming_centre],
 area|z17-[leisure=adult_gaming_centre],
 {icon-image: slots-m.svg;icon-min-distance: 20;}
+node|z17-[leisure=amusement_arcade],
+area|z17-[leisure=amusement_arcade],
+{icon-image: arcade-m.svg;icon-min-distance: 20;}
 
 node|z17-[amenity=courthouse],
 area|z17-[amenity=courthouse]
