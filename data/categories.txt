@@ -12053,34 +12053,34 @@ sk:Veža
 fa:برج
 mr:मनोरा|टॉवर
 
-shop-bookmaker
-en:5Bookmaker
-ru:Букмекерская контора|4букмекер
-bg:4Букмейкър|офис|кантора|пункт
+shop-bookmaker|@gambling
+en:Bookmaker
+ru:Букмекерская контора|букмекер
+bg:Букмейкър|офис|кантора|пункт
 ar:ناشر
 cs:Knihař
-da:5Bookmaker
-nl:5Bookmaker
+da:Bookmaker
+nl:Bookmaker
 fi:Kustantaja
-fr:5Bookmaker
-de:5Buchmacher|3Wettbüro
+fr:Bookmaker
+de:Buchmacher|Wettbüro
 hu:Fogadóiroda
 id:Bandar judi
 it:Centro scommesse
 ja:ブックメーカー
 ko:마권판매소|마권 업자
-nb:5Bookmaker
-pl:4Bukmacher
-pt:Casa de apostas|Lotaria|Euromilhões|3Totoloto|3Totobola|Payshop
+nb:Bookmaker
+pl:Bukmacher
+pt:Casa de apostas|Lotaria|Euromilhões|Totoloto|Totobola|Payshop
 pt-BR:Casa de apostas
 ro:Casă de pariuri
 es:Casa de apuestas
-et:5Kirjastaja
+et:Kirjastaja
 eu:Apustu etxea
-sv:5Bookmaker|vadhållningsagent
+sv:Bookmaker|vadhållningsagent
 th:ร้านรับแทงพนัน
 tr:Bahisçi
-uk:Букмекерська контора|4букмекер
+uk:Букмекерська контора|букмекер
 vi:Người nhận cá cược
 zh-Hans:做书店
 zh-Hant:賭博業者
