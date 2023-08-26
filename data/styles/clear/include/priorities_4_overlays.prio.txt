@@ -663,7 +663,7 @@ highway-secondary_link-tunnel                       # pathtext z16- (also has li
 highway-cycleway                                    # pathtext z15- (also has line z13-)
 highway-cycleway-bridge                             # pathtext z15- (also has line z13-, line::bridgeblack z17-, line::bridgewhite z15-)
 highway-cycleway-permissive                         # pathtext z15- (also has line z13-)
-highway-cycleway-tunnel                             # pathtext z15- (also has line z13-)
+highway-cycleway-tunnel                             # pathtext z15- (also has line z13-, line::tunnelBackground z17-, line::tunnelCasing z17-)
 highway-footway                                     # pathtext z15- (also has line z15-)
 highway-footway-area                                # pathtext z15- (also has line z15-, area z14-)
 highway-footway-bridge                              # pathtext z15- (also has line z15-, line::bridgeblack z17-, line::bridgewhite z15-)
@@ -691,7 +691,7 @@ tourism-information                                 # icon z16- (also has captio
 highway-bridleway                                   # pathtext z15- (also has line z14-)
 highway-bridleway-bridge                            # pathtext z15- (also has line z14-, line::bridgeblack z17-, line::bridgewhite z15-)
 highway-bridleway-permissive                        # pathtext z15- (also has line z14-)
-highway-bridleway-tunnel                            # pathtext z15- (also has line z14-)
+highway-bridleway-tunnel                            # pathtext z15- (also has line z14-, line::tunnelBackground z17-, line::tunnelCasing z17-)
 highway-footway-alpine_hiking                       # pathtext z15- (also has line z14-)
 highway-footway-demanding_alpine_hiking             # pathtext z15- (also has line z14-)
 highway-footway-demanding_mountain_hiking           # pathtext z15- (also has line z14-)
@@ -731,7 +731,7 @@ highway-track-grade4                                # pathtext z15- (also has li
 highway-track-grade5                                # pathtext z15- (also has line z14-)
 highway-track-no-access                             # pathtext z15- (also has line z14-)
 highway-track-permissive                            # pathtext z15- (also has line z14-)
-highway-track-tunnel                                # pathtext z15- (also has line z14-)
+highway-track-tunnel                                # pathtext z15- (also has line z14-, line::tunnelBackground z17-, line::tunnelCasing z17-)
 === 2800
 
 tourism-hotel                                       # icon z16- (also has caption(optional) z16-)
