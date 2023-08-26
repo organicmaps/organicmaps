@@ -220,6 +220,7 @@
 	<string name="duration_6_hours">6시간</string>
 	<string name="duration_12_hours">12시간</string>
 	<string name="duration_1_day">1일</string>
+	<string name="placepage_distance">거리</string>
 	<string name="search_show_on_map">지도 보기</string>
 	<!-- Text in menu -->
 	<string name="website">웹사이트</string>

@@ -240,6 +240,7 @@
 	<string name="duration_6_hours">6 hours</string>
 	<string name="duration_12_hours">12 hours</string>
 	<string name="duration_1_day">1 day</string>
+	<string name="placepage_distance">Distance</string>
 	<string name="search_show_on_map">View on map</string>
 	<!-- Menu button -->
 	<string name="menu">Menu</string>

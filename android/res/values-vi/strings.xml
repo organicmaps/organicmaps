@@ -220,6 +220,7 @@
 	<string name="duration_6_hours">6 giờ</string>
 	<string name="duration_12_hours">12 giờ</string>
 	<string name="duration_1_day">1 ngày</string>
+	<string name="placepage_distance">Khoảng cách</string>
 	<string name="search_show_on_map">Xem trên bản đồ</string>
 	<!-- Text in menu -->
 	<string name="website">Trang web</string>

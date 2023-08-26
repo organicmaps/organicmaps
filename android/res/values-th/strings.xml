@@ -222,6 +222,7 @@
 	<string name="duration_6_hours">6 ชั่วโมง</string>
 	<string name="duration_12_hours">12 ชั่วโมง</string>
 	<string name="duration_1_day">1 วัน</string>
+	<string name="placepage_distance">ระยะห่าง</string>
 	<string name="search_show_on_map">ดูบนแผนที่</string>
 	<!-- Text in menu -->
 	<string name="website">เว็บไซต์</string>

@@ -224,6 +224,7 @@
 	<string name="duration_6_hours">6小时</string>
 	<string name="duration_12_hours">12小时</string>
 	<string name="duration_1_day">1天</string>
+	<string name="placepage_distance">距离</string>
 	<string name="search_show_on_map">在地图上查看</string>
 	<!-- Text in menu -->
 	<string name="website">网站</string>

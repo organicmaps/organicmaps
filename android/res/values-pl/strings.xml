@@ -237,6 +237,7 @@
 	<string name="duration_6_hours">6 godzin</string>
 	<string name="duration_12_hours">12 godzin</string>
 	<string name="duration_1_day">1 dzień</string>
+	<string name="placepage_distance">Dystans</string>
 	<string name="search_show_on_map">Wyświetl na mapie</string>
 	<!-- Menu button -->
 	<string name="menu">Menu</string>

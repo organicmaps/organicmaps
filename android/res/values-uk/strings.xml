@@ -233,6 +233,7 @@
 	<string name="duration_6_hours">6 годин</string>
 	<string name="duration_12_hours">12 годин</string>
 	<string name="duration_1_day">1 день</string>
+	<string name="placepage_distance">Відстань</string>
 	<string name="search_show_on_map">Подивитись на мапі</string>
 	<!-- Menu button -->
 	<string name="menu">Меню</string>

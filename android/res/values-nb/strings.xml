@@ -239,6 +239,7 @@
 	<string name="duration_6_hours">6 timer</string>
 	<string name="duration_12_hours">12 timer</string>
 	<string name="duration_1_day">1 dag</string>
+	<string name="placepage_distance">Avstand</string>
 	<string name="search_show_on_map">Vis på kartet</string>
 	<!-- Menu button -->
 	<string name="menu">Meny</string>

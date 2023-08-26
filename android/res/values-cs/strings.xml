@@ -224,6 +224,7 @@
 	<string name="duration_6_hours">6 hodin</string>
 	<string name="duration_12_hours">12 hodin</string>
 	<string name="duration_1_day">1 den</string>
+	<string name="placepage_distance">Vzdálenost</string>
 	<string name="search_show_on_map">Zobrazit na mapě</string>
 	<!-- Text in menu -->
 	<string name="website">Webové stránky</string>
