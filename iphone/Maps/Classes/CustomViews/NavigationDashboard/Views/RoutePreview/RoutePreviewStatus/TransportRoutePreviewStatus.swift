@@ -42,6 +42,9 @@ final class TransportRoutePreviewStatus: SolidTouchView {
     navigationInfo = info
     etaLabel.attributedText = info.estimate
     stepsCollectionView.steps = info.transitSteps
+
+    // TODO: even when stepsCollectionView is hidden it still takes space in layout
+    stepsCollectionView.isHidden = info.transitSteps.isEmpty
   }
 
   private func updateHeight() {

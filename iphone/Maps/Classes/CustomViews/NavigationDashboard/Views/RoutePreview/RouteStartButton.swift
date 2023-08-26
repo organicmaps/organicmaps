@@ -15,6 +15,11 @@ final class RouteStartButton: UIButton {
     isEnabled = true
   }
 
+  @objc func stateHidden() {
+    isHidden = true
+    isEnabled = true
+  }
+
   override func applyTheme() {
     super.applyTheme()
     setBackgroundImage(UIColor.linkBlue().getImage(), for: .normal)

@@ -82,7 +82,7 @@ NSString *const kNavigationControlViewXibName = @"NavigationControlView";
   if (!entity.isValid)
     return;
   [_navigationInfoView onNavigationInfoUpdated:entity];
-  if ([MWMRouter type] == MWMRouterTypePublicTransport)
+  if ([MWMRouter type] == MWMRouterTypePublicTransport || [MWMRouter type] == MWMRouterTypeRuler)
     [_transportRoutePreviewStatus onNavigationInfoUpdated:entity];
   else
     [_baseRoutePreviewStatus onNavigationInfoUpdated:entity];
@@ -172,17 +172,24 @@ NSString *const kNavigationControlViewXibName = @"NavigationControlView";
 
 - (void)stateReady {
   // TODO: Here assert sometimes fires with _state = MWMNavigationDashboardStateReady, if app was stopped while navigating and then restarted.
-  NSAssert(_state == MWMNavigationDashboardStatePlanning, @"Invalid state change (ready)");
+  // Also in ruler mode when new point is added by single tap on the map state MWMNavigationDashboardStatePlanning is skipped and we get _state = MWMNavigationDashboardStateReady.
+  NSAssert(_state == MWMNavigationDashboardStatePlanning || _state == MWMNavigationDashboardStateReady, @"Invalid state change (ready)");
   [self setRouteBuilderProgress:100.];
   [self updateGoButtonTitle];
   auto const isTransport = ([MWMRouter type] == MWMRouterTypePublicTransport);
-  if (isTransport)
+  auto const isRuler = ([MWMRouter type] == MWMRouterTypeRuler);
+  if (isTransport || isRuler)
     [self.transportRoutePreviewStatus showReady];
   else
     [self.baseRoutePreviewStatus showReady];
-  self.goButtonsContainer.hidden = isTransport;
+  self.goButtonsContainer.hidden = (isTransport || isRuler);
   for (MWMRouteStartButton *button in self.goButtons)
-    [button stateReady];
+  {
+    if (isRuler)
+      [button stateHidden];
+    else
+      [button stateReady];
+  }
 }
 
 - (void)onRouteStart {
