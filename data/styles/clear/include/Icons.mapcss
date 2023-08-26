@@ -939,6 +939,8 @@ node|z17-[amenity=dentist],
 area|z17-[amenity=dentist],
 node|z17-[amenity=casino],
 area|z17-[amenity=casino],
+node|z17-[amenity=gambling],
+area|z17-[amenity=gambling],
 node|z17-[amenity=courthouse],
 area|z17-[amenity=courthouse],
 node|z17-[amenity=nursing_home],
@@ -1540,6 +1542,9 @@ area|z17-[man_made=windmill]
 node|z17-[amenity=casino],
 area|z17-[amenity=casino]
 {icon-image: casino-m.svg;icon-min-distance: 20;}
+node|z17-[amenity=gambling],
+area|z17-[amenity=gambling],
+{icon-image: gambling-m.svg;icon-min-distance: 20;}
 
 node|z17-[amenity=courthouse],
 area|z17-[amenity=courthouse]
