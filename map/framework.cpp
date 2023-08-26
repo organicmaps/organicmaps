@@ -2043,6 +2043,32 @@ void Framework::DeactivateHotelSearchMark()
 void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
 {
   auto placePageInfo = BuildPlacePageInfo(buildInfo);
+  bool isRoutePoint = placePageInfo.has_value() && placePageInfo->IsRoutePoint();
+
+  if (m_routingManager.IsRoutingActive()
+      && m_routingManager.GetCurrentRouterType() == routing::RouterType::Ruler
+      && !buildInfo.m_isLongTap
+      && !isRoutePoint)
+  {
+    DeactivateMapSelection(true /* notifyUI */);
+
+    // Continue route to the point
+    RouteMarkData data;
+    data.m_title = placePageInfo ? placePageInfo->GetTitle() : std::string();
+    data.m_subTitle = std::string();
+    data.m_pointType = RouteMarkType::Finish;
+    data.m_intermediateIndex = m_routingManager.GetRoutePointsCount();
+    data.m_isMyPosition = false;
+    data.m_position = buildInfo.m_mercator;
+
+    m_routingManager.ContinueRouteToPoint(std::move(data));
+
+    // Refresh route
+    m_routingManager.RemoveRoute(false /* deactivateFollowing */);
+    m_routingManager.BuildRoute();
+
+    return;
+  }
 
   if (placePageInfo)
   {

@@ -862,6 +862,30 @@ void RoutingManager::AddRoutePoint(RouteMarkData && markData)
   ReorderIntermediatePoints();
 }
 
+void RoutingManager::ContinueRouteToPoint(RouteMarkData && markData)
+{
+  ASSERT(m_bmManager != nullptr, ());
+  ASSERT(markData.m_pointType == RouteMarkType::Finish, ("New route point should have type RouteMarkType::Finish"));
+  RoutePointsLayout routePoints(*m_bmManager);
+
+  // Finish point is now Intermediate point
+  RouteMarkPoint * finishMarkData = routePoints.GetRoutePointForEdit(RouteMarkType::Finish);
+  finishMarkData->SetRoutePointType(RouteMarkType::Intermediate);
+  finishMarkData->SetIntermediateIndex(routePoints.GetRoutePointsCount()-1);
+
+  if (markData.m_isMyPosition)
+  {
+    RouteMarkPoint const * mark = routePoints.GetMyPositionPoint();
+    if (mark)
+      routePoints.RemoveRoutePoint(mark->GetRoutePointType(), mark->GetIntermediateIndex());
+  }
+
+  markData.m_intermediateIndex = routePoints.GetRoutePointsCount();
+  markData.m_isVisible = !markData.m_isMyPosition;
+  routePoints.AddRoutePoint(move(markData));
+  ReorderIntermediatePoints();
+}
+
 void RoutingManager::RemoveRoutePoint(RouteMarkType type, size_t intermediateIndex)
 {
   ASSERT(m_bmManager != nullptr, ());
