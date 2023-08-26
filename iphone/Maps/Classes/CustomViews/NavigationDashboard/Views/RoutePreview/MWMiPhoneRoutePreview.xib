@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -47,17 +47,17 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tRj-9k-ciR">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="0.0"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="20"/>
                     <color key="backgroundColor" red="0.1215686275" green="0.59999999999999998" blue="0.32156862749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PrimaryBackground"/>
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WqK-Yb-PmP" customClass="SolidTouchView">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+                    <rect key="frame" x="0.0" y="20" width="320" height="28"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wpf-tw-Coz" userLabel="Back">
-                            <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
+                            <rect key="frame" x="0.0" y="0.0" width="28" height="28"/>
                             <accessibility key="accessibilityConfiguration" identifier="goBackButton"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="wpf-tw-Coz" secondAttribute="height" multiplier="1:1" id="CvM-v4-Hlm"/>
@@ -68,7 +68,7 @@
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oQc-l8-sZH" userLabel="Buttons Box">
-                            <rect key="frame" x="62" y="4" width="196" height="40"/>
+                            <rect key="frame" x="78" y="4" width="164" height="20"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cZF-Ha-2tB">
                                     <rect key="frame" x="6" y="0.0" width="40" height="40"/>
@@ -82,7 +82,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6D3-QF-6wm">
-                                    <rect key="frame" x="54" y="0.0" width="40" height="40"/>
+                                    <rect key="frame" x="54" y="0.0" width="20" height="20"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <accessibility key="accessibilityConfiguration" identifier="routePedestrian"/>
                                     <constraints>
@@ -90,7 +90,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yIt-eq-pV5">
-                                    <rect key="frame" x="102" y="0.0" width="40" height="40"/>
+                                    <rect key="frame" x="82" y="0.0" width="20" height="20"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                     <accessibility key="accessibilityConfiguration" identifier="routeAuto"/>
                                     <constraints>
@@ -98,17 +98,17 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FuO-c6-y9C" userLabel="Bicycle">
-                                    <rect key="frame" x="150" y="0.0" width="40" height="40"/>
+                                    <rect key="frame" x="110" y="0.0" width="20" height="20"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                     <accessibility key="accessibilityConfiguration" identifier="routeBicycle"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="FuO-c6-y9C" secondAttribute="height" multiplier="1:1" id="2Fj-re-jjm"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="15Q-ZN-NzE" userLabel="Helicopter">
-                                    <rect key="frame" x="198" y="0.0" width="40" height="40"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="15Q-ZN-NzE" userLabel="Ruler">
+                                    <rect key="frame" x="138" y="0.0" width="20" height="20"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <accessibility key="accessibilityConfiguration" identifier="routeHelicopter"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="routeRuler"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="15Q-ZN-NzE" secondAttribute="height" multiplier="1:1" id="8os-Sl-i57"/>
                                     </constraints>
@@ -142,17 +142,6 @@
                                     <variation key="heightClass=compact" constant="16"/>
                                 </constraint>
                             </constraints>
-                            <variation key="default">
-                                <mask key="subviews">
-                                    <exclude reference="15Q-ZN-NzE"/>
-                                </mask>
-                                <mask key="constraints">
-                                    <exclude reference="D1r-cA-jTR"/>
-                                    <exclude reference="WHK-N0-dCc"/>
-                                    <exclude reference="Wve-9m-8zL"/>
-                                    <exclude reference="my7-I5-Qu3"/>
-                                </mask>
-                            </variation>
                         </view>
                     </subviews>
                     <color key="backgroundColor" red="0.12156862745098039" green="0.59999999999999998" blue="0.32156862745098036" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -198,7 +187,7 @@
                 <outlet property="contentView" destination="WqK-Yb-PmP" id="4ph-Dm-EFr"/>
                 <outlet property="drivingOptionHeightConstraint" destination="Oxx-fO-ZLa" id="JOa-ih-oHZ"/>
                 <outlet property="drivingOptionsButton" destination="ZXA-Og-q2I" id="IZf-0l-IIV"/>
-                <outlet property="helicopter" destination="15Q-ZN-NzE" id="Hel-ic-Opt"/>
+                <outlet property="ruler" destination="15Q-ZN-NzE" id="Hel-ic-Opt"/>
                 <outlet property="pedestrian" destination="6D3-QF-6wm" id="bdh-zx-9LW"/>
                 <outlet property="publicTransport" destination="yIt-eq-pV5" id="yIX-eM-Hrs"/>
                 <outlet property="vehicle" destination="cZF-Ha-2tB" id="QP3-tU-nfO"/>
@@ -209,7 +198,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="152"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o7e-Ce-Flg">
-                    <rect key="frame" x="-100" y="0.0" width="520" height="252"/>
+                    <rect key="frame" x="-100" y="20" width="520" height="232"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="RouteBasePreview"/>
@@ -239,8 +228,8 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tai-sE-6DC" userLabel="Results Box">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="results" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sjQ-Sc-mtN">
-                            <rect key="frame" x="16" y="14" width="51" height="20"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="results" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sjQ-Sc-mtN">
+                            <rect key="frame" x="16" y="10" width="51" height="28"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -287,11 +276,14 @@
                         <constraint firstItem="sjQ-Sc-mtN" firstAttribute="centerY" secondItem="Tai-sE-6DC" secondAttribute="centerY" id="Aer-5j-lt1"/>
                         <constraint firstAttribute="trailing" secondItem="CQB-xn-DSM" secondAttribute="trailing" constant="12" id="Any-Qx-9mT"/>
                         <constraint firstItem="Zzm-Yo-BvL" firstAttribute="bottom" secondItem="CQB-xn-DSM" secondAttribute="bottom" id="V0p-f2-5K1"/>
+                        <constraint firstItem="sjQ-Sc-mtN" firstAttribute="top" secondItem="Tai-sE-6DC" secondAttribute="top" constant="10" id="Vhr-Mv-2aa"/>
                         <constraint firstItem="CQB-xn-DSM" firstAttribute="centerY" secondItem="Tai-sE-6DC" secondAttribute="centerY" id="XI7-0e-bgf"/>
                         <constraint firstItem="CQB-xn-DSM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sjQ-Sc-mtN" secondAttribute="trailing" constant="16" id="Xqn-Rd-gR3"/>
                         <constraint firstItem="Zzm-Yo-BvL" firstAttribute="top" secondItem="CQB-xn-DSM" secondAttribute="top" id="cyE-HM-Ovf"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="48" id="dZS-mi-2sg"/>
                         <constraint firstItem="sjQ-Sc-mtN" firstAttribute="leading" secondItem="Tai-sE-6DC" secondAttribute="leading" constant="16" id="gdz-UZ-QkO"/>
-                        <constraint firstAttribute="height" constant="48" id="tqy-f7-E4I"/>
+                        <constraint firstAttribute="bottom" secondItem="sjQ-Sc-mtN" secondAttribute="bottom" constant="10" id="pnl-MH-dtY"/>
+                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="96" id="tqy-f7-E4I"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FBs-iT-nWY" userLabel="Height Box">
@@ -400,7 +392,7 @@
                 <outlet property="resultsBox" destination="Tai-sE-6DC" id="l4p-m2-z4z"/>
                 <outlet property="resultsBoxBottom" destination="trf-mi-xeb" id="tdb-sa-2ak"/>
             </connections>
-            <point key="canvasLocation" x="448" y="521"/>
+            <point key="canvasLocation" x="448" y="520.83958020989508"/>
         </view>
         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iWi-pM-AJF" customClass="MWMTransportRoutePreviewStatus">
             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
@@ -412,8 +404,8 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="RouteBasePreview"/>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iu4-M8-t6g">
-                    <rect key="frame" x="16" y="12" width="42" height="20"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iu4-M8-t6g">
+                    <rect key="frame" x="16" y="12" width="41.5" height="20"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>

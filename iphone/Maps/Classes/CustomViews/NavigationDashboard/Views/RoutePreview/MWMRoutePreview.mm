@@ -18,7 +18,7 @@ static CGFloat const kDrivingOptionsHeight = 48;
 @property(weak, nonatomic) IBOutlet UIView * contentView;
 @property(weak, nonatomic) IBOutlet UIView * pedestrian;
 @property(weak, nonatomic) IBOutlet UIView * publicTransport;
-@property(weak, nonatomic) IBOutlet UIView * helicopter;
+@property(weak, nonatomic) IBOutlet UIView * ruler;
 @property(weak, nonatomic) IBOutlet UIView * vehicle;
 @property(strong, nonatomic) IBOutlet NSLayoutConstraint * drivingOptionHeightConstraint;
 @property(strong, nonatomic) IBOutlet UIButton * drivingOptionsButton;
@@ -73,6 +73,7 @@ static CGFloat const kDrivingOptionsHeight = 48;
           imageName:@"ic_train"
          routerType:MWMRouterTypePublicTransport];
   [self addProgress:self.bicycle imageName:@"ic_bike" routerType:MWMRouterTypeBicycle];
+  [self addProgress:self.ruler imageName:@"ic_ruler_route" routerType:MWMRouterTypeRuler];
 }
 
 - (void)addProgress:(UIView *)parentView

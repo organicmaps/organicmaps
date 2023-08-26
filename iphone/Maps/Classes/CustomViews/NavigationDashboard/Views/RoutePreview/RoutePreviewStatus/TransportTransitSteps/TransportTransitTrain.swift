@@ -42,6 +42,7 @@ final class TransportTransitTrain: TransportTransitCell {
     case .subway: image.image = #imageLiteral(resourceName: "ic_20px_route_planning_metro")
     case .lightRail: image.image = #imageLiteral(resourceName: "ic_20px_route_planning_lightrail")
     case .monorail: image.image = #imageLiteral(resourceName: "ic_20px_route_planning_monorail")
+    case .ruler: fatalError()
     }
     background.backgroundColor = step.color
 

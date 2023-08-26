@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -109,10 +109,10 @@
                                         <constraint firstAttribute="width" secondItem="yiM-fM-sSS" secondAttribute="height" multiplier="1:1" id="1N1-y5-Mwc"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f6i-lw-K3R" userLabel="Helicopter">
+                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f6i-lw-K3R" userLabel="Ruler">
                                     <rect key="frame" x="198" y="0.0" width="40" height="40"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <accessibility key="accessibilityConfiguration" identifier="routeHelicopter"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="routeRuler"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="f6i-lw-K3R" secondAttribute="height" multiplier="1:1" id="iex-7v-w3k"/>
                                     </constraints>
@@ -139,9 +139,6 @@
                                 <constraint firstItem="jDl-pu-eov" firstAttribute="top" secondItem="sXu-tl-a0m" secondAttribute="top" id="sf1-S5-kmZ"/>
                             </constraints>
                             <variation key="default">
-                                <mask key="subviews">
-                                    <exclude reference="f6i-lw-K3R"/>
-                                </mask>
                                 <mask key="constraints">
                                     <exclude reference="BWr-hr-pwo"/>
                                     <exclude reference="Cd3-ev-uFS"/>
@@ -457,9 +454,9 @@
                 <outlet property="contentView" destination="3s2-BV-X5i" id="mp7-Qq-drU"/>
                 <outlet property="drivingOptionHeightConstraint" destination="Cgo-cU-dTy" id="GVj-A8-kR1"/>
                 <outlet property="drivingOptionsButton" destination="Opi-yT-xIZ" id="tMG-Af-HEo"/>
+                <outlet property="ruler" destination="f6i-lw-K3R" id="s0G-le-Kbz"/>
                 <outlet property="pedestrian" destination="VhE-hA-Leo" id="R3O-th-Jw0"/>
                 <outlet property="publicTransport" destination="Eu3-bT-Dom" id="XNh-uW-Kog"/>
-                <outlet property="taxi" destination="f6i-lw-K3R" id="s0G-le-Kbz"/>
                 <outlet property="vehicle" destination="jDl-pu-eov" id="awM-KI-2xO"/>
             </connections>
             <point key="canvasLocation" x="448" y="573.46326836581716"/>

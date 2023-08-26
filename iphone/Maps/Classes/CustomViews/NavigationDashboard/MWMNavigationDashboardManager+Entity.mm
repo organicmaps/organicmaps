@@ -6,6 +6,7 @@
 #import "SwiftBridge.h"
 
 #import <AudioToolbox/AudioServices.h>
+#include <CoreApi/Framework.h>
 
 #include "routing/following_info.hpp"
 #include "routing/turns.hpp"
@@ -69,10 +70,13 @@ UIImage *image(routing::turns::PedestrianDirection t) {
 }
 
 NSAttributedString *estimate(NSTimeInterval time, NSString *distance, NSString *distanceUnits,
-                             NSDictionary *primaryAttributes, NSDictionary *secondaryAttributes, BOOL isWalk) {
-  NSString *eta = [NSDateComponentsFormatter etaStringFrom:time];
-  auto result = [[NSMutableAttributedString alloc] initWithString:eta attributes:primaryAttributes];
-  [result appendAttributedString:MWMNavigationDashboardEntity.estimateDot];
+                             NSDictionary *primaryAttributes, NSDictionary *secondaryAttributes, BOOL isWalk, BOOL showEta) {
+  auto result = [[NSMutableAttributedString alloc] initWithString:@""];
+  if (showEta) {
+    NSString *eta = [NSDateComponentsFormatter etaStringFrom:time];
+    [result appendAttributedString:[[NSMutableAttributedString alloc] initWithString:eta attributes:primaryAttributes]];
+    [result appendAttributedString:MWMNavigationDashboardEntity.estimateDot];
+  }
 
   if (isWalk) {
     UIFont *font = primaryAttributes[NSFontAttributeName];
@@ -94,6 +98,32 @@ NSAttributedString *estimate(NSTimeInterval time, NSString *distance, NSString *
   [result appendAttributedString:[[NSAttributedString alloc] initWithString:target attributes:secondaryAttributes]];
 
   return result;
+}
+
+NSArray<MWMRouterTransitStepInfo *> *buildRouteTransitSteps(NSArray<MWMRoutePoint *> *points) {
+  NSMutableArray<MWMRouterTransitStepInfo *> *steps = [NSMutableArray arrayWithCapacity:[points count]*2-1];
+  auto const numPoints = [points count];
+  for (int i = 0; i < numPoints-1; i++) {
+    MWMRoutePoint* segmentStart = points[i];
+    MWMRoutePoint* segmentEnd = points[i+1];
+    auto const distance = platform::Distance::CreateFormatted(
+      ms::DistanceOnEarth(segmentStart.latitude, segmentStart.longitude, segmentEnd.latitude, segmentEnd.longitude));
+
+    MWMRouterTransitStepInfo* segmentInfo = [[MWMRouterTransitStepInfo alloc] init];
+    segmentInfo.type = MWMRouterTransitTypeRuler;
+    segmentInfo.distance = @(distance.GetDistanceString().c_str());
+    segmentInfo.distanceUnits = @(distance.GetUnitsString().c_str());
+    steps[i*2] = segmentInfo;
+
+    if (i < numPoints-2) {
+      MWMRouterTransitStepInfo* stopInfo = [[MWMRouterTransitStepInfo alloc] init];
+      stopInfo.type = MWMRouterTransitTypeIntermediatePoint;
+      stopInfo.intermediateIndex = i;
+      steps[i*2+1] = stopInfo;
+    }
+  }
+
+  return steps;
 }
 }  // namespace
 
@@ -155,7 +185,7 @@ NSAttributedString *estimate(NSTimeInterval time, NSString *distance, NSString *
 
 @implementation MWMNavigationDashboardManager (Entity)
 
-- (void)updateFollowingInfo:(routing::FollowingInfo const &)info type:(MWMRouterType)type {
+- (void)updateFollowingInfo:(routing::FollowingInfo const &)info routePoints:(NSArray<MWMRoutePoint *> *)points type:(MWMRouterType)type {
   if ([MWMRouter isRouteFinished]) {
     [MWMRouter stopRouting];
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
@@ -163,6 +193,8 @@ NSAttributedString *estimate(NSTimeInterval time, NSString *distance, NSString *
   }
 
   if (auto entity = self.entity) {
+    BOOL showEta = (type != MWMRouterTypeRuler);
+    
     entity.isValid = YES;
     entity.timeToTarget = info.m_time;
     entity.targetDistance = @(info.m_distToTarget.GetDistanceString().c_str());
@@ -174,7 +206,11 @@ NSAttributedString *estimate(NSTimeInterval time, NSString *distance, NSString *
     entity.speedLimitMps = info.m_speedLimitMps;
 
     entity.estimate = estimate(entity.timeToTarget, entity.targetDistance, entity.targetUnits,
-                               self.etaAttributes, self.etaSecondaryAttributes, NO);
+                               self.etaAttributes, self.etaSecondaryAttributes, NO, showEta);
+    if (type == MWMRouterTypeRuler && [points count] > 2)
+      entity.transitSteps = buildRouteTransitSteps(points);
+    else
+      entity.transitSteps = [[NSArray alloc] init];
 
     if (type == MWMRouterTypePedestrian) {
       entity.turnImage = image(info.m_pedestrianTurn);
@@ -200,8 +236,8 @@ NSAttributedString *estimate(NSTimeInterval time, NSString *distance, NSString *
     entity.isValid = YES;
     entity.estimate =
       estimate(info.m_totalTimeInSec, @(info.m_totalPedestrianDistanceStr.c_str()),
-               @(info.m_totalPedestrianUnitsSuffix.c_str()), self.etaAttributes, self.etaSecondaryAttributes, YES);
-    NSMutableArray<MWMRouterTransitStepInfo *> *transitSteps = [@[] mutableCopy];
+               @(info.m_totalPedestrianUnitsSuffix.c_str()), self.etaAttributes, self.etaSecondaryAttributes, YES, YES);
+    NSMutableArray<MWMRouterTransitStepInfo *> *transitSteps = [NSMutableArray new];
     for (auto const &stepInfo : info.m_steps)
       [transitSteps addObject:[[MWMRouterTransitStepInfo alloc] initWithStepInfo:stepInfo]];
     entity.transitSteps = transitSteps;

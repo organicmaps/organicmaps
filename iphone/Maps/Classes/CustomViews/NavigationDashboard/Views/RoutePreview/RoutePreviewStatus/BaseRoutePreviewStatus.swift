@@ -145,6 +145,7 @@ final class BaseRoutePreviewStatus: SolidTouchView {
         result.append(MWMNavigationDashboardEntity.estimateDot())
         result.append(elevation)
       }
+      
       resultLabel.attributedText = result
     }
   }
