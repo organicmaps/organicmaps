@@ -1013,6 +1013,8 @@ node|z18-[amenity=waste_disposal],
 area|z18-[amenity=waste_disposal],
 node|z18-[amenity=hunting_stand],
 area|z18-[amenity=hunting_stand],
+node|z18-[shop=lottery],
+area|z18-[shop=lottery],
 node|z18-[man_made=chimney],
 area|z18-[man_made=chimney],
 node|z18-[man_made=works],
@@ -1555,6 +1557,9 @@ area|z17-[leisure=adult_gaming_centre],
 node|z17-[leisure=amusement_arcade],
 area|z17-[leisure=amusement_arcade],
 {icon-image: arcade-m.svg;icon-min-distance: 20;}
+node|z18-[shop=lottery],
+area|z18-[shop=lottery],
+{icon-image: lottery-m.svg;icon-min-distance: 20;}
 
 node|z17-[amenity=courthouse],
 area|z17-[amenity=courthouse]
