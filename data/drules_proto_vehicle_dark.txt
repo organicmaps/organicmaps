@@ -74949,6 +74949,10 @@ colors {
     color: 3019898879
   }
   value {
+    name: "RouteRuler"
+    color: 1308604747
+  }
+  value {
     name: "RouteTrafficG0"
     color: 6164237
   }

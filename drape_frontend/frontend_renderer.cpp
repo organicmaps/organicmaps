@@ -1433,7 +1433,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
     Render2dLayer(modelView);
     RenderUserMarksLayer(modelView, DepthLayer::UserLineLayer);
 
-    if (m_buildingsFramebuffer->IsSupported())
+    if (m_buildingsFramebuffer->IsSupported() && !m_routeRenderer->IsRulerRoute())
     {
       RenderTrafficLayer(modelView);
       if (!HasTransitRouteData())
