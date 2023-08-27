@@ -588,7 +588,6 @@
 	<string name="bookmarks_empty_list_message">เพื่อเพิ่มบุ๊กมาร์ก โปรดแตะที่สถานที่บนแผนที่ แล้วจากนั้นแตะที่ไอคอนรูปดาว</string>
 	<string name="category_desc_more">…เพิ่มเติม</string>
 	<string name="export_file">ส่งออกไฟล์</string>
-	<string name="list_settings">การตั้งค่ารายการ</string>
 	<string name="delete_list">ลบรายการ</string>
 	<string name="public_access">เข้าถึงได้โดยสาธารณะ</string>
 	<string name="limited_access">จำกัดการเข้าถึง</string>

@@ -604,7 +604,6 @@
 	<string name="bookmarks_empty_list_message">Pentru a adăuga un loc preferat, ține apăsat un loc pe hartă și după aceea atinge simbolul în formă de stea</string>
 	<string name="category_desc_more">…mai mult</string>
 	<string name="export_file">Exportă fișierul</string>
-	<string name="list_settings">Opțiunile listei</string>
 	<string name="delete_list">Șterge lista</string>
 	<string name="public_access">Acces public</string>
 	<string name="limited_access">Acces privat</string>

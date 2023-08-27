@@ -619,7 +619,6 @@
 	<string name="bookmarks_empty_list_message">Yer imi eklemek için önce haritadaki bir yere sonrasında ise yıldız simgesine dokunun</string>
 	<string name="category_desc_more">…daha fazla</string>
 	<string name="export_file">Dosyayı dışa aktar</string>
-	<string name="list_settings">Liste Ayarları</string>
 	<string name="delete_list">Listeyi sil</string>
 	<string name="public_access">Genel erişim</string>
 	<string name="limited_access">Sınırlı erişim</string>

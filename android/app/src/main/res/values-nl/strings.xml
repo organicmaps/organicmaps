@@ -616,7 +616,6 @@
 	<string name="bookmarks_empty_list_message">Om een bladwijzer toe te voegen, tikt u op een plaats op de kaart en vervolgens op het sterpictogram</string>
 	<string name="category_desc_more">…meer</string>
 	<string name="export_file">Bestand exporteren</string>
-	<string name="list_settings">Lijst Instellingen</string>
 	<string name="delete_list">Lijst verwijderen</string>
 	<string name="public_access">Publiek toegang</string>
 	<string name="limited_access">Beperkte toegang</string>

@@ -587,7 +587,6 @@
 	<string name="bookmarks_empty_list_message">برای افزودن یک نشانه، روی یک مکان روی نقشه ضربه بزنید و سپس روی نماد ستاره ضربه بزنید</string>
 	<string name="category_desc_more">بیشتر…</string>
 	<string name="export_file">ارسال فایل</string>
-	<string name="list_settings">تنظیمات لیست</string>
 	<string name="delete_list">حذف لیست</string>
 	<string name="public_access">دسترسی عمومی</string>
 	<string name="limited_access">دسترسی محدود</string>

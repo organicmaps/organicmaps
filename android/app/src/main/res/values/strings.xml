@@ -648,7 +648,6 @@
 	<string name="bookmarks_empty_list_message">To add a bookmark, tap a place on the map and then tap the star icon</string>
 	<string name="category_desc_more">…more</string>
 	<string name="export_file">Export file</string>
-	<string name="list_settings">Edit</string>
 	<string name="delete_list">Delete list</string>
 	<string name="public_access">Public access</string>
 	<string name="limited_access">Limited access</string>

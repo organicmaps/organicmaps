@@ -612,7 +612,6 @@
 	<string name="bookmarks_empty_list_message">Per a afegir un marcador, toqueu un lloc en el mapa i després toqueu la icona d\'estrella</string>
 	<string name="category_desc_more">…més</string>
 	<string name="export_file">Exporta com a fitxer</string>
-	<string name="list_settings">Configuració de la llista</string>
 	<string name="delete_list">Esborra la llista</string>
 	<string name="public_access">Accés públic</string>
 	<string name="limited_access">Accés limitat</string>

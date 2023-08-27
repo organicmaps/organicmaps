@@ -596,7 +596,6 @@
 	<string name="bookmarks_empty_list_message">要添加新标签，请单击对象卡中的星形图标</string>
 	<string name="category_desc_more">…更多</string>
 	<string name="export_file">导出文件</string>
-	<string name="list_settings">列表设置</string>
 	<string name="delete_list">删除列表</string>
 	<string name="public_access">公共访问</string>
 	<string name="limited_access">私人访问</string>

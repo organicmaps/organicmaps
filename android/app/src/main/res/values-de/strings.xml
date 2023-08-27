@@ -619,7 +619,6 @@
 	<string name="bookmarks_empty_list_message">Zum Hinzufügen eine Lesezeichens tippen Sie in der Karte auf den Ort und dann unten auf das Sternchen</string>
 	<string name="category_desc_more">…mehr</string>
 	<string name="export_file">Datei exportieren</string>
-	<string name="list_settings">Listeneinstellungen</string>
 	<string name="delete_list">Liste löschen</string>
 	<string name="public_access">Öffentlicher Zugriff</string>
 	<string name="limited_access">Privater Zugriff</string>

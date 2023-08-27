@@ -95,7 +95,6 @@
 	<string name="bookmarks_empty_list_message">Para añadir un marcador, toque un lugar en el mapa y después toque el ícono de estrella</string>
 	<string name="category_desc_more">…más</string>
 	<string name="export_file">Exportar archivo</string>
-	<string name="list_settings">Ajustes de lista</string>
 	<string name="delete_list">Eliminar lista</string>
 	<string name="public_access">Acceso público</string>
 	<string name="limited_access">Acceso limitado</string>
