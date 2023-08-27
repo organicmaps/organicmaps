@@ -51,12 +51,14 @@ RouterResultCode RulerRouter::CalculateRoute(Checkpoints const & checkpoints,
                                              RouterDelegate const & delegate, Route & route)
 {
   vector<m2::PointD> const & points = checkpoints.GetPoints();
-  vector<RouteSegment> routeSegments;
-  vector<double> times;
   size_t const count = points.size();
   ASSERT(count > 0, ());
 
-  times.reserve(count*2-1);
+  vector<RouteSegment> routeSegments;
+  routeSegments.reserve(count * 2 - 1);
+  vector<double> times;
+  times.reserve(count * 2 - 1);
+
   Segment const segment(kFakeNumMwmId, 0, 0, false);
 
   auto const ToPointWA = [](m2::PointD const & p)
@@ -75,7 +77,7 @@ RouterResultCode RulerRouter::CalculateRoute(Checkpoints const & checkpoints,
     times.push_back(0);
 
     if (i == count - 1)
-      turn = turns::TurnItem(i+1, turns::PedestrianDirection::ReachedYourDestination);
+      turn = turns::TurnItem(i + 1, turns::PedestrianDirection::ReachedYourDestination);
     else if (i == 0)
       continue;
 
