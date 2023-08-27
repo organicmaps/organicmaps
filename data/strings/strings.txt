@@ -22169,49 +22169,6 @@
     zh-Hans = 绕行设置
     zh-Hant = 繞行設定
 
-  [driving_options_subheader]
-    tags = android,ios
-    en = Avoid on every route
-    af = Vermy op elke roete
-    ar = تجنبها على جميع الطرق
-    be = Пазбягаць на кожным маршруце
-    bg = Избягване при всеки маршрут
-    ca = Evita-ho en totes les rutes
-    cs = Vyhněte se na každé trase
-    da = Undgå på enhver rute
-    de = In jeder Reiseroute vermeiden
-    el = Αποφυγή σε κάθε διαδρομή
-    es = Evitar en todas las rutas
-    es-MX = Evitar en cada ruta
-    et = Väldi igal marsruudil
-    eu = Ibilbide guztietan saihestu
-    fa = اجتناب از تمامی مسیرها
-    fi = Vältettävä kaikissa reiteissä
-    fr = Éviter sur tous les itinéraires
-    hu = Elkerülés minden útvonalon
-    id = Hindari di setiap rute
-    it = Evitare in tutti i percorsi
-    ja = すべてのルートで回避
-    ko = 모든 길에서 피하기
-    lt = Vengti kiekviename maršrute
-    mr = प्रत्येक मार्गावर टाळा
-    nb = Unngå ved hver rute
-    nl = Vermijden op elke route
-    pl = Unikaj na każdej trasie
-    pt = Evitar em todos os percursos
-    pt-BR = Evitar em todas as rotas
-    ro = De evitat pe orice traseu
-    ru = Избегать в каждом маршруте
-    sk = Vyhnúť sa na každej trase
-    sv = Undvik på varje rutten
-    sw = Epuka kwenye kila njia
-    th = หลีกเลี่ยงในทุกเส้นทาง
-    tr = Her rotada kaçının
-    uk = Уникати в кожному маршруті
-    vi = Tránh trên mỗi tuyến
-    zh-Hans = 在每条线路上规避
-    zh-Hant = 在每條線路上規避
-
   [avoid_tolls]
     tags = android,ios
     en = Avoid toll roads
