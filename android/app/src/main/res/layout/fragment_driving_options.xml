@@ -16,16 +16,6 @@
     android:theme="@style/MwmWidget.ToolbarTheme"
     tools:ignore="UnusedAttribute">
   </androidx.appcompat.widget.Toolbar>
-  <TextView
-    android:text="@string/driving_options_subheader"
-    android:textAppearance="?android:attr/textAppearance"
-    android:textColor="?colorAccent"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_vertical"
-    android:layout_marginTop="@dimen/margin_half_double_plus"
-    android:paddingEnd="@dimen/margin_base"
-    android:paddingStart="@dimen/margin_base"/>
   <LinearLayout
     android:layout_marginTop="@dimen/margin_half_double_plus"
     android:orientation="horizontal"
