@@ -36,7 +36,7 @@ public final class RoutingHelpers
       break;
     }
 
-    return Distance.create(distance.mDistance, displayUnit);
+    return Distance.create(distance.mDistance < 0 ? 0 : distance.mDistance, displayUnit);
   }
 
   @NonNull

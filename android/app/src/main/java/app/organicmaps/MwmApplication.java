@@ -67,6 +67,7 @@ public class MwmApplication extends Application implements Application.ActivityL
   @NonNull
   private SensorHelper mSensorHelper;
 
+  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private DisplayManager mDisplayManager;
 
@@ -368,7 +369,8 @@ public class MwmApplication extends Application implements Application.ActivityL
       Logger.i(LOCATION_TAG, "Navigation is in progress, keeping location in the background");
       return;
     }
-    LocationHelper.INSTANCE.stop();
+    if (mDisplayManager.isDeviceDisplayUsed())
+      LocationHelper.INSTANCE.stop();
   }
 
   private class StorageCallbackImpl implements MapManager.StorageCallback

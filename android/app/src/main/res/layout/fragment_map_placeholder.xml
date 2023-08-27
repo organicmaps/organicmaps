@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="@string/aa_connected"
+        android:text="@string/aa_connected_title"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
         android:textStyle="bold" />
@@ -32,7 +32,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/aa_used_on_car_screen"
+        android:text="@string/aa_used_on_the_car_screen"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
   </LinearLayout>
@@ -45,5 +45,5 @@
       android:layout_marginEnd="32dp"
       android:layout_marginStart="32dp"
       android:layout_marginTop="24dp"
-      android:text="@string/aa_continue_on_phone" />
+      android:text="@string/aa_continue_on_the_phone" />
 </LinearLayout>

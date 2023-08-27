@@ -1594,7 +1594,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     refreshLightStatusBar();
 
     // Don't start the background navigation service without fine location.
-    if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PERMISSION_GRANTED)
+    if (!LocationUtils.checkFineLocationPermission(this))
     {
       Logger.w(LOCATION_TAG, "Permission ACCESS_FINE_LOCATION is not granted, skipping NavigationService");
       return;
@@ -1829,7 +1829,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     Logger.d(LOCATION_TAG);
 
-    if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PERMISSION_GRANTED)
+    if (LocationUtils.checkFineLocationPermission(this))
     {
       Logger.i(LOCATION_TAG, "Permission ACCESS_FINE_LOCATION is granted");
       LocationHelper.INSTANCE.start();
@@ -1873,12 +1873,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
       LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
       LocationHelper.INSTANCE.stop();
     }
-    else if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PERMISSION_GRANTED)
+    else if (LocationUtils.checkFineLocationPermission(this))
     {
       Logger.i(LOCATION_TAG, "Permission ACCESS_FINE_LOCATION is granted");
       LocationHelper.INSTANCE.start();
     }
-    else if (ActivityCompat.checkSelfPermission(this, ACCESS_COARSE_LOCATION) == PERMISSION_GRANTED)
+    else if (LocationUtils.checkCoarseLocationPermission(this))
     {
       Logger.i(LOCATION_TAG, "Permission ACCESS_COARSE_LOCATION is granted");
       LocationHelper.INSTANCE.start();
@@ -1915,9 +1915,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         Logger.w(LOCATION_TAG, "Permission " + permission + " has been refused");
     }
 
-    // Sic: Android Studio requires explicit calls to checkSelfPermission() for @RequiresPermission in start().
-    if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PERMISSION_GRANTED ||
-        ActivityCompat.checkSelfPermission(this, ACCESS_COARSE_LOCATION) == PERMISSION_GRANTED)
+    if (LocationUtils.checkLocationPermission(this))
     {
       LocationHelper.INSTANCE.start();
       return;

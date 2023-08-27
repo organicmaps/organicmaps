@@ -24,11 +24,11 @@ public class MapPlaceholderScreen extends BaseScreen
   @Override
   public Template onGetTemplate()
   {
-    final MessageTemplate.Builder builder = new MessageTemplate.Builder(getCarContext().getString(R.string.aa_used_on_phone_screen));
+    final MessageTemplate.Builder builder = new MessageTemplate.Builder(getCarContext().getString(R.string.aa_used_on_the_phone_screen));
     builder.setHeaderAction(Action.APP_ICON);
     builder.setTitle(getCarContext().getString(R.string.app_name));
     builder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_phone_android)).build());
-    builder.addAction(new Action.Builder().setTitle(getCarContext().getString(R.string.aa_continue_in_car))
+    builder.addAction(new Action.Builder().setTitle(getCarContext().getString(R.string.aa_continue_in_the_car))
         .setOnClickListener(() -> DisplayManager.from(getCarContext()).changeDisplay(DisplayType.Car)).build());
 
     return builder.build();

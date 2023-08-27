@@ -1,11 +1,14 @@
 package app.organicmaps.car;
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.location.Location;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresPermission;
 import androidx.car.app.Screen;
 import androidx.car.app.ScreenManager;
 import androidx.car.app.Session;
@@ -18,9 +21,12 @@ import androidx.lifecycle.LifecycleOwner;
 
 import app.organicmaps.Framework;
 import app.organicmaps.Map;
+import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.car.screens.NavigationScreen;
 import app.organicmaps.car.screens.PlaceScreen;
+import app.organicmaps.car.screens.RequestPermissionsScreen;
+import app.organicmaps.car.screens.base.BaseScreen;
 import app.organicmaps.car.screens.hacks.PopToRootHack;
 import app.organicmaps.car.util.IntentUtils;
 import app.organicmaps.car.util.RoutingUtils;
@@ -39,6 +45,7 @@ import app.organicmaps.location.SensorHelper;
 import app.organicmaps.location.SensorListener;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.routing.RoutingInfo;
+import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.log.Logger;
 import app.organicmaps.widget.placepage.PlacePageData;
 
@@ -90,10 +97,18 @@ public final class NavigationSession extends Session implements DefaultLifecycle
     Logger.i(TAG, "Host info: " + getCarContext().getHostInfo());
     Logger.i(TAG, "Car configuration: " + getCarContext().getResources().getConfiguration());
 
-    if (mInitFailed)
-      return new ErrorScreen(getCarContext());
+    final MapScreen mapScreen = new MapScreen(getCarContext(), mSurfaceRenderer);
 
-    return new MapScreen(getCarContext(), mSurfaceRenderer);
+    if (mInitFailed)
+      return new ErrorScreen.Builder(getCarContext()).setErrorMessage(R.string.dialog_error_storage_message).build();
+
+    if (!LocationUtils.checkFineLocationPermission(getCarContext()))
+    {
+      mScreenManager.push(mapScreen);
+      return new RequestPermissionsScreen(getCarContext(), this::onLocationPermissionsGranted);
+    }
+
+    return mapScreen;
   }
 
   @Override
@@ -131,6 +146,8 @@ public final class NavigationSession extends Session implements DefaultLifecycle
     }
     LocationHelper.INSTANCE.addListener(this);
     SensorHelper.from(getCarContext()).addListener(this);
+    if (LocationUtils.checkFineLocationPermission(getCarContext()))
+      LocationHelper.INSTANCE.start();
   }
 
   @Override
@@ -166,6 +183,12 @@ public final class NavigationSession extends Session implements DefaultLifecycle
     }
   }
 
+  @RequiresPermission(ACCESS_FINE_LOCATION)
+  private void onLocationPermissionsGranted()
+  {
+    LocationHelper.INSTANCE.start();
+  }
+
   @Override
   public void onMyPositionModeChanged(int newMode)
   {
@@ -185,11 +208,7 @@ public final class NavigationSession extends Session implements DefaultLifecycle
     // because calling the native method 'nativeIsRouteFinished'
     // too often can result in poor UI performance.
     if (Framework.nativeIsRouteFinished())
-    {
       RoutingController.get().cancel();
-      // Restart location with a new interval.
-      LocationHelper.INSTANCE.restart();
-    }
   }
 
   @Override
@@ -204,28 +223,46 @@ public final class NavigationSession extends Session implements DefaultLifecycle
   public void onDisplayChanged(@NonNull final DisplayType newDisplayType)
   {
     Logger.d(TAG);
-    final boolean isUsedOnDeviceScreenShown = mScreenManager.getTop() instanceof MapPlaceholderScreen;
+    final Screen screen = mScreenManager.getTop();
+    final boolean isMapPlaceholderScreenShown = screen instanceof MapPlaceholderScreen;
+    final boolean isPermissionsOrErrorScreenShown = screen instanceof RequestPermissionsScreen || screen instanceof ErrorScreen;
     final RoutingController routingController = RoutingController.get();
     if (newDisplayType == DisplayType.Car)
     {
-      LocationState.nativeSetListener(this);
-      onMyPositionModeChanged(LocationState.nativeGetMode());
-      mScreenManager.popToRoot();
+      onStart(this);
+      mSurfaceRenderer.enable();
+
+      // If we have Permissions or Error Screen in Screen Manager (either on the top of the stack or after MapPlaceholderScreen) do nothing
+      if (isPermissionsOrErrorScreenShown)
+        return;
+      mScreenManager.pop();
+      if (mScreenManager.getTop() instanceof RequestPermissionsScreen || mScreenManager.getTop() instanceof ErrorScreen)
+        return;
+
       routingController.restore();
+      mScreenManager.popToRoot();
       if (routingController.isNavigating())
         mScreenManager.push(new NavigationScreen(getCarContext(), mSurfaceRenderer));
       else if (routingController.isPlanning() && routingController.getEndPoint() != null)
         mScreenManager.push(new PlaceScreen.Builder(getCarContext(), mSurfaceRenderer).setMapObject(routingController.getEndPoint()).build());
-      mSurfaceRenderer.enable();
-      Framework.nativePlacePageActivationListener(this);
     }
-    else if (newDisplayType == DisplayType.Device && !isUsedOnDeviceScreenShown)
+    else if (newDisplayType == DisplayType.Device && !isMapPlaceholderScreenShown)
     {
-      Framework.nativeRemovePlacePageActivationListener(this);
+      onStop(this);
       mSurfaceRenderer.disable();
-      final PopToRootHack hack = new PopToRootHack.Builder(getCarContext()).setScreenToPush(new MapPlaceholderScreen(getCarContext())).build();
-      mScreenManager.push(hack);
-      routingController.onSaveState();
+
+      final BaseScreen mapPlaceholderScreen = new MapPlaceholderScreen(getCarContext());
+
+      if (isPermissionsOrErrorScreenShown)
+      {
+        mScreenManager.push(mapPlaceholderScreen);
+      }
+      else
+      {
+        final PopToRootHack hack = new PopToRootHack.Builder(getCarContext()).setScreenToPush(mapPlaceholderScreen).build();
+        mScreenManager.push(hack);
+        routingController.onSaveState();
+      }
     }
   }
 

@@ -24,6 +24,7 @@ import app.organicmaps.editor.OpeningHours;
 import app.organicmaps.editor.data.Timetable;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationState;
+import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.Utils;
 
 import java.util.Calendar;
@@ -185,8 +186,8 @@ public final class UiHelpers
     builder.setIcon(icon);
     builder.setOnClickListener(() -> {
       LocationState.nativeSwitchToNextMode();
-      if (!LocationHelper.INSTANCE.isActive())
-        LocationHelper.INSTANCE.restart();
+      if (!LocationHelper.INSTANCE.isActive() && LocationUtils.checkFineLocationPermission(context))
+        LocationHelper.INSTANCE.start();
     });
     return builder.build();
   }
