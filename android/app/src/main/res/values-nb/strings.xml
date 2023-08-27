@@ -620,7 +620,6 @@
 	<string name="bookmarks_empty_list_message">For å legge til et bokmerke, trykk et sted på kartet og trykk så stjerneikonet</string>
 	<string name="category_desc_more">…mer</string>
 	<string name="export_file">Eksporter fil</string>
-	<string name="list_settings">Liste Innstillinger</string>
 	<string name="delete_list">Slett liste</string>
 	<string name="public_access">Offentlig tilgang</string>
 	<string name="limited_access">Begrenset adgang</string>

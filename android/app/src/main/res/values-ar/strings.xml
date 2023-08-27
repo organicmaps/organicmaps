@@ -624,7 +624,6 @@
 	<string name="bookmarks_empty_list_message">لإضافة إشارة مرجعية ، اضغط على مكان على الخريطة ثم انقر على رمز النجمة</string>
 	<string name="category_desc_more">…المزيد</string>
 	<string name="export_file">ملف التصدير</string>
-	<string name="list_settings">إعدادات القائمة</string>
 	<string name="delete_list">حذف القائمة</string>
 	<string name="public_access">مسموح الوصول لعامة الشعب</string>
 	<string name="limited_access">مسموح الوصول بشكل محدود</string>

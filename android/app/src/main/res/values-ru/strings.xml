@@ -630,7 +630,6 @@
 	<string name="bookmarks_empty_list_message">Чтобы добавить метку, нажмите на место на карте, а затем на иконку звёздочки</string>
 	<string name="category_desc_more">…еще</string>
 	<string name="export_file">Экспортировать файл</string>
-	<string name="list_settings">Настройки списка</string>
 	<string name="delete_list">Удалить список</string>
 	<string name="public_access">Публичный доступ</string>
 	<string name="limited_access">Ограниченный доступ</string>

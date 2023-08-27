@@ -604,7 +604,6 @@
 	<string name="bookmarks_empty_list_message">Per aggiungere un luogo preferito, tieni premuto un punto sulla mappa e poi tocca l\'icona a forma di stella</string>
 	<string name="category_desc_more">…altro</string>
 	<string name="export_file">Esportare il file</string>
-	<string name="list_settings">Impostazioni elenco</string>
 	<string name="delete_list">Cancella elenco</string>
 	<string name="public_access">Accesso pubblico</string>
 	<string name="limited_access">Accesso privato</string>

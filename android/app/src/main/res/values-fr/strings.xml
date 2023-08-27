@@ -624,7 +624,6 @@
 	<string name="bookmarks_empty_list_message">Pour ajouter un signet, appuyez sur un lieu sur la carte, puis appuyez sur l\'icône étoile</string>
 	<string name="category_desc_more">…plus</string>
 	<string name="export_file">Exporter le fichier</string>
-	<string name="list_settings">Paramètres de la liste</string>
 	<string name="delete_list">Supprimer la liste</string>
 	<string name="public_access">Accès publique</string>
 	<string name="limited_access">Accès limité</string>

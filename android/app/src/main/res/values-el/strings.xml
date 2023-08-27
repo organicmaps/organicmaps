@@ -580,7 +580,6 @@
 	<string name="bookmarks_empty_list_message">Για να προσθέσετε σελιδοδείκτη, πατήστε ένα μέρος στο χάρτη και μετά πατήστε το αστεράκι</string>
 	<string name="category_desc_more">…περισσότερα</string>
 	<string name="export_file">Αρχείο Εξαγωγής</string>
-	<string name="list_settings">Ρυθμίσεις Λίστας</string>
 	<string name="delete_list">Διαγραφή λίστας</string>
 	<string name="public_access">Δημόσια πρόσβαση</string>
 	<string name="limited_access">Περιορισμένη πρόσβαση</string>

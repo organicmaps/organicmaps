@@ -610,7 +610,6 @@
 	<string name="bookmarks_empty_list_message">Järjehoidja lisamiseks puuduta kohta kaardil ja seejärel puuduta tähekese ikooni</string>
 	<string name="category_desc_more">…veel</string>
 	<string name="export_file">Ekspordi fail</string>
-	<string name="list_settings">Loetelu seaded</string>
 	<string name="delete_list">Kustuta loetelu</string>
 	<string name="public_access">Avalik ligipääs</string>
 	<string name="limited_access">Piiratud ligipääs</string>

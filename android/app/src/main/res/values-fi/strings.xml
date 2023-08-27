@@ -623,7 +623,6 @@
 	<string name="bookmarks_empty_list_message">Lisätäksesi kirjanmerkin, paina kartasta ja sitten paina tähden kuvaa</string>
 	<string name="category_desc_more">…lisää</string>
 	<string name="export_file">Vie tiedosto</string>
-	<string name="list_settings">Luettelon asetukset</string>
 	<string name="delete_list">Poista luettelo</string>
 	<string name="public_access">Julkinen pääsy</string>
 	<string name="limited_access">Rajoitettu pääsy</string>

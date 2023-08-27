@@ -597,7 +597,6 @@
 	<string name="bookmarks_empty_list_message">Para adicionar um favorito, toque num lugar do mapa e em seguida toque no ícone da estrela</string>
 	<string name="category_desc_more">…mais</string>
 	<string name="export_file">Exportar o ficheiro</string>
-	<string name="list_settings">Configurações de listas</string>
 	<string name="delete_list">Eliminar lista</string>
 	<string name="public_access">Acesso público</string>
 	<string name="limited_access">Acesso limitado</string>

@@ -621,7 +621,6 @@
 	<string name="bookmarks_empty_list_message">Markagailu bat gehitzeko, ukitu mapako toki bat eta, ondoren, ukitu izarraren ikonoa</string>
 	<string name="category_desc_more">…gehiago</string>
 	<string name="export_file">Esportatu fitxategia</string>
-	<string name="list_settings">Zerrendaren ezarpenak</string>
 	<string name="delete_list">Ezabatu zerrenda</string>
 	<string name="public_access">Sarbide publikoa</string>
 	<string name="limited_access">Sarbide mugatua</string>

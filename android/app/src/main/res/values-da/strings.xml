@@ -589,7 +589,6 @@
 	<string name="bookmarks_empty_list_message">For at tilføje et bogmærke, så tryk et sted på kort og så på stjerneikonet</string>
 	<string name="category_desc_more">…mere</string>
 	<string name="export_file">Eksporter fil</string>
-	<string name="list_settings">Listeindstillinger</string>
 	<string name="delete_list">Slet liste</string>
 	<string name="public_access">Offentlig adgang</string>
 	<string name="limited_access">Begrænset adgang</string>

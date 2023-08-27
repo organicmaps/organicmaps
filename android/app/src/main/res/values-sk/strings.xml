@@ -586,7 +586,6 @@
 	<string name="bookmarks_empty_list_message">Pre pridanie záložky kliknite na miesto na mape a potom na ikonu hviezdy</string>
 	<string name="category_desc_more">…viac</string>
 	<string name="export_file">Exportovať súbor</string>
-	<string name="list_settings">Nastavenie zoznamu</string>
 	<string name="delete_list">Vymazať zoznam</string>
 	<string name="public_access">Verejný prístup</string>
 	<string name="limited_access">Obmedzený prístup</string>

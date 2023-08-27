@@ -586,7 +586,6 @@
 	<string name="bookmarks_empty_list_message">북마크를 추가하려면 맵에서 장소를 탭하고 별 모양 아이콘을 탭하세요.</string>
 	<string name="category_desc_more">…기타 정보</string>
 	<string name="export_file">파일 내보내기</string>
-	<string name="list_settings">목록 세팅</string>
 	<string name="delete_list">리스트 삭제</string>
 	<string name="public_access">일반 접근</string>
 	<string name="limited_access">제한 접근</string>

@@ -601,7 +601,6 @@
 	<string name="bookmarks_empty_list_message">A könyvjelző hozzáadásához, érintsen meg a térképen egy helyet majd érintse meg a csillag ikont</string>
 	<string name="category_desc_more">…tovább</string>
 	<string name="export_file">Fájl exportálása</string>
-	<string name="list_settings">Lista beállításai</string>
 	<string name="delete_list">Törölni a listát</string>
 	<string name="public_access">Nyílt hozzáférés</string>
 	<string name="limited_access">Személyes hozzáférés</string>
