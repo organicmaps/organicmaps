@@ -22,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ib5-qh-Cmo">
-                    <rect key="frame" x="0.0" y="48" width="320" height="48"/>
+                    <rect key="frame" x="0.0" y="34" width="320" height="48"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZXA-Og-q2I">
                             <rect key="frame" x="72.5" y="12" width="175" height="24"/>
@@ -54,10 +54,10 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WqK-Yb-PmP" customClass="SolidTouchView">
-                    <rect key="frame" x="0.0" y="20" width="320" height="28"/>
+                    <rect key="frame" x="0.0" y="20" width="320" height="14"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wpf-tw-Coz" userLabel="Back">
-                            <rect key="frame" x="0.0" y="0.0" width="28" height="28"/>
+                            <rect key="frame" x="0.0" y="0.0" width="14" height="14"/>
                             <accessibility key="accessibilityConfiguration" identifier="goBackButton"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="wpf-tw-Coz" secondAttribute="height" multiplier="1:1" id="CvM-v4-Hlm"/>
@@ -68,7 +68,7 @@
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oQc-l8-sZH" userLabel="Buttons Box">
-                            <rect key="frame" x="78" y="4" width="164" height="20"/>
+                            <rect key="frame" x="106" y="4" width="108" height="6"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cZF-Ha-2tB">
                                     <rect key="frame" x="6" y="0.0" width="40" height="40"/>
@@ -82,7 +82,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6D3-QF-6wm">
-                                    <rect key="frame" x="54" y="0.0" width="20" height="20"/>
+                                    <rect key="frame" x="54" y="0.0" width="6" height="6"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <accessibility key="accessibilityConfiguration" identifier="routePedestrian"/>
                                     <constraints>
@@ -90,7 +90,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yIt-eq-pV5">
-                                    <rect key="frame" x="82" y="0.0" width="20" height="20"/>
+                                    <rect key="frame" x="68" y="0.0" width="6" height="6"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                     <accessibility key="accessibilityConfiguration" identifier="routeAuto"/>
                                     <constraints>
@@ -98,7 +98,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FuO-c6-y9C" userLabel="Bicycle">
-                                    <rect key="frame" x="110" y="0.0" width="20" height="20"/>
+                                    <rect key="frame" x="82" y="0.0" width="6" height="6"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                     <accessibility key="accessibilityConfiguration" identifier="routeBicycle"/>
                                     <constraints>
@@ -106,7 +106,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="15Q-ZN-NzE" userLabel="Ruler">
-                                    <rect key="frame" x="138" y="0.0" width="20" height="20"/>
+                                    <rect key="frame" x="96" y="0.0" width="6" height="6"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <accessibility key="accessibilityConfiguration" identifier="routeRuler"/>
                                     <constraints>
@@ -187,9 +187,9 @@
                 <outlet property="contentView" destination="WqK-Yb-PmP" id="4ph-Dm-EFr"/>
                 <outlet property="drivingOptionHeightConstraint" destination="Oxx-fO-ZLa" id="JOa-ih-oHZ"/>
                 <outlet property="drivingOptionsButton" destination="ZXA-Og-q2I" id="IZf-0l-IIV"/>
-                <outlet property="ruler" destination="15Q-ZN-NzE" id="Hel-ic-Opt"/>
                 <outlet property="pedestrian" destination="6D3-QF-6wm" id="bdh-zx-9LW"/>
                 <outlet property="publicTransport" destination="yIt-eq-pV5" id="yIX-eM-Hrs"/>
+                <outlet property="ruler" destination="15Q-ZN-NzE" id="Hel-ic-Opt"/>
                 <outlet property="vehicle" destination="cZF-Ha-2tB" id="QP3-tU-nfO"/>
             </connections>
             <point key="canvasLocation" x="448" y="364.31784107946032"/>
@@ -406,6 +406,9 @@
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iu4-M8-t6g">
                     <rect key="frame" x="16" y="12" width="41.5" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="qgy-7x-cjR"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -423,7 +426,7 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="Iu4-M8-t6g" firstAttribute="leading" secondItem="iWi-pM-AJF" secondAttribute="leading" constant="16" id="5Ge-fx-3pw"/>
-                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="CQk-tf-wu9"/>
+                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="CQk-tf-wu9"/>
                 <constraint firstItem="RVh-LF-kSn" firstAttribute="top" secondItem="Iu4-M8-t6g" secondAttribute="bottom" constant="12" id="DOH-Jl-zYW"/>
                 <constraint firstItem="RVh-LF-kSn" firstAttribute="leading" secondItem="Iu4-M8-t6g" secondAttribute="leading" id="Jo0-dN-03y"/>
                 <constraint firstItem="Iu4-M8-t6g" firstAttribute="top" secondItem="iWi-pM-AJF" secondAttribute="top" constant="12" id="Zyw-PT-55a"/>

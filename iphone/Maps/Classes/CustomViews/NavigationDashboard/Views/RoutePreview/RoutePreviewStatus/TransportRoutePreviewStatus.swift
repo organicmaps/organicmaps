@@ -50,7 +50,6 @@ final class TransportRoutePreviewStatus: SolidTouchView {
     }
     stepsCollectionView.steps = info.transitSteps
 
-    // TODO: even when stepsCollectionView is hidden it still takes space in layout
     stepsCollectionView.isHidden = info.transitSteps.isEmpty
   }
 
