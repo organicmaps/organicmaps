@@ -181,7 +181,7 @@ public class RoutingPlanController extends ToolbarController
   {
     RoutingController.BuildState buildState = RoutingController.get().getBuildState();
 
-    boolean ready = (buildState == RoutingController.BuildState.BUILT);
+    final boolean ready = (buildState == RoutingController.BuildState.BUILT);
 
     if (!ready) 
     {
@@ -205,7 +205,7 @@ public class RoutingPlanController extends ToolbarController
       return;
     }
 
-    boolean showStartButton = !RoutingController.get().isRulerRouterType();
+    final boolean showStartButton = !RoutingController.get().isRulerRouterType();
     mRoutingBottomMenuController.setStartButton(showStartButton);
     mRoutingBottomMenuController.showAltitudeChartAndRoutingDetails();
   }

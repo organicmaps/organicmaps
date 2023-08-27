@@ -141,8 +141,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
   {
     UiUtils.hide(mError, mActionFrame, mAltitudeChart, mAltitudeDifference, mTransitFrame);
 
-    if (!RoutingController.get().isVehicleRouterType() &&
-        !RoutingController.get().isRulerRouterType())
+    if (!RoutingController.get().isVehicleRouterType() && !RoutingController.get().isRulerRouterType())
       showRouteAltitudeChart();
     showRoutingDetails();
     UiUtils.show(mAltitudeChartFrame);
@@ -184,11 +183,11 @@ final class RoutingBottomMenuController implements View.OnClickListener
     UiUtils.hide(mError, mAltitudeChartFrame, mActionFrame, mAltitudeChartFrame);
     showStartButton(false);
     UiUtils.show(mTransitFrame);
-    RecyclerView rv = mTransitFrame.findViewById(R.id.transit_recycler_view);
+    final RecyclerView rv = mTransitFrame.findViewById(R.id.transit_recycler_view);
     if (points.length > 2)
     {
       UiUtils.show(rv);
-      TransitStepAdapter adapter = new TransitStepAdapter();
+      final TransitStepAdapter adapter = new TransitStepAdapter();
       rv.setLayoutManager(new MultilineLayoutManager());
       rv.setNestedScrollingEnabled(false);
       rv.removeItemDecoration(mTransitViewDecorator);
@@ -261,7 +260,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   void setStartButton(boolean show)
   {
-    if (show) {
+    if (show)
+    {
       mStart.setText(mContext.getText(R.string.p2p_start));
       mStart.setOnClickListener(v -> {
         if (mListener != null)
