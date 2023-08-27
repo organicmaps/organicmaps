@@ -352,7 +352,7 @@
                         <outlet property="resultsBoxBottom" destination="82W-n1-9wJ" id="RLp-VX-RD7"/>
                     </connections>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FXb-tH-ZTF" customClass="MWMTransportRoutePreviewStatus">
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FXb-tH-ZTF" customClass="MWMTransportRoutePreviewStatus">
                     <rect key="frame" x="0.0" y="152" width="320" height="80"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tuZ-25-ltG">
@@ -361,7 +361,7 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <collectionView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="none" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ey-lL-uzF" customClass="TransportTransitStepsCollectionView" customModule="Organic_Maps" customModuleProvider="target">
+                        <collectionView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="none" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ey-lL-uzF" customClass="TransportTransitStepsCollectionView" customModule="Organic_Maps" customModuleProvider="target">
                             <rect key="frame" x="16" y="44" width="288" height="20"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
@@ -378,7 +378,7 @@
                         <constraint firstAttribute="bottom" secondItem="8Ey-lL-uzF" secondAttribute="bottom" constant="16" id="KxL-xf-eVL"/>
                         <constraint firstAttribute="trailing" secondItem="8Ey-lL-uzF" secondAttribute="trailing" constant="16" id="ejR-Po-Dxm"/>
                         <constraint firstItem="8Ey-lL-uzF" firstAttribute="leading" secondItem="tuZ-25-ltG" secondAttribute="leading" id="gkU-xQ-hb2"/>
-                        <constraint firstAttribute="height" priority="100" constant="80" id="lLi-5o-PDI"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="100" constant="40" id="lLi-5o-PDI"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="RouteBasePreview"/>
@@ -454,9 +454,9 @@
                 <outlet property="contentView" destination="3s2-BV-X5i" id="mp7-Qq-drU"/>
                 <outlet property="drivingOptionHeightConstraint" destination="Cgo-cU-dTy" id="GVj-A8-kR1"/>
                 <outlet property="drivingOptionsButton" destination="Opi-yT-xIZ" id="tMG-Af-HEo"/>
-                <outlet property="ruler" destination="f6i-lw-K3R" id="s0G-le-Kbz"/>
                 <outlet property="pedestrian" destination="VhE-hA-Leo" id="R3O-th-Jw0"/>
                 <outlet property="publicTransport" destination="Eu3-bT-Dom" id="XNh-uW-Kog"/>
+                <outlet property="ruler" destination="f6i-lw-K3R" id="s0G-le-Kbz"/>
                 <outlet property="vehicle" destination="jDl-pu-eov" id="awM-KI-2xO"/>
             </connections>
             <point key="canvasLocation" x="448" y="573.46326836581716"/>
