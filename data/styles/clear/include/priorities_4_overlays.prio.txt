@@ -405,6 +405,7 @@ railway-subway_entrance-spb                         # icon z15- (also has captio
 === 4350
 
 tourism-gallery                                     # icon z15- (also has caption(optional) z15-)
+tourism-information-office                          # icon z15- (also has caption(optional) z15-)
 === 4300
 
 historic-battlefield                                # icon z15- (also has caption(optional) z15-)
@@ -618,7 +619,6 @@ landuse-vineyard                                    # caption z15- (also has are
 shop-supermarket                                    # icon z16- (also has caption(optional) z16-)
 tourism-alpine_hut                                  # icon z16- (also has caption(optional) z16-)
 tourism-chalet                                      # icon z16- (also has caption(optional) z16-)
-tourism-information-office                          # icon z16- (also has caption(optional) z16-)
 tourism-wilderness_hut                              # icon z16- (also has caption(optional) z16-)
 === 3250
 
@@ -1492,6 +1492,7 @@ amenity-parking-private                             # icon z18- (also has captio
 # === -5650
 
 # tourism-gallery                                   # caption(optional) z15- (also has icon z15-)
+# tourism-information-office                        # caption(optional) z15- (also has icon z15-)
 # === -5700
 
 # historic-battlefield                              # caption(optional) z15- (also has icon z15-)
@@ -1663,7 +1664,6 @@ amenity-parking-private                             # icon z18- (also has captio
 # shop-supermarket                                  # caption(optional) z16- (also has icon z16-)
 # tourism-alpine_hut                                # caption(optional) z16- (also has icon z16-)
 # tourism-chalet                                    # caption(optional) z16- (also has icon z16-)
-# tourism-information-office                        # caption(optional) z16- (also has icon z16-)
 # tourism-wilderness_hut                            # caption(optional) z16- (also has icon z16-)
 # === -6750
 
