@@ -199,6 +199,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Nullable
   private Dialog mLocationErrorDialog;
 
+  @Nullable
+  private Dialog mAlertDialog;
+
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private ActivityResultLauncher<String[]> mLocationPermissionRequest;
@@ -330,10 +333,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    new MaterialAlertDialogBuilder(MwmActivity.this, R.style.MwmTheme_AlertDialog)
+    dismissLocationErrorDialog();
+    mLocationErrorDialog = new MaterialAlertDialogBuilder(MwmActivity.this, R.style.MwmTheme_AlertDialog)
         .setMessage(R.string.unknown_current_position)
         .setCancelable(true)
         .setPositiveButton(R.string.ok, null)
+        .setOnDismissListener(dialog -> mLocationErrorDialog = null)
         .show();
   }
 
@@ -457,10 +462,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onNoConnectionError()
   {
-    new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+    dismissAlertDialog();
+    mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.common_check_internet_connection_dialog_title)
         .setMessage(R.string.common_check_internet_connection_dialog)
         .setPositiveButton(R.string.ok, null)
+        .setOnDismissListener(dialog -> mAlertDialog = null)
         .show();
   }
 
@@ -515,9 +522,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
               startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));
             else
             {
-                new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+                dismissAlertDialog();
+                mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
                     .setTitle(R.string.message_invalid_feature_position)
                     .setPositiveButton(R.string.ok, null)
+                    .setOnDismissListener(dialog -> mAlertDialog = null)
                     .show();
             }
             break;
@@ -911,11 +920,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+    dismissAlertDialog();
+    mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.downloader_update_maps)
         .setMessage(R.string.isolines_activation_error_dialog)
         .setPositiveButton(R.string.ok, (dialog, which) -> startActivity(new Intent(this, DownloaderActivity.class)))
         .setNegativeButton(R.string.cancel, null)
+        .setOnDismissListener(dialog -> mAlertDialog = null)
         .show();
   }
 
@@ -1031,6 +1042,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mOnmapDownloader.onPause();
     mNavigationController.onActivityPaused(this);
     pauseLocationInBackground();
+    dismissLocationErrorDialog();
+    dismissAlertDialog();
     super.onPause();
   }
 
@@ -1596,11 +1609,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onDrivingOptionsBuildError()
   {
-    new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+    dismissAlertDialog();
+    mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.unable_to_calc_alert_title)
         .setMessage(R.string.unable_to_calc_alert_subtitle)
         .setPositiveButton(R.string.settings, (dialog, which) -> DrivingOptionsActivity.start(this))
         .setNegativeButton(R.string.cancel, null)
+        .setOnDismissListener(dialog -> mAlertDialog = null)
         .show();
   }
 
@@ -1608,12 +1623,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onShowDisclaimer(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
   {
     final StringBuilder builder = new StringBuilder();
-    for (int resId : new int[] { R.string.dialog_routing_disclaimer_priority, R.string.dialog_routing_disclaimer_precision,
+    for (int resId : new int[]{R.string.dialog_routing_disclaimer_priority, R.string.dialog_routing_disclaimer_precision,
         R.string.dialog_routing_disclaimer_recommendations, R.string.dialog_routing_disclaimer_borders,
-        R.string.dialog_routing_disclaimer_beware })
-      builder.append(MwmApplication.from(this).getString(resId)).append("\n\n");
+        R.string.dialog_routing_disclaimer_beware})
+      builder.append(getString(resId)).append("\n\n");
 
-    new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+    dismissAlertDialog();
+    mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.dialog_routing_disclaimer_title)
         .setMessage(builder.toString())
         .setCancelable(false)
@@ -1622,16 +1638,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
           Config.acceptRoutingDisclaimer();
           RoutingController.get().prepare(startPoint, endPoint);
         })
+        .setOnDismissListener(dialog -> mAlertDialog = null)
         .show();
   }
 
   @Override
   public void onSuggestRebuildRoute()
   {
-    final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
+    final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
         .setMessage(R.string.p2p_reroute_from_current)
         .setCancelable(false)
-        .setNegativeButton(R.string.cancel, null);
+        .setNegativeButton(R.string.cancel, null)
+        .setOnDismissListener(dialog -> mAlertDialog = null);
 
     final TextView titleView = (TextView)View.inflate(this, R.layout.dialog_suggest_reroute_title, null);
     titleView.setText(R.string.p2p_only_from_current);
@@ -1647,7 +1665,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       builder.setPositiveButton(R.string.ok, (dialog, which) -> RoutingController.get().setStartFromMyPosition());
     }
 
-    builder.show();
+    dismissAlertDialog();
+    mAlertDialog = builder.show();
   }
 
   @Override
@@ -1658,6 +1677,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingController controller = RoutingController.get();
     if (controller.isPlanning())
       showAddStartOrFinishFrame(controller, true);
+  }
+
+  /**
+   * Dismiss the active modal dialog from the screen, if any.
+   */
+  private void dismissAlertDialog()
+  {
+    if (mAlertDialog != null && mAlertDialog.isShowing())
+      mAlertDialog.dismiss();
+    mAlertDialog = null;
   }
 
   /**
@@ -1780,7 +1809,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
    */
   private void pauseLocationInBackground()
   {
-    dismissLocationErrorDialog();
     LocationState.nativeRemoveLocationPendingTimeoutListener();
 
     if (!LocationHelper.INSTANCE.isActive())

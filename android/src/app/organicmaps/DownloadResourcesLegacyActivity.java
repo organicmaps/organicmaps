@@ -1,6 +1,7 @@
 package app.organicmaps;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -63,6 +64,9 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   private String mCurrentCountry;
   @Nullable
   private MapTask mMapTaskToForward;
+
+  @Nullable
+  private Dialog mAlertDialog;
 
   @NonNull
   private ActivityResultLauncher<Intent> mApiRequest;
@@ -244,6 +248,9 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   {
     super.onPause();
     LocationHelper.INSTANCE.removeListener(mLocationListener);
+    if (mAlertDialog != null && mAlertDialog.isShowing())
+      mAlertDialog.dismiss();
+    mAlertDialog = null;
   }
 
   private void setDownloadMessage(int bytesToDownload)
@@ -432,6 +439,9 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
   private void showErrorDialog(int result)
   {
+    if (mAlertDialog != null && mAlertDialog.isShowing())
+      return;
+
     @StringRes final int titleId;
     @StringRes final int messageId;
 
@@ -458,7 +468,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       throw new AssertionError("Unexpected result code = " + result);
     }
 
-    new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+    mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
         .setTitle(titleId)
         .setMessage(messageId)
         .setCancelable(true)
@@ -467,6 +477,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
           setAction(TRY_AGAIN);
           onTryAgainClicked();
         })
+        .setOnDismissListener(dialog -> mAlertDialog = null)
         .show();
   }
 
