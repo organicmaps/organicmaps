@@ -619,7 +619,6 @@
 	<string name="enable_logging_warning_message">此选项启用以记录操作来进行诊断。这有助于团队识别应用程序的问题。请仅在Organic Maps支持请求时开启该选项。</string>
 	<string name="access_rules_author_only">在线编辑</string>
 	<string name="driving_options_title">绕行设置</string>
-	<string name="driving_options_subheader">在每条线路上规避</string>
 	<string name="avoid_tolls">避开收费公路</string>
 	<string name="avoid_unpaved">避开未铺砌的道路</string>
 	<string name="avoid_ferry">避免渡口</string>

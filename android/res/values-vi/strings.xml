@@ -610,7 +610,6 @@
 	<string name="enable_logging_warning_message">Tùy chọn này được kích hoạt để ghi nhật ký đăng nhập cho mục đích chẩn đoán. Điều này sẽ giúp nhóm chúng tôi làm rõ các vấn đề liên quan đến ứng dụng. Hãy bật tùy chọn này chỉ khi nào có yêu cầu hỗ trợ từ Organic Maps.</string>
 	<string name="access_rules_author_only">Chỉnh sửa trực tuyến</string>
 	<string name="driving_options_title">Thiết lập đi vòng</string>
-	<string name="driving_options_subheader">Tránh trên mỗi tuyến</string>
 	<string name="avoid_tolls">Tránh đường thu phí</string>
 	<string name="avoid_unpaved">Tránh những con đường không trải nhựa</string>
 	<string name="avoid_ferry">Tránh qua phà</string>

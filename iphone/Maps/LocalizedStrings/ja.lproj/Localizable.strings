@@ -1017,8 +1017,6 @@
 
 "driving_options_title" = "運転オプション";
 
-"driving_options_subheader" = "すべてのルートで回避";
-
 "avoid_tolls" = "有料道路を避ける";
 
 "avoid_unpaved" = "未舗装道路を避ける";

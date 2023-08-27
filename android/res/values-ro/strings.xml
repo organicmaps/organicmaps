@@ -627,7 +627,6 @@
 	<string name="enable_logging_warning_message">Opțiunea activează jurnalizarea în scopuri de diagnosticare. Aceasta poate fi utilă echipei noastre pentru a rezolva problemele cu aplicația. Activează temporar această opțiune pentru a înregistra și a ne trimite jurnale detaliate despre problema ta.</string>
 	<string name="access_rules_author_only">Modifică online</string>
 	<string name="driving_options_title">Opțiuni de ocolire</string>
-	<string name="driving_options_subheader">De evitat pe orice traseu</string>
 	<string name="avoid_tolls">Evitați drumurile cu taxă</string>
 	<string name="avoid_unpaved">Evitați drumurile neasfaltate</string>
 	<string name="avoid_ferry">Evitați traversările cu feribotul</string>

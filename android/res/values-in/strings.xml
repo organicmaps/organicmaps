@@ -612,7 +612,6 @@
 	<string name="enable_logging_warning_message">Opsi ini mengaktifkan pencatatan untuk tujuan diagnostik. Bisa amat membantu bagi staf dukungan kami yang memecahkan masalah dalam aplikasi. Aktifkan opsi ini hanya saat diminta oleh dukungan Organic Maps.</string>
 	<string name="access_rules_author_only">Pengeditan online</string>
 	<string name="driving_options_title">Pilihan berkendara</string>
-	<string name="driving_options_subheader">Hindari di setiap rute</string>
 	<string name="avoid_tolls">Hindari jalan tol</string>
 	<string name="avoid_unpaved">Hindari jalan yang tidak beraspal</string>
 	<string name="avoid_ferry">Hindari penyeberangan feri</string>

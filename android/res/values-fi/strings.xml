@@ -646,7 +646,6 @@
 	<string name="enable_logging_warning_message">Valinta ottaa käyttöön lokikirjaukset diagnostiikkaa varten. Se voi auttaa tukihenkilöstöämme, kun he korjaavat sovelluksen ongelmia. Ota tämä ominaisuus käyttöön vain, jos Organic Maps:n tuki pyytää.</string>
 	<string name="access_rules_author_only">Nettimuokkaus</string>
 	<string name="driving_options_title">Reititysvalinnat</string>
-	<string name="driving_options_subheader">Vältettävä kaikissa reiteissä</string>
 	<string name="avoid_tolls">Vältä maksullisia teitä</string>
 	<string name="avoid_unpaved">Vältä päällystämättömiä teitä</string>
 	<string name="avoid_ferry">Vältä lauttareittejä</string>

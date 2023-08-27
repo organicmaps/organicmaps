@@ -609,7 +609,6 @@
 	<string name="enable_logging_warning_message">Táto možnosť zapína zaznamenávanie na diagnostické účely. Môže to byť užitočné pre našu technickú podporu, ktorá rieši problémy s aplikáciou. Povoliť túto možnosť iba na požiadanie podpory Organic Maps.</string>
 	<string name="access_rules_author_only">Online úprava</string>
 	<string name="driving_options_title">Možnosti jazdy</string>
-	<string name="driving_options_subheader">Vyhnúť sa na každej trase</string>
 	<string name="avoid_tolls">Vyhnite sa spoplatneným cestám</string>
 	<string name="avoid_unpaved">Vyhnite sa nespevneným cestám</string>
 	<string name="avoid_ferry">Vyhnite sa trajektovým prechodom</string>

@@ -639,7 +639,6 @@
 	<string name="enable_logging_warning_message">Дана опція вмикається для логування дій з метою діагностики. Це допомагає команді виявити проблеми з додатком. Тимчасово включайте цю настройку тільки для відправки детальної інформації про знайдену вами проблему в додатку.</string>
 	<string name="access_rules_author_only">Редагується онлайн</string>
 	<string name="driving_options_title">Налаштування об’їзду</string>
-	<string name="driving_options_subheader">Уникати в кожному маршруті</string>
 	<string name="avoid_tolls">Уникайте платних доріг</string>
 	<string name="avoid_unpaved">Уникайте ґрунтових доріг</string>
 	<string name="avoid_ferry">Уникайте поромних переправ</string>

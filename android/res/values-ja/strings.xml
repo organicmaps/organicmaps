@@ -607,7 +607,6 @@
 	<string name="enable_logging_warning_message">このオプションは診断目的でのデータ記録を有効にします。これはこのアプリケーションのトラブルシューティングを担当する当社のサポートスタッフの助けになります。このオプションはOrganic Mapsにリクエストされた場合にのみ有効にしてください。</string>
 	<string name="access_rules_author_only">オンライン編集</string>
 	<string name="driving_options_title">運転オプション</string>
-	<string name="driving_options_subheader">すべてのルートで回避</string>
 	<string name="avoid_tolls">有料道路を避ける</string>
 	<string name="avoid_unpaved">未舗装道路を避ける</string>
 	<string name="avoid_ferry">フェリーの横断を避ける</string>

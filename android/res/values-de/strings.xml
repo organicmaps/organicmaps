@@ -642,7 +642,6 @@
 	<string name="enable_logging_warning_message">Diese Option wird aktiviert, um Aktivitäten zwecks Diagnostik aufzuzeichnen. Das hilft unserem Team, Probleme mit der App zu erkennen. Aktivieren Sie diese Option nur auf Ersuchen des Organic Maps-Supports.</string>
 	<string name="access_rules_author_only">Online bearbeiten</string>
 	<string name="driving_options_title">Routenbeschränkungen</string>
-	<string name="driving_options_subheader">In jeder Reiseroute vermeiden</string>
 	<string name="avoid_tolls">Mautstraßen vermeiden</string>
 	<string name="avoid_unpaved">Unbefestigte Straßen vermeiden</string>
 	<string name="avoid_ferry">Fähren vermeiden</string>

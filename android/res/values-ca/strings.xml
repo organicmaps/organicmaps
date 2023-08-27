@@ -635,7 +635,6 @@
 	<string name="enable_logging_warning_message">L\'opció activa el registre amb finalitats de diagnòstic. Pot ser útil per al nostre equip per a identificar problemes amb l\'aplicació. Activeu aquesta opció temporalment per a enregistgrar i enviar-nos informes detallats sobre el vostre problema.</string>
 	<string name="access_rules_author_only">Edició en línia</string>
 	<string name="driving_options_title">Opcions de la ruta</string>
-	<string name="driving_options_subheader">Evita-ho en totes les rutes</string>
 	<string name="avoid_tolls">Eviteu les vies de peatge</string>
 	<string name="avoid_unpaved">Eviteu les carreteres sense asfaltar</string>
 	<string name="avoid_ferry">Eviteu les travessies en ferri</string>

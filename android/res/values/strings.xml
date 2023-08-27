@@ -671,7 +671,6 @@
 	<string name="enable_logging_warning_message">Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using \"Report a bug\" in the Help dialog. Logs may include location info.</string>
 	<string name="access_rules_author_only">Online editing</string>
 	<string name="driving_options_title">Routing options</string>
-	<string name="driving_options_subheader">Avoid on every route</string>
 	<string name="avoid_tolls">Avoid toll roads</string>
 	<string name="avoid_unpaved">Avoid unpaved roads</string>
 	<string name="avoid_ferry">Avoid ferry crossings</string>

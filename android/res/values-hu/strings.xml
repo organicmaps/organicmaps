@@ -624,7 +624,6 @@
 	<string name="enable_logging_warning_message">Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a support csapatunknak, akik elhárítják az alkalmazás hibáit. Csak a Organic Maps support kérésére kapcsold be ezt az opciót.</string>
 	<string name="access_rules_author_only">Online szerkesztés</string>
 	<string name="driving_options_title">Útvonaltervezési lehetőségek</string>
-	<string name="driving_options_subheader">Elkerülés minden útvonalon</string>
 	<string name="avoid_tolls">Kerülje el a fizetős utakat</string>
 	<string name="avoid_unpaved">Kerülje a burkolatlan utakat</string>
 	<string name="avoid_ferry">Kerülje a kompátkelőhelyeket</string>

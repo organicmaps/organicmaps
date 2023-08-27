@@ -642,7 +642,6 @@
 	<string name="enable_logging_warning_message">Bu seçenek tanılama amacıyla günlüğe kaydetmeyi açar. Ekibimizin uygulamayla ilgili sorunları gidermesine yardımcı olabilir. Sorununuzla ilgili ayrıntılı günlükleri kaydetmek ve bize göndermek için bu seçeneği geçici olarak etkinleştirin.</string>
 	<string name="access_rules_author_only">Çevrimiçi düzenleme</string>
 	<string name="driving_options_title">Yönlendirme seçenekleri</string>
-	<string name="driving_options_subheader">Her rotada kaçının</string>
 	<string name="avoid_tolls">Ücretli yollardan kaçının</string>
 	<string name="avoid_unpaved">Asfaltsız yollardan kaçının</string>
 	<string name="avoid_ferry">Feribot geçişlerinden kaçının</string>

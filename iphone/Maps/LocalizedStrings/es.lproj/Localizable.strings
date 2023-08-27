@@ -1017,8 +1017,6 @@
 
 "driving_options_title" = "Opciones de enrutamiento";
 
-"driving_options_subheader" = "Evitar en todas las rutas";
-
 "avoid_tolls" = "Evitar peajes";
 
 "avoid_unpaved" = "Evitar caminos sin pavimentar";

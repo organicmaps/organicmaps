@@ -611,7 +611,6 @@
 	<string name="enable_logging_warning_message">ออปชันเพื่อเปิดการบันทึกประวัติการทำงานเพื่อการวินิจฉัย ประวัติดังกล่าวอาจเป็นประโยชน์กับทีมงานช่วยเหลือของเราที่คอยจัดการกับปัญหาที่เจอระหว่างแอปทำงาน โปรดเปิดออปชันดังกล่าวจากการร้องข้อการสนับสนุนจาก Organic Maps เท่านั้น</string>
 	<string name="access_rules_author_only">การแก้ไขทางออนไลน์</string>
 	<string name="driving_options_title">ทางเลือกเส้นทางขับขี่</string>
-	<string name="driving_options_subheader">หลีกเลี่ยงในทุกเส้นทาง</string>
 	<string name="avoid_tolls">หลีกเลี่ยงถนนที่เก็บค่าผ่านทาง</string>
 	<string name="avoid_unpaved">หลีกเลี่ยงถนนลูกรัง</string>
 	<string name="avoid_ferry">หลีกเลี่ยงการข้ามเรือข้ามฟาก</string>

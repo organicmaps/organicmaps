@@ -644,7 +644,6 @@
 	<string name="enable_logging_warning_message">Aukera hau diagnostiko helburua duten erregistro ekintzetarako gaituta dago. Honek gure taldeari aplikazioarekin arazoak identifikatzen laguntzen dio. Gaitu aukera Organic Maps laguntzari eskatuta soilik.</string>
 	<string name="access_rules_author_only">Sarean editatzen</string>
 	<string name="driving_options_title">Bideratzeko aukerak</string>
-	<string name="driving_options_subheader">Ibilbide guztietan saihestu</string>
 	<string name="avoid_tolls">Saihestu ordainpeko errepideak</string>
 	<string name="avoid_unpaved">Saihestu asfaltatu gabeko errepideak</string>
 	<string name="avoid_ferry">Saihestu ferry-pasaketak</string>

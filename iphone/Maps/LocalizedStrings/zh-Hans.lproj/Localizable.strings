@@ -1017,8 +1017,6 @@
 
 "driving_options_title" = "绕行设置";
 
-"driving_options_subheader" = "在每条线路上规避";
-
 "avoid_tolls" = "避开收费公路";
 
 "avoid_unpaved" = "避开未铺砌的道路";

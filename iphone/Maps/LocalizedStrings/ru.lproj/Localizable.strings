@@ -1017,8 +1017,6 @@
 
 "driving_options_title" = "Настройки объезда";
 
-"driving_options_subheader" = "Избегать в каждом маршруте";
-
 "avoid_tolls" = "Избегайте платных дорог";
 
 "avoid_unpaved" = "Избегайте грунтовых дорог";

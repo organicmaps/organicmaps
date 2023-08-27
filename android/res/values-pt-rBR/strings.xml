@@ -623,7 +623,6 @@
 	<string name="enable_logging_warning_message">A opção ativa logging para realizar diagnósticos. Pode ser útil para nossa equipe de suporte que estão solucionando problemas com o aplicativo. Ative esta opção apenas ao ser solicitado pelo suporte do Organic Maps.</string>
 	<string name="access_rules_author_only">Edição online</string>
 	<string name="driving_options_title">Opções de direção</string>
-	<string name="driving_options_subheader">Evitar em todas as rotas</string>
 	<string name="avoid_tolls">Evitar pedágios</string>
 	<string name="avoid_unpaved">Evitar estradas não-pavimentadas</string>
 	<string name="avoid_ferry">Evitar balsas</string>

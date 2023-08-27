@@ -603,7 +603,6 @@
 	<string name="enable_logging_warning_message">Тази настройка е разрешена, за да се записват действия за диагностични цели, които помагат на нашия екип да идентифицира проблеми с приложението. Временно активирайте тази настройка само за изпращане на подробна информация за проблема, който сте открили с приложението.</string>
 	<string name="access_rules_author_only">Онлайн редактиране</string>
 	<string name="driving_options_title">Опции за маршрутизация</string>
-	<string name="driving_options_subheader">Избягване при всеки маршрут</string>
 	<string name="avoid_tolls">Избягвайте платените пътища</string>
 	<string name="avoid_unpaved">Избягвайте неасфалтирани пътища</string>
 	<string name="avoid_ferry">Избягвайте преминаването с ферибот</string>

@@ -1017,8 +1017,6 @@
 
 "driving_options_title" = "Routing options";
 
-"driving_options_subheader" = "Avoid on every route";
-
 "avoid_tolls" = "Avoid toll roads";
 
 "avoid_unpaved" = "Avoid unpaved roads";

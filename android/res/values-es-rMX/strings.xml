@@ -113,7 +113,6 @@
 	<string name="enable_logging_warning_message">Esta opción está habilitada para las acciones de registro con fines de diagnóstico. Esto ayuda a nuestro equipo a identificar problemas con la aplicación. Habilite la opción solo a petición del apoyo de Organic Maps.</string>
 	<string name="access_rules_author_only">Se edita en línea</string>
 	<string name="driving_options_title">Ajustes de desvío</string>
-	<string name="driving_options_subheader">Evitar en cada ruta</string>
 	<string name="avoid_tolls">Evitar peajes</string>
 	<string name="avoid_unpaved">Evitar caminos sin pavimentar</string>
 	<string name="avoid_ferry">Evitar ferris</string>

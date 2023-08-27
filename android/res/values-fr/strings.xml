@@ -647,7 +647,6 @@
 	<string name="enable_logging_warning_message">Cette option est activée pour l\'identification des actions à des fins de diagnostic. Cela aide l’équipe à identifier les problèmes liés à l’application. Activez cette option uniquement à la demande du support Organic Maps.</string>
 	<string name="access_rules_author_only">Édition en ligne</string>
 	<string name="driving_options_title">Paramètres des itinéraires</string>
-	<string name="driving_options_subheader">Éviter sur tous les itinéraires</string>
 	<string name="avoid_tolls">Éviter les routes à péage</string>
 	<string name="avoid_unpaved">Éviter les routes non pavées</string>
 	<string name="avoid_ferry">Éviter les traversées en ferry</string>

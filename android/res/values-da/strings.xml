@@ -612,7 +612,6 @@
 	<string name="enable_logging_warning_message">Indstillingen aktiverer logning til diagnostiske formål. Det kan være nyttigt for vores supportere, der fejlfinder problemer med appen. Aktiver kun denne mulighed på anmodning fra Organic Maps support.</string>
 	<string name="access_rules_author_only">Online redigering</string>
 	<string name="driving_options_title">Køre muligheder</string>
-	<string name="driving_options_subheader">Undgå på enhver rute</string>
 	<string name="avoid_tolls">Undgå betalingsveje</string>
 	<string name="avoid_unpaved">Undgå ikke-asfalterede veje</string>
 	<string name="avoid_ferry">Undgå færgeoverfarter</string>

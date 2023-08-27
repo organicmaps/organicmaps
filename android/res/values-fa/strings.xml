@@ -610,7 +610,6 @@
 	<string name="enable_logging_warning_message">این گزینه ثبت گزارش را برای اهداف تشخیصی فعال می‌کند. برای کارکنان بخش پشتیبانی که مشکلات برنامه را عیب یابی می‌کنند، مفید باشد. این گزینه را تنها در صورت درخواست پشتیبانی Organic Maps فعال کنید.</string>
 	<string name="access_rules_author_only">ویرایش آنلاین</string>
 	<string name="driving_options_title">گزینه‌های رانندگی</string>
-	<string name="driving_options_subheader">اجتناب از تمامی مسیرها</string>
 	<string name="avoid_tolls">از جاده های عوارضی خودداری کنید</string>
 	<string name="avoid_unpaved">از جاده های آسفالت نشده خودداری کنید</string>
 	<string name="avoid_ferry">از عبور کشتی ها خودداری کنید</string>

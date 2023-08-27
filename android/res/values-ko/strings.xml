@@ -609,7 +609,6 @@
 	<string name="enable_logging_warning_message">이 옵션은 진단을 목적으로 로그를 엽니다 이를 통해 앱에 대한 문제를 분석하는 우리의 스탭을 도울 수 있습니다 이 옵션은 오직 Organic Maps 지원 요청에서만 가능합니다.</string>
 	<string name="access_rules_author_only">온라인 수정</string>
 	<string name="driving_options_title">운전 옵션</string>
-	<string name="driving_options_subheader">모든 길에서 피하기</string>
 	<string name="avoid_tolls">유료 도로 피하기</string>
 	<string name="avoid_unpaved">비포장도로 피하기</string>
 	<string name="avoid_ferry">페리 횡단을 피하십시오</string>

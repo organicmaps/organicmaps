@@ -167,7 +167,6 @@
 	<string name="enable_logging_warning_message">Chaguo huwasha data kwa madhumuni ya uchunguzi. Itakuwa muhimu kwa wafanyakazi wetu ambao wanatatua matatizo ya programu. Washa chaguo hili kwa maombi ya mhudumu wa Organic Maps tu.</string>
 	<string name="access_rules_author_only">Uhariri mtandaoni</string>
 	<string name="driving_options_title">Machaguo ya njia</string>
-	<string name="driving_options_subheader">Epuka kwenye kila njia</string>
 	<string name="avoid_tolls">Undvik avgiftsbelagda vägar</string>
 	<string name="avoid_unpaved">Undvik oasfalterade vägar</string>
 	<string name="avoid_ferry">Undvik färjeöverfarter</string>

@@ -639,7 +639,6 @@
 	<string name="enable_logging_warning_message">Deze optie is ingeschakeld voor logboekregistraties voor diagnostische doeleinden. Het helpt bij het identificeren van problemen met de applicatie. Schakel de optie alleen in op verzoek van Organic Maps-ondersteuning.</string>
 	<string name="access_rules_author_only">Wordt online bewerkt</string>
 	<string name="driving_options_title">Route instellingen</string>
-	<string name="driving_options_subheader">Vermijden op elke route</string>
 	<string name="avoid_tolls">Vermijd tolwegen</string>
 	<string name="avoid_unpaved">Vermijd onverharde wegen</string>
 	<string name="avoid_ferry">Vermijd veerbootovertochten</string>

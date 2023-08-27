@@ -617,7 +617,6 @@
 	<string name="enable_logging_warning_message">Možnost zapne odesílání dat za diagnostickými účely. To nám pomáhá při řešení problémů s aplikací. Dočasně povolte pro nahrávání a odesílání logů našemu týmu o vašem problému.</string>
 	<string name="access_rules_author_only">Upravujte on-line</string>
 	<string name="driving_options_title">Možnosti trasy</string>
-	<string name="driving_options_subheader">Vyhněte se na každé trase</string>
 	<string name="avoid_tolls">Vyhněte se zpoplatněným silnicím</string>
 	<string name="avoid_unpaved">Vyhněte se nezpevněným cestám</string>
 	<string name="avoid_ferry">Vyhněte se přejezdům trajektů</string>

@@ -645,7 +645,6 @@
 	<string name="enable_logging_warning_message">هذا الخيار يقوم ببدأ تسجيل سجلات التطبيق لإغراض التشخيصة. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا لحل المشاكل التي تواجهكم داخل التطبيق. قم بتفعيل هذا الخيار بشكل مؤقت فقط في حالة طلب الدعم من Organic Maps.</string>
 	<string name="access_rules_author_only">التعديل باستخدام الإنترنت</string>
 	<string name="driving_options_title">خيارات رسم المسار</string>
-	<string name="driving_options_subheader">تجنبها على جميع الطرق</string>
 	<string name="avoid_tolls">تجنب الطرق ذات الرسوم</string>
 	<string name="avoid_unpaved">تجنب الطرق غير المعبدة</string>
 	<string name="avoid_ferry">تجنب معابر العبارات</string>

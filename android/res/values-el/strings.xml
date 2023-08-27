@@ -605,7 +605,6 @@
 	<string name="enable_logging_warning_message">Αυτή η λειτουργία είναι ενεργοποιημένη για την καταγραφή ενεργειών για διαγνωστικούς σκοπούς. Αυτό βοηθά την ομάδα να εντοπίζει προβλήματα με την εφαρμογή. Να ενεργοποιείτε τη λειτουργία μόνο κατόπιν αιτήματος της υποστήριξης του Organic Maps.</string>
 	<string name="access_rules_author_only">Επεξεργάζεται online</string>
 	<string name="driving_options_title">Ρυθμίσεις παράκαμψης</string>
-	<string name="driving_options_subheader">Αποφυγή σε κάθε διαδρομή</string>
 	<string name="avoid_tolls">Αποφύγετε τους δρόμους με διόδια</string>
 	<string name="avoid_unpaved">Αποφύγετε τους μη ασφαλτοστρωμένους δρόμους</string>
 	<string name="avoid_ferry">Αποφύγετε τις διελεύσεις με φέρι</string>

@@ -639,7 +639,6 @@
 	<string name="enable_logging_warning_message">Опцыя ўключае запіс журнала падзей для мэтаў дыягностыкі. Гэта можа дапамагчы нашай камандзе вырашаць праблемы з праграмай. Уключайце гэтую опцыю часова, каб запісаць і паслаць нам дэталёвую інфармацыю, пра знойденую вамі праблему.</string>
 	<string name="access_rules_author_only">Рэдагаванне анлайн</string>
 	<string name="driving_options_title">Налады пракладкі маршрута</string>
-	<string name="driving_options_subheader">Пазбягаць на кожным маршруце</string>
 	<string name="avoid_tolls">Пазбягайце платных дарог</string>
 	<string name="avoid_unpaved">Пазбягайце грунтавых дарог</string>
 	<string name="avoid_ferry">Пазбягайце паромных пераправаў</string>

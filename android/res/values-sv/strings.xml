@@ -610,7 +610,6 @@
 	<string name="enable_logging_warning_message">Denna funktion aktiveras för loggning av åtgärder för diagnostiska ändamål. Detta hjälper laget att identifiera problem med applikationen. Slå på funktionen endast på begäran av Organic Maps supporttjänst.</string>
 	<string name="access_rules_author_only">Redigeras online</string>
 	<string name="driving_options_title">Omvägsinställningar</string>
-	<string name="driving_options_subheader">Undvik på varje rutten</string>
 	<string name="avoid_tolls">Izogibajte se cestninskim cestam</string>
 	<string name="avoid_unpaved">Izogibajte se neasfaltiranim cestam</string>
 	<string name="avoid_ferry">Izogibajte se prehodom s trajektom</string>

@@ -620,7 +620,6 @@
 	<string name="enable_logging_warning_message">Esta opção ativa o registo das ações para diagnóstico. Pode ser útil para os programadores descobrirem o problema na aplicação. Ative esta opção apenas a pedido dos programadores do Organic Maps.</string>
 	<string name="access_rules_author_only">Edição online</string>
 	<string name="driving_options_title">Configurações de direção</string>
-	<string name="driving_options_subheader">Evitar em todos os percursos</string>
 	<string name="avoid_tolls">Evitar portagens</string>
 	<string name="avoid_unpaved">Evitar estradas não-pavimentadas</string>
 	<string name="avoid_ferry">Evitar balsas</string>

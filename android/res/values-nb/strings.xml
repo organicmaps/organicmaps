@@ -643,7 +643,6 @@
 	<string name="enable_logging_warning_message">Alternativet slår på logging for diagnostiske formål. Det kan være nyttig for våre supportpersonale som feilsøker problemer med appen. Aktiver dette alternativet bare på forespørsel fra Organic Maps-brukerstøtte.</string>
 	<string name="access_rules_author_only">Redigering på nett</string>
 	<string name="driving_options_title">Kjørealternativer</string>
-	<string name="driving_options_subheader">Unngå ved hver rute</string>
 	<string name="avoid_tolls">Unngå bomveier</string>
 	<string name="avoid_unpaved">Unngå uasfalterte veier</string>
 	<string name="avoid_ferry">Unngå fergeoverfarter</string>

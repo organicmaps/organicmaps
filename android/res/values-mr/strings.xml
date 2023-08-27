@@ -608,7 +608,6 @@
 	<string name="enable_logging_warning_message">निदान करण्याकरिता हा पर्याय लॉगिंग चालू करतो. ह्याने ऍपच्या समस्यांचे निवारण करणे आम्हाला उपयुक्त ठरू शकते. तुमच्या समस्येबद्दल तपशीलवार नोंदी रेकॉर्ड करण्यासाठी आणि आम्हाला पाठवण्यासाठी हा पर्याय तात्पुरता चालू करा.</string>
 	<string name="access_rules_author_only">ऑनलाइन संपादन</string>
 	<string name="driving_options_title">मार्गशोधी पर्याय</string>
-	<string name="driving_options_subheader">प्रत्येक मार्गावर टाळा</string>
 	<string name="avoid_tolls">टोल रस्ते टाळा</string>
 	<string name="avoid_unpaved">कच्चे रस्ते टाळा</string>
 	<string name="avoid_ferry">फेरी क्रॉसिंग टाळा</string>
