@@ -21,7 +21,7 @@ final class TransportTransitStepsCollectionView: UICollectionView {
     super.awakeFromNib()
     dataSource = self
     [TransportTransitIntermediatePoint.self, TransportTransitPedestrian.self,
-     TransportTransitTrain.self, TransportRuler.self].forEach {
+        TransportTransitTrain.self, TransportRuler.self].forEach {
       register(cellClass: $0)
     }
   }

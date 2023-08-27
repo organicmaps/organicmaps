@@ -38,9 +38,16 @@ final class TransportRoutePreviewStatus: SolidTouchView {
     updateHeight()
   }
 
-  @objc func onNavigationInfoUpdated(_ info: MWMNavigationDashboardEntity) {
+  @objc func onNavigationInfoUpdated(_ info: MWMNavigationDashboardEntity, prependDistance: Bool) {
     navigationInfo = info
-    etaLabel.attributedText = info.estimate
+    if (prependDistance) {
+      let labelText = NSMutableAttributedString(string: NSLocalizedString("placepage_distance", comment: "") + ": ")
+      labelText.append(info.estimate)
+      etaLabel.attributedText = labelText
+    }
+    else {
+      etaLabel.attributedText = info.estimate
+    }
     stepsCollectionView.steps = info.transitSteps
 
     // TODO: even when stepsCollectionView is hidden it still takes space in layout

@@ -6,7 +6,7 @@
 #import "SwiftBridge.h"
 
 #import <AudioToolbox/AudioServices.h>
-#include <CoreApi/Framework.h>
+#import <CoreApi/Framework.h>
 
 #include "routing/following_info.hpp"
 #include "routing/turns.hpp"
@@ -101,25 +101,26 @@ NSAttributedString *estimate(NSTimeInterval time, NSString *distance, NSString *
 }
 
 NSArray<MWMRouterTransitStepInfo *> *buildRouteTransitSteps(NSArray<MWMRoutePoint *> *points) {
-  NSMutableArray<MWMRouterTransitStepInfo *> *steps = [NSMutableArray arrayWithCapacity:[points count]*2-1];
+  // Generate step info in format: (Segment 1 distance) (1) (Segment 2 distance) (2) ... (n-1) (Segment N distance).
+  NSMutableArray<MWMRouterTransitStepInfo *> *steps = [NSMutableArray arrayWithCapacity:[points count] * 2 - 1];
   auto const numPoints = [points count];
-  for (int i = 0; i < numPoints-1; i++) {
+  for (int i = 0; i < numPoints - 1; i++) {
     MWMRoutePoint* segmentStart = points[i];
-    MWMRoutePoint* segmentEnd = points[i+1];
+    MWMRoutePoint* segmentEnd = points[i + 1];
     auto const distance = platform::Distance::CreateFormatted(
-      ms::DistanceOnEarth(segmentStart.latitude, segmentStart.longitude, segmentEnd.latitude, segmentEnd.longitude));
+        ms::DistanceOnEarth(segmentStart.latitude, segmentStart.longitude, segmentEnd.latitude, segmentEnd.longitude));
 
     MWMRouterTransitStepInfo* segmentInfo = [[MWMRouterTransitStepInfo alloc] init];
     segmentInfo.type = MWMRouterTransitTypeRuler;
     segmentInfo.distance = @(distance.GetDistanceString().c_str());
     segmentInfo.distanceUnits = @(distance.GetUnitsString().c_str());
-    steps[i*2] = segmentInfo;
+    steps[i * 2] = segmentInfo;
 
-    if (i < numPoints-2) {
+    if (i < numPoints - 2) {
       MWMRouterTransitStepInfo* stopInfo = [[MWMRouterTransitStepInfo alloc] init];
       stopInfo.type = MWMRouterTransitTypeIntermediatePoint;
       stopInfo.intermediateIndex = i;
-      steps[i*2+1] = stopInfo;
+      steps[i * 2 + 1] = stopInfo;
     }
   }
 
@@ -193,7 +194,7 @@ NSArray<MWMRouterTransitStepInfo *> *buildRouteTransitSteps(NSArray<MWMRoutePoin
   }
 
   if (auto entity = self.entity) {
-    BOOL showEta = (type != MWMRouterTypeRuler);
+    BOOL const showEta = (type != MWMRouterTypeRuler);
     
     entity.isValid = YES;
     entity.timeToTarget = info.m_time;
