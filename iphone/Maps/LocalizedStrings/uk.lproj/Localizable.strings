@@ -1017,13 +1017,13 @@
 
 "driving_options_title" = "Налаштування об’їзду";
 
-"avoid_tolls" = "Уникайте платних доріг";
+"avoid_tolls" = "Уникати платних доріг";
 
-"avoid_unpaved" = "Уникайте ґрунтових доріг";
+"avoid_unpaved" = "Уникати ґрунтових доріг";
 
-"avoid_ferry" = "Уникайте поромних переправ";
+"avoid_ferry" = "Уникати поромних переправ";
 
-"avoid_motorways" = "Уникайте автострад";
+"avoid_motorways" = "Уникати автострад";
 
 "unable_to_calc_alert_title" = "Неможливо побудувати маршрут";
 

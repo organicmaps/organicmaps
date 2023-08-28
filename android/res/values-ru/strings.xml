@@ -653,10 +653,10 @@
 	<string name="enable_logging_warning_message">Данная настройка включается для записи действий в целях диагностики, чтобы помочь нашей команде выявить проблемы с приложением. Временно включайте эту настройку только для отправки детальной информации о найденной вами проблеме в приложении.</string>
 	<string name="access_rules_author_only">Редактируется онлайн</string>
 	<string name="driving_options_title">Настройки объезда</string>
-	<string name="avoid_tolls">Избегайте платных дорог</string>
-	<string name="avoid_unpaved">Избегайте грунтовых дорог</string>
-	<string name="avoid_ferry">Избегайте паромных переправ</string>
-	<string name="avoid_motorways">Избегайте автомагистралей</string>
+	<string name="avoid_tolls">Избегать платных дорог</string>
+	<string name="avoid_unpaved">Избегать грунтовых дорог</string>
+	<string name="avoid_ferry">Избегать паромных переправ</string>
+	<string name="avoid_motorways">Избегать автомагистралей</string>
 	<string name="unable_to_calc_alert_title">Невозможно построить маршрут</string>
 	<string name="unable_to_calc_alert_subtitle">К сожалению, мы не смогли построить маршрут с выбранными опциями. Измените настройки и повторите попытку</string>
 	<string name="define_to_avoid_btn">Настроить пути объезда</string>
