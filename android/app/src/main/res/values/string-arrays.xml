@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string-array name="app_tips">
+    <item>@string/app_tip_00</item>
+  </string-array>
+
   <string-array name="measument_units">
     <item>@string/kilometres</item>
     <item>@string/miles</item>

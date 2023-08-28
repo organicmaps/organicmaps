@@ -186,7 +186,7 @@ public enum TtsPlayer implements Initializable<Context>
     return (INSTANCE.mTts != null && !INSTANCE.mUnavailable && !INSTANCE.mInitializing);
   }
 
-  private void speak(String textToSpeak)
+  public void speak(String textToSpeak)
   {
     if (Config.isTtsEnabled())
       try
