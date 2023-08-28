@@ -124,7 +124,7 @@ bool RulerRouter::FindClosestProjectionToRoad(m2::PointD const & point,
                                               m2::PointD const & direction, double radius,
                                               EdgeProj & proj)
 {
-  //TODO
+  // Ruler router has no connection to road graph.
   return false;
 }
 

@@ -221,7 +221,7 @@ RoadWarningMarkType GetRoadType(RoutingOptions::Road road)
 }
 
 drape_ptr<df::Subroute> CreateDrapeSubroute(vector<RouteSegment> const & segments, m2::PointD const & startPt,
-                                            double baseDistance, double baseDepth, bool isTransit, bool isRuler)
+                                            double baseDistance, double baseDepth, routing::RouterType routerType)
 {
   auto subroute = make_unique_dp<df::Subroute>();
   subroute->m_baseDistance = baseDistance;
@@ -229,7 +229,7 @@ drape_ptr<df::Subroute> CreateDrapeSubroute(vector<RouteSegment> const & segment
 
   auto constexpr kBias = 1.0;
 
-  if (isTransit)
+  if (routerType == RouterType::Transit)
   {
     subroute->m_headFakeDistance = -kBias;
     subroute->m_tailFakeDistance = kBias;
@@ -249,7 +249,7 @@ drape_ptr<df::Subroute> CreateDrapeSubroute(vector<RouteSegment> const & segment
     return nullptr;
   }
 
-  if (isRuler)
+  if (routerType == RouterType::Ruler)
   {
     auto const subrouteLen = segments.back().GetDistFromBeginningMerc() - baseDistance;
     subroute->m_headFakeDistance = -kBias;
@@ -667,7 +667,6 @@ bool RoutingManager::InsertRoute(Route const & route)
   RoadWarningsCollection roadWarnings;
 
   bool const isTransitRoute = (m_currentRouterType == RouterType::Transit);
-  bool const isRulerRoute = (m_currentRouterType == RouterType::Ruler);
   shared_ptr<TransitRouteDisplay> transitRouteDisplay;
   if (isTransitRoute)
   {
@@ -686,7 +685,7 @@ bool RoutingManager::InsertRoute(Route const & route)
     auto const startPt = route.GetSubrouteAttrs(subrouteIndex).GetStart().GetPoint();
     auto subroute = CreateDrapeSubroute(segments, startPt, distance,
                                         static_cast<double>(subroutesCount - subrouteIndex - 1),
-                                        isTransitRoute, isRulerRoute);
+                                        m_currentRouterType);
     if (!subroute)
       continue;
     distance = segments.back().GetDistFromBeginningMerc();
