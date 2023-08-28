@@ -137,19 +137,23 @@
         app:singleLineTitle="false"
         android:order="2"/>
       <Preference
+        android:key="@string/pref_tts_test_voice"
+        android:title="@string/pref_tts_test_voice_title"
+        android:order="3"/>
+      <Preference
         android:key="@string/pref_tts_info"
         android:selectable="false"
         android:persistent="false"
         android:enabled="false"
         android:summary="@string/prefs_languages_information"
-        android:order="3"/>
+        android:order="4"/>
       <Preference
         android:key="@string/pref_tts_info_link"
         android:selectable="true"
         android:persistent="false"
         android:enabled="true"
         android:summary="@string/prefs_languages_information_off_link"
-        android:order="4"/>
+        android:order="5"/>
     </androidx.preference.PreferenceScreen>
     <ListPreference
       android:key="@string/pref_speed_cameras"
