@@ -85,7 +85,7 @@ Engine::Engine(DataSource & dataSource, CategoriesHolder const & categories,
   : m_shutdown(false)
 {
   InitSuggestions doInit;
-  categories.ForEachName(bind<void>(ref(doInit), placeholders::_1));
+  categories.ForEachName(doInit);
   doInit.GetSuggests(m_suggests);
 
   m_contexts.resize(params.m_numThreads);

@@ -151,7 +151,7 @@ void Editor::SetDefaultStorage() { m_storage = std::make_unique<editor::LocalSto
 
 void Editor::LoadEdits()
 {
-  CHECK_THREAD_CHECKER(MainThreadChecker, (""));
+  CHECK_THREAD_CHECKER(MainThreadChecker, ());
   if (!m_delegate)
   {
     LOG(LERROR, ("Can't load any map edits, delegate has not been set."));

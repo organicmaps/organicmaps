@@ -52,7 +52,6 @@
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
-#include "coding/endianness.hpp"
 #include "coding/point_coding.hpp"
 #include "coding/string_utf8_multilang.hpp"
 #include "coding/transliteration.hpp"
@@ -296,8 +295,6 @@ Framework::Framework(FrameworkParams const & params)
   , m_popularityLoader(m_featuresFetcher.GetDataSource(), POPULARITY_RANKS_FILE_TAG)
   , m_descriptionsLoader(std::make_unique<descriptions::Loader>(m_featuresFetcher.GetDataSource()))
 {
-  CHECK(IsLittleEndian(), ("Only little-endian architectures are supported."));
-
   // Editor should be initialized from the main thread to set its ThreadChecker.
   // However, search calls editor upon initialization thus setting the lazy editor's ThreadChecker
   // to a wrong thread. So editor should be initialiazed before serach.
