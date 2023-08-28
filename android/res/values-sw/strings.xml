@@ -251,6 +251,9 @@
 	<string name="type.amenity">Kistawishi</string>
 	<string name="type.amenity.arts_centre">Kituo cha sanaa</string>
 	<string name="type.amenity.bicycle_repair_station">Cykelreparationsstation</string>
+	<string name="type.amenity.gambling">Kamari</string>
+	<string name="type.leisure.adult_gaming_centre">Kituo cha Michezo ya Watu Wazima</string>
+	<string name="type.leisure.amusement_arcade">Ukumbi wa michezo</string>
 	<string name="type.amenity.charging_station.bicycle">Kituo cha Kuchaji Baiskeli</string>
 	<string name="type.amenity.charging_station.motorcar">Kituo cha Kuchaji Magari</string>
 	<string name="type.leisure.bowling_alley">Njia ya Bowling</string>
@@ -268,7 +271,9 @@
 	<string name="type.amenity.parking.private">Maegesho ya Kibinafsi</string>
 	<string name="type.amenity.parking.underground">Maegesho ya chini ya ardhi</string>
 	<string name="type.amenity.parking.street_side">Maegesho</string>
+	<string name="type.amenity.parking.fee.street_side">Maegesho</string>
 	<string name="type.amenity.parking.lane">Maegesho</string>
+	<string name="type.amenity.parking.fee.lane">Maegesho</string>
 	<string name="type.amenity.parking_entrance">Mlango wa maegesho</string>
 	<string name="type.amenity.parking_entrance.private">Mlango wa maegesho</string>
 	<string name="type.amenity.parking_entrance.permissive">Mlango wa maegesho</string>
@@ -277,6 +282,7 @@
 	<string name="type.amenity.parking_space.private">Sehemu ya maegesho</string>
 	<string name="type.amenity.parking_space.underground">Sehemu ya maegesho</string>
 	<string name="type.amenity.parking_space.disabled">Nafasi ya maegesho iliyozimwa</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Kanisa la Yesu Kristo la Watakatifu wa Siku za Mwisho</string>
 	<string name="type.amenity.post_office">Ofisi ya posta</string>
 
 	<!-- SECTION: Types: Recycling -->

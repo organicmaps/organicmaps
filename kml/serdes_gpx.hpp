@@ -1,19 +1,14 @@
 #pragma once
 
 #include "kml/types.hpp"
-#include "kml/serdes_common.hpp"
 
 #include "coding/parse_xml.hpp"
 #include "coding/reader.hpp"
-#include "coding/writer.hpp"
 
-#include "geometry/point2d.hpp"
 #include "geometry/point_with_altitude.hpp"
 
 #include "base/exception.hpp"
-#include "base/stl_helpers.hpp"
 
-#include <chrono>
 #include <string>
 
 namespace kml
@@ -43,7 +38,7 @@ private:
   void ParseColor(std::string const & value);
   void ParseGarminColor(std::string const & value);
   void ParseOsmandColor(std::string const & value);
-  bool IsValidCoordinatesPosition();
+  bool IsValidCoordinatesPosition() const;
 
   FileData & m_data;
   CategoryData m_compilationData;
@@ -67,11 +62,10 @@ private:
 
   MultiGeometry::LineT m_line;
   std::string m_customName;
-  std::vector<TrackLayer> m_trackLayers;
   void ParseName(std::string const & value, std::string const & prevTag);
   void ParseDescription(std::string const & value, std::string const & prevTag);
   void ParseAltitude(std::string const & value);
-  std::string BuildDescription();
+  std::string BuildDescription() const;
 };
 }  // namespace gpx
 

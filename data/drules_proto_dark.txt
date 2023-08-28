@@ -5329,6 +5329,60 @@ cont {
   }
 }
 cont {
+  name: "amenity-gambling"
+  element {
+    scale: 17
+    symbol {
+      name: "gambling-m"
+      priority: 1250
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "gambling-m"
+      priority: 1250
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "gambling-m"
+      priority: 1250
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+}
+cont {
   name: "amenity-grave_yard"
   element {
     scale: 14
@@ -6421,30 +6475,112 @@ cont {
   }
 }
 cont {
-  name: "amenity-parking-lane"
-  element {
-    scale: 15
-    area {
-      color: 2038555
-      priority: -1900
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 2038555
-      priority: -1900
-    }
-  }
+  name: "amenity-parking-fee-lane"
   element {
     scale: 17
     area {
       color: 2038555
       priority: -1900
     }
+  }
+  element {
+    scale: 18
+    area {
+      color: 2038555
+      priority: -1900
+    }
     symbol {
-      name: "parking-s"
+      name: "parking_pay-s"
       priority: 150
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 2038555
+      priority: -1900
+    }
+    symbol {
+      name: "parking_pay-s"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+}
+cont {
+  name: "amenity-parking-fee-street_side"
+  element {
+    scale: 17
+    area {
+      color: 2038555
+      priority: -1900
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 2038555
+      priority: -1900
+    }
+    symbol {
+      name: "parking_pay-s"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 2038555
+      priority: -1900
+    }
+    symbol {
+      name: "parking_pay-s"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+}
+cont {
+  name: "amenity-parking-lane"
+  element {
+    scale: 17
+    area {
+      color: 2038555
+      priority: -1900
     }
   }
   element {
@@ -6795,20 +6931,6 @@ cont {
 cont {
   name: "amenity-parking-private"
   element {
-    scale: 15
-    area {
-      color: 2038555
-      priority: -1900
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 2038555
-      priority: -1900
-    }
-  }
-  element {
     scale: 17
     area {
       color: 2038555
@@ -6859,28 +6981,10 @@ cont {
 cont {
   name: "amenity-parking-street_side"
   element {
-    scale: 15
-    area {
-      color: 2038555
-      priority: -1900
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 2038555
-      priority: -1900
-    }
-  }
-  element {
     scale: 17
     area {
       color: 2038555
       priority: -1900
-    }
-    symbol {
-      name: "parking-s"
-      priority: 150
     }
   }
   element {
@@ -6927,44 +7031,25 @@ cont {
 cont {
   name: "amenity-parking-underground"
   element {
-    scale: 15
-    area {
-      color: 2038555
-      priority: -1900
-    }
-  }
-  element {
     scale: 16
-    area {
-      color: 2038555
-      priority: -1900
-    }
     symbol {
-      name: "parking-s"
+      name: "parking_underground-m"
       priority: 300
       min_distance: 5
     }
   }
   element {
     scale: 17
-    area {
-      color: 2038555
-      priority: -1900
-    }
     symbol {
-      name: "parking-m"
+      name: "parking_underground-m"
       priority: 300
       min_distance: 10
     }
   }
   element {
     scale: 18
-    area {
-      color: 2038555
-      priority: -1900
-    }
     symbol {
-      name: "parking-m"
+      name: "parking_underground-m"
       priority: 300
       min_distance: 10
     }
@@ -6980,12 +7065,8 @@ cont {
   }
   element {
     scale: 19
-    area {
-      color: 2038555
-      priority: -1900
-    }
     symbol {
-      name: "parking-m"
+      name: "parking_underground-m"
       priority: 300
       min_distance: 10
     }
@@ -7610,6 +7691,123 @@ cont {
     }
     symbol {
       name: "christian-m"
+      priority: 4900
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -5100
+    }
+  }
+}
+cont {
+  name: "amenity-place_of_worship-christian-mormon"
+  element {
+    scale: 14
+    symbol {
+      name: "mormon-s"
+      priority: 4900
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -5100
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "mormon-m"
+      priority: 4900
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -5100
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 2499106
+    }
+    symbol {
+      name: "mormon-m"
+      priority: 4900
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -5100
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 2499106
+    }
+    symbol {
+      name: "mormon-m"
+      priority: 4900
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -5100
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 2499106
+    }
+    symbol {
+      name: "mormon-m"
+      priority: 4900
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -5100
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 2499106
+    }
+    symbol {
+      name: "mormon-m"
       priority: 4900
       min_distance: 10
     }
@@ -8508,14 +8706,35 @@ cont {
 cont {
   name: "amenity-public_bookcase"
   element {
-    scale: 19
+    scale: 18
+    symbol {
+      name: "bookcase-m"
+      priority: 450
+    }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 5592405
         offset_y: 1
+        is_optional: true
       }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "bookcase-m"
       priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
     }
   }
 }
@@ -14708,22 +14927,6 @@ cont {
 cont {
   name: "emergency-fire_hydrant"
   element {
-    scale: 18
-    symbol {
-      name: "firehydrant-m"
-      priority: -9990
-    }
-    caption {
-      primary {
-        height: 11
-        color: 5592405
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -10000
-    }
-  }
-  element {
     scale: 19
     symbol {
       name: "firehydrant-m"
@@ -15521,6 +15724,12 @@ cont {
   element {
     scale: 15
     lines {
+      width: 3.8
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
       width: 1.4
       color: 2828327
       dashdot {
@@ -15542,6 +15751,12 @@ cont {
   element {
     scale: 16
     lines {
+      width: 4.6
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
       width: 1.8
       color: 2828327
       dashdot {
@@ -15561,6 +15776,18 @@ cont {
   }
   element {
     scale: 17
+    lines {
+      width: 6.0
+      color: 5263440
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 5.0
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
     lines {
       width: 2.0
       color: 2828327
@@ -15582,6 +15809,18 @@ cont {
   element {
     scale: 18
     lines {
+      width: 8.0
+      color: 5263440
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 7.0
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
       width: 3.0
       color: 2828327
       dashdot {
@@ -15601,6 +15840,18 @@ cont {
   }
   element {
     scale: 19
+    lines {
+      width: 10.0
+      color: 5263440
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 9.0
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
     lines {
       width: 4.0
       color: 2828327
@@ -15804,6 +16055,22 @@ cont {
       }
       priority: 170
     }
+    lines {
+      width: 5.0
+      color: 2894874
+      priority: 50
+      cap: BUTTCAP
+    }
+    lines {
+      width: 6.0
+      color: 5263440
+      dashdot {
+        dd: 2.0
+        dd: 2.0
+      }
+      priority: 40
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 9
@@ -15824,6 +16091,22 @@ cont {
       }
       priority: 170
     }
+    lines {
+      width: 7.0
+      color: 2894874
+      priority: 50
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.0
+      color: 5263440
+      dashdot {
+        dd: 2.0
+        dd: 2.0
+      }
+      priority: 40
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 10
@@ -15843,6 +16126,22 @@ cont {
         dd: 3.6
       }
       priority: 170
+    }
+    lines {
+      width: 9.0
+      color: 2894874
+      priority: 50
+      cap: BUTTCAP
+    }
+    lines {
+      width: 10.0
+      color: 5263440
+      dashdot {
+        dd: 2.0
+        dd: 2.0
+      }
+      priority: 40
+      cap: BUTTCAP
     }
     path_text {
       primary {
@@ -16422,6 +16721,12 @@ cont {
   element {
     scale: 15
     lines {
+      width: 3.8
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
       width: 1.4
       color: 7224647
       priority: 330
@@ -16439,6 +16744,12 @@ cont {
   element {
     scale: 16
     lines {
+      width: 4.2
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
       width: 1.6
       color: 7224647
       priority: 330
@@ -16454,6 +16765,18 @@ cont {
   }
   element {
     scale: 17
+    lines {
+      width: 6.6
+      color: 5263440
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 5.6
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
     lines {
       width: 1.8
       color: 7224647
@@ -16471,6 +16794,18 @@ cont {
   element {
     scale: 18
     lines {
+      width: 9.0
+      color: 5263440
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.0
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
       width: 2.0
       color: 7224647
       priority: 330
@@ -16486,6 +16821,18 @@ cont {
   }
   element {
     scale: 19
+    lines {
+      width: 10.4
+      color: 5263440
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 9.4
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
     lines {
       width: 2.2
       color: 7224647
@@ -16663,6 +17010,22 @@ cont {
       color: 7224647
       priority: 330
     }
+    lines {
+      width: 5.6
+      color: 2894874
+      priority: 50
+      cap: BUTTCAP
+    }
+    lines {
+      width: 6.6
+      color: 5263440
+      dashdot {
+        dd: 2.0
+        dd: 2.0
+      }
+      priority: 40
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 9
@@ -16679,6 +17042,22 @@ cont {
       color: 7224647
       priority: 330
     }
+    lines {
+      width: 8.0
+      color: 2894874
+      priority: 50
+      cap: BUTTCAP
+    }
+    lines {
+      width: 9.0
+      color: 5263440
+      dashdot {
+        dd: 2.0
+        dd: 2.0
+      }
+      priority: 40
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 10
@@ -16694,6 +17073,22 @@ cont {
       width: 2.2
       color: 7224647
       priority: 330
+    }
+    lines {
+      width: 9.4
+      color: 2894874
+      priority: 50
+      cap: BUTTCAP
+    }
+    lines {
+      width: 10.4
+      color: 5263440
+      dashdot {
+        dd: 2.0
+        dd: 2.0
+      }
+      priority: 40
+      cap: BUTTCAP
     }
     path_text {
       primary {
@@ -17086,6 +17481,12 @@ cont {
   element {
     scale: 15
     lines {
+      width: 4.0
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
       width: 1.5
       color: 4933187
       dashdot {
@@ -17107,6 +17508,12 @@ cont {
   element {
     scale: 16
     lines {
+      width: 5.0
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
       width: 2.0
       color: 4933187
       dashdot {
@@ -17126,6 +17533,18 @@ cont {
   }
   element {
     scale: 17
+    lines {
+      width: 6.8
+      color: 5263440
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 5.8
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
     lines {
       width: 2.4
       color: 4933187
@@ -17147,6 +17566,18 @@ cont {
   element {
     scale: 18
     lines {
+      width: 8.8
+      color: 5263440
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 7.8
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
       width: 3.4
       color: 4933187
       dashdot {
@@ -17166,6 +17597,18 @@ cont {
   }
   element {
     scale: 19
+    lines {
+      width: 11.0
+      color: 5263440
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 10.0
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
     lines {
       width: 4.5
       color: 4933187
@@ -20820,6 +21263,12 @@ cont {
   element {
     scale: 15
     lines {
+      width: 3.2
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
       width: 1.1
       color: 9718290
       dashdot {
@@ -20841,6 +21290,12 @@ cont {
   element {
     scale: 16
     lines {
+      width: 4.0
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
       width: 1.5
       color: 9718290
       dashdot {
@@ -20860,6 +21315,18 @@ cont {
   }
   element {
     scale: 17
+    lines {
+      width: 6.0
+      color: 5263440
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 5.0
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
     lines {
       width: 2.0
       color: 9718290
@@ -20881,6 +21348,18 @@ cont {
   element {
     scale: 18
     lines {
+      width: 8.0
+      color: 5263440
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 7.0
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
       width: 3.0
       color: 9718290
       dashdot {
@@ -20900,6 +21379,18 @@ cont {
   }
   element {
     scale: 19
+    lines {
+      width: 10.0
+      color: 5263440
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 9.0
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
     lines {
       width: 4.0
       color: 9718290
@@ -27496,6 +27987,12 @@ cont {
   element {
     scale: 15
     lines {
+      width: 0.4
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
       width: 2.2
       color: 4933187
       dashdot {
@@ -27508,6 +28005,12 @@ cont {
   }
   element {
     scale: 16
+    lines {
+      width: 4.0
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
     lines {
       width: 4.0
       color: 4933187
@@ -27529,6 +28032,18 @@ cont {
   element {
     scale: 17
     lines {
+      width: 8.0
+      color: 5263440
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 7.0
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
       width: 6.0
       color: 4933187
       dashdot {
@@ -27549,6 +28064,18 @@ cont {
   element {
     scale: 18
     lines {
+      width: 11.0
+      color: 5263440
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 10.0
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
       width: 8.0
       color: 4933187
       dashdot {
@@ -27568,6 +28095,18 @@ cont {
   }
   element {
     scale: 19
+    lines {
+      width: 14.0
+      color: 5263440
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 13.0
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
     lines {
       width: 10.0
       color: 4933187
@@ -28910,6 +29449,12 @@ cont {
   element {
     scale: 15
     lines {
+      width: 3.8
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
       width: 1.4
       color: 6247213
       dashdot {
@@ -28931,6 +29476,12 @@ cont {
   element {
     scale: 16
     lines {
+      width: 4.8
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
       width: 1.9
       color: 6247213
       dashdot {
@@ -28950,6 +29501,18 @@ cont {
   }
   element {
     scale: 17
+    lines {
+      width: 7.0
+      color: 5263440
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 6.0
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
     lines {
       width: 2.5
       color: 6247213
@@ -28971,6 +29534,18 @@ cont {
   element {
     scale: 18
     lines {
+      width: 9.0
+      color: 5263440
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.0
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
       width: 3.5
       color: 6247213
       dashdot {
@@ -28990,6 +29565,18 @@ cont {
   }
   element {
     scale: 19
+    lines {
+      width: 11.0
+      color: 5263440
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 10.0
+      color: 2894874
+      priority: 150
+      cap: BUTTCAP
+    }
     lines {
       width: 4.5
       color: 6247213
@@ -29895,6 +30482,22 @@ cont {
       }
       priority: 180
     }
+    lines {
+      width: 6.0
+      color: 2894874
+      priority: 50
+      cap: BUTTCAP
+    }
+    lines {
+      width: 7.0
+      color: 5263440
+      dashdot {
+        dd: 2.0
+        dd: 2.0
+      }
+      priority: 40
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 9
@@ -29915,6 +30518,22 @@ cont {
       }
       priority: 180
     }
+    lines {
+      width: 8.0
+      color: 2894874
+      priority: 50
+      cap: BUTTCAP
+    }
+    lines {
+      width: 9.0
+      color: 5263440
+      dashdot {
+        dd: 2.0
+        dd: 2.0
+      }
+      priority: 40
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 10
@@ -29934,6 +30553,22 @@ cont {
         dd: 3.5
       }
       priority: 180
+    }
+    lines {
+      width: 10.0
+      color: 2894874
+      priority: 50
+      cap: BUTTCAP
+    }
+    lines {
+      width: 11.0
+      color: 5263440
+      dashdot {
+        dd: 2.0
+        dd: 2.0
+      }
+      priority: 40
+      cap: BUTTCAP
     }
     path_text {
       primary {
@@ -39858,6 +40493,114 @@ cont {
         color: 5592405
       }
       priority: 3250
+    }
+  }
+}
+cont {
+  name: "leisure-adult_gaming_centre"
+  element {
+    scale: 17
+    symbol {
+      name: "slots-m"
+      priority: 1250
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "slots-m"
+      priority: 1250
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "slots-m"
+      priority: 1250
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+}
+cont {
+  name: "leisure-amusement_arcade"
+  element {
+    scale: 17
+    symbol {
+      name: "arcade-m"
+      priority: 1250
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "arcade-m"
+      priority: 1250
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "arcade-m"
+      priority: 1250
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
     }
   }
 }
@@ -91689,7 +92432,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "bookmaker-m"
+      name: "lottery-m"
       priority: 2400
       min_distance: 10
     }
@@ -91706,7 +92449,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "bookmaker-m"
+      name: "lottery-m"
       priority: 2400
       min_distance: 24
     }
@@ -91723,7 +92466,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "bookmaker-m"
+      name: "lottery-m"
       priority: 2400
       min_distance: 24
     }
@@ -91740,7 +92483,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "bookmaker-m"
+      name: "lottery-m"
       priority: 2400
       min_distance: 24
     }
@@ -95293,9 +96036,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-m"
+      name: "lottery-m"
       priority: 500
-      min_distance: 10
+      min_distance: 20
     }
     caption {
       primary {
@@ -95310,9 +96053,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-m"
+      name: "lottery-m"
       priority: 500
-      min_distance: 10
+      min_distance: 20
     }
     caption {
       primary {

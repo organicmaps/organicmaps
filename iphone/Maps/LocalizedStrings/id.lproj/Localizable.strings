@@ -1323,6 +1323,12 @@
 
 "type.amenity.casino" = "Hiburan";
 
+"type.amenity.gambling" = "Berjudi";
+
+"type.leisure.adult_gaming_centre" = "Pusat Permainan Dewasa";
+
+"type.leisure.amusement_arcade" = "Arkade";
+
 "type.amenity.charging_station" = "Pusat Pengisian Daya";
 
 "type.amenity.charging_station.bicycle" = "Stasiun Pengisian Sepeda";
@@ -1421,7 +1427,11 @@
 
 "type.amenity.parking.street_side" = "Parkir";
 
+"type.amenity.parking.fee.street_side" = "Parkir";
+
 "type.amenity.parking.lane" = "Parkir";
+
+"type.amenity.parking.fee.lane" = "Parkir";
 
 "type.amenity.parking_entrance" = "Pintu masuk parkir";
 
@@ -1448,6 +1458,8 @@
 "type.amenity.place_of_worship.buddhist" = "Kuil";
 
 "type.amenity.place_of_worship.christian" = "Gereja";
+
+"type.amenity.place_of_worship.christian.mormon" = "Gereja Yesus Kristus dari Orang-Orang Suci Zaman Akhir";
 
 "type.amenity.place_of_worship.hindu" = "Kuil";
 

@@ -719,6 +719,9 @@
 	<string name="type.amenity.car_rental">مکان اجاره ماشین</string>
 	<string name="type.amenity.car_wash">کارواش</string>
 	<string name="type.amenity.casino">قمارخانه</string>
+	<string name="type.amenity.gambling">قمار</string>
+	<string name="type.leisure.adult_gaming_centre">مرکز بازی بزرگسالان</string>
+	<string name="type.leisure.amusement_arcade">گذرگاه طاقدار</string>
 	<string name="type.amenity.charging_station">ایستگاه شارژ</string>
 	<string name="type.amenity.charging_station.bicycle">ایستگاه شارژ دوچرخه</string>
 	<string name="type.amenity.charging_station.motorcar">ایستگاه شارژ موتور</string>
@@ -768,7 +771,9 @@
 	<string name="type.amenity.parking.park_and_ride">پارکینگ</string>
 	<string name="type.amenity.parking.underground">ﯽﻨﯿﻣﺯ ﺮﯾﺯ ﮓﻨﯿﮐﺭﺎﭘ</string>
 	<string name="type.amenity.parking.street_side">پارکینگ</string>
+	<string name="type.amenity.parking.fee.street_side">پارکینگ</string>
 	<string name="type.amenity.parking.lane">پارکینگ</string>
+	<string name="type.amenity.parking.fee.lane">پارکینگ</string>
 	<string name="type.amenity.parking_entrance">ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ</string>
 	<string name="type.amenity.parking_entrance.private">ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ</string>
 	<string name="type.amenity.parking_entrance.permissive">ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ</string>
@@ -782,6 +787,7 @@
 	<string name="type.amenity.place_of_worship">گردشگری</string>
 	<string name="type.amenity.place_of_worship.buddhist">گردشگری</string>
 	<string name="type.amenity.place_of_worship.christian">گردشگری</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">کلیسای عیسی مسیح مقدسین آخرالزمان</string>
 	<string name="type.amenity.place_of_worship.hindu">گردشگری</string>
 	<string name="type.amenity.place_of_worship.jewish">گردشگری</string>
 	<string name="type.amenity.place_of_worship.muslim">گردشگری</string>

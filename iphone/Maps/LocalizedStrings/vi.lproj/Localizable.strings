@@ -1323,6 +1323,12 @@
 
 "type.amenity.casino" = "Giải trí";
 
+"type.amenity.gambling" = "Bài bạc";
+
+"type.leisure.adult_gaming_centre" = "Trung tâm trò chơi dành cho người lớn";
+
+"type.leisure.amusement_arcade" = "Giải trí";
+
 "type.amenity.charging_station" = "Trạm Sạc điện";
 
 "type.amenity.charging_station.bicycle" = "Trạm sạc xe đạp";
@@ -1421,7 +1427,11 @@
 
 "type.amenity.parking.street_side" = "đỗ xe";
 
+"type.amenity.parking.fee.street_side" = "đỗ xe";
+
 "type.amenity.parking.lane" = "đỗ xe";
+
+"type.amenity.parking.fee.lane" = "đỗ xe";
 
 "type.amenity.parking_entrance" = "Lối vào bãi đậu xe";
 
@@ -1448,6 +1458,8 @@
 "type.amenity.place_of_worship.buddhist" = "Đền";
 
 "type.amenity.place_of_worship.christian" = "Chùa";
+
+"type.amenity.place_of_worship.christian.mormon" = "Nhà thờ Các Thánh hữu Ngày sau của Chúa Giêsu Kitô";
 
 "type.amenity.place_of_worship.hindu" = "Đền";
 

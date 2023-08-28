@@ -716,6 +716,9 @@
 	<string name="type.amenity.car_sharing">Berbagi mobil</string>
 	<string name="type.amenity.car_wash">Cuci Mobil</string>
 	<string name="type.amenity.casino">Hiburan</string>
+	<string name="type.amenity.gambling">Berjudi</string>
+	<string name="type.leisure.adult_gaming_centre">Pusat Permainan Dewasa</string>
+	<string name="type.leisure.amusement_arcade">Arkade</string>
 	<string name="type.amenity.charging_station">Pusat Pengisian Daya</string>
 	<string name="type.amenity.charging_station.bicycle">Stasiun Pengisian Sepeda</string>
 	<string name="type.amenity.charging_station.motorcar">Stasiun Pengisian Mobil</string>
@@ -765,7 +768,9 @@
 	<string name="type.amenity.parking.park_and_ride">Parkir</string>
 	<string name="type.amenity.parking.underground">Parkir bawah tanah</string>
 	<string name="type.amenity.parking.street_side">Parkir</string>
+	<string name="type.amenity.parking.fee.street_side">Parkir</string>
 	<string name="type.amenity.parking.lane">Parkir</string>
+	<string name="type.amenity.parking.fee.lane">Parkir</string>
 	<string name="type.amenity.parking_entrance">Pintu masuk parkir</string>
 	<string name="type.amenity.parking_entrance.private">Pintu masuk parkir</string>
 	<string name="type.amenity.parking_entrance.permissive">Pintu masuk parkir</string>
@@ -779,6 +784,7 @@
 	<string name="type.amenity.place_of_worship">Tempat ibadah</string>
 	<string name="type.amenity.place_of_worship.buddhist">Kuil</string>
 	<string name="type.amenity.place_of_worship.christian">Gereja</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Gereja Yesus Kristus dari Orang-Orang Suci Zaman Akhir</string>
 	<string name="type.amenity.place_of_worship.hindu">Kuil</string>
 	<string name="type.amenity.place_of_worship.jewish">Sinagoge</string>
 	<string name="type.amenity.place_of_worship.muslim">Masjid</string>

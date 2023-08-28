@@ -1323,6 +1323,12 @@
 
 "type.amenity.casino" = "คาสิโน";
 
+"type.amenity.gambling" = "การพนัน";
+
+"type.leisure.adult_gaming_centre" = "ศูนย์เกมสำหรับผู้ใหญ่";
+
+"type.leisure.amusement_arcade" = "อาเขต";
+
 "type.amenity.charging_station" = "สถานีชาร์จ";
 
 "type.amenity.charging_station.bicycle" = "สถานีชาร์จจักรยาน";
@@ -1421,7 +1427,11 @@
 
 "type.amenity.parking.street_side" = "ที่จอดรถ";
 
+"type.amenity.parking.fee.street_side" = "ที่จอดรถ";
+
 "type.amenity.parking.lane" = "ที่จอดรถ";
+
+"type.amenity.parking.fee.lane" = "ที่จอดรถ";
 
 "type.amenity.parking_entrance" = "ทางเข้าที่จอดรถ";
 
@@ -1448,6 +1458,8 @@
 "type.amenity.place_of_worship.buddhist" = "วัด";
 
 "type.amenity.place_of_worship.christian" = "โบสถ์";
+
+"type.amenity.place_of_worship.christian.mormon" = "โบสถ์พระเยซูคริสต์แห่งวิสุทธิชนยุคสุดท้าย";
 
 "type.amenity.place_of_worship.hindu" = "วัด";
 

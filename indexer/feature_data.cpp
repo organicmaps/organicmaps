@@ -141,6 +141,7 @@ private:
         {"earthquake:damage"},
         {"emergency"},  // used in subway facilities (Barcelona)
         {"landuse"},    // used together with more specific types like aerodrome
+        {"barrier"},    // for example - fence + school, but anyway barrier's names are useless
     };
 
     base::StringIL const types2[] = {

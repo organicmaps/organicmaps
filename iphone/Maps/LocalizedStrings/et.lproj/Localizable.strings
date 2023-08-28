@@ -1323,6 +1323,12 @@
 
 "type.amenity.casino" = "Kasiino";
 
+"type.amenity.gambling" = "Hasartmängud";
+
+"type.leisure.adult_gaming_centre" = "Täiskasvanute mängukeskus";
+
+"type.leisure.amusement_arcade" = "Arkaad";
+
 "type.amenity.charging_station" = "Laadimisjaam";
 
 "type.amenity.charging_station.bicycle" = "Jalgratta laadimisjaam";
@@ -1421,7 +1427,11 @@
 
 "type.amenity.parking.street_side" = "Parkimine";
 
+"type.amenity.parking.fee.street_side" = "Parkimine";
+
 "type.amenity.parking.lane" = "Parkimine";
+
+"type.amenity.parking.fee.lane" = "Parkimine";
 
 "type.amenity.parking_entrance" = "Parkla sissepääs";
 
@@ -1448,6 +1458,8 @@
 "type.amenity.place_of_worship.buddhist" = "Tempel";
 
 "type.amenity.place_of_worship.christian" = "Kirik";
+
+"type.amenity.place_of_worship.christian.mormon" = "Viimse Aja Pühade Jeesuse Kristuse kirik";
 
 "type.amenity.place_of_worship.hindu" = "Tempel";
 

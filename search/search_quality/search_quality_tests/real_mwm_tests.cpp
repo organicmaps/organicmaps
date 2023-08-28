@@ -97,6 +97,14 @@ public:
     }
   }
 
+  static size_t CountClassifType(Range const & results, uint32_t type)
+  {
+    return std::count_if(results.begin(), results.end(), [type](search::Result const & r)
+    {
+      return EqualClassifType(r.GetFeatureType(), type);
+    });
+  }
+
   static void NameStartsWith(Range const & results, base::StringIL const & prefixes)
   {
     for (auto const & r : results)
@@ -121,14 +129,15 @@ public:
   }
 
   /// @param[in] street, house May be empty.
-  static void HasAddress(Range const & results, std::string const & street, std::string const & house)
+  static void HasAddress(Range const & results, std::string const & street, std::string const & house,
+                         base::StringIL classifType = {"building"})
   {
-    auto const buildingType = classif().GetTypeByPath({"building"});
+    auto const type = classif().GetTypeByPath(classifType);
 
     bool found = false;
     for (auto const & r : results)
     {
-      if (r.GetResultType() == search::Result::Type::Feature && EqualClassifType(r.GetFeatureType(), buildingType))
+      if (r.GetResultType() == search::Result::Type::Feature && EqualClassifType(r.GetFeatureType(), type))
       {
         auto const & addr = r.GetAddress();
         if ((street.empty() || addr.find(street) != std::string::npos) &&
@@ -311,7 +320,13 @@ UNIT_CLASS_TEST(MwmTestsFixture, Hamburg_Park)
   TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
   Range const range(results, 0, 4);
-  EqualClassifType(range, GetClassifTypes({{"tourism"}, {"shop", "gift"}, {"amenity", "fast_food"}}));
+  EqualClassifType(range, GetClassifTypes({
+      {"tourism", "theme_park"},
+      {"amenity", "fast_food"},
+      {"shop", "gift"},
+      {"highway", "service"}
+  }));
+
   NameStartsWith(range, {"Heide Park", "Heide-Park"});
   double const dist = SortedByDistance(range, center);
   TEST_LESS(dist, 100000, ());
@@ -329,7 +344,10 @@ UNIT_CLASS_TEST(MwmTestsFixture, Barcelona_Carrers)
     auto const & results = request->Results();
     TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
-    Range const range(results, 0, 4);
+    // - First 2 streets in Barcelona (1-2 km)
+    // - Next streets in Badalona, Barbera, Sadabel, ... (20-30 km)
+    // - Again 2 _minor_ footways in Barcelona (1-2 km)
+    Range const range(results, 0, 2);
     EqualClassifType(range, GetClassifTypes({{"highway"}}));
     CenterInRect(range, {2.1651583, 41.3899995, 2.1863021, 41.4060494});
   }
@@ -467,6 +485,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, French_StopWord_Category)
 UNIT_CLASS_TEST(MwmTestsFixture, Street_BusStop)
 {
   // Buenos Aires
+  // Also should download Argentina_Santa Fe.
   ms::LatLon const center(-34.60655, -58.43566);
   SetViewportAndLoadMaps(center);
 
@@ -475,9 +494,10 @@ UNIT_CLASS_TEST(MwmTestsFixture, Street_BusStop)
     auto const & results = request->Results();
     TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
-    // Top results are Hotel and Street (sometimes bus stop).
+    // Top results are Hotel, Shop and Street.
+    // Full Match street (20 km) is better than Full Prefix bus stop (1 km).
     Range const range(results);
-    EqualClassifType(range, GetClassifTypes({{"tourism", "hotel"}, {"highway", "bus_stop"}, {"highway", "residential"}}));
+    EqualClassifType(range, GetClassifTypes({{"tourism", "hotel"}, {"shop"}, {"highway", "residential"}}));
   }
 
   {
@@ -776,6 +796,28 @@ UNIT_CLASS_TEST(MwmTestsFixture, ToiletAirport)
   }
 }
 
+UNIT_CLASS_TEST(MwmTestsFixture, WaterTap)
+{
+  // UK, Christchurch
+  ms::LatLon const center(50.744914, -1.787959);
+  SetViewportAndLoadMaps(center);
+
+  for (bool const isCategory : {false, true})
+  {
+    auto params = GetDefaultSearchParams("water tap ");
+    params.m_categorialRequest = isCategory;
+
+    auto request = MakeRequest(params);
+    auto const & results = request->Results();
+    TEST_GREATER_OR_EQUAL(results.size(), kTopPoiResultsCount, ());
+
+    Range const range(results);
+    EqualClassifType(range, GetClassifTypes({{"man_made", "water_tap"}}));
+    double const dist = SortedByDistance(range, center);
+    TEST_LESS(dist, 3500, ());
+  }
+}
+
 UNIT_CLASS_TEST(MwmTestsFixture, BA_LasHeras)
 {
   // Buenos Aires (Palermo)
@@ -796,4 +838,60 @@ UNIT_CLASS_TEST(MwmTestsFixture, BA_LasHeras)
   }
 }
 
+UNIT_CLASS_TEST(MwmTestsFixture, BA_SanMartin)
+{
+  // Buenos Aires (Palermo)
+  ms::LatLon const center(-34.5801392, -58.415764);
+  SetViewportAndLoadMaps(center);
+
+  {
+    auto request = MakeRequest("San Martin");
+    auto const & results = request->Results();
+    size_t constexpr kResultsCount = 12;
+    TEST_GREATER(results.size(), kResultsCount, ());
+    TEST_GREATER(CountClassifType(Range(results, 0, kResultsCount),
+                                  classif().GetTypeByPath({"railway", "station"})), 2, ());
+  }
+}
+
+UNIT_CLASS_TEST(MwmTestsFixture, Full_Address)
+{
+  {
+    // Krakow
+    ms::LatLon const center(50.061431, 19.9361584);
+    SetViewportAndLoadMaps(center);
+
+    auto request = MakeRequest("Sucha Beskidzka Armii Krajowej b-1 kozikowka  34-200 Poland");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+
+    HasAddress(Range(results, 0, 3), "Armii Krajowej", "B-1");
+    HasAddress(Range(results, 0, 3), "Armii Krajowej", "B-1A");
+  }
+
+  {
+    // Regensburg (DE)
+    ms::LatLon const center(49.0195332, 12.0974856);
+    SetViewportAndLoadMaps(center);
+
+    {
+      auto request = MakeRequest("Wörth an der Donau Gewerbepark A 1 93086 Germany");
+      auto const & results = request->Results();
+      TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+
+      HasAddress(Range(results, 0, 1), "Gewerbepark A", "A 1", {"shop", "car"});
+    }
+    {
+      auto request = MakeRequest("Wörth an der Donau Gewerbepark C 1 93086 Germany");
+      auto const & results = request->Results();
+      TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+
+      /// @todo There is a tricky neighborhood here, so ranking gets dumb :)
+      /// 1: "Gewerbepark A", "A 1" near "Gewerbepark C" st
+      /// 2: "Gewerbepark B", "1" near "Gewerbepark C" st
+      /// 3: "Gewerbepark C", "1"
+      HasAddress(Range(results, 0, 3), "Gewerbepark C", "1");
+    }
+  }
+}
 } // namespace real_mwm_tests

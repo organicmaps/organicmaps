@@ -556,7 +556,7 @@ node|z15-18[historic=memorial][memorial=stolperstein],
 area|z15-18[historic=memorial][memorial=stolperstein],
 node|z15-16[historic=memorial][memorial=cross],
 area|z15-16[historic=memorial][memorial=cross],
-{icon-image: ; text: none;}
+{icon-image: none; text: none;}
 
 node|z18-[historic=memorial][memorial=plaque],
 area|z18-[historic=memorial][memorial=plaque],
@@ -939,6 +939,12 @@ node|z17-[amenity=dentist],
 area|z17-[amenity=dentist],
 node|z17-[amenity=casino],
 area|z17-[amenity=casino],
+node|z17-[amenity=gambling],
+area|z17-[amenity=gambling],
+node|z17-[leisure=adult_gaming_centre],
+area|z17-[leisure=adult_gaming_centre],
+node|z17-[leisure=amusement_arcade],
+area|z17-[leisure=amusement_arcade],
 node|z17-[amenity=courthouse],
 area|z17-[amenity=courthouse],
 node|z17-[amenity=nursing_home],
@@ -987,8 +993,6 @@ node|z18-[amenity=vending_machine],
 area|z18-[amenity=vending_machine],
 node|z18-[amenity=post_box],
 area|z18-[amenity=post_box],
-node|z18-[emergency=fire_hydrant],
-area|z18-[emergency=fire_hydrant],
 node|z18-[amenity=fire_station],
 area|z18-[amenity=fire_station],
 node|z18-[emergency=defibrillator],
@@ -1009,6 +1013,8 @@ node|z18-[amenity=waste_disposal],
 area|z18-[amenity=waste_disposal],
 node|z18-[amenity=hunting_stand],
 area|z18-[amenity=hunting_stand],
+node|z18-[shop=lottery],
+area|z18-[shop=lottery],
 node|z18-[man_made=chimney],
 area|z18-[man_made=chimney],
 node|z18-[man_made=works],
@@ -1023,6 +1029,8 @@ node|z18-[amenity=brothel],
 area|z18-[amenity=brothel],
 node|z18-[amenity=stripclub],
 area|z18-[amenity=stripclub],
+node|z18-[amenity=public_bookcase],
+area|z18-[amenity=public_bookcase],
 node|z19-[power=substation],
 area|z19-[power=substation],
 node|z18-[tourism],
@@ -1033,6 +1041,7 @@ node|z18-[craft],
 area|z18-[craft],
 node|z19-[amenity],
 area|z19-[amenity],
+node|z19-[emergency=fire_hydrant],
 {text: name;text-color: @poi_label;text-offset: 1;font-size: 10;}
 
 /* POI */
@@ -1376,6 +1385,9 @@ area|z14[amenity=place_of_worship][religion=jewish]
 node|z14[amenity=place_of_worship][religion=taoist],
 area|z14[amenity=place_of_worship][religion=taoist]
 {icon-image: taoist-s.svg;text-offset: 1;icon-min-distance: 12;}
+node|z14-[amenity=place_of_worship][religion=christian][denomination=mormon],
+area|z14-[amenity=place_of_worship][religion=christian][denomination=mormon],
+{icon-image: mormon-s.svg;text-offset: 1;icon-min-distance: 12;}
 
 node|z15-[amenity=place_of_worship],
 area|z15-[amenity=place_of_worship]
@@ -1401,31 +1413,9 @@ area|z15-[amenity=place_of_worship][religion=jewish]
 node|z15-[amenity=place_of_worship][religion=taoist],
 area|z15-[amenity=place_of_worship][religion=taoist]
 {icon-image: taoist-m.svg;}
-
-node|z18-[amenity=place_of_worship],
-area|z18-[amenity=place_of_worship]
-{icon-image: place-of-worship-m.svg;icon-min-distance: 10;}
-node|z18-[amenity=place_of_worship][religion=christian],
-area|z18-[amenity=place_of_worship][religion=christian]
-{icon-image: christian-m.svg;}
-node|z18-[amenity=place_of_worship][religion=muslim],
-area|z18-[amenity=place_of_worship][religion=muslim]
-{icon-image: muslim-m.svg;}
-node|z18-[amenity=place_of_worship][religion=buddhist],
-area|z18-[amenity=place_of_worship][religion=buddhist]
-{icon-image: buddhist-m.svg;}
-node|z18-[amenity=place_of_worship][religion=hindu],
-area|z18-[amenity=place_of_worship][religion=hindu]
-{icon-image: hindu-m.svg;}
-node|z18-[amenity=place_of_worship][religion=shinto],
-area|z18-[amenity=place_of_worship][religion=shinto]
-{icon-image: shinto-m.svg;}
-node|z18-[amenity=place_of_worship][religion=jewish],
-area|z18-[amenity=place_of_worship][religion=jewish]
-{icon-image: jewish-m.svg;}
-node|z18-[amenity=place_of_worship][religion=taoist],
-area|z18-[amenity=place_of_worship][religion=taoist]
-{icon-image: taoist-m.svg;}
+node|z15-[amenity=place_of_worship][religion=christian][denomination=mormon],
+area|z15-[amenity=place_of_worship][religion=christian][denomination=mormon],
+{icon-image: mormon-m.svg;}
 
 /* 5.5 Others */
 
@@ -1539,6 +1529,18 @@ area|z17-[man_made=windmill]
 node|z17-[amenity=casino],
 area|z17-[amenity=casino]
 {icon-image: casino-m.svg;icon-min-distance: 20;}
+node|z17-[amenity=gambling],
+area|z17-[amenity=gambling],
+{icon-image: gambling-m.svg;icon-min-distance: 20;}
+node|z17-[leisure=adult_gaming_centre],
+area|z17-[leisure=adult_gaming_centre],
+{icon-image: slots-m.svg;icon-min-distance: 20;}
+node|z17-[leisure=amusement_arcade],
+area|z17-[leisure=amusement_arcade],
+{icon-image: arcade-m.svg;icon-min-distance: 20;}
+node|z18-[shop=lottery],
+area|z18-[shop=lottery],
+{icon-image: lottery-m.svg;icon-min-distance: 20;}
 
 node|z17-[amenity=courthouse],
 area|z17-[amenity=courthouse]
@@ -1608,8 +1610,7 @@ area|z18-[amenity=post_office],
 node|z18-[amenity=post_box],
 area|z18-[amenity=post_box],
 {icon-image: postbox-m.svg;font-size: 11;}
-node|z18-[emergency=fire_hydrant],
-area|z18-[emergency=fire_hydrant]
+node|z19-[emergency=fire_hydrant],
 {icon-image: firehydrant-m.svg;font-size: 11;}
 
 node|z18-[emergency=defibrillator],
@@ -1728,6 +1729,10 @@ area|z18-[amenity=bbq]
 
 node|z16-[man_made=survey_point]
 {icon-image: survey_point-m.svg;font-size: 11;}
+
+node|z18-[amenity=public_bookcase],
+area|z18-[amenity=public_bookcase]
+{icon-image: bookcase-m.svg;font-size: 11;}
 
 /* 6. SHOP */
 
@@ -1953,8 +1958,8 @@ node|z16[shop=auction],
 area|z16[shop=auction]
 {icon-image: auction-m.svg;}
 node|z16[shop=bookmaker],
-area|z16[shop=bookmaker]
-{icon-image: bookmaker-m.svg;}
+area|z16[shop=bookmaker],
+{icon-image: lottery-m.svg;}
 node|z16[shop=bakery],
 area|z16[shop=bakery],
 node|z16[shop=pastry],
@@ -2169,7 +2174,7 @@ area|z17-[shop=auction]
 {icon-image: auction-m.svg;icon-min-distance: 24;}
 node|z17-[shop=bookmaker],
 area|z17-[shop=bookmaker]
-{icon-image: bookmaker-m.svg;icon-min-distance: 24;}
+{icon-image: lottery-m.svg;icon-min-distance: 24;}
 node|z17-[shop=bakery],
 area|z17-[shop=bakery],
 node|z17-[shop=pastry],
@@ -2518,6 +2523,17 @@ node|z17-[amenity=parking],
 area|z17-[amenity=parking],
 {icon-image: parking-m.svg;font-size: 11;icon-min-distance: 10}
 
+node|z16-[amenity=parking][location=underground],
+area|z16-[amenity=parking][location=underground],
+{icon-image:parking_underground-m.svg;}
+
+node|z16-[amenity=parking][fee?],
+area|z16-[amenity=parking][fee?],
+{icon-image: parking_pay-s.svg;}
+node|z17-[amenity=parking][fee?],
+area|z17-[amenity=parking][fee?],
+{icon-image: parking_pay-m.svg;}
+
 /* no icon as these subtypes should display later */
 node|z16-[amenity=parking][access=private],
 area|z16-[amenity=parking][access=private],
@@ -2528,27 +2544,30 @@ area|z16-[amenity=parking][parking=lane],
 /* =no doesn't work in kothic */
 /* node|z16-[amenity=parking][access=no], */
 /* area|z16-[amenity=parking][access=no], */
-{icon-image: ;icon-min-distance: 0;}
+node|z16-[amenity=parking][parking=street_side][fee?],
+area|z16-[amenity=parking][parking=street_side][fee?],
+node|z16-[amenity=parking][parking=lane][fee?],
+area|z16-[amenity=parking][parking=lane][fee?],
+{icon-image: none; icon-min-distance: 0;}
 
-node|z16-[amenity=parking][fee?],
-area|z16-[amenity=parking][fee?],
-{icon-image: parking_pay-s.svg;}
-node|z17-[amenity=parking][fee?],
-area|z17-[amenity=parking][fee?],
-{icon-image: parking_pay-m.svg}
-
-node|z17-[amenity=parking][parking=street_side],
-area|z17-[amenity=parking][parking=street_side],
-node|z17-[amenity=parking][parking=lane],
-area|z17-[amenity=parking][parking=lane],
+node|z18-[amenity=parking][parking=street_side],
+area|z18-[amenity=parking][parking=street_side],
+node|z18-[amenity=parking][parking=lane],
+area|z18-[amenity=parking][parking=lane],
 {icon-image: parking-s.svg;}
+
+node|z18-[amenity=parking][parking=street_side][fee?],
+area|z18-[amenity=parking][parking=street_side][fee?],
+node|z18-[amenity=parking][parking=lane][fee?],
+area|z18-[amenity=parking][parking=lane][fee?],
+{icon-image: parking_pay-s.svg;}
 
 node|z17-[amenity=parking_entrance],
 area|z17-[amenity=parking_entrance],
 {icon-image: parking_entrance-m.svg;}
 node|z17-[amenity=parking_entrance][access=private],
 area|z17-[amenity=parking_entrance][access=private],
-{icon-image: ;text: none;}
+{icon-image: none; text: none;}
 
 node|z18-[amenity=parking][access=private],
 area|z18-[amenity=parking][access=private],

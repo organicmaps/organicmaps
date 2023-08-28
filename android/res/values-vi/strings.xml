@@ -716,6 +716,9 @@
 	<string name="type.amenity.car_sharing">Chia sẻ Xe</string>
 	<string name="type.amenity.car_wash">Rửa Xe</string>
 	<string name="type.amenity.casino">Giải trí</string>
+	<string name="type.amenity.gambling">Bài bạc</string>
+	<string name="type.leisure.adult_gaming_centre">Trung tâm trò chơi dành cho người lớn</string>
+	<string name="type.leisure.amusement_arcade">Giải trí</string>
 	<string name="type.amenity.charging_station">Trạm Sạc điện</string>
 	<string name="type.amenity.charging_station.bicycle">Trạm sạc xe đạp</string>
 	<string name="type.amenity.charging_station.motorcar">Trạm sạc xe máy</string>
@@ -765,7 +768,9 @@
 	<string name="type.amenity.parking.park_and_ride">đỗ xe</string>
 	<string name="type.amenity.parking.underground">Bãi đậu xe ngầm</string>
 	<string name="type.amenity.parking.street_side">đỗ xe</string>
+	<string name="type.amenity.parking.fee.street_side">đỗ xe</string>
 	<string name="type.amenity.parking.lane">đỗ xe</string>
+	<string name="type.amenity.parking.fee.lane">đỗ xe</string>
 	<string name="type.amenity.parking_entrance">Lối vào bãi đậu xe</string>
 	<string name="type.amenity.parking_entrance.private">Lối vào bãi đậu xe</string>
 	<string name="type.amenity.parking_entrance.permissive">Lối vào bãi đậu xe</string>
@@ -779,6 +784,7 @@
 	<string name="type.amenity.place_of_worship">Chùa</string>
 	<string name="type.amenity.place_of_worship.buddhist">Đền</string>
 	<string name="type.amenity.place_of_worship.christian">Chùa</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Nhà thờ Các Thánh hữu Ngày sau của Chúa Giêsu Kitô</string>
 	<string name="type.amenity.place_of_worship.hindu">Đền</string>
 	<string name="type.amenity.place_of_worship.jewish">Giáo đường Do Thái</string>
 	<string name="type.amenity.place_of_worship.muslim">Nhà thờ Hồi Giáo</string>

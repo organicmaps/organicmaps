@@ -776,6 +776,9 @@
 	<string name="type.amenity.car_sharing">Partekatu autoa</string>
 	<string name="type.amenity.car_wash">Kotxe garbiketa</string>
 	<string name="type.amenity.casino">Kasinoa</string>
+	<string name="type.amenity.gambling">Jokoa</string>
+	<string name="type.leisure.adult_gaming_centre">Helduen Joko Zentroa</string>
+	<string name="type.leisure.amusement_arcade">Arcade</string>
 	<string name="type.amenity.charging_station">Kargatzeko geltokia</string>
 	<string name="type.amenity.charging_station.bicycle">Bizikletak kargatzeko geltokia</string>
 	<string name="type.amenity.charging_station.motorcar">Autoak kargatzeko geltokia</string>
@@ -826,7 +829,9 @@
 	<string name="type.amenity.parking.park_and_ride">Aparkalekua</string>
 	<string name="type.amenity.parking.underground">Lurpeko Aparkalekua</string>
 	<string name="type.amenity.parking.street_side">Aparkalekua</string>
+	<string name="type.amenity.parking.fee.street_side">Aparkalekua</string>
 	<string name="type.amenity.parking.lane">Aparkalekua</string>
+	<string name="type.amenity.parking.fee.lane">Aparkalekua</string>
 	<string name="type.amenity.parking_entrance">Aparkalekuaren sarrera</string>
 	<string name="type.amenity.parking_entrance.private">Aparkalekuaren sarrera</string>
 	<string name="type.amenity.parking_entrance.permissive">Aparkalekuaren sarrera</string>
@@ -840,6 +845,7 @@
 	<string name="type.amenity.place_of_worship">Kultu lekua</string>
 	<string name="type.amenity.place_of_worship.buddhist">Tenplua</string>
 	<string name="type.amenity.place_of_worship.christian">Eliza</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Azken Eguneko Santuen Jesukristoren eliza</string>
 	<string name="type.amenity.place_of_worship.hindu">Tenplua</string>
 	<string name="type.amenity.place_of_worship.jewish">Sinagoga</string>
 	<string name="type.amenity.place_of_worship.muslim">Meskita</string>

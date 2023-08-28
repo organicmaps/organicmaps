@@ -738,6 +738,9 @@
 	<string name="type.amenity.car_sharing">Gépjármű megosztása</string>
 	<string name="type.amenity.car_wash">Autómosó</string>
 	<string name="type.amenity.casino">Kaszinó</string>
+	<string name="type.amenity.gambling">Szerencsejáték</string>
+	<string name="type.leisure.adult_gaming_centre">Felnőtt Játékközpont</string>
+	<string name="type.leisure.amusement_arcade">Árkád</string>
 	<string name="type.amenity.charging_station">Töltő állomás</string>
 	<string name="type.amenity.charging_station.bicycle">Kerékpártöltő állomás</string>
 	<string name="type.amenity.charging_station.motorcar">Autó töltőállomás</string>
@@ -787,7 +790,9 @@
 	<string name="type.amenity.parking.park_and_ride">Parkoló</string>
 	<string name="type.amenity.parking.underground">Mélygarázs</string>
 	<string name="type.amenity.parking.street_side">Parkoló</string>
+	<string name="type.amenity.parking.fee.street_side">Parkoló</string>
 	<string name="type.amenity.parking.lane">Parkoló</string>
+	<string name="type.amenity.parking.fee.lane">Parkoló</string>
 	<string name="type.amenity.parking_entrance">Parkoló bejárata</string>
 	<string name="type.amenity.parking_entrance.private">Parkoló bejárata</string>
 	<string name="type.amenity.parking_entrance.permissive">Parkoló bejárata</string>
@@ -801,6 +806,7 @@
 	<string name="type.amenity.place_of_worship">Templom</string>
 	<string name="type.amenity.place_of_worship.buddhist">Templom</string>
 	<string name="type.amenity.place_of_worship.christian">Templom</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Utolsó Napok Szentjeinek Jézus Krisztus Egyháza</string>
 	<string name="type.amenity.place_of_worship.hindu">Templom</string>
 	<string name="type.amenity.place_of_worship.jewish">Zsinagóga</string>
 	<string name="type.amenity.place_of_worship.muslim">Mecset</string>

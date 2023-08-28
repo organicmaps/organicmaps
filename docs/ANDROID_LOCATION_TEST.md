@@ -19,7 +19,7 @@ implementation on Android.
 
 - Disable Wi-Fi, disable Cellular Data, enable Location;
 - Get under a roof and away from the open sky and any windows;
-- Restart device, start the app, and wait 30 seconds until
+- Restart device, start the app, and wait 1 minute until
   "Continue detecting your current location?" appears;
 - Don't tap any buttons in the dialog - the search for a location
   should continue in the background until "Stop" is explicitly taped;

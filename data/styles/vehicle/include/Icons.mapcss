@@ -324,7 +324,7 @@ node|z15-[historic=memorial][memorial=stolperstein],
 area|z15-[historic=memorial][memorial=stolperstein],
 node|z15-16[historic=memorial][memorial=cross],
 area|z15-16[historic=memorial][memorial=cross],
-{icon-image: ; text: none;}
+{icon-image: none; text: none;}
 
 node|z17-[historic=memorial][memorial=cross],
 area|z17-[historic=memorial][memorial=cross],
@@ -592,6 +592,9 @@ area|z16-[amenity=place_of_worship][religion=buddhist]
 node|z16-[amenity=place_of_worship][religion=hindu],
 area|z16-[amenity=place_of_worship][religion=hindu]
 {icon-image: hindu-m.svg;font-size: 13;}
+node|z16-[amenity=place_of_worship][religion=christian][denomination=mormon],
+area|z16-[amenity=place_of_worship][religion=christian][denomination=mormon],
+{icon-image: mormon-m.svg;font-size: 13;}
 
 
 node|z18-[amenity=place_of_worship],
@@ -609,6 +612,9 @@ area|z18-[amenity=place_of_worship][religion=buddhist]
 node|z18-[amenity=place_of_worship][religion=hindu],
 area|z18-[amenity=place_of_worship][religion=hindu]
 {icon-image: hindu-m.svg;font-size: 14.5;}
+node|z18-[amenity=place_of_worship][religion=christian][denomination=mormon],
+area|z18-[amenity=place_of_worship][religion=christian][denomination=mormon],
+{icon-image: mormon-m.svg;font-size: 14.5;}
 
 
 /* 5.5 Others */
@@ -893,6 +899,10 @@ node|z18-[amenity=parking],
 area|z18-[amenity=parking],
 {font-size: 14.5;}
 
+node|z16-[amenity=parking][location=underground],
+area|z16-[amenity=parking][location=underground],
+{icon-image:parking_underground-m.svg;}
+
 /* no icon as these subtypes should display later */
 node|z15-[amenity=parking][access=private],
 area|z15-[amenity=parking][access=private],
@@ -900,7 +910,11 @@ node|z15-[amenity=parking][parking=street_side],
 area|z15-[amenity=parking][parking=street_side],
 node|z15-[amenity=parking][parking=lane],
 area|z15-[amenity=parking][parking=lane],
-{icon-image: ;text: none;}
+node|z15-[amenity=parking][parking=street_side][fee?],
+area|z15-[amenity=parking][parking=street_side][fee?],
+node|z15-[amenity=parking][parking=lane][fee?],
+area|z15-[amenity=parking][parking=lane][fee?],
+{icon-image: none; text: none;}
 
 node|z15-[amenity=parking][fee?],
 area|z15-[amenity=parking][fee?],
@@ -915,13 +929,18 @@ area|z17-[amenity=parking][parking=street_side],
 node|z17-[amenity=parking][parking=lane],
 area|z17-[amenity=parking][parking=lane],
 {icon-image: parking-s.svg;}
+node|z17-[amenity=parking][parking=street_side][fee?],
+area|z17-[amenity=parking][parking=street_side][fee?],
+node|z17-[amenity=parking][parking=lane][fee?],
+area|z17-[amenity=parking][parking=lane][fee?],
+{icon-image: parking_pay-s.svg;}
 
 node|z16-[amenity=parking_entrance],
 area|z16-[amenity=parking_entrance],
 {icon-image: parking_entrance-m.svg; font-size: 12.5;}
 node|z16-[amenity=parking_entrance][access=private],
 area|z16-[amenity=parking_entrance][access=private],
-{icon-image: ;}
+{icon-image: none;}
 
 node|z17-[amenity=motorcycle_parking],
 area|z17-[amenity=motorcycle_parking],

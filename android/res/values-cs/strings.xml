@@ -727,6 +727,9 @@
 	<string name="type.amenity.car_rental">Půjčovna aut</string>
 	<string name="type.amenity.car_sharing">Sdílení aut</string>
 	<string name="type.amenity.car_wash">Myčka aut</string>
+	<string name="type.amenity.gambling">Hazardní hry</string>
+	<string name="type.leisure.adult_gaming_centre">Centrum her pro dospělé</string>
+	<string name="type.leisure.amusement_arcade">Pasáž</string>
 	<string name="type.amenity.charging_station">Nabíjecí stanice</string>
 	<string name="type.amenity.charging_station.bicycle">Nabíjecí stanice pro jízdní kola</string>
 	<string name="type.amenity.charging_station.motorcar">Nabíjecí stanice pro automobily</string>
@@ -776,7 +779,9 @@
 	<string name="type.amenity.parking.park_and_ride">Parkoviště</string>
 	<string name="type.amenity.parking.underground">Podzemní parkoviště</string>
 	<string name="type.amenity.parking.street_side">Parkoviště</string>
+	<string name="type.amenity.parking.fee.street_side">Parkoviště</string>
 	<string name="type.amenity.parking.lane">Parkoviště</string>
+	<string name="type.amenity.parking.fee.lane">Parkoviště</string>
 	<string name="type.amenity.parking_entrance">Vjezd na parkoviště</string>
 	<string name="type.amenity.parking_entrance.private">Vjezd na parkoviště</string>
 	<string name="type.amenity.parking_entrance.permissive">Vjezd na parkoviště</string>
@@ -790,6 +795,7 @@
 	<string name="type.amenity.place_of_worship">Posvátné místo</string>
 	<string name="type.amenity.place_of_worship.buddhist">Chrám</string>
 	<string name="type.amenity.place_of_worship.christian">Chrám</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Církev Ježíše Krista Svatých posledních dnů</string>
 	<string name="type.amenity.place_of_worship.hindu">Chrám</string>
 	<string name="type.amenity.place_of_worship.jewish">Synagoga</string>
 	<string name="type.amenity.place_of_worship.muslim">Mešita</string>

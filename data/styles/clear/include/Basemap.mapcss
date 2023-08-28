@@ -433,8 +433,15 @@ area|z10-[landuse=farmyard],
 
 /* Parking */
 
-area|z15-[amenity=parking]
+area|z15-[amenity=parking],
 {fill-color: @parking;}
+
+area|z15-[amenity=parking][location=underground],
+area|z15-16[amenity=parking][access=private],
+area|z15-16[amenity=parking][parking=lane],
+area|z15-16[amenity=parking][parking=street_side],
+{fill-color: none;}
+
 
 /* 8.BUILDINGS */
 

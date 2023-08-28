@@ -2,6 +2,8 @@ package app.organicmaps;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -14,12 +16,17 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.IntentSenderRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.UiThread;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
@@ -29,6 +36,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.Framework.PlacePageActivationListener;
 import app.organicmaps.api.Const;
+import app.organicmaps.background.AppBackgroundTracker;
 import app.organicmaps.background.Notifier;
 import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.base.CustomNavigateUpListener;
@@ -81,6 +89,7 @@ import app.organicmaps.settings.UnitLocale;
 import app.organicmaps.sound.TtsPlayer;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.Counters;
+import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.ThemeUtils;
@@ -99,6 +108,11 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Stack;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+import static app.organicmaps.location.LocationState.LOCATION_TAG;
+
 public class MwmActivity extends BaseMwmFragmentActivity
     implements PlacePageActivationListener,
                View.OnTouchListener,
@@ -114,7 +128,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                NoConnectionListener,
                MenuBottomSheetFragment.MenuBottomSheetInterfaceWithHeader,
                PlacePageController.PlacePageRouteSettingsListener,
-               MapButtonsController.MapButtonClickListener
+               MapButtonsController.MapButtonClickListener,
+               AppBackgroundTracker.OnTransitionListener
 {
   private static final String TAG = MwmActivity.class.getSimpleName();
 
@@ -129,12 +144,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                                      EditorHostFragment.class.getName(),
                                                      ReportFragment.class.getName() };
 
-  public static final int REQ_CODE_ERROR_DRIVING_OPTIONS_DIALOG = 5;
   public static final int REQ_CODE_DRIVING_OPTIONS = 6;
-  private static final int REQ_CODE_ISOLINES_ERROR = 8;
-
-  public static final String ERROR_DRIVING_OPTIONS_DIALOG_TAG = "error_driving_options_dialog_tag";
-  private static final String ISOLINES_ERROR_DIALOG_TAG = "isolines_dialog_tag";
 
   private static final String MAIN_MENU_ID = "MAIN_MENU_BOTTOM_SHEET";
   private static final String LAYERS_MENU_ID = "LAYERS_MENU_BOTTOM_SHEET";
@@ -185,6 +195,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   @Nullable
   private WindowInsetsCompat mCurrentWindowInsets;
+
+  @Nullable
+  private Dialog mLocationErrorDialog;
+
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private ActivityResultLauncher<String[]> mLocationPermissionRequest;
+
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private ActivityResultLauncher<IntentSenderRequest> mLocationResolutionRequest;
 
   public interface LeftAnimationTrackListener
   {
@@ -353,6 +374,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onSafeCreate(@Nullable Bundle savedInstanceState)
   {
     super.onSafeCreate(savedInstanceState);
+
+    MwmApplication.backgroundTracker(this).addListener(this);
+
     mIsTabletLayout = getResources().getBoolean(R.bool.tabletLayout);
 
     if (!mIsTabletLayout)
@@ -376,6 +400,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     boolean isLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
     initViews(isLaunchByDeepLink);
     updateViewsInsets();
+
+    // Note: You must call registerForActivityResult() before the fragment or activity is created.
+    mLocationPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
+        this::onLocationPermissionsResult);
+    mLocationResolutionRequest = registerForActivityResult(new ActivityResultContracts.StartIntentSenderForResult(),
+        this::onLocationResolutionResult);
 
     boolean isConsumed = savedInstanceState == null && processIntent(getIntent());
     boolean isFirstLaunch = Counters.isFirstLaunch(this);
@@ -485,7 +515,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
               startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));
             else
             {
-                new AlertDialog.Builder(this, R.style.MwmTheme_AlertDialog)
+                new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
                     .setTitle(R.string.message_invalid_feature_position)
                     .setPositiveButton(R.string.ok, null)
                     .show();
@@ -621,8 +651,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         break;
       case myPosition:
         LocationState.nativeSwitchToNextMode();
-        if (!LocationHelper.INSTANCE.isActive())
-          LocationHelper.INSTANCE.start();
+        startLocation();
         break;
       case toggleMapLayer:
         toggleMapLayerBottomSheet();
@@ -770,8 +799,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void startLocationToPoint(final @Nullable MapObject endPoint)
   {
     closeFloatingPanels();
-    if (!LocationHelper.INSTANCE.isActive())
-      LocationHelper.INSTANCE.start();
+    startLocation();
 
     MapObject startPoint = LocationHelper.INSTANCE.getMyPosition();
     RoutingController.get().prepare(startPoint, endPoint);
@@ -968,6 +996,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
+  public void onTransit(boolean foreground)
+  {
+    Logger.d(TAG, "foreground = " + foreground);
+
+    if (foreground)
+      resumeLocationInForeground();
+    else
+      pauseLocationInBackground();
+  }
+
+  @Override
   public void recreate()
   {
     // Explicitly destroy surface before activity recreation.
@@ -991,7 +1030,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mOnmapDownloader != null)
       mOnmapDownloader.onPause();
     mNavigationController.onActivityPaused(this);
-    LocationHelper.INSTANCE.closeLocationDialog();
+    pauseLocationInBackground();
     super.onPause();
   }
 
@@ -1003,7 +1042,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     BookmarkManager.INSTANCE.addLoadingListener(this);
     RoutingController.get().attach(this);
     IsolinesManager.from(getApplicationContext()).attach(this::onIsolinesStateChanged);
-    LocationHelper.INSTANCE.attach(this);
     LocationState.nativeSetListener(this);
     LocationHelper.INSTANCE.addListener(this);
     onMyPositionModeChanged(LocationState.nativeGetMode());
@@ -1020,7 +1058,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     BookmarkManager.INSTANCE.removeLoadingListener(this);
     LocationHelper.INSTANCE.removeListener(this);
     LocationState.nativeRemoveListener();
-    LocationHelper.INSTANCE.detach();
     RoutingController.get().detach();
     IsolinesManager.from(getApplicationContext()).detach();
     mSearchController.detach();
@@ -1033,6 +1070,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onSafeDestroy();
     mNavigationController.destroy();
+    mLocationPermissionRequest.unregister();
+    mLocationPermissionRequest = null;
+    mLocationResolutionRequest.unregister();
+    mLocationResolutionRequest = null;
   }
 
   @Override
@@ -1612,16 +1653,33 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onMyPositionModeChanged(int newMode)
   {
-    Logger.d(TAG, "location newMode = " + newMode);
+    Logger.d(LOCATION_TAG, "newMode = " + newMode);
     mMapButtonsViewModel.setMyPositionMode(newMode);
     RoutingController controller = RoutingController.get();
     if (controller.isPlanning())
       showAddStartOrFinishFrame(controller, true);
   }
 
+  /**
+   * Dismiss location error dialog from the screen, if any.
+   */
+  private void dismissLocationErrorDialog()
+  {
+    if (mLocationErrorDialog != null && mLocationErrorDialog.isShowing())
+      mLocationErrorDialog.dismiss();
+    mLocationErrorDialog = null;
+  }
+
+  /**
+   * Called when location is updated.
+   * @param location new location
+   */
   @Override
+  @UiThread
   public void onLocationUpdated(@NonNull Location location)
   {
+    dismissLocationErrorDialog();
+
     final RoutingController routing = RoutingController.get();
     if (!routing.isNavigating())
       return;
@@ -1642,11 +1700,254 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
+  /**
+   * Called when compass data is updated.
+   * @param north offset from the north
+   */
   @Override
+  @UiThread
   public void onCompassUpdated(double north)
   {
     Map.onCompassUpdated(north, false);
     mNavigationController.updateNorth();
+  }
+
+  /**
+   * Start location services when the user presses a button or starts routing.
+   */
+  private void startLocation()
+  {
+    Logger.d(LOCATION_TAG);
+
+    if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PERMISSION_GRANTED)
+    {
+      Logger.i(LOCATION_TAG, "Permission ACCESS_FINE_LOCATION is granted");
+      LocationHelper.INSTANCE.start();
+      return;
+    }
+
+    // Always try to optimistically request FINE permission when the user presses a button or starts routing.
+    // Android will suppress annoying dialogs and skip directly to onLocationPermissionsResult().
+    Logger.i(LOCATION_TAG, "Requesting ACCESS_FINE_LOCATION permission");
+    dismissLocationErrorDialog();
+    mLocationPermissionRequest.launch(new String[]{
+        ACCESS_COARSE_LOCATION,
+        ACCESS_FINE_LOCATION
+    });
+  }
+
+  /**
+   * Resume location services when entering the foreground.
+   */
+  private void resumeLocationInForeground()
+  {
+    LocationHelper.INSTANCE.setRotation(getWindowManager().getDefaultDisplay().getRotation());
+    LocationState.nativeSetLocationPendingTimeoutListener(this::onLocationPendingTimeout);
+
+    if (LocationState.nativeGetMode() == LocationState.NOT_FOLLOW_NO_POSITION)
+    {
+      Logger.i(LOCATION_TAG, "Location updates are stopped by the user manually.");
+      LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
+      LocationHelper.INSTANCE.stop();
+    }
+    else if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PERMISSION_GRANTED)
+    {
+      Logger.i(LOCATION_TAG, "Permission ACCESS_FINE_LOCATION is granted");
+      LocationHelper.INSTANCE.start();
+    }
+    else if (ActivityCompat.checkSelfPermission(this, ACCESS_COARSE_LOCATION) == PERMISSION_GRANTED)
+    {
+      Logger.i(LOCATION_TAG, "Permission ACCESS_COARSE_LOCATION is granted");
+      LocationHelper.INSTANCE.start();
+    }
+    else
+    {
+      Logger.w(LOCATION_TAG, "Permissions ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION are not granted");
+      LocationState.nativeOnLocationError(LocationState.ERROR_DENIED);
+      LocationHelper.INSTANCE.stop();
+
+      Logger.i(LOCATION_TAG, "Requesting ACCESS_FINE_LOCATION + ACCESS_FINE_LOCATION permissions");
+      dismissLocationErrorDialog();
+      mLocationPermissionRequest.launch(new String[]{
+          ACCESS_COARSE_LOCATION,
+          ACCESS_FINE_LOCATION
+      });
+    }
+  }
+
+  /**
+   * Pause location services when entering the background.
+   */
+  private void pauseLocationInBackground()
+  {
+    dismissLocationErrorDialog();
+    LocationState.nativeRemoveLocationPendingTimeoutListener();
+
+    if (!LocationHelper.INSTANCE.isActive())
+      return;
+
+    Logger.i(LOCATION_TAG);
+    LocationHelper.INSTANCE.stop();
+  }
+
+  /**
+   * Called on the result of the system location dialog.
+   * @param permissions permissions granted or refused.
+   */
+  @UiThread
+  private void onLocationPermissionsResult(java.util.Map<String, Boolean> permissions)
+  {
+    // Print permissions that have been granted or refused.
+    for (java.util.Map.Entry<String, Boolean> entry : permissions.entrySet())
+    {
+      final String permission = entry.getKey().substring(entry.getKey().lastIndexOf('.') + 1);
+      if (entry.getValue())
+        Logger.i(LOCATION_TAG, "Permission " + permission + " has been granted");
+      else
+        Logger.w(LOCATION_TAG, "Permission " + permission + " has been refused");
+    }
+
+    // Sic: Android Studio requires explicit calls to checkSelfPermission() for @RequiresPermission in start().
+    if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PERMISSION_GRANTED ||
+        ActivityCompat.checkSelfPermission(this, ACCESS_COARSE_LOCATION) == PERMISSION_GRANTED)
+    {
+      LocationHelper.INSTANCE.start();
+      return;
+    }
+
+    Logger.w(LOCATION_TAG, "Permissions ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION have been refused");
+    LocationState.nativeOnLocationError(LocationState.ERROR_DENIED);
+    LocationHelper.INSTANCE.stop();
+
+    if (mLocationErrorDialog != null && mLocationErrorDialog.isShowing())
+    {
+      Logger.w(LOCATION_TAG, "Don't show 'location denied' error dialog because another dialog is in progress");
+      return;
+    }
+
+    mLocationErrorDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.enable_location_services)
+        .setMessage(R.string.location_is_disabled_long_text)
+        .setOnDismissListener(dialog -> mLocationErrorDialog = null)
+        .setNegativeButton(R.string.close, null)
+        .show();
+  }
+
+  /**
+   * Called by GoogleFusedLocationProvider to request to GPS and/or Wi-Fi.
+   * @param pendingIntent an intent to launch.
+   */
+  @Override
+  @UiThread
+  public void onLocationResolutionRequired(@NonNull PendingIntent pendingIntent)
+  {
+    Logger.d(LOCATION_TAG);
+
+    // Cancel our dialog in favor of system dialog.
+    dismissLocationErrorDialog();
+
+    // Launch system permission resolution dialog.
+    Logger.i(LOCATION_TAG, "Starting location resolution dialog");
+    IntentSenderRequest intentSenderRequest = new IntentSenderRequest.Builder(pendingIntent.getIntentSender()).build();
+    mLocationResolutionRequest.launch(intentSenderRequest);
+  }
+
+  /**
+   * Triggered by onLocationResolutionRequired().
+   * @param result invocation result.
+   */
+  @UiThread
+  private void onLocationResolutionResult(@NonNull ActivityResult result)
+  {
+    final int resultCode = result.getResultCode();
+    Logger.d(LOCATION_TAG, "resultCode = " + resultCode);
+
+    if (resultCode != Activity.RESULT_OK)
+    {
+      Logger.w(LOCATION_TAG, "Location resolution has been refused");
+      LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
+      LocationHelper.INSTANCE.stop();
+      return;
+    }
+
+    Logger.i(LOCATION_TAG, "Location resolution has been granted");
+    LocationHelper.INSTANCE.restart();
+  }
+
+  /**
+   * Called by AndroidNativeLocationProvider when no suitable location methods are available.
+   */
+  @Override
+  @UiThread
+  public void onLocationDisabled()
+  {
+    Logger.d(LOCATION_TAG, "settings = " + LocationUtils.areLocationServicesTurnedOn(this));
+
+    LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
+    LocationHelper.INSTANCE.stop();
+
+    if (mLocationErrorDialog != null && mLocationErrorDialog.isShowing())
+    {
+      Logger.d(LOCATION_TAG, "Don't show 'location disabled' error dialog because another dialog is in progress");
+      return;
+    }
+
+    final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.enable_location_services)
+        .setMessage(R.string.location_is_disabled_long_text)
+        .setOnDismissListener(dialog -> mLocationErrorDialog = null)
+        .setNegativeButton(R.string.close, null);
+    final Intent intent = Utils.makeSystemLocationSettingIntent(this);
+    if (intent != null)
+    {
+      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+      intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+      builder.setPositiveButton(R.string.connection_settings, (dialog, which) -> startActivity(intent));
+    }
+    mLocationErrorDialog = builder.show();
+  }
+
+  /**
+   * Called by the core when location updates were not received after the 30 second deadline.
+   */
+  @UiThread
+  private void onLocationPendingTimeout()
+  {
+    // Sic: the callback can be called after the activity is destroyed because of being queued.
+    if (isDestroyed())
+    {
+      Logger.w(LOCATION_TAG, "Ignore late callback from core because activity is already destroyed");
+      return;
+    }
+
+    Logger.d(LOCATION_TAG, "services = " + LocationUtils.areLocationServicesTurnedOn(this));
+
+    //
+    // For all cases below we don't stop location provider until user explicitly clicks "Stop" in the dialog.
+    //
+
+    if (mLocationErrorDialog != null && mLocationErrorDialog.isShowing())
+    {
+      Logger.d(LOCATION_TAG, "Don't show 'location timeout' error dialog because another dialog is in progress");
+      return;
+    }
+
+    mLocationErrorDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.current_location_unknown_title)
+        .setMessage(R.string.current_location_unknown_message)
+        .setOnDismissListener(dialog -> mLocationErrorDialog = null)
+        .setNegativeButton(R.string.current_location_unknown_stop_button, (dialog, which) ->
+        {
+          Logger.w(LOCATION_TAG, "Disabled by user");
+          LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
+          LocationHelper.INSTANCE.stop();
+        })
+        .setPositiveButton(R.string.current_location_unknown_continue_button, (dialog, which) ->
+        {
+          // Do nothing - provider will continue to search location.
+        })
+        .show();
   }
 
   @Override

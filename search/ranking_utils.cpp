@@ -145,8 +145,9 @@ string DebugPrint(NameScore const & score)
   case NameScore::ZERO: return "Zero";
   case NameScore::SUBSTRING: return "Substring";
   case NameScore::PREFIX: return "Prefix";
-  case NameScore::FULL_MATCH: return "Full Match";
+  case NameScore::FIRST_MATCH: return "First Match";
   case NameScore::FULL_PREFIX: return "Full Prefix";
+  case NameScore::FULL_MATCH: return "Full Match";
   case NameScore::COUNT: return "Count";
   }
   return "Unknown";

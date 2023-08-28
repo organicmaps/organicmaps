@@ -15,7 +15,7 @@ public final class LocationState
     void onMyPositionModeChanged(int newMode);
   }
 
-  interface PendingTimeoutListener
+  public interface PendingTimeoutListener
   {
     void onLocationPendingTimeout();
   }
@@ -45,10 +45,10 @@ public final class LocationState
   public static native void nativeSetListener(@NonNull ModeChangeListener listener);
   public static native void nativeRemoveListener();
 
-  static native void nativeSetLocationPendingTimeoutListener(@NonNull PendingTimeoutListener listener);
-  static native void nativeRemoveLocationPendingTimeoutListener();
+  public static native void nativeSetLocationPendingTimeoutListener(@NonNull PendingTimeoutListener listener);
+  public static native void nativeRemoveLocationPendingTimeoutListener();
 
-  static native void nativeOnLocationError(int errorCode);
+  public static native void nativeOnLocationError(int errorCode);
 
   static native void nativeLocationUpdated(long time, double lat, double lon, float accuracy,
                                            double altitude, float speed, float bearing);

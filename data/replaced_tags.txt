@@ -172,3 +172,6 @@ usage=freight : usage=utility
 service=siding : service=service
 service=yard : service=service
 service=crossover : service=service
+
+denomination=latter_day_saints : denomination=mormon
+

@@ -735,6 +735,9 @@
 	<string name="type.amenity.car_sharing">कार शेअरिंग</string>
 	<string name="type.amenity.car_wash">कार धुणे</string>
 	<string name="type.amenity.casino">जुगारगृह</string>
+	<string name="type.amenity.gambling">जुगार</string>
+	<string name="type.leisure.adult_gaming_centre">प्रौढ गेमिंग केंद्र</string>
+	<string name="type.leisure.amusement_arcade">आर्केड</string>
 	<string name="type.amenity.charging_station">चार्जिंग केंद्र</string>
 	<string name="type.amenity.charging_station.bicycle">सायकल चार्जिंग स्टेशन</string>
 	<string name="type.amenity.charging_station.motorcar">मोटार कार चार्जिंग स्टेशन</string>
@@ -776,7 +779,9 @@
 	<string name="type.amenity.parking">वाहनतळ</string>
 	<string name="type.amenity.parking.park_and_ride">वाहनतळ</string>
 	<string name="type.amenity.parking.street_side">वाहनतळ</string>
+	<string name="type.amenity.parking.fee.street_side">वाहनतळ</string>
 	<string name="type.amenity.parking.lane">वाहनतळ</string>
+	<string name="type.amenity.parking.fee.lane">वाहनतळ</string>
 	<string name="type.amenity.parking_space">पार्किंगची जागा</string>
 	<string name="type.amenity.parking_space.permissive">पार्किंगची जागा</string>
 	<string name="type.amenity.parking_space.private">पार्किंगची जागा</string>
@@ -786,6 +791,7 @@
 	<string name="type.amenity.place_of_worship">धार्मिक ठिकाण</string>
 	<string name="type.amenity.place_of_worship.buddhist">मंदिर</string>
 	<string name="type.amenity.place_of_worship.christian">चर्च</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">चर्च ऑफ जिझस क्राइस्ट ऑफ लेटर डे सेंट्स</string>
 	<string name="type.amenity.place_of_worship.hindu">मंदिर</string>
 	<string name="type.amenity.place_of_worship.jewish">सिनेगॉग</string>
 	<string name="type.amenity.place_of_worship.muslim">मशीद</string>
