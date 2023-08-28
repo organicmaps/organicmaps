@@ -85,7 +85,18 @@ public class SearchOnMapScreen extends BaseMapScreen implements NativeSearchList
       final String title = result.getTitle(getCarContext());
       builder.setTitle(title);
       builder.addText(result.getFormattedDescription(getCarContext()));
-      builder.addText(SearchUiHelpers.getOpeningHoursAndDistanceText(getCarContext(), result));
+
+      final CharSequence openingHours = SearchUiHelpers.getOpeningHoursText(getCarContext(), result);
+      final CharSequence distance = SearchUiHelpers.getDistanceText(result);
+      final CharSequence openingHoursAndDistanceText = SearchUiHelpers.getOpeningHoursAndDistanceText(openingHours, distance);
+      if (openingHoursAndDistanceText.length() != 0)
+        builder.addText(openingHoursAndDistanceText);
+      if (distance.length() == 0)
+      {
+        // All non-browsable rows must have a distance span attached to either its title or texts
+        builder.setBrowsable(true);
+      }
+
       builder.setOnClickListener(() -> {
         SearchRecents.add(title, getCarContext());
         SearchEngine.INSTANCE.cancel();

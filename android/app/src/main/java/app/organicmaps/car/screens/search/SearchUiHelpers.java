@@ -1,6 +1,5 @@
 package app.organicmaps.car.screens.search;
 
-import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 
@@ -20,28 +19,40 @@ public final class SearchUiHelpers
   @NonNull
   public static CharSequence getOpeningHoursAndDistanceText(@NonNull CarContext carContext, @NonNull SearchResult searchResult)
   {
-    final SpannableStringBuilder result = new SpannableStringBuilder();
-    final Spannable openingHours = getOpeningHours(carContext, searchResult);
+    final CharSequence openingHours = getOpeningHoursText(carContext, searchResult);
+    final CharSequence distance = getDistanceText(searchResult);
 
+    return getOpeningHoursAndDistanceText(openingHours, distance);
+  }
+
+  @NonNull
+  public static CharSequence getOpeningHoursAndDistanceText(@NonNull CharSequence openingHours, @NonNull CharSequence distance)
+  {
+    final SpannableStringBuilder result = new SpannableStringBuilder();
     if (openingHours.length() != 0)
       result.append(openingHours);
-
-    if (!searchResult.description.distance.isValid())
-    {
-      if (result.length() != 0)
-        result.append(" • ");
-
-      final SpannableStringBuilder distance = new SpannableStringBuilder(" ");
-      distance.setSpan(DistanceSpan.create(RoutingHelpers.createDistance(searchResult.description.distance)), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-      distance.setSpan(ForegroundCarColorSpan.create(Colors.DISTANCE), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    if (result.length() != 0 && distance.length() != 0)
+      result.append(" • ");
+    if (distance.length() != 0)
       result.append(distance);
-    }
 
     return result;
   }
 
   @NonNull
-  public static Spannable getOpeningHours(@NonNull CarContext carContext, @NonNull SearchResult searchResult)
+  public static CharSequence getDistanceText(@NonNull SearchResult searchResult)
+  {
+    if (!searchResult.description.distance.isValid())
+      return "";
+
+    final SpannableStringBuilder distance = new SpannableStringBuilder(" ");
+    distance.setSpan(DistanceSpan.create(RoutingHelpers.createDistance(searchResult.description.distance)), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    distance.setSpan(ForegroundCarColorSpan.create(Colors.DISTANCE), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    return distance;
+  }
+
+  @NonNull
+  public static CharSequence getOpeningHoursText(@NonNull CarContext carContext, @NonNull SearchResult searchResult)
   {
     final SpannableStringBuilder result = new SpannableStringBuilder();
 
