@@ -1,6 +1,7 @@
 package app.organicmaps;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.Surface;
@@ -317,9 +318,10 @@ public final class Map
 
   private void updateRulerOffset(final Context context, int offsetX, int offsetY)
   {
+    int orientation = context.getResources().getConfiguration().orientation;
     nativeSetupWidget(WIDGET_RULER,
         UiUtils.dimen(context, R.dimen.margin_ruler) + offsetX,
-        mHeight - UiUtils.dimen(context, R.dimen.margin_ruler) - offsetY,
+        mHeight - UiUtils.dimen(context, R.dimen.margin_ruler) - (orientation == Configuration.ORIENTATION_LANDSCAPE? 0 : offsetY),
         ANCHOR_LEFT_BOTTOM);
     if (mSurfaceCreated)
       nativeApplyWidgets();
