@@ -1192,7 +1192,7 @@ amenity-parking                                     # icon z16- (also has captio
 amenity-parking-fee                                 # icon z16- (also has caption(optional) z18-, area z15-)
 amenity-parking-multi-storey                        # icon z16- (also has caption(optional) z18-, area z15-)
 amenity-parking-park_and_ride                       # icon z16- (also has caption(optional) z18-, area z15-)
-amenity-parking-underground                         # icon z16- (also has caption(optional) z18-, area z15-)
+amenity-parking-underground                         # icon z16- (also has caption(optional) z18-)
 === 300
 
 amenity-bicycle_parking                             # icon z17- (also has caption(optional) z17-)
@@ -1212,19 +1212,19 @@ leisure-garden-residential                          # caption z18- (also has are
 entrance-main                                       # icon z18- (also has caption(optional) z18-)
 === 170
 
-amenity-parking-fee-lane                            # icon z17- (also has caption(optional) z18-, area z15-)
-amenity-parking-fee-street_side                     # icon z17- (also has caption(optional) z18-, area z15-)
-amenity-parking-lane                                # icon z17- (also has caption(optional) z18-, area z15-)
-amenity-parking-street_side                         # icon z17- (also has caption(optional) z18-, area z15-)
+amenity-parking-fee-lane                            # icon z18- (also has caption(optional) z18-, area z17-)
+amenity-parking-fee-street_side                     # icon z18- (also has caption(optional) z18-, area z17-)
+amenity-parking-lane                                # icon z18- (also has caption(optional) z18-, area z17-)
+amenity-parking-street_side                         # icon z18- (also has caption(optional) z18-, area z17-)
 === 150
 
 amenity-parking-no-access                           # icon z16- (also has caption(optional) z18-, area z15-)
-amenity-parking-private                             # icon z18- (also has caption(optional) z18-, area z15-)
+amenity-parking-private                             # icon z18- (also has caption(optional) z18-, area z17-)
 === 100
 
 #
 # All automatic optional captions priorities are below 0.
-# They follow the order of their corresponding icons.
+# They follow the order of their correspoding icons.
 #
 
 # aeroway-aerodrome-international                   # caption(optional) z10- (also has icon z7-, area z10-)
@@ -2061,7 +2061,7 @@ amenity-parking-private                             # icon z18- (also has captio
 # amenity-parking-fee                               # caption(optional) z18- (also has icon z16-, area z15-)
 # amenity-parking-multi-storey                      # caption(optional) z18- (also has icon z16-, area z15-)
 # amenity-parking-park_and_ride                     # caption(optional) z18- (also has icon z16-, area z15-)
-# amenity-parking-underground                       # caption(optional) z18- (also has icon z16-, area z15-)
+# amenity-parking-underground                       # caption(optional) z18- (also has icon z16-)
 # === -9700
 
 # amenity-bicycle_parking                           # caption(optional) z17- (also has icon z17-)
@@ -2079,12 +2079,14 @@ amenity-parking-private                             # icon z18- (also has captio
 # entrance-main                                     # caption(optional) z18- (also has icon z18-)
 # === -9830
 
-# amenity-parking-lane                              # caption(optional) z18- (also has icon z17-, area z15-)
-# amenity-parking-street_side                       # caption(optional) z18- (also has icon z17-, area z15-)
+# amenity-parking-fee-lane                          # caption(optional) z18- (also has icon z18-, area z17-)
+# amenity-parking-fee-street_side                   # caption(optional) z18- (also has icon z18-, area z17-)
+# amenity-parking-lane                              # caption(optional) z18- (also has icon z18-, area z17-)
+# amenity-parking-street_side                       # caption(optional) z18- (also has icon z18-, area z17-)
 # === -9850
 
 # amenity-parking-no-access                         # caption(optional) z18- (also has icon z16-, area z15-)
-# amenity-parking-private                           # caption(optional) z18- (also has icon z18-, area z15-)
+# amenity-parking-private                           # caption(optional) z18- (also has icon z18-, area z17-)
 # === -9900
 
 man_made-survey_point                               # icon z16- (also has caption(optional) z16-)
