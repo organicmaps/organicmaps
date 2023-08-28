@@ -820,7 +820,9 @@
 	<string name="type.amenity.parking.park_and_ride">Парковка</string>
 	<string name="type.amenity.parking.underground">Підземний паркінг</string>
 	<string name="type.amenity.parking.street_side">Парковка</string>
+	<string name="type.amenity.parking.fee.street_side">Парковка</string>
 	<string name="type.amenity.parking.lane">Парковка</string>
+	<string name="type.amenity.parking.fee.lane">Парковка</string>
 	<string name="type.amenity.parking_entrance">Вхід на паркінг</string>
 	<string name="type.amenity.parking_entrance.private">Вхід на паркінг</string>
 	<string name="type.amenity.parking_entrance.permissive">Вхід на паркінг</string>

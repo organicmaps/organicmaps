@@ -772,7 +772,9 @@
 	<string name="type.amenity.parking.park_and_ride">پارکینگ</string>
 	<string name="type.amenity.parking.underground">ﯽﻨﯿﻣﺯ ﺮﯾﺯ ﮓﻨﯿﮐﺭﺎﭘ</string>
 	<string name="type.amenity.parking.street_side">پارکینگ</string>
+	<string name="type.amenity.parking.fee.street_side">پارکینگ</string>
 	<string name="type.amenity.parking.lane">پارکینگ</string>
+	<string name="type.amenity.parking.fee.lane">پارکینگ</string>
 	<string name="type.amenity.parking_entrance">ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ</string>
 	<string name="type.amenity.parking_entrance.private">ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ</string>
 	<string name="type.amenity.parking_entrance.permissive">ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ</string>

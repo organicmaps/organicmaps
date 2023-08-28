@@ -781,7 +781,9 @@
 	<string name="type.amenity.parking.park_and_ride">駐車場</string>
 	<string name="type.amenity.parking.underground">地下駐車場</string>
 	<string name="type.amenity.parking.street_side">駐車場</string>
+	<string name="type.amenity.parking.fee.street_side">駐車場</string>
 	<string name="type.amenity.parking.lane">駐車場</string>
+	<string name="type.amenity.parking.fee.lane">駐車場</string>
 	<string name="type.amenity.parking_entrance">駐車場入口</string>
 	<string name="type.amenity.parking_entrance.private">駐車場入口</string>
 	<string name="type.amenity.parking_entrance.permissive">駐車場入口</string>

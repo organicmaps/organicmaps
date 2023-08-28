@@ -1429,7 +1429,11 @@
 
 "type.amenity.parking.street_side" = "वाहनतळ";
 
+"type.amenity.parking.fee.street_side" = "वाहनतळ";
+
 "type.amenity.parking.lane" = "वाहनतळ";
+
+"type.amenity.parking.fee.lane" = "वाहनतळ";
 
 "type.amenity.parking_entrance" = "Parking Entrance";
 

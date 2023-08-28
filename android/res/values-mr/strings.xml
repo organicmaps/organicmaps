@@ -780,7 +780,9 @@
 	<string name="type.amenity.parking">वाहनतळ</string>
 	<string name="type.amenity.parking.park_and_ride">वाहनतळ</string>
 	<string name="type.amenity.parking.street_side">वाहनतळ</string>
+	<string name="type.amenity.parking.fee.street_side">वाहनतळ</string>
 	<string name="type.amenity.parking.lane">वाहनतळ</string>
+	<string name="type.amenity.parking.fee.lane">वाहनतळ</string>
 	<string name="type.amenity.parking_space">पार्किंगची जागा</string>
 	<string name="type.amenity.parking_space.permissive">पार्किंगची जागा</string>
 	<string name="type.amenity.parking_space.private">पार्किंगची जागा</string>

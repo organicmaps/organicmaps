@@ -1429,7 +1429,11 @@
 
 "type.amenity.parking.street_side" = "Maegesho";
 
+"type.amenity.parking.fee.street_side" = "Maegesho";
+
 "type.amenity.parking.lane" = "Maegesho";
+
+"type.amenity.parking.fee.lane" = "Maegesho";
 
 "type.amenity.parking_entrance" = "Mlango wa maegesho";
 

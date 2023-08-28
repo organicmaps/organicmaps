@@ -1429,7 +1429,11 @@
 
 "type.amenity.parking.street_side" = "Otopark";
 
+"type.amenity.parking.fee.street_side" = "Otopark";
+
 "type.amenity.parking.lane" = "Otopark";
+
+"type.amenity.parking.fee.lane" = "Otopark";
 
 "type.amenity.parking_entrance" = "Otopark girişi";
 

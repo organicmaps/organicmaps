@@ -1429,7 +1429,11 @@
 
 "type.amenity.parking.street_side" = "Parkimine";
 
+"type.amenity.parking.fee.street_side" = "Parkimine";
+
 "type.amenity.parking.lane" = "Parkimine";
+
+"type.amenity.parking.fee.lane" = "Parkimine";
 
 "type.amenity.parking_entrance" = "Parkla sissepääs";
 

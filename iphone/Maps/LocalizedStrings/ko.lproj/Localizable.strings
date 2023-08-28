@@ -1429,7 +1429,11 @@
 
 "type.amenity.parking.street_side" = "주차";
 
+"type.amenity.parking.fee.street_side" = "주차";
+
 "type.amenity.parking.lane" = "주차";
+
+"type.amenity.parking.fee.lane" = "주차";
 
 "type.amenity.parking_entrance" = "주차장 입구";
 

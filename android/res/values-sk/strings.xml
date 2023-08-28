@@ -767,7 +767,9 @@
 	<string name="type.amenity.parking.park_and_ride">Parkovisko</string>
 	<string name="type.amenity.parking.underground">Podzemné parkovisko</string>
 	<string name="type.amenity.parking.street_side">Parkovisko</string>
+	<string name="type.amenity.parking.fee.street_side">Parkovisko</string>
 	<string name="type.amenity.parking.lane">Parkovisko</string>
+	<string name="type.amenity.parking.fee.lane">Parkovisko</string>
 	<string name="type.amenity.parking_entrance">Vstup na parkovisko</string>
 	<string name="type.amenity.parking_entrance.private">Vstup na parkovisko</string>
 	<string name="type.amenity.parking_entrance.permissive">Vstup na parkovisko</string>

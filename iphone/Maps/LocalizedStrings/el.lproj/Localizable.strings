@@ -1429,7 +1429,11 @@
 
 "type.amenity.parking.street_side" = "Χώρος στάθμευσης";
 
+"type.amenity.parking.fee.street_side" = "Χώρος στάθμευσης";
+
 "type.amenity.parking.lane" = "Χώρος στάθμευσης";
+
+"type.amenity.parking.fee.lane" = "Χώρος στάθμευσης";
 
 "type.amenity.parking_entrance" = "Είσοδος στάθμευσης";
 

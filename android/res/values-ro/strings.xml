@@ -789,7 +789,9 @@
 	<string name="type.amenity.parking.park_and_ride">Parcare</string>
 	<string name="type.amenity.parking.underground">Parcare subterană</string>
 	<string name="type.amenity.parking.street_side">Parcare</string>
+	<string name="type.amenity.parking.fee.street_side">Parcare</string>
 	<string name="type.amenity.parking.lane">Parcare</string>
+	<string name="type.amenity.parking.fee.lane">Parcare</string>
 	<string name="type.amenity.parking_entrance">Intrare parcare</string>
 	<string name="type.amenity.parking_entrance.private">Intrare parcare</string>
 	<string name="type.amenity.parking_entrance.permissive">Intrare parcare</string>

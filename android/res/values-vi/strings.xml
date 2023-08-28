@@ -769,7 +769,9 @@
 	<string name="type.amenity.parking.park_and_ride">đỗ xe</string>
 	<string name="type.amenity.parking.underground">Bãi đậu xe ngầm</string>
 	<string name="type.amenity.parking.street_side">đỗ xe</string>
+	<string name="type.amenity.parking.fee.street_side">đỗ xe</string>
 	<string name="type.amenity.parking.lane">đỗ xe</string>
+	<string name="type.amenity.parking.fee.lane">đỗ xe</string>
 	<string name="type.amenity.parking_entrance">Lối vào bãi đậu xe</string>
 	<string name="type.amenity.parking_entrance.private">Lối vào bãi đậu xe</string>
 	<string name="type.amenity.parking_entrance.permissive">Lối vào bãi đậu xe</string>
