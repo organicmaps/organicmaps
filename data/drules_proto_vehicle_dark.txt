@@ -1977,6 +1977,132 @@ cont {
   }
 }
 cont {
+  name: "amenity-parking-fee-lane"
+  element {
+    scale: 15
+    area {
+      color: 1643785
+      priority: -1840
+    }
+    symbol {
+      name: "parking_pay-m"
+      priority: 2520
+      min_distance: 10
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 1643785
+      priority: -1840
+    }
+    symbol {
+      name: "parking_pay-m"
+      priority: 2520
+      min_distance: 10
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 2038026
+      priority: -1840
+    }
+    symbol {
+      name: "parking_pay-s"
+      priority: 2520
+      min_distance: 15
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 2038026
+      priority: -1840
+    }
+    symbol {
+      name: "parking_pay-s"
+      priority: 2520
+      min_distance: 10
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 2038026
+      priority: -1840
+    }
+    symbol {
+      name: "parking_pay-s"
+      priority: 2520
+      min_distance: 10
+    }
+  }
+}
+cont {
+  name: "amenity-parking-fee-street_side"
+  element {
+    scale: 15
+    area {
+      color: 1643785
+      priority: -1840
+    }
+    symbol {
+      name: "parking_pay-m"
+      priority: 2520
+      min_distance: 10
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 1643785
+      priority: -1840
+    }
+    symbol {
+      name: "parking_pay-m"
+      priority: 2520
+      min_distance: 10
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 2038026
+      priority: -1840
+    }
+    symbol {
+      name: "parking_pay-s"
+      priority: 2520
+      min_distance: 15
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 2038026
+      priority: -1840
+    }
+    symbol {
+      name: "parking_pay-s"
+      priority: 2520
+      min_distance: 10
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 2038026
+      priority: -1840
+    }
+    symbol {
+      name: "parking_pay-s"
+      priority: 2520
+      min_distance: 10
+    }
+  }
+}
+cont {
   name: "amenity-parking-lane"
   element {
     scale: 15
@@ -2562,10 +2688,6 @@ cont {
   name: "amenity-parking-underground"
   element {
     scale: 15
-    area {
-      color: 1643785
-      priority: -1840
-    }
     symbol {
       name: "parking-m"
       priority: 2550
@@ -2574,12 +2696,8 @@ cont {
   }
   element {
     scale: 16
-    area {
-      color: 1643785
-      priority: -1840
-    }
     symbol {
-      name: "parking-m"
+      name: "parking_underground-m"
       priority: 2550
       min_distance: 10
     }
@@ -2595,12 +2713,8 @@ cont {
   }
   element {
     scale: 17
-    area {
-      color: 2038026
-      priority: -1840
-    }
     symbol {
-      name: "parking-m"
+      name: "parking_underground-m"
       priority: 2550
       min_distance: 15
     }
@@ -2616,12 +2730,8 @@ cont {
   }
   element {
     scale: 18
-    area {
-      color: 2038026
-      priority: -1840
-    }
     symbol {
-      name: "parking-m"
+      name: "parking_underground-m"
       priority: 2550
       min_distance: 10
     }
@@ -2637,12 +2747,8 @@ cont {
   }
   element {
     scale: 19
-    area {
-      color: 2038026
-      priority: -1840
-    }
     symbol {
-      name: "parking-m"
+      name: "parking_underground-m"
       priority: 2550
       min_distance: 10
     }
@@ -2716,196 +2822,6 @@ cont {
     symbol {
       name: "parking_entrance-m"
       priority: 2530
-    }
-  }
-}
-cont {
-  name: "amenity-parking_space"
-  element {
-    scale: 15
-    area {
-      color: 1643785
-      priority: -1870
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 1643785
-      priority: -1870
-    }
-  }
-  element {
-    scale: 17
-    area {
-      color: 2038026
-      priority: -1870
-    }
-  }
-  element {
-    scale: 18
-    area {
-      color: 2038026
-      priority: -1870
-    }
-  }
-  element {
-    scale: 19
-    area {
-      color: 2038026
-      priority: -1870
-    }
-  }
-}
-cont {
-  name: "amenity-parking_space-disabled"
-  element {
-    scale: 15
-    area {
-      color: 1643785
-      priority: -1870
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 1643785
-      priority: -1870
-    }
-  }
-  element {
-    scale: 17
-    area {
-      color: 2038026
-      priority: -1870
-    }
-  }
-  element {
-    scale: 18
-    area {
-      color: 2038026
-      priority: -1870
-    }
-  }
-  element {
-    scale: 19
-    area {
-      color: 2038026
-      priority: -1870
-    }
-  }
-}
-cont {
-  name: "amenity-parking_space-permissive"
-  element {
-    scale: 15
-    area {
-      color: 1643785
-      priority: -1870
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 1643785
-      priority: -1870
-    }
-  }
-  element {
-    scale: 17
-    area {
-      color: 2038026
-      priority: -1870
-    }
-  }
-  element {
-    scale: 18
-    area {
-      color: 2038026
-      priority: -1870
-    }
-  }
-  element {
-    scale: 19
-    area {
-      color: 2038026
-      priority: -1870
-    }
-  }
-}
-cont {
-  name: "amenity-parking_space-private"
-  element {
-    scale: 15
-    area {
-      color: 1643785
-      priority: -1870
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 1643785
-      priority: -1870
-    }
-  }
-  element {
-    scale: 17
-    area {
-      color: 2038026
-      priority: -1870
-    }
-  }
-  element {
-    scale: 18
-    area {
-      color: 2038026
-      priority: -1870
-    }
-  }
-  element {
-    scale: 19
-    area {
-      color: 2038026
-      priority: -1870
-    }
-  }
-}
-cont {
-  name: "amenity-parking_space-underground"
-  element {
-    scale: 15
-    area {
-      color: 1643785
-      priority: -1870
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 1643785
-      priority: -1870
-    }
-  }
-  element {
-    scale: 17
-    area {
-      color: 2038026
-      priority: -1870
-    }
-  }
-  element {
-    scale: 18
-    area {
-      color: 2038026
-      priority: -1870
-    }
-  }
-  element {
-    scale: 19
-    area {
-      color: 2038026
-      priority: -1870
     }
   }
 }

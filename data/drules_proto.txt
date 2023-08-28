@@ -6509,7 +6509,7 @@ cont {
   }
 }
 cont {
-  name: "amenity-parking-lane"
+  name: "amenity-parking-fee-lane"
   element {
     scale: 15
     area {
@@ -6530,9 +6530,133 @@ cont {
       color: 15921852
       priority: -1900
     }
+  }
+  element {
+    scale: 18
+    area {
+      color: 15921852
+      priority: -1900
+    }
     symbol {
-      name: "parking-s"
+      name: "parking_pay-s"
       priority: 150
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 15921852
+      priority: -1900
+    }
+    symbol {
+      name: "parking_pay-s"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+}
+cont {
+  name: "amenity-parking-fee-street_side"
+  element {
+    scale: 15
+    area {
+      color: 15921852
+      priority: -1900
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 15921852
+      priority: -1900
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 15921852
+      priority: -1900
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 15921852
+      priority: -1900
+    }
+    symbol {
+      name: "parking_pay-s"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 15921852
+      priority: -1900
+    }
+    symbol {
+      name: "parking_pay-s"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+}
+cont {
+  name: "amenity-parking-lane"
+  element {
+    scale: 15
+    area {
+      color: 15921852
+      priority: -1900
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 15921852
+      priority: -1900
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 15921852
+      priority: -1900
     }
   }
   element {
@@ -6966,10 +7090,6 @@ cont {
       color: 15921852
       priority: -1900
     }
-    symbol {
-      name: "parking-s"
-      priority: 150
-    }
   }
   element {
     scale: 18
@@ -7016,43 +7136,32 @@ cont {
   name: "amenity-parking-underground"
   element {
     scale: 15
-    area {
-      color: 15921852
-      priority: -1900
+    symbol {
+      name: "parking_underground-m"
+      priority: 300
+      min_distance: 5
     }
   }
   element {
     scale: 16
-    area {
-      color: 15921852
-      priority: -1900
-    }
     symbol {
-      name: "parking-s"
+      name: "parking_underground-m"
       priority: 300
       min_distance: 5
     }
   }
   element {
     scale: 17
-    area {
-      color: 15921852
-      priority: -1900
-    }
     symbol {
-      name: "parking-m"
+      name: "parking_underground-m"
       priority: 300
       min_distance: 10
     }
   }
   element {
     scale: 18
-    area {
-      color: 15921852
-      priority: -1900
-    }
     symbol {
-      name: "parking-m"
+      name: "parking_underground-m"
       priority: 300
       min_distance: 10
     }
@@ -7068,12 +7177,8 @@ cont {
   }
   element {
     scale: 19
-    area {
-      color: 15921852
-      priority: -1900
-    }
     symbol {
-      name: "parking-m"
+      name: "parking_underground-m"
       priority: 300
       min_distance: 10
     }
@@ -7171,50 +7276,6 @@ cont {
 cont {
   name: "amenity-parking_space"
   element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: -9970
-    }
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: -9970
-    }
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: -9970
-    }
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: -9970
-    }
-  }
-  element {
     scale: 19
     caption {
       primary {
@@ -7228,27 +7289,6 @@ cont {
 }
 cont {
   name: "amenity-parking_space-disabled"
-  element {
-    scale: 15
-    symbol {
-      name: "parking-disabled-m"
-      priority: -9970
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "parking-disabled-m"
-      priority: -9970
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "parking-disabled-m"
-      priority: -9970
-    }
-  }
   element {
     scale: 18
     symbol {
@@ -7276,50 +7316,6 @@ cont {
 cont {
   name: "amenity-parking_space-permissive"
   element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: -9970
-    }
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: -9970
-    }
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: -9970
-    }
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: -9970
-    }
-  }
-  element {
     scale: 19
     caption {
       primary {
@@ -7334,50 +7330,6 @@ cont {
 cont {
   name: "amenity-parking_space-private"
   element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: -9970
-    }
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: -9970
-    }
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: -9970
-    }
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: -9970
-    }
-  }
-  element {
     scale: 19
     caption {
       primary {
@@ -7391,50 +7343,6 @@ cont {
 }
 cont {
   name: "amenity-parking_space-underground"
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: -9970
-    }
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: -9970
-    }
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: -9970
-    }
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: -9970
-    }
-  }
   element {
     scale: 19
     caption {

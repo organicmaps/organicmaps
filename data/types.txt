@@ -439,8 +439,8 @@ mapswithme
 mapswithme
 mapswithme
 *aerialway|t-bar
-mapswithme
-mapswithme
+*amenity|parking|fee|lane
+*amenity|parking|fee|street_side
 *highway|path|difficult_alpine_hiking
 *earthquake:damage|spontaneous_camp
 mapswithme

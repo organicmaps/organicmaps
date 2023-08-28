@@ -187,7 +187,7 @@ amenity-parking-fee                                 # icon z15- (also has captio
 amenity-parking-multi-storey                        # icon z15- (also has caption(optional) z16-, area z15-)
 amenity-parking-park_and_ride                       # icon z15- (also has caption(optional) z16-, area z15-)
 amenity-parking-permissive                          # icon z15- (also has caption(optional) z16-, area z15-)
-amenity-parking-underground                         # icon z15- (also has caption(optional) z16-, area z15-)
+amenity-parking-underground                         # icon z15- (also has caption(optional) z16-)
 === 2550
 
 amenity-motorcycle_parking                          # icon z17-
@@ -195,8 +195,8 @@ amenity-parking_entrance                            # icon z16-
 amenity-parking_entrance-permissive                 # icon z16-
 === 2530
 
-amenity-parking-fee-lane                            # icon z17- (also has area z15-)
-amenity-parking-fee-street_side                     # icon z17- (also has area z15-)
+amenity-parking-fee-lane                            # icon z15- (also has area z15-)
+amenity-parking-fee-street_side                     # icon z15- (also has area z15-)
 amenity-parking-lane                                # icon z17- (also has area z15-)
 amenity-parking-street_side                         # icon z17- (also has area z15-)
 === 2520
@@ -727,7 +727,7 @@ building-garage                                     # caption z18- (also has are
 # amenity-parking-multi-storey                      # caption(optional) z16- (also has icon z15-, area z15-)
 # amenity-parking-park_and_ride                     # caption(optional) z16- (also has icon z15-, area z15-)
 # amenity-parking-permissive                        # caption(optional) z16- (also has icon z15-, area z15-)
-# amenity-parking-underground                       # caption(optional) z16- (also has icon z15-, area z15-)
+# amenity-parking-underground                       # caption(optional) z16- (also has icon z15-)
 # === -7450
 
 # boundary-national_park                            # caption(optional) z12- (also has icon z12-)

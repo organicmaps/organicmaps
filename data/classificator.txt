@@ -89,7 +89,10 @@ world  +
         nursing_home  -
         parcel_locker  -
         parking  +
-            fee  -
+            fee  +
+                lane  -
+                street_side  -
+                {}
             lane  -
             multi-storey  -
             no-access  -
