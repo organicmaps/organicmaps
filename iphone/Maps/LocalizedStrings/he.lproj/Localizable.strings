@@ -1429,7 +1429,11 @@
 
 "type.amenity.parking.street_side" = "היָנָחֲ";
 
+"type.amenity.parking.fee.street_side" = "היָנָחֲ";
+
 "type.amenity.parking.lane" = "היָנָחֲ";
+
+"type.amenity.parking.fee.lane" = "היָנָחֲ";
 
 "type.amenity.parking_entrance" = "הינחל הסינכ";
 

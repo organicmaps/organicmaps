@@ -1429,7 +1429,11 @@
 
 "type.amenity.parking.street_side" = "پارکینگ";
 
+"type.amenity.parking.fee.street_side" = "پارکینگ";
+
 "type.amenity.parking.lane" = "پارکینگ";
+
+"type.amenity.parking.fee.lane" = "پارکینگ";
 
 "type.amenity.parking_entrance" = "ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ";
 

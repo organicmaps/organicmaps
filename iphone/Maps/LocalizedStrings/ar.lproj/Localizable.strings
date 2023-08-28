@@ -1429,7 +1429,11 @@
 
 "type.amenity.parking.street_side" = "موقف سيارات";
 
+"type.amenity.parking.fee.street_side" = "موقف سيارات";
+
 "type.amenity.parking.lane" = "موقف سيارات";
+
+"type.amenity.parking.fee.lane" = "موقف سيارات";
 
 "type.amenity.parking_entrance" = "مدخل موقف سيارات";
 

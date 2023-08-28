@@ -831,7 +831,9 @@
 	<string name="type.amenity.parking.park_and_ride">Parking \"Parkuj i Jedź\"</string>
 	<string name="type.amenity.parking.underground">Parking podziemny</string>
 	<string name="type.amenity.parking.street_side">Parking</string>
+	<string name="type.amenity.parking.fee.street_side">Parking</string>
 	<string name="type.amenity.parking.lane">Parking</string>
+	<string name="type.amenity.parking.fee.lane">Parking</string>
 	<string name="type.amenity.parking_entrance">Wejście na parking</string>
 	<string name="type.amenity.parking_entrance.private">Wejście na parking</string>
 	<string name="type.amenity.parking_entrance.permissive">Wejście na parking</string>

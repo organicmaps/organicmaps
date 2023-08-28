@@ -828,7 +828,9 @@
 	<string name="type.amenity.parking.park_and_ride">Parkeerplaats P+R</string>
 	<string name="type.amenity.parking.underground">Ondergrondse parking</string>
 	<string name="type.amenity.parking.street_side">Parkeerplaats</string>
+	<string name="type.amenity.parking.fee.street_side">Parkeerplaats</string>
 	<string name="type.amenity.parking.lane">Parkeerplaats</string>
+	<string name="type.amenity.parking.fee.lane">Parkeerplaats</string>
 	<string name="type.amenity.parking_entrance">Parkeeringang</string>
 	<string name="type.amenity.parking_entrance.private">Parkeeringang</string>
 	<string name="type.amenity.parking_entrance.permissive">Parkeeringang</string>

@@ -1429,7 +1429,11 @@
 
 "type.amenity.parking.street_side" = "Parkoviště";
 
+"type.amenity.parking.fee.street_side" = "Parkoviště";
+
 "type.amenity.parking.lane" = "Parkoviště";
+
+"type.amenity.parking.fee.lane" = "Parkoviště";
 
 "type.amenity.parking_entrance" = "Vjezd na parkoviště";
 

@@ -826,7 +826,9 @@
 	<string name="type.amenity.parking.park_and_ride">P+R-Parkplatz</string>
 	<string name="type.amenity.parking.underground">Tiefgarage</string>
 	<string name="type.amenity.parking.street_side">Parkplatz</string>
+	<string name="type.amenity.parking.fee.street_side">Parkplatz</string>
 	<string name="type.amenity.parking.lane">Parkplatz</string>
+	<string name="type.amenity.parking.fee.lane">Parkplatz</string>
 	<string name="type.amenity.parking_entrance">Parkplatzeinfahrt</string>
 	<string name="type.amenity.parking_entrance.private">Parkplatzeinfahrt</string>
 	<string name="type.amenity.parking_entrance.permissive">Parkplatzeinfahrt</string>

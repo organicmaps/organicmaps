@@ -1429,7 +1429,11 @@
 
 "type.amenity.parking.street_side" = "đỗ xe";
 
+"type.amenity.parking.fee.street_side" = "đỗ xe";
+
 "type.amenity.parking.lane" = "đỗ xe";
+
+"type.amenity.parking.fee.lane" = "đỗ xe";
 
 "type.amenity.parking_entrance" = "Lối vào bãi đậu xe";
 

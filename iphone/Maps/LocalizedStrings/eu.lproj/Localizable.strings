@@ -1429,7 +1429,11 @@
 
 "type.amenity.parking.street_side" = "Aparkalekua";
 
+"type.amenity.parking.fee.street_side" = "Aparkalekua";
+
 "type.amenity.parking.lane" = "Aparkalekua";
+
+"type.amenity.parking.fee.lane" = "Aparkalekua";
 
 "type.amenity.parking_entrance" = "Aparkalekuaren sarrera";
 

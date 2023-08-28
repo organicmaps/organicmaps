@@ -771,7 +771,9 @@
 	<string name="type.amenity.parking.park_and_ride">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.underground">Υπόγειος χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.street_side">Χώρος στάθμευσης</string>
+	<string name="type.amenity.parking.fee.street_side">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.lane">Χώρος στάθμευσης</string>
+	<string name="type.amenity.parking.fee.lane">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking_entrance">Είσοδος στάθμευσης</string>
 	<string name="type.amenity.parking_entrance.private">Είσοδος στάθμευσης</string>
 	<string name="type.amenity.parking_entrance.permissive">Είσοδος στάθμευσης</string>

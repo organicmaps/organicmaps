@@ -867,7 +867,9 @@
 	<string name="type.amenity.parking.park_and_ride">Park And Ride Parking</string>
 	<string name="type.amenity.parking.underground">Underground Parking</string>
 	<string name="type.amenity.parking.street_side">Street-Side Parking</string>
+	<string name="type.amenity.parking.fee.street_side">Paid Street-Side Parking</string>
 	<string name="type.amenity.parking.lane">Roadside Lane Parking</string>
+	<string name="type.amenity.parking.fee.lane">Paid Roadside Lane Parking</string>
 	<string name="type.amenity.parking_entrance">Parking Entrance</string>
 	<string name="type.amenity.parking_entrance.private">Parking Entrance</string>
 	<string name="type.amenity.parking_entrance.permissive">Parking Entrance</string>

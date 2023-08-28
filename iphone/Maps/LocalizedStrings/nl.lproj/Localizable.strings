@@ -1429,7 +1429,11 @@
 
 "type.amenity.parking.street_side" = "Parkeerplaats";
 
+"type.amenity.parking.fee.street_side" = "Parkeerplaats";
+
 "type.amenity.parking.lane" = "Parkeerplaats";
+
+"type.amenity.parking.fee.lane" = "Parkeerplaats";
 
 "type.amenity.parking_entrance" = "Parkeeringang";
 

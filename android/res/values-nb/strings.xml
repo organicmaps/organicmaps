@@ -819,7 +819,9 @@
 	<string name="type.amenity.parking.park_and_ride">Parkering</string>
 	<string name="type.amenity.parking.underground">Underjordisk parkering</string>
 	<string name="type.amenity.parking.street_side">Parkering</string>
+	<string name="type.amenity.parking.fee.street_side">Parkering</string>
 	<string name="type.amenity.parking.lane">Parkering</string>
+	<string name="type.amenity.parking.fee.lane">Parkering</string>
 	<string name="type.amenity.parking_entrance">Parkeringsinngang</string>
 	<string name="type.amenity.parking_entrance.private">Parkeringsinngang</string>
 	<string name="type.amenity.parking_entrance.permissive">Parkeringsinngang</string>
