@@ -188,18 +188,6 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
   return bestScores;
 }
 
-void MatchTokenRange(FeatureType & ft, Geocoder::Params const & params, TokenRange const & range,
-                     Model::Type type, ErrorsMade & errorsMade, size_t & matchedLength,
-                     bool & isAltOrOldName)
-{
-  auto const scores = GetNameScores(ft, params, range, type);
-  errorsMade = scores.m_errorsMade;
-  isAltOrOldName = scores.m_isAltOrOldName;
-  matchedLength = scores.m_matchedLength;
-  if (errorsMade.IsValid())
-    return;
-}
-
 void RemoveDuplicatingLinear(vector<RankerResult> & results)
 {
   double constexpr kDistSameStreetMeters = 5000.0;
@@ -527,62 +515,45 @@ private:
       bool isAltOrOldName = scores.m_isAltOrOldName;
       auto matchedLength = scores.m_matchedLength;
 
-      if (info.m_type != Model::TYPE_STREET &&
-          preInfo.m_geoParts.m_street != IntersectionResult::kInvalidId)
+      auto const updateScoreForFeature = [&](FeatureType & ft, Model::Type type)
       {
-        auto const & mwmId = ft.GetID().m_mwmId;
-        auto street = LoadFeature(FeatureID(mwmId, preInfo.m_geoParts.m_street));
-        if (street)
-        {
-          auto const type = Model::TYPE_STREET;
-          auto const & range = preInfo.m_tokenRanges[type];
-          auto const streetScores = GetNameScores(*street, m_params, range, type);
+        auto const & range = preInfo.m_tokenRanges[type];
+        ASSERT(!range.Empty(), ());
+        auto const scores = GetNameScores(ft, m_params, range, type);
 
-          nameScore = min(nameScore, streetScores.m_nameScore);
-          errorsMade += streetScores.m_errorsMade;
-          if (streetScores.m_isAltOrOldName)
-            isAltOrOldName = true;
-          matchedLength += streetScores.m_matchedLength;
-        }
-      }
+        nameScore = std::min(nameScore, scores.m_nameScore);
+        errorsMade += scores.m_errorsMade;
+        if (scores.m_isAltOrOldName)
+          isAltOrOldName = true;
+        matchedLength += scores.m_matchedLength;
+      };
 
-      if (info.m_type != Model::TYPE_SUBURB &&
-          preInfo.m_geoParts.m_suburb != IntersectionResult::kInvalidId)
+      auto const updateDependScore = [&](Model::Type type, uint32_t dependID)
       {
-        auto const & mwmId = ft.GetID().m_mwmId;
-        auto suburb = LoadFeature(FeatureID(mwmId, preInfo.m_geoParts.m_suburb));
-        if (suburb)
+        if (info.m_type != type && dependID != IntersectionResult::kInvalidId)
         {
-          auto const type = Model::TYPE_SUBURB;
-          auto const & range = preInfo.m_tokenRanges[type];
-          ErrorsMade suburbErrors;
-          size_t suburbMatchedLength = 0;
-          bool suburbNameIsAltNameOrOldName = false;
-          MatchTokenRange(*suburb, m_params, range, type, suburbErrors, suburbMatchedLength,
-                          suburbNameIsAltNameOrOldName);
-          errorsMade += suburbErrors;
-          matchedLength += suburbMatchedLength;
-          if (suburbNameIsAltNameOrOldName)
-            isAltOrOldName = true;
+          if (auto p = LoadFeature({ ft.GetID().m_mwmId, dependID }))
+            updateScoreForFeature(*p, type);
         }
-      }
+      };
+
+      updateDependScore(Model::TYPE_STREET, preInfo.m_geoParts.m_street);
+      updateDependScore(Model::TYPE_SUBURB, preInfo.m_geoParts.m_suburb);
 
       if (!Model::IsLocalityType(info.m_type) && preInfo.m_cityId.IsValid())
       {
-        auto city = LoadFeature(preInfo.m_cityId);
-        if (city)
+        if (auto city = LoadFeature(preInfo.m_cityId))
         {
-          auto const type = Model::TYPE_CITY;
-          auto const & range = preInfo.m_tokenRanges[type];
-          ErrorsMade cityErrors;
-          size_t cityMatchedLength = 0;
-          bool cityNameIsAltNameOrOldName = false;
-          MatchTokenRange(*city, m_params, range, type, cityErrors, cityMatchedLength,
-                          cityNameIsAltNameOrOldName);
-          errorsMade += cityErrors;
-          matchedLength += cityMatchedLength;
-          if (cityNameIsAltNameOrOldName)
-            isAltOrOldName = true;
+          auto type = Model::TYPE_CITY;
+          if (preInfo.m_tokenRanges[type].Empty())
+            type = Model::TYPE_VILLAGE;
+          else
+          {
+            /// @todo Possible match by city AND village? What will be in preInfo.m_cityId?
+            ASSERT(preInfo.m_tokenRanges[Model::TYPE_VILLAGE].Empty(), ());
+          }
+
+          updateScoreForFeature(*city, type);
         }
       }
 
@@ -777,9 +748,14 @@ void Ranker::UpdateResults(bool lastUpdate)
   }
   else
   {
-    /// @note Here is _reverse_ order sorting, because bigger is better.
-    sort(m_tentativeResults.rbegin(), m_tentativeResults.rend(),
-         base::LessBy(&RankerResult::GetLinearModelRank));
+    // Can get same Town features (from World) when searching in many MWMs.
+    base::SortUnique(m_tentativeResults,
+        [](RankerResult const & r1, RankerResult const & r2)
+        {
+          // Expect that linear rank is equal for the same features.
+          return r1.GetLinearModelRank() > r2.GetLinearModelRank();
+        },
+        base::EqualsBy(&RankerResult::GetID));
 
     ProcessSuggestions(m_tentativeResults);
   }
@@ -853,6 +829,8 @@ void Ranker::LoadCountriesTree() { m_regionInfoGetter.LoadCountriesTree(); }
 
 void Ranker::MakeRankerResults()
 {
+  LOG(LDEBUG, ("PreRankerResults number =", m_preRankerResults.size()));
+
   bool const isViewportMode = m_geocoderParams.m_mode == Mode::Viewport;
 
   RankerResultMaker maker(*this, m_dataSource, m_infoGetter, m_reverseGeocoder, m_geocoderParams);

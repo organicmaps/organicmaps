@@ -1323,6 +1323,12 @@
 
 "type.amenity.casino" = "Casino";
 
+"type.amenity.gambling" = "Gokken";
+
+"type.leisure.adult_gaming_centre" = "Gamingcentrum voor volwassenen";
+
+"type.leisure.amusement_arcade" = "Arcade";
+
 "type.amenity.charging_station" = "Oplaadstation";
 
 "type.amenity.charging_station.bicycle" = "Oplaadstation voor fietsen";
@@ -1421,7 +1427,11 @@
 
 "type.amenity.parking.street_side" = "Parkeerplaats";
 
+"type.amenity.parking.fee.street_side" = "Parkeerplaats";
+
 "type.amenity.parking.lane" = "Parkeerplaats";
+
+"type.amenity.parking.fee.lane" = "Parkeerplaats";
 
 "type.amenity.parking_entrance" = "Parkeeringang";
 
@@ -1448,6 +1458,8 @@
 "type.amenity.place_of_worship.buddhist" = "Tempel";
 
 "type.amenity.place_of_worship.christian" = "Kerk";
+
+"type.amenity.place_of_worship.christian.mormon" = "Kerk van Jezus Christus van de Heiligen der Laatste Dagen";
 
 "type.amenity.place_of_worship.hindu" = "Tempel";
 

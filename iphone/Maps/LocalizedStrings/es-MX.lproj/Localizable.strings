@@ -1323,6 +1323,12 @@
 
 "type.amenity.casino" = "Casino";
 
+"type.amenity.gambling" = "Juegos de azar";
+
+"type.leisure.adult_gaming_centre" = "Centro de juegos para adultos";
+
+"type.leisure.amusement_arcade" = "Arcade";
+
 "type.amenity.charging_station" = "Estación de carga";
 
 "type.amenity.charging_station.bicycle" = "Estación de carga de bicicletas";
@@ -1421,7 +1427,11 @@
 
 "type.amenity.parking.street_side" = "Aparcamiento";
 
+"type.amenity.parking.fee.street_side" = "Aparcamiento";
+
 "type.amenity.parking.lane" = "Aparcamiento";
+
+"type.amenity.parking.fee.lane" = "Aparcamiento";
 
 "type.amenity.parking_entrance" = "Entrada al aparcamiento";
 
@@ -1448,6 +1458,8 @@
 "type.amenity.place_of_worship.buddhist" = "Templo";
 
 "type.amenity.place_of_worship.christian" = "Iglesia";
+
+"type.amenity.place_of_worship.christian.mormon" = "Iglesia de Jesucristo de los Santos de los Últimos Días";
 
 "type.amenity.place_of_worship.hindu" = "Templo";
 
@@ -1576,7 +1588,7 @@
 
 "type.barrier.chain" = "Cadena";
 
-"type.barrier.city_wall" = "Muro de la ciudad";
+"type.barrier.city_wall" = "City Wall";
 
 "type.barrier.cycle_barrier" = "Barrera para bicicletas";
 
@@ -1981,15 +1993,15 @@
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Puente";
 
-"type.highway.footway.demanding_alpine_hiking" = "Camino";
+"type.highway.footway.demanding_alpine_hiking" = "Path";
 
-"type.highway.footway.demanding_mountain_hiking" = "Camino";
+"type.highway.footway.demanding_mountain_hiking" = "Path";
 
-"type.highway.footway.difficult_alpine_hiking" = "Camino";
+"type.highway.footway.difficult_alpine_hiking" = "Path";
 
 "type.highway.footway.hiking" = "Sendero";
 
-"type.highway.footway.mountain_hiking" = "Camino";
+"type.highway.footway.mountain_hiking" = "Path";
 
 "type.highway.footway.permissive" = "Camino";
 

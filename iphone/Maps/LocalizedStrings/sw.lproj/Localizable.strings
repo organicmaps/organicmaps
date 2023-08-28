@@ -1323,6 +1323,12 @@
 
 "type.amenity.casino" = "Casino";
 
+"type.amenity.gambling" = "Kamari";
+
+"type.leisure.adult_gaming_centre" = "Kituo cha Michezo ya Watu Wazima";
+
+"type.leisure.amusement_arcade" = "Ukumbi wa michezo";
+
 "type.amenity.charging_station" = "Charging Station";
 
 "type.amenity.charging_station.bicycle" = "Kituo cha Kuchaji Baiskeli";
@@ -1421,7 +1427,11 @@
 
 "type.amenity.parking.street_side" = "Maegesho";
 
+"type.amenity.parking.fee.street_side" = "Maegesho";
+
 "type.amenity.parking.lane" = "Maegesho";
+
+"type.amenity.parking.fee.lane" = "Maegesho";
 
 "type.amenity.parking_entrance" = "Mlango wa maegesho";
 
@@ -1448,6 +1458,8 @@
 "type.amenity.place_of_worship.buddhist" = "Buddhist Temple";
 
 "type.amenity.place_of_worship.christian" = "Church";
+
+"type.amenity.place_of_worship.christian.mormon" = "Kanisa la Yesu Kristo la Watakatifu wa Siku za Mwisho";
 
 "type.amenity.place_of_worship.hindu" = "Hindu Temple";
 

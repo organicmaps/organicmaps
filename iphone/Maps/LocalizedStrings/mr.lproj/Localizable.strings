@@ -1323,6 +1323,12 @@
 
 "type.amenity.casino" = "जुगारगृह";
 
+"type.amenity.gambling" = "जुगार";
+
+"type.leisure.adult_gaming_centre" = "प्रौढ गेमिंग केंद्र";
+
+"type.leisure.amusement_arcade" = "आर्केड";
+
 "type.amenity.charging_station" = "चार्जिंग केंद्र";
 
 "type.amenity.charging_station.bicycle" = "सायकल चार्जिंग स्टेशन";
@@ -1421,7 +1427,11 @@
 
 "type.amenity.parking.street_side" = "वाहनतळ";
 
+"type.amenity.parking.fee.street_side" = "वाहनतळ";
+
 "type.amenity.parking.lane" = "वाहनतळ";
+
+"type.amenity.parking.fee.lane" = "वाहनतळ";
 
 "type.amenity.parking_entrance" = "Parking Entrance";
 
@@ -1448,6 +1458,8 @@
 "type.amenity.place_of_worship.buddhist" = "मंदिर";
 
 "type.amenity.place_of_worship.christian" = "चर्च";
+
+"type.amenity.place_of_worship.christian.mormon" = "चर्च ऑफ जिझस क्राइस्ट ऑफ लेटर डे सेंट्स";
 
 "type.amenity.place_of_worship.hindu" = "मंदिर";
 

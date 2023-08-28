@@ -717,6 +717,9 @@
 	<string name="type.amenity.car_sharing">카 셰어링</string>
 	<string name="type.amenity.car_wash">세차</string>
 	<string name="type.amenity.casino">카지노</string>
+	<string name="type.amenity.gambling">도박</string>
+	<string name="type.leisure.adult_gaming_centre">성인 게임 센터</string>
+	<string name="type.leisure.amusement_arcade">아케이드</string>
 	<string name="type.amenity.charging_station">충전 역</string>
 	<string name="type.amenity.charging_station.bicycle">자전거 충전소</string>
 	<string name="type.amenity.charging_station.motorcar">자동차 충전소</string>
@@ -766,7 +769,9 @@
 	<string name="type.amenity.parking.park_and_ride">주차</string>
 	<string name="type.amenity.parking.underground">지하주차장</string>
 	<string name="type.amenity.parking.street_side">주차</string>
+	<string name="type.amenity.parking.fee.street_side">주차</string>
 	<string name="type.amenity.parking.lane">주차</string>
+	<string name="type.amenity.parking.fee.lane">주차</string>
 	<string name="type.amenity.parking_entrance">주차장 입구</string>
 	<string name="type.amenity.parking_entrance.private">주차장 입구</string>
 	<string name="type.amenity.parking_entrance.permissive">주차장 입구</string>
@@ -780,6 +785,7 @@
 	<string name="type.amenity.place_of_worship">예배 장소</string>
 	<string name="type.amenity.place_of_worship.buddhist">불교 사원</string>
 	<string name="type.amenity.place_of_worship.christian">교회</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">예수 그리스도 후기 성도 교회</string>
 	<string name="type.amenity.place_of_worship.hindu">힌두교 사원</string>
 	<string name="type.amenity.place_of_worship.jewish">유태교 회당</string>
 	<string name="type.amenity.place_of_worship.muslim">모스크</string>

@@ -1323,6 +1323,12 @@
 
 "type.amenity.casino" = "Divertisment";
 
+"type.amenity.gambling" = "Jocuri de noroc";
+
+"type.leisure.adult_gaming_centre" = "Centru de jocuri pentru adulți";
+
+"type.leisure.amusement_arcade" = "Arcadă";
+
 "type.amenity.charging_station" = "Stație încărcare";
 
 "type.amenity.charging_station.bicycle" = "Stație de încărcare pentru biciclete";
@@ -1421,7 +1427,11 @@
 
 "type.amenity.parking.street_side" = "Parcare";
 
+"type.amenity.parking.fee.street_side" = "Parcare";
+
 "type.amenity.parking.lane" = "Parcare";
+
+"type.amenity.parking.fee.lane" = "Parcare";
 
 "type.amenity.parking_entrance" = "Intrare parcare";
 
@@ -1448,6 +1458,8 @@
 "type.amenity.place_of_worship.buddhist" = "Templu";
 
 "type.amenity.place_of_worship.christian" = "Biserică";
+
+"type.amenity.place_of_worship.christian.mormon" = "Biserica lui Isus Hristos a Sfinților din Zilele din Urmă";
 
 "type.amenity.place_of_worship.hindu" = "Templu";
 

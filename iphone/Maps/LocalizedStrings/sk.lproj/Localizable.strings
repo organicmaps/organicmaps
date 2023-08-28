@@ -1323,6 +1323,12 @@
 
 "type.amenity.casino" = "Kasíno";
 
+"type.amenity.gambling" = "Hazardné hry";
+
+"type.leisure.adult_gaming_centre" = "Centrum hier pre dospelých";
+
+"type.leisure.amusement_arcade" = "Arcade";
+
 "type.amenity.charging_station" = "Dobíjacia stanica";
 
 "type.amenity.charging_station.bicycle" = "Nabíjacia stanica pre bicykle";
@@ -1421,7 +1427,11 @@
 
 "type.amenity.parking.street_side" = "Parkovisko";
 
+"type.amenity.parking.fee.street_side" = "Parkovisko";
+
 "type.amenity.parking.lane" = "Parkovisko";
+
+"type.amenity.parking.fee.lane" = "Parkovisko";
 
 "type.amenity.parking_entrance" = "Vstup na parkovisko";
 
@@ -1448,6 +1458,8 @@
 "type.amenity.place_of_worship.buddhist" = "Chrám";
 
 "type.amenity.place_of_worship.christian" = "Chrám";
+
+"type.amenity.place_of_worship.christian.mormon" = "Cirkev Ježiša Krista Svätých neskorších dní";
 
 "type.amenity.place_of_worship.hindu" = "Chrám";
 

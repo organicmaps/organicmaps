@@ -1323,6 +1323,12 @@
 
 "type.amenity.casino" = "Kasino";
 
+"type.amenity.gambling" = "Glücksspiel";
+
+"type.leisure.adult_gaming_centre" = "Gaming-Zentrum für Erwachsene";
+
+"type.leisure.amusement_arcade" = "Arkade";
+
 "type.amenity.charging_station" = "Ladestation";
 
 "type.amenity.charging_station.bicycle" = "Fahrrad Ladestation";
@@ -1421,7 +1427,11 @@
 
 "type.amenity.parking.street_side" = "Parkplatz";
 
+"type.amenity.parking.fee.street_side" = "Parkplatz";
+
 "type.amenity.parking.lane" = "Parkplatz";
+
+"type.amenity.parking.fee.lane" = "Parkplatz";
 
 "type.amenity.parking_entrance" = "Parkplatzeinfahrt";
 
@@ -1448,6 +1458,8 @@
 "type.amenity.place_of_worship.buddhist" = "Buddhistischer Tempel";
 
 "type.amenity.place_of_worship.christian" = "Kirche";
+
+"type.amenity.place_of_worship.christian.mormon" = "Kirche Jesu Christi der Heiligen der Letzten Tage";
 
 "type.amenity.place_of_worship.hindu" = "Hinduistischer Tempel";
 

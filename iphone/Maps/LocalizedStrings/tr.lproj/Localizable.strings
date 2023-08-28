@@ -1323,6 +1323,12 @@
 
 "type.amenity.casino" = "Kumarhane";
 
+"type.amenity.gambling" = "Kumar";
+
+"type.leisure.adult_gaming_centre" = "Yetişkin Oyun Merkezi";
+
+"type.leisure.amusement_arcade" = "Oyun makinesi";
+
 "type.amenity.charging_station" = "Şarj İstasyonu";
 
 "type.amenity.charging_station.bicycle" = "Bisiklet Şarj İstasyonu";
@@ -1421,7 +1427,11 @@
 
 "type.amenity.parking.street_side" = "Otopark";
 
+"type.amenity.parking.fee.street_side" = "Otopark";
+
 "type.amenity.parking.lane" = "Otopark";
+
+"type.amenity.parking.fee.lane" = "Otopark";
 
 "type.amenity.parking_entrance" = "Otopark girişi";
 
@@ -1448,6 +1458,8 @@
 "type.amenity.place_of_worship.buddhist" = "Tapınak";
 
 "type.amenity.place_of_worship.christian" = "Kilise";
+
+"type.amenity.place_of_worship.christian.mormon" = "İsa Mesih'in Son Zaman Azizleri Kilisesi";
 
 "type.amenity.place_of_worship.hindu" = "Tapınak";
 

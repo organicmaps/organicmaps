@@ -765,6 +765,9 @@
 	<string name="type.amenity.car_sharing">Autojagamine</string>
 	<string name="type.amenity.car_wash">Autopesula</string>
 	<string name="type.amenity.casino">Kasiino</string>
+	<string name="type.amenity.gambling">Hasartmängud</string>
+	<string name="type.leisure.adult_gaming_centre">Täiskasvanute mängukeskus</string>
+	<string name="type.leisure.amusement_arcade">Arkaad</string>
 	<string name="type.amenity.charging_station">Laadimisjaam</string>
 	<string name="type.amenity.charging_station.bicycle">Jalgratta laadimisjaam</string>
 	<string name="type.amenity.charging_station.motorcar">Autode laadimisjaam</string>
@@ -815,7 +818,9 @@
 	<string name="type.amenity.parking.park_and_ride">Parkimine</string>
 	<string name="type.amenity.parking.underground">Maa-alune parkimine</string>
 	<string name="type.amenity.parking.street_side">Parkimine</string>
+	<string name="type.amenity.parking.fee.street_side">Parkimine</string>
 	<string name="type.amenity.parking.lane">Parkimine</string>
+	<string name="type.amenity.parking.fee.lane">Parkimine</string>
 	<string name="type.amenity.parking_entrance">Parkla sissepääs</string>
 	<string name="type.amenity.parking_entrance.private">Parkla sissepääs</string>
 	<string name="type.amenity.parking_entrance.permissive">Parkla sissepääs</string>
@@ -829,6 +834,7 @@
 	<string name="type.amenity.place_of_worship">Jumalateenistuse koht</string>
 	<string name="type.amenity.place_of_worship.buddhist">Tempel</string>
 	<string name="type.amenity.place_of_worship.christian">Kirik</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Viimse Aja Pühade Jeesuse Kristuse kirik</string>
 	<string name="type.amenity.place_of_worship.hindu">Tempel</string>
 	<string name="type.amenity.place_of_worship.jewish">Sünagoog</string>
 	<string name="type.amenity.place_of_worship.muslim">Mošee</string>

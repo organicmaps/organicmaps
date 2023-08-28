@@ -1323,6 +1323,12 @@
 
 "type.amenity.casino" = "Kasino";
 
+"type.amenity.gambling" = "Uhkapelit";
+
+"type.leisure.adult_gaming_centre" = "Aikuisten pelikeskus";
+
+"type.leisure.amusement_arcade" = "Arcade";
+
 "type.amenity.charging_station" = "Latausasema";
 
 "type.amenity.charging_station.bicycle" = "Polkupyörän latausasema";
@@ -1421,7 +1427,11 @@
 
 "type.amenity.parking.street_side" = "Parkkipaikka";
 
+"type.amenity.parking.fee.street_side" = "Parkkipaikka";
+
 "type.amenity.parking.lane" = "Parkkipaikka";
+
+"type.amenity.parking.fee.lane" = "Parkkipaikka";
 
 "type.amenity.parking_entrance" = "Pysäköinnin sisäänkäynti";
 
@@ -1448,6 +1458,8 @@
 "type.amenity.place_of_worship.buddhist" = "Buddhalainen temppeli";
 
 "type.amenity.place_of_worship.christian" = "Kirkko";
+
+"type.amenity.place_of_worship.christian.mormon" = "Myöhempien Aikojen Pyhien Jeesuksen Kristuksen Kirkko";
 
 "type.amenity.place_of_worship.hindu" = "Hindutemppeli";
 

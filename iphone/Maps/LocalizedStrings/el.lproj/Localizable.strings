@@ -1323,6 +1323,12 @@
 
 "type.amenity.casino" = "Καζίνο";
 
+"type.amenity.gambling" = "ΤΥΧΕΡΑ ΠΑΙΧΝΙΔΙΑ";
+
+"type.leisure.adult_gaming_centre" = "Κέντρο παιχνιδιών ενηλίκων";
+
+"type.leisure.amusement_arcade" = "Στοά";
+
 "type.amenity.charging_station" = "Σταθμός φόρτισης";
 
 "type.amenity.charging_station.bicycle" = "Σταθμός φόρτισης ποδηλάτων";
@@ -1421,7 +1427,11 @@
 
 "type.amenity.parking.street_side" = "Χώρος στάθμευσης";
 
+"type.amenity.parking.fee.street_side" = "Χώρος στάθμευσης";
+
 "type.amenity.parking.lane" = "Χώρος στάθμευσης";
+
+"type.amenity.parking.fee.lane" = "Χώρος στάθμευσης";
 
 "type.amenity.parking_entrance" = "Είσοδος στάθμευσης";
 
@@ -1448,6 +1458,8 @@
 "type.amenity.place_of_worship.buddhist" = "Ναός";
 
 "type.amenity.place_of_worship.christian" = "Εκκλησία";
+
+"type.amenity.place_of_worship.christian.mormon" = "Εκκλησία του Ιησού Χριστού των Αγίων των Τελευταίων Ημερών";
 
 "type.amenity.place_of_worship.hindu" = "Ναός";
 

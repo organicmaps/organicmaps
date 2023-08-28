@@ -782,6 +782,9 @@
 	<string name="type.amenity.car_sharing">Compartir coche</string>
 	<string name="type.amenity.car_wash">Lavado de coches</string>
 	<string name="type.amenity.casino">Casino</string>
+	<string name="type.amenity.gambling">Juegos de azar</string>
+	<string name="type.leisure.adult_gaming_centre">Centro de juegos para adultos</string>
+	<string name="type.leisure.amusement_arcade">Arcade</string>
 	<string name="type.amenity.charging_station">Estación de carga</string>
 	<string name="type.amenity.charging_station.bicycle">Estación de carga de bicicletas</string>
 	<string name="type.amenity.charging_station.motorcar">Estación de carga de automóviles</string>
@@ -832,7 +835,9 @@
 	<string name="type.amenity.parking.park_and_ride">Aparcamiento</string>
 	<string name="type.amenity.parking.underground">Aparcamiento subterráneo</string>
 	<string name="type.amenity.parking.street_side">Aparcamiento</string>
+	<string name="type.amenity.parking.fee.street_side">Aparcamiento</string>
 	<string name="type.amenity.parking.lane">Aparcamiento</string>
+	<string name="type.amenity.parking.fee.lane">Aparcamiento</string>
 	<string name="type.amenity.parking_entrance">Entrada al aparcamiento</string>
 	<string name="type.amenity.parking_entrance.private">Entrada al aparcamiento</string>
 	<string name="type.amenity.parking_entrance.permissive">Entrada al aparcamiento</string>
@@ -846,6 +851,7 @@
 	<string name="type.amenity.place_of_worship">Lugar de culto</string>
 	<string name="type.amenity.place_of_worship.buddhist">Templo</string>
 	<string name="type.amenity.place_of_worship.christian">Iglesia</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Iglesia de Jesucristo de los Santos de los Últimos Días</string>
 	<string name="type.amenity.place_of_worship.hindu">Templo</string>
 	<string name="type.amenity.place_of_worship.jewish">Sinagoga</string>
 	<string name="type.amenity.place_of_worship.muslim">Mezquita</string>

@@ -241,6 +241,8 @@
 	<string name="duration_12_hours">12 ساعة</string>
 	<string name="duration_1_day">1 يوم</string>
 	<string name="search_show_on_map">مشاهدة على الخريطة</string>
+	<!-- Menu button -->
+	<string name="menu">القائمة</string>
 	<!-- Text in menu -->
 	<string name="website">الموقع الإلكتروني</string>
 	<!-- Text in About menu, opens Organic Maps news website -->
@@ -403,8 +405,8 @@
 	<string name="editor_time_delete">حذف جدول</string>
 	<!-- Text for allday switch. -->
 	<string name="editor_time_allday">طوال اليوم (٢٤ ساعة)</string>
-	<string name="editor_time_open">يفتح</string>
-	<string name="editor_time_close">يغلق</string>
+	<string name="editor_time_open">مفتوح</string>
+	<string name="editor_time_close">مغلق</string>
 	<string name="editor_time_add_closed">إضافة ساعات راحة</string>
 	<string name="editor_time_title">ساعات العمل</string>
 	<string name="editor_time_advanced">الوضع المتقدم</string>
@@ -468,7 +470,7 @@
 	<string name="editor_profile_changes">التعديلات التي تم التحقق منها</string>
 	<string name="editor_focus_map_on_location">اسحب الخريطة لتحدد موقع الإضافة.</string>
 	<string name="editor_edit_place_title">يتم التعديل</string>
-	<string name="editor_add_place_title">يتم الإٍضافة</string>
+	<string name="editor_add_place_title">يتم الإضافة</string>
 	<string name="editor_edit_place_name_hint">اسم المكان</string>
 	<string name="editor_edit_place_category_title">الفئة</string>
 	<string name="detailed_problem_description">وصف مفصّل للمشكلة</string>
@@ -726,6 +728,8 @@
 	<string name="disk_error_title">حدث خطأ في التخزين</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">فشل الاتصال</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disconnect_usb_cable_title">إفصل سلك USB</string>
 	<string name="enable_screen_sleep">اسمح للشاشة بالنوم</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">عند التفعيل ، سيتم السماح للشاشة بالنوم بعد فترة من عدم النشاط.</string>
@@ -766,6 +770,9 @@
 	<string name="type.amenity.car_sharing">مشاركة السيارة</string>
 	<string name="type.amenity.car_wash">مغسلة سيارات</string>
 	<string name="type.amenity.casino">كازينو</string>
+	<string name="type.amenity.gambling">القمار</string>
+	<string name="type.leisure.adult_gaming_centre">مركز ألعاب الكبار</string>
+	<string name="type.leisure.amusement_arcade">ممر</string>
 	<string name="type.amenity.charging_station">محطة شحن</string>
 	<string name="type.amenity.charging_station.bicycle">محطة شحن الدراجات</string>
 	<string name="type.amenity.charging_station.motorcar">محطة شحن Motorcar</string>
@@ -816,7 +823,9 @@
 	<string name="type.amenity.parking.park_and_ride">موقف سيارات</string>
 	<string name="type.amenity.parking.underground">موقف سيارات تحت الأرض</string>
 	<string name="type.amenity.parking.street_side">موقف سيارات</string>
+	<string name="type.amenity.parking.fee.street_side">موقف سيارات</string>
 	<string name="type.amenity.parking.lane">موقف سيارات</string>
+	<string name="type.amenity.parking.fee.lane">موقف سيارات</string>
 	<string name="type.amenity.parking_entrance">مدخل موقف سيارات</string>
 	<string name="type.amenity.parking_entrance.private">مدخل موقف سيارات</string>
 	<string name="type.amenity.parking_entrance.permissive">مدخل موقف سيارات</string>
@@ -830,6 +839,7 @@
 	<string name="type.amenity.place_of_worship">مكان عبادة</string>
 	<string name="type.amenity.place_of_worship.buddhist">معبد بوذي</string>
 	<string name="type.amenity.place_of_worship.christian">كنيسة</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">كنيسة يسوع المسيح لقديسي الأيام الأخيرة</string>
 	<string name="type.amenity.place_of_worship.hindu">معبد هندوسي</string>
 	<string name="type.amenity.place_of_worship.jewish">معبد يهودي</string>
 	<string name="type.amenity.place_of_worship.muslim">مسجد</string>
@@ -1318,7 +1328,7 @@
 	<string name="type.leisure.park.no.access">موقف سيارات</string>
 	<string name="type.leisure.park.permissive">موقف سيارات</string>
 	<string name="type.leisure.park.private">موقف سيارات</string>
-	<string name="type.leisure.picnic_table">ﺔﻫﺰﻨﻟﺍ ﺔﻟﻭﺎﻃ</string>
+	<string name="type.leisure.picnic_table">طاولة النزهة</string>
 	<string name="type.leisure.pitch">ملعب رياضي</string>
 	<string name="type.leisure.playground">ملعب</string>
 	<string name="type.leisure.sauna">ساونا</string>
@@ -1707,7 +1717,7 @@
 	<string name="type.shop.butcher">جزار</string>
 	<string name="type.shop.cannabis">متجر القنب</string>
 	<string name="type.shop.car">متجر سيارات</string>
-	<string name="type.shop.car_parts">ﺓﺭﺎﻴﺴﻟﺍ ءﺍﺰﺟﺃ</string>
+	<string name="type.shop.car_parts">محل أجزاء سيارات</string>
 	<string name="type.shop.car_repair">محل صيانة السيارات</string>
 	<string name="type.shop.car_repair.tyres">إصلاح إطارات</string>
 	<string name="type.shop.carpet">السجاد</string>
@@ -1721,14 +1731,14 @@
 	<string name="type.shop.copyshop">محل نسخ</string>
 	<string name="type.shop.cosmetics">مستحضرات تجميل</string>
 	<string name="type.shop.curtain">ستائر</string>
-	<string name="type.shop.deli">ﺔﺒﻠﻌﻤﻟﺍ ﺔﻤﻌﻃﻷﺍ ﻊﻴﺒﻟ ﻞﺤﻣ</string>
+	<string name="type.shop.deli">محل جواهز</string>
 	<string name="type.shop.department_store">متجر شامل</string>
 	<string name="type.shop.doityourself">متجر عدد وأدوات</string>
 	<string name="type.shop.dry_cleaning">غسيل جاف</string>
 	<string name="type.shop.electronics">متجر إلكترونيات</string>
 	<string name="type.shop.erotic">متجر منتجات جنسية</string>
 	<string name="type.shop.fabric">متجر</string>
-	<string name="type.shop.farm">ﺔﻋﺭﺰﻤﻟﺍ ﺔﻳﺬﻏﺃ ﺮﺠﺘﻣ</string>
+	<string name="type.shop.farm">متجر أغذية المزرعة</string>
 	<string name="type.shop.fashion_accessories">اكسسوارات الموضة</string>
 	<string name="type.shop.florist">متجر زهور</string>
 	<string name="type.shop.funeral_directors">منظموا الجنازات</string>
@@ -1737,16 +1747,15 @@
 	<string name="type.shop.gas">مخزن غاز</string>
 	<string name="type.shop.gift">متجر هدايا</string>
 	<string name="type.shop.greengrocer">متجر خضروات وفواكه</string>
-	<string name="type.shop.grocery">ﺕﺍﻭﺮﻀﺧ</string>
 	<string name="type.shop.hairdresser">مصفف شعر</string>
-	<string name="type.shop.hardware">ﺕﺍﺪﻌﻣ ﻞﺤﻣ</string>
-	<string name="type.shop.health_food">ﺔﻴﺤﺼﻟﺍ ﺔﻳﺬﻏﻼﻟ ﺮﺠﺘﻣ</string>
+	<string name="type.shop.hardware">محد معدات</string>
+	<string name="type.shop.health_food">متجر الأغذية الصحية</string>
 	<string name="type.shop.herbalist">متجر أعشاب</string>
 	<string name="type.shop.hifi">صوت هاي فاي</string>
-	<string name="type.shop.houseware">ﺔﻴﻟﺰﻨﻣ ﺕﺍﻭﺩﺃ ﻞﺤﻣ</string>
+	<string name="type.shop.houseware">محل أدوات منزلية</string>
 	<string name="type.shop.jewelry">مجوهرات</string>
 	<string name="type.shop.kiosk">كشك</string>
-	<string name="type.shop.kitchen">ﺦﺒﻄﻤﻟﺍ ﺮﺠﺘﻣ</string>
+	<string name="type.shop.kitchen">متجر مطابخ</string>
 	<string name="type.shop.laundry">مغسلة ملابس</string>
 	<string name="type.shop.mall">مركز تسوق</string>
 	<string name="type.shop.massage">قاعة تدليك</string>
@@ -1766,7 +1775,7 @@
 	<string name="type.shop.pet_grooming">العناية بالحيوانات الأليفة</string>
 	<string name="type.shop.photo">محل صور</string>
 	<string name="type.shop.seafood">سماك</string>
-	<string name="type.shop.second_hand">ﺔﻠﻤﻌﺘﺴﻣ ﺕﺍﻭﺩﺍ ﺮﺠﺘﻣ</string>
+	<string name="type.shop.second_hand">متجر بضائع مستعملة</string>
 	<string name="type.shop.shoes">متجر أحذية</string>
 	<string name="type.shop.sports">أدوات رياضية</string>
 	<string name="type.shop.stationery">متجر قرطاسية</string>
@@ -1782,32 +1791,32 @@
 	<string name="type.shop.video_games">متجر ألعاب فيديو</string>
 	<string name="type.shop.wine">متجر مشروبات روحية</string>
 	<string name="type.shop.agrarian">محل زراعي</string>
-	<string name="type.shop.antiques">ﻒﺤﺘﻟﺍ</string>
+	<string name="type.shop.antiques">التحف</string>
 	<string name="type.shop.appliance">متجر الأجهزة</string>
 	<!-- maybe change to Art Gallery for en-US when supported -->
-	<string name="type.shop.art">ﻥﻮﻨﻔﻟﺍ ﺮﺠﺘﻣ</string>
-	<string name="type.shop.baby_goods">ﻝﺎﻔﻃﻸﻟ ﺮﺠﺘﻣ</string>
-	<string name="type.shop.bag">ﺐﺋﺎﻘﺤﻟﺍ ﺮﺠﺘﻣ</string>
+	<string name="type.shop.art">متجر الفنون</string>
+	<string name="type.shop.baby_goods">متجر الأطفال</string>
+	<string name="type.shop.bag">متجر الحقائب</string>
 	<string name="type.shop.bed">متجر الأسرة</string>
-	<string name="type.shop.boutique">ﺮﺠﺘﻣ</string>
-	<string name="type.shop.charity">ﻱﺮﻴﺧ ﺮﺠﺘﻣ</string>
-	<string name="type.shop.cheese">ﻦﺒﺠﻟﺍ ﺮﺠﺘﻣ</string>
-	<string name="type.shop.craft">ﺔﻳﻭﺪﻴﻟﺍ ﻑﺮﺤﻟﺍﻭ ﻥﻮﻨﻔﻟﺍ</string>
-	<string name="type.shop.dairy">ﻥﺎﺒﻟﻷﺍ ﺕﺎﺠﺘﻨﻣ</string>
-	<string name="type.shop.electrical">ﺔﻴﺋﺎﺑﺮﻬﻜﻟﺍ ﺕﺍﻭﺩﻷﺍ ﺮﺠﺘﻣ</string>
-	<string name="type.shop.fishing">ﺪﻴﺻ ﺮﺠﺘﻣ</string>
-	<string name="type.shop.interior_decoration">ﺔﻴﻠﺧﺍﺩ ﺕﺍﺭﻮﻜﻳﺩ</string>
+	<string name="type.shop.boutique">بوتيك</string>
+	<string name="type.shop.charity">متجر خيري</string>
+	<string name="type.shop.cheese">متجر جبن</string>
+	<string name="type.shop.craft">الفنون و الحرف اليدوية</string>
+	<string name="type.shop.dairy">متجر الألبان</string>
+	<string name="type.shop.electrical">متجر البضع الكهربائية</string>
+	<string name="type.shop.fishing">متجر صيد</string>
+	<string name="type.shop.interior_decoration">محل ديكورات داخلية</string>
 	<string name="type.shop.lottery">ﺐﻴﺼﻧﺎﻴﻟﺍ ﺮﻛﺍﺬﺗ</string>
 	<string name="type.shop.medical_supply">ﺔﻴﺒﻄﻟﺍ ﺕﺍﺩﺍﺪﻣﻹﺍ</string>
-	<string name="type.shop.nutrition_supplements">ﺔﻴﺋﺍﺬﻏ ﺕﻼﻤﻜﻣ</string>
+	<string name="type.shop.nutrition_supplements">محل مكملات غذائية</string>
 	<string name="type.shop.paint">ﺕﺎﻧﺎﻫﺪﻟﺍ</string>
-	<string name="type.shop.perfumery">ﺭﻮﻄﻌﻟﺍ</string>
-	<string name="type.shop.sewing">ﺔﻃﺎﻴﺨﻟﺍ ﺕﺍﺪﻌﻣ</string>
+	<string name="type.shop.perfumery">العطور</string>
+	<string name="type.shop.sewing">معدات الخياطة</string>
 	<string name="type.shop.storage_rental">ﻦﻳﺰﺨﺘﻟﺍ ﺕﺍﺪﺣﻭ ﺮﻴﺟﺄﺗ</string>
-	<string name="type.shop.tobacco">ﻎﺒﺗ</string>
+	<string name="type.shop.tobacco">تبغ</string>
 	<string name="type.shop.trade">ﺔﻳﺭﺎﺠﺘﻟﺍ ﺕﺍﺪﻳﺭﻮﺘﻟﺍ</string>
-	<string name="type.shop.watches">ﺕﺎﻋﺎﺳ</string>
-	<string name="type.shop.wholesale">ﺔﻠﻤﺠﻟﺎﺑ ﺔﻴﺋﺍﺬﻐﻟﺍ ﺩﺍﻮﻤﻟﺍ ﺓﺭﺎﺠﺗ</string>
+	<string name="type.shop.watches">ساعات</string>
+	<string name="type.shop.wholesale">متجر مواد بالجملة</string>
 	<string name="type.sport">رياضة</string>
 	<string name="type.sport.american_football">كرة القدم الأمريكية</string>
 	<string name="type.sport.archery">الرماية</string>
@@ -1842,7 +1851,7 @@
 	<string name="type.sport.ice_hockey">هوكي الجليد</string>
 	<string name="type.sport.field_hockey">ﻥﺍﺪﻴﻤﻟﺍ ﻲﻛﻮﻫ</string>
 	<string name="type.sport.badminton">ﺔﺸﻳﺮﻟﺍ ﺲﻨﺗ</string>
-	<string name="type.sport.pelota">ﻚﺳﺎﺒﻟﺍ ﺎﺗﻮﻠﻴﺑ</string>
+	<string name="type.sport.pelota">باسك بيلوتا</string>
 	<string name="type.tourism.aquarium">حوض سمك</string>
 	<string name="type.tourism.alpine_hut">مساكن جبلية</string>
 	<string name="type.tourism.apartment">شُقَق</string>

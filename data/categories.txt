@@ -106,7 +106,7 @@ fa:غذا|کجا غذا بخوریم
 
 # First keyword should match [food] definition in strings.txt!
 @food
-en:4Groceries|Food
+en:4Grocery|Groceries|Food
 ru:4Продукты|Еда
 ar:طعام|بقالية
 be:4Прадукты|Ежа
@@ -1108,7 +1108,7 @@ sw:Vipodozi
 fa:لوازم ارایشی بهداشتی
 
 shop-convenience|@food|@shop
-en:4Convenience|U+1F3EC|U+1F3EA|grocer|grocery|mini-mart|mini-market|superette
+en:4Convenience|U+1F3EC|U+1F3EA|mini-mart|mini-market|superette
 ru:4Продуктовый|продуктовая лавка|4гастроном|мини-маркет
 ar:متجر صغير
 be:4Прадуктовы|Харчаванне
@@ -1390,7 +1390,7 @@ fa:فروشگاه لوازم خانگی
 
 shop-kitchen|@shop
 en:Kitchen|Kitchen Studio
-ar:ﺦﺒﻄﻤﻟﺍ ﺮﺠﺘﻣ
+ar:متجر مطابخ
 be:Кухні|кухань
 bg:Магазин за кухня
 cs:Prodejna kuchyní
@@ -1578,7 +1578,7 @@ sk:4Elektronika
 fa:فروشگاه تجهیزات الکترونیکی
 
 shop-hardware|shop-houseware|shop-doityourself|@shop
-en:4Hardware|DIY|U+1F3EC|U+1F3EA|U+1F50B|U+1F50C|U+1F4A1|U+1F526|U+1F529|U+1F528|U+2614
+en:4Hardware|4Houseware|DIY|U+1F3EC|U+1F3EA|U+1F50B|U+1F50C|U+1F4A1|U+1F526|U+1F529|U+1F528|U+2614
 ru:3Хозяйственный|Строительный|Стройтовары|Хозтовары
 ar:متجر عدد وأدوات|أدوات|عدة|متجر
 be:Гаспадарчы|Будаўнічы
@@ -1766,7 +1766,7 @@ sw:Uzuri saluni
 fa:سالن زیبایی
 
 shop-greengrocer|@food|@shop
-en:4Greengrocer|3grocery|U+1F345|U+1F346|U+1F33D|U+1F360|U+1F348|U+1F347|U+1F349|U+1F34A|U+1F34C|U+1F34D|U+1F34E|U+1F34F|U+1F350|U+1F351|U+1F353
+en:4Greengrocer|U+1F345|U+1F346|U+1F33D|U+1F360|U+1F348|U+1F347|U+1F349|U+1F34A|U+1F34C|U+1F34D|U+1F34E|U+1F34F|U+1F350|U+1F351|U+1F353
 ru:3Овощи|овощей|3Фрукты|фруктов
 ar:متجر خضروات وفواكه|خضار|فاكهة|متجر
 be:Садавіна|Агародніна
@@ -2445,9 +2445,9 @@ sk:4Električková zastávka|električka|4zastávka|stanica
 fa:ایستگاه قطار|ایستگاه تراموا
 
 amenity-bus_station|@transport
-en:2Bus Station|bus terminal|bus|station|U+1F68C|U+1F68F|U+1F68D
+en:2Bus Station|bus|U+1F68C|U+1F68F|U+1F68D
 ru:5Автовокзал|5Автостанция|5автобус|4остановка
-bg:4Автобусна спирка|автобуси|4автобусна станция|станция
+bg:4Автобусна спирка|автобуси|4автобусна станция
 ar:محطة حافلات|باص|حافلة|مواصلات|مواصلات
 cs:4Autobusové nádraží|4zastávka|bus
 da:2Busstation|2bus|station
@@ -4504,7 +4504,85 @@ sk:Nevestinec|verejný dom
 sw:Danguro
 fa:فاحشه خانه|جنده خانه
 
-amenity-casino|@entertainment|@nightlife
+@gambling
+en:Gambling
+ar:القمار
+be:Азартныя гульні
+bg:Хазарт
+ca:Jocs d'atzar
+cs:Hazardní hry
+da:Gambling
+de:Glücksspiel
+el:ΤΥΧΕΡΑ ΠΑΙΧΝΙΔΙΑ
+es:Juegos de azar
+et:Hasartmängud
+eu:Jokoa
+fa:قمار
+fi:Uhkapelit
+fr:Jeu d'argent
+he:הימורים
+hu:Szerencsejáték
+id:Berjudi
+it:Gioco d'azzardo
+ja:ギャンブル
+ko:도박
+mr:जुगार
+nb:Gambling
+nl:Gokken
+pl:Hazard
+pt:Jogatina
+ro:Jocuri de noroc
+ru:Играть в азартные игры
+sk:Hazardné hry
+sv:Spelande
+sw:Kamari
+th:การพนัน
+tr:Kumar
+uk:Азартні ігри
+vi:Bài bạc
+zh-Hans:赌博
+zh-Hant:賭博
+
+amenity-gambling|@gambling
+en:Gambling
+ar:القمار
+be:Азартныя гульні
+bg:Хазарт
+ca:Jocs d'atzar
+cs:Hazardní hry
+da:Gambling
+de:Glücksspiel
+el:ΤΥΧΕΡΑ ΠΑΙΧΝΙΔΙΑ
+es:Juegos de azar
+et:Hasartmängud
+eu:Jokoa
+fa:قمار
+fi:Uhkapelit
+fr:Jeu d'argent
+he:הימורים
+hu:Szerencsejáték
+id:Berjudi
+it:Gioco d'azzardo
+ja:ギャンブル
+ko:도박
+mr:जुगार
+nb:Gambling
+nl:Gokken
+pl:Hazard
+pt:Jogatina
+ro:Jocuri de noroc
+ru:Играть в азартные игры
+sk:Hazardné hry
+sv:Spelande
+sw:Kamari
+th:การพนัน
+tr:Kumar
+uk:Азартні ігри
+vi:Bài bạc
+zh-Hans:赌博
+zh-Hant:賭博
+
+amenity-casino|@entertainment|@nightlife|@gambling
 en:Casino|U+1F3B0|U+1F3B2|U+1F3B4
 ru:Казино
 bg:Казино|хазарт|машинки
@@ -4537,6 +4615,84 @@ el:Καζίνο
 sk:Kasíno
 sw:Kasino|burudani
 fa:قمارخانه|کازینو
+
+leisure-adult_gaming_centre|@gambling
+en:Adult Gaming Centre
+ar:مركز ألعاب الكبار
+be:Гульнявы цэнтр для дарослых
+bg:Център за игри за възрастни
+ca:Centre de joc per a adults
+cs:Centrum her pro dospělé
+da:Spillecenter for voksne
+de:Gaming-Zentrum für Erwachsene
+el:Κέντρο παιχνιδιών ενηλίκων
+es:Centro de juegos para adultos
+et:Täiskasvanute mängukeskus
+eu:Helduen Joko Zentroa
+fa:مرکز بازی بزرگسالان
+fi:Aikuisten pelikeskus
+fr:Centre de jeux pour adultes
+he:מרכז משחקים למבוגרים
+hu:Felnőtt Játékközpont
+id:Pusat Permainan Dewasa
+it:Centro giochi per adulti
+ja:アダルト ゲーム センター
+ko:성인 게임 센터
+mr:प्रौढ गेमिंग केंद्र
+nb:Spillsenter for voksne
+nl:Gamingcentrum voor volwassenen
+pl:Centrum gier dla dorosłych
+pt:Centro de jogos para adultos
+ro:Centru de jocuri pentru adulți
+ru:Игровой центр для взрослых
+sk:Centrum hier pre dospelých
+sv:Spelcenter för vuxna
+sw:Kituo cha Michezo ya Watu Wazima
+th:ศูนย์เกมสำหรับผู้ใหญ่
+tr:Yetişkin Oyun Merkezi
+uk:Ігровий центр для дорослих
+vi:Trung tâm trò chơi dành cho người lớn
+zh-Hans:成人游戏中心
+zh-Hant:成人遊戲中心
+
+leisure-amusement_arcade|@entertainment
+en:Arcade|U+1F47E|U+1F579|U+1F3AE
+ar:ممر
+be:Аркада
+bg:Аркада
+ca:Arcade
+cs:Pasáž
+da:Arcade
+de:Arkade
+el:Στοά
+es:Arcade
+et:Arkaad
+eu:Arcade
+fa:گذرگاه طاقدار
+fi:Arcade
+fr:Arcade
+he:מִקמֶרֶת
+hu:Árkád
+id:Arkade
+it:Arcade
+ja:アーケード
+ko:아케이드
+mr:आर्केड
+nb:Arcade
+nl:Arcade
+pl:Arkada
+pt:Videogames
+ro:Arcadă
+ru:Аркада
+sk:Arcade
+sv:Arkad
+sw:Ukumbi wa michezo
+th:อาเขต
+tr:Oyun makinesi
+uk:Аркада
+vi:Giải trí
+zh-Hans:拱廊
+zh-Hant:拱廊
 
 amenity-college
 en:4College|U+1F3EB
@@ -11897,34 +12053,34 @@ sk:Veža
 fa:برج
 mr:मनोरा|टॉवर
 
-shop-bookmaker
-en:5Bookmaker
-ru:Букмекерская контора|4букмекер
-bg:4Букмейкър|офис|кантора|пункт
+shop-bookmaker|@gambling
+en:Bookmaker
+ru:Букмекерская контора|букмекер
+bg:Букмейкър|офис|кантора|пункт
 ar:ناشر
 cs:Knihař
-da:5Bookmaker
-nl:5Bookmaker
+da:Bookmaker
+nl:Bookmaker
 fi:Kustantaja
-fr:5Bookmaker
-de:5Buchmacher|3Wettbüro
+fr:Bookmaker
+de:Buchmacher|Wettbüro
 hu:Fogadóiroda
 id:Bandar judi
 it:Centro scommesse
 ja:ブックメーカー
 ko:마권판매소|마권 업자
-nb:5Bookmaker
-pl:4Bukmacher
-pt:Casa de apostas|Lotaria|Euromilhões|3Totoloto|3Totobola|Payshop
+nb:Bookmaker
+pl:Bukmacher
+pt:Casa de apostas|Lotaria|Euromilhões|Totoloto|Totobola|Payshop
 pt-BR:Casa de apostas
 ro:Casă de pariuri
 es:Casa de apuestas
-et:5Kirjastaja
+et:Kirjastaja
 eu:Apustu etxea
-sv:5Bookmaker|vadhållningsagent
+sv:Bookmaker|vadhållningsagent
 th:ร้านรับแทงพนัน
 tr:Bahisçi
-uk:Букмекерська контора|4букмекер
+uk:Букмекерська контора|букмекер
 vi:Người nhận cá cược
 zh-Hans:做书店
 zh-Hant:賭博業者
@@ -11972,7 +12128,7 @@ mr:सीफूड शॉप
 
 shop-second_hand|@shopping|@shop|@secondhand
 en:Thrift|Flea market
-ar:ﺔﻠﻤﻌﺘﺴﻣ ﺕﺍﻭﺩﺍ ﺮﺠﺘﻣ
+ar:متجر بضائع مستعملة
 bg:Магазин втора употреба
 cs:Obchod z druhé ruky
 da:Genbrugsbutik
@@ -12006,7 +12162,7 @@ zh-Hant:二手店
 
 shop-charity|@shop|@secondhand
 en:4Charity
-ar:ﻱﺮﻴﺧ ﺮﺠﺘﻣ
+ar:متجر خيري
 be:Дабрачынная
 bg:Благотворителен магазин
 cs:Charitativní obchod
@@ -13954,7 +14110,7 @@ fa:فروشگاه رسانه‌های تصویری
 mr:व्हिडिओ दुकान
 
 shop-video_games|@shop
-en:Video games|4videogames|video games|videogames
+en:Video games|4videogames|video games|videogames|U+1F47E|U+1F579|U+1F3AE
 ru:4видеоигры|4компьютерные игры
 bg:4Видеоигри|игри|магазин за видеоигри
 ar:متجر ألعاب فيديو
@@ -14443,7 +14599,7 @@ zh-Hans:茶叶商店
 
 shop-antiques|@shopping|@shop|@secondhand
 en:Antiques
-ar:ﻒﺤﺘﻟﺍ
+ar:التحف
 be:Антыкварыят
 bg:Антики
 cs:Starožitnosti
@@ -14481,7 +14637,7 @@ zh-Hant:古董
 
 shop-art|@shopping|@shop
 en:Arts
-ar:ﻥﻮﻨﻔﻟﺍ ﺮﺠﺘﻣ
+ar:متجر الفنون
 be:Мастацтва|мастацтваў
 bg:Магазин за изкуства
 cs:Obchod s uměním
@@ -14519,7 +14675,7 @@ zh-Hant:藝術商店
 
 shop-baby_goods|@children|@shop
 en:Baby Goods
-ar:ﻝﺎﻔﻃﻸﻟ ﺮﺠﺘﻣ
+ar:متجر الأطفال
 be:Дзіцячая
 bg:Детски
 cs:Dětský obchod
@@ -14557,7 +14713,7 @@ zh-Hant:兒童商店
 
 shop-bag|@shopping|@shop
 en:Bags
-ar:ﺐﺋﺎﻘﺤﻟﺍ ﺮﺠﺘﻣ
+ar:متجر الحقائب
 be:Крама сумак
 bg:Магазин за чанти
 cs:Obchod s taškami
@@ -14595,7 +14751,7 @@ zh-Hant:箱包店
 
 shop-cheese|@food
 en:Cheese
-ar:ﻦﺒﺠﻟﺍ ﺮﺠﺘﻣ
+ar:متجر جبن
 be:Сыр|Сырны
 bg:Магазин за сирене
 cs:Prodejna sýrů
@@ -14633,7 +14789,7 @@ zh-Hant:奶酪店c
 
 shop-dairy|@food|@shop
 en:Dairy Products
-ar:ﻥﺎﺒﻟﻷﺍ ﺕﺎﺠﺘﻨﻣ
+ar:متجر الألبان
 be:Малако|Малочныя прадукты
 bg:Млечни продукти
 cs:Mléčné výrobky
@@ -14673,7 +14829,7 @@ zh-Hant:乳製品
 
 shop-electrical|@shop
 en:Electrical
-ar:ﺔﻴﺋﺎﺑﺮﻬﻜﻟﺍ ﺕﺍﻭﺩﻷﺍ ﺮﺠﺘﻣ
+ar:متجر البضع الكهربائية
 be:4Электроніка
 bg:Електрически магазин
 cs:Elektro obchod
@@ -14711,7 +14867,7 @@ zh-Hant:電器商城
 
 shop-fishing|@shop
 en:Fishing
-ar:ﺪﻴﺻ ﺮﺠﺘﻣ
+ar:متجر صيد
 be:Рыбалоўны
 bg:Риболовен
 cs:Rybářský obchod
@@ -14749,7 +14905,7 @@ zh-Hant:釣魚店
 
 shop-interior_decoration|@shop
 en:Interior Decorations
-ar:ﺔﻴﻠﺧﺍﺩ ﺕﺍﺭﻮﻜﻳﺩ
+ar:محل ديكورات داخلية
 be:Ўпрыгажэнні інтэр'еру
 bg:Вътрешни декорации
 cs:Interiérové dekorace
@@ -14785,14 +14941,14 @@ vi:Đồ trang trí nội thất
 zh-Hans:室内装饰
 zh-Hant:室內裝飾
 
-shop-lottery
+shop-lottery|@gambling
 en:Lottery Tickets
 ar:ﺐﻴﺼﻧﺎﻴﻟﺍ ﺮﻛﺍﺬﺗ
 be:Латарэя|Латарэйныя білеты
 bg:Лотарийни билети
 cs:Loterijní lístky
 da:Lotterikuponer
-de:4Lotteriescheine
+de:Lotteriescheine
 el:Λαχεία
 es:Boletos de lotería
 et:Loteriipiletid
@@ -14863,7 +15019,7 @@ zh-Hant:醫療用品
 
 shop-nutrition_supplements|@shop
 en:Nutrition Supplements
-ar:ﺔﻴﺋﺍﺬﻏ ﺕﻼﻤﻜﻣ
+ar:محل مكملات غذائية
 be:Харчовыя дабаўкі
 bg:Хранителни добавки
 cs:Doplňky výživy
@@ -14939,7 +15095,7 @@ zh-Hant:油漆
 
 shop-perfumery|@shopping|@shop
 en:Perfumery
-ar:ﺭﻮﻄﻌﻟﺍ
+ar:العطور
 be:Парфум|Парфумерыя
 bg:Парфюмерия
 cs:Parfumerie
@@ -14977,7 +15133,7 @@ zh-Hant:香水
 
 shop-sewing|@shop
 en:3Sewing Supplies|4Haberdashery
-ar:ﺔﻃﺎﻴﺨﻟﺍ ﺕﺍﺪﻌﻣ
+ar:معدات الخياطة
 be:Швейныя прыналежнасці
 bg:Шивашки консумативи
 cs:Šicí potřeby
@@ -15053,7 +15209,7 @@ zh-Hant:存儲租賃
 
 shop-tobacco|@shop
 en:Tobacco
-ar:ﻎﺒﺗ
+ar:تبغ
 be:Тытунь
 bg:Тютюн
 cs:Tabák
@@ -15129,7 +15285,7 @@ zh-Hant:貿易用品
 
 shop-watches|@shopping|@shop
 en:Watches
-ar:ﺕﺎﻋﺎﺳ
+ar:ساعات
 be:Гадзіннік
 bg:Часовници
 cs:Hodinky
@@ -15167,7 +15323,7 @@ zh-Hant:手錶
 
 shop-wholesale|@shop
 en:Wholesale
-ar:ﺔﻠﻤﺠﻟﺎﺑ ﺔﻴﺋﺍﺬﻐﻟﺍ ﺩﺍﻮﻤﻟﺍ ﺓﺭﺎﺠﺗ
+ar:متجر مواد بالجملة
 be:Аптовая
 bg:Магазин на едро
 cs:Velkoobchodní prodejna

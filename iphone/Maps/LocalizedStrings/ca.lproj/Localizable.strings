@@ -1323,6 +1323,12 @@
 
 "type.amenity.casino" = "Casino";
 
+"type.amenity.gambling" = "Jocs d'atzar";
+
+"type.leisure.adult_gaming_centre" = "Centre de joc per a adults";
+
+"type.leisure.amusement_arcade" = "Arcade";
+
 "type.amenity.charging_station" = "Charging Station";
 
 "type.amenity.charging_station.bicycle" = "Estació de recàrrega de bicicletes";
@@ -1421,7 +1427,11 @@
 
 "type.amenity.parking.street_side" = "Parking";
 
+"type.amenity.parking.fee.street_side" = "Parking";
+
 "type.amenity.parking.lane" = "Parking";
+
+"type.amenity.parking.fee.lane" = "Parking";
 
 "type.amenity.parking_entrance" = "Parking Entrance";
 
@@ -1448,6 +1458,8 @@
 "type.amenity.place_of_worship.buddhist" = "Buddhist Temple";
 
 "type.amenity.place_of_worship.christian" = "Church";
+
+"type.amenity.place_of_worship.christian.mormon" = "Església de Jesucrist dels Sants dels Últims Dies";
 
 "type.amenity.place_of_worship.hindu" = "Hindu Temple";
 

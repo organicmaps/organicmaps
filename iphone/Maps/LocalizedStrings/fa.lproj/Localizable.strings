@@ -1323,6 +1323,12 @@
 
 "type.amenity.casino" = "قمارخانه";
 
+"type.amenity.gambling" = "قمار";
+
+"type.leisure.adult_gaming_centre" = "مرکز بازی بزرگسالان";
+
+"type.leisure.amusement_arcade" = "گذرگاه طاقدار";
+
 "type.amenity.charging_station" = "ایستگاه شارژ";
 
 "type.amenity.charging_station.bicycle" = "ایستگاه شارژ دوچرخه";
@@ -1421,7 +1427,11 @@
 
 "type.amenity.parking.street_side" = "پارکینگ";
 
+"type.amenity.parking.fee.street_side" = "پارکینگ";
+
 "type.amenity.parking.lane" = "پارکینگ";
+
+"type.amenity.parking.fee.lane" = "پارکینگ";
 
 "type.amenity.parking_entrance" = "ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ";
 
@@ -1448,6 +1458,8 @@
 "type.amenity.place_of_worship.buddhist" = "گردشگری";
 
 "type.amenity.place_of_worship.christian" = "گردشگری";
+
+"type.amenity.place_of_worship.christian.mormon" = "کلیسای عیسی مسیح مقدسین آخرالزمان";
 
 "type.amenity.place_of_worship.hindu" = "گردشگری";
 

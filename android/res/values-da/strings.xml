@@ -718,6 +718,9 @@
 	<string name="type.amenity.car_sharing">Delebiler</string>
 	<string name="type.amenity.car_wash">Bilvask</string>
 	<string name="type.amenity.casino">Kasino</string>
+	<string name="type.amenity.gambling">Gambling</string>
+	<string name="type.leisure.adult_gaming_centre">Spillecenter for voksne</string>
+	<string name="type.leisure.amusement_arcade">Arcade</string>
 	<string name="type.amenity.charging_station">Ladestation</string>
 	<string name="type.amenity.charging_station.bicycle">Cykel ladestation</string>
 	<string name="type.amenity.charging_station.motorcar">Ladestation for biler</string>
@@ -766,7 +769,9 @@
 	<string name="type.amenity.parking.park_and_ride">Parkering</string>
 	<string name="type.amenity.parking.underground">Underjordisk parkering</string>
 	<string name="type.amenity.parking.street_side">Parkering</string>
+	<string name="type.amenity.parking.fee.street_side">Parkering</string>
 	<string name="type.amenity.parking.lane">Parkering</string>
+	<string name="type.amenity.parking.fee.lane">Parkering</string>
 	<string name="type.amenity.parking_entrance">Parkeringsindgang</string>
 	<string name="type.amenity.parking_entrance.private">Parkeringsindgang</string>
 	<string name="type.amenity.parking_entrance.permissive">Parkeringsindgang</string>
@@ -780,6 +785,7 @@
 	<string name="type.amenity.place_of_worship">Tempel</string>
 	<string name="type.amenity.place_of_worship.buddhist">Tempel</string>
 	<string name="type.amenity.place_of_worship.christian">Kirke</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Jesu Kristi Kirke af Sidste Dages Hellige</string>
 	<string name="type.amenity.place_of_worship.hindu">Tempel</string>
 	<string name="type.amenity.place_of_worship.jewish">Synagoge</string>
 	<string name="type.amenity.place_of_worship.muslim">Moske</string>

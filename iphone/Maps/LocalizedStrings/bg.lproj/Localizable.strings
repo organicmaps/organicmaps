@@ -1323,6 +1323,12 @@
 
 "type.amenity.casino" = "Casino";
 
+"type.amenity.gambling" = "Хазарт";
+
+"type.leisure.adult_gaming_centre" = "Център за игри за възрастни";
+
+"type.leisure.amusement_arcade" = "Аркада";
+
 "type.amenity.charging_station" = "Charging Station";
 
 "type.amenity.charging_station.bicycle" = "Станция за зареждане на велосипеди";
@@ -1421,7 +1427,11 @@
 
 "type.amenity.parking.street_side" = "Паркинг";
 
+"type.amenity.parking.fee.street_side" = "Паркинг";
+
 "type.amenity.parking.lane" = "Паркинг";
+
+"type.amenity.parking.fee.lane" = "Паркинг";
 
 "type.amenity.parking_entrance" = "Вход за паркинг";
 
@@ -1448,6 +1458,8 @@
 "type.amenity.place_of_worship.buddhist" = "Buddhist Temple";
 
 "type.amenity.place_of_worship.christian" = "Church";
+
+"type.amenity.place_of_worship.christian.mormon" = "Църквата на Исус Христос на светиите от последните дни";
 
 "type.amenity.place_of_worship.hindu" = "Hindu Temple";
 

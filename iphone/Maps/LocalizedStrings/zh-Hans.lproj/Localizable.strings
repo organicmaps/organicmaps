@@ -1323,6 +1323,12 @@
 
 "type.amenity.casino" = "赌场";
 
+"type.amenity.gambling" = "赌博";
+
+"type.leisure.adult_gaming_centre" = "成人游戏中心";
+
+"type.leisure.amusement_arcade" = "拱廊";
+
 "type.amenity.charging_station" = "充电站";
 
 "type.amenity.charging_station.bicycle" = "自行车充电站";
@@ -1421,7 +1427,11 @@
 
 "type.amenity.parking.street_side" = "停车场";
 
+"type.amenity.parking.fee.street_side" = "停车场";
+
 "type.amenity.parking.lane" = "停车场";
+
+"type.amenity.parking.fee.lane" = "停车场";
 
 "type.amenity.parking_entrance" = "停车场入口";
 
@@ -1448,6 +1458,8 @@
 "type.amenity.place_of_worship.buddhist" = "佛教寺庙";
 
 "type.amenity.place_of_worship.christian" = "基督教堂";
+
+"type.amenity.place_of_worship.christian.mormon" = "耶稣基督后期圣徒教会";
 
 "type.amenity.place_of_worship.hindu" = "印度教寺庙";
 

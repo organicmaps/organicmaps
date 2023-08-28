@@ -766,6 +766,9 @@
 	<string name="type.amenity.car_sharing">Каршерінг</string>
 	<string name="type.amenity.car_wash">Автомийка</string>
 	<string name="type.amenity.casino">Казино</string>
+	<string name="type.amenity.gambling">Азартні ігри</string>
+	<string name="type.leisure.adult_gaming_centre">Ігровий центр для дорослих</string>
+	<string name="type.leisure.amusement_arcade">Аркада</string>
 	<string name="type.amenity.charging_station">Зарядна станція</string>
 	<string name="type.amenity.charging_station.bicycle">Велосипедна зарядна станція</string>
 	<string name="type.amenity.charging_station.motorcar">Автомобільна зарядна станція</string>
@@ -816,7 +819,9 @@
 	<string name="type.amenity.parking.park_and_ride">Парковка</string>
 	<string name="type.amenity.parking.underground">Підземний паркінг</string>
 	<string name="type.amenity.parking.street_side">Парковка</string>
+	<string name="type.amenity.parking.fee.street_side">Парковка</string>
 	<string name="type.amenity.parking.lane">Парковка</string>
+	<string name="type.amenity.parking.fee.lane">Парковка</string>
 	<string name="type.amenity.parking_entrance">Вхід на паркінг</string>
 	<string name="type.amenity.parking_entrance.private">Вхід на паркінг</string>
 	<string name="type.amenity.parking_entrance.permissive">Вхід на паркінг</string>
@@ -830,6 +835,7 @@
 	<string name="type.amenity.place_of_worship">Храм</string>
 	<string name="type.amenity.place_of_worship.buddhist">Храм</string>
 	<string name="type.amenity.place_of_worship.christian">Церква</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Церква Ісуса Христа Святих Останніх Днів</string>
 	<string name="type.amenity.place_of_worship.hindu">Храм</string>
 	<string name="type.amenity.place_of_worship.jewish">Синагога</string>
 	<string name="type.amenity.place_of_worship.muslim">Мечеть</string>

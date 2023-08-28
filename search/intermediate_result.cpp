@@ -81,15 +81,15 @@ bool PreRankerResult::LessRankAndPopularity(PreRankerResult const & lhs, PreRank
     return lhs.m_info.m_rank > rhs.m_info.m_rank;
   if (lhs.m_info.m_popularity != rhs.m_info.m_popularity)
     return lhs.m_info.m_popularity > rhs.m_info.m_popularity;
+
+  /// @todo Remove this epilog when we will have _enough_ ranks and popularities in data.
   return lhs.m_info.m_distanceToPivot < rhs.m_info.m_distanceToPivot;
 }
 
 // static
 bool PreRankerResult::LessDistance(PreRankerResult const & lhs, PreRankerResult const & rhs)
 {
-  if (lhs.m_info.m_distanceToPivot != rhs.m_info.m_distanceToPivot)
-    return lhs.m_info.m_distanceToPivot < rhs.m_info.m_distanceToPivot;
-  return lhs.m_info.m_rank > rhs.m_info.m_rank;
+  return lhs.m_info.m_distanceToPivot < rhs.m_info.m_distanceToPivot;
 }
 
 // static
@@ -121,11 +121,7 @@ bool PreRankerResult::LessByExactMatch(PreRankerResult const & lhs, PreRankerRes
   if (lScore != rScore)
     return lScore;
 
-  auto const byTokens = CompareByTokensMatch(lhs, rhs);
-  if (byTokens != 0)
-    return byTokens == -1;
-
-  return LessDistance(lhs, rhs);
+  return CompareByTokensMatch(lhs, rhs) == -1;
 }
 
 bool PreRankerResult::CategoriesComparator::operator()(PreRankerResult const & lhs,

@@ -98,14 +98,12 @@ UNIT_TEST(CreateZip_MultipleFiles)
 
   for (auto compression : GetCompressionLevels())
     CreateAndTestZip(fileData, "testzip.zip", compression);
-
-  deleteFileGuard.release();
 }
 
 UNIT_TEST(CreateZip_MultipleFilesSingleEmpty)
 {
   std::vector<std::string> const fileData{"singleEmptyfile.txt"};
-  SCOPE_GUARD(deleteFileGuard, [&fileData]() { base::DeleteFileX(fileData[0]); });
+  SCOPE_GUARD(deleteFileGuard, [&fileData]() { TEST(base::DeleteFileX(fileData[0]), ()); });
 
   {
     FileWriter f(fileData[0]);
@@ -115,6 +113,4 @@ UNIT_TEST(CreateZip_MultipleFilesSingleEmpty)
   {
     CreateAndTestZip(fileData, "testzip.zip", compression);
   }
-
-  deleteFileGuard.release();
 }

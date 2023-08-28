@@ -727,6 +727,9 @@
 	<string name="type.amenity.car_sharing">カーシェアリング</string>
 	<string name="type.amenity.car_wash">洗車場</string>
 	<string name="type.amenity.casino">カジノ</string>
+	<string name="type.amenity.gambling">ギャンブル</string>
+	<string name="type.leisure.adult_gaming_centre">アダルト ゲーム センター</string>
+	<string name="type.leisure.amusement_arcade">アーケード</string>
 	<string name="type.amenity.charging_station">充電ステーション</string>
 	<string name="type.amenity.charging_station.bicycle">自転車充電ステーション</string>
 	<string name="type.amenity.charging_station.motorcar">自動車充電ステーション</string>
@@ -777,7 +780,9 @@
 	<string name="type.amenity.parking.park_and_ride">駐車場</string>
 	<string name="type.amenity.parking.underground">地下駐車場</string>
 	<string name="type.amenity.parking.street_side">駐車場</string>
+	<string name="type.amenity.parking.fee.street_side">駐車場</string>
 	<string name="type.amenity.parking.lane">駐車場</string>
+	<string name="type.amenity.parking.fee.lane">駐車場</string>
 	<string name="type.amenity.parking_entrance">駐車場入口</string>
 	<string name="type.amenity.parking_entrance.private">駐車場入口</string>
 	<string name="type.amenity.parking_entrance.permissive">駐車場入口</string>
@@ -791,6 +796,7 @@
 	<string name="type.amenity.place_of_worship">礼拝</string>
 	<string name="type.amenity.place_of_worship.buddhist">寺院</string>
 	<string name="type.amenity.place_of_worship.christian">キリスト教会</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">末日聖徒イエス・キリスト教会</string>
 	<string name="type.amenity.place_of_worship.hindu">ヒンドゥー教寺院</string>
 	<string name="type.amenity.place_of_worship.jewish">ユダヤ教会</string>
 	<string name="type.amenity.place_of_worship.muslim">モスク</string>

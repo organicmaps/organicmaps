@@ -1,5 +1,7 @@
 package app.organicmaps.location;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static app.organicmaps.util.concurrency.UiThread.runLater;
 
 import android.app.PendingIntent;
@@ -8,6 +10,7 @@ import android.location.Location;
 import android.os.Looper;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresPermission;
 
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -65,9 +68,8 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
     mContext = context;
   }
 
-  @SuppressWarnings("MissingPermission")
-  // A permission is checked externally
   @Override
+  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
   public void start(long interval)
   {
     Logger.d(TAG);

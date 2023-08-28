@@ -215,6 +215,7 @@ UNIT_TEST(HouseNumber_LooksLike)
 {
   TEST(LooksLikeHouseNumber("1", false /* isPrefix */), ());
   TEST(LooksLikeHouseNumber("ev 10", false /* isPrefix */), ());
+  TEST(LooksLikeHouseNumber("ev.1", false /* isPrefix */), ());
 
   TEST(LooksLikeHouseNumber("14 к", true /* isPrefix */), ());
   TEST(LooksLikeHouseNumber("14 кор", true /* isPrefix */), ());
@@ -243,6 +244,8 @@ UNIT_TEST(HouseNumber_LooksLike)
 
   TEST(LooksLikeHouseNumber("дом ", true /* isPrefix */), ());
   TEST(LooksLikeHouseNumber("дом ", false /* isPrefix */), ());
+  TEST(LooksLikeHouseNumber("house", true /* isPrefix */), ());
+  TEST(LooksLikeHouseNumber("house ", false /* isPrefix */), ());
 
   TEST(LooksLikeHouseNumber("дом 39 строение 79", false /* isPrefix */), ());
 

@@ -1,8 +1,8 @@
 #include "kml/serdes_gpx.hpp"
+#include "kml/serdes_common.hpp"
 
 #include "coding/hex.hpp"
 #include "coding/point_coding.hpp"
-#include "coding/string_utf8_multilang.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -33,8 +33,9 @@ std::string_view constexpr kCmt = "cmt";
 int constexpr kInvalidColor = 0;
 
 GpxParser::GpxParser(FileData & data)
-: m_data(data)
-, m_categoryData(&m_data.m_categoryData)
+: m_data{data}
+, m_categoryData{&m_data.m_categoryData}
+, m_globalColor{kInvalidColor}
 {
   ResetPoint();
 }
@@ -48,7 +49,6 @@ void GpxParser::ResetPoint()
   m_predefinedColor = PredefinedColor::None;
   m_color = kInvalidColor;
   m_customName.clear();
-  m_trackLayers.clear();
   m_geometry.Clear();
   m_geometryType = GEOMETRY_TYPE_UNKNOWN;
   m_lat = 0.;
@@ -95,7 +95,7 @@ bool GpxParser::Push(std::string tag)
   return true;
 }
 
-bool GpxParser::IsValidCoordinatesPosition()
+bool GpxParser::IsValidCoordinatesPosition() const
 {
   std::string const & lastTag = GetTagFromEnd(0);
   return lastTag == gpx::kWpt
@@ -132,7 +132,8 @@ void GpxParser::ParseColor(std::string const & value)
 }
 
 // https://osmand.net/docs/technical/osmand-file-formats/osmand-gpx/ - "#AARRGGBB" or "#RRGGBB"
-void GpxParser::ParseOsmandColor(std::string const & value) {
+void GpxParser::ParseOsmandColor(std::string const & value)
+{
   if (value.empty())
   {
     LOG(LWARNING, ("Empty color value"));
@@ -230,17 +231,19 @@ void GpxParser::Pop(std::string_view tag)
       {
         BookmarkData data;
         if (!m_name.empty())
-          data.m_name = {{ kDefaultLang, m_name }};
+          data.m_name[kDefaultLang] = std::move(m_name);
         if (!m_description.empty() || !m_comment.empty())
-          data.m_description = {{kDefaultLang, BuildDescription()}};
+          data.m_description[kDefaultLang] = BuildDescription();
         data.m_color.m_predefinedColor = m_predefinedColor;
         data.m_color.m_rgba = m_color;
         data.m_point = m_org;
         if (!m_customName.empty())
-          data.m_customName = {{kDefaultLang, m_customName}};
-        // Here we set custom name from 'name' field for KML-files exported from 3rd-party services.
-        if (data.m_name.size() == 1 && data.m_name.begin()->first == kDefaultLangCode && data.m_customName.empty())
+          data.m_customName[kDefaultLang] = std::move(m_customName);
+        else if (!data.m_name.empty())
+        {
+          // Here we set custom name from 'name' field for KML-files exported from 3rd-party services.
           data.m_customName = data.m_name;
+        }
 
         m_data.m_bookmarksData.push_back(std::move(data));
       }
@@ -254,15 +257,15 @@ void GpxParser::Pop(std::string_view tag)
           layer.m_color.m_rgba = m_globalColor;
         else
           layer.m_color.m_rgba = kml::kDefaultTrackColor;
-        m_trackLayers.push_back(std::move(layer));
 
         TrackData data;
         if (!m_name.empty())
-          data.m_name = {{ kDefaultLang, m_name }};
+          data.m_name[kDefaultLang] = std::move(m_name);
         if (!m_description.empty() || !m_comment.empty())
-          data.m_description = {{kDefaultLang, BuildDescription()}};
-        data.m_layers = std::move(m_trackLayers);
+          data.m_description[kDefaultLang] = BuildDescription();
+        data.m_layers.push_back(layer);
         data.m_geometry = std::move(m_geometry);
+
         m_data.m_tracksData.push_back(std::move(data));
       }
     }
@@ -343,13 +346,11 @@ void GpxParser::ParseAltitude(std::string const & value)
     m_altitude = geometry::kInvalidAltitude;
 }
 
-std::string GpxParser::BuildDescription()
+std::string GpxParser::BuildDescription() const
 {
   if (m_description.empty())
     return m_comment;
-  else if (m_comment.empty())
-    return m_description;
-  else if (m_description == m_comment)
+  else if (m_comment.empty() || m_description == m_comment)
     return m_description;
   return m_description + "\n\n" + m_comment;
 }

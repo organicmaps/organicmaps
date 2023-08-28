@@ -44,9 +44,11 @@ public:
 
     int m_scale = 0;
 
-    // Batch size for Everywhere search mode. For viewport search we limit search results number
-    // with SweepNearbyResults.
-    size_t m_everywhereBatchSize = 100;
+    // Batch size for Everywhere search mode.
+    // For viewport search we limit search results number with SweepNearbyResults.
+    // Increased to 1K, no problem to read 1-2K Features per search now, but the quality is much better.
+    /// @see BA_SanMartin test.
+    size_t m_everywhereBatchSize = 1000;
 
     // The maximum total number of results to be emitted in all batches.
     size_t m_limit = 0;
@@ -75,11 +77,6 @@ public:
     if (m_results.back().GetInfo().m_allTokensUsed)
       m_haveFullyMatchedResult = true;
   }
-
-  // Computes missing fields for all pre-results.
-  void FillMissingFieldsInPreResults();
-
-  void Filter(bool viewportSearch);
 
   // Emit a new batch of results up the pipeline (i.e. to ranker).
   // Use |lastUpdate| to indicate that no more results will be added.
@@ -137,8 +134,12 @@ public:
   void ClearCaches();
 
 private:
-  void FilterForViewportSearch();
+  // Computes missing fields for all pre-results.
+  void FillMissingFieldsInPreResults();
+  void DbgFindAndLog(std::set<uint32_t> const & ids) const;
 
+  void FilterForViewportSearch();
+  void Filter();
   void FilterRelaxedResults(bool lastUpdate);
 
   DataSource const & m_dataSource;
@@ -165,6 +166,8 @@ private:
   std::unordered_set<FeatureID> m_currEmit;
   std::unordered_set<FeatureID> m_prevEmit;
   /// @}
+
+  unsigned m_rndSeed;
 
   DISALLOW_COPY_AND_MOVE(PreRanker);
 };

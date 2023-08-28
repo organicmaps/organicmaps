@@ -1323,6 +1323,12 @@
 
 "type.amenity.casino" = "Casino";
 
+"type.amenity.gambling" = "Азартныя гульні";
+
+"type.leisure.adult_gaming_centre" = "Гульнявы цэнтр для дарослых";
+
+"type.leisure.amusement_arcade" = "Аркада";
+
 "type.amenity.charging_station" = "Charging Station";
 
 "type.amenity.charging_station.bicycle" = "Станцыя для зарадкі ровараў";
@@ -1421,7 +1427,11 @@
 
 "type.amenity.parking.street_side" = "Паркоўка";
 
+"type.amenity.parking.fee.street_side" = "Паркоўка";
+
 "type.amenity.parking.lane" = "Паркоўка";
+
+"type.amenity.parking.fee.lane" = "Паркоўка";
 
 "type.amenity.parking_entrance" = "Уваход на паркоўку";
 
@@ -1448,6 +1458,8 @@
 "type.amenity.place_of_worship.buddhist" = "Buddhist Temple";
 
 "type.amenity.place_of_worship.christian" = "Church";
+
+"type.amenity.place_of_worship.christian.mormon" = "Царква Ісуса Хрыста Святых апошніх дзён";
 
 "type.amenity.place_of_worship.hindu" = "Hindu Temple";
 

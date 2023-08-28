@@ -737,6 +737,9 @@
 	<string name="type.addr_interpolation.even">Адрас/Блок</string>
 	<string name="type.addr_interpolation.odd">Адрас/Блок</string>
 	<string name="type.amenity.bicycle_parking">Велапаркоўка</string>
+	<string name="type.amenity.gambling">Азартныя гульні</string>
+	<string name="type.leisure.adult_gaming_centre">Гульнявы цэнтр для дарослых</string>
+	<string name="type.leisure.amusement_arcade">Аркада</string>
 	<string name="type.amenity.charging_station.bicycle">Станцыя для зарадкі ровараў</string>
 	<string name="type.amenity.charging_station.motorcar">Аўтамабільная зарадная станцыя</string>
 	<string name="type.leisure.bowling_alley">Боўлінг</string>
@@ -762,11 +765,14 @@
 	<string name="type.amenity.parking.private">Прыватная паркоўка</string>
 	<string name="type.amenity.parking.underground">Падземны паркінг</string>
 	<string name="type.amenity.parking.street_side">Паркоўка</string>
+	<string name="type.amenity.parking.fee.street_side">Паркоўка</string>
 	<string name="type.amenity.parking.lane">Паркоўка</string>
+	<string name="type.amenity.parking.fee.lane">Паркоўка</string>
 	<string name="type.amenity.parking_entrance">Уваход на паркоўку</string>
 	<string name="type.amenity.parking_entrance.private">Уваход на паркоўку</string>
 	<string name="type.amenity.parking_entrance.permissive">Уваход на паркоўку</string>
 	<string name="type.amenity.parking_space.disabled">Паркоўка для інвалідаў</string>
+	<string name="type.amenity.place_of_worship.christian.mormon">Царква Ісуса Хрыста Святых апошніх дзён</string>
 	<string name="type.amenity.post_box">Паштовая скрыня</string>
 
 	<!-- SECTION: Types: Recycling -->

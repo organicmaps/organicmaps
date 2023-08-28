@@ -1323,6 +1323,12 @@
 
 "type.amenity.casino" = "Kasino";
 
+"type.amenity.gambling" = "Spelande";
+
+"type.leisure.adult_gaming_centre" = "Spelcenter för vuxna";
+
+"type.leisure.amusement_arcade" = "Arkad";
+
 "type.amenity.charging_station" = "Laddstation";
 
 "type.amenity.charging_station.bicycle" = "Laddningsstation för cykel";
@@ -1421,7 +1427,11 @@
 
 "type.amenity.parking.street_side" = "Parkering";
 
+"type.amenity.parking.fee.street_side" = "Parkering";
+
 "type.amenity.parking.lane" = "Parkering";
+
+"type.amenity.parking.fee.lane" = "Parkering";
 
 "type.amenity.parking_entrance" = "Parkering entré";
 
@@ -1448,6 +1458,8 @@
 "type.amenity.place_of_worship.buddhist" = "Tempel";
 
 "type.amenity.place_of_worship.christian" = "Kyrka";
+
+"type.amenity.place_of_worship.christian.mormon" = "Jesu Kristi Kyrka av Sista Dagars Heliga";
 
 "type.amenity.place_of_worship.hindu" = "Tempel";
 
