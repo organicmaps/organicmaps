@@ -22,6 +22,7 @@ import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.car.screens.NavigationScreen;
 import app.organicmaps.car.screens.PlaceScreen;
 import app.organicmaps.car.screens.hacks.PopToRootHack;
+import app.organicmaps.car.util.IntentUtils;
 import app.organicmaps.car.util.RoutingUtils;
 import app.organicmaps.display.DisplayChangedListener;
 import app.organicmaps.display.DisplayManager;
@@ -82,17 +83,29 @@ public final class NavigationSession extends Session implements DefaultLifecycle
   {
     Logger.d(TAG);
 
-    Logger.d(TAG, "Session info: " + mSessionInfo);
-    Logger.d(TAG, "API Level: " + getCarContext().getCarAppApiLevel());
+    Logger.i(TAG, "Session info: " + mSessionInfo);
+    Logger.i(TAG, "API Level: " + getCarContext().getCarAppApiLevel());
     if (mSessionInfo != null)
-      Logger.d(TAG, "Supported templates: " + mSessionInfo.getSupportedTemplates(getCarContext().getCarAppApiLevel()));
-    Logger.d(TAG, "Host info: " + getCarContext().getHostInfo());
-    Logger.d(TAG, "Car configuration: " + getCarContext().getResources().getConfiguration());
+      Logger.i(TAG, "Supported templates: " + mSessionInfo.getSupportedTemplates(getCarContext().getCarAppApiLevel()));
+    Logger.i(TAG, "Host info: " + getCarContext().getHostInfo());
+    Logger.i(TAG, "Car configuration: " + getCarContext().getResources().getConfiguration());
 
     if (mInitFailed)
       return new ErrorScreen(getCarContext());
 
     return new MapScreen(getCarContext(), mSurfaceRenderer);
+  }
+
+  @Override
+  public void onNewIntent(@NonNull Intent intent)
+  {
+    Logger.d(TAG, intent.toString());
+    // TODO (AndrewShkrob): This logic will need to be revised when we introduce support for adding stops during navigation or route planning.
+    // Skip navigation intents during navigation
+    if (RoutingController.get().isNavigating())
+      return;
+
+    IntentUtils.processIntent(getCarContext(), mSurfaceRenderer, intent);
   }
 
   @Override

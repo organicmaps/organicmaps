@@ -24,6 +24,7 @@ import app.organicmaps.search.NativeSearchListener;
 import app.organicmaps.search.SearchEngine;
 import app.organicmaps.search.SearchRecents;
 import app.organicmaps.search.SearchResult;
+import app.organicmaps.util.Language;
 
 public class SearchOnMapScreen extends BaseMapScreen implements NativeSearchListener
 {
@@ -31,6 +32,8 @@ public class SearchOnMapScreen extends BaseMapScreen implements NativeSearchList
 
   @NonNull
   private final String mQuery;
+  @NonNull
+  private final String mLocale;
   private final boolean mIsCategory;
 
   @Nullable
@@ -43,6 +46,7 @@ public class SearchOnMapScreen extends BaseMapScreen implements NativeSearchList
     MAX_RESULTS_SIZE = constraintManager.getContentLimit(ConstraintManager.CONTENT_LIMIT_TYPE_PLACE_LIST);
 
     mQuery = builder.mQuery;
+    mLocale = builder.mLocale;
     mIsCategory = builder.mIsCategory;
   }
 
@@ -130,7 +134,7 @@ public class SearchOnMapScreen extends BaseMapScreen implements NativeSearchList
     final double lat = hasLocation ? location.getLat() : 0;
     final double lon = hasLocation ? location.getLon() : 0;
 
-    SearchEngine.INSTANCE.searchInteractive(getCarContext(), mQuery, mIsCategory, System.nanoTime(), true /* isMapAndTable */, hasLocation, lat, lon);
+    SearchEngine.INSTANCE.searchInteractive(mQuery, mIsCategory, mLocale, System.nanoTime(), true /* isMapAndTable */, hasLocation, lat, lon);
   }
 
   @Override
@@ -161,12 +165,15 @@ public class SearchOnMapScreen extends BaseMapScreen implements NativeSearchList
 
     @NonNull
     private String mQuery = "";
+    @NonNull
+    private String mLocale;
     private boolean mIsCategory;
 
     public Builder(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer)
     {
       mCarContext = carContext;
       mSurfaceRenderer = surfaceRenderer;
+      mLocale = Language.getKeyboardLocale(mCarContext);
     }
 
     public Builder setCategory(@NonNull String category)
@@ -180,6 +187,12 @@ public class SearchOnMapScreen extends BaseMapScreen implements NativeSearchList
     {
       mIsCategory = false;
       mQuery = query;
+      return this;
+    }
+
+    public Builder setLocale(@NonNull String locale)
+    {
+      mLocale = locale;
       return this;
     }
 

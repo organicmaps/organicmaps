@@ -158,13 +158,6 @@ public enum SearchEngine implements NativeSearchListener,
   }
 
   @MainThread
-  public void searchInteractive(@NonNull Context context, @NonNull String query, boolean isCategory,
-                                long timestamp, boolean isMapAndTable, boolean hasLocation, double lat, double lon)
-  {
-    searchInteractive(query, isCategory, Language.getKeyboardLocale(context), timestamp, isMapAndTable, hasLocation, lat, lon);
-  }
-
-  @MainThread
   public boolean searchInBookmarks(@NonNull String query, long categoryId, long timestamp)
   {
     return nativeRunSearchInBookmarks(query.getBytes(StandardCharsets.UTF_8), categoryId, timestamp);
