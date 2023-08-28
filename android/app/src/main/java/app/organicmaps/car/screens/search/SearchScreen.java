@@ -23,6 +23,7 @@ import app.organicmaps.search.NativeSearchListener;
 import app.organicmaps.search.SearchEngine;
 import app.organicmaps.search.SearchRecents;
 import app.organicmaps.search.SearchResult;
+import app.organicmaps.util.Language;
 
 public class SearchScreen extends BaseMapScreen implements SearchTemplate.SearchCallback, NativeSearchListener
 {
@@ -30,6 +31,8 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
 
   @NonNull
   private String mQuery = "";
+  @NonNull
+  private String mLocale;
 
   @Nullable
   private ItemList mResults = null;
@@ -40,6 +43,7 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
     final ConstraintManager constraintManager = getCarContext().getCarService(ConstraintManager.class);
     MAX_RESULTS_SIZE = constraintManager.getContentLimit(ConstraintManager.CONTENT_LIMIT_TYPE_LIST);
 
+    mLocale = builder.mLocale;
     onSearchSubmitted(builder.mQuery);
   }
 
@@ -72,6 +76,7 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
     if (mQuery.equals(searchText))
       return;
     mQuery = searchText;
+    mLocale = Language.getKeyboardLocale(getCarContext());
     mResults = null;
 
     SearchEngine.INSTANCE.cancel();
@@ -179,7 +184,7 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
     final Action.Builder builder = new Action.Builder();
     builder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_show_on_map)).build());
     builder.setOnClickListener(() ->
-        getScreenManager().push(new SearchOnMapScreen.Builder(getCarContext(), getSurfaceRenderer()).setQuery(mQuery).build()));
+        getScreenManager().push(new SearchOnMapScreen.Builder(getCarContext(), getSurfaceRenderer()).setQuery(mQuery).setLocale(mLocale).build()));
 
     return new ActionStrip.Builder().addAction(builder.build()).build();
   }
@@ -196,17 +201,27 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
 
     @NonNull
     private String mQuery = "";
+    @NonNull
+    private String mLocale;
 
     public Builder(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer)
     {
       mCarContext = carContext;
       mSurfaceRenderer = surfaceRenderer;
+
+      mLocale = Language.getKeyboardLocale(mCarContext);
     }
 
     @NonNull
     public Builder setQuery(@NonNull String query)
     {
       mQuery = query;
+      return this;
+    }
+
+    public Builder setLocale(@NonNull String locale)
+    {
+      mLocale = locale;
       return this;
     }
 

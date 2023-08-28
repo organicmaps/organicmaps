@@ -1,9 +1,5 @@
 package app.organicmaps.car.util;
 
-import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
-import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-import static android.content.pm.PackageManager.PERMISSION_GRANTED;
-
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,7 +12,6 @@ import androidx.car.app.model.CarColor;
 import androidx.car.app.model.CarIcon;
 import androidx.car.app.model.Row;
 import androidx.car.app.navigation.model.MapController;
-import androidx.core.app.ActivityCompat;
 import androidx.core.graphics.drawable.IconCompat;
 
 import app.organicmaps.R;
@@ -190,10 +185,8 @@ public final class UiHelpers
     builder.setIcon(icon);
     builder.setOnClickListener(() -> {
       LocationState.nativeSwitchToNextMode();
-      if (LocationHelper.INSTANCE.isActive() && (
-          ActivityCompat.checkSelfPermission(context, ACCESS_FINE_LOCATION) == PERMISSION_GRANTED) ||
-          ActivityCompat.checkSelfPermission(context, ACCESS_COARSE_LOCATION) == PERMISSION_GRANTED)
-        LocationHelper.INSTANCE.start();
+      if (!LocationHelper.INSTANCE.isActive())
+        LocationHelper.INSTANCE.restart();
     });
     return builder.build();
   }
