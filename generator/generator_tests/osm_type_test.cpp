@@ -290,6 +290,31 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Address)
     TEST_EQUAL(params.GetStreet(), "Place Vendôme", ());
     TEST_EQUAL(params.GetPostcode(), "75001", ());
   }
+
+  {
+    Tags const tags = {
+      {"addr:city", "München"},
+      {"addr:country", "DE"},
+      {"addr:housenumber", "27"},
+      {"addr:postcode", "80339"},
+      {"addr:street", "Ligsalzstraße"},
+      {"clothes", "children"},
+      {"disused:shop", "clothes"},
+      {"name", "Westendprinz"},
+      {"operator", "Meike Hannig"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(addrType), ());
+
+    TEST_EQUAL(params.house.Get(), "27", ());
+    TEST_EQUAL(params.GetStreet(), "Ligsalzstraße", ());
+    TEST_EQUAL(params.GetPostcode(), "80339", ());
+
+    TEST(params.name.IsEmpty(), ());
+    TEST(!params.GetMetadata().Has(feature::Metadata::FMD_OPERATOR), ());
+  }
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_PlaceState)
