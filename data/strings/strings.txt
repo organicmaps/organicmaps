@@ -24038,8 +24038,8 @@
     da = %@ exit
     de = %@ Ausfahrt
     el = %@ έξοδος
-    es = %@ desviación
-    es-MX = %@ desviación
+    es = %@ salida
+    es-MX = %@ salida
     et = %@ väljumine
     eu = %@ irteera
     fa = خروجی %@
