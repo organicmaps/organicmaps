@@ -1528,6 +1528,8 @@
 
 "type.amenity.shelter" = "Укриття";
 
+"type.amenity.public_bath" = "Громадська лазня";
+
 "type.amenity.shower" = "Душ";
 
 "type.amenity.stripclub" = "Стриптиз-клуб";

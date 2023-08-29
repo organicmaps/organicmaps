@@ -823,6 +823,7 @@
 	<string name="type.amenity.restaurant">उपहारगृह</string>
 	<string name="type.amenity.school">शाळा</string>
 	<string name="type.amenity.shelter">निवारा</string>
+	<string name="type.amenity.public_bath">सार्वजनिक स्नान</string>
 	<string name="type.amenity.shower">अंघोळ</string>
 	<string name="type.amenity.stripclub">स्ट्रिपक्लब</string>
 	<string name="type.amenity.taxi">टॅक्सी</string>

@@ -812,6 +812,7 @@
 	<string name="type.amenity.restaurant">Restaurang</string>
 	<string name="type.amenity.school">Skola</string>
 	<string name="type.amenity.shelter">Skyddsrum</string>
+	<string name="type.amenity.public_bath">Offentligt bad</string>
 	<string name="type.amenity.shower">Dusch</string>
 	<string name="type.amenity.stripclub">Stripklubb</string>
 	<string name="type.amenity.telephone">Telefon</string>

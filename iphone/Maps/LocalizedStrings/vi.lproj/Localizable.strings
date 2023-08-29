@@ -1528,6 +1528,8 @@
 
 "type.amenity.shelter" = "Chổ nương thân";
 
+"type.amenity.public_bath" = "Nhà tắm công cộng";
+
 "type.amenity.shower" = "Nhà tắm";
 
 "type.amenity.stripclub" = "Câu lạc bộ thoát y";

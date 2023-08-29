@@ -875,6 +875,7 @@
 	<string name="type.amenity.sanitary_dump_station">Station de vidange</string>
 	<string name="type.amenity.school">École</string>
 	<string name="type.amenity.shelter">Abri</string>
+	<string name="type.amenity.public_bath">Bain public</string>
 	<string name="type.amenity.shower">Douche</string>
 	<string name="type.amenity.stripclub">Club de strip-tease</string>
 	<string name="type.amenity.telephone">Téléphone</string>

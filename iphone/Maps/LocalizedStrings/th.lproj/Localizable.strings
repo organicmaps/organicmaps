@@ -1528,6 +1528,8 @@
 
 "type.amenity.shelter" = "ที่อยู่อาศัย";
 
+"type.amenity.public_bath" = "ห้องอาบน้ำสาธารณะ";
+
 "type.amenity.shower" = "ฝักบัวอาบน้ำ";
 
 "type.amenity.stripclub" = "สตริปคลับ";

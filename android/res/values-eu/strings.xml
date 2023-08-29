@@ -879,6 +879,7 @@
 	<string name="type.amenity.restaurant">Jatetxea</string>
 	<string name="type.amenity.school">Eskola</string>
 	<string name="type.amenity.shelter">Aterpea</string>
+	<string name="type.amenity.public_bath">Bainu Publikoa</string>
 	<string name="type.amenity.shower">Dutxa</string>
 	<string name="type.amenity.stripclub">Stripclub</string>
 	<string name="type.amenity.taxi">Taxia</string>

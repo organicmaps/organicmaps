@@ -813,6 +813,7 @@
 	<string name="type.amenity.restaurant">레스토랑</string>
 	<string name="type.amenity.school">학교</string>
 	<string name="type.amenity.shelter">대피소</string>
+	<string name="type.amenity.public_bath">대중목욕탕</string>
 	<string name="type.amenity.shower">샤워시설</string>
 	<string name="type.amenity.stripclub">스트립클럽</string>
 	<string name="type.amenity.taxi">택시</string>

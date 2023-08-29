@@ -1528,6 +1528,8 @@
 
 "type.amenity.shelter" = "ملجأ";
 
+"type.amenity.public_bath" = "حمام عام";
+
 "type.amenity.shower" = "حمام";
 
 "type.amenity.stripclub" = "Stripclub";

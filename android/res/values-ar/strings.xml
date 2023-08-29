@@ -873,6 +873,7 @@
 	<string name="type.amenity.restaurant">مطعم</string>
 	<string name="type.amenity.school">مدرسة</string>
 	<string name="type.amenity.shelter">ملجأ</string>
+	<string name="type.amenity.public_bath">حمام عام</string>
 	<string name="type.amenity.shower">حمام</string>
 	<string name="type.amenity.stripclub">Stripclub</string>
 	<string name="type.amenity.taxi">سيارة أجرة</string>

@@ -1528,6 +1528,8 @@
 
 "type.amenity.shelter" = "Adăpost";
 
+"type.amenity.public_bath" = "Baie publică";
+
 "type.amenity.shower" = "Duș";
 
 "type.amenity.stripclub" = "Stripclub";

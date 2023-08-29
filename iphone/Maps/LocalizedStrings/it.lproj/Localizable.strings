@@ -1528,6 +1528,8 @@
 
 "type.amenity.shelter" = "Riparo";
 
+"type.amenity.public_bath" = "Bagno pubblico";
+
 "type.amenity.shower" = "Doccia";
 
 "type.amenity.stripclub" = "Stripclub";

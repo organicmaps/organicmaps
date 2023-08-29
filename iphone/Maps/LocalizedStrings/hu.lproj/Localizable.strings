@@ -1528,6 +1528,8 @@
 
 "type.amenity.shelter" = "Menedék";
 
+"type.amenity.public_bath" = "Közfürdő";
+
 "type.amenity.shower" = "Tusoló";
 
 "type.amenity.stripclub" = "Stripclub";

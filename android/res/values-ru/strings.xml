@@ -895,6 +895,7 @@
 	<string name="type.amenity.sanitary_dump_station">Слив для туалетов транспортных средств</string>
 	<string name="type.amenity.school">Школа</string>
 	<string name="type.amenity.shelter">Укрытие</string>
+	<string name="type.amenity.public_bath">Общественная баня</string>
 	<string name="type.amenity.shower">Душ</string>
 	<string name="type.amenity.stripclub">Стриптиз-клуб</string>
 	<string name="type.amenity.taxi">Такси</string>

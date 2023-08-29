@@ -886,6 +886,7 @@
 	<string name="type.amenity.sanitary_dump_station">Estación de vaciado para caravanas</string>
 	<string name="type.amenity.school">Escuela</string>
 	<string name="type.amenity.shelter">Refugio</string>
+	<string name="type.amenity.public_bath">Baños públicos</string>
 	<string name="type.amenity.shower">Ducha</string>
 	<string name="type.amenity.stripclub">Club de striptease</string>
 	<string name="type.amenity.taxi">Taxi</string>

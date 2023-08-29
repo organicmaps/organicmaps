@@ -878,6 +878,7 @@
 	<string name="type.amenity.sanitary_dump_station">Caravantoilet cassette-leegpunt</string>
 	<string name="type.amenity.school">School</string>
 	<string name="type.amenity.shelter">Beschutting</string>
+	<string name="type.amenity.public_bath">Publiek bad</string>
 	<string name="type.amenity.shower">Douche</string>
 	<string name="type.amenity.stripclub">Stripclub</string>
 	<string name="type.amenity.taxi">Taxi</string>

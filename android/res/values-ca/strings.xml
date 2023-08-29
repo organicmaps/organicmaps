@@ -750,6 +750,7 @@
 	<string name="type.amenity.place_of_worship.christian.mormon">Església de Jesucrist dels Sants dels Últims Dies</string>
 
 	<!-- SECTION: Types: Recycling -->
+	<string name="type.amenity.public_bath">Bany Públic</string>
 	<string name="type.amenity.stripclub">Club de striptease</string>
 	<string name="type.barrier.turnstile">Torniquet</string>
 	<string name="type.boundary.protected_area">Àrea Protegida</string>

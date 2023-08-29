@@ -1528,6 +1528,8 @@
 
 "type.amenity.shelter" = "避難所";
 
+"type.amenity.public_bath" = "公衆浴場";
+
 "type.amenity.shower" = "シャワー";
 
 "type.amenity.stripclub" = "ストリップクラブ";

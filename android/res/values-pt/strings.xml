@@ -842,6 +842,7 @@
 	<string name="type.amenity.restaurant">Restaurante</string>
 	<string name="type.amenity.school">Escola</string>
 	<string name="type.amenity.shelter">Abrigo</string>
+	<string name="type.amenity.public_bath">Banheiro público</string>
 	<string name="type.amenity.shower">Chuveiro</string>
 	<string name="type.amenity.stripclub">Clube de striptease</string>
 	<string name="type.amenity.taxi">Táxi</string>

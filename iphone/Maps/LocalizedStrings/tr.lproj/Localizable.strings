@@ -1528,6 +1528,8 @@
 
 "type.amenity.shelter" = "Barınak";
 
+"type.amenity.public_bath" = "Hamam";
+
 "type.amenity.shower" = "Duş";
 
 "type.amenity.stripclub" = "Striptiz kulübü";

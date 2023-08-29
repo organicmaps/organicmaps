@@ -1528,6 +1528,8 @@
 
 "type.amenity.shelter" = "Shelter";
 
+"type.amenity.public_bath" = "אמבטיה ציבורית";
+
 "type.amenity.shower" = "Shower";
 
 "type.amenity.stripclub" = "מועדון חשפנות";

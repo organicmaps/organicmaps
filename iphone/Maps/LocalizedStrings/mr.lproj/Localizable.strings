@@ -1528,6 +1528,8 @@
 
 "type.amenity.shelter" = "निवारा";
 
+"type.amenity.public_bath" = "सार्वजनिक स्नान";
+
 "type.amenity.shower" = "अंघोळ";
 
 "type.amenity.stripclub" = "स्ट्रिपक्लब";

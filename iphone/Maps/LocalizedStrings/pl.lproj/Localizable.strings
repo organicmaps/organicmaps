@@ -1528,6 +1528,8 @@
 
 "type.amenity.shelter" = "Wiata";
 
+"type.amenity.public_bath" = "Łaźnia Publiczna";
+
 "type.amenity.shower" = "Prysznic";
 
 "type.amenity.stripclub" = "Klub ze striptizem";

@@ -1528,6 +1528,8 @@
 
 "type.amenity.shelter" = "대피소";
 
+"type.amenity.public_bath" = "대중목욕탕";
+
 "type.amenity.shower" = "샤워시설";
 
 "type.amenity.stripclub" = "스트립클럽";

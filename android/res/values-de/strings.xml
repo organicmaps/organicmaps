@@ -875,6 +875,7 @@
 	<string name="type.amenity.sanitary_dump_station">VE-Station</string>
 	<string name="type.amenity.school">Schule</string>
 	<string name="type.amenity.shelter">Unterstand</string>
+	<string name="type.amenity.public_bath">Öffentliches Bad</string>
 	<string name="type.amenity.shower">Dusche</string>
 	<string name="type.amenity.stripclub">Stripclub</string>
 	<string name="type.amenity.taxi">Taxistand</string>
