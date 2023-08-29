@@ -1111,7 +1111,7 @@
 
 "download_map_carplay" = "Descargue mapas en la aplicación Organic Maps en su dispositivo";
 
-"carplay_roundabout_exit" = "%@ desviación";
+"carplay_roundabout_exit" = "%@ salida";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Ordenar…";
@@ -1590,7 +1590,7 @@
 
 "type.barrier.chain" = "Cadena";
 
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.city_wall" = "Muro de la ciudad";
 
 "type.barrier.cycle_barrier" = "Barrera para bicicletas";
 
@@ -1995,15 +1995,15 @@
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Puente";
 
-"type.highway.footway.demanding_alpine_hiking" = "Path";
+"type.highway.footway.demanding_alpine_hiking" = "Camino";
 
-"type.highway.footway.demanding_mountain_hiking" = "Path";
+"type.highway.footway.demanding_mountain_hiking" = "Camino";
 
-"type.highway.footway.difficult_alpine_hiking" = "Path";
+"type.highway.footway.difficult_alpine_hiking" = "Camino";
 
 "type.highway.footway.hiking" = "Sendero";
 
-"type.highway.footway.mountain_hiking" = "Path";
+"type.highway.footway.mountain_hiking" = "Camino";
 
 "type.highway.footway.permissive" = "Camino";
 
