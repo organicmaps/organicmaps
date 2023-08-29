@@ -126,6 +126,26 @@ bool Metadata::TypeFromString(string_view k, Metadata::EType & outType)
   return true;
 }
 
+void Metadata::ClearPOIAttribs()
+{
+  for (auto i = m_metadata.begin(); i != m_metadata.end();)
+  {
+    if (i->first != Metadata::FMD_ELE &&
+        i->first != Metadata::FMD_POSTCODE &&
+        i->first != Metadata::FMD_FLATS &&
+        i->first != Metadata::FMD_HEIGHT &&
+        i->first != Metadata::FMD_MIN_HEIGHT &&
+        i->first != Metadata::FMD_BUILDING_LEVELS &&
+        i->first != Metadata::FMD_TEST_ID &&
+        i->first != Metadata::FMD_BUILDING_MIN_LEVEL)
+    {
+      i = m_metadata.erase(i);
+    }
+    else
+      ++i;
+  }
+}
+
 void RegionData::SetLanguages(vector<string> const & codes)
 {
   string value;
