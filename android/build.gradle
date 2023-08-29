@@ -86,6 +86,7 @@ dependencies {
   // > A failure occurred while executing com.android.build.gradle.internal.tasks.CheckDuplicatesRunnable
   // We don't use Kotlin, but some dependencies are actively using it.
   implementation(platform('org.jetbrains.kotlin:kotlin-bom:1.8.21'))
+  implementation 'androidx.core:core:1.10.1'
   implementation 'androidx.annotation:annotation:1.6.0'
   implementation 'androidx.appcompat:appcompat:1.6.1'
   implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
