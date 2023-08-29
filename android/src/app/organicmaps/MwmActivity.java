@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -37,7 +38,7 @@ import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.Framework.PlacePageActivationListener;
 import app.organicmaps.api.Const;
 import app.organicmaps.background.AppBackgroundTracker;
-import app.organicmaps.background.Notifier;
+import app.organicmaps.downloader.DownloaderNotifier;
 import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.base.CustomNavigateUpListener;
 import app.organicmaps.base.NoConnectionListener;
@@ -110,6 +111,7 @@ import java.util.Stack;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.POST_NOTIFICATIONS;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static app.organicmaps.location.LocationState.LOCATION_TAG;
 
@@ -205,6 +207,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private ActivityResultLauncher<String[]> mLocationPermissionRequest;
+
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private ActivityResultLauncher<String> mPostNotificationPermissionRequest;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -411,6 +417,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
         this::onLocationPermissionsResult);
     mLocationResolutionRequest = registerForActivityResult(new ActivityResultContracts.StartIntentSenderForResult(),
         this::onLocationResolutionResult);
+    mPostNotificationPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestPermission(),
+        this::onPostNotificationPermissionResult);
 
     boolean isConsumed = savedInstanceState == null && processIntent(getIntent());
     boolean isFirstLaunch = Counters.isFirstLaunch(this);
@@ -943,8 +951,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (intent == null)
       return false;
 
-    final Notifier notifier = Notifier.from(getApplication());
-    notifier.processNotificationExtras(intent);
+    DownloaderNotifier.processNotificationExtras(getApplicationContext(), intent);
 
     if (intent.hasExtra(EXTRA_TASK))
     {
@@ -1087,6 +1094,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mLocationPermissionRequest = null;
     mLocationResolutionRequest.unregister();
     mLocationResolutionRequest = null;
+    mPostNotificationPermissionRequest.unregister();
+    mPostNotificationPermissionRequest = null;
   }
 
   @Override
@@ -1766,6 +1775,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   /**
+   * Request POST_NOTIFICATIONS permission.
+   */
+  public void requestPostNotificationsPermission()
+  {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
+        ActivityCompat.checkSelfPermission(this, POST_NOTIFICATIONS) == PERMISSION_GRANTED)
+    {
+      Logger.i(TAG, "Permissions POST_NOTIFICATIONS is granted");
+      return;
+    }
+
+    Logger.i(TAG, "Requesting POST_NOTIFICATIONS permission");
+    mPostNotificationPermissionRequest.launch(POST_NOTIFICATIONS);
+  }
+
+  /**
    * Resume location services when entering the foreground.
    */
   private void resumeLocationInForeground()
@@ -1859,6 +1884,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .setOnDismissListener(dialog -> mLocationErrorDialog = null)
         .setNegativeButton(R.string.close, null)
         .show();
+  }
+
+  /**
+   * Called on the result of the POST_NOTIFICATIONS request.
+   * @param granted true if permission has been granted.
+   */
+  @UiThread
+  private void onPostNotificationPermissionResult(boolean granted)
+  {
+    if (granted)
+      Logger.i(TAG, "Permission POST_NOTIFICATIONS has been granted");
+    else
+      Logger.w(TAG, "Permission POST_NOTIFICATIONS has been refused");
   }
 
   /**

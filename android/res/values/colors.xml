@@ -125,7 +125,7 @@
   <color name="bg_editor_light">#FFF2F6F6</color>
   <color name="bg_editor_light_pressed">#3D000000</color>
 
-  <color name="notification">#82E510</color>
+  <color name="notification">@color/bg_primary</color>
   <color name="yellow">#FFC800</color>
 
   <color name="elevation_profile_dot_enabled">#FF9600</color>

@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
-import app.organicmaps.background.Notifier;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.widget.WheelProgressView;
@@ -169,6 +168,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
                     MapManager.nativeHasSpaceToDownloadCountry(country))
                 {
                   MapManager.nativeDownload(mCurrentCountry.id);
+                  mActivity.requestPostNotificationsPermission();
                 }
               }
             }
@@ -209,19 +209,22 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
         setAutodownloadLocked(true);
       }
     });
-    final Notifier notifier = Notifier.from(activity.getApplication());
-    mButton.setOnClickListener(v -> MapManager.warnOn3g(mActivity, mCurrentCountry == null ? null : mCurrentCountry.id, () -> {
+      mButton.setOnClickListener(v -> MapManager.warnOn3g(mActivity, mCurrentCountry == null ? null :
+      mCurrentCountry.id, () -> {
       if (mCurrentCountry == null)
         return;
 
       boolean retry = (mCurrentCountry.status == CountryItem.STATUS_FAILED);
       if (retry)
       {
-        notifier.cancelNotification(Notifier.ID_DOWNLOAD_FAILED);
+        DownloaderNotifier.cancelNotification(mActivity.getApplicationContext());
         MapManager.nativeRetry(mCurrentCountry.id);
       }
       else
+      {
         MapManager.nativeDownload(mCurrentCountry.id);
+        mActivity.requestPostNotificationsPermission();
+      }
     }));
 
     ViewCompat.setOnApplyWindowInsetsListener(mFrame, (view, windowInsets) -> {

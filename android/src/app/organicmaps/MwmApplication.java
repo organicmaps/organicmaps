@@ -8,9 +8,7 @@ import android.os.Message;
 
 import androidx.annotation.NonNull;
 import app.organicmaps.background.AppBackgroundTracker;
-import app.organicmaps.background.NotificationChannelFactory;
-import app.organicmaps.background.NotificationChannelProvider;
-import app.organicmaps.background.Notifier;
+import app.organicmaps.downloader.DownloaderNotifier;
 import app.organicmaps.base.MediaPlayerWrapper;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.downloader.CountryItem;
@@ -116,19 +114,13 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     ConnectionState.INSTANCE.initialize(this);
     CrashlyticsUtils.INSTANCE.initialize(this);
     
-    initNotificationChannels();
+    DownloaderNotifier.createNotificationChannel(this);
 
     mBackgroundTracker = new AppBackgroundTracker(this);
     mSubwayManager = new SubwayManager(this);
     mIsolinesManager = new IsolinesManager(this);
 
     mPlayer = new MediaPlayerWrapper(this);
-  }
-
-  private void initNotificationChannels()
-  {
-    NotificationChannelProvider channelProvider = NotificationChannelFactory.createProvider(this);
-    channelProvider.setDownloadingChannel();
   }
 
   /**
@@ -281,13 +273,12 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     @Override
     public void onStatusChanged(List<MapManager.StorageCallbackData> data)
     {
-      Notifier notifier = Notifier.from(MwmApplication.this);
       for (MapManager.StorageCallbackData item : data)
         if (item.isLeafNode && item.newStatus == CountryItem.STATUS_FAILED)
         {
           if (MapManager.nativeIsAutoretryFailed())
           {
-            notifier.notifyDownloadFailed(item.countryId, MapManager.nativeGetName(item.countryId));
+            DownloaderNotifier.notifyDownloadFailed(MwmApplication.this, item.countryId);
           }
 
           return;

@@ -4,8 +4,6 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 
-import app.organicmaps.background.Notifier;
-
 public class RetryFailedDownloadConfirmationListener implements Runnable
 {
   @NonNull
@@ -19,7 +17,6 @@ public class RetryFailedDownloadConfirmationListener implements Runnable
   @Override
   public void run()
   {
-    final Notifier notifier = Notifier.from(mApplication);
-    notifier.cancelNotification(Notifier.ID_DOWNLOAD_FAILED);
+    DownloaderNotifier.cancelNotification(mApplication);
   }
 }
