@@ -1528,6 +1528,8 @@
 
 "type.amenity.shelter" = "Aterpea";
 
+"type.amenity.public_bath" = "Bainu Publikoa";
+
 "type.amenity.shower" = "Dutxa";
 
 "type.amenity.stripclub" = "Stripclub";

@@ -295,6 +295,7 @@
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">תוללוס</string>
+	<string name="type.amenity.public_bath">אמבטיה ציבורית</string>
 	<string name="type.amenity.stripclub">מועדון חשפנות</string>
 	<string name="type.barrier.city_wall">חומת העיר</string>
 	<string name="type.barrier.ditch">ןגֵמָ תלַעָתְ</string>

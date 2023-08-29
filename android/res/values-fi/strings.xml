@@ -877,6 +877,7 @@
 	<string name="type.amenity.restaurant">Ravintola</string>
 	<string name="type.amenity.school">Koulu</string>
 	<string name="type.amenity.shelter">Katos</string>
+	<string name="type.amenity.public_bath">Julkinen kylpylä</string>
 	<string name="type.amenity.shower">Suihku</string>
 	<string name="type.amenity.stripclub">Stripclub</string>
 	<string name="type.amenity.taxi">Taksi</string>

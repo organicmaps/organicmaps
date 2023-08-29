@@ -1528,6 +1528,8 @@
 
 "type.amenity.shelter" = "Καταφύγιο";
 
+"type.amenity.public_bath" = "Δημόσιο Λουτρό";
+
 "type.amenity.shower" = "Ντους";
 
 "type.amenity.stripclub" = "Stripclub";

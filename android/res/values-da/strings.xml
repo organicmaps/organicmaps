@@ -811,6 +811,7 @@
 	<string name="type.recycling.scrap_metal">Skrot metal</string>
 	<string name="type.recycling.small_appliances">Elektronik affald</string>
 	<string name="type.amenity.school">Skole</string>
+	<string name="type.amenity.public_bath">Offentligt bad</string>
 	<string name="type.amenity.shower">Bruser</string>
 	<string name="type.amenity.stripclub">Stripklub</string>
 	<string name="type.amenity.telephone">Telefon</string>

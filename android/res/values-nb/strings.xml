@@ -860,6 +860,7 @@
 	<string name="type.recycling.small_appliances">Elektronisk avfall</string>
 	<string name="type.amenity.school">Skole</string>
 	<string name="type.amenity.shelter">Ly</string>
+	<string name="type.amenity.public_bath">Offentlig bad</string>
 	<string name="type.amenity.shower">Dusj</string>
 	<string name="type.amenity.stripclub">Stripklubb</string>
 	<string name="type.amenity.taxi">Drosje</string>

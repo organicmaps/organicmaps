@@ -870,6 +870,7 @@
 	<string name="type.amenity.sanitary_dump_station">Злив для туалетів транспортних засобів</string>
 	<string name="type.amenity.school">Школа</string>
 	<string name="type.amenity.shelter">Укриття</string>
+	<string name="type.amenity.public_bath">Громадська лазня</string>
 	<string name="type.amenity.shower">Душ</string>
 	<string name="type.amenity.stripclub">Стриптиз-клуб</string>
 	<string name="type.amenity.taxi">Таксі</string>

@@ -814,6 +814,7 @@
 	<string name="type.amenity.restaurant">ร้านอาหาร</string>
 	<string name="type.amenity.school">โรงเรียน</string>
 	<string name="type.amenity.shelter">ที่อยู่อาศัย</string>
+	<string name="type.amenity.public_bath">ห้องอาบน้ำสาธารณะ</string>
 	<string name="type.amenity.shower">ฝักบัวอาบน้ำ</string>
 	<string name="type.amenity.stripclub">สตริปคลับ</string>
 	<string name="type.amenity.taxi">แท็กซี่</string>

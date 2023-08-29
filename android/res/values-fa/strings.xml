@@ -814,6 +814,7 @@
 	<string name="type.amenity.restaurant">غذا</string>
 	<string name="type.amenity.school">مدرسه</string>
 	<string name="type.amenity.shelter">پناهگاه</string>
+	<string name="type.amenity.public_bath">حمام عمومی</string>
 	<string name="type.amenity.shower">حمام</string>
 	<string name="type.amenity.stripclub">باشگاه استریپ</string>
 	<string name="type.amenity.taxi">تاکسی</string>

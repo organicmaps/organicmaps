@@ -1528,6 +1528,8 @@
 
 "type.amenity.shelter" = "Prístrešok";
 
+"type.amenity.public_bath" = "Verejné kúpele";
+
 "type.amenity.shower" = "Sprcha";
 
 "type.amenity.stripclub" = "Stripclub";

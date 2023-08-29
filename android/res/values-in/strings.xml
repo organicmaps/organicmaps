@@ -811,6 +811,7 @@
 	<string name="type.amenity.restaurant">Restoran</string>
 	<string name="type.amenity.school">Sekolah</string>
 	<string name="type.amenity.shelter">Tempat penampungan</string>
+	<string name="type.amenity.public_bath">Pemandian umum</string>
 	<string name="type.amenity.shower">Pancuran</string>
 	<string name="type.amenity.stripclub">Klub telanjang</string>
 	<string name="type.amenity.taxi">Taksi</string>

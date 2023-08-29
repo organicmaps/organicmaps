@@ -825,6 +825,7 @@
 	<string name="type.amenity.restaurant">レストラン</string>
 	<string name="type.amenity.school">学校</string>
 	<string name="type.amenity.shelter">避難所</string>
+	<string name="type.amenity.public_bath">公衆浴場</string>
 	<string name="type.amenity.shower">シャワー</string>
 	<string name="type.amenity.stripclub">ストリップクラブ</string>
 	<string name="type.amenity.taxi">タクシー</string>

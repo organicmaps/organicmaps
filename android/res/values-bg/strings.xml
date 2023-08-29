@@ -701,6 +701,7 @@
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">Батерии</string>
+	<string name="type.amenity.public_bath">Обществена баня</string>
 	<string name="type.amenity.stripclub">Стриптийз клуб</string>
 	<string name="type.barrier.city_wall">Градска стена</string>
 	<string name="type.barrier.ditch">Ров</string>

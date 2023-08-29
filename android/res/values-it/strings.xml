@@ -863,6 +863,7 @@
 	<string name="type.amenity.sanitary_dump_station">Scarico acque nere</string>
 	<string name="type.amenity.school">Scuola</string>
 	<string name="type.amenity.shelter">Riparo</string>
+	<string name="type.amenity.public_bath">Bagno pubblico</string>
 	<string name="type.amenity.shower">Doccia</string>
 	<string name="type.amenity.stripclub">Stripclub</string>
 	<string name="type.amenity.taxi">Taxi</string>

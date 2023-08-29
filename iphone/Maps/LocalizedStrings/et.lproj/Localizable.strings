@@ -1528,6 +1528,8 @@
 
 "type.amenity.shelter" = "Varjupaik";
 
+"type.amenity.public_bath" = "Avalik vann";
+
 "type.amenity.shower" = "Dušš";
 
 "type.amenity.stripclub" = "Stripiklubi";

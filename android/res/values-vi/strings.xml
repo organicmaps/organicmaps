@@ -812,6 +812,7 @@
 	<string name="type.amenity.restaurant">Quán ăn</string>
 	<string name="type.amenity.school">Trường học</string>
 	<string name="type.amenity.shelter">Chổ nương thân</string>
+	<string name="type.amenity.public_bath">Nhà tắm công cộng</string>
 	<string name="type.amenity.shower">Nhà tắm</string>
 	<string name="type.amenity.stripclub">Câu lạc bộ thoát y</string>
 	<string name="type.amenity.telephone">Điện thoại</string>

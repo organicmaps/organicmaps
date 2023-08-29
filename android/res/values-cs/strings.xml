@@ -823,6 +823,7 @@
 	<string name="type.amenity.restaurant">Restaurace</string>
 	<string name="type.amenity.school">Škola</string>
 	<string name="type.amenity.shelter">Přístřešek</string>
+	<string name="type.amenity.public_bath">Veřejné lázně</string>
 	<string name="type.amenity.shower">Sprcha</string>
 	<string name="type.amenity.stripclub">Stripcklub</string>
 	<string name="type.amenity.telephone">Telefon</string>

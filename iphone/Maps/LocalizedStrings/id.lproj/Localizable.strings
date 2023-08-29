@@ -1528,6 +1528,8 @@
 
 "type.amenity.shelter" = "Tempat penampungan";
 
+"type.amenity.public_bath" = "Pemandian umum";
+
 "type.amenity.shower" = "Pancuran";
 
 "type.amenity.stripclub" = "Klub telanjang";

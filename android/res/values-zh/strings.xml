@@ -836,6 +836,7 @@
 	<string name="type.amenity.restaurant">餐馆</string>
 	<string name="type.amenity.school">学校</string>
 	<string name="type.amenity.shelter">庇护所</string>
+	<string name="type.amenity.public_bath">公共浴场</string>
 	<string name="type.amenity.shower">淋浴间</string>
 	<string name="type.amenity.stripclub">脱衣舞俱乐部</string>
 	<string name="type.amenity.taxi">出租车</string>

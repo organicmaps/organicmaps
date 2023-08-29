@@ -834,6 +834,7 @@
 	<string name="type.amenity.restaurant">Étterem</string>
 	<string name="type.amenity.school">Iskola</string>
 	<string name="type.amenity.shelter">Menedék</string>
+	<string name="type.amenity.public_bath">Közfürdő</string>
 	<string name="type.amenity.shower">Tusoló</string>
 	<string name="type.amenity.stripclub">Stripclub</string>
 	<string name="type.amenity.telephone">Telefon</string>

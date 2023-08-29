@@ -814,6 +814,7 @@
 	<string name="type.amenity.restaurant">Εστιατόριο</string>
 	<string name="type.amenity.school">Σχολείο</string>
 	<string name="type.amenity.shelter">Καταφύγιο</string>
+	<string name="type.amenity.public_bath">Δημόσιο Λουτρό</string>
 	<string name="type.amenity.shower">Ντους</string>
 	<string name="type.amenity.stripclub">Stripclub</string>
 	<string name="type.amenity.taxi">Ταξί</string>

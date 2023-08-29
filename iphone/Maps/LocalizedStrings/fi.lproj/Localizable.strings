@@ -1528,6 +1528,8 @@
 
 "type.amenity.shelter" = "Katos";
 
+"type.amenity.public_bath" = "Julkinen kylpylä";
+
 "type.amenity.shower" = "Suihku";
 
 "type.amenity.stripclub" = "Stripclub";

@@ -1528,6 +1528,8 @@
 
 "type.amenity.shelter" = "庇护所";
 
+"type.amenity.public_bath" = "公共浴场";
+
 "type.amenity.shower" = "淋浴间";
 
 "type.amenity.stripclub" = "脱衣舞俱乐部";

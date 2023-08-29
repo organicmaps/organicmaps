@@ -1528,6 +1528,8 @@
 
 "type.amenity.shelter" = "Shelter";
 
+"type.amenity.public_bath" = "Offentligt bad";
+
 "type.amenity.shower" = "Bruser";
 
 "type.amenity.stripclub" = "Stripklub";

@@ -1528,6 +1528,8 @@
 
 "type.amenity.shelter" = "Abri";
 
+"type.amenity.public_bath" = "Bain public";
+
 "type.amenity.shower" = "Douche";
 
 "type.amenity.stripclub" = "Club de strip-tease";
