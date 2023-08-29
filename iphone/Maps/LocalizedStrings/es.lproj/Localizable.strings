@@ -1111,7 +1111,7 @@
 
 "download_map_carplay" = "Descargue los mapas en la aplicación Organic Maps en su dispositivo";
 
-"carplay_roundabout_exit" = "%@ desviación";
+"carplay_roundabout_exit" = "%@ salida";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Ordenar…";
