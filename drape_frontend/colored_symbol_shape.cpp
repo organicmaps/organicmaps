@@ -311,10 +311,6 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::
 
 uint64_t ColoredSymbolShape::GetOverlayPriority() const
 {
-  // Special displacement mode.
-  if (m_params.m_specialDisplacement == SpecialDisplacement::SpecialMode)
-    return dp::CalculateSpecialModePriority(m_params.m_specialPriority);
-
   if (m_params.m_specialDisplacement == SpecialDisplacement::SpecialModeUserMark)
     return dp::CalculateSpecialModeUserMarkPriority(m_params.m_specialPriority);
 

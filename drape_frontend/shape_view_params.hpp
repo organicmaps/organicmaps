@@ -35,7 +35,6 @@ struct CommonViewParams
 enum class SpecialDisplacement : uint8_t
 {
   None,
-  SpecialMode,
   UserMark,
   SpecialModeUserMark,
   HouseNumber,
@@ -43,8 +42,6 @@ enum class SpecialDisplacement : uint8_t
 
 struct CommonOverlayViewParams : public CommonViewParams
 {
-  // TODO : review if HouseNumber and navigation SpecialMode are needed still
-  // or desired priorities could be set in prio.txt files directly.
   SpecialDisplacement m_specialDisplacement = SpecialDisplacement::None;
   uint16_t m_specialPriority = std::numeric_limits<uint16_t>::max();
   uint8_t m_startOverlayRank = 0;
