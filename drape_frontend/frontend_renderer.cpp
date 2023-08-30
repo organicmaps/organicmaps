@@ -1597,21 +1597,6 @@ void FrontendRenderer::RenderOverlayLayer(ScreenBase const & modelView)
   BuildOverlayTree(modelView);
   for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
     RenderSingleGroup(m_context, modelView, make_ref(group));
-
-  if (GetStyleReader().IsCarNavigationStyle())
-    RenderNavigationOverlayLayer(modelView);
-}
-
-void FrontendRenderer::RenderNavigationOverlayLayer(ScreenBase const & modelView)
-{
-  CHECK(m_context != nullptr, ());
-  DEBUG_LABEL(m_context, "Navigation Overlay Layer");
-  RenderLayer & navOverlayLayer = m_layers[static_cast<size_t>(DepthLayer::NavigationLayer)];
-  for (auto & group : navOverlayLayer.m_renderGroups)
-  {
-    if (group->HasOverlayHandles())
-      RenderSingleGroup(m_context, modelView, make_ref(group));
-  }
 }
 
 bool FrontendRenderer::HasTransitRouteData() const
@@ -1872,7 +1857,6 @@ void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
 
   BeginUpdateOverlayTree(modelView);
   for (auto const layerId : {DepthLayer::OverlayLayer,
-                             DepthLayer::NavigationLayer,
                              DepthLayer::RoutingBottomMarkLayer,
                              DepthLayer::RoutingMarkLayer})
   {
@@ -2572,7 +2556,7 @@ void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
     uint32_t const kMaxGenerationRange = 5;
     TileKey const & key = group->GetTileKey();
 
-    return (group->IsOverlay() && key.m_zoomLevel > GetCurrentZoom()) ||
+    return (GetDepthLayer(group->GetState()) == DepthLayer::OverlayLayer && key.m_zoomLevel > GetCurrentZoom()) ||
            (m_maxGeneration - key.m_generation > kMaxGenerationRange) ||
            (group->IsUserMark() &&
             (m_maxUserMarksGeneration - key.m_userMarksGeneration > kMaxGenerationRange));

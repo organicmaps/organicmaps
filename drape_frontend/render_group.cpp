@@ -126,13 +126,6 @@ void RenderGroup::AddBucket(drape_ptr<dp::RenderBucket> && bucket)
   m_renderBuckets.push_back(std::move(bucket));
 }
 
-bool RenderGroup::IsOverlay() const
-{
-  auto const depthLayer = GetDepthLayer(m_state);
-  return (depthLayer == DepthLayer::OverlayLayer) ||
-         (depthLayer == DepthLayer::NavigationLayer && HasOverlayHandles());
-}
-
 bool RenderGroup::IsUserMark() const
 {
   auto const depthLayer = GetDepthLayer(m_state);
