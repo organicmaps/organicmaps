@@ -15,6 +15,7 @@ import androidx.core.graphics.drawable.IconCompat;
 
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
+import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.util.Config;
@@ -67,10 +68,22 @@ public class SettingsScreen extends BaseMapScreen
   private ItemList createSettingsList()
   {
     final ItemList.Builder builder = new ItemList.Builder();
+    builder.addItem(createThemeItem());
     builder.addItem(createRoutingOptionsItem());
     builder.addItem(createSharedPrefsCheckbox(R.string.big_font, Config::isLargeFontsSize, Config::setLargeFontsSize));
     builder.addItem(createSharedPrefsCheckbox(R.string.transliteration_title, Config::isTransliteration, Config::setTransliteration));
     builder.addItem(createHelpItem());
+    return builder.build();
+  }
+
+  @NonNull
+  private Item createThemeItem()
+  {
+    final Row.Builder builder = new Row.Builder();
+    builder.setTitle(getCarContext().getString(R.string.pref_map_style_title));
+    builder.addText(getCarContext().getString(ThemeUtils.getThemeMode(getCarContext()).getTitleId()));
+    builder.setOnClickListener(() -> getScreenManager().push(new ThemeScreen(getCarContext(), getSurfaceRenderer())));
+    builder.setBrowsable(true);
     return builder.build();
   }
 
@@ -95,7 +108,7 @@ public class SettingsScreen extends BaseMapScreen
   }
 
   @NonNull
-  private Row createSharedPrefsCheckbox(@StringRes int titleRes, PrefsGetter getter, PrefsSetter setter)
+  private Row createSharedPrefsCheckbox(@StringRes int titleRes, @NonNull PrefsGetter getter, @NonNull PrefsSetter setter)
   {
     final boolean getterValue = getter.get();
 

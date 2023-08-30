@@ -401,6 +401,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void replacePlaceholderWithMap()
   {
+    ThemeSwitcher.INSTANCE.restart(false);
     initMap(false /* isLaunchByDeepLink */, true /* force */);
     enableControls();
   }

@@ -30,6 +30,7 @@ import app.organicmaps.car.screens.base.BaseScreen;
 import app.organicmaps.car.screens.hacks.PopToRootHack;
 import app.organicmaps.car.util.IntentUtils;
 import app.organicmaps.car.util.RoutingUtils;
+import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.display.DisplayChangedListener;
 import app.organicmaps.display.DisplayManager;
 import app.organicmaps.display.DisplayType;
@@ -81,7 +82,11 @@ public final class NavigationSession extends Session implements DefaultLifecycle
   {
     Logger.d(TAG, "New configuration: " + newConfiguration);
 
-    mScreenManager.getTop().invalidate();
+    if (mSurfaceRenderer.isRenderingActive())
+    {
+      ThemeUtils.update(getCarContext());
+      mScreenManager.getTop().invalidate();
+    }
   }
 
   @NonNull
@@ -148,6 +153,8 @@ public final class NavigationSession extends Session implements DefaultLifecycle
     SensorHelper.from(getCarContext()).addListener(this);
     if (LocationUtils.checkFineLocationPermission(getCarContext()))
       LocationHelper.INSTANCE.start();
+    if (DisplayManager.from(getCarContext()).isCarDisplayUsed())
+      ThemeUtils.update(getCarContext());
   }
 
   @Override
@@ -245,6 +252,9 @@ public final class NavigationSession extends Session implements DefaultLifecycle
         mScreenManager.push(new NavigationScreen(getCarContext(), mSurfaceRenderer));
       else if (routingController.isPlanning() && routingController.getEndPoint() != null)
         mScreenManager.push(new PlaceScreen.Builder(getCarContext(), mSurfaceRenderer).setMapObject(routingController.getEndPoint()).build());
+      mSurfaceRenderer.enable();
+      ThemeUtils.update(getCarContext());
+      Framework.nativePlacePageActivationListener(this);
     }
     else if (newDisplayType == DisplayType.Device && !isMapPlaceholderScreenShown)
     {

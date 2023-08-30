@@ -17,6 +17,7 @@ import androidx.core.graphics.drawable.IconCompat;
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.search.SearchOnMapScreen;
+import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 
@@ -32,23 +33,26 @@ public class CategoriesScreen extends BaseMapScreen
 
     @DrawableRes
     public final int iconResId;
+    @DrawableRes
+    public final int iconNightResId;
 
-    public CategoryData(int nameResId, int iconResId)
+    public CategoryData(@StringRes int nameResId, @DrawableRes int iconResId, @DrawableRes int iconNightResId)
     {
       this.nameResId = nameResId;
       this.iconResId = iconResId;
+      this.iconNightResId = iconNightResId;
     }
   }
 
   // TODO (AndrewShkrob): discuss categories and their priority for this list
   private static final List<CategoryData> CATEGORIES = Arrays.asList(
-      new CategoryData(R.string.fuel, R.drawable.ic_category_fuel),
-      new CategoryData(R.string.parking, R.drawable.ic_category_parking),
-      new CategoryData(R.string.eat, R.drawable.ic_category_eat),
-      new CategoryData(R.string.food, R.drawable.ic_category_food),
-      new CategoryData(R.string.hotel, R.drawable.ic_category_hotel),
-      new CategoryData(R.string.toilet, R.drawable.ic_category_toilet),
-      new CategoryData(R.string.rv, R.drawable.ic_category_rv)
+      new CategoryData(R.string.fuel, R.drawable.ic_category_fuel, R.drawable.ic_category_fuel_night),
+      new CategoryData(R.string.parking, R.drawable.ic_category_parking, R.drawable.ic_category_parking_night),
+      new CategoryData(R.string.eat, R.drawable.ic_category_eat, R.drawable.ic_category_eat_night),
+      new CategoryData(R.string.food, R.drawable.ic_category_food, R.drawable.ic_category_food_night),
+      new CategoryData(R.string.hotel, R.drawable.ic_category_hotel, R.drawable.ic_category_hotel_night),
+      new CategoryData(R.string.toilet, R.drawable.ic_category_toilet, R.drawable.ic_category_toilet_night),
+      new CategoryData(R.string.rv, R.drawable.ic_category_rv, R.drawable.ic_category_rv_night)
   );
 
   private final int MAX_CATEGORIES_SIZE;
@@ -83,14 +87,17 @@ public class CategoriesScreen extends BaseMapScreen
   @NonNull
   private ItemList createCategoriesList()
   {
+    final boolean isNightMode = ThemeUtils.isNightMode(getCarContext());
     final ItemList.Builder builder = new ItemList.Builder();
     final int categoriesSize = Math.min(CATEGORIES.size(), MAX_CATEGORIES_SIZE);
     for (int i = 0; i < categoriesSize; ++i)
     {
       final Row.Builder itemBuilder = new Row.Builder();
       final String title = getCarContext().getString(CATEGORIES.get(i).nameResId);
+      @DrawableRes final int iconResId = isNightMode ? CATEGORIES.get(i).iconNightResId : CATEGORIES.get(i).iconResId;
+
       itemBuilder.setTitle(title);
-      itemBuilder.setImage(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), CATEGORIES.get(i).iconResId)).build());
+      itemBuilder.setImage(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), iconResId)).build());
       itemBuilder.setOnClickListener(() -> getScreenManager().push(new SearchOnMapScreen.Builder(getCarContext(), getSurfaceRenderer()).setCategory(title).build()));
       builder.addItem(itemBuilder.build());
     }
