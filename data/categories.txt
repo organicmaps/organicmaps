@@ -13473,6 +13473,45 @@ zh-Hant:付款終端
 fa:دستگاه کارتخوان
 mr:पेमेंट टर्मिनल
 
+amenity-public_bath
+en:Public Bath
+ar:حمام عام
+be:Грамадская лазня
+bg:Обществена баня
+ca:Bany Públic
+cs:Veřejné lázně
+da:Offentligt bad
+de:Öffentliches Bad
+el:Δημόσιο Λουτρό
+es:Baños públicos
+et:Avalik vann
+eu:Bainu Publikoa
+fa:حمام عمومی
+fi:Julkinen kylpylä
+fr:Bain public
+he:אמבטיה ציבורית
+hu:Közfürdő
+id:Pemandian umum
+it:Bagno pubblico
+ja:公衆浴場
+ko:대중목욕탕
+mr:सार्वजनिक स्नान
+nb:Offentlig bad
+nl:Publiek bad
+pl:Łaźnia Publiczna
+pt:Banheiro público
+ro:Baie publică
+ru:Общественная баня
+sk:Verejné kúpele
+sv:Offentligt bad
+sw:Bafu ya Umma
+th:ห้องอาบน้ำสาธารณะ
+tr:Hamam
+uk:Громадська лазня
+vi:Nhà tắm công cộng
+zh-Hans:公共浴场
+zh-Hant:公共浴場
+
 amenity-shower
 en:Shower
 ru:Душ

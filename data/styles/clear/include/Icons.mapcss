@@ -987,6 +987,8 @@ node|z17-[power=station],
 area|z17-[power=station],
 node|z17-[amenity=parcel_locker],
 area|z17-[amenity=parcel_locker],
+node|z17-[amenity=public_bath],
+area|z17-[amenity=public_bath],
 node|z17-[aeroway=gate],
 area|z17-[aeroway=gate],
 node|z17-[sport],
@@ -1735,6 +1737,10 @@ node|z16-[man_made=survey_point]
 node|z18-[amenity=public_bookcase],
 area|z18-[amenity=public_bookcase]
 {icon-image: bookcase-m.svg;font-size: 11;}
+
+node|z17-[amenity=public_bath],
+area|z17-[amenity=public_bath],
+{icon-image: public_bath-m.svg;font-size: 11;}
 
 /* 6. SHOP */
 
