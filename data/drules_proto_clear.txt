@@ -8704,6 +8704,57 @@ cont {
   }
 }
 cont {
+  name: "amenity-public_bath"
+  element {
+    scale: 17
+    symbol {
+      name: "public_bath-m"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "public_bath-m"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "public_bath-m"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+}
+cont {
   name: "amenity-public_bookcase"
   element {
     scale: 18
@@ -42924,7 +42975,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "sauna-m"
+      name: "public_bath-m"
       priority: 850
       min_distance: 10
     }
@@ -42941,7 +42992,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "sauna-m"
+      name: "public_bath-m"
       priority: 850
       min_distance: 10
     }
@@ -42958,7 +43009,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "sauna-m"
+      name: "public_bath-m"
       priority: 850
       min_distance: 10
     }
@@ -96092,7 +96143,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "sauna-m"
+      name: "public_bath-m"
       priority: 1300
       min_distance: 24
     }
@@ -96100,7 +96151,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "sauna-m"
+      name: "public_bath-m"
       priority: 1300
       min_distance: 24
     }
@@ -96117,7 +96168,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "sauna-m"
+      name: "public_bath-m"
       priority: 1300
       min_distance: 24
     }

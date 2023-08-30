@@ -130,6 +130,7 @@ world  +
         post_office  -
         prison  -
         pub  -
+        public_bath  -
         public_bookcase  -
         recycling  +
             centre  -

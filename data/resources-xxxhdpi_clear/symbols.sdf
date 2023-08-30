@@ -250,14 +250,14 @@
   <symbol minX="680" maxX="748" minY="990" maxY="1058" name="prison-m"/>
   <symbol minX="748" maxX="816" minY="990" maxY="1058" name="psychotherapist-m"/>
   <symbol minX="816" maxX="884" minY="990" maxY="1058" name="public-building-m"/>
-  <symbol minX="884" maxX="952" minY="990" maxY="1058" name="bicycle-repair-station"/>
-  <symbol minX="952" maxX="1020" minY="990" maxY="1058" name="blacksmith-m"/>
-  <symbol minX="1020" maxX="1088" minY="990" maxY="1058" name="recycling-m"/>
-  <symbol minX="1088" maxX="1156" minY="990" maxY="1058" name="remains-m"/>
-  <symbol minX="1156" maxX="1224" minY="990" maxY="1058" name="blood_donation-m"/>
-  <symbol minX="1224" maxX="1292" minY="990" maxY="1058" name="restaurant-m"/>
-  <symbol minX="1292" maxX="1360" minY="990" maxY="1058" name="sample_collection-m"/>
-  <symbol minX="1360" maxX="1428" minY="990" maxY="1058" name="sauna-m"/>
+  <symbol minX="884" maxX="952" minY="990" maxY="1058" name="public_bath-m"/>
+  <symbol minX="952" maxX="1020" minY="990" maxY="1058" name="bicycle-repair-station"/>
+  <symbol minX="1020" maxX="1088" minY="990" maxY="1058" name="blacksmith-m"/>
+  <symbol minX="1088" maxX="1156" minY="990" maxY="1058" name="recycling-m"/>
+  <symbol minX="1156" maxX="1224" minY="990" maxY="1058" name="remains-m"/>
+  <symbol minX="1224" maxX="1292" minY="990" maxY="1058" name="blood_donation-m"/>
+  <symbol minX="1292" maxX="1360" minY="990" maxY="1058" name="restaurant-m"/>
+  <symbol minX="1360" maxX="1428" minY="990" maxY="1058" name="sample_collection-m"/>
   <symbol minX="1428" maxX="1496" minY="990" maxY="1058" name="sawmill-m"/>
   <symbol minX="1496" maxX="1564" minY="990" maxY="1058" name="school-m"/>
   <symbol minX="1564" maxX="1632" minY="990" maxY="1058" name="seafood-shop-m"/>
