@@ -19,7 +19,6 @@ import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.routing.RoutingInfo;
 import app.organicmaps.routing.SingleLaneInfo;
 import app.organicmaps.util.Graphics;
-import app.organicmaps.util.ThemeUtils;
 
 import java.util.Calendar;
 import java.util.Objects;
@@ -91,7 +90,7 @@ public final class RoutingUtils
           laneBuilder.addDirection(RoutingHelpers.createLaneDirection(laneWay, laneInfo.mIsActive));
         builder.addLane(laneBuilder.build());
       }
-      final LanesDrawable lanesDrawable = new LanesDrawable(context, info.lanes, ThemeUtils.isNightTheme(context));
+      final LanesDrawable lanesDrawable = new LanesDrawable(context, info.lanes, ThemeUtils.isNightMode(context));
       final Bitmap lanesBitmap = Graphics.drawableToBitmap(lanesDrawable);
       builder.setLanesImage(new CarIcon.Builder(IconCompat.createWithBitmap(lanesBitmap)).build());
     }

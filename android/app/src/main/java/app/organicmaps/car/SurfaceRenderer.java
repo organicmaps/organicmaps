@@ -205,6 +205,11 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
     mIsRunning = true;
   }
 
+  public boolean isRenderingActive()
+  {
+    return mIsRunning;
+  }
+
   private void reportUnsupported()
   {
     String message = mCarContext.getString(R.string.unsupported_phone);
