@@ -763,6 +763,9 @@ public class NestedScrollViewClickFixed extends FrameLayout implements NestedScr
                  * isFinished() is correct.
                  */
                 mScroller.computeScrollOffset();
+                if (!mScroller.isFinished()) {
+                    mScroller.abortAnimation();
+                }
                 mIsBeingDragged = false;
                 startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL, ViewCompat.TYPE_TOUCH);
                 break;
