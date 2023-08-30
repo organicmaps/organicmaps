@@ -225,10 +225,6 @@ uint64_t PoiSymbolShape::GetOverlayPriority() const
   if (m_params.m_prioritized)
     return dp::kPriorityMaskAll;
 
-  // Special displacement mode.
-  if (m_params.m_specialDisplacement == SpecialDisplacement::SpecialMode)
-    return dp::CalculateSpecialModePriority(m_params.m_specialPriority);
-
   if (m_params.m_specialDisplacement == SpecialDisplacement::SpecialModeUserMark)
     return dp::CalculateSpecialModeUserMarkPriority(m_params.m_specialPriority);
 
