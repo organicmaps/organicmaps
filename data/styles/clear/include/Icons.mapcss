@@ -1245,7 +1245,7 @@ node|z17-[leisure=sports_centre]
 node|z17-[leisure=fitness_centre]
 {icon-image: gym-m.svg;icon-min-distance: 10;}
 node|z17-[leisure=sauna]
-{icon-image: sauna-m.svg;icon-min-distance: 10;}
+{icon-image: public_bath-m.svg;icon-min-distance: 10;}
 node|z17-[leisure=playground],
 area|z17-[leisure=playground],
 {icon-image: playground-m.svg;font-size: 11;icon-min-distance: 10;}
@@ -2374,7 +2374,7 @@ area|z17-[shop=variety_store],
 {icon-image: shop-m.svg;}
 node|z17-[shop=massage],
 area|z17-[shop=massage],
-{icon-image: sauna-m.svg;icon-min-distance: 24;}
+{icon-image: public_bath-m.svg;icon-min-distance: 24;}
 node|z17-[shop=money_lender],
 area|z17-[shop=money_lender],
 {icon-image: bank-m.svg;icon-min-distance: 24;}
