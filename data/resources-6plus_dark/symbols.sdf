@@ -249,14 +249,14 @@
   <symbol minX="1798" maxX="1856" minY="522" maxY="580" name="prison-m"/>
   <symbol minX="1856" maxX="1914" minY="522" maxY="580" name="psychotherapist-m"/>
   <symbol minX="1914" maxX="1972" minY="522" maxY="580" name="public-building-m"/>
-  <symbol minX="1972" maxX="2030" minY="522" maxY="580" name="beekeeper-m"/>
-  <symbol minX="0" maxX="58" minY="580" maxY="638" name="beer-m"/>
-  <symbol minX="58" maxX="116" minY="580" maxY="638" name="recycling-m"/>
-  <symbol minX="116" maxX="174" minY="580" maxY="638" name="remains-m"/>
-  <symbol minX="174" maxX="232" minY="580" maxY="638" name="subway-wuhan-m"/>
-  <symbol minX="232" maxX="290" minY="580" maxY="638" name="restaurant-m"/>
-  <symbol minX="290" maxX="348" minY="580" maxY="638" name="sample_collection-m"/>
-  <symbol minX="348" maxX="406" minY="580" maxY="638" name="sauna-m"/>
+  <symbol minX="1972" maxX="2030" minY="522" maxY="580" name="public_bath-m"/>
+  <symbol minX="0" maxX="58" minY="580" maxY="638" name="beekeeper-m"/>
+  <symbol minX="58" maxX="116" minY="580" maxY="638" name="beer-m"/>
+  <symbol minX="116" maxX="174" minY="580" maxY="638" name="recycling-m"/>
+  <symbol minX="174" maxX="232" minY="580" maxY="638" name="remains-m"/>
+  <symbol minX="232" maxX="290" minY="580" maxY="638" name="subway-wuhan-m"/>
+  <symbol minX="290" maxX="348" minY="580" maxY="638" name="restaurant-m"/>
+  <symbol minX="348" maxX="406" minY="580" maxY="638" name="sample_collection-m"/>
   <symbol minX="406" maxX="464" minY="580" maxY="638" name="sawmill-m"/>
   <symbol minX="464" maxX="522" minY="580" maxY="638" name="school-m"/>
   <symbol minX="522" maxX="580" minY="580" maxY="638" name="seafood-shop-m"/>
