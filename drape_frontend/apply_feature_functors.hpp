@@ -61,9 +61,8 @@ class ApplyPointFeature : public BaseApplyFeature
   using TBase = BaseApplyFeature;
 
 public:
-  ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
-                    FeatureID const & id, uint8_t rank, CaptionDescription const & captions,
-                    float posZ, DepthLayer depthLayer);
+  ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureID const & id,
+                    uint8_t rank, CaptionDescription const & captions, float posZ);
 
   void operator()(m2::PointD const & point, bool hasArea);
   void ProcessPointRule(Stylist::TRuleWrapper const & rule);
@@ -77,7 +76,6 @@ private:
   bool m_hasArea;
   bool m_createdByEditor;
   bool m_obsoleteInEditor;
-  DepthLayer m_depthLayer;
   float m_symbolDepth;
   SymbolRuleProto const * m_symbolRule;
   m2::PointF m_centerPoint;

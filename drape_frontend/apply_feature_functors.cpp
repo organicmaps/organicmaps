@@ -217,12 +217,6 @@ m2::PointF GetOffset(int offsetX, int offsetY)
   return { static_cast<float>(offsetX * vs), static_cast<float>(offsetY * vs) };
 }
 
-uint16_t CalculateNavigationPoiPriority()
-{
-  // All navigation POI have maximum priority in navigation mode.
-  return std::numeric_limits<uint16_t>::max();
-}
-
 bool IsSymbolRoadShield(ftypes::RoadShield const & shield)
 {
   return shield.m_type == ftypes::RoadShieldType::US_Interstate ||
@@ -399,16 +393,14 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
   }
 }
 
-ApplyPointFeature::ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
-                                     FeatureID const & id, uint8_t rank, CaptionDescription const & captions,
-                                     float posZ, DepthLayer depthLayer)
+ApplyPointFeature::ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureID const & id,
+                                     uint8_t rank, CaptionDescription const & captions, float posZ)
   : TBase(tileKey, insertShape, id, rank, captions)
   , m_posZ(posZ)
   , m_hasPoint(false)
   , m_hasArea(false)
   , m_createdByEditor(false)
   , m_obsoleteInEditor(false)
-  , m_depthLayer(depthLayer)
   , m_symbolDepth(dp::kMinDepth)
   , m_symbolRule(nullptr)
 {}
@@ -443,11 +435,8 @@ void ApplyPointFeature::ProcessPointRule(Stylist::TRuleWrapper const & rule)
     TextViewParams params;
     params.m_tileCenter = m_tileRect.Center();
     ExtractCaptionParams(capRule, rule.m_rule->GetCaption(1), rule.m_depth, params);
-    params.m_depthLayer = m_depthLayer;
-    params.m_depthTestEnabled = m_depthLayer != DepthLayer::NavigationLayer &&
-      m_depthLayer != DepthLayer::OverlayLayer;
-    // @todo: m_depthTestEnabled is false always?
-    ASSERT(!params.m_depthTestEnabled, (params.m_titleDecl.m_primaryText));
+    params.m_depthLayer = DepthLayer::OverlayLayer;
+    params.m_depthTestEnabled = false;
     params.m_rank = m_rank;
     params.m_posZ = m_posZ;
     params.m_hasArea = m_hasArea;
@@ -463,14 +452,6 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
 {
   m2::PointF symbolSize(0.0f, 0.0f);
 
-  bool specialDisplacementMode = false;
-  uint16_t specialModePriority = 0;
-  if (m_depthLayer == DepthLayer::NavigationLayer && GetStyleReader().IsCarNavigationStyle())
-  {
-    specialDisplacementMode = true;
-    specialModePriority = CalculateNavigationPoiPriority();
-  }
-
   bool const hasPOI = m_symbolRule != nullptr;
   auto const & visualParams = df::VisualParams::Instance();
   double const mainScale = visualParams.GetVisualScale();
@@ -481,12 +462,9 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
     PoiSymbolViewParams params;
     params.m_featureId = m_id;
     params.m_tileCenter = m_tileRect.Center();
-    params.m_depthTestEnabled = m_depthLayer != DepthLayer::NavigationLayer &&
-      m_depthLayer != DepthLayer::OverlayLayer;
-    // @todo: m_depthTestEnabled is false always?
-    ASSERT(!params.m_depthTestEnabled, (params.m_featureId));
+    params.m_depthTestEnabled = false;
     params.m_depth = m_symbolDepth;
-    params.m_depthLayer = m_depthLayer;
+    params.m_depthLayer = DepthLayer::OverlayLayer;
     params.m_rank = m_rank;
     params.m_symbolName = m_symbolRule->name();
     ASSERT_GREATER_OR_EQUAL(m_symbolRule->min_distance(), 0, ());
@@ -496,9 +474,6 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
     params.m_prioritized = m_createdByEditor;
     if (m_obsoleteInEditor)
       params.m_maskColor = kPoiDeletedMaskColor;
-    params.m_specialDisplacement = specialDisplacementMode ? SpecialDisplacement::SpecialMode
-                                                           : SpecialDisplacement::None;
-    params.m_specialPriority = specialModePriority;
 
     dp::TextureManager::SymbolRegion region;
     texMng->GetSymbolRegion(params.m_symbolName, region);
@@ -516,11 +491,6 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
     {
       textParams.m_specialDisplacement = SpecialDisplacement::HouseNumber;
     }
-    else
-    {
-      textParams.m_specialDisplacement = specialDisplacementMode ? SpecialDisplacement::SpecialMode
-                                                                 : SpecialDisplacement::None;
-    }
 
     /// @todo Hardcoded styles-bug patch. The patch is ok, but probably should enhance (or fire assert) styles?
     /// @see https://github.com/organicmaps/organicmaps/issues/2573
@@ -530,7 +500,6 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
       textParams.m_titleDecl.m_primaryOffset = GetOffset(0, 1);
     }
 
-    textParams.m_specialPriority = specialModePriority;
     textParams.m_startOverlayRank = hasPOI ? dp::OverlayRank1 : dp::OverlayRank0;
     m_insertShape(make_unique_dp<TextShape>(m2::PointD(m_centerPoint), textParams, m_tileKey, symbolSize,
                                             m2::PointF(0.0f, 0.0f) /* symbolOffset */,
@@ -542,7 +511,7 @@ ApplyAreaFeature::ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const
                                    FeatureID const & id, double currentScaleGtoP, bool isBuilding,
                                    bool skipAreaGeometry, float minPosZ, float posZ,
                                    uint8_t rank, CaptionDescription const & captions)
-  : TBase(tileKey, insertShape, id, rank, captions, posZ, DepthLayer::OverlayLayer)
+  : TBase(tileKey, insertShape, id, rank, captions, posZ)
   , m_minPosZ(minPosZ)
   , m_isBuilding(isBuilding)
   , m_skipAreaGeometry(skipAreaGeometry)

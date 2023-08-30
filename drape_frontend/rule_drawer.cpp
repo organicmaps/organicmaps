@@ -433,17 +433,8 @@ void RuleDrawer::ProcessPointStyle(FeatureType & f, Stylist const & s, TInsertSh
     return;
 
   int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
-  bool const isSpeedCamera = ftypes::IsSpeedCamChecker::Instance()(f);
-  if (isSpeedCamera && !GetStyleReader().IsCarNavigationStyle())
-    return;
-
-  DepthLayer depthLayer = DepthLayer::OverlayLayer;
-  // TODO: review necessity of the DepthLayer::NavigationLayer. ATM its used for speed cameras icons only.
-  if (isSpeedCamera)
-    depthLayer = DepthLayer::NavigationLayer;
-
   ApplyPointFeature apply(m_context->GetTileKey(), insertShape, f.GetID(), f.GetRank(),
-                          s.GetCaptionDescription(), 0.0f /* posZ */, depthLayer);
+                          s.GetCaptionDescription(), 0.0f /* posZ */);
   f.ForEachPoint([&apply](m2::PointD const & pt) { apply(pt, false /* hasArea */); }, zoomLevel);
 
   if (CheckCancelled())
