@@ -1046,6 +1046,8 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   if (IsRoutingActive())
     CloseRouting(false /* remove route points */);
 
+  ShowPreviewSegments(routePoints);
+
   // Route points preview.
   // Disabled preview zoom to fix https://github.com/organicmaps/organicmaps/issues/5409.
   // Uncomment next lines to enable back zoom on route point add/remove.
