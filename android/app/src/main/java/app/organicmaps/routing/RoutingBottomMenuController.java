@@ -19,6 +19,7 @@ import android.text.style.TypefaceSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.IdRes;
@@ -183,6 +184,11 @@ final class RoutingBottomMenuController implements View.OnClickListener
     rv.setAdapter(adapter);
     adapter.setItems(info.getTransitSteps());
 
+    final ScrollView parentScroll = (ScrollView)rv.getParent();
+    if (parentScroll != null)
+      // Scroll to bottom
+      parentScroll.postDelayed(() -> parentScroll.fullScroll(ScrollView.FOCUS_DOWN), 100);
+
     TextView totalTimeView = mTransitFrame.findViewById(R.id.total_time);
     totalTimeView.setText(RoutingController.formatRoutingTime(mContext, info.getTotalTime(),
                                                             R.dimen.text_size_routing_number));
@@ -210,6 +216,11 @@ final class RoutingBottomMenuController implements View.OnClickListener
       rv.addItemDecoration(mTransitViewDecorator);
       rv.setAdapter(adapter);
       adapter.setItems(pointsToRulerSteps(points));
+
+      final ScrollView parentScroll = (ScrollView)rv.getParent();
+      if (parentScroll != null)
+        // Scroll to bottom
+        parentScroll.postDelayed(() -> parentScroll.fullScroll(ScrollView.FOCUS_DOWN), 100);
     }
     else
       UiUtils.hide(rv); // Show only distance between start and finish

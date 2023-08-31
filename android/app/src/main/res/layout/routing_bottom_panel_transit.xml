@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
@@ -14,39 +14,49 @@
     android:id="@+id/total_time"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
-    android:layout_alignParentStart="true"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
     style="@style/MwmWidget.TextView.PlanDetail.Number.Time"
     tools:text="40 min"/>
   <TextView
     android:id="@+id/dot"
-    android:layout_toEndOf="@id/total_time"
     style="@style/MwmWidget.TextView.PlanDetail.Number.Secondary"
     android:layout_marginStart="@dimen/margin_quarter_plus"
-    android:layout_marginEnd="@dimen/margin_quarter_plus"
     android:layout_marginTop="@dimen/margin_eighth"
+    android:layout_marginEnd="@dimen/margin_quarter_plus"
     android:text="•"
+    app:layout_constraintStart_toEndOf="@id/total_time"
+    app:layout_constraintTop_toTopOf="parent"
     tools:ignore="HardcodedText"/>
   <ImageView
     android:id="@+id/pedestrian_icon"
-    android:layout_alignBottom="@id/total_time"
-    android:layout_toEndOf="@id/dot"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_quarter_plus"
     android:src="@drawable/ic_20px_route_planning_walk"
+    app:layout_constraintBottom_toBottomOf="@id/total_time"
+    app:layout_constraintStart_toEndOf="@id/dot"
     app:tint="?iconTint"/>
   <TextView
     android:id="@+id/total_distance"
-    android:layout_toEndOf="@id/pedestrian_icon"
     style="@style/MwmWidget.TextView.PlanDetail.Number.Secondary"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    app:layout_constraintStart_toEndOf="@id/pedestrian_icon"
+    app:layout_constraintTop_toTopOf="parent"
     tools:text="1 km"/>
-  <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/transit_recycler_view"
-    android:layout_marginTop="@dimen/margin_half_plus"
-    android:layout_alignParentStart="true"
-    android:layout_below="@id/total_time"
+  <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
-</RelativeLayout>
+    android:layout_height="wrap_content"
+    app:layout_constraintHeight_max="150dp"
+    android:layout_marginTop="@dimen/margin_half_plus"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/total_time"
+    android:scrollbarAlwaysDrawVerticalTrack="true">
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/transit_recycler_view"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
+  </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
