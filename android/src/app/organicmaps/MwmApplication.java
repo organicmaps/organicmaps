@@ -1,19 +1,27 @@
 package app.organicmaps;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
 import androidx.annotation.NonNull;
-import app.organicmaps.background.AppBackgroundTracker;
+import androidx.annotation.Nullable;
+import androidx.annotation.UiThread;
+import androidx.lifecycle.DefaultLifecycleObserver;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ProcessLifecycleOwner;
+
+import app.organicmaps.background.OsmUploadWork;
 import app.organicmaps.downloader.DownloaderNotifier;
 import app.organicmaps.base.MediaPlayerWrapper;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.downloader.CountryItem;
 import app.organicmaps.downloader.MapManager;
-import app.organicmaps.editor.Editor;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.maplayer.isolines.IsolinesManager;
 import app.organicmaps.maplayer.subway.SubwayManager;
@@ -30,19 +38,19 @@ import app.organicmaps.util.SharedPropertiesUtils;
 import app.organicmaps.util.StorageUtils;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.Utils;
 import app.organicmaps.util.log.Logger;
 import app.organicmaps.util.log.LogsManager;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.List;
 
-public class MwmApplication extends Application implements AppBackgroundTracker.OnTransitionListener
+public class MwmApplication extends Application implements Application.ActivityLifecycleCallbacks
 {
-  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private static final String TAG = MwmApplication.class.getSimpleName();
 
-  private AppBackgroundTracker mBackgroundTracker;
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private SubwayManager mSubwayManager;
@@ -59,6 +67,16 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   @NonNull
   private final MapManager.StorageCallback mStorageCallbacks = new StorageCallbackImpl();
   private MediaPlayerWrapper mPlayer;
+
+  @NonNull
+  private WeakReference<Activity> mTopActivity;
+
+  @UiThread
+  @Nullable
+  public Activity getTopActivity()
+  {
+    return mTopActivity != null ? mTopActivity.get() : null;
+  }
 
   @NonNull
   public SubwayManager getSubwayManager()
@@ -81,12 +99,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   public static MwmApplication from(@NonNull Context context)
   {
     return (MwmApplication) context.getApplicationContext();
-  }
-
-  @NonNull
-  public static AppBackgroundTracker backgroundTracker(@NonNull Context context)
-  {
-    return ((MwmApplication) context.getApplicationContext()).getBackgroundTracker();
   }
 
   @NonNull
@@ -116,7 +128,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     
     DownloaderNotifier.createNotificationChannel(this);
 
-    mBackgroundTracker = new AppBackgroundTracker(this);
+    registerActivityLifecycleCallbacks(this);
     mSubwayManager = new SubwayManager(this);
     mIsolinesManager = new IsolinesManager(this);
 
@@ -164,7 +176,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     Config.setStoragePath(writablePath);
     Config.setStatisticsEnabled(SharedPropertiesUtils.isStatisticsEnabled(this));
 
-    Editor.init(this);
     mPlatformInitialized = true;
     Logger.i(TAG, "Platform initialized");
   }
@@ -200,10 +211,10 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     TrafficManager.INSTANCE.initialize(null);
     SubwayManager.from(this).initialize(null);
     IsolinesManager.from(this).initialize(null);
-    mBackgroundTracker.addListener(this);
 
     Logger.i(TAG, "Framework initialized");
     mFrameworkInitialized = true;
+    ProcessLifecycleOwner.get().getLifecycle().addObserver(mProcessLifecycleObserver);
   }
 
   private void initNativeStrings()
@@ -220,12 +231,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   public boolean arePlatformAndCoreInitialized()
   {
     return mFrameworkInitialized && mPlatformInitialized;
-  }
-
-  @NonNull
-  public AppBackgroundTracker getBackgroundTracker()
-  {
-    return mBackgroundTracker;
   }
 
   static
@@ -262,10 +267,78 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   private static native void nativeAddLocalization(String name, String value);
   private static native void nativeOnTransit(boolean foreground);
 
+  private final LifecycleObserver mProcessLifecycleObserver = new DefaultLifecycleObserver() {
+    @Override
+    public void onStart(@NonNull LifecycleOwner owner)
+    {
+      MwmApplication.this.onForeground();
+    }
+
+    @Override
+    public void onStop(@NonNull LifecycleOwner owner)
+    {
+      MwmApplication.this.onBackground();
+    }
+  };
+
   @Override
-  public void onTransit(boolean foreground)
+  public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState)
+  {}
+
+  @Override
+  public void onActivityStarted(@NonNull Activity activity)
+  {}
+
+  @Override
+  public void onActivityResumed(@NonNull Activity activity)
   {
-    nativeOnTransit(foreground);
+    Logger.d(TAG, "activity = " + activity);
+    Utils.showOnLockScreen(Config.isShowOnLockScreenEnabled(), activity);
+    LocationHelper.INSTANCE.setRotation(activity.getWindowManager().getDefaultDisplay().getRotation());
+    mTopActivity = new WeakReference<>(activity);
+  }
+
+  @Override
+  public void onActivityPaused(@NonNull Activity activity)
+  {
+    Logger.d(TAG, "activity = " + activity);
+    mTopActivity = null;
+  }
+
+  @Override
+  public void onActivityStopped(@NonNull Activity activity)
+  {}
+
+  @Override
+  public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState)
+  {
+    Logger.d(TAG, "activity = " + activity + " outState = " + outState);
+  }
+
+  @Override
+  public void onActivityDestroyed(@NonNull Activity activity)
+  {
+    Logger.d(TAG, "activity = " + activity);
+  }
+
+  private void onForeground()
+  {
+    Logger.d(TAG);
+
+    nativeOnTransit(true);
+
+    LocationHelper.INSTANCE.resumeLocationInForeground();
+  }
+
+  private void onBackground()
+  {
+    Logger.d(TAG);
+
+    nativeOnTransit(false);
+
+    OsmUploadWork.startActionUploadOsmChanges(this);
+
+    LocationHelper.INSTANCE.stop();
   }
 
   private class StorageCallbackImpl implements MapManager.StorageCallback

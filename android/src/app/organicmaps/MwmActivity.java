@@ -37,7 +37,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.Framework.PlacePageActivationListener;
 import app.organicmaps.api.Const;
-import app.organicmaps.background.AppBackgroundTracker;
 import app.organicmaps.downloader.DownloaderNotifier;
 import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.base.CustomNavigateUpListener;
@@ -130,8 +129,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                NoConnectionListener,
                MenuBottomSheetFragment.MenuBottomSheetInterfaceWithHeader,
                PlacePageController.PlacePageRouteSettingsListener,
-               MapButtonsController.MapButtonClickListener,
-               AppBackgroundTracker.OnTransitionListener
+               MapButtonsController.MapButtonClickListener
 {
   private static final String TAG = MwmActivity.class.getSimpleName();
 
@@ -366,7 +364,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   @Override
   @StyleRes
-  public int getThemeResourceId(@NonNull String theme)
+  protected int getThemeResourceId(@NonNull String theme)
   {
     Context context = getApplicationContext();
 
@@ -385,8 +383,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onSafeCreate(@Nullable Bundle savedInstanceState)
   {
     super.onSafeCreate(savedInstanceState);
-
-    MwmApplication.backgroundTracker(this).addListener(this);
 
     mIsTabletLayout = getResources().getBoolean(R.bool.tabletLayout);
 
@@ -430,6 +426,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (savedInstanceState == null && RoutingController.get().hasSavedRoute())
       addTask(new Factory.RestoreRouteTask());
+
+    autostartLocation();
   }
 
   private void refreshLightStatusBar()
@@ -1011,17 +1009,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mNavigationController.onActivityResumed(this);
     refreshLightStatusBar();
-  }
 
-  @Override
-  public void onTransit(boolean foreground)
-  {
-    Logger.d(TAG, "foreground = " + foreground);
-
-    if (foreground)
-      resumeLocationInForeground();
-    else
-      pauseLocationInBackground();
+    LocationState.nativeSetLocationPendingTimeoutListener(this::onLocationPendingTimeout);
   }
 
   @Override
@@ -1048,7 +1037,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mOnmapDownloader != null)
       mOnmapDownloader.onPause();
     mNavigationController.onActivityPaused(this);
-    pauseLocationInBackground();
+    LocationState.nativeRemoveLocationPendingTimeoutListener();
     dismissLocationErrorDialog();
     dismissAlertDialog();
     super.onPause();
@@ -1791,13 +1780,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   /**
-   * Resume location services when entering the foreground.
+   * Start location services explicitly on the start of activity.
    */
-  private void resumeLocationInForeground()
+  private void autostartLocation()
   {
-    LocationHelper.INSTANCE.setRotation(getWindowManager().getDefaultDisplay().getRotation());
-    LocationState.nativeSetLocationPendingTimeoutListener(this::onLocationPendingTimeout);
-
     if (LocationState.nativeGetMode() == LocationState.NOT_FOLLOW_NO_POSITION)
     {
       Logger.i(LOCATION_TAG, "Location updates are stopped by the user manually.");
@@ -1827,20 +1813,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
           ACCESS_FINE_LOCATION
       });
     }
-  }
-
-  /**
-   * Pause location services when entering the background.
-   */
-  private void pauseLocationInBackground()
-  {
-    LocationState.nativeRemoveLocationPendingTimeoutListener();
-
-    if (!LocationHelper.INSTANCE.isActive())
-      return;
-
-    Logger.i(LOCATION_TAG);
-    LocationHelper.INSTANCE.stop();
   }
 
   /**

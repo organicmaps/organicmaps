@@ -9,9 +9,6 @@ import androidx.annotation.WorkerThread;
 
 import app.organicmaps.BuildConfig;
 import app.organicmaps.Framework;
-import app.organicmaps.MwmApplication;
-import app.organicmaps.background.AppBackgroundTracker;
-import app.organicmaps.background.OsmUploadWork;
 import app.organicmaps.bookmarks.data.Metadata;
 import app.organicmaps.editor.data.FeatureCategory;
 import app.organicmaps.editor.data.Language;
@@ -47,11 +44,6 @@ public final class Editor
   }
 
   private static native void nativeInit();
-
-  public static void init(@NonNull Context context)
-  {
-    MwmApplication.backgroundTracker(context).addListener(new OsmUploadListener(context));
-  }
 
   @WorkerThread
   public static void uploadChanges(@NonNull Context context)
@@ -190,24 +182,4 @@ public final class Editor
   @FeatureStatus
   public static native int nativeGetMapObjectStatus();
   public static native boolean nativeIsMapObjectUploaded();
-
-  private static class OsmUploadListener implements AppBackgroundTracker.OnTransitionListener
-  {
-    @NonNull
-    private final Context mContext;
-
-    OsmUploadListener(@NonNull Context context)
-    {
-      mContext = context.getApplicationContext();
-    }
-
-    @Override
-    public void onTransit(boolean foreground)
-    {
-      if (foreground)
-        return;
-
-      OsmUploadWork.startActionUploadOsmChanges(mContext);
-    }
-  }
 }

@@ -9,8 +9,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -19,8 +17,6 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import app.organicmaps.base.BaseActivity;
-import app.organicmaps.base.BaseActivityDelegate;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.Counters;
@@ -31,7 +27,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.IOException;
 
-public class SplashActivity extends AppCompatActivity implements BaseActivity
+public class SplashActivity extends AppCompatActivity
 {
   private static final String TAG = SplashActivity.class.getSimpleName();
   private static final String EXTRA_ACTIVITY_TO_START = "extra_activity_to_start";
@@ -58,8 +54,6 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
   };
 
   @NonNull
-  private final BaseActivityDelegate mBaseDelegate = new BaseActivityDelegate(this);
-
   public static void start(@NonNull Context context,
                            @Nullable Class<? extends Activity> activityToStart,
                            @Nullable Intent initialIntent)
@@ -76,7 +70,16 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
   protected void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    mBaseDelegate.onCreate();
+
+    final Context context = getApplicationContext();
+    final String theme = Config.getCurrentUiTheme(context);
+    if (ThemeUtils.isDefaultTheme(context, theme))
+      setTheme(R.style.MwmTheme_Splash);
+    else if (ThemeUtils.isNightTheme(context, theme))
+      setTheme(R.style.MwmTheme_Night_Splash);
+    else
+      throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
+
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
     Counters.initCounters(this);
     setContentView(R.layout.activity_splash);
@@ -89,24 +92,9 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
   }
 
   @Override
-  protected void onNewIntent(Intent intent)
-  {
-    super.onNewIntent(intent);
-    mBaseDelegate.onNewIntent(intent);
-  }
-
-  @Override
-  protected void onStart()
-  {
-    super.onStart();
-    mBaseDelegate.onStart();
-  }
-
-  @Override
   protected void onResume()
   {
     super.onResume();
-    mBaseDelegate.onResume();
     if (mCanceled)
       return;
     if (!Config.isLocationRequested() && ActivityCompat.checkSelfPermission(this, ACCESS_COARSE_LOCATION)
@@ -127,22 +115,13 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
   protected void onPause()
   {
     super.onPause();
-    mBaseDelegate.onPause();
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
-  }
-
-  @Override
-  protected void onStop()
-  {
-    super.onStop();
-    mBaseDelegate.onStop();
   }
 
   @Override
   protected void onDestroy()
   {
     super.onDestroy();
-    mBaseDelegate.onDestroy();
     mPermissionRequest.unregister();
     mPermissionRequest = null;
     mApiRequest.unregister();
@@ -212,26 +191,4 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
     startActivity(result);
     finish();
   }
-
-  @Override
-  @NonNull
-  public Activity get()
-  {
-    return this;
-  }
-
-  @Override
-  public int getThemeResourceId(@NonNull String theme)
-  {
-    Context context = getApplicationContext();
-    if (ThemeUtils.isDefaultTheme(context, theme))
-      return R.style.MwmTheme_Splash;
-
-    if (ThemeUtils.isNightTheme(context, theme))
-      return R.style.MwmTheme_Night_Splash;
-
-    throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
-  }
-
-
 }

@@ -3,6 +3,7 @@ package app.organicmaps.location;
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+import static app.organicmaps.location.LocationState.LOCATION_TAG;
 
 import android.app.PendingIntent;
 import android.content.Context;
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
 import androidx.annotation.UiThread;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import app.organicmaps.Framework;
@@ -367,6 +369,28 @@ public enum LocationHelper implements Initializable<Context>, BaseLocationProvid
     mLocationProvider.stop();
     mSensorHelper.stop();
     mActive = false;
+  }
+
+  /**
+   * Resume location services when entering the foreground.
+   */
+  public void resumeLocationInForeground()
+  {
+    if (isActive())
+      return;
+    else if (LocationState.nativeGetMode() == LocationState.NOT_FOLLOW_NO_POSITION)
+    {
+      Logger.i(TAG, "Location updates are stopped by the user manually.");
+      return;
+    }
+    else if (ContextCompat.checkSelfPermission(mContext, ACCESS_FINE_LOCATION) != PERMISSION_GRANTED &&
+             ContextCompat.checkSelfPermission(mContext, ACCESS_COARSE_LOCATION) != PERMISSION_GRANTED)
+    {
+      Logger.i(TAG, "Permissions ACCESS_FINE_LOCATION and ACCESS_COARSE_LOCATION are not granted");
+      return;
+    }
+
+    start();
   }
 
   private void checkForAgpsUpdates()
