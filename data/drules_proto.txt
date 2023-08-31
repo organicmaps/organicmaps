@@ -13662,7 +13662,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 400
+      priority: 230
     }
   }
   element {
@@ -13686,7 +13686,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 400
+      priority: 230
     }
   }
   element {
@@ -13710,7 +13710,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 400
+      priority: 230
     }
   }
   element {
@@ -13734,7 +13734,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 400
+      priority: 230
     }
   }
 }
@@ -13842,7 +13842,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 400
+      priority: 230
     }
   }
   element {
@@ -13866,7 +13866,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 400
+      priority: 230
     }
   }
   element {
@@ -13890,7 +13890,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 400
+      priority: 230
     }
   }
   element {
@@ -13914,7 +13914,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 400
+      priority: 230
     }
   }
 }
@@ -13955,7 +13955,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 400
+      priority: 230
     }
   }
   element {
@@ -13979,7 +13979,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 400
+      priority: 230
     }
   }
   element {
@@ -14003,7 +14003,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 400
+      priority: 230
     }
   }
   element {
@@ -14027,7 +14027,7 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 400
+      priority: 230
     }
   }
 }
