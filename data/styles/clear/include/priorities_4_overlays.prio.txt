@@ -1184,11 +1184,6 @@ craft-locksmith                                     # icon z18- (also has captio
 craft-winery                                        # icon z18- (also has caption(optional) z18-)
 === 450
 
-building                                            # caption z16- (also has area z14-)
-building-garage                                     # caption z16- (also has area z14-)
-building-has_parts                                  # caption z16- (also has area z14-)
-=== 400
-
 amenity-parking                                     # icon z16- (also has caption(optional) z18-, area z15-)
 amenity-parking-fee                                 # icon z16- (also has caption(optional) z18-, area z15-)
 amenity-parking-multi-storey                        # icon z16- (also has caption(optional) z18-, area z15-)
@@ -1202,6 +1197,11 @@ amenity-parking-permissive                          # icon z16- (also has captio
 amenity-parking_entrance                            # icon z17- (also has caption(optional) z19-)
 amenity-parking_entrance-permissive                 # icon z17- (also has caption(optional) z19-)
 === 250
+
+building                                            # caption z16- (also has area z14-)
+building-garage                                     # caption z16- (also has area z14-)
+building-has_parts                                  # caption z16- (also has area z14-)
+=== 230
 
 amenity-post_box                                    # icon z18- (also has caption(optional) z18-)
 amenity-recycling-container                         # icon z17- (also has caption(optional) z19-)
