@@ -8,14 +8,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.CallSuper;
-import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.IntentCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
@@ -26,27 +23,20 @@ import app.organicmaps.SplashActivity;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.RtlUtils;
 import app.organicmaps.util.ThemeUtils;
-import app.organicmaps.util.Utils;
+import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
 
 public abstract class BaseMwmFragmentActivity extends AppCompatActivity
-                                  implements BaseActivity
 {
   private static final String TAG = BaseMwmFragmentActivity.class.getSimpleName();
 
-  private final BaseActivityDelegate mBaseDelegate = new BaseActivityDelegate(this);
   private boolean mSafeCreated;
 
-  @Override
   @NonNull
-  public Activity get()
-  {
-    return this;
-  }
+  private String mThemeName;
 
-  @Override
   @StyleRes
-  public int getThemeResourceId(@NonNull String theme)
+  protected int getThemeResourceId(@NonNull String theme)
   {
     Context context = getApplicationContext();
 
@@ -69,7 +59,8 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   @Override
   protected final void onCreate(@Nullable Bundle savedInstanceState)
   {
-    mBaseDelegate.onCreate();
+    mThemeName = Config.getCurrentUiTheme(getApplicationContext());
+    setTheme(getThemeResourceId(mThemeName));
     RtlUtils.manageRtl(this);
     // An intent that was skipped due to core wasn't initialized has to be used
     // as a target intent for this activity, otherwise all input extras will be lost
@@ -103,38 +94,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
       setContentView(layoutId);
 
     attachDefaultFragment();
-    mBaseDelegate.onSafeCreate();
     mSafeCreated = true;
-  }
-
-  @ColorRes
-  protected int getStatusBarColor()
-  {
-    Context context = getApplicationContext();
-    if (ThemeUtils.isDefaultTheme(context))
-      return R.color.bg_statusbar;
-
-    if (ThemeUtils.isNightTheme(context))
-      return R.color.bg_statusbar_night;
-
-    throw new IllegalArgumentException("Attempt to apply unsupported theme: "
-                                       + Config.getCurrentUiTheme(context));
-  }
-
-  @CallSuper
-  @Override
-  protected void onNewIntent(Intent intent)
-  {
-    super.onNewIntent(intent);
-    mBaseDelegate.onNewIntent(intent);
-  }
-
-  @CallSuper
-  @Override
-  protected void onPostCreate(@Nullable Bundle savedInstanceState)
-  {
-    super.onPostCreate(savedInstanceState);
-    mBaseDelegate.onPostCreate();
   }
 
   @CallSuper
@@ -142,7 +102,6 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   protected final void onDestroy()
   {
     super.onDestroy();
-    mBaseDelegate.onDestroy();
 
     if (!mSafeCreated)
       return;
@@ -158,24 +117,19 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   @CallSuper
   protected void onSafeDestroy()
   {
-    mBaseDelegate.onSafeDestroy();
     mSafeCreated = false;
   }
 
   @CallSuper
   @Override
-  protected void onStart()
+  public void onPostResume()
   {
-    super.onStart();
-    mBaseDelegate.onStart();
-  }
-
-  @CallSuper
-  @Override
-  protected void onStop()
-  {
-    super.onStop();
-    mBaseDelegate.onStop();
+    super.onPostResume();
+    if (!mThemeName.equals(Config.getCurrentUiTheme(getApplicationContext())))
+    {
+      // Workaround described in https://code.google.com/p/android/issues/detail?id=93731
+      UiThread.runLater(this::recreate);
+    }
   }
 
   @Override
@@ -194,33 +148,9 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     onBackPressed();
   }
 
-  @CallSuper
-  @Override
-  protected void onResume()
-  {
-    super.onResume();
-    mBaseDelegate.onResume();
-  }
-
-  @CallSuper
-  @Override
-  protected void onPostResume()
-  {
-    super.onPostResume();
-    mBaseDelegate.onPostResume();
-  }
-
-  @CallSuper
-  @Override
-  protected void onPause()
-  {
-    super.onPause();
-    mBaseDelegate.onPause();
-  }
-
   protected Toolbar getToolbar()
   {
-    return (Toolbar) findViewById(R.id.toolbar);
+    return findViewById(R.id.toolbar);
   }
 
   protected void displayToolbarAsActionBar()
