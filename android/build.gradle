@@ -26,7 +26,7 @@ buildscript {
   ext.googleFirebaseServicesEnabled = project.hasProperty('firebase') ?: googleFirebaseServicesDefault
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:8.1.0'
+    classpath 'com.android.tools.build:gradle:8.1.1'
 
     if (googleMobileServicesEnabled) {
       println('Building with Google Mobile Services')
@@ -37,13 +37,13 @@ buildscript {
 
     if (googleFirebaseServicesEnabled) {
       println('Building with Google Firebase Services')
-      classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.5'
+      classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.9'
       classpath 'com.google.firebase:firebase-appdistribution-gradle:4.0.0'
     } else {
       println('Building without Google Firebase Services')
     }
 
-    classpath('com.github.triplet.gradle:play-publisher:3.8.3')
+    classpath('com.github.triplet.gradle:play-publisher:3.8.4')
     classpath('ru.cian:huawei-publish-gradle-plugin:1.4.0')
   }
 }
@@ -75,7 +75,7 @@ dependencies {
   // Google Firebase Services
   if (googleFirebaseServicesEnabled) {
     // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:32.1.0')
+    implementation platform('com.google.firebase:firebase-bom:32.2.3')
     // Add the dependencies for the Crashlytics and Analytics libraries
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-crashlytics'
@@ -85,14 +85,14 @@ dependencies {
   // This line is added as a workaround for duplicate classes error caused by some outdated dependency:
   // > A failure occurred while executing com.android.build.gradle.internal.tasks.CheckDuplicatesRunnable
   // We don't use Kotlin, but some dependencies are actively using it.
-  implementation(platform('org.jetbrains.kotlin:kotlin-bom:1.8.21'))
-  implementation 'androidx.core:core:1.10.1'
+  // See https://stackoverflow.com/a/75719642
+  implementation(platform('org.jetbrains.kotlin:kotlin-bom:1.9.10'))
   implementation 'androidx.annotation:annotation:1.6.0'
   implementation 'androidx.appcompat:appcompat:1.6.1'
   implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-  implementation 'androidx.fragment:fragment:1.5.7'
-  implementation 'androidx.preference:preference:1.2.0'
-  implementation 'androidx.recyclerview:recyclerview:1.3.0'
+  implementation 'androidx.fragment:fragment:1.6.1'
+  implementation 'androidx.preference:preference:1.2.1'
+  implementation 'androidx.recyclerview:recyclerview:1.3.1'
   implementation 'androidx.work:work-runtime:2.8.1'
   implementation 'com.google.android.material:material:1.9.0'
   implementation 'com.google.code.gson:gson:2.10.1'
@@ -101,7 +101,7 @@ dependencies {
 
   // Test Dependencies
   testImplementation 'junit:junit:4.13.2'
-  testImplementation 'org.mockito:mockito-core:5.3.1'
+  testImplementation 'org.mockito:mockito-core:5.5.0'
   testImplementation 'org.mockito:mockito-inline:5.2.0'
 }
 
