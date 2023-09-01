@@ -190,7 +190,12 @@ RawGenerator::FinalProcessorPtr RawGenerator::CreateCountryFinalProcessor(
 {
   auto finalProcessor = std::make_shared<CountryFinalProcessor>(affiliations, m_genInfo.m_tmpDir, m_threadsCount);
   finalProcessor->SetIsolinesDir(m_genInfo.m_isolinesDir);
-  finalProcessor->SetHotels(m_genInfo.m_bookingDataFilename, m_genInfo.GetIntermediateFileName("hotels_status.csv"));
+  if (!m_genInfo.m_hotelsPath.empty())
+  {
+    finalProcessor->SetHotels(base::JoinPath(m_genInfo.m_hotelsPath, "hotels.csv"),
+                              base::JoinPath(m_genInfo.m_hotelsPath, "placefeed.csv"),
+                              m_genInfo.GetIntermediateFileName("hotels_status.csv"));
+  }
   finalProcessor->SetMiniRoundabouts(m_genInfo.GetIntermediateFileName(MINI_ROUNDABOUTS_FILENAME));
   finalProcessor->SetAddrInterpolation(m_genInfo.GetIntermediateFileName(ADDR_INTERPOL_FILENAME));
   if (addAds)

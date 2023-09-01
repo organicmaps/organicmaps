@@ -69,6 +69,7 @@ NEED_BUILD_WORLD_ROADS: false
 
 # Urls for production maps generation.
 # UGC_URL:
+# Local path (not url!) where hotels.csv and placefeed.csv files are located.
 # HOTELS_URL:
 # PROMO_CATALOG_CITIES:
 # POPULARITY_URL:

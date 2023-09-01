@@ -282,10 +282,6 @@ class PathProvider:
         return os.path.join(self.intermediate_data_path, "ugc_db.sqlite3")
 
     @property
-    def hotels_path(self) -> AnyStr:
-        return os.path.join(self.intermediate_data_path, "hotels.csv")
-
-    @property
     def promo_catalog_cities_path(self) -> AnyStr:
         return os.path.join(self.intermediate_data_path, "promo_catalog_cities.json")
 

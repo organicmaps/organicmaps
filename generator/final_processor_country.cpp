@@ -114,7 +114,7 @@ void CountryFinalProcessor::Order()
 
 void CountryFinalProcessor::ProcessBooking()
 {
-  KayakDataset dataset(m_hotelsFilename);
+  KayakDataset dataset(m_hotelsFilename, m_hotelPlacesFileName);
   LOG(LINFO, ("Loaded", dataset.GetStorage().Size(), "hotels from", m_hotelsFilename));
 
   std::ofstream matchingLogStream;

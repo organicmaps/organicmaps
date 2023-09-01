@@ -94,7 +94,7 @@ void BookingDataset::BuildObject(Object const & hotel, FBuilderFnT const & fn) c
   fb.SetCenter(mercator::FromLatLon(hotel.m_latLon.m_lat, hotel.m_latLon.m_lon));
 
   /// @todo SRC_BOOKING
-  fb.SetHotelInfo(Metadata::SRC_KAYAK, hotel.m_id.Get(), hotel.m_ratingUser, hotel.m_priceCategory);
+  //fb.SetHotelInfo(Metadata::SRC_KAYAK, hotel.m_id.Get(), hotel.m_ratingUser, hotel.m_priceCategory);
   auto & metadata = fb.GetMetadata();
   metadata.Set(Metadata::FMD_WEBSITE, hotel.m_descUrl);
   metadata.Set(Metadata::FMD_STARS, strings::to_string(hotel.m_stars));

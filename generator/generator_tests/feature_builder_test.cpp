@@ -401,18 +401,19 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveInconsistentTypes)
 UNIT_CLASS_TEST(TestWithClassificator, FBuilder_Hotel)
 {
   FeatureBuilder fb;
-  auto const src = Metadata::SRC_KAYAK;
 
   auto const & meta = fb.GetMetadata();
-  auto const isEqual = [&meta, src](Metadata::EType type, uint64_t val)
+  auto const isEqual = [&meta, src = Metadata::SRC_KAYAK](Metadata::EType type, uint64_t val)
   {
     return indexer::CustomKeyValue(meta.Get(type)).Get(src) == val;
   };
 
-  fb.SetHotelInfo(src, 777, 6.3, 4);
+  fb.SetHotelInfo("Ritz,-c666-h777", 6.3);
 
-  TEST(isEqual(Metadata::FMD_CUSTOM_IDS, 777), ());
+  //TEST(isEqual(Metadata::FMD_CUSTOM_IDS, 777), ());
   TEST(isEqual(Metadata::FMD_RATINGS, 63), ());
-  TEST(isEqual(Metadata::FMD_PRICE_RATES, 4), ());
+  //TEST(isEqual(Metadata::FMD_PRICE_RATES, 4), ());
+
+  TEST_EQUAL(meta.Get(Metadata::FMD_EXTERNAL_URI), "Ritz,-c666-h777", ());
 }
 }  // namespace feature_builder_test

@@ -90,7 +90,7 @@ base::GeoObjectId ReadDebuggedPrintedOsmId(string const & str)
 GenerateInfo GetGenerateInfo()
 {
   GenerateInfo info;
-  info.m_bookingDataFilename = FLAGS_booking;
+  info.m_hotelsPath = FLAGS_booking;
   //info.m_opentableDataFilename = FLAGS_opentable;
   info.m_osmFileName = FLAGS_osm;
   info.SetNodeStorageType("map");
@@ -269,12 +269,13 @@ void GenerateSample(Dataset const & dataset,
 }
 
 template <typename Dataset>
-string GetDatasetFilePath(GenerateInfo const & info);
+std::unique_ptr<Dataset> CreateDataset(GenerateInfo const & info);
 
 template <>
-string GetDatasetFilePath<KayakDataset>(GenerateInfo const & info)
+std::unique_ptr<KayakDataset> CreateDataset<KayakDataset>(GenerateInfo const & info)
 {
-  return info.m_bookingDataFilename;
+  return std::make_unique<KayakDataset>(base::JoinPath(info.m_hotelsPath, "hotels.csv"),
+                                        base::JoinPath(info.m_hotelsPath, "placefeed.csv"));
 }
 
 //template <>
@@ -355,9 +356,8 @@ public:
 template <typename Dataset, typename Object = typename Dataset::Object>
 void RunImpl(GenerateInfo & info)
 {
-  auto const & dataSetFilePath = GetDatasetFilePath<Dataset>(info);
-  Dataset dataset(dataSetFilePath);
-  LOG_SHORT(LINFO, (dataset.GetStorage().Size(), "objects are loaded from a file:", dataSetFilePath));
+  auto dataset = CreateDataset<Dataset>(info);
+  LOG_SHORT(LINFO, (dataset->GetStorage().Size(), "objects are loaded"));
 
   LOG_SHORT(LINFO, ("OSM data:", FLAGS_osm));
 
@@ -365,7 +365,7 @@ void RunImpl(GenerateInfo & info)
   auto cache = std::make_shared<generator::cache::IntermediateData>(objectsCache, info);
   auto processor = make_shared<AggregateProcessor>();
   auto translator = std::make_shared<TranslatorMock>(processor, cache);
-  translator->SetFilter(std::make_shared<DatasetFilter<Dataset>>(dataset));
+  translator->SetFilter(std::make_shared<DatasetFilter<Dataset>>(*dataset));
 
   RawGenerator generator(info);
   generator.GenerateCustom(translator);
@@ -381,7 +381,7 @@ void RunImpl(GenerateInfo & info)
       CHECK(ofst->is_open(), ("Can't open file", FLAGS_sample, strerror(errno)));
       ost = ofst.get();
     }
-    GenerateSample(dataset, processor->m_features, *ost);
+    GenerateSample(*dataset, processor->m_features, *ost);
   }
   else
   {
@@ -389,7 +389,7 @@ void RunImpl(GenerateInfo & info)
     LOG_SHORT(LINFO, ("Sample size is", sample.size()));
     ofstream ost(FLAGS_factors);
     CHECK(ost.is_open(), ("Can't open file", FLAGS_factors, strerror(errno)));
-    GenerateFactors<Dataset>(dataset, processor->m_features, sample, ost);
+    GenerateFactors(*dataset, processor->m_features, sample, ost);
   }
 }
 
