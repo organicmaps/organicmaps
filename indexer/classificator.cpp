@@ -54,6 +54,11 @@ void ClassifObject::AddDrawRule(drule::Key const & k)
     if (k == *i)
       return; // already exists
   m_drawRules.insert(i, k);
+
+  if (k.m_priority > m_maxOverlaysPriority &&
+      (k.m_type == drule::symbol || k.m_type == drule::caption ||
+       k.m_type == drule::shield || k.m_type == drule::pathtext))
+    m_maxOverlaysPriority = k.m_priority;
 }
 
 ClassifObjectPtr ClassifObject::BinaryFind(std::string_view const s) const
