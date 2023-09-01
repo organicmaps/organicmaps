@@ -37,8 +37,7 @@ class BaseApplyFeature
 {
 public:
   BaseApplyFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
-                   FeatureID const & id, int minVisibleScale, uint8_t rank,
-                   CaptionDescription const & captions);
+                   FeatureID const & id, uint8_t rank, CaptionDescription const & captions);
 
   virtual ~BaseApplyFeature() = default;
 
@@ -51,7 +50,6 @@ protected:
   TInsertShapeFn m_insertShape;
   FeatureID m_id;
   CaptionDescription const & m_captions;
-  int m_minVisibleScale;
   uint8_t m_rank;
 
   TileKey const m_tileKey;
@@ -64,9 +62,8 @@ class ApplyPointFeature : public BaseApplyFeature
 
 public:
   ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
-                    FeatureID const & id, int minVisibleScale, uint8_t rank,
-                    CaptionDescription const & captions, float posZ,
-                    DepthLayer depthLayer);
+                    FeatureID const & id, uint8_t rank, CaptionDescription const & captions,
+                    float posZ, DepthLayer depthLayer);
 
   void operator()(m2::PointD const & point, bool hasArea);
   void ProcessPointRule(Stylist::TRuleWrapper const & rule);
@@ -94,7 +91,7 @@ class ApplyAreaFeature : public ApplyPointFeature
 public:
   ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
                    FeatureID const & id, double currentScaleGtoP, bool isBuilding,
-                   bool skipAreaGeometry, float minPosZ, float posZ, int minVisibleScale,
+                   bool skipAreaGeometry, float minPosZ, float posZ,
                    uint8_t rank, CaptionDescription const & captions);
 
   using TBase::operator ();
@@ -155,7 +152,7 @@ class ApplyLineFeatureGeometry : public BaseApplyFeature
 
 public:
   ApplyLineFeatureGeometry(TileKey const & tileKey, TInsertShapeFn const & insertShape,
-                           FeatureID const & id, double currentScaleGtoP, int minVisibleScale,
+                           FeatureID const & id, double currentScaleGtoP,
                            uint8_t rank, size_t pointsCount, bool smooth);
 
   void operator() (m2::PointD const & point);
@@ -186,7 +183,7 @@ class ApplyLineFeatureAdditional : public BaseApplyFeature
 
 public:
   ApplyLineFeatureAdditional(TileKey const & tileKey, TInsertShapeFn const & insertShape,
-                             FeatureID const & id, double currentScaleGtoP, int minVisibleScale,
+                             FeatureID const & id, double currentScaleGtoP,
                              uint8_t rank, CaptionDescription const & captions,
                              std::vector<m2::SharedSpline> const & clippedSplines);
 

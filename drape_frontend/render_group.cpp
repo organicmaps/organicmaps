@@ -150,7 +150,7 @@ bool RenderGroup::UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, r
 
   for (size_t i = 0; i < m_renderBuckets.size(); )
   {
-    bool visibleBucket = !canBeDeleted && (m_renderBuckets[i]->GetMinZoom() <= currentZoom);
+    bool const visibleBucket = !canBeDeleted && (m_renderBuckets[i]->GetMinZoom() <= currentZoom);
     if (!visibleBucket)
     {
       m_renderBuckets[i]->RemoveOverlayHandles(tree);

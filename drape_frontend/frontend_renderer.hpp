@@ -68,6 +68,12 @@ struct TapInfo
   static m2::AnyRectD GetPreciseTapRect(m2::PointD const & mercator, double eps);
 };
 
+/*
+ * A FrontendRenderer holds several RenderLayers, one per each df::DepthLayer,
+ * a rendering order of the layers is set in RenderScene().
+ * Each RenderLayer contains several RenderGroups, one per each tile and RenderState.
+ * Each RenderGroup contains several RenderBuckets holding VertexArrayBuffers and optional OverlayHandles.
+ */
 class FrontendRenderer : public BaseRenderer,
                          public MyPositionController::Listener,
                          public UserEventStream::Listener
