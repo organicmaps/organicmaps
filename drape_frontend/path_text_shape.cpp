@@ -63,8 +63,7 @@ uint64_t PathTextShape::GetOverlayPriority(uint32_t textIndex, size_t textLength
     return dp::CalculateSpecialModePriority(m_params.m_specialPriority);
 
   static uint64_t constexpr kMask = ~static_cast<uint64_t>(0xFFFF);
-  uint64_t priority = dp::CalculateOverlayPriority(m_params.m_minVisibleScale, m_params.m_rank,
-                                                   m_params.m_depth);
+  uint64_t priority = dp::CalculateOverlayPriority(m_params.m_rank, m_params.m_depth);
   priority &= kMask;
   priority |= (static_cast<uint8_t>(textLength) << 8);
   priority |= static_cast<uint8_t>(textIndex);

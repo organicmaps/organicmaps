@@ -453,7 +453,7 @@ uint64_t TextShape::GetOverlayPriority() const
   // (the more text length, the more priority) and index of text.
   // [6 bytes - standard overlay priority][1 byte - length][1 byte - text index].
   static uint64_t constexpr kMask = ~static_cast<uint64_t>(0xFFFF);
-  uint64_t priority = dp::CalculateOverlayPriority(m_params.m_minVisibleScale, m_params.m_rank, m_params.m_depth);
+  uint64_t priority = dp::CalculateOverlayPriority(m_params.m_rank, m_params.m_depth);
   priority &= kMask;
   priority |= (static_cast<uint8_t>(m_params.m_titleDecl.m_primaryText.size()) << 8);
   priority |= static_cast<uint8_t>(m_textIndex);

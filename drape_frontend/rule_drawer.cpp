@@ -247,8 +247,7 @@ bool RuleDrawer::CheckCoastlines(FeatureType & f, Stylist const & s)
   return true;
 }
 
-void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
-                                  TInsertShapeFn const & insertShape, int & minVisibleScale)
+void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape)
 {
   bool isBuilding = false;
   bool is3dBuilding = false;
@@ -306,7 +305,7 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
   ApplyAreaFeature apply(m_context->GetTileKey(), insertShape, f.GetID(),
                          m_currentScaleGtoP, isBuilding,
                          m_context->Is3dBuildingsEnabled() && isBuildingOutline,
-                         areaMinHeight, areaHeight, minVisibleScale, f.GetRank(),
+                         areaMinHeight, areaHeight, f.GetRank(),
                          s.GetCaptionDescription());
   f.ForEachTriangle(apply, zoomLevel);
   if (applyPointStyle)
@@ -342,15 +341,13 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
     apply.Finish(m_context->GetTextureManager());
 }
 
-void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s,
-                                  TInsertShapeFn const & insertShape, int & minVisibleScale)
+void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape)
 {
   int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
   bool const smooth = ftypes::IsIsolineChecker::Instance()(f);
 
-  ApplyLineFeatureGeometry applyGeom(m_context->GetTileKey(), insertShape, f.GetID(),
-                                     m_currentScaleGtoP, minVisibleScale, f.GetRank(),
-                                     f.GetPointsCount(), smooth);
+  ApplyLineFeatureGeometry applyGeom(m_context->GetTileKey(), insertShape, f.GetID(), m_currentScaleGtoP,
+                                     f.GetRank(), f.GetPointsCount(), smooth);
   f.ForEachPoint(applyGeom, zoomLevel);
 
   if (CheckCancelled())
@@ -385,9 +382,8 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s,
 
   if (needAdditional && !clippedSplines.empty())
   {
-    ApplyLineFeatureAdditional applyAdditional(m_context->GetTileKey(), insertShape, f.GetID(),
-                                               m_currentScaleGtoP, minVisibleScale, f.GetRank(),
-                                               s.GetCaptionDescription(), clippedSplines);
+    ApplyLineFeatureAdditional applyAdditional(m_context->GetTileKey(), insertShape, f.GetID(), m_currentScaleGtoP,
+                                               f.GetRank(), s.GetCaptionDescription(), clippedSplines);
     s.ForEachRule(std::bind(&ApplyLineFeatureAdditional::ProcessLineRule, &applyAdditional, _1));
     applyAdditional.Finish(m_context->GetTextureManager(), ftypes::GetRoadShields(f),
                            m_generatedRoadShields);
@@ -431,8 +427,7 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s,
   }
 }
 
-void RuleDrawer::ProcessPointStyle(FeatureType & f, Stylist const & s,
-                                   TInsertShapeFn const & insertShape, int & minVisibleScale)
+void RuleDrawer::ProcessPointStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape)
 {
   if (IsDiscardCustomFeature(f.GetID()))
     return;
@@ -446,7 +441,7 @@ void RuleDrawer::ProcessPointStyle(FeatureType & f, Stylist const & s,
   if (isSpeedCamera)
     depthLayer = DepthLayer::NavigationLayer;
 
-  ApplyPointFeature apply(m_context->GetTileKey(), insertShape, f.GetID(), minVisibleScale, f.GetRank(),
+  ApplyPointFeature apply(m_context->GetTileKey(), insertShape, f.GetID(), f.GetRank(),
                           s.GetCaptionDescription(), 0.0f /* posZ */, depthLayer);
   f.ForEachPoint([&apply](m2::PointD const & pt) { apply(pt, false /* hasArea */); }, zoomLevel);
 
@@ -492,29 +487,29 @@ void RuleDrawer::operator()(FeatureType & f)
   }
 #endif
 
-  /// @todo Remove passing of minVisibleScale arg everywhere.
-  int minVisibleScale = 0;
-  auto insertShape = [this, &minVisibleScale](drape_ptr<MapShape> && shape)
+  auto insertShape = [this](drape_ptr<MapShape> && shape)
   {
     size_t const index = shape->GetType();
     ASSERT_LESS(index, m_mapShapes.size(), ());
 
-    shape->SetFeatureMinZoom(minVisibleScale);
+    // TODO: MinZoom was used for optimization in RenderGroup::UpdateCanBeDeletedStatus(), but is long time broken.
+    // See https://github.com/organicmaps/organicmaps/pull/5903 for details.
+    shape->SetFeatureMinZoom(0);
     m_mapShapes[index].push_back(std::move(shape));
   };
 
   if (s.m_areaStyleExists)
   {
-    ProcessAreaStyle(f, s, insertShape, minVisibleScale);
+    ProcessAreaStyle(f, s, insertShape);
   }
   else if (s.m_lineStyleExists)
   {
-    ProcessLineStyle(f, s, insertShape, minVisibleScale);
+    ProcessLineStyle(f, s, insertShape);
   }
   else
   {
     ASSERT(s.m_pointStyleExists, ());
-    ProcessPointStyle(f, s, insertShape, minVisibleScale);
+    ProcessPointStyle(f, s, insertShape);
   }
 
   if (CheckCancelled())

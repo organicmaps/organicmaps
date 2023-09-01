@@ -383,12 +383,10 @@ void CalculateRoadShieldPositions(std::vector<double> const & offsets,
 }  // namespace
 
 BaseApplyFeature::BaseApplyFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
-                                   FeatureID const & id, int minVisibleScale, uint8_t rank,
-                                   CaptionDescription const & captions)
+                                   FeatureID const & id, uint8_t rank, CaptionDescription const & captions)
   : m_insertShape(insertShape)
   , m_id(id)
   , m_captions(captions)
-  , m_minVisibleScale(minVisibleScale)
   , m_rank(rank)
   , m_tileKey(tileKey)
   , m_tileRect(tileKey.GetGlobalRect())
@@ -426,10 +424,9 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
 }
 
 ApplyPointFeature::ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
-                                     FeatureID const & id, int minVisibleScale, uint8_t rank,
-                                     CaptionDescription const & captions, float posZ,
-                                     DepthLayer depthLayer)
-  : TBase(tileKey, insertShape, id, minVisibleScale, rank, captions)
+                                     FeatureID const & id, uint8_t rank, CaptionDescription const & captions,
+                                     float posZ, DepthLayer depthLayer)
+  : TBase(tileKey, insertShape, id, rank, captions)
   , m_posZ(posZ)
   , m_hasPoint(false)
   , m_hasArea(false)
@@ -475,7 +472,6 @@ void ApplyPointFeature::ProcessPointRule(Stylist::TRuleWrapper const & rule)
       m_depthLayer != DepthLayer::OverlayLayer;
     // @todo: m_depthTestEnabled is false always?
     ASSERT(!params.m_depthTestEnabled, (params.m_titleDecl.m_primaryText));
-    params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
     params.m_posZ = m_posZ;
     params.m_hasArea = m_hasArea;
@@ -515,7 +511,6 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
     ASSERT(!params.m_depthTestEnabled, (params.m_featureId));
     params.m_depth = m_symbolDepth;
     params.m_depthLayer = m_depthLayer;
-    params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
     params.m_symbolName = m_symbolRule->name();
     ASSERT_GREATER_OR_EQUAL(m_symbolRule->min_distance(), 0, ());
@@ -569,9 +564,9 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
 
 ApplyAreaFeature::ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
                                    FeatureID const & id, double currentScaleGtoP, bool isBuilding,
-                                   bool skipAreaGeometry, float minPosZ, float posZ, int minVisibleScale,
+                                   bool skipAreaGeometry, float minPosZ, float posZ,
                                    uint8_t rank, CaptionDescription const & captions)
-  : TBase(tileKey, insertShape, id, minVisibleScale, rank, captions, posZ, DepthLayer::OverlayLayer)
+  : TBase(tileKey, insertShape, id, rank, captions, posZ, DepthLayer::OverlayLayer)
   , m_minPosZ(minPosZ)
   , m_isBuilding(isBuilding)
   , m_skipAreaGeometry(skipAreaGeometry)
@@ -745,7 +740,6 @@ void ApplyAreaFeature::ProcessAreaRule(Stylist::TRuleWrapper const & rule)
     params.m_tileCenter = m_tileRect.Center();
     params.m_depth = rule.m_depth;
     params.m_color = ToDrapeColor(areaRule->color());
-    params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
     params.m_minPosZ = m_minPosZ;
     params.m_posZ = m_posZ;
@@ -778,12 +772,10 @@ void ApplyAreaFeature::ProcessAreaRule(Stylist::TRuleWrapper const & rule)
   }
 }
 
-ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(TileKey const & tileKey,
-                                                   TInsertShapeFn const & insertShape,
+ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(TileKey const & tileKey, TInsertShapeFn const & insertShape,
                                                    FeatureID const & id, double currentScaleGtoP,
-                                                   int minVisibleScale, uint8_t rank,
-                                                   size_t pointsCount, bool smooth)
-  : TBase(tileKey, insertShape, id, minVisibleScale, rank, CaptionDescription())
+                                                   uint8_t rank, size_t pointsCount, bool smooth)
+  : TBase(tileKey, insertShape, id, rank, CaptionDescription())
   , m_currentScaleGtoP(static_cast<float>(currentScaleGtoP))
   , m_minSegmentSqrLength(base::Pow2(4.0 * df::VisualParams::Instance().GetVisualScale() / currentScaleGtoP))
   , m_simplify(tileKey.m_zoomLevel >= 10 && tileKey.m_zoomLevel <= 12)
@@ -869,7 +861,6 @@ void ApplyLineFeatureGeometry::ProcessLineRule(Stylist::TRuleWrapper const & rul
     PathSymbolViewParams params;
     params.m_tileCenter = m_tileRect.Center();
     params.m_depth = rule.m_depth;
-    params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
     params.m_symbolName = symRule.name();
     double const mainScale = df::VisualParams::Instance().GetVisualScale();
@@ -886,7 +877,6 @@ void ApplyLineFeatureGeometry::ProcessLineRule(Stylist::TRuleWrapper const & rul
     params.m_tileCenter = m_tileRect.Center();
     Extract(pLineRule, params);
     params.m_depth = rule.m_depth;
-    params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
     params.m_baseGtoPScale = m_currentScaleGtoP;
     params.m_zoomLevel = m_tileKey.m_zoomLevel;
@@ -903,14 +893,11 @@ void ApplyLineFeatureGeometry::Finish()
 #endif
 }
 
-ApplyLineFeatureAdditional::ApplyLineFeatureAdditional(TileKey const & tileKey,
-                                                       TInsertShapeFn const & insertShape,
-                                                       FeatureID const & id,
-                                                       double currentScaleGtoP,
-                                                       int minVisibleScale, uint8_t rank,
+ApplyLineFeatureAdditional::ApplyLineFeatureAdditional(TileKey const & tileKey, TInsertShapeFn const & insertShape,
+                                                       FeatureID const & id, double currentScaleGtoP, uint8_t rank,
                                                        CaptionDescription const & captions,
                                                        std::vector<m2::SharedSpline> const & clippedSplines)
-  : TBase(tileKey, insertShape, id, minVisibleScale, rank, captions)
+  : TBase(tileKey, insertShape, id, rank, captions)
   , m_clippedSplines(clippedSplines)
   , m_currentScaleGtoP(static_cast<float>(currentScaleGtoP))
   , m_depth(0.0f)
@@ -961,7 +948,6 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   textParams.m_depthTestEnabled = false;
   textParams.m_depth = m_depth;
   textParams.m_depthLayer = DepthLayer::OverlayLayer;
-  textParams.m_minVisibleScale = m_minVisibleScale;
   textParams.m_rank = m_rank;
   textParams.m_featureId = m_id;
   textParams.m_titleDecl.m_anchor = anchor;
@@ -992,7 +978,6 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
     symbolParams.m_depthTestEnabled = true;
     symbolParams.m_depth = m_depth;
     symbolParams.m_depthLayer = DepthLayer::OverlayLayer;
-    symbolParams.m_minVisibleScale = m_minVisibleScale;
     symbolParams.m_rank = m_rank;
     symbolParams.m_anchor = anchor;
     symbolParams.m_offset = shieldOffset;
@@ -1020,7 +1005,6 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
     poiParams.m_depth = m_depth;
     poiParams.m_depthTestEnabled = false;
     poiParams.m_depthLayer = DepthLayer::OverlayLayer;
-    poiParams.m_minVisibleScale = m_minVisibleScale;
     poiParams.m_rank = m_rank;
     poiParams.m_symbolName = symbolName;
     poiParams.m_extendingSize = 0;
@@ -1103,7 +1087,6 @@ void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
     params.m_tileCenter = m_tileRect.Center();
     params.m_featureId = m_id;
     params.m_depth = m_depth;
-    params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
     params.m_mainText = m_captions.GetMainText();
     params.m_auxText = m_captions.GetAuxText();

@@ -235,6 +235,6 @@ uint64_t PoiSymbolShape::GetOverlayPriority() const
   if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark)
     return dp::CalculateUserMarkPriority(m_params.m_minVisibleScale, m_params.m_specialPriority);
 
-  return dp::CalculateOverlayPriority(m_params.m_minVisibleScale, m_params.m_rank, m_params.m_depth);
+  return dp::CalculateOverlayPriority(m_params.m_rank, m_params.m_depth);
 }
 }  // namespace df

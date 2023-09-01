@@ -47,12 +47,9 @@ public:
 #endif
 
 private:
-  void ProcessAreaStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape,
-                        int & minVisibleScale);
-  void ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape,
-                        int & minVisibleScale);
-  void ProcessPointStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape,
-                         int & minVisibleScale);
+  void ProcessAreaStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape);
+  void ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape);
+  void ProcessPointStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape);
 
   bool CheckCoastlines(FeatureType & f, Stylist const & s);
 

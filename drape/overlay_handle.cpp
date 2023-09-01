@@ -228,26 +228,19 @@ std::string SquareHandle::GetOverlayDebugInfo()
 }
 #endif
 
-/// @param[in] minZoomLevel Minimum visible zoom level (less is better)
 /// @param[in] rank         Rank of the feature (bigger is better)
 /// @param[in] depth        Manual priority from styles (bigger is better)
-/// @todo remove minZoomLevel param from everywhere, its not used anymore.
-uint64_t CalculateOverlayPriority(int minZoomLevel, uint8_t rank, float depth)
+uint64_t CalculateOverlayPriority(uint8_t rank, float depth)
 {
   // Negative range is used for optional captions which are below all other overlays.
   ASSERT(-drule::kOverlaysMaxPriority <= depth && depth < drule::kOverlaysMaxPriority, (depth));
   depth += drule::kOverlaysMaxPriority;
 
-  // Even if minZoomLevel < 0 (-1 is not visible), we will get more consistent |minZoom| value (less is worse).
-  ASSERT_GREATER_OR_EQUAL(minZoomLevel, 0, ());
-  uint8_t const minZoom = 0xFF - static_cast<uint8_t>(minZoomLevel);
-
   // Pack into uint64_t priority value (bigger is better).
-  // [1 byte - zoom][4 bytes - priority][1 byte - rank][2 bytes - 0xFFFF].
-  return (static_cast<uint64_t>(minZoom) << 56) |
-         (static_cast<uint64_t>(depth) << 24) |
+  // [1 byte - 0xFF][4 bytes - priority][1 byte - rank][2 bytes - 0xFFFF].
+  return (static_cast<uint64_t>(depth) << 24) |
          (static_cast<uint64_t>(rank) << 16) |
-         static_cast<uint64_t>(0xFFFF);
+         dp::kPriorityMaskZoomLevel;
 }
 
 uint64_t CalculateSpecialModePriority(uint16_t specialPriority)
