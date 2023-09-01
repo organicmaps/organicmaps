@@ -365,18 +365,16 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
     mainOverlayType = *types.cbegin();
   else
   {
-    // Determine main overlays type by priority.
-    // @todo: adjust/optimize depending on the final priorities setup in #4314
-    int overlayMaxPriority = std::numeric_limits<int>::min();
+    // Determine main overlays type by priority. Priorities might be different across zoom levels
+    // so a max value across all zooms is used to make sure main type doesn't change.
+    int overlaysMaxPriority = std::numeric_limits<int>::min();
     for (uint32_t t : types)
     {
-      for (auto const & k : cl.GetObject(t)->GetDrawRules())
+      int const priority = cl.GetObject(t)->GetMaxOverlaysPriority();
+      if (priority > overlaysMaxPriority)
       {
-        if (k.m_priority > overlayMaxPriority && IsTypeOf(k, Caption | Symbol | Shield | PathText))
-        {
-          overlayMaxPriority = k.m_priority;
-          mainOverlayType = t;
-        }
+        overlaysMaxPriority = priority;
+        mainOverlayType = t;
       }
     }
   }

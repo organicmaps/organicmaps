@@ -90,6 +90,9 @@ public:
   std::vector<drule::Key> const & GetDrawRules() const { return m_drawRules; }
   void GetSuitable(int scale, feature::GeomType gt, drule::KeysT & keys) const;
 
+  // Returns std::numeric_limits<int>::min() if there are no overlay drules.
+  int GetMaxOverlaysPriority() const { return m_maxOverlaysPriority; }
+
   bool IsDrawable(int scale) const;
   bool IsDrawableAny() const;
   bool IsDrawableLike(feature::GeomType gt, bool emptyName = false) const;
@@ -161,6 +164,8 @@ private:
   std::vector<drule::Key> m_drawRules;
   std::vector<ClassifObject> m_objs;
   VisibleMask m_visibility;
+
+  int m_maxOverlaysPriority = std::numeric_limits<int>::min();
 };
 
 inline void swap(ClassifObject & r1, ClassifObject & r2)
