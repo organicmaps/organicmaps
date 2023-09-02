@@ -38,6 +38,8 @@ public abstract class DownloaderNotifier
         NotificationManagerCompat.IMPORTANCE_DEFAULT)
         .setName(context.getString(R.string.notification_channel_downloader))
         .setShowBadge(true)
+        .setVibrationEnabled(false)
+        .setLightsEnabled(false)
         .build();
     notificationManager.createNotificationChannel(channel);
   }
@@ -72,6 +74,7 @@ public abstract class DownloaderNotifier
         .setShowWhen(true)
         .setTicker(getTicker(context, title, content))
         .setContentIntent(contentPendingIntent)
+        .setOnlyAlertOnce(true)
         .build();
 
     Logger.i(TAG, "Notifying about failed map download");
