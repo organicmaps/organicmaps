@@ -135,7 +135,7 @@ public:
   void SetSpeedCamClearCallback(SpeedCameraClearCallback && callback);
 
   // Sound notifications for turn instructions.
-  void GenerateNotifications(std::vector<std::string> & notifications);
+  void GenerateNotifications(std::vector<std::string> & notifications, bool shouldAnnounceStreetNames);
   void EnableTurnNotifications(bool enable);
   void SetTurnNotificationsUnits(measurement_utils::Units const units);
   void SetTurnNotificationsLocale(std::string const & locale);

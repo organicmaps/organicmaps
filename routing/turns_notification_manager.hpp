@@ -59,9 +59,11 @@ public:
   /// \param turns contains information about the next turns starting from the closest one.
   /// \param distanceToTurnMeters is distance to the next turn in meters.
   /// \param turnNotifications is a parameter to fill it if it's necessary.
+  /// \param nextStreet is the name of the next street to turn on (null by default)
   /// \note The client implies turnNotifications does not contain empty strings.
   void GenerateTurnNotifications(std::vector<TurnItemDist> const & turns,
-                                 std::vector<std::string> & turnNotifications);
+                                 std::vector<std::string> & turnNotifications,
+                                 std::string const & nextStreet = "");
 
   /// Reset states which reflects current route position.
   /// The method shall be called after creating a new route or after rerouting.
@@ -90,10 +92,11 @@ public:
 private:
   std::string GenerateTurnText(uint32_t distanceUnits, uint8_t exitNum,
                                bool useThenInsteadOfDistance, TurnItem const & turn,
-                               measurement_utils::Units lengthUnits) const;
+                               measurement_utils::Units lengthUnits,
+                               std::string const & nextStreet = "") const;
 
   /// Generates turn sound notification for the nearest to the current position turn.
-  std::string GenerateFirstTurnSound(TurnItem const & turn, double distanceToTurnMeters);
+  std::string GenerateFirstTurnSound(TurnItem const & turn, double distanceToTurnMeters, std::string const & nextStreet);
 
   /// Changes the state of the class to emulate that first turn notification is pronounced
   /// without pronunciation.

@@ -1184,14 +1184,14 @@ Java_app_organicmaps_Framework_nativeDisableFollowing(JNIEnv * env, jclass)
 }
 
 JNIEXPORT jobjectArray JNICALL
-Java_app_organicmaps_Framework_nativeGenerateNotifications(JNIEnv * env, jclass)
+Java_app_organicmaps_Framework_nativeGenerateNotifications(JNIEnv * env, jclass, bool shouldAnnounceStreetNames)
 {
   ::Framework * fr = frm();
   if (!fr->GetRoutingManager().IsRoutingActive())
     return nullptr;
 
   vector<string> notifications;
-  fr->GetRoutingManager().GenerateNotifications(notifications);
+  fr->GetRoutingManager().GenerateNotifications(notifications, shouldAnnounceStreetNames);
   if (notifications.empty())
     return nullptr;
 

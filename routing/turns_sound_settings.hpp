@@ -149,14 +149,16 @@ struct Notification
   CarDirection m_turnDir = CarDirection::None;
   PedestrianDirection m_turnDirPedestrian = PedestrianDirection::None;
   measurement_utils::Units m_lengthUnits;
+  std::string m_nextStreet;
 
   Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
-               CarDirection turnDir, measurement_utils::Units lengthUnits)
+               CarDirection turnDir, measurement_utils::Units lengthUnits, std::string const & nextStreet = "")
     : m_distanceUnits(distanceUnits)
     , m_exitNum(exitNum)
     , m_useThenInsteadOfDistance(useThenInsteadOfDistance)
     , m_turnDir(turnDir)
     , m_lengthUnits(lengthUnits)
+    , m_nextStreet(nextStreet)
   {
   }
 
@@ -175,7 +177,7 @@ struct Notification
     return m_distanceUnits == rhv.m_distanceUnits && m_exitNum == rhv.m_exitNum &&
            m_useThenInsteadOfDistance == rhv.m_useThenInsteadOfDistance &&
            m_turnDir == rhv.m_turnDir && m_turnDirPedestrian == rhv.m_turnDirPedestrian &&
-           m_lengthUnits == rhv.m_lengthUnits;
+           m_lengthUnits == rhv.m_lengthUnits && m_nextStreet == rhv.m_nextStreet;
   }
 
   bool IsPedestrianNotification() const

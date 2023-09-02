@@ -18,6 +18,7 @@
   <string name="pref_map_style" translatable="false">MapStyle</string>
   <string name="pref_tts_screen" translatable="false">TtsScreen</string>
   <string name="pref_tts_enabled" translatable="false">TtsEnabled</string>
+  <string name="pref_tts_street_names" translatable="false">TtsStreetNames</string>
   <string name="pref_tts_language" translatable="false">TtsLanguage</string>
   <string name="pref_tts_test_voice" translatable="false">TtsTestVoice</string>
   <string name="pref_tts_info" translatable="false">TtsInfo</string>

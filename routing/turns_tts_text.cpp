@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <iterator>
 #include <string>
+#include <regex>
 
 namespace routing
 {
@@ -47,8 +48,11 @@ void GetTtsText::ForTestingSetLocaleWithJson(std::string const & jsonBuffer, std
 
 std::string GetTtsText::GetTurnNotification(Notification const & notification) const
 {
-  if (notification.m_distanceUnits == 0 && !notification.m_useThenInsteadOfDistance)
-    return GetTextById(GetDirectionTextId(notification));
+  std::string dirKey = GetDirectionTextId(notification);
+  std::string dirStr = GetTextById(dirKey);
+
+  if (notification.m_distanceUnits == 0 && !notification.m_useThenInsteadOfDistance && notification.m_nextStreet.empty())
+    return dirStr;
 
   if (notification.IsPedestrianNotification())
   {
@@ -60,20 +64,99 @@ std::string GetTtsText::GetTurnNotification(Notification const & notification) c
   if (notification.m_useThenInsteadOfDistance && notification.m_turnDir == CarDirection::None)
     return {};
 
-  std::string const dirStr = GetTextById(GetDirectionTextId(notification));
   if (dirStr.empty())
     return {};
 
-  std::string distStr;
+  std::string thenStr;
   if (notification.m_useThenInsteadOfDistance)
-  {
-    distStr = GetTextById("then");
-    if (notification.m_distanceUnits > 0)
-      distStr = distStr + " " + GetTextById(GetDistanceTextId(notification));
-  }
-  else
+    thenStr = GetTextById("then") + " "; // add space only if needed
+
+  std::string distStr;
+  if (notification.m_distanceUnits > 0)
     distStr = GetTextById(GetDistanceTextId(notification));
-  return distStr + " " + dirStr;
+
+  if (!notification.m_nextStreet.empty()) {
+    // We're going to pronounce the street name.
+
+    // First, let's get rid of unpronounceable symbols.
+    std::string streetOut = notification.m_nextStreet;
+    // Semicolons are between destinations
+    // and pronounced more like commas.
+    std::replace( streetOut.begin(), streetOut.end(), ';', ',');
+    // Open brackets have no pronunciation analogue
+    std::replace( streetOut.begin(), streetOut.end(), '[', ' ');
+    // Closed brackets end a highway and introduce the rest
+    std::replace( streetOut.begin(), streetOut.end(), ']', ':');
+    // An angle bracket is currently used to represent "to" a place
+    // Ideally we'd add a translation for "to" or create full format
+    // strings for better i18n support, like "turn onto %s toward %s"
+    std::replace( streetOut.begin(), streetOut.end(), '>', ',');
+
+    // Replace any full-stop characters to make TTS flow better.
+    // Full stops are: . (Period) or 。 (East Asian) or । (Hindi)
+    strings::ReplaceLast(distStr, ".", "");
+    strings::ReplaceLast(distStr, "。", "");
+    strings::ReplaceLast(distStr, "।", "");
+
+    // If the turn direction with the key +_street exists for this locale, use it (like make_a_right_turn_street)
+    std::string dirStreetStr = GetTextById(dirKey+"_street");
+    if (!dirStreetStr.empty())
+      dirStr = std::move(dirStreetStr);
+
+    // Normally use "onto" for "turn right onto Main St"
+    std::string ontoStr = GetTextById("onto");
+
+    // If the nextStreet begins with [123]: we'll announce it as an exit number
+    std::regex re("^\\[.+\\]:");
+    std::smatch m;
+    if (std::regex_search(notification.m_nextStreet, m, re) && m.size() > 0) {
+      // Try to get a specific "take exit #" phrase and its associated "onto" phrase (if any)
+      std::string dirExitStr = GetTextById("take_exit_number");
+      if (!dirExitStr.empty()) {
+        dirStr = std::move(dirExitStr);
+
+        // If 'onto_exit_number' exists for this locale, use it instead of "onto"
+        // (for english, null is good: "take exit 543" instead of "take exit onto 543")
+        std::string ontoExitStr = GetTextById("onto_exit_number");
+        if (ontoExitStr == ".") {
+          ontoStr = ""; // period means empty
+        } else if (!ontoExitStr.empty()) {
+          ontoStr = std::move(ontoExitStr);
+        }
+      }
+    }
+
+    strings::ReplaceLast(dirStr, ".", "");
+    strings::ReplaceLast(dirStr, "。", "");
+    strings::ReplaceLast(dirStr, "।", "");
+
+    std::string distDirOntoStreetStr = GetTextById("dist_direction_onto_street");
+    // TODO: we may want to only load _street_verb if _street exists; may also need to handle
+    //   a lack of a $5 position in the formatter string
+    std::string dirVerb = GetTextById(dirKey+"_street_verb");
+
+    char ttsOut[1024];
+    snprintf(ttsOut, 1024,
+      distDirOntoStreetStr.c_str(),
+      distStr.c_str(), // in 100 feet
+      dirStr.c_str(), // turn right / take exit
+      ontoStr.c_str(), // onto / null
+      streetOut.c_str(), // Main Street / 543:: M4: Queens Parkway, London
+      dirVerb.c_str() // (optional "turn right" verb)
+    );
+
+    // remove floating punctuation
+    std::string cleanOut = std::regex_replace(ttsOut, std::regex(" [,\\.:]+ "), " ");
+    // remove repetitious spaces or colons
+    cleanOut = std::regex_replace(cleanOut, std::regex("[ :]{2,99}"), " ");
+
+    LOG(LINFO, ("TTSn", thenStr + cleanOut));
+
+    return thenStr + cleanOut;
+  }
+
+  LOG(LINFO, ("TTS", thenStr + distStr + " " + dirStr));
+  return thenStr + distStr + " " + dirStr;
 }
 
 std::string GetTtsText::GetSpeedCameraNotification() const

@@ -131,11 +131,18 @@
         android:title="@string/pref_tts_enable_title"
         app:singleLineTitle="false"
         android:order="1"/>
+      <SwitchPreferenceCompat
+          android:key="@string/pref_tts_street_names"
+          android:title="@string/pref_tts_street_names_title"
+          app:singleLineTitle="false"
+          android:summary="@string/pref_tts_street_names_description"
+          android:defaultValue="false"
+          android:order="2"/>
       <ListPreference
         android:key="@string/pref_tts_language"
         android:title="@string/pref_tts_language_title"
         app:singleLineTitle="false"
-        android:order="2"/>
+        android:order="3"/>
       <Preference
         android:key="@string/pref_tts_test_voice"
         android:title="@string/pref_tts_test_voice_title"

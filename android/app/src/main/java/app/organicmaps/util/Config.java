@@ -16,6 +16,7 @@ public final class Config
   private static final String KEY_APP_STORAGE = "StoragePath";
 
   private static final String KEY_TTS_ENABLED = "TtsEnabled";
+  private static final String KEY_TTS_STREET_NAMES = "TtsStreetNames";
   private static final String KEY_TTS_LANGUAGE = "TtsLanguage";
 
   private static final String KEY_DOWNLOADER_AUTO = "AutoDownloadEnabled";
@@ -134,6 +135,17 @@ public final class Config
   public static void setTtsEnabled(boolean enabled)
   {
     setBool(KEY_TTS_ENABLED, enabled);
+  }
+
+  public static boolean getAnnounceStreetNames()
+  {
+    // Do not announce street names by default (TTS may mangle some languages)
+    return getBool(KEY_TTS_STREET_NAMES, false);
+  }
+
+  public static void setAnnounceStreetNames(boolean enabled)
+  {
+    setBool(KEY_TTS_STREET_NAMES, enabled);
   }
 
   public static String getTtsLanguage()

@@ -248,7 +248,8 @@ public class NavigationService extends Service implements LocationListener
     if (!routingController.isNavigating())
       return;
 
-    final String[] turnNotifications = Framework.nativeGenerateNotifications();
+    // Voice the turn notification first.
+    final String[] turnNotifications = Framework.nativeGenerateNotifications(TtsPlayer.shouldAnnounceStreetNames());
     if (turnNotifications != null)
       TtsPlayer.INSTANCE.playTurnNotifications(getApplicationContext(), turnNotifications);
 

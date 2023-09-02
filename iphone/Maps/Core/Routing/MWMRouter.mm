@@ -189,7 +189,7 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
 + (NSArray<NSString *> *)turnNotifications {
   NSMutableArray<NSString *> *turnNotifications = [@[] mutableCopy];
   std::vector<std::string> notifications;
-  GetFramework().GetRoutingManager().GenerateNotifications(notifications);
+  GetFramework().GetRoutingManager().GenerateNotifications(notifications, false); // TODO: use actual shouldAnnounceStreetNames pref
 
   for (auto const &text : notifications)
     [turnNotifications addObject:@(text.c_str())];

@@ -220,10 +220,11 @@ public:
   /// \brief Adds to @param notifications strings - notifications, which are ready to be
   /// pronounced to end user right now.
   /// Adds notifications about turns and speed camera on the road.
+  /// \param shouldAnnounceStreetNames is true when TTS street names should be pronounced
   ///
   /// \note Current notifications will be deleted after call and second call
   /// will not return previous data, only newer.
-  void GenerateNotifications(std::vector<std::string> & notifications);
+  void GenerateNotifications(std::vector<std::string> & notifications, bool shouldAnnounceStreetNames);
 
   void AddRoutePoint(RouteMarkData && markData);
   void ContinueRouteToPoint(RouteMarkData && markData);

@@ -10,6 +10,7 @@
     de = Halten Sie sich rechts.
     el = Μείνετε δεξιά.
     es = Manténgase a la derecha.
+    es-MX = Manténgase a la derecha.
     eu = Mantendu eskuinera.
     fa = با زاویه کم به راست گردش کنید.
     fi = Pysy oikealla.
@@ -19,7 +20,7 @@
     hu = Jobbra tartson.
     id = Tetap di kanan.
     it = Rimani sulla destra.
-    ja = 右を維持してください。
+    ja = 右方向です。
     ko = 오른쪽에 두기.
     mr = उजवीकडे ठेवा.
     nb = Hold til høyre.
@@ -36,8 +37,16 @@
     tr = Sağdan devam edin.
     uk = Тримайтеся правіше.
     vi = Đi về phía phải.
-    zh-Hans = 向右走。
+    zh-Hans = 向右行驶
     zh-Hant = 向右走。
+
+  [make_a_slight_right_turn_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_slight_right_turn is insufficient.
+    nl = de flauwe bocht naar rechts
+
+  [make_a_slight_right_turn_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when make_a_slight_right_turn_street needs to be split into two parts.
+    nl = Neem
 
   [make_a_right_turn]
     en = Turn right.
@@ -49,6 +58,7 @@
     de = Rechts abbiegen.
     el = Στρίψε δεξιά.
     es = Gire a la derecha.
+    es-MX = Gire a la derecha.
     eu = Biratu eskuinera.
     fa = به راست گردش کنید.
     fi = Käänny oikealle.
@@ -58,7 +68,7 @@
     hu = Forduljon jobbra.
     id = Belok kanan.
     it = Gira a destra.
-    ja = 右に曲がります。
+    ja = 右折です。
     ko = 우회전하십시오.
     mr = उजवीकडे वळा.
     nb = Ta til høyre.
@@ -75,8 +85,13 @@
     tr = Sağa dönün.
     uk = Поверніть праворуч.
     vi = Rẽ phải.
-    zh-Hans = 右转。
+    zh-Hans = 右转
     zh-Hant = 右轉。
+
+  [make_a_right_turn_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_right_turn is insufficient.
+    ja = 右折です
+    nl = naar rechts afslaan
 
   [make_a_sharp_right_turn]
     en = Sharp right.
@@ -88,6 +103,7 @@
     de = Scharf rechts.
     el = Απότομα δεξιά.
     es = Gire bruscamente a la derecha.
+    es-MX = Gire bruscamente a la derecha.
     eu = Eman bira itxia eskuinera.
     fa = با زاویه تند به راست گردش کنید.
     fi = Jyrkkä oikea.
@@ -97,7 +113,7 @@
     hu = Kanyarodjon élesen jobbra.
     id = Belok tajam ke kanan.
     it = Svoltare a destra.
-    ja = 急に右折。
+    ja = 斜め右手前方向です
     ko = 급우회전.
     mr = तीव्र उजवे वळण
     nb = Ta skarpt til høyre.
@@ -114,8 +130,12 @@
     tr = Tam sağa dönün.
     uk = Різко вправо.
     vi = Rẽ ngoặt bên phải.
-    zh-Hans = 向右急转。
+    zh-Hans = 向右急转
     zh-Hant = 向右急轉。
+
+  [make_a_sharp_right_turn_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_sharp_right_turn is insufficient.
+    nl = scherp naar rechts afslaan
 
   [enter_the_roundabout]
     en = Enter the roundabout.
@@ -127,6 +147,7 @@
     de = Fahren Sie in den Kreisverkehr ein.
     el = Μπείτε στην κυκλική διασταύρωση.
     es = Entre a la rotonda.
+    es-MX = Entre a la rotonda.
     eu = Sartu biribilgunera.
     fa = به میدان وارد شوید.
     fi = Aja liikenneympyrään.
@@ -136,7 +157,7 @@
     hu = Hajtson be a körforgalomba.
     id = Masuk ke bundaran.
     it = Entra nella rotonda.
-    ja = ロータリー入口です。
+    ja = ラウンドアバウト入口です。
     ko = 로터리 진입입니다.
     mr = चौकात प्रवेश करा.
     nb = Kjør inn i rundkjøringen.
@@ -153,8 +174,16 @@
     tr = Kavşağa girin.
     uk = В'їзд на кільцеву транспортну розв'язку.
     vi = Đi vào vòng xoay.
-    zh-Hans = 进入环岛。
+    zh-Hans = 进入环岛
     zh-Hant = 進入環島。
+
+  [enter_the_roundabout_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal enter_the_roundabout is insufficient.
+    nl = de rotonde
+
+  [enter_the_roundabout_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when enter_the_roundabout_street needs to be split into two parts.
+    nl = Rijd
 
   [leave_the_roundabout]
     en = Exit the roundabout.
@@ -166,6 +195,7 @@
     de = Aus dem Kreisverkehr ausfahren.
     el = Βγείτε από την κυκλική διασταύρωση.
     es = Salga de la rotonda.
+    es-MX = Salga de la rotonda.
     eu = Irten biribilgunetik.
     fa = از میدان خارج شوید.
     fi = Poistu liikenneympyrästä.
@@ -175,12 +205,12 @@
     hu = Hagyja el a körforgalmat.
     id = Keluar dari bundaran.
     it = Esci dalla rotonda.
-    ja = ロータリーから抜けてください。
+    ja = ラウンドアバウトから抜けてください。
     ko = 원형 교차로에서 나갑니다.
     mr = चौकातून बाहेर पडा.
     nb = Kjør ut av rundkjøringen.
     nl = Verlaat de rotonde.
-    pl = Zjazd z ronda.
+    pl = Zjedź z ronda.
     pt = Saia da rotunda.
     pt-BR = Saia da rotatória.
     ro = Ieșiți din sensul giratoriu.
@@ -192,8 +222,16 @@
     tr = Kavşaktan çıkın.
     uk = З'їзд з кільцевої транспортної розв'язки.
     vi = Ra khỏi vòng xoay.
-    zh-Hans = 退出环岛。
+    zh-Hans = 驶出环岛
     zh-Hant = 退出環島。
+
+  [leave_the_roundabout_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal leave_the_roundabout is insufficient.
+    nl = de rotonde
+
+  [leave_the_roundabout_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when leave_the_roundabout_street needs to be split into two parts.
+    nl = Verlaat
 
   [make_a_slight_left_turn]
     en = Keep left.
@@ -205,6 +243,7 @@
     de = Halten Sie sich links.
     el = Μείνετε αριστερά.
     es = Manténgase a la izquierda.
+    es-MX = Manténgase a la izquierda.
     eu = Mantendu ezkerrean.
     fa = با زاویه کم به چپ گردش کنید.
     fi = Pysy vasemmalla.
@@ -214,7 +253,7 @@
     hu = Balra tartson.
     id = Tetap di kiri.
     it = Rimani sulla sinistra.
-    ja = 左を維持してください。
+    ja = 左方向です。
     ko = 왼쪽에 두기.
     mr = डावीकडे ठेवा.
     nb = Hold til venstre.
@@ -231,8 +270,16 @@
     tr = Soldan devam edin.
     uk = Тримайтеся лівіше.
     vi = Đi về phía trái.
-    zh-Hans = 向左走。
+    zh-Hans = 向左行驶
     zh-Hant = 向左走。
+
+  [make_a_slight_left_turn_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_slight_left_turn is insufficient.
+    nl = de flauwe bocht naar links
+
+  [make_a_slight_left_turn_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when make_a_slight_left_turn_street needs to be split into two parts.
+    nl = Neem
 
   [make_a_left_turn]
     en = Turn left.
@@ -244,6 +291,7 @@
     de = Links abbiegen.
     el = Στρίψε αριστερά.
     es = Gire a la izquierda.
+    es-MX = Gire a la izquierda.
     eu = Biratu ezkerrera.
     fa = به چپ گردش کنید.
     fi = Käänny vasemmalle.
@@ -253,7 +301,7 @@
     hu = Forduljon balra.
     id = Belok kiri.
     it = Gira a sinistra.
-    ja = 左に曲がります。
+    ja = 左折です。
     ko = 좌회전하십시오.
     mr = डावीकडे वळा.
     nb = Ta til venstre.
@@ -270,8 +318,13 @@
     tr = Sola dönün.
     uk = Поверніть ліворуч.
     vi = Rẽ trái.
-    zh-Hans = 左转。
+    zh-Hans = 左转
     zh-Hant = 左轉。
+
+  [make_a_left_turn_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_left_turn is insufficient.
+    ja = 左折し
+    nl = naar links afslaan
 
   [make_a_sharp_left_turn]
     en = Sharp left.
@@ -283,6 +336,7 @@
     de = Scharf links.
     el = Απότομα αριστερά.
     es = Gire bruscamente a la izquierda.
+    es-MX = Gire bruscamente a la izquierda.
     eu = Eman bira itxia ezkerrera.
     fa = با زاویه تند به چپ گردش کنید.
     fi = Jyrkkä vasen.
@@ -292,7 +346,7 @@
     hu = Kanyarodjon élesen balra.
     id = Belok tajam ke kiri.
     it = Svoltare a sinistra.
-    ja = 急に左折。
+    ja = 斜め左手前方向です
     ko = 급좌회전.
     mr = तीव्र डावे वळण
     nb = Ta skarpt til venstre.
@@ -309,8 +363,12 @@
     tr = Tam sola dönün.
     uk = Різкий поворот наліво.
     vi = Rẽ ngoặt bên trái.
-    zh-Hans = 向左急转。
+    zh-Hans = 向左急转
     zh-Hant = 向左急轉。
+
+  [make_a_sharp_left_turn_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_sharp_left_turn is insufficient.
+    nl = scherp naar links afslaan
 
   [make_a_u_turn]
     en = Make a u-turn.
@@ -322,6 +380,7 @@
     de = Wenden Sie.
     el = Κάντε στροφή 180 μοιρών.
     es = Cambie de sentido.
+    es-MX = Cambie de sentido.
     eu = Norabidea aldaketa egin.
     fa = دور بزنید.
     fi = Tee U-käännös.
@@ -348,7 +407,7 @@
     tr = U dönüşü yapın.
     uk = Зробіть розворот.
     vi = Quay đầu.
-    zh-Hans = 掉头。
+    zh-Hans = 掉头
     zh-Hant = 掉頭。
 
   [go_straight]
@@ -361,6 +420,7 @@
     de = Fahren Sie geradeaus.
     el = Συνεχίστε ευθεία.
     es = Continúe recto.
+    es-MX = Continúe recto.
     eu = Zuzen jarraitu.
     fa = مستقیم بروید.
     fi = Aja suoraan.
@@ -387,7 +447,7 @@
     tr = Düz ilerleyin.
     uk = Їдьте прямо.
     vi = Đi thẳng.
-    zh-Hans = 直行。
+    zh-Hans = 直行
     zh-Hant = 直行。
 
   [exit]
@@ -399,7 +459,8 @@
     da = Afkørsel.
     de = Nehmen Sie die Ausfahrt.
     el = Εξοδος.
-    es = Salida.
+    es = Salga
+    es-MX = Salga
     eu = Irteera.
     fa = خروج.
     fi = Poistu.
@@ -409,12 +470,12 @@
     hu = Kilépés.
     id = Keluar.
     it = Uscita.
-    ja = 出口.
+    ja = 出口です
     ko = 출구.
     mr = बाहेर पडा.
     nb = Ta avkjøringen.
     nl = Verlaat.
-    pl = Zjazd.
+    pl = Wybierz zjazd
     pt = Saia.
     pt-BR = Pegue a saída.
     ro = Ieșire.
@@ -426,8 +487,133 @@
     tr = çıkın.
     uk = З'їзд.
     vi = Lối thoát.
-    zh-Hans = 出口.
+    zh-Hans = 驶出
     zh-Hant = 出口.
+
+  [onto]
+    comment = Used in dist_direction_onto_street in position 3 unless take_exit_number or onto_exit_number are specified.
+    en = onto
+    ar = ﺈﻟﻯ
+    be = на
+    cs = na
+    da = ad
+    de = auf
+    el = στην
+    es = hacia
+    es-MX = hacia
+    eu =
+    fa = ﺐﻫ
+    fi = tielle
+    fr = sur
+    hi = पर
+    hr = na
+    hu = a-re
+    id = ke
+    it = sulla
+    ja = に入ります
+    ko =
+    mr = वर
+    nb = inn på
+    nl = naar
+    pl = na
+    pt = para
+    pt-BR = para
+    ro = pe
+    ru = на
+    sk = na
+    sv = in på
+    sw = kwenye
+    th = เข้าสู่
+    tr = yönünde
+    uk = на
+    vi = vào
+    zh-Hans = 上
+    zh-Hant = 上
+
+  [onto_exit_number]
+    comment = Used in dist_direction_onto_street instead of "onto" when there's an exit number after. Use "." for none
+    en = .
+    ar = .
+    be = .
+    cs = .
+    da = .
+    de = .
+    el = .
+    es = .
+    es-MX = .
+    eu = .
+    fa = .
+    fi = .
+    fr = .
+    hi = .
+    hr = .
+    hu = .
+    id = .
+    it = .
+    ja = .
+    ko = .
+    mr = .
+    nb = .
+    nl = .
+    pl = .
+    pt = .
+    pt-BR = .
+    ro = .
+    ru = .
+    sk = .
+    sv = .
+    sw = .
+    th = .
+    tr = .
+    uk = .
+    vi = .
+    zh-Hans = .
+    zh-Hant = .
+
+  [take_exit_number]
+    comment = Used in dist_direction_onto_street instead of "Exit" when there's an exit number after. Replaces "onto" unless onto_exit_number is specified.
+    en = Take exit
+    ar = خروجﺈﻟﻯ
+    be = З'езд на
+    ca = Agafa la sortida
+    cs = výstup na
+    da = Afkørsel ad
+    de = Nehmen Sie die Ausfahrt auf
+    el = Εξοδος στην
+    es = Tome la salida
+    es-MX = Tome la salida
+    eu = Irteera
+    fa = خروجﺐﻫ
+    fi = Poistu tielle
+    fr = Sortie sur
+    hi = बाहर जाएं पर
+    hr = Izlaz na
+    hu = Kilépés a-re
+    id = Keluar ke
+    it = Uscita sulla
+    ja = 出口ですに入ります
+    ko = 출구
+    mr = बाहेर पडा वर
+    nb = Ta avkjøringen inn på
+    nl = Verlaat naar
+    pl = Wybierz zjazd na
+    pt = Saia para
+    pt-BR = Pegue a saída para
+    ro = Ieșire pe
+    ru = Съезд на
+    sk = Výjazd na
+    sv = Utgång in på
+    sw = Kuondoka kwenye
+    th = ทางออก เข้าสู่
+    tr = çıkın yönünde
+    uk = З'їзд на
+    vi = Lối thoát vào
+    zh-Hans = 驶出 上
+    zh-Hant = 出口 上
+
+  [take_exit_number_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_exit_number needs to be split into two parts. (There is no take_exit_number_street)
+    nl = Neem
 
   [destination]
     en = You’ll arrive.
@@ -439,6 +625,7 @@
     de = Werden Sie ankommen.
     el = Θα φτάσετε.
     es = Llegará a su destino.
+    es-MX = Llegará a su destino.
     eu = Zure helmugara iritsiko zara.
     fa = به مقصد خواهيد رسيد.
     fi = Olet perillä.
@@ -451,9 +638,9 @@
     ja = 到着します。
     ko = 도착할 예정입니다.
     mr = तुम्ही पोहोचाल.
-    nb = Du ankommer.
+    nb = Ankommer du.
     nl = Arriveert u.
-    pl = Dojedziesz.
+    pl = Dotrzesz do celu.
     pt = Chegará ao seu destino.
     pt-BR = Você chegará ao seu destino.
     ro = Veți sosi.
@@ -465,7 +652,7 @@
     tr = Varacaksınız.
     uk = Ви прибудете.
     vi = Bạn sẽ đến.
-    zh-Hans = 您将到达目的地。
+    zh-Hans = 即将到达目的地
     zh-Hant = 您將到達目的地。
 
   [you_have_reached_the_destination]
@@ -478,6 +665,7 @@
     de = Sie sind angekommen.
     el = Έχετε φτάσει.
     es = Ha llegado a su destino.
+    es-MX = Ha llegado a su destino.
     eu = Helmugara iritsi zara.
     fa = به مقصد رسيديد.
     fi = Olet saapunut.
@@ -487,12 +675,12 @@
     hu = Ön megérkezett.
     id = Anda sudah sampai.
     it = Sei arrivato.
-    ja = 到着。
+    ja = 目的地に到着しました
     ko = 도착했습니다.
     mr = तुम्ही पोहोचला आहात.
     nb = Du har ankommet.
     nl = Bestemming bereikt.
-    pl = Jesteś u celu.
+    pl = Dotarłeś do celu.
     pt = Chegou ao seu destino.
     pt-BR = Você chegou ao seu destino.
     ro = Ați ajuns.
@@ -504,7 +692,7 @@
     tr = Hedef noktasına vardınız.
     uk = Ви прибули.
     vi = Bạn đã đến.
-    zh-Hans = 您已到达目的地。
+    zh-Hans = 您已到达目的地
     zh-Hant = 你已到達目的地。
 
   [in_50_meters]
@@ -517,6 +705,7 @@
     de = In fünfzig Metern
     el = Σε πενήντα μέτρα
     es = En cincuenta metros
+    es-MX = En cincuenta metros
     eu = Berrogeita hamar metrora
     fa = در پنجاه متری
     fi = Viidenkymmenen metrin päässä
@@ -556,6 +745,7 @@
     de = In einhundert Metern
     el = Σε εκατό μέτρα
     es = En cien metros
+    es-MX = En cien metros
     eu = Ehun metrora
     fa = در صد متری
     fi = Sadan metrin päässä
@@ -595,6 +785,7 @@
     de = In zweihundert Metern
     el = Σε διακόσια μέτρα
     es = En doscientos metros
+    es-MX = En doscientos metros
     eu = Berrehun metrora
     fa = در دویست متری
     fi = Kahdensadan metrin päässä
@@ -634,6 +825,7 @@
     de = In zweihundertfünfzig Metern
     el = Σε διακόσια πενήντα μέτρα
     es = En doscientos cincuenta metros
+    es-MX = En doscientos cincuenta metros
     eu = Berrehun eta berrogeita hamar metrora
     fa = در دوصد و پنجاه متر
     fi = Kahdensadanviidenkymmenen metrin päässä
@@ -673,6 +865,7 @@
     de = In dreihundert Metern
     el = Σε τριακόσια μέτρα
     es = En trescientos metros
+    es-MX = En trescientos metros
     eu = Hirurehun metrora
     fa = در سیصد متری
     fi = Kolmensadan metrin päässä
@@ -712,6 +905,7 @@
     de = In vierhundert Metern
     el = Σε τετρακόσια μέτρα
     es = En cuatrocientos metros
+    es-MX = En cuatrocientos metros
     eu = Laurehun metrora
     fa = در چهارصد متری
     fi = Neljänsadan metrin päässä
@@ -751,6 +945,7 @@
     de = In fünfhundert Metern
     el = Σε πεντακόσια μέτρα
     es = En quinientos metros
+    es-MX = En quinientos metros
     eu = Bostehun metrora
     fa = در پانصد متری
     fi = Viidensadan metrin päässä
@@ -790,6 +985,7 @@
     de = In sechshundert Metern
     el = Σε εξακόσια μέτρα
     es = En seiscientos metros
+    es-MX = En seiscientos metros
     eu = Seiehun metrora
     fa = در ششصد متری
     fi = Kuudensadan metrin päässä
@@ -829,6 +1025,7 @@
     de = In siebenhundert Metern
     el = Σε επτακόσια μέτρα
     es = En setecientos metros
+    es-MX = En setecientos metros
     eu = Zazpiehun metrora
     fa = در هفتصد متری
     fi = Seitsemänsadan metrin päässä
@@ -868,6 +1065,7 @@
     de = In siebenhundertfünfzig Metern
     el = Σε επτακόσια πενήντα μέτρα
     es = En setecientos cincuenta metros
+    es-MX = En setecientos cincuenta metros
     eu = Zazpiehun eta berrogeita hamar metrora
     fa = در هفتصد و پنجاه متری
     fi = Seitsemänsadanviidenkymmenen metrin päässä
@@ -907,6 +1105,7 @@
     de = In achthundert Metern
     el = Σε οκτακόσια μέτρα
     es = En ochocientos metros
+    es-MX = En ochocientos metros
     eu = Zortziehun metrora
     fa = در هشتصد متری
     fi = Kahdeksansadan metrin päässä
@@ -946,6 +1145,7 @@
     de = In neunhundert Metern
     el = Σε εννιακόσια μέτρα
     es = En novecientos metros
+    es-MX = En novecientos metros
     eu = Bederatziehun metrora
     fa = در نهصد متری
     fi = Yhdeksänsadan metrin päässä
@@ -985,6 +1185,7 @@
     de = In einem Kilometer
     el = Σε ένα χιλιόμετρο
     es = En un kilómetro
+    es-MX = En un kilómetro
     eu = Kilometro batera
     fa = در یک کیلومتری
     fi = Yhden kilometrin päässä
@@ -1024,6 +1225,7 @@
     de = In anderthalb Kilometern
     el = Σε ενάμισυ χιλιόμετρο
     es = En un kilómetro y medio
+    es-MX = En un kilómetro y medio
     eu = Kilometro eta erdira
     fa = در یک و نیم کیلومتری
     fi = Puolentoista kilomertin päässä
@@ -1063,6 +1265,7 @@
     de = In zwei Kilometern
     el = Σε δύο χιλιόμετρα
     es = En dos kilómetros
+    es-MX = En dos kilómetros
     eu = Bi kilometrora
     fa = در دو کیلومتری
     fi = Kahden kilometrin päässä
@@ -1102,6 +1305,7 @@
     de = In zweieinhalb Kilometern
     el = Σε δυόμισι χιλιόμετρα
     es = En dos kilómetros y medio
+    es-MX = En dos kilómetros y medio
     eu = Bi kilometro eta erdira
     fa = در دو و نیم کیلومتری
     fi = Kahden ja puolen kilometrin päässä
@@ -1141,6 +1345,7 @@
     de = In drei Kilometern
     el = Σε τρία χιλιόμετρα
     es = En tres kilómetros
+    es-MX = En tres kilómetros
     eu = Hiru kilometrora
     fa = در سه کیلومتری
     fi = Kolmen kilometrin päässä
@@ -1180,6 +1385,7 @@
     de = Danach
     el = Στη συνέχεια
     es = Después
+    es-MX = Después
     eu = Gero
     fa = سپس
     fi = Sitten
@@ -1192,7 +1398,7 @@
     ja = その先
     ko = 그 다음
     mr = मग
-    nb = så
+    nb = deretter
     nl = Daarna
     pl = Następnie
     pt = Depois
@@ -1209,6 +1415,46 @@
     zh-Hans = 然后
     zh-Hant = 然後
 
+  [dist_direction_onto_street]
+    comment = %1$s is the distance like in_500_meters, %2$s is the direction like make_a_right_turn_street or make_a_right_turn if unavailable, %3$s is "onto" unless the turn is an exit number, %4$s is the name/number of the street/exit, and %5$s is an optional turn verb particle
+    en = %1$s %2$s %3$s %4$s
+    ar = %1$s %2$s %3$s %4$s
+    be = %1$s %2$s %3$s %4$s
+    cs = %1$s %2$s %3$s %4$s
+    da = %1$s %2$s %3$s %4$s
+    de = %1$s %2$s %3$s %4$s
+    el = %1$s %2$s %3$s %4$s
+    es = %1$s %2$s %3$s %4$s
+    es-MX = %1$s %2$s %3$s %4$s
+    eu = %1$s %2$s %3$s %4$s
+    fa = %1$s %2$s %3$s %4$s
+    fi = %2$s %3$s %4$s %1$s
+    fr = %1$s %2$s %3$s %4$s
+    hi = %1$s %4$s %3$s %2$s
+    hr = %1$s %2$s %3$s %4$s
+    hu = %1$s %2$s %3$s %4$s-re
+    id = %1$s %2$s %3$s %4$s
+    it = %1$s %2$s %3$s %4$s
+    ja = %1$s%2$s %4$s %3$s
+    ko = %1$s %2$s %3$s %4$s
+    mr = %1$s %4$s %3$s %2$s
+    nb = %1$s %2$s %3$s %4$s
+    nl = %5$s %1$s %2$s %3$s %4$s
+    pl = %1$s %2$s %3$s %4$s
+    pt = %1$s %2$s %3$s %4$s
+    pt-BR = %1$s %2$s %3$s %4$s
+    ro = %1$s %2$s %3$s %4$s
+    ru = %1$s %2$s %3$s %4$s
+    sk = %1$s %2$s %3$s %4$s
+    sv = %1$s %2$s %3$s %4$s
+    sw = %1$s %2$s %3$s %4$s
+    th = %1$s %2$s %3$s %4$s
+    tr = %1$s %4$s %3$s %2$s
+    uk = %1$s %2$s %3$s %4$s
+    vi = %1$s %2$s %3$s %4$s
+    zh-Hans = %1$s %2$s %3$s %4$s
+    zh-Hant = %1$s %2$s %3$s %4$s
+
   [take_the_1_exit]
     en = Take the first exit.
     ar = اسلك المخرج الأول.
@@ -1219,6 +1465,7 @@
     de = Nehmen Sie die erste Ausfahrt.
     el = Πάρτε την πρώτη έξοδο.
     es = Tome la primera salida.
+    es-MX = Tome la primera salida.
     eu = Hartu lehen irteera.
     fa = اولین خروجی را داخل شوید.
     fi = Poistu ensimmäisestä liittymästä.
@@ -1245,8 +1492,16 @@
     tr = Birinci çıkıştan çıkın.
     uk = Рухайтесь через перший з'їзд.
     vi = Đi theo lối ra đầu tiên.
-    zh-Hans = 取道第一个出口。
+    zh-Hans = 取道第一个出口
     zh-Hant = 取道第一個出口。
+
+  [take_the_1_exit_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_1_exit is insufficient.
+    nl = de eerste afslag
+
+  [take_the_1_exit_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_1_exit_street needs to be split into two parts.
+    nl = Neem
 
   [take_the_2_exit]
     en = Take the second exit.
@@ -1258,6 +1513,7 @@
     de = Nehmen Sie die zweite Ausfahrt.
     el = Πάρτε τη δεύτερη έξοδο.
     es = Tome la segunda salida.
+    es-MX = Tome la segunda salida.
     eu = Hartu bigarren irteera.
     fa = دومین خروجی را داخل شوید.
     fi = Poistu toisesta liittymästä.
@@ -1284,8 +1540,16 @@
     tr = İkinci çıkıştan çıkın.
     uk = Рухайтесь через другий з'їзд.
     vi = Đi theo lối ra thứ hai.
-    zh-Hans = 取道第二个出口。
+    zh-Hans = 取道第二个出口
     zh-Hant = 取道第二個出口。
+
+  [take_the_2_exit_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_2_exit is insufficient.
+    nl = de tweede afslag
+
+  [take_the_2_exit_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_2_exit_street needs to be split into two parts.
+    nl = Neem
 
   [take_the_3_exit]
     en = Take the third exit.
@@ -1297,6 +1561,7 @@
     de = Nehmen Sie die dritte Ausfahrt.
     el = Πάρτε την τρίτη έξοδο.
     es = Tome la tercera salida.
+    es-MX = Tome la tercera salida.
     eu = Hartu hirugarren irteera.
     fa = سومین خروجی را داخل شوید.
     fi = Poistu kolmannesta liittymästä.
@@ -1323,8 +1588,16 @@
     tr = Üçüncü çıkıştan çıkın.
     uk = Рухайтесь через третій з'їзд.
     vi = Đi theo lối ra thứ ba.
-    zh-Hans = 取道第三个出口。
+    zh-Hans = 取道第三个出口
     zh-Hant = 取道第三個出口。
+
+  [take_the_3_exit_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_3_exit is insufficient.
+    nl = de derde afslag
+
+  [take_the_3_exit_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_3_exit_street needs to be split into two parts.
+    nl = Neem
 
   [take_the_4_exit]
     en = Take the fourth exit.
@@ -1336,6 +1609,7 @@
     de = Nehmen Sie die vierte Ausfahrt.
     el = Πάρτε την τέταρτη έξοδο.
     es = Tome la cuarta salida.
+    es-MX = Tome la cuarta salida.
     eu = Hartu laugarren irteera.
     fa = چهارمین خروجی را داخل شوید.
     fi = Poistu neljännestä liittymästä.
@@ -1362,8 +1636,16 @@
     tr = Dördüncü çıkıştan çıkın.
     uk = Рухайтесь через четвертий з'їзд.
     vi = Đi theo lối ra thứ tư.
-    zh-Hans = 取道第四个出口。
+    zh-Hans = 取道第四个出口
     zh-Hant = 取道第四個出口。
+
+  [take_the_4_exit_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_4_exit is insufficient.
+    nl = de vierde afslag
+
+  [take_the_4_exit_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_4_exit_street needs to be split into two parts.
+    nl = Neem
 
   [take_the_5_exit]
     en = Take the fifth exit.
@@ -1375,6 +1657,7 @@
     de = Nehmen Sie die fünfte Ausfahrt.
     el = Πάρτε την πέμπτη έξοδο.
     es = Tome la quinta salida.
+    es-MX = Tome la quinta salida.
     eu = Hartu bosgarren irteera.
     fa = پنجمین خروجی را داخل شوید.
     fi = Poistu viidennestä liittymästä.
@@ -1401,8 +1684,16 @@
     tr = Beşinci çıkıştan çıkın.
     uk = Рухайтесь через п'ятий з'їзд.
     vi = Đi theo lối ra thứ năm.
-    zh-Hans = 取道第五个出口。
+    zh-Hans = 取道第五个出口
     zh-Hant = 取道第五個出口。
+
+  [take_the_5_exit_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_5_exit is insufficient.
+    nl = de vijfde afslag
+
+  [take_the_5_exit_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_5_exit_street needs to be split into two parts.
+    nl = Neem
 
   [take_the_6_exit]
     en = Take the sixth exit.
@@ -1414,6 +1705,7 @@
     de = Nehmen Sie die sechste Ausfahrt.
     el = Πάρτε την έκτη έξοδο.
     es = Tome la sexta salida.
+    es-MX = Tome la sexta salida.
     eu = Hartu seigarren irteera.
     fa = ششمین خروجی را داخل شوید.
     fi = Poistu kuudennesta liittymästä.
@@ -1440,8 +1732,16 @@
     tr = Altıncı çıkıştan çıkın.
     uk = Рухайтесь через шостий з'їзд.
     vi = Đi theo lối ra thứ sáu.
-    zh-Hans = 取道第六个出口。
+    zh-Hans = 取道第六个出口
     zh-Hant = 取道第六個出口。
+
+  [take_the_6_exit_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_6_exit is insufficient.
+    nl = de zesde afslag
+
+  [take_the_6_exit_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_6_exit_street needs to be split into two parts.
+    nl = Neem
 
   [take_the_7_exit]
     en = Take the seventh exit.
@@ -1453,6 +1753,7 @@
     de = Nehmen Sie die siebte Ausfahrt.
     el = Πάρτε την έβδομη έξοδο.
     es = Tome la séptima salida.
+    es-MX = Tome la séptima salida.
     eu = Hartu zazpigarren irteera.
     fa = هفتمین خروجی را داخل شوید.
     fi = Poistu seitsemännestä liittymästä.
@@ -1479,8 +1780,16 @@
     tr = Yedinci çıkıştan çıkın.
     uk = Рухайтесь через сьомий з'їзд.
     vi = Đi theo lối ra thứ bảy.
-    zh-Hans = 取道第七个出口。
+    zh-Hans = 取道第七个出口
     zh-Hant = 取道第七個出口。
+
+  [take_the_7_exit_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_7_exit is insufficient.
+    nl = de zevende afslag
+
+  [take_the_7_exit_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_7_exit_street needs to be split into two parts.
+    nl = Neem
 
   [take_the_8_exit]
     en = Take the eighth exit.
@@ -1492,6 +1801,7 @@
     de = Nehmen Sie die achte Ausfahrt.
     el = Πάρτε την όγδοη έξοδο.
     es = Tome la octava salida.
+    es-MX = Tome la octava salida.
     eu = Hartu zortzigarren irteera.
     fa = هشتمین خروجی را داخل شوید.
     fi = Poistu kahdeksannesta liittymästä.
@@ -1518,8 +1828,16 @@
     tr = Sekizinci çıkıştan çıkın.
     uk = Рухайтесь через восьмий з'їзд.
     vi = Đi theo lối ra thứ tám.
-    zh-Hans = 取道第八个出口。
+    zh-Hans = 取道第八个出口
     zh-Hant = 取道第八個出口。
+
+  [take_the_8_exit_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_8_exit is insufficient.
+    nl = de achtste afslag
+
+  [take_the_8_exit_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_8_exit_street needs to be split into two parts.
+    nl = Neem
 
   [take_the_9_exit]
     en = Take the ninth exit.
@@ -1531,6 +1849,7 @@
     de = Nehmen Sie die neunte Ausfahrt.
     el = Πάρτε την ένατη έξοδο.
     es = Tome la novena salida.
+    es-MX = Tome la novena salida.
     eu = Hartu bederatzigarren irteera.
     fa = نهمین خروجی را داخل شوید.
     fi = Poistu yhdeksännestä liittymästä.
@@ -1557,8 +1876,16 @@
     tr = Dokuzuncu çıkıştan çıkın.
     uk = Рухайтесь через дев'ятий з'їзд.
     vi = Đi theo lối ra thứ chín.
-    zh-Hans = 取道第九个出口。
+    zh-Hans = 取道第九个出口
     zh-Hant = 取道第九個出口。
+
+  [take_the_9_exit_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_9_exit is insufficient.
+    nl = de negende afslag
+
+  [take_the_9_exit_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_9_exit_street needs to be split into two parts.
+    nl = Neem
 
   [take_the_10_exit]
     en = Take the tenth exit.
@@ -1570,6 +1897,7 @@
     de = Nehmen Sie die zehnte Ausfahrt.
     el = Πάρτε την δέκατη έξοδο.
     es = Tome la décima salida.
+    es-MX = Tome la décima salida.
     eu = Hartu hamargarren irteera.
     fa = دهمین خروجی را داخل شوید.
     fi = Poistu kymmenennestä liittymästä.
@@ -1596,8 +1924,16 @@
     tr = Onuncu çıkıştan çıkın.
     uk = Рухайтесь через десятий з'їзд.
     vi = Đi theo lối ra thứ mười.
-    zh-Hans = 取道第十个出口。
+    zh-Hans = 取道第十个出口
     zh-Hant = 取道第十個出口。
+
+  [take_the_10_exit_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_10_exit is insufficient.
+    nl = de tiende afslag
+
+  [take_the_10_exit_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_10_exit_street needs to be split into two parts.
+    nl = Neem
 
   [take_the_11_exit]
     en = Take the eleventh exit.
@@ -1609,6 +1945,7 @@
     de = Nehmen Sie die elfte Ausfahrt.
     el = Πάρτε την ενδέκατη έξοδο.
     es = Tome la undécima salida.
+    es-MX = Tome la undécima salida.
     eu = Hartu hamaikagarren irteera.
     fa = یازدهمین خروجی را داخل شوید.
     fi = Poistu yhdennestätoista liittymästä.
@@ -1635,8 +1972,16 @@
     tr = On birinci çıkıştan çıkın.
     uk = Рухайтесь через одинадцятий з'їзд.
     vi = Đi theo lối ra thứ mười một.
-    zh-Hans = 取道第十一个出口。
+    zh-Hans = 取道第十一个出口
     zh-Hant = 取道第十一個出口。
+
+  [take_the_11_exit_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_11_exit is insufficient.
+    nl = de elfde afslag
+
+  [take_the_11_exit_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_11_exit_street needs to be split into two parts.
+    nl = Neem
 
   [in_50_feet]
     en = In fifty feet
@@ -1648,6 +1993,7 @@
     de = In fünfzig Fuß
     el = Σε πενήντα πόδια
     es = En cincuenta pies
+    es-MX = En cincuenta pies
     eu = Berrogeita hamar oinetara
     fa = در پنجاه قدمی
     fi = Viidenkymmenen jalan päässä
@@ -1687,6 +2033,7 @@
     de = In einhundert Fuß
     el = Σε εκατό πόδια
     es = En cien pies
+    es-MX = En cien pies
     eu = Ehun oinetara
     fa = در یک صد قدمی
     fi = Sadan jalan päässä
@@ -1726,6 +2073,7 @@
     de = In zweihundert Fuß
     el = Σε διακόσια πόδια
     es = En doscientos pies
+    es-MX = En doscientos pies
     eu = Berrehun oinetara
     fa = در دویست قدمی
     fi = Kahdensadan jalan päässä
@@ -1765,6 +2113,7 @@
     de = In dreihundert Fuß
     el = Στα τριακόσια πόδια
     es = En trescientos pies
+    es-MX = En trescientos pies
     eu = Hirurehun oinetara
     fa = در سیصد قدمی
     fi = Kolmensadan jalan päässä
@@ -1804,6 +2153,7 @@
     de = In vierhundert Fuß
     el = Σε τετρακόσια πόδια
     es = En cuatrocientos pies
+    es-MX = En cuatrocientos pies
     eu = Laurehun oinetara
     fa = در چهارصد قدمی
     fi = Neljänsadan jalan päässä
@@ -1843,6 +2193,7 @@
     de = In fünfhundert Fuß
     el = Σε πεντακόσια πόδια
     es = En quinientos pies
+    es-MX = En quinientos pies
     eu = Bostehun oinetara
     fa = در پانصد قدمی
     fi = Viidensadan jalan päässä
@@ -1882,6 +2233,7 @@
     de = In sechshundert Fuß
     el = Σε εξακόσια πόδια
     es = En seiscientos pies
+    es-MX = En seiscientos pies
     eu = Seiehun oinetara
     fa = در ششصد قدمی
     fi = Kuudensadan jalan päässä
@@ -1921,6 +2273,7 @@
     de = In siebenhundert Fuß
     el = Σε επτακόσια πόδια
     es = En setecientos pies
+    es-MX = En setecientos pies
     eu = Zazpiehun oinetara
     fa = در هفتصد قدمی
     fi = Seitsemänsadan jalan päässä
@@ -1960,6 +2313,7 @@
     de = In achthundert Fuß
     el = Σε οκτακόσια πόδια
     es = En ochocientos pies
+    es-MX = En ochocientos pies
     eu = Zortziehun oinetara
     fa = در هشتصد قدمی
     fi = Kahdeksansadan jalan päässä
@@ -1999,6 +2353,7 @@
     de = In neunhundert Fuß
     el = Σε εννιακόσια πόδια
     es = En novecientos pies
+    es-MX = En novecientos pies
     eu = Bederatziehun oinetara
     fa = در نه صد قدمی
     fi = Yhdeksänsadan jalan päässä
@@ -2038,6 +2393,7 @@
     de = In eintausend Fuß
     el = Σε χίλια πόδια
     es = En mil pies
+    es-MX = En mil pies
     eu = Mila oinetara
     fa = در یک هزار قدمی
     fi = Tuhannen jalan päässä
@@ -2077,6 +2433,7 @@
     de = In eintausendfünfhundert Fuß
     el = Σε χίλια πεντακόσια πόδια
     es = En mil quinientos pies
+    es-MX = En mil quinientos pies
     eu = Mila bostehun oinetara
     fa = در یک هزار و پانصد قدمی
     fi = Tuhannenviidensadan jalan päässä
@@ -2116,6 +2473,7 @@
     de = In zweitausend Fuß
     el = Σε δύο χιλιάδες πόδια
     es = En dos mil pies
+    es-MX = En dos mil pies
     eu = Bi mila oinetara
     fa = در دو هزار قدمی
     fi = Kahdentuhannen jalan päässä
@@ -2155,6 +2513,7 @@
     de = In zweitausendfünfhundert Fuß
     el = Σε δυόμισυ χιλιάδες πόδια
     es = En dos mil quinientos pies
+    es-MX = En dos mil quinientos pies
     eu = Bi mila bostehun oinetara
     fa = در پانصد و بیست قدمی
     fi = Kahdentuhannenviidensadan jalan päässä
@@ -2194,6 +2553,7 @@
     de = In dreitausend Fuß
     el = Σε τρεις χιλιάδες πόδια
     es = En tres mil pies
+    es-MX = En tres mil pies
     eu = Hiru mila oinetara
     fa = در سه هزار قدمی
     fi = Kolmentuhannen jalan päässä
@@ -2233,6 +2593,7 @@
     de = In dreitausendfünfhundert Fuß
     el = Σε τρισύμιση χιλιάδες πόδια
     es = En tres mil quinientos pies
+    es-MX = En tres mil quinientos pies
     eu = Hiru mila bostehun oinetara
     fa = در سه هزار و پانصد قدمی
     fi = Kolmentuhannenviidensadan jalan päässä
@@ -2272,6 +2633,7 @@
     de = In viertausend Fuß
     el = Σε τέσσερις χιλιάδες πόδια
     es = En cuatro mil pies
+    es-MX = En cuatro mil pies
     eu = Lau mila oinetara
     fa = در چهار هزار قدمی
     fi = Neljäntuhannen jalan päässä
@@ -2311,6 +2673,7 @@
     de = In viertausendfünfhundert Fuß
     el = Σε τεσσερισήμισι χιλιάδες πόδια
     es = En cuatro mil quinientos pies
+    es-MX = En cuatro mil quinientos pies
     eu = Lau mila bostehun oinetara
     fa = در چهار هزار و پانصد قدمی
     fi = Neljäntuhannenviidensadan jalan päässä
@@ -2350,6 +2713,7 @@
     de = In fünftausend Fuß
     el = Σε πέντε χιλιάδες πόδια
     es = En cinco mil pies
+    es-MX = En cinco mil pies
     eu = Bost mila oinetara
     fa = در پنج هزار قدمی
     fi = Viidentuhannen jalan päässä
@@ -2389,6 +2753,7 @@
     de = In einer Meile
     el = Σε ένα μίλι
     es = En una milla
+    es-MX = En una milla
     eu = Milia batera
     fa = در یک مایلی
     fi = Mailin päässä
@@ -2428,6 +2793,7 @@
     de = In anderthalb Meilen
     el = Σε ενάμισυ μίλι
     es = En una milla y media
+    es-MX = En una milla y media
     eu = Milia eta erdira
     fa = در یک و نیم مایلی
     fi = Puolentoista mailin päässä
@@ -2467,6 +2833,7 @@
     de = In zwei Meilen
     el = Σε δύο μίλια
     es = En dos millas
+    es-MX = En dos millas
     eu = Bi milietara
     fa = در دو مایلی
     fi = Kahden mailin päässä
@@ -2506,18 +2873,18 @@
     de = Blitzer voraus
     el = Κάμερα παρακάτω
     es = Cámara adelante
-    eu = Kamera aurrera
     es-MX = Cámara próxima
+    eu = Kamera aurrera
     fa = دوربین کنترل سرعت در نزدیکی
     fi = Edessä on kamera
     fr = Caméra devant
     hu = Kamera elöl
     id = Diawasi kamera
     it = Autovelox in prossimità
-    ja = この先にある自動速度違反取締装置
+    ja = この先、自動速度違反取締装置があります
     ko = 전방에 카메라
     mr = पुढे कॅमेरा आहे
-    nb = Kamera foran
+    nb = Fotoboks foran
     nl = Camera in zicht
     pl = Fotoradar na drodze
     pt = Câmera à frente
@@ -2531,5 +2898,5 @@
     tr = İleride kamera var
     uk = Попереду камера
     vi = Máy ảnh phía trước
-    zh-Hans = 在摄像头前
+    zh-Hans = 前方有摄像头
     zh-Hant = 在攝像頭前
