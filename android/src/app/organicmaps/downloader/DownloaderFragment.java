@@ -18,6 +18,9 @@ import app.organicmaps.search.SearchEngine;
 import app.organicmaps.widget.PlaceholderView;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,15 +39,52 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
   private boolean mSearchRunning;
 
   private int mSubscriberSlot;
+  
+  private FloatingActionButton mFab;
+  private RecyclerView mRecyclerView;
 
   private final RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
     @Override
-    public void onScrollStateChanged(RecyclerView recyclerView, int newState)
-    {
-      if (newState == RecyclerView.SCROLL_STATE_DRAGGING)
+    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+      if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
         mToolbarController.deactivate();
+        // User started scrolling, hide the FAB
+        hideFab();
+      } else if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+        // User stopped scrolling, show the FAB
+        showFab();
+      }
     }
   };
+   private boolean shouldShowFab() {
+    // Determine whether the FAB should be shown on the current screen
+    return mAdapter != null && mAdapter.getItemCount() > 0;
+  }
+  private void showFab() {
+    if (mFab != null && shouldShowFab() && !isRecyclerViewAtBottom()) {
+      mFab.show();
+    } else {
+      mFab.hide();
+    }
+  }
+
+  private void hideFab() {
+    if (mFab != null && shouldShowFab() && !isRecyclerViewAtBottom()) {
+      mFab.hide();
+    } else {
+      mFab.show();
+    }
+  }
+  private boolean isRecyclerViewAtBottom() {
+    if (mRecyclerView != null) {
+      int visibleItemCount = mRecyclerView.getChildCount();
+      int totalItemCount = mRecyclerView.getLayoutManager().getItemCount();
+      int pastVisibleItems = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+      return (visibleItemCount + pastVisibleItems) >= totalItemCount;
+    }
+    return false;
+  }
+
 
   private final NativeMapSearchListener mSearchListener = new NativeMapSearchListener()
   {
@@ -108,6 +148,13 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
   {
     mToolbarController.update();
     mBottomPanel.update();
+    
+    boolean showFab = shouldShowFab();
+    if (showFab) {
+      showFab();
+    } else {
+      hideFab();
+    }
   }
 
   @CallSuper
@@ -121,6 +168,20 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
+    mFab = view.findViewById(R.id.fab);
+    getRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener() {
+      @Override
+      public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+        if (dy > 0) {
+          // Scrolling up
+          hideFab();
+        } else if (dy < 0) {
+          // Scrolling down
+          showFab();
+        }
+      }
+    });
+    
     mSubscriberSlot = MapManager.nativeSubscribe(new MapManager.StorageCallback()
     {
       @Override
@@ -137,11 +198,13 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
     SearchEngine.INSTANCE.addMapListener(mSearchListener);
 
     getRecyclerView().addOnScrollListener(mScrollListener);
-    if (mAdapter != null)
+    if (mAdapter == null)
     {
-      mAdapter.refreshData();
-      mAdapter.attach();
+      mAdapter = createAdapter();
     }
+    mAdapter.refreshData();
+    mAdapter.attach();
+
 
     mBottomPanel = new BottomPanel(this, view);
     mToolbarController = new DownloaderToolbarController(view, requireActivity(), this);
@@ -164,6 +227,10 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
     }
 
     SearchEngine.INSTANCE.removeMapListener(mSearchListener);
+    
+    if (getRecyclerView() != null) {
+      getRecyclerView().removeOnScrollListener(mScrollListener);
+    }
   }
 
   @Override
@@ -229,10 +296,13 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
     if (placeholder == null)
       return;
 
-    if (mAdapter != null && mAdapter.isSearchResultsMode())
+    if (mAdapter != null && mAdapter.isSearchResultsMode()){
       placeholder.setContent(R.string.search_not_found, R.string.search_not_found_query);
-    else
+      hideFab();
+    }else{
       placeholder.setContent(R.string.downloader_no_downloaded_maps_title, R.string.downloader_no_downloaded_maps_message);
+      showFab();
+    }
   }
 
   @Override
