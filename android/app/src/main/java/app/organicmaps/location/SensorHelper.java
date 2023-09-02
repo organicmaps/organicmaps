@@ -6,27 +6,42 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.UiThread;
 
 import app.organicmaps.MwmApplication;
-import app.organicmaps.R;
+import app.organicmaps.util.LocationUtils;
+import app.organicmaps.util.log.Logger;
 
-class SensorHelper implements SensorEventListener
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+public class SensorHelper implements SensorEventListener
 {
+  private static final String TAG = SensorHelper.class.getSimpleName();
+
   @NonNull
   private final SensorManager mSensorManager;
   @Nullable
-  private final Sensor mRotationVectorSensor;
-  @NonNull
-  private final MwmApplication mMwmApplication;
+  private Sensor mRotationVectorSensor;
 
   private final float[] mRotationMatrix = new float[9];
   private final float[] mRotationValues = new float[3];
   // Initialized with purposely invalid value.
   private int mLastAccuracy = -42;
+  private double mSavedNorth = Double.NaN;
+  private int mRotation = 0;
+
+  @NonNull
+  private final Set<SensorListener> mListeners = new LinkedHashSet<>();
+
+  @NonNull
+  public static SensorHelper from(@NonNull Context context)
+  {
+    return MwmApplication.from(context).getSensorHelper();
+  }
 
   @Override
   public void onSensorChanged(SensorEvent event)
@@ -43,16 +58,14 @@ class SensorHelper implements SensorEventListener
         case SensorManager.SENSOR_STATUS_ACCURACY_HIGH:
           break;
         case SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM:
-          Toast.makeText(mMwmApplication,
-                         mMwmApplication.getString(R.string.compass_calibration_recommended),
-                         Toast.LENGTH_LONG).show();
+          for (SensorListener listener : mListeners)
+            listener.onCompassCalibrationRecommended();
           break;
         case SensorManager.SENSOR_STATUS_ACCURACY_LOW:
         case SensorManager.SENSOR_STATUS_UNRELIABLE:
         default:
-          Toast.makeText(mMwmApplication,
-                         mMwmApplication.getString(R.string.compass_calibration_required),
-                         Toast.LENGTH_LONG).show();
+          for (SensorListener listener : mListeners)
+            listener.onCompassCalibrationRequired();
       }
     }
 
@@ -63,7 +76,9 @@ class SensorHelper implements SensorEventListener
     SensorManager.getOrientation(mRotationMatrix, mRotationValues);
 
     // mRotationValues indexes: 0 - yaw (azimuth), 1 - pitch, 2 - roll.
-    LocationHelper.INSTANCE.notifyCompassUpdated(mRotationValues[0]);
+    mSavedNorth = LocationUtils.correctCompassAngle(mRotation, mRotationValues[0]);
+    for (SensorListener listener : mListeners)
+      listener.onCompassUpdated(mSavedNorth);
   }
 
   @Override
@@ -75,31 +90,79 @@ class SensorHelper implements SensorEventListener
     // Looks like modern Androids can send this event after starting the sensor.
   }
 
-  SensorHelper(@NonNull Context context)
+  public SensorHelper(@NonNull Context context)
   {
-    mMwmApplication = MwmApplication.from(context);
-    mSensorManager = (SensorManager) mMwmApplication.getSystemService(Context.SENSOR_SERVICE);
-    Sensor sensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
-    if (sensor == null)
+    mSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+  }
+
+  public double getSavedNorth()
+  {
+    return mSavedNorth;
+  }
+
+  public void setRotation(int rotation)
+  {
+    Logger.i(TAG, "rotation = " + rotation);
+    mRotation = rotation;
+  }
+
+  /**
+   * Registers listener to obtain compass updates.
+   * @param listener listener to be registered.
+   */
+  @UiThread
+  public void addListener(@NonNull SensorListener listener)
+  {
+    Logger.d(TAG, "listener: " + listener + " count was: " + mListeners.size());
+
+    mListeners.add(listener);
+    if (!Double.isNaN(mSavedNorth))
+      listener.onCompassUpdated(mSavedNorth);
+  }
+
+  /**
+   * Removes given compass listener.
+   * @param listener listener to unregister.
+   */
+  @UiThread
+  public void removeListener(@NonNull SensorListener listener)
+  {
+    Logger.d(TAG, "listener: " + listener + " count was: " + mListeners.size());
+    mListeners.remove(listener);
+  }
+
+  public void start()
+  {
+    if (mRotationVectorSensor != null)
     {
-      Log.w("SensorHelper", "WARNING: There is no ROTATION_VECTOR sensor, requesting GEOMAGNETIC_ROTATION_VECTOR");
-      sensor = mSensorManager.getDefaultSensor(Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR);
-      if (sensor == null)
-        Log.w("SensorHelper", "WARNING: There is no GEOMAGNETIC_ROTATION_VECTOR sensor, device orientation can not be calculated");
+      Logger.d(TAG, "Already started");
+      return;
     }
-    // Can be null in rare cases on devices without magnetic sensors.
-    mRotationVectorSensor = sensor;
+
+    mRotationVectorSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+    if (mRotationVectorSensor == null)
+    {
+      Logger.w(TAG, "There is no ROTATION_VECTOR sensor, requesting GEOMAGNETIC_ROTATION_VECTOR");
+      mRotationVectorSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR);
+      if (mRotationVectorSensor == null)
+      {
+        // Can be null in rare cases on devices without magnetic sensors.
+        Logger.w(TAG, "There is no GEOMAGNETIC_ROTATION_VECTOR sensor, device orientation can not be calculated");
+        return;
+      }
+    }
+
+    Logger.d(TAG);
+    mSensorManager.registerListener(this, mRotationVectorSensor, SensorManager.SENSOR_DELAY_UI);
   }
 
-  void start()
+  public void stop()
   {
-    if (mRotationVectorSensor != null)
-      mSensorManager.registerListener(this, mRotationVectorSensor, SensorManager.SENSOR_DELAY_UI);
-  }
+    if (mRotationVectorSensor == null)
+      return;
+    Logger.d(TAG);
 
-  void stop()
-  {
-    if (mRotationVectorSensor != null)
-      mSensorManager.unregisterListener(this);
+    mSensorManager.unregisterListener(this);
+    mRotationVectorSensor = null;
   }
 }

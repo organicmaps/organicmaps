@@ -23,6 +23,7 @@ import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.downloader.CountryItem;
 import app.organicmaps.downloader.MapManager;
 import app.organicmaps.location.LocationHelper;
+import app.organicmaps.location.SensorHelper;
 import app.organicmaps.maplayer.isolines.IsolinesManager;
 import app.organicmaps.maplayer.subway.SubwayManager;
 import app.organicmaps.maplayer.traffic.TrafficManager;
@@ -59,6 +60,10 @@ public class MwmApplication extends Application implements Application.ActivityL
   @NonNull
   private IsolinesManager mIsolinesManager;
 
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private SensorHelper mSensorHelper;
+
   private volatile boolean mFrameworkInitialized;
   private volatile boolean mPlatformInitialized;
 
@@ -88,6 +93,12 @@ public class MwmApplication extends Application implements Application.ActivityL
   public IsolinesManager getIsolinesManager()
   {
     return mIsolinesManager;
+  }
+
+  @NonNull
+  public SensorHelper getSensorHelper()
+  {
+    return mSensorHelper;
   }
 
   public MwmApplication()
@@ -131,6 +142,7 @@ public class MwmApplication extends Application implements Application.ActivityL
     registerActivityLifecycleCallbacks(this);
     mSubwayManager = new SubwayManager(this);
     mIsolinesManager = new IsolinesManager(this);
+    mSensorHelper = new SensorHelper(this);
 
     mPlayer = new MediaPlayerWrapper(this);
   }
@@ -294,7 +306,7 @@ public class MwmApplication extends Application implements Application.ActivityL
   {
     Logger.d(TAG, "activity = " + activity);
     Utils.showOnLockScreen(Config.isShowOnLockScreenEnabled(), activity);
-    LocationHelper.INSTANCE.setRotation(activity.getWindowManager().getDefaultDisplay().getRotation());
+    mSensorHelper.setRotation(activity.getWindowManager().getDefaultDisplay().getRotation());
     mTopActivity = new WeakReference<>(activity);
   }
 
