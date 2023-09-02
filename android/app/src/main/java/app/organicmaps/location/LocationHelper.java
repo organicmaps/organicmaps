@@ -3,7 +3,6 @@ package app.organicmaps.location;
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
-import static app.organicmaps.location.LocationState.LOCATION_TAG;
 
 import android.app.PendingIntent;
 import android.content.Context;
@@ -14,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
 import androidx.annotation.UiThread;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import app.organicmaps.Framework;
@@ -54,11 +52,7 @@ public enum LocationHelper implements Initializable<Context>, BaseLocationProvid
   private final Set<LocationListener> mListeners = new LinkedHashSet<>();
   @Nullable
   private Location mSavedLocation;
-  private double mSavedNorth = Double.NaN;
   private MapObject mMyPosition;
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
-  private SensorHelper mSensorHelper;
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private BaseLocationProvider mLocationProvider;
@@ -66,13 +60,10 @@ public enum LocationHelper implements Initializable<Context>, BaseLocationProvid
   private boolean mInFirstRun;
   private boolean mActive;
 
-  private int mRotation = 0;
-
   @Override
   public void initialize(@NonNull Context context)
   {
     mContext = context;
-    mSensorHelper = new SensorHelper(context);
     mLocationProvider = LocationProviderFactory.getProvider(mContext, this);
   }
 
@@ -117,19 +108,6 @@ public enum LocationHelper implements Initializable<Context>, BaseLocationProvid
   public boolean isActive()
   {
     return mActive;
-  }
-
-  public void setRotation(int rotation)
-  {
-    Logger.i(TAG, "rotation = " + rotation);
-    mRotation = rotation;
-  }
-
-  void notifyCompassUpdated(double north)
-  {
-    mSavedNorth = LocationUtils.correctCompassAngle(mRotation, north);
-    for (LocationListener listener : mListeners)
-      listener.onCompassUpdated(mSavedNorth);
   }
 
   private void notifyLocationUpdated()
@@ -243,8 +221,6 @@ public enum LocationHelper implements Initializable<Context>, BaseLocationProvid
     mListeners.add(listener);
     if (mSavedLocation != null)
       listener.onLocationUpdated(mSavedLocation);
-    if (!Double.isNaN(mSavedNorth))
-      listener.onCompassUpdated(mSavedNorth);
   }
 
   /**
@@ -345,7 +321,9 @@ public enum LocationHelper implements Initializable<Context>, BaseLocationProvid
     Logger.i(TAG);
     checkForAgpsUpdates();
 
-    mSensorHelper.start();
+    if (ContextCompat.checkSelfPermission(mContext, ACCESS_FINE_LOCATION) == PERMISSION_GRANTED)
+      SensorHelper.from(mContext).start();
+
     final long oldInterval = mInterval;
     calcLocationUpdatesInterval();
     Logger.i(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() +
@@ -367,7 +345,7 @@ public enum LocationHelper implements Initializable<Context>, BaseLocationProvid
 
     Logger.i(TAG);
     mLocationProvider.stop();
-    mSensorHelper.stop();
+    SensorHelper.from(mContext).stop();
     mActive = false;
   }
 
@@ -443,10 +421,5 @@ public enum LocationHelper implements Initializable<Context>, BaseLocationProvid
       Logger.d(TAG, "Current location is available, so play the nice zoom animation");
       Framework.nativeRunFirstLaunchAnimation();
     }
-  }
-
-  public double getSavedNorth()
-  {
-    return mSavedNorth;
   }
 }

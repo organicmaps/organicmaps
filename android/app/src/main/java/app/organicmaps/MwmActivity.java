@@ -16,6 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
@@ -63,6 +64,8 @@ import app.organicmaps.intent.MapTask;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.location.LocationState;
+import app.organicmaps.location.SensorHelper;
+import app.organicmaps.location.SensorListener;
 import app.organicmaps.maplayer.MapButtonsController;
 import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.maplayer.Mode;
@@ -121,6 +124,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                CustomNavigateUpListener,
                RoutingController.Container,
                LocationListener,
+    SensorListener,
                LocationState.ModeChangeListener,
                RoutingPlanInplaceController.RoutingPlanListener,
                RoutingBottomMenuListener,
@@ -1011,6 +1015,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     refreshLightStatusBar();
 
     LocationState.nativeSetLocationPendingTimeoutListener(this::onLocationPendingTimeout);
+    SensorHelper.from(this).addListener(this);
   }
 
   @Override
@@ -1038,6 +1043,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mOnmapDownloader.onPause();
     mNavigationController.onActivityPaused(this);
     LocationState.nativeRemoveLocationPendingTimeoutListener();
+    SensorHelper.from(this).removeListener(this);
     dismissLocationErrorDialog();
     dismissAlertDialog();
     super.onPause();
@@ -1229,7 +1235,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mMapFragment.updateCompassOffset(offsetX, offsetY);
 
-    final double north = LocationHelper.INSTANCE.getSavedNorth();
+    final double north = SensorHelper.from(this).getSavedNorth();
     if (!Double.isNaN(north))
       Map.onCompassUpdated(north, true);
   }
@@ -1737,6 +1743,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     Map.onCompassUpdated(north, false);
     mNavigationController.updateNorth();
+  }
+
+  @Override
+  @UiThread
+  public void onCompassCalibrationRecommended()
+  {
+    Toast.makeText(this, getString(R.string.compass_calibration_recommended),
+        Toast.LENGTH_LONG).show();
+  }
+
+  @Override
+  @UiThread
+  public void onCompassCalibrationRequired()
+  {
+    Toast.makeText(this, getString(R.string.compass_calibration_required),
+        Toast.LENGTH_LONG).show();
   }
 
   /**

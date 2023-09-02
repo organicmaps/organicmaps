@@ -36,6 +36,8 @@ import app.organicmaps.downloader.MapManager;
 import app.organicmaps.editor.Editor;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
+import app.organicmaps.location.SensorHelper;
+import app.organicmaps.location.SensorListener;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.StringUtils;
@@ -52,7 +54,6 @@ import com.google.android.material.button.MaterialButton;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -60,6 +61,7 @@ import static android.view.View.VISIBLE;
 public class PlacePageView extends Fragment implements View.OnClickListener,
                                                        View.OnLongClickListener,
                                                        LocationListener,
+                                                       SensorListener,
                                                        Observer<MapObject>
 
 {
@@ -257,6 +259,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     super.onStart();
     mViewModel.getMapObject().observe(requireActivity(), this);
     LocationHelper.INSTANCE.addListener(this);
+    SensorHelper.from(requireContext()).addListener(this);
   }
 
   @Override
@@ -265,6 +268,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     super.onStop();
     mViewModel.getMapObject().removeObserver(this);
     LocationHelper.INSTANCE.removeListener(this);
+    SensorHelper.from(requireContext()).removeListener(this);
     detachCountry();
   }
 

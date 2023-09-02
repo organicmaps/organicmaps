@@ -9,11 +9,6 @@ public interface LocationListener
 {
   void onLocationUpdated(@NonNull Location location);
 
-  default void onCompassUpdated(double north)
-  {
-    // No op.
-  }
-
   default void onLocationDisabled()
   {
     // No op.

@@ -18,12 +18,14 @@ import app.organicmaps.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
+import app.organicmaps.location.SensorHelper;
+import app.organicmaps.location.SensorListener;
 import app.organicmaps.widget.ArrowView;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 
 public class DirectionFragment extends BaseMwmDialogFragment
-                            implements LocationListener
+                            implements LocationListener, SensorListener
 {
   private static final String EXTRA_MAP_OBJECT = "MapObject";
 
@@ -101,6 +103,7 @@ public class DirectionFragment extends BaseMwmDialogFragment
   {
     super.onResume();
     LocationHelper.INSTANCE.addListener(this);
+    SensorHelper.from(requireContext()).addListener(this);
     refreshViews();
   }
 
@@ -109,6 +112,7 @@ public class DirectionFragment extends BaseMwmDialogFragment
   {
     super.onPause();
     LocationHelper.INSTANCE.removeListener(this);
+    SensorHelper.from(requireContext()).removeListener(this);
   }
 
   @Override
