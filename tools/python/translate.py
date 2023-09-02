@@ -22,6 +22,7 @@ GOOGLE_TARGET_LANGUAGES = [
   'eu',
   'fa',
   'he',
+  'hi',
   'mr',
   'sw',
   'th',
@@ -74,8 +75,8 @@ def get_api_key():
     exit(1)
   return key
 
-def google_translate(text):
-  fromTo = 'en:'
+def google_translate(text, source_language):
+  fromTo = source_language.lower() + ':'
   for lang in GOOGLE_TARGET_LANGUAGES:
     fromTo += lang + '+'
   # Remove last +
@@ -98,24 +99,25 @@ def google_translate(text):
     print(lang + ' = ' + line)
   return translations
 
-def deepl_translate_one(text, target_language):
+def deepl_translate_one(text, source_language, target_language):
   url = 'https://api-free.deepl.com/v2/translate'
   payload = {
       'auth_key': get_api_key(),
       'text': text,
-      'source_lang': 'EN',
+      'source_lang': source_language.lower(),
       'target_lang': target_language,
       'formality': 'prefer_less',
   }
   headers = {'Content-Type': 'application/x-www-form-urlencoded'}
   response = requests.request('POST', url, headers=headers, data=payload)
-  return response.json()['translations'][0]['text']
+  json = response.json()
+  return json['translations'][0]['text']
 
-def deepl_translate(text):
+def deepl_translate(text, source_language):
   translations = {}
   print('Deepl translations:')
   for lang in DEEPL_TARGET_LANGUAGES:
-    translation = deepl_translate_one(text, lang)
+    translation = deepl_translate_one(text, source_language, lang)
     if lang == 'pt-PT':
       lang = 'pt'
     elif lang == 'zh':
@@ -128,6 +130,8 @@ def deepl_translate(text):
 
 def usage():
   print('Usage:', sys.argv[0], 'Some English text to translate')
+  print('For a custom source language add a two-letter code with a colon in the beginning:')
+  print('      ', sys.argv[0], 'de:Some German text to translate')
   if shutil.which(TRANS_CMD) == None:
     print(TRANS_CMD, ' program for Google Translate is not installed.')
     if platform.system() == 'Darwin':
@@ -149,8 +153,13 @@ if __name__ == '__main__':
 
   text_to_translate = ' '.join(sys.argv[1:])
 
-  translations = deepl_translate(text_to_translate)
-  google_translations = google_translate(text_to_translate)
+  source_language = 'en'
+  if len(text_to_translate) > 3 and text_to_translate[2] == ':':
+    source_language = text_to_translate[0:2]
+    text_to_translate = text_to_translate[3:].lstrip()
+
+  translations = deepl_translate(text_to_translate, source_language)
+  google_translations = google_translate(text_to_translate, source_language)
   translations.update(google_translations)
   # Remove duplicates for regional variations.
   for regional in ['en-GB', 'es-MX', 'pt-BR']:
@@ -163,12 +172,12 @@ if __name__ == '__main__':
   langs = list(translations.keys())
   langs.sort()
 
-  print('============ strings.txt format ============')
-  print('    en =', en)
-  for lang in langs:
-    print('   ', lang, '=', translations[lang])
-
   print('============ categories.txt format ============')
   print('en:' + en)
   for lang in langs:
     print(lang + ':' + translations[lang])
+
+  print('============ strings.txt format ============')
+  print('    en =', en)
+  for lang in langs:
+    print('   ', lang, '=', translations[lang])

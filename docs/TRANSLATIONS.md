@@ -64,8 +64,10 @@ Requires Python version >= 3.7.
 
 ```bash
 export DEEPL_FREE_API_KEY=<your DeepL API key here>
-# Generates translations in both categories.txt and strings.txt formats at the same time.
+# Generates translations in both categories.txt and strings.txt formats at the same time:
 tools/python/translate.py English text to translate here
+# Use two-letter language codes with a colon for a non-English source language:
+tools/python/translate.py de:German text to translate here
 ```
 
 ### Google Translate only
