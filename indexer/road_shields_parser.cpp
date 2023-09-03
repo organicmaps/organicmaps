@@ -44,7 +44,8 @@ std::unordered_map<std::string, RoadShieldType> const kRoadNetworkShields = {
     {"bg:national", RoadShieldType::Generic_Green},
     {"bg:regional", RoadShieldType::Generic_Blue},
     {"by:national", RoadShieldType::Generic_Red},
-    {"by:regional", RoadShieldType::Generic_Red},
+    // https://github.com/organicmaps/organicmaps/issues/3083
+    //{"by:regional", RoadShieldType::Generic_Red},
     {"co:national", RoadShieldType::Generic_White},
     {"cz:national", RoadShieldType::Generic_Red},
     {"cz:regional", RoadShieldType::Generic_Blue},
@@ -589,9 +590,7 @@ RoadShieldsSetT GetRoadShields(FeatureType & f)
 
   // Find out country name.
   std::string mwmName = f.GetID().GetMwmName();
-
-  ASSERT_NOT_EQUAL(mwmName, FeatureID::kInvalidFileName,
-                   ("Use GetRoadShields(rawRoadNumber) for unknown mwms."));
+  ASSERT_NOT_EQUAL(mwmName, FeatureID::kInvalidFileName, (f.GetID()));
 
   auto const underlinePos = mwmName.find('_');
   if (underlinePos != std::string::npos)
