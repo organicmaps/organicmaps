@@ -849,7 +849,9 @@
 	<string name="type.barrier.bollard">Stâlp</string>
 	<string name="type.barrier.border_control">Control vamal</string>
 	<string name="type.barrier.city_wall">Zidurile orașului</string>
-	<string name="type.barrier.ditch">Şanţ</string>
+	<string name="type.waterway.ditch">Șanț de drenaj</string>
+	<string name="type.natural.water.moat">Şanţ</string>
+	<string name="type.natural.water.wastewater">Ape uzate</string>
 	<string name="type.barrier.entrance">Intrare</string>
 	<string name="type.barrier.gate">Poartă</string>
 	<string name="type.barrier.kissing_gate">Poartă</string>
@@ -1775,6 +1777,9 @@
 	<string name="type.tourism.wilderness_hut">Cabană în pădure</string>
 	<string name="type.tourism.zoo">Grădină zoologică</string>
 	<string name="type.waterway.fish_pass">Scară de pește</string>
+	<string name="type.natural.water.ditch">Șanț de drenaj</string>
+	<string name="type.waterway.ditch.tunnel">Canal de scurgere</string>
+	<string name="type.waterway.drain.tunnel">Canal de scurgere</string>
 	<string name="type.waterway.lock_gate">Ecluză</string>
 	<string name="type.waterway.river">Râu</string>
 	<string name="type.waterway.river.tunnel">Râu</string>

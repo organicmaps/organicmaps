@@ -832,7 +832,9 @@
 	<string name="type.barrier.bollard">Πυλώνας</string>
 	<string name="type.barrier.border_control">Έλεγχος συνόρων</string>
 	<string name="type.barrier.city_wall">Τείχος της πόλης</string>
-	<string name="type.barrier.ditch">Τάφρος</string>
+	<string name="type.waterway.ditch">Αποστραγγιστική Τάφρο</string>
+	<string name="type.natural.water.moat">Τάφρος</string>
+	<string name="type.natural.water.wastewater">Λυμάτων</string>
 	<string name="type.barrier.entrance">Είσοδος</string>
 	<string name="type.barrier.gate">Πύλη</string>
 	<string name="type.barrier.kissing_gate">Πύλη</string>
@@ -1770,6 +1772,9 @@
 	<string name="type.waterway.canal">Κανάλι</string>
 	<string name="type.waterway.canal.tunnel">Κανάλι</string>
 	<string name="type.waterway.fish_pass">Σκάλα ψαριών</string>
+	<string name="type.natural.water.ditch">Αποστραγγιστική Τάφρο</string>
+	<string name="type.waterway.ditch.tunnel">Υπόγειος οχετός</string>
+	<string name="type.waterway.drain.tunnel">Υπόγειος οχετός</string>
 	<string name="type.waterway.lock_gate">Φράγμα</string>
 	<string name="type.waterway.river">Ποταμός</string>
 	<string name="type.waterway.river.tunnel">Ποταμός</string>

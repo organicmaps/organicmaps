@@ -1596,7 +1596,11 @@
 
 "type.barrier.cycle_barrier" = "Bisiklet Bariyeri";
 
-"type.barrier.ditch" = "Hendek";
+"type.waterway.ditch" = "Drenaj çukuru";
+
+"type.natural.water.moat" = "Hendek";
+
+"type.natural.water.wastewater" = "Atık su";
 
 "type.barrier.entrance" = "Giriş";
 
@@ -3729,15 +3733,19 @@
 
 "type.waterway.dam" = "Baraj";
 
-"type.waterway.ditch" = "Hendek";
+"type.barrier.ditch" = "Hendek";
 
-"type.waterway.ditch.tunnel" = "Hendek";
+"type.natural.water.ditch" = "Drenaj çukuru";
+
+"type.waterway.ditch.tunnel" = "Menfez";
 
 "type.waterway.dock" = "Rıhtım";
 
 "type.waterway.drain" = "Lağım";
 
-"type.waterway.drain.tunnel" = "Hendek";
+"type.natural.water.drain" = "Lağım";
+
+"type.waterway.drain.tunnel" = "Menfez";
 
 "type.waterway.lock_gate" = "Eklüz Kapağı";
 

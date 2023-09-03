@@ -1596,7 +1596,11 @@
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
-"type.barrier.ditch" = "Moat";
+"type.waterway.ditch" = "Sèquia de drenatge";
+
+"type.natural.water.moat" = "Moat";
+
+"type.natural.water.wastewater" = "Aigües residuals";
 
 "type.barrier.entrance" = "Entrance";
 
@@ -3729,15 +3733,19 @@
 
 "type.waterway.dam" = "Dam";
 
-"type.waterway.ditch" = "Ditch";
+"type.barrier.ditch" = "Ditch";
 
-"type.waterway.ditch.tunnel" = "Ditch";
+"type.natural.water.ditch" = "Sèquia de drenatge";
+
+"type.waterway.ditch.tunnel" = "Embaixada";
 
 "type.waterway.dock" = "Waterway Dock";
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Ditch";
+"type.natural.water.drain" = "Drain";
+
+"type.waterway.drain.tunnel" = "Embaixada";
 
 "type.waterway.lock_gate" = "Lock Gate";
 

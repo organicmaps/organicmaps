@@ -1596,7 +1596,11 @@
 
 "type.barrier.cycle_barrier" = "バリカー";
 
-"type.barrier.ditch" = "堀";
+"type.waterway.ditch" = "排水溝";
+
+"type.natural.water.moat" = "堀";
+
+"type.natural.water.wastewater" = "廃水";
 
 "type.barrier.entrance" = "エントランス";
 
@@ -3729,13 +3733,17 @@
 
 "type.waterway.dam" = "ダム";
 
-"type.waterway.ditch" = "排水路";
+"type.barrier.ditch" = "排水路";
+
+"type.natural.water.ditch" = "排水溝";
 
 "type.waterway.ditch.tunnel" = "暗渠";
 
 "type.waterway.dock" = "ドック";
 
 "type.waterway.drain" = "用水路";
+
+"type.natural.water.drain" = "用水路";
 
 "type.waterway.drain.tunnel" = "暗渠";
 

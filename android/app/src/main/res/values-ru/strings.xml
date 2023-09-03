@@ -928,7 +928,9 @@
 	<string name="type.barrier.chain">Цепь</string>
 	<string name="type.barrier.city_wall">Городская стена</string>
 	<string name="type.barrier.cycle_barrier">Велосипедный барьер</string>
-	<string name="type.barrier.ditch">Ров</string>
+	<string name="type.waterway.ditch">Дренажная канава</string>
+	<string name="type.natural.water.moat">Оборонительный ров</string>
+	<string name="type.natural.water.wastewater">Сточные воды</string>
 	<string name="type.barrier.entrance">Проход</string>
 	<string name="type.barrier.fence">Забор</string>
 	<string name="type.barrier.gate">Ворота</string>
@@ -2006,10 +2008,12 @@
 	<string name="type.waterway.canal.tunnel">Канал</string>
 	<string name="type.waterway.fish_pass">Рыбоход</string>
 	<string name="type.waterway.dam">Дамба</string>
-	<string name="type.waterway.ditch">Канава</string>
+	<string name="type.barrier.ditch">Ров</string>
+	<string name="type.natural.water.ditch">Дренажная канава</string>
 	<string name="type.waterway.ditch.tunnel">Водопропускная труба</string>
 	<string name="type.waterway.dock">Причал</string>
 	<string name="type.waterway.drain">Водоотвод</string>
+	<string name="type.natural.water.drain">Водоотвод</string>
 	<string name="type.waterway.drain.tunnel">Водопропускная труба</string>
 	<string name="type.waterway.lock_gate">Шлюз</string>
 	<string name="type.waterway.river">Река</string>

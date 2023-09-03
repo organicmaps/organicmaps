@@ -902,7 +902,9 @@
 	<string name="type.barrier.chain">Kett</string>
 	<string name="type.barrier.city_wall">Linnamüür</string>
 	<string name="type.barrier.cycle_barrier">Jalgrattabarjäär</string>
-	<string name="type.barrier.ditch">Vallikraav</string>
+	<string name="type.waterway.ditch">Drenaažikraav</string>
+	<string name="type.natural.water.moat">Vallikraav</string>
+	<string name="type.natural.water.wastewater">Reovesi</string>
 	<string name="type.barrier.entrance">Sissepääs</string>
 	<string name="type.barrier.fence">Tara</string>
 	<string name="type.barrier.gate">Värav</string>
@@ -1976,11 +1978,13 @@
 	<string name="type.waterway.canal.tunnel">Kanal</string>
 	<string name="type.waterway.fish_pass">Kala redel</string>
 	<string name="type.waterway.dam">Tamm</string>
-	<string name="type.waterway.ditch">Kraav</string>
-	<string name="type.waterway.ditch.tunnel">Truup</string>
+	<string name="type.barrier.ditch">Kraav</string>
+	<string name="type.natural.water.ditch">Drenaažikraav</string>
+	<string name="type.waterway.ditch.tunnel">Truupp</string>
 	<string name="type.waterway.dock">Veetee dokk</string>
 	<string name="type.waterway.drain">Kuivenduskraav</string>
-	<string name="type.waterway.drain.tunnel">Truup</string>
+	<string name="type.natural.water.drain">Kuivenduskraav</string>
+	<string name="type.waterway.drain.tunnel">Truupp</string>
 	<string name="type.waterway.lock_gate">Lüüsi värav</string>
 	<string name="type.waterway.river">Jõgi</string>
 	<string name="type.waterway.river.tunnel">Jõgi</string>

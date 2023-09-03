@@ -1592,11 +1592,15 @@
 
 "type.barrier.chain" = "Cadena";
 
-"type.barrier.city_wall" = "Muro de la ciudad";
+"type.barrier.city_wall" = "City Wall";
 
 "type.barrier.cycle_barrier" = "Barrera para bicicletas";
 
-"type.barrier.ditch" = "Foso";
+"type.waterway.ditch" = "Zanja de drenaje";
+
+"type.natural.water.moat" = "Foso";
+
+"type.natural.water.wastewater" = "Aguas residuales";
 
 "type.barrier.entrance" = "Entrada";
 
@@ -1997,15 +2001,15 @@
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Puente";
 
-"type.highway.footway.demanding_alpine_hiking" = "Camino";
+"type.highway.footway.demanding_alpine_hiking" = "Path";
 
-"type.highway.footway.demanding_mountain_hiking" = "Camino";
+"type.highway.footway.demanding_mountain_hiking" = "Path";
 
-"type.highway.footway.difficult_alpine_hiking" = "Camino";
+"type.highway.footway.difficult_alpine_hiking" = "Path";
 
 "type.highway.footway.hiking" = "Sendero";
 
-"type.highway.footway.mountain_hiking" = "Camino";
+"type.highway.footway.mountain_hiking" = "Path";
 
 "type.highway.footway.permissive" = "Camino";
 
@@ -3729,15 +3733,19 @@
 
 "type.waterway.dam" = "Presa";
 
-"type.waterway.ditch" = "Zanja";
+"type.barrier.ditch" = "Zanja";
 
-"type.waterway.ditch.tunnel" = "Zanja";
+"type.natural.water.ditch" = "Zanja de drenaje";
+
+"type.waterway.ditch.tunnel" = "Obra de drenaje";
 
 "type.waterway.dock" = "Muelle";
 
 "type.waterway.drain" = "Desagüe";
 
-"type.waterway.drain.tunnel" = "Zanja";
+"type.natural.water.drain" = "Desagüe";
+
+"type.waterway.drain.tunnel" = "Obra de drenaje";
 
 "type.waterway.lock_gate" = "Compuerta";
 

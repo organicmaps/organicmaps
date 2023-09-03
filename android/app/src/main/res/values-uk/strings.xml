@@ -903,7 +903,9 @@
 	<string name="type.barrier.chain">Ланцюг</string>
 	<string name="type.barrier.city_wall">Міська стіна</string>
 	<string name="type.barrier.cycle_barrier">Велосипедна перешкода</string>
-	<string name="type.barrier.ditch">Рів</string>
+	<string name="type.waterway.ditch">Дренажна канава</string>
+	<string name="type.natural.water.moat">Рів</string>
+	<string name="type.natural.water.wastewater">Стічні води</string>
 	<string name="type.barrier.entrance">Прохід</string>
 	<string name="type.barrier.fence">Огорожа</string>
 	<string name="type.barrier.gate">Ворота</string>
@@ -1968,10 +1970,12 @@
 	<string name="type.waterway.canal.tunnel">Канал</string>
 	<string name="type.waterway.fish_pass">Рибохід</string>
 	<string name="type.waterway.dam">Дамба</string>
-	<string name="type.waterway.ditch">Канава</string>
+	<string name="type.barrier.ditch">Канава</string>
+	<string name="type.natural.water.ditch">Дренажна канава</string>
 	<string name="type.waterway.ditch.tunnel">Водопропускна труба</string>
 	<string name="type.waterway.dock">Причал</string>
 	<string name="type.waterway.drain">Водовiдвiд</string>
+	<string name="type.natural.water.drain">Водовiдвiд</string>
 	<string name="type.waterway.drain.tunnel">Водопропускна труба</string>
 	<string name="type.waterway.lock_gate">Шлюз</string>
 	<string name="type.waterway.river">Річка</string>

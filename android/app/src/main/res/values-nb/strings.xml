@@ -881,7 +881,9 @@
 	<string name="type.barrier.bollard">Pullert</string>
 	<string name="type.barrier.border_control">Grensekontroll</string>
 	<string name="type.barrier.city_wall">Bymur</string>
-	<string name="type.barrier.ditch">Vollgrav</string>
+	<string name="type.waterway.ditch">Dreneringsgrøft</string>
+	<string name="type.natural.water.moat">Vollgrav</string>
+	<string name="type.natural.water.wastewater">Avløpsvann</string>
 	<string name="type.barrier.entrance">Inngangspassasje</string>
 	<string name="type.barrier.fence">Gjerde</string>
 	<string name="type.barrier.gate">Port</string>
@@ -1824,6 +1826,9 @@
 	<string name="type.waterway.canal">Kanal</string>
 	<string name="type.waterway.canal.tunnel">Kanal</string>
 	<string name="type.waterway.fish_pass">Fiskestige</string>
+	<string name="type.natural.water.ditch">Dreneringsgrøft</string>
+	<string name="type.waterway.ditch.tunnel">Kulvert</string>
+	<string name="type.waterway.drain.tunnel">Kulvert</string>
 	<string name="type.waterway.lock_gate">Sluseport</string>
 	<string name="type.waterway.river">Elv</string>
 	<string name="type.waterway.river.tunnel">Elv</string>

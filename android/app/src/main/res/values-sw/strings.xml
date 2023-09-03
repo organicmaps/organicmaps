@@ -289,7 +289,9 @@
 	<string name="type.amenity.stripclub">Klabu ya Strip</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Mashine ya kuuzia tiketi za usafiri wa umma</string>
 	<string name="type.barrier.city_wall">Ukuta wa jiji</string>
-	<string name="type.barrier.ditch">Moti</string>
+	<string name="type.waterway.ditch">Mfereji wa mifereji ya maji</string>
+	<string name="type.natural.water.moat">Moti</string>
+	<string name="type.natural.water.wastewater">Maji machafu</string>
 	<string name="type.barrier.turnstile">Turnstile</string>
 	<string name="type.boundary.national_park">Hifadhi ya taifa</string>
 	<string name="type.boundary.protected_area">Eneo Lindwa</string>
@@ -798,6 +800,9 @@
 	<string name="type.tourism.information.map">Ramani ya Watalii</string>
 	<string name="type.tourism.information.office">Ofisi ya watalii</string>
 	<string name="type.waterway.fish_pass">Ngazi ya samaki</string>
+	<string name="type.natural.water.ditch">Mfereji wa mifereji ya maji</string>
+	<string name="type.waterway.ditch.tunnel">Culvert</string>
+	<string name="type.waterway.drain.tunnel">Culvert</string>
 	<string name="type.wheelchair.limited">Viti vya magurudumu vinaruhusiwa vichache</string>
 	<string name="type.wheelchair.no">Viti vya magurudumu haviruhusiwi</string>
 	<string name="type.wheelchair.yes">Viti vya magurudumu vinaruhusiwa kabisa</string>

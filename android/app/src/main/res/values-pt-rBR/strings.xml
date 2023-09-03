@@ -868,6 +868,8 @@
 	<string name="type.barrier.border_control">Controle de fronteira</string>
 	<string name="type.barrier.city_wall">Muro da cidade</string>
 	<string name="type.barrier.cycle_barrier">Barreira de bicicletas</string>
+	<string name="type.waterway.ditch">Vala de drenagem</string>
+	<string name="type.natural.water.wastewater">Águas residuais</string>
 	<string name="type.barrier.entrance">Entrada</string>
 	<string name="type.barrier.fence">Cerca</string>
 	<string name="type.barrier.gate">Portão</string>
@@ -1770,11 +1772,13 @@
 	<string name="type.waterway.canal.tunnel">Canal</string>
 	<string name="type.waterway.fish_pass">Escada de peixes</string>
 	<string name="type.waterway.dam">Usina</string>
-	<string name="type.waterway.ditch">Vala</string>
-	<string name="type.waterway.ditch.tunnel">Vala</string>
+	<string name="type.barrier.ditch">Vala</string>
+	<string name="type.natural.water.ditch">Vala de drenagem</string>
+	<string name="type.waterway.ditch.tunnel">Bueiro</string>
 	<string name="type.waterway.dock">Doca</string>
 	<string name="type.waterway.drain">Valeta de drenagem</string>
-	<string name="type.waterway.drain.tunnel">Vala</string>
+	<string name="type.natural.water.drain">Valeta de drenagem</string>
+	<string name="type.waterway.drain.tunnel">Bueiro</string>
 	<string name="type.waterway.lock_gate">Comporta de eclusa</string>
 	<string name="type.waterway.river">Rio</string>
 	<string name="type.waterway.river.tunnel">Rio</string>

@@ -896,7 +896,9 @@
 	<string name="type.barrier.chain">Catena</string>
 	<string name="type.barrier.city_wall">Muro della città</string>
 	<string name="type.barrier.cycle_barrier">Barriera per biciclette</string>
-	<string name="type.barrier.ditch">Fossato</string>
+	<string name="type.waterway.ditch">Fossato di drenaggio</string>
+	<string name="type.natural.water.moat">Fossato</string>
+	<string name="type.natural.water.wastewater">Acque reflue</string>
 	<string name="type.barrier.entrance">Ingresso</string>
 	<string name="type.barrier.fence">Steccato</string>
 	<string name="type.barrier.gate">Cancello</string>
@@ -1927,10 +1929,12 @@
 	<string name="type.waterway.canal.tunnel">Canale</string>
 	<string name="type.waterway.fish_pass">Passaggio per pesci</string>
 	<string name="type.waterway.dam">Diga</string>
-	<string name="type.waterway.ditch">Fosso</string>
+	<string name="type.barrier.ditch">Fosso</string>
+	<string name="type.natural.water.ditch">Fossato di drenaggio</string>
 	<string name="type.waterway.ditch.tunnel">Cunicolo</string>
 	<string name="type.waterway.dock">Darsena</string>
 	<string name="type.waterway.drain">Canale di scolo</string>
+	<string name="type.natural.water.drain">Canale di scolo</string>
 	<string name="type.waterway.drain.tunnel">Cunicolo</string>
 	<string name="type.waterway.lock_gate">Sbarramento</string>
 	<string name="type.waterway.river">Fiume</string>

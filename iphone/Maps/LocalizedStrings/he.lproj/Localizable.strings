@@ -1596,7 +1596,11 @@
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
-"type.barrier.ditch" = "ןגֵמָ תלַעָתְ";
+"type.waterway.ditch" = "תעלת ניקוז";
+
+"type.natural.water.moat" = "ןגֵמָ תלַעָתְ";
+
+"type.natural.water.wastewater" = "שפכים";
 
 "type.barrier.entrance" = "Entrance";
 
@@ -3729,15 +3733,19 @@
 
 "type.waterway.dam" = "Dam";
 
-"type.waterway.ditch" = "Ditch";
+"type.barrier.ditch" = "Ditch";
 
-"type.waterway.ditch.tunnel" = "Ditch";
+"type.natural.water.ditch" = "תעלת ניקוז";
+
+"type.waterway.ditch.tunnel" = "גִשׁרוֹן";
 
 "type.waterway.dock" = "Waterway Dock";
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Ditch";
+"type.natural.water.drain" = "Drain";
+
+"type.waterway.drain.tunnel" = "גִשׁרוֹן";
 
 "type.waterway.lock_gate" = "Lock Gate";
 

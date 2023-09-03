@@ -853,7 +853,9 @@
 	<string name="type.barrier.bollard">Oszlop</string>
 	<string name="type.barrier.border_control">Határállomás</string>
 	<string name="type.barrier.city_wall">Városi fal</string>
-	<string name="type.barrier.ditch">Várárok</string>
+	<string name="type.waterway.ditch">Árok</string>
+	<string name="type.natural.water.moat">Várárok</string>
+	<string name="type.natural.water.wastewater">Szennyvíz</string>
 	<string name="type.barrier.entrance">Bejárat</string>
 	<string name="type.barrier.gate">Kapu</string>
 	<string name="type.barrier.kissing_gate">Kapu</string>
@@ -1786,6 +1788,9 @@
 	<string name="type.waterway.canal">Csatorna</string>
 	<string name="type.waterway.canal.tunnel">Csatorna</string>
 	<string name="type.waterway.fish_pass">Hal létra</string>
+	<string name="type.natural.water.ditch">Árok</string>
+	<string name="type.waterway.ditch.tunnel">Vízelvezető</string>
+	<string name="type.waterway.drain.tunnel">Vízelvezető</string>
 	<string name="type.waterway.lock_gate">Zsilip</string>
 	<string name="type.waterway.river">Folyó</string>
 	<string name="type.waterway.river.tunnel">Folyó</string>

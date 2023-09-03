@@ -834,7 +834,9 @@
 	<string name="type.barrier.bollard">เสา</string>
 	<string name="type.barrier.border_control">ด่านตรวจคนเข้าเมือง</string>
 	<string name="type.barrier.city_wall">กำแพงเมือง</string>
-	<string name="type.barrier.ditch">คูเมือง</string>
+	<string name="type.waterway.ditch">คูระบายน้ำ</string>
+	<string name="type.natural.water.moat">คูเมือง</string>
+	<string name="type.natural.water.wastewater">น้ำเสีย</string>
 	<string name="type.barrier.entrance">ทางเข้า</string>
 	<string name="type.barrier.gate">ประตู</string>
 	<string name="type.barrier.kissing_gate">ประตู</string>
@@ -1768,6 +1770,9 @@
 	<string name="type.waterway.canal">คลอง</string>
 	<string name="type.waterway.canal.tunnel">คลอง</string>
 	<string name="type.waterway.fish_pass">บันไดปลา</string>
+	<string name="type.natural.water.ditch">คูระบายน้ำ</string>
+	<string name="type.waterway.ditch.tunnel">ท่อระบายน้ำ</string>
+	<string name="type.waterway.drain.tunnel">ท่อระบายน้ำ</string>
 	<string name="type.waterway.lock_gate">ประตูระบายน้ำ</string>
 	<string name="type.waterway.river">แม่น้ำ</string>
 	<string name="type.waterway.river.tunnel">แม่น้ำ</string>

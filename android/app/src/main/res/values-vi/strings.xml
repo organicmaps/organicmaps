@@ -831,7 +831,9 @@
 	<string name="type.barrier.bollard">Trụ</string>
 	<string name="type.barrier.border_control">Biên Phòng</string>
 	<string name="type.barrier.city_wall">Tường thành</string>
-	<string name="type.barrier.ditch">Hào nước</string>
+	<string name="type.waterway.ditch">Mương thoát nước</string>
+	<string name="type.natural.water.moat">Hào nước</string>
+	<string name="type.natural.water.wastewater">Nước thải</string>
 	<string name="type.barrier.entrance">Lối vào</string>
 	<string name="type.barrier.gate">Cổng</string>
 	<string name="type.barrier.kissing_gate">Cổng</string>
@@ -1765,6 +1767,9 @@
 	<string name="type.waterway.canal">Kênh</string>
 	<string name="type.waterway.canal.tunnel">Kênh</string>
 	<string name="type.waterway.fish_pass">Thang cá</string>
+	<string name="type.natural.water.ditch">Mương thoát nước</string>
+	<string name="type.waterway.ditch.tunnel">Cống</string>
+	<string name="type.waterway.drain.tunnel">Cống</string>
 	<string name="type.waterway.lock_gate">Cổng Khóa</string>
 	<string name="type.waterway.river">Sông</string>
 	<string name="type.waterway.river.tunnel">Sông</string>

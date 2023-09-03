@@ -1596,7 +1596,11 @@
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
-"type.barrier.ditch" = "Várárok";
+"type.waterway.ditch" = "Árok";
+
+"type.natural.water.moat" = "Várárok";
+
+"type.natural.water.wastewater" = "Szennyvíz";
 
 "type.barrier.entrance" = "Bejárat";
 
@@ -3729,15 +3733,19 @@
 
 "type.waterway.dam" = "Dam";
 
-"type.waterway.ditch" = "Ditch";
+"type.barrier.ditch" = "Ditch";
 
-"type.waterway.ditch.tunnel" = "Ditch";
+"type.natural.water.ditch" = "Árok";
+
+"type.waterway.ditch.tunnel" = "Vízelvezető";
 
 "type.waterway.dock" = "Waterway Dock";
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Ditch";
+"type.natural.water.drain" = "Drain";
+
+"type.waterway.drain.tunnel" = "Vízelvezető";
 
 "type.waterway.lock_gate" = "Zsilip";
 

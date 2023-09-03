@@ -1596,7 +1596,11 @@
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
-"type.barrier.ditch" = "Şanţ";
+"type.waterway.ditch" = "Șanț de drenaj";
+
+"type.natural.water.moat" = "Şanţ";
+
+"type.natural.water.wastewater" = "Ape uzate";
 
 "type.barrier.entrance" = "Intrare";
 
@@ -3729,15 +3733,19 @@
 
 "type.waterway.dam" = "Dam";
 
-"type.waterway.ditch" = "Ditch";
+"type.barrier.ditch" = "Ditch";
 
-"type.waterway.ditch.tunnel" = "Ditch";
+"type.natural.water.ditch" = "Șanț de drenaj";
+
+"type.waterway.ditch.tunnel" = "Canal de scurgere";
 
 "type.waterway.dock" = "Waterway Dock";
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Ditch";
+"type.natural.water.drain" = "Drain";
+
+"type.waterway.drain.tunnel" = "Canal de scurgere";
 
 "type.waterway.lock_gate" = "Ecluză";
 

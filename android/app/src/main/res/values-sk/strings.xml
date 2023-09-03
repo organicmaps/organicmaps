@@ -829,7 +829,9 @@
 	<string name="type.barrier.bollard">Pilier</string>
 	<string name="type.barrier.border_control">Hraničná kontrola</string>
 	<string name="type.barrier.city_wall">Mestský múr</string>
-	<string name="type.barrier.ditch">Priekopa</string>
+	<string name="type.waterway.ditch">Drenážna priekopa</string>
+	<string name="type.natural.water.moat">Priekopa</string>
+	<string name="type.natural.water.wastewater">Odpadová voda</string>
 	<string name="type.barrier.entrance">Vstup</string>
 	<string name="type.barrier.gate">Brána</string>
 	<string name="type.barrier.kissing_gate">Brána</string>
@@ -1754,6 +1756,9 @@
 	<string name="type.waterway.canal">Kanál</string>
 	<string name="type.waterway.canal.tunnel">Kanál</string>
 	<string name="type.waterway.fish_pass">Rebrík pre ryby</string>
+	<string name="type.natural.water.ditch">Drenážna priekopa</string>
+	<string name="type.waterway.ditch.tunnel">Priepust</string>
+	<string name="type.waterway.drain.tunnel">Priepust</string>
 	<string name="type.waterway.lock_gate">Stavidlo</string>
 	<string name="type.waterway.river">Rieka</string>
 	<string name="type.waterway.river.tunnel">Rieka</string>

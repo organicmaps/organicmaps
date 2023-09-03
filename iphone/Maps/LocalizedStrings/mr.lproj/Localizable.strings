@@ -1596,7 +1596,11 @@
 
 "type.barrier.cycle_barrier" = "सायकल अडथळा";
 
-"type.barrier.ditch" = "Moat";
+"type.waterway.ditch" = "ड्रेनेज खंदक";
+
+"type.natural.water.moat" = "Moat";
+
+"type.natural.water.wastewater" = "सांडपाणी";
 
 "type.barrier.entrance" = "प्रवेशद्वार";
 
@@ -3729,15 +3733,19 @@
 
 "type.waterway.dam" = "धरण";
 
-"type.waterway.ditch" = "खंदक";
+"type.barrier.ditch" = "खंदक";
 
-"type.waterway.ditch.tunnel" = "खंदक";
+"type.natural.water.ditch" = "ड्रेनेज खंदक";
+
+"type.waterway.ditch.tunnel" = "कल्व्हर्ट";
 
 "type.waterway.dock" = "जलमार्ग गोद";
 
 "type.waterway.drain" = "नाला";
 
-"type.waterway.drain.tunnel" = "खंदक";
+"type.natural.water.drain" = "नाला";
+
+"type.waterway.drain.tunnel" = "कल्व्हर्ट";
 
 "type.waterway.lock_gate" = "जलद्वार";
 

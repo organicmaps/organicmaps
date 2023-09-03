@@ -919,7 +919,9 @@
 	<string name="type.barrier.chain">Cadena</string>
 	<string name="type.barrier.city_wall">Muro de la ciudad</string>
 	<string name="type.barrier.cycle_barrier">Barrera para bicicletas</string>
-	<string name="type.barrier.ditch">Foso</string>
+	<string name="type.waterway.ditch">Zanja de drenaje</string>
+	<string name="type.natural.water.moat">Foso</string>
+	<string name="type.natural.water.wastewater">Aguas residuales</string>
 	<string name="type.barrier.entrance">Entrada</string>
 	<string name="type.barrier.fence">Valla</string>
 	<string name="type.barrier.gate">Puerta</string>
@@ -1963,10 +1965,12 @@
 	<string name="type.waterway.canal.tunnel">Canal</string>
 	<string name="type.waterway.fish_pass">Escalera de peces</string>
 	<string name="type.waterway.dam">Presa</string>
-	<string name="type.waterway.ditch">Zanja</string>
+	<string name="type.barrier.ditch">Zanja</string>
+	<string name="type.natural.water.ditch">Zanja de drenaje</string>
 	<string name="type.waterway.ditch.tunnel">Obra de drenaje</string>
 	<string name="type.waterway.dock">Muelle</string>
 	<string name="type.waterway.drain">Desagüe</string>
+	<string name="type.natural.water.drain">Desagüe</string>
 	<string name="type.waterway.drain.tunnel">Obra de drenaje</string>
 	<string name="type.waterway.lock_gate">Compuerta</string>
 	<string name="type.waterway.river">Río</string>

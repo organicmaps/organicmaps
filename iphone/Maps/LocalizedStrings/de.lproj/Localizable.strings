@@ -1596,7 +1596,11 @@
 
 "type.barrier.cycle_barrier" = "Umlaufschranke";
 
-"type.barrier.ditch" = "Graben";
+"type.waterway.ditch" = "Entwässerungsgraben";
+
+"type.natural.water.moat" = "Graben";
+
+"type.natural.water.wastewater" = "Abwasser";
 
 "type.barrier.entrance" = "Durchgang";
 
@@ -3729,13 +3733,17 @@
 
 "type.waterway.dam" = "Staudamm";
 
-"type.waterway.ditch" = "Graben";
+"type.barrier.ditch" = "Graben";
+
+"type.natural.water.ditch" = "Entwässerungsgraben";
 
 "type.waterway.ditch.tunnel" = "Durchlass";
 
 "type.waterway.dock" = "Dock";
 
 "type.waterway.drain" = "Abfluss";
+
+"type.natural.water.drain" = "Abfluss";
 
 "type.waterway.drain.tunnel" = "Durchlass";
 

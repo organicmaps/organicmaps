@@ -848,7 +848,9 @@
 	<string name="type.barrier.border_control">国境管理</string>
 	<string name="type.barrier.city_wall">城壁</string>
 	<string name="type.barrier.cycle_barrier">バリカー</string>
-	<string name="type.barrier.ditch">堀</string>
+	<string name="type.waterway.ditch">排水溝</string>
+	<string name="type.natural.water.moat">堀</string>
+	<string name="type.natural.water.wastewater">廃水</string>
 	<string name="type.barrier.entrance">エントランス</string>
 	<string name="type.barrier.fence">フェンス</string>
 	<string name="type.barrier.gate">ゲート</string>
@@ -1893,10 +1895,12 @@
 	<string name="type.waterway.canal.tunnel">運河</string>
 	<string name="type.waterway.fish_pass">魚道</string>
 	<string name="type.waterway.dam">ダム</string>
-	<string name="type.waterway.ditch">排水路</string>
+	<string name="type.barrier.ditch">排水路</string>
+	<string name="type.natural.water.ditch">排水溝</string>
 	<string name="type.waterway.ditch.tunnel">暗渠</string>
 	<string name="type.waterway.dock">ドック</string>
 	<string name="type.waterway.drain">用水路</string>
+	<string name="type.natural.water.drain">用水路</string>
 	<string name="type.waterway.drain.tunnel">暗渠</string>
 	<string name="type.waterway.lock_gate">水門</string>
 	<string name="type.waterway.river">河川</string>
