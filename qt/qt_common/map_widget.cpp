@@ -202,9 +202,15 @@ void MapWidget::Build()
   std::string fragmentSrc;
   if (m_apiOpenGLES3)
   {
+#if defined(OMIM_OS_LINUX)
     vertexSrc =
         "\
-      #version 150 core\n \
+      #version 300 es\n \
+        #ifdef GL_FRAGMENT_PRECISION_HIGH\n\
+          precision highp float;\n\
+        #else\n\
+          precision mediump float;\n\
+        #endif\n\
       in vec4 a_position; \
       uniform vec2 u_samplerSize; \
       out vec2 v_texCoord; \
@@ -217,6 +223,35 @@ void MapWidget::Build()
 
     fragmentSrc =
         "\
+      #version 300 es\n \
+        #ifdef GL_FRAGMENT_PRECISION_HIGH\n\
+          precision highp float;\n\
+        #else\n\
+          precision mediump float;\n\
+        #endif\n\
+      uniform sampler2D u_sampler; \
+      in vec2 v_texCoord; \
+      out vec4 v_FragColor; \
+      \
+      void main() \
+      { \
+        v_FragColor = vec4(texture(u_sampler, v_texCoord).rgb, 1.0); \
+      }";
+#else
+    vertexSrc =
+        "\
+      #version 150 core\n \
+      in vec4 a_position; \
+      uniform vec2 u_samplerSize; \
+      out vec2 v_texCoord; \
+      \
+      void main() \
+      { \
+        v_texCoord = vec2(a_position.z * u_samplerSize.x, a_position.w * u_samplerSize.y); \
+        gl_Position = vec4(a_position.x, a_position.y, 0.0, 1.0);\
+      }";
+    fragmentSrc =
+        "\
       #version 150 core\n \
       uniform sampler2D u_sampler; \
       in vec2 v_texCoord; \
@@ -226,6 +261,8 @@ void MapWidget::Build()
       { \
         v_FragColor = vec4(texture(u_sampler, v_texCoord).rgb, 1.0); \
       }";
+#endif
+
   }
   else
   {
@@ -365,11 +402,17 @@ void MapWidget::initializeGL()
                 "\nShading language version:\n",funcs->glGetString(GL_SHADING_LANGUAGE_VERSION),
                 "\nExtensions:", funcs->glGetString(GL_EXTENSIONS)));
 
-    if (context()->isOpenGLES())
+    if (!context()->isOpenGLES())
     {
-      LOG(LINFO, ("Context is LibGLES"));
-      // TODO: Fix the ES3 code path with ES3 compatible shader code.
+      LOG(LCRITICAL, ("Context is not LibGLES! This shouldn't have happened."));
+    }
+
+    auto fmt = context()->format();
+    if (context()->format().version() < qMakePair(3, 0))
+    {
+      LOG(LINFO, ("OpenGL ES version is below 3.0, taking the OpenGL ES 2.0 path"));
       m_apiOpenGLES3 = false;
+
       constexpr const char* requiredExtensions[3] =
         { "GL_EXT_map_buffer_range", "GL_OES_mapbuffer", "GL_OES_vertex_array_object" };
       for (auto & requiredExtension : requiredExtensions)
@@ -379,35 +422,16 @@ void MapWidget::initializeGL()
         else
           LOG(LCRITICAL, ("A required OpenGL ES 2.0 extension is missing:", requiredExtension));
       }
-    }
-    else
-    {
-      LOG(LINFO, ("Contex is LibGL"));
-
-      if (context()->format().version() < qMakePair(3, 2))
-      {
-        LOG(LINFO, ("OpenGL version is below 3.2, taking the OpenGL 2.1 path"));
-        m_apiOpenGLES3 = false;
-      }
-      else
-      {
-        LOG(LINFO, ("OpenGL version is at least 3.2, enabling GLSL '#version 150 core'"));
-        // TODO: Separate apiOpenGL3 from apiOpenGLES3, and use that for the currend shader code.
-        m_apiOpenGLES3 = true;
-      }
-    }
-
-    auto fmt = context()->format();
-    if (m_apiOpenGLES3)
-    {
-      fmt.setProfile(QSurfaceFormat::CoreProfile);
-      fmt.setVersion(3, 2);
-    }
-    else
-    {
       fmt.setProfile(QSurfaceFormat::CompatibilityProfile);
-      fmt.setVersion(2, 1);
+      fmt.setVersion(2, 0);
     }
+    else
+    {
+      LOG(LINFO, ("OpenGL version is at least 3.0, enabling GLSL '#version 300 es'"));
+      m_apiOpenGLES3 = true;
+      fmt.setVersion(3, 0);
+    }
+
 
     QSurfaceFormat::setDefaultFormat(fmt);
   }
