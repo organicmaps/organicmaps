@@ -37,6 +37,7 @@ public final class LocationState
   //private static final int ERROR_NOT_SUPPORTED = 1;
   public static final int ERROR_DENIED = 2;
   public static final int ERROR_GPS_OFF = 3;
+  public static final int ERROR_TIMEOUT = 4; // Unused on Android (only used on Qt)
 
   public static native void nativeSwitchToNextMode();
   @Value
