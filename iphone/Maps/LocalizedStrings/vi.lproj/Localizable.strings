@@ -1596,7 +1596,11 @@
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
-"type.barrier.ditch" = "Hào nước";
+"type.waterway.ditch" = "Mương thoát nước";
+
+"type.natural.water.moat" = "Hào nước";
+
+"type.natural.water.wastewater" = "Nước thải";
 
 "type.barrier.entrance" = "Lối vào";
 
@@ -3729,15 +3733,19 @@
 
 "type.waterway.dam" = "Dam";
 
-"type.waterway.ditch" = "Ditch";
+"type.barrier.ditch" = "Ditch";
 
-"type.waterway.ditch.tunnel" = "Ditch";
+"type.natural.water.ditch" = "Mương thoát nước";
+
+"type.waterway.ditch.tunnel" = "Cống";
 
 "type.waterway.dock" = "Waterway Dock";
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Ditch";
+"type.natural.water.drain" = "Drain";
+
+"type.waterway.drain.tunnel" = "Cống";
 
 "type.waterway.lock_gate" = "Cổng Khóa";
 

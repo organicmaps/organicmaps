@@ -1596,7 +1596,11 @@
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
-"type.barrier.ditch" = "حفرة";
+"type.waterway.ditch" = "حفرة الصرف الصحي";
+
+"type.natural.water.moat" = "حفرة";
+
+"type.natural.water.wastewater" = "مياه الصرف";
 
 "type.barrier.entrance" = "مدخل الحاجز";
 
@@ -3729,15 +3733,19 @@
 
 "type.waterway.dam" = "Dam";
 
-"type.waterway.ditch" = "Ditch";
+"type.barrier.ditch" = "Ditch";
 
-"type.waterway.ditch.tunnel" = "Ditch";
+"type.natural.water.ditch" = "حفرة الصرف الصحي";
+
+"type.waterway.ditch.tunnel" = "عبارة";
 
 "type.waterway.dock" = "Waterway Dock";
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Ditch";
+"type.natural.water.drain" = "Drain";
+
+"type.waterway.drain.tunnel" = "عبارة";
 
 "type.waterway.lock_gate" = "بوابة هويس";
 

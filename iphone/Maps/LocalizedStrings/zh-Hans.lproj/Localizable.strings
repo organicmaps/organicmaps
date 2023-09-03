@@ -1596,7 +1596,11 @@
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
-"type.barrier.ditch" = "沟渠";
+"type.waterway.ditch" = "排水沟";
+
+"type.natural.water.moat" = "沟渠";
+
+"type.natural.water.wastewater" = "废水";
 
 "type.barrier.entrance" = "入口";
 
@@ -3729,13 +3733,17 @@
 
 "type.waterway.dam" = "水坝";
 
-"type.waterway.ditch" = "水沟";
+"type.barrier.ditch" = "水沟";
+
+"type.natural.water.ditch" = "排水沟";
 
 "type.waterway.ditch.tunnel" = "涵洞";
 
 "type.waterway.dock" = "船坞";
 
 "type.waterway.drain" = "渠";
+
+"type.natural.water.drain" = "渠";
 
 "type.waterway.drain.tunnel" = "涵洞";
 

@@ -1596,7 +1596,11 @@
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
-"type.barrier.ditch" = "Τάφρος";
+"type.waterway.ditch" = "Αποστραγγιστική Τάφρο";
+
+"type.natural.water.moat" = "Τάφρος";
+
+"type.natural.water.wastewater" = "Λυμάτων";
 
 "type.barrier.entrance" = "Είσοδος";
 
@@ -3729,15 +3733,19 @@
 
 "type.waterway.dam" = "Dam";
 
-"type.waterway.ditch" = "Ditch";
+"type.barrier.ditch" = "Ditch";
 
-"type.waterway.ditch.tunnel" = "Ditch";
+"type.natural.water.ditch" = "Αποστραγγιστική Τάφρο";
+
+"type.waterway.ditch.tunnel" = "Υπόγειος οχετός";
 
 "type.waterway.dock" = "Waterway Dock";
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Ditch";
+"type.natural.water.drain" = "Drain";
+
+"type.waterway.drain.tunnel" = "Υπόγειος οχετός";
 
 "type.waterway.lock_gate" = "Φράγμα";
 

@@ -832,7 +832,9 @@
 	<string name="type.barrier.bollard">Pilar</string>
 	<string name="type.barrier.border_control">Gerbang perbatasan</string>
 	<string name="type.barrier.city_wall">Tembok Kota</string>
-	<string name="type.barrier.ditch">Parit</string>
+	<string name="type.waterway.ditch">Parit saluran air</string>
+	<string name="type.natural.water.moat">Parit</string>
+	<string name="type.natural.water.wastewater">Air limbah</string>
 	<string name="type.barrier.entrance">Pintu masuk</string>
 	<string name="type.barrier.gate">Gerbang</string>
 	<string name="type.barrier.kissing_gate">Gerbang</string>
@@ -1760,6 +1762,9 @@
 	<string name="type.waterway.canal">Kanal</string>
 	<string name="type.waterway.canal.tunnel">Kanal</string>
 	<string name="type.waterway.fish_pass">Tangga ikan</string>
+	<string name="type.natural.water.ditch">Parit saluran air</string>
+	<string name="type.waterway.ditch.tunnel">Gorong-gorong</string>
+	<string name="type.waterway.drain.tunnel">Gorong-gorong</string>
 	<string name="type.waterway.lock_gate">Gerbang pengunci</string>
 	<string name="type.waterway.river">Sungai</string>
 	<string name="type.waterway.river.tunnel">Sungai</string>

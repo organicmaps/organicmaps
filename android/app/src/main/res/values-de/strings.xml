@@ -910,7 +910,9 @@
 	<string name="type.barrier.chain">Kette</string>
 	<string name="type.barrier.city_wall">Stadtmauer</string>
 	<string name="type.barrier.cycle_barrier">Umlaufschranke</string>
-	<string name="type.barrier.ditch">Graben</string>
+	<string name="type.waterway.ditch">Entwässerungsgraben</string>
+	<string name="type.natural.water.moat">Graben</string>
+	<string name="type.natural.water.wastewater">Abwasser</string>
 	<string name="type.barrier.entrance">Durchgang</string>
 	<string name="type.barrier.fence">Zaun</string>
 	<string name="type.barrier.gate">Tor</string>
@@ -1959,10 +1961,12 @@
 	<string name="type.waterway.canal.tunnel">Kanal</string>
 	<string name="type.waterway.fish_pass">Fischtreppe</string>
 	<string name="type.waterway.dam">Staudamm</string>
-	<string name="type.waterway.ditch">Graben</string>
+	<string name="type.barrier.ditch">Graben</string>
+	<string name="type.natural.water.ditch">Entwässerungsgraben</string>
 	<string name="type.waterway.ditch.tunnel">Durchlass</string>
 	<string name="type.waterway.dock">Dock</string>
 	<string name="type.waterway.drain">Abfluss</string>
+	<string name="type.natural.water.drain">Abfluss</string>
 	<string name="type.waterway.drain.tunnel">Durchlass</string>
 	<string name="type.waterway.lock_gate">Schleusentor</string>
 	<string name="type.waterway.river">Fluss</string>

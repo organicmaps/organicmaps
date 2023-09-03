@@ -1596,7 +1596,11 @@
 
 "type.barrier.cycle_barrier" = "Barrière à vélos";
 
-"type.barrier.ditch" = "Fossé";
+"type.waterway.ditch" = "Fossé de drainage";
+
+"type.natural.water.moat" = "Fossé";
+
+"type.natural.water.wastewater" = "Eaux usées";
 
 "type.barrier.entrance" = "Entrée";
 
@@ -3729,13 +3733,17 @@
 
 "type.waterway.dam" = "Barrage";
 
-"type.waterway.ditch" = "Fossé";
+"type.barrier.ditch" = "Fossé";
+
+"type.natural.water.ditch" = "Fossé de drainage";
 
 "type.waterway.ditch.tunnel" = "Drain";
 
 "type.waterway.dock" = "Cale";
 
 "type.waterway.drain" = "Drain";
+
+"type.natural.water.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
 

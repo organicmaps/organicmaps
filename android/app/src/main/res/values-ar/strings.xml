@@ -904,7 +904,9 @@
 	<string name="type.barrier.bollard">عمود حاجز قصير</string>
 	<string name="type.barrier.border_control">أمن الحدود</string>
 	<string name="type.barrier.city_wall">جدار المدينة</string>
-	<string name="type.barrier.ditch">حفرة</string>
+	<string name="type.waterway.ditch">حفرة الصرف الصحي</string>
+	<string name="type.natural.water.moat">حفرة</string>
+	<string name="type.natural.water.wastewater">مياه الصرف</string>
 	<string name="type.barrier.entrance">مدخل الحاجز</string>
 	<string name="type.barrier.gate">بوابة</string>
 	<string name="type.barrier.kissing_gate">بوابة</string>
@@ -1889,6 +1891,9 @@
 	<string name="type.waterway.canal">قناة</string>
 	<string name="type.waterway.canal.tunnel">قناة</string>
 	<string name="type.waterway.fish_pass">سلم سمك</string>
+	<string name="type.natural.water.ditch">حفرة الصرف الصحي</string>
+	<string name="type.waterway.ditch.tunnel">عبارة</string>
+	<string name="type.waterway.drain.tunnel">عبارة</string>
 	<string name="type.waterway.lock_gate">بوابة هويس</string>
 	<string name="type.waterway.river">نهر</string>
 	<string name="type.waterway.river.tunnel">نهر</string>

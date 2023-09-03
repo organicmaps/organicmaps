@@ -866,7 +866,9 @@
 	<string name="type.barrier.bollard">柱</string>
 	<string name="type.barrier.border_control">邊境管制</string>
 	<string name="type.barrier.city_wall">城牆</string>
-	<string name="type.barrier.ditch">護城河</string>
+	<string name="type.waterway.ditch">排水溝</string>
+	<string name="type.natural.water.moat">護城河</string>
+	<string name="type.natural.water.wastewater">廢水</string>
 	<string name="type.barrier.entrance">入口</string>
 	<string name="type.barrier.gate">大門</string>
 	<string name="type.barrier.kissing_gate">大門</string>
@@ -1810,6 +1812,9 @@
 	<string name="type.waterway.canal">運河</string>
 	<string name="type.waterway.canal.tunnel">運河</string>
 	<string name="type.waterway.fish_pass">魚梯</string>
+	<string name="type.natural.water.ditch">排水溝</string>
+	<string name="type.waterway.ditch.tunnel">涵洞</string>
+	<string name="type.waterway.drain.tunnel">涵洞</string>
 	<string name="type.waterway.lock_gate">閘門</string>
 	<string name="type.waterway.river">河流</string>
 	<string name="type.waterway.river.tunnel">河流</string>

@@ -913,7 +913,9 @@
 	<string name="type.barrier.chain">Ketting</string>
 	<string name="type.barrier.city_wall">Stadsmuur</string>
 	<string name="type.barrier.cycle_barrier">Fietsbarrière</string>
-	<string name="type.barrier.ditch">Gracht</string>
+	<string name="type.waterway.ditch">Sloot</string>
+	<string name="type.natural.water.moat">Gracht</string>
+	<string name="type.natural.water.wastewater">Afvalwater</string>
 	<string name="type.barrier.entrance">Ingang</string>
 	<string name="type.barrier.fence">Hek</string>
 	<string name="type.barrier.gate">Poort</string>
@@ -1984,10 +1986,12 @@
 	<string name="type.waterway.canal.tunnel">Kanaal</string>
 	<string name="type.waterway.fish_pass">Vistrap</string>
 	<string name="type.waterway.dam">Dam</string>
-	<string name="type.waterway.ditch">Sloot</string>
+	<string name="type.barrier.ditch">Sloot</string>
+	<string name="type.natural.water.ditch">Sloot</string>
 	<string name="type.waterway.ditch.tunnel">Duiker</string>
 	<string name="type.waterway.dock">Dok</string>
 	<string name="type.waterway.drain">Afvoer</string>
+	<string name="type.natural.water.drain">Afvoer</string>
 	<string name="type.waterway.drain.tunnel">Duiker</string>
 	<string name="type.waterway.lock_gate">Sluisdeur</string>
 	<string name="type.waterway.river">Rivier</string>

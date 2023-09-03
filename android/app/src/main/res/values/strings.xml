@@ -952,7 +952,9 @@
 	<string name="type.barrier.chain">Chain</string>
 	<string name="type.barrier.city_wall">City Wall</string>
 	<string name="type.barrier.cycle_barrier">Cycle Barrier</string>
-	<string name="type.barrier.ditch">Moat</string>
+	<string name="type.waterway.ditch">Drainage Ditch</string>
+	<string name="type.natural.water.moat">Moat</string>
+	<string name="type.natural.water.wastewater">Wastewater</string>
 	<string name="type.barrier.entrance">Entrance</string>
 	<string name="type.barrier.fence">Fence</string>
 	<string name="type.barrier.gate">Gate</string>
@@ -2048,10 +2050,12 @@
 	<string name="type.waterway.canal.tunnel">Canal Tunnel</string>
 	<string name="type.waterway.fish_pass">Fish Pass</string>
 	<string name="type.waterway.dam">Dam</string>
-	<string name="type.waterway.ditch">Ditch</string>
+	<string name="type.barrier.ditch">Ditch</string>
+	<string name="type.natural.water.ditch">Drainage Ditch</string>
 	<string name="type.waterway.ditch.tunnel">Culvert</string>
 	<string name="type.waterway.dock">Waterway Dock</string>
 	<string name="type.waterway.drain">Drain</string>
+	<string name="type.natural.water.drain">Drain</string>
 	<string name="type.waterway.drain.tunnel">Culvert</string>
 	<string name="type.waterway.lock_gate">Lock Gate</string>
 	<string name="type.waterway.river">River</string>

@@ -1596,7 +1596,11 @@
 
 "type.barrier.cycle_barrier" = "Велосипедна перешкода";
 
-"type.barrier.ditch" = "Рів";
+"type.waterway.ditch" = "Дренажна канава";
+
+"type.natural.water.moat" = "Рів";
+
+"type.natural.water.wastewater" = "Стічні води";
 
 "type.barrier.entrance" = "Прохід";
 
@@ -3729,13 +3733,17 @@
 
 "type.waterway.dam" = "Дамба";
 
-"type.waterway.ditch" = "Канава";
+"type.barrier.ditch" = "Канава";
+
+"type.natural.water.ditch" = "Дренажна канава";
 
 "type.waterway.ditch.tunnel" = "Водопропускна труба";
 
 "type.waterway.dock" = "Причал";
 
 "type.waterway.drain" = "Водовiдвiд";
+
+"type.natural.water.drain" = "Водовiдвiд";
 
 "type.waterway.drain.tunnel" = "Водопропускна труба";
 

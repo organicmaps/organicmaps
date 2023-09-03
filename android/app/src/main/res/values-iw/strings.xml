@@ -299,7 +299,9 @@
 	<string name="type.amenity.public_bath">אמבטיה ציבורית</string>
 	<string name="type.amenity.stripclub">מועדון חשפנות</string>
 	<string name="type.barrier.city_wall">חומת העיר</string>
-	<string name="type.barrier.ditch">ןגֵמָ תלַעָתְ</string>
+	<string name="type.waterway.ditch">תעלת ניקוז</string>
+	<string name="type.natural.water.moat">ןגֵמָ תלַעָתְ</string>
+	<string name="type.natural.water.wastewater">שפכים</string>
 	<string name="type.barrier.turnstile">קרוסלת</string>
 	<string name="type.boundary.protected_area">אזור מוגן</string>
 	<string name="type.boundary.protected_area.1">אזור מוגן</string>
@@ -762,6 +764,9 @@
 	<string name="type.tourism.information.map">מפת תיירות</string>
 	<string name="type.tourism.information.office">משרד תיירות</string>
 	<string name="type.waterway.fish_pass">סולם דגים</string>
+	<string name="type.natural.water.ditch">תעלת ניקוז</string>
+	<string name="type.waterway.ditch.tunnel">גִשׁרוֹן</string>
+	<string name="type.waterway.drain.tunnel">גִשׁרוֹן</string>
 	<string name="type.amenity.events_venue">מקום אירועים</string>
 	<string name="type.shop.auction">מכירה פומבית</string>
 	<string name="type.shop.collector">פריטי אספנות</string>

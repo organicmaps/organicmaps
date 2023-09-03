@@ -835,7 +835,9 @@
 	<string name="type.barrier.bollard">기둥</string>
 	<string name="type.barrier.border_control">국경통제소</string>
 	<string name="type.barrier.city_wall">도시의 벽</string>
-	<string name="type.barrier.ditch">\"해자 외호\"</string>
+	<string name="type.waterway.ditch">배수구</string>
+	<string name="type.natural.water.moat">\"해자 외호\"</string>
+	<string name="type.natural.water.wastewater">폐수</string>
 	<string name="type.barrier.entrance">입구</string>
 	<string name="type.barrier.gate">게이트</string>
 	<string name="type.barrier.kissing_gate">게이트</string>
@@ -1772,6 +1774,9 @@
 	<string name="type.waterway.canal">운하</string>
 	<string name="type.waterway.canal.tunnel">운하</string>
 	<string name="type.waterway.fish_pass">물고기 사다리</string>
+	<string name="type.natural.water.ditch">배수구</string>
+	<string name="type.waterway.ditch.tunnel">암거</string>
+	<string name="type.waterway.drain.tunnel">암거</string>
 	<string name="type.waterway.lock_gate">수문</string>
 	<string name="type.waterway.river">강</string>
 	<string name="type.waterway.river.tunnel">강</string>

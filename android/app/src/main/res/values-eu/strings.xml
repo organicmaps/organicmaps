@@ -912,7 +912,9 @@
 	<string name="type.barrier.chain">Katea</string>
 	<string name="type.barrier.city_wall">Hiri harresia</string>
 	<string name="type.barrier.cycle_barrier">Bizikleta-hesia</string>
-	<string name="type.barrier.ditch">Lubanarroa</string>
+	<string name="type.waterway.ditch">Drainatze Zanga</string>
+	<string name="type.natural.water.moat">Lubanarroa</string>
+	<string name="type.natural.water.wastewater">Hondakin-urak</string>
 	<string name="type.barrier.entrance">Sarrera</string>
 	<string name="type.barrier.fence">Hesia</string>
 	<string name="type.barrier.gate">Ate</string>
@@ -1878,6 +1880,9 @@
 	<string name="type.tourism.viewpoint">Bista panoramikoa</string>
 	<string name="type.tourism.wilderness_hut">Kabina</string>
 	<string name="type.waterway.fish_pass">Arrainen eskailera</string>
+	<string name="type.natural.water.ditch">Drainatze Zanga</string>
+	<string name="type.waterway.ditch.tunnel">Zuloa</string>
+	<string name="type.waterway.drain.tunnel">Zuloa</string>
 	<string name="type.waterway.lock_gate">Atea</string>
 	<string name="type.waterway.river">Ibai</string>
 	<string name="type.waterway.river.tunnel">Ibai</string>

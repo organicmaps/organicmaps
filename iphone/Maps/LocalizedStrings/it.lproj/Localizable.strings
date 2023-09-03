@@ -1596,7 +1596,11 @@
 
 "type.barrier.cycle_barrier" = "Barriera per biciclette";
 
-"type.barrier.ditch" = "Fossato";
+"type.waterway.ditch" = "Fossato di drenaggio";
+
+"type.natural.water.moat" = "Fossato";
+
+"type.natural.water.wastewater" = "Acque reflue";
 
 "type.barrier.entrance" = "Ingresso";
 
@@ -3729,13 +3733,17 @@
 
 "type.waterway.dam" = "Diga";
 
-"type.waterway.ditch" = "Fosso";
+"type.barrier.ditch" = "Fosso";
+
+"type.natural.water.ditch" = "Fossato di drenaggio";
 
 "type.waterway.ditch.tunnel" = "Cunicolo";
 
 "type.waterway.dock" = "Darsena";
 
 "type.waterway.drain" = "Canale di scolo";
+
+"type.natural.water.drain" = "Canale di scolo";
 
 "type.waterway.drain.tunnel" = "Cunicolo";
 

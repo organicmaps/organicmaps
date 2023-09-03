@@ -1596,7 +1596,11 @@
 
 "type.barrier.cycle_barrier" = "Fietsbarrière";
 
-"type.barrier.ditch" = "Gracht";
+"type.waterway.ditch" = "Sloot";
+
+"type.natural.water.moat" = "Gracht";
+
+"type.natural.water.wastewater" = "Afvalwater";
 
 "type.barrier.entrance" = "Ingang";
 
@@ -3729,13 +3733,17 @@
 
 "type.waterway.dam" = "Dam";
 
-"type.waterway.ditch" = "Sloot";
+"type.barrier.ditch" = "Sloot";
+
+"type.natural.water.ditch" = "Sloot";
 
 "type.waterway.ditch.tunnel" = "Duiker";
 
 "type.waterway.dock" = "Dok";
 
 "type.waterway.drain" = "Afvoer";
+
+"type.natural.water.drain" = "Afvoer";
 
 "type.waterway.drain.tunnel" = "Duiker";
 

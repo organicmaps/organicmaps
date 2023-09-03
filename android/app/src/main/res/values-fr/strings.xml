@@ -909,7 +909,9 @@
 	<string name="type.barrier.chain">Chaîne</string>
 	<string name="type.barrier.city_wall">Mur de la ville</string>
 	<string name="type.barrier.cycle_barrier">Barrière à vélos</string>
-	<string name="type.barrier.ditch">Fossé</string>
+	<string name="type.waterway.ditch">Fossé de drainage</string>
+	<string name="type.natural.water.moat">Fossé</string>
+	<string name="type.natural.water.wastewater">Eaux usées</string>
 	<string name="type.barrier.entrance">Entrée</string>
 	<string name="type.barrier.fence">Clôture</string>
 	<string name="type.barrier.gate">Porte</string>
@@ -1933,7 +1935,8 @@
 	<string name="type.traffic_calming.hump">Ralentisseur</string>
 	<string name="type.waterway.fish_pass">Échelle à poissons</string>
 	<string name="type.waterway.dam">Barrage</string>
-	<string name="type.waterway.ditch">Fossé</string>
+	<string name="type.barrier.ditch">Fossé</string>
+	<string name="type.natural.water.ditch">Fossé de drainage</string>
 	<string name="type.waterway.ditch.tunnel">Drain</string>
 	<string name="type.waterway.dock">Cale</string>
 	<string name="type.waterway.drain.tunnel">Drain</string>

@@ -1596,7 +1596,11 @@
 
 "type.barrier.cycle_barrier" = "Polkupyöräeste";
 
-"type.barrier.ditch" = "Vallihauta";
+"type.waterway.ditch" = "Viemäröinti oja";
+
+"type.natural.water.moat" = "Vallihauta";
+
+"type.natural.water.wastewater" = "Jätevesi";
 
 "type.barrier.entrance" = "Sisäänkäynti";
 
@@ -3729,15 +3733,19 @@
 
 "type.waterway.dam" = "Pato";
 
-"type.waterway.ditch" = "Oja";
+"type.barrier.ditch" = "Oja";
 
-"type.waterway.ditch.tunnel" = "Oja";
+"type.natural.water.ditch" = "Viemäröinti oja";
+
+"type.waterway.ditch.tunnel" = "Holvirumpu";
 
 "type.waterway.dock" = "Telakka";
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Oja";
+"type.natural.water.drain" = "Drain";
+
+"type.waterway.drain.tunnel" = "Holvirumpu";
 
 "type.waterway.lock_gate" = "Kanavasulku";
 

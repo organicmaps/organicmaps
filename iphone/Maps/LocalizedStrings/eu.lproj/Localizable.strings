@@ -1596,7 +1596,11 @@
 
 "type.barrier.cycle_barrier" = "Bizikleta-hesia";
 
-"type.barrier.ditch" = "Lubanarroa";
+"type.waterway.ditch" = "Drainatze Zanga";
+
+"type.natural.water.moat" = "Lubanarroa";
+
+"type.natural.water.wastewater" = "Hondakin-urak";
 
 "type.barrier.entrance" = "Sarrera";
 
@@ -3729,15 +3733,19 @@
 
 "type.waterway.dam" = "Dam";
 
-"type.waterway.ditch" = "Ditch";
+"type.barrier.ditch" = "Ditch";
 
-"type.waterway.ditch.tunnel" = "Ditch";
+"type.natural.water.ditch" = "Drainatze Zanga";
+
+"type.waterway.ditch.tunnel" = "Zuloa";
 
 "type.waterway.dock" = "Waterway Dock";
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Ditch";
+"type.natural.water.drain" = "Drain";
+
+"type.waterway.drain.tunnel" = "Zuloa";
 
 "type.waterway.lock_gate" = "Atea";
 

@@ -916,7 +916,9 @@
 	<string name="type.barrier.chain">Zincir</string>
 	<string name="type.barrier.city_wall">Şehir Duvarı</string>
 	<string name="type.barrier.cycle_barrier">Bisiklet Bariyeri</string>
-	<string name="type.barrier.ditch">Hendek</string>
+	<string name="type.waterway.ditch">Drenaj çukuru</string>
+	<string name="type.natural.water.moat">Hendek</string>
+	<string name="type.natural.water.wastewater">Atık su</string>
 	<string name="type.barrier.entrance">Giriş</string>
 	<string name="type.barrier.fence">Çit</string>
 	<string name="type.barrier.gate">Geçit</string>
@@ -1983,11 +1985,13 @@
 	<string name="type.waterway.canal.tunnel">Kanal</string>
 	<string name="type.waterway.fish_pass">Balık Geçidi</string>
 	<string name="type.waterway.dam">Baraj</string>
-	<string name="type.waterway.ditch">Hendek</string>
-	<string name="type.waterway.ditch.tunnel">Hendek</string>
+	<string name="type.barrier.ditch">Hendek</string>
+	<string name="type.natural.water.ditch">Drenaj çukuru</string>
+	<string name="type.waterway.ditch.tunnel">Menfez</string>
 	<string name="type.waterway.dock">Rıhtım</string>
 	<string name="type.waterway.drain">Lağım</string>
-	<string name="type.waterway.drain.tunnel">Hendek</string>
+	<string name="type.natural.water.drain">Lağım</string>
+	<string name="type.waterway.drain.tunnel">Menfez</string>
 	<string name="type.waterway.lock_gate">Eklüz Kapağı</string>
 	<string name="type.waterway.river">Nehir</string>
 	<string name="type.waterway.river.tunnel">Nehir</string>

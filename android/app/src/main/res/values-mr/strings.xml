@@ -857,6 +857,8 @@
 	<string name="type.barrier.chain">साखळी</string>
 	<string name="type.barrier.city_wall">शहराची भिंत</string>
 	<string name="type.barrier.cycle_barrier">सायकल अडथळा</string>
+	<string name="type.waterway.ditch">ड्रेनेज खंदक</string>
+	<string name="type.natural.water.wastewater">सांडपाणी</string>
 	<string name="type.barrier.entrance">प्रवेशद्वार</string>
 	<string name="type.barrier.fence">कुंपण</string>
 	<string name="type.barrier.gate">दार</string>
@@ -1788,11 +1790,13 @@
 	<string name="type.waterway.canal.tunnel">कालवा</string>
 	<string name="type.waterway.fish_pass">मासे शिडी</string>
 	<string name="type.waterway.dam">धरण</string>
-	<string name="type.waterway.ditch">खंदक</string>
-	<string name="type.waterway.ditch.tunnel">खंदक</string>
+	<string name="type.barrier.ditch">खंदक</string>
+	<string name="type.natural.water.ditch">ड्रेनेज खंदक</string>
+	<string name="type.waterway.ditch.tunnel">कल्व्हर्ट</string>
 	<string name="type.waterway.dock">जलमार्ग गोद</string>
 	<string name="type.waterway.drain">नाला</string>
-	<string name="type.waterway.drain.tunnel">खंदक</string>
+	<string name="type.natural.water.drain">नाला</string>
+	<string name="type.waterway.drain.tunnel">कल्व्हर्ट</string>
 	<string name="type.waterway.lock_gate">जलद्वार</string>
 	<string name="type.waterway.river">नदी</string>
 	<string name="type.waterway.river.tunnel">नदी</string>

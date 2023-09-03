@@ -833,7 +833,9 @@
 	<string name="type.barrier.bollard">Stolpe</string>
 	<string name="type.barrier.border_control">Gränskontroll</string>
 	<string name="type.barrier.city_wall">Stadsmur</string>
-	<string name="type.barrier.ditch">Vallgrav</string>
+	<string name="type.waterway.ditch">Dräneringsdike</string>
+	<string name="type.natural.water.moat">Vallgrav</string>
+	<string name="type.natural.water.wastewater">Avloppsvatten</string>
 	<string name="type.barrier.entrance">Ingång</string>
 	<string name="type.barrier.gate">Grind</string>
 	<string name="type.barrier.kissing_gate">Grind</string>
@@ -1759,6 +1761,9 @@
 	<string name="type.waterway.canal">Kanal</string>
 	<string name="type.waterway.canal.tunnel">Kanal</string>
 	<string name="type.waterway.fish_pass">Fiskstege</string>
+	<string name="type.natural.water.ditch">Dräneringsdike</string>
+	<string name="type.waterway.ditch.tunnel">Kulvert</string>
+	<string name="type.waterway.drain.tunnel">Kulvert</string>
 	<string name="type.waterway.lock_gate">Slussport</string>
 	<string name="type.waterway.river">Flod</string>
 	<string name="type.waterway.river.tunnel">Flod</string>

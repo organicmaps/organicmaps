@@ -1596,7 +1596,11 @@
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
-"type.barrier.ditch" = "\"해자 외호\"";
+"type.waterway.ditch" = "배수구";
+
+"type.natural.water.moat" = "\"해자 외호\"";
+
+"type.natural.water.wastewater" = "폐수";
 
 "type.barrier.entrance" = "입구";
 
@@ -3729,15 +3733,19 @@
 
 "type.waterway.dam" = "Dam";
 
-"type.waterway.ditch" = "Ditch";
+"type.barrier.ditch" = "Ditch";
 
-"type.waterway.ditch.tunnel" = "Ditch";
+"type.natural.water.ditch" = "배수구";
+
+"type.waterway.ditch.tunnel" = "암거";
 
 "type.waterway.dock" = "Waterway Dock";
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Ditch";
+"type.natural.water.drain" = "Drain";
+
+"type.waterway.drain.tunnel" = "암거";
 
 "type.waterway.lock_gate" = "수문";
 

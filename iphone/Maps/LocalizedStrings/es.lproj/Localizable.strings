@@ -1596,7 +1596,11 @@
 
 "type.barrier.cycle_barrier" = "Barrera para bicicletas";
 
-"type.barrier.ditch" = "Foso";
+"type.waterway.ditch" = "Zanja de drenaje";
+
+"type.natural.water.moat" = "Foso";
+
+"type.natural.water.wastewater" = "Aguas residuales";
 
 "type.barrier.entrance" = "Entrada";
 
@@ -3729,13 +3733,17 @@
 
 "type.waterway.dam" = "Presa";
 
-"type.waterway.ditch" = "Zanja";
+"type.barrier.ditch" = "Zanja";
+
+"type.natural.water.ditch" = "Zanja de drenaje";
 
 "type.waterway.ditch.tunnel" = "Obra de drenaje";
 
 "type.waterway.dock" = "Muelle";
 
 "type.waterway.drain" = "Desagüe";
+
+"type.natural.water.drain" = "Desagüe";
 
 "type.waterway.drain.tunnel" = "Obra de drenaje";
 

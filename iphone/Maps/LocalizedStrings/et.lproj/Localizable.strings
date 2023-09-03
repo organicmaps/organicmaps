@@ -1596,7 +1596,11 @@
 
 "type.barrier.cycle_barrier" = "Jalgrattabarjäär";
 
-"type.barrier.ditch" = "Vallikraav";
+"type.waterway.ditch" = "Drenaažikraav";
+
+"type.natural.water.moat" = "Vallikraav";
+
+"type.natural.water.wastewater" = "Reovesi";
 
 "type.barrier.entrance" = "Sissepääs";
 
@@ -3729,15 +3733,19 @@
 
 "type.waterway.dam" = "Tamm";
 
-"type.waterway.ditch" = "Kraav";
+"type.barrier.ditch" = "Kraav";
 
-"type.waterway.ditch.tunnel" = "Truup";
+"type.natural.water.ditch" = "Drenaažikraav";
+
+"type.waterway.ditch.tunnel" = "Truupp";
 
 "type.waterway.dock" = "Veetee dokk";
 
 "type.waterway.drain" = "Kuivenduskraav";
 
-"type.waterway.drain.tunnel" = "Truup";
+"type.natural.water.drain" = "Kuivenduskraav";
+
+"type.waterway.drain.tunnel" = "Truupp";
 
 "type.waterway.lock_gate" = "Lüüsi värav";
 

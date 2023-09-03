@@ -1596,7 +1596,11 @@
 
 "type.barrier.cycle_barrier" = "Велосипедный барьер";
 
-"type.barrier.ditch" = "Ров";
+"type.waterway.ditch" = "Дренажная канава";
+
+"type.natural.water.moat" = "Оборонительный ров";
+
+"type.natural.water.wastewater" = "Сточные воды";
 
 "type.barrier.entrance" = "Проход";
 
@@ -3729,13 +3733,17 @@
 
 "type.waterway.dam" = "Дамба";
 
-"type.waterway.ditch" = "Канава";
+"type.barrier.ditch" = "Ров";
+
+"type.natural.water.ditch" = "Дренажная канава";
 
 "type.waterway.ditch.tunnel" = "Водопропускная труба";
 
 "type.waterway.dock" = "Причал";
 
 "type.waterway.drain" = "Водоотвод";
+
+"type.natural.water.drain" = "Водоотвод";
 
 "type.waterway.drain.tunnel" = "Водопропускная труба";
 

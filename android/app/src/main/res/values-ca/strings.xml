@@ -753,6 +753,8 @@
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.public_bath">Bany Públic</string>
 	<string name="type.amenity.stripclub">Club de striptease</string>
+	<string name="type.waterway.ditch">Sèquia de drenatge</string>
+	<string name="type.natural.water.wastewater">Aigües residuals</string>
 	<string name="type.barrier.turnstile">Torniquet</string>
 	<string name="type.boundary.protected_area">Àrea Protegida</string>
 	<string name="type.boundary.protected_area.1">Àrea Protegida</string>
@@ -828,6 +830,9 @@
 	<string name="type.shop.bed">Botiga de llits</string>
 	<string name="type.tourism.aquarium">Aquari</string>
 	<string name="type.waterway.fish_pass">Pas de peix</string>
+	<string name="type.natural.water.ditch">Sèquia de drenatge</string>
+	<string name="type.waterway.ditch.tunnel">Embaixada</string>
+	<string name="type.waterway.drain.tunnel">Embaixada</string>
 	<string name="type.shop.auction">Subhasta</string>
 	<string name="type.shop.collector">Col·leccionables</string>
 </resources>

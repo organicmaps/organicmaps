@@ -814,7 +814,9 @@
 	<string name="type.amenity.water_point">Вада для аўтадомаў</string>
 	<string name="type.barrier.chain">Ланцуг</string>
 	<string name="type.barrier.city_wall">Гарадскі вал</string>
-	<string name="type.barrier.ditch">Роў</string>
+	<string name="type.waterway.ditch">Дрэнажная канава</string>
+	<string name="type.natural.water.moat">Роў</string>
+	<string name="type.natural.water.wastewater">Сцёкавыя вады</string>
 	<string name="type.barrier.lift_gate">Шлагбаўм</string>
 	<string name="type.barrier.turnstile">Турнікет</string>
 	<string name="type.barrier.swing_gate">Шлагбаўм</string>
@@ -1232,6 +1234,9 @@
 	<string name="type.tourism.information.map">Карта</string>
 	<string name="type.tourism.information.office">Турыстычны офіс</string>
 	<string name="type.waterway.fish_pass">Рыбаход</string>
+	<string name="type.natural.water.ditch">Дрэнажная канава</string>
+	<string name="type.waterway.ditch.tunnel">Водопропускная труба</string>
+	<string name="type.waterway.drain.tunnel">Водопропускная труба</string>
 	<string name="type.waterway.river">Рака</string>
 	<string name="type.waterway.river.tunnel">Рака</string>
 	<string name="type.waterway.riverbank">Рака</string>

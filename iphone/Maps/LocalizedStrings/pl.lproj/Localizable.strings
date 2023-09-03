@@ -1596,7 +1596,11 @@
 
 "type.barrier.cycle_barrier" = "Bariera rowerowa";
 
-"type.barrier.ditch" = "Rów";
+"type.waterway.ditch" = "Rów melioracyjny";
+
+"type.natural.water.moat" = "Rów";
+
+"type.natural.water.wastewater" = "Ścieki";
 
 "type.barrier.entrance" = "Wejście";
 
@@ -3729,15 +3733,19 @@
 
 "type.waterway.dam" = "Dam";
 
-"type.waterway.ditch" = "Ditch";
+"type.barrier.ditch" = "Ditch";
 
-"type.waterway.ditch.tunnel" = "Ditch";
+"type.natural.water.ditch" = "Rów melioracyjny";
+
+"type.waterway.ditch.tunnel" = "Przepust";
 
 "type.waterway.dock" = "Waterway Dock";
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Ditch";
+"type.natural.water.drain" = "Drain";
+
+"type.waterway.drain.tunnel" = "Przepust";
 
 "type.waterway.lock_gate" = "Wrota śluzy";
 

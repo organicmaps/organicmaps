@@ -704,7 +704,9 @@
 	<string name="type.amenity.public_bath">Обществена баня</string>
 	<string name="type.amenity.stripclub">Стриптийз клуб</string>
 	<string name="type.barrier.city_wall">Градска стена</string>
-	<string name="type.barrier.ditch">Ров</string>
+	<string name="type.waterway.ditch">Отводнителна канавка</string>
+	<string name="type.natural.water.moat">Ров</string>
+	<string name="type.natural.water.wastewater">Отпадъчни води</string>
 	<string name="type.barrier.turnstile">Турникет</string>
 	<string name="type.boundary.protected_area">Защитена местност</string>
 	<string name="type.boundary.protected_area.1">Защитена местност</string>
@@ -1078,6 +1080,9 @@
 	<string name="type.tourism.information.map">Карта</string>
 	<string name="type.tourism.information.office">Туристически офис</string>
 	<string name="type.waterway.fish_pass">Стълба за риба</string>
+	<string name="type.natural.water.ditch">Отводнителна канавка</string>
+	<string name="type.waterway.ditch.tunnel">водосток</string>
+	<string name="type.waterway.drain.tunnel">водосток</string>
 	<string name="type.amenity.events_venue">Място за провеждане на събития</string>
 	<string name="type.shop.auction">Търг</string>
 	<string name="type.shop.collector">Колекционерски стоки</string>

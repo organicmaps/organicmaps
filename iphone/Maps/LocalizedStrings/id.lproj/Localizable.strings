@@ -1596,7 +1596,11 @@
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
-"type.barrier.ditch" = "Parit";
+"type.waterway.ditch" = "Parit saluran air";
+
+"type.natural.water.moat" = "Parit";
+
+"type.natural.water.wastewater" = "Air limbah";
 
 "type.barrier.entrance" = "Pintu masuk";
 
@@ -3729,15 +3733,19 @@
 
 "type.waterway.dam" = "Dam";
 
-"type.waterway.ditch" = "Ditch";
+"type.barrier.ditch" = "Ditch";
 
-"type.waterway.ditch.tunnel" = "Ditch";
+"type.natural.water.ditch" = "Parit saluran air";
+
+"type.waterway.ditch.tunnel" = "Gorong-gorong";
 
 "type.waterway.dock" = "Waterway Dock";
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Ditch";
+"type.natural.water.drain" = "Drain";
+
+"type.waterway.drain.tunnel" = "Gorong-gorong";
 
 "type.waterway.lock_gate" = "Gerbang pengunci";
 
