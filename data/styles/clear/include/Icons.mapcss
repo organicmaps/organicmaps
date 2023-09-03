@@ -891,6 +891,7 @@ node|z16-[barrier=lift_gate],
 node|z16-[barrier=swing_gate],
 node|z16-[barrier=stile],
 node|z16-[barrier=turnstile],
+node|z16-[barrier=cycle_barrier],
 node|z16-[amenity=nightclub],
 area|z16-[amenity=nightclub],
 node|z16-[amenity=townhall],
@@ -1493,6 +1494,9 @@ node|z16-[barrier=entrance],
 node|z16-[barrier=gate],
 node|z16-[barrier=kissing_gate],
 {icon-image: gate-s.svg;font-size: 11;}
+
+node|z16-[barrier=cycle_barrier],
+{icon-image: cycle_barrier-s.svg;font-size: 11;}
 
 node|z16-[highway=ford],
 /* ToDo: Make separate tower icon? Because of a good landmark */
