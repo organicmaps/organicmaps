@@ -86,11 +86,8 @@ void TextHandle::SetForceUpdateNormals(bool forceUpdate) const
 std::string TextHandle::GetOverlayDebugInfo()
 {
   std::ostringstream out;
-  out << "Text Priority(" << std::hex << std::setw(16) << std::setfill('0') << GetPriority();
-  auto const mask = GetPriorityMask();
-  if (mask != dp::kPriorityMaskAll)
-    out << " mask " << std::setw(16) << mask;
-  out << ") " << std::dec << DebugPrint(GetOverlayID()) << " " << strings::ToUtf8(m_text);
+  out << "Text Priority(" << std::hex << std::setw(16) << std::setfill('0') << GetPriority()
+      << ") " << std::dec << DebugPrint(GetOverlayID()) << " " << strings::ToUtf8(m_text);
   return out.str();
 }
 #endif
