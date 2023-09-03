@@ -119,7 +119,7 @@ void FindStreets(BaseContext const & ctx, CBV const & candidates, FeaturesFilter
 
   }, withMisprints);
 
-  for (; curToken < ctx.m_numTokens && !ctx.IsTokenUsed(curToken) && !streets.IsEmpty(); ++curToken)
+  for (; curToken < ctx.NumTokens() && !ctx.IsTokenUsed(curToken) && !streets.IsEmpty(); ++curToken)
   {
     auto const & token = params.GetToken(curToken).GetOriginal();
     bool const isPrefix = params.IsPrefixToken(curToken);
@@ -195,7 +195,7 @@ void StreetsMatcher::FindStreets(BaseContext const & ctx, CBV const & candidates
                                  FeaturesFilter const & filter, QueryParams const & params,
                                  vector<Prediction> & predictions)
 {
-  for (size_t startToken = 0; startToken < ctx.m_numTokens; ++startToken)
+  for (size_t startToken = 0; startToken < ctx.NumTokens(); ++startToken)
   {
     if (ctx.IsTokenUsed(startToken))
       continue;
