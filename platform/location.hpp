@@ -18,7 +18,7 @@ namespace location
     ENotSupported,
     EDenied,
     EGPSIsOff,
-    ETimeout,
+    ETimeout, // Only used on Qt https://doc.qt.io/qt-6/qgeopositioninfosource.html#Error-enum
     EUnknown
   };
 
