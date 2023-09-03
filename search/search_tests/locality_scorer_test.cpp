@@ -77,10 +77,10 @@ public:
   Ids GetTopLocalities(size_t limit)
   {
     BaseContext ctx;
-    ctx.m_tokens.assign(m_params.GetNumTokens(), BaseContext::TOKEN_TYPE_COUNT);
-    ctx.m_numTokens = m_params.GetNumTokens();
+    size_t const numTokens = m_params.GetNumTokens();
+    ctx.m_tokens.assign(numTokens, BaseContext::TOKEN_TYPE_COUNT);
 
-    for (size_t i = 0; i < m_params.GetNumTokens(); ++i)
+    for (size_t i = 0; i < numTokens; ++i)
     {
       auto const & token = m_params.GetToken(i);
       bool const isPrefixToken = m_params.IsPrefixToken(i);

@@ -87,17 +87,17 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
                                       CBV const & filter, size_t limit,
                                       vector<Locality> & localities)
 {
-  double const kUnknownIdf = 1.0;
-
-  CHECK_EQUAL(ctx.m_numTokens, m_params.GetNumTokens(), ());
+  double constexpr kUnknownIdf = 1.0;
+  size_t const numTokens = ctx.NumTokens();
+  ASSERT_EQUAL(numTokens, m_params.GetNumTokens(), ());
 
   localities.clear();
 
-  vector<Retrieval::ExtendedFeatures> intersections(ctx.m_numTokens);
+  vector<Retrieval::ExtendedFeatures> intersections(numTokens);
   vector<pair<LevenshteinDFA, uint64_t>> tokensToDf;
   vector<pair<PrefixDFA, uint64_t>> prefixToDf;
-  bool const havePrefix = ctx.m_numTokens > 0 && m_params.LastTokenIsPrefix();
-  size_t const nonPrefixTokens = havePrefix ? ctx.m_numTokens - 1 : ctx.m_numTokens;
+  bool const havePrefix = numTokens > 0 && m_params.LastTokenIsPrefix();
+  size_t const nonPrefixTokens = havePrefix ? numTokens - 1 : numTokens;
   for (size_t i = 0; i < nonPrefixTokens; ++i)
   {
     intersections[i] = ctx.m_features[i].Intersect(filter);
@@ -114,7 +114,7 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
 
   if (havePrefix)
   {
-    auto const count = ctx.m_numTokens - 1;
+    auto const count = numTokens - 1;
     intersections[count] = ctx.m_features[count].Intersect(filter);
     auto const prefixDf = intersections[count].m_features.PopCount();
     if (prefixDf != 0)
@@ -130,13 +130,13 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
   IdfMapDelegate delegate(tokensToDf, prefixToDf);
   IdfMap idfs(delegate, kUnknownIdf);
 
-  for (size_t startToken = 0; startToken < ctx.m_numTokens; ++startToken)
+  for (size_t startToken = 0; startToken < numTokens; ++startToken)
   {
     auto intersection = intersections[startToken];
     QueryVec::Builder builder;
 
     for (size_t endToken = startToken + 1;
-         endToken <= ctx.m_numTokens && !intersection.m_features.IsEmpty(); ++endToken)
+         endToken <= numTokens && !intersection.m_features.IsEmpty(); ++endToken)
     {
       auto const curToken = endToken - 1;
       auto const & token = m_params.GetToken(curToken).GetOriginal();
@@ -155,7 +155,7 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
         });
       }
 
-      if (endToken < ctx.m_numTokens)
+      if (endToken < numTokens)
         intersection = intersection.Intersect(intersections[endToken]);
     }
   }

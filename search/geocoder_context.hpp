@@ -7,7 +7,6 @@
 #include "search/model.hpp"
 #include "search/retrieval.hpp"
 
-#include <cstddef>
 #include <memory>
 #include <string>
 #include <vector>
@@ -38,6 +37,8 @@ struct BaseContext
 
   static TokenType FromModelType(Model::Type type);
   static TokenType FromRegionType(Region::Type type);
+
+  size_t NumTokens() const;
 
   // Advances |curToken| to the nearest unused token, or to the end of
   // |m_usedTokens| if there are no unused tokens.
@@ -73,9 +74,6 @@ struct BaseContext
   // This vector is used to indicate what tokens were already matched
   // and can't be re-used during the geocoding process.
   std::vector<TokenType> m_tokens;
-
-  // Number of tokens in the query.
-  size_t m_numTokens = 0;
 
   // The total number of results emitted using this
   // context in all branches of the search.
