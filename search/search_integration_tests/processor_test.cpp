@@ -2594,9 +2594,7 @@ UNIT_CLASS_TEST(ProcessorTest, Suburbs)
 
   TestStreet street({{-0.5, -0.5}, {0, 0}, {0.5, 0.5}}, "Malet place", "en");
 
-  TestPOI house({0.5, 0.5}, "", "en");
-  house.SetHouseNumber("3");
-  house.SetStreetName(street.GetName("en"));
+  TestBuilding house({0.5, 0.5}, "", "3", street.GetName("en"), "en");
 
   TestCafe cafe({0.01, 0.01}, "", "en");
 
@@ -3294,7 +3292,7 @@ UNIT_CLASS_TEST(ProcessorTest, PoiStreetCity_FancyMatch)
 UNIT_CLASS_TEST(ProcessorTest, ComplexPoi_Rank)
 {
   TestBuilding landuse({-1, -1, 1, 1}, "Telekom", "5", "xxx", "de");
-  landuse.AddType(classif().GetTypeByPath({"landuse", "commercial"}));
+  landuse.SetType(classif().GetTypeByPath({"landuse", "commercial"}));
   TestPOI poiInMall({0, 0}, "yyy", "de");
   poiInMall.SetTypes({{"shop", "clothes"}});
   TestPOI telekom({2, 2}, "Telekom shop", "de");
@@ -3452,6 +3450,42 @@ UNIT_CLASS_TEST(ProcessorTest, BarcelonaStreet)
         ExactMatch(wonderlandId, highway),
     };
     TEST(OrderedResultsMatch(MakeRequest("concordia 59", "en")->Results(), rules), ());
+  }
+}
+
+UNIT_CLASS_TEST(ProcessorTest, ComplexPoi_Match)
+{
+  std::string const lang = "be";
+  double constexpr eps = 1.0E-3;  // ~111m
+  TestStreet street({{0.99, 1 + eps}, {1, 1 + eps}}, "Задворʼенская вуліца", lang);
+  TestBuilding building({1 - eps, 1 - eps}, "СТАА Фрэор Рэфрыгерайшн", "8", street.GetName(lang), lang);
+
+  // ~ 1km x 1km
+  TestBuilding landuse({0.99, 0.99, 1, 1}, std::string(building.GetName(lang)), "", "", lang);
+  landuse.SetType(classif().GetTypeByPath({"landuse", "industrial"}));
+
+  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(street);
+    builder.Add(building);
+    builder.Add(landuse);
+  });
+
+  {
+    Rules const rules = {ExactMatch(wonderlandId, building), ExactMatch(wonderlandId, landuse)};
+    TEST(ResultsMatch("фрэор", rules), ());
+  }
+
+  {
+    /// @todo Looks like a building can't be matched with name and housenumber at the same time.
+    //Rules const rules = {ExactMatch(wonderlandId, building)};
+    Rules const rules = {ExactMatch(wonderlandId, street)};
+    TEST(ResultsMatch("фрэор задворенская 8", rules), ());
+  }
+
+  {
+    Rules const rules = {ExactMatch(wonderlandId, building)};
+    TEST(ResultsMatch("задворенская 8", rules), ());
   }
 }
 

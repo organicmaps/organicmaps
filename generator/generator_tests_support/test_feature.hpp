@@ -203,13 +203,12 @@ public:
   void Serialize(feature::FeatureBuilder & fb) const override;
   std::string ToDebugString() const override;
 
-  void AddType(uint32_t type) { m_types.push_back(type); }
+  void SetType(uint32_t type) { m_type = type; }
 
 private:
   std::string const m_houseNumber;
   std::string const m_streetName;
-
-  std::vector<uint32_t> m_types;
+  uint32_t m_type = 0;
 };
 
 class TestPark : public TestFeature
