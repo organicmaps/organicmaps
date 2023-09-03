@@ -12,9 +12,9 @@
   </string-array>
 
   <string-array name="map_style">
-    <item>@string/pref_map_style_default</item>
-    <item>@string/pref_map_style_night</item>
-    <item>@string/pref_map_style_auto</item>
+    <item>@string/off</item>
+    <item>@string/on</item>
+    <item>@string/auto</item>
   </string-array>
 
   <string-array name="map_style_values"
@@ -25,9 +25,9 @@
   </string-array>
 
   <string-array name="speed_cameras">
-    <item>@string/speedcam_option_auto</item>
-    <item>@string/speedcam_option_always</item>
-    <item>@string/speedcam_option_never</item>
+    <item>@string/auto</item>
+    <item>@string/always</item>
+    <item>@string/never</item>
   </string-array>
 
   <string-array name="speed_cameras_values" translatable="false">

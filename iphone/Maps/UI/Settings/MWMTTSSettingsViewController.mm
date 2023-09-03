@@ -132,9 +132,9 @@ struct CamerasCellStrategy : BaseCellStategy
     NSString * title = nil;
     switch (static_cast<SpeedCameraManagerMode>(indexPath.row))
     {
-    case SpeedCameraManagerMode::Auto: title = L(@"speedcam_option_auto"); break;
-    case SpeedCameraManagerMode::Always: title = L(@"speedcam_option_always"); break;
-    case SpeedCameraManagerMode::Never: title = L(@"speedcam_option_never"); break;
+    case SpeedCameraManagerMode::Auto: title = L(@"auto"); break;
+    case SpeedCameraManagerMode::Always: title = L(@"always"); break;
+    case SpeedCameraManagerMode::Never: title = L(@"never"); break;
     case SpeedCameraManagerMode::MaxValue: CHECK(false, ()); return nil;
     }
 

@@ -4917,8 +4917,8 @@
     zh-Hans = 夜间模式
     zh-Hant = 夜間模式
 
-  [pref_map_style_default]
-    comment = «Map style» entry value
+  [off]
+    comment = Generic «Off» string
     tags = android,ios
     en = Off
     ar = تعطيل
@@ -4958,8 +4958,8 @@
     zh-Hans = 关闭
     zh-Hant = 關閉
 
-  [pref_map_style_night]
-    comment = «Map style» entry value
+  [on]
+    comment = Generic «On» string
     tags = android,ios
     en = On
     af = Aan
@@ -5000,8 +5000,8 @@
     zh-Hans = 开启
     zh-Hant = 開啟
 
-  [pref_map_style_auto]
-    comment = «Map style» entry value
+  [auto]
+    comment = Generic «Auto» string
     tags = android,ios
     en = Auto
     af = Outomaties
@@ -5014,6 +5014,7 @@
     de = Auto
     el = Αυτόματα
     es = Automático
+    es-MX = Automático
     et = Automaatne
     eu = Automatikoa
     fa = خودکار
@@ -5035,6 +5036,7 @@
     ru = Автоматически
     sk = Automaticky
     sv = Auto
+    sw = Auto
     th = อัตโนมัติ
     tr = Otomatik
     uk = Автоматично
@@ -17980,90 +17982,6 @@
     zh-Hans = 一般反馈
     zh-Hant = 一般反應
 
-  [on]
-    tags = android,ios
-    en = On
-    af = Aan
-    ar = تشغيل
-    be = Укл.
-    bg = Вкл.
-    ca = Actiu
-    cs = Zapnout
-    da = Til
-    de = An
-    el = Ενεργ.
-    es = Act.
-    et = Sees
-    eu = Martxan
-    fa = روشن
-    fi = Käytössä
-    fr = On
-    hu = Be
-    id = On
-    it = Acceso
-    ja = オン
-    ko = 켜기
-    lt = Įjungtas
-    mr = चालू
-    nb = På
-    nl = Aan
-    pl = Wł.
-    pt = Lig.
-    pt-BR = Lig.
-    ro = Pornit
-    ru = Вкл.
-    sk = Zap.
-    sv = På
-    sw = Washa
-    th = เปิด
-    tr = Aç
-    uk = Увімкн.
-    vi = Bật
-    zh-Hans = 开
-    zh-Hant = 開
-
-  [off]
-    tags = android,ios
-    en = Off
-    af = Af
-    ar = إيقاف
-    be = Выкл.
-    bg = Изкл.
-    ca = Inactiu
-    cs = Vypnout
-    da = Fra
-    de = Aus
-    el = Απενεργ.
-    es = Desact.
-    et = Väljas
-    eu = Itzalita
-    fa = خاموش
-    fi = Ei käytössä
-    fr = Off
-    hu = Ki
-    id = Mati
-    it = Spento
-    ja = オフ
-    ko = 끄기
-    lt = Išjungtas
-    mr = बंद
-    nb = Av
-    nl = Uit
-    pl = Wył.
-    pt = Deslig.
-    pt-BR = Deslig.
-    ro = Oprit
-    ru = Выкл.
-    sk = Vyp.
-    sv = Av
-    sw = Zima
-    th = ปิด
-    tr = Kapat
-    uk = Вимкн.
-    vi = Tắt
-    zh-Hans = 关
-    zh-Hant = 關
-
   [prefs_languages_information]
     tags = android
     en = We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
@@ -21441,50 +21359,8 @@
     zh-Hans = 高速摄像机
     zh-Hant = 超速照相機
 
-  [speedcam_option_auto]
-    tags = android,ios
-    en = Auto
-    af = Outomaties
-    ar = تلفائياً
-    be = Аўтаматычна
-    bg = Автоматично
-    ca = Automàtic
-    cs = Automaticky
-    da = Auto
-    de = Auto
-    el = Αυτόματο
-    es = Auto
-    es-MX = Automático
-    et = Automaatne
-    eu = Automatikoa
-    fa = خودکار
-    fi = Auto
-    fr = Auto
-    hu = Automatikus
-    id = Auto
-    it = Auto
-    ja = 自動
-    ko = 자동
-    lt = Automatiškai
-    mr = स्वयं
-    nb = Auto
-    nl = Auto
-    pl = Automatycznie
-    pt = Automático
-    pt-BR = Automático
-    ro = Auto
-    ru = Авто
-    sk = Automaticky
-    sv = Auto
-    sw = Auto
-    th = อัตโนมัติ
-    tr = Otomatik
-    uk = Авто
-    vi = Tự động
-    zh-Hans = 自动
-    zh-Hant = 自動
-
-  [speedcam_option_always]
+  [always]
+    comment = Generic «Always» string
     tags = android,ios
     en = Always
     af = Altyd
@@ -21527,7 +21403,8 @@
     zh-Hans = 总是
     zh-Hant = 總是
 
-  [speedcam_option_never]
+  [never]
+    comment = Generic «Never» string
     tags = android,ios
     en = Never
     af = Nooit
