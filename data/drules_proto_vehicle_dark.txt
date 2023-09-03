@@ -4078,7 +4078,7 @@ cont {
     scale: 17
     lines {
       width: 1.8
-      color: 401446
+      color: 8212259
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -4090,7 +4090,7 @@ cont {
     scale: 18
     lines {
       width: 1.8
-      color: 401446
+      color: 8212259
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -4102,7 +4102,7 @@ cont {
     scale: 19
     lines {
       width: 1.8
-      color: 401446
+      color: 8212259
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -29027,6 +29027,236 @@ cont {
   }
 }
 cont {
+  name: "natural-water-ditch"
+  element {
+    scale: 13
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 13
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 14
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 14
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 15
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 15
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 16
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 16
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 17
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 17
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 18
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 18
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 19
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 19
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+}
+cont {
+  name: "natural-water-drain"
+  element {
+    scale: 13
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 13
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 14
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 14
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 15
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 15
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 16
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 16
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 17
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 17
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 18
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 18
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 19
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 19
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+}
+cont {
   name: "natural-water-lake"
   element {
     scale: 1
@@ -29698,6 +29928,232 @@ cont {
         color: 19033
       }
       priority: 1500
+    }
+    apply_if: "bbox_area<4000000"
+  }
+}
+cont {
+  name: "natural-water-moat"
+  element {
+    scale: 1
+    area {
+      color: 8738
+      priority: -980
+    }
+  }
+  element {
+    scale: 2
+    area {
+      color: 8738
+      priority: -980
+    }
+  }
+  element {
+    scale: 3
+    area {
+      color: 8738
+      priority: -980
+    }
+  }
+  element {
+    scale: 4
+    area {
+      color: 8738
+      priority: -980
+    }
+  }
+  element {
+    scale: 5
+    area {
+      color: 8738
+      priority: -980
+    }
+  }
+  element {
+    scale: 6
+    area {
+      color: 8738
+      priority: -980
+    }
+  }
+  element {
+    scale: 7
+    area {
+      color: 8738
+      priority: -980
+    }
+  }
+  element {
+    scale: 8
+    area {
+      color: 8738
+      priority: -980
+    }
+  }
+  element {
+    scale: 9
+    area {
+      color: 8738
+      priority: -980
+    }
+  }
+  element {
+    scale: 10
+    area {
+      color: 8738
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 10
+    area {
+      color: 8738
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 11
+    area {
+      color: 8738
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 11
+    area {
+      color: 8738
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 12
+    area {
+      color: 8738
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 12
+    area {
+      color: 8738
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 13
+    area {
+      color: 8738
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 13
+    area {
+      color: 8738
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 14
+    area {
+      color: 8738
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 14
+    area {
+      color: 8738
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 15
+    area {
+      color: 8738
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 15
+    area {
+      color: 8738
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 16
+    area {
+      color: 8738
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 16
+    area {
+      color: 8738
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 17
+    area {
+      color: 8738
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 17
+    area {
+      color: 8738
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 18
+    area {
+      color: 8738
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 18
+    area {
+      color: 8738
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 19
+    area {
+      color: 8738
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 19
+    area {
+      color: 8738
+      priority: -980
     }
     apply_if: "bbox_area<4000000"
   }
@@ -30712,6 +31168,137 @@ cont {
         color: 19033
       }
       priority: 2050
+    }
+    apply_if: "bbox_area<4000000"
+  }
+}
+cont {
+  name: "natural-water-wastewater"
+  element {
+    scale: 12
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 12
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 13
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 13
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 14
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 14
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 15
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 15
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 16
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 16
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 17
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 17
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 18
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 18
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 19
+    area {
+      color: 9758
+      priority: -980
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 19
+    area {
+      color: 9758
+      priority: -980
     }
     apply_if: "bbox_area<4000000"
   }
@@ -73912,13 +74499,64 @@ cont {
 cont {
   name: "waterway-ditch"
   element {
+    scale: 13
+    lines {
+      width: 1.5
+      color: 9758
+      dashdot {
+        dd: 2.7
+        dd: 2.7
+      }
+      priority: -990
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.5
+      color: 9758
+      dashdot {
+        dd: 2.7
+        dd: 2.7
+      }
+      priority: -990
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.5
+      color: 9758
+      dashdot {
+        dd: 2.7
+        dd: 2.7
+      }
+      priority: -990
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 3.0
+      color: 9758
+      dashdot {
+        dd: 2.7
+        dd: 2.7
+      }
+      priority: -990
+    }
+  }
+  element {
     scale: 17
     lines {
-      width: 1.8
-      color: 401446
+      width: 3.0
+      color: 9758
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.7
+        dd: 2.7
       }
       priority: -990
     }
@@ -73926,11 +74564,11 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.8
-      color: 401446
+      width: 3.0
+      color: 9758
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.7
+        dd: 2.7
       }
       priority: -990
     }
@@ -73938,11 +74576,11 @@ cont {
   element {
     scale: 19
     lines {
-      width: 1.8
-      color: 401446
+      width: 3.0
+      color: 9758
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.7
+        dd: 2.7
       }
       priority: -990
     }
@@ -74087,13 +74725,64 @@ cont {
 cont {
   name: "waterway-drain"
   element {
+    scale: 13
+    lines {
+      width: 1.5
+      color: 9758
+      dashdot {
+        dd: 2.7
+        dd: 2.7
+      }
+      priority: -990
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.5
+      color: 9758
+      dashdot {
+        dd: 2.7
+        dd: 2.7
+      }
+      priority: -990
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.5
+      color: 9758
+      dashdot {
+        dd: 2.7
+        dd: 2.7
+      }
+      priority: -990
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 3.0
+      color: 9758
+      dashdot {
+        dd: 2.7
+        dd: 2.7
+      }
+      priority: -990
+    }
+  }
+  element {
     scale: 17
     lines {
-      width: 1.8
-      color: 401446
+      width: 3.0
+      color: 9758
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.7
+        dd: 2.7
       }
       priority: -990
     }
@@ -74101,11 +74790,11 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.8
-      color: 401446
+      width: 3.0
+      color: 9758
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.7
+        dd: 2.7
       }
       priority: -990
     }
@@ -74113,11 +74802,11 @@ cont {
   element {
     scale: 19
     lines {
-      width: 1.8
-      color: 401446
+      width: 3.0
+      color: 9758
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.7
+        dd: 2.7
       }
       priority: -990
     }

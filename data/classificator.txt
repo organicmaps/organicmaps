@@ -733,12 +733,16 @@ world  +
         volcano  -
         water  +
             basin  -
+            ditch  -
+            drain  -
             lake  -
             lock  -
+            moat  -
             pond  -
             reservoir  -
             river  -
             tunnel  -
+            wastewater  -
             {}
         wetland  +
             bog  -

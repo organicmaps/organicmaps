@@ -21,20 +21,20 @@ landuse-reservoir                                   # area z12- (also has captio
 landuse-salt_pond                                   # area z1-
 natural-water                                       # area z1- (also has caption z10-)
 natural-water-basin                                 # area z1- (also has caption z10-)
-natural-water-ditch                                 # area z1-
-natural-water-drain                                 # area z1-
+natural-water-ditch                                 # area z13-
+natural-water-drain                                 # area z13-
 natural-water-lake                                  # area z1- (also has caption z10-)
 natural-water-lock                                  # area z1- (also has caption z10-)
 natural-water-moat                                  # area z1-
 natural-water-pond                                  # area z1- (also has caption z10-)
 natural-water-reservoir                             # area z1- (also has caption z10-)
 natural-water-river                                 # area z1- (also has caption z10-)
-natural-water-wastewater                            # area z1-
+natural-water-wastewater                            # area z12-
 waterway-dock                                       # area z1-
 waterway-riverbank                                  # line z10- and area z1- (also has pathtext z11-)
 === 20
 
-waterway-ditch                                      # line z14-
-waterway-drain                                      # line z14-
+waterway-ditch                                      # line z13-
+waterway-drain                                      # line z13-
 waterway-river                                      # line z10- (also has pathtext z11-)
 === 10
