@@ -184,15 +184,15 @@ using namespace power_management;
     case MWMThemeVehicleDay:
       NSAssert(false, @"Invalid case");
     case MWMThemeDay:
-      nightMode = L(@"pref_map_style_default");
+      nightMode = L(@"off");
       break;
     case MWMThemeVehicleNight:
       NSAssert(false, @"Invalid case");
     case MWMThemeNight:
-      nightMode = L(@"pref_map_style_night");
+      nightMode = L(@"on");
       break;
     case MWMThemeAuto:
-      nightMode = L(@"pref_map_style_auto");
+      nightMode = L(@"auto");
       break;
   }
   [self.nightModeCell configWithTitle:L(@"pref_map_style_title") info:nightMode];
