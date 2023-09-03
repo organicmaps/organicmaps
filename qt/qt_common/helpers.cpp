@@ -53,14 +53,23 @@ void SetDefaultSurfaceFormat(QString const & platformName)
   fmt.setSwapBehavior(QSurfaceFormat::DoubleBuffer);
   fmt.setSwapInterval(1);
   fmt.setDepthBufferSize(16);
+#if defined(OMIM_OS_LINUX)
+  fmt.setRenderableType(QSurfaceFormat::OpenGLES);
+  fmt.setProfile(QSurfaceFormat::CompatibilityProfile);
+#endif
 
   // Set proper OGL version now (needed for "cocoa" or "xcb"), but have troubles with "wayland" devices.
   // It will be resolved later in MapWidget::initializeGL when OGL context is available.
   if (platformName != QString("wayland"))
   {
+#if defined(OMIM_OS_LINUX)
+    LOG(LINFO, ("Set default OpenGL version to ES 3.0"));
+    fmt.setVersion(3, 0);
+#else
     LOG(LINFO, ("Set default OGL version to 3.2"));
     fmt.setProfile(QSurfaceFormat::CoreProfile);
     fmt.setVersion(3, 2);
+#endif
   }
 
 #ifdef ENABLE_OPENGL_DIAGNOSTICS

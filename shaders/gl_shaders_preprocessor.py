@@ -230,6 +230,7 @@ def write_implementation_file(programs_def, shader_index, shader_dir, impl_file,
 
         file.write("namespace gpu\n")
         file.write("{\n")
+        # TODO: Drop this GL3_SHADER_VERSION once MacOS code has been migrated to Metal
         file.write("char const * GL3_SHADER_VERSION = \"#version 150 core \\n\";\n")
         file.write("char const * GLES3_SHADER_VERSION = \"#version 300 es \\n\";\n\n")
 
