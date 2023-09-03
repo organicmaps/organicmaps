@@ -499,9 +499,9 @@ void RuleDrawer::operator()(FeatureType & f)
   }
 #endif
 
-  /// @todo Remove passing of minVisibleScale arg everywhere.
-  int minVisibleScale = 0;
-  auto insertShape = [this, &minVisibleScale](drape_ptr<MapShape> && shape)
+  //int const minVisibleScale = feature::GetMinDrawableScale(f); // original version
+  int const minVisibleScale = s.m_minOverlaysZoom; // lighter weight version
+  auto insertShape = [this, minVisibleScale](drape_ptr<MapShape> && shape)
   {
     size_t const index = shape->GetType();
     ASSERT_LESS(index, m_mapShapes.size(), ());

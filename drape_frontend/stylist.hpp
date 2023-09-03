@@ -55,6 +55,7 @@ public:
   bool m_areaStyleExists = false;
   bool m_lineStyleExists = false;
   bool m_pointStyleExists = false;
+  int m_minOverlaysZoom = 0;
 
 public:
   CaptionDescription const & GetCaptionDescription() const;

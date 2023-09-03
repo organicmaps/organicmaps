@@ -403,6 +403,9 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
     }
   }
 
+  if (mainOverlayType != 0)
+    s.m_minOverlaysZoom = cl.GetObject(mainOverlayType)->GetMinOverlaysZoom();
+
   feature::FilterRulesByRuntimeSelector(f, zoomLevel, keys);
 
   if (keys.empty())
