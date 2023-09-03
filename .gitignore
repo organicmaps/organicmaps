@@ -128,6 +128,7 @@ tizen/*/crash-info/*
 .private_repository_url
 .private_repository_branch
 private.h
+# ignore old android secrets during the transition period to the new project structure
 android/release.keystore
 android/secure.properties
 android/libnotify.properties

@@ -61,6 +61,7 @@ setup_opensource() {
 # Clone the private repo and copy all of its files (except README.md) into the main repo
 setup_private() {
   echo "Copying private configuration files from the repo '$PRIVATE_REPO', branch '$PRIVATE_BRANCH'"
+  set -x
   rm -rf "$TMP_REPO_DIR"
   git clone --branch "$PRIVATE_BRANCH" --depth 1 "$PRIVATE_REPO" "$TMP_REPO_DIR"
   echo "$PRIVATE_REPO" > "$SAVED_PRIVATE_REPO_FILE"
@@ -71,6 +72,18 @@ setup_private() {
   rm -rf "$TMP_REPO_DIR/.git" "$TMP_REPO_DIR/README.md"
   cp -Rv "$TMP_REPO_DIR"/* "$BASE_PATH"
   rm -rf "$TMP_REPO_DIR"
+  # Remove old android secrets during the transition period to the new project structure
+  echo "Removing keys from old locations"
+  rm -f android/release.keystore \
+        android/secure.properties \
+        android/libnotify.properties \
+        android/google-services.json \
+        android/google-play.json \
+        android/firebase-app-distribution.json \
+        android/firebase-test-lab.json \
+        android/huawei-appgallery.json \
+        android/res/xml/network_security_config.xml
+  set +x
   echo "Private files have been updated."
 }
 
