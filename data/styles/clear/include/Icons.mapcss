@@ -2431,6 +2431,9 @@ area|z17-[craft=tailor]
 node|z17-[craft=metal_construction],
 area|z17-[craft=metal_construction]
 {icon-image:metal_construction-m.svg;}
+node|z17-[craft=winery],
+area|z17-[craft=winery],
+{icon-image:winery-m.svg;}
 
 /* 7. CAR */
 

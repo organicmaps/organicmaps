@@ -1035,6 +1035,7 @@ craft-plumber                                       # icon z17- (also has captio
 craft-sawmill                                       # icon z17- (also has caption(optional) z18-)
 craft-shoemaker                                     # icon z17- (also has caption(optional) z18-)
 craft-tailor                                        # icon z17- (also has caption(optional) z18-)
+craft-winery                                        # icon z17- (also has caption(optional) z18-)
 historic-ruins                                      # icon z17- (also has caption(optional) z17-)
 leisure-adult_gaming_centre                         # icon z17- (also has caption(optional) z17-)
 leisure-amusement_arcade                            # icon z17- (also has caption(optional) z17-)
@@ -1185,7 +1186,6 @@ craft-handicraft                                    # icon z18- (also has captio
 craft-hvac                                          # icon z18- (also has caption(optional) z18-)
 craft-key_cutter                                    # icon z18- (also has caption(optional) z18-)
 craft-locksmith                                     # icon z18- (also has caption(optional) z18-)
-craft-winery                                        # icon z18- (also has caption(optional) z18-)
 === 450
 
 amenity-parking                                     # icon z16- (also has caption(optional) z18-, area z15-)
@@ -1950,6 +1950,7 @@ amenity-parking-private                             # icon z18- (also has captio
 # craft-sawmill                                     # caption(optional) z18- (also has icon z17-)
 # craft-shoemaker                                   # caption(optional) z18- (also has icon z17-)
 # craft-tailor                                      # caption(optional) z18- (also has icon z17-)
+# craft-winery                                      # caption(optional) z18- (also has icon z17-)
 # historic-ruins                                    # caption(optional) z17- (also has icon z17-)
 # leisure-adult_gaming_centre                       # caption(optional) z17- (also has icon z17-)
 # leisure-amusement_arcade                          # caption(optional) z17- (also has icon z17-)
@@ -2060,7 +2061,6 @@ amenity-parking-private                             # icon z18- (also has captio
 # craft-hvac                                        # caption(optional) z18- (also has icon z18-)
 # craft-key_cutter                                  # caption(optional) z18- (also has icon z18-)
 # craft-locksmith                                   # caption(optional) z18- (also has icon z18-)
-# craft-winery                                      # caption(optional) z18- (also has icon z18-)
 # === -9550
 
 # amenity-parking                                   # caption(optional) z18- (also has icon z16-, area z15-)
