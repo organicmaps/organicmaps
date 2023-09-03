@@ -153,6 +153,10 @@ bool RenderGroup::UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, r
     bool visibleBucket = !canBeDeleted && (m_renderBuckets[i]->GetMinZoom() <= currentZoom);
     if (!visibleBucket)
     {
+      // TMP DEBUG output
+      if (m_renderBuckets[i]->GetMinZoom() > currentZoom)
+        LOG(LINFO, ("Removing not visible bucket", m_renderBuckets[i]->GetMinZoom(), currentZoom, GetDepthLayer(m_state), m_renderBuckets.size()));
+
       m_renderBuckets[i]->RemoveOverlayHandles(tree);
       std::swap(m_renderBuckets[i], m_renderBuckets.back());
       m_renderBuckets.pop_back();

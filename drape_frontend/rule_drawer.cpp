@@ -303,6 +303,12 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
     applyPointStyle = m_globalRect.IsPointInside(featureCenter);
   }
 
+  if (applyPointStyle || is3dBuilding)
+  {
+    // At this point a proper geometry is loaded already.
+    minVisibleScale = feature::GetMinDrawableScale(f); // Doesn't get passed to insertShape().
+  }
+
   ApplyAreaFeature apply(m_context->GetTileKey(), insertShape, f.GetID(),
                          m_currentScaleGtoP, isBuilding,
                          m_context->Is3dBuildingsEnabled() && isBuildingOutline,
@@ -446,6 +452,7 @@ void RuleDrawer::ProcessPointStyle(FeatureType & f, Stylist const & s,
   if (isSpeedCamera)
     depthLayer = DepthLayer::NavigationLayer;
 
+  minVisibleScale = feature::GetMinDrawableScale(f); // Doesn't get passed to insertShape().
   ApplyPointFeature apply(m_context->GetTileKey(), insertShape, f.GetID(), minVisibleScale, f.GetRank(),
                           s.GetCaptionDescription(), 0.0f /* posZ */, depthLayer);
   f.ForEachPoint([&apply](m2::PointD const & pt) { apply(pt, false /* hasArea */); }, zoomLevel);
@@ -492,13 +499,14 @@ void RuleDrawer::operator()(FeatureType & f)
   }
 #endif
 
-  /// @todo Remove passing of minVisibleScale arg everywhere.
-  int minVisibleScale = 0;
-  auto insertShape = [this, &minVisibleScale](drape_ptr<MapShape> && shape)
+  //int const minVisibleScale = feature::GetMinDrawableScale(f); // original version
+  int const minVisibleScale = s.m_minOverlaysZoom; // lighter weight version
+  auto insertShape = [this, minVisibleScale](drape_ptr<MapShape> && shape)
   {
     size_t const index = shape->GetType();
     ASSERT_LESS(index, m_mapShapes.size(), ());
 
+    // MinZoom is used for optimization in RenderGroup::UpdateCanBeDeletedStatus().
     shape->SetFeatureMinZoom(minVisibleScale);
     m_mapShapes[index].push_back(std::move(shape));
   };

@@ -240,6 +240,7 @@ uint64_t CalculateOverlayPriority(int minZoomLevel, uint8_t rank, float depth)
 
   // Even if minZoomLevel < 0 (-1 is not visible), we will get more consistent |minZoom| value (less is worse).
   ASSERT_GREATER_OR_EQUAL(minZoomLevel, 0, ());
+  minZoomLevel = 0; // TMP make sure its not affecting overlays displacement
   uint8_t const minZoom = 0xFF - static_cast<uint8_t>(minZoomLevel);
 
   // Pack into uint64_t priority value (bigger is better).

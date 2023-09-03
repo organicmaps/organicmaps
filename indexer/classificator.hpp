@@ -90,6 +90,9 @@ public:
   std::vector<drule::Key> const & GetDrawRules() const { return m_drawRules; }
   void GetSuitable(int scale, feature::GeomType gt, drule::KeysT & keys) const;
 
+  // Returns 0 if there are no overlay drules.
+  uint8_t GetMinOverlaysZoom() const { return m_minOverlaysZoom; }
+
   bool IsDrawable(int scale) const;
   bool IsDrawableAny() const;
   bool IsDrawableLike(feature::GeomType gt, bool emptyName = false) const;
@@ -161,6 +164,8 @@ private:
   std::vector<drule::Key> m_drawRules;
   std::vector<ClassifObject> m_objs;
   VisibleMask m_visibility;
+
+  uint8_t m_minOverlaysZoom = 0;
 };
 
 inline void swap(ClassifObject & r1, ClassifObject & r2)
