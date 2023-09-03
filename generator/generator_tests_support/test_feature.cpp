@@ -408,13 +408,15 @@ void TestBuilding::Serialize(FeatureBuilder & fb) const
   TestFeature::Serialize(fb);
 
   auto & params = fb.GetParams();
-  params.AddHouseNumber(m_houseNumber);
+  if (!m_houseNumber.empty())
+    params.AddHouseNumber(m_houseNumber);
   if (!m_streetName.empty())
     params.AddStreet(m_streetName);
 
-  fb.AddType(classif().GetTypeByPath({"building"}));
-  for (uint32_t const type : m_types)
-    fb.AddType(type);
+  if (m_type == 0)
+    fb.AddType(classif().GetTypeByPath({"building"}));
+  else
+    fb.AddType(m_type);
 }
 
 string TestBuilding::ToDebugString() const

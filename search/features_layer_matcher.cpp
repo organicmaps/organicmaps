@@ -53,19 +53,22 @@ void FeaturesLayerMatcher::OnQueryFinished()
   m_loader.OnQueryFinished();
 }
 
-uint32_t FeaturesLayerMatcher::GetMatchingStreet(uint32_t houseId)
+uint32_t FeaturesLayerMatcher::GetMatchingStreet(FeatureID const & houseId)
 {
-  /// @todo But what if houseId was edited? Should we check it like in GetMatchingStreet(FeatureType) ?
-  /// I think, we should implement more robust logic with invalidating all caches when editor was invoked.
-  auto entry = m_matchingStreetsCache.Get(houseId);
-  if (!entry.second)
-    return entry.first;
+  std::unique_ptr<FeatureType> feature;
+  return GetMatchingStreetImpl(houseId, [&]()
+  {
+    feature = GetByIndex(houseId.m_index);
+    return feature.get();
+  });
+}
 
-  auto feature = GetByIndex(houseId);
-  if (!feature)
-    return kInvalidId;
-
-  return GetMatchingStreet(*feature);
+uint32_t FeaturesLayerMatcher::GetMatchingStreet(FeatureType & feature)
+{
+  return GetMatchingStreetImpl(feature.GetID(), [&]()
+  {
+    return &feature;
+  });
 }
 
 FeaturesLayerMatcher::Streets const & FeaturesLayerMatcher::GetNearbyStreets(FeatureType & feature)
@@ -80,29 +83,34 @@ FeaturesLayerMatcher::Streets const & FeaturesLayerMatcher::GetNearbyStreets(Fea
   return streets;
 }
 
-uint32_t FeaturesLayerMatcher::GetMatchingStreet(FeatureType & houseFeature)
+template <class FeatureGetterT>
+uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(FeatureID const & id, FeatureGetterT && getter)
 {
   // Check if this feature is modified - the logic will be different.
   string streetName;
-  bool const edited = osm::Editor::Instance().GetEditedFeatureStreet(houseFeature.GetID(), streetName);
+  bool const edited = osm::Editor::Instance().GetEditedFeatureStreet(id, streetName);
 
   // Check the cached result value.
-  auto entry = m_matchingStreetsCache.Get(houseFeature.GetID().m_index);
+  auto entry = m_matchingStreetsCache.Get(id.m_index);
   if (!edited && !entry.second)
     return entry.first;
 
   uint32_t & result = entry.first;
   result = kInvalidId;
 
+  FeatureType * pFeature = getter();
+  if (pFeature == nullptr)
+    return result;
+
   FeatureID streetId;
-  if (!edited && m_reverseGeocoder.GetOriginalStreetByHouse(houseFeature, streetId))
+  if (!edited && m_reverseGeocoder.GetOriginalStreetByHouse(*pFeature, streetId))
   {
     result = streetId.m_index;
     return result;
   }
 
   // Get nearby streets and calculate the resulting index.
-  auto const & streets = GetNearbyStreets(houseFeature);
+  auto const & streets = GetNearbyStreets(*pFeature);
 
   if (edited)
   {

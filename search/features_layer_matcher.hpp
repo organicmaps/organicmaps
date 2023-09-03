@@ -328,7 +328,7 @@ private:
       {
         BailIfCancelled();
 
-        uint32_t const streetId = GetMatchingStreet(houseId);
+        uint32_t const streetId = GetMatchingStreet({m_context->GetId(), houseId});
         if (std::binary_search(streets.begin(), streets.end(), streetId))
           fn(houseId, streetId);
       }
@@ -421,8 +421,10 @@ private:
 
   // Returns id of a street feature corresponding to a |houseId|/|houseFeature|, or
   // kInvalidId if there're not such street.
-  uint32_t GetMatchingStreet(uint32_t houseId);
+  uint32_t GetMatchingStreet(FeatureID const & houseId);
   uint32_t GetMatchingStreet(FeatureType & houseFeature);
+  template <class FeatureGetterT>
+  uint32_t GetMatchingStreetImpl(FeatureID const & id, FeatureGetterT && getter);
 
   using Street = ReverseGeocoder::Street;
   using Streets = std::vector<Street>;
