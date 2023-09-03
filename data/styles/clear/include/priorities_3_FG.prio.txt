@@ -419,7 +419,7 @@ route-ferry                                         # line z7- (also has pathtex
 
 aeroway-runway                                      # line z12-
 aeroway-taxiway                                     # line z14-
-barrier-ditch                                       # line z17-
+barrier-ditch                                       # line z16-
 === 70
 
 isoline-step_10                                     # line z15- (also has pathtext z17-)

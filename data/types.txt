@@ -443,11 +443,11 @@ mapswithme
 *amenity|parking|fee|street_side
 *highway|path|difficult_alpine_hiking
 *earthquake:damage|spontaneous_camp
+*natural|water|drain
 mapswithme
-mapswithme
-mapswithme
-landuse|meadow
-mapswithme
+*natural|water|ditch
+*natural|water|moat
+*natural|water|wastewater
 mapswithme
 *highway|footway|demanding_mountain_hiking
 mapswithme
