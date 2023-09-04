@@ -570,8 +570,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Настройки за проследяване</string>
-	<string name="crash_reports">Доклад за срив</string>
-	<string name="crash_reports_description">Можем да използваме данни ви, за да подобрим изживяването с Organic Maps. Промените ще влязат в сила, след рестартиране на приложението.</string>
 	<string name="privacy_policy">Политика за поверителност</string>
 	<string name="terms_of_use">Условия за ползване</string>
 	<string name="button_layer_traffic">Трафик</string>

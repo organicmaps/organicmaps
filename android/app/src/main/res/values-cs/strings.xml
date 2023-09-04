@@ -585,8 +585,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Natavení doprovodu</string>
-	<string name="crash_reports">Zprávy o chybách</string>
-	<string name="crash_reports_description">Můžeme používat vaše údaje pro vývoj a zlepšení Organic Maps. Změny se projeví po restartování aplikace.</string>
 	<string name="privacy_policy">Zásady ochrany osobních údajů</string>
 	<string name="terms_of_use">Podmínky užívání</string>
 	<string name="button_layer_traffic">Zácpy</string>

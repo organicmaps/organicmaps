@@ -271,11 +271,11 @@ public class Utils
     }
     catch (ActivityNotFoundException e)
     {
-      CrashlyticsUtils.INSTANCE.logException(e);
+      Logger.e(TAG, "ActivityNotFoundException", e);
     }
     catch (AndroidRuntimeException e)
     {
-      CrashlyticsUtils.INSTANCE.logException(e);
+      Logger.e(TAG, "AndroidRuntimeException", e);
       intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
       context.startActivity(intent);
     }
@@ -292,12 +292,12 @@ public class Utils
     }
     catch (ActivityNotFoundException e)
     {
-      CrashlyticsUtils.INSTANCE.logException(e);
+      Logger.e(TAG, "ActivityNotFoundException", e);
       return false;
     }
     catch (AndroidRuntimeException e)
     {
-      CrashlyticsUtils.INSTANCE.logException(e);
+      Logger.e(TAG, "AndroidRuntimeException", e);
       intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
       context.startActivity(intent);
       return false;

@@ -603,8 +603,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Configuració de seguiment</string>
-	<string name="crash_reports">Informe de fallada</string>
-	<string name="crash_reports_description">Podem usar les vostres dades per a millorar l\'experiència d\'Organic Maps. Els canvis seran efectius després de reinicieu l\'aplicació.</string>
 	<string name="privacy_policy">Normes de confidencialitat</string>
 	<string name="terms_of_use">Considicions del servei</string>
 	<string name="button_layer_traffic">Trànsit</string>

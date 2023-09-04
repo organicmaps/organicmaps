@@ -607,8 +607,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Tracking-instellingen</string>
-	<string name="crash_reports">Crash rapport</string>
-	<string name="crash_reports_description">Wij kunnen uw gegevens gebruiken om Organic Maps te verbeteren. Wijzigingen treden in werking na het opnieuw opstarten van de app.</string>
 	<string name="privacy_policy">Privacy beleid</string>
 	<string name="terms_of_use">Gebruiksvoorwaarden</string>
 	<string name="button_layer_traffic">Verkeer</string>

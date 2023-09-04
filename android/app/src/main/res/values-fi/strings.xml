@@ -614,8 +614,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Paikannusasetukset</string>
-	<string name="crash_reports">Kaatumisraportti</string>
-	<string name="crash_reports_description">Saatamme käyttää tietojasi parantaaksemme Organic Mapsia. Muutokset tulevat voimaan kun käynnistät sovelluksen uudestaan.</string>
 	<string name="privacy_policy">Yksityisyyskäytäntö</string>
 	<string name="terms_of_use">Käyttöehdot</string>
 	<string name="button_layer_traffic">Liikenne</string>

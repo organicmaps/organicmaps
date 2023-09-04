@@ -612,8 +612,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Jarraipen ezarpenak</string>
-	<string name="crash_reports">Akatsen txostena</string>
-	<string name="crash_reports_description">Zure datuak Organic Maps-en esperientzia hobetzeko erabil ditzakegu. Aldaketak aplikazioa berrabiarazi ondoren jarriko dira indarrean.</string>
 	<string name="privacy_policy">Pribatutasun politika</string>
 	<string name="terms_of_use">Erabilera baldintzak</string>
 	<string name="button_layer_traffic">Trafikoa</string>

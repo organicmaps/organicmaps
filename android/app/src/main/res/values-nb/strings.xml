@@ -611,8 +611,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Turinnstillinger</string>
-	<string name="crash_reports">Krasjrapport</string>
-	<string name="crash_reports_description">Vi kan bruke dine data for å forbedre Organic Maps-opplevelsen. Endringer vil bli aktive når du restarter appen.</string>
 	<string name="privacy_policy">Personvernpolitikk</string>
 	<string name="terms_of_use">Bruksbetingelser</string>
 	<string name="button_layer_traffic">Trafikk</string>

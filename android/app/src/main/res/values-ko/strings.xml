@@ -577,8 +577,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">추적 설정</string>
-	<string name="crash_reports">오류 보고서</string>
-	<string name="crash_reports_description">당사는 Organic Maps 경험을 개선하기 위해 귀하의 데이터를 활용할 수 있습니다. 앱을 다시 시작한 후 변경사항이 적용됩니다.</string>
 	<string name="privacy_policy">개인정보 보호 방침</string>
 	<string name="terms_of_use">사용 약관</string>
 	<string name="button_layer_traffic">트래픽</string>

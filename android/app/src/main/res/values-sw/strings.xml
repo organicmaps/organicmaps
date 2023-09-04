@@ -134,8 +134,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Mipangilio ya ufuatiliaji</string>
-	<string name="crash_reports">Ripoti ya kuharibika</string>
-	<string name="crash_reports_description">Tunaweza kutumia data yako kuboresha uzoefu wa Organic Maps Mabadiliko yataanza kutumika baada ya kuwasha upya programu.</string>
 	<string name="privacy_policy">Sera ya faragha</string>
 	<string name="terms_of_use">Masharti ya matumizi</string>
 	<string name="button_layer_traffic">Trafiki</string>

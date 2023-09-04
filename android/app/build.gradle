@@ -220,11 +220,6 @@ android {
      } else {
        java.srcDirs += 'src/flavors/gms-disabled'
      }
-     if (googleFirebaseServicesEnabled) {
-       java.srcDirs += 'src/flavors/firebase-enabled'
-     } else {
-       java.srcDirs += 'src/flavors/firebase-disabled'
-     }
      assets.srcDirs = ['assets']
    }
 

@@ -595,8 +595,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">跟蹤設置</string>
-	<string name="crash_reports">錯誤報告</string>
-	<string name="crash_reports_description">我們可以使用您的數據來開發和改進Organic Maps。更改將再重新啟動 app 後生效。</string>
 	<string name="privacy_policy">隱私政策</string>
 	<string name="terms_of_use">使用條款</string>
 	<string name="button_layer_traffic">路況</string>

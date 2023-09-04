@@ -34,7 +34,6 @@ import app.organicmaps.sound.TtsPlayer;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.ConnectionState;
 import app.organicmaps.util.Counters;
-import app.organicmaps.util.CrashlyticsUtils;
 import app.organicmaps.util.SharedPropertiesUtils;
 import app.organicmaps.util.StorageUtils;
 import app.organicmaps.util.ThemeSwitcher;
@@ -135,7 +134,6 @@ public class MwmApplication extends Application implements Application.ActivityL
 
     mMainLoopHandler = new Handler(getMainLooper());
     ConnectionState.INSTANCE.initialize(this);
-    CrashlyticsUtils.INSTANCE.initialize(this);
     
     DownloaderNotifier.createNotificationChannel(this);
 

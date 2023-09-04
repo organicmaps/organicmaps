@@ -39,7 +39,6 @@ import app.organicmaps.search.SearchEngine;
 import app.organicmaps.widget.SearchToolbarController;
 import app.organicmaps.widget.placepage.EditBookmarkFragment;
 import app.organicmaps.widget.recycler.DividerItemDecorationWithPadding;
-import app.organicmaps.util.CrashlyticsUtils;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
@@ -102,7 +101,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    CrashlyticsUtils.INSTANCE.log(Log.INFO, TAG, "onCreate");
     BookmarkCategory category = getCategoryOrThrow();
     mCategoryDataSource = new CategoryDataSource(category);
   }
@@ -153,8 +151,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
-    CrashlyticsUtils.INSTANCE.log(Log.INFO, TAG, "onViewCreated");
-
     if (BookmarkManager.INSTANCE.isAsyncBookmarksLoadingInProgress())
     {
       mSavedInstanceState = savedInstanceState;
@@ -195,7 +191,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   public void onStart()
   {
     super.onStart();
-    CrashlyticsUtils.INSTANCE.log(Log.INFO, TAG, "onStart");
     SearchEngine.INSTANCE.addBookmarkListener(this);
     BookmarkManager.INSTANCE.addLoadingListener(this);
     BookmarkManager.INSTANCE.addSortingListener(this);
@@ -206,7 +201,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   public void onResume()
   {
     super.onResume();
-    CrashlyticsUtils.INSTANCE.log(Log.INFO, TAG, "onResume");
     if (BookmarkManager.INSTANCE.isAsyncBookmarksLoadingInProgress())
       return;
 
@@ -221,14 +215,12 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   public void onPause()
   {
     super.onPause();
-    CrashlyticsUtils.INSTANCE.log(Log.INFO, TAG,"onPause");
   }
 
   @Override
   public void onStop()
   {
     super.onStop();
-    CrashlyticsUtils.INSTANCE.log(Log.INFO, TAG, "onStop");
     SearchEngine.INSTANCE.removeBookmarkListener(this);
     BookmarkManager.INSTANCE.removeLoadingListener(this);
     BookmarkManager.INSTANCE.removeSortingListener(this);

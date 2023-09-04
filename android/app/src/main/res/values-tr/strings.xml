@@ -610,8 +610,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Takip ayarları</string>
-	<string name="crash_reports">Çökme raporu</string>
-	<string name="crash_reports_description">Organic Maps deneyimini geliştirmek için verilerinizi kullanabiliriz. Değişiklikler, uygulama yeniden başlatıldıktan sonra geçerli olur.</string>
 	<string name="privacy_policy">Gizlilik politikası</string>
 	<string name="terms_of_use">Kullanım koşulları</string>
 	<string name="button_layer_traffic">Trafik</string>

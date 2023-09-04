@@ -607,8 +607,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Налады адсочвання</string>
-	<string name="crash_reports">Справаздача аб памылцы</string>
-	<string name="crash_reports_description">Мы можам выкарыстоўваць вашы даныя, каб палепшыць Organic Maps. Змены набудуць сілу пасля перазапуску праграмы.</string>
 	<string name="privacy_policy">Палітыка прыватнасці</string>
 	<string name="terms_of_use">Умовы выкарыстання</string>
 	<string name="button_layer_traffic">Рух</string>

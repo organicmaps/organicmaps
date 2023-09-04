@@ -576,8 +576,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">ट्रॅकिंग सेटिंग</string>
-	<string name="crash_reports">क्रॅश अहवाल</string>
-	<string name="crash_reports_description">Organic Maps चा अनुभव सुधारण्यासाठी आम्ही तुमचा डेटा वापरू शकतो. तुम्ही ऍप पुनःचालू केल्यानंतर बदल प्रभावी होईल.</string>
 	<string name="privacy_policy">गोपनीयता धोरण</string>
 	<string name="terms_of_use">वापरण्याच्या अटी</string>
 	<string name="button_layer_traffic">ट्रॅफिक</string>

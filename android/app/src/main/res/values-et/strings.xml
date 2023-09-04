@@ -601,8 +601,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Asukoha määramise seaded</string>
-	<string name="crash_reports">Krahhi raport</string>
-	<string name="crash_reports_description">õime kasutada teie andmeid Organic Maps kasutuskogemuse parandamiseks. Muudatused jõustuvad pärast rakenduse taaskäivitamist.</string>
 	<string name="privacy_policy">Privaatsuspoliitika</string>
 	<string name="terms_of_use">Kasutustingimused</string>
 	<string name="button_layer_traffic">Liiklus</string>
