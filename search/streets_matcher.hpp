@@ -4,8 +4,6 @@
 #include "search/geocoder_context.hpp"
 #include "search/token_range.hpp"
 
-#include <cstddef>
-#include <cstdint>
 #include <vector>
 
 namespace search
@@ -20,19 +18,24 @@ public:
   {
     size_t GetNumTokens() const { return m_tokenRange.Size(); }
 
-    /// @todo Check m_withMisprints ?
-    /// @{
+    // Tokens and misprints are better signals than probability here. For example in BA
+    // searching for "French 1700", gives 100% probabilty 'street' "Peatonal Juramento 1700".
     bool SameForRelaxedMatch(Prediction const & rhs) const
     {
-      return m_prob == rhs.m_prob && GetNumTokens() == rhs.GetNumTokens();
+      return (m_withMisprints == rhs.m_withMisprints &&
+              GetNumTokens() == rhs.GetNumTokens());
     }
     bool IsBetter(Prediction const & rhs) const
     {
-      if (m_prob == rhs.m_prob)
+      // Tokens number on first place as the most valuable signal (even with misprints), see BarcelonaStreet.
+      if (GetNumTokens() != rhs.GetNumTokens())
         return GetNumTokens() > rhs.GetNumTokens();
+
+      if (m_withMisprints != rhs.m_withMisprints)
+        return !m_withMisprints;
+
       return m_prob > rhs.m_prob;
     }
-    /// @}
 
     CBV m_features;
     TokenRange m_tokenRange;

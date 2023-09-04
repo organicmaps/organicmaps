@@ -142,9 +142,6 @@ void StreetsMatcher::Go(BaseContext const & ctx, CBV const & candidates,
                         FeaturesFilter const & filter, QueryParams const & params,
                         vector<Prediction> & predictions)
 {
-  size_t const kMaxNumOfImprobablePredictions = 3;
-  double const kTailProbability = 0.05;
-
   predictions.clear();
   FindStreets(ctx, candidates, filter, params, predictions);
 
@@ -183,6 +180,9 @@ void StreetsMatcher::Go(BaseContext const & ctx, CBV const & candidates,
     return l.IsBetter(r);
   });
 
+  // I suppose, it was made to avoid matching by *very* common tokens (like 'street' only).
+  size_t constexpr kMaxNumOfImprobablePredictions = 3;
+  double constexpr kTailProbability = 0.05;
   while (predictions.size() > kMaxNumOfImprobablePredictions &&
          predictions.back().m_prob < kTailProbability)
   {
