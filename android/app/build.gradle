@@ -14,10 +14,14 @@ buildscript {
   def isFdroid = taskName.contains('fdroid')
   def isBeta = taskName.contains('beta')
 
-  // Enable Google Mobile Services for all flavors except fdroid.
-  def googleMobileServicesDefault = !isFdroid
-  // Add a parameter to force GMS.
-  ext.googleMobileServicesEnabled = project.hasProperty('gms') ?: googleMobileServicesDefault
+  //
+  // Please add symlinks to google/java/app/organicmaps/location for each new gms-enabled flavor below:
+  // ```
+  // mkdir -p src/$flavor/java/app/organicmaps/
+  // ln -sf ../../../../google/java/app/organicmaps/location src/$flavor/java/app/organicmaps/
+  // ls -la src/$flavor/java/app/organicmaps/location/GoogleFusedLocationProvider.java
+  // ```
+  ext.googleMobileServicesEnabled = taskName.contains('google') || taskName.contains('huawei') || taskName.contains('web')
 
   // Enable Firebase for all beta flavors except fdroid only if google-services.json exists.
   def googleFirebaseServicesDefault = isBeta && !isFdroid && file('google-services.json').exists()
@@ -211,19 +215,7 @@ android {
     setProperty("archivesBaseName", appName.replaceAll("\\s","") + "-" + defaultConfig.versionCode)
   }
 
-   sourceSets.main {
-//     manifest.srcFile 'AndroidManifest.xml'
-//     res.srcDirs = ['res']
-//     java.srcDirs = ['src']
-     if (googleMobileServicesEnabled) {
-       java.srcDirs += 'src/flavors/gms-enabled'
-     } else {
-       java.srcDirs += 'src/flavors/gms-disabled'
-     }
-     assets.srcDirs = ['assets']
-   }
-
-  flavorDimensions 'default'
+  flavorDimensions += 'default'
 
   productFlavors {
     // 01 is a historical artefact, sorry.
@@ -234,21 +226,18 @@ android {
       versionName = android.defaultConfig.versionName + '-Google'
       buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@organicmaps.app"'
       buildConfigField 'String', 'REVIEW_URL', '"market://details?id=app.organicmaps"'
-      android.sourceSets.google.assets.srcDirs = ['flavors/world-enabled']
     }
 
     web {
       dimension "default"
       versionName = android.defaultConfig.versionName + '-Web'
       buildConfigField 'String', 'SUPPORT_MAIL', '"apk@organicmaps.app"'
-      //android.sourceSets.web.assets.srcDirs = ['flavors/world-enabled']
     }
 
     fdroid {
       dimension "default"
       versionName = android.defaultConfig.versionName + '-FDroid'
       buildConfigField 'String', 'SUPPORT_MAIL', '"fdroid@organicmaps.app"'
-      //android.sourceSets.fdroid.assets.srcDirs = ['flavors/world-enabled']
     }
 
     huawei {
@@ -257,7 +246,6 @@ android {
       versionCode = HUAWEI_VERSION_CODE_BASE + android.defaultConfig.versionCode
       buildConfigField 'String', 'SUPPORT_MAIL', '"huawei@organicmaps.app"'
       buildConfigField 'String', 'REVIEW_URL', '"appmarket://details?id=app.organicmaps"'
-      android.sourceSets.huawei.assets.srcDirs = ['flavors/world-enabled']
     }
   }
 
@@ -436,8 +424,8 @@ task prepareGoogleReleaseListing {
   final sourceFlavor = 'fdroid'
   final targetFlavor = 'google'
   doLast {
-    final sourceDir = new File("${projectDir}/src/main/$sourceFlavor/play/listings")
-    final targetDir = new File("${projectDir}/src/main/$targetFlavor/play/listings")
+    final sourceDir = new File("${projectDir}/src/$sourceFlavor/play/listings")
+    final targetDir = new File("${projectDir}/src/$targetFlavor/play/listings")
     final sourceFiles = fileTree(dir: sourceDir,
         include: "**/*.txt", exclude: "**/*-${targetFlavor}.txt")
     sourceFiles.each { File sourceFile ->
@@ -484,7 +472,7 @@ huaweiPublish {
           'ta-IN': 'ta_IN',
           'te-IN': 'te_IN',
       ]
-      def files = fileTree(dir: "$projectDir/src/main/fdroid/play/listings",
+      def files = fileTree(dir: "$projectDir/src/fdroid/play/listings",
           include: '**/release-notes.txt')
       files.each { File file ->
         def path = file.getPath()

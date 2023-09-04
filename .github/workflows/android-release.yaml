@@ -3,8 +3,8 @@ on:
   workflow_dispatch:  # Manual trigger
 
 env:
-  RELEASE_NOTES: android/app/src/main/google/play/release-notes/en-US/default.txt
-  FDROID_VERSION: android/app/src/main/fdroid/play/version.yaml
+  RELEASE_NOTES: android/app/src/google/play/release-notes/en-US/default.txt
+  FDROID_VERSION: android/app/src/fdroid/play/version.yaml
   JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64  # Java 17 is required for Android Gradle 8 plugin
 
 jobs:

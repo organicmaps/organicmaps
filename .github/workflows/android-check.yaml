@@ -14,8 +14,8 @@ on:
       - LICENSE
       - NOTICE
       - README.md
-      - android/app/src/main/fdroid/**
-      - android/app/src/main/google/**
+      - android/app/src/fdroid/**
+      - android/app/src/google/**
       - iphone/**
       - data/strings/**
       - docs/**
