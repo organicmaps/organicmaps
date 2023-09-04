@@ -40,7 +40,7 @@ def file_uri_to_path(url : AnyStr) -> AnyStr:
     return file_path
 
 def is_executable(fpath: AnyStr) -> bool:
-    return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
+    return fpath is not None and os.path.isfile(fpath) and os.access(fpath, os.X_OK)
 
 
 @functools.lru_cache()
