@@ -283,15 +283,16 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
     // Here we expect to find feynmanHouse (building next to Feynman street with housenumber '1 unit 1')
     // but not lantern1 (building next to Feynman street with name 'lantern 1') because '1'
     // looks like housenumber.
-    Rules rules = {ExactMatch(wonderlandId, feynmanHouse)};
+    // "street 1" -> "1st April street", like Relaxed match.
+    Rules rules = { ExactMatch(wonderlandId, feynmanHouse), ExactMatch(wonderlandId, firstAprilStreet) };
     TEST(ResultsMatch("feynman street 1", rules), ());
   }
   {
     // Here we expect to find bohrHouse (building next to Bohr street with housenumber '1 unit 1')
     // but not lantern1 (building next to Bohr street with name 'lantern 1') because '1' looks like
     // housenumber.
-    Rules rules = {ExactMatch(wonderlandId, bohrHouse), ExactMatch(wonderlandId, hilbertHouse)};
-    TEST(ResultsMatch("bohr street 1", rules), ());
+    Rules rules = { ExactMatch(wonderlandId, bohrHouse),ExactMatch(wonderlandId, hilbertHouse) };
+    TEST(ResultsMatch("bohr street 1 ", rules), ());
   }
   {
     TEST(ResultsMatch("bohr street 1 unit 3", {ExactMatch(wonderlandId, bohrStreet1)}), ());

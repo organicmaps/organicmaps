@@ -231,10 +231,13 @@ private:
 
   class CentersFilter
   {
-    buffer_vector<m2::PointD, 2> m_centers;
+    buffer_vector<m2::PointD, 4> m_centers;
+
   public:
     void Add(m2::PointD const & pt) { m_centers.push_back(pt); }
-    void ProcessStreets(std::vector<uint32_t> & streets, Geocoder & geocoder) const;
+
+    template <class FnT>
+    void ClusterizeStreets(std::vector<uint32_t> & streets, Geocoder const & geocoder, FnT && fn) const;
   };
 
   // Tries to do geocoding in a limited scope, assuming that knowledge

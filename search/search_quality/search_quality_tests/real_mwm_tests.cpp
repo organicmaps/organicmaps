@@ -894,4 +894,32 @@ UNIT_CLASS_TEST(MwmTestsFixture, Full_Address)
     }
   }
 }
+
+UNIT_CLASS_TEST(MwmTestsFixture, BA_RelaxedStreets)
+{
+  // Buenos Aires (Palermo)
+  ms::LatLon const center(-34.5802699, -58.4124979);
+  SetViewportAndLoadMaps(center);
+
+  {
+    auto request = MakeRequest("French 1700");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), 20, ());
+
+    uint32_t const building = classif().GetTypeByPath({"building", "address"});
+    size_t count = 0;
+    for (auto const & r : results)
+    {
+      if (r.GetFeatureType() != building)
+      {
+        TEST_EQUAL(classif().GetTypeByPath({"highway", "residential"}), r.GetFeatureType(), ());
+        // First street after addresses  should be the closest one.
+        TEST_LESS(GetDistanceM(r, center), 1000, ());
+        break;
+      }
+      ++count;
+    }
+    TEST_GREATER(count, 5, ());
+  }
+}
 } // namespace real_mwm_tests

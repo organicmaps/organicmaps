@@ -83,6 +83,7 @@ bool Result::IsEqualSuggest(Result const & r) const
 
 bool Result::IsEqualFeature(Result const & r) const
 {
+  /// @todo Compare TruncValue(m_featureType) ?
   if (m_resultType != r.m_resultType || m_featureType != r.m_featureType)
     return false;
 
@@ -102,10 +103,13 @@ bool Result::IsEqualFeature(Result const & r) const
     return PointDistance(m_center, r.m_center) < 500.0;
   }
 
-  // Keep only bus_stop filtering of most _annoying_ case (see BA_LasHeras test).
-  static uint32_t const busStop = classif().GetTypeByPath({"highway", "bus_stop"});
-  if (m_featureType == busStop)
+  // Filter stops (bus/tram), see BA_LasHeras test.
+  if (ftypes::IsPublicTransportStopChecker::Instance()(m_featureType))
     return PointDistance(m_center, r.m_center) < 150.0;
+
+  // Filter same streets (with 'same logical street distance' threshold).
+  if (ftypes::IsWayChecker::Instance().GetSearchRank(m_featureType) != ftypes::IsWayChecker::Default)
+    return PointDistance(m_center, r.m_center) < 2000.0;
 
   // Filter real duplicates when say area park is present in 2 MWMs, or OSM data duplicates.
   return m_address == r.m_address && PointDistance(m_center, r.m_center) < 10.0;

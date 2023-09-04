@@ -1280,11 +1280,10 @@ void Geocoder::GreedilyMatchStreetsWithSuburbs(BaseContext & ctx, CentersFilter 
   }
 }
 
-void Geocoder::CentersFilter::ProcessStreets(std::vector<uint32_t> & streets, Geocoder & geocoder) const
+template <class FnT>
+void Geocoder::CentersFilter::ClusterizeStreets(std::vector<uint32_t> & streets,
+                                                Geocoder const & geocoder, FnT && fn) const
 {
-  if (streets.size() <= geocoder.m_params.m_filteringParams.m_maxStreetsCount)
-    return;
-
   std::vector<std::tuple<double, m2::PointD, uint32_t>> loadedStreets;
   loadedStreets.reserve(streets.size());
 
@@ -1296,7 +1295,7 @@ void Geocoder::CentersFilter::ProcessStreets(std::vector<uint32_t> & streets, Ge
     {
       double minDist = std::numeric_limits<double>::max();
       for (auto const & c : m_centers)
-        minDist = std::min(minDist, ftCenter.SquaredLength(c));
+        minDist = std::min(minDist, ftCenter.Length(c));
       loadedStreets.emplace_back(minDist, ftCenter, fid);
     }
     else
@@ -1334,23 +1333,24 @@ void Geocoder::CentersFilter::ProcessStreets(std::vector<uint32_t> & streets, Ge
 
   // Emit results.
   streets.clear();
-  for (size_t i = 0; i < count; ++i)
-    streets.push_back(std::get<2>(loadedStreets[i]));
-  std::sort(streets.begin(), streets.end());
+  if (count == 0)
+    return;
 
-  // Alternative naive implementation (previous filtering logic).
-  /*
-  streets.erase(std::remove_if(streets.begin(), streets.end(), [&](uint32_t fid)
+  double firstDist = std::get<0>(loadedStreets[0]);
+  for (size_t i = 0; i < count; ++i)
   {
-    m2::PointD center;
-    if (!geocoder.m_context->GetCenter(fid, center))
-      return true;
-    return std::all_of(rects.begin(), rects.end(), [&center](m2::RectD const & rect)
+    double const currDist = std::get<0>(loadedStreets[i]);
+    if (currDist - firstDist > geocoder.m_params.m_filteringParams.m_streetClusterRadiusMercator)
     {
-      return !rect.IsPointInside(center);
-    });
-  }), streets.end());
-  */
+      std::sort(streets.begin(), streets.end());
+      fn();
+      streets.clear();
+      firstDist = currDist;
+    }
+    streets.push_back(std::get<2>(loadedStreets[i]));
+  }
+  std::sort(streets.begin(), streets.end());
+  fn();
 }
 
 void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
@@ -1372,19 +1372,21 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
   {
     sortedFeatures.push_back(base::asserted_cast<uint32_t>(bit));
   });
-  centers.ProcessStreets(sortedFeatures, *this);
 
-  ScopedMarkTokens mark(ctx.m_tokens, BaseContext::TOKEN_TYPE_STREET, prediction.m_tokenRange);
-  size_t const numEmitted = ctx.m_numEmitted;
-
-  MatchPOIsAndBuildings(ctx, 0 /* curToken */, CBV::GetFull());
-
-  // A relaxed best effort parse: at least show the street if we can find one.
-  if (makeRelaxed && numEmitted == ctx.m_numEmitted && !ctx.AllTokensUsed())
+  centers.ClusterizeStreets(sortedFeatures, *this, [&]()
   {
-    TRACE(Relaxed);
-    FindPaths(ctx);
-  }
+    ScopedMarkTokens mark(ctx.m_tokens, BaseContext::TOKEN_TYPE_STREET, prediction.m_tokenRange);
+    size_t const numEmitted = ctx.m_numEmitted;
+
+    MatchPOIsAndBuildings(ctx, 0 /* curToken */, CBV::GetFull());
+
+    // A relaxed best effort parse: at least show the street if we can find one.
+    if (makeRelaxed && numEmitted == ctx.m_numEmitted && !ctx.AllTokensUsed())
+    {
+      TRACE(Relaxed);
+      FindPaths(ctx);
+    }
+  });
 }
 
 void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken, CBV const & filter)
