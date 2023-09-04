@@ -580,8 +580,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Tracking-indstillinger</string>
-	<string name="crash_reports">Nedbrudsrapport</string>
-	<string name="crash_reports_description">Vi kan anvende dine data til at forbedre brugeroplevelsen på Organic Maps. Ændringerne træder i kraft, når du har genstartet appen.</string>
 	<string name="privacy_policy">Privatlivspolitik</string>
 	<string name="terms_of_use">Vilkår for bruger</string>
 	<string name="button_layer_traffic">Trafik</string>

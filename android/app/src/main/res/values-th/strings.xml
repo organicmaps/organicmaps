@@ -579,8 +579,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">การตั้งค่าการติดตาม</string>
-	<string name="crash_reports">รายงานข้อขัดข้อง</string>
-	<string name="crash_reports_description">เราอาจใช้ข้อมูลของคุณเพื่อพัฒนาประสบการณ์ของ Organic Maps การเปลี่ยนแปลงจะมีผลหลังจากที่คุณเปิดแอพฯ ขึ้นใหม่</string>
 	<string name="privacy_policy">นโยบายความเป็นส่วนตัว</string>
 	<string name="terms_of_use">ข้อกำหนดในการใช้งาน</string>
 	<string name="button_layer_traffic">การจราจร</string>

@@ -592,8 +592,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Követési beállítások</string>
-	<string name="crash_reports">Hibajelentés</string>
-	<string name="crash_reports_description">A Organic Maps fejlesztéséhez felhasználhatjuk az adatait. A változtatások az alkalmazás újraindítása után lépnek életbe.</string>
 	<string name="privacy_policy">Adatvédelmi irányelvek</string>
 	<string name="terms_of_use">Felhasználási feltételek</string>
 	<string name="button_layer_traffic">Forgalom</string>

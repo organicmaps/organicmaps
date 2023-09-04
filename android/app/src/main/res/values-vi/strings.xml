@@ -578,8 +578,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Thiết lập theo dõi</string>
-	<string name="crash_reports">Báo cáo sự cố</string>
-	<string name="crash_reports_description">Chúng tôi có thể sử dụng dữ liệu của bạn để cải thiện trải nghiệm trên Organic Maps. Thay đổi sẽ có hiệu lực sau khi bạn khởi động lại ứng dụng.</string>
 	<string name="privacy_policy">Chính sách bảo mật</string>
 	<string name="terms_of_use">Điều khoảng sử dụng</string>
 	<string name="button_layer_traffic">Giao thông</string>

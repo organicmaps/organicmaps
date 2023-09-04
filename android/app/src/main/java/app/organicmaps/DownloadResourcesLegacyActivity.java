@@ -31,7 +31,6 @@ import app.organicmaps.intent.MapTask;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.util.ConnectionState;
-import app.organicmaps.util.CrashlyticsUtils;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
@@ -425,7 +424,6 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
     String msg = "Incoming intent uri: " + intent;
     Logger.i(TAG, msg);
-    CrashlyticsUtils.INSTANCE.log(Log.INFO, TAG, msg);
 
     MapTask mapTaskToForward;
     for (IntentProcessor ip : mIntentProcessors)

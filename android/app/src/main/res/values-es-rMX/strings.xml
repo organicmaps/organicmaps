@@ -80,8 +80,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Configuraciones de rastreo</string>
-	<string name="crash_reports">Reporte de fallas</string>
-	<string name="crash_reports_description">Puede que utilicemos sus datos para mejorar la experiencia de Organic Maps. Los cambios surtirán efecto después de que reinicie la aplicación.</string>
 	<string name="privacy_policy">Política de Privacidad</string>
 	<string name="terms_of_use">Términos de uso</string>
 	<string name="button_layer_traffic">Tráfico</string>

@@ -595,8 +595,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Opțiuni tracking</string>
-	<string name="crash_reports">Raport de eroare</string>
-	<string name="crash_reports_description">Putem folosi datele tale pentru a îmbunătăți Organic Maps. Modificările vor intra în vigoare după repornirea aplicației.</string>
 	<string name="privacy_policy">Confidențialitate</string>
 	<string name="terms_of_use">Termeni de utilizare</string>
 	<string name="button_layer_traffic">Trafic</string>

@@ -587,8 +587,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">支持设置</string>
-	<string name="crash_reports">错误报告</string>
-	<string name="crash_reports_description">我们可以使用您的数据来开发和改进Organic Maps。更改将在重新启动应用程序后生效。</string>
 	<string name="privacy_policy">隐私政策</string>
 	<string name="terms_of_use">使用条款</string>
 	<string name="button_layer_traffic">路况</string>

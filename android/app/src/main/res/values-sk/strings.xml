@@ -577,8 +577,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Nastavenie sledovania</string>
-	<string name="crash_reports">Hlásenie chýb</string>
-	<string name="crash_reports_description">Vaše údaje môžeme použiť na zlepšenie skúseností s programom Organic Maps. Zmeny sa prejavia po reštartovaní aplikácie.</string>
 	<string name="privacy_policy">Zásady ochrany osobných údajov</string>
 	<string name="terms_of_use">Podmienky používania</string>
 	<string name="button_layer_traffic">Vyťaženie</string>

@@ -180,13 +180,6 @@
       android:summary="@string/pref_use_google_play"
       android:defaultValue="true"
       android:order="1"/>
-    <SwitchPreferenceCompat
-      android:key="@string/pref_crash_reports"
-      android:defaultValue="true"
-      android:title="@string/crash_reports"
-      app:singleLineTitle="false"
-      android:summary="@string/crash_reports_description"
-      android:order="2"/>
   </androidx.preference.PreferenceCategory>
   <androidx.preference.PreferenceCategory
     android:key="@string/pref_information"

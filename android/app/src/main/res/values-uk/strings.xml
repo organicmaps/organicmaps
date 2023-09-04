@@ -607,8 +607,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Налаштування супроводу</string>
-	<string name="crash_reports">Звіти про помилки</string>
-	<string name="crash_reports_description">Ми можемо використовувати ваші дані, щоб розвивати та покращувати Organic Maps. Зміни вступлять у силу після перезапуску програми</string>
 	<string name="privacy_policy">Політика конфіденційності</string>
 	<string name="terms_of_use">Умови використання</string>
 	<string name="button_layer_traffic">Затор</string>

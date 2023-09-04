@@ -139,7 +139,6 @@ public class StorageUtils
     {
       final String errMsg = "Can't create directory " + path;
       Logger.e(TAG, errMsg);
-      CrashlyticsUtils.INSTANCE.logException(new IOException(errMsg));
       return false;
     }
     return true;

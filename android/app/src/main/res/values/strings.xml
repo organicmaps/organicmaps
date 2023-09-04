@@ -639,8 +639,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Tracking settings</string>
-	<string name="crash_reports">Crash report</string>
-	<string name="crash_reports_description">We may use your crash reports to improve Organic Maps. Changes will take effect after you restart the app.</string>
 	<string name="privacy_policy">Privacy policy</string>
 	<string name="terms_of_use">Terms of use</string>
 	<string name="button_layer_traffic">Traffic</string>

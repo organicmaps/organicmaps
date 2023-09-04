@@ -578,8 +578,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">تنظیمات ردیابی</string>
-	<string name="crash_reports">گزارش خرابی</string>
-	<string name="crash_reports_description">ما از داده‌های شما برای بهبود Organic Maps استفاده می‌کنیم. تغییرات پس از راه‌اندازی مجدد برنامه به‌کار می‌افتد.</string>
 	<string name="privacy_policy">سیاست حریم خصوصی</string>
 	<string name="terms_of_use">شرایط استفاده</string>
 	<string name="button_layer_traffic">ترافیک</string>

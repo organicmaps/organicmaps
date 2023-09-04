@@ -615,8 +615,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Paramètres de suivi</string>
-	<string name="crash_reports">Rapport d\'accident</string>
-	<string name="crash_reports_description">Nous pouvons utiliser vos données pour améliorer l\'expérience de Organic Maps. Les modifications prendront effet après le redémarrage de l\'application.</string>
 	<string name="privacy_policy">Politique de confidentialité</string>
 	<string name="terms_of_use">Conditions d\'utilisation</string>
 	<string name="button_layer_traffic">Trafic</string>

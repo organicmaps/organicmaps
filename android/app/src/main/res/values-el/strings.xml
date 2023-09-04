@@ -572,8 +572,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Ρυθμίσεις διαδρομών</string>
-	<string name="crash_reports">Αναφορά σφάλματος</string>
-	<string name="crash_reports_description">Μπορεί να χρησιμοποιήσουμε τα δεδομένα σας για να βελτιώσουμε την εμπειρία του Organic Maps. Οι αλλαγές θα ενεργοποιηθούν μετά την επανεκκίνηση της εφαρμογής.</string>
 	<string name="privacy_policy">Πολιτική απορρήτου</string>
 	<string name="terms_of_use">Όροι χρήσης</string>
 	<string name="button_layer_traffic">Κίνηση</string>

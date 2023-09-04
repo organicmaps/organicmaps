@@ -30,7 +30,6 @@ import app.organicmaps.location.LocationProviderFactory;
 import app.organicmaps.sound.LanguageData;
 import app.organicmaps.sound.TtsPlayer;
 import app.organicmaps.util.Config;
-import app.organicmaps.util.CrashlyticsUtils;
 import app.organicmaps.util.NetworkPolicy;
 import app.organicmaps.util.PowerManagment;
 import app.organicmaps.util.SharedPropertiesUtils;
@@ -221,13 +220,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     return R.xml.prefs_main;
   }
 
-  private boolean onToggleCrashReports(Object newValue)
-  {
-    boolean isEnabled = (boolean) newValue;
-    CrashlyticsUtils.INSTANCE.setEnabled(isEnabled);
-    return true;
-  }
-
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
@@ -254,8 +246,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       initUseMobileDataPrefsCallbacks();
       initPowerManagementPrefsCallbacks();
       final boolean playServices = initPlayServicesPrefsCallbacks();
-      final boolean crashReports = initCrashReports();
-      if (!playServices && !crashReports)
+      if (!playServices)
       {
         // Remove "Tracking" section completely.
         final PreferenceCategory tracking = findPreference(getString(R.string.pref_subtittle_opt_out));
@@ -698,23 +689,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
         return true;
       }
     });
-  }
-
-  private boolean initCrashReports()
-  {
-    final Preference pref = findPreference(getString(R.string.pref_crash_reports));
-    if (pref == null)
-      return false;
-
-    if (!CrashlyticsUtils.INSTANCE.isAvailable())
-    {
-      removePreference(getString(R.string.pref_subtittle_opt_out), pref);
-      return false;
-    }
-
-    ((TwoStatePreference)pref).setChecked(CrashlyticsUtils.INSTANCE.isEnabled());
-    pref.setOnPreferenceChangeListener((preference, newValue) -> onToggleCrashReports(newValue));
-    return true;
   }
 
   private void initScreenSleepEnabledPrefsCallbacks()

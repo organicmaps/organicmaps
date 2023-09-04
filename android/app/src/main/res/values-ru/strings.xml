@@ -621,8 +621,6 @@
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Настройки сопровождения</string>
-	<string name="crash_reports">Отчеты об ошибках</string>
-	<string name="crash_reports_description">Мы можем использовать ваши данные, чтобы развивать и улучшать Organic Maps. Изменения вступят в силу после перезапуска приложения.</string>
 	<string name="privacy_policy">Политика конфиденциальности</string>
 	<string name="terms_of_use">Условия использования</string>
 	<string name="button_layer_traffic">Пробки</string>
