@@ -985,6 +985,8 @@ node|z17-[amenity=post_office],
 area|z17-[amenity=post_office],
 node|z17-[power=station],
 area|z17-[power=station],
+node|z17-[man_made=works],
+area|z17-[man_made=works],
 node|z17-[amenity=parcel_locker],
 area|z17-[amenity=parcel_locker],
 node|z17-[amenity=public_bath],
@@ -1021,8 +1023,6 @@ node|z18-[shop=lottery],
 area|z18-[shop=lottery],
 node|z18-[man_made=chimney],
 area|z18-[man_made=chimney],
-node|z18-[man_made=works],
-area|z18-[man_made=works],
 node|z18-[man_made=silo],
 area|z18-[man_made=silo],
 node|z18-[man_made=storage_tank],
@@ -1717,9 +1717,11 @@ area|z18-[amenity=hunting_stand]
 
 node|z16-[man_made=chimney],
 area|z16-[man_made=chimney],
+{icon-image: chimney-m.svg;font-size: 11;}
+
 node|z16-[man_made=works],
 area|z16-[man_made=works]
-{icon-image: chimney-m.svg;font-size: 11;}
+{icon-image: factory-m.svg;font-size: 11;}
 
 node|z16-[man_made=silo],
 area|z16-[man_made=silo],

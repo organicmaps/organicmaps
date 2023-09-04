@@ -901,7 +901,7 @@ barrier-turnstile                                   # icon z16- (also has captio
 man_made-mast                                       # icon z16-
 man_made-silo                                       # icon z16- (also has caption(optional) z18-)
 man_made-storage_tank                               # icon z16- (also has caption(optional) z18-)
-man_made-works                                      # icon z16- (also has caption(optional) z18-)
+man_made-works                                      # icon z16- (also has caption(optional) z17-)
 power-tower                                         # icon z16-
 === 1900
 
@@ -1838,7 +1838,7 @@ amenity-parking-private                             # icon z18- (also has captio
 # barrier-turnstile                                 # caption(optional) z16- (also has icon z16-)
 # man_made-silo                                     # caption(optional) z18- (also has icon z16-)
 # man_made-storage_tank                             # caption(optional) z18- (also has icon z16-)
-# man_made-works                                    # caption(optional) z18- (also has icon z16-)
+# man_made-works                                    # caption(optional) z17- (also has icon z16-)
 # === -8100
 
 # leisure-park-no-access                            # caption(optional) z14- (also has icon z14-, area z10-)
