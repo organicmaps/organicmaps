@@ -80,7 +80,7 @@ jobs:
 
       - name: Run monkey
         run: |
-          gcloud auth activate-service-account --key-file android/firebase-test-lab.json
+          gcloud auth activate-service-account --key-file android/app/firebase-test-lab.json
           gcloud config set project omapsapp
           gcloud firebase test android run --app ./android/app/build/outputs/apk/google/debug/OrganicMaps-*-google-debug.apk \
             --device model=panther,version=33 \
