@@ -24,7 +24,7 @@ buildscript {
   ext.googleMobileServicesEnabled = taskName.contains('google') || taskName.contains('huawei') || taskName.contains('web')
 
   // Enable Firebase for all beta flavors except fdroid only if google-services.json exists.
-  def googleFirebaseServicesDefault = isBeta && !isFdroid && file('app/google-services.json').exists()
+  def googleFirebaseServicesDefault = isBeta && !isFdroid && file("$projectDir/google-services.json").exists()
   // Add a parameter to force Firebase.
   ext.googleFirebaseServicesEnabled = project.hasProperty('firebase') ?: googleFirebaseServicesDefault
 
@@ -368,7 +368,7 @@ android {
           // Use the last commit message for the release notes.
           releaseNotes = getCommitMessage()
           groups = "qa" // Notify only selected people.
-          serviceCredentialsFile = "app/firebase-app-distribution.json"
+          serviceCredentialsFile = "$projectDir/firebase-app-distribution.json"
         }
       }
     }
@@ -457,7 +457,7 @@ play {
 huaweiPublish {
   instances {
     huaweiRelease {
-      credentialsPath = "$rootDir/huawei-appgallery.json"
+      credentialsPath = "$projectDir/huawei-appgallery.json"
       buildFormat = 'aab'
       deployType = 'draft' // confirm manually
       releaseNotes = []
