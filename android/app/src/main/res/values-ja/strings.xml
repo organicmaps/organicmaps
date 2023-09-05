@@ -193,12 +193,12 @@
 	<string name="pref_zoom_summary">画面上に表示</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">夜間モード</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">オフ</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">オン</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">自動</string>
+	<!-- Generic «Off» string -->
+	<string name="off">オフ</string>
+	<!-- Generic «On» string -->
+	<string name="on">オン</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">自動</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">パースペクティブ表示</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -524,8 +524,6 @@
 	<string name="enable_logging">ログを有効化</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">一般的なフィードバック</string>
-	<string name="on">オン</string>
-	<string name="off">オフ</string>
 	<string name="prefs_languages_information">音声案内にはシステムの TTS を使用します。多くの Android 端末が Google の TTS を使用しており、Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) からダウンロードや更新を行うことができます。</string>
 	<string name="prefs_languages_information_off">いくつかの言語では、アプリストアからその他の音声合成または追加の言語パックをインストールする必要があります (Google Play マーケット、Galaxy Store) 。お使いのデバイスで [設定] → [言語と入力] → [音声] → [音声出力] を開いてください。ここで音声合成の設定 (たとえば、オフラインで使用する言語パックのダウンロードなど) を管理し、別の音声合成エンジンを選択することができます。</string>
 	<string name="prefs_languages_information_off_link">詳細については、このガイドをご確認ください。</string>
@@ -592,9 +590,10 @@
 	<string name="bookmark_list_description_hint">説明(テキストまたはhtml)を記入してください</string>
 	<string name="not_shared">非公開</string>
 	<string name="speedcams_alert_title">自動速度違反取締装置</string>
-	<string name="speedcam_option_auto">自動</string>
-	<string name="speedcam_option_always">常時</string>
-	<string name="speedcam_option_never">無効</string>
+	<!-- Generic «Always» string -->
+	<string name="always">常時</string>
+	<!-- Generic «Never» string -->
+	<string name="never">無効</string>
 	<string name="place_description_title">場所の説明</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">マップダウンローダー</string>

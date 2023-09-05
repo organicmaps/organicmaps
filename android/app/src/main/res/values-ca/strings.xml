@@ -204,12 +204,12 @@
 	<string name="pref_zoom_summary">Mostra\'ls al mapa</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Mode nocturn</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">Desactivat</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">Activat</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">Automàtic</string>
+	<!-- Generic «Off» string -->
+	<string name="off">Desactivat</string>
+	<!-- Generic «On» string -->
+	<string name="on">Activat</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">Automàtic</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Vista en perspectiva</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -548,8 +548,6 @@
 	<string name="enable_logging">Activa el registre</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Opinió general</string>
-	<string name="on">Actiu</string>
-	<string name="off">Inactiu</string>
 	<string name="prefs_languages_information">Usem el sistema de síntesi de veu per a les instruccions de veu. Molts aparells Android use el motor de síntesi de veu de Google, podeu baixar o actualitzar-lo des del Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Per a algunes llengües, haureu d\'instal·lar un sintetizador de veu o un paquet de llengua addicional des de la botiga d\'apliacions (Google Play, Galazy Store, FDroid).\nObriu la configuració de l\'aparell → Idioma i entrada → Veu → Sortidda de text a veu.\nAquí podeu gestionar la configuració de la síntesi de veu (per exemple, baixar un paquet de llengua per a ús sense connexió) i triar un altre motor de síntesi de veu.</string>
 	<string name="prefs_languages_information_off_link">Per a més informació, vegeu aquesta guia.</string>
@@ -620,9 +618,10 @@
 	<string name="bookmark_list_description_hint">Escriviu una descripció (text o html)</string>
 	<string name="not_shared">Privat</string>
 	<string name="speedcams_alert_title">Radars</string>
-	<string name="speedcam_option_auto">Automàtic</string>
-	<string name="speedcam_option_always">Sempre</string>
-	<string name="speedcam_option_never">Mai</string>
+	<!-- Generic «Always» string -->
+	<string name="always">Sempre</string>
+	<!-- Generic «Never» string -->
+	<string name="never">Mai</string>
 	<string name="place_description_title">Descripció del lloc</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Descàrrega de mapes</string>

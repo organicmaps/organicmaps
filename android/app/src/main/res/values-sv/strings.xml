@@ -193,12 +193,12 @@
 	<string name="pref_zoom_summary">Visa på skärmen</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Nattläge</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">Av</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">På</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">Auto</string>
+	<!-- Generic «Off» string -->
+	<string name="off">Av</string>
+	<!-- Generic «On» string -->
+	<string name="on">På</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">Auto</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Perspektivvy</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -524,8 +524,6 @@
 	<string name="enable_logging">Aktivera loggning</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Allmän feedback</string>
-	<string name="on">På</string>
-	<string name="off">Av</string>
 	<string name="prefs_languages_information">Vi använder TTS-system för röstinstruktioner. Flera Android-enheter använder Google TTS. Du kan ladda ned eller uppdatera det på Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">För vissa språk måste du installera en annan talsyntes eller ett annat språkpaket från appbutiken (Google Play Market, Galaxy Store).\nÖppna inställningarna på enheten → Språk och inmatning → Tal → Text till tal-uppspelning.\nHär kan du hantera inställningarna för talsyntes (till exempel, ladda ned språkpaket för användning offline) och välja en annan text till tal-motor.</string>
 	<string name="prefs_languages_information_off_link">Kolla in den här guiden för mer information.</string>
@@ -595,9 +593,10 @@
 	<string name="bookmark_list_description_hint">Lägg till en beskrivning (text eller html)</string>
 	<string name="not_shared">Personlig</string>
 	<string name="speedcams_alert_title">Hastighetskameror</string>
-	<string name="speedcam_option_auto">Auto</string>
-	<string name="speedcam_option_always">Alltid</string>
-	<string name="speedcam_option_never">Aldrig</string>
+	<!-- Generic «Always» string -->
+	<string name="always">Alltid</string>
+	<!-- Generic «Never» string -->
+	<string name="never">Aldrig</string>
 	<string name="place_description_title">Beskrivning av platsen</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Kartladdning</string>

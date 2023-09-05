@@ -214,12 +214,12 @@
 	<string name="pref_zoom_summary">Näytä kartalla</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Yötila</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">Pois päältä</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">Päällä</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">Automaattinen</string>
+	<!-- Generic «Off» string -->
+	<string name="off">Pois päältä</string>
+	<!-- Generic «On» string -->
+	<string name="on">Päällä</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">Automaattinen</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Perspektiivinäkymä</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -559,8 +559,6 @@
 	<string name="enable_logging">Ota loki käyttöön</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Yleinen palaute</string>
-	<string name="on">Käytössä</string>
-	<string name="off">Ei käytössä</string>
 	<string name="prefs_languages_information">Käytämme ääniohjeisiin tekstistä puheeksi -järjestelmää. Monet Android-laitteet käyttävät Googlen tekstistä puheeksi -sovellusta, jonka voit ladata tai päivittää Google Playssä (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Joidenkin kielien osalta sinun täytyy asentaa toinen puhesyntetisaattori tai lisäkielipaketti sovelluskaupasta (Google Play, Galaxy Store, App Gallery, FDroid). Avaa laitteen asetukset → Kieli ja syöttötapa → Puhe → Teksistä puheeksi -toisto. Täällä voit hallita puhesynteesin asetuksia (esimerkiksi ladata offline-tilassa käytettävän kielipaketin) ja valita toisen tekstistä puheeksi -moottorin.</string>
 	<string name="prefs_languages_information_off_link">Lisätietoja saat tästä oppaasta.</string>
@@ -631,9 +629,10 @@
 	<string name="bookmark_list_description_hint">Lisää kuvaus (teksti tai html)</string>
 	<string name="not_shared">Yksityinen</string>
 	<string name="speedcams_alert_title">Nopeuskamerat</string>
-	<string name="speedcam_option_auto">Auto</string>
-	<string name="speedcam_option_always">Aina</string>
-	<string name="speedcam_option_never">Ei koskaan</string>
+	<!-- Generic «Always» string -->
+	<string name="always">Aina</string>
+	<!-- Generic «Never» string -->
+	<string name="never">Ei koskaan</string>
 	<string name="place_description_title">Paikan kuvaus</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Karttojen lataaminen</string>

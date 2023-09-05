@@ -217,14 +217,14 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "Éjszakai üzemmód";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "Ki";
+/* Generic «Off» string */
+"off" = "Ki";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "Be";
+/* Generic «On» string */
+"on" = "Be";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "Automatikus";
+/* Generic «Auto» string */
+"auto" = "Automatikus";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Perspektivikus nézet";
@@ -887,10 +887,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Forgalmi adatok nem állnak rendelkezésre";
 
-"on" = "Be";
-
-"off" = "Ki";
-
 "transliteration_title" = "Átírás latin nyelvre";
 
 /* Subway exits for public transport marks on the map */
@@ -995,11 +991,11 @@
 
 "speedcams_alert_title" = "Sebességmérő kamerák";
 
-"speedcam_option_auto" = "Automatikus";
+/* Generic «Always» string */
+"always" = "Mindig";
 
-"speedcam_option_always" = "Mindig";
-
-"speedcam_option_never" = "Soha";
+/* Generic «Never» string */
+"never" = "Soha";
 
 "place_description_title" = "A hely ismertetése";
 

@@ -217,14 +217,14 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "Mode nocturn";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "Desactivat";
+/* Generic «Off» string */
+"off" = "Desactivat";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "Activat";
+/* Generic «On» string */
+"on" = "Activat";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "Automàtic";
+/* Generic «Auto» string */
+"auto" = "Automàtic";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Vista en perspectiva";
@@ -887,10 +887,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "No hi ha dades de trànsit disponibles.";
 
-"on" = "Actiu";
-
-"off" = "Inactiu";
-
 "transliteration_title" = "Translitertació a l'alfabet llatí";
 
 /* Subway exits for public transport marks on the map */
@@ -995,11 +991,11 @@
 
 "speedcams_alert_title" = "Radars";
 
-"speedcam_option_auto" = "Automàtic";
+/* Generic «Always» string */
+"always" = "Sempre";
 
-"speedcam_option_always" = "Sempre";
-
-"speedcam_option_never" = "Mai";
+/* Generic «Never» string */
+"never" = "Mai";
 
 "place_description_title" = "Descripció del lloc";
 

@@ -217,14 +217,14 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "夜間模式";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "關閉";
+/* Generic «Off» string */
+"off" = "關閉";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "開啟";
+/* Generic «On» string */
+"on" = "開啟";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "自動";
+/* Generic «Auto» string */
+"auto" = "自動";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "透視圖";
@@ -887,10 +887,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "無法使用交通資訊";
 
-"on" = "開";
-
-"off" = "關";
-
 "transliteration_title" = "音譯為拉丁文";
 
 /* Subway exits for public transport marks on the map */
@@ -995,11 +991,11 @@
 
 "speedcams_alert_title" = "超速照相機";
 
-"speedcam_option_auto" = "自動";
+/* Generic «Always» string */
+"always" = "總是";
 
-"speedcam_option_always" = "總是";
-
-"speedcam_option_never" = "從不";
+/* Generic «Never» string */
+"never" = "從不";
 
 "place_description_title" = "地點說明";
 

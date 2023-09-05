@@ -8,6 +8,8 @@
 	<string name="recycling">Reciclaje</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Agua</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">Automático</string>
 	<!-- red color -->
 	<string name="red">Rojo</string>
 	<!-- yellow color -->
@@ -97,9 +99,10 @@
 	<string name="bookmark_list_description_hint">Introduzca una descripción (texto o html)</string>
 	<string name="not_shared">Privado</string>
 	<string name="speedcams_alert_title">Cámaras de velocidad</string>
-	<string name="speedcam_option_auto">Automático</string>
-	<string name="speedcam_option_always">Siempre</string>
-	<string name="speedcam_option_never">Nunca</string>
+	<!-- Generic «Always» string -->
+	<string name="always">Siempre</string>
+	<!-- Generic «Never» string -->
+	<string name="never">Nunca</string>
 	<string name="place_description_title">Descripción de lugares</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Descargar mapas</string>

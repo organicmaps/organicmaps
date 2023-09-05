@@ -217,14 +217,14 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "나이트 모드";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "끄기";
+/* Generic «Off» string */
+"off" = "끄기";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "켜기";
+/* Generic «On» string */
+"on" = "켜기";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "자동";
+/* Generic «Auto» string */
+"auto" = "자동";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "원근 보기";
@@ -887,10 +887,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "교통 데이터를 사용할 수 없습니다";
 
-"on" = "켜기";
-
-"off" = "끄기";
-
 "transliteration_title" = "라틴어로 음역";
 
 /* Subway exits for public transport marks on the map */
@@ -995,11 +991,11 @@
 
 "speedcams_alert_title" = "속도 감시 카메라";
 
-"speedcam_option_auto" = "자동";
+/* Generic «Always» string */
+"always" = "항상";
 
-"speedcam_option_always" = "항상";
-
-"speedcam_option_never" = "안함";
+/* Generic «Never» string */
+"never" = "안함";
 
 "place_description_title" = "장소 묘사";
 

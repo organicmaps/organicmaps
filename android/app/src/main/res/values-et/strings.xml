@@ -204,12 +204,12 @@
 	<string name="pref_zoom_summary">Kuva kaardil</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Öörežiim</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">Väljas</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">Sees</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">Automaatne</string>
+	<!-- Generic «Off» string -->
+	<string name="off">Väljas</string>
+	<!-- Generic «On» string -->
+	<string name="on">Sees</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">Automaatne</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Perspektiivi vaade</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -547,8 +547,6 @@
 	<string name="enable_logging">Luba logimine</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Üldine tagasiside</string>
-	<string name="on">Sees</string>
-	<string name="off">Väljas</string>
 	<string name="prefs_languages_information">Hääljuhiste jaoks kasutame TTS süsteemi. Paljud Android-seadmed kasutavad Google\'i TTS-i, saate selle alla laadida või värskendada teenusest Google Play (https:play.google.comstoreappsdetails?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Mõne keele puhul peate paigaldama kõnesüntesaatori või täiendava keelepaketi rakenduste poest (Google Play, Galaxy Store, App Gallery, FDroid).\nAvage oma seadme seaded → Keel ja sisend → Kõne → Tekst kõneks väljund.\nSiin saate hallata kõnesünteesi seadeid (näiteks alla laadida keelepaketti võrguühenduseta kasutamiseks) ja valida mõne muu teksti kõneks muutmise mootori.</string>
 	<string name="prefs_languages_information_off_link">Lisainfo saamiseks palun vaadake seda juhist.</string>
@@ -618,9 +616,10 @@
 	<string name="bookmark_list_description_hint">Sisesta kirjeldus (tekst või html)</string>
 	<string name="not_shared">Privaatne</string>
 	<string name="speedcams_alert_title">Kiiruskaamerad</string>
-	<string name="speedcam_option_auto">Automaatne</string>
-	<string name="speedcam_option_always">Alati</string>
-	<string name="speedcam_option_never">Mitte kunagi</string>
+	<!-- Generic «Always» string -->
+	<string name="always">Alati</string>
+	<!-- Generic «Never» string -->
+	<string name="never">Mitte kunagi</string>
 	<string name="place_description_title">Koha kirjeldus</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Kaartide allalaadija</string>

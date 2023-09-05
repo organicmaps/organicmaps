@@ -38,6 +38,8 @@
 	<string name="rv">Kwa RV</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Data ya OpenStreetMap: %s</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">Auto</string>
 	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
 	<string name="pref_map_3d_buildings_disabled_summary">Majengo ya 3D yamezimwa katika hali ya kuokoa nishati</string>
 	<!-- Text in About menu, opens Organic Maps news website -->
@@ -82,8 +84,6 @@
 	<string name="about_description">Organic Maps ni programu huria na ya chanzo huria ya ramani za nje ya mtandao. Hakuna matangazo. Hakuna ufuatiliaji. Ukiona hitilafu kwenye ramani, tafadhali irekebishe katika OpenStreetMap. Mradi huu umeundwa na wapendaji katika wakati wetu wa bure, kwa hivyo tunahitaji maoni na usaidizi wako.</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Maoni Jumla</string>
-	<string name="on">Washa</string>
-	<string name="off">Zima</string>
 	<string name="prefs_languages_information">Tunatumia maagizo ya sautii ya TTS ya mfumo. Vifaa vingi vya Android vinatumia Google TTS, unaweza kuipakua au kuisasisha kwenye Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Kwa baadhi ya lugha, utahitaji kusakinisha programu nyingine ya kusanidi usemi au kifurushi cha ziada cha lugha kutoka kwenye duka la programu-tumizi (Google Play, Galaxy Store, App Gallery, FDroid).\nFungua mipangilio ya kifaa chako → Lugha na Ingizo → Usemi → Tokeo la maandishi kuwa usemi.\nHapa unaweza kusimamia usanidi wa usemi (kwa mfano, kupakua kifurushi cha lugha ili utumie nje ya mtandao) na uchague injini nyingine ya maandishi-kuwa-usemi.</string>
 	<string name="prefs_languages_information_off_link">Kwa maelezo zaidi tafadhali tazama mwongozo huu.</string>
@@ -150,9 +150,10 @@
 	<string name="bookmark_list_description_hint">Andika maelezo (maneno au html)</string>
 	<string name="not_shared">Faragha</string>
 	<string name="speedcams_alert_title">Kamera za mwendo-kasi</string>
-	<string name="speedcam_option_auto">Auto</string>
-	<string name="speedcam_option_always">Mara kwa Mara</string>
-	<string name="speedcam_option_never">Kamwe</string>
+	<!-- Generic «Always» string -->
+	<string name="always">Mara kwa Mara</string>
+	<!-- Generic «Never» string -->
+	<string name="never">Kamwe</string>
 	<string name="place_description_title">Maelezo ya Eneo</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Kipakua Ramani</string>

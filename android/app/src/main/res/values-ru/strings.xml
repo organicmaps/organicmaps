@@ -215,12 +215,12 @@
 	<string name="pref_zoom_summary">Показать на карте</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Ночной режим</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">Выключен</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">Включен</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">Автоматически</string>
+	<!-- Generic «Off» string -->
+	<string name="off">Выключен</string>
+	<!-- Generic «On» string -->
+	<string name="on">Включен</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">Автоматически</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Перспективный вид</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -562,8 +562,6 @@
 	<string name="enable_logging">Включить запись логов</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Отправить отзыв</string>
-	<string name="on">Вкл.</string>
-	<string name="off">Выкл.</string>
 	<string name="prefs_languages_information">Подсказки озвучиваются системным синтезатором речи (TTS). На многих устройствах используется Google TTS, его можно загрузить или обновить в Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Для некоторых языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из магазина приложений (Google Play, Galaxy Store, App Gallery, FDroid).\nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.\nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.</string>
 	<string name="prefs_languages_information_off_link">Более подробная информация — в этом руководстве.</string>
@@ -638,9 +636,10 @@
 	<string name="bookmark_list_description_hint">Добавьте описание (текст или html)</string>
 	<string name="not_shared">Личный</string>
 	<string name="speedcams_alert_title">Камеры скорости</string>
-	<string name="speedcam_option_auto">Авто</string>
-	<string name="speedcam_option_always">Всегда</string>
-	<string name="speedcam_option_never">Никогда</string>
+	<!-- Generic «Always» string -->
+	<string name="always">Всегда</string>
+	<!-- Generic «Never» string -->
+	<string name="never">Никогда</string>
 	<string name="place_description_title">Описание места</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Загрузка карт</string>

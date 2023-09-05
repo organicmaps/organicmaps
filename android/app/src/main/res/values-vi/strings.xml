@@ -195,12 +195,12 @@
 	<string name="pref_zoom_summary">Hiển thị trên màn hình</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Chế độ ban đêm</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">Tắt</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">Bật</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">Tự động</string>
+	<!-- Generic «Off» string -->
+	<string name="off">Tắt</string>
+	<!-- Generic «On» string -->
+	<string name="on">Bật</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">Tự động</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Góc nhìn phối cảnh</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -526,8 +526,6 @@
 	<string name="enable_logging">Bật nhật ký</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Phản hồi chung</string>
-	<string name="on">Bật</string>
-	<string name="off">Tắt</string>
 	<string name="prefs_languages_information">Chúng tôi sử dụng TTS hệ thống để hướng dẫn bằng giọng nói. Rất nhiều thiết bị Android sử dụng Google TTS, bạn có thể tải về hoặc cập nhật nó từ Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Đối với một số ngôn ngữ, bạn sẽ cần cài đặt một trình tổng hợp lời nói khác hoặc một gói ngôn ngữ bổ sung từ cửa hàng ứng dụng (Google Play, Galaxy Store, App Gallery, FDroid).\nMở cài đặt của thiết bị → Ngôn ngữ và nhập liệu → Lời nói → Đầu ra văn bản sang lời nói.\nTại đây bạn có thể quản lý các cài đặt tổng hợp lời nói (ví dụ, tải về các gói ngôn ngữ để sử dụng ngoại tuyến) và chọn một công cụ chuyển đổi văn bản sang lời nói khác.</string>
 	<string name="prefs_languages_information_off_link">Để biết thêm thông tin, vui lòng kiểm tra bài hướng dẫn này.</string>
@@ -595,9 +593,10 @@
 	<string name="bookmark_list_description_hint">Đánh vào một mô tả (văn bản hoặc html)</string>
 	<string name="not_shared">Riêng tư</string>
 	<string name="speedcams_alert_title">Tăn tốc độ máy ảnh</string>
-	<string name="speedcam_option_auto">Tự động</string>
-	<string name="speedcam_option_always">Luôn luôn</string>
-	<string name="speedcam_option_never">Không bao giờ</string>
+	<!-- Generic «Always» string -->
+	<string name="always">Luôn luôn</string>
+	<!-- Generic «Never» string -->
+	<string name="never">Không bao giờ</string>
 	<string name="place_description_title">Mô tả Địa điểm</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Trình tải xuống bản đồ</string>

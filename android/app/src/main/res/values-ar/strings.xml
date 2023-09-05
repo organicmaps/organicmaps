@@ -215,12 +215,12 @@
 	<string name="pref_zoom_summary">عرض على الشاشة</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">الوضع الليلي</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">تعطيل</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">تشغيل</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">تلقائي</string>
+	<!-- Generic «Off» string -->
+	<string name="off">تعطيل</string>
+	<!-- Generic «On» string -->
+	<string name="on">تشغيل</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">تلقائي</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">العرض المنظوري</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -564,8 +564,6 @@
 	<string name="enable_logging">تفعيل التسجيل</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">تعقيب عام</string>
-	<string name="on">تشغيل</string>
-	<string name="off">إيقاف</string>
 	<string name="prefs_languages_information">نحن نستخدم نظام تحويل النص إلى كلام (TTS) للتعليمات الصوتية. تستخدم العديد من أجهزة أندرويد نظام Google TTS، يمكنك تنزيله من أو تحديثه من متجر Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">بالنسبة لبعض اللغات، ستحتاج إلى تنزيل تطبيق تحويل النص إلى كلام أو حزمة لغات إضافية من متجر التطبيقات(متجر Play، Galaxy Store، App Gallery، FDroid(.\nافتح إعدادات جهازك ثم اللغة والإدخال ثم تحويل النص إلى كلام.\nهنا يمكنك إدارة الإعدادات لأنظمة تحويل النص إلى كلا(على سبيل المثال، تنزيل حزمة اللغة للاستجدام دون اتصال انترنيت)</string>
 	<string name="prefs_languages_information_off_link">لمزيد من المعلومات الرجاء مراجعة هذا الدليل.</string>
@@ -632,9 +630,10 @@
 	<string name="bookmark_list_description_hint">اكتب وصفًا (نص أو html)</string>
 	<string name="not_shared">خاص</string>
 	<string name="speedcams_alert_title">تحذيرات كاميرات السرعة</string>
-	<string name="speedcam_option_auto">تلفائياً</string>
-	<string name="speedcam_option_always">مفعل دائماً</string>
-	<string name="speedcam_option_never">معطل دائماً</string>
+	<!-- Generic «Always» string -->
+	<string name="always">مفعل دائماً</string>
+	<!-- Generic «Never» string -->
+	<string name="never">معطل دائماً</string>
 	<string name="place_description_title">وصف المكان</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">مُنزّل الخريطة</string>

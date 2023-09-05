@@ -217,14 +217,14 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "Nočný režim";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "Vypnúť";
+/* Generic «Off» string */
+"off" = "Vypnúť";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "Zapnúť";
+/* Generic «On» string */
+"on" = "Zapnúť";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "Automaticky";
+/* Generic «Auto» string */
+"auto" = "Automaticky";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Perspektívne zobrazenie";
@@ -887,10 +887,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Dopravné informácie nie sú k dispozícii";
 
-"on" = "Zap.";
-
-"off" = "Vyp.";
-
 "transliteration_title" = "Prepis do latinčiny";
 
 /* Subway exits for public transport marks on the map */
@@ -995,11 +991,11 @@
 
 "speedcams_alert_title" = "Rýchlostné kamery";
 
-"speedcam_option_auto" = "Automaticky";
+/* Generic «Always» string */
+"always" = "Vždy";
 
-"speedcam_option_always" = "Vždy";
-
-"speedcam_option_never" = "Nikdy";
+/* Generic «Never» string */
+"never" = "Nikdy";
 
 "place_description_title" = "Popis miesta";
 

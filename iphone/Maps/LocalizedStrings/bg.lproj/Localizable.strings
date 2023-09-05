@@ -217,14 +217,14 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "Нощен режим";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "Изключен";
+/* Generic «Off» string */
+"off" = "Изключен";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "Включен";
+/* Generic «On» string */
+"on" = "Включен";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "Автоматично";
+/* Generic «Auto» string */
+"auto" = "Автоматично";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Перспективен изглед";
@@ -887,10 +887,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Няма налични данни за трафика";
 
-"on" = "Вкл.";
-
-"off" = "Изкл.";
-
 "transliteration_title" = "Латинска транслитерация";
 
 /* Subway exits for public transport marks on the map */
@@ -995,11 +991,11 @@
 
 "speedcams_alert_title" = "Камери за скорост";
 
-"speedcam_option_auto" = "Автоматично";
+/* Generic «Always» string */
+"always" = "Винаги";
 
-"speedcam_option_always" = "Винаги";
-
-"speedcam_option_never" = "Никога";
+/* Generic «Never» string */
+"never" = "Никога";
 
 "place_description_title" = "Описание на мястото";
 

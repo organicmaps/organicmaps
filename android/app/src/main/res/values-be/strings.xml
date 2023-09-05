@@ -213,12 +213,12 @@
 	<string name="pref_zoom_summary">Паказаць на мапе</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Начны рэжым</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">Выключаны</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">Уключаны</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">Аўтаматычна</string>
+	<!-- Generic «Off» string -->
+	<string name="off">Выключаны</string>
+	<!-- Generic «On» string -->
+	<string name="on">Уключаны</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">Аўтаматычна</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Перспектыўны выгляд</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -553,8 +553,6 @@
 	<string name="enable_logging">Уключыць вядзенне журналу</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Агульны водгук</string>
-	<string name="on">Укл.</string>
-	<string name="off">Выкл.</string>
 	<string name="prefs_languages_information">Мы ужываем сістэмны сінтэзатар маўлення (TTS). Многія прылады на Android ужываюць Google TTS, вы можаце спампаваць або абнавіць яго праз Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Для некаторых моў вам спатрэбіцца ўсталяваць сінтэзатар маўлення або дадатковы моўны пакет з крамы праграм (Google Play, Galaxy Store, App Gallery, F-Droid).\Зайдзіце на вашай прыладзе ў Налады → Мова і ўвод → Маўленне → Сінтэз маўлення.\nТут вы можаце задаць налады сінтэза маўлення (напрыклад, спампаваць моўны пакет для выкарыстання без падключэння да інтэрнэту) або выбраць іншы сінтэзатар маўлення.</string>
 	<string name="prefs_languages_information_off_link">Больш падрабязная інфармацыя знаходзіцца ў гэтым кіраўніцтве.</string>
@@ -624,9 +622,10 @@
 	<string name="bookmark_list_description_hint">Дабаўце апісанне (тэкст альбо html)</string>
 	<string name="not_shared">Прыватны</string>
 	<string name="speedcams_alert_title">Камеры хуткасці</string>
-	<string name="speedcam_option_auto">Аўтаматычна</string>
-	<string name="speedcam_option_always">Заўсёды</string>
-	<string name="speedcam_option_never">Ніколі</string>
+	<!-- Generic «Always» string -->
+	<string name="always">Заўсёды</string>
+	<!-- Generic «Never» string -->
+	<string name="never">Ніколі</string>
 	<string name="place_description_title">Апісанне месца</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Спампоўка мапаў</string>

@@ -217,14 +217,14 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "โหมดกลางคืน";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "ปิด";
+/* Generic «Off» string */
+"off" = "ปิด";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "เปิด";
+/* Generic «On» string */
+"on" = "เปิด";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "อัตโนมัติ";
+/* Generic «Auto» string */
+"auto" = "อัตโนมัติ";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "มุมมองเพอร์สเปกทีฟ";
@@ -887,10 +887,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "ไม่มีข้อมูลการจราจร";
 
-"on" = "เปิด";
-
-"off" = "ปิด";
-
 "transliteration_title" = "การทับศัพท์เป็นภาษาละติน";
 
 /* Subway exits for public transport marks on the map */
@@ -995,11 +991,11 @@
 
 "speedcams_alert_title" = "กล้องตรวจจับความเร็ว";
 
-"speedcam_option_auto" = "อัตโนมัติ";
+/* Generic «Always» string */
+"always" = "ทุกครั้ง";
 
-"speedcam_option_always" = "ทุกครั้ง";
-
-"speedcam_option_never" = "ไม่ต้องเตือน";
+/* Generic «Never» string */
+"never" = "ไม่ต้องเตือน";
 
 "place_description_title" = "รายละเอียดของสถานที่";
 

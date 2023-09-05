@@ -200,12 +200,12 @@
 	<string name="pref_zoom_summary">Mostrar no ecrã</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Modo noturno</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">Desligado</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">Ligado</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">Automático</string>
+	<!-- Generic «Off» string -->
+	<string name="off">Desligado</string>
+	<!-- Generic «On» string -->
+	<string name="on">Ligado</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">Automático</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Visão em perspetiva</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -533,8 +533,6 @@
 	<string name="enable_logging">Ativar o histórico</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Opinão geral</string>
-	<string name="on">Lig.</string>
-	<string name="off">Deslig.</string>
 	<string name="prefs_languages_information">Utilizamos o sistema TTS para as instruções de voz. Muitos dispositivos Android usam o Google TTS, pode transferir ou atualizá-lo a partir do Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Para alguns idiomas, precisará de instalar outro sintetizador de voz ou um pacote de idiomas adicional a partir da loja de aplicações (Google Play, Galaxy Store, App Gallery, FDroid). Abra as Configurações do seu dispositivo → Idioma e entrada → Voz → Saída de texto para voz. Aqui pode gerir as configurações de síntese de voz (por exemplo, transferir um pacote de idioma para poder utilizá-lo sem estar ligado à Internet) ou selecionar outro motor de texto para voz.</string>
 	<string name="prefs_languages_information_off_link">Para obter mais informações, consulte este guia.</string>
@@ -605,9 +603,10 @@
 	<string name="bookmark_list_description_hint">Introduza uma descrição (texto ou html)</string>
 	<string name="not_shared">Privado</string>
 	<string name="speedcams_alert_title">Radares de velocidade</string>
-	<string name="speedcam_option_auto">Automático</string>
-	<string name="speedcam_option_always">Sempre</string>
-	<string name="speedcam_option_never">Nunca</string>
+	<!-- Generic «Always» string -->
+	<string name="always">Sempre</string>
+	<!-- Generic «Never» string -->
+	<string name="never">Nunca</string>
 	<string name="place_description_title">Descrição do local</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Descarregador de mapas</string>

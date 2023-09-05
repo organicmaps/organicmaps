@@ -217,14 +217,14 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "Chế độ ban đêm";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "Tắt";
+/* Generic «Off» string */
+"off" = "Tắt";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "Bật";
+/* Generic «On» string */
+"on" = "Bật";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "Tự động";
+/* Generic «Auto» string */
+"auto" = "Tự động";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Góc nhìn phối cảnh";
@@ -887,10 +887,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Dữ liệu giao thông không khả dụng";
 
-"on" = "Bật";
-
-"off" = "Tắt";
-
 "transliteration_title" = "Chuyển ngữ sang chữ Latinh";
 
 /* Subway exits for public transport marks on the map */
@@ -995,11 +991,11 @@
 
 "speedcams_alert_title" = "Tăn tốc độ máy ảnh";
 
-"speedcam_option_auto" = "Tự động";
+/* Generic «Always» string */
+"always" = "Luôn luôn";
 
-"speedcam_option_always" = "Luôn luôn";
-
-"speedcam_option_never" = "Không bao giờ";
+/* Generic «Never» string */
+"never" = "Không bao giờ";
 
 "place_description_title" = "Mô tả Địa điểm";
 

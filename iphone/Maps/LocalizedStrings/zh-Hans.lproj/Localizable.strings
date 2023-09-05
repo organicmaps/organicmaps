@@ -217,14 +217,14 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "夜间模式";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "关闭";
+/* Generic «Off» string */
+"off" = "关闭";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "开启";
+/* Generic «On» string */
+"on" = "开启";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "自动";
+/* Generic «Auto» string */
+"auto" = "自动";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "透视图";
@@ -887,10 +887,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "交通数据不可用";
 
-"on" = "开";
-
-"off" = "关";
-
 "transliteration_title" = "直译成拉丁文";
 
 /* Subway exits for public transport marks on the map */
@@ -995,11 +991,11 @@
 
 "speedcams_alert_title" = "高速摄像机";
 
-"speedcam_option_auto" = "自动";
+/* Generic «Always» string */
+"always" = "总是";
 
-"speedcam_option_always" = "总是";
-
-"speedcam_option_never" = "从不";
+/* Generic «Never» string */
+"never" = "从不";
 
 "place_description_title" = "地点说明";
 

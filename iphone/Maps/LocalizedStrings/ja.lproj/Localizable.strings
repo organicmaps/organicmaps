@@ -217,14 +217,14 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "夜間モード";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "オフ";
+/* Generic «Off» string */
+"off" = "オフ";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "オン";
+/* Generic «On» string */
+"on" = "オン";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "自動";
+/* Generic «Auto» string */
+"auto" = "自動";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "パースペクティブ表示";
@@ -887,10 +887,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "交通データは利用できません";
 
-"on" = "オン";
-
-"off" = "オフ";
-
 "transliteration_title" = "ラテン文字への字訳";
 
 /* Subway exits for public transport marks on the map */
@@ -995,11 +991,11 @@
 
 "speedcams_alert_title" = "自動速度違反取締装置";
 
-"speedcam_option_auto" = "自動";
+/* Generic «Always» string */
+"always" = "常時";
 
-"speedcam_option_always" = "常時";
-
-"speedcam_option_never" = "無効";
+/* Generic «Never» string */
+"never" = "無効";
 
 "place_description_title" = "場所の説明";
 
