@@ -881,8 +881,7 @@ void RoutingManager::ContinueRouteToPoint(RouteMarkData && markData)
 
   markData.m_intermediateIndex = routePoints.GetRoutePointsCount();
   markData.m_isVisible = !markData.m_isMyPosition;
-  routePoints.AddRoutePoint(move(markData));
-  ReorderIntermediatePoints();
+  routePoints.AddRoutePoint(std::move(markData));
 }
 
 void RoutingManager::RemoveRoutePoint(RouteMarkType type, size_t intermediateIndex)
