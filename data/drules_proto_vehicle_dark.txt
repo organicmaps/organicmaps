@@ -3791,6 +3791,31 @@ cont {
   }
 }
 cont {
+  name: "amenity-vehicle_inspection"
+  element {
+    scale: 17
+    symbol {
+      name: "vehicle_inspection-m"
+      priority: 2650
+      min_distance: 24
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "vehicle_inspection-m"
+      priority: 2650
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "vehicle_inspection-m"
+      priority: 2650
+    }
+  }
+}
+cont {
   name: "amenity-vending_machine-fuel"
   element {
     scale: 17

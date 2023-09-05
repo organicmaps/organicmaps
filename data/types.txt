@@ -1571,3 +1571,4 @@ amenity|recycling|container
 *leisure|amusement_arcade
 *amenity|place_of_worship|christian|mormon
 *amenity|public_bath
+*amenity|vehicle_inspection
