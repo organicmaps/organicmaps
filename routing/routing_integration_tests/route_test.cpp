@@ -886,7 +886,7 @@ UNIT_TEST(Bulgaria_Rosenovo_Dobrich)
 
 UNIT_TEST(Russia_UseGravelPrimary_Not_DefaultTertiary)
 {
-  /// @todo Actually, tertiary should be tagged as surface=unaved.
+  /// @todo Actually, tertiary should be tagged as surface=unpaved.
   /// There is an idea to detect and update route if we have leave-enter for the same ref (named) >= primary road:
   /// {80K-004, some tertiary, 80K-004} in a reasonable distance. This is a signal that "some tertiary"
   /// in a middle is an error.

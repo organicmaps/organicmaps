@@ -136,6 +136,8 @@ UNIT_TEST(CrossMwmKaliningradRegionToLiepaja)
       mercator::FromLatLon(54.63519, 21.80749), {0., 0.},
       mercator::FromLatLon(56.51119, 21.01847), 271237);
 
+  // Avoid ferry Dreverna-Juodkrantė-Klaipėda.
+  RoutingOptionSetter optionsGuard(RoutingOptions::Ferry);
   // Same as GraphHopper makes a detour (via unpaved), OSRM goes straight with highway=primary.
   // https://www.openstreetmap.org/directions?engine=graphhopper_bicycle&route=55.340%2C21.459%3B55.715%2C21.135
   // User says that GraphHopper is the best option.
