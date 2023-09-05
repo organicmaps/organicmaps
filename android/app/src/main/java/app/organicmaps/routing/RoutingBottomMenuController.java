@@ -33,11 +33,11 @@ import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.util.Distance;
-import app.organicmaps.widget.recycler.DotDividerItemDecoration;
-import app.organicmaps.widget.recycler.MultilineLayoutManager;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.widget.recycler.DotDividerItemDecoration;
+import app.organicmaps.widget.recycler.MultilineLayoutManager;
 
 import java.util.LinkedList;
 import java.util.List;
