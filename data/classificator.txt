@@ -148,6 +148,7 @@ world  +
         toilets  -
         townhall  -
         university  -
+        vehicle_inspection  -
         vending_machine  +
             cigarettes  -
             coffee  -

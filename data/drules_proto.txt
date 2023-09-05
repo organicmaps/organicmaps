@@ -9909,6 +9909,76 @@ cont {
   }
 }
 cont {
+  name: "amenity-vehicle_inspection"
+  element {
+    scale: 16
+    symbol {
+      name: "vehicle_inspection-m"
+      priority: 2400
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7600
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "vehicle_inspection-m"
+      priority: 2400
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7600
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "vehicle_inspection-m"
+      priority: 2400
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7600
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "vehicle_inspection-m"
+      priority: 2400
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7600
+    }
+  }
+}
+cont {
   name: "amenity-vending_machine"
   element {
     scale: 18
@@ -11152,6 +11222,73 @@ cont {
         dd: 8.0
       }
       priority: 320
+    }
+  }
+}
+cont {
+  name: "barrier-cycle_barrier"
+  element {
+    scale: 16
+    symbol {
+      name: "cycle_barrier-s"
+      priority: 1900
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8100
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "cycle_barrier-s"
+      priority: 1900
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8100
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "cycle_barrier-s"
+      priority: 1900
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8100
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "cycle_barrier-s"
+      priority: 1900
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8100
     }
   }
 }
@@ -15027,10 +15164,17 @@ cont {
 cont {
   name: "craft-winery"
   element {
+    scale: 17
+    symbol {
+      name: "winery-m"
+      priority: 1250
+    }
+  }
+  element {
     scale: 18
     symbol {
-      name: "hand-m"
-      priority: 450
+      name: "winery-m"
+      priority: 1250
     }
     caption {
       primary {
@@ -15039,14 +15183,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9550
+      priority: -8750
     }
   }
   element {
     scale: 19
     symbol {
-      name: "hand-m"
-      priority: 450
+      name: "winery-m"
+      priority: 1250
     }
     caption {
       primary {
@@ -15055,7 +15199,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9550
+      priority: -8750
     }
   }
 }
@@ -44937,21 +45081,30 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "chimney-m"
+      name: "factory-m"
       priority: 1900
     }
   }
   element {
     scale: 17
     symbol {
-      name: "chimney-m"
+      name: "factory-m"
       priority: 1900
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8100
     }
   }
   element {
     scale: 18
     symbol {
-      name: "chimney-m"
+      name: "factory-m"
       priority: 1900
     }
     caption {
@@ -44967,7 +45120,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "chimney-m"
+      name: "factory-m"
       priority: 1900
     }
     caption {
