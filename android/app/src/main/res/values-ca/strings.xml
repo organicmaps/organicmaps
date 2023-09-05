@@ -751,6 +751,7 @@
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.public_bath">Bany Públic</string>
 	<string name="type.amenity.stripclub">Club de striptease</string>
+	<string name="type.amenity.vehicle_inspection">Inspecció de vehicles</string>
 	<string name="type.waterway.ditch">Sèquia de drenatge</string>
 	<string name="type.natural.water.wastewater">Aigües residuals</string>
 	<string name="type.barrier.turnstile">Torniquet</string>

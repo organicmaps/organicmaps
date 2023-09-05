@@ -1570,6 +1570,8 @@
 
 "type.amenity.parcel_locker" = "Паштамат";
 
+"type.amenity.vehicle_inspection" = "Тэхагляд аўтамабіля";
+
 "type.amenity.vending_machine.fuel" = "Паліўная калонка";
 
 "type.amenity.veterinary" = "Veterinary Doctor";

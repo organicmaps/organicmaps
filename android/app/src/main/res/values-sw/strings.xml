@@ -288,6 +288,7 @@
 	<string name="type.amenity.public_bath">Bafu ya Umma</string>
 	<string name="type.amenity.stripclub">Klabu ya Strip</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Mashine ya kuuzia tiketi za usafiri wa umma</string>
+	<string name="type.amenity.vehicle_inspection">Ukaguzi wa Gari</string>
 	<string name="type.barrier.city_wall">Ukuta wa jiji</string>
 	<string name="type.waterway.ditch">Mfereji wa mifereji ya maji</string>
 	<string name="type.natural.water.moat">Moti</string>

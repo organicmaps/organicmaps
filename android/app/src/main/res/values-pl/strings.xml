@@ -888,6 +888,7 @@
 	<string name="type.amenity.vending_machine.drinks">Automat z napojami</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Parkometr</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Automat biletowy do transportu publicznego</string>
+	<string name="type.amenity.vehicle_inspection">Kontrola pojazdu</string>
 	<string name="type.amenity.veterinary">Weterynarz</string>
 	<string name="type.amenity.waste_basket">Kosz na śmieci</string>
 	<string name="type.amenity.waste_disposal">Wysypisko śmieci</string>

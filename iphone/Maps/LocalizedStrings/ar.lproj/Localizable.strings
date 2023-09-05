@@ -1570,6 +1570,8 @@
 
 "type.amenity.parcel_locker" = "خزانة الطرود";
 
+"type.amenity.vehicle_inspection" = "فحص المركبة";
+
 "type.amenity.vending_machine.fuel" = "ماكينة بيع الوقود";
 
 "type.amenity.veterinary" = "طبيب بيطري";

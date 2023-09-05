@@ -937,6 +937,7 @@
 	<string name="type.amenity.vending_machine.sweets">Sweets Dispenser</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Excrement Bags Dispenser</string>
 	<string name="type.amenity.parcel_locker">Parcel Locker</string>
+	<string name="type.amenity.vehicle_inspection">Vehicle Inspection</string>
 	<string name="type.amenity.vending_machine.fuel">Fuel Pump</string>
 	<string name="type.amenity.veterinary">Veterinary Doctor</string>
 	<string name="type.amenity.waste_basket">Trash Bin</string>

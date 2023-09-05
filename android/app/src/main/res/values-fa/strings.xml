@@ -826,6 +826,7 @@
 	<string name="type.amenity.vending_machine.drinks">ماشین فروش نوشیدنی</string>
 	<string name="type.amenity.vending_machine.parking_tickets">پارکو متر</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">دستگاه فروش خودکار بلیط های حمل و نقل عمومی</string>
+	<string name="type.amenity.vehicle_inspection">بازرسی وسایل نقلیه</string>
 	<string name="type.amenity.veterinary">دامپزشکی</string>
 	<string name="type.amenity.waste_basket">سطل زباله</string>
 	<string name="type.amenity.waste_disposal">زباله دانی</string>

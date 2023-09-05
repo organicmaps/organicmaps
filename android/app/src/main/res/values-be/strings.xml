@@ -807,6 +807,7 @@
 	<string name="type.amenity.vending_machine.sweets">Аўтамат з прысмакамі</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Мяшкі дзеля экскрыментаў</string>
 	<string name="type.amenity.parcel_locker">Паштамат</string>
+	<string name="type.amenity.vehicle_inspection">Тэхагляд аўтамабіля</string>
 	<string name="type.amenity.vending_machine.fuel">Паліўная калонка</string>
 	<string name="type.amenity.waste_transfer_station">Станцыя перавалкі адходаў</string>
 	<string name="type.amenity.water_point">Вада для аўтадомаў</string>

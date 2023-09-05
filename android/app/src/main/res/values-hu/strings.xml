@@ -845,6 +845,7 @@
 	<string name="type.amenity.vending_machine.drinks">Italautomata</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Parkolóautomata</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Automata jegykiadó tömegközlekedési eszközökhöz</string>
+	<string name="type.amenity.vehicle_inspection">Gépjármű átvizsgálás</string>
 	<string name="type.amenity.veterinary">Állatorvos</string>
 	<string name="type.amenity.waste_basket">Szemétkosár</string>
 	<string name="type.amenity.waste_disposal">Szemét</string>

@@ -898,6 +898,7 @@
 	<string name="type.amenity.vending_machine.sweets">Snoepautomaat</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Hondenpoepzakjesdispenser</string>
 	<string name="type.amenity.parcel_locker">Pakketjeskluis</string>
+	<string name="type.amenity.vehicle_inspection">Voertuiginspectie</string>
 	<string name="type.amenity.vending_machine.fuel">Tankautomaat</string>
 	<string name="type.amenity.veterinary">Dierenarts</string>
 	<string name="type.amenity.waste_basket">Vuilnisbak</string>

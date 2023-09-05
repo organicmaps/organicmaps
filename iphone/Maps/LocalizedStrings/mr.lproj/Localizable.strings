@@ -1570,6 +1570,8 @@
 
 "type.amenity.parcel_locker" = "पार्सल लॉकर";
 
+"type.amenity.vehicle_inspection" = "वाहन तपासणी";
+
 "type.amenity.vending_machine.fuel" = "इंधन विक्रीयंत्र";
 
 "type.amenity.veterinary" = "पशुवैद्यकीय डॉक्टर";

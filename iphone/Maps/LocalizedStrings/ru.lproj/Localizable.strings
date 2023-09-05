@@ -1570,6 +1570,8 @@
 
 "type.amenity.parcel_locker" = "Почтомат";
 
+"type.amenity.vehicle_inspection" = "Техосмотр автомобиля";
+
 "type.amenity.vending_machine.fuel" = "Топливная колонка";
 
 "type.amenity.veterinary" = "Ветеринарная клиника";

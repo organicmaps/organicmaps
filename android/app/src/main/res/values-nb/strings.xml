@@ -872,6 +872,7 @@
 	<string name="type.amenity.vending_machine.drinks">Drikkeautomat</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Parkeringsautomat</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Billettmaskin for offentlig transport</string>
+	<string name="type.amenity.vehicle_inspection">Inspeksjon av kjøretøy</string>
 	<string name="type.amenity.veterinary">Veterinær</string>
 	<string name="type.amenity.waste_basket">Søppelbøtte</string>
 	<string name="type.amenity.waste_disposal">Søppeldunk</string>

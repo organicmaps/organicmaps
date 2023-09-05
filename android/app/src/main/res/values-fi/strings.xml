@@ -896,6 +896,7 @@
 	<string name="type.amenity.vending_machine.public_transport_tickets">Julkisen liikenteen lippuautomaatti</string>
 	<string name="type.amenity.vending_machine.sweets">Makeisautomaatti</string>
 	<string name="type.amenity.parcel_locker">Pakettilokero</string>
+	<string name="type.amenity.vehicle_inspection">Ajoneuvon tarkastus</string>
 	<string name="type.amenity.vending_machine.fuel">Bensa-automaatti</string>
 	<string name="type.amenity.veterinary">Eläinlääkäri</string>
 	<string name="type.amenity.waste_basket">Roskakori</string>

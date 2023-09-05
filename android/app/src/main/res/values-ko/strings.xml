@@ -825,6 +825,7 @@
 	<string name="type.amenity.vending_machine.drinks">음료자동판매기</string>
 	<string name="type.amenity.vending_machine.parking_tickets">주차티켓판매기</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">대중교통표 자동판매기</string>
+	<string name="type.amenity.vehicle_inspection">차량검사</string>
 	<string name="type.amenity.veterinary">동물병원</string>
 	<string name="type.amenity.waste_basket">쓰레기통</string>
 	<string name="type.amenity.waste_disposal">휴지통</string>
