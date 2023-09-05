@@ -895,6 +895,7 @@
 	<string name="type.amenity.vending_machine.sweets">Süßigkeitenautomat</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Hundekotbeutelspender</string>
 	<string name="type.amenity.parcel_locker">Paketstation</string>
+	<string name="type.amenity.vehicle_inspection">Fahrzeuginspektion</string>
 	<string name="type.amenity.vending_machine.fuel">Zapfsäule</string>
 	<string name="type.amenity.veterinary">Tierarzt</string>
 	<string name="type.amenity.waste_basket">Abfalleimer</string>

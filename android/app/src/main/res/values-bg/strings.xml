@@ -700,6 +700,7 @@
 	<string name="type.recycling.batteries">Батерии</string>
 	<string name="type.amenity.public_bath">Обществена баня</string>
 	<string name="type.amenity.stripclub">Стриптийз клуб</string>
+	<string name="type.amenity.vehicle_inspection">Проверка на автомобила</string>
 	<string name="type.barrier.city_wall">Градска стена</string>
 	<string name="type.waterway.ditch">Отводнителна канавка</string>
 	<string name="type.natural.water.moat">Ров</string>

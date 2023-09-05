@@ -1570,6 +1570,8 @@
 
 "type.amenity.parcel_locker" = "Pakettilokero";
 
+"type.amenity.vehicle_inspection" = "Ajoneuvon tarkastus";
+
 "type.amenity.vending_machine.fuel" = "Bensa-automaatti";
 
 "type.amenity.veterinary" = "Eläinlääkäri";

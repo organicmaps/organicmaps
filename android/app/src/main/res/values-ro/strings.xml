@@ -841,6 +841,7 @@
 	<string name="type.amenity.vending_machine.drinks">Automat de băuturi</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Parcomat</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Automat de vânzare a biletelor pentru transportul public</string>
+	<string name="type.amenity.vehicle_inspection">Inspecția vehiculului</string>
 	<string name="type.amenity.veterinary">Cabinet veterinar</string>
 	<string name="type.amenity.waste_basket">Pubelă</string>
 	<string name="type.amenity.waste_disposal">Gunoi</string>

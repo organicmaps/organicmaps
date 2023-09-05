@@ -906,6 +906,7 @@
 	<string name="type.amenity.vending_machine.sweets">Máquina expendedora de dulces</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Maquina expendedora de bolsas para excrementos</string>
 	<string name="type.amenity.parcel_locker">Taquilla de paquetes</string>
+	<string name="type.amenity.vehicle_inspection">Inspección de vehículos</string>
 	<string name="type.amenity.vending_machine.fuel">Maquina expendedora de combustible</string>
 	<string name="type.amenity.veterinary">Clínica veterinaria</string>
 	<string name="type.amenity.waste_basket">Papelera</string>

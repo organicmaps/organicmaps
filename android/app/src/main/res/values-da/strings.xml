@@ -821,6 +821,7 @@
 	<string name="type.amenity.vending_machine.drinks">Automat for drikkevarer</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Parkeringsbilletmaskine</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Billetautomat for offentlig transport</string>
+	<string name="type.amenity.vehicle_inspection">Bilsyn</string>
 	<string name="type.amenity.veterinary">Dyrlæge</string>
 	<string name="type.amenity.waste_basket">Skraldespand</string>
 	<string name="type.amenity.waste_disposal">Bortskaffelse af affald</string>

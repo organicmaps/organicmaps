@@ -849,6 +849,7 @@
 	<string name="type.amenity.vending_machine.drinks">饮料售货机</string>
 	<string name="type.amenity.vending_machine.parking_tickets">停车缴费机</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">公共交通售票机</string>
+	<string name="type.amenity.vehicle_inspection">车辆检验</string>
 	<string name="type.amenity.veterinary">兽医</string>
 	<string name="type.amenity.waste_basket">垃圾篓</string>
 	<string name="type.amenity.waste_disposal">大型垃圾箱</string>

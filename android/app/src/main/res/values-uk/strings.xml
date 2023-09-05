@@ -890,6 +890,7 @@
 	<string name="type.amenity.vending_machine.sweets">Автомат із солодощами</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Мішки для екскрементів</string>
 	<string name="type.amenity.parcel_locker">Поштомат</string>
+	<string name="type.amenity.vehicle_inspection">Техогляд автомобіля</string>
 	<string name="type.amenity.vending_machine.fuel">Паливна колонка</string>
 	<string name="type.amenity.veterinary">Ветеринарна клініка</string>
 	<string name="type.amenity.waste_basket">Бак для сміття</string>

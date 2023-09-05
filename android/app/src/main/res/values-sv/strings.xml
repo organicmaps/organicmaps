@@ -823,6 +823,7 @@
 	<string name="type.amenity.vending_machine.drinks">Läskautomat</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Parkeringsautomat</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Biljettautomat</string>
+	<string name="type.amenity.vehicle_inspection">Fordonsinspektion</string>
 	<string name="type.amenity.veterinary">Veterinär</string>
 	<string name="type.amenity.waste_basket">Papperskorg</string>
 	<string name="type.amenity.waste_disposal">Avfallscontainer</string>

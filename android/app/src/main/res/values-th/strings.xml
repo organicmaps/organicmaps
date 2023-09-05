@@ -826,6 +826,7 @@
 	<string name="type.amenity.vending_machine.drinks">เครื่องขายเครื่องดื่มอัตโนมัติ</string>
 	<string name="type.amenity.vending_machine.parking_tickets">เครื่องชำระค่าที่จอดรถอัตโนมัติ</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">เครื่องขายของหรือตั๋วขนส่งมวลชนอัตโนมัติ</string>
+	<string name="type.amenity.vehicle_inspection">การตรวจสอบยานพาหนะ</string>
 	<string name="type.amenity.veterinary">สัตวแพทย์</string>
 	<string name="type.amenity.waste_basket">ถังขยะ</string>
 	<string name="type.amenity.waste_disposal">ขยะ</string>

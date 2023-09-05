@@ -915,6 +915,7 @@
 	<string name="type.amenity.vending_machine.sweets">Автомат со сладостями</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Пакеты для экскрементов</string>
 	<string name="type.amenity.parcel_locker">Почтомат</string>
+	<string name="type.amenity.vehicle_inspection">Техосмотр автомобиля</string>
 	<string name="type.amenity.vending_machine.fuel">Топливная колонка</string>
 	<string name="type.amenity.veterinary">Ветеринарная клиника</string>
 	<string name="type.amenity.waste_basket">Урна</string>

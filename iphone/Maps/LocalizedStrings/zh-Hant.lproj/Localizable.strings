@@ -1570,6 +1570,8 @@
 
 "type.amenity.parcel_locker" = "Parcel Locker";
 
+"type.amenity.vehicle_inspection" = "車輛檢驗";
+
 "type.amenity.vending_machine.fuel" = "Fuel Pump";
 
 "type.amenity.veterinary" = "獸醫";

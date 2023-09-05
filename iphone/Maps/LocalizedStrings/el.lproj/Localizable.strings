@@ -1570,6 +1570,8 @@
 
 "type.amenity.parcel_locker" = "Parcel Locker";
 
+"type.amenity.vehicle_inspection" = "Έλεγχος οχήματος";
+
 "type.amenity.vending_machine.fuel" = "Fuel Pump";
 
 "type.amenity.veterinary" = "Κτηνίατρος";

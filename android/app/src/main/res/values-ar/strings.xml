@@ -891,6 +891,7 @@
 	<string name="type.amenity.vending_machine.sweets">ماكينة بيع الحلويات</string>
 	<string name="type.amenity.vending_machine.excrement_bags">ماكينة بيع حقائب النفايات</string>
 	<string name="type.amenity.parcel_locker">خزانة الطرود</string>
+	<string name="type.amenity.vehicle_inspection">فحص المركبة</string>
 	<string name="type.amenity.vending_machine.fuel">ماكينة بيع الوقود</string>
 	<string name="type.amenity.veterinary">طبيب بيطري</string>
 	<string name="type.amenity.waste_basket">صندوق قمامة</string>

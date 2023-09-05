@@ -1570,6 +1570,8 @@
 
 "type.amenity.parcel_locker" = "Paketeen aldagela";
 
+"type.amenity.vehicle_inspection" = "Ibilgailuen Ikuskapena";
+
 "type.amenity.vending_machine.fuel" = "Fuel Pump";
 
 "type.amenity.veterinary" = "Albaitaritzako klinika";

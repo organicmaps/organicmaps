@@ -1570,6 +1570,8 @@
 
 "type.amenity.parcel_locker" = "Pakketjeskluis";
 
+"type.amenity.vehicle_inspection" = "Voertuiginspectie";
+
 "type.amenity.vending_machine.fuel" = "Tankautomaat";
 
 "type.amenity.veterinary" = "Dierenarts";

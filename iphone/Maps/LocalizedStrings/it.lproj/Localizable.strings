@@ -1570,6 +1570,8 @@
 
 "type.amenity.parcel_locker" = "Punto di ritiro";
 
+"type.amenity.vehicle_inspection" = "Ispezione del veicolo";
+
 "type.amenity.vending_machine.fuel" = "Pompa di rifornimento";
 
 "type.amenity.veterinary" = "Veterinario";

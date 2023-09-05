@@ -1570,6 +1570,8 @@
 
 "type.amenity.parcel_locker" = "Consigne automatique pour colis";
 
+"type.amenity.vehicle_inspection" = "Inspection de véhicule";
+
 "type.amenity.vending_machine.fuel" = "Pompe à carburants";
 
 "type.amenity.veterinary" = "Docteur vétérinaire";

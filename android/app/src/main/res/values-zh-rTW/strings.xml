@@ -856,6 +856,7 @@
 	<string name="type.amenity.vending_machine.drinks">飲料自動販賣機</string>
 	<string name="type.amenity.vending_machine.parking_tickets">違規停車罰單繳費機</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">公共交通售票機</string>
+	<string name="type.amenity.vehicle_inspection">車輛檢驗</string>
 	<string name="type.amenity.veterinary">獸醫</string>
 	<string name="type.amenity.waste_basket">垃圾箱</string>
 	<string name="type.amenity.waste_disposal">垃圾</string>

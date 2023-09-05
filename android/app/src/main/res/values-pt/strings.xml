@@ -856,6 +856,7 @@
 	<string name="type.amenity.vending_machine.parking_tickets">Máquina venda de bilhetes de estacionamento</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Máquina venda de bilhetes de transporte público</string>
 	<string name="type.amenity.parcel_locker">Cacifo</string>
+	<string name="type.amenity.vehicle_inspection">Inspeção veicular</string>
 	<string name="type.amenity.veterinary">Veterinário</string>
 	<string name="type.amenity.waste_basket">Caixote do lixo</string>
 	<string name="type.amenity.waste_disposal">Contentor do lixo</string>

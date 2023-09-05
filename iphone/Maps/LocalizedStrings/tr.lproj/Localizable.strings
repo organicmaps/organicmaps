@@ -1570,6 +1570,8 @@
 
 "type.amenity.parcel_locker" = "Kilitlenebilen Kutu Dolaplar";
 
+"type.amenity.vehicle_inspection" = "Araç muayenesi";
+
 "type.amenity.vending_machine.fuel" = "Yakıt Dağıtıcı";
 
 "type.amenity.veterinary" = "Veteriner";

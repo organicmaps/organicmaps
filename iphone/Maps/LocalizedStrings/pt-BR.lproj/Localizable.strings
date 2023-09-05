@@ -1570,6 +1570,8 @@
 
 "type.amenity.parcel_locker" = "Armário de encomendas";
 
+"type.amenity.vehicle_inspection" = "Inspeção veicular";
+
 "type.amenity.vending_machine.fuel" = "Bomba de combustível";
 
 "type.amenity.veterinary" = "Veterinário";

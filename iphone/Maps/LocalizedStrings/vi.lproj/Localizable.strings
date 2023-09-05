@@ -1570,6 +1570,8 @@
 
 "type.amenity.parcel_locker" = "Parcel Locker";
 
+"type.amenity.vehicle_inspection" = "Kiểm tra xe";
+
 "type.amenity.vending_machine.fuel" = "Fuel Pump";
 
 "type.amenity.veterinary" = "Bác sĩ Thú y";

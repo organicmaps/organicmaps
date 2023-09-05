@@ -1570,6 +1570,8 @@
 
 "type.amenity.parcel_locker" = "Taquilla de paquetes";
 
+"type.amenity.vehicle_inspection" = "Inspección de vehículos";
+
 "type.amenity.vending_machine.fuel" = "Maquina expendedora de combustible";
 
 "type.amenity.veterinary" = "Clínica veterinaria";

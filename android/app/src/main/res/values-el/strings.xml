@@ -824,6 +824,7 @@
 	<string name="type.amenity.vending_machine.drinks">Αυτόματος πωλητής ποτών</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Εισιτήρια στάθμευσης</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Μηχάνημα αυτόματης πώλησης εισιτηρίων για τα μέσα μαζικής μεταφοράς</string>
+	<string name="type.amenity.vehicle_inspection">Έλεγχος οχήματος</string>
 	<string name="type.amenity.veterinary">Κτηνίατρος</string>
 	<string name="type.amenity.waste_basket">Κάδος απορριμμάτων</string>
 	<string name="type.amenity.waste_disposal">Διαχείριση απορριμμάτων</string>

@@ -901,6 +901,7 @@
 	<string name="type.amenity.vending_machine.public_transport_tickets">Toplu Taşıma Biletleri için Otomatlar</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Dışkı Torbası Dağıtıcı</string>
 	<string name="type.amenity.parcel_locker">Kilitlenebilen Kutu Dolaplar</string>
+	<string name="type.amenity.vehicle_inspection">Araç muayenesi</string>
 	<string name="type.amenity.vending_machine.fuel">Yakıt Dağıtıcı</string>
 	<string name="type.amenity.veterinary">Veteriner</string>
 	<string name="type.amenity.waste_basket">Çöp Kutusu</string>
