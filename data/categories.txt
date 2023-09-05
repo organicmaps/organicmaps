@@ -5718,6 +5718,44 @@ sk:3poštový úrad
 fa:اداره پست
 mr:टपालघर|पोस्ट ऑफिस
 
+amenity-vehicle_inspection
+en:Vehicle Inspection
+ar:فحص المركبة
+be:Тэхагляд аўтамабіля
+bg:Проверка на автомобила
+ca:Inspecció de vehicles
+cs:Kontrola vozidla
+da:Bilsyn
+de:Fahrzeuginspektion
+el:Έλεγχος οχήματος
+es:Inspección de vehículos
+et:Sõiduki ülevaatus
+eu:Ibilgailuen Ikuskapena
+fa:بازرسی وسایل نقلیه
+fi:Ajoneuvon tarkastus
+fr:Inspection de véhicule
+he:לבדיקה טכנית
+hu:Gépjármű átvizsgálás
+id:Pemeriksaan kendaraan
+it:Ispezione del veicolo
+ja:車検
+ko:차량검사
+mr:वाहन तपासणी
+nb:Inspeksjon av kjøretøy
+nl:Voertuiginspectie
+pl:Kontrola pojazdu
+pt:Inspeção veicular
+ro:Inspecția vehiculului
+ru:Техосмотр автомобиля
+sk:Kontrola vozidla
+sv:Fordonsinspektion
+sw:Ukaguzi wa Gari
+th:การตรวจสอบยานพาหนะ
+tr:Araç muayenesi
+uk:Техогляд автомобіля
+vi:Kiểm tra xe
+zh-Hans:车辆检验
+zh-Hant:車輛檢驗
 
 amenity-waste_disposal
 en:4Dumpster|4Trash bin|4garbage bin|waste disposal|U+1F6AE

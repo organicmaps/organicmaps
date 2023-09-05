@@ -1813,6 +1813,8 @@ node|z16-[shop=car_parts],
 area|z16-[shop=car_parts],
 node|z16-[shop=car_repair],
 area|z16-[shop=car_repair],
+node|z16-[amenity=vehicle_inspection],
+area|z16-[amenity=vehicle_inspection],
 node|z16-[shop=tyres],
 area|z16-[shop=tyres],
 node|z16-[shop=chemist],
@@ -2012,6 +2014,9 @@ area|z16[shop=car_repair]
 node|z16[shop=tyres],
 area|z16[shop=tyres]
 {icon-image: car-repair-m.svg;}
+node|z16-[amenity=vehicle_inspection],
+area|z16-[amenity=vehicle_inspection],
+{icon-image: vehicle_inspection-m.svg;}
 node|z16[shop=chemist],
 area|z16[shop=chemist]
 {icon-image: chemist-m.svg;}
@@ -2227,6 +2232,9 @@ area|z17-[shop=car_repair]
 node|z17-[shop=tyres],
 area|z17-[shop=tyres]
 {icon-image: car-repair-m.svg;icon-min-distance: 24;}
+node|z17-[amenity=vehicle_inspection],
+area|z17-[amenity=vehicle_inspection],
+{icon-image: vehicle_inspection-m.svg;icon-min-distance: 24;}
 node|z17-[shop=chemist],
 area|z17-[shop=chemist]
 {icon-image: chemist-m.svg;icon-min-distance: 24;}

@@ -172,6 +172,7 @@ railway-level_crossing                              # icon z17-
 === 2700
 
 amenity-car_wash                                    # icon z17- (also has caption(optional) z17-)
+amenity-vehicle_inspection                          # icon z17-
 amenity-vending_machine-parking_tickets             # icon z17- (also has caption(optional) z17-)
 shop-car_parts                                      # icon z17-
 shop-car_repair                                     # icon z17-
