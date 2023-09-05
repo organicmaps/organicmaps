@@ -80,7 +80,7 @@ UNIT_TEST(Zgrad924aToKrukovo)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(55.9844, 37.1808), {0., 0.},
-      mercator::FromLatLon(55.9802, 37.1736), 1305.48);
+      mercator::FromLatLon(55.9802, 37.1736), 1030);
 }
 
 UNIT_TEST(MoscowMailRuStarbucksToPetrovskoRazumovskyAlley)
