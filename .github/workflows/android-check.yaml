@@ -52,7 +52,7 @@ jobs:
       - name: Lint
         shell: bash
         working-directory: android
-        run: gradle lint
+        run: ./gradlew lint
 
   android-check:
     name: Build Android Debug
@@ -100,7 +100,7 @@ jobs:
         run: |
           cmake --version
           ninja --version
-          gradle -Parm64 assemble${{ matrix.flavor }}
+          ./gradlew -Parm64 assemble${{ matrix.flavor }}
 
       - name: Upload arm64-v8a ${{ matrix.flavor }} apk
         uses: actions/upload-artifact@v3
