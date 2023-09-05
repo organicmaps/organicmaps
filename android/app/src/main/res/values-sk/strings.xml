@@ -195,12 +195,12 @@
 	<string name="pref_zoom_summary">Zobraziť na obrazovke</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Nočný režim</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">Vypnúť</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">Zapnúť</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">Automaticky</string>
+	<!-- Generic «Off» string -->
+	<string name="off">Vypnúť</string>
+	<!-- Generic «On» string -->
+	<string name="on">Zapnúť</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">Automaticky</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Perspektívne zobrazenie</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -524,8 +524,6 @@
 	<string name="enable_logging">Zapnúť zaznamenávanie</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Všeobecné pripomienky</string>
-	<string name="on">Zap.</string>
-	<string name="off">Vyp.</string>
 	<string name="prefs_languages_information">Na hlasové pokyny používame systém TTS. Mnohé zariadenia s Adroidom používajú Google TTS, ktorý si môžete stiahnuť alebo aktualizovať z obchodu Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Pre niektoré jazyky bude potrebné nainštalovať syntetizátor reči alebo balík doplnkového jazyka z obchodu s aplikáciami (Google Play, Galaxy Store, App Gallery, FDroid). Otvorte nastavenia zariadenia → Jazyk a vstup → Reč → Prevod textu na reč. Tu môžete spravovať nastavenia pre syntézu reči (napríklad stiahnuť jazykový balík pre použitie v režime offline) a vybrať iný jazyk.</string>
 	<string name="prefs_languages_information_off_link">Viac informácií nájdete v tomto návode.</string>
@@ -594,9 +592,10 @@
 	<string name="bookmark_list_description_hint">Zadajte popis (text alebo html)</string>
 	<string name="not_shared">Súkromné</string>
 	<string name="speedcams_alert_title">Rýchlostné kamery</string>
-	<string name="speedcam_option_auto">Automaticky</string>
-	<string name="speedcam_option_always">Vždy</string>
-	<string name="speedcam_option_never">Nikdy</string>
+	<!-- Generic «Always» string -->
+	<string name="always">Vždy</string>
+	<!-- Generic «Never» string -->
+	<string name="never">Nikdy</string>
 	<string name="place_description_title">Popis miesta</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Sťahovač máp</string>

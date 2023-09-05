@@ -212,12 +212,12 @@
 	<string name="pref_zoom_summary">Weergave op het scherm</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Nachtmodus</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">Uit</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">Aan</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">Automatisch</string>
+	<!-- Generic «Off» string -->
+	<string name="off">Uit</string>
+	<!-- Generic «On» string -->
+	<string name="on">Aan</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">Automatisch</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Perspectiefbeeld</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -555,8 +555,6 @@
 	<string name="enable_logging">Logboekregistratie inschakelen</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Algemene Feedback</string>
-	<string name="on">Aan</string>
-	<string name="off">Uit</string>
 	<string name="prefs_languages_information">We gebruiken het TTS-systeem voor gesproken instructies. Vele Android toestellen gebruiken Google TTS, u kunt het downloaden of bijwerken in Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Voor sommige talen dient u een andere spraaksynthese software of een aanvullende taalpakket te installeren van de app store (Google Play, Galaxy Store, App Gallery, FDroid).\nOpen de instellingen van uw toestel → Taal en invoer → Spraak → Uitvoer voor tekst-naar-spraak.\nHier kunt u instellingen voor spraaksynthese beheren (bijvoorbeeld taalpakket downloaden voor offline gebruik) en een andere tekst-naar-spraak engine selecteren.</string>
 	<string name="prefs_languages_information_off_link">Gelieve deze handleiding te lezen voor meer informatie.</string>
@@ -624,9 +622,10 @@
 	<string name="bookmark_list_description_hint">Maak een beschrijving aan (tekst of html)</string>
 	<string name="not_shared">Privé</string>
 	<string name="speedcams_alert_title">Snelheidscamera\'s</string>
-	<string name="speedcam_option_auto">Auto</string>
-	<string name="speedcam_option_always">Altijd</string>
-	<string name="speedcam_option_never">Nooit</string>
+	<!-- Generic «Always» string -->
+	<string name="always">Altijd</string>
+	<!-- Generic «Never» string -->
+	<string name="never">Nooit</string>
 	<string name="place_description_title">Plaats Beschrijving</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Kaart downloader</string>

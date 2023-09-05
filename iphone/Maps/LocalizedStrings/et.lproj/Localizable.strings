@@ -217,14 +217,14 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "Öörežiim";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "Väljas";
+/* Generic «Off» string */
+"off" = "Väljas";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "Sees";
+/* Generic «On» string */
+"on" = "Sees";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "Automaatne";
+/* Generic «Auto» string */
+"auto" = "Automaatne";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Perspektiivi vaade";
@@ -887,10 +887,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Liiklusinfo ei ole saadaval";
 
-"on" = "Sees";
-
-"off" = "Väljas";
-
 "transliteration_title" = "Transliteratsioon ladina keelde";
 
 /* Subway exits for public transport marks on the map */
@@ -995,11 +991,11 @@
 
 "speedcams_alert_title" = "Kiiruskaamerad";
 
-"speedcam_option_auto" = "Automaatne";
+/* Generic «Always» string */
+"always" = "Alati";
 
-"speedcam_option_always" = "Alati";
-
-"speedcam_option_never" = "Mitte kunagi";
+/* Generic «Never» string */
+"never" = "Mitte kunagi";
 
 "place_description_title" = "Koha kirjeldus";
 

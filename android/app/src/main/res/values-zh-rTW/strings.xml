@@ -200,12 +200,12 @@
 	<string name="pref_zoom_summary">在螢幕上顯示</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">夜間模式</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">關閉</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">開啟</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">自動</string>
+	<!-- Generic «Off» string -->
+	<string name="off">關閉</string>
+	<!-- Generic «On» string -->
+	<string name="on">開啟</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">自動</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">透視圖</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -544,8 +544,6 @@
 	<string name="enable_logging">啟用記錄</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">一般反應</string>
-	<string name="on">開</string>
-	<string name="off">關</string>
 	<string name="prefs_languages_information">我們使用系統 TTS 提供語音指示。許多 Android 裝置使用 Google TTS，您可從 Google Play 下載或更新 (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">對於某些語言，您將需要從 App 商店 (Google Play 商店, Galaxy Store) 安裝其他語音合成器或額外的語言套件。\n開啟您裝置的設定 → 語言與輸入 → 語音 → 文字轉換語音輸出。\n在這裡，您可以管理語音合成器的設定（例如，下載語言套件以供離線使用），並選取其他文字轉換語音引擎。</string>
 	<string name="prefs_languages_information_off_link">如需更多資訊，請參閱本指南。</string>
@@ -612,9 +610,10 @@
 	<string name="bookmark_list_description_hint">增加說明(文字或html)</string>
 	<string name="not_shared">私人</string>
 	<string name="speedcams_alert_title">超速照相機</string>
-	<string name="speedcam_option_auto">自動</string>
-	<string name="speedcam_option_always">總是</string>
-	<string name="speedcam_option_never">從不</string>
+	<!-- Generic «Always» string -->
+	<string name="always">總是</string>
+	<!-- Generic «Never» string -->
+	<string name="never">從不</string>
 	<string name="place_description_title">地點說明</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">載入地圖</string>

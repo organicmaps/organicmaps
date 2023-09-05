@@ -197,12 +197,12 @@
 	<string name="pref_zoom_summary">Tampilkan pada layar</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Mode Malam</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">Tidak Aktif</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">Aktif</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">Otomatis</string>
+	<!-- Generic «Off» string -->
+	<string name="off">Tidak Aktif</string>
+	<!-- Generic «On» string -->
+	<string name="on">Aktif</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">Otomatis</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Pandangan perspektif</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -528,8 +528,6 @@
 	<string name="enable_logging">Aktifkan pencatatan</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Umpan Balik Umum</string>
-	<string name="on">On</string>
-	<string name="off">Mati</string>
 	<string name="prefs_languages_information">Kami menggunakan TTS sistem untuk petunjuk suara. Banyak perangkat Android menggunakan Google TTS, Anda dapat mengunduhnya dari Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Untuk beberapa bahasa, Anda perlu menginstal synthesizer suara atau paket bahasa tambahan dari toko aplikasi (Google Play, Galaxy Store, App Gallery, FDroid).\nBuka pengaturan perangkat Anda → Language and input (Bahasa dan input) → Speech (Suara) → Text to speech (Teks ke suara).\nDi sini, Anda dapat mengelola pengaturan untuk sintesis suara (contohnya, mengunduh paket bahasa untuk penggunaan tanpa internet) dan memilih mesin tekske suara lain.</string>
 	<string name="prefs_languages_information_off_link">Untuk informasi selengkapnya, bacalah panduan ini.</string>
@@ -597,9 +595,10 @@
 	<string name="bookmark_list_description_hint">Ketikkan deskripsi (teks atau html)</string>
 	<string name="not_shared">Pribadi</string>
 	<string name="speedcams_alert_title">Kamera cepat</string>
-	<string name="speedcam_option_auto">Auto</string>
-	<string name="speedcam_option_always">Selalu</string>
-	<string name="speedcam_option_never">Tidak pernah</string>
+	<!-- Generic «Always» string -->
+	<string name="always">Selalu</string>
+	<!-- Generic «Never» string -->
+	<string name="never">Tidak pernah</string>
 	<string name="place_description_title">Deskripsi Tempat</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Pengunduh peta</string>

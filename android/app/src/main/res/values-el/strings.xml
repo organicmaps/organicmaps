@@ -196,12 +196,12 @@
 	<string name="pref_zoom_summary">Εμφάνιση στο χάρτη</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Νυχτερινή λειτουργία</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">Απενεργ.</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">Ενεργ.</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">Αυτόματα</string>
+	<!-- Generic «Off» string -->
+	<string name="off">Απενεργ.</string>
+	<!-- Generic «On» string -->
+	<string name="on">Ενεργ.</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">Αυτόματα</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Προβολή προοπτικής</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -519,8 +519,6 @@
 	<string name="enable_logging">Ενεργοποίηση δυνατότητας καταγραφής</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Γενικό σχόλιο</string>
-	<string name="on">Ενεργ.</string>
-	<string name="off">Απενεργ.</string>
 	<string name="prefs_languages_information">Χρησιμοποιούμε σύστημα TTS για τις φωνητικές οδηγίες. Αρκετές συσκευές Android χρησιμοποιούν Google TTS, μπορείτε να το κατεβάσετε ή να το ενημερώσετε από το Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Για μερικές γλώσσες θα χρειαστεί να εγκαταστήσετε συνθεσάιζερ ομιλίας ή συμπληρωματικό πακέτο γλώσσας από το app store (Google Play, Galaxy Store, App Gallery, FDroid).\nΑνοίξτε τις Ρυθμίσεις της συσκευής σας → Γλώσσα και εισαγωγή → Ομιλία → Μετατροπή κειμένου σε ομιλία.\nΕδώ μπορείτε να διαχειριστείτε τις ρυθμίσεις της σύνθεσης ομιλίας (για παράδειγμα, μπορείτε να κατεβάσετε πακέτο γλώσσας για χρήση εκτός σύνδεσης) και να επιλέξετε άλλη μηχανή μετατροπής κειμένου σε ομιλία.</string>
 	<string name="prefs_languages_information_off_link">Για περισσότερες πληροφορίες δείτε αυτό τον οδηγό.</string>
@@ -588,9 +586,10 @@
 	<string name="bookmark_list_description_hint">Πληκτρολογήστε μια περιγραφή (κείμενο ή html)</string>
 	<string name="not_shared">Προσωπικός</string>
 	<string name="speedcams_alert_title">Κάμερες Ταχύτητας</string>
-	<string name="speedcam_option_auto">Αυτόματο</string>
-	<string name="speedcam_option_always">Πάντα</string>
-	<string name="speedcam_option_never">Ποτέ</string>
+	<!-- Generic «Always» string -->
+	<string name="always">Πάντα</string>
+	<!-- Generic «Never» string -->
+	<string name="never">Ποτέ</string>
 	<string name="place_description_title">Περιγραφή μέρους</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Κατέβασμα χαρτών</string>

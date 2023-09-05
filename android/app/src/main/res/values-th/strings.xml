@@ -197,12 +197,12 @@
 	<string name="pref_zoom_summary">แสดงบนหน้าจอ</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">โหมดกลางคืน</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">ปิด</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">เปิด</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">อัตโนมัติ</string>
+	<!-- Generic «Off» string -->
+	<string name="off">ปิด</string>
+	<!-- Generic «On» string -->
+	<string name="on">เปิด</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">อัตโนมัติ</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">มุมมองเพอร์สเปกทีฟ</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -528,8 +528,6 @@
 	<string name="enable_logging">เปิดใช้งานการเก็บล็อก</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">ข้อเสนอแนะทั่วไป</string>
-	<string name="on">เปิด</string>
-	<string name="off">ปิด</string>
 	<string name="prefs_languages_information">เราใช้ระบบ TTS สำหรับคำแนะนำด้วยเสียงพูด เครื่องแอนดรอยด์จำนวนมากใช้งาน Google TTS คุณสามารถดาวน์โหลดหรืออัปเดตได้จาก Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">สำหรับบางภาษาคุณจำเป็นต้องติดตั้งตัวสังเคราะห์เสียงหรือชุดภาษาเพิ่มเติมจากแอปสโตร์ (Google Play, Galaxy Store, App Gallery, FDroid)\nเปิดการตั้งค่าของเครื่องคุณ → ภาษาและการป้อนข้อมูล → คำพูด → เอาต์พุตการอ่านออกเสียง\nที่นี่คุณสามารถจัดการการตั้งค่าสำหรับการสังเคราะห์เสียง (ตัวอย่างเช่น ดาวน์โหลดชุดภาษาสำหรับใช้งานออฟไลน์) และเลือกเครื่องมืออ่านออกเสียงข้อความตัวอื่นได้</string>
 	<string name="prefs_languages_information_off_link">สำหรับข้อมูลเพิ่มเติม กรุณาเข้าชมคำแนะนำนี้</string>
@@ -596,9 +594,10 @@
 	<string name="bookmark_list_description_hint">พิมพ์รายละเอียด (ข้อความหรือ html)</string>
 	<string name="not_shared">ส่วนตัว</string>
 	<string name="speedcams_alert_title">กล้องตรวจจับความเร็ว</string>
-	<string name="speedcam_option_auto">อัตโนมัติ</string>
-	<string name="speedcam_option_always">ทุกครั้ง</string>
-	<string name="speedcam_option_never">ไม่ต้องเตือน</string>
+	<!-- Generic «Always» string -->
+	<string name="always">ทุกครั้ง</string>
+	<!-- Generic «Never» string -->
+	<string name="never">ไม่ต้องเตือน</string>
 	<string name="place_description_title">รายละเอียดของสถานที่</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">ตัวดาวน์โหลดแผนที่</string>

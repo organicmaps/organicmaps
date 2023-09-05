@@ -217,14 +217,14 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "Modalità notturna";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "Spento";
+/* Generic «Off» string */
+"off" = "Spento";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "Acceso";
+/* Generic «On» string */
+"on" = "Acceso";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "Automatico";
+/* Generic «Auto» string */
+"auto" = "Automatico";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Vista in prospettiva";
@@ -887,10 +887,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Dati sul traffico non disponibili";
 
-"on" = "Acceso";
-
-"off" = "Spento";
-
 "transliteration_title" = "Trascrizione in latino";
 
 /* Subway exits for public transport marks on the map */
@@ -995,11 +991,11 @@
 
 "speedcams_alert_title" = "Autovelox";
 
-"speedcam_option_auto" = "Auto";
+/* Generic «Always» string */
+"always" = "Sempre";
 
-"speedcam_option_always" = "Sempre";
-
-"speedcam_option_never" = "Mai";
+/* Generic «Never» string */
+"never" = "Mai";
 
 "place_description_title" = "Descrizione luogo";
 

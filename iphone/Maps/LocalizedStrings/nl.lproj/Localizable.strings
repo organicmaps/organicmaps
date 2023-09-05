@@ -217,14 +217,14 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "Nachtmodus";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "Uit";
+/* Generic «Off» string */
+"off" = "Uit";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "Aan";
+/* Generic «On» string */
+"on" = "Aan";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "Automatisch";
+/* Generic «Auto» string */
+"auto" = "Automatisch";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Perspectiefbeeld";
@@ -887,10 +887,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Verkeersgegevens zijn niet beschikbaar";
 
-"on" = "Aan";
-
-"off" = "Uit";
-
 "transliteration_title" = "Transliteratie in het Latijn";
 
 /* Subway exits for public transport marks on the map */
@@ -995,11 +991,11 @@
 
 "speedcams_alert_title" = "Snelheidscamera's";
 
-"speedcam_option_auto" = "Auto";
+/* Generic «Always» string */
+"always" = "Altijd";
 
-"speedcam_option_always" = "Altijd";
-
-"speedcam_option_never" = "Nooit";
+/* Generic «Never» string */
+"never" = "Nooit";
 
 "place_description_title" = "Plaats Beschrijving";
 

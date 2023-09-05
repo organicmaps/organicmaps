@@ -217,14 +217,14 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "Gaueko modua";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "Desgaituta";
+/* Generic «Off» string */
+"off" = "Desgaituta";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "Aktibatuta";
+/* Generic «On» string */
+"on" = "Aktibatuta";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "Automatikoa";
+/* Generic «Auto» string */
+"auto" = "Automatikoa";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Perspektiba ikuspegia";
@@ -887,10 +887,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Trafiko datuak ez daude eskuragarri";
 
-"on" = "Martxan";
-
-"off" = "Itzalita";
-
 "transliteration_title" = "Latinezko transliterazioa";
 
 /* Subway exits for public transport marks on the map */
@@ -995,11 +991,11 @@
 
 "speedcams_alert_title" = "Abiadura kamerak";
 
-"speedcam_option_auto" = "Automatikoa";
+/* Generic «Always» string */
+"always" = "Beti";
 
-"speedcam_option_always" = "Beti";
-
-"speedcam_option_never" = "Inoiz ez";
+/* Generic «Never» string */
+"never" = "Inoiz ez";
 
 "place_description_title" = "Tokiaren deskribapena";
 

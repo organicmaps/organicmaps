@@ -188,12 +188,12 @@
 	<string name="pref_zoom_summary">نمایش بر روی نقشه</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">حالت شب</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">خاموش</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">روشن</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">خودکار</string>
+	<!-- Generic «Off» string -->
+	<string name="off">خاموش</string>
+	<!-- Generic «On» string -->
+	<string name="on">روشن</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">خودکار</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">نمای چشم انداز</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -523,8 +523,6 @@
 	<string name="enable_logging">ورود به سیستم را فعال کنید</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">\"تنظیمات: دکمه \"ارسال بازخورد کلی</string>
-	<string name="on">روشن</string>
-	<string name="off">خاموش</string>
 	<string name="prefs_languages_information">ما از TTS سیستم برای دستورالعمل‌های صوتی استفاده می کنیم. بسیاری از دستگاه‌های Android از Google TTS استفاده می کنند، شما می توانید آن را از Google Play دانلود کنید (https://play.google.com/store/apps/details؟id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">برای بعضی از زبان‌ها، شما باید speech synthesizer یا یک بسته زبان دیگر را از فروشگاه برنامه (بازار Google Play، Galaxy Store) نصب کنید. \n تنظیمات دستگاه خود را باز کنید. → زبان و ورودی → گفتار → خروجی متن به گفتار. می توانید تنظیمات برای ترکیب گفتار (به عنوان مثال، بسته‌های زبان را برای استفاده آفلاین دانلود کنید) را مدیریت کنید و یک موتور دیگر متن به گفتار را انتخاب کنید.</string>
 	<string name="prefs_languages_information_off_link">برای اطلاعات بیشتر لطفا این راهنما را بررسی کنید.</string>
@@ -595,9 +593,10 @@
 	<string name="bookmark_list_description_hint">یک توضیح (متن یا html) تایپ نمایید</string>
 	<string name="not_shared">خصوصی</string>
 	<string name="speedcams_alert_title">دوربین‌های سرعت</string>
-	<string name="speedcam_option_auto">خودکار</string>
-	<string name="speedcam_option_always">همیشه</string>
-	<string name="speedcam_option_never">هرگز</string>
+	<!-- Generic «Always» string -->
+	<string name="always">همیشه</string>
+	<!-- Generic «Never» string -->
+	<string name="never">هرگز</string>
 	<string name="place_description_title">توضیحات محل</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">دانلود کننده نقشه</string>

@@ -209,12 +209,12 @@
 	<string name="pref_zoom_summary">Mutassa a kijelzőn</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Éjszakai üzemmód</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">Ki</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">Be</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">Automatikus</string>
+	<!-- Generic «Off» string -->
+	<string name="off">Ki</string>
+	<!-- Generic «On» string -->
+	<string name="on">Be</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">Automatikus</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Perspektivikus nézet</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -540,8 +540,6 @@
 	<string name="enable_logging">Naplózás engedélyezése</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Általános visszajelzés</string>
-	<string name="on">Be</string>
-	<string name="off">Ki</string>
 	<string name="prefs_languages_information">TTS rendszert használunk a hangnavigációhoz. Sok Android-os készülék használja a Google TTS-t; töltse le vagy frissítse a Google Play áruházból (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Egyes nyelveknél másik beszédszintetizátort vagy további nyelvi csomagot kell telepítenie az alkalmazás-áruházból (Google Play, Galaxy Store, App Gallery, FDroid). Nyissa meg a készülék beállításait → Nyelv és bevitel → Beszéd → Szöveg-beszéd átalakító kimenet. Itt kezelheti a beszédszintézis beállításokat (például nyelvi csomag letöltése kapcsolat nélküli használatra) és másik szövegfelolvasót jelölhe tki.</string>
 	<string name="prefs_languages_information_off_link">További tájékoztatást találhat még ebben az útmutatóban.</string>
@@ -609,9 +607,10 @@
 	<string name="bookmark_list_description_hint">Leírás hozzáadása (szöveg vagy html)</string>
 	<string name="not_shared">Privát</string>
 	<string name="speedcams_alert_title">Sebességmérő kamerák</string>
-	<string name="speedcam_option_auto">Automatikus</string>
-	<string name="speedcam_option_always">Mindig</string>
-	<string name="speedcam_option_never">Soha</string>
+	<!-- Generic «Always» string -->
+	<string name="always">Mindig</string>
+	<!-- Generic «Never» string -->
+	<string name="never">Soha</string>
 	<string name="place_description_title">A hely ismertetése</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Kártyák letöltése</string>

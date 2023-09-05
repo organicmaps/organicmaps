@@ -195,12 +195,12 @@
 	<string name="pref_zoom_summary">Vis på skærmen</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Nattilstand</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">Fra</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">Til</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">Auto</string>
+	<!-- Generic «Off» string -->
+	<string name="off">Fra</string>
+	<!-- Generic «On» string -->
+	<string name="on">Til</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">Auto</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Perspektivvisning</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -528,8 +528,6 @@
 	<string name="enable_logging">Aktiver logføring</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Generel feedback</string>
-	<string name="on">Til</string>
-	<string name="off">Fra</string>
 	<string name="prefs_languages_information">Vi bruger systemets TTS til stemmevejledning. Mange Android-enheder bruger Google TTS, du kan hente eller opdatere det via Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">For nogle sprog skal du installere en anden talesyntese eller en yderligere sprogpakke fra appbutiken (Google Play, Galaxy Store, App Gallery, FDroid).\nÅbn enhedens indstillinger → Sprog og input → Tale → Tekst til tale. Her kan du administrere indstillingerne for talesyntese (f. eks downloade en sprogpakke til brug offline) og vælge et andet tekst-til-tale program.</string>
 	<string name="prefs_languages_information_off_link">Se denne vejledning for flere oplysninger.</string>
@@ -597,9 +595,10 @@
 	<string name="bookmark_list_description_hint">Lav en beskrivelse (tekst eller html)</string>
 	<string name="not_shared">Privat</string>
 	<string name="speedcams_alert_title">Fartkameraer</string>
-	<string name="speedcam_option_auto">Auto</string>
-	<string name="speedcam_option_always">Altid</string>
-	<string name="speedcam_option_never">Aldrig</string>
+	<!-- Generic «Always» string -->
+	<string name="always">Altid</string>
+	<!-- Generic «Never» string -->
+	<string name="never">Aldrig</string>
 	<string name="place_description_title">Beskrivelse af sted</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Korthenter</string>

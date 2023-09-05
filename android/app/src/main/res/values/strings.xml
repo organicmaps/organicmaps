@@ -215,12 +215,12 @@
 	<string name="pref_zoom_summary">Display on the map</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Night Mode</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">Off</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">On</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">Auto</string>
+	<!-- Generic «Off» string -->
+	<string name="off">Off</string>
+	<!-- Generic «On» string -->
+	<string name="on">On</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">Auto</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Perspective view</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -584,8 +584,6 @@
 	<string name="enable_logging">Enable logging</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">General Feedback</string>
-	<string name="on">On</string>
-	<string name="off">Off</string>
 	<string name="prefs_languages_information">We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play, Galaxy Store, App Gallery, FDroid).\nOpen your device\'s settings → Language and input → Speech → Text to speech output.\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.</string>
 	<string name="prefs_languages_information_off_link">For more information please check this guide.</string>
@@ -656,9 +654,10 @@
 	<string name="bookmark_list_description_hint">Enter a description (text or html)</string>
 	<string name="not_shared">Private</string>
 	<string name="speedcams_alert_title">Speed cameras</string>
-	<string name="speedcam_option_auto">Auto</string>
-	<string name="speedcam_option_always">Always</string>
-	<string name="speedcam_option_never">Never</string>
+	<!-- Generic «Always» string -->
+	<string name="always">Always</string>
+	<!-- Generic «Never» string -->
+	<string name="never">Never</string>
 	<string name="place_description_title">Place Description</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Map downloader</string>

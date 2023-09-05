@@ -212,12 +212,12 @@
 	<string name="pref_zoom_summary">Wyświetla na ekranie</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Tryb nocny</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">Wyłączony</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">Włączony</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">Automatycznie</string>
+	<!-- Generic «Off» string -->
+	<string name="off">Wyłączony</string>
+	<!-- Generic «On» string -->
+	<string name="on">Włączony</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">Automatycznie</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Widok z perspektywy</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -559,8 +559,6 @@
 	<string name="enable_logging">Włącz zbieranie danych</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Ogólne uwagi</string>
-	<string name="on">Wł.</string>
-	<string name="off">Wył.</string>
 	<string name="prefs_languages_information">Stosujemy system TTS dla komend głosowych. Stosuje go wiele urządzeń z systemem Android, można go pobrać lub zaktualizować z Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">W przypadku niektórych języków wymagana będzie instalacja innego syntezatora lub pakietu językowego ze strony aplikacji (Google Play, Galaxy Store, App Gallery, FDroid). Otwórz ustawienia urządzenia → Język i klawiatura → Mowa → Przetwarzanie tekstu na mowę.\nMożesz w tym miejscu zarządzać ustawieniami syntezy mowy (np. pobrać pakiet językowy do stosowania offline) i wybrać inny silnik przetwarzania tekstu na mowę.</string>
 	<string name="prefs_languages_information_off_link">Aby uzyskać więcej informacji, spójrz na ten poradnik.</string>
@@ -629,9 +627,10 @@
 	<string name="bookmark_list_description_hint">Dodaj opis (tekst lub html)</string>
 	<string name="not_shared">Osobisty</string>
 	<string name="speedcams_alert_title">Fotoradary</string>
-	<string name="speedcam_option_auto">Automatycznie</string>
-	<string name="speedcam_option_always">Zawsze</string>
-	<string name="speedcam_option_never">Nigdy</string>
+	<!-- Generic «Always» string -->
+	<string name="always">Zawsze</string>
+	<!-- Generic «Never» string -->
+	<string name="never">Nigdy</string>
 	<string name="place_description_title">Opis miejsca</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Pobieranie map</string>

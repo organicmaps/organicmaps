@@ -214,12 +214,12 @@
 	<string name="pref_zoom_summary">Haritada göster</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Gece Modu</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">Kapalı</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">Açık</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">Otomatik</string>
+	<!-- Generic «Off» string -->
+	<string name="off">Kapalı</string>
+	<!-- Generic «On» string -->
+	<string name="on">Açık</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">Otomatik</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Perspektif görünüm</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -559,8 +559,6 @@
 	<string name="enable_logging">Günlüğü etkinleştir</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Genel Geri Bildirim</string>
-	<string name="on">Aç</string>
-	<string name="off">Kapat</string>
 	<string name="prefs_languages_information">Sesli yönlendirme için TTS sistemini kullanıyoruz. Çoğu Android cihaz, Google TTS\'yi kullanıyor. Uygulamayı, Google Play\'den indirebilir veya güncelleyebilirsiniz (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Bazı diller için uygulama mağazasından (Google Play, Galaxy Store, App Gallery, FDroid) farklı bir konuşma sentezleyicisi veya ek bir dil paketi yüklemeniz gerekebilir. Cihaz ayarları → Dil ve Giriş → Konuşma → Metin Okuma seçeneğini açın. Buradan konuşma sentezi ayarlarını yönetebilir (örneğin, çevrimdışı kullanım için bir dil paketini karşıdan yükleyebilir) ve başka bir metin okuma motorunu seçebilirsiniz.</string>
 	<string name="prefs_languages_information_off_link">Daha fazla bilgi için lütfen bu kılavuzu inceleyin.</string>
@@ -627,9 +625,10 @@
 	<string name="bookmark_list_description_hint">Bir açıklama yazın (metin veya html)</string>
 	<string name="not_shared">Gizli</string>
 	<string name="speedcams_alert_title">Hız kameraları</string>
-	<string name="speedcam_option_auto">Otomatik</string>
-	<string name="speedcam_option_always">Her zaman</string>
-	<string name="speedcam_option_never">Asla</string>
+	<!-- Generic «Always» string -->
+	<string name="always">Her zaman</string>
+	<!-- Generic «Never» string -->
+	<string name="never">Asla</string>
 	<string name="place_description_title">Yer Açıklaması</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Harita indirici</string>

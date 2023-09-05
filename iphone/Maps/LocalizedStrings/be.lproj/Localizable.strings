@@ -217,14 +217,14 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "Начны рэжым";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "Выключаны";
+/* Generic «Off» string */
+"off" = "Выключаны";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "Уключаны";
+/* Generic «On» string */
+"on" = "Уключаны";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "Аўтаматычна";
+/* Generic «Auto» string */
+"auto" = "Аўтаматычна";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Перспектыўны выгляд";
@@ -887,10 +887,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Інфармацыі пра рух няма";
 
-"on" = "Укл.";
-
-"off" = "Выкл.";
-
 "transliteration_title" = "Транслітарацыя лацінкай";
 
 /* Subway exits for public transport marks on the map */
@@ -995,11 +991,11 @@
 
 "speedcams_alert_title" = "Камеры хуткасці";
 
-"speedcam_option_auto" = "Аўтаматычна";
+/* Generic «Always» string */
+"always" = "Заўсёды";
 
-"speedcam_option_always" = "Заўсёды";
-
-"speedcam_option_never" = "Ніколі";
+/* Generic «Never» string */
+"never" = "Ніколі";
 
 "place_description_title" = "Апісанне месца";
 

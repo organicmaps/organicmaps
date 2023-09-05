@@ -217,14 +217,14 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "Νυχτερινή λειτουργία";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "Απενεργ.";
+/* Generic «Off» string */
+"off" = "Απενεργ.";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "Ενεργ.";
+/* Generic «On» string */
+"on" = "Ενεργ.";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "Αυτόματα";
+/* Generic «Auto» string */
+"auto" = "Αυτόματα";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Προβολή προοπτικής";
@@ -887,10 +887,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Οι πληροφορίες για την κίνηση δεν είναι διαθέσιμες";
 
-"on" = "Ενεργ.";
-
-"off" = "Απενεργ.";
-
 "transliteration_title" = "Μεταγραφή στα Λατινικά";
 
 /* Subway exits for public transport marks on the map */
@@ -995,11 +991,11 @@
 
 "speedcams_alert_title" = "Κάμερες Ταχύτητας";
 
-"speedcam_option_auto" = "Αυτόματο";
+/* Generic «Always» string */
+"always" = "Πάντα";
 
-"speedcam_option_always" = "Πάντα";
-
-"speedcam_option_never" = "Ποτέ";
+/* Generic «Never» string */
+"never" = "Ποτέ";
 
 "place_description_title" = "Περιγραφή μέρους";
 

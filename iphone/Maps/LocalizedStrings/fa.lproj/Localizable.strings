@@ -217,14 +217,14 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "حالت شب";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "خاموش";
+/* Generic «Off» string */
+"off" = "خاموش";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "روشن";
+/* Generic «On» string */
+"on" = "روشن";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "خودکار";
+/* Generic «Auto» string */
+"auto" = "خودکار";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "نمای چشم انداز";
@@ -887,10 +887,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "اطلاعات ترافیکی موجود نیست";
 
-"on" = "روشن";
-
-"off" = "خاموش";
-
 "transliteration_title" = "ترجمه به لاتین";
 
 /* Subway exits for public transport marks on the map */
@@ -995,11 +991,11 @@
 
 "speedcams_alert_title" = "دوربین‌های سرعت";
 
-"speedcam_option_auto" = "خودکار";
+/* Generic «Always» string */
+"always" = "همیشه";
 
-"speedcam_option_always" = "همیشه";
-
-"speedcam_option_never" = "هرگز";
+/* Generic «Never» string */
+"never" = "هرگز";
 
 "place_description_title" = "توضیحات محل";
 

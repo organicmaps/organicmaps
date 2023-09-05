@@ -217,14 +217,14 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "Yötila";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "Pois päältä";
+/* Generic «Off» string */
+"off" = "Pois päältä";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "Päällä";
+/* Generic «On» string */
+"on" = "Päällä";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "Automaattinen";
+/* Generic «Auto» string */
+"auto" = "Automaattinen";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Perspektiivinäkymä";
@@ -887,10 +887,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Liikennetietoja ei ole saatavilla";
 
-"on" = "Käytössä";
-
-"off" = "Ei käytössä";
-
 "transliteration_title" = "Translitterointi latinalaisiksi aakkosiksi";
 
 /* Subway exits for public transport marks on the map */
@@ -995,11 +991,11 @@
 
 "speedcams_alert_title" = "Nopeuskamerat";
 
-"speedcam_option_auto" = "Auto";
+/* Generic «Always» string */
+"always" = "Aina";
 
-"speedcam_option_always" = "Aina";
-
-"speedcam_option_never" = "Ei koskaan";
+/* Generic «Never» string */
+"never" = "Ei koskaan";
 
 "place_description_title" = "Paikan kuvaus";
 

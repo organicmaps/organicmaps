@@ -208,12 +208,12 @@
 	<string name="pref_zoom_summary">Відображення на екрані</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Нічний режим</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">Вимкнуто</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">Увімкнуто</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">Автоматично</string>
+	<!-- Generic «Off» string -->
+	<string name="off">Вимкнуто</string>
+	<!-- Generic «On» string -->
+	<string name="on">Увімкнуто</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">Автоматично</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Перспективний вид</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -554,8 +554,6 @@
 	<string name="enable_logging">Включити логіювання</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Загальний відгук</string>
-	<string name="on">Увімкн.</string>
-	<string name="off">Вимкн.</string>
 	<string name="prefs_languages_information">Для озвучування голосових інструкцій ми використовуємо систему TTS. Більшість Android-пристроїв підтримують систему Google TTS. Для завантаження або оновлення перейдіть до магазину Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Для деяких мов вам знадобиться встановити інший додаток для синтезу мовлення або додатковий мовний пакет з магазину додатків (Google Play, Galaxy Store, App Gallery, FDroid).\nВідкрийте налаштування пристрою → Мови та введення → Мовлення → Синтез мовлення.\nТут ви можете здійснювати управління налаштуваннями синтезу мовлення (наприклад, завантажити мовний пакет для використання офлайн) або вибрати інший програмний рушій для синтезу мовлення.</string>
 	<string name="prefs_languages_information_off_link">Додаткову інформацію див. у цьому керівництві.</string>
@@ -624,9 +622,10 @@
 	<string name="bookmark_list_description_hint">Додайте опис (текст чи html)</string>
 	<string name="not_shared">Особистий</string>
 	<string name="speedcams_alert_title">Камери швидкості</string>
-	<string name="speedcam_option_auto">Авто</string>
-	<string name="speedcam_option_always">Завжди</string>
-	<string name="speedcam_option_never">Ніколи</string>
+	<!-- Generic «Always» string -->
+	<string name="always">Завжди</string>
+	<!-- Generic «Never» string -->
+	<string name="never">Ніколи</string>
 	<string name="place_description_title">Опис місця</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Завантаження мап</string>

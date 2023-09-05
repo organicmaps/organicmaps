@@ -217,14 +217,14 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "रात्र मोड";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "बंद";
+/* Generic «Off» string */
+"off" = "बंद";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "चालू";
+/* Generic «On» string */
+"on" = "चालू";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "स्वयं";
+/* Generic «Auto» string */
+"auto" = "स्वयं";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "यथार्थ दृश्य";
@@ -887,10 +887,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "वाहतूक माहिती उपलब्ध नाही";
 
-"on" = "चालू";
-
-"off" = "बंद";
-
 "transliteration_title" = "लॅटिनमध्ये (इंग्रजीची अक्षरे) लिप्यंतरण";
 
 /* Subway exits for public transport marks on the map */
@@ -995,11 +991,11 @@
 
 "speedcams_alert_title" = "वेग कॅमेरे";
 
-"speedcam_option_auto" = "स्वयं";
+/* Generic «Always» string */
+"always" = "नेहमी";
 
-"speedcam_option_always" = "नेहमी";
-
-"speedcam_option_never" = "कधीच नाही";
+/* Generic «Never» string */
+"never" = "कधीच नाही";
 
 "place_description_title" = "ठिकाणाचे वर्णन";
 

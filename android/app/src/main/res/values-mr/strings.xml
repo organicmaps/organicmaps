@@ -188,12 +188,12 @@
 	<string name="pref_zoom_summary">नकाशावर दाखवा</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">रात्र मोड</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">बंद</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">चालू</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">स्वयं</string>
+	<!-- Generic «Off» string -->
+	<string name="off">बंद</string>
+	<!-- Generic «On» string -->
+	<string name="on">चालू</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">स्वयं</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">यथार्थ दृश्य</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -523,8 +523,6 @@
 	<string name="enable_logging">लॉग चालू करा</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">सामान्य अभिप्राय</string>
-	<string name="on">चालू</string>
-	<string name="off">बंद</string>
 	<string name="prefs_languages_information">आम्ही ध्वनी निर्देशांसाठी \"सिस्टम TTS\" वापरतो. अनेक Android उपकरणे \"Google TTS\" वापरतात, जे तुम्ही Google Play वरून डाउनलोड किंवा अद्ययावत करू शकता (https://play.google.com/store/apps/details?idu003dcom.google.android.tts)</string>
 	<string name="prefs_languages_information_off">काही भाषांसाठी, तुम्हाला अँप स्टोअर (Google Play, Galaxy Store, App Gallery, FDroid) वरून स्पीच मिश्रक किंवा अतिरिक्त भाषा संच इन्स्टॉल करावे लागतील.\nतुमच्या उपकरणाची सेटिंग → भाषा आणि इनपुट → स्पीच → \"टेक्स्ट टू स्पीच आउटपुट\" उघडा.\nयेथे तुम्ही स्पीच मिश्रणासाठी सेटिंग व्यवस्थापित करू शकता (उदाहरणार्थ, ऑफलाइन वापरासाठी भाषा संच डाउनलोड करा) आणि दुसरे टेक्स्ट-टू-स्पीच इंजिन निवडा.</string>
 	<string name="prefs_languages_information_off_link">अधिक माहितीसाठी कृपया ही मार्गदर्शिका पहा.</string>
@@ -593,9 +591,10 @@
 	<string name="bookmark_list_description_hint">वर्णन लिहा (मजकूर किंवा html)</string>
 	<string name="not_shared">खाजगी</string>
 	<string name="speedcams_alert_title">वेग कॅमेरे</string>
-	<string name="speedcam_option_auto">स्वयं</string>
-	<string name="speedcam_option_always">नेहमी</string>
-	<string name="speedcam_option_never">कधीच नाही</string>
+	<!-- Generic «Always» string -->
+	<string name="always">नेहमी</string>
+	<!-- Generic «Never» string -->
+	<string name="never">कधीच नाही</string>
 	<string name="place_description_title">ठिकाणाचे वर्णन</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">नकाशा डाउनलोडक</string>

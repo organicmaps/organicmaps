@@ -217,14 +217,14 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "Mod nocturn";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "Oprit";
+/* Generic «Off» string */
+"off" = "Oprit";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "Pornit";
+/* Generic «On» string */
+"on" = "Pornit";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "Automat";
+/* Generic «Auto» string */
+"auto" = "Automat";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Vedere în perspectivă";
@@ -887,10 +887,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Datele privind traficul nu sunt disponibile";
 
-"on" = "Pornit";
-
-"off" = "Oprit";
-
 "transliteration_title" = "Transcrie în alfabet latin";
 
 /* Subway exits for public transport marks on the map */
@@ -995,11 +991,11 @@
 
 "speedcams_alert_title" = "Radare";
 
-"speedcam_option_auto" = "Auto";
+/* Generic «Always» string */
+"always" = "Mereu";
 
-"speedcam_option_always" = "Mereu";
-
-"speedcam_option_never" = "Niciodată";
+/* Generic «Never» string */
+"never" = "Niciodată";
 
 "place_description_title" = "Descrierea locului";
 

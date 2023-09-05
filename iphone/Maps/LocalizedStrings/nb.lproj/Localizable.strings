@@ -217,14 +217,14 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "Nattmodus";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "Av";
+/* Generic «Off» string */
+"off" = "Av";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "På";
+/* Generic «On» string */
+"on" = "På";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "Auto";
+/* Generic «Auto» string */
+"auto" = "Auto";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Perspektivvisning";
@@ -887,10 +887,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Trafikkdata er ikke tilgjengelig";
 
-"on" = "På";
-
-"off" = "Av";
-
 "transliteration_title" = "Omskrivning til latin";
 
 /* Subway exits for public transport marks on the map */
@@ -995,11 +991,11 @@
 
 "speedcams_alert_title" = "Fartskamera";
 
-"speedcam_option_auto" = "Auto";
+/* Generic «Always» string */
+"always" = "Alltid";
 
-"speedcam_option_always" = "Alltid";
-
-"speedcam_option_never" = "Aldri";
+/* Generic «Never» string */
+"never" = "Aldri";
 
 "place_description_title" = "Plasser beskrivelse";
 

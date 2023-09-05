@@ -200,12 +200,12 @@
 	<string name="pref_zoom_summary">Arată pe hartă</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Mod nocturn</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">Oprit</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">Pornit</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">Automat</string>
+	<!-- Generic «Off» string -->
+	<string name="off">Oprit</string>
+	<!-- Generic «On» string -->
+	<string name="on">Pornit</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">Automat</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Vedere în perspectivă</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -540,8 +540,6 @@
 	<string name="enable_logging">Activează jurnalizarea</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Părere generală</string>
-	<string name="on">Pornit</string>
-	<string name="off">Oprit</string>
 	<string name="prefs_languages_information">Pentru instrucțiuni vocale utilizăm sistemul TTS. Multe dispozitive Android folosesc Google TTS. Poți descărca sau actualiza aplicația din Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Pentru unele limbi trebuie să instalezi alt sintetizator de voce sau un pachet lingvistic suplimentar din Magazinul de aplicații (Google Play, Galaxy Store, App Gallery, FDroid).\nDeschide setările dispozitivului → Limbă → Transformare text în vorbire → Motor preferat.\nAici poți alege motorul de transformare a textului în vorbire și poți descărca o limbă pentru utilizare fără internet.</string>
 	<string name="prefs_languages_information_off_link">Consultă acest ghid pentru informații suplimentare.</string>
@@ -612,9 +610,10 @@
 	<string name="bookmark_list_description_hint">Adaugă o descriere (text sau html)</string>
 	<string name="not_shared">Personal</string>
 	<string name="speedcams_alert_title">Radare</string>
-	<string name="speedcam_option_auto">Auto</string>
-	<string name="speedcam_option_always">Mereu</string>
-	<string name="speedcam_option_never">Niciodată</string>
+	<!-- Generic «Always» string -->
+	<string name="always">Mereu</string>
+	<!-- Generic «Never» string -->
+	<string name="never">Niciodată</string>
 	<string name="place_description_title">Descrierea locului</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Descărcarea hărților</string>

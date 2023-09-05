@@ -200,12 +200,12 @@
 	<string name="pref_zoom_summary">Mostra sulla mappa</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Modalità notturna</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">Spento</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">Acceso</string>
-	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">Automatico</string>
+	<!-- Generic «Off» string -->
+	<string name="off">Spento</string>
+	<!-- Generic «On» string -->
+	<string name="on">Acceso</string>
+	<!-- Generic «Auto» string -->
+	<string name="auto">Automatico</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Vista in prospettiva</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -540,8 +540,6 @@
 	<string name="enable_logging">Abilita i registri</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Feedback generale</string>
-	<string name="on">Acceso</string>
-	<string name="off">Spento</string>
 	<string name="prefs_languages_information">Usiamo il TTS di sistema per le istruzioni vocali. Molti dispositivi Android utilizzano Google TTS, che puoi scaricare o aggiornare da Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Per alcune lingue, sarà necessario installare un altro sintetizzatore vocale o un language pack aggiuntivo dall\'app store (Google Play, Galaxy Store, App Gallery, FDroid).\nApri le impostazioni del tuo dispositivo → Lingua e inserimento → Da testo a voce → Motore sintesi vocale.\nQui puoi gestire le impostazioni di sintesi vocale (ad esempio, scaricare una lingua per l\'utilizzo offline) e selezionare un altro motore di sintesi vocale.</string>
 	<string name="prefs_languages_information_off_link">Per maggiori informazioni, consulta questa guida.</string>
@@ -612,9 +610,10 @@
 	<string name="bookmark_list_description_hint">Scrivi una descrizione (testo o html)</string>
 	<string name="not_shared">Personale</string>
 	<string name="speedcams_alert_title">Autovelox</string>
-	<string name="speedcam_option_auto">Auto</string>
-	<string name="speedcam_option_always">Sempre</string>
-	<string name="speedcam_option_never">Mai</string>
+	<!-- Generic «Always» string -->
+	<string name="always">Sempre</string>
+	<!-- Generic «Never» string -->
+	<string name="never">Mai</string>
 	<string name="place_description_title">Descrizione luogo</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Scaricamento mappe</string>
