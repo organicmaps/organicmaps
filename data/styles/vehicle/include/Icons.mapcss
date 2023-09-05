@@ -746,6 +746,9 @@ area|z17[shop=car_parts]
 node|z17[shop=car_repair],
 area|z17[shop=car_repair]
 {icon-image: car-repair-m.svg;icon-min-distance: 24;font-size: 13.75;}
+node|z17[amenity=vehicle_inspection],
+area|z17[amenity=vehicle_inspection],
+{icon-image: vehicle_inspection-m.svg;icon-min-distance: 24;font-size: 13.75;}
 
 node|z18-[shop=car],
 area|z18-[shop=car]
@@ -762,7 +765,9 @@ area|z18-[shop=car_parts]
 node|z18-[shop=car_repair],
 area|z18-[shop=car_repair]
 {icon-image: car-repair-m.svg;font-size: 14.5;}
-
+node|z18-[amenity=vehicle_inspection],
+area|z18-[amenity=vehicle_inspection],
+{icon-image: vehicle_inspection-m.svg;font-size: 14.5;}
 
 /* 7. CAR */
 
