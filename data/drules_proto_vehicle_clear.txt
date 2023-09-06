@@ -3017,6 +3017,7 @@ cont {
     scale: 16
     symbol {
       name: "mormon-m"
+      priority: 650
       min_distance: 10
     }
   }
@@ -3024,6 +3025,7 @@ cont {
     scale: 17
     symbol {
       name: "mormon-m"
+      priority: 650
       min_distance: 10
     }
     caption {
@@ -3031,13 +3033,16 @@ cont {
         height: 13
         color: 4473924
         offset_y: 1
+        is_optional: true
       }
+      priority: -9350
     }
   }
   element {
     scale: 18
     symbol {
       name: "mormon-m"
+      priority: 650
       min_distance: 10
     }
     caption {
@@ -3045,13 +3050,16 @@ cont {
         height: 14
         color: 4473924
         offset_y: 1
+        is_optional: true
       }
+      priority: -9350
     }
   }
   element {
     scale: 19
     symbol {
       name: "mormon-m"
+      priority: 650
       min_distance: 10
     }
     caption {
@@ -3059,7 +3067,9 @@ cont {
         height: 14
         color: 4473924
         offset_y: 1
+        is_optional: true
       }
+      priority: -9350
     }
   }
 }
@@ -26600,48 +26610,56 @@ cont {
     scale: 12
     area {
       color: 15590876
+      priority: -1930
     }
   }
   element {
     scale: 13
     area {
       color: 15590876
+      priority: -1930
     }
   }
   element {
     scale: 14
     area {
       color: 15590876
+      priority: -1930
     }
   }
   element {
     scale: 15
     area {
       color: 15590876
+      priority: -1930
     }
   }
   element {
     scale: 16
     area {
       color: 15590876
+      priority: -1930
     }
   }
   element {
     scale: 17
     area {
       color: 15590876
+      priority: -1930
     }
   }
   element {
     scale: 18
     area {
       color: 15590876
+      priority: -1930
     }
   }
   element {
     scale: 19
     area {
       color: 15590876
+      priority: -1930
     }
   }
 }
@@ -36734,6 +36752,7 @@ cont {
         dd: 2.0
         dd: 1.35
       }
+      priority: 120
       cap: BUTTCAP
     }
   }
@@ -36746,6 +36765,7 @@ cont {
         dd: 2.2
         dd: 1.26
       }
+      priority: 120
       cap: BUTTCAP
     }
   }
@@ -36758,6 +36778,7 @@ cont {
         dd: 3.3
         dd: 1.8
       }
+      priority: 120
     }
   }
   element {
@@ -36769,6 +36790,7 @@ cont {
         dd: 4.0
         dd: 1.8
       }
+      priority: 120
     }
   }
   element {
@@ -36780,6 +36802,7 @@ cont {
         dd: 4.0
         dd: 1.8
       }
+      priority: 120
     }
   }
   element {
@@ -36791,6 +36814,7 @@ cont {
         dd: 6.3
         dd: 2.7
       }
+      priority: 120
     }
   }
 }
@@ -36805,6 +36829,7 @@ cont {
         dd: 2.0
         dd: 1.35
       }
+      priority: 120
       cap: BUTTCAP
     }
   }
@@ -36817,6 +36842,7 @@ cont {
         dd: 2.2
         dd: 1.26
       }
+      priority: 120
       cap: BUTTCAP
     }
   }
@@ -36829,6 +36855,7 @@ cont {
         dd: 3.3
         dd: 1.8
       }
+      priority: 120
     }
   }
   element {
@@ -36840,6 +36867,7 @@ cont {
         dd: 4.0
         dd: 1.8
       }
+      priority: 120
     }
   }
   element {
@@ -36851,6 +36879,7 @@ cont {
         dd: 4.0
         dd: 1.8
       }
+      priority: 120
     }
   }
   element {
@@ -36862,6 +36891,7 @@ cont {
         dd: 6.3
         dd: 2.7
       }
+      priority: 120
     }
   }
 }
