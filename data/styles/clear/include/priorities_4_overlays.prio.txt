@@ -2105,6 +2105,7 @@ tourism-information-guidepost                       # icon z16- (also has captio
 tourism-information-map                             # icon z16- (also has caption(optional) z16-)
 === -9950
 
+amenity                                             # caption z19-
 amenity-telephone                                   # icon z17- (also has caption(optional) z19-)
 entrance                                            # icon z19- (also has caption(optional) z19-)
 === -9960

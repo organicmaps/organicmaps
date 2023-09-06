@@ -20,6 +20,7 @@ leisure-stadium                                     # area z15- (also has icon z
 amenity-place_of_worship                            # area z16- (also has icon z14-, caption(optional) z14-)
 amenity-place_of_worship-buddhist                   # area z16- (also has icon z14-, caption(optional) z14-)
 amenity-place_of_worship-christian                  # area z16- (also has icon z14-, caption(optional) z14-)
+amenity-place_of_worship-christian-mormon           # area z16- (also has icon z14-, caption(optional) z14-)
 amenity-place_of_worship-hindu                      # area z16- (also has icon z14-, caption(optional) z14-)
 amenity-place_of_worship-jewish                     # area z16- (also has icon z14-, caption(optional) z14-)
 amenity-place_of_worship-muslim                     # area z16- (also has icon z14-, caption(optional) z14-)

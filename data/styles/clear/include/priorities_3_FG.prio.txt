@@ -60,6 +60,9 @@ barrier-city_wall                                   # line z14-
 barrier-fence                                       # line z16-
 barrier-hedge                                       # line z16-
 barrier-wall                                        # line z16-
+railway-funicular                                   # line z12-
+railway-funicular-bridge                            # line z12-
+railway-funicular-tunnel                            # line z12-
 railway-monorail                                    # line z14-
 railway-monorail-bridge                             # line z14-
 railway-monorail-tunnel                             # line z14-

@@ -65,6 +65,7 @@ landuse-orchard                                     # area z14-
 landuse-recreation_ground                           # area z14-
 landuse-village_green                               # area z14-
 landuse-vineyard                                    # area z14-
+natural-bare_rock                                   # area z12-
 natural-scrub                                       # area z14-
 === 70
 
