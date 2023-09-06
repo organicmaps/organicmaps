@@ -2712,6 +2712,7 @@ cont {
         color: 5592405
         offset_y: 1
       }
+      priority: -9960
     }
   }
 }
@@ -7745,6 +7746,7 @@ cont {
     scale: 16
     area {
       color: 2499106
+      priority: -1760
     }
     symbol {
       name: "mormon-m"
@@ -7765,6 +7767,7 @@ cont {
     scale: 17
     area {
       color: 2499106
+      priority: -1760
     }
     symbol {
       name: "mormon-m"
@@ -7785,6 +7788,7 @@ cont {
     scale: 18
     area {
       color: 2499106
+      priority: -1760
     }
     symbol {
       name: "mormon-m"
@@ -7805,6 +7809,7 @@ cont {
     scale: 19
     area {
       color: 2499106
+      priority: -1760
     }
     symbol {
       name: "mormon-m"
@@ -58441,6 +58446,7 @@ cont {
     lines {
       width: 1.4
       color: 4470602
+      priority: 320
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -58450,6 +58456,7 @@ cont {
     lines {
       width: 2.0
       color: 4470602
+      priority: 320
       cap: BUTTCAP
     }
   }
@@ -58458,6 +58465,7 @@ cont {
     lines {
       width: 2.0
       color: 4470602
+      priority: 320
       cap: BUTTCAP
     }
   }
@@ -58466,6 +58474,7 @@ cont {
     lines {
       width: 3.0
       color: 4470602
+      priority: 320
       cap: BUTTCAP
     }
   }
@@ -58474,6 +58483,7 @@ cont {
     lines {
       width: 3.0
       color: 4470602
+      priority: 320
     }
   }
   element {
@@ -58481,6 +58491,7 @@ cont {
     lines {
       width: 3.0
       color: 4470602
+      priority: 320
     }
   }
   element {
@@ -58488,6 +58499,7 @@ cont {
     lines {
       width: 3.0
       color: 4470602
+      priority: 320
     }
   }
   element {
@@ -58495,6 +58507,7 @@ cont {
     lines {
       width: 3.0
       color: 4470602
+      priority: 320
     }
   }
 }
@@ -58505,6 +58518,7 @@ cont {
     lines {
       width: 1.4
       color: 4470602
+      priority: 320
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -58514,6 +58528,7 @@ cont {
     lines {
       width: 2.0
       color: 4470602
+      priority: 320
       cap: BUTTCAP
     }
   }
@@ -58522,6 +58537,7 @@ cont {
     lines {
       width: 2.0
       color: 4470602
+      priority: 320
       cap: BUTTCAP
     }
   }
@@ -58530,6 +58546,7 @@ cont {
     lines {
       width: 3.0
       color: 4470602
+      priority: 320
       cap: BUTTCAP
     }
   }
@@ -58538,6 +58555,7 @@ cont {
     lines {
       width: 3.0
       color: 4470602
+      priority: 320
     }
   }
   element {
@@ -58545,6 +58563,7 @@ cont {
     lines {
       width: 3.0
       color: 4470602
+      priority: 320
     }
   }
   element {
@@ -58552,6 +58571,7 @@ cont {
     lines {
       width: 3.0
       color: 4470602
+      priority: 320
     }
   }
   element {
@@ -58559,6 +58579,7 @@ cont {
     lines {
       width: 3.0
       color: 4470602
+      priority: 320
     }
   }
 }
@@ -58569,6 +58590,7 @@ cont {
     lines {
       width: 1.4
       color: 4470602
+      priority: 320
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -58578,6 +58600,7 @@ cont {
     lines {
       width: 2.0
       color: 4470602
+      priority: 320
       cap: BUTTCAP
     }
   }
@@ -58586,6 +58609,7 @@ cont {
     lines {
       width: 2.0
       color: 4470602
+      priority: 320
       cap: BUTTCAP
     }
   }
@@ -58594,6 +58618,7 @@ cont {
     lines {
       width: 3.0
       color: 4470602
+      priority: 320
       cap: BUTTCAP
     }
   }
@@ -58602,6 +58627,7 @@ cont {
     lines {
       width: 3.0
       color: 4470602
+      priority: 320
     }
   }
   element {
@@ -58609,6 +58635,7 @@ cont {
     lines {
       width: 3.0
       color: 4470602
+      priority: 320
     }
   }
   element {
@@ -58616,6 +58643,7 @@ cont {
     lines {
       width: 3.0
       color: 4470602
+      priority: 320
     }
   }
   element {
@@ -58623,6 +58651,7 @@ cont {
     lines {
       width: 3.0
       color: 4470602
+      priority: 320
     }
   }
 }
