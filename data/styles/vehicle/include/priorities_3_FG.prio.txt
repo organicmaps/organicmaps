@@ -274,6 +274,8 @@ highway-track-tunnel                                # line z16-
 === 130
 
 highway-construction                                # line z13-
+psurface-unpaved_bad                                # line z14-
+psurface-unpaved_good                               # line z14-
 railway-abandoned                                   # line z16-
 railway-abandoned-bridge                            # line z16- (also has line::bridgeblack z16-, line::bridgewhite z16-)
 railway-abandoned-tunnel                            # line z16-
