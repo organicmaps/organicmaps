@@ -13,6 +13,8 @@ Files changed by the script should be added as a separate `[styles] Regenerated`
 Please check [a list of current styling issues](https://github.com/organicmaps/organicmaps/issues?q=is%3Aopen+is%3Aissue+label%3AStyles)
 and ["icons wanted" issues](https://github.com/organicmaps/organicmaps/issues?q=is%3Aopen+is%3Aissue+label%3AIcons+label%3A%22Good+first+issue%22).
 
+An overview of currently used icons can be found in the [Wiki](https://github.com/organicmaps/organicmaps/wiki/Icons).
+
 ## Requirements
 
 To work with styles first [clone the OM repository](INSTALL.md#getting-sources).
