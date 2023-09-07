@@ -1676,6 +1676,9 @@ area|z17-[amenity=vending_machine][vending=parking_tickets],
 node|z17-[amenity=vending_machine][vending=public_transport_tickets],
 area|z17-[amenity=vending_machine][vending=public_transport_tickets],
 {icon-image: vending-m.svg;}
+node|z18-[amenity=vending_machine][vending=excrement_bags],
+area|z18-[amenity=vending_machine][vending=excrement_bags],
+{icon-image: excrement_bags-m.svg;}
 node|z17-[amenity=parcel_locker],
 area|z17-[amenity=parcel_locker],
 {icon-image: parcel_locker-m.svg;}
