@@ -474,7 +474,8 @@ area|z15-[historic=battlefield],
 node|z15-[tourism=gallery],
 area|z15-[tourism=gallery],
 node|z15-[tourism=artwork],
-node|z15[tourism=information][information=office],
+node|z15-[tourism=information][information=office],
+node|z15-[tourism=information][information=visitor_centre],
 node|z16-[tourism=information],
 node|z16-[historic=boundary_stone],
 area|z16-[historic=boundary_stone],
@@ -621,9 +622,11 @@ node|z14[tourism=viewpoint]
 node|z15-[tourism=viewpoint]
 {icon-image: viewpoint-m.svg;icon-min-distance: 8;}
 
-node|z15[tourism=information][information=office],
 node|z16-[tourism=information]
 {icon-image: information-m.svg;text-offset: 1;icon-min-distance: 10;}
+node|z15-[tourism=information][information=office],
+node|z15-[tourism=information][information=visitor_centre],
+{icon-image: information-office-m.svg;text-offset: 1;icon-min-distance: 10;}
 node|z16-[tourism=information][information=board]
 {icon-image: board.svg;text-offset: 1;icon-min-distance: 10;}
 node|z16-[tourism=information][information=guidepost]

@@ -27747,6 +27747,46 @@
     zh-Hans = 旅游咨询中心
     zh-Hant = 旅遊辦事處
 
+  [type.tourism.information.visitor_centre]
+    en = Visitor Centre
+    af = Besoekersentrum
+    ar = مركز الزوار
+    be = Цэнтр для наведвальнікаў
+    bg = Център за посетители
+    cs = Návštěvnické centrum
+    da = Besøgscenter
+    de = Besucherzentrum
+    el = Κέντρο Επισκεπτών
+    es = Centro de visitantes
+    et = Külastuskeskus
+    eu = Bisitarien Zentroa
+    fa = مرکز بازدیدکنندگان
+    fi = Vierailijakeskus
+    fr = centre de visite
+    he = מרכז מבקרים
+    hu = Látogatóközpont
+    id = Pusat Pengunjung
+    it = Centro visitatori
+    ja = ビジターセンター
+    ko = 방문자 센터
+    mr = अभ्यागत केंद्र
+    nb = Besøkssenter
+    nl = Bezoekerscentrum
+    pl = Centrum dla zwiedzających
+    pt = Centro de visitantes
+    pt-BR = Centro de visitantes
+    ro = Centrul pentru vizitatori
+    ru = Центр для посетителей
+    sk = Návštevnícke centrum
+    sv = Besökscentrum
+    sw = Kituo cha Wageni
+    th = ศูนย์นักท่องเที่ยว
+    tr = Ziyaretçi Merkezi
+    uk = Центр для відвідувачів
+    vi = Trung tâm du khách
+    zh-Hans = 游客中心
+    zh-Hant = 遊客中心
+
   [type.tourism.motel]
     en = Motel
     af = Motel

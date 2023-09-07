@@ -11605,6 +11605,45 @@ sk:3Turistické informačné centrum
 fa:دفتر گردشگری
 mr:पर्यटन कार्यालय
 
+tourism-information-visitor_centre|@tourism
+en:3Visitor Centre
+ar:مركز الزوار
+be:Цэнтр для наведвальнікаў
+bg:Център за посетители
+cs:Návštěvnické centrum
+da:3Besøgscenter
+de:3Besucherzentrum
+el:Κέντρο Επισκεπτών
+es:Centro de visitantes
+et:Külastuskeskus
+eu:Bisitarien Zentroa
+fa:مرکز بازدیدکنندگان
+fi:Vierailijakeskus
+fr:centre de visite
+he:מרכז מבקרים
+hu:Látogatóközpont
+id:Pusat Pengunjung
+it:Centro visitatori
+ja:ビジターセンター
+ko:방문자 센터
+mr:अभ्यागत केंद्र
+nb:3Besøkssenter
+nl:3Bezoekerscentrum
+pl:Centrum dla zwiedzających
+pt:Centro de visitantes
+pt-BR:Centro de visitantes
+ro:Centrul pentru vizitatori
+ru:Центр для посетителей
+sk:Návštevnícke centrum
+sv:3Besökscentrum
+sw:Kituo cha Wageni
+th:ศูนย์นักท่องเที่ยว
+tr:Ziyaretçi Merkezi
+uk:Центр для відвідувачів
+vi:Trung tâm du khách
+zh-Hans:游客中心
+zh-Hant:遊客中心
+
 amenity-community_centre
 en:4Community Centre
 en-US:4Community Center
