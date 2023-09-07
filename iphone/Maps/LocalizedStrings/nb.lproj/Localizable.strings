@@ -3699,6 +3699,8 @@
 
 "type.tourism.information.office" = "Turistkontor";
 
+"type.tourism.information.visitor_centre" = "Besøkssenter";
+
 "type.tourism.motel" = "Motell";
 
 "type.tourism.museum" = "Museum";

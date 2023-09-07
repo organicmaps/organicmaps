@@ -1888,6 +1888,7 @@
 	<string name="type.tourism.information.guidepost">指路牌</string>
 	<string name="type.tourism.information.map">旅游地图</string>
 	<string name="type.tourism.information.office">旅游咨询中心</string>
+	<string name="type.tourism.information.visitor_centre">游客中心</string>
 	<string name="type.tourism.motel">汽车旅馆</string>
 	<string name="type.tourism.museum">博物馆</string>
 	<string name="type.tourism.picnic_site">野餐地点</string>

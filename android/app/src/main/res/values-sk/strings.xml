@@ -1746,6 +1746,7 @@
 	<string name="type.tourism.information.guidepost">Smerovník</string>
 	<string name="type.tourism.information.map">Turistická mapa</string>
 	<string name="type.tourism.information.office">Turistické informačné centrum</string>
+	<string name="type.tourism.information.visitor_centre">Návštevnícke centrum</string>
 	<string name="type.tourism.museum">Múzeum</string>
 	<string name="type.tourism.picnic_site">Piknik</string>
 	<string name="type.tourism.resort">Rezort</string>

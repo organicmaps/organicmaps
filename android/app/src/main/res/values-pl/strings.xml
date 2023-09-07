@@ -1903,6 +1903,7 @@
 	<string name="type.tourism.information.guidepost">Drogowskaz</string>
 	<string name="type.tourism.information.map">Mapa turystyczna</string>
 	<string name="type.tourism.information.office">Biuro informacji turystycznej</string>
+	<string name="type.tourism.information.visitor_centre">Centrum dla zwiedzających</string>
 	<string name="type.tourism.museum">Muzeum</string>
 	<string name="type.tourism.picnic_site">Pole piknikowe</string>
 	<string name="type.tourism.resort">Dom wczasowy</string>

@@ -3699,6 +3699,8 @@
 
 "type.tourism.information.office" = "관광정보센터";
 
+"type.tourism.information.visitor_centre" = "방문자 센터";
+
 "type.tourism.motel" = "모텔";
 
 "type.tourism.museum" = "박물관";

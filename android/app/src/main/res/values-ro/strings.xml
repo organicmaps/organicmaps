@@ -1769,6 +1769,7 @@
 	<string name="type.tourism.information.guidepost">Postul de ghidare</string>
 	<string name="type.tourism.information.map">Hartă turistică</string>
 	<string name="type.tourism.information.office">Birou de informații turistice</string>
+	<string name="type.tourism.information.visitor_centre">Centrul pentru vizitatori</string>
 	<string name="type.tourism.museum">Muzeu</string>
 	<string name="type.tourism.picnic_site">Locații picnic</string>
 	<string name="type.tourism.resort">Stațiuni</string>

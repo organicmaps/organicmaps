@@ -1969,6 +1969,7 @@
 	<string name="type.tourism.information.guidepost">Wegwijzer</string>
 	<string name="type.tourism.information.map">Toeristische kaart</string>
 	<string name="type.tourism.information.office">Toeristische informatie</string>
+	<string name="type.tourism.information.visitor_centre">Bezoekerscentrum</string>
 	<string name="type.tourism.museum">Museum</string>
 	<string name="type.tourism.picnic_site">Picnicplaats</string>
 	<string name="type.tourism.resort">Complex</string>

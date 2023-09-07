@@ -1763,6 +1763,7 @@
 	<string name="type.tourism.information.guidepost">Rozcestník</string>
 	<string name="type.tourism.information.map">Turistická mapa</string>
 	<string name="type.tourism.information.office">Informační centrum</string>
+	<string name="type.tourism.information.visitor_centre">Návštěvnické centrum</string>
 	<string name="type.tourism.museum">Muzeum</string>
 	<string name="type.tourism.picnic_site">Piknik</string>
 	<string name="type.tourism.resort">Letovisko</string>

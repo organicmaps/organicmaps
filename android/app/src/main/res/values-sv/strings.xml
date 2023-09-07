@@ -1750,6 +1750,7 @@
 	<string name="type.tourism.information.guidepost">Vägledning</string>
 	<string name="type.tourism.information.map">Turistkarta</string>
 	<string name="type.tourism.information.office">Turistcenter</string>
+	<string name="type.tourism.information.visitor_centre">Besökscentrum</string>
 	<string name="type.tourism.motel">Motell</string>
 	<string name="type.tourism.picnic_site">Picknickplatser</string>
 	<string name="type.tourism.resort">Semesterort</string>

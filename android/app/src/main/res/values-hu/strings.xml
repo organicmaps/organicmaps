@@ -1778,6 +1778,7 @@
 	<string name="type.tourism.information.guidepost">Útmutató</string>
 	<string name="type.tourism.information.map">Turistatérkép</string>
 	<string name="type.tourism.information.office">Idegenforgalmi iroda</string>
+	<string name="type.tourism.information.visitor_centre">Látogatóközpont</string>
 	<string name="type.tourism.museum">Múzeum</string>
 	<string name="type.tourism.picnic_site">Piknikező hely</string>
 	<string name="type.tourism.resort">Resort hotel</string>

@@ -3699,6 +3699,8 @@
 
 "type.tourism.information.office" = "Fremdenverkehrsamt";
 
+"type.tourism.information.visitor_centre" = "Besucherzentrum";
+
 "type.tourism.motel" = "Motel";
 
 "type.tourism.museum" = "Museum";

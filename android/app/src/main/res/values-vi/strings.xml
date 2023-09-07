@@ -1756,6 +1756,7 @@
 	<string name="type.tourism.information.guidepost">Hướng dẫn</string>
 	<string name="type.tourism.information.map">Bản Đồ Du Lịch</string>
 	<string name="type.tourism.information.office">Văn Phòng Du Lịch</string>
+	<string name="type.tourism.information.visitor_centre">Trung tâm du khách</string>
 	<string name="type.tourism.motel">Nhà nghỉ</string>
 	<string name="type.tourism.museum">Bảo tàng</string>
 	<string name="type.tourism.picnic_site">Điểm cắm trại</string>

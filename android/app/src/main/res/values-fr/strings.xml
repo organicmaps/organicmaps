@@ -1923,6 +1923,7 @@
 	<string name="type.tourism.information.guidepost">Poteaux indicateurs</string>
 	<string name="type.tourism.information.map">Carte touristique</string>
 	<string name="type.tourism.information.office">Office de tourisme</string>
+	<string name="type.tourism.information.visitor_centre">centre de visite</string>
 	<string name="type.tourism.museum">Musée</string>
 	<string name="type.tourism.picnic_site">Terrain de pique-nique</string>
 	<string name="type.tourism.resort">Complexe touristique</string>

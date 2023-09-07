@@ -3699,6 +3699,8 @@
 
 "type.tourism.information.office" = "Туристически офис";
 
+"type.tourism.information.visitor_centre" = "Център за посетители";
+
 "type.tourism.motel" = "Motel";
 
 "type.tourism.museum" = "Museum";
