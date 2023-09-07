@@ -5,8 +5,6 @@
 
 #include "routing_common/num_mwm_id.hpp"
 
-#include <cstdint>
-#include <ios>
 #include <string>
 
 namespace routing
@@ -44,7 +42,10 @@ public:
 
   bool operator<(Segment const & seg) const;
   bool operator==(Segment const & seg) const;
-  bool operator!=(Segment const & seg) const;
+  bool operator!=(Segment const & seg) const
+  {
+    return !(*this == seg);
+  }
 
   bool IsInverse(Segment const & seg) const;
   Segment GetReversed() const { return { m_mwmId, m_featureId, m_segmentIdx, !m_forward }; }

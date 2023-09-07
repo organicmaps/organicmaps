@@ -34,8 +34,6 @@ bool Segment::operator==(Segment const & seg) const
          m_mwmId == seg.m_mwmId && m_forward == seg.m_forward;
 }
 
-bool Segment::operator!=(Segment const & seg) const { return !(*this == seg); }
-
 bool Segment::IsInverse(Segment const & seg) const
 {
   return m_featureId == seg.m_featureId && m_segmentIdx == seg.m_segmentIdx &&
