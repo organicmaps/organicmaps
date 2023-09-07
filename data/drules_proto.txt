@@ -15338,7 +15338,8 @@ cont {
         is_optional: true
       }
       secondary {
-        height: 12
+        height: 10
+        color: 6381914
         offset_y: 10
         text: "addr:flats"
         is_optional: true
@@ -15381,7 +15382,8 @@ cont {
         is_optional: true
       }
       secondary {
-        height: 12
+        height: 10
+        color: 6381914
         offset_y: 10
         text: "addr:flats"
         is_optional: true
@@ -15424,7 +15426,8 @@ cont {
         is_optional: true
       }
       secondary {
-        height: 12
+        height: 10
+        color: 6381914
         offset_y: 10
         text: "addr:flats"
         is_optional: true

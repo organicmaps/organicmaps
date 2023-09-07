@@ -2,6 +2,8 @@
 
 #include "types_helper.hpp"
 
+#include "coding/string_utf8_multilang.hpp"
+
 #include "generator/feature_builder.hpp"
 #include "generator/generator_tests_support/test_with_classificator.hpp"
 #include "generator/geometry_holder.hpp"
@@ -216,6 +218,54 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_ParamsParsing)
   params.MakeZero();
   TEST(params.AddHouseNumber("000000"), ());
   TEST_EQUAL(params.house.Get(), "0", ());
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, FBuilder_Housenumbers)
+{
+  FeatureBuilderParams params;
+  std::string_view name;
+
+  params.MakeZero();
+  name = {};
+  params.AddHouseName("75a"); // addr:housenumber
+  params.AddHouseName("Sandpiper"); // addr:housename
+  TEST_EQUAL(params.house.Get(), "75a", ());
+  TEST(params.name.GetString(StringUtf8Multilang::kDefaultCode, name), ());
+  TEST_EQUAL(name, "Sandpiper", ());
+
+  params.MakeZero();
+  name = {};
+  params.AddHouseName("75"); // addr:housenumber
+  params.AddHouseName("Bld 2"); // addr:housename
+  TEST_EQUAL(params.house.Get(), "75", ());
+  TEST(params.name.GetString(StringUtf8Multilang::kDefaultCode, name), ());
+  TEST_EQUAL(name, "Bld 2", ());
+
+  params.MakeZero();
+  name = {};
+  params.AddHouseName("75"); // addr:housenumber
+  params.AddHouseName("2"); // addr:housename
+  TEST_EQUAL(params.house.Get(), "2", ());
+  TEST(params.name.GetString(StringUtf8Multilang::kDefaultCode, name), ());
+  TEST_EQUAL(name, "75", ());
+
+  params.MakeZero();
+  name = {};
+  params.name.AddString(StringUtf8Multilang::kDefaultCode, "The Mansion");
+  params.AddHouseName("75a"); // addr:housenumber
+  params.AddHouseName("Sandpiper"); // addr:housename
+  TEST_EQUAL(params.house.Get(), "75a", ());
+  TEST(params.name.GetString(StringUtf8Multilang::kDefaultCode, name), ());
+  TEST_EQUAL(name, "The Mansion", ());
+
+  params.MakeZero();
+  name = {};
+  params.AddHouseName("75a"); // addr:housenumber
+  params.AddHouseName("2"); // addr:housename
+  params.name.AddString(StringUtf8Multilang::kDefaultCode, "The Mansion");
+  TEST_EQUAL(params.house.Get(), "2", ());
+  TEST(params.name.GetString(StringUtf8Multilang::kDefaultCode, name), ());
+  TEST_EQUAL(name, "The Mansion", ());
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, FBuilder_SerializeLocalityObjectForBuildingPoint)

@@ -922,6 +922,14 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
 
   // Stage3: Process base feature tags.
   TagProcessor(p).ApplyRules<void(string &, string &)>({
+      // Store a housenumber or a housename.
+      //  - values having at least 1 digit go into the "house" addinfo;
+      //  - a fully numeric housename will replace a housenumber, which will be stored in the empty "name";
+      //  - values w/o digits are stored in the empty "name" only.
+      // E.g. if the "name" was empty before then
+      // housename=2, housenumber=34a --> "house" == 2 and "name" == 34a,
+      // housename=Bld 2, housenumber=34a --> "house" == 34a and "name" == Bld 2,
+      // housename=Sandpiper, housenumber=12 --> "house" == 12 and "name" == Sandpiper.
       {"addr:housenumber", "*",
        [&params](string & k, string & v) {
          params.AddHouseName(v);
@@ -934,6 +942,7 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
          k.clear();
          v.clear();
        }},
+
       {"addr:street", "*",
        [&params](string & k, string & v) {
          params.AddStreet(v);
