@@ -536,11 +536,12 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
     std::unordered_map<uint32_t, vector<JointSegment>> visitedVertexes;
     astar.PropagateWave(
         wrapper, wrapper.GetStartJoint(),
-        [&](JointSegment const & vertex) {
+        [&](JointSegment const & vertex)
+        {
           if (vertex.IsFake())
           {
-            Segment start = wrapper.GetSegmentOfFakeJoint(vertex, true /* start */);
-            Segment end = wrapper.GetSegmentOfFakeJoint(vertex, false /* start */);
+            auto const & start = wrapper.GetSegmentOfFakeJoint(vertex, true /* start */);
+            auto const & end = wrapper.GetSegmentOfFakeJoint(vertex, false /* start */);
             if (start.IsForward() != end.IsForward())
               return true;
 
@@ -579,9 +580,7 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
           if (context.HasParent(jointSegment))
           {
             JointSegment const & parent = context.GetParent(jointSegment);
-            parentSegment = parent.IsFake() ? wrapper.GetSegmentOfFakeJoint(parent, false /* start */)
-                                            : parent.GetSegment(false /* start */);
-
+            parentSegment = wrapper.GetSegmentFromJoint(parent, false /* start */);
             weight = context.GetDistance(parent);
           }
           else
