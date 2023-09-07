@@ -28,6 +28,9 @@ bool RelationTagsBase::IsKeyTagExists(std::string const & key) const
 
 void RelationTagsBase::AddCustomTag(std::pair<std::string, std::string> const & p)
 {
+  /// @todo UpdateTag is better here, because caller doesn't always make IsKeyTagExists check ?!
+  /// I suspect that it works ok now, because duplicating key tag is added to the end of tags vector
+  /// and GetNameAndType function grabs it last.
   m_current->AddTag(p.first, p.second);
 }
 
@@ -37,6 +40,8 @@ void RelationTagsNode::Process(RelationElement const & e)
   if (Base::IsSkipRelation(type))
     return;
 
+  bool const isBoundary = (type == "boundary");
+  bool const isPlaceDest = Base::IsKeyTagExists("place") || Base::IsKeyTagExists("de:place");
   bool const processAssociatedStreet = type == "associatedStreet" &&
                                        Base::IsKeyTagExists("addr:housenumber") &&
                                        !Base::IsKeyTagExists("addr:street");
@@ -52,9 +57,16 @@ void RelationTagsNode::Process(RelationElement const & e)
       if (!Base::IsKeyTagExists(p.first))
         Base::AddCustomTag(p);
     }
-    // Convert associatedStreet relation name to addr:street tag if we don't have one.
     else if (p.first == "name" && processAssociatedStreet)
+    {
+      // Convert associatedStreet relation name to addr:street tag if we don't have one.
       Base::AddCustomTag({"addr:street", p.second});
+    }
+    else if (isBoundary && isPlaceDest && (p.first == "wikipedia" || p.first == "wikidata"))
+    {
+      if (!Base::IsKeyTagExists(p.first))
+        Base::AddCustomTag(p);
+    }
   }
 }
 
@@ -86,14 +98,17 @@ void RelationTagsWay::Process(RelationElement const & e)
       std::string ref(e.GetTagValue("ref"));
       if (!ref.empty())
       {
+        auto refBase = m_current->GetTag("ref");
+        if (refBase == ref)
+          refBase.clear();
+
         auto const network = e.GetTagValue("network");
         // Not processing networks with more than 15 chars (see road_shields_parser.cpp).
         if (!network.empty() && network.find('/') == std::string::npos && network.size() < 15)
           ref = std::string(network).append(1, '/').append(ref);
 
-        auto const refBase = m_current->GetTag("ref");
         if (!refBase.empty())
-          ref = std::string(refBase).append(1, ';').append(ref);
+          ref = refBase + ';' + ref;
 
         Base::AddCustomTag({"ref", std::move(ref)});
       }
@@ -105,6 +120,7 @@ void RelationTagsWay::Process(RelationElement const & e)
     return;
 
   bool const isBoundary = (type == "boundary") && IsAcceptBoundary(e);
+  bool const isPlaceDest = Base::IsKeyTagExists("place") || Base::IsKeyTagExists("de:place");
   bool const isAssociatedStreet = type == "associatedStreet";
   bool const processAssociatedStreet = isAssociatedStreet &&
                                        Base::IsKeyTagExists("addr:housenumber") &&
@@ -128,13 +144,16 @@ void RelationTagsWay::Process(RelationElement const & e)
       continue;
     }
 
-    if (isAssociatedStreet && p.first == "wikipedia")
-      continue;
+    if (p.first == "wikipedia" || p.first == "wikidata")
+    {
+      if ((isBoundary && !isPlaceDest) || (!isHighway && isAssociatedStreet) || Base::IsKeyTagExists(p.first))
+        continue;
+    }
 
     if (!isBoundary && p.first == "boundary")
       continue;
 
-    if (p.first == "place")
+    if (p.first == "place" || p.first == "de:place" || p.first == "capital")
       continue;
 
     // Do not pass "ref" tags from boundaries and other, non-route relations to highways.
