@@ -1346,6 +1346,7 @@ world  +
             guidepost  -
             map  -
             office  -
+            visitor_centre  -
             {}
         motel  -
         museum  -

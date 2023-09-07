@@ -103075,7 +103075,7 @@ cont {
     scale: 16
     symbol {
       name: "information-m"
-      priority: 2850
+      priority: -9950
       min_distance: 10
     }
     caption {
@@ -103085,14 +103085,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -7150
+      priority: -10000
     }
   }
   element {
     scale: 17
     symbol {
       name: "information-m"
-      priority: 2850
+      priority: -9950
       min_distance: 10
     }
     caption {
@@ -103102,14 +103102,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -7150
+      priority: -10000
     }
   }
   element {
     scale: 18
     symbol {
       name: "information-m"
-      priority: 2850
+      priority: -9950
       min_distance: 10
     }
     caption {
@@ -103119,14 +103119,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -7150
+      priority: -10000
     }
   }
   element {
     scale: 19
     symbol {
       name: "information-m"
-      priority: 2850
+      priority: -9950
       min_distance: 10
     }
     caption {
@@ -103136,7 +103136,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -7150
+      priority: -10000
     }
   }
 }
@@ -103358,7 +103358,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "information-m"
+      name: "information-office-m"
       priority: 4300
       min_distance: 10
     }
@@ -103375,7 +103375,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "information-m"
+      name: "information-office-m"
       priority: 4300
       min_distance: 10
     }
@@ -103392,7 +103392,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "information-m"
+      name: "information-office-m"
       priority: 4300
       min_distance: 10
     }
@@ -103409,7 +103409,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "information-m"
+      name: "information-office-m"
       priority: 4300
       min_distance: 10
     }
@@ -103426,7 +103426,95 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "information-m"
+      name: "information-office-m"
+      priority: 4300
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -5700
+    }
+  }
+}
+cont {
+  name: "tourism-information-visitor_centre"
+  element {
+    scale: 15
+    symbol {
+      name: "information-office-m"
+      priority: 4300
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -5700
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "information-office-m"
+      priority: 4300
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -5700
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "information-office-m"
+      priority: 4300
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -5700
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "information-office-m"
+      priority: 4300
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -5700
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "information-office-m"
       priority: 4300
       min_distance: 10
     }
