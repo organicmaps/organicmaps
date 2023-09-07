@@ -904,4 +904,33 @@ UNIT_CLASS_TEST(TestRawGenerator, Addr_Interpolation)
   TEST_EQUAL(count, 1, ());
 }
 
+// https://github.com/organicmaps/organicmaps/issues/4994
+UNIT_CLASS_TEST(TestRawGenerator, NamedAddress)
+{
+  std::string const mwmName = "Address";
+
+  BuildFB("./data/osm_test_data/named_address.osm", mwmName);
+
+  uint32_t const addrType = classif().GetTypeByPath({"building", "address"});
+
+  size_t withName = 0, withNumber = 0;
+  ForEachFB(mwmName, [&](feature::FeatureBuilder const & fb)
+  {
+    TEST_EQUAL(fb.GetGeomType(), feature::GeomType::Point, ());
+    TEST(fb.HasType(addrType), ());
+
+    TEST(fb.GetParams().house.IsEmpty() != fb.GetName().empty(), ());
+    if (fb.GetParams().house.IsEmpty())
+      ++withName;
+    else
+      ++withNumber;
+
+    TEST(fb.GetAddressData().Get(feature::AddressData::Type::Street).empty(), ());
+    TEST_EQUAL(fb.GetAddressData().Get(feature::AddressData::Type::Postcode), "LV-5695", ());
+  });
+
+  TEST_EQUAL(withName, 3, ());
+  TEST_EQUAL(withNumber, 0, ());
+}
+
 } // namespace raw_generator_tests

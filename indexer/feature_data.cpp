@@ -241,6 +241,16 @@ void FeatureParamsBase::MakeZero()
   name.Clear();
 }
 
+bool FeatureParamsBase::SetDefaultNameIfEmpty(std::string const & s)
+{
+  std::string_view existing;
+  if (name.GetString(StringUtf8Multilang::kDefaultCode, existing))
+    return existing == s;
+
+  name.AddString(StringUtf8Multilang::kDefaultCode, s);
+  return true;
+}
+
 bool FeatureParamsBase::operator == (FeatureParamsBase const & rhs) const
 {
   return (name == rhs.name && house == rhs.house && ref == rhs.ref &&
@@ -296,49 +306,55 @@ bool FeatureParams::AddName(string_view lang, string_view s)
   return true;
 }
 
-bool FeatureParams::AddHouseName(string const & s)
+bool FeatureParams::LooksLikeHouseNumber(std::string const & hn)
 {
-  if (IsDummyName(s) || name.FindString(s) != StringUtf8Multilang::kUnsupportedLanguageCode)
-    return false;
+  // Very naive implementation to _lightly_ promote hn -> name (for search index) if suitable.
+  /// @todo Conform with search::LooksLikeHouseNumber.
 
-  // Most names are house numbers by statistics.
-  if (house.IsEmpty() && AddHouseNumber(s))
-    return true;
+  ASSERT(!hn.empty(), ());
+  size_t const sz = hn.size();
+  return strings::IsASCIIDigit(hn[0]) ||
+         (sz == 1 && strings::IsASCIILatin(hn[0])) ||
+         std::count_if(hn.begin(), hn.end(), &strings::IsASCIIDigit) > 0.2 * sz;
+}
 
-  // If we got a clear number, replace the house number with it.
-  // Example: housename=16th Street, housenumber=34
-  if (strings::IsASCIINumeric(s))
+char const * FeatureParams::kHNLogTag = "HNLog";
+
+void FeatureParams::SetHouseNumberAndHouseName(std::string houseNumber, std::string houseName)
+{
+  if (IsDummyName(houseName) || name.FindString(houseName) != StringUtf8Multilang::kUnsupportedLanguageCode)
+    houseName.clear();
+
+  if (houseName.empty() && houseNumber.empty())
+    return;
+
+  if (houseName.empty())
+    AddHouseNumber(houseNumber);
+  else if (houseNumber.empty())
+    AddHouseNumber(houseName);
+  else
   {
-    string housename(house.Get());
-    if (AddHouseNumber(s))
+    if (!LooksLikeHouseNumber(houseNumber) && LooksLikeHouseNumber(houseName))
     {
-      // Duplicating code to avoid changing the method header.
-      string_view dummy;
-      if (!name.GetString(StringUtf8Multilang::kDefaultCode, dummy))
-        name.AddString(StringUtf8Multilang::kDefaultCode, housename);
-      return true;
+      LOG(LWARNING, (kHNLogTag, "Fancy house name:", houseName, "and number:", houseNumber));
+      houseNumber.swap(houseName);
     }
-  }
 
-  // Add as a default name if we don't have it yet.
-  string_view dummy;
-  if (!name.GetString(StringUtf8Multilang::kDefaultCode, dummy))
-  {
-    name.AddString(StringUtf8Multilang::kDefaultCode, s);
-    return true;
+    AddHouseNumber(std::move(houseNumber));
+    SetDefaultNameIfEmpty(houseName);
   }
-
-  return false;
 }
 
 bool FeatureParams::AddHouseNumber(string houseNumber)
 {
-  ASSERT(!houseNumber.empty(), ("This check should be done by the caller."));
-  ASSERT_NOT_EQUAL(houseNumber.front(), ' ', ("Trim should be done by the caller."));
+  ASSERT(!houseNumber.empty(), ());
 
   // Negative house numbers are not supported.
   if (houseNumber.front() == '-' || houseNumber.find("－") == 0)
+  {
+    LOG(LWARNING, (kHNLogTag, "Negative house number:", houseNumber));
     return false;
+  }
 
   // Replace full-width digits, mostly in Japan, by ascii-ones.
   strings::NormalizeDigits(houseNumber);
@@ -350,12 +366,10 @@ bool FeatureParams::AddHouseNumber(string houseNumber)
     ++i;
   houseNumber.erase(0, i);
 
-  if (any_of(houseNumber.cbegin(), houseNumber.cend(), &strings::IsASCIIDigit))
-  {
-    house.Set(houseNumber);
-    return true;
-  }
-  return false;
+  // Assign house number as-is to create building-address if needed.
+  // Final checks are made in FeatureBuilder::PreSerialize().
+  house.Set(houseNumber);
+  return true;
 }
 
 void FeatureParams::SetGeomType(feature::GeomType t)
