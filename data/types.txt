@@ -491,7 +491,7 @@ mapswithme
 mapswithme
 mapswithme
 *highway|tertiary_link|bridge
-mapswithme
+*tourism|information|visitor_centre
 *amenity|parking|park_and_ride
 *waterway|fish_pass
 *waterway|fish_pass|tunnel
