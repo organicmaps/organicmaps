@@ -243,6 +243,27 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Address)
     TEST_EQUAL(params.GetAddressData().Get(AddrType::Street), "Leutschenbachstrasse", ());
     TEST_EQUAL(params.GetAddressData().Get(AddrType::Postcode), "8050", ());
   }
+
+  {
+    Tags const tags = {
+      {"addr:city", "Šķaune"},
+      {"addr:country", "LV"},
+      {"addr:district", "Krāslavas novads"},
+      {"addr:housename", "Rozemnieki"},
+      {"addr:postcode", "LV-5695"},
+      {"addr:subdistrict", "Šķaunes pagasts"},
+      {"ref:LV:addr", "104934702"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(addrType), ());
+
+    TEST_EQUAL(params.house.Get(), "Rozemnieki", ());
+    TEST(params.GetAddressData().Get(AddrType::Street).empty(), ());
+    TEST_EQUAL(params.GetAddressData().Get(AddrType::Postcode), "LV-5695", ());
+  }
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_PlaceState)

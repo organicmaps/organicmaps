@@ -38,8 +38,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_ManyTypes)
   AddTypes(params, arr);
 
   params.FinishAddingTypes();
-  params.AddHouseNumber("75");
-  params.AddHouseName("Best House");
+  params.SetHouseNumberAndHouseName("75", "Best House");
   params.AddName("default", "Name");
 
   fb1.SetParams(params);
@@ -224,8 +223,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_SerializeLocalityObjectForBuildi
   AddTypes(params, arr);
 
   params.FinishAddingTypes();
-  params.AddHouseNumber("75");
-  params.AddHouseName("Best House");
+  params.SetHouseNumberAndHouseName("75", "Best House");
   params.AddName("default", "Name");
 
   fb.AddOsmId(base::MakeOsmNode(1));
@@ -242,6 +240,44 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_SerializeLocalityObjectForBuildi
 
   auto & buffer = holder.GetBuffer();
   TEST(fb.PreSerializeAndRemoveUselessNamesForMwm(buffer), ());
+}
+
+UNIT_TEST(LooksLikeHouseNumber)
+{
+  TEST(FeatureParams::LooksLikeHouseNumber("1 bis"), ());
+  TEST(FeatureParams::LooksLikeHouseNumber("18-20"), ());
+
+  // Brno (Czech) has a lot of fancy samples.
+  TEST(FeatureParams::LooksLikeHouseNumber("ev.8"), ());
+  TEST(FeatureParams::LooksLikeHouseNumber("D"), ());
+  TEST(FeatureParams::LooksLikeHouseNumber("A5"), ());
+
+  TEST(!FeatureParams::LooksLikeHouseNumber("Building 2"), ());
+  TEST(!FeatureParams::LooksLikeHouseNumber("Unit 3"), ());
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, FBuilder_HouseName)
+{
+  FeatureBuilder fb;
+  FeatureBuilderParams params;
+
+  base::StringIL arr[] = {{ "building" }};
+  AddTypes(params, arr);
+  params.FinishAddingTypes();
+
+  params.SetHouseNumberAndHouseName("", "St. Nicholas Lodge");
+
+  fb.SetParams(params);
+  fb.AssignArea({{0, 0}, {0, 1}, {1, 1}, {1, 0}, {0, 0}}, {});
+  fb.SetArea();
+
+  TEST(fb.RemoveInvalidTypes(), ());
+  TEST(fb.IsValid(), ());
+
+  TEST(fb.PreSerializeAndRemoveUselessNamesForIntermediate(), ());
+  TEST(fb.IsValid(), ());
+  TEST_EQUAL(fb.GetName(StringUtf8Multilang::kDefaultCode), "St. Nicholas Lodge", ());
+  TEST(fb.GetParams().house.IsEmpty(), ());
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, FBuilder_SerializeAccuratelyForIntermediate)

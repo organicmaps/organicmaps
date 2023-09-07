@@ -154,6 +154,7 @@ struct FeatureParamsBase
   FeatureParamsBase() : layer(feature::LAYER_EMPTY), rank(0) {}
 
   void MakeZero();
+  bool SetDefaultNameIfEmpty(std::string const & s);
 
   bool operator == (FeatureParamsBase const & rhs) const;
 
@@ -226,13 +227,17 @@ struct FeatureParamsBase
 
 class FeatureParams : public FeatureParamsBase
 {
+  static char const * kHNLogTag;
+
 public:
   using Types = std::vector<uint32_t>;
 
   void ClearName();
 
   bool AddName(std::string_view lang, std::string_view s);
-  bool AddHouseName(std::string const & s);
+
+  static bool LooksLikeHouseNumber(std::string const & hn);
+  void SetHouseNumberAndHouseName(std::string houseNumber, std::string houseName);
   bool AddHouseNumber(std::string houseNumber);
 
   void SetGeomType(feature::GeomType t);

@@ -197,6 +197,23 @@ bool FeatureBuilder::PreSerialize()
   if (!m_params.IsValid())
     return false;
 
+  auto const checkHouseNumber = [this]()
+  {
+    if (!m_params.house.IsEmpty())
+    {
+      // Hack/Patch here. Convert non-number into default name for the search index.
+      // Happens with building-address: https://github.com/organicmaps/organicmaps/issues/4994
+      /// @todo Refactor to store raw name: and addr: values in FeatureBuilderParams and make one
+      /// _finalization_ function here.
+      auto const & hn = m_params.house.Get();
+      if (FeatureParams::LooksLikeHouseNumber(hn) || !m_params.SetDefaultNameIfEmpty(hn))
+        return true;
+      else
+        m_params.house.Clear();
+    }
+    return false;
+  };
+
   // Conform serialization logic (see HeaderMask::HEADER_MASK_HAS_ADDINFO):
   // - rank (city) is stored only for Point
   // - ref (road number, address range) is stored only for Line
@@ -204,9 +221,9 @@ bool FeatureBuilder::PreSerialize()
   switch (m_params.GetGeomType())
   {
   case GeomType::Point:
-    // Store house number like HeaderGeomType::PointEx.
-    if (!m_params.house.IsEmpty())
+    if (checkHouseNumber())
     {
+      // Store house number like HeaderGeomType::PointEx.
       m_params.SetGeomTypePointEx();
       m_params.rank = 0;
     }
@@ -242,8 +259,22 @@ bool FeatureBuilder::PreSerialize()
   }
 
   case GeomType::Area:
+    checkHouseNumber();
+
+    if (!m_params.ref.empty())
+    {
+      auto const & types = GetTypes();
+      if (m_params.name.IsEmpty() &&
+          (ftypes::IsRailwayStationChecker::Instance()(types) ||
+           ftypes::IsPlatformChecker::Instance()(types)))
+      {
+        m_params.name.AddString(StringUtf8Multilang::kDefaultCode, m_params.ref);
+      }
+
+      m_params.ref.clear();
+    }
+
     m_params.rank = 0;
-    m_params.ref.clear();
     break;
 
   default:
