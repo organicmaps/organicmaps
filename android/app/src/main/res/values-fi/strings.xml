@@ -1893,6 +1893,7 @@
 	<string name="type.tourism.information.guidepost">Tienviitta</string>
 	<string name="type.tourism.information.map">Turistikartta</string>
 	<string name="type.tourism.information.office">Turistitoimisto</string>
+	<string name="type.tourism.information.visitor_centre">Vierailijakeskus</string>
 	<string name="type.tourism.motel">Motelli</string>
 	<string name="type.tourism.museum">Museo</string>
 	<string name="type.tourism.picnic_site">Piknikpaikat</string>

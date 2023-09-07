@@ -1992,6 +1992,7 @@
 	<string name="type.tourism.information.guidepost">Указательный столб</string>
 	<string name="type.tourism.information.map">Карта</string>
 	<string name="type.tourism.information.office">Туристический офис</string>
+	<string name="type.tourism.information.visitor_centre">Центр для посетителей</string>
 	<string name="type.tourism.motel">Мотель</string>
 	<string name="type.tourism.museum">Музей</string>
 	<string name="type.tourism.picnic_site">Место для пикника</string>

@@ -3699,6 +3699,8 @@
 
 "type.tourism.information.office" = "مكتب سياحة";
 
+"type.tourism.information.visitor_centre" = "مركز الزوار";
+
 "type.tourism.motel" = "فندق رخيص";
 
 "type.tourism.museum" = "متحف";

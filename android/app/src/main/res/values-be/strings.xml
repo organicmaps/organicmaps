@@ -1231,6 +1231,7 @@
 	<string name="type.tourism.information.guidepost">Даведнік</string>
 	<string name="type.tourism.information.map">Карта</string>
 	<string name="type.tourism.information.office">Турыстычны офіс</string>
+	<string name="type.tourism.information.visitor_centre">Цэнтр для наведвальнікаў</string>
 	<string name="type.waterway.fish_pass">Рыбаход</string>
 	<string name="type.natural.water.ditch">Дрэнажная канава</string>
 	<string name="type.waterway.ditch.tunnel">Водопропускная труба</string>

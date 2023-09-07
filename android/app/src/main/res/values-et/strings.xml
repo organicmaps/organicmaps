@@ -1962,6 +1962,7 @@
 	<string name="type.tourism.information.guidepost">Juhtpost</string>
 	<string name="type.tourism.information.map">Turistikaart</string>
 	<string name="type.tourism.information.office">Turismiinfo</string>
+	<string name="type.tourism.information.visitor_centre">Külastuskeskus</string>
 	<string name="type.tourism.motel">Motell</string>
 	<string name="type.tourism.museum">Muuseum</string>
 	<string name="type.tourism.picnic_site">Piknikukoht</string>

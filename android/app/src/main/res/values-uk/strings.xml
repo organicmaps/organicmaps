@@ -1954,6 +1954,7 @@
 	<string name="type.tourism.information.guidepost">Вказівний стовп</string>
 	<string name="type.tourism.information.map">Мапа</string>
 	<string name="type.tourism.information.office">Туристичний офіс</string>
+	<string name="type.tourism.information.visitor_centre">Центр для відвідувачів</string>
 	<string name="type.tourism.motel">Мотель</string>
 	<string name="type.tourism.museum">Музей</string>
 	<string name="type.tourism.picnic_site">Пікнік</string>

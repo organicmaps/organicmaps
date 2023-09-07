@@ -1816,6 +1816,7 @@
 	<string name="type.tourism.information.guidepost">Guidepost</string>
 	<string name="type.tourism.information.map">Turistkart</string>
 	<string name="type.tourism.information.office">Turistkontor</string>
+	<string name="type.tourism.information.visitor_centre">Besøkssenter</string>
 	<string name="type.tourism.motel">Motell</string>
 	<string name="type.tourism.picnic_site">Rasteplasser</string>
 	<string name="type.tourism.resort">Ferieresort</string>

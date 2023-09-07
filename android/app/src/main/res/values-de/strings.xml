@@ -1943,6 +1943,7 @@
 	<string name="type.tourism.information.guidepost">Wegweiser</string>
 	<string name="type.tourism.information.map">Touristenkarte</string>
 	<string name="type.tourism.information.office">Fremdenverkehrsamt</string>
+	<string name="type.tourism.information.visitor_centre">Besucherzentrum</string>
 	<string name="type.tourism.motel">Motel</string>
 	<string name="type.tourism.museum">Museum</string>
 	<string name="type.tourism.picnic_site">Picknickplatz</string>

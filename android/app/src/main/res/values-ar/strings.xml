@@ -1878,6 +1878,7 @@
 	<string name="type.tourism.information.guidepost">دليل</string>
 	<string name="type.tourism.information.map">خريطة سياحية</string>
 	<string name="type.tourism.information.office">مكتب سياحة</string>
+	<string name="type.tourism.information.visitor_centre">مركز الزوار</string>
 	<string name="type.tourism.motel">فندق رخيص</string>
 	<string name="type.tourism.museum">متحف</string>
 	<string name="type.tourism.picnic_site">مكان نزهة</string>

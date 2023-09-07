@@ -3699,6 +3699,8 @@
 
 "type.tourism.information.office" = "ศูนย์บริการนักท่องเที่ยว";
 
+"type.tourism.information.visitor_centre" = "ศูนย์นักท่องเที่ยว";
+
 "type.tourism.motel" = "โมเทล";
 
 "type.tourism.museum" = "พิพิธภัณฑ์";

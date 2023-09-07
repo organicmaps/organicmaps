@@ -2032,6 +2032,7 @@
 	<string name="type.tourism.information.guidepost">Guidepost</string>
 	<string name="type.tourism.information.map">Tourist Map</string>
 	<string name="type.tourism.information.office">Tourist Office</string>
+	<string name="type.tourism.information.visitor_centre">Visitor Centre</string>
 	<string name="type.tourism.motel">Motel</string>
 	<string name="type.tourism.museum">Museum</string>
 	<string name="type.tourism.picnic_site">Picnic Site</string>

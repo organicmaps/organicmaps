@@ -1949,6 +1949,7 @@
 	<string name="type.tourism.information.guidepost">Poste indicador</string>
 	<string name="type.tourism.information.map">Mapa turístico</string>
 	<string name="type.tourism.information.office">Oficina de turismo</string>
+	<string name="type.tourism.information.visitor_centre">Centro de visitantes</string>
 	<string name="type.tourism.motel">Motel</string>
 	<string name="type.tourism.museum">Museo</string>
 	<string name="type.tourism.picnic_site">Zona de picnic</string>

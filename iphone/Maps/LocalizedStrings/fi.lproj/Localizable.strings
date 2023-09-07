@@ -3699,6 +3699,8 @@
 
 "type.tourism.information.office" = "Turistitoimisto";
 
+"type.tourism.information.visitor_centre" = "Vierailijakeskus";
+
 "type.tourism.motel" = "Motelli";
 
 "type.tourism.museum" = "Museo";

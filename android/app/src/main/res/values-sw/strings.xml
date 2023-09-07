@@ -801,6 +801,7 @@
 	<string name="type.tourism.information.guidepost">Chapisho la mwongozo</string>
 	<string name="type.tourism.information.map">Ramani ya Watalii</string>
 	<string name="type.tourism.information.office">Ofisi ya watalii</string>
+	<string name="type.tourism.information.visitor_centre">Kituo cha Wageni</string>
 	<string name="type.waterway.fish_pass">Ngazi ya samaki</string>
 	<string name="type.natural.water.ditch">Mfereji wa mifereji ya maji</string>
 	<string name="type.waterway.ditch.tunnel">Culvert</string>

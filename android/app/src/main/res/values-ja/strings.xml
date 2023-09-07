@@ -1879,6 +1879,7 @@
 	<string name="type.tourism.information.guidepost">道標</string>
 	<string name="type.tourism.information.map">観光マップ</string>
 	<string name="type.tourism.information.office">観光案内所</string>
+	<string name="type.tourism.information.visitor_centre">ビジターセンター</string>
 	<string name="type.tourism.motel">モーテル</string>
 	<string name="type.tourism.museum">博物館</string>
 	<string name="type.tourism.picnic_site">ピクニック場</string>

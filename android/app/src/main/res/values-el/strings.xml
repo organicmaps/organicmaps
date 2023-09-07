@@ -1761,6 +1761,7 @@
 	<string name="type.tourism.information.guidepost">Οδηγός</string>
 	<string name="type.tourism.information.map">Τουριστικός χάρτης</string>
 	<string name="type.tourism.information.office">Ενημέρωση τουριστών</string>
+	<string name="type.tourism.information.visitor_centre">Κέντρο Επισκεπτών</string>
 	<string name="type.tourism.motel">Μοτέλ</string>
 	<string name="type.tourism.museum">Μουσείο</string>
 	<string name="type.tourism.picnic_site">Χώρος εκδρομής</string>

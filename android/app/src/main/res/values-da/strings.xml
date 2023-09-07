@@ -1745,6 +1745,7 @@
 	<string name="type.tourism.information.guidepost">Vejviser</string>
 	<string name="type.tourism.information.map">Turistkort</string>
 	<string name="type.tourism.information.office">Turistkontor</string>
+	<string name="type.tourism.information.visitor_centre">Besøgscenter</string>
 	<string name="type.tourism.picnic_site">Picnic</string>
 	<string name="type.tourism.theme_park">Turisme</string>
 	<string name="type.tourism.viewpoint">Udsigtspunkt</string>

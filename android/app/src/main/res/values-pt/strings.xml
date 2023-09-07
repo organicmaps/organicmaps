@@ -1914,6 +1914,7 @@
 	<string name="type.tourism.information.guidepost">Poste com direções</string>
 	<string name="type.tourism.information.map">Mapa turístico</string>
 	<string name="type.tourism.information.office">Posto de turismo</string>
+	<string name="type.tourism.information.visitor_centre">Centro de visitantes</string>
 	<string name="type.tourism.motel">Motel</string>
 	<string name="type.tourism.museum">Museu</string>
 	<string name="type.tourism.picnic_site">Local de piqueniques</string>
