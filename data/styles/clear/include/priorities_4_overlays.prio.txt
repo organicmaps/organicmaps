@@ -627,7 +627,7 @@ highway-bus_stop                                    # icon z16- (also has captio
 
 amenity-pharmacy                                    # icon z16- (also has caption(optional) z17-)
 highway-pedestrian                                  # pathtext z14- (also has line z13-)
-highway-pedestrian-area                             # pathtext z14- (also has line z13-, area z14-)
+highway-pedestrian-area                             # pathtext z14- (also has area z14-)
 highway-pedestrian-bridge                           # pathtext z14- (also has line z13-, line::bridgeblack z14-, line::bridgewhite z13-)
 highway-pedestrian-tunnel                           # pathtext z14- (also has line z13-, line(casing) z16-)
 highway-tertiary                                    # pathtext z12- and shield z15- (also has line z11-)

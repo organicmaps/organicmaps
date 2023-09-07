@@ -241,7 +241,7 @@ railway-subway-bridge                               # line z13- (also has line::
 
 highway-ford                                        # line z13- (also has icon z16-, pathtext z16-)
 highway-pedestrian                                  # line z13- (also has pathtext z14-)
-highway-pedestrian-area                             # line z13- and area z14- (also has pathtext z14-)
+highway-pedestrian-area                             # area z14- (also has pathtext z14-)
 highway-pedestrian-bridge                           # line z13- (also has line::bridgeblack z14-, line::bridgewhite z13-, pathtext z14-)
 highway-pedestrian-tunnel                           # line z13- (also has line(casing) z16-, pathtext z14-)
 === 200

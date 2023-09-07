@@ -22707,37 +22707,13 @@ cont {
 cont {
   name: "highway-pedestrian-area"
   element {
-    scale: 13
-    lines {
-      width: 1.0
-      color: 16777215
-      dashdot {
-        dd: 2.0
-        dd: 1.0
-      }
-      priority: 200
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 14
-    lines {
-      width: 1.6
-      color: 16777215
-      dashdot {
-        dd: 3.6
-        dd: 1.6
-      }
-      priority: 200
-      cap: BUTTCAP
-    }
     area {
       color: 15591638
       priority: -1830
     }
     path_text {
       primary {
-        height: 10
         color: 3355443
         stroke_color: 871230427
       }
@@ -22746,23 +22722,12 @@ cont {
   }
   element {
     scale: 15
-    lines {
-      width: 2.0
-      color: 16777215
-      dashdot {
-        dd: 5.0
-        dd: 2.2
-      }
-      priority: 200
-      cap: BUTTCAP
-    }
     area {
       color: 15591638
       priority: -1830
     }
     path_text {
       primary {
-        height: 11
         color: 3355443
         stroke_color: 871230427
       }
@@ -22771,22 +22736,12 @@ cont {
   }
   element {
     scale: 16
-    lines {
-      width: 2.4
-      color: 16777215
-      dashdot {
-        dd: 5.4
-        dd: 2.7
-      }
-      priority: 200
-    }
     area {
       color: 15920858
       priority: -1830
     }
     path_text {
       primary {
-        height: 10
         color: 3355443
         stroke_color: 872415231
       }
@@ -22795,22 +22750,12 @@ cont {
   }
   element {
     scale: 17
-    lines {
-      width: 3.0
-      color: 16777215
-      dashdot {
-        dd: 5.0
-        dd: 2.0
-      }
-      priority: 200
-    }
     area {
       color: 15920858
       priority: -1830
     }
     path_text {
       primary {
-        height: 10
         color: 3355443
         stroke_color: 872415231
       }
@@ -22819,22 +22764,12 @@ cont {
   }
   element {
     scale: 18
-    lines {
-      width: 4.0
-      color: 16777215
-      dashdot {
-        dd: 7.0
-        dd: 3.0
-      }
-      priority: 200
-    }
     area {
       color: 15920858
       priority: -1830
     }
     path_text {
       primary {
-        height: 12
         color: 3355443
         stroke_color: 16777215
       }
@@ -22843,22 +22778,12 @@ cont {
   }
   element {
     scale: 19
-    lines {
-      width: 5.0
-      color: 16777215
-      dashdot {
-        dd: 16.2
-        dd: 8.1
-      }
-      priority: 200
-    }
     area {
       color: 15920858
       priority: -1830
     }
     path_text {
       primary {
-        height: 12
         color: 3355443
         stroke_color: 16777215
       }
