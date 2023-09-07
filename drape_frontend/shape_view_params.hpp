@@ -37,7 +37,6 @@ enum class SpecialDisplacement : uint8_t
   None,
   UserMark,
   SpecialModeUserMark,
-  HouseNumber,
 };
 
 struct CommonOverlayViewParams : public CommonViewParams

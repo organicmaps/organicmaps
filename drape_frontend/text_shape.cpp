@@ -443,11 +443,6 @@ uint64_t TextShape::GetOverlayPriority() const
   if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark)
     return dp::CalculateUserMarkPriority(m_params.m_minVisibleScale, m_params.m_specialPriority);
 
-  // Set up minimal priority for house numbers.
-  /// @todo move this exception to kothic.
-  if (m_params.m_specialDisplacement == SpecialDisplacement::HouseNumber)
-    return 0;
-
   // Overlay priority for text shapes considers length of the primary text
   // (the more text length, the more priority) and index of text.
   // [6 bytes - standard overlay priority][1 byte - length][1 byte - text index].

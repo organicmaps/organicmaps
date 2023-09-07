@@ -175,7 +175,7 @@
 @country_label: #444444;
 @state_label: #444444;
 @district_label: #555555;
-@housename: #737373;
+@housenumber: #6C6C6C;
 @building_label: #737373;
 @poi_label: #666666;
 @subway_label: #555555;
