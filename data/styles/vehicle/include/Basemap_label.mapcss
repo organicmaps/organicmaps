@@ -501,12 +501,10 @@ area|z18-[building]::int_name,
 node|z18-[building]::int_name,
 {text: addr:housenumber;text-color: @building_label;text-position: center;}
 
-area|z18-[addr:housenumber][addr:street],
 node|z18-[addr:housenumber][addr:street],
-{text: name;text-color: @building_label;text-position: center;}
-area|z18-[addr:housenumber][addr:street]::int_name,
+{text: name; text-color: @housenumber; text-position: center;}
 node|z18-[addr:housenumber][addr:street]::int_name,
-{text:int_name;text-color: @building_label;text-position: center;}
+{text: int_name; text-color: @housenumber; text-position: center;}
 
 node|z18-[entrance],
 node|z18-[amenity=loading_dock],
@@ -519,27 +517,23 @@ node|z18-[amenity=loading_dock],
 
 area|z18[building],
 node|z18[building],
-area|z18[addr:housenumber][addr:street],
-node|z18[addr:housenumber][addr:street]
 {font-size: 13;}
 area|z18[building]::int_name,
 node|z18[building]::int_name,
-area|z18[addr:housenumber][addr:street]::int_name,
-node|z18[addr:housenumber][addr:street]::int_name
 {font-size: 12;}
-
 area|z19[building],
 node|z19[building],
-area|z19[addr:housenumber][addr:street],
-node|z19[addr:housenumber][addr:street]
 {font-size: 14;}
 area|z19[building]::int_name,
 node|z19[building]::int_name,
-area|z19[addr:housenumber][addr:street]::int_name,
-node|z19[addr:housenumber][addr:street]::int_name
 {font-size: 13;}
 
-
+node|z18[addr:housenumber][addr:street],
+{font-size: 13;}
+node|z19[addr:housenumber][addr:street],
+{font-size: 14;}
+node|z18-[addr:housenumber][addr:street]::int_name,
+{font-size: 12;}
 
 /* 8.3 Airports */
 area|z14-[aeroway=terminal]

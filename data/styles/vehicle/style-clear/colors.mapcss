@@ -113,7 +113,7 @@
 @green6: #888C38;
 
 /* BUILDINGS */
-@housename: #65655E;
+@housenumber: #65655E;
 @building_label: #61615A;
 @building: #D4D3CA;/*#C9C8BB;*/
 @building_dark: #C7C6BF;/*#C2C0B3;*/

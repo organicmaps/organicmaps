@@ -112,6 +112,7 @@ public:
     , m_lineStyleFound(false)
     , m_auxCaptionFound(false)
     , m_mainTextType(drule::text_type_name)
+    , m_captionRule({ nullptr, 0, false })
     , m_f(f)
     , m_geomType(type)
     , m_zoomLevel(zoomLevel)
@@ -142,6 +143,7 @@ public:
   bool m_auxCaptionFound;
   drule::text_type_t m_mainTextType;
   buffer_vector<Stylist::TRuleWrapper, 8> m_rules;
+  Stylist::TRuleWrapper m_captionRule;
 
 private:
   void ProcessKey(drule::Key const & key)
@@ -183,20 +185,22 @@ private:
     drule::BaseRule const * const dRule = drule::rules().Find(key);
     if (dRule == nullptr)
       return;
+    Stylist::TRuleWrapper const rule = { dRule, static_cast<float>(depth), key.m_hatching };
 
     if (dRule->GetCaption(0) != nullptr)
+    {
       m_mainTextType = dRule->GetCaptionTextType(0);
+      m_auxCaptionFound |= (dRule->GetCaption(1) != nullptr);
+      // Don't add a caption rule to m_rules immediately, put aside for further processing.
+      m_captionRule = rule;
+    }
+    else
+    {
+      // Lines can have zero width only if they have path symbols along.
+      ASSERT(dRule->GetLine() == nullptr || dRule->GetLine()->width() > 0 || dRule->GetLine()->has_pathsym(), ());
 
-    m_auxCaptionFound |= (dRule->GetCaption(1) != nullptr);
-
-    // Skip lines with zero width. Lines can have zero width only if they have
-    // path symbols along.
-    /// @todo should never happen, change to assert.
-    auto const lineRule = dRule->GetLine();
-    if (lineRule != nullptr && (lineRule->width() < 1e-5 && !lineRule->has_pathsym()))
-      return;
-
-    m_rules.push_back({ dRule, static_cast<float>(depth), key.m_hatching });
+      m_rules.push_back(rule);
+    }
   }
 
   void Init()
@@ -345,11 +349,6 @@ bool Stylist::IsEmpty() const
   return m_rules.empty();
 }
 
-CaptionDescription & Stylist::GetCaptionDescriptionImpl()
-{
-  return m_captionDescriptor;
-}
-
 bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool buildings3d, Stylist & s)
 {
   feature::TypesHolder const types(f);
@@ -430,10 +429,31 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
   Aggregator aggregator(f, geomType, zoomLevel, keys.size());
   aggregator.AggregateKeys(keys);
 
-  CaptionDescription & descr = s.GetCaptionDescriptionImpl();
-  descr.Init(f, deviceLang, zoomLevel, geomType, aggregator.m_mainTextType, aggregator.m_auxCaptionFound);
+  s.m_captionDescriptor.Init(f, deviceLang, zoomLevel, geomType, aggregator.m_mainTextType, aggregator.m_auxCaptionFound);
 
-  aggregator.AggregateStyleFlags(keys, descr.IsNameExists());
+  if (aggregator.m_captionRule.m_rule != nullptr)
+  {
+    if (!s.m_captionDescriptor.IsHouseNumberInMainText())
+      aggregator.m_rules.push_back(aggregator.m_captionRule);
+    else
+    {
+      // Use building-address' caption drule to display house numbers.
+      static auto const addressType = cl.GetTypeByPath({"building", "address"});
+      drule::KeysT addressKeys;
+      cl.GetObject(addressType)->GetSuitable(zoomLevel, geomType, addressKeys);
+      if (!addressKeys.empty())
+      {
+        // A caption drule exists for this zoom level.
+        ASSERT(addressKeys.size() == 1 && addressKeys[0].m_type == drule::caption,
+               ("building-address should contain a caption drule only"));
+        drule::BaseRule const * const dRule = drule::rules().Find(addressKeys[0]);
+        ASSERT(dRule != nullptr, ());
+        aggregator.m_rules.push_back({ dRule, static_cast<float>(addressKeys[0].m_priority), false });
+      }
+    }
+  }
+
+  aggregator.AggregateStyleFlags(keys, s.m_captionDescriptor.IsNameExists());
 
   if (aggregator.m_pointStyleFound)
     s.m_pointStyleExists = true;

@@ -173,6 +173,7 @@ void CaptionDefProtoToFontDecl(CaptionDefProto const * capRule, dp::FontDecl & p
 {
   double const vs = df::VisualParams::Instance().GetVisualScale();
   params.m_color = ToDrapeColor(capRule->color());
+  //TODO: apply min font size in the style generator.
   params.m_size = static_cast<float>(std::max(kMinVisibleFontSize, capRule->height() * vs));
 
   if (capRule->stroke_color() != 0)
@@ -366,12 +367,11 @@ BaseApplyFeature::BaseApplyFeature(TileKey const & tileKey, TInsertShapeFn const
 
 void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto,
                                             CaptionDefProto const * secondaryProto,
-                                            float depth, TextViewParams & params) const
+                                            TextViewParams & params) const
 {
   dp::FontDecl decl;
   CaptionDefProtoToFontDecl(primaryProto, decl);
 
-  params.m_depth = depth;
   params.m_featureId = m_id;
 
   auto & titleDecl = params.m_titleDecl;
@@ -380,6 +380,7 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
   titleDecl.m_primaryTextFont = decl;
   titleDecl.m_primaryOffset = GetOffset(primaryProto->offset_x(), primaryProto->offset_y());
   titleDecl.m_primaryOptional = primaryProto->is_optional();
+  // Secondary captions are optional always.
   titleDecl.m_secondaryOptional = true;
 
   if (secondaryProto)
@@ -389,7 +390,6 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
 
     titleDecl.m_secondaryText = m_captions.GetAuxText();
     titleDecl.m_secondaryTextFont = auxDecl;
-    titleDecl.m_secondaryOptional = secondaryProto->is_optional();
   }
 }
 
@@ -434,7 +434,8 @@ void ApplyPointFeature::ProcessPointRule(Stylist::TRuleWrapper const & rule)
   {
     TextViewParams params;
     params.m_tileCenter = m_tileRect.Center();
-    ExtractCaptionParams(capRule, rule.m_rule->GetCaption(1), rule.m_depth, params);
+    ExtractCaptionParams(capRule, rule.m_rule->GetCaption(1), params);
+    params.m_depth = rule.m_depth;
     params.m_depthLayer = DepthLayer::OverlayLayer;
     params.m_depthTestEnabled = false;
     params.m_rank = m_rank;
@@ -487,11 +488,6 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
 
   for (auto textParams : m_textParams)
   {
-    if (m_captions.IsHouseNumberInMainText())
-    {
-      textParams.m_specialDisplacement = SpecialDisplacement::HouseNumber;
-    }
-
     /// @todo Hardcoded styles-bug patch. The patch is ok, but probably should enhance (or fire assert) styles?
     /// @see https://github.com/organicmaps/organicmaps/issues/2573
     if (hasPOI && textParams.m_titleDecl.m_anchor == dp::Anchor::Center)

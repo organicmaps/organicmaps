@@ -77,9 +77,6 @@ public:
 private:
   friend bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool buildings3d,
                           Stylist & s);
-
-  CaptionDescription & GetCaptionDescriptionImpl();
-
 private:
   typedef buffer_vector<TRuleWrapper, 8> rules_t;
   rules_t m_rules;

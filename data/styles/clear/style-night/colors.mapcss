@@ -172,7 +172,7 @@
 @country_label: #444444;
 @state_label: #444444;
 @district_label: #555555;
-@housename: #555555;
+@housenumber: #505050;
 @building_label: #555555;
 @poi_label: #555555;
 @subway_label: #555555;

@@ -44,7 +44,7 @@ public:
 protected:
   void ExtractCaptionParams(CaptionDefProto const * primaryProto,
                             CaptionDefProto const * secondaryProto,
-                            float depth, TextViewParams & params) const;
+                            TextViewParams & params) const;
   std::string ExtractHotelInfo() const;
 
   TInsertShapeFn m_insertShape;
