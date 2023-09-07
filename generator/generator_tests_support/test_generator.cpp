@@ -24,6 +24,8 @@ namespace generator
 namespace tests_support
 {
 
+char const * TestRawGenerator::kWikidataFilename = "wiki_urls.csv";
+
 bool MakeFakeBordersFile(std::string const & intemediatePath, std::string const & filename)
 {
   auto const borderPath = base::JoinPath(intemediatePath, BORDERS_DIR);
@@ -71,6 +73,7 @@ void TestRawGenerator::BuildFB(std::string const & osmFilePath, std::string cons
 
   m_genInfo.m_tmpDir = m_genInfo.m_targetDir = GetTmpPath();
   m_genInfo.m_fileName = mwmName;
+  m_genInfo.m_idToWikidataFilename = m_genInfo.GetIntermediateFileName(kWikidataFilename);
 
   m_genInfo.m_citiesBoundariesFilename = GetCitiesBoundariesPath();
 

@@ -156,7 +156,7 @@ UNIT_TEST(Process_associatedStreet)
    */
 
   // Create relation.
-  std::vector<RelationElement::Member> testMembers = {{2, "house"}, {3, "house"}};
+  std::vector<RelationElement::Member> testMembers = {{2, "house"}, {3, "house"}, {4, "street"}};
 
   RelationElement e1;
   e1.m_ways = testMembers;
@@ -169,7 +169,10 @@ UNIT_TEST(Process_associatedStreet)
 
   // Create buildings polygons.
   auto buildingWay2 = MakeOsmElement(2, {{"building", "yes"}, {"addr:housenumber", "121"}}, OsmElement::EntityType::Way);
-  auto buildingWay3 = MakeOsmElement(3, {{"auto const", "yes"}, {"addr:housenumber", "123"}, {"addr:street", "The Main Street"}, {"wikipedia", "en:Mega Theater"}}, OsmElement::EntityType::Way);
+  auto buildingWay3 = MakeOsmElement(3, {{"shop", "convenience"}, {"addr:housenumber", "123"},
+                                         {"addr:street", "The Main Street"}, {"wikipedia", "en:Mega Theater"}},
+                                     OsmElement::EntityType::Way);
+  auto highway4 = MakeOsmElement(4, {{"highway", "residential"}}, OsmElement::EntityType::Way);
 
   // Process buildings tags using relation tags.
   RelationTagsWay rtw;
@@ -180,12 +183,17 @@ UNIT_TEST(Process_associatedStreet)
   rtw.Reset(3, &buildingWay3);
   rtw(1, reader);
 
-  // Verify ways tags.
+  rtw.Reset(4, &highway4);
+  rtw(1, reader);
+
+  // Aggreagte wiki from associatedStreet only for highway.
   TEST_EQUAL(buildingWay2.GetTag("addr:street"), "Main Street", ());
-  TEST_EQUAL(buildingWay2.HasTag("wikipedia"), false, ());
+  TEST(buildingWay2.GetTag("wikipedia").empty(), ());
 
   TEST_EQUAL(buildingWay3.GetTag("addr:street"), "The Main Street", ());
-  TEST_EQUAL(buildingWay3.HasTag("wikipedia"), true, ());
+  TEST_EQUAL(buildingWay3.GetTag("wikipedia"), "en:Mega Theater", ());
+
+  TEST_EQUAL(highway4.GetTag("wikipedia"), "en:Main Street", ());
 }
 
 UNIT_TEST(Process_boundary)
@@ -205,7 +213,7 @@ UNIT_TEST(Process_boundary)
    */
 
   // Create relation.
-  std::vector<RelationElement::Member> testMembers = {{5, "outer"}, {6, "outer"}};
+  std::vector<RelationElement::Member> testMembers = {{5, "outer"}, {6, "outer"}, {7, "outer"}};
 
   RelationElement e1;
   e1.m_ways = testMembers;
@@ -221,6 +229,7 @@ UNIT_TEST(Process_boundary)
   // Create ways.
   auto outerWay5 = MakeOsmElement(5, {{"natural", "coastline"}}, OsmElement::EntityType::Way);
   auto outerWay6 = MakeOsmElement(6, {{"natural", "coastline"}, {"name", "Cala Rossa"}}, OsmElement::EntityType::Way);
+  auto outerWay7 = MakeOsmElement(6, {{"place", "locality"}}, OsmElement::EntityType::Way);
 
   // Process ways tags using relation tags.
   RelationTagsWay rtw;
@@ -231,16 +240,23 @@ UNIT_TEST(Process_boundary)
   rtw.Reset(6, &outerWay6);
   rtw(1, reader);
 
-  // Verify ways tags.
-  TEST_EQUAL(outerWay5.HasTag("place"), false, ());
-  TEST_EQUAL(outerWay5.HasTag("name"), false, ());
-  TEST_EQUAL(outerWay5.HasTag("name:en"), false, ());
-  TEST_EQUAL(outerWay5.GetTag("wikidata"), "Q145694", ());
+  rtw.Reset(7, &outerWay7);
+  rtw(1, reader);
 
-  TEST_EQUAL(outerWay6.HasTag("place"), false, ());
-  TEST_EQUAL(outerWay6.HasTag("name"), true, ());
-  TEST_EQUAL(outerWay6.HasTag("name:en"), false, ());
-  TEST_EQUAL(outerWay6.GetTag("wikidata"), "Q145694", ());
+  // We don't aggregate name and wiki from type=boundary Relation if destination Way (Node) is not a place.
+  TEST(!outerWay5.HasTag("place"), ());
+  TEST(!outerWay5.HasTag("name"), ());
+  TEST(!outerWay5.HasTag("name:en"), ());
+  TEST(outerWay5.GetTag("wikidata").empty(), ());
+
+  TEST(!outerWay6.HasTag("place"), ());
+  TEST(outerWay6.HasTag("name"), ());
+  TEST(!outerWay6.HasTag("name:en"), ());
+  TEST(outerWay6.GetTag("wikidata").empty(), ());
+
+  /// @todo Take name for places?
+  TEST(!outerWay7.HasTag("name"), ());
+  TEST_EQUAL(outerWay7.GetTag("wikidata"), "Q145694", ());
 }
 
 } // namespace relation_tags_tests

@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "generator/generator_tests_support/test_generator.hpp"
+#include "generator/descriptions_section_builder.hpp"
 
 #include "search/cities_boundaries_table.hpp"
 
@@ -380,4 +381,74 @@ UNIT_CLASS_TEST(TestRawGenerator, MiniRoundabout)
   ReadSpeedCamsFromMwm(*(guard.GetHandle().GetValue()), camerasMap);
   LOG(LINFO, (camerasMap));
 }
+
+UNIT_CLASS_TEST(TestRawGenerator, Relation_Wiki)
+{
+  std::string const mwmName = "Relation";
+
+  BuildFB("./data/osm_test_data/village_relation.osm", mwmName);
+
+  uint32_t const villageType = classif().GetTypeByPath({"place", "village"});
+
+  size_t count = 0;
+  ForEachFB(mwmName, [&](feature::FeatureBuilder const & fb)
+  {
+    switch (fb.GetGeomType())
+    {
+    case feature::GeomType::Point:
+    {
+      TEST(fb.HasType(villageType), ());
+      ++count;
+      TEST_EQUAL(fb.GetMetadata().Get(feature::Metadata::FMD_WIKIPEDIA),
+                 "fr:Charmois-l'Orgueilleux", ());
+      break;
+    }
+    case feature::GeomType::Line:
+    {
+      TEST(fb.GetMetadata().Get(feature::Metadata::FMD_WIKIPEDIA).empty(), ());
+      break;
+    }
+    }
+  });
+
+  TEST_EQUAL(count, 1, ());
+}
+
+UNIT_CLASS_TEST(TestRawGenerator, AssociatedStreet_Wiki)
+{
+  uint32_t const roadType = classif().GetTypeByPath({"highway", "residential"});
+
+  std::string const mwmName = "Street";
+  BuildFB("./data/osm_test_data/associated_street.osm", mwmName, false /* makeWorld */);
+
+  size_t count = 0;
+  ForEachFB(mwmName, [&](feature::FeatureBuilder const & fb)
+  {
+    if (fb.HasType(roadType))
+    {
+      TEST_EQUAL(fb.GetMetadata().Get(feature::Metadata::FMD_WIKIPEDIA), "uk:Вулиця Боричів Тік", ());
+      ++count;
+    }
+  });
+
+  TEST_EQUAL(count, 5, ());
+
+  BuildFeatures(mwmName);
+  generator::WikidataHelper wikidata(GetMwmPath(mwmName), GetGenInfo().GetIntermediateFileName(kWikidataFilename));
+
+  count = 0;
+  ForEachFeature(mwmName, [&](std::unique_ptr<FeatureType> ft)
+  {
+    if (feature::TypesHolder(*ft).Has(roadType))
+    {
+      ++count;
+      auto const data = wikidata.GetWikidataId(ft->GetID().m_index);
+      TEST(data, ());
+      TEST_EQUAL(*data, "Q4471511", ());
+    }
+  });
+
+  TEST_EQUAL(count, 5, ());
+}
+
 } // namespace raw_generator_tests

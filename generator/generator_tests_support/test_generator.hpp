@@ -58,6 +58,8 @@ public:
 
   feature::GenerateInfo const & GetGenInfo() const { return m_genInfo; }
   bool IsWorld(std::string const & mwmName) const;
+
+  static char const * kWikidataFilename;
 };
 
 } // namespace tests_support
