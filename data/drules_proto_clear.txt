@@ -10037,7 +10037,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "vending-m"
+      name: "excrement_bags-m"
       priority: -9970
     }
     caption {
@@ -10053,7 +10053,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "vending-m"
+      name: "excrement_bags-m"
       priority: -9970
     }
     caption {
