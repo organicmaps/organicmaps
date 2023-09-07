@@ -286,6 +286,9 @@ line|z18-[highway=busway],
 line|z18-[highway=road],
 {font-size: 12;text-halo-opacity: 1;text-halo-color: @label_halo_light;}
 
+line|z14-[highway=pedestrian][area?],
+{font-size: 0;}
+
 /* 8.OTHERS ROADS 15-22 ZOOM */
 
 line|z15-[highway=cycleway],

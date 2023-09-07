@@ -673,6 +673,9 @@ line|z19-[highway=pedestrian],
 line|z19-[highway=ford]
 {width: 5;dashes: 16.2,8.1;}
 
+line|z13-[highway=pedestrian][area?],
+{width: 0;}
+
 /* 8.2 Pedestrian & ford tunnel 16-22 ZOOM */
 
 line|z16-[highway=pedestrian][tunnel?]
