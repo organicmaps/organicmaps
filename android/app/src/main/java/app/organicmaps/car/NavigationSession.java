@@ -46,6 +46,7 @@ import app.organicmaps.location.SensorListener;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.routing.RoutingInfo;
 import app.organicmaps.util.LocationUtils;
+import app.organicmaps.sound.TtsPlayer;
 import app.organicmaps.util.log.Logger;
 import app.organicmaps.widget.placepage.PlacePageData;
 
@@ -203,6 +204,9 @@ public final class NavigationSession extends Session implements DefaultLifecycle
     if (!RoutingController.get().isNavigating())
       return;
 
+    TtsPlayer.INSTANCE.playTurnNotifications(getCarContext());
+    updateTrip();
+
     // TODO: consider to create callback mechanism to transfer 'ROUTE_IS_FINISHED' event from
     // the core to the platform code (https://github.com/organicmaps/organicmaps/issues/3589),
     // because calling the native method 'nativeIsRouteFinished'
@@ -313,6 +317,7 @@ public final class NavigationSession extends Session implements DefaultLifecycle
 
   private void updateTrip()
   {
+    mNavigationManager.navigationStarted();
     final RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
     final Trip trip = RoutingUtils.createTrip(getCarContext(), info, RoutingController.get().getEndPoint());
     mNavigationManager.updateTrip(trip);

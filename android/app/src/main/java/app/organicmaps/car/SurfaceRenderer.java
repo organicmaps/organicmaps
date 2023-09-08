@@ -14,12 +14,14 @@ import androidx.lifecycle.LifecycleOwner;
 
 import app.organicmaps.Framework;
 import app.organicmaps.Map;
+import app.organicmaps.MapRenderingListener;
 import app.organicmaps.R;
+import app.organicmaps.settings.UnitLocale;
 import app.organicmaps.util.log.Logger;
 
 import static app.organicmaps.display.DisplayType.Car;
 
-public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallback
+public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallback, MapRenderingListener
 {
   private static final String TAG = SurfaceRenderer.class.getSimpleName();
 
@@ -37,6 +39,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
     mCarContext = carContext;
     mIsRunning = true;
     lifecycle.addObserver(this);
+    mMap.setMapRenderingListener(this);
   }
 
   @Override
@@ -207,5 +210,11 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
     String message = mCarContext.getString(R.string.unsupported_phone);
     Logger.e(TAG, message);
     CarToast.makeText(mCarContext, message, CarToast.LENGTH_LONG).show();
+  }
+
+  @Override
+  public void onRenderingCreated()
+  {
+    UnitLocale.initializeCurrentUnits();
   }
 }

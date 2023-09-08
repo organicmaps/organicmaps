@@ -36,7 +36,7 @@ public final class RoutingHelpers
       break;
     }
 
-    return Distance.create(distance.mDistance < 0 ? 0 : distance.mDistance, displayUnit);
+    return Distance.create(distance.mDistance, displayUnit);
   }
 
   @NonNull
@@ -130,8 +130,8 @@ public final class RoutingHelpers
       break;
     }
     final Maneuver.Builder builder = new Maneuver.Builder(maneuverType);
-    if (RoutingInfo.CarDirection.isRoundAbout(carDirection))
-      builder.setRoundaboutExitNumber(roundaboutExitNum);
+    if (maneuverType == Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CCW)
+      builder.setRoundaboutExitNumber(roundaboutExitNum > 0 ? roundaboutExitNum : 1);
     builder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(context, carDirection.getTurnRes())).build());
     return builder.build();
   }

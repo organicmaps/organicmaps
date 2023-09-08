@@ -47,7 +47,7 @@ public final class RoutingUtils
   {
     final Trip.Builder builder = new Trip.Builder();
 
-    if (info == null)
+    if (info == null || !info.distToTarget.isValid() || !info.distToTurn.isValid())
     {
       builder.setLoading(true);
       return builder.build();
