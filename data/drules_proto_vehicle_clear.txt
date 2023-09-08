@@ -6056,11 +6056,11 @@ cont {
     caption {
       primary {
         height: 13
-        color: 6381914
+        color: 6645086
       }
       secondary {
         height: 12
-        color: 6381914
+        color: 6645086
         offset_y: 1
         text: "int_name"
       }
@@ -6072,11 +6072,11 @@ cont {
     caption {
       primary {
         height: 14
-        color: 6381914
+        color: 6645086
       }
       secondary {
-        height: 13
-        color: 6381914
+        height: 12
+        color: 6645086
         offset_y: 1
         text: "int_name"
       }

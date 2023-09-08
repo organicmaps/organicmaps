@@ -13808,10 +13808,10 @@ cont {
     caption {
       primary {
         height: 9
-        color: 6645086
+        color: 6381914
       }
       secondary {
-        height: 10
+        height: 8
         color: 6381914
         offset_y: 1
         text: "int_name"
@@ -13898,12 +13898,12 @@ cont {
     scale: 16
     caption {
       primary {
-        height: 9
+        height: 8
         color: 6645086
       }
       secondary {
-        height: 10
-        color: 6381914
+        height: 8
+        color: 6645086
         offset_y: 1
         text: "int_name"
       }
@@ -13914,12 +13914,12 @@ cont {
     scale: 17
     caption {
       primary {
-        height: 9
-        color: 6381914
+        height: 8
+        color: 6645086
       }
       secondary {
         height: 8
-        color: 6381914
+        color: 6645086
         offset_y: 1
         text: "int_name"
       }
@@ -13930,12 +13930,12 @@ cont {
     scale: 18
     caption {
       primary {
-        height: 11
-        color: 6381914
+        height: 10
+        color: 6645086
       }
       secondary {
-        height: 10
-        color: 6381914
+        height: 8
+        color: 6645086
         offset_y: 1
         text: "int_name"
       }
@@ -13946,12 +13946,12 @@ cont {
     scale: 19
     caption {
       primary {
-        height: 11
-        color: 6381914
+        height: 10
+        color: 6645086
       }
       secondary {
-        height: 10
-        color: 6381914
+        height: 8
+        color: 6645086
         offset_y: 1
         text: "int_name"
       }
@@ -13988,10 +13988,10 @@ cont {
     caption {
       primary {
         height: 9
-        color: 6645086
+        color: 6381914
       }
       secondary {
-        height: 10
+        height: 8
         color: 6381914
         offset_y: 1
         text: "int_name"
@@ -14101,10 +14101,10 @@ cont {
     caption {
       primary {
         height: 9
-        color: 6645086
+        color: 6381914
       }
       secondary {
-        height: 10
+        height: 8
         color: 6381914
         offset_y: 1
         text: "int_name"
@@ -14214,10 +14214,10 @@ cont {
     caption {
       primary {
         height: 9
-        color: 6645086
+        color: 6381914
       }
       secondary {
-        height: 10
+        height: 8
         color: 6381914
         offset_y: 1
         text: "int_name"
@@ -15338,7 +15338,8 @@ cont {
         is_optional: true
       }
       secondary {
-        height: 12
+        height: 10
+        color: 6381914
         offset_y: 10
         text: "addr:flats"
         is_optional: true
@@ -15381,7 +15382,8 @@ cont {
         is_optional: true
       }
       secondary {
-        height: 12
+        height: 10
+        color: 6381914
         offset_y: 10
         text: "addr:flats"
         is_optional: true
@@ -15424,7 +15426,8 @@ cont {
         is_optional: true
       }
       secondary {
-        height: 12
+        height: 10
+        color: 6381914
         offset_y: 10
         text: "addr:flats"
         is_optional: true
