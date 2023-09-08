@@ -28,6 +28,8 @@ namespace scales
   constexpr int GetPedestrianNavigation3dScale() { return UPPER_STYLE_SCALE - 2; }
   /// Default scale in adding-new-place mode.
   constexpr int GetAddNewPlaceScale() { return 18; }
+  /// Lower scale when standalone point housenumbers (of building-address type) become visible.
+  constexpr int GetPointHousenumbersScale() { return 18; }
 
   int GetMinAllowableIn3dScale();
 
@@ -38,6 +40,7 @@ namespace scales
 
   double GetEpsilonForLevel(int level);
   double GetEpsilonForSimplify(int level);
+  double GetEpsilonForHousenumbers(int level);
   bool IsGoodForLevel(int level, m2::RectD const & r);
 
   using Points = std::vector<m2::PointD>;

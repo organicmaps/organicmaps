@@ -437,18 +437,38 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
       aggregator.m_rules.push_back(aggregator.m_captionRule);
     else
     {
-      // Use building-address' caption drule to display house numbers.
-      static auto const addressType = cl.GetTypeByPath({"building", "address"});
-      drule::KeysT addressKeys;
-      cl.GetObject(addressType)->GetSuitable(zoomLevel, geomType, addressKeys);
-      if (!addressKeys.empty())
+      bool isGood = true;
+      if (zoomLevel < scales::GetUpperStyleScale())
       {
-        // A caption drule exists for this zoom level.
-        ASSERT(addressKeys.size() == 1 && addressKeys[0].m_type == drule::caption,
-               ("building-address should contain a caption drule only"));
-        drule::BaseRule const * const dRule = drule::rules().Find(addressKeys[0]);
-        ASSERT(dRule != nullptr, ());
-        aggregator.m_rules.push_back({ dRule, static_cast<float>(addressKeys[0].m_priority), false });
+        if (geomType == feature::GeomType::Area)
+        {
+          // Don't display housenumbers when an area (e.g. a building) is too small.
+          m2::RectD const r = f.GetLimitRect(zoomLevel);
+          isGood = std::min(r.SizeX(), r.SizeY()) > scales::GetEpsilonForHousenumbers(zoomLevel);
+        }
+        else
+        {
+          // Limit point housenumbers display to detailed zooms only (z18-).
+          ASSERT_EQUAL(geomType, feature::GeomType::Point, ());
+          isGood = zoomLevel >= scales::GetPointHousenumbersScale();
+        }
+      }
+
+      if (isGood)
+      {
+        // Use building-address' caption drule to display house numbers.
+        static auto const addressType = cl.GetTypeByPath({"building", "address"});
+        drule::KeysT addressKeys;
+        cl.GetObject(addressType)->GetSuitable(zoomLevel, geomType, addressKeys);
+        if (!addressKeys.empty())
+        {
+          // A caption drule exists for this zoom level.
+          ASSERT(addressKeys.size() == 1 && addressKeys[0].m_type == drule::caption,
+                 ("building-address should contain a caption drule only"));
+          drule::BaseRule const * const dRule = drule::rules().Find(addressKeys[0]);
+          ASSERT(dRule != nullptr, ());
+          aggregator.m_rules.push_back({ dRule, static_cast<float>(addressKeys[0].m_priority), false });
+        }
       }
     }
   }

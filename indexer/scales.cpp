@@ -66,6 +66,19 @@ namespace scales
       return GetEpsilonImpl(level, 1.3);
   }
 
+  double GetEpsilonForHousenumbers(int level)
+  {
+    // Constant pixelTolerance leads to housenumbers either not fitting into buildings on zl16
+    // or big looking buildings on z18 not getting a housenumber,
+    // because buildings sizes changes 2x times for each zoom, but font size changes very little.
+    double pixelTolerance = 30;
+    if (level == 17)
+      pixelTolerance = 18;
+    else if (level >= 18)
+      pixelTolerance = 14;
+    return GetEpsilonImpl(level, pixelTolerance);
+  }
+
   bool IsGoodForLevel(int level, m2::RectD const & r)
   {
     ASSERT(level >= 0 && level <= GetUpperScale(), (level));
