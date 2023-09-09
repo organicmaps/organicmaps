@@ -90,7 +90,6 @@ import app.organicmaps.settings.DrivingOptionsActivity;
 import app.organicmaps.settings.RoadType;
 import app.organicmaps.settings.SettingsActivity;
 import app.organicmaps.settings.UnitLocale;
-import app.organicmaps.sound.TtsPlayer;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.Counters;
 import app.organicmaps.util.LocationUtils;
@@ -1078,7 +1077,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onSafeDestroy()
   {
     super.onSafeDestroy();
-    mNavigationController.destroy();
     mLocationPermissionRequest.unregister();
     mLocationPermissionRequest = null;
     mLocationResolutionRequest.unregister();
@@ -1721,15 +1719,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     mNavigationController.update(Framework.nativeGetRouteFollowingInfo());
-
-    TtsPlayer.INSTANCE.playTurnNotifications(getApplicationContext());
-
-    // TODO: consider to create callback mechanism to transfer 'ROUTE_IS_FINISHED' event from
-    // the core to the platform code (https://github.com/organicmaps/organicmaps/issues/3589),
-    // because calling the native method 'nativeIsRouteFinished'
-    // too often can result in poor UI performance.
-    if (Framework.nativeIsRouteFinished())
-      routing.cancel();
   }
 
   /**

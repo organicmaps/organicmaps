@@ -29,11 +29,14 @@ import androidx.core.content.ContextCompat;
 import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
+import app.organicmaps.base.MediaPlayerWrapper;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.sound.TtsPlayer;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.log.Logger;
+
+import java.util.Objects;
 
 public class NavigationService extends Service implements LocationListener
 {
@@ -45,6 +48,10 @@ public class NavigationService extends Service implements LocationListener
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private NotificationCompat.Builder mNotificationBuilder;
+
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  MediaPlayerWrapper mPlayer;
 
   /**
    * Start the foreground service for turn-by-turn voice-guided navigation.
@@ -124,6 +131,8 @@ public class NavigationService extends Service implements LocationListener
         .setColorized(isColorizedSupported())
         .setColor(ContextCompat.getColor(this, R.color.notification));
 
+    mPlayer = new MediaPlayerWrapper(getApplicationContext());
+
     /*
      * Subscribe to location updates.
      */
@@ -142,6 +151,8 @@ public class NavigationService extends Service implements LocationListener
 
     final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
     notificationManager.cancel(NOTIFICATION_ID);
+
+    mPlayer.release();
 
     // Restart the location to resubscribe with a less frequent refresh interval (see {@link onStartCommand() }).
     LocationHelper.INSTANCE.restart();
@@ -199,21 +210,31 @@ public class NavigationService extends Service implements LocationListener
     if (!routingController.isNavigating())
       return;
 
-    // Voice the turn notification first.
+    // TODO: consider to create callback mechanism to transfer 'ROUTE_IS_FINISHED' event from
+    // the core to the platform code (https://github.com/organicmaps/organicmaps/issues/3589),
+    // because calling the native method 'nativeIsRouteFinished'
+    // too often can result in poor UI performance.
+    if (Framework.nativeIsRouteFinished())
+      routingController.cancel();
+
     final String[] turnNotifications = Framework.nativeGenerateNotifications();
     if (turnNotifications != null)
       TtsPlayer.INSTANCE.playTurnNotifications(getApplicationContext(), turnNotifications);
+
+    final RoutingInfo routingInfo = Framework.nativeGetRouteFollowingInfo();
+    if (routingInfo == null)
+      return;
+
+    if (routingInfo.shouldPlayWarningSignal())
+      mPlayer.playback(R.raw.speed_cams_beep);
 
     // Don't spend time on updating RemoteView if notifications are not allowed.
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
         ActivityCompat.checkSelfPermission(this, POST_NOTIFICATIONS) != PERMISSION_GRANTED)
       return;
 
-    final RoutingInfo routingInfo = Framework.nativeGetRouteFollowingInfo();
-    if (routingInfo == null)
-      return;
-
-    final Drawable drawable = AppCompatResources.getDrawable(this, routingInfo.carDirection.getTurnRes());
+    final Drawable drawable = Objects.requireNonNull(AppCompatResources.getDrawable(this,
+        routingInfo.carDirection.getTurnRes()));
     final Bitmap bitmap = isColorizedSupported() ?
         Graphics.drawableToBitmap(drawable) :
         Graphics.drawableToBitmapWithTint(drawable, ContextCompat.getColor(this, R.color.base_accent));
