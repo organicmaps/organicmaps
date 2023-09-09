@@ -168,7 +168,6 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
                     MapManager.nativeHasSpaceToDownloadCountry(country))
                 {
                   MapManager.nativeDownload(mCurrentCountry.id);
-                  mActivity.requestPostNotificationsPermission();
                 }
               }
             }
