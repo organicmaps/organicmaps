@@ -130,6 +130,10 @@ UniString NormalizeAndSimplifyString(std::string_view s)
       c = 'a';
       uniString.insert(uniString.begin() + (i++) + 1, 'e');
       break;
+    case 0x2018:  // ‘
+    case 0x2019:  // ’
+      c = '\'';
+      break;
     case 0x2116:  // №
       c = '#';
       break;
