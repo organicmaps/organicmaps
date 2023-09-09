@@ -779,9 +779,9 @@
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">You are connected to Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Continue on phone</string>
+	<string name="aa_continue_on_the_phone">Continue on the phone</string>
 	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">Continue in car</string>
+	<string name="aa_continue_in_the_car">To the car screen</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">This application requires access to your location for navigation purposes.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
