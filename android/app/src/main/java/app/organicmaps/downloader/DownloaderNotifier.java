@@ -27,8 +27,6 @@ public abstract class DownloaderNotifier
   private static final String TAG = DownloaderNotifier.class.getSimpleName();
 
   private static final String CHANNEL_ID = "downloader";
-
-  private static final String EXTRA_CANCEL_NOTIFICATION = "extra_cancel_downloader_notification";
   private static final int NOTIFICATION_ID = 1;
 
   public static void createNotificationChannel(@NonNull Context context)
@@ -87,14 +85,6 @@ public abstract class DownloaderNotifier
     Logger.i(TAG, "Cancelling notification about failed map download");
     final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
     notificationManager.cancel(NOTIFICATION_ID);
-  }
-
-  public static void processNotificationExtras(@NonNull Context context, @Nullable Intent intent)
-  {
-    if (!intent.hasExtra(EXTRA_CANCEL_NOTIFICATION))
-      return;
-
-    cancelNotification(context);
   }
 
   @NonNull

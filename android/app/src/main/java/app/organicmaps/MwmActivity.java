@@ -38,7 +38,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.Framework.PlacePageActivationListener;
 import app.organicmaps.api.Const;
-import app.organicmaps.downloader.DownloaderNotifier;
 import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.base.CustomNavigateUpListener;
 import app.organicmaps.base.NoConnectionListener;
@@ -949,8 +948,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (intent == null)
       return false;
-
-    DownloaderNotifier.processNotificationExtras(getApplicationContext(), intent);
 
     if (intent.hasExtra(EXTRA_TASK))
     {
