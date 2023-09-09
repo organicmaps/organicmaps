@@ -1,6 +1,5 @@
 package app.organicmaps.base;
 
-import android.app.Application;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -9,23 +8,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RawRes;
 
-import app.organicmaps.MwmApplication;
-
 public class MediaPlayerWrapper
 {
   private static final int UNDEFINED_SOUND_STREAM = -1;
 
-  @NonNull
-  private final Application mApp;
   @Nullable
   private MediaPlayer mPlayer;
-  @Nullable
-  private MediaPlayer.OnCompletionListener mCompletionListener;
   private int mStreamResId = UNDEFINED_SOUND_STREAM;
+  @NonNull
+  final private Context mContext;
 
-  public MediaPlayerWrapper(@NonNull Application application)
+  public MediaPlayerWrapper(@NonNull Context context)
   {
-    mApp = application;
+    mContext = context;
   }
 
   private boolean isCurrentSoundStream(@RawRes int streamResId)
@@ -33,25 +28,18 @@ public class MediaPlayerWrapper
     return mStreamResId == streamResId;
   }
 
-  @NonNull
-  private Application getApp()
-  {
-    return mApp;
-  }
-
   private void onInitializationCompleted(@NonNull InitializationResult initializationResult)
   {
-    releaseInternal();
+    release();
     mStreamResId = initializationResult.getStreamResId();
     mPlayer = initializationResult.getPlayer();
     if (mPlayer == null)
       return;
 
-    mPlayer.setOnCompletionListener(mCompletionListener);
     mPlayer.start();
   }
 
-  private void releaseInternal()
+  public void release()
   {
     if (mPlayer == null)
       return;
@@ -68,14 +56,7 @@ public class MediaPlayerWrapper
     return new InitPlayerTask(wrapper);
   }
 
-  public void release()
-  {
-    releaseInternal();
-    mCompletionListener = null;
-  }
-
-  public void playback(@RawRes int streamResId,
-                       @Nullable MediaPlayer.OnCompletionListener completionListener)
+  public void playback(@RawRes int streamResId)
   {
     if (isCurrentSoundStream(streamResId) && mPlayer == null)
       return;
@@ -86,7 +67,6 @@ public class MediaPlayerWrapper
       return;
     }
 
-    mCompletionListener = completionListener;
     mStreamResId = streamResId;
     AsyncTask<Integer, Void, InitializationResult> task = makeInitTask(this);
     task.execute(streamResId);
@@ -98,18 +78,6 @@ public class MediaPlayerWrapper
       return;
 
     mPlayer.stop();
-  }
-
-  public boolean isPlaying()
-  {
-    return mPlayer != null && mPlayer.isPlaying();
-  }
-
-  @NonNull
-  public static MediaPlayerWrapper from(@NonNull Context context)
-  {
-    MwmApplication app = (MwmApplication) context.getApplicationContext();
-    return app.getMediaPlayer();
   }
 
   @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3632
@@ -129,7 +97,7 @@ public class MediaPlayerWrapper
       if (params.length == 0)
         throw new IllegalArgumentException("Params not found");
       int resId = params[0];
-      MediaPlayer player = MediaPlayer.create(mWrapper.getApp(), resId);
+      MediaPlayer player = MediaPlayer.create(mWrapper.mContext, resId);
       return new InitializationResult(player, resId);
     }
 

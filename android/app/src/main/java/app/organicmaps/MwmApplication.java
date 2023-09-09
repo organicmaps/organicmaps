@@ -145,8 +145,6 @@ public class MwmApplication extends Application implements Application.ActivityL
     mSubwayManager = new SubwayManager(this);
     mIsolinesManager = new IsolinesManager(this);
     mSensorHelper = new SensorHelper(this);
-
-    mPlayer = new MediaPlayerWrapper(this);
   }
 
   /**

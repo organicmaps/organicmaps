@@ -10,11 +10,9 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import app.organicmaps.Framework;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.base.Initializable;
-import app.organicmaps.base.MediaPlayerWrapper;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.log.Logger;
 
@@ -183,11 +181,6 @@ public enum TtsPlayer implements Initializable<Context>
     // No op.
   }
 
-  public boolean isSpeaking()
-  {
-    return mTts != null && mTts.isSpeaking();
-  }
-
   private static boolean isReady()
   {
     return (INSTANCE.mTts != null && !INSTANCE.mUnavailable && !INSTANCE.mInitializing);
@@ -210,23 +203,8 @@ public enum TtsPlayer implements Initializable<Context>
       }
   }
 
-  public void playTurnNotifications(@NonNull Context context)
-  {
-    if (MediaPlayerWrapper.from(context).isPlaying())
-      return;
-    // It's necessary to call Framework.nativeGenerateTurnNotifications() even if TtsPlayer is invalid.
-    final String[] turnNotifications = Framework.nativeGenerateNotifications();
-
-    if (turnNotifications != null && isReady())
-      for (String textToSpeak : turnNotifications)
-        speak(textToSpeak);
-  }
-
   public void playTurnNotifications(@NonNull Context context, @NonNull String[] turnNotifications)
   {
-    if (MediaPlayerWrapper.from(context).isPlaying())
-      return;
-
     if (isReady())
       for (String textToSpeak : turnNotifications)
         speak(textToSpeak);

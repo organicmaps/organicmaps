@@ -1,10 +1,5 @@
 package app.organicmaps.routing;
 
-import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
-import android.media.MediaPlayer;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,11 +12,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.Framework;
-import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
-import app.organicmaps.base.MediaPlayerWrapper;
 import app.organicmaps.maplayer.traffic.TrafficManager;
-import app.organicmaps.sound.TtsPlayer;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.menu.NavMenu;
@@ -50,9 +42,6 @@ public class NavigationController implements TrafficManager.TrafficCallback,
   private final RecyclerView mLanes;
   @NonNull
   private final LanesAdapter mLanesAdapter;
-  
-  @NonNull
-  private final MediaPlayer.OnCompletionListener mSpeedCamSignalCompletionListener;
 
   private final NavMenu mNavMenu;
   View.OnClickListener mOnSettingsClickListener;
@@ -112,9 +101,6 @@ public class NavigationController implements TrafficManager.TrafficCallback,
       navigationBarBackground.getLayoutParams().width = mFrame.findViewById(R.id.nav_bottom_sheet).getWidth();
       return windowInsets;
     });
-
-    final Application app = (Application) mFrame.getContext().getApplicationContext();
-    mSpeedCamSignalCompletionListener = new CameraWarningSignalCompletionListener(app);
   }
 
   private void updateVehicle(@NonNull RoutingInfo info)
@@ -170,7 +156,6 @@ public class NavigationController implements TrafficManager.TrafficCallback,
 
     updateStreetView(info);
     mNavMenu.update(info);
-    playbackSpeedCamWarning(info);
   }
 
   private void updateStreetView(@NonNull RoutingInfo info)
@@ -181,16 +166,6 @@ public class NavigationController implements TrafficManager.TrafficCallback,
     UiUtils.visibleIf(hasStreet, mStreetFrame);
     if (!TextUtils.isEmpty(info.nextStreet))
       mNextStreet.setText(info.nextStreet);
-  }
-
-  private void playbackSpeedCamWarning(@NonNull RoutingInfo info)
-  {
-    if (!info.shouldPlayWarningSignal() || TtsPlayer.INSTANCE.isSpeaking())
-      return;
-
-    Context context = mFrame.getContext();
-    MediaPlayerWrapper player = MediaPlayerWrapper.from(context);
-    player.playback(R.raw.speed_cams_beep, mSpeedCamSignalCompletionListener);
   }
 
   public void show(boolean show)
@@ -268,11 +243,6 @@ public class NavigationController implements TrafficManager.TrafficCallback,
     // no op
   }
 
-  public void destroy()
-  {
-    MediaPlayerWrapper.from(mFrame.getContext()).release();
-  }
-
   @Override
   public void onSettingsClicked()
   {
@@ -285,20 +255,4 @@ public class NavigationController implements TrafficManager.TrafficCallback,
     RoutingController.get().cancel();
   }
 
-  private static class CameraWarningSignalCompletionListener implements MediaPlayer.OnCompletionListener
-  {
-    @NonNull
-    private final Application mApp;
-
-    CameraWarningSignalCompletionListener(@NonNull Application app)
-    {
-      mApp = app;
-    }
-
-    @Override
-    public void onCompletion(MediaPlayer mp)
-    {
-      TtsPlayer.INSTANCE.playTurnNotifications(mApp);
-    }
-  }
 }
