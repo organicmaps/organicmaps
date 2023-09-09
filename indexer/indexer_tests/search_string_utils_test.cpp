@@ -282,4 +282,9 @@ UNIT_TEST(NormalizeAndSimplifyString_Numero)
   TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Area #One"), "area #one", ());
 }
 
+UNIT_TEST(NormalizeAndSimplifyString_Apostrophe)
+{
+  TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Pop’s"), "pop's", ());
+}
+
 } // namespace search_string_utils_test
