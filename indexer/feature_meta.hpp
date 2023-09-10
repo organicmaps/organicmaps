@@ -126,7 +126,7 @@ public:
     FMD_CUSTOM_IDS = 24,
     FMD_PRICE_RATES = 25,
     FMD_RATINGS = 26,
-    // FMD_BANNER_URL = 27,
+    FMD_EXTERNAL_URI = 27,
     FMD_LEVEL = 28,
     FMD_AIRPORT_IATA = 29,
     FMD_BRAND = 30,

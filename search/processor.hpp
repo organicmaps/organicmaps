@@ -122,7 +122,7 @@ protected:
   // 2. fid={ MwmId [Laos, 200623], 123 } or just { MwmId [Laos, 200623], 123 } or whatever current
   //    format of the string returned by FeatureID's DebugPrint is.
   void SearchByFeatureId();
-  void EmitCustomIDs();
+  void EmitWithMetadata(feature::Metadata::EType type);
 
   Locales GetCategoryLocales() const;
 
