@@ -126,10 +126,9 @@ public final class Map
   /**
    * Moves my position arrow to the given offset.
    *
-   * @param context Context.
    * @param offsetY Pixel offset from the bottom.
    */
-  public void updateMyPositionRoutingOffset(final Context context, int offsetY)
+  public void updateMyPositionRoutingOffset(int offsetY)
   {
     nativeUpdateMyPositionRoutingOffset(offsetY);
   }
