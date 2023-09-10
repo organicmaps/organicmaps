@@ -628,7 +628,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
     if (!mMyMapsMode && CountryItem.isRoot(parent))
     {
-      Location loc = LocationHelper.INSTANCE.getSavedLocation();
+      Location loc = LocationHelper.from(mActivity).getSavedLocation();
       hasLocation = (loc != null);
       if (hasLocation)
       {

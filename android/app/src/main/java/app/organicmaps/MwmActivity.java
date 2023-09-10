@@ -334,7 +334,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void shareMyLocation()
   {
-    final Location loc = LocationHelper.INSTANCE.getSavedLocation();
+    final Location loc = LocationHelper.from(this).getSavedLocation();
     if (loc != null)
     {
       SharingUtils.shareLocation(this, loc);
@@ -820,7 +820,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     closeFloatingPanels();
     startLocation();
 
-    MapObject startPoint = LocationHelper.INSTANCE.getMyPosition();
+    MapObject startPoint = LocationHelper.from(this).getMyPosition();
     RoutingController.get().prepare(startPoint, endPoint);
 
     // TODO: check for tablet.
@@ -1055,7 +1055,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingController.get().attach(this);
     IsolinesManager.from(getApplicationContext()).attach(this::onIsolinesStateChanged);
     LocationState.nativeSetListener(this);
-    LocationHelper.INSTANCE.addListener(this);
+    LocationHelper.from(this).addListener(this);
     onMyPositionModeChanged(LocationState.nativeGetMode());
     mSearchController.attach(this);
     if (!Config.isScreenSleepEnabled())
@@ -1068,7 +1068,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onStop();
     Framework.nativeRemovePlacePageActivationListener();
     BookmarkManager.INSTANCE.removeLoadingListener(this);
-    LocationHelper.INSTANCE.removeListener(this);
+    LocationHelper.from(this).removeListener(this);
     LocationState.nativeRemoveListener();
     RoutingController.get().detach();
     IsolinesManager.from(getApplicationContext()).detach();
@@ -1335,7 +1335,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     // +S+F-L -> Hide
     // +S+F+L -> Hide
 
-    MapObject myPosition = LocationHelper.INSTANCE.getMyPosition();
+    MapObject myPosition = LocationHelper.from(this).getMyPosition();
 
     if (myPosition != null && !controller.hasEndPoint())
     {
@@ -1651,29 +1651,27 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .show();
   }
 
-  @Override
-  public void onSuggestRebuildRoute()
+  private void onSuggestRebuildRoute()
   {
+    final RoutingController controller = RoutingController.get();
+
+    // Starting and ending points must be non-null, see {@link #showAddStartOrFinishFrame() }.
+
+    final MapObject endPoint = Objects.requireNonNull(controller.getEndPoint());
     final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.p2p_only_from_current)
         .setMessage(R.string.p2p_reroute_from_current)
         .setCancelable(false)
         .setNegativeButton(R.string.cancel, null)
+        .setPositiveButton(R.string.ok, MapObject.isOfType(MapObject.MY_POSITION, endPoint) ?
+            (dialog, which) -> controller.swapPoints() :
+            (dialog, which) -> {
+              // The current location may change while this dialog is still shown on the screen.
+              final MapObject myPosition = LocationHelper.from(this).getMyPosition();
+              controller.setStartPoint(myPosition);
+            }
+        )
         .setOnDismissListener(dialog -> mAlertDialog = null);
-
-    final TextView titleView = (TextView)View.inflate(this, R.layout.dialog_suggest_reroute_title, null);
-    titleView.setText(R.string.p2p_only_from_current);
-    builder.setCustomTitle(titleView);
-
-    if (MapObject.isOfType(MapObject.MY_POSITION, RoutingController.get().getEndPoint()))
-      builder.setPositiveButton(R.string.ok, (dialog, which) -> RoutingController.get().swapPoints());
-    else
-    {
-      if (LocationHelper.INSTANCE.getMyPosition() == null)
-        builder.setMessage(null).setNegativeButton(null, null);
-
-      builder.setPositiveButton(R.string.ok, (dialog, which) -> RoutingController.get().setStartFromMyPosition());
-    }
-
     dismissAlertDialog();
     mAlertDialog = builder.show();
   }
@@ -1763,7 +1761,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PERMISSION_GRANTED)
     {
       Logger.i(LOCATION_TAG, "Permission ACCESS_FINE_LOCATION is granted");
-      LocationHelper.INSTANCE.start();
+      LocationHelper.from(this).start();
       return;
     }
 
@@ -1802,23 +1800,23 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       Logger.i(LOCATION_TAG, "Location updates are stopped by the user manually.");
       LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
-      LocationHelper.INSTANCE.stop();
+      LocationHelper.from(this).stop();
     }
     else if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PERMISSION_GRANTED)
     {
       Logger.i(LOCATION_TAG, "Permission ACCESS_FINE_LOCATION is granted");
-      LocationHelper.INSTANCE.start();
+      LocationHelper.from(this).start();
     }
     else if (ActivityCompat.checkSelfPermission(this, ACCESS_COARSE_LOCATION) == PERMISSION_GRANTED)
     {
       Logger.i(LOCATION_TAG, "Permission ACCESS_COARSE_LOCATION is granted");
-      LocationHelper.INSTANCE.start();
+      LocationHelper.from(this).start();
     }
     else
     {
       Logger.w(LOCATION_TAG, "Permissions ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION are not granted");
       LocationState.nativeOnLocationError(LocationState.ERROR_DENIED);
-      LocationHelper.INSTANCE.stop();
+      LocationHelper.from(this).stop();
 
       Logger.i(LOCATION_TAG, "Requesting ACCESS_FINE_LOCATION + ACCESS_FINE_LOCATION permissions");
       dismissLocationErrorDialog();
@@ -1850,13 +1848,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PERMISSION_GRANTED ||
         ActivityCompat.checkSelfPermission(this, ACCESS_COARSE_LOCATION) == PERMISSION_GRANTED)
     {
-      LocationHelper.INSTANCE.start();
+      LocationHelper.from(this).start();
       return;
     }
 
     Logger.w(LOCATION_TAG, "Permissions ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION have been refused");
     LocationState.nativeOnLocationError(LocationState.ERROR_DENIED);
-    LocationHelper.INSTANCE.stop();
+    LocationHelper.from(this).stop();
 
     if (mLocationErrorDialog != null && mLocationErrorDialog.isShowing())
     {
@@ -1918,12 +1916,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       Logger.w(LOCATION_TAG, "Location resolution has been refused");
       LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
-      LocationHelper.INSTANCE.stop();
+      LocationHelper.from(this).stop();
       return;
     }
 
     Logger.i(LOCATION_TAG, "Location resolution has been granted, restarting location");
-    LocationHelper.INSTANCE.stop();
+    LocationHelper.from(this).stop();
     startLocation();
   }
 
@@ -1937,7 +1935,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Logger.d(LOCATION_TAG, "settings = " + LocationUtils.areLocationServicesTurnedOn(this));
 
     LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
-    LocationHelper.INSTANCE.stop();
+    LocationHelper.from(this).stop();
 
     if (mLocationErrorDialog != null && mLocationErrorDialog.isShowing())
     {
@@ -1994,7 +1992,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         {
           Logger.w(LOCATION_TAG, "Disabled by user");
           LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
-          LocationHelper.INSTANCE.stop();
+          LocationHelper.from(this).stop();
         })
         .setPositiveButton(R.string.current_location_unknown_continue_button, (dialog, which) ->
         {
@@ -2006,7 +2004,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onUseMyPositionAsStart()
   {
-    RoutingController.get().setStartPoint(LocationHelper.INSTANCE.getMyPosition());
+    RoutingController.get().setStartPoint(LocationHelper.from(this).getMyPosition());
   }
 
   @Override
@@ -2020,6 +2018,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onRoutingStart()
   {
+    final RoutingController routing = RoutingController.get();
+    final MapObject my = LocationHelper.from(this).getMyPosition();
+    if (my == null || !MapObject.isOfType(MapObject.MY_POSITION, routing.getStartPoint()))
+    {
+      onSuggestRebuildRoute();
+      return;
+    }
+
     closeFloatingPanels();
     RoutingController.get().start();
   }

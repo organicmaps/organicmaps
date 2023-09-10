@@ -102,7 +102,7 @@ public class DirectionFragment extends BaseMwmDialogFragment
   public void onResume()
   {
     super.onResume();
-    LocationHelper.INSTANCE.addListener(this);
+    LocationHelper.from(requireContext()).addListener(this);
     SensorHelper.from(requireContext()).addListener(this);
     refreshViews();
   }
@@ -111,7 +111,7 @@ public class DirectionFragment extends BaseMwmDialogFragment
   public void onPause()
   {
     super.onPause();
-    LocationHelper.INSTANCE.removeListener(this);
+    LocationHelper.from(requireContext()).removeListener(this);
     SensorHelper.from(requireContext()).removeListener(this);
   }
 
@@ -130,7 +130,7 @@ public class DirectionFragment extends BaseMwmDialogFragment
   @Override
   public void onCompassUpdated(double north)
   {
-    final Location last = LocationHelper.INSTANCE.getSavedLocation();
+    final Location last = LocationHelper.from(requireContext()).getSavedLocation();
     if (last == null || mMapObject == null)
       return;
 

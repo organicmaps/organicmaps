@@ -258,7 +258,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   {
     super.onStart();
     mViewModel.getMapObject().observe(requireActivity(), this);
-    LocationHelper.INSTANCE.addListener(this);
+    LocationHelper.from(requireContext()).addListener(this);
     SensorHelper.from(requireContext()).addListener(this);
   }
 
@@ -267,7 +267,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   {
     super.onStop();
     mViewModel.getMapObject().removeObserver(this);
-    LocationHelper.INSTANCE.removeListener(this);
+    LocationHelper.from(requireContext()).removeListener(this);
     SensorHelper.from(requireContext()).removeListener(this);
     detachCountry();
   }
@@ -285,7 +285,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   {
     refreshPreview();
     refreshDetails();
-    final Location loc = LocationHelper.INSTANCE.getSavedLocation();
+    final Location loc = LocationHelper.from(requireContext()).getSavedLocation();
     if (mMapObject.getMapObjectType() == MapObject.MY_POSITION)
       refreshMyPosition(loc);
     else
@@ -657,7 +657,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     if (mMapObject == null || MapObject.isOfType(MapObject.MY_POSITION, mMapObject))
       return;
 
-    final Location location = LocationHelper.INSTANCE.getSavedLocation();
+    final Location location = LocationHelper.from(requireContext()).getSavedLocation();
     if (location == null)
     {
       UiUtils.hide(mAvDirection);

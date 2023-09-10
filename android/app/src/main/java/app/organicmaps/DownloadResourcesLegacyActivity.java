@@ -132,7 +132,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
         mChbDownloadCountry.setText(checkBoxText);
       }
 
-      LocationHelper.INSTANCE.removeListener(this);
+      LocationHelper.from(DownloadResourcesLegacyActivity.this).removeListener(this);
     }
   };
 
@@ -239,14 +239,14 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   {
     super.onResume();
     if (!isFinishing())
-      LocationHelper.INSTANCE.addListener(mLocationListener);
+      LocationHelper.from(this).addListener(mLocationListener);
   }
 
   @Override
   protected void onPause()
   {
     super.onPause();
-    LocationHelper.INSTANCE.removeListener(mLocationListener);
+    LocationHelper.from(this).removeListener(mLocationListener);
     if (mAlertDialog != null && mAlertDialog.isShowing())
       mAlertDialog.dismiss();
     mAlertDialog = null;

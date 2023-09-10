@@ -409,7 +409,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   {
     mLastSortTimestamp = System.nanoTime();
 
-    final Location loc = LocationHelper.INSTANCE.getSavedLocation();
+    final Location loc = LocationHelper.from(requireContext()).getSavedLocation();
     final boolean hasMyPosition = loc != null;
     if (!hasMyPosition && sortingType == BookmarkManager.SORT_BY_DISTANCE)
       return;
@@ -497,7 +497,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private int[] getAvailableSortingTypes()
   {
     final long catId = mCategoryDataSource.getData().getId();
-    final Location loc = LocationHelper.INSTANCE.getSavedLocation();
+    final Location loc = LocationHelper.from(requireContext()).getSavedLocation();
     final boolean hasMyPosition = loc != null;
     return BookmarkManager.INSTANCE.getAvailableSortingTypes(catId, hasMyPosition);
   }

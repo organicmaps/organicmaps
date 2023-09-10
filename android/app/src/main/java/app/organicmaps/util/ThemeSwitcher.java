@@ -34,7 +34,7 @@ public enum ThemeSwitcher implements Initializable<Context>
 
       if (RoutingController.get().isNavigating())
       {
-        Location last = LocationHelper.INSTANCE.getSavedLocation();
+        Location last = LocationHelper.from(mContext).getSavedLocation();
         if (last == null)
         {
           theme = Config.getCurrentUiTheme(mContext);

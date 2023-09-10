@@ -50,11 +50,6 @@ public class SearchToolbarController extends ToolbarController implements View.O
     }
   };
 
-  public interface Container
-  {
-    SearchToolbarController getController();
-  }
-
   public SearchToolbarController(@NonNull View root,
                                  @NonNull Activity activity)
   {
