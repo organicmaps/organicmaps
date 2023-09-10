@@ -1327,7 +1327,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mMapFragment.updateMyPositionRoutingOffset(offsetY);
   }
 
-  @Override
   public void showSearch()
   {
     showSearch("");

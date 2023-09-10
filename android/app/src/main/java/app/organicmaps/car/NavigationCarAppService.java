@@ -80,9 +80,9 @@ public final class NavigationCarAppService extends CarAppService
 
   private void createNotificationChannel()
   {
-    NotificationManager notificationManager = getSystemService(NotificationManager.class);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
     {
+      NotificationManager notificationManager = getSystemService(NotificationManager.class);
       CharSequence name = "Car App Service";
       NotificationChannel serviceChannel =
           new NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_HIGH);

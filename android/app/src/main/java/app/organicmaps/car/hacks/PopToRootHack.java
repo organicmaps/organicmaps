@@ -1,4 +1,4 @@
-package app.organicmaps.car.screens.hacks;
+package app.organicmaps.car.hacks;
 
 import static java.util.Objects.requireNonNull;
 

@@ -855,7 +855,6 @@
       android:label="@string/driving_options_title"/>
     <service
         android:name="app.organicmaps.car.NavigationCarAppService"
-        android:foregroundServiceType="location"
         android:exported="true">
       <intent-filter>
         <action android:name="androidx.car.app.CarAppService" />
@@ -902,7 +901,7 @@
 
     <meta-data
         android:name="androidx.car.app.minCarApiLevel"
-        android:value="1"/>
+        android:value="6"/>
 
   </application>
 </manifest>

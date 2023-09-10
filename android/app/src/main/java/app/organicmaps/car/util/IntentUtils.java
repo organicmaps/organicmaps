@@ -11,7 +11,7 @@ import app.organicmaps.Map;
 import app.organicmaps.api.ParsedSearchRequest;
 import app.organicmaps.api.ParsingResult;
 import app.organicmaps.car.SurfaceRenderer;
-import app.organicmaps.car.screens.hacks.PopToRootHack;
+import app.organicmaps.car.hacks.PopToRootHack;
 import app.organicmaps.car.screens.search.SearchScreen;
 import app.organicmaps.intent.Factory;
 

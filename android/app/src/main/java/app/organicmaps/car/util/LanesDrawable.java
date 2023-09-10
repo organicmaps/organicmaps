@@ -13,6 +13,7 @@ import androidx.annotation.DimenRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
 
 import app.organicmaps.R;
 import app.organicmaps.routing.SingleLaneInfo;
@@ -128,8 +129,8 @@ public class LanesDrawable extends Drawable
   @NonNull
   private static TintColorInfo getTintColorInfo(@NonNull final Context context, boolean isDarkMode)
   {
-    final int activeLaneTint = context.getColor(ACTIVE_LANE_TINT_RES);
-    final int inactiveLaneTint = context.getColor(!isDarkMode ? INACTIVE_LANE_TINT_RES : INACTIVE_LANE_TINT_NIGHT_RES);
+    final int activeLaneTint = ContextCompat.getColor(context, ACTIVE_LANE_TINT_RES);
+    final int inactiveLaneTint = ContextCompat.getColor(context, !isDarkMode ? INACTIVE_LANE_TINT_RES : INACTIVE_LANE_TINT_NIGHT_RES);
 
     return new TintColorInfo(activeLaneTint, inactiveLaneTint);
   }

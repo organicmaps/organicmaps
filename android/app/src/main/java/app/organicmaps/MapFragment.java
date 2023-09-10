@@ -11,12 +11,14 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ConfigurationHelper;
 
 import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.display.DisplayType;
 import app.organicmaps.util.log.Logger;
+
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class MapFragment extends BaseMwmFragment implements View.OnTouchListener, SurfaceHolder.Callback
@@ -36,7 +38,7 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
 
   public void updateMyPositionRoutingOffset(int offsetY)
   {
-    mMap.updateMyPositionRoutingOffset(requireContext(), offsetY);
+    mMap.updateMyPositionRoutingOffset(offsetY);
   }
 
   public void destroySurface()
@@ -50,7 +52,7 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
   }
 
   @Override
-  public void surfaceCreated(SurfaceHolder surfaceHolder)
+  public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder)
   {
     Logger.d(TAG);
     int densityDpi;
@@ -71,7 +73,7 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
   }
 
   @Override
-  public void surfaceDestroyed(SurfaceHolder surfaceHolder)
+  public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder)
   {
     Logger.d(TAG);
     mMap.onSurfaceDestroyed(requireActivity().isChangingConfigurations(), true);
@@ -192,7 +194,6 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
         .show();
   }
 
-  @SuppressWarnings("deprecation")
   private int getDensityDpiOld()
   {
     final DisplayMetrics metrics = new DisplayMetrics();

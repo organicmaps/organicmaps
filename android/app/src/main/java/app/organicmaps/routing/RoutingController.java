@@ -50,7 +50,6 @@ public class RoutingController implements Initializable<Void>
 
   public interface Container
   {
-    default void showSearch() {}
     default void showRoutePlan(boolean show, @Nullable Runnable completionListener) {}
     default void showNavigation(boolean show) {}
     default void showDownloader(boolean openDownloaded) {}

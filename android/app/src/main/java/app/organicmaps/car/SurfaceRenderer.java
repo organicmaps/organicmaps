@@ -40,6 +40,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
     mIsRunning = true;
     lifecycle.addObserver(this);
     mMap.setMapRenderingListener(this);
+    mMap.updateMyPositionRoutingOffset(0);
   }
 
   @Override
@@ -186,6 +187,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
     mMap.onSurfaceDestroyed(false, true);
     mMap.onStop();
     mMap.setCallbackUnsupported(null);
+    mMap.setMapRenderingListener(null);
 
     mIsRunning = false;
   }
@@ -201,6 +203,8 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
     mCarContext.getCarService(AppManager.class).setSurfaceCallback(this);
     mMap.onStart();
     mMap.setCallbackUnsupported(this::reportUnsupported);
+    mMap.setMapRenderingListener(this);
+    mMap.updateMyPositionRoutingOffset(0);
 
     mIsRunning = true;
   }
