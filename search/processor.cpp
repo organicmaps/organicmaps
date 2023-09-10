@@ -495,7 +495,7 @@ void Processor::SearchByFeatureId()
   }
 }
 
-void Processor::EmitCustomIDs()
+void Processor::EmitWithMetadata(feature::Metadata::EType type)
 {
   std::vector<std::shared_ptr<MwmInfo>> infos;
   m_dataSource.GetMwmsInfo(infos);
@@ -512,14 +512,14 @@ void Processor::EmitCustomIDs()
   std::sort(ids.begin(), ids.end());
 
   size_t idx = 0;
-  EmitResultsFromMwms(infos, [&idx, &ids](FeaturesLoaderGuard & guard, auto const & fn)
+  EmitResultsFromMwms(infos, [type, &idx, &ids](FeaturesLoaderGuard & guard, auto const & fn)
   {
     for (; idx < ids.size() && ids[idx].m_mwmId == guard.GetId(); ++idx)
     {
       auto ft = guard.GetFeatureByIndex(ids[idx].m_index);
       if (ft)
       {
-        if (ft->HasMetadata(feature::Metadata::FMD_CUSTOM_IDS))
+        if (ft->HasMetadata(type))
           fn(std::move(ft));
       }
     }
@@ -651,9 +651,9 @@ bool Processor::SearchDebug()
 #ifdef DEBUG
   SearchByFeatureId();
 
-  if (m_query == "?cids")
+  if (m_query == "?euri")
   {
-    EmitCustomIDs();
+    EmitWithMetadata(feature::Metadata::FMD_EXTERNAL_URI);
     return true;
   }
 #endif

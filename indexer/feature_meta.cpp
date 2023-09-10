@@ -199,6 +199,7 @@ string ToString(Metadata::EType type)
   case Metadata::FMD_CUSTOM_IDS: return "custom_ids";
   case Metadata::FMD_PRICE_RATES: return "price_rates";
   case Metadata::FMD_RATINGS: return "ratings";
+  case Metadata::FMD_EXTERNAL_URI: return "external_uri";
   case Metadata::FMD_LEVEL: return "level";
   case Metadata::FMD_AIRPORT_IATA: return "iata";
   case Metadata::FMD_BRAND: return "brand";
