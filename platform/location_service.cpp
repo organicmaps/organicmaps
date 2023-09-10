@@ -6,7 +6,9 @@
 #include <optional>
 #include <vector>
 
-extern "C" location::LocationService * CreateAppleLocationService(location::LocationObserver &);
+#if defined(OMIM_OS_MAC)
+std::unique_ptr<location::LocationService> CreateAppleLocationService(location::LocationObserver &);
+#endif
 
 namespace location
 {
@@ -70,7 +72,7 @@ public:
       : LocationService(observer), m_reportFirstEvent(true)
     {
 #if defined(OMIM_OS_MAC)
-      m_services.push_back(std::unique_ptr<LocationService>(CreateAppleLocationService(*this)));
+      m_services.push_back(CreateAppleLocationService(*this));
 #endif
     }
 

@@ -106,7 +106,7 @@ public:
 
 @end
 
-extern "C" location::LocationService * CreateAppleLocationService(LocationObserver & observer)
+std::unique_ptr<location::LocationService> CreateAppleLocationService(LocationObserver & observer)
 {
-  return new AppleLocationService(observer);
+  return std::make_unique<AppleLocationService>(observer);
 }
