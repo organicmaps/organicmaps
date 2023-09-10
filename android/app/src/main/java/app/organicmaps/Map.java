@@ -155,7 +155,9 @@ public final class Map
     mRequireResize = false;
     setupWidgets(context, surfaceFrame.width(), surfaceFrame.height());
 
-    final boolean firstStart = LocationHelper.INSTANCE.isInFirstRun();
+    final LocationHelper locationHelper = LocationHelper.from(context);
+
+    final boolean firstStart = locationHelper.isInFirstRun();
     if (!nativeCreateEngine(surface, surfaceDpi, firstStart, mLaunchByDeepLink, BuildConfig.VERSION_CODE))
     {
       if (mCallbackUnsupported != null)
@@ -164,7 +166,7 @@ public final class Map
     }
 
     if (firstStart)
-      UiThread.runLater(LocationHelper.INSTANCE::onExitFromFirstRun);
+      UiThread.runLater(locationHelper::onExitFromFirstRun);
 
     mSurfaceCreated = true;
     mSurfaceAttached = true;

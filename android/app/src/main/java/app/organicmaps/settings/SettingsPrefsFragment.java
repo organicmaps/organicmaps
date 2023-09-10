@@ -505,15 +505,16 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue)
         {
+          final LocationHelper locationHelper = LocationHelper.from(requireContext());
           boolean oldVal = Config.useGoogleServices();
           boolean newVal = (Boolean) newValue;
           if (oldVal != newVal)
           {
             Config.setUseGoogleService(newVal);
-            if (LocationHelper.INSTANCE.isActive())
+            if (locationHelper.isActive())
             {
-              LocationHelper.INSTANCE.stop();
-              LocationHelper.INSTANCE.start();
+              locationHelper.stop();
+              locationHelper.start();
             }
           }
           return true;

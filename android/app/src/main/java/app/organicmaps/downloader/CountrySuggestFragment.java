@@ -20,7 +20,6 @@ import app.organicmaps.location.LocationHelper;
 import app.organicmaps.widget.WheelProgressView;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
-import app.organicmaps.util.Utils;
 
 import java.util.List;
 
@@ -115,7 +114,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
   {
     super.onResume();
 
-    Location loc = LocationHelper.INSTANCE.getSavedLocation();
+    Location loc = LocationHelper.from(requireContext()).getSavedLocation();
     if (loc != null)
     {
       String id = MapManager.nativeFindCountry(loc.getLatitude(), loc.getLongitude());

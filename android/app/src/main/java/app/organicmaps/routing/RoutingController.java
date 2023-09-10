@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit;
 
 
 @androidx.annotation.UiThread
-public class RoutingController implements Initializable<Void>
+public class RoutingController implements Initializable<Context>
 {
   private static final String TAG = RoutingController.class.getSimpleName();
 
@@ -68,7 +68,6 @@ public class RoutingController implements Initializable<Void>
     default void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps) {}
     default void onDrivingOptionsBuildError() {}
     default void onShowDisclaimer(@Nullable MapObject startPoint, @Nullable MapObject endPoint) {}
-    default void onSuggestRebuildRoute() {}
 
     /**
      * @param progress progress to be displayed.
@@ -141,7 +140,6 @@ public class RoutingController implements Initializable<Void>
       mContainer.onBuiltRoute();
   }
 
-  @SuppressWarnings("FieldCanBeLocal")
   private final Framework.RoutingProgressListener mRoutingProgressListener = new Framework.RoutingProgressListener()
   {
     @MainThread
@@ -152,13 +150,6 @@ public class RoutingController implements Initializable<Void>
       updateProgress();
     }
   };
-
-  @SuppressWarnings("FieldCanBeLocal")
-  private final Framework.RoutingRecommendationListener mRoutingRecommendationListener =
-    recommendation -> UiThread.run(() -> {
-      if (recommendation == Framework.ROUTE_REBUILD_AFTER_POINTS_LOADING)
-        setStartPoint(LocationHelper.INSTANCE.getMyPosition());
-    });
 
   @SuppressWarnings("FieldCanBeLocal")
   private final Framework.RoutingLoadPointsListener mRoutingLoadPointsListener =
@@ -266,7 +257,7 @@ public class RoutingController implements Initializable<Void>
   }
 
   @Override
-  public void initialize(@Nullable Void aVoid)
+  public void initialize(@NonNull Context context)
   {
     mLastRouterType = Framework.nativeGetLastUsedRouter();
     mInvalidRoutePointsTransactionId = Framework.nativeInvalidRoutePointsTransactionId();
@@ -274,7 +265,10 @@ public class RoutingController implements Initializable<Void>
 
     Framework.nativeSetRoutingListener(mRoutingListener);
     Framework.nativeSetRouteProgressListener(mRoutingProgressListener);
-    Framework.nativeSetRoutingRecommendationListener(mRoutingRecommendationListener);
+    Framework.nativeSetRoutingRecommendationListener(recommendation -> UiThread.run(() -> {
+      if (recommendation == Framework.ROUTE_REBUILD_AFTER_POINTS_LOADING)
+        setStartPoint(LocationHelper.from(context).getMyPosition());
+    }));
     Framework.nativeSetRoutingLoadPointsListener(mRoutingLoadPointsListener);
   }
 
@@ -414,15 +408,6 @@ public class RoutingController implements Initializable<Void>
     // This saving is needed just for situation when the user starts navigation
     // and then app crashes. So, the previous route will be restored on the next app launch.
     saveRoute();
-
-    MapObject my = LocationHelper.INSTANCE.getMyPosition();
-
-    if (my == null || !MapObject.isOfType(MapObject.MY_POSITION, getStartPoint()))
-    {
-      if (mContainer != null)
-        mContainer.onSuggestRebuildRoute();
-      return;
-    }
 
     setState(State.NAVIGATION);
 
@@ -731,16 +716,9 @@ public class RoutingController implements Initializable<Void>
       build();
   }
 
-  public boolean setStartFromMyPosition()
+  public boolean setStartFromMyPosition(@NonNull MapObject my)
   {
     Logger.d(TAG, "setStartFromMyPosition");
-
-    MapObject my = LocationHelper.INSTANCE.getMyPosition();
-    if (my == null)
-    {
-      Logger.d(TAG, "setStartFromMyPosition: no my position - skip");
-      return false;
-    }
 
     return setStartPoint(my);
   }

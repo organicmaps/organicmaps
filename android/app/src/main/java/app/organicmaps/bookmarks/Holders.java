@@ -364,7 +364,7 @@ public class Holders
       BookmarkInfo bookmark = new BookmarkInfo(sectionsDataSource.getCategory().getId(),
                                                bookmarkId);
       mName.setText(bookmark.getName());
-      final Location loc = LocationHelper.INSTANCE.getSavedLocation();
+      final Location loc = LocationHelper.from(mIcon.getContext()).getSavedLocation();
 
       String distanceValue = loc == null ? "" : bookmark.getDistance(loc.getLatitude(),
                                                                      loc.getLongitude(), 0.0).toString(mDistance.getContext());

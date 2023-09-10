@@ -48,7 +48,6 @@ import java.util.List;
 public class SearchFragment extends BaseMwmFragment
                          implements OnBackPressListener,
                                     NativeSearchListener,
-                                    SearchToolbarController.Container,
                                     CategoriesAdapter.CategoriesUiListener
 {
   private long mLastQueryTimestamp;
@@ -144,6 +143,7 @@ public class SearchFragment extends BaseMwmFragment
   private PlaceholderView mResultsPlaceholder;
   private FloatingActionButton mShowOnMapFab;
 
+  @NonNull
   private SearchToolbarController mToolbarController;
 
   @SuppressWarnings("NullableProblems")
@@ -309,7 +309,7 @@ public class SearchFragment extends BaseMwmFragment
   public void onResume()
   {
     super.onResume();
-    LocationHelper.INSTANCE.addListener(mLocationListener);
+    LocationHelper.from(requireContext()).addListener(mLocationListener);
     if (mInitialQuery != null) {
       setQuery(mInitialQuery, false);
       mInitialQuery = null;
@@ -319,7 +319,7 @@ public class SearchFragment extends BaseMwmFragment
   @Override
   public void onPause()
   {
-    LocationHelper.INSTANCE.removeListener(mLocationListener);
+    LocationHelper.from(requireContext()).removeListener(mLocationListener);
     super.onPause();
   }
 
@@ -561,8 +561,8 @@ public class SearchFragment extends BaseMwmFragment
     mAttachedRecyclers.add(recycler);
   }
 
-  @Override
-  public SearchToolbarController getController()
+  @NonNull
+  public SearchToolbarController requireController()
   {
     return mToolbarController;
   }

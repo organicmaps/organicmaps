@@ -14,7 +14,6 @@ import app.organicmaps.R;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.routing.RoutingInfo;
 import app.organicmaps.sound.TtsPlayer;
-import app.organicmaps.util.log.Logger;
 import app.organicmaps.widget.FlatProgressView;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.StringUtils;
@@ -213,7 +212,7 @@ public class NavMenu
 
   private void updateSpeedView(@NonNull RoutingInfo info)
   {
-    final Location last = LocationHelper.INSTANCE.getSavedLocation();
+    final Location last = LocationHelper.from(mActivity).getSavedLocation();
     if (last == null)
       return;
 

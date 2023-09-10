@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import app.organicmaps.R;
@@ -19,6 +20,7 @@ class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Vie
   private static final int TYPE_CLEAR = 1;
   private static final int TYPE_MY_POSITION = 2;
 
+  @NonNull
   private final SearchToolbarController mSearchToolbarController;
   private final boolean mShowMyPosition;
 
@@ -34,12 +36,11 @@ class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Vie
     }
   }
 
-  public SearchHistoryAdapter(SearchToolbarController searchToolbarController)
+  public SearchHistoryAdapter(@NonNull SearchToolbarController searchToolbarController, boolean showMyPosition)
   {
     SearchRecents.refresh();
     mSearchToolbarController = searchToolbarController;
-    mShowMyPosition = (RoutingController.get().isWaitingPoiPick() &&
-                       LocationHelper.INSTANCE.getMyPosition() != null);
+    mShowMyPosition = showMyPosition;
   }
 
   @Override
@@ -81,7 +82,7 @@ class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Vie
           @Override
           public void onClick(View v)
           {
-            RoutingController.get().onPoiSelected(LocationHelper.INSTANCE.getMyPosition());
+            RoutingController.get().onPoiSelected(LocationHelper.from(viewGroup.getContext()).getMyPosition());
             mSearchToolbarController.onUpClick();
           }
         });

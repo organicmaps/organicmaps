@@ -47,7 +47,7 @@ class ResultCodesHelper
     switch (errorCode)
     {
     case NO_POSITION:
-      if (!LocationHelper.INSTANCE.isActive())
+      if (!LocationHelper.from(context).isActive())
       {
         titleRes = R.string.dialog_routing_location_turn_on;
         messages.add(resources.getString(R.string.dialog_routing_location_unknown_turn_on));

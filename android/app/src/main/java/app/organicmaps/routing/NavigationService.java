@@ -136,7 +136,7 @@ public class NavigationService extends Service implements LocationListener
     /*
      * Subscribe to location updates.
      */
-    LocationHelper.INSTANCE.addListener(this);
+    LocationHelper.from(this).addListener(this);
   }
 
   @RequiresPermission(value = ACCESS_FINE_LOCATION)
@@ -146,7 +146,7 @@ public class NavigationService extends Service implements LocationListener
     Logger.i(TAG);
 
     super.onDestroy();
-    LocationHelper.INSTANCE.removeListener(this);
+    LocationHelper.from(this).removeListener(this);
     TtsPlayer.INSTANCE.stop();
 
     final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
@@ -155,7 +155,7 @@ public class NavigationService extends Service implements LocationListener
     mPlayer.release();
 
     // Restart the location to resubscribe with a less frequent refresh interval (see {@link onStartCommand() }).
-    LocationHelper.INSTANCE.restart();
+    LocationHelper.from(this).restart();
   }
 
   @Override
@@ -189,7 +189,7 @@ public class NavigationService extends Service implements LocationListener
     // Tests on different devices demonstrated that background location works significantly longer when
     // requested AFTER starting the foreground service. Restarting the location is also necessary to
     // re-subscribe for more frequent GPS updates for navigation.
-    LocationHelper.INSTANCE.restart();
+    LocationHelper.from(this).restart();
 
     return START_STICKY;
   }

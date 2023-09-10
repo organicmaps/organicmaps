@@ -16,6 +16,7 @@ import androidx.annotation.UiThread;
 import androidx.core.content.ContextCompat;
 
 import app.organicmaps.Framework;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.base.Initializable;
 import app.organicmaps.bookmarks.data.FeatureId;
 import app.organicmaps.bookmarks.data.MapObject;
@@ -28,10 +29,8 @@ import app.organicmaps.util.log.Logger;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public enum LocationHelper implements Initializable<Context>, BaseLocationProvider.Listener
+public class LocationHelper implements BaseLocationProvider.Listener
 {
-  INSTANCE;
-
   private static final long INTERVAL_FOLLOW_AND_ROTATE_MS = 3000;
   private static final long INTERVAL_FOLLOW_MS = 1000;
   private static final long INTERVAL_NOT_FOLLOW_MS = 3000;
@@ -43,7 +42,6 @@ public enum LocationHelper implements Initializable<Context>, BaseLocationProvid
 
   private static final long AGPS_EXPIRATION_TIME_MS = 16 * 60 * 60 * 1000; // 16 hours
 
-  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private Context mContext;
 
@@ -53,24 +51,22 @@ public enum LocationHelper implements Initializable<Context>, BaseLocationProvid
   @Nullable
   private Location mSavedLocation;
   private MapObject mMyPosition;
-  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private BaseLocationProvider mLocationProvider;
   private long mInterval;
   private boolean mInFirstRun;
   private boolean mActive;
 
-  @Override
-  public void initialize(@NonNull Context context)
+  @NonNull
+  public static LocationHelper from(@NonNull Context context)
+  {
+    return MwmApplication.from(context).getLocationHelper();
+  }
+
+  public LocationHelper(@NonNull Context context)
   {
     mContext = context;
     mLocationProvider = LocationProviderFactory.getProvider(mContext, this);
-  }
-
-  @Override
-  public void destroy()
-  {
-    // No op.
   }
 
   /**

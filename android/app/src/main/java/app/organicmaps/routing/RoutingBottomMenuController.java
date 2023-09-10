@@ -251,7 +251,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     UiUtils.show(mActionFrame);
     mActionMessage.setText(R.string.routing_add_start_point);
     mActionMessage.setTag(RoutePointInfo.ROUTE_MARK_START);
-    if (LocationHelper.INSTANCE.getMyPosition() != null)
+    if (LocationHelper.from(mContext).getMyPosition() != null)
     {
       UiUtils.show(mActionButton);
       Drawable icon = ContextCompat.getDrawable(mContext, R.drawable.ic_my_location);
