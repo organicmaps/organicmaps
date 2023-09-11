@@ -688,6 +688,7 @@ amenity-post_office                                 # icon z17- (also has captio
 shop-motorcycle                                     # icon z17-
 === 200
 
+building-address                                    # caption z18-
 landuse-landfill                                    # caption z15- (also has area z15-)
 landuse-quarry                                      # caption z15- (also has area z15-)
 landuse-railway                                     # caption z15- (also has area z15-)
@@ -701,9 +702,11 @@ building                                            # caption z18- (also has are
 building-has_parts                                  # caption z18- (also has area z15-)
 === 50
 
-building-address                                    # caption z18-
 building-garage                                     # caption z18- (also has area z15-)
 === 30
+
+entrance-main                                       # icon z18- (also has caption(optional) z18-)
+=== 20
 
 #
 # All automatic optional captions priorities are below 0.
@@ -1136,3 +1139,14 @@ building-garage                                     # caption z18- (also has are
 # leisure-park-no-access                            # caption(optional) z14- (also has icon z14-, area z10-)
 # leisure-park-private                              # caption(optional) z14- (also has icon z14-, area z10-)
 # === -9900
+
+# entrance-main                                     # caption(optional) z18- (also has icon z18-)
+# === -9980
+
+amenity-loading_dock                                # icon z19- (also has caption(optional) z19-)
+# amenity-loading_dock                              # caption(optional) z19- (also has icon z19-)
+entrance                                            # icon z19- (also has caption(optional) z19-)
+# entrance                                          # caption(optional) z19- (also has icon z19-)
+entrance-exit                                       # icon z19- (also has caption(optional) z19-)
+# entrance-exit                                     # caption(optional) z19- (also has icon z19-)
+=== -10000

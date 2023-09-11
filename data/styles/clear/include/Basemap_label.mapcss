@@ -610,20 +610,29 @@ area|z16-[building]::int_name,
 node|z16-[building]::int_name,
 {text:int_name;text-color: @building_label;text-position: center;}
 
+/*
+  Housenumbers have a special display logic hardcoded in drape_frontend/stylist.cpp and apply_feature_functors.cpp.
+  They use a building-address ([addr:housenumber][addr:street]) style and are placed above icons or main captions when
+  - a feature has a housenumber stored in the feature header
+  - main feature type has a caption drule for a given zoom level
+  - there is a secondary caption drule or main text is absent
+  Housenumbers and main captions are displaced independently (e.g. a housenumber will stay if a building name is displaced),
+  but are bound to icons (e.g. a housenumber will disappear if a parent icon is displaced).
+*/
 node|z16-[addr:housenumber][addr:street],
 {text: name; text-color: @housenumber; text-position: center;}
 node|z16-[addr:housenumber][addr:street]::int_name,
 {text: int_name; text-color: @housenumber; text-position: center;}
 
-node|z19-[entrance],
 node|z18-[entrance=main],
-node|z18-[entrance=exit],
-node|z18-[amenity=loading_dock],
-{text-color: @building_label;}
-node|z19-[entrance]::flats,
+node|z19-[entrance],
+node|z19-[entrance=exit],
+node|z19-[amenity=loading_dock],
+{text: name; text-color: @building_label;}
 node|z18-[entrance=main]::flats,
-node|z18-[entrance=exit]::flats,
-{text-color: @building_label;}
+node|z19-[entrance]::flats,
+node|z19-[entrance=exit]::flats,
+{text: int_name; text-color: @building_label; font-size: 8;}
 
 /* 8.1 Pier */
 area|z15-[waterway=dam],
@@ -661,14 +670,12 @@ node|z16-[addr:housenumber][addr:street]::int_name,
 {font-size: 8;}
 
 node|z19-[entrance],
-node|z18-[amenity=loading_dock],
-{icon-image: entrance-s.svg;font-size: 10;text: ref;text-offset-x: 1;}
-node|z18-[entrance=exit],
-{icon-image: exit-s.svg;font-size: 10;text: ref;text-offset-x: 1;}
+node|z19-[amenity=loading_dock],
+{icon-image: entrance-s.svg; font-size: 10; text-offset: 1;}
+node|z19-[entrance=exit],
+{icon-image: exit-s.svg; font-size: 10; text-offset: 1;}
 node|z18-[entrance=main],
-{icon-image: main_entrance-s.svg;font-size: 10;text: ref;text-offset-x: 1;}
-node|z19-[entrance]::flats
-{text: "addr:flats";font-size: 10;text-offset-y: 10;}
+{icon-image: main_entrance-s.svg; font-size: 10; text-offset: 1;}
 
 /* 8.3 Airports */
 area|z14-[aeroway=terminal]

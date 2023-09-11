@@ -314,7 +314,7 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s, TInsertSha
 
 #ifdef DEBUG
   // Check that we have max 2 area styles (hatching and filling).
-  s.ForEachRule([count = 0](Stylist::TRuleWrapper const & rule) mutable
+  s.ForEachRule([count = 0](TRuleWrapper const & rule) mutable
   {
     if (rule.m_rule->GetArea())
     {
