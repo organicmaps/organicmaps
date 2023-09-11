@@ -1,8 +1,9 @@
 package app.organicmaps.car.screens;
 
+import android.content.res.Resources;
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
 import androidx.car.app.CarContext;
 import androidx.car.app.constraints.ConstraintManager;
 import androidx.car.app.model.Action;
@@ -20,41 +21,10 @@ import app.organicmaps.car.screens.search.SearchOnMapScreen;
 import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.car.screens.base.BaseMapScreen;
-
-import java.util.Arrays;
-import java.util.List;
+import app.organicmaps.search.DisplayedCategories;
 
 public class CategoriesScreen extends BaseMapScreen
 {
-  private static class CategoryData
-  {
-    @StringRes
-    public final int nameResId;
-
-    @DrawableRes
-    public final int iconResId;
-    @DrawableRes
-    public final int iconNightResId;
-
-    public CategoryData(@StringRes int nameResId, @DrawableRes int iconResId, @DrawableRes int iconNightResId)
-    {
-      this.nameResId = nameResId;
-      this.iconResId = iconResId;
-      this.iconNightResId = iconNightResId;
-    }
-  }
-
-  // TODO (AndrewShkrob): discuss categories and their priority for this list
-  private static final List<CategoryData> CATEGORIES = Arrays.asList(
-      new CategoryData(R.string.fuel, R.drawable.ic_category_fuel, R.drawable.ic_category_fuel_night),
-      new CategoryData(R.string.parking, R.drawable.ic_category_parking, R.drawable.ic_category_parking_night),
-      new CategoryData(R.string.eat, R.drawable.ic_category_eat, R.drawable.ic_category_eat_night),
-      new CategoryData(R.string.food, R.drawable.ic_category_food, R.drawable.ic_category_food_night),
-      new CategoryData(R.string.hotel, R.drawable.ic_category_hotel, R.drawable.ic_category_hotel_night),
-      new CategoryData(R.string.toilet, R.drawable.ic_category_toilet, R.drawable.ic_category_toilet_night),
-      new CategoryData(R.string.rv, R.drawable.ic_category_rv, R.drawable.ic_category_rv_night)
-  );
-
   private final int MAX_CATEGORIES_SIZE;
 
   public CategoriesScreen(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer)
@@ -87,14 +57,18 @@ public class CategoriesScreen extends BaseMapScreen
   @NonNull
   private ItemList createCategoriesList()
   {
+    final Resources resources = getCarContext().getResources();
+    final String packageName = getCarContext().getPackageName();
+
     final boolean isNightMode = ThemeUtils.isNightMode(getCarContext());
+    final String[] categoriesKeys = DisplayedCategories.getKeys();
     final ItemList.Builder builder = new ItemList.Builder();
-    final int categoriesSize = Math.min(CATEGORIES.size(), MAX_CATEGORIES_SIZE);
+    final int categoriesSize = Math.min(categoriesKeys.length, MAX_CATEGORIES_SIZE);
     for (int i = 0; i < categoriesSize; ++i)
     {
       final Row.Builder itemBuilder = new Row.Builder();
-      final String title = getCarContext().getString(CATEGORIES.get(i).nameResId);
-      @DrawableRes final int iconResId = isNightMode ? CATEGORIES.get(i).iconNightResId : CATEGORIES.get(i).iconResId;
+      final String title = getCarContext().getString(DisplayedCategories.getTitleResId(resources, packageName, categoriesKeys[i]));
+      @DrawableRes final int iconResId = DisplayedCategories.getDrawableResId(resources, packageName, isNightMode, categoriesKeys[i]);
 
       itemBuilder.setTitle(title);
       itemBuilder.setImage(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), iconResId)).build());

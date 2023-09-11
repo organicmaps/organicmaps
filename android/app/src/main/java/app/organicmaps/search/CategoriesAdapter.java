@@ -1,8 +1,6 @@
 package app.organicmaps.search;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,8 +55,9 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
   {
     final Activity activity = fragment.requireActivity();
     final String packageName = activity.getPackageName();
+    final boolean isNightTheme = ThemeUtils.isNightTheme(activity);
 
-    final String[] keys = getAllCategories();
+    final String[] keys = DisplayedCategories.getKeys();
     final int numKeys = keys.length;
 
     mCategoryResIds = new int[numKeys];
@@ -66,55 +65,15 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     for (int i = 0; i < numKeys; i++)
     {
       String key = keys[i];
-      mCategoryResIds[i] = getStringResIdByKey(activity.getResources(), packageName, key);
+      mCategoryResIds[i] = DisplayedCategories.getTitleResId(activity.getResources(), packageName, key);
 
       if (mCategoryResIds[i] == 0)
         throw new IllegalStateException("Can't get string resource id for category:" + key);
 
-      mIconResIds[i] = getDrawableResIdByKey(activity.getApplicationContext(), packageName, key);
+      mIconResIds[i] = DisplayedCategories.getDrawableResId(activity.getResources(), packageName, isNightTheme, key);
       if (mIconResIds[i] == 0)
         throw new IllegalStateException("Can't get icon resource id for category:" + key);
     }
-  }
-
-  @NonNull
-  private static String[] getAllCategories()
-  {
-    String[] searchCategories = DisplayedCategories.getKeys();
-    int amountSize = searchCategories.length;
-    String[] allCategories = new String[amountSize];
-
-    for (int i = 0, j = 0; i < amountSize; i++)
-    {
-      if (allCategories[i] == null)
-      {
-        allCategories[i] = searchCategories[j];
-        j++;
-      }
-    }
-
-    return allCategories;
-  }
-
-  @SuppressLint("DiscouragedApi")
-  @StringRes
-  private static int getStringResIdByKey(@NonNull Resources resources, @NonNull String packageName,
-                                         @NonNull String key)
-  {
-    return resources.getIdentifier(key, "string", packageName);
-  }
-
-  @SuppressLint("DiscouragedApi")
-  @DrawableRes
-  private static int getDrawableResIdByKey(@NonNull Context context,
-                                           @NonNull String packageName,
-                                           @NonNull String key)
-  {
-    final boolean isNightTheme = ThemeUtils.isNightTheme(context);
-    String iconId = "ic_category_" + key;
-    if (isNightTheme)
-      iconId = iconId + "_night";
-    return context.getResources().getIdentifier(iconId, "drawable", packageName);
   }
 
   @Override
