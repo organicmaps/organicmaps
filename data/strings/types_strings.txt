@@ -468,7 +468,7 @@
   [type.amenity]
     en = Amenity
     af = Geriewe
-    ar = أثر
+    ar = مرفق
     cs = Prostor
     da = Rekreative område
     de = Infrastrukturobjekt
