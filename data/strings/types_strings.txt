@@ -1116,6 +1116,123 @@
     zh-Hans = 赌场
     zh-Hant = 賭場
 
+  [type.amenity.gambling]
+    en = Gambling
+    ar = قمار
+    be = Азартныя гульні
+    bg = Хазарт
+    ca = Jocs d'atzar
+    cs = Hazardní hry
+    da = Gambling
+    de = Glücksspiel
+    el = ΤΥΧΕΡΑ ΠΑΙΧΝΙΔΙΑ
+    es = Juegos de azar
+    et = Hasartmängud
+    eu = Jokoa
+    fa = قمار
+    fi = Uhkapelit
+    fr = Jeu d'argent
+    he = הימורים
+    hu = Szerencsejáték
+    id = Berjudi
+    it = Gioco d'azzardo
+    ja = ギャンブル
+    ko = 도박
+    mr = जुगार
+    nb = Gambling
+    nl = Gokken
+    pl = Hazard
+    pt = Jogatina
+    ro = Jocuri de noroc
+    ru = Играть в азартные игры
+    sk = Hazardné hry
+    sv = Spelande
+    sw = Kamari
+    th = การพนัน
+    tr = Kumar
+    uk = Азартні ігри
+    vi = Bài bạc
+    zh-Hans = 赌博
+    zh-Hant = 賭博
+
+  [type.leisure.adult_gaming_centre]
+    en = Adult Gaming Centre
+    ar = مركز ألعاب الكبار
+    be = Гульнявы цэнтр для дарослых
+    bg = Център за игри за възрастни
+    ca = Centre de joc per a adults
+    cs = Centrum her pro dospělé
+    da = Spillecenter for voksne
+    de = Gaming-Zentrum für Erwachsene
+    el = Κέντρο παιχνιδιών ενηλίκων
+    es = Centro de juegos para adultos
+    et = Täiskasvanute mängukeskus
+    eu = Helduen Joko Zentroa
+    fa = مرکز بازی بزرگسالان
+    fi = Aikuisten pelikeskus
+    fr = Centre de jeux pour adultes
+    he = מרכז משחקים למבוגרים
+    hu = Felnőtt Játékközpont
+    id = Pusat Permainan Dewasa
+    it = Centro giochi per adulti
+    ja = アダルト ゲーム センター
+    ko = 성인 게임 센터
+    mr = प्रौढ गेमिंग केंद्र
+    nb = Spillsenter for voksne
+    nl = Gamingcentrum voor volwassenen
+    pl = Centrum gier dla dorosłych
+    pt = Centro de jogos para adultos
+    ro = Centru de jocuri pentru adulți
+    ru = Игровой центр для взрослых
+    sk = Centrum hier pre dospelých
+    sv = Spelcenter för vuxna
+    sw = Kituo cha Michezo ya Watu Wazima
+    th = ศูนย์เกมสำหรับผู้ใหญ่
+    tr = Yetişkin Oyun Merkezi
+    uk = Ігровий центр для дорослих
+    vi = Trung tâm trò chơi dành cho người lớn
+    zh-Hans = 成人游戏中心
+    zh-Hant = 成人遊戲中心
+
+  [type.leisure.amusement_arcade]
+    en = Arcade
+    ar = ممر
+    be = Аркада
+    bg = Аркада
+    ca = Arcade
+    cs = Pasáž
+    da = Arcade
+    de = Arkade
+    el = Στοά
+    es = Arcade
+    et = Arkaad
+    eu = Arcade
+    fa = گذرگاه طاقدار
+    fi = Arcade
+    fr = Arcade
+    he = מִקמֶרֶת
+    hu = Árkád
+    id = Arkade
+    it = Arcade
+    ja = アーケード
+    ko = 아케이드
+    mr = आर्केड
+    nb = Arcade
+    nl = Arcade
+    pl = Arkada
+    pt = Videogames
+    ro = Arcadă
+    ru = Аркада
+    sk = Arcade
+    sv = Arkad
+    sw = Ukumbi wa michezo
+    th = อาเขต
+    tr = Oyun makinesi
+    uk = Аркада
+    vi = Giải trí
+    zh-Hans = 拱廊
+    zh-Hant = 拱廊
+
   [type.amenity.charging_station]
     en = Charging Station
     af = Oplaaistasie
@@ -2773,9 +2890,17 @@
     ref = type.amenity.parking
     en = Street-Side Parking
 
+  [type.amenity.parking.fee.street_side]
+    ref = type.amenity.parking
+    en = Paid Street-Side Parking
+
   [type.amenity.parking.lane]
     ref = type.amenity.parking
     en = Roadside Lane Parking
+
+  [type.amenity.parking.fee.lane]
+    ref = type.amenity.parking
+    en = Paid Roadside Lane Parking
 
   [type.amenity.parking_entrance]
     en = Parking Entrance
@@ -3083,6 +3208,45 @@
     vi = Chùa
     zh-Hans = 基督教堂
     zh-Hant = 基督教堂
+
+  [type.amenity.place_of_worship.christian.mormon]
+    en = Church of Jesus Christ of Latter Day Saints
+    ar = كنيسة يسوع المسيح لقديسي الأيام الأخيرة
+    be = Царква Ісуса Хрыста Святых апошніх дзён
+    bg = Църквата на Исус Христос на светиите от последните дни
+    ca = Església de Jesucrist dels Sants dels Últims Dies
+    cs = Církev Ježíše Krista Svatých posledních dnů
+    da = Jesu Kristi Kirke af Sidste Dages Hellige
+    de = Kirche Jesu Christi der Heiligen der Letzten Tage
+    el = Εκκλησία του Ιησού Χριστού των Αγίων των Τελευταίων Ημερών
+    es = Iglesia de Jesucristo de los Santos de los Últimos Días
+    et = Viimse Aja Pühade Jeesuse Kristuse kirik
+    eu = Azken Eguneko Santuen Jesukristoren eliza
+    fa = کلیسای عیسی مسیح مقدسین آخرالزمان
+    fi = Myöhempien Aikojen Pyhien Jeesuksen Kristuksen Kirkko
+    fr = Église de Jésus-Christ des Saints des Derniers Jours
+    he = כנסיית ישוע המשיח של קדושי אחרון הימים
+    hu = Utolsó Napok Szentjeinek Jézus Krisztus Egyháza
+    id = Gereja Yesus Kristus dari Orang-Orang Suci Zaman Akhir
+    it = Chiesa di Gesù Cristo dei Santi degli Ultimi Giorni
+    ja = 末日聖徒イエス・キリスト教会
+    ko = 예수 그리스도 후기 성도 교회
+    mr = चर्च ऑफ जिझस क्राइस्ट ऑफ लेटर डे सेंट्स
+    nb = Jesu Kristi Kirke av Siste Dagers Hellige
+    nl = Kerk van Jezus Christus van de Heiligen der Laatste Dagen
+    pl = Kościół Jezusa Chrystusa Świętych w Dniach Ostatnich
+    pt = Igreja de Jesus Cristo dos Santos dos Últimos Dias
+    ro = Biserica lui Isus Hristos a Sfinților din Zilele din Urmă
+    ru = Церковь Иисуса Христа Святых последних дней
+    sk = Cirkev Ježiša Krista Svätých neskorších dní
+    sv = Jesu Kristi Kyrka av Sista Dagars Heliga
+    sw = Kanisa la Yesu Kristo la Watakatifu wa Siku za Mwisho
+    th = โบสถ์พระเยซูคริสต์แห่งวิสุทธิชนยุคสุดท้าย
+    tr = İsa Mesih'in Son Zaman Azizleri Kilisesi
+    uk = Церква Ісуса Христа Святих Останніх Днів
+    vi = Nhà thờ Các Thánh hữu Ngày sau của Chúa Giêsu Kitô
+    zh-Hans = 耶稣基督后期圣徒教会
+    zh-Hant = 耶穌基督後期聖徒教會
 
   [type.amenity.place_of_worship.hindu]
     en = Hindu Temple
@@ -4053,6 +4217,45 @@
     zh-Hans = 庇护所
     zh-Hant = 隱藏處
 
+  [type.amenity.public_bath]
+    en = Public Bath
+    ar = حمام عام
+    be = Грамадская лазня
+    bg = Обществена баня
+    ca = Bany Públic
+    cs = Veřejné lázně
+    da = Offentligt bad
+    de = Öffentliches Bad
+    el = Δημόσιο Λουτρό
+    es = Baños públicos
+    et = Avalik vann
+    eu = Bainu Publikoa
+    fa = حمام عمومی
+    fi = Julkinen kylpylä
+    fr = Bain public
+    he = אמבטיה ציבורית
+    hu = Közfürdő
+    id = Pemandian umum
+    it = Bagno pubblico
+    ja = 公衆浴場
+    ko = 대중목욕탕
+    mr = सार्वजनिक स्नान
+    nb = Offentlig bad
+    nl = Publiek bad
+    pl = Łaźnia Publiczna
+    pt = Banheiro público
+    ro = Baie publică
+    ru = Общественная баня
+    sk = Verejné kúpele
+    sv = Offentligt bad
+    sw = Bafu ya Umma
+    th = ห้องอาบน้ำสาธารณะ
+    tr = Hamam
+    uk = Громадська лазня
+    vi = Nhà tắm công cộng
+    zh-Hans = 公共浴场
+    zh-Hant = 公共浴場
+
   [type.amenity.shower]
     en = Shower
     af = Stort
@@ -4637,6 +4840,45 @@
     tr = Kilitlenebilen Kutu Dolaplar
     uk = Поштомат
 
+  [type.amenity.vehicle_inspection]
+    en = Vehicle Inspection
+    ar = فحص المركبة
+    be = Тэхагляд аўтамабіля
+    bg = Проверка на автомобила
+    ca = Inspecció de vehicles
+    cs = Kontrola vozidla
+    da = Bilsyn
+    de = Fahrzeuginspektion
+    el = Έλεγχος οχήματος
+    es = Inspección de vehículos
+    et = Sõiduki ülevaatus
+    eu = Ibilgailuen Ikuskapena
+    fa = بازرسی وسایل نقلیه
+    fi = Ajoneuvon tarkastus
+    fr = Inspection de véhicule
+    he = לבדיקה טכנית
+    hu = Gépjármű átvizsgálás
+    id = Pemeriksaan kendaraan
+    it = Ispezione del veicolo
+    ja = 車検
+    ko = 차량검사
+    mr = वाहन तपासणी
+    nb = Inspeksjon av kjøretøy
+    nl = Voertuiginspectie
+    pl = Kontrola pojazdu
+    pt = Inspeção veicular
+    ro = Inspecția vehiculului
+    ru = Техосмотр автомобиля
+    sk = Kontrola vozidla
+    sv = Fordonsinspektion
+    sw = Ukaguzi wa Gari
+    th = การตรวจสอบยานพาหนะ
+    tr = Araç muayenesi
+    uk = Техогляд автомобіля
+    vi = Kiểm tra xe
+    zh-Hans = 车辆检验
+    zh-Hant = 車輛檢驗
+
   [type.amenity.vending_machine.fuel]
     en = Fuel Pump
     af = Petrolpomp
@@ -4991,7 +5233,48 @@
     tr = Bisiklet Bariyeri
     uk = Велосипедна перешкода
 
-  [type.barrier.ditch]
+  [type.waterway.ditch]
+    en = Drainage Ditch
+    ar = حفرة الصرف الصحي
+    be = Дрэнажная канава
+    bg = Отводнителна канавка
+    ca = Sèquia de drenatge
+    cs = Drenážní příkop
+    da = Afvandingsgrøft
+    de = Entwässerungsgraben
+    el = Αποστραγγιστική Τάφρο
+    es = Zanja de drenaje
+    et = Drenaažikraav
+    eu = Drainatze Zanga
+    fa = خندق زهکشی
+    fi = Viemäröinti oja
+    fr = Fossé de drainage
+    he = תעלת ניקוז
+    hu = Árok
+    id = Parit saluran air
+    it = Fossato di drenaggio
+    ja = 排水溝
+    ko = 배수구
+    lt = Drenažo griovys
+    mr = ड्रेनेज खंदक
+    nb = Dreneringsgrøft
+    nl = Sloot
+    pl = Rów melioracyjny
+    pt = Vala de drenagem
+    pt-BR = Vala de drenagem
+    ro = Șanț de drenaj
+    ru = Дренажная канава
+    sk = Drenážna priekopa
+    sv = Dräneringsdike
+    sw = Mfereji wa mifereji ya maji
+    th = คูระบายน้ำ
+    tr = Drenaj çukuru
+    uk = Дренажна канава
+    vi = Mương thoát nước
+    zh-Hans = 排水沟
+    zh-Hant = 排水溝
+
+  [type.natural.water.moat]
     en = Moat
     af = Grag
     ar = خندق
@@ -5018,7 +5301,7 @@
     pl = Rów
     pt = Fosso
     ro = Şanţ
-    ru = Ров
+    ru = Оборонительный ров
     sk = Priekopa
     sv = Vallgrav
     sw = Moti
@@ -5028,6 +5311,47 @@
     vi = Hào nước
     zh-Hans = 沟渠
     zh-Hant = 護城河
+
+  [type.natural.water.wastewater]
+    en = Wastewater
+    ar = مياه الصرف
+    be = Сцёкавыя вады
+    bg = Отпадъчни води
+    ca = Aigües residuals
+    cs = Odpadní voda
+    da = Spildevand
+    de = Abwasser
+    el = Λυμάτων
+    es = Aguas residuales
+    et = Reovesi
+    eu = Hondakin-urak
+    fa = فاضلاب
+    fi = Jätevesi
+    fr = Eaux usées
+    he = שפכים
+    hu = Szennyvíz
+    id = Air limbah
+    it = Acque reflue
+    ja = 廃水
+    ko = 폐수
+    lt = Nuotekos
+    mr = सांडपाणी
+    nb = Avløpsvann
+    nl = Afvalwater
+    pl = Ścieki
+    pt = Águas residuais
+    pt-BR = Águas residuais
+    ro = Ape uzate
+    ru = Сточные воды
+    sk = Odpadová voda
+    sv = Avloppsvatten
+    sw = Maji machafu
+    th = น้ำเสีย
+    tr = Atık su
+    uk = Стічні води
+    vi = Nước thải
+    zh-Hans = 废水
+    zh-Hant = 廢水
 
   [type.barrier.entrance]
     en = Entrance
@@ -27454,6 +27778,46 @@
     zh-Hans = 旅游咨询中心
     zh-Hant = 旅遊辦事處
 
+  [type.tourism.information.visitor_centre]
+    en = Visitor Centre
+    af = Besoekersentrum
+    ar = مركز الزوار
+    be = Цэнтр для наведвальнікаў
+    bg = Център за посетители
+    cs = Návštěvnické centrum
+    da = Besøgscenter
+    de = Besucherzentrum
+    el = Κέντρο Επισκεπτών
+    es = Centro de visitantes
+    et = Külastuskeskus
+    eu = Bisitarien Zentroa
+    fa = مرکز بازدیدکنندگان
+    fi = Vierailijakeskus
+    fr = centre de visite
+    he = מרכז מבקרים
+    hu = Látogatóközpont
+    id = Pusat Pengunjung
+    it = Centro visitatori
+    ja = ビジターセンター
+    ko = 방문자 센터
+    mr = अभ्यागत केंद्र
+    nb = Besøkssenter
+    nl = Bezoekerscentrum
+    pl = Centrum dla zwiedzających
+    pt = Centro de visitantes
+    pt-BR = Centro de visitantes
+    ro = Centrul pentru vizitatori
+    ru = Центр для посетителей
+    sk = Návštevnícke centrum
+    sv = Besökscentrum
+    sw = Kituo cha Wageni
+    th = ศูนย์นักท่องเที่ยว
+    tr = Ziyaretçi Merkezi
+    uk = Центр для відвідувачів
+    vi = Trung tâm du khách
+    zh-Hans = 游客中心
+    zh-Hant = 遊客中心
+
   [type.tourism.motel]
     en = Motel
     af = Motel
@@ -27919,7 +28283,7 @@
     uk = Дамба
     zh-Hans = 水坝
 
-  [type.waterway.ditch]
+  [type.barrier.ditch]
     en = Ditch
     af = Sloot
     de = Graben
@@ -27933,24 +28297,54 @@
     nl = Sloot
     pt = Vala
     pt-BR = Vala
-    ru = Канава
+    ru = Ров
     tr = Hendek
     uk = Канава
     zh-Hans = 水沟
 
-  [type.waterway.ditch.tunnel]
+  [type.natural.water.ditch]
     ref = type.waterway.ditch
+
+  [type.waterway.ditch.tunnel]
     en = Culvert
+    ar = بربخ
+    be = Водопропускная труба
+    bg = водосток
+    ca = Embaixada
+    cs = Propustek
+    da = Kulvert
     de = Durchlass
+    el = Υπόγειος οχετός
     es = Obra de drenaje
-    et = Truup
+    et = Truupp
+    eu = Zuloa
+    fa = کولورت
+    fi = Holvirumpu
     fr = Drain
+    he = גִשׁרוֹן
+    hu = Vízelvezető
+    id = Gorong-gorong
     it = Cunicolo
     ja = 暗渠
+    ko = 암거
+    lt = Pralaida
+    mr = कल्व्हर्ट
+    nb = Kulvert
     nl = Duiker
+    pl = Przepust
+    pt = Bueiro
+    pt-BR = Bueiro
+    ro = Canal de scurgere
     ru = Водопропускная труба
+    sk = Priepust
+    sv = Kulvert
+    sw = Culvert
+    th = ท่อระบายน้ำ
+    tr = Menfez
     uk = Водопропускна труба
+    vi = Cống
     zh-Hans = 涵洞
+    zh-Hant = 涵洞
 
   [type.waterway.dock]
     en = Waterway Dock
@@ -27988,6 +28382,9 @@
     tr = Lağım
     uk = Водовiдвiд
     zh-Hans = 渠
+
+  [type.natural.water.drain]
+    ref = type.waterway.drain
 
   [type.waterway.drain.tunnel]
     ref = type.waterway.ditch.tunnel
