@@ -4620,7 +4620,7 @@
   [type.amenity.vending_machine.condoms]
     en = Condoms Dispenser
     af = Kondoomoutomaat
-    ar = آلى بيع واقي ذكري
+    ar = آلة بيع واقي ذكري
     be = Аўтамат з прэзерватывамі
     de = Kondomautomat
     es = Máquina expendedora de condones
