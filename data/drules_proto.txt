@@ -5937,23 +5937,6 @@ cont {
 cont {
   name: "amenity-loading_dock"
   element {
-    scale: 18
-    symbol {
-      name: "entrance-s"
-      priority: -10000
-    }
-    caption {
-      primary {
-        height: 10
-        color: 6381914
-        offset_x: 1
-        text: "ref"
-        is_optional: true
-      }
-      priority: -10000
-    }
-  }
-  element {
     scale: 19
     symbol {
       name: "entrance-s"
@@ -5963,7 +5946,6 @@ cont {
       primary {
         height: 10
         color: 4473924
-        offset_x: 1
         offset_y: 1
         is_optional: true
       }
@@ -13882,7 +13864,7 @@ cont {
         color: 6645086
         offset_y: 1
       }
-      priority: 200
+      priority: -9970
     }
   }
   element {
@@ -13897,7 +13879,7 @@ cont {
         color: 6645086
         offset_y: 1
       }
-      priority: 200
+      priority: -9970
     }
   }
   element {
@@ -13912,7 +13894,7 @@ cont {
         color: 6645086
         offset_y: 1
       }
-      priority: 200
+      priority: -9970
     }
   }
   element {
@@ -13927,7 +13909,7 @@ cont {
         color: 6645086
         offset_y: 1
       }
-      priority: 200
+      priority: -9970
     }
   }
 }
@@ -15293,15 +15275,12 @@ cont {
       primary {
         height: 10
         color: 6381914
-        offset_x: 1
-        text: "ref"
+        offset_y: 1
         is_optional: true
       }
       secondary {
-        height: 10
+        height: 8
         color: 6381914
-        offset_y: 10
-        text: "addr:flats"
         is_optional: true
       }
       priority: -10000
@@ -15310,23 +15289,6 @@ cont {
 }
 cont {
   name: "entrance-exit"
-  element {
-    scale: 18
-    symbol {
-      name: "exit-s"
-      priority: -10000
-    }
-    caption {
-      primary {
-        height: 10
-        color: 6381914
-        offset_x: 1
-        text: "ref"
-        is_optional: true
-      }
-      priority: -10000
-    }
-  }
   element {
     scale: 19
     symbol {
@@ -15337,15 +15299,12 @@ cont {
       primary {
         height: 10
         color: 6381914
-        offset_x: 1
-        text: "ref"
+        offset_y: 1
         is_optional: true
       }
       secondary {
-        height: 10
+        height: 8
         color: 6381914
-        offset_y: 10
-        text: "addr:flats"
         is_optional: true
       }
       priority: -10000
@@ -15364,8 +15323,12 @@ cont {
       primary {
         height: 10
         color: 6381914
-        offset_x: 1
-        text: "ref"
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 8
+        color: 6381914
         is_optional: true
       }
       priority: -9780
@@ -15381,15 +15344,12 @@ cont {
       primary {
         height: 10
         color: 6381914
-        offset_x: 1
-        text: "ref"
+        offset_y: 1
         is_optional: true
       }
       secondary {
-        height: 10
+        height: 8
         color: 6381914
-        offset_y: 10
-        text: "addr:flats"
         is_optional: true
       }
       priority: -9780

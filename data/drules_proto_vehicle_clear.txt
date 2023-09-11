@@ -1690,6 +1690,25 @@ cont {
   }
 }
 cont {
+  name: "amenity-loading_dock"
+  element {
+    scale: 19
+    symbol {
+      name: "entrance-s"
+      priority: -10000
+    }
+    caption {
+      primary {
+        height: 13
+        color: 6381914
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -10000
+    }
+  }
+}
+cont {
   name: "amenity-motorcycle_parking"
   element {
     scale: 17
@@ -6010,7 +6029,11 @@ cont {
       primary {
         height: 13
         color: 6381914
-        text: "addr:housenumber"
+      }
+      secondary {
+        height: 12
+        color: 6381914
+        offset_y: 1
       }
       priority: 50
     }
@@ -6029,7 +6052,11 @@ cont {
       primary {
         height: 14
         color: 6381914
-        text: "addr:housenumber"
+      }
+      secondary {
+        height: 13
+        color: 6381914
+        offset_y: 1
       }
       priority: 50
     }
@@ -6049,7 +6076,7 @@ cont {
         color: 6645086
         offset_y: 1
       }
-      priority: 30
+      priority: 150
     }
   }
   element {
@@ -6064,7 +6091,7 @@ cont {
         color: 6645086
         offset_y: 1
       }
-      priority: 30
+      priority: 150
     }
   }
 }
@@ -6117,7 +6144,11 @@ cont {
       primary {
         height: 13
         color: 6381914
-        text: "addr:housenumber"
+      }
+      secondary {
+        height: 12
+        color: 6381914
+        offset_y: 1
       }
       priority: 30
     }
@@ -6136,7 +6167,11 @@ cont {
       primary {
         height: 14
         color: 6381914
-        text: "addr:housenumber"
+      }
+      secondary {
+        height: 13
+        color: 6381914
+        offset_y: 1
       }
       priority: 30
     }
@@ -6191,7 +6226,11 @@ cont {
       primary {
         height: 13
         color: 6381914
-        text: "addr:housenumber"
+      }
+      secondary {
+        height: 12
+        color: 6381914
+        offset_y: 1
       }
       priority: 50
     }
@@ -6210,7 +6249,11 @@ cont {
       primary {
         height: 14
         color: 6381914
-        text: "addr:housenumber"
+      }
+      secondary {
+        height: 13
+        color: 6381914
+        offset_y: 1
       }
       priority: 50
     }
@@ -6265,7 +6308,11 @@ cont {
       primary {
         height: 13
         color: 6381914
-        text: "addr:housenumber"
+      }
+      secondary {
+        height: 12
+        color: 6381914
+        offset_y: 1
       }
       priority: 550
     }
@@ -6284,7 +6331,11 @@ cont {
       primary {
         height: 14
         color: 6381914
-        text: "addr:housenumber"
+      }
+      secondary {
+        height: 13
+        color: 6381914
+        offset_y: 1
       }
       priority: 550
     }
@@ -6334,6 +6385,99 @@ cont {
         color: 13947850
       }
       priority: 90
+    }
+  }
+}
+cont {
+  name: "entrance"
+  element {
+    scale: 19
+    symbol {
+      name: "entrance-s"
+      priority: -10000
+    }
+    caption {
+      primary {
+        height: 13
+        color: 6381914
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 8
+        color: 6381914
+        is_optional: true
+      }
+      priority: -10000
+    }
+  }
+}
+cont {
+  name: "entrance-exit"
+  element {
+    scale: 19
+    symbol {
+      name: "exit-s"
+      priority: -10000
+    }
+    caption {
+      primary {
+        height: 13
+        color: 6381914
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 8
+        color: 6381914
+        is_optional: true
+      }
+      priority: -10000
+    }
+  }
+}
+cont {
+  name: "entrance-main"
+  element {
+    scale: 18
+    symbol {
+      name: "main_entrance-s"
+      priority: 20
+    }
+    caption {
+      primary {
+        height: 13
+        color: 6381914
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 8
+        color: 6381914
+        is_optional: true
+      }
+      priority: -9980
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "main_entrance-s"
+      priority: 20
+    }
+    caption {
+      primary {
+        height: 13
+        color: 6381914
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 8
+        color: 6381914
+        is_optional: true
+      }
+      priority: -9980
     }
   }
 }
