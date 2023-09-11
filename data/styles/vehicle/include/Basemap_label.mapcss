@@ -488,18 +488,34 @@ node|z15-[landuse=quarry],
 
 area|z18-[building],
 node|z18-[building],
+{text: name; text-color: @building_label; text-position: center;}
 area|z18-[building]::int_name,
 node|z18-[building]::int_name,
-{text: addr:housenumber;text-color: @building_label;text-position: center;}
+{text: int_name; text-color: @building_label; text-position: center;}
 
+/*
+  Housenumbers have a special display logic hardcoded in drape_frontend/stylist.cpp and apply_feature_functors.cpp.
+  They use a building-address ([addr:housenumber][addr:street]) style and are placed above icons or main captions when
+  - a feature has a housenumber stored in the feature header
+  - main feature type has a caption drule for a given zoom level
+  - there is a secondary caption drule or main text is absent
+  Housenumbers and main captions are displaced independently (e.g. a housenumber will stay if a building name is displaced),
+  but are bound to icons (e.g. a housenumber will disappear if a parent icon is displaced).
+*/
 node|z18-[addr:housenumber][addr:street],
 {text: name; text-color: @housenumber; text-position: center;}
 node|z18-[addr:housenumber][addr:street]::int_name,
 {text: int_name; text-color: @housenumber; text-position: center;}
 
-node|z18-[entrance],
-node|z18-[amenity=loading_dock],
-{text-color: @building_label;}
+node|z18-[entrance=main],
+node|z19-[entrance],
+node|z19-[entrance=exit],
+node|z19-[amenity=loading_dock],
+{text: name; text-color: @building_label;}
+node|z18-[entrance=main]::flats,
+node|z19-[entrance]::flats,
+node|z19-[entrance=exit]::flats,
+{text: int_name; text-color: @building_label; font-size: 8;}
 
 /* 8.1 Pier */
 
@@ -525,6 +541,14 @@ node|z19[addr:housenumber][addr:street],
 {font-size: 14;}
 node|z18-[addr:housenumber][addr:street]::int_name,
 {font-size: 12;}
+
+node|z19-[entrance],
+node|z19-[amenity=loading_dock],
+{icon-image: entrance-s.svg; font-size: 13; text-offset: 1;}
+node|z19-[entrance=exit],
+{icon-image: exit-s.svg; font-size: 13; text-offset: 1;}
+node|z18-[entrance=main],
+{icon-image: main_entrance-s.svg; font-size: 13; text-offset: 1;}
 
 /* 8.3 Airports */
 area|z14-[aeroway=terminal]

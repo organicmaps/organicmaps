@@ -65,7 +65,7 @@ public:
                     uint8_t rank, CaptionDescription const & captions, float posZ);
 
   void operator()(m2::PointD const & point, bool hasArea);
-  void ProcessPointRule(Stylist::TRuleWrapper const & rule);
+  void ProcessPointRule(TRuleWrapper const & rule);
   void Finish(ref_ptr<dp::TextureManager> texMng);
 
 protected:
@@ -79,7 +79,8 @@ private:
   float m_symbolDepth;
   SymbolRuleProto const * m_symbolRule;
   m2::PointF m_centerPoint;
-  std::vector<TextViewParams> m_textParams;
+  TextViewParams m_textParams;
+  TextViewParams m_hnParams;
 };
 
 class ApplyAreaFeature : public ApplyPointFeature
@@ -95,7 +96,7 @@ public:
   using TBase::operator ();
 
   void operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3);
-  void ProcessAreaRule(Stylist::TRuleWrapper const & rule);
+  void ProcessAreaRule(TRuleWrapper const & rule);
 
   struct Edge
   {
@@ -155,7 +156,7 @@ public:
 
   void operator() (m2::PointD const & point);
   bool HasGeometry() const;
-  void ProcessLineRule(Stylist::TRuleWrapper const & rule);
+  void ProcessLineRule(TRuleWrapper const & rule);
   void Finish();
 
   std::vector<m2::SharedSpline> const & GetClippedSplines() const { return m_clippedSplines; }
@@ -186,7 +187,7 @@ public:
                              uint8_t rank, CaptionDescription const & captions,
                              std::vector<m2::SharedSpline> const & clippedSplines);
 
-  void ProcessLineRule(Stylist::TRuleWrapper const & rule);
+  void ProcessLineRule(TRuleWrapper const & rule);
   void Finish(ref_ptr<dp::TextureManager> texMng, ftypes::RoadShieldsSetT const & roadShields,
               GeneratedRoadShields & generatedRoadShields);
 

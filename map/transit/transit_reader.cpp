@@ -168,7 +168,7 @@ void ReadTransitTask::Do()
       df::Stylist stylist;
       if (df::InitStylist(ft, 0, 19, false, stylist))
       {
-        stylist.ForEachRule([&](df::Stylist::TRuleWrapper const & rule)
+        stylist.ForEachRule([&](df::TRuleWrapper const & rule)
         {
           auto const * symRule = rule.m_rule->GetSymbol();
           if (symRule != nullptr)

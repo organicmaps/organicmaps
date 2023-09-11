@@ -110,9 +110,7 @@ public:
   Aggregator(FeatureType & f, feature::GeomType const type, int const zoomLevel, size_t const keyCount)
     : m_pointStyleFound(false)
     , m_lineStyleFound(false)
-    , m_auxCaptionFound(false)
-    , m_mainTextType(drule::text_type_name)
-    , m_captionRule({ nullptr, 0, false })
+    , m_captionRule({ nullptr, 0, false, false })
     , m_f(f)
     , m_geomType(type)
     , m_zoomLevel(zoomLevel)
@@ -140,10 +138,8 @@ public:
 
   bool m_pointStyleFound;
   bool m_lineStyleFound;
-  bool m_auxCaptionFound;
-  drule::text_type_t m_mainTextType;
-  buffer_vector<Stylist::TRuleWrapper, 8> m_rules;
-  Stylist::TRuleWrapper m_captionRule;
+  TRuleWrapper m_captionRule;
+  buffer_vector<TRuleWrapper, 8> m_rules;
 
 private:
   void ProcessKey(drule::Key const & key)
@@ -185,12 +181,10 @@ private:
     drule::BaseRule const * const dRule = drule::rules().Find(key);
     if (dRule == nullptr)
       return;
-    Stylist::TRuleWrapper const rule = { dRule, static_cast<float>(depth), key.m_hatching };
+    TRuleWrapper const rule({ dRule, static_cast<float>(depth), key.m_hatching, false });
 
     if (dRule->GetCaption(0) != nullptr)
     {
-      m_mainTextType = dRule->GetCaptionTextType(0);
-      m_auxCaptionFound |= (dRule->GetCaption(1) != nullptr);
       // Don't add a caption rule to m_rules immediately, put aside for further processing.
       m_captionRule = rule;
     }
@@ -265,88 +259,49 @@ bool IsHatchingTerritoryChecker::IsMatched(uint32_t type) const
 }
 
 void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int const zoomLevel,
-                              feature::GeomType const type, drule::text_type_t const mainTextType,
-                              bool const auxCaptionExists)
+                              feature::GeomType const type, bool const auxCaptionExists)
 {
   feature::NameParamsOut out;
-  if (auxCaptionExists || type == feature::GeomType::Line)
+  // TODO: remove forced secondary text for all lines and set it via styles for major roads and rivers only.
+  // ATM even minor paths/streams/etc use secondary which makes their pathtexts take much more space.
+  if (zoomLevel > scales::GetUpperWorldScale() && (auxCaptionExists || type == feature::GeomType::Line))
+  {
+    // Get both primary and secondary/aux names.
     f.GetPreferredNames(true /* allowTranslit */, deviceLang, out);
+    m_auxText = out.secondary;
+  }
   else
+  {
+    // Returns primary name only.
     f.GetReadableName(true /* allowTranslit */, deviceLang, out);
-
+  }
   m_mainText = out.GetPrimary();
-  m_auxText = out.secondary;
+  ASSERT(m_auxText.empty() || !m_mainText.empty(), ("auxText without mainText"));
+
+  uint8_t constexpr kLongCaptionsMaxZoom = 4;
+  size_t constexpr kLowWorldMaxTextSize = 50;
+  if (zoomLevel <= kLongCaptionsMaxZoom && m_mainText.size() > kLowWorldMaxTextSize)
+  {
+    m_mainText.clear();
+    m_auxText.clear();
+    return;
+  }
 
   // Set max text size to avoid VB/IB overflow in rendering.
   size_t constexpr kMaxTextSize = 200;
   if (m_mainText.size() > kMaxTextSize)
     m_mainText = m_mainText.substr(0, kMaxTextSize) + "...";
 
-  m_houseNumber = f.GetHouseNumber();
-
-  ProcessZoomLevel(zoomLevel);
-  ProcessMainTextType(mainTextType);
-}
-
-std::string const & CaptionDescription::GetMainText() const
-{
-  return m_mainText;
-}
-
-std::string const & CaptionDescription::GetAuxText() const
-{
-  return m_auxText;
-}
-
-bool CaptionDescription::IsNameExists() const
-{
-  return !m_mainText.empty() || !m_houseNumber.empty();
-}
-
-void CaptionDescription::ProcessZoomLevel(int const zoomLevel)
-{
-  if (zoomLevel <= scales::GetUpperWorldScale() && !m_auxText.empty())
+  // TODO : its better to determine housenumbers minZoom once upon drules load and cache it,
+  // but it'd mean a lot of housenumbers-specific logic in otherwise generic RulesHolder..
+  uint8_t constexpr kHousenumbersMinZoom = 16;
+  if (zoomLevel >= kHousenumbersMinZoom && (auxCaptionExists || m_mainText.empty()))
   {
-    m_auxText.clear();
+    // TODO: its not obvious that a housenumber display is dependent on a secondary caption drule existance in styles.
+    m_houseNumberText = f.GetHouseNumber();
+    if (!m_houseNumberText.empty() && !m_mainText.empty() && m_houseNumberText.find(m_mainText) != std::string::npos)
+      m_mainText.clear();
   }
-
-  if (zoomLevel < 5 && m_mainText.size() > 50)
-  {
-    m_mainText.clear();
-    m_auxText.clear();
-  }
-}
-
-void CaptionDescription::ProcessMainTextType(drule::text_type_t const & mainTextType)
-{
-  if (m_houseNumber.empty())
-    return;
-
-  if (mainTextType == drule::text_type_housenumber)
-  {
-    /// @todo this code path is never used, probably need to have e.g. "text: housenumber" in styles for it.
-    m_mainText.swap(m_houseNumber);
-    m_houseNumber.clear();
-    m_isHouseNumberInMainText = true;
-  }
-  else if (mainTextType == drule::text_type_name)
-  {
-    if (m_mainText.empty() || m_houseNumber.find(m_mainText) != std::string::npos)
-    {
-      m_houseNumber.swap(m_mainText);
-      m_isHouseNumberInMainText = true;
-    }
-  }
-}
-
-CaptionDescription const & Stylist::GetCaptionDescription() const
-{
-  return m_captionDescriptor;
-}
-
-bool Stylist::IsEmpty() const
-{
-  return m_rules.empty();
 }
 
 bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool buildings3d, Stylist & s)
@@ -429,13 +384,15 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
   Aggregator aggregator(f, geomType, zoomLevel, keys.size());
   aggregator.AggregateKeys(keys);
 
-  s.m_captionDescriptor.Init(f, deviceLang, zoomLevel, geomType, aggregator.m_mainTextType, aggregator.m_auxCaptionFound);
-
   if (aggregator.m_captionRule.m_rule != nullptr)
   {
-    if (!s.m_captionDescriptor.IsHouseNumberInMainText())
+    s.m_captionDescriptor.Init(f, deviceLang, zoomLevel, geomType,
+                               aggregator.m_captionRule.m_rule->GetCaption(1) != nullptr);
+
+    if (s.m_captionDescriptor.IsNameExists())
       aggregator.m_rules.push_back(aggregator.m_captionRule);
-    else
+
+    if (s.m_captionDescriptor.IsHouseNumberExists())
     {
       bool isGood = true;
       if (zoomLevel < scales::GetUpperStyleScale())
@@ -467,13 +424,15 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
                  ("building-address should contain a caption drule only"));
           drule::BaseRule const * const dRule = drule::rules().Find(addressKeys[0]);
           ASSERT(dRule != nullptr, ());
-          aggregator.m_rules.push_back({ dRule, static_cast<float>(addressKeys[0].m_priority), false });
+          TRuleWrapper const hnRule({ dRule, static_cast<float>(addressKeys[0].m_priority),
+                                      false, true /* m_isHouseNumber*/ });
+          aggregator.m_rules.push_back(hnRule);
         }
       }
     }
   }
 
-  aggregator.AggregateStyleFlags(keys, s.m_captionDescriptor.IsNameExists());
+  aggregator.AggregateStyleFlags(keys, s.m_captionDescriptor.IsNameExists() || s.m_captionDescriptor.IsHouseNumberExists());
 
   if (aggregator.m_pointStyleFound)
     s.m_pointStyleExists = true;

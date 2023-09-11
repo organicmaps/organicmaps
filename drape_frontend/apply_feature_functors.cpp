@@ -369,27 +369,24 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
                                             CaptionDefProto const * secondaryProto,
                                             TextViewParams & params) const
 {
+  auto & titleDecl = params.m_titleDecl;
+
   dp::FontDecl decl;
   CaptionDefProtoToFontDecl(primaryProto, decl);
-
-  params.m_featureId = m_id;
-
-  auto & titleDecl = params.m_titleDecl;
-  titleDecl.m_anchor = GetAnchor(primaryProto->offset_x(), primaryProto->offset_y());
-  titleDecl.m_primaryText = m_captions.GetMainText();
   titleDecl.m_primaryTextFont = decl;
+  titleDecl.m_anchor = GetAnchor(primaryProto->offset_x(), primaryProto->offset_y());
+  // TODO: remove offsets processing as de-facto "text-offset: *" is used to define anchors only.
   titleDecl.m_primaryOffset = GetOffset(primaryProto->offset_x(), primaryProto->offset_y());
   titleDecl.m_primaryOptional = primaryProto->is_optional();
-  // Secondary captions are optional always.
-  titleDecl.m_secondaryOptional = true;
 
-  if (secondaryProto)
+  if (!titleDecl.m_secondaryText.empty())
   {
+    ASSERT(secondaryProto != nullptr, ());
     dp::FontDecl auxDecl;
     CaptionDefProtoToFontDecl(secondaryProto, auxDecl);
-
-    titleDecl.m_secondaryText = m_captions.GetAuxText();
     titleDecl.m_secondaryTextFont = auxDecl;
+    // Secondary captions are optional always.
+    titleDecl.m_secondaryOptional = true;
   }
 }
 
@@ -417,7 +414,7 @@ void ApplyPointFeature::operator()(m2::PointD const & point, bool hasArea)
   m_centerPoint = point;
 }
 
-void ApplyPointFeature::ProcessPointRule(Stylist::TRuleWrapper const & rule)
+void ApplyPointFeature::ProcessPointRule(TRuleWrapper const & rule)
 {
   if (!m_hasPoint)
     return;
@@ -427,15 +424,29 @@ void ApplyPointFeature::ProcessPointRule(Stylist::TRuleWrapper const & rule)
   {
     m_symbolDepth = rule.m_depth;
     m_symbolRule = symRule;
+    return;
   }
 
   CaptionDefProto const * capRule = rule.m_rule->GetCaption(0);
   if (capRule)
   {
+    CaptionDefProto const * auxRule = rule.m_rule->GetCaption(1);
     TextViewParams params;
-    params.m_tileCenter = m_tileRect.Center();
-    ExtractCaptionParams(capRule, rule.m_rule->GetCaption(1), params);
+
+    if (rule.m_isHouseNumber)
+      params.m_titleDecl.m_primaryText = m_captions.GetHouseNumberText();
+    else
+    {
+      params.m_titleDecl.m_primaryText = m_captions.GetMainText();
+      if (auxRule != nullptr)
+        params.m_titleDecl.m_secondaryText = m_captions.GetAuxText();
+    }
+    ASSERT(!params.m_titleDecl.m_primaryText.empty(), ());
+
+    ExtractCaptionParams(capRule, auxRule, params);
     params.m_depth = rule.m_depth;
+    params.m_featureId = m_id;
+    params.m_tileCenter = m_tileRect.Center();
     params.m_depthLayer = DepthLayer::OverlayLayer;
     params.m_depthTestEnabled = false;
     params.m_rank = m_rank;
@@ -443,9 +454,10 @@ void ApplyPointFeature::ProcessPointRule(Stylist::TRuleWrapper const & rule)
     params.m_hasArea = m_hasArea;
     params.m_createdByEditor = m_createdByEditor;
 
-    auto const & titleDecl = params.m_titleDecl;
-    if (!titleDecl.m_primaryText.empty() || !titleDecl.m_secondaryText.empty())
-      m_textParams.push_back(params);
+    if (rule.m_isHouseNumber)
+      m_hnParams = params;
+    else
+      m_textParams = params;
   }
 }
 
@@ -453,10 +465,10 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
 {
   m2::PointF symbolSize(0.0f, 0.0f);
 
-  bool const hasPOI = m_symbolRule != nullptr;
+  bool const hasIcon = m_symbolRule != nullptr;
   auto const & visualParams = df::VisualParams::Instance();
   double const mainScale = visualParams.GetVisualScale();
-  if (hasPOI)
+  if (hasIcon)
   {
     double const poiExtendScale = visualParams.GetPoiExtendScale();
 
@@ -486,18 +498,38 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
       LOG(LERROR, ("Style error. Symbol name must be valid for feature", m_id));
   }
 
-  for (auto textParams : m_textParams)
+  bool const hasText = !m_textParams.m_titleDecl.m_primaryText.empty();
+  bool const hasHouseNumber = !m_hnParams.m_titleDecl.m_primaryText.empty();
+  if (hasText)
   {
     /// @todo Hardcoded styles-bug patch. The patch is ok, but probably should enhance (or fire assert) styles?
     /// @see https://github.com/organicmaps/organicmaps/issues/2573
-    if (hasPOI && textParams.m_titleDecl.m_anchor == dp::Anchor::Center)
+    if ((hasIcon || hasHouseNumber) && m_textParams.m_titleDecl.m_anchor == dp::Anchor::Center)
     {
-      textParams.m_titleDecl.m_anchor = GetAnchor(0, 1);
-      textParams.m_titleDecl.m_primaryOffset = GetOffset(0, 1);
+      ASSERT(!hasIcon, ("A `text-offset: *` is not set in styles.", m_id, m_textParams.m_titleDecl.m_primaryText));
+      m_textParams.m_titleDecl.m_anchor = GetAnchor(0, 1);
     }
 
-    textParams.m_startOverlayRank = hasPOI ? dp::OverlayRank1 : dp::OverlayRank0;
-    m_insertShape(make_unique_dp<TextShape>(m2::PointD(m_centerPoint), textParams, m_tileKey, symbolSize,
+    m_textParams.m_startOverlayRank = hasIcon ? dp::OverlayRank1 : dp::OverlayRank0;
+    auto shape = make_unique_dp<TextShape>(m2::PointD(m_centerPoint), m_textParams, m_tileKey, symbolSize,
+                                           m2::PointF(0.0f, 0.0f) /* symbolOffset */,
+                                           dp::Center /* symbolAnchor */, 0 /* textIndex */);
+    m_insertShape(std::move(shape));
+  }
+
+  if (hasHouseNumber)
+  {
+    // If icon or main text exists then put housenumber above them.
+    if (hasIcon || hasText)
+    {
+      m_hnParams.m_titleDecl.m_anchor = GetAnchor(0, -1);
+      if (hasIcon)
+      {
+        m_hnParams.m_titleDecl.m_primaryOptional = true;
+        m_hnParams.m_startOverlayRank = dp::OverlayRank1;
+      }
+    }
+    m_insertShape(make_unique_dp<TextShape>(m2::PointD(m_centerPoint), m_hnParams, m_tileKey, symbolSize,
                                             m2::PointF(0.0f, 0.0f) /* symbolOffset */,
                                             dp::Center /* symbolAnchor */, 0 /* textIndex */));
   }
@@ -672,7 +704,7 @@ void ApplyAreaFeature::CalculateBuildingOutline(bool calculateNormals, BuildingO
   }
 }
 
-void ApplyAreaFeature::ProcessAreaRule(Stylist::TRuleWrapper const & rule)
+void ApplyAreaFeature::ProcessAreaRule(TRuleWrapper const & rule)
 {
   AreaRuleProto const * areaRule = rule.m_rule->GetArea();
   if (areaRule && !m_triangles.empty())
@@ -762,7 +794,7 @@ bool ApplyLineFeatureGeometry::HasGeometry() const
   return m_spline->IsValid();
 }
 
-void ApplyLineFeatureGeometry::ProcessLineRule(Stylist::TRuleWrapper const & rule)
+void ApplyLineFeatureGeometry::ProcessLineRule(TRuleWrapper const & rule)
 {
   ASSERT(HasGeometry(), ());
 
@@ -849,7 +881,7 @@ ApplyLineFeatureAdditional::ApplyLineFeatureAdditional(TileKey const & tileKey, 
   , m_shieldRule(nullptr)
 {}
 
-void ApplyLineFeatureAdditional::ProcessLineRule(Stylist::TRuleWrapper const & rule)
+void ApplyLineFeatureAdditional::ProcessLineRule(TRuleWrapper const & rule)
 {
   if (m_clippedSplines.empty())
     return;

@@ -1265,7 +1265,6 @@ historic-stone                                      # icon z18- (also has captio
 
 amenity-post_box                                    # icon z18- (also has caption(optional) z18-)
 amenity-recycling-container                         # icon z17- (also has caption(optional) z19-)
-building-address                                    # caption z16-
 historic-memorial-stolperstein                      # icon z19- (also has caption(optional) z19-)
 leisure-garden-residential                          # caption z18- (also has area z12-)
 === 200
@@ -2186,6 +2185,7 @@ amenity-vending_machine-excrement_bags              # icon z18- (also has captio
 amenity-vending_machine-food                        # icon z18- (also has caption(optional) z18-)
 amenity-vending_machine-newspapers                  # icon z18- (also has caption(optional) z18-)
 amenity-vending_machine-sweets                      # icon z18- (also has caption(optional) z18-)
+building-address                                    # caption z16-
 === -9970
 
 amenity-bench                                       # icon z18- (also has caption(optional) z19-)
@@ -2201,8 +2201,8 @@ power-substation                                    # icon z19- (also has captio
 === -9990
 
 # amenity-bench                                     # caption(optional) z19- (also has icon z18-)
-amenity-loading_dock                                # icon z18- (also has caption(optional) z18-)
-# amenity-loading_dock                              # caption(optional) z18- (also has icon z18-)
+amenity-loading_dock                                # icon z19- (also has caption(optional) z19-)
+# amenity-loading_dock                              # caption(optional) z19- (also has icon z19-)
 # amenity-parking_space-disabled                    # caption(optional) z19- (also has icon z18-)
 # amenity-telephone                                 # caption(optional) z19- (also has icon z17-)
 # amenity-vending_machine                           # caption(optional) z18- (also has icon z18-)
@@ -2220,8 +2220,8 @@ amenity-loading_dock                                # icon z18- (also has captio
 # emergency-defibrillator                           # caption(optional) z18- (also has icon z18-)
 # emergency-fire_hydrant                            # caption(optional) z19- (also has icon z19-)
 # entrance                                          # caption(optional) z19- (also has icon z19-)
-entrance-exit                                       # icon z18- (also has caption(optional) z18-)
-# entrance-exit                                     # caption(optional) z18- (also has icon z18-)
+entrance-exit                                       # icon z19- (also has caption(optional) z19-)
+# entrance-exit                                     # caption(optional) z19- (also has icon z19-)
 # man_made-survey_point                             # caption(optional) z16- (also has icon z16-)
 # power-substation                                  # caption(optional) z19- (also has icon z19-)
 # tourism-information                               # caption(optional) z16- (also has icon z16-)

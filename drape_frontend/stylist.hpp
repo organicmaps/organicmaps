@@ -26,26 +26,30 @@ private:
   size_t m_type3end;
 };
 
+struct TRuleWrapper
+{
+  drule::BaseRule const * m_rule;
+  float m_depth;
+  bool m_hatching;
+  bool m_isHouseNumber;
+};
+
 struct CaptionDescription
 {
-  void Init(FeatureType & f, int8_t deviceLang, int const zoomLevel, feature::GeomType const type,
-            drule::text_type_t const mainTextType, bool const auxCaptionExists);
+  void Init(FeatureType & f, int8_t deviceLang, int const zoomLevel,
+            feature::GeomType const type, bool const auxCaptionExists);
 
-  std::string const & GetMainText() const;
-  std::string const & GetAuxText() const;
-  bool IsNameExists() const;
-  bool IsHouseNumberInMainText() const { return m_isHouseNumberInMainText; }
+  std::string const & GetMainText() const { return m_mainText; }
+  std::string const & GetAuxText() const { return m_auxText; }
+  std::string const & GetHouseNumberText() const { return m_houseNumberText; }
+
+  bool IsNameExists() const { return !m_mainText.empty(); }
+  bool IsHouseNumberExists() const { return !m_houseNumberText.empty(); }
 
 private:
-  // Clear aux name on high zoom and clear long main name on low zoom.
-  void ProcessZoomLevel(int const zoomLevel);
-  // Try to use house number as name of the object.
-  void ProcessMainTextType(drule::text_type_t const & mainTextType);
-
   std::string m_mainText;
   std::string m_auxText;
-  std::string m_houseNumber;
-  bool m_isHouseNumberInMainText = false;
+  std::string m_houseNumberText;
 };
 
 class Stylist
@@ -56,15 +60,7 @@ public:
   bool m_lineStyleExists = false;
   bool m_pointStyleExists = false;
 
-public:
-  CaptionDescription const & GetCaptionDescription() const;
-
-  struct TRuleWrapper
-  {
-    drule::BaseRule const * m_rule;
-    float m_depth;
-    bool m_hatching;
-  };
+  CaptionDescription const & GetCaptionDescription() const { return m_captionDescriptor; }
 
   template <class ToDo> void ForEachRule(ToDo && toDo) const
   {
@@ -72,12 +68,12 @@ public:
       toDo(r);
   }
 
-  bool IsEmpty() const;
+  bool IsEmpty() const { return m_rules.empty(); }
 
 private:
   friend bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool buildings3d,
                           Stylist & s);
-private:
+
   typedef buffer_vector<TRuleWrapper, 8> rules_t;
   rules_t m_rules;
 
