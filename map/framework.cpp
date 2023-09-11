@@ -2057,10 +2057,10 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
     data.m_title = placePageInfo ? placePageInfo->GetTitle() : std::string();
     data.m_subTitle = std::string();
     data.m_pointType = RouteMarkType::Finish;
-    data.m_intermediateIndex = m_routingManager.GetRoutePointsCount();
+    data.m_intermediateIndex = m_routingManager.GetRoutePointsCount() - 1;
     data.m_isMyPosition = false;
 
-    if (placePageInfo.has_value() && placePageInfo->IsBookmark())
+    if (placePageInfo && placePageInfo->IsBookmark())
       // Continue route to exact bookmark position.
       data.m_position = placePageInfo->GetBookmarkData().m_point;
     else
