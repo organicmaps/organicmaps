@@ -829,7 +829,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void initMainMenu()
   {
-    mMainMenu = new MainMenu(findViewById(R.id.menu_frame), this::updateBottomWidgetsOffset);
+    final View menuFrame = findViewById(R.id.menu_frame);
+    mMainMenu = new MainMenu(menuFrame, () -> {
+      this.updateBottomWidgetsOffset();
+      mPlacePageViewModel.setPlacePageDistanceToTop(menuFrame.getTop());
+    });
 
     if (mIsTabletLayout)
     {

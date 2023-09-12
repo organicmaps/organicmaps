@@ -19,6 +19,7 @@ import android.text.style.TypefaceSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.IdRes;
@@ -32,11 +33,11 @@ import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.util.Distance;
-import app.organicmaps.widget.recycler.DotDividerItemDecoration;
-import app.organicmaps.widget.recycler.MultilineLayoutManager;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.widget.recycler.DotDividerItemDecoration;
+import app.organicmaps.widget.recycler.MultilineLayoutManager;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -183,6 +184,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
     rv.setAdapter(adapter);
     adapter.setItems(info.getTransitSteps());
 
+    scrollToBottom(rv);
+
     TextView totalTimeView = mTransitFrame.findViewById(R.id.total_time);
     totalTimeView.setText(RoutingController.formatRoutingTime(mContext, info.getTotalTime(),
                                                             R.dimen.text_size_routing_number));
@@ -210,6 +213,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
       rv.addItemDecoration(mTransitViewDecorator);
       rv.setAdapter(adapter);
       adapter.setItems(pointsToRulerSteps(points));
+
+      scrollToBottom(rv);
     }
     else
       UiUtils.hide(rv); // Show only distance between start and finish
@@ -371,6 +376,14 @@ final class RoutingBottomMenuController implements View.OnClickListener
       String arrivalTime = RoutingController.formatArrivalTime(rinfo.totalTimeInSeconds);
       mArrival.setText(arrivalTime);
     }
+  }
+
+  // Scroll RecyclerView to bottom using parent ScrollView.
+  private static void scrollToBottom(RecyclerView rv)
+  {
+    final ScrollView parentScroll = (ScrollView) rv.getParent();
+    if (parentScroll != null)
+      parentScroll.postDelayed(() -> parentScroll.fullScroll(ScrollView.FOCUS_DOWN), 100);
   }
 
   @NonNull
