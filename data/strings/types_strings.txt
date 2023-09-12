@@ -50,6 +50,7 @@
   [type.aerialway]
     en = Aerialway
     af = Kabelbaan
+    ar = طريق جوي
     de = Seilbahn
     el = Τελεφερίκ
     es = Transporte aéreo
@@ -99,6 +100,7 @@
   [type.aerialway.chair_lift]
     en = Chair Lift
     af = Stoelhyser
+    ar = مصعد مقعدي
     de = Sessellift
     el = Τελεφερίκ
     es = Telesilla
@@ -122,6 +124,7 @@
   [type.aerialway.drag_lift]
     en = Drag Lift
     af = Sleephyser
+    ar = مصعد الجر
     de = Schlepplift
     el = Τελεφερίκ
     es = Telesquí
@@ -146,6 +149,7 @@
   [type.aerialway.gondola]
     en = Gondola
     af = Gondelbaan
+    ar = غندول
     de = Gondelbahn
     el = Τελεφερίκ
     es = Telecabina
@@ -228,6 +232,7 @@
   [type.aeroway]
     en = Airspace Infrastructure
     af = Lugvaartinfrastruktuur
+    ar = بنية الطيران
     de = Luftverkehr
     es = Infraestructura aérea
     et = Õhuruumi infrastruktuur
@@ -319,6 +324,7 @@
   [type.aeroway.apron]
     en = Apron
     af = Laaiblad
+    ar = موقف الطائرات
     de = Vorfeld
     es = Plataforma
     et = Platvorm
@@ -339,6 +345,7 @@
   [type.aeroway.gate]
     en = Gate
     af = Hek
+    ar = بوابة
     es = Puerta de embarque
     et = Värav
     eu = Ontziratzeko atea
@@ -394,6 +401,7 @@
   [type.aeroway.runway]
     en = Runway
     af = Aanloopbaan
+    ar = مدرج هبوط
     de = Start-/Landebahn
     es = Pista de despegue
     et = Lennurada
@@ -416,6 +424,7 @@
   [type.aeroway.taxiway]
     en = Taxiway
     af = Rybaan
+    ar = ممر تدريج
     de = Rollweg
     es = Pista de rodaje
     et = Ruleerimistee
@@ -437,6 +446,7 @@
   [type.aeroway.terminal]
     en = Terminal
     af = Terminaal
+    ar = صالة
     de = Terminal
     es = Terminal
     et = Terminal
@@ -458,7 +468,7 @@
   [type.amenity]
     en = Amenity
     af = Geriewe
-    ar = أثر
+    ar = مرفق
     cs = Prostor
     da = Rekreative område
     de = Infrastrukturobjekt
@@ -656,7 +666,7 @@
   [type.amenity.bench]
     en = Bench
     af = Sitbank
-    ar = مقعد طويل
+    ar = مصطبة
     cs = Lavička
     da = Bænk
     de = Parkbank
@@ -692,7 +702,7 @@
   [type.amenity.bicycle_parking]
     en = Bicycle Parking
     af = Fietsparkering
-    ar = أماكن وقوف للدراجات
+    ar = موقف دراجات
     be = Велапаркоўка
     cs = Parkování kol
     da = Cykelparkering
@@ -860,7 +870,7 @@
   [type.amenity.bureau_de_change]
     en = Currency Exchange
     af = Valutawisseling
-    ar = تحويل عملات
+    ar = صرافة العملات
     cs = Směnárna
     da = Vekselbureau
     de = Geldwechselstelle
@@ -1108,7 +1118,7 @@
 
   [type.amenity.gambling]
     en = Gambling
-    ar = القمار
+    ar = قمار
     be = Азартныя гульні
     bg = Хазарт
     ca = Jocs d'atzar
@@ -1303,7 +1313,7 @@
   [type.amenity.charging_station.motorcar]
     en = Car Charging Station
     af = Oplaaistasie vir motorkarre
-    ar = محطة شحن Motorcar
+    ar = محطة شحن السيارات
     be = Аўтамабільная зарадная станцыя
     bg = Станция за зареждане на автомобили
     ca = Estació de recàrrega de cotxes
@@ -2244,7 +2254,7 @@
   [type.amenity.hospital]
     en = Hospital
     af = Hospitaal
-    ar = عيادة
+    ar = مستشفى
     cs = Nemocnice
     de = Krankenhaus
     el = Νοσοκομείο
@@ -2314,7 +2324,7 @@
   [type.amenity.ice_cream]
     en = Ice Cream
     af = Roomys
-    ar = كشك أيس كريم
+    ar = كشك مثلجات
     be = Марозіва
     cs = Stánek se zmrzlinou
     da = Isbod
@@ -2386,7 +2396,7 @@
   [type.amenity.kindergarten]
     en = Kindergarten
     af = Kleuterskool
-    ar = حضانة أطفال
+    ar = روضة أطفال
     cs = Školka
     da = Børnehave
     el = Νηπιαγωγείο
@@ -2805,7 +2815,7 @@
   [type.amenity.parking.park_and_ride]
     en = Park And Ride Parking
     af = Parkeer-en-ry-parkering
-    ar = موقف سيارات
+    ar = موقف اصطفاف وركوب
     cs = Parkoviště
     da = Parkering
     de = P+R-Parkplatz
@@ -2985,7 +2995,7 @@
   [type.amenity.parking_space.disabled]
     en = Disabled Parking Space
     af = Parkering vir gestremdes
-    ar = مكان لوقوف السيارات لذوي الاحتياجات الخاصة
+    ar = مكان وقوف السيارات لذوي الاحتياجات الخاصة
     be = Паркоўка для інвалідаў
     bg = Паркомясто за инвалиди
     cs = Parkovací místo pro invalidy
@@ -3059,7 +3069,7 @@
   [type.amenity.pharmacy]
     en = Pharmacy
     af = Apteek
-    ar = متجر أدوية
+    ar = صيدلية
     cs = Lékárna
     da = Apotek
     de = Apotheke
@@ -3737,7 +3747,7 @@
   [type.recycling.clothes]
     en = Clothes
     af = Klere
-    ar = ملابس قديمة
+    ar = ملابس
     be = Адзенне
     cs = Staré oblečení
     da = Gammelt tøj
@@ -3774,7 +3784,7 @@
   [type.recycling.glass_bottles]
     en = Glass Bottles
     af = Glasbottels
-    ar = زجاجات زجاجية
+    ar = قنينات زجاجية
     be = Шклатара
     cs = Skleněné lahve
     da = Glasflasker
@@ -3885,7 +3895,7 @@
   [type.recycling.plastic_bottles]
     en = Plastic Bottles
     af = Plastiekbottels
-    ar = زجاجات بلاستيكية
+    ar = قنينات بلاستيكية
     be = Пластыкавыя бутэлькі
     cs = Plastové lahve
     da = Plastik flasker
@@ -4072,7 +4082,7 @@
   [type.recycling.cartons]
     en = Cartons
     af = Drankverpakking
-    ar = علب مشروبات
+    ar = كرتونات
     be = Тэтрапак і аналагі
     de = Getränkekarton
     es = Cartones de bebida
@@ -4122,6 +4132,7 @@
   [type.amenity.sanitary_dump_station]
     en = Holding Tank Dump Station
     af = Opgaartenkstortstasie
+    ar = محطة تفريغ المخلفات الصحية
     be = Зліў для прыбіральняў транспартных сродкаў
     de = VE-Station
     es = Estación de vaciado para caravanas
@@ -4283,7 +4294,7 @@
 
   [type.amenity.stripclub]
     en = Stripclub
-    ar = Stripclub
+    ar = نادي تعري
     be = Стрыптыз-клуб
     bg = Стриптийз клуб
     ca = Club de striptease
@@ -4424,7 +4435,7 @@
   [type.amenity.toilets]
     en = Toilet
     af = Toilet
-    ar = حمام
+    ar = مرحاض
     cs = Záchody
     de = Toilette
     el = Τουαλέτα
@@ -4531,7 +4542,7 @@
   [type.amenity.vending_machine]
     en = Vending Machine
     af = Smousoutomaat
-    ar = ماكينة بيع
+    ar = آلة البيع الذاتي
     be = Гандлёвы аўтамат
     de = Verkaufsautomat
     es = Máquina expendedora
@@ -4554,7 +4565,7 @@
   [type.amenity.vending_machine.cigarettes]
     en = Cigarette Dispenser
     af = Sigaretoutomaat
-    ar = ماكينة بيع سجائر
+    ar = آلة بيع سجائر
     be = Аўтамат з цыгарэтамі
     cs = Automat na cigarety
     da = Cigaretautomat
@@ -4591,7 +4602,7 @@
   [type.amenity.vending_machine.coffee]
     en = Coffee Dispenser
     af = Koffie-outomaat
-    ar = ماكينة بيع قهوة
+    ar = آلة بيع قهوة
     be = Кававы аўтамат
     de = Kaffeeautomat
     es = Máquina expendedora de café
@@ -4609,6 +4620,7 @@
   [type.amenity.vending_machine.condoms]
     en = Condoms Dispenser
     af = Kondoomoutomaat
+    ar = آلة بيع واقي ذكري
     be = Аўтамат з прэзерватывамі
     de = Kondomautomat
     es = Máquina expendedora de condones
@@ -4626,7 +4638,7 @@
   [type.amenity.vending_machine.drinks]
     en = Drinks Dispenser
     af = Drankoutomaat
-    ar = ماكينة بيع مشروبات
+    ar = آلة بيع مشروبات
     be = Аўтамат з напоямі
     cs = Automat na nápoje
     da = Automat for drikkevarer
@@ -4663,7 +4675,7 @@
   [type.amenity.vending_machine.food]
     en = Food Dispenser
     af = Kosoutomaat
-    ar = ماكينة بيع طعام
+    ar = آلة بيع طعام
     be = Аўтамат з ежай
     de = Essensautomat
     es = Máquina expendedora de comida
@@ -4681,6 +4693,7 @@
   [type.amenity.vending_machine.newspapers]
     en = Newspaper Dispenser
     af = Koerantoutomaat
+    ar = آلة بيع جرائد
     be = Газетны аўтамат
     de = Zeitungsautomat
     es = Máquina expendedora de periódicos
@@ -4698,7 +4711,7 @@
   [type.amenity.vending_machine.parking_tickets]
     en = Parking Meter
     af = Parkeermeter
-    ar = ماكينة دفع تذاكر الموقف
+    ar = آلة دفع تذاكر الموقف
     be = Паркамат
     cs = Parkovací automat
     da = Parkeringsbilletmaskine
@@ -4774,7 +4787,7 @@
   [type.amenity.vending_machine.sweets]
     en = Sweets Dispenser
     af = Lekkergoedoutomaat
-    ar = ماكينة بيع الحلويات
+    ar = آلة بيع الحلويات
     be = Аўтамат з прысмакамі
     de = Süßigkeitenautomat
     es = Máquina expendedora de dulces
@@ -4792,7 +4805,7 @@
   [type.amenity.vending_machine.excrement_bags]
     en = Excrement Bags Dispenser
     af = Poefsakoutomaat
-    ar = ماكينة بيع حقائب النفايات
+    ar = آلة بيع حقائب النفايات
     be = Мяшкі дзеля экскрыментаў
     de = Hundekotbeutelspender
     es = Maquina expendedora de bolsas para excrementos
@@ -4869,7 +4882,7 @@
   [type.amenity.vending_machine.fuel]
     en = Fuel Pump
     af = Petrolpomp
-    ar = ماكينة بيع الوقود
+    ar = مضخة وقود
     be = Паліўная калонка
     de = Zapfsäule
     es = Maquina expendedora de combustible
@@ -4924,7 +4937,7 @@
     en = Trash Bin
     en-GB = Rubbish Bin
     af = Vullisbak
-    ar = صندوق قمامة
+    ar = سلة مهملات
     cs = Odpadkový koš
     da = Skraldespand
     de = Abfalleimer
@@ -4960,7 +4973,7 @@
   [type.amenity.waste_disposal]
     en = Dumpster
     af = Stortbak
-    ar = قمامة
+    ar = حاوية قمامة
     cs = Odpadky
     da = Bortskaffelse af affald
     de = Müllcontainer
@@ -5014,7 +5027,7 @@
   [type.amenity.water_point]
     en = Water Tank Refill Point
     af = Waterpunt
-    ar = نقطة مائية
+    ar = نقطة إعادة تعبة قنينة المياه
     be = Вада для аўтадомаў
     cs = Vodní zdroj
     da = Vandstation
@@ -5109,7 +5122,7 @@
   [type.barrier.bollard]
     en = Bollard
     af = Bolder
-    ar = عمود حاجز قصير
+    ar = حاجز سيارات
     cs = Pilíř
     da = Søjle
     de = Poller
@@ -5181,6 +5194,7 @@
   [type.barrier.chain]
     en = Chain
     af = Ketting
+    ar = سلسلة
     be = Ланцуг
     de = Kette
     es = Cadena
@@ -5201,6 +5215,7 @@
   [type.barrier.cycle_barrier]
     en = Cycle Barrier
     af = Fietsversperring
+    ar = حاجز دراجات هوائية
     de = Umlaufschranke
     es = Barrera para bicicletas
     et = Jalgrattabarjäär
@@ -5262,7 +5277,7 @@
   [type.natural.water.moat]
     en = Moat
     af = Grag
-    ar = حفرة
+    ar = خندق
     be = Роў
     bg = Ров
     cs = Hradní příkop
@@ -5341,7 +5356,7 @@
   [type.barrier.entrance]
     en = Entrance
     af = Ingang
-    ar = مدخل الحاجز
+    ar = مدخل
     cs = Vstup
     da = Gennemgang
     de = Durchgang
@@ -5377,6 +5392,7 @@
   [type.barrier.fence]
     en = Fence
     af = Heining
+    ar = سياج
     de = Zaun
     es = Valla
     et = Tara
@@ -5435,6 +5451,7 @@
   [type.barrier.hedge]
     en = Hedge
     af = Heg
+    ar = سياج نباتي
     de = Hecke
     es = Seto
     et = Hekk
@@ -5501,6 +5518,7 @@
   [type.barrier.retaining_wall]
     en = Retaining Wall
     af = Keermuur
+    ar = جدار استنادي
     de = Stützmauer
     es = Muro de contención
     et = Tugisein
@@ -5521,7 +5539,7 @@
   [type.barrier.stile]
     en = Stile
     af = Traphek
-    ar = ممر عبور
+    ar = مرقى
     cs = Sloupek
     da = Gærdebro
     de = Zaunübertritt
@@ -5882,6 +5900,7 @@
   [type.boundary.administrative.state]
     en = State Boundary
     af = Staatsgrens
+    ar = حدود محافظة
     es = Frontera de estado
     et = Osariigi piir
     eu = Estatuko muga
@@ -5899,6 +5918,7 @@
   [type.boundary.administrative.suburb]
     en = Suburb Boundary
     af = Voorstadgrens
+    ar = حدود ضاحية
     es = Frontera de suburbio
     et = Eeslinna piir
     eu = Auzoko muga
@@ -6059,7 +6079,7 @@
   [type.building.garage]
     en = Garage
     af = Motorhawe
-    ar = جراج
+    ar = مرآب
     cs = Garáž
     el = Γκαράζ
     es = Garaje
@@ -6091,7 +6111,7 @@
   [type.building.train_station]
     en = Train Station
     af = Treinstasie
-    ar = محطة سكك حديدية
+    ar = محطة قطار
     cs = Železniční stanice
     da = Togstation
     de = Bahnhof
@@ -6420,7 +6440,7 @@
   [type.craft.electrician]
     en = Electrician
     af = Elektrisiën
-    ar = كهربائي
+    ar = عامل كهربائي
     be = Электрык
     bg = Електротехник
     cs = Elektrikář
@@ -6578,7 +6598,7 @@
     comment = Heating, Ventilation, and Air Conditioning
     en = HVAC Shop
     af = Lugreëling
-    ar = تكييف
+    ar = محل تكييف
     be = Ацяпленне, вентыляцыя і кандыцыянаванне
     bg = Отопление, вентилация и климатизация
     cs = HVAC
@@ -7334,7 +7354,7 @@
   [type.cuisine.barbecue]
     en = Barbecue
     af = Braai
-    ar = شواء
+    ar = باربكيو
     cs = Grilované pokrmy
     da = Barbecue
     de = Grill
@@ -7954,7 +7974,7 @@
     en = Donut
     en-GB = Doughnut
     af = Oliebol
-    ar = الكعك المحلاة
+    ar = دونات
     cs = Kobliha
     da = Donuts
     de = Donuts
@@ -8059,7 +8079,7 @@
   [type.cuisine.fine_dining]
     en = Fine Dining
     af = Gastronomie
-    ar = مطعم متكامل
+    ar = مطعم فاخر
     cs = Zážitková gastronomie
     da = Eksklusiv
     de = Gehoben
@@ -9005,7 +9025,7 @@
   [type.cuisine.mediterranean]
     en = Mediterranean
     af = Mediterreens
-    ar = مطبخ شرق أوسطي
+    ar = مطبخ البحر المتوسط
     cs = Středomořská kuchyně
     da = Middelhavskost
     de = Mediterran
@@ -9110,7 +9130,7 @@
   [type.cuisine.noodles]
     en = Noodles
     af = Noedels
-    ar = الشعرية
+    ar = نودلز
     cs = Nudle
     da = Nudler
     de = Nudeln
@@ -9216,7 +9236,7 @@
   [type.cuisine.pasta]
     en = Pasta
     af = Pasta
-    ar = مَعْكَرُونَة
+    ar = معكرونة
     cs = Těstoviny
     da = Pasta
     de = Pasta
@@ -9287,7 +9307,7 @@
   [type.cuisine.peruvian]
     en = Peruvian
     af = Peruviaans
-    ar = مطبخ من دولة بيرو
+    ar = مطبخ دولة بيرو
     cs = Peruánská kuchyně
     da = Peruviansk
     de = Peruanisch
@@ -9958,7 +9978,7 @@
   [type.cuisine.vegan]
     en = Vegan
     af = Veganisties
-    ar = مطبخ نباتي
+    ar = خضري
     cs = Veganská kuchyně
     da = Vegansk
     de = Vegan
@@ -9993,7 +10013,7 @@
   [type.cuisine.vegetarian]
     en = Vegetarian
     af = Vegetaries
-    ar = مطبخ نباتي
+    ar = نباتي
     cs = Vegetariánská kuchyně
     da = Vegetarretter
     de = Vegetarisch
@@ -10269,7 +10289,7 @@
     comment = This is for main/primary entrances, for secondary entrances see type.entrance
     en = Main Entrance
     af = Hoofingang
-    ar = ﻲﺴﻴﺋﺮﻟﺍ ﻞﺧﺪﻤﻟﺍ
+    ar = المدخل الرئيسي
     be = Галоўны ўваход
     bg = Главния вход
     ca = Entrada principal
@@ -10473,7 +10493,7 @@
   [type.healthcare.audiologist]
     en = Audiologist
     af = Oudioloog
-    ar = السمع
+    ar = علم السمع
     be = Аўдыялогія
     bg = Аудиология
     cs = Audiologie
@@ -10554,7 +10574,7 @@
   [type.healthcare.optometrist]
     en = Optometrist
     af = Optometris
-    ar = قياس البصر
+    ar = تصحيح البصر
     be = Оптаметрыя
     bg = Оптометрия
     cs = Optometrie
@@ -10776,6 +10796,7 @@
   [type.highway.bridleway]
     en = Bridle Path
     af = Ruiterpad
+    ar = طريق خيول
     de = Reitweg
     es = Camino de caballos
     et = Valjarada
@@ -10813,7 +10834,7 @@
   [type.highway.busway]
     en = Dedicated Bus Road
     af = Toegewyde buspad
-    ar = ﺺﺼﺨﻣ ﺕﻼﻓﺎﺣ ﻖﻳﺮﻃ
+    ar = طريق حافلات مخصص
     be = Выдзеленая аўтобусная дарога
     bg = Обособен автобусен път
     ca = Carretera dedicada a l'autobús
@@ -10860,7 +10881,7 @@
   [type.highway.bus_stop]
     en = Bus Stop
     af = Bushalte
-    ar = موقف حافلة
+    ar = موقف حافلات
     cs = Autobusová zastávka
     da = Busstoppested
     de = Bushaltestelle
@@ -10998,7 +11019,7 @@
   [type.highway.footway]
     en = Foot Path
     af = Voetpad
-    ar = مسار للمشي
+    ar = مسار للمشاة
     cs = Cesta
     da = Sti
     de = Fußweg
@@ -11644,7 +11665,7 @@
   [type.highway.residential]
     en = Residential Street
     af = Residensiële straat
-    ar = شارع
+    ar = شارع سكني
     cs = Ulice
     da = Gade
     de = Wohnstraße
@@ -11727,7 +11748,7 @@
   [type.highway.road]
     en = Road
     af = Pad
-    ar = شارع
+    ar = طريق
     cs = Ulice
     da = Gade
     de = Straße
@@ -11919,7 +11940,7 @@
   [type.highway.service]
     en = Service Road
     af = Dienspad
-    ar = شارع
+    ar = شارع خدمي
     cs = Ulice
     da = Gade
     de = Zufahrtsweg
@@ -12002,6 +12023,7 @@
   [type.highway.services]
     en = Service Area
     af = Diensgebied
+    ar = موقف الراحة
     de = Raststätte
     es = Área de servicio
     et = Teenindusala
@@ -12235,7 +12257,7 @@
   [type.highway.traffic_signals]
     en = Traffic Lights
     af = Verkeersligte
-    ar = إشارات مرور
+    ar = إشارات مرورية
     cs = Semafor
     da = Trafiklys
     de = Ampel
@@ -12644,7 +12666,7 @@
   [type.historic.castle.castrum]
     en = Roman Fort
     af = Roomse fort
-    ar = كاسترا
+    ar = معسكر روماني
     be = Каструм
     bg = Каструм
     cs = Castrum
@@ -12722,7 +12744,7 @@
   [type.historic.castle.fortified_church]
     en = Fortified Church
     af = Versterkte kerk
-    ar = الكنيسة المحصنة
+    ar = كنيسة محصنة
     be = Абарончы храм
     bg = Укрепена църква
     cs = Opevněný kostel
@@ -12761,7 +12783,7 @@
   [type.historic.castle.fortress]
     en = Fortress
     af = Vesting
-    ar = قلعة
+    ar = حصن
     be = Крэпасць
     bg = Крепост
     cs = Pevnost
@@ -12878,7 +12900,7 @@
   [type.historic.castle.manor]
     en = Manor House
     af = Herehuis
-    ar = قصر مالك العزبة
+    ar = قصر ريفي
     be = Сядзіба
     bg = Усадба
     cs = Panský dům
@@ -13034,7 +13056,7 @@
   [type.historic.city_gate]
     en = City Gate
     af = Stadspoort
-    ar = بوابة مدينة
+    ar = بوابة المدينة
     be = Гарадская брама
     bg = Градска порта
     cs = Městská brána
@@ -13113,7 +13135,7 @@
   [type.historic.fort]
     en = Fort
     af = Fort
-    ar = قلعة
+    ar = حصن
     be = Форт
     bg = Форт
     cs = Fort
@@ -13230,7 +13252,7 @@
   [type.historic.memorial.cross]
     en = Memorial Cross
     af = Herdenkingskruis
-    ar = الصليب التذكاري
+    ar = صليب تذكاري
     be = Памятны крыж
     bg = Мемориален кръст
     cs = Pamětní kříž
@@ -13348,7 +13370,7 @@
   [type.historic.memorial.statue]
     en = Statue
     af = Standbeeld
-    ar = تمثال تذكاري
+    ar = تمثال
     be = Статуя
     bg = Статуя
     cs = Pomník
@@ -13426,7 +13448,7 @@
   [type.historic.memorial.war_memorial]
     en = War Memorial
     af = Oorlogsgedenkteken
-    ar = نصب حرب
+    ar = نصب حرب تذكاري
     be = Ваенны мемарыял
     bg = Военен паметник
     cs = Válečný památník
@@ -13465,7 +13487,7 @@
   [type.historic.monument]
     en = Monument
     af = Monument
-    ar = صرح
+    ar = نصب تذكاري
     be = Помнік
     bg = Паметник
     cs = Zajímavost
@@ -13542,7 +13564,7 @@
   [type.historic.ruins]
     en = Historic Ruins
     af = Ruïne
-    ar = آثار
+    ar = آثار تاريخية
     be = Руіны
     bg = Развалина
     cs = Ruiny
@@ -13581,7 +13603,7 @@
   [type.historic.ship]
     en = Ship
     af = Skip
-    ar = سفينة تاريخية
+    ar = سفينة
     be = Судна
     bg = Кораб
     cs = Pamětihodnost
@@ -13659,7 +13681,7 @@
   [type.historic.wayside_cross]
     en = Wayside Cross
     af = Wegkruis
-    ar = صليب مسيحي
+    ar = صليب جانب الطريق
     be = Прыдарожны крыж
     bg = Крайпътен кръст
     cs = Přícestný kříž
@@ -13698,7 +13720,7 @@
   [type.historic.wayside_shrine]
     en = Wayside Shrine
     af = Kruisbeeld
-    ar = ضريح
+    ar = ضريح جانب الطريق
     be = Прыдарожная святыня
     bg = Крайпътно светилище
     cs = Drobná sakrální památka
@@ -13797,7 +13819,7 @@
   [type.internet_access.wlan]
     en = Internet
     af = Internet
-    ar = إنترنت لا سلكي
+    ar = إنترنت
     el = Ίντερνετ
     es = Internet
     et = Internet
@@ -13862,6 +13884,7 @@
   [type.landuse]
     en = Landuse
     af = Grondgebruik
+    ar = استخدام الارض
     de = Landnutzung
     es = Uso del suelo
     et = Maakasutus
@@ -13880,6 +13903,7 @@
   [type.landuse.allotments]
     en = Allotments
     af = Tuinplotte
+    ar = حصص الحدائق
     de = Kleingarten
     et = Peenrad
     fi = Siirtolapuutarha
@@ -13899,7 +13923,7 @@
   [type.landuse.basin]
     en = Basin
     af = Vanggebied
-    ar = حوض المياه
+    ar = حوض مياه
     be = Рэзервуар
     bg = Резервоар
     cs = Vodní nádrž
@@ -14045,7 +14069,7 @@
   [type.landuse.education]
     en = Educational Facility
     af = Opvoedkundige fasiliteit
-    ar = مؤسسات تعليمية
+    ar = مؤسسة تعليمية
     be = Адукацыйныя ўстановы
     de = Bildungseinrichtung
     es = Instalaciones educativas
@@ -14229,7 +14253,7 @@
   [type.landuse.forest.deciduous]
     en = Deciduous Forest
     af = Loofwoud
-    ar = غابة تتساقط أوراقها
+    ar = غابة نفضيّة
     cs = Les
     da = Skov
     de = Laubwald
@@ -14265,7 +14289,7 @@
   [type.landuse.forest.mixed]
     en = Mixed-Leaf Forest
     af = Gemengde woud
-    ar = غابة مختلطة
+    ar = غابة مختلطة الاوراق
     cs = Les
     da = Skov
     de = Mischwald
@@ -14301,6 +14325,7 @@
   [type.landuse.garages]
     en = Garages
     af = Vulstasies
+    ar = كراجات خاصة
     de = Garagen
     es = Garajes
     et = Garaažid
@@ -14454,6 +14479,7 @@
   [type.landuse.meadow]
     en = Meadow
     af = Weiland
+    ar = مرج
     de = Wiese
     es = Pradera
     et = Heinamaa
@@ -14516,6 +14542,7 @@
   [type.landuse.quarry]
     en = Quarry
     af = Steengroef
+    ar = مقلع
     de = Steinbruch
     es = Cantera
     et = Karjäär
@@ -14536,7 +14563,7 @@
   [type.landuse.railway]
     en = Railway Premises
     af = Spoorwegfasiliteite
-    ar = محطة خط سكة حديد
+    ar = موقع سكك حديد
     cs = Areál železnice
     da = Jernbaneanlæg
     de = Eisenbahnanlagen
@@ -14574,6 +14601,7 @@
   [type.landuse.recreation_ground]
     en = Recreation Ground
     af = Ontspanningsone
+    ar = أراضي ترفيهية
     de = Erholungsgebiet
     es = Área recreativa
     et = Puhkeväljak
@@ -14594,7 +14622,7 @@
   [type.landuse.reservoir]
     en = Reservoir
     af = Reservoir
-    ar = مياه
+    ar = بحيرة لخزن المياه
     cs = Voda
     da = Vand
     de = Wasserfläche
@@ -14650,7 +14678,7 @@
   [type.landuse.retail]
     en = Retail Area
     af = Handelsgebied
-    ar = منطقة متاجر
+    ar = منطقة تجارية
     de = Einzelhandelsgebiet
     es = Zona comercial
     et = Jaekaubandusmaa
@@ -14671,7 +14699,7 @@
   [type.landuse.salt_pond]
     en = Salt Pond
     af = Soutpoel
-    ar = مستنقع
+    ar = ملّاحة
     de = Saline
     es = Estanque
     et = Tiik
@@ -14760,7 +14788,7 @@
   [type.leisure.dog_park]
     en = Dog Park
     af = Hondepark
-    ar = منطقة كلاب
+    ar = متنزه كلاب
     cs = Místo pro psy
     da = Hundepark
     de = Hundeauslauffläche
@@ -14798,7 +14826,7 @@
   [type.leisure.fitness_centre]
     en = Fitness Centre
     af = Fiksheidsentrum
-    ar = مركز للياقة البدنية، نادي رياضي
+    ar = مركز لياقة بدنية
     cs = Fitness
     da = Trænings- og motionscenter
     de = Fitnessstudio
@@ -14834,7 +14862,7 @@
   [type.leisure.fitness_station]
     en = Fitness Station
     af = Fiksheidstasie
-    ar = مركز لياقة
+    ar = مركز لياقة خارجي
     cs = Posilovna
     da = Fitness-station
     de = Fitnessstation
@@ -14869,7 +14897,7 @@
   [type.leisure.dance]
     en = Dance Hall
     af = Danssaal
-    ar = ﺺﻗﺮﻟﺍ ﺔﻟﺎﺻ
+    ar = صالة رقص
     be = Танцавальная зала
     bg = Зала за танци
     cs = Taneční hala
@@ -14959,7 +14987,7 @@
   [type.leisure.golf_course]
     en = Golf Course
     af = Gholfbaan
-    ar = ملعب جولف
+    ar = ملعب غولف
     cs = Golf
     da = Golf
     de = Golfplatz
@@ -15082,7 +15110,7 @@
   [type.leisure.park]
     en = Park
     af = Park
-    ar = موقف سيارات
+    ar = متنزه
     cs = Park
     da = Park
     de = Park
@@ -15131,7 +15159,7 @@
   [type.leisure.picnic_table]
     en = Picnic Table
     af = Piekniektafel
-    ar = طاولة النزهة
+    ar = طاولة نزهة
     be = Стол для пікніка
     bg = Маса за пикник
     cs = Piknikový stůl
@@ -15207,7 +15235,7 @@
   [type.leisure.playground]
     en = Playground
     af = Speeltuin
-    ar = ملعب
+    ar = ملعب أطفال
     cs = Hřiště
     da = Legeplads
     de = Spielplatz
@@ -15423,7 +15451,7 @@
   [type.leisure.stadium]
     en = Stadium
     af = Stadion
-    ar = استاد أو مدّرج
+    ar = ملعب
     cs = Stadion
     de = Stadion
     el = Γήπεδο
@@ -15526,7 +15554,7 @@
   [type.leisure.water_park]
     en = Water Park
     af = Waterpark
-    ar = ملاهي مائية
+    ar = مدينة مائية
     cs = Aquacentrum
     da = Vandpark
     de = Aquapark
@@ -15623,7 +15651,7 @@
   [type.man_made.chimney]
     en = Chimney
     af = Skoorsteen
-    ar = مدخنة مصنع
+    ar = مدخنة
     cs = Tovární komín
     da = Fabriksskorsten
     de = Fabrikschornstein
@@ -15777,6 +15805,7 @@
   [type.man_made.pipeline]
     en = Pipeline
     af = Pypleiding
+    ar = خط أنبوب
     es = Tubería
     et = Torujuhe
     it = Condotto
@@ -15794,6 +15823,7 @@
   [type.man_made.pipeline.overground]
     en = Overground Pipeline
     af = Bogrondse pypleiding
+    ar = خط أنبوب فوق الارض
     es = Tubería aérea
     et = Maapealne torujuhe
     ja = 地表のパイプライン
@@ -15825,6 +15855,7 @@
   [type.man_made.storage_tank]
     en = Storage Tank
     af = Opgaartenk
+    ar = خزان
     be = Рэзервуар
     de = Speichertank
     es = Cisterna
@@ -15913,7 +15944,7 @@
   [type.man_made.tower.communication]
     en = Communications Tower
     af = Kommunikasietoring
-    ar = برج الاتصالات
+    ar = برج اتصالات
     be = Вежа сувязі
     bg = Комуникационна кула
     ca = Torre de comunicacions
@@ -16140,7 +16171,7 @@
   [type.military]
     en = Military
     af = Militêr
-    ar = جيش
+    ar = عسكري
     de = Militärisches Objekt
     es = Militar
     et = Militaarobjekt
@@ -16241,7 +16272,7 @@
   [type.natural.bare_rock]
     en = Bare Rock
     af = Kaal rots
-    ar = الصخور العارية
+    ar = صخور عارية
     be = Голая скала
     bg = Гола скала
     cs = Holá skála
@@ -16397,7 +16428,7 @@
   [type.natural.beach.gravel]
     en = Gravel Beach
     af = Gruisstrand
-    ar = شاطئ جرافيل
+    ar = شاطئ حصى
     be = Галечны пляж
     bg = Чакълест плаж
     cs = Štěrková pláž
@@ -16475,7 +16506,7 @@
   [type.natural.cave_entrance]
     en = Cave Entrance
     af = Grotingang
-    ar = كهف
+    ar = مدخل الكهف
     be = Пячора
     bg = Пещера
     cs = Jeskyně
@@ -16553,7 +16584,7 @@
   [type.natural.earth_bank]
     en = Earth Bank
     af = Grondwal
-    ar = بنك الأرض
+    ar = جروف أرضية
     be = Абрыў
     bg = Скала
     cs = Útes
@@ -16592,7 +16623,7 @@
   [type.man_made.embankment]
     en = Embankment
     af = Ophoging
-    ar = سد
+    ar = ضفة اصطناعية
     be = Насып
     bg = Насип
     cs = Násyp
@@ -16670,7 +16701,7 @@
   [type.natural.desert]
     en = Desert
     af = Woestyn
-    ar = ءﺍﺮﺤﺻ
+    ar = صحراء
     be = Пустыня
     bg = Пустинен
     cs = Poušť
@@ -16699,7 +16730,7 @@
   [type.natural.geyser]
     en = Geyser
     af = Geiser
-    ar = نبع ماء حار
+    ar = حَمَّة
     be = Гейзер
     bg = Гейзер
     cs = Gejzír
@@ -16937,7 +16968,7 @@
   [type.natural.water.lock]
     en = Lock Chamber
     af = Slotkamer
-    ar = ﻞﻔﻘﻟﺍ ﺔﻓﺮﻏ
+    ar = قفل مياه
     be = Шлюзавая камера
     bg = Заключваща камера
     cs = Zámková komora
@@ -17015,7 +17046,7 @@
   [type.natural.water.reservoir]
     en = Reservoir
     af = Reservoir
-    ar = خزان
+    ar = بحيرة لخزن المياه
     be = Вадасховішча
     bg = Резервоар
     cs = Nádrž
@@ -17054,7 +17085,7 @@
   [type.natural.water.basin]
     en = Basin
     af = Vanggebied
-    ar = حوض المياه
+    ar = حوض مياه
     be = Рэзервуар
     bg = Резервоар
     cs = Vodní nádrž
@@ -17524,7 +17555,7 @@
   [type.natural.tree_row]
     en = Tree Row
     af = Boomry
-    ar = صف الشجرة
+    ar = صف شجر
     be = Шэраг дрэў
     bg = Ред дървета
     cs = Řada stromů
@@ -17563,7 +17594,7 @@
   [type.natural.vineyard]
     en = Vineyard
     af = Wingerd
-    ar = كرم
+    ar = حقل عنب
     be = Вінаграднік
     bg = Лозе
     cs = Vinice
@@ -17641,7 +17672,7 @@
   [type.natural.water]
     en = Water
     af = Water
-    ar = مسطح مائي
+    ar = ماء
     be = Вадаём
     bg = Воден басейн
     cs = Vodní plocha
@@ -18031,7 +18062,7 @@
   [type.office.ngo]
     en = Non-Governmental Organization
     af = Nie-regeringsorganisasie
-    ar = مكتب مؤسسة خيرية
+    ar = مكتب مؤسسة غير حكومية
     cs = Kancelář nevládní organizace
     da = NGO-kontor
     de = Nichtregierungsorganisation
@@ -18626,7 +18657,7 @@
   [type.place.ocean]
     en = Ocean
     af = Oseaan
-    ar = المحيط
+    ar = محيط
     be = Акіян
     bg = Океан
     cs = Oceán
@@ -18704,7 +18735,7 @@
   [type.place.sea]
     en = Sea
     af = See
-    ar = يكون
+    ar = بحر
     be = Мора
     bg = Море
     cs = Moře
@@ -18821,7 +18852,7 @@
   [type.place.state.USA]
     en = State
     af = Deelstaat
-    ar = محافظة
+    ar = ولاية
     be = Штат
     bg = Държава
     cs = Země
@@ -18860,7 +18891,7 @@
   [type.place.suburb]
     en = Suburb
     af = Voorstad
-    ar = حي سكني
+    ar = ضاحية
     be = Раён
     bg = Предградие
     cs = Předměstí
@@ -19273,7 +19304,7 @@
   [type.power.plant.coal]
     en = Coal Power Plant
     af = Steenkoolkragsentrale
-    ar = محطة لتوليد الطاقه من الفحم
+    ar = محطة توليد طاقة فحمية
     be = Вугальная электрастанцыя
     bg = Въглищна централа
     ca = Central elèctrica de carbó
@@ -19320,7 +19351,7 @@
   [type.power.plant.solar]
     en = Solar Power Plant
     af = Sonkragsentrale
-    ar = محطة للطاقة الشمسية
+    ar = محطة طاقة شمسية
     be = Сонечная электрастанцыя
     bg = Слънчева електроцентрала
     ca = Central d'energia solar
@@ -19877,7 +19908,7 @@
   [type.railway.monorail]
     en = Monorail
     af = Enkelspoorlyn
-    ar = اتجاه واحد
+    ar = خط حديدي أحادي السكة
     cs = Jednokolejná železnice
     da = Monorail
     de = Einschienenbahn
@@ -20132,7 +20163,7 @@
 
   [type.railway.rail.tourism]
     en = Touristic Railway
-    ar = السكك الحديدية السياحية
+    ar = سكة حديد سياحية
     be = Турыстычная чыгунка
     bg = Туристическа железница
     ca = Ferrocarril turístic
@@ -20211,7 +20242,7 @@
   [type.railway.rail.branch]
     comment = Includes ordinary railway=rail w/o more specific usage= and service= tags.
     en = Railway Branch
-    ar = السكك الحديدية الثانوية
+    ar = سكة حديدية ثانوية
     be = Другасная чыгунка
     bg = Вторична железница
     ca = Ferrocarril secundari
@@ -20251,7 +20282,7 @@
   [type.railway.rail.utility]
     comment = Non-passenger utility tracks: industrial, military, test.
     en = Utility Railway
-    ar = سكة حديد المرافق
+    ar = سكة حديد غير
     be = Службова чыгунка
     bg = Сервизна железница
     ca = Ferrocarril d'utilitat
@@ -20372,7 +20403,7 @@
   [type.railway.rail.bridge]
     en = Railway Bridge
     af = Treinbrug
-    ar = جسر للسكك الحديدية
+    ar = جسر سكة حديدية
     be = Чыгуначны мост
     bg = Железопътен мост
     ca = Pont del ferrocarril
@@ -20433,7 +20464,7 @@
   [type.railway.rail.tunnel]
     en = Railway Tunnel
     af = Treintonnel
-    ar = نفق السكة الحديد
+    ar = نفق سكة الحديد
     be = Чыгуначны тунэль
     bg = Железопътен тунел
     ca = Túnel ferroviari
@@ -20494,7 +20525,7 @@
   [type.railway.station]
     en = Train Station
     af = Treinstasie
-    ar = محطة سكك حديدية
+    ar = محطة قطار
     cs = Železniční stanice
     da = Togstation
     de = Bahnhof
@@ -21685,7 +21716,7 @@
   [type.shop.bicycle]
     en = Bicycle Shop
     af = Fietswinkel
-    ar = متجر دراجات
+    ar = متجر دراجات هوائية
     cs = Cyklistický obchod
     da = Cykelforretning
     de = Fahrradladen
@@ -21721,7 +21752,7 @@
   [type.shop.bookmaker]
     en = Bookmaker
     af = Boekbinder
-    ar = ناشر
+    ar = مراهنة
     cs = Knihař
     de = Wettbüro
     el = Πράκτορας στοιχημάτων
@@ -21753,7 +21784,7 @@
     en = Bookstore
     en-GB = Bookshop
     af = Boekwinkel
-    ar = مكتبة لبيع الكتب
+    ar = متجر كتب
     cs = Knihkupectví
     da = Boghandel
     de = Buchhandlung
@@ -21789,7 +21820,7 @@
   [type.shop.butcher]
     en = Butcher
     af = Slagter
-    ar = جزار
+    ar = قصابة
     cs = Řeznictví
     da = Slagter
     de = Metzgerei
@@ -21866,7 +21897,7 @@
   [type.shop.car]
     en = Car Dealership
     af = Motorhandelaar
-    ar = متجر سيارات
+    ar = وكالة بيع السيارات
     cs = Obchod s auty
     da = Bilforhandler
     de = Autohaus
@@ -22025,7 +22056,7 @@
   [type.shop.carpet]
     en = Carpet Shop
     af = Matwinkel
-    ar = السجاد
+    ar = متجر سجادات
     be = Дываны
     bg = Килими
     ca = Catifes
@@ -22102,7 +22133,7 @@
   [type.shop.chocolate]
     en = Chocolate Shop
     af = Sjokoladewinkel
-    ar = متجر
+    ar = متجر شوكولاتة
     be = Крама шакалада
     cs = Obchod
     da = Butik
@@ -22175,7 +22206,7 @@
   [type.shop.coffee]
     en = Coffee Shop
     af = Koffiewinkel
-    ar = متجر
+    ar = متجر قهوة
     be = Крама кавы
     cs = Obchod
     da = Butik
@@ -22323,7 +22354,7 @@
   [type.shop.copyshop]
     en = Copyshop
     af = Fotostaatwinkel
-    ar = محل نسخ
+    ar = محل طباعة
     cs = Kopírovací obchod
     da = Kopieringsbutik
     de = Kopierladen
@@ -22358,7 +22389,7 @@
   [type.shop.cosmetics]
     en = Cosmetics Shop
     af = Skoonheidsmiddels
-    ar = مستحضرات تجميل
+    ar = متجر مستحضرات تجميل
     be = Касметыка
     cs = Kosmetika
     da = Kosmetik
@@ -22395,7 +22426,7 @@
   [type.shop.curtain]
     en = Curtain Shop
     af = Gordynwinkel
-    ar = ستائر
+    ar = متجر ستائر
     be = Шторы
     bg = Пердета
     ca = Cortines
@@ -22548,7 +22579,7 @@
   [type.shop.dry_cleaning]
     en = Dry Cleaner
     af = Droogskoonmaker
-    ar = غسيل جاف
+    ar = تنظيف جاف
     cs = Chemické čištění
     da = Renseri
     de = Chemische Reinigung
@@ -22655,7 +22686,7 @@
   [type.shop.fabric]
     en = Fabric Shop
     af = Materiaalwinkel
-    ar = متجر
+    ar = متجر نسيج
     cs = Obchod
     da = Butik
     de = Textilgeschäft
@@ -22845,7 +22876,7 @@
     en = Furniture Store
     en-GB = Furniture Shop
     af = Meubelwinkel
-    ar = معرض أثاث
+    ar = متجر أثاث
     cs = Nábytek
     da = Møbelbutik
     de = Möbelhaus
@@ -22882,7 +22913,7 @@
     en = Garden Center
     en-GB = Garden Centre
     af = Tuinsentrum
-    ar = حضانة
+    ar = مشتل
     cs = Školka
     da = Planteskole
     de = Gärtnerei
@@ -22918,7 +22949,7 @@
   [type.shop.gas]
     en = Gas Store
     af = Gaswinkel
-    ar = مخزن غاز
+    ar = متجر غاز
     be = Газавая крама
     bg = Магазин за газ
     ca = Botiga de gas
@@ -22995,7 +23026,7 @@
   [type.shop.greengrocer]
     en = Greengrocer
     af = Groentewinkel
-    ar = متجر خضروات وفواكه
+    ar = محل خضار
     cs = Ovoce a zelenina
     da = Grønthandler
     de = Gemüseladen
@@ -23070,7 +23101,7 @@
   [type.shop.hairdresser]
     en = Hairdresser
     af = Haarkapper
-    ar = مصفف شعر
+    ar = حلاق
     cs = Kadeřnictví
     da = Frisør
     de = Friseur
@@ -23107,7 +23138,7 @@
     en = Hardware Store
     en-GB = Ironmongers
     af = Ysterware
-    ar = محد معدات
+    ar = محل معدات
     be = Будаўнічы магазін
     bg = Магазин за хардуер
     el = Κατάστημα υλικού
@@ -23136,7 +23167,7 @@
   [type.shop.health_food]
     en = Health Food Shop
     af = Gesondheidsvoedsel
-    ar = متجر الأغذية الصحية
+    ar = متجر أغذية صحية
     be = Крама здаровай ежы
     bg = Магазин за здравословни храни
     cs = Prodejna zdravé výživy
@@ -23216,7 +23247,7 @@
   [type.shop.hifi]
     en = HiFi Audio Shop
     af = HiFi-winkel
-    ar = صوت هاي فاي
+    ar = متجر صوت هاي فاي
     be = HiFi аўдыё
     bg = HiFi аудио
     ca = Àudio HiFi
@@ -23298,7 +23329,7 @@
     en = Jewelry Store
     en-GB = Jewellery Shop
     af = Juwelier
-    ar = مجوهرات
+    ar = متجر مجوهرات
     cs = Klenotnictví
     da = Smykkebutik
     de = Juwelier
@@ -23550,7 +23581,7 @@
   [type.shop.money_lender]
     en = Money Lender
     af = Geldskieter
-    ar = متجر
+    ar = مُقرض أموال
     be = Ліхвяр
     cs = Obchod
     da = Butik
@@ -23665,7 +23696,7 @@
     en = Record Store
     en-GB = Record Shop
     af = Musiekwinkel
-    ar = متجر
+    ar = متجر اقراص موسيقية
     be = Музычная крама
     cs = Obchod
     da = Butik
@@ -23702,7 +23733,7 @@
   [type.shop.musical_instrument]
     en = Musical Instrument Shop
     af = Musiekinstrumentwinkel
-    ar = متجر
+    ar = متجر آلات موسيقية
     be = Музычныя інструменты
     cs = Obchod
     da = Butik
@@ -23739,7 +23770,7 @@
   [type.shop.newsagent]
     en = Newspaper Stand
     af = Kiosk
-    ar = كشك الجرائد
+    ar = كشك جرائد
     cs = Novinový stánek
     da = Avis-kiosk
     de = Zeitungsstand
@@ -23811,7 +23842,7 @@
   [type.shop.outdoor]
     en = Outdoor Equipment Shop
     af = Buitemuurse toerusting
-    ar = معدات خارجية
+    ar = متجر معداة خارجية
     cs = Venkovní vybavení
     da = Fritidsudstyr
     de = Outdoor-Ausrüstungs-Laden
@@ -23889,7 +23920,7 @@
     ref = type.shop.bakery
     en = Pastry Shop
     af = Fyngebakwinkel
-    ar = ﺕﺎﻨﺠﻌﻣ
+    ar = متجر معجنات
     be = Кандытарскія вырабы
     bg = Тестени изделия
     cs = Pečivo
@@ -23927,7 +23958,7 @@
   [type.shop.pawnbroker]
     en = Pawnbroker
     af = Pandwinkel
-    ar = سمسار تسليف
+    ar = مُرتهِن
     cs = Zastavárna
     da = Pantelåner
     de = Pfandleihe
@@ -24040,7 +24071,7 @@
   [type.shop.photo]
     en = Photo Shop
     af = Fotowinkel
-    ar = محل صور
+    ar = محل تصوير
     cs = Fotografický obchod
     da = Fotobutik
     de = Fotofachgeschäft
@@ -24076,7 +24107,7 @@
   [type.shop.seafood]
     en = Fishmonger
     af = Vishandelaar
-    ar = سماك
+    ar = سمّاك
     cs = Prodej ryb
     da = Fiskehandler
     de = Fischhändler
@@ -24187,7 +24218,7 @@
   [type.shop.sports]
     en = Sports Shop
     af = Sportwinkel
-    ar = أدوات رياضية
+    ar = متجر أدوات رياضية
     cs = Sportovní zboží
     da = Sportsudstyr
     de = Sportgeschäft
@@ -24290,7 +24321,7 @@
   [type.shop.tattoo]
     en = Tattoo Parlour
     af = Tatoeëerwinkel
-    ar = قاعة رسم الوشم
+    ar = محل وشوم
     cs = Tetovací salon
     da = Tatovør
     de = Tattoo-Studio
@@ -24326,7 +24357,7 @@
   [type.shop.tea]
     en = Tea Shop
     af = Teewinkel
-    ar = متجر
+    ar = متجر شاي
     be = Крама гарбаты
     cs = Obchod
     da = Butik
@@ -24400,7 +24431,7 @@
     en = Toy Store
     en-GB = Toy Shop
     af = Speelgoedwinkel
-    ar = متجر ألعاب
+    ar = متجر لعبات
     cs = Hračkářství
     da = Legetøjsbutik
     de = Spielwarengeschäft
@@ -24509,7 +24540,7 @@
     en = Variety Store
     en-GB = Variety Shop
     af = Bazaar
-    ar = متجر متنوع\n
+    ar = متجر متنوع
     cs = Smíšené zboží
     da = Småtingsbutik
     de = Billigladen
@@ -24621,7 +24652,7 @@
   [type.shop.wine]
     en = Wine Shop
     af = Wynwinkel
-    ar = متجر مشروبات روحية
+    ar = متجر نبيذ
     cs = Vinařství
     da = Vinhandel
     de = Weinhandlung
@@ -24698,7 +24729,7 @@
   [type.shop.antiques]
     en = Antiques Shop
     af = Antiekwinkel
-    ar = التحف
+    ar = متجر تحفيات
     be = Антыкварыят
     bg = Антики
     cs = Starožitnosti
@@ -24737,7 +24768,7 @@
   [type.shop.appliance]
     en = Appliance Shop
     af = Toestellewinkel
-    ar = متجر الأجهزة
+    ar = متجر أدوات منزلية
     be = Крама бытавой тэхнікі
     bg = Магазин за техника
     ca = Botiga d'electrodomèstics
@@ -24818,7 +24849,7 @@
   [type.shop.baby_goods]
     en = Baby Goods Shop
     af = Bababenodigdhede
-    ar = متجر الأطفال
+    ar = متجر بضع الرضّغ
     be = Дзіцячая крама
     bg = Детски магазин
     cs = Dětský obchod
@@ -24896,7 +24927,7 @@
   [type.shop.bed]
     en = Bed Shop
     af = Bedwinkel
-    ar = متجر الأسرة
+    ar = متجر الأسِرّة
     be = Крама ложкаў
     bg = Магазин за легла
     ca = Botiga de llits
@@ -25174,7 +25205,7 @@
     en = Fishing Store
     en-GB = Fishing Shop
     af = Visvangwinkel
-    ar = متجر صيد
+    ar = متجر صيد السمك
     be = Рыбалоўны магазін
     bg = Риболовен магазин
     cs = Rybářský obchod
@@ -25253,7 +25284,7 @@
   [type.shop.lottery]
     en = Lottery Tickets
     af = Loterykaartjies
-    ar = ﺐﻴﺼﻧﺎﻴﻟﺍ ﺮﻛﺍﺬﺗ
+    ar = تذاكر يانصيب
     be = Латарэйныя білеты
     bg = Лотарийни билети
     cs = Loterijní lístky
@@ -25293,7 +25324,7 @@
     en = Medical Supplies Store
     en-GB = Medical Supplies Shop
     af = Mediese benodigdhede
-    ar = ﺔﻴﺒﻄﻟﺍ ﺕﺍﺩﺍﺪﻣﻹﺍ
+    ar = متجر معدات طبية
     be = Медыцынскія прыналежнасці
     bg = Медицински изделия
     cs = Zdravotní zásoby
@@ -25372,7 +25403,7 @@
   [type.shop.paint]
     en = Paint Shop
     af = Verfwinkel
-    ar = ﺕﺎﻧﺎﻫﺪﻟﺍ
+    ar = متجر أصباغ
     be = Фарбы
     bg = Бои
     cs = Barvy
@@ -25411,7 +25442,7 @@
   [type.shop.perfumery]
     en = Perfume Shop
     af = Parfumerie
-    ar = العطور
+    ar = متجر عطور
     be = Парфумерыя
     bg = Парфюмерия
     cs = Parfumerie
@@ -25450,7 +25481,7 @@
   [type.shop.sewing]
     en = Sewing Supplies Shop
     af = Naaibenodigdhede
-    ar = معدات الخياطة
+    ar = متجر معدات الخياطة
     be = Швейныя прыналежнасці
     bg = Шивашки консумативи
     cs = Šicí potřeby
@@ -25489,7 +25520,7 @@
   [type.shop.storage_rental]
     en = Storage Rental
     af = Stoorspasie
-    ar = ﻦﻳﺰﺨﺘﻟﺍ ﺕﺍﺪﺣﻭ ﺮﻴﺟﺄﺗ
+    ar = تأجير وحدات التخزين
     be = Арэнда сховішчаў
     bg = Склад под наем
     cs = Pronájem skladu
@@ -25529,7 +25560,7 @@
     en = Smoke Shop
     en-GB = Tobacco Shop
     af = Tabakwinkel
-    ar = تبغ
+    ar = متجر تدخين
     be = Тытунь
     bg = Тютюн
     cs = Tabák
@@ -25568,7 +25599,7 @@
   [type.shop.trade]
     en = Trade Supplies
     af = Handelsbenodigdhede
-    ar = ﺔﻳﺭﺎﺠﺘﻟﺍ ﺕﺍﺪﻳﺭﻮﺘﻟﺍ
+    ar = معدات التجارة
     be = Гандлёвая прыналежнасць
     bg = Търговия с консумативи
     cs = Obchod se zásobami
@@ -25608,7 +25639,7 @@
     en = Watch Store
     en-GB = Watch Shop
     af = Horlosiewinkel
-    ar = ساعات
+    ar = متجر ساعات
     be = Гадзіннік
     bg = Часовници
     cs = Hodinky
@@ -25767,7 +25798,7 @@
   [type.sport.archery]
     en = Archery
     af = Boogskiet
-    ar = الرماية
+    ar = رماية
     be = Стральба з лука
     bg = Стрелба с лък
     cs = Lukostřelba
@@ -25882,7 +25913,7 @@
   [type.sport.baseball]
     en = Baseball
     af = Bofbal
-    ar = البيسبول
+    ar = كرة القاعدة
     be = Бейсбол
     cs = Baseball
     da = Baseball
@@ -25998,7 +26029,7 @@
   [type.sport.bowls]
     en = Bowls
     af = Rolbal
-    ar = لعبة البولينج
+    ar = بولنغ المخضرة
     be = Боўлз
     de = Bowls
     es = Bolos sobre hierba
@@ -26096,7 +26127,7 @@
   [type.sport.curling]
     en = Curling
     af = Ysbal
-    ar = كيرلنغ
+    ar = كرلنغ
     be = Кёрлінг
     cs = Curling
     da = Curling
@@ -26176,7 +26207,7 @@
   [type.sport.golf]
     en = Golf
     af = Gholf
-    ar = الجولف
+    ar = غولف
     be = Гольф
     cs = Golf
     da = Golf
@@ -26215,7 +26246,7 @@
   [type.sport.gymnastics]
     en = Gymnastics
     af = Gimnastiek
-    ar = رياضة بدنية
+    ar = جمباز
     be = Гімнастыка
     cs = Gymnastika
     da = Gymnastik
@@ -26335,7 +26366,7 @@
     comment = Used to tag a scuba diving site.
     en = Scuba Diving Site
     af = Skubaduikterrein
-    ar = الغوص
+    ar = موقع غوص سكوبا
     be = Месца для дайвінга
     cs = Potápění
     da = Scuba dykning
@@ -26452,7 +26483,7 @@
   [type.sport.skiing]
     en = Skiing
     af = Ski
-    ar = التزحلق
+    ar = تزحلف
     be = Катанне на лыжах
     cs = Lyžování
     da = Stå på ski
@@ -26691,7 +26722,7 @@
   [type.sport.10pin]
     en = Bowling
     af = Kegelbal
-    ar = بولينج بعشرة دبابيس
+    ar = بولنغ
     be = Боўлінг
     bg = Боулинг
     cs = Bowling
@@ -26733,7 +26764,7 @@
   [type.sport.padel]
     en = Padel
     af = Padel
-    ar = ﻞﻳﺩﺎﺑ
+    ar = بادل
     be = Падэль
     bg = Падел
     cs = Padel
@@ -26847,7 +26878,7 @@
   [type.sport.field_hockey]
     en = Field Hockey
     af = Hokkie
-    ar = ﻥﺍﺪﻴﻤﻟﺍ ﻲﻛﻮﻫ
+    ar = هوكي الميدان
     be = Хакей на траве
     bg = Хокей на трева
     cs = Pozemní hokej
@@ -26885,7 +26916,7 @@
   [type.sport.badminton]
     en = Badminton
     af = Pluimbal
-    ar = ﺔﺸﻳﺮﻟﺍ ﺲﻨﺗ
+    ar = ريشة الطائرة
     be = Бадмінтон
     bg = Бадминтон
     cs = Badminton
@@ -27056,7 +27087,7 @@
   [type.tourism.apartment]
     en = Holiday Apartment
     af = Vakansiewoonstel
-    ar = شُقَق
+    ar = شُقَق عطلة
     cs = Byty
     da = Lejligheder
     de = Ferienwohnung
@@ -27128,7 +27159,7 @@
   [type.tourism.artwork.architecture]
     en = Architectural Artwork
     af = Argitektoniese kuns
-    ar = عمل فني
+    ar = عمل معماري فني
     cs = Umělecké dílo
     da = Kunstværk
     de = Architektonisches Kunstwerk
@@ -27164,7 +27195,7 @@
   [type.tourism.artwork.painting]
     en = Painting
     af = Skildery
-    ar = عمل فني
+    ar = لوحة فنية
     cs = Umělecké dílo
     da = Kunstværk
     de = Gemälde
@@ -27200,7 +27231,7 @@
   [type.tourism.artwork.sculpture]
     en = Sculpture
     af = Beeldhouwerk
-    ar = عمل فني
+    ar = منحوتة
     cs = Umělecké dílo
     da = Kunstværk
     de = Skulptur
@@ -27236,7 +27267,7 @@
   [type.tourism.artwork.statue]
     en = Statue
     af = Standbeeld
-    ar = عمل فني
+    ar = تمثال
     cs = Umělecké dílo
     da = Kunstværk
     de = Statue
@@ -27272,7 +27303,7 @@
   [type.tourism.attraction]
     en = Attraction
     af = Attraksie
-    ar = أماكن جذابة
+    ar = مكان جذاب
     cs = Atrakce
     da = Attraktioner
     de = Sehenswürdigkeit
@@ -27322,7 +27353,7 @@
     en = Campground
     en-GB = Campsite
     af = Kampeerterrein
-    ar = تخييم
+    ar = مخيّم
     cs = Kempování
     de = Campingplatz
     el = Κάμπινγκ
@@ -27355,7 +27386,7 @@
     en = RV Park
     en-GB = Caravan Park
     af = Karavaanpark
-    ar = موقع البيت المتنقل
+    ar = موقع لمراكب ترفيه
     be = Кемпінг для аўтадамоў
     cs = Kemp pro obytné přívěsy
     da = Autocamperplads
@@ -27422,7 +27453,7 @@
   [type.tourism.gallery]
     en = Art Gallery
     af = Kunsgalery
-    ar = سياحة
+    ar = معرض الفني
     cs = Pamětihodnost
     da = Turisme
     de = Kunstgalerie
@@ -27494,7 +27525,7 @@
   [type.tourism.hostel]
     en = Hostel
     af = Herberg
-    ar = نزُل
+    ar = نزُل مشتركة
     de = Herberge
     el = Πανδοχείο
     es = Albergue juvenil
@@ -27790,7 +27821,7 @@
   [type.tourism.motel]
     en = Motel
     af = Motel
-    ar = فندق رخيص
+    ar = موتيل
     de = Motel
     el = Μοτέλ
     es = Motel
@@ -27847,7 +27878,7 @@
   [type.tourism.picnic_site]
     en = Picnic Site
     af = Piekniekterrein
-    ar = مكان نزهة
+    ar = موقع نزهة
     cs = Piknik
     da = Picnic
     de = Picknickplatz
@@ -27883,7 +27914,7 @@
   [type.tourism.resort]
     en = Resort
     af = Oord
-    ar = منتج
+    ar = منتجع
     cs = Letovisko
     de = Resort
     el = Θέρετρο
@@ -27917,7 +27948,7 @@
   [type.tourism.theme_park]
     en = Theme Park
     af = Temapark
-    ar = سياحة
+    ar = مدينة العاب
     cs = Pamětihodnost
     da = Turisme
     de = Freizeitpark
@@ -27953,7 +27984,7 @@
   [type.tourism.viewpoint]
     en = Viewpoint
     af = Uitkykpunt
-    ar = أماكن مشاهدة سياحية
+    ar = نقطة منظر
     cs = Vyhlídka
     da = Udsigtspunkt
     de = Aussichtspunkt
@@ -28056,6 +28087,7 @@
   [type.traffic_calming]
     en = Traffic Calming
     af = Verkeerskalmering
+    ar = تهدئة سير السيارات
     de = Verkehrsberuhigung
     es = Reducción de velocidad
     et = Liikluse rahustamine
@@ -28072,6 +28104,7 @@
   [type.traffic_calming.bump]
     en = Traffic Bump
     af = Verkeersdrempel
+    ar = مطبة
     de = kurze Bodenwelle
     es = Banda reductora
     et = Liiklusee aeglustusmühk
@@ -28158,7 +28191,7 @@
   [type.waterway.canal.tunnel]
     en = Canal Tunnel
     af = Kanaal
-    ar = قناة
+    ar = نفق قناة
     cs = Kanál
     da = Kanal
     de = Kanal
@@ -28233,6 +28266,7 @@
   [type.waterway.dam]
     en = Dam
     af = Dam
+    ar = سد
     de = Staudamm
     es = Presa
     et = Tamm
@@ -28273,7 +28307,7 @@
 
   [type.waterway.ditch.tunnel]
     en = Culvert
-    ar = عبارة
+    ar = بربخ
     be = Водопропускная труба
     bg = водосток
     ca = Embaixada
@@ -28334,6 +28368,7 @@
   [type.waterway.drain]
     en = Drain
     af = Afvoer
+    ar = قناة تصريف المياه
     de = Abfluss
     es = Desagüe
     et = Kuivenduskraav
@@ -28469,7 +28504,7 @@
   [type.waterway.stream]
     en = Stream
     af = Beek
-    ar = نهر
+    ar = تيار مائي
     be = Рака
     cs = Řeka
     da = Flod
@@ -28543,7 +28578,7 @@
   [type.waterway.stream.intermittent]
     en = Intermittent Stream
     af = Beek
-    ar = نهر
+    ar = تيار مائي متقطع
     be = Рака
     cs = Řeka
     da = Flod
@@ -28636,6 +28671,7 @@
   [type.wheelchair]
     en = Wheelchair
     af = Rolstoel
+    ar = كرسي متحرك
     de = Rollstuhl
     es = Silla de ruedas
     et = Ratastool
@@ -28655,7 +28691,7 @@
   [type.wheelchair.limited]
     en = Limited Wheelchair Access
     af = Beperkte rolstoeltoegang
-    ar = دعم محدود لكراسي المعاقين
+    ar = دعم محدود للكراسي المتحركة
     cs = Omezený vstup pro vozíčkáře
     da = Begrænset tilgængelighed for kørestol
     de = Eingeschränkter Rollstuhlzugang
@@ -28693,7 +28729,7 @@
   [type.wheelchair.no]
     en = No Wheelchair Access
     af = Geen rolstoeltoegang
-    ar = لا يدعم لكراسي المعاقين
+    ar = لا دعم للكراسي المتحركة
     cs = Bez přístupu pro vozíčkáře
     da = Ingen tilgængelighed for kørestol
     de = Kein Rollstuhlzugang
@@ -28731,7 +28767,7 @@
   [type.wheelchair.yes]
     en = Full Wheelchair Access
     af = Volle rolstoeltoegang
-    ar = دعم كامل لكراسي المعاقين
+    ar = دعم كامل للكراسي المتحركة
     cs = Plný vstup pro vozíčkáře
     da = Fuld tilgængelighed for kørestol
     de = Vollständiger Zugang für Rollstühle
@@ -29057,7 +29093,7 @@
   [type.shop.collector]
     en = Collectables
     af = Versamelvoorwerpe
-    ar = المقتنيات
+    ar = مقتنيات
     be = Калекцыйныя прадметы
     bg = Колекционерски стоки
     ca = Col·leccionables
