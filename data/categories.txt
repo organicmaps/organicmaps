@@ -15,8 +15,11 @@
 #
 # Categories match their sub-categories, e.g. a search term defined for historic-memorial
 # will also match historic-memorial-statue, historic-memorial-plaque, etc.
-# UPD (VNG): Nope, unfortunatelly (or purposely) it doesn't work like this. Can try "memorial" to search for plaque.
-# You should define all subtypes with '|' delimiter.
+# UPD (VNG): Nope, purposely the logic is more complicated here (from GetCategoryTypes):
+# Truncate |t| up to 2 levels and choose the best category match to find explicit category if any
+#  and not distinguish types like highway-primary-bridge and highway-primary-tunnel or
+#  amenity-parking-fee and amenity-parking-underground-fee _if we do not have such explicit categories_.
+# So subtypes of parking will be searchable, but historic-memorial-plaque is not, because it has an explicit entry.
 #
 # Syntax:
 # @   - indicates the beginning of the group of search terms translations
@@ -5560,7 +5563,7 @@ sk:3Knižnica
 sw:Maktaba
 fa:کتابخانه
 
-amenity-parking|@parking
+amenity-parking|amenity-parking_entrance|@parking
 en:U+1F697|U+1F17F|U+1F698|U+1F699
 ru:Автостоянка
 be:Аўтастаянка
