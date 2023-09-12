@@ -230,6 +230,10 @@
 	<string name="pref_tts_enable_title">Taleinstrukser</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Talespråk</string>
+	<!-- Settings «Route» category: «Test Voice Directions» title -->
+	<string name="pref_tts_test_voice_title">Test taleanvisninger (TTS, tekst-til-tale)</string>
+	<!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+	<string name="pref_tts_playing_test_voice">Kontroller volumet eller systeminnstillingene for tekst-til-tale hvis du ikke hører stemmen nå.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Ikke tilgjengelig</string>
 	<string name="pref_map_auto_zoom">Automatisk zooming</string>
@@ -734,6 +738,8 @@
 	<string name="enable_show_on_lock_screen_description">Når dette er aktivert trenger du ikke låse opp enheten hver gang når appen kjører.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Kartdata fra OpenStreetMap</string>
+	<!-- Tip #00 -->
+	<string name="app_tip_00">Takk for at du bruker kartene vi har laget i fellesskap!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresse/blokk</string>

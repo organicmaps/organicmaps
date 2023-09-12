@@ -230,6 +230,10 @@
 	<string name="pref_tts_enable_title">Instructions vocales</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Langue vocale</string>
+	<!-- Settings «Route» category: «Test Voice Directions» title -->
+	<string name="pref_tts_test_voice_title">Teste les instructions vocales (TTS, Text-To-Speech)</string>
+	<!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+	<string name="pref_tts_playing_test_voice">Vérifie le volume ou les paramètres de synthèse vocale du système si tu n\'entends pas la voix maintenant.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Non disponible</string>
 	<string name="pref_map_auto_zoom">Zoom automatique</string>
@@ -742,6 +746,8 @@
 	<string name="translated_om_site_url">https://organicmaps.app/fr/</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/FR:À_propos_d’OpenStreetMap</string>
+	<!-- Tip #00 -->
+	<string name="app_tip_00">Merci d\'utiliser nos cartes créées par la communauté !</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresse/Bloc</string>

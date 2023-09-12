@@ -231,6 +231,10 @@
 	<string name="pref_tts_enable_title">Voice Instructions</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Voice Language</string>
+	<!-- Settings «Route» category: «Test Voice Directions» title -->
+	<string name="pref_tts_test_voice_title">Test Voice Directions (TTS, Text-To-Speech)</string>
+	<!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+	<string name="pref_tts_playing_test_voice">Check the volume or system Text-To-Speech settings if you don\'t hear the voice now.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Not Available</string>
 	<string name="pref_map_auto_zoom">Auto zoom</string>
@@ -772,6 +776,8 @@
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
 	<!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
 	<string name="comma_separated_pair">%1$s, %2$s</string>
+	<!-- Tip #00 -->
+	<string name="app_tip_00">Thank you for using our community-built maps!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Address/Block</string>

@@ -216,6 +216,10 @@
 	<string name="pref_tts_enable_title">Instruções de voz</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Idioma da voz</string>
+	<!-- Settings «Route» category: «Test Voice Directions» title -->
+	<string name="pref_tts_test_voice_title">Testa as direcções de voz (TTS, Text-To-Speech)</string>
+	<!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+	<string name="pref_tts_playing_test_voice">Verifica o volume ou as definições de conversão de texto em voz do sistema se não ouvires a voz agora.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Não disponível</string>
 	<string name="pref_map_auto_zoom">Ampliação automática</string>
@@ -703,6 +707,8 @@
 	<string name="splash_subtitle">Dados cartográficos do OpenStreetMap</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Pt:Sobre_o_OpenStreetMap</string>
+	<!-- Tip #00 -->
+	<string name="app_tip_00">Obrigado por utilizares os nossos mapas construídos pela comunidade!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Endereço/Bloco</string>

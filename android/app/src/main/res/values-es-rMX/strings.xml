@@ -10,6 +10,10 @@
 	<string name="water">Agua</string>
 	<!-- Generic «Auto» string -->
 	<string name="auto">Automático</string>
+	<!-- Settings «Route» category: «Test Voice Directions» title -->
+	<string name="pref_tts_test_voice_title">Pruebe las instrucciones de voz (TTS, Text-To-Speech)</string>
+	<!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+	<string name="pref_tts_playing_test_voice">Verifique el volumen o la configuración de texto a voz del sistema si no escucha la voz ahora.</string>
 	<!-- red color -->
 	<string name="red">Rojo</string>
 	<!-- yellow color -->

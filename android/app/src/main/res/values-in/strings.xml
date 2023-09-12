@@ -213,6 +213,10 @@
 	<string name="pref_tts_enable_title">Petunjuk Suara</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Bahasa Suara</string>
+	<!-- Settings «Route» category: «Test Voice Directions» title -->
+	<string name="pref_tts_test_voice_title">Menguji petunjuk suara (TTS, Text-To-Speech)</string>
+	<!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+	<string name="pref_tts_playing_test_voice">Periksa pengaturan volume atau pengaturan teks-ke-ucapan sistem jika anda tidak mendengar suara sekarang.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Tidak Tersedia</string>
 	<string name="pref_map_auto_zoom">Perbesar otomatis</string>
@@ -692,6 +696,8 @@
 	<string name="splash_subtitle">Data peta dari OpenStreetMap</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
 	<string name="translated_om_site_url">https://organicmaps.app/id/</string>
+	<!-- Tip #00 -->
+	<string name="app_tip_00">Terima kasih telah menggunakan peta buatan komunitas kami!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Alamat/Blokir</string>

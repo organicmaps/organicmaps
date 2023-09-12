@@ -224,6 +224,10 @@
 	<string name="pref_tts_enable_title">Голосові інструкції</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Мова підказок</string>
+	<!-- Settings «Route» category: «Test Voice Directions» title -->
+	<string name="pref_tts_test_voice_title">Тестування голосових підказок (TTS, Text-To-Speech)</string>
+	<!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+	<string name="pref_tts_playing_test_voice">Якщо ви не чуєте голос, перевірте гучність або налаштування системи перетворення тексту на мовлення.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Не доступнi</string>
 	<string name="pref_map_auto_zoom">Автозум</string>
@@ -725,6 +729,8 @@
 	<string name="translated_om_site_url">https://organicmaps.app/uk/</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Uk:Про_проект</string>
+	<!-- Tip #00 -->
+	<string name="app_tip_00">Дякуємо, що користуєтесь нашими мапами, створеними спільнотою!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адреса/блок</string>

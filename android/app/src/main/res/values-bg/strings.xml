@@ -218,6 +218,10 @@
 	<string name="pref_tts_enable_title">Гласови инструкции</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Език на инструкциите</string>
+	<!-- Settings «Route» category: «Test Voice Directions» title -->
+	<string name="pref_tts_test_voice_title">Тестване на гласови указания (TTS, Text-To-Speech)</string>
+	<!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+	<string name="pref_tts_playing_test_voice">Проверете силата на звука или системните настройки за преобразуване на текст в реч, ако сега не чувате гласа.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Не е налично</string>
 	<string name="pref_map_auto_zoom">Автоматично мащабиране</string>
@@ -660,6 +664,8 @@
 	<string name="enable_screen_sleep_description">Когато е разрешено, екранът ще бъде оставен да заспи след определен период на неактивност.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Картографски данни от OpenStreetMap</string>
+	<!-- Tip #00 -->
+	<string name="app_tip_00">Благодарим ви, че използвате нашите карти, създадени от общността!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адрес/Блок</string>

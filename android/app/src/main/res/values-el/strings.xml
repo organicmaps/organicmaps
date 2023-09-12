@@ -212,6 +212,10 @@
 	<string name="pref_tts_enable_title">Φωνητικές οδηγίες</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Γλώσσα φωνής</string>
+	<!-- Settings «Route» category: «Test Voice Directions» title -->
+	<string name="pref_tts_test_voice_title">Δοκιμή φωνητικών οδηγιών (TTS, Text-To-Speech)</string>
+	<!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+	<string name="pref_tts_playing_test_voice">Ελέγξτε την ένταση ήχου ή τις ρυθμίσεις του συστήματος text-to-speech αν δεν ακούτε τη φωνή τώρα.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Δεν είναι διαθέσιμη</string>
 	<string name="pref_map_auto_zoom">Αυτόματη μεγέθυνση</string>
@@ -683,6 +687,8 @@
 	<string name="splash_subtitle">Δεδομένα χάρτη από το OpenStreetMap</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/El:About_OpenStreetMap</string>
+	<!-- Tip #00 -->
+	<string name="app_tip_00">Σας ευχαριστούμε που χρησιμοποιείτε τους χάρτες μας που δημιουργήθηκαν από την κοινότητα!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Διεύθυνση/Μπλοκ</string>

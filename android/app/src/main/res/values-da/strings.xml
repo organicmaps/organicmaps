@@ -211,6 +211,10 @@
 	<string name="pref_tts_enable_title">Stemmeinstruktioner</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Stemmesprog</string>
+	<!-- Settings «Route» category: «Test Voice Directions» title -->
+	<string name="pref_tts_test_voice_title">Test stemmeanvisninger (TTS, Text-To-Speech)</string>
+	<!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+	<string name="pref_tts_playing_test_voice">Tjek lydstyrken eller systemets tekst-til-tale-indstillinger, hvis du ikke kan høre stemmen nu.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Ikke til rådighed</string>
 	<string name="pref_map_auto_zoom">Auto zoom</string>
@@ -692,6 +696,8 @@
 	<string name="splash_subtitle">Kortdata fra OpenStreetMap</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Da:Om_OpenStreetMap</string>
+	<!-- Tip #00 -->
+	<string name="app_tip_00">Tak, fordi du bruger vores community-byggede kort!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresse/blok</string>
