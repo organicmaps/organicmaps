@@ -2268,11 +2268,17 @@
 
 "type.historic" = "مكان تاريخي";
 
+"type.historic.aircraft" = "الطائرات التاريخية";
+
+"type.historic.anchor" = "مرساة تاريخية";
+
 "type.historic.archaeological_site" = "موقع أثري";
 
 "type.historic.battlefield" = "ساحة معركة تاريخية";
 
 "type.historic.boundary_stone" = "حجر لتحديد الحدود";
+
+"type.historic.cannon" = "مدفع";
 
 "type.historic.castle" = "قلعة";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "مشنقة";
 
+"type.historic.locomotive" = "قاطرة تاريخية";
+
 "type.historic.memorial" = "نصب تذكاري";
 
 "type.historic.memorial.cross" = "صليب تذكاري";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "حجر عثرة";
 
+"type.historic.stone" = "الحجر التاريخي";
+
 "type.historic.memorial.war_memorial" = "نصب حرب تذكاري";
+
+"type.historic.mine" = "منجم تاريخي";
 
 "type.historic.monument" = "نصب تذكاري";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "سفينة";
 
+"type.historic.tank" = "الخزان التاريخي";
+
 "type.historic.tomb" = "قبر";
 
 "type.historic.wayside_cross" = "صليب جانب الطريق";
 
 "type.historic.wayside_shrine" = "ضريح جانب الطريق";
+
+"type.historic.wreck" = "حطام سفينة";
 
 "type.hwtag" = "hwtag";
 

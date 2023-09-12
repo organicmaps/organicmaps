@@ -2268,11 +2268,17 @@
 
 "type.historic" = "史跡";
 
+"type.historic.aircraft" = "歴史的な航空機";
+
+"type.historic.anchor" = "歴史的なアンカー";
+
 "type.historic.archaeological_site" = "考古遺跡";
 
 "type.historic.battlefield" = "古戦場";
 
 "type.historic.boundary_stone" = "境界標";
+
+"type.historic.cannon" = "大砲";
 
 "type.historic.castle" = "城";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "絞首台";
 
+"type.historic.locomotive" = "歴史的な機関車";
+
 "type.historic.memorial" = "記念碑";
 
 "type.historic.memorial.cross" = "メモリアルクロス";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "ストルパーシュタイン";
 
+"type.historic.stone" = "歴史的な石";
+
 "type.historic.memorial.war_memorial" = "戦争記念施設";
+
+"type.historic.mine" = "歴史ある鉱山";
 
 "type.historic.monument" = "記念碑";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "退役船";
 
+"type.historic.tank" = "歴史的な戦車";
+
 "type.historic.tomb" = "墓";
 
 "type.historic.wayside_cross" = "歴史的な十字架";
 
 "type.historic.wayside_shrine" = "歴史的な祠";
+
+"type.historic.wreck" = "難破船";
 
 "type.hwtag" = "hwtag";
 

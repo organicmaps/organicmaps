@@ -2268,11 +2268,17 @@
 
 "type.historic" = "Oggetto storico";
 
+"type.historic.aircraft" = "Aerei storici";
+
+"type.historic.anchor" = "Ancora storica";
+
 "type.historic.archaeological_site" = "Sito archeologico";
 
 "type.historic.battlefield" = "Campo di battaglia";
 
 "type.historic.boundary_stone" = "Cippo di confine";
+
+"type.historic.cannon" = "Cannone";
 
 "type.historic.castle" = "Castello";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "Forca";
 
+"type.historic.locomotive" = "Locomotiva storica";
+
 "type.historic.memorial" = "Memoriale";
 
 "type.historic.memorial.cross" = "Croce commemorativa";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "Pietre d'inciampo";
 
+"type.historic.stone" = "Pietra storica";
+
 "type.historic.memorial.war_memorial" = "Monumento ai caduti";
+
+"type.historic.mine" = "Miniera storica";
 
 "type.historic.monument" = "Monumento";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "Nave storica";
 
+"type.historic.tank" = "Carro armato storico";
+
 "type.historic.tomb" = "Tomba";
 
 "type.historic.wayside_cross" = "Crocifisso";
 
 "type.historic.wayside_shrine" = "Edicola votiva";
+
+"type.historic.wreck" = "Naufragio";
 
 "type.hwtag" = "hwtag";
 

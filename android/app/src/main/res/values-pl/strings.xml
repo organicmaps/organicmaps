@@ -1257,9 +1257,12 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Historyczne</string>
+	<string name="type.historic.aircraft">Historyczny samolot</string>
+	<string name="type.historic.anchor">Historyczna kotwica</string>
 	<string name="type.historic.archaeological_site">Odkrywka archeologiczna</string>
 	<string name="type.historic.battlefield">Miejsce historycznej bitwy</string>
 	<string name="type.historic.boundary_stone">Historyczny kamień graniczny</string>
+	<string name="type.historic.cannon">Armata</string>
 	<string name="type.historic.castle">Zamek</string>
 	<string name="type.historic.castle.castrum">Castrum Romanum</string>
 	<string name="type.historic.castle.defensive">Zamek</string>
@@ -1275,20 +1278,25 @@
 	<string name="type.historic.citywalls">Mur miejski</string>
 	<string name="type.historic.fort">Historyczny fort</string>
 	<string name="type.historic.gallows">Szubienica</string>
+	<string name="type.historic.locomotive">Zabytkowa lokomotywa</string>
 	<string name="type.historic.memorial">Pomnik</string>
 	<string name="type.historic.memorial.cross">Krzyż pomnikowy</string>
 	<string name="type.historic.memorial.plaque">Tablica pamiątkowa</string>
 	<string name="type.historic.memorial.sculpture">Rzeźba</string>
 	<string name="type.historic.memorial.statue">Pomnik</string>
 	<string name="type.historic.memorial.stolperstein">Kamień pamięci</string>
+	<string name="type.historic.stone">Historyczny kamień</string>
 	<string name="type.historic.memorial.war_memorial">Pomnik wojenny</string>
+	<string name="type.historic.mine">Kopalnia Historyczna</string>
 	<string name="type.historic.monument">Monument</string>
 	<string name="type.historic.pillory">Pręgierz</string>
 	<string name="type.historic.ruins">Ruiny</string>
 	<string name="type.historic.ship">Okręt</string>
+	<string name="type.historic.tank">Historyczny czołg</string>
 	<string name="type.historic.tomb">Grobowiec</string>
 	<string name="type.historic.wayside_cross">Krzyż przydrożny</string>
 	<string name="type.historic.wayside_shrine">Kapliczka przydrożna</string>
+	<string name="type.historic.wreck">Wrak statku</string>
 	<string name="type.junction">Skrzyżowanie</string>
 	<string name="type.junction.circular">Rondo</string>
 	<string name="type.junction.roundabout">Rondo</string>

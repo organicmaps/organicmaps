@@ -2268,11 +2268,17 @@
 
 "type.historic" = "วัตถุประวัติศาสตร์";
 
+"type.historic.aircraft" = "เครื่องบินประวัติศาสตร์";
+
+"type.historic.anchor" = "ผู้ประกาศข่าวประวัติศาสตร์";
+
 "type.historic.archaeological_site" = "โบราณสถาน";
 
 "type.historic.battlefield" = "สนามรบ";
 
 "type.historic.boundary_stone" = "ขอบหิน";
+
+"type.historic.cannon" = "ปืนใหญ่";
 
 "type.historic.castle" = "ปราสาท";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "Gallows";
 
+"type.historic.locomotive" = "หัวรถจักรประวัติศาสตร์";
+
 "type.historic.memorial" = "ที่ระลึก";
 
 "type.historic.memorial.cross" = "อนุสรณ์สถานข้าม";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "อุปสรรค์";
 
+"type.historic.stone" = "หินประวัติศาสตร์";
+
 "type.historic.memorial.war_memorial" = "อนุสรณ์สถานสงคราม";
+
+"type.historic.mine" = "เหมืองประวัติศาสตร์";
 
 "type.historic.monument" = "อนุสาวรีย์";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "สถานที่ท่องเที่ยว";
 
+"type.historic.tank" = "รถถังประวัติศาสตร์";
+
 "type.historic.tomb" = "สถานที่ท่องเที่ยว";
 
 "type.historic.wayside_cross" = "ทางข้าม";
 
 "type.historic.wayside_shrine" = "ศาลเจ้าข้างทาง";
+
+"type.historic.wreck" = "ซากเรืออัปปาง";
 
 "type.hwtag" = "hwtag";
 

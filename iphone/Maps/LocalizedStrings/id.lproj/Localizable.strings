@@ -2268,11 +2268,17 @@
 
 "type.historic" = "Objek bersejarah";
 
+"type.historic.aircraft" = "Pesawat Bersejarah";
+
+"type.historic.anchor" = "Jangkar Bersejarah";
+
 "type.historic.archaeological_site" = "Situs arkeologi";
 
 "type.historic.battlefield" = "Medan Perang";
 
 "type.historic.boundary_stone" = "Batu pembatas";
+
+"type.historic.cannon" = "Meriam";
 
 "type.historic.castle" = "Kastel";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "Tiang gantungan";
 
+"type.historic.locomotive" = "Lokomotif Bersejarah";
+
 "type.historic.memorial" = "Tugu peringatan";
 
 "type.historic.memorial.cross" = "Salib peringatan";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "Stolperstein";
 
+"type.historic.stone" = "Batu Bersejarah";
+
 "type.historic.memorial.war_memorial" = "Tugu peringatan perang";
+
+"type.historic.mine" = "Tambang Bersejarah";
 
 "type.historic.monument" = "Monumen";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "Pemandangan";
 
+"type.historic.tank" = "Tangki Bersejarah";
+
 "type.historic.tomb" = "Pemandangan";
 
 "type.historic.wayside_cross" = "Salib di pinggir jalan";
 
 "type.historic.wayside_shrine" = "Kuil di pinggir jalan";
+
+"type.historic.wreck" = "Kecelakaan kapal";
 
 "type.hwtag" = "hwtag";
 

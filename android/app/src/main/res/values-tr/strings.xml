@@ -1274,9 +1274,12 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Tarihi</string>
+	<string name="type.historic.aircraft">Tarihi Uçak</string>
+	<string name="type.historic.anchor">Tarihi Çapa</string>
 	<string name="type.historic.archaeological_site">Sit Alanı</string>
 	<string name="type.historic.battlefield">Harp Meydanı</string>
 	<string name="type.historic.boundary_stone">Sınır Taşı</string>
+	<string name="type.historic.cannon">Top</string>
 	<string name="type.historic.castle">Müstahkem şato</string>
 	<string name="type.historic.castle.castrum">Castra</string>
 	<string name="type.historic.castle.defensive">Müstahkem şato</string>
@@ -1292,20 +1295,25 @@
 	<string name="type.historic.citywalls">Şehir Duvarı</string>
 	<string name="type.historic.fort">Hisar</string>
 	<string name="type.historic.gallows">Darağacı</string>
+	<string name="type.historic.locomotive">Tarihi Lokomotif</string>
 	<string name="type.historic.memorial">Abide</string>
 	<string name="type.historic.memorial.cross">Anıt haç</string>
 	<string name="type.historic.memorial.plaque">Hatıra Plaketi</string>
 	<string name="type.historic.memorial.sculpture">Heykel</string>
 	<string name="type.historic.memorial.statue">Heykel</string>
 	<string name="type.historic.memorial.stolperstein">Tökezleyen Taşlar</string>
+	<string name="type.historic.stone">Tarihi Taş</string>
 	<string name="type.historic.memorial.war_memorial">Savaş anıtı</string>
+	<string name="type.historic.mine">Tarihi Maden</string>
 	<string name="type.historic.monument">Anıt</string>
 	<string name="type.historic.pillory">Boyunduruk</string>
 	<string name="type.historic.ruins">Harabeler</string>
 	<string name="type.historic.ship">Görülecek yerler</string>
+	<string name="type.historic.tank">Tarihi Tank</string>
 	<string name="type.historic.tomb">Türbe</string>
 	<string name="type.historic.wayside_cross">Hıristiyan Haçı</string>
 	<string name="type.historic.wayside_shrine">Tapınak</string>
+	<string name="type.historic.wreck">Gemi enkazı</string>
 	<string name="type.internet_access">İnternet</string>
 	<string name="type.internet_access.wlan">İnternet</string>
 	<string name="type.junction">Kavşak noktası</string>

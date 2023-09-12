@@ -2268,11 +2268,17 @@
 
 "type.historic" = "Historiallinen esine";
 
+"type.historic.aircraft" = "Historiallinen lentokone";
+
+"type.historic.anchor" = "Historiallinen ankkuri";
+
 "type.historic.archaeological_site" = "Arkeologinen kohde";
 
 "type.historic.battlefield" = "Taistelukenttä";
 
 "type.historic.boundary_stone" = "Rajamerkki";
+
+"type.historic.cannon" = "Tykki";
 
 "type.historic.castle" = "Linna";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "Hirsipuu";
 
+"type.historic.locomotive" = "Historiallinen veturi";
+
 "type.historic.memorial" = "Muistomerkki";
 
 "type.historic.memorial.cross" = "Muistoristi";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "Kompastuskivet";
 
+"type.historic.stone" = "Historiallinen kivi";
+
 "type.historic.memorial.war_memorial" = "Sotamuistomerkki";
+
+"type.historic.mine" = "Historiallinen kaivos";
 
 "type.historic.monument" = "Monumentti";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "Alus";
 
+"type.historic.tank" = "Historiallinen tankki";
+
 "type.historic.tomb" = "Hautakammio";
 
 "type.historic.wayside_cross" = "Tienvarren risti";
 
 "type.historic.wayside_shrine" = "Tienvarren pyhäkkö";
+
+"type.historic.wreck" = "Haaksirikko";
 
 "type.hwtag" = "hwtag";
 

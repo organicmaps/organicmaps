@@ -2268,11 +2268,17 @@
 
 "type.historic" = "Гістарычны аб'ект";
 
+"type.historic.aircraft" = "Гістарычныя самалёты";
+
+"type.historic.anchor" = "Гістарычны якар";
+
 "type.historic.archaeological_site" = "Археалагічны помнік";
 
 "type.historic.battlefield" = "Поле бітвы";
 
 "type.historic.boundary_stone" = "Межавы камень";
+
+"type.historic.cannon" = "Гармата";
 
 "type.historic.castle" = "Замак";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "Шыбеніца";
 
+"type.historic.locomotive" = "Гістарычны паравоз";
+
 "type.historic.memorial" = "Мемарыял";
 
 "type.historic.memorial.cross" = "Памятны крыж";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "Камяні спатыкнення";
 
+"type.historic.stone" = "Гістарычны камень";
+
 "type.historic.memorial.war_memorial" = "Ваенны мемарыял";
+
+"type.historic.mine" = "Гістарычная шахта";
 
 "type.historic.monument" = "Помнік";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "Судна";
 
+"type.historic.tank" = "Гістарычны танк";
+
 "type.historic.tomb" = "Магіла";
 
 "type.historic.wayside_cross" = "Прыдарожны крыж";
 
 "type.historic.wayside_shrine" = "Прыдарожная святыня";
+
+"type.historic.wreck" = "Караблекрушэнне";
 
 "type.hwtag" = "hwtag";
 

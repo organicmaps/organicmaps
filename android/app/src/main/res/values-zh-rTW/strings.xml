@@ -1191,9 +1191,12 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">歷史地點</string>
+	<string name="type.historic.aircraft">歷史悠久的飛機</string>
+	<string name="type.historic.anchor">歷史錨</string>
 	<string name="type.historic.archaeological_site">考古遺址</string>
 	<string name="type.historic.battlefield">古戰場</string>
 	<string name="type.historic.boundary_stone">界碑</string>
+	<string name="type.historic.cannon">大砲</string>
 	<string name="type.historic.castle">城堡</string>
 	<string name="type.historic.castle.castrum">古羅馬兵營</string>
 	<string name="type.historic.castle.defensive">城堡</string>
@@ -1209,20 +1212,25 @@
 	<string name="type.historic.citywalls">城牆</string>
 	<string name="type.historic.fort">歷史要塞</string>
 	<string name="type.historic.gallows">絞架</string>
+	<string name="type.historic.locomotive">歷史悠久的機車</string>
 	<string name="type.historic.memorial">紀念館</string>
 	<string name="type.historic.memorial.cross">紀念十字架</string>
 	<string name="type.historic.memorial.plaque">紀念牌匾</string>
 	<string name="type.historic.memorial.sculpture">雕塑</string>
 	<string name="type.historic.memorial.statue">塑像</string>
 	<string name="type.historic.memorial.stolperstein">絆腳石</string>
+	<string name="type.historic.stone">歷史之石</string>
 	<string name="type.historic.memorial.war_memorial">戰爭紀念建築</string>
+	<string name="type.historic.mine">歷史礦山</string>
 	<string name="type.historic.monument">紀念碑</string>
 	<string name="type.historic.pillory">刑柱</string>
 	<string name="type.historic.ruins">廢墟</string>
 	<string name="type.historic.ship">歷史船</string>
+	<string name="type.historic.tank">歷史悠久的坦克</string>
 	<string name="type.historic.tomb">陵墓</string>
 	<string name="type.historic.wayside_cross">路旁十字架</string>
 	<string name="type.historic.wayside_shrine">路旁神龕</string>
+	<string name="type.historic.wreck">沉船</string>
 	<string name="type.internet_access">互聯網</string>
 	<string name="type.internet_access.wlan">互聯網</string>
 	<string name="type.landuse.basin">水庫</string>

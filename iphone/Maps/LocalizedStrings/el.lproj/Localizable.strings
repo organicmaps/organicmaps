@@ -2268,11 +2268,17 @@
 
 "type.historic" = "Ιστορικό αντικείμενο";
 
+"type.historic.aircraft" = "Ιστορικό αεροσκάφος";
+
+"type.historic.anchor" = "Ιστορική Άγκυρα";
+
 "type.historic.archaeological_site" = "Αρχαιολογικός χώρος";
 
 "type.historic.battlefield" = "Πεδίο μάχης";
 
 "type.historic.boundary_stone" = "Οριακή πέτρα";
+
+"type.historic.cannon" = "Κανόνι";
 
 "type.historic.castle" = "Κάστρο";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "Αγχόνη";
 
+"type.historic.locomotive" = "Ιστορική Ατμομηχανή";
+
 "type.historic.memorial" = "Μνημείο";
 
 "type.historic.memorial.cross" = "Σταυρός μνήμης";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "Λίθοι Μνήμης";
 
+"type.historic.stone" = "Ιστορική Πέτρα";
+
 "type.historic.memorial.war_memorial" = "Μνημείο του Αγνώστου Στρατιώτη";
+
+"type.historic.mine" = "Ιστορικό Ορυχείο";
 
 "type.historic.monument" = "Μνημείο";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "Αξιοθέατο";
 
+"type.historic.tank" = "Ιστορική δεξαμενή";
+
 "type.historic.tomb" = "Αξιοθέατο";
 
 "type.historic.wayside_cross" = "Σταυρός στην άκρη του δρόμου";
 
 "type.historic.wayside_shrine" = "Εικονοστάσιο στην άκρη του δρόμου";
+
+"type.historic.wreck" = "Ναυάγιο";
 
 "type.hwtag" = "hwtag";
 

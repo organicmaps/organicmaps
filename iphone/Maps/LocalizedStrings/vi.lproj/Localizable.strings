@@ -2268,11 +2268,17 @@
 
 "type.historic" = "Đối tượng lịch sử";
 
+"type.historic.aircraft" = "Máy bay lịch sử";
+
+"type.historic.anchor" = "Mỏ Neo lịch sử";
+
 "type.historic.archaeological_site" = "Điểm khảo cổ";
 
 "type.historic.battlefield" = "Chiến trường";
 
 "type.historic.boundary_stone" = "Đá ranh giới";
+
+"type.historic.cannon" = "Pháo";
 
 "type.historic.castle" = "Lâu đài";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "Giá treo cổ";
 
+"type.historic.locomotive" = "Đầu máy lịch sử";
+
 "type.historic.memorial" = "Đài tưởng niệm";
 
 "type.historic.memorial.cross" = "Thánh giá tưởng niệm";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "Vấp ngã";
 
+"type.historic.stone" = "Đá lịch sử";
+
 "type.historic.memorial.war_memorial" = "Đài tưởng niệm chiến tranh";
+
+"type.historic.mine" = "Mỏ lịch sử";
 
 "type.historic.monument" = "Tượng đài";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "Diểm tham quan";
 
+"type.historic.tank" = "Xe tăng lịch sử";
+
 "type.historic.tomb" = "Diểm tham quan";
 
 "type.historic.wayside_cross" = "Đường chéo";
 
 "type.historic.wayside_shrine" = "Đền thờ";
+
+"type.historic.wreck" = "Sự chìm tàu";
 
 "type.hwtag" = "hwtag";
 

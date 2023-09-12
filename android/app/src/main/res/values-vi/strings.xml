@@ -1157,9 +1157,12 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Đối tượng lịch sử</string>
+	<string name="type.historic.aircraft">Máy bay lịch sử</string>
+	<string name="type.historic.anchor">Mỏ Neo lịch sử</string>
 	<string name="type.historic.archaeological_site">Điểm khảo cổ</string>
 	<string name="type.historic.battlefield">Chiến trường</string>
 	<string name="type.historic.boundary_stone">Đá ranh giới</string>
+	<string name="type.historic.cannon">Pháo</string>
 	<string name="type.historic.castle">Lâu đài</string>
 	<string name="type.historic.castle.castrum">Pháo đài La mã</string>
 	<string name="type.historic.castle.defensive">Lâu đài</string>
@@ -1175,20 +1178,25 @@
 	<string name="type.historic.citywalls">Tường thành</string>
 	<string name="type.historic.fort">Pháo đài</string>
 	<string name="type.historic.gallows">Giá treo cổ</string>
+	<string name="type.historic.locomotive">Đầu máy lịch sử</string>
 	<string name="type.historic.memorial">Đài tưởng niệm</string>
 	<string name="type.historic.memorial.cross">Thánh giá tưởng niệm</string>
 	<string name="type.historic.memorial.plaque">Đài tưởng niệm</string>
 	<string name="type.historic.memorial.sculpture">Đài tưởng niệm</string>
 	<string name="type.historic.memorial.statue">Đài tưởng niệm</string>
 	<string name="type.historic.memorial.stolperstein">Vấp ngã</string>
+	<string name="type.historic.stone">Đá lịch sử</string>
 	<string name="type.historic.memorial.war_memorial">Đài tưởng niệm chiến tranh</string>
+	<string name="type.historic.mine">Mỏ lịch sử</string>
 	<string name="type.historic.monument">Tượng đài</string>
 	<string name="type.historic.pillory">Thuốc viên</string>
 	<string name="type.historic.ruins">Phế tích</string>
 	<string name="type.historic.ship">Diểm tham quan</string>
+	<string name="type.historic.tank">Xe tăng lịch sử</string>
 	<string name="type.historic.tomb">Diểm tham quan</string>
 	<string name="type.historic.wayside_cross">Đường chéo</string>
 	<string name="type.historic.wayside_shrine">Đền thờ</string>
+	<string name="type.historic.wreck">Sự chìm tàu</string>
 	<string name="type.landuse.basin">Một chậu nước</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Bãi tha ma</string>

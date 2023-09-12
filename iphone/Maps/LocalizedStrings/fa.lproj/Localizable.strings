@@ -2268,11 +2268,17 @@
 
 "type.historic" = "شیء تاریخی";
 
+"type.historic.aircraft" = "هواپیمای تاریخی";
+
+"type.historic.anchor" = "لنگر تاریخی";
+
 "type.historic.archaeological_site" = "گردشگری";
 
 "type.historic.battlefield" = "میدان جنگ";
 
 "type.historic.boundary_stone" = "نشانگر مرز";
+
+"type.historic.cannon" = "توپ";
 
 "type.historic.castle" = "قلعه";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "چوبه دار";
 
+"type.historic.locomotive" = "لوکوموتیو تاریخی";
+
 "type.historic.memorial" = "گردشگری";
 
 "type.historic.memorial.cross" = "صلیب یادبود";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "سنگ مانع";
 
+"type.historic.stone" = "سنگ تاریخی";
+
 "type.historic.memorial.war_memorial" = "رزم‌یاد";
+
+"type.historic.mine" = "معدن تاریخی";
 
 "type.historic.monument" = "گردشگری";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "گردشگری";
 
+"type.historic.tank" = "تانک تاریخی";
+
 "type.historic.tomb" = "گردشگری";
 
 "type.historic.wayside_cross" = "صلیب کنار راه";
 
 "type.historic.wayside_shrine" = "حرم کنار راه";
+
+"type.historic.wreck" = "غرق کشتی";
 
 "type.hwtag" = "hwtag";
 

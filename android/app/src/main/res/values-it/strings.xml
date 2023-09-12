@@ -1253,9 +1253,12 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Oggetto storico</string>
+	<string name="type.historic.aircraft">Aerei storici</string>
+	<string name="type.historic.anchor">Ancora storica</string>
 	<string name="type.historic.archaeological_site">Sito archeologico</string>
 	<string name="type.historic.battlefield">Campo di battaglia</string>
 	<string name="type.historic.boundary_stone">Cippo di confine</string>
+	<string name="type.historic.cannon">Cannone</string>
 	<string name="type.historic.castle">Castello</string>
 	<string name="type.historic.castle.castrum">Castra</string>
 	<string name="type.historic.castle.defensive">Castello</string>
@@ -1271,20 +1274,25 @@
 	<string name="type.historic.citywalls">Muro della città</string>
 	<string name="type.historic.fort">Fortezza</string>
 	<string name="type.historic.gallows">Forca</string>
+	<string name="type.historic.locomotive">Locomotiva storica</string>
 	<string name="type.historic.memorial">Memoriale</string>
 	<string name="type.historic.memorial.cross">Croce commemorativa</string>
 	<string name="type.historic.memorial.plaque">Memoriale</string>
 	<string name="type.historic.memorial.sculpture">Scultura</string>
 	<string name="type.historic.memorial.statue">Statua memoriale</string>
 	<string name="type.historic.memorial.stolperstein">Pietre d\'inciampo</string>
+	<string name="type.historic.stone">Pietra storica</string>
 	<string name="type.historic.memorial.war_memorial">Monumento ai caduti</string>
+	<string name="type.historic.mine">Miniera storica</string>
 	<string name="type.historic.monument">Monumento</string>
 	<string name="type.historic.pillory">Gogna</string>
 	<string name="type.historic.ruins">Rovine</string>
 	<string name="type.historic.ship">Nave storica</string>
+	<string name="type.historic.tank">Carro armato storico</string>
 	<string name="type.historic.tomb">Tomba</string>
 	<string name="type.historic.wayside_cross">Crocifisso</string>
 	<string name="type.historic.wayside_shrine">Edicola votiva</string>
+	<string name="type.historic.wreck">Naufragio</string>
 	<string name="type.junction">Incrocio</string>
 	<string name="type.junction.circular">Rotonda</string>
 	<string name="type.junction.roundabout">Rotonda</string>

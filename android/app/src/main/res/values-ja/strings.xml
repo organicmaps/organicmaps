@@ -1196,9 +1196,12 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">史跡</string>
+	<string name="type.historic.aircraft">歴史的な航空機</string>
+	<string name="type.historic.anchor">歴史的なアンカー</string>
 	<string name="type.historic.archaeological_site">考古遺跡</string>
 	<string name="type.historic.battlefield">古戦場</string>
 	<string name="type.historic.boundary_stone">境界標</string>
+	<string name="type.historic.cannon">大砲</string>
 	<string name="type.historic.castle">城</string>
 	<string name="type.historic.castle.castrum">カストラ</string>
 	<string name="type.historic.castle.defensive">城</string>
@@ -1214,20 +1217,25 @@
 	<string name="type.historic.citywalls">城壁</string>
 	<string name="type.historic.fort">歴史的な要塞</string>
 	<string name="type.historic.gallows">絞首台</string>
+	<string name="type.historic.locomotive">歴史的な機関車</string>
 	<string name="type.historic.memorial">記念碑</string>
 	<string name="type.historic.memorial.cross">メモリアルクロス</string>
 	<string name="type.historic.memorial.plaque">銘板</string>
 	<string name="type.historic.memorial.sculpture">彫刻</string>
 	<string name="type.historic.memorial.statue">塑像</string>
 	<string name="type.historic.memorial.stolperstein">ストルパーシュタイン</string>
+	<string name="type.historic.stone">歴史的な石</string>
 	<string name="type.historic.memorial.war_memorial">戦争記念施設</string>
+	<string name="type.historic.mine">歴史ある鉱山</string>
 	<string name="type.historic.monument">記念碑</string>
 	<string name="type.historic.pillory">さらし台</string>
 	<string name="type.historic.ruins">古跡</string>
 	<string name="type.historic.ship">退役船</string>
+	<string name="type.historic.tank">歴史的な戦車</string>
 	<string name="type.historic.tomb">墓</string>
 	<string name="type.historic.wayside_cross">歴史的な十字架</string>
 	<string name="type.historic.wayside_shrine">歴史的な祠</string>
+	<string name="type.historic.wreck">難破船</string>
 	<string name="type.internet_access">インターネット</string>
 	<string name="type.internet_access.wlan">インターネット</string>
 	<string name="type.junction">交差点</string>

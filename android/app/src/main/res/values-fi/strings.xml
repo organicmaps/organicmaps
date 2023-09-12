@@ -1267,9 +1267,12 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Historiallinen esine</string>
+	<string name="type.historic.aircraft">Historiallinen lentokone</string>
+	<string name="type.historic.anchor">Historiallinen ankkuri</string>
 	<string name="type.historic.archaeological_site">Arkeologinen kohde</string>
 	<string name="type.historic.battlefield">Taistelukenttä</string>
 	<string name="type.historic.boundary_stone">Rajamerkki</string>
+	<string name="type.historic.cannon">Tykki</string>
 	<string name="type.historic.castle">Linna</string>
 	<string name="type.historic.castle.castrum">Roomalaisleiri</string>
 	<string name="type.historic.castle.defensive">Linnake</string>
@@ -1285,20 +1288,25 @@
 	<string name="type.historic.citywalls">Kaupungin muuri</string>
 	<string name="type.historic.fort">Linnake</string>
 	<string name="type.historic.gallows">Hirsipuu</string>
+	<string name="type.historic.locomotive">Historiallinen veturi</string>
 	<string name="type.historic.memorial">Muistomerkki</string>
 	<string name="type.historic.memorial.cross">Muistoristi</string>
 	<string name="type.historic.memorial.plaque">Muistolaatta</string>
 	<string name="type.historic.memorial.sculpture">Veistos</string>
 	<string name="type.historic.memorial.statue">Patsas</string>
 	<string name="type.historic.memorial.stolperstein">Kompastuskivet</string>
+	<string name="type.historic.stone">Historiallinen kivi</string>
 	<string name="type.historic.memorial.war_memorial">Sotamuistomerkki</string>
+	<string name="type.historic.mine">Historiallinen kaivos</string>
 	<string name="type.historic.monument">Monumentti</string>
 	<string name="type.historic.pillory">Häpeäpaalu</string>
 	<string name="type.historic.ruins">Rauniot</string>
 	<string name="type.historic.ship">Alus</string>
+	<string name="type.historic.tank">Historiallinen tankki</string>
 	<string name="type.historic.tomb">Hautakammio</string>
 	<string name="type.historic.wayside_cross">Tienvarren risti</string>
 	<string name="type.historic.wayside_shrine">Tienvarren pyhäkkö</string>
+	<string name="type.historic.wreck">Haaksirikko</string>
 	<string name="type.junction">Risteys</string>
 	<string name="type.junction.circular">Liikenneympyrä</string>
 	<string name="type.junction.roundabout">Liikenneympyrä</string>

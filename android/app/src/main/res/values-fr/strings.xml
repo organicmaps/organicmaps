@@ -1263,9 +1263,12 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Objet historique</string>
+	<string name="type.historic.aircraft">Avion historique</string>
+	<string name="type.historic.anchor">Ancre historique</string>
 	<string name="type.historic.archaeological_site">Site archéologique</string>
 	<string name="type.historic.battlefield">Champ de bataille</string>
 	<string name="type.historic.boundary_stone">Borne frontière</string>
+	<string name="type.historic.cannon">Canon</string>
 	<string name="type.historic.castle">Château fort</string>
 	<string name="type.historic.castle.castrum">Camp romain</string>
 	<string name="type.historic.castle.defensive">Château fort</string>
@@ -1281,20 +1284,25 @@
 	<string name="type.historic.citywalls">Mur de la ville</string>
 	<string name="type.historic.fort">Fort militaire</string>
 	<string name="type.historic.gallows">Potence</string>
+	<string name="type.historic.locomotive">Locomotive historique</string>
 	<string name="type.historic.memorial">Mémorial</string>
 	<string name="type.historic.memorial.cross">Croix commémorative</string>
 	<string name="type.historic.memorial.plaque">Plaque commémorative</string>
 	<string name="type.historic.memorial.sculpture">Sculpture</string>
 	<string name="type.historic.memorial.statue">Mémorial</string>
 	<string name="type.historic.memorial.stolperstein">Stolperstein</string>
+	<string name="type.historic.stone">Pierre historique</string>
 	<string name="type.historic.memorial.war_memorial">Monument aux morts</string>
+	<string name="type.historic.mine">Mine historique</string>
 	<string name="type.historic.monument">Monument</string>
 	<string name="type.historic.pillory">Pilori</string>
 	<string name="type.historic.ruins">Ruines</string>
 	<string name="type.historic.ship">Navire</string>
+	<string name="type.historic.tank">Char historique</string>
 	<string name="type.historic.tomb">Tombe historique</string>
 	<string name="type.historic.wayside_cross">Croix de chemin</string>
 	<string name="type.historic.wayside_shrine">Oratoire</string>
+	<string name="type.historic.wreck">Naufrage</string>
 	<string name="type.junction.circular">Rond-point</string>
 	<string name="type.junction.roundabout">Rond-point</string>
 	<string name="type.landuse.allotments">Jardins familiaux</string>

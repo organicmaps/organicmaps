@@ -2268,11 +2268,17 @@
 
 "type.historic" = "ऐतिहासिक";
 
+"type.historic.aircraft" = "ऐतिहासिक विमान";
+
+"type.historic.anchor" = "ऐतिहासिक अँकर";
+
 "type.historic.archaeological_site" = "पुरातत्व स्थळ";
 
 "type.historic.battlefield" = "रणांगण";
 
 "type.historic.boundary_stone" = "सीमेचा दगड";
+
+"type.historic.cannon" = "तोफ";
 
 "type.historic.castle" = "गढी";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "फाशी";
 
+"type.historic.locomotive" = "ऐतिहासिक लोकोमोटिव्ह";
+
 "type.historic.memorial" = "स्मारक";
 
 "type.historic.memorial.cross" = "मेमोरियल क्रॉस";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "अडथळा";
 
+"type.historic.stone" = "ऐतिहासिक दगड";
+
 "type.historic.memorial.war_memorial" = "युद्ध स्मारक";
+
+"type.historic.mine" = "ऐतिहासिक खाण";
 
 "type.historic.monument" = "स्मारक";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "जहाज";
 
+"type.historic.tank" = "ऐतिहासिक टाकी";
+
 "type.historic.tomb" = "थडगे";
 
 "type.historic.wayside_cross" = "ख्रिश्चन क्रॉस";
 
 "type.historic.wayside_shrine" = "देवस्थान";
+
+"type.historic.wreck" = "जहाजाचा नाश";
 
 "type.hwtag" = "hwtag";
 

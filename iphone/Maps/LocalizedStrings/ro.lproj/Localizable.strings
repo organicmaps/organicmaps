@@ -2268,11 +2268,17 @@
 
 "type.historic" = "Obiect istoric";
 
+"type.historic.aircraft" = "Avioane istorice";
+
+"type.historic.anchor" = "Ancoră istorică";
+
 "type.historic.archaeological_site" = "Sit arheologic";
 
 "type.historic.battlefield" = "Câmpul de luptă";
 
 "type.historic.boundary_stone" = "Piatră de hotar";
+
+"type.historic.cannon" = "Tun";
 
 "type.historic.castle" = "Castel";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "Spânzurătoare";
 
+"type.historic.locomotive" = "Locomotiva istorică";
+
 "type.historic.memorial" = "Comemorare";
 
 "type.historic.memorial.cross" = "Cruce comemorativă";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "Blocaj de poticnire";
 
+"type.historic.stone" = "Piatra istorica";
+
 "type.historic.memorial.war_memorial" = "Memorial de război";
+
+"type.historic.mine" = "Mina istorică";
 
 "type.historic.monument" = "Monument";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "Navă";
 
+"type.historic.tank" = "Tanc istoric";
+
 "type.historic.tomb" = "Mormânt";
 
 "type.historic.wayside_cross" = "Troiță";
 
 "type.historic.wayside_shrine" = "Altarul de la marginea drumului";
+
+"type.historic.wreck" = "Naufragiu";
 
 "type.hwtag" = "hwtag";
 

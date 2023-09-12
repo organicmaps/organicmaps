@@ -773,6 +773,14 @@
 	<string name="type.highway.busway">Carretera dedicada a l\'autobús</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic.aircraft">Avions Històrics</string>
+	<string name="type.historic.anchor">Àncora històrica</string>
+	<string name="type.historic.cannon">Canó</string>
+	<string name="type.historic.locomotive">Locomotora històrica</string>
+	<string name="type.historic.stone">Pedra Històrica</string>
+	<string name="type.historic.mine">Mina Històrica</string>
+	<string name="type.historic.tank">Tanc històric</string>
+	<string name="type.historic.wreck">Naufragi</string>
 	<string name="type.man_made.tower.communication">Torre de comunicacions</string>
 	<string name="type.power.generator.solar">Generador solar</string>
 	<string name="type.power.generator.wind">Generador eòlic</string>

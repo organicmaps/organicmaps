@@ -1153,9 +1153,12 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Historisk objekt</string>
+	<string name="type.historic.aircraft">Historiske fly</string>
+	<string name="type.historic.anchor">Historisk anker</string>
 	<string name="type.historic.archaeological_site">Arkæologisk sted</string>
 	<string name="type.historic.battlefield">Slagmark</string>
 	<string name="type.historic.boundary_stone">Grænsesten</string>
+	<string name="type.historic.cannon">Kanon</string>
 	<string name="type.historic.castle">Slot</string>
 	<string name="type.historic.castle.castrum">Romersk fort</string>
 	<string name="type.historic.castle.defensive">Slot</string>
@@ -1171,20 +1174,25 @@
 	<string name="type.historic.citywalls">Bymur</string>
 	<string name="type.historic.fort">Fort</string>
 	<string name="type.historic.gallows">Galge</string>
+	<string name="type.historic.locomotive">Historisk lokomotiv</string>
 	<string name="type.historic.memorial">Mindesmærke</string>
 	<string name="type.historic.memorial.cross">Mindesmærkekors</string>
 	<string name="type.historic.memorial.plaque">Mindesmærke</string>
 	<string name="type.historic.memorial.sculpture">Mindesmærke</string>
 	<string name="type.historic.memorial.statue">Mindesmærke</string>
 	<string name="type.historic.memorial.stolperstein">Stolpersten</string>
+	<string name="type.historic.stone">Historisk sten</string>
 	<string name="type.historic.memorial.war_memorial">Krigsmindesmærke</string>
+	<string name="type.historic.mine">Historisk mine</string>
 	<string name="type.historic.monument">Monument</string>
 	<string name="type.historic.pillory">Kag</string>
 	<string name="type.historic.ruins">Ruiner</string>
 	<string name="type.historic.ship">Turisme</string>
+	<string name="type.historic.tank">Historisk tank</string>
 	<string name="type.historic.tomb">Grav</string>
 	<string name="type.historic.wayside_cross">Kors ved vejsiden</string>
 	<string name="type.historic.wayside_shrine">Skrin ved vejsiden</string>
+	<string name="type.historic.wreck">Forlis</string>
 	<string name="type.landuse.basin">Vandbassin</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Kirkegård</string>

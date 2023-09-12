@@ -2268,11 +2268,17 @@
 
 "type.historic" = "Historisch object";
 
+"type.historic.aircraft" = "Historische vliegtuigen";
+
+"type.historic.anchor" = "Historisch anker";
+
 "type.historic.archaeological_site" = "Archeologische site";
 
 "type.historic.battlefield" = "Slagveld";
 
 "type.historic.boundary_stone" = "Grenssteen";
+
+"type.historic.cannon" = "Kanon";
 
 "type.historic.castle" = "Kasteel";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "Galg";
 
+"type.historic.locomotive" = "Historische locomotief";
+
 "type.historic.memorial" = "Gedenkteken";
 
 "type.historic.memorial.cross" = "Herdenkingskruis";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "Stolperstein";
 
+"type.historic.stone" = "Historische steen";
+
 "type.historic.memorial.war_memorial" = "Oorlogsmonument";
+
+"type.historic.mine" = "Historische mijn";
 
 "type.historic.monument" = "Monument";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "Historisch schip";
 
+"type.historic.tank" = "Historische tank";
+
 "type.historic.tomb" = "Graftombe";
 
 "type.historic.wayside_cross" = "Wegkruis";
 
 "type.historic.wayside_shrine" = "Kruisbeeld";
+
+"type.historic.wreck" = "Schipbreuk";
 
 "type.hwtag" = "hwtag";
 

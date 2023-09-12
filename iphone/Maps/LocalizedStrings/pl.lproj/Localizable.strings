@@ -2268,11 +2268,17 @@
 
 "type.historic" = "Historyczne";
 
+"type.historic.aircraft" = "Historyczny samolot";
+
+"type.historic.anchor" = "Historyczna kotwica";
+
 "type.historic.archaeological_site" = "Odkrywka archeologiczna";
 
 "type.historic.battlefield" = "Miejsce historycznej bitwy";
 
 "type.historic.boundary_stone" = "Historyczny kamień graniczny";
+
+"type.historic.cannon" = "Armata";
 
 "type.historic.castle" = "Zamek";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "Szubienica";
 
+"type.historic.locomotive" = "Zabytkowa lokomotywa";
+
 "type.historic.memorial" = "Pomnik";
 
 "type.historic.memorial.cross" = "Krzyż pomnikowy";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "Kamień pamięci";
 
+"type.historic.stone" = "Historyczny kamień";
+
 "type.historic.memorial.war_memorial" = "Pomnik wojenny";
+
+"type.historic.mine" = "Kopalnia Historyczna";
 
 "type.historic.monument" = "Monument";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "Okręt";
 
+"type.historic.tank" = "Historyczny czołg";
+
 "type.historic.tomb" = "Grobowiec";
 
 "type.historic.wayside_cross" = "Krzyż przydrożny";
 
 "type.historic.wayside_shrine" = "Kapliczka przydrożna";
+
+"type.historic.wreck" = "Wrak statku";
 
 "type.hwtag" = "hwtag";
 

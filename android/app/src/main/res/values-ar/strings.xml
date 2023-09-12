@@ -1277,9 +1277,12 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">مكان تاريخي</string>
+	<string name="type.historic.aircraft">الطائرات التاريخية</string>
+	<string name="type.historic.anchor">مرساة تاريخية</string>
 	<string name="type.historic.archaeological_site">موقع أثري</string>
 	<string name="type.historic.battlefield">ساحة معركة تاريخية</string>
 	<string name="type.historic.boundary_stone">حجر لتحديد الحدود</string>
+	<string name="type.historic.cannon">مدفع</string>
 	<string name="type.historic.castle">قلعة</string>
 	<string name="type.historic.castle.castrum">معسكر روماني</string>
 	<string name="type.historic.castle.defensive">قلعة</string>
@@ -1295,20 +1298,25 @@
 	<string name="type.historic.citywalls">جدار المدينة</string>
 	<string name="type.historic.fort">حصن</string>
 	<string name="type.historic.gallows">مشنقة</string>
+	<string name="type.historic.locomotive">قاطرة تاريخية</string>
 	<string name="type.historic.memorial">نصب تذكاري</string>
 	<string name="type.historic.memorial.cross">صليب تذكاري</string>
 	<string name="type.historic.memorial.plaque">لوحة تذكارية</string>
 	<string name="type.historic.memorial.sculpture">منحوتة تذكارية</string>
 	<string name="type.historic.memorial.statue">تمثال</string>
 	<string name="type.historic.memorial.stolperstein">حجر عثرة</string>
+	<string name="type.historic.stone">الحجر التاريخي</string>
 	<string name="type.historic.memorial.war_memorial">نصب حرب تذكاري</string>
+	<string name="type.historic.mine">منجم تاريخي</string>
 	<string name="type.historic.monument">نصب تذكاري</string>
 	<string name="type.historic.pillory">مشهرة</string>
 	<string name="type.historic.ruins">آثار تاريخية</string>
 	<string name="type.historic.ship">سفينة</string>
+	<string name="type.historic.tank">الخزان التاريخي</string>
 	<string name="type.historic.tomb">قبر</string>
 	<string name="type.historic.wayside_cross">صليب جانب الطريق</string>
 	<string name="type.historic.wayside_shrine">ضريح جانب الطريق</string>
+	<string name="type.historic.wreck">حطام سفينة</string>
 	<string name="type.internet_access">إنترنت</string>
 	<string name="type.internet_access.wlan">إنترنت</string>
 	<string name="type.junction">تقاطع</string>

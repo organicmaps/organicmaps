@@ -2268,11 +2268,17 @@
 
 "type.historic" = "Ajalooline objekt";
 
+"type.historic.aircraft" = "Ajalooline lennuk";
+
+"type.historic.anchor" = "Ajalooline ankur";
+
 "type.historic.archaeological_site" = "Arheoloogiline koht";
 
 "type.historic.battlefield" = "Lahinguväli";
 
 "type.historic.boundary_stone" = "Piirikivi";
+
+"type.historic.cannon" = "Kahur";
 
 "type.historic.castle" = "Loss";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "Võllas";
 
+"type.historic.locomotive" = "Ajalooline vedur";
+
 "type.historic.memorial" = "Memoriaal";
 
 "type.historic.memorial.cross" = "Mälestusrist";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "Komistuskivi";
 
+"type.historic.stone" = "Ajalooline kivi";
+
 "type.historic.memorial.war_memorial" = "Sõjamemoriaal";
+
+"type.historic.mine" = "Ajalooline kaevandus";
 
 "type.historic.monument" = "Monument";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "Laev";
 
+"type.historic.tank" = "Ajalooline tank";
+
 "type.historic.tomb" = "Haud";
 
 "type.historic.wayside_cross" = "Teeäärne rist";
 
 "type.historic.wayside_shrine" = "Teeäärne pühamu";
+
+"type.historic.wreck" = "Laevahukk";
 
 "type.hwtag" = "hwtag";
 

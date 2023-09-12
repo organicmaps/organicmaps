@@ -2268,11 +2268,17 @@
 
 "type.historic" = "Historisk gjenstand";
 
+"type.historic.aircraft" = "Historisk fly";
+
+"type.historic.anchor" = "Historisk anker";
+
 "type.historic.archaeological_site" = "Arkeologisk område";
 
 "type.historic.battlefield" = "Slagmarken";
 
 "type.historic.boundary_stone" = "Grensestein";
+
+"type.historic.cannon" = "Kanon";
 
 "type.historic.castle" = "Borg";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "Galge";
 
+"type.historic.locomotive" = "Historisk lokomotiv";
+
 "type.historic.memorial" = "Minnesmerke";
 
 "type.historic.memorial.cross" = "Minnekors";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "Snublesteiner";
 
+"type.historic.stone" = "Historisk stein";
+
 "type.historic.memorial.war_memorial" = "Krigsminnesmerke";
+
+"type.historic.mine" = "Historisk gruve";
 
 "type.historic.monument" = "Monument";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "Skip";
 
+"type.historic.tank" = "Historisk tank";
+
 "type.historic.tomb" = "Grav";
 
 "type.historic.wayside_cross" = "Veikantkors";
 
 "type.historic.wayside_shrine" = "Helligdom ved veikanten";
+
+"type.historic.wreck" = "Skipsvrak";
 
 "type.hwtag" = "hwtag";
 

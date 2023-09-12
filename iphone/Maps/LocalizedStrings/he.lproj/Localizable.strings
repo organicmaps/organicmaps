@@ -2268,11 +2268,17 @@
 
 "type.historic" = "חפץ היסטורי";
 
+"type.historic.aircraft" = "מטוס היסטורי";
+
+"type.historic.anchor" = "עוגן היסטורי";
+
 "type.historic.archaeological_site" = "אתר ארכיאולוגי";
 
 "type.historic.battlefield" = "שדה קרב";
 
 "type.historic.boundary_stone" = "אבן גבול";
+
+"type.historic.cannon" = "תוֹתָח";
 
 "type.historic.castle" = "טירה";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "גרדום";
 
+"type.historic.locomotive" = "קטר היסטורי";
+
 "type.historic.memorial" = "אתר הנצחה";
 
 "type.historic.memorial.cross" = "צלב זיכרון";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "אבן נגף";
 
+"type.historic.stone" = "אבן היסטורית";
+
 "type.historic.memorial.war_memorial" = "אנדרטת מלחמה";
+
+"type.historic.mine" = "מכרה היסטורי";
 
 "type.historic.monument" = "מונומנט";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "אונייה";
 
+"type.historic.tank" = "טנק היסטורי";
+
 "type.historic.tomb" = "קֶבֶר";
 
 "type.historic.wayside_cross" = "צלב בצד הדרך";
 
 "type.historic.wayside_shrine" = "מקדש בצד הדרך";
+
+"type.historic.wreck" = "לְנַפֵּץ";
 
 "type.hwtag" = "hwtag";
 

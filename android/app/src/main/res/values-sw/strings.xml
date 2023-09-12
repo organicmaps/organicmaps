@@ -443,9 +443,12 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Kitu cha kihistoria</string>
+	<string name="type.historic.aircraft">Ndege ya kihistoria</string>
+	<string name="type.historic.anchor">Nanga ya kihistoria</string>
 	<string name="type.historic.archaeological_site">Tovuti ya Akiolojia</string>
 	<string name="type.historic.battlefield">Uwanja wa vita</string>
 	<string name="type.historic.boundary_stone">Jiwe la mpaka</string>
+	<string name="type.historic.cannon">Kanuni</string>
 	<string name="type.historic.castle">Ngome</string>
 	<string name="type.historic.castle.castrum">Ngome ya Kirumi</string>
 	<string name="type.historic.castle.defensive">Ngome</string>
@@ -461,20 +464,25 @@
 	<string name="type.historic.citywalls">Ukuta wa jiji</string>
 	<string name="type.historic.fort">Ngome</string>
 	<string name="type.historic.gallows">Kunyongea</string>
+	<string name="type.historic.locomotive">Locomotive ya kihistoria</string>
 	<string name="type.historic.memorial">Ukumbusho</string>
 	<string name="type.historic.memorial.cross">Msalaba wa kumbukumbu</string>
 	<string name="type.historic.memorial.plaque">Plaque</string>
 	<string name="type.historic.memorial.sculpture">Uchongaji</string>
 	<string name="type.historic.memorial.statue">Sanamu</string>
 	<string name="type.historic.memorial.stolperstein">Kikwazo</string>
+	<string name="type.historic.stone">Jiwe la Kihistoria</string>
 	<string name="type.historic.memorial.war_memorial">Kumbukumbu ya vita</string>
+	<string name="type.historic.mine">Mgodi wa Kihistoria</string>
 	<string name="type.historic.monument">Mnara</string>
 	<string name="type.historic.pillory">Pillory</string>
 	<string name="type.historic.ruins">Gofu</string>
 	<string name="type.historic.ship">Meli</string>
+	<string name="type.historic.tank">Tangi ya kihistoria</string>
 	<string name="type.historic.tomb">Kaburi</string>
 	<string name="type.historic.wayside_cross">Msalaba wa njiani</string>
 	<string name="type.historic.wayside_shrine">Kaburi la njia</string>
+	<string name="type.historic.wreck">Ajali ya meli</string>
 	<string name="type.landuse.basin">Bonde la Maji</string>
 	<string name="type.landuse.churchyard">Sehemu ya kanisa</string>
 	<string name="type.landuse.farmland">Shamba</string>
