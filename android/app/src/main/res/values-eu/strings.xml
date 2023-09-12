@@ -1266,9 +1266,12 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Objektu historikoa</string>
+	<string name="type.historic.aircraft">Hegazkin historikoa</string>
+	<string name="type.historic.anchor">Aingura Historikoa</string>
 	<string name="type.historic.archaeological_site">Aztarnategi arkeologikoa</string>
 	<string name="type.historic.battlefield">Gudu zelai</string>
 	<string name="type.historic.boundary_stone">Zedarri</string>
+	<string name="type.historic.cannon">Kanoia</string>
 	<string name="type.historic.castle">Gaztelu</string>
 	<string name="type.historic.castle.castrum">Castrum</string>
 	<string name="type.historic.castle.defensive">Gaztelu</string>
@@ -1284,20 +1287,25 @@
 	<string name="type.historic.citywalls">Hiri harresia</string>
 	<string name="type.historic.fort">Gotorlekua</string>
 	<string name="type.historic.gallows">Urkamendi</string>
+	<string name="type.historic.locomotive">Lokomotora historikoa</string>
 	<string name="type.historic.memorial">Memorial</string>
 	<string name="type.historic.memorial.cross">Oroimenezko gurutzea</string>
 	<string name="type.historic.memorial.plaque">Oroitzapenezko plaka</string>
 	<string name="type.historic.memorial.sculpture">Eskultura</string>
 	<string name="type.historic.memorial.statue">Estatua</string>
 	<string name="type.historic.memorial.stolperstein">Stolperstein</string>
+	<string name="type.historic.stone">Harri historikoa</string>
 	<string name="type.historic.memorial.war_memorial">Gerra memoriala</string>
+	<string name="type.historic.mine">Meategi historikoa</string>
 	<string name="type.historic.monument">Monumentua</string>
 	<string name="type.historic.pillory">Urkabe</string>
 	<string name="type.historic.ruins">Hondakinak</string>
 	<string name="type.historic.ship">Turismoa</string>
+	<string name="type.historic.tank">Depositu historikoa</string>
 	<string name="type.historic.tomb">Ehorztoki</string>
 	<string name="type.historic.wayside_cross">Bideko gurutze</string>
 	<string name="type.historic.wayside_shrine">Bide bazterreko baseliza</string>
+	<string name="type.historic.wreck">Naufragioa</string>
 	<string name="type.junction.circular">Biribilgunea</string>
 	<string name="type.junction.roundabout">Biribilgunea</string>
 	<string name="type.landuse.basin">Arroa</string>

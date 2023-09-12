@@ -2268,11 +2268,17 @@
 
 "type.historic" = "Objektu historikoa";
 
+"type.historic.aircraft" = "Hegazkin historikoa";
+
+"type.historic.anchor" = "Aingura Historikoa";
+
 "type.historic.archaeological_site" = "Aztarnategi arkeologikoa";
 
 "type.historic.battlefield" = "Gudu zelai";
 
 "type.historic.boundary_stone" = "Zedarri";
+
+"type.historic.cannon" = "Kanoia";
 
 "type.historic.castle" = "Gaztelu";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "Urkamendi";
 
+"type.historic.locomotive" = "Lokomotora historikoa";
+
 "type.historic.memorial" = "Memorial";
 
 "type.historic.memorial.cross" = "Oroimenezko gurutzea";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "Stolperstein";
 
+"type.historic.stone" = "Harri historikoa";
+
 "type.historic.memorial.war_memorial" = "Gerra memoriala";
+
+"type.historic.mine" = "Meategi historikoa";
 
 "type.historic.monument" = "Monumentua";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "Turismoa";
 
+"type.historic.tank" = "Depositu historikoa";
+
 "type.historic.tomb" = "Ehorztoki";
 
 "type.historic.wayside_cross" = "Bideko gurutze";
 
 "type.historic.wayside_shrine" = "Bide bazterreko baseliza";
+
+"type.historic.wreck" = "Naufragioa";
 
 "type.hwtag" = "hwtag";
 

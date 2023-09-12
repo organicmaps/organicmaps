@@ -1074,9 +1074,12 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">شیء تاریخی</string>
+	<string name="type.historic.aircraft">هواپیمای تاریخی</string>
+	<string name="type.historic.anchor">لنگر تاریخی</string>
 	<string name="type.historic.archaeological_site">گردشگری</string>
 	<string name="type.historic.battlefield">میدان جنگ</string>
 	<string name="type.historic.boundary_stone">نشانگر مرز</string>
+	<string name="type.historic.cannon">توپ</string>
 	<string name="type.historic.castle">قلعه</string>
 	<string name="type.historic.castle.castrum">قلعه رومی</string>
 	<string name="type.historic.castle.defensive">قلعه</string>
@@ -1092,20 +1095,25 @@
 	<string name="type.historic.citywalls">دیوار شهر</string>
 	<string name="type.historic.fort">دژ</string>
 	<string name="type.historic.gallows">چوبه دار</string>
+	<string name="type.historic.locomotive">لوکوموتیو تاریخی</string>
 	<string name="type.historic.memorial">گردشگری</string>
 	<string name="type.historic.memorial.cross">صلیب یادبود</string>
 	<string name="type.historic.memorial.plaque">گردشگری</string>
 	<string name="type.historic.memorial.sculpture">گردشگری</string>
 	<string name="type.historic.memorial.statue">گردشگری</string>
 	<string name="type.historic.memorial.stolperstein">سنگ مانع</string>
+	<string name="type.historic.stone">سنگ تاریخی</string>
 	<string name="type.historic.memorial.war_memorial">رزم‌یاد</string>
+	<string name="type.historic.mine">معدن تاریخی</string>
 	<string name="type.historic.monument">گردشگری</string>
 	<string name="type.historic.pillory">تخته‌بند</string>
 	<string name="type.historic.ruins">گردشگری</string>
 	<string name="type.historic.ship">گردشگری</string>
+	<string name="type.historic.tank">تانک تاریخی</string>
 	<string name="type.historic.tomb">گردشگری</string>
 	<string name="type.historic.wayside_cross">صلیب کنار راه</string>
 	<string name="type.historic.wayside_shrine">حرم کنار راه</string>
+	<string name="type.historic.wreck">غرق کشتی</string>
 	<string name="type.internet_access">وای فای</string>
 	<string name="type.internet_access.wlan">وای فای</string>
 	<string name="type.landuse.basin">حوضه آب</string>

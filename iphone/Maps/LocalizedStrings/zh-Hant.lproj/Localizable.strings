@@ -2268,11 +2268,17 @@
 
 "type.historic" = "歷史地點";
 
+"type.historic.aircraft" = "歷史悠久的飛機";
+
+"type.historic.anchor" = "歷史錨";
+
 "type.historic.archaeological_site" = "考古遺址";
 
 "type.historic.battlefield" = "古戰場";
 
 "type.historic.boundary_stone" = "界碑";
+
+"type.historic.cannon" = "大砲";
 
 "type.historic.castle" = "城堡";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "絞架";
 
+"type.historic.locomotive" = "歷史悠久的機車";
+
 "type.historic.memorial" = "紀念館";
 
 "type.historic.memorial.cross" = "紀念十字架";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "絆腳石";
 
+"type.historic.stone" = "歷史之石";
+
 "type.historic.memorial.war_memorial" = "戰爭紀念建築";
+
+"type.historic.mine" = "歷史礦山";
 
 "type.historic.monument" = "紀念碑";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "歷史船";
 
+"type.historic.tank" = "歷史悠久的坦克";
+
 "type.historic.tomb" = "陵墓";
 
 "type.historic.wayside_cross" = "路旁十字架";
 
 "type.historic.wayside_shrine" = "路旁神龕";
+
+"type.historic.wreck" = "沉船";
 
 "type.hwtag" = "hwtag";
 

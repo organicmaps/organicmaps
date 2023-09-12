@@ -1313,9 +1313,12 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Historic Object</string>
+	<string name="type.historic.aircraft">Historic Aircraft</string>
+	<string name="type.historic.anchor">Historic Anchor</string>
 	<string name="type.historic.archaeological_site">Archaeological Site</string>
 	<string name="type.historic.battlefield">Historic Battlefield</string>
 	<string name="type.historic.boundary_stone">Boundary Stone</string>
+	<string name="type.historic.cannon">Cannon</string>
 	<string name="type.historic.castle">Castle</string>
 	<string name="type.historic.castle.castrum">Roman Fort</string>
 	<string name="type.historic.castle.defensive">Stronghold Castle</string>
@@ -1331,20 +1334,25 @@
 	<string name="type.historic.citywalls">City Wall</string>
 	<string name="type.historic.fort">Fort</string>
 	<string name="type.historic.gallows">Gallows</string>
+	<string name="type.historic.locomotive">Historic Locomotive</string>
 	<string name="type.historic.memorial">Memorial</string>
 	<string name="type.historic.memorial.cross">Memorial Cross</string>
 	<string name="type.historic.memorial.plaque">Commemorative Plaque</string>
 	<string name="type.historic.memorial.sculpture">Sculpture</string>
 	<string name="type.historic.memorial.statue">Statue</string>
 	<string name="type.historic.memorial.stolperstein">Stolperstein</string>
+	<string name="type.historic.stone">Historic Stone</string>
 	<string name="type.historic.memorial.war_memorial">War Memorial</string>
+	<string name="type.historic.mine">Historic Mine</string>
 	<string name="type.historic.monument">Monument</string>
 	<string name="type.historic.pillory">Pillory</string>
 	<string name="type.historic.ruins">Historic Ruins</string>
 	<string name="type.historic.ship">Ship</string>
+	<string name="type.historic.tank">Historic Tank</string>
 	<string name="type.historic.tomb">Tomb</string>
 	<string name="type.historic.wayside_cross">Wayside Cross</string>
 	<string name="type.historic.wayside_shrine">Wayside Shrine</string>
+	<string name="type.historic.wreck">Shipwreck</string>
 	<string name="type.hwtag">hwtag</string>
 	<string name="type.hwtag.bidir_bicycle">hwtag-bidir_bicycle</string>
 	<string name="type.hwtag.onedir_bicycle">hwtag-onedir_bicycle</string>

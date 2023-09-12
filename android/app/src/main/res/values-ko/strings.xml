@@ -1158,9 +1158,12 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">역사적 물건</string>
+	<string name="type.historic.aircraft">\"역사적인 항공기\"</string>
+	<string name="type.historic.anchor">역사적인 앵커</string>
 	<string name="type.historic.archaeological_site">발굴</string>
 	<string name="type.historic.battlefield">전장터</string>
 	<string name="type.historic.boundary_stone">경계석</string>
+	<string name="type.historic.cannon">대포</string>
 	<string name="type.historic.castle">성</string>
 	<string name="type.historic.castle.castrum">로마 요새</string>
 	<string name="type.historic.castle.defensive">성</string>
@@ -1176,20 +1179,25 @@
 	<string name="type.historic.citywalls">도시의 벽</string>
 	<string name="type.historic.fort">요새</string>
 	<string name="type.historic.gallows">교수대</string>
+	<string name="type.historic.locomotive">역사적인 기관차</string>
 	<string name="type.historic.memorial">기념비</string>
 	<string name="type.historic.memorial.cross">기념 십자가</string>
 	<string name="type.historic.memorial.plaque">기념비</string>
 	<string name="type.historic.memorial.sculpture">기념비</string>
 	<string name="type.historic.memorial.statue">기념비</string>
 	<string name="type.historic.memorial.stolperstein">장애물</string>
+	<string name="type.historic.stone">역사적인 돌</string>
 	<string name="type.historic.memorial.war_memorial">전쟁기념관</string>
+	<string name="type.historic.mine">역사적인 광산</string>
 	<string name="type.historic.monument">기념탑</string>
 	<string name="type.historic.pillory">칼</string>
 	<string name="type.historic.ruins">유적</string>
 	<string name="type.historic.ship">배</string>
+	<string name="type.historic.tank">역사적인 탱크</string>
 	<string name="type.historic.tomb">무덤</string>
 	<string name="type.historic.wayside_cross">길가의 십자가</string>
 	<string name="type.historic.wayside_shrine">길가의 신사</string>
+	<string name="type.historic.wreck">난파선</string>
 	<string name="type.internet_access">인터넷</string>
 	<string name="type.internet_access.wlan">인터넷</string>
 	<string name="type.landuse.basin">저수지</string>

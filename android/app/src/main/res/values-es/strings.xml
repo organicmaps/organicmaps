@@ -1280,9 +1280,12 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Objeto histórico</string>
+	<string name="type.historic.aircraft">Avión histórico</string>
+	<string name="type.historic.anchor">Ancla histórica</string>
 	<string name="type.historic.archaeological_site">Yacimiento arqueológico</string>
 	<string name="type.historic.battlefield">Campo de batalla</string>
 	<string name="type.historic.boundary_stone">Hito fronterizo</string>
+	<string name="type.historic.cannon">Cañón</string>
 	<string name="type.historic.castle">Castillo</string>
 	<string name="type.historic.castle.castrum">Castrum</string>
 	<string name="type.historic.castle.defensive">Castillo</string>
@@ -1298,20 +1301,25 @@
 	<string name="type.historic.citywalls">Muro de la ciudad</string>
 	<string name="type.historic.fort">Fuerte</string>
 	<string name="type.historic.gallows">Horca</string>
+	<string name="type.historic.locomotive">Locomotora histórica</string>
 	<string name="type.historic.memorial">Monumento conmemorativo</string>
 	<string name="type.historic.memorial.cross">Cruz conmemorativa</string>
 	<string name="type.historic.memorial.plaque">Placa conmemorativa</string>
 	<string name="type.historic.memorial.sculpture">Escultura</string>
 	<string name="type.historic.memorial.statue">Estatua</string>
 	<string name="type.historic.memorial.stolperstein">Stolperstein</string>
+	<string name="type.historic.stone">Piedra histórica</string>
 	<string name="type.historic.memorial.war_memorial">Monumento a la guerra</string>
+	<string name="type.historic.mine">Mina histórica</string>
 	<string name="type.historic.monument">Monumento</string>
 	<string name="type.historic.pillory">Picota</string>
 	<string name="type.historic.ruins">Ruinas</string>
 	<string name="type.historic.ship">Barco</string>
+	<string name="type.historic.tank">Tanque histórico</string>
 	<string name="type.historic.tomb">Tumba</string>
 	<string name="type.historic.wayside_cross">Cruz de término</string>
 	<string name="type.historic.wayside_shrine">Peto de ánimas</string>
+	<string name="type.historic.wreck">Naufragio</string>
 	<string name="type.internet_access">Internet</string>
 	<string name="type.internet_access.wlan">Internet</string>
 	<string name="type.junction.circular">Rotonda</string>

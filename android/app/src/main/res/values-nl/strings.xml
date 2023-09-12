@@ -1270,9 +1270,12 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Historisch object</string>
+	<string name="type.historic.aircraft">Historische vliegtuigen</string>
+	<string name="type.historic.anchor">Historisch anker</string>
 	<string name="type.historic.archaeological_site">Archeologische site</string>
 	<string name="type.historic.battlefield">Slagveld</string>
 	<string name="type.historic.boundary_stone">Grenssteen</string>
+	<string name="type.historic.cannon">Kanon</string>
 	<string name="type.historic.castle">Kasteel</string>
 	<string name="type.historic.castle.castrum">Castra</string>
 	<string name="type.historic.castle.defensive">Kasteel</string>
@@ -1288,20 +1291,25 @@
 	<string name="type.historic.citywalls">Stadsmuur</string>
 	<string name="type.historic.fort">Fort</string>
 	<string name="type.historic.gallows">Galg</string>
+	<string name="type.historic.locomotive">Historische locomotief</string>
 	<string name="type.historic.memorial">Gedenkteken</string>
 	<string name="type.historic.memorial.cross">Herdenkingskruis</string>
 	<string name="type.historic.memorial.plaque">Gedenkplaat</string>
 	<string name="type.historic.memorial.sculpture">Sculptuur</string>
 	<string name="type.historic.memorial.statue">Standbeeld</string>
 	<string name="type.historic.memorial.stolperstein">Stolperstein</string>
+	<string name="type.historic.stone">Historische steen</string>
 	<string name="type.historic.memorial.war_memorial">Oorlogsmonument</string>
+	<string name="type.historic.mine">Historische mijn</string>
 	<string name="type.historic.monument">Monument</string>
 	<string name="type.historic.pillory">Schandpaal</string>
 	<string name="type.historic.ruins">Ruïne</string>
 	<string name="type.historic.ship">Historisch schip</string>
+	<string name="type.historic.tank">Historische tank</string>
 	<string name="type.historic.tomb">Graftombe</string>
 	<string name="type.historic.wayside_cross">Wegkruis</string>
 	<string name="type.historic.wayside_shrine">Kruisbeeld</string>
+	<string name="type.historic.wreck">Schipbreuk</string>
 	<string name="type.internet_access">Internet</string>
 	<string name="type.internet_access.wlan">Draadloos internet</string>
 	<string name="type.junction">Kruispunt</string>

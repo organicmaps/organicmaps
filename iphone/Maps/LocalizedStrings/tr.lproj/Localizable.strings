@@ -2268,11 +2268,17 @@
 
 "type.historic" = "Tarihi";
 
+"type.historic.aircraft" = "Tarihi Uçak";
+
+"type.historic.anchor" = "Tarihi Çapa";
+
 "type.historic.archaeological_site" = "Sit Alanı";
 
 "type.historic.battlefield" = "Harp Meydanı";
 
 "type.historic.boundary_stone" = "Sınır Taşı";
+
+"type.historic.cannon" = "Top";
 
 "type.historic.castle" = "Müstahkem şato";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "Darağacı";
 
+"type.historic.locomotive" = "Tarihi Lokomotif";
+
 "type.historic.memorial" = "Abide";
 
 "type.historic.memorial.cross" = "Anıt haç";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "Tökezleyen Taşlar";
 
+"type.historic.stone" = "Tarihi Taş";
+
 "type.historic.memorial.war_memorial" = "Savaş anıtı";
+
+"type.historic.mine" = "Tarihi Maden";
 
 "type.historic.monument" = "Anıt";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "Görülecek yerler";
 
+"type.historic.tank" = "Tarihi Tank";
+
 "type.historic.tomb" = "Türbe";
 
 "type.historic.wayside_cross" = "Hıristiyan Haçı";
 
 "type.historic.wayside_shrine" = "Tapınak";
+
+"type.historic.wreck" = "Gemi enkazı";
 
 "type.hwtag" = "hwtag";
 

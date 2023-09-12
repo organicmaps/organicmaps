@@ -2268,11 +2268,17 @@
 
 "type.historic" = "Historisk objekt";
 
+"type.historic.aircraft" = "Historiske fly";
+
+"type.historic.anchor" = "Historisk anker";
+
 "type.historic.archaeological_site" = "Arkæologisk sted";
 
 "type.historic.battlefield" = "Slagmark";
 
 "type.historic.boundary_stone" = "Grænsesten";
+
+"type.historic.cannon" = "Kanon";
 
 "type.historic.castle" = "Slot";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "Galge";
 
+"type.historic.locomotive" = "Historisk lokomotiv";
+
 "type.historic.memorial" = "Mindesmærke";
 
 "type.historic.memorial.cross" = "Mindesmærkekors";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "Stolpersten";
 
+"type.historic.stone" = "Historisk sten";
+
 "type.historic.memorial.war_memorial" = "Krigsmindesmærke";
+
+"type.historic.mine" = "Historisk mine";
 
 "type.historic.monument" = "Monument";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "Turisme";
 
+"type.historic.tank" = "Historisk tank";
+
 "type.historic.tomb" = "Grav";
 
 "type.historic.wayside_cross" = "Kors ved vejsiden";
 
 "type.historic.wayside_shrine" = "Skrin ved vejsiden";
+
+"type.historic.wreck" = "Forlis";
 
 "type.hwtag" = "hwtag";
 

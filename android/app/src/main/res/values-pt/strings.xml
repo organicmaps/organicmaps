@@ -1225,9 +1225,12 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Objeto histórico</string>
+	<string name="type.historic.aircraft">Aeronaves Históricas</string>
+	<string name="type.historic.anchor">Âncora Histórica</string>
 	<string name="type.historic.archaeological_site">Sítio arqueológico</string>
 	<string name="type.historic.battlefield">Campo de batalha</string>
 	<string name="type.historic.boundary_stone">Marco fronteiriço</string>
+	<string name="type.historic.cannon">Canhão</string>
 	<string name="type.historic.castle">Castelo</string>
 	<string name="type.historic.castle.castrum">Castro</string>
 	<string name="type.historic.castle.defensive">Castelo</string>
@@ -1243,20 +1246,25 @@
 	<string name="type.historic.citywalls">Muralha</string>
 	<string name="type.historic.fort">Forte</string>
 	<string name="type.historic.gallows">Forca</string>
+	<string name="type.historic.locomotive">Locomotiva Histórica</string>
 	<string name="type.historic.memorial">Memorial</string>
 	<string name="type.historic.memorial.cross">Cruz memorial</string>
 	<string name="type.historic.memorial.plaque">Placa comemorativa</string>
 	<string name="type.historic.memorial.sculpture">Escultura</string>
 	<string name="type.historic.memorial.statue">Estátua</string>
 	<string name="type.historic.memorial.stolperstein">Stolperstein</string>
+	<string name="type.historic.stone">Pedra Histórica</string>
 	<string name="type.historic.memorial.war_memorial">Memorial de guerra</string>
+	<string name="type.historic.mine">Mina Histórica</string>
 	<string name="type.historic.monument">Monumento</string>
 	<string name="type.historic.pillory">Pelourinho</string>
 	<string name="type.historic.ruins">Ruínas</string>
 	<string name="type.historic.ship">Barco</string>
+	<string name="type.historic.tank">Tanque Histórico</string>
 	<string name="type.historic.tomb">Túmulo</string>
 	<string name="type.historic.wayside_cross">Cruzeiro</string>
 	<string name="type.historic.wayside_shrine">Alminhas</string>
+	<string name="type.historic.wreck">Naufrágio</string>
 	<string name="type.internet_access">Internet</string>
 	<string name="type.internet_access.wlan">Internet</string>
 	<string name="type.junction">Cruzamento</string>

@@ -2268,11 +2268,17 @@
 
 "type.historic" = "Történelmi tárgy";
 
+"type.historic.aircraft" = "Történelmi Repülőgép";
+
+"type.historic.anchor" = "Történelmi horgony";
+
 "type.historic.archaeological_site" = "Ásatás";
 
 "type.historic.battlefield" = "Csatatér";
 
 "type.historic.boundary_stone" = "Határkő";
+
+"type.historic.cannon" = "Ágyú";
 
 "type.historic.castle" = "Kastély";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "Akasztófa";
 
+"type.historic.locomotive" = "Történelmi mozdony";
+
 "type.historic.memorial" = "Emlékmű";
 
 "type.historic.memorial.cross" = "Emlékkereszt";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "Botlatókő";
 
+"type.historic.stone" = "Történelmi kő";
+
 "type.historic.memorial.war_memorial" = "Háborús emlékmű";
+
+"type.historic.mine" = "Történelmi Bánya";
 
 "type.historic.monument" = "Műemlék";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "Túrizmus";
 
+"type.historic.tank" = "Történelmi Tank";
+
 "type.historic.tomb" = "Sír";
 
 "type.historic.wayside_cross" = "Útszéli kereszt";
 
 "type.historic.wayside_shrine" = "Útmenti szentély";
+
+"type.historic.wreck" = "Hajótörés";
 
 "type.hwtag" = "hwtag";
 

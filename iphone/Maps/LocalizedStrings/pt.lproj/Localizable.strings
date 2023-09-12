@@ -2268,11 +2268,17 @@
 
 "type.historic" = "Objeto histórico";
 
+"type.historic.aircraft" = "Aeronaves Históricas";
+
+"type.historic.anchor" = "Âncora Histórica";
+
 "type.historic.archaeological_site" = "Sítio arqueológico";
 
 "type.historic.battlefield" = "Campo de batalha";
 
 "type.historic.boundary_stone" = "Marco fronteiriço";
+
+"type.historic.cannon" = "Canhão";
 
 "type.historic.castle" = "Castelo";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "Forca";
 
+"type.historic.locomotive" = "Locomotiva Histórica";
+
 "type.historic.memorial" = "Memorial";
 
 "type.historic.memorial.cross" = "Cruz memorial";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "Stolperstein";
 
+"type.historic.stone" = "Pedra Histórica";
+
 "type.historic.memorial.war_memorial" = "Memorial de guerra";
+
+"type.historic.mine" = "Mina Histórica";
 
 "type.historic.monument" = "Monumento";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "Barco";
 
+"type.historic.tank" = "Tanque Histórico";
+
 "type.historic.tomb" = "Túmulo";
 
 "type.historic.wayside_cross" = "Cruzeiro";
 
 "type.historic.wayside_shrine" = "Alminhas";
+
+"type.historic.wreck" = "Naufrágio";
 
 "type.hwtag" = "hwtag";
 

@@ -1257,9 +1257,12 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Historisches Objekt</string>
+	<string name="type.historic.aircraft">Historisches Flugzeug</string>
+	<string name="type.historic.anchor">Historischer Anker</string>
 	<string name="type.historic.archaeological_site">Ausgrabungsstätte</string>
 	<string name="type.historic.battlefield">Schlachtfeld</string>
 	<string name="type.historic.boundary_stone">Grenzstein</string>
+	<string name="type.historic.cannon">Kanone</string>
 	<string name="type.historic.castle">Burg</string>
 	<string name="type.historic.castle.castrum">Römisches Militärlager</string>
 	<string name="type.historic.castle.defensive">Burg</string>
@@ -1275,20 +1278,25 @@
 	<string name="type.historic.citywalls">Stadtmauer</string>
 	<string name="type.historic.fort">Fort</string>
 	<string name="type.historic.gallows">Galgen</string>
+	<string name="type.historic.locomotive">Historische Lokomotive</string>
 	<string name="type.historic.memorial">Denkmal</string>
 	<string name="type.historic.memorial.cross">Gedenkkreuz</string>
 	<string name="type.historic.memorial.plaque">Gedenktafel</string>
 	<string name="type.historic.memorial.sculpture">Skulptur</string>
 	<string name="type.historic.memorial.statue">Statue</string>
 	<string name="type.historic.memorial.stolperstein">Stolperstein</string>
+	<string name="type.historic.stone">Historischer Stein</string>
 	<string name="type.historic.memorial.war_memorial">Kriegerdenkmal</string>
+	<string name="type.historic.mine">Historische Mine</string>
 	<string name="type.historic.monument">Monument</string>
 	<string name="type.historic.pillory">Pranger</string>
 	<string name="type.historic.ruins">Ruine</string>
 	<string name="type.historic.ship">Schiff</string>
+	<string name="type.historic.tank">Historischer Panzer</string>
 	<string name="type.historic.tomb">Grabstätte</string>
 	<string name="type.historic.wayside_cross">Wegkreuz</string>
 	<string name="type.historic.wayside_shrine">Bildstock</string>
+	<string name="type.historic.wreck">Schiffswrack</string>
 	<string name="type.junction">Straßenknotenpunkt</string>
 	<string name="type.junction.circular">Kreisverkehr</string>
 	<string name="type.junction.roundabout">Kreisverkehr</string>

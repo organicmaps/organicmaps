@@ -1289,9 +1289,12 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Исторический объект</string>
+	<string name="type.historic.aircraft">Исторический самолет</string>
+	<string name="type.historic.anchor">Исторический якорь</string>
 	<string name="type.historic.archaeological_site">Археологический памятник</string>
 	<string name="type.historic.battlefield">Поле боя</string>
 	<string name="type.historic.boundary_stone">Пограничный камень</string>
+	<string name="type.historic.cannon">Пушка</string>
 	<string name="type.historic.castle">Замок</string>
 	<string name="type.historic.castle.castrum">Каструм</string>
 	<string name="type.historic.castle.defensive">Замок</string>
@@ -1307,20 +1310,25 @@
 	<string name="type.historic.citywalls">Городская стена</string>
 	<string name="type.historic.fort">Форт</string>
 	<string name="type.historic.gallows">Виселица</string>
+	<string name="type.historic.locomotive">Исторический локомотив</string>
 	<string name="type.historic.memorial">Мемориал</string>
 	<string name="type.historic.memorial.cross">Памятный крест</string>
 	<string name="type.historic.memorial.plaque">Памятная доска</string>
 	<string name="type.historic.memorial.sculpture">Скульптура</string>
 	<string name="type.historic.memorial.statue">Статуя</string>
 	<string name="type.historic.memorial.stolperstein">Камни преткновения</string>
+	<string name="type.historic.stone">Исторический камень</string>
 	<string name="type.historic.memorial.war_memorial">Военный мемориал</string>
+	<string name="type.historic.mine">Историческая шахта</string>
 	<string name="type.historic.monument">Памятник</string>
 	<string name="type.historic.pillory">Позорный столб</string>
 	<string name="type.historic.ruins">Руины</string>
 	<string name="type.historic.ship">Корабль</string>
+	<string name="type.historic.tank">Исторический танк</string>
 	<string name="type.historic.tomb">Гробница</string>
 	<string name="type.historic.wayside_cross">Христианский крест</string>
 	<string name="type.historic.wayside_shrine">Святыня</string>
+	<string name="type.historic.wreck">Кораблекрушение</string>
 	<string name="type.internet_access">Интернет</string>
 	<string name="type.internet_access.wlan">Интернет</string>
 	<string name="type.junction">Перекрёсток</string>

@@ -1158,9 +1158,12 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Ιστορικό αντικείμενο</string>
+	<string name="type.historic.aircraft">Ιστορικό αεροσκάφος</string>
+	<string name="type.historic.anchor">Ιστορική Άγκυρα</string>
 	<string name="type.historic.archaeological_site">Αρχαιολογικός χώρος</string>
 	<string name="type.historic.battlefield">Πεδίο μάχης</string>
 	<string name="type.historic.boundary_stone">Οριακή πέτρα</string>
+	<string name="type.historic.cannon">Κανόνι</string>
 	<string name="type.historic.castle">Κάστρο</string>
 	<string name="type.historic.castle.castrum">Ρωμαϊκό κάστρο</string>
 	<string name="type.historic.castle.defensive">Κάστρο</string>
@@ -1176,20 +1179,25 @@
 	<string name="type.historic.citywalls">Τείχος της πόλης</string>
 	<string name="type.historic.fort">Φορτ</string>
 	<string name="type.historic.gallows">Αγχόνη</string>
+	<string name="type.historic.locomotive">Ιστορική Ατμομηχανή</string>
 	<string name="type.historic.memorial">Μνημείο</string>
 	<string name="type.historic.memorial.cross">Σταυρός μνήμης</string>
 	<string name="type.historic.memorial.plaque">Μνημείο</string>
 	<string name="type.historic.memorial.sculpture">Μνημείο</string>
 	<string name="type.historic.memorial.statue">Μνημείο</string>
 	<string name="type.historic.memorial.stolperstein">Λίθοι Μνήμης</string>
+	<string name="type.historic.stone">Ιστορική Πέτρα</string>
 	<string name="type.historic.memorial.war_memorial">Μνημείο του Αγνώστου Στρατιώτη</string>
+	<string name="type.historic.mine">Ιστορικό Ορυχείο</string>
 	<string name="type.historic.monument">Μνημείο</string>
 	<string name="type.historic.pillory">Κύφωνας</string>
 	<string name="type.historic.ruins">Ερείπια</string>
 	<string name="type.historic.ship">Αξιοθέατο</string>
+	<string name="type.historic.tank">Ιστορική δεξαμενή</string>
 	<string name="type.historic.tomb">Αξιοθέατο</string>
 	<string name="type.historic.wayside_cross">Σταυρός στην άκρη του δρόμου</string>
 	<string name="type.historic.wayside_shrine">Εικονοστάσιο στην άκρη του δρόμου</string>
+	<string name="type.historic.wreck">Ναυάγιο</string>
 	<string name="type.internet_access">Ίντερνετ</string>
 	<string name="type.internet_access.wlan">Ίντερνετ</string>
 	<string name="type.landuse.basin">Μια λεκάνη νερού</string>

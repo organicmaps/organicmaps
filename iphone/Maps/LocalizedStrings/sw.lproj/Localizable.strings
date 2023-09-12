@@ -2268,11 +2268,17 @@
 
 "type.historic" = "Kitu cha kihistoria";
 
+"type.historic.aircraft" = "Ndege ya kihistoria";
+
+"type.historic.anchor" = "Nanga ya kihistoria";
+
 "type.historic.archaeological_site" = "Tovuti ya Akiolojia";
 
 "type.historic.battlefield" = "Uwanja wa vita";
 
 "type.historic.boundary_stone" = "Jiwe la mpaka";
+
+"type.historic.cannon" = "Kanuni";
 
 "type.historic.castle" = "Ngome";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "Kunyongea";
 
+"type.historic.locomotive" = "Locomotive ya kihistoria";
+
 "type.historic.memorial" = "Ukumbusho";
 
 "type.historic.memorial.cross" = "Msalaba wa kumbukumbu";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "Kikwazo";
 
+"type.historic.stone" = "Jiwe la Kihistoria";
+
 "type.historic.memorial.war_memorial" = "Kumbukumbu ya vita";
+
+"type.historic.mine" = "Mgodi wa Kihistoria";
 
 "type.historic.monument" = "Mnara";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "Meli";
 
+"type.historic.tank" = "Tangi ya kihistoria";
+
 "type.historic.tomb" = "Kaburi";
 
 "type.historic.wayside_cross" = "Msalaba wa njiani";
 
 "type.historic.wayside_shrine" = "Kaburi la njia";
+
+"type.historic.wreck" = "Ajali ya meli";
 
 "type.hwtag" = "hwtag";
 

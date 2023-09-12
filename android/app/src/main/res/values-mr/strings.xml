@@ -1146,9 +1146,12 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">ऐतिहासिक</string>
+	<string name="type.historic.aircraft">ऐतिहासिक विमान</string>
+	<string name="type.historic.anchor">ऐतिहासिक अँकर</string>
 	<string name="type.historic.archaeological_site">पुरातत्व स्थळ</string>
 	<string name="type.historic.battlefield">रणांगण</string>
 	<string name="type.historic.boundary_stone">सीमेचा दगड</string>
+	<string name="type.historic.cannon">तोफ</string>
 	<string name="type.historic.castle">गढी</string>
 	<string name="type.historic.castle.castrum">रोमन किल्ला</string>
 	<string name="type.historic.castle.defensive">गढी</string>
@@ -1164,20 +1167,25 @@
 	<string name="type.historic.citywalls">शहराची भिंत</string>
 	<string name="type.historic.fort">दुर्ग</string>
 	<string name="type.historic.gallows">फाशी</string>
+	<string name="type.historic.locomotive">ऐतिहासिक लोकोमोटिव्ह</string>
 	<string name="type.historic.memorial">स्मारक</string>
 	<string name="type.historic.memorial.cross">मेमोरियल क्रॉस</string>
 	<string name="type.historic.memorial.plaque">फलक</string>
 	<string name="type.historic.memorial.sculpture">शिल्प</string>
 	<string name="type.historic.memorial.statue">पुतळा</string>
 	<string name="type.historic.memorial.stolperstein">अडथळा</string>
+	<string name="type.historic.stone">ऐतिहासिक दगड</string>
 	<string name="type.historic.memorial.war_memorial">युद्ध स्मारक</string>
+	<string name="type.historic.mine">ऐतिहासिक खाण</string>
 	<string name="type.historic.monument">स्मारक</string>
 	<string name="type.historic.pillory">पिलोरी</string>
 	<string name="type.historic.ruins">अवशेष</string>
 	<string name="type.historic.ship">जहाज</string>
+	<string name="type.historic.tank">ऐतिहासिक टाकी</string>
 	<string name="type.historic.tomb">थडगे</string>
 	<string name="type.historic.wayside_cross">ख्रिश्चन क्रॉस</string>
 	<string name="type.historic.wayside_shrine">देवस्थान</string>
+	<string name="type.historic.wreck">जहाजाचा नाश</string>
 	<string name="type.internet_access">इंटरनेट</string>
 	<string name="type.internet_access.wlan">इंटरनेट</string>
 	<string name="type.junction">जंक्शन</string>

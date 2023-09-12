@@ -2268,11 +2268,17 @@
 
 "type.historic" = "历史地点";
 
+"type.historic.aircraft" = "历史悠久的飞机";
+
+"type.historic.anchor" = "历史锚";
+
 "type.historic.archaeological_site" = "考古地点";
 
 "type.historic.battlefield" = "古战场";
 
 "type.historic.boundary_stone" = "界碑";
+
+"type.historic.cannon" = "大炮";
 
 "type.historic.castle" = "城堡";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "绞架";
 
+"type.historic.locomotive" = "历史悠久的机车";
+
 "type.historic.memorial" = "纪念物";
 
 "type.historic.memorial.cross" = "纪念十字架";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "绊脚石";
 
+"type.historic.stone" = "历史之石";
+
 "type.historic.memorial.war_memorial" = "战争纪念建筑";
+
+"type.historic.mine" = "历史矿山";
 
 "type.historic.monument" = "纪念堂";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "历史船";
 
+"type.historic.tank" = "历史悠久的坦克";
+
 "type.historic.tomb" = "陵墓";
 
 "type.historic.wayside_cross" = "路旁十字架";
 
 "type.historic.wayside_shrine" = "路旁神龛";
+
+"type.historic.wreck" = "沉船";
 
 "type.hwtag" = "hwtag";
 

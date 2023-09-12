@@ -2268,11 +2268,17 @@
 
 "type.historic" = "Historický objekt";
 
+"type.historic.aircraft" = "Historická letadla";
+
+"type.historic.anchor" = "Historická kotva";
+
 "type.historic.archaeological_site" = "Vykopávky";
 
 "type.historic.battlefield" = "Bojiště";
 
 "type.historic.boundary_stone" = "Hraniční kámen";
+
+"type.historic.cannon" = "Dělo";
 
 "type.historic.castle" = "Hrad";
 
@@ -2304,6 +2310,8 @@
 
 "type.historic.gallows" = "Šibenice";
 
+"type.historic.locomotive" = "Historická lokomotiva";
+
 "type.historic.memorial" = "Pomník";
 
 "type.historic.memorial.cross" = "Pamětní kříž";
@@ -2316,7 +2324,11 @@
 
 "type.historic.memorial.stolperstein" = "Stolperstein";
 
+"type.historic.stone" = "Historický kámen";
+
 "type.historic.memorial.war_memorial" = "Válečný památník";
+
+"type.historic.mine" = "Historický důl";
 
 "type.historic.monument" = "Zajímavost";
 
@@ -2326,11 +2338,15 @@
 
 "type.historic.ship" = "Pamětihodnost";
 
+"type.historic.tank" = "Historický tank";
+
 "type.historic.tomb" = "Pamětihodnost";
 
 "type.historic.wayside_cross" = "Přícestný kříž";
 
 "type.historic.wayside_shrine" = "Drobná sakrální památka";
+
+"type.historic.wreck" = "Vrak";
 
 "type.hwtag" = "hwtag";
 

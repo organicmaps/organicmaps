@@ -1179,9 +1179,12 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Történelmi tárgy</string>
+	<string name="type.historic.aircraft">Történelmi Repülőgép</string>
+	<string name="type.historic.anchor">Történelmi horgony</string>
 	<string name="type.historic.archaeological_site">Ásatás</string>
 	<string name="type.historic.battlefield">Csatatér</string>
 	<string name="type.historic.boundary_stone">Határkő</string>
+	<string name="type.historic.cannon">Ágyú</string>
 	<string name="type.historic.castle">Kastély</string>
 	<string name="type.historic.castle.castrum">Castrum</string>
 	<string name="type.historic.castle.defensive">Kastély</string>
@@ -1197,20 +1200,25 @@
 	<string name="type.historic.citywalls">Városi fal</string>
 	<string name="type.historic.fort">Fort</string>
 	<string name="type.historic.gallows">Akasztófa</string>
+	<string name="type.historic.locomotive">Történelmi mozdony</string>
 	<string name="type.historic.memorial">Emlékmű</string>
 	<string name="type.historic.memorial.cross">Emlékkereszt</string>
 	<string name="type.historic.memorial.plaque">Emlékmű</string>
 	<string name="type.historic.memorial.sculpture">Emlékmű</string>
 	<string name="type.historic.memorial.statue">Emlékmű</string>
 	<string name="type.historic.memorial.stolperstein">Botlatókő</string>
+	<string name="type.historic.stone">Történelmi kő</string>
 	<string name="type.historic.memorial.war_memorial">Háborús emlékmű</string>
+	<string name="type.historic.mine">Történelmi Bánya</string>
 	<string name="type.historic.monument">Műemlék</string>
 	<string name="type.historic.pillory">Pellengér</string>
 	<string name="type.historic.ruins">Romok</string>
 	<string name="type.historic.ship">Túrizmus</string>
+	<string name="type.historic.tank">Történelmi Tank</string>
 	<string name="type.historic.tomb">Sír</string>
 	<string name="type.historic.wayside_cross">Útszéli kereszt</string>
 	<string name="type.historic.wayside_shrine">Útmenti szentély</string>
+	<string name="type.historic.wreck">Hajótörés</string>
 	<string name="type.landuse.basin">Vízgyűjtő</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Temető</string>

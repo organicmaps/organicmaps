@@ -1209,9 +1209,17 @@
 	<string name="type.area_highway.unclassified">Estrada sem classificação</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic.aircraft">Aeronaves Históricas</string>
+	<string name="type.historic.anchor">Âncora Histórica</string>
+	<string name="type.historic.cannon">Canhão</string>
 	<string name="type.historic.citywalls">Muro da cidade</string>
 	<string name="type.historic.gallows">Galo</string>
+	<string name="type.historic.locomotive">Locomotiva Histórica</string>
 	<string name="type.historic.memorial.cross">Cruz de memorial</string>
+	<string name="type.historic.stone">Pedra Histórica</string>
+	<string name="type.historic.mine">Mina Histórica</string>
+	<string name="type.historic.tank">Tanque Histórico</string>
+	<string name="type.historic.wreck">Naufrágio</string>
 	<string name="type.internet_access">Internet</string>
 	<string name="type.internet_access.wlan">Internet</string>
 	<string name="type.junction">Cruzamento</string>

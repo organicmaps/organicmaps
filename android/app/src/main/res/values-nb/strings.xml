@@ -1213,9 +1213,12 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Historisk gjenstand</string>
+	<string name="type.historic.aircraft">Historisk fly</string>
+	<string name="type.historic.anchor">Historisk anker</string>
 	<string name="type.historic.archaeological_site">Arkeologisk område</string>
 	<string name="type.historic.battlefield">Slagmarken</string>
 	<string name="type.historic.boundary_stone">Grensestein</string>
+	<string name="type.historic.cannon">Kanon</string>
 	<string name="type.historic.castle">Borg</string>
 	<string name="type.historic.castle.castrum">Romersk fort</string>
 	<string name="type.historic.castle.defensive">Borg</string>
@@ -1231,19 +1234,24 @@
 	<string name="type.historic.citywalls">Bymur</string>
 	<string name="type.historic.fort">Fort</string>
 	<string name="type.historic.gallows">Galge</string>
+	<string name="type.historic.locomotive">Historisk lokomotiv</string>
 	<string name="type.historic.memorial">Minnesmerke</string>
 	<string name="type.historic.memorial.cross">Minnekors</string>
 	<string name="type.historic.memorial.plaque">Minneplakett</string>
 	<string name="type.historic.memorial.sculpture">Skulptur</string>
 	<string name="type.historic.memorial.statue">Statue</string>
 	<string name="type.historic.memorial.stolperstein">Snublesteiner</string>
+	<string name="type.historic.stone">Historisk stein</string>
 	<string name="type.historic.memorial.war_memorial">Krigsminnesmerke</string>
+	<string name="type.historic.mine">Historisk gruve</string>
 	<string name="type.historic.pillory">Gapestokk</string>
 	<string name="type.historic.ruins">Ruiner</string>
 	<string name="type.historic.ship">Skip</string>
+	<string name="type.historic.tank">Historisk tank</string>
 	<string name="type.historic.tomb">Grav</string>
 	<string name="type.historic.wayside_cross">Veikantkors</string>
 	<string name="type.historic.wayside_shrine">Helligdom ved veikanten</string>
+	<string name="type.historic.wreck">Skipsvrak</string>
 	<string name="type.landuse.basin">Basseng</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Gravplass</string>

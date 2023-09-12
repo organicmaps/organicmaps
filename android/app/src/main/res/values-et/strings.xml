@@ -1263,9 +1263,12 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Ajalooline objekt</string>
+	<string name="type.historic.aircraft">Ajalooline lennuk</string>
+	<string name="type.historic.anchor">Ajalooline ankur</string>
 	<string name="type.historic.archaeological_site">Arheoloogiline koht</string>
 	<string name="type.historic.battlefield">Lahinguväli</string>
 	<string name="type.historic.boundary_stone">Piirikivi</string>
+	<string name="type.historic.cannon">Kahur</string>
 	<string name="type.historic.castle">Loss</string>
 	<string name="type.historic.castle.castrum">Rooma kindlus</string>
 	<string name="type.historic.castle.defensive">Kindlus</string>
@@ -1281,20 +1284,25 @@
 	<string name="type.historic.citywalls">Linnamüür</string>
 	<string name="type.historic.fort">Kindlus</string>
 	<string name="type.historic.gallows">Võllas</string>
+	<string name="type.historic.locomotive">Ajalooline vedur</string>
 	<string name="type.historic.memorial">Memoriaal</string>
 	<string name="type.historic.memorial.cross">Mälestusrist</string>
 	<string name="type.historic.memorial.plaque">Mälestusmärk</string>
 	<string name="type.historic.memorial.sculpture">Skulptuur</string>
 	<string name="type.historic.memorial.statue">Kuju</string>
 	<string name="type.historic.memorial.stolperstein">Komistuskivi</string>
+	<string name="type.historic.stone">Ajalooline kivi</string>
 	<string name="type.historic.memorial.war_memorial">Sõjamemoriaal</string>
+	<string name="type.historic.mine">Ajalooline kaevandus</string>
 	<string name="type.historic.monument">Monument</string>
 	<string name="type.historic.pillory">Häbipost</string>
 	<string name="type.historic.ruins">Varemed</string>
 	<string name="type.historic.ship">Laev</string>
+	<string name="type.historic.tank">Ajalooline tank</string>
 	<string name="type.historic.tomb">Haud</string>
 	<string name="type.historic.wayside_cross">Teeäärne rist</string>
 	<string name="type.historic.wayside_shrine">Teeäärne pühamu</string>
+	<string name="type.historic.wreck">Laevahukk</string>
 	<string name="type.internet_access">Internet</string>
 	<string name="type.internet_access.wlan">Internet</string>
 	<string name="type.junction">Ristmik</string>
