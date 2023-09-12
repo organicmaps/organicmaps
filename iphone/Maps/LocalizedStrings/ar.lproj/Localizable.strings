@@ -1251,39 +1251,39 @@
 
 "type.addr_interpolation.odd" = "العنوان / البلوك";
 
-"type.aerialway" = "Aerialway";
+"type.aerialway" = "طريق جوي";
 
 "type.aerialway.cable_car" = "تلفريك";
 
-"type.aerialway.chair_lift" = "Chair Lift";
+"type.aerialway.chair_lift" = "مصعد مقعدي";
 
-"type.aerialway.drag_lift" = "Drag Lift";
+"type.aerialway.drag_lift" = "مصعد الجر";
 
-"type.aerialway.gondola" = "Gondola";
+"type.aerialway.gondola" = "غندول";
 
 "type.aerialway.mixed_lift" = "Mixed Lift";
 
 "type.aerialway.station" = "محطة تلفريك";
 
-"type.aeroway" = "Airspace Infrastructure";
+"type.aeroway" = "بنية الطيران";
 
 "type.aeroway.aerodrome" = "مطار";
 
 "type.aeroway.aerodrome.international" = "مطار دولي";
 
-"type.aeroway.apron" = "Apron";
+"type.aeroway.apron" = "موقف الطائرات";
 
-"type.aeroway.gate" = "Gate";
+"type.aeroway.gate" = "بوابة";
 
 "type.aeroway.helipad" = "مهبط مروحيات";
 
-"type.aeroway.runway" = "Runway";
+"type.aeroway.runway" = "مدرج هبوط";
 
-"type.aeroway.taxiway" = "Taxiway";
+"type.aeroway.taxiway" = "ممر تدريج";
 
-"type.aeroway.terminal" = "Terminal";
+"type.aeroway.terminal" = "صالة";
 
-"type.amenity" = "أثر";
+"type.amenity" = "مرفق";
 
 "type.amenity.arts_centre" = "مركز فن";
 
@@ -1295,9 +1295,9 @@
 
 "type.amenity.bbq" = "مكان نزهة";
 
-"type.amenity.bench" = "مقعد طويل";
+"type.amenity.bench" = "مصطبة";
 
-"type.amenity.bicycle_parking" = "أماكن وقوف للدراجات";
+"type.amenity.bicycle_parking" = "موقف دراجات";
 
 "type.amenity.bicycle_rental" = "تأجير دراجات";
 
@@ -1307,7 +1307,7 @@
 
 "type.amenity.brothel" = "دعارة";
 
-"type.amenity.bureau_de_change" = "تحويل عملات";
+"type.amenity.bureau_de_change" = "صرافة العملات";
 
 "type.amenity.bus_station" = "محطة حافلات";
 
@@ -1321,7 +1321,7 @@
 
 "type.amenity.casino" = "كازينو";
 
-"type.amenity.gambling" = "القمار";
+"type.amenity.gambling" = "قمار";
 
 "type.leisure.adult_gaming_centre" = "مركز ألعاب الكبار";
 
@@ -1331,7 +1331,7 @@
 
 "type.amenity.charging_station.bicycle" = "محطة شحن الدراجات";
 
-"type.amenity.charging_station.motorcar" = "محطة شحن Motorcar";
+"type.amenity.charging_station.motorcar" = "محطة شحن السيارات";
 
 "type.amenity.childcare" = "حضانة";
 
@@ -1385,15 +1385,15 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard.christian" = "مقبرة مسيحية";
 
-"type.amenity.hospital" = "عيادة";
+"type.amenity.hospital" = "مستشفى";
 
 "type.amenity.hunting_stand" = "منصة صيد";
 
-"type.amenity.ice_cream" = "كشك أيس كريم";
+"type.amenity.ice_cream" = "كشك مثلجات";
 
 "type.amenity.internet_cafe" = "مقهى إنترنت";
 
-"type.amenity.kindergarten" = "حضانة أطفال";
+"type.amenity.kindergarten" = "روضة أطفال";
 
 "type.amenity.library" = "مكتبة";
 
@@ -1419,7 +1419,7 @@
 
 "type.amenity.parking.private" = "موقف سيارات خاص";
 
-"type.amenity.parking.park_and_ride" = "موقف سيارات";
+"type.amenity.parking.park_and_ride" = "موقف اصطفاف وركوب";
 
 "type.amenity.parking.underground" = "موقف سيارات تحت الأرض";
 
@@ -1445,11 +1445,11 @@
 
 "type.amenity.parking_space.underground" = "مكان لوقوف السيارات";
 
-"type.amenity.parking_space.disabled" = "مكان لوقوف السيارات لذوي الاحتياجات الخاصة";
+"type.amenity.parking_space.disabled" = "مكان وقوف السيارات لذوي الاحتياجات الخاصة";
 
 "type.amenity.payment_terminal" = "محطة دفع";
 
-"type.amenity.pharmacy" = "متجر أدوية";
+"type.amenity.pharmacy" = "صيدلية";
 
 "type.amenity.place_of_worship" = "مكان عبادة";
 
@@ -1492,15 +1492,15 @@
 
 "type.recycling.batteries" = "بطاريات";
 
-"type.recycling.clothes" = "ملابس قديمة";
+"type.recycling.clothes" = "ملابس";
 
-"type.recycling.glass_bottles" = "زجاجات زجاجية";
+"type.recycling.glass_bottles" = "قنينات زجاجية";
 
 "type.recycling.paper" = "نفايات ورقية";
 
 "type.recycling.plastic" = "نفايات بلاستيكية";
 
-"type.recycling.plastic_bottles" = "زجاجات بلاستيكية";
+"type.recycling.plastic_bottles" = "قنينات بلاستيكية";
 
 "type.recycling.scrap_metal" = "نفايات معدنية";
 
@@ -1514,11 +1514,11 @@
 
 "type.recycling.green_waste" = "نفايات عضوية";
 
-"type.recycling.cartons" = "علب مشروبات";
+"type.recycling.cartons" = "كرتونات";
 
 "type.amenity.restaurant" = "مطعم";
 
-"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
+"type.amenity.sanitary_dump_station" = "محطة تفريغ المخلفات الصحية";
 
 "type.amenity.school" = "مدرسة";
 
@@ -1528,7 +1528,7 @@
 
 "type.amenity.shower" = "حمام";
 
-"type.amenity.stripclub" = "Stripclub";
+"type.amenity.stripclub" = "نادي تعري";
 
 "type.amenity.taxi" = "سيارة أجرة";
 
@@ -1536,85 +1536,85 @@
 
 "type.amenity.theatre" = "مسرح";
 
-"type.amenity.toilets" = "حمام";
+"type.amenity.toilets" = "مرحاض";
 
 "type.amenity.townhall" = "مبنى البلدية";
 
 "type.amenity.university" = "جامعة";
 
-"type.amenity.vending_machine" = "ماكينة بيع";
+"type.amenity.vending_machine" = "آلة البيع الذاتي";
 
-"type.amenity.vending_machine.cigarettes" = "ماكينة بيع سجائر";
+"type.amenity.vending_machine.cigarettes" = "آلة بيع سجائر";
 
-"type.amenity.vending_machine.coffee" = "ماكينة بيع قهوة";
+"type.amenity.vending_machine.coffee" = "آلة بيع قهوة";
 
-"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+"type.amenity.vending_machine.condoms" = "آلة بيع واقي ذكري";
 
-"type.amenity.vending_machine.drinks" = "ماكينة بيع مشروبات";
+"type.amenity.vending_machine.drinks" = "آلة بيع مشروبات";
 
-"type.amenity.vending_machine.food" = "ماكينة بيع طعام";
+"type.amenity.vending_machine.food" = "آلة بيع طعام";
 
-"type.amenity.vending_machine.newspapers" = "Newspaper Dispenser";
+"type.amenity.vending_machine.newspapers" = "آلة بيع جرائد";
 
-"type.amenity.vending_machine.parking_tickets" = "ماكينة دفع تذاكر الموقف";
+"type.amenity.vending_machine.parking_tickets" = "آلة دفع تذاكر الموقف";
 
 "type.amenity.vending_machine.public_transport_tickets" = "آلة بيع تذاكر النقل العام";
 
-"type.amenity.vending_machine.sweets" = "ماكينة بيع الحلويات";
+"type.amenity.vending_machine.sweets" = "آلة بيع الحلويات";
 
-"type.amenity.vending_machine.excrement_bags" = "ماكينة بيع حقائب النفايات";
+"type.amenity.vending_machine.excrement_bags" = "آلة بيع حقائب النفايات";
 
 "type.amenity.parcel_locker" = "خزانة الطرود";
 
 "type.amenity.vehicle_inspection" = "فحص المركبة";
 
-"type.amenity.vending_machine.fuel" = "ماكينة بيع الوقود";
+"type.amenity.vending_machine.fuel" = "مضخة وقود";
 
 "type.amenity.veterinary" = "طبيب بيطري";
 
-"type.amenity.waste_basket" = "صندوق قمامة";
+"type.amenity.waste_basket" = "سلة مهملات";
 
-"type.amenity.waste_disposal" = "قمامة";
+"type.amenity.waste_disposal" = "حاوية قمامة";
 
 "type.amenity.waste_transfer_station" = "محطة نقل النفايات";
 
-"type.amenity.water_point" = "نقطة مائية";
+"type.amenity.water_point" = "نقطة إعادة تعبة قنينة المياه";
 
 "type.barrier" = "حاجز";
 
 "type.barrier.block" = "حاجز";
 
-"type.barrier.bollard" = "عمود حاجز قصير";
+"type.barrier.bollard" = "حاجز سيارات";
 
 "type.barrier.border_control" = "أمن الحدود";
 
-"type.barrier.chain" = "Chain";
+"type.barrier.chain" = "سلسلة";
 
 "type.barrier.city_wall" = "جدار المدينة";
 
-"type.barrier.cycle_barrier" = "Cycle Barrier";
+"type.barrier.cycle_barrier" = "حاجز دراجات هوائية";
 
 "type.waterway.ditch" = "حفرة الصرف الصحي";
 
-"type.natural.water.moat" = "حفرة";
+"type.natural.water.moat" = "خندق";
 
 "type.natural.water.wastewater" = "مياه الصرف";
 
-"type.barrier.entrance" = "مدخل الحاجز";
+"type.barrier.entrance" = "مدخل";
 
-"type.barrier.fence" = "Fence";
+"type.barrier.fence" = "سياج";
 
 "type.barrier.gate" = "بوابة";
 
-"type.barrier.hedge" = "Hedge";
+"type.barrier.hedge" = "سياج نباتي";
 
 "type.barrier.kissing_gate" = "بوابة";
 
 "type.barrier.lift_gate" = "حاجز بوابة";
 
-"type.barrier.retaining_wall" = "Retaining Wall";
+"type.barrier.retaining_wall" = "جدار استنادي";
 
-"type.barrier.stile" = "ممر عبور";
+"type.barrier.stile" = "مرقى";
 
 "type.barrier.turnstile" = "الباب الدوار";
 
@@ -1660,9 +1660,9 @@
 
 "type.boundary.administrative.region" = "حدود منطقة";
 
-"type.boundary.administrative.state" = "State Boundary";
+"type.boundary.administrative.state" = "حدود محافظة";
 
-"type.boundary.administrative.suburb" = "Suburb Boundary";
+"type.boundary.administrative.suburb" = "حدود ضاحية";
 
 "type.boundary.national_park" = "منتزه وطني";
 
@@ -1688,9 +1688,9 @@
 
 "type.building_part" = "مبنى";
 
-"type.building.garage" = "جراج";
+"type.building.garage" = "مرآب";
 
-"type.building.train_station" = "محطة سكك حديدية";
+"type.building.train_station" = "محطة قطار";
 
 "type.building.warehouse" = "مستودع";
 
@@ -1708,7 +1708,7 @@
 
 "type.craft.confectionery" = "حلواني";
 
-"type.craft.electrician" = "كهربائي";
+"type.craft.electrician" = "عامل كهربائي";
 
 "type.craft.electronics_repair" = "إصلاح الإلكترونيات";
 
@@ -1717,7 +1717,7 @@
 "type.craft.handicraft" = "مشغولات يدوية";
 
 /* Heating, Ventilation, and Air Conditioning */
-"type.craft.hvac" = "تكييف";
+"type.craft.hvac" = "محل تكييف";
 
 "type.craft.key_cutter" = "قطع المفاتيح";
 
@@ -1757,7 +1757,7 @@
 
 "type.cuisine.balkan" = "مطبخ بلقاني";
 
-"type.cuisine.barbecue" = "شواء";
+"type.cuisine.barbecue" = "باربكيو";
 
 "type.cuisine.bavarian" = "مطبخ بافاري";
 
@@ -1793,13 +1793,13 @@
 
 "type.cuisine.diner" = "عشاء";
 
-"type.cuisine.donut" = "الكعك المحلاة";
+"type.cuisine.donut" = "دونات";
 
 "type.cuisine.ethiopian" = "مطبخ إثيوبي";
 
 "type.cuisine.filipino" = "مطبخ فلبيني";
 
-"type.cuisine.fine_dining" = "مطعم متكامل";
+"type.cuisine.fine_dining" = "مطعم فاخر";
 
 "type.cuisine.fish" = "سمك";
 
@@ -1853,23 +1853,23 @@
 
 "type.cuisine.malaysian" = "مطبخ ماليزي";
 
-"type.cuisine.mediterranean" = "مطبخ شرق أوسطي";
+"type.cuisine.mediterranean" = "مطبخ البحر المتوسط";
 
 "type.cuisine.mexican" = "مطبخ مكسيكي";
 
 "type.cuisine.moroccan" = "مطبخ مغربي";
 
-"type.cuisine.noodles" = "الشعرية";
+"type.cuisine.noodles" = "نودلز";
 
 "type.cuisine.oriental" = "مطبخ شرقي";
 
 "type.cuisine.pancake" = "بان كيك";
 
-"type.cuisine.pasta" = "مَعْكَرُونَة";
+"type.cuisine.pasta" = "معكرونة";
 
 "type.cuisine.persian" = "مطبخ إيراني";
 
-"type.cuisine.peruvian" = "مطبخ من دولة بيرو";
+"type.cuisine.peruvian" = "مطبخ دولة بيرو";
 
 "type.cuisine.pizza" = "بيتزا";
 
@@ -1907,9 +1907,9 @@
 
 "type.cuisine.turkish" = "مطبخ تركي";
 
-"type.cuisine.vegan" = "مطبخ نباتي";
+"type.cuisine.vegan" = "خضري";
 
-"type.cuisine.vegetarian" = "مطبخ نباتي";
+"type.cuisine.vegetarian" = "نباتي";
 
 "type.cuisine.vietnamese" = "مطبخ فيتنامي";
 
@@ -1927,7 +1927,7 @@
 "type.entrance" = "مدخل";
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
-"type.entrance.main" = "ﻲﺴﻴﺋﺮﻟﺍ ﻞﺧﺪﻤﻟﺍ";
+"type.entrance.main" = "المدخل الرئيسي";
 
 "type.entrance.exit" = "مخرج";
 
@@ -1937,11 +1937,11 @@
 
 "type.healthcare.alternative" = "الطب البديل";
 
-"type.healthcare.audiologist" = "السمع";
+"type.healthcare.audiologist" = "علم السمع";
 
 "type.healthcare.blood_donation" = "مركز التبرع بالدم";
 
-"type.healthcare.optometrist" = "قياس البصر";
+"type.healthcare.optometrist" = "تصحيح البصر";
 
 "type.healthcare.podiatrist" = "علاج الأرجل";
 
@@ -1956,17 +1956,17 @@
 
 "type.highway" = "طريق السريع";
 
-"type.highway.bridleway" = "Bridle Path";
+"type.highway.bridleway" = "طريق خيول";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.bridleway.bridge" = "جسر";
 
-"type.highway.bridleway.permissive" = "Bridle Path";
+"type.highway.bridleway.permissive" = "طريق خيول";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "نفق";
 
-"type.highway.busway" = "ﺺﺼﺨﻣ ﺕﻼﻓﺎﺣ ﻖﻳﺮﻃ";
+"type.highway.busway" = "طريق حافلات مخصص";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.busway.bridge" = "جسر";
@@ -1974,7 +1974,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.busway.tunnel" = "نفق";
 
-"type.highway.bus_stop" = "موقف حافلة";
+"type.highway.bus_stop" = "موقف حافلات";
 
 "type.highway.construction" = "طريق تحت الإنشاء";
 
@@ -1990,7 +1990,7 @@
 
 "type.highway.elevator" = "مِصعَد";
 
-"type.highway.footway" = "مسار للمشي";
+"type.highway.footway" = "مسار للمشاة";
 
 "type.highway.footway.alpine_hiking" = "مسار";
 
@@ -2009,7 +2009,7 @@
 
 "type.highway.footway.mountain_hiking" = "مسار";
 
-"type.highway.footway.permissive" = "مسار للمشي";
+"type.highway.footway.permissive" = "مسار للمشاة";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "نفق للمشاة";
@@ -2096,9 +2096,9 @@
 
 "type.highway.raceway" = "مسار سباق";
 
-"type.highway.residential" = "شارع";
+"type.highway.residential" = "شارع سكني";
 
-"type.highway.residential.area" = "شارع";
+"type.highway.residential.area" = "شارع سكني";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.residential.bridge" = "جسر";
@@ -2108,7 +2108,7 @@
 
 "type.highway.rest_area" = "استراحة";
 
-"type.highway.road" = "شارع";
+"type.highway.road" = "طريق";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.road.bridge" = "جسر";
@@ -2135,21 +2135,21 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary_link.tunnel" = "نفق";
 
-"type.highway.service" = "شارع";
+"type.highway.service" = "شارع خدمي";
 
-"type.highway.service.area" = "شارع";
+"type.highway.service.area" = "شارع خدمي";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.service.bridge" = "جسر";
 
-"type.highway.service.driveway" = "شارع";
+"type.highway.service.driveway" = "شارع خدمي";
 
-"type.highway.service.parking_aisle" = "شارع";
+"type.highway.service.parking_aisle" = "شارع خدمي";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.service.tunnel" = "نفق";
 
-"type.highway.services" = "Service Area";
+"type.highway.services" = "موقف الراحة";
 
 "type.highway.speed_camera" = "كاميرا لرصد السرعة";
 
@@ -2201,7 +2201,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "نفق";
 
-"type.highway.traffic_signals" = "إشارات مرور";
+"type.highway.traffic_signals" = "إشارات مرورية";
 
 "type.highway.trunk" = "شارع وطني";
 
@@ -2231,7 +2231,7 @@
 
 "type.area_highway.cycleway" = "مسار للدراجات";
 
-"type.area_highway.footway" = "مسار للمشي";
+"type.area_highway.footway" = "مسار للمشاة";
 
 "type.area_highway.living_street" = "شارع";
 
@@ -2243,11 +2243,11 @@
 
 "type.area_highway.primary" = "شارع رئيسي";
 
-"type.area_highway.residential" = "شارع";
+"type.area_highway.residential" = "شارع سكني";
 
 "type.area_highway.secondary" = "شارع ثانوي";
 
-"type.area_highway.service" = "شارع";
+"type.area_highway.service" = "شارع خدمي";
 
 "type.area_highway.tertiary" = "شارع";
 
@@ -2276,19 +2276,19 @@
 
 "type.historic.castle" = "قلعة";
 
-"type.historic.castle.castrum" = "كاسترا";
+"type.historic.castle.castrum" = "معسكر روماني";
 
 "type.historic.castle.defensive" = "قلعة";
 
-"type.historic.castle.fortified_church" = "الكنيسة المحصنة";
+"type.historic.castle.fortified_church" = "كنيسة محصنة";
 
-"type.historic.castle.fortress" = "قلعة";
+"type.historic.castle.fortress" = "حصن";
 
 "type.historic.castle.hillfort" = "حصون التلال";
 
 "type.historic.castle.kremlin" = "كرملين";
 
-"type.historic.castle.manor" = "قصر مالك العزبة";
+"type.historic.castle.manor" = "قصر ريفي";
 
 "type.historic.castle.palace" = "قصر";
 
@@ -2296,41 +2296,41 @@
 
 "type.historic.castle.stately" = "شاتو";
 
-"type.historic.city_gate" = "بوابة مدينة";
+"type.historic.city_gate" = "بوابة المدينة";
 
 "type.historic.citywalls" = "جدار المدينة";
 
-"type.historic.fort" = "قلعة";
+"type.historic.fort" = "حصن";
 
 "type.historic.gallows" = "مشنقة";
 
 "type.historic.memorial" = "نصب تذكاري";
 
-"type.historic.memorial.cross" = "الصليب التذكاري";
+"type.historic.memorial.cross" = "صليب تذكاري";
 
 "type.historic.memorial.plaque" = "لوحة تذكارية";
 
 "type.historic.memorial.sculpture" = "منحوتة تذكارية";
 
-"type.historic.memorial.statue" = "تمثال تذكاري";
+"type.historic.memorial.statue" = "تمثال";
 
 "type.historic.memorial.stolperstein" = "حجر عثرة";
 
-"type.historic.memorial.war_memorial" = "نصب حرب";
+"type.historic.memorial.war_memorial" = "نصب حرب تذكاري";
 
-"type.historic.monument" = "صرح";
+"type.historic.monument" = "نصب تذكاري";
 
 "type.historic.pillory" = "مشهرة";
 
-"type.historic.ruins" = "آثار";
+"type.historic.ruins" = "آثار تاريخية";
 
-"type.historic.ship" = "سفينة تاريخية";
+"type.historic.ship" = "سفينة";
 
 "type.historic.tomb" = "قبر";
 
-"type.historic.wayside_cross" = "صليب مسيحي";
+"type.historic.wayside_cross" = "صليب جانب الطريق";
 
-"type.historic.wayside_shrine" = "ضريح";
+"type.historic.wayside_shrine" = "ضريح جانب الطريق";
 
 "type.hwtag" = "hwtag";
 
@@ -2360,7 +2360,7 @@
 
 "type.internet_access" = "إنترنت";
 
-"type.internet_access.wlan" = "إنترنت لا سلكي";
+"type.internet_access.wlan" = "إنترنت";
 
 "type.junction" = "تقاطع";
 
@@ -2368,11 +2368,11 @@
 
 "type.junction.roundabout" = "دوّار";
 
-"type.landuse" = "Landuse";
+"type.landuse" = "استخدام الارض";
 
-"type.landuse.allotments" = "Allotments";
+"type.landuse.allotments" = "حصص الحدائق";
 
-"type.landuse.basin" = "حوض المياه";
+"type.landuse.basin" = "حوض مياه";
 
 "type.landuse.brownfield" = "Brownfield";
 
@@ -2388,7 +2388,7 @@
 
 "type.landuse.construction" = "منطقة بناء";
 
-"type.landuse.education" = "مؤسسات تعليمية";
+"type.landuse.education" = "مؤسسة تعليمية";
 
 "type.landuse.farm" = "مزرعة";
 
@@ -2402,11 +2402,11 @@
 
 "type.landuse.forest.coniferous" = "غابة صنوبرية";
 
-"type.landuse.forest.deciduous" = "غابة تتساقط أوراقها";
+"type.landuse.forest.deciduous" = "غابة نفضيّة";
 
-"type.landuse.forest.mixed" = "غابة مختلطة";
+"type.landuse.forest.mixed" = "غابة مختلطة الاوراق";
 
-"type.landuse.garages" = "Garages";
+"type.landuse.garages" = "كراجات خاصة";
 
 "type.landuse.grass" = "عشب";
 
@@ -2418,25 +2418,25 @@
 
 "type.landuse.landfill" = "مكب نفايات";
 
-"type.landuse.meadow" = "Meadow";
+"type.landuse.meadow" = "مرج";
 
 "type.landuse.military" = "منطقة عسكرية";
 
 "type.landuse.orchard" = "بستان";
 
-"type.landuse.quarry" = "Quarry";
+"type.landuse.quarry" = "مقلع";
 
-"type.landuse.railway" = "محطة خط سكة حديد";
+"type.landuse.railway" = "موقع سكك حديد";
 
-"type.landuse.recreation_ground" = "Recreation Ground";
+"type.landuse.recreation_ground" = "أراضي ترفيهية";
 
-"type.landuse.reservoir" = "مياه";
+"type.landuse.reservoir" = "بحيرة لخزن المياه";
 
 "type.landuse.residential" = "منطقة سكنية";
 
-"type.landuse.retail" = "منطقة متاجر";
+"type.landuse.retail" = "منطقة تجارية";
 
-"type.landuse.salt_pond" = "مستنقع";
+"type.landuse.salt_pond" = "ملّاحة";
 
 "type.landuse.village_green" = "Land";
 
@@ -2446,19 +2446,19 @@
 
 "type.leisure.common" = "Public Land";
 
-"type.leisure.dog_park" = "منطقة كلاب";
+"type.leisure.dog_park" = "متنزه كلاب";
 
-"type.leisure.fitness_centre" = "مركز للياقة البدنية، نادي رياضي";
+"type.leisure.fitness_centre" = "مركز لياقة بدنية";
 
-"type.leisure.fitness_station" = "مركز لياقة";
+"type.leisure.fitness_station" = "مركز لياقة خارجي";
 
-"type.leisure.dance" = "ﺺﻗﺮﻟﺍ ﺔﻟﺎﺻ";
+"type.leisure.dance" = "صالة رقص";
 
 "type.leisure.garden" = "حديقة";
 
 "type.leisure.garden.residential" = "حديقة";
 
-"type.leisure.golf_course" = "ملعب جولف";
+"type.leisure.golf_course" = "ملعب غولف";
 
 "type.leisure.ice_rink" = "Ice Rink";
 
@@ -2468,19 +2468,19 @@
 
 "type.leisure.nature_reserve" = "محمية طبيعية";
 
-"type.leisure.park" = "موقف سيارات";
+"type.leisure.park" = "متنزه";
 
-"type.leisure.park.no.access" = "موقف سيارات";
+"type.leisure.park.no.access" = "متنزه";
 
-"type.leisure.park.permissive" = "موقف سيارات";
+"type.leisure.park.permissive" = "متنزه";
 
-"type.leisure.park.private" = "موقف سيارات";
+"type.leisure.park.private" = "متنزه";
 
-"type.leisure.picnic_table" = "طاولة النزهة";
+"type.leisure.picnic_table" = "طاولة نزهة";
 
 "type.leisure.pitch" = "ملعب رياضي";
 
-"type.leisure.playground" = "ملعب";
+"type.leisure.playground" = "ملعب أطفال";
 
 "type.leisure.recreation_ground" = "Recreation Ground";
 
@@ -2494,7 +2494,7 @@
 
 "type.sport.yoga" = "نادي يوغا";
 
-"type.leisure.stadium" = "استاد أو مدّرج";
+"type.leisure.stadium" = "ملعب";
 
 "type.leisure.swimming_pool" = "مسبح";
 
@@ -2504,7 +2504,7 @@
 
 "type.leisure.track.area" = "Track";
 
-"type.leisure.water_park" = "ملاهي مائية";
+"type.leisure.water_park" = "مدينة مائية";
 
 "type.leisure.beach_resort" = "منتجع شاطئي";
 
@@ -2514,7 +2514,7 @@
 
 "type.man_made.cairn" = "Cairn";
 
-"type.man_made.chimney" = "مدخنة مصنع";
+"type.man_made.chimney" = "مدخنة";
 
 "type.man_made.cutline" = "Cutline";
 
@@ -2528,19 +2528,19 @@
 
 "type.man_made.pier" = "رصيف بحري";
 
-"type.man_made.pipeline" = "Pipeline";
+"type.man_made.pipeline" = "خط أنبوب";
 
-"type.man_made.pipeline.overground" = "Overground Pipeline";
+"type.man_made.pipeline.overground" = "خط أنبوب فوق الارض";
 
 "type.man_made.silo" = "صومعة";
 
-"type.man_made.storage_tank" = "Storage Tank";
+"type.man_made.storage_tank" = "خزان";
 
 "type.man_made.surveillance" = "كاميرا مراقبة";
 
 "type.man_made.tower" = "برج";
 
-"type.man_made.tower.communication" = "برج الاتصالات";
+"type.man_made.tower.communication" = "برج اتصالات";
 
 "type.man_made.wastewater_plant" = "Wastewater Treatment Plant";
 
@@ -2558,7 +2558,7 @@
 
 "type.mapswithme.grid" = "mapswithme-grid";
 
-"type.military" = "جيش";
+"type.military" = "عسكري";
 
 "type.military.bunker" = "ملجأ";
 
@@ -2566,7 +2566,7 @@
 
 "type.natural" = "طبيعة";
 
-"type.natural.bare_rock" = "الصخور العارية";
+"type.natural.bare_rock" = "صخور عارية";
 
 "type.natural.bay" = "خليج";
 
@@ -2574,23 +2574,23 @@
 
 "type.natural.beach.sand" = "شاطئ رملي";
 
-"type.natural.beach.gravel" = "شاطئ جرافيل";
+"type.natural.beach.gravel" = "شاطئ حصى";
 
 "type.natural.cape" = "رأس";
 
-"type.natural.cave_entrance" = "كهف";
+"type.natural.cave_entrance" = "مدخل الكهف";
 
 "type.natural.cliff" = "جرف";
 
-"type.natural.earth_bank" = "بنك الأرض";
+"type.natural.earth_bank" = "جروف أرضية";
 
-"type.man_made.embankment" = "سد";
+"type.man_made.embankment" = "ضفة اصطناعية";
 
 "type.natural.coastline" = "ساحل";
 
-"type.natural.desert" = "ءﺍﺮﺤﺻ";
+"type.natural.desert" = "صحراء";
 
-"type.natural.geyser" = "نبع ماء حار";
+"type.natural.geyser" = "حَمَّة";
 
 "type.natural.glacier" = "كتلة جليدية";
 
@@ -2602,13 +2602,13 @@
 
 "type.natural.water.lake" = "بحيرة";
 
-"type.natural.water.lock" = "ﻞﻔﻘﻟﺍ ﺔﻓﺮﻏ";
+"type.natural.water.lock" = "قفل مياه";
 
 "type.natural.water.pond" = "بركة";
 
-"type.natural.water.reservoir" = "خزان";
+"type.natural.water.reservoir" = "بحيرة لخزن المياه";
 
-"type.natural.water.basin" = "حوض المياه";
+"type.natural.water.basin" = "حوض مياه";
 
 "type.natural.water.river" = "نهر";
 
@@ -2632,13 +2632,13 @@
 
 "type.natural.tree" = "شجرة";
 
-"type.natural.tree_row" = "صف الشجرة";
+"type.natural.tree_row" = "صف شجر";
 
-"type.natural.vineyard" = "كرم";
+"type.natural.vineyard" = "حقل عنب";
 
 "type.natural.volcano" = "بركان";
 
-"type.natural.water" = "مسطح مائي";
+"type.natural.water" = "ماء";
 
 "type.natural.wetland" = "منطقة رطبة";
 
@@ -2660,7 +2660,7 @@
 
 "type.office.lawyer" = "مكتب محامي";
 
-"type.office.ngo" = "مكتب مؤسسة خيرية";
+"type.office.ngo" = "مكتب مؤسسة غير حكومية";
 
 "type.office.telecommunication" = "شركة اتصالات";
 
@@ -2712,19 +2712,19 @@
 
 "type.place.neighbourhood" = "حي سكني";
 
-"type.place.ocean" = "المحيط";
+"type.place.ocean" = "محيط";
 
 "type.place.region" = "منطقة";
 
-"type.place.sea" = "يكون";
+"type.place.sea" = "بحر";
 
 "type.place.square" = "ميدان";
 
 "type.place.state" = "محافظة";
 
-"type.place.state.USA" = "محافظة";
+"type.place.state.USA" = "ولاية";
 
-"type.place.suburb" = "حي سكني";
+"type.place.suburb" = "ضاحية";
 
 "type.place.town" = "بلدة";
 
@@ -2750,13 +2750,13 @@
 
 "type.power.plant" = "محطة توليد الكهرباء";
 
-"type.power.plant.coal" = "محطة لتوليد الطاقه من الفحم";
+"type.power.plant.coal" = "محطة توليد طاقة فحمية";
 
 "type.power.plant.gas" = "محطة توليد الكهرباء بالغاز";
 
 "type.power.plant.hydro" = "محطة توليد الطاقة الكهرمائية";
 
-"type.power.plant.solar" = "محطة للطاقة الشمسية";
+"type.power.plant.solar" = "محطة طاقة شمسية";
 
 "type.power.plant.wind" = "محطة طاقة الرياح";
 
@@ -2802,7 +2802,7 @@
 
 "type.railway.funicular.tunnel" = "Funicular Tunnel";
 
-"type.railway.halt" = "محطة سكك حديدية";
+"type.railway.halt" = "محطة قطار";
 
 "type.railway.level_crossing" = "مزلقان";
 
@@ -2812,7 +2812,7 @@
 
 "type.railway.light_rail.tunnel" = "Light Rail Tunnel";
 
-"type.railway.monorail" = "اتجاه واحد";
+"type.railway.monorail" = "خط حديدي أحادي السكة";
 
 "type.railway.monorail.bridge" = "Monorail Bridge";
 
@@ -2836,60 +2836,60 @@
 
 "type.railway.rail.highspeed" = "سكة حديد عالية السرعة";
 
-"type.railway.rail.tourism" = "السكك الحديدية السياحية";
+"type.railway.rail.tourism" = "سكة حديد سياحية";
 
 "type.railway.rail.main" = "سكة حديدية";
 
 /* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
-"type.railway.rail.branch" = "السكك الحديدية الثانوية";
+"type.railway.rail.branch" = "سكة حديدية ثانوية";
 
 /* Non-passenger utility tracks: industrial, military, test. */
-"type.railway.rail.utility" = "سكة حديد المرافق";
+"type.railway.rail.utility" = "سكة حديد غير";
 
 "type.railway.rail.spur" = "سكة حديد سبير";
 
 /* Short service tracks: siding, yard, crossover. */
 "type.railway.rail.service" = "مسار السكك الحديدية المساعدة";
 
-"type.railway.rail.bridge" = "جسر للسكك الحديدية";
+"type.railway.rail.bridge" = "جسر سكة حديدية";
 
-"type.railway.rail.highspeed.bridge" = "جسر للسكك الحديدية";
+"type.railway.rail.highspeed.bridge" = "جسر سكة حديدية";
 
-"type.railway.rail.tourism.bridge" = "جسر للسكك الحديدية";
+"type.railway.rail.tourism.bridge" = "جسر سكة حديدية";
 
-"type.railway.rail.main.bridge" = "جسر للسكك الحديدية";
+"type.railway.rail.main.bridge" = "جسر سكة حديدية";
 
-"type.railway.rail.branch.bridge" = "جسر للسكك الحديدية";
+"type.railway.rail.branch.bridge" = "جسر سكة حديدية";
 
-"type.railway.rail.utility.bridge" = "جسر للسكك الحديدية";
+"type.railway.rail.utility.bridge" = "جسر سكة حديدية";
 
-"type.railway.rail.spur.bridge" = "جسر للسكك الحديدية";
+"type.railway.rail.spur.bridge" = "جسر سكة حديدية";
 
-"type.railway.rail.service.bridge" = "جسر للسكك الحديدية";
+"type.railway.rail.service.bridge" = "جسر سكة حديدية";
 
-"type.railway.rail.tunnel" = "نفق السكة الحديد";
+"type.railway.rail.tunnel" = "نفق سكة الحديد";
 
-"type.railway.rail.highspeed.tunnel" = "نفق السكة الحديد";
+"type.railway.rail.highspeed.tunnel" = "نفق سكة الحديد";
 
-"type.railway.rail.tourism.tunnel" = "نفق السكة الحديد";
+"type.railway.rail.tourism.tunnel" = "نفق سكة الحديد";
 
-"type.railway.rail.main.tunnel" = "نفق السكة الحديد";
+"type.railway.rail.main.tunnel" = "نفق سكة الحديد";
 
-"type.railway.rail.branch.tunnel" = "نفق السكة الحديد";
+"type.railway.rail.branch.tunnel" = "نفق سكة الحديد";
 
-"type.railway.rail.utility.tunnel" = "نفق السكة الحديد";
+"type.railway.rail.utility.tunnel" = "نفق سكة الحديد";
 
-"type.railway.rail.spur.tunnel" = "نفق السكة الحديد";
+"type.railway.rail.spur.tunnel" = "نفق سكة الحديد";
 
-"type.railway.rail.service.tunnel" = "نفق السكة الحديد";
+"type.railway.rail.service.tunnel" = "نفق سكة الحديد";
 
-"type.railway.station" = "محطة سكك حديدية";
+"type.railway.station" = "محطة قطار";
 
 "type.railway.station.funicular" = "حبلي";
 
-"type.railway.station.light_rail" = "محطة سكك حديدية";
+"type.railway.station.light_rail" = "محطة قطار";
 
-"type.railway.station.monorail" = "محطة سكك حديدية";
+"type.railway.station.monorail" = "محطة قطار";
 
 "type.railway.station.subway" = "محطة مترو";
 
@@ -3367,17 +3367,17 @@
 
 "type.shop.beverages" = "مشروبات";
 
-"type.shop.bicycle" = "متجر دراجات";
+"type.shop.bicycle" = "متجر دراجات هوائية";
 
-"type.shop.bookmaker" = "ناشر";
+"type.shop.bookmaker" = "مراهنة";
 
-"type.shop.books" = "مكتبة لبيع الكتب";
+"type.shop.books" = "متجر كتب";
 
-"type.shop.butcher" = "جزار";
+"type.shop.butcher" = "قصابة";
 
 "type.shop.cannabis" = "متجر القنب";
 
-"type.shop.car" = "متجر سيارات";
+"type.shop.car" = "وكالة بيع السيارات";
 
 "type.shop.car_parts" = "محل أجزاء سيارات";
 
@@ -3387,15 +3387,15 @@
 
 "type.shop.caravan" = "RV Dealership";
 
-"type.shop.carpet" = "السجاد";
+"type.shop.carpet" = "متجر سجادات";
 
 "type.shop.chemist" = "متجر كيماويات";
 
-"type.shop.chocolate" = "متجر";
+"type.shop.chocolate" = "متجر شوكولاتة";
 
 "type.shop.clothes" = "متجر ملابس";
 
-"type.shop.coffee" = "متجر";
+"type.shop.coffee" = "متجر قهوة";
 
 "type.shop.computer" = "متجر كمبيوتر";
 
@@ -3403,11 +3403,11 @@
 
 "type.shop.convenience" = "متجر صغير";
 
-"type.shop.copyshop" = "محل نسخ";
+"type.shop.copyshop" = "محل طباعة";
 
-"type.shop.cosmetics" = "مستحضرات تجميل";
+"type.shop.cosmetics" = "متجر مستحضرات تجميل";
 
-"type.shop.curtain" = "ستائر";
+"type.shop.curtain" = "متجر ستائر";
 
 "type.shop.deli" = "محل جواهز";
 
@@ -3415,13 +3415,13 @@
 
 "type.shop.doityourself" = "متجر عدد وأدوات";
 
-"type.shop.dry_cleaning" = "غسيل جاف";
+"type.shop.dry_cleaning" = "تنظيف جاف";
 
 "type.shop.electronics" = "متجر إلكترونيات";
 
 "type.shop.erotic" = "متجر منتجات جنسية";
 
-"type.shop.fabric" = "متجر";
+"type.shop.fabric" = "متجر نسيج";
 
 "type.shop.farm" = "متجر أغذية المزرعة";
 
@@ -3431,31 +3431,31 @@
 
 "type.shop.funeral_directors" = "منظموا الجنازات";
 
-"type.shop.furniture" = "معرض أثاث";
+"type.shop.furniture" = "متجر أثاث";
 
-"type.shop.garden_centre" = "حضانة";
+"type.shop.garden_centre" = "مشتل";
 
-"type.shop.gas" = "مخزن غاز";
+"type.shop.gas" = "متجر غاز";
 
 "type.shop.gift" = "متجر هدايا";
 
-"type.shop.greengrocer" = "متجر خضروات وفواكه";
+"type.shop.greengrocer" = "محل خضار";
 
 "type.shop.grocery" = "Grocery Store";
 
-"type.shop.hairdresser" = "مصفف شعر";
+"type.shop.hairdresser" = "حلاق";
 
-"type.shop.hardware" = "محد معدات";
+"type.shop.hardware" = "محل معدات";
 
-"type.shop.health_food" = "متجر الأغذية الصحية";
+"type.shop.health_food" = "متجر أغذية صحية";
 
 "type.shop.herbalist" = "متجر أعشاب";
 
-"type.shop.hifi" = "صوت هاي فاي";
+"type.shop.hifi" = "متجر صوت هاي فاي";
 
 "type.shop.houseware" = "محل أدوات منزلية";
 
-"type.shop.jewelry" = "مجوهرات";
+"type.shop.jewelry" = "متجر مجوهرات";
 
 "type.shop.kiosk" = "كشك";
 
@@ -3469,80 +3469,80 @@
 
 "type.shop.mobile_phone" = "متجر هواتف محمولة";
 
-"type.shop.money_lender" = "متجر";
+"type.shop.money_lender" = "مُقرض أموال";
 
 "type.shop.motorcycle" = "متجر دراجات نارية";
 
 "type.shop.motorcycle_repair" = "تصليح الدراجات النارية";
 
-"type.shop.music" = "متجر";
+"type.shop.music" = "متجر اقراص موسيقية";
 
-"type.shop.musical_instrument" = "متجر";
+"type.shop.musical_instrument" = "متجر آلات موسيقية";
 
-"type.shop.newsagent" = "كشك الجرائد";
+"type.shop.newsagent" = "كشك جرائد";
 
 "type.shop.optician" = "مركز بصريات";
 
-"type.shop.outdoor" = "معدات خارجية";
+"type.shop.outdoor" = "متجر معداة خارجية";
 
 "type.shop.outpost" = "نقطة الالتقاط";
 
-"type.shop.pastry" = "ﺕﺎﻨﺠﻌﻣ";
+"type.shop.pastry" = "متجر معجنات";
 
-"type.shop.pawnbroker" = "سمسار تسليف";
+"type.shop.pawnbroker" = "مُرتهِن";
 
 "type.shop.pet" = "متجر للحيوانات الأليفة";
 
 "type.shop.pet_grooming" = "العناية بالحيوانات الأليفة";
 
-"type.shop.photo" = "محل صور";
+"type.shop.photo" = "محل تصوير";
 
-"type.shop.seafood" = "سماك";
+"type.shop.seafood" = "سمّاك";
 
 "type.shop.second_hand" = "متجر بضائع مستعملة";
 
 "type.shop.shoes" = "متجر أحذية";
 
-"type.shop.sports" = "أدوات رياضية";
+"type.shop.sports" = "متجر أدوات رياضية";
 
 "type.shop.stationery" = "متجر قرطاسية";
 
 "type.shop.supermarket" = "سوبر ماركت";
 
-"type.shop.tattoo" = "قاعة رسم الوشم";
+"type.shop.tattoo" = "محل وشوم";
 
-"type.shop.tea" = "متجر";
+"type.shop.tea" = "متجر شاي";
 
 "type.shop.ticket" = "مكتب تذاكر";
 
-"type.shop.toys" = "متجر ألعاب";
+"type.shop.toys" = "متجر لعبات";
 
 "type.shop.travel_agency" = "وكيل سفريات";
 
 "type.shop.tyres" = "محل إطارات";
 
-"type.shop.variety_store" = "متجر متنوع\n";
+"type.shop.variety_store" = "متجر متنوع";
 
 "type.shop.video" = "متجر فيديو";
 
 "type.shop.video_games" = "متجر ألعاب فيديو";
 
-"type.shop.wine" = "متجر مشروبات روحية";
+"type.shop.wine" = "متجر نبيذ";
 
 "type.shop.agrarian" = "محل زراعي";
 
-"type.shop.antiques" = "التحف";
+"type.shop.antiques" = "متجر تحفيات";
 
-"type.shop.appliance" = "متجر الأجهزة";
+"type.shop.appliance" = "متجر أدوات منزلية";
 
 /* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "متجر الفنون";
 
-"type.shop.baby_goods" = "متجر الأطفال";
+"type.shop.baby_goods" = "متجر بضع الرضّغ";
 
 "type.shop.bag" = "متجر الحقائب";
 
-"type.shop.bed" = "متجر الأسرة";
+"type.shop.bed" = "متجر الأسِرّة";
 
 "type.shop.boutique" = "بوتيك";
 
@@ -3556,29 +3556,29 @@
 
 "type.shop.electrical" = "متجر البضع الكهربائية";
 
-"type.shop.fishing" = "متجر صيد";
+"type.shop.fishing" = "متجر صيد السمك";
 
 "type.shop.interior_decoration" = "محل ديكورات داخلية";
 
-"type.shop.lottery" = "ﺐﻴﺼﻧﺎﻴﻟﺍ ﺮﻛﺍﺬﺗ";
+"type.shop.lottery" = "تذاكر يانصيب";
 
-"type.shop.medical_supply" = "ﺔﻴﺒﻄﻟﺍ ﺕﺍﺩﺍﺪﻣﻹﺍ";
+"type.shop.medical_supply" = "متجر معدات طبية";
 
 "type.shop.nutrition_supplements" = "محل مكملات غذائية";
 
-"type.shop.paint" = "ﺕﺎﻧﺎﻫﺪﻟﺍ";
+"type.shop.paint" = "متجر أصباغ";
 
-"type.shop.perfumery" = "العطور";
+"type.shop.perfumery" = "متجر عطور";
 
-"type.shop.sewing" = "معدات الخياطة";
+"type.shop.sewing" = "متجر معدات الخياطة";
 
-"type.shop.storage_rental" = "ﻦﻳﺰﺨﺘﻟﺍ ﺕﺍﺪﺣﻭ ﺮﻴﺟﺄﺗ";
+"type.shop.storage_rental" = "تأجير وحدات التخزين";
 
-"type.shop.tobacco" = "تبغ";
+"type.shop.tobacco" = "متجر تدخين";
 
-"type.shop.trade" = "ﺔﻳﺭﺎﺠﺘﻟﺍ ﺕﺍﺪﻳﺭﻮﺘﻟﺍ";
+"type.shop.trade" = "معدات التجارة";
 
-"type.shop.watches" = "ساعات";
+"type.shop.watches" = "متجر ساعات";
 
 "type.shop.wholesale" = "متجر مواد بالجملة";
 
@@ -3586,44 +3586,44 @@
 
 "type.sport.american_football" = "كرة القدم الأمريكية";
 
-"type.sport.archery" = "الرماية";
+"type.sport.archery" = "رماية";
 
 "type.sport.athletics" = "العاب رياضية";
 
 "type.sport.australian_football" = "كرة القدم الأسترالية";
 
-"type.sport.baseball" = "البيسبول";
+"type.sport.baseball" = "كرة القاعدة";
 
 "type.sport.basketball" = "كرة السلة";
 
 "type.sport.beachvolleyball" = "كرة طائرة شاطئية";
 
-"type.sport.bowls" = "لعبة البولينج";
+"type.sport.bowls" = "بولنغ المخضرة";
 
 "type.sport.chess" = "شطرنج";
 
 "type.sport.cricket" = "كريكت";
 
-"type.sport.curling" = "كيرلنغ";
+"type.sport.curling" = "كرلنغ";
 
 "type.sport.equestrian" = "رياضة الفروسية";
 
-"type.sport.golf" = "الجولف";
+"type.sport.golf" = "غولف";
 
-"type.sport.gymnastics" = "رياضة بدنية";
+"type.sport.gymnastics" = "جمباز";
 
 "type.sport.handball" = "كرة اليد";
 
 "type.sport.multi" = "رياضات متنوعة";
 
 /* Used to tag a scuba diving site. */
-"type.sport.scuba_diving" = "الغوص";
+"type.sport.scuba_diving" = "موقع غوص سكوبا";
 
 "type.sport.shooting" = "رماية";
 
 "type.sport.skateboard" = "تزلج على اللوح";
 
-"type.sport.skiing" = "التزحلق";
+"type.sport.skiing" = "تزحلف";
 
 "type.sport.soccer" = "كرة القدم";
 
@@ -3635,19 +3635,19 @@
 
 "type.sport.volleyball" = "كرة الطائرة";
 
-"type.sport.10pin" = "بولينج بعشرة دبابيس";
+"type.sport.10pin" = "بولنغ";
 
-"type.sport.9pin" = "بولينج بعشرة دبابيس";
+"type.sport.9pin" = "بولنغ";
 
-"type.sport.padel" = "ﻞﻳﺩﺎﺑ";
+"type.sport.padel" = "بادل";
 
 "type.sport.futsal" = "كرة الصالات";
 
 "type.sport.ice_hockey" = "هوكي الجليد";
 
-"type.sport.field_hockey" = "ﻥﺍﺪﻴﻤﻟﺍ ﻲﻛﻮﻫ";
+"type.sport.field_hockey" = "هوكي الميدان";
 
-"type.sport.badminton" = "ﺔﺸﻳﺮﻟﺍ ﺲﻨﺗ";
+"type.sport.badminton" = "ريشة الطائرة";
 
 "type.sport.pelota" = "باسك بيلوتا";
 
@@ -3657,35 +3657,35 @@
 
 "type.tourism.alpine_hut" = "مساكن جبلية";
 
-"type.tourism.apartment" = "شُقَق";
+"type.tourism.apartment" = "شُقَق عطلة";
 
 "type.tourism.artwork" = "عمل فني";
 
-"type.tourism.artwork.architecture" = "عمل فني";
+"type.tourism.artwork.architecture" = "عمل معماري فني";
 
-"type.tourism.artwork.painting" = "عمل فني";
+"type.tourism.artwork.painting" = "لوحة فنية";
 
-"type.tourism.artwork.sculpture" = "عمل فني";
+"type.tourism.artwork.sculpture" = "منحوتة";
 
-"type.tourism.artwork.statue" = "عمل فني";
+"type.tourism.artwork.statue" = "تمثال";
 
-"type.tourism.attraction" = "أماكن جذابة";
+"type.tourism.attraction" = "مكان جذاب";
 
-"type.tourism.attraction.animal" = "أماكن جذابة";
+"type.tourism.attraction.animal" = "مكان جذاب";
 
-"type.tourism.attraction.specified" = "أماكن جذابة";
+"type.tourism.attraction.specified" = "مكان جذاب";
 
-"type.tourism.camp_site" = "تخييم";
+"type.tourism.camp_site" = "مخيّم";
 
-"type.tourism.caravan_site" = "موقع البيت المتنقل";
+"type.tourism.caravan_site" = "موقع لمراكب ترفيه";
 
 "type.tourism.chalet" = "شاليه";
 
-"type.tourism.gallery" = "سياحة";
+"type.tourism.gallery" = "معرض الفني";
 
 "type.tourism.guest_house" = "دار الضيافة";
 
-"type.tourism.hostel" = "نزُل";
+"type.tourism.hostel" = "نزُل مشتركة";
 
 "type.tourism.hotel" = "فندق";
 
@@ -3701,25 +3701,25 @@
 
 "type.tourism.information.visitor_centre" = "مركز الزوار";
 
-"type.tourism.motel" = "فندق رخيص";
+"type.tourism.motel" = "موتيل";
 
 "type.tourism.museum" = "متحف";
 
-"type.tourism.picnic_site" = "مكان نزهة";
+"type.tourism.picnic_site" = "موقع نزهة";
 
-"type.tourism.resort" = "منتج";
+"type.tourism.resort" = "منتجع";
 
-"type.tourism.theme_park" = "سياحة";
+"type.tourism.theme_park" = "مدينة العاب";
 
-"type.tourism.viewpoint" = "أماكن مشاهدة سياحية";
+"type.tourism.viewpoint" = "نقطة منظر";
 
 "type.tourism.wilderness_hut" = "كوخ برية";
 
 "type.tourism.zoo" = "حديقة حيوان";
 
-"type.traffic_calming" = "Traffic Calming";
+"type.traffic_calming" = "تهدئة سير السيارات";
 
-"type.traffic_calming.bump" = "Traffic Bump";
+"type.traffic_calming.bump" = "مطبة";
 
 "type.traffic_calming.hump" = "Traffic Hump";
 
@@ -3727,25 +3727,25 @@
 
 "type.waterway.canal" = "قناة";
 
-"type.waterway.canal.tunnel" = "قناة";
+"type.waterway.canal.tunnel" = "نفق قناة";
 
 "type.waterway.fish_pass" = "سلم سمك";
 
-"type.waterway.dam" = "Dam";
+"type.waterway.dam" = "سد";
 
 "type.barrier.ditch" = "Ditch";
 
 "type.natural.water.ditch" = "حفرة الصرف الصحي";
 
-"type.waterway.ditch.tunnel" = "عبارة";
+"type.waterway.ditch.tunnel" = "بربخ";
 
 "type.waterway.dock" = "Waterway Dock";
 
-"type.waterway.drain" = "Drain";
+"type.waterway.drain" = "قناة تصريف المياه";
 
-"type.natural.water.drain" = "Drain";
+"type.natural.water.drain" = "قناة تصريف المياه";
 
-"type.waterway.drain.tunnel" = "عبارة";
+"type.waterway.drain.tunnel" = "بربخ";
 
 "type.waterway.lock_gate" = "بوابة هويس";
 
@@ -3755,25 +3755,25 @@
 
 "type.waterway.riverbank" = "نهر";
 
-"type.waterway.stream" = "نهر";
+"type.waterway.stream" = "تيار مائي";
 
 "type.waterway.stream.ephemeral" = "نهر";
 
-"type.waterway.stream.intermittent" = "نهر";
+"type.waterway.stream.intermittent" = "تيار مائي متقطع";
 
-"type.waterway.stream.tunnel" = "نهر";
+"type.waterway.stream.tunnel" = "تيار مائي";
 
 "type.waterway.waterfall" = "شلّال";
 
 "type.waterway.weir" = "Weir";
 
-"type.wheelchair" = "Wheelchair";
+"type.wheelchair" = "كرسي متحرك";
 
-"type.wheelchair.limited" = "دعم محدود لكراسي المعاقين";
+"type.wheelchair.limited" = "دعم محدود للكراسي المتحركة";
 
-"type.wheelchair.no" = "لا يدعم لكراسي المعاقين";
+"type.wheelchair.no" = "لا دعم للكراسي المتحركة";
 
-"type.wheelchair.yes" = "دعم كامل لكراسي المعاقين";
+"type.wheelchair.yes" = "دعم كامل للكراسي المتحركة";
 
 "type.aerialway.j.bar" = "J-bar Lift";
 
@@ -3809,4 +3809,4 @@
 
 "type.shop.auction" = "مزاد علني";
 
-"type.shop.collector" = "المقتنيات";
+"type.shop.collector" = "مقتنيات";
