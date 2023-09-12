@@ -23649,12 +23649,11 @@
     zh-Hant = 高保真音響
 
   [type.shop.houseware]
-    ref = type.shop.doityourself
     en = Housewares Store
     en-GB = Housewares Shop
     af = Huiswarewinkel
     ar = محل أدوات منزلية
-    be = Крама посуду
+    be = Бытавыя тавары
     bg = Магазин за домакински принадлежности
     cs = Obchod s domácími potřebami
     da = Husholdningsartikler butik
@@ -23673,18 +23672,18 @@
     ja = 家庭用品店
     ko = "가정용품 가게"
     nb = Husholdningsbutikk
-    nl = Huishoudelijke winkel
+    nl = Huishoudwinkel
     pl = Sklep AGD
     pt = Loja de utilidades domésticas
     pt-BR = Loja de utilidades domésticas
     ro = Magazin de articole de uz casnic
-    ru = Магазин посуды
+    ru = Бытовые товары
     sk = Obchod s domácimi potrebami
     sv = Husgerådsbutik
     sw = Duka la Vifaa vya Nyumbani
     th = ร้านของใช้ในบ้าน
     tr = Ev Eşyaları Dükkanı
-    uk = Магазин посуду
+    uk = Побутові товари
     vi = Cửa hàng đồ gia dụng
     zh-Hant = 家居用品店
 

@@ -1069,7 +1069,7 @@ nl:Coffeeshop
 tr:4Kenevir|4Esrar
 
 shop-cosmetics|@shopping|@shop
-en:4Cosmetics|4Beauty Care|makeup|U+1F3EC|U+1F3EA
+en:4Cosmetics|4Beauty Care|makeup
 ru:4Косметика
 be:4Касметыка
 bg:4Козметика
@@ -1108,7 +1108,7 @@ sw:Vipodozi
 fa:لوازم ارایشی بهداشتی
 
 shop-convenience|@food|@shop
-en:4Convenience|U+1F3EC|U+1F3EA|mini-mart|mini-market|superette
+en:4Convenience|mini-mart|mini-market|superette
 ru:4Продуктовый|продуктовая лавка|4гастроном|мини-маркет
 ar:متجر صغير
 be:4Прадуктовы|Харчаванне
@@ -1190,7 +1190,7 @@ ru:Фермерская еда
 tr:Çiftlik gıdaları
 
 shop-garden_centre|@shop
-en:4Garden Centre|U+1F3EC|U+1F3EA|U+1F3E1
+en:4Garden Centre|U+1F3E1
 en-US:4Garden Center
 ru:3Садовые товары
 bg:Градински магазин
@@ -1241,7 +1241,7 @@ ru:Здоровая еда
 tr:Sağlıklı Gıda
 
 shop-mobile_phone|@shop
-en:4Cell Phones|4Mobile Phones|6smartphones|electronics store|U+1F3EC|U+1F3EA|U+1F4F1|U+1F4F2
+en:4Cell Phones|4Mobile Phones|6smartphones|electronics store|U+1F4F1|U+1F4F2
 ru:4Сотовые телефоны|4Мобильные телефоны|5телефоны|5смартфоны|электроника|салон связи
 bg:4Мобилни телефони|Мобифони|Телефони|електроника|смартфони
 ar:متجر هواتف محمولة|متجر إلكترونيات|متجر هواتف خلوية|هاتف
@@ -1577,8 +1577,8 @@ el:Ηλεκτρονικά|κατάστημα
 sk:4Elektronika
 fa:فروشگاه تجهیزات الکترونیکی
 
-shop-hardware|shop-houseware|shop-doityourself|@shop
-en:4Hardware|4Houseware|DIY|U+1F3EC|U+1F3EA|U+1F50B|U+1F50C|U+1F4A1|U+1F526|U+1F529|U+1F528|U+2614
+shop-hardware|shop-doityourself|@shop
+en:4Hardware|DIY|U+1F529|U+1F528
 ru:3Хозяйственный|Строительный|Стройтовары|Хозтовары
 ar:متجر عدد وأدوات|أدوات|عدة|متجر
 be:Гаспадарчы|Будаўнічы
@@ -1613,6 +1613,47 @@ zh-Hant:五金行|硬件店|購物|店鋪|商店|雜貨店|便利商店
 el:Είδη κιγκαλερίας|DIY|Κάν'το μόνος σου|κατάστημα
 sk:Železiarstvo|Náradie
 fa:فروشگاه ابزار و یراق
+
+shop-houseware|@shop
+en:4Houseware
+be:4Пасуда|4Бытавыя тавары
+de:4Haushaltswaren
+nl:4Huishouden
+ru:4Посуда|4Бытовые товары
+uk:4Посуд|4Побутові товари
+ar:بضائع منزلية
+bg:Домакински стоки
+ca:Articles de la llar
+cs:Domácí potřeby
+da:Husholdningsartikler
+el:Οικιακά αγαθά
+es:Enseres domésticos
+es-MX:Enseres domésticos
+et:Kodutarbed
+eu:Etxeko ondasunak
+fa:کالاهای خانگی
+fi:Kotitaloustavarat
+fr:Articles ménagers
+he:מוצרים לבית
+hu:Háztartási cikkek
+id:Barang-barang rumah tangga
+it:Articoli per la casa
+ja:家庭用品
+ko:가정용품
+mr:घरगुती वस्तू
+nb:Husholdningsartikler
+pl:Artykuły gospodarstwa domowego
+pt:Bens de uso doméstico
+pt-BR:Bens domésticos
+ro:Bunuri de uz casnic
+sk:Tovar pre domácnosť
+sv:Hushållsartiklar
+sw:Bidhaa za nyumbani
+th:สินค้าใช้ในบ้าน
+tr:Ev eşyaları
+vi:Hàng gia dụng
+zh-Hans:家庭用品
+zh-Hant:家庭用品
 
 shop-jewelry|@shopping|@shop
 en:4Jewellery|U+1F48D
@@ -1840,7 +1881,7 @@ sk:4Športové potreby
 fa:فروشگاه لوازم ورزشی
 
 shop-supermarket|@food|@shop
-en:3Supermarket|U+1F3EA|U+1F3EC
+en:3Supermarket
 ru:3Супермаркет|3универсам|3гипермаркет|4гастроном
 ar:سوبر ماركت|بقالة|متجر
 be:3Супермаркет
@@ -1918,7 +1959,7 @@ sw:Ununuzi maduka
 fa:مرکز خرید
 
 shop-department_store|@shopping|@shop
-en:4Department|U+1F3EC|U+1F3EA
+en:4Department
 ru:4Универмаг|молл|торговый комплекс|универсам
 ar:متجر شامل|مركز تجاري
 be:4Універмаг|4Універсам
@@ -14944,7 +14985,7 @@ zh-Hant:乳製品
 # Defines _electrical supplies_. Should differ from shop-electronics.
 
 shop-electrical|@shop
-en:Electrical
+en:Electrical|U+1F50B|U+1F50C|U+1F4A1|U+1F526
 ar:متجر البضع الكهربائية
 be:4Электроніка
 bg:Електрически магазин
