@@ -492,7 +492,7 @@ public:
     auto v = ReadVarUint<uint64_t, Source>(m_source);
     if (v > 32503680000) // If timestamp is older than 01 Jan 3000 it means that v contains milliseconds instead of seconds.
       v /= 1000;
-    t = FromSecondsSinceEpoch(v/1000);
+    t = FromSecondsSinceEpoch(v);
   }
 
   void operator()(double & d, char const * /* name */ = nullptr)
