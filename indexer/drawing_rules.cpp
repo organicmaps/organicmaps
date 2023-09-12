@@ -35,36 +35,6 @@ namespace
   }
 } // namespace
 
-void BaseRule::CheckCacheSize(size_t s)
-{
-  m_id1.resize(s);
-  MakeEmptyID();
-}
-
-uint32_t BaseRule::GetID(size_t threadSlot) const
-{
-  ASSERT(m_id1.size() > threadSlot, ());
-  return m_id1[threadSlot];
-}
-
-void BaseRule::SetID(size_t threadSlot, uint32_t id) const
-{
-  ASSERT(m_id1.size() > threadSlot, ());
-  m_id1[threadSlot] = id;
-}
-
-void BaseRule::MakeEmptyID(size_t threadSlot)
-{
-  ASSERT(m_id1.size() > threadSlot, ());
-  m_id1[threadSlot] = empty_id;
-}
-
-void BaseRule::MakeEmptyID()
-{
-  for (size_t i = 0; i < m_id1.size(); ++i)
-    MakeEmptyID(i);
-}
-
 LineDefProto const * BaseRule::GetLine() const
 {
   return 0;
@@ -118,15 +88,10 @@ RulesHolder::~RulesHolder()
 
 void RulesHolder::Clean()
 {
-  for (size_t i = 0; i < m_container.size(); ++i)
-  {
-    RuleVec & v = m_container[i];
-    for (size_t j = 0; j < v.size(); ++j)
-      delete v[j];
-    v.clear();
-  }
+  for (size_t i = 0; i < m_dRules.size(); ++i)
+    delete m_dRules[i];
 
-  m_rules.clear();
+  m_dRules.clear();
   m_colors.clear();
 }
 
@@ -135,29 +100,18 @@ Key RulesHolder::AddRule(int scale, rule_type_t type, BaseRule * p)
   ASSERT ( 0 <= scale && scale <= scales::GetUpperStyleScale(), (scale) );
   ASSERT ( 0 <= type && type < count_of_rules, () );
 
-  m_container[type].push_back(p);
+  m_dRules.push_back(p);
+  auto const index = m_dRules.size() - 1;
+  Key const k(scale, type, index);
 
-  vector<uint32_t> & v = m_rules[scale][type];
-  v.push_back(static_cast<uint32_t>(m_container[type].size()-1));
-
-  int const ret = static_cast<int>(v.size() - 1);
-  Key k(scale, type, ret);
-  ASSERT ( Find(k) == p, (ret) );
+  ASSERT(Find(k) == p, (index));
   return k;
 }
 
 BaseRule const * RulesHolder::Find(Key const & k) const
 {
-  RulesMap::const_iterator i = m_rules.find(k.m_scale);
-  if (i == m_rules.end()) return 0;
-
-  vector<uint32_t> const & v = (i->second)[k.m_type];
-
-  ASSERT ( k.m_index >= 0, (k.m_index) );
-  if (static_cast<size_t>(k.m_index) < v.size())
-    return m_container[k.m_type][v[k.m_index]];
-  else
-    return 0;
+  ASSERT_LESS(k.m_index, m_dRules.size(), ());
+  return m_dRules[k.m_index];
 }
 
 uint32_t RulesHolder::GetBgColor(int scale) const
@@ -176,16 +130,6 @@ uint32_t RulesHolder::GetColor(std::string const & name) const
     return 0;
   }
   return it->second;
-}
-
-void RulesHolder::ClearCaches()
-{
-  ForEachRule([](BaseRule * p) { p->MakeEmptyID(); });
-}
-
-void RulesHolder::ResizeCaches(size_t s)
-{
-  ForEachRule([s](BaseRule * p) { p->CheckCacheSize(s); });
 }
 
 namespace
