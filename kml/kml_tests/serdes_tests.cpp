@@ -793,6 +793,36 @@ UNIT_TEST(Kml_Deserialization_From_Bin_V6_And_V7)
   TEST_EQUAL(dataFromBinV6, dataFromBinV7, ());
 }
 
+
+UNIT_TEST(Kml_Deserialization_From_Bin_V7_And_V8)
+{
+  kml::FileData dataFromBinV7;
+  try
+  {
+    MemReader reader(kBinKmlV7.data(), kBinKmlV7.size());
+    kml::binary::DeserializerKml des(dataFromBinV7);
+    des.Deserialize(reader);
+  }
+  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
+  {
+    TEST(false, ("Exception raised", exc.what()));
+  }
+
+  kml::FileData dataFromBinV8;
+  try
+  {
+    MemReader reader(kBinKmlV8.data(), kBinKmlV8.size());
+    kml::binary::DeserializerKml des(dataFromBinV8);
+    des.Deserialize(reader);
+  }
+  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
+  {
+    TEST(false, ("Exception raised", exc.what()));
+  }
+
+  TEST_EQUAL(dataFromBinV7, dataFromBinV8, ());
+}
+
 UNIT_TEST(Kml_Ver_2_3)
 {
   std::string_view constexpr data = R"(<?xml version="1.0" encoding="UTF-8"?>
