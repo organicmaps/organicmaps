@@ -20,16 +20,16 @@ int32_t constexpr kOverlaysMaxPriority = 10000;
   public:
     int m_scale = -1;
     int m_type = -1;
-    int m_index = -1;
+    size_t m_index = std::numeric_limits<size_t>::max(); // an index to RulesHolder.m_dRules[]
     int m_priority = -1;
     bool m_hatching = false;
 
     Key() = default;
-    Key(int s, int t, int i) : m_scale(s), m_type(t), m_index(i), m_priority(-1) {}
+    Key(int s, int t, size_t i) : m_scale(s), m_type(t), m_index(i), m_priority(-1) {}
 
     bool operator==(Key const & r) const
     {
-      return (m_scale == r.m_scale && m_type == r.m_type && m_index == r.m_index);
+      return (m_index == r.m_index);
     }
 
     void SetPriority(int pr) { m_priority = pr; }
