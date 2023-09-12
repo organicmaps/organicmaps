@@ -68,7 +68,7 @@ struct Header
 
   bool HasCompilationsSection() const
   {
-    return static_cast<uint8_t>(m_version) > static_cast<uint8_t>(Version::V7);
+    return static_cast<uint8_t>(m_version) > static_cast<uint8_t>(Version::V8);
   }
 
   Version m_version = Version::Latest;

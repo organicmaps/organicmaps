@@ -21,7 +21,7 @@ struct BookmarkDataV8
                                   visitor(m_visible, "visible"),
                                   visitor(m_nearestToponym, "nearestToponym"),
                                   visitor(m_properties, "properties"),
-                                  visitor(m_compilations, "compilations"),
+                                  //visitor(m_compilations, "compilations"),
                                   VISITOR_COLLECTABLE)
 
   DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description, m_customName,
