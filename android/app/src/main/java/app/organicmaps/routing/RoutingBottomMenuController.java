@@ -184,10 +184,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     rv.setAdapter(adapter);
     adapter.setItems(info.getTransitSteps());
 
-    final ScrollView parentScroll = (ScrollView)rv.getParent();
-    if (parentScroll != null)
-      // Scroll to bottom
-      parentScroll.postDelayed(() -> parentScroll.fullScroll(ScrollView.FOCUS_DOWN), 100);
+    scrollToBottom(rv);
 
     TextView totalTimeView = mTransitFrame.findViewById(R.id.total_time);
     totalTimeView.setText(RoutingController.formatRoutingTime(mContext, info.getTotalTime(),
@@ -217,10 +214,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
       rv.setAdapter(adapter);
       adapter.setItems(pointsToRulerSteps(points));
 
-      final ScrollView parentScroll = (ScrollView)rv.getParent();
-      if (parentScroll != null)
-        // Scroll to bottom
-        parentScroll.postDelayed(() -> parentScroll.fullScroll(ScrollView.FOCUS_DOWN), 100);
+      scrollToBottom(rv);
     }
     else
       UiUtils.hide(rv); // Show only distance between start and finish
@@ -382,6 +376,14 @@ final class RoutingBottomMenuController implements View.OnClickListener
       String arrivalTime = RoutingController.formatArrivalTime(rinfo.totalTimeInSeconds);
       mArrival.setText(arrivalTime);
     }
+  }
+
+  // Scroll RecyclerView to bottom using parent ScrollView.
+  private static void scrollToBottom(RecyclerView rv)
+  {
+    final ScrollView parentScroll = (ScrollView) rv.getParent();
+    if (parentScroll != null)
+      parentScroll.postDelayed(() -> parentScroll.fullScroll(ScrollView.FOCUS_DOWN), 100);
   }
 
   @NonNull
