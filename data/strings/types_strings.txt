@@ -324,7 +324,7 @@
   [type.aeroway.apron]
     en = Apron
     af = Laaiblad
-    af = موقف الطائرات
+    ar = موقف الطائرات
     de = Vorfeld
     es = Plataforma
     et = Platvorm
@@ -345,7 +345,7 @@
   [type.aeroway.gate]
     en = Gate
     af = Hek
-    af = بوابة
+    ar = بوابة
     es = Puerta de embarque
     et = Värav
     eu = Ontziratzeko atea
