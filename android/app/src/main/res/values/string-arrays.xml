@@ -2,6 +2,15 @@
 <resources>
   <string-array name="app_tips">
     <item>@string/app_tip_00</item>
+    <item>@string/app_tip_01</item>
+    <item>@string/app_tip_02</item>
+    <item>@string/app_tip_03</item>
+    <item>@string/app_tip_04</item>
+    <item>@string/app_tip_05</item>
+    <item>@string/app_tip_06</item>
+    <item>@string/app_tip_07</item>
+    <item>@string/app_tip_08</item>
+    <item>@string/app_tip_09</item>
   </string-array>
 
   <string-array name="measument_units">
