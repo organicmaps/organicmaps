@@ -525,9 +525,12 @@ world  +
         world_towns_level  -
         {}
     historic  +
+        aircraft  -
+        anchor  -
         archaeological_site  -
         battlefield  -
         boundary_stone  -
+        cannon  -
         castle  +
             castrum  -
             defensive  -
@@ -544,6 +547,7 @@ world  +
         citywalls  -
         fort  -
         gallows  -
+        locomotive  -
         memorial  +
             cross  -
             plaque  -
@@ -552,13 +556,17 @@ world  +
             stolperstein  -
             war_memorial  -
             {}
+        mine  -
         monument  -
         pillory  -
         ruins  -
         ship  -
+        stone  -
+        tank  -
         tomb  -
         wayside_cross  -
         wayside_shrine  -
+        wreck  -
         {}
     hwtag  +
         bidir_bicycle  -
@@ -615,7 +623,9 @@ world  +
         grass  -
         greenfield  -
         greenhouse_horticulture  -
-        industrial  -
+        industrial  +
+            mine  -
+            {}
         landfill  -
         meadow  -
         military  +

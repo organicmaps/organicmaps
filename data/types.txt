@@ -748,7 +748,7 @@ boundary|administrative|4
 *barrier|ditch
 *barrier|kissing_gate
 *barrier|turnstile
-mapswithme
+*landuse|industrial|mine
 mapswithme
 mapswithme
 mapswithme
@@ -1572,3 +1572,11 @@ amenity|recycling|container
 *amenity|place_of_worship|christian|mormon
 *amenity|public_bath
 *amenity|vehicle_inspection
+*historic|cannon
+*historic|anchor
+*historic|stone
+*historic|aircraft
+*historic|tank
+*historic|mine
+*historic|wreck
+*historic|locomotive
