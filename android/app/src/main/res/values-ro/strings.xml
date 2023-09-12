@@ -216,6 +216,10 @@
 	<string name="pref_tts_enable_title">Instrucțiuni vocale</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Limba ghidului vocal</string>
+	<!-- Settings «Route» category: «Test Voice Directions» title -->
+	<string name="pref_tts_test_voice_title">Testarea indicațiilor vocale (TTS, Text-To-Speech)</string>
+	<!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+	<string name="pref_tts_playing_test_voice">Dacă nu auziți vocea acum, verificați volumul sau setările sistemului text-to-speech.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Nu există</string>
 	<string name="pref_map_auto_zoom">Zoom automat</string>
@@ -714,6 +718,8 @@
 	<string name="enable_show_on_lock_screen_description">Când este activată, nu trebuie să deblochezi telefonul de fiecare dată când aplicația este în funcțiune.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Date cartografice din OpenStreetMap</string>
+	<!-- Tip #00 -->
+	<string name="app_tip_00">Vă mulțumim că utilizați hărțile create de comunitatea noastră!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresă/Bloc</string>

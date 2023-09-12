@@ -209,6 +209,10 @@
 	<string name="pref_tts_enable_title">音声指示</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">音声言語</string>
+	<!-- Settings «Route» category: «Test Voice Directions» title -->
+	<string name="pref_tts_test_voice_title">音声案内をテストする（TTS、Text-To-Speech）</string>
+	<!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+	<string name="pref_tts_playing_test_voice">音声が聞こえない場合は、音量またはシステムの音声合成設定を確認する。</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">利用不可</string>
 	<string name="pref_map_auto_zoom">自動ズーム</string>
@@ -687,6 +691,8 @@
 	<string name="splash_subtitle">OpenStreetMapからの地図データ</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/JA:参加する</string>
+	<!-- Tip #00 -->
+	<string name="app_tip_00">私たちのコミュニティが作った地図をご利用いただき、ありがとうございます！</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">アドレス/ブロック</string>

@@ -229,6 +229,10 @@
 	<string name="pref_tts_enable_title">Галасавыя інструкцыі</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Мова агучвання</string>
+	<!-- Settings «Route» category: «Test Voice Directions» title -->
+	<string name="pref_tts_test_voice_title">Тэставыя галасавыя ўказанні (TTS, Text-To-Speech)</string>
+	<!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+	<string name="pref_tts_playing_test_voice">Праверце гучнасць або сістэмныя налады пераўтварэння тэксту ў маўленне, калі вы зараз не чуеце голас.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Не даступны</string>
 	<string name="pref_map_auto_zoom">Аўтаматычны маштаб</string>
@@ -730,6 +734,8 @@
 	<string name="telegram_url">https://t.me/OrganicMapsRu</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
 	<string name="translated_om_site_url">https://organicmaps.app/ru/</string>
+	<!-- Tip #00 -->
+	<string name="app_tip_00">Дзякуй за выкарыстанне нашых карт, створаных супольнасцю!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адрас/Блок</string>

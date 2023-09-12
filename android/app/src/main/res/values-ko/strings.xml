@@ -211,6 +211,10 @@
 	<string name="pref_tts_enable_title">음성 지침</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">음성 언어</string>
+	<!-- Settings «Route» category: «Test Voice Directions» title -->
+	<string name="pref_tts_test_voice_title">음성 길 안내 테스트(TTS, 텍스트 음성 변환)</string>
+	<!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+	<string name="pref_tts_playing_test_voice">지금 음성이 들리지 않으면 볼륨 또는 시스템 텍스트 음성 변환 설정을 확인하세요.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">사용할 수 없음</string>
 	<string name="pref_map_auto_zoom">자동 줌</string>
@@ -689,6 +693,8 @@
 	<string name="splash_subtitle">OpenStreetMap의 지도 데이터</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Ko:OpenStreetMap_소개</string>
+	<!-- Tip #00 -->
+	<string name="app_tip_00">커뮤니티에서 제작한 지도를 이용해 주셔서 감사합니다!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">주소/블록</string>

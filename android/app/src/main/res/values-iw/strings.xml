@@ -172,6 +172,10 @@
 	<string name="pref_zoom_summary">הצג על המסך</string>
 	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
 	<string name="pref_map_3d_buildings_disabled_summary">מבנים תלת מימדיים כבויים במצב חיסכון בחשמל</string>
+	<!-- Settings «Route» category: «Test Voice Directions» title -->
+	<string name="pref_tts_test_voice_title">בדיקת הנחיות קוליות (TTS, טקסט לדיבור)</string>
+	<!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+	<string name="pref_tts_playing_test_voice">בדוק את עוצמת הקול או את הגדרות הטקסט לדיבור של המערכת אם אינך שומע את הקול כעת.</string>
 	<string name="placepage_distance">מרחק</string>
 	<string name="search_show_on_map">ראה במפה</string>
 	<!-- Text in About menu, opens Organic Maps news website -->
@@ -260,6 +264,8 @@
 	<string name="enable_screen_sleep_description">כאשר מופעל המסך יורשה לישון לאחר תקופה של חוסר פעילות.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">OpenStreetMap-מ הפמ ינותנ</string>
+	<!-- Tip #00 -->
+	<string name="app_tip_00">תודה על השימוש במפות שנבנו בקהילה שלנו!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">כתובת/חסימה</string>

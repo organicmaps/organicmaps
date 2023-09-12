@@ -42,6 +42,10 @@
 	<string name="auto">Auto</string>
 	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
 	<string name="pref_map_3d_buildings_disabled_summary">Majengo ya 3D yamezimwa katika hali ya kuokoa nishati</string>
+	<!-- Settings «Route» category: «Test Voice Directions» title -->
+	<string name="pref_tts_test_voice_title">Jaribu maelekezo ya sauti (TTS, maandishi-kwa-hotuba)</string>
+	<!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+	<string name="pref_tts_playing_test_voice">Angalia mipangilio ya sauti au ya mfumo ya kubadilisha maandishi-hadi-hotuba ikiwa husikii sauti sasa.</string>
 	<!-- Text in About menu, opens Organic Maps news website -->
 	<string name="news">Habari</string>
 	<!-- Button in the main Help dialog -->
@@ -242,6 +246,8 @@
 	<string name="isolines_toast_zooms_1_10">Vuta karibu kutalii mistari ya kontua</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Data ya ramani kutoka OpenStreetMap</string>
+	<!-- Tip #00 -->
+	<string name="app_tip_00">Asante kwa kutumia ramani zetu zilizojengwa na jumuiya!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Anwani/Zuia</string>

@@ -228,6 +228,10 @@
 	<string name="pref_tts_enable_title">Ahots argibideak</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Ahots hizkuntza</string>
+	<!-- Settings «Route» category: «Test Voice Directions» title -->
+	<string name="pref_tts_test_voice_title">Probatu ahots bidezko jarraibideak (TTS, Text-To-Speech)</string>
+	<!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+	<string name="pref_tts_playing_test_voice">Egiaztatu bolumena edo sistemaren testu-ahotsaren ezarpenak ahotsa entzuten ez baduzu.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Ez dago erabilgarri</string>
 	<string name="pref_map_auto_zoom">Zoom automatikoa</string>
@@ -737,6 +741,8 @@
 	<string name="splash_subtitle">Maparen datuak OpenStreetMap-etik</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
 	<string name="translated_om_site_url">https://organicmaps.app/eu/</string>
+	<!-- Tip #00 -->
+	<string name="app_tip_00">Eskerrik asko gure komunitateak eraikitako mapak erabiltzeagatik!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Helbidea/Blokea</string>

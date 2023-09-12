@@ -209,6 +209,10 @@
 	<string name="pref_tts_enable_title">Röstinstruktioner</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Röstspråk</string>
+	<!-- Settings «Route» category: «Test Voice Directions» title -->
+	<string name="pref_tts_test_voice_title">Testa röstinstruktioner (TTS, Text-To-Speech)</string>
+	<!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+	<string name="pref_tts_playing_test_voice">Kontrollera volymen eller systemets text-till-tal-inställningar om du inte hör rösten nu.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Inte tillgängligt</string>
 	<string name="pref_map_auto_zoom">Automatisk zoom</string>
@@ -690,6 +694,8 @@
 	<string name="splash_subtitle">Kartdata från OpenStreetMap</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
 	<string name="translated_om_site_url">https://organicmaps.app/sv/</string>
+	<!-- Tip #00 -->
+	<string name="app_tip_00">Tack för att du använder våra gemenskapsbyggda kartor!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adress/Block</string>

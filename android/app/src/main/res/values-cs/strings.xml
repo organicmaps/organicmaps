@@ -215,6 +215,10 @@
 	<string name="pref_tts_enable_title">Hlasové instrukce</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Jazyk hlasu</string>
+	<!-- Settings «Route» category: «Test Voice Directions» title -->
+	<string name="pref_tts_test_voice_title">Testování hlasových pokynů (TTS, Text-To-Speech)</string>
+	<!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+	<string name="pref_tts_playing_test_voice">Pokud nyní hlas neslyšíte, zkontrolujte nastavení hlasitosti nebo převodu textu na řeč v systému.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Není dostupná</string>
 	<string name="pref_map_auto_zoom">Automatické zvětšení</string>
@@ -701,6 +705,8 @@
 	<string name="splash_subtitle">Mapová data z OpenStreetMap</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
 	<string name="translated_om_site_url">https://organicmaps.app/cs/</string>
+	<!-- Tip #00 -->
+	<string name="app_tip_00">Děkujeme, že používáte naše komunitní mapy!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresa/blok</string>
