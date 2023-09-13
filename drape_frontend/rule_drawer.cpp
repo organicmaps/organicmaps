@@ -160,18 +160,16 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
 }
 }  // namespace
 
-RuleDrawer::RuleDrawer(TDrawerCallback const & drawerFn,
-                       TCheckCancelledCallback const & checkCancelled,
+RuleDrawer::RuleDrawer(TCheckCancelledCallback const & checkCancelled,
                        TIsCountryLoadedByNameFn const & isLoadedFn,
-                       ref_ptr<EngineContext> engineContext)
-  : m_callback(drawerFn)
-  , m_checkCancelled(checkCancelled)
+                       ref_ptr<EngineContext> engineContext, int8_t deviceLang)
+  : m_checkCancelled(checkCancelled)
   , m_isLoadedFn(isLoadedFn)
   , m_context(engineContext)
   , m_customFeaturesContext(engineContext->GetCustomFeaturesContext().lock())
+  , m_deviceLang(deviceLang)
   , m_wasCancelled(false)
 {
-  ASSERT(m_callback != nullptr, ());
   ASSERT(m_checkCancelled != nullptr, ());
 
   m_globalRect = m_context->GetTileKey().GetGlobalRect();
@@ -452,16 +450,16 @@ void RuleDrawer::operator()(FeatureType & f)
   if (!m_context->IsolinesEnabled() && ftypes::IsIsolineChecker::Instance()(f))
     return;
 
+  int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
+
   Stylist s;
-  m_callback(f, s);
+  df::InitStylist(f, m_deviceLang, zoomLevel, m_context->Is3dBuildingsEnabled(), s);
 
   if (s.IsEmpty())
     return;
 
   if (!CheckCoastlines(f, s))
     return;
-
-  int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
 
   // FeatureType::GetLimitRect call invokes full geometry reading and decoding.
   // That's why this code follows after all lightweight return options.
