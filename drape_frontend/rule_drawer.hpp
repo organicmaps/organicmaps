@@ -29,15 +29,13 @@ class Stylist;
 class RuleDrawer
 {
 public:
-  using TDrawerCallback = std::function<void(FeatureType &, Stylist &)>;
   using TCheckCancelledCallback = std::function<bool()>;
   using TIsCountryLoadedByNameFn = std::function<bool(std::string_view)>;
   using TInsertShapeFn = std::function<void(drape_ptr<MapShape> && shape)>;
 
-  RuleDrawer(TDrawerCallback const & drawerFn,
-             TCheckCancelledCallback const & checkCancelled,
+  RuleDrawer(TCheckCancelledCallback const & checkCancelled,
              TIsCountryLoadedByNameFn const & isLoadedFn,
-             ref_ptr<EngineContext> engineContext);
+             ref_ptr<EngineContext> engineContext, int8_t deviceLang);
   ~RuleDrawer();
 
   void operator()(FeatureType & f);
@@ -57,12 +55,12 @@ private:
 
   bool IsDiscardCustomFeature(FeatureID const & id) const;
 
-  TDrawerCallback m_callback;
   TCheckCancelledCallback m_checkCancelled;
   TIsCountryLoadedByNameFn m_isLoadedFn;
 
   ref_ptr<EngineContext> m_context;
   CustomFeaturesContextPtr m_customFeaturesContext;
+  int8_t m_deviceLang;
   std::unordered_set<m2::Spline const *> m_usedMetalines;
 
   m2::RectD m_globalRect;
