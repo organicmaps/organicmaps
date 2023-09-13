@@ -128,10 +128,11 @@ private:
 };
 #endif
 
-void Extract(::LineDefProto const * lineRule, df::LineViewParams & params)
+void ExtractLineParams(::LineRuleProto const * lineRule, df::LineViewParams & params)
 {
   double const scale = df::VisualParams::Instance().GetVisualScale();
   params.m_color = ToDrapeColor(lineRule->color());
+  ASSERT_GREATER(lineRule->width(), 0, ("Zero width line (no pathsym)"));
   params.m_width = static_cast<float>(std::max(lineRule->width() * scale, 1.0));
 
   if (lineRule->has_dashdot())
@@ -173,7 +174,6 @@ void CaptionDefProtoToFontDecl(CaptionDefProto const * capRule, dp::FontDecl & p
 {
   double const vs = df::VisualParams::Instance().GetVisualScale();
   params.m_color = ToDrapeColor(capRule->color());
-  //TODO: apply min font size in the style generator.
   params.m_size = static_cast<float>(std::max(kMinVisibleFontSize, capRule->height() * vs));
 
   if (capRule->stroke_color() != 0)
@@ -354,11 +354,10 @@ void CalculateRoadShieldPositions(std::vector<double> const & offsets,
 }  // namespace
 
 BaseApplyFeature::BaseApplyFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
-                                   FeatureID const & id, uint8_t rank, CaptionDescription const & captions)
+                                   FeatureType & f, CaptionDescription const & captions)
   : m_insertShape(insertShape)
-  , m_id(id)
+  , m_f(f)
   , m_captions(captions)
-  , m_rank(rank)
   , m_tileKey(tileKey)
   , m_tileRect(tileKey.GetGlobalRect())
 {
@@ -390,11 +389,50 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
   }
 }
 
-ApplyPointFeature::ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureID const & id,
-                                     uint8_t rank, CaptionDescription const & captions, float posZ)
-  : TBase(tileKey, insertShape, id, rank, captions)
+double BaseApplyFeature::PriorityToDepth(int priority, drule::rule_type_t ruleType, double areaDepth) const
+{
+  double depth = priority;
+
+  if (ruleType == drule::area || ruleType == drule::line)
+  {
+    if (depth < drule::kBasePriorityBgTop)
+    {
+      ASSERT(ruleType == drule::area, (m_f.GetID()));
+      ASSERT_GREATER_OR_EQUAL(depth, drule::kBasePriorityBgBySize, (m_f.GetID()));
+      // Prioritize BG-by-size areas by their bbox sizes instead of style-set priorities.
+      ASSERT_GREATER_OR_EQUAL(areaDepth, drule::kBaseDepthBgBySize, (m_f.GetID()));
+      depth = areaDepth;
+    }
+    else if (depth < drule::kBasePriorityFg)
+    {
+      // Adjust BG-top features depth range so that it sits just above the BG-by-size range.
+      depth = drule::kBaseDepthBgTop + (depth - drule::kBasePriorityBgTop) * drule::kBgTopRangeFraction;
+    }
+
+    // Shift the depth according to layer=* value.
+    int8_t const layer = m_f.GetLayer();
+    if (layer != feature::LAYER_EMPTY)
+      depth += layer * drule::kLayerPriorityRange;
+  }
+  else
+  {
+    // Note we don't adjust priorities of "point-styles" according to layer=*,
+    // because their priorities are used for displacement logic only.
+    /// @todo we might want to hide e.g. a trash bin under man_made=bridge or a bench on underground railway station?
+
+    // Check overlays priorities range.
+    ASSERT(-drule::kOverlaysMaxPriority <= depth && depth < drule::kOverlaysMaxPriority, (depth, m_f.GetID()));
+  }
+
+  // Check no features are clipped by the depth range constraints.
+  ASSERT(dp::kMinDepth <= depth && depth <= dp::kMaxDepth, (depth, m_f.GetID(), m_f.GetLayer()));
+  return depth;
+}
+
+ApplyPointFeature::ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureType & f,
+                                     CaptionDescription const & captions, float posZ)
+  : TBase(tileKey, insertShape, f, captions)
   , m_posZ(posZ)
-  , m_hasPoint(false)
   , m_hasArea(false)
   , m_createdByEditor(false)
   , m_obsoleteInEditor(false)
@@ -404,36 +442,33 @@ ApplyPointFeature::ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn con
 
 void ApplyPointFeature::operator()(m2::PointD const & point, bool hasArea)
 {
+  m_hasArea = hasArea;
+  m_centerPoint = point;
+
   // TODO: This is only one place of cross-dependency with Editor.
   auto const & editor = osm::Editor::Instance();
-  m_hasPoint = true;
-  m_hasArea = hasArea;
-  auto const featureStatus = editor.GetFeatureStatus(m_id);
+  auto const featureStatus = editor.GetFeatureStatus(m_f.GetID());
   m_createdByEditor = featureStatus == FeatureStatus::Created;
   m_obsoleteInEditor = featureStatus == FeatureStatus::Obsolete;
-  m_centerPoint = point;
 }
 
-void ApplyPointFeature::ProcessPointRule(TRuleWrapper const & rule)
+void ApplyPointFeature::ProcessPointRule(drule::BaseRule const * rule, bool isHouseNumber)
 {
-  if (!m_hasPoint)
-    return;
-
-  SymbolRuleProto const * symRule = rule.m_rule->GetSymbol();
+  SymbolRuleProto const * symRule = rule->GetSymbol();
   if (symRule)
   {
-    m_symbolDepth = rule.m_depth;
+    m_symbolDepth = PriorityToDepth(symRule->priority(), drule::symbol, 0);
     m_symbolRule = symRule;
     return;
   }
 
-  CaptionDefProto const * capRule = rule.m_rule->GetCaption(0);
+  CaptionDefProto const * capRule = rule->GetCaption(0);
   if (capRule)
   {
-    CaptionDefProto const * auxRule = rule.m_rule->GetCaption(1);
+    CaptionDefProto const * auxRule = rule->GetCaption(1);
     TextViewParams params;
 
-    if (rule.m_isHouseNumber)
+    if (isHouseNumber)
       params.m_titleDecl.m_primaryText = m_captions.GetHouseNumberText();
     else
     {
@@ -444,17 +479,17 @@ void ApplyPointFeature::ProcessPointRule(TRuleWrapper const & rule)
     ASSERT(!params.m_titleDecl.m_primaryText.empty(), ());
 
     ExtractCaptionParams(capRule, auxRule, params);
-    params.m_depth = rule.m_depth;
-    params.m_featureId = m_id;
+    params.m_depth = PriorityToDepth(rule->GetCaptionsPriority(), drule::caption, 0);
+    params.m_featureId = m_f.GetID();
     params.m_tileCenter = m_tileRect.Center();
     params.m_depthLayer = DepthLayer::OverlayLayer;
     params.m_depthTestEnabled = false;
-    params.m_rank = m_rank;
+    params.m_rank = m_f.GetRank();
     params.m_posZ = m_posZ;
     params.m_hasArea = m_hasArea;
     params.m_createdByEditor = m_createdByEditor;
 
-    if (rule.m_isHouseNumber)
+    if (isHouseNumber)
       m_hnParams = params;
     else
       m_textParams = params;
@@ -473,12 +508,12 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
     double const poiExtendScale = visualParams.GetPoiExtendScale();
 
     PoiSymbolViewParams params;
-    params.m_featureId = m_id;
+    params.m_featureId = m_f.GetID();
     params.m_tileCenter = m_tileRect.Center();
     params.m_depthTestEnabled = false;
     params.m_depth = m_symbolDepth;
     params.m_depthLayer = DepthLayer::OverlayLayer;
-    params.m_rank = m_rank;
+    params.m_rank = m_f.GetRank();
     params.m_symbolName = m_symbolRule->name();
     ASSERT_GREATER_OR_EQUAL(m_symbolRule->min_distance(), 0, ());
     params.m_extendingSize = static_cast<uint32_t>(mainScale * m_symbolRule->min_distance() * poiExtendScale);
@@ -495,7 +530,7 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
     if (region.IsValid())
       m_insertShape(make_unique_dp<PoiSymbolShape>(m2::PointD(m_centerPoint), params, m_tileKey, 0 /* textIndex */));
     else
-      LOG(LERROR, ("Style error. Symbol name must be valid for feature", m_id));
+      LOG(LERROR, ("Style error. Symbol name must be valid for feature", m_f.GetID()));
   }
 
   bool const hasText = !m_textParams.m_titleDecl.m_primaryText.empty();
@@ -506,7 +541,7 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
     /// @see https://github.com/organicmaps/organicmaps/issues/2573
     if ((hasIcon || hasHouseNumber) && m_textParams.m_titleDecl.m_anchor == dp::Anchor::Center)
     {
-      ASSERT(!hasIcon, ("A `text-offset: *` is not set in styles.", m_id, m_textParams.m_titleDecl.m_primaryText));
+      ASSERT(!hasIcon, ("A `text-offset: *` is not set in styles.", m_f.GetID(), m_textParams.m_titleDecl.m_primaryText));
       m_textParams.m_titleDecl.m_anchor = GetAnchor(0, 1);
     }
 
@@ -536,10 +571,10 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
 }
 
 ApplyAreaFeature::ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
-                                   FeatureID const & id, double currentScaleGtoP, bool isBuilding,
+                                   FeatureType & f, double currentScaleGtoP, bool isBuilding,
                                    bool skipAreaGeometry, float minPosZ, float posZ,
-                                   uint8_t rank, CaptionDescription const & captions)
-  : TBase(tileKey, insertShape, id, rank, captions, posZ)
+                                   CaptionDescription const & captions)
+  : TBase(tileKey, insertShape, f, captions, posZ)
   , m_minPosZ(minPosZ)
   , m_isBuilding(isBuilding)
   , m_skipAreaGeometry(skipAreaGeometry)
@@ -704,19 +739,20 @@ void ApplyAreaFeature::CalculateBuildingOutline(bool calculateNormals, BuildingO
   }
 }
 
-void ApplyAreaFeature::ProcessAreaRule(TRuleWrapper const & rule)
+void ApplyAreaFeature::ProcessAreaRule(drule::BaseRule const * rule, double areaDepth, bool isHatching)
 {
-  AreaRuleProto const * areaRule = rule.m_rule->GetArea();
-  if (areaRule && !m_triangles.empty())
+  AreaRuleProto const * areaRule = rule->GetArea();
+  ASSERT(areaRule != nullptr, ());
+  if (!m_triangles.empty())
   {
     AreaViewParams params;
     params.m_tileCenter = m_tileRect.Center();
-    params.m_depth = rule.m_depth;
+    params.m_depth = PriorityToDepth(areaRule->priority(), drule::area, areaDepth);
     params.m_color = ToDrapeColor(areaRule->color());
-    params.m_rank = m_rank;
+    params.m_rank = m_f.GetRank();
     params.m_minPosZ = m_minPosZ;
     params.m_posZ = m_posZ;
-    params.m_hatching = rule.m_hatching;
+    params.m_hatching = isHatching;
     params.m_baseGtoPScale = static_cast<float>(m_currentScaleGtoP);
 
     BuildingOutline outline;
@@ -739,16 +775,12 @@ void ApplyAreaFeature::ProcessAreaRule(TRuleWrapper const & rule)
     m_insertShape(make_unique_dp<AreaShape>(params.m_hatching ? m_triangles : std::move(m_triangles),
                                             std::move(outline), params));
   }
-  else
-  {
-    TBase::ProcessPointRule(rule);
-  }
 }
 
 ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(TileKey const & tileKey, TInsertShapeFn const & insertShape,
-                                                   FeatureID const & id, double currentScaleGtoP,
-                                                   uint8_t rank, size_t pointsCount, bool smooth)
-  : TBase(tileKey, insertShape, id, rank, CaptionDescription())
+                                                   FeatureType & f, double currentScaleGtoP,
+                                                   size_t pointsCount, bool smooth)
+  : TBase(tileKey, insertShape, f, CaptionDescription())
   , m_currentScaleGtoP(static_cast<float>(currentScaleGtoP))
   , m_minSegmentSqrLength(base::Pow2(4.0 * df::VisualParams::Instance().GetVisualScale() / currentScaleGtoP))
   , m_simplify(tileKey.m_zoomLevel >= 10 && tileKey.m_zoomLevel <= 12)
@@ -794,13 +826,12 @@ bool ApplyLineFeatureGeometry::HasGeometry() const
   return m_spline->IsValid();
 }
 
-void ApplyLineFeatureGeometry::ProcessLineRule(TRuleWrapper const & rule)
+void ApplyLineFeatureGeometry::ProcessLineRule(drule::BaseRule const * rule)
 {
   ASSERT(HasGeometry(), ());
 
-  LineDefProto const * pLineRule = rule.m_rule->GetLine();
-  if (pLineRule == nullptr)
-    return;
+  LineRuleProto const * pLineRule = rule->GetLine();
+  ASSERT(pLineRule != nullptr, ());
 
   if (!m_smooth)
   {
@@ -830,13 +861,15 @@ void ApplyLineFeatureGeometry::ProcessLineRule(TRuleWrapper const & rule)
   if (m_clippedSplines.empty())
     return;
 
+  double const depth = PriorityToDepth(pLineRule->priority(), drule::line, 0);
+
   if (pLineRule->has_pathsym())
   {
     PathSymProto const & symRule = pLineRule->pathsym();
     PathSymbolViewParams params;
     params.m_tileCenter = m_tileRect.Center();
-    params.m_depth = rule.m_depth;
-    params.m_rank = m_rank;
+    params.m_depth = depth;
+    params.m_rank = m_f.GetRank();
     params.m_symbolName = symRule.name();
     double const mainScale = df::VisualParams::Instance().GetVisualScale();
     params.m_offset = static_cast<float>(symRule.offset() * mainScale);
@@ -850,9 +883,9 @@ void ApplyLineFeatureGeometry::ProcessLineRule(TRuleWrapper const & rule)
   {
     LineViewParams params;
     params.m_tileCenter = m_tileRect.Center();
-    Extract(pLineRule, params);
-    params.m_depth = rule.m_depth;
-    params.m_rank = m_rank;
+    ExtractLineParams(pLineRule, params);
+    params.m_depth = depth;
+    params.m_rank = m_f.GetRank();
     params.m_baseGtoPScale = m_currentScaleGtoP;
     params.m_zoomLevel = m_tileKey.m_zoomLevel;
 
@@ -864,15 +897,15 @@ void ApplyLineFeatureGeometry::ProcessLineRule(TRuleWrapper const & rule)
 void ApplyLineFeatureGeometry::Finish()
 {
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
-  LinesStat::Get().InsertLine(m_id, m_currentScaleGtoP, m_readCount, static_cast<int>(m_spline->GetSize()));
+  LinesStat::Get().InsertLine(m_f.GetID(), m_currentScaleGtoP, m_readCount, static_cast<int>(m_spline->GetSize()));
 #endif
 }
 
 ApplyLineFeatureAdditional::ApplyLineFeatureAdditional(TileKey const & tileKey, TInsertShapeFn const & insertShape,
-                                                       FeatureID const & id, double currentScaleGtoP, uint8_t rank,
+                                                       FeatureType & f, double currentScaleGtoP,
                                                        CaptionDescription const & captions,
                                                        std::vector<m2::SharedSpline> const & clippedSplines)
-  : TBase(tileKey, insertShape, id, rank, captions)
+  : TBase(tileKey, insertShape, f, captions)
   , m_clippedSplines(clippedSplines)
   , m_currentScaleGtoP(static_cast<float>(currentScaleGtoP))
   , m_captionDepth(0.0f)
@@ -881,23 +914,22 @@ ApplyLineFeatureAdditional::ApplyLineFeatureAdditional(TileKey const & tileKey, 
   , m_shieldRule(nullptr)
 {}
 
-void ApplyLineFeatureAdditional::ProcessLineRule(TRuleWrapper const & rule)
+void ApplyLineFeatureAdditional::ProcessLineRule(drule::BaseRule const * rule)
 {
-  if (m_clippedSplines.empty())
-    return;
+  ASSERT(!m_clippedSplines.empty(), ());
 
-  ShieldRuleProto const * pShieldRule = rule.m_rule->GetShield();
+  ShieldRuleProto const * pShieldRule = rule->GetShield();
   if (pShieldRule != nullptr)
   {
     m_shieldRule = pShieldRule;
-    m_shieldDepth = rule.m_depth;
+    m_shieldDepth = PriorityToDepth(pShieldRule->priority(), drule::shield, 0);
   }
 
-  CaptionDefProto const * pCaptionRule = rule.m_rule->GetCaption(0);
+  CaptionDefProto const * pCaptionRule = rule->GetCaption(0);
   if (pCaptionRule != nullptr && pCaptionRule->height() > 2 && !m_captions.GetMainText().empty())
   {
     m_captionRule = pCaptionRule;
-    m_captionDepth = rule.m_depth;
+    m_captionDepth = PriorityToDepth(rule->GetCaptionsPriority(), drule::pathtext, 0);
   }
 }
 
@@ -928,8 +960,8 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   textParams.m_depthTestEnabled = false;
   textParams.m_depth = m_shieldDepth;
   textParams.m_depthLayer = DepthLayer::OverlayLayer;
-  textParams.m_rank = m_rank;
-  textParams.m_featureId = m_id;
+  textParams.m_rank = m_f.GetRank();
+  textParams.m_featureId = m_f.GetID();
   textParams.m_titleDecl.m_anchor = anchor;
   textParams.m_titleDecl.m_primaryText = roadNumber;
   textParams.m_titleDecl.m_primaryTextFont = font;
@@ -953,12 +985,12 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   if (IsColoredRoadShield(shield))
   {
     // Generated symbol properties.
-    symbolParams.m_featureId = m_id;
+    symbolParams.m_featureId = m_f.GetID();
     symbolParams.m_tileCenter = m_tileRect.Center();
     symbolParams.m_depthTestEnabled = true;
     symbolParams.m_depth = m_shieldDepth;
     symbolParams.m_depthLayer = DepthLayer::OverlayLayer;
-    symbolParams.m_rank = m_rank;
+    symbolParams.m_rank = m_f.GetRank();
     symbolParams.m_anchor = anchor;
     symbolParams.m_offset = shieldOffset;
     symbolParams.m_shape = ColoredSymbolViewParams::Shape::RoundedRectangle;
@@ -981,12 +1013,12 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   if (IsSymbolRoadShield(shield))
   {
     std::string symbolName = GetRoadShieldSymbolName(shield, fontScale);
-    poiParams.m_featureId = m_id;
+    poiParams.m_featureId = m_f.GetID();
     poiParams.m_tileCenter = m_tileRect.Center();
     poiParams.m_depth = m_shieldDepth;
     poiParams.m_depthTestEnabled = false;
     poiParams.m_depthLayer = DepthLayer::OverlayLayer;
-    poiParams.m_rank = m_rank;
+    poiParams.m_rank = m_f.GetRank();
     poiParams.m_symbolName = symbolName;
     poiParams.m_extendingSize = 0;
     poiParams.m_posZ = 0.0f;
@@ -1057,9 +1089,9 @@ void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
     CaptionDefProtoToFontDecl(m_captionRule, fontDecl);
     PathTextViewParams params;
     params.m_tileCenter = m_tileRect.Center();
-    params.m_featureId = m_id;
+    params.m_featureId = m_f.GetID();
     params.m_depth = m_captionDepth;
-    params.m_rank = m_rank;
+    params.m_rank = m_f.GetRank();
     params.m_mainText = m_captions.GetMainText();
     params.m_auxText = m_captions.GetAuxText();
     params.m_textFont = fontDecl;

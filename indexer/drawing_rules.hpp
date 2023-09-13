@@ -16,7 +16,7 @@
 #include <unordered_map>
 #include <vector>
 
-class LineDefProto;
+class LineRuleProto;
 class AreaRuleProto;
 class SymbolRuleProto;
 class CaptionDefProto;
@@ -33,11 +33,12 @@ namespace drule
     BaseRule() = default;
     virtual ~BaseRule() = default;
 
-    virtual LineDefProto const * GetLine() const;
+    virtual LineRuleProto const * GetLine() const;
     virtual AreaRuleProto const * GetArea() const;
     virtual SymbolRuleProto const * GetSymbol() const;
     virtual CaptionDefProto const * GetCaption(int) const;
     virtual text_type_t GetCaptionTextType(int) const;
+    virtual int GetCaptionsPriority() const;
     virtual ShieldRuleProto const * GetShield() const;
 
     // Test feature by runtime feature style selector

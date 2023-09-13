@@ -26,6 +26,14 @@ namespace df
 class EngineContext;
 class Stylist;
 
+/*
+ * RuleDrawer() is invoked for each feature in the tile.
+ * It creates a Stylist which filters suitable drawing rules for the feature.
+ * Then passes on the drawing rules to ApplyPoint/Area/LineFeature objects
+ * which create corresponding MapShape objects (which might in turn create OverlayHandles).
+ * The RuleDrawer flushes geometry MapShapes immediately for each feature,
+ * while overlay MapShapes are flushed altogether after all features are processed.
+ */
 class RuleDrawer
 {
 public:
@@ -45,11 +53,11 @@ public:
 #endif
 
 private:
-  void ProcessAreaStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape);
+  void ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape);
   void ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape);
   void ProcessPointStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape);
 
-  bool CheckCoastlines(FeatureType & f, Stylist const & s);
+  bool CheckCoastlines(FeatureType & f);
 
   bool CheckCancelled();
 
@@ -64,6 +72,7 @@ private:
   std::unordered_set<m2::Spline const *> m_usedMetalines;
 
   m2::RectD m_globalRect;
+  uint8_t m_zoomLevel;
   double m_currentScaleGtoP;
   double m_trafficScalePtoG;
 

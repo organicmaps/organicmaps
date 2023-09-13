@@ -2,6 +2,7 @@
 
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/drawing_rule_def.hpp"
+#include "indexer/drawing_rules.hpp"
 
 #include "base/buffer_vector.hpp"
 
@@ -26,18 +27,9 @@ private:
   size_t m_type3end;
 };
 
-struct TRuleWrapper
-{
-  drule::BaseRule const * m_rule;
-  float m_depth;
-  bool m_hatching;
-  bool m_isHouseNumber;
-};
-
 struct CaptionDescription
 {
-  void Init(FeatureType & f, int8_t deviceLang, int const zoomLevel,
-            feature::GeomType const type, bool const auxCaptionExists);
+  void Init(FeatureType & f, int8_t deviceLang, int zoomLevel, feature::GeomType geomType, bool auxCaptionExists);
 
   std::string const & GetMainText() const { return m_mainText; }
   std::string const & GetAuxText() const { return m_auxText; }
@@ -56,30 +48,24 @@ class Stylist
 {
 public:
   bool m_isCoastline = false;
-  bool m_areaStyleExists = false;
-  bool m_lineStyleExists = false;
-  bool m_pointStyleExists = false;
+
+  drule::BaseRule const * m_symbolRule = nullptr;
+  drule::BaseRule const * m_captionRule = nullptr;
+  drule::BaseRule const * m_houseNumberRule = nullptr;
+  drule::BaseRule const * m_pathtextRule = nullptr;
+  drule::BaseRule const * m_shieldRule = nullptr;
+  drule::BaseRule const * m_areaRule = nullptr;
+  drule::BaseRule const * m_hatchingRule = nullptr;
+  buffer_vector<drule::BaseRule const *, 4> m_lineRules;
+
+  Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang);
 
   CaptionDescription const & GetCaptionDescription() const { return m_captionDescriptor; }
 
-  template <class ToDo> void ForEachRule(ToDo && toDo) const
-  {
-    for (auto const & r : m_rules)
-      toDo(r);
-  }
-
-  bool IsEmpty() const { return m_rules.empty(); }
-
 private:
-  friend bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool buildings3d,
-                          Stylist & s);
-
-  typedef buffer_vector<TRuleWrapper, 8> rules_t;
-  rules_t m_rules;
+  void ProcessKey(FeatureType & f, drule::Key const & key);
 
   CaptionDescription m_captionDescriptor;
 };
 
-bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool buildings3d,
-                 Stylist & s);
 }  // namespace df

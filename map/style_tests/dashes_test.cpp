@@ -13,7 +13,7 @@ UNIT_TEST(Test_Dashes)
   {
     drule::rules().ForEachRule([](drule::BaseRule const * rule)
     {
-      LineDefProto const * const line = rule->GetLine();
+      LineRuleProto const * const line = rule->GetLine();
       if (nullptr == line || !line->has_dashdot())
         return;
 
