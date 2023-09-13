@@ -22,6 +22,8 @@ m2::PointD GetCenter(FeatureType & f, int scale)
   {
     return f.GetCenter();
   }
+  /// @todo cache calculated area and line centers, as calculation could be quite heavy for big features (and
+  /// involves geometry reading) and a center could be requested multiple times during e.g. search, PP opening, etc.
   case GeomType::Line:
   {
     m2::CalculatePolyLineCenter doCalc;

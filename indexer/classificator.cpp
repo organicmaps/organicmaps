@@ -239,7 +239,7 @@ namespace
         //{ line, area, symbol, caption, circle, pathtext, waymarker, shield }, see drule::Key::rule_type_t
         { 0, 0, 1, 1, 1, 0, 0, 0 },   // fpoint
         { 1, 0, 0, 0, 0, 1, 0, 1 },   // fline
-        { 1, 1, 1, 1, 1, 0, 0, 0 }    // farea (!!! different from IsDrawableLike(): here area feature can use point and line styles)
+        { 0, 1, 1, 1, 1, 0, 0, 0 }    // farea (!!! different from IsDrawableLike(): here area feature can use point styles)
       };
 
       if (visible[ft][i->m_type] == 1)

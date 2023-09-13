@@ -263,7 +263,7 @@ feature::GeomType FeatureType::GetGeomType() const
   {
   case HeaderGeomType::Line: return GeomType::Line;
   case HeaderGeomType::Area: return GeomType::Area;
-  default: return GeomType::Point;
+  default: return GeomType::Point; // HeaderGeomType::Point/PointEx
   }
 }
 
@@ -682,19 +682,13 @@ string FeatureType::DebugString(int scale, bool includeKeyPoint)
 
   case GeomType::Line:
     if (m_points.empty())
-    {
-      ASSERT(scale != FeatureType::WORST_GEOMETRY && scale != FeatureType::BEST_GEOMETRY, (scale));
       return res;
-    }
     keyPoint = m_points.front();
     break;
 
   case GeomType::Area:
     if (m_triangles.empty())
-    {
-      ASSERT(scale != FeatureType::WORST_GEOMETRY && scale != FeatureType::BEST_GEOMETRY, (scale));
       return res;
-    }
 
     ASSERT_GREATER(m_triangles.size(), 2, ());
     keyPoint = (m_triangles[0] + m_triangles[1] + m_triangles[2]) / 3.0;

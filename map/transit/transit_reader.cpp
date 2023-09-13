@@ -165,15 +165,13 @@ void ReadTransitTask::Do()
 
     if (featureInfo.m_isGate)
     {
-      df::Stylist stylist;
-      if (df::InitStylist(ft, 0, 19, false, stylist))
+      //TODO: there should be a simpler way to just get a symbol name.
+      df::Stylist stylist(ft, 19, 0);
+      if (stylist.m_symbolRule != nullptr)
       {
-        stylist.ForEachRule([&](df::TRuleWrapper const & rule)
-        {
-          auto const * symRule = rule.m_rule->GetSymbol();
-          if (symRule != nullptr)
-            featureInfo.m_gateSymbolName = symRule->name();
-        });
+        auto const * symRule = stylist.m_symbolRule->GetSymbol();
+        ASSERT(symRule != nullptr, ());
+        featureInfo.m_gateSymbolName = symRule->name();
       }
     }
     featureInfo.m_point = feature::GetCenter(ft);

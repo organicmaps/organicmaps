@@ -35,7 +35,7 @@ namespace
   }
 } // namespace
 
-LineDefProto const * BaseRule::GetLine() const
+LineRuleProto const * BaseRule::GetLine() const
 {
   return 0;
 }
@@ -58,6 +58,11 @@ CaptionDefProto const * BaseRule::GetCaption(int) const
 text_type_t BaseRule::GetCaptionTextType(int) const
 {
   return text_type_name;
+}
+
+int BaseRule::GetCaptionsPriority() const
+{
+  return 0;
 }
 
 ShieldRuleProto const * BaseRule::GetShield() const
@@ -152,21 +157,11 @@ namespace
   {
     class Line : public BaseRule
     {
-      LineDefProto m_line;
+      LineRuleProto m_line;
     public:
-      explicit Line(LineRuleProto const & r)
-      {
-        m_line.set_color(r.color());
-        m_line.set_width(r.width());
-        m_line.set_join(r.join());
-        m_line.set_cap(r.cap());
-        if (r.has_dashdot())
-          *(m_line.mutable_dashdot()) = r.dashdot();
-        if (r.has_pathsym())
-          *(m_line.mutable_pathsym()) = r.pathsym();
-      }
+      explicit Line(LineRuleProto const & r) : m_line(r) {}
 
-      virtual LineDefProto const * GetLine() const { return &m_line; }
+      virtual LineRuleProto const * GetLine() const { return &m_line; }
     };
 
     class Area : public BaseRule
@@ -217,6 +212,11 @@ namespace
           else
             return 0;
         }
+      }
+
+      virtual int GetCaptionsPriority() const
+      {
+        return m_caption.priority();
       }
 
       virtual text_type_t GetCaptionTextType(int i) const
