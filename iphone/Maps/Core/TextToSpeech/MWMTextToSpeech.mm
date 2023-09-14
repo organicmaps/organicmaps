@@ -108,7 +108,7 @@ using Observers = NSHashTable<Observer>;
     }
 
     // Set initial StreetNamesTTS setting
-    NSDictionary *dictionary = @{ kIsStreetNamesTTSEnabled : @NO };
+    NSDictionary *dictionary = @{ kIsStreetNamesTTSEnabled : @YES };     // TODO: set to NO by default in release
     [NSUserDefaults.standardUserDefaults registerDefaults:dictionary];
     
     self.active = YES;
