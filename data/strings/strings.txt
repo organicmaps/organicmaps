@@ -2890,7 +2890,7 @@
     mr = खरेदी
     nb = Shopping
     nl = Winkelen
-    pl = Shopping
+    pl = Zakupy
     pt = Compras
     pt-BR = Compras
     ro = Shopping
@@ -6325,7 +6325,7 @@
     mr = ईमेल वाहक सेट केलेले नाही. कृपया ते सेट करा किंवा वेगळ्या पद्धतीने आमच्याशी %@ वर संपर्क करा
     nb = E-postklienten har ikke blitt konfigurert. Konfigurer den eller bruk en annen måte å kontakte oss på %@
     nl = De emailcliënt is niet ingesteld. Gelieve de cliënt te configureren of op een andere manier contact met ons op te nemen op %@
-    pl = Email klienta nie został założony. Proszę skonfigurować adres email, bądź skorzystać z innych opcji, aby się z nami skontaktować na %@
+    pl = Klient pocztowy nie został skonfigurowany. Proszę skonfigurować go, bądź skorzystać z innych opcji, aby się z nami skontaktować na %@
     pt = O programa de email não está configurado. Por favor, configure-o ou utilize qualquer outra forma de nos contactar através de %@
     pt-BR = O cliente de email não está configurado. Por favor, configure-o ou utilize qualquer outro modo para nos contatar através de %@
     ro = Aplicația de email nu a fost stabilită. Stabilește-o sau utilizează alt mod de a ne contacta la %@.
@@ -11676,7 +11676,7 @@
     mr = २४/७
     nb = Dag og natt
     nl = Nacht en dag
-    pl = Dzień i noc
+    pl = 24/7
     pt = 24 horas por dia
     pt-BR = 24 horas por dia
     ro = 24/7
@@ -14617,7 +14617,7 @@
     mr = मजल्यांची संख्या (कमाल %d)
     nb = Antall etasjer (maks. %d)
     nl = Aantal verdiepingen (max. %d)
-    pl = Liczba pięter (maks. %d)
+    pl = Liczba kondygnacji (maks. %d)
     pt = Número de pisos (máx. %d)
     pt-BR = Número de andares (máx. %d)
     ro = Număr de etaje (maximum %d)
@@ -14659,7 +14659,7 @@
     mr = मजल्यांची संख्या %d पेक्षा जास्त नसावी
     nb = Rediger bygningen med maks. %d etasjer
     nl = Het gebouw mag niet meer dan %d verdiepingen hebben
-    pl = Edytuj budynek z maksymalną liczbą %d pięter
+    pl = Liczba kondygnacji nie może przekraczać %d
     pt = O número de pisos não pode ser maior que %d
     pt-BR = O número de andares não pode ser maior que %d
     ro = Numărul de etaje nu trebuie să depășească %d
@@ -16765,7 +16765,7 @@
     mr = अद्ययावत करा
     nb = Oppdatere
     nl = Updaten
-    pl = Uaktualnić
+    pl = Aktualizuj
     pt = Atualizar
     pt-BR = Atualizar
     ro = Actualizează
@@ -24278,7 +24278,7 @@
     mr = गेल्या आठवड्यात
     nb = For en uke siden
     nl = Een week geleden
-    pl = Tydzień wstecz
+    pl = Tydzień temu
     pt = Uma semana atrás
     pt-BR = Uma semana atrás
     ro = Acum o săptămână
@@ -24320,7 +24320,7 @@
     mr = गेल्या महिन्यात
     nb = For en måned siden
     nl = Een maand geleden
-    pl = Miesiąc wstecz
+    pl = Miesiąc temu
     pt = Um mês atrás
     pt-BR = Um mês atrás
     ro = Acum o lună
@@ -24362,7 +24362,7 @@
     mr = एक महिन्यापूर्वी
     nb = Mer enn en måned siden
     nl = Meer dan een maand geleden
-    pl = Ponad miesiąc wstecz
+    pl = Ponad miesiąc temu
     pt = Mais de um mês atrás
     pt-BR = Mais de um mês atrás
     ro = Acum mai mult de o lună
@@ -24404,7 +24404,7 @@
     mr = एक वर्षांपूर्वी
     nb = Mer enn ett år siden
     nl = Meer dan een jaar geleden
-    pl = Ponad rok wstecz
+    pl = Ponad rok temu
     pt = Mais de um ano atrás
     pt-BR = Mais de um ano atrás
     ro = Cu mai mult de un an în urmă
@@ -24446,7 +24446,7 @@
     mr = माझ्या जवळ
     nb = Nær meg
     nl = Naast mij
-    pl = Obok mnie
+    pl = W pobliżu
     pt = Perto de mim
     pt-BR = Próximo de mim
     ro = Lângă mine
@@ -25382,7 +25382,7 @@
     mr = भूप्रदेश
     nb = Høyder
     nl = Hoogtes
-    pl = Wysokości
+    pl = Poziomice
     pt = Terreno
     pt-BR = Topográfica
     ro = Înălțimi
@@ -25425,7 +25425,7 @@
     mr = भूस्वरूप स्तर वापरण्यासाठी कृपया नकाशा डाउनलोड किंवा अद्ययावत करा
     nb = For å bruke høydekurver oppdater eller last opp kartet til nødvendig område
     nl = Als u gebruik wilt maken van hoogtelijnen, moet u een kaart van het gewenste gebied bijwerken of downloaden
-    pl = Do skorzystania z linii wysokości, zaktualizuj lub pobierz mapę obszaru, który potrzebujesz
+    pl = Do skorzystania z poziomic, pobierz mapę tego obszaru.
     pt = Para ativar e usar a camada topográfica, por favor atualize ou descarregue o mapa da área
     pt-BR = Para ativar e usar a camada topográfica, atualize ou baixe o mapa da região
     ro = Pentru a activa și utiliza stratul topografic actualizează sau descarcă harta zonei
@@ -25468,7 +25468,7 @@
     mr = या भागात भूस्वरूप स्तर अद्याप उपलब्ध नाही
     nb = Høydekurver er ikke tilgjengelige i dette området ennå
     nl = De hoogtelijnen zijn nog niet beschikbaar in deze regio
-    pl = W tej chwili nie są dostępne linie wysokości w tym regionie
+    pl = Poziomice nie są jeszcze dostępne w tym regionie
     pt = A camada topográfica ainda não está disponível nesta área
     pt-BR = A camada topográfica ainda não está disponível para esta região
     ro = Stratul topografic nu este încă disponibil în această zonă
@@ -25981,7 +25981,7 @@
     mr = समोच्च रेषा पाहायला नकाशा विशाल (झूम) करा
     nb = Forstørr kartet for å se høydekurver
     nl = Zoom in om isolijnen te bekijken
-    pl = Powiększ mapę, aby zobaczyć izolinie
+    pl = Powiększ mapę, aby zobaczyć poziomice
     pt = Amplie o mapa para ver as curvas de nível
     pt-BR = Use o zoom para explorar as isolinhas
     ro = Mărește harta pentru a vedea izoliniile

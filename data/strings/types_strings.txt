@@ -241,6 +241,7 @@
     ja = 空路
     mr = हवाई आधार संरचना
     nl = Luchtvaartinfrastructuur
+    pl = Infrastruktura lotnicza
     pt = Via aérea
     pt-BR = Via aérea
     ru = Аэрокосмическая инфраструктура
@@ -589,6 +590,7 @@
     ko = 은행
     mr = बँक
     nl = Bank
+    pl = Bank
     pt = Banco
     pt-BR = Banco
     ro = Bancă
@@ -617,6 +619,7 @@
     ko = 바
     mr = बार
     nl = Bar
+    pl = Bar alkoholowy
     pt = Bar
     pt-BR = Drinqueria
     ru = Бар
@@ -1821,7 +1824,7 @@
     mr = प्रदर्शन केंद्र
     nb = Utstillingssenter
     nl = Expositiecentrum
-    pl = Centrum wystawowe
+    pl = Centrum wystawiennicze
     pt = Centro de exposições
     ro = Centru de expozitie
     ru = Выставочный центр
@@ -2491,7 +2494,7 @@
     mr = डक लड करत आह
     nb = Lasterampe
     nl = Laad-dock
-    pl = Dok załadunkowy
+    pl = Dok przeładunkowy
     pt = Doca de carregamento
     pt-BR = Doca de carregamento
     ro = Încărcare doc
@@ -2713,7 +2716,7 @@
     ko = 유료 주차장
     nb = Betalt parkering
     nl = Betaald parkeren
-    pl = Płatny
+    pl = Płatny parking
     pt = Estacionamento pago
     ro = Parcare cu plată
     ru = Платная парковка
@@ -2926,7 +2929,7 @@
     ko = 주차장 입구
     nb = Parkeringsinngang
     nl = Parkeeringang
-    pl = Wejście na parking
+    pl = Wjazd na parking
     pt = Entrada do estacionamento
     ro = Intrare parcare
     ru = Въезд на парковку
@@ -3578,6 +3581,7 @@
     ko = 술집
     mr = पब
     nl = Kroeg
+    pl = Pub
     pt = Pub ou taberna
     pt-BR = Pub ou buteco
     ru = Паб
@@ -4018,6 +4022,7 @@
     it = Cartone
     mr = पुठ्ठा
     nl = Karton
+    pl = Karton
     pt-BR = Papelão
     ru = Картон
     tr = Karton
@@ -4037,6 +4042,7 @@
     it = Lattine
     mr = कॅन
     nl = Blikafval
+    pl = Puszki
     pt-BR = Latas
     ru = Жестяные и алюминиевые банки
     tr = Teneke ve alüminyum kutular
@@ -4056,6 +4062,7 @@
     it = Scarpe
     mr = पादत्राणे
     nl = Schoenen
+    pl = Buty
     pt-BR = Sapatos
     ru = Обувь
     tr = Ayakkabılar
@@ -4074,6 +4081,7 @@
     fr = Déchets organiques
     it = Umido
     nl = GFT afval
+    pl = Odpady zielone
     pt-BR = Lixo verde/orgânico
     ru = Органика / Пищевые отходы
     tr = Yeşil/Organik Atık
@@ -4093,6 +4101,7 @@
     it = Tetrapak
     mr = पेय कार्टन
     nl = Drankverpakkingen
+    pl = Kartony po napojach
     pt-BR = Caixa de bebidas
     ru = Тетрапак и аналоги
     tr = İçecek Kartonları
@@ -4242,7 +4251,7 @@
     mr = सार्वजनिक स्नान
     nb = Offentlig bad
     nl = Publiek bad
-    pl = Łaźnia Publiczna
+    pl = Łaźnia publiczna
     pt = Banheiro público
     ro = Baie publică
     ru = Общественная баня
@@ -4350,7 +4359,7 @@
     mr = टॅक्सी
     nb = Drosje
     nl = Taxi
-    pl = Taksówka
+    pl = Postój taksówek
     pt = Táxi
     pt-BR = Táxi
     ru = Такси
@@ -4613,6 +4622,7 @@
     it = Macchina del caffè
     mr = कॉफी विक्रीयंत्र
     nl = Koffieautomaat
+    pl = Automat z kawą
     pt-BR = Máquina de café
     ru = Кофейный автомат
     uk = Кавовий автомат
@@ -4631,6 +4641,7 @@
     it = Distributore di profilattici
     mr = कंडोम विक्रीयंत्र
     nl = Condoomautomaat
+    pl = Automat z prezerwatywami
     pt-BR = Máquina de venda de preservativos
     ru = Автомат с презервативами
     uk = Автомат з презервативами
@@ -4686,6 +4697,7 @@
     it = Distributore automatico di alimenti
     mr = अन्न विक्रीयंत्र
     nl = Etenswarenautomaat
+    pl = Automat z jedzeniem
     pt-BR = Máquina de venda de comidas
     ru = Автомат с едой
     uk = Автомат з їжею
@@ -4704,6 +4716,7 @@
     it = Distributore automatico di giornali
     mr = वृत्तपत्र विक्रीयंत्र
     nl = Krantenautomaat
+    pl = Automat z gazetami
     pt-BR = Máquina de venda de jornais
     ru = Газетный автомат
     uk = Газетний автомат
@@ -4798,6 +4811,7 @@
     it = Distributore automatico di dolciumi
     mr = मिठाई विक्रीयंत्र
     nl = Snoepautomaat
+    pl = Automat ze słodyczami
     pt-BR = Máquina de venda de doces
     ru = Автомат со сладостями
     uk = Автомат із солодощами
@@ -4815,6 +4829,7 @@
     it = Distributore di sacchetti per escrementi
     mr = मलमूत्र पिशव्या विक्रीयंत्र
     nl = Hondenpoepzakjesdispenser
+    pl = Automat z torebkami na odchody
     pt-BR = Saquinhos de lixo
     ru = Пакеты для экскрементов
     tr = Dışkı Torbası Dağıtıcı
@@ -4834,6 +4849,7 @@
     it = Punto di ritiro
     mr = पार्सल लॉकर
     nl = Pakketjeskluis
+    pl = Paczkomat
     pt = Cacifo
     pt-BR = Armário de encomendas
     ru = Почтомат
@@ -4865,7 +4881,7 @@
     mr = वाहन तपासणी
     nb = Inspeksjon av kjøretøy
     nl = Voertuiginspectie
-    pl = Kontrola pojazdu
+    pl = Stacja kontroli pojazdów
     pt = Inspeção veicular
     ro = Inspecția vehiculului
     ru = Техосмотр автомобиля
@@ -5205,6 +5221,7 @@
     it = Catena
     mr = साखळी
     nl = Ketting
+    pl = Łańcuch
     ru = Цепь
     tr = Zincir
     uk = Ланцюг
@@ -6157,6 +6174,7 @@
     it = Magazzino
     mr = वखार
     nl = Magazijn
+    pl = Magazyn
     pt = Armazém
     pt-BR = Armazém
     ru = Склад
@@ -10125,7 +10143,7 @@
     mr = आपत्कालीन विधानसभा पॉइंट
     nb = Nødsamlingssted
     nl = Verzamelpunt voor noodgevallen
-    pl = Punkt Zgromadzeń Awaryjnych
+    pl = Miejsce zbiórki do ewakuacji
     pt = Ponto de Reunião de Emergência
     ro = Punct de adunare de urgență
     ru = Пункт аварийного сбора
@@ -10716,7 +10734,7 @@
     mr = नमुना
     nb = Prøvetaking
     nl = Bemonstering
-    pl = Próbkowanie
+    pl = Punkt pobrań laboratoryjnych
     pt = Amostragem
     pt-BR = Amostragem
     ro = Eșantionare
@@ -11011,6 +11029,7 @@
     it = Ascensore
     mr = उद्वाहक(लिफ्ट)
     nl = Lift
+    pl = Winda
     pt-BR = Elevador
     ru = Лифт
     tr = Asansör
@@ -11507,7 +11526,7 @@
     mr = पादचारी मार्ग
     nb = Gågate
     nl = Voetgangersgebied
-    pl = Pasaż pieszy
+    pl = Deptak
     pt = Rua pedonal
     pt-BR = Rua pedonal
     ro = Stradă
@@ -11544,7 +11563,7 @@
     fi = Jalankulkusilta
     mr = पादचारी पूल
     nl = Voetgangersbrug
-    pl = Most pasażu pieszego
+    pl = Most pieszy
     pt-BR = Ponte para pedestres
     ru = Пешеходный мост
 
@@ -11558,7 +11577,7 @@
     fi = Jalankulkutunneli
     mr = पादचारी बोगदा
     nl = Voetgangerstunnel
-    pl = Tunel pasażu pieszego
+    pl = Tunel pieszy
     pt-BR = Túnel para pedestres
     ru = Пешеходный тоннель
 
@@ -12207,7 +12226,7 @@
     mr = ट्रॅक
     nb = Traktor/Skogsbilvei
     nl = Straat
-    pl = Ulica
+    pl = Droga polna/leśna
     pt = Carreiro florestal ou agrícola
     pt-BR = Estrada rústica
     ro = Stradă
@@ -14611,7 +14630,7 @@
     ja = レクリエーション
     mr = मनोरंजन मैदान
     nl = Recreatiezone
-    pl = Tereny wypoczynkowe
+    pl = Teren rekreacyjny
     pt = Área de lazer
     pt-BR = Área de lazer
     ru = База отдыха
@@ -14808,7 +14827,7 @@
     mr = कुत्र्याचे क्षेत्र
     nb = Hundeområde
     nl = Hondenuitlaatplek
-    pl = Miejsce na spacer z psem
+    pl = Wybieg dla psów
     pt = Parque para câes
     pt-BR = Parque para cachorros
     ro = Loc de plimbare a câinilor
@@ -15728,6 +15747,7 @@
     it = Alza bandiera
     mr = ध्वजस्तंभ
     nl = Vlaggenpaal
+    pl = Maszt flagowy
     ru = Флагшток
     tr = Bayrak Direği
     uk = Флагшток
@@ -15778,6 +15798,7 @@
     it = Pilone
     mr = डोलकाठी
     nl = Mast
+    pl = Maszt
     ru = Мачта/вышка
     tr = Direk
     uk = Щогла/вишка
@@ -15847,6 +15868,7 @@
     it = Silo
     mr = पेव(धान्यसाठा)
     nl = Silo
+    pl = Silos
     pt-BR = Silo
     ru = Элеватор
     tr = Ambar
@@ -16155,6 +16177,7 @@
     ja = 工場
     mr = औद्योगिक कामे
     nl = Fabriek
+    pl = Fabryka
     pt = Fábrica
     pt-BR = Fábrica
     ru = Промышленное производство
@@ -16294,7 +16317,7 @@
     mr = खडक
     nb = Bar stein
     nl = Kale steen
-    pl = Skała macierzysta
+    pl = Odkryte skały
     pt = Zona rochosa
     ro = Piatră goală
     ru = Скалы
@@ -18364,7 +18387,7 @@
     mr = परगणा
     nb = Fylke
     nl = Graafschap
-    pl = Wieś
+    pl = Hrabstwo
     pt = Condado
     ro = Județ
     ru = Округ
@@ -18403,7 +18426,7 @@
     mr = शेत
     nb = Gård
     nl = Boerderij
-    pl = Farma
+    pl = Gospodarstwo rolne
     pt = Quinta
     pt-BR = Fazenda
     ro = Fermă
@@ -18600,7 +18623,7 @@
     mr = परिसर
     nb = Sted
     nl = Plaats
-    pl = Lokalne
+    pl = Miejscowość niezamieszkana
     pt = Localidade
     ro = Localitate
     ru = Местность
@@ -18991,7 +19014,7 @@
     mr = गाव
     nb = Landsby
     nl = Dorp
-    pl = Wioska
+    pl = Wieś
     pt = Vila
     pt-BR = Aldeia
     ro = Sat
@@ -19698,6 +19721,7 @@
     ja = 建設中の鉄道
     mr = रेल्वेचे बांधकाम
     nl = Treinspoor in aanbouw
+    pl = Tory kolejowe w budowie
     pt = Ferrovia em construção
     pt-BR = Ferrovia em construção
     ru = Строящаяся железная дорога
@@ -19716,6 +19740,7 @@
     ja = 歩行者用踏切
     mr = रेल्वे ओलांडणी
     nl = Spoorwegovergang
+    pl = Przejście przez tory
     pt = Passagem pedestre
     pt-BR = Passagem pedestre
     ru = Пешеходный переход
@@ -19732,6 +19757,7 @@
     it = Ferrovia in disuso
     ja = 休止線
     nl = Ongebruikt spoor
+    pl = Nieużywane tory kolejowe
     pt = Ferrovia em desuso
     pt-BR = Ferrovia em desuso
     ru = Неиспользуемая железная дорога
@@ -19765,7 +19791,7 @@
     mr = फ्युनिक्युलर
     nb = Kabelbane
     nl = Tunnel
-    pl = Kolejka linowa
+    pl = Kolej linowo-terenowa
     pt = Funicular
     ro = Funicular
     ru = Фуникулер
@@ -19928,7 +19954,7 @@
     mr = एकरूळी
     nb = Monorail
     nl = Monorail
-    pl = Kolej jednoszynowa
+    pl = Tory kolei jednoszynowej
     pt = Monocarril
     pt-BR = Monotrilho
     ro = Cale ferată monoșină
@@ -19952,6 +19978,7 @@
     ja = モノレール(橋)
     mr = एकरूळी
     nl = Monorail-brug
+    pl = Most kolei jednoszynowej
     pt = Monocarril
     pt-BR = Monotrilho
     ru = Монорельсовая железная дорога
@@ -19969,6 +19996,7 @@
     ja = モノレール(トンネル)
     mr = एकरूळी
     nl = Monorail-tunnel
+    pl = Tunel kolei jednoszynowej
     pt = Monocarril
     pt-BR = Monotrilho
     ru = Монорельсовая железная дорога
@@ -19987,6 +20015,7 @@
     mr = अरुंदमापी रेल्वे
     nb = Smalsporet jernbane
     nl = Smalspoorbaan
+    pl = Tory kolei wąskotorowej
     pt = Caminho de ferro de via estreita
     pt-BR = Caminho de ferro de via estreita
     ru = Узкоколейка
@@ -20002,6 +20031,7 @@
     ja = 狭軌鉄道(橋)
     mr = अरुंदमापी रेल्वे
     nl = Smalspoorbrug
+    pl = Most kolei wąskotorowej
     pt = Caminho de ferro de via estreita
     pt-BR = Caminho de ferro de via estreita
     ru = Узкоколейка
@@ -20017,6 +20047,7 @@
     ja = ja = 狭軌鉄道(トンネル)
     mr = अरुंदमापी रेल्वे
     nl = Smalspoortunnel
+    pl = Tunel kolei wąskotorowej
     pt = Caminho de ferro de via estreita
     pt-BR = Caminho de ferro de via estreita
     ru = Узкоколейка
@@ -20036,6 +20067,7 @@
     mr = रेल्वे फलाट
     nb = Jernbaneplattform
     nl = Perron
+    pl = Peron kolejowy
     pt = Plataforma ferroviária
     pt-BR = Plataforma ferroviária
     ru = Железнодорожная платформа
@@ -20107,7 +20139,7 @@
     mr = रेल्वे
     nb = Toglinje
     nl = Spoorlijn
-    pl = Kolej
+    pl = Tory kolejowe
     pt = Ferrovia
     pt-BR = Ferrovia
     ro = Cale ferată
@@ -21375,6 +21407,7 @@
     ja = トラム
     mr = ट्राम मार्गिका
     nl = Tram
+    pl = Tory tramwajowe
     pt = Linha de elétrico
     pt-BR = Linha de bonde
     ru = Трамвай
@@ -21481,6 +21514,7 @@
     ja = フェリー航路
     mr = होडी
     nl = Veerboot
+    pl = Przeprawa promowa
     pt = Rota de ferry
     pt-BR = Rota de balsa
     ru = Паромная переправа
@@ -22049,6 +22083,7 @@
     et = Haagiselamute müük
     fr = Concessionnaire de caravanes et camping-cars
     nl = Caravan en camper verkoper
+    pl = Sklep z karawanami i kamperami
     ru = Продажа автодомов
     tr = Karavan Bayiliği
     uk = Продаж автобудинків
@@ -22337,7 +22372,7 @@
     mr = सुविधा दुकान
     nb = Nærbutikk
     nl = Buurtwinkel
-    pl = Sklep spożywczy
+    pl = Sklep ogólnospożywczy
     pt = Loja de conveniência
     pt-BR = Loja de conveniência
     ro = Magazin mixt
@@ -22705,7 +22740,7 @@
     mr = दुकान
     nb = Butikk
     nl = Stoffenwinkel
-    pl = Sklep
+    pl = Sklep z tkaninami
     pt = Loja de tecidos
     pt-BR = Loja de aviamentos
     ro = Magazin
@@ -22743,7 +22778,7 @@
     ko = "농장 식품 가게"
     nb = Gårdsmatbutikk
     nl = Boerderijwinkel
-    pl = Sklep spożywczy dla gospodarstw rolnych
+    pl = Sklep z produktami od rolnika
     pt = Loja de comida agrícola
     pt-BR = Loja de alimentos agrícolas
     ro = Magazin alimentar la fermă
@@ -22858,7 +22893,7 @@
     mr = अंत्यसंस्कार संचालक
     nb = Begravelsebyrå
     nl = Begrafenisondernemer
-    pl = Celebranci pogrzebowi
+    pl = Zakład pogrzebowy
     pt = Funerária
     pt-BR = Funerária
     ro = Pompe funebre
@@ -23270,7 +23305,7 @@
     mr = हायफाय ऑडिओ
     nb = HiFi lyd
     nl = HiFi-audio
-    pl = Dźwięk Hi-Fi
+    pl = Sklep ze sprzętem hi-fi
     pt = Loja de áudio Hi-Fi
     pt-BR = Loja de áudio Hi-Fi
     ro = Audio HiFi
@@ -23381,6 +23416,7 @@
     mr = टपरी
     nb = Kiosk
     nl = Kiosk
+    pl = Kiosk
     pt = Quiosque
     pt-BR = Quiosque
     ro = Magazin
@@ -23455,7 +23491,7 @@
     mr = धुलाईघर
     nb = Vaskeri
     nl = Wasserette
-    pl = Pralnia samoobsługowa
+    pl = Pralnia
     pt = Lavandaria
     pt-BR = Lavanderia
     ro = Spălătorie
@@ -23564,7 +23600,7 @@
     mr = मोबाईल
     nb = Mobiltelefonbutikk
     nl = Mobiele telefoonwinkel
-    pl = Sklep z elektroniką
+    pl = Sklep z telefonami komórkowymi
     pt = Loja de telemóveis
     pt-BR = Loja de celulares
     ro = Magazin de telefoane mobile
@@ -23940,7 +23976,7 @@
     ko = 패스트리
     nb = Bakverk
     nl = Banketbakker
-    pl = Ciasto
+    pl = Cukiernia
     pt = Pastelaria
     pt-BR = Confeitaria
     ro = Patiserie
@@ -24164,7 +24200,7 @@
     ko = 중고 판매점
     nb = Bruktbutikk
     nl = Tweedehandswinkel
-    pl = Sklep z używaną ręką
+    pl = Sklep z rzeczami używanymi
     pt = Loja de segunda mão
     pt-BR = Loja de segunda mão
     ro = Magazin second-hand
@@ -24273,7 +24309,7 @@
     mr = लेखनसामग्री दुकान
     nb = Kontorrekvisita
     nl = Kantoorboekhandel
-    pl = Artykuły papiernicze
+    pl = Sklep papierniczy
     pt = Papelaria
     pt-BR = Papelaria
     ro = Magazin de papetărie
@@ -24307,6 +24343,7 @@
     mr = महाबाजार
     nb = Supermarked
     nl = Supermarkt
+    pl = Supermarket
     pt = Supermercado
     pt-BR = Supermercado
     ru = Супермаркет
@@ -24413,7 +24450,7 @@
     mr = तिकीटघर
     nb = Billettkontor
     nl = Kaartjesverkoop
-    pl = Sklep z biletami
+    pl = Kasa biletowa
     pt = Bilheteira
     pt-BR = Bilheteria
     ro = Casă de bilete
@@ -24870,7 +24907,7 @@
     ko = 어린이 가게
     nb = Barnebutikk
     nl = Babyspullenwinkel
-    pl = Sklep dla dzieci
+    pl = Sklep z artykułami dziecięcymi
     pt = Loja infantil
     pt-BR = Loja infantil
     ro = Magazin pentru copii
@@ -25305,7 +25342,7 @@
     ko = 복권
     nb = Lotteribilletter
     nl = Loten
-    pl = Bilety na loterię
+    pl = Kolektura
     pt = Bilhete de loteria
     pt-BR = Bilhete de loteria
     ro = Bilete la loterie
@@ -25620,7 +25657,7 @@
     ko = "거래 용품"
     nb = Handler rekvisita
     nl = Handelsbenodigdheden
-    pl = Zaopatrzenie handlowe
+    pl = Skład materiałów budowlanych
     pt = Comércio de suprimentos
     pt-BR = Comércio de suprimentos
     ro = Comerțuri Rechizite
@@ -25660,7 +25697,7 @@
     ko = 시계
     nb = Klokker
     nl = Horlogezaak
-    pl = Zegarki
+    pl = Sklep z zegarkami
     pt = Relógios
     pt-BR = Relógios
     ro = Priveste
@@ -27286,7 +27323,7 @@
     mr = कलाकृती
     nb = Kunstverk
     nl = Standbeeld
-    pl = Rzeźba
+    pl = Posąg
     pt = Estátua
     pt-BR = Estátua
     ro = Turism
@@ -27540,6 +27577,7 @@
     mr = छात्रालय
     nb = Vandrerhjem
     nl = Herberg
+    pl = Hostel
     pt = Hostel
     pt-BR = Hostel
     ru = Хостел
@@ -27569,6 +27607,7 @@
     mr = मुक्कामगृह
     nb = Hotell
     nl = Hotel
+    pl = Hotel
     pt = Hotel
     pt-BR = Hotel
     ru = Гостиница
@@ -27832,6 +27871,7 @@
     ja = モーテル
     ko = 모텔
     nb = Motell
+    pl = Motel
     pt = Motel
     pt-BR = Motel
     ru = Мотель
@@ -28276,6 +28316,7 @@
     ja = ダム
     mr = धरण
     nl = Dam
+    pl = Tama
     pt = Barragem
     pt-BR = Usina
     ru = Дамба
@@ -28295,6 +28336,7 @@
     ja = 排水路
     mr = खंदक
     nl = Sloot
+    pl = Rów
     pt = Vala
     pt-BR = Vala
     ru = Ров
@@ -28358,6 +28400,7 @@
     ja = ドック
     mr = जलमार्ग गोद
     nl = Dok
+    pl = Dok
     pt = Doca
     pt-BR = Doca
     ru = Причал
@@ -28524,7 +28567,7 @@
     mr = नदी
     nb = Elv
     nl = Beek
-    pl = Ciek rzeki
+    pl = Strumień
     pt = Ribeiro
     pt-BR = Ribeiro
     ro = Râu
@@ -28561,7 +28604,7 @@
     mr = नदी
     nb = Elv
     nl = Rivier
-    pl = Rzeka
+    pl = Strumień epizodyczny
     pt = Ribeiro efémero
     pt-BR = Ribeiro efémero
     ro = Râu
@@ -28598,7 +28641,7 @@
     mr = नदी
     nb = Elv
     nl = Beek
-    pl = Rzeka
+    pl = Strumień okresowy
     pt = Ribeiro sasonal
     pt-BR = Ribeiro sasonal
     ro = Râu
@@ -29035,7 +29078,7 @@
     mr = कार्यक्रमाचे ठिकाण
     nb = Arrangementssted
     nl = Evenementenlocatie
-    pl = Miejsce wydarzeń
+    pl = Sala bankietowa
     pt = Local dos eventos
     pt-BR = Local do evento
     ro = Locul de desfășurare a evenimentelor
@@ -29076,7 +29119,7 @@
     mr = लिलाव
     nb = Auksjon
     nl = Veiling
-    pl = Aukcja
+    pl = Dom aukcyjny
     pt = Leilão
     ro = Licitație
     ru = Аукцион
