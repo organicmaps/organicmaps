@@ -108,7 +108,7 @@
 "parking" = "Parking";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Shopping";
+"shopping" = "Zakupy";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
 "secondhand" = "Z drugiej ręki";
@@ -322,7 +322,7 @@
 "report_a_bug" = "Zgłoś błąd";
 
 /* Alert text */
-"email_error_body" = "Email klienta nie został założony. Proszę skonfigurować adres email, bądź skorzystać z innych opcji, aby się z nami skontaktować na %@";
+"email_error_body" = "Klient pocztowy nie został skonfigurowany. Proszę skonfigurować go, bądź skorzystać z innych opcji, aby się z nami skontaktować na %@";
 
 /* Alert title */
 "email_error_title" = "Błąd wysyłania wiadomości";
@@ -585,7 +585,7 @@
 /* Place Page opening hours text */
 "daily" = "Codziennie";
 
-"twentyfour_seven" = "Dzień i noc";
+"twentyfour_seven" = "24/7";
 
 "day_off_today" = "Dziś nieczynne";
 
@@ -717,10 +717,10 @@
 
 "error_enter_correct_house_number" = "Wprowadź poprawny numer domu";
 
-"editor_storey_number" = "Liczba pięter (maks. %d)";
+"editor_storey_number" = "Liczba kondygnacji (maks. %d)";
 
 /* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
-"error_enter_correct_storey_number" = "Edytuj budynek z maksymalną liczbą %d pięter";
+"error_enter_correct_storey_number" = "Liczba kondygnacji nie może przekraczać %d";
 
 "editor_zip_code" = "Kod pocztowy";
 
@@ -822,7 +822,7 @@
 
 "error_enter_correct_email" = "Wpisz prawidłowy email";
 
-"refresh" = "Uaktualnić";
+"refresh" = "Aktualizuj";
 
 "placepage_add_place_button" = "Dodaj miejsce do mapy";
 
@@ -1121,15 +1121,15 @@
 
 "sort_date" = "Sortuj wg daty";
 
-"week_ago_sorttype" = "Tydzień wstecz";
+"week_ago_sorttype" = "Tydzień temu";
 
-"month_ago_sorttype" = "Miesiąc wstecz";
+"month_ago_sorttype" = "Miesiąc temu";
 
-"moremonth_ago_sorttype" = "Ponad miesiąc wstecz";
+"moremonth_ago_sorttype" = "Ponad miesiąc temu";
 
-"moreyear_ago_sorttype" = "Ponad rok wstecz";
+"moreyear_ago_sorttype" = "Ponad rok temu";
 
-"near_me_sorttype" = "Obok mnie";
+"near_me_sorttype" = "W pobliżu";
 
 "others_sorttype" = "Inne";
 
@@ -1174,11 +1174,11 @@
 
 "dialog_pedestrian_route_is_long_message" = "Wybierz punkt początkowy lub końcowy trasy najbliżej do stacji metra";
 
-"button_layer_isolines" = "Wysokości";
+"button_layer_isolines" = "Poziomice";
 
-"isolines_activation_error_dialog" = "Do skorzystania z linii wysokości, zaktualizuj lub pobierz mapę obszaru, który potrzebujesz";
+"isolines_activation_error_dialog" = "Do skorzystania z poziomic, pobierz mapę tego obszaru.";
 
-"isolines_location_error_dialog" = "W tej chwili nie są dostępne linie wysokości w tym regionie";
+"isolines_location_error_dialog" = "Poziomice nie są jeszcze dostępne w tym regionie";
 
 "elevation_profile_diff_level" = "Poziom trudności";
 
@@ -1200,7 +1200,7 @@
 
 "elevation_profile_time" = "Trasa:";
 
-"isolines_toast_zooms_1_10" = "Powiększ mapę, aby zobaczyć izolinie";
+"isolines_toast_zooms_1_10" = "Powiększ mapę, aby zobaczyć poziomice";
 
 "downloader_updating_ios" = "Aktualizacja";
 
@@ -1265,7 +1265,7 @@
 
 "type.aerialway.station" = "Stacja kolejki linowej";
 
-"type.aeroway" = "Airspace Infrastructure";
+"type.aeroway" = "Infrastruktura lotnicza";
 
 "type.aeroway.aerodrome" = "Lotnisko";
 
@@ -1291,7 +1291,7 @@
 
 "type.amenity.bank" = "Bank";
 
-"type.amenity.bar" = "Bar";
+"type.amenity.bar" = "Bar alkoholowy";
 
 "type.amenity.bbq" = "Pole piknikowe";
 
@@ -1357,7 +1357,7 @@
 
 "type.amenity.driving_school" = "Szkoła nauki jazdy";
 
-"type.amenity.exhibition_centre" = "Centrum wystawowe";
+"type.amenity.exhibition_centre" = "Centrum wystawiennicze";
 
 "type.amenity.money_transfer" = "Transfer pieniędzy";
 
@@ -1397,7 +1397,7 @@
 
 "type.amenity.library" = "Biblioteka";
 
-"type.amenity.loading_dock" = "Dok załadunkowy";
+"type.amenity.loading_dock" = "Dok przeładunkowy";
 
 "type.amenity.marketplace" = "Targ";
 
@@ -1409,7 +1409,7 @@
 
 "type.amenity.parking" = "Parking";
 
-"type.amenity.parking.fee" = "Płatny";
+"type.amenity.parking.fee" = "Płatny parking";
 
 "type.amenity.parking.multi.storey" = "Parking wielopoziomowy";
 
@@ -1431,11 +1431,11 @@
 
 "type.amenity.parking.fee.lane" = "Parking";
 
-"type.amenity.parking_entrance" = "Wejście na parking";
+"type.amenity.parking_entrance" = "Wjazd na parking";
 
-"type.amenity.parking_entrance.private" = "Wejście na parking";
+"type.amenity.parking_entrance.private" = "Wjazd na parking";
 
-"type.amenity.parking_entrance.permissive" = "Wejście na parking";
+"type.amenity.parking_entrance.permissive" = "Wjazd na parking";
 
 "type.amenity.parking_space" = "Miejsce parkingowe";
 
@@ -1506,15 +1506,15 @@
 
 "type.recycling.small_appliances" = "Odpady elektryczne";
 
-"type.recycling.cardboard" = "Cardboard";
+"type.recycling.cardboard" = "Karton";
 
-"type.recycling.cans" = "Cans";
+"type.recycling.cans" = "Puszki";
 
-"type.recycling.shoes" = "Shoes";
+"type.recycling.shoes" = "Buty";
 
-"type.recycling.green_waste" = "Green/Organic Waste";
+"type.recycling.green_waste" = "Odpady zielone";
 
-"type.recycling.cartons" = "Cartons";
+"type.recycling.cartons" = "Kartony po napojach";
 
 "type.amenity.restaurant" = "Restauracja";
 
@@ -1524,13 +1524,13 @@
 
 "type.amenity.shelter" = "Wiata";
 
-"type.amenity.public_bath" = "Łaźnia Publiczna";
+"type.amenity.public_bath" = "Łaźnia publiczna";
 
 "type.amenity.shower" = "Prysznic";
 
 "type.amenity.stripclub" = "Klub ze striptizem";
 
-"type.amenity.taxi" = "Taksówka";
+"type.amenity.taxi" = "Postój taksówek";
 
 "type.amenity.telephone" = "Telefon";
 
@@ -1546,27 +1546,27 @@
 
 "type.amenity.vending_machine.cigarettes" = "Automat z papierosami";
 
-"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+"type.amenity.vending_machine.coffee" = "Automat z kawą";
 
-"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+"type.amenity.vending_machine.condoms" = "Automat z prezerwatywami";
 
 "type.amenity.vending_machine.drinks" = "Automat z napojami";
 
-"type.amenity.vending_machine.food" = "Food Dispenser";
+"type.amenity.vending_machine.food" = "Automat z jedzeniem";
 
-"type.amenity.vending_machine.newspapers" = "Newspaper Dispenser";
+"type.amenity.vending_machine.newspapers" = "Automat z gazetami";
 
 "type.amenity.vending_machine.parking_tickets" = "Parkometr";
 
 "type.amenity.vending_machine.public_transport_tickets" = "Automat biletowy do transportu publicznego";
 
-"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
+"type.amenity.vending_machine.sweets" = "Automat ze słodyczami";
 
-"type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
+"type.amenity.vending_machine.excrement_bags" = "Automat z torebkami na odchody";
 
-"type.amenity.parcel_locker" = "Parcel Locker";
+"type.amenity.parcel_locker" = "Paczkomat";
 
-"type.amenity.vehicle_inspection" = "Kontrola pojazdu";
+"type.amenity.vehicle_inspection" = "Stacja kontroli pojazdów";
 
 "type.amenity.vending_machine.fuel" = "Fuel Pump";
 
@@ -1588,7 +1588,7 @@
 
 "type.barrier.border_control" = "Kontrola graniczna";
 
-"type.barrier.chain" = "Chain";
+"type.barrier.chain" = "Łańcuch";
 
 "type.barrier.city_wall" = "Mur miejski";
 
@@ -1692,7 +1692,7 @@
 
 "type.building.train_station" = "Dworzec kolejowy";
 
-"type.building.warehouse" = "Warehouse";
+"type.building.warehouse" = "Magazyn";
 
 "type.cemetery.grave" = "Mogiła";
 
@@ -1915,7 +1915,7 @@
 
 "type.emergency" = "Ratunkowe";
 
-"type.emergency.assembly_point" = "Punkt Zgromadzeń Awaryjnych";
+"type.emergency.assembly_point" = "Miejsce zbiórki do ewakuacji";
 
 "type.emergency.defibrillator" = "Defibrylator";
 
@@ -1947,7 +1947,7 @@
 
 "type.healthcare.psychotherapist" = "Psychoterapia";
 
-"type.healthcare.sample_collection" = "Próbkowanie";
+"type.healthcare.sample_collection" = "Punkt pobrań laboratoryjnych";
 
 "type.healthcare.speech_therapist" = "Logopeda";
 
@@ -1988,7 +1988,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.cycleway.tunnel" = "Tunel drogowy dla rowerów";
 
-"type.highway.elevator" = "Elevator";
+"type.highway.elevator" = "Winda";
 
 "type.highway.footway" = "Chodnik";
 
@@ -2068,15 +2068,15 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Tunel";
 
-"type.highway.pedestrian" = "Pasaż pieszy";
+"type.highway.pedestrian" = "Deptak";
 
-"type.highway.pedestrian.area" = "Pasaż pieszy";
+"type.highway.pedestrian.area" = "Deptak";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.pedestrian.bridge" = "Most pasażu pieszego";
+"type.highway.pedestrian.bridge" = "Most pieszy";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.pedestrian.tunnel" = "Tunel pasażu pieszego";
+"type.highway.pedestrian.tunnel" = "Tunel pieszy";
 
 "type.highway.primary" = "Ulica";
 
@@ -2177,26 +2177,26 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary_link.tunnel" = "Tunel drogowy";
 
-"type.highway.track" = "Ulica";
+"type.highway.track" = "Droga polna/leśna";
 
-"type.highway.track.area" = "Ulica";
+"type.highway.track.area" = "Droga polna/leśna";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.track.bridge" = "Most";
 
-"type.highway.track.grade1" = "Ulica";
+"type.highway.track.grade1" = "Droga polna/leśna";
 
-"type.highway.track.grade2" = "Ulica";
+"type.highway.track.grade2" = "Droga polna/leśna";
 
-"type.highway.track.grade3" = "Ulica";
+"type.highway.track.grade3" = "Droga polna/leśna";
 
-"type.highway.track.grade4" = "Ulica";
+"type.highway.track.grade4" = "Droga polna/leśna";
 
-"type.highway.track.grade5" = "Ulica";
+"type.highway.track.grade5" = "Droga polna/leśna";
 
-"type.highway.track.no.access" = "Ulica";
+"type.highway.track.no.access" = "Droga polna/leśna";
 
-"type.highway.track.permissive" = "Ulica";
+"type.highway.track.permissive" = "Droga polna/leśna";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunel drogowy";
@@ -2239,7 +2239,7 @@
 
 "type.area_highway.path" = "Ścieżka";
 
-"type.area_highway.pedestrian" = "Pasaż pieszy";
+"type.area_highway.pedestrian" = "Deptak";
 
 "type.area_highway.primary" = "Ulica";
 
@@ -2253,7 +2253,7 @@
 
 "type.area_highway.steps" = "Schody";
 
-"type.area_highway.track" = "Ulica";
+"type.area_highway.track" = "Droga polna/leśna";
 
 "type.area_highway.trunk" = "Ulica";
 
@@ -2444,7 +2444,7 @@
 
 "type.landuse.railway" = "Obiekty kolejowe";
 
-"type.landuse.recreation_ground" = "Tereny wypoczynkowe";
+"type.landuse.recreation_ground" = "Teren rekreacyjny";
 
 "type.landuse.reservoir" = "Woda";
 
@@ -2462,7 +2462,7 @@
 
 "type.leisure.common" = "Public Land";
 
-"type.leisure.dog_park" = "Miejsce na spacer z psem";
+"type.leisure.dog_park" = "Wybieg dla psów";
 
 "type.leisure.fitness_centre" = "Centrum fitness";
 
@@ -2536,11 +2536,11 @@
 
 "type.man_made.survey_point" = "Znak geodezyjny";
 
-"type.man_made.flagpole" = "Flagpole";
+"type.man_made.flagpole" = "Maszt flagowy";
 
 "type.man_made.lighthouse" = "Latarnia morska";
 
-"type.man_made.mast" = "Mast";
+"type.man_made.mast" = "Maszt";
 
 "type.man_made.pier" = "Molo";
 
@@ -2548,7 +2548,7 @@
 
 "type.man_made.pipeline.overground" = "Rurociąg nad ziemią";
 
-"type.man_made.silo" = "Silo";
+"type.man_made.silo" = "Silos";
 
 "type.man_made.storage_tank" = "Storage Tank";
 
@@ -2568,7 +2568,7 @@
 
 "type.man_made.windmill" = "Młyn wiatrowy";
 
-"type.man_made.works" = "Industrial Works";
+"type.man_made.works" = "Fabryka";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2582,7 +2582,7 @@
 
 "type.natural" = "Natura";
 
-"type.natural.bare_rock" = "Skała macierzysta";
+"type.natural.bare_rock" = "Odkryte skały";
 
 "type.natural.bay" = "Zatoka";
 
@@ -2712,9 +2712,9 @@
 
 "type.place.country" = "Kraj";
 
-"type.place.county" = "Wieś";
+"type.place.county" = "Hrabstwo";
 
-"type.place.farm" = "Farma";
+"type.place.farm" = "Gospodarstwo rolne";
 
 "type.place.hamlet" = "Przysiółek";
 
@@ -2724,7 +2724,7 @@
 
 "type.place.isolated_dwelling" = "Mała osada";
 
-"type.place.locality" = "Lokalne";
+"type.place.locality" = "Miejscowość niezamieszkana";
 
 "type.place.neighbourhood" = "Sąsiedztwo";
 
@@ -2744,7 +2744,7 @@
 
 "type.place.town" = "Miasteczko";
 
-"type.place.village" = "Wioska";
+"type.place.village" = "Wieś";
 
 "type.power" = "Power";
 
@@ -2806,13 +2806,13 @@
 
 "type.railway.abandoned.tunnel" = "Abandoned Railway Tunnel";
 
-"type.railway.construction" = "Railway Construction";
+"type.railway.construction" = "Tory kolejowe w budowie";
 
-"type.railway.crossing" = "Railway Crossing";
+"type.railway.crossing" = "Przejście przez tory";
 
-"type.railway.disused" = "Disused Railway";
+"type.railway.disused" = "Nieużywane tory kolejowe";
 
-"type.railway.funicular" = "Kolejka linowa";
+"type.railway.funicular" = "Kolej linowo-terenowa";
 
 "type.railway.funicular.bridge" = "Funicular Bridge";
 
@@ -2828,19 +2828,19 @@
 
 "type.railway.light_rail.tunnel" = "Light Rail Tunnel";
 
-"type.railway.monorail" = "Kolej jednoszynowa";
+"type.railway.monorail" = "Tory kolei jednoszynowej";
 
-"type.railway.monorail.bridge" = "Monorail Bridge";
+"type.railway.monorail.bridge" = "Most kolei jednoszynowej";
 
-"type.railway.monorail.tunnel" = "Monorail Tunnel";
+"type.railway.monorail.tunnel" = "Tunel kolei jednoszynowej";
 
-"type.railway.narrow_gauge" = "Narrow Gauge Rail";
+"type.railway.narrow_gauge" = "Tory kolei wąskotorowej";
 
-"type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail Bridge";
+"type.railway.narrow_gauge.bridge" = "Most kolei wąskotorowej";
 
-"type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail Tunnel";
+"type.railway.narrow_gauge.tunnel" = "Tunel kolei wąskotorowej";
 
-"type.railway.platform" = "Railway Platform";
+"type.railway.platform" = "Peron kolejowy";
 
 "type.railway.preserved" = "Preserved Rail";
 
@@ -2848,7 +2848,7 @@
 
 "type.railway.preserved.tunnel" = "Preserved Rail Tunnel";
 
-"type.railway.rail" = "Kolej";
+"type.railway.rail" = "Tory kolejowe";
 
 "type.railway.rail.highspeed" = "Kolej dużych prędkości";
 
@@ -2901,7 +2901,7 @@
 
 "type.railway.station" = "Dworzec kolejowy";
 
-"type.railway.station.funicular" = "Kolejka linowa";
+"type.railway.station.funicular" = "Kolej linowo-terenowa";
 
 "type.railway.station.light_rail" = "Dworzec kolejowy";
 
@@ -3357,7 +3357,7 @@
 
 "type.railway.subway_entrance.yokohama" = "Wejście do metra";
 
-"type.railway.tram" = "Tram Line";
+"type.railway.tram" = "Tory tramwajowe";
 
 "type.railway.tram.bridge" = "Tram Line Bridge";
 
@@ -3367,7 +3367,7 @@
 
 "type.route" = "Route";
 
-"type.route.ferry" = "Ferry";
+"type.route.ferry" = "Przeprawa promowa";
 
 "type.route.shuttle_train" = "route-shuttle_train";
 
@@ -3401,7 +3401,7 @@
 
 "type.shop.car_repair.tyres" = "Wulkanizacja";
 
-"type.shop.caravan" = "RV Dealership";
+"type.shop.caravan" = "Sklep z karawanami i kamperami";
 
 "type.shop.carpet" = "Dywany";
 
@@ -3417,7 +3417,7 @@
 
 "type.shop.confectionery" = "Sklep ze słodyczami";
 
-"type.shop.convenience" = "Sklep spożywczy";
+"type.shop.convenience" = "Sklep ogólnospożywczy";
 
 "type.shop.copyshop" = "Punkt ksero";
 
@@ -3437,15 +3437,15 @@
 
 "type.shop.erotic" = "Sex shop";
 
-"type.shop.fabric" = "Sklep";
+"type.shop.fabric" = "Sklep z tkaninami";
 
-"type.shop.farm" = "Sklep spożywczy dla gospodarstw rolnych";
+"type.shop.farm" = "Sklep z produktami od rolnika";
 
 "type.shop.fashion_accessories" = "Akcesoria modowe";
 
 "type.shop.florist" = "Kwiaciarnia";
 
-"type.shop.funeral_directors" = "Celebranci pogrzebowi";
+"type.shop.funeral_directors" = "Zakład pogrzebowy";
 
 "type.shop.furniture" = "Sklep meblowy";
 
@@ -3467,7 +3467,7 @@
 
 "type.shop.herbalist" = "Sklep z ziołami";
 
-"type.shop.hifi" = "Dźwięk Hi-Fi";
+"type.shop.hifi" = "Sklep ze sprzętem hi-fi";
 
 "type.shop.houseware" = "Sklep AGD";
 
@@ -3477,13 +3477,13 @@
 
 "type.shop.kitchen" = "Sklep kuchenny";
 
-"type.shop.laundry" = "Pralnia samoobsługowa";
+"type.shop.laundry" = "Pralnia";
 
 "type.shop.mall" = "Centrum handlowe";
 
 "type.shop.massage" = "Salon masażu";
 
-"type.shop.mobile_phone" = "Sklep z elektroniką";
+"type.shop.mobile_phone" = "Sklep z telefonami komórkowymi";
 
 "type.shop.money_lender" = "Pożyczkodawca";
 
@@ -3503,7 +3503,7 @@
 
 "type.shop.outpost" = "Punkt odbioru";
 
-"type.shop.pastry" = "Ciasto";
+"type.shop.pastry" = "Cukiernia";
 
 "type.shop.pawnbroker" = "Lombard";
 
@@ -3515,13 +3515,13 @@
 
 "type.shop.seafood" = "Sklep rybny";
 
-"type.shop.second_hand" = "Sklep z używaną ręką";
+"type.shop.second_hand" = "Sklep z rzeczami używanymi";
 
 "type.shop.shoes" = "Sklep obuwniczy";
 
 "type.shop.sports" = "Sklep sportowy";
 
-"type.shop.stationery" = "Artykuły papiernicze";
+"type.shop.stationery" = "Sklep papierniczy";
 
 "type.shop.supermarket" = "Supermarket";
 
@@ -3529,7 +3529,7 @@
 
 "type.shop.tea" = "Sklep z herbatą";
 
-"type.shop.ticket" = "Sklep z biletami";
+"type.shop.ticket" = "Kasa biletowa";
 
 "type.shop.toys" = "Sklep z zabawkami";
 
@@ -3554,7 +3554,7 @@
 /* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "Sklep artystyczny";
 
-"type.shop.baby_goods" = "Sklep dla dzieci";
+"type.shop.baby_goods" = "Sklep z artykułami dziecięcymi";
 
 "type.shop.bag" = "Sklep z torbami";
 
@@ -3576,7 +3576,7 @@
 
 "type.shop.interior_decoration" = "Dekoracje wnętrz";
 
-"type.shop.lottery" = "Bilety na loterię";
+"type.shop.lottery" = "Kolektura";
 
 "type.shop.medical_supply" = "Produkty medyczne";
 
@@ -3592,9 +3592,9 @@
 
 "type.shop.tobacco" = "Tytoń";
 
-"type.shop.trade" = "Zaopatrzenie handlowe";
+"type.shop.trade" = "Skład materiałów budowlanych";
 
-"type.shop.watches" = "Zegarki";
+"type.shop.watches" = "Sklep z zegarkami";
 
 "type.shop.wholesale" = "Hurtownia";
 
@@ -3683,7 +3683,7 @@
 
 "type.tourism.artwork.sculpture" = "Rzeźba";
 
-"type.tourism.artwork.statue" = "Rzeźba";
+"type.tourism.artwork.statue" = "Posąg";
 
 "type.tourism.attraction" = "Atrakcja turystyczna";
 
@@ -3747,15 +3747,15 @@
 
 "type.waterway.fish_pass" = "Przepławka";
 
-"type.waterway.dam" = "Dam";
+"type.waterway.dam" = "Tama";
 
-"type.barrier.ditch" = "Ditch";
+"type.barrier.ditch" = "Rów";
 
 "type.natural.water.ditch" = "Rów melioracyjny";
 
 "type.waterway.ditch.tunnel" = "Przepust";
 
-"type.waterway.dock" = "Waterway Dock";
+"type.waterway.dock" = "Dok";
 
 "type.waterway.drain" = "Drain";
 
@@ -3771,13 +3771,13 @@
 
 "type.waterway.riverbank" = "Koryto rzeki";
 
-"type.waterway.stream" = "Ciek rzeki";
+"type.waterway.stream" = "Strumień";
 
-"type.waterway.stream.ephemeral" = "Rzeka";
+"type.waterway.stream.ephemeral" = "Strumień epizodyczny";
 
-"type.waterway.stream.intermittent" = "Rzeka";
+"type.waterway.stream.intermittent" = "Strumień okresowy";
 
-"type.waterway.stream.tunnel" = "Ciek rzeki";
+"type.waterway.stream.tunnel" = "Strumień";
 
 "type.waterway.waterfall" = "Wodospad";
 
@@ -3821,8 +3821,8 @@
 
 "type.piste_type.sled" = "Sledding Piste";
 
-"type.amenity.events_venue" = "Miejsce wydarzeń";
+"type.amenity.events_venue" = "Sala bankietowa";
 
-"type.shop.auction" = "Aukcja";
+"type.shop.auction" = "Dom aukcyjny";
 
 "type.shop.collector" = "Przedmioty kolekcjonerskie";
