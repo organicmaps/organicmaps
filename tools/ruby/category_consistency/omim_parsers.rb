@@ -1,6 +1,11 @@
 module OmimParsers
-  LANGUAGES = %w(en ru ar cs da nl fi fr de hu id it ja ko nb pl
-                 pt ro es sv th tr uk vi zh-Hans zh-Hant he sk)
+
+  # To update the list, run in root directory:
+  # sed -nEe "s/ +([a-zA-Z]{2}(-[a-zA-Z]{2,})?) = .*$/\1/p" "data/strings/strings.txt" | sort -u | tr '\n' ' ' | sed -e 's/,$//' | fold -s -w48; echo
+  LANGUAGES = %w(af ar be bg ca cs da de el en en-GB es es-MX et
+                 eu fa fi fr fr-CA he hi hu id it ja ko lt mr nb
+                 nl pl pt pt-BR ro ru sk sv sw th tr uk vi
+                 zh-Hans zh-Hant)
 
   class AbstractParser
     def initialize(keys)
