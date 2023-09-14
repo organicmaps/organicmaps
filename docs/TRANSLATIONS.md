@@ -49,6 +49,11 @@ By default, it searches `strings.txt`, to check `types_strings.txt` add a `-t` o
 There are many more other options, e.g. print various translation statistics, validate and re-format translation files.
 Check `tools/python/strings_utils.py -h` to see all of them.
 
+To check consistency of types_strings.txt with categories.txt run:
+```
+ruby tools/ruby/category_consistency/check_consistency.rb
+```
+
 ## Automatic translations
 
 In some cases automatically translated strings are better than no translation at all.
