@@ -65,7 +65,8 @@ aeroway-terminal                                    # area z14- (also has captio
 leisure-golf_course                                 # area z12- (also has icon z17-, caption(optional) z17-)
 === 140
 
-natural-scrub                                       # area z14-
+landuse-flowerbed                                   # area z16-
+natural-scrub                                       # area z12-
 === 130
 
 landuse-grass                                       # area z12-
