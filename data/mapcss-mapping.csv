@@ -823,7 +823,7 @@ barrier|ditch;748;
 barrier|kissing_gate;749;
 barrier|turnstile;750;
 landuse|industrial|mine;[landuse=industrial][industrial=mine];;name;int_name;751;
-deprecated|deprecated;752;x
+landuse|flowerbed;752;
 deprecated|deprecated;753;x
 deprecated|deprecated;754;x
 deprecated|deprecated;755;x
