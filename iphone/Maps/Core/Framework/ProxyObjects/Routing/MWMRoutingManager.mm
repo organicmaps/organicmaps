@@ -250,7 +250,8 @@
 - (void)onLocationUpdate:(CLLocation *)location {
   NSMutableArray<NSString *> * turnNotifications = [NSMutableArray array];
   std::vector<std::string> notifications;
-  self.rm.GenerateNotifications(notifications, false); // TODO: use actual shouldAnnounceStreetNames pref
+  auto announceStreets = [NSUserDefaults.standardUserDefaults boolForKey:@"UserDefaultsNeedToEnableStreetNamesTTS"];
+  self.rm.GenerateNotifications(notifications, announceStreets);
   for (auto const & text : notifications) {
     [turnNotifications addObject:@(text.c_str())];
   }
