@@ -203,7 +203,7 @@ ja:1ガソリンスタンド
 ko:연료|주유소
 mr:पेट्रोल|इंधन|डिझेल
 nb:Drivstoff
-pl:3Benzyna|4Paliwo
+pl:4Stacja paliw|3Benzyna|4Paliwo
 pt:3Combustível
 pt-BR:Combustível
 ro:4Benzinărie|Benzină|Gaz

@@ -2519,7 +2519,7 @@
     mr = पुढे कॅमेरा आहे
     nb = Kamera foran
     nl = Camera in zicht
-    pl = Kamera z przodu
+    pl = Fotoradar na drodze
     pt = Câmera à frente
     pt-BR = Radar à frente
     ro = Cameră frontală
