@@ -17,7 +17,6 @@ historic-citywalls                                  # line z15-
 
 highway-steps                                       # line z18-
 highway-steps-bridge                                # line z18-
-highway-steps-tunnel                                # line z18-
 hwtag-oneway::arrows                                # line::arrows z15-
 railway-tram::centerline                            # line::centerline z16- (also has line z16-)
 railway-tram-bridge::centerline                     # line::centerline z16- (also has line z16-)
@@ -237,6 +236,12 @@ highway-service-parking_aisle                       # line z14- (also has pathte
 highway-service-tunnel                              # line z14- (also has pathtext z16-)
 === 140
 
+highway-bridleway                                   # line z18-
+highway-bridleway-bridge                            # line z18-
+highway-bridleway-permissive                        # line z18-
+highway-cycleway                                    # line z18-
+highway-cycleway-bridge                             # line z18-
+highway-cycleway-permissive                         # line z18-
 highway-footway                                     # line z18-
 highway-footway-alpine_hiking                       # line z17-
 highway-footway-area                                # line z18-
@@ -247,7 +252,6 @@ highway-footway-difficult_alpine_hiking             # line z17-
 highway-footway-hiking                              # line z17-
 highway-footway-mountain_hiking                     # line z17-
 highway-footway-permissive                          # line z18-
-highway-footway-tunnel                              # line z18-
 highway-path                                        # line z17-
 highway-path-alpine_hiking                          # line z17-
 highway-path-bicycle                                # line z17-
@@ -259,7 +263,9 @@ highway-path-hiking                                 # line z17-
 highway-path-horse                                  # line z17-
 highway-path-mountain_hiking                        # line z17-
 highway-path-permissive                             # line z17-
-highway-path-tunnel                                 # line z17-
+highway-pedestrian                                  # line z18-
+highway-pedestrian-area                             # line z18-
+highway-pedestrian-bridge                           # line z18-
 highway-track                                       # line z16-
 highway-track-area                                  # line z16-
 highway-track-bridge                                # line z16-
@@ -270,7 +276,6 @@ highway-track-grade4                                # line z16-
 highway-track-grade5                                # line z16-
 highway-track-no-access                             # line z16-
 highway-track-permissive                            # line z16-
-highway-track-tunnel                                # line z16-
 === 130
 
 highway-construction                                # line z13-

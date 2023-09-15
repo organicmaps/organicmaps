@@ -34,7 +34,5 @@ waterway-dock                                       # area z1-
 waterway-riverbank                                  # line z10- and area z1- (also has pathtext z11-)
 === 20
 
-waterway-ditch                                      # line z13-
-waterway-drain                                      # line z13-
 waterway-river                                      # line z10- (also has pathtext z11-)
 === 10
