@@ -71,7 +71,7 @@ std::vector<RelationElement::Member> GetMembersByTag(RelationElement const & rel
   }
 
   return result;
-};
+}
 
 OsmElement::EntityType GetType(RelationElement const & relationElement, uint64_t osmId)
 {
@@ -88,7 +88,7 @@ OsmElement::EntityType GetType(RelationElement const & relationElement, uint64_t
   }
 
   UNREACHABLE();
-};
+}
 
 std::string const RestrictionWriter::kNodeString = "node";
 std::string const RestrictionWriter::kWayString = "way";

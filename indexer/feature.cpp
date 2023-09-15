@@ -362,7 +362,9 @@ void FeatureType::ParseHeader2()
     if (elemsCount == 0)
       geomScalesMask = bitSource.Read(4);
     else
+    {
       ASSERT(headerGeomType == HeaderGeomType::Area || elemsCount > 1, ());
+    }
   }
 
   ArrayByteSource src(bitSource.RoundPtr());
@@ -833,7 +835,9 @@ string_view FeatureType::GetName(int8_t lang)
   // We don't store empty names. UPD: We do for coast features :)
   string_view name;
   if (m_params.name.GetString(lang, name))
+  {
     ASSERT(!name.empty() || m_id.m_mwmId.GetInfo()->GetType() == MwmInfo::COASTS, ());
+  }
 
   return name;
 }

@@ -276,7 +276,7 @@ bool Gate::IsValid() const
 void Gate::SetBestPedestrianSegments(std::vector<SingleMwmSegment> const & seg)
 {
   m_bestPedestrianSegments = seg;
-};
+}
 
 FeatureId Gate::GetFeatureId() const { return m_ids.GetFeatureId(); }
 

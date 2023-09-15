@@ -19,7 +19,7 @@ template <double const & (*F)(double const &, double const &), typename WeightAn
 WeightAndETA Pick(WeightAndETA const & lhs, WeightAndETA const & rhs)
 {
   return {F(lhs.m_weight, rhs.m_weight), F(lhs.m_eta, rhs.m_eta)};
-};
+}
 
 SpeedKMpH Max(SpeedKMpH const & lhs, InOutCitySpeedKMpH const & rhs)
 {

@@ -528,7 +528,7 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> TransitMark::GetSymbolNames() c
   if (m_symbolNames.empty())
     return nullptr;
   return make_unique_dp<SymbolNameZoomInfo>(m_symbolNames);
-};
+}
 
 // static
 void TransitMark::GetDefaultTransitTitle(dp::TitleDecl & titleDecl)

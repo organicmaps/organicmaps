@@ -76,7 +76,7 @@ bool NonIntersectingIntervals<T>::Interval::LessByLeftEnd::operator()(Interval c
                                                                       Interval const & rhs) const
 {
   return lhs.m_left < rhs.m_left;
-};
+}
 
 template <typename T>
 bool NonIntersectingIntervals<T>::Interval::Intersects(Interval const & rhs) const

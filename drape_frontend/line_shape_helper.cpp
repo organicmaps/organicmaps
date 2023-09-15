@@ -90,7 +90,9 @@ void ConstructLineSegments(std::vector<m2::PointD> const & path, std::vector<gls
   ASSERT_LESS(1, path.size(), ());
 
   if (!segmentsColors.empty())
+  {
     ASSERT_EQUAL(segmentsColors.size() + 1, path.size(), ());
+  }
 
   m2::PointD prevPoint = path[0];
   for (size_t i = 1; i < path.size(); ++i)

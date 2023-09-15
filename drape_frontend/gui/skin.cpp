@@ -37,7 +37,9 @@ dp::Anchor ParseValueAnchor(std::string_view value)
   if (value == "bottom")
     return dp::Bottom;
   else
+  {
     ASSERT(false, ());
+  }
 
   return dp::Center;
 }
@@ -94,7 +96,9 @@ public:
       else if (m_element == Element::Relative)
         m_resolver.AddRelative(ParseValueAnchor(value));
       else
+      {
         ASSERT(false, ());
+      }
     }
   }
 
@@ -140,14 +144,18 @@ public:
       else if (element == "copyright")
         m_currentElement = WIDGET_COPYRIGHT;
       else
+      {
         ASSERT(false, ());
+      }
     }
     else if (!m_inConfiguration)
     {
       if (element == "portrait" || element == "landscape")
         m_inConfiguration = true;
       else
+      {
         ASSERT(false, ());
+      }
     }
     else
     {
@@ -158,7 +166,9 @@ public:
       else if (element == "offset")
         m_parser.SetElement(ResolverParser::Element::Offset);
       else
+      {
         ASSERT(false, ());
+      }
     }
 
     return true;
