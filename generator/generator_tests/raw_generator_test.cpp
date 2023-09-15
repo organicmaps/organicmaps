@@ -1026,4 +1026,42 @@ UNIT_CLASS_TEST(TestRawGenerator, Place_State)
   TEST_EQUAL(states, 1, ());
 }
 
+UNIT_CLASS_TEST(TestRawGenerator, CycleBarrier)
+{
+  uint32_t const barrierType = classif().GetTypeByPath({"barrier", "cycle_barrier"});
+
+  std::string const mwmName = "CycleBarrier";
+  BuildFB("./data/osm_test_data/cycle_barrier.osm", mwmName, false /* makeWorld */);
+
+  size_t barriersCount = 0;
+  ForEachFB(mwmName, [&](feature::FeatureBuilder const & fb)
+  {
+    if (fb.HasType(barrierType))
+      ++barriersCount;
+  });
+
+  TEST_EQUAL(barriersCount, 1, ());
+
+  // Prepare features data source.
+  BuildFeatures(mwmName);
+  BuildRouting(mwmName, "Switzerland");
+
+  FrozenDataSource dataSource;
+  auto const res = dataSource.RegisterMap(platform::LocalCountryFile::MakeTemporary(GetMwmPath(mwmName)));
+  TEST_EQUAL(res.second, MwmSet::RegResult::Success, ());
+
+  FeaturesLoaderGuard guard(dataSource, res.first);
+
+  using namespace routing;
+
+  RoadAccess carAcc, bicycleAcc;
+  ReadRoadAccessFromMwm(*(guard.GetHandle().GetValue()), VehicleType::Car, carAcc);
+  LOG(LINFO, ("Car access:", carAcc));
+  ReadRoadAccessFromMwm(*(guard.GetHandle().GetValue()), VehicleType::Bicycle, bicycleAcc);
+  LOG(LINFO, ("Bicycle access:", bicycleAcc));
+
+  TEST_EQUAL(carAcc.GetPointToAccess().size(), 1, ());
+  TEST_EQUAL(carAcc, bicycleAcc, ());
+}
+
 } // namespace raw_generator_tests
