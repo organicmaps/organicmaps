@@ -61,6 +61,11 @@ final class TransportRoutePreviewStatus: SolidTouchView {
       self.animateConstraints(animations: {
         self.stepsCollectionViewHeight.constant = self.stepsCollectionView.contentSize.height
       })
+
+      if let sv = self.stepsCollectionScrollView {
+        let bottomOffset = CGPoint(x: 0, y: sv.contentSize.height - sv.bounds.size.height)
+        sv.setContentOffset(bottomOffset, animated: true)
+      }
     }
   }
 
