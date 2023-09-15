@@ -55,7 +55,7 @@ static location::TLocationSource qStringToTLocationSource(QString const & source
 
   return location::TLocationSource::EUndefined;
 }
-};
+}
 
 
 QtLocationService::QtLocationService(location::LocationObserver & observer, std::string const & sourceName) : LocationService(observer)

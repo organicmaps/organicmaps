@@ -358,7 +358,7 @@ bool HasIntersection(m2::Rect<T> const & rect, TCollection const & geometry)
       return true;
   }
   return false;
-};
+}
 
 template <class TArchive, class PointT>
 TArchive & operator>>(TArchive & ar, m2::Rect<PointT> & rect)
