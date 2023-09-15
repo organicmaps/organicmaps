@@ -355,6 +355,7 @@ void RoadAccessTagProcessor::Process(OsmElement const & elem)
     return;
 
   // Apply barrier tags if we have no {vehicle = ...}, {access = ...} etc.
+  /// @todo Should we treat for example cycle_barrier as access=no always?
   op = getAccessType(m_barrierMappings);
   if (op != kEmptyAccess)
     m_barriersWithoutAccessTag.Add(elem.m_id, {elem.m_lat, elem.m_lon}, op);
@@ -432,6 +433,9 @@ std::shared_ptr<generator::CollectorInterface> RoadAccessCollector::Clone(IDRInt
 
 void RoadAccessCollector::CollectFeature(feature::FeatureBuilder const & fb, OsmElement const & elem)
 {
+  /// @todo Note that here we take into account only classifier recognized barriers (valid FeatureBuilder).
+  /// Can't say for sure is it good or not, but as it is.
+
   for (auto const & tag : elem.m_tags)
   {
     if (kIgnoreAccess.count(tag))
