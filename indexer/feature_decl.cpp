@@ -24,20 +24,15 @@ std::string DebugPrint(FeatureID const & id)
   return "{ " + DebugPrint(id.m_mwmId) + ", " + std::to_string(id.m_index) + " }";
 }
 
-// static
-char const * const FeatureID::kInvalidFileName = "INVALID";
-// static
-int64_t const FeatureID::kInvalidMwmVersion = -1;
-
 
 std::string FeatureID::GetMwmName() const
 {
-  return IsValid() ? m_mwmId.GetInfo()->GetCountryName() : kInvalidFileName;
+  return IsValid() ? m_mwmId.GetInfo()->GetCountryName() : std::string();
 }
 
 int64_t FeatureID::GetMwmVersion() const
 {
-  return IsValid() ? m_mwmId.GetInfo()->GetVersion() : kInvalidMwmVersion;
+  return IsValid() ? m_mwmId.GetInfo()->GetVersion() : -1;
 }
 
 bool FeatureID::IsEqualCountry(base::StringIL const & lst) const

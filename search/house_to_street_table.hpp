@@ -11,6 +11,7 @@ class Writer;
 namespace search
 {
 std::unique_ptr<HouseToStreetTable> LoadHouseToStreetTable(MwmValue const & value);
+std::unique_ptr<HouseToStreetTable> LoadHouseToPlaceTable(MwmValue const & value);
 
 class HouseToStreetTableBuilder
 {

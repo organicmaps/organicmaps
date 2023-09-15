@@ -9,7 +9,8 @@ import androidx.annotation.NonNull;
 
 // Used by JNI.
 @Keep
-@SuppressWarnings("unused")
+/// @todo Review using of this class, because seems like it has no any useful purpose.
+/// Just creating in JNI and assigning ..
 public class FeatureId implements Parcelable
 {
   public static final Creator<FeatureId> CREATOR = new Creator<FeatureId>()

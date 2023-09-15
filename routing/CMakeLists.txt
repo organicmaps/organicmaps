@@ -46,7 +46,6 @@ set(SRC
   fake_edges_container.hpp
   fake_ending.cpp
   fake_ending.hpp
-  fake_feature_ids.cpp
   fake_feature_ids.hpp
   fake_graph.cpp
   fake_graph.hpp

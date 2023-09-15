@@ -28,7 +28,11 @@
 #define TRIANGLE_FILE_TAG "trg"
 #define INDEX_FILE_TAG "idx"
 #define SEARCH_INDEX_FILE_TAG "sdx"
-#define SEARCH_ADDRESS_FILE_TAG "addr"
+
+// Feature -> Street, do not rename for compatibility.
+#define FEATURE2STREET_FILE_TAG "addr"
+#define FEATURE2PLACE_FILE_TAG "ft2place"
+
 #define POSTCODE_POINTS_FILE_TAG "postcode_points"
 #define POSTCODES_FILE_TAG "postcodes"
 #define CITIES_BOUNDARIES_FILE_TAG "cities_boundaries"

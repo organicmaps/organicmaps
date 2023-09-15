@@ -1064,4 +1064,55 @@ UNIT_CLASS_TEST(TestRawGenerator, CycleBarrier)
   TEST_EQUAL(carAcc, bicycleAcc, ());
 }
 
+UNIT_CLASS_TEST(TestRawGenerator, Addr_Street_Place)
+{
+  std::string const mwmName = "Address";
+
+  struct TestData
+  {
+    std::string m_file;
+    size_t m_addrCount;
+    bool m_checkPlace;
+  };
+  TestData const arrFiles[] = {
+    { "./data/osm_test_data/addr_street_place.osm", 1, true },
+    { "./data/osm_test_data/addr_street_very_far.osm", 2, false },
+  };
+
+  for (auto const & data : arrFiles)
+  {
+    TestRawGenerator generator;
+
+    generator.BuildFB(data.m_file, mwmName);
+    generator.BuildFeatures(mwmName);
+    generator.BuildSearch(mwmName);
+
+    FrozenDataSource dataSource;
+    auto const res = dataSource.RegisterMap(platform::LocalCountryFile::MakeTemporary(generator.GetMwmPath(mwmName)));
+    CHECK_EQUAL(res.second, MwmSet::RegResult::Success, ());
+
+    FeaturesLoaderGuard guard(dataSource, res.first);
+    auto value = guard.GetHandle().GetValue();
+    auto const house2street = search::LoadHouseToStreetTable(*value);
+    auto const house2place = search::LoadHouseToPlaceTable(*value);
+
+    size_t const numFeatures = guard.GetNumFeatures();
+    size_t count = 0;
+    for (size_t id = 0; id < numFeatures; ++id)
+    {
+      auto ft = guard.GetFeatureByIndex(id);
+      if (ftypes::IsBuildingChecker::Instance()(*ft))
+      {
+        TEST(!ft->GetHouseNumber().empty(), ());
+        ++count;
+
+        TEST(house2street->Get(ft->GetID().m_index), ());
+        if (data.m_checkPlace)
+          TEST(house2place->Get(ft->GetID().m_index), ());
+      }
+    }
+    TEST_EQUAL(count, data.m_addrCount, ());
+  }
+}
+
 } // namespace raw_generator_tests

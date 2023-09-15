@@ -617,7 +617,7 @@ RoadShieldsSetT GetRoadShields(FeatureType & f)
 
   // Find out country name.
   std::string mwmName = f.GetID().GetMwmName();
-  ASSERT_NOT_EQUAL(mwmName, FeatureID::kInvalidFileName, (f.GetID()));
+  ASSERT(!mwmName.empty(), (f.GetID()));
 
   auto const underlinePos = mwmName.find('_');
   if (underlinePos != std::string::npos)

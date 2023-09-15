@@ -77,10 +77,8 @@ FeaturesLayerMatcher::Streets const & FeaturesLayerMatcher::GetNearbyStreets(Fea
   if (!entry.second)
     return entry.first;
 
-  auto & streets = entry.first;
-  m_reverseGeocoder.GetNearbyStreets(feature, streets);
-
-  return streets;
+  entry.first = m_reverseGeocoder.GetNearbyStreets(feature);
+  return entry.first;
 }
 
 template <class FeatureGetterT>
