@@ -21,9 +21,6 @@ std::string DebugPrint(GeomType type);
 
 struct FeatureID
 {
-  static char const * const kInvalidFileName;
-  static int64_t const kInvalidMwmVersion;
-
   FeatureID() = default;
   FeatureID(MwmSet::MwmId const & mwmId, uint32_t index) : m_mwmId(mwmId), m_index(index) {}
 
@@ -44,6 +41,7 @@ struct FeatureID
   bool operator!=(FeatureID const & r) const { return !(*this == r); }
 
   std::string GetMwmName() const;
+  /// @todo This function is used in Android only, but seems like useless.
   int64_t GetMwmVersion() const;
   bool IsEqualCountry(base::StringIL const & lst) const;
   bool IsWorld() const;

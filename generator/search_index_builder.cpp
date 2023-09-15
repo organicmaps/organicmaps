@@ -402,34 +402,61 @@ void ReadAddressData(std::string const & filename, std::vector<feature::AddressD
   }
 }
 
-bool GetStreetIndex(search::MwmContext & ctx, uint32_t featureID, std::string_view streetName, uint32_t & result)
+template <class ObjT, class GetKeyFnT>
+std::optional<uint32_t> MatchObjectByName(std::string_view keyName, std::vector<ObjT> const & objs,
+                                          GetKeyFnT && getKey)
 {
-  bool const hasStreet = !streetName.empty();
-  if (hasStreet)
+  size_t constexpr kSimilarityThresholdPercent = 10;
+
+  // Find the exact match or the best match in kSimilarityTresholdPercent limit.
+  uint32_t result;
+  size_t minPercent = kSimilarityThresholdPercent + 1;
+
+  auto const key = getKey(keyName);
+  for (auto const & obj : objs)
   {
-    auto ft = ctx.GetFeature(featureID);
-    CHECK(ft, ());
-
-    using TStreet = search::ReverseGeocoder::Street;
-    std::vector<TStreet> streets;
-    search::ReverseGeocoder::GetNearbyStreets(ctx, feature::GetCenter(*ft),
-                                              true /* includeSquaresAndSuburbs */, streets);
-
-    auto const res = search::ReverseGeocoder::GetMatchedStreetIndex(streetName, streets);
-
-    if (res)
+    bool fullMatchFound = false;
+    obj.m_multilangName.ForEach([&](int8_t lang, std::string_view name)
     {
-      result = *res;
-      return true;
-    }
+      if (fullMatchFound)
+        return;
+
+      // Skip _non-language_ names for street<->address matching.
+      if (StringUtf8Multilang::IsAltOrOldName(lang))
+        return;
+
+      strings::UniString const actual = getKey(name);
+      size_t const editDistance = strings::EditDistance(key.begin(), key.end(), actual.begin(), actual.end());
+
+      if (editDistance == 0)
+      {
+        result = obj.m_id.m_index;
+        fullMatchFound = true;
+        return;
+      }
+
+      if (actual.empty())
+        return;
+
+      size_t const percent = editDistance * 100 / actual.size();
+      if (percent < minPercent)
+      {
+        result = obj.m_id.m_index;
+        minPercent = percent;
+      }
+    });
+
+    if (fullMatchFound)
+      return result;
   }
 
-  result = hasStreet ? 1 : 0;
-  return false;
+  if (minPercent <= kSimilarityThresholdPercent)
+    return result;
+  return {};
 }
 
-void BuildAddressTable(FilesContainerR & container, std::string const & addressDataFile, Writer & writer,
-                       uint32_t threadsCount)
+void BuildAddressTable(FilesContainerR & container, std::string const & addressDataFile,
+                       Writer & streetsWriter, Writer & placesWriter, uint32_t threadsCount)
 {
   std::vector<feature::AddressData> addrs;
   ReadAddressData(addressDataFile, addrs);
@@ -448,12 +475,16 @@ void BuildAddressTable(FilesContainerR & container, std::string const & addressD
 
   std::vector<std::unique_ptr<search::MwmContext>> contexts(threadsCount);
 
-  uint32_t address = 0, missing = 0;
+  std::atomic<uint32_t> address = 0;
+  std::atomic<uint32_t> missing = 0;
 
-  uint32_t constexpr kEmptyResult = uint32_t(-1);
-  std::vector<uint32_t> results(featuresCount, kEmptyResult);
+  uint32_t constexpr kInvalidFeatureId = std::numeric_limits<uint32_t>::max();
+  /// @see Addr_Street_Place test for checking constants.
+  double constexpr kStreetRadiusM = 2000;
+  double constexpr kPlaceRadiusM = 4000;
 
-  std::mutex resMutex;
+  std::vector<uint32_t> streets(featuresCount, kInvalidFeatureId);
+  std::vector<uint32_t> places(featuresCount, kInvalidFeatureId);
 
   // Thread working function.
   auto const fn = [&](uint32_t threadIdx)
@@ -464,22 +495,54 @@ void BuildAddressTable(FilesContainerR & container, std::string const & addressD
 
     for (uint32_t i = beg; i < end; ++i)
     {
-      uint32_t streetIndex;
-      bool const found = GetStreetIndex(
-          *(contexts[threadIdx]), i, addrs[i].Get(feature::AddressData::Type::Street), streetIndex);
+      auto const street = addrs[i].Get(feature::AddressData::Type::Street);
+      auto const place = addrs[i].Get(feature::AddressData::Type::Place);
+      if (street.empty() && place.empty())
+        continue;
 
-      std::lock_guard<std::mutex> guard(resMutex);
+      ++address;
 
-      if (found)
+      std::optional<uint32_t> streetId, placeId;
+
+      auto ft = contexts[threadIdx]->GetFeature(i);
+      CHECK(ft, ());
+      auto const center = feature::GetCenter(*ft);
+
+      if (!street.empty())
       {
-        results[i] = streetIndex;
-        ++address;
+        auto const streets = search::ReverseGeocoder::GetNearbyStreets(*contexts[threadIdx], center, kStreetRadiusM);
+        streetId = MatchObjectByName(street, streets, [](std::string_view name)
+        {
+          return search::GetStreetNameAsKey(name, false /* ignoreStreetSynonyms */);
+        });
+
+        if (!streetId)
+        {
+          streetId = MatchObjectByName(street, streets, [](std::string_view name)
+          {
+            return search::GetStreetNameAsKey(name, true /* ignoreStreetSynonyms */);
+          });
+        }
       }
-      else if (streetIndex > 0)
+
+      if (!place.empty())
       {
+        auto const places = search::ReverseGeocoder::GetNearbyPlaces(*contexts[threadIdx], center, kPlaceRadiusM);
+        placeId = MatchObjectByName(place, places, [](std::string_view name)
+        {
+          return strings::MakeUniString(name);
+        });
+      }
+
+      if (streetId || placeId)
+      {
+        if (streetId)
+          streets[i] = *streetId;
+        if (placeId)
+          places[i] = *placeId;
+      }
+      else
         ++missing;
-        ++address;
-      }
     }
   };
 
@@ -497,27 +560,30 @@ void BuildAddressTable(FilesContainerR & container, std::string const & addressD
     t.join();
 
   // Flush results to disk.
+  auto const flushToWriter = [](std::vector<uint32_t> const & results, Writer & writer)
   {
     search::HouseToStreetTableBuilder builder;
-    uint32_t houseToStreetCount = 0;
+    uint32_t count = 0;
     for (size_t i = 0; i < results.size(); ++i)
     {
-      if (results[i] != kEmptyResult)
+      if (results[i] != kInvalidFeatureId)
       {
         builder.Put(base::asserted_cast<uint32_t>(i), results[i]);
-        ++houseToStreetCount;
+        ++count;
       }
     }
 
     builder.Freeze(writer);
+    return count;
+  };
 
-    LOG(LINFO, ("Address: BuildingToStreet entries count:", houseToStreetCount));
-  }
+  LOG(LINFO, ("Saved streets entries number:", flushToWriter(streets, streetsWriter)));
+  LOG(LINFO, ("Saved places entries number:", flushToWriter(places, placesWriter)));
 
   double matchedPercent = 100;
   if (address > 0)
     matchedPercent = 100.0 * (1.0 - static_cast<double>(missing) / static_cast<double>(address));
-  LOG(LINFO, ("Address: Matched percent", matchedPercent, "Total:", address, "Missing:", missing));
+  LOG(LINFO, ("Matched addresses percent:", matchedPercent, "Total:", address, "Missing:", missing));
 }
 }  // namespace
 
@@ -535,9 +601,11 @@ bool BuildSearchIndexFromDataFile(std::string const & country, feature::Generate
     return true;
 
   auto const indexFilePath = filename + "." + SEARCH_INDEX_FILE_TAG EXTENSION_TMP;
-  auto const addrFilePath = filename + "." + SEARCH_ADDRESS_FILE_TAG EXTENSION_TMP;
+  auto const streetsFilePath = filename + "." + FEATURE2STREET_FILE_TAG EXTENSION_TMP;
+  auto const placesFilePath = filename + "." + FEATURE2PLACE_FILE_TAG EXTENSION_TMP;
   SCOPE_GUARD(indexFileGuard, std::bind(&FileWriter::DeleteFileX, indexFilePath));
-  SCOPE_GUARD(addrFileGuard, std::bind(&FileWriter::DeleteFileX, addrFilePath));
+  SCOPE_GUARD(streetsFileGuard, std::bind(&FileWriter::DeleteFileX, streetsFilePath));
+  SCOPE_GUARD(placesFileGuard, std::bind(&FileWriter::DeleteFileX, placesFilePath));
 
   try
   {
@@ -546,42 +614,43 @@ bool BuildSearchIndexFromDataFile(std::string const & country, feature::Generate
       BuildSearchIndex(readContainer, writer);
       LOG(LINFO, ("Search index size =", writer.Size()));
     }
+
     if (filename != WORLD_FILE_NAME && filename != WORLD_COASTS_FILE_NAME)
     {
-      FileWriter writer(addrFilePath);
+      FileWriter streetsWriter(streetsFilePath);
+      FileWriter placesWriter(placesFilePath);
       auto const addrsFile = info.GetIntermediateFileName(country + DATA_FILE_EXTENSION, TEMP_ADDR_EXTENSION);
-      BuildAddressTable(readContainer, addrsFile, writer, threadsCount);
-      LOG(LINFO, ("Search address table size =", writer.Size()));
+      BuildAddressTable(readContainer, addrsFile, streetsWriter, placesWriter, threadsCount);
+      LOG(LINFO, ("Streets table size:", streetsWriter.Size(), "; Places table size:", placesWriter.Size()));
     }
+
+    // Separate scopes because FilesContainerW can't write two sections at once.
     {
-      // Separate scopes because FilesContainerW cannot write two sections at once.
-      {
-        FilesContainerW writeContainer(readContainer.GetFileName(), FileWriter::OP_WRITE_EXISTING);
-        auto writer = writeContainer.GetWriter(SEARCH_INDEX_FILE_TAG);
-        size_t const startOffset = writer->Pos();
-        CHECK(coding::IsAlign8(startOffset), ());
+      FilesContainerW writeContainer(readContainer.GetFileName(), FileWriter::OP_WRITE_EXISTING);
+      auto writer = writeContainer.GetWriter(SEARCH_INDEX_FILE_TAG);
+      size_t const startOffset = writer->Pos();
+      CHECK(coding::IsAlign8(startOffset), ());
 
-        search::SearchIndexHeader header;
-        header.Serialize(*writer);
+      search::SearchIndexHeader header;
+      header.Serialize(*writer);
 
-        uint64_t bytesWritten = writer->Pos();
-        coding::WritePadding(*writer, bytesWritten);
+      uint64_t bytesWritten = writer->Pos();
+      coding::WritePadding(*writer, bytesWritten);
 
-        header.m_indexOffset = base::asserted_cast<uint32_t>(writer->Pos() - startOffset);
-        rw_ops::Reverse(FileReader(indexFilePath), *writer);
-        header.m_indexSize =
-            base::asserted_cast<uint32_t>(writer->Pos() - header.m_indexOffset - startOffset);
+      header.m_indexOffset = base::asserted_cast<uint32_t>(writer->Pos() - startOffset);
+      rw_ops::Reverse(FileReader(indexFilePath), *writer);
+      header.m_indexSize = base::asserted_cast<uint32_t>(writer->Pos() - header.m_indexOffset - startOffset);
 
-        auto const endOffset = writer->Pos();
-        writer->Seek(startOffset);
-        header.Serialize(*writer);
-        writer->Seek(endOffset);
-      }
+      auto const endOffset = writer->Pos();
+      writer->Seek(startOffset);
+      header.Serialize(*writer);
+      writer->Seek(endOffset);
+    }
 
-      {
-        FilesContainerW writeContainer(readContainer.GetFileName(), FileWriter::OP_WRITE_EXISTING);
-        writeContainer.Write(addrFilePath, SEARCH_ADDRESS_FILE_TAG);
-      }
+    {
+      FilesContainerW writeContainer(readContainer.GetFileName(), FileWriter::OP_WRITE_EXISTING);
+      writeContainer.Write(streetsFilePath, FEATURE2STREET_FILE_TAG);
+      writeContainer.Write(placesFilePath, FEATURE2PLACE_FILE_TAG);
     }
   }
   catch (Reader::Exception const & e)

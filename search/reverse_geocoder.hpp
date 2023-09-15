@@ -64,6 +64,7 @@ public:
     {
     }
   };
+  using Place = Street;
 
   struct Building : public Object
   {
@@ -118,11 +119,13 @@ public:
   /// @return Sorted by distance streets vector for the specified MwmId.
   /// Parameter |includeSquaresAndSuburbs| needed for backward compatibility:
   /// existing mwms operate on streets without squares and suburbs.
-  static void GetNearbyStreets(search::MwmContext & context, m2::PointD const & center,
-                               bool includeSquaresAndSuburbs, std::vector<Street> & streets);
-  void GetNearbyStreets(MwmSet::MwmId const & id, m2::PointD const & center,
-                        std::vector<Street> & streets) const;
-  void GetNearbyStreets(FeatureType & ft, std::vector<Street> & streets) const;
+  static std::vector<Street> GetNearbyStreets(
+      search::MwmContext & context, m2::PointD const & center, double radiusM = kLookupRadiusM);
+  std::vector<Street> GetNearbyStreets(MwmSet::MwmId const & id, m2::PointD const & center) const;
+  std::vector<Street> GetNearbyStreets(FeatureType & ft) const;
+
+  static std::vector<Place> GetNearbyPlaces(
+      search::MwmContext & context, m2::PointD const & center, double radiusM);
 
   /// @return feature street name.
   /// Returns empty string when there is no street the feature belongs to.
@@ -162,10 +165,6 @@ private:
     DataSource const & m_dataSource;
     MwmSet::MwmHandle m_handle;
   };
-
-  /// Old data compatible method to retrieve nearby streets.
-  void GetNearbyStreetsWaysOnly(MwmSet::MwmId const & id, m2::PointD const & center,
-                                std::vector<Street> & streets) const;
 
   /// Ignores changes from editor if |ignoreEdits| is true.
   bool GetNearbyAddress(HouseTable & table, Building const & bld, bool ignoreEdits,

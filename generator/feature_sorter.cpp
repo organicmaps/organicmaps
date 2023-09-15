@@ -43,8 +43,6 @@ namespace feature
 class FeaturesCollector2 : public FeaturesCollector
 {
 public:
-  static uint32_t constexpr kInvalidFeatureId = std::numeric_limits<uint32_t>::max();
-
   FeaturesCollector2(std::string const & name, feature::GenerateInfo const & info, DataHeader const & header,
                      RegionData const & regionData, uint32_t versionDate)
     : FeaturesCollector(info.GetTargetFileName(name, FEATURES_FILE_TAG))
@@ -146,7 +144,7 @@ public:
 
   void SetBounds(m2::RectD bounds) { m_bounds = bounds; }
 
-  uint32_t operator()(FeatureBuilder & fb)
+  void operator()(FeatureBuilder & fb)
   {
     GeometryHolder holder([this](int i) -> FileWriter & { return *m_geoFile[i]; },
                           [this](int i) -> FileWriter & { return *m_trgFile[i]; }, fb, m_header);
@@ -278,13 +276,12 @@ public:
       }
     }
 
-    uint32_t featureId = kInvalidFeatureId;
     auto & buffer = holder.GetBuffer();
     if (fb.PreSerializeAndRemoveUselessNamesForMwm(buffer))
     {
       fb.SerializeForMwm(buffer, m_header.GetDefGeometryCodingParams());
 
-      featureId = WriteFeatureBase(buffer.m_buffer, fb);
+      uint32_t const featureId = WriteFeatureBase(buffer.m_buffer, fb);
 
       // Order is important here:
 
@@ -301,7 +298,6 @@ public:
       if (fb.HasOsmIds())
         m_osm2ft.AddIds(generator::MakeCompositeId(fb), featureId);
     }
-    return featureId;
   }
 
 private:
