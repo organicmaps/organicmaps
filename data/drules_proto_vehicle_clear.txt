@@ -6338,6 +6338,87 @@ cont {
   }
 }
 cont {
+  name: "highway-bridleway"
+  element {
+    scale: 18
+    lines {
+      width: 0.9
+      color: 4011550
+      dashdot {
+        dd: 3.6
+        dd: 1.8
+      }
+      priority: 130
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 0.9
+      color: 4011550
+      dashdot {
+        dd: 3.6
+        dd: 1.8
+      }
+      priority: 130
+    }
+  }
+}
+cont {
+  name: "highway-bridleway-bridge"
+  element {
+    scale: 18
+    lines {
+      width: 0.9
+      color: 4011550
+      dashdot {
+        dd: 3.6
+        dd: 1.8
+      }
+      priority: 130
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 0.9
+      color: 4011550
+      dashdot {
+        dd: 3.6
+        dd: 1.8
+      }
+      priority: 130
+    }
+  }
+}
+cont {
+  name: "highway-bridleway-permissive"
+  element {
+    scale: 18
+    lines {
+      width: 0.9
+      color: 4011550
+      dashdot {
+        dd: 3.6
+        dd: 1.8
+      }
+      priority: 130
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 0.9
+      color: 4011550
+      dashdot {
+        dd: 3.6
+        dd: 1.8
+      }
+      priority: 130
+    }
+  }
+}
+cont {
   name: "highway-construction"
   element {
     scale: 13
@@ -6428,6 +6509,63 @@ cont {
   }
 }
 cont {
+  name: "highway-cycleway"
+  element {
+    scale: 18
+    lines {
+      width: 1.0
+      color: 16746413
+      priority: 130
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 1.0
+      color: 16746413
+      priority: 130
+    }
+  }
+}
+cont {
+  name: "highway-cycleway-bridge"
+  element {
+    scale: 18
+    lines {
+      width: 1.0
+      color: 16746413
+      priority: 130
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 1.0
+      color: 16746413
+      priority: 130
+    }
+  }
+}
+cont {
+  name: "highway-cycleway-permissive"
+  element {
+    scale: 18
+    lines {
+      width: 1.0
+      color: 16746413
+      priority: 130
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 1.0
+      color: 16746413
+      priority: 130
+    }
+  }
+}
+cont {
   name: "highway-footway"
   element {
     scale: 18
@@ -6444,7 +6582,7 @@ cont {
   element {
     scale: 19
     lines {
-      width: 2.0
+      width: 1.5
       color: 16579836
       dashdot {
         dd: 5.0
@@ -6483,7 +6621,7 @@ cont {
   element {
     scale: 19
     lines {
-      width: 2.0
+      width: 1.5
       color: 16579836
       dashdot {
         dd: 5.0
@@ -6510,7 +6648,7 @@ cont {
   element {
     scale: 19
     lines {
-      width: 2.0
+      width: 1.5
       color: 16579836
       dashdot {
         dd: 5.0
@@ -6537,7 +6675,7 @@ cont {
   element {
     scale: 19
     lines {
-      width: 2.0
+      width: 1.5
       color: 16579836
       dashdot {
         dd: 5.0
@@ -6576,7 +6714,7 @@ cont {
   element {
     scale: 19
     lines {
-      width: 2.0
+      width: 1.5
       color: 16579836
       dashdot {
         dd: 5.0
@@ -6615,7 +6753,7 @@ cont {
   element {
     scale: 19
     lines {
-      width: 2.0
+      width: 1.5
       color: 16579836
       dashdot {
         dd: 5.0
@@ -6654,7 +6792,7 @@ cont {
   element {
     scale: 19
     lines {
-      width: 2.0
+      width: 1.5
       color: 16579836
       dashdot {
         dd: 5.0
@@ -6693,7 +6831,7 @@ cont {
   element {
     scale: 19
     lines {
-      width: 2.0
+      width: 1.5
       color: 16579836
       dashdot {
         dd: 5.0
@@ -6732,7 +6870,7 @@ cont {
   element {
     scale: 19
     lines {
-      width: 2.0
+      width: 1.5
       color: 16579836
       dashdot {
         dd: 5.0
@@ -6759,34 +6897,7 @@ cont {
   element {
     scale: 19
     lines {
-      width: 2.0
-      color: 16579836
-      dashdot {
-        dd: 5.0
-        dd: 2.0
-      }
-      priority: 130
-    }
-  }
-}
-cont {
-  name: "highway-footway-tunnel"
-  element {
-    scale: 18
-    lines {
       width: 1.5
-      color: 16579836
-      dashdot {
-        dd: 5.0
-        dd: 2.0
-      }
-      priority: 130
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 2.0
       color: 16579836
       dashdot {
         dd: 5.0
@@ -9668,317 +9779,83 @@ cont {
   }
 }
 cont {
-  name: "highway-path-tunnel"
-  element {
-    scale: 17
-    lines {
-      width: 0.9
-      color: 10506258
-      dashdot {
-        dd: 3.5
-        dd: 2.0
-      }
-      priority: 130
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 1.1
-      color: 10506258
-      dashdot {
-        dd: 3.5
-        dd: 2.0
-      }
-      priority: 130
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 1.5
-      color: 10506258
-      dashdot {
-        dd: 4.0
-        dd: 2.5
-      }
-      priority: 130
-    }
-  }
-}
-cont {
   name: "highway-pedestrian"
   element {
-    scale: 14
-    path_text {
-      primary {
-        height: 12
-        color: 3355443
-        stroke_color: 871230427
-      }
-      priority: 1600
-    }
-  }
-  element {
-    scale: 15
-    path_text {
-      primary {
-        height: 13
-        color: 3355443
-        stroke_color: 871230427
-      }
-      priority: 1600
-    }
-  }
-  element {
-    scale: 16
-    path_text {
-      primary {
-        height: 15
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 1600
-    }
-  }
-  element {
-    scale: 17
-    path_text {
-      primary {
-        height: 15
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 1600
-    }
-  }
-  element {
     scale: 18
-    path_text {
-      primary {
-        height: 15
-        color: 3355443
-        stroke_color: 16777215
+    lines {
+      width: 2.0
+      color: 16579836
+      dashdot {
+        dd: 7.0
+        dd: 3.0
       }
-      priority: 1600
+      priority: 130
     }
   }
   element {
     scale: 19
-    path_text {
-      primary {
-        height: 15
-        color: 3355443
-        stroke_color: 16777215
+    lines {
+      width: 2.0
+      color: 16579836
+      dashdot {
+        dd: 7.0
+        dd: 3.0
       }
-      priority: 1600
+      priority: 130
     }
   }
 }
 cont {
   name: "highway-pedestrian-area"
   element {
-    scale: 14
-    path_text {
-      primary {
-        height: 12
-        color: 3355443
-        stroke_color: 871230427
-      }
-      priority: 1600
-    }
-  }
-  element {
-    scale: 15
-    path_text {
-      primary {
-        height: 13
-        color: 3355443
-        stroke_color: 871230427
-      }
-      priority: 1600
-    }
-  }
-  element {
-    scale: 16
-    path_text {
-      primary {
-        height: 15
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 1600
-    }
-  }
-  element {
-    scale: 17
-    path_text {
-      primary {
-        height: 15
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 1600
-    }
-  }
-  element {
     scale: 18
-    path_text {
-      primary {
-        height: 15
-        color: 3355443
-        stroke_color: 16777215
+    lines {
+      width: 2.0
+      color: 16579836
+      dashdot {
+        dd: 7.0
+        dd: 3.0
       }
-      priority: 1600
+      priority: 130
     }
   }
   element {
     scale: 19
-    path_text {
-      primary {
-        height: 15
-        color: 3355443
-        stroke_color: 16777215
+    lines {
+      width: 2.0
+      color: 16579836
+      dashdot {
+        dd: 7.0
+        dd: 3.0
       }
-      priority: 1600
+      priority: 130
     }
   }
 }
 cont {
   name: "highway-pedestrian-bridge"
   element {
-    scale: 14
-    path_text {
-      primary {
-        height: 12
-        color: 3355443
-        stroke_color: 871230427
-      }
-      priority: 1600
-    }
-  }
-  element {
-    scale: 15
-    path_text {
-      primary {
-        height: 13
-        color: 3355443
-        stroke_color: 871230427
-      }
-      priority: 1600
-    }
-  }
-  element {
-    scale: 16
-    path_text {
-      primary {
-        height: 15
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 1600
-    }
-  }
-  element {
-    scale: 17
-    path_text {
-      primary {
-        height: 15
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 1600
-    }
-  }
-  element {
     scale: 18
-    path_text {
-      primary {
-        height: 15
-        color: 3355443
-        stroke_color: 16777215
+    lines {
+      width: 2.0
+      color: 16579836
+      dashdot {
+        dd: 7.0
+        dd: 3.0
       }
-      priority: 1600
+      priority: 130
     }
   }
   element {
     scale: 19
-    path_text {
-      primary {
-        height: 15
-        color: 3355443
-        stroke_color: 16777215
+    lines {
+      width: 2.0
+      color: 16579836
+      dashdot {
+        dd: 7.0
+        dd: 3.0
       }
-      priority: 1600
-    }
-  }
-}
-cont {
-  name: "highway-pedestrian-tunnel"
-  element {
-    scale: 14
-    path_text {
-      primary {
-        height: 12
-        color: 3355443
-        stroke_color: 871230427
-      }
-      priority: 1600
-    }
-  }
-  element {
-    scale: 15
-    path_text {
-      primary {
-        height: 13
-        color: 3355443
-        stroke_color: 871230427
-      }
-      priority: 1600
-    }
-  }
-  element {
-    scale: 16
-    path_text {
-      primary {
-        height: 15
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 1600
-    }
-  }
-  element {
-    scale: 17
-    path_text {
-      primary {
-        height: 15
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 1600
-    }
-  }
-  element {
-    scale: 18
-    path_text {
-      primary {
-        height: 15
-        color: 3355443
-        stroke_color: 16777215
-      }
-      priority: 1600
-    }
-  }
-  element {
-    scale: 19
-    path_text {
-      primary {
-        height: 15
-        color: 3355443
-        stroke_color: 16777215
-      }
-      priority: 1600
+      priority: 130
     }
   }
 }
@@ -15119,7 +14996,7 @@ cont {
   element {
     scale: 19
     lines {
-      width: 2.0
+      width: 1.5
       color: 16579836
       dashdot {
         dd: 5.0
@@ -15146,34 +15023,7 @@ cont {
   element {
     scale: 19
     lines {
-      width: 2.0
-      color: 16579836
-      dashdot {
-        dd: 5.0
-        dd: 2.0
-      }
-      priority: 270
-    }
-  }
-}
-cont {
-  name: "highway-steps-tunnel"
-  element {
-    scale: 18
-    lines {
       width: 1.5
-      color: 16579836
-      dashdot {
-        dd: 5.0
-        dd: 2.0
-      }
-      priority: 270
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 2.0
       color: 16579836
       dashdot {
         dd: 5.0
@@ -16722,57 +16572,6 @@ cont {
 }
 cont {
   name: "highway-track-permissive"
-  element {
-    scale: 16
-    lines {
-      width: 1.1
-      color: 6510384
-      dashdot {
-        dd: 6.0
-        dd: 2.5
-      }
-      priority: 130
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 1.4
-      color: 6510384
-      dashdot {
-        dd: 6.0
-        dd: 2.5
-      }
-      priority: 130
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 1.9
-      color: 6510384
-      dashdot {
-        dd: 7.0
-        dd: 3.0
-      }
-      priority: 130
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 2.5
-      color: 6510384
-      dashdot {
-        dd: 7.0
-        dd: 3.0
-      }
-      priority: 130
-    }
-  }
-}
-cont {
-  name: "highway-track-tunnel"
   element {
     scale: 16
     lines {
@@ -27914,79 +27713,6 @@ cont {
     area {
       color: 13031851
       priority: -1930
-    }
-  }
-}
-cont {
-  name: "natural-strait"
-  element {
-    scale: 13
-    caption {
-      primary {
-        height: 9
-        color: 4495803
-      }
-      priority: 1550
-    }
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 9
-        color: 4495803
-      }
-      priority: 1550
-    }
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 9
-        color: 4495803
-      }
-      priority: 1550
-    }
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 1550
-    }
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 1550
-    }
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 1550
-    }
-  }
-  element {
-    scale: 19
-    caption {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 1550
     }
   }
 }
@@ -72511,152 +72237,6 @@ cont {
   }
 }
 cont {
-  name: "waterway-canal"
-  element {
-    scale: 13
-    path_text {
-      primary {
-        height: 9
-        color: 4495803
-      }
-      priority: 1500
-    }
-  }
-  element {
-    scale: 14
-    path_text {
-      primary {
-        height: 9
-        color: 4495803
-      }
-      priority: 1500
-    }
-  }
-  element {
-    scale: 15
-    path_text {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 1500
-    }
-  }
-  element {
-    scale: 16
-    path_text {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 1500
-    }
-  }
-  element {
-    scale: 17
-    path_text {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 1500
-    }
-  }
-  element {
-    scale: 18
-    path_text {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 1500
-    }
-  }
-  element {
-    scale: 19
-    path_text {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 1500
-    }
-  }
-}
-cont {
-  name: "waterway-canal-tunnel"
-  element {
-    scale: 13
-    path_text {
-      primary {
-        height: 9
-        color: 4495803
-      }
-      priority: 1500
-    }
-  }
-  element {
-    scale: 14
-    path_text {
-      primary {
-        height: 9
-        color: 4495803
-      }
-      priority: 1500
-    }
-  }
-  element {
-    scale: 15
-    path_text {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 1500
-    }
-  }
-  element {
-    scale: 16
-    path_text {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 1500
-    }
-  }
-  element {
-    scale: 17
-    path_text {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 1500
-    }
-  }
-  element {
-    scale: 18
-    path_text {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 1500
-    }
-  }
-  element {
-    scale: 19
-    path_text {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 1500
-    }
-  }
-}
-cont {
   name: "waterway-dam"
   element {
     scale: 15
@@ -72737,96 +72317,6 @@ cont {
         color: 13947850
       }
       priority: 20
-    }
-  }
-}
-cont {
-  name: "waterway-ditch"
-  element {
-    scale: 13
-    lines {
-      width: 1.5
-      color: 10340289
-      dashdot {
-        dd: 2.7
-        dd: 2.7
-      }
-      priority: -990
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.5
-      color: 10340289
-      dashdot {
-        dd: 2.7
-        dd: 2.7
-      }
-      priority: -990
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.5
-      color: 10340289
-      dashdot {
-        dd: 2.7
-        dd: 2.7
-      }
-      priority: -990
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 3.0
-      color: 10340289
-      dashdot {
-        dd: 2.7
-        dd: 2.7
-      }
-      priority: -990
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 3.0
-      color: 10340289
-      dashdot {
-        dd: 2.7
-        dd: 2.7
-      }
-      priority: -990
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 3.0
-      color: 10340289
-      dashdot {
-        dd: 2.7
-        dd: 2.7
-      }
-      priority: -990
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 3.0
-      color: 10340289
-      dashdot {
-        dd: 2.7
-        dd: 2.7
-      }
-      priority: -990
     }
   }
 }
@@ -72963,96 +72453,6 @@ cont {
     area {
       color: 9163744
       priority: -980
-    }
-  }
-}
-cont {
-  name: "waterway-drain"
-  element {
-    scale: 13
-    lines {
-      width: 1.5
-      color: 10340289
-      dashdot {
-        dd: 2.7
-        dd: 2.7
-      }
-      priority: -990
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.5
-      color: 10340289
-      dashdot {
-        dd: 2.7
-        dd: 2.7
-      }
-      priority: -990
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.5
-      color: 10340289
-      dashdot {
-        dd: 2.7
-        dd: 2.7
-      }
-      priority: -990
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 3.0
-      color: 10340289
-      dashdot {
-        dd: 2.7
-        dd: 2.7
-      }
-      priority: -990
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 3.0
-      color: 10340289
-      dashdot {
-        dd: 2.7
-        dd: 2.7
-      }
-      priority: -990
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 3.0
-      color: 10340289
-      dashdot {
-        dd: 2.7
-        dd: 2.7
-      }
-      priority: -990
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 3.0
-      color: 10340289
-      dashdot {
-        dd: 2.7
-        dd: 2.7
-      }
-      priority: -990
     }
   }
 }
@@ -73233,99 +72633,6 @@ cont {
       color: 3584191
       priority: -990
     }
-    path_text {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 1550
-    }
-  }
-}
-cont {
-  name: "waterway-river-tunnel"
-  element {
-    scale: 11
-    path_text {
-      primary {
-        height: 9
-        color: 4495803
-      }
-      priority: 1550
-    }
-  }
-  element {
-    scale: 12
-    path_text {
-      primary {
-        height: 9
-        color: 4495803
-      }
-      priority: 1550
-    }
-  }
-  element {
-    scale: 13
-    path_text {
-      primary {
-        height: 9
-        color: 4495803
-      }
-      priority: 1550
-    }
-  }
-  element {
-    scale: 14
-    path_text {
-      primary {
-        height: 9
-        color: 4495803
-      }
-      priority: 1550
-    }
-  }
-  element {
-    scale: 15
-    path_text {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 1550
-    }
-  }
-  element {
-    scale: 16
-    path_text {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 1550
-    }
-  }
-  element {
-    scale: 17
-    path_text {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 1550
-    }
-  }
-  element {
-    scale: 18
-    path_text {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 1550
-    }
-  }
-  element {
-    scale: 19
     path_text {
       primary {
         height: 11
