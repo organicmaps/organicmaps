@@ -3,6 +3,7 @@ final class TransportRoutePreviewStatus: SolidTouchView {
   @IBOutlet private weak var etaLabel: UILabel!
   @IBOutlet private weak var stepsCollectionView: TransportTransitStepsCollectionView!
   @IBOutlet private weak var stepsCollectionViewHeight: NSLayoutConstraint!
+  @IBOutlet private weak var stepsCollectionScrollView: UIScrollView?
 
   @objc weak var ownerView: UIView!
 
@@ -51,6 +52,7 @@ final class TransportRoutePreviewStatus: SolidTouchView {
     stepsCollectionView.steps = info.transitSteps
 
     stepsCollectionView.isHidden = info.transitSteps.isEmpty
+    stepsCollectionScrollView?.isHidden = info.transitSteps.isEmpty
   }
 
   private func updateHeight() {
