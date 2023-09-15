@@ -264,30 +264,25 @@ line|z18-[highway=tertiary_link]
 line|z14-[highway=unclassified],
 line|z14-[highway=road],
 line|z14-[highway=living_street],
-line|z14-[highway=pedestrian],
 line|z16-[highway=service],
 {text: name;text-color: @label_medium;text-halo-opacity: 0.8;text-halo-radius: 1;text-halo-color: @label_halo_medium;}
 
 line|z14[highway=unclassified],
 line|z14[highway=living_street],
-line|z14[highway=pedestrian],
 line|z14[highway=road],
 {font-size: 12.5;}
 line|z15[highway=unclassified],
 line|z15[highway=living_street],
-line|z15[highway=pedestrian],
 line|z15[highway=road],
 {font-size: 13.5;}
 line|z16-17[highway=unclassified],
 line|z16-17[highway=living_street],
 {font-size: 14.5;text-halo-color: @label_halo_light;}
-line|z16-17[highway=pedestrian],
 line|z16-17[highway=service],
 line|z16-17[highway=road],
 {font-size: 15.5;text-halo-color: @label_halo_light;}
 line|z18-[highway=unclassified],
 line|z18-[highway=living_street],
-line|z18-[highway=pedestrian],
 line|z18-[highway=service],
 line|z18-[highway=road],
 {font-size: 15.75;text-halo-opacity: 1;text-halo-color: @label_halo_light;}

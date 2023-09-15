@@ -440,15 +440,7 @@ tourism-theme_park                                  # icon z14- (also has captio
 shop-supermarket                                    # icon z14- (also has caption(optional) z14-)
 === 1650
 
-highway-pedestrian                                  # pathtext z14-
-highway-pedestrian-area                             # pathtext z14-
-highway-pedestrian-bridge                           # pathtext z14-
-highway-pedestrian-tunnel                           # pathtext z14-
-=== 1600
-
-natural-strait                                      # caption z13-
 waterway-river                                      # pathtext z11- (also has line z10-)
-waterway-river-tunnel                               # pathtext z11-
 waterway-riverbank                                  # pathtext z11- (also has line z10-, area z1-)
 === 1550
 
@@ -457,8 +449,6 @@ natural-water-basin                                 # caption z10- (also has are
 natural-water-lock                                  # caption z10- (also has area z1-)
 natural-water-pond                                  # caption z10- (also has area z1-)
 shop-mall                                           # icon z14- (also has caption(optional) z14-)
-waterway-canal                                      # pathtext z13-
-waterway-canal-tunnel                               # pathtext z13-
 === 1500
 
 natural-desert                                      # caption z14- (also has area z1-)

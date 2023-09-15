@@ -263,13 +263,6 @@ line|z15-[waterway=stream][intermittent=yes]
 node|z16-[waterway=lock_gate],
 {icon-image: dot-m.svg;}
 
-line|z13-[waterway=ditch],
-line|z13-[waterway=drain],
-{opacity: 1; color: @water_bad; width: 1.5; dashes: 2.7,2.7;}
-line|z16-[waterway=ditch],
-line|z16-[waterway=drain],
-{width: 3;}
-
 /* Do not draw tunnel waterways */
 
 line[waterway][tunnel]

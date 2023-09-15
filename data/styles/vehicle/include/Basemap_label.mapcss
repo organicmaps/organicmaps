@@ -383,10 +383,7 @@ area|z10-[landuse=reservoir][bbox_area>=4000000],
 area|z10-[natural=water][!tunnel][bbox_area>=4000000],
 line|z11-[waterway=river],
 line|z11-[waterway=riverbank],
-line|z13-[waterway=canal],
-line|z13-[natural=strait],
 node|z14-[natural=bay],
-node|z14-[natural=strait],
 node|z16-[natural=wetland],
 area|z16-[natural=wetland],
 {text:name;text-color: @water_label;}
@@ -445,22 +442,16 @@ area|z10-[natural=water][water=wastewater],
 
 line[waterway]
 {text-position: line;}
-line[waterway][tunnel]
-{text: none;}
 
 line|z11-14[waterway=river],
 line|z11-14[waterway=riverbank],
-line|z13-14[waterway=canal]
-line|z13-14[natural=strait]
 {font-size: 9.5;text:name;text-color: @water_label;}
-line|z15-17[waterway=canal],
-line|z15-17[natural=strait],
-{font-size: 10;text:name;text-color: @water_label;}
 line|z15-[waterway=river],
 line|z15-[waterway=riverbank],
-line|z18-[waterway=canal],
-line|z18-[natural=strait],
 {font-size: 11;text:name;text-color: @water_label;}
+
+line[waterway][tunnel]
+{text: none;}
 
 /* 7. LANDUSE*/
 
