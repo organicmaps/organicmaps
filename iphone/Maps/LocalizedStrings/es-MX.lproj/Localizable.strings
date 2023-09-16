@@ -1704,6 +1704,8 @@
 
 "type.craft.brewery" = "Fábrica de cerveza";
 
+"type.craft.caterer" = "Catering";
+
 "type.craft.carpenter" = "Carpintero";
 
 "type.craft.confectionery" = "Confitería";
@@ -1713,6 +1715,8 @@
 "type.craft.electronics_repair" = "Reparación de aparatos electrónicos";
 
 "type.craft.gardener" = "Paisajista";
+
+"type.craft.grinding_mill" = "Molino de molienda";
 
 "type.craft.handicraft" = "Artesanía";
 
@@ -2483,6 +2487,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Reserva";
+
+"type.leisure.outdoor_seating" = "Asientos al aire libre";
 
 "type.leisure.park" = "Parque";
 

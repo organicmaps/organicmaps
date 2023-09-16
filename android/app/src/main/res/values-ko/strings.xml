@@ -867,11 +867,13 @@
 	<string name="type.craft.beekeeper">양봉가</string>
 	<string name="type.craft.blacksmith">대장장이</string>
 	<string name="type.craft.brewery">양조장</string>
+	<string name="type.craft.caterer">케이터링 업체</string>
 	<string name="type.craft.carpenter">목수</string>
 	<string name="type.craft.confectionery">과자 장수</string>
 	<string name="type.craft.electrician">전기기술자</string>
 	<string name="type.craft.electronics_repair">전자제품 수리</string>
 	<string name="type.craft.gardener">조경사</string>
+	<string name="type.craft.grinding_mill">그라인딩 밀</string>
 	<string name="type.craft.handicraft">수예</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">냉난방기</string>
@@ -1227,6 +1229,7 @@
 	<string name="type.leisure.garden.residential">정원</string>
 	<string name="type.leisure.golf_course">골프장</string>
 	<string name="type.leisure.nature_reserve">천연보호구역</string>
+	<string name="type.leisure.outdoor_seating">야외 좌석</string>
 	<string name="type.leisure.park">공원</string>
 	<string name="type.leisure.park.no.access">공원</string>
 	<string name="type.leisure.park.permissive">공원</string>

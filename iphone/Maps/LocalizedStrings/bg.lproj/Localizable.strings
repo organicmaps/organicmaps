@@ -1704,6 +1704,8 @@
 
 "type.craft.brewery" = "Пивоварна";
 
+"type.craft.caterer" = "Кетъринг";
+
 "type.craft.carpenter" = "Марангоз";
 
 "type.craft.confectionery" = "Сладкарски изделия";
@@ -1713,6 +1715,8 @@
 "type.craft.electronics_repair" = "Ремонт на електроника";
 
 "type.craft.gardener" = "Градинар";
+
+"type.craft.grinding_mill" = "Мелница за смилане";
 
 "type.craft.handicraft" = "Занаят";
 
@@ -2483,6 +2487,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Nature Reserve";
+
+"type.leisure.outdoor_seating" = "Места за сядане на открито";
 
 "type.leisure.park" = "Park";
 

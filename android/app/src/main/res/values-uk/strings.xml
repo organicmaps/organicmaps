@@ -958,11 +958,13 @@
 	<string name="type.craft.beekeeper">Бджоляр</string>
 	<string name="type.craft.blacksmith">Кузня</string>
 	<string name="type.craft.brewery">Крафтова пивоварня</string>
+	<string name="type.craft.caterer">Кейтеринг</string>
 	<string name="type.craft.carpenter">Столяр</string>
 	<string name="type.craft.confectionery">Кондитер</string>
 	<string name="type.craft.electrician">Електрик</string>
 	<string name="type.craft.electronics_repair">Ремонт електроніки</string>
 	<string name="type.craft.gardener">Садівник</string>
+	<string name="type.craft.grinding_mill">Млин</string>
 	<string name="type.craft.handicraft">Народні художні промисли</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Опалення, вентиляція та кондиціювання повітря</string>
@@ -1359,6 +1361,7 @@
 	<string name="type.leisure.landscape_reserve">Ландшафтний заповідник</string>
 	<string name="type.leisure.marina">Пристань</string>
 	<string name="type.leisure.nature_reserve">Заповідник</string>
+	<string name="type.leisure.outdoor_seating">Сидіння на відкритому повітрі</string>
 	<string name="type.leisure.park">Парк</string>
 	<string name="type.leisure.park.no.access">Парк</string>
 	<string name="type.leisure.park.permissive">Парк</string>

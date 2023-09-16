@@ -1704,6 +1704,8 @@
 
 "type.craft.brewery" = "दारूभट्टी";
 
+"type.craft.caterer" = "केटरर";
+
 "type.craft.carpenter" = "सुतार";
 
 "type.craft.confectionery" = "हलवाई";
@@ -1713,6 +1715,8 @@
 "type.craft.electronics_repair" = "इलेक्ट्रॉनिक्स दुरुस्ती";
 
 "type.craft.gardener" = "माळी";
+
+"type.craft.grinding_mill" = "ग्राइंडिंग मिल";
 
 "type.craft.handicraft" = "हस्तकला";
 
@@ -2483,6 +2487,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "संरक्षित निसर्गक्षेत्र";
+
+"type.leisure.outdoor_seating" = "बाहेरची आसनव्यवस्था";
 
 "type.leisure.park" = "उद्यान";
 

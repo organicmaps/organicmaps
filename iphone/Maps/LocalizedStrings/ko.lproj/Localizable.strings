@@ -1704,6 +1704,8 @@
 
 "type.craft.brewery" = "양조장";
 
+"type.craft.caterer" = "케이터링 업체";
+
 "type.craft.carpenter" = "목수";
 
 "type.craft.confectionery" = "과자 장수";
@@ -1713,6 +1715,8 @@
 "type.craft.electronics_repair" = "전자제품 수리";
 
 "type.craft.gardener" = "조경사";
+
+"type.craft.grinding_mill" = "그라인딩 밀";
 
 "type.craft.handicraft" = "수예";
 
@@ -2483,6 +2487,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "천연보호구역";
+
+"type.leisure.outdoor_seating" = "야외 좌석";
 
 "type.leisure.park" = "공원";
 

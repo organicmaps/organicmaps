@@ -1704,6 +1704,8 @@
 
 "type.craft.brewery" = "Kiwanda cha pombe";
 
+"type.craft.caterer" = "Mpishi";
+
 "type.craft.carpenter" = "Seremala";
 
 "type.craft.confectionery" = "Confectioner";
@@ -1713,6 +1715,8 @@
 "type.craft.electronics_repair" = "Urekebishaji wa Elektroniki";
 
 "type.craft.gardener" = "Mtunza bustani";
+
+"type.craft.grinding_mill" = "Kusaga kinu";
 
 "type.craft.handicraft" = "Kazi za mikono";
 
@@ -2483,6 +2487,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Hifadhi";
+
+"type.leisure.outdoor_seating" = "Viti vya nje";
 
 "type.leisure.park" = "Hifadhi";
 

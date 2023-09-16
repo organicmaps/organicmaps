@@ -1704,6 +1704,8 @@
 
 "type.craft.brewery" = "โรงเบียร์";
 
+"type.craft.caterer" = "พนักงานจัดเลี้ยง";
+
 "type.craft.carpenter" = "ช่างไม้";
 
 "type.craft.confectionery" = "ลูกกวาด";
@@ -1713,6 +1715,8 @@
 "type.craft.electronics_repair" = "ซ่อมเครื่องใช้ไฟฟ้า";
 
 "type.craft.gardener" = "คนจัดสวน";
+
+"type.craft.grinding_mill" = "โรงบด";
 
 "type.craft.handicraft" = "หัตถกรรม";
 
@@ -2483,6 +2487,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "เขตอนุรักษ์ธรรมชาติ";
+
+"type.leisure.outdoor_seating" = "ที่นั่งกลางแจ้ง";
 
 "type.leisure.park" = "สวนสาธารณะ";
 

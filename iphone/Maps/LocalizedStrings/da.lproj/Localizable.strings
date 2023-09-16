@@ -1704,6 +1704,8 @@
 
 "type.craft.brewery" = "Bryggeri";
 
+"type.craft.caterer" = "Caterer";
+
 "type.craft.carpenter" = "Tømrer";
 
 "type.craft.confectionery" = "Konfekture";
@@ -1713,6 +1715,8 @@
 "type.craft.electronics_repair" = "Reparation af elektronik";
 
 "type.craft.gardener" = "Gartner";
+
+"type.craft.grinding_mill" = "Slibemølle";
 
 "type.craft.handicraft" = "Kunsthåndværk";
 
@@ -2483,6 +2487,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Reservat";
+
+"type.leisure.outdoor_seating" = "Udendørs siddepladser";
 
 "type.leisure.park" = "Park";
 

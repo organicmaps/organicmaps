@@ -314,11 +314,13 @@
 	<string name="type.craft.beekeeper">Mfugaji nyuki</string>
 	<string name="type.craft.blacksmith">Mhunzi</string>
 	<string name="type.craft.brewery">Kiwanda cha pombe</string>
+	<string name="type.craft.caterer">Mpishi</string>
 	<string name="type.craft.carpenter">Seremala</string>
 	<string name="type.craft.confectionery">Confectioner</string>
 	<string name="type.craft.electrician">Fundi umeme</string>
 	<string name="type.craft.electronics_repair">Urekebishaji wa Elektroniki</string>
 	<string name="type.craft.gardener">Mtunza bustani</string>
+	<string name="type.craft.grinding_mill">Kusaga kinu</string>
 	<string name="type.craft.handicraft">Kazi za mikono</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Kiyoyozi</string>
@@ -498,6 +500,7 @@
 	<string name="type.leisure.dog_park">Eneo la mbwa</string>
 	<string name="type.leisure.dance">Ukumbi wa Ngoma</string>
 	<string name="type.leisure.nature_reserve">Hifadhi</string>
+	<string name="type.leisure.outdoor_seating">Viti vya nje</string>
 	<string name="type.leisure.park">Hifadhi</string>
 	<string name="type.leisure.park.no.access">Hifadhi</string>
 	<string name="type.leisure.park.permissive">Hifadhi</string>

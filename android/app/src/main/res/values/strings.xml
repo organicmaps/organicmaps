@@ -1009,11 +1009,13 @@
 	<string name="type.craft.beekeeper">Beekeeper</string>
 	<string name="type.craft.blacksmith">Blacksmith</string>
 	<string name="type.craft.brewery">Craft Brewery</string>
+	<string name="type.craft.caterer">Caterer</string>
 	<string name="type.craft.carpenter">Carpenter</string>
 	<string name="type.craft.confectionery">Confectioner</string>
 	<string name="type.craft.electrician">Electrician</string>
 	<string name="type.craft.electronics_repair">Electronics Repair</string>
 	<string name="type.craft.gardener">Gardener</string>
+	<string name="type.craft.grinding_mill">Grinding Mill</string>
 	<string name="type.craft.handicraft">Handicraft</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">HVAC Shop</string>
@@ -1426,6 +1428,7 @@
 	<string name="type.leisure.landscape_reserve">Landscape Reserve</string>
 	<string name="type.leisure.marina">Marina</string>
 	<string name="type.leisure.nature_reserve">Nature Reserve</string>
+	<string name="type.leisure.outdoor_seating">Outdoor Seating</string>
 	<string name="type.leisure.park">Park</string>
 	<string name="type.leisure.park.no.access">Private Park</string>
 	<string name="type.leisure.park.permissive">Park</string>

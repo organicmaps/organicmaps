@@ -917,11 +917,13 @@
 	<string name="type.craft.beekeeper">蜂农</string>
 	<string name="type.craft.blacksmith">铁匠</string>
 	<string name="type.craft.brewery">酿酒厂</string>
+	<string name="type.craft.caterer">餐饮</string>
 	<string name="type.craft.carpenter">木匠</string>
 	<string name="type.craft.confectionery">糖果商</string>
 	<string name="type.craft.electrician">电工</string>
 	<string name="type.craft.electronics_repair">电子产品维修</string>
 	<string name="type.craft.gardener">园艺工</string>
+	<string name="type.craft.grinding_mill">磨粉机</string>
 	<string name="type.craft.handicraft">手工艺</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">暖通工程师</string>
@@ -1312,6 +1314,7 @@
 	<string name="type.leisure.ice_rink">滑冰场</string>
 	<string name="type.leisure.marina">游艇码头</string>
 	<string name="type.leisure.nature_reserve">自然保护区</string>
+	<string name="type.leisure.outdoor_seating">室外座椅</string>
 	<string name="type.leisure.park">公园</string>
 	<string name="type.leisure.park.no.access">公园</string>
 	<string name="type.leisure.park.permissive">公园</string>

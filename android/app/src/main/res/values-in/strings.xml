@@ -864,11 +864,13 @@
 	<string name="type.craft.beekeeper">Peternak lebah</string>
 	<string name="type.craft.blacksmith">Pandai Besi</string>
 	<string name="type.craft.brewery">Toko minuman</string>
+	<string name="type.craft.caterer">Katering</string>
 	<string name="type.craft.carpenter">Tukang kayu</string>
 	<string name="type.craft.confectionery">Penganan</string>
 	<string name="type.craft.electrician">Tukang listrik</string>
 	<string name="type.craft.electronics_repair">Perbaikan Elektronik</string>
 	<string name="type.craft.gardener">Tukang kebun</string>
+	<string name="type.craft.grinding_mill">Pabrik penggilingan</string>
 	<string name="type.craft.handicraft">Kriya</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">HVAC</string>
@@ -1223,6 +1225,7 @@
 	<string name="type.leisure.garden.residential">Situs arkeologi</string>
 	<string name="type.leisure.golf_course">Lapangan golf</string>
 	<string name="type.leisure.nature_reserve">Cagar Alam</string>
+	<string name="type.leisure.outdoor_seating">Tempat duduk di luar ruangan</string>
 	<string name="type.leisure.park">Taman</string>
 	<string name="type.leisure.park.no.access">Taman</string>
 	<string name="type.leisure.park.permissive">Taman</string>

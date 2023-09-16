@@ -1704,6 +1704,8 @@
 
 "type.craft.brewery" = "Berărie";
 
+"type.craft.caterer" = "Catering";
+
 "type.craft.carpenter" = "Tâmplar";
 
 "type.craft.confectionery" = "Cofetar";
@@ -1713,6 +1715,8 @@
 "type.craft.electronics_repair" = "Reparații electronice";
 
 "type.craft.gardener" = "Peisagist";
+
+"type.craft.grinding_mill" = "Moara de măcinat";
 
 "type.craft.handicraft" = "Tehnici de lucru manual";
 
@@ -2483,6 +2487,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Rezervație naturală";
+
+"type.leisure.outdoor_seating" = "Scaune în aer liber";
 
 "type.leisure.park" = "Parc";
 

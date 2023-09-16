@@ -1704,6 +1704,8 @@
 
 "type.craft.brewery" = "Garagardo fabrika";
 
+"type.craft.caterer" = "Catering";
+
 "type.craft.carpenter" = "Arotza";
 
 "type.craft.confectionery" = "Gozogilea";
@@ -1713,6 +1715,8 @@
 "type.craft.electronics_repair" = "Elektronika Konponketa";
 
 "type.craft.gardener" = "Paisaia";
+
+"type.craft.grinding_mill" = "Artezteko errota";
 
 "type.craft.handicraft" = "Eskulangintza";
 
@@ -2483,6 +2487,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Erreserbatutako lurraldea";
+
+"type.leisure.outdoor_seating" = "Kanpoko eserlekuak";
 
 "type.leisure.park" = "Parkea";
 
