@@ -966,11 +966,13 @@
 	<string name="type.craft.beekeeper">Mehiläishoitaja</string>
 	<string name="type.craft.blacksmith">Seppä</string>
 	<string name="type.craft.brewery">Panimo</string>
+	<string name="type.craft.caterer">Pitopalvelu</string>
 	<string name="type.craft.carpenter">Puuseppä</string>
 	<string name="type.craft.confectionery">Kondiittori</string>
 	<string name="type.craft.electrician">Sähkömies</string>
 	<string name="type.craft.electronics_repair">Elektroniikan korjaus</string>
 	<string name="type.craft.gardener">Puutarhuri</string>
+	<string name="type.craft.grinding_mill">Jauhatusmylly</string>
 	<string name="type.craft.handicraft">Käsityö</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">LVI</string>
@@ -1358,6 +1360,7 @@
 	<string name="type.leisure.garden.residential">Puutarha</string>
 	<string name="type.leisure.golf_course">Golf-rata</string>
 	<string name="type.leisure.nature_reserve">Luonnonsuojelualue</string>
+	<string name="type.leisure.outdoor_seating">Ulkona istuminen</string>
 	<string name="type.leisure.park">Puisto</string>
 	<string name="type.leisure.park.no.access">Puisto</string>
 	<string name="type.leisure.park.permissive">Puisto</string>

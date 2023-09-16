@@ -834,11 +834,13 @@
 	<string name="type.craft.beekeeper">Пчаляр</string>
 	<string name="type.craft.blacksmith">Кузня</string>
 	<string name="type.craft.brewery">Крафтавы бровар</string>
+	<string name="type.craft.caterer">Кейтэрынг</string>
 	<string name="type.craft.carpenter">Цясляр</string>
 	<string name="type.craft.confectionery">Кандытар</string>
 	<string name="type.craft.electrician">Электрык</string>
 	<string name="type.craft.electronics_repair">Рамонт электронікі</string>
 	<string name="type.craft.gardener">Садоўнік</string>
+	<string name="type.craft.grinding_mill">Млын</string>
 	<string name="type.craft.handicraft">Рамесніцтва</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Ацяпленне, вентыляцыя і кандыцыянаванне</string>
@@ -1020,6 +1022,7 @@
 	<string name="type.leisure.dance">Танцавальная зала</string>
 	<string name="type.leisure.garden.residential">Частный сад</string>
 	<string name="type.leisure.marina">Прычал</string>
+	<string name="type.leisure.outdoor_seating">Месцы на адкрытым паветры</string>
 	<string name="type.leisure.picnic_table">Стол для пікніка</string>
 	<string name="type.sport.climbing">Скаладром</string>
 	<string name="type.sport.yoga">Ёга</string>

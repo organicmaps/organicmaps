@@ -1704,6 +1704,8 @@
 
 "type.craft.brewery" = "کارخانه ابجوسازی";
 
+"type.craft.caterer" = "پذیرایی";
+
 "type.craft.carpenter" = "نجار";
 
 "type.craft.confectionery" = "قنادی";
@@ -1713,6 +1715,8 @@
 "type.craft.electronics_repair" = "تعمیرات الکترونیک";
 
 "type.craft.gardener" = "باغبان";
+
+"type.craft.grinding_mill" = "آسیاب آسیاب";
 
 "type.craft.handicraft" = "صنایع دستی";
 
@@ -2483,6 +2487,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Nature Reserve";
+
+"type.leisure.outdoor_seating" = "نشستن در فضای باز";
 
 "type.leisure.park" = "پارک";
 

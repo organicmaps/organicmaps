@@ -898,11 +898,13 @@
 	<string name="type.craft.beekeeper">蜂農</string>
 	<string name="type.craft.blacksmith">鐵匠</string>
 	<string name="type.craft.brewery">釀酒廠</string>
+	<string name="type.craft.caterer">餐飲服務商</string>
 	<string name="type.craft.carpenter">木工</string>
 	<string name="type.craft.confectionery">糖果商</string>
 	<string name="type.craft.electrician">電工</string>
 	<string name="type.craft.electronics_repair">電子產品維修</string>
 	<string name="type.craft.gardener">園藝師</string>
+	<string name="type.craft.grinding_mill">磨粉機</string>
 	<string name="type.craft.handicraft">手工藝</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">空調設備</string>
@@ -1260,6 +1262,7 @@
 	<string name="type.leisure.garden.residential">花園</string>
 	<string name="type.leisure.golf_course">高爾夫球場</string>
 	<string name="type.leisure.nature_reserve">自然保護區</string>
+	<string name="type.leisure.outdoor_seating">戶外座位</string>
 	<string name="type.leisure.park">公園</string>
 	<string name="type.leisure.park.no.access">公園</string>
 	<string name="type.leisure.park.permissive">公園</string>

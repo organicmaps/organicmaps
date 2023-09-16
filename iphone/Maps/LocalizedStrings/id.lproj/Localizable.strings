@@ -1704,6 +1704,8 @@
 
 "type.craft.brewery" = "Toko minuman";
 
+"type.craft.caterer" = "Katering";
+
 "type.craft.carpenter" = "Tukang kayu";
 
 "type.craft.confectionery" = "Penganan";
@@ -1713,6 +1715,8 @@
 "type.craft.electronics_repair" = "Perbaikan Elektronik";
 
 "type.craft.gardener" = "Tukang kebun";
+
+"type.craft.grinding_mill" = "Pabrik penggilingan";
 
 "type.craft.handicraft" = "Kriya";
 
@@ -2483,6 +2487,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Cagar Alam";
+
+"type.leisure.outdoor_seating" = "Tempat duduk di luar ruangan";
 
 "type.leisure.park" = "Taman";
 

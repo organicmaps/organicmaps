@@ -1704,6 +1704,8 @@
 
 "type.craft.brewery" = "Nhà máy bia";
 
+"type.craft.caterer" = "Người cung cấp thực phẩm";
+
 "type.craft.carpenter" = "Thợ mộc";
 
 "type.craft.confectionery" = "Người làm bánh kẹo";
@@ -1713,6 +1715,8 @@
 "type.craft.electronics_repair" = "Sửa chữa điện tử";
 
 "type.craft.gardener" = "Người thiết kế và xây dựng cảnh quan";
+
+"type.craft.grinding_mill" = "Máy nghiền";
 
 "type.craft.handicraft" = "Thủ công mỹ nghệ";
 
@@ -2483,6 +2487,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Giữ chỗ";
+
+"type.leisure.outdoor_seating" = "Chỗ ngồi ngoài trời";
 
 "type.leisure.park" = "Công viên";
 

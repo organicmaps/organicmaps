@@ -1704,6 +1704,8 @@
 
 "type.craft.brewery" = "Bira Fabrikası";
 
+"type.craft.caterer" = "Yemek şirketi";
+
 "type.craft.carpenter" = "Marangoz";
 
 "type.craft.confectionery" = "Şekerlemeci";
@@ -1713,6 +1715,8 @@
 "type.craft.electronics_repair" = "Elektronik Tamircisi";
 
 "type.craft.gardener" = "Bahçe Düzenleyici";
+
+"type.craft.grinding_mill" = "Öğütme değirmeni";
 
 "type.craft.handicraft" = "El İşi";
 
@@ -2483,6 +2487,8 @@
 "type.leisure.marina" = "Liman";
 
 "type.leisure.nature_reserve" = "Doğal Koruma Alanı";
+
+"type.leisure.outdoor_seating" = "Dış mekan oturma";
 
 "type.leisure.park" = "Park";
 

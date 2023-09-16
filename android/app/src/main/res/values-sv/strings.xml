@@ -864,11 +864,13 @@
 	<string name="type.craft.beekeeper">Biodlare</string>
 	<string name="type.craft.blacksmith">Smedja</string>
 	<string name="type.craft.brewery">Bryggeri</string>
+	<string name="type.craft.caterer">Cateringfirma</string>
 	<string name="type.craft.carpenter">Snickare</string>
 	<string name="type.craft.confectionery">Konditor</string>
 	<string name="type.craft.electrician">Elektriker</string>
 	<string name="type.craft.electronics_repair">Reparation av elektronik</string>
 	<string name="type.craft.gardener">Trädgårdsmästare</string>
+	<string name="type.craft.grinding_mill">Kvarn för slipning</string>
 	<string name="type.craft.handicraft">Konsthantverk</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Vvs</string>
@@ -1222,6 +1224,7 @@
 	<string name="type.leisure.garden.residential">Trädgård</string>
 	<string name="type.leisure.golf_course">Golfbana</string>
 	<string name="type.leisure.nature_reserve">Naturreservat</string>
+	<string name="type.leisure.outdoor_seating">Sittplatser utomhus</string>
 	<string name="type.leisure.park">Parken</string>
 	<string name="type.leisure.park.no.access">Parken</string>
 	<string name="type.leisure.park.permissive">Parken</string>

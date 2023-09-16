@@ -1704,6 +1704,8 @@
 
 "type.craft.brewery" = "釀酒廠";
 
+"type.craft.caterer" = "餐飲服務商";
+
 "type.craft.carpenter" = "木工";
 
 "type.craft.confectionery" = "糖果商";
@@ -1713,6 +1715,8 @@
 "type.craft.electronics_repair" = "電子產品維修";
 
 "type.craft.gardener" = "園藝師";
+
+"type.craft.grinding_mill" = "磨粉機";
 
 "type.craft.handicraft" = "手工藝";
 
@@ -2483,6 +2487,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "自然保護區";
+
+"type.leisure.outdoor_seating" = "戶外座位";
 
 "type.leisure.park" = "公園";
 

@@ -863,11 +863,13 @@
 	<string name="type.craft.beekeeper">Včelár</string>
 	<string name="type.craft.blacksmith">Kováč</string>
 	<string name="type.craft.brewery">Pivovar</string>
+	<string name="type.craft.caterer">Cateringová spoločnosť</string>
 	<string name="type.craft.carpenter">Tesár</string>
 	<string name="type.craft.confectionery">Cukráreň</string>
 	<string name="type.craft.electrician">Elektrikár</string>
 	<string name="type.craft.electronics_repair">Oprava elektroniky</string>
 	<string name="type.craft.gardener">Záhradníctvo</string>
+	<string name="type.craft.grinding_mill">Mlynček na mletie</string>
 	<string name="type.craft.handicraft">Ručné práce</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Vzduchotechnika</string>
@@ -1222,6 +1224,7 @@
 	<string name="type.leisure.garden.residential">Záhrada</string>
 	<string name="type.leisure.golf_course">Golf</string>
 	<string name="type.leisure.nature_reserve">Rezervácia</string>
+	<string name="type.leisure.outdoor_seating">Vonkajšie sedenie</string>
 	<string name="type.leisure.park">Park</string>
 	<string name="type.leisure.park.no.access">Park</string>
 	<string name="type.leisure.park.permissive">Park</string>

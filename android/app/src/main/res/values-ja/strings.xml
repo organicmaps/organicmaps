@@ -897,11 +897,13 @@
 	<string name="type.craft.beekeeper">養蜂家</string>
 	<string name="type.craft.blacksmith">鍛冶屋</string>
 	<string name="type.craft.brewery">醸造所</string>
+	<string name="type.craft.caterer">ケータリング</string>
 	<string name="type.craft.carpenter">大工</string>
 	<string name="type.craft.confectionery">菓子職人</string>
 	<string name="type.craft.electrician">電気技師</string>
 	<string name="type.craft.electronics_repair">電子機器修理</string>
 	<string name="type.craft.gardener">造園家</string>
+	<string name="type.craft.grinding_mill">粉砕機</string>
 	<string name="type.craft.handicraft">手芸</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">冷暖房空調</string>
@@ -1294,6 +1296,7 @@
 	<string name="type.leisure.landscape_reserve">自然保護区</string>
 	<string name="type.leisure.marina">マリーナ</string>
 	<string name="type.leisure.nature_reserve">自然保護区</string>
+	<string name="type.leisure.outdoor_seating">屋外席</string>
 	<string name="type.leisure.park">公園</string>
 	<string name="type.leisure.park.no.access">公園</string>
 	<string name="type.leisure.park.permissive">公園</string>

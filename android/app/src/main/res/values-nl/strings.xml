@@ -970,11 +970,13 @@
 	<string name="type.craft.beekeeper">Imker</string>
 	<string name="type.craft.blacksmith">Smid</string>
 	<string name="type.craft.brewery">Brouwerij</string>
+	<string name="type.craft.caterer">Traiteur</string>
 	<string name="type.craft.carpenter">Timmerman</string>
 	<string name="type.craft.confectionery">Banketbakkerij</string>
 	<string name="type.craft.electrician">Elektricien</string>
 	<string name="type.craft.electronics_repair">Electronica-reparatie</string>
 	<string name="type.craft.gardener">Tuinarchitect</string>
+	<string name="type.craft.grinding_mill">Malende molen</string>
 	<string name="type.craft.handicraft">Handwerk</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Airconditioning</string>
@@ -1367,6 +1369,7 @@
 	<string name="type.leisure.landscape_reserve">Landschapsreservaat</string>
 	<string name="type.leisure.marina">Jachthaven</string>
 	<string name="type.leisure.nature_reserve">Natuurreservaat</string>
+	<string name="type.leisure.outdoor_seating">Zitplaatsen buiten</string>
 	<string name="type.leisure.park">Park</string>
 	<string name="type.leisure.park.no.access">Park</string>
 	<string name="type.leisure.park.permissive">Park</string>

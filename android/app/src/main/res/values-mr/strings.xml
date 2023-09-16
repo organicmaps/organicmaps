@@ -911,11 +911,13 @@
 	<string name="type.craft.beekeeper">मधमाश्या पाळणारा</string>
 	<string name="type.craft.blacksmith">लोहार</string>
 	<string name="type.craft.brewery">दारूभट्टी</string>
+	<string name="type.craft.caterer">केटरर</string>
 	<string name="type.craft.carpenter">सुतार</string>
 	<string name="type.craft.confectionery">हलवाई</string>
 	<string name="type.craft.electrician">इलेक्ट्रिशियन</string>
 	<string name="type.craft.electronics_repair">इलेक्ट्रॉनिक्स दुरुस्ती</string>
 	<string name="type.craft.gardener">माळी</string>
+	<string name="type.craft.grinding_mill">ग्राइंडिंग मिल</string>
 	<string name="type.craft.handicraft">हस्तकला</string>
 	<string name="type.craft.key_cutter">की कटिंग</string>
 	<string name="type.craft.locksmith">लॉकस्मिथ</string>
@@ -1239,6 +1241,7 @@
 	<string name="type.leisure.golf_course">गोल्फचे मैदान</string>
 	<string name="type.leisure.ice_rink">हिम क्रीडा क्षेत्र</string>
 	<string name="type.leisure.nature_reserve">संरक्षित निसर्गक्षेत्र</string>
+	<string name="type.leisure.outdoor_seating">बाहेरची आसनव्यवस्था</string>
 	<string name="type.leisure.park">उद्यान</string>
 	<string name="type.leisure.park.no.access">उद्यान</string>
 	<string name="type.leisure.park.permissive">उद्यान</string>

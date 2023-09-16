@@ -1704,6 +1704,8 @@
 
 "type.craft.brewery" = "Крафтавы бровар";
 
+"type.craft.caterer" = "Кейтэрынг";
+
 "type.craft.carpenter" = "Цясляр";
 
 "type.craft.confectionery" = "Кандытар";
@@ -1713,6 +1715,8 @@
 "type.craft.electronics_repair" = "Рамонт электронікі";
 
 "type.craft.gardener" = "Садоўнік";
+
+"type.craft.grinding_mill" = "Млын";
 
 "type.craft.handicraft" = "Рамесніцтва";
 
@@ -2483,6 +2487,8 @@
 "type.leisure.marina" = "Прычал";
 
 "type.leisure.nature_reserve" = "Nature Reserve";
+
+"type.leisure.outdoor_seating" = "Месцы на адкрытым паветры";
 
 "type.leisure.park" = "Park";
 

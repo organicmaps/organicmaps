@@ -1704,6 +1704,8 @@
 
 "type.craft.brewery" = "Sörfőzde";
 
+"type.craft.caterer" = "Catering";
+
 "type.craft.carpenter" = "Ács";
 
 "type.craft.confectionery" = "Cukrászda";
@@ -1713,6 +1715,8 @@
 "type.craft.electronics_repair" = "Elektronikai javítás";
 
 "type.craft.gardener" = "Kertész";
+
+"type.craft.grinding_mill" = "Csiszolómalom";
 
 "type.craft.handicraft" = "Kézművesség";
 
@@ -2483,6 +2487,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Védett terület";
+
+"type.leisure.outdoor_seating" = "Kültéri ülőhelyek";
 
 "type.leisure.park" = "Park";
 

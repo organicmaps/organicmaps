@@ -1704,6 +1704,8 @@
 
 "type.craft.brewery" = "Pivovar";
 
+"type.craft.caterer" = "Cateringová společnost";
+
 "type.craft.carpenter" = "Truhlář";
 
 "type.craft.confectionery" = "Cukrářské výrobky";
@@ -1713,6 +1715,8 @@
 "type.craft.electronics_repair" = "Opravy elektroniky";
 
 "type.craft.gardener" = "Zahradník";
+
+"type.craft.grinding_mill" = "Mlýn na mletí";
 
 "type.craft.handicraft" = "Ruční práce";
 
@@ -2483,6 +2487,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Rezervace";
+
+"type.leisure.outdoor_seating" = "Venkovní posezení";
 
 "type.leisure.park" = "Park";
 

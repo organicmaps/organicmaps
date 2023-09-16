@@ -866,11 +866,13 @@
 	<string name="type.craft.beekeeper">Μελισσοκόμος</string>
 	<string name="type.craft.blacksmith">Σιδηρουργός</string>
 	<string name="type.craft.brewery">Ζυθοποιείο</string>
+	<string name="type.craft.caterer">Τροφοδότης</string>
 	<string name="type.craft.carpenter">Ξυλουργός</string>
 	<string name="type.craft.confectionery">Ζαχαροπλάστης</string>
 	<string name="type.craft.electrician">Ηλεκτρολόγος</string>
 	<string name="type.craft.electronics_repair">Επισκευή ηλεκτρονικών</string>
 	<string name="type.craft.gardener">Κηπουρός</string>
+	<string name="type.craft.grinding_mill">Μύλος λείανσης</string>
 	<string name="type.craft.handicraft">Χειροτεχνία</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Ψυκτικός</string>
@@ -1227,6 +1229,7 @@
 	<string name="type.leisure.garden.residential">Κήπος αναψυχής</string>
 	<string name="type.leisure.golf_course">Γήπεδο γκολφ</string>
 	<string name="type.leisure.nature_reserve">Φυσικό απόθεμα</string>
+	<string name="type.leisure.outdoor_seating">Καθίσματα εξωτερικού χώρου</string>
 	<string name="type.leisure.park">Πάρκο</string>
 	<string name="type.leisure.park.no.access">Πάρκο</string>
 	<string name="type.leisure.park.permissive">Πάρκο</string>

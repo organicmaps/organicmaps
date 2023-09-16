@@ -1704,6 +1704,8 @@
 
 "type.craft.brewery" = "Ζυθοποιείο";
 
+"type.craft.caterer" = "Τροφοδότης";
+
 "type.craft.carpenter" = "Ξυλουργός";
 
 "type.craft.confectionery" = "Ζαχαροπλάστης";
@@ -1713,6 +1715,8 @@
 "type.craft.electronics_repair" = "Επισκευή ηλεκτρονικών";
 
 "type.craft.gardener" = "Κηπουρός";
+
+"type.craft.grinding_mill" = "Μύλος λείανσης";
 
 "type.craft.handicraft" = "Χειροτεχνία";
 
@@ -2483,6 +2487,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Φυσικό απόθεμα";
+
+"type.leisure.outdoor_seating" = "Καθίσματα εξωτερικού χώρου";
 
 "type.leisure.park" = "Πάρκο";
 

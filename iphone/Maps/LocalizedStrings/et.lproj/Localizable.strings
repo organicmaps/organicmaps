@@ -1704,6 +1704,8 @@
 
 "type.craft.brewery" = "Käsitööpruulikoda";
 
+"type.craft.caterer" = "Catering";
+
 "type.craft.carpenter" = "Puusepp";
 
 "type.craft.confectionery" = "Maiustused";
@@ -1713,6 +1715,8 @@
 "type.craft.electronics_repair" = "Elektroonika remont";
 
 "type.craft.gardener" = "Aednik";
+
+"type.craft.grinding_mill" = "Jahvatusveski";
 
 "type.craft.handicraft" = "Käsitöö";
 
@@ -2483,6 +2487,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Looduskaitseala";
+
+"type.leisure.outdoor_seating" = "Istekohad õues";
 
 "type.leisure.park" = "Park";
 

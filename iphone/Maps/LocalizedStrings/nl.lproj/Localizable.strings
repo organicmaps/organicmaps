@@ -1704,6 +1704,8 @@
 
 "type.craft.brewery" = "Brouwerij";
 
+"type.craft.caterer" = "Traiteur";
+
 "type.craft.carpenter" = "Timmerman";
 
 "type.craft.confectionery" = "Banketbakkerij";
@@ -1713,6 +1715,8 @@
 "type.craft.electronics_repair" = "Electronica-reparatie";
 
 "type.craft.gardener" = "Tuinarchitect";
+
+"type.craft.grinding_mill" = "Malende molen";
 
 "type.craft.handicraft" = "Handwerk";
 
@@ -2483,6 +2487,8 @@
 "type.leisure.marina" = "Jachthaven";
 
 "type.leisure.nature_reserve" = "Natuurreservaat";
+
+"type.leisure.outdoor_seating" = "Zitplaatsen buiten";
 
 "type.leisure.park" = "Park";
 

@@ -1704,6 +1704,8 @@
 
 "type.craft.brewery" = "مصنع جعة";
 
+"type.craft.caterer" = "متعهد تقديم الطعام";
+
 "type.craft.carpenter" = "نجار";
 
 "type.craft.confectionery" = "حلواني";
@@ -1713,6 +1715,8 @@
 "type.craft.electronics_repair" = "إصلاح الإلكترونيات";
 
 "type.craft.gardener" = "بستاني";
+
+"type.craft.grinding_mill" = "طاحونة";
 
 "type.craft.handicraft" = "مشغولات يدوية";
 
@@ -2483,6 +2487,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "محمية طبيعية";
+
+"type.leisure.outdoor_seating" = "جلوس في الهواء الطلق";
 
 "type.leisure.park" = "متنزه";
 

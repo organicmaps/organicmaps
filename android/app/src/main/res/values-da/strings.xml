@@ -862,11 +862,13 @@
 	<string name="type.craft.beekeeper">Biavler</string>
 	<string name="type.craft.blacksmith">Smed</string>
 	<string name="type.craft.brewery">Bryggeri</string>
+	<string name="type.craft.caterer">Caterer</string>
 	<string name="type.craft.carpenter">Tømrer</string>
 	<string name="type.craft.confectionery">Konfekture</string>
 	<string name="type.craft.electrician">Elektriker</string>
 	<string name="type.craft.electronics_repair">Reparation af elektronik</string>
 	<string name="type.craft.gardener">Gartner</string>
+	<string name="type.craft.grinding_mill">Slibemølle</string>
 	<string name="type.craft.handicraft">Kunsthåndværk</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Blikkenslager</string>
@@ -1220,6 +1222,7 @@
 	<string name="type.leisure.garden.residential">Have</string>
 	<string name="type.leisure.golf_course">Golf</string>
 	<string name="type.leisure.nature_reserve">Reservat</string>
+	<string name="type.leisure.outdoor_seating">Udendørs siddepladser</string>
 	<string name="type.leisure.park">Park</string>
 	<string name="type.leisure.park.no.access">Park</string>
 	<string name="type.leisure.park.permissive">Park</string>

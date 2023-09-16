@@ -1704,6 +1704,8 @@
 
 "type.craft.brewery" = "Panimo";
 
+"type.craft.caterer" = "Pitopalvelu";
+
 "type.craft.carpenter" = "Puuseppä";
 
 "type.craft.confectionery" = "Kondiittori";
@@ -1713,6 +1715,8 @@
 "type.craft.electronics_repair" = "Elektroniikan korjaus";
 
 "type.craft.gardener" = "Puutarhuri";
+
+"type.craft.grinding_mill" = "Jauhatusmylly";
 
 "type.craft.handicraft" = "Käsityö";
 
@@ -2483,6 +2487,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Luonnonsuojelualue";
+
+"type.leisure.outdoor_seating" = "Ulkona istuminen";
 
 "type.leisure.park" = "Puisto";
 

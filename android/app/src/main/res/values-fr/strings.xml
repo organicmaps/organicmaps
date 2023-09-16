@@ -964,11 +964,13 @@
 	<string name="type.craft.beekeeper">Apiculteur</string>
 	<string name="type.craft.blacksmith">Forgeron</string>
 	<string name="type.craft.brewery">Brasserie artisanale</string>
+	<string name="type.craft.caterer">Traiteur</string>
 	<string name="type.craft.carpenter">Charpentier</string>
 	<string name="type.craft.confectionery">Confiseur</string>
 	<string name="type.craft.electrician">Électricien</string>
 	<string name="type.craft.electronics_repair">Réparation d\'appareils électroniques</string>
 	<string name="type.craft.gardener">Paysagiste</string>
+	<string name="type.craft.grinding_mill">Moulin à broyer</string>
 	<string name="type.craft.handicraft">Artisanat</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Chauffage, ventilation et climatisation</string>
@@ -1352,6 +1354,7 @@
 	<string name="type.leisure.golf_course">Terrain de golf</string>
 	<string name="type.leisure.ice_rink">Patinoire</string>
 	<string name="type.leisure.nature_reserve">Réserve naturelle</string>
+	<string name="type.leisure.outdoor_seating">Sièges extérieurs</string>
 	<string name="type.leisure.park">Parc</string>
 	<string name="type.leisure.park.no.access">Parc</string>
 	<string name="type.leisure.park.permissive">Parc</string>

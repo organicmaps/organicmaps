@@ -1704,6 +1704,8 @@
 
 "type.craft.brewery" = "מבשלה";
 
+"type.craft.caterer" = "קייטרינג";
+
 "type.craft.carpenter" = "נגר";
 
 "type.craft.confectionery" = "קוֹנדִיטוֹר";
@@ -1713,6 +1715,8 @@
 "type.craft.electronics_repair" = "תיקון אלקטרוניקה";
 
 "type.craft.gardener" = "גנן";
+
+"type.craft.grinding_mill" = "טחינה טחינה";
 
 "type.craft.handicraft" = "אומנות";
 
@@ -2483,6 +2487,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Nature Reserve";
+
+"type.leisure.outdoor_seating" = "ישיבה בחוץ";
 
 "type.leisure.park" = "Park";
 
