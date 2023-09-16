@@ -147,7 +147,7 @@ public class PlacePageBookmarkFragment extends Fragment implements View.OnClickL
     // MapObject could be something else than a bookmark if the user already has the place page
     // opened and clicks on a non-bookmarked POI.
     // This callback would be called before the fragment had time to be destroyed
-    if (mapObject != null && mapObject.getMapObjectType() == MapObject.BOOKMARK)
+    if (mapObject != null && mapObject.isBookmark())
     {
       currentBookmark = (Bookmark) mapObject;
       updateBookmarkDetails();
