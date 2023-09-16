@@ -46,6 +46,33 @@ struct BookmarkDataV8
 
   bool operator!=(BookmarkDataV8 const & data) const { return !operator==(data); }
 
+  BookmarkDataV8()
+  {
+
+  }
+
+  // Initialize using latest version of BookmarkData
+  BookmarkDataV8(BookmarkData src)
+  {
+    // Copy all fields from `src` except `m_minZoom`
+    m_id = src.m_id;
+    m_name = src.m_name;
+    m_description = src.m_description;
+    m_featureTypes = src.m_featureTypes;
+    m_customName = src.m_customName;
+    m_color = src.m_color;
+    m_icon = src.m_icon;
+    m_viewportScale = src.m_viewportScale;
+    m_timestamp = src.m_timestamp;
+    m_point = src.m_point;
+    m_boundTracks = src.m_boundTracks;
+    m_visible = src.m_visible;
+    m_nearestToponym = src.m_nearestToponym;
+    m_properties = src.m_properties;
+    m_compilations = src.m_compilations;
+    m_collectionIndex = src.m_collectionIndex;
+  }
+
   BookmarkData ConvertToLatestVersion()
   {
     BookmarkData data;

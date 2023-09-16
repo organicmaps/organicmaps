@@ -9,6 +9,7 @@ set(SRC
   serdes.hpp
   serdes_binary.cpp
   serdes_binary.hpp
+  serdes_binary_v8.hpp
   serdes_gpx.cpp
   serdes_gpx.hpp
   type_utils.cpp

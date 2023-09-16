@@ -122,7 +122,7 @@ public:
       writer.Append(str);
   }
 
-private:
+protected:
   FileData & m_data;
   std::vector<std::string> m_strings;
 };
