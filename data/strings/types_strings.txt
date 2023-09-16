@@ -6613,6 +6613,46 @@
     zh-Hans = 园艺工
     zh-Hant = 園藝師
 
+  [type.craft.grinding_mill]
+    en = Grinding Mill
+    ar = طاحونة
+    be = Млын
+    bg = Мелница за смилане
+    ca = Molí de mòlta
+    cs = Mlýn na mletí
+    da = Slibemølle
+    de = Mühle
+    el = Μύλος λείανσης
+    es = Molino de molienda
+    et = Jahvatusveski
+    eu = Artezteko errota
+    fa = آسیاب آسیاب
+    fi = Jauhatusmylly
+    fr = Moulin à broyer
+    he = טחינה טחינה
+    hu = Csiszolómalom
+    id = Pabrik penggilingan
+    it = Mulino a macina
+    ja = 粉砕機
+    ko = 그라인딩 밀
+    mr = ग्राइंडिंग मिल
+    nb = Slipemølle
+    nl = Malende molen
+    pl = Młynek do mielenia
+    pt = Moinho de moagem
+    pt-BR = Moinho
+    ro = Moara de măcinat
+    ru = Мельница
+    sk = Mlynček na mletie
+    sv = Kvarn för slipning
+    sw = Kusaga kinu
+    th = โรงบด
+    tr = Öğütme değirmeni
+    uk = Млин
+    vi = Máy nghiền
+    zh-Hans = 磨粉机
+    zh-Hant = 磨粉機
+
   [type.craft.handicraft]
     en = Handicraft
     af = Handvlyt

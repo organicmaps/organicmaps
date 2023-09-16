@@ -10124,6 +10124,45 @@ vi:Người thiết kế và xây dựng cảnh quan
 zh-Hans:园艺工
 zh-Hant:園藝師
 
+craft-grinding_mill
+en:Mill
+ar:مطحنة
+be:Млын
+bg:Мелница
+ca:Molí
+cs:Mlýn
+da:Mølle
+de:Mühle
+el:Μύλος
+es:Molino
+et:Mill
+eu:Errota
+fa:کارخانه
+fi:Mill
+fr:Moulin
+he:טחנה
+hu:Malom
+id:Pabrik
+it:Mulino
+ja:ミル
+ko:밀
+mr:गिरणी
+nb:Mølle
+nl:Molen
+pl:Młyn
+pt:Moinho
+ro:Moara
+ru:Мельница
+sk:Mlyn
+sv:Kvarn
+sw:Kinu
+th:มิลล์
+tr:Değirmen
+uk:Млин
+vi:Cối xay
+zh-Hans:磨坊
+zh-Hant:磨
+
 craft-handicraft
 en:Handicraft
 ar:مشغولات يدوية
