@@ -1580,3 +1580,6 @@ amenity|recycling|container
 *historic|mine
 *historic|wreck
 *historic|locomotive
+*craft|caterer
+*craft|grinding_mill
+*leisure|outdoor_seating
