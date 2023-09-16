@@ -108,11 +108,11 @@ enum MultiTouchAction
   MULTITOUCH_CANCEL =  0x00000004
 };
 
-Framework::Framework()
-  : m_lastCompass(0.0)
-  , m_isSurfaceDestroyed(false)
-  , m_isChoosePositionMode(false)
+Framework::Framework(std::function<void()> && afterMapsLoaded)
+: m_work({} /* params */, false /* loadMaps */)
 {
+  m_work.LoadMapsAsync(std::move(afterMapsLoaded));
+
   m_work.GetTrafficManager().SetStateListener(bind(&Framework::TrafficStateChanged, this, _1));
   m_work.GetTransitManager().SetStateListener(bind(&Framework::TransitSchemeStateChanged, this, _1));
   m_work.GetIsolinesManager().SetStateListener(bind(&Framework::IsolinesSchemeStateChanged, this, _1));
@@ -1351,9 +1351,8 @@ JNIEXPORT void JNICALL
 Java_app_organicmaps_Framework_nativeSetRoutingListener(JNIEnv * env, jclass, jobject listener)
 {
   CHECK(g_framework, ("Framework isn't created yet!"));
-  auto rf = jni::make_global_ref(listener);
   frm()->GetRoutingManager().SetRouteBuildingListener(
-      [rf](routing::RouterResultCode e, storage::CountriesSet const & countries) {
+      [rf = jni::make_global_ref(listener)](routing::RouterResultCode e, storage::CountriesSet const & countries) {
         CallRoutingListener(rf, static_cast<int>(e), countries);
       });
 }

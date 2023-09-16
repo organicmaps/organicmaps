@@ -210,7 +210,7 @@ protected:
   void InitTransliteration();
 
 public:
-  explicit Framework(FrameworkParams const & params = {});
+  explicit Framework(FrameworkParams const & params = {}, bool loadMaps = true);
   virtual ~Framework() override;
 
   df::DrapeApi & GetDrapeApi() { return m_drapeApi; }
@@ -218,6 +218,9 @@ public:
   /// \returns true if there're unsaved changes in map with |countryId| and false otherwise.
   /// \note It works for group and leaf node.
   bool HasUnsavedEdits(storage::CountryId const & countryId);
+
+  void LoadMapsSync();
+  void LoadMapsAsync(std::function<void()> && callback);
 
   /// Registers all local map files in internal indexes.
   void RegisterAllMaps();

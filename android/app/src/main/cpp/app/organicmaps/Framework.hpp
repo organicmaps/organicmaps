@@ -57,11 +57,9 @@ namespace android
     ::Framework m_work;
 
     math::LowPassVector<float, 3> m_sensors[2];
-    double m_lastCompass;
+    double m_lastCompass = 0;
 
     std::string m_searchQuery;
-
-    bool m_isSurfaceDestroyed;
 
     std::map<gui::EWidget, gui::Position> m_guiPositions;
 
@@ -77,10 +75,11 @@ namespace android
     TransitReadManager::TransitStateChangedFn m_onTransitStateChangedFn;
     IsolinesManager::IsolinesStateChangedFn m_onIsolinesStateChangedFn;
 
-    bool m_isChoosePositionMode;
+    bool m_isChoosePositionMode = false;
+    bool m_isSurfaceDestroyed = false;
 
   public:
-    Framework();
+    Framework(std::function<void()> && afterMapsLoaded);
 
     storage::Storage & GetStorage();
     DataSource const & GetDataSource();
