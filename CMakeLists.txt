@@ -209,9 +209,9 @@ if (PLATFORM_LINUX OR PLATFORM_ANDROID)
 endif()
 
 if (NOT SKIP_TESTS)
-  set(SKIP_TESTS FALSE)
   enable_testing()
-  set(CTEST_CONFIGURATION_TYPE ${CMAKE_BUILD_TYPE})
+  # Enables ctest -T memcheck with valgrind
+  include(CTest)
 endif()
 
 if (NOT PYTHON_VERSION)
