@@ -48,7 +48,7 @@ public class SharingUtils
     Intent intent = new Intent(Intent.ACTION_SEND);
     intent.setType(TEXT_MIME_TYPE);
 
-    final String subject = MapObject.isOfType(MapObject.MY_POSITION, object) ?
+    final String subject = object.isMyPosition() ?
                            context.getString(R.string.my_position_share_email_subject) :
                            context.getString(R.string.bookmark_share_email_subject);
     intent.putExtra(Intent.EXTRA_SUBJECT, subject);

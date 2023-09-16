@@ -268,12 +268,6 @@ public class MapObject implements PopularityProvider, PlacePageData
     return mMetadata != null && !mMetadata.isEmpty();
   }
 
-  @MapObjectType
-  public int getMapObjectType()
-  {
-    return mMapObjectType;
-  }
-
   public String getApiId()
   {
     return mApiId;
@@ -315,9 +309,19 @@ public class MapObject implements PopularityProvider, PlacePageData
     return !TextUtils.isEmpty(getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER));
   }
 
-  public static boolean isOfType(@MapObjectType int type, MapObject object)
+  public final boolean isMyPosition()
   {
-    return object != null && object.getMapObjectType() == type;
+    return mMapObjectType == MY_POSITION;
+  }
+
+  public final boolean isBookmark()
+  {
+    return mMapObjectType == BOOKMARK;
+  }
+
+  public final boolean isApiPoint()
+  {
+    return mMapObjectType == API_POINT;
   }
 
   @Nullable

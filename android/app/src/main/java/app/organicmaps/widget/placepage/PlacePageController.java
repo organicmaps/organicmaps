@@ -409,7 +409,7 @@ public class PlacePageController extends Fragment implements
     if (mMapObject == null)
       return;
     // No need to call setMapObject here as the native methods will reopen the place page
-    if (MapObject.isOfType(MapObject.BOOKMARK, mMapObject))
+    if (mMapObject.isBookmark())
       Framework.nativeDeleteBookmarkFromMapObject();
     else
       BookmarkManager.INSTANCE.addNewBookmark(mMapObject.getLat(), mMapObject.getLon());
@@ -565,7 +565,7 @@ public class PlacePageController extends Fragment implements
       if (needToShowRoutingButtons && RoutingController.get().isStopPointAllowed())
         buttons.add(PlacePageButtons.ButtonType.ROUTE_ADD);
       else
-        buttons.add(mapObject.getMapObjectType() == MapObject.BOOKMARK
+        buttons.add(mapObject.isBookmark()
                     ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
                     : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
 
@@ -573,7 +573,7 @@ public class PlacePageController extends Fragment implements
       {
         buttons.add(PlacePageButtons.ButtonType.ROUTE_TO);
         if (RoutingController.get().isStopPointAllowed())
-          buttons.add(mapObject.getMapObjectType() == MapObject.BOOKMARK
+          buttons.add(mapObject.isBookmark()
                       ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
                       : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
       }
@@ -595,8 +595,8 @@ public class PlacePageController extends Fragment implements
       createPlacePageFragments();
       updateButtons(
           mapObject,
-          MapObject.isOfType(MapObject.API_POINT, mMapObject),
-          !MapObject.isOfType(MapObject.MY_POSITION, mMapObject));
+          mMapObject.isApiPoint(),
+          !mMapObject.isMyPosition());
     }
     else
       close();

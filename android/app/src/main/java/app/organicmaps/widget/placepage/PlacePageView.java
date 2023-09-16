@@ -286,7 +286,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     refreshPreview();
     refreshDetails();
     final Location loc = LocationHelper.from(requireContext()).getSavedLocation();
-    if (mMapObject.getMapObjectType() == MapObject.MY_POSITION)
+    if (mMapObject.isMyPosition())
       refreshMyPosition(loc);
     else
       refreshDistanceToObject(loc);
@@ -331,7 +331,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
   private void updateBookmarkView()
   {
-    updateViewFragment(PlacePageBookmarkFragment.class, BOOKMARK_FRAGMENT_TAG, R.id.place_page_bookmark_fragment, mMapObject.getMapObjectType() == MapObject.BOOKMARK);
+    updateViewFragment(PlacePageBookmarkFragment.class, BOOKMARK_FRAGMENT_TAG, R.id.place_page_bookmark_fragment,
+        mMapObject.isBookmark());
   }
 
   private boolean hasWikipediaEntry()
@@ -645,7 +646,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   {
     if (mMapObject == null)
       return;
-    if (MapObject.isOfType(MapObject.MY_POSITION, mMapObject))
+    if (mMapObject.isMyPosition())
       refreshMyPosition(location);
     else
       refreshDistanceToObject(location);
@@ -654,7 +655,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   @Override
   public void onCompassUpdated(double north)
   {
-    if (mMapObject == null || MapObject.isOfType(MapObject.MY_POSITION, mMapObject))
+    if (mMapObject == null || mMapObject.isMyPosition())
       return;
 
     final Location location = LocationHelper.from(requireContext()).getSavedLocation();

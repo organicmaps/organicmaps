@@ -300,13 +300,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     BookmarkCategoriesActivity.start(this);
   }
 
-  public void showHelp()
+  private void showHelp()
   {
     Intent intent = new Intent(this, HelpActivity.class);
     startActivity(intent);
   }
 
-  public void showSearch(String query)
+  private void showSearch(String query)
   {
     closeSearchToolbar(false, true);
     if (mIsTabletLayout)
@@ -349,8 +349,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .show();
   }
 
-  @Override
-  public void showDownloader(boolean openDownloaded)
+  private void showDownloader(boolean openDownloaded)
   {
     final Bundle args = new Bundle();
     args.putBoolean(DownloaderActivity.EXTRA_OPEN_DOWNLOADED, openDownloaded);
@@ -678,7 +677,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         showBookmarks();
         break;
       case search:
-        showSearch();
+        showSearch("");
         break;
       case menu:
         closeFloatingPanels();
@@ -1265,12 +1264,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void showSearch()
-  {
-    showSearch("");
-  }
-
-  @Override
   public void updateMenu()
   {
     final RoutingController controller = RoutingController.get();
@@ -1319,21 +1312,21 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     MapObject myPosition = LocationHelper.from(this).getMyPosition();
 
-    if (myPosition != null && !controller.hasEndPoint())
+    if (myPosition != null && controller.getEndPoint() == null)
     {
       showAddFinishFrame();
       if (showFrame)
         showMainMenu(true);
       return true;
     }
-    if (!controller.hasStartPoint())
+    if (controller.getStartPoint() == null)
     {
       showAddStartFrame();
       if (showFrame)
         showMainMenu(true);
       return true;
     }
-    if (!controller.hasEndPoint())
+    if (controller.getEndPoint() == null)
     {
       showAddFinishFrame();
       if (showFrame)
@@ -1610,9 +1603,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .show();
   }
 
-  @Override
-  public void onShowDisclaimer(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
+  private boolean showRoutingDisclaimer()
   {
+    if (Config.isRoutingDisclaimerAccepted())
+      return true;
+
     final StringBuilder builder = new StringBuilder();
     for (int resId : new int[]{R.string.dialog_routing_disclaimer_priority, R.string.dialog_routing_disclaimer_precision,
         R.string.dialog_routing_disclaimer_recommendations, R.string.dialog_routing_disclaimer_borders,
@@ -1627,17 +1622,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .setNegativeButton(R.string.decline, null)
         .setPositiveButton(R.string.accept, (dlg, which) -> {
           Config.acceptRoutingDisclaimer();
-          RoutingController.get().prepare(startPoint, endPoint);
+          onRoutingStart();
         })
         .setOnDismissListener(dialog -> mAlertDialog = null)
         .show();
+
+    return false;
   }
 
-  private void onSuggestRebuildRoute()
+  private boolean showStartPointNotice()
   {
     final RoutingController controller = RoutingController.get();
 
     // Starting and ending points must be non-null, see {@link #showAddStartOrFinishFrame() }.
+    final MapObject startPoint = Objects.requireNonNull(controller.getStartPoint());
+    if (startPoint.isMyPosition())
+      return true;
 
     final MapObject endPoint = Objects.requireNonNull(controller.getEndPoint());
     final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
@@ -1645,7 +1645,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .setMessage(R.string.p2p_reroute_from_current)
         .setCancelable(false)
         .setNegativeButton(R.string.cancel, null)
-        .setPositiveButton(R.string.ok, MapObject.isOfType(MapObject.MY_POSITION, endPoint) ?
+        .setPositiveButton(R.string.ok, endPoint.isMyPosition() ?
             (dialog, which) -> controller.swapPoints() :
             (dialog, which) -> {
               // The current location may change while this dialog is still shown on the screen.
@@ -1656,6 +1656,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .setOnDismissListener(dialog -> mAlertDialog = null);
     dismissAlertDialog();
     mAlertDialog = builder.show();
+    return false;
   }
 
   @Override
@@ -2000,13 +2001,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onRoutingStart()
   {
-    final RoutingController routing = RoutingController.get();
-    final MapObject my = LocationHelper.from(this).getMyPosition();
-    if (my == null || !MapObject.isOfType(MapObject.MY_POSITION, routing.getStartPoint()))
-    {
-      onSuggestRebuildRoute();
+    if (!showStartPointNotice())
       return;
-    }
+
+    if (!showRoutingDisclaimer())
+      return;
 
     closeFloatingPanels();
     RoutingController.get().start();

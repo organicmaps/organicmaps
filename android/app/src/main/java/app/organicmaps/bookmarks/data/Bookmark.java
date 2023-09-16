@@ -96,13 +96,6 @@ public class Bookmark extends MapObject
     return mIcon;
   }
 
-  @Override
-  @MapObjectType
-  public int getMapObjectType()
-  {
-    return MapObject.BOOKMARK;
-  }
-
   public String getCategoryName()
   {
     return BookmarkManager.INSTANCE.getCategoryById(mCategoryId).getName();
