@@ -388,7 +388,7 @@ struct TrackData
 struct CategoryData
 {
   DECLARE_VISITOR_AND_DEBUG_PRINT(CategoryData, visitor(m_id, "id"),
-                                  //visitor(m_compilationId, "compilationId"),
+                                  visitor(m_compilationId, "compilationId"),
                                   visitor(m_type, "type"),
                                   visitor(m_name, "name"),
                                   visitor(m_imageUrl, "imageUrl"),
