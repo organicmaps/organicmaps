@@ -142,9 +142,10 @@ public class SplashActivity extends AppCompatActivity
   private void init()
   {
     MwmApplication app = MwmApplication.from(this);
+    boolean asyncContinue = false;
     try
     {
-      app.init();
+      asyncContinue = app.init(this);
     } catch (IOException e)
     {
       showFatalErrorDialog(R.string.dialog_error_storage_title, R.string.dialog_error_storage_message);
@@ -160,11 +161,13 @@ public class SplashActivity extends AppCompatActivity
         LocationHelper.INSTANCE.start();
     }
 
-    processNavigation();
+    if (!asyncContinue)
+      processNavigation();
   }
 
-  @SuppressWarnings("unchecked")
-  private void processNavigation()
+  // Called from MwmApplication::nativeInitFramework like callback.
+  @SuppressWarnings({"unused", "unchecked"})
+  public void processNavigation()
   {
     Intent input = getIntent();
     Intent result = new Intent(this, DownloadResourcesLegacyActivity.class);

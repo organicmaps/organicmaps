@@ -153,10 +153,10 @@ public class MwmApplication extends Application implements Application.ActivityL
    * @throws IOException - if failed to create directories. Caller must handle
    * the exception and do nothing with native code if initialization is failed.
    */
-  public void init() throws IOException
+  public boolean init(SplashActivity listener) throws IOException
   {
     initNativePlatform();
-    initNativeFramework();
+    return initNativeFramework(listener);
   }
 
   private void initNativePlatform() throws IOException
@@ -203,12 +203,12 @@ public class MwmApplication extends Application implements Application.ActivityL
     StorageUtils.requireDirectory(tempPath);
   }
 
-  private void initNativeFramework()
+  private boolean initNativeFramework(SplashActivity listener)
   {
     if (mFrameworkInitialized)
-      return;
+      return false;
 
-    nativeInitFramework();
+    nativeInitFramework(listener);
 
     MapManager.nativeSubscribe(mStorageCallbacks);
 
@@ -223,10 +223,11 @@ public class MwmApplication extends Application implements Application.ActivityL
     TrafficManager.INSTANCE.initialize(null);
     SubwayManager.from(this).initialize(null);
     IsolinesManager.from(this).initialize(null);
+    ProcessLifecycleOwner.get().getLifecycle().addObserver(mProcessLifecycleObserver);
 
     Logger.i(TAG, "Framework initialized");
     mFrameworkInitialized = true;
-    ProcessLifecycleOwner.get().getLifecycle().addObserver(mProcessLifecycleObserver);
+    return true;
   }
 
   private void initNativeStrings()
@@ -274,7 +275,7 @@ public class MwmApplication extends Application implements Application.ActivityL
   private native void nativeInitPlatform(String apkPath, String writablePath, String privatePath,
                                          String tmpPath, String flavorName, String buildType,
                                          boolean isTablet);
-  private static native void nativeInitFramework();
+  private static native void nativeInitFramework(SplashActivity listener);
   private static native void nativeProcessTask(long taskPointer);
   private static native void nativeAddLocalization(String name, String value);
   private static native void nativeOnTransit(boolean foreground);

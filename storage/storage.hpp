@@ -580,6 +580,8 @@ public:
 
   std::string GetFilePath(CountryId const & countryId, MapFileType file) const;
 
+  void RestoreDownloadQueue();
+
 protected:
   void OnFinishDownloading();
 
@@ -587,7 +589,6 @@ private:
   friend struct storage_tests::UnitClass_StorageTest_DeleteCountry;
 
   void SaveDownloadQueue();
-  void RestoreDownloadQueue();
 
   // Returns true when country is in the downloader's queue.
   bool IsCountryInQueue(CountryId const & countryId) const;

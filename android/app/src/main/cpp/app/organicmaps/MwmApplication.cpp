@@ -29,10 +29,17 @@ extern "C"
 
   // static void nativeInitFramework();
   JNIEXPORT void JNICALL
-  Java_app_organicmaps_MwmApplication_nativeInitFramework(JNIEnv * env, jclass clazz)
+  Java_app_organicmaps_MwmApplication_nativeInitFramework(JNIEnv * env, jclass clazz, jobject listener)
   {
     if (!g_framework)
-      g_framework = std::make_unique<android::Framework>();
+    {
+      g_framework = std::make_unique<android::Framework>([listener = jni::make_global_ref(listener)]()
+      {
+        JNIEnv * env = jni::GetEnv();
+        jmethodID const methodId = jni::GetMethodID(env, *listener, "processNavigation", "()V");
+        env->CallVoidMethod(*listener, methodId);
+      });
+    }
   }
 
   // static void nativeProcessTask(long taskPointer);
