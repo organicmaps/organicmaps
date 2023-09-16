@@ -254,10 +254,12 @@ world  +
         blacksmith  -
         brewery  -
         carpenter  -
+        caterer  -
         confectionery  -
         electrician  -
         electronics_repair  -
         gardener  -
+        grinding_mill  -
         handicraft  -
         hvac  -
         key_cutter  -
@@ -660,6 +662,7 @@ world  +
         landscape_reserve  -
         marina  -
         nature_reserve  -
+        outdoor_seating  -
         park  +
             no-access  -
             permissive  -

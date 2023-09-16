@@ -14365,6 +14365,48 @@ cont {
   }
 }
 cont {
+  name: "craft-caterer"
+  element {
+    scale: 17
+    symbol {
+      name: "caterer-m"
+      priority: 450
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "caterer-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "caterer-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+}
+cont {
   name: "craft-confectionery"
   element {
     scale: 17
@@ -14533,11 +14575,18 @@ cont {
   }
 }
 cont {
-  name: "craft-handicraft"
+  name: "craft-grinding_mill"
+  element {
+    scale: 17
+    symbol {
+      name: "grinding_mill-m"
+      priority: 450
+    }
+  }
   element {
     scale: 18
     symbol {
-      name: "hand-m"
+      name: "grinding_mill-m"
       priority: 450
     }
     caption {
@@ -14553,7 +14602,49 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-m"
+      name: "grinding_mill-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+}
+cont {
+  name: "craft-handicraft"
+  element {
+    scale: 17
+    symbol {
+      name: "handicraft-m"
+      priority: 450
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "handicraft-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "handicraft-m"
       priority: 450
     }
     caption {
@@ -14570,9 +14661,16 @@ cont {
 cont {
   name: "craft-hvac"
   element {
+    scale: 17
+    symbol {
+      name: "plumber-m"
+      priority: 450
+    }
+  }
+  element {
     scale: 18
     symbol {
-      name: "hand-m"
+      name: "plumber-m"
       priority: 450
     }
     caption {
@@ -14588,7 +14686,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-m"
+      name: "plumber-m"
       priority: 450
     }
     caption {
@@ -14605,9 +14703,16 @@ cont {
 cont {
   name: "craft-key_cutter"
   element {
+    scale: 17
+    symbol {
+      name: "key_cutter-m"
+      priority: 450
+    }
+  }
+  element {
     scale: 18
     symbol {
-      name: "hand-m"
+      name: "key_cutter-m"
       priority: 450
     }
     caption {
@@ -14623,7 +14728,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-m"
+      name: "key_cutter-m"
       priority: 450
     }
     caption {
@@ -14640,9 +14745,16 @@ cont {
 cont {
   name: "craft-locksmith"
   element {
+    scale: 17
+    symbol {
+      name: "key_cutter-m"
+      priority: 450
+    }
+  }
+  element {
     scale: 18
     symbol {
-      name: "hand-m"
+      name: "key_cutter-m"
       priority: 450
     }
     caption {
@@ -14658,7 +14770,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-m"
+      name: "key_cutter-m"
       priority: 450
     }
     caption {
@@ -42453,6 +42565,25 @@ cont {
         is_optional: true
       }
       priority: -3300
+    }
+  }
+}
+cont {
+  name: "leisure-outdoor_seating"
+  element {
+    scale: 18
+    symbol {
+      name: "outdoor_seating-m"
+      priority: 450
+      min_distance: 10
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "outdoor_seating-m"
+      priority: 450
+      min_distance: 10
     }
   }
 }
@@ -98556,11 +98687,28 @@ cont {
 cont {
   name: "shop-wholesale"
   element {
+    scale: 17
+    symbol {
+      name: "wholesale-m"
+      priority: 500
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9500
+    }
+  }
+  element {
     scale: 18
     symbol {
-      name: "shop-m"
+      name: "wholesale-m"
       priority: 500
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -98575,9 +98723,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-m"
+      name: "wholesale-m"
       priority: 500
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
