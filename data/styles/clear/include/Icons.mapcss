@@ -813,6 +813,10 @@ area|z16-[tourism=picnic_site],
 node|z16-[leisure=picnic_table],
 area|z16-[leisure=picnic_table]
 {icon-image: picnic_table-m.svg;icon-min-distance: 10;}
+node|z17-[leisure=outdoor_seating],
+{text: none;}
+node|z18-[leisure=outdoor_seating],
+{icon-image: outdoor_seating-m.svg;icon-min-distance: 10;}
 
 node|z16-[amenity=shelter],
 area|z16-[amenity=shelter]

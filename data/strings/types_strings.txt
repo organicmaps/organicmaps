@@ -15534,6 +15534,45 @@
     zh-Hans = 自然保护区
     zh-Hant = 自然保護區
 
+  [type.leisure.outdoor_seating]
+    en = Outdoor Seating
+    ar = جلوس في الهواء الطلق
+    be = Месцы на адкрытым паветры
+    bg = Места за сядане на открито
+    ca = Seients a l'aire lliure
+    cs = Venkovní posezení
+    da = Udendørs siddepladser
+    de = Außengastronomie
+    el = Καθίσματα εξωτερικού χώρου
+    es = Asientos al aire libre
+    et = Istekohad õues
+    eu = Kanpoko eserlekuak
+    fa = نشستن در فضای باز
+    fi = Ulkona istuminen
+    fr = Sièges extérieurs
+    he = ישיבה בחוץ
+    hu = Kültéri ülőhelyek
+    id = Tempat duduk di luar ruangan
+    it = Posti a sedere all'aperto
+    ja = 屋外席
+    ko = 야외 좌석
+    mr = बाहेरची आसनव्यवस्था
+    nb = Uteservering
+    nl = Zitplaatsen buiten
+    pl = Siedzenia zewnętrzne
+    pt = Assentos ao ar livre
+    ro = Scaune în aer liber
+    ru = Сидения на открытом воздухе
+    sk = Vonkajšie sedenie
+    sv = Sittplatser utomhus
+    sw = Viti vya nje
+    th = ที่นั่งกลางแจ้ง
+    tr = Dış mekan oturma
+    uk = Сидіння на відкритому повітрі
+    vi = Chỗ ngồi ngoài trời
+    zh-Hans = 室外座椅
+    zh-Hant = 戶外座位
+
   [type.leisure.park]
     en = Park
     af = Park
