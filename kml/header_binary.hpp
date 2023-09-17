@@ -13,19 +13,22 @@ namespace binary
 enum class Version : uint8_t
 {
   V0 = 0,
-  V1 = 1,  // 11th April 2018: new Point2D storage, added deviceId, feature name -> custom name.
-  V2 = 2,  // 25th April 2018: added serverId.
-  V3 = 3,  // 7th May 2018: persistent feature types. V3 is binary compatible with lower versions.
-  V4 = 4,  // 26th August 2019: key-value properties and nearestToponym for bookmarks and tracks,
-           // cities -> toponyms.
-  V5 = 5,  // 21st November 2019: extended color palette.
-  V6 = 6,  // 3rd December 2019: extended bookmark icons. V6 is binary compatible with V4 and V5
-           // versions.
-  V7 = 7,  // 13th February 2020: track points are replaced by points with altitude.
-  V8 = 8,  // 24 September 2020: add compilations to types and corresponding section to kmb and
-           // tags to kml
-  V9 = 9,  // 01 October 2020: add minZoom to bookmarks
-  Latest = V9
+  V1 = 1,   // 11th April 2018: new Point2D storage, added deviceId, feature name -> custom name.
+  V2 = 2,   // 25th April 2018: added serverId.
+  V3 = 3,   // 7th May 2018: persistent feature types. V3 is binary compatible with lower versions.
+  V4 = 4,   // 26th August 2019: key-value properties and nearestToponym for bookmarks and tracks,
+            // cities -> toponyms.
+  V5 = 5,   // 21st November 2019: extended color palette.
+  V6 = 6,   // 3rd December 2019: extended bookmark icons. V6 is binary compatible with V4 and V5
+            // versions.
+  V7 = 7,   // 13th February 2020: track points are replaced by points with altitude.
+  V8 = 8,   // 24 September 2020: add compilations to types and corresponding section to kmb and
+            // tags to kml
+  V9 = 9,   // 01 October 2020: add minZoom to bookmarks
+  Latest = V9,
+  V8MM = 10 // 27 July 2023: MapsMe release version v15.0.71617. Technically it's version is 8
+            // (first byte is 0x08), but it's not compatible with V8 from this repo. It has
+            // no compilations.
 };
 
 struct Header
@@ -68,7 +71,7 @@ struct Header
 
   bool HasCompilationsSection() const
   {
-    return static_cast<uint8_t>(m_version) > static_cast<uint8_t>(Version::V7);
+    return m_version == Version::V8 || m_version == Version::V9;
   }
 
   Version m_version = Version::Latest;

@@ -352,8 +352,7 @@ struct TrackData
   {
     return m_id == data.m_id && m_localId == data.m_localId && m_name == data.m_name &&
            m_description == data.m_description && m_layers == data.m_layers &&
-           IsEqual(m_timestamp, data.m_timestamp) &&
-           m_geometry == data.m_geometry &&
+           IsEqual(m_timestamp, data.m_timestamp) && m_geometry == data.m_geometry &&
            m_visible == data.m_visible && m_nearestToponyms == data.m_nearestToponyms &&
            m_properties == data.m_properties;
   }
