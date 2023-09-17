@@ -8820,7 +8820,7 @@ cont {
     scale: 17
     symbol {
       name: "public_bath-m"
-      priority: 850
+      priority: 1500
     }
     caption {
       primary {
@@ -8829,14 +8829,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9150
+      priority: -8500
     }
   }
   element {
     scale: 18
     symbol {
       name: "public_bath-m"
-      priority: 850
+      priority: 1500
     }
     caption {
       primary {
@@ -8845,14 +8845,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9150
+      priority: -8500
     }
   }
   element {
     scale: 19
     symbol {
       name: "public_bath-m"
-      priority: 850
+      priority: 1500
     }
     caption {
       primary {
@@ -8861,7 +8861,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9150
+      priority: -8500
     }
   }
 }
