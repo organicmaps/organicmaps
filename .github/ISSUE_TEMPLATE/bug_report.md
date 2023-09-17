@@ -24,7 +24,7 @@ If applicable, add screenshots or screen recordings to help explain your problem
 
 **System information:**
  - Operating system and its version: [iOS 12, Android 10, Ubuntu 22, MacOS Big Sur, etc.]
- - Organic Maps version: [you can find it by clicking the "?" button]
+ - Organic Maps version: [you can find it by tapping the button with the green OrganicMaps logo, bottom left of the main screen on Android, or the `?` button on iOS]
  - Device Model: [e.g. iPhone6, Samsung S22]
 
 **Additional context**
