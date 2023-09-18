@@ -2451,6 +2451,8 @@ area|z17-[craft=brewery]
 node|z17-[craft=carpenter],
 area|z17-[craft=carpenter]
 {icon-image:carpenter-m.svg;}
+node|z17-[craft=caterer],
+{icon-image:caterer-m.svg;}
 node|z17-[craft=confectionery],
 area|z17-[craft=confectionery]
 {icon-image:sweets-m.svg;}
