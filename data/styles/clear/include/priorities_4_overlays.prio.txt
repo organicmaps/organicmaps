@@ -1231,8 +1231,8 @@ amenity-public_bookcase                             # icon z18- (also has captio
 amenity-toilets                                     # icon z18- (also has caption(optional) z18-)
 craft-handicraft                                    # icon z18- (also has caption(optional) z18-)
 craft-hvac                                          # icon z18- (also has caption(optional) z18-)
-craft-key_cutter                                    # icon z18- (also has caption(optional) z18-)
-craft-locksmith                                     # icon z18- (also has caption(optional) z18-)
+craft-key_cutter                                    # icon z17- (also has caption(optional) z18-)
+craft-locksmith                                     # icon z17- (also has caption(optional) z18-)
 === 450
 
 amenity-parking                                     # icon z16- (also has caption(optional) z18-, area z15-)
@@ -2116,8 +2116,8 @@ amenity-parking-private                             # icon z18- (also has captio
 # amenity-toilets                                   # caption(optional) z18- (also has icon z18-)
 # craft-handicraft                                  # caption(optional) z18- (also has icon z18-)
 # craft-hvac                                        # caption(optional) z18- (also has icon z18-)
-# craft-key_cutter                                  # caption(optional) z18- (also has icon z18-)
-# craft-locksmith                                   # caption(optional) z18- (also has icon z18-)
+# craft-key_cutter                                  # caption(optional) z18- (also has icon z17-)
+# craft-locksmith                                   # caption(optional) z18- (also has icon z17-)
 # === -9550
 
 # amenity-parking                                   # caption(optional) z18- (also has icon z16-, area z15-)
