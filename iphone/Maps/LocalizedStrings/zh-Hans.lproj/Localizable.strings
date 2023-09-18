@@ -310,7 +310,7 @@
 "faq" = "问题和解答";
 
 /* Button in the main menu */
-"donate" = "捐";
+"donate" = "捐款";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "支持项目";
