@@ -27,7 +27,7 @@ BoundaryPostcodesEnricher::BoundaryPostcodesEnricher(std::string const & boundar
     m_boundariesTree.Add(m_boundaryPostcodes.size() - 1,
                          m_boundaryPostcodes.back().second.GetRect());
   }
-};
+}
 
 void BoundaryPostcodesEnricher::Enrich(feature::FeatureBuilder & fb) const
 {
