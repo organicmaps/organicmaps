@@ -1966,6 +1966,7 @@ node|z17-[shop=money_lender],
 area|z17-[shop=money_lender],
 node|z17-[shop=pawnbroker],
 area|z17-[shop=pawnbroker],
+node|z17-[shop=wholesale],
 {text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
 
 node|z14[shop=mall],
@@ -2440,6 +2441,8 @@ area|z17-[shop=money_lender],
 area|z17-[shop=pawnbroker],
 node|z17-[shop=pawnbroker],
 {icon-image: bookmaker-m.svg;icon-min-distance: 24;}
+node|z17-[shop=wholesale],
+{icon-image: wholesale-m.svg;icon-min-distance: 24;}
 
 /* 6.1 Craft */
 

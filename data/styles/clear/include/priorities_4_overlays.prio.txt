@@ -1222,7 +1222,7 @@ shop-tobacco                                        # icon z18- (also has captio
 shop-trade                                          # icon z18- (also has caption(optional) z18-)
 shop-travel_agency                                  # icon z18- (also has caption(optional) z18-)
 shop-watches                                        # icon z18- (also has caption(optional) z18-)
-shop-wholesale                                      # icon z18- (also has caption(optional) z18-)
+shop-wholesale                                      # icon z17- (also has caption(optional) z17-)
 === 500
 
 amenity-bbq                                         # icon z18- (also has caption(optional) z18-)
@@ -2110,7 +2110,7 @@ amenity-parking-private                             # icon z18- (also has captio
 # shop-trade                                        # caption(optional) z18- (also has icon z18-)
 # shop-travel_agency                                # caption(optional) z18- (also has icon z18-)
 # shop-watches                                      # caption(optional) z18- (also has icon z18-)
-# shop-wholesale                                    # caption(optional) z18- (also has icon z18-)
+# shop-wholesale                                    # caption(optional) z17- (also has icon z17-)
 # === -9500
 
 # amenity-bbq                                       # caption(optional) z18- (also has icon z18-)
