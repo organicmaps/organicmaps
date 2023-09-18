@@ -1,41 +1,30 @@
-• Nuevos datos de mapas OpenStreetMap a partir del 14 de August
-• Actualización de artículos de Wikipedia de hace más de un año
-• Corregido el texto de la Wiki en el modo oscuro
-• Añadidas isolíneas que faltaban en algunas regiones de Argentina, Chile, Kazajistán, Tíbet, Estados Unidos, Rusia (aumentado el tamaño de mapas)
-• Isolíneas más densas en muchas áreas
-• Reducidos de muchos otros tamaños de mapas
-• Importar comentarios de etiqueta GPX cmt
-• Tratamiento de segmentos de pista GPX como parte de la vía singular a la que pertenecen
-• Corregido un error al editar los contactos sociales
-• Posibilidad de añadir parque canino en el editor
-• Actualizadas las instrucciones por voz en Persa
+• New OSM maps data as of September 20
+• Added new route type "Ruler" (aka Helicopter Routing) to quickly measure straight distances
+• Set decimal and grouping separators depending on the system locale
+• Removed annoying zoom in route planning mode
+• Fixed Open/Closed shown sometimes in gray color
+• Caves can be added in the Editor
+• Improved Arabic, Polish, Spanish translations
 
-Rutas
-• Factores de superficie actualizados para el perfil de ruta de los coches
-• Mejor itinerario peatonal en Turquía y Georgia
-• Se ha corregido el enrutamiento entre regiones cuando las opciones "evitar" están activadas.
+Search
+• Parking entrances are searchable
+• Improved street matching and results relevance
+• Search for grocery and houseware
 
-Búsqueda
-• Corregida la búsqueda de direcciones en República Checa y Eslovaquia
-• Mejorada coincidencia de calles
-• Eliminar información turística, lugar de culto, parque, tablón de anuncios, y mapa de turista de la categoría Visitas turísticas
-• No filtrar los resultados de búsqueda duplicados excepto de paradas de bus muy cercanas
-• Mejor clasificación al buscar por categoría
-• Corregida la búsqueda por nombre de casa
+Map styling:
+• New or updated icons for factory, winery, bookcase, library, bicycle repair station, bicycle rental, bicycle parking, sauna, lottery, bookmaker, massage, sewing, books, underground parking, disabled parking space, gate, excrement bags vending, wholesale shop, outdoor seating, handicraft, grinding mill, caterer, hvac, key cutter and locksmith
+• Added vehicle inspection, public bath, cycle barrier, waterways (drain, ditch, moat, wastewater), aquarium, assembly point, amusement arcade, Mormon churches, visitor center, industrial mine, historic objects (cannon, anchor, stone, aircraft, tank, mine, wreck, locomotive)
+• Added bridges and tunnels rendering for cycleways, footways, paths, tracks, bridleways, steps
+• Render barrier=ditch differently from waterway=ditch
+• Reduced priorities of river names (and of other lower-importance lines) in navigation mode
+• Tuned road names and road shield priorities
+• Fixed icons display for parking buildings
+• Reduced visibility of minor and private parking icons, removed area fill for underground parking
+• Reduced fire hydrants visibility
+• Don’t display house numbers for buildings that are too small for the current zoom level
+• Don't display star icon for squares
+• Fine-tune house numbers font and drawing priority
+• Added highway-pedestrian, bridleway, and cycleway lines for detailed zooms (z18-) in navigation mode
+• Removed highway-path/track/footway/steps tunnels rendering in navigation mode
 
-Diseño
-• Añadidas rutas en ferry al mapa del mundo
-• Eliminado el fondo cuadrado de iconos de aparcamiento
-• Añadidos iconos separados para aparcamientos privados y de pago
-• Diferenciar más el icono de aparcamiento de bicicletas del de motocicletas
-• Actualizado el icono de entrada de aparcamiento
-• Aparcamientos en calles y carriles usan un icono más pequeño y aparecen más tarde al aumentar el zoom
-• Añadidos al modo navegación iconos de aparcamiento de motocicletas y entrada de aparcamientos
-• Corregida la visibilidad de enlaces autopista=tramo en el modo navegación
-• Mejorados los colores autopista=tramo
-• Eliminadas isolíneas muy pequeñas en los niveles de zoom generales
-• Añadido icono de metro en Teherán
-• Sistema de prioridades renovado, especialmente para los puntos de interés.
-• Muchos otras correcciones y mejoras
-
-Sigue nuestras noticias en https://omaps.org/news
+…Sigue nuestras noticias en https://omaps.org/es/news

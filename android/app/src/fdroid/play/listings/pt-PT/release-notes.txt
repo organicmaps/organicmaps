@@ -1,13 +1,12 @@
-• Novos dados OSM de 14/08
-• Artigos da Wikipédia atualizados
-• Pesquisa corrigida de endereços na Eslováquia e República Checa
-• Adicionado isolinhas ausentes para alguns países
-• Isolinhas mais densas em algumas áreas
-• Correção de bug no Nexus 5X
-• Adição de rotas de balsa ao mapa do mundo
-• Ícones de estacionamento redesenhados
-• Sistema de prioridades reformulado para POIs
-• Muitas outras melhorias e correções
-• Melhorias na busca e roteamento
-
+Novos dados OSM de 20/09
+• Novo modo de rota (helicóptero) para medição em linha reta
+• Voz e direções de fundo
+• Correção de diálogo "Aguarde…" no Android 13 com cartão SD
+• Não pausa a música ao girar ecrã
+• Adicionados/melhorados muitos ícones e estilos
+• Maior relevância dos resultados de pesquisa
+• Entradas do estacionamento podem ser buscadas
+• Teste de TTS nas configurações
+• Botão de posição da seta corrigido no Android 5-6
+• Traduções aprimoradas para ar, es e pl
 …mais: omaps.org/news

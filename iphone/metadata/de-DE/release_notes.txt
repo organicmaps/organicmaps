@@ -1,41 +1,31 @@
-• Neue OpenStreetMap-Kartendaten ab dem 14. August
-• Mehr als ein Jahr alte Wikipedia-Artikel aktualisiert
-• Wiki-Text im dunklen Modus korrigiert
-• Fehlende Isolinien für einige Regionen Argentiniens, Chiles, Kasachstans, Tibets, der USA und Russlands hinzugefügt (Kartengröße erhöht)
-• Dichtere Isolinien in vielen Gebieten
-• Viele andere Kartengrößen wurden verkleinert
-• Kommentare aus GPX cmt Tag importieren
-• GPX-Track-Segmente werden als Teil des einzelnen Tracks behandelt, zu dem sie gehören
-• Fehler bei der Bearbeitung von sozialen Kontakten behoben
-• Hundepark kann im Editor hinzugefügt werden
-• Persische Sprachanweisungen aktualisiert
-
-Routenplanung
-• Die Faktoren der Strassenoberfläche für das Auto-Routing-Profil wurden aktualisiert
-• Aktualisiertes Fußgänger-Routing-Profil für die Türkei und Georgien
-• Cross-MWM-Routing bei aktivierten "Vermeiden"-Optionen korrigiert
+• Neue OSM-Daten mit Stand 20. September
+• Neue Distanzmessung von geraden Linien, über die neue Helikopter Routingoption
+• Dezimal- und Gruppenseparator werden abhängig von den Systemeinstellungen gesetzt
+• Störender Zoom bei der Routenplanung wurde entfernt
+• Fehler der "Offen/Geschlossen" in grau anzeigte wurde behoben
+• Höhlen können mit dem Editor hinzugefügt werden
+• Verbesserte arabische, polnische und spanische Übersetzung
 
 Suche
-• Die Suche nach Adressen in Tschechien und der Slowakei wurde korrigiert
-• Verbesserter Straßenabgleich
-• Touristeninformation, Kultstätte, Park, Informationstafel und Touristenkarte wurden aus der Kategorie Sehenswürdigkeiten entfernt
-• Doppelte Suchergebnisse werden nicht mehr gefiltert, außer bei sehr nahen Haltestellen
-• Besseres Ranking bei der Suche nach Kategorien
-• Behobene Suche nach einem Hausnamen
+• Parkhauseingänge sind suchbar
+• Verbesserte Relevanz der Suchergebnisse
+• Lebensmittelgeschäft und Haushaltswaren sind suchbar
 
-Stile
-• Fährenrouten zur Weltkarte hinzugefügt
-• Der quadratische Hintergrund von Parksymbolen wurde entfernt
-• Separate Icons für kostenpflichtige und private Parkplätze hinzugefügt
-• Das Fahrradparkplatz-Symbol unterscheidet sich nun deutlicher vom Motorrad-Symbol
-• Das Symbol für den Parkeingang wurde aktualisiert
-• Für Parkplätze am Straßenrand und auf Fahrspuren wird nun ein kleineres Symbol verwendet, das beim Heranzoomen später erscheint
-• Ein Motorradparkplatz• und Parkeingangssymbol wurde zum Navigationsmodus hinzugefügt
-• Die Sichtbarkeit der Autobahn-Links im Navigationsmodus wurde verbessert
-• Verbesserte Farben für Autobahn
-• Zu kleine Isolinien bei Übersichts-Zoomstufen wurden entfernt
-• Teheraner U-Bahn-Symbol hinzugefügt
-• Überarbeitetes Prioritätensystem, insbesondere für POIs
-• Viele weitere Korrekturen und Verbesserungen
+Kartenstil:
+• Neue oder aktualisierte Icons für Fabrik, Weinkellerei, Bücherregal, Bibliothek, Fahrradreparaturwerkstatt, Fahrradverleih, Fahrradabstellplatz, Sauna, Lotterie, Buchmacher, Massage, Näherei, Bücher, Tiefgarage, Behindertenparkplatz, Schranke, Fäkalienbeutelverkauf
+• Neue hinzugefügte Orte: Fahrzeuginspektion, öffentliches Bad, Fahrradsperre, Wasserwege (Kanal, Graben, Graben, Abwasser), Aquarium, Sammelplatz, Spielhalle, Mormonenkirchen, Besucherzentrum, Industriebergwerk, historische Objekte (Kanone, Anker, Stein, Flugzeug, Panzer, Mine, Wrack, Lokomotive)
+• Brücken und Tunnel für Radwege, Fußwege, Pfade, Wege, Reitwege, Treppen werden angezeigt
+• barrier=ditch wird anders als waterway=ditch angezeigt
+• Reduzierte Priorität für Flussnamen und andere unwichtige Wege im Navigationsmodus
+• Angepasste Straßennamen und Straßenschild Prioritäten
+• Icon Anzeige für Parkhäuser wurde angepasst
+• Geringere Sichtbarkeit für kleine und private Parkmöglichkeiten, Bereiche einer Tiefgarage werden nicht mehr farblich ausgefüllt
+• Hydranten werden weniger präsent angezeigt
+• Hausnummern für Gebäude die auf der aktuellen Zoomstufe zu klein sind, werden nicht mehr angezeigt
+• Plätze werden nicht mehr mit einem "Stern" Icon angezeigt
+• Feinjustierung der Schrift und Darstellungspriorität für Hausnummern
+• Fine-tune house numbers font and drawing priority
+• Straßen-, Fußgänger-, Reit- und Radwegeverbindungen wurden für hohe Zoomstufen (z18-) im Navigationsmodus hinzugefügt
+• Autobahn-Trasse/Gleis/Fußweg/Treppe-Tunnel Darstellung wurde im Navigationsmodus entfernt
 
-Verfolgen Sie unsere Neuigkeiten unter https://omaps.org/de/news
+…und weitere kleine Fehlerbehebungen und Verbesserungen, mehr Infos unter https://omaps.org/de/news

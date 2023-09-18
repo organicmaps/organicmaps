@@ -1,12 +1,12 @@
-• Dati OpenStreetMap aggiornati al 14 agosto
-• Aggiornati articoli Wikipedia
-• Aggiustata ricerca per indirizzi in Cechia e Slovacchia
-• Aggiunte isolinee mancanti per alcune regioni di Argentina, Cile, Kazakistan, Tibet, USA, Russia
-• Rese isolinee più dense in alcune aree
-• Risolto bug su Nexus 5X
-• Aggiunte rotte dei traghetti alla mappa del mondo
-• Ridisegnate icone parcheggi
-• Rinnovate priorità per luoghi d'interesse
-• Velocizzate ricerca e indicazioni
+• New OpenStreetMap maps data as of September 20
+• New Ruler (aka Helicopter) routing for straight distance measurement
+• Background voice and directions
+• Fixed "Wait…" dialog on Android 13 with SD card
+• Do not pause music when the screen is rotated
+• Added/improved many icons and styles
+• Improved search results relevance
+• Parking entrances are searchable
+• Test TTS voice in the settings
+• Fixed arrow position button on Android 5&6
 
-…di più: omaps.org/news
+…more: omaps.org/news

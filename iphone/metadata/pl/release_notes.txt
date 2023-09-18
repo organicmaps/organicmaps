@@ -1,41 +1,30 @@
-• Dane OpenStreetMap z 14 sierpnia
-• Zaktualizowane artykuły Wikipedii starsze niż rok
-• Poprawiony tekst Wiki w trybie ciemnym
-• Dodane brakujące izolinie w części regionów Argentyny, Chile, Kazachstanu, Tybetu, USA, Rosji (większe rozmiary map)
-• Gęstsze izolinie na wielu obszarach
-• Zmniejszone rozmiary wielu map
-• Import komentarzy z tagów GPX "cmt"
-• Traktowanie segmentów śladu GPX jako części jednego całego śladu
-• Naprawiony błąd podczas edycji kontaktów społecznościowych
-• Edytor umożliwia dodawanie psich parków
-• Zaktualizowane perskie wskazówki głosowe
-
-Routing
-• Updated road surface factors for car routing profile
-• Updated pedestrian routing profile for Turkey and Georgia
-• Fixed cross-mwm routing when "avoid" options are enabled
+• New OSM maps data as of September 20
+• Added new route type "Ruler" (aka Helicopter Routing) to quickly measure straight distances
+• Set decimal and grouping separators depending on the system locale
+• Removed annoying zoom in route planning mode
+• Fixed Open/Closed shown sometimes in gray color
+• Caves can be added in the Editor
+• Improved Arabic, Polish, Spanish translations
 
 Search
-• Fixed search for addresses in Czech and Slovakia
-• Improved street matching
-• Remove Tourist Information, Place of Worship, Park, Information Board, and Tourist Map from the Sightseeings category
-• Do not filter duplicated search results except of very close bus stops
-• Better ranking when searching by category
-• Fixed search by a house name
+• Parking entrances are searchable
+• Improved street matching and results relevance
+• Search for grocery and houseware
 
-Styles
-• Added ferry routes to the World map
-• Removed square background from parking icons
-• Added separate icons for paid and private parkings
-• Made bicycle parking icon differ more from the motorcycle one
-• Updated parking entrance icon
-• Street-side and lane parkings use a smaller icon and appear later when zooming in
-• Added a motorcycle parking and parking entrance icons to the navigation mode
-• Fixed motorway=trunk links visibility in navigation mode
-• Improved motorway=trunk colors
-• Removed too small isolines at overview zoom levels
-• Added Tehran metro icon
-• Revamped priorities system, especially for POIs
-• Many other fixes and enhancements
+Map styling:
+• New or updated icons for factory, winery, bookcase, library, bicycle repair station, bicycle rental, bicycle parking, sauna, lottery, bookmaker, massage, sewing, books, underground parking, disabled parking space, gate, excrement bags vending, wholesale shop, outdoor seating, handicraft, grinding mill, caterer, hvac, key cutter and locksmith
+• Added vehicle inspection, public bath, cycle barrier, waterways (drain, ditch, moat, wastewater), aquarium, assembly point, amusement arcade, Mormon churches, visitor center, industrial mine, historic objects (cannon, anchor, stone, aircraft, tank, mine, wreck, locomotive)
+• Added bridges and tunnels rendering for cycleways, footways, paths, tracks, bridleways, steps
+• Render barrier=ditch differently from waterway=ditch
+• Reduced priorities of river names (and of other lower-importance lines) in navigation mode
+• Tuned road names and road shield priorities
+• Fixed icons display for parking buildings
+• Reduced visibility of minor and private parking icons, removed area fill for underground parking
+• Reduced fire hydrants visibility
+• Don’t display house numbers for buildings that are too small for the current zoom level
+• Don't display star icon for squares
+• Fine-tune house numbers font and drawing priority
+• Added highway-pedestrian, bridleway, and cycleway lines for detailed zooms (z18-) in navigation mode
+• Removed highway-path/track/footway/steps tunnels rendering in navigation mode
 
-Follow our news at https://omaps.org/news
+…and more smaller fixes and improvements, check https://omaps.org/news for details!
