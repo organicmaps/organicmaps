@@ -17,21 +17,21 @@ import androidx.lifecycle.LifecycleOwner;
 
 import app.organicmaps.Framework;
 import app.organicmaps.Map;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.car.hacks.PopToRootHack;
+import app.organicmaps.car.screens.ErrorScreen;
 import app.organicmaps.car.screens.MapPlaceholderScreen;
+import app.organicmaps.car.screens.MapScreen;
 import app.organicmaps.car.screens.PlaceScreen;
 import app.organicmaps.car.screens.RequestPermissionsScreen;
+import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.util.IntentUtils;
 import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.display.DisplayChangedListener;
 import app.organicmaps.display.DisplayManager;
 import app.organicmaps.display.DisplayType;
-import app.organicmaps.MwmApplication;
-import app.organicmaps.car.screens.ErrorScreen;
-import app.organicmaps.car.screens.base.BaseMapScreen;
-import app.organicmaps.car.screens.MapScreen;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationState;
 import app.organicmaps.location.SensorHelper;
@@ -43,11 +43,10 @@ import app.organicmaps.widget.placepage.PlacePageData;
 
 import java.io.IOException;
 
-public final class NavigationSession extends Session implements DefaultLifecycleObserver,
-    SensorListener, LocationState.ModeChangeListener, DisplayChangedListener, Framework.PlacePageActivationListener,
-    MwmApplication.ProcessNavigationListener
+public final class CarAppSession extends Session implements DefaultLifecycleObserver,
+    SensorListener, LocationState.ModeChangeListener, DisplayChangedListener, Framework.PlacePageActivationListener
 {
-  private static final String TAG = NavigationSession.class.getSimpleName();
+  private static final String TAG = CarAppSession.class.getSimpleName();
 
   @Nullable
   private final SessionInfo mSessionInfo;
@@ -55,9 +54,12 @@ public final class NavigationSession extends Session implements DefaultLifecycle
   private final SurfaceRenderer mSurfaceRenderer;
   @NonNull
   private final ScreenManager mScreenManager;
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private DisplayManager mDisplayManager;
   private boolean mInitFailed = false;
 
-  public NavigationSession(@Nullable SessionInfo sessionInfo)
+  public CarAppSession(@Nullable SessionInfo sessionInfo)
   {
     getLifecycle().addObserver(this);
     mSessionInfo = sessionInfo;
@@ -101,6 +103,14 @@ public final class NavigationSession extends Session implements DefaultLifecycle
       return new RequestPermissionsScreen(getCarContext(), this::onLocationPermissionsGranted);
     }
 
+    if (mDisplayManager.isDeviceDisplayUsed())
+    {
+      mScreenManager.push(mapScreen);
+      mSurfaceRenderer.disable();
+      onStop(this);
+      return new MapPlaceholderScreen(getCarContext());
+    }
+
     return mapScreen;
   }
 
@@ -108,11 +118,6 @@ public final class NavigationSession extends Session implements DefaultLifecycle
   public void onNewIntent(@NonNull Intent intent)
   {
     Logger.d(TAG, intent.toString());
-    // TODO (AndrewShkrob): This logic will need to be revised when we introduce support for adding stops during navigation or route planning.
-    // Skip navigation intents during navigation
-    if (RoutingController.get().isNavigating())
-      return;
-
     IntentUtils.processIntent(getCarContext(), mSurfaceRenderer, intent);
   }
 
@@ -120,9 +125,8 @@ public final class NavigationSession extends Session implements DefaultLifecycle
   public void onCreate(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
-    final DisplayManager displayManager = DisplayManager.from(getCarContext());
-    displayManager.addListener(DisplayType.Car, this);
-    getLifecycle().addObserver(displayManager.getObserverFor(DisplayType.Car));
+    mDisplayManager = DisplayManager.from(getCarContext());
+    mDisplayManager.addListener(DisplayType.Car, this);
     init();
   }
 
@@ -130,26 +134,21 @@ public final class NavigationSession extends Session implements DefaultLifecycle
   public void onStart(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
-    restoreRoute();
-    if (DisplayManager.from(getCarContext()).isCarDisplayUsed())
+    if (mDisplayManager.isCarDisplayUsed())
     {
       LocationState.nativeSetListener(this);
       onMyPositionModeChanged(LocationState.nativeGetMode());
       Framework.nativePlacePageActivationListener(this);
     }
     SensorHelper.from(getCarContext()).addListener(this);
-    if (LocationUtils.checkFineLocationPermission(getCarContext()))
+    if (LocationUtils.checkFineLocationPermission(getCarContext()) && !LocationHelper.from(getCarContext()).isActive())
       LocationHelper.from(getCarContext()).start();
 
-    if (DisplayManager.from(getCarContext()).isCarDisplayUsed())
+    if (mDisplayManager.isCarDisplayUsed())
+    {
       ThemeUtils.update(getCarContext());
-  }
-
-  @Override
-  public void onResume(@NonNull LifecycleOwner owner)
-  {
-    Logger.d(TAG);
-    init();
+      restoreRoute();
+    }
   }
 
   @Override
@@ -157,11 +156,17 @@ public final class NavigationSession extends Session implements DefaultLifecycle
   {
     Logger.d(TAG);
     SensorHelper.from(getCarContext()).removeListener(this);
-    if (DisplayManager.from(getCarContext()).isCarDisplayUsed())
+    if (mDisplayManager.isCarDisplayUsed())
     {
       LocationState.nativeRemoveListener();
       Framework.nativeRemovePlacePageActivationListener(this);
     }
+  }
+
+  @Override
+  public void onDestroy(@NonNull LifecycleOwner owner)
+  {
+    mDisplayManager.removeListener(DisplayType.Car);
   }
 
   private void init()
@@ -169,21 +174,13 @@ public final class NavigationSession extends Session implements DefaultLifecycle
     mInitFailed = false;
     try
     {
-      MwmApplication.from(getCarContext()).init(this);
+      MwmApplication.from(getCarContext()).init(() -> {
+      });
     } catch (IOException e)
     {
       mInitFailed = true;
       Logger.e(TAG, "Failed to initialize the app.");
     }
-  }
-
-  // Called from MwmApplication::nativeInitFramework like callback.
-  @SuppressWarnings({"unused", "unchecked"})
-  @Override
-  public void processNavigation()
-  {
-    // TODO: figure out how to initialize MwmApplication in one place.
-    // See {@link SplashActivity.init() }
   }
 
   @RequiresPermission(ACCESS_FINE_LOCATION)
@@ -206,35 +203,36 @@ public final class NavigationSession extends Session implements DefaultLifecycle
   }
 
   @Override
-  public void onDisplayChanged(@NonNull final DisplayType newDisplayType)
+  public void onDisplayChangedToDevice(@NonNull Runnable onTaskFinishedCallback)
   {
     Logger.d(TAG);
     final Screen topScreen = mScreenManager.getTop();
-    if (newDisplayType == DisplayType.Car)
-    {
-      onStart(this);
-      mSurfaceRenderer.enable();
+    onStop(this);
+    mSurfaceRenderer.disable();
 
-      // If we have Permissions or Error Screen in Screen Manager (either on the top of the stack or after MapPlaceholderScreen) do nothing
-      if (isPermissionsOrErrorScreen(topScreen))
-        return;
-      mScreenManager.pop();
-      if (isPermissionsOrErrorScreen(mScreenManager.getTop()))
-        return;
+    final MapPlaceholderScreen mapPlaceholderScreen = new MapPlaceholderScreen(getCarContext());
+    if (isPermissionsOrErrorScreen(topScreen))
+      mScreenManager.push(mapPlaceholderScreen);
+    else
+      mScreenManager.push(new PopToRootHack.Builder(getCarContext()).setScreenToPush(mapPlaceholderScreen).build());
 
-      ThemeUtils.update(getCarContext());
-    }
-    else if (newDisplayType == DisplayType.Device)
-    {
-      onStop(this);
-      mSurfaceRenderer.disable();
+    onTaskFinishedCallback.run();
+  }
 
-      final MapPlaceholderScreen mapPlaceholderScreen = new MapPlaceholderScreen(getCarContext());
-      if (isPermissionsOrErrorScreen(topScreen))
-        mScreenManager.push(mapPlaceholderScreen);
-      else
-        mScreenManager.push(new PopToRootHack.Builder(getCarContext()).setScreenToPush(mapPlaceholderScreen).build());
-    }
+  @Override
+  public void onDisplayChangedToCar(@NonNull Runnable onTaskFinishedCallback)
+  {
+    Logger.d(TAG);
+    final Screen topScreen = mScreenManager.getTop();
+    onStart(this);
+    mSurfaceRenderer.enable();
+
+    // If we have Permissions or Error Screen in Screen Manager (either on the top of the stack or after MapPlaceholderScreen) do nothing
+    if (isPermissionsOrErrorScreen(topScreen))
+      return;
+    mScreenManager.pop();
+
+    onTaskFinishedCallback.run();
   }
 
   @Override

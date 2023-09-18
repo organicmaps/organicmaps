@@ -4,6 +4,7 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.POST_NOTIFICATIONS;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
+import android.annotation.SuppressLint;
 import android.app.ForegroundServiceStartNotAllowedException;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -36,8 +37,6 @@ import app.organicmaps.sound.TtsPlayer;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.log.Logger;
 
-import java.util.Objects;
-
 public class NavigationService extends Service implements LocationListener
 {
   private static final String TAG = NavigationService.class.getSimpleName();
@@ -47,11 +46,15 @@ public class NavigationService extends Service implements LocationListener
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
-  private NotificationCompat.Builder mNotificationBuilder;
+  private MediaPlayerWrapper mPlayer;
 
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
-  MediaPlayerWrapper mPlayer;
+  // Destroyed in onDestroy()
+  @SuppressLint("StaticFieldLeak")
+  @Nullable
+  private static NotificationCompat.Builder mNotificationBuilder;
+
+  @Nullable
+  private static NotificationCompat.Extender mCarNotificationExtender;
 
   /**
    * Start the foreground service for turn-by-turn voice-guided navigation.
@@ -63,6 +66,20 @@ public class NavigationService extends Service implements LocationListener
   {
     Logger.i(TAG);
     ContextCompat.startForegroundService(context, new Intent(context, NavigationService.class));
+  }
+
+  /**
+   * Start the foreground service for turn-by-turn voice-guided navigation.
+   *
+   * @param context                 Context to start service from.
+   * @param carNotificationExtender Extender used for displaying notifications in the Android Auto
+   */
+  @RequiresPermission(value = ACCESS_FINE_LOCATION)
+  public static void startForegroundService(@NonNull Context context, @NonNull NotificationCompat.Extender carNotificationExtender)
+  {
+    Logger.i(TAG);
+    mCarNotificationExtender = carNotificationExtender;
+    startForegroundService(context);
   }
 
   /**
@@ -78,6 +95,7 @@ public class NavigationService extends Service implements LocationListener
 
   /**
    * Creates notification channel for navigation.
+   *
    * @param context Context to create channel from.
    */
   public static void createNotificationChannel(@NonNull Context context)
@@ -105,21 +123,18 @@ public class NavigationService extends Service implements LocationListener
         !"xiaomi".equalsIgnoreCase(Build.MANUFACTURER);
   }
 
-  @RequiresPermission(value = ACCESS_FINE_LOCATION)
-  @Override
-  public void onCreate()
+  @NonNull
+  public static NotificationCompat.Builder getNotificationBuilder(@NonNull Context context)
   {
-    Logger.i(TAG);
+    if (mNotificationBuilder != null)
+      return mNotificationBuilder;
 
-    /*
-     * Create cached notification builder.
-     */
     final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;
-    final Intent contentIntent = new Intent(this, MwmActivity.class);
-    final PendingIntent contentPendingIntent = PendingIntent.getActivity(this, 0, contentIntent,
+    final Intent contentIntent = new Intent(context, MwmActivity.class);
+    final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, contentIntent,
         PendingIntent.FLAG_CANCEL_CURRENT | FLAG_IMMUTABLE);
 
-    mNotificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+    mNotificationBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
         .setCategory(NotificationCompat.CATEGORY_NAVIGATION)
         .setPriority(Notification.PRIORITY_LOW)
         .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -127,15 +142,22 @@ public class NavigationService extends Service implements LocationListener
         .setShowWhen(false)
         .setOnlyAlertOnce(true)
         .setSmallIcon(R.drawable.ic_notification)
-        .setContentIntent(contentPendingIntent)
+        .setContentIntent(pendingIntent)
         .setColorized(isColorizedSupported())
-        .setColor(ContextCompat.getColor(this, R.color.notification));
+        .setColor(ContextCompat.getColor(context, R.color.notification));
+
+    return mNotificationBuilder;
+  }
+
+  @RequiresPermission(value = ACCESS_FINE_LOCATION)
+  @Override
+  public void onCreate()
+  {
+    Logger.i(TAG);
 
     mPlayer = new MediaPlayerWrapper(getApplicationContext());
 
-    /*
-     * Subscribe to location updates.
-     */
+    // Subscribe to location updates.
     LocationHelper.from(this).addListener(this);
   }
 
@@ -145,7 +167,8 @@ public class NavigationService extends Service implements LocationListener
   {
     Logger.i(TAG);
 
-    super.onDestroy();
+    mNotificationBuilder = null;
+    mCarNotificationExtender = null;
     LocationHelper.from(this).removeListener(this);
     TtsPlayer.INSTANCE.stop();
 
@@ -161,29 +184,27 @@ public class NavigationService extends Service implements LocationListener
   @Override
   public void onLowMemory()
   {
-    super.onLowMemory();
-    Logger.d(TAG, "onLowMemory()");
+    Logger.d(TAG);
   }
 
   @RequiresPermission(value = ACCESS_FINE_LOCATION)
   @Override
-  public int onStartCommand(Intent intent, int flags, int startId)
+  public int onStartCommand(@NonNull Intent intent, int flags, int startId)
   {
     Logger.i(TAG, "Starting foreground");
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
     {
       try
       {
-        startForeground(NavigationService.NOTIFICATION_ID, mNotificationBuilder.build());
-      }
-      catch (ForegroundServiceStartNotAllowedException e)
+        startForeground(NavigationService.NOTIFICATION_ID, getNotificationBuilder(this).build());
+      } catch (ForegroundServiceStartNotAllowedException e)
       {
         Logger.e(TAG, "Oops! ForegroundService is not allowed", e);
       }
     }
     else
     {
-      startForeground(NavigationService.NOTIFICATION_ID, mNotificationBuilder.build());
+      startForeground(NavigationService.NOTIFICATION_ID, getNotificationBuilder(this).build());
     }
 
     // Tests on different devices demonstrated that background location works significantly longer when
@@ -191,14 +212,13 @@ public class NavigationService extends Service implements LocationListener
     // re-subscribe for more frequent GPS updates for navigation.
     LocationHelper.from(this).restart();
 
-    return START_STICKY;
+    return START_NOT_STICKY;
   }
 
   @Nullable
   @Override
   public IBinder onBind(Intent intent)
   {
-    Logger.i(TAG);
     return null;
   }
 
@@ -238,20 +258,23 @@ public class NavigationService extends Service implements LocationListener
         ActivityCompat.checkSelfPermission(this, POST_NOTIFICATIONS) != PERMISSION_GRANTED)
       return;
 
-    final Drawable drawable = Objects.requireNonNull(AppCompatResources.getDrawable(this,
-        routingInfo.carDirection.getTurnRes()));
-    final Bitmap bitmap = isColorizedSupported() ?
-        Graphics.drawableToBitmap(drawable) :
-        Graphics.drawableToBitmapWithTint(drawable, ContextCompat.getColor(this, R.color.base_accent));
-
-    final Notification notification = mNotificationBuilder
-        .setLargeIcon(bitmap)
+    final NotificationCompat.Builder notificationBuilder = getNotificationBuilder(this)
         .setContentTitle(routingInfo.distToTurn.toString(this))
-        .setContentText(routingInfo.nextStreet)
-        .build();
+        .setContentText(routingInfo.nextStreet);
+
+    final Drawable drawable = AppCompatResources.getDrawable(this, routingInfo.carDirection.getTurnRes());
+    if (drawable != null)
+    {
+      final Bitmap bitmap = isColorizedSupported() ?
+          Graphics.drawableToBitmap(drawable) :
+          Graphics.drawableToBitmapWithTint(drawable, ContextCompat.getColor(this, R.color.base_accent));
+      notificationBuilder.setLargeIcon(bitmap);
+    }
+
+    if (mCarNotificationExtender != null)
+      notificationBuilder.extend(mCarNotificationExtender);
 
     // The notification object must be re-created for every update.
-    final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-    notificationManager.notify(NOTIFICATION_ID, notification);
+    NotificationManagerCompat.from(this).notify(NOTIFICATION_ID, notificationBuilder.build());
   }
 }

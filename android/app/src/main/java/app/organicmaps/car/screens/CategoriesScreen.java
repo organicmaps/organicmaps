@@ -16,10 +16,10 @@ import androidx.core.graphics.drawable.IconCompat;
 
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
+import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.screens.search.SearchOnMapScreen;
 import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.car.util.UiHelpers;
-import app.organicmaps.car.screens.base.BaseMapScreen;
 
 import java.util.Arrays;
 import java.util.List;

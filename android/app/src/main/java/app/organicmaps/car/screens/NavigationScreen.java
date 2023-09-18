@@ -1,7 +1,5 @@
 package app.organicmaps.car.screens;
 
-import android.location.Location;
-
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,37 +20,44 @@ import androidx.lifecycle.LifecycleOwner;
 
 import app.organicmaps.Framework;
 import app.organicmaps.R;
+import app.organicmaps.car.CarAppService;
 import app.organicmaps.car.SurfaceRenderer;
+import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.screens.settings.DrivingOptionsScreen;
 import app.organicmaps.car.util.Colors;
 import app.organicmaps.car.util.RoutingUtils;
 import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.car.util.UiHelpers;
-import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
+import app.organicmaps.routing.NavigationService;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.routing.RoutingInfo;
 import app.organicmaps.sound.TtsPlayer;
+import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.log.Logger;
 
 import java.util.List;
 import java.util.Objects;
 
-public class NavigationScreen extends BaseMapScreen implements RoutingController.Container, NavigationManagerCallback, LocationListener
+public class NavigationScreen extends BaseMapScreen implements RoutingController.Container, NavigationManagerCallback
 {
   private static final String TAG = NavigationScreen.class.getSimpleName();
+
+  public static final String MARKER = NavigationScreen.class.getSimpleName();
 
   @NonNull
   private final RoutingController mRoutingController;
   @NonNull
   private final NavigationManager mNavigationManager;
+  @NonNull
+  private final LocationListener mLocationListener = (unused) -> updateTrip();
 
-  public NavigationScreen(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer)
+  private NavigationScreen(@NonNull Builder builder)
   {
-    super(carContext, surfaceRenderer);
+    super(builder.mCarContext, builder.mSurfaceRenderer);
+    mNavigationManager = builder.mCarContext.getCarService(NavigationManager.class);
     mRoutingController = RoutingController.get();
-    mNavigationManager = carContext.getCarService(NavigationManager.class);
   }
 
   @NonNull
@@ -75,7 +80,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   @Override
   public void onStopNavigation()
   {
-    LocationHelper.from(getCarContext()).removeListener(this);
+    LocationHelper.from(getCarContext()).removeListener(mLocationListener);
     mRoutingController.cancel();
   }
 
@@ -91,18 +96,29 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   @Override
   public void onCreate(@NonNull LifecycleOwner owner)
   {
+    Logger.d(TAG);
     mRoutingController.attach(this);
     ThemeUtils.update(getCarContext());
     mNavigationManager.setNavigationManagerCallback(this);
     mNavigationManager.navigationStarted();
 
-    LocationHelper.from(getCarContext()).addListener(this);
+    LocationHelper.from(getCarContext()).addListener(mLocationListener);
+    if (LocationUtils.checkFineLocationPermission(getCarContext()))
+      NavigationService.startForegroundService(getCarContext(), CarAppService.getCarNotificationExtender(getCarContext()));
+  }
+
+  @Override
+  public void onResume(@NonNull LifecycleOwner owner)
+  {
+    Logger.d(TAG);
+    mRoutingController.attach(this);
   }
 
   @Override
   public void onDestroy(@NonNull LifecycleOwner owner)
   {
-    LocationHelper.from(getCarContext()).removeListener(this);
+    NavigationService.stopService(getCarContext());
+    LocationHelper.from(getCarContext()).removeListener(mLocationListener);
 
     if (mRoutingController.isNavigating())
       mRoutingController.onSaveState();
@@ -111,22 +127,6 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     mNavigationManager.navigationEnded();
     mNavigationManager.clearNavigationManagerCallback();
     RoutingUtils.resetTrip();
-  }
-
-  @Override
-  public void onLocationUpdated(@NonNull Location location)
-  {
-    final String[] turnNotifications = Framework.nativeGenerateNotifications();
-    if (turnNotifications != null)
-      TtsPlayer.INSTANCE.playTurnNotifications(getCarContext(), turnNotifications);
-    updateTrip();
-
-    // TODO: consider to create callback mechanism to transfer 'ROUTE_IS_FINISHED' event from
-    // the core to the platform code (https://github.com/organicmaps/organicmaps/issues/3589),
-    // because calling the native method 'nativeIsRouteFinished'
-    // too often can result in poor UI performance.
-    if (Framework.nativeIsRouteFinished())
-      RoutingController.get().cancel();
   }
 
   @NonNull
@@ -211,5 +211,30 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     final Trip trip = RoutingUtils.createTrip(getCarContext(), info, RoutingController.get().getEndPoint());
     mNavigationManager.updateTrip(trip);
     invalidate();
+  }
+
+  /**
+   * A builder of {@link NavigationScreen}.
+   */
+  public static final class Builder
+  {
+    @NonNull
+    private final CarContext mCarContext;
+    @NonNull
+    private final SurfaceRenderer mSurfaceRenderer;
+
+    public Builder(@NonNull final CarContext carContext, @NonNull final SurfaceRenderer surfaceRenderer)
+    {
+      mCarContext = carContext;
+      mSurfaceRenderer = surfaceRenderer;
+    }
+
+    @NonNull
+    public NavigationScreen build()
+    {
+      final NavigationScreen navigationScreen = new NavigationScreen(this);
+      navigationScreen.setMarker(MARKER);
+      return navigationScreen;
+    }
   }
 }

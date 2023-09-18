@@ -26,16 +26,15 @@ import androidx.lifecycle.LifecycleOwner;
 
 import app.organicmaps.Framework;
 import app.organicmaps.R;
-import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.bookmarks.data.Metadata;
 import app.organicmaps.car.SurfaceRenderer;
+import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.screens.settings.DrivingOptionsScreen;
 import app.organicmaps.car.util.Colors;
+import app.organicmaps.car.util.OnBackPressedCallback;
 import app.organicmaps.car.util.RoutingHelpers;
 import app.organicmaps.car.util.UiHelpers;
-import app.organicmaps.car.screens.base.BaseMapScreen;
-import app.organicmaps.car.util.OnBackPressedCallback;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.routing.RoutingInfo;
@@ -84,7 +83,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   public void onCreate(@NonNull LifecycleOwner owner)
   {
     mRoutingController.restore();
-    if (mRoutingController.isNavigating())
+    if (mRoutingController.isNavigating() && mRoutingController.getLastRouterType() == ROUTER_TYPE)
     {
       showNavigation(true);
       return;
@@ -95,11 +94,25 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
       mRoutingController.restoreRoute();
     else
     {
-      if (mRoutingController.getLastRouterType() != ROUTER_TYPE)
+      final boolean hasIncorrectEndPoint = mRoutingController.isPlanning() && (!MapObject.same(mMapObject, mRoutingController.getEndPoint()));
+      final boolean hasIncorrectRouterType = mRoutingController.getLastRouterType() != ROUTER_TYPE;
+      final boolean isNotPlanningMode = !mRoutingController.isPlanning();
+      if (hasIncorrectRouterType)
+      {
         mRoutingController.setRouterType(ROUTER_TYPE);
-      if (!mRoutingController.isPlanning() || (mRoutingController.isPlanning() && !MapObject.same(mMapObject, mRoutingController.getEndPoint())))
+        mRoutingController.rebuildLastRoute();
+      }
+      else if (hasIncorrectEndPoint || isNotPlanningMode)
+      {
         mRoutingController.prepare(LocationHelper.from(getCarContext()).getMyPosition(), mMapObject);
+      }
     }
+  }
+
+  @Override
+  public void onResume(@NonNull LifecycleOwner owner)
+  {
+    mRoutingController.attach(this);
   }
 
   @Override
@@ -107,7 +120,8 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   {
     if (mRoutingController.isPlanning())
       mRoutingController.onSaveState();
-    mRoutingController.detach();
+    if (!mRoutingController.isNavigating())
+      mRoutingController.detach();
   }
 
   @NonNull
@@ -207,24 +221,6 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   }
 
   @NonNull
-  private Action createBookmarkAction()
-  {
-    final Action.Builder builder = new Action.Builder();
-    final CarIcon.Builder iconBuilder = new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_bookmarks));
-    if (mMapObject.isBookmark())
-      iconBuilder.setTint(Colors.BOOKMARK_SAVED);
-    builder.setIcon(iconBuilder.build());
-    builder.setOnClickListener(() -> {
-      // TODO(AndrewShkrob): Bookmarks not working while mRoutingController.isPlanning()
-      if (mMapObject.isBookmark())
-        Framework.nativeDeleteBookmarkFromMapObject();
-      else
-        BookmarkManager.INSTANCE.addNewBookmark(mMapObject.getLat(), mMapObject.getLon());
-    });
-    return builder.build();
-  }
-
-  @NonNull
   private Action createDrivingOptionsAction()
   {
     return new Action.Builder()
@@ -272,7 +268,10 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   public void showNavigation(boolean show)
   {
     if (show)
-      getScreenManager().push(new NavigationScreen(getCarContext(), getSurfaceRenderer()));
+    {
+      getScreenManager().popToRoot();
+      getScreenManager().push(new NavigationScreen.Builder(getCarContext(), getSurfaceRenderer()).build());
+    }
   }
 
   @Override
@@ -301,12 +300,6 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
 
   @Override
   public void onDrivingOptionsBuildError()
-  {
-    onCommonBuildError(-1, new String[0]);
-  }
-
-  @Override
-  public void onDrivingOptionsWarning()
   {
     onCommonBuildError(-1, new String[0]);
   }

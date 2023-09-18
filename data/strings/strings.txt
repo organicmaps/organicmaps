@@ -26943,3 +26943,10 @@
     en = Grant Permissions
     fr = Accorder l'accès
     ru = Разрешить
+
+  [aa_connected_to_car_notification_title]
+    comment = Text that will be displayed in the notification title when the app is connected to Android Auto.
+    tags = android
+    en = Connected to car
+    fr = Connecté à la voiture
+    ru = Подключено к автомобилю

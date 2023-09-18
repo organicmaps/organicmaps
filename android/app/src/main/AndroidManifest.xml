@@ -773,6 +773,7 @@
     <activity
         android:name="app.organicmaps.MwmActivity"
         android:launchMode="singleTask"
+        android:configChanges="uiMode"
         android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
 
     <activity
@@ -853,8 +854,10 @@
     <activity
       android:name="app.organicmaps.settings.DrivingOptionsActivity"
       android:label="@string/driving_options_title"/>
+    <activity
+        android:name="app.organicmaps.MapPlaceholderActivity"/>
     <service
-        android:name="app.organicmaps.car.NavigationCarAppService"
+        android:name="app.organicmaps.car.CarAppService"
         android:foregroundServiceType="location"
         android:exported="true">
       <intent-filter>

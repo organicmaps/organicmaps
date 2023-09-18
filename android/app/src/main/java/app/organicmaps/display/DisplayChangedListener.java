@@ -4,5 +4,7 @@ import androidx.annotation.NonNull;
 
 public interface DisplayChangedListener
 {
-  void onDisplayChanged(@NonNull final DisplayType newDisplayType);
+  default void onDisplayChangedToDevice(@NonNull Runnable onTaskFinishedCallback) {}
+
+  default void onDisplayChangedToCar(@NonNull Runnable onTaskFinishedCallback) {}
 }
