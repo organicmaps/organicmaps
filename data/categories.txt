@@ -10199,6 +10199,46 @@ vi:Nhà kim khí
 zh-Hans:金属制造工
 zh-Hant:鐵工
 
+craft-key_cutter
+en:Key Cutting
+ar:قطع المفاتيح
+be:Выраб ключоў
+bg:Рязане на ключове
+ca:Tall de claus
+cs:Řezání klíčů
+da:Nøgleskæring
+de:Schlüssel-Nachmachdienst
+el:Κοπή κλειδιού
+es:Copista de llaves
+et:Võtme lõikamine
+eu:Giltza-mozketa
+fa:برش کلید
+fi:Avaimen leikkaaminen
+fr:Reproduction de clé
+he:חיתוך מפתח
+hu:Kulcsvágás
+id:Pemotongan Kunci
+it:Taglio chiave
+ja:キーカット
+ko:키 커팅
+mr:की कटिंग
+nb:Key Cutting
+nl:Sleutel snijden
+pl:Cięcie kluczy
+pt:Chaveiro
+pt-BR:Chaveiro
+ro:Tăierea cheilor
+ru:Изготовление ключей
+sk:Rezanie kľúčov
+sv:Nyckelklippning
+sw:Kukata Muhimu
+th:ตัดกุญแจ
+tr:Anahtar Kopyalama
+uk:Нарізка ключів
+vi:Cắt chính
+zh-Hans:钥匙切割
+zh-Hant:鍵切割
+
 craft-locksmith
 en:Locksmith
 ar:قفال
