@@ -29,7 +29,7 @@ public class MainMenu
       return;
 
     UiUtils.showIf(show, mFrame);
-    mOnMenuSizeChangedListener.OnMenuSizeChange();
+    mOnMenuSizeChangedListener.OnMenuSizeChange(show);
   }
 
   public int getMenuHeight()
@@ -59,7 +59,7 @@ public class MainMenu
 
   public interface OnMenuSizeChangedListener
   {
-    void OnMenuSizeChange();
+    void OnMenuSizeChange(boolean visible);
   }
 
   private class FrameLayoutChangeListener implements View.OnLayoutChangeListener
@@ -69,7 +69,7 @@ public class MainMenu
                                int oldTop, int oldRight, int oldBottom)
     {
       mMenuHeight = bottom - top;
-      mOnMenuSizeChangedListener.OnMenuSizeChange();
+      mOnMenuSizeChangedListener.OnMenuSizeChange(UiUtils.isVisible(mFrame));
     }
   }
 }
