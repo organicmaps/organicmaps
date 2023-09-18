@@ -2463,6 +2463,8 @@ area|z17-[craft=electronics_repair]
 node|z17-[craft=gardener],
 area|z17-[craft=gardener]
 {icon-image:florist-m.svg;}
+node|z17-[craft=hvac],
+{icon-image:plumber-m.svg;}
 node|z17-[craft=key_cutter],
 {icon-image:key_cutter-m.svg;}
 node|z17-[craft=locksmith],
