@@ -188,6 +188,7 @@ uint8_t CalculateHeader(size_t const typesCount, HeaderGeomType const headerGeom
                         FeatureParamsBase const & params)
 {
   ASSERT(typesCount != 0, ("Feature should have at least one type."));
+  ASSERT_LESS_OR_EQUAL(typesCount, kMaxTypesCount, ());
   uint8_t header = static_cast<uint8_t>(typesCount - 1);
 
   if (!params.name.IsEmpty())
@@ -427,13 +428,14 @@ bool FeatureParams::FinishAddingTypes()
   {
     UselessTypesChecker::Instance().SortUselessToEnd(m_types);
 
-    LOG(LWARNING, ("Exceeded max types count:", TypesToString(m_types)));
+    LOG(LWARNING, ("Exceeded max types count, got total", m_types.size(), ":", TypesToString(m_types)));
 
     m_types.resize(kMaxTypesCount);
     sort(m_types.begin(), m_types.end());
   }
 
   // Patch fix that removes house number from localities.
+  /// @todo move this fix elsewhere (osm2type.cpp?)
   if (!house.IsEmpty() && ftypes::IsLocalityChecker::Instance()(m_types))
   {
     LOG(LWARNING, ("Locality with house number", *this));

@@ -42,13 +42,13 @@ void Translator::SetFilter(std::shared_ptr<FilterInterface> const & filter) { m_
 
 void Translator::Emit(OsmElement & element)
 {
-  Preprocess(element);
+  Preprocess(element); // Might use replaced_tags.txt via a TagReplacer.
   if (!m_filter->IsAccepted(element))
     return;
 
   m_tagsEnricher(element);
   m_collector->Collect(element);
-  m_featureMaker->Add(element);
+  m_featureMaker->Add(element); // A feature is created from OSM tags.
   FeatureBuilder feature;
   while (m_featureMaker->GetNextFeature(feature))
   {

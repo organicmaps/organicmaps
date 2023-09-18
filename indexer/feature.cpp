@@ -195,7 +195,7 @@ FeatureType::FeatureType(SharedLoadInfo const * loadInfo, vector<uint8_t> && buf
 {
   CHECK(m_loadInfo, ());
 
-  m_header = Header(m_data);
+  m_header = Header(m_data); // Parse the header and optional name/layer/addinfo.
 }
 
 std::unique_ptr<FeatureType> FeatureType::CreateFromMapObject(osm::MapObject const & emo)

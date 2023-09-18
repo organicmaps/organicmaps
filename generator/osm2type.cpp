@@ -154,9 +154,12 @@ public:
   struct Rule
   {
     char const * m_key;
+    // Wildcard values:
     // * - take any values
     // ! - take only negative values
     // ~ - take only positive values
+    // Note that the matching logic here is different from the one used in classificator matching,
+    // see ParseMapCSS() and Matches() in generator/utils.cpp.
     char const * m_value;
     function<Function> m_func;
   };
@@ -312,6 +315,8 @@ private:
   buffer_vector<uint32_t, static_cast<size_t>(Type::Count)> m_types;
 };
 
+// Removes types that are prefixes of another longer type,
+// e.g. highway-primary-bridge is left while highway-primary is removed.
 void LeaveLongestTypes(vector<generator::TypeStrings> & matchedTypes)
 {
   auto const less = [](auto const & lhs, auto const & rhs) { return lhs > rhs; };
@@ -912,6 +917,9 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
 void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
                     function<bool(uint32_t)> const & filterType)
 {
+  // At this point, some preprocessing could've been done to the tags already
+  // in TranslatorInterface::Preprocess(), e.g. converting tags according to replaced_tags.txt.
+
   // Stage1: Preprocess tags.
   PreprocessElement(p);
 
