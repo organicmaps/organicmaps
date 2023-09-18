@@ -1,41 +1,31 @@
-• Novos dados OpenStreetMap de 14 de agosto
-• Atualização de artigos da Wikipédia com mais de um ano
-• Correção do texto da Wiki no modo escuro
-• Adição de isolinhas ausentes para algumas regiões da Argentina, Chile, Cazaquistão, EUA, Rússia e Tibete (tamanho dos mapas aumentado)
-• Isolinhas mais densas em muitas áreas
-• Redução de muitos outros mapas
-• Importação de comentários da etiqueta GPX cmt
-• Tratamento dos segmentos de trilha GPX como parte da trilha singular à qual pertencem
-• Correção de um bug ao editar contatos sociais
-• Parques Caninos podem ser adicionado no Editor
-• Atualização de direções de voz em persa
-
-Roteamento
-• Atualização de fatores de superfície da estrada para o roteamento de veículos
-• Atualização de roteamento de pedestres para Turquia e Geórgia
-• Correção do roteamento cross-mwm quando as opções "evitar" estão ativadas
+• Improved Arabic, Polish, Spanish translations
+• Novos dados OpenStreetMap de 20 de setembro
+• Novo modo de rota (helicóptero) para medição em linha reta
+• Definição de separadores decimais e de agrupamento a depender do idioma do sistema
+• Remoção do zoom irritante no modo de planeamento de rota
+• Correção de Aberto/Fechado mostrado às vezes na cor cinza
+• Cavernas podem ser adicionadas no Editor
+• Traduções aprimoradas para árabe, espanhol e polaco
 
 Busca
-• Correção de pesquisa de moradas na Eslováquia e República Checa
-• Melhoria na correspondência de rua
-• Remoção de Informações Turísticas, Local de Religião, Mapa Turístico, Painel de Informações e Parque da categoria Passeios Turísticos
-• Não filtragem dos resultados de pesquisa duplicados, exceto para paragens de autocarro muito próximas
-• Melhoria da classificação ao pesquisar por categoria
-• Correção de busca por um nome de casa
+• As entradas do estacionamento podem ser pesquisadas
+• Melhor correspondência de ruas e relevância dos resultados
+• Funcionamento da busca por alimentação e utensílios domésticos
 
-Estilos
-• Adição de rotas de balsa ao mapa do mundo
-• Remoção de fundo quadrado dos ícones de estacionamento
-• Adição de ícones distintos para estacionamentos pagos e privados
-• Diferenciação do ícone de estacionamento de bicicletas em relação ao ícone de motocicleta
-• Atualização do ícone de entrada de estacionamento
-• Uso de ícone menor para estacionamentos ao lado da rua e faixas de estacionamento, aparecendo mais tarde ao aumentar o zoom
-• Adição de ícones de estacionamento de motocicletas e de entrada de estacionamento ao modo de navegação
-• Correção de visibilidade de ligação de autoestradas no modo de navegação
-• Melhoria nas cores de autoestradas
-• Remoção de isolinhas muito pequenas nos níveis de zoom da visão geral
-• Adição de ícone do metrô de Teerão
-• Reformulação de sistema de prioridades, especialmente para POIs
-• Muitas outras correções e melhorias
+Estilo
+• Ícones novos ou atualizados para fábrica, vinícola, estante de livros, biblioteca, oficina de bicicletas, aluguer de bicicletas, estacionamento de bicicletas, sauna, loteria, casa de apostas, massagem, costura, livros, estacionamento subterrâneo, vaga de estacionamento para deficientes, portão, venda de sacos de excremento
+• Adição de inspeção veicular, banho público, barreira para bicicletas, cursos de água (dreno, vala, fosso, águas residuais), aquário, ponto de reunião, galeria de diversões, igrejas mórmons, centro de visitantes, mina industrial, objetos históricos (canhão, âncora, pedra, aeronave, tanque, meu, naufrágio, locomotiva)
+• Adição de renderização de pontes e túneis para ciclovias, calçadas, caminhos, trilhas e degraus
+• Renderização de barrier=ditch diferente de waterway=ditch
+• Redução de prioridades de nomes de rios (e de outras linhas de menor importância) no modo de navegação
+• Ajustes de nomes de estradas e prioridades de escudos de estradas
+• Correção de exibição de ícones para edifícios de estacionamento
+• Redução de visibilidade de ícones de estacionamento secundário e privado, preenchimento de área removido para estacionamento subterrâneo
+• Visibilidade reduzida das bocas de incêndio
+• Não exibir números de casas de edifícios que sejam muito pequenos para o nível de zoom atual
+• Não exibir ícone de estrela para praças
+• Ajustar a fonte dos números das casas e a prioridade do desenho
+• Adição de linhas de peões, trilhas e ciclovias para zooms detalhados (z18-) no modo de navegação
+• Remoção da renderização de túneis de caminhos/trilhas/degraus no modo de navegação
 
-Acompanhe nossas novidades em https://omaps.org/news
+…e mais pequenas correções e melhorias, veja https://omaps.org/news para mais detalhes!

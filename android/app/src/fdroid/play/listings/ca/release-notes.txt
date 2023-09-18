@@ -1,10 +1,12 @@
-• Dades de l'OpenStreetMap actualitzades al 14 d'agost
-• Publicacions de la Viquipèdia més recents
-• S'ha corregit la cerca en adreces de la República Txeca i Eslovàquia
-• S'ha afegit informació faltant per a algunes regions d'Argentina, Xile, Casaquistan, Tibet, USA i Rússia
-• Informació més detallada d'algunes àrees
-• S'han afegit rutes en ferri al mapa mundial
-• S'ha redissenyat la icona del pàrquing
-• Sistema de prioritats renovat per als PDI
+• New OpenStreetMap maps data as of September 20
+• New Ruler (aka Helicopter) routing for straight distance measurement
+• Background voice and directions
+• Fixed "Wait…" dialog on Android 13 with SD card
+• Do not pause music when the screen is rotated
+• Added and improved many icons and styles
+• Improved search results relevance
+• Parking entrances are searchable
+• Test TTS voice in the settings
+• Fixed arrow position button on Android 5&6
 
-… Més informació: omaps.org/news
+… Més informació: omaps.org/ca/news

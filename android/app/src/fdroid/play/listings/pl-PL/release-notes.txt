@@ -1,12 +1,10 @@
-• Dane OpenStreetMap z 14 sierpnia
-• Aktualne artykuły Wikipedii
-• Poprawione wyszukiwanie adresów w Czechach i Słowacji
-• Dodane brakujące izolinie w części regionów Argentyny, Chile, Kazachstanu, Tybetu, USA, Rosji
-• Gęstsze izolinie na niektórych obszarach
-• Naprawiony błąd z Nexus 5X
-• Trasy promów dodane do mapy świata
-• Przeprojektowane ikony parkingów
-• Przebudowany system priorytetów dla punktów POI
-• Szybsze, ulepszone wyszukiwanie i wyznaczanie tras
-
-…więcej: omaps.org/pl/news
+Nowe mapy z danymi OSM z 20 września
+• Nowy tryb nawigacji Linijka (tzw. helikopter) do pomiaru dystansu w linii prostej
+• Komunikaty głosowe nawigacji w tle
+• Poprawiono komunikat "Czekaj…" na Androidzie 13 z kartą SD
+• Muzyka nie pauzuje, gdy ekran jest obrócony
+• Dodano i ulepszono wiele ikon oraz stylów
+• Poprawiono dokładność wyników wyszukiwania
+• Można już wyszukać wjazdy na parking
+• Test komunikatów głosowych TTS w ustawieniach
+Poprawiono przycisk strzałki lokalizacji w Androidzie 5,6

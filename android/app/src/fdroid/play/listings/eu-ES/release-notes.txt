@@ -1,11 +1,10 @@
-• OpenStreetMap-en datu berriak abuztuaren 14tik aurrera
-• Wikipediako artikulu berriak
-• Txekia eta Eslovakiako helbideen konponketa
-• Argentina, Txile, Kazakhstan, Tibet, AEB, Errusia eskualde batzuetarako falta diren isolineak gehitu dira
-• Zona batzuetan isolinea trinkoagoak
-• Nexus 5X-n akatsa konpondu da
-• Ferry-bideak gehitu dira Munduko mapan
-• Aparkalekuen ikonoak birmoldatuak
-• Interesgune edo POIentzako lehentasunen sistema berritua
-
-…Xehetasun gehiago: omaps.org/news
+• OpenStreetMap maparen datu berriak irailaren 20etik aurrera
+• Erregela berria (aka Helikopteroa) ibilbide zuzena neurtzeko
+• Atzeko planoko ahotsa eta jarraibideak
+• "Itxaron…" elkarrizketa-koadroa konpondu da Android 13 SD txartelarekin
+• Ez eten musika pantaila biratzen denean
+• Ikono eta estilo asko gehitu eta hobetu ditu
+• Bilaketa-emaitzen garrantzia hobetu
+• Aparkalekuen sarrerak bilatu daitezke
+• Ahots-proba ezarpenen menuan
+• Backurl API finkoa

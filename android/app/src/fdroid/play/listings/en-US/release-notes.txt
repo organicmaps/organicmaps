@@ -1,13 +1,12 @@
-• New OpenStreetMap data as of August 14
-• Fresh Wikipedia articles
-• Fixed search for addresses in Czech and Slovakia
-• Added missing isolines for some regions of Argentina, Chile, Kazakhstan, Tibet, USA, Russia
-• More dense isolines in some areas
-• Fixed bug on Nexus 5X
-• Added ferry routes to the World map
-• Redesigned parking icons
-• Revamped priorities system for POIs
-• Faster, improved search and routing
-• Many other smaller enhancements and bug fixes
+• New OpenStreetMap maps data as of September 20
+• New Ruler (aka Helicopter) routing for straight distance measurement
+• Background voice and directions
+• Fixed "Wait…" dialog on Android 13 with SD card
+• Do not pause music when the screen is rotated
+• Added/improved many icons and styles
+• Improved search results relevance
+• Parking entrances are searchable
+• Test TTS voice in the settings
+• Fixed arrow position button on Android 5&6
 
 …more: omaps.org/news

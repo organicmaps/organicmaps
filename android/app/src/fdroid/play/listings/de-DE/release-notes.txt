@@ -1,10 +1,13 @@
-• Neue Openstreetmap-Daten mit Stand 14. August
-• Aktuelle Wikipedia-Artikel
-• Suche von Adressen funktioniert nun auch für Tschechien und Slovakei
-• Fehlende Konturlinien für einige Regionen in Argentinien, Chile, Kasachstan, Tibet, USA, Russland hinzugefügt
-• Bessere Konturlinien für einige Regionen
-• Fehler bei Nexus 5X behoben
-• Fährverbindungen zur Weltkarte hinzugefügt
-• Überarbeitete Symbole für Parkplätze
-• Verbesserte Priorisierung von Sehenwürdigkeiten
+• Neue OSM-Daten mit Stand 20. September
+• Neue Distanzmessung von geraden Linien
+• Hintergrundstimme und Wegbeschreibungen
+• Fehler "Warten..." Dialog bei Android 13 mit SD-Karte behoben
+• Musik wird bei Bildschirmdrehung nicht mehr pausiert
+• Icons aktualisiert
+• Verbesserte Relevanz der Suchergebnisse
+• Parkhauseingänge sind suchbar
+• Sprachtest im Einstellungsmenü
+• Fehler bei backurl API behoben
+• Verbesserte arabische, polnische und spanische Übersetzung
+
 Mehr Details: omaps.org/de/news
