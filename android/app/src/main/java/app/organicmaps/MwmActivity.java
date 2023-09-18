@@ -829,9 +829,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void initMainMenu()
   {
     final View menuFrame = findViewById(R.id.menu_frame);
-    mMainMenu = new MainMenu(menuFrame, () -> {
+    mMainMenu = new MainMenu(menuFrame, (visible) -> {
       this.updateBottomWidgetsOffset();
-      mPlacePageViewModel.setPlacePageDistanceToTop(menuFrame.getTop());
+      if (visible)
+        mPlacePageViewModel.setPlacePageDistanceToTop(menuFrame.getTop());
     });
 
     if (mIsTabletLayout)
@@ -1272,11 +1273,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void updateMenu()
   {
-    boolean isVisible = adjustMenuLineFrameVisibility();
-    if (!isVisible)
-      return;
+    final RoutingController controller = RoutingController.get();
 
-    if (RoutingController.get().isNavigating())
+    if (controller.isNavigating())
     {
       mNavigationController.show(true);
       closeSearchToolbar(false, false);
@@ -1284,39 +1283,25 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    if (RoutingController.get().isPlanning())
-    {
-      mMainMenu.setState(MainMenu.State.ROUTE_PREPARE, isFullscreen());
-      return;
-    }
-
-    mMainMenu.setState(MainMenu.State.MENU, isFullscreen());
-  }
-
-  private boolean adjustMenuLineFrameVisibility()
-  {
-    final RoutingController controller = RoutingController.get();
-
     if (controller.isBuilt())
     {
       showMainMenu(true);
-      return true;
+      return;
     }
 
     if (controller.isPlanning() || controller.isBuilding() || controller.isErrorEncountered())
     {
       if (showAddStartOrFinishFrame(controller, true))
-      {
-        return true;
-      }
+        return;
 
-      showMainMenu(false);
-      return false;
+      if (controller.isPlanning())
+      {
+        mMainMenu.setState(MainMenu.State.ROUTE_PREPARE, isFullscreen());
+        return;
+      }
     }
 
-    hideRoutingActionFrame();
-    showMainMenu(true);
-    return true;
+    mMainMenu.setState(MainMenu.State.MENU, isFullscreen());
   }
 
   private boolean showAddStartOrFinishFrame(@NonNull RoutingController controller,
