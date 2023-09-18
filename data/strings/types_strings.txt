@@ -6377,6 +6377,46 @@
     zh-Hans = 酿酒厂
     zh-Hant = 釀酒廠
 
+  [type.craft.caterer]
+    en = Caterer
+    ar = متعهد تقديم الطعام
+    be = Кейтэрынг
+    bg = Кетъринг
+    ca = Càtering
+    cs = Cateringová společnost
+    da = Caterer
+    de = Caterer
+    el = Τροφοδότης
+    es = Catering
+    et = Catering
+    eu = Catering
+    fa = پذیرایی
+    fi = Pitopalvelu
+    fr = Traiteur
+    he = קייטרינג
+    hu = Catering
+    id = Katering
+    it = Catering
+    ja = ケータリング
+    ko = 케이터링 업체
+    mr = केटरर
+    nb = Caterer
+    nl = Traiteur
+    pl = Firma cateringowa
+    pt = Serviço de catering
+    pt-BR = Serviço de bufê
+    ro = Catering
+    ru = Кейтеринг
+    sk = Cateringová spoločnosť
+    sv = Cateringfirma
+    sw = Mpishi
+    th = พนักงานจัดเลี้ยง
+    tr = Yemek şirketi
+    uk = Кейтеринг
+    vi = Người cung cấp thực phẩm
+    zh-Hans = 餐饮
+    zh-Hant = 餐飲服務商
+
   [type.craft.carpenter]
     en = Carpenter
     af = Skrynwerker
