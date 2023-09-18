@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import app.organicmaps.display.DisplayManager;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.Counters;
@@ -88,6 +89,12 @@ public class SplashActivity extends AppCompatActivity implements MwmApplication.
       setResult(result.getResultCode(), result.getData());
       finish();
     });
+
+    if (DisplayManager.from(this).isCarDisplayUsed())
+    {
+      startActivity(new Intent(this, MapPlaceholderActivity.class));
+      finish();
+    }
   }
 
   @Override

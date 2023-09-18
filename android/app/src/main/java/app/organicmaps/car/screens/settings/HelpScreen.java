@@ -14,8 +14,8 @@ import app.organicmaps.BuildConfig;
 import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
-import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.car.screens.base.BaseMapScreen;
+import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.util.DateUtils;
 
 public class HelpScreen extends BaseMapScreen

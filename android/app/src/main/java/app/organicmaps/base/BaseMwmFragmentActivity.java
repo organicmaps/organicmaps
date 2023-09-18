@@ -1,6 +1,5 @@
 package app.organicmaps.base;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -59,6 +58,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   @Override
   protected final void onCreate(@Nullable Bundle savedInstanceState)
   {
+    super.onCreate(savedInstanceState);
     mThemeName = Config.getCurrentUiTheme(getApplicationContext());
     setTheme(getThemeResourceId(mThemeName));
     RtlUtils.manageRtl(this);
@@ -71,12 +71,9 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
 
     if (!MwmApplication.from(this).arePlatformAndCoreInitialized())
     {
-      super.onCreate(savedInstanceState);
       goToSplashScreen(getIntent());
       return;
     }
-
-    super.onCreate(savedInstanceState);
 
     onSafeCreate(savedInstanceState);
   }

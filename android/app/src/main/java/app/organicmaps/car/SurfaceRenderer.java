@@ -1,8 +1,12 @@
 package app.organicmaps.car;
 
+import static app.organicmaps.display.DisplayType.Car;
+
 import android.graphics.Rect;
+import android.view.Surface;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.car.app.AppManager;
 import androidx.car.app.CarContext;
 import androidx.car.app.CarToast;
@@ -16,10 +20,10 @@ import app.organicmaps.Framework;
 import app.organicmaps.Map;
 import app.organicmaps.MapRenderingListener;
 import app.organicmaps.R;
+import app.organicmaps.display.DisplayManager;
 import app.organicmaps.settings.UnitLocale;
+import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
-
-import static app.organicmaps.display.DisplayType.Car;
 
 public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallback, MapRenderingListener
 {
@@ -31,6 +35,9 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   @NonNull
   private Rect mVisibleArea = new Rect();
 
+  @Nullable
+  private Surface mSurface = null;
+
   private boolean mIsRunning;
 
   public SurfaceRenderer(@NonNull CarContext carContext, @NonNull Lifecycle lifecycle)
@@ -40,16 +47,20 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
     mIsRunning = true;
     lifecycle.addObserver(this);
     mMap.setMapRenderingListener(this);
-    mMap.updateMyPositionRoutingOffset(0);
   }
 
   @Override
   public void onSurfaceAvailable(@NonNull SurfaceContainer surfaceContainer)
   {
     Logger.d(TAG, "Surface available " + surfaceContainer);
+
+    if (mSurface != null)
+      mSurface.release();
+    mSurface = surfaceContainer.getSurface();
+
     mMap.onSurfaceCreated(
         mCarContext,
-        surfaceContainer.getSurface(),
+        mSurface,
         new Rect(0, 0, surfaceContainer.getWidth(), surfaceContainer.getHeight()),
         surfaceContainer.getDpi()
     );
@@ -80,6 +91,11 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   public void onSurfaceDestroyed(@NonNull SurfaceContainer surfaceContainer)
   {
     Logger.d(TAG, "Surface destroyed");
+    if (mSurface != null)
+    {
+      mSurface.release();
+      mSurface = null;
+    }
     mMap.onSurfaceDestroyed(false, true);
   }
 
@@ -88,10 +104,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   {
     Logger.d(TAG);
     mCarContext.getCarService(AppManager.class).setSurfaceCallback(this);
-
-    // TODO (AndrewShkrob): Properly process deep links from other apps on AA.
-    boolean launchByDeepLink = false;
-    mMap.onCreate(launchByDeepLink);
+    mMap.onCreate(false);
   }
 
   @Override
@@ -103,11 +116,12 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   }
 
   @Override
-  public void onStop(@NonNull LifecycleOwner owner)
+  public void onResume(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
-    mMap.onStop();
-    mMap.setCallbackUnsupported(null);
+    mMap.onResume();
+    if (DisplayManager.from(mCarContext).isCarDisplayUsed())
+      UiThread.runLater(() -> mMap.updateMyPositionRoutingOffset(0));
   }
 
   @Override
@@ -118,10 +132,11 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   }
 
   @Override
-  public void onResume(@NonNull LifecycleOwner owner)
+  public void onStop(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
-    mMap.onResume();
+    mMap.onStop();
+    mMap.setCallbackUnsupported(null);
   }
 
   @Override
@@ -179,7 +194,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   {
     if (!mIsRunning)
     {
-      Logger.e(TAG, "Already disabled");
+      Logger.d(TAG, "Already disabled");
       return;
     }
 
@@ -196,7 +211,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   {
     if (mIsRunning)
     {
-      Logger.e(TAG, "Already enabled");
+      Logger.d(TAG, "Already enabled");
       return;
     }
 

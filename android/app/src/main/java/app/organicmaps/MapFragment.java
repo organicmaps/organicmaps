@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.res.ConfigurationHelper;
 
 import app.organicmaps.base.BaseMwmFragment;
+import app.organicmaps.display.DisplayManager;
 import app.organicmaps.display.DisplayType;
 import app.organicmaps.util.log.Logger;
 
@@ -25,6 +26,9 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
 {
   private static final String TAG = MapFragment.class.getSimpleName();
   private final Map mMap = new Map(DisplayType.Device);
+
+  @Nullable
+  private Runnable mNotifyOnSurfaceDestroyed;
 
   public void updateCompassOffset(int offsetX, int offsetY)
   {
@@ -77,6 +81,11 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
   {
     Logger.d(TAG);
     mMap.onSurfaceDestroyed(requireActivity().isChangingConfigurations(), true);
+    if (mNotifyOnSurfaceDestroyed != null)
+    {
+      mNotifyOnSurfaceDestroyed.run();
+      mNotifyOnSurfaceDestroyed = null;
+    }
   }
 
   @Override
@@ -183,6 +192,14 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
     }
     Map.onTouch(action, event, pointerIndex);
     return true;
+  }
+
+  public void notifyOnSurfaceDestroyed(@NonNull Runnable task)
+  {
+    if (mMap.isContextCreated())
+      mNotifyOnSurfaceDestroyed = task;
+    else
+      task.run();
   }
 
   private void reportUnsupported()
