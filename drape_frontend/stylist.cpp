@@ -207,16 +207,20 @@ private:
       m2::RectD const r = m_f.GetLimitRect(m_zoomLevel);
       // Raw areas' size range is about (1e-11, 3000).
       double const areaSize = r.SizeX() * r.SizeY();
-      // Use log2() to have more precision distinguishing smaller areas.
-      double const areaSizeCompact = std::log2(areaSize);
       // Compacted range is approx (-37;13).
-      double constexpr minSize = -37,
-                       maxSize = 13,
-                       stretchFactor = kDepthRangeBgBySize / (maxSize - minSize);
-      // Adjust the range to fit into [kBaseDepthBgBySize;kBaseDepthBgTop).
-      m_areaDepth = kBaseDepthBgBySize + (maxSize - areaSizeCompact) * stretchFactor;
+      double constexpr kMinSize = -37,
+                       kMaxSize = 13,
+                       kStretchFactor = kDepthRangeBgBySize / (kMaxSize - kMinSize);
 
-      ASSERT(kBaseDepthBgBySize <= m_areaDepth && m_areaDepth < kBaseDepthBgTop, (m_areaDepth, areaSize, areaSizeCompact, m_f.GetID()));
+      // Use log2() to have more precision distinguishing smaller areas.
+      /// @todo We still can get here with areaSize == 0.
+      double const areaSizeCompact = std::max(kMinSize, (areaSize > 0) ? std::log2(areaSize) : kMinSize);
+
+      // Adjust the range to fit into [kBaseDepthBgBySize, kBaseDepthBgTop].
+      m_areaDepth = kBaseDepthBgBySize + (kMaxSize - areaSizeCompact) * kStretchFactor;
+
+      ASSERT(kBaseDepthBgBySize <= m_areaDepth && m_areaDepth <= kBaseDepthBgTop,
+             (m_areaDepth, areaSize, areaSizeCompact, m_f.GetID()));
     }
   }
 
