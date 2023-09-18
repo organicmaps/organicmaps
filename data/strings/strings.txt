@@ -6163,8 +6163,8 @@
     tr = Bağış yapın
     uk = Підтримати грошима
     vi = Quyên tặng
-    zh-Hans = 捐
-    zh-Hant = 捐
+    zh-Hans = 捐款
+    zh-Hant = 捐款
 
   [how_to_support_us]
     comment = Button in the main Help dialog
