@@ -1876,7 +1876,9 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
       else if (ext == ".kmb")
         kmlData = LoadKmlFile(fileSavePath, KmlFileType::Binary);
       else
+      {
         ASSERT(false, ("Unsupported bookmarks extension", ext));
+      }
 
       if (m_needTeardown)
         return;

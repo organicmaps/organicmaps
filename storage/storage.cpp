@@ -924,7 +924,9 @@ void Storage::RegisterCountryFiles(LocalFilePtr localFile)
     if (existingFile->IsInBundle())
       *existingFile = *localFile;
     else
+    {
       ASSERT_EQUAL(localFile.get(), existingFile.get(), ());
+    }
   }
   else
     m_localFiles[countryId].push_front(localFile);
