@@ -302,12 +302,12 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s, TInsertSha
 
   ApplyAreaFeature apply(m_context->GetTileKey(), insertShape, f.GetID(),
                          m_currentScaleGtoP, isBuilding,
-                         m_context->Is3dBuildingsEnabled() && isBuildingOutline,
-                         areaMinHeight, areaHeight, f.GetRank(),
+                         m_context->Is3dBuildingsEnabled() && isBuildingOutline /* skipAreaGeometry */,
+                         areaMinHeight /* minPosZ */, areaHeight /* posZ */, f.GetRank(),
                          s.GetCaptionDescription());
   f.ForEachTriangle(apply, zoomLevel);
   if (applyPointStyle)
-    apply(featureCenter, true /* hasArea */);
+    apply(featureCenter, true /* hasArea */); // ApplyPointFeature::operator()()
 
   if (CheckCancelled())
     return;
@@ -336,7 +336,7 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s, TInsertSha
 
   /// @todo Can we put this check in the beginning of this function?
   if (!IsDiscardCustomFeature(f.GetID()))
-    apply.Finish(m_context->GetTextureManager());
+    apply.Finish(m_context->GetTextureManager()); // ApplyPointFeature::Finish()
 }
 
 void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape)

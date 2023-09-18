@@ -234,11 +234,12 @@ namespace
 
     void add_rule(int ft, iter_t i)
     {
+      // Define which drule types are applicable to which feature geom types.
       static const int visible[3][drule::count_of_rules] = {
-        //{ line, area, symbol, caption, circle, pathtext, waymarker, shield }
+        //{ line, area, symbol, caption, circle, pathtext, waymarker, shield }, see drule::Key::rule_type_t
         { 0, 0, 1, 1, 1, 0, 0, 0 },   // fpoint
         { 1, 0, 0, 0, 0, 1, 0, 1 },   // fline
-        { 1, 1, 1, 1, 1, 0, 0, 0 }    // farea
+        { 1, 1, 1, 1, 1, 0, 0, 0 }    // farea (!!! different from IsDrawableLike(): here area feature can use point and line styles)
       };
 
       if (visible[ft][i->m_type] == 1)
@@ -291,11 +292,12 @@ bool ClassifObject::IsDrawableLike(feature::GeomType gt, bool emptyName) const
   if (!IsDrawableAny())
     return false;
 
+  // Define which feature geom types can use which drule types for rendering.
   static const int visible[3][drule::count_of_rules] = {
-    //{ line, area, symbol, caption, circle, pathtext, waymarker, shield }
+    //{ line, area, symbol, caption, circle, pathtext, waymarker, shield }, see drule::Key::rule_type_t
     {0, 0, 1, 1, 1, 0, 0, 0},   // fpoint
     {1, 0, 0, 0, 0, 1, 0, 1},   // fline
-    {0, 1, 0, 0, 0, 0, 0, 0}    // farea (!!! key difference with GetSuitable !!!)
+    {0, 1, 0, 0, 0, 0, 0, 0}    // farea (!!! key difference with GetSuitable, see suitable_getter::add_rule())
   };
 
   for (auto const & k : m_drawRules)

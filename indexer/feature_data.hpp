@@ -41,7 +41,7 @@ namespace feature
     PointEx = 3U << 5  /// point feature (addinfo = house)
   };
 
-  static constexpr int kMaxTypesCount = HEADER_MASK_TYPE + 1;
+  static constexpr int kMaxTypesCount = HEADER_MASK_TYPE + 1; // 8, because there should be no features with 0 types
 
   enum Layer : int8_t
   {

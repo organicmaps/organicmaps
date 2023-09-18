@@ -98,13 +98,21 @@ void RepresentationLayer::Handle(FeatureBuilder & fb)
     {
     case feature::GeomType::Area:
     {
+      // All closed geometry OsmWays fall through here.
+      // E.g. a closed way with tags [amenity=restaurant][wifi=yes][cuisine=*]
+      // should be added as an areal feature with corresponding types
+      // and no extra linear/point features.
+      // A closed way with a tag [highway=pedestrian] should be added as a line feature only
+      // (because there are no areal and/or point drules for the highway-pedestrian type).
+      // But a closed way tagged [highway=pedestrian][area=yes] should be added as both area and line features
+      // (because there are areal and line drules for the highway-primary-area type).
+      // Also an [leisure=playground][barrier=fence] should be added
+      // as an areal amenity-playground and a linear barrier=fence.
+
+      // Try to create an areal object first (if there are corresponding drules),
+      // otherwise try to create a point object.
       HandleArea(fb, params);
       // CanBeLine ignores exceptional types from TypeAlwaysExists / IsUsefulNondrawableType.
-      // Areal object with types amenity=restaurant + wifi=yes + cuisine=* should be added as areal object with
-      // these types and no extra linear/point objects.
-      // We need extra line object only for case when object has type which is drawable like line:
-      // amenity=playground + barrier=fence should be added as area object with amenity=playground + linear object
-      // with barrier=fence.
       if (CanBeLine(params))
       {
         auto featureLine = MakeLine(fb);
@@ -270,7 +278,7 @@ void ComplexFeaturesMixer::Process(std::function<void(feature::FeatureBuilder &)
     return;
 
   // For rendering purposes all hierarchy objects with closed geometry except building parts must
-  // be stored as one areal object and one linear object.
+  // be stored as one areal object and/or one linear object.
   if (fb.IsPoint() || !fb.IsGeometryClosed())
     return;
 

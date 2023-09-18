@@ -7,6 +7,8 @@
 # means that all shop=ice_cream tags will be converted into amenity=ice_cream during maps generation,
 # so there will be no shop=ice_cream in MWM map files at all.
 #
+# These tag conversions happen before matching of the mapcss-mapping.csv rules.
+#
 # In the following example
 #      vending=parcel_pickup : amenity=parcel_locker | u
 # the 'u' flag means update/replace existing tag with the same key (if any),
@@ -24,6 +26,8 @@
 # <key>                   ::= string without spaces, '=', ',', '|' symbols
 # <value>                 ::= string without spaces, '=', ',', '|' symbols
 # <flag>                  ::= control flag {'u'}
+#
+# For implementation details see the TagReplacer class in generator/tag_admixer.hpp.
 
 atm=yes : amenity=atm
 bench=yes : amenity=bench
