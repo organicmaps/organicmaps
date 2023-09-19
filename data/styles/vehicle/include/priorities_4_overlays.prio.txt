@@ -458,6 +458,7 @@ natural-bay                                         # caption z14-
 natural-cape                                        # caption z14-
 place-farm                                          # caption z14-
 place-isolated_dwelling                             # caption z14-
+place-square                                        # caption z16-
 === 1400
 
 tourism-zoo                                         # icon z15- (also has caption(optional) z15-)

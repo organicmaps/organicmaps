@@ -461,7 +461,6 @@ node|z14-[amenity=theatre],
 area|z14-[amenity=theatre],
 node|z14-[tourism=attraction],
 area|z14-[tourism=attraction],
-area|z14-[place=square],
 node|z14-[tourism=theme_park],
 area|z14-[tourism=theme_park],
 node|z14-[tourism=viewpoint],
@@ -692,15 +691,12 @@ area|z16-[tourism=artwork],
 
 node|z14[tourism=attraction],
 area|z14[tourism=attraction],
-area|z14[place=square],
 {icon-image: tourism-s.svg;icon-min-distance: 12;}
 node|z15[tourism=attraction],
 area|z15[tourism=attraction],
-area|z15[place=square],
 {icon-image: tourism-m.svg;icon-min-distance: 36;}
 node|z16-[tourism=attraction],
 area|z16-[tourism=attraction],
-area|z16-[place=square],
 {icon-image: tourism-m.svg;icon-min-distance: 24;}
 
 node|z14[tourism=theme_park],

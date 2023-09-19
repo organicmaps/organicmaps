@@ -326,7 +326,7 @@ highway-secondary-tunnel                            # pathtext z10- (also has sh
 shop-mall                                           # icon z14- (also has caption(optional) z14-)
 === 5550
 
-place-square                                        # icon z14- (also has caption(optional) z14-)
+place-square                                        # caption z16-
 tourism-theme_park                                  # icon z14- (also has caption(optional) z14-)
 === 5500
 
@@ -1483,7 +1483,6 @@ amenity-parking-private                             # icon z18- (also has captio
 # shop-mall                                         # caption(optional) z14- (also has icon z14-)
 # === -4450
 
-# place-square                                      # caption(optional) z14- (also has icon z14-)
 # tourism-theme_park                                # caption(optional) z14- (also has icon z14-)
 # === -4500
 
