@@ -57206,105 +57206,43 @@ cont {
 cont {
   name: "place-square"
   element {
-    scale: 14
-    symbol {
-      name: "tourism-s"
-      priority: 5500
-      min_distance: 12
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -4500
-    }
-  }
-  element {
-    scale: 15
-    symbol {
-      name: "tourism-m"
-      priority: 5500
-      min_distance: 36
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -4500
-    }
-  }
-  element {
     scale: 16
-    symbol {
-      name: "tourism-m"
-      priority: 5500
-      min_distance: 24
-    }
     caption {
       primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-        is_optional: true
+        height: 11
+        color: 10066329
       }
-      priority: -4500
+      priority: 5500
     }
   }
   element {
     scale: 17
-    symbol {
-      name: "tourism-m"
-      priority: 5500
-      min_distance: 24
-    }
     caption {
       primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-        is_optional: true
+        height: 11
+        color: 10066329
       }
-      priority: -4500
+      priority: 5500
     }
   }
   element {
     scale: 18
-    symbol {
-      name: "tourism-m"
-      priority: 5500
-      min_distance: 24
-    }
     caption {
       primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-        is_optional: true
+        height: 11
+        color: 10066329
       }
-      priority: -4500
+      priority: 5500
     }
   }
   element {
     scale: 19
-    symbol {
-      name: "tourism-m"
-      priority: 5500
-      min_distance: 24
-    }
     caption {
       primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-        is_optional: true
+        height: 11
+        color: 10066329
       }
-      priority: -4500
+      priority: 5500
     }
   }
 }

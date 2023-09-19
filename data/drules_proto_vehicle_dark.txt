@@ -36177,6 +36177,49 @@ cont {
   }
 }
 cont {
+  name: "place-square"
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 10
+        color: 10066329
+      }
+      priority: 1400
+    }
+  }
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 10
+        color: 10066329
+      }
+      priority: 1400
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 10
+        color: 10066329
+      }
+      priority: 1400
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 10
+        color: 10066329
+      }
+      priority: 1400
+    }
+  }
+}
+cont {
   name: "place-state"
   element {
     scale: 6
