@@ -9938,7 +9938,7 @@
 
   [routing_arrive]
     comment = Arrive routing message in navigation view
-    tags = android,ios
+    tags = ios
     en = Arrival at %@
     af = Aankoms om %@
     ar = وقت الوصول: %@
