@@ -551,9 +551,9 @@ line[waterway]
 line[waterway][tunnel]
 {text: none;}
 
-/* 7. LANDUSE*/
+/* 7. LANDUSE */
 
-/*7.2 Hostital 7.3 University & Sport */
+/*7.2 Hospital 7.3 University & Sport */
 
 /* 	7.1 Industrial */
 
@@ -568,7 +568,7 @@ node|z15-[landuse=railway],
 node|z15-[landuse=quarry],
 {text: name;font-size: 10;text-color: @city_label;text-position: center;}
 
-/* 	7.4 Cemetry */
+/* 	7.4 Cemetery */
 
 area|z15-[landuse=cemetery],
 node|z17-[landuse=cemetery],
@@ -584,6 +584,7 @@ area|z15-[highway=pedestrian][area?],
 area|z15-[area:highway=pedestrian],
 area|z15-[highway=footway][area?][!sac_scale],
 area|z15-[area:highway=footway],
+area|z16-[place=square],
 {text: name;font-size: 11;text-color: @city_label;text-position: center;}
 
 /* 	7.6 Military */
