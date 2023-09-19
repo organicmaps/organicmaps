@@ -361,8 +361,6 @@
 	<string name="show">แสดง</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">ซ่อน</string>
-	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">มาถึง: %s</string>
 	<string name="categories">หมวดหมู่</string>
 	<string name="history">ประวัติ</string>
 	<string name="search_not_found">ขออภัย ฉันไม่พบสิ่งใด</string>

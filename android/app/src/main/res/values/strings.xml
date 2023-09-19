@@ -401,8 +401,6 @@
 	<string name="show">Show</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Hide</string>
-	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Arrival at %s</string>
 	<string name="categories">Categories</string>
 	<string name="history">History</string>
 	<string name="search_not_found">Oops, no results found.</string>

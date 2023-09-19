@@ -370,8 +370,6 @@
 	<string name="show">Mostra</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Amaga</string>
-	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Arribada: %s</string>
 	<string name="categories">Categories</string>
 	<string name="history">Historial</string>
 	<string name="search_not_found">Ups! No s\'ha trobat cap resultat.</string>

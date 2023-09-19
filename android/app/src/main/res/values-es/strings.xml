@@ -378,8 +378,6 @@
 	<string name="show">Mostrar</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Ocultar</string>
-	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Llegada: %s</string>
 	<string name="categories">Categorías</string>
 	<string name="history">Historial</string>
 	<string name="search_not_found">Lo siento, no se han encontrado resultados.</string>

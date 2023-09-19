@@ -359,8 +359,6 @@
 	<string name="show">Hiện</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Ẩn</string>
-	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Đến: %s</string>
 	<string name="categories">Thể loại</string>
 	<string name="history">Lịch sử</string>
 	<string name="search_not_found">Xin lỗi, tôi không tìm thấy kết quả nào.</string>

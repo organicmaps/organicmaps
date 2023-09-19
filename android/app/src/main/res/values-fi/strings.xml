@@ -380,8 +380,6 @@
 	<string name="show">Näytä</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Piilota</string>
-	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Saavut: %s</string>
 	<string name="categories">Luokat</string>
 	<string name="history">Historia</string>
 	<string name="search_not_found">Pahoittelut, hakutuloksia ei ole.</string>

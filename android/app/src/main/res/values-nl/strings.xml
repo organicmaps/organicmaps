@@ -376,8 +376,6 @@
 	<string name="show">Tonen</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Verbergen</string>
-	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Aankomst: %s</string>
 	<string name="categories">Categorieën</string>
 	<string name="history">Geschiedenis</string>
 	<string name="search_not_found">Sorry, ik heb niets gevonden.</string>

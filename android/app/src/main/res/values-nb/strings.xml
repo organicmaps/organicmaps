@@ -380,8 +380,6 @@
 	<string name="show">Vis</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Skjul</string>
-	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Ankomme: %s</string>
 	<string name="categories">Kategorier</string>
 	<string name="history">Historikk</string>
 	<string name="search_not_found">Beklager, jeg fant ingenting.</string>

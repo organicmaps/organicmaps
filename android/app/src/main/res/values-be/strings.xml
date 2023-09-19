@@ -377,8 +377,6 @@
 	<string name="show">Паказаць</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Схаваць</string>
-	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Прыбыццё ў %s</string>
 	<string name="categories">Катэгорыі</string>
 	<string name="history">Гісторыя</string>
 	<string name="search_not_found">Нічога не знойдзена.</string>

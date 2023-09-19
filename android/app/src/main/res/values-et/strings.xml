@@ -368,8 +368,6 @@
 	<string name="show">Kuva</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Peida</string>
-	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Saabumine: %s</string>
 	<string name="categories">Kategooriad</string>
 	<string name="history">Ajalugu</string>
 	<string name="search_not_found">Vabandust, tulemusi ei leitud.</string>

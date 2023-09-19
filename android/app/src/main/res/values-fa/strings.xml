@@ -352,8 +352,6 @@
 	<string name="show">نمایش</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">مخفی کردن</string>
-	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">ورود به: %s</string>
 	<string name="categories">دسته‌بندی‌ها</string>
 	<string name="history">تاریخچه</string>
 	<string name="search_not_found">متاسفانه چیزی پیدا نشد</string>

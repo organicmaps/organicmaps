@@ -363,8 +363,6 @@
 	<string name="show">Ukázat</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Skrýt</string>
-	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Příjezd: %s</string>
 	<string name="categories">Kategorie</string>
 	<string name="history">Historie</string>
 	<string name="search_not_found">Omlouváme se, nic nebylo nalezeno.</string>

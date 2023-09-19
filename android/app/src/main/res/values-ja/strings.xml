@@ -357,8 +357,6 @@
 	<string name="show">表示する</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">隠す</string>
-	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">到着予定: %s</string>
 	<string name="categories">カテゴリー</string>
 	<string name="history">履歴</string>
 	<string name="search_not_found">申し訳ありませんが該当するものは見つかりませんでした。</string>

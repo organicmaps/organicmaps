@@ -376,8 +376,6 @@
 	<string name="show">Anzeigen</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Ausblenden</string>
-	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Ankunft: %s</string>
 	<string name="categories">Kategorien</string>
 	<string name="history">Verlauf</string>
 	<string name="search_not_found">Leider wurde nichts gefunden.</string>

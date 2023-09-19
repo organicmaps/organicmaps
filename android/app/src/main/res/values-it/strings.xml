@@ -362,8 +362,6 @@
 	<string name="show">Mostra</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Nascondi</string>
-	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Arrivo a %s</string>
 	<string name="categories">Categorie</string>
 	<string name="history">Cronologia</string>
 	<string name="search_not_found">Non ho trovato nulla.</string>

@@ -378,8 +378,6 @@
 	<string name="show">Erakutsi</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Ezkutatu</string>
-	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Iristeko unea: %s</string>
 	<string name="categories">Kategoriak</string>
 	<string name="history">Historiala</string>
 	<string name="search_not_found">Barkatu, ez dut ezer aurkitu.</string>

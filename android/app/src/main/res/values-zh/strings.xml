@@ -367,8 +367,6 @@
 	<string name="show">显示</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">隐藏</string>
-	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">抵達:%s</string>
 	<string name="categories">类别</string>
 	<string name="history">历史</string>
 	<string name="search_not_found">抱歉，没有找到任何东西。</string>

@@ -361,8 +361,6 @@
 	<string name="show">Tampilkan</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Sembunyikan</string>
-	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Kedatangan: %s</string>
 	<string name="categories">Kategori</string>
 	<string name="history">Riwayat</string>
 	<string name="search_not_found">Maaf, saya tidak menemukan apa pun.</string>

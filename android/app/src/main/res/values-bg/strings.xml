@@ -349,8 +349,6 @@
 	<string name="show">Показване</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Скриване</string>
-	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Пристигане в %s</string>
 	<string name="categories">Категории</string>
 	<string name="history">История</string>
 	<string name="search_not_found">За съжаление не са намерени резултати.</string>

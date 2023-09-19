@@ -357,8 +357,6 @@
 	<string name="show">Ukázať</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Skryť</string>
-	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Pricestovať: %s</string>
 	<string name="categories">Kategórie</string>
 	<string name="history">Archív</string>
 	<string name="search_not_found">Ľutujeme, ale nič sme nenašli.</string>

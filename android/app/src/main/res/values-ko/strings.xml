@@ -359,8 +359,6 @@
 	<string name="show">표시</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">숨기기</string>
-	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">도착: %s</string>
 	<string name="categories">범주</string>
 	<string name="history">내역</string>
 	<string name="search_not_found">죄송합니다. 아무것도 찾지 못했습니다.</string>
