@@ -870,7 +870,7 @@ void RoutingManager::ContinueRouteToPoint(RouteMarkData && markData)
   // Finish point is now Intermediate point
   RouteMarkPoint * finishMarkData = routePoints.GetRoutePointForEdit(RouteMarkType::Finish);
   finishMarkData->SetRoutePointType(RouteMarkType::Intermediate);
-  finishMarkData->SetIntermediateIndex(routePoints.GetRoutePointsCount()-1);
+  finishMarkData->SetIntermediateIndex(routePoints.GetRoutePointsCount() - 2);
 
   if (markData.m_isMyPosition)
   {
@@ -879,7 +879,7 @@ void RoutingManager::ContinueRouteToPoint(RouteMarkData && markData)
       routePoints.RemoveRoutePoint(mark->GetRoutePointType(), mark->GetIntermediateIndex());
   }
 
-  markData.m_intermediateIndex = routePoints.GetRoutePointsCount();
+  markData.m_intermediateIndex = routePoints.GetRoutePointsCount() - 1;
   markData.m_isVisible = !markData.m_isMyPosition;
   routePoints.AddRoutePoint(std::move(markData));
 }
