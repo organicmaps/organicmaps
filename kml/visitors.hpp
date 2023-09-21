@@ -289,7 +289,7 @@ public:
 
   void operator()(TimestampMillis const & t, char const * /* name */ = nullptr)
   {
-    WriteVarUint(m_sink, ToSecondsSinceEpoch(t)*1000);
+    WriteVarUint(m_sink, ToSecondsSinceEpoch(t) * 1000);
   }
 
   void operator()(double d, char const * /* name */ = nullptr)
@@ -386,7 +386,7 @@ public:
 
   void operator()(TimestampMillis const & t, char const * /* name */ = nullptr)
   {
-    WriteVarUint(m_sink, ToSecondsSinceEpoch(t)*1000);
+    WriteVarUint(m_sink, ToSecondsSinceEpoch(t) * 1000);
   }
 
   void operator()(PredefinedColor color, char const * /* name */ = nullptr)
@@ -506,7 +506,7 @@ public:
   void operator()(TimestampMillis & t, char const * /* name */ = nullptr)
   {
     auto const v = ReadVarUint<uint64_t, Source>(m_source);
-    t = FromSecondsSinceEpoch(v/1000);
+    t = FromSecondsSinceEpoch(v / 1000);
   }
 
   void operator()(double & d, char const * /* name */ = nullptr)
@@ -609,7 +609,7 @@ public:
   void operator()(TimestampMillis & t, char const * /* name */ = nullptr)
   {
     auto const v = ReadVarUint<uint64_t, Source>(m_source);
-    t = FromSecondsSinceEpoch(v/1000);
+    t = FromSecondsSinceEpoch(v / 1000);
   }
 
   void operator()(PredefinedColor & color, char const * /* name */ = nullptr)

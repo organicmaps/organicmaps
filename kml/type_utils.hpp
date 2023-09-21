@@ -19,7 +19,13 @@ using Timestamp = std::chrono::time_point<TimestampClock>;
 class TimestampMillis : public Timestamp {
 public:
   TimestampMillis() = default;
-  TimestampMillis(Timestamp ts) : Timestamp(ts) { };
+  explicit TimestampMillis(Timestamp const & ts) : Timestamp{ts} {}
+  TimestampMillis & operator=(Timestamp const & ts)
+  {
+    if (this != &ts)
+      Timestamp::operator=(ts);
+    return *this;
+  }
 };
 
 using LocalizableString = std::unordered_map<int8_t, std::string>;
