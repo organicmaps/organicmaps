@@ -499,13 +499,13 @@ public:
 
   void operator()(Timestamp & t, char const * /* name */ = nullptr)
   {
-    auto v = ReadVarUint<uint64_t, Source>(m_source);
+    auto const v = ReadVarUint<uint64_t, Source>(m_source);
     t = FromSecondsSinceEpoch(v);
   }
 
   void operator()(TimestampMillis & t, char const * /* name */ = nullptr)
   {
-    auto v = ReadVarUint<uint64_t, Source>(m_source);
+    auto const v = ReadVarUint<uint64_t, Source>(m_source);
     t = FromSecondsSinceEpoch(v/1000);
   }
 
@@ -602,13 +602,13 @@ public:
 
   void operator()(Timestamp & t, char const * /* name */ = nullptr)
   {
-    auto v = ReadVarUint<uint64_t, Source>(m_source);
+    auto const v = ReadVarUint<uint64_t, Source>(m_source);
     t = FromSecondsSinceEpoch(v);
   }
 
   void operator()(TimestampMillis & t, char const * /* name */ = nullptr)
   {
-    auto v = ReadVarUint<uint64_t, Source>(m_source);
+    auto const v = ReadVarUint<uint64_t, Source>(m_source);
     t = FromSecondsSinceEpoch(v/1000);
   }
 
