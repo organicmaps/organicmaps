@@ -8,6 +8,8 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/assert.hpp"
 
 #include <algorithm>

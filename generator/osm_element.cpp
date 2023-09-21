@@ -1,9 +1,12 @@
 #include "generator/osm_element.hpp"
 
+#include "geometry/mercator.hpp"  // kPointEqualityEps
+
+#include "base/logging.hpp"
+#include "base/math.hpp"
 #include "base/string_utils.hpp"
 #include "base/stl_helpers.hpp"
 
-#include <cstdio>
 #include <cstring>
 #include <sstream>
 
@@ -88,18 +91,57 @@ bool OsmElement::HasTag(std::string const & key, std::string const & value) cons
   return base::AnyOf(m_tags, [&](auto const & t) { return t.m_key == key && t.m_value == value; });
 }
 
-bool OsmElement::HasAnyTag(std::unordered_multimap<std::string, std::string> const & tags) const
+void OsmElement::Validate()
 {
-  return base::AnyOf(m_tags, [&](auto const & t) {
-    auto beginEnd = tags.equal_range(t.m_key);
-    for (auto it = beginEnd.first; it != beginEnd.second; ++it)
-    {
-      if (it->second == t.m_value)
-        return true;
-    }
+  if (GetTag("type") != "multipolygon")
+    return;
 
-    return false;
-  });
+  struct MembersCompare
+  {
+    bool operator()(Member const * l, Member const * r) const
+    {
+      return *l < *r;
+    }
+  };
+
+  // Don't to change the initial order of m_members, so make intermediate set.
+  std::set<Member const *, MembersCompare> theSet;
+  for (Member & m : m_members)
+  {
+    ASSERT(m.m_ref > 0, (m_id));
+    ASSERT(m.m_type != EntityType::Unknown, (m_id));
+
+    if (!theSet.insert(&m).second)
+    {
+      LOG(LWARNING, ("Duplicating member:", m.m_ref, "in multipolygon Relation:", m_id));
+      m.m_ref = 0;
+    }
+  }
+
+  if (theSet.size() != m_members.size())
+  {
+    m_members.erase(std::remove_if(m_members.begin(), m_members.end(), [](Member const & m)
+    {
+      return m.m_ref == 0;
+    }), m_members.end());
+  }
+}
+
+void OsmElement::Clear()
+{
+  m_type = EntityType::Unknown;
+  m_id = 0;
+  m_lon = 0.0;
+  m_lat = 0.0;
+  m_ref = 0;
+  m_k.clear();
+  m_v.clear();
+  m_memberType = EntityType::Unknown;
+  m_role.clear();
+
+  m_nodes.clear();
+  m_members.clear();
+  m_tags.clear();
 }
 
 std::string OsmElement::ToString(std::string const & shift) const
@@ -154,6 +196,22 @@ std::string OsmElement::ToString(std::string const & shift) const
       ss << shift2 << e.m_key << " = " << e.m_value;
   }
   return ss.str();
+}
+
+bool OsmElement::operator==(OsmElement const & other) const
+{
+  return m_type == other.m_type
+         && m_id == other.m_id
+         && base::AlmostEqualAbs(m_lon, other.m_lon, mercator::kPointEqualityEps)
+         && base::AlmostEqualAbs(m_lat, other.m_lat, mercator::kPointEqualityEps)
+         && m_ref == other.m_ref
+         && m_k == other.m_k
+         && m_v == other.m_v
+         && m_memberType == other.m_memberType
+         && m_role == other.m_role
+         && m_nodes == other.m_nodes
+         && m_members == other.m_members
+         && m_tags == other.m_tags;
 }
 
 std::string OsmElement::GetTag(std::string const & key) const

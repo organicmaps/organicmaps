@@ -12,7 +12,7 @@
 class XMLSource
 {
 public:
-  using Emitter = std::function<void(OsmElement *)>;
+  using Emitter = std::function<void(OsmElement &&)>;
 
   XMLSource(Emitter && fn) : m_emitter(std::move(fn)) {}
 
@@ -80,7 +80,10 @@ public:
     case 1:
       // Skip useless tags. See XMLSource::Push function above.
       if (m_current->m_type != OsmElement::EntityType::Bounds)
-      m_emitter(m_current);
+      {
+        ASSERT_EQUAL(m_current, &m_parent, ());
+        m_emitter(std::move(m_parent));
+      }
       m_parent.Clear();
       break;
 

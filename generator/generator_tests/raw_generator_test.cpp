@@ -1115,4 +1115,38 @@ UNIT_CLASS_TEST(TestRawGenerator, Addr_Street_Place)
   }
 }
 
+UNIT_CLASS_TEST(TestRawGenerator, Area_Relation_Bad)
+{
+  std::string const mwmName = "AreaRel";
+
+  BuildFB("./data/osm_test_data/area_relation_bad.osm", mwmName);
+  size_t count = 0;
+  ForEachFB(mwmName, [&](feature::FeatureBuilder const & fb)
+  {
+    TEST_EQUAL(fb.GetGeomType(), feature::GeomType::Area, ());
+    TEST(!fb.GetOuterGeometry().empty(), ());
+    auto const r = fb.GetLimitRect();
+    TEST(!r.IsEmptyInterior(), (r));
+
+    ++count;
+  });
+  TEST_EQUAL(count, 7, ());
+
+  BuildFeatures(mwmName);
+
+  FrozenDataSource dataSource;
+  auto const res = dataSource.RegisterMap(platform::LocalCountryFile::MakeTemporary(GetMwmPath(mwmName)));
+  CHECK_EQUAL(res.second, MwmSet::RegResult::Success, ());
+
+  FeaturesLoaderGuard guard(dataSource, res.first);
+
+  size_t const numFeatures = guard.GetNumFeatures();
+  for (size_t id = 0; id < numFeatures; ++id)
+  {
+    auto ft = guard.GetFeatureByIndex(id);
+    auto const r = ft->GetLimitRect(scales::GetUpperScale());
+    TEST(!r.IsEmptyInterior(), (r));
+  }
+}
+
 } // namespace raw_generator_tests
