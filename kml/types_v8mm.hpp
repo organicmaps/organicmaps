@@ -44,7 +44,7 @@ struct BookmarkDataV8MM
 
   bool operator!=(BookmarkDataV8MM const & data) const { return !operator==(data); }
 
-  BookmarkData ConvertToLatestVersion()
+  BookmarkData ConvertToLatestVersion() const
   {
     BookmarkData data;
     data.m_id = m_id;
@@ -82,7 +82,7 @@ struct BookmarkDataV8MM
   // Viewport scale. 0 is a default value (no scale set).
   uint8_t m_viewportScale = 0;
   // Creation timestamp.
-  TimestampMillis m_timestamp = {};
+  TimestampMillis m_timestamp{};
   // Coordinates in mercator.
   m2::PointD m_point;
   // Bound tracks (vector contains local track ids).
@@ -125,7 +125,7 @@ struct TrackDataV8MM
 
   bool operator!=(TrackDataV8MM const & data) const { return !operator==(data); }
 
-  TrackData ConvertToLatestVersion()
+  TrackData ConvertToLatestVersion() const
   {
     TrackData data;
     data.m_id = m_id;
@@ -152,7 +152,7 @@ struct TrackDataV8MM
   // Layers.
   std::vector<TrackLayer> m_layers;
   // Creation timestamp.
-  TimestampMillis m_timestamp = {};
+  TimestampMillis m_timestamp{};
   MultiGeometry m_geometry;
   // Visibility.
   bool m_visible = true;
@@ -205,7 +205,7 @@ struct CategoryDataV8MM
            m_languageCodes == data.m_languageCodes && m_properties == data.m_properties;
   }
 
-  CategoryData ConvertToLatestVersion()
+  CategoryData ConvertToLatestVersion() const
   {
     CategoryData data;
     data.m_id = m_id;
@@ -249,7 +249,7 @@ struct CategoryDataV8MM
   // Author's id.
   std::string m_authorId;
   // Last modification timestamp.
-  TimestampMillis m_lastModified;
+  TimestampMillis m_lastModified{};
   // Rating.
   double m_rating = 0.0;
   // Number of reviews.

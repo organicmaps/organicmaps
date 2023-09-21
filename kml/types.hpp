@@ -5,6 +5,7 @@
 #include "coding/point_coding.hpp"
 
 #include "base/assert.hpp"
+#include "base/internal/message.hpp"  // DebugPrint(Timestamp)
 #include "base/visitor.hpp"
 
 #include <string>
@@ -505,7 +506,7 @@ inline std::string DebugPrint(BookmarkIcon icon)
 
 inline std::string DebugPrint(TimestampMillis const & ts)
 {
-  return DebugPrint(static_cast<Timestamp>(ts));
+  return ::DebugPrint(static_cast<Timestamp>(ts));
 }
 
 }  // namespace kml
