@@ -255,7 +255,7 @@ private:
     {
       // Check if file has Opensource V8 or MapsMe V8.
       // Actual V8 format has 6 offset (uint64_t) in header. While V8MM has 5 offsets.
-      // It means that first section (usially categories) has offset 0x28 = 40 = 5 * 8.
+      // It means that first section (usually categories) has offset 0x28 = 40 = 5 * 8.
       if (m_header.m_categoryOffset == 0x28 || m_header.m_bookmarksOffset == 0x28 ||
           m_header.m_tracksOffset == 0x28 || m_header.m_stringsOffset == 0x28 ||
           m_header.m_compilationsOffset == 0x28)
