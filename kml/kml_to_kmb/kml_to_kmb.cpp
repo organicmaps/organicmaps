@@ -22,7 +22,7 @@ int main(int argc, char** argv)
   kml::binary::Version outVersion = kml::binary::Version::Latest;
   if (argc >= 3)
   {
-    std::string versionStr = argv[2];
+    std::string const versionStr = argv[2];
     if (versionStr == "V8")
       outVersion = kml::binary::Version::V8;
     else if (versionStr != "V9" && versionStr != "Latest")
