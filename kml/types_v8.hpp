@@ -46,13 +46,10 @@ struct BookmarkDataV8
 
   bool operator!=(BookmarkDataV8 const & data) const { return !operator==(data); }
 
-  BookmarkDataV8()
-  {
-
-  }
+  BookmarkDataV8() = default;
 
   // Initialize using latest version of BookmarkData
-  BookmarkDataV8(BookmarkData src)
+  BookmarkDataV8(BookmarkData const & src)
   {
     // Copy all fields from `src` except `m_minZoom`
     m_id = src.m_id;

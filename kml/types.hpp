@@ -505,10 +505,7 @@ inline std::string DebugPrint(BookmarkIcon icon)
 
 inline std::string DebugPrint(TimestampMillis const & ts)
 {
-  auto t = std::chrono::system_clock::to_time_t(ts);
-  std::string str = std::ctime(&t);
-  str.erase(std::remove(str.begin(), str.end(), '\n'), str.end());
-  return str;
+  return DebugPrint(static_cast<Timestamp>(ts));
 }
 
 }  // namespace kml
