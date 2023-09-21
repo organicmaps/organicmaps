@@ -849,7 +849,8 @@ UNIT_TEST(Kml_Deserialization_From_Bin_V8_And_V8MM)
     TEST(false, ("Exception raised", exc.what()));
   }
 
-  TEST_EQUAL(dataFromBinV8, dataFromBinV8MM, ());
+  TEST_EQUAL(dataFromBinV8.m_bookmarksData, dataFromBinV8MM.m_bookmarksData, ());
+  TEST_EQUAL(dataFromBinV8.m_tracksData, dataFromBinV8MM.m_tracksData, ());
 }
 
 UNIT_TEST(Kml_Ver_2_3)

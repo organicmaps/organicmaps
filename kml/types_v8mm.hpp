@@ -1,6 +1,6 @@
 #pragma once
 
-#include "kml/types_v8.hpp"
+#include "kml/types.hpp"
 
 namespace kml
 {
@@ -82,7 +82,7 @@ struct BookmarkDataV8MM
   // Viewport scale. 0 is a default value (no scale set).
   uint8_t m_viewportScale = 0;
   // Creation timestamp.
-  Timestamp m_timestamp = {};
+  TimestampMillis m_timestamp = {};
   // Coordinates in mercator.
   m2::PointD m_point;
   // Bound tracks (vector contains local track ids).
@@ -94,8 +94,6 @@ struct BookmarkDataV8MM
   // Key-value properties.
   Properties m_properties;
 };
-
-//using TrackDataV8MM = TrackDataV8;
 
 struct TrackDataV8MM
 {
@@ -154,7 +152,7 @@ struct TrackDataV8MM
   // Layers.
   std::vector<TrackLayer> m_layers;
   // Creation timestamp.
-  Timestamp m_timestamp = {};
+  TimestampMillis m_timestamp = {};
   MultiGeometry m_geometry;
   // Visibility.
   bool m_visible = true;
@@ -251,7 +249,7 @@ struct CategoryDataV8MM
   // Author's id.
   std::string m_authorId;
   // Last modification timestamp.
-  Timestamp m_lastModified;
+  TimestampMillis m_lastModified;
   // Rating.
   double m_rating = 0.0;
   // Number of reviews.
