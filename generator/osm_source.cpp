@@ -185,14 +185,15 @@ bool ProcessorOsmElementsFromO5M::TryRead(OsmElement & element)
   for (auto const & tag : entity.Tags())
     element.AddTag(tag.key, tag.value);
 
+  element.Validate();
   ++m_pos;
   return true;
 }
 
 ProcessorOsmElementsFromXml::ProcessorOsmElementsFromXml(SourceReader & stream)
-  : m_xmlSource([&, this](auto * element)
+  : m_xmlSource([&, this](OsmElement && e)
     {
-      m_queue.emplace(*element);
+      m_queue.emplace(std::move(e));
     })
   , m_parser(stream, m_xmlSource)
 {
@@ -205,12 +206,15 @@ bool ProcessorOsmElementsFromXml::TryReadFromQueue(OsmElement & element)
 
   element = m_queue.front();
   m_queue.pop();
+
+  element.Validate();
   return true;
 }
 
 bool ProcessorOsmElementsFromXml::TryRead(OsmElement & element)
 {
-  do {
+  do
+  {
     if (TryReadFromQueue(element))
       return true;
   } while (m_parser.Read());

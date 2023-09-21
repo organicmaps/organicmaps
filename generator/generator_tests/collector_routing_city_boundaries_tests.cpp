@@ -1,22 +1,15 @@
 #include "testing/testing.hpp"
 
-#include "generator/generator_tests_support/test_with_classificator.hpp"
-
 #include "generator/collector_routing_city_boundaries.hpp"
 #include "generator/generator_tests/common.hpp"
 #include "generator/osm2type.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/routing_city_boundaries_processor.hpp"
 
-#include "platform/platform.hpp"
-
-#include "coding/read_write_utils.hpp"
-
-#include "geometry/point2d.hpp"
 #include "geometry/area_on_earth.hpp"
+#include "geometry/mercator.hpp"
 
 #include "base/geo_object_id.hpp"
-#include "base/scope_guard.hpp"
 
 #include <algorithm>
 #include <memory>
@@ -26,7 +19,6 @@ namespace collector_routing_city_boundaries_tests
 {
 using namespace generator_tests;
 using namespace generator;
-using namespace generator::tests_support;
 using namespace feature;
 
 using BoundariesCollector = RoutingCityBoundariesCollector;

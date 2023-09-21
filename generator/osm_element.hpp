@@ -1,10 +1,7 @@
 #pragma once
 
-#include "geometry/mercator.hpp"  // kPointEqualityEps
-
 #include "base/assert.hpp"
 #include "base/geo_object_id.hpp"
-#include "base/math.hpp"
 
 #include <string>
 #include <vector>
@@ -33,6 +30,14 @@ struct OsmElement
     bool operator==(Member const & other) const
     {
       return m_ref == other.m_ref && m_type == other.m_type && m_role == other.m_role;
+    }
+    bool operator<(Member const & other) const
+    {
+      if (m_ref != other.m_ref)
+        return m_ref < other.m_ref;
+      if (m_type != other.m_type)
+        return m_type < other.m_type;
+      return m_role < other.m_role;
     }
 
     uint64_t m_ref = 0;
@@ -71,22 +76,9 @@ struct OsmElement
     return EntityType::Unknown;
   }
 
-  void Clear()
-  {
-    m_type = EntityType::Unknown;
-    m_id = 0;
-    m_lon = 0.0;
-    m_lat = 0.0;
-    m_ref = 0;
-    m_k.clear();
-    m_v.clear();
-    m_memberType = EntityType::Unknown;
-    m_role.clear();
+  void Validate();
 
-    m_nodes.clear();
-    m_members.clear();
-    m_tags.clear();
-  }
+  void Clear();
 
   std::string ToString(std::string const & shift = std::string()) const;
 
@@ -101,21 +93,8 @@ struct OsmElement
   bool IsWay() const { return m_type == EntityType::Way; }
   bool IsRelation() const { return m_type == EntityType::Relation; }
 
-  bool operator==(OsmElement const & other) const
-  {
-    return m_type == other.m_type
-        && m_id == other.m_id
-        && base::AlmostEqualAbs(m_lon, other.m_lon, mercator::kPointEqualityEps)
-        && base::AlmostEqualAbs(m_lat, other.m_lat, mercator::kPointEqualityEps)
-        && m_ref == other.m_ref
-        && m_k == other.m_k
-        && m_v == other.m_v
-        && m_memberType == other.m_memberType
-        && m_role == other.m_role
-        && m_nodes == other.m_nodes
-        && m_members == other.m_members
-        && m_tags == other.m_tags;
-  }
+  // Used in unit tests only.
+  bool operator==(OsmElement const & other) const;
 
   void AddNd(uint64_t ref) { m_nodes.emplace_back(ref); }
   void AddMember(uint64_t ref, EntityType type, std::string const & role)
@@ -128,7 +107,6 @@ struct OsmElement
   void AddTag(std::string const & key, std::string const & value);
   bool HasTag(std::string const & key) const;
   bool HasTag(std::string const & key, std::string const & value) const;
-  bool HasAnyTag(std::unordered_multimap<std::string, std::string> const & tags) const;
 
   template <class Fn>
   void UpdateTag(std::string const & key, Fn && fn)

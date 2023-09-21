@@ -16,6 +16,7 @@
 #include "indexer/classificator.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
+#include "geometry/mercator.hpp"
 #include "geometry/region2d/binary_operators.hpp"
 
 
