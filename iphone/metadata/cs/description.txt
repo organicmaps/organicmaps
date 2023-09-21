@@ -3,12 +3,13 @@
 • Vrstevnice, výškové profily, vrcholy a svahy
 • Pěší, cyklistická a automobilová navigace turn-by-turn s hlasovými pokyny
 • Rychlé offline vyhledávání na mapě a záložky
+• Uložte si do záložek vše, co potřebujete, importujte a sdílejte KML, KMZ a GPX
 • Tmavý režim pro ochranu vašich očí
-• ... a mnoho dalších funkcí!
+• … a mnoho dalších funkcí!
 
 Organic Maps jsou čisté a organické, vyrobené s láskou:
 
-• respektuje vaše soukromí
+• Respektuje vaše soukromí
 • Šetří baterii
 • Žádné nečekané poplatky za mobilní data
 
