@@ -210,16 +210,21 @@ public class NavigationService extends Service implements LocationListener
     if (!routingController.isNavigating())
       return;
 
+    final String[] turnNotifications = Framework.nativeGenerateNotifications();
+    if (turnNotifications != null)
+      TtsPlayer.INSTANCE.playTurnNotifications(getApplicationContext(), turnNotifications);
+
     // TODO: consider to create callback mechanism to transfer 'ROUTE_IS_FINISHED' event from
     // the core to the platform code (https://github.com/organicmaps/organicmaps/issues/3589),
     // because calling the native method 'nativeIsRouteFinished'
     // too often can result in poor UI performance.
+    // This check should be done after playTurnNotifications() to play the last turn notification.
     if (Framework.nativeIsRouteFinished())
+    {
       routingController.cancel();
-
-    final String[] turnNotifications = Framework.nativeGenerateNotifications();
-    if (turnNotifications != null)
-      TtsPlayer.INSTANCE.playTurnNotifications(getApplicationContext(), turnNotifications);
+      stopSelf();
+      return;
+    }
 
     final RoutingInfo routingInfo = Framework.nativeGetRouteFollowingInfo();
     if (routingInfo == null)
