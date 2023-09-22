@@ -175,6 +175,10 @@ public class LocationHelper implements BaseLocationProvider.Listener
       return;
     }
 
+    // Stop provider until location resolution is granted.
+    stop();
+    LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
+
     for (LocationListener listener : mListeners)
       listener.onLocationResolutionRequired(pendingIntent);
   }
