@@ -75,7 +75,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   @Nullable
   public MapObject getMyPosition()
   {
-    if (!LocationState.isTurnedOn())
+    if (!LocationState.isTurnedOn(mContext))
     {
       mMyPosition = null;
       return null;
@@ -263,7 +263,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
       return;
     }
 
-    int mode = LocationState.nativeGetMode();
+    int mode = LocationState.getMode(mContext);
     switch (mode)
     {
       case LocationState.FOLLOW:
@@ -348,7 +348,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   {
     if (isActive())
       return;
-    else if (LocationState.nativeGetMode() == LocationState.NOT_FOLLOW_NO_POSITION)
+    else if (LocationState.getMode(mContext) == LocationState.NOT_FOLLOW_NO_POSITION)
     {
       Logger.i(TAG, "Location updates are stopped by the user manually.");
       return;

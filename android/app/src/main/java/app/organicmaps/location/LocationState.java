@@ -1,7 +1,11 @@
 package app.organicmaps.location;
 
+import android.content.Context;
+
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
+
+import app.organicmaps.MwmApplication;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -41,7 +45,7 @@ public final class LocationState
 
   public static native void nativeSwitchToNextMode();
   @Value
-  public static native int nativeGetMode();
+  private static native int nativeGetMode();
 
   public static native void nativeSetListener(@NonNull ModeChangeListener listener);
   public static native void nativeRemoveListener();
@@ -56,18 +60,27 @@ public final class LocationState
 
   private LocationState() {}
 
+  @Value
+  static public int getMode(@NonNull Context context)
+  {
+    if (!MwmApplication.from(context).arePlatformAndCoreInitialized())
+      throw new AssertionError("!arePlatformAndCoreInitialized");
+    return nativeGetMode();
+  }
+
   /**
    * Checks if location state on the map is active (so its not turned off or pending).
    */
-  static boolean isTurnedOn()
+  static boolean isTurnedOn(@NonNull Context context)
   {
-    return hasLocation(nativeGetMode());
+    return hasLocation(getMode(context));
   }
 
   static boolean hasLocation(int mode)
   {
     return (mode > NOT_FOLLOW_NO_POSITION);
   }
+
 
   static String nameOf(@Value int mode)
   {

@@ -1054,7 +1054,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     IsolinesManager.from(getApplicationContext()).attach(this::onIsolinesStateChanged);
     LocationState.nativeSetListener(this);
     LocationHelper.from(this).addListener(this);
-    onMyPositionModeChanged(LocationState.nativeGetMode());
+    onMyPositionModeChanged(LocationState.getMode(this));
     mSearchController.attach(this);
     if (!Config.isScreenSleepEnabled())
       Utils.keepScreenOn(true, getWindow());
@@ -1778,7 +1778,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
    */
   private void autostartLocation()
   {
-    if (LocationState.nativeGetMode() == LocationState.NOT_FOLLOW_NO_POSITION)
+    if (LocationState.getMode(this) == LocationState.NOT_FOLLOW_NO_POSITION)
     {
       Logger.i(LOCATION_TAG, "Location updates are stopped by the user manually.");
       LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);

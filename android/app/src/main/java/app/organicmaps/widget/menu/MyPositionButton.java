@@ -36,7 +36,7 @@ public class MyPositionButton
     mButton.setOnClickListener(listener);
     mIcons.clear();
     mFollowPaddingShift = (int) (FOLLOW_SHIFT * button.getResources().getDisplayMetrics().density);
-    update(LocationState.nativeGetMode());
+    update(LocationState.getMode(mButton.getContext()));
   }
 
   public void update(int mode)

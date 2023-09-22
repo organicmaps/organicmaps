@@ -233,10 +233,12 @@ public class MwmApplication extends Application implements Application.ActivityL
     TrafficManager.INSTANCE.initialize(null);
     SubwayManager.from(this).initialize(null);
     IsolinesManager.from(this).initialize(null);
-    ProcessLifecycleOwner.get().getLifecycle().addObserver(mProcessLifecycleObserver);
 
     Logger.i(TAG, "Framework initialized");
     mFrameworkInitialized = true;
+
+    ProcessLifecycleOwner.get().getLifecycle().addObserver(mProcessLifecycleObserver);
+
     return true;
   }
 
