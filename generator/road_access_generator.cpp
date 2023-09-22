@@ -146,6 +146,10 @@ TagMapping const kDefaultTagMapping = {
     {OsmElement::Tag("access", "no"), RoadAccess::Type::No},
     {OsmElement::Tag("access", "private"), RoadAccess::Type::Private},
     {OsmElement::Tag("access", "destination"), RoadAccess::Type::Destination},
+    {OsmElement::Tag("access", "emergency"), RoadAccess::Type::No},
+    {OsmElement::Tag("access", "military"), RoadAccess::Type::No},
+    {OsmElement::Tag("access", "agricultural"), RoadAccess::Type::Private},
+    {OsmElement::Tag("access", "forestry"), RoadAccess::Type::Private},
 };
 
 std::set<OsmElement::Tag> const kHighwaysWhereIgnoreBarriersWithoutAccess = {
