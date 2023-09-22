@@ -130,7 +130,7 @@ see [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md). You can [help in many ways](ht
 Please join our beta program, suggest your features, and report bugs:
 
 - [iOS Beta (TestFlight)](https://testflight.apple.com/join/lrKCl08I)
-- [Android Beta (Firebase)](https://appdistribution.firebase.dev/i/9ec3bca5e2b47373)
+- [Android Beta (Firebase)](https://appdistribution.firebase.dev/i/2f0fee463107b137)
 
 ## Feedback
 
