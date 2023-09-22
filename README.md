@@ -74,7 +74,7 @@ The Android application is verified by <a href="https://reports.exodus-privacy.e
 <img src="docs/privacy/exodus.png" width="400">
 </a>
 
-The iOS application is verified by <a href="https://ios.trackercontrol.org/app/app.organicmaps">TrackerControl for iOS:
+The iOS application is verified by <a href="https://ios.trackercontrol.org/analysis/app.organicmaps">TrackerControl for iOS:
 
 <img src="docs/privacy/trackercontrol-ios.png" width="400">
 </a>
