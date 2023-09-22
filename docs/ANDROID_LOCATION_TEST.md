@@ -51,26 +51,29 @@ This test-case should work with the same behavior regardless of
 3. Google location dialog (positive case)
 
 - Use Google flavor and enable Google Play Location in the app settings;
-- Disable Wi-Fi, disable Cellular Data, disable Location;
-- Start the app and initiate location search by tapping on location button;
-- "For better experiences..." Google dialog should appear immediately;
-- Tap "Enable" in the dialog and it should enable Location in the system;
-- Location should start working as in (1) case.
+- Disable Location, but enable Cellular Data and/or Wi-Fi;
+- Start the app;
+- Check that location icon is crossed out immediately;
+- "To continue, turn on device location, which uses Google's location service"
+  Google dialog should appear;
+- Tap "OK" in the dialog;
+- Check that system location has been enabled;
+- The app will start searching for location as in (1) case.
 
 4. Google location dialog (negative case)
 
 - Try the same steps as in (3), but tap "No thanks" button in the dialog.
 - Check that location icon is crossed out immediately;
-- "For better experiences..." Google dialog should appear;
+- "To continue, turn on..." Google dialog should appear;
 - Tap "No thanks" button again;
-- Check that location icon is crossed out immediately;
+- Check that location icon is still crossed out;
 - Switch to some other app and back;
 - Check that location icon is still crossed out and
-  "For better experiences..." dialog doesn't appear automatically;
+  "To continue, turn on..." dialog doesn't appear automatically;
 - Kill the app and start it again;
 - Check that location icon is still crossed out and
-  "For better experiences..." dialog doesn't appear automatically;
-- Tap on location button - "For better experiences..." dialog
+  "To continue, turn on..." dialog doesn't appear automatically;
+- Tap on location button - "To continue, turn on device..." dialog
   should re-appear again.
 
 5. OM location dialog (negative case)
