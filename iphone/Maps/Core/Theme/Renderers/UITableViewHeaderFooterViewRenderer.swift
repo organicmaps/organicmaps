@@ -1,5 +1,8 @@
 extension UITableViewHeaderFooterView {
   @objc override func applyTheme() {
+    if styleName.isEmpty {
+      styleName = "TableViewHeaderFooterView"
+    }
     for style in StyleManager.shared.getStyle(styleName)
       where !style.isEmpty && !style.hasExclusion(view: self) {
       UITableViewHeaderFooterViewRenderer.render(self, style: style)
